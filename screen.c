@@ -2136,8 +2136,8 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
     w *= 8;			/* convert chars to pixels */
     h = 9 * 8;
 
-    x = (pixmap_width / 2) - (w / 2);
-    y = (pixmap_height / 2) - (h / 2);
+    x = (scr.client_w / 2) - (w / 2);
+    y = (scr.client_h / 2) - (h / 2);
 
     ss = (char *) malloc ((w + 16) * (h + 16) * sizeof (char));
     if (ss == 0) {
@@ -2305,8 +2305,8 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     w = (w + 2) * 8;		/* leave a space at either side. */
 
     /* now we can work out the x and y points. */
-    x = (pixmap_width / 2) - (w / 2);
-    y = (pixmap_height / 2) - (h / 2);
+    x = (scr.client_w / 2) - (w / 2);
+    y = (scr.client_h / 2) - (h / 2);
     ss = (char *) malloc ((w + 16) * (h + 16) * sizeof (char));
     if (ss == 0)
     {

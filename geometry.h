@@ -19,6 +19,8 @@ struct screen_geometry_struct
 {
     int border_x;
     int border_y;
+    int client_w;
+    int client_h;
 
     /* Main window */
     Rect main_win;

@@ -35,6 +35,9 @@ initialize_geometry (Screen_Geometry* scr)
     scr->border_x = 0;
     scr->border_y = 0;
 
+    scr->client_w = 640;
+    scr->client_h = 480;
+
     scr->main_win.x = MAIN_WIN_X;
     scr->main_win.y = MAIN_WIN_Y;
     scr->main_win.h = MAIN_WIN_H;
@@ -273,6 +276,9 @@ resize_geometry (int new_width, int new_height)
 	return;
     }
 
+    /* Reset geometry back to default */
+    initialize_geometry (&scr);
+
     if (pix_double) {
 	new_width = new_width / 2;
 	new_height = new_height / 2;
@@ -283,16 +289,15 @@ resize_geometry (int new_width, int new_height)
     display.winH = new_height;
 
     /* Expand pixmap if necessary */
-    new_width = new_width - 2*borderx;
-    new_height = new_height - 2*bordery;
-    resize_pixmap (new_width, new_height);
+    scr.client_w = new_width - 2*borderx;
+    scr.client_h = new_height - 2*bordery;
+    resize_pixmap (scr.client_w, scr.client_h);
 
     /* Adjust items that need adjusting */
-    initialize_geometry (&scr);
-    scr.select_message.y = SELECT_BUTTON_MESSAGE_Y + (new_height - 480);
-    scr.date.y = DATE_Y + (new_height - 480);
-    scr.time_for_year.y = TIME_FOR_YEAR_Y + (new_height - 480);
-    resize_main_win (new_width, new_height);
+    scr.select_message.y = SELECT_BUTTON_MESSAGE_Y + (scr.client_h - 480);
+    scr.date.y = DATE_Y + (scr.client_h - 480);
+    scr.time_for_year.y = TIME_FOR_YEAR_Y + (scr.client_h - 480);
+    resize_main_win (scr.client_w, scr.client_h);
 
     scr.pbar_area.x = 56 + scr.main_win.w + 16 + 2;
     scr.pbar_pop.x = scr.pbar_area.x + 4;
@@ -314,8 +319,8 @@ resize_geometry (int new_width, int new_height)
     scr.mini_map.x = scr.mini_map_aux.x 
 	    + ((scr.mini_map_aux.w - scr.mini_map.w) / 2);
 
-    scr.results_button.x = new_width - 32;
-    scr.results_button.y = new_height - 32;
+    scr.results_button.x = scr.client_w - 32;
+    scr.results_button.y = scr.client_h - 16;
 
     /* Complete refresh of the screen required here */
     screen_full_refresh ();
