@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl Initialization
 dnl AC_INIT
 dnl AM_INIT_AUTOMAKE(lincity,1.12pre50)
-AC_INIT([Lincity],[1.12.0],[lincity-users@lists.sourceforge.net],[lincity])
+AC_INIT([Lincity],[1.13.0],[lincity-users@lists.sourceforge.net],[lincity])
 AC_CONFIG_SRCDIR([colour.pal])
 AM_INIT_AUTOMAKE
 

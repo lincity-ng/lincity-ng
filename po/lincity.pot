@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-11-20 00:48-0500\n"
+"POT-Creation-Date: 2004-01-22 22:00-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,140 +63,148 @@ msgstr ""
 msgid "Dec"
 msgstr ""
 
-#: engine.c:135
+#: engine.c:144 engine.c:158
 msgid "You can't build a tip here"
 msgstr ""
 
-#: engine.c:136
-msgid "This is already landfill"
+#: engine.c:145 engine.c:187
+msgid "This area was once a landfill"
 msgstr ""
 
-#: engine.c:137 engine.c:150 screen.c:2305 screen.c:2309 screen.c:2379
-#: screen.c:2383
+#: engine.c:146 engine.c:160 engine.c:188 engine.c:195 engine.c:203
+#: screen.c:2305 screen.c:2309 screen.c:2379 screen.c:2383
 msgid "OK"
 msgstr ""
 
-#: engine.c:148
+#: engine.c:159
+msgid "This is already landfill"
+msgstr ""
+
+#: engine.c:186 engine.c:193 engine.c:201
 msgid "You can't build a mine here"
 msgstr ""
 
-#: engine.c:149
+#: engine.c:194
+msgid "There is no ore left at this site"
+msgstr ""
+
+#: engine.c:202
 msgid "This was already a mine or tip"
 msgstr ""
 
-#: engine.c:3200
+#: engine.c:3260
 msgid "It's at a power line."
 msgstr ""
 
-#: engine.c:3202
+#: engine.c:3262
 msgid "It's at a solar power station."
 msgstr ""
 
-#: engine.c:3204
+#: engine.c:3264
 msgid "It's at a substation."
 msgstr ""
 
-#: engine.c:3206
+#: engine.c:3266
 msgid "It's at a residential area."
 msgstr ""
 
-#: engine.c:3208
+#: engine.c:3268
 msgid "It's at a farm."
 msgstr ""
 
-#: engine.c:3210
+#: engine.c:3270
 msgid "It's at a market."
 msgstr ""
 
-#: engine.c:3212
+#: engine.c:3272
 msgid "It's at a track."
 msgstr ""
 
-#: engine.c:3214
+#: engine.c:3274
 msgid "It's at a coal mine."
 msgstr ""
 
-#: engine.c:3216
+#: engine.c:3276
 msgid "It's at a railway."
 msgstr ""
 
-#: engine.c:3218
+#: engine.c:3278
 msgid "It's at a coal power station."
 msgstr ""
 
-#: engine.c:3220
+#: engine.c:3280
 msgid "It's at a road."
 msgstr ""
 
-#: engine.c:3222
+#: engine.c:3282
 msgid "It's at light industry."
 msgstr ""
 
-#: engine.c:3224
+#: engine.c:3284
 msgid "It's at a university."
 msgstr ""
 
-#: engine.c:3226
+#: engine.c:3286
 msgid "It's at a commune."
 msgstr ""
 
-#: engine.c:3228
+#: engine.c:3288
 msgid "It's at a tip."
 msgstr ""
 
-#: engine.c:3230
+#: engine.c:3290
 msgid "It's at a port."
 msgstr ""
 
-#: engine.c:3232
+#: engine.c:3292
 msgid "It's at a steel works."
 msgstr ""
 
-#: engine.c:3234
+#: engine.c:3294
 msgid "It's at a recycle centre."
 msgstr ""
 
-#: engine.c:3236
+#: engine.c:3296
 msgid "It's at a health centre."
 msgstr ""
 
-#: engine.c:3238
+#: engine.c:3298
 msgid "It's at a rocket site."
 msgstr ""
 
-#: engine.c:3240
+#: engine.c:3300
 msgid "It's at a windmill."
 msgstr ""
 
-#: engine.c:3242
+#: engine.c:3302
 msgid "It's at a school."
 msgstr ""
 
-#: engine.c:3244
+#: engine.c:3304
 msgid "It's at a blacksmith."
 msgstr ""
 
-#: engine.c:3246
+#: engine.c:3306
 msgid "It's at a mill."
 msgstr ""
 
-#: engine.c:3248
+#: engine.c:3308
 msgid "It's at a pottery."
 msgstr ""
 
-#: engine.c:3250
+#: engine.c:3310
 msgid "It's at a fire station!!!."
 msgstr ""
 
-#: engine.c:3252
+#: engine.c:3312
 msgid "It's at a cricket pitch!!!."
 msgstr ""
 
-#: engine.c:3254
+#: engine.c:3314
 msgid "It's at a shanty town."
 msgstr ""
 
-#: engine.c:3256
+#: engine.c:3316
 msgid "UNKNOWN!"
 msgstr ""
 
@@ -213,7 +221,7 @@ msgstr ""
 msgid "Couldn't create the save directory %s\n"
 msgstr ""
 
-#: fileutil.c:639
+#: fileutil.c:641
 msgid "Out of memory: malloc failure\n"
 msgstr ""
 
@@ -398,159 +406,159 @@ msgstr ""
 msgid "Loading scene"
 msgstr ""
 
-#: lintypes.c:19
+#: lintypes.c:21
 msgid "Empty"
 msgstr ""
 
-#: lintypes.c:31
+#: lintypes.c:33
 msgid "Power line"
 msgstr ""
 
-#: lintypes.c:43
+#: lintypes.c:45
 msgid "Solar PS"
 msgstr ""
 
-#: lintypes.c:55
+#: lintypes.c:57
 msgid "Substation"
 msgstr ""
 
-#: lintypes.c:67
+#: lintypes.c:69
 msgid "Residential LL"
 msgstr ""
 
-#: lintypes.c:79
+#: lintypes.c:81
 msgid "Farm"
 msgstr ""
 
-#: lintypes.c:91 screen.c:2145
+#: lintypes.c:93 screen.c:2145
 msgid "Market"
 msgstr ""
 
-#: lintypes.c:103
+#: lintypes.c:105
 msgid "Track"
 msgstr ""
 
-#: lintypes.c:115
+#: lintypes.c:117
 msgid "Coalmine"
 msgstr ""
 
-#: lintypes.c:127
+#: lintypes.c:129
 msgid "Railway"
 msgstr ""
 
-#: lintypes.c:139
+#: lintypes.c:141
 msgid "Coal PS"
 msgstr ""
 
-#: lintypes.c:151
+#: lintypes.c:153
 msgid "Road"
 msgstr ""
 
-#: lintypes.c:163
+#: lintypes.c:165
 msgid "Lt. Industry"
 msgstr ""
 
-#: lintypes.c:175
+#: lintypes.c:177
 msgid "University"
 msgstr ""
 
-#: lintypes.c:187
+#: lintypes.c:189
 msgid "Commune"
 msgstr ""
 
-#: lintypes.c:199
+#: lintypes.c:201
 msgid "Ore mine"
 msgstr ""
 
-#: lintypes.c:211
+#: lintypes.c:213
 msgid "Rubbish tip"
 msgstr ""
 
-#: lintypes.c:223 screen.c:2147
+#: lintypes.c:225 screen.c:2147
 msgid "Port"
 msgstr ""
 
-#: lintypes.c:235
+#: lintypes.c:237
 msgid "Hv. Industry"
 msgstr ""
 
-#: lintypes.c:247
+#: lintypes.c:249
 msgid "Park"
 msgstr ""
 
-#: lintypes.c:259
+#: lintypes.c:261
 msgid "Recycle"
 msgstr ""
 
-#: lintypes.c:271
+#: lintypes.c:273
 msgid "Water"
 msgstr ""
 
-#: lintypes.c:283
+#: lintypes.c:285
 msgid "Health centre"
 msgstr ""
 
-#: lintypes.c:295
+#: lintypes.c:297
 msgid "Rocket pad"
 msgstr ""
 
-#: lintypes.c:307
+#: lintypes.c:309
 msgid "Windmill"
 msgstr ""
 
-#: lintypes.c:319
+#: lintypes.c:321
 msgid "Monument"
 msgstr ""
 
-#: lintypes.c:331
+#: lintypes.c:333
 msgid "School"
 msgstr ""
 
-#: lintypes.c:343
+#: lintypes.c:345
 msgid "Blacksmith"
 msgstr ""
 
-#: lintypes.c:355
+#: lintypes.c:357
 msgid "Mill"
 msgstr ""
 
-#: lintypes.c:367
+#: lintypes.c:369
 msgid "Pottery"
 msgstr ""
 
-#: lintypes.c:379
+#: lintypes.c:381
 msgid "Fire sta'n"
 msgstr ""
 
-#: lintypes.c:391
+#: lintypes.c:393
 msgid "Cricket pitch"
 msgstr ""
 
-#: lintypes.c:404
+#: lintypes.c:406
 msgid "Burnt"
 msgstr ""
 
-#: lintypes.c:417
+#: lintypes.c:419
 msgid "Shanty town"
 msgstr ""
 
-#: lintypes.c:430
+#: lintypes.c:432
 msgid "Fire"
 msgstr ""
 
-#: lintypes.c:443
+#: lintypes.c:445
 msgid "Used"
 msgstr ""
 
-#: lintypes.c:455
+#: lintypes.c:457
 msgid "Residential ML"
 msgstr ""
 
-#: lintypes.c:467
+#: lintypes.c:469
 msgid "Residential HL"
 msgstr ""
 
-#: lintypes.c:479 lintypes.c:491 lintypes.c:503
+#: lintypes.c:481 lintypes.c:493 lintypes.c:505
 msgid "Residential"
 msgstr ""
 

@@ -71,7 +71,10 @@ load_png_graphics (char *txt_filename, char *png_filename)
     info_ptr = png_create_info_struct(png_ptr);
     if (info_ptr == NULL) {
 	fclose(fp);
+#if defined (commentout)
 	png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
+#endif
+	png_destroy_read_struct(&png_ptr, NULL, NULL);
 	return (ERROR);
     }
 
@@ -81,7 +84,10 @@ load_png_graphics (char *txt_filename, char *png_filename)
     */
     if (setjmp(png_jmpbuf(png_ptr))) {
 	/* Free all of the memory associated with the png_ptr and info_ptr */
+#if defined (commentout)
 	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
+#endif
+	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
 	fclose(fp);
 	/* If we get here, we had a problem reading the file */
 	return (ERROR);
@@ -99,8 +105,12 @@ load_png_graphics (char *txt_filename, char *png_filename)
     */
     png_read_info(png_ptr, info_ptr);
 
+#if defined (commentout)
     png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
 	&interlace_type, int_p_NULL, int_p_NULL);
+#endif
+    png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
+	&interlace_type, NULL, NULL);
 
     printf ("PNG Header: %d x %d, bd=%d, ct=%d\n", height, width,
 	bit_depth, color_type);
@@ -132,7 +142,10 @@ load_png_graphics (char *txt_filename, char *png_filename)
    if (color_type != PNG_COLOR_TYPE_PALETTE) {
 	printf ("Error - png image wasn't PNG_COLOR_TYPE_PALETTE\n");
 	/* Free all of the memory associated with the png_ptr and info_ptr */
+#if defined (commentout)
 	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
+#endif
+	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
 	fclose(fp);
 	/* If we get here, we had a problem reading the file */
 	return (ERROR);
@@ -142,7 +155,10 @@ load_png_graphics (char *txt_filename, char *png_filename)
    if (bit_depth != 8) {
 	printf ("Error - png image wasn't bit_depth = 8\n");
 	/* Free all of the memory associated with the png_ptr and info_ptr */
+#if defined (commentout)
 	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
+#endif
+	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
 	fclose(fp);
 	/* If we get here, we had a problem reading the file */
 	return (ERROR);
@@ -532,7 +548,10 @@ load_png_graphics (char *txt_filename, char *png_filename)
     free(row_pointers);
 
     /* clean up after the read, and free any memory allocated - REQUIRED */
+#if defined (commentout)
     png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
+#endif
+    png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
 
     /* that's it */
     return (OK);

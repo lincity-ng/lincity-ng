@@ -2,14 +2,14 @@
                      **  Welcome to lincity  **
 
 
-This is the README for lincity 1.12.
+This is the README for lincity 1.13 (development version)
 
 
 WHAT IS LINCITY
 ===============
 
 Lincity is a city/country simulation game for Linux (SVGALIB and X), 
-Solaris, FreeBSD, HPUX, AIX, SCO, IRIX, Compaq True64, BeOS, OS/2, VMS,
+Solaris, FreeBSD, HPUX, AIX, SCO, IRIX, Compaq Tru64, BeOS, OS/2, VMS,
 OS X, AtheOS, and Win32 (Win95, Win98, ME, NT, 2000, XP).
 
 You are required to build and maintain a city. You must feed, house, 
@@ -53,10 +53,17 @@ REQUIREMENTS
 
       OR	 A Win32 OS.
 
+   *  The libpng and libz libraries.
+
+      I have tested with libpng versions 1.0.12 and 1.2.5.  These 
+      libraries are included in the windows version.
+
    *  A graphics card supported by your above choice.
 
    *  You probably need at least a 486DX2-66. (Even better for the X version 
       I suspect.)
+
+   *  You probably need at least 8 MB memory (16 MB for X or win32).
 
    *  Other things?  Send us an email.
 
@@ -220,6 +227,19 @@ WINDOWS:    %LINCITY_HOME%\lincity.ini
 
 To reset to the "factory default" configuration, simply delete the 
 file.  Lincity will regenerate the file if it is missing.
+
+
+LINCITY ARTWORK
+===============
+
+Starting with version 1.13, you can (more easily) customize the lincity 
+buildings and animations.  To modify the artwork simply edit the 
+icon image file, located at opening/icons.png, with your favorite 
+image editor.  
+
+The icons.png file has a 256-color indexed format.  The palette contained
+within icons.png, however, is ignored by lincity.  Instead, lincity 
+uses the file "Colour.pal" to determine the palette.
 
 
 NOTES FOR SVGALIB VERSION
@@ -506,7 +526,8 @@ and lincity should run using your translations.
 INSTALLING PICEDIT
 ==================
 
-Picedit is deprecated.  It may or may not compile.
+Picedit is deprecated.  It may or may not compile.  It will be removed 
+after the transition to png graphics is complete.
 
 picedit is a simple drawing program that was used to draw all the icons
 found within the game. You are free to play with this, and even send me

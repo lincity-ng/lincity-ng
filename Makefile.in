@@ -167,6 +167,7 @@ noinst_HEADERS = \
 	module_buttons.h \
 	mouse.h      mps.h	  pbar.h    \
 	picedit.h    pixmap.h     power.h \
+	readpng.h \
 	resource.h	 screen.h \
 	shrglobs.h   stats.h \
 	simulate.h   timer.h	 transport.h \
@@ -215,6 +216,7 @@ xlincity_SOURCES = \
 	lclib.c power.c \
 	ldsvguts.c engine.c transport.c market.c \
 	simulate.c shrtypes.c lintypes.c \
+	readpng.c \
 	timer.c fileutil.c shrglobs.c stats.c
 
 EXTRA_xlincity_SOURCES = \
@@ -228,13 +230,14 @@ xlincity_DEPENDENCIES = \
 
 xlincity_LDADD = \
 	${XLC_OBJ} \
-	@X_LIBS@ -lXext -lX11 -lm
+	@X_LIBS@ -lXext -lX11 -lpng -lz -lm
 
 
 lincity_SOURCES = \
 	lclib.c power.c \
 	ldsvguts.c engine.c transport.c market.c \
 	simulate.c shrtypes.c lintypes.c \
+	readpng.c \
 	timer.c fileutil.c shrglobs.c stats.c
 
 EXTRA_lincity_SOURCES = \
@@ -248,7 +251,7 @@ lincity_DEPENDENCIES = \
 
 lincity_LDADD = \
 	${LC_OBJ} \
-	-lvgagl -lvga -lm
+	-lvgagl -lvga -lpng -lz -lm
 
 
 xpicedit_SOURCES = 
@@ -273,8 +276,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_lincity_OBJECTS = lclib.$(OBJEXT) power.$(OBJEXT) ldsvguts.$(OBJEXT) \
 	engine.$(OBJEXT) transport.$(OBJEXT) market.$(OBJEXT) \
 	simulate.$(OBJEXT) shrtypes.$(OBJEXT) lintypes.$(OBJEXT) \
-	timer.$(OBJEXT) fileutil.$(OBJEXT) shrglobs.$(OBJEXT) \
-	stats.$(OBJEXT)
+	readpng.$(OBJEXT) timer.$(OBJEXT) fileutil.$(OBJEXT) \
+	shrglobs.$(OBJEXT) stats.$(OBJEXT)
 lincity_OBJECTS = $(am_lincity_OBJECTS)
 lincity_LDFLAGS =
 am_picedit_OBJECTS =
@@ -284,8 +287,8 @@ picedit_LDFLAGS =
 am_xlincity_OBJECTS = lclib.$(OBJEXT) power.$(OBJEXT) ldsvguts.$(OBJEXT) \
 	engine.$(OBJEXT) transport.$(OBJEXT) market.$(OBJEXT) \
 	simulate.$(OBJEXT) shrtypes.$(OBJEXT) lintypes.$(OBJEXT) \
-	timer.$(OBJEXT) fileutil.$(OBJEXT) shrglobs.$(OBJEXT) \
-	stats.$(OBJEXT)
+	readpng.$(OBJEXT) timer.$(OBJEXT) fileutil.$(OBJEXT) \
+	shrglobs.$(OBJEXT) stats.$(OBJEXT)
 xlincity_OBJECTS = $(am_xlincity_OBJECTS)
 xlincity_LDFLAGS =
 am_xpicedit_OBJECTS =
@@ -306,11 +309,11 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/module_buttons.Po ./$(DEPDIR)/mouse.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/mps.Po ./$(DEPDIR)/pbar.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/picedit.Po ./$(DEPDIR)/pixmap.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/power.Po ./$(DEPDIR)/screen.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/shrglobs.Po ./$(DEPDIR)/shrtypes.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/simulate.Po ./$(DEPDIR)/splash.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/stats.Po ./$(DEPDIR)/timer.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/transport.Po
+@AMDEP_TRUE@	./$(DEPDIR)/power.Po ./$(DEPDIR)/readpng.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/screen.Po ./$(DEPDIR)/shrglobs.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/shrtypes.Po ./$(DEPDIR)/simulate.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/splash.Po ./$(DEPDIR)/stats.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/timer.Po ./$(DEPDIR)/transport.Po
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
@@ -443,6 +446,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/picedit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pixmap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/power.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/readpng.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shrglobs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shrtypes.Po@am__quote@
