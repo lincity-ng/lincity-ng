@@ -21,6 +21,9 @@
  *  20050225
  *  +support setDirty
  *
+ *  20050228
+ *  +setCursorSize()
+ *
  */
 #include <config.h>
 
@@ -107,7 +110,22 @@ GameView::parse(XmlReader& reader)
     mouseInGameView = false;
     tileUnderMouse.x = 0;
     tileUnderMouse.y = 0;
+
+    cursorSize = 0;
 }
+
+/*
+ * size in Tiles of marking under Cursor
+ * atm 0 is an outlined Version of size 1.
+ */
+void GameView::setCursorSize( int size )
+{
+    if( size != cursorSize )    
+    {
+        cursorSize = size;
+        setDirty();
+    }
+} 
     
 /*
  * Adjust the Zoomlevel. Argument is per mille.
@@ -730,7 +748,7 @@ const Vector2 GameView::getTile(const Vector2& p)
 }
 
 /*
- * Draw a Diamond inside given Rectangle
+ * Draw a filled Diamond inside given Rectangle
  */
 const void GameView::fillDiamond( Painter& painter, const Rect2D rect )
 {
@@ -744,6 +762,23 @@ const void GameView::fillDiamond( Painter& painter, const Rect2D rect )
     points[ 3 ].x = rect.p2.x;
     points[ 3 ].y = rect.p1.y + ( rect.getHeight() / 2 );
     painter.fillPolygon( 4, points );    
+}
+
+/*
+ * Draw a outlined Diamond inside given Rectangle
+ */
+const void GameView::drawDiamond( Painter& painter, const Rect2D rect )
+{
+    Vector2 points[ 4 ];
+    points[ 0 ].x = rect.p1.x + ( rect.getWidth() / 2 );
+    points[ 0 ].y = rect.p1.y;
+    points[ 1 ].x = rect.p1.x;
+    points[ 1 ].y = rect.p1.y + ( rect.getHeight() / 2 );
+    points[ 2 ].x = rect.p1.x + ( rect.getWidth() / 2 );
+    points[ 2 ].y = rect.p2.y;
+    points[ 3 ].x = rect.p2.x;
+    points[ 3 ].y = rect.p1.y + ( rect.getHeight() / 2 );
+    painter.drawPolygon( 4, points );    
 }
 
 /*
@@ -878,14 +913,25 @@ void GameView::draw(Painter& painter)
     //Mark Tile under Mouse 
     if( mouseInGameView )
     {
-        Color alphablue( 0, 0, 255, 128 );
-        painter.setFillColor( alphablue );
-        Rect2D tilerect( 0, 0, tileWidth, tileHeight );
         Vector2 tileOnScreenPoint = getScreenPoint( tileUnderMouse );
-        tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
-        tileOnScreenPoint.y -= tileHeight; 
-        tilerect.move( tileOnScreenPoint );    
-        fillDiamond( painter, tilerect );    
+        if( cursorSize == 0 ) {
+            Color alphawhite( 255, 255, 255, 128 );
+            painter.setLineColor( alphawhite );
+            Rect2D tilerect( 0, 0, tileWidth, tileHeight );
+            tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
+            tileOnScreenPoint.y -= tileHeight; 
+            tilerect.move( tileOnScreenPoint );    
+            drawDiamond( painter, tilerect );    
+        }
+        else {
+            Color alphablue( 0, 0, 255, 128 );
+            painter.setFillColor( alphablue );
+            Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
+            tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth * cursorSize / 2));
+            tileOnScreenPoint.y -= tileHeight; 
+            tilerect.move( tileOnScreenPoint );    
+            fillDiamond( painter, tilerect );    
+        }
     }
 }
 

@@ -16,6 +16,8 @@
 
 #include "lincity/lctypes.h"
 
+#include "GameView.hpp"
+
 ButtonPanel *ButtonPanelInstance=0;
 
 int selected_module_type=0; // must be set somehow
@@ -297,6 +299,18 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
      }
      
    // get selected button and set module
+   
+    //Tell GameView to use the right Cursor
+    if( selected_module_type == CST_NONE ) {
+        getGameView()->setCursorSize( 0 );
+    }
+    else
+    {
+        int selected_module_group = get_group_of_type(selected_module_type);
+        int size = main_groups[selected_module_group].size;
+        getGameView()->setCursorSize( size );
+    }
+    
    setDirty();
 }
 
@@ -402,9 +416,7 @@ void ButtonPanel::doButton(const std::string &button)
     selected_module_type=CST_PARKLAND_PLANE;
   else if(button=="BPMWaterButton")
     selected_module_type=CST_WATER;
-    
-    
-    
+   
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ButtonPanel)

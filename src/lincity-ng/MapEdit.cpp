@@ -241,6 +241,10 @@ void editMap (int x, int y, int button)
     py = (mw->y + mw->h) - size*16;
   pixel_to_mappoint(px, py, &x, &y);
 */
+    //Check if we are too close to the border
+    if( x + size > WORLD_SIDE_LEN || y + size > WORLD_SIDE_LEN )
+        return;
+    
   if (size >= 2)
     {
       if (MP_TYPE(x + 1,y) != CST_GREEN

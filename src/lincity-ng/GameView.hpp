@@ -33,6 +33,10 @@ public:
     void zoomIn();
     //decrease Zoomlevel 
     void zoomOut();
+
+    //size in Tiles of marking under Cursor
+    void setCursorSize( int size ); 
+    
 private:
     const void recenter(const Vector2& pos);
     const Vector2 getScreenPoint(const Vector2& tile);
@@ -40,6 +44,7 @@ private:
     const void drawTile(Painter& painter, const Vector2& tile);
     const void loadTextures();
     const void fillDiamond( Painter& painter, const Rect2D rect );
+    const void drawDiamond( Painter& painter, const Rect2D rect );
     
     void setZoom(const int newzoom);
     Texture* readTexture(const std::string& filename);
@@ -64,6 +69,8 @@ private:
     
     Vector2 tileUnderMouse;
     bool mouseInGameView;
+
+    int cursorSize;
 };
 
 GameView* getGameView();
