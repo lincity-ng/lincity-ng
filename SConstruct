@@ -73,8 +73,32 @@ def CheckSDLConfig(context, minVersion):
     # numbers and fails for custom extensions. I don't care about this at
     # the moment as sdl-config never used such version numbers afaik.
     ret = (version >= minVersion)
-    context.Result(ret)
-    return ret
+    if ret == False:
+        context.Result(False)
+        return False
+
+    context.Result(True)
+    context.env.ParseConfig('sdl-config --cflags --libs')
+    return True
+
+def CheckPKGConfig(context, package, minVersion):
+    context.Message('Checking for %s >= %s... ' % (package, minVersion))
+    from popen2 import Popen3
+    p = Popen3(['pkg-config', '--atleast-version=' + minVersion, package])
+    ret = p.wait()
+    if ret != 0:
+        context.Result(False)
+        p = Popen3(['pkg-config', '--modversion', package])
+        ret = p.wait()
+        out = p.fromchild.readlines()
+        context.Display('Expected at least version %s, found %s.' 
+                % (minVersion, out))
+        return False
+
+    # read flags...
+    context.Result(True)
+    context.env.ParseConfig('pkg-config --cflags --libs %s' % package)
+    return True
 
 # User configurable options
 opts = Options('build_config.py')
@@ -153,7 +177,8 @@ if not os.path.exists("build_config.py") or not os.path.exists("config.h"):
     header.Define("HAVE_POPEN")
 
     conf = Configure(env, custom_tests = {
-        'CheckSDLConfig' : CheckSDLConfig
+        'CheckSDLConfig' : CheckSDLConfig,
+        'CheckPKGConfig' : CheckPKGConfig
     })
     if not conf.CheckSDLConfig('1.2.4'):
         print "Couldn't find libSDL >= 1.2.4"
@@ -170,13 +195,18 @@ if not os.path.exists("build_config.py") or not os.path.exists("config.h"):
     if not conf.CheckLib('SDL_gfx'):
         print "Couldn't find SDL_gfx library!"
         Exit(1)
+    if not conf.CheckPKGConfig('libxml-2.0', "2.6.11"):
+        print "Couldn't find libxml-2.0 library!"
+        Exit(1)
+    if not conf.CheckPKGConfig('sigc++-2.0', "2.0.5"):
+        print "Couldn't find sigc++-2.0 library!"
+        Exit(1)
 
     # TODO check for libsigc++ and libxml2 versions
 
     env = conf.Finish()
 
     env.ParseConfig('sdl-config --cflags --libs')
-    env.ParseConfig('pkg-config --cflags --libs libxml-2.0 sigc++-2.0')
     opts.Save("build_config.py", env)
     header.Save("config.h")
 else:

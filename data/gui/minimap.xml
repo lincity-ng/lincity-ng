@@ -1,0 +1,90 @@
+<Panel width="500" height="500" background="images/gui/mapview_back.png">
+    <TableLayout rows="2" cols="2">
+        <rowsize row="1" relative=".2"/>
+        <rowsize row="2" relative=".8"/>
+        <colsize col="1" relative=".2"/>
+        <colsize col="2" relative=".8"/>
+        <cell row="1" col="2">
+            <TableLayout rows="1" cols="2">
+                <cell row="1" col="1">
+                    <Button name="ZoomInButton">
+                        <image src="images/gui/mapview_zoomin.png"/>
+                    </Button>
+                </cell>
+                <cell row="1" col="2">
+                    <Button name="ZoomOutButton">
+                        <image src="images/gui/mapview_zoomout.png"/>
+                    </Button>
+                </cell>
+            </TableLayout>
+        </cell>
+        <cell row="2" col="1">
+            <TableLayout rows="7" cols="1">
+                <cell row="1" col="1">
+                    <Button name="MapViewBuildings">
+                        <image src="images/gui/mapview_buildings.png"/>
+                    </Button>
+                </cell>
+                <cell row="2" col="1">
+                    <Button name="MapViewOutlines">
+                        <image src="images/gui/mapview_transparent.png"/>
+                    </Button>
+                </cell>
+                <cell row="3" col="1">
+                    <Button name="MapViewPolution">
+                        <image src="images/gui/mapview_polution.png"/>
+                    </Button>
+                </cell>
+                <cell row="4" col="1">
+                    <Button name="MapViewNoIdea">
+                        <image src="images/gui/mapview_noidea.png"/>
+                    </Button>
+                </cell>
+                <cell row="5" col="1">
+                    <Button name="MapViewSport">
+                        <image src="images/gui/mapview_sport.png"/>
+                    </Button>
+                </cell>
+                <cell row="6" col="1">
+                    <Button name="MapViewFire">
+                        <image src="images/gui/mapview_fire.png"/>
+                    </Button>
+                </cell>
+                <cell row="7" col="1">
+                    <Button name="MapViewHealth">
+                        <image src="images/gui/mapview_health.png"/>
+                    </Button>
+                </cell>
+            </TableLayout>
+        </cell>
+        <cell row="2" col="2">
+            <TableLayout rows="2" cols="1">
+                <rowsize row="1" relative=".8"/>
+                <rowsize row="2" relative=".2"/>
+                <cell row="1" col="1">
+                    <MiniMap width="100" height="100"/>
+                </cell>
+                <cell row="2" col="1">
+                    <TableLayout rows="1" cols="3">
+                        <cell row="1" col="1">
+                            <Button name="SpeedPauseButton">
+                                <image src="images/gui/mapview_pause.png"/>
+                            </Button>
+                        </cell>
+                        <cell row="1" col="2">
+                            <Button name="SpeedNormalButton">
+                                <image src="images/gui/mapview_run.png"/>
+                            </Button>
+                        </cell>
+                        <cell row="1" col="3">
+                            <Button name="SpeedFastButton">
+                                <image src="images/gui/mapview_fast.png"/>
+                            </Button>
+                        </cell>
+                    </TableLayout>
+                </cell>
+            </TableLayout>
+        </cell>
+    </TableLayout>
+</Panel>
+
