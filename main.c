@@ -144,7 +144,7 @@ lincity_main (int argc, char *argv[])
     given_scene[0] = 0;
     quit_flag = network_flag = load_flag = save_flag 
 	    = prefs_flag = cheat_flag = monument_bul_flag
-	    = river_bul_flag = no_init_help = 0;
+	    = river_bul_flag = shanty_bul_flag = no_init_help = 0;
     prefs_drawn_flag = 0;
     kmouse_val = 8;
 
@@ -200,6 +200,7 @@ lincity_main (int argc, char *argv[])
 
     initialize_geometry (&scr);
     initialize_monthgraph ();
+    init_mini_map_mouse ();
 
 #ifdef LC_X11
     x_key_value = 0;
@@ -318,7 +319,7 @@ process_keystrokes (int key)
     {
     case 0: printf("dead!"); return;
     case ' ':   /* Space */
-    case 10:    /* ??    */
+    case 10:    /* Linefeed/Return */
     case 13:    /* Enter */
     case 127:   /* Backspace */
 	if (key == 127) {
