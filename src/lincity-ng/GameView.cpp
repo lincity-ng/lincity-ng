@@ -692,7 +692,14 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tileOnScreenPoint.y -= (blankTexture->getHeight()  * zoom / 100 ); 
         tilerect.move( tileOnScreenPoint );    
         tilerect.setSize( blankTexture->getWidth()  * zoom / 100 , blankTexture->getHeight() * zoom / 100 );
-        painter.drawStretchTexture( blankTexture, tilerect );
+        if( zoom == 100 ) 
+        {
+            painter.drawTexture( blankTexture, tilerect );
+        }
+        else
+        {
+            painter.drawStretchTexture( blankTexture, tilerect );
+        }
         return;
     }
 
@@ -729,7 +736,13 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tileOnScreenPoint.y -= ( cityTextureY[ textureType ] * zoom / 100 );  
         tilerect.move( tileOnScreenPoint );    
         tilerect.setSize( texture->getWidth() * zoom / 100, texture->getHeight() * zoom / 100  );
-        painter.drawStretchTexture( texture, tilerect );
+        if( zoom == 100 ) {
+            painter.drawTexture( texture, tilerect );
+        }
+        else
+        {
+            painter.drawStretchTexture( texture, tilerect );
+        }
     }
     else 
     {

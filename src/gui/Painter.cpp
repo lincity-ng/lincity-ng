@@ -67,9 +67,14 @@ Painter::drawStretchTexture(const Texture* tex, Rect2D rect)
     drect.y = (int) screenpos.y;
     drect.w = (int) rect.getWidth();
     drect.h = (int) rect.getHeight();
-    double zoomx = drect.w / tex->getWidth();
-    double zoomy = drect.h / tex->getHeight(); 
-    SDL_BlitSurface( zoomSurface( tex->surface, zoomx, zoomy, SMOOTHING_OFF ), 0, target, &drect);
+    if( tex->getWidth() * tex->getHeight() )
+    {
+        double zoomx = drect.w / tex->getWidth();
+        double zoomy = drect.h / tex->getHeight(); 
+        SDL_Surface *tmp = zoomSurface( tex->surface, zoomx, zoomy, SMOOTHING_OFF );
+        SDL_BlitSurface( tmp , 0, target, &drect);
+        SDL_FreeSurface( tmp );
+    }
 }
 
 
