@@ -8,6 +8,9 @@
  *  +fixed bug in drawing Big Tiles  
  *  
  *  +Zoom with Numblock + - and enter (Graphics do not get resized yet!)
+ *
+ *  20050205
+ *  +get Offset-Info from images/tiles/images.xml
  */
 #include <config.h>
 
@@ -117,7 +120,83 @@ Texture* GameView::readTexture(const std::string& filename)
 }
 
 /**
- *  Load Textures
+ * load a City Texture and fill in X and Y Data.
+ *
+ * images/tiles/images.xml contains the x-Coordinate of the 
+ * middle of the Building in Case the Image is asymetric,
+ * eg. a high tower with a long shadow to the right 
+ *
+ */
+void GameView::readCityTexture( int textureType, const std::string& filename )
+{
+    XmlReader reader( "images/tiles/images.xml" );
+    int xmlX = -1;
+    int xmlY = -1;
+    bool hit = false;
+    
+    cityTextures[ textureType ] = readTexture( filename );
+    if( cityTextures[ textureType ] ) 
+    {
+        //now we need to find x for our filename in images/tiles/images.xml 
+
+        while( reader.read() ) 
+        {
+            if( reader.getNodeType() == XML_READER_TYPE_ELEMENT) 
+            {
+                const std::string& element = (const char*) reader.getName();
+                if( element == "image" )
+                {
+                    XmlReader::AttributeIterator iter(reader);
+                    while(iter.next()) 
+                    {
+                        const char* name = (const char*) iter.getName();
+                        const char* value = (const char*) iter.getValue();
+                        if( strcmp(name, "file" ) == 0 ) 
+                        {
+                            if( filename.compare( value ) == 0 ) 
+                            {
+                                hit = true;
+                            }
+                        }
+                        else if( strcmp(name, "x" ) == 0 )
+                        {
+                            if(sscanf(value, "%i", &xmlX) != 1) 
+                            {
+                                std::cerr << "Error parsing integer value '" << value << "' in x attribute.\n";
+                                xmlX = -1;
+                            }
+                        }
+                       else if(strcmp(name, "y") == 0 ) 
+                        {
+                            if(sscanf(value, "%i", &xmlY) != 1) 
+                            {
+                                std::cerr << "Error parsing integer value '" << value << "' in y attribute.\n";
+                                xmlY = -1;
+                            }
+                        }
+                    }//while(iter.next()) 
+                    if( hit )
+                    {
+                        break;
+                    }
+                }
+            }
+        }//while( reader.read() ) 
+       
+        if( hit && ( xmlX >= 0 ) )
+        { 
+            cityTextureX[ textureType ] = xmlX;
+        }
+        else
+        {
+            cityTextureX[ textureType ] = int( ( cityTextures[ textureType ]->getWidth() / 2 ) );
+        }
+        cityTextureY[ textureType ] = int( cityTextures[ textureType ]->getHeight() ); 
+    }
+}
+    
+/**
+ *  Load all required Textures
  */
 const void GameView::loadTextures()
 {
@@ -126,286 +205,285 @@ const void GameView::loadTextures()
     blankTexture = readTexture( "blank.png" );
     
    //We need Textures for all Types from lincity/lctypes.h 
-   // quick and dirty Code Generation:
+   //Code Generation:
    /*
        grep -e LCT src/lincity/lctypes.h | sed  \
-           -e 's/#define LC/cityTextures[ CS/g' \
-           -e 's/_G / ] = readTexture( /'       \
-           -e 's/_G\t/ ] = readTexture( /'     \
-           -e 's/"/"images\/gameview\//'       \
+           -e 's/#define LC/   readCityTexture( CS/' \
+           -e 's/_G /, /'       \
+           -e 's/_G\t/, /'     \
            -e 's/"/.png" );/2'                 
    */
-
-    cityTextures[ CST_GREEN ] = readTexture( 	"green.png" );
-    cityTextures[ CST_POWERL_H_L ] = readTexture( "powerlhl.png" );
-    cityTextures[ CST_POWERL_V_L ] = readTexture(  	"powerlvl.png" );
-    cityTextures[ CST_POWERL_LD_L ] = readTexture( 	"powerlldl.png" );
-    cityTextures[ CST_POWERL_RD_L ] = readTexture( 	"powerlrdl.png" );
-    cityTextures[ CST_POWERL_LU_L ] = readTexture(  	"powerllul.png" );
-    cityTextures[ CST_POWERL_RU_L ] = readTexture(  	"powerlrul.png" );
-    cityTextures[ CST_POWERL_LDU_L ] = readTexture( "powerlldul.png" );
-    cityTextures[ CST_POWERL_LDR_L ] = readTexture( "powerlldrl.png" );
-    cityTextures[ CST_POWERL_LUR_L ] = readTexture( "powerllurl.png" );
-    cityTextures[ CST_POWERL_UDR_L ] = readTexture( "powerludrl.png" );
-    cityTextures[ CST_POWERL_LUDR_L ] = readTexture( "powerlludrl.png" );
-    cityTextures[ CST_POWERL_H_D ] = readTexture(        "powerlhd.png" );
-    cityTextures[ CST_POWERL_V_D ] = readTexture(        "powerlvd.png" );
-    cityTextures[ CST_POWERL_LD_D ] = readTexture(       "powerlldd.png" );
-    cityTextures[ CST_POWERL_RD_D ] = readTexture(       "powerlrdd.png" );
-    cityTextures[ CST_POWERL_LU_D ] = readTexture(       "powerllud.png" );
-    cityTextures[ CST_POWERL_RU_D ] = readTexture(       "powerlrud.png" );
-    cityTextures[ CST_POWERL_LDU_D ] = readTexture(      "powerlldud.png" );
-    cityTextures[ CST_POWERL_LDR_D ] = readTexture(      "powerlldrd.png" );
-    cityTextures[ CST_POWERL_LUR_D ] = readTexture(      "powerllurd.png" );
-    cityTextures[ CST_POWERL_UDR_D ] = readTexture(      "powerludrd.png" );
-    cityTextures[ CST_POWERL_LUDR_D ] = readTexture(     "powerlludrd.png" );
-    cityTextures[ CST_SHANTY ] = readTexture(            "shanty.png" );
-    cityTextures[ CST_POWERS_SOLAR ] = readTexture( "powerssolar.png" );
-    cityTextures[ CST_POWERS_COAL_EMPTY ] = readTexture( "powerscoal-empty.png" );
-    cityTextures[ CST_POWERS_COAL_LOW ] = readTexture(   "powerscoal-low.png" );
-    cityTextures[ CST_POWERS_COAL_MED ] = readTexture(   "powerscoal-med.png" );
-    cityTextures[ CST_POWERS_COAL_FULL ] = readTexture(  "powerscoal-full.png" );
-    cityTextures[ CST_BURNT ] = readTexture( 	"burnt_land.png" );
-    cityTextures[ CST_SUBSTATION_R ] = readTexture( "substation-R.png" );
-    cityTextures[ CST_SUBSTATION_G ] = readTexture(      "substation-G.png" );
-    cityTextures[ CST_SUBSTATION_RG ] = readTexture(     "substation-RG.png" );
-    cityTextures[ CST_UNIVERSITY ] = readTexture( "university.png" );
-    cityTextures[ CST_RESIDENCE_LL ] = readTexture( "reslowlow.png" );
-    cityTextures[ CST_RESIDENCE_ML ] = readTexture( "resmedlow.png" );
-    cityTextures[ CST_RESIDENCE_HL ] = readTexture( "reshilow.png" );
-    cityTextures[ CST_RESIDENCE_LH ] = readTexture(      "reslowhi.png" );
-    cityTextures[ CST_RESIDENCE_MH ] = readTexture(      "resmedhi.png" );
-    cityTextures[ CST_RESIDENCE_HH ] = readTexture(      "reshihi.png" );
-    cityTextures[ CST_MARKET_EMPTY ] = readTexture( "market-empty.png" );
-    cityTextures[ CST_MARKET_LOW ] = readTexture(        "market-low.png" );
-    cityTextures[ CST_MARKET_MED ] = readTexture(        "market-med.png" );
-    cityTextures[ CST_MARKET_FULL ] = readTexture(       "market-full.png" );
-    cityTextures[ CST_RECYCLE ] = readTexture( 	"recycle-centre.png" );
-    cityTextures[ CST_TRACK_LR ] = readTexture( 	"tracklr.png" );
-    cityTextures[ CST_TRACK_LU ] = readTexture(          "tracklu.png" );
-    cityTextures[ CST_TRACK_LD ] = readTexture(          "trackld.png" );
-    cityTextures[ CST_TRACK_UD ] = readTexture(          "trackud.png" );
-    cityTextures[ CST_TRACK_UR ] = readTexture(          "trackur.png" );
-    cityTextures[ CST_TRACK_DR ] = readTexture(          "trackdr.png" );
-    cityTextures[ CST_TRACK_LUR ] = readTexture(         "tracklur.png" );
-    cityTextures[ CST_TRACK_LDR ] = readTexture(         "trackldr.png" );
-    cityTextures[ CST_TRACK_LUD ] = readTexture(         "tracklud.png" );
-    cityTextures[ CST_TRACK_UDR ] = readTexture(         "trackudr.png" );
-    cityTextures[ CST_TRACK_LUDR ] = readTexture(        "trackludr.png" );
-    cityTextures[ CST_PARKLAND_PLANE ] = readTexture( "parkland-plane.png" );
-    cityTextures[ CST_PARKLAND_LAKE ] = readTexture( "parkland-lake.png" );
-    cityTextures[ CST_MONUMENT_0 ] = readTexture( "monument0.png" );
-    cityTextures[ CST_MONUMENT_1 ] = readTexture(        "monument1.png" );
-    cityTextures[ CST_MONUMENT_2 ] = readTexture(        "monument2.png" );
-    cityTextures[ CST_MONUMENT_3 ] = readTexture(        "monument3.png" );
-    cityTextures[ CST_MONUMENT_4 ] = readTexture(        "monument4.png" );
-    cityTextures[ CST_MONUMENT_5 ] = readTexture(        "monument5.png" );
-    cityTextures[ CST_COALMINE_EMPTY ] = readTexture( "coalmine-empty.png" );
-    cityTextures[ CST_COALMINE_LOW ] = readTexture( "coalmine-low.png" );
-    cityTextures[ CST_COALMINE_MED ] = readTexture( "coalmine-med.png" );
-    cityTextures[ CST_COALMINE_FULL ] = readTexture( "coalmine-full.png" );
-    cityTextures[ CST_RAIL_LR ] = readTexture(          "raillr.png" );
-    cityTextures[ CST_RAIL_LU ] = readTexture(          "raillu.png" );
-    cityTextures[ CST_RAIL_LD ] = readTexture(          "railld.png" );
-    cityTextures[ CST_RAIL_UD ] = readTexture(          "railud.png" );
-    cityTextures[ CST_RAIL_UR ] = readTexture(          "railur.png" );
-    cityTextures[ CST_RAIL_DR ] = readTexture(          "raildr.png" );
-    cityTextures[ CST_RAIL_LUR ] = readTexture(         "raillur.png" );
-    cityTextures[ CST_RAIL_LDR ] = readTexture(         "railldr.png" );
-    cityTextures[ CST_RAIL_LUD ] = readTexture(         "raillud.png" );
-    cityTextures[ CST_RAIL_UDR ] = readTexture(         "railudr.png" );
-    cityTextures[ CST_RAIL_LUDR ] = readTexture(        "railludr.png" );
-    cityTextures[ CST_FIRE_1 ] = readTexture(           "fire1.png" );
-    cityTextures[ CST_FIRE_2 ] = readTexture(           "fire2.png" );
-    cityTextures[ CST_FIRE_3 ] = readTexture(           "fire3.png" );
-    cityTextures[ CST_FIRE_4 ] = readTexture(           "fire4.png" );
-    cityTextures[ CST_FIRE_5 ] = readTexture(           "fire5.png" );
-    cityTextures[ CST_FIRE_DONE1 ] = readTexture(       "firedone1.png" );
-    cityTextures[ CST_FIRE_DONE2 ] = readTexture(       "firedone2.png" );
-    cityTextures[ CST_FIRE_DONE3 ] = readTexture(       "firedone3.png" );
-    cityTextures[ CST_FIRE_DONE4 ] = readTexture(       "firedone4.png" );
-    cityTextures[ CST_ROAD_LR ] = readTexture(          "roadlr.png" );
-    cityTextures[ CST_ROAD_LU ] = readTexture(          "roadlu.png" );
-    cityTextures[ CST_ROAD_LD ] = readTexture(          "roadld.png" );
-    cityTextures[ CST_ROAD_UD ] = readTexture(          "roadud.png" );
-    cityTextures[ CST_ROAD_UR ] = readTexture(          "roadur.png" );
-    cityTextures[ CST_ROAD_DR ] = readTexture(          "roaddr.png" );
-    cityTextures[ CST_ROAD_LUR ] = readTexture(         "roadlur.png" );
-    cityTextures[ CST_ROAD_LDR ] = readTexture(         "roadldr.png" );
-    cityTextures[ CST_ROAD_LUD ] = readTexture(         "roadlud.png" );
-    cityTextures[ CST_ROAD_UDR ] = readTexture(         "roadudr.png" );
-    cityTextures[ CST_ROAD_LUDR ] = readTexture(        "roadludr.png" );
-    cityTextures[ CST_OREMINE_5 ] = readTexture(         "oremine5.png" );
-    cityTextures[ CST_OREMINE_6 ] = readTexture(         "oremine6.png" );
-    cityTextures[ CST_OREMINE_7 ] = readTexture(         "oremine7.png" );
-    cityTextures[ CST_OREMINE_8 ] = readTexture(         "oremine8.png" );
-    cityTextures[ CST_OREMINE_1 ] = readTexture( 	"oremine1.png" );
-    cityTextures[ CST_OREMINE_2 ] = readTexture( 	"oremine2.png" );
-    cityTextures[ CST_OREMINE_3 ] = readTexture( 	"oremine3.png" );
-    cityTextures[ CST_OREMINE_4 ] = readTexture( 	"oremine4.png" );
-    cityTextures[ CST_HEALTH ] = readTexture( 	"health.png" );
-    cityTextures[ CST_SCHOOL ] = readTexture( 	"school0.png" );
-    cityTextures[ CST_EX_PORT ] = readTexture( 	"ex_port.png" );
-    cityTextures[ CST_MILL_0 ] = readTexture(            "mill0.png" );
-    cityTextures[ CST_MILL_1 ] = readTexture(            "mill1.png" );
-    cityTextures[ CST_MILL_2 ] = readTexture(            "mill2.png" );
-    cityTextures[ CST_MILL_3 ] = readTexture(            "mill3.png" );
-    cityTextures[ CST_MILL_4 ] = readTexture(            "mill4.png" );
-    cityTextures[ CST_MILL_5 ] = readTexture(            "mill5.png" );
-    cityTextures[ CST_MILL_6 ] = readTexture(            "mill6.png" );
-    cityTextures[ CST_ROCKET_1 ] = readTexture(          "rocket1.png" );
-    cityTextures[ CST_ROCKET_2 ] = readTexture( 	"rocket2.png" );
-    cityTextures[ CST_ROCKET_3 ] = readTexture( 	"rocket3.png" );
-    cityTextures[ CST_ROCKET_4 ] = readTexture( 	"rocket4.png" );
-    cityTextures[ CST_ROCKET_5 ] = readTexture(          "rocket5.png" );
-    cityTextures[ CST_ROCKET_6 ] = readTexture(          "rocket6.png" );
-    cityTextures[ CST_ROCKET_7 ] = readTexture( 	"rocket7.png" );
-    cityTextures[ CST_ROCKET_FLOWN ] = readTexture( "rocketflown.png" );
-    cityTextures[ CST_WINDMILL_1_G ] = readTexture(      "windmill1g.png" );
-    cityTextures[ CST_WINDMILL_2_G ] = readTexture(      "windmill2g.png" );
-    cityTextures[ CST_WINDMILL_3_G ] = readTexture(      "windmill3g.png" );
-    cityTextures[ CST_WINDMILL_1_RG ] = readTexture(     "windmill1rg.png" );
-    cityTextures[ CST_WINDMILL_2_RG ] = readTexture(     "windmill2rg.png" );
-    cityTextures[ CST_WINDMILL_3_RG ] = readTexture(     "windmill3rg.png" );
-    cityTextures[ CST_WINDMILL_1_R ] = readTexture(      "windmill1r.png" );
-    cityTextures[ CST_WINDMILL_2_R ] = readTexture(      "windmill2r.png" );
-    cityTextures[ CST_WINDMILL_3_R ] = readTexture(      "windmill3r.png" );
-    cityTextures[ CST_WINDMILL_1_W ] = readTexture(      "windmill1w.png" );
-    cityTextures[ CST_WINDMILL_2_W ] = readTexture(      "windmill2w.png" );
-    cityTextures[ CST_WINDMILL_3_W ] = readTexture(      "windmill3w.png" );
-    cityTextures[ CST_BLACKSMITH_0 ] = readTexture(        "blacksmith0.png" );
-    cityTextures[ CST_BLACKSMITH_1 ] = readTexture(        "blacksmith1.png" );
-    cityTextures[ CST_BLACKSMITH_2 ] = readTexture(        "blacksmith2.png" );
-    cityTextures[ CST_BLACKSMITH_3 ] = readTexture(        "blacksmith3.png" );
-    cityTextures[ CST_BLACKSMITH_4 ] = readTexture(        "blacksmith4.png" );
-    cityTextures[ CST_BLACKSMITH_5 ] = readTexture(        "blacksmith5.png" );
-    cityTextures[ CST_BLACKSMITH_6 ] = readTexture(        "blacksmith6.png" );
-    cityTextures[ CST_POTTERY_0 ] = readTexture(           "pottery0.png" );
-    cityTextures[ CST_POTTERY_1 ] = readTexture(           "pottery1.png" );
-    cityTextures[ CST_POTTERY_2 ] = readTexture(           "pottery2.png" );
-    cityTextures[ CST_POTTERY_3 ] = readTexture(           "pottery3.png" );
-    cityTextures[ CST_POTTERY_4 ] = readTexture(           "pottery4.png" );
-    cityTextures[ CST_POTTERY_5 ] = readTexture(           "pottery5.png" );
-    cityTextures[ CST_POTTERY_6 ] = readTexture(           "pottery6.png" );
-    cityTextures[ CST_POTTERY_7 ] = readTexture(           "pottery7.png" );
-    cityTextures[ CST_POTTERY_8 ] = readTexture(           "pottery8.png" );
-    cityTextures[ CST_POTTERY_9 ] = readTexture(           "pottery9.png" );
-    cityTextures[ CST_POTTERY_10 ] = readTexture(          "pottery10.png" );
-    cityTextures[ CST_WATER ] = readTexture(             "water.png" );
-    cityTextures[ CST_WATER_D ] = readTexture(           "waterd.png" );
-    cityTextures[ CST_WATER_R ] = readTexture(           "waterr.png" );
-    cityTextures[ CST_WATER_U ] = readTexture(           "wateru.png" );
-    cityTextures[ CST_WATER_L ] = readTexture(           "waterl.png" );
-    cityTextures[ CST_WATER_LR ] = readTexture(          "waterlr.png" );
-    cityTextures[ CST_WATER_UD ] = readTexture(          "waterud.png" );
-    cityTextures[ CST_WATER_LD ] = readTexture(          "waterld.png" );
-    cityTextures[ CST_WATER_RD ] = readTexture(          "waterrd.png" );
-    cityTextures[ CST_WATER_LU ] = readTexture(          "waterlu.png" );
-    cityTextures[ CST_WATER_UR ] = readTexture(          "waterur.png" );
-    cityTextures[ CST_WATER_LUD ] = readTexture(         "waterlud.png" );
-    cityTextures[ CST_WATER_LRD ] = readTexture(         "waterlrd.png" );
-    cityTextures[ CST_WATER_LUR ] = readTexture(         "waterlur.png" );
-    cityTextures[ CST_WATER_URD ] = readTexture(         "waterurd.png" );
-    cityTextures[ CST_WATER_LURD ] = readTexture(        "waterlurd.png" );
-    cityTextures[ CST_CRICKET_1 ] = readTexture(         "cricket1.png" );
-    cityTextures[ CST_CRICKET_2 ] = readTexture(         "cricket2.png" );
-    cityTextures[ CST_CRICKET_3 ] = readTexture(         "cricket3.png" );
-    cityTextures[ CST_CRICKET_4 ] = readTexture(         "cricket4.png" );
-    cityTextures[ CST_CRICKET_5 ] = readTexture(         "cricket5.png" );
-    cityTextures[ CST_CRICKET_6 ] = readTexture(         "cricket6.png" );
-    cityTextures[ CST_CRICKET_7 ] = readTexture(         "cricket7.png" );
-    cityTextures[ CST_FIRESTATION_1 ] = readTexture(       "firestation1.png" );
-    cityTextures[ CST_FIRESTATION_2 ] = readTexture(       "firestation2.png" );
-    cityTextures[ CST_FIRESTATION_3 ] = readTexture(       "firestation3.png" );
-    cityTextures[ CST_FIRESTATION_4 ] = readTexture(       "firestation4.png" );
-    cityTextures[ CST_FIRESTATION_5 ] = readTexture(       "firestation5.png" );
-    cityTextures[ CST_FIRESTATION_6 ] = readTexture(       "firestation6.png" );
-    cityTextures[ CST_FIRESTATION_7 ] = readTexture(       "firestation7.png" );
-    cityTextures[ CST_FIRESTATION_8 ] = readTexture(       "firestation8.png" );
-    cityTextures[ CST_FIRESTATION_9 ] = readTexture(       "firestation9.png" );
-    cityTextures[ CST_FIRESTATION_10 ] = readTexture(      "firestation10.png" );
-    cityTextures[ CST_TIP_0 ] = readTexture(             "tip0.png" );
-    cityTextures[ CST_TIP_1 ] = readTexture(             "tip1.png" );
-    cityTextures[ CST_TIP_2 ] = readTexture(             "tip2.png" );
-    cityTextures[ CST_TIP_3 ] = readTexture(             "tip3.png" );
-    cityTextures[ CST_TIP_4 ] = readTexture(             "tip4.png" );
-    cityTextures[ CST_TIP_5 ] = readTexture(             "tip5.png" );
-    cityTextures[ CST_TIP_6 ] = readTexture(             "tip6.png" );
-    cityTextures[ CST_TIP_7 ] = readTexture(             "tip7.png" );
-    cityTextures[ CST_TIP_8 ] = readTexture(             "tip8.png" );
-    cityTextures[ CST_COMMUNE_1 ] = readTexture(         "commune1.png" );
-    cityTextures[ CST_COMMUNE_2 ] = readTexture(         "commune2.png" );
-    cityTextures[ CST_COMMUNE_3 ] = readTexture(         "commune3.png" );
-    cityTextures[ CST_COMMUNE_4 ] = readTexture(         "commune4.png" );
-    cityTextures[ CST_COMMUNE_5 ] = readTexture(         "commune5.png" );
-    cityTextures[ CST_COMMUNE_6 ] = readTexture(         "commune6.png" );
-    cityTextures[ CST_COMMUNE_7 ] = readTexture(         "commune7.png" );
-    cityTextures[ CST_COMMUNE_8 ] = readTexture(         "commune8.png" );
-    cityTextures[ CST_COMMUNE_9 ] = readTexture(         "commune9.png" );
-    cityTextures[ CST_COMMUNE_10 ] = readTexture(        "commune10.png" );
-    cityTextures[ CST_COMMUNE_11 ] = readTexture(        "commune11.png" );
-    cityTextures[ CST_COMMUNE_12 ] = readTexture(        "commune12.png" );
-    cityTextures[ CST_COMMUNE_13 ] = readTexture(        "commune13.png" );
-    cityTextures[ CST_COMMUNE_14 ] = readTexture(        "commune14.png" );
-    cityTextures[ CST_INDUSTRY_H_C ] = readTexture(      "industryhc.png" );
-    cityTextures[ CST_INDUSTRY_H_L1 ] = readTexture(      "industryhl1.png" );
-    cityTextures[ CST_INDUSTRY_H_L2 ] = readTexture(      "industryhl2.png" );
-    cityTextures[ CST_INDUSTRY_H_L3 ] = readTexture(      "industryhl3.png" );
-    cityTextures[ CST_INDUSTRY_H_L4 ] = readTexture(      "industryhl4.png" );
-    cityTextures[ CST_INDUSTRY_H_L5 ] = readTexture(      "industryhl5.png" );
-    cityTextures[ CST_INDUSTRY_H_L6 ] = readTexture(      "industryhl6.png" );
-    cityTextures[ CST_INDUSTRY_H_L7 ] = readTexture(      "industryhl7.png" );
-    cityTextures[ CST_INDUSTRY_H_L8 ] = readTexture(      "industryhl8.png" );
-    cityTextures[ CST_INDUSTRY_H_M1 ] = readTexture(      "industryhm1.png" );
-    cityTextures[ CST_INDUSTRY_H_M2 ] = readTexture(      "industryhm2.png" );
-    cityTextures[ CST_INDUSTRY_H_M3 ] = readTexture(      "industryhm3.png" );
-    cityTextures[ CST_INDUSTRY_H_M4 ] = readTexture(      "industryhm4.png" );
-    cityTextures[ CST_INDUSTRY_H_M5 ] = readTexture(      "industryhm5.png" );
-    cityTextures[ CST_INDUSTRY_H_M6 ] = readTexture(      "industryhm6.png" );
-    cityTextures[ CST_INDUSTRY_H_M7 ] = readTexture(      "industryhm7.png" );
-    cityTextures[ CST_INDUSTRY_H_M8 ] = readTexture(      "industryhm8.png" );
-    cityTextures[ CST_INDUSTRY_H_H1 ] = readTexture(      "industryhh1.png" );
-    cityTextures[ CST_INDUSTRY_H_H2 ] = readTexture(      "industryhh2.png" );
-    cityTextures[ CST_INDUSTRY_H_H3 ] = readTexture(      "industryhh3.png" );
-    cityTextures[ CST_INDUSTRY_H_H4 ] = readTexture(      "industryhh4.png" );
-    cityTextures[ CST_INDUSTRY_H_H5 ] = readTexture(      "industryhh5.png" );
-    cityTextures[ CST_INDUSTRY_H_H6 ] = readTexture(      "industryhh6.png" );
-    cityTextures[ CST_INDUSTRY_H_H7 ] = readTexture(      "industryhh7.png" );
-    cityTextures[ CST_INDUSTRY_H_H8 ] = readTexture(      "industryhh8.png" );
-    cityTextures[ CST_INDUSTRY_L_C ] = readTexture(       "industrylq1.png" );
-    cityTextures[ CST_INDUSTRY_L_Q1 ] = readTexture(      "industrylq1.png" );
-    cityTextures[ CST_INDUSTRY_L_Q2 ] = readTexture(      "industrylq2.png" );
-    cityTextures[ CST_INDUSTRY_L_Q3 ] = readTexture(      "industrylq3.png" );
-    cityTextures[ CST_INDUSTRY_L_Q4 ] = readTexture(      "industrylq4.png" );
-    cityTextures[ CST_INDUSTRY_L_L1 ] = readTexture(      "industryll1.png" );
-    cityTextures[ CST_INDUSTRY_L_L2 ] = readTexture(      "industryll2.png" );
-    cityTextures[ CST_INDUSTRY_L_L3 ] = readTexture(      "industryll3.png" );
-    cityTextures[ CST_INDUSTRY_L_L4 ] = readTexture(      "industryll4.png" );
-    cityTextures[ CST_INDUSTRY_L_M1 ] = readTexture(      "industrylm1.png" );
-    cityTextures[ CST_INDUSTRY_L_M2 ] = readTexture(      "industrylm2.png" );
-    cityTextures[ CST_INDUSTRY_L_M3 ] = readTexture(      "industrylm3.png" );
-    cityTextures[ CST_INDUSTRY_L_M4 ] = readTexture(      "industrylm4.png" );
-    cityTextures[ CST_INDUSTRY_L_H1 ] = readTexture(      "industrylh1.png" );
-    cityTextures[ CST_INDUSTRY_L_H2 ] = readTexture(      "industrylh2.png" );
-    cityTextures[ CST_INDUSTRY_L_H3 ] = readTexture(      "industrylh3.png" );
-    cityTextures[ CST_INDUSTRY_L_H4 ] = readTexture(      "industrylh4.png" );
-    cityTextures[ CST_FARM_O0 ] = readTexture(            "farm0.png" );
-    cityTextures[ CST_FARM_O1 ] = readTexture(            "farm1.png" );
-    cityTextures[ CST_FARM_O2 ] = readTexture(            "farm2.png" );
-    cityTextures[ CST_FARM_O3 ] = readTexture(            "farm3.png" );
-    cityTextures[ CST_FARM_O4 ] = readTexture(            "farm4.png" );
-    cityTextures[ CST_FARM_O5 ] = readTexture(            "farm5.png" );
-    cityTextures[ CST_FARM_O6 ] = readTexture(            "farm6.png" );
-    cityTextures[ CST_FARM_O7 ] = readTexture(            "farm7.png" );
-    cityTextures[ CST_FARM_O8 ] = readTexture(            "farm8.png" );
-    cityTextures[ CST_FARM_O9 ] = readTexture(            "farm9.png" );
-    cityTextures[ CST_FARM_O10 ] = readTexture(           "farm10.png" );
-    cityTextures[ CST_FARM_O11 ] = readTexture(           "farm11.png" );
-    cityTextures[ CST_FARM_O12 ] = readTexture(           "farm12.png" );
-    cityTextures[ CST_FARM_O13 ] = readTexture(           "farm13.png" );
-    cityTextures[ CST_FARM_O14 ] = readTexture(           "farm14.png" );
-    cityTextures[ CST_FARM_O15 ] = readTexture(           "farm15.png" );
-    cityTextures[ CST_FARM_O16 ] = readTexture(           "farm16.png" );
+   readCityTexture( CST_GREEN, 	"green.png" );
+   readCityTexture( CST_POWERL_H_L, "powerlhl.png" );
+   readCityTexture( CST_POWERL_V_L,  	"powerlvl.png" );
+   readCityTexture( CST_POWERL_LD_L, 	"powerlldl.png" );
+   readCityTexture( CST_POWERL_RD_L, 	"powerlrdl.png" );
+   readCityTexture( CST_POWERL_LU_L,  	"powerllul.png" );
+   readCityTexture( CST_POWERL_RU_L,  	"powerlrul.png" );
+   readCityTexture( CST_POWERL_LDU_L, "powerlldul.png" );
+   readCityTexture( CST_POWERL_LDR_L, "powerlldrl.png" );
+   readCityTexture( CST_POWERL_LUR_L, "powerllurl.png" );
+   readCityTexture( CST_POWERL_UDR_L, "powerludrl.png" );
+   readCityTexture( CST_POWERL_LUDR_L, "powerlludrl.png" );
+   readCityTexture( CST_POWERL_H_D,        "powerlhd.png" );
+   readCityTexture( CST_POWERL_V_D,        "powerlvd.png" );
+   readCityTexture( CST_POWERL_LD_D,       "powerlldd.png" );
+   readCityTexture( CST_POWERL_RD_D,       "powerlrdd.png" );
+   readCityTexture( CST_POWERL_LU_D,       "powerllud.png" );
+   readCityTexture( CST_POWERL_RU_D,       "powerlrud.png" );
+   readCityTexture( CST_POWERL_LDU_D,      "powerlldud.png" );
+   readCityTexture( CST_POWERL_LDR_D,      "powerlldrd.png" );
+   readCityTexture( CST_POWERL_LUR_D,      "powerllurd.png" );
+   readCityTexture( CST_POWERL_UDR_D,      "powerludrd.png" );
+   readCityTexture( CST_POWERL_LUDR_D,     "powerlludrd.png" );
+   readCityTexture( CST_SHANTY,            "shanty.png" );
+   readCityTexture( CST_POWERS_SOLAR, "powerssolar.png" );
+   readCityTexture( CST_POWERS_COAL_EMPTY, "powerscoal-empty.png" );
+   readCityTexture( CST_POWERS_COAL_LOW,   "powerscoal-low.png" );
+   readCityTexture( CST_POWERS_COAL_MED,   "powerscoal-med.png" );
+   readCityTexture( CST_POWERS_COAL_FULL,  "powerscoal-full.png" );
+   readCityTexture( CST_BURNT, 	"burnt_land.png" );
+   readCityTexture( CST_SUBSTATION_R, "substation-R.png" );
+   readCityTexture( CST_SUBSTATION_G,      "substation-G.png" );
+   readCityTexture( CST_SUBSTATION_RG,     "substation-RG.png" );
+   readCityTexture( CST_UNIVERSITY, "university.png" );
+   readCityTexture( CST_RESIDENCE_LL, "reslowlow.png" );
+   readCityTexture( CST_RESIDENCE_ML, "resmedlow.png" );
+   readCityTexture( CST_RESIDENCE_HL, "reshilow.png" );
+   readCityTexture( CST_RESIDENCE_LH,      "reslowhi.png" );
+   readCityTexture( CST_RESIDENCE_MH,      "resmedhi.png" );
+   readCityTexture( CST_RESIDENCE_HH,      "reshihi.png" );
+   readCityTexture( CST_MARKET_EMPTY, "market-empty.png" );
+   readCityTexture( CST_MARKET_LOW,        "market-low.png" );
+   readCityTexture( CST_MARKET_MED,        "market-med.png" );
+   readCityTexture( CST_MARKET_FULL,       "market-full.png" );
+   readCityTexture( CST_RECYCLE, 	"recycle-centre.png" );
+   readCityTexture( CST_TRACK_LR, 	"tracklr.png" );
+   readCityTexture( CST_TRACK_LU,          "tracklu.png" );
+   readCityTexture( CST_TRACK_LD,          "trackld.png" );
+   readCityTexture( CST_TRACK_UD,          "trackud.png" );
+   readCityTexture( CST_TRACK_UR,          "trackur.png" );
+   readCityTexture( CST_TRACK_DR,          "trackdr.png" );
+   readCityTexture( CST_TRACK_LUR,         "tracklur.png" );
+   readCityTexture( CST_TRACK_LDR,         "trackldr.png" );
+   readCityTexture( CST_TRACK_LUD,         "tracklud.png" );
+   readCityTexture( CST_TRACK_UDR,         "trackudr.png" );
+   readCityTexture( CST_TRACK_LUDR,        "trackludr.png" );
+   readCityTexture( CST_PARKLAND_PLANE, "parkland-plane.png" );
+   readCityTexture( CST_PARKLAND_LAKE, "parkland-lake.png" );
+   readCityTexture( CST_MONUMENT_0, "monument0.png" );
+   readCityTexture( CST_MONUMENT_1,        "monument1.png" );
+   readCityTexture( CST_MONUMENT_2,        "monument2.png" );
+   readCityTexture( CST_MONUMENT_3,        "monument3.png" );
+   readCityTexture( CST_MONUMENT_4,        "monument4.png" );
+   readCityTexture( CST_MONUMENT_5,        "monument5.png" );
+   readCityTexture( CST_COALMINE_EMPTY, "coalmine-empty.png" );
+   readCityTexture( CST_COALMINE_LOW, "coalmine-low.png" );
+   readCityTexture( CST_COALMINE_MED, "coalmine-med.png" );
+   readCityTexture( CST_COALMINE_FULL, "coalmine-full.png" );
+   readCityTexture( CST_RAIL_LR,          "raillr.png" );
+   readCityTexture( CST_RAIL_LU,          "raillu.png" );
+   readCityTexture( CST_RAIL_LD,          "railld.png" );
+   readCityTexture( CST_RAIL_UD,          "railud.png" );
+   readCityTexture( CST_RAIL_UR,          "railur.png" );
+   readCityTexture( CST_RAIL_DR,          "raildr.png" );
+   readCityTexture( CST_RAIL_LUR,         "raillur.png" );
+   readCityTexture( CST_RAIL_LDR,         "railldr.png" );
+   readCityTexture( CST_RAIL_LUD,         "raillud.png" );
+   readCityTexture( CST_RAIL_UDR,         "railudr.png" );
+   readCityTexture( CST_RAIL_LUDR,        "railludr.png" );
+   readCityTexture( CST_FIRE_1,           "fire1.png" );
+   readCityTexture( CST_FIRE_2,           "fire2.png" );
+   readCityTexture( CST_FIRE_3,           "fire3.png" );
+   readCityTexture( CST_FIRE_4,           "fire4.png" );
+   readCityTexture( CST_FIRE_5,           "fire5.png" );
+   readCityTexture( CST_FIRE_DONE1,       "firedone1.png" );
+   readCityTexture( CST_FIRE_DONE2,       "firedone2.png" );
+   readCityTexture( CST_FIRE_DONE3,       "firedone3.png" );
+   readCityTexture( CST_FIRE_DONE4,       "firedone4.png" );
+   readCityTexture( CST_ROAD_LR,          "roadlr.png" );
+   readCityTexture( CST_ROAD_LU,          "roadlu.png" );
+   readCityTexture( CST_ROAD_LD,          "roadld.png" );
+   readCityTexture( CST_ROAD_UD,          "roadud.png" );
+   readCityTexture( CST_ROAD_UR,          "roadur.png" );
+   readCityTexture( CST_ROAD_DR,          "roaddr.png" );
+   readCityTexture( CST_ROAD_LUR,         "roadlur.png" );
+   readCityTexture( CST_ROAD_LDR,         "roadldr.png" );
+   readCityTexture( CST_ROAD_LUD,         "roadlud.png" );
+   readCityTexture( CST_ROAD_UDR,         "roadudr.png" );
+   readCityTexture( CST_ROAD_LUDR,        "roadludr.png" );
+   readCityTexture( CST_OREMINE_5,         "oremine5.png" );
+   readCityTexture( CST_OREMINE_6,         "oremine6.png" );
+   readCityTexture( CST_OREMINE_7,         "oremine7.png" );
+   readCityTexture( CST_OREMINE_8,         "oremine8.png" );
+   readCityTexture( CST_OREMINE_1, 	"oremine1.png" );
+   readCityTexture( CST_OREMINE_2, 	"oremine2.png" );
+   readCityTexture( CST_OREMINE_3, 	"oremine3.png" );
+   readCityTexture( CST_OREMINE_4, 	"oremine4.png" );
+   readCityTexture( CST_HEALTH, 	"health.png" );
+   readCityTexture( CST_SCHOOL, 	"school0.png" );
+   readCityTexture( CST_EX_PORT, 	"ex_port.png" );
+   readCityTexture( CST_MILL_0,            "mill0.png" );
+   readCityTexture( CST_MILL_1,            "mill1.png" );
+   readCityTexture( CST_MILL_2,            "mill2.png" );
+   readCityTexture( CST_MILL_3,            "mill3.png" );
+   readCityTexture( CST_MILL_4,            "mill4.png" );
+   readCityTexture( CST_MILL_5,            "mill5.png" );
+   readCityTexture( CST_MILL_6,            "mill6.png" );
+   readCityTexture( CST_ROCKET_1,          "rocket1.png" );
+   readCityTexture( CST_ROCKET_2, 	"rocket2.png" );
+   readCityTexture( CST_ROCKET_3, 	"rocket3.png" );
+   readCityTexture( CST_ROCKET_4, 	"rocket4.png" );
+   readCityTexture( CST_ROCKET_5,          "rocket5.png" );
+   readCityTexture( CST_ROCKET_6,          "rocket6.png" );
+   readCityTexture( CST_ROCKET_7, 	"rocket7.png" );
+   readCityTexture( CST_ROCKET_FLOWN, "rocketflown.png" );
+   readCityTexture( CST_WINDMILL_1_G,      "windmill1g.png" );
+   readCityTexture( CST_WINDMILL_2_G,      "windmill2g.png" );
+   readCityTexture( CST_WINDMILL_3_G,      "windmill3g.png" );
+   readCityTexture( CST_WINDMILL_1_RG,     "windmill1rg.png" );
+   readCityTexture( CST_WINDMILL_2_RG,     "windmill2rg.png" );
+   readCityTexture( CST_WINDMILL_3_RG,     "windmill3rg.png" );
+   readCityTexture( CST_WINDMILL_1_R,      "windmill1r.png" );
+   readCityTexture( CST_WINDMILL_2_R,      "windmill2r.png" );
+   readCityTexture( CST_WINDMILL_3_R,      "windmill3r.png" );
+   readCityTexture( CST_WINDMILL_1_W,      "windmill1w.png" );
+   readCityTexture( CST_WINDMILL_2_W,      "windmill2w.png" );
+   readCityTexture( CST_WINDMILL_3_W,      "windmill3w.png" );
+   readCityTexture( CST_BLACKSMITH_0,        "blacksmith0.png" );
+   readCityTexture( CST_BLACKSMITH_1,        "blacksmith1.png" );
+   readCityTexture( CST_BLACKSMITH_2,        "blacksmith2.png" );
+   readCityTexture( CST_BLACKSMITH_3,        "blacksmith3.png" );
+   readCityTexture( CST_BLACKSMITH_4,        "blacksmith4.png" );
+   readCityTexture( CST_BLACKSMITH_5,        "blacksmith5.png" );
+   readCityTexture( CST_BLACKSMITH_6,        "blacksmith6.png" );
+   readCityTexture( CST_POTTERY_0,           "pottery0.png" );
+   readCityTexture( CST_POTTERY_1,           "pottery1.png" );
+   readCityTexture( CST_POTTERY_2,           "pottery2.png" );
+   readCityTexture( CST_POTTERY_3,           "pottery3.png" );
+   readCityTexture( CST_POTTERY_4,           "pottery4.png" );
+   readCityTexture( CST_POTTERY_5,           "pottery5.png" );
+   readCityTexture( CST_POTTERY_6,           "pottery6.png" );
+   readCityTexture( CST_POTTERY_7,           "pottery7.png" );
+   readCityTexture( CST_POTTERY_8,           "pottery8.png" );
+   readCityTexture( CST_POTTERY_9,           "pottery9.png" );
+   readCityTexture( CST_POTTERY_10,          "pottery10.png" );
+   readCityTexture( CST_WATER,             "water.png" );
+   readCityTexture( CST_WATER_D,           "waterd.png" );
+   readCityTexture( CST_WATER_R,           "waterr.png" );
+   readCityTexture( CST_WATER_U,           "wateru.png" );
+   readCityTexture( CST_WATER_L,           "waterl.png" );
+   readCityTexture( CST_WATER_LR,          "waterlr.png" );
+   readCityTexture( CST_WATER_UD,          "waterud.png" );
+   readCityTexture( CST_WATER_LD,          "waterld.png" );
+   readCityTexture( CST_WATER_RD,          "waterrd.png" );
+   readCityTexture( CST_WATER_LU,          "waterlu.png" );
+   readCityTexture( CST_WATER_UR,          "waterur.png" );
+   readCityTexture( CST_WATER_LUD,         "waterlud.png" );
+   readCityTexture( CST_WATER_LRD,         "waterlrd.png" );
+   readCityTexture( CST_WATER_LUR,         "waterlur.png" );
+   readCityTexture( CST_WATER_URD,         "waterurd.png" );
+   readCityTexture( CST_WATER_LURD,        "waterlurd.png" );
+   readCityTexture( CST_CRICKET_1,         "cricket1.png" );
+   readCityTexture( CST_CRICKET_2,         "cricket2.png" );
+   readCityTexture( CST_CRICKET_3,         "cricket3.png" );
+   readCityTexture( CST_CRICKET_4,         "cricket4.png" );
+   readCityTexture( CST_CRICKET_5,         "cricket5.png" );
+   readCityTexture( CST_CRICKET_6,         "cricket6.png" );
+   readCityTexture( CST_CRICKET_7,         "cricket7.png" );
+   readCityTexture( CST_FIRESTATION_1,       "firestation1.png" );
+   readCityTexture( CST_FIRESTATION_2,       "firestation2.png" );
+   readCityTexture( CST_FIRESTATION_3,       "firestation3.png" );
+   readCityTexture( CST_FIRESTATION_4,       "firestation4.png" );
+   readCityTexture( CST_FIRESTATION_5,       "firestation5.png" );
+   readCityTexture( CST_FIRESTATION_6,       "firestation6.png" );
+   readCityTexture( CST_FIRESTATION_7,       "firestation7.png" );
+   readCityTexture( CST_FIRESTATION_8,       "firestation8.png" );
+   readCityTexture( CST_FIRESTATION_9,       "firestation9.png" );
+   readCityTexture( CST_FIRESTATION_10,      "firestation10.png" );
+   readCityTexture( CST_TIP_0,             "tip0.png" );
+   readCityTexture( CST_TIP_1,             "tip1.png" );
+   readCityTexture( CST_TIP_2,             "tip2.png" );
+   readCityTexture( CST_TIP_3,             "tip3.png" );
+   readCityTexture( CST_TIP_4,             "tip4.png" );
+   readCityTexture( CST_TIP_5,             "tip5.png" );
+   readCityTexture( CST_TIP_6,             "tip6.png" );
+   readCityTexture( CST_TIP_7,             "tip7.png" );
+   readCityTexture( CST_TIP_8,             "tip8.png" );
+   readCityTexture( CST_COMMUNE_1,         "commune1.png" );
+   readCityTexture( CST_COMMUNE_2,         "commune2.png" );
+   readCityTexture( CST_COMMUNE_3,         "commune3.png" );
+   readCityTexture( CST_COMMUNE_4,         "commune4.png" );
+   readCityTexture( CST_COMMUNE_5,         "commune5.png" );
+   readCityTexture( CST_COMMUNE_6,         "commune6.png" );
+   readCityTexture( CST_COMMUNE_7,         "commune7.png" );
+   readCityTexture( CST_COMMUNE_8,         "commune8.png" );
+   readCityTexture( CST_COMMUNE_9,         "commune9.png" );
+   readCityTexture( CST_COMMUNE_10,        "commune10.png" );
+   readCityTexture( CST_COMMUNE_11,        "commune11.png" );
+   readCityTexture( CST_COMMUNE_12,        "commune12.png" );
+   readCityTexture( CST_COMMUNE_13,        "commune13.png" );
+   readCityTexture( CST_COMMUNE_14,        "commune14.png" );
+   readCityTexture( CST_INDUSTRY_H_C,      "industryhc.png" );
+   readCityTexture( CST_INDUSTRY_H_L1,      "industryhl1.png" );
+   readCityTexture( CST_INDUSTRY_H_L2,      "industryhl2.png" );
+   readCityTexture( CST_INDUSTRY_H_L3,      "industryhl3.png" );
+   readCityTexture( CST_INDUSTRY_H_L4,      "industryhl4.png" );
+   readCityTexture( CST_INDUSTRY_H_L5,      "industryhl5.png" );
+   readCityTexture( CST_INDUSTRY_H_L6,      "industryhl6.png" );
+   readCityTexture( CST_INDUSTRY_H_L7,      "industryhl7.png" );
+   readCityTexture( CST_INDUSTRY_H_L8,      "industryhl8.png" );
+   readCityTexture( CST_INDUSTRY_H_M1,      "industryhm1.png" );
+   readCityTexture( CST_INDUSTRY_H_M2,      "industryhm2.png" );
+   readCityTexture( CST_INDUSTRY_H_M3,      "industryhm3.png" );
+   readCityTexture( CST_INDUSTRY_H_M4,      "industryhm4.png" );
+   readCityTexture( CST_INDUSTRY_H_M5,      "industryhm5.png" );
+   readCityTexture( CST_INDUSTRY_H_M6,      "industryhm6.png" );
+   readCityTexture( CST_INDUSTRY_H_M7,      "industryhm7.png" );
+   readCityTexture( CST_INDUSTRY_H_M8,      "industryhm8.png" );
+   readCityTexture( CST_INDUSTRY_H_H1,      "industryhh1.png" );
+   readCityTexture( CST_INDUSTRY_H_H2,      "industryhh2.png" );
+   readCityTexture( CST_INDUSTRY_H_H3,      "industryhh3.png" );
+   readCityTexture( CST_INDUSTRY_H_H4,      "industryhh4.png" );
+   readCityTexture( CST_INDUSTRY_H_H5,      "industryhh5.png" );
+   readCityTexture( CST_INDUSTRY_H_H6,      "industryhh6.png" );
+   readCityTexture( CST_INDUSTRY_H_H7,      "industryhh7.png" );
+   readCityTexture( CST_INDUSTRY_H_H8,      "industryhh8.png" );
+   readCityTexture( CST_INDUSTRY_L_C,       "industrylq1.png" );
+   readCityTexture( CST_INDUSTRY_L_Q1,      "industrylq1.png" );
+   readCityTexture( CST_INDUSTRY_L_Q2,      "industrylq2.png" );
+   readCityTexture( CST_INDUSTRY_L_Q3,      "industrylq3.png" );
+   readCityTexture( CST_INDUSTRY_L_Q4,      "industrylq4.png" );
+   readCityTexture( CST_INDUSTRY_L_L1,      "industryll1.png" );
+   readCityTexture( CST_INDUSTRY_L_L2,      "industryll2.png" );
+   readCityTexture( CST_INDUSTRY_L_L3,      "industryll3.png" );
+   readCityTexture( CST_INDUSTRY_L_L4,      "industryll4.png" );
+   readCityTexture( CST_INDUSTRY_L_M1,      "industrylm1.png" );
+   readCityTexture( CST_INDUSTRY_L_M2,      "industrylm2.png" );
+   readCityTexture( CST_INDUSTRY_L_M3,      "industrylm3.png" );
+   readCityTexture( CST_INDUSTRY_L_M4,      "industrylm4.png" );
+   readCityTexture( CST_INDUSTRY_L_H1,      "industrylh1.png" );
+   readCityTexture( CST_INDUSTRY_L_H2,      "industrylh2.png" );
+   readCityTexture( CST_INDUSTRY_L_H3,      "industrylh3.png" );
+   readCityTexture( CST_INDUSTRY_L_H4,      "industrylh4.png" );
+   readCityTexture( CST_FARM_O0,            "farm0.png" );
+   readCityTexture( CST_FARM_O1,            "farm1.png" );
+   readCityTexture( CST_FARM_O2,            "farm2.png" );
+   readCityTexture( CST_FARM_O3,            "farm3.png" );
+   readCityTexture( CST_FARM_O4,            "farm4.png" );
+   readCityTexture( CST_FARM_O5,            "farm5.png" );
+   readCityTexture( CST_FARM_O6,            "farm6.png" );
+   readCityTexture( CST_FARM_O7,            "farm7.png" );
+   readCityTexture( CST_FARM_O8,            "farm8.png" );
+   readCityTexture( CST_FARM_O9,            "farm9.png" );
+   readCityTexture( CST_FARM_O10,           "farm10.png" );
+   readCityTexture( CST_FARM_O11,           "farm11.png" );
+   readCityTexture( CST_FARM_O12,           "farm12.png" );
+   readCityTexture( CST_FARM_O13,           "farm13.png" );
+   readCityTexture( CST_FARM_O14,           "farm14.png" );
+   readCityTexture( CST_FARM_O15,           "farm15.png" );
+   readCityTexture( CST_FARM_O16,           "farm16.png" );
+   // End of generated Code.
 }
 
 /*
@@ -419,13 +497,13 @@ void GameView::event(const Event& event)
     switch(event.type) {
         case Event::MOUSEBUTTONUP:
             if(!event.inside) {
-                printf("notinside.\n");
+                //printf("notinside.\n");
                 break;
             }
-            printf("inside.\n");
+            //printf("inside.\n");
             
-            std::cout << "GameView::event click Button: " << event.mousebutton ;
-            std::cout << "Pos " << event.mousepos.x << "/" << event.mousepos.y << "\n";
+            //std::cout << "GameView::event click Button: " << event.mousebutton ;
+            //std::cout << "Pos " << event.mousepos.x << "/" << event.mousepos.y << "\n";
             if(event.mousebutton==SDL_BUTTON_RIGHT)
                 recenter(event.mousepos);
             else
@@ -575,13 +653,8 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
     int tx = (int) tile.x;
     int ty = (int) tile.y;
     
-    //prepare some pens
-    Color black, white, red, green, blue;
-    black.parse( "black" );
-    white.parse( "white" );
+    Color red;
     red.parse( "red" );
-    green.parse( "green" );
-    blue.parse( "blue" );
 
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
@@ -621,12 +694,13 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
     
-    texture = cityTextures[ MP_TYPE( upperLeftX, upperLeftY ) ];
+    int textureType = MP_TYPE( upperLeftX, upperLeftY );
+    texture = cityTextures[ textureType ];
     
     if( texture )
     {
-        tileOnScreenPoint.x -= ( texture->getWidth() / 2);
-        tileOnScreenPoint.y -= texture->getHeight(); 
+        tileOnScreenPoint.x -= cityTextureX[ textureType ];
+        tileOnScreenPoint.y -= cityTextureY[ textureType ];  
         tilerect.move( tileOnScreenPoint );    
         tilerect.setSize( texture->getWidth(), texture->getHeight() );
         painter.drawTexture( texture, tilerect );

@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <resources>
+  <image file="substation-RG.png" x="128" y="0" />
+  <image file="substation-G.png" x="128" y="0" />
+  <image file="substation-R.png" x="128" y="0" />
   <image file="blacksmitth.png" x="131" y="79" />
   <image file="coalmine.png" x="262" y="147" />
   <image file="coalpower.png" x="193" y="78" />

@@ -27,6 +27,7 @@ private:
     const void drawTile( Painter& painter, Vector2 tile );
     const void loadTextures();
     Texture* readTexture(const std::string& filename);
+    void readCityTexture( int textureType, const std::string& filename );
     void click(const Vector2 &pos);
     void setZoom(const int newzoom);
 
