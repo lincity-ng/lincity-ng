@@ -55,17 +55,21 @@ void mainLoop()
     while(state != QUIT) {
         switch(state) {
             case MAINMENU:
+	      {
                 MainMenu* menu = new MainMenu();
                 nextstate = menu->run();
                 delete menu;
-                break;
-            case INGAME:
-                Game* game = new Game();
-                nextstate = game->run();
-                delete game;
-                break;
-            default:
-                assert(false);
+	      }
+	      break;
+	case INGAME:
+	  {
+	    Game* game = new Game();
+	    nextstate = game->run();
+	    delete game;
+	  }
+	  break;
+	default:
+	  assert(false);
         }
 
         state = nextstate;
