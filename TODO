@@ -5,12 +5,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     - Finance screen
     - New power code
 
-  o Load/save bug with new power code:  The problem is that power 
-    doesn't start up correctly.  All the power plants are running full 
-    speed, but none of the substations have power.  When I bulldoze 
-    and rebuild some power lines, things start up and everything is 
-    back to normal.
-
   o Re-remove c++ style comments.
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
@@ -112,6 +106,9 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
   o Power stations list a "cycle" percentage, which under previous versions 
     cycled around (presumably one quanta of power is released at the end of 
     each cycle?).  However, in the CVS code the listed cycle never changes.
+
+  o It says you have discovered solar power stations when you 
+    (actually) discover substations
 
 
 REQUESTED FEATURES
