@@ -801,7 +801,9 @@ void
 mps_power_line_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Debug");
+  Fgl_write (mps->x, mps->y + 40, "Anim");
+  Fgl_write (mps->x, mps->y + 48, "Grid");
+  Fgl_write (mps->x, mps->y + 56, "Debug");
 }
 
 void
@@ -812,6 +814,10 @@ mps_power_line (int x, int y)
 
   sprintf (s, "%d",MP_INFO(x,y).int_5);
   Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
+  sprintf (s, "%d",MP_INFO(x,y).int_6);
+  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
+  sprintf (s, "%d",MP_INFO(x,y).int_7);
+  Fgl_write (mps->x + 8 * 8, mps->y + 58, s);
 }
 
 void
@@ -961,7 +967,6 @@ mps_substation (int x, int y)
   
   format_power (s, 100, MP_INFO(x,y).int_5);
   Fgl_write (mps->x + 8 * 8, mps->y + 72, s);
-	       
 }
 
 void
