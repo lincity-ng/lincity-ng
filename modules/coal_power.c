@@ -5,18 +5,10 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <lin-city.h>
-#include <lctypes.h>
-#include <lcintl.h>
-#include <lcconfig.h>
-#include <lclib.h>
-#include <engglobs.h>
-#include <cliglobs.h>
-#include <stats.h>
-#include <power.h>
-#include <coal_power.h>
-#include <mps.h>
-#include <transport.h>  /* XXX: This seems to be an anomaly; no other modules
+#include "modules.h"
+#include "../power.h"
+#include "coal_power.h"
+#include "../transport.h"  /* XXX: This seems to be an anomaly; no other modules
 			  use XY_IS_TRANSPORT */
 
 /*** Coal Power ***/

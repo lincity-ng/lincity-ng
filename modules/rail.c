@@ -4,16 +4,10 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
-#include <config.h>
-#include <lcintl.h>
-#include <lin-city.h>
-#include <lctypes.h>
-#include <engglobs.h>
-#include <cliglobs.h>
-#include <stats.h>
-#include <mps.h>
-#include <transport.h>
-#include <rail.h>
+
+#include "modules.h"
+#include "../transport.h"
+#include "rail.h"
 
 /* ---------------------------------------------------------------------
    For track, road and rail:

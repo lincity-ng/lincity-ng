@@ -5,17 +5,8 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <lin-city.h>
-#include <lctypes.h>
-#include <lcintl.h>
-#include <lcconfig.h>
-#include <engglobs.h>
-#include <cliglobs.h>
-#include <mps.h>
-#include <engine.h>
-#include <stats.h>
-#include <tip.h>
-
+#include "modules.h"
+#include "tip.h"
 
 
 void

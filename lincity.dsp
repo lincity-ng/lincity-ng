@@ -92,7 +92,27 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\modules\blacksmith.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\cliglobs.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\coal_power.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\coalmine.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\commune.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\cricket.c
 # End Source File
 # Begin Source File
 
@@ -108,7 +128,23 @@ SOURCE=.\fileutil.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\fire.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\firestation.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\geometry.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\health_centre.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\heavy_industry.c
 # End Source File
 # Begin Source File
 
@@ -132,6 +168,10 @@ SOURCE=.\ldsvguts.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\light_industry.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\lincity.rc
 # End Source File
 # Begin Source File
@@ -148,7 +188,15 @@ SOURCE=.\market.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\mill.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\module_buttons.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\monument.c
 # End Source File
 # Begin Source File
 
@@ -160,6 +208,18 @@ SOURCE=.\mps.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\oremine.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\organic_farm.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\parkland.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\pbar.c
 # End Source File
 # Begin Source File
@@ -168,7 +228,23 @@ SOURCE=.\pixmap.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\port.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\pottery.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\power.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\power_line.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\rail.c
 # End Source File
 # Begin Source File
 
@@ -176,7 +252,31 @@ SOURCE=.\readpng.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\recycle.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\residence.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\road.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\rocket_pad.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\school.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\screen.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\shanty.c
 # End Source File
 # Begin Source File
 
@@ -192,6 +292,10 @@ SOURCE=.\simulate.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\solar_power.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\splash.c
 # End Source File
 # Begin Source File
@@ -200,11 +304,35 @@ SOURCE=.\stats.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\substation.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\timer.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\modules\tip.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\track.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\transport.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\university.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\water.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\modules\windmill.c
 # End Source File
 # Begin Source File
 
@@ -214,6 +342,10 @@ SOURCE=.\winmain.c
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\modules\modules.h
+# End Source File
 # End Group
 # Begin Group "Resource Files"
 

@@ -5,14 +5,8 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <lctypes.h>
-#include <lcintl.h>
-#include <lcconfig.h>
-#include <cliglobs.h>
-#include <engglobs.h>
-#include <stats.h>
-#include <mps.h>
-#include <monument.h>
+#include "modules.h"
+#include "monument.h"
 
 void
 do_monument (int x, int y)

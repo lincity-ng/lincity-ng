@@ -5,13 +5,9 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <lcintl.h>
-#include <lcconfig.h>
-#include <lctypes.h>
-#include <stdlib.h>
-#include <engglobs.h>
-#include <mps.h>
-#include <organic_farm.h>
+#include "modules.h"
+#include "../lcconfig.h"
+#include "organic_farm.h"
 
 
 void

@@ -5,14 +5,8 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <stdlib.h>
-#include <lcintl.h>
-#include <lcconfig.h>
-#include <lctypes.h>
-#include <engglobs.h>
-#include <stats.h>
-#include <mps.h>
-#include <residence.h>
+#include "modules.h"
+#include "residence.h"
 
 void
 do_residence (int x, int y)

@@ -5,15 +5,8 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <stdlib.h>
-#include <lin-city.h>
-#include <lctypes.h>
-#include <engglobs.h>
-#include <cliglobs.h>
-#include <stats.h>
-#include <engine.h>
-#include <mps.h>
-#include <fire.h>
+#include "modules.h"
+#include "fire.h"
 
 void
 do_fire (int x, int y)

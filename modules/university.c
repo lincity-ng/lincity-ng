@@ -5,15 +5,9 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <lin-city.h>
-#include <lctypes.h>
-#include <lcintl.h>
-#include <lcconfig.h>
-#include <engglobs.h>
-#include <cliglobs.h>
-#include <stats.h>
-#include <mps.h>
-#include <university.h>
+#include "modules.h"
+#include "../lcconfig.h"
+#include "university.h"
 
 void
 do_university (int x, int y)

@@ -5,16 +5,9 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <lin-city.h>
-#include <lctypes.h>
-#include <lcintl.h>
-#include <lcconfig.h>
-#include <engglobs.h>
-#include <cliglobs.h>
-#include <stats.h>
-#include <power.h>
-#include <mps.h>
-#include <power_line.h>
+#include "modules.h"
+#include "../power.h"
+#include "power_line.h"
 
 
 /*** Power Lines ***/

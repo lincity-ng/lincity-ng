@@ -46,7 +46,7 @@
 #include <io.h>
 #include <direct.h>
 #include <process.h>
-#include <lcwin32.h>
+#include "lcwin32.h"
 #endif
 
 #if defined (HAVE_DIRENT_H)

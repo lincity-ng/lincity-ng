@@ -11,7 +11,7 @@
 #include "cliglobs.h"
 #include "lchelp.h"
 #include "dialbox.h"
-#include <mps.h>
+#include "mps.h"
 
 /* this is for OS/2 - RVI */
 #ifdef __EMX__
