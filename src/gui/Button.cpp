@@ -12,7 +12,7 @@
 #include "XmlReader.hpp"
 
 Button::Button(Component* parent, XmlReader& reader)
-    : Component(parent), state(STATE_NORMAL)
+    : Component(parent), state(STATE_NORMAL), lowerOnClick(false)
 {
     // parse xml attributes
     XmlReader::AttributeIterator iter(reader);
@@ -34,6 +34,8 @@ Button::Button(Component* parent, XmlReader& reader)
                 msg << "Couldn't parse height '" << value << "'.";
                 throw std::runtime_error(msg.str());
             }
+        } else if(strcmp(attribute, "lower") == 0) {
+           lowerOnClick=true;
         } else if(strcmp(attribute, "direction") == 0) {
             // skip
         } else {
@@ -190,8 +192,15 @@ Button::draw(Painter& painter)
         default:
             assert(false);
     }
+    if(lowerOnClick && state==STATE_CLICKED)
+    {
+       painter.pushTransform();
+       painter.translate(Vector2(1,1));
+    }
     if(comp_caption().enabled)
         drawChild(comp_caption(), painter);
+    if(lowerOnClick && state==STATE_CLICKED)
+        painter.popTransform();
 }
 
 bool

@@ -43,6 +43,8 @@ private:
     { return childs[2]; }
     Child& comp_caption()
     { return childs[3]; }
+    
+    bool lowerOnClick;
 };
 
 #endif
