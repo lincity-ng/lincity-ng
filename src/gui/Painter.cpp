@@ -12,6 +12,11 @@ Painter::Painter(SDL_Surface* _target)
 {
 }
 
+Painter::Painter(Texture* texture)
+    : target(texture->surface)
+{
+}
+
 Painter::~Painter()
 {
 }
