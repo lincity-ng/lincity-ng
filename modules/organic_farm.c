@@ -7,8 +7,10 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
-
+#include <mps.h>
 #include <engglobs.h>
+#include <lcintl.h>
+#include <organic_farm.h>
 
 
 void
@@ -165,3 +167,28 @@ do_organic_farm (int x, int y)
 	}
     }
 }
+
+void
+mps_organic_farm (int x, int y)
+{
+  int i = 0;
+  char * p;
+
+  snprintf(mps_info[i++], MPS_INFO_CHARS, _("Organic Farm"));
+  i++;
+
+  if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
+    p = _("YES");
+  else
+    p = _("NO ");
+
+  snprintf(mps_info[i++], MPS_INFO_CHARS, "%s %s", _("Power"), p);
+
+  snprintf(mps_info[i++], MPS_INFO_CHARS, "%s  %5.1f%%", _("Tech"), 
+	   MP_INFO(x,y).int_1 * 100.0 / MAX_TECH_LEVEL);
+
+  snprintf(mps_info[i++], MPS_INFO_CHARS, "%s  %5.1f%%", _("Prod"),
+	   MP_INFO(x,y).int_4 * 100.0 / 1200.0);
+}
+
+

@@ -9,6 +9,8 @@
 #include <lctypes.h>
 #include <engglobs.h>
 #include <stats.h>
+#include <lcintl.h>
+#include <mps.h>
 #include <residence.h>
 
 void
@@ -264,4 +266,41 @@ do_residence (int x, int y)
     MP_INFO(x,y).population = p;
     MP_INFO(x,y).int_4 = brm;
     MP_INFO(x,y).int_5 = drm;
+}
+
+void
+mps_residence (int x, int y)
+{
+    int i = 0;
+    int l;
+    char * p;
+    snprintf(mps_info[i++], MPS_INFO_CHARS, "%s", _("Residence"));
+
+    i++;
+
+    mps_store_sd(i++,_("People"), MP_INFO(x,y).population);
+
+    p = ((MP_INFO(x,y).flags & FLAG_POWERED) != 0) ? _("YES") : _("NO");
+    mps_store_ss(i++, _("Power"), p);
+
+    p = ((MP_INFO(x,y).flags & FLAG_FED) != 0) ? _("YES") : _("NO");
+    mps_store_ss(i++, _("Fed"), p);
+
+    p = ((MP_INFO(x,y).flags & FLAG_EMPLOYED) != 0) ? _("YES") : _("NO");
+    mps_store_ss(i++, _("Employed"), p);
+
+    p = ((MP_INFO(x,y).flags & FLAG_HEALTH_COVER) != 0) ? _("YES") : _("NO");
+    mps_store_ss(i++, _("Health Cvr"), p);
+
+    p = ((MP_INFO(x,y).flags & FLAG_FIRE_COVER) != 0) ? _("YES") : _("NO");
+    mps_store_ss(i++, _("Fire"), p);
+
+    p = ((MP_INFO(x,y).flags & FLAG_CRICKET_COVER) != 0) ? _("YES") : _("NO");
+    mps_store_ss(i++, _("Cricket"), p);
+
+    mps_store_sd(i++, _("Pollution"), MP_POL(x,y));
+
+    p = (MP_INFO(x,y).int_1 >= 10) ? _("good") : _("poor");
+    mps_store_ss(i++, _("Job"), p);
+
 }
