@@ -77,32 +77,35 @@ PainterSDL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
     SDL_FreeSurface(tmp);
 }
 
-#if 0
-void
-PainterSDL::fillDiamond(Rect2D rect)
+
+void 
+PainterSDL::fillPolygon(int numberPoints, const Vector2* points)
 {
-    Vector2 p1( rect.p1.x + ( rect.getWidth() / 2 ), rect.p1.y );
-    Vector2 p2( rect.p1.x, rect.p1.y + ( rect.getHeight() / 2 ) );
-    Vector2 p3( rect.p1.x + ( rect.getWidth() / 2 ), rect.p2.y );
-    Vector2 p4( rect.p2.x, rect.p1.y + ( rect.getHeight() / 2 ) );
-    Vector2 screenpos = transform.apply(p1);
-    Vector2 screenpos2 = transform.apply(p2);
-    Vector2 screenpos3 = transform.apply(p3);
-    Vector2 screenpos4 = transform.apply(p4);
-    Sint16 vx[ 4 ], vy[ 4 ];
-    vx[ 0 ] = (int) screenpos.x;
-    vx[ 1 ] = (int) screenpos2.x;
-    vx[ 2 ] = (int) screenpos3.x;
-    vx[ 3 ] = (int) screenpos4.x;
-    vy[ 0 ] = (int) screenpos.y;
-    vy[ 1 ] = (int) screenpos2.y;
-    vy[ 2 ] = (int) screenpos3.y;
-    vy[ 3 ] = (int) screenpos4.y;
-    
-    filledPolygonRGBA( target, vx, vy, 4 ,
+    Vector2 screenpos;
+    Sint16 vx[ numberPoints ], vy[ numberPoints ];
+    for(int i = 0; i < numberPoints; i++ ) {
+         screenpos = transform.apply( points[ i ] );
+         vx[ i ] = (int) screenpos.x;
+         vy[ i ] = (int) screenpos.y;
+    }
+    filledPolygonRGBA( target, vx, vy, numberPoints,
             fillColor.r, fillColor.g, fillColor.b, fillColor.a);
 }
-#endif
+
+void
+PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
+{
+    Vector2 screenpos;
+    Sint16 vx[ numberPoints ], vy[ numberPoints ];
+    for(int i = 0; i < numberPoints; i++ ) {
+         screenpos = transform.apply( points[ i ] );
+         vx[ i ] = (int) screenpos.x;
+         vy[ i ] = (int) screenpos.y;
+    }
+    aapolygonRGBA( target, vx, vy, numberPoints,
+            lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+}
+
 
 void
 PainterSDL::fillRectangle(const Rect2D& rect)

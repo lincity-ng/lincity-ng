@@ -41,6 +41,7 @@ PainterGL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
 #endif
         return;
     }
+    glColor4ub( 0xff, 0xff, 0xff, 0xff );
 
     const Rect2D& r = textureGL->rect;
     glBindTexture(GL_TEXTURE_2D, textureGL->handle);
@@ -59,6 +60,7 @@ PainterGL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
 void
 PainterGL::fillRectangle(const Rect2D& rect)
 {
+    glColor4ub(fillColor.r, fillColor.g, fillColor.b, fillColor.a);
     glDisable(GL_TEXTURE_2D);
 
     //printf("Drawrect: %f %f %f %f.\n", rect.p1.x, rect.p1.y, rect.p2.x, rect.p2.y);
@@ -76,6 +78,7 @@ PainterGL::fillRectangle(const Rect2D& rect)
 void
 PainterGL::drawRectangle(const Rect2D& rect)
 {
+    glColor4ub(lineColor.r, lineColor.g, lineColor.b, lineColor.a);
     (void) rect;
     glDisable(GL_TEXTURE_2D);
 
@@ -90,16 +93,47 @@ PainterGL::drawRectangle(const Rect2D& rect)
 }
 
 void
+PainterGL::fillPolygon(int numberPoints, const Vector2* points)
+{
+    glColor4ub(fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+    glDisable(GL_TEXTURE_2D);
+
+    glBegin(GL_POLYGON);
+    for( int i = 0; i < numberPoints; i++ )
+        glVertex2f(points[i].x, points[i].y);
+    glEnd();
+
+    glEnable(GL_TEXTURE_2D);
+}
+
+void
+PainterGL::drawPolygon(int numberPoints, const Vector2* points)
+{
+    glColor4ub(lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+    glDisable(GL_TEXTURE_2D);
+
+    glBegin(GL_LINE_LOOP);
+    for( int i = 0; i < numberPoints; i++ )
+        glVertex2f(points[i].x, points[i].y);
+    glEnd();
+
+    glEnable(GL_TEXTURE_2D);
+}
+
+    
+
+
+
+void
 PainterGL::setFillColor(Color color)
 {
-    glColor4ub(color.r, color.g, color.b, color.a);
+    fillColor = color;
 }
 
 void
 PainterGL::setLineColor(Color color)
 {
-    (void) color;
-    // TODO
+    lineColor = color;
 }
 
 void
@@ -125,9 +159,14 @@ PainterGL::popTransform()
 void
 PainterGL::setClipRectangle(const Rect2D& rect)
 {
-    //TODO
-   // glClipPlane( GL_CLIP_PLANE0,  );
-   // glEnable( GL_CLIP_PLANE0 );
+    //TODO: make this work
+    GLdouble equation[4];
+    equation[0] = rect.p1.x;
+    equation[1] = rect.p1.y;
+    equation[2] = rect.p2.x;
+    equation[3] = rect.p2.y;
+    glClipPlane( GL_CLIP_PLANE0, equation );
+    glEnable( GL_CLIP_PLANE0 );
 }
 
 void

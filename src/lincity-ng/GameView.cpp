@@ -715,30 +715,16 @@ const Vector2 GameView::getTile(const Vector2& p)
  */
 const void GameView::fillDiamond( Painter& painter, const Rect2D rect )
 {
-    painter.fillRectangle( rect );    
-    /*
-     * TODO: filledPolygon in Painter
-     *
-    Vector2 p1( rect.p1.x + ( rect.getWidth() / 2 ), rect.p1.y );
-    Vector2 p2( rect.p1.x, rect.p1.y + ( rect.getHeight() / 2 ) );
-    Vector2 p3( rect.p1.x + ( rect.getWidth() / 2 ), rect.p2.y );
-    Vector2 p4( rect.p2.x, rect.p1.y + ( rect.getHeight() / 2 ) );
-    Vector2 screenpos = transform.apply(p1);
-    Vector2 screenpos2 = transform.apply(p2);
-    Vector2 screenpos3 = transform.apply(p3);
-    Vector2 screenpos4 = transform.apply(p4);
-    Sint16 vx[ 4 ], vy[ 4 ];
-    vx[ 0 ] = (int) screenpos.x;
-    vx[ 1 ] = (int) screenpos2.x;
-    vx[ 2 ] = (int) screenpos3.x;
-    vx[ 3 ] = (int) screenpos4.x;
-    vy[ 0 ] = (int) screenpos.y;
-    vy[ 1 ] = (int) screenpos2.y;
-    vy[ 2 ] = (int) screenpos3.y;
-    vy[ 3 ] = (int) screenpos4.y;
-    
-    painter.filledPolygon( target, vx, vy, 4 ); 
-    */
+    Vector2 points[ 4 ];
+    points[ 0 ].x = rect.p1.x + ( rect.getWidth() / 2 );
+    points[ 0 ].y = rect.p1.y;
+    points[ 1 ].x = rect.p1.x;
+    points[ 1 ].y = rect.p1.y + ( rect.getHeight() / 2 );
+    points[ 2 ].x = rect.p1.x + ( rect.getWidth() / 2 );
+    points[ 2 ].y = rect.p2.y;
+    points[ 3 ].x = rect.p2.x;
+    points[ 3 ].y = rect.p1.y + ( rect.getHeight() / 2 );
+    painter.fillPolygon( 4, points );    
 }
 
 /*
@@ -751,10 +737,6 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
     
     Color red;
     red.parse( "red" );
-    Color white;
-    white.parse( "white" );  //in GL-Version, the FillColor is applied to Textures, too
-     //   Color alphablue( 0, 0, 255, 128 );
-    painter.setFillColor( white );
 
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );

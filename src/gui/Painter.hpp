@@ -19,7 +19,8 @@ public:
     virtual void drawStretchTexture(const Texture* texture, const Rect2D& rect) = 0;
     virtual void fillRectangle(const Rect2D& rect) = 0;
     virtual void drawRectangle(const Rect2D& rect) = 0;
-    //virtual void fillDiamond(Rect2D rect) = 0;
+    virtual void fillPolygon(int numberPoints, const Vector2* points) = 0;
+    virtual void drawPolygon(int numberPoints, const Vector2* points) = 0;
 
     virtual void pushTransform() = 0;
     virtual void popTransform() = 0;
