@@ -21,7 +21,7 @@
 #include "lcintl.h"
 #include "stats.h"
 #include "mouse.h"
-#include "modules.h"
+#include "modules/modules.h"
 #include "lclib.h"
 
 char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];

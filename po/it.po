@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lincity 1.12pre52\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-26 21:35-0600\n"
+"POT-Creation-Date: 2004-07-31 20:46-0600\n"
 "PO-Revision-Date: 2003-03-26 00:39-0500\n"
 "Last-Translator: kkk <kkk@kkk>\n"
 "Language-Team: it_IT <kkk@kkk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: cliglobs.c:56
 msgid "Jan"
@@ -62,171 +62,171 @@ msgstr "Nov"
 msgid "Dec"
 msgstr "Dic"
 
-#: engine.c:144
+#: engine.c:145
 msgid "You can't build a tip here"
 msgstr ""
 
-#: engine.c:145 engine.c:176
+#: engine.c:146 engine.c:177
 msgid "This area was once a landfill"
 msgstr ""
 
-#: engine.c:146 engine.c:177 engine.c:184 screen.c:2286 screen.c:2290
-#: screen.c:2360 screen.c:2364
+#: engine.c:147 engine.c:178 engine.c:185 screen.c:2280 screen.c:2284
+#: screen.c:2354 screen.c:2358
 msgid "OK"
 msgstr ""
 
-#: engine.c:175 engine.c:182
+#: engine.c:176 engine.c:183
 msgid "You can't build a mine here"
 msgstr ""
 
-#: engine.c:183
+#: engine.c:184
 #, fuzzy
 msgid "There is no ore left at this site"
 msgstr "Nessuno scenario salvato con questo numero."
 
-#: engine.c:669
+#: engine.c:670
 msgid "It's at a power line."
 msgstr ""
 
-#: engine.c:671
+#: engine.c:672
 msgid "It's at a solar power station."
 msgstr ""
 
-#: engine.c:673
+#: engine.c:674
 msgid "It's at a substation."
 msgstr ""
 
-#: engine.c:675
+#: engine.c:676
 msgid "It's at a residential area."
 msgstr ""
 
-#: engine.c:677
+#: engine.c:678
 msgid "It's at a farm."
 msgstr ""
 
-#: engine.c:679
+#: engine.c:680
 msgid "It's at a market."
 msgstr ""
 
-#: engine.c:681
+#: engine.c:682
 msgid "It's at a track."
 msgstr ""
 
-#: engine.c:683
+#: engine.c:684
 msgid "It's at a coal mine."
 msgstr ""
 
-#: engine.c:685
+#: engine.c:686
 msgid "It's at a railway."
 msgstr ""
 
-#: engine.c:687
+#: engine.c:688
 msgid "It's at a coal power station."
 msgstr ""
 
-#: engine.c:689
+#: engine.c:690
 msgid "It's at a road."
 msgstr ""
 
-#: engine.c:691
+#: engine.c:692
 msgid "It's at light industry."
 msgstr ""
 
-#: engine.c:693
+#: engine.c:694
 msgid "It's at a university."
 msgstr ""
 
-#: engine.c:695
+#: engine.c:696
 msgid "It's at a commune."
 msgstr ""
 
-#: engine.c:697
+#: engine.c:698
 msgid "It's at a tip."
 msgstr ""
 
-#: engine.c:699
+#: engine.c:700
 msgid "It's at a port."
 msgstr ""
 
-#: engine.c:701
+#: engine.c:702
 msgid "It's at a steel works."
 msgstr ""
 
-#: engine.c:703
+#: engine.c:704
 msgid "It's at a recycle centre."
 msgstr ""
 
-#: engine.c:705
+#: engine.c:706
 msgid "It's at a health centre."
 msgstr ""
 
-#: engine.c:707
+#: engine.c:708
 msgid "It's at a rocket site."
 msgstr ""
 
-#: engine.c:709
+#: engine.c:710
 msgid "It's at a windmill."
 msgstr ""
 
-#: engine.c:711
+#: engine.c:712
 msgid "It's at a school."
 msgstr ""
 
-#: engine.c:713
+#: engine.c:714
 msgid "It's at a blacksmith."
 msgstr ""
 
-#: engine.c:715
+#: engine.c:716
 msgid "It's at a mill."
 msgstr ""
 
-#: engine.c:717
+#: engine.c:718
 msgid "It's at a pottery."
 msgstr ""
 
-#: engine.c:719
+#: engine.c:720
 msgid "It's at a fire station!!!."
 msgstr ""
 
-#: engine.c:721
+#: engine.c:722
 msgid "It's at a cricket pitch!!!."
 msgstr ""
 
-#: engine.c:723
+#: engine.c:724
 msgid "It's at a shanty town."
 msgstr ""
 
-#: engine.c:725
+#: engine.c:726
 msgid "UNKNOWN!"
 msgstr ""
 
-#: fileutil.c:295 fileutil.c:345
+#: fileutil.c:299 fileutil.c:349
 msgid "Error. Can't find LINCITY_HOME"
 msgstr ""
 
-#: fileutil.c:567
+#: fileutil.c:570
 msgid "Error verifying package. Can't find colour.pal."
 msgstr ""
 
-#: fileutil.c:586 fileutil.c:595
+#: fileutil.c:589 fileutil.c:598
 #, fuzzy, c-format
 msgid "Couldn't create the save directory %s\n"
 msgstr "Non sono riuscito a trovare la directory per il salvataggio %s\n"
 
-#: fileutil.c:641
+#: fileutil.c:644
 #, c-format
 msgid "Out of memory: malloc failure\n"
 msgstr ""
 
-#: geometry.c:535
+#: geometry.c:536
 msgid "Menu"
 msgstr ""
 
-#: geometry.c:560
+#: geometry.c:561
 msgid "Help"
 msgstr ""
 
-#: geometry.c:585
+#: geometry.c:586
 msgid "Stats"
 msgstr ""
 
@@ -242,12 +242,12 @@ msgstr ""
 msgid "tbutton 370 387 return-2 OUT"
 msgstr ""
 
-#: lcsvga.c:243 lcx11.c:455
+#: lcsvga.c:243 lcx11.c:453
 #, c-format
 msgid "An error has occurred.  The description is below...\n"
 msgstr ""
 
-#: lcsvga.c:247 lcx11.c:459
+#: lcsvga.c:247 lcx11.c:457
 #, c-format
 msgid "Program aborting...\n"
 msgstr ""
@@ -256,12 +256,12 @@ msgstr ""
 msgid "ERROR"
 msgstr ""
 
-#: lcx11.c:312
+#: lcx11.c:310
 #, fuzzy, c-format
 msgid "Version %s\n"
 msgstr "Versione=%d\n"
 
-#: lcx11.c:397
+#: lcx11.c:395
 #, c-format
 msgid "xlincity, Version %s, (Copyright) IJ Peters - copying policy GNU GPL"
 msgstr ""
@@ -404,169 +404,169 @@ msgstr "Non posso aprirlo!"
 msgid "Loading scene"
 msgstr "Caricamento Scenario in corso"
 
-#: lintypes.c:21
+#: lintypes.c:22
 msgid "Empty"
 msgstr ""
 
-#: lintypes.c:33
+#: lintypes.c:34
 msgid "Power line"
 msgstr ""
 
-#: lintypes.c:45
+#: lintypes.c:46
 msgid "Solar PS"
 msgstr ""
 
-#: lintypes.c:57 modules/substation.c:95
+#: lintypes.c:58 modules/substation.c:98
 #, fuzzy
 msgid "Substation"
 msgstr "Substazione[%d]=%d\n"
 
-#: lintypes.c:69
+#: lintypes.c:70
 msgid "Residential LL"
 msgstr ""
 
-#: lintypes.c:81
+#: lintypes.c:82
 msgid "Farm"
 msgstr ""
 
-#: lintypes.c:93 screen.c:2126
+#: lintypes.c:94 screen.c:2120
 msgid "Market"
 msgstr "Mercato"
 
-#: lintypes.c:105 modules/track.c:44
+#: lintypes.c:106 modules/track.c:44
 msgid "Track"
 msgstr ""
 
-#: lintypes.c:117
+#: lintypes.c:118
 msgid "Coalmine"
 msgstr ""
 
-#: lintypes.c:129
+#: lintypes.c:130
 msgid "Railway"
 msgstr ""
 
-#: lintypes.c:141
+#: lintypes.c:142
 msgid "Coal PS"
 msgstr ""
 
-#: lintypes.c:153 modules/road.c:52
+#: lintypes.c:154 modules/road.c:53
 msgid "Road"
 msgstr ""
 
-#: lintypes.c:165
+#: lintypes.c:166
 msgid "Lt. Industry"
 msgstr ""
 
-#: lintypes.c:177 modules/university.c:72
+#: lintypes.c:178 modules/university.c:73
 msgid "University"
 msgstr ""
 
-#: lintypes.c:189 modules/commune.c:149
+#: lintypes.c:190 modules/commune.c:151
 msgid "Commune"
 msgstr ""
 
-#: lintypes.c:201
+#: lintypes.c:202
 msgid "Ore mine"
 msgstr ""
 
-#: lintypes.c:213
+#: lintypes.c:214
 msgid "Rubbish tip"
 msgstr ""
 
-#: lintypes.c:225 screen.c:2128 modules/port.c:209
+#: lintypes.c:226 screen.c:2122 modules/port.c:210
 msgid "Port"
 msgstr "Porto"
 
-#: lintypes.c:237
+#: lintypes.c:238
 msgid "Hv. Industry"
 msgstr ""
 
-#: lintypes.c:249
+#: lintypes.c:250
 #, fuzzy
 msgid "Park"
 msgstr "Mercato"
 
-#: lintypes.c:261 mps.c:529
+#: lintypes.c:262 mps.c:542
 msgid "Recycle"
 msgstr ""
 
-#: lintypes.c:273 modules/water.c:26
+#: lintypes.c:274 modules/water.c:26
 msgid "Water"
 msgstr ""
 
-#: lintypes.c:285
+#: lintypes.c:286
 msgid "Health centre"
 msgstr ""
 
-#: lintypes.c:297
+#: lintypes.c:298
 msgid "Rocket pad"
 msgstr ""
 
-#: lintypes.c:309 mps.c:519 modules/windmill.c:83
+#: lintypes.c:310 mps.c:532 modules/windmill.c:83
 msgid "Windmill"
 msgstr ""
 
-#: lintypes.c:321 modules/monument.c:63
+#: lintypes.c:322 modules/monument.c:63
 msgid "Monument"
 msgstr ""
 
-#: lintypes.c:333 modules/school.c:56
+#: lintypes.c:334 modules/school.c:56
 msgid "School"
 msgstr ""
 
-#: lintypes.c:345 modules/blacksmith.c:103
+#: lintypes.c:346 modules/blacksmith.c:103
 msgid "Blacksmith"
 msgstr ""
 
-#: lintypes.c:357
+#: lintypes.c:358
 msgid "Mill"
 msgstr ""
 
-#: lintypes.c:369 modules/pottery.c:125
+#: lintypes.c:370 modules/pottery.c:126
 msgid "Pottery"
 msgstr ""
 
-#: lintypes.c:381
+#: lintypes.c:382
 msgid "Fire sta'n"
 msgstr ""
 
-#: lintypes.c:393
+#: lintypes.c:394
 msgid "Cricket pitch"
 msgstr ""
 
-#: lintypes.c:406
+#: lintypes.c:407
 msgid "Burnt"
 msgstr ""
 
-#: lintypes.c:419
+#: lintypes.c:420
 msgid "Shanty town"
 msgstr ""
 
-#: lintypes.c:432 mps.c:400 modules/residence.c:296
+#: lintypes.c:433 mps.c:413 modules/residence.c:297
 msgid "Fire"
 msgstr ""
 
-#: lintypes.c:445
+#: lintypes.c:446
 msgid "Used"
 msgstr ""
 
-#: lintypes.c:457
+#: lintypes.c:458
 msgid "Residential ML"
 msgstr ""
 
-#: lintypes.c:469
+#: lintypes.c:470
 msgid "Residential HL"
 msgstr ""
 
-#: lintypes.c:481 lintypes.c:493 lintypes.c:505
+#: lintypes.c:482 lintypes.c:494 lintypes.c:506
 msgid "Residential"
 msgstr ""
 
-#: main.c:260
+#: main.c:262
 msgid "Loading the game"
 msgstr "Caricamento gioco in corso"
 
-#: main.c:270
+#: main.c:272
 msgid "Creating pixmaps"
 msgstr "Creazione pixmaps"
 
@@ -725,540 +725,540 @@ msgstr ""
 #. TRANSLATORS: The part about the cup of tea is one of Ian's
 #. jokes, but the part about ports needing to be connected
 #. to rivers is true.
-#: mouse.c:597 mouse.c:776 mouse.c:784 mouse.c:792
+#: mouse.c:587 mouse.c:766 mouse.c:774 mouse.c:782
 msgid "WARNING"
 msgstr ""
 
-#: mouse.c:598
+#: mouse.c:588
 msgid "Ports need to be"
 msgstr ""
 
-#: mouse.c:599
+#: mouse.c:589
 msgid "connected to rivers!"
 msgstr ""
 
-#: mouse.c:600
+#: mouse.c:590
 msgid "Want to make a cup of tea?"
 msgstr ""
 
-#: mouse.c:601
+#: mouse.c:591
 msgid "TEA BREAK"
 msgstr ""
 
-#: mouse.c:602
+#: mouse.c:592
 msgid "Boil->pour->wait->stir"
 msgstr ""
 
-#: mouse.c:603
+#: mouse.c:593
 msgid "stir->pour->stir->wait->drink...ahhh"
 msgstr ""
 
-#: mouse.c:604
+#: mouse.c:594
 msgid "Have you finished yet?"
 msgstr ""
 
-#: mouse.c:777
+#: mouse.c:767
 msgid "Bulldozing a monument costs"
 msgstr ""
 
-#: mouse.c:778
+#: mouse.c:768
 msgid "a lot of money."
 msgstr ""
 
-#: mouse.c:779 mouse.c:787 mouse.c:795
+#: mouse.c:769 mouse.c:777 mouse.c:785
 msgid "Want to bulldoze?"
 msgstr ""
 
-#: mouse.c:785
+#: mouse.c:775
 msgid "Bulldozing a section of river"
 msgstr ""
 
-#: mouse.c:786
+#: mouse.c:776
 msgid "costs a lot of money."
 msgstr ""
 
-#: mouse.c:793
+#: mouse.c:783
 msgid "Bulldozing a shanty town costs a"
 msgstr ""
 
-#: mouse.c:794
+#: mouse.c:784
 msgid "lot of money and may cause a fire."
 msgstr ""
 
 #. TRANSLATORS: Don't translate the leading "text"
-#: mouse.c:998
+#: mouse.c:984
 #, fuzzy, c-format
 msgid "text -1 20 Choose the type of residence you want\n"
 msgstr "Scegli il numero dello scenario desiderato"
 
-#: mouse.c:1002
+#: mouse.c:988
 #, c-format
 msgid "text -1 45 (LB=Low Birthrate HB=High Birthrate)\n"
 msgstr ""
 
-#: mouse.c:1004
+#: mouse.c:990
 #, c-format
 msgid "text -1 55 (LD=Low Deathrate HD=High Deathrate)\n"
 msgstr ""
 
-#: mouse.c:1006
+#: mouse.c:992
 #, c-format
 msgid "text -1 85 Low Tech\n"
 msgstr ""
 
-#: mouse.c:1009
+#: mouse.c:995
 #, c-format
 msgid "text 68 106 Cost %4d\n"
 msgstr ""
 
 #. TRANSLATORS: Only translate "pop" <<for population>>
-#: mouse.c:1013
+#: mouse.c:999
 #, c-format
 msgid "tbutton 82 180 return1 pop 50\n"
 msgstr ""
 
 #. TRANSLATORS: Only translate LB, HD (low birth, high death)
-#: mouse.c:1015
+#: mouse.c:1001
 #, c-format
 msgid "text 89 195 LB HD\n"
 msgstr ""
 
-#: mouse.c:1018
+#: mouse.c:1004
 #, c-format
 msgid "text 155 106 Cost %4d\n"
 msgstr ""
 
-#: mouse.c:1021
+#: mouse.c:1007
 #, c-format
 msgid "tbutton 164 180 return2 pop 100\n"
 msgstr ""
 
-#: mouse.c:1022
+#: mouse.c:1008
 #, c-format
 msgid "text 175 195 HB LD\n"
 msgstr ""
 
-#: mouse.c:1025
+#: mouse.c:1011
 #, c-format
 msgid "text 238 106 Cost %4d\n"
 msgstr ""
 
-#: mouse.c:1028
+#: mouse.c:1014
 #, c-format
 msgid "tbutton 250 180 return3 pop 200\n"
 msgstr ""
 
-#: mouse.c:1029
+#: mouse.c:1015
 #, c-format
 msgid "text 261 195 HB HD\n"
 msgstr ""
 
-#: mouse.c:1031
+#: mouse.c:1017
 #, c-format
 msgid "text -1 215 Click on one to select\n"
 msgstr ""
 
-#: mouse.c:1035
+#: mouse.c:1021
 #, c-format
 msgid "text -1 255 High Tech\n"
 msgstr ""
 
-#: mouse.c:1038
+#: mouse.c:1024
 #, c-format
 msgid "text 68 276 Cost %4d\n"
 msgstr ""
 
-#: mouse.c:1041
+#: mouse.c:1027
 #, c-format
 msgid "tbutton 78 350 return4 pop 100\n"
 msgstr ""
 
-#: mouse.c:1042
+#: mouse.c:1028
 #, c-format
 msgid "text 89 365 LB HD\n"
 msgstr ""
 
-#: mouse.c:1045
+#: mouse.c:1031
 #, c-format
 msgid "text 155 276 Cost %4d\n"
 msgstr ""
 
-#: mouse.c:1048
+#: mouse.c:1034
 #, c-format
 msgid "tbutton 164 350 return5 pop 200\n"
 msgstr ""
 
-#: mouse.c:1049
+#: mouse.c:1035
 #, c-format
 msgid "text 175 365 HB LD\n"
 msgstr ""
 
-#: mouse.c:1052
+#: mouse.c:1038
 #, c-format
 msgid "text 238 276 Cost %4d\n"
 msgstr ""
 
-#: mouse.c:1055
+#: mouse.c:1041
 #, c-format
 msgid "tbutton 250 350 return6 pop 400\n"
 msgstr ""
 
-#: mouse.c:1056
+#: mouse.c:1042
 #, c-format
 msgid "text 261 365 HB HD\n"
 msgstr ""
 
-#: mouse.c:1284
+#: mouse.c:1270
 #, c-format
 msgid "Can't build %s over that!"
 msgstr ""
 
-#: mouse.c:1287
+#: mouse.c:1273
 #, c-format
 msgid "%d sections of %s will cost %3d to build"
 msgstr ""
 
-#: mps.c:398
+#: mps.c:411
 msgid "Coverage"
 msgstr ""
 
-#: mps.c:399 mps.c:402 mps.c:405 screen.c:2228 modules/commune.c:154
-#: modules/commune.c:156 modules/commune.c:158 modules/commune.c:160
+#: mps.c:412 mps.c:415 mps.c:418 screen.c:2222 modules/commune.c:156
+#: modules/commune.c:158 modules/commune.c:160 modules/commune.c:162
 #: modules/water.c:29
 msgid "Yes"
 msgstr ""
 
-#: mps.c:399 mps.c:402 mps.c:405 screen.c:2229 modules/commune.c:154
-#: modules/commune.c:156 modules/commune.c:158 modules/commune.c:160
+#: mps.c:412 mps.c:415 mps.c:418 screen.c:2223 modules/commune.c:156
+#: modules/commune.c:158 modules/commune.c:160 modules/commune.c:162
 #: modules/water.c:29
 #, fuzzy
 msgid "No"
 msgstr "Nov"
 
-#: mps.c:403
+#: mps.c:416
 msgid "Health"
 msgstr ""
 
-#: mps.c:406 mps.c:527 modules/residence.c:299
+#: mps.c:419 mps.c:540 modules/residence.c:300
 #, fuzzy
 msgid "Cricket"
 msgstr "Mercato"
 
-#: mps.c:408 modules/residence.c:301
+#: mps.c:421 modules/residence.c:302
 msgid "Pollution"
 msgstr ""
 
-#: mps.c:411
+#: mps.c:424
 msgid "clear"
 msgstr ""
 
-#: mps.c:413 modules/residence.c:303
+#: mps.c:426 modules/residence.c:304
 msgid "good"
 msgstr ""
 
-#: mps.c:415
+#: mps.c:428
 msgid "fair"
 msgstr ""
 
-#: mps.c:417
+#: mps.c:430
 #, fuzzy
 msgid "smelly"
 msgstr "Vendi"
 
-#: mps.c:419
+#: mps.c:432
 msgid "smokey"
 msgstr ""
 
-#: mps.c:421
+#: mps.c:434
 msgid "smoggy"
 msgstr ""
 
-#: mps.c:423
+#: mps.c:436
 msgid "bad"
 msgstr ""
 
-#: mps.c:425
+#: mps.c:438
 msgid "very bad"
 msgstr ""
 
-#: mps.c:427
+#: mps.c:440
 msgid "death!"
 msgstr ""
 
-#: mps.c:432
+#: mps.c:445
 msgid "Bulldoze Cost"
 msgstr ""
 
-#: mps.c:435
+#: mps.c:448
 msgid "N/A"
 msgstr ""
 
-#: mps.c:451
+#: mps.c:464
 msgid "Tax Income"
 msgstr ""
 
-#: mps.c:455
+#: mps.c:468
 msgid "Income"
 msgstr ""
 
-#: mps.c:459 modules/blacksmith.c:111 modules/coal_power.c:95
-#: modules/coal_power.c:109 modules/commune.c:155 modules/heavy_industry.c:335
-#: modules/heavy_industry.c:350 modules/mill.c:119 modules/port.c:218
-#: modules/pottery.c:136 modules/rail.c:63 modules/road.c:59
+#: mps.c:472 modules/blacksmith.c:111 modules/coal_power.c:97
+#: modules/coal_power.c:111 modules/commune.c:157 modules/heavy_industry.c:336
+#: modules/heavy_industry.c:351 modules/mill.c:119 modules/port.c:219
+#: modules/pottery.c:137 modules/rail.c:63 modules/road.c:60
 #: modules/track.c:51
 msgid "Coal"
 msgstr ""
 
-#: mps.c:463 modules/blacksmith.c:109 modules/cricket.c:112
+#: mps.c:476 modules/blacksmith.c:109 modules/cricket.c:112
 #: modules/firestation.c:131 modules/health_centre.c:78 modules/mill.c:115
-#: modules/port.c:226 modules/pottery.c:132 modules/rail.c:65
-#: modules/road.c:61 modules/rocket_pad.c:175 modules/school.c:64
-#: modules/track.c:53 modules/university.c:82
+#: modules/port.c:227 modules/pottery.c:133 modules/rail.c:65
+#: modules/road.c:62 modules/rocket_pad.c:178 modules/school.c:64
+#: modules/track.c:53 modules/university.c:83
 msgid "Goods"
 msgstr ""
 
-#: mps.c:467
+#: mps.c:480
 #, fuzzy
 msgid "Export"
 msgstr "Porto"
 
-#: mps.c:471
+#: mps.c:484
 msgid "Expenses"
 msgstr ""
 
-#: mps.c:475
+#: mps.c:488
 msgid "Unemp."
 msgstr ""
 
-#: mps.c:479
+#: mps.c:492
 msgid "Transport"
 msgstr ""
 
-#: mps.c:483
+#: mps.c:496
 msgid "Imports"
 msgstr ""
 
-#: mps.c:487
+#: mps.c:500
 msgid "Others"
 msgstr ""
 
-#: mps.c:492
+#: mps.c:505
 msgid "Net"
 msgstr ""
 
-#: mps.c:502
+#: mps.c:515
 msgid "Other Costs"
 msgstr ""
 
-#: mps.c:507
+#: mps.c:520
 msgid "For year"
 msgstr ""
 
-#: mps.c:511
+#: mps.c:524
 msgid "Interest"
 msgstr ""
 
-#: mps.c:513
+#: mps.c:526
 msgid "Schools"
 msgstr ""
 
-#: mps.c:515
+#: mps.c:528
 msgid "Univers."
 msgstr ""
 
-#: mps.c:517
+#: mps.c:530
 msgid "Deaths"
 msgstr ""
 
-#: mps.c:521
+#: mps.c:534
 msgid "Hospital"
 msgstr ""
 
-#: mps.c:523
+#: mps.c:536
 msgid "Rockets"
 msgstr ""
 
-#: mps.c:525
+#: mps.c:538
 msgid "Fire Stn"
 msgstr ""
 
-#: mps.c:539
+#: mps.c:552
 #, fuzzy
 msgid "Population"
 msgstr "tpopolazione=%d\n"
 
-#: mps.c:541 modules/port.c:234
+#: mps.c:554 modules/port.c:235
 msgid "Total"
 msgstr ""
 
-#: mps.c:542
+#: mps.c:555
 msgid "Housed"
 msgstr ""
 
-#: mps.c:543
+#: mps.c:556
 msgid "Homeless"
 msgstr ""
 
-#: mps.c:544
+#: mps.c:557
 msgid "Shanties"
 msgstr ""
 
-#: mps.c:545
+#: mps.c:558
 msgid "Unn Dths"
 msgstr ""
 
-#: mps.c:546 screen.c:1240
+#: mps.c:559 screen.c:1234
 msgid "Unemployment"
 msgstr ""
 
-#: mps.c:547
+#: mps.c:560
 msgid "Claims"
 msgstr ""
 
-#: mps.c:548 mps.c:553
+#: mps.c:561 mps.c:566
 msgid "Rate"
 msgstr ""
 
-#: mps.c:550
+#: mps.c:563
 #, fuzzy
 msgid "Starvation"
 msgstr "Substazione[%d]=%d\n"
 
-#: mps.c:551
+#: mps.c:564
 msgid "Cases"
 msgstr ""
 
-#: mps.c:564
+#: mps.c:577
 msgid "PEOPLE"
 msgstr ""
 
-#: mps.c:565
+#: mps.c:578
 msgid "Pop"
 msgstr ""
 
-#: mps.c:566
+#: mps.c:579
 msgid "Unnat death"
 msgstr ""
 
-#: screen.c:863
+#: screen.c:857
 msgid "Coal survey"
 msgstr ""
 
-#: screen.c:864
+#: screen.c:858
 msgid "This will cost you 1 million"
 msgstr ""
 
-#: screen.c:865
+#: screen.c:859
 msgid "After that it's is free to call again"
 msgstr ""
 
-#: screen.c:866
+#: screen.c:860
 msgid "Do coal survey?"
 msgstr ""
 
-#: screen.c:1045
+#: screen.c:1039
 msgid "Land Use    "
 msgstr ""
 
-#: screen.c:1100
+#: screen.c:1094
 msgid "Pollution   "
 msgstr ""
 
-#: screen.c:1132
+#: screen.c:1126
 msgid "Fire cover  "
 msgstr ""
 
-#: screen.c:1168
+#: screen.c:1162
 msgid "Crickt cover"
 msgstr ""
 
-#: screen.c:1204
+#: screen.c:1198
 msgid "Health cover"
 msgstr ""
 
-#: screen.c:1269
+#: screen.c:1263
 msgid "Starvation  "
 msgstr ""
 
-#: screen.c:1299
+#: screen.c:1293
 msgid "Coal Reserve"
 msgstr ""
 
-#: screen.c:1317
+#: screen.c:1311
 msgid "Click here"
 msgstr ""
 
-#: screen.c:1318
+#: screen.c:1312
 msgid "   to do  "
 msgstr ""
 
-#: screen.c:1319
+#: screen.c:1313
 #, fuzzy
 msgid "coal survey"
 msgstr "ricerca_carbone_effettuata=%d\n"
 
-#: screen.c:1360
+#: screen.c:1354
 msgid "Power       "
 msgstr ""
 
-#: screen.c:1362
+#: screen.c:1356
 msgid "Power (none)"
 msgstr ""
 
-#: screen.c:1802
+#: screen.c:1796
 #, c-format
 msgid "Money: "
 msgstr ""
 
-#: screen.c:1824
+#: screen.c:1818
 #, c-format
 msgid "Date %s %04d "
 msgstr ""
 
-#: screen.c:1856
+#: screen.c:1850
 #, c-format
 msgid "%s%5.1f MINS/year  V %s"
 msgstr ""
 
-#: screen.c:1857 screen.c:1861
+#: screen.c:1851 screen.c:1855
 #, fuzzy
 msgid "TEST MODE"
 msgstr "TEST"
 
-#: screen.c:1860
+#: screen.c:1854
 #, c-format
 msgid "%s%5.1f secs/year  V %s "
 msgstr ""
 
-#: screen.c:2135
+#: screen.c:2129
 msgid "Buy"
 msgstr "Compra"
 
-#: screen.c:2136
+#: screen.c:2130
 msgid "Sell"
 msgstr "Vendi"
 
-#: screen.c:2138
+#: screen.c:2132
 msgid "JOBS"
 msgstr "LAVORI"
 
-#: screen.c:2140
+#: screen.c:2134
 msgid "FOOD"
 msgstr "CIBO"
 
-#: screen.c:2141
+#: screen.c:2135
 msgid "COAL"
 msgstr "CARBONE"
 
-#: screen.c:2142
+#: screen.c:2136
 msgid "ORE"
 msgstr "MINERALI"
 
-#: screen.c:2143
+#: screen.c:2137
 msgid "GOODS"
 msgstr "BENI"
 
-#: screen.c:2144
+#: screen.c:2138
 msgid "STEEL"
 msgstr "ACCIAIO"
 
@@ -1267,101 +1267,102 @@ msgstr "ACCIAIO"
 #. MNY=Money, POP=Population, TEC=Technology,
 #. FIR=Fire coverage
 #.
-#: screen.c:2466
+#: screen.c:2460
 msgid "MIN"
 msgstr ""
 
-#: screen.c:2469
+#: screen.c:2463
 msgid "PRT"
 msgstr ""
 
-#: screen.c:2472
+#: screen.c:2466
 msgid "MNY"
 msgstr ""
 
-#: screen.c:2475
+#: screen.c:2469
 msgid "POP"
 msgstr ""
 
-#: screen.c:2478
+#: screen.c:2472
 msgid "TEC"
 msgstr ""
 
-#: screen.c:2481
+#: screen.c:2475
 msgid "FIR"
 msgstr ""
 
-#: screen.c:2594
+#: screen.c:2588
 msgid "ROCKET LAUNCH"
 msgstr ""
 
-#: screen.c:2595
+#: screen.c:2589
 msgid "You can launch the rocket now or wait until later."
 msgstr ""
 
-#: screen.c:2596
+#: screen.c:2590
 msgid "If you wait, it costs you *only* money to keep the"
 msgstr ""
 
-#: screen.c:2597
+#: screen.c:2591
 msgid "rocket ready.    Launch?"
 msgstr ""
 
-#: screen.c:2603
+#: screen.c:2597
 msgid "Rocket ready to launch"
 msgstr ""
 
-#: screen.c:2604
+#: screen.c:2598
 msgid "You can launch it now or wait until later."
 msgstr ""
 
-#: screen.c:2605
+#: screen.c:2599
 msgid "If you wait it will continue costing you money."
 msgstr ""
 
-#: screen.c:2606
+#: screen.c:2600
 msgid "Launch it later by clicking on the rocket area."
 msgstr ""
 
-#: modules/blacksmith.c:106 modules/heavy_industry.c:352
-#: modules/light_industry.c:352 modules/mill.c:112 modules/pottery.c:127
-#: modules/recycle.c:180 modules/school.c:67 modules/university.c:84
+#: modules/blacksmith.c:106 modules/heavy_industry.c:353
+#: modules/light_industry.c:377 modules/mill.c:112 modules/pottery.c:128
+#: modules/recycle.c:180 modules/school.c:67 modules/university.c:85
 msgid "Capacity"
 msgstr ""
 
 #: modules/blacksmith.c:108 modules/cricket.c:109 modules/firestation.c:128
-#: modules/health_centre.c:75 modules/mill.c:114 modules/pottery.c:129
-#: modules/recycle.c:188 modules/rocket_pad.c:172 modules/school.c:61
+#: modules/health_centre.c:75 modules/mill.c:114 modules/pottery.c:130
+#: modules/recycle.c:188 modules/rocket_pad.c:175 modules/school.c:61
+#: modules/university.c:80
 msgid "Inventory"
 msgstr ""
 
-#: modules/coal_power.c:96 modules/solar_power.c:51
+#: modules/coal_power.c:98 modules/solar_power.c:53
 #, fuzzy
 msgid "Power Station"
 msgstr "Substazione[%d]=%d\n"
 
-#: modules/coal_power.c:100 modules/solar_power.c:55
+#: modules/coal_power.c:102 modules/solar_power.c:57
 msgid "Max Output"
 msgstr ""
 
-#: modules/coal_power.c:105 modules/solar_power.c:60
+#: modules/coal_power.c:107 modules/solar_power.c:62
 msgid "Current Output"
 msgstr ""
 
-#: modules/coal_power.c:111 modules/cricket.c:110 modules/firestation.c:129
-#: modules/health_centre.c:76 modules/pottery.c:130 modules/rail.c:61
-#: modules/road.c:57 modules/rocket_pad.c:173 modules/school.c:62
-#: modules/track.c:49 modules/university.c:80
+#: modules/coal_power.c:113 modules/cricket.c:110 modules/firestation.c:129
+#: modules/health_centre.c:76 modules/pottery.c:131 modules/rail.c:61
+#: modules/road.c:58 modules/rocket_pad.c:176 modules/school.c:62
+#: modules/track.c:49 modules/university.c:81
 msgid "Jobs"
 msgstr ""
 
-#: modules/coal_power.c:113 modules/organic_farm.c:187 modules/recycle.c:185
-#: modules/solar_power.c:64 modules/windmill.c:87 modules/windmill.c:98
+#: modules/coal_power.c:115 modules/organic_farm.c:188 modules/recycle.c:185
+#: modules/solar_power.c:66 modules/windmill.c:87 modules/windmill.c:98
 msgid "Tech"
 msgstr ""
 
-#: modules/coal_power.c:115 modules/power_line.c:59 modules/solar_power.c:66
-#: modules/substation.c:115 modules/windmill.c:114
+#: modules/coal_power.c:117 modules/power_line.c:60 modules/solar_power.c:68
+#: modules/substation.c:118 modules/windmill.c:114
 msgid "Grid ID"
 msgstr ""
 
@@ -1369,11 +1370,11 @@ msgstr ""
 msgid "Coal Mine"
 msgstr ""
 
-#: modules/coalmine.c:179 modules/oremine.c:193
+#: modules/coalmine.c:179 modules/oremine.c:195
 msgid "Stock"
 msgstr ""
 
-#: modules/coalmine.c:183 modules/coalmine.c:185 modules/oremine.c:197
+#: modules/coalmine.c:183 modules/coalmine.c:185 modules/oremine.c:199
 msgid "Reserve"
 msgstr ""
 
@@ -1381,26 +1382,26 @@ msgstr ""
 msgid "EMPTY"
 msgstr ""
 
-#: modules/commune.c:152
+#: modules/commune.c:154
 msgid "Activity"
 msgstr ""
 
-#: modules/commune.c:157 modules/heavy_industry.c:348
-#: modules/light_industry.c:348 modules/port.c:222 modules/pottery.c:134
-#: modules/rail.c:67 modules/recycle.c:189 modules/road.c:63
+#: modules/commune.c:159 modules/heavy_industry.c:349
+#: modules/light_industry.c:373 modules/port.c:223 modules/pottery.c:135
+#: modules/rail.c:67 modules/recycle.c:189 modules/road.c:64
 #: modules/track.c:55
 msgid "Ore"
 msgstr ""
 
-#: modules/commune.c:159 modules/light_industry.c:350 modules/port.c:230
-#: modules/rail.c:69 modules/road.c:65 modules/rocket_pad.c:177
+#: modules/commune.c:161 modules/light_industry.c:375 modules/port.c:231
+#: modules/rail.c:69 modules/road.c:66 modules/rocket_pad.c:180
 #: modules/track.c:57
 #, fuzzy
 msgid "Steel"
 msgstr "Vendi"
 
-#: modules/commune.c:161 modules/rail.c:71 modules/recycle.c:191
-#: modules/road.c:67 modules/track.c:59
+#: modules/commune.c:163 modules/rail.c:71 modules/recycle.c:191
+#: modules/road.c:68 modules/track.c:59
 msgid "Waste"
 msgstr ""
 
@@ -1417,47 +1418,47 @@ msgstr "Substazione[%d]=%d\n"
 msgid "Health Centre"
 msgstr ""
 
-#: modules/heavy_industry.c:329
+#: modules/heavy_industry.c:330
 msgid "Heavy"
 msgstr ""
 
-#: modules/heavy_industry.c:330 modules/light_industry.c:337
+#: modules/heavy_industry.c:331 modules/light_industry.c:362
 msgid "Industry"
 msgstr ""
 
-#: modules/heavy_industry.c:337
+#: modules/heavy_industry.c:338
 msgid "Grid"
 msgstr ""
 
-#: modules/heavy_industry.c:340 modules/light_industry.c:341
-#: modules/recycle.c:182 modules/residence.c:283 modules/residence.c:286
-#: modules/residence.c:289 modules/residence.c:292 modules/residence.c:295
-#: modules/residence.c:298
+#: modules/heavy_industry.c:341 modules/light_industry.c:366
+#: modules/recycle.c:182 modules/residence.c:284 modules/residence.c:287
+#: modules/residence.c:290 modules/residence.c:293 modules/residence.c:296
+#: modules/residence.c:299
 msgid "NO"
 msgstr ""
 
-#: modules/heavy_industry.c:343 modules/light_industry.c:342
-#: modules/organic_farm.c:185 modules/recycle.c:183 modules/residence.c:284
+#: modules/heavy_industry.c:344 modules/light_industry.c:367
+#: modules/organic_farm.c:186 modules/recycle.c:183 modules/residence.c:285
 #, fuzzy
 msgid "Power"
 msgstr "Porto"
 
-#: modules/heavy_industry.c:345 modules/light_industry.c:344
+#: modules/heavy_industry.c:346 modules/light_industry.c:369
 msgid "Output"
 msgstr ""
 
-#: modules/heavy_industry.c:346 modules/light_industry.c:346
+#: modules/heavy_industry.c:347 modules/light_industry.c:371
 msgid "Store"
 msgstr ""
 
-#: modules/light_industry.c:336
+#: modules/light_industry.c:361
 msgid "Light"
 msgstr ""
 
-#: modules/light_industry.c:341 modules/organic_farm.c:181
-#: modules/recycle.c:182 modules/residence.c:283 modules/residence.c:286
-#: modules/residence.c:289 modules/residence.c:292 modules/residence.c:295
-#: modules/residence.c:298
+#: modules/light_industry.c:366 modules/organic_farm.c:182
+#: modules/recycle.c:182 modules/residence.c:284 modules/residence.c:287
+#: modules/residence.c:290 modules/residence.c:293 modules/residence.c:296
+#: modules/residence.c:299
 msgid "YES"
 msgstr ""
 
@@ -1465,7 +1466,7 @@ msgstr ""
 msgid "Textile Mill"
 msgstr ""
 
-#: modules/mill.c:117 modules/port.c:214 modules/rail.c:59 modules/road.c:55
+#: modules/mill.c:117 modules/port.c:215 modules/rail.c:59 modules/road.c:56
 #: modules/track.c:47
 msgid "Food"
 msgstr ""
@@ -1479,24 +1480,24 @@ msgstr ""
 msgid "% Complete"
 msgstr ""
 
-#: modules/oremine.c:190
+#: modules/oremine.c:192
 msgid "Ore Mine"
 msgstr ""
 
-#: modules/organic_farm.c:177
+#: modules/organic_farm.c:178
 #, c-format
 msgid "Organic Farm"
 msgstr ""
 
-#: modules/organic_farm.c:183
+#: modules/organic_farm.c:184
 msgid "NO "
 msgstr ""
 
-#: modules/organic_farm.c:190
+#: modules/organic_farm.c:191
 msgid "Prod"
 msgstr ""
 
-#: modules/power_line.c:56
+#: modules/power_line.c:57
 #, fuzzy
 msgid "Power Line"
 msgstr "Porto"
@@ -1513,40 +1514,40 @@ msgstr ""
 msgid "Center"
 msgstr ""
 
-#: modules/residence.c:277
+#: modules/residence.c:278
 msgid "Residence"
 msgstr ""
 
-#: modules/residence.c:281
+#: modules/residence.c:282
 msgid "People"
 msgstr ""
 
-#: modules/residence.c:287
+#: modules/residence.c:288
 #, fuzzy
 msgid "Fed"
 msgstr "Feb"
 
-#: modules/residence.c:290
+#: modules/residence.c:291
 msgid "Employed"
 msgstr ""
 
-#: modules/residence.c:293
+#: modules/residence.c:294
 msgid "Health Cvr"
 msgstr ""
 
-#: modules/residence.c:303
+#: modules/residence.c:304
 msgid "poor"
 msgstr ""
 
-#: modules/residence.c:304
+#: modules/residence.c:305
 msgid "Job"
 msgstr ""
 
-#: modules/rocket_pad.c:166
+#: modules/rocket_pad.c:169
 msgid "Rocket Pad"
 msgstr ""
 
-#: modules/rocket_pad.c:169
+#: modules/rocket_pad.c:172
 msgid "Completion"
 msgstr ""
 
@@ -1554,53 +1555,53 @@ msgstr ""
 msgid "Lessons Learned"
 msgstr ""
 
-#: modules/solar_power.c:50
+#: modules/solar_power.c:52
 msgid "Solar"
 msgstr ""
 
-#: modules/substation.c:99
+#: modules/substation.c:102
 msgid "Local Demand"
 msgstr ""
 
-#: modules/substation.c:103 modules/windmill.c:102
+#: modules/substation.c:106 modules/windmill.c:102
 msgid "Grid Status"
 msgstr ""
 
-#: modules/substation.c:106 modules/windmill.c:105
+#: modules/substation.c:109 modules/windmill.c:105
 msgid "T. Cap."
 msgstr ""
 
-#: modules/substation.c:109 modules/windmill.c:108
+#: modules/substation.c:112 modules/windmill.c:108
 msgid "A. Cap."
 msgstr ""
 
-#: modules/substation.c:112 modules/windmill.c:96 modules/windmill.c:111
+#: modules/substation.c:115 modules/windmill.c:96 modules/windmill.c:111
 msgid "Demand"
 msgstr ""
 
-#: modules/tip.c:117
+#: modules/tip.c:118
 #, fuzzy
 msgid "Landfill"
 msgstr "Carica un file"
 
-#: modules/tip.c:120
+#: modules/tip.c:121
 msgid "Last Month"
 msgstr ""
 
-#: modules/tip.c:121
+#: modules/tip.c:122
 msgid "Tons"
 msgstr ""
 
-#: modules/tip.c:122
+#: modules/tip.c:123
 msgid "Percent"
 msgstr ""
 
-#: modules/tip.c:125
+#: modules/tip.c:126
 #, c-format
 msgid "% Filled"
 msgstr ""
 
-#: modules/university.c:74
+#: modules/university.c:75
 msgid "Tech Produced"
 msgstr ""
 

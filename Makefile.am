@@ -28,11 +28,13 @@ noinst_HEADERS = \
 	module_buttons.h \
 	mouse.h      mps.h	  pbar.h    \
 	picedit.h    pixmap.h     power.h \
+	prefix.h \
 	readpng.h \
 	resource.h	 screen.h \
 	shrglobs.h   stats.h \
 	simulate.h   timer.h	 transport.h \
-	typeinit.h   xpicedit.h	modules.h
+	typeinit.h   xpicedit.h	\
+	modules/modules.h
 
 # Directories that need to have CVS and ca subdirectories removed
 LC_DISTDIRS = \
@@ -167,7 +169,7 @@ gui_SOURCES =	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
 
 engine_SOURCES = lclib.c power.c ldsvguts.c engine.c transport.c market.c \
 	simulate.c shrtypes.c lintypes.c readpng.c timer.c  \
-	shrglobs.c stats.c
+	shrglobs.c stats.c prefix.c
 
 liblcx_la_SHORTNAME = lcx
 liblcx_la_SOURCES = $(gui_SOURCES) lcx11.c 

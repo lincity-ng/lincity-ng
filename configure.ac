@@ -34,6 +34,8 @@ dnl -------------------------------------------------------
 FC_EXPAND_DIR(DEFAULT_LIBDIR,[${datadir}/lincity])
 AC_DEFINE_UNQUOTED(DEFAULT_LIBDIR,"$DEFAULT_LIBDIR")
 
+AM_BINRELOC
+
 dnl -------------------------------------------------------
 dnl GCS Jan 19, 2003
 dnl New autoheader stuff
@@ -67,7 +69,8 @@ AC_CHECK_SIZEOF(char)
 AC_CHECK_SIZEOF(short)
 AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(long)
-AC_PROG_RANLIB
+dnl Obsoletized by AC_PROG_LIBTOOL in 1.5.2
+dnl AC_PROG_RANLIB
 
 dnl Checks for library functions (GCS - add 'select' to enable networking).
 AC_CHECK_FUNCS(gettimeofday mkdir popen)

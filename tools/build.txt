@@ -2,7 +2,14 @@
 About automake/autoconf
 -----------------------
 
-Both of these seem to work with "config.sh" 
+For lincity version 1.13, I'm using this:
+
+automake (GNU automake) 1.8.2
+autoconf (GNU Autoconf) 2.59
+gettext (GNU gettext) 0.11.5
+
+
+Both of these seem to work with "config.sh", lincity version 1.12.
 
 Tool versions (linux):
   Automake   1.7.2

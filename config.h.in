@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Include pthread support for binary relocation? */
+#undef BR_PTHREAD
+
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
    */
@@ -10,6 +13,9 @@
 
 /* The default value of LIBDIR. */
 #undef DEFAULT_LIBDIR
+
+/* Use binary relocation? */
+#undef ENABLE_BINRELOC
 
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
@@ -87,6 +93,9 @@
 
 /* Define if your <locale.h> file defines LC_MESSAGES. */
 #undef HAVE_LC_MESSAGES
+
+/* Define to 1 if you have the `pthread' library (-lpthread). */
+#undef HAVE_LIBPTHREAD
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
