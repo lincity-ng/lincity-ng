@@ -20,7 +20,7 @@
 #include "MainMenu.hpp"
 #include "Game.hpp"
 
-//#define USE_OPENGL
+#define USE_OPENGL
 
 Painter* painter = 0;
 
@@ -84,6 +84,11 @@ void initVideo(int width, int height)
 #ifdef USE_OPENGL
     flags = SDL_OPENGL | SDL_RESIZABLE;
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 1);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 1);
+    //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
+    //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 #else
     flags = SDL_HWSURFACE  | SDL_RESIZABLE;
 #endif
@@ -171,7 +176,7 @@ int main(int , char** argv)
         initPhysfs(argv[0]);
         initSDL();
         initTTF();
-        initVideo(800, 600);
+        initVideo(1280, 1024);
 	initLincity();
 
 #ifdef USE_OPENGL

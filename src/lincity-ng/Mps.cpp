@@ -12,6 +12,8 @@
 #include "gui/ComponentLoader.hpp"
 #include "gui/Paragraph.hpp"
 
+#include <SDL_mixer.h>
+
 LCMps *mLCMPS = 0;
 
 void mps_update(int,int,int);
@@ -20,12 +22,34 @@ LCMps::LCMps()
 {
     assert(mLCMPS == 0);
     mLCMPS = this;
+
+    audioOpen = false;
+   	/* Open the audio device */
+	if (Mix_OpenAudio( MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
+		fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
+	} else {
+		audioOpen = true;
+        clickWav = Mix_LoadWAV("data/sounds/Click.wav");
+    	if ( clickWav == NULL ) {
+		    fprintf(stderr, "############### Couldn't load click #################\n");
+        }
+	}
+
 }
 
 LCMps::~LCMps()
 {
     if(mLCMPS == this)
         mLCMPS = 0;
+    if( clickWav ) {
+        Mix_FreeChunk( clickWav );
+        clickWav = NULL;
+    }
+	if ( audioOpen ) {
+		Mix_CloseAudio();
+		audioOpen = false;
+	}
+
 }
 
 void
@@ -81,13 +105,28 @@ LCMps *getMPS()
   return mLCMPS;
 }
 
-
+/*
+ *  Playback an Audio-Effect
+ */
+void LCMps::playwav( int id ) {
+    printf("Audio %i request...", id);
+    
+    if( !audioOpen ){
+		printf("Can't play Audio.\n");
+        return;
+    }
+    if( clickWav ) {
+        Mix_PlayChannel(0, clickWav, 0); 
+        printf("Oky\n");
+    }
+}
 
 void mps_update(int mps_x,int mps_y,int mps_style)
 {
     switch (mps_style) {
     case MPS_MAP:
 	{
+      getMPS()->playwav( 0 );
 	  //cdebug(MP_GROUP(mps_x,mps_y));
 	  switch(MP_GROUP(mps_x, mps_y)) 
 	    {

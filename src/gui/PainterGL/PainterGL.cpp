@@ -77,7 +77,16 @@ void
 PainterGL::drawRectangle(const Rect2D& rect)
 {
     (void) rect;
-    // TODO
+    glDisable(GL_TEXTURE_2D);
+
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(rect.p1.x, rect.p1.y);
+    glVertex2f(rect.p1.x, rect.p2.y);
+    glVertex2f(rect.p2.x, rect.p2.y);
+    glVertex2f(rect.p2.x, rect.p1.y);
+    glEnd();
+
+    glEnable(GL_TEXTURE_2D);
 }
 
 void
@@ -116,14 +125,15 @@ PainterGL::popTransform()
 void
 PainterGL::setClipRectangle(const Rect2D& rect)
 {
-    (void) rect;
-    // TODO
+    //TODO
+   // glClipPlane( GL_CLIP_PLANE0,  );
+   // glEnable( GL_CLIP_PLANE0 );
 }
 
 void
 PainterGL::clearClipRectangle()
 {
-    // TODO
+    glDisable( GL_CLIP_PLANE0 );
 }
 
 Painter*

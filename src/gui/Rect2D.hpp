@@ -73,8 +73,14 @@ public:
 
       return true;
   }
-  void join(const Rect2D& other);
-   
+  void join(const Rect2D& other)
+  {
+      if( other.p1.x < p1.x ) p1.x = other.p1.x; 
+      if( other.p1.y < p1.y ) p1.y = other.p1.y; 
+      if( other.p2.x > p2.x ) p2.x = other.p2.x; 
+      if( other.p2.y > p2.y ) p2.y = other.p2.y; 
+
+  }
   /* leave these 2 vars public to safe the headaches of set/get functions
    * for such simple things :)
    */

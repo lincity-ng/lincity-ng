@@ -39,6 +39,8 @@ private:
     const Vector2 getTile(const Vector2& point);
     const void drawTile(Painter& painter, const Vector2& tile);
     const void loadTextures();
+    const void fillDiamond( Painter& painter, const Rect2D rect );
+    
     void setZoom(const int newzoom);
     Texture* readTexture(const std::string& filename);
     void readCityTexture( int textureType, const std::string& filename );

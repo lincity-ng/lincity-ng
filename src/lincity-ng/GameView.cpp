@@ -711,6 +711,37 @@ const Vector2 GameView::getTile(const Vector2& p)
 }
 
 /*
+ * Draw a Diamond inside given Rectangle
+ */
+const void GameView::fillDiamond( Painter& painter, const Rect2D rect )
+{
+    painter.fillRectangle( rect );    
+    /*
+     * TODO: filledPolygon in Painter
+     *
+    Vector2 p1( rect.p1.x + ( rect.getWidth() / 2 ), rect.p1.y );
+    Vector2 p2( rect.p1.x, rect.p1.y + ( rect.getHeight() / 2 ) );
+    Vector2 p3( rect.p1.x + ( rect.getWidth() / 2 ), rect.p2.y );
+    Vector2 p4( rect.p2.x, rect.p1.y + ( rect.getHeight() / 2 ) );
+    Vector2 screenpos = transform.apply(p1);
+    Vector2 screenpos2 = transform.apply(p2);
+    Vector2 screenpos3 = transform.apply(p3);
+    Vector2 screenpos4 = transform.apply(p4);
+    Sint16 vx[ 4 ], vy[ 4 ];
+    vx[ 0 ] = (int) screenpos.x;
+    vx[ 1 ] = (int) screenpos2.x;
+    vx[ 2 ] = (int) screenpos3.x;
+    vx[ 3 ] = (int) screenpos4.x;
+    vy[ 0 ] = (int) screenpos.y;
+    vy[ 1 ] = (int) screenpos2.y;
+    vy[ 2 ] = (int) screenpos3.y;
+    vy[ 3 ] = (int) screenpos4.y;
+    
+    painter.filledPolygon( target, vx, vy, 4 ); 
+    */
+}
+
+/*
  *  Draw a Tile
  */
 const void GameView::drawTile(Painter& painter, const Vector2& tile)
@@ -720,6 +751,10 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
     
     Color red;
     red.parse( "red" );
+    Color white;
+    white.parse( "white" );  //in GL-Version, the FillColor is applied to Textures, too
+     //   Color alphablue( 0, 0, 255, 128 );
+    painter.setFillColor( white );
 
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
@@ -790,7 +825,7 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
         painter.setFillColor( red );
-        //painter.fillDiamond( tilerect );    
+        fillDiamond( painter, tilerect );    
     }
 }
 
@@ -845,7 +880,7 @@ void GameView::draw(Painter& painter)
         tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
-        //painter.fillDiamond( tilerect );    
+        fillDiamond( painter, tilerect );    
     }
 }
 
