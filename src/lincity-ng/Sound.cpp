@@ -11,6 +11,9 @@
  *
  *  20050325
  *  load waves in background thread
+ *
+ *  20050331
+ *  read Volume from Config
  */
 #include <config.h>
 
@@ -25,6 +28,8 @@
 
 #include <SDL_mixer.h>
 #include <physfs.h>
+#include "Config.hpp"
+
 
 Sound* soundPtr = 0;
 
@@ -115,7 +120,7 @@ Sound::~Sound()
  *  Name is the Name of an Audiofile from sounds/ minus .wav
  *  and without trailing Numbers. If there are eg.
  *  beep1.wav, beep2.wav, beep3.wav
- *  playwav( "beep" ) would pick one of the three FIles randomly
+ *  playwav( "beep" ) would pick one of the three Files randomly
  */
 void Sound::playwav(const std::string& name) {
     std::cout << "Audio " << name << " request...";
@@ -135,6 +140,8 @@ void Sound::playwav(const std::string& name) {
     for (int i = rand() % count; i > 0; i--) {
         it++;
     }
+    
+    Mix_Volume( 0, getConfig()->soundVolume );
     Mix_PlayChannel( 0, it->second, 0 ); 
     std::cout << "done.\n";
 }

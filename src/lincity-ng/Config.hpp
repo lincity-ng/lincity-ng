@@ -2,6 +2,7 @@
 #define __CONFIG_HPP__
 
 #include <string>
+#include <values.h>
 
 class Config 
 {
@@ -11,9 +12,11 @@ public:
     
     bool useOpenGL;
     int videoX, videoY;
+    int soundVolume;
 private:
     void load( const std::string& filename );
     void save();
+    int parseInt( const char* value, const int defaultValue, const int minValue = MININT, const int maxValue = MAXINT );
 };
 
 Config* getConfig();

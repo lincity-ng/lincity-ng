@@ -27,6 +27,8 @@ Config::Config()
     useOpenGL = false;
     videoX = 800; 
     videoY = 600;
+
+    soundVolume = 128;
     
     //First we load the global File which should contain
     //sane defaults for the local system.
@@ -43,6 +45,25 @@ Config::~Config()
     }
 }
 
+/*
+ * Read Integer Value from char-Array.
+ * use defaultValue on Errors or if Value is not in given Interval.
+ */
+int Config::parseInt( const char* value, int defaultValue, int minValue, int maxValue ) {
+    int tmp; 
+    if(sscanf(value, "%i", &tmp) != 1) 
+    {
+        std::cerr << "Config::parseInt# Error parsing integer value '" << value << "'.\n";
+        tmp = defaultValue;
+    }
+    if( ( tmp >= minValue ) && ( tmp <= maxValue ) ) {
+        return tmp;
+    } else {
+        std::cerr << "Config::parseInt# Value '" << value << "' not in ";
+        std::cerr << minValue << ".." << maxValue << "\n";
+        return defaultValue;
+    }
+}
 /*
  * Load configuration from File.
  */
@@ -68,22 +89,26 @@ void Config::load( const std::string& filename ){
                     }
                     else if( strcmp(name, "x" ) == 0 )
                     {
-                        if(sscanf(value, "%i", &videoX) != 1) 
-                        {
-                            std::cerr << "Config::load# Error parsing integer value '" << value << "' in x attribute.\n";
-                            videoX = 800;
-                        }
+                        videoX = parseInt( value, 800, 640 );
                     }
                     else if(strcmp(name, "y") == 0 ) 
                     {
-                        if(sscanf(value, "%i", &videoY) != 1) 
-                        {
-                            std::cerr << "Config::load# Error parsing integer value '" << value << "' in y attribute.\n";
-                            videoY = 600;
-                        }
+                        videoY = parseInt( value, 600, 480 );
                     }
                 }//while(iter.next()) 
             }//if element == "video" 
+            else if ( element == "audio" ) {
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next()) 
+                {
+                    const char* name = (const char*) iter.getName();
+                    const char* value = (const char*) iter.getValue();
+                    if( strcmp(name, "soundVolume" ) == 0 )
+                    {
+                        soundVolume = parseInt( value, 128, 0, 128 );
+                    }
+                }//while(iter.next())                 
+            }//if element == "audio" 
             else {
                 std::cerr << "Config::load# Unknown element '" << element << "' in lincityconfig.xml.\n";
             }
