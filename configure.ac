@@ -1,9 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
 
-dnl GCS: Jan 19, 2003.  Using the following versions:
-dnl     Autoconf 2.57
-dnl     Automake 1.7.2
-
 dnl Initialization
 dnl AC_INIT
 dnl AM_INIT_AUTOMAKE(lincity,1.12pre50)

@@ -117,10 +117,11 @@ AUTOMAKE_OPTIONS = foreign
 X_DEFS = -DLC_X11=1
 SVGA_DEFS = -DSVGALIB=1
 
+
 ### SUBDIRS = intl po
 noinst_HEADERS = \
 	cliglobs.h   \
-	common.h     config.h	  confw32.h    \
+	common.h     confw32.h    \
 	engglobs.h   engine.h	 fileutil.h \
 	generic.h    geometry.h  dialbox.h \
 	lcconfig.h   \
@@ -139,7 +140,7 @@ noinst_HEADERS = \
 	typeinit.h   xpicedit.h
 
 
-# -- This can't contain subdirectories --
+# Directories that need to have CVS and ca subdirectories removed
 LC_DISTDIRS = \
 	help icons messages \
 	old.Makefiles opening tools
@@ -284,9 +285,9 @@ DATA = $(nobase_pkgdata_DATA)
 
 HEADERS = $(noinst_HEADERS)
 
-DIST_COMMON = $(noinst_HEADERS) ABOUT-NLS Makefile.am Makefile.in \
-	acinclude.m4 aclocal.m4 config.h.in configure configure.ac \
-	depcomp install-sh missing mkinstalldirs
+DIST_COMMON = README $(noinst_HEADERS) ABOUT-NLS COPYING Makefile.am \
+	Makefile.in TODO acinclude.m4 aclocal.m4 config.h.in configure \
+	configure.ac depcomp install-sh missing mkinstalldirs
 SOURCES = $(lincity_SOURCES) $(EXTRA_lincity_SOURCES) $(picedit_SOURCES) $(EXTRA_picedit_SOURCES) $(xlincity_SOURCES) $(EXTRA_xlincity_SOURCES) $(xpicedit_SOURCES) $(EXTRA_xpicedit_SOURCES)
 
 all: config.h
@@ -780,22 +781,26 @@ uninstall-local:
 	rm -rf $(DESTDIR)$(pkgdatadir)
 
 ############################################################################
+# 	  if test -d $(distdir)/$$p/CVS ; then \
+# 	    echo "rm -rf $(distdir)/$$p/CVS" ; \
+# 	    rm -rf $(distdir)/$$p/CVS ; \
+# 	    echo "rm -rf $(distdir)/$$p/*/CVS" ; \
+# 	    rm -rf $(distdir)/$$p/*/CVS ; \
+# 	    echo "rm -rf $(distdir)/$$p/*/*/CVS" ; \
+# 	    rm -rf $(distdir)/$$p/*/*/CVS ; \
+# 	    echo "rm -rf $(distdir)/$$p/cvs" ; \
+# 	    rm -rf $(distdir)/$$p/cvs ; \
+# 	    echo "rm -rf $(distdir)/$$p/*/cvs" ; \
+# 	    rm -rf $(distdir)/$$p/*/cvs ; \
+# 	    echo "rm -rf $(distdir)/$$p/*/*/cvs" ; \
+# 	    rm -rf $(distdir)/$$p/*/*/cvs ; \
+# 	  else :; fi; \
 ############################################################################
 dist-hook:
 	@list='$(LC_DISTDIRS)'; for p in $$list; do \
-          cp -r $$p $(distdir)/$$p; \
-	  if test -d $(distdir)/$$p/CVS ; then \
-	    echo "rm -rf $(distdir)/$$p/CVS" ; \
-	    rm -rf $(distdir)/$$p/CVS ; \
-	    echo "rm -rf $(distdir)/$$p/*/CVS" ; \
-	    rm -rf $(distdir)/$$p/*/CVS ; \
-	    echo "rm -rf $(distdir)/$$p/*/*/CVS" ; \
-	    rm -rf $(distdir)/$$p/*/*/CVS ; \
-	  else :; fi; \
-	  if test -d $(distdir)/$$p/ca ; then \
-	    echo "rm -rf $(distdir)/$$p/ca" ; \
-	    rm -rf $(distdir)/$$p/ca ; \
-	  else :; fi; \
+	  rm -rf `find $(distdir)/$$p -name CVS -print` ; \
+	  rm -rf `find $(distdir)/$$p -name cvs -print` ; \
+	  rm -rf `find $(distdir)/$$p -name ca -print` ; \
 	done
 
 X_PROGS: xlincity$(EXEEXT)

@@ -10,9 +10,11 @@ SVGA_DEFS = -DSVGALIB=1
 ### SUBDIRS = intl po
 ## (deleted)
 ##	acconfig.h   \
+##	config.h \
+
 noinst_HEADERS = \
 	cliglobs.h   \
-	common.h     config.h	  confw32.h    \
+	common.h     confw32.h    \
 	engglobs.h   engine.h	 fileutil.h \
 	generic.h    geometry.h  dialbox.h \
 	lcconfig.h   \
@@ -30,8 +32,7 @@ noinst_HEADERS = \
 	simulate.h   timer.h	 transport.h \
 	typeinit.h   xpicedit.h
 
-
-# -- This can't contain subdirectories --
+# Directories that need to have CVS and ca subdirectories removed
 LC_DISTDIRS = \
 	help icons messages \
 	old.Makefiles opening tools
@@ -70,7 +71,7 @@ nobase_pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
 ##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/icons
 ##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/messages
 ##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/opening
-##   1)  Removed the following line from install-exec-local:
+##   2)  Removed the following line from install-exec-local:
 ##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/messages/ca
 ############################################################################
 
@@ -101,22 +102,32 @@ uninstall-local:
 ## my subdirectories.
 ## --
 ## GCS Jan 19, 2003  Added a check for deleting the "ca" subdirectory
+##                   Added lowercase "cvs" directory (when copied from dos)
+##  (removed this!)
+##          cp -r $$p $(distdir)/$$p; \
+##  (modified this)
+# 	  if test -d $(distdir)/$$p/CVS ; then \
+# 	    echo "rm -rf $(distdir)/$$p/CVS" ; \
+# 	    rm -rf $(distdir)/$$p/CVS ; \
+# 	    echo "rm -rf $(distdir)/$$p/*/CVS" ; \
+# 	    rm -rf $(distdir)/$$p/*/CVS ; \
+# 	    echo "rm -rf $(distdir)/$$p/*/*/CVS" ; \
+# 	    rm -rf $(distdir)/$$p/*/*/CVS ; \
+# 	    echo "rm -rf $(distdir)/$$p/cvs" ; \
+# 	    rm -rf $(distdir)/$$p/cvs ; \
+# 	    echo "rm -rf $(distdir)/$$p/*/cvs" ; \
+# 	    rm -rf $(distdir)/$$p/*/cvs ; \
+# 	    echo "rm -rf $(distdir)/$$p/*/*/cvs" ; \
+# 	    rm -rf $(distdir)/$$p/*/*/cvs ; \
+# 	  else :; fi; \
+##
+##	  echo "Erasing CVS directories..." \
 ############################################################################
 dist-hook:
 	@list='$(LC_DISTDIRS)'; for p in $$list; do \
-          cp -r $$p $(distdir)/$$p; \
-	  if test -d $(distdir)/$$p/CVS ; then \
-	    echo "rm -rf $(distdir)/$$p/CVS" ; \
-	    rm -rf $(distdir)/$$p/CVS ; \
-	    echo "rm -rf $(distdir)/$$p/*/CVS" ; \
-	    rm -rf $(distdir)/$$p/*/CVS ; \
-	    echo "rm -rf $(distdir)/$$p/*/*/CVS" ; \
-	    rm -rf $(distdir)/$$p/*/*/CVS ; \
-	  else :; fi; \
-	  if test -d $(distdir)/$$p/ca ; then \
-	    echo "rm -rf $(distdir)/$$p/ca" ; \
-	    rm -rf $(distdir)/$$p/ca ; \
-	  else :; fi; \
+	  rm -rf `find $(distdir)/$$p -name CVS -print` ; \
+	  rm -rf `find $(distdir)/$$p -name cvs -print` ; \
+	  rm -rf `find $(distdir)/$$p -name ca -print` ; \
 	done
 
 
