@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <gui>
   <Image src="images/gui/background.png"/>
+  <IsoDisplay width="800" height="600"/>
   <Import src="gui/buttonpanel.xml"/>
   <Import src="gui/helpwindow.xml"/>
   <Import src="gui/minimap.xml"/>
