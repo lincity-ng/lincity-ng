@@ -347,9 +347,11 @@ static MiniMap::DisplayMode getNextMode(MiniMap::DisplayMode mode)
             return MiniMap::COAL;
         case MiniMap::COAL:
             return MiniMap::NORMAL;
-        case MiniMap::MAX:
+        default:
             assert(false);
     }
+
+    return MiniMap::NORMAL;
 }
 
 void MiniMap::event(const Event& event)
