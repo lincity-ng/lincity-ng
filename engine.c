@@ -2511,7 +2511,7 @@ launch_rocket (int x, int y)
 	    remove_people (1000);
 	    display_rocket_result_dialog (ROCKET_LAUNCH_EVAC);
 	} else {
-	    display_rocket_result_dialog (ROCKET_LAUNCH_BAD);
+	    display_rocket_result_dialog (ROCKET_LAUNCH_GOOD);
 	}
     }
 }
