@@ -36,6 +36,18 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
   o Unhook client/server code from main code.
 
+  o Windows, need to resolve what to do about resource files 
+    (menu, and especially icon)
+
+  o Windows creates the SAVED_GAMES directory before the user gets a 
+    chance to escape!
+
+  o Some missing keystrokes on windows.
+
+  o Options screen should have a keystroke (perhaps "o" for options, 
+    "v" for overlay).
+
+
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Right click outside of help should exit help.
