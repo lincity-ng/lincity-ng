@@ -287,21 +287,21 @@ end_of_month_update (void)
 
   if (tech_level > TECH_LEVEL_LOSS_START)
     {
-      tech_level-=tech_level*(1./TECH_LEVEL_LOSS)
+      tech_level-=(int)(tech_level*(1./TECH_LEVEL_LOSS)
 	*(1+(tpopulation
 	     *(1./NUMOF_DAYS_IN_MONTH/120
-	       /(TECH_LEVEL_LOSS-200))));
+	       /(TECH_LEVEL_LOSS-200)))));
 
     }
   else
     tech_level += TECH_LEVEL_UNAIDED;
   /* we can go over 100, but it's even more difficult */
   if (tech_level > MAX_TECH_LEVEL)
-    tech_level-=(tech_level-MAX_TECH_LEVEL)
+    tech_level-=(int)((tech_level-MAX_TECH_LEVEL)
       *(1./TECH_LEVEL_LOSS)
       *(1+(tpopulation
 	   *(1./NUMOF_DAYS_IN_MONTH/120
-	     /(TECH_LEVEL_LOSS-100))));
+	     /(TECH_LEVEL_LOSS-100)))));
 
   if (highest_tech_level < tech_level)
     highest_tech_level = tech_level;
