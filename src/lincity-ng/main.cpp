@@ -63,6 +63,9 @@ void initPhysfs(const char* argv0)
             << PHYSFS_getLastError();
         throw std::runtime_error(msg.str());
     }
+
+    // allow symbolic links
+    PHYSFS_permitSymbolicLinks(1);
 }
     
 

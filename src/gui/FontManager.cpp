@@ -7,22 +7,14 @@
 #include <sstream>
 #include <fstream>
 
+#include "PhysfsStream/PhysfsSDL.hpp"
+
 TTF_Font*
 FontManager::getFont(Style style)
 {
-    std::string fontfile = "data/fonts/" + style.font_family + ".ttf";
+    std::string fontfile = "fonts/" + style.font_family + ".ttf";
     
-    // for some stupid reason SDL_TTF seems to crash if a font file doesn't
-    // exist :-/, so we check for existance first...
-    std::ifstream in(fontfile.c_str());
-    if(!in.good()) {
-        std::stringstream msg;
-        msg << "Couldn't open fontfile '" << fontfile << "'";
-        throw std::runtime_error(msg.str());
-    }
-    in.close();
-        
-    TTF_Font* font = TTF_OpenFont(fontfile.c_str(),
+    TTF_Font* font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1,
             (int) style.font_size);
     if(!font) {
         std::stringstream msg;

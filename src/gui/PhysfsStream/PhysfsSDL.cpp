@@ -25,7 +25,7 @@ static int funcSeek(struct SDL_RWops* context, int offset, int whence)
             assert(false);
             break;
     }
-    if(!res) {
+    if(res == 0) {
         std::cerr << "Error seeking in file: " << PHYSFS_getLastError() << "\n";
         return -1;
     }
