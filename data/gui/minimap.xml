@@ -9,14 +9,17 @@
             <TableLayout rows="1" cols="2">
                 <cell row="1" col="1">
                     <Button name="ZoomInButton">
-<!--                        <image src="images/gui/mapview_zoomin.png"/>-->
-                        <image src="images/gui/button_bg0.png"/>
+                        <image src="images/gui/new_button_bg2.png"/>
+                        <image-hover src="images/gui/new_button_bg1.png"/>
+                        <image-clicked src="images/gui/new_button_bg0.png"/>
                         <image-caption src="images/gui/zoomin.png"/>
                     </Button>
                 </cell>
                 <cell row="1" col="2">
                     <Button name="ZoomOutButton">
-                        <image src="images/gui/button_bg0.png"/>
+                        <image src="images/gui/new_button_bg2.png"/>
+                        <image-hover src="images/gui/new_button_bg1.png"/>
+                        <image-clicked src="images/gui/new_button_bg0.png"/>
                         <image-caption src="images/gui/zoomout.png"/>
                     </Button>
                 </cell>
@@ -118,17 +121,26 @@
                     <TableLayout rows="1" cols="3">
                         <cell row="1" col="1">
                             <Button name="SpeedPauseButton">
-                                <image src="images/gui/mapview_pause.png"/>
+                                <image src="images/gui/new_button_bg2.png"/>
+                                <image-hover src="images/gui/new_button_bg1.png"/>
+                                <image-clicked src="images/gui/new_button_bg0.png"/>
+                                <image-caption src="images/gui/pause.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="2">
                             <Button name="SpeedNormalButton">
-                                <image src="images/gui/mapview_run.png"/>
+                                <image src="images/gui/new_button_bg2.png"/>
+                                <image-hover src="images/gui/new_button_bg1.png"/>
+                                <image-clicked src="images/gui/new_button_bg0.png"/>
+                                <image-caption src="images/gui/play.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="3">
                             <Button name="SpeedFastButton">
-                                <image src="images/gui/mapview_fast.png"/>
+                                <image src="images/gui/new_button_bg2.png"/>
+                                <image-hover src="images/gui/new_button_bg1.png"/>
+                                <image-clicked src="images/gui/new_button_bg0.png"/>
+                                <image-caption src="images/gui/fast.png"/>
                             </Button>
                         </cell>
                     </TableLayout>
