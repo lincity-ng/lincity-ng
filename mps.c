@@ -792,7 +792,8 @@ mps_power_source_coal (int x, int y)
   sprintf (s, "%d", MP_INFO(x,y).int_6);
   Fgl_write (mps->x + 8 * 8, mps ->y + 72, s);
 
-  sprintf (s, "%d", MP_INFO(x,y).int_1);
+  /* Capacity is int_1 */
+  format_power (s, sizeof(s), MP_INFO(x,y).int_1);
   Fgl_write (mps->x + 8 * 8, mps ->y + 80, s);
 }
 
@@ -834,8 +835,11 @@ mps_power_source (int x, int y)
   sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
 	   / MAX_TECH_LEVEL);
   Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  sprintf (s, "%d", MP_INFO(x,y).int_3);
+
+  /* Capacity is int_3 */
+  format_power (s, sizeof(s), MP_INFO(x,y).int_3);
   Fgl_write (mps->x + 8 * 8, mps ->y + 56, s);
+
   /* Grid number is int_6 */
   sprintf (s, "%d", MP_INFO(x,y).int_6);
   Fgl_write (mps->x + 8 * 8, mps ->y + 72, s);
