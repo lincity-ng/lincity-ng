@@ -148,6 +148,14 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 		    break;
 		}
 
+		/* GCS Remove overlay  */
+		/* This use of mouse clicks seems to contradict 
+		    Corey's mouse handler code */
+		if (main_screen_flag == MAIN_SCREEN_EQUALS_MINI) {
+		    main_screen_flag = MAIN_SCREEN_NORMAL_FLAG;
+		    refresh_main_screen ();
+		}
+
 		/* Other points too */
 		do_mouse_other_buttons(x, y, button);
 	
@@ -185,6 +193,12 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 		}
 		else if (load_flag || save_flag) 
 		    return;
+
+		/* GCS Remove overlay  */
+		if (main_screen_flag == MAIN_SCREEN_EQUALS_MINI) {
+		    main_screen_flag = MAIN_SCREEN_NORMAL_FLAG;
+		    refresh_main_screen ();
+		}
 
 		/* This is the main screen */
 		if (mouse_in_rect(&scr.main_win,x,y)) {

@@ -274,6 +274,12 @@ draw_help_page (char *helppage)
 
 	block_help_exit = 0;
 	help_flag = 0;
+
+	/* GCS Remove overlay  */
+	if (main_screen_flag == MAIN_SCREEN_EQUALS_MINI) {
+	    main_screen_flag = MAIN_SCREEN_NORMAL_FLAG;
+	}
+	
 	/* Fix origin */
 #ifdef USE_EXPANDED_FONT
 	Fgl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
