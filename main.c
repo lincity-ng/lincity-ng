@@ -51,6 +51,7 @@
 #include "lcintl.h"
 #include "engine.h"
 #include "module_buttons.h"
+#include "fileutil.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
@@ -88,7 +89,6 @@ char LIBDIR[256];
 #endif
 #endif
 
-int make_dir_ok_flag;
 char *lc_save_dir;
 char *lc_temp_file;
 char save_names[10][42];
@@ -270,10 +270,12 @@ client_main_loop (void)
     if (no_init_help == 0) {
 	block_help_exit = 1;
 	help_flag = 1;
-	if (make_dir_ok_flag)
+	if (make_dir_ok_flag) {
 	    activate_help ("ask-dir.hlp");
-	else
+	    make_dir_ok_flag = 0;
+	} else {
 	    activate_help ("opening.hlp");
+	}
     }
 
     /* Set speed */

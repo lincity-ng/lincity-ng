@@ -37,13 +37,7 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
   o Frame of main win is displayed before load game progress bar finishes.
 
-  o Windows, need to resolve what to do about resource files 
-    (menu, and especially icon)
-
-  o Windows creates the SAVED_GAMES directory before the user gets a 
-    chance to escape!
-
-  o Some missing keystrokes on windows.
+  o Some missing keystrokes on windows (which ones?)
 
   o Options screen should have a keystroke (perhaps "o" for options, 
     "v" for overlay).
@@ -55,6 +49,14 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 	a new game.  All techs that were available still are, only now your
 	brand new solar station has a tech of 0.0%.
 	Only happens on a new game, not on loading existing game.
+
+  o Intermittent mouse bug with multitransport.  The following phenomena
+    can occur:
+
+	-  Stays in MT mode after mouse release
+	-  MT drawn over existing track causes track to disappear
+
+  o Money format in finance window is ugly
 
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL

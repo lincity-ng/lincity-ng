@@ -68,6 +68,13 @@ draw_help_page (char *helppage)
     FILE *inf;
     char help_line[MAX_HELP_LINE];
 
+    /* In ask-dir page if user presses "yes" create directory in main loop */
+    if ((strcmp (helppage, "opening.hlp") == 0)
+	    && (strcmp (help_button_history[help_history_count - 1],
+	    "ask-dir.hlp") == 0)) {
+	make_dir_ok_flag = 1;
+    }
+
     /* Return pages have arguments.  It is always true that "-2" means "Out" 
        and "-1" means "Back".  Semantics for other arguments depend upon
        the name of the source page (e.g. load game or choose residence). 
@@ -251,8 +258,19 @@ draw_help_page (char *helppage)
 		 strcmp (help_button_history[help_history_count - 1],
 			 "ask-dir.hlp") == 0)
 	{
-	    if (help_return_val == 1 || help_return_val == -2)
-		do_error ("User exited");
+	    if (help_return_val == 1) {
+		/* Clicking "no" means no directory is created */
+		do_error ("Sorry, lincity cannot run without this "
+		    "directory.  Exiting.");
+	    } else if (help_return_val == -2) {
+		/* Clicking "out" means we want to create directory,
+		   and then go to opening screen. */
+		/* Warning: Note that "opening.hlp" is the same length
+		   as "ask-dir.hlp". */
+		make_dir_ok_flag = 1;
+	        strcpy (helppage, "opening.hlp");
+		goto continue_with_help;
+	    }
 	}
 
 	block_help_exit = 0;

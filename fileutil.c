@@ -100,6 +100,18 @@ char *lc_save_dir;
 int lc_save_dir_len;
 static char *lc_temp_filename;
 
+/* The variable make_dir_ok_flag has 2 uses.
+
+   First, it is initialized to 1, and set to zero if the directory 
+   already exists.  Later, if it is found to be 1, the "create directory 
+   help page (ask-dir) is display, and then set to zero.  
+
+   Next, in the help handler, if the user says it's OK to create the 
+   directory, it is reset to 1.  Finally, in the main loop, if it is 
+   found to have value 1, the directory is created and it is reset to 0.
+   */
+int make_dir_ok_flag;
+
 
 /* ---------------------------------------------------------------------- *
  * Public Functions

@@ -91,7 +91,6 @@ int verify_city (char *cname);
  * Private Global Variables
  * ---------------------------------------------------------------------- */
 
-int make_dir_ok_flag;
 char save_names[10][42];
 
 /* ---------------------------------------------------------------------- *
@@ -712,15 +711,19 @@ check_savedir (void)
 void
 make_savedir (void)
 {
+#if !defined (WIN32)
+    DIR *dp;
+#endif
+
+    if (make_dir_ok_flag == 0)
+	return;
+
 #if defined (WIN32)
     if (_mkdir (lc_save_dir)) {
 	printf (_("Couldn't create the save directory %s\n"), lc_save_dir);
 	exit (-1);
     }
 #else
-    DIR *dp;
-    if (make_dir_ok_flag == 0)
-	return;
     mkdir (lc_save_dir, 0755);
     chown (lc_save_dir, getuid (), getgid ());
     if ((dp = opendir (lc_save_dir)) == NULL)
@@ -731,6 +734,7 @@ make_savedir (void)
     }
     closedir (dp);
 #endif
+
     make_dir_ok_flag = 0;
 }
 

@@ -194,13 +194,18 @@ BOOL InitApplication (HINSTANCE hInstance)
     wcWithMenu.hbrBackground = hbrBackground;
   
     // Windows95 has different recommended help menu format.
+#if defined (USE_WIN32_MENU)
     if (IS_WIN95) {
 	wcWithMenu.lpszMenuName = "WIN95";
     } else {
 	wcWithMenu.lpszMenuName = szAppName;
     }
     wcWithMenu.lpszClassName = szClassNameWithMenu;
-  
+#else
+    wcWithMenu.lpszMenuName = "";
+    wcWithMenu.lpszClassName = szClassNameWithMenu;
+#endif
+
     // Fill in WNDCLASS for class WITHOUT MENU.
     wcWithoutMenu.style = 0;
     wcWithoutMenu.lpfnWndProc = (WNDPROC) WndProc;
@@ -454,20 +459,24 @@ ProcessPendingEvents (void)
 void
 EnableWindowsMenuItems (void) 
 {
+#if defined (USE_WIN32_MENU)
     HMENU hMenu = GetMenu (display.hWnd);
     EnableMenuItem (hMenu, IDM_OPEN, MF_BYCOMMAND | MF_ENABLED);
     EnableMenuItem (hMenu, IDM_SAVE, MF_BYCOMMAND | MF_ENABLED);
     EnableMenuItem (hMenu, IDM_HELPCONTENTS, MF_BYCOMMAND | MF_ENABLED);
+#endif
 }
 
 
 void
 DisableWindowsMenuItems (void) 
 {
+#if defined (USE_WIN32_MENU)
     HMENU hMenu = GetMenu (display.hWnd);
     EnableMenuItem (hMenu, IDM_OPEN, MF_BYCOMMAND | MF_GRAYED);
     EnableMenuItem (hMenu, IDM_SAVE, MF_BYCOMMAND | MF_GRAYED);
     EnableMenuItem (hMenu, IDM_HELPCONTENTS, MF_BYCOMMAND | MF_GRAYED);
+#endif
 }
 
 
@@ -533,7 +542,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     
     switch (message)
     {
-	
+#if defined (USE_WIN32_MENU)
     case WM_COMMAND: {
 	wmId = LOWORD (wParam);
 	wmEvent = HIWORD (wParam);
@@ -573,7 +582,8 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
     }
     break;
-	
+#endif
+    
     case WM_KEYDOWN: {
 	int nVirtKey = (int) wParam;
 	x_key_shifted = (GetKeyState (VK_SHIFT) & 0x80000000) ? TRUE : FALSE;
@@ -1108,6 +1118,7 @@ CopyPixmapToScreen (int t2, int src_x, int src_y, int width, int height,
 //      WM_COMMAND      - Input received
 //
 //----------------------------------------------------------------------------
+#if defined (USE_WIN32_MENU)
 LRESULT CALLBACK About (HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) 
 {
     static HFONT hfontDlg;	// Font for dialog text
@@ -1308,7 +1319,7 @@ BOOL CenterWindow (HWND hwndChild, HWND hwndParent)
     // Set it, and return
     return SetWindowPos (hwndChild, NULL, xNew, yNew, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 }
-
+#endif /* USE_WIN32_MENU */
 
 
 //----------------------------------------------------------------------------

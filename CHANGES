@@ -11,26 +11,30 @@
 - Simplified mini-map selection using mouse.
 - Click-drag-release to create multiple transportations.
 - Mouse scrolling of main window using middle mouse button (X only).
-- Resizing window to enlarge playing area (X only).
-- Keyboard scrolling of main window using arrow and shift+arrow (X only).
+- Resizing window to enlarge playing area (X and Win32 only).
+- Keyboard scrolling of main window using arrow and shift+arrow 
+  (X and Win32 only).
+- You can now start a new game without exiting.
 - New statistics available in mappoint stats window.
 - Separate screen to set game options.
 - New main menu system.
 - New build/install procedure using autoconf/automake
 - SVGALIB now respects /etc/vga/libvga.config to set mouse parameters.
+- Semantic change to question about creating .Lin-city directory,
+  new default is to create directory.
 - Gettext support for internationalization.
 - Partial support for iso8859-1 and iso8859-2 fonts.
-- Partial translation into Catalan.
 - Code is now ANSI C compliant (I hope).
 - Added OS/2 fixes.
 - Linearize tech loss to fix divide by zero bug.
 - Miniscreen no longer jumps to pollution screen when market burns waste.
-- You can start a new game without exiting.
 - Update opening screen to use new-style organic farm graphics.
 - Fix close directory problem introduced in 1.11.
 - Fix wrong cost being charged for residences.
+
 - No more diffgraph.
 - No longer can bulldoze the most recently built item for free.
+- No more Win32-style menu.
 
 1.11
 ****
@@ -98,7 +102,7 @@ from, say, an fvwm menu.)
 ************
 
 - Fixed 1/2 second delay between clicking and placing item.
-- Fixed decreased performance when mouse is in main screen.
+- Fixed decreased performance when mouse is in main screen. 
 
 1.05
 ****
