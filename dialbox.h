@@ -23,6 +23,7 @@ typedef struct dialog_box_struct Dialog_Box;
 /* Public functions */
 int dialog_box(int colour, char argc, ...); 
 void dialog_refresh();
+void dialog_close(int return_value);
 
 #define MAX_DBOX_ENTRIES 64 /* Huge, but necessary for current use */
 
