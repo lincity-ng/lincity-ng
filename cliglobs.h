@@ -130,7 +130,7 @@ extern char *help_button_graphic, help_graphic[MAX_ICON_LEN];
 extern char *quit_button_graphic, *load_button_graphic, *save_button_graphic;
 extern char *menu_button_graphic;
 extern int quit_flag, network_flag, load_flag, save_flag, cheat_flag;
-extern int monument_bul_flag, river_bul_flag;
+extern int monument_bul_flag, river_bul_flag, shanty_bul_flag;
 extern int must_release_button, let_one_through;
 
 extern int db_yesbox_x1, db_yesbox_x2, db_yesbox_y1, db_yesbox_y2;

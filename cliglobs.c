@@ -106,7 +106,7 @@ char *quit_button_graphic, *load_button_graphic, *save_button_graphic;
 char *menu_button_graphic;
 int quit_flag, network_flag, load_flag, save_flag;
 int prefs_flag = 0, prefs_drawn_flag = 0;
-int monument_bul_flag, river_bul_flag;
+int monument_bul_flag, river_bul_flag, shanty_bul_flag;
 int must_release_button = 0, let_one_through = 0;
 
 int db_yesbox_x1, db_yesbox_x2, db_yesbox_y1, db_yesbox_y2;
