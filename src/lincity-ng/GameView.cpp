@@ -14,6 +14,7 @@
  *
  *  20050208
  *  +Zoom now working
+ *
  */
 #include <config.h>
 
@@ -103,18 +104,33 @@ void GameView::setZoom(const int newzoom){
     Vector2 centerTile  = getTile( center ); 
     
     zoom = newzoom;
+    if ( zoom < 25 ) zoom = 25;
+    if ( zoom > 400 ) zoom = 400;
+    
+    std::cout << "Zoom:" << zoom << "%\n";
     tileWidth = defaultTileWidth * zoom / 100 ;
     tileHeight = defaultTileHeight * zoom / 100; 
     //a virtual screen containing the whole city
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
 
-    //New Position of center on virtual Screen
-    center.x = virtualScreenWidth / 2 + ( centerTile.x - centerTile.y ) * ( tileWidth / 2 );
-    center.y = ( centerTile.x + centerTile.y ) * ( tileHeight / 2 ); 
-    
-    viewport.x = center.x - ( getWidth() / 2);
-    viewport.y = center.y - ( getHeight() / 2 );
+    //Show the Center
+    show( centerTile );
+}
+
+/* set Zoomlevel to 100% */
+void GameView::resetZoom(){
+    setZoom( 100 );
+}
+
+/* increase Zoomlevel */
+void GameView::zoomIn(){
+    setZoom( zoom * 2 );
+}
+
+/** decrease Zoomlevel */
+void GameView::zoomOut(){
+    setZoom( zoom / 2 );
 }
 
 /**
@@ -123,12 +139,17 @@ void GameView::setZoom(const int newzoom){
 void GameView::show( const int x, const int y )
 {    
     Vector2 center;
+    std::cout << "GameView::Show(" << x << "/" << y << ")\n";
     center.x = virtualScreenWidth / 2 + ( x - y ) * ( tileWidth / 2 );
-    center.y = ( x + y ) * ( tileHeight / 2 ); 
+    center.y = ( x + y ) * ( tileHeight / 2 ) + ( tileHeight / 2 ); 
     
-    viewport.x = center.x - ( getWidth() / 2);
+    viewport.x = center.x - ( getWidth() / 2 );
     viewport.y = center.y - ( getHeight() / 2 );
     //request redraw
+}
+void GameView::show( const Vector2 pos )
+{
+    show( (int) pos.x, (int) pos.y );
 }
 
 /*
@@ -536,21 +557,27 @@ void GameView::event(const Event& event)
             //std::cout << "Pos " << event.mousepos.x << "/" << event.mousepos.y << "\n";
             if(event.mousebutton==SDL_BUTTON_RIGHT)
                 recenter(event.mousepos);
+            else if( event.mousebutton ==  4 ){
+                zoomIn();
+            }
+            else if( event.mousebutton == 5 ){
+                zoomOut();
+            }
             else
                 click(event.mousepos);
             break;
         case Event::KEYUP:
             //Zoom
             if( event.keysym.sym == SDLK_KP_PLUS ){
-                setZoom(200);
+                zoomIn();
                 break;
             }
             if( event.keysym.sym == SDLK_KP_MINUS ){
-                setZoom(50);
+                zoomOut();
                 break;
             }
             if( event.keysym.sym == SDLK_KP_ENTER ){
-                setZoom(100);
+                resetZoom();
                 break;
             }
             //Scroll
@@ -664,7 +691,6 @@ const Vector2 GameView::getTile(Vector2 point)
     point += viewport;
     tile.x = ( point.x - virtualScreenWidth / 2 ) / tileWidth +  point.y  / tileHeight;
     tile.y =  2 * point.y  / tileHeight  - tile.x; 
-
     tile.x = floor( tile.x );
     tile.y = floor( tile.y );
 
@@ -769,7 +795,6 @@ void GameView::draw( Painter& painter )
     } 
     frameCounter10++;
     
-    //std::cout << "\nGameView::draw()\n";
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );

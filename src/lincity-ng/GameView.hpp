@@ -23,16 +23,24 @@ public:
 
     //Show City Tile(x/y) by centering the screen 
     void show( const int x, const int y );
+    void show( const Vector2 pos );
+
+    //Set Zoomlevel to 100 Percent
+    void resetZoom();
+    //increase Zoomlevel 
+    void zoomIn();
+    //decrease Zoomlevel 
+    void zoomOut();
 private:
     const void recenter(Vector2 pos);
     const Vector2 getScreenPoint(Vector2 tile);
     const Vector2 getTile(Vector2 point);
     const void drawTile( Painter& painter, Vector2 tile );
     const void loadTextures();
+    void setZoom(const int newzoom);
     Texture* readTexture(const std::string& filename);
     void readCityTexture( int textureType, const std::string& filename );
     void click(const Vector2 &pos);
-    void setZoom(const int newzoom);
     time_t startTime10;
     int frameCounter10;
 
