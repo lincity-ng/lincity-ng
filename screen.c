@@ -29,9 +29,9 @@
 #include "dialbox.h"
 #include "lclib.h"
 #include "module_buttons.h"
-#include "stats.h"
 #include "engine.h"
 #include "fileutil.h"
+#include "lincity/lincity.h"
 
 /* ---------------------------------------------------------------------- *
  * External Global Variables

@@ -78,7 +78,7 @@
 #include "ldsvguts.h"
 #include "fileutil.h"
 #include "mouse.h"
-#include "stats.h"
+#include "lincity/lincity.h"
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes

@@ -140,7 +140,7 @@ dnl -------------------------------------------------------
 dnl GCS Jan 19, 2003
 dnl Remove internationalization.  Pushed off to the next version.
 dnl -------------------------------------------------------
-AC_CONFIG_FILES([Makefile intl/Makefile po/Makefile.in m4/Makefile modules/Makefile])
+AC_CONFIG_FILES([Makefile intl/Makefile po/Makefile.in m4/Makefile lincity/Makefile])
 
 dnl AC_CONFIG_FILES([Makefile])
 

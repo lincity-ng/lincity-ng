@@ -1,4 +1,4 @@
-# generated automatically by aclocal 1.8.2 -*- Autoconf -*-
+# generated automatically by aclocal 1.9.2 -*- Autoconf -*-
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004
 # Free Software Foundation, Inc.
@@ -632,7 +632,7 @@ AC_DEFUN([AC_LIBTOOL_SYS_MAX_CMD_LEN],
 AC_MSG_CHECKING([the maximum length of command line arguments])
 AC_CACHE_VAL([lt_cv_sys_max_cmd_len], [dnl
   i=0
-  testring="ABCD"
+  teststring="ABCD"
 
   case $build_os in
   msdosdjgpp*)
@@ -671,16 +671,16 @@ AC_CACHE_VAL([lt_cv_sys_max_cmd_len], [dnl
     # If test is not a shell built-in, we'll probably end up computing a
     # maximum length that is only half of the actual maximum length, but
     # we can't tell.
-    while (test "X"`$CONFIG_SHELL [$]0 --fallback-echo "X$testring" 2>/dev/null` \
-	       = "XX$testring") >/dev/null 2>&1 &&
-	    new_result=`expr "X$testring" : ".*" 2>&1` &&
+    while (test "X"`$CONFIG_SHELL [$]0 --fallback-echo "X$teststring" 2>/dev/null` \
+	       = "XX$teststring") >/dev/null 2>&1 &&
+	    new_result=`expr "X$teststring" : ".*" 2>&1` &&
 	    lt_cv_sys_max_cmd_len=$new_result &&
 	    test $i != 17 # 1/2 MB should be enough
     do
       i=`expr $i + 1`
-      testring=$testring$testring
+      teststring=$teststring$teststring
     done
-    testring=
+    teststring=
     # Add a significant safety factor because C++ compilers can tack on massive
     # amounts of additional arguments before passing them to the linker.
     # It appears as though 1/2 is a usable value.
@@ -1076,7 +1076,7 @@ AC_DEFUN([AC_LIBTOOL_SYS_DYNAMIC_LINKER],
 library_names_spec=
 libname_spec='lib$name'
 soname_spec=
-shrext=".so"
+shrext_cmds=".so"
 postinstall_cmds=
 postuninstall_cmds=
 finish_cmds=
@@ -1189,7 +1189,7 @@ bsdi4*)
 
 cygwin* | mingw* | pw32*)
   version_type=windows
-  shrext=".dll"
+  shrext_cmds=".dll"
   need_version=no
   need_lib_prefix=no
 
@@ -1254,7 +1254,7 @@ darwin* | rhapsody*)
   soname_spec='${libname}${release}${major}$shared_ext'
   shlibpath_overrides_runpath=yes
   shlibpath_var=DYLD_LIBRARY_PATH
-  shrext='$(test .$module = .yes && echo .so || echo .dylib)'
+  shrext_cmds='$(test .$module = .yes && echo .so || echo .dylib)'
   # Apple's gcc prints 'gcc -print-search-dirs' doesn't operate the same.
   if test "$GCC" = yes; then
     sys_lib_search_path_spec=`$CC -print-search-dirs | tr "\n" "$PATH_SEPARATOR" | sed -e 's/libraries:/@libraries:/' | tr "@" "\n" | grep "^libraries:" | sed -e "s/^libraries://" -e "s,=/,/,g" -e "s,$PATH_SEPARATOR, ,g" -e "s,.*,& /lib /usr/lib /usr/local/lib,g"`
@@ -1337,7 +1337,7 @@ hpux9* | hpux10* | hpux11*)
   need_version=no
   case "$host_cpu" in
   ia64*)
-    shrext='.so'
+    shrext_cmds='.so'
     hardcode_into_libs=yes
     dynamic_linker="$host_os dld.so"
     shlibpath_var=LD_LIBRARY_PATH
@@ -1352,7 +1352,7 @@ hpux9* | hpux10* | hpux11*)
     sys_lib_dlsearch_path_spec=$sys_lib_search_path_spec
     ;;
    hppa*64*)
-     shrext='.sl'
+     shrext_cmds='.sl'
      hardcode_into_libs=yes
      dynamic_linker="$host_os dld.sl"
      shlibpath_var=LD_LIBRARY_PATH # How should we handle SHLIB_PATH
@@ -1363,7 +1363,7 @@ hpux9* | hpux10* | hpux11*)
      sys_lib_dlsearch_path_spec=$sys_lib_search_path_spec
      ;;
    *)
-    shrext='.sl'
+    shrext_cmds='.sl'
     dynamic_linker="$host_os dld.sl"
     shlibpath_var=SHLIB_PATH
     shlibpath_overrides_runpath=no # +s is required to enable SHLIB_PATH
@@ -1432,10 +1432,27 @@ linux*)
   # before this can be enabled.
   hardcode_into_libs=yes
 
+  # find out which ABI we are using
+  libsuff=
+  case "$host_cpu" in
+  x86_64*|s390x*|powerpc64*)
+    echo '[#]line __oline__ "configure"' > conftest.$ac_ext
+    if AC_TRY_EVAL(ac_compile); then
+      case `/usr/bin/file conftest.$ac_objext` in
+      *64-bit*)
+        libsuff=64
+        sys_lib_search_path_spec="/lib${libsuff} /usr/lib${libsuff} /usr/local/lib${libsuff}"
+        ;;
+      esac
+    fi
+    rm -rf conftest*
+    ;;
+  esac
+
   # Append ld.so.conf contents to the search path
   if test -f /etc/ld.so.conf; then
-    ld_extra=`$SED -e 's/[:,\t]/ /g;s/=[^=]*$//;s/=[^= ]* / /g' /etc/ld.so.conf`
-    sys_lib_dlsearch_path_spec="/lib /usr/lib $ld_extra"
+    lt_ld_extra=`$SED -e 's/[:,\t]/ /g;s/=[^=]*$//;s/=[^= ]* / /g' /etc/ld.so.conf | tr '\n' ' '`
+    sys_lib_dlsearch_path_spec="/lib${libsuff} /usr/lib${libsuff} $lt_ld_extra"
   fi
 
   # We used to test for /lib/ld.so.1 and disable shared libraries on
@@ -1517,7 +1534,7 @@ openbsd*)
 
 os2*)
   libname_spec='$name'
-  shrext=".dll"
+  shrext_cmds=".dll"
   need_lib_prefix=no
   library_names_spec='$libname${shared_ext} $libname.a'
   dynamic_linker='OS/2 ld.exe'
@@ -2108,14 +2125,14 @@ bsdi4*)
   ;;
 
 cygwin*)
-  # win32_libid is a shell function defined in ltmain.sh
+  # func_win32_libid is a shell function defined in ltmain.sh
   lt_cv_deplibs_check_method='file_magic ^x86 archive import|^x86 DLL'
-  lt_cv_file_magic_cmd='win32_libid'
+  lt_cv_file_magic_cmd='func_win32_libid'
   ;;
 
 mingw* | pw32*)
   # Base MSYS/MinGW do not provide the 'file' command needed by
-  # win32_libid shell function, so use a weaker test based on 'objdump'.
+  # func_win32_libid shell function, so use a weaker test based on 'objdump'.
   lt_cv_deplibs_check_method='file_magic file format pei*-i386(.*architecture: i386)?'
   lt_cv_file_magic_cmd='$OBJDUMP -f'
   ;;
@@ -2175,7 +2192,7 @@ irix5* | irix6* | nonstopux*)
 # This must be Linux ELF.
 linux*)
   case $host_cpu in
-  alpha*|hppa*|i*86|ia64*|m68*|mips*|powerpc*|sparc*|s390*|sh*)
+  alpha*|hppa*|i*86|ia64*|m68*|mips*|powerpc*|sparc*|s390*|sh*|x86_64*)
     lt_cv_deplibs_check_method=pass_all ;;
   *)
     # glibc up to 2.1.1 does not perform some relocations on ARM
@@ -2535,7 +2552,7 @@ aix3*)
   fi
   ;;
 
-aix4*)
+aix4* | aix5*)
   if test "$host_cpu" != ia64 && test "$aix_use_runtimelinking" = no ; then
     test "$enable_shared" = yes && enable_static=no
   fi
@@ -2983,7 +3000,7 @@ case $host_os in
       # explicitly linking system object files so we need to strip them
       # from the output so that they don't get included in the library
       # dependencies.
-      output_verbose_link_cmd='templist=`($CC -b $CFLAGS -v conftest.$objext 2>&1) | egrep "\-L"`; list=""; for z in $templist; do case $z in conftest.$objext) list="$list $z";; *.$objext);; *) list="$list $z";;esac; done; echo $list'
+      output_verbose_link_cmd='templist=`($CC -b $CFLAGS -v conftest.$objext 2>&1) | grep "[-]L"`; list=""; for z in $templist; do case $z in conftest.$objext) list="$list $z";; *.$objext);; *) list="$list $z";;esac; done; echo $list'
       ;;
     *)
       if test "$GXX" = yes; then
@@ -3686,7 +3703,7 @@ aix3*)
     postinstall_cmds='$RANLIB $lib'
   fi
   ;;
-aix4*)
+aix4* | aix5*)
   test "$enable_shared" = yes && enable_static=no
   ;;
 esac
@@ -4041,7 +4058,7 @@ objext="$ac_objext"
 libext="$libext"
 
 # Shared library suffix (normally ".so").
-shrext='$shrext'
+shrext_cmds='$shrext_cmds'
 
 # Executable file suffix (normally "").
 exeext="$exeext"
@@ -5149,7 +5166,7 @@ EOF
       ;;
 
   linux*)
-    if $LD --help 2>&1 | egrep ': supported targets:.* elf' > /dev/null; then
+    if $LD --help 2>&1 | grep ': supported targets:.* elf' > /dev/null; then
         tmp_archive_cmds='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
 	_LT_AC_TAGVAR(archive_cmds, $1)="$tmp_archive_cmds"
       supports_anon_versioning=no
@@ -5349,7 +5366,7 @@ $echo "local: *; };" >> $output_objdir/$libname.ver~
       # Tell ltmain to make .lib files, not .a files.
       libext=lib
       # Tell ltmain to make .dll files, not .so files.
-      shrext=".dll"
+      shrext_cmds=".dll"
       # FIXME: Setting linknames here is a bad hack.
       _LT_AC_TAGVAR(archive_cmds, $1)='$CC -o $lib $libobjs $compiler_flags `echo "$deplibs" | $SED -e '\''s/ -lc$//'\''` -link -dll~linknames='
       # The linker will automatically build a .lib file if we build a DLL.
@@ -5941,14 +5958,14 @@ AC_MSG_RESULT([$SED])
 # ----------------------------
 # Automake X.Y traces this macro to ensure aclocal.m4 has been
 # generated from the m4 files accompanying Automake X.Y.
-AC_DEFUN([AM_AUTOMAKE_VERSION], [am__api_version="1.8"])
+AC_DEFUN([AM_AUTOMAKE_VERSION], [am__api_version="1.9"])
 
 # AM_SET_CURRENT_AUTOMAKE_VERSION
 # -------------------------------
 # Call AM_AUTOMAKE_VERSION so it can be traced.
 # This function is AC_REQUIREd by AC_INIT_AUTOMAKE.
 AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
-	 [AM_AUTOMAKE_VERSION([1.8.2])])
+	 [AM_AUTOMAKE_VERSION([1.9.2])])
 
 # AM_AUX_DIR_EXPAND
 
@@ -6016,7 +6033,7 @@ am_aux_dir=`cd $ac_aux_dir && pwd`
 
 # AM_CONDITIONAL                                              -*- Autoconf -*-
 
-# Copyright (C) 1997, 2000, 2001, 2003 Free Software Foundation, Inc.
+# Copyright (C) 1997, 2000, 2001, 2003, 2004 Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -6053,11 +6070,11 @@ else
 fi
 AC_CONFIG_COMMANDS_PRE(
 [if test -z "${$1_TRUE}" && test -z "${$1_FALSE}"; then
-  AC_MSG_ERROR([conditional "$1" was never defined.
-Usually this means the macro was only invoked conditionally.])
+  AC_MSG_ERROR([[conditional "$1" was never defined.
+Usually this means the macro was only invoked conditionally.]])
 fi])])
 
-# serial 6						-*- Autoconf -*-
+# serial 7						-*- Autoconf -*-
 
 # Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004
 # Free Software Foundation, Inc.
@@ -6144,7 +6161,9 @@ AC_CACHE_CHECK([dependency style of $depcc],
     : > sub/conftest.c
     for i in 1 2 3 4 5 6; do
       echo '#include "conftst'$i'.h"' >> sub/conftest.c
-      : > sub/conftst$i.h
+      # Using `: > sub/conftst$i.h' creates only sub/conftst1.h with
+      # Solaris 8's {/usr,}/bin/sh.
+      touch sub/conftst$i.h
     done
     echo "${am__include} ${am__quote}sub/conftest.Po${am__quote}" > confmf
 
@@ -6172,9 +6191,14 @@ AC_CACHE_CHECK([dependency style of $depcc],
        grep sub/conftest.${OBJEXT-o} sub/conftest.Po > /dev/null 2>&1 &&
        ${MAKE-make} -s -f confmf > /dev/null 2>&1; then
       # icc doesn't choke on unknown options, it will just issue warnings
-      # (even with -Werror).  So we grep stderr for any message
-      # that says an option was ignored.
-      if grep 'ignoring option' conftest.err >/dev/null 2>&1; then :; else
+      # or remarks (even with -Werror).  So we grep stderr for any message
+      # that says an option was ignored or not supported.
+      # When given -MP, icc 7.0 and 7.1 complain thusly:
+      #   icc: Command line warning: ignoring option '-M'; no argument required
+      # The diagnosis changed in icc 8.0:
+      #   icc: Command line remark: option '-MP' not supported
+      if (grep 'ignoring option' conftest.err ||
+          grep 'not supported' conftest.err) >/dev/null 2>&1; then :; else
         am_cv_$1_dependencies_compiler_type=$depmode
         break
       fi
@@ -6220,7 +6244,8 @@ AC_SUBST([AMDEPBACKSLASH])
 
 # Generate code to set up dependency tracking.   -*- Autoconf -*-
 
-# Copyright (C) 1999, 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004
+#   Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -6256,27 +6281,21 @@ AC_DEFUN([_AM_OUTPUT_DEPENDENCY_COMMANDS],
   else
     continue
   fi
-  grep '^DEP_FILES *= *[[^ @%:@]]' < "$mf" > /dev/null || continue
-  # Extract the definition of DEP_FILES from the Makefile without
-  # running `make'.
-  DEPDIR=`sed -n -e '/^DEPDIR = / s///p' < "$mf"`
+  # Extract the definition of DEPDIR, am__include, and am__quote
+  # from the Makefile without running `make'.
+  DEPDIR=`sed -n 's/^DEPDIR = //p' < "$mf"`
   test -z "$DEPDIR" && continue
+  am__include=`sed -n 's/^am__include = //p' < "$mf"`
+  test -z "am__include" && continue
+  am__quote=`sed -n 's/^am__quote = //p' < "$mf"`
   # When using ansi2knr, U may be empty or an underscore; expand it
-  U=`sed -n -e '/^U = / s///p' < "$mf"`
-  test -d "$dirpart/$DEPDIR" || mkdir "$dirpart/$DEPDIR"
-  # We invoke sed twice because it is the simplest approach to
-  # changing $(DEPDIR) to its actual value in the expansion.
-  for file in `sed -n -e '
-    /^DEP_FILES = .*\\\\$/ {
-      s/^DEP_FILES = //
-      :loop
-	s/\\\\$//
-	p
-	n
-	/\\\\$/ b loop
-      p
-    }
-    /^DEP_FILES = / s/^DEP_FILES = //p' < "$mf" | \
+  U=`sed -n 's/^U = //p' < "$mf"`
+  # Find all dependency output files, they are included files with
+  # $(DEPDIR) in their names.  We invoke sed twice because it is the
+  # simplest approach to changing $(DEPDIR) to its actual value in the
+  # expansion.
+  for file in `sed -n "
+    s/^$am__include $am__quote\(.*(DEPDIR).*\)$am__quote"'$/\1/p' <"$mf" | \
        sed -e 's/\$(DEPDIR)/'"$DEPDIR"'/g' -e 's/\$U/'"$U"'/g'`; do
     # Make sure the directory exists.
     test -f "$dirpart/$file" && continue
@@ -6307,7 +6326,7 @@ AC_DEFUN([AM_OUTPUT_DEPENDENCY_COMMANDS],
 # This macro actually does too much some checks are only needed if
 # your package does certain things.  But this isn't really a big deal.
 
-# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003
+# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004
 # Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
@@ -6383,7 +6402,6 @@ AM_MISSING_PROG(AUTOCONF, autoconf)
 AM_MISSING_PROG(AUTOMAKE, automake-${am__api_version})
 AM_MISSING_PROG(AUTOHEADER, autoheader)
 AM_MISSING_PROG(MAKEINFO, makeinfo)
-AM_MISSING_PROG(AMTAR, tar)
 AM_PROG_INSTALL_SH
 AM_PROG_INSTALL_STRIP
 AC_REQUIRE([AM_PROG_MKDIR_P])dnl
@@ -6392,7 +6410,9 @@ AC_REQUIRE([AM_PROG_MKDIR_P])dnl
 AC_REQUIRE([AC_PROG_AWK])dnl
 AC_REQUIRE([AC_PROG_MAKE_SET])dnl
 AC_REQUIRE([AM_SET_LEADING_DOT])dnl
-
+_AM_IF_OPTION([tar-ustar], [_AM_PROG_TAR([ustar])],
+              [_AM_IF_OPTION([tar-pax], [_AM_PROG_TAR([pax])],
+	      		     [_AM_PROG_TAR([v7])])])
 _AM_IF_OPTION([no-dependencies],,
 [AC_PROVIDE_IFELSE([AC_PROG_CC],
                   [_AM_DEPENDENCIES(CC)],
@@ -6625,21 +6645,37 @@ fi
 #
 # Do not use -m 0755 and let people choose whatever they expect by
 # setting umask.
+#
+# We cannot accept any implementation of `mkdir' that recognizes `-p'.
+# Some implementations (such as Solaris 8's) are not thread-safe: if a
+# parallel make tries to run `mkdir -p a/b' and `mkdir -p a/c'
+# concurrently, both version can detect that a/ is missing, but only
+# one can create it and the other will error out.  Consequently we
+# restrict ourselves to GNU make (using the --version option ensures
+# this.)
 AC_DEFUN([AM_PROG_MKDIR_P],
-[if mkdir -p -- . 2>/dev/null; then
-  # Keeping the `.' argument allows $(mkdir_p) to be used without
-  # argument.  Indeed, we sometimes output rules like
+[if mkdir -p --version . >/dev/null 2>&1 && test ! -d ./--version; then
+  # We used to keeping the `.' as first argument, in order to
+  # allow $(mkdir_p) to be used without argument.  As in
   #   $(mkdir_p) $(somedir)
-  # where $(somedir) is conditionally defined.
-  # (`test -n '$(somedir)' && $(mkdir_p) $(somedir)' is a more
-  # expensive solution, as it forces Make to start a sub-shell.)
-  mkdir_p='mkdir -p -- .'
+  # where $(somedir) is conditionally defined.  However this is wrong
+  # for two reasons:
+  #  1. if the package is installed by a user who cannot write `.'
+  #     make install will fail,
+  #  2. the above comment should most certainly read
+  #     $(mkdir_p) $(DESTDIR)$(somedir)
+  #     so it does not work when $(somedir) is undefined and
+  #     $(DESTDIR) is not.
+  #  To support the latter case, we have to write
+  #     test -z "$(somedir)" || $(mkdir_p) $(DESTDIR)$(somedir),
+  #  so the `.' trick is pointless.
+  mkdir_p='mkdir -p --'
 else
   # On NextStep and OpenStep, the `mkdir' command does not
   # recognize any option.  It will interpret all options as
   # directories to create, and then abort because `.' already
   # exists.
-  for d in ./-p ./--;
+  for d in ./-p ./--version;
   do
     test -d $d && rmdir $d
   done
@@ -6798,6 +6834,114 @@ if test "$cross_compiling" != no; then
 fi
 INSTALL_STRIP_PROGRAM="\${SHELL} \$(install_sh) -c -s"
 AC_SUBST([INSTALL_STRIP_PROGRAM])])
+
+# Check how to create a tarball.                            -*- Autoconf -*-
+
+# Copyright (C) 2004  Free Software Foundation, Inc.
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+
+# serial 1
+
+
+# _AM_PROG_TAR(FORMAT)
+# --------------------
+# Check how to create a tarball in format FORMAT.
+# FORMAT should be one of `v7', `ustar', or `pax'.
+#
+# Substitute a variable $(am__tar) that is a command
+# writing to stdout a FORMAT-tarball containing the directory
+# $tardir.
+#     tardir=directory && $(am__tar) > result.tar
+#
+# Substitute a variable $(am__untar) that extract such
+# a tarball read from stdin.
+#     $(am__untar) < result.tar
+AC_DEFUN([_AM_PROG_TAR],
+[# Always define AMTAR for backward compatibility.
+AM_MISSING_PROG([AMTAR], [tar])
+m4_if([$1], [v7],
+     [am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'],
+     [m4_case([$1], [ustar],, [pax],,
+              [m4_fatal([Unknown tar format])])
+AC_MSG_CHECKING([how to create a $1 tar archive])
+# Loop over all known methods to create a tar archive until one works.
+_am_tools='gnutar m4_if([$1], [ustar], [plaintar]) pax cpio none'
+_am_tools=${am_cv_prog_tar_$1-$_am_tools}
+# Do not fold the above two line into one, because Tru64 sh and
+# Solaris sh will not grok spaces in the rhs of `-'.
+for _am_tool in $_am_tools
+do
+  case $_am_tool in
+  gnutar)
+    for _am_tar in tar gnutar gtar;
+    do
+      AM_RUN_LOG([$_am_tar --version]) && break
+    done
+    am__tar="$_am_tar --format=m4_if([$1], [pax], [posix], [$1]) -chf - "'"$$tardir"'
+    am__tar_="$_am_tar --format=m4_if([$1], [pax], [posix], [$1]) -chf - "'"$tardir"'
+    am__untar="$_am_tar -xf -"
+    ;;
+  plaintar)
+    # Must skip GNU tar: if it does not support --format= it doesn't create
+    # ustar tarball either.
+    (tar --version) >/dev/null 2>&1 && continue
+    am__tar='tar chf - "$$tardir"'
+    am__tar_='tar chf - "$tardir"'
+    am__untar='tar xf -'
+    ;;
+  pax)
+    am__tar='pax -L -x $1 -w "$$tardir"'
+    am__tar_='pax -L -x $1 -w "$tardir"'
+    am__untar='pax -r'
+    ;;
+  cpio)
+    am__tar='find "$$tardir" -print | cpio -o -H $1 -L'
+    am__tar_='find "$tardir" -print | cpio -o -H $1 -L'
+    am__untar='cpio -i -H $1 -d'
+    ;;
+  none)
+    am__tar=false
+    am__tar_=false
+    am__untar=false
+    ;;
+  esac
+
+  # If the value was cached, stop now.  We just wanted to have am__tar
+  # and am__untar set.
+  test -n "${am_cv_prog_tar_$1}" && break
+
+  # tar/untar a dummy directory, and stop if the command works
+  rm -rf conftest.dir
+  mkdir conftest.dir
+  echo GrepMe > conftest.dir/file
+  AM_RUN_LOG([tardir=conftest.dir && eval $am__tar_ >conftest.tar])
+  rm -rf conftest.dir
+  if test -s conftest.tar; then
+    AM_RUN_LOG([$am__untar <conftest.tar])
+    grep GrepMe conftest.dir/file >/dev/null 2>&1 && break
+  fi
+done
+rm -rf conftest.dir
+
+AC_CACHE_VAL([am_cv_prog_tar_$1], [am_cv_prog_tar_$1=$_am_tool])
+AC_MSG_RESULT([$am_cv_prog_tar_$1])])
+AC_SUBST([am__tar])
+AC_SUBST([am__untar])
+]) # _AM_PROG_TAR
 
 m4_include([m4/codeset.m4])
 m4_include([m4/gettext.m4])

@@ -9,6 +9,9 @@
 
 #include <stdio.h>
 
+#undef commentout
+#define LC_X11
+
 /*
   The mouse sensitivity can be an integer such as 1, 2, 3 etc.
   The higher the number the less you have to move the mouse.
@@ -1402,7 +1405,59 @@ extern int put_stuff2 (Map_Point_Info *, short *, int, int);
 extern int put_stuff3 (Map_Point_Info *, short *, int, int);
 extern int put_stuff4 (Map_Point_Info *, short *, int, int);
 
-#ifdef LC_X11
+#if defined SDL
+#warning "SDL defined"
+#include <SDL/SDL.h>
+
+extern void sdl_gl_write (int, int, char *);
+extern void sdl_gl_getbox (int, int, int, int, void *);
+extern void sdl_gl_putbox (int, int, int, int, void *);
+extern void sdl_gl_fillbox (int, int, int, int, Uint32 col);
+
+extern void sdl_gl_hline (int x1, int y1, int x2, Uint32 col);
+extern void sdl_gl_vline (int x1, int y1, int y2, Uint32 col);
+extern void sdl_gl_line (int x1, int y1, int x2, int y2, Uint32 col);
+
+extern void sdl_gl_setpixel (int x, int y, Uint32 col);
+extern void sdl_gl_setfontcolors (Uint32 bg, Uint32 fg);
+extern void sdl_gl_setfont (int, int, void *);
+extern void sdl_gl_enableclipping (void);
+extern void sdl_gl_setclippingwindow (int, int, int, int);
+extern void sdl_gl_disableclipping (void);
+
+extern void sdl_blit (int x, int y, int w, int h, SDL_Surface *);
+
+/* Wait for a key or some other event */
+extern int sdl_wait_for_key (void);
+extern int sdl_update_wait_for_key (void);
+
+extern int sdl_check_key (void);
+extern int sdl_update_check_key (void);
+
+#define sdl_map_rgb(r,g,b) SDL_MapRGB(display.surface->format, r, g, b)
+
+#define sdl_video() (display.surface)
+
+#define sdl_flip() SDL_Flip(display.surface)
+
+extern void sdl_clear (Uint32 col);
+
+#define Fgl_write(a,b,c) sdl_gl_write(a,b,c)
+#define Fgl_getbox(a,b,c,d,e) sdl_gl_getbox(a,b,c,d,e)
+#define Fgl_putbox(a,b,c,d,e) sdl_gl_putbox(a,b,c,d,e)
+#define Fgl_fillbox(a,b,c,d,e) sdl_gl_fillbox(a,b,c,d,e)
+#define Fgl_hline(a,b,c,d) sdl_gl_hline(a,b,c,d)
+#define Fgl_line(a,b,c,d,e) sdl_gl_line(a,b,c,d,e)
+#define Fgl_setpixel(a,b,c) sdl_gl_setpixel(a,b,c)
+#define Fgl_setfontcolors(a,b) sdl_gl_setfontcolors(a,b)
+#define Fgl_setfont(a,b,c) sdl_gl_setfont(a,b,c)
+#define Fgl_enableclipping() sdl_gl_enableclipping()
+#define Fgl_setclippingwindow(a,b,c,d) sdl_gl_setclippingwindow(a,b,c,d)
+#define Fgl_disableclipping() sdl_gl_disableclipping()
+
+
+
+#elif defined LC_X11
 /* ----- X11 functions ----- */
 extern void Fgl_write (int, int, char *);
 extern void open_write (int, int, char *);
@@ -1482,6 +1537,6 @@ extern void update_pixmap (int, int, int, int, int, int, int, char *);
   *****************************************
 */
 
-#include "lincity/lintypes.h"
+#include "lintypes.h"
 
 #endif /* __lin_city_h__ */

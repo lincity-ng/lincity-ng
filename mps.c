@@ -9,20 +9,13 @@
 #include <math.h>
 #include "lcstring.h"
 #include "common.h"
-#include "lctypes.h"
 #include "lin-city.h"
 #include "mps.h"
-#include "engglobs.h"
 #include "mouse.h"
 #include "screen.h"
-#include "power.h"
 #include "engine.h"
-#include "lclib.h"
-#include "lcintl.h"
-#include "stats.h"
 #include "mouse.h"
-#include "modules/modules.h"
-#include "lclib.h"
+#include "lincity/modules.h"
 
 char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
 int mps_global_style;

@@ -5,6 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lincity 1.12pre52\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-07-31 20:46-0600\n"
 "PO-Revision-Date: 2003-03-26 00:39-0500\n"
 "Last-Translator: kkk <kkk@kkk>\n"
@@ -12,7 +13,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: cliglobs.c:56
 msgid "Jan"

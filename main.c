@@ -47,7 +47,7 @@
 #include "engglobs.h"
 #include "timer.h"
 #include "ldsvgui.h"
-#include "simulate.h"
+//#include "simulate.h"
 #include "mouse.h"
 #include "pixmap.h"
 #include "screen.h"
@@ -55,6 +55,7 @@
 #include "engine.h"
 #include "module_buttons.h"
 #include "fileutil.h"
+#include "lincity/lincity.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
@@ -262,6 +263,12 @@ lincity_main (int argc, char *argv[])
     setcustompalette ();
     draw_background ();
     prog_box (_("Loading the game"), 1);
+
+    char png_file[LC_PATH_MAX], txt_file[LC_PATH_MAX];
+    sprintf (png_file, "%s%c%s", opening_path, PATH_SLASH, "icons.png");
+    sprintf (txt_file, "%s%c%s", opening_path, PATH_SLASH, "iconlist.txt");
+    load_png_graphics (txt_file,png_file);
+
     init_types ();
     init_modules();
     init_mappoint_array ();

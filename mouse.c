@@ -794,18 +794,6 @@ check_bulldoze_area (int x, int y)
     bulldoze_item (xx,yy);
 }
 
-/* XXX: mouse.c?  wtf! */
-void
-fire_area (int x, int y)
-{
-  do_bulldoze_area (CST_FIRE_1, x, y);
-  refresh_main_screen ();
-  /*
-    // update transport or we get stuff put in
-    // the area from connected tracks etc.
-  */
-}
-
 /* Called from event handler when middle button is held while moving
    the mouse.  Will probably handle multi-transport eventually */
 

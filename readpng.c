@@ -7,7 +7,6 @@
 #include "malloc.h"
 #include "lin-city.h"
 #include "lctypes.h"
-#include "lintypes.h"
 
 /* Read a PNG file.  You may want to return an error code if the read
  * fails (depending upon the failure).  There are two "prototypes" given

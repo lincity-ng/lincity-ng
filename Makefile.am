@@ -7,7 +7,7 @@ DEFS = @DEFS@
 X_DEFS = -DLC_X11=1 -Wall
 SVGA_DEFS = -DSVGALIB=1
 
-SUBDIRS = m4 intl po modules
+SUBDIRS = m4 intl po lincity
 
 ## (deleted)
 ##	acconfig.h   \
@@ -24,17 +24,14 @@ noinst_HEADERS = \
 	lctypes.h    lcwin32.h \
 	lcx11.h      lcsvga.h \
 	ldsvgui.h    ldsvguts.h   \
-	lin-city.h   lintypes.h	 market.h \
+	lin-city.h \
 	module_buttons.h \
 	mouse.h      mps.h	  pbar.h    \
-	picedit.h    pixmap.h     power.h \
-	prefix.h \
+	picedit.h    pixmap.h \
 	readpng.h \
-	resource.h	 screen.h \
-	shrglobs.h   stats.h \
-	simulate.h   timer.h	 transport.h \
-	typeinit.h   xpicedit.h	\
-	modules/modules.h
+	screen.h \
+	timer.h \
+	xpicedit.h
 
 # Directories that need to have CVS and ca subdirectories removed
 LC_DISTDIRS = \
@@ -164,12 +161,10 @@ lib_LTLIBRARIES = @LCLIBS@
 ## its compiled without appropriate -Ds.  Fixme post 1.13.1
 
 gui_SOURCES =	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c fileutil.c
+	pixmap.c geometry.c pbar.c module_buttons.c \
+	dialbox.c cliglobs.c readpng.c
 
-engine_SOURCES = lclib.c power.c ldsvguts.c engine.c transport.c market.c \
-	simulate.c shrtypes.c lintypes.c readpng.c timer.c  \
-	shrglobs.c stats.c prefix.c
+engine_SOURCES = timer.c
 
 liblcx_la_SHORTNAME = lcx
 liblcx_la_SOURCES = $(gui_SOURCES) lcx11.c 
@@ -183,12 +178,12 @@ liblcsvga_la_CPPFLAGS = $(SVGA_DEFS)
 
 
 lincity_SOURCES = $(engine_SOURCES)
-lincity_DEPENDENCIES = LCSVGA_LIBS modules/libmodules.la
-lincity_LDADD = liblcsvga.la modules/libmodules.la
+lincity_DEPENDENCIES = LCSVGA_LIBS lincity/liblincity.la
+lincity_LDADD = liblcsvga.la lincity/liblincity.la
 
 xlincity_SOURCES = $(engine_SOURCES)
-xlincity_DEPENDENCIES = LCX_LIBS modules/libmodules.la 
-xlincity_LDADD = liblcx.la modules/libmodules.la
+xlincity_DEPENDENCIES = LCX_LIBS lincity/liblincity.la 
+xlincity_LDADD = liblcx.la lincity/liblincity.la
 
 ## ----- xpicedit -----
 xpicedit_SOURCES = 

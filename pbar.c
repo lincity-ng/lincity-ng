@@ -8,12 +8,11 @@
 #include "cliglobs.h"
 #include "lchelp.h"
 #include "mouse.h"
-#include "shrglobs.h"
 #include "pbar.h"
 #include "lin-city.h"
 #include "lclib.h"
-#include "stats.h"
 #include "engglobs.h"
+#include "lincity/lincity.h"
 
 struct pbar_st pbars[NUM_PBARS];
 
