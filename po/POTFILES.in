@@ -48,4 +48,5 @@ modules/substation.c
 modules/tip.c
 modules/track.c
 modules/university.c
+modules/water.c
 modules/windmill.c

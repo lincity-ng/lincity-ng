@@ -9,5 +9,6 @@
 #define __blacksmith_h__
 
 void do_blacksmith(int x, int y);
+void mps_blacksmith (int x, int y);
 
 #endif /* __blacksmith_h__ */

@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <blacksmith.h>
 
 
@@ -90,4 +93,21 @@ do_blacksmith (int x, int y)
       MP_INFO(x,y).int_6 = MP_INFO(x,y).int_5;
       MP_INFO(x,y).int_5 = 0;
     }
+}
+
+void
+mps_blacksmith (int x, int y)
+{
+  int i = 0;
+
+  mps_store_title(i++,_("Blacksmith"));
+  i++;
+
+  mps_store_sfp(i++,_("Capacity"), MP_INFO(x,y).int_6);
+  i++;
+  mps_store_title(i++,_("Inventory"));
+  mps_store_sfp(i++,_("Goods"),
+		MP_INFO(x,y).int_1 * 100.0 / MAX_GOODS_AT_BLACKSMITH);
+  mps_store_sfp(i++,_("Coal"), 
+		MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_AT_BLACKSMITH);
 }

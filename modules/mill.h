@@ -9,5 +9,6 @@
 #define __mill_h__
 
 void do_mill(int x, int y);
+void mps_mill (int x, int y);
 
 #endif /* __mill_h__ */

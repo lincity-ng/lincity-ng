@@ -5,11 +5,13 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <lin-city.h>
 #include <lctypes.h>
-#include <engglobs.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <cliglobs.h>
+#include <engglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <monument.h>
 
 void
@@ -51,4 +53,26 @@ do_monument (int x, int y)
     MP_TYPE(x,y) = CST_MONUMENT_1;
   else
     MP_TYPE(x,y) = CST_MONUMENT_0;
+}
+
+void
+mps_monument (int x, int y)
+{
+  int i = 0;
+
+  mps_store_title(i++,_("Monument"));
+  i++;
+  i++;
+
+  /* Display tech contribution only after monument is complete */
+  if ((MP_INFO(x,y).int_1 * 100 / BUILD_MONUMENT_JOBS) >= 100) {
+      mps_store_title(i++,_("Wisdom Bestowed"));
+      i++;
+      mps_store_fp(i++, MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);
+  } else {
+      mps_store_title(i++,_("% Complete"));
+      i++;
+      mps_store_fp(i++, MP_INFO(x,y).int_1 * 100.0 /
+		   BUILD_MONUMENT_JOBS);
+  }
 }

@@ -31,17 +31,6 @@ void mps_global_setup (int);
 void mps_global (int);
 void mps_setup(int x, int y);
 
-void mps_monument_setup (void);
-void mps_monument (int, int);
-void mps_school_setup (void);
-void mps_school (int, int);
-void mps_blacksmith_setup (void);
-void mps_blacksmith (int, int);
-void mps_mill_setup (void);
-void mps_mill (int, int);
-void mps_pottery_setup (void);
-void mps_pottery (int, int);
-void mps_water (int, int);
 void mps_port_setup (int, int);
 void mps_port (int, int);
 void mps_tip_setup (void);
@@ -157,6 +146,9 @@ mps_update(void)
     case MPS_MAP:
 	{
 	    switch(MP_GROUP(mps_x, mps_y)) {
+	    case (GROUP_BLACKSMITH):
+	        mps_blacksmith (mps_x, mps_y);
+		break;
 	    case (GROUP_COALMINE):
 		mps_coalmine (mps_x, mps_y);
 		break;
@@ -169,6 +161,12 @@ mps_update(void)
 	    case (GROUP_INDUSTRY_L):
 		mps_light_industry (mps_x, mps_y);
 		break;
+	    case (GROUP_MILL):
+	        mps_mill (mps_x, mps_y);
+		break;
+	    case (GROUP_MONUMENT):
+	        mps_monument (mps_x, mps_y);
+		break;
 	    case (GROUP_OREMINE):
 	        mps_oremine (mps_x, mps_y);
 		break;
@@ -178,6 +176,9 @@ mps_update(void)
 	    case GROUP_POWER_LINE:
 	        mps_power_line (mps_x, mps_y);
 	        break;
+	    case (GROUP_POTTERY):
+	        mps_pottery (mps_x, mps_y);
+		break;
 	    case (GROUP_RAIL):
 		mps_rail (mps_x, mps_y);
 		break;
@@ -198,6 +199,9 @@ mps_update(void)
 	    case (GROUP_ROCKET):
 	        mps_rocket (mps_x, mps_y);
 		break;
+	    case (GROUP_SCHOOL):
+	        mps_school (mps_x, mps_y);
+		break;
 	    case GROUP_SOLAR_POWER:
 	        mps_solar_power (mps_x, mps_y);
 	        break;
@@ -213,6 +217,9 @@ mps_update(void)
 	    case (GROUP_UNIVERSITY):
 	        mps_university (mps_x, mps_y);
 	        break;
+	    case (GROUP_WATER):
+	        mps_water (mps_x, mps_y);
+	    break;
 	    case (GROUP_WINDMILL):
 	        mps_windmill (mps_x, mps_y);
 		break;
@@ -515,24 +522,12 @@ mappoint_stats (int x, int y, int button)
 
 
 
-	case (GROUP_MONUMENT):
-	    mps_monument (x, y);
-	    break;
-	case (GROUP_SCHOOL):
-	    mps_school (x, y);
-	    break;
-	case (GROUP_BLACKSMITH):
-	    mps_blacksmith (x, y);
-	    break;
-	case (GROUP_MILL):
-	    mps_mill (x, y);
-	    break;
-	case (GROUP_POTTERY):
-	    mps_pottery (x, y);
-	    break;
-	case (GROUP_WATER):
-	    mps_water (x, y);
-	    break;
+
+
+
+
+
+
 	case (GROUP_PORT):
 	    mps_port (x, y);
 	    break;
@@ -659,150 +654,6 @@ mps_setup (int x, int y)
     }
 }
 
-
-void
-mps_monument_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 40, _("Built"));
-    Fgl_write (mps->x, mps->y + 48, _("T made"));
-}
-
-
-void
-mps_monument (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / BUILD_MONUMENT_JOBS);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f", (float) MP_INFO(x,y).int_2 * 100
-	   / MAX_TECH_LEVEL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-}
-
-void
-mps_school_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
-    Fgl_write (mps->x, mps->y + 48, _("Goods"));
-    Fgl_write (mps->x, mps->y + 56, _("T made"));
-    Fgl_write (mps->x, mps->y + 64, _("Capacity"));
-}
-
-void
-mps_school (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / MAX_JOBS_AT_SCHOOL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / MAX_GOODS_AT_SCHOOL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  sprintf (s, "%6.1f", (float) MP_INFO(x,y).int_3 * 100
-	   / MAX_TECH_LEVEL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-  sprintf (s, "%5d%%", MP_INFO(x,y).int_5 * 4);
-  Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
-
-}
-
-void
-mps_blacksmith_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 40, _("G store"));
-    Fgl_write (mps->x, mps->y + 48, _("C store"));
-    Fgl_write (mps->x, mps->y + 56, _("Capacity"));
-}
-
-void
-mps_blacksmith (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / MAX_GOODS_AT_BLACKSMITH);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_3 * 100
-	   / MAX_COAL_AT_BLACKSMITH);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  sprintf (s, "%5d%%", MP_INFO(x,y).int_6);
-  Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-}
-
-void
-mps_mill_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 40, _("G store"));
-    Fgl_write (mps->x, mps->y + 48, _("F store"));
-    Fgl_write (mps->x, mps->y + 56, _("C store"));
-    Fgl_write (mps->x, mps->y + 64, _("Capacity"));
-}
-
-void
-mps_mill (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / MAX_GOODS_AT_MILL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / MAX_FOOD_AT_MILL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_3 * 100
-	   / MAX_COAL_AT_MILL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-  sprintf (s, "%5d%%", MP_INFO(x,y).int_6);
-  Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
-}
-
-void
-mps_pottery_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 40, _("G store"));
-    Fgl_write (mps->x, mps->y + 48, _("O store"));
-    Fgl_write (mps->x, mps->y + 56, _("C store"));
-    Fgl_write (mps->x, mps->y + 64, _("Capacity"));
-}
-
-void
-mps_pottery (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / MAX_GOODS_AT_POTTERY);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / MAX_ORE_AT_POTTERY);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_3 * 100
-	   / MAX_COAL_AT_POTTERY);
-  Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-  sprintf (s, "%5d%%", MP_INFO(x,y).int_6);
-  Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
-}
-
-void
-mps_water (int x, int y)
-{
-    Rect* mps = &scr.mappoint_stats;
-    if (MP_INFO(x,y).flags & FLAG_IS_RIVER)
-	Fgl_write (mps->x + 1 * 8, mps->y + 40,
-		   _("  CONNECTED  "));
-    else
-	Fgl_write (mps->x + 1 * 8, mps->y + 40,
-		   _("NOT CONNECTED"));
-    Fgl_write (mps->x, mps->y + 48, _("to river sytem"));
-}
 
 void
 mps_port_setup (int x, int y)

@@ -30,4 +30,5 @@ libmodules_a_SOURCES =	organic_farm.c organic_farm.h \
 			power_line.c power_line.h \
 			track.c track.h \
 			rail.c rail.h \
-			road.c road.h
+			road.c road.h \
+			water.c water.h

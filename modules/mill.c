@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <mill.h>
 
 
@@ -98,4 +101,22 @@ do_mill (int x, int y)
 	  break;
 	}
     }
+}
+
+void
+mps_mill (int x, int y)
+{
+  int i = 0;
+  mps_store_title(i++,_("Textile Mill"));
+  i++;
+  mps_store_sfp(i++,_("Capacity"), MP_INFO(x,y).int_6);
+  i++;
+  mps_store_title(i++,_("Inventory"));
+  mps_store_sfp(i++,_("Goods"),
+		MP_INFO(x,y).int_1 * 100.0 / MAX_GOODS_AT_MILL);
+  mps_store_sfp(i++,_("Food"),
+		MP_INFO(x,y).int_2 * 100.0 / MAX_FOOD_AT_MILL);
+  mps_store_sfp(i++,_("Coal"),
+		MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_AT_MILL);
+
 }

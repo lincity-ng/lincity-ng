@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <school.h>
 
 
@@ -44,4 +47,23 @@ do_school (int x, int y)
       MP_INFO(x,y).int_5 = MP_INFO(x,y).int_4;
       MP_INFO(x,y).int_4 = 0;
     }
+}
+
+void
+mps_school (int x, int y)
+{
+  int i = 0;
+  mps_store_title(i++,_("School"));
+  i++;
+  mps_store_title(i++,_("Lessons Learned"));
+  mps_store_fp(i++,MP_INFO(x,y).int_3 * 100.0 / MAX_TECH_LEVEL);
+  i++;
+  mps_store_title(i++,_("Inventory"));
+  mps_store_sfp(i++,_("Jobs"),
+		MP_INFO(x,y).int_1 * 100.0 / MAX_JOBS_AT_SCHOOL);
+  mps_store_sfp(i++,_("Goods"),
+		MP_INFO(x,y).int_2 * 100.0 / MAX_GOODS_AT_SCHOOL);
+
+  mps_store_sfp(i++,_("Capacity"), MP_INFO(x,y).int_5 * 4);
+
 }
