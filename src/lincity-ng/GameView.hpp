@@ -46,6 +46,7 @@ private:
 
     static const int defaultTileWidth = 128;
     static const int defaultTileHeight = 64;
+    static const int defaultZoom = 1000;
 
     int tileWidth, tileHeight, zoom; 
     //a virtual screen containing the whole city

@@ -30,8 +30,8 @@
 #define LC_MOUSE_RIGHTBUTTON 2
 #define LC_MOUSE_MIDDLEBUTTON 3
   
-char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood","MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal"};
-#define BUTTON_COUNT 9
+char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood","MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal","ZoomInButton","ZoomOutButton"};
+#define BUTTON_COUNT 11
 
 Uint8 brightness(const Color &c)
 {
@@ -152,6 +152,8 @@ void MiniMap::chooseButtonClicked(Button* button)
         case 6: mMode=CRICKET;break;
         case 7: mMode=HEALTH;break;
         case 8: mMode=COAL;break;
+        case 9: getGameView()->zoomIn(); break;
+        case 10:getGameView()->zoomOut() ;break;
        }
      }
    }

@@ -104,6 +104,7 @@ def CheckPKGConfig(context, package, minVersion):
 # User configurable options
 opts = Options('build_config.py')
 opts.Add('CXX', 'The C++ compiler', 'g++')
+#opts.Add('CXX', 'The C++ compiler', 'CCACHE_DIR=/home/wolfgang/.ccache ccache g++')
 opts.Add('CXXFLAGS', 'Additional C++ compiler flags', '')
 opts.Add('CPPPATH', 'Additional preprocessor paths', '')
 opts.Add('CPPFLAGS', 'Additional preprocessor flags', '')

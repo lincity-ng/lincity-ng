@@ -73,10 +73,10 @@ GameView::GameView(Component* parent, XmlReader& reader)
     //start in the centre of the city
     //because on startup the size of this Control is 0
     //we use 800 and 600 instead of getWidth() and getHeight())
-    //so we can not use zoom( 100 ) likewise
-    zoom = 100;
-    tileWidth = defaultTileWidth * zoom / 100 ;
-    tileHeight = defaultTileHeight * zoom / 100; 
+    //so we can not use zoom( defaultZoom ) likewise
+    zoom = defaultZoom;
+    tileWidth = defaultTileWidth * zoom / defaultZoom;
+    tileHeight = defaultTileHeight * zoom / defaultZoom; 
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
     viewport.x = floor ( ( virtualScreenWidth - 800 ) / 2 );
@@ -95,7 +95,7 @@ GameView::~GameView()
 }
 
 /*
- * Adjust the Zoomlevel. Argument is Percentage.
+ * Adjust the Zoomlevel. Argument is per mille.
  *  
  */
 void GameView::setZoom(const int newzoom){
@@ -104,12 +104,12 @@ void GameView::setZoom(const int newzoom){
     Vector2 centerTile  = getTile( center ); 
     
     zoom = newzoom;
-    if ( zoom < 25 ) zoom = 25;
-    if ( zoom > 400 ) zoom = 400;
+    if ( zoom < 125 ) zoom = 125;
+    if ( zoom > 4000 ) zoom = 4000;
     
-    std::cout << "Zoom:" << zoom << "%\n";
-    tileWidth = defaultTileWidth * zoom / 100 ;
-    tileHeight = defaultTileHeight * zoom / 100; 
+    std::cout << "Zoom:" << zoom / 10.0 << "%\n";
+    tileWidth = defaultTileWidth * zoom / defaultZoom;
+    tileHeight = defaultTileHeight * zoom / defaultZoom; 
     //a virtual screen containing the whole city
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
@@ -118,9 +118,9 @@ void GameView::setZoom(const int newzoom){
     show( centerTile );
 }
 
-/* set Zoomlevel to 100% */
+/* set Zoomlevel to defaultZoom (100%) */
 void GameView::resetZoom(){
-    setZoom( 100 );
+    setZoom( defaultZoom );
 }
 
 /* increase Zoomlevel */
@@ -714,11 +714,11 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
     //is Tile in City? If not draw Blank
     if( tx < 0 || ty < 0 || tx > WORLD_SIDE_LEN || ty > WORLD_SIDE_LEN )
     {
-        tileOnScreenPoint.x -= ( ( blankTexture->getWidth() / 2 )  * zoom / 100 );
-        tileOnScreenPoint.y -= (blankTexture->getHeight()  * zoom / 100 ); 
+        tileOnScreenPoint.x -= ( ( blankTexture->getWidth() / 2 )  * zoom / defaultZoom );
+        tileOnScreenPoint.y -= (blankTexture->getHeight()  * zoom / defaultZoom ); 
         tilerect.move( tileOnScreenPoint );    
-        tilerect.setSize( blankTexture->getWidth()  * zoom / 100 , blankTexture->getHeight() * zoom / 100 );
-        if( zoom == 100 ) 
+        tilerect.setSize( blankTexture->getWidth()  * zoom / defaultZoom, blankTexture->getHeight() * zoom / defaultZoom );
+        if( zoom == defaultZoom ) 
         {
             painter.drawTexture( blankTexture, tilerect );
         }
@@ -758,11 +758,11 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
     
     if( texture )
     {
-        tileOnScreenPoint.x -= ( cityTextureX[ textureType ] * zoom / 100 );
-        tileOnScreenPoint.y -= ( cityTextureY[ textureType ] * zoom / 100 );  
+        tileOnScreenPoint.x -= ( cityTextureX[ textureType ] * zoom / defaultZoom );
+        tileOnScreenPoint.y -= ( cityTextureY[ textureType ] * zoom / defaultZoom );  
         tilerect.move( tileOnScreenPoint );    
-        tilerect.setSize( texture->getWidth() * zoom / 100, texture->getHeight() * zoom / 100  );
-        if( zoom == 100 ) {
+        tilerect.setSize( texture->getWidth() * zoom / defaultZoom, texture->getHeight() * zoom / defaultZoom );
+        if( zoom == defaultZoom ) {
             painter.drawTexture( texture, tilerect );
         }
         else
