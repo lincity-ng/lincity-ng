@@ -2,8 +2,6 @@
 
 #include "ScrollView.hpp"
 
-#include <sigc++/signal.h>
-
 #include "XmlReader.hpp"
 #include "ScrollBar.hpp"
 #include "ComponentFactory.hpp"

@@ -10,3 +10,6 @@ to do animations.
 
 The iso-Rendere expects the same imagenames as the original game.
 Names are defined in "lincity/lctypes.h".
+
+See http://pingus.seul.org/~grumbel/tmp/lincity/ for 
+Overview of original Pictures
