@@ -83,6 +83,7 @@ draw_help_page (char *helppage)
 	    goto continue_with_help;
 	}
 
+	/* XXX: WCK: residential selection is really ugly */
 	if (help_history_count > 0 &&
 	    strcmp (help_button_history[help_history_count - 1],
 		    "res.tmp") == 0)
