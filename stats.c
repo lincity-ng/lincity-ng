@@ -82,6 +82,12 @@ int ly_fire_cost;
 int data_last_month;
 
 
+/* ---------------------------------------------------------------------- *
+ * Private Function Prototypes
+ * ---------------------------------------------------------------------- */
+void inventory_market(int x, int y);
+
+
 void
 init_daily(void)
 {
