@@ -445,10 +445,9 @@ process_keystrokes (int key)
 	break;
 
     case 'm':
-	if (cheat () != 0) {
-	    total_money += 1000000;
-	    print_total_money ();
-	}
+	if (cheat () != 0) 
+	    adjust_money(1000000);
+	break;
 #endif
 
     case 'f':
@@ -486,24 +485,6 @@ process_keystrokes (int key)
 	save_flag = 1;
 	break;
 
-#if defined (commentout)
-    case 'b': 
-	retval = dialog_box(red(10),10,
-		   0,0,"This is the first test",
-		   0,0,"Of the new dialog box code",
-		   0,0,"",
-		   0,0,"Do you like it?",
-		   1,'y',"Yes",
-		   1,'n',"No",
-		   1,'m',"Maybe",
-		   1,'k',"Kind of",
-		   1,'t',"Not at all",
-		   1,'s',"It is a flaming pile of excrement!"
-	    );
-	printf("dialog_box returned %c\n",retval);
-      break;
-#endif
-
     case 'o':
     case 'O':
 	/* Toggle overlay */
@@ -527,7 +508,6 @@ int
 execute_timestep (void)
 {
     static int next_time_step = 0;
-    int q = '0';
     int engine_updated = 0;
     int real_quit_flag = 0;
 
@@ -538,8 +518,7 @@ execute_timestep (void)
 	if ((real_time < next_time_step || pause_flag || mt_flag)
 	    && save_flag == 0 && load_flag == 0)
 	{
-	    if ((let_one_through == 0 && q != 'l'
-		 && q != 's') || mt_flag)
+	    if ((let_one_through == 0) || mt_flag)
 	    {
 		lc_usleep (1);
 		return 0;
@@ -554,7 +533,7 @@ execute_timestep (void)
 	else if (fast_flag)
 	    next_time_step = real_time + (FAST_TIME_FOR_YEAR
 					  * 1000 / NUMOF_DAYS_IN_YEAR);
-	else
+	else if (med_flag)
 	    next_time_step = real_time + (MED_TIME_FOR_YEAR
 					  * 1000 / NUMOF_DAYS_IN_YEAR);
 
@@ -566,6 +545,8 @@ execute_timestep (void)
 #endif
 
 	update_main_screen ();
+
+	/* XXX: Shouldn't the rest be handled in update_main_screen()? */
 
 	print_stats ();
 
