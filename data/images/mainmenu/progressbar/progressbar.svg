@@ -18,7 +18,7 @@
    sodipodi:version="0.32"
    id="svg4380"
    height="100.00000px"
-   width="600.00000px">
+   width="445.00000pt">
   <defs
      id="defs3">
     <linearGradient
@@ -190,13 +190,13 @@
   <sodipodi:namedview
      inkscape:window-y="0"
      inkscape:window-x="0"
-     inkscape:window-height="966"
+     inkscape:window-height="600"
      inkscape:window-width="1272"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
-     inkscape:cy="22.399658"
-     inkscape:cx="393.32181"
-     inkscape:zoom="0.98994949"
+     inkscape:cy="76.577672"
+     inkscape:cx="320.95495"
+     inkscape:zoom="1.4000000"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -228,7 +228,7 @@
        y="7.7479072"
        x="11.780618"
        height="86.486557"
-       width="582.54028"
+       width="531.82599"
        id="rect15236"
        style="fill:#000000;fill-opacity:0.55633801;stroke:none;stroke-width:0.60724795;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:0.35915491" />
     <g
@@ -240,7 +240,7 @@
          y="365.21933"
          x="110.00000"
          height="86.486557"
-         width="582.54028"
+         width="531.82599"
          id="rect4400"
          style="fill:#708fff;fill-opacity:1.0000000;stroke:none;stroke-width:0.60724795;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:0.35915491" />
       <rect
@@ -249,7 +249,7 @@
          y="366.64792"
          x="111.42857"
          height="83.629417"
-         width="579.59387"
+         width="529.05817"
          id="rect5160"
          style="fill:url(#linearGradient15230);fill-opacity:1.0000000;stroke:none;stroke-width:0.60724795;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:0.35915491" />
       <rect
@@ -258,7 +258,7 @@
          y="372.36221"
          x="117.85714"
          height="72.379417"
-         width="567.18311"
+         width="516.64740"
          id="rect5920"
          style="fill:#b6c6ff;fill-opacity:1.0000000;stroke:none;stroke-width:0.60724795;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:0.35915491" />
       <rect
@@ -267,7 +267,7 @@
          y="373.07809"
          x="118.68350"
          height="70.813103"
-         width="565.32544"
+         width="514.96832"
          id="rect6680"
          style="fill:url(#linearGradient15232);fill-opacity:1.0000000;stroke:none;stroke-width:0.60724795;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:0.35915491" />
     </g>
@@ -321,94 +321,67 @@
          id="path10494" />
     </g>
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15206"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(51.03185,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1336" />
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15208"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(102.0637,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1338" />
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15210"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(153.0955,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1340" />
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15212"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(204.1274,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1342" />
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15214"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(255.1592,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1344" />
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15216"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(306.1911,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1346" />
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15218"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(357.2229,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1348" />
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15220"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(408.2548,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1350" />
     <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15222"
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#g15079"
+       xlink:href="#g15079"
        transform="translate(459.2866,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
-    <use
-       height="1052.3600"
-       width="600.00000"
-       id="use15224"
-       transform="translate(510.3185,0.000000)"
-       xlink:href="#g15079"
-       inkscape:tiled-clone-of="#g15079"
-       y="0.0000000"
-       x="0.0000000" />
+       id="use1352" />
   </g>
 </svg>
