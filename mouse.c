@@ -261,7 +261,7 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 #if defined (DEBUG_MT_CODE)
 	    printf("calling mt_draw(MT_SUCCESS)\n");
 #endif
-	    mt_draw(cs_mouse_x, cs_mouse_y, MT_SUCCESS);  
+	    mt_draw(cs_mouse_x, cs_mouse_y, MT_SUCCESS);
 	    break;
 	case LC_MOUSE_RIGHTBUTTON:
 	    break;
@@ -698,29 +698,20 @@ do_mouse_main_win (int px, int py, int button)
     }
 
     /* Handle multitransport */
-    if (button == LC_MOUSE_LEFTBUTTON && GROUP_IS_TRANSPORT(g) 
-      && overwrite_transport_flag) {
-	if (mt_draw (px, py, MT_START))
+    if (button == LC_MOUSE_LEFTBUTTON && GROUP_IS_TRANSPORT(g)) {
+	if (mt_draw (px, py, MT_START)) {
+	    /* We need to set mps to current location, since the user might 
+	       click on the transport to see the mps */
+	    mappoint_stats (x, y, button);
 	    return;
+	}
     }
-      
+
     /* Handle bulldozing */
     if (selected_type == CST_GREEN && button != LC_MOUSE_RIGHTBUTTON) {
 	check_bulldoze_area (x, y);
 	return;
     }
-#if defined (commentout)
-    else if (overwrite_transport_flag
-	     && (main_groups[g].group == GROUP_TRACK
-		 || main_groups[g].group == GROUP_ROAD
-		 || main_groups[g].group == GROUP_RAIL)
-	     && (MP_GROUP(x,y) == GROUP_TRACK
-		 || MP_GROUP(x,y) == GROUP_ROAD
-		 || MP_GROUP(x,y) == GROUP_RAIL)
-	     && main_groups[g].group != MP_GROUP(x,y)) {
-	check_bulldoze_area (x, y);        /* continue to place new */
-    }
-#endif
 
     /* Bring up mappoint_stats for certain left mouse clicks */
     if (MP_TYPE(x,y) != CST_GREEN) {

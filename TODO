@@ -2,12 +2,6 @@
 
 BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
-  o Left click on track starts MT without showing track stats.
-
-  o Some missing statistics:
-	sprintf (s, "%2d/%2d", rockets_launched_success, rockets_launched);
-	Fgl_write (STATS_X + (20 + 12) * 8, STATS_Y + 16, s);
-
   o Help screens need adjusting for new GUI (some help files missing).
     - Pbar help file should be unified
     - Mini-map help files
