@@ -13,10 +13,11 @@
 #include "lin-city.h"
 #include "mouse.h"
 #include "engglobs.h"
-#include "clistubs.h"
+/* #include "clistubs.h" */
 #include "engine.h"
 #include "screen.h"
-#include "climsg.h"
+#include "lcintl.h"
+/* #include "climsg.h" */
 
 
 unsigned char mouse_pointer[] = {
