@@ -183,7 +183,7 @@ EXTRA_DIST = $(LC_DISTDIRS) \
 	colour.pal \
 	lcwin32.c winmain.c \
 	lincity.ico  small.ico lincity.rc \
-	FAQ CHANGES COPYRIGHT Acknowledgements \
+	CHANGES COPYRIGHT Acknowledgements \
 	config.sh \
 	README.profiling \
 	lincity.6

@@ -4,6 +4,8 @@
 		   'Changes',
 		   'copying',
 		   'Copying',
+		   'copyright',
+		   'Copyright',
 		   'cvs',
 		   'CVS',
 		   'faq',
