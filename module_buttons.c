@@ -45,7 +45,7 @@ init_modules (void)
     module_cols = (mbw->w / (SELECT_BUTTON_INTERVAL));
 
     /* Tell the mouse where we are */
-    mhandle = mouse_register(&scr.module_buttons,&handle_module_buttons);
+    mhandle = mouse_register(&scr.module_buttons,&module_buttons_handler);
 
 #ifdef DEBUG_MODULES
     printf("debug_modules:\t\tr=%d\tc=%d\n",module_rows, module_cols);
@@ -354,10 +354,11 @@ activate_module (int module)
 /* handle_module_buttons:  mouse handler for module window */
 
 void 
-handle_module_buttons (int x, int y, int mbutton)
+module_buttons_handler (int x, int y, int mbutton)
 {
     int module;
     int row, col;
+
 
     /* Figure out which row and column the click came in */
     row = (y / (SELECT_BUTTON_INTERVAL));
@@ -423,6 +424,7 @@ select_module (int module, int mbutton)
 	draw_main_window_box (green (8));
 	monument_bul_flag = 0;
 	river_bul_flag = 0;
+	shanty_bul_flag = 0;
     }
 #endif
 }
@@ -605,6 +607,7 @@ set_selected_module (int type)
 	draw_main_window_box (green (8));
 	monument_bul_flag = 0;
 	river_bul_flag = 0;
+	shanty_bul_flag = 0;
     }
 
 
