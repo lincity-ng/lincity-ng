@@ -12,6 +12,7 @@
 #include <stats.h>
 #include <transport.h>
 #include <lcintl.h>
+#include <mps.h>
 #include <road.h>
 
 /* ---------------------------------------------------------------------

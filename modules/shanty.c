@@ -5,11 +5,14 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
+#include <stdlib.h>
 #include <lin-city.h>
 #include <lctypes.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mouse.h> /* XXX: fire_area! */
+#include <mps.h>
 #include <shanty.h>
 
 void

@@ -12,6 +12,7 @@
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <engine.h>
 #include <mps.h>
 #include <commune.h>
 
@@ -85,6 +86,7 @@ do_commune (int x, int y)
 	{
 	  MP_INFO(x,y).int_3 = 0;
 	  MP_INFO(x,y).int_4++;
+	  /* XXX: Why do communes only last 10 years? */
 	  if (MP_INFO(x,y).int_4 > 120)	/* 10 years */
 	    {
 	      do_bulldoze_area (CST_PARKLAND_PLANE, x, y);

@@ -13,6 +13,7 @@
 #include <cliglobs.h>
 #include <stats.h>
 #include <power.h>
+#include <mps.h>
 #include <power_line.h>
 
 

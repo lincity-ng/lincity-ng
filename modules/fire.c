@@ -5,11 +5,14 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
+#include <stdlib.h>
 #include <lin-city.h>
 #include <lctypes.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <engine.h>
+#include <mps.h>
 #include <fire.h>
 
 void
@@ -28,7 +31,6 @@ do_fire (int x, int y)
     MP_INFO(x,y).int_2 = rand () % (FIRE_LENGTH / 5);
   if (MP_INFO(x,y).int_2 > FIRE_LENGTH)
     {
-      int old_type = MP_TYPE(x,y);
       if (MP_INFO(x,y).int_4 == 0)	/* rand length here also */
 	MP_INFO(x,y).int_4 = rand () % (AFTER_FIRE_LENGTH / 6);
       MP_INFO(x,y).int_4++;

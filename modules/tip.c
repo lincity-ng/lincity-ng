@@ -12,6 +12,7 @@
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <mps.h>
+#include <engine.h>
 #include <stats.h>
 #include <tip.h>
 

@@ -12,6 +12,7 @@
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <university.h>
 
 void

@@ -6,12 +6,12 @@
  * ---------------------------------------------------------------------- */
 #include <config.h>
 #include <lcintl.h>
-
 #include <lin-city.h>
 #include <lctypes.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <transport.h>
 #include <rail.h>
 

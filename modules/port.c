@@ -9,6 +9,7 @@
 #include <lctypes.h>
 #include <lcintl.h>
 #include <lcconfig.h>
+#include <lclib.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>

@@ -5,11 +5,12 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include <lin-city.h>
+#include <stdlib.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <lctypes.h>
 #include <engglobs.h>
 #include <stats.h>
-#include <lcintl.h>
 #include <mps.h>
 #include <residence.h>
 

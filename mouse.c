@@ -804,6 +804,7 @@ check_bulldoze_area (int x, int y)
     bulldoze_item (xx,yy);
 }
 
+/* XXX: mouse.c?  wtf! */
 void
 fire_area (int x, int y)
 {

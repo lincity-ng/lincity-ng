@@ -12,6 +12,8 @@
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <engine.h>
+#include <screen.h>
 #include <mps.h>
 #include <oremine.h>
 

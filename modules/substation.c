@@ -5,6 +5,7 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
+#include <stdlib.h>
 #include <lin-city.h>
 #include <lctypes.h>
 #include <lcintl.h>
@@ -13,6 +14,8 @@
 #include <cliglobs.h>
 #include <stats.h>
 #include <substation.h>
+#include <lclib.h>
+#include <mps.h>
 #include <power.h>
 
 /*** Substations ***/
