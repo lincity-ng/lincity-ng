@@ -37,6 +37,22 @@ static short mouse_buffer_fresh = 0;
 
 void check_bulldoze_area (int x, int y);
 
+/* Mouse registry */
+
+static int mhandle_count;
+
+static Mouse_Handle * mhandle_first;
+static Mouse_Handle * mhandle_last;
+static Mouse_Handle * mhandle_current;
+
+/* Screen area mouse handles */
+/* XXX: These handlers should live elsewhere */
+static Mouse_Handle * main_win_mhandle;
+static Mouse_Handle * other_buttons_mhandle;
+static Mouse_Handle * market_cb_mhandle;
+static Mouse_Handle * help_mhandle;
+static Mouse_Handle * loadsave_mhandle;
+
 
 /* ---------------------------------------------------------------------- *
  * cs_mouse_handler
@@ -47,6 +63,7 @@ void check_bulldoze_area (int x, int y);
  * mouse move, then enc_button is 0.  You cannot specify multiple 
  * mouse buttons clicked at the same time using this interface.
  * ---------------------------------------------------------------------- */
+
 void
 cs_mouse_handler (int enc_button, int dx, int dy)
 {
@@ -93,13 +110,6 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 
 	/* maintain button press status */
 
-	/* WCK: The button argument now comes encoded from lcx11, with release
-	   events being the button number | 16.  I don't know of 
-	   anyone who has a 16 button mouse, so this should be 
-	   safe for a while.  The new
-	   argument is enc_button, with button holding the value of the
-	   pressed button, or 0 if a button was released.  The coordinates of
-	   the presses and releases are stored in buttons[] */
 
 	pixel_to_mappoint(cs_mouse_x, cs_mouse_y, 
 			  &buttons[button_idx].mappoint_x, 
@@ -108,28 +118,7 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 	buttons[button_idx].y = cs_mouse_y;
 	buttons[button_idx].pressed = 1;
 
-#ifdef DEBUG_MOUSE
-	printf ("button %d pressed at %d , %d\t mappoint %d , %d\n",
-		button, cs_mouse_x, cs_mouse_y, buttons[button_idx].r_mappoint_x,
-		buttons[button_idx].r_mappoint_y);
-#endif
-
-
-	/* wcoreyk:
-	   maybe we should wait for button releases when selecting 
-	   something with the mouse.  When the release comes, 
-	   we could compare press and
-	   release coordinates, and use that to determine our action.  This
-	   would allow an escape mechanism for placing expensive items.  e.g:
-	   when placing a rocket you accidentally click 1 line off from where 
-	   you really want it.  If you held the mouse button, you could move
-	   the rocket to where you want it.  Or, moving the mouse off of the
-	   position could simply cancel the build.  More interesting side
-	   effects could be the ability to drop a menu down for residential 
-	   units, or any other groups of units that could fit together 
-	   appropriately.  Of course, all of this could be re-inventing the
-	   wheel, but I feel like I should invent it just once and see how
-	   well mine rolls. */
+	/* Try the event list before moving on to special cases */
 
 	if (!mouse_handle_click(x, y, button)) {
 	    switch (button) {
@@ -150,14 +139,7 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 		    do_prefs_mouse (x, y, button);
 		    break;
 		}
-		else if (db_flag) {
-		    do_db_mouse (x, y);
-		    break;
-		}
-		else if (db_okflag) {
-		    do_db_okmouse (x, y);
-		    break;
-		}
+
 		else if (load_flag || save_flag) 
 		    return;
 
@@ -644,146 +626,8 @@ do_mouse_other_buttons (int x, int y, int button)
     /* This is the mini window. Clicking here move the main window 
        to this point 
     */
-    else if (mouse_in_rect (&scr.mini_map,x,y)) {
-	Rect* b = &scr.mini_map;
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    mini_screen_help ();
-	    return;
-	}
-	if (mini_screen_flags == MINI_SCREEN_COAL_FLAG && !coal_survey_done) {
-	    if (yn_dial_box ("Coal survey",
-			     "This will cost you 1 million",
-			     "After that it's is free to call again",
-			     "Do coal survey?") == 0)
-	    {
-		return;
-	    }
-	    do_coal_survey ();
-	    print_total_money ();
-	    return;
-	}
-	adjust_main_origin (x - b->x - mw->w / 32, y - b->y - mw->h / 32, 1);
-	
-	if (mini_screen_flags == MINI_SCREEN_PORT_FLAG)
-	    draw_mini_screen ();
-    }
 
-    else if (mouse_in_rect (&scr.mini_map_aux,x,y)) {
-	if (button == LC_MOUSE_MIDDLEBUTTON) {
-	    rotate_main_screen ();
-	    return;
-	} else if (button == LC_MOUSE_RIGHTBUTTON) {
-	    mini_screen_help ();
-	    return;
-	}
-	rotate_mini_screen ();
-    }
-
-#if defined (commentout)
-    /* this is the normal button to return the mini screen to normal. */
-    else if (mouse_in_rect (&scr.ms_normal_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-normal.hlp");
-	    return;
-	}
-	unrequest_mini_screen ();
-	draw_mini_screen ();
-    }
-    /* this is the pollution button to activate the mini screen pol'n mode. */
-    else if (mouse_in_rect (&scr.ms_pollution_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-pol.hlp");
-	    return;
-	}
-	request_mini_screen (MINI_SCREEN_POL_FLAG);
-	draw_mini_screen_pollution ();
-    }
-    /* this is the fire cover button to activate the mini screen. */
-    else if (mouse_in_rect (&scr.ms_fire_cover_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-fire.hlp");
-	    return;
-	}
-	request_mini_screen (MINI_SCREEN_FIRE_COVER);
-	draw_mini_screen_fire_cover ();
-    }
-    /* this is the health cover button to activate the mini screen. */
-    else if (mouse_in_rect (&scr.ms_health_cover_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-health.hlp");
-	    return;
-	}
-	request_mini_screen (MINI_SCREEN_HEALTH_COVER);
-	draw_mini_screen_health_cover ();
-    }
-    /* this is the cricket cover button to activate the mini screen. */
-    else if (mouse_in_rect (&scr.ms_cricket_cover_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-cricket.hlp");
-	    return;
-	}
-	request_mini_screen (MINI_SCREEN_CRICKET_COVER);
-	draw_mini_screen_cricket_cover ();
-    }
-    /* this is the ub40 button */
-    else if (mouse_in_rect (&scr.ms_ub40_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-ub40.hlp");
-	    return;
-	}
-	request_mini_screen (MINI_SCREEN_UB40_FLAG);
-	draw_mini_screen_ub40 ();
-    }
-    /* this is the coal reserve button */
-    else if (mouse_in_rect (&scr.ms_coal_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-coal.hlp");
-	    return;
-	}
-	if (coal_survey_done == 0) {
-	    if (yn_dial_box ("Coal survey"
-			     ,"This will cost you 1 million"
-			     ,"After that it's is free to call again"
-			     ,"Do coal survey?") != 0)
-	    {
-		do_coal_survey ();
-		print_total_money ();
-		request_mini_screen (MINI_SCREEN_COAL_FLAG);
-		draw_mini_screen_coal ();
-	    }
-	    return;
-	}
-	else {
-	    request_mini_screen (MINI_SCREEN_COAL_FLAG);
-	    draw_mini_screen_coal ();
-	}
-    }
-    /* this is the starving button */
-    else if (mouse_in_rect (&scr.ms_starve_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-starve.hlp");
-	    return;
-	}
-	request_mini_screen (MINI_SCREEN_STARVE_FLAG);
-	draw_mini_screen_starve ();
-    }
-    /* this is the other costs button */
-    else if (mouse_in_rect (&scr.ms_ocost_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-money.hlp");
-	    return;
-	}
-	draw_mini_screen_ocost ();
-    }
-    /* this is the mini screen power button */
-    else if (mouse_in_rect (&scr.ms_power_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("msb-power.hlp");
-	    return;
-	}
-	draw_mini_screen_power ();
-    }
-#endif
+/*** Miniscreen selector buttons removed in CVS Revision 1.24 ***/
 
     /* this is the menu button */
     else if (mouse_in_rect (&scr.menu_button,x,y)) {
@@ -905,13 +749,14 @@ check_bulldoze_area (int x, int y)
 	return;
       river_bul_flag = 1;
     }
-  else if (g == GROUP_SHANTY)
+  else if (g == GROUP_SHANTY && shanty_bul_flag == 0)
     {
       if (yn_dial_box ("WARNING"
 		       ,"Bulldozing a shanty town costs a"
 		       ,"lot of money and may cause a fire."
 		       ,"Want to buldoze?") == 0)
 	return;
+      shanty_bul_flag = 1;
     }
   else if (g == GROUP_TIP)
     {
@@ -966,34 +811,6 @@ drag_screen (void)
     origin_y =  
 	    buttons[LC_MOUSE_MIDDLEBUTTON-1].mappoint_y - cur_winpoint_y;  
 
-#ifdef DEBUG_MOUSE_DRAG 
-    printf("drag_screen: cwp_x = %d, cwp_y = %d, mappoint_x=%d\n",
-	   cur_winpoint_x, cur_winpoint_y, buttons[LC_MOUSE_MIDDLEBUTTON-1].mappoint_x);
-#endif
-
-#if defined (commentout)
-    if (origin_y < 1)
-	origin_y = 1;
-    if (origin_x < 1)
-	origin_x = 1;
-
-    if (origin_x > WORLD_SIDE_LEN - mw->w / 16 - 2)
-	origin_x = WORLD_SIDE_LEN - mw->w / 16 - 2;
-    if (origin_y > WORLD_SIDE_LEN - mw->h / 16 - 2)
-	origin_y = WORLD_SIDE_LEN - mw->h / 16 - 2;
-
-    if ((main_screen_originx != origin_x) 
-	|| (main_screen_originy != origin_y))
-    {
-	main_screen_originx = origin_x;
-	main_screen_originy = origin_y;
-
-	request_main_screen ();
-	hide_mouse ();
-	refresh_main_screen ();
-	redraw_mouse ();
-    }
-#endif
     adjust_main_origin (origin_x, origin_y, 1);
 }
 
@@ -1003,6 +820,9 @@ do_market_cb_template (int x, int y, int is_market_cb)
     int old_flags = MP_INFO(mcbx,mcby).flags;
     Rect* mcb = &scr.market_cb;
     int is_sell;
+
+    static Mouse_Handle * checkbox_mhandle;
+    static Mouse_Handle * omni_mhandle;
 
     hide_mouse ();
     if (!mouse_in_rect(mcb,x,y)) {
@@ -1086,25 +906,6 @@ void
 do_port_cb_mouse (int x, int y)
 {
     do_market_cb_template (x, y, 0);
-}
-
-void
-do_db_mouse (int x, int y)
-{
-  if (x > db_yesbox_x1 && x < db_yesbox_x2
-      && y > db_yesbox_y1 && y < db_yesbox_y2)
-    db_yesbox_clicked = 1;
-  else if (x > db_nobox_x1 && x < db_nobox_x2
-	   && y > db_nobox_y1 && y < db_nobox_y2)
-    db_nobox_clicked = 1;
-}
-
-void
-do_db_okmouse (int x, int y)
-{
-  if (x > db_okbox_x1 && x < db_okbox_x2
-      && y > db_okbox_y1 && y < db_okbox_y2)
-    db_okbox_clicked = 1;
 }
 
 void 
@@ -1454,7 +1255,7 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	break;
 
     case MT_START:
-	/* we assume that a transport type is selected.   */
+	/* XXX: we assume that a transport type is selected.   */
 
         if ((mt_grp = get_group_of_type(selected_module_type)) < 0 )
 	  return 0;
@@ -1496,7 +1297,7 @@ cmp(int n1, int n2)
 
 
 void
-init_mouse_registry()
+init_mouse_registry() /* This never gets called? */
 {
     mhandle_first = NULL;
     mhandle_last = NULL;
