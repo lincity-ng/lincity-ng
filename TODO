@@ -1,71 +1,6 @@
+NOTE: This file is deprecated!  Use the sourceforge trackers.
 
 KNOWN BUGS and MISFEATURES in version 1.12.0
-
-  o I found inconsistent behavior with using the middle mouse button
-    (mmb).  Clicking with mmb on mini-map causes the main win to jump, and
-    then jump back before scrolling.  Clicking mmb on other displays (finance
-    or unemployment graph) advances the display.  Probably only lmb should
-    advance display.  Also, I'm not sure if mmb should initiate main win
-    scrolling if the click was made outside the main win.
-
-  o No middle mouse button support in SVGA/Win32 version.
-
-  o Square cursor flashes too much in SVGA version.
-
-  o Bits of the square cursor are not refreshed from the main win frame.
-    For example, this happens with pollution overlay turned on.
-    This problem is more pronouced in SVGA version.
-
-  o Help gets screwed up by game-related keystrokes.
-    Consider also pressing "Enter" when mouse is over a button on the 
-    opening screen.
-
-  o Population pbar is wrong when starting new game, since game starts 
-    with different number of people for random villiage and blank screen 
-    this is difficult to fix.  GCS: I verified that this still exists, 
-	Apr 5, 2003.
-
-  o There still seems to be a problem with putting multi-transport off 
-    the bottom of the screen.  For example, resources can wrap-around 
-    from bottom to top.
-
-    To reproduce, put a horizontal bit of track across the top row.
-    Then, drag track from the city down off past the edge of the main 
-    screen (you might need to do this a few times).  Now check the 
-    track on the top, and you will see goods, jobs, etc flowing off 
-    the bottom into the top.
-
-    (GCS July 26, 2003) cannot reproduce in svga version, but definitely
-    exists in win32 version.
-
-  o Right click outside of help should exit help.
-
-  o Re-remove c++ style comments.
-
-  o Since cvs doesn't store timestamps, need to manually set timestamps 
-    to build from cvs.  For now, workaround using fix-timestamps.sh.
-
-  o Main screen should scroll when moving mouse outside of main window 
-    during multi-transport.
-
-  o Miniscreen colors could be improved.
-
-  o xpicedit doesn't seem to work on 24 bit color machines.
-
-  o When a tip burns up, there is no pollution at all, and the tip disappears.
-    Tip should stay, should cause pollution(?).
-
-  o Technology indicator sometimes shows both a rise and fall.  This happens
-    after loading a game, old indicator remains as a ghost.
-	*  Fixed by Corey?
-
-  o There is a display bug, where a small block is left when
-    exiting a help page. The only happens when part of the mouse cursor is in
-    the main window during the re-draw. It quicky disappears when the main
-    window is scrolled or updated.
-
-    I've seen this display bug also happens when refreshing after 
-    modal dialog boxes.
 
   o Need to support -display and other XWindows command line option.
 
@@ -78,10 +13,6 @@ KNOWN BUGS and MISFEATURES in version 1.12.0
   o Like to have info pages and/or printed documentation.
 
   o Animations for paths/roads/railroads.
-
-  o Coal Power Station does not accurately report actual power produced.
-
-  o More than 100% of the population can be starving.
 
 
 REQUESTED FEATURES
