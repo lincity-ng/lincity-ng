@@ -60,6 +60,11 @@ power_time_step ()
     grid[gi]->avail_power = 0;
     grid[gi]->demand = 0;
   }
+
+  /* Clear substation 'Here' counter */
+  for (gi = 0; gi < numof_substations; gi++) 
+    MP_INFO(substationx[gi],substationy[gi]).int_5 = 0;
+
 }
 
 
@@ -349,6 +354,7 @@ get_power (int x, int y, int power, int block_industry)
 	grid[grid_tmp]->demand += power;
 	if (grid[grid_tmp]->total_power >= power) {
 	  grid[grid_tmp]->total_power -= power;
+	  MP_INFO(xi,yi).int_5 += power;
 	  return 1;
 	}
 	
@@ -360,6 +366,7 @@ get_power (int x, int y, int power, int block_industry)
 
 /*** Substations ***/
 /*
+  int_5 is the power demand at this substation
   int_6 is the grid its connected to
   int_7 is a grid timestamp
 */
