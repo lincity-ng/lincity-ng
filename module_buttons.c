@@ -264,6 +264,8 @@ update_avail_modules (void)
 	}
     }
     /* XXX: Why is this here? Should be with rest of tech gained messages! */
+    /* GCS: Because the modern windmill tech reuses the same module number
+       as the primative windmill? */
     if (tech_level > MODERN_WINDMILL_TECH && modern_windmill_flag == 0)
     {
 	ok_dial_box ("mod_wind_up.mes", GOOD, 0L);
@@ -282,12 +284,8 @@ activate_module (int module)
 	ok_dial_box ("windmillup.mes", GOOD, 0L);
     else if (module == GROUP_COAL_POWER)
 	ok_dial_box ("coalpowerup.mes", GOOD, 0L);
-    else if (module == (GROUP_SOLAR_POWER - 1))
-      /* XXX: */
-	/* -1 a hack to make it work. Really dirty :( 
-	   Caused by the fact that groups and buttons are different until 
-	   after the bulldoze button, then they are the same.
-	*/
+    /*    else if (module == (GROUP_SOLAR_POWER - 1)) */
+    else if (module == GROUP_SOLAR_POWER)
 	ok_dial_box ("solarpowerup.mes", GOOD, 0L);
     else if (module == GROUP_COALMINE)
 	ok_dial_box ("coalmineup.mes", GOOD, 0L);
