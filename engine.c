@@ -129,7 +129,30 @@ place_item (int x, int y, short type)
     {
 	/* Don't build a tip if there has already been one.  If we succeed,
 	   mark the spot permanently by "doubling" the ore reserve */
-
+	int i,j;
+	int prev_tip = 0;
+	for (i=0;i<3;i++) {
+	    for (j=0;j<3;j++) {
+		if (MP_INFO(x+i,y+j).ore_reserve > ORE_RESERVE) {
+		    prev_tip = 1;
+		    break;
+		}
+	    }
+	}
+	if (prev_tip) {
+	    dialog_box(red(12),3,
+		       0,0,_("You can't build a tip here"),
+		       0,0,_("This area was once a landfill"),
+		       2,' ',_("OK"));
+	    return -4;
+	} else {
+	    for (i=0;i<3;i++) {
+		for (j=0;j<3;j++) {
+		    MP_INFO(x+i,y+j).ore_reserve = ORE_RESERVE * 2;
+		}
+	    }
+	}
+#if defined (commentout)
 	if (MP_INFO(x,y).ore_reserve > ORE_RESERVE) {
 	    dialog_box(red(12),3,
 		       0,0,_("You can't build a tip here"),
@@ -139,10 +162,40 @@ place_item (int x, int y, short type)
 	} else {
 	    MP_INFO(x,y).ore_reserve = ORE_RESERVE * 2;
 	}
+#endif
     } break;
     case GROUP_OREMINE:
     {
 	/* Don't allow new mines on old mines or old tips */
+	/* GCS: mines over old mines is OK if there is enough remaining 
+	        ore, as is the case when there is parital overlap. */
+	int i,j;
+	int prev_tip = 0;
+	int total_ore = 0;
+	for (i=0;i<3;i++) {
+	    for (j=0;j<3;j++) {
+		total_ore += MP_INFO(x+i,y+j).ore_reserve;
+		if (MP_INFO(x+i,y+j).ore_reserve > ORE_RESERVE) {
+		    prev_tip = 1;
+		    break;
+		}
+	    }
+	}
+	if (prev_tip) {
+	    dialog_box(red(12),3,
+		       0,0,_("You can't build a mine here"),
+		       0,0,_("This area was once a landfill"),
+		       2,' ',_("OK"));
+	    return -4;
+	}
+	if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
+	    dialog_box(red(12),3,
+		       0,0,_("You can't build a mine here"),
+		       0,0,_("There is no ore left at this site"),
+		       2,' ',_("OK"));
+	    return -4;
+	}
+#if defined (commentout)
 	if (MP_INFO(x,y).ore_reserve != ORE_RESERVE) {
 	    dialog_box(red(12),3,
 		       0,0,_("You can't build a mine here"),
@@ -150,8 +203,9 @@ place_item (int x, int y, short type)
 		       2,' ',_("OK"));
 	    return -4;
 	} 
+#endif
     }
-    }
+    } /* end case */
 
     /* Store last_built for refund on "mistakes" */
     last_built_x = x;
@@ -1479,7 +1533,6 @@ do_oremine (int x, int y)
 		  /* maybe want an ore tax? */
 		  yy = ye;
 		  xx = xe;	/* break out */
-
 		}
     }
 
@@ -1596,12 +1649,19 @@ do_oremine (int x, int y)
 	  MP_TYPE(x,y) = CST_OREMINE_1;
 	  break;
 	}
-      if (MP_INFO(x,y).int_2 <= 0)
-	{
-	  do_bulldoze_area (CST_GREEN, x, y);
-	  place_item(x,y,CST_TIP_0);
-	  connect_rivers ();
-	  refresh_main_screen ();
+	if (MP_INFO(x,y).int_2 <= 0) {
+#if defined (commentout)
+	    do_bulldoze_area (CST_GREEN, x, y);
+	    place_item(x,y,CST_TIP_0);
+#endif
+	    int i,j;
+	    for (j = 0; j < 4; j++) {
+		for (i = 0; i < 4; i++) {
+		    do_bulldoze_area (CST_WATER, x+i, y+j);
+		}
+	    }
+	    connect_rivers ();
+	    refresh_main_screen ();
 	}
     }
 }
@@ -3598,9 +3658,11 @@ do_tip (int x, int y)
       sust_dig_ore_coal_tip_flag = 0;
     }
 
+#if defined (commentout)
   /* Increment the "ore" reserve; this prevents a new tip from being
      built on top of a degraded one. */
   MP_INFO(x,y).ore_reserve++;
+#endif
 
   /* now choose an icon. */
   if ((total_time % NUMOF_DAYS_IN_MONTH) == 0)
