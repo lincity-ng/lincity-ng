@@ -93,7 +93,7 @@ X_DEFS = -DLC_X11=1
 SVGA_DEFS = -DSVGALIB=1
 
 SUBDIRS = intl po
-noinst_HEADERS =  	acconfig.h   animate.h	  cliglobs.h   	climsg.h     clinet.h	 clistubs.h 	common.h     config.h	  confw32.h    	engglobs.h   engine.h	 fileutil.h 	generic.h    geometry.h   	lcconfig.h   	lchelp.h       	lcintl.h     lcstring.h	lclib.h 	lctypes.h    lcwin32.h 	lcx11.h      lcsvga.h 	ldsvgui.h    ldsvguts.h   	lin-city.h   lintypes.h	 market.h 	mouse.h      mps.h	  pbar.h    	picedit.h    pixmap.h     power.h 	protocol.h   resource.h	 screen.h 	sernet.h     shrglobs.h   shrnet.h     	simulate.h   timer.h	 transport.h 	typeinit.h   xpicedit.h
+noinst_HEADERS =  	acconfig.h   animate.h	  cliglobs.h   	climsg.h     clinet.h	 clistubs.h 	common.h     config.h	  confw32.h    	engglobs.h   engine.h	 fileutil.h 	generic.h    geometry.h  dialbox.h 	lcconfig.h   	lchelp.h       	lcintl.h     lcstring.h	lclib.h 	lctypes.h    lcwin32.h 	lcx11.h      lcsvga.h 	ldsvgui.h    ldsvguts.h   	lin-city.h   lintypes.h	 market.h 	mouse.h      mps.h	  pbar.h    	picedit.h    pixmap.h     power.h 	protocol.h   resource.h	 screen.h 	sernet.h     shrglobs.h   shrnet.h     	simulate.h   timer.h	 transport.h 	typeinit.h   xpicedit.h
 
 
 # -- This can't contain subdirectories --
@@ -113,7 +113,7 @@ EXTRA_PROGRAMS = xlincity lincity lcserver xpicedit picedit
 
 bin_PROGRAMS = @PROGS@
 
-XLC_OBJ =  	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o 	x_cliglobs.o x_mps.o x_screen.o x_lcx11.o x_pixmap.o x_geometry.o 	x_pbar.o
+XLC_OBJ =  	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o 	x_cliglobs.o x_mps.o x_screen.o x_lcx11.o x_pixmap.o x_geometry.o 	x_pbar.o x_dialbox.o
 
 
 LC_OBJ =  	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o 	vga_cliglobs.o vga_mps.o vga_lcsvga.o vga_screen.o vga_geometry.o 	vga_pbar.o
@@ -806,6 +806,9 @@ x_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
 
 x_screen.o: screen.c screen.h lin-city.h lctypes.h lcx11.h
 	$(COMPILE) $(X_DEFS) -o x_screen.o -c screen.c
+
+x_dialbox.o: dialbox.c dialbox.h lcx11.h geometry.h
+	$(COMPILE) $(X_DEFS) -o x_dialbox.o -c dialbox.c
 
 x_picedit.o: picedit.c
 	$(COMPILE) $(X_DEFS) -o x_picedit.o -c picedit.c

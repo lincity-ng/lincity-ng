@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-03 18:28-0400\n"
+"POT-Creation-Date: 2001-09-04 19:19-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -377,161 +377,161 @@ msgid "Creating pixmaps"
 msgstr ""
 
 #. this means we can't quit in help
-#: main.c:657
+#: main.c:672
 msgid "Quit The Game?"
 msgstr ""
 
-#: main.c:658
+#: main.c:673
 msgid "If you want to save the game select NO"
 msgstr ""
 
-#: main.c:659
+#: main.c:674
 msgid "here, then click on the save button."
 msgstr ""
 
-#: main.c:660
+#: main.c:675
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: main.c:691
+#: main.c:706
 msgid "TEST"
 msgstr ""
 
-#: main.c:691
+#: main.c:706
 msgid "You have pressed a test key"
 msgstr ""
 
-#: main.c:692
+#: main.c:707
 msgid "You will only see this message once"
 msgstr ""
 
-#: main.c:693
+#: main.c:708
 msgid "Do you really want to play in test mode..."
 msgstr ""
 
-#: main.c:705
+#: main.c:720
 msgid "TEST MODE!"
 msgstr ""
 
-#: main.c:750
+#: main.c:765
 #, c-format
 msgid "Can't open %s for writing, can't continue\n"
 msgstr ""
 
-#: main.c:759
+#: main.c:774
 #, c-format
 msgid "What!! can't open %s for reading after writing???\n"
 msgstr ""
 
-#: main.c:768
+#: main.c:783
 #, c-format
 msgid "Got mouse type: %d\n"
 msgstr ""
 
-#: main.c:792
+#: main.c:807
 #, c-format
 msgid "Unable to open %s\n"
 msgstr ""
 
-#: main.c:797
+#: main.c:812
 msgid "----- IN TEST MODE -------\n"
 msgstr ""
 
-#: main.c:798
+#: main.c:813
 #, c-format
 msgid "Game statistics from LinCity Version %s\n"
 msgstr ""
 
-#: main.c:800
+#: main.c:815
 #, c-format
 msgid "Initial loaded scene - %s\n"
 msgstr ""
 
-#: main.c:802
+#: main.c:817
 msgid "Economy is sustainable\n"
 msgstr ""
 
-#: main.c:803
+#: main.c:818
 #, c-format
 msgid "Population  %d  of which  %d  are not housed.\n"
 msgstr ""
 
-#: main.c:806
+#: main.c:821
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d\n"
 msgstr ""
 
-#: main.c:809
+#: main.c:824
 #, c-format
 msgid " Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"
 msgstr ""
 
-#: main.c:814
+#: main.c:829
 #, c-format
 msgid " Deaths by starvation %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:817
+#: main.c:832
 #, c-format
 msgid "Deaths from pollution %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:819
+#: main.c:834
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:821
+#: main.c:836
 #, c-format
 msgid "Rockets launched %2d  Successful launches %2d\n"
 msgstr ""
 
-#: main.c:824
+#: main.c:839
 #, c-format
 msgid "    Residences %4d         Markets %4d            Farms %4d\n"
 msgstr ""
 
-#: main.c:833
+#: main.c:848
 #, c-format
 msgid "        Tracks %4d           Roads %4d             Rail %4d\n"
 msgstr ""
 
-#: main.c:836
+#: main.c:851
 #, c-format
 msgid "     Potteries %4d     Blacksmiths %4d            Mills %4d\n"
 msgstr ""
 
-#: main.c:839
+#: main.c:854
 #, c-format
 msgid "     Monuments %4d         Schools %4d     Universities %4d\n"
 msgstr ""
 
-#: main.c:842
+#: main.c:857
 #, c-format
 msgid " Fire stations %4d           Parks %4d     Cricket gnds %4d\n"
 msgstr ""
 
-#: main.c:845
+#: main.c:860
 #, c-format
 msgid "    Coal mines %4d       Ore mines %4d         Communes %4d\n"
 msgstr ""
 
-#: main.c:848
+#: main.c:863
 #, c-format
 msgid "     Windmills %4d     Coal powers %4d     Solar powers %4d\n"
 msgstr ""
 
-#: main.c:852
+#: main.c:867
 #, c-format
 msgid "   Substations %4d     Power lines %4d            Ports %4d\n"
 msgstr ""
 
-#: main.c:855
+#: main.c:870
 #, c-format
 msgid "    Light inds %4d      Heavy inds %4d        Recyclers %4d\n"
 msgstr ""
 
-#: main.c:858
+#: main.c:873
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
 msgstr ""

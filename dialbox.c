@@ -72,7 +72,7 @@ dialog_box(int arg_color, char argc, ...)
   for (i = 0; i < argc; i++) {
     dbn++;
 
-    dbox_entry[i].type = va_arg(ap, short);
+    dbox_entry[i].type = (short) va_arg(ap, int);
     dbox_entry[i].text = va_arg(ap, char *);
 
     if (dbox_entry[i].type) {
