@@ -3,4 +3,5 @@
     <Image src="images/gui/background.png"/>
     <Import src="gui/buttonpanel.xml"/>
     <Import src="gui/helpwindow.xml"/>
+    <MiniMap width="100" height="100"/>
 </gui>

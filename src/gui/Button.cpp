@@ -10,7 +10,7 @@
 #include "XmlReader.hpp"
 
 Button::Button(Component* parent, XmlReader& reader)
-    : Component(parent), state(STATE_NORMAL), normal(0), hover(0), clicked(0)
+    : Component(parent), state(STATE_NORMAL), normal(0), hover(0), clicked(0), caption(0)
 {
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -49,6 +49,9 @@ Button::Button(Component* parent, XmlReader& reader)
                     texture_manager->load(reader.getAttribute("src")));
             } else if(element == "image-clicked") {
                 clicked.reset(
+                    texture_manager->load(reader.getAttribute("src")));
+            } else if(element == "image-caption") {
+                caption.reset(
                     texture_manager->load(reader.getAttribute("src")));
             }
         }
@@ -92,6 +95,9 @@ Button::draw(Painter& painter)
             break;
     }
     painter.drawTexture(current, Rectangle(0, 0, width, height));
+
+    if(caption.get())
+      painter.drawTexture(caption.get(), Rectangle(0, 0, width, height));
 }
 
 void

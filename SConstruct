@@ -149,6 +149,8 @@ if not os.path.exists("build_config.py") or not os.path.exists("config.h"):
     header.Define("HAVE_UNISTD_H")
     header.Define("HAVE_DIRENT_H")
     header.Define("HAVE_SYS_TIME_H")
+    header.Define("HAVE_GZIP")
+    header.Define("HAVE_POPEN")
 
     conf = Configure(env, custom_tests = {
         'CheckSDLConfig' : CheckSDLConfig

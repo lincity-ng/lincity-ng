@@ -1,24 +1,34 @@
 <?xml version="1.0"?>
-<Panel width="80" height="450" background="images/gui/buttonpanel_back.png">
+<Panel width="96" height="480" background="images/gui/buttonpanel_back.png">
     <TableLayout rows="10" cols="2">
         <cell row="1" col="1">
             <Button name="ResidenceButton">
-                <image src="images/gui/button_placeholder.png"/>
+                <image src="images/gui/button_bg0.png"/>
+                <image-hover src="images/gui/button_bg1.png"/>
+                <image-clicked src="images/gui/button_bg2.png"/>
+                <image-caption src="images/gui/soccer.png"/>
             </Button>
         </cell>
         <cell row="1" col="2">
             <Button name="BullDozeButton">
-                <image src="images/gui/button_placeholder.png"/>
+                <image src="images/gui/button_bg0.png"/>
+                <image-hover src="images/gui/button_bg1.png"/>
+                <image-clicked src="images/gui/button_bg2.png"/>
+                <image-caption src="images/gui/bulldozer1.png"/>
             </Button>
         </cell>
         <cell row="2" col="1">
             <Button name="FarmButton">
-                <image src="images/gui/button_placeholder.png"/>
+                <image src="images/gui/button_bg0.png"/>
+                <image-hover src="images/gui/button_bg1.png"/>
+                <image-clicked src="images/gui/button_bg2.png"/>
             </Button>
         </cell>
         <cell row="2" col="2">
             <Button name="MonumentButton">
-                <image src="images/gui/button_placeholder.png"/>
+                <image src="images/gui/button_bg0.png"/>
+                <image-hover src="images/gui/button_bg1.png"/>
+                <image-clicked src="images/gui/button_bg2.png"/>
             </Button>
         </cell>
         <cell row="3" col="1">

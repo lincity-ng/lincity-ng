@@ -13,6 +13,8 @@
 #include "gui/Event.hpp"
 #include "gui/Painter.hpp"
 
+#include "MainLincity.hpp"
+
 void initSDL()
 {
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -82,6 +84,9 @@ void mainLoop()
         SDL_FillRect(SDL_GetVideoSurface(), 0, 0);
         component->draw(*painter);
         SDL_Flip(SDL_GetVideoSurface());
+
+	doLincityStep();
+
         SDL_Delay(20);
     }
 }
@@ -98,6 +103,7 @@ int main(int argc, char** argv)
         initSDL();
         initTTF();
         initVideo();
+	initLincity();
 
         texture_manager = new TextureManager();
 

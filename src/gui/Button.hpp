@@ -31,6 +31,8 @@ private:
     std::auto_ptr<Texture> normal;
     std::auto_ptr<Texture> hover;
     std::auto_ptr<Texture> clicked;
+
+    std::auto_ptr<Texture> caption;
 };
 
 #endif
