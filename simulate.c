@@ -29,6 +29,7 @@
 #include "screen.h"
 #include "power.h"
 #include "stats.h"
+#include "pbar.h"
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -431,6 +432,7 @@ clear_game (void)
     total_births = 0;
     total_money = 0;
     tech_level = 0;
+    init_inventory();
 }
 
 void
@@ -440,14 +442,21 @@ new_city (int* originx, int* originy, int random_village)
     coal_reserve_setup ();
     setup_river ();
     ore_reserve_setup ();
+    init_pbars ();
+
+    /* Initial population is 100 for empty board or 200 
+       for random village (100 are housed). */
     people_pool = 100;
+
     if (random_village != 0) {
 	random_start (originx, originy);
+	update_pbar(PPOP,200,1); /* So pbars don't flash */
     } else {
 	*originx = *originy = WORLD_SIDE_LEN/2 ;
+	update_pbar(PPOP,100,1);
     }
     connect_transport (1,1,WORLD_SIDE_LEN-2,WORLD_SIDE_LEN-2);
-    init_pbars ();
+    refresh_pbars ();
 }
 
 void
