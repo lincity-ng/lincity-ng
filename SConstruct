@@ -198,11 +198,6 @@ if not os.path.exists("build_config.py") or not os.path.exists("config.h"):
     if not conf.CheckPKGConfig('libxml-2.0', "2.6.11"):
         print "Couldn't find libxml-2.0 library!"
         Exit(1)
-    if not conf.CheckPKGConfig('sigc++-2.0', "2.0.5"):
-        print "Couldn't find sigc++-2.0 library!"
-        Exit(1)
-
-    # TODO check for libsigc++ and libxml2 versions
 
     env = conf.Finish()
 

@@ -13,7 +13,7 @@ Component::~Component()
 }
 
 bool
-Component::parseAttributeValue(const char* attribute, const char* value)
+Component::parseAttribute(const char* attribute, const char* value)
 {
     if(strcmp(attribute, "name") == 0) {
         name = value;

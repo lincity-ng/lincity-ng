@@ -8,6 +8,7 @@
 #include "XmlReader.hpp"
 #include "Button.hpp"
 #include "Painter.hpp"
+#include "Event.hpp"
 
 ScrollBar::ScrollBar(Component* parent, XmlReader& reader)
     : Component(parent), minVal(0), maxVal(0), currentVal(0), scrolling(false)
@@ -18,7 +19,7 @@ ScrollBar::ScrollBar(Component* parent, XmlReader& reader)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
         
-        if(parseAttributeValue(attribute, value)) {
+        if(parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
@@ -59,7 +60,7 @@ ScrollBar::ScrollBar(Component* parent, XmlReader& reader)
         throw std::runtime_error("Not all components specified for scrollbar.");
     }
 
-    setFlags(getFlags() | FLAG_RESIZABLE);
+    setFlags(FLAG_RESIZABLE);
 }
 
 ScrollBar::~ScrollBar()
@@ -132,7 +133,7 @@ ScrollBar::event(const Event& event)
             float newScrollVal = minVal + 
                 ((maxVal - minVal) * scrollScreenRatio);
             assert(newScrollVal >= minVal && newScrollVal <= maxVal);
-            signalValueChanged(this, newScrollVal);
+            valueChanged(this, newScrollVal);
             break;
         }
         default:

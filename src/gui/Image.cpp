@@ -12,7 +12,7 @@ Image::Image(Component* parent, XmlReader& reader)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(parseAttributeValue(attribute, value)) {
+        if(parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {

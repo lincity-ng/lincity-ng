@@ -16,7 +16,7 @@
 TableLayout::TableLayout(Component* parent)
     : Component(parent)
 {
-    setFlags(getFlags() | FLAG_RESIZABLE);
+    setFlags(FLAG_RESIZABLE);
 }
 
 TableLayout::TableLayout(Component* parent, XmlReader& reader)
@@ -24,17 +24,28 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
 {
     int rows = -1, cols = -1;
     
-    std::string val = reader.getAttribute("rows");
-    if(sscanf(val.c_str(), "%d", &rows) != 1) {
-        std::stringstream msg;
-        msg << "Error while parsing rows attribute: " << val;
-        throw std::runtime_error(msg.str());
-    }
-    val = reader.getAttribute("cols");
-    if(sscanf(val.c_str(), "%d", &cols) != 1) {
-        std::stringstream msg;
-        msg << "Error while parsing cols attribute: " << val;
-        throw std::runtime_error(msg.str());
+    XmlReader::AttributeIterator iter(reader);
+    while(iter.next()) {
+        const char* attribute = (const char*) iter.getName();
+        const char* value = (const char*) iter.getValue();
+
+        if(parseAttribute(attribute, value)) {
+            continue;
+        } else if(strcmp(attribute, "rows") == 0) {
+            if(sscanf(value, "%d", &rows) != 1) {
+                std::stringstream msg;
+                msg << "Error while parsing rows attribute: " << value;
+                throw std::runtime_error(msg.str());
+            }
+        } else if(strcmp(attribute, "cols") == 0) {
+            if(sscanf(value, "%d", &cols) != 1) {
+                std::stringstream msg;
+                msg << "Error while parsing cols attribute: " << value;
+                throw std::runtime_error(msg.str());
+            }
+        } else {
+            std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
+        }
     }
     if(rows <= 0 || cols <= 0) {
         throw std::runtime_error("Invalid values for rows/cols");
@@ -119,7 +130,7 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
         }   
     }
 
-    setFlags(getFlags() | FLAG_RESIZABLE);
+    setFlags(FLAG_RESIZABLE);
 }
 
 TableLayout::~TableLayout()

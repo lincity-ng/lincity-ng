@@ -28,9 +28,11 @@ Document::parse(XmlReader& reader)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(style.parseAttribute(attribute, value))
+        if(parseAttribute(attribute, value)) {
             continue;
-        if(strcmp(attribute, "src") == 0) {
+        } else if(style.parseAttribute(attribute, value)) {
+            continue;
+        } else if(strcmp(attribute, "src") == 0) {
             XmlReader fileReader(value);
             parse(fileReader);
             return;
@@ -57,7 +59,7 @@ Document::parse(XmlReader& reader)
         }
     }
 
-    setFlags(getFlags() | FLAG_RESIZABLE);
+    setFlags(FLAG_RESIZABLE);
 }
 
 void

@@ -2,7 +2,6 @@
 #define __SCROLLVIEW_HPP__
 
 #include "Component.hpp"
-#include "ComponentHolder.hpp"
 
 class XmlReader;
 class ScrollBar;

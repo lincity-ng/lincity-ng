@@ -42,7 +42,9 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(style.parseAttribute(attribute, value)) {
+        if(parseAttribute(attribute, value)) {
+            continue;
+        } else if(style.parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute, "translatable") == 0) {
             // todo mark for translation...
@@ -125,7 +127,7 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
         throw;
     }
 
-    setFlags(getFlags() | FLAG_RESIZABLE);
+    setFlags(FLAG_RESIZABLE);
 }
 
 /**

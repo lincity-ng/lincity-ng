@@ -20,7 +20,7 @@ Button::Button(Component* parent, XmlReader& reader)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(parseAttributeValue(attribute, value)) {
+        if(parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
@@ -49,51 +49,53 @@ Button::Button(Component* parent, XmlReader& reader)
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string element = (const char*) reader.getName();
             if(element == "image") {
-                if(normal().getComponent() != 0)
+                if(comp_normal().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
-                        "normal defined.\n";
-                normal().setComponent(new Image(this, reader));
+                        "comp_normal defined.\n";
+                comp_normal().setComponent(new Image(this, reader));
             } else if(element == "text") {
-                if(normal().getComponent() != 0)
+                if(comp_normal().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
-                        "normal defined.\n";
-                normal().setComponent(new Paragraph(this, reader));
+                        "comp_normal defined.\n";
+                comp_normal().setComponent(new Paragraph(this, reader));
             } else if(element == "image-hover") {
-                if(hover().getComponent() != 0)
+                if(comp_hover().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
-                        "hover defined.\n";
-                hover().setComponent(new Image(this, reader));
+                        "comp_hover defined.\n";
+                comp_hover().setComponent(new Image(this, reader));
             } else if(element == "text-hover") {
-                if(hover().getComponent() != 0)
+                if(comp_hover().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
-                        "hover defined.\n";
-                hover().setComponent(new Paragraph(this, reader));
+                        "comp_hover defined.\n";
+                comp_hover().setComponent(new Paragraph(this, reader));
             } else if(element == "image-clicked") {
-                if(clicked().getComponent() != 0)
+                if(comp_clicked().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
-                        "clicked defined.\n";
-                clicked().setComponent(new Image(this, reader));
+                        "comp_clicked defined.\n";
+                comp_clicked().setComponent(new Image(this, reader));
             } else if(element == "text-clicked") {
-                if(clicked().getComponent() != 0)
+                if(comp_clicked().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
-                        "clicked defined.\n";
-                clicked().setComponent(new Paragraph(this, reader));
+                        "comp_clicked defined.\n";
+                comp_clicked().setComponent(new Paragraph(this, reader));
             } else if(element == "image-caption") {
-                if(caption().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for caption "
+                if(comp_caption().getComponent() != 0)
+                    std::cerr << "Warning: more than 1 component for comp_caption "
                         "defined.\n";
-                caption().setComponent(new Image(this, reader));
+                comp_caption().setComponent(new Image(this, reader));
             } else if(element == "text-caption") {
-                if(caption().getComponent() != 0)
-                    std::cerr << "Warning: more than 1 component for caption "
+                if(comp_caption().getComponent() != 0)
+                    std::cerr << "Warning: more than 1 component for comp_caption "
                         "defined.\n";
-                caption().setComponent(new Paragraph(this, reader));
+                comp_caption().setComponent(new Paragraph(this, reader));
+            } else {
+                std::cerr << "Skipping unknown element '" << element << "'.\n";
             }
         }
     }
 
-    if(normal().getComponent() == 0)
-        throw std::runtime_error("No component for state normal defined.");
+    if(comp_normal().getComponent() == 0)
+        throw std::runtime_error("No component for state comp_normal defined.");
 
     // if no width/height was specified we use the one from the biggest image
     if(width <= 0 || height <= 0) {
@@ -152,7 +154,7 @@ Button::event(const Event& event)
         case Event::MOUSEBUTTONUP:
             if(inside(event.mousepos) && state == STATE_CLICKED) {
                 printf("Clicked on Button '%s'.\n", getName().c_str());
-                signalClicked(this);
+                clicked(this);
             } 
             state = STATE_NORMAL;
             break;
@@ -168,26 +170,26 @@ Button::draw(Painter& painter)
 {
     switch(state) {
         case STATE_CLICKED:
-            if(clicked().enabled) {
-                drawChild(clicked(), painter);
+            if(comp_clicked().enabled) {
+                drawChild(comp_clicked(), painter);
                 break;
             }
             // fallthrough
         case STATE_HOVER:
-            if(hover().enabled) {
-                drawChild(hover(), painter);
+            if(comp_hover().enabled) {
+                drawChild(comp_hover(), painter);
                 break;
             }
             // fallthrough
         case STATE_NORMAL:
-            drawChild(normal(), painter);
+            drawChild(comp_normal(), painter);
             break;
             
         default:
             assert(false);
     }
-    if(caption().enabled)
-        drawChild(caption(), painter);
+    if(comp_caption().enabled)
+        drawChild(comp_caption(), painter);
 }
 
 bool

@@ -101,20 +101,6 @@ public:
         xmlTextReaderPtr reader;
     };
 
-    std::string getAttribute(const char* name)
-    {
-        xmlChar* res = xmlTextReaderGetAttribute(reader, (const xmlChar*) name);
-        if(res == 0) {
-            std::stringstream msg;
-            msg << "Couldn't find attribute '" << name << "'.";
-            throw std::runtime_error(msg.str());
-        }
-        std::string result( (const char*) res);
-        xmlFree(res);
-
-        return result;
-    }
-
     bool read()
     {
         int ret = xmlTextReaderRead(reader);

@@ -16,7 +16,7 @@ Desktop::Desktop(Component* parent, XmlReader& reader)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(parseAttributeValue(attribute, value)) {
+        if(parseAttribute(attribute, value)) {
             continue;
         } else {
             std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
@@ -36,6 +36,8 @@ Desktop::Desktop(Component* parent, XmlReader& reader)
             }
         }
     }
+
+    setFlags(FLAG_RESIZABLE);
 }
 
 Desktop::~Desktop()

@@ -91,13 +91,18 @@ protected:
     /**
      * used to parse attributes (from an xml stream for example). Currently
      * parses only the name attribute
+     * Returns true if the attribute has been used.
      */
-    virtual bool parseAttributeValue(const char* attribute, const char* value);
+    virtual bool parseAttribute(const char* attribute, const char* value);
     
     void setFlags(int flags)
     {
-        this->flags = flags;
-    }     
+        this->flags |= flags;
+    }
+    void clearFlags(int flags)
+    {
+        this->flags &= ~flags;
+    }
 
     Component* parent;
     int flags;

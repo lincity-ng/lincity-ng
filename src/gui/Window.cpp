@@ -5,6 +5,7 @@
 #include <iostream>
 #include <assert.h>
 
+#include "callback/Callback.hpp"
 #include "ComponentFactory.hpp"
 #include "ComponentLoader.hpp"
 #include "XmlReader.hpp"
@@ -105,8 +106,8 @@ Window::Window(Component* parent, XmlReader& reader)
 
     // connect signals...
     Button* button = (Button*) closeButton().getComponent();
-    button->signalClicked.connect(
-        sigc::mem_fun(*this, &Window::closeButtonClicked));
+    button->clicked.connect(
+        makeCallback(*this, &Window::closeButtonClicked));
 }
 
 Window::~Window()

@@ -2,8 +2,7 @@
 #define __SCROLLBAR_HPP__
 
 #include "Component.hpp"
-#include "ComponentHolder.hpp"
-#include <sigc++/signal.h>
+#include "callback/Signal.hpp"
 
 class XmlReader;
 class Button;
@@ -20,7 +19,7 @@ public:
 
     void setRange(float min, float max);
 
-    sigc::signal<void, ScrollBar*, float> signalValueChanged;
+    Signal<ScrollBar*, float> valueChanged;
 
 private:
     Child& button1()

@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "Component.hpp"
-#include "ComponentHolder.hpp"
 
 class XmlReader;
 

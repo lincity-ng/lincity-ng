@@ -6,6 +6,7 @@
 #include "ScrollBar.hpp"
 #include "ComponentFactory.hpp"
 #include "ComponentLoader.hpp"
+#include "callback/Callback.hpp"
 
 ScrollView::ScrollView(Component* parent, XmlReader& reader)
     : Component(parent)
@@ -16,7 +17,7 @@ ScrollView::ScrollView(Component* parent, XmlReader& reader)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(parseAttributeValue(attribute, value)) {
+        if(parseAttribute(attribute, value)) {
             continue;
         } else {
             std::cerr << "Skipping unknown attribute '"
@@ -47,10 +48,10 @@ ScrollView::ScrollView(Component* parent, XmlReader& reader)
         throw std::runtime_error("No ScrollBar specified in ScrollView");
     }
     ScrollBar* scrollBarComponent = (ScrollBar*) scrollBar().getComponent();
-    scrollBarComponent->signalValueChanged.connect(
-            sigc::mem_fun(*this, &ScrollView::scrollBarChanged));
+    scrollBarComponent->valueChanged.connect(
+            makeCallback(*this, &ScrollView::scrollBarChanged));
 
-    setFlags(getFlags() | FLAG_RESIZABLE);
+    setFlags(FLAG_RESIZABLE);
 }
 
 ScrollView::~ScrollView()

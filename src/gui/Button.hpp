@@ -2,8 +2,7 @@
 #define __BUTTON_HPP__
 
 #include "Component.hpp"
-#include "ComponentHolder.hpp"
-#include <sigc++/signal.h>
+#include "callback/Signal.hpp"
 
 class XmlReader;
 class Texture;
@@ -24,7 +23,7 @@ public:
     void draw(Painter& painter);
     void event(const Event& event);
 
-    sigc::signal<void, Button*> signalClicked;
+    Signal<Button*> clicked;
 
 private:
     bool inside(const Vector2& pos);
@@ -36,13 +35,13 @@ private:
     };
     State state;
 
-    Child& normal()
+    Child& comp_normal()
     { return childs[0]; }
-    Child& hover()
+    Child& comp_hover()
     { return childs[1]; }
-    Child& clicked()
+    Child& comp_clicked()
     { return childs[2]; }
-    Child& caption()
+    Child& comp_caption()
     { return childs[3]; }
 };
 

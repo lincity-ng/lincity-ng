@@ -3,7 +3,6 @@
 
 #include <memory>
 #include "Component.hpp"
-#include "ComponentHolder.hpp"
 
 class XmlReader;
 class Texture;

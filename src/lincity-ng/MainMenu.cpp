@@ -9,6 +9,7 @@
 #include "gui/Event.hpp"
 #include "gui/Painter.hpp"
 #include "gui/Button.hpp"
+#include "gui/callback/Callback.hpp"
 
 #include "MainMenu.hpp"
 
@@ -38,14 +39,14 @@ MainMenu::MainMenu()
 
     // connect signals
     Button* quitButton = getButton(*gui, "QuitButton");
-    quitButton->signalClicked.connect(
-            sigc::mem_fun(*this, &MainMenu::quitButtonClicked));
+    quitButton->clicked.connect(
+            makeCallback(*this, &MainMenu::quitButtonClicked));
     Button* continueButton = getButton(*gui, "ContinueButton"); 
-    continueButton->signalClicked.connect(
-            sigc::mem_fun(*this, &MainMenu::continueButtonClicked));
+    continueButton->clicked.connect(
+            makeCallback(*this, &MainMenu::continueButtonClicked));
     Button* newGameButton = getButton(*gui, "NewGameButton");
-    newGameButton->signalClicked.connect(
-            sigc::mem_fun(*this, &MainMenu::newGameButtonClicked));
+    newGameButton->clicked.connect(
+            makeCallback(*this, &MainMenu::newGameButtonClicked));
 }
 
 MainMenu::~MainMenu()
