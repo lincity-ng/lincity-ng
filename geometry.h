@@ -199,13 +199,15 @@ void draw_small_bezel (int x, int y, int w, int h, int colour);
 #define SAVE_BUTTON_W 32
 #define SAVE_BUTTON_H 32
 
+/* Stats button */
+#define RESULTS_BUTTON_X 640 - 32
+#define RESULTS_BUTTON_Y 480 - 16
+#define RESULTS_BUTTON_W 32
+#define RESULTS_BUTTON_H 16
+
 /* Misc buttons */
 #define MISC_BUTTONS_X 0
 #define MISC_BUTTONS_Y 400
-#define RESULTS_BUTTON_X MISC_BUTTONS_X
-#define RESULTS_BUTTON_Y MISC_BUTTONS_Y
-#define RESULTS_BUTTON_W 32
-#define RESULTS_BUTTON_H 16
 #define TOVER_BUTTON_X MISC_BUTTONS_X + 32
 #define TOVER_BUTTON_Y MISC_BUTTONS_Y
 #define TOVER_BUTTON_W 32

@@ -1128,13 +1128,14 @@ do_mouse_other_buttons (int x, int y, int button)
     }
 #endif
 
-#if defined (commentout)
     /* this is the results (stats) button */
     else if (mouse_in_rect (&scr.results_button,x,y)) {
 	if (button == LC_MOUSE_RIGHTBUTTON)
 	    return;
 	window_results ();
     }
+
+#if defined (commentout)
     /* this is the overwrite transport button button */
     else if (mouse_in_rect (&scr.tover_button,x,y)) {
 	if (button == LC_MOUSE_RIGHTBUTTON) {

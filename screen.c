@@ -509,6 +509,7 @@ screen_full_refresh (void)
     draw_slow (slow_flag & !pause_flag);
     draw_med (med_flag & !pause_flag);
     draw_fast (fast_flag & !pause_flag);
+    draw_results ();
 
     draw_select_buttons ();
 

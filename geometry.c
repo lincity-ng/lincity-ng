@@ -314,6 +314,9 @@ resize_geometry (int new_width, int new_height)
     scr.mini_map.x = scr.mini_map_aux.x 
 	    + ((scr.mini_map_aux.w - scr.mini_map.w) / 2);
 
+    scr.results_button.x = new_width - 32;
+    scr.results_button.y = new_height - 32;
+
     /* Complete refresh of the screen required here */
     screen_full_refresh ();
 }
