@@ -23,16 +23,12 @@ int module_help_flag[NUMOF_MODULES];
 
 int sbut[NUMOF_MODULES];
 
-int selected_module;
+int selected_module;             /* GCS:  Are this variable necessary? */
 int old_selected_module = 0;
 
 int selected_module_type;
 int selected_module_group;
 int selected_module_cost;
-
-
-
-
 
 
 
@@ -226,9 +222,13 @@ init_modules (void)
     }
 
     /* select track (which will be enabled later) */
-    selected_module = CST_TRACK_LR;
+#if defined (commentout)
+    selected_module_type = CST_TRACK_LR;
     selected_module_cost = GROUP_TRACK_COST;
+    selected_module_group = get_group_of_type(selected_module_type);
+#endif
     old_selected_module = sbut[7];
+    set_selected_module (CST_TRACK_LR);
 }
 
 
@@ -392,10 +392,15 @@ select_module (int module, int mbutton)
 	if (mbutton == LC_MOUSE_RIGHTBUTTON)
 	    return;
     }
-    selected_module = module;
+
     unhighlight_module_button (old_selected_module);
     highlight_module_button (module);
     old_selected_module = module;
+
+    set_selected_module (module_type[module]);
+
+    /* GCS: Moved below for code reuse w/ setting residences. */
+#if defined (commentout)
     selected_module_type = module_type[module];
     selected_module_group = get_group_of_type(selected_module_type);
     if (selected_module_type == CST_RESIDENCE_LL) {
@@ -418,6 +423,7 @@ select_module (int module, int mbutton)
 	monument_bul_flag = 0;
 	river_bul_flag = 0;
     }
+#endif
 }
 
 
@@ -560,10 +566,43 @@ inv_sbut (int button)
 	    return (j);
 	}
     /* XXX: do we need this debug stuff? */
+    /* GCS: This is a fatal error.  Probably OK. */
     printf ("Button=%d\n", button);
     for (i = 0; i < 32; i++)
 	printf ("%5d", sbut[i]);
     printf ("\n");
     do_error ("An inv_sbut error has happened.");
     return (-1);			/* can't get here */
+}
+
+void
+set_selected_module (int type)
+{
+    selected_module_type = type;
+    selected_module_group = get_group_of_type(selected_module_type);
+    if (selected_module_type == CST_RESIDENCE_LL) {
+	choose_residence ();
+    }
+
+#ifdef LC_X11  /* XXX: WCK: shouldn't be any platform specific code here */
+    if (selected_module_group == GROUP_BARE) 
+	XDefineCursor (display.dpy, display.win, pirate_cursor);
+    else
+	XDefineCursor (display.dpy, display.win, None);
+#endif
+
+    draw_selected_module_cost();
+
+    if (selected_module_type == CST_GREEN) {
+	draw_main_window_box (red (8));
+    } else {
+	draw_main_window_box (green (8));
+	monument_bul_flag = 0;
+	river_bul_flag = 0;
+    }
+
+
+    selected_module_type = type;
+    selected_module_group = get_group_of_type(selected_module_type);
+    draw_selected_module_cost ();   /* sets module cost */
 }

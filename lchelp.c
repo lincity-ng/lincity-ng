@@ -93,29 +93,49 @@ draw_help_page (char *helppage)
 	    case (-2):
 	    case (-1):
 	    case (0):
+#if defined (commentout)
 	    case (1):
-		selected_module = CST_RESIDENCE_LL;
+		selected_module_type = CST_RESIDENCE_LL;
 		selected_module_cost = get_group_cost (GROUP_RESIDENCE_LL);
 		break;
 	    case (2):
-		selected_module = CST_RESIDENCE_ML;
+		selected_module_type = CST_RESIDENCE_ML;
 		selected_module_cost = get_group_cost (GROUP_RESIDENCE_ML);
 		break;
 	    case (3):
-		selected_module = CST_RESIDENCE_HL;
+		selected_module_type = CST_RESIDENCE_HL;
 		selected_module_cost = get_group_cost (GROUP_RESIDENCE_HL);
 		break;
 	    case (4):
-		selected_module = CST_RESIDENCE_LH;
+		selected_module_type = CST_RESIDENCE_LH;
 		selected_module_cost = get_group_cost (GROUP_RESIDENCE_LH);
 		break;
 	    case (5):
-		selected_module = CST_RESIDENCE_MH;
+		selected_module_type = CST_RESIDENCE_MH;
 		selected_module_cost = get_group_cost (GROUP_RESIDENCE_MH);
 		break;
 	    case (6):
-		selected_module = CST_RESIDENCE_HH;
+		selected_module_type = CST_RESIDENCE_HH;
 		selected_module_cost = get_group_cost (GROUP_RESIDENCE_HH);
+		break;
+#endif
+	    case (1):
+		set_selected_module (CST_RESIDENCE_LL);
+		break;
+	    case (2):
+		set_selected_module (CST_RESIDENCE_ML);
+		break;
+	    case (3):
+		set_selected_module (CST_RESIDENCE_HL);
+		break;
+	    case (4):
+		set_selected_module (CST_RESIDENCE_LH);
+		break;
+	    case (5):
+		set_selected_module (CST_RESIDENCE_MH);
+		break;
+	    case (6):
+		set_selected_module (CST_RESIDENCE_HH);
 		break;
 	    }
 	}

@@ -36,6 +36,9 @@ void update_avail_modules (void);
 // mouse.c: int inv_sbut (int button);
 int inv_sbut (int module);
 
+void set_selected_module (int type);
+
+
 
 #define NUMOF_MODULES 32
 // #define NUMOF_SELECT_BUTTONS_DOWN 16
@@ -54,10 +57,6 @@ extern int selected_module_cost;
 extern int module_tflag[NUMOF_MODULES];
 extern char module_help[NUMOF_MODULES][20]; */
 extern int module_help_flag[NUMOF_MODULES]; 
-
-
-
-
 
 
 #endif
