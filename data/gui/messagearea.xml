@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<Window width="700" height="200" border="5" titlesize="30" name="messageWindow">
+<Window width="700" height="200" border="5" titlesize="30">
     <title>
-        <Paragraph text-align="center" color="white"
-        height="30" font-size="20">Year 0000 - 12345$ - Messages </Paragraph>
+        <Paragraph text-align="center" color="white" name="messageTitle"
+        height="30" font-size="20">Year 0000 - Messages - 12345$</Paragraph>
     </title>
     <closebutton>
         <image src="images/gui/window_close.png"/>
@@ -28,8 +28,9 @@
                     <image-clicked src="images/gui/scroller_clicked.png"/>
                 </scroller>                                              
             </scrollbar>
-            <contents>
+            <contents background="white">
                 <DefineStyle name="normaltext" color="black" font-size="16"/>
+                <DefineStyle name="warningtext" color="red" font-size="16"/>
                 <Paragraph name="messageText" style="normaltext">
                     Welcome to Lincity NG. 
                 </Paragraph>

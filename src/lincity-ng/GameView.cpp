@@ -24,6 +24,9 @@
  *  20050228
  *  +setCursorSize()
  *
+ *  20050306
+ *  drag support
+ *
  */
 #include <config.h>
 
@@ -108,8 +111,11 @@ GameView::parse(XmlReader& reader)
     viewport.y = floor ( ( virtualScreenHeight- 600 ) / 2 );
 
     mouseInGameView = false;
+    dragging = false;
+    rightButtonDown = false;
     tileUnderMouse.x = 0;
     tileUnderMouse.y = 0;
+    dragStart = tileUnderMouse;
 
     cursorSize = 0;
 }
@@ -576,15 +582,34 @@ void GameView::event(const Event& event)
 {
     int stepx = (int) floor ( tileWidth / 2 );
     int stepy = (int) floor ( tileHeight / 2 );
-    Vector2 tile;
+    Vector2 tile, dragDistance;
     
     switch(event.type) {
         case Event::MOUSEMOTION: {
+            if( dragging ) {
+                dragDistance = event.mousepos - dragStart;
+                
+                //Mouse Acceleration
+                int dragLength =  (int) sqrt( dragDistance.x * dragDistance.x + dragDistance.y * dragDistance.y ); 
+                if ( dragLength > 14 ) 
+                    dragDistance *= 8;
+                else if (dragLength > 7 )
+                    dragDistance *= 4;
+
+                viewport += dragDistance;
+                dragStart = event.mousepos;
+                setDirty();
+                break;            
+            }         
             if(!event.inside) {
                 mouseInGameView = false;
                 break;
             }
             mouseInGameView = true;
+            if( !dragging && rightButtonDown ) {
+                dragging = true;
+                dragStart = event.mousepos;
+            }
             Vector2 tile = getTile(event.mousepos);
             if(tileUnderMouse != tile) {
                 tileUnderMouse = tile;
@@ -592,8 +617,27 @@ void GameView::event(const Event& event)
             }
             break;
         }
-
+        case Event::MOUSEBUTTONDOWN: {
+            if(!event.inside) {
+                break;
+            }
+            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+                dragging = false;
+                rightButtonDown = true;
+            }
+            break;       
+        }
         case Event::MOUSEBUTTONUP:
+            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+                if ( dragging ) {
+                    dragging = false;
+                    rightButtonDown = false;
+                    break;
+                } 
+                dragging = false;
+                rightButtonDown = false;
+            }
+
             if(!event.inside) {
                 break;
             }

@@ -67,8 +67,9 @@ private:
     int cityTextureX[ NUM_OF_TYPES ];
     int cityTextureY[ NUM_OF_TYPES ];
     
-    Vector2 tileUnderMouse;
+    Vector2 tileUnderMouse, dragStart;
     bool mouseInGameView;
+    bool dragging, rightButtonDown;
 
     int cursorSize;
 };

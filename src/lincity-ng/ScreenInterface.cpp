@@ -8,6 +8,11 @@
 #include "lincity/engglobs.h"
 #include "lincity/lclib.h"
 
+#include "gui/Component.hpp"
+#include "gui/Paragraph.hpp"
+#include "GameView.hpp"
+#include "Util.hpp"
+
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
 
@@ -111,16 +116,55 @@ void reset_status_message (void);
  */
 int dialog_box(int colour, int argc, ...)
 {
-    std::cout << "dialog_box: " << argc <<"\n";
+    std::ostringstream text;
     va_list arg;
     va_start( arg, argc );
      for( int i = 0; i < argc; i++ ) {
-        std::cout <<  va_arg( arg, int ) << " '"<<  va_arg( arg, int )  << "' " << va_arg( arg, char* ) <<"\n";
+        text << std::cout <<  va_arg( arg, int ) << " '"<<  va_arg( arg, int )  << "' " << va_arg( arg, char* ) <<"\n";
      }
     va_end( arg );    
-  return 0;
+
+    //Dialog Test
+    //do some SDL Parachute jumping
+    Component* root = getGameView();
+    if( !root ) return 0;
+    while( root->getParent() )
+        root = root->getParent();
+   //TODO: test if message Windows is open and cerate it on demand
+    
+    Paragraph* messageText = getParagraph( *root, "messageText");
+    if( !messageText ) return 0; 
+    
+    messageText->setText( text.str() );
+    
+    return 0;
 }
 
+/*
+ * Update The Title of the Message Window
+ * $(Current Date) -- Messages -- $(Current Money) 
+ */
+void updateMessageTitle()
+{
+    std::ostringstream titleText;
+ 
+    titleText << current_month( total_time );
+    titleText << " "<< current_year( total_time ) << " -- ";
+    titleText << "Messages";
+    titleText << " -- " << total_money << "£";
+    
+    Component* root = getGameView();
+    if( !root ) return;
+    while( root->getParent() )
+        root = root->getParent();
+   //TODO: test if message Windows is open and cerate it on demand
+    
+    Paragraph* messageTitle = getParagraph( *root, "messageTitle");
+    if( !messageTitle ) return;
+    
+    messageTitle->setText( titleText.str() );
+}
+    
 /*
  *  A DialogBox with a Progressbar.
  *  see oldgui/screen.cpp: prog_box (char *title, int percent)
@@ -135,7 +179,7 @@ void prog_box (char *title, int percent)
 
 void print_total_money (void)
 {
-    std::cout << "print_total_money " << total_money << "£\n";
+    updateMessageTitle();
 }
 
 void refresh_population_text (void)
@@ -158,8 +202,7 @@ void refresh_main_screen()
 
 void screen_full_refresh ()
 {
-    std::cout << "screen_full_refresh:  Date " <<  current_month( total_time );
-    std::cout << " "<< current_year( total_time )<< "\n";
+  updateMessageTitle();
   update_main_screen (true);
 }
 
