@@ -1,29 +1,8 @@
 BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
-  o None?
-
-BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
-
-  o Right click outside of help should exit help.
-
-  o Re-remove c++ style comments.
-
-  o Bits of the square cursor are not refreshed from the main win frame.
-    For example, this happens with pollution overlay turned on.
-
-  o Frame of main win is displayed before load game progress bar finishes.
-
   o When you overwrite ("transport overwrite") a road/trail with
     power lines and then undo it (i.e. drag over it, then drag off), it
     replaces the road/trail with railway.
-
-  o Since cvs doesn't store timestamps, need to manually set timestamps 
-    to build from cvs.  For now, workaround using fix-timestamps.sh.
-
-  o When you bulldoze water or create water, you're warned that it is
-    very expensive.  However, you only get this warning once, so that it's
-    easy to bulldoze multiple times.  However, when you bulldoze shanties you
-    get the message every time.  This is inconvenient.
 
   o Need to compress and expand translation files and add installation hooks
     so that only desired translations get installed.
@@ -44,6 +23,35 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
     Consider also pressing "Enter" when mouse is over a button on the 
     opening screen.
 
+  o Population pbar is wrong when starting new game, since game starts 
+    with different number of people for random villiage and blank screen 
+    this is difficult to fix.
+
+  o UNIX version should run out of current directory without needing
+    to do a "make install".
+
+  o Money is not updated while paused.
+
+
+BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+
+  o Right click outside of help should exit help.
+
+  o Re-remove c++ style comments.
+
+  o Bits of the square cursor are not refreshed from the main win frame.
+    For example, this happens with pollution overlay turned on.
+
+  o Frame of main win is displayed before load game progress bar finishes.
+
+  o Since cvs doesn't store timestamps, need to manually set timestamps 
+    to build from cvs.  For now, workaround using fix-timestamps.sh.
+
+  o When you bulldoze water or create water, you're warned that it is
+    very expensive.  However, you only get this warning once, so that it's
+    easy to bulldoze multiple times.  However, when you bulldoze shanties you
+    get the message every time.  This is inconvenient.
+
   o Main screen should scroll when moving mouse outside of main window 
     during multi-transport.
 
@@ -53,10 +61,6 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
   o Finish i18n.
 
   o Miniscreen colors could be improved.
-
-  o Population pbar is wrong when starting new game, since game starts 
-    with different number of people for random villiage and blank screen 
-    this is difficult to fix.
 
   o xpicedit doesn't seem to work on 24 bit color machines.
 
@@ -82,9 +86,6 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
   o Need to support -display and other XWindows command line option.
 
   o Need to clean up write of gzipped files to use popen().
-
-  o UNIX version should run out of current directory without needing
-    to do a "make install".
 
   o Why don't we use a recognized file format for the splash screen?
 
