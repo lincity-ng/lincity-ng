@@ -626,7 +626,6 @@ undosify_string (char *s)
     *q = '\0';
 }
 
-#if defined (WIN32)
 void
 debug_printf (char* fmt, ...)
 {
@@ -647,20 +646,3 @@ debug_printf (char* fmt, ...)
 
     fclose (fp);
 }
-#else
-void
-debug_printf (char* fmt, ...)
-{
-    static int initialized = 0;
-    va_list argptr;
-
-    if (!initialized) {
-	initialized = 1;
-	printf ("=========================\n");
-    }
-
-    va_start (argptr, fmt);
-    vprintf (fmt, argptr);
-    va_end (argptr);
-}
-#endif

@@ -1783,7 +1783,17 @@ print_stats (void)
 
 	refresh_pbars();
 
+	/* GCS, May 11, 2003.  Quick hack for SVGALIB.  Basically,
+	 * I need to workaround the fact that a dialog box might pop 
+	 * up, causing move_mouse() to nest hide_mouse() calls,
+	 * which means that the cursor will leave a trail.		*/
+#if !defined (WIN32)
+        redraw_mouse ();
+#endif
 	update_avail_modules (1);
+#if !defined (WIN32)
+        hide_mouse ();
+#endif
     }
 
     if (update_scoreboard.yearly_1) {

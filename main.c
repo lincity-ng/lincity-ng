@@ -247,7 +247,7 @@ lincity_main (int argc, char *argv[])
     init_pixmaps ();
     prog_box ("", 100);
 #endif
-    draw_normal_mouse (1, 1);
+    //draw_normal_mouse (1, 1);
     init_mouse ();
     init_timer_buttons();
     mouse_initialized = 1;

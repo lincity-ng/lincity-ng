@@ -249,17 +249,15 @@ dialog_box(int arg_color, int argc, ...)
       call_wait_event ();
       key = x_key_value;
       x_key_value = 0;
-      if (key == 0) 
-	  continue;
 #elif defined (WIN32)
       HandleMouse ();
       key = GetKeystroke ();
-	  if ( 0 == key )	/* KBR - 10/14/2002 */
-		  continue;
 #else
       mouse_update ();
       key = vga_getkey ();
 #endif
+      if (key == 0) continue;
+
       if (key == 10 || key == 13 || key == ' ') /* default button */
 	  for (i = 0; i <= dbn; i++) {
 	      if (db_entry[i].type == 2) {

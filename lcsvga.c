@@ -99,7 +99,12 @@ mouse_setup(void)
     cs_mouse_button = 0;
     cs_mouse_xmax = 640 - 1;
     cs_mouse_ymax = 480 - 1;
+
+    /* GCS -- This is meant to fix the upper left cursor problem,
+     *        but doesnt.  May 11, 2003 				*/
+    mox = 1; moy = 1;
     Fgl_getbox(mox, moy, 8, 8, under_mouse_pointer);
+
     mouse_seteventhandler(lc_mouse_handler);
 }
 
