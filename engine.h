@@ -11,5 +11,6 @@ int engine_bulldoze_item (int x, int y);
 void engine_do_coal_survey (void);
 void do_bulldoze_area (short fill, int xx, int yy);
 void engine_launch_rocket (int x, int y);
+void connect_rivers (void);
 
 #endif	/* __engine_h__ */

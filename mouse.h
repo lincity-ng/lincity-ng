@@ -67,7 +67,6 @@ extern void do_market_cb_mouse (int, int);
 extern void do_port_cb_mouse (int, int);
 extern void do_db_mouse (int, int);
 extern void do_db_okmouse (int, int);
-extern void connect_rivers (void);
 extern int is_real_river (int, int);
 extern void select_pause (void);
 extern void select_fast (void);
