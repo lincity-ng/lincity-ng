@@ -113,7 +113,7 @@
             <image-hover src="images/gui/rnew_button_bg1.png"/>
             <image-clicked src="images/gui/rnew_button_bg2.png"/>
             <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/pointer1.png"/>
+            <image-caption src="images/gui/pointer.png"/>
           </CheckButton>
         </cell>
         <cell row="1" col="2" halign="left">
@@ -125,7 +125,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/pointer1.png"/>
+                  <image-caption src="images/gui/pointer.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
