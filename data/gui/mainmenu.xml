@@ -1,51 +1,57 @@
 <?xml version="1.0"?>
 <gui>
-    <DefineStyle name="normal" color="blue" font-size="30"/>
-    <DefineStyle name="hover" color="red" font-size="30"/>
-    <DefineStyle name="clicked" color="red" font-size="30" margin-left="5" margin-top="5"/>
+    <DefineStyle name="normal" color="white" font-size="30"/>
+    <DefineStyle name="hover" color="#339fe6" font-size="30"/>
+    <DefineStyle name="clicked" color="#339fe6" font-size="30" margin-left="5" margin-top="5"/>
     <Image src="images/mainmenu/menu_back.png"/>
-    <TableLayout rows="6" cols="2">
+    <TableLayout rows="6" cols="3">
         <colsize col="1" relative="1"/>
-        <colsize col="2" relative="1"/>
+        <colsize col="2" relative="0.5"/>
+        <colsize col="3" relative="1"/>
         <rowsize row="1" relative="2"/>
         <rowsize row="2" relative="1"/>
         <rowsize row="3" relative="1"/>
         <rowsize row="4" relative="1"/>
         <rowsize row="5" relative="1"/>
         <rowsize row="6" relative="1.5"/>
-        <cell row="2" col="2">
+        <cell row="2" col="3">
             <Button name="NewGameButton">
-                <text translatable="yes" style="normal">New Game</text>
-                <text-hover translatable="yes" style="hover">New Game</text-hover>
-                <text-clicked translatable="yes" style="clicked">New Game</text-clicked>
+		<text-caption translatable="yes" style="normal">New Game</text-caption>
+		<image src="images/mainmenu/buttons/new.png"/>
+		<image-hover src="images/mainmenu/buttons/new-hover.png"/>
+		<image-clicked src="images/mainmenu/buttons/new-clicked.png"/>
             </Button>
         </cell>
-        <cell row="3" col="2">
+        <cell row="3" col="3">
             <Button name="ContinueButton">
-                <text translatable="yes" style="normal">Continue</text>
-                <text-hover translatable="yes" style="hover">Continue</text-hover>
-                <text-clicked translatable="yes" style="clicked">Continue</text-clicked>            
+		<text-caption translatable="yes" style="normal">Continue</text-caption>
+		<image src="images/mainmenu/buttons/continue.png"/>
+		<image-hover src="images/mainmenu/buttons/continue-hover.png"/>
+		<image-clicked src="images/mainmenu/buttons/continue-clicked.png"/>
             </Button>
         </cell>
-        <cell row="4" col="2">
+        <cell row="4" col="3">
             <Button name="LoadButton">
-                <text translatable="yes" style="normal">Load</text>
-                <text-hover translatable="yes" style="hover">Load</text-hover>
-                <text-clicked translatable="yes" style="clicked">Load</text-clicked>                        
+		<text-caption translatable="yes" style="normal">Load</text-caption>
+		<image src="images/mainmenu/buttons/load.png"/>
+		<image-hover src="images/mainmenu/buttons/load-hover.png"/>
+		<image-clicked src="images/mainmenu/buttons/load-clicked.png"/>
             </Button>
         </cell>
-        <cell row="5" col="2">
+        <cell row="5" col="3">
             <Button name="CreditsButton">
-                <text translatable="yes" style="normal">Credits</text>
-                <text-hover translatable="yes" style="hover">Credits</text-hover>
-                <text-clicked translatable="yes" style="clicked">Credits</text-clicked>                        
+		<text-caption translatable="yes" style="normal">Credits</text-caption>
+		<image src="images/mainmenu/buttons/credits.png"/>
+		<image-hover src="images/mainmenu/buttons/credits-hover.png"/>
+		<image-clicked src="images/mainmenu/buttons/credits-clicked.png"/>
             </Button>
         </cell>
-        <cell row="6" col="2">
+        <cell row="6" col="3">
             <Button name="QuitButton">
-                <text translatable="yes" style="normal">Quit</text>
-                <text-hover translatable="yes" style="hover">Quit</text-hover>
-                <text-clicked translatable="yes" style="clicked">Quit</text-clicked>            
+		<text-caption translatable="yes" style="normal">Quit</text-caption>
+		<image src="images/mainmenu/buttons/quit.png"/>
+		<image-hover src="images/mainmenu/buttons/quit-hover.png"/>
+		<image-clicked src="images/mainmenu/buttons/quit-clicked.png"/>
             </Button>
         </cell>
     </TableLayout>
