@@ -5,8 +5,6 @@ import glob
 import string
 from stat import *
 
-env = Environment(ENV = os.environ) 
-
 class ConfigHeader:
     def __init__(self):
         self.defines = { }
