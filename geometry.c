@@ -38,6 +38,11 @@ initialize_geometry (Screen_Geometry* scr)
     scr->client_w = 640;
     scr->client_h = 480;
 
+    scr->client_win.x = 0;
+    scr->client_win.y = 0;
+    scr->client_win.w = 640;
+    scr->client_win.h = 480;
+
     scr->main_win.x = MAIN_WIN_X;
     scr->main_win.y = MAIN_WIN_Y;
     scr->main_win.h = MAIN_WIN_H;
@@ -279,6 +284,9 @@ resize_geometry (int new_width, int new_height)
     /* Reset geometry back to default */
     initialize_geometry (&scr);
 
+    scr.client_win.w = new_width;
+    scr.client_win.h = new_height;
+
     if (pix_double) {
 	new_width = new_width / 2;
 	new_height = new_height / 2;
@@ -420,6 +428,7 @@ adjust_main_origin (int new_origin_x, int new_origin_y, int refresh)
 	request_main_screen ();
 	hide_mouse ();
 	refresh_main_screen ();
+	dialog_refresh();
 	redraw_mouse ();
     }
 }

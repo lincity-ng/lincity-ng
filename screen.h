@@ -23,6 +23,9 @@ extern unsigned char start_font3[4096];
 int monthgraph_style;
 int mps_global_style;
 
+/* This is on in screen_full_refresh, used in *_refresh() */
+extern char screen_refreshing;
+
 
 char* current_month (int current_time);
 void draw_cb_box (int row, int col, int checked);

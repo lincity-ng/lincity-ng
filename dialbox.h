@@ -7,15 +7,16 @@
 
 struct dialog_box_struct
 {
-  short type; /* 0 if line,  button return value (!0) if button */
-  char * text;
+    short type; /* 0 if line,  button return value (!0) if button */
+    short retval; /* 0 for no return, character (keyboard hotkey) for others */
+    char * text;
 };
 
 typedef struct dialog_box_struct Dialog_Box;
 
 /* Public functions */
 int dialog_box(int colour, char argc, ...); 
-void refresh_dialog_box();
+void dialog_refresh();
 
 #define MAX_DBOX_ENTRIES 16 /* Small, but entirely adequate for current use */
 

@@ -43,6 +43,8 @@ Update_Scoreboard update_scoreboard;
 int monthgraph_style = MONTHGRAPH_STYLE_MIN;
 int mps_global_style = MPS_GLOBAL_STYLE_MIN;
 
+char screen_refreshing = 0; 
+
 /* ---------------------------------------------------------------------- *
  * Private Global Variables
  * ---------------------------------------------------------------------- */
@@ -275,6 +277,7 @@ update_main_screen_pollution (void)
 /* XXX: WCK: All of the drawing should be done already in screen_full_refresh;
    Why do it here? */
 /* GCS: Actually, this function loads the graphics from disk */
+/* WCK: Yes, but it used to refresh everything after doing that. */
 void
 screen_setup (void)
 {
@@ -545,6 +548,7 @@ screen_setup (void)
 void
 screen_full_refresh (void)
 {
+    screen_refreshing = 1;
     draw_background ();
 
     monthgraph_full_refresh ();
@@ -586,7 +590,9 @@ screen_full_refresh (void)
     draw_module_cost(get_group_of_type(selected_type));
 
     refresh_pbars();
+    dialog_refresh();
     redraw_mouse();  /* screen_setup used to do this */
+    screen_refreshing = 0;
 }
 
 #if defined (commentout)

@@ -343,6 +343,9 @@ client_main_loop (void)
 void
 process_keystrokes (int key)
 {
+
+    int retval;
+
     switch (key)
     {
     case 0: printf("dead!"); return;
@@ -504,7 +507,7 @@ process_keystrokes (int key)
 #ifdef LC_X11
     case 27:
       if (help_flag) // exit help
-	draw_help_page("return-2"); // XXX: gotta love passing arg as a string!
+	draw_help_page("return-2"); 
       else
 	activate_help ("menu.hlp");
 	break;
@@ -520,19 +523,20 @@ process_keystrokes (int key)
 	save_flag = 1;
 	break;
 
-    case 'b':
-      dialog_box(red(10),10,
-		 0,"This is the first test",
-		 0,"Of the new dialog box code",
-		 0,"",
-		 0,"Do you like it?",
-		 1,"Yes",
-		 2,"No",
-		 3,"Maybe",
-		 4,"Kind of",
-		 5,"Not at all",
-		 6,"It is a flaming pile of excrement!"
-		 );
+    case 'b': 
+	retval = dialog_box(red(10),10,
+		   0,0,"This is the first test",
+		   0,0,"Of the new dialog box code",
+		   0,0,"",
+		   0,0,"Do you like it?",
+		   1,'y',"Yes",
+		   1,'n',"No",
+		   1,'m',"Maybe",
+		   1,'k',"Kind of",
+		   1,'t',"Not at all",
+		   1,'s',"It is a flaming pile of excrement!"
+	    );
+	printf("dialog_box returned %c\n",retval);
       break;
 
     case 'r':

@@ -358,17 +358,20 @@ move_mouse (int x, int y)
 void
 hide_mouse (void)
 {
-    if (mouse_type == MOUSE_TYPE_SQUARE)
-	hide_square_mouse ();
-    else
-	hide_normal_mouse ();
     mouse_hide_count++;
+    if (mouse_hide_count == 1) {
+	if (mouse_type == MOUSE_TYPE_SQUARE)
+	    hide_square_mouse ();
+	else
+	    hide_normal_mouse ();
+    }
 }
 
 void
 redraw_mouse (void)
 {
-    if (--mouse_hide_count > 0)
+    mouse_hide_count--;
+    if (mouse_hide_count > 0)
 	return;
     mouse_hide_count = 0;
     if (mouse_type == MOUSE_TYPE_SQUARE)

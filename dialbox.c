@@ -15,40 +15,42 @@
 #include "dialbox.h"
 #include "mouse.h"
 
-static Dialog_Box dbox_entry[MAX_DBOX_ENTRIES];
+static Dialog_Box db_entry[MAX_DBOX_ENTRIES];
 static Dialog_Box * button[MAX_DBOX_ENTRIES];
 static Dialog_Box * line[MAX_DBOX_ENTRIES];
+
+static Rect dialog_window;   /* Describes position of window on screen */
+static Rect text_window;     /* Describes position of text area on screen */
+
+static Rect db_rect[MAX_DBOX_ENTRIES];    /* region of each line/button */
+// static Rect button_rect[MAX_DBOX_ENTRIES];  /* click area for buttons, lines */
+// static Rect line_rect[MAX_DBOX_ENTRIES];    /* offset from text_window */
+
+static Mouse_Handle * main_handle;
+static Mouse_Handle * text_handle;
 
 static int dbn; /* number of dbox entries */
 static int bn;  /* number of buttons */
 static int ln;  /* number of lines */
 
-static int bwt;                   /* total width of all buttons, pixels */
-static int lwt;                   /* pixel width of longest line */
-
-static Rect button_rect[MAX_DBOX_ENTRIES];
-static Rect line_rect[MAX_DBOX_ENTRIES];
+static int db_longest_button; /* total width of all buttons, pixels */
+static int db_longest_line;   /* pixel width of longest line */
 
 static int bs; /* button spacing */
 static int bse; /* extra spacing, to be added at beginning and end of line */
 
-static int wt; /* Total width of text area, including spacing */
-static int ht; /* Total height of text area, including spacing */
-
 static int color;
 
-static Rect dialog_window;   /* Describes position of window on screen */
-static Rect text_window;     /* Describes position of text area on screen */
+static short db_up = 0;
+static int db_return_value;
 
-static short dialog_box_up = 0;
-
-static Mouse_Handle * border_handle;
-static Mouse_Handle * text_handle;
+char * db_screen_buffer; /* hold the screen we overwrite */
+char db_screen_fresh;    /* does it hold information? */
 
 void 
-border_handler(int x, int y, int button) 
+main_handler(int x, int y, int button) 
 {
-//    printf("got it in border_handler!\n");
+    
 }
 
 
@@ -56,36 +58,52 @@ void
 text_handler(int x, int y, int button)
 {
     int i;
-    for (i = 0; i < bn; i++) {
-	if (mouse_in_rect(&button_rect[i], x, y)) {
-	    printf("got it in text_handler!\t\t button = %d\n",i);
-	    mouse_unregister(border_handle);
-	    mouse_unregister(text_handle);
-	    dialog_box_up = 0;
-	}
+    for (i = 0; i < dbn; i++) {
+	if (mouse_in_rect(&db_rect[i], x, y)) 
+	    dialog_close(db_entry[i].retval);
     }
 
 
 }
+
+void
+dialog_key_handler (int key) 
+{
+    int i;
+
+    if (key == 0) 
+	return;
+
+    for (i = 0; i < dbn;  i++) {
+	if (key == db_entry[i].retval) {
+	    dialog_close(key);
+	    return;
+	}
+    }
+}
+	    
 
 int
 dialog_box(int arg_color, char argc, ...)
 {
   va_list ap;
   int i;
+  int db_last_button = -1;
+  int key;
 
-  if (dialog_box_up) {
+  if (db_up) {
       printf("Already have a dialog box on screen!\n");
       return;
-  } else
-      dialog_box_up = 1;
-
+  } else {
+      db_up = 1; /* XXX: Need to reconcile these - don't need both */
+      db_flag = 1;
+  }
 
   bn = 0; ln = 0; dbn = 0;
-  bwt = 0; lwt = 0;
+  db_longest_button = 0; db_longest_line = 0;
   bs = 0; bse = 0;
-  wt = 0; ht = 0;
   color = arg_color;
+  db_screen_fresh = 0;
 
   if (argc > MAX_DBOX_ENTRIES) {
     fprintf(stderr,"Too many buttons in dialog_box!\n"
@@ -102,22 +120,19 @@ dialog_box(int arg_color, char argc, ...)
   for (i = 0; i < argc; i++) {
     dbn++;
 
-    dbox_entry[i].type = (short) va_arg(ap, int);
-    dbox_entry[i].text = va_arg(ap, char *);
+    db_entry[i].type = (short) va_arg(ap, int);
+    db_entry[i].retval = (short) va_arg(ap, int);
+    db_entry[i].text = va_arg(ap, char *);
 
-    if (dbox_entry[i].type) {
-      button[bn] = &dbox_entry[i];
-      button_rect[bn].w = (strlen(dbox_entry[i].text) * CHAR_WIDTH);
-      button_rect[bn].h = CHAR_HEIGHT;
-      bwt += button_rect[bn].w;
+    db_rect[i].w = (strlen(db_entry[i].text) * CHAR_WIDTH);
+    db_rect[i].h = CHAR_HEIGHT;
+
+    if (db_entry[i].type) {
+      db_longest_button += db_rect[i].w;
       bn++;
     } else {
-      line_rect[ln].w = (strlen(dbox_entry[i].text) * CHAR_WIDTH);
-      line_rect[ln].h = CHAR_HEIGHT;
-      line[ln] = &dbox_entry[i];
-
-      if (line_rect[ln].w > lwt) 
-	lwt = line_rect[ln].w;
+      if (db_rect[i].w > db_longest_line) 
+	db_longest_line = db_rect[i].w;
       ln++;
 
     }
@@ -126,36 +141,98 @@ dialog_box(int arg_color, char argc, ...)
   va_end(ap);
 
   /* figure out how high and wide the box needs to be */
-  ht = ((ln * (CHAR_HEIGHT + DB_V_SPACE)) + BUTTON_HEIGHT + DB_V_SPACE);
+  text_window.h = 
+      ((ln * (CHAR_HEIGHT + DB_V_SPACE)) + BUTTON_HEIGHT + DB_V_SPACE);
 
-  if ((bwt + (bn * BUTTON_MIN_SPACING)) > (lwt + LINE_MIN_SPACING))
-    wt = (bwt + (bn * BUTTON_MIN_SPACING));
-  else
-    wt = (lwt + LINE_MIN_SPACING);
-      
+  if ((db_longest_button + (bn * BUTTON_MIN_SPACING)) > 
+      (db_longest_line + LINE_MIN_SPACING)) {
+      text_window.w = (db_longest_button + (bn * BUTTON_MIN_SPACING));
+  } else {
+      text_window.w = (db_longest_line + LINE_MIN_SPACING);
+  }   
 
-  /* Determine button spacing */
-  bs = (wt - bwt) / bn;
-  bse = ((wt - bwt) % bn) / 2;  /* This gets added to begin and end of line */
+  /* Determine button spacing;
+     add some extra in front and back */
 
+  bs = (text_window.w - db_longest_button) / bn;
+  bse = ((text_window.w - db_longest_line) % bn) / 2;  
 
+  /* Position the buttons and lines */
+
+  for (i = 0; i < dbn; i++)
+  {
+      if (db_entry[i].type) {                                  /* Buttons */
+	  if (db_last_button == -1)
+	      db_rect[i].x = (bs + bse) / 2;
+	  else
+	      db_rect[i].x = (db_rect[db_last_button].x + 
+			      db_rect[db_last_button].w + bs);
+	  
+	  db_rect[i].y = (ln * (CHAR_HEIGHT + DB_V_SPACE) + DB_V_SPACE);
+	  
+	  db_last_button = i;
+      } else {                                                   /* Lines */
+	db_rect[i].x = ((text_window.w - db_rect[i].w) / 2);
+	db_rect[i].y = (i * (CHAR_HEIGHT + DB_V_SPACE));
+      }
+  }
+	  
   /* Figure out window size */
 
-  dialog_window.w = (wt + BORDER_SIZE*2);
-  dialog_window.h = (ht + BORDER_SIZE*2);
+  dialog_window.w = (text_window.w + BORDER_SIZE*2);
+  dialog_window.h = (text_window.h + BORDER_SIZE*2);
   
-  text_window.w = wt;
-  text_window.h = ht;
-
-  border_handle = mouse_register(&dialog_window,&border_handler);
+  main_handle = mouse_register(&scr.client_win,&main_handler);
   text_handle = mouse_register(&text_window,&text_handler);
 
-  refresh_dialog_box();
+  dialog_refresh();
+
+  db_return_value = 0;
+
+  while (!db_return_value)  {
+#ifndef LC_X11
+      lc_usleep (1000); /* call_wait_event does this for X11 */
+#endif
+      
+#ifdef LC_X11
+      call_wait_event ();
+      key = x_key_value;
+      x_key_value = 0;
+      if (key == 0) 
+	  continue;
+#elif defined (WIN32)
+      HandleMouse ();
+      key = GetKeystroke ();
+#else
+      mouse_update ();
+      key = vga_getkey ();
+#endif
+      if (key == 10 || key == 13 || key == ' ') /* default button */
+	  for (i = 0; i <= dbn; i++) {
+	      if (db_entry[i].type == 2) {
+		  dialog_close(db_entry[i].retval);
+		  break;
+	      }
+	  }
+      else
+	  for (i = 0; i <= dbn; i++) {
+	      if (key == db_entry[i].retval) {
+		  dialog_close(key);
+		  break;
+	      }
+	  }
+  }
+
+  return (db_return_value);
 }
 
-void refresh_dialog_box(void)
+
+void 
+dialog_refresh(void)
 {
-  int li, bi;  /* Line, Button incrementors */
+  int i;  /* Line, Button incrementors */
+  if (!db_up) 
+      return;
 
   /* Determine screen position */
   dialog_window.x = (scr.client_w / 2) - (dialog_window.w / 2);
@@ -164,7 +241,22 @@ void refresh_dialog_box(void)
   text_window.x = dialog_window.x + BORDER_SIZE;
   text_window.y = dialog_window.y + BORDER_SIZE;
 
+  unrequest_mappoint_stats();
+  unrequest_main_screen();
+  
   hide_mouse();
+
+  if (screen_refreshing && db_screen_fresh) {
+      free(db_screen_buffer);
+      db_screen_fresh = 0;
+  }
+
+  if (!db_screen_fresh) {
+      db_screen_buffer = (char *)lcalloc(dialog_window.w * dialog_window.h);
+      Fgl_getrect(&dialog_window,db_screen_buffer);
+      db_screen_fresh = 1;
+  };
+
 
   /* Draw the border, and fill the background */
   draw_bezel(dialog_window,BORDER_SIZE,color);
@@ -178,36 +270,40 @@ void refresh_dialog_box(void)
 #endif
 
     /* Loop calculating line position, and drawing the line */
-  for (li = 0; li < ln; li++)
+    for (i = 0; i < dbn; i++)
     {
-      line_rect[li].x = ((wt - line_rect[li].w) / 2);
-      line_rect[li].y = (li * (CHAR_HEIGHT + DB_V_SPACE));
-      Fgl_write(line_rect[li].x + text_window.x, 
-		line_rect[li].y + text_window.y, line[li]->text);
-    }
 
-  /* Loop, Figure out button position including button spacing, then draw the
-     button */
-  for (bi = 0; bi < bn; bi++)
-    {
-      if (bi == 0)
-	button_rect[bi].x = (bs + bse) / 2;
-      else
-	button_rect[bi].x = (button_rect[bi-1].x + button_rect[bi-1].w + bs);
-
-      button_rect[bi].y = (ln * (CHAR_HEIGHT + DB_V_SPACE) + DB_V_SPACE);
-      Fgl_fillbox(button_rect[bi].x + text_window.x - BUTTON_BORDER,
-		  button_rect[bi].y + text_window.y - BUTTON_BORDER,
-		  button_rect[bi].w + (BUTTON_BORDER * 2),
-		  button_rect[bi].h + (BUTTON_BORDER * 2),
-		  white(0));
-      Fgl_write(button_rect[bi].x + text_window.x, 
-		button_rect[bi].y + text_window.y, 
-		button[bi]->text);
+	if (db_entry[i].type) {
+	    Fgl_fillbox(db_rect[i].x + text_window.x - BUTTON_BORDER,
+			db_rect[i].y + text_window.y - BUTTON_BORDER,
+			db_rect[i].w + (BUTTON_BORDER * 2),
+			db_rect[i].h + (BUTTON_BORDER * 2),
+			white(0));
+	}
+	Fgl_write(db_rect[i].x + text_window.x, db_rect[i].y + text_window.y, 
+		  db_entry[i].text);
     }
 
   redraw_mouse();
 
 }
 
+/* dialog_close: close the mouse handle and remember we closed it;
+   save the results; put the old screen back up and remember that too. */
+
+void
+dialog_close(int return_value) 
+{
+    mouse_unregister(main_handle);
+    mouse_unregister(text_handle);
+    db_up = 0;
+    db_return_value = return_value;
+
+    if (db_screen_fresh) {
+	Fgl_putrect(&dialog_window,db_screen_buffer);
+	db_flag = 0;
+	free(db_screen_buffer);
+	db_screen_fresh = 0;
+    }
+}
 

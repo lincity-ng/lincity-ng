@@ -22,6 +22,9 @@ struct screen_geometry_struct
     int client_w;
     int client_h;
 
+    /* Entire window */
+    Rect client_win;
+
     /* Main window */
     Rect main_win;
 

@@ -688,6 +688,20 @@ Fgl_getbox (int x1, int y1, int w, int h, void *buf)
 	    *(b++) = (unsigned char) Fgl_getpixel (x, y);
 }
 
+
+void
+Fgl_getrect(Rect * r, void * buffer)
+{
+    Fgl_getbox(r->x,r->y,r->w,r->h,buffer);
+}
+
+void 
+Fgl_putrect(Rect *r, void * buffer)
+{
+    Fgl_putbox(r->x,r->y,r->w,r->h,buffer);
+}
+
+
 void
 HandleEvent (XEvent * event)
 {
