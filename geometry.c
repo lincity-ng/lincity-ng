@@ -514,7 +514,7 @@ draw_menu (void)
     Fgl_line (b->x + b->w-5, b->y+4, b->x + b->w-5, b->y + b->h-2, white(8));
 
     Fgl_setfontcolors (menu_bg_color,menu_fg_color);
-    Fgl_write (b->x + 12, b->y + 9, _("Menu"));
+    Fgl_write (b->x + 12, b->y + 10, _("Menu"));
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 }
 
@@ -531,15 +531,15 @@ draw_help (void)
     Rect* b = &scr.help_button;
 
     Fgl_fillbox (b->x, b->y, b->w, b->h, white(20));
-    Fgl_fillbox (b->x+5, b->y+4, b->w-10, b->h-5, menu_bg_color);
+    Fgl_fillbox (b->x+5, b->y+4, b->w-10, b->h-8, menu_bg_color);
     
     Fgl_hline (b->x+5, b->y+4, b->x + b->w-5, white(8));
-    Fgl_line (b->x+5, b->y+4, b->x+5, b->y + b->h-2, white(8));
-    Fgl_hline (b->x+5, b->y + b->h-2, b->x + b->w-5, white(8));
-    Fgl_line (b->x + b->w-5, b->y+4, b->x + b->w-5, b->y + b->h-2, white(8));
+    Fgl_line (b->x+5, b->y+4, b->x+5, b->y + b->h-4, white(8));
+    Fgl_hline (b->x+5, b->y + b->h-4, b->x + b->w-5, white(8));
+    Fgl_line (b->x + b->w-5, b->y+4, b->x + b->w-5, b->y + b->h-4, white(8));
 
     Fgl_setfontcolors (menu_bg_color,menu_fg_color);
-    Fgl_write (b->x + 12, b->y + 9, _("Help"));
+    Fgl_write (b->x + 13, b->y + 9, _("Help"));
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 }
 
@@ -556,15 +556,15 @@ draw_results (void)
     Rect* b = &scr.results_button;
 
     Fgl_fillbox (b->x, b->y, b->w, b->h, white(20));
-    Fgl_fillbox (b->x+5, b->y+4, b->w-10, b->h-5, menu_bg_color);
+    Fgl_fillbox (b->x+5, b->y+4, b->w-10, b->h-8, menu_bg_color);
     
     Fgl_hline (b->x+5, b->y+4, b->x + b->w-5, white(8));
-    Fgl_line (b->x+5, b->y+4, b->x+5, b->y + b->h-2, white(8));
-    Fgl_hline (b->x+5, b->y + b->h-2, b->x + b->w-5, white(8));
-    Fgl_line (b->x + b->w-5, b->y+4, b->x + b->w-5, b->y + b->h-2, white(8));
+    Fgl_line (b->x+5, b->y+4, b->x+5, b->y + b->h-4, white(8));
+    Fgl_hline (b->x+5, b->y + b->h-4, b->x + b->w-5, white(8));
+    Fgl_line (b->x + b->w-5, b->y+4, b->x + b->w-5, b->y + b->h-4, white(8));
 
     Fgl_setfontcolors (menu_bg_color,menu_fg_color);
-    Fgl_write (b->x + 12, b->y + 9, _("Stats"));
+    Fgl_write (b->x + 9, b->y + 9, _("Stats"));
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 }
 
