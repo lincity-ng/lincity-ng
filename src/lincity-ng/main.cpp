@@ -19,6 +19,7 @@
 #include "MainLincity.hpp"
 #include "MainMenu.hpp"
 #include "Game.hpp"
+#include "Sound.hpp"
 
 #define USE_OPENGL
 
@@ -185,6 +186,9 @@ int main(int , char** argv)
         texture_manager = new TextureManagerSDL();
 #endif
 
+        std::auto_ptr<Sound> sound;
+        sound.reset(new Sound()); 
+        
         mainLoop();
 #ifndef DEBUG
     } catch(std::exception& e) {

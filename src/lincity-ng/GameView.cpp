@@ -18,6 +18,9 @@
  *  20050211
  *  +show Tile under Mouse
  *
+ *  20050225
+ *  +support setDirty
+ *
  */
 #include <config.h>
 
@@ -156,8 +159,7 @@ void GameView::show( const int x, const int y )
     
     viewport.x = center.x - ( getWidth() / 2 );
     viewport.y = center.y - ( getHeight() / 2 );
-    //request redraw
-    setDirty();
+    requestRedraw();
 }
 void GameView::show( const Vector2 pos )
 {
@@ -668,8 +670,7 @@ void GameView::resize(float newwidth , float newheight )
 {
     width = newwidth;
     height = newheight;
-    //request redraw
-    setDirty();
+    requestRedraw();
 }
 
 /*
@@ -691,7 +692,7 @@ const void GameView::recenter(const Vector2& pos)
     viewport.y = floor( position.y - ( getHeight() / 2 ) );
     
     //request redraw
-    setDirty();
+    requestRedraw();
 }
 
 /*
@@ -835,6 +836,10 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
 void GameView::draw(Painter& painter)
 {
     //The Corners of The Screen
+    //TODO: change here to only draw dirtyRect
+    //      dirtyRectangle is the current Clippingarea (if set)
+    //      so we shold get clippingArea (as sonn this is implemented) 
+    //      and adjust these Vectors:
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );
     Vector2 lowerLeft( 0, getHeight() );

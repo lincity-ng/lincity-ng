@@ -126,7 +126,7 @@ check_bulldoze_area (int x, int y)
       ok_dial_box ("nobull-tip.mes", BAD, 0L);
       return;
     }
-
+  getSound()->playwav( "Raze" );
   bulldoze_item (xx,yy);
 }
 

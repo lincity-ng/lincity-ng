@@ -14,6 +14,8 @@
 #include "MainMenu.hpp"
 #include "Util.hpp"
 
+#include "Sound.hpp"
+
 MainMenu::MainMenu()
 {
     loadMainMenu();
@@ -87,6 +89,7 @@ MainMenu::loadLoadGameMenu()
 void
 MainMenu::quitButtonClicked(Button* )
 {
+    getSound()->playwav( "Click" );
     quitState = QUIT;
     running = false;
 }
@@ -94,6 +97,7 @@ MainMenu::quitButtonClicked(Button* )
 void
 MainMenu::continueButtonClicked(Button* )
 {
+    getSound()->playwav( "Click" );
     quitState = INGAME;
     running = false;
 }
@@ -101,6 +105,7 @@ MainMenu::continueButtonClicked(Button* )
 void
 MainMenu::newGameButtonClicked(Button* )
 {
+    getSound()->playwav( "Click" );
     loadNewGameMenu();
     currentMenu = newGameMenu.get();
 }
@@ -108,6 +113,7 @@ MainMenu::newGameButtonClicked(Button* )
 void
 MainMenu::loadGameButtonClicked(Button* )
 {
+    getSound()->playwav( "Click" );
     loadLoadGameMenu();
     currentMenu = loadGameMenu.get();
 }
@@ -115,6 +121,7 @@ MainMenu::loadGameButtonClicked(Button* )
 void
 MainMenu::newGameStartButtonClicked(Button* )
 {
+    getSound()->playwav( "Click" );
     quitState = INGAME;
     running = false;
 }
@@ -122,6 +129,7 @@ MainMenu::newGameStartButtonClicked(Button* )
 void
 MainMenu::newGameBackButtonClicked(Button* )
 {
+    getSound()->playwav( "Click" );
     loadMainMenu();
     currentMenu = mainMenu.get();
 }
@@ -129,6 +137,7 @@ MainMenu::newGameBackButtonClicked(Button* )
 void
 MainMenu::loadGameBackButtonClicked(Button* )
 {
+    getSound()->playwav( "Click" );
     loadMainMenu();
     currentMenu = mainMenu.get();
 }
@@ -136,6 +145,7 @@ MainMenu::loadGameBackButtonClicked(Button* )
 void
 MainMenu::loadGameLoadButtonClicked(Button *)
 {
+    getSound()->playwav( "Click" );
     quitState = INGAME;
     running = false;
 }
