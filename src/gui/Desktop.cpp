@@ -66,7 +66,8 @@ Desktop::event(const Event& event)
 void
 Desktop::draw(Painter& painter)
 {
-    Component::draw(painter);
+    if(dirtyRectangles.size() > 0)
+        Component::draw(painter);
     dirtyRectangles.clear();
 }
 
@@ -153,6 +154,7 @@ Desktop::move(Component* component, Vector2 newpos)
         newpos.y = 0;
 
     child->setPos(newpos);
+    Component::setDirty();
 }
 
 void

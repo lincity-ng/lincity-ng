@@ -558,14 +558,20 @@ void GameView::event(const Event& event)
     Vector2 tile;
     
     switch(event.type) {
-        case Event::MOUSEMOTION:
+        case Event::MOUSEMOTION: {
             if(!event.inside) {
                 mouseInGameView = false;
                 break;
             }
             mouseInGameView = true;
-            tileUnderMouse = getTile( event.mousepos );
+            Vector2 tile = getTile(event.mousepos);
+            if(tileUnderMouse != tile) {
+                tileUnderMouse = tile;
+                setDirty();
+            }
             break;
+        }
+
         case Event::MOUSEBUTTONUP:
             if(!event.inside) {
                 break;

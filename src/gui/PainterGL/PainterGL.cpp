@@ -2,6 +2,7 @@
 
 #include "PainterGL.hpp"
 
+#include <SDL.h>
 #include <SDL_opengl.h>
 #include <iostream>
 #include <typeinfo>
@@ -120,10 +121,6 @@ PainterGL::drawPolygon(int numberPoints, const Vector2* points)
     glEnable(GL_TEXTURE_2D);
 }
 
-    
-
-
-
 void
 PainterGL::setFillColor(Color color)
 {
@@ -159,20 +156,22 @@ PainterGL::popTransform()
 void
 PainterGL::setClipRectangle(const Rect2D& rect)
 {
-    //TODO: make this work
-    GLdouble equation[4];
-    equation[0] = rect.p1.x;
-    equation[1] = rect.p1.y;
-    equation[2] = rect.p2.x;
-    equation[3] = rect.p2.y;
-    glClipPlane( GL_CLIP_PLANE0, equation );
-    glEnable( GL_CLIP_PLANE0 );
+    int screenHeight = SDL_GetVideoSurface()->h;
+    glViewport(rect.p1.x, rect.p1.y, rect.getWidth(), rect.getHeight());
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, rect.getWidth(), rect.getHeight(), 0, -1, 1);
 }
 
 void
 PainterGL::clearClipRectangle()
 {
-    glDisable( GL_CLIP_PLANE0 );
+    int width = SDL_GetVideoSurface()->w;
+    int height = SDL_GetVideoSurface()->h;
+    glViewport(0, 0, width, height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, width, height, 0, -1, 1);
 }
 
 Painter*

@@ -73,8 +73,9 @@ public:
 
       return true;
   }
+
   void join(const Rect2D& other);
-  
+
   /* leave these 2 vars public to safe the headaches of set/get functions
    * for such simple things :)
    */
