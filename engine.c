@@ -21,7 +21,6 @@
 #include "stats.h"
 #include "screen.h"
 #include "dialbox.h"
-//#include "modules.h"
 #include "mps.h"
 
 extern int selected_type_cost;
