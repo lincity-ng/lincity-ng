@@ -135,16 +135,18 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "Comments", "Copyright © 1995-1999, I.J. Peters\nWin32 version © 1997-1999, Greg Sharp\nDistrubuted under GNU licence.\0"
+            VALUE "Comments", "Distrubuted under GNU licence.\0"
             VALUE "CompanyName", "GNU license\0"
-            VALUE "FileDescription", "LinCity\0"
+            VALUE "FileDescription", "Lincity\0"
             VALUE "FileVersion", "1.12(pre-release)\0"
-            VALUE "InternalName", "LinCity\0"
-            VALUE "LegalCopyright", "Copyright © 1995-1999, I.J. Peters\nWin32 version © 1997-1999, Greg Sharp \0"
-            VALUE "LegalTrademarks", "You may freely copy, distribute and modify LinCity under the terms\nof the GNU GENERAL PUBLIC LICENSE\nPlease read the file COPYING for license information.\0"
+            VALUE "InternalName", "Lincity\0"
+            VALUE "LegalCopyright", "Copyright © 1995-1999, I.J. Peters\nCopyright © 1997-2003, Greg Sharp\nCopyright © 2002-2003, Corey Keasling\0"
+            VALUE "LegalTrademarks", "You may freely copy, distribute and modify lincity under the terms\nof the GNU GENERAL PUBLIC LICENSE\nPlease read the file COPYING for license information.\0"
             VALUE "OriginalFilename", "\0"
+            VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "LinCity Version 1.12(pre-release)\0"
-            VALUE "ProductVersion", "March 2, 1999\0"
+            VALUE "ProductVersion", "1.12(pre-release)\0"
+            VALUE "SpecialBuild", "\0"
         END
     END
     BLOCK "VarFileInfo"

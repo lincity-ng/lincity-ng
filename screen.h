@@ -48,14 +48,18 @@ void init_pbars (void);
 void Fgl_getrect(Rect * r, void * buffer);
 void Fgl_putrect(Rect *r, void * buffer);
 void mini_screen_help (void);
-void status_message(char * message, int colour);
+void status_message(char *m1, char* m2);
 void print_time_for_year (void);
 void rotate_main_screen (void);
 void screen_setup (void);
+void refresh_main_screen (void);
 /* Miniscreen */
 void init_mini_map_mouse(void);
 void mini_map_handler(int x, int y, int button);
 void mini_aux_handler(int x, int y, int button);
+/* Message area */
+void display_info_message (int colour, char* ss, char* xs);
+void reset_status_message (void);
 
 #define CB_SPACE 20 // space between checkbuttons for market/port
 

@@ -2,37 +2,44 @@
 1.12
 ****
 
-- Now old tips degrade into grass, and can be mined for ore.
-- Overlay mode which displays mini-map stats in main window.
+Major features
+- Resize window (or set SVGA mode) to enlarge playing area.
 - Completely new power code that uses a power grid instead of 
   individual packets of power.
 - Engine performance speedup of about 10%.
 - New pbar design including add'l stats: total goods/ore/steel/etc.
-- Time/click multiplexed monthgraph/mappoint stats window.
-- Simplified mini-map selection using mouse.
-- Click-drag-release to create multiple transportations.
 - Mouse scrolling of main window using middle mouse button (X only).
-- Resizable window to enlarge playing area (X and Win32).
-- Set VGA mode to set screen resolution and enlarge playing area (SVGALIB).
-- Keyboard scrolling of main window using arrow and shift+arrow (X and Win32).
-- You can now start a new game without exiting lincity.
-- New statistics available in mappoint stats window.
-- Separate screen to set game options.
+- Overlay mode which displays mini-map stats in main window.
+- Click-drag-release to create multiple transportations.
+- Support for internationalization (iso8859-1 languages only).
+
+Minor enhancements
 - New main menu system.
+- GUI interface to set game preferences.
+- Keyboard scrolling of main window using arrow and shift+arrow (X and Win32).
+- Load and save game preferences to .lincityrc (lincity.ini on Win32)
+- You can now start a new game without exiting lincity.
 - New build/install procedure using autoconf/automake
 - SVGALIB now respects /etc/vga/libvga.config to set mouse parameters.
-- Semantic change to question about creating .Lin-city directory,
-  new default is to create directory.
-- Gettext support for internationalization.
-- Partial support for iso8859-1 and iso8859-2 fonts.
-- Code is now ANSI C compliant (I hope).
+- Partial support for iso8859-2.
+- Now old tips degrade into grass, and can be mined for ore.
+- New statistics available in mappoint stats window.
+- Time/click multiplexed monthgraph/mappoint stats window.
+- Simplified mini-map selection using mouse.
+
+Bug fixes
 - Added OS/2 fixes.
 - Linearize tech loss to fix divide by zero bug.
 - Miniscreen no longer jumps to pollution screen when market burns waste.
 - Update opening screen to use new-style organic farm graphics.
 - Fix close directory problem introduced in 1.11.
 - Fix wrong cost being charged for residences.
+- Code is now ANSI C compliant (I hope).
 
+Other changes
+- Moved save game directory from .Lin-city to .lincity
+- Semantic change to question about creating .lincity directory,
+  new default is to create directory.
 - No more diffgraph.
 - No longer can bulldoze the most recently built item for free.
 - No more Win32-style menu.
@@ -260,382 +267,568 @@ pollution.
 Various other cosmetic bug fixes and edited help pages.
 
 Slight speedup due to removal of some error checking code that's never shown
-an error. (0.01% if we're l/* SVGAlib, Copyright 1993 Harm Hanemaayer */
-/* VGAlib version 1.2 - (c) 1993 Tommy Frandsen */
-/* partially copyrighted (C) 1993 by Hartmut Schirmer */
+an error. (0.01% if we're lucky.)
 
-/* Internal definitions. */
+0.96
+****
 
-#ifndef _LIBVGA_H
-#define _LIBVGA_H
+Areas that could only get 'stuff' from markets can now get them from
+connected transport. It tries markets first, so there shouldn't be a great
+deal of difference if you play as before.
 
-#include <string.h>
-# if defined __GLIBC__ && __GLIBC__ >= 2
-#include <sys/io.h>
-#endif
+Markets now try and keep the same '% of max' as connected transport. This
+makes, say, moving 'stuff' from tracks to rail through a market work as
+expected. This shouldn't make the game 'play' much differently, but makes
+the numbers you see a bit different, and makes things seem a little less
+chaotic.
 
-/* --------------------- Macro definitions shared by library modules */
+The *first time* you click on a select button, it gives you a help screen
+for it. (Except tracks, as they are selected by default.)
 
-/* VGA index register ports */
-#define CRT_IC  0x3D4		/* CRT Controller Index - color emulation */
-#define CRT_IM  0x3B4		/* CRT Controller Index - mono emulation */
-#define ATT_IW  0x3C0		/* Attribute Controller Index & Data Write Register */
-#define GRA_I   0x3CE		/* Graphics Controller Index */
-#define SEQ_I   0x3C4		/* Sequencer Index */
-#define PEL_IW  0x3C8		/* PEL Write Index */
-#define PEL_IR  0x3C7		/* PEL Read Index */
+Monuments have 50% less people building them. This means they take 50%
+longer to build.
 
-/* VGA data register ports */
-#define CRT_DC  0x3D5		/* CRT Controller Data Register - color emulation */
-#define CRT_DM  0x3B5		/* CRT Controller Data Register - mono emulation */
-#define ATT_R   0x3C1		/* Attribute Controller Data Read Register */
-#define GRA_D   0x3CF		/* Graphics Controller Data Register */
-#define SEQ_D   0x3C5		/* Sequencer Data Register */
-#define MIS_R   0x3CC		/* Misc Output Read Register */
-#define MIS_W   0x3C2		/* Misc Output Write Register */
-#define IS1_RC  0x3DA		/* Input Status Register 1 - color emulation */
-#define IS1_RM  0x3BA		/* Input Status Register 1 - mono emulation */
-#define PEL_D   0x3C9		/* PEL Data Register */
-#define PEL_MSK 0x3C6		/* PEL mask register */
+Buy and sell options in market combined. It makes no sense to split them
+now (perhaps?).
 
-/* 8514/MACH regs we need outside of the mach32 driver.. */
-#define PEL8514_D	0x2ED
-#define PEL8514_IW	0x2EC
-#define PEL8514_IR	0x2EB
-#define PEL8514_MSK	0x2EA
+'Out' and 'back' buttons added to help screens. These are in the code, not
+the help pages themselves.
 
-/* EGA-specific registers */
+Roads use some goods when in use. Rail uses goods and steel when in use.
+They don't decay if they can't get any (yet?).
+ 
+Increased coal tax rate.
+Coal cost more to import, and you get more for exporting it.
+Steel works make less steel.
+Reduced output of solar power stations slightly.
+Help page cpu usage 'bug' fixed.
 
-#define GRA_E0	0x3CC		/* Graphics enable processor 0 */
-#define GRA_E1	0x3CA		/* Graphics enable processor 1 */
 
-/* standard VGA indexes max counts */
-#define CRT_C   24		/* 24 CRT Controller Registers */
-#define ATT_C   21		/* 21 Attribute Controller Registers */
-#define GRA_C   9		/* 9  Graphics Controller Registers */
-#define SEQ_C   5		/* 5  Sequencer Registers */
-#define MIS_C   1		/* 1  Misc Output Register */
+0.95
+****
 
-/* VGA registers saving indexes */
-#define CRT     0		/* CRT Controller Registers start */
-#define ATT     (CRT+CRT_C)	/* Attribute Controller Registers start */
-#define GRA     (ATT+ATT_C)	/* Graphics Controller Registers start */
-#define SEQ     (GRA+GRA_C)	/* Sequencer Registers */
-#define MIS     (SEQ+SEQ_C)	/* General Registers */
-#define EXT     (MIS+MIS_C)	/* SVGA Extended Registers */
+Program now untars to ./lcityxxx.tgz and default install is to
+/usr/local/bin/ and /usr/local/lib/lin-city/
 
-/* Shorthands for chipset (driver) specific calls */
-#define chipset_saveregs __svgalib_driverspecs->saveregs
-#define chipset_setregs __svgalib_driverspecs->setregs
-#define chipset_unlock __svgalib_driverspecs->unlock
-#define chipset_test __svgalib_driverspecs->test
-#define chipset_setpage __svgalib_driverspecs->__svgalib_setpage
-#define chipset_setmode __svgalib_driverspecs->setmode
-#define chipset_modeavailable __svgalib_driverspecs->modeavailable
-#define chipset_getmodeinfo __svgalib_driverspecs->getmodeinfo
+Dropping square boxes when dialogue boxes come up fixed, thanks Jasp.
 
-/* Shorthands for internal variables and functions */
-#define CI	__svgalib_cur_info
-#ifdef __alpha__
-#define SM	__svgalib_sparse_mem
-#endif
-#define GM	__svgalib_graph_mem
-#define CM	__svgalib_cur_mode
-#define VMEM	__svgalib_videomemoryused
-#define DREP	__svgalib_driver_report
-#define CRITICAL __svgalib_critical
-#define COL	__svgalib_cur_color
-#define CHIPSET __svgalib_chipset
-#define SCREENON __svgalib_screenon
-#define MODEX 	__svgalib_modeX
-#define MODEFLAGS __svgalib_modeflags
-#define infotable __svgalib_infotable
+HP-UX has no usleep(). For portability, lc_usleep() added, thanks John W.
 
-#define SVGADRV		 2
-#define STDVGADRV	 1
-#define STDVGAMODE(mode) (chipset_modeavailable(mode) == STDVGADRV)
-#define SVGAMODE(mode)   (chipset_modeavailable(mode) == SVGADRV)
+Active area for 'area select buttons' 2 pixels wider and higher.
 
-#ifdef __alpha__
-#include <asm/io.h>
-#include <linux/autoconf.h>
-#if defined(CONFIG_ALPHA_JENSEN)
-#define DENSE_MEM_BASE  EISA_MEM
-#define SPARSE_MEM_BASE EISA_MEM
-#define MEM_SHIFT       7
-#define MEM_TYPE_BYTE   0x00
-#define MEM_TYPE_WORD   0x20
-#define MEM_TYPE_LONG   0x60
-#elif defined(CONFIG_ALPHA_CABRIOLET)
-#define DENSE_MEM_BASE  APECS_DENSE_MEM
-#define SPARSE_MEM_BASE APECS_SPARSE_MEM
-#define MEM_SHIFT       5
-#define MEM_TYPE_BYTE   0x00
-#define MEM_TYPE_WORD   0x08
-#define MEM_TYPE_LONG   0x18
-#elif defined(CONFIG_ALPHA_NONAME)
-#define DENSE_MEM_BASE  LCA_DENSE_MEM
-#define SPARSE_MEM_BASE LCA_SPARSE_MEM
-#define MEM_SHIFT       5
-#define MEM_TYPE_BYTE   0x00
-#define MEM_TYPE_WORD   0x08
-#define MEM_TYPE_LONG   0x18
-#endif
-#define SPARSE_GRAPH_BASE (SPARSE_MEM_BASE + (0xA0000 << MEM_SHIFT))
-#define GRAPH_BASE (DENSE_MEM_BASE + 0xA0000)	/* this is wrong for */
-#define FONT_BASE  (DENSE_MEM_BASE + 0xA0000)	/* jensen type hardware */
-#else
-#define GRAPH_BASE 0xA0000
-#define FONT_BASE  0xA0000
-#endif
-#define GRAPH_SIZE 0x10000
-#define FONT_SIZE  (0x2000 * 4) /* 2.0.x kernel can use 2 512 char. fonts */
-#define GPLANE16   G640x350x16
+Some general code cleanups.
 
-/* graphics mode information */
-struct info {
-    int xdim;
-    int ydim;
-    int colors;
-    int xbytes;
-    int bytesperpixel;
-};
+0.94
+****
 
-/* --------------------- Variable definitions shared by library modules */
+Some tweaks to the birthrate for the new types of residence.
 
-extern int __svgalib_CRT_I;		/* current CRT index register address */
-extern int __svgalib_CRT_D;		/* current CRT data register address */
-extern int __svgalib_IS1_R;		/* current input status register address */
-extern unsigned char * BANKED_MEM_POINTER, * LINEAR_MEM_POINTER, * MMIO_POINTER;
-extern unsigned long int __svgalib_banked_mem_base, __svgalib_banked_mem_size;
-extern unsigned long int __svgalib_mmio_base, __svgalib_mmio_size;
-extern unsigned long int __svgalib_linear_mem_base, __svgalib_linear_mem_size;
-extern unsigned long int __svgalib_mmio_base, __svgalib_mmio_size;
-extern struct info CI;		/* current video parameters */
-extern int COL;			/* current color            */
-extern int CM;			/* current video mode       */
-extern struct info infotable[];
-extern int SCREENON;		/* screen visible if != 0 */
-extern unsigned long __svgalib_graph_base;
-extern unsigned char *GM;	/* graphics memory frame */
-#ifdef __alpha__
-extern unsigned char *SM;	/* sparse graphics memory frame */
-#endif
-extern int MODEX;		/* TRUE after vga_setmodeX() */
-extern int MODEFLAGS;		/* copy of flags of current modeinfo->flags */
+Monthgraph (blue line) is prop' to the sqrt() of the peoplepool value rather
+than the log().
 
-#ifdef BACKGROUND
-extern int __svgalib_virtual_mem_fd;
-#endif
-extern int __svgalib_mem_fd;
-extern int __svgalib_tty_fd;
-extern int __svgalib_nosigint;
-extern int __svgalib_mouse_fd;
-extern int __svgalib_kbd_fd;
-extern int __svgalib_runinbackground;
+Opening help screen changed, and you now get a little 'village' to start
+with.
 
-extern unsigned char __svgalib_novga;
-extern unsigned char __svgalib_textprog;
-extern unsigned char __svgalib_secondary;
-extern unsigned char __svgalib_novccontrol;
-extern unsigned char __svgalib_m_ignore_dx;
-extern unsigned char __svgalib_m_ignore_dy;
-extern unsigned char __svgalib_m_ignore_dz;
+If you use X, you can disable the initial help screen an village with the
+'-n' switch. ( ie  xlin-city -n  )
 
-extern char *__joystick_devicenames[4];
+Rockets use more goods and steel.
 
-/* --------------------- Function definitions shared by library modules */
+0.93
+****
 
-extern int (*__svgalib_inmisc)(void);
-extern void (*__svgalib_outmisc)(int);
-extern int (*__svgalib_incrtc)(int);
-extern void (*__svgalib_outcrtc)(int,int);
-extern int (*__svgalib_inseq)(int);
-extern void (*__svgalib_outseq)(int,int);
+Potteries will close for a short time if they can't work for some reason.
+This has the effect of reducing their priority for resources when things get
+tight.
 
-extern int __svgalib_setregs(const unsigned char *regs);
-extern int __svgalib_saveregs(unsigned char *regs);
-extern void __svgalib_dumpregs(const unsigned char regs[], int n);
-extern void __svgalib_get_perm(void);
-extern int __svgalib_getchipset(void);
-extern int __svgalib_name2number(char *modename);
-extern void __svgalib_delay(void);
-extern int __svgalib_addmode(int xdim, int ydim, int cols, int xbytes, int bytespp);
-extern int __svgalib_physmem(void);
-extern void __svgalib_waitvtactive(void);
-extern void __svgalib_open_devconsole(void);
-extern void __svgalib_flipaway(void);
-extern void (*__svgalib_mouse_eventhandler) (int, int, int, int, int, int, int);
-extern void (*__svgalib_keyboard_eventhandler) (int, int);
-extern void __joystick_flip_vc(int acquire);
-extern char *__svgalib_TextProg_argv[16]; /* should be enough */
-extern char *__svgalib_TextProg;
-extern int __svgalib_VESA_savebitmap;
-extern int __svgalib_VESA_textmode;
-extern unsigned char __svgalib_vesatext;
-extern int __svgalib_mapkeyname(const char *keyname);
-extern voirelease, SVGALIB_ACQUIRE_SIG);
-    SETSIG_RE(siga, SVGALIB_RELEASE_SIG, releasevt_signal);
-    SETSIG_AQ(siga, SVGALIB_ACQUIRE_SIG, acquirevt_signal);
-    ioctl(__svgalib_tty_fd, VT_SETMODE, &newvtmode);
-    return;
-}
+The green/red arrow indicators (pbars) didn't all save and load (hence large
+green arrows when you loaded a game). Fixing this means that games saved
+with an earlier version won't load, sorry.
 
-void vga_lockvc(void)
-{
-    lock_count++;
-    if (__svgalib_flip_status())
-	__svgalib_waitvtactive();
-    return;
-}
+Load and save didn't work when the game was paused. They work now. (FLW)
+You still can't quit when in pause mode, this might be a 'feature'. I could
+'fix' it easily if people wanted it.
 
-void vga_unlockvc(void)
-{
-    if (--lock_count <= 0) {
-	lock_count = 0;
-	if (release_flag) {
-	    release_flag = 0;
-	    releasevt_signal(SVGALIB_RELEASE_SIG);
-	}
-    }
-    return;
-}
+Oremine1 graphic showed the wrong one, fixed.
 
-void vga_runinbackground(int stat,...)
-{
-    va_list params;
+Fires were able to start before fire stations were available, this was a
+bug... fixed.
 
-    va_start(params, stat);
-    switch (stat) {
-    case VGA_GOTOBACK:
-	__svgalib_go_to_background = va_arg(params, void *);
-	break;
-    case VGA_COMEFROMBACK:
-	__svgalib_come_from_background = va_arg(params, void *);
-	break;
-    default:
-	__svgalib_runinbackground = stat;
-	break;
-    }
-    va_end(params);
-}
+Health centres are cheaper, but use more goods.
 
-#endif
-/* VGAlib version 1.2 - (c) 1993 Tommy Frandsen                    */
-/*                                                                 */
-/* This library is free software; you can redistribute it and/or   */
-/* modify it without any restrictions. This library is distributed */
-/* in the hope that it will be useful, but without any warranty.   */
+You now choose the *type* of residence you want. Also some modifications to
+birth and unemployment code.
 
-/* Multi-chipset support Copyright 1993 Harm Hanemaayer */
-/* partially copyrighted (C) 1993 by Hartmut Schirmer */
+Shanty towns start appearing later (at higher tech).
 
-#include <stdio.h>
-#include <string.h>
-#include "vga.h"
-#include "libvga.h"
-#include "vgabg.h"
+Importing and exporting help to increase the tech level.
 
-int vga_clear(void)
-{
-    vga_screenoff();
-#ifdef BACKGROUND
-    __svgalib_dont_switch_vt_yet();
-#endif
-    if (MODEX)
-	goto modeX;
-    switch (CM) {
-    case G320x200x256:
-    case G320x240x256:
-    case G320x400x256:
-    case G360x480x256:
-      modeX:
-#ifdef BACKGROUND
-        if (vga_oktowrite())
-	    {
-#endif
-        
-	/* write to all planes */
-	port_out(0x02, SEQ_I);
-	port_out(0x0F, SEQ_D);
+Recycler efficientcy reduced.
 
-	/* clear video memory */
-	memset(GM, 0, 65536);
-#ifdef BACKGROUND
-	    }
-	  else
-	    {
-	     int i;
-	     
-	     for (i = 0; i < 4; i++) {
-	        /* save plane i */
-	        __svgalib_fast_setpage(i);
-	        memset(GM, 0, GRAPH_SIZE);
-               }
-	    }
-#endif
-	break;
+0.92
+****
 
-    default:
-	switch (CI.colors) {
-	case 2:
-	case 16:
-	    vga_setcolor(0);
+Check for save dir at startup. If this dir doesn't exist the stat button
+didn't work.
 
-#ifdef BACKGROUND
-        if (vga_oktowrite())
-	    {
-#endif
-	    /* write to all bits */
-	    port_out(0x08, GRA_I);
-	    port_out(0xFF, GRA_D);
-#ifdef BACKGROUND
-	    }
-#endif
+More work on the stat/closing information.
+Stat screen info added for fire stations, cricket grounds and health
+centres.
+Heavy industry - left gate onto tracks fixed.
+Small bug when tech level goes above 100, fixed.
 
-	default:
-	    {
-		int i;
-		int pages = (CI.ydim * CI.xbytes + 65535) >> 16;
-#if defined(CONFIG_ALPHA_JENSEN)
-		int j;
-#endif
-#ifdef BACKGROUND
-                if (!vga_oktowrite())
-	              {
-		       switch (CI.colors) {
-	                case 2:
-	                case 16:
-			pages*=4;
-                       }
-		      }
-#endif
+Recyclers use more waste and can burn some if they want.
+Cost of universities reduced, goods used increased and jobs used reduced.
+Schools use 50% more goods.
+Some cosmetic fixes.
+Tip capacity reduced by a third. Can't bulldoze tips.
+Steel works use a little more ore.
+Reduced the ore made by communes slightly.
+Re-ordered the select buttons.
 
-		for (i = 0; i < pages; ++i) {
-		    vga_setpage(i);
+Farm size is now 4x4. This means you CANNOT load in scenes older than 0.92,
+also, (long standing and unknown) bug with farms and jobs, fixed.
 
-#if defined(CONFIG_ALPHA_JENSEN)
-		    for (j = 0; j < 65536; j += 2)
-			gr_writew(0, j);
-#else
-		    /* clear video memory */
-		    memset(GM, 0, 65536);
-#endif
-		}
-	    }
-	    break;
-	}
-	break;
-    }
+Each university needs 5 schools to supply students. Or its tech output
+drops.
 
-    vga_setcolor(15);
-#ifdef BACKGROUND
-    __svgalib_is_vt_switching_needed();
-#endif
-    vga_screenon();
+Colour map problem with 16 bbp X display, fixed.
 
-    return 0;
-}
+0.91
+****
+
+Added the title screen to X. This has taken a while due to colour palette
+problems. It's still not quite how I'd like it.
+
+Added commune info to stat screen.
+
+Sky added to opening title screen.
+
+
+0.90
+****
+
+It sometimes exited without bringing the dialogue box up. This happened most
+frequently after a save. It was nothing to do with the save, this just
+brought it to the surface more often than other things.
+
+Solaris 2.5 support - 'make solaris' added to the Makefile. This is *VERY*
+experimental at the moment and is really only intended for one person to
+try. If you run Solaris 2.5 please don't try this unless you know what
+you're doing AND looked at what the makefile is doing.
+
+0.89
+****
+
+Changes to the load/save stuff. This means you can't load older saved
+games, sorry.
+ 
+'stats' button and information on exit added.
+
+OK and yes/no dialogue boxes used to eat cpu time. Fixed.
+
+Movement of pollution speeded up slightly. Also reduced the pollution caused
+by shanty towns a bit.
+
+The pollution mini screen is automatically selected when a market has to
+burn some waste. There needs to be a way to draw your attention to the
+problem, before everyone moves out of the area.
+
+Mouse droppings *really* fixed this time. (Confidence level 0.07). :)
+
+Blocked load and save when in help. It could have caused some confusion.
+
+
+0.88
+****
+
+Waste and waste tips added, and lots of small changes that go with this.
+
+Recycling made to work with new waste. Also it comes in a lot earlier (tech
+level) than it did before.
+
+You can't load scenes saved with versions less than 0.88. This is because of
+the addition of waste management. Even though you always load 'red' scenes
+at your own risk, ones less than 0.88 just won't work - and it tells you so.
+
+Pollution worked on. Lots of tweaks.
+
+Some 'mini screens' now stick. So, for example, you can monitor pollution
+without having to keep clicking on the button. Sticky ones are pollution,
+ub40 and starvation. Other slight tweaks to the mini screen, also.
+
+Yet another attempt to fix the mouse dropping a click when, for example, you
+click on yes in a dialogue box. Think I've done it this time... I've said
+this before though, it seems to keep creeping back. :(
+
+Halved the output of light industry.
+Ore usage bug, and stats info fixed for steel works.
+Steel works use less ore.
+Reduced the jobs used by universities. (400 to 300.)
+
+Fires don't start until you can do something about them. Also the chance of
+fires halved.
+
+Rockets take more goods and steel to build.
+
+Market and port control box 'not coming up' bug fixed.
+
+Tech level is not a percentage any more. It still means the same thing, but
+you are allowed to go over 100. (Should be interesting... who will be the
+first person to get to 200? - at this point I think recyclers may have to be
+renamed replicators) :) 
+
+vga* header files were included in some files when compiling for X11. Fixed.
+
+
+0.87
+****
+
+A few keyboard problems with the X port, fixed.
+X port clipping bug, fixed.
+X port market control window bug, fixed.
+X port rogue mouse action in load/save screens fixed.
+
+Bulldozing fires when paused now updates the screen.
+
+Combined imports and exports into one area. Also you connect to the top left
+corner rather than to 'gates' down the left hand side. Click on it twice for
+a control window (as with markets). This means that there is a blank where
+the import button was. It'll be filled soon.
+
+Number of shanty towns now displayed where 'peoplepool' was.
+
+ 
+0.86
+****
+
+X support added.
+
+0.85
+****
+
+Long standing mouse wrap off the right hand side to the left hand side,
+fixed. (Thanks to Laurie Harper for reminding me.)
+
+Makefile default target, fixed. (Thanks to Laurie Harper for spotting it.)
+
+Yes/no dialogue box sometimes dropping an extra mouse click, fixed??
+
+Tweaks:-
+Made rockets use more steel again. It's now 75% of what it was in 0.83.
+Made rockets use even more goods, another 50%.
+
+
+0.84
+****
+
+Major speed up after pause, slow, medium and fast buttons added.
+Should be good for those with slower boxes. Fast mode is FAST on fast
+boxes. :)
+
+Santy town don't keep catching fire, well it's put out and you're not
+informed.
+
+Schmitt trigger for shanty towns coming and going. Also -ve taxes caused by
+shanty towns, fixed.
+
+Mini-screen pollution, ub40 and starve plots, updated every second, instead
+of having to click on it a lot.
+
+Communes now sell a bit of ore (again).
+
+Communes now disappear when they can't sell any coal ore or steel.
+
+Bug in running costs of health centers and fire stations. Fixed.
+
+Sort of bug, windmills got power from power lines if they could, fixed.
+
+tweaks:-
+Rockets use half the amount of steel they used to, but 10 times the goods.
+Potteries use 10% more ore.
+Windmills produce 10% less power.
+Land where there has been a fire, or shanty town, takes twice as long to
+become useable. (10 years)
+Parks cost 1000 rather than 10000 to demolish.
+Pollution causes a few more deaths.
+Reduced the sensitivity of population to goods and reduce the 'badness' of
+no power. 
+Light industry output halved.
+
+0.83
+****
+
+Farms now have the same range as everything else. You don't have to put them
+next to markets anymore.
+
+Shanty Towns added. They are not nice. You can bulldose them if you want,
+for what good it'll do you.  :)
+
+Pollution a bit more mobile.
+
+Desirability of residences effected by the size of the people pool again,
+this was taken out some time ago. Time to put it back in.
+
+Rocket crashes got the fires a bit wrong. Fixed.
+
+Bug in power line graphics, after the move to the main loop. Fixed. Also
+powerlines now go under rivers again.
+
+Low coalmine graphic now displayed when stock>0 rather then >10%. This is to
+help distinguish between a coalmine with low stocks, and one with no coal
+left at all.
+
+Fixed the 'flickering' communes when the tracks fill up with steel.
+
+Message when you have evacuated everyone. Also rockets shown launched before
+the 'launched' dialogue box comes up.
+
+Health centres come in earlier. They cost more to run as the tech level goes
+up.
+
+Fire stations cost more to run as the tech level goes up.
+
+
+0.82
+****
+
+Bug in the cost of building things as technology increased, fixed. Hopefully
+this is the last of the bugs caused by reordering the select buttons.
+
+Progress bar when loading the game added.
+
+Bug in display of total money when changing from -ve 6 figures to +ve,
+fixed.
+
+Total money limits put in to stop wrap. -2,000,000,000 to 2,000,000,000
+only. I could increase this if it's too small. I've never made, or lost,
+that much money.
+
+Put power line checking into the main time-step loop instead of in a loop of
+it's own. Should speed things up a bit.
+
+Tech level must drop 10% below the enabling value to disable a select
+button. EG if a select button is enabled at 20% it will become greyed out
+again if your tech level drops below 18%.
+
+Birth rate reduced by about a third. Also health centres halve the
+birthrate, rather than cut it to a 1/5th.
+
+You have to wait 5 years before you can build on land after there has been a
+fire on it. Also, fires have a random component to the time that they burn
+for. This stops the ugly 'block' changes when it goes out.
+
+Power lines no longer connect to windmills.
+
+A few other minor fixes.
+
+
+0.81
+****
+
+Load and save now tells you how to cancel. You always could, you just
+weren't told about it.
+
+After clicking on, say the coal survey, if you then used the keyboard to say
+no, it threw up the dial box again. Fixed.
+
+Added a yes/no dialogue box when you load a saved game.
+
+Monthgraph box cleared on load.
+
+Progress box added, Will be calling it on more things soon.
+
+
+0.80
+****
+
+Mappoint stats updated once per second, real time, instead of every 10 days,
+game time.
+
+Bottom right pixel of mouse pointer took the colour value of the top left
+pixel of what was under the mouse. (If you don't believe me - look closely)
+Easy fix once I spotted it :)
+
+Bug fixed in farms with between 1 and 20 jobs producing no food.
+
+Base line food production increased.
+
+Keyboard cursor control added. Space/enter is left button, backspace is
+right button (for help). Space or return says OK in an OK box. Space, enter
+or y says yes in a yes/no box - n or backspace says no.  :)
+
+Load now allows you to load in games saved from an earlier version. You
+should treat this feature with care though.
+
+New features in picedit, ...go and play.
+
+
+0.79
+****
+
+Added code to make re-ordering of select buttons easier.
+
+Re-ordered select buttons - just a first go, not right yet.
+
+Picedit now part of the Makefile script.  'make picedit' if you need to.
+You'll need to do this if you have an old version of picedit, that means
+you if you're reading this from the mailing list!
+
+Colour palette put into a human editable file 'colour.pal' (what
+imagination). Both picedit and lin-city use the same file to generate their
+colour palettes.
+
+Mouse init problem for non Microsoft mice (Found by Tristan Tarrent -
+Thanks). Fixed this?? by asking for the type of mouse you have the first
+time you play - stored in ~/.lincityrc
+
+Corruption of Finance border when -ve money less than 1M - fixed.
+
+Problems with re-ordering of select buttons, please report anything funny
+happening, even if you think it's nothing to do with them.
+
+0.78
+****
+
+Blank left where mouse was when the opening help screen is closed - fixed.
+
+Makefile extended to support 'make clean' and 'make install'. ( I know I
+should read the make documentation again - last time I read a make doc was
+back in 89 :( )
+
+Changed the name of the makefile to Makefile. Please remove the file
+/usr/local/games/lincity/makefile if you untar this over an earlier release.
+
+Fixed commune animation stall after a load.
+
+People less mobile - don't move in and out of residences quite as 'fast'.
+
+Birth rate reduced slightly, again.
+
+Warning box only comes up once when you want to bulldoze monuments or
+rivers. It is reset to warn again after you have selected a button other
+than bulldoze.
+
+Pbar money scaled down a bit.
+
+Real rocket icons and animation now in place, wow... Thanks Jasp.
+
+Oops, rocket used steel etc. when it was built but ready to launch - fixed.
+
+Fire *spreads* a bit more easily when you have not got fire cover.
+
+Halved the ore reserves, they weren't running out fast enough :)
+
+
+0.77
+****
+
+Lots of updated graphics added including low tech windmills, thanks Jasp.
+
+'old' windmills, rotate at half the speed.
+
+Cheat flag added, to show you when you've cheated. Well to tell other people
+really. The cheat keys should only be used for debugging.
+
+Fly's new commune animation added, thanks.
+
+
+0.76
+****
+
+Opening help screen when the game starts.
+
+Quit during help bug fixed, by not allowing quit during help :(
+
+Cleaned up the stats window and put a border around it.
+
+Added a small cleanup script to make the distribution smaller.
+
+
+0.75
+****
+
+More right button help stuff added.
+
+Box around finance window.
+
+Birth rate reduced by about 8%
+
+Parkland pollution problem with loading an old game - solved, yes!
+
+Quit button and y/n dialog box added.
+
+TYPES data removed from save/load. It caused a load bug and is not even
+needed.
+
+Tracks costing nothing right at the start - fixed.
+
+Max interest repayment now 1000000. The means you can, in theory, always
+recover when you get too far in debt. Might be quit hard though!
+
+Interest rate reduced to 1.5%, from 2.0%
+
+0.74
+****
+
+Added money, goods, coal, ore and steel pbars.
+
+Moved select buttons and pbars.
+
+Fixed the mouse initialisation leaving a block on the select button bar.
+(Still a couple of mouse probs to sort out - why is this such a pain?)
+
+
+0.73
+****
+
+A few minor tweaks.
+
+More help screens.
+
+Smaller, 'pbars', and jobs pbar added.
+
+0.72
+****
+
+Added % , . - and + to save comment.
+
+
+0.71
+****
+
+When you bulldoze an ore mine, the dug stuff turns to water. Ha!
+
+Right button brings up help screen coresponding to where the mouse is. This
+only works with the select buttons at the moment.
+
+Lin-city version number printed with the year time. (Nice to know.)
+
+Blacksmith animation fixed.
+
+
+
+0.70
+****
+
+Export money fixed.
+
+Animation of fire stations. Going out for a fire. (False alarm, there
+shouldn't be a real fire.)
+
+Birth rate reduced. 1/44 to 1/48.
+
+Coalmine 100% stock overshoot fixed.
+
+Potteries, blacksmiths and mills now produce a bit of pollution.
+
+Long if, else if runs changed to switch/case statements in potteries,
+blacksmiths and mills. (Small speed improvement.)
+
+Cost to buy windmills doubled.
+
+
+0.69
 ****
 
 A few more help pages and a proper fire station icon. I'm going to make this
@@ -669,7 +862,6 @@ Shuffle mappoint from 5 to 4.
 Shuffle markets from #/2+1 to #/4+1.
 
 Slight reorder of tests in time step loop; put transport first...
-
 
 
 0.66

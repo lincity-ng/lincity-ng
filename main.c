@@ -56,7 +56,7 @@
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
-#define SKIP_OPENING_SCENE 1
+//#define SKIP_OPENING_SCENE 1
 #endif
 
 #define SI_BLACK 252
@@ -86,7 +86,11 @@ char LIBDIR[_MAX_PATH];
 #ifdef LIBDIR
 #undef LIBDIR   /* yes, I know I shouldn't ;-) */
 #endif
+/* GCS: Presumably I can do this, right? */
+#if defined (commentout)
 char LIBDIR[256];
+#endif
+char LIBDIR[LC_PATH_MAX];
 #endif
 #endif
 
@@ -167,7 +171,7 @@ lincity_main (int argc, char *argv[])
     given_scene[0] = 0;
     quit_flag = network_flag = load_flag = save_flag 
 	    = prefs_flag = cheat_flag = monument_bul_flag
-	    = river_bul_flag = shanty_bul_flag = no_init_help = 0;
+	    = river_bul_flag = shanty_bul_flag;
     prefs_drawn_flag = 0;
     kmouse_val = 8;
 
@@ -188,6 +192,9 @@ lincity_main (int argc, char *argv[])
 
     /* Make sure the save directory exists */
     check_savedir ();
+
+    /* Load preferences */
+    load_lincityrc ();
 
 #ifndef CS_PROFILE
 #ifdef SEED_RAND
@@ -218,9 +225,12 @@ lincity_main (int argc, char *argv[])
 
     init_fonts ();
 
-#if !defined (SKIP_OPENING_SCENE)
-    load_start_image ();
+#if defined (SKIP_OPENING_SCENE)
+    skip_splash_screen = 1;
 #endif
+    if (!skip_splash_screen) {
+	load_start_image ();
+    }
 
 #ifdef LC_X11
     unlock_window_size ();
@@ -600,6 +610,8 @@ execute_timestep (void)
 	update_main_screen (0);
 
 	/* XXX: Shouldn't the rest be handled in update_main_screen()? */
+	/* GCS: No, I don't think so.  These remaining items are 
+		outside of the main screen */
 
 	print_stats ();
 
@@ -701,68 +713,6 @@ cheat (void)
 	return (1);
     }
     return (0);
-}
-
-void
-lincityrc (void)
-{
-    char *s, *s1;
-    int i;
-    FILE *rc;
-
-    if ((s = (char *) malloc (lc_save_dir_len + 64)) == 0)
-	malloc_failure ();
-    if ((s1 = (char *) malloc (strlen (message_path) + 64)) == 0)
-	malloc_failure ();
-
-    strcpy (s, getenv("HOME"));
-    strcat (s, "/");
-    strcat (s, ".lincityrc");
-    if ((rc = fopen (s, "r")) == 0) {
-	do {
-	    strcpy (s1, "cat ");
-	    strcat (s1, message_path);
-	    strcat (s1, "mousetype.mes");
-	    system (s1);
-#ifdef LC_X11
-	    do
-	    {
-		call_event ();
-		i = x_key_value;
-	    }
-	    while (i == 0);
-	    x_key_value = 0;
-#else
-	    i = getchar ();
-#endif
-	}
-	while (i < '0' || i > '6');
-	if ((rc = fopen (s, "w")) == 0)
-	{
-	    printf (_("Can't open %s for writing, can't continue\n"), s);
-	    exit (1);
-	}
-	fprintf (rc, "mouse=%d\n", i - '0');
-	fclose (rc);
-#if !defined (WIN32)
-	chown (s, getuid (), getgid ());
-#endif
-	if ((rc = fopen (s, "r")) == 0) {
-	    printf (_("What!! can't open %s for reading after writing???\n"), s);
-	    exit (1);
-	}
-    }
-    while (feof (rc) == 0)
-    {
-	fgets (s, 99, rc);
-	if (sscanf (s, "mouse=%d", &i) != 0) {
-	    lc_mouse_type = i;
-            printf (_("Got mouse type: %d\n"),lc_mouse_type);
-        }
-    }
-    fclose (rc);
-    free (s1);
-    free (s);
 }
 
 int

@@ -389,7 +389,8 @@ select_module (int module, int mbutton)
 	return;
     }
     if (mbutton == LC_MOUSE_RIGHTBUTTON 
-	|| module_help_flag[module] == 0)
+	|| (module_help_flag[module] == 0 
+	    && !suppress_firsttime_module_help))
     {
 	activate_help (module_help[module]);
 	if (mbutton != LC_MOUSE_RIGHTBUTTON)

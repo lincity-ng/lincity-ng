@@ -37,7 +37,6 @@
  * External Global Variables
  * ---------------------------------------------------------------------- */
 extern int network_game;
-extern int time_multiplex_stats;
 
 /* ---------------------------------------------------------------------- *
  * Public Global Variables
@@ -1583,6 +1582,7 @@ initialize_print_stats (void)
     update_scoreboard.monthly = 0;
     update_scoreboard.yearly_1 = 0;
     update_scoreboard.yearly_2 = 0;
+    update_scoreboard.message_area = 0;
 
 #if defined (STATS_WINDOW)
     draw_yellow_bezel (STATS_X, STATS_Y, STATS_H, STATS_W);
@@ -1799,6 +1799,11 @@ print_stats (void)
 	update_scoreboard.yearly_1 = 0;
     }
 
+    if (update_scoreboard.message_area > 0
+	 && real_time > update_scoreboard.message_area) {
+	reset_status_message ();
+    }
+
 #if defined (WIN32)
     UpdateWindow (display.hWnd);
 #else
@@ -1872,21 +1877,48 @@ print_time_for_year (void)
 }
 
 /* Write a message in the status area of the screen */
-
 void 
-status_message(char * message, int colour) 
+status_message_1 (char * message) 
 {
-    Rect* b = &scr.status_message;
+    Rect* b = &scr.status_message_1;
 
     Fgl_fillbox(b->x, b->y, b->w, b->h, TEXT_BG_COLOUR);
-
     if (message == NULL)
 	return;
-
     Fgl_write (b->x, b->y, message);
+}
+
+void 
+status_message_2 (char * message) 
+{
+    Rect* b = &scr.status_message_2;
+
+    Fgl_fillbox(b->x, b->y, b->w, b->h, TEXT_BG_COLOUR);
+    if (message == NULL)
+	return;
+    Fgl_write (b->x, b->y, message);
+}
+
+void
+status_message (char* m1, char* m2)
+{
+    status_message_1(m1);
+    status_message_2(m2);
 #if defined (WIN32)
     UpdateWindow (display.hWnd);
 #endif
+    update_scoreboard.message_area = real_time + 10000;
+}
+
+void
+reset_status_message (void)
+{
+    status_message_1(0);
+    status_message_2(0);
+#if defined (WIN32)
+    UpdateWindow (display.hWnd);
+#endif
+    update_scoreboard.message_area = 0;
 }
 
 void
@@ -2259,6 +2291,7 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 
     undosify_string (ss);
 
+#if defined (commentout)
     if (xs != 0)
 	dialog_box(colour,3,
 		   0,0,ss,
@@ -2268,9 +2301,83 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 	dialog_box(colour,2,
 		   0,0,ss,
 		   2,' ',_("OK"));
+#endif
     fclose(inf);
+
+    display_info_message (colour, ss, xs);
 }
 
+void
+format_status_message (char* sm1, char* sm2, int num_char, char* ss, char* xs)
+{
+    char* src = ss;
+    char* tgt = sm1;
+    int did_xs = 0;
+    int did_sm2 = 0;
+    int chars_done = 0;
+    *sm2 = *sm1 = '\0';\
+
+    while (src) {
+	char src_c = *src++;
+	/* note: already undosified */
+	switch (src_c) {
+	case '\0':
+	    if (did_xs || !xs) {
+		*tgt = '\0';
+		return;
+	    } else {
+		src = xs;
+		did_xs = 1;
+	    }
+	    /* fall through */
+	case '\n':
+	    *tgt++ = ' ';
+	    break;
+	default:
+	    *tgt++ = src_c;
+	}
+	if (++chars_done == num_char) {
+	    *tgt = '\0';
+	    if (did_sm2) return;
+	    tgt = sm2;
+	    did_sm2 = 1;
+	    chars_done = 0;
+	}
+    }
+}
+
+/* Call this routine instead of dialog_box() */
+void
+display_info_message (int colour, char* ss, char* xs)
+{
+    if (suppress_popups) {
+	/* display in the message area */
+        Rect* b = &scr.status_message_1;
+	int num_char = b->w / 9 - 1;
+	char *sm1, *sm2;
+	if ((sm1 = (char *) malloc (num_char+1)) == 0)
+	    malloc_failure ();
+	if ((sm2 = (char *) malloc (num_char+1)) == 0)
+	    malloc_failure ();
+
+	format_status_message (sm1,sm2,num_char,ss,xs);
+	status_message(sm1,sm2);
+	free (sm1);
+	free (sm2);
+    } else {
+	/* display as dialog box */
+	if (xs) {
+	dialog_box(colour,3,
+		   0,0,ss,
+		   0,0,xs,
+		   2,' ',_("OK"));
+	} else {
+	dialog_box(colour,2,
+		   0,0,ss,
+		   2,' ',_("OK"));
+	}
+    }
+}
 
 void
 prog_box (char *title, int percent)

@@ -1,5 +1,9 @@
 BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
+  o None.
+
+BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+
   o I found inconsistent behavior with using the middle mouse button
     (mmb).  Clicking with mmb on mini-map causes the main win to jump, and
     then jump back before scrolling.  Clicking mmb on other displays (finance
@@ -7,20 +11,13 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     advance display.  Also, I'm not sure if mmb should initiate main win
     scrolling if the click was made outside the main win.
 
-BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
-
-  o No middle mouse button support in SVGA version.
+  o No middle mouse button support in SVGA/Win32 version.
 
   o Square cursor flashes too much in SVGA version.
 
   o Bits of the square cursor are not refreshed from the main win frame.
     For example, this happens with pollution overlay turned on.
     This problem is more pronouced in SVGA version.
-
-  o I fixed problem with the windows version where it draws a square
-	cursor over the load/save screens.  This was caused because 
-	the windows version wasn't setting db_flag before calling 
-	GetKeystroke() which called cs_mouse_handler().
 
   o Help gets screwed up by game-related keystrokes.
     Consider also pressing "Enter" when mouse is over a button on the 
@@ -41,7 +38,8 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
     track on the top, and you will see goods, jobs, etc flowing off 
     the bottom into the top.
 
-    (GCS July 26, 2003) cannot reproduce in svga version.
+    (GCS July 26, 2003) cannot reproduce in svga version, but definitely
+    exists in win32 version.
 
   o Right click outside of help should exit help.
 
@@ -52,9 +50,6 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Main screen should scroll when moving mouse outside of main window 
     during multi-transport.
-
-  o First time for placing residence flashes help then choice screen.
-    Fix by allowing choice in help screen???
 
   o Miniscreen colors could be improved.
 
@@ -80,8 +75,6 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
   o Need to clean up write of gzipped files to use popen().
 
   o Why don't we use a recognized file format for the splash screen?
-
-  o Need to update dependencies in Makefile.am so that "cp" warnings go away.
 
   o Slight streaking in monthgraph.
 

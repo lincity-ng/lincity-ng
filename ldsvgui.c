@@ -12,6 +12,7 @@
 #include "screen.h"
 #include "pbar.h"
 #include "module_buttons.h"
+#include "fileutil.h"
 
 /* this is for OS/2 - RVI */
 #ifdef __EMX__
@@ -101,9 +102,6 @@ char LIBDIR[256];
 char *lc_save_dir;
 char save_names[10][42];
 
-int modal_flag = 1;                   /* Not yet implemented */
-int time_multiplex_stats = 0;
-
 /* ---------------------------------------------------------------------- *
  * Public Functions
  * ---------------------------------------------------------------------- */
@@ -121,7 +119,7 @@ draw_prefs_cb (void)
     Fgl_putbox (x, y, 16, 16, graphic);
 
     y += 16;
-    graphic = modal_flag ? checked_box_graphic : unchecked_box_graphic;
+    graphic = suppress_popups ? unchecked_box_graphic : checked_box_graphic;
     Fgl_putbox (x, y, 16, 16, graphic);
 
     y += 16;
@@ -149,7 +147,7 @@ do_prefs_buttons (int x, int y)
 	    redraw_mouse ();
 	} else if (y > mw->y + 30 + 16 && y < mw->y + 30 + 2*16) {
 	    hide_mouse ();
-	    modal_flag = !modal_flag;
+	    suppress_popups = !suppress_popups;
 	    draw_prefs_cb ();
 	    redraw_mouse ();
 	} else if (y > mw->y + 30 + 2*16 && y < mw->y + 30 + 3*16) {
@@ -232,6 +230,8 @@ do_prefs_screen (void)
 void
 close_prefs_screen (void)
 {
+    save_lincityrc();
+
     prefs_flag = 0;
     prefs_drawn_flag = 0;
 #ifdef USE_EXPANDED_FONT

@@ -22,11 +22,24 @@ extern int make_dir_ok_flag;
 #define LC_PATH_MAX 4096
 #endif
 
+extern char colour_pal_file[LC_PATH_MAX];
+extern char opening_pic[LC_PATH_MAX];
+extern char graphic_path[LC_PATH_MAX];
+extern char fontfile[LC_PATH_MAX];
+extern char opening_path[LC_PATH_MAX];
+extern char help_path[LC_PATH_MAX];
+extern char message_path[LC_PATH_MAX];
+extern char lc_textdomain_directory[LC_PATH_MAX];
+extern char lincityrc_file[LC_PATH_MAX];
+extern char given_scene[LC_PATH_MAX];
+
 void gunzip_file (char *f1, char *f2);
 int file_exists (char *filename);
 int directory_exists (char *dir);
 char* load_graphic(char *s);
 void undosify_string(char *s);
+void load_lincityrc (void);
+void save_lincityrc (void);
 
 void debug_printf (char* fmt, ...);
 

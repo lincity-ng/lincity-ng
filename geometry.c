@@ -187,10 +187,15 @@ initialize_geometry (Screen_Geometry* scr)
     scr->time_for_year.h = 0;  /* unused */
     scr->time_for_year.w = 0;  /* unused */
 
-    scr->status_message.x = scr->main_win.x;
-    scr->status_message.y = STATUS_MESSAGE_Y;
-    scr->status_message.h = 8;
-    scr->status_message.w = scr->main_win.w;
+    scr->status_message_1.x = scr->main_win.x;
+    scr->status_message_1.y = STATUS_MESSAGE_1_Y;
+    scr->status_message_1.h = 8;
+    scr->status_message_1.w = scr->main_win.w;
+
+    scr->status_message_2.x = scr->main_win.x;
+    scr->status_message_2.y = STATUS_MESSAGE_2_Y;
+    scr->status_message_2.h = 8;
+    scr->status_message_2.w = scr->main_win.w;
 
     scr->mini_map.x = MINI_SCREEN_X;
     scr->mini_map.y = MINI_SCREEN_Y;
@@ -312,8 +317,10 @@ resize_geometry (int new_width, int new_height)
 
     scr.select_message.y = SELECT_BUTTON_MESSAGE_Y + (scr.client_h - 480);
     scr.time_for_year.y = TIME_FOR_YEAR_Y + (scr.client_h - 480);
-    scr.status_message.y = STATUS_MESSAGE_Y + (scr.client_h - 480);
-    scr.status_message.w = scr.main_win.w;
+    scr.status_message_1.y = STATUS_MESSAGE_1_Y + (scr.client_h - 480);
+    scr.status_message_1.w = scr.main_win.w;
+    scr.status_message_2.y = STATUS_MESSAGE_2_Y + (scr.client_h - 480);
+    scr.status_message_2.w = scr.main_win.w;
 
     scr.date.y = scr.main_win.y + scr.main_win.h + 16;
     scr.date.x = scr.main_win.x + scr.main_win.w - scr.date.w;

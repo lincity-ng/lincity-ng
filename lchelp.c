@@ -17,6 +17,7 @@
 #include "geometry.h"
 #include "lcintl.h"
 #include "module_buttons.h"
+#include "screen.h"
 
 /* About help history:
    History count starts at 0, but is immediately incremented to 1.

@@ -5,7 +5,7 @@
  * ---------------------------------------------------------------------- */
 #include "engglobs.h"
 #include "common.h"
-
+#include "fileutil.h"
 
 Map map;
 
@@ -19,20 +19,14 @@ int main_screen_originx, main_screen_originy;
 int pix_double = 0;
 
 #if defined (WIN32)
-char windowsfontfile[256];
+char windowsfontfile[LC_PATH_MAX];
 #endif
 
 int cheat_flag;
-char given_scene[256];
 int modern_windmill_flag = 0;
 
 int askdir_lines;
 char *askdir_path[4];
-char colour_pal_file[256], opening_pic[256], graphic_path[256], fontfile[256];
-char opening_path[256];
-char help_path[256], message_path[256];
-char lc_textdomain_directory[256];
-
 
 int monthgraph_size = 0;
 int *monthgraph_pop;

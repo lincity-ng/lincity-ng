@@ -14,7 +14,14 @@ short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int lc_mouse_type;
 char progbox[(PROGBOXW + 16) * (PROGBOXH + 16)];
 
-int no_init_help;
+/* Preferences */
+int overwrite_transport_flag = 0;
+int suppress_popups = 0;
+int time_multiplex_stats = 0;
+int no_init_help = 0;
+int confine_flag = 0;	/* Only used for X11 */
+int skip_splash_screen = 0;
+int suppress_firsttime_module_help = 0;
 
 int main_screen_flag = MAIN_SCREEN_NORMAL_FLAG;
 
@@ -36,7 +43,6 @@ int mouse_hide_count;
 int cs_square_mouse_visible = 0;
 #endif
 int kmousex, kmousey, kmouse_val, reset_mouse_flag, mt_flag = 0;
-int overwrite_transport_flag = 0;
 
 char under_square_mouse_pointer_top[20 * 2 * 4];
 char under_square_mouse_pointer_left[18 * 2 * 4];
@@ -69,7 +75,6 @@ char *toveron_button1, *toveron_button2;
 char *toveroff_button1, *toveroff_button2;
 #ifdef LC_X11
 char *confine_button, *unconfine_button;
-int confine_flag = 0;
 #endif
 int pause_flag = 0, slow_flag = 0, med_flag = 0, fast_flag = 0;
 

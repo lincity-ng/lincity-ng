@@ -9,6 +9,7 @@
 #include <stdarg.h> /* XXX: GCS FIX: What does configure need to know? */
 #include "lcintl.h"
 #include "lcstring.h"
+#include "ldsvgui.h"
 
 /* this is for OS/2 - RVI */
 #ifdef __EMX__
@@ -103,6 +104,17 @@ char LIBDIR[LC_PATH_MAX];
 char *lc_save_dir;
 int lc_save_dir_len;
 static char *lc_temp_filename;
+
+char given_scene[LC_PATH_MAX];
+char colour_pal_file[LC_PATH_MAX];
+char opening_pic[LC_PATH_MAX];
+char graphic_path[LC_PATH_MAX];
+char fontfile[LC_PATH_MAX];
+char opening_path[LC_PATH_MAX];
+char help_path[LC_PATH_MAX];
+char message_path[LC_PATH_MAX];
+char lc_textdomain_directory[LC_PATH_MAX];
+char lincityrc_file[LC_PATH_MAX];
 
 /* The variable make_dir_ok_flag has 2 uses.
 
@@ -487,6 +499,7 @@ init_path_strings (void)
     homedir = getenv ("HOME");
 #endif
 
+    /* Various dirs and files */
     lc_save_dir_len = strlen (homedir) + strlen (LC_SAVE_DIR) + 1;
     if ((lc_save_dir = (char *) malloc (lc_save_dir_len + 1)) == 0)
 	malloc_failure ();
@@ -500,36 +513,13 @@ init_path_strings (void)
 #endif
     sprintf (graphic_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "icons",
 	     PATH_SLASH);
+    sprintf (lincityrc_file, "%s%c%s", homedir, PATH_SLASH, 
+	LINCITYRC_FILENAME);
 
-    
+    /* Paths for message & help files, etc */
     find_localized_paths ();
 
-#if defined (commentout)
-    if (strcmp(intl_suffix,"C") && strcmp(intl_suffix,"")) {
-	sprintf (message_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "messages",
-		 PATH_SLASH, intl_suffix, PATH_SLASH);
-	sprintf (help_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "help",
-		 PATH_SLASH, intl_suffix, PATH_SLASH);
-	printf ("Trying Message Path %s\n", message_path);
-	if (!directory_exists(message_path)) {
-	    sprintf (message_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "messages",
-		     PATH_SLASH);
-	    printf ("Settling for message Path %s\n", message_path);
-	}
-	if (!directory_exists(help_path)) {
-	    sprintf (help_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "help",
-		     PATH_SLASH);
-	}
-    } else {
-	sprintf (message_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "messages",
-		 PATH_SLASH);
-	sprintf (help_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "help",
-		 PATH_SLASH);
-	printf ("Default message path %s\n", message_path);
-    }
-#endif
-
-
+    /* Font stuff */
     sprintf (fontfile, "%s%c%s", opening_path, PATH_SLASH,
 	     "iso8859-1-8x8.raw");
 #if defined (WIN32)
@@ -546,6 +536,8 @@ init_path_strings (void)
     else
 	strcat (windowsfontfile, "\\opening\\winfont_16x16.fnt");
 #endif
+
+    /* Temp file for results */
     lc_temp_filename = (char *) malloc (lc_save_dir_len + 16);
     if (lc_temp_filename == 0) {
 	malloc_failure ();
@@ -605,6 +597,104 @@ load_graphic(char *s)
 	*(graphic+x)=fgetc(inf);
     fclose(inf);
     return(graphic);
+}
+
+void
+load_lincityrc (void)
+{
+    FILE *fp;
+    int arg;
+    char buf[128];
+
+    if ((fp = fopen (lincityrc_file, "r")) == 0) {
+	save_lincityrc();
+	return;
+    }
+    while (fgets (buf,128,fp)) {
+	if (sscanf(buf,"overwrite_transport=%d",&arg)==1) {
+	    overwrite_transport_flag = !!arg;
+	    continue;
+	}
+	if (sscanf(buf,"no_init_help=%d",&arg)==1) {
+	    /* Careful here ... */
+	    no_init_help = !!arg;
+	    continue;
+	}
+	if (sscanf(buf,"skip_splash_screen=%d",&arg)==1) {
+	    skip_splash_screen = !!arg;
+	    continue;
+	}
+	if (sscanf(buf,"suppress_firsttime_module_help=%d",&arg)==1) {
+	    suppress_firsttime_module_help = !!arg;
+	    continue;
+	}
+	if (sscanf(buf,"suppress_popups=%d",&arg)==1) {
+	    suppress_popups = !!arg;
+	    continue;
+	}
+	if (sscanf(buf,"time_multiplex_stats=%d",&arg)==1) {
+	    time_multiplex_stats = !!arg;
+	    continue;
+	}
+	if (sscanf(buf,"x_confine_pointer=%d",&arg)==1) {
+	    confine_flag = !!arg;
+	    continue;
+	}
+    }
+    fclose (fp);
+}
+
+void
+save_lincityrc (void)
+{
+    FILE *fp;
+
+    if ((fp = fopen (lincityrc_file, "w")) == 0) {
+	return;
+    }
+
+    fprintf (fp, 
+	"# Set this if you want to be able to overwrite one\n"
+	"# kind of transport with another.\n"
+	"overwrite_transport=%d\n\n",
+	overwrite_transport_flag);
+    fprintf (fp, 
+	"# Set this if you don't want the opening help screen.\n"
+	"no_init_help=%d\n\n",
+	no_init_help
+	);
+    fprintf (fp,
+	"# Set this if you don't want the opening splash screen.\n"
+	"skip_splash_screen=%d\n\n",
+	skip_splash_screen
+	);
+    fprintf (fp,
+	"# Set this if you don't help the first time you\n"
+	"# click to place an item.\n"
+	"suppress_firsttime_module_help=%d\n\n", 
+	suppress_firsttime_module_help
+	);
+    fprintf (fp,
+	"# Set this if don't want modal dialog boxes which you\n"
+	"# are required to click OK.  Instead, report the dialog\n"
+	"# box information to the message area.\n"
+	"suppress_popups=%d\n\n",
+	suppress_popups
+	);
+    fprintf (fp,
+	"# Set this if want the different statistic windows to cycle\n"
+	"# through the right panel.\n"
+	"time_multiplex_stats=%d\n\n",
+	time_multiplex_stats
+	);
+    fprintf (fp,
+	"# (X Windows only) Set this if you want to confine the pointer\n"
+	"# to within the window.\n"
+	"x_confine_pointer=%d\n\n",
+	confine_flag
+	);
+
+    fclose (fp);
 }
 
 void

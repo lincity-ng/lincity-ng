@@ -1228,18 +1228,18 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	       to build the road.  So clean up and exit. */
 	    mt_flag = 0;
 	    draw_main_window_box (green (8)); 
-	    status_message(NULL,25);
+	    status_message(0,0);
 	}
 	else if (draw_ret = do_mt_draw(ox, cx, oy, cy, mt_perm)) {
 
 	    print_total_money ();
 	    mt_flag = 0;
 	    draw_main_window_box (green (8)); 
-	    status_message(NULL,25);
+	    status_message(0,0);
 	} else {
 	    /* This shouldn't happen.  Clean up and continue anyway.  */
 	    mt_flag = 0;
-	    status_message(NULL,25);
+	    status_message(0,0);
 	    draw_main_window_box (green (8)); 
 	}
 	dx = 0; dy = 0;
@@ -1250,7 +1250,7 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	mt_flag = 0;
 	draw_main_window_box (green (8));
 	draw_ret = do_mt_draw(ox, dx, oy, dy, mt_erase);
-	status_message(NULL,25);
+	status_message(0,0);
 
 	dx = 0; dy = 0;
 	ox = 0; oy = 0;
@@ -1274,7 +1274,7 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 		     mt_length * get_type_cost(selected_module_type));
 	}
 
-	status_message(s,25);
+	status_message(0,s);
 	dx = cx; dy = cy;
 	break;
 

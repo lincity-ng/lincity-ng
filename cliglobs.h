@@ -15,12 +15,15 @@ extern short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 
 extern int lc_mouse_type;
 extern char progbox[(PROGBOXW + 16) * (PROGBOXH + 16)];
-extern char colour_pal_file[256], opening_pic[256], graphic_path[256], fontfile[256];
-extern char opening_path[256];
-extern char help_path[256], message_path[256], given_scene[256];
-extern char lc_textdomain_directory[256];
 
+/* Preferences */
+extern int time_multiplex_stats;
+extern int suppress_popups;
+extern int overwrite_transport_flag;
+extern int confine_flag;
+extern int skip_splash_screen;
 extern int no_init_help;
+extern int suppress_firsttime_module_help;
 
 extern int main_screen_flag;
 extern int mappoint_stats_flag, mappoint_stats_time;
@@ -40,7 +43,7 @@ extern int mouse_hide_count;
 extern int cs_square_mouse_visible;
 #endif
 extern int kmousex, kmousey, kmouse_val, reset_mouse_flag, mt_flag;
-extern int overwrite_transport_flag, modern_windmill_flag;
+extern int modern_windmill_flag;
 
 extern char under_square_mouse_pointer_top[20 * 2 * 4];
 extern char under_square_mouse_pointer_left[18 * 2 * 4];
@@ -86,7 +89,6 @@ extern char *toveron_button1, *toveron_button2;
 extern char *toveroff_button1, *toveroff_button2;
 #ifdef LC_X11
 extern char *confine_button, *unconfine_button;
-extern int confine_flag;
 #endif
 extern int pause_flag, slow_flag, med_flag, fast_flag;
 extern int prefs_flag;

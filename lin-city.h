@@ -202,8 +202,12 @@
 #define OLD_LC_SAVE_DIR "Lin-city"
 #if defined (WIN32)
 #define LC_SAVE_DIR "SAVED_GAMES"
+#define LINCITYRC_FILENAME "lincity.ini"
 #else
-#define LC_SAVE_DIR ".Lin-city"
+/* GCS: Changed for 1.12 */
+/* #define LC_SAVE_DIR ".Lin-city" */
+#define LC_SAVE_DIR ".lincity"
+#define LINCITYRC_FILENAME ".lincityrc"
 #endif
 #define RESULTS_FILENAME "results"
 
@@ -1130,7 +1134,7 @@ struct update_scoreboard_struct
   int monthly;
   int yearly_1;
   int yearly_2;
-  
+  long int message_area;
 };
 typedef struct update_scoreboard_struct Update_Scoreboard;
 

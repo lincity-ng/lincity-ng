@@ -25,6 +25,7 @@
 #include "cliglobs.h"
 #include "engglobs.h"
 #include "screen.h"
+#include "fileutil.h"
 
 #define SI_BLACK 252
 #define SI_RED 253

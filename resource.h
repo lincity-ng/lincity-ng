@@ -1,6 +1,3 @@
-
-
-
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
 // Used by lincity.rc
@@ -15,5 +12,5 @@
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
-#endif	/*  */
-#endif	/*  */
+#endif
+#endif
