@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <string>
 
-#include "Rectangle.hpp"
+#include "Rect2D.hpp"
 #include "Texture.hpp"
 
 /**

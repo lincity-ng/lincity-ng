@@ -2,7 +2,7 @@
 #define __CHILD_HPP__
 
 #include <vector>
-#include "Rectangle.hpp"
+#include "Rect2D.hpp"
 
 class Component;
 

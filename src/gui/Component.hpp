@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <assert.h>
-#include "Rectangle.hpp"
+#include "Rect2D.hpp"
 #include "Child.hpp"
 
 class Painter;

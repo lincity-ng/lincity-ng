@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 #include <vector>
-#include "Rectangle.hpp"
+#include "Rect2D.hpp"
 #include "TextureManager.hpp"
 #include "Color.hpp"
 

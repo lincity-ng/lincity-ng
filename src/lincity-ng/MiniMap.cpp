@@ -1,7 +1,7 @@
 #include "MiniMap.hpp"
 
 #include "gui/Painter.hpp"
-#include "gui/Rectangle.hpp"
+#include "gui/Rect2D.hpp"
 #include "gui/ComponentFactory.hpp"
 #include "gui/XmlReader.hpp"
 #include "gui/Event.hpp"
