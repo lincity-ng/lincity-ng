@@ -97,3 +97,7 @@ Troubleshooting and testing Cygwin problems.
 
 Jason Short <jdorje@users.sourceforge.net>
 Several important bug reports and patches.
+
+Kevin Routley <tekrasw@yahoo.com>
+MSVC 6.0 build fixes
+
