@@ -76,7 +76,7 @@ mps_university (int x, int y)
 	    MP_INFO(x,y).int_3 * 100.0 / MAX_TECH_LEVEL);  
   mps_store_title(i++,s);
   i++;
-
+  mps_store_title(i++,_("Inventory"));
   mps_store_sfp(i++,_("Jobs"), 
 		MP_INFO(x,y).int_1 * 100.0 / UNIVERSITY_JOBS_STORE);
   mps_store_sfp(i++,_("Goods"),

@@ -317,6 +317,19 @@ mps_store_fp(int i, double f)
 }
 
 void
+mps_store_f(int i, double f)
+{
+  int c;
+  int l;
+  char s[12];
+  
+  snprintf(s, sizeof(s), "%.1f",f);
+  l = strlen(s);
+  c = (int)((MPS_INFO_CHARS - l) / 2) + l;
+  snprintf(mps_info[i],MPS_INFO_CHARS,"%*s", c, s);
+}
+
+void
 mps_store_d(int i, int d)
 {
   int c;

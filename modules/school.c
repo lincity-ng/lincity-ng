@@ -56,7 +56,7 @@ mps_school (int x, int y)
   mps_store_title(i++,_("School"));
   i++;
   mps_store_title(i++,_("Lessons Learned"));
-  mps_store_fp(i++,MP_INFO(x,y).int_3 * 100.0 / MAX_TECH_LEVEL);
+  mps_store_f(i++,MP_INFO(x,y).int_3 * 100.0 / MAX_TECH_LEVEL);
   i++;
   mps_store_title(i++,_("Inventory"));
   mps_store_sfp(i++,_("Jobs"),

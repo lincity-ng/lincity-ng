@@ -68,7 +68,7 @@ mps_monument (int x, int y)
   if ((MP_INFO(x,y).int_1 * 100 / BUILD_MONUMENT_JOBS) >= 100) {
       mps_store_title(i++,_("Wisdom Bestowed"));
       i++;
-      mps_store_fp(i++, MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);
+      mps_store_f(i++, MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);
   } else {
       mps_store_title(i++,_("% Complete"));
       i++;
