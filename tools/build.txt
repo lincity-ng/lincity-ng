@@ -35,7 +35,7 @@ Make the UNIX tarball:
   6)     make dist
   7)     Done!
 
-Make the Win package:
+Make the Win package (version 1.11):
 
   5)     Build release version on Win
   6)     Reboot into Linux
@@ -46,6 +46,23 @@ Make the Win package:
   11)    make distclean
   11.1)  Delete lincity.ncb and lincity.aps
   11.2)  Delete the Release and Debug directories
+  12)    Run tarsrc.sh (this script might need fixing)
+  13)    Make sure that the opening files are *not* gzip'ped
+            open.tga
+            bad_times.scn
+            good_times.scn
+  14)    Copy ../source.tgz into lincity directory
+  15)    zip -r lincity109.zip lincity109
+  16)    Done!
+
+Make the Win package (version 1.12):
+
+  5)     Build release version on Win
+  8)     Make copy of entire directory (we're gonna delete the source)
+  9)     cd to the new directory
+  10)    copy Release/Lincity.exe .
+  11)    run tools\delete_cruft.bat
+
   12)    Run tarsrc.sh (this script might need fixing)
   13)    Make sure that the opening files are *not* gzip'ped
             open.tga
