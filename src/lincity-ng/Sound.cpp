@@ -5,6 +5,9 @@
  *
  *  20050224
  *  sound as own class
+ *
+ *  20050225
+ *  read sounds from physfs
  *  
  */
 
@@ -15,8 +18,11 @@
 
 #include "gui/XmlReader.hpp"
 #include "gui/ComponentFactory.hpp"
+#include "gui/PhysfsStream/PhysfsSDL.hpp"
 
 #include <SDL_mixer.h>
+#include <physfs.h>
+
 
 Sound* soundPtr = 0;
 
@@ -72,25 +78,36 @@ Sound::parse(XmlReader& reader)
 		fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
 	} else {
 		audioOpen = true;
-        //Load Waves
 
-/*  waves[ 0 ] = Mix_LoadWAV("data/sounds/Click.wav");
--        waves[ 1 ] = Mix_LoadWAV("data/sounds/School3.wav");
--        waves[ 3 ] = Mix_LoadWAV("data/sounds/RailTrain3.wav");
--        waves[ 4 ] = Mix_LoadWAV("data/sounds/TraficLow3.wav");
-*/
-        std::string filename = "School3.wav";
+        //Load Waves
+        std::string filename;
+        std::string directory = "sounds/";
+        std::string fullname;
         Mix_Chunk *chunk;
-        chunk =  Mix_LoadWAV( ("data/sounds/" + filename).c_str() );
-        if (chunk) {
-            std::string idName = getIdName( filename );
-            std::cout << "Lade" << filename << " als "<< idName << "\n"; 
-            waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
+        SDL_RWops* file;
+        char **rc = PHYSFS_enumerateFiles( directory.c_str() );
+        char **i;
+        for (i = rc; *i != NULL; i++) {
+            fullname = directory;
+            fullname.append( *i );
+            filename.assign( *i );
+            if( !PHYSFS_isDirectory( fullname.c_str() ) ) {
+                file = getPhysfsSDLRWops( fullname.c_str() );
+                if( file ) {
+                    chunk = Mix_LoadWAV_RW( file, 1);
+                    if (chunk) {
+                        std::string idName = getIdName( filename );
+                        waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
+                    }
+                    else
+                    {
+                        std::cerr << "Couldn't load '" << fullname << "'\n";
+                    }
+                }
+            //    delete file; //is done automagically by getPhysfsSDLRWops.
+            }
         }
-        else
-        {
-            std::cout << "Couldn't load '" << filename << "'\n";
-        }
+        PHYSFS_freeList(rc);
 	}
 }
 

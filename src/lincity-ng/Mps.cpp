@@ -169,7 +169,10 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 		    mps_residence(mps_x, mps_y);
 		break;
 	    case (GROUP_ROAD):
-		mps_road (mps_x, mps_y);
+            getSound()->playwav( "TraficLow" );
+            //getSound()->playwav( "TraficHigh" );
+            //TODO: find out when to use TraficHigh
+		    mps_road (mps_x, mps_y);
 		break;
 	    case (GROUP_ROCKET):
 	        mps_rocket (mps_x, mps_y);
