@@ -31,9 +31,6 @@ void mps_global_setup (int);
 void mps_global (int);
 void mps_setup(int x, int y);
 
-void mps_right_setup (void);
-void mps_right (int, int);
-
 
 
 
@@ -238,13 +235,16 @@ mps_update(void)
 	}
         break;
     case MPS_ENV:
-	printf("MPS unimplemented for right clicks\n");
+	mps_right (mps_x, mps_y);
 	break;
     case MPS_GLOBAL: 
 	{
 	    switch (mps_global_style) {
 	    case MPS_GLOBAL_FINANCE:
 		mps_global_finance();
+		break;
+	    case MPS_GLOBAL_OTHER_COSTS:
+		mps_global_other_costs();
 		break;
 	    default:
 		printf("MPS unimplemented for global display\n");
@@ -296,6 +296,19 @@ mps_store_fp(int i, double f)
   char s[12];
   
   snprintf(s, sizeof(s), "%.1f%%",f);
+  l = strlen(s);
+  c = (int)((MPS_INFO_CHARS - l) / 2) + l;
+  snprintf(mps_info[i],MPS_INFO_CHARS,"%*s", c, s);
+}
+
+void
+mps_store_d(int i, int d)
+{
+  int c;
+  int l;
+  char s[12];
+  
+  snprintf(s, sizeof(s), "%d",d);
   l = strlen(s);
   c = (int)((MPS_INFO_CHARS - l) / 2) + l;
   snprintf(mps_info[i],MPS_INFO_CHARS,"%*s", c, s);
@@ -364,6 +377,64 @@ mps_store_sfp(int i, char * s, double fl)
 
 /* MPS Global routines */
 
+void
+mps_right (int x, int y)
+{
+    int i = 0;
+    char s[12];
+    char * p;
+    int g;
+
+    snprintf(s,sizeof(s),"%d,%d",x,y);
+    mps_store_title(i++,s);
+    i++;
+    mps_store_title(i++,_("Coverage"));
+    p = (MP_INFO(x,y).flags & FLAG_FIRE_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Fire"),p);
+
+    p = (MP_INFO(x,y).flags & FLAG_HEALTH_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Health"),p);
+
+    p = (MP_INFO(x,y).flags & FLAG_CRICKET_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Cricket"),p);
+    i++;
+    mps_store_title(i++,_("Pollution"));
+
+    if (MP_POL(x,y) < 10)
+	p = _("clear");
+    else if (MP_POL(x,y) < 25)
+	p = _("good");
+    else if (MP_POL(x,y) < 70)
+	p = _("fair");
+    else if (MP_POL(x,y) < 190)
+	p = _("smelly");
+    else if (MP_POL(x,y) < 450)
+	p = _("smokey");
+    else if (MP_POL(x,y) < 1000)
+	p = _("smoggy");
+    else if (MP_POL(x,y) < 1700)
+	p = _("bad");
+    else if (MP_POL(x,y) < 3000)
+	p = _("very bad");
+    else
+	p = _("death!");
+
+    mps_store_sd(i++,p,MP_POL(x,y));
+    i++;
+
+    mps_store_title(i++,_("Bulldoze Cost"));
+    g = MP_GROUP(x,y);
+    if (g == 0) {	/* Can't bulldoze grass. */
+	mps_store_title(i++,_("N/A"));
+    } else {
+	if (g < 7)
+	    g--;			/* translate into button type */
+	mps_store_d(i++,main_groups[g].bul_cost);
+    }
+}
+
+
+
 void mps_global_finance(void) {
     int i = 0;
     char s[12];
@@ -414,19 +485,45 @@ void mps_global_finance(void) {
     mps_store_ss(i++,_("Net"), s);
 }    
 
+void 
+mps_global_other_costs (void)
+{
+    int i = 0;
+    int year;
+    char s[12];
+
+    mps_store_title(i++,_("Other Costs"));
+
+    /* Don't write year if it's negative. */
+    year = (total_time / NUMOF_DAYS_IN_YEAR) - 1;
+    if (year >= 0) {
+	mps_store_sd(i++, _("For year"), year);
+    }
+    i++;
+    num_to_ansi(s,sizeof(s),ly_interest);
+    mps_store_ss(i++,_("Interest"),s);
+    num_to_ansi(s,sizeof(s),ly_school_cost);
+    mps_store_ss(i++,_("Schools"),s);
+    num_to_ansi(s,sizeof(s),ly_university_cost);
+    mps_store_ss(i++,_("Univers."),s);
+    num_to_ansi(s,sizeof(s),ly_deaths_cost);
+    mps_store_ss(i++,_("Deaths"),s);
+    num_to_ansi(s,sizeof(s),ly_windmill_cost);
+    mps_store_ss(i++,_("Windmill"),s);
+    num_to_ansi(s,sizeof(s),ly_health_cost);
+    mps_store_ss(i++,_("Hospital"),s);
+    num_to_ansi(s,sizeof(s),ly_rocket_pad_cost);
+    mps_store_ss(i++,_("Rockets"),s);
+    num_to_ansi(s,sizeof(s),ly_fire_cost);
+    mps_store_ss(i++,_("Fire Stn"),s);
+    num_to_ansi(s,sizeof(s),ly_cricket_cost);
+    mps_store_ss(i++,_("Cricket"),s);
+    num_to_ansi(s,sizeof(s),ly_recycle_cost);
+    mps_store_ss(i++,_("Recycle"),s);
+}
+
 
 #ifdef old_mps
-/* ---------------------------------------------------------------------- *
- * Public Functions
- * ---------------------------------------------------------------------- */
-void
-mps_full_refresh (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-
-    draw_small_bezel (mps->x, mps->y, mps->w, mps->h, yellow(0));
-    mappoint_stats (-3, -3, -3);
-}
 
 void
 mappoint_stats (int x, int y, int button)
@@ -482,6 +579,7 @@ mappoint_stats (int x, int y, int button)
 	y = yy;
 	button = oldbut;
     } else {
+
 	if (mappoint_stats_flag == 1 && x == xx && y == yy
 	    && oldbut == LC_MOUSE_LEFTBUTTON
 	    && button == LC_MOUSE_LEFTBUTTON)
@@ -523,7 +621,7 @@ mappoint_stats (int x, int y, int button)
     if (x == -2 || x == -3) {
 	mps_global (button);
     } else if (button == LC_MOUSE_RIGHTBUTTON) {
-	mps_right (x, y);
+
     } else {
 	switch (MP_GROUP(x,y))
 	{
@@ -535,200 +633,6 @@ mappoint_stats (int x, int y, int button)
 
 }
 
-void 
-mps_setup (int x, int y)
-{
-    switch (MP_GROUP(x,y))
-    {
-	
-    case GROUP_POWER_LINE:
-	mps_power_line_setup ();
-	break;
-    case GROUP_RESIDENCE_LL:
-    case GROUP_RESIDENCE_ML:
-    case GROUP_RESIDENCE_HL:
-    case GROUP_RESIDENCE_LH:
-    case GROUP_RESIDENCE_MH:
-    case GROUP_RESIDENCE_HH:
-	mps_res_setup ();
-	break;
-    case (GROUP_ROAD):
-	mps_transport_setup ();
-	break;
-    case (GROUP_RAIL):
-	mps_transport_setup ();
-	break;
-    case (GROUP_TRACK):
-	mps_transport_setup ();
-	break;
-    case (GROUP_ORGANIC_FARM):
-	mps_farm_setup ();
-	break;
-    case (GROUP_MARKET):
-	mps_market_setup ();
-	break;
-    case (GROUP_INDUSTRY_L):
-	mps_indl_setup ();
-	break;
-    case (GROUP_INDUSTRY_H):
-	mps_indh_setup ();
-	break;
-    case (GROUP_COALMINE):
-	mps_coalmine_setup ();
-	break;
-    case GROUP_COAL_POWER:
-	mps_power_source_coal_setup ();
-	break;
-    case GROUP_SOLAR_POWER:
-	mps_power_source_setup ();
-	break;
-    case (GROUP_UNIVERSITY):
-	mps_university_setup ();
-	break;
-    case (GROUP_OREMINE):
-	mps_oremine_setup ();
-	break;
-    case (GROUP_RECYCLE):
-	mps_recycle_setup ();
-	break;
-    case (GROUP_SUBSTATION):
-	mps_substation_setup ();
-	break;
-    case (GROUP_ROCKET):
-	mps_rocket_setup ();
-	break;
-    case (GROUP_WINDMILL):
-	mps_windmill_setup (x, y);
-	break;
-    case (GROUP_MONUMENT):
-	mps_monument_setup ();
-	break;
-    case (GROUP_SCHOOL):
-	mps_school_setup ();
-	break;
-    case (GROUP_BLACKSMITH):
-	mps_blacksmith_setup ();
-	break;
-    case (GROUP_MILL):
-	mps_mill_setup ();
-	break;
-    case (GROUP_POTTERY):
-	mps_pottery_setup ();
-	break;
-    case (GROUP_PORT):
-	mps_port_setup (x, y);
-	break;
-    case (GROUP_TIP):
-	mps_tip_setup ();
-	break;
-    case (GROUP_COMMUNE):
-	mps_commune_setup ();
-	break;
-    case (GROUP_FIRESTATION):
-	mps_firestation_setup ();
-	break;
-    case (GROUP_CRICKET):
-	mps_cricket_setup ();
-	break;
-    case (GROUP_HEALTH):
-	mps_health_setup ();
-	break;
-    }
-}
-
-
-
-void
-mps_right_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 16, mps->y + 8,  _("Grid:"));
-    Fgl_write (mps->x + 16, mps->y + 16, _("Coverages:"));
-    Fgl_write (mps->x + 16, mps->y + 24, _("Fire     "));
-    Fgl_write (mps->x + 16, mps->y + 32, _("Health   "));
-    Fgl_write (mps->x + 16, mps->y + 40, _("Cricket  "));
-    Fgl_write (mps->x + 16, mps->y + 48, _("Pollution"));
-    Fgl_write (mps->x + 16, mps->y + 76, _(" Bull"));
-}
-
-void
-mps_right (int x, int y)
-{
-    Rect* mps = &scr.mappoint_stats;
-    char s[100];
-    int g;
-    snprintf(s,100,"%d,%d",x,y);
-    Fgl_write (mps->x + 8 * 8, mps->y + 8, s);
-    Fgl_write (mps->x + 8 * 12, mps->y + 24, 
-	       (MP_INFO(x,y).flags & FLAG_FIRE_COVER) ? _("YES") : _("NO "));
-    Fgl_write (mps->x + 8 * 12, mps->y + 32, 
-	       (MP_INFO(x,y).flags & FLAG_HEALTH_COVER) ? _("YES") : _("NO "));
-    Fgl_write (mps->x + 8 * 12, mps->y + 40, 
-	       (MP_INFO(x,y).flags & FLAG_CRICKET_COVER) ? _("YES") : _("NO "));
-
-    sprintf (s, "%5d ", MP_POL(x,y));
-    if (MP_POL(x,y) < 10)
-	strcat (s, _("(clear) "));
-    else if (MP_POL(x,y) < 25)
-	strcat (s, _("(good)  "));
-    else if (MP_POL(x,y) < 70)
-	strcat (s, _("(fair)  "));
-    else if (MP_POL(x,y) < 190)
-	strcat (s, _("(smelly)"));
-    else if (MP_POL(x,y) < 450)
-	strcat (s, _("(smokey)"));
-    else if (MP_POL(x,y) < 1000)
-	strcat (s, _("(smoggy)"));
-    else if (MP_POL(x,y) < 1700)
-	strcat (s, _("(bad)   "));
-    else if (MP_POL(x,y) < 3000)
-	strcat (s, _("(v bad) "));
-    else
-	strcat (s, _("(death!)"));
-    Fgl_write (mps->x + 8, mps->y + 56, s);
-
-    g = MP_GROUP(x,y);
-    if (g == 0) {
-	sprintf (s, _("  (N/A)"));	/* Can't bulldoze grass. */
-    } else {
-	if (g < 7)
-	    g--;			/* translate into button type */
-	sprintf (s, "%7d", main_groups[g].bul_cost);
-    }
-    Fgl_write (mps->x + 48, mps->y + 76, s);
-}
-
-
-
-void 
-mps_global_other_costs_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 20, mps->y, _("OTHER COSTS"));
-
-    /* TRANSLATORS: 
-       It=Interest costs.
-       Sc=School costs.
-       Un=University costs.
-       Dt=Unnatural deaths costs.
-       Wn=Windmill costs.
-       Hl=Health costs.
-       Rk=Rocket costs.
-       Fr=Fire station costs.
-       Ck=Cricket costs.
-       Rc=Recycling costs.
-    */
-    Fgl_write (mps->x, mps->y + 4*8, _("It"));
-    Fgl_write (mps->x, mps->y + 5*8, _("Sc"));
-    Fgl_write (mps->x, mps->y + 6*8, _("Un"));
-    Fgl_write (mps->x, mps->y + 7*8, _("Dt"));
-    Fgl_write (mps->x, mps->y + 8*8, _("Wn"));
-    Fgl_write (mps->x + 8*8, mps->y + 4*8, _("Hl"));
-    Fgl_write (mps->x + 8*8, mps->y + 5*8, _("Rk"));
-    Fgl_write (mps->x + 8*8, mps->y + 6*8, _("Fr"));
-    Fgl_write (mps->x + 8*8, mps->y + 7*8, _("Ck"));
-    Fgl_write (mps->x + 8*8, mps->y + 8*8, _("Rc"));
-}
 
 void 
 mps_global_pop_setup (void)
@@ -833,58 +737,6 @@ mps_global_housing (void)
 	    / ((tpopulation / NUMOF_DAYS_IN_MONTH) + 1);
     sprintf (s, " %3d.%1d", i / 10, i % 10);
     Fgl_write (mps->x + offset, mps->y + 8*8+6, s);
-}
-
-
-void
-mps_global_other_costs (void)
-{
-    char s[100];
-    int yr;
-    Rect* mps = &scr.mappoint_stats;
-
-    /* Don't write year if its negative. */
-    yr = (total_time / NUMOF_DAYS_IN_YEAR) - 1;
-    if (yr >= 0) {
-	sprintf (s, _("For year %04d"), yr);
-	Fgl_write (mps->x + 12, mps->y + 8, s);
-    }
-    format_pos_number4 (s, ly_interest);
-    Fgl_write (mps->x + 3 * 8, mps->y + 4*8, s);
-    format_pos_number4 (s, ly_school_cost);
-    Fgl_write (mps->x + 3 * 8, mps->y + 5*8, s);
-    format_pos_number4 (s, ly_university_cost);
-    Fgl_write (mps->x + 3 * 8, mps->y + 6*8, s);
-    format_pos_number4 (s, ly_deaths_cost);
-    Fgl_write (mps->x + 3 * 8, mps->y + 7*8, s);
-    format_pos_number4 (s, ly_windmill_cost);
-    Fgl_write (mps->x + 3 * 8, mps->y + 8*8, s);
-    format_pos_number4 (s, ly_health_cost);
-    Fgl_write (mps->x + 11 * 8, mps->y + 4*8, s);
-    format_pos_number4 (s, ly_rocket_pad_cost);
-    Fgl_write (mps->x + 11 * 8, mps->y + 5*8, s);
-    format_pos_number4 (s, ly_fire_cost);
-    Fgl_write (mps->x + 11 * 8, mps->y + 6*8, s);
-    format_pos_number4 (s, ly_cricket_cost);
-    Fgl_write (mps->x + 11 * 8, mps->y + 7*8, s);
-    format_pos_number4 (s, ly_recycle_cost);
-    Fgl_write (mps->x + 11 * 8, mps->y + 8*8, s);
-}
-
-void 
-mps_global (int style)
-{
-    switch (style) {
-    case MPS_GLOBAL_FINANCE:
-	mps_global_finance ();
-	break;
-    case MPS_GLOBAL_OTHER_COSTS:
-	mps_global_other_costs ();
-	break;
-    case MPS_GLOBAL_HOUSING:
-	mps_global_housing ();
-	break;
-    }
 }
 
 #endif

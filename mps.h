@@ -55,10 +55,15 @@ void mps_global_advance(void); /* Changes global var to next display */
    the second argument 
  */
 void mps_store_title(int i, char * t);
+void mps_store_fp(int i, double f);
+void mps_store_d(int i, int d);
+
 void mps_store_ss(int i, char * s1, char * s2);
-void mps_store_sss(int i, char * s1, char * s2, char * s3);
 void mps_store_sd(int i, char * s, int d);
 void mps_store_sfp(int i, char * s, double fl);
+
+void mps_store_sss(int i, char * s1, char * s2, char * s3);
+
 
 /* Data for new mps routines */
 extern char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
@@ -66,6 +71,8 @@ extern int mps_global_style;
 
 /* MPS Global displays */
 void mps_global_finance(void);
+void mps_right (int x, int y);
+
 
 #define _generic_mps
 #ifdef _generic_mps
