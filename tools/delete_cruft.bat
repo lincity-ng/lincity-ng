@@ -2,6 +2,7 @@ deltree /y CVS
 erase .cvsignore
 erase ABOUT-NLS
 erase Makefile*
+erase .#*
 erase *.h
 erase *.c
 erase *.m4
