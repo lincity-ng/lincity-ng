@@ -1,0 +1,17 @@
+text -1 5 Welcome to Lincity help
+
+text -1  90 You can click on words within boxes to
+text -1 100 select a help page on that topic.
+text -1 110 Like the 'keyboard' button below.
+
+tbutton -1 180 keyboard.hlp Using the KEYBOARD
+tbutton -1 200 button-index.hlp Click here to see button index page
+tbutton -1 220 opening.hlp Click here to see the opening screen
+tbutton -1 240 fonttest.hlp View current font
+
+text -1 290 While playing the game, you can get
+text -1 300 context sensitive help with most things
+text -1 310 using the right mouse button.
+
+text -1 325 Also, the first time you select each area
+text -1 335 its help screen will be shown.

@@ -1,0 +1,28 @@
+text -1 15 Coal
+
+text -1 30 Coal is used by coal fired power stations
+text -1 40 to make electricity (power). It is also
+text -1 50 used by potteries, mills and blacksmiths in
+text -1 60 the process of making goods. Heavy industry
+text -1 70 (steel works) use coal when they cannot
+text -1 80 get electricity.
+
+text -1 95 Coal is dug from under the ground by
+text -1 105 coal mines. There is a finite coal
+text -1 115 reserve which you can see with use of
+text -1 125 the coal reserve button (see coal mines).
+
+text -1 140 Communes provide a little 'coal' as well.
+text -1 150 Really this is charcoal make from copiced
+text -1 160 woods. They only provide small amounts,
+text -1 170 enough for a few potteries and blacksmiths.
+
+text 50 300 See also:
+tbutton 50 320 coalmine.hlp Coal mines
+tbutton 50 340 commune.hlp Communes
+tbutton 150 320 pottery.hlp Potteries
+tbutton 150 340 blacksmith.hlp Blacksmiths
+
+
+
+

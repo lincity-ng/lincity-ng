@@ -1,0 +1,28 @@
+text -1 15 Blacksmiths
+
+text -1 30 Blacksmiths turn steel and coal into goods.
+text -1 40 You will use them mostly early on in the
+text -1 50 game. They also use jobs, of course.
+
+text -1 65 Before you have steel works, you must rely
+text -1 75 on the steel produced by communes. 5 or 6
+text -1 85 per blacksmith is recommended.
+
+text -1 120 Blacksmiths do not have to be connected
+text -1 130 to transport. They can get all they need
+text -1 140 from markets that are within range.
+
+text -1 155 You can see when a blacksmith is working
+text -1 165 in the usual way, by clicking on it, and
+text -1 175 every so often the animation will come
+text -1 185 to life.
+
+text 50 220 This is a blacksmith
+icon 240 210 blacksmith1.csi
+
+text 20 300 See also:
+
+tbutton 100 300 market.hlp Markets
+tbutton 100 320 ore.hlp Ore
+tbutton 100 340 commune.hlp Communes
+tbutton 100 360 steel.hlp Steel

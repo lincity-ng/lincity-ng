@@ -1,0 +1,34 @@
+text -1 15 University
+
+text -1 30 Universities help to increase your
+text -1 40 technology level. In the process they
+text -1 50 consume goods and jobs. They produce more
+text -1 60 than schools for a given goods/jobs input.
+text -1 70 However, they use a lot of these
+text -1 80 and also cost quite a lot of money to run,
+text -1 90 so you should have the economic and
+text -1 100 industrial capacity to supply them.
+
+text -1 115 You will need a number of universities to
+text -1 125 achieve a tech level close to 100%
+
+text -1 145 Universities do not need to be connected to
+text -1 155 transport; they can get all thier requirements
+text -1 165 from markets (which must be in range and have
+text -1 175 goods and jobs available).
+
+text -1 190 ---- NOTE ----
+text -1 203 You MUST have 5 schools PER university to
+text -1 213 supply it with students.
+
+text 40 245 See also:
+tbutton 50 265 market.hlp Markets
+tbutton 50 285 transport.hlp Transport
+tbutton 50 305 goods.hlp Goods
+tbutton 50 325 jobs.hlp Jobs
+
+icon 220 260 university.csi
+text 195 320 A university
+/text 150 335 [ Thanks to:
+/text 150 345 jasper@wulfrun.demon.co.uk ]
+

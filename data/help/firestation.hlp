@@ -1,0 +1,44 @@
+text -1 15 Fire stations
+
+text -1 30 Fire stations prevent the start and
+text -1 40 spread of fire with in the range that
+text -1 50 they cover. They need to be supplied with
+text -1 60 goods and jobs to work. They do NOT have
+text -1 70 to be connected to transport, they do,
+text -1 80 of course, have to be within range of a
+text -1 90 market that can supply the jobs and goods.
+text -1 100 They also cost money to run.
+
+text -1 115 When you put a fire station in, it does
+text -1 125 not start straight away. There is usually a
+text -1 135 three month wait before fire cover is provided.
+/text -1 145 provided.
+
+text -1 155 To see the area that your fire stations
+text -1 165 cover, click on the fire station button
+text -1 175 above the 'mini screen'. Areas that have
+text -1 185 fire cover are displayed as normal, areas
+text -1 195 not covered are just dark green.
+
+text -1 210 The fire station button above the
+text 80 225 mini-screen looks like this
+icon 306 221 firestation-button.csi
+
+text -1 240 Fire stations increase the desirability of
+text -1 250 residential areas within their range.
+
+text 20 270 See also:
+tbutton 100 270 mini-screen.hlp Mini-Screen
+tbutton 100 290 goods.hlp Goods
+tbutton 100 310 market.hlp Markets
+tbutton 100 330 jobs.hlp Jobs
+
+text 220 270 Fire stations go
+text 220 280 through an
+text 220 290 animation sequence
+text 220 300 every month to
+text 220 310 show that they
+text 220 320 are working.
+
+text 60 360 This is a fire station
+icon 260 350 firestation1.csi

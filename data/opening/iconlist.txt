@@ -1,0 +1,648 @@
+## size 1 buildings
+green 0 0
+fire1 1 0
+fire2 1 1
+fire3 1 2
+fire4 1 3
+fire5 1 4
+firedone1 2 0
+firedone2 2 1
+firedone3 2 2
+firedone4 2 3
+burnt_land 3 0
+parkland-plane 4 0
+parkland-lake 4 1
+powerlhl 5 0
+powerlvl 5 1
+powerlldl 5 2
+powerlrdl 5 3
+powerllul 5 4
+powerlrul 5 5
+powerlldul 5 6
+powerlldrl 5 7
+powerllurl 5 8
+powerludrl 5 9
+powerlludrl 5 10
+powerlhd 5 11
+powerlvd 5 12
+powerlldd 5 13
+powerlrdd 5 14
+powerllud 5 15
+powerlrud 5 16
+powerlldud 5 17
+powerlldrd 5 18
+powerllurd 5 19
+powerludrd 5 20
+powerlludrd 5 21
+raillr 6 0
+raillu 6 1
+railld 6 2
+railud 6 3
+railur 6 4
+raildr 6 5
+raillur 6 6
+railldr 6 7
+raillud 6 8
+railudr 6 9
+railludr 6 10
+roadlr 7 0
+roadlu 7 1
+roadld 7 2
+roadud 7 3
+roadur 7 4
+roaddr 7 5
+roadlur 7 6
+roadldr 7 7
+roadlud 7 8
+roadudr 7 9
+roadludr 7 10
+tracklr 8 0
+tracklu 8 1
+trackld 8 2
+trackud 8 3
+trackur 8 4
+trackdr 8 5
+tracklur 8 6
+trackldr 8 7
+tracklud 8 8
+trackudr 8 9
+trackludr 8 10
+water 9 0
+waterd 9 1
+waterr 9 2
+wateru 9 3
+waterl 9 4
+waterlr 9 5
+waterud 9 6
+waterld 9 7
+waterrd 9 8
+waterlu 9 9
+waterur 9 10
+waterlud 9 11
+waterlrd 9 12
+waterlur 9 13
+waterurd 9 14
+waterlurd 9 15
+## size 2 buildings
+blacksmith0 10 0
+blacksmith1 10 2
+blacksmith2 10 4
+blacksmith3 10 6
+blacksmith4 10 8
+blacksmith5 10 10
+blacksmith6 10 12
+cricket1 12 0
+cricket2 12 2
+cricket3 12 4
+cricket4 12 6
+cricket5 12 8
+cricket6 12 10
+cricket7 12 12
+## firestation 13 0
+firestation1 14 0
+firestation2 14 2
+firestation3 14 4
+firestation4 14 6
+firestation5 14 8
+firestation6 14 10
+firestation7 14 12
+firestation8 14 14
+firestation9 14 16
+firestation10 14 18
+health 16 0
+market-empty 18 0
+market-low 18 2
+market-med 18 4
+market-full 18 6
+mill0 20 0
+mill1 20 2
+mill2 20 4
+mill3 20 6
+mill4 20 8
+mill5 20 10
+mill6 20 12
+monument0 22 0
+monument1 22 2
+monument2 22 4
+monument3 22 6
+monument4 22 8
+monument5 22 10
+pottery0 24 0
+pottery1 24 2
+pottery2 24 4
+pottery3 24 6
+pottery4 24 8
+pottery5 24 10
+pottery6 24 12
+pottery7 24 14
+pottery8 24 16
+pottery9 24 18
+pottery10 24 20
+recycle-centre 26 0
+school0 28 0
+shanty 30 0
+substation-R 32 0
+substation-G 32 2
+substation-RG 32 4
+windmill1g 34 0
+windmill2g 34 2
+windmill3g 34 4
+windmill1rg 34 6
+windmill2rg 34 8
+windmill3rg 34 10
+windmill1r 34 12
+windmill2r 34 14
+windmill3r 34 16
+windmill1w 34 18
+windmill2w 34 20
+windmill3w 34 22
+## size 3 buildings
+## (note: industrylq1 should be listed twice)
+industrylq1 36 0
+industrylq1 36 3
+industrylq2 36 6
+industrylq3 36 9
+industrylq4 36 12
+industryll1 36 15
+industryll2 36 18
+industryll3 36 21
+industryll4 36 24
+industrylm1 36 27
+industrylm2 36 30
+industrylm3 36 33
+industrylm4 36 36
+industrylh1 36 39
+industrylh2 36 42
+industrylh3 36 45
+industrylh4 36 48
+reslowlow 39 0
+resmedlow 39 3
+reshilow 39 6
+reslowhi 39 9
+resmedhi 39 12
+reshihi 39 15
+university 42 0
+## size 4 buildings
+coalmine-empty 45 0
+coalmine-low 45 4
+coalmine-med 45 8
+coalmine-full 45 12
+commune1 49 0
+commune2 49 4
+commune3 49 8
+commune4 49 12
+commune5 49 16
+commune6 49 20
+commune7 49 24
+commune8 49 28
+commune9 49 32
+commune10 49 36
+commune11 49 40
+commune12 49 44
+commune13 49 48
+commune14 49 52
+ex_port 53 0
+## im_port 52 4
+farm0 57 0
+farm1 57 4
+farm2 57 8
+farm3 57 12
+farm4 57 16
+farm5 57 20
+farm6 57 24
+farm7 57 28
+farm8 57 32
+farm9 57 36
+farm10 57 40
+farm11 57 44
+farm12 57 48
+farm13 57 52
+farm14 57 56
+farm15 57 60
+farm16 57 64
+industryhc 61 0
+industryhl1 61 4
+industryhl2 61 8
+industryhl3 61 12
+industryhl4 61 16
+industryhl5 61 20
+industryhl6 61 24
+industryhl7 61 28
+industryhl8 61 32
+industryhm1 61 36
+industryhm2 61 40
+industryhm3 61 44
+industryhm4 61 48
+industryhm5 61 52
+industryhm6 61 56
+industryhm7 61 60
+industryhm8 61 64
+industryhh1 61 68
+industryhh2 61 72
+industryhh3 61 76
+industryhh4 61 80
+industryhh5 61 84
+industryhh6 61 88
+industryhh7 61 92
+industryhh8 61 96
+oremine1 65 0
+oremine2 65 4
+oremine3 65 8
+oremine4 65 12
+oremine5 65 16
+oremine6 65 20
+oremine7 65 24
+oremine8 65 28
+powerscoal-empty 69 0
+powerscoal-low 69 4
+powerscoal-med 69 8
+powerscoal-full 69 12
+powerssolar 73 0
+rocket1 77 0
+rocket2 77 4
+rocket3 77 8
+rocket4 77 12
+rocket5 77 16
+rocket6 77 20
+rocket7 77 24
+rocketflown 77 28
+tip0 81 0
+tip1 81 4
+tip2 81 8
+tip3 81 12
+tip4 81 16
+tip5 81 20
+tip6 81 24
+tip7 81 28
+tip8 81 32
+@
+
+blacksmith-button.ppm
+> blacksmith0.ppm
+> blacksmith1.ppm
+> blacksmith2.ppm
+> blacksmith3.ppm
+> blacksmith4.ppm
+> blacksmith5.ppm
+> blacksmith6.ppm
+blank.ppm
+buldoze-button.ppm
+burnt_land.ppm
+checked_box.ppm
+coalmine-button.ppm
+> coalmine-empty.ppm
+> coalmine-full.ppm
+> coalmine-low.ppm
+> coalmine-med.ppm
+commune-button.ppm
+commune.ppm
+> commune1.ppm
+> commune10.ppm
+> commune11.ppm
+> commune12.ppm
+> commune13.ppm
+> commune14.ppm
+> commune2.ppm
+> commune3.ppm
+> commune4.ppm
+> commune5.ppm
+> commune6.ppm
+> commune7.ppm
+> commune8.ppm
+> commune9.ppm
+cricket-button.ppm
+> cricket1.ppm
+> cricket2.ppm
+> cricket3.ppm
+> cricket4.ppm
+> cricket5.ppm
+> cricket6.ppm
+> cricket7.ppm
+ex_port-button.ppm
+> ex_port.ppm
+> farm0.ppm
+> farm1.ppm
+> farm10.ppm
+> farm11.ppm
+> farm12.ppm
+> farm13.ppm
+> farm14.ppm
+> farm15.ppm
+> farm16.ppm
+> farm2.ppm
+> farm3.ppm
+> farm4.ppm
+> farm5.ppm
+> farm6.ppm
+> farm7.ppm
+> farm8.ppm
+> farm9.ppm
+fast-offl.ppm
+fast-offr.ppm
+fast-onl.ppm
+fast-onr.ppm
+> fire1.ppm
+> fire2.ppm
+> fire3.ppm
+> fire4.ppm
+> fire5.ppm
+> firedone1.ppm
+> firedone2.ppm
+> firedone3.ppm
+> firedone4.ppm
+firestation-button.ppm
+> firestation.ppm
+> firestation1.ppm
+> firestation10.ppm
+> firestation2.ppm
+> firestation3.ppm
+> firestation4.ppm
+> firestation5.ppm
+> firestation6.ppm
+> firestation7.ppm
+> firestation8.ppm
+> firestation9.ppm
+> green.ppm
+health-button.ppm
+> health.ppm
+help-button.ppm
+im_port-button.ppm
+> im_port.ppm
+industryh-button.ppm
+> industryhc.ppm
+> industryhh1.ppm
+> industryhh2.ppm
+> industryhh3.ppm
+> industryhh4.ppm
+> industryhh5.ppm
+> industryhh6.ppm
+> industryhh7.ppm
+> industryhh8.ppm
+> industryhl1.ppm
+> industryhl2.ppm
+> industryhl3.ppm
+> industryhl4.ppm
+> industryhl5.ppm
+> industryhl6.ppm
+> industryhl7.ppm
+> industryhl8.ppm
+> industryhm1.ppm
+> industryhm2.ppm
+> industryhm3.ppm
+> industryhm4.ppm
+> industryhm5.ppm
+> industryhm6.ppm
+> industryhm7.ppm
+> industryhm8.ppm
+industryl-button.ppm
+> industrylh1.ppm
+> industrylh2.ppm
+> industrylh3.ppm
+> industrylh4.ppm
+> industryll1.ppm
+> industryll2.ppm
+> industryll3.ppm
+> industryll4.ppm
+> industrylm1.ppm
+> industrylm2.ppm
+> industrylm3.ppm
+> industrylm4.ppm
+> industrylq1.ppm
+> industrylq2.ppm
+> industrylq3.ppm
+> industrylq4.ppm
+load-button.ppm
+market-button.ppm
+> market-empty.ppm
+> market-full.ppm
+> market-low.ppm
+> market-med.ppm
+market.ppm
+med-offl.ppm
+med-offr.ppm
+med-onl.ppm
+med-onr.ppm
+menu-button.ppm
+mill-button.ppm
+> mill0.ppm
+> mill1.ppm
+> mill2.ppm
+> mill3.ppm
+> mill4.ppm
+> mill5.ppm
+> mill6.ppm
+monument-button.ppm
+> monument0.ppm
+> monument1.ppm
+> monument2.ppm
+> monument3.ppm
+> monument4.ppm
+> monument5.ppm
+mouse-confined.ppm
+mouse-free.ppm
+ms-coal-button.ppm
+ms-cricket-cover-button.ppm
+ms-fire-cover-button.ppm
+ms-health-cover-button.ppm
+ms-normal-button.ppm
+ms-ocost-button.ppm
+ms-pollution-button.ppm
+ms-power-button.ppm
+ms-starve-button.ppm
+ms-ub40-button.ppm
+norm-offl.ppm
+norm-offr.ppm
+norm-onl.ppm
+norm-onr.ppm
+not-implemented.ppm
+oremine-button.ppm
+> oremine1.ppm
+> oremine2.ppm
+> oremine3.ppm
+> oremine4.ppm
+> oremine5.ppm
+> oremine6.ppm
+> oremine7.ppm
+> oremine8.ppm
+organic-farm-button.ppm
+organic-farm.ppm
+parkland-button.ppm
+> parkland-lake.ppm
+> parkland-plane.ppm
+pause-offl.ppm
+pause-offr.ppm
+pause-onl.ppm
+pause-onr.ppm
+pbarcoal.ppm
+pbardown1.ppm
+pbardown2.ppm
+pbarfood.ppm
+pbargoods.ppm
+pbarjobs.ppm
+pbarmoney.ppm
+pbarore.ppm
+pbarpop.ppm
+pbarsteel.ppm
+pbartech.ppm
+pbarup1.ppm
+pbarup2.ppm
+port-button.ppm
+pottery-button.ppm
+> pottery0.ppm
+> pottery1.ppm
+> pottery10.ppm
+> pottery2.ppm
+> pottery3.ppm
+> pottery4.ppm
+> pottery5.ppm
+> pottery6.ppm
+> pottery7.ppm
+> pottery8.ppm
+> pottery9.ppm
+> powerlhd.ppm
+> powerlhl.ppm
+powerline-button.ppm
+> powerlldd.ppm
+> powerlldl.ppm
+> powerlldrd.ppm
+> powerlldrl.ppm
+> powerlldud.ppm
+> powerlldul.ppm
+> powerllud.ppm
+> powerlludrd.ppm
+> powerlludrl.ppm
+> powerllul.ppm
+> powerllurd.ppm
+> powerllurl.ppm
+> powerlrdd.ppm
+> powerlrdl.ppm
+> powerlrud.ppm
+> powerlrul.ppm
+> powerludrd.ppm
+> powerludrl.ppm
+> powerlvd.ppm
+> powerlvl.ppm
+powerscoal-button.ppm
+> powerscoal-empty.ppm
+> powerscoal-full.ppm
+> powerscoal-low.ppm
+> powerscoal-med.ppm
+powerssolar-button.ppm
+> powerssolar.ppm
+quit-button.ppm
+rail-button.ppm
+> raildr.ppm
+> railld.ppm
+> railldr.ppm
+> raillr.ppm
+> raillu.ppm
+> raillud.ppm
+> railludr.ppm
+> raillur.ppm
+> railud.ppm
+> railudr.ppm
+> railur.ppm
+recycle-button.ppm
+> recycle-centre.ppm
+> reshihi.ppm
+> reshilow.ppm
+residence-button.ppm
+> reslowhi.ppm
+> reslowlow.ppm
+> resmedhi.ppm
+> resmedlow.ppm
+results-l.ppm
+results-r.ppm
+road-button.ppm
+> roaddr.ppm
+> roadld.ppm
+> roadldr.ppm
+> roadlr.ppm
+> roadlu.ppm
+> roadlud.ppm
+> roadludr.ppm
+> roadlur.ppm
+> roadud.ppm
+> roadudr.ppm
+> roadur.ppm
+rocket-button.ppm
+> rocket1.ppm
+> rocket2.ppm
+> rocket3.ppm
+> rocket4.ppm
+> rocket5.ppm
+> rocket6.ppm
+> rocket7.ppm
+> rocketflown.ppm
+save-button.ppm
+school-button.ppm
+> school0.ppm
+> shanty.ppm
+slow-offl.ppm
+slow-offr.ppm
+slow-onl.ppm
+slow-onr.ppm
+substation-G.ppm
+substation-R.ppm
+substation-RG.ppm
+substation-button.ppm
+tip-button.ppm
+> tip0.ppm
+> tip1.ppm
+> tip2.ppm
+> tip3.ppm
+> tip4.ppm
+> tip5.ppm
+> tip6.ppm
+> tip7.ppm
+> tip8.ppm
+tover1-off.ppm
+tover1-on.ppm
+tover2-off.ppm
+tover2-on.ppm
+track-button.ppm
+> trackdr.ppm
+> trackld.ppm
+> trackldr.ppm
+> tracklr.ppm
+> tracklu.ppm
+> tracklud.ppm
+> trackludr.ppm
+> tracklur.ppm
+> trackud.ppm
+> trackudr.ppm
+> trackur.ppm
+unchecked_box.ppm
+university-button.ppm
+> university.ppm
+wallpaper.ppm
+water-button.ppm
+> water.ppm
+> waterd.ppm
+> waterl.ppm
+> waterld.ppm
+> waterlr.ppm
+> waterlrd.ppm
+> waterlu.ppm
+> waterlud.ppm
+> waterlur.ppm
+> waterlurd.ppm
+> waterr.ppm
+> waterrd.ppm
+> wateru.ppm
+> waterud.ppm
+> waterur.ppm
+> waterurd.ppm
+windmill-button.ppm
+> windmill1g.ppm
+> windmill1r.ppm
+> windmill1rg.ppm
+> windmill1w.ppm
+> windmill2g.ppm
+> windmill2r.ppm
+> windmill2rg.ppm
+> windmill2w.ppm
+> windmill3g.ppm
+> windmill3r.ppm
+> windmill3rg.ppm
+> windmill3w.ppm

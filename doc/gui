@@ -1,0 +1,6 @@
+barchart/line history is in screen.cc (static void do_monthgraph (int full_refresh))
+
+mps in mps.cc
+
+minimap in update_main_screen (int full_refresh) (also screen.cc)
+

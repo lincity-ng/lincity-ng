@@ -1,0 +1,54 @@
+text -1 15 Monuments
+
+text -1 30 Monuments provide a focal point for
+text -1 40 the teaching and inspiration of
+text -1 50 inventers. Every monument you build will
+text -1 60 increase the rate of technology growth,
+text -1 70 but their effectiveness drops to zero as
+text -1 80 you get toward 40% tech level.
+
+text -1 95 To build a monument, you need to provide
+text -1 105 jobs, a LOT of jobs. For this reason they
+text -1 115 are useful for controlling unemployment.
+text -1 125 This is only a short term solution to an
+text -1 135 unemployment problem as monuments don't
+text -1 145 use any jobs after they are fully built.
+
+text -1 160 You can tell how far building has
+text -1 170 progressed by clicking on the monument
+text -1 180 and looking at the stats window (top left
+text -1 190 of centre). Also the graphic changes as it
+text -1 200 is built. The following 6 graphics show the
+text -1 210 stages of construction from 0% to 100%
+
+icon 50 230 monument0.csi
+icon 100 230 monument1.csi
+icon 150 230 monument2.csi
+icon 200 230 monument3.csi
+icon 250 230 monument4.csi
+icon 300 230 monument5.csi
+
+text -1 270 HINT: How to stop monument building sucking
+text -1 280 too many jobs out of an area and therefore
+text -1 290 starving other areas of jobs: Build a
+text -1 300 monument farm away from other areas.
+
+text 10 320 Track connected
+text 10 330 to the main part
+text 10 340 of the game.
+
+icon 148 330 tracklr.csi
+icon 164 330 tracklr.csi
+icon 180 330 tracklr.csi
+icon 196 330 tracklr.csi
+icon 212 330 tracklr.csi
+icon 228 330 tracklr.csi
+icon 244 330 tracklr.csi
+icon 260 330 tracklr.csi
+icon 276 330 tracklr.csi
+icon 292 330 market-med.csi
+icon 324 330 monument4.csi
+
+text 150 370 You will need a          here
+tbutton 286 368 market.hlp market
+ 

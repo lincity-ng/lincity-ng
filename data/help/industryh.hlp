@@ -1,0 +1,54 @@
+text -1 15 Heavy industry (steel works)
+
+text -1 30 Steel works produce steel from ore, power
+text -1 40 and jobs. Ore is obtained directly from the
+text -1 50 connected transport, the steel is placed onto
+text -1 60 the transport as well. Jobs are obtained from
+text -1 70 a local market.
+text -1 80 Transport connects to the top left corner.
+
+text -1 95 Power can be got to the steel works in two
+text -1 105 ways. The first is from coal, which is
+text -1 115 obtained directly from connected transport.
+text -1 125 The second is from electricity, you must
+text -1 135 have one, or more, active substations within
+text -1 145 range of the steel works. (Windmills do NOT
+text -1 155 supply power to steel works.)
+
+text -1 170 A typical steel works is shown below.
+text 80 185 Steel works produce
+tbutton 240 183 pollution.hlp Pollution
+
+icon 140 220 industryhm1.csi
+icon 124 220 raillr.csi
+icon 108 220 raillr.csi
+text 20 220 Ore and
+text 20 230 steel come 
+text 20 240 by rail.
+
+icon 140 300 market-full.csi
+icon 124 316 roadlr.csi
+icon 108 316 roadlr.csi
+text 20 300 A market to
+text 30 310 supply
+text 30 320 jobs.
+
+icon 240 226 substation-G.csi
+icon 240 210 powerlrdl.csi
+icon 256 210 powerlhl.csi
+icon 272 210 powerlhd.csi
+icon 288 210 powerlhl.csi
+icon 304 210 powerlhl.csi
+icon 320 210 powerlhd.csi
+icon 336 210 powerlhl.csi
+text 280 235 Power from a
+text 280 245 power station.
+
+tbutton 218 262 substation.hlp Substation
+tbutton 180 310 market.hlp Market
+
+text 20 362 See also:
+tbutton 100 360 transport.hlp Transport
+tbutton 200 360 power.hlp Power
+tbutton 265 360 coal.hlp Coal
+tbutton 320 360 ore.hlp Ore

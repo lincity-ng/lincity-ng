@@ -1,0 +1,22 @@
+text -1 15 Potteries
+
+text -1 30 Potteries use ore, coal and jobs to make
+text -1 40 goods. They do not have to be connected
+text -1 50 to transport but they do, of course, have
+text -1 60 to be within range of a market with ore,
+text -1 70 coal and jobs and be able to receive goods.
+
+text -1 85 You can tell when potteries are working by
+text -1 95 the kilns producing smoke. If the bottom
+text -1 105 kiln is not making smoke, then you are
+text -1 115 producing less than 100% of possible output.
+
+text 50 150 This is a pottery
+icon 200 140 pottery0.csi
+
+text 80 200 See also:
+tbutton 200 220 transport.hlp Transport
+tbutton 200 240 ore.hlp Ore
+tbutton 200 260 coal.hlp Coal
+tbutton 200 280 jobs.hlp Jobs
+tbutton 200 300 market.hlp Markets

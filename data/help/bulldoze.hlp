@@ -1,0 +1,25 @@
+text -1 15 Bulldoze
+text -1 40 To demolish an area, you select the
+text -1 50 bulldoze button, then click on the area
+text -1 60 you wish to get rid of.
+text -1 75 Demolition costs money. When you build
+text -1 85 an area, the cost to build it and demolish
+text -1 95 it are shown at the botton left of the screen.
+
+text -1 110 Some things, such as monuments, are very
+text -1 120 expensive to demolish. The cost of
+text -1 130 demolition takes acount not only of the
+text -1 140 physical cost of disposal, but also the
+text -1 150 political cost. For example, to demolish a
+text -1 160 monument, you will have protesters and court
+text -1 170 costs as well.
+
+text -1 185 At this time, demolishing river areas are the
+text -1 195 only way to cross them with transport. Think
+text -1 205 of the demolished river with transport crossing
+text -1 215 the cleared area as a bridge.
+
+text 50 280 See also:
+tbutton 50 300 transport.hlp Transport
+tbutton 50 320 river.hlp Rivers
+

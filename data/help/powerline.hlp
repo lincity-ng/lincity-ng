@@ -1,0 +1,28 @@
+text -1 15 Power lines
+text -1 30 Power lines carry power from solar and coal
+text -1 40 power stations to substations.
+text -1 60 Power lines connect to the top left corner of
+text -1 70 each of the three types of icons, solar and
+text -1 80 coal power stations and substations.
+text -1 95 The example below shows a substation being
+text -1 105 fed by a solar power station,
+text -1 115 using power lines.
+icon 220 200 powerssolar.csi
+icon 220 184 powerlvl.csi
+icon 204 200 powerlhl.csi
+icon 188 200 powerlhd.csi
+icon 172 200 powerlhl.csi
+icon 156 200 powerlrdl.csi
+icon 156 216 substation-G.csi
+
+text 110 184 Power lines
+
+text 126 254 Substation
+button 124 252 84 12 substation.hlp
+
+text 190 280 Solar power station
+button 188 278 156 12 powerssolar.hlp
+
+text -1 325 Power lines can cross tracks, roads, railways
+text -1 335 and rivers. See...
+tbutton -1 350 powerline2.hlp Crossing transport and rivers

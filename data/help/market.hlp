@@ -1,0 +1,34 @@
+text -1 15 Market
+text -1 30 Market is probably a bad name for these areas.
+text -1 40 They are more like job centres, shops,
+text -1 50 warehouses and markets all rolled into one.
+text -1 65 They buy and sell food, jobs, coal, goods,
+text -1 75 ore and steel to surrounding areas, and
+text -1 85 to transport such as roads.
+text -1 100 In the following example, a residential area
+text -1 110 is supplying jobs to a market, the market is
+text -1 120 supplying jobs to the, half built, monument.
+text -1 130 NOTE, in this example the residents
+text -1 140 are not being fed!
+text -1 160 The areas are more or less at the extent
+text -1 170 of their range.
+
+icon 90 200 monument2.csi
+icon 180 200 market-low.csi
+icon 270 192 resmedlow.csi
+
+tbutton 72 240 monument.hlp Monument
+text 174 242 Market
+tbutton 256 252 residential.hlp Residence
+
+tbutton -1 280 market2.hlp Controlling what markets can buy and sell
+
+text 80 315 See also:
+tbutton 80 335 food.hlp Food
+tbutton 140 335 jobs.hlp Jobs
+tbutton 200 335 coal.hlp Coal
+tbutton 260 335 goods.hlp Goods
+tbutton 88 360 ore.hlp Ore
+tbutton 148 360 steel.hlp Steel
+tbutton 218 360 transport.hlp Transport
+  

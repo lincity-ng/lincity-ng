@@ -1,0 +1,9 @@
+
+text -1 200 This is the fast speed button. 
+text -1 210 It causes the game to run as
+text -1 220 fast as possible. 
+text -1 230 On slow machines the speed buttons
+text -1 240 may have no effect.
+text -1 255 Care should be taken when using
+text -1 265 fast mode on fast machines;
+text -1 275 'situations' can develop vary fast!

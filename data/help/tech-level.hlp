@@ -1,0 +1,41 @@
+
+text -1 15 Tech Level
+
+text -1 40 Your city's technology level determines
+text -1 50 a number of things such as what you can
+text -1 60 build and the efficiency of certain
+text -1 70 processes.
+
+text -1 85 To increase your technology, you must
+text -1 95 build (and supply with the appropriate
+text -1 105 inputs) Monuments, Schools and 
+text -1 115 Universities.
+
+text -1 130 When your tech level is very low, you
+text -1 140 can only build monuments. When a few of
+text -1 150 these have been around for a while, you
+text -1 160 will then 'invent' schools. Schools
+text -1 170 produce more technology than monuments.
+
+text -1 185 When your tech level reaches a higher
+text -1 195 value still, you will 'invent'
+text -1 205 universities. These produce even more
+text -1 215 technology than schools, but are VERY
+text -1 225 resource hungry.
+
+text -1 240 The more technology you have, the faster
+text -1 250 it 'erodes'. This means that the higher
+text -1 260 you want your tech level to be, the more
+text -1 270 schools and universities you will need.
+
+text -1 280 Also, be aware that if for some reason you
+text -1 290 need to take out, say, a university or two
+text -1 300 (or they are suddenly starved of resources)
+text -1 310 your tech level is likely to start FALLING.
+
+text 20 335 See also:
+tbutton 100 347 school.hlp Schools
+tbutton 100 365 university.hlp Universities
+
+
+

@@ -1,0 +1,8 @@
+gui_interface:
+	screen.h - must be stay in interface, as it's used widely over the sim-engine
+	cliglobs.h - must stay here, as there are many global variables and some dependencies on X11/SVGA,etc.
+	common.h - dispatcher for 
+engine:
+	simulation.cc - deleted dependencies on X11/Win32
+	lintypes.cc - here are dependencies on readpng.h and the graphics files (icons) - should be moved to oldgui - then readpng.h could be moved there, too
+

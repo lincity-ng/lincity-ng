@@ -1,0 +1,47 @@
+text -1 15 Light industrial areas
+
+text -1 30 Light industry converts ore into goods. The
+text -1 40 conversion becomes more efficient if steel
+text -1 50 is also available. Power increases the output
+text -1 60 further still. Windmills do NOT provide power
+text -1 70 for these areas.
+
+text -1 85 As a rule of thumb, ignoring the above, the
+text -1 95 output of a light industrial area is mainly
+text -1 105 dependent on the amount of raw materials,
+text -1 115 including jobs, that it can get, also the
+text -1 125 amount of goods that can be TAKEN AWAY.
+
+text -1 140 These areas connect directly to transport
+text -1 150 to exchange ore, steel and goods. They
+text -1 160 may need a market to supply jobs.
+
+text -1 175 These areas connect to transport ONLY to
+text -1 185 the top left hand corner, as shown.
+text -1 195 Transport will curve in when it is connected.
+
+icon 110 250 industrylm1.csi
+icon 94 250 roadlr.csi
+icon 78 250 roadlr.csi
+icon 110 234 railud.csi
+icon 110 218 railud.csi
+
+icon 250 250 industrylm1.csi
+icon 234 250 roaddr.csi
+icon 234 266 roadud.csi
+icon 234 282 roadud.csi
+icon 234 298 roadud.csi
+icon 250 234 raildr.csi
+icon 266 234 raillr.csi
+icon 282 234 raillr.csi
+icon 298 234 raillr.csi
+icon 180 270 market-full.csi
+
+text -1 320 The market is within range of both areas.
+text -1 330 (The market must have jobs to supply)
+
+text 25 350 See also:
+tbutton 65 370 transport.hlp Transport
+tbutton 160 370 road.hlp Roads
+tbutton 222 370 rail.hlp Railways
+tbutton 310 370 market.hlp Markets

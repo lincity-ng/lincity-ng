@@ -1,0 +1,47 @@
+text -1 15 Coal mine - page 1 of 2
+text -1 30 Coal mines dig coal from under the ground.
+text -1 40 There must be a coal vein close to the mine.
+text -1 50 To see where the veins are, you can click
+text -1 60 on the coal button just above the mini screen.
+
+text 100 80 It looks like this
+icon 260 75 ms-coal-button.csi
+ 
+text -1 95 The first time you use this button, it will
+text -1 105 cost you 1 million. After that it is free.
+text -1 120 You don't need to use this button, but you
+text -1 130 will have to find the coal by trial and error.
+
+text -1 145 Coal mines need jobs to dig coal.
+
+icon 120 200 coalmine-full.csi
+icon 104 200 roadlr.csi
+icon 88 200 roadlr.csi
+icon 72 200 roadlr.csi
+icon 56 200 roaddr.csi
+/icon 40 200 roaddr.csi
+icon 40 216 powerscoal-full.csi
+
+icon 120 184 raildr.csi
+icon 136 184 raillr.csi
+icon 150 184 raillr.csi
+icon 166 184 raillr.csi
+icon 180 184 raillr.csi
+
+text 210 190 This shows a coal fired
+text 210 200 power station connected
+text 210 210 to a coalmine with
+text 210 220 a road.
+text 210 235 A railway is coming out
+text 210 245 of the top gate of the
+text 210 255 coalmine and going off
+text 210 265 to the right.
+
+text 120 270 Coalmine
+tbutton 42 285 powerscoal.hlp Coal PS
+
+text -1 310 The graphics show the amount of coal
+text -1 320 already dug but not put onto transport.
+text -1 330 The above coal mine has maximum stock.
+ 
+tbutton -1 370 coalmine2.hlp More about coal mines

@@ -1,0 +1,81 @@
+text -1 15 Crossing transport and rivers
+
+text -1 30 Power lines cross UNDER tracks, roads,
+text -1 40 railways and rivers. If a power line is
+text -1 50 placed either side of a transport or river
+text -1 60 area, they act as if they are joined.
+text -1 75 See the examples below.
+
+icon 40 110 powerlhl.csi
+icon 56 110 powerlhl.csi
+icon 72 110 powerlhl.csi
+icon 88 110 roadud.csi
+icon 104 110 powerlhl.csi
+icon 120 110 powerlhl.csi
+icon 88 94 roadud.csi
+icon 88 126 roadud.csi
+text 145 108 These power lines are
+text 145 118 connected under the road.
+
+icon 40 170 powerlhl.csi
+icon 56 170 powerlhl.csi
+icon 72 170 powerlhl.csi
+icon 88 170 railud.csi
+icon 104 170 powerlhl.csi
+icon 120 170 powerlhl.csi
+icon 88 154 railld.csi
+icon 72 154 raillr.csi
+icon 88 186 raillur.csi
+icon 72 186 raillr.csi
+icon 104 186 raillr.csi
+
+text 145 168 These power lines are
+text 145 178 connected under the rails.
+ 
+icon 50 210 water.csi
+icon 66 210 water.csi
+icon 50 226 water.csi
+icon 66 226 water.csi
+icon 66 242 water.csi
+/icon 82 242 water.csi
+icon 66 258 water.csi
+icon 82 258 water.csi
+icon 50 274 water.csi
+icon 66 274 water.csi
+icon 66 290 water.csi
+icon 82 290 water.csi
+icon 66 306 water.csi
+icon 82 306 water.csi
+icon 82 322 water.csi
+icon 98 322 water.csi
+icon 82 338 water.csi
+icon 98 338 water.csi
+
+icon 34 242 powerlhl.csi
+icon 50 242 powerlhl.csi
+icon 82 242 powerlhl.csi
+icon 98 242 powerlhl.csi
+
+icon 34 322 powerlhl.csi
+icon 50 322 powerlhl.csi
+icon 66 322 powerlhl.csi
+/icon 98 322 powerlhd.csi
+icon 114 322 powerlhd.csi
+icon 130 322 powerlhd.csi
+
+icon 98 306 powerlvd.csi
+icon 98 290 powerlvd.csi
+
+text 130 230 These power lines are connected
+text 130 240 under the river. Often you will
+text 130 250 have to bulldoze a bit of river
+text 130 260 to do this, it's expensive!
+
+text 155 300 None of these 3 bits of power
+text 155 310 line are joined. The leftmost
+text 155 320 one is not connected because
+text 155 330 it tries to go under 2 river
+text 155 340 blocks. The right ones are
+text 155 350 note joined because they must
+text 135 360 be in a straight line to connect.
+

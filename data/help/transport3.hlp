@@ -1,0 +1,60 @@
+text -1 15 Tracks Roads and Railways Page 3 of 4
+
+text -1 30 Tracks, roads and railways are used to
+text -1 40 carry food, jobs, goods, coal, ore and steel
+text -1 50 between areas.
+
+text -1 65 The following areas connect to transport
+text -1 75 at the top left hand edge (see example
+text -1 85 below).
+
+tbutton 34 100 industryl.hlp Light indusrty
+tbutton 180 100 oremine.hlp Ore mines
+tbutton 280 100 tip.hlp Tips
+tbutton 34 120 port.hlp Ports
+tbutton 100 120 coalmine.hlp Coal mines
+tbutton 220 120 industryh.hlp Heavy industry
+tbutton 100 140 recycle.hlp Recycling centres
+
+text -1 165 An exception is the coal power station.
+
+
+icon 120 200 coalmine-full.csi
+icon 104 200 roadlr.csi
+icon 88 200 roadlr.csi
+icon 72 200 roadlr.csi
+icon 56 200 roaddr.csi
+/icon 40 200 roaddr.csi
+icon 40 216 powerscoal-full.csi
+
+icon 120 184 raildr.csi
+icon 136 184 raillr.csi
+icon 150 184 raillr.csi
+icon 166 184 raillr.csi
+icon 180 184 raillr.csi
+
+text 210 190 This shows a coal fired
+text 210 200 power station connected
+text 210 210 to a coalmine with
+text 210 220 a road.
+text 210 235 A railway is coming out
+text 210 245 of the top gate of the
+text 210 255 coalmine and going off
+text 210 265 to the right.
+
+icon 104 248 roadud.csi
+icon 104 264 roadud.csi
+icon 104 280 roadud.csi
+icon 104 296 roadud.csi
+icon 88 296 market-full.csi
+
+text 130 296 This market is connected to this
+text 130 306 road, the road is NOT connected
+text 130 316 to either the mine nor the
+text 130 326 power station.
+
+tbutton 130 270 coalmine.hlp Coalmine
+tbutton 21 285 powercoal.hlp Coal PS
+tbutton 25 310 market.hlp Market
+
+tbutton -1 350 transport4.hlp Next page - Crossing rivers

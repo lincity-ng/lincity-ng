@@ -1,0 +1,30 @@
+text -1 15 Transport - page 1 of 4
+
+text -1 30 There are three types of transport in lin-city,
+text -1 40 tracks, roads and railways. There is a fourth
+text -1 50 form that consists of 'hopping across a field'.
+text -1 60 This is a short range form of trading and will
+text -1 70 not be referred to as transport again. However,
+text -1 80 it is very important and will be dealt with
+text -1 90 before tracks, roads and railways.
+
+text -1 115 People can obtain food, goods and employment
+text -1 125 from markets that are within walking distance
+text -1 135 of their residential area. See below for an
+text -1 145 example of the distances involved. Be
+text -1 155 conservative until you have got the feel of it.
+
+icon 60 200 resmedlow.csi
+icon 130 270 resmedlow.csi
+icon 220 230 market-full.csi
+
+tbutton 30 270 residential.hlp Residences
+tbutton 210 270 market.hlp Market
+
+text 120 204 This residence is out of range.
+text 192 304 This one is within
+text 188 314 range of the market.
+
+text -1 341 [This is only a rough guide, no rulers please]
+
+tbutton -1 375 transport2.hlp Next Page

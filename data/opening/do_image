@@ -1,0 +1,6 @@
+pov open
+cp open.tga open_0.tga
+octree -C=252 -W=640 -H=480 open
+rm open.tga
+mv open.2d ../open.tga
+gzip -9 ../open.tga

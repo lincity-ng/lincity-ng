@@ -1,0 +1,22 @@
+text -1 15 Ore mine
+
+text -1 30 Ore mines provide ore to make goods and
+text -1 40 steel. You may build an ore mine anywhere.
+text -1 60 The ore under the area is
+text -1 70 slowly consumed; you cannot bulldoze it and
+text -1 80 build another one and hope to get more ore.
+
+text -1 95 When an ore mine is exhausted, it turns into
+text -1 105 a lake. If you then want to reclaim this land
+text -1 115 you will have to bulldoze 16 water areas!
+
+text -1 130 The following 4 graphics show ore mines that
+text -1 140 are hardly worked to nearly exhausted.
+
+text -1 155 Transport (not shown) connects to the top left
+text -1 165 hand corner of the ore mine.
+
+icon 30 200 oremine1.csi
+icon 125 200 oremine3.csi
+icon 215 200 oremine5.csi
+icon 310 200 oremine7.csi

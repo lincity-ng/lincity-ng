@@ -1,0 +1,6 @@
+
+text -1 200 This is the pause button. 
+text -1 210 It pauses the game.
+text -1 220 You can restart the game by 
+text -1 230 clicking on it again.
+

@@ -1,0 +1,26 @@
+text -1 70 This is the economy window.
+
+text -1 100 This shows 4 different economic factors
+text -1 110 with graphs.
+
+text -1 130 The brown line represents your population.
+text -1 140 It is shown as a log scale.
+
+text -1 160 The blue line represents the demand for
+text -1 170 housing. The height of the graph is
+text -1 180 proportional to the square root of the
+text -1 190 'unhoused' population.
+
+text -1 210 The solid yellow 'bars' show that there is
+text -1 220 unemployment. The scale of this graph
+text -1 230 changes with your population. This graph
+text -1 240 is solid to draw your attention to it.
+
+text -1 260 The solid red 'bars' show that there is
+text -1 270 starvation. The scale of this graph
+text -1 280 changes with your population. This graph
+text -1 290 is solid to draw your attention to it.
+
+text -1 310 The unemployment bars are drawn over the
+text -1 320 top of the two lines. The starvation bars
+text -1 330 are drawn over everything else.

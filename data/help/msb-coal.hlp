@@ -1,0 +1,21 @@
+text -1 30 This is the coal mini screen.
+
+text -1 80 The coal mini screen shows the 
+text -1 90 coal reserves beneath your 'city'.
+text -1 100 The coal seams are shown as white on a
+text -1 110 black background. You will have to build
+text -1 120 a coal mine close to one of these seams
+text -1 130 to extract its coal.
+
+text -1 150 The first time you ask for this
+text -1 160 information, you will have to undertake
+text -1 170 a coal survey, which will cost you one
+text -1 180 million currency units. After that the
+text -1 190 information is free to look at again.
+
+text -1 270 Left click on the mini screen 
+text -1 280 to reposition the main window.
+text -1 300 Left click on the mini screen title 
+text -1 310 to choose a different mini screen view.
+text -1 330 Toggle overlay mode by pressing 'v' 
+text -1 340 or middle click on the mini screen title (X only)

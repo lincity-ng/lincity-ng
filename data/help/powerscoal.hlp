@@ -1,0 +1,51 @@
+text -1 15 Coal fired power station
+
+text -1 30 Coal fired power stations produce
+text -1 40 packets of electricity which are placed
+text -1 50 onto connected power lines.
+
+text -1 65 Power lines connect at the top left
+text -1 75 corner of the station, transport connects
+text -1 85 to the next possition in. See the example.
+
+icon 100 150 powerscoal-full.csi
+icon 84 150 powerlhl.csi
+icon 68 150 powerlhl.csi
+icon 52 150 powerlhl.csi
+
+text 180 160 Coal fired power station
+text 180 180 See also:
+tbutton 255 178 transport.hlp Transport
+tbutton 180 200 tech-level.hlp Tech level
+tbutton 275 200 powerline.hlp Power lines
+
+icon 84 166 roadlr.csi
+icon 68 166 roaddr.csi
+icon 68 182 roadud.csi
+
+icon 100 134 powerlvl.csi
+icon 100 118 powerlldl.csi
+icon 84 118 powerlhl.csi
+icon 68 118 powerlhl.csi
+
+icon 116 134 raildr.csi
+icon 132 134 raillr.csi
+icon 148 134 raillr.csi
+icon 164 134 raillr.csi
+
+text -1 240 The above example shows a coal fired
+text -1 250 power station with all its connection
+text -1 260 points used. To the left there is a road,
+text -1 270 above this there are two power lines,
+text -1 280 then to their right a railway is connected
+text -1 290 to the other transport connection point.
+
+text -1 305 The efficiency of the conversion of coal
+text -1 315 to electricity increases with increasing
+text -1 325 tech level - when the station is BUILT.
+text -1 335 You may want to demolish an old station
+text -1 345 and replace it with a newer, more
+text -1 355 efficient one, when your tech level has
+text -1 365 increased by a significant amount.
+
+

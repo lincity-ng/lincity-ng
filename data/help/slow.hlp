@@ -1,0 +1,7 @@
+
+text -1 200 This is the slow button. 
+text -1 210 It causes the to game run at
+text -1 220 it's slowest speed. 
+text -1 230 On slow machines the speed buttons
+text -1 240 may have no effect.
+

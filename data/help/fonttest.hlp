@@ -1,0 +1,20 @@
+text -1 10 Font test page.
+
+text -1 30 Your font looks like this:
+text -1 40 --------------------------
+
+text -1 60 !"#$%&'()*+,-./0
+text -1 75 123456789:;<=>?@
+text -1 90 ABCDEFGHIJKLMNOP
+text -1 105 QRSTUVWXYZ[\]^_`
+text -1 120 abcdefghijklmnop
+text -1 135 qrstuvwxyz{|}~€
+text -1 150 ‚ƒ„…†‡‰‹
+text -1 165 ‘’“”•–—™› 
+text -1 180 ΅Ά£¤¥¦§¨©ª«¬­®―°
+text -1 195 ±²³΄µ¶·ΈΉΊ»Ό½ΎΏΐ
+text -1 210 ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠ
+text -1 225 ΡÒΣΤΥΦΧΨΩΪΫάέήίΰ
+text -1 240 αβγδεζηθικλμνξοπ
+text -1 255 ρςστυφχψωϊϋόύώÿ
+

@@ -1,0 +1,34 @@
+text -1 15 Solar power station
+text -1 30 Solar power stations output their power to
+text -1 40 power lines in packets. The amount of
+text -1 50 power that it can produce increases with
+text -1 60 the tech-level when it was *built*.
+text -1 100 The example below shows a solar power station
+text -1 110 feeding a substation. A medium populated
+text -1 120 residential area is within range.
+
+icon 220 200 powerssolar.csi
+icon 220 184 powerlvl.csi
+icon 204 200 powerlhl.csi
+icon 188 200 powerlhd.csi
+icon 172 200 powerlhl.csi
+icon 156 200 powerlrdl.csi
+icon 156 216 substation-G.csi
+icon 130 280 resmedlow.csi
+
+text 60 228 Substation
+button 58 226 84 12 substation.hlp
+
+text 110 184 Power lines
+button 108 182 92 12 powerline.hlp
+
+text 195 280 Solar power station
+//button 193 278 156 12 powerssolar.hlp
+
+text 110 335 Residential
+button 108 333 92 12 residential.hlp
+
+text 280 320 See also
+text 282 335 Tech-level
+button 280 333 84 12 tech-level.hlp
+

@@ -1,0 +1,14 @@
+
+text -1 15 Food
+
+text -1 100 Food is grown in farms or can be
+text -1 110 imported through a port.
+
+text -1 125 Your people need food in order to
+text -1 135 survive. If you starve them, they
+text -1 145 will move away from that area and
+text -1 155 some may starve to death.
+
+text -1 170 Mills also use food. They turn, say,
+text -1 180 cotton into cloths. They can use a
+text -1 190 lot of food - beware.

@@ -1,0 +1,17 @@
+
+tbutton -1 46 return1 Good Times
+
+text -1 60 You are about 600 years into the game,
+text -1 70 feeding everyone, making money and 
+text -1 80 increasing your tech level. Good times are here!
+text -1 90 They won't stay that way without your help...
+
+tbutton -1 116 return2 Bad Times
+
+text -1 130 The same as the above but with
+text -1 140 *minus* 25 million, or so, in the bank.
+text -1 150 The idea here is to try and get back in
+text -1 160 the black. Not as easy as it sounds as the
+text -1 170 interest payments can get quite large. 
+
+tbutton -1 370 return9 Load one of your scenes

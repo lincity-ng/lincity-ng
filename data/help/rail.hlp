@@ -1,0 +1,14 @@
+text -1 15 Railways
+text -1 50 Railways carry even more than roads.
+text -1 60 They produce slightly less
+text -1 70 pollution than roads. They are quite
+text -1 80 expensive to buy and maintain though.
+text -1 90 They are well worth the expense when you
+text -1 100 have a lot to transport over a long
+text -1 110 distance.
+
+text 50 150 See also:
+tbutton 50 170 transport.hlp Transport
+tbutton 50 190 commune.hlp Communes
+tbutton 50 210 pollution.hlp Pollution
+

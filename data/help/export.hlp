@@ -1,0 +1,48 @@
+text -1 15 Import and export areas
+
+text -1 30 Importing and exporting work in the same
+text -1 40 way except that the first costs you money
+text -1 50 and the second makes you money. For this
+text -1 60 reason, only exporting will be dealt with
+text -1 70 in detail.
+
+text -1 85 To export, you connect transport to the
+text -1 95 gate that deals with that product. For
+text -1 105 example, to export ore, you would connect
+text -1 115 a road, perhaps, that has ore on it, to
+text -1 125 the ore 'gate'. The example below shows a
+text -1 135 road exporting ore.
+
+icon 100 170 ex_port.csi
+icon 68 186 roadlr.csi
+icon 84 186 roadlr.csi
+icon 164 154 waterd.csi
+icon 164 170 waterlud.csi
+icon 164 186 waterlud.csi
+icon 164 202 waterlud.csi
+icon 164 218 waterlur.csi
+icon 180 218 waterl.csi
+
+text 200 170 They MUST be connected
+text 200 180 to rivers all along
+text 200 190 the right hand side.
+tbutton 230 205 river.hlp See rivers
+
+text -1 250 The gates, from top to bottom, export coal,
+text -1 260 ore, goods and steel.
+
+text -1 275 The export area will take as much as it is
+text -1 285 given. If you need to export, but want to 
+text -1 295 restrict the amount, you may want to use a
+text -1 305 type of transport with less capacity, use a
+text -1 315 long piece or pass the product through a market.
+text -1 325 You will need to experiment to get the right
+text -1 335 transport configuration.
+
+text 30 362 See also:
+tbutton 110 360 transport.hlp Transport
+tbutton 110 380 market.hlp Markets
+tbutton 220 360 coal.hlp Coal
+tbutton 290 360 ore.hlp Ore
+tbutton 220 380 goods.hlp Goods
+tbutton 290 380 steel.hlp Steel

@@ -1,0 +1,38 @@
+
+text -1 15 Sustainability progress window
+
+text -1 30 This window contains six coloured lines.  When they
+text -1 40 all reach the right hand side of the window,
+text -1 50 you have a sustainable economy.
+
+text 16 70 MIN (orange) you are not digging any ore
+text 48 80 or coal, and are not dumping waste on a tip.
+
+text 16 105 PRT (grey) you are not importing or exporting.
+
+text 16 130 MNY (green) your money is stable or rising,
+text 48 140 this means you cannot build anything but
+text 48 150 the cheapest of areas.
+
+text 16 175 POP (blue) your population is stable to within
+text 48 185 2% of the value when the 180 year count
+text 48 195 started. If it goes outside of this band,
+text 48 205 the new population will be the new value and
+text 48 215 the year count will be set back to zero.
+text 48 225 Also, your population must be at least 5000.
+
+text 16 250 TEC (yellow) your technology is increasing
+text 48 260 or falling by only a very small amount.
+text 48 270 If it falls by more than 1%, the year
+text 48 280 is set back to zero. Also, your tech level
+text 48 290 must be at least 50.
+
+text 16 315 FIR (red) all areas that can catch fire have
+text 48 325 fire cover. The following areas do *not* have
+text 48 335 to have fire cover: monuments, oremines,
+text 48 345 power lines and rockets.
+ 
+text 16 365 Years required for sustainability:
+text -1 375 MIN=180 PRT=180 MNY=60 POP=60 TEC=120 FIR=60
+
+

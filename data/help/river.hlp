@@ -1,0 +1,32 @@
+text -1 15 Rivers/Water
+
+text -1 30 Rivers are here mainly to get in your way.
+text -1 40 They are expensive to bridge, dig and
+text -1 50 demolish. Their only 'use' is that ports
+text -1 60 must be connected to rivers.
+
+text -1 75 There are two types of water. Lakes are
+text -1 85 water that is NOT connected to the river
+text -1 95 system, river is water that IS connected
+text -1 105 to the river system. The river system
+text -1 115 is defined as all the water that is
+text -1 125 there at the start of the game.
+text -1 135 For example, when an ore mine empties
+text -1 145 it turns into water. If this is
+text -1 155 connected to a piece of river, it
+text -1 165 becomes part of the river, else it is
+text -1 175 just a lake.
+
+text -1 190 If you demolish some river to make a
+text -1 200 path for, say, transport, you have
+text -1 210 built a bridge. Both sides of your gap
+text -1 220 are still part of the river system. This
+text -1 230 is one of the reasons it is so expensive
+text -1 240 to 'demolish' water.
+
+text -1 255 Once a piece of water is part of the river
+text -1 265 system it CANNOT revert to being a lake.
+
+text -1 280 Power lines can transfer power under ONE
+text -1 290 piece of river in the same way that it can
+text -1 300 pass under transport.

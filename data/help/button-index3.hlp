@@ -1,0 +1,34 @@
+text -1 5 Select button index page 3 of 3
+text -1 20 Click on a button for a help page
+
+text 80 54 Windmill
+icon 50 50 windmill-button.csi
+button 48 48 20 20 windmill.hlp
+
+text 80 78 Monument
+icon 50 74 monument-button.csi
+button 48 72 20 20 monument.hlp
+
+text 80 102 School
+icon 50 98 school-button.csi
+button 48 96 20 20 school.hlp
+
+text 80 126 Blacksmith
+icon 50 122 blacksmith-button.csi
+button 48 120 20 20 blacksmith.hlp
+
+text 80 150 Mill
+icon 50 146 mill-button.csi
+button 48 144 20 20 mill.hlp
+
+text 80 174 Pottery
+icon 50 170 pottery-button.csi
+button 48 168 20 20 pottery.hlp
+
+text 80 198 Fire station
+icon 50 194 firestation-button.csi
+button 48 192 20 20 firestation.hlp
+
+text 80 222 Cricket pitch
+icon 50 218 cricket-button.csi
+button 48 216 20 20 cricket.hlp

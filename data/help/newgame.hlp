@@ -1,0 +1,9 @@
+text -1 100 New Game Menu
+
+tcolour 226 80
+tbutton -1 200 return0 === New Game - with random village ===
+tbutton -1 240 return1 ===== New Game - with bare board =====
+#tbutton -1 280 return2 ======= Connect - network game =======
+tcolour -1 -1
+
+

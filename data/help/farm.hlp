@@ -1,0 +1,37 @@
+text -1 15 Farms
+text -1 30 Farms grow food for people to eat, and to
+text -1 40 supply the raw materials for mills. Farmers
+text -1 50 can sell food to markets. They deliver it
+text -1 60 by tractor, so do not need transport. However
+text -1 70 they can sell to transport if you wish.
+text -1 90 The left figure shows a market with a farm
+text -1 100 supplying food to it. The right figure shows
+text -1 110 almost the same situation, but the farm is
+text -1 120 not within range. The left market is full
+text -1 130 of food, the right one has none.
+
+icon 28 152 farm3.csi
+icon 103 160 market-full.csi
+icon 210 152 farm7.csi
+icon 338 160 market-low.csi
+
+tbutton 98 200 market.hlp Market
+text 170 180 Farm
+
+text -1 230 Farms need jobs to produce more than a minimal
+text -1 240 amount of food. Giving the farm power also
+text -1 250 increases the amount of food produced.
+text -1 260 Power, also includes 'old' style windmills
+text -1 270 that help the food to be processed, thus
+text -1 280 cutting down on waste.
+ 
+text -1 295 Note: In the above example there are no jobs
+text -1 305 being supplied to the markets
+text -1 315 so they would not produce much food.
+
+text 50 342 See also:
+tbutton 150 340 tech-level.hlp Tech-level
+tbutton 250 340 transport.hlp Transport
+tbutton 150 360 windmill.hlp Windmill
+tbutton 250 360 food.hlp Food
+
