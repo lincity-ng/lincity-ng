@@ -340,7 +340,7 @@ int main (int argc, char* argv[])
       char* file = strdup(argv[2]);
       file = basename(file);
       std::cout << "<image file=\"" << file << "\""
-                << " x=\"" << 512- crop.x1 << "\" y=\"" << 384 - crop.y1 << "\"" 
+                << " x=\"" << 512- crop.x1 << "\" y=\"" << 414 - crop.y1 << "\"" 
                 << std::endl;
 
       Image new_img = image.crop(crop);
