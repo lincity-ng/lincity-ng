@@ -1,14 +1,15 @@
 #!/bin/sh
 
-set -e
+set -e -x
 
 mkdir -p tmp/
-mkdir -p ../data/images/out/
+mkdir -p ../data/images/tiles.render/
 
-for i in *.blend; do
+for i in ../data/models/*.blend; do
     blender -b "$i"  -P render.py
-    blender -b out/tmp.blend -a
-    cp -v out/0001 "../images/tiles/${i%%.blend}.png"
+    blender -b tmp/tmp.blend -a
+    b=`basename $i`
+    cp -v tmp/0001 "../data/images/tiles.render/${b%%.blend}.png"
 done
 
 # EOF #

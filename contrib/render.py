@@ -48,11 +48,11 @@ context.imageSizeX(1024)
 context.imageSizeY(768)
 context.enableOversampling(1)
 context.setOversamplingLevel(8)
-context.setRenderPath("out/")
+context.setRenderPath("tmp/")
 context.startFrame(1)
 context.endFrame(1)
 
-Blender.Save("out/tmp.blend", 1)
+Blender.Save("tmp/tmp.blend", 1)
 
 # context.renderAnim()
 # Blender.Quit()

@@ -14,6 +14,7 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
+#include <libgen.h>
 #include <argp.h>
 #include <assert.h>
 #include <string>
@@ -322,24 +323,28 @@ public:
 
 int main (int argc, char* argv[])
 {
-  if (argc != 2) 
+  if (argc != 3) 
     {
-      puts("Usage: autocrop FILENAME");
+      puts("Usage: autocrop INFILE OUTFILE");
     }
   else
     {
       Image image(argv[1]);
       Rect  crop = image.calc_crop_region();
-      if (1)
+      if (0)
         {
           std::cout << "Crop: " << crop.x1 << ", " << crop.y1 << ", "
                     << crop.x2 << ", " << crop.y2 << std::endl;
         }
 
-      std::cout << "align: " << 512- crop.x1 << ", " << 384 - crop.y1 << std::endl;
+      char* file = strdup(argv[2]);
+      file = basename(file);
+      std::cout << "<image file=\"" << file << "\""
+                << " x=\"" << 512- crop.x1 << "\" y=\"" << 384 - crop.y1 << "\"" 
+                << std::endl;
 
       Image new_img = image.crop(crop);
-      new_img.write_png_file("/tmp/bla.png");
+      new_img.write_png_file(argv[2]);
     }
 }
 
