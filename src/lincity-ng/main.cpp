@@ -170,12 +170,9 @@ int main(int argc, char** argv)
     int result = 0;
 
     initPhysfs(argv[0]);
-    //get default Values from Config
-    std::auto_ptr<Config> config; 
-    config.reset(new Config()); 
 
     //set LINCITY_HOME environment variable
-    setenv( "LINCITY_HOME", config->lincityHome.c_str(), 1 );
+    setenv( "LINCITY_HOME", getConfig()->lincityHome.c_str(), 1 );
    
     //parse commandline args
     int currentArgument = 0; 
@@ -200,11 +197,11 @@ int main(int argc, char** argv)
             exit( 0 );
         }
         if( argStr == "-gl" ){ //use OpenGL
-            config->useOpenGL = true; 
+            getConfig()->useOpenGL = true; 
             knownArgument = true;
         }
         if( argStr == "-sdl" ){ //use SGL
-            config->useOpenGL = false; 
+            getConfig()->useOpenGL = false; 
             knownArgument = true;
         }
         
@@ -222,7 +219,7 @@ int main(int argc, char** argv)
         sound.reset(new Sound()); 
         initSDL();
         initTTF();
-        initVideo( config->videoX, config->videoY );
+        initVideo(getConfig()->videoX, getConfig()->videoY );
 	    initLincity();
 
         if( getConfig()->useOpenGL ) {

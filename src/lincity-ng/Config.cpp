@@ -16,19 +16,25 @@ Config* configPtr = 0;
 
 Config *getConfig()
 {
-  return configPtr;
+    if(configPtr == 0)
+        configPtr = new Config();
+
+    return configPtr;
 }
 
 Config::Config()
 {
-    assert( configPtr == 0);
-    configPtr = this;
+    assert(configPtr == 0);
+    
     //Default Values
     useOpenGL = false;
     videoX = 800; 
     videoY = 600;
 
-    soundVolume = 128;
+    soundVolume = 100;
+    musicVolume = 50;
+    soundEnabled = true;
+    musicEnabled = true;
 
     lincityHome = "./data";
     
@@ -97,21 +103,24 @@ void Config::load( const std::string& filename ){
                     {
                         videoY = parseInt( value, 600, 480 );
                     }
-                }//while(iter.next()) 
-            }//if element == "video" 
-            else if ( element == "audio" ) {
+                }
+            } else if ( element == "audio" ) {
                 XmlReader::AttributeIterator iter(reader);
                 while(iter.next()) 
                 {
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
-                    if( strcmp(name, "soundVolume" ) == 0 )
-                    {
-                        soundVolume = parseInt( value, 128, 0, 128 );
+                    if(strcmp(name, "soundVolume" ) == 0) {
+                        soundVolume = parseInt(value, 100, 0, 128);
+                    } else if(strcmp(name, "musicVolume") == 0) {
+                        musicVolume = parseInt(value, 100, 0, 100);
+                    } else if(strcmp(name, "soundEnabled") == 0) {
+                        soundEnabled = parseBool(value, true);
+                    } else if(strcmp(name, "musicEnabled") == 0) {
+                        musicEnabled = parseBool(value, true);
                     }
-                }//while(iter.next())                 
-            }//if element == "audio" 
-            else if ( element == "env" ) {
+                }
+            } else if ( element == "env" ) {
                 XmlReader::AttributeIterator iter(reader);
                 while(iter.next()) 
                 {
@@ -121,20 +130,38 @@ void Config::load( const std::string& filename ){
                     {
                         lincityHome = value;
                     }
-                }//while(iter.next())                 
-            }//if element == "env" 
-            else {
+                }
+            } else {
                 std::cerr << "Config::load# Unknown element '" << element << "' in lincityconfig.xml.\n";
             }
-        }//if( reader.getNodeType() == XML_READER_TYPE_ELEMENT) 
-    }//while( reader.read() ) 
+        }
+    }
+}
+
+bool
+Config::parseBool(const char* value, bool defaultValue)
+{
+    if(strcmp(value, "no") == 0 || strcmp(value, "off") == 0
+            || strcmp(value, "false") == 0 || strcmp(value, "NO") == 0
+            || strcmp(value, "OFF") == 0 || strcmp(value, "FALSE") == 0) {
+        return false;
+    }
+    if(strcmp(value, "yes") == 0 || strcmp(value, "on") == 0
+            || strcmp(value, "true") == 0 || strcmp(value, "YES") == 0
+            || strcmp(value, "ON") == 0 || strcmp(value, "TRUE") == 0) {
+        return true;
+    }
+
+    std::cerr << "Couldn't parse boolean value '" << value << "'.\n";
+    return defaultValue;
 }
 
 /*
  * Save configuration to File.
  * TODO: make it work.
  */
-void Config::save(){
+void
+Config::save(){
     std::cerr << "Config::save() not implemented!\n";
 }
 

@@ -2,6 +2,5 @@
 <!-- Main configuration file. -->
 <configuration>
     <env LINCITY_HOME="./data" />
-    <video x="1024" y="768" useOpenGL="false" />
-    <audio soundVolume="128" />
+    <video x="1024" y="768" useOpenGL="true"/>
 </configuration>

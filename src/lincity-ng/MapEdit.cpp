@@ -130,7 +130,7 @@ check_bulldoze_area (int x, int y)
       ok_dial_box ("nobull-tip.mes", BAD, 0L);
       return;
     }
-  getSound()->playwav( "Raze" );
+  getSound()->playSound( "Raze" );
   bulldoze_item (xx,yy);
 }
 
@@ -292,7 +292,7 @@ void editMap (int x, int y, int button)
     {
     case 0:
       /* Success */
-      getSound()->playwav( "Build" );
+      getSound()->playSound( "Build" );
       break;
     case -1:
       /* Not enough money */

@@ -94,161 +94,161 @@ void mps_update(int mps_x,int mps_y,int mps_style)
       switch(MP_GROUP(mps_x, mps_y)) 
         {
         case (GROUP_BLACKSMITH):
-            getSound()->playwav( "Blacksmith" );
+            getSound()->playSound( "Blacksmith" );
             mps_blacksmith (mps_x, mps_y);
         break;
         case (GROUP_COALMINE):
-            getSound()->playwav( "CoalMine" );
+            getSound()->playSound( "CoalMine" );
             mps_coalmine (mps_x, mps_y);
         break;
         case GROUP_COAL_POWER:
             //TODO: play which sound?
-            //getSound()->playwav( "PowerCoalEmpty" );
-            //getSound()->playwav( "PowerCoalFull" );
-            //getSound()->playwav( "PowerCoalLow" );
-            getSound()->playwav( "PowerCoalMed" );
+            //getSound()->playSound( "PowerCoalEmpty" );
+            //getSound()->playSound( "PowerCoalFull" );
+            //getSound()->playSound( "PowerCoalLow" );
+            getSound()->playSound( "PowerCoalMed" );
             mps_coal_power (mps_x, mps_y);
         break;
         case (GROUP_COMMUNE):
-            getSound()->playwav( "Commune" );
+            getSound()->playSound( "Commune" );
             mps_commune (mps_x, mps_y);
         break;
         case (GROUP_CRICKET):
-            getSound()->playwav( "SportsCroud" );
+            getSound()->playSound( "SportsCroud" );
             mps_cricket (mps_x, mps_y);
         break;
         case (GROUP_FIRESTATION):
-            getSound()->playwav( "FireStation" );
+            getSound()->playSound( "FireStation" );
             mps_firestation (mps_x, mps_y);
         break;
         case (GROUP_HEALTH):
-            getSound()->playwav( "Health" );
+            getSound()->playSound( "Health" );
             mps_health_centre (mps_x, mps_y);
         break;
         case (GROUP_INDUSTRY_H):
-            getSound()->playwav( "IndustryHigh" );
+            getSound()->playSound( "IndustryHigh" );
             mps_heavy_industry (mps_x, mps_y);
         break;
         case (GROUP_INDUSTRY_L):
-            getSound()->playwav( "IndustryLight" );
+            getSound()->playSound( "IndustryLight" );
             mps_light_industry (mps_x, mps_y);
         break;
         case (GROUP_MILL):
-            getSound()->playwav( "Mill" );
+            getSound()->playSound( "Mill" );
             mps_mill (mps_x, mps_y);
         break;
         case (GROUP_MONUMENT):
             if ((MP_INFO( mps_x,mps_y).int_1 * 100 / BUILD_MONUMENT_JOBS) >= 100) {
-                getSound()->playwav( "Monument" );
+                getSound()->playSound( "Monument" );
             } else {
-                getSound()->playwav( "MonumentConstruction" );
+                getSound()->playSound( "MonumentConstruction" );
             }
             mps_monument (mps_x, mps_y);
         break;
         case (GROUP_OREMINE):
-            getSound()->playwav( "OreMine" );
+            getSound()->playSound( "OreMine" );
             mps_oremine (mps_x, mps_y);
         break;
         case GROUP_ORGANIC_FARM: 
-            getSound()->playwav( "OrganicFarm" );
+            getSound()->playSound( "OrganicFarm" );
             mps_organic_farm(mps_x, mps_y);
         break;
         case (GROUP_PORT):
-            getSound()->playwav( "Harbor" );
+            getSound()->playSound( "Harbor" );
             mps_port (mps_x, mps_y);
         break;
         case (GROUP_POTTERY):
-            getSound()->playwav( "Pottery" );
+            getSound()->playSound( "Pottery" );
             mps_pottery (mps_x, mps_y);
         break;
         case GROUP_POWER_LINE:
-            getSound()->playwav( "PowerLine" );
+            getSound()->playSound( "PowerLine" );
             mps_power_line (mps_x, mps_y);
             break;
         case (GROUP_RAIL):
-            getSound()->playwav( "RailTrain" );
+            getSound()->playSound( "RailTrain" );
             mps_rail (mps_x, mps_y);
         break;
         case (GROUP_RECYCLE):
-            getSound()->playwav( "Recycle" );
+            getSound()->playSound( "Recycle" );
             mps_recycle (mps_x, mps_y);
         break;
         case GROUP_RESIDENCE_LL:
-            getSound()->playwav( "ResidentialLowLow" );
+            getSound()->playSound( "ResidentialLowLow" );
             mps_residence(mps_x, mps_y);
         break;
         case GROUP_RESIDENCE_LH:
-            getSound()->playwav( "ResidentialLow" );
+            getSound()->playSound( "ResidentialLow" );
             mps_residence(mps_x, mps_y);
         break;
         case GROUP_RESIDENCE_ML:
         case GROUP_RESIDENCE_MH:
-            getSound()->playwav( "ResidentialMed" );
+            getSound()->playSound( "ResidentialMed" );
             mps_residence(mps_x, mps_y);
         break;
         case GROUP_RESIDENCE_HL:
         case GROUP_RESIDENCE_HH:
-            getSound()->playwav( "ResidentialHigh" );
+            getSound()->playSound( "ResidentialHigh" );
             mps_residence(mps_x, mps_y);
         break;
         case (GROUP_ROAD):
-            getSound()->playwav( "TraficLow" );
-            //getSound()->playwav( "TraficHigh" );
+            getSound()->playSound( "TraficLow" );
+            //getSound()->playSound( "TraficHigh" );
             //TODO: find out when to use TraficHigh
             mps_road (mps_x, mps_y);
         break;
         case (GROUP_ROCKET):
-            getSound()->playwav( "Rocket" );
+            getSound()->playSound( "Rocket" );
             //TODO: what about RocketExplosion RocketTakeoff
             mps_rocket (mps_x, mps_y);
         break;
         case (GROUP_SCHOOL):
-            getSound()->playwav( "School" );
+            getSound()->playSound( "School" );
             mps_school (mps_x, mps_y);
         break;
         case GROUP_SOLAR_POWER:
-            getSound()->playwav( "PowerSolar" );
+            getSound()->playSound( "PowerSolar" );
             mps_solar_power (mps_x, mps_y);
             break;
         case (GROUP_SUBSTATION):
-            getSound()->playwav( "Substation" );
+            getSound()->playSound( "Substation" );
             mps_substation (mps_x, mps_y);
             break;
         case (GROUP_TIP):
-            getSound()->playwav( "Tip" );
+            getSound()->playSound( "Tip" );
             mps_tip (mps_x, mps_y);
         break;
         case (GROUP_TRACK):
-            getSound()->playwav( "DirtTrack" );
+            getSound()->playSound( "DirtTrack" );
             mps_track(mps_x, mps_y);
         break;
         case (GROUP_MARKET):
             //TODO: which one?
-            //getSound()->playwav( "MarketEmpty" );
-            //getSound()->playwav( "MarketFull" );
-            //getSound()->playwav( "MarketLow" );
-            getSound()->playwav( "MarketMed" );
+            //getSound()->playSound( "MarketEmpty" );
+            //getSound()->playSound( "MarketFull" );
+            //getSound()->playSound( "MarketLow" );
+            getSound()->playSound( "MarketMed" );
             mps_market (mps_x, mps_y);
         break;
         case (GROUP_UNIVERSITY):
-            getSound()->playwav( "University" );
+            getSound()->playSound( "University" );
             mps_university (mps_x, mps_y);
         break;
         case (GROUP_WATER):
-            getSound()->playwav( "Water" );
+            getSound()->playSound( "Water" );
             mps_water (mps_x, mps_y);
         break;
         case (GROUP_WINDMILL):
             if( MP_INFO(mps_x, mps_y ).int_2 < MODERN_WINDMILL_TECH ){ 
-                getSound()->playwav( "WindMill" );
+                getSound()->playSound( "WindMill" );
             } else {
-                getSound()->playwav( "WindMillHTech" );
+                getSound()->playSound( "WindMillHTech" );
             }
             mps_windmill (mps_x, mps_y);
         break;
         default: 
             if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
-                getSound()->playwav( "Green" );
+                getSound()->playSound( "Green" );
                 mps_store_title(0,"Green");
                 mps_store_title(4, "build something here" );
             }

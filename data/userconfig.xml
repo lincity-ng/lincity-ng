@@ -2,5 +2,6 @@
 <!-- AdditionalUserConfig: copy userconfig.xml to ~/.devs/lincityng/" -->
 <configuration>
     <video x="1024" y="768" useOpenGL="false" />
-    <audio soundVolume="128" />
+    <audio soundEnabled="true" musicEnabled="true" soundVolume="100"
+    musicVolume="70"/>
 </configuration>

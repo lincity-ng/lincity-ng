@@ -16,8 +16,6 @@ public:
   void setView(int x,int y);
   
   void setText(int i,const std::string &s);
-
-  void playwav( int id );
  private:
   int mX,mY;
 

@@ -192,7 +192,7 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
 void
 MainMenu::quitButtonClicked(Button* )
 {
-    getSound()->playwav( "Click" );
+    getSound()->playSound( "Click" );
     quitState = QUIT;
     running = false;
 }
@@ -200,7 +200,7 @@ MainMenu::quitButtonClicked(Button* )
 void
 MainMenu::continueButtonClicked(Button* )
 {
-    getSound()->playwav( "Click" );
+    getSound()->playSound( "Click" );
     quitState = INGAME;
     running = false;
 }
@@ -208,7 +208,7 @@ MainMenu::continueButtonClicked(Button* )
 void
 MainMenu::newGameButtonClicked(Button* )
 {
-    getSound()->playwav( "Click" );
+    getSound()->playSound( "Click" );
     loadNewGameMenu();
     currentMenu = newGameMenu.get();
 }
@@ -216,7 +216,7 @@ MainMenu::newGameButtonClicked(Button* )
 void
 MainMenu::loadGameButtonClicked(Button* )
 {
-    getSound()->playwav( "Click" );
+    getSound()->playSound( "Click" );
     loadLoadGameMenu();
     currentMenu = loadGameMenu.get();
 }
@@ -226,7 +226,7 @@ MainMenu::newGameStartButtonClicked(Button* )
 {
     if(mFilename.length())
       load_city(const_cast<char*>(mFilename.c_str()));
-    getSound()->playwav( "Click" );
+    getSound()->playSound( "Click" );
     quitState = INGAME;
     running = false;
 }
@@ -234,7 +234,7 @@ MainMenu::newGameStartButtonClicked(Button* )
 void
 MainMenu::newGameBackButtonClicked(Button* )
 {
-    getSound()->playwav( "Click" );
+    getSound()->playSound( "Click" );
     loadMainMenu();
     currentMenu = mainMenu.get();
 }
@@ -242,7 +242,7 @@ MainMenu::newGameBackButtonClicked(Button* )
 void
 MainMenu::loadGameBackButtonClicked(Button* )
 {
-    getSound()->playwav( "Click" );
+    getSound()->playSound( "Click" );
     loadMainMenu();
     currentMenu = mainMenu.get();
 }
@@ -252,7 +252,7 @@ MainMenu::loadGameLoadButtonClicked(Button *)
 {
     if(mFilename.length())
       load_city(const_cast<char*>(mFilename.c_str()));
-    getSound()->playwav( "Click" );
+    getSound()->playSound( "Click" );
     quitState = INGAME;
     running = false;
 }
