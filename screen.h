@@ -49,6 +49,11 @@ void status_message(char * message, int colour);
 void print_time_for_year (void);
 void rotate_main_screen (void);
 
+/* Miniscreen */
+void init_mini_map_mouse(void);
+void mini_map_handler(int x, int y, int button);
+void mini_aux_handler(int x, int y, int button);
+
 #define CB_SPACE 20 // space between checkbuttons for market/port
 
 #endif	/* __screen_h__ */
