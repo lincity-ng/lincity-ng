@@ -317,7 +317,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/ship.png"/>
+                  <image-caption src="images/gui/port2.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
