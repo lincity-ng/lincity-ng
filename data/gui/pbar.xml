@@ -12,75 +12,75 @@
         <colsize col="1" relative="2"/>
         <colsize col="2" relative="1"/>
    
-        <cell row="1" col="1">
+        <cell row="1" col="1" halign="left">
           <Paragraph name="pbar_title1" style="title" translatable="yes">
           Population</Paragraph>
         </cell>
-        <cell row="1" col="2">
+        <cell row="1" col="2" halign="right">
           <Paragraph name="pbar_text1" style="text">1</Paragraph>
         </cell>
     
-        <cell row="2" col="1">
+        <cell row="2" col="1" halign="left">
           <Paragraph name="pbar_title2" style="title" translatable="yes">
           Tech Level</Paragraph>
         </cell>
-        <cell row="2" col="2">
+        <cell row="2" col="2" halign="right">
           <Paragraph name="pbar_text2" style="text">1</Paragraph>
         </cell>
     
-        <cell row="3" col="1">
+        <cell row="3" col="1" halign="left">
           <Paragraph name="pbar_title3" style="title" translatable="yes">
           Food</Paragraph>
         </cell>
-        <cell row="3" col="2">
+        <cell row="3" col="2" halign="right">
           <Paragraph name="pbar_text3" style="text">1</Paragraph>
         </cell>
     
-        <cell row="4" col="1">
+        <cell row="4" col="1" halign="left">
           <Paragraph name="pbar_title4" style="title" translatable="yes">
           Jobs</Paragraph>
         </cell>
-        <cell row="4" col="2">
+        <cell row="4" col="2" halign="right">
           <Paragraph name="pbar_text4" style="text">1</Paragraph>
         </cell>
     
-        <cell row="5" col="1">
+        <cell row="5" col="1" halign="left">
           <Paragraph name="pbar_title5" style="title" translatable="yes">
           Money</Paragraph>
         </cell>
-        <cell row="5" col="2">
+        <cell row="5" col="2" halign="right">
           <Paragraph name="pbar_text5" style="text">1</Paragraph>
         </cell>
     
-        <cell row="6" col="1">
+        <cell row="6" col="1" halign="left">
           <Paragraph name="pbar_title6" style="title" translatable="yes">
           Coal</Paragraph>
         </cell>
-        <cell row="6" col="2">
+        <cell row="6" col="2" halign="right">
           <Paragraph name="pbar_text6" style="text">1</Paragraph>
         </cell>
     
-        <cell row="7" col="1">
+        <cell row="7" col="1" halign="left">
           <Paragraph name="pbar_title7" style="title" translatable="yes">
           Goods</Paragraph>
         </cell>
-        <cell row="7" col="2">
+        <cell row="7" col="2" halign="right">
           <Paragraph name="pbar_text7" style="text">1</Paragraph>
         </cell>
     
-        <cell row="8" col="1">
+        <cell row="8" col="1" halign="left">
           <Paragraph name="pbar_title8" style="title" translatable="yes">
           Ore</Paragraph>
         </cell>
-        <cell row="8" col="2">
+        <cell row="8" col="2" halign="right">
           <Paragraph name="pbar_text8" style="text">1</Paragraph>
         </cell>
     
-        <cell row="9" col="1">
+        <cell row="9" col="1" halign="left">
           <Paragraph name="pbar_title9" style="title" translatable="yes">
           Steel</Paragraph>
         </cell>
-        <cell row="9" col="2">
+        <cell row="9" col="2" halign="right">
           <Paragraph name="pbar_text9" style="text">1</Paragraph>
         </cell>
       </TableLayout>

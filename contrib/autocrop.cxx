@@ -331,7 +331,7 @@ int main (int argc, char* argv[])
     {
       Image image(argv[1]);
       Rect  crop = image.calc_crop_region();
-      if (0)
+      if (1)
         {
           std::cout << "Crop: " << crop.x1 << ", " << crop.y1 << ", "
                     << crop.x2 << ", " << crop.y2 << std::endl;

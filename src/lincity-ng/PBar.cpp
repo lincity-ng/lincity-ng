@@ -13,8 +13,11 @@ LCPBar::LCPBar(Component* parent, XmlReader& reader)
     Component* component = parseEmbeddedComponent(this, reader);
     if(component)
         addChild(component);
-                                                                  
-    LCPBarInstance=this;
+
+    width = component->getWidth();
+    height = component->getHeight();
+    
+    LCPBarInstance = this;
 }
 
 LCPBar::~LCPBar()

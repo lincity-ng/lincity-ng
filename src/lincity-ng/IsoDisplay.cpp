@@ -157,7 +157,7 @@ SDL_Surface *IsoDisplay::loadTexture(short t)
     
   int mc=t+20;
   
-  Color mc2((mc&3)*64,((mc>>2)&3)*64,((mc>>4)&3)*64); // some random color
+  Color mc2((mc&3)*64,((mc>>2)&3)*64,((mc>>4)&3)*64, 100); // some random color
 
   p.setFillColor(mc2);
     

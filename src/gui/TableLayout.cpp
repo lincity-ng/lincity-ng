@@ -53,7 +53,7 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
     
     rowproperties.assign(rows, RowColProperties());
     colproperties.assign(cols, RowColProperties());
-    cells.assign(rows*cols, -1);
+    cells.assign(rows*cols, Cell());
     
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
@@ -79,6 +79,9 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
                 colproperties[num] = props;
             } else if(element == "cell") {
                 int row = -1, col = -1;
+                int spanx = 1, spany = 1;
+                Cell::Alignment halign = Cell::CENTER;
+                Cell::Alignment valign = Cell::CENTER;
                 XmlReader::AttributeIterator iter(reader);
                 while(iter.next()) {
                     const char* name = (const char*) iter.getName();
@@ -93,6 +96,38 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
                         if(sscanf(value, "%d", &col) != 1) {
                             std::cerr << "Couldn't parse integer value '"
                                 << value << "' in col attribute.\n";
+                        }
+                    } else if(strcmp(name, "spanx") == 0) {
+                        if(sscanf(value, "%d", &spanx) != 1) {
+                            std::cerr << "Couldn't parse integer value '"
+                                << value << "' in spanx attribute.\n";
+                        }
+                    } else if(strcmp(name, "spany") == 0) {
+                        if(sscanf(value, "%d", &spany) != 1) {
+                            std::cerr << "COuldn't parse integer value '"
+                                << value << "' in spany attribute.\n";
+                        }
+                    } else if(strcmp(name, "halign") == 0) {
+                        if(strcmp(value, "left") == 0) {
+                            halign = Cell::LEFT;
+                        } else if(strcmp(value, "center") == 0) {
+                            halign = Cell::CENTER;
+                        } else if(strcmp(value, "right") == 0) {
+                            halign = Cell::RIGHT;
+                        } else {
+                            std::cerr << "Skipping unknown halignment value '"
+                                << value << "'.\n";
+                        }
+                    } else if(strcmp(name, "valign") == 0) {
+                        if(strcmp(value, "top") == 0) {
+                            valign = Cell::TOP;
+                        } else if(strcmp(value, "center") == 0) {
+                            valign = Cell::CENTER;
+                        } else if(strcmp(value, "bottom") == 0) {
+                            valign = Cell::BOTTOM;
+                        } else {
+                            std::cerr << "Skipping unknown valignment value '"
+                                << value << "'.\n";
                         }
                     } else {
                         std::cerr << "Unknown attribute '" << name
@@ -111,16 +146,28 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
                         << "Skipping cell because col value is invalid.\n";
                     continue;
                 }
+                if(spanx <= 0 || row + spanx - 1 >= rows) {
+                    std::cerr << "SpanX value invalid.\n";
+                    spanx = 1;
+                }
+                if(spany <= 0 || col + spany - 1 >= cols) {
+                    std::cerr << "SpanY value invalid.\n";
+                    spany = 1;
+                }   
                 
                 Component* component = parseEmbeddedComponent(this, reader);
                 if(component == 0) {
                     std::cerr << "No Component specified in cell "
                         << (row+1) << ", " << (col+1) << "\n";
                     continue;
-                } else {
-                    addChild(component);
-                    cells[row*cols + col] = childs.size()-1;
                 }
+                addChild(component);
+                Cell cell(childs.size() - 1);
+                cell.halign = halign;
+                cell.valign = valign;
+                cell.spanx = spanx;
+                cell.spany = spany;
+                cells[row*cols + col] = cell;
             } else {
                 std::cerr << "Unknown element '" << element 
                     << "' in TableLayout.\n";
@@ -170,20 +217,6 @@ TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
             if(sscanf(value, "%d", &num) != 1) {
                 std::cerr << "Error parsing int value '"
                     << value << "' in row or col attribute.\n";
-            }
-        } else if(strcmp(name, "alignment") == 0) {
-            if(strcmp(value, "left") == 0) {
-                props.alignment = RowColProperties::LEFT;
-            } else if(strcmp(value, "center") == 0) {
-                props.alignment = RowColProperties::CENTER;
-            } else if(strcmp(value, "right") == 0) {
-                props.alignment = RowColProperties::RIGHT;
-            } else if(strcmp(value, "top") == 0) {
-                props.alignment = RowColProperties::TOP;
-            } else if(strcmp(value, "bottom") == 0) {
-                props.alignment = RowColProperties::BOTTOM;
-            } else {
-                std::cerr << "Unknown alignment type '" << value << "'.\n";
             }
         } else {
             std::cerr << "Unknown attribute '" << name 
@@ -259,7 +292,8 @@ TableLayout::resize(float width, float height)
         p.x = 0;
         for(Properties::iterator col = colproperties.begin();
             col != colproperties.end(); ++col) {
-            int childid = cells[r * colproperties.size() + c];
+            Cell& cell = cells[r * colproperties.size() + c];
+            int childid = cell.childid;
             ++c;
 
             if(childid < 0) {
@@ -275,27 +309,34 @@ TableLayout::resize(float width, float height)
             if(component->getFlags() & FLAG_RESIZABLE)
                 component->resize(col->realval, row->realval);
 
+            float width = 0;
+            for(int i = 0; i < cell.spanx; ++i)
+                width += (col+i)->realval;
+            float height = 0;
+            for(int i = 0; i < cell.spany; ++i)
+                height += (row+i)->realval;
+
             Vector2 pos = p;
-            switch(col->alignment) {
-                case RowColProperties::LEFT:
+            switch(cell.halign) {
+                case Cell::LEFT:
                     break;
-                case RowColProperties::CENTER:
-                    pos.x += (col->realval - component->getWidth()) / 2;
+                case Cell::CENTER:
+                    pos.x += (width - component->getWidth()) / 2;
                     break;
-                case RowColProperties::RIGHT:
-                    pos.x += col->realval - component->getWidth();
+                case Cell::RIGHT:
+                    pos.x += width - component->getWidth();
                     break;
                 default:
                     assert(false);
             }
-            switch(row->alignment) {
-                case RowColProperties::TOP:
+            switch(cell.valign) {
+                case Cell::TOP:
                     break;
-                case RowColProperties::CENTER:
-                    pos.y += (row->realval - component->getHeight()) / 2;
+                case Cell::CENTER:
+                    pos.y += (height - component->getHeight()) / 2;
                     break;
-                case RowColProperties::BOTTOM:
-                    pos.y += col->realval - component->getHeight();
+                case Cell::BOTTOM:
+                    pos.y += height - component->getHeight();
                     break;
                 default:
                     assert(false);
@@ -314,7 +355,7 @@ TableLayout::addRow(const RowColProperties& props)
 {
     removeComponents();
     rowproperties.push_back(props);
-    cells.assign(rowproperties.size() * colproperties.size(), -1);
+    cells.assign(rowproperties.size() * colproperties.size(), Cell());
 }
 
 void
@@ -322,7 +363,7 @@ TableLayout::addColumn(const RowColProperties& props)
 {
     removeComponents();
     colproperties.push_back(props);
-    cells.assign(rowproperties.size() * colproperties.size(), -1);
+    cells.assign(rowproperties.size() * colproperties.size(), Cell());
 }
 
 void
@@ -333,11 +374,11 @@ TableLayout::addComponent(size_t col, size_t row, Component* component)
     if(col >= colproperties.size())
         throw std::runtime_error("col out of range");
 
-    if(cells[row * colproperties.size() + col] != 0)
+    if(cells[row * colproperties.size() + col].childid >= 0)
         throw std::runtime_error("Already a component in this cell.");
     
     addChild(component);
-    cells[row * colproperties.size() + col] = childs.size()-1;
+    cells[row * colproperties.size() + col] = Cell(childs.size()-1);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(TableLayout)

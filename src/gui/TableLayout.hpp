@@ -38,17 +38,30 @@ public:
     struct RowColProperties
     {
         RowColProperties()
-            : type(RELATIVE), alignment(CENTER), val(1)
+            : type(RELATIVE), val(1)
         {
         }
 
         enum Type { FIXEDSIZE, RELATIVE };
-        enum Alignment { LEFT = 0, CENTER = 1, RIGHT = 2,
-                         TOP = 0, BOTTOM = 2 };
         Type type;
-        Alignment alignment;
         float val;
         float realval;
+    };
+    
+    struct Cell
+    {
+        Cell(int _childid = -1)
+            : childid(_childid), halign(CENTER), valign(CENTER),
+            spanx(1), spany(1)
+        { }
+
+        enum Alignment { LEFT = 0, CENTER = 1, RIGHT = 2,
+                         TOP = 0, BOTTOM = 2 };                  
+        int childid;
+        Alignment halign;
+        Alignment valign;
+        int spanx;
+        int spany;
     };
     void addRow(const RowColProperties& props);
     void addColumn(const RowColProperties& props);
@@ -62,7 +75,7 @@ private:
     Properties rowproperties;
     Properties colproperties;
 
-    typedef std::vector<int> Cells;
+    typedef std::vector<Cell> Cells;
     Cells cells;
 };
 

@@ -37,9 +37,7 @@
         </cell>
         <cell row="3" col="1">
             <TableLayout rows="1" cols="2">
-                <colsize col="1" alignment="left"/>
-                <colsize col="2" alignment="right"/>
-                <cell row="1" col="1">
+                <cell row="1" col="1" halign="left">
                     <Button name="BackButton">
                         <text style="button" translatable="yes">Back</text>
                         <text-hover style="button-hover"
@@ -48,7 +46,7 @@
                         translatable="yes">Back</text-clicked>
                     </Button>
                 </cell>
-                <cell row="1" col="2">
+                <cell row="1" col="2" halign="right">
                     <Button name="LoadButton">
                         <text style="button" translatable="yes">Load</text>
                         <text-hover style="button-hover"
