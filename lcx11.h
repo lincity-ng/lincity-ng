@@ -24,11 +24,13 @@
 /* Type Definitions */
 typedef struct _disp
 {
-    Window win;
     Display *dpy;
     int screen;
-    Window root;
     char *dname;
+
+    Window win;
+    Window confinewin;
+    Window root;
 
     unsigned int winH;
     unsigned int winW;
@@ -38,6 +40,8 @@ typedef struct _disp
     GC pixcolour_gc[256];
     Atom kill_atom, protocol_atom;
     Colormap cmap;
+
+    int pointer_confined;
 }
 disp;
 
