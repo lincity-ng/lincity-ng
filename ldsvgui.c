@@ -237,9 +237,8 @@ do_prefs_screen (void)
     Fgl_write (mw->x + x + 2, mw->y + y + 2, "OUT");
 
     draw_prefs_cb ();
-#if !defined (WIN32)
+
     redraw_mouse ();
-#endif
 }
 
 void
@@ -312,6 +311,7 @@ do_save_city ()
     while (c == 0);
     x_key_value = 0;
 #elif defined (WIN32)
+    redraw_mouse ();
     while (0 == (c = GetKeystroke ()));	/* Wait for keystroke */
 #else
     c = getchar ();
