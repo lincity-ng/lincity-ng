@@ -5,7 +5,7 @@ enum MainState {
     MAINMENU, INGAME, QUIT
 };
 
-void initVideo(int width = 800, int height = 600);
+void initVideo(int width, int height);
 void flipScreenBuffer();
 
 class Painter;

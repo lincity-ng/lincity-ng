@@ -81,9 +81,9 @@ void initPhysfs(const char* argv0)
 void initVideo(int width, int height)
 {
     int bpp = 0;
-    int flags;
+    int flags = 0;
     if( getConfig()->useOpenGL ){
-        flags = SDL_OPENGL | SDL_RESIZABLE;
+        flags = SDL_OPENGL;
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
         SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 1);
@@ -91,16 +91,21 @@ void initVideo(int width, int height)
         //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
         //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     } else {
-        flags = SDL_HWSURFACE  | SDL_RESIZABLE;
+        flags = SDL_HWSURFACE;
     }
+    if(getConfig()->useFullScreen)
+        flags |= SDL_FULLSCREEN;
+    else
+        flags |= SDL_RESIZABLE;
+
     SDL_Surface* screen
         = SDL_SetVideoMode(width, height, bpp, flags);
     SDL_WM_SetCaption(PACKAGE_NAME " " PACKAGE_VERSION, 0);
     if(!screen) {
         std::stringstream msg;
         msg << "Couldn't set video mode ("
-            << width << "x" << height << "-" << bpp << "bpp) : "
-            << SDL_GetError();
+            << width << "x" << height
+            << "-" << bpp << "bpp) : " << SDL_GetError();
         throw std::runtime_error(msg.str());
     }
 
@@ -219,8 +224,8 @@ int main(int argc, char** argv)
         sound.reset(new Sound()); 
         initSDL();
         initTTF();
-        initVideo(getConfig()->videoX, getConfig()->videoY );
-	    initLincity();
+        initVideo(getConfig()->videoX, getConfig()->videoY);
+        initLincity();
 
         if( getConfig()->useOpenGL ) {
             texture_manager = new TextureManagerGL();

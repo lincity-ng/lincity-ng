@@ -28,6 +28,7 @@ Config::Config()
     
     //Default Values
     useOpenGL = false;
+    useFullScreen = true;
     videoX = 800; 
     videoY = 600;
 
@@ -88,20 +89,16 @@ void Config::load( const std::string& filename ){
                 {
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
-                    if( strcmp( name, "useOpenGL" ) == 0 ) 
-                    {
-                        if( strcmp( value, "true" ) == 0 ) 
-                        {
-                           useOpenGL  = true;
+                    if( strcmp( name, "useOpenGL" ) == 0 ) {
+                        if( strcmp( value, "true" ) == 0 ) {
+                            useOpenGL  = true;
                         }
-                    }
-                    else if( strcmp(name, "x" ) == 0 )
-                    {
+                    } else if( strcmp(name, "x" ) == 0 ) {
                         videoX = parseInt( value, 800, 640 );
-                    }
-                    else if(strcmp(name, "y") == 0 ) 
-                    {
+                    } else if(strcmp(name, "y") == 0 ) {
                         videoY = parseInt( value, 600, 480 );
+                    } else if(strcmp(name, "fullscreen") == 0) {
+                        useFullScreen = parseBool(value, false);
                     }
                 }
             } else if ( element == "audio" ) {

@@ -11,6 +11,7 @@ public:
     ~Config();
     
     bool useOpenGL;
+    bool useFullScreen;
     int videoX, videoY;
     
     // sound volume 0..100 (0=silent)
