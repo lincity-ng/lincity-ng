@@ -50,12 +50,6 @@ void project_power(int x, int y);
  (MP_GROUP(x,y) == GROUP_SOLAR_POWER) || \
  (MP_GROUP(x,y) == GROUP_SUBSTATION))
 
-#define XY_IS_TRANSPORT(x,y) \
-((MP_GROUP(x,y) == GROUP_TRACK) || \
- (MP_GROUP(x,y) == GROUP_ROAD) || \
- (MP_GROUP(x,y) == GROUP_RAIL) || \
- (MP_GROUP(x,y) == GROUP_POWER_LINE))
-
 #define XY_IS_WATER(x,y) (MP_GROUP(x,y) == GROUP_WATER)
 
 #define IS_POWER_SOURCE(x,y) \

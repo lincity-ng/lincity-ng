@@ -18,6 +18,7 @@
 /*#include "clistubs.h"*/
 #include "lcintl.h"
 #include "power.h"
+#include "transport.h" /* for XY_IS_TRANSPORT */
 
 /* reset per map_power_grid run; how many different grids */
 int grid_num = 0;
