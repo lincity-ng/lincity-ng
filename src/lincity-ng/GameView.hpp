@@ -28,13 +28,14 @@ private:
     const void loadTextures();
     Texture* readTexture(const std::string& filename);
     void click(const Vector2 &pos);
+    void setZoom(const int newzoom);
 
-    static const int tileWidth = 128;
-    static const int tileHeight = 64;
+    static const int defaultTileWidth = 128;
+    static const int defaultTileHeight = 64;
 
+    int tileWidth, tileHeight, zoom; 
     //a virtual screen containing the whole city
-    static const int virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
-    static const int virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
+    int virtualScreenWidth, virtualScreenHeight;
 
     //upper left corner of the viewport on virtual screen
     Vector2 viewport;

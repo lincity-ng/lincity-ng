@@ -6,7 +6,8 @@
  *  20050204
  *  +Numblock Scroll
  *  +fixed bug in drawing Big Tiles  
- * 
+ *  
+ *  +Zoom with Numblock + - and enter (Graphics do not get resized yet!)
  */
 #include <config.h>
 
@@ -56,15 +57,45 @@ GameView::GameView(Component* parent, XmlReader& reader)
     //start in the centre of the city
     //because on startup the size of this Control is 0
     //we use 800 and 600 instead of getWidth() and getHeight())
+    //so we can not use zoom( 100 ) likewise
+    zoom = 100;
+    tileWidth = defaultTileWidth * zoom / 100 ;
+    tileHeight = defaultTileHeight * zoom / 100; 
+    virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
+    virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
     viewport.x = floor ( ( virtualScreenWidth - 800 ) / 2 );
     viewport.y = floor ( ( virtualScreenHeight- 600 ) / 2 );
 }
-
+    
 GameView::~GameView()
 {
     for(int i = 0; i < NUM_OF_TYPES; ++i)
         delete cityTextures[i];
     delete blankTexture;
+}
+
+/*
+ * Adjust the Zoomlevel. Argument is Percentage.
+ *  
+ */
+void GameView::setZoom(const int newzoom){
+    //find Tile in Center of Screen
+    Vector2 center( getWidth() / 2, getHeight() / 2 );
+    Vector2 centerTile  = getTile( center ); 
+    
+    zoom = newzoom;
+    tileWidth = defaultTileWidth * zoom / 100 ;
+    tileHeight = defaultTileHeight * zoom / 100; 
+    //a virtual screen containing the whole city
+    virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
+    virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
+
+    //New Position of center on virtual Screen
+    center.x = virtualScreenWidth / 2 + ( centerTile.x - centerTile.y ) * ( tileWidth / 2 );
+    center.y = ( centerTile.x + centerTile.y ) * ( tileHeight / 2 ); 
+    
+    viewport.x = center.x - ( getWidth() / 2);
+    viewport.y = center.y - ( getHeight() / 2 );
 }
 
 /*
@@ -401,6 +432,20 @@ void GameView::event(const Event& event)
                 click(event.mousepos);
             break;
         case Event::KEYUP:
+            //Zoom
+            if( event.keysym.sym == SDLK_KP_PLUS ){
+                setZoom(200);
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP_MINUS ){
+                setZoom(50);
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP_ENTER ){
+                setZoom(100);
+                break;
+            }
+            //Scroll
             if( event.keysym.mod & KMOD_SHIFT ){
                 stepx =  (int) 5 * tileWidth;
                 stepy =  (int) 5 * tileHeight;
@@ -408,34 +453,43 @@ void GameView::event(const Event& event)
             if ( event.keysym.sym == SDLK_KP9 ) {
                 viewport.x += stepx;
                 viewport.y -= stepy;
+                break;
             }
             if ( event.keysym.sym == SDLK_KP1 ) {
                 viewport.x -= stepx;
                 viewport.y += stepy;
+                break;
             }
             if ( event.keysym.sym == SDLK_KP8 ) {
                 viewport.y -= stepy;
+                break;
             }
             if ( event.keysym.sym == SDLK_KP2 ) {
                 viewport.y += stepy;
+                break;
             }
             if ( event.keysym.sym == SDLK_KP7 ) {
                 viewport.x -= stepx;
                 viewport.y -= stepy;
+                break;
             }
             if ( event.keysym.sym == SDLK_KP3 ) {
                 viewport.x += stepx;
                 viewport.y += stepy;
+                break;
             }
             if ( event.keysym.sym == SDLK_KP6 ) {
                 viewport.x += stepx;
+                break;
             }
             if ( event.keysym.sym == SDLK_KP4 ) {
                 viewport.x -= stepx;
+                break;
             }
             if ( event.keysym.sym == SDLK_KP5 ) {
                 viewport.x = floor ( ( virtualScreenWidth - getWidth()  ) / 2 );
                 viewport.y = floor ( ( virtualScreenHeight- getHeight() ) / 2 );
+                break;
             }
             break;
         default:
@@ -450,7 +504,7 @@ void GameView::click(const Vector2 &pos)
 {
   Vector2 tile=getTile(pos);
   std::cout << "Tile-pos:"<<tile.x<<","<<tile.y<<std::endl;
-  getMPS()->setView(tile.x,tile.y);
+  getMPS()->setView( (int) tile.x, (int) tile.y);
 }
 
 /*
