@@ -311,8 +311,8 @@ do_save_city ()
     while (c == 0);
     x_key_value = 0;
 #elif defined (WIN32)
-    redraw_mouse ();
     while (0 == (c = GetKeystroke ()));	/* Wait for keystroke */
+    redraw_mouse ();
 #else
     c = getchar ();
     redraw_mouse ();
