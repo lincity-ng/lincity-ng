@@ -20,5 +20,5 @@ print ""
 
 
 Library('lincity_oldgui',libsrc,CCFLAGS="-Igui_interface -I. -I.. -Ilincity -DHAVE_CONFIG_H")
-Program('lincity_oldgui',['main.cc'],CCFLAGS="-Igui_interface -I. -I.. -Ilincity -DHAVE_CONFIG_H",LIBS=['SDL','lincity_oldgui','lincity','lincity_modules','lincity','lincity_oldgui','png'],LIBPATH=['.','../lincity','../lincity/modules'])
+Program('lincity_oldgui',['main.cpp'],CCFLAGS="-Igui_interface -I. -I.. -Ilincity -DHAVE_CONFIG_H",LIBS=['SDL','lincity_oldgui','lincity','lincity_modules','lincity','lincity_oldgui','png'],LIBPATH=['.','../lincity','../lincity/modules'])
 
