@@ -15,6 +15,7 @@ public:
   enum DisplayMode {NORMAL,POLLUTION,UB40,STARVE,POWER,FIRE,CRICKET,HEALTH,COAL,MAX};
 
   MiniMap();
+  ~MiniMap();
 
   void parse(XmlReader& reader);
   
@@ -24,6 +25,8 @@ public:
   virtual void event(const Event& event);
   
   void chooseButtonClicked(Button* button);
+  void setGameViewCorners( const Vector2 &upperLeft, const Vector2 &upperRight, 
+          const Vector2 &lowerRight, const Vector2 &lowerLeft );
 
  private:
 
@@ -31,7 +34,7 @@ public:
   Color getColorNormal(int x,int y) const;
   void attachButtons();
   Component *findRoot(Component *c);
-
+  Vector2 gameViewPoints[ 4 ];
 
   short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 
@@ -45,5 +48,7 @@ public:
   bool mFullRefresh;
   bool alreadyAttached;
 };
+
+MiniMap* getMiniMap();
 
 #endif

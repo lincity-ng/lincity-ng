@@ -58,9 +58,31 @@ Color light(const Color &c,Uint8 b)
 	       ((Uint16(c.b)*b)>>8));
 }
 
+MiniMap* miniMapPtr = 0;
+
+MiniMap* getMiniMap()
+{
+    return miniMapPtr;
+}
+    
 MiniMap::MiniMap()
     : mMode(NORMAL), tilesize(2), mTexture(0)
-{
+{   
+    assert( miniMapPtr == 0 );
+    miniMapPtr = this;
+    gameViewPoints[ 0 ].x = 0;
+    gameViewPoints[ 0 ].y = 0;
+    gameViewPoints[ 1 ].x = 0;
+    gameViewPoints[ 1 ].y = 0;
+    gameViewPoints[ 2 ].x = 0;
+    gameViewPoints[ 2 ].y = 0;
+    gameViewPoints[ 3 ].x = 0;
+    gameViewPoints[ 3 ].y = 0;
+}
+
+MiniMap::~MiniMap() {
+    if(miniMapPtr == this)
+        miniMapPtr = 0;
 }
 
 void
@@ -173,6 +195,19 @@ void MiniMap::chooseButtonClicked(Button* button)
    mFullRefresh=true;
 }
 
+/*
+ *  Set the Corners of the GameView to show in Minimap
+ */
+void MiniMap::setGameViewCorners( const Vector2 &upperLeft, const Vector2 &upperRight, 
+          const Vector2 &lowerRight, const Vector2 &lowerLeft )
+{
+    gameViewPoints[ 0 ] = upperLeft * tilesize;
+    gameViewPoints[ 1 ] = upperRight * tilesize;
+    gameViewPoints[ 2 ] = lowerRight * tilesize;
+    gameViewPoints[ 3 ] = lowerLeft * tilesize;
+    setDirty();
+}
+
 void MiniMap::draw(Painter &painter)
 {
   attachButtons();
@@ -185,6 +220,7 @@ void MiniMap::draw(Painter &painter)
   // SDL_Surface should be updated, only if needed
 
   std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
+  Color alphawhite( 255, 255, 255, 128 );
   if(mpainter.get() == 0)
   {
     // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
@@ -203,6 +239,9 @@ void MiniMap::draw(Painter &painter)
             painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
           }
         }
+    //show current GameView
+    painter.setLineColor( alphawhite );
+    painter.drawPolygon( 4, gameViewPoints );    
     return;
   }
 
@@ -220,6 +259,9 @@ void MiniMap::draw(Painter &painter)
           mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
         }
       }
+    //show current GameView
+    mpainter->setLineColor( alphawhite );
+    mpainter->drawPolygon( 4, gameViewPoints );    
 
 
   painter.drawTexture(mTexture.get(), Vector2(0, 0));

@@ -53,6 +53,7 @@
 
 #include "Mps.hpp"
 #include "MapEdit.hpp"
+#include "MiniMap.hpp"
 
 #include <SDL_keysym.h>
 #include <math.h>
@@ -769,12 +770,12 @@ void GameView::event(const Event& event)
                 setDirty();
                 break;
             }
-            if ( event.keysym.sym == SDLK_KP8 ) {
+            if ( ( event.keysym.sym == SDLK_KP8 ) || ( event.keysym.sym == SDLK_UP ) ) {
                 viewport.y -= stepy;
                 setDirty();
                 break;
             }
-            if ( event.keysym.sym == SDLK_KP2 ) {
+            if ( ( event.keysym.sym == SDLK_KP2 ) || ( event.keysym.sym == SDLK_DOWN ) )  {
                 viewport.y += stepy;
                 setDirty();
                 break;
@@ -791,12 +792,12 @@ void GameView::event(const Event& event)
                 setDirty();
                 break;
             }
-            if ( event.keysym.sym == SDLK_KP6 ) {
+            if ( ( event.keysym.sym == SDLK_KP6 ) || ( event.keysym.sym == SDLK_RIGHT ) )  {
                 viewport.x += stepx;
                 setDirty();
                 break;
             }
-            if ( event.keysym.sym == SDLK_KP4 ) {
+            if ( ( event.keysym.sym == SDLK_KP4 ) || ( event.keysym.sym == SDLK_LEFT ) ) {
                 viewport.x -= stepx;
                 setDirty();
                 break;
@@ -827,6 +828,11 @@ void GameView::resize(float newwidth , float newheight )
  */
 void GameView::requestRedraw()
 {
+    //TODO: do this only when View changed
+    //Tell Minimap about new Corners
+    getMiniMap()->setGameViewCorners( getTile( 0, 0 ), getTile( (int) getWidth(), 0 ), 
+          getTile( (int) getWidth(), (int) getHeight() ), getTile( 0, (int) getHeight() ) );  
+
     //request redraw
     setDirty();
 }
@@ -878,6 +884,12 @@ const Vector2 GameView::getTile(const Vector2& p)
     return tile;
 }
 
+const Vector2 GameView::getTile( int x, int y )
+{
+    Vector2 pos( x ,y );
+    return getTile( pos );
+}
+    
 /*
  * Draw a filled Diamond inside given Rectangle
  */

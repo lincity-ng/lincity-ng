@@ -43,6 +43,7 @@ private:
     const void recenter(const Vector2& pos);
     const Vector2 getScreenPoint(const Vector2& tile);
     const Vector2 getTile(const Vector2& point);
+    const Vector2 getTile( int x, int y );
     const void drawTile(Painter& painter, const Vector2& tile);
     const void fillDiamond( Painter& painter, const Rect2D rect );
     const void drawDiamond( Painter& painter, const Rect2D rect );

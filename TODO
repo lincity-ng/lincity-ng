@@ -42,7 +42,6 @@ Programming
  [M] Build multiple roads, streets, railroads, powerlines, water
  [H] Implement Dialogs (y/n)
  [M] Translate Dialogs (hardcoded stuff im old engine)
- [H] draw rectangle for current GameView on Minimap
  [L] Minimap should have diamond-shape like main view
  [H] Help System.
  [M] Display current money, current year, InfoMessages
