@@ -239,3 +239,11 @@ SConscript('src/lincity-ng/SConscript', build_dir = build_dir + '/lincity-ng',
         duplicate = 0)
 SConscript("src/tools/xmlgettext/SConscript", build_dir = build_dir +
         "/tools/xmlgettext", duplicate = 0)
+
+# I don't see a way yet to make this rule incation dependent on xmlgettext (so
+# that I can be sure xmlgettext is built before this...
+if os.access("./xmlgettext", os.X_OK):
+    pot = env.Command('data/locale/gui/messages.pot', Glob("data/gui/*.xml"),
+        "./xmlgettext $TARGET $SOURCES")
+    Default(pot)
+    

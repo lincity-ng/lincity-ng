@@ -1,0 +1,94 @@
+# German translations for PACKAGE package
+# German messages for PACKAGE.
+# Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#  <matze@braunis.de>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: %1\n"
+"PO-Revision-Date: 2005-02-01 19:45+0100\n"
+"Last-Translator:  <matze@braunis.de>\n"
+"Language-Team: German <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/gui/loadgame.xml data/gui/newgame.xml
+msgid "Back"
+msgstr "Zurück"
+
+#: data/gui/loadgame.xml
+msgid "Choose Savegame"
+msgstr "Gespeichertes Spiel Auswählen"
+
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Szenario Auswählen"
+
+#: data/gui/pbar.xml
+msgid "Coal"
+msgstr "Kohle"
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Fortsetzen"
+
+#: data/gui/mainmenu.xml
+msgid "Credits"
+msgstr "Mitwirkende"
+
+#: data/gui/pbar.xml
+msgid "Food"
+msgstr "Nahrung"
+
+#: data/gui/pbar.xml
+msgid "Goods"
+msgstr "Wahren"
+
+#: data/gui/pbar.xml
+msgid "Jobs"
+msgstr "Jobs"
+
+#: data/gui/mainmenu.xml data/gui/loadgame.xml
+msgid "Load"
+msgstr "Laden"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Spiel Laden"
+
+#: data/gui/pbar.xml
+msgid "Money"
+msgstr "Vermögen"
+
+#: data/gui/mainmenu.xml data/gui/newgame.xml
+msgid "New Game"
+msgstr "Neues Spiel"
+
+#: data/gui/pbar.xml
+msgid "Ore"
+msgstr "Erz"
+
+#: data/gui/pbar.xml
+msgid "Population"
+msgstr "Bevölkerung"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Beenden"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "Start"
+
+#: data/gui/pbar.xml
+msgid "Steel"
+msgstr "Stahl"
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "Tech Level"

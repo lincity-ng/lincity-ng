@@ -13,6 +13,7 @@
 #include "Painter.hpp"
 #include "XmlReader.hpp"
 #include "ComponentFactory.hpp"
+#include "TinyGetText/TinyGetText.hpp"
 
 Paragraph::Paragraph(Component* parent, XmlReader& reader, Style parentstyle)
     : Component(parent), texture(0)
@@ -36,6 +37,8 @@ Paragraph::~Paragraph()
 void
 Paragraph::parse(XmlReader& reader, Style parentstyle)
 {
+    bool translatable = false;
+    
     style = parentstyle;
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -47,17 +50,26 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
         } else if(style.parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute, "translatable") == 0) {
-            // todo mark for translation...
+            translatable = true;
         } else {
             std::cerr << "Skipping unknown attribut '" << attribute << "'.\n";
         }
     }
 
+    std::auto_ptr<TinyGetText::DictionaryManager> dictionaryManager;
+    TinyGetText::Dictionary* dictionary = 0;
+    if(translatable) {
+        dictionaryManager.reset(new TinyGetText::DictionaryManager());
+        dictionaryManager->add_directory("data/locale/gui");
+        dictionary = &(dictionaryManager->get_dictionary());
+    }
+        
+
     std::vector<Style> stylestack;
     stylestack.push_back(style);
 
     TextSpan* currentspan = 0;
-   
+  
     try {
         int depth = reader.getDepth();
         while(reader.read() && reader.getDepth() > depth) {
@@ -65,6 +77,10 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
                 std::string node((const char*) reader.getName());
                 if(node == "span" || node == "i" || node == "b") {
                     if(currentspan != 0) {
+                        if(translatable) {
+                            currentspan->text 
+                                = dictionary->translate(currentspan->text);
+                        }
                         textspans.push_back(currentspan);
                         currentspan = 0;
                     }
@@ -108,6 +124,10 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
                 std::string node((const char*) reader.getName());
                 if(node == "span" || node == "b" || node == "i") {
                     if(currentspan != 0) {
+                        if(translatable) {
+                            currentspan->text 
+                                = dictionary->translate(currentspan->text);
+                        }
                         textspans.push_back(currentspan);
                         currentspan = 0;
                     }                                                              
@@ -119,8 +139,13 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
             }
         }
 
-        if(currentspan != 0)
+        if(currentspan != 0) {
+            if(translatable) {
+                currentspan->text 
+                    = dictionary->translate(currentspan->text);
+            }
             textspans.push_back(currentspan);
+        }
     } catch(...) {
         if(currentspan != 0)
             delete currentspan;
