@@ -43,6 +43,42 @@ set_pointer_confinement (void)
     }
 }
 
+static int pointer_confined;
+
+int 
+confine_pointer (int x, int y, int w, int h) 
+{
+
+    if (display.pointer_confined)
+	return 0;
+
+    display.confinewin = 
+	XCreateSimpleWindow(display.dpy, display.win, 
+			    10, 10, w, h,
+			    0, 0, 0);
+
+    XMapWindow(display.dpy, display.confinewin);
+
+    XGrabPointer(display.dpy, display.root, 1,
+		 ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
+		 GrabModeAsync, GrabModeAsync, display.confinewin,
+		 None, CurrentTime);
+
+
+    display.pointer_confined = 1;
+    return 1;
+
+}
+    
+
+void 
+unconfine_pointer (void)
+{
+    XUngrabPointer(display.dpy, CurrentTime);
+    XDestroyWindow(display.dpy, display.confinewin);
+    display.pointer_confined = 0;
+}
+
 void
 setcustompalette (void)
 {
@@ -302,7 +338,7 @@ Create_Window (char *geometry)
     depth = DefaultDepth (display.dpy, display.screen);
     xswa.event_mask = 0;
     xswa.background_pixel = display.bg;
-    xswa.backing_store = WhenMapped;
+    xswa.backing_store = Always;
     printf ("DefaultVisual id=%d bp-rgb=%d map-entries=%d\n"
 	    ,(int) (*DefaultVisual (display.dpy, display.screen)).visualid
 	    ,(*DefaultVisual (display.dpy, display.screen)).bits_per_rgb
@@ -690,6 +726,8 @@ Fgl_getbox (int x1, int y1, int w, int h, void *buf)
 	    *(b++) = (unsigned char) Fgl_getpixel (x, y);
 }
 
+#define DEBUG_X11_MOUSE
+
 void
 HandleEvent (XEvent * event)
 {
@@ -720,6 +758,10 @@ HandleEvent (XEvent * event)
 	    case XK_Right:
 		x_key_value = 4;
 		break;
+	    case 'C':
+		if (!confine_pointer(-10,-10,200,200))
+		    unconfine_pointer();
+		break;
 	    case XK_BackSpace:
 	    case XK_Delete:
 		x_key_value = 127;
@@ -728,7 +770,7 @@ HandleEvent (XEvent * event)
 	}
 	break;
 
-    case (MotionNotify): /* added by WCK */
+    case (MotionNotify): 
 	{
 	    XMotionEvent *ev = (XMotionEvent *) event;
 
@@ -736,10 +778,7 @@ HandleEvent (XEvent * event)
 		ev = (XMotionEvent *) &loop_ev;
 	    }
 
-	    /* XXX: how will grabbing events out of the queue affect the world? */
-#ifdef DEBUG_X11_MOUSE
 	    printf("pointer motion event\n");
-#endif
 
 	    if (ev->state & Button2Mask)
 		drag_screen();
@@ -770,6 +809,22 @@ HandleEvent (XEvent * event)
 	    case Button3:
 		mouse_button = LC_MOUSE_RIGHTBUTTON | LC_MOUSE_PRESS;
 		break;
+
+	    /* Wheel mouse support 
+	       Move further for Shift (in main.c: process_keystrokes() ),
+	       left to right instead of up and down for Control */
+
+	    case Button4:  /* Up (3); Left (1) if Control */
+		x_key_shifted = ShiftMask & ev->state;
+		x_key_value = (ControlMask & ev->state) ? 1 : 3; 
+		break; 
+	    case Button5: /* Down (4); Right (2) if control */
+		x_key_shifted = ShiftMask & ev->state;
+		x_key_value = (ControlMask & ev->state) ? 4 : 2;
+		break;
+
+	    /* XFree86-3 only supports 5 buttons, no Button6 or higher */
+
 	    }
 	    cs_mouse_handler (mouse_button, 0, 0);
 	    mouse_button = 0;
@@ -843,6 +898,8 @@ HandleEvent (XEvent * event)
     }
     /*fprintf(stderr,"Handler fell through, event->type = %d\n",event->type);*/
 }
+
+#undef DEBUG_X11_MOUSE
 
 void
 refresh_screen (int x1, int y1, int x2, int y2)		/* bounds of refresh area */
@@ -967,15 +1024,14 @@ lc_get_keystroke (void)
 
 
 /* init_full_mouse is called just before the main client loop. */
-   
+
+/* XXX: This needs a much better name */
 void 
-init_mouse (void) /* added by WCK */
+init_mouse (void) 
 {
   XSelectInput (display.dpy, display.win,
 		KeyPressMask | ButtonPressMask | ButtonReleaseMask
-		| ExposureMask | StructureNotifyMask | Button2MotionMask);
-  /* This should be done better, only specifying Button2MotionMask when
-     button 2 is pressed. */
+		| ExposureMask | StructureNotifyMask | ButtonMotionMask);
 }
 
 void
