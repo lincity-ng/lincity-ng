@@ -135,7 +135,7 @@ setcustompalette (void)
 void
 open_setcustompalette (XColor * inpal)
 {
-  do_setcustompalette (inpal);
+    do_setcustompalette (inpal);
 }
 
 void
@@ -403,10 +403,21 @@ Create_Window (char *geometry)
     wmhints.flags = InputHint;
     wmhints.input = True;
     XSetWMHints (display.dpy, display.win, &wmhints);
+
+    /* GCS - 2003/08/15 - Cygwin doesn't generate the MapEvent unless
+       the mask enabled before XMapWindow is called.  Delete this 
+       comment after it is confirmed that this works for linux. */
+#if defined (commentout)
     XMapWindow (display.dpy, display.win);
     XSelectInput (display.dpy, display.win,
 		  KeyPressMask | ButtonPressMask | ButtonReleaseMask
 		  | ExposureMask | StructureNotifyMask);
+#endif
+    XSelectInput (display.dpy, display.win,
+		  KeyPressMask | ButtonPressMask | ButtonReleaseMask
+		  | ExposureMask | StructureNotifyMask);
+    XMapWindow (display.dpy, display.win);
+    
     for (q = 0; q < 256; q++)
     {
 	display.pixcolour_gc[q] = XCreateGC (display.dpy
