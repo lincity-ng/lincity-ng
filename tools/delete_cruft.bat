@@ -51,6 +51,7 @@ erase *.junk
 erase lincity
 erase xlincity
 deltree /y locale
+deltree /y gettext-w32
 
 rem -------------------------------------------------
 rem This one must be last, because it ends batch file

@@ -109,3 +109,24 @@ Make the Win package (version 1.12pre53, w/o catalan):
   14)    rename the directory (e.g. to lincity112pre53)
   15)    zip -r lincity112pre53.zip lincity112pre53
   16)    Done!
+
+Make the Win package (version 1.12.0):
+
+  5)     Build release version on Win
+
+  8)     Make a new copy of the lincity directory
+  9)     cd to the newly created copy of the lincity directory
+  10)    copy Release\Lincity.exe .
+  10.1)  Copy msgfmt.exe over
+	    copy gettext-w32\msgfmt.exe .
+  10.2)  Copy gnu_gettext.dll over
+	    copy gettext-w32\gnu_gettext.dll .
+
+  11)    run tools\zip_source.bat
+  12)    run tools\unzip_files.bat
+  13)    run tools\delete_cruft.bat
+  13.1)  Look around for other cruft files
+
+  14)    rename the directory (e.g. to lincity112pre53)
+  15)    zip -r lincity112pre53.zip lincity112pre53
+  16)    Done!
