@@ -2,6 +2,9 @@
 1.12
 ****
 
+- Overlay mode which displays mini-map stats in main window.
+- Completely new power code that uses a power grid instead of 
+  individual packets of power.
 - Engine performance speedup of about 10%.
 - New pbar design including add'l stats: total goods/ore/steel/etc.
 - Time/click multiplexed monthgraph/mappoint stats window.
