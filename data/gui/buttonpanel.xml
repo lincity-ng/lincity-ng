@@ -147,7 +147,7 @@
             <image-hover src="images/gui/rnew_button_bg1.png"/>
             <image-clicked src="images/gui/rnew_button_bg2.png"/>
             <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/round_resident.png"/>
+            <image-caption src="images/gui/house.png"/>
           </CheckButton>
         </cell>
         <cell row="2" col="2" halign="left">
@@ -159,7 +159,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_resident.png"/>
+                  <image-caption src="images/gui/house.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
@@ -238,7 +238,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_soccer.png"/>
+                  <image-caption src="images/gui/sports.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
@@ -247,7 +247,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/fire_drencher.png"/>
+                  <image-caption src="images/gui/fire.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
@@ -256,7 +256,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/buch.png"/>
+                  <image-caption src="images/gui/book.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
@@ -278,7 +278,7 @@
             <image-hover src="images/gui/rnew_button_bg1.png"/>
             <image-clicked src="images/gui/rnew_button_bg2.png"/>
             <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/train.png"/>
+            <image-caption src="images/gui/rails2.png"/>
           </CheckButton>
         </cell>
         <cell row="4" col="2" halign="left">
@@ -290,7 +290,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/shoes.png"/>
+                  <image-caption src="images/gui/tracks.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
@@ -299,7 +299,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/strasse.png"/>
+                  <image-caption src="images/gui/road.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
@@ -308,7 +308,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/train.png"/>
+                  <image-caption src="images/gui/rails2.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
@@ -317,7 +317,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/port2.png"/>
+                  <image-caption src="images/gui/port.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
@@ -326,7 +326,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/rakete.png"/>
+                  <image-caption src="images/gui/rocket.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -339,7 +339,7 @@
             <image-hover src="images/gui/rnew_button_bg1.png"/>
             <image-clicked src="images/gui/rnew_button_bg2.png"/>
             <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/round_power.png"/>
+            <image-caption src="images/gui/powerlines.png"/>
           </CheckButton>
         </cell>
         <cell row="5" col="2" halign="left">
@@ -351,7 +351,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_power.png"/>
+                  <image-caption src="images/gui/powerlines.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
@@ -369,7 +369,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/solar.png"/>
+                  <image-caption src="images/gui/solarpower.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
@@ -387,7 +387,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/windmill.png"/>
+                  <image-caption src="images/gui/windmills.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -422,7 +422,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/coal.png"/>
+                  <image-caption src="images/gui/coalmine.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
@@ -431,7 +431,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/ore.png"/>
+                  <image-caption src="images/gui/oremine.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
@@ -440,7 +440,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/bucket.png"/>
+                  <image-caption src="images/gui/trash.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
@@ -449,7 +449,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/recycle.png"/>
+                  <image-caption src="images/gui/recycling.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -474,7 +474,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/industry.png"/>
+                  <image-caption src="images/gui/lightindustry.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
@@ -483,7 +483,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/heavyindustry.png"/>
+                  <image-caption src="images/gui/heavyindustry2.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
@@ -492,7 +492,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/markt.png"/>
+                  <image-caption src="images/gui/market.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
@@ -553,7 +553,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/ship.png"/>
+                  <image-caption src="images/gui/water.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
@@ -571,7 +571,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/windmill.png"/>
+                  <image-caption src="images/gui/mills.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
