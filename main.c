@@ -556,8 +556,10 @@ execute_timestep (void)
     if (market_cb_flag == 0 && help_flag == 0 
 	&& port_cb_flag == 0 && prefs_flag == 0)
     {
+#ifdef MOUSE_REPEAT
 	if ((--cs_mouse_button_delay) < 0)
 	    cs_mouse_button_delay = 0;
+#endif
 #if defined (LC_X11) || defined (WIN32)
 	call_event ();
 #else
@@ -609,8 +611,10 @@ execute_timestep (void)
 
 	print_stats ();
 
+#ifdef MOUSE_REPEAT
 	if (cs_mouse_button == LC_MOUSE_LEFTBUTTON)
 	    cs_mouse_repeat ();
+#endif
 	if (market_cb_flag)
 	    draw_market_cb ();
 	else if (port_cb_flag)	/* else- can't have both */
@@ -624,7 +628,9 @@ execute_timestep (void)
 	if (port_cb_flag != 0 && port_cb_drawn_flag == 0)
 	    draw_port_cb ();
 #endif
+#ifdef MOUSE_REPEAT
 	cs_mouse_button_delay = 0;
+#endif 
 #if !defined (LC_X11) && !defined (WIN32)
 	mouse_update ();
 #endif

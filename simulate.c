@@ -752,6 +752,7 @@ random_start (int* originx, int* originy)
     quick_start_add (xx + 9, yy + 9, CST_POTTERY_0, 2);
 }
 
+/* XXX: WCK: What is up with this?  Why not just use set_mappoint?! */
 static void
 quick_start_add (int x, int y, short type, int size)
 {

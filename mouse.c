@@ -39,6 +39,7 @@ void check_bulldoze_area (int x, int y);
 
 /* GCS -- we should get rid of mouse repeat. */
 /* WCK -- agreed */
+#ifdef MOUSE_REPEAT
 void
 cs_mouse_repeat (void)
 {
@@ -47,6 +48,7 @@ cs_mouse_repeat (void)
 	cs_mouse_handler (cs_mouse_button, 0, 0);
     /* cs_mouse_button_repeat zeroed by handler */
 }
+#endif
 
 /* ---------------------------------------------------------------------- *
  * cs_mouse_handler
@@ -150,7 +152,9 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 
 	switch (button) {
 	case LC_MOUSE_LEFTBUTTON:
+#ifdef MOUSE_REPEAT
 	    cs_mouse_button_repeat = real_time + 500;
+#endif
 	
 	    if (market_cb_flag) {
 		do_market_cb_mouse (x, y);

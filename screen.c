@@ -882,11 +882,17 @@ draw_mini_screen (void)
 	    if (MP_TYPE(x,y) == CST_USED) {
 		xx = MP_INFO(x,y).int_1;
 		yy = MP_INFO(x,y).int_2;
-		Fgl_setpixel (mm->x + x, mm->y + y,
-			      main_groups[MP_GROUP(xx,yy)].colour);
+
+		/* WCK: I think this is what is blowing up */
+		if ((xx < 0 || xx > WORLD_SIDE_LEN) ||
+		    (yy < 0 || yy > WORLD_SIDE_LEN)) {
+		  printf("Argh!  mini_screen out of range on CST_USED!\n");
+		  printf("xx=%d,yy=%d.  Continuing\n",xx,yy);
+		}
+
+		Fgl_setpixel (mm->x + x, mm->y + y, main_groups[MP_GROUP(xx,yy)].colour);
 	    } else {
-		Fgl_setpixel (mm->x + x, mm->y + y,
-			      main_groups[MP_GROUP(x,y)].colour);
+		Fgl_setpixel (mm->x + x, mm->y + y,  main_groups[MP_GROUP(x,y)].colour);
 	    }
 	}
     }
@@ -2047,7 +2053,9 @@ close_market_cb (void)
 
     /* when exiting market cb, stop the mouse repeating straight away */
     cs_mouse_button = LC_MOUSE_LEFTBUTTON;
+#ifdef MOUSE_REPEAT
     cs_mouse_button_repeat = real_time + 1000;
+#endif
 }
 
 void
@@ -2131,7 +2139,9 @@ close_port_cb (void)
     Fgl_putbox (mcb->x, mcb->y, mcb->w, mcb->h, market_cb_gbuf);
     /* when exiting port cb, stop the mouse repeating straight away */
     cs_mouse_button = LC_MOUSE_LEFTBUTTON;
+#ifdef MOUSE_REPEAT
     cs_mouse_button_repeat = real_time + 1000;
+#endif
 }
 
 int
@@ -2144,7 +2154,10 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
     unrequest_mappoint_stats ();
     unrequest_main_screen ();
 
-    cs_mouse_button_delay = 0; /* XXX: go away */
+#ifdef MOUSE_REPEAT
+    cs_mouse_button_delay = 0; 
+#endif
+
     /* find len of longest string */
     if (strlen (s1) > w)
 	w = strlen (s1);
@@ -2248,7 +2261,9 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
       // in the main loop!
     */
     reset_mouse_flag = 1;
+#ifdef MOUSE_REPEAT
     cs_mouse_button_repeat = real_time + 1000;
+#endif
 
     request_main_screen ();
 
@@ -2268,7 +2283,9 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     unrequest_mappoint_stats ();
     unrequest_main_screen ();
 
+#ifdef MOUSE_REPEAT
     cs_mouse_button_delay = 0;
+#endif
     /* select which colour to draw the box in. */
     if (suppress_ok_buttons != 0)
 	return;
@@ -2412,7 +2429,9 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     free (ss);
     /* when exiting dial box, stop the mouse repeating straight away */
     reset_mouse_flag = 1;
+#ifdef MOUSE_REPEAT
     cs_mouse_button_repeat = real_time + 1000;
+#endif
 
     request_main_screen ();
 }

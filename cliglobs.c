@@ -32,7 +32,12 @@ int mouse_initialized = 0;
 int cs_mouse_x, cs_mouse_y, cs_mouse_button;	/* current mouse status */
 int cs_mouse_shifted = 0;	/* shift key pressed with mouse. */
 int cs_mouse_xmax, cs_mouse_ymax, omx, omy, mox = 10, moy = 10;
-int cs_mouse_button_repeat, mouse_hide_count, cs_mouse_button_delay;
+
+#ifdef MOUSE_REPEAT
+int cs_mouse_button_repeat, cs_mouse_button_delay;
+#endif
+
+int mouse_hide_count;
 #if defined (WIN32)
 /* int cs_current_mouse_x, cs_current_mouse_y, cs_current_mouse_button; */
 int cs_square_mouse_visible = 0;
