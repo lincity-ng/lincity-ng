@@ -173,10 +173,14 @@ initialize_geometry (Screen_Geometry* scr)
     scr->select_message.w = 0;  /* unused */
 
     scr->date.w = DATE_W;  
-    scr->date.x = scr->main_win.x + ((scr->main_win.w - scr->date.w) / 2);
+    scr->date.x = scr->main_win.x + scr->main_win.w - scr->date.w;
     scr->date.y = scr->main_win.y + scr->main_win.h + 16;
-    scr->date.h = 0;  /* unused */
+    scr->date.h = 16; 
 
+    scr->money.w = MONEY_W;
+    scr->money.x = scr->main_win.x;
+    scr->money.y = scr->main_win.y + scr->main_win.h + 16;
+    scr->money.h = 16;
 
     scr->time_for_year.x = scr->main_win.x;
     scr->time_for_year.y = TIME_FOR_YEAR_Y;
@@ -311,7 +315,7 @@ resize_geometry (int new_width, int new_height)
     scr.status_message.w = scr.main_win.w;
 
     scr.date.y = scr.main_win.y + scr.main_win.h + 16;
-    scr.date.x = ((scr.main_win.w - scr.date.w) / 2) + scr.main_win.x;
+    scr.date.x = scr.main_win.x + scr.main_win.w - scr.date.w;
 
     scr.pbar_area.x = 56 + scr.main_win.w + 16 + 2;
     scr.pbar_pop.x = scr.pbar_area.x + 4;

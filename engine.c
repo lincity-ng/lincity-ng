@@ -22,6 +22,16 @@
 
 extern int selected_type_cost;
 
+int 
+adjust_money(int value)
+{
+    total_money += value;
+
+    print_total_money();
+
+    return total_money;
+}
+
 int is_real_river (int x, int y);
 
 int
@@ -144,7 +154,7 @@ place_item (int x, int y, short type)
 
     connect_transport (x-2,y-2,x+size+1,y+size+1);
 
-    total_money -= selected_module_cost;
+    adjust_money(-selected_module_cost);
     map_power_grid();
     return 0;
 }
@@ -168,7 +178,7 @@ bulldoze_item (int x, int y)
     }
     else if (g == GROUP_SHANTY) {
 	fire_area (x, y);
-	total_money -= GROUP_SHANTY_BUL_COST;
+	adjust_money(-GROUP_SHANTY_BUL_COST);
     }
     else if (g == GROUP_FIRE) {
 	if (MP_INFO(x,y).int_2 >= FIRE_LENGTH)
@@ -176,10 +186,10 @@ bulldoze_item (int x, int y)
 	MP_INFO(x,y).int_2 = FIRE_LENGTH + 1;
 	MP_TYPE(x,y) = CST_FIRE_DONE1;
 	MP_GROUP(x,y) = GROUP_BURNT;
-	total_money -= GROUP_BURNT_BUL_COST;
+	adjust_money(-GROUP_BURNT_BUL_COST);
     }
     else {
-	total_money -= main_groups[g].bul_cost;
+	adjust_money(-main_groups[g].bul_cost);
 	do_bulldoze_area (CST_GREEN, x, y);
 	if (g == GROUP_OREMINE)
 	{
@@ -3696,11 +3706,12 @@ is_real_river (int x, int y)
   return (-1);
 }
 
+/* Feature: coal survey should vary in price and accuracy with technology */
 void 
 do_coal_survey (void)
 {
     if (coal_survey_done == 0) {
-	total_money -= 1000000;
+	adjust_money(-1000000);
 	coal_survey_done = 1;
     }
 }

@@ -5,6 +5,7 @@
 #include "cliglobs.h"
 #include "mouse.h"
 #include "lctypes.h"
+#include "lclib.h"
 
 #define DEBUG_MODULES 1
 
@@ -488,14 +489,19 @@ draw_selected_module_cost ()
 {
   Rect* b = &scr.select_message;
   char s[100];
+  char coststr[20];
+  char bldzstr[20];
 
   selected_module_cost = get_type_cost (selected_module_type);
 
+  commify(coststr,20,selected_module_cost);
+  commify(bldzstr,20,main_groups[selected_module_group].bul_cost);
+
   if (selected_module_group == GROUP_BARE) 
-    sprintf (s, "Bulldoze - cost varies");
+    snprintf (s, 100, "Bulldoze - cost varies");
   else
-    sprintf (s, "%s %d  Bulldoze %d", main_groups[selected_module_group].name,
-	    selected_module_cost, main_groups[selected_module_group].bul_cost);
+    snprintf (s, 100, "%s %s  Bulldoze %s", main_groups[selected_module_group].name,
+	    coststr, bldzstr);
 
   Fgl_fillbox (b->x, b->y, 42 * 8, 8, TEXT_BG_COLOUR);
   Fgl_write (b->x, b->y, s);

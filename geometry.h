@@ -71,6 +71,7 @@ struct screen_geometry_struct
     Rect date;
     Rect time_for_year;
     Rect status_message;
+    Rect money;
 
     /* Mini map */
     Rect mini_map;
@@ -252,6 +253,7 @@ void draw_bezel (Rect r, short width, int color);
 #endif /* commentout */
 
 #define DATE_W                    112
+#define MONEY_W                   320
 #define TIME_FOR_YEAR_X           320
 #define TIME_FOR_YEAR_Y           470
 #define SELECT_BUTTON_MESSAGE_X   MAIN_WIN_X

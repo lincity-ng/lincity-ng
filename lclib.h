@@ -12,9 +12,9 @@ char * current_month(int current_time);
 int current_year (int current_time);
 void format_number5 (char* str, int num);
 void format_pos_number4 (char* str, int num);
-void format_money (char* str);
 void format_power(char * str, size_t size, long power);
-void* lcalloc (size_t size);
+void * lcalloc (size_t size);
+int commify(char * str, size_t size, int argnum);
 
 #endif
 

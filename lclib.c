@@ -110,26 +110,57 @@ num_to_ansi_unit(char * s, size_t size, long num, char unit)
     snprintf(s, size, "%5.1f%c%c", numf, triplets, unit);
 }
 
+/* commify: take a number and convert it to a string grouped into triplets
+   with commas; returns number of characters written, excluding trailing zero
+*/
+int 
+commify (char *str, size_t size, int argnum)
+{
+    size_t count = 0;
+    int i = 0;
+    int triad = 1;
+    int num = argnum;
+    int kludge = 1;
+
+    if (num < 0) 
+	count += snprintf(str, size, "-");
+
+    num = abs(argnum);
+    
+    for (; num >= 1000; num /= 1000, triad++, kludge *= 1000);
+
+    num = abs(argnum);
+
+    for (; triad > 0; i++, triad--) {
+
+	if (i == 0) 
+	    if (triad == 1)
+		count += snprintf(str + count, size - count, "%d", num);
+	    else
+		count += snprintf(str + count, size - count, "%d,", 
+				  num ? num / kludge : num);
+	else if (triad == 1)
+	    count += snprintf(str + count, size - count, "%03d", 
+			      num ? num / kludge : num);
+	else
+	    count += snprintf(str + count, size - count, "%03d,",
+			      num ? num / kludge : num);
+
+	if (num) /* don't divide by zero */
+	    num %= kludge;
+
+	kludge /= 1000;
+    }
+
+    return count;
+}
+
+
+
 void 
 format_pos_number4 (char* str, int num)
 {
   num_to_ansi(str, 4, num);
-}
-
-void
-format_money (char* str)
-{
-    int money_sign = total_money >= 0 ? 1 : -1;
-    int money_absval = money_sign * total_money;
-    int millions = money_absval / 1000000;
-    int ones = money_absval % 1000000;
-
-    if (millions) {
-	sprintf (str, "%5d%c%06d", 
-		 money_sign * millions, MONEY_SEPARATOR, ones);
-    } else {
-	sprintf (str, "     %7d", money_sign * ones);
-    }
 }
 
 void 

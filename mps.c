@@ -1569,7 +1569,7 @@ mps_global_housing (void)
 void 
 mps_global_finance (void)
 {
-    char s[100];
+    char s[20];
     Rect* mps = &scr.mappoint_stats;
 
     format_pos_number4 (s, ly_income_tax);
@@ -1589,7 +1589,8 @@ mps_global_finance (void)
     format_pos_number4 (s, ly_import_cost);
     Fgl_write (mps->x + 11*8, mps->y + 40, s);
 
-    format_money (s);
+    commify(s, 20, total_money);
+
     if (total_money < 0)
 	Fgl_setfontcolors (14, red (30));
     Fgl_write (mps->x + 3 * 8, mps->y + 80, s);

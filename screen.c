@@ -111,21 +111,14 @@ void
 refresh_main_screen ()
 {
     Rect* b = &scr.main_win;
-//    if (!(market_cb_flag || port_cb_flag))
-    /* XXX: Don't resize the screen now! */
-    /* XXX: wck: Safer with the above test commented out;  atleast you can
-       still see the map */
-    /* GCS: Agreed.  */
 
-    {
-	connect_transport (main_screen_originx, main_screen_originy,
-			   b->w / 16, b->h / 16);
-	screen_refresh_flag++;
-	update_main_screen ();
-	update_mini_screen ();
-	dialog_refresh();
-	screen_refresh_flag--;
-    }
+    connect_transport (main_screen_originx, main_screen_originy,
+		       b->w / 16, b->h / 16);
+    screen_refresh_flag++;
+    update_main_screen ();
+    update_mini_screen ();
+    dialog_refresh();
+    screen_refresh_flag--;
 }
 
 void 
@@ -709,9 +702,11 @@ screen_full_refresh (void)
 	refresh_help_page ();
     }
     refresh_main_screen ();
+
+/*  Text status area */
     print_date();
     print_time_for_year();
-
+    print_total_money();
     draw_selected_module_cost();
 
     refresh_pbars();
@@ -1755,33 +1750,23 @@ print_stats (void)
 void
 print_total_money (void)
 {
-/* GCS FIX:  This should be done in pbar and ms_global/FINANCE */
-#if defined (FINANCE_WINDOW)
-    char s[100], s2[100], i;
-    if (total_money > 2000000000)
-	total_money = 2000000000;
-    else if (total_money < -2000000000)
-	total_money = -2000000000;
-    if (total_money / 1000000 == 0)
-	strcpy (s, "     ");
-    else
-	sprintf (s, "%5d", total_money / 1000000);
-    if ((total_money < 0) && (total_money / 1000000 != 0))
-	sprintf (s2, " %06d", -total_money % 1000000);
-    else if (total_money / 1000000 != 0)
-	sprintf (s2, " %06d", total_money % 1000000);
-    else
-	sprintf (s2, "%7d", total_money % 1000000);
-    if (total_money / 1000000 != 0)
-	s2[0] = MONEY_SEPARATOR;
-    strcat (s, s2);
-    i = 3;
+    Rect* b = &scr.money;
+    char str[40];
+    size_t count;
+
+    count = snprintf(str, 40, "I ");
+
+    count += commify(str + count, 40 - count, total_money);
+
+    count += snprintf(str + count, 40 - count, "                           ");
+
     if (total_money < 0)
 	Fgl_setfontcolors (TEXT_BG_COLOUR, red (30));
-    Fgl_write (FINANCE_X + i * 8, FINANCE_Y + 48, s);
+
+    Fgl_write (b->x, b->y, str);
+
     if (total_money < 0)
 	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-#endif
 }
 
 void
