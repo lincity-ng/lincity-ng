@@ -7,6 +7,8 @@
 #ifndef _pbar_h
 #define _pbar_h
 
+#include "geometry.h"
+
 void init_pbars (void);
 void pbars_full_refresh (void);
 void init_pbar_text (void);
@@ -25,6 +27,10 @@ int pbar_adjust_ore (int diff);
 int pbar_adjust_steel (int diff);
 int pbar_adjust_money (int diff);
 void refresh_pbars (void);
+
+void update_pbar (int pbar_num, int value, int month_flag);
+void update_pbars_daily(void);
+void update_pbars_monthly(void);
 void update_pbar_pop (int pop);
 void update_pbar_tech (int tech);
 void update_pbar_food (int food);
@@ -35,19 +41,8 @@ void update_pbar_ore (int ore);
 void update_pbar_steel (int steel);
 void update_pbar_money (int money);
 int compute_pbar_offset (Rect* b, int val);
-void draw_pbar_new (Rect* b, int total, int val, int oldval);
+void draw_pbar_new (Rect* b, int val);
 void pbar_mouse(int rawx, int rawy, int button);
-
-/* XXX: WCK: These are actually defined in shrglobs.c, maybe in pbar.c? */
-extern int pbar_pop[12];
-extern int pbar_tech[12];
-extern int pbar_food[12];
-extern int pbar_jobs[12];
-extern int pbar_coal[12];
-extern int pbar_goods[12];
-extern int pbar_ore[12];
-extern int pbar_steel[12];
-extern int pbar_money[12];
 
 /* Constants */
 
@@ -70,4 +65,38 @@ extern int pbar_money[12];
 #define PBAR_MONEY_X    PBAR_POP_X
 #define PBAR_MONEY_Y    PBAR_POP_Y+(PBAR_H+1)*8
 
+/* Type:Position constants for pbars struct */
+
+#define PPOP 0
+#define PTECH 1
+#define PFOOD 2
+#define PJOBS 3
+#define PMONEY 4
+#define PCOAL 5
+#define PGOODS 6
+#define PORE 7
+#define PSTEEL 8
+
+
+#define NUM_PBARS 9
+
+/* Number of elements per pbar */
+#define PBAR_DATA_SIZE 12
+
+struct pbar_st 
+{
+    int oldtot;
+    int tot;
+    int diff;
+
+    int data_size;
+    int data[PBAR_DATA_SIZE];
+};
+
+extern struct pbar_st pbars[NUM_PBARS];
+
 #endif
+
+
+
+
