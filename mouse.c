@@ -150,101 +150,101 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 	   wheel, but I feel like I should invent it just once and see how
 	   well mine rolls. */
 
-	switch (button) {
-	case LC_MOUSE_LEFTBUTTON:
+	if (!mouse_handle_click(x, y, button)) {
+	    switch (button) {
+	    case LC_MOUSE_LEFTBUTTON:
 #ifdef MOUSE_REPEAT
-	    cs_mouse_button_repeat = real_time + 500;
+		cs_mouse_button_repeat = real_time + 500;
 #endif
 	
-	    if (market_cb_flag) {
-		do_market_cb_mouse (x, y);
-		break;
-	    }
-	    else if (port_cb_flag) {
-		do_port_cb_mouse (x, y);
-		break;
-	    }
-	    else if (help_flag) {
-		do_help_mouse (x, y, button);
-		break;
-	    }
-	    else if (prefs_flag) {
-		do_prefs_mouse (x, y, button);
-		break;
-	    }
-	    else if (db_flag) {
-		do_db_mouse (x, y);
-		break;
-	    }
-	    else if (db_okflag) {
-		do_db_okmouse (x, y);
-		break;
-	    }
-	    else if (load_flag || save_flag) 
-		return;
+		if (market_cb_flag) {
+		    do_market_cb_mouse (x, y);
+		    break;
+		}
+		else if (port_cb_flag) {
+		    do_port_cb_mouse (x, y);
+		    break;
+		}
+		else if (help_flag) {
+		    do_help_mouse (x, y, button);
+		    break;
+		}
+		else if (prefs_flag) {
+		    do_prefs_mouse (x, y, button);
+		    break;
+		}
+		else if (db_flag) {
+		    do_db_mouse (x, y);
+		    break;
+		}
+		else if (db_okflag) {
+		    do_db_okmouse (x, y);
+		    break;
+		}
+		else if (load_flag || save_flag) 
+		    return;
 
-	    /* This is the main screen */
-	    if (mouse_in_rect(&scr.main_win,x,y)) {
-		do_mouse_main_win(x, y, button);
-		refresh_main_screen ();
-		break;
-	    }
+		/* This is the main screen */
+		if (mouse_in_rect(&scr.main_win,x,y)) {
+		    do_mouse_main_win(x, y, button);
+		    refresh_main_screen ();
+		    break;
+		}
 
-	    /* Other points too */
-	    do_mouse_other_buttons(x, y, button);
+		/* Other points too */
+		do_mouse_other_buttons(x, y, button);
 	
-	    break;
+		break;
 	
-	case LC_MOUSE_RIGHTBUTTON:
-	case LC_MOUSE_MIDDLEBUTTON:
-	/* GCS FIX: This is my fix for right clicks on 
-	    main screen during yn_dialogs causing dialog to 
-	    be overwritten by screen content (similar effect
-	    for market_cb overwritten by mps).  This fix could
-	    be better, but will be better to confirm behavior
-	    for X version before deciding final fix.
-	    */
-	    if (market_cb_flag) {
-		// should dismiss cb?
-		break;
-	    }
-	    else if (port_cb_flag) {
-		// should dismiss cb?
-		break;
-	    }
-	    else if (help_flag) {
-		// do_help_mouse (x, y, button);   maybe should??
-		break;
-	    }
-	    else if (prefs_flag) {
-		break;
-	    }
-	    else if (db_flag) {
-		break;
-	    }
-	    else if (db_okflag) {
-		break;
-	    }
-	    else if (load_flag || save_flag) 
-		return;
+	    case LC_MOUSE_RIGHTBUTTON:
+	    case LC_MOUSE_MIDDLEBUTTON:
+		/* GCS FIX: This is my fix for right clicks on 
+		   main screen during yn_dialogs causing dialog to 
+		   be overwritten by screen content (similar effect
+		   for market_cb overwritten by mps).  This fix could
+		   be better, but will be better to confirm behavior
+		   for X version before deciding final fix.
+		*/
+		if (market_cb_flag) {
+		    // should dismiss cb?
+		    break;
+		}
+		else if (port_cb_flag) {
+		    // should dismiss cb?
+		    break;
+		}
+		else if (help_flag) {
+		    // do_help_mouse (x, y, button);   maybe should??
+		    break;
+		}
+		else if (prefs_flag) {
+		    break;
+		}
+		else if (db_flag) {
+		    break;
+		}
+		else if (db_okflag) {
+		    break;
+		}
+		else if (load_flag || save_flag) 
+		    return;
 
-	    /* This is the main screen */
-	    if (mouse_in_rect(&scr.main_win,x,y)) {
-		do_mouse_main_win(x, y, button);
-		refresh_main_screen ();
+		/* This is the main screen */
+		if (mouse_in_rect(&scr.main_win,x,y)) {
+		    do_mouse_main_win(x, y, button);
+		    refresh_main_screen ();
+		    break;
+		}
+
+		/* Other points too */
+		do_mouse_other_buttons(x, y, button);
+
 		break;
+
+	    default: 
+		printf("Unknown mouse button in cs_mouse_handler\n");
 	    }
-
-	    /* Other points too */
-	    do_mouse_other_buttons(x, y, button);
-
-	    break;
-
-	default: 
-	    printf("Unknown mouse button in cs_mouse_handler\n");
-	}
-
-	/* button release */
+	} /* mouse_handle_click couldn't. */
     } else if (button_released) { 
 	button = enc_button - 16; /* probably shouldn't use this temporarily */
       
@@ -2065,7 +2065,6 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
     return (1);
 }
 
-
 int 
 cmp(int n1, int n2)
 {
@@ -2074,3 +2073,90 @@ cmp(int n1, int n2)
     else
 	return 0;
 }
+
+
+
+void
+init_mouse_registry()
+{
+    mhandle_first = NULL;
+    mhandle_last = NULL;
+    mhandle_current = NULL;
+    mhandle_count = 0;
+}
+
+/* Add and return an entry in the registry.  Add it at the beginning, so
+   it supercedes earlier entries in mouse_handle_click() */
+
+Mouse_Handle *
+mouse_register(Rect * r, void (*function)(int, int, int)) 
+{
+
+    mhandle_current = (Mouse_Handle *)lcalloc(sizeof(Mouse_Handle));
+    mhandle_count++;
+    if (mhandle_first == NULL) {
+	mhandle_current->next = NULL;
+	mhandle_current->prev = NULL;
+    } else {
+	mhandle_current->next = mhandle_first;
+	mhandle_first->prev = mhandle_current;
+	mhandle_current->prev = NULL;
+    }
+
+    mhandle_first = mhandle_current;
+
+    mhandle_current->r = r;
+    mhandle_current->handler = function;
+
+    return mhandle_current;
+}
+
+
+/* Remove an entry from the registry */
+
+void 
+mouse_unregister(Mouse_Handle * mhandle)
+{
+
+    if (mhandle->prev == NULL) {
+	if (mhandle_first != mhandle) 
+	    printf("debug: mhandle_first != mhandle\n");
+	if (mhandle->next != NULL) {
+	    mhandle_first = mhandle->next;
+	    mhandle_first->prev = NULL;
+	} else 
+	    mhandle_first = NULL;
+    } else if (mhandle->next == NULL) 
+	mhandle->prev->next = NULL;
+    else {
+	mhandle->prev->next = mhandle->next;
+	mhandle->next->prev = mhandle->prev;
+    }
+
+    free(mhandle);
+    mhandle_count--;
+}
+
+/* Loop through the registry until we find a handler for an area.  
+   BEWARE!!!  Some handlers unregister themselves when called.  Assume 
+   mhandle_current is undefined after calling mhandle_current->handler()
+*/
+
+int 
+mouse_handle_click(int x, int y, int button) 
+{
+    mhandle_current = mhandle_first;
+
+    while (mhandle_current != NULL) {
+	if (mouse_in_rect(mhandle_current->r,x,y)) {
+	    mhandle_current->handler(x - mhandle_current->r->x, 
+				     y - mhandle_current->r->y, button);
+	    return 1;
+	}
+	
+	mhandle_current = mhandle_current->next;
+    }
+
+    return 0;
+}
+    

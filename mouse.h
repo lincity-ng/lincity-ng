@@ -49,6 +49,7 @@ void do_mouse_main_win (int, int, int);
 int cmp(int, int);
 void drag_screen (void);
 
+
 /* WCK: These were in lin-city.h */
 
 void no_credit_build_msg (int selected_type);
@@ -80,4 +81,30 @@ extern void choose_residence (void);
 extern void do_multi_transport (int, int, int);
 extern int mt_draw (int, int, int); /* wcoreyk */
 
+/* Mouse registry stuff.  */
+
+struct mouse_handle_struct
+{
+    Rect * r;
+    void (* handler)(int, int, int);
+    struct mouse_handle_struct * prev;
+    struct mouse_handle_struct * next;
+};
+
+typedef struct mouse_handle_struct Mouse_Handle;
+
+Mouse_Handle * mhandle_first;
+Mouse_Handle * mhandle_last;
+Mouse_Handle * mhandle_current;
+int mhandle_count;
+
+void init_mouse_registry();
+int mouse_handle_clicks(int x, int y, int button);
+
+Mouse_Handle * mouse_register(Rect * r, void (*handler)(int, int, int));
+void mouse_unregister(Mouse_Handle * mhandle);
+
+
+
 #endif
+
