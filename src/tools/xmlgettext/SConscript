@@ -1,5 +1,7 @@
 Import('*')
 
+print "Dir: " + Dir('.').path
+
 source = Glob("*.cpp")
 app = env.Program(target = "xmlgettext", source = Glob("*.cpp"))
 AddPostAction(app, "ln -sf $TARGET .")

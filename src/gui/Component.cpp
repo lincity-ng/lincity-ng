@@ -50,7 +50,7 @@ Component::draw(Painter& painter)
     for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
         Child& child = *i;
         if(!child.enabled)
-            return;
+            continue;
     
         drawChild(child, painter);
     }

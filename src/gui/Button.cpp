@@ -34,6 +34,8 @@ Button::Button(Component* parent, XmlReader& reader)
                 msg << "Couldn't parse height '" << value << "'.";
                 throw std::runtime_error(msg.str());
             }
+        } else if(strcmp(attribute, "direction") == 0) {
+            // skip
         } else {
             std::cerr << "Skipping unknown attribute '"
                 << attribute << "'.\n";
