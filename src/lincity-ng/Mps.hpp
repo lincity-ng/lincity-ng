@@ -2,8 +2,6 @@
 #define __lc_mps_h__
 
 #include "gui/Component.hpp"
-#include <SDL_mixer.h>
-
 
 class XmlReader;
 
@@ -22,9 +20,6 @@ public:
   void playwav( int id );
  private:
   int mX,mY;
-  static const int maxWaves = 15;
-  Mix_Chunk* waves[ maxWaves ];
-  bool audioOpen;
 
   //  std::vector<AGText*> mTexts;
 };

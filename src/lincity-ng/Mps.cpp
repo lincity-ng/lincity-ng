@@ -12,7 +12,7 @@
 #include "gui/ComponentLoader.hpp"
 #include "gui/Paragraph.hpp"
 
-#include <SDL_mixer.h>
+#include "Sound.hpp"
 
 LCMps *mLCMPS = 0;
 
@@ -22,40 +22,12 @@ LCMps::LCMps()
 {
     assert(mLCMPS == 0);
     mLCMPS = this;
-
-    audioOpen = false;
-   	/* Open the audio device */
-	if (Mix_OpenAudio( MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
-		fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
-	} else {
-		audioOpen = true;
-        memset(&waves, 0, sizeof(waves));
-        
-        //Load Waves
-        //
-        //TODO: there has to be a better way to organize the Sounds.
-        waves[ 0 ] = Mix_LoadWAV("data/sounds/Click.wav");
-        waves[ 1 ] = Mix_LoadWAV("data/sounds/School3.wav");
-        waves[ 3 ] = Mix_LoadWAV("data/sounds/RailTrain3.wav");
-        waves[ 4 ] = Mix_LoadWAV("data/sounds/TraficLow3.wav");
-	}
-
 }
 
 LCMps::~LCMps()
 {
     if(mLCMPS == this)
         mLCMPS = 0;
-    for ( int i = 0; i < maxWaves; i++ )
-        if( waves[i] ) {
-            Mix_FreeChunk(  waves[i] );
-             waves[i] = 0;
-    }
-	if ( audioOpen ) {
-		Mix_CloseAudio();
-		audioOpen = false;
-	}
-
 }
 
 void
@@ -109,22 +81,6 @@ void LCMps::setView(int x,int y)
 LCMps *getMPS()
 {
   return mLCMPS;
-}
-
-/*
- *  Playback an Audio-Effect
- */
-void LCMps::playwav( int id ) {
-    printf("Audio %i request...", id);
-    
-    if( !audioOpen ){
-		printf("Can't play Audio.\n");
-        return;
-    }
-    if( waves[ id ] ) {
-        Mix_PlayChannel(0, waves[ id ], 0); 
-        printf("Oky\n");
-    }
 }
 
 void mps_update(int mps_x,int mps_y,int mps_style)
@@ -184,7 +140,7 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 	        mps_power_line (mps_x, mps_y);
 	        break;
 	    case (GROUP_RAIL):
-            getMPS()->playwav( 3 );
+            getSound()->playwav( 3 );
 		mps_rail (mps_x, mps_y);
 		break;
 	    case (GROUP_RECYCLE):
@@ -205,7 +161,7 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 	        mps_rocket (mps_x, mps_y);
 		break;
 	    case (GROUP_SCHOOL):
-            getMPS()->playwav( 1 );
+            getSound()->playwav( 1 );
 	        mps_school (mps_x, mps_y);
 		break;
 	    case GROUP_SOLAR_POWER:
@@ -218,7 +174,7 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 	        mps_tip (mps_x, mps_y);
 		break;
 	    case (GROUP_TRACK):
-            getMPS()->playwav( 4 );
+            getSound()->playwav( 4 );
 		mps_track(mps_x, mps_y);
 		break;
 	    case (GROUP_MARKET):
