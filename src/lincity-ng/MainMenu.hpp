@@ -21,6 +21,7 @@ private:
     void loadLoadGameMenu();
     
     void fillLoadMenu();
+    void fillNewGameMenu();
     
     void quitButtonClicked(Button* );
     void continueButtonClicked(Button* );

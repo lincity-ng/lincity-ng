@@ -20,49 +20,26 @@ for file-enumeration (no wildcards) -->
     <Image src="images/mainmenu/newgame_back.png"/>
     <!-- Split window into title/top - contents and bottom/buttons area -->
     <TableLayout rows="3" cols="1">
-        <rowsize row="1" relative="1"/>
-        <rowsize row="2" relative="4"/>
+        <rowsize row="1" fixed="260"/>
+        <rowsize row="2" fixed="313"/>
         <rowsize row="3" relative="1"/>
         
         <cell row="1" col="1">
             <Paragraph style="menutitle" translatable="yes">Load Game</Paragraph>
         </cell>
         <cell row="2" col="1">
-            <TableLayout rows="10" cols="2">
+            <TableLayout rows="6" cols="2">
                 <rowsize row="1" fixed="50"/>
                 <rowsize row="4" fixed="50"/>
-                <colsize col="1" relative="2"/>
+                <colsize col="1" fixed="620"/>
                 <colsize col="2" relative="1"/>
             
-                <cell row="1" col="1">
+<!--                <cell row="1" col="1">
                     <Paragraph style="listtitle" translatable="yes">
                     Choose Scenario</Paragraph>
                 </cell>
-                <cell row="2" col="1">
-                    <CheckButton name="Scenario0">
-                      <text-caption style="button" translatable="yes">Good Times</text-caption>
-                      <image src="images/gui/savebutton.png"/>
-                      <image-hover src="images/gui/savebutton1.png"/>
-                      <image-clicked src="images/gui/savebutton2.png"/>
-                      <image-checked src="images/gui/savebutton3.png"/>
-                    </CheckButton>                    
-                </cell>
-                <cell row="3" col="1">
-                    <CheckButton name="Scenario1">
-                      <text-caption style="button" translatable="yes">Bad Times</text-caption>
-                      <image src="images/gui/savebutton.png"/>
-                      <image-hover src="images/gui/savebutton1.png"/>
-                      <image-clicked src="images/gui/savebutton2.png"/>
-                      <image-checked src="images/gui/savebutton3.png"/>
-                    </CheckButton>                    
-                </cell>
-                
-                <cell row="4" col="1">
-                    <Paragraph style="listtitle" translatable="yes">
-                    Choose Savegame</Paragraph>
-                </cell>                
-                
-                <cell row="5" col="1">
+                -->
+                <cell row="1" col="1">
                     <CheckButton name="File0">
                       <text-caption style="button" translatable="yes">Savegame 1</text-caption>
                       <image src="images/gui/savebutton.png"/>
@@ -71,7 +48,7 @@ for file-enumeration (no wildcards) -->
                       <image-checked src="images/gui/savebutton3.png"/>
                     </CheckButton>                    
                 </cell>
-                <cell row="6" col="1">
+                <cell row="2" col="1">
                     <CheckButton name="File1">
                       <text-caption style="button" translatable="yes">Savegame 2</text-caption>
                       <image src="images/gui/savebutton.png"/>
@@ -80,7 +57,7 @@ for file-enumeration (no wildcards) -->
                       <image-checked src="images/gui/savebutton3.png"/>
                     </CheckButton>                    
                 </cell>
-                <cell row="7" col="1">
+                <cell row="3" col="1">
                     <CheckButton name="File2">
                       <text-caption style="button" translatable="yes">Savegame 3</text-caption>
                       <image src="images/gui/savebutton.png"/>
@@ -89,7 +66,7 @@ for file-enumeration (no wildcards) -->
                       <image-checked src="images/gui/savebutton3.png"/>
                     </CheckButton>                    
                 </cell>
-                <cell row="8" col="1">
+                <cell row="4" col="1">
                     <CheckButton name="File3">
                       <text-caption style="button" translatable="yes">Savegame 4</text-caption>
                       <image src="images/gui/savebutton.png"/>
@@ -98,7 +75,7 @@ for file-enumeration (no wildcards) -->
                       <image-checked src="images/gui/savebutton3.png"/>
                     </CheckButton>                    
                 </cell>
-                <cell row="9" col="1">
+                <cell row="5" col="1">
                     <CheckButton name="File4">
                       <text-caption style="button" translatable="yes">Savegame 5</text-caption>
                       <image src="images/gui/savebutton.png"/>
@@ -107,7 +84,7 @@ for file-enumeration (no wildcards) -->
                       <image-checked src="images/gui/savebutton3.png"/>
                     </CheckButton>                    
                 </cell>
-                <cell row="10" col="1">
+                <cell row="6" col="1">
                     <CheckButton name="File5">
                       <text-caption style="button" translatable="yes">Savegame 6</text-caption>
                       <image src="images/gui/savebutton.png"/>
@@ -119,8 +96,11 @@ for file-enumeration (no wildcards) -->
             </TableLayout>
         </cell>
         <cell row="3" col="1">
-            <TableLayout rows="1" cols="2">
-                <cell row="1" col="1" halign="left">
+            <TableLayout rows="2" cols="2">
+                <rowsize row="1" fixed="115"/>
+                <rowsize row="2" relative="1"/>
+              
+                <cell row="2" col="1" halign="left">
                     <Button name="BackButton">
                         <text style="button" translatable="yes">Back</text>
                         <text-hover style="button-hover"
@@ -129,7 +109,7 @@ for file-enumeration (no wildcards) -->
                         translatable="yes">Back</text-clicked>
                     </Button>
                 </cell>
-                <cell row="1" col="2" halign="right">
+                <cell row="2" col="2" halign="right">
                     <Button name="LoadButton">
                         <text style="button" translatable="yes">Load</text>
                         <text-hover style="button-hover"
