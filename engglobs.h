@@ -45,37 +45,19 @@ extern int sust_old_tech, sust_old_tech_count, sust_fire_count;
 
 extern int total_time;    /* game time */
 
-extern int population, starving_population, food_in_markets, jobs_in_markets;
+extern int population, starving_population;
 extern int housed_population;
-extern int coal_in_markets, goods_in_markets, ore_in_markets, steel_in_markets;
 extern int unemployed_population, people_pool;
 extern int substationx[MAX_NUMOF_SUBSTATIONS], substationy[MAX_NUMOF_SUBSTATIONS];
 extern int numof_substations;
 extern int marketx[MAX_NUMOF_MARKETS], markety[MAX_NUMOF_MARKETS], numof_markets;
 extern int numof_health_centres, max_pop_ever, total_evacuated, total_births;
 
-extern int income_tax, coal_tax, total_money, income_tax_rate, coal_tax_rate;
-extern int unemployment_cost, transport_cost;
-extern int other_cost, university_cost, recycle_cost, school_cost, windmill_cost;
-extern int dole_rate, transport_cost_rate, cricket_cost;
-extern int goods_tax, goods_tax_rate;
-extern int export_tax, export_tax_rate, import_cost, import_cost_rate;
-extern int tech_level, highest_tech_level, unnat_deaths, deaths_cost;
-extern int health_cost, rocket_pad_cost, fire_cost;
-
-extern int ly_income_tax;
-extern int ly_coal_tax;
-extern int ly_goods_tax;
-extern int ly_export_tax;
-extern int ly_other_cost;
-extern int ly_unemployment_cost;
-extern int ly_transport_cost;
-extern int ly_import_cost;
-
-extern int ly_fire_cost;
-extern int ly_university_cost, ly_recycle_cost, ly_school_cost, ly_deaths_cost;
-extern int ly_health_cost, ly_rocket_pad_cost, ly_interest, ly_windmill_cost;
-extern int ly_cricket_cost;
+extern int total_money, income_tax_rate, coal_tax_rate;
+extern int dole_rate, transport_cost_rate;
+extern int goods_tax_rate;
+extern int export_tax_rate, import_cost_rate;
+extern int tech_level, highest_tech_level, unnat_deaths;
 
 extern int total_pollution_deaths, total_starve_deaths, total_unemployed_days;
 extern int total_unemployed_years;
