@@ -57,21 +57,24 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+host_alias = @host_alias@
+host_triplet = @host@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 EXEEXT = @EXEEXT@
 GENCAT = @GENCAT@
+GLIBC21 = @GLIBC21@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GT_NO = @GT_NO@
-GT_YES = @GT_YES@
-INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
 INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
+INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
+LIBICONV = @LIBICONV@
 MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
@@ -83,7 +86,6 @@ RANLIB = @RANLIB@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
-l = @l@
 with_gzip = @with_gzip@
 
 AUTOMAKE_OPTIONS = foreign
@@ -119,9 +121,9 @@ XLC_OBJ =  	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o 	x_cliglobs.o x
 LC_OBJ =  	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o 	vga_cliglobs.o vga_mps.o vga_lcsvga.o vga_screen.o vga_geometry.o 	vga_pbar.o vga_dialbox.o vga_module_buttons.o
 
 
-xlincity_SOURCES =  	clinet.c climsg.c 	animate.c clistubs.c shrnet.c 	lclib.c power.c 
+xlincity_SOURCES =  	clinet.c climsg.c 	animate.c clistubs.c shrnet.c 	lclib.c power.c
 
-EXTRA_xlincity_SOURCES =  	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c 	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c
+EXTRA_xlincity_SOURCES =  	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c 	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c 	dialbox.c
 
 xlincity_DEPENDENCIES =  	${XLC_OBJ} 	libutils.a 	libengine.a
 
@@ -130,7 +132,7 @@ xlincity_LDADD =  	${XLC_OBJ} 	-L. -lengine -lutils @X_LIBS@ -lXext -lX11 -lm
 
 lincity_SOURCES =  	clinet.c climsg.c 	animate.c clistubs.c shrnet.c 	lclib.c power.c
 
-EXTRA_lincity_SOURCES =  	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c 	lcsvga.c cliglobs.c geometry.c pbar.c module_buttons.c
+EXTRA_lincity_SOURCES =  	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c 	lcsvga.c cliglobs.c geometry.c pbar.c module_buttons.c 	dialbox.c
 
 lincity_DEPENDENCIES =  	${LC_OBJ} 	libutils.a 	libengine.a
 
@@ -205,8 +207,9 @@ DATA =  $(pkgdata_DATA)
 HEADERS =  $(noinst_HEADERS)
 
 DIST_COMMON =  README ./stamp-h.in ABOUT-NLS COPYING Makefile.am \
-Makefile.in TODO acconfig.h acinclude.m4 aclocal.m4 config.h.in \
-configure configure.in install-sh missing mkinstalldirs
+Makefile.in TODO acconfig.h acinclude.m4 aclocal.m4 config.guess \
+config.h.in config.sub configure configure.in install-sh missing \
+mkinstalldirs
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -214,14 +217,15 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 TAR = gtar
 GZIP_ENV = --best
 DEP_FILES =  .deps/animate.P .deps/cliglobs.P .deps/climsg.P \
-.deps/clinet.P .deps/clistubs.P .deps/engine.P .deps/fileutil.P \
-.deps/geometry.P .deps/lchelp.P .deps/lclib.P .deps/lcsvga.P \
-.deps/lcx11.P .deps/ldsvgui.P .deps/ldsvguts.P .deps/lintypes.P \
-.deps/main.P .deps/market.P .deps/module_buttons.P .deps/mouse.P \
-.deps/mps.P .deps/pbar.P .deps/picedit.P .deps/pixmap.P .deps/power.P \
-.deps/screen.P .deps/sermain.P .deps/sermsg.P .deps/sernet.P \
-.deps/serstubs.P .deps/shrglobs.P .deps/shrnet.P .deps/shrtypes.P \
-.deps/simulate.P .deps/splash.P .deps/timer.P .deps/transport.P
+.deps/clinet.P .deps/clistubs.P .deps/dialbox.P .deps/engine.P \
+.deps/fileutil.P .deps/geometry.P .deps/lchelp.P .deps/lclib.P \
+.deps/lcsvga.P .deps/lcx11.P .deps/ldsvgui.P .deps/ldsvguts.P \
+.deps/lintypes.P .deps/main.P .deps/market.P .deps/module_buttons.P \
+.deps/mouse.P .deps/mps.P .deps/pbar.P .deps/picedit.P .deps/pixmap.P \
+.deps/power.P .deps/screen.P .deps/sermain.P .deps/sermsg.P \
+.deps/sernet.P .deps/serstubs.P .deps/shrglobs.P .deps/shrnet.P \
+.deps/shrtypes.P .deps/simulate.P .deps/splash.P .deps/timer.P \
+.deps/transport.P
 SOURCES = $(libengine_a_SOURCES) $(libutils_a_SOURCES) $(xlincity_SOURCES) $(EXTRA_xlincity_SOURCES) $(lincity_SOURCES) $(EXTRA_lincity_SOURCES) $(lcserver_SOURCES) $(xpicedit_SOURCES) $(EXTRA_xpicedit_SOURCES) $(picedit_SOURCES) $(EXTRA_picedit_SOURCES)
 OBJECTS = $(libengine_a_OBJECTS) $(libutils_a_OBJECTS) $(xlincity_OBJECTS) $(lincity_OBJECTS) $(lcserver_OBJECTS) $(xpicedit_OBJECTS) $(picedit_OBJECTS)
 

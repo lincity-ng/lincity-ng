@@ -3,7 +3,7 @@ About automake/autoconf
 -----------------------
 
 You need to use automake 1.4 and autoconf version 2.13, with the gettext
-extensions installed.  
+extensions installed.  I am using gettext 0.10.38.
 
 
 How to make an intermediate version

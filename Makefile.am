@@ -129,14 +129,20 @@ LC_OBJ = \
 	vga_pbar.o vga_dialbox.o vga_module_buttons.o
 
 
+## Note:  If the executable requires a prefix (x_ or vga_), then 
+##        it should be listed below under EXTRA_*_SOURCES.  Otherwise,
+##        it is a "regular" source file.
+
+
 ## ----- xlincity -----
 xlincity_SOURCES = \
 	clinet.c climsg.c \
 	animate.c clistubs.c shrnet.c \
-	lclib.c power.c 
+	lclib.c power.c
 EXTRA_xlincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c
+	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
+	dialbox.c
 xlincity_DEPENDENCIES = \
 	${XLC_OBJ} \
 	libutils.a \
@@ -152,7 +158,8 @@ lincity_SOURCES = \
 	lclib.c power.c
 EXTRA_lincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcsvga.c cliglobs.c geometry.c pbar.c module_buttons.c
+	lcsvga.c cliglobs.c geometry.c pbar.c module_buttons.c \
+	dialbox.c
 lincity_DEPENDENCIES = \
 	${LC_OBJ} \
 	libutils.a \
