@@ -175,11 +175,6 @@ do_prefs_buttons (int x, int y)
 	y > mw->y + outy && y < mw->y + outy + outh)
     {
 	close_prefs_screen ();
-#ifdef USE_EXPANDED_FONT
-	Fgl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
-#else
-	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-#endif
 	refresh_main_screen ();
     }
 }
@@ -194,11 +189,6 @@ do_prefs_mouse (int x, int y, int mbutton)
     }
     /* If the user clicks outside of main window, cancel prefs?? */
     close_prefs_screen ();
-#ifdef USE_EXPANDED_FONT
-    Fgl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
-#else
-    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-#endif
     refresh_main_screen ();
 }
 
@@ -246,6 +236,11 @@ close_prefs_screen (void)
 {
     prefs_flag = 0;
     prefs_drawn_flag = 0;
+#ifdef USE_EXPANDED_FONT
+    Fgl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
+#else
+    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+#endif
 }
 
 #if defined (NETWORK_ENABLE)
@@ -391,42 +386,41 @@ do_load_city (void)
 	       ,_("Press space to cancel."));
     draw_save_dir (LOAD_BG_COLOUR);
     db_flag = 1;
-    do
-    {
+
+    do {
 #ifdef LC_X11
 	redraw_mouse ();
 	cs_mouse_handler (0, -1, 0);
 	cs_mouse_handler (0, 1, 0);
-	do
-	{
+	do {
 	    call_event ();
 	    c = x_key_value;
-	}
-	while (c == 0);
+	} while (c == 0);
 	x_key_value = 0;
 #elif defined (WIN32)
 	while (0 == (c = GetKeystroke ()));	/* Wait for keystroke */
+	redraw_mouse ();
 #else
 	c = getchar ();
+	redraw_mouse ();
 #endif
-	if (c > '0' && c <= '9')
-	    if (strlen (save_names[c - '0']) < 1)
-	    {
+	if (c > '0' && c <= '9') {
+	    if (strlen (save_names[c - '0']) < 1) {
 		redraw_mouse ();
-		if (yn_dial_box (_("No scene.")
-				 ,_("There is no save scene with this number.")
-				 ,_("Do you want to")
-				 ,_("try again?")) != 0)
+		if (yn_dial_box (_("No scene."),
+				 _("There is no save scene with this number."),
+				 _("Do you want to"),
+				 _("try again?")) != 0)
 		    c = 0;
 		else
 		    c = ' ';
 		hide_mouse ();
 	    }
-    }
-    while ((c <= '0' || c > '9') && c != ' ');
+	}
+    } while (c==0);
+
     redraw_mouse ();
-    if (c > '0' && c <= '9')
-    {
+    if (c > '0' && c <= '9') {
 	if (yn_dial_box (_("Loading Scene")
 			 ,_("Do you want to load the scene")
 			 ,save_names[c - '0']

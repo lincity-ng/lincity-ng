@@ -499,28 +499,34 @@ process_keystrokes (int key)
 	/* Escape Key */
 #ifdef LC_X11
     case 27:
-	if (help_flag) /* exit help */
-	    draw_help_page("return-2"); 
-      else
-	activate_help ("menu.hlp");
-	break;
 #else
     case 5:
-      if (help_flag) 
-	draw_help_page("return-2"); 
-      else
-	activate_help ("menu.hlp");
-	break;
 #endif
+	if (help_flag) {
+	    /* exit help */
+	    draw_help_page("return-2"); 
+	} else if (prefs_flag) {
+	    close_prefs_screen();
+	    refresh_main_screen ();
+	} else {
+	    activate_help ("menu.hlp");
+	}
+	break;
+
     case 'S':
     case 's':
 	save_flag = 1;
 	break;
 
-    case 'o':
-    case 'O':
+    case 'v':
+    case 'V':
 	/* Toggle overlay */
 	rotate_main_screen();
+	break;
+
+    case 'o':
+    case 'O':
+	prefs_flag = 1;
 	break;
 
     case 'r':

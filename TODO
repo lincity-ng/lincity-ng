@@ -16,11 +16,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
   o Bits of the square cursor are not refreshed from the main win frame.
     For example, this happens with pollution overlay turned on.
 
-  o Some missing keystrokes on windows (which ones?)
-
-  o Options screen should have a keystroke (perhaps "o" for options, 
-    "v" for overlay).
-
   o Tech buttons are not disabled properly when loading a game with 
     lower tech level from game with higher tech level.
 
@@ -31,6 +26,8 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
   o Money format in finance window is ugly
 
+  o Overlay screen needs easier way to turn off.  For example, clicking
+    outside of main window.
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
@@ -65,12 +62,6 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Since cvs doesn't store timestamps, need to manually set timestamps 
     to build from cvs.  For now, workaround using fix-timestamps.sh.
-
-  o When you bulldoze water or create water, you're warned that it is
-    very expensive.  However, you only get this warning once, so that it's
-    easy to bulldoze multiple times.  However, when you bulldoze shanties you
-    get the message every time.  This is inconvenient.
-	*  Fixed by Corey?
 
   o Main screen should scroll when moving mouse outside of main window 
     during multi-transport.
