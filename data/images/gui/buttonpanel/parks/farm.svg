@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="4.0599999"
+   inkscape:export-xdpi="4.0599999"
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/parks/farm.png"
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/parks"
+   sodipodi:docname="farm.svg"
+   inkscape:version="0.41"
+   sodipodi:version="0.32"
+   id="svg14881"
+   height="200.00000mm"
+   width="200.00000mm">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient4211">
+      <stop
+         id="stop4212"
+         offset="0.0000000"
+         style="stop-color:#000bbe;stop-opacity:1.0000000;" />
+      <stop
+         id="stop4213"
+         offset="1.0000000"
+         style="stop-color:#00077b;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3071">
+      <stop
+         id="stop3072"
+         offset="0.0000000"
+         style="stop-color:#ff0000;stop-opacity:1.0000000;" />
+      <stop
+         id="stop3073"
+         offset="1.0000000"
+         style="stop-color:#ffffff;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1818">
+      <stop
+         id="stop1819"
+         offset="0.0000000"
+         style="stop-color:#b1b1b1;stop-opacity:1.0000000;" />
+      <stop
+         id="stop1820"
+         offset="1.0000000"
+         style="stop-color:#e5e5e5;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient22986">
+      <stop
+         id="stop22987"
+         offset="0.0000000"
+         style="stop-color:#3f3f3f;stop-opacity:1.0000000;" />
+      <stop
+         id="stop22988"
+         offset="1.0000000"
+         style="stop-color:#969696;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="590.78986"
+       x2="406.65063"
+       y1="345.92068"
+       x1="279.77991"
+       gradientTransform="matrix(1.451264,0.000000,0.000000,0.998427,-3.399373,-27.27137)"
+       id="linearGradient4210"
+       xlink:href="#linearGradient4211"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="211.40018"
+       x2="501.75058"
+       y1="282.80688"
+       x1="541.64764"
+       gradientTransform="matrix(1.172453,0.000000,0.000000,1.235854,-3.399373,-27.27137)"
+       id="linearGradient5468"
+       xlink:href="#linearGradient1818"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-y="165"
+     inkscape:window-x="127"
+     inkscape:window-height="546"
+     inkscape:window-width="625"
+     inkscape:current-layer="layer1"
+     inkscape:cy="-131.01203"
+     inkscape:cx="-118.00883"
+     inkscape:zoom="0.52384831"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         id="Work6"
+         rdf:about="">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+           id="type9" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <text
+       id="text1310"
+       y="483.16815"
+       x="-17.514673"
+       style="font-size:272.97900;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="483.16815"
+         x="-17.514673"
+         id="tspan1312"
+         sodipodi:role="line">FARM</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   width="200.00000mm"
+   height="200.00000mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.40"
+   sodipodi:docbase="/home/egore/workspace/lincity-images"
+   sodipodi:docname="heavyindustry2.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   inkscape:export-filename="/home/egore/workspace/lincity-images/heavyindustry2.png"
+   inkscape:export-xdpi="4.0599999"
+   inkscape:export-ydpi="4.0599999">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient7396">
+      <stop
+         style="stop-color:#ffaf0a;stop-opacity:1.0000000;"
+         offset="0.00000000"
+         id="stop7398" />
+      <stop
+         style="stop-color:#ff6531;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop7400" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4338">
+      <stop
+         style="stop-color:#b1b1b1;stop-opacity:1.0000000;"
+         offset="0.00000000"
+         id="stop4340" />
+      <stop
+         style="stop-color:#919191;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop4342" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4330">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4332" />
+      <stop
+         style="stop-color:#b9b9b9;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop4334" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4330"
+       id="linearGradient4336"
+       gradientTransform="matrix(1.778063,0.000000,0.000000,1.650390,-343.6541,-557.8846)"
+       x1="418.83426"
+       y1="525.82507"
+       x2="303.76831"
+       y2="411.14093"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4338"
+       id="linearGradient4344"
+       gradientTransform="matrix(1.780288,0.000000,0.000000,1.648328,-343.6541,-557.8846)"
+       x1="197.93294"
+       y1="510.53204"
+       x2="435.65090"
+       y2="510.53204"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4338"
+       id="linearGradient5110"
+       gradientTransform="matrix(1.758216,0.000000,0.000000,1.669021,-343.6541,-557.8846)"
+       x1="350.35837"
+       y1="604.22913"
+       x2="472.42654"
+       y2="486.44214"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7396"
+       id="radialGradient7402"
+       gradientTransform="matrix(1.589168,0.000000,0.000000,1.846562,-343.6541,-557.8846)"
+       cx="487.75507"
+       cy="463.29721"
+       fx="487.75507"
+       fy="463.29721"
+       r="275.56195"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7396"
+       id="radialGradient7410"
+       gradientTransform="matrix(1.589168,0.000000,0.000000,1.846562,-343.6541,-557.8846)"
+       cx="514.59076"
+       cy="452.85464"
+       fx="514.59076"
+       fy="452.85464"
+       r="242.91891"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="250.45515"
+       x2="1045.4753"
+       y1="250.45515"
+       x1="916.88531"
+       gradientTransform="matrix(0.901210,0.000000,0.000000,3.256177,-343.6541,-557.8846)"
+       id="linearGradient2844"
+       xlink:href="#linearGradient4338"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="127.23561"
+       x2="1973.0482"
+       y1="126.23365"
+       x1="1687.3988"
+       gradientTransform="matrix(0.457933,0.000000,0.000000,6.408145,-343.6541,-557.8846)"
+       id="linearGradient3624"
+       xlink:href="#linearGradient4338"
+       inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4338"
+       id="linearGradient1086"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.901210,0.000000,0.000000,3.256177,-644.3774,-576.0482)"
+       x1="916.88531"
+       y1="250.45515"
+       x2="1045.4753"
+       y2="250.45515" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4338"
+       id="linearGradient1088"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.901210,0.000000,0.000000,3.256177,-343.9310,-713.9946)"
+       x1="916.88531"
+       y1="250.45515"
+       x2="1045.4753"
+       y2="250.45515" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4552084"
+     inkscape:cx="283.46455"
+     inkscape:cy="283.46455"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1270"
+     inkscape:window-height="994"
+     inkscape:window-x="0"
+     inkscape:window-y="5" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         rdf:about=""
+         id="Work6">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           id="type9"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       sodipodi:nodetypes="ccccc"
+       style="fill:url(#linearGradient1086);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 185.39129,201.62161 L 258.63880,182.72509 L 257.74594,37.156010 L 184.49843,44.804720 L 185.39129,201.62161 z "
+       id="path1085" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       style="fill:url(#linearGradient5110);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 418.29383,114.84055 C 527.94692,224.39757 657.81738,314.65191 688.41844,410.63344 C 719.41494,507.85523 677.61448,579.30545 625.84895,625.74409 C 566.10244,679.34243 524.39074,697.25327 432.62044,694.65244 C 314.81956,691.31388 208.87836,468.42457 87.697339,475.64319 C 99.759406,290.78408 355.99836,241.16194 418.29383,114.84055 z "
+       id="path1291"
+       sodipodi:nodetypes="cssscc" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       style="fill:url(#linearGradient4344);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 386.58726,90.655240 C 436.40152,92.914066 453.39294,205.92755 378.44704,273.44774 C 307.84564,337.05391 172.21854,374.48205 146.27384,422.03255 C 115.85485,477.78336 57.304804,509.15048 28.388291,426.35864 C -1.5885757,340.53088 -7.0733133,292.81479 139.39364,208.38940 C 296.07080,118.07872 293.98436,86.456155 386.58726,90.655240 z "
+       id="path2810"
+       sodipodi:nodetypes="csssss" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       style="fill:url(#linearGradient4336);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 323.20956,115.96077 C 411.73280,64.583963 447.96623,183.23423 368.71267,258.95342 C 295.77512,328.63825 155.56244,368.63987 131.34819,412.72952 C 100.77570,468.39629 61.456609,474.51259 48.071219,432.62947 C 28.843513,372.46570 5.4609020,327.98798 73.633912,270.60758 C 141.80694,213.22719 297.66629,130.78549 323.20956,115.96077 z "
+       id="path3570"
+       sodipodi:nodetypes="csssss" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       style="fill:url(#radialGradient7402);fill-opacity:1.0000000;fill-rule:evenodd;stroke:url(#radialGradient7410);stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 409.08286,173.71586 C 232.84369,291.55343 138.26021,271.39129 64.727313,350.21973 C 34.992601,382.09580 73.316966,450.23498 64.727313,497.30626 C 58.896713,529.25795 42.466570,547.12985 49.153448,578.63648 C 52.590557,594.83115 93.533883,602.18183 99.335909,583.82776 C 110.00027,550.09224 86.347893,528.27550 88.953339,499.03670 C 91.539187,470.01769 124.45549,399.84877 147.78794,384.82832 C 248.54684,319.96399 393.48529,282.56604 409.08286,173.71586 z "
+       id="path5870"
+       sodipodi:nodetypes="cssssssc" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       sodipodi:nodetypes="ccccc"
+       style="fill:url(#linearGradient2844);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 485.22177,464.42809 L 595.96928,441.06728 L 595.96928,50.855349 L 485.22177,62.968345 L 485.22177,464.42809 z "
+       id="path7412" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       sodipodi:nodetypes="ccccccccc"
+       style="fill:url(#linearGradient3624);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 485.22177,463.56288 L 460.99577,456.64116 L 461.42837,79.530546 L 184.25030,47.347076 L 186.28627,175.45177 L 176.71510,182.12790 L 176.03853,31.072581 L 485.22177,62.968362 L 485.22177,463.56288 z "
+       id="path7414" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       sodipodi:type="arc"
+       style="fill:none;fill-opacity:1.0000000;stroke:#000000;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="path7418"
+       sodipodi:cx="522.50140"
+       sodipodi:cy="545.77069"
+       sodipodi:rx="11.869292"
+       sodipodi:ry="24.243662"
+       d="M 534.37070 545.77069 A 11.869292 24.243662 0 1 1  510.63211,545.77069 A 11.869292 24.243662 0 1 1  534.37070 545.77069 z"
+       transform="matrix(1.713038,0.000000,0.000000,1.713038,-348.8455,-552.6933)" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 544.92160,340.70236 L 526.75209,342.43278 C 509.44778,363.19794 507.71736,396.07611 526.75209,425.49342 L 545.78681,423.76299 L 544.92160,340.70236 z "
+       id="path8180"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="14.240000"
+       inkscape:export-xdpi="14.240000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\heavyindustry2.png"
+       sodipodi:nodetypes="ccccc"
+       style="fill:url(#linearGradient1088);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:5.1391144;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 485.83772,63.675174 L 594.79952,51.028654 L 250.15665,22.423869 L 177.80200,30.072579 L 485.83772,63.675174 z "
+       id="path1087" />
+  </g>
+</svg>

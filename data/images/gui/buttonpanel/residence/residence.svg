@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="4.0599999"
+   inkscape:export-xdpi="4.0599999"
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+   y="0.0000000"
+   x="0.0000000"
+   version="1.0"
+   sodipodi:docname="residence.svg"
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui"
+   inkscape:version="0.41"
+   sodipodi:version="0.32"
+   id="svg17322"
+   height="708.66138"
+   width="708.66138">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient18090">
+      <stop
+         id="stop18091"
+         offset="0.0000000"
+         style="stop-color:#c69527;stop-opacity:1.0000000;" />
+      <stop
+         id="stop18094"
+         offset="0.52910054"
+         style="stop-color:#e7c14d;stop-opacity:1.0000000;" />
+      <stop
+         id="stop18092"
+         offset="1.0000000"
+         style="stop-color:#e7b828;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="467.85504"
+       x2="561.09821"
+       y1="460.62277"
+       x1="432.06381"
+       gradientTransform="matrix(0.806883,0.000000,0.000000,1.331086,292.7528,-98.88213)"
+       id="linearGradient18093"
+       xlink:href="#linearGradient18090"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient8025">
+      <stop
+         id="stop8026"
+         offset="0.0000000"
+         style="stop-color:#ffffff;stop-opacity:1.0000000;" />
+      <stop
+         id="stop8027"
+         offset="1.0000000"
+         style="stop-color:#dafdff;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <radialGradient
+       r="85.661217"
+       fy="450.65369"
+       fx="375.57907"
+       cy="450.65369"
+       cx="375.57907"
+       gradientTransform="matrix(1.035159,0.000000,0.000000,0.931027,379.7177,-17.89691)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient11183"
+       xlink:href="#linearGradient8025"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient8801"
+       inkscape:collect="always">
+      <stop
+         id="stop8803"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop8805"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient8789"
+       inkscape:collect="always">
+      <stop
+         id="stop8791"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop8793"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1786">
+      <stop
+         id="stop1787"
+         offset="0.0000000"
+         style="stop-color:#d04848;stop-opacity:1.0000000;" />
+      <stop
+         id="stop1788"
+         offset="1.0000000"
+         style="stop-color:#6f271b;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4278">
+      <stop
+         id="stop4279"
+         offset="0.0000000"
+         style="stop-color:#ffffd4;stop-opacity:1.0000000;" />
+      <stop
+         id="stop4280"
+         offset="1.0000000"
+         style="stop-color:#e2ec88;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient7440">
+      <stop
+         id="stop7441"
+         offset="0.0000000"
+         style="stop-color:#865226;stop-opacity:1.0000000;" />
+      <stop
+         id="stop7442"
+         offset="1.0000000"
+         style="stop-color:#321e0e;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6189">
+      <stop
+         id="stop6190"
+         offset="0.0000000"
+         style="stop-color:#b65000;stop-opacity:1.0000000;" />
+      <stop
+         id="stop6191"
+         offset="1.0000000"
+         style="stop-color:#592700;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4934">
+      <stop
+         id="stop4935"
+         offset="0.0000000"
+         style="stop-color:#908d60;stop-opacity:1.0000000;" />
+      <stop
+         id="stop4936"
+         offset="1.0000000"
+         style="stop-color:#ceca8a;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4304">
+      <stop
+         id="stop4305"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop4306"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient22947">
+      <stop
+         id="stop22948"
+         offset="0.0000000"
+         style="stop-color:#6b6b6b;stop-opacity:1.0000000;" />
+      <stop
+         id="stop22949"
+         offset="1.0000000"
+         style="stop-color:#a9a9a9;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient22940">
+      <stop
+         id="stop22941"
+         offset="0.0000000"
+         style="stop-color:#36ff00;stop-opacity:1.0000000;" />
+      <stop
+         id="stop22942"
+         offset="1.0000000"
+         style="stop-color:#2c4a24;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       r="103.00175"
+       fy="772.76581"
+       fx="426.77853"
+       cy="772.76581"
+       cx="426.77853"
+       gradientTransform="matrix(1.272188,0.000000,0.000000,1.005460,-0.711558,-276.5384)"
+       id="radialGradient22950"
+       xlink:href="#linearGradient22940" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="174.29085"
+       x2="237.81055"
+       y1="168.88635"
+       x1="265.51416"
+       gradientTransform="matrix(1.534180,0.000000,0.000000,0.833758,-62.58060,-115.3531)"
+       id="linearGradient3672"
+       xlink:href="#linearGradient22947" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="272.71722"
+       x2="156.36613"
+       y1="216.74124"
+       x1="251.93274"
+       gradientTransform="matrix(1.534180,0.000000,0.000000,0.833758,-62.58060,-115.3531)"
+       id="linearGradient3673"
+       xlink:href="#linearGradient22947" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="290.15970"
+       x2="346.03372"
+       y1="273.38141"
+       x1="259.48233"
+       gradientTransform="matrix(1.534180,0.000000,0.000000,0.833758,-62.58060,-115.3531)"
+       id="linearGradient3674"
+       xlink:href="#linearGradient22947" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="178.24232"
+       x2="307.28488"
+       y1="178.24232"
+       x1="260.21359"
+       gradientTransform="matrix(1.534178,0.000000,0.000000,0.833758,-62.58060,-115.3531)"
+       id="linearGradient3681"
+       xlink:href="#linearGradient22947" />
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       r="63.249962"
+       fy="116.14753"
+       fx="109.85623"
+       cy="116.14753"
+       cx="109.85623"
+       gradientTransform="scale(1.349722,0.740893)"
+       id="radialGradient4308"
+       xlink:href="#linearGradient4304" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="406.30823"
+       x2="718.04803"
+       y1="335.55185"
+       x1="-107.60789"
+       gradientTransform="matrix(0.879751,0.000000,0.000000,1.453971,-57.69620,-71.39349)"
+       id="linearGradient4937"
+       xlink:href="#linearGradient4278" />
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       r="61.948830"
+       fy="923.57678"
+       fx="335.66949"
+       cy="923.57678"
+       cx="335.66949"
+       gradientTransform="matrix(1.507073,0.000000,0.000000,0.848753,-63.19115,-123.6973)"
+       id="radialGradient6192"
+       xlink:href="#linearGradient6189" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="176.41298"
+       x2="1284.7423"
+       y1="176.41298"
+       x1="1362.6934"
+       gradientTransform="scale(0.344254,2.904832)"
+       id="linearGradient7439"
+       xlink:href="#linearGradient4278" />
+    <linearGradient
+       y2="134.91566"
+       x2="1784.9694"
+       y1="134.75241"
+       x1="1819.2378"
+       gradientTransform="scale(0.344254,2.904832)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient1131"
+       xlink:href="#linearGradient4278" />
+    <linearGradient
+       y2="163.62775"
+       x2="1739.8854"
+       y1="170.96933"
+       x1="1745.4363"
+       gradientTransform="scale(0.344254,2.904832)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient1133"
+       xlink:href="#linearGradient4278" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="383.32928"
+       x2="684.83850"
+       y1="453.44418"
+       x1="237.42885"
+       gradientTransform="matrix(0.970954,0.000000,0.000000,1.317399,-57.69620,-71.39349)"
+       id="linearGradient6485"
+       xlink:href="#linearGradient4278"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="407.31717"
+       x2="332.69424"
+       y1="211.83131"
+       x1="91.426468"
+       gradientTransform="matrix(1.305525,0.000000,0.000000,0.979785,-65.51125,-70.09099)"
+       id="linearGradient7257"
+       xlink:href="#linearGradient1786"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="390.50549"
+       x2="556.27716"
+       y1="136.33690"
+       x1="201.54979"
+       gradientTransform="matrix(1.374999,0.000000,0.000000,0.930279,-65.51125,-70.09099)"
+       id="linearGradient7265"
+       xlink:href="#linearGradient1786"
+       inkscape:collect="always" />
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       r="101.15789"
+       fy="264.12527"
+       fx="292.36038"
+       cy="264.12527"
+       cx="292.36038"
+       gradientTransform="matrix(1.458514,0.000000,0.000000,0.877012,-57.69621,-71.39349)"
+       id="radialGradient8797"
+       xlink:href="#linearGradient8789"
+       inkscape:collect="always" />
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       r="223.26904"
+       fy="799.12817"
+       fx="280.09967"
+       cy="799.12817"
+       cx="280.09967"
+       gradientTransform="scale(1.556769,0.642356)"
+       id="radialGradient8807"
+       xlink:href="#linearGradient8801"
+       inkscape:collect="always" />
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       r="164.32393"
+       fy="376.91840"
+       fx="751.91266"
+       cy="376.91840"
+       cx="751.91266"
+       gradientTransform="scale(0.841721,1.188043)"
+       id="radialGradient9584"
+       xlink:href="#linearGradient8025"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="346.28021"
+       x2="757.73853"
+       y1="357.78659"
+       x1="601.31854"
+       gradientTransform="scale(0.585637,1.707542)"
+       id="linearGradient11114"
+       xlink:href="#linearGradient18090"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:guide-bbox="true"
+     showguides="true"
+     inkscape:window-y="5"
+     inkscape:window-x="1"
+     inkscape:window-height="966"
+     inkscape:window-width="1269"
+     inkscape:current-layer="layer1"
+     inkscape:cy="334.34097"
+     inkscape:cx="564.76184"
+     inkscape:zoom="1.2279853"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         id="Work6"
+         rdf:about="">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+           id="type9" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       transform="translate(-42.34578,34.20236)"
+       d="M 739.42255 519.73401 A 335.50891 138.43814 0 1 1  68.404724,519.73401 A 335.50891 138.43814 0 1 1  739.42255 519.73401 z"
+       sodipodi:ry="138.43814"
+       sodipodi:rx="335.50891"
+       sodipodi:cy="519.73401"
+       sodipodi:cx="403.91364"
+       id="path8799"
+       style="stroke-opacity:0.35915491;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-width:1.8200001;stroke:none;fill-opacity:1.0;fill:url(#radialGradient8807);opacity:0.60045147"
+       sodipodi:type="arc" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="ccccc"
+       id="path17332"
+       d="M 54.092093,564.96189 L 305.06765,683.54208 L 307.37017,327.80149 L 55.243349,262.17947 L 54.092093,564.96189 z "
+       style="fill:url(#linearGradient4937);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="ccccc"
+       id="path17337"
+       d="M 306.21890,683.54208 L 649.29557,486.67593 L 650.44683,214.97762 L 307.37016,325.49898 L 306.21890,683.54208 z "
+       style="fill:url(#linearGradient6485);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       id="path17338"
+       d="M 363.62251,649.98147 L 363.62251,445.98190 L 445.37816,403.48198 L 440.63869,606.26729 L 363.62251,649.98147 z "
+       style="fill:url(#linearGradient11114);fill-opacity:1.0;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="ccccc"
+       id="path17339"
+       d="M 494.73489,373.50287 L 493.09476,501.06176 L 622.81651,436.02031 L 623.68348,314.99792 L 494.73489,373.50287 z "
+       style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:butt;stroke-width:4.2412057;stroke:#000000;fill-rule:evenodd;fill-opacity:1.0;fill:url(#radialGradient9584)" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="csscccc"
+       id="path22314"
+       d="M 531.68798,569.32079 C 518.60864,583.32273 538.02776,609.10227 571.08880,608.55879 L 630.51567,607.58190 C 659.33812,607.10811 690.48525,586.79608 669.26524,545.71286 C 714.58162,522.37627 648.69649,468.75642 632.95787,491.00757 C 636.21413,454.91729 544.38742,468.15945 546.01555,504.52109 C 513.72425,498.82262 484.20077,566.87859 531.68798,569.32079 z "
+       style="fill:url(#radialGradient22950);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#0c4800;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="ccccc"
+       id="path3033"
+       d="M 348.64408,358.79412 L 705.53592,210.28107 L 510.74205,11.572891 L 189.17706,61.116745 L 348.64408,358.79412 z "
+       style="fill:url(#linearGradient7265);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cccc"
+       id="path3036"
+       d="M 6.6517313,265.75165 L 347.83003,358.79412 L 189.33989,60.791122 L 6.6517313,265.75165 z "
+       style="fill:url(#linearGradient7257);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="ccccc"
+       id="path3043"
+       d="M 331.42761,205.84005 L 414.05537,178.16178 L 395.73887,42.212673 L 336.71904,45.875978 L 331.42761,205.84005 z "
+       style="fill:url(#linearGradient3674);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       id="path3044"
+       d="M 283.80472,150.48353 L 331.02057,205.84005 L 336.71904,45.468946 L 309.44781,38.956400 L 283.80472,150.48353 z "
+       style="fill:url(#linearGradient3673);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       id="path3045"
+       d="M 303.34230,16.162532 L 300.49307,38.956400 L 338.34717,51.574439 L 338.75420,18.197700 L 303.34230,16.162532 z "
+       style="fill:url(#linearGradient3672);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       id="path3046"
+       d="M 338.75420,18.604731 L 406.72876,15.755500 L 405.50767,43.026747 L 338.75420,50.760376 L 338.75420,18.604731 z "
+       style="fill:url(#linearGradient3681);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cccccc"
+       id="path5563"
+       d="M 425.04526,600.86585 L 478.16311,622.43861 L 402.65844,670.26502 L 364.09203,648.59050 L 364.09203,635.66720 L 425.04526,600.86585 z "
+       style="fill:url(#radialGradient6192);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       id="path6814"
+       d="M 424.46374,599.76693 L 424.87077,414.89792 L 444.75736,403.33253 L 440.01789,606.11784 L 424.46374,599.76693 z "
+       style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:4.2412057;stroke:#000000;fill-rule:evenodd;fill-opacity:1.0;fill:url(#linearGradient7439)" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path7445"
+       d="M 398.58140,658.95426 L 374.49639,643.88907"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path7446"
+       d="M 384.47418,637.76064 L 408.08656,652.13098"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8078"
+       d="M 397.67004,646.08623 L 388.21097,651.90887"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8079"
+       d="M 414.49742,648.59300 L 390.20888,633.93484"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8080"
+       d="M 411.04209,637.45486 L 403.92346,641.95465"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8081"
+       d="M 422.54995,643.84754 L 414.71901,648.55084"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8082"
+       d="M 398.63674,628.99082 L 391.11108,633.28709"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8083"
+       d="M 427.46478,640.85936 L 402.87098,626.30296"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8084"
+       d="M 434.60150,636.41917 L 427.48287,640.81720"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8085"
+       d="M 439.57403,632.92221 L 414.57319,619.68867"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8086"
+       d="M 446.50723,628.78730 L 439.59211,632.88005"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8087"
+       d="M 450.81832,625.64649 L 426.32627,613.63405"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8088"
+       d="M 458.76912,621.30805 L 451.85400,625.40080"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8089"
+       d="M 458.45702,621.01647 L 433.55794,609.81809"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cc"
+       id="path8090"
+       d="M 432.98019,609.91114 L 426.67561,613.29158"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#955900;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="ccc"
+       id="path8091"
+       d="M 414.72555,526.97017 L 423.93566,529.56051 L 407.81796,537.04373"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#452800;stroke-width:4.2412057;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       id="path1130"
+       d="M 609.05333,431.13244 L 610.44303,321.74518 L 624.63114,313.40713 L 622.57232,436.26225 L 609.05333,431.13244 z "
+       style="stroke-dasharray:none;stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:2.5000000;stroke:#000000;fill-rule:evenodd;fill-opacity:1.0;fill:url(#linearGradient1131)" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       id="path1132"
+       d="M 493.25236,500.53162 L 493.25238,487.83770 L 609.19881,431.49865 L 622.77585,436.46578 L 493.25236,500.53162 z "
+       style="stroke-dasharray:none;fill:url(#linearGradient1133);fill-opacity:1.0;fill-rule:evenodd;stroke:#000000;stroke-width:2.5000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="cccccccc"
+       id="path7269"
+       d="M 54.319343,279.42690 L 54.319347,296.35949 L 305.70310,375.81240 L 324.01721,399.78346 L 649.10432,257.94116 L 650.86733,235.14168 L 349.98833,358.87981 L 54.319343,279.42690 z "
+       style="fill:#000000;fill-opacity:0.21367522;fill-rule:evenodd;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="8.5907001"
+       inkscape:export-xdpi="8.5907001"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/residence.png"
+       sodipodi:nodetypes="ccccccccccc"
+       id="path8029"
+       d="M 333.05574,205.18403 L 436.60501,200.29962 L 437.58190,205.83528 L 449.63009,208.76592 L 493.58968,168.06258 L 452.56072,128.66178 L 441.48941,130.28990 L 439.53565,134.52306 L 407.94987,123.77738 L 413.81114,178.48264 L 333.05574,205.18403 z "
+       style="opacity:0.60045147;fill:url(#radialGradient8797);fill-opacity:1.0000000;fill-rule:evenodd;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
+  </g>
+</svg>
