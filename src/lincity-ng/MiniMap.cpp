@@ -28,6 +28,9 @@
 #define LC_MOUSE_LEFTBUTTON 1
 #define LC_MOUSE_RIGHTBUTTON 2
 #define LC_MOUSE_MIDDLEBUTTON 3
+  
+char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood","MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal"};
+#define BUTTON_COUNT 9
 
 Uint8 brightness(const Color &c)
 {
@@ -118,11 +121,10 @@ void MiniMap::attachButtons()
     if(alreadyAttached)
     return;
   alreadyAttached=true;
-  char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood","MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal"};
   
   Component *root=findRoot(this);
   
-  for(int i=0;i<9;i++)
+  for(int i=0;i<BUTTON_COUNT;i++)
     {
       Button* b = getButton(*root, buttonNames[i]);
       std::cout<<"Button1 "<<buttonNames[i]<<" found!"<<std::endl;
@@ -133,6 +135,26 @@ void MiniMap::attachButtons()
 void MiniMap::chooseButtonClicked(Button* button)
 {
   std::cout<<"MiniMap::button '" << button->getName() << "' clicked"<<std::endl;
+  std::string name=button->getName();
+  for(int i=0;i<BUTTON_COUNT;i++)
+  {
+    if(name==buttonNames[i])
+     {
+       switch(i)
+       {
+        case 0: mMode=NORMAL;break;
+        case 1: mMode=UB40;break;
+        case 2: mMode=POLLUTION;break;
+        case 3: mMode=STARVE;break;
+        case 4: mMode=POWER;break;
+        case 5: mMode=FIRE;break;
+        case 6: mMode=CRICKET;break;
+        case 7: mMode=HEALTH;break;
+        case 8: mMode=COAL;break;
+       }
+     }
+   }
+   mFullRefresh=true;
 }
 
 void MiniMap::draw(Painter &painter)
@@ -299,106 +321,13 @@ Color MiniMap::getColor(int x,int y) const
   return Color(0xFF,0,0xFF);
 }
 
-/*
-bool MiniMap::eventMouseClick(const AGEvent *m)
-{
-#ifdef NORMAL
-  char *mode[]={"NORMAL","POLLUTION","UB40","STARVE","POWER","FIRE","CRICKET","HEALTH","COAL","MAX"};
-  
-  TRACE;
-  ++(int)mMode;
-  if(mMode==MAX)
-    mMode=NORMAL;
-  cdebug("MODE:"<<mMode<<":"<<mode[mMode]);
-  mText->setText(mode[mMode]);
-  return false;
-#else
-#ifdef MPS_CHECK
-  const AGSDLEvent *e=static_cast<const AGSDLEvent*>(m);
-
-  CTRACE;
-  if(e)
-    {
-      CTRACE;
-      AGPoint p=e->getMousePosition();
-      p=p-getRect().getPosition();
-
-      cdebug("p:"<<p.x<<"/"<<p.y);
-      p.x/=tilesize;
-      p.y/=tilesize;
-
-      if(p.x>=0 && p.x<WORLD_SIDE_LEN && p.y>=0 && p.y<WORLD_SIDE_LEN)
-	{
-	  int xx=p.x;
-	  int yy=p.y;
-	  if (MP_TYPE(p.x,p.y) == CST_USED)
-	    {
-	      xx = MP_INFO(p.x,p.y).int_1;
-	      yy = MP_INFO(p.x,p.y).int_2;
-	    }
-	  
-	  
-	  
-	  getMPS()->setView(xx,yy);
-	}
-    }
-  return false;
-#else
-  const AGSDLEvent *e=static_cast<const AGSDLEvent*>(m);
-      AGPoint p=e->getMousePosition();
-      p=p-getRect().getPosition();
-
-      cdebug("p:"<<p.x<<"/"<<p.y);
-      p.x/=tilesize;
-      p.y/=tilesize;
-
-      if(e->getButton()==SDL_BUTTON_RIGHT)
-	do_mouse_main_win(p.x,p.y,LC_MOUSE_RIGHTBUTTON);
-      else
-	do_mouse_main_win(p.x,p.y,LC_MOUSE_LEFTBUTTON);
-
-
-#endif
-
-#endif
-}
-*/
-
-static MiniMap::DisplayMode getNextMode(MiniMap::DisplayMode mode)
-{
-    switch(mode) {
-        case MiniMap::NORMAL:
-            return MiniMap::POLLUTION;
-        case MiniMap::POLLUTION:
-            return MiniMap::UB40;
-        case MiniMap::UB40:
-            return MiniMap::STARVE;
-        case MiniMap::STARVE:
-            return MiniMap::POWER;
-        case MiniMap::POWER:
-            return MiniMap::FIRE;
-        case MiniMap::FIRE:
-            return MiniMap::CRICKET;
-        case MiniMap::CRICKET:
-            return MiniMap::HEALTH;
-        case MiniMap::HEALTH:
-            return MiniMap::COAL;
-        case MiniMap::COAL:
-            return MiniMap::NORMAL;
-        default:
-            assert(false);
-    }
-
-    return MiniMap::NORMAL;
-}
-
 void MiniMap::event(const Event& event)
 {
   if(event.type==Event::MOUSEBUTTONDOWN && event.inside)
     {
-        CTRACE;
         cdebug("mousePos:"<<event.mousepos.x<<","<<event.mousepos.y);
-        mMode = getNextMode(mMode);
+        // move main-map
+//        mMode = getNextMode(mMode);
         mFullRefresh=true;
         //      cdebug("MODE:"<<mMode<<":"<<mode[mMode]);
         //      mText->setText(mode[mMode]);
