@@ -298,6 +298,7 @@ resize_geometry (int new_width, int new_height)
     scr.date.y = DATE_Y + (scr.client_h - 480);
     scr.time_for_year.y = TIME_FOR_YEAR_Y + (scr.client_h - 480);
     resize_main_win (scr.client_w, scr.client_h);
+    scr.status_message.y = scr.client_h - 30;
 
     scr.pbar_area.x = 56 + scr.main_win.w + 16 + 2;
     scr.pbar_pop.x = scr.pbar_area.x + 4;
