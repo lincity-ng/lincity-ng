@@ -337,6 +337,9 @@ resize_geometry (int new_width, int new_height)
     scr.mini_map.x = scr.mini_map_aux.x 
 	    + ((scr.mini_map_aux.w - scr.mini_map.w) / 2);
 
+    scr.money.x = scr.main_win.x;
+    scr.money.y = scr.main_win.y + scr.main_win.h + 16;
+
     scr.help_button.x = scr.client_w - 56;
     scr.help_button.y = scr.client_h - 24;
     scr.results_button.x = scr.client_w - 2*56;
