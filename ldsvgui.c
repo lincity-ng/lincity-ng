@@ -74,6 +74,7 @@
 #include "ldsvguts.h"
 #include "fileutil.h"
 #include "mouse.h"
+#include "stats.h"
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -431,6 +432,7 @@ do_load_city (void)
 	    Fgl_write (mw->x + 70, mw->y + 310
 		       ,_("Loading scene...  please wait"));
 	    load_saved_city (save_names[c - '0']);
+	    refresh_pbars();
 	}
     }
     db_flag = 0;

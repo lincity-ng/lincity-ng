@@ -65,6 +65,8 @@
 #include "engglobs.h"
 #include "fileutil.h"
 #include "power.h"
+#include "pbar.h"
+#include "stats.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
@@ -92,20 +94,6 @@ int make_dir_ok_flag;
 char save_names[10][42];
 
 /* ---------------------------------------------------------------------- *
- * Extern global variables
- * ---------------------------------------------------------------------- */
-extern int pbar_pop[12];
-extern int pbar_tech[12];
-extern int pbar_food[12];
-extern int pbar_jobs[12];
-extern int pbar_coal[12];
-extern int pbar_goods[12];
-extern int pbar_ore[12];
-extern int pbar_steel[12];
-extern int pbar_money[12];
-
-
-/* ---------------------------------------------------------------------- *
  * Public functions
  * ---------------------------------------------------------------------- */
 void
@@ -126,7 +114,7 @@ remove_scene (char *cname)
 void
 save_city_raw (char *cname)
 {
-    int x, y, z, q, n;
+    int x, y, z, q, n, p;
 #if defined (WIN32)
     FILE *ofile = fopen (cname, "wb");
 #else
@@ -256,37 +244,16 @@ save_city_raw (char *cname)
     fprintf (ofile, "%d\n", rockets_launched);
     fprintf (ofile, "%d\n", rockets_launched_success);
     fprintf (ofile, "%d\n", coal_survey_done);
-    for (x = 0; x < 12; x++)
-    {
-	fprintf (ofile, "%d\n", pbar_pop[x]);
-	fprintf (ofile, "%d\n", pbar_tech[x]);
-	fprintf (ofile, "%d\n", pbar_food[x]);
-	fprintf (ofile, "%d\n", pbar_jobs[x]);
-	fprintf (ofile, "%d\n", pbar_money[x]);
-	fprintf (ofile, "%d\n", pbar_coal[x]);
-	fprintf (ofile, "%d\n", pbar_goods[x]);
-	fprintf (ofile, "%d\n", pbar_ore[x]);
-	fprintf (ofile, "%d\n", pbar_steel[x]);
-    }
+    for (x = 0; x < PBAR_DATA_SIZE; x++)
+	for (p = 0; p < NUM_PBARS; p++)
+	    fprintf(ofile, "%d\n", pbars[p].data[x]);
+
     prog_box ("", 99);
-    fprintf (ofile, "%d\n", pbar_pop_oldtot);
-    fprintf (ofile, "%d\n", pbar_pop_olddiff);
-    fprintf (ofile, "%d\n", pbar_tech_oldtot);
-    fprintf (ofile, "%d\n", pbar_tech_olddiff);
-    fprintf (ofile, "%d\n", pbar_food_oldtot);
-    fprintf (ofile, "%d\n", pbar_food_olddiff);
-    fprintf (ofile, "%d\n", pbar_jobs_oldtot);
-    fprintf (ofile, "%d\n", pbar_jobs_olddiff);
-    fprintf (ofile, "%d\n", pbar_money_oldtot);
-    fprintf (ofile, "%d\n", pbar_money_olddiff);
-    fprintf (ofile, "%d\n", pbar_coal_oldtot);
-    fprintf (ofile, "%d\n", pbar_coal_olddiff);
-    fprintf (ofile, "%d\n", pbar_goods_oldtot);
-    fprintf (ofile, "%d\n", pbar_goods_olddiff);
-    fprintf (ofile, "%d\n", pbar_ore_oldtot);
-    fprintf (ofile, "%d\n", pbar_ore_olddiff);
-    fprintf (ofile, "%d\n", pbar_steel_oldtot);
-    fprintf (ofile, "%d\n", pbar_steel_olddiff);
+
+    for (p = 0; p < NUM_PBARS; p++) {
+	fprintf(ofile, "%d\n", pbars[p].oldtot);
+	fprintf(ofile, "%d\n", pbars[p].diff);
+    }
 
     fprintf (ofile, "%d\n", cheat_flag);
     fprintf (ofile, "%d\n", total_pollution_deaths);
@@ -379,7 +346,8 @@ void
 load_city (char *cname)
 {
     unsigned long q;
-    int i, x, y, z, n, ver;
+    int i, x, y, z, n, p, ver;
+    int num_pbars, pbar_data_size;
     int dummy;
     FILE *ofile;
     char s[256];
@@ -393,6 +361,13 @@ load_city (char *cname)
 	fclose_read_gzipped (ofile);
 	return;
     }
+
+    init_pbars();
+    num_pbars = NUM_PBARS;
+    pbar_data_size = PBAR_DATA_SIZE;
+
+    init_inventory();
+    
     print_time_for_year();
     q = (unsigned long) sizeof (Map_Point_Info);
     prog_box (_("Loading scene"), 0);
@@ -447,6 +422,9 @@ load_city (char *cname)
 	    MP_POL(x,y) = (unsigned short) n;
 	    fscanf (ofile, "%d", &n);
 	    MP_TYPE(x,y) = (short) n;
+
+	    if (get_group_of_type(MP_TYPE(x,y)) == GROUP_MARKET)
+		inventory(x,y);
 	}
 	if (((93 * x) / WORLD_SIDE_LEN) % 3 == 0)
 	    prog_box ("", (93 * x) / WORLD_SIDE_LEN);
@@ -554,39 +532,27 @@ load_city (char *cname)
     fscanf (ofile, "%d", &rockets_launched);
     fscanf (ofile, "%d", &rockets_launched_success);
     fscanf (ofile, "%d", &coal_survey_done);
-    for (x = 0; x < 12; x++)
-    {
-	fscanf (ofile, "%d", &pbar_pop[x]);
-	fscanf (ofile, "%d", &pbar_tech[x]);
-	fscanf (ofile, "%d", &pbar_food[x]);
-	fscanf (ofile, "%d", &pbar_jobs[x]);
-	fscanf (ofile, "%d", &pbar_money[x]);
-	fscanf (ofile, "%d", &pbar_coal[x]);
-	fscanf (ofile, "%d", &pbar_goods[x]);
-	fscanf (ofile, "%d", &pbar_ore[x]);
-	fscanf (ofile, "%d", &pbar_steel[x]);
-
+    
+    for (x = 0; x < pbar_data_size; x++) {
+	for (p = 0; p < num_pbars; p++) {
+	    fscanf (ofile, "%d", &(pbars[p].data[x]));
+	    if (p == 2)
+		printf("%d\t",pbars[p].data[x]);
+	}
+	printf("\n");
     }
+
+    for (p = 0; p < num_pbars; p++)
+	pbars[p].data_size = pbar_data_size;
+
     prog_box ("", 99);
-    fscanf (ofile, "%d", &pbar_pop_oldtot);
-    fscanf (ofile, "%d", &pbar_pop_olddiff);
-    fscanf (ofile, "%d", &pbar_tech_oldtot);
-    fscanf (ofile, "%d", &pbar_tech_olddiff);
-    fscanf (ofile, "%d", &pbar_food_oldtot);
-    fscanf (ofile, "%d", &pbar_food_olddiff);
-    fscanf (ofile, "%d", &pbar_jobs_oldtot);
-    fscanf (ofile, "%d", &pbar_jobs_olddiff);
-    fscanf (ofile, "%d", &pbar_money_oldtot);
-    fscanf (ofile, "%d", &pbar_money_olddiff);
-    fscanf (ofile, "%d", &pbar_coal_oldtot);
-    fscanf (ofile, "%d", &pbar_coal_olddiff);
-    fscanf (ofile, "%d", &pbar_goods_oldtot);
-    fscanf (ofile, "%d", &pbar_goods_olddiff);
-    fscanf (ofile, "%d", &pbar_ore_oldtot);
-    fscanf (ofile, "%d", &pbar_ore_olddiff);
-    fscanf (ofile, "%d", &pbar_steel_oldtot);
-    fscanf (ofile, "%d", &pbar_steel_olddiff);
-    pbar_money_olddiff = 0;
+
+    for (p = 0; p < num_pbars; p++) {
+	fscanf (ofile, "%d", &(pbars[p].oldtot));
+	fscanf (ofile, "%d", &(pbars[p].diff));
+    }
+
+
     fscanf (ofile, "%d", &cheat_flag);
     fscanf (ofile, "%d", &total_pollution_deaths);
     fscanf (ofile, "%f", &pollution_deaths_history);
@@ -601,8 +567,10 @@ load_city (char *cname)
 	fscanf (ofile, "%d", &(module_help_flag[x]));
     fscanf (ofile, "%d", &x);	/* just dummy reads */
     fscanf (ofile, "%d", &x);	/* for backwards compatibility. */
+
     /* 10 dummy strings, for missed out things, have been put in save. */
     /* Input from this point uses them. */
+    /* XXX: WCK: Huh? Missed out things? */
 
     fscanf (ofile, "%128s", given_scene);
     if (strncmp (given_scene, "dummy", 5) == 0 || strlen (given_scene) < 3)
@@ -663,6 +631,7 @@ load_city (char *cname)
     print_total_money ();
     reset_animation_times ();
     map_power_grid (); /* WCK:  Is this safe to do here? */
+    update_pbars_daily();
 }
 
 void
