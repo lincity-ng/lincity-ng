@@ -1,0 +1,45 @@
+
+Lincity tile specifications (version 1.11 and 1.12).
+
+All items are square, with size 1, 2, 3 or 4.  The tiles marked "lrud" 
+means that there are separate sprites for left/right/up/down connectivity.
+
+
+
+Name			      size	lrud		animated
+===================================================================
+grass				1			no
+fire				1			yes
+park				1			no
+water				1	yes		no
+power line			1	yes		yes
+road				1	yes		no
+track				1	yes		no
+rail				1	yes		no
+blacksmith			2			yes
+cricket ground			2			yes
+fire station			2			yes
+hospital			2			no
+market				2			yes
+mill				2			yes
+monument			2			yes
+pottery				2			yes
+old windmill			2			yes
+new windmill			2			yes
+recycling center		2			no
+school				2			no
+shanty town			2			no
+power substation		2			yes
+light industry			3			yes
+port				3			no
+residence (6 varieties)		3			no (planned)
+university			3			no
+coal mine			4			yes
+commune				4			yes
+farm				4			yes
+heavy industry			4			yes
+ore mine			4			yes
+rocket pad			4			yes
+tip (dump)			4			yes
+coal power			4			yes
+solar power			4			no
