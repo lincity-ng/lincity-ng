@@ -155,7 +155,19 @@ commify (char *str, size_t size, int argnum)
     return count;
 }
 
-
+/* GCS - make sure that the string has length at least size-1 */
+void
+pad_with_blanks (char* str, int size)
+{
+  while (*str) {
+    size--;
+    str++;
+  }
+  while (size-- > 1) {
+    *str++ = ' ';
+  }
+  *str = '\0';
+}
 
 void 
 format_pos_number4 (char* str, int num)
@@ -167,6 +179,18 @@ void
 format_power(char * str, size_t size, long power)
 {
   num_to_ansi_unit(str, size, power, 'w');
+}
+
+int
+min_int (int i1, int i2)
+{
+  return i1 < i2 ? i1 : i2;
+}
+
+int
+max_int (int i1, int i2)
+{
+  return i1 > i2 ? i1 : i2;
 }
 
 void * 

@@ -1607,7 +1607,8 @@ mps_global_housing (void)
 void 
 mps_global_finance (void)
 {
-    char s[20];
+    char s[12];    /* This number is important, as it's the size of the 
+		    * money field in the mps box */
     Rect* mps = &scr.mappoint_stats;
     size_t count;
 
@@ -1628,7 +1629,8 @@ mps_global_finance (void)
     format_pos_number4 (s, ly_import_cost);
     Fgl_write (mps->x + 11*8, mps->y + 40, s);
 
-    count = commify(s, 20, total_money);
+    count = commify(s, 12, total_money);
+    pad_with_blanks(s, 12);
 
     if (total_money < 0)
 	Fgl_setfontcolors (14, red (30));

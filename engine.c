@@ -2509,7 +2509,8 @@ launch_rocket (int x, int y)
 	rockets_launched_success++;
 	if (rockets_launched_success > 5) {
 	    remove_people (1000);
-	    display_rocket_result_dialog (ROCKET_LAUNCH_EVAC);
+	    if (people_pool || housed_population)
+	      display_rocket_result_dialog (ROCKET_LAUNCH_EVAC);
 	} else {
 	    display_rocket_result_dialog (ROCKET_LAUNCH_GOOD);
 	}
@@ -2519,48 +2520,70 @@ launch_rocket (int x, int y)
 void
 remove_people (int num)
 {
+#if defined (commentout)
   int x, y, f;
   time_t t;
   f = 1;
   t = time (0);
-  while (f && (num > 0))
-    {
-      f = 0;
+  while (f && (num > 0)) {
       for (y = 0; y < WORLD_SIDE_LEN; y++)
 	for (x = 0; x < WORLD_SIDE_LEN; x++)
 	  if (MP_GROUP_IS_RESIDENCE(x,y) && MP_INFO(x,y).population > 0)
 	    {
-	      f = 1;
 	      MP_INFO(x,y).population--;
+	      // f = 1;
+	      f |= (MP_INFO(x,y).population > 0);
 	      num--;
 	      total_evacuated++;
 	    }
-    }
-  while (num > 0 && people_pool > 0)
-    {
+  }
+  while (num > 0 && people_pool > 0) {
       num--;
       total_evacuated++;
       people_pool--;
-    }
-  if (num > 0)			/* last ship wasn't full so everyone has gone. */
+  }
+#endif
 
+  int x, y;
+  /* reset housed population so that we can display it correctly */
+  housed_population = 1;
+  while (housed_population && (num > 0)) {
+      housed_population = 0;
+      for (y = 0; y < WORLD_SIDE_LEN; y++)
+	for (x = 0; x < WORLD_SIDE_LEN; x++)
+	  if (MP_GROUP_IS_RESIDENCE(x,y) && MP_INFO(x,y).population > 0) {
+	      MP_INFO(x,y).population--;
+	      housed_population += MP_INFO(x,y).population;
+	      num--;
+	      total_evacuated++;
+	  }
+  }
+  while (num > 0 && people_pool > 0) {
+      num--;
+      total_evacuated++;
+      people_pool--;
+  }
+
+  refresh_population_text ();
+
+#if defined (commentout)
+/* last ship wasn't full so everyone has gone. */
+  if (num > 0)
     {
       if (t > HOF_START && t < HOF_STOP)
 	ok_dial_box ("launch-gone-mail.mes", GOOD, 0L);
       else
 	ok_dial_box ("launch-gone.mes", GOOD, 0L);
       housed_population = 0;
-      /*
-         //     if (t>HOF_START && t<HOF_STOP)
-         //        if (yn_dial_box("Mail the LinCity hall of fame?"
-         //          ,"If your system can send mail, you can"
-         //          ,"automatically be added to the hall of fame."
-         //          ,"www.floot.demon.co.uk/lc-hof.html")!=0)
-         //          mail_results();
-       */
     }
-}
+#endif
 
+  /* Note that the previous test was inaccurate.  There could be 
+     exactly 1000 people left. */
+  if (!housed_population && !people_pool) {
+    ok_dial_box ("launch-gone.mes", GOOD, 0L);
+  }
+}
 
 void
 do_monument (int x, int y)

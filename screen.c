@@ -1848,6 +1848,12 @@ print_date (void)
 #endif
 }
 
+void
+print_population (void)
+{
+    draw_pbar (&scr.pbar_pop, pop_pbar_graphic);
+}
+
 void 
 calculate_time_for_year (void)
 {

@@ -17,18 +17,6 @@
 
 struct pbar_st pbars[NUM_PBARS];
 
-#ifdef commentout
-int pbar_pop[12], pbar_pop_oldtot, pop_diff, pbar_pop_olddiff;
-int pbar_tech[12], pbar_tech_oldtot, tech_diff, pbar_tech_olddiff;
-int pbar_food[12], pbar_food_oldtot, food_diff, pbar_food_olddiff;
-int pbar_jobs[12], pbar_jobs_oldtot, jobs_diff, pbar_jobs_olddiff;
-int pbar_coal[12], pbar_coal_oldtot, coal_diff, pbar_coal_olddiff;
-int pbar_goods[12], pbar_goods_oldtot, goods_diff, pbar_goods_olddiff;
-int pbar_ore[12], pbar_ore_oldtot, ore_diff, pbar_ore_olddiff;
-int pbar_steel[12], pbar_steel_oldtot, steel_diff, pbar_steel_olddiff;
-int pbar_money[12], pbar_money_oldtot, money_diff, pbar_money_olddiff;
-#endif
-
 void
 init_pbars (void)
 {
@@ -102,12 +90,6 @@ clear_pbar_text (Rect* pbar)
     Fgl_fillbox (pbar->x + pbar->w + 1, pbar->y, PBAR_TEXT_W, pbar->h, 0);
 }
 
-
-
-
-/* ---------------------------------------------------------------------- *
- * Horizontal pbar functions (pbar2)
- * ---------------------------------------------------------------------- */
 void 
 write_pbar_int (Rect* b, int val)
 {
@@ -126,13 +108,11 @@ write_pbar_text (Rect* b, char * s)
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 }
 
-
 /* XXX: WCK: Macros anyone? */
 /* GCS: I thought I might like to change the "sensitivity" of the pbars
    on a case-by-case basis, but never got around to it. */
 /* WCK: sure, but the preprocessor can still do some of the work, so: */
-
-#ifndef old_adjusts
+/* GCS: The new macros look good.  I killed the old code. */
 
 #define pbar_adjust_pop(diff) 2 * diff
 #define pbar_adjust_tech(diff) diff > 0 ? diff / 4 + 1 : -((-diff+1)/ 2)
@@ -144,61 +124,21 @@ write_pbar_text (Rect* b, char * s)
 #define pbar_adjust_steel(diff) diff > 0 ? diff / 2 + 1 : diff
 #define pbar_adjust_money(diff) diff  > 0 ? diff / 800 + 1 : diff / 400 
 
-#else
-
-inline int 
-pbar_adjust_pop (int diff)
-{
-    return 2*diff;
-} 
-
-inline int 
-pbar_adjust_tech (int diff)
-{
-    return diff > 0 ? diff / 4 + 1 : -((-diff+1)/ 2);
-}
-
-inline int 
-pbar_adjust_food (int diff)
-{
-    return diff > 0 ? diff / 2 + 1 : diff;
-}
-
-inline int 
-pbar_adjust_jobs (int diff)
-{
-    return diff > 0 ? diff / 2 + 1 : diff;
-}
-
-inline int 
-pbar_adjust_coal (int diff)
-{
-    return diff > 0 ? diff / 2 + 1 : diff;
-}
-
-inline int 
-pbar_adjust_goods (int diff)
-{
-    return diff > 0 ? diff / 2 + 1 : diff;
-}
-
-inline int 
-pbar_adjust_ore ( diff)
-{
-    return diff > 0 ? diff / 2 + 1 : diff;
-}
-
-inline int 
-pbar_adjust_steel (int diff)
-{
-    return diff > 0 ? diff / 2 + 1 : diff;
-}
-
-#endif
-
 
 /* XXX: wck: write_pbar_* changes font colours every time its called; only
    need to do this once.  Maybe it should be folded in.*/
+
+void
+refresh_population_text (void)
+{
+  /* GCS: This function is kind of a hack, but I need the population 
+     to be refreshed immediately after the rocket is launched.
+     Therefore, this function! */
+    Rect * b;
+    update_pbar (PPOP, housed_population + people_pool, 0);
+    b = &scr.pbar_pop;
+    write_pbar_int (b, PPOP);
+}
 
 void 
 refresh_pbars (void)
@@ -328,150 +268,6 @@ update_pbars_monthly()
     update_pbar (PMONEY, total_money, 1);
 }
 
-
-/* XXX: WCK: I hate redundant code!  This could be made generic */
-	
-#ifdef OLD_PBARS
-void
-update_pbar_pop (int pop)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_pop[i] = pbar_pop[i + 1]);
-    tot += (pbar_pop[11] = pop);
-    pop_diff = tot - pbar_pop_oldtot;
-
-    pbar_pop_oldtot = tot;
-    pbar_pop_olddiff = pop_diff;
-}
-
-void
-update_pbar_tech (int tech)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_tech[i] = pbar_tech[i + 1]);
-    tot += (pbar_tech[11] = tech); /* was (tech / 8) here, now below */
-    tot /= 8;
-    tech_diff = tot - pbar_tech_oldtot;
-
-    pbar_tech_oldtot = tot;
-    pbar_tech_olddiff = tech_diff;
-}
-
-void
-update_pbar_food (int food)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_food[i] = pbar_food[i + 1]);
-    tot += (pbar_food[11] = food);
-    food_diff = tot - pbar_food_oldtot;
-
-    pbar_food_oldtot = tot;
-    pbar_food_olddiff = food_diff;
-}
-
-void
-update_pbar_jobs (int jobs)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_jobs[i] = pbar_jobs[i + 1]);
-    tot += (pbar_jobs[11] = jobs);
-    jobs_diff = tot - pbar_jobs_oldtot;
-
-    pbar_jobs_oldtot = tot;
-    pbar_jobs_olddiff = jobs_diff;
-}
-
-void
-update_pbar_coal (int coal)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_coal[i] = pbar_coal[i + 1]);
-    tot += (pbar_coal[11] = coal);
-    coal_diff = tot - pbar_coal_oldtot;
-
-    pbar_coal_oldtot = tot;
-    pbar_coal_olddiff = coal_diff;
-}
-
-void
-update_pbar_goods (int goods)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_goods[i] = pbar_goods[i + 1]);
-    tot += (pbar_goods[11] = goods);
-    goods_diff = tot - pbar_goods_oldtot;
-
-    pbar_goods_oldtot = tot;
-    pbar_goods_olddiff = goods_diff;
-}
-
-void
-update_pbar_ore (int ore)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_ore[i] = pbar_ore[i + 1]);
-    tot += (pbar_ore[11] = ore);
-    ore_diff = tot - pbar_ore_oldtot;
-
-    pbar_ore_oldtot = tot;
-    pbar_ore_olddiff = ore_diff;
-}
-
-void
-update_pbar_steel (int steel)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_steel[i] = pbar_steel[i + 1]);
-    tot += (pbar_steel[11] = steel);
-    steel_diff = tot - pbar_steel_oldtot;
-
-    pbar_steel_oldtot = tot;
-    pbar_steel_olddiff = steel_diff;
-
-}
-
-void
-update_pbar_money (int money)
-{
-    int i, tot = 0;
-
-    /* go on, it's only 11 :) */
-    for (i = 0; i < 11; i++)
-	tot += (pbar_money[i] = pbar_money[i + 1]);
-    tot += (pbar_money[11] = money);
-    money_diff = tot - pbar_money_oldtot;
-
-    pbar_money_oldtot = tot;
-    pbar_money_olddiff = money_diff;
-}
-
-#endif
-
-
 int 
 compute_pbar_offset (Rect* b, int val)
 {
@@ -490,9 +286,7 @@ compute_pbar_offset (Rect* b, int val)
     return offset;
 }
 
-
 void
-/* was: draw_pbar_new (Rect* b, int total, int val) */
 draw_pbar_new (Rect* b, int val)
 {
 

@@ -669,7 +669,7 @@ save_lincityrc (void)
 	skip_splash_screen
 	);
     fprintf (fp,
-	"# Set this if you don't help the first time you\n"
+	"# Set this if you don't want help the first time you\n"
 	"# click to place an item.\n"
 	"suppress_firsttime_module_help=%d\n\n", 
 	suppress_firsttime_module_help

@@ -10,6 +10,8 @@
 #include <math.h>
 #include "lcstring.h"
 #include "lcintl.h"
+#include "fileutil.h"
+#include "lclib.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -405,17 +407,12 @@ Create_Window (char *geometry)
     XSetWMHints (display.dpy, display.win, &wmhints);
 
     /* GCS - 2003/08/15 - Cygwin doesn't generate the MapEvent unless
-       the mask enabled before XMapWindow is called.  Delete this 
-       comment after it is confirmed that this works for linux. */
-#if defined (commentout)
-    XMapWindow (display.dpy, display.win);
+       the mask enabled before XMapWindow is called.  Therefore, 
+       XSelectInput needs to be called before XMapWindow */
     XSelectInput (display.dpy, display.win,
 		  KeyPressMask | ButtonPressMask | ButtonReleaseMask
 		  | ExposureMask | StructureNotifyMask);
-#endif
-    XSelectInput (display.dpy, display.win,
-		  KeyPressMask | ButtonPressMask | ButtonReleaseMask
-		  | ExposureMask | StructureNotifyMask);
+
     XMapWindow (display.dpy, display.win);
     
     for (q = 0; q < 256; q++)
@@ -423,10 +420,10 @@ Create_Window (char *geometry)
 	display.pixcolour_gc[q] = XCreateGC (display.dpy
 					     ,display.win, 0, NULL);
 	XSetForeground (display.dpy, display.pixcolour_gc[q], q);
-	XSetBackground (display.dpy, display.pixcolour_gc[q]
-			,display.bg);
-	XSetGraphicsExposures (display.dpy, display.pixcolour_gc[q]
-			       ,False);
+	XSetBackground (display.dpy, display.pixcolour_gc[q],
+			display.bg);
+	XSetGraphicsExposures (display.dpy, display.pixcolour_gc[q],
+			       False);
     }
 }
 
@@ -744,12 +741,11 @@ Fgl_getbox (int x1, int y1, int w, int h, void *buf)
 void
 HandleEvent (XEvent * event)
 {
-
     XEvent loop_ev; /* for clearing the queue of events */
 
     switch (event->type)
     {
-    case (KeyPress):
+    case KeyPress:
 	{
 	    XKeyEvent *key_event = (XKeyEvent *) event;
 	    char buf[128];
@@ -786,7 +782,7 @@ HandleEvent (XEvent * event)
 	}
 	break;
 
-    case (MotionNotify): 
+    case MotionNotify: 
 	{
 	    XMotionEvent *ev = (XMotionEvent *) event;
 
@@ -802,7 +798,7 @@ HandleEvent (XEvent * event)
 	}
 	break;
 
-    case (ButtonPress):
+    case ButtonPress:
 	{
 	    XButtonEvent *ev = (XButtonEvent *) event;
 	    if ((ev->state & ShiftMask) != 0)
@@ -847,7 +843,7 @@ HandleEvent (XEvent * event)
 	}
 	break;
 
-    case (ButtonRelease):
+    case ButtonRelease:
 	{
 	    XButtonEvent *ev = (XButtonEvent *) event;
 	    mouse_button = ev->button; 
@@ -870,41 +866,35 @@ HandleEvent (XEvent * event)
 	}
 	break;
 
-    case (Expose):
+    case Expose:
 	{
 	    XExposeEvent *ev = (XExposeEvent *) event;
+	    int gx1,gy1,gx2,gy2;
+	    gx1 = ev->x;
+	    gy1 = ev->y;
+	    gx2 = ev->x + ev->width;
+	    gy2 = ev->y + ev->height;
 
-	    while (XCheckMaskEvent(display.dpy,ExposureMask,&loop_ev)) 
-	    {
-	      ev = (XExposeEvent *) &loop_ev;
+	    /* Coalesce waiting exposes into single redraw */
+	    while (XCheckMaskEvent(display.dpy,ExposureMask,&loop_ev)) {
+	        ev = (XExposeEvent *) &loop_ev;
+		gx1 = min_int (gx1,ev->x);
+		gy1 = min_int (gy1,ev->y);
+		gx2 = max_int (gx2,ev->x + ev->width);
+		gy2 = max_int (gy2,ev->y + ev->height);
 	    }
 	    if (suppress_next_expose) {
 		suppress_next_expose = 0;
 		break;
 	    }
-	    refresh_screen (ev->x, ev->y, ev->x + ev->width, ev->y + ev->height);
+	    refresh_screen (gx1,gy1,gx2,gy2);
 	}
 	break;
+
     case ConfigureNotify:
 	{
 	    XConfigureEvent *ev = (XConfigureEvent *) event;
 
-#if defined (commentout)
-            /* Not sure yet, but need ResizeRedirectMask or 
-	       VisibilityChangeMask */
-	    while (XCheckMaskEvent(display.dpy,StructureNotifyMask, &loop_ev)) 
-	    {
-	        if (loop_ev.type != ConfigureNotify) 
-		{
-                    /* We don't seem to do anything with the others anyway,
-		       but I want to know for now */
-                    fprintf(stderr,"StructureNotifyMask != ConfigureNotify, "
-			    "loop_ev.type = %d\n", loop_ev.type);
-		    return;
-		}
-		ev = (XConfigureEvent *) &loop_ev;
-	    }
-#endif
 	    while (XCheckTypedEvent(display.dpy, ConfigureNotify, &loop_ev)) {
 		ev = (XConfigureEvent *) &loop_ev;
 	    }
@@ -912,7 +902,7 @@ HandleEvent (XEvent * event)
 	}
 	break;
     }
-    /*fprintf(stderr,"Handler fell through, event->type = %d\n",event->type);*/
+    //fprintf(stderr,"Handler fell through, event->type = %d\n",event->type);
 }
 
 #undef DEBUG_X11_MOUSE

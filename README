@@ -117,19 +117,19 @@ If you still have the configured source directory, you can do this:
 
 Otherwise, do this (assuming you installed to /usr/local)
 
-      <<need to check this>>
-	  rm -rf /usr/local/lincity
-	  rm -rf /usr/local/share/lincity
-	  rm -rf /usr/local/locale/lincity
+      rm /usr/local/bin/lincity
+      rm /usr/local/bin/xlincity
+      rm /usr/local/man/man6/lincity.6
+      rm -rf /usr/local/share/lincity
 
 If you ran lincity, you should delete these:
 
-	  rm -rf $HOME/.lincity
+      rm -rf $HOME/.lincity
       rm $HOME/.lincityrc
 
 If you have an older version, before 1.12pre54, you should delete this:
 
-	  rm -rf $HOME/.Lin-city
+      rm -rf $HOME/.Lin-city
 
 
 UNINSTALLING (WIN32)

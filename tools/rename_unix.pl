@@ -1,10 +1,17 @@
 #! /usr/bin/perl
 
 @upcase_patlist = ('changes',
+		   'Changes',
 		   'copying',
+		   'Copying',
+		   'cvs',
+		   'CVS',
 		   'faq',
+		   'Faq',
 		   'readme',
+		   'Readme',
 		   'todo',
+		   'Todo',
 		   'intl/version',
 		   'po/linguas',
 		   );
@@ -54,7 +61,7 @@
 		    );
 
 for $pat (@upcase_patlist) {
-    for $file (`ls $pat 2> /dev/null`) {
+    for $file (`ls -d $pat 2> /dev/null`) {
 	chomp($file);
 
 	if ($file =~ m|/|) {
