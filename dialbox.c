@@ -271,7 +271,6 @@ dialog_box(int arg_color, char argc, ...)
 	      }
 	  }
   }
-  printf("returning %d\n",db_return_value);
   return (db_return_value);
 }
 
@@ -333,6 +332,12 @@ dialog_refresh(void)
 		  db_rect[i].y + text_window.y + BUTTON_BORDER,
 		  db_entry[i].text);
     }
+
+#ifdef USE_EXPANDED_FONT
+    gl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
+#else
+    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+#endif
 
   redraw_mouse();
 
