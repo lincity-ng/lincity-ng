@@ -165,7 +165,7 @@ lincity_main (int argc, char *argv[])
 #endif
 
     /* Initialize some global variables */
-    make_dir_ok_flag = 1;
+    //make_dir_ok_flag = 1;
     main_screen_originx = 1;
     main_screen_originy = 1;
     given_scene[0] = 0;
@@ -316,12 +316,15 @@ client_main_loop (void)
     if (no_init_help == 0) {
 	block_help_exit = 1;
 	help_flag = 1;
+#if defined (commentout)
 	if (make_dir_ok_flag) {
 	    activate_help ("ask-dir.hlp");
 	    make_dir_ok_flag = 0;
 	} else {
 	    activate_help ("opening.hlp");
 	}
+#endif
+	activate_help ("opening.hlp");
     }
 
     /* Set speed */
@@ -681,8 +684,10 @@ execute_timestep (void)
     if (help_flag != 0)
 	lc_usleep (1);
 
+#if defined (commentout)
     if (make_dir_ok_flag)
 	make_savedir ();	/* sorry a bit crude :( */
+#endif
     return real_quit_flag;
 }
 

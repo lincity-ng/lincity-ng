@@ -70,11 +70,13 @@ draw_help_page (char *helppage)
     char help_line[MAX_HELP_LINE];
 
     /* In ask-dir page if user presses "yes" create directory in main loop */
+#if defined (commentout)
     if ((strcmp (helppage, "opening.hlp") == 0)
 	    && (strcmp (help_button_history[help_history_count - 1],
 	    "ask-dir.hlp") == 0)) {
 	make_dir_ok_flag = 1;
     }
+#endif
 
     /* Return pages have arguments.  It is always true that "-2" means "Out" 
        and "-1" means "Back".  Semantics for other arguments depend upon
@@ -255,6 +257,7 @@ draw_help_page (char *helppage)
 		break;
 	    }
 	}
+#if defined (commentout)
 	else if (help_history_count > 0 &&
 		 strcmp (help_button_history[help_history_count - 1],
 			 "ask-dir.hlp") == 0)
@@ -272,6 +275,7 @@ draw_help_page (char *helppage)
 		goto continue_with_help;
 	    }
 	}
+#endif
 
 	block_help_exit = 0;
 	help_flag = 0;

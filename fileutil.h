@@ -9,7 +9,7 @@
 extern char *lc_save_dir;
 extern char *lc_temp_file;
 extern int lc_save_dir_len;
-extern int make_dir_ok_flag;
+//extern int make_dir_ok_flag;
 
 /* Try to find the maximum file name from OS */
 #if defined (_POSIX_PATH_MAX)          /* Posix */

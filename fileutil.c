@@ -126,8 +126,9 @@ char lincityrc_file[LC_PATH_MAX];
    directory, it is reset to 1.  Finally, in the main loop, if it is 
    found to have value 1, the directory is created and it is reset to 0.
    */
+#if defined (commentout)
 int make_dir_ok_flag;
-
+#endif
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -569,12 +570,75 @@ verify_package (void)
 }
 
 void
+make_savedir (void)
+{
+#if !defined (WIN32)
+    DIR *dp;
+#endif
+
+#if defined (commentout)
+    if (make_dir_ok_flag == 0)
+	return;
+#endif
+
+#if defined (WIN32)
+    if (_mkdir (lc_save_dir)) {
+	printf (_("Couldn't create the save directory %s\n"), lc_save_dir);
+	exit (-1);
+    }
+#else
+    mkdir (lc_save_dir, 0755);
+    chown (lc_save_dir, getuid (), getgid ());
+    if ((dp = opendir (lc_save_dir)) == NULL)
+    {
+	/* change this to a screen message. */
+	printf (_("Couldn't create the save directory %s\n"), lc_save_dir);
+	exit (1);
+    }
+    closedir (dp);
+#endif
+
+#if defined (commentout)
+    make_dir_ok_flag = 0;
+#endif
+}
+
+void
+check_savedir (void)
+{
+    int i = 0, j, k, r, l;
+
+    if (!directory_exists (lc_save_dir)) {
+	make_savedir ();
+#if defined (commentout)
+	l = lc_save_dir_len;
+	if (l > 160) {
+	    i = l - 160;
+	    l = 160;
+	}
+	askdir_lines = l / 40 + ((l % 40) ? 1 : 0);
+	r = l / askdir_lines + ((l % askdir_lines) ? 1 : 0);
+	for (j = 0; j < askdir_lines; j++) {
+	    if ((askdir_path[j] = (char *) malloc (r + 1)) == 0)
+		malloc_failure ();
+	    for (k = 0; k < r; k++, i++)
+		*(askdir_path[j] + k) = lc_save_dir[i];
+	    *(askdir_path[j] + k) = 0;
+	}
+	return;
+#endif
+    }
+#if defined (commentout)
+    make_dir_ok_flag = 0;		/* don't load the ask-dir */
+#endif
+}
+
+void
 malloc_failure (void)
 {
   printf (_("Out of memory: malloc failure\n"));
   exit (1);
 }
-
 
 char*
 load_graphic(char *s)

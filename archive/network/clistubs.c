@@ -17,7 +17,7 @@
  * External Global Variables
  * ---------------------------------------------------------------------- */
 extern int network_game;
-extern int make_dir_ok_flag;
+//extern int make_dir_ok_flag;
 extern long real_time;
 
 /* ---------------------------------------------------------------------- *

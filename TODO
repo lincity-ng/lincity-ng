@@ -4,9 +4,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
-  o I thought I got rid of that directory creating stuff, but it's still
-    there!
-
   o I found inconsistent behavior with using the middle mouse button
     (mmb).  Clicking with mmb on mini-map causes the main win to jump, and
     then jump back before scrolling.  Clicking mmb on other displays (finance

@@ -683,61 +683,6 @@ reset_animation_times (void)
 	}
 }
 
-void
-check_savedir (void)
-{
-    int i = 0, j, k, r, l;
-
-    if (!directory_exists (lc_save_dir)) {
-	l = lc_save_dir_len;
-	if (l > 160) {
-	    i = l - 160;
-	    l = 160;
-	}
-	askdir_lines = l / 40 + ((l % 40) ? 1 : 0);
-	r = l / askdir_lines + ((l % askdir_lines) ? 1 : 0);
-	for (j = 0; j < askdir_lines; j++) {
-	    if ((askdir_path[j] = (char *) malloc (r + 1)) == 0)
-		malloc_failure ();
-	    for (k = 0; k < r; k++, i++)
-		*(askdir_path[j] + k) = lc_save_dir[i];
-	    *(askdir_path[j] + k) = 0;
-	}
-	return;
-    }
-    make_dir_ok_flag = 0;		/* don't load the ask-dir */
-}
-
-void
-make_savedir (void)
-{
-#if !defined (WIN32)
-    DIR *dp;
-#endif
-
-    if (make_dir_ok_flag == 0)
-	return;
-
-#if defined (WIN32)
-    if (_mkdir (lc_save_dir)) {
-	printf (_("Couldn't create the save directory %s\n"), lc_save_dir);
-	exit (-1);
-    }
-#else
-    mkdir (lc_save_dir, 0755);
-    chown (lc_save_dir, getuid (), getgid ());
-    if ((dp = opendir (lc_save_dir)) == NULL)
-    {
-	/* change this to a screen message. */
-	printf (_("Couldn't create the save directory %s\n"), lc_save_dir);
-	exit (1);
-    }
-    closedir (dp);
-#endif
-
-    make_dir_ok_flag = 0;
-}
-
 /* Returns 1 if the city is proper version */
 int 
 verify_city (char *cname)
