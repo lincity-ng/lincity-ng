@@ -38,6 +38,7 @@ void initVideo(int width, int height)
 
     SDL_Surface* screen 
         = SDL_SetVideoMode(width, height, bpp, SDL_DOUBLEBUF | SDL_RESIZABLE);
+    SDL_WM_SetCaption(PACKAGE_NAME " " PACKAGE_VERSION, 0);
     if(!screen) {
         std::stringstream msg;
         msg << "Couldn't set video mode ("
