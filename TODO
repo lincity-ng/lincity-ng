@@ -1,17 +1,49 @@
 
+[H] High priority (important for first release)
+[M] Medium priority (should be in the final game)
+[L] Low priority (nice to have)
+[?] I am not sure.
+
 Programming
 ~~~~~~~~~~~
 
 --Scons/Deployment--
- * compile some test apps to make sure SDL, SDL_mixer and SDL_image really work.
-   Also test for their versions
- * redo configuration phase if the SConstruct file changed...
- * Add install targets
+ [M] compile some test apps to make sure SDL, SDL_mixer and SDL_image really work.
+     Also test for their versions
+ [M] Add install targets
 
 --Gui--
- * Cache fonts in FontManager
- * Cache loaded images?
- * Implement dirty rectangle methods to only redraw when needed
- * Think about mechanism for attach arbitrary properties to components
+ [L] Cache fonts in FontManager
+ [L] Share loaded images?
+ [M] Implement dirty rectangle methods to only redraw when needed
+ [?] Think about mechanism for attach arbitrary properties to components
     (for tooltips, styles (and layout data?) )
+ [H] Links in helptext.
+ [M] Images in helptext.
+ [H] image-component should be resizable (eg main menu)
+ [H] drawToTexture in OpenGL (for Minimap)
+
+--Game--
+ [H] load/save game
+ [H] quit/back to menu
+ [M] some more sounds
+ [H] ingame music
+ [H] Credits (simple text for now)
+ [M] Loading... sceen (startup, run game)
+ [H] config file
+ [M] Statisitcs dialog
+ [M] Statistics graph 
+ [H] Dialogs for buildings (Harbour, Rocket)
+ [H] Implement Dialogs (y/n)
+ [M] Translate Dialogs (hardcoded stuff im old engine)
+ [H] draw rectangle for current GameView on Minimap
+ [L] Minimap should have diamond-shape like main view
+ [H] Help System.
+ [M] Display current money, current year, InfoMessages
+ [M] Options-dialog
+ [L] manpage, documentation
+ [H] keep city in GameView
+ [H] improve fast scrolling
+ [H] Homepage
+ [H] Tile graphics
 
