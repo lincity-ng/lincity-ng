@@ -309,6 +309,7 @@ draw_help_page (char *helppage)
 	while (feof (inf) == 0) {
 	    if (fgets (help_line, MAX_HELP_LINE, inf) == 0)
 		break;
+	    undosify_string (help_line);  /* GCS testing... */
 	    parse_helpline (help_line);
 	}
 	fclose (inf);

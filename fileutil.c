@@ -476,3 +476,25 @@ load_graphic(char *s)
     fclose(inf);
     return(graphic);
 }
+
+void
+undosify_string (char *s)
+{
+    /* Convert '\r\n' to '\n' in string */
+    char prev_char = 0;
+    char *p = s, *q = s;
+    while (*p) {
+	if (*p != '\r') {
+	    if (prev_char == '\r' && *p != '\n') {
+		*q++ = '\n';
+	    }
+	    *q++ = *p;
+	}
+	prev_char = *p;
+        p++;
+    }
+    if (prev_char == '\r') {
+	*q++ = '\n';
+    }
+    *q = '\0';
+}

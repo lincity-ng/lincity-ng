@@ -30,6 +30,9 @@
 
 #define USE_IMAGES 1
 
+#define DEBUG_X11_MOUSE
+#undef DEBUG_X11_MOUSE
+
 void
 set_pointer_confinement (void)
 {
@@ -726,8 +729,6 @@ Fgl_getbox (int x1, int y1, int w, int h, void *buf)
 	    *(b++) = (unsigned char) Fgl_getpixel (x, y);
 }
 
-#define DEBUG_X11_MOUSE
-
 void
 HandleEvent (XEvent * event)
 {
@@ -777,9 +778,9 @@ HandleEvent (XEvent * event)
 	    while (XCheckMaskEvent(display.dpy,PointerMotionMask,&loop_ev)) {
 		ev = (XMotionEvent *) &loop_ev;
 	    }
-
+#ifdef DEBUG_X11_MOUSE
 	    printf("pointer motion event\n");
-
+#endif
 	    if (ev->state & Button2Mask)
 		drag_screen();
 

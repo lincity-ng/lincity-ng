@@ -16,7 +16,8 @@
 #include <sys/select.h>
 #include <X11/Xlibint.h>      /* required for __XOS2RedirRoot */
 #define chown(x,y,z)
-#define OS2_DEFAULT_LIBDIR "/XFree86/lib/X11/lincity"
+/* #define OS2_DEFAULT_LIBDIR "/XFree86/lib/X11/lincity" */
+/* This was moved to fileutil.c */
 #endif
 
 #include <sys/types.h>
@@ -76,6 +77,7 @@ int execute_timestep (void);
 /* ---------------------------------------------------------------------- *
  * Private Global Variables
  * ---------------------------------------------------------------------- */
+#if defined (commentout)          /* Moved to fileutil.c */
 #if defined (WIN32)
 char LIBDIR[_MAX_PATH];
 #elif defined (__EMX__)
@@ -83,6 +85,7 @@ char LIBDIR[_MAX_PATH];
 #undef LIBDIR   /* yes, I know I shouldn't ;-) */
 #endif
 char LIBDIR[256];
+#endif
 #endif
 
 int make_dir_ok_flag;

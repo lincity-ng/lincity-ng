@@ -19,6 +19,8 @@
 #include <vgamouse.h>
 #endif
 
+#define LIBDIR DEFAULT_LIBDIR
+
 #ifdef __EMX__
 #include <X11/Xlibint.h>      /* required for __XOS2RedirRoot */
 #define chown(x,y,z)

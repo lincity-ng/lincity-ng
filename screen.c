@@ -31,6 +31,7 @@
 #include "module_buttons.h"
 #include "stats.h"
 #include "engine.h"
+#include "fileutil.h"
 
 /* ---------------------------------------------------------------------- *
  * External Global Variables
@@ -2199,28 +2200,6 @@ yn_dial_box (char * s1, char * s2, char * s3, char *s4)
 			1,'n',"No");
 
     return (result == 'y') ? 1 : 0;
-}
-
-void
-undosify_string (char *s)
-{
-    /* Convert '\r\n' to '\n' in string */
-    char prev_char = 0;
-    char *p = s, *q = s;
-    while (*p) {
-	if (*p != '\r') {
-	    if (prev_char == '\r' && *p != '\n') {
-		*q++ = '\n';
-	    }
-	    *q++ = *p;
-	}
-	prev_char = *p;
-        p++;
-    }
-    if (prev_char == '\r') {
-	*q++ = '\n';
-    }
-    *q = '\0';
 }
 
 void
