@@ -24,16 +24,6 @@
 #include <mouse.h>
 #include <lclib.h>
 
-/* ---------------------------------------------------------------------- *
- * Private Fn Prototypes
- * ---------------------------------------------------------------------- */
-void mps_global_setup (int);
-void mps_global (int);
-void mps_setup(int x, int y);
-
-
-
-
 char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
 int mps_global_style;
 
@@ -77,13 +67,22 @@ mps_init()
 }
 
 
+/* mps_set(): Main entry to mps system.  Sets mps to display status
+   for a square or global information.  If we are setting mps to
+   the same square it was set for, return 1, otherwise 0.
+*/
 
-void
-mps_set(int x, int y, int style) {
+int
+mps_set(int x, int y, int style) 
+{
+    int same_square = 0;
     mps_style = style;
     switch(style) {
     case MPS_MAP:
     case MPS_ENV: 
+	if (mps_x == x && mps_y == y) {
+	    same_square = 1;
+	}
 	mps_x = x;
 	mps_y = y;
 	break;
@@ -94,6 +93,7 @@ mps_set(int x, int y, int style) {
 
     mps_update();
     mps_refresh();
+    return same_square;
 }
 
 
@@ -578,16 +578,7 @@ mappoint_stats (int x, int y, int button)
 	    && oldbut == LC_MOUSE_LEFTBUTTON
 	    && button == LC_MOUSE_LEFTBUTTON)
 	{
-	    if (MP_GROUP(xx,yy) == GROUP_MARKET)
-	    {
-		clicked_market_cb (xx, yy);
-		return;
-	    }
-	    else if (MP_GROUP(xx,yy) == GROUP_PORT)
-	    {
-		clicked_port_cb (xx, yy);
-		return;
-	    }
+
 	}
 
 }

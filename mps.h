@@ -41,7 +41,7 @@ void mappoint_stats (int, int, int);
 
 void mps_init();
 
-void mps_set(int style, int x, int y); /* Attaches an area or global display */
+int mps_set(int style, int x, int y); /* Attaches an area or global display */
 void mps_redraw(void);  /* Re-draw the mps area, bezel and all */
 void mps_refresh(void); /* refresh the information display's contents */
 void mps_update(void);  /* Update text contents for later display (refresh) */

@@ -468,43 +468,38 @@ do_mouse_main_win (int px, int py, int button)
     Rect* mw = &scr.main_win;
     int size;
     int x, y; /* mappoint */
+    int mod_x, mod_y; /* upper left coords of module clicked on */
+    int mps_result;
 
     if (button == LC_MOUSE_MIDDLEBUTTON)
 	return;
 
     pixel_to_mappoint(px, py, &x, &y);
 
+    if (MP_TYPE(x,y) == CST_USED) {
+	mod_x = MP_INFO(x,y).int_1;
+	mod_y = MP_INFO(x,y).int_2;
+    } else {
+	mod_x = x;
+	mod_y = y;
+    }
+
     /* Bring up mappoint_stats for any right mouse click */
+    /* XXX: Environmental (right click) MPS should show the clicked 
+       square, not the master square */
     if (button == LC_MOUSE_RIGHTBUTTON) {
-#ifdef old_mps
-	if (MP_TYPE(x,y) == CST_USED) {
-	    mappoint_stats (MP_INFO(x,y).int_1, MP_INFO(x,y).int_2, button);
-	} else {
-	    mappoint_stats (x, y, button);
-	}
-#else
-	if (MP_TYPE(x,y) == CST_USED) {
-	    mps_set(MP_INFO(x,y).int_1, MP_INFO(x,y).int_2, MPS_ENV);
-	} else {
-	    mps_set(x, y, MPS_ENV);
-	}
-#endif
+	mps_set(mod_x, mod_y, MPS_ENV);
 	return;
     }
 
     /* Check rocket launches */
+    /* XXX: put this in modules/rocket.c */
+    /* XXX: wait for second click to ask for launch */
     if (button == LC_MOUSE_LEFTBUTTON) {
-        int xx, yy;
-	if (MP_TYPE(x,y) == CST_USED) {
-	    xx = MP_INFO(x,y).int_1;
-            yy = MP_INFO(x,y).int_2;
-        } else {
-	  xx = x;
-	  yy = y;
-	}
-	if (MP_TYPE(xx,yy) >= CST_ROCKET_5 && MP_TYPE(xx,yy) <= CST_ROCKET_7) {
-	  if (ask_launch_rocket_click (xx,yy)) {
-	    launch_rocket (xx, yy);
+	if (MP_TYPE(mod_x,mod_y) >= CST_ROCKET_5 && 
+	    MP_TYPE(mod_x,mod_y) <= CST_ROCKET_7) {
+	  if (ask_launch_rocket_click (mod_x,mod_y)) {
+	    launch_rocket (mod_x, mod_y);
 	  }
 	}
     }
@@ -515,11 +510,8 @@ do_mouse_main_win (int px, int py, int button)
 	if (mt_draw (px, py, MT_START)) {
 	    /* We need to set mps to current location, since the user might 
 	       click on the transport to see the mps */
-#ifdef old_mps
-	    mappoint_stats (x, y, button);
-#else
-	    mps_set(x, y, MPS_MAP);
-#endif
+
+	    mps_set(mod_x, mod_y, MPS_MAP);
 	    return;
 	}
     }
@@ -531,20 +523,21 @@ do_mouse_main_win (int px, int py, int button)
     }
 
     /* Bring up mappoint_stats for certain left mouse clicks */
+    /* XXX: Need to check market and port double-clicks here */
     if (MP_TYPE(x,y) != CST_GREEN) {
-	if (MP_TYPE(x,y) == CST_USED) {
+	mps_result = mps_set(mod_x, mod_y, MPS_MAP);
 
-#ifdef old_mps
-	    mappoint_stats (MP_INFO(x,y).int_1, MP_INFO(x,y).int_2, button);
-#else
-	    mps_set(MP_INFO(x,y).int_1, MP_INFO(x,y).int_2, MPS_MAP);
-#endif
-	} else {
-#ifdef old_mps
-	    mappoint_stats (x, y, button);
-#else
-	    mps_set(x, y, MPS_MAP);
-#endif
+	if (mps_result >= 1) {
+	    if (MP_GROUP(mod_x,mod_y) == GROUP_MARKET)
+	    {
+		clicked_market_cb (mod_x, mod_y);
+		return;
+	    }
+	    else if (MP_GROUP(mod_x,mod_y) == GROUP_PORT)
+	    {
+		clicked_port_cb (mod_x, mod_y);
+		return;
+	    }
 	}
 	return;
     }
