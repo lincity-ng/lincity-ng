@@ -18,9 +18,14 @@ class ButtonPanel:public Component
   void menuButtonClicked(CheckButton* button,int);
  private:
   void attachButtons();
- 
+  std::string getName(XmlReader &reader) const;
+
   int module;
   bool alreadyAttached;
+  
+  std::vector<std::string> mMenuButtons;
+  std::vector<std::string> mMenus;
+  std::vector<std::string> mButtons;
 };
 
 ButtonPanel *getButtonPanel();
