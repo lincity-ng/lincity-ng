@@ -220,6 +220,7 @@ elif env['VARIANT'] == "debug":
     env.Append(CPPDEFINES = { "DEBUG":"1" })
 elif env['VARIANT'] == "profile":
     env.Append(CXXFLAGS = "-pg -O2 -Wall -W")
+    env.Append(LINKFLAGS = "-pg")
 
 build_dir="build/" + env['PLATFORM'] + "/" + env['VARIANT']
 

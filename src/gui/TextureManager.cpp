@@ -34,7 +34,10 @@ TextureManager::load(const std::string& filename)
         throw std::runtime_error(msg.str());
     }
 
-    Texture* result = create(image);
+    SDL_Surface* surface = SDL_DisplayFormatAlpha(image);
+    SDL_FreeSurface(image);
+
+    Texture* result = create(surface);
     return result;
 }
 

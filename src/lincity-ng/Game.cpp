@@ -26,6 +26,8 @@ Game::run()
 {
     SDL_Event event;
     running = true;
+    Uint32 ticks = SDL_GetTicks();
+    int frame = 0;
     while(running) {
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
@@ -52,9 +54,15 @@ Game::run()
             }
         }
 
-        SDL_FillRect(SDL_GetVideoSurface(), 0, 0);
         gui->draw(*painter);
         SDL_Flip(SDL_GetVideoSurface());
+        frame++;
+        
+        if(SDL_GetTicks() - ticks > 1000) {
+            printf("FPS: %d.\n", frame);
+            frame = 0;
+            ticks = SDL_GetTicks();
+        }
 
         doLincityStep();
     }

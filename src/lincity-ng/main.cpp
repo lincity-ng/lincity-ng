@@ -71,10 +71,10 @@ void initPhysfs(const char* argv0)
 
 void initVideo(int width, int height)
 {
-    int bpp = 32;
-
+    int bpp = 0;
+    int flags = SDL_HWSURFACE  | SDL_RESIZABLE;
     SDL_Surface* screen 
-        = SDL_SetVideoMode(width, height, bpp, SDL_DOUBLEBUF | SDL_RESIZABLE);
+        = SDL_SetVideoMode(width, height, bpp, flags);
     SDL_WM_SetCaption(PACKAGE_NAME " " PACKAGE_VERSION, 0);
     if(!screen) {
         std::stringstream msg;
@@ -93,23 +93,23 @@ void mainLoop()
     while(state != QUIT) {
         switch(state) {
             case MAINMENU:
-	      {
-                MainMenu* menu = new MainMenu();
-                nextstate = menu->run();
-                delete menu;
-	      }
-	      break;
-	case INGAME:
-	  {
-	    Game* game = new Game();
-	    nextstate = game->run();
-	    delete game;
-	  }
-	  break;
-	default:
-	  assert(false);
+                {
+                    MainMenu* menu = new MainMenu();
+                    nextstate = menu->run();
+                    delete menu;
+                }
+                break;
+            case INGAME:
+                {
+                    Game* game = new Game();
+                    nextstate = game->run();
+                    delete game;
+                }
+                break;
+            default:
+                assert(false);
         }
-
+        
         state = nextstate;
     }
 }
@@ -126,7 +126,7 @@ int main(int , char** argv)
         initPhysfs(argv[0]);
         initSDL();
         initTTF();
-        initVideo();
+        initVideo(800, 600);
 	initLincity();
 
         texture_manager = new TextureManager();

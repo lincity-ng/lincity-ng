@@ -382,7 +382,13 @@ Paragraph::resize(float width, float height)
         SDL_BlitSurface(lineimages[i], 0, result, &rect);
         SDL_FreeSurface(lineimages[i]);
     }
-    texture = texture_manager->create(result);
+    SDL_Surface* surface = SDL_DisplayFormatAlpha(result);
+    SDL_FreeSurface(result);
+    if(surface == 0) {
+        throw std::runtime_error("Out of memory when creating text image(d)");
+    }
+    
+    texture = texture_manager->create(surface);
 
     this->width = width + style.margin_left + style.margin_right;
     this->height = height + style.margin_top + style.margin_bottom;

@@ -149,6 +149,8 @@ MainMenu::run()
     SDL_Event event;
     running = true;
     quitState = QUIT;
+    Uint32 ticks = SDL_GetTicks();
+    int frame = 0;
     while(running) {
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
@@ -175,9 +177,16 @@ MainMenu::run()
             }
         }
 
-        SDL_FillRect(SDL_GetVideoSurface(), 0, 0);
+        //SDL_FillRect(SDL_GetVideoSurface(), 0, 0);
         currentMenu->draw(*painter);
         SDL_Flip(SDL_GetVideoSurface());
+
+        frame++;
+        if(SDL_GetTicks() - ticks > 1000) {
+            printf("FPS: %d.\n", frame);
+            frame = 0;
+            ticks = SDL_GetTicks();
+        }
     }
 
     return quitState;
