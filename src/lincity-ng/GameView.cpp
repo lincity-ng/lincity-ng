@@ -31,6 +31,8 @@
  *  preload Images in extra Thread
  *  keep city in GameView
  *
+ *  20050326
+ *  Hide mouse while scrolling map.
  */
 #include <config.h>
 
@@ -652,7 +654,7 @@ void GameView::event(const Event& event)
                 
                 dragDistance *= accel;
                 viewport += dragDistance;
-                dragStart = event.mousepos;
+                SDL_WarpMouse( dragStart.x, dragStart.y );
                 dragStartTime = now;
                 setDirty();
                 break;            
@@ -665,6 +667,8 @@ void GameView::event(const Event& event)
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
+                SDL_ShowCursor( SDL_DISABLE );
+                SDL_WM_GrabInput( SDL_GRAB_ON );
                 dragStartTime = SDL_GetTicks();
             }
             Vector2 tile = getTile(event.mousepos);
@@ -689,6 +693,8 @@ void GameView::event(const Event& event)
                 if ( dragging ) {
                     dragging = false;
                     rightButtonDown = false;
+                    SDL_ShowCursor( SDL_ENABLE );
+                    SDL_WM_GrabInput( SDL_GRAB_OFF );
                     break;
                 } 
                 dragging = false;
@@ -703,9 +709,9 @@ void GameView::event(const Event& event)
             if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
                 editMap((int) tile.x, (int) tile.y,SDL_BUTTON_LEFT); //edit tile
             }
-            else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //right      
+            /*else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //right      
                 recenter(event.mousepos);                      //adjust view
-            }
+            }*/
             else if( event.mousebutton == SDL_BUTTON_MIDDLE ){ //middle
                 getMPS()->setView( (int) tile.x, (int) tile.y);//show info
             }

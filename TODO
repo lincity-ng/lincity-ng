@@ -45,6 +45,3 @@ Programming
  [H] improve fast scrolling
  [H] Homepage
  [H] Tile graphics
- [H] keep mouse at position when scrolling (so that you don't accidently move
-     out of the window)
-

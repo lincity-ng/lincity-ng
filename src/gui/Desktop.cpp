@@ -190,9 +190,9 @@ Desktop::setDirty(const Rect2D& rect)
     }
 
     // add a new dirty rectangle if no overlap occured
-    std::cout << "Adding new rectangle: " 
+    /*std::cout << "Adding new rectangle: " 
         << rect.p1.x << "," << rect.p1.y << ","
-        << rect.p2.x << "," << rect.p2.y << "\n";
+        << rect.p2.x << "," << rect.p2.y << "\n"; */
     dirtyRectangles.push_back(rect);
 
     Component::setDirty(rect);
