@@ -2,18 +2,18 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: main.c:631
+#: main.c:630
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-09 11:48-0500\n"
+"POT-Creation-Date: 2002-01-31 17:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: cliglobs.c:52
 msgid "Jan"
@@ -369,161 +369,161 @@ msgstr ""
 msgid "Please enter the address and port of the server"
 msgstr ""
 
-#: main.c:216
+#: main.c:215
 msgid "Loading the game"
 msgstr ""
 
-#: main.c:226
+#: main.c:225
 msgid "Creating pixmaps"
 msgstr ""
 
-#: main.c:628
+#: main.c:627
 msgid "Quit The Game?"
 msgstr ""
 
-#: main.c:629
+#: main.c:628
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: main.c:630
+#: main.c:629
 msgid "If you want to save the game select NO."
 msgstr ""
 
-#: main.c:663
+#: main.c:662
 msgid "TEST"
 msgstr ""
 
-#: main.c:663
+#: main.c:662
 msgid "You have pressed a test key"
 msgstr ""
 
-#: main.c:664
+#: main.c:663
 msgid "You will only see this message once"
 msgstr ""
 
-#: main.c:665
+#: main.c:664
 msgid "Do you really want to play in test mode..."
 msgstr ""
 
-#: main.c:710
+#: main.c:709
 #, c-format
 msgid "Can't open %s for writing, can't continue\n"
 msgstr ""
 
-#: main.c:719
+#: main.c:718
 #, c-format
 msgid "What!! can't open %s for reading after writing???\n"
 msgstr ""
 
-#: main.c:728
+#: main.c:727
 #, c-format
 msgid "Got mouse type: %d\n"
 msgstr ""
 
-#: main.c:752
+#: main.c:751
 #, c-format
 msgid "Unable to open %s\n"
 msgstr ""
 
-#: main.c:757
+#: main.c:756
 msgid "----- IN TEST MODE -------\n"
 msgstr ""
 
-#: main.c:758
+#: main.c:757
 #, c-format
 msgid "Game statistics from LinCity Version %s\n"
 msgstr ""
 
-#: main.c:760
+#: main.c:759
 #, c-format
 msgid "Initial loaded scene - %s\n"
 msgstr ""
 
-#: main.c:762
+#: main.c:761
 msgid "Economy is sustainable\n"
 msgstr ""
 
-#: main.c:763
+#: main.c:762
 #, c-format
 msgid "Population  %d  of which  %d  are not housed.\n"
 msgstr ""
 
-#: main.c:766
+#: main.c:765
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d\n"
 msgstr ""
 
-#: main.c:769
+#: main.c:768
 #, c-format
 msgid " Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"
 msgstr ""
 
-#: main.c:774
+#: main.c:773
 #, c-format
 msgid " Deaths by starvation %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:777
+#: main.c:776
 #, c-format
 msgid "Deaths from pollution %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:779
+#: main.c:778
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:781
+#: main.c:780
 #, c-format
 msgid "Rockets launched %2d  Successful launches %2d\n"
 msgstr ""
 
-#: main.c:784
+#: main.c:783
 #, c-format
 msgid "    Residences %4d         Markets %4d            Farms %4d\n"
 msgstr ""
 
-#: main.c:793
+#: main.c:792
 #, c-format
 msgid "        Tracks %4d           Roads %4d             Rail %4d\n"
 msgstr ""
 
-#: main.c:796
+#: main.c:795
 #, c-format
 msgid "     Potteries %4d     Blacksmiths %4d            Mills %4d\n"
 msgstr ""
 
-#: main.c:799
+#: main.c:798
 #, c-format
 msgid "     Monuments %4d         Schools %4d     Universities %4d\n"
 msgstr ""
 
-#: main.c:802
+#: main.c:801
 #, c-format
 msgid " Fire stations %4d           Parks %4d     Cricket gnds %4d\n"
 msgstr ""
 
-#: main.c:805
+#: main.c:804
 #, c-format
 msgid "    Coal mines %4d       Ore mines %4d         Communes %4d\n"
 msgstr ""
 
-#: main.c:808
+#: main.c:807
 #, c-format
 msgid "     Windmills %4d     Coal powers %4d     Solar powers %4d\n"
 msgstr ""
 
-#: main.c:812
+#: main.c:811
 #, c-format
 msgid "   Substations %4d     Power lines %4d            Ports %4d\n"
 msgstr ""
 
-#: main.c:815
+#: main.c:814
 #, c-format
 msgid "    Light inds %4d      Heavy inds %4d        Recyclers %4d\n"
 msgstr ""
 
-#: main.c:818
+#: main.c:817
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
 msgstr ""

@@ -8,18 +8,6 @@
 #include <stdlib.h>
 #include "lcstring.h"
 
-/* this is for OS/2 - RVI */
-#ifdef __EMX__
-#include <sys/select.h>
-#include <X11/Xlibint.h>      /* required for __XOS2RedirRoot */
-#define chown(x,y,z)
-#define OS2_DEFAULT_LIBDIR "/XFree86/lib/X11/lincity"
-#endif
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
 #if defined (TIME_WITH_SYS_TIME)
 #include <time.h>
 #include <sys/time.h>

@@ -13,11 +13,6 @@
 #include <math.h>
 #include "lcstring.h"
 
-/* this is for OS/2 - RVI */
-#ifdef __EMX__
-#include <float.h>
-#endif
-
 #include "lin-city.h"
 #include "lctypes.h"
 #include "cliglobs.h"

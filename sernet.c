@@ -32,16 +32,14 @@
 
 #include <signal.h>
 
-#if !defined (WIN32)
+#if defined (WIN32)
+#include <winsock.h>
+#else
 #include <sys/socket.h>
 #include <netdb.h>
 #include <sys/uio.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#endif
-
-#if defined (WIN32)
-#include <winsock.h>
 #endif
 
 #include "sernet.h"

@@ -23,7 +23,6 @@
 #include <stdlib.h>
 #include "lcstring.h"
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #if defined (WIN32)
 #include <winsock.h>

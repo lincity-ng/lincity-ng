@@ -12,17 +12,8 @@
 #include "mouse.h"
 #include "module_buttons.h"
 
-/* this is for OS/2 - RVI */
-#ifdef __EMX__
-#include <sys/select.h>
-#include <X11/Xlibint.h>      /* required for __XOS2RedirRoot */
-#define chown(x,y,z)
-#define OS2_DEFAULT_LIBDIR "/XFree86/lib/X11/lincity"
-#endif
-
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/types.h>
 
 #if defined (TIME_WITH_SYS_TIME)
 #include <time.h>
@@ -40,6 +31,10 @@
 #include <io.h>
 #include <direct.h>
 #include <process.h>
+#endif
+
+#ifdef __EMX__
+#define chown(x,y,z)
 #endif
 
 #if defined (HAVE_DIRENT_H)
@@ -92,14 +87,6 @@ int verify_city (char *cname);
 /* ---------------------------------------------------------------------- *
  * Private Global Variables
  * ---------------------------------------------------------------------- */
-#if defined (WIN32)
-char LIBDIR[_MAX_PATH];
-#elif defined (__EMX__)
-#ifdef LIBDIR
-#undef LIBDIR   /* yes, I know I shouldn't ;-) */
-#endif
-char LIBDIR[256];
-#endif
 
 int make_dir_ok_flag;
 char save_names[10][42];

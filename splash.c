@@ -6,19 +6,8 @@
 #include "lcconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "lcstring.h"
-
-/* this is for OS/2 - RVI */
-#ifdef __EMX__
-#include <sys/select.h>
-#include <X11/Xlibint.h>      /* required for __XOS2RedirRoot */
-#define chown(x,y,z)
-#define OS2_DEFAULT_LIBDIR "/XFree86/lib/X11/lincity"
-#endif
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 #if defined (WIN32)
 #include <winsock.h>
@@ -27,24 +16,6 @@
 #include <process.h>
 #endif
 
-#if defined (HAVE_DIRENT_H)
-#include <dirent.h>
-#define NAMLEN(dirent) strlen((dirent)->d_name)
-#else
-#define dirent direct
-#define NAMLEN(dirent) (dirent)->d_namlen
-#if defined (HAVE_SYS_NDIR_H)
-#include <sys/ndir.h>
-#endif
-#if defined (HAVE_SYS_DIR_H)
-#include <sys/dir.h>
-#endif
-#if defined (HAVE_NDIR_H)
-#include <ndir.h>
-#endif
-#endif
-
-#include <ctype.h>
 #include "common.h"
 #ifdef LC_X11
 #include <X11/cursorfont.h>
