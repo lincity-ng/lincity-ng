@@ -321,43 +321,4 @@ pbar_mouse(int rawx, int rawy, int button)
 
   /* check for help with pbars */
   activate_help ("pbar.hlp");
-
-#if defined (commentout)
-  if (mouse_in_rect (&scr.pbar_pop,x,y)) {
-    activate_help ("pbar-pop.hlp");
-    return;
-  }
-  else if (mouse_in_rect (&scr.pbar_tech,x,y)) {
-    activate_help ("pbar-tech.hlp");
-    return;
-  }
-  else if (mouse_in_rect (&scr.pbar_food,x,y)) {
-    activate_help ("pbar-food.hlp");
-    return;
-  }
-  else if (mouse_in_rect (&scr.pbar_jobs,x,y)) {
-    activate_help ("pbar-jobs.hlp");
-    return;
-  }
-  else if (mouse_in_rect (&scr.pbar_money,x,y)) {
-    activate_help ("pbar-money.hlp");
-    return;
-  }
-  else if (mouse_in_rect (&scr.pbar_coal,x,y)) {
-    activate_help ("pbar-coal.hlp");
-    return;
-  }
-  else if (mouse_in_rect (&scr.pbar_goods,x,y)) {
-    activate_help ("pbar-goods.hlp");
-    return;
-  }
-  else if (mouse_in_rect (&scr.pbar_ore,x,y)) {
-    activate_help ("pbar-ore.hlp");
-    return;
-  }
-  else if (mouse_in_rect (&scr.pbar_steel,x,y)) {
-    activate_help ("pbar-steel.hlp");
-    return;
-  }
-#endif
 }

@@ -8,6 +8,7 @@
 #ifndef __modules_h__
 #define __modules_h__
 
+#include "../lcconfig.h"
 #include "../lctypes.h"
 #include "../lcintl.h"
 #include "../engglobs.h"
