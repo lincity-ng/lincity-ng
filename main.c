@@ -419,12 +419,13 @@ process_keystrokes (int key)
 	break;
 #endif
 
+    case 'P':
     case 'p':
 	select_pause ();
 	break;
 
 #ifdef DEBUG_KEYS
-    case 'o':
+    case 'e':
 	if (cheat () != 0)
 	    people_pool += 100;
 	break;
@@ -459,10 +460,12 @@ process_keystrokes (int key)
 	do_random_fire (-1, -1, 1);
 	break;
 
+    case 'L':
     case 'l':
 	load_flag = 1;
 	break;
 
+    case 'H':
     case 'h':
 	activate_help ("index.hlp");
 	break;
@@ -483,10 +486,12 @@ process_keystrokes (int key)
 	activate_help ("menu.hlp");
 	break;
 #endif
+    case 'S':
     case 's':
 	save_flag = 1;
 	break;
 
+#if defined (commentout)
     case 'b': 
 	retval = dialog_box(red(10),10,
 		   0,0,"This is the first test",
@@ -502,6 +507,13 @@ process_keystrokes (int key)
 	    );
 	printf("dialog_box returned %c\n",retval);
       break;
+#endif
+
+    case 'o':
+    case 'O':
+	/* Toggle overlay */
+	rotate_main_screen();
+	break;
 
     case 'r':
         window_results();

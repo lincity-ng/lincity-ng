@@ -1,20 +1,23 @@
 text -1  40 The keyboard interface
 text -1  50 ======================
 
-text 40 100 H                Help
+text 40  90 H                Help
 text 40 100 F1               Help (WIN32)
 text 40 110 L                Load
-text 40 120 P                Pause
+text 40 120 P                Pause/Unpause
 text 40 130 Q                Quit
 text 40 140 S                Save
-text 40 150 Arrow Keys       Scroll Main Screen (WIN32)
+text 40 150 Arrow Keys       Scroll Main Screen (X11,WIN32)
 text 40 160 Arrow Keys       Move Cursor (LIBSVGA)
-text 40 170 SHIFT-Arrow      Faster Scrolling (WIN32)
+text 40 170 SHIFT-Arrow      Faster Scrolling (X11,WIN32)
 text 40 180 Space            Same as left mouse button
 text 40 190 Enter            Same as left mouse button
 text 40 200 Backspace        Same as right mouse button
 
-text 40 240 In dialogue boxes, you can press space
-text 40 250 or return to select OK. The space, return
-text 40 260 or the y key to select YES. The backspace
-text 40 270 or the n key to select NO.
+text 40 220 R                Display stats
+text 40 230 O                Toggle overlay
+
+text 40 250 In dialogue boxes, you can press space
+text 40 260 or return to select OK. The space, return
+text 40 270 or the y key to select YES. The backspace
+text 40 280 or the n key to select NO.

@@ -9,7 +9,9 @@ text -1 130 Darker green and bright red show
 text -1 140 increasingly severe unemployment in each
 text -1 150 residential area shown.
 
-text -1 300 Left click on the mini screen 
-text -1 310 to reposition the main window.
-text -1 330 Left click on the mini screen title 
-text -1 340 to choose a different mini screen view.
+text -1 280 Left click on the mini screen 
+text -1 290 to reposition the main window.
+text -1 310 Left click on the mini screen title 
+text -1 320 to choose a different mini screen view.
+text -1 340 Middle click on the mini screen title 
+text -1 350 to overlay the mini screen onto main screen.
