@@ -16,8 +16,8 @@ libsrc=getAllSourceFiles("./")
 
 Library('lincity',libsrc,CCFLAGS="-Igui_interface -I. -DHAVE_CONFIG_H")
 
-#SConscript('gui_interface/SConscript')
-SConscript('lincity/SConscript')
-SConscript('lincity/modules/SConscript')
-SConscript('oldgui/SConscript')
+#SConscript('src/gui_interface/SConscript')
+SConscript('src/lincity/SConscript')
+SConscript('src/lincity/modules/SConscript')
+SConscript('src/oldgui/SConscript')
 #SConscript('newgui/SConscript')
