@@ -184,6 +184,22 @@ TableLayout::~TableLayout()
 {
 }
 
+bool
+TableLayout::opaque(const Vector2& pos) const
+{
+    for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
+        const Child& child = *i;
+        if(child.component == 0)
+            continue;
+        
+        if(child.component->opaque(pos - child.position)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void
 TableLayout::removeComponents()
 {

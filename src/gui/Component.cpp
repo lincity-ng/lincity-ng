@@ -58,30 +58,38 @@ Component::draw(Painter& painter)
     }
 }
 
-void
-Component::eventChild(Child& child, const Event& event)
+bool
+Component::eventChild(Child& child, const Event& event, bool visible)
 {
     assert(child.getComponent() != 0);
-    
+   
     Event ev = event;
     if(event.type == Event::MOUSEMOTION 
         || event.type == Event::MOUSEBUTTONDOWN
         || event.type == Event::MOUSEBUTTONUP) {
         // TODO handle clip rectangles?
-        ev.mousepos = event.mousepos - child.position;
+        ev.mousepos -= child.position;
+        if(visible && child.component->opaque(ev.mousepos))
+            ev.inside = true;
+        else
+            ev.inside = false;
     }
+    
     child.component->event(ev);
+    return ev.inside;
 }
 
 void
 Component::event(const Event& event)
 {
-    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+    bool visible = event.inside;
+    for(Childs::reverse_iterator i = childs.rbegin(); i != childs.rend(); ++i) {
         Child& child = *i;
         if(!child.enabled)
           continue;
     
-        eventChild(child, event);
+        if(eventChild(child, event, visible))
+            visible = false;
     }
 }
 

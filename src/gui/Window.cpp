@@ -130,14 +130,16 @@ Window::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEBUTTONDOWN:
-            if(title().inside(event.mousepos)) {
+            if(event.inside && title().inside(event.mousepos)) {
                 dragging = true;
                 dragOffset = event.mousepos - title().getPos();
             }
             break;
             
         case Event::MOUSEBUTTONUP:
-            dragging = false;
+            if(dragging) {
+                dragging = false;
+            }
             break;
 
         case Event::MOUSEMOTION: {
@@ -153,7 +155,6 @@ Window::event(const Event& event)
             Vector2 newpos = desktop->getPos(this) + 
                 event.mousepos - dragOffset;
             desktop->move(this, newpos);
-            
             break;
         }
 

@@ -195,10 +195,8 @@ void IsoDisplay::event(const Event& event)
 {
   int border=20;
 
-  if(event.type==Event::MOUSEBUTTONDOWN)
+  if(event.type==Event::MOUSEBUTTONDOWN && event.inside)
     {
-      if(event.mousepos.x>=0 && event.mousepos.y>=0 && event.mousepos.x<width && event.mousepos.y<height)
-      {
         if(event.mousepos.x<border)
           px-=2;
         if(event.mousepos.x>width-border)
@@ -207,7 +205,6 @@ void IsoDisplay::event(const Event& event)
           py-=2;
         if(event.mousepos.y>height-border)
           py+=2;
-      }
     }
 }
 

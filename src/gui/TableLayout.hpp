@@ -34,6 +34,7 @@ public:
     ~TableLayout();
 
     void resize(float width, float height);
+    bool opaque(const Vector2& pos) const;
 
     struct RowColProperties
     {

@@ -5,6 +5,7 @@
 #include <assert.h>
 
 Event::Event(SDL_Event& event)
+    : inside(true)
 {
     switch(event.type) {
         case SDL_KEYUP:

@@ -47,6 +47,17 @@ public:
     virtual void draw(Painter& painter);
     virtual void event(const Event& event);
     virtual void resize(float width, float height);
+   
+    /**
+     * should returns true if the component is opaque at this place
+     */
+    virtual bool opaque(const Vector2& pos) const
+    {
+        if(pos.x >= 0 && pos.y >= 0 && pos.x <= width && pos.y <= height)
+            return true;
+
+        return false;
+    }
 
     float getWidth() const
     {
@@ -86,7 +97,7 @@ protected:
 
     Child& addChild(Component* component);
     void drawChild(Child& child, Painter& painter);
-    void eventChild(Child& child, const Event& event);
+    bool eventChild(Child& child, const Event& event, bool visible = false);
 
     void setDirty()
     {

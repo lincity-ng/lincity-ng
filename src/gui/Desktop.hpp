@@ -14,6 +14,7 @@ public:
 
     void resize(float width, float height);
     void event(const Event& event);
+    bool opaque(const Vector2& pos) const;
 
     Vector2 getPos(Component* component);
     void move(Component* component, Vector2 pos);

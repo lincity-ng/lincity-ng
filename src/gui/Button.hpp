@@ -26,8 +26,6 @@ public:
     Signal<Button*> clicked;
 
 private:
-    bool inside(const Vector2& pos);
-    
     enum State {
         STATE_NORMAL,
         STATE_HOVER,

@@ -387,53 +387,59 @@ void GameView::event(const Event& event)
     
     switch(event.type) {
         case Event::MOUSEBUTTONUP:
-             std::cout << "GameView::event click Button: " << event.mousebutton ;
-             std::cout << "Pos " << event.mousepos.x << "/" << event.mousepos.y << "\n";
-             if(event.mousebutton==SDL_BUTTON_RIGHT)
-               recenter(event.mousepos);
-             else
-               click(event.mousepos);
-             break;
+            if(!event.inside) {
+                printf("notinside.\n");
+                break;
+            }
+            printf("inside.\n");
+            
+            std::cout << "GameView::event click Button: " << event.mousebutton ;
+            std::cout << "Pos " << event.mousepos.x << "/" << event.mousepos.y << "\n";
+            if(event.mousebutton==SDL_BUTTON_RIGHT)
+                recenter(event.mousepos);
+            else
+                click(event.mousepos);
+            break;
         case Event::KEYUP:
-             if( event.keysym.mod & KMOD_SHIFT ){
+            if( event.keysym.mod & KMOD_SHIFT ){
                 stepx =  (int) 5 * tileWidth;
                 stepy =  (int) 5 * tileHeight;
-             } 
-             if ( event.keysym.sym == SDLK_KP9 ) {
-                 viewport.x += stepx;
-                 viewport.y -= stepy;
-             }
-             if ( event.keysym.sym == SDLK_KP1 ) {
-                 viewport.x -= stepx;
-                 viewport.y += stepy;
-             }
-             if ( event.keysym.sym == SDLK_KP8 ) {
-                 viewport.y -= stepy;
-             }
-             if ( event.keysym.sym == SDLK_KP2 ) {
-                 viewport.y += stepy;
-             }
-             if ( event.keysym.sym == SDLK_KP7 ) {
-                 viewport.x -= stepx;
-                 viewport.y -= stepy;
-             }
-             if ( event.keysym.sym == SDLK_KP3 ) {
-                 viewport.x += stepx;
-                 viewport.y += stepy;
-             }
-             if ( event.keysym.sym == SDLK_KP6 ) {
-                 viewport.x += stepx;
-             }
-             if ( event.keysym.sym == SDLK_KP4 ) {
-                 viewport.x -= stepx;
-             }
-             if ( event.keysym.sym == SDLK_KP5 ) {
+            } 
+            if ( event.keysym.sym == SDLK_KP9 ) {
+                viewport.x += stepx;
+                viewport.y -= stepy;
+            }
+            if ( event.keysym.sym == SDLK_KP1 ) {
+                viewport.x -= stepx;
+                viewport.y += stepy;
+            }
+            if ( event.keysym.sym == SDLK_KP8 ) {
+                viewport.y -= stepy;
+            }
+            if ( event.keysym.sym == SDLK_KP2 ) {
+                viewport.y += stepy;
+            }
+            if ( event.keysym.sym == SDLK_KP7 ) {
+                viewport.x -= stepx;
+                viewport.y -= stepy;
+            }
+            if ( event.keysym.sym == SDLK_KP3 ) {
+                viewport.x += stepx;
+                viewport.y += stepy;
+            }
+            if ( event.keysym.sym == SDLK_KP6 ) {
+                viewport.x += stepx;
+            }
+            if ( event.keysym.sym == SDLK_KP4 ) {
+                viewport.x -= stepx;
+            }
+            if ( event.keysym.sym == SDLK_KP5 ) {
                 viewport.x = floor ( ( virtualScreenWidth - getWidth()  ) / 2 );
                 viewport.y = floor ( ( virtualScreenHeight- getHeight() ) / 2 );
-             }
-             break;
+            }
+            break;
         default:
-             break;
+            break;
     }
 }
 

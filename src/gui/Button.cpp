@@ -138,7 +138,7 @@ Button::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEMOTION:
-            if(inside(event.mousepos)) {
+            if(event.inside) {
                 if(state == STATE_NORMAL) {
                     state = STATE_HOVER;
                 }
@@ -149,18 +149,18 @@ Button::event(const Event& event)
             }
             break;
         case Event::MOUSEBUTTONDOWN:
-            if(inside(event.mousepos)) {
+            if(event.inside) {
                 state = STATE_CLICKED;
             } else {
                 state = STATE_NORMAL;
             }
             break;
         case Event::MOUSEBUTTONUP:
-            if(inside(event.mousepos) && state == STATE_CLICKED) {
+            if(event.inside && state == STATE_CLICKED) {
                 printf("Clicked on Button '%s'.\n", getName().c_str());
                 clicked(this);
-            } 
-            state = STATE_NORMAL;
+            }
+            state = event.inside ? STATE_HOVER : STATE_NORMAL;
             break;
         default:
             break;
@@ -201,15 +201,6 @@ Button::draw(Painter& painter)
         drawChild(comp_caption(), painter);
     if(lowerOnClick && state==STATE_CLICKED)
         painter.popTransform();
-}
-
-bool
-Button::inside(const Vector2& pos)
-{
-    if(pos.x < 0 || pos.y < 0 || pos.x >= width || pos.y >= height)
-        return false;
-
-    return true;
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Button)

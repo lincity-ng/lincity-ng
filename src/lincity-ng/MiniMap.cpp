@@ -358,17 +358,14 @@ static MiniMap::DisplayMode getNextMode(MiniMap::DisplayMode mode)
 
 void MiniMap::event(const Event& event)
 {
-  if(event.type==Event::MOUSEBUTTONDOWN)
+  if(event.type==Event::MOUSEBUTTONDOWN && event.inside)
     {
-      if(event.mousepos.x>=0 && event.mousepos.y>=0 && event.mousepos.x<width && event.mousepos.y<height)
-	{
-	  CTRACE;
-	  cdebug("mousePos:"<<event.mousepos.x<<","<<event.mousepos.y);
-          mMode = getNextMode(mMode);
-	  mFullRefresh=true;
-	  //      cdebug("MODE:"<<mMode<<":"<<mode[mMode]);
-	  //      mText->setText(mode[mMode]);
-	}
+        CTRACE;
+        cdebug("mousePos:"<<event.mousepos.x<<","<<event.mousepos.y);
+        mMode = getNextMode(mMode);
+        mFullRefresh=true;
+        //      cdebug("MODE:"<<mMode<<":"<<mode[mMode]);
+        //      mText->setText(mode[mMode]);
     }
 }
 

@@ -101,7 +101,7 @@ ScrollBar::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEBUTTONDOWN:
-            if(scroller().inside(event.mousepos)) {
+            if(event.inside && scroller().inside(event.mousepos)) {
                 scrolling = true;
                 scrollOffset = event.mousepos.y - scroller().getPos().y;
             }

@@ -13,8 +13,8 @@ public:
     Image(Component* parent, XmlReader& reader);
     virtual ~Image();
 
-    virtual void resize(float width, float height);
-    virtual void draw(Painter& painter);
+    void resize(float width, float height);
+    void draw(Painter& painter);
 
 private:
     std::auto_ptr<Texture> texture;
