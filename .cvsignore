@@ -1,0 +1,10 @@
+config.log
+config.h
+config.cache
+config.status
+stamp-h
+.deps
+stamp-h.in
+lincity
+xlincity
+Makefile
