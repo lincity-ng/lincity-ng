@@ -11,6 +11,7 @@
 #include "cliglobs.h"
 #include "lchelp.h"
 #include "dialbox.h"
+#include <mps.h>
 
 /* this is for OS/2 - RVI */
 #ifdef __EMX__
@@ -37,6 +38,7 @@
 #include "common.h"
 #ifdef LC_X11
 #include <X11/cursorfont.h>
+#include <lcx11.h>
 #endif
 
 #include "lctypes.h"
@@ -305,7 +307,6 @@ void
 client_main_loop (void)
 {
     int quit = 0;
-    int engine_updated = 0;
 
     /* Set up the game */
     reset_start_time ();
@@ -575,7 +576,6 @@ int
 execute_timestep (void)
 {
     static int next_time_step = 0;
-    int engine_updated = 0;
     int real_quit_flag = 0;
 
     if (market_cb_flag == 0 && help_flag == 0 

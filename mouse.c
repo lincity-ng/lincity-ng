@@ -46,15 +46,6 @@ static Mouse_Handle * mhandle_first;
 static Mouse_Handle * mhandle_last;
 static Mouse_Handle * mhandle_current;
 
-/* Screen area mouse handles */
-/* XXX: These handlers should live elsewhere */
-static Mouse_Handle * main_win_mhandle;
-static Mouse_Handle * other_buttons_mhandle;
-static Mouse_Handle * market_cb_mhandle;
-static Mouse_Handle * help_mhandle;
-static Mouse_Handle * loadsave_mhandle;
-
-
 /* ---------------------------------------------------------------------- *
  * cs_mouse_handler
  * --
@@ -69,7 +60,6 @@ void
 cs_mouse_handler (int enc_button, int dx, int dy)
 {
     int x, y;
-    int group = 0;
     int button = enc_button & ~LC_MOUSE_RELEASE & ~LC_MOUSE_PRESS;
     int button_pressed = enc_button & LC_MOUSE_PRESS;
     int button_released = enc_button & LC_MOUSE_RELEASE;
@@ -824,7 +814,6 @@ fire_area (int x, int y)
 void 
 drag_screen (void) 
 {
-    Rect* mw = &scr.main_win;
     int cur_mappoint_x = 0;
     int cur_mappoint_y = 0;
 
@@ -855,12 +844,8 @@ drag_screen (void)
 void
 do_market_cb_template (int x, int y, int is_market_cb)
 {
-    int old_flags = MP_INFO(mcbx,mcby).flags;
     Rect* mcb = &scr.market_cb;
     int is_sell;
-
-    static Mouse_Handle * checkbox_mhandle;
-    static Mouse_Handle * omni_mhandle;
 
     hide_mouse ();
     if (!mouse_in_rect(mcb,x,y)) {
@@ -1246,7 +1231,7 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	    draw_main_window_box (green (8)); 
 	    status_message(0,0);
 	}
-	else if (draw_ret = do_mt_draw(ox, cx, oy, cy, mt_perm)) {
+	else if ((draw_ret = do_mt_draw(ox, cx, oy, cy, mt_perm))) {
 
 	    print_total_money ();
 	    mt_flag = 0;

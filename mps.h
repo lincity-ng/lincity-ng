@@ -60,6 +60,8 @@ extern int mps_global_style;
 
 /* MPS Global displays */
 void mps_global_finance(void);
+void mps_global_other_costs(void);
+void mps_global_housing(void);
 void mps_right (int x, int y);
 
 

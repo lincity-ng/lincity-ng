@@ -81,6 +81,7 @@ void open_setcustompalette (XColor *);
 void drag_screen(void); /* WCK */
 void draw_border (void);
 void init_x_mouse (void);
+void unlock_window_size (void);
 
 int lc_get_keystroke (void);
 
