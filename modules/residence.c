@@ -9,6 +9,7 @@
 #include <lctypes.h>
 #include <engglobs.h>
 #include <stats.h>
+#include <residence.h>
 
 void
 do_residence (int x, int y)
@@ -264,4 +265,3 @@ do_residence (int x, int y)
     MP_INFO(x,y).int_4 = brm;
     MP_INFO(x,y).int_5 = drm;
 }
-

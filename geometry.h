@@ -141,7 +141,7 @@ void draw_bezel (Rect r, short width, int color);
 #define MAIN_WIN_H 400
 
 /* Speed buttons */
-#define SPEED_BUTTONS_X 0
+#define SPEED_BUTTONS_X 0 + MENU_BUTTON_W
 #define SPEED_BUTTONS_Y 416
 #define SPEED_BUTTONS_H 16
 #define SPEED_BUTTONS_W 32
@@ -162,12 +162,7 @@ void draw_bezel (Rect r, short width, int color);
 #define FAST_BUTTON_H 16
 #define FAST_BUTTON_W 32
 
-#if defined (commentout)
-#define HELP_BUTTON_X 608
-#define HELP_BUTTON_Y 448
-#define HELP_BUTTON_W 32
-#define HELP_BUTTON_H 32
-#endif
+
 #define QUIT_BUTTON_X 608
 #define QUIT_BUTTON_Y 416
 #define QUIT_BUTTON_W 32
@@ -181,22 +176,6 @@ void draw_bezel (Rect r, short width, int color);
 #define SAVE_BUTTON_W 32
 #define SAVE_BUTTON_H 32
 
-/* Stats button */
-#if defined (commentout)
-#define RESULTS_BUTTON_X 640 - 32
-#define RESULTS_BUTTON_Y 480 - 16
-#define RESULTS_BUTTON_W 32
-#define RESULTS_BUTTON_H 16
-#endif
-#define HELP_BUTTON_X 640 - 56
-#define HELP_BUTTON_Y 480 - 24
-#define HELP_BUTTON_W 56
-#define HELP_BUTTON_H 24
-
-#define RESULTS_BUTTON_X 640 - 2*56
-#define RESULTS_BUTTON_Y 480 - 24
-#define RESULTS_BUTTON_W 56
-#define RESULTS_BUTTON_H 24
 
 /* Misc buttons */
 #define MISC_BUTTONS_X 0
@@ -215,9 +194,33 @@ void draw_bezel (Rect r, short width, int color);
 #define MENU_BUTTON_W 56
 #define MENU_BUTTON_H 24
 
+/* Stats button */
+#if defined(commentout)
+#define HELP_BUTTON_X 640 - 56
+#define HELP_BUTTON_Y 480 - 24
+#define HELP_BUTTON_W 56
+#define HELP_BUTTON_H 24
+
+#define RESULTS_BUTTON_X 640 - 2*56
+#define RESULTS_BUTTON_Y 480 - 24
+#define RESULTS_BUTTON_W 56
+#define RESULTS_BUTTON_H 24
+#else
+#define HELP_BUTTON_X 0
+#define HELP_BUTTON_Y 24
+#define HELP_BUTTON_W 56
+#define HELP_BUTTON_H 24
+
+#define RESULTS_BUTTON_X 0
+#define RESULTS_BUTTON_Y 48
+#define RESULTS_BUTTON_W 56
+#define RESULTS_BUTTON_H 24
+#endif
+
+
 #define SELECT_BUTTON_WIN_X 0
 #define SELECT_BUTTON_WIN_W 56
-#define SELECT_BUTTON_WIN_Y 24
+#define SELECT_BUTTON_WIN_Y 72
 #define SELECT_BUTTON_WIN_H 392
 #define SELECT_BUTTON_WIDTH 16
 #define SELECT_BUTTON_DISTANCE 8
@@ -259,15 +262,16 @@ void draw_bezel (Rect r, short width, int color);
 #define PBAR_MONEY_Y    PBAR_POP_Y+(PBAR_H+1)*8
 #endif /* commentout */
 
+#define STATUS_AREA_X             MAIN_WIN_X + SPEED_BUTTONS_W
 #define DATE_W                    112
 #define MONEY_W                   32 * CHAR_WIDTH
-#define TIME_FOR_YEAR_X           320
+#define TIME_FOR_YEAR_X           STATUS_AREA_X
 #define TIME_FOR_YEAR_Y           470
-#define SELECT_BUTTON_MESSAGE_X   MAIN_WIN_X
+#define SELECT_BUTTON_MESSAGE_X   STATUS_AREA_X
 #define SELECT_BUTTON_MESSAGE_Y   460
-#define STATUS_MESSAGE_1_X        MAIN_WIN_X
+#define STATUS_MESSAGE_1_X        STATUS_AREA_X
 #define STATUS_MESSAGE_1_Y        440
-#define STATUS_MESSAGE_2_X        MAIN_WIN_X
+#define STATUS_MESSAGE_2_X        STATUS_AREA_X
 #define STATUS_MESSAGE_2_Y        450
 
 #define SUST_SCREEN_X 96
@@ -285,18 +289,20 @@ void draw_bezel (Rect r, short width, int color);
 #define MAPPOINT_STATS_X PBAR_AREA_X + 4
 #define MAPPOINT_STATS_Y PBAR_AREA_Y + PBAR_AREA_H + 4
 #define MAPPOINT_STATS_W PBAR_AREA_W - 8
-#define MAPPOINT_STATS_H (11*8)
+#define MAPPOINT_STATS_H (14*8)
+
+
+
+#define MINI_MAP_AUX_X PBAR_AREA_X + 4
+#define MINI_MAP_AUX_Y MAPPOINT_STATS_Y + MAPPOINT_STATS_H + 8
+#define MINI_MAP_AUX_W PBAR_AREA_W - 8
+#define MINI_MAP_AUX_H 16
 
 #define MONTHGRAPH_X PBAR_AREA_X + 4
-#define MONTHGRAPH_Y MAPPOINT_STATS_Y + MAPPOINT_STATS_H + 8
+#define MONTHGRAPH_Y MINI_MAP_AREA_Y + MINI_MAP_AREA_H + 8
 /* MONTHGRAPH_W must match MAPPOINT_STATS_W as used in shrglobs.c */
 #define MONTHGRAPH_W PBAR_AREA_W - 8
 #define MONTHGRAPH_H 64
-
-#define MINI_MAP_AUX_X PBAR_AREA_X + 4
-#define MINI_MAP_AUX_Y MONTHGRAPH_Y + MONTHGRAPH_H + 8
-#define MINI_MAP_AUX_W PBAR_AREA_W - 8
-#define MINI_MAP_AUX_H 16
 
 #define MINI_SCREEN_W WORLD_SIDE_LEN
 #define MINI_SCREEN_H WORLD_SIDE_LEN

@@ -7,7 +7,7 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
-#include <geometry.h>
+
 #include <engglobs.h>
 
 

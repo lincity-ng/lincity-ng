@@ -182,7 +182,7 @@ initialize_geometry (Screen_Geometry* scr)
     scr->money.y = scr->main_win.y + scr->main_win.h + 16;
     scr->money.h = 16;
 
-    scr->time_for_year.x = scr->main_win.x;
+    scr->time_for_year.x = TIME_FOR_YEAR_X;
     scr->time_for_year.y = TIME_FOR_YEAR_Y;
     scr->time_for_year.h = 0;  /* unused */
     scr->time_for_year.w = 0;  /* unused */
