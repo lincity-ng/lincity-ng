@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<Panel width="200" height="200" background="images/gui/pie_menu.png">
+    <TableLayout rows="3" cols="3">
+      <colsize col="1" relative="1"/>
+      <colsize col="2" fixed="74"/>
+      <colsize col="3" relative="1"/>
+      
+      <rowsize row="1" relative="1"/>
+      <rowsize row="2" fixed="74"/>
+      <rowsize row="3" relative="1"/>
+
+      <cell row="1" col="1" valign="bottom" halign="right">
+        <Button name="1">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+          <image-caption src="images/gui/round_resident.png"/>
+        </Button>
+      </cell>
+      <cell row="1" col="2" valign="top">
+        <Button name="2">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+          <image-caption src="images/gui/round_power.png"/>
+        </Button>
+      </cell>
+      <cell row="1" col="3" valign="bottom" halign="left">
+        <Button name="3">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+          <image-caption src="images/gui/industry.png"/>
+        </Button>
+      </cell>
+    
+      <cell row="2" col="1" halign="left">
+        <Button name="1">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+          <image-caption src="images/gui/gui_tree.png"/>
+        </Button>
+      </cell>
+      <cell row="2" col="2">
+        <Button name="2">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+          <image-caption src="images/gui/cross.png"/>
+        </Button>
+      </cell>
+      <cell row="2" col="3" halign="right">
+        <Button name="3">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+          <image-caption src="images/gui/train.png"/>
+        </Button>
+      </cell>
+    
+    
+      <cell row="3" col="1" valign="top" halign="right">
+        <Button name="1">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+          <image-caption src="images/gui/bucket.png"/>
+        </Button>
+      </cell>
+      <cell row="3" col="2" valign="bottom">
+        <Button name="2">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+        </Button>
+      </cell>
+      <cell row="3" col="3" valign="top" halign="left">
+        <Button name="3">
+          <image src="images/gui/pie_menu_button.png"/>
+          <image-hover src="images/gui/pie_menu_button_hl.png"/>
+        </Button>
+      </cell>
+    
+    </TableLayout>
+</Panel>

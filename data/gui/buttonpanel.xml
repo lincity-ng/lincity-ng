@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<Panel width="92" height="470"> <!-- background="images/gui/buttonpanel_back.png">-->
-    <TableLayout rows="10" cols="2">
+<Panel width="92" height="700"> <!-- background="images/gui/buttonpanel_back.png">-->
+    <TableLayout rows="16" cols="2">
         <cell row="1" col="1">
             <Button name="ResidenceButton" lower="true">
                 <image src="images/gui/new_button_bg2.png"/>
@@ -30,6 +30,7 @@
                 <image src="images/gui/new_button_bg2.png"/>
                 <image-hover src="images/gui/new_button_bg1.png"/>
                 <image-clicked src="images/gui/new_button_bg0.png"/>
+                <image-caption src="images/gui/pointer1.png"/>
             </Button>
         </cell>
         <cell row="3" col="1">
@@ -141,6 +142,90 @@
             </Button>
         </cell>
         <cell row="10" col="2">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="11" col="1">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="11" col="2">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="12" col="1">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="12" col="2">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="13" col="1">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="13" col="2">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="14" col="1">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="14" col="2">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="15" col="1">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="15" col="2">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="16" col="1">
+            <Button>
+                <image src="images/gui/new_button_bg2.png"/>
+                <image-hover src="images/gui/new_button_bg1.png"/>
+                <image-clicked src="images/gui/new_button_bg0.png"/>
+            </Button>
+        </cell>
+        <cell row="16" col="2">
             <Button>
                 <image src="images/gui/new_button_bg2.png"/>
                 <image-hover src="images/gui/new_button_bg1.png"/>
