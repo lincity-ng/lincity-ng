@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include <SDL.h>
 
 long real_time=0;

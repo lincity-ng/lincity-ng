@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include <typeinfo>
 #include "Component.hpp"
 #include "Painter.hpp"

@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "MiniMap.hpp"
 
 #include "gui/Painter.hpp"

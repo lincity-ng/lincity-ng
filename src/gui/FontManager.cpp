@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "FontManager.hpp"
 
 #include <SDL_ttf.h>

@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "PBar.hpp"
 #include "Util.hpp"
 #include "gui/ComponentFactory.hpp"

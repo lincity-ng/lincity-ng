@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Panel.hpp"
 
 #include <sstream>

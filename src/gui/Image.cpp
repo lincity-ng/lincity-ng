@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Image.hpp"
 #include "XmlReader.hpp"
 #include "TextureManager.hpp"

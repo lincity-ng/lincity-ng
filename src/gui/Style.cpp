@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Style.hpp"
 #include "XmlReader.hpp"
 

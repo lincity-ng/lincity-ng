@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Texture.hpp"
 
 Texture::~Texture()

@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include <iostream>
 #include <assert.h>
 #include <SDL_opengl.h>

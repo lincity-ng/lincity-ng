@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Window.hpp"
 
 #include <sstream>

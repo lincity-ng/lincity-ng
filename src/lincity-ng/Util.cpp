@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Util.hpp"
 
 #include <stdexcept>

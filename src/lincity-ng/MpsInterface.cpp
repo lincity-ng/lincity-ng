@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "gui_interface/mps.h"
 
 #include "Mps.hpp"

@@ -1,4 +1,6 @@
 
+#include <config.h>
+
 //#include "ag_debug.h"
 #include "lincity/engglobs.h"
 #include "gui_interface/pbar_interface.h"

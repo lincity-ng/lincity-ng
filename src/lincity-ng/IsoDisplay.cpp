@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "IsoDisplay.hpp"
 
 #include "gui/Painter.hpp"

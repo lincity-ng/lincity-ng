@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Document.hpp"
 
 #include <iostream>

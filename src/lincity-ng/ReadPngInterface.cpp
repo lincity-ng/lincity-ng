@@ -2,6 +2,8 @@
  * readpng.c
  * This file is part of lincity (see COPYRIGHT for copyright information).
  * ---------------------------------------------------------------------- */
+#include <config.h>
+
 #include <stdlib.h>
 #include "png.h"
 #include "malloc.h"

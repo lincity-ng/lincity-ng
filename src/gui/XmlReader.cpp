@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "XmlReader.hpp"
 
 XmlReader::XmlReader(const std::string& filename)

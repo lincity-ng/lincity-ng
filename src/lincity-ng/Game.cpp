@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Game.hpp"
 
 #include "gui/TextureManager.hpp"

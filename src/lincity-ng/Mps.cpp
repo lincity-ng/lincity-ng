@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Mps.hpp"
 #include "gui_interface/mps.h"
 #include "lincity/engglobs.h"

@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/pbar_interface.h"
 

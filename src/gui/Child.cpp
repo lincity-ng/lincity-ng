@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Child.hpp"
 #include "Component.hpp"
 

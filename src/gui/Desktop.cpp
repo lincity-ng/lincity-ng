@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Desktop.hpp"
 
 #include <iostream>

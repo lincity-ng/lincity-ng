@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "Paragraph.hpp"
 
 #include <iostream>

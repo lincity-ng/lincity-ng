@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include <iostream>
 
 void do_error (char *s)

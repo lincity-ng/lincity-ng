@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "gui_interface/shared_globals.h"
 
 int module_help_flag[NUMOF_MODULES]; 

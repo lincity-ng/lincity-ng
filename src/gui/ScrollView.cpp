@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "ScrollView.hpp"
 
 #include <sigc++/signal.h>

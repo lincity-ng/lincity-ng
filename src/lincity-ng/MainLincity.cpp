@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "MainLincity.hpp"
 
 #include <SDL.h>
