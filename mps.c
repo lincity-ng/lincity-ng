@@ -19,12 +19,14 @@
 #include "engine.h"
 #include "lclib.h"
 #include "lcintl.h"
+#include "stats.h"
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
 void mps_global_setup (int);
 void mps_global (int);
+void mps_setup(int x, int y);
 
 void mps_res_setup (void);
 void mps_res (int, int);
@@ -90,6 +92,7 @@ void mps_health (int, int);
  * Private Global Variables
  * ---------------------------------------------------------------------- */
 
+
 /* ---------------------------------------------------------------------- *
  * Public Functions
  * ---------------------------------------------------------------------- */
@@ -119,9 +122,25 @@ mappoint_stats (int x, int y, int button)
 	Fgl_fillbox (mps->x, mps->y,
 		     mps->w + 1, mps->h + 1, 14);
 	Fgl_setfontcolors (14, TEXT_FG_COLOUR);
-	mps_global_setup (oldbut);
+	
+	if (xx == -2)
+	    mps_global_setup (oldbut);
+	else {
+	    /* this should be part of *_setup, but is needed by
+	       mps_right too */
+	    strcpy (s, main_groups[MP_GROUP(xx,yy)].name);
+	    Fgl_write (mps->x + (14 - strlen (s)) * 4,
+		       mps->y, s);
+	    
+	    mps_setup (xx,yy);
+	}
+
 	button = oldbut;
+	x = xx;
+	y = yy;
 	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+
+
     } else if (x == -2) {
 	if (button != oldbut) {
 	    xx = x;
@@ -161,11 +180,9 @@ mappoint_stats (int x, int y, int button)
 	Fgl_fillbox (mps->x, mps->y,
 		     mps->w + 1, mps->h + 1, 14);
 	/* write static stuff */
-#ifdef USE_EXPANDED_FONT
-	gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
-#else
+
 	Fgl_setfontcolors (14, TEXT_FG_COLOUR);
-#endif
+
 	strcpy (s, main_groups[MP_GROUP(x,y)].name);
 	Fgl_write (mps->x + (14 - strlen (s)) * 4,
 		   mps->y, s);
@@ -173,109 +190,11 @@ mappoint_stats (int x, int y, int button)
 	if (button == LC_MOUSE_RIGHTBUTTON)
 	    mps_right_setup ();
 	else
-	    switch (MP_GROUP(x,y))
-	    {
-	    case GROUP_POWER_LINE:
-	      mps_power_line_setup ();
-	      break;
-	    case GROUP_RESIDENCE_LL:
-	    case GROUP_RESIDENCE_ML:
-	    case GROUP_RESIDENCE_HL:
-	    case GROUP_RESIDENCE_LH:
-	    case GROUP_RESIDENCE_MH:
-	    case GROUP_RESIDENCE_HH:
-		mps_res_setup ();
-		break;
-	    case (GROUP_ROAD):
-		mps_transport_setup ();
-		break;
-	    case (GROUP_RAIL):
-		mps_transport_setup ();
-		break;
-	    case (GROUP_TRACK):
-		mps_transport_setup ();
-		break;
-	    case (GROUP_ORGANIC_FARM):
-		mps_farm_setup ();
-		break;
-	    case (GROUP_MARKET):
-		mps_market_setup ();
-		break;
-	    case (GROUP_INDUSTRY_L):
-		mps_indl_setup ();
-		break;
-	    case (GROUP_INDUSTRY_H):
-		mps_indh_setup ();
-		break;
-	    case (GROUP_COALMINE):
-		mps_coalmine_setup ();
-		break;
-	    case GROUP_COAL_POWER:
-		mps_power_source_coal_setup ();
-		break;
-	    case GROUP_SOLAR_POWER:
-		mps_power_source_setup ();
-		break;
-	    case (GROUP_UNIVERSITY):
-		mps_university_setup ();
-		break;
-	    case (GROUP_OREMINE):
-		mps_oremine_setup ();
-		break;
-	    case (GROUP_RECYCLE):
-		mps_recycle_setup ();
-		break;
-	    case (GROUP_SUBSTATION):
-		mps_substation_setup ();
-		break;
-	    case (GROUP_ROCKET):
-		mps_rocket_setup ();
-		break;
-	    case (GROUP_WINDMILL):
-		mps_windmill_setup (x, y);
-		break;
-	    case (GROUP_MONUMENT):
-		mps_monument_setup ();
-		break;
-	    case (GROUP_SCHOOL):
-		mps_school_setup ();
-		break;
-	    case (GROUP_BLACKSMITH):
-		mps_blacksmith_setup ();
-		break;
-	    case (GROUP_MILL):
-		mps_mill_setup ();
-		break;
-	    case (GROUP_POTTERY):
-		mps_pottery_setup ();
-		break;
-	    case (GROUP_PORT):
-		mps_port_setup (x, y);
-		break;
-	    case (GROUP_TIP):
-		mps_tip_setup ();
-		break;
-	    case (GROUP_COMMUNE):
-		mps_commune_setup ();
-		break;
-	    case (GROUP_FIRESTATION):
-		mps_firestation_setup ();
-		break;
-	    case (GROUP_CRICKET):
-		mps_cricket_setup ();
-		break;
-	    case (GROUP_HEALTH):
-		mps_health_setup ();
-		break;
-	    }
+	    mps_setup(x,y);
     }
-#ifdef USE_EXPANDED_FONT
-    Fgl_fillbox (mps->x + 7 * 8, mps->y + 8,
-		 mps->w - 7 * 8, mps->h - 8, 14);
-    gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
-#else
+
     Fgl_setfontcolors (14, TEXT_FG_COLOUR);
-#endif
+
     if (x == -2 || x == -3) {
 	mps_global (button);
     } else if (button == LC_MOUSE_RIGHTBUTTON) {
@@ -380,11 +299,110 @@ mappoint_stats (int x, int y, int button)
 	    break;
 	}
     }
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
-#else
+
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-#endif
+
+}
+
+void 
+mps_setup (int x, int y)
+{
+    switch (MP_GROUP(x,y))
+    {
+	
+    case GROUP_POWER_LINE:
+	mps_power_line_setup ();
+	break;
+    case GROUP_RESIDENCE_LL:
+    case GROUP_RESIDENCE_ML:
+    case GROUP_RESIDENCE_HL:
+    case GROUP_RESIDENCE_LH:
+    case GROUP_RESIDENCE_MH:
+    case GROUP_RESIDENCE_HH:
+	mps_res_setup ();
+	break;
+    case (GROUP_ROAD):
+	mps_transport_setup ();
+	break;
+    case (GROUP_RAIL):
+	mps_transport_setup ();
+	break;
+    case (GROUP_TRACK):
+	mps_transport_setup ();
+	break;
+    case (GROUP_ORGANIC_FARM):
+	mps_farm_setup ();
+	break;
+    case (GROUP_MARKET):
+	mps_market_setup ();
+	break;
+    case (GROUP_INDUSTRY_L):
+	mps_indl_setup ();
+	break;
+    case (GROUP_INDUSTRY_H):
+	mps_indh_setup ();
+	break;
+    case (GROUP_COALMINE):
+	mps_coalmine_setup ();
+	break;
+    case GROUP_COAL_POWER:
+	mps_power_source_coal_setup ();
+	break;
+    case GROUP_SOLAR_POWER:
+	mps_power_source_setup ();
+	break;
+    case (GROUP_UNIVERSITY):
+	mps_university_setup ();
+	break;
+    case (GROUP_OREMINE):
+	mps_oremine_setup ();
+	break;
+    case (GROUP_RECYCLE):
+	mps_recycle_setup ();
+	break;
+    case (GROUP_SUBSTATION):
+	mps_substation_setup ();
+	break;
+    case (GROUP_ROCKET):
+	mps_rocket_setup ();
+	break;
+    case (GROUP_WINDMILL):
+	mps_windmill_setup (x, y);
+	break;
+    case (GROUP_MONUMENT):
+	mps_monument_setup ();
+	break;
+    case (GROUP_SCHOOL):
+	mps_school_setup ();
+	break;
+    case (GROUP_BLACKSMITH):
+	mps_blacksmith_setup ();
+	break;
+    case (GROUP_MILL):
+	mps_mill_setup ();
+	break;
+    case (GROUP_POTTERY):
+	mps_pottery_setup ();
+	break;
+    case (GROUP_PORT):
+	mps_port_setup (x, y);
+	break;
+    case (GROUP_TIP):
+	mps_tip_setup ();
+	break;
+    case (GROUP_COMMUNE):
+	mps_commune_setup ();
+	break;
+    case (GROUP_FIRESTATION):
+	mps_firestation_setup ();
+	break;
+    case (GROUP_CRICKET):
+	mps_cricket_setup ();
+	break;
+    case (GROUP_HEALTH):
+	mps_health_setup ();
+	break;
+    }
 }
 
 void
@@ -1571,6 +1589,7 @@ mps_global_finance (void)
 {
     char s[20];
     Rect* mps = &scr.mappoint_stats;
+    size_t count;
 
     format_pos_number4 (s, ly_income_tax);
     Fgl_write (mps->x + 3*8, mps->y + 16, s);
@@ -1589,7 +1608,7 @@ mps_global_finance (void)
     format_pos_number4 (s, ly_import_cost);
     Fgl_write (mps->x + 11*8, mps->y + 40, s);
 
-    commify(s, 20, total_money);
+    count = commify(s, 20, total_money);
 
     if (total_money < 0)
 	Fgl_setfontcolors (14, red (30));
