@@ -2,16 +2,17 @@
 About automake/autoconf
 -----------------------
 
-You need to use automake 1.4 and autoconf version 2.13, with the gettext
-extensions installed.  I am using gettext 0.10.38.
+Both of these seem to work with "config.sh" 
 
+Tool versions (linux):
+  Automake   1.7.2
+  Autoconf   2.57
+  Gettext    0.11.2
 
-How to make an intermediate version
------------------------------------
-
-  1)     Run config.sh on focus.eecs (required for gettext macros)
-  2)     make dist
-  3)     Done!
+Tool versions (cygwin):
+  Automake   1.7.3
+  Autoconf   2.57
+  Gettext    0.11.5
 
 
 How to make a final version
