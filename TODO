@@ -81,6 +81,8 @@ KNOWN BUGS and MISFEATURES in version 1.12.0
 
   o Coal Power Station does not accurately report actual power produced.
 
+  o More than 100% of the population can be starving.
+
 
 REQUESTED FEATURES
 

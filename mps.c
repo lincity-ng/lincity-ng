@@ -119,6 +119,10 @@ mps_refresh(void)
     for (i = 0; i < MAPPOINT_STATS_LINES; i++) {
 	Fgl_write (mps->x + 4, mps->y + (i * 8) + 4, mps_info[i]);
     }
+
+    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+
+
 }
 
 void
@@ -246,6 +250,9 @@ mps_update(void)
 	    case MPS_GLOBAL_OTHER_COSTS:
 		mps_global_other_costs();
 		break;
+	    case MPS_GLOBAL_HOUSING:
+		mps_global_housing();
+		break;
 	    default:
 		printf("MPS unimplemented for global display\n");
 		break;
@@ -271,10 +278,12 @@ mps_global_advance(void)
     }
 }
 
-/* MPS String storage routines.
-   These handle the tedium of formatting strings for mps display.
-   store_title centers its single argument, while the others 
-   left justify the first arg and right justify the second.
+/* MPS String storage routines.  
+   These handle the tedium of formatting
+   strings for mps display.  Single argument forms center that
+   argument.  Double arg forms offset them.  Triple arg forms divide
+   the space into three columns.
+
 */
 
 void
@@ -313,12 +322,6 @@ mps_store_d(int i, int d)
   c = (int)((MPS_INFO_CHARS - l) / 2) + l;
   snprintf(mps_info[i],MPS_INFO_CHARS,"%*s", c, s);
 }
-
-/* mps_store_??: Store two items, with the second one right justified.
-   By writing the second string first and removing the null after
-   the first string, we can ensure proper layout even after i18n.
-   There may be a better way to do this...
-*/
 
 void
 mps_store_ss(int i, char * s1, char * s2)
@@ -522,64 +525,55 @@ mps_global_other_costs (void)
     mps_store_ss(i++,_("Recycle"),s);
 }
 
+#ifdef old_mps
+void 
+mps_global_housing_setup (void)
+{
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x + 32, mps->y + 2, _("PEOPLE"));
+    Fgl_write (mps->x + 4, mps->y + 1*8+6, _("Pop"));
+    Fgl_write (mps->x + 4, mps->y + 2*8+6, _("Housed"));
+    Fgl_write (mps->x + 4, mps->y + 3*8+6, _("Housed %"));
+    Fgl_write (mps->x + 4, mps->y + 4*8+6, _("Shanties"));
+
+    Fgl_write (mps->x + 4, mps->y + 6*8+6, _("Unn Dths"));
+    Fgl_write (mps->x + 4, mps->y + 7*8+6, _("Unemp %"));
+    Fgl_write (mps->x + 4, mps->y + 8*8+6, _("Starv %"));
+}
+#endif
+
+void 
+mps_global_housing (void)
+{
+    int i = 0;
+    int tp = housed_population + people_pool;
+
+    mps_store_title(i++,_("Population"));
+    i++;
+    mps_store_sd(i++,_("Total"),tp);
+    mps_store_sd(i++,_("Housed"),housed_population);
+    mps_store_sd(i++,_("Homeless"),people_pool);
+    mps_store_sd(i++,_("Shanties"),numof_shanties);
+    mps_store_sd(i++,_("Unn Dths"),unnat_deaths);
+    mps_store_title(i++,_("Unemployment"));
+    mps_store_sd(i++,_("Claims"),tunemployed_population);
+    mps_store_sfp(i++,_("Rate"),
+		  ((tunemployed_population * 100.0) / tp));
+    mps_store_title(i++,_("Starvation"));
+    mps_store_sd(i++,_("Cases"),tstarving_population);
+
+    mps_store_sfp(i++,_("Rate"),
+		  ((tstarving_population * 100.0) / tp));
+}
+
 
 #ifdef old_mps
 
 void
 mappoint_stats (int x, int y, int button)
 {
-    static int xx = 0, yy = 0, oldbut = 0;
-    Rect* mps = &scr.mappoint_stats;
-    char s[100];
 
-    /* mappoint_stats (-3,-3,-3) means continue using old values 
-       for the map coordinates and button, but do a full refresh 
-       of setup strings */
-    /* mappoint_stats (-2,-2,b) means mps should display "global 
-       statistics" rather than "map-point statistics".
-       The "b" parameter identifies which kind of global statistics 
-       should be displayed (e.g. finance, population, etc.) */
-    /* mappoint_stats (-1,-1,-1) means continue using old values */
-    if (x == -3) {
-	Fgl_fillbox (mps->x, mps->y,
-		     mps->w + 1, mps->h + 1, 14);
-	Fgl_setfontcolors (14, TEXT_FG_COLOUR);
-	
-	if (xx == -2)
-	    mps_global_setup (oldbut);
-	else {
-	    /* this should be part of *_setup, but is needed by
-	       mps_right too */
-	    strcpy (s, _(main_groups[MP_GROUP(xx,yy)].name));
-	    Fgl_write (mps->x + (14 - strlen (s)) * 4,
-		       mps->y, s);
-	    
-	    mps_setup (xx,yy);
-	}
-
-	button = oldbut;
-	x = xx;
-	y = yy;
-	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-
-
-    } else if (x == -2) {
-	if (button != oldbut) {
-	    xx = x;
-	    yy = y;
-	    oldbut = button;
-	    Fgl_fillbox (mps->x, mps->y,
-			 mps->w + 1, mps->h + 1, 14);
-	    Fgl_setfontcolors (14, TEXT_FG_COLOUR);
-	    mps_global_setup (button);
-	    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-	}
-    } else if (x == -1) {
-	x = xx;
-	y = yy;
-	button = oldbut;
-    } else {
-
+  /* XXX: Move this into mouse handler */
 	if (mappoint_stats_flag == 1 && x == xx && y == yy
 	    && oldbut == LC_MOUSE_LEFTBUTTON
 	    && button == LC_MOUSE_LEFTBUTTON)
@@ -595,41 +589,6 @@ mappoint_stats (int x, int y, int button)
 		return;
 	    }
 	}
-	xx = x;
-	yy = y;
-	oldbut = button;
-	mappoint_stats_flag = 1;
-	/* draw centre of box */
-	Fgl_fillbox (mps->x, mps->y,
-		     mps->w + 1, mps->h + 1, 14);
-	/* write static stuff */
-
-	Fgl_setfontcolors (14, TEXT_FG_COLOUR);
-
-	strcpy (s, _(main_groups[MP_GROUP(x,y)].name));
-	Fgl_write (mps->x + (14 - strlen (s)) * 4,
-		   mps->y, s);
-
-	if (button == LC_MOUSE_RIGHTBUTTON)
-	    mps_right_setup ();
-	else
-	    mps_setup(x,y);
-    }
-
-    Fgl_setfontcolors (14, TEXT_FG_COLOUR);
-
-    if (x == -2 || x == -3) {
-	mps_global (button);
-    } else if (button == LC_MOUSE_RIGHTBUTTON) {
-
-    } else {
-	switch (MP_GROUP(x,y))
-	{
-
-	}
-    }
-
-    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 
 }
 
@@ -643,20 +602,7 @@ mps_global_pop_setup (void)
     Fgl_write (mps->x + 4, mps->y + 30, _("Unnat death"));
 }
 
-void 
-mps_global_housing_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 32, mps->y + 2, _("PEOPLE"));
-    Fgl_write (mps->x + 4, mps->y + 1*8+6, _("Pop"));
-    Fgl_write (mps->x + 4, mps->y + 2*8+6, _("Housed"));
-    Fgl_write (mps->x + 4, mps->y + 3*8+6, _("Housed %"));
-    Fgl_write (mps->x + 4, mps->y + 4*8+6, _("Shanties"));
 
-    Fgl_write (mps->x + 4, mps->y + 6*8+6, _("Unn Dths"));
-    Fgl_write (mps->x + 4, mps->y + 7*8+6, _("Unemp %"));
-    Fgl_write (mps->x + 4, mps->y + 8*8+6, _("Starv %"));
-}
 
 void 
 mps_global_tech_setup (void)
@@ -688,55 +634,9 @@ mps_global_jobs_setup (void)
     Fgl_write (mps->x + 4, mps->y + 22, "% Unemp");
 }
 
-void 
-mps_global_setup (int style)
-{
-    switch (style) {
-    case MPS_GLOBAL_FINANCE:
-	mps_global_finance_setup ();
-	break;
-    case MPS_GLOBAL_OTHER_COSTS:
-	mps_global_other_costs_setup ();
-	break;
-    case MPS_GLOBAL_HOUSING:
-	mps_global_housing_setup ();
-	break;
-    }
-}
-
-void 
-mps_global_housing (void)
-{
-    int hp = housed_population;
-    int tp = housed_population + people_pool;
-    int i;
-    char s[100];
-    int offset = 70;
-    Rect* mps = &scr.mappoint_stats;
-
-    sprintf (s, "%6d", tp);
-    Fgl_write (mps->x + offset, mps->y + 1*8+6, s);
-    sprintf (s, "%6d", hp);
-    Fgl_write (mps->x + offset, mps->y + 2*8+6, s);
-    if (tp != 0) {
-        sprintf (s, " %3d.%1d", (hp * 100) / tp, ((hp * 1000) / tp) % 10);
-    } else {
-        sprintf (s, " %3d.%1d", 0, 0);
-    }
-    Fgl_write (mps->x + offset, mps->y + 3*8+6, s);
-    sprintf (s, " %5d", numof_shanties);
-    Fgl_write (mps->x + offset, mps->y + 4*8+6, s);
-
-    sprintf (s, " %5d", unnat_deaths);
-    Fgl_write (mps->x + offset, mps->y + 6*8+6, s);
-    i = ((tunemployed_population / NUMOF_DAYS_IN_MONTH) * 1000)
-	    / ((tpopulation / NUMOF_DAYS_IN_MONTH) + 1);
-    sprintf (s, " %3d.%1d", i / 10, i % 10);
-    Fgl_write (mps->x + offset, mps->y + 7*8+6, s);
-    i = ((tstarving_population / NUMOF_DAYS_IN_MONTH) * 1000)
-	    / ((tpopulation / NUMOF_DAYS_IN_MONTH) + 1);
-    sprintf (s, " %3d.%1d", i / 10, i % 10);
-    Fgl_write (mps->x + offset, mps->y + 8*8+6, s);
-}
 
 #endif
+
+
+
+
