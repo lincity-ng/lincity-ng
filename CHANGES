@@ -12,10 +12,10 @@
 - Simplified mini-map selection using mouse.
 - Click-drag-release to create multiple transportations.
 - Mouse scrolling of main window using middle mouse button (X only).
-- Resizing window to enlarge playing area (X and Win32 only).
-- Keyboard scrolling of main window using arrow and shift+arrow 
-  (X and Win32 only).
-- You can now start a new game without exiting.
+- Resizable window to enlarge playing area (X and Win32).
+- Set VGA mode to set screen resolution and enlarge playing area (SVGALIB).
+- Keyboard scrolling of main window using arrow and shift+arrow (X and Win32).
+- You can now start a new game without exiting lincity.
 - New statistics available in mappoint stats window.
 - Separate screen to set game options.
 - New main menu system.

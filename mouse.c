@@ -484,6 +484,23 @@ do_mouse_main_win (int px, int py, int button)
 	return;
     }
 
+    /* Check rocket launches */
+    if (button == LC_MOUSE_LEFTBUTTON) {
+        int xx, yy;
+	if (MP_TYPE(x,y) == CST_USED) {
+	    xx = MP_INFO(x,y).int_1;
+            yy = MP_INFO(x,y).int_2;
+        } else {
+	  xx = x;
+	  yy = y;
+	}
+	if (MP_TYPE(xx,yy) >= CST_ROCKET_5 && MP_TYPE(xx,yy) <= CST_ROCKET_7) {
+	  if (ask_launch_rocket_click (xx,yy)) {
+	    launch_rocket (xx, yy);
+	  }
+	}
+    }
+
     /* Handle multitransport */
     if (button == LC_MOUSE_LEFTBUTTON && 
 	GROUP_IS_TRANSPORT(selected_module_group)) {
@@ -1288,7 +1305,8 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	;
     }
 
-    refresh_main_screen ();
+    connect_transport_main_screen ();
+    update_main_screen (0);
     return (1);
 }
 

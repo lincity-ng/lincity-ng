@@ -28,13 +28,10 @@ int module_help_flag[NUMOF_MODULES];
 
 int sbut[NUMOF_MODULES];
 
-int selected_module;             /* GCS:  Are this variable necessary? */
-int old_selected_module = 0;
-
+int selected_module = 0;
 int selected_module_type;
 int selected_module_group;
 int selected_module_cost;
-
 
 
 void
@@ -232,7 +229,7 @@ init_modules (void)
     selected_module_cost = GROUP_TRACK_COST;
     selected_module_group = get_group_of_type(selected_module_type);
 #endif
-    old_selected_module = sbut[7];
+    selected_module = sbut[7];
     /* GCS: Move to later in initialization because I don't want to draw_main_window_box() yet */
 #if defined (commentout)
     set_selected_module (CST_TRACK_LR);
@@ -401,38 +398,11 @@ select_module (int module, int mbutton)
 	    return;
     }
 
-    unhighlight_module_button (old_selected_module);
+    unhighlight_module_button (selected_module);
     highlight_module_button (module);
-    old_selected_module = module;
+    selected_module = module;
 
     set_selected_module (module_type[module]);
-
-    /* GCS: Moved below for code reuse w/ setting residences. */
-#if defined (commentout)
-    selected_module_type = module_type[module];
-    selected_module_group = get_group_of_type(selected_module_type);
-    if (selected_module_type == CST_RESIDENCE_LL) {
-	choose_residence ();
-    }
-
-#ifdef LC_X11  /* XXX: WCK: shouldn't be any platform specific code here */
-    if (selected_module_group == GROUP_BARE) 
-	XDefineCursor (display.dpy, display.win, pirate_cursor);
-    else
-	XDefineCursor (display.dpy, display.win, None);
-#endif
-
-    draw_selected_module_cost();
-
-    if (selected_module_type == CST_GREEN) {
-	draw_main_window_box (red (8));
-    } else {
-	draw_main_window_box (green (8));
-	monument_bul_flag = 0;
-	river_bul_flag = 0;
-	shanty_bul_flag = 0;
-    }
-#endif
 }
 
 
@@ -529,7 +499,7 @@ draw_modules (void)
     for (i = 0; i < NUMOF_MODULES; i++) 
       draw_module (sbut[i], module_graphic[sbut[i]]);
 
-    highlight_module_button(old_selected_module);
+    highlight_module_button(selected_module);
 
 }
 

@@ -1247,8 +1247,6 @@ extern void update_select_buttons (void);
 extern void draw_main_window_box (int);
 extern void draw_select_button_graphic (int, char *);
 extern void setcustompalette (void);
-extern void refresh_main_screen (void);
-extern void update_main_screen (void);
 extern void clip_main_window (void);
 extern void unclip_main_window (void);
 extern void initfont (void);

@@ -152,6 +152,11 @@ The following options apply to both.
              <num> is a number between 0.0 and 1.0
              The default values for -w are  1.0   0.0   0.4  (ATTOW)
 
+This option only applies to lincity.
+
+	-m <num>
+	    Set the VGA mode.  See below for choices of mode.
+
 This option only applies to xlincity.
 
 	-r   Add an extra border around the game.
@@ -163,14 +168,25 @@ This option only applies to xlincity.
 NOTES FOR SVGALIB VERSION
 =========================
 
-Soon, it will be possible to run in other graphics modes.  Try this:
+It is now possible to run at higher resolution.  You can use the command
+line to set the mode:
 
-      lincity                 ## default resolution of 640x480
+      lincity                 ## default mode
       lincity -m 10           ## mode 10, 640x480
       lincity -m 11           ## mode 11, 800x600
       lincity -m 12           ## mode 12, 1024x768
       lincity -m 13           ## mode 13, 1280x1024
 
+If not specified, lincity uses the default mode.  The default mode
+can be set according to the SVGALIB_DEFAULT_MODE environment variable.
+See "man svgalib" for details on the svgalib default graphics mode.
+If no default graphics mode has been specified, lincity will use 
+mode 10 (640x480, 256 colors).
+
+As of version 1.12, lincity now uses the mouse settings in your 
+svga configuration file (i.e. /etc/vga/vga.config).  Please use 
+this method to specify which make/model of mouse you are using,
+and other mouse parameters.
 
 
 NOTES FOR X VERSION

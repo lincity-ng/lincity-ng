@@ -28,6 +28,7 @@ extern char screen_refreshing;
 
 char* current_month (int current_time);
 void draw_cb_box (int row, int col, int checked);
+int ask_launch_rocket_click (int x, int y);
 int ask_launch_rocket_now (int x, int y);
 void display_rocket_result_dialog (int result);
 void draw_background (void);
@@ -36,6 +37,9 @@ void init_fonts (void);
 void initialize_monthgraph (void);
 void rotate_mini_screen (void);
 void advance_mps_style (void);
+void update_main_screen (int full_refresh);
+void connect_transport_main_screen (void);
+void refresh_main_screen (void);
 void refresh_mps (void);
 void advance_monthgraph_style (void);
 void refresh_monthgraph (void);

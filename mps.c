@@ -112,11 +112,13 @@ mappoint_stats (int x, int y, int button)
     Rect* mps = &scr.mappoint_stats;
     char s[100];
 
-    /* mappoint_stats (-3,-3,-3) means continue using old values,
-       but do a full refresh of setup strings */
-    /* mappoint_stats (-2,-2,b) means global information 
-       the "b" parameter identifies which kind of global style 
-       should be displayed */
+    /* mappoint_stats (-3,-3,-3) means continue using old values 
+       for the map coordinates and button, but do a full refresh 
+       of setup strings */
+    /* mappoint_stats (-2,-2,b) means mps should display "global 
+       statistics" rather than "map-point statistics".
+       The "b" parameter identifies which kind of global statistics 
+       should be displayed (e.g. finance, population, etc.) */
     /* mappoint_stats (-1,-1,-1) means continue using old values */
     if (x == -3) {
 	Fgl_fillbox (mps->x, mps->y,
@@ -1015,6 +1017,9 @@ mps_rocket (int x, int y)
     sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_4 * 100
 	     / ROCKET_PAD_LAUNCH);
     Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
+
+    /* GCS:  Moved to mouse handler */
+#if defined (commentout)
     if (MP_TYPE(x,y) == CST_ROCKET_5) {
 	if (yn_dial_box (_("ROCKET LAUNCH"),
 			 _("You can launch the rocket now or wait until later."),
@@ -1022,6 +1027,7 @@ mps_rocket (int x, int y)
 			 _("rocket ready.    Launch?")) != 0)
 	    launch_rocket (x, y);
     }
+#endif
 }
 
 void

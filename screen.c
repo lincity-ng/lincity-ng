@@ -76,7 +76,7 @@ static void draw_sustline (int yoffset, int count, int max, int col);
 void monthgraph_full_refresh (void);
 void draw_mini_pol_in_main_win ();
 void mini_full_refresh (void);
-void update_main_screen_normal (void);
+void update_main_screen_normal (int full_refresh);
 void update_main_screen_pollution (void);
 void update_main_screen_ub40 (void);
 void update_main_screen_starve (void);
@@ -108,17 +108,21 @@ draw_background (void)
 }
 
 void
-refresh_main_screen ()
+connect_transport_main_screen (void)
 {
     Rect* b = &scr.main_win;
 
     connect_transport (main_screen_originx, main_screen_originy,
 		       b->w / 16, b->h / 16);
-    screen_refresh_flag++;
-    update_main_screen ();
+}
+
+void
+refresh_main_screen (void)
+{
+    connect_transport_main_screen ();
+    update_main_screen (1);
     update_mini_screen ();
     dialog_refresh();
-    screen_refresh_flag--;
 }
 
 void 
@@ -147,14 +151,14 @@ rotate_main_screen (void)
 }
 
 void 
-update_main_screen (void)
+update_main_screen (int full_refresh)
 {
     if (main_screen_flag == MAIN_SCREEN_NORMAL_FLAG) {
-	update_main_screen_normal ();
+	update_main_screen_normal (full_refresh);
     } else {
 	switch (mini_screen_flags) {
 	case MINI_SCREEN_NORMAL_FLAG:
-	    update_main_screen_normal ();
+	    update_main_screen_normal (full_refresh);
 	    break;
 	case MINI_SCREEN_POL_FLAG:
 	    update_main_screen_pollution ();
@@ -181,13 +185,14 @@ update_main_screen (void)
 	    if (coal_survey_done) {
 		update_main_screen_coal ();
 	    } else {
-		update_main_screen_normal ();
+		update_main_screen_normal (full_refresh);
 	    }
 	    break;
 	}
     }
 #if defined (WIN32)
-    if (screen_refresh_flag) {
+    /* GCS -- I have a feeling this is wrong ... */
+    if (full_refresh) {
 	UpdateWindow (display.hWnd);
     }
 #else
@@ -197,7 +202,7 @@ update_main_screen (void)
 }
 
 void
-update_main_screen_normal (void)
+update_main_screen_normal (int full_refresh)
 {
     Rect* mw = &scr.main_win;
     int x, y, xm, ym;
@@ -232,7 +237,7 @@ update_main_screen_normal (void)
 		     + (mw->w / 16); x++)
 	{
 	    typ = MP_TYPE(x,y);
-	    if (typ != mappointoldtype[x][y] || screen_refresh_flag)
+	    if (typ != mappointoldtype[x][y] || full_refresh)
 	    {
 		mappointoldtype[x][y] = typ;
 		if (typ == CST_USED) {
@@ -2487,6 +2492,15 @@ debug_writeval (int v)
     char s[100];
     sprintf (s, "%d  ", v);
     Fgl_write (280, 471, s);
+}
+
+int
+ask_launch_rocket_click (int x, int y)
+{
+  return yn_dial_box (_("ROCKET LAUNCH"),
+		      _("You can launch the rocket now or wait until later."),
+		      _("If you wait, it costs you *only* money to keep the"),
+		      _("rocket ready.    Launch?"));
 }
 
 int

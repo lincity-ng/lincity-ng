@@ -31,7 +31,7 @@ unsigned char mouse_pointer[] = {
 };
 unsigned char under_mouse_pointer[8 * 8];
 
-int vga_mode = 10;
+static int vga_mode = -1;
 
 void lc_mouse_handler(int button, int dx, int dy, int dz,
 		      int drx, int dry, int drz);
@@ -121,6 +121,14 @@ mouse_set_range (int width, int height)
 void
 set_vga_mode (void)
 {
+  /* If vga_mode is not set by command line, use vga_getdefaultmode() 
+     to get mode.  Supported modes are 10, 11, 12 or 13.
+   */
+  if (vga_mode == -1) {
+    vga_mode = vga_getdefaultmode();
+    if (vga_mode > 13 || vga_mode < 10)
+      vga_mode = 10;
+  }
   vga_setmode (vga_mode);
   gl_setcontextvga (vga_mode);
   init_mouse();
@@ -201,6 +209,7 @@ parse_args (int argc, char **argv)
   int option;
   extern char *optarg;
 
+  /* GCS FIX:  Need to print usage and exit when illegal option spec'd */
   while ((option = getopt (argc, argv, "wR:G:B:m:")) != EOF)
     {
       switch (option)
@@ -208,7 +217,7 @@ parse_args (int argc, char **argv)
 	case 'm':
 	  sscanf (optarg, "%d", &vga_mode);
 	  if (vga_mode > 13 || vga_mode < 10)
-	      vga_mode = 10;
+	    vga_mode = -1;
 	  break;
 	case 'w':
 	  gamma_correct_red = GAMMA_CORRECT_RED;

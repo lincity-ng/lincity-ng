@@ -771,10 +771,13 @@ HandleEvent (XEvent * event)
 	    case XK_Right:
 		x_key_value = 4;
 		break;
+#if defined (commentout)
+		/* GCS:  What the hell is this??? */
 	    case 'C':
 		if (!confine_pointer(-10,-10,200,200))
 		    unconfine_pointer();
 		break;
+#endif
 	    case XK_BackSpace:
 	    case XK_Delete:
 		x_key_value = 127;

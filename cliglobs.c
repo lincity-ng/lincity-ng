@@ -46,8 +46,6 @@ int mouse_type = MOUSE_TYPE_NORMAL;
 
 int mt_start_posx, mt_start_posy, mt_current_posx, mt_current_posy;
 
-int screen_refresh_flag = 0;
-
 char *months[] =
 {N_("Jan"), N_("Feb"), N_("Mar"), N_("Apr"),
 N_("May"), N_("Jun"), N_("Jul"), N_("Aug"),

@@ -597,7 +597,7 @@ execute_timestep (void)
 	    real_quit_flag = 1;
 #endif
 
-	update_main_screen ();
+	update_main_screen (0);
 
 	/* XXX: Shouldn't the rest be handled in update_main_screen()? */
 

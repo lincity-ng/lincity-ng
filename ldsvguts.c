@@ -628,11 +628,10 @@ load_city (char *cname)
 	}
     }
 
-    selected_module_type = CST_TRACK_LR;
-    selected_module_cost = GROUP_TRACK_COST;
-    old_selected_module = sbut[7];
-    update_avail_modules(0);
-    highlight_module_button (sbut[7]);	/* 7 is track.  Watch out though! */
+    unhighlight_module_button (selected_module);
+    selected_module = sbut[7];	/* 7 is track.  Watch out though! */
+    highlight_module_button (selected_module);
+    set_selected_module (CST_TRACK_LR);
 
     print_total_money ();
     reset_animation_times ();

@@ -2467,7 +2467,7 @@ do_rocket_pad (int x, int y)
 	MP_TYPE(x,y) = CST_ROCKET_4;
     else if (MP_INFO(x,y).int_4 >= (100 * ROCKET_PAD_LAUNCH) / 100) {
 	MP_TYPE(x,y) = CST_ROCKET_5;
-	update_main_screen ();
+	update_main_screen (0);
 	if (ask_launch_rocket_now (x,y)) {
 	    launch_rocket (x,y);
 	}
@@ -2485,7 +2485,7 @@ launch_rocket (int x, int y)
     int i, r, xx, yy, xxx, yyy;
     rockets_launched++;
     MP_TYPE(x,y) = CST_ROCKET_FLOWN;
-    update_main_screen ();
+    update_main_screen (0);
     r = rand () % MAX_TECH_LEVEL;
     if (r > tech_level || rand () % 100 > (rockets_launched * 15 + 25)) {
 	/* the launch failed */
