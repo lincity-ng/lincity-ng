@@ -45,6 +45,8 @@ void mps_power_source_coal_setup (void);
 void mps_power_source_coal (int, int);
 void mps_power_source_setup (void);
 void mps_power_source (int, int);
+void mps_power_line_setup (void);
+void mps_power_line (int, int);
 void mps_university_setup (void);
 void mps_university (int, int);
 void mps_recycle_setup (void);
@@ -173,6 +175,9 @@ mappoint_stats (int x, int y, int button)
 	else
 	    switch (MP_GROUP(x,y))
 	    {
+	    case GROUP_POWER_LINE:
+	      mps_power_line_setup ();
+	      break;
 	    case GROUP_RESIDENCE_LL:
 	    case GROUP_RESIDENCE_ML:
 	    case GROUP_RESIDENCE_HL:
@@ -278,6 +283,9 @@ mappoint_stats (int x, int y, int button)
     } else {
 	switch (MP_GROUP(x,y))
 	{
+	case GROUP_POWER_LINE:
+            mps_power_line (x,y);
+	    break;
 	case GROUP_RESIDENCE_LL:
 	case GROUP_RESIDENCE_ML:
 	case GROUP_RESIDENCE_HL:
@@ -781,6 +789,23 @@ mps_power_source_coal (int x, int y)
 
   sprintf (s, "%d", MP_INFO(x,y).int_1);
   Fgl_write (mps->x + 8 * 8, mps ->y + 80, s);
+}
+
+void
+mps_power_line_setup (void)
+{
+  Rect* mps = &scr.mappoint_stats;
+  Fgl_write (mps->x, mps->y + 40, "Debug");
+}
+
+void
+mps_power_line (int x, int y)
+{
+  Rect* mps = &scr.mappoint_stats;
+  char s[100];
+
+  sprintf (s, "%d",MP_INFO(x,y).int_5);
+  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
 }
 
 void

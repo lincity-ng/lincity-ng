@@ -197,8 +197,6 @@ recurse_power_grid (int startx, int starty, int steps)
   while (dir != 0) {
 
     /* Set to current grid */
-    MP_INFO(mapx,mapy).int_6 = grid_num;
-    MP_INFO(mapx,mapy).int_7 = grid_inc;
 
     /* figure out what we are on */
     if (IS_POWER_LINE(mapx,mapy)) {
@@ -206,7 +204,13 @@ recurse_power_grid (int startx, int starty, int steps)
       MP_INFO(mapx,mapy).int_5 = (count++ % POWER_MODULUS);
       if ((MP_TYPE(mapx,mapy) >= 1) && (MP_TYPE(mapx,mapy) <= 11))
 	MP_TYPE(mapx,mapy) += 11;
+
+
     }
+
+    MP_INFO(mapx,mapy).int_6 = grid_num;
+    MP_INFO(mapx,mapy).int_7 = grid_inc;
+
 
     /* For each direction, check map bounds, check if there is power stuff
        there, then either remember to follow it later or start a new
@@ -604,19 +608,22 @@ do_power_source_coal (int x, int y)
 void
 do_power_line (int x, int y)
 {
-  switch(MP_INFO(x,y).int_5 % POWER_MODULUS) {
+  switch(MP_INFO(x,y).int_5) {
   case 0: {
-    if (!(MP_TYPE(x,y) >= 11 && MP_TYPE(x,y) <= 22))
-	break;
-    MP_INFO(x,y).int_5 = 0;
-    MP_TYPE(x,y) -= 11;
+    MP_INFO(x,y).int_5 = POWER_MODULUS;
   } break;
   case 1: {
     if (!(MP_TYPE(x,y) <= 11 && MP_TYPE(x,y) >= 1)) 
       break;
     MP_TYPE(x,y) += 11;
   } break;
+  case 2: {
+    if (!(MP_TYPE(x,y) >= 11 && MP_TYPE(x,y) <= 22))
+	break;
+    MP_TYPE(x,y) -= 11;
+  } break;
+
   }
 
-  MP_INFO(x,y).int_5++;
+  MP_INFO(x,y).int_5--;
 }
