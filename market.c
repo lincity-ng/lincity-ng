@@ -9,6 +9,7 @@
 #include "lctypes.h"
 #include "lin-city.h"
 #include "market.h"
+#include "stats.h"
 
 
 int
@@ -448,15 +449,12 @@ do_market (int x, int y)
       else
 	MP_TYPE(x,y) = CST_MARKET_FULL;
     }
-  food_in_markets += MP_INFO(x,y).int_1;
+
   /* now employ some people */
   get_jobs (x, y, 1 + (extra_jobs / 5));
-  /* this is for the  pbar indicators */
-  jobs_in_markets += MP_INFO(x,y).int_2;
-  coal_in_markets += MP_INFO(x,y).int_3;
-  goods_in_markets += MP_INFO(x,y).int_4;
-  ore_in_markets += MP_INFO(x,y).int_5;
-  steel_in_markets += MP_INFO(x,y).int_6;
+
+  /* keep the pbars accurate */
+  inventory(x,y);
 }
 
 void
