@@ -10,18 +10,27 @@
 
 #define NUM_BUTTONS 3
 
-// Lin City mouse defines
 #define LC_MOUSE_LEFTBUTTON	1
 #define LC_MOUSE_MIDDLEBUTTON	2
 #define LC_MOUSE_RIGHTBUTTON	3
-#if defined (commentout)
-#define LC_MOUSE_LEFTBUTTON	0
-#define LC_MOUSE_MIDDLEBUTTON	1
-#define LC_MOUSE_RIGHTBUTTON	2
-#endif
 
+/* Mouse event flags */
 #define LC_MOUSE_RELEASE        0x10
 #define LC_MOUSE_PRESS          0x20
+
+/* Public interface variables and structures */
+
+/* Mouse registry stuff.  */
+
+struct mouse_handle_struct
+{
+    Rect * r;
+    void (* handler)(int, int, int);
+    struct mouse_handle_struct * prev;
+    struct mouse_handle_struct * next;
+};
+
+typedef struct mouse_handle_struct Mouse_Handle;
 
 /* 
 mappoint_[xy] are non-zero if the button was pressed inside the main window.
@@ -36,15 +45,25 @@ struct mouse_button_struct {
   int pressed;
 };
 
-void cs_mouse_handler (int enc_button, int dx, int dy);
+/* Public functions */
+
 void mouse_setup (void);
+void init_mouse_registry();
+int mouse_handle_click(int x, int y, int button); 
+
+Mouse_Handle * mouse_register(Rect * r, void (*handler)(int, int, int));
+void mouse_unregister(Mouse_Handle * mhandle);
+
+void cs_mouse_handler (int enc_button, int dx, int dy);
 
 void cs_mouse_handler (int, int, int);
 void move_mouse (int, int); 
 void do_mouse_main_win (int, int, int);
-int cmp(int, int);
+
 void drag_screen (void);
 
+/* Private functions */
+int cmp(int, int);
 
 /* WCK: These were in lin-city.h */
 
@@ -66,8 +85,6 @@ void bulldoze_area (int, int);
 void fire_area (int, int);
 void do_market_cb_mouse (int, int);
 void do_port_cb_mouse (int, int);
-void do_db_mouse (int, int);
-void do_db_okmouse (int, int);
 int is_real_river (int, int);
 void select_pause (void);
 void select_fast (void);
@@ -76,31 +93,8 @@ void select_slow (void);
 void choose_residence (void);
 void do_multi_transport (int, int, int);
 int mt_draw (int, int, int); /* wcoreyk */
-int mouse_handle_click(int x, int y, int button);
 void draw_module_cost (int grp);
 
-/* Mouse registry stuff.  */
-
-struct mouse_handle_struct
-{
-    Rect * r;
-    void (* handler)(int, int, int);
-    struct mouse_handle_struct * prev;
-    struct mouse_handle_struct * next;
-};
-
-typedef struct mouse_handle_struct Mouse_Handle;
-
-Mouse_Handle * mhandle_first;
-Mouse_Handle * mhandle_last;
-Mouse_Handle * mhandle_current;
-int mhandle_count;
-
-void init_mouse_registry();
-int mouse_handle_clicks(int x, int y, int button);
-
-Mouse_Handle * mouse_register(Rect * r, void (*handler)(int, int, int));
-void mouse_unregister(Mouse_Handle * mhandle);
 
 
 
