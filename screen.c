@@ -835,6 +835,60 @@ init_fonts (void)
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 }
 
+/* Miniscreen mouse handlers */
+
+static Mouse_Handle * mini_map_handle;
+static Mouse_Handle * mini_aux_handle;
+
+void 
+init_mini_map_mouse (void)
+{
+    mini_map_handle = mouse_register(&scr.mini_map,&mini_map_handler);
+    mini_aux_handle = mouse_register(&scr.mini_map_aux,&mini_aux_handler);
+}
+
+
+void
+mini_map_handler(int x, int y, int button)
+{
+    Rect* b = &scr.mini_map;
+
+    if (button == LC_MOUSE_RIGHTBUTTON) {
+	mini_screen_help ();
+	return;
+    }
+    if (mini_screen_flags == MINI_SCREEN_COAL_FLAG && !coal_survey_done) {
+	if (yn_dial_box ("Coal survey",
+			 "This will cost you 1 million",
+			 "After that it's is free to call again",
+			 "Do coal survey?") == 0)
+	{
+	    return;
+	}
+	do_coal_survey ();
+	print_total_money ();
+	return;
+    }
+    adjust_main_origin (x - scr.main_win.w / 32, 
+			y - scr.main_win.h / 32, 1);
+    
+    if (mini_screen_flags == MINI_SCREEN_PORT_FLAG)
+	draw_mini_screen ();
+}
+
+void
+mini_aux_handler(int x, int y, int button)
+{
+    if (button == LC_MOUSE_MIDDLEBUTTON) {
+	rotate_main_screen ();
+	return;
+    } else if (button == LC_MOUSE_RIGHTBUTTON) {
+	mini_screen_help ();
+	return;
+    }
+    rotate_mini_screen ();
+}
+
 void
 rotate_mini_screen (void)
 {
@@ -1741,19 +1795,21 @@ void
 print_total_money (void)
 {
     Rect* b = &scr.money;
-    char str[40];
+    char str[MONEY_W / CHAR_WIDTH];
     size_t count;
 
-    count = snprintf(str, 40, "I ");
+    count = sprintf(str, "Money: ");
 
-    count += commify(str + count, 40 - count, total_money);
+    count += commify(str + count, (MONEY_W / CHAR_WIDTH) - count, total_money);
 
-    count += snprintf(str + count, 40 - count, "                           ");
+    count += snprintf(str + count, (MONEY_W / CHAR_WIDTH) - count, 
+		      "                                            ");
 
     if (total_money < 0)
 	Fgl_setfontcolors (TEXT_BG_COLOUR, red (30));
 
-    Fgl_write (b->x, b->y, str);
+/*     Fgl_putbox (b->x, b->y, 16, 16, money_pbar_graphic); */
+    Fgl_write (b->x + 16, b->y, str);
 
     if (total_money < 0)
 	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
@@ -2080,60 +2136,6 @@ draw_market_cb (void)
     draw_cb_template (1);
 }
 
-#if defined (commentout)
-void
-draw_market_cb (void)		/* x & y are the market's pos. */
-{
-    int x, y, flags;
-    char s[100];
-    Rect* mcb = &scr.market_cb;
-
-#if defined (LC_X11) || defined (WIN32)
-    market_cb_drawn_flag = 1;
-#endif
-    x = mcbx;
-    y = mcby;
-    flags = MP_INFO(x,y).flags;
-    Fgl_getbox (mcb->x, mcb->y, mcb->w, mcb->h, market_cb_gbuf);
-    Fgl_fillbox (mcb->x, mcb->y, mcb->w, mcb->h, 28);
-    Fgl_setfontcolors (28,TEXT_FG_COLOUR);
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
-#endif
-
-    Fgl_write (mcb->x + 5 * 8, mcb->y + 4, "Market");
-    sprintf (s, "%3d,", x);
-    Fgl_write (mcb->x + 5 * 8 + 4, mcb->y + 2 * 8, s);
-    sprintf (s, "%3d", y);
-    Fgl_write (mcb->x + 9 * 8 + 4, mcb->y + 2 * 8, s);
-
-    Fgl_write (mcb->x + 6 * 8, mcb->y + 5 * 8, "FOOD");
-    Fgl_write (mcb->x + 6 * 8, mcb->y + 8 * 8, "JOBS");
-    Fgl_write (mcb->x + 6 * 8, mcb->y + 11 * 8, "COAL");
-    Fgl_write (mcb->x + 6 * 8 + 4, mcb->y + 14 * 8, "ORE");
-    Fgl_write (mcb->x + 4 * 8 + 4, mcb->y + 17 * 8, "GOODS");
-    Fgl_write (mcb->x + 4 * 8 + 4, mcb->y + 20 * 8, "STEEL");
-    Fgl_write (mcb->x + 6, mcb->y + 2 * 8, "Buy");
-    Fgl_write (mcb->x + 12 * 8, mcb->y + 2 * 8, "Sell");
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
-#endif
-
-    draw_cb_box (0, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_FOOD);
-    draw_cb_box (0, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_FOOD);
-    draw_cb_box (1, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_JOBS);
-    draw_cb_box (1, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_JOBS);
-    draw_cb_box (2, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_COAL);
-    draw_cb_box (2, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_COAL);
-    draw_cb_box (3, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_ORE);
-    draw_cb_box (3, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_ORE);
-    draw_cb_box (4, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_GOODS);
-    draw_cb_box (4, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_GOODS);
-    draw_cb_box (5, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_STEEL);
-    draw_cb_box (5, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_STEEL);
-}
-#endif
-
 void
 close_market_cb (void)
 {
@@ -2168,57 +2170,6 @@ draw_port_cb (void)
     draw_cb_template (0);
 }
 
-#if defined (commentout)
-void
-draw_port_cb (void)
-{
-    int x, y, flags;
-    char s[100];
-    Rect* mcb = &scr.market_cb;
-
-#if defined (LC_X11) || defined (WIN32)
-    port_cb_drawn_flag = 1;
-#endif
-    x = mcbx;
-    y = mcby;
-
-    flags = MP_INFO(x,y).flags;
-    /* use the market cb resources where possible. */
-    Fgl_getbox (mcb->x, mcb->y, mcb->w, mcb->h, market_cb_gbuf);
-    Fgl_fillbox (mcb->x, mcb->y, mcb->w, mcb->h, 28);
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
-#endif
-    Fgl_write (mcb->x + 7 * 8, mcb->y + 1, "Port");
-    Fgl_write (mcb->x + 7 * 8, mcb->y + 7 * 8, "FOOD");
-    Fgl_write (mcb->x + 7 * 8, mcb->y + 10 * 8, "COAL");
-    Fgl_write (mcb->x + 7 * 8 + 4, mcb->y + 13 * 8, "ORE");
-    Fgl_write (mcb->x + 6 * 8 + 4, mcb->y + 16 * 8, "GOODS");
-    Fgl_write (mcb->x + 6 * 8 + 4, mcb->y + 19 * 8, "STEEL");
-    Fgl_write (mcb->x + 12, mcb->y + 2 * 8, "Buy");
-    Fgl_write (mcb->x + 14 * 8, mcb->y + 2 * 8, "Sell");
-    sprintf (s, "%3d", x);
-    s[3] = ',';
-    s[4] = 0;
-    Fgl_write (mcb->x + 5 * 8 + 4, mcb->y + 2 * 8, s);
-    sprintf (s, "%3d", y);
-    Fgl_write (mcb->x + 9 * 8 + 4, mcb->y + 2 * 8, s);
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
-#endif
-
-    draw_cb_box (1, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_FOOD);
-    draw_cb_box (1, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_FOOD);
-    draw_cb_box (2, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_COAL);
-    draw_cb_box (2, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_COAL);
-    draw_cb_box (3, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_ORE);
-    draw_cb_box (3, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_ORE);
-    draw_cb_box (4, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_GOODS);
-    draw_cb_box (4, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_GOODS);
-    draw_cb_box (5, 0, MP_INFO(mcbx,mcby).flags & FLAG_MB_STEEL);
-    draw_cb_box (5, 1, MP_INFO(mcbx,mcby).flags & FLAG_MS_STEEL);
-}
-#endif
 
 void
 close_port_cb (void)
@@ -2234,7 +2185,6 @@ close_port_cb (void)
     cs_mouse_button = LC_MOUSE_LEFTBUTTON;
 }
 
-#ifdef __dialbox_h__
 int
 yn_dial_box (char * s1, char * s2, char * s3, char *s4)
 {
@@ -2251,132 +2201,6 @@ yn_dial_box (char * s1, char * s2, char * s3, char *s4)
     return (result == 'y') ? 1 : 0;
 }
 
-#else
-
-
-int
-yn_dial_box (char *title, char *s1, char *s2, char *s3)
-{
-    int x, y, h, i;
-    unsigned int w = 0;
-    char *ss;
-
-    unrequest_mappoint_stats ();
-    unrequest_main_screen ();
-
-    /* find len of longest string */
-    if (strlen (s1) > w)
-	w = strlen (s1);
-    if (strlen (s2) > w)
-	w = strlen (s2);
-    if (strlen (s3) > w)
-	w = strlen (s3);
-    w += 4;			/* add a few spaces to the sides */
-    if (w < 20)			/* min width */
-	w = 20;
-    w *= 8;			/* convert chars to pixels */
-    h = 9 * 8;
-
-    x = (scr.client_w / 2) - (w / 2);
-    y = (scr.client_h / 2) - (h / 2);
-
-    ss = (char *) malloc ((w + 16) * (h + 16) * sizeof (char));
-    if (ss == 0) {
-	malloc_failure ();
-    }
-    hide_mouse ();
-    Fgl_getbox (x - 8, y - 8, w + 16, h + 16, ss);
-    Fgl_fillbox (x, y, w, h, YN_DIALBOX_BG_COLOUR);
-    for (i = 1; i < 8; i++)
-    {
-	Fgl_hline (x - i, y - i, x + w + i - 1, YN_DIALBOX_BG_COLOUR + i + i);
-	Fgl_hline (x - i, y + h + i - 1, x + w + i - 1, YN_DIALBOX_BG_COLOUR + i + i);
-	Fgl_line (x - i, y - i, x - i, y + h + i - 1, YN_DIALBOX_BG_COLOUR + i + i);
-	Fgl_line (x + w + i - 1, y - i, x + w + i - 1, y + h + i - 1, YN_DIALBOX_BG_COLOUR + i + i);
-    }
-    db_yesbox_x1 = x + w / 4 - (2 * 8);
-    db_yesbox_x2 = db_yesbox_x1 + 4 * 8;
-    db_yesbox_y1 = (y + h - 14 - 1);
-    db_yesbox_y2 = db_yesbox_y1 + 10 + 2;
-    db_nobox_x1 = x + ((3 * w) / 4) - (2 * 8);
-    db_nobox_x2 = db_nobox_x1 + 4 * 8;
-    db_nobox_y1 = (y + h - 14 - 1);
-    db_nobox_y2 = db_nobox_y1 + 10 + 2;
-    Fgl_fillbox (db_yesbox_x1, db_yesbox_y1, 4 * 8, 10 + 2, white (0));
-    Fgl_fillbox (db_nobox_x1, db_nobox_y1, 4 * 8, 10 + 2, white (0));
-    Fgl_write (db_yesbox_x1 + 4, db_yesbox_y1 + 2, "YES");
-    Fgl_write (db_nobox_x1 + 8, db_nobox_y1 + 2, "NO");
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
-#else
-    Fgl_setfontcolors (YN_DIALBOX_BG_COLOUR, TEXT_FG_COLOUR);
-#endif
-    Fgl_write ((x + w / 2) - (strlen (title) * 4), y + 4, title);
-    Fgl_write ((x + w / 2) - (strlen (s1) * 4), y + 20, s1);
-    Fgl_write ((x + w / 2) - (strlen (s2) * 4), y + 30, s2);
-    Fgl_write ((x + w / 2) - (strlen (s3) * 4), y + 40, s3);
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
-#else
-    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-#endif
-    redraw_mouse ();
-    db_flag = 1;
-    /* GCS FIX:  I'll bet this is the cause of the mouse droppings bug */
-    /* shake the mouse a bit to make sure we have the correct cursor. */
-    //    cs_mouse_handler (0, -1, 0);
-    //    cs_mouse_handler (0, 1, 0);
-    db_yesbox_clicked = 0;
-    db_nobox_clicked = 0;
-    db_yesbox_clicked = 0;
-    db_nobox_clicked = 0;
-    do
-    {
-	lc_usleep (1000);
-
-#ifdef LC_X11
-	call_event ();
-	i = x_key_value;
-	x_key_value = 0;
-#elif defined (WIN32)
-	HandleMouse ();
-	i = GetKeystroke ();
-#else
-	mouse_update ();
-	i = vga_getkey ();
-#endif
-	if (i == 10 || i == 13 || i == ' ' || i == 'y' || i == 'Y')
-	    db_yesbox_clicked = 1;
-	else if (i == 'n' || i == 127 || i == 'N')
-	    db_nobox_clicked = 1;
-    }
-    while (db_yesbox_clicked == 0 && db_nobox_clicked == 0);
-    db_flag = 0;
-    hide_mouse ();
-    Fgl_putbox (x - 8, y - 8, w + 16, h + 16, ss);
-    redraw_mouse ();
-    /* shake the mouse a bit to make sure we have the correct cursor. */
-    //    cs_mouse_handler (0, -1, 0);
-    //cs_mouse_handler (0, 1, 0);
-
-    free (ss);
-    /*
-      // this flag is there to reset the mouse button, mouse_update() is not
-      // 'very' re-entrant, so I've got to clean it up after we get out of here.
-      // Yet another hack that I don't like! I need to get these dial boxes
-      // in the main loop!
-    */
-    reset_mouse_flag = 1;
-
-    request_main_screen ();
-
-    if (db_yesbox_clicked != 0)
-	return (1);
-    return (0);
-}
-#endif // #ifdef __dialbox_h__
-
-#ifdef __dialbox_h__
 void
 ok_dial_box (char *fn, int good_bad, char *xs)
 {
@@ -2437,171 +2261,6 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 		   2,' ',"OK");
     fclose(inf);
 }
-
-#else
-
-
-void
-ok_dial_box (char *fn, int good_bad, char *xs)
-{
-    char s[100];
-    int i, l, x, y, h, w, colour;
-    FILE *inf;
-    char *ss;
-
-    unrequest_mappoint_stats ();
-    unrequest_main_screen ();
-
-    /* select which colour to draw the box in. */
-    if (suppress_ok_buttons != 0)
-	return;
-    if (good_bad == GOOD || good_bad == RESULTS)
-	colour = green (14);
-    else if (good_bad == BAD)
-	colour = red (12);
-    else
-	colour = white (12);
-    if (good_bad == RESULTS)
-	strcpy (s, fn);
-    else
-    {
-	strcpy (s, message_path);
-	strcat (s, fn);
-    }
-    if ((inf = fopen (s, "r")) == NULL)
-    {
-	printf ("Can't open message <%s> for OK dialog box\n", s);
-	strcpy (s, message_path);
-	strcat (s, "error.mes");
-	if ((inf = fopen (s, "r")) == NULL)
-	{
-	    fprintf (stderr,
-		     "Can't open default message <%s> either\n", s);
-	    fprintf (stderr, " ...it was not displayed");
-	    return;
-	}
-    }
-    /* static 74*22 char array for the message info array */
-    l = 0;
-    while (feof (inf) == 0 && l < 20) {
-	if (fgets (okmessage[l], 70, inf) == 0)
-	    break;
-	l++;
-    }
-    fclose (inf);
-    if (xs != 0) {
-	strncpy (okmessage[l], xs, 70);
-	l++;
-    }
-    /* 'l' is now the number of lines. Work out the height of the box. */
-    /* Need half a line above and below the title and 2 lines for the 
-       ok button.  10 pixels per line. */
-    h = (l + 3) * 10;
-
-    /* Get rid of new line and work out the width of the longest line. */
-    w = 0;
-    for (i = 0; i < l; i++) {
-	/* get rid of the newline */
-	if (okmessage[i][strlen (okmessage[i]) - 1] == 0xa)
-	    okmessage[i][strlen (okmessage[i]) - 1] = 0;
-	if (strlen (okmessage[i]) > (unsigned int) w)
-	    w = strlen (okmessage[i]);
-    }
-    w = (w + 2) * 8;		/* leave a space at either side. */
-
-    /* now we can work out the x and y points. */
-    x = (scr.client_w / 2) - (w / 2);
-    y = (scr.client_h / 2) - (h / 2);
-    ss = (char *) malloc ((w + 16) * (h + 16) * sizeof (char));
-    if (ss == 0)
-    {
-	malloc_failure ();
-    }
-    hide_mouse ();
-    Fgl_getbox (x - 8, y - 8, w + 16, h + 16, ss);
-    Fgl_fillbox (x, y, w, h, colour);
-    for (i = 1; i < 8; i++) {
-	Fgl_hline (x - i, y - i, x + w + i - 1, colour + i + i);
-	Fgl_hline (x - i, y + h + i - 1, x + w + i - 1, colour + i + i);
-	Fgl_line (x - i, y - i, x - i, y + h + i - 1, colour + i + i);
-	Fgl_line (x + w + i - 1, y - i, x + w + i - 1, y + h + i - 1, colour + i + i);
-    }
-    db_okbox_x1 = x + w / 2 - (2 * 8);
-    db_okbox_x2 = db_okbox_x1 + 4 * 8;
-    db_okbox_y1 = y + h - 15;
-    db_okbox_y2 = db_okbox_y1 + 12;
-    Fgl_fillbox (db_okbox_x1, db_okbox_y1, 4 * 8, 10 + 2, white (0));
-    Fgl_write (db_okbox_x1 + 8, db_okbox_y1 + 2, "OK");
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
-#else
-    Fgl_setfontcolors (colour, TEXT_FG_COLOUR);
-#endif
-    Fgl_write ((x + w / 2) - (strlen (okmessage[0]) * 4), y + 4, okmessage[0]);
-    for (i = 1; i < l; i++)
-	Fgl_write ((x + w / 2) - (strlen (okmessage[i]) * 4)
-		   ,y + 10 + i * 10, okmessage[i]);
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
-#else
-    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-#endif
-    redraw_mouse ();
-    db_okflag = 1;
-    /* shake the mouse a bit to make sure we have the correct cursor. */
-    //    cs_mouse_handler (0, -1, 0);
-    //    cs_mouse_handler (0, 1, 0);
-
-#if defined (LC_X11) || defined (WIN32)
-    call_event ();
-#else
-    mouse_update ();
-#endif
-    db_okbox_clicked = 0;
-    cs_mouse_button = LC_MOUSE_LEFTBUTTON;
-#if defined (LC_X11) || defined (WIN32)
-    call_event ();
-#else
-    mouse_update ();
-#endif
-    db_okbox_clicked = 0;
-    do
-    {
-	lc_usleep (1000);
-
-#ifdef LC_X11
-	call_wait_event ();
-	i = x_key_value;
-	x_key_value = 0;
-#elif defined (WIN32)
-	HandleMouse ();
-	i = GetKeystroke ();
-#else
-	mouse_update ();
-	i = vga_getkey ();
-#endif
-	if (i == 10 || i == 13 || i == ' ')
-	    db_okbox_clicked = 1;
-    }
-    while (db_okbox_clicked == 0);
-    db_okflag = 0;
-    hide_mouse ();
-    Fgl_putbox (x - 8, y - 8, w + 16, h + 16, ss);
-    redraw_mouse ();
-    /* shake the mouse a bit to make sure we have the correct cursor. */
-    //    cs_mouse_handler (0, -1, 0);
-    //    cs_mouse_handler (0, 1, 0);
-
-    free (ss);
-    /* when exiting dial box, stop the mouse repeating straight away */
-    reset_mouse_flag = 1;
-
-    request_main_screen ();
-}
-
-#endif // #ifdef __dialbox_h__
-
-
 
 
 void
