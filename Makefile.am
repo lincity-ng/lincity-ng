@@ -126,7 +126,7 @@ XLC_OBJ = \
 LC_OBJ = \
 	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o \
 	vga_cliglobs.o vga_mps.o vga_lcsvga.o vga_screen.o vga_geometry.o \
-	vga_pbar.o vga_module_buttons.o
+	vga_pbar.o vga_dialbox.o vga_module_buttons.o
 
 
 ## ----- xlincity -----
@@ -221,6 +221,9 @@ vga_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
 
 vga_screen.o: screen.c screen.h lin-city.h lctypes.h module_buttons.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_screen.o -c screen.c
+
+vga_dialbox.o: dialbox.c dialbox.h geometry.h
+	$(COMPILE) $(SVGA_DEFS) -o vga_dialbox.o -c dialbox.c
 
 vga_module_buttons.o: module_buttons.c module_buttons.h lin-city.h lctypes.h \
 	mouse.h

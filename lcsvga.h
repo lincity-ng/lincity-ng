@@ -11,6 +11,6 @@ extern unsigned char under_mouse_pointer[];
 
 void HandleError (char *, int);
 int lc_get_keystroke (void);
-int init_mouse (void);
+void init_mouse (void);
 
 #endif /* __lcsvga_h__ */

@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdarg.h> /* XXX: WCK: What does configure need to know? */
+#include "lcstring.h"
 #include "screen.h"
 #include "geometry.h"
 #include "dialbox.h"

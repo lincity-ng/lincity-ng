@@ -6,6 +6,7 @@
 #include "lcconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "lcstring.h"
 #include "common.h"
 #include "lctypes.h"
