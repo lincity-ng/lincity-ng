@@ -509,7 +509,7 @@ draw_selected_module_cost ()
 	snprintf (s, 100, _("Bulldoze - cost varies"));
     else
 	snprintf (s, 100, _("%s %s  Bulldoze %s"),
-		  main_groups[selected_module_group].name,
+		  _(main_groups[selected_module_group].name),
 		  coststr, bldzstr);
 
     Fgl_fillbox (b->x, b->y, 42 * 8, 8, TEXT_BG_COLOUR);
