@@ -717,23 +717,11 @@ cheat (void)
 		     _("You will only see this message once"),
 		     _("Do you really want to play in test mode..."))!= 0)
     {
-	print_cheat ();
 	cheat_flag = 1;
+	print_time_for_year(); /* Displays TEST MODE or not */
 	return (1);
     }
     return (0);
-}
-
-void
-print_cheat (void)
-{
-    Fgl_write (TESTM_X, TESTM_Y, _("TEST MODE!"));
-}
-
-void
-unprint_cheat (void)
-{
-    Fgl_fillbox (TESTM_X, TESTM_Y, 8 * 10, 8, TEXT_BG_COLOUR);
 }
 
 void
