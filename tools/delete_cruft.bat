@@ -38,7 +38,6 @@ erase *.opt
 deltree /y release
 erase *.diff
 erase *.dsw
-deltree /y tools
 deltree /y m4
 erase depcomp
 erase config.guess
@@ -52,3 +51,7 @@ erase *.junk
 erase lincity
 erase xlincity
 deltree /y locale
+
+rem -------------------------------------------------
+rem This one must be last, because it ends batch file
+deltree /y tools
