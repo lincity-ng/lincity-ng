@@ -2,6 +2,7 @@
  * picedit.c
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
+ * Thanks to Gerben V for X true color support.
  * ---------------------------------------------------------------------- */
 #include "lcconfig.h"
 #include <stdio.h>
@@ -736,6 +737,7 @@ fill_colour4 (int x, int y)
 }
 
 #ifdef LC_X11
+/* fixed the problem with xpicedit by checking if the colormap is writable*/
 void
 setcustompalette (void)
 {
@@ -744,38 +746,48 @@ setcustompalette (void)
   long unsigned int plane_masks[3];
   FILE *inf;
   XColor pal[256];
+  int is_writeable;     
+  
+  /* See if the colormap is writable.
+   * Only PseudoColor, GrayScale and DirectColor are writable TrueColor is not.
+   */
+  Visual *visual = DefaultVisual (display.dpy, display.screen);
+  int visual_class = visual->class;
+  is_writeable = (visual_class == PseudoColor || visual_class == GrayScale || visual_class == DirectColor);
+  
   printf ("In setcustompalette\n");
   display.cmap = XDefaultColormap (display.dpy, display.screen);
-  if (XAllocColorCells (display.dpy, display.cmap, 0
+  if (is_writeable) {
+    if (XAllocColorCells (display.dpy, display.cmap, 0
 			,plane_masks, 0, colour_table, 256) == 0)
     {
-      me = (*DefaultVisual (display.dpy, display.screen)).map_entries;
-      printf ("DefaultVisual id=%d bp-rgb=%d map-entries=%d\n"
+    me = (*DefaultVisual (display.dpy, display.screen)).map_entries;
+    printf ("DefaultVisual id=%d bp-rgb=%d map-entries=%d\n"
 	      ,(*DefaultVisual (display.dpy, display.screen)).visualid
 	      ,(*DefaultVisual (display.dpy, display.screen)).bits_per_rgb
 	      ,(*DefaultVisual (display.dpy, display.screen)).map_entries);
-      display.cmap = XCreateColormap (display.dpy, display.win
+    display.cmap = XCreateColormap (display.dpy, display.win
 				,DefaultVisual (display.dpy, display.screen)
-      /*      ,PseudoColor */
-				      ,AllocNone);
+				,AllocNone);
       if (me == 256 && XAllocColorCells (display.dpy, display.cmap, 0
 				   ,plane_masks, 0, colour_table, 256) != 0)
 	printf ("Allocated 256 cells\n");
       else
 	for (i = 0; i < 256; i++)
 	  colour_table[i] = i;
-    }
-  if (!display.cmap)
-    HandleError ("No default colour map", FATAL);
+      }
+    if (!display.cmap)
+      HandleError ("No default colour map", FATAL);
+  }
   printf ("Got past create colourmap\n");
 
   for (i = 0; i < 256; i++)
     flag[i] = 0;
+  
   strcpy (cpf, LIBDIR);
   strcat (cpf, COLOUR_PAL_FILE);
   if ((inf = fopen (cpf, "r")) == 0)
     HandleError ("Can't find the colour pallet file", FATAL);
-
   while (feof (inf) == 0)
     {
       fgets (s, 99, inf);
@@ -785,8 +797,9 @@ setcustompalette (void)
 	  pal[n].green = g << 10;
 	  pal[n].blue = b << 10;
 	  pal[n].flags = DoRed | DoGreen | DoBlue;
-	  if (me == 256)
+	  if (is_writeable) {
 	    pal[n].pixel = colour_table[n];
+	  }
 	  else
 	    {
 	      if (XAllocColor (display.dpy
@@ -802,14 +815,17 @@ setcustompalette (void)
 	}
     }
   fclose (inf);
+  
   for (i = 0; i < 256; i++)
     if (flag[i] == 0)
       {
 	printf ("Colour %d not loaded\n", i);
 	do_error ("Can't continue");
       }
-  if (me == 256)
+  if(is_writeable) {
     XStoreColors (display.dpy, display.cmap, pal, 256);
+    XFlush(display.dpy);
+  }
   XSetWindowColormap (display.dpy, display.win, display.cmap);
 }
 
