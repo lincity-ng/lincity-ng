@@ -21,8 +21,8 @@ deltree /y help\cvs
 deltree /y icons\cvs
 deltree /y intl
 deltree /y messages\cvs
-rem deltree /y messages\ca
-deltree /y messages\ca\cvs
+deltree /y messages\ca
+rem deltree /y messages\ca\cvs
 deltree /y old.Makefiles
 deltree /y opening\cvs
 deltree /y po
@@ -51,3 +51,4 @@ erase *.aps
 erase *.junk
 erase lincity
 erase xlincity
+deltree /y locale

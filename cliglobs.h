@@ -166,7 +166,6 @@ extern int winX, winY, mouse_button;
 extern unsigned int winW, winH;
 
 extern char *bg_color;
-extern char dummy1[1024];
 /*extern char* pixmap;*/
 extern char dummy2[1024];
 extern int verbose;		/* display settings if TRUE */
@@ -190,8 +189,6 @@ extern char icon_pixmap_flag[NUM_OF_TYPES];
 #ifdef WIN32
 extern int mouse_button;
 extern char *bg_color;
-extern char dummy1[1024];
-extern char dummy2[1024];
 extern int verbose;		/* display settings if TRUE */
 extern int stay_in_front;	/* Try to stay in clear area of the screen. */
 extern int text_bg;

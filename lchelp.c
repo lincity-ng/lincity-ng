@@ -494,7 +494,7 @@ draw_help_icon (int x, int y, char *icon)
 {
     Rect* mw = &scr.main_win;
     int i, l, w, h;
-    char ss[100];
+    char ss[LC_PATH_MAX];
     FILE *inf;
     strcpy (ss, graphic_path);
     strcat (ss, icon);

@@ -65,7 +65,7 @@ Make the Win package (version 1.11):
   15)    zip -r lincity109.zip lincity109
   16)    Done!
 
-Make the Win package (version 1.12, w/o catalan):
+Make the Win package (version 1.12, w/ catalan):
 
   5)     Build release version on Win
   6)     Build the catalan message file:

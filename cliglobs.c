@@ -128,8 +128,6 @@ int command_line_debug = 0;
 int winX, winY, mouse_button;
 
 char *bg_color = NULL;
-char dummy1[1024];
-char dummy2[1024];
 int verbose = FALSE;		/* display settings if TRUE */
 int stay_in_front = FALSE;	/* Try to stay in clear area of the screen. */
 int text_bg = 0;

@@ -644,7 +644,7 @@ char*
 load_graphic(char *s)
 {
     int x,l;
-    char ss[100],*graphic;
+    char ss[LC_PATH_MAX],*graphic;
     FILE *inf;
     strcpy(ss,graphic_path);
     strcat(ss,s);

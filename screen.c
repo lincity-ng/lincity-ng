@@ -792,7 +792,7 @@ draw_small_yellow_bezel (int x, int y, int h, int w)
 void
 load_fonts()
 {
-    char s[128];
+    char s[LC_PATH_MAX];
     int i;
     FILE *inf;
     /* main_font */
@@ -2257,7 +2257,7 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     struct stat statbuf;
     int colour;
     char * ss;
-    char s[100];
+    char s[LC_PATH_MAX];
     int retval;
 
     if (suppress_ok_buttons != 0)
