@@ -284,14 +284,12 @@ void draw_small_bezel (int x, int y, int w, int h, int colour);
 #define PBAR_MONEY_Y    PBAR_POP_Y+(PBAR_H+1)*8
 #endif /* commentout */
 
-
-#define DATE_X                    100
-#define DATE_Y                    470
+#define DATE_W                    112
 #define TIME_FOR_YEAR_X           320
 #define TIME_FOR_YEAR_Y           470
-#define SELECT_BUTTON_MESSAGE_X   100
+#define SELECT_BUTTON_MESSAGE_X   MAIN_WIN_X
 #define SELECT_BUTTON_MESSAGE_Y   460
-#define STATUS_MESSAGE_X          100
+#define STATUS_MESSAGE_X          MAIN_WIN_X
 #define STATUS_MESSAGE_Y          450
 
 #define SUST_SCREEN_X 96
