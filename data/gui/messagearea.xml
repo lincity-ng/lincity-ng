@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Window width="700" height="200" border="5" titlesize="30" name="messageWindow">
+    <title>
+        <Paragraph text-align="center" color="white"
+        height="30" font-size="20">Year 0000 - 12345$ - Messages </Paragraph>
+    </title>
+    <closebutton>
+        <image src="images/gui/window_close.png"/>
+        <image-hover src="images/gui/window_close_hover.png"/>
+        <image-clicked src="images/gui/window_close_clicked.png"/>
+    </closebutton>
+    <contents>
+        <ScrollView>
+            <scrollbar width="20">
+                <button1>
+                    <image src="images/gui/arrow_up.png"/>
+                    <image-hover src="images/gui/arrow_up_hover.png"/>
+                    <image-clicked src="images/gui/arrow_up_clicked.png"/>
+                </button1>
+                <button2>
+                    <image src="images/gui/arrow_down.png"/>
+                    <image-hover src="images/gui/arrow_down_hover.png"/>
+                    <image-clicked src="images/gui/arrow_down_clicked.png"/>
+                </button2>
+                <scroller>
+                    <image src="images/gui/scroller.png"/>
+                    <image-hover src="images/gui/scroller_hover.png"/>
+                    <image-clicked src="images/gui/scroller_clicked.png"/>
+                </scroller>                                              
+            </scrollbar>
+            <contents>
+                <DefineStyle name="normaltext" color="black" font-size="16"/>
+                <Paragraph name="messageText" style="normaltext">
+                    Welcome to Lincity NG. 
+                </Paragraph>
+            </contents>
+        </ScrollView>
+    </contents>
+</Window>
