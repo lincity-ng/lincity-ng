@@ -76,6 +76,7 @@ PainterGL::fillRectangle(const Rect2D& rect)
 void
 PainterGL::drawRectangle(const Rect2D& rect)
 {
+    (void) rect;
     // TODO
 }
 
@@ -88,6 +89,7 @@ PainterGL::setFillColor(Color color)
 void
 PainterGL::setLineColor(Color color)
 {
+    (void) color;
     // TODO
 }
 
@@ -114,6 +116,7 @@ PainterGL::popTransform()
 void
 PainterGL::setClipRectangle(const Rect2D& rect)
 {
+    (void) rect;
     // TODO
 }
 
@@ -126,6 +129,7 @@ PainterGL::clearClipRectangle()
 Painter*
 PainterGL::createTexturePainter(Texture* texture)
 {
+    (void) texture;
     // TODO
     return 0;
 }
