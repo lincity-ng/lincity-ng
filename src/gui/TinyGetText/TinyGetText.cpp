@@ -25,7 +25,9 @@
 #include <iostream>
 #include <ctype.h>
 #include <errno.h>
+
 #include "TinyGetText.hpp"
+#include "gui/PhysfsStream/PhysfsStream.hpp"
 
 //#define TRANSLATION_DEBUG
 
@@ -256,15 +258,13 @@ DictionaryManager::get_dictionary(const std::string& spec)
                   if (std::string(ent->d_name) == lang + ".po")
                     {
                       std::string pofile = *p + "/" + ent->d_name;
-                      std::ifstream in(pofile.c_str());
-                      if (!in)
-                        {
-                          std::cerr << "Error: Failure file opening: " << pofile << std::endl;
-                        }
-                      else
-                        {
+                      try {
+                          IFileStream in(pofile);
                           read_po_file(dict, in);
-                        }
+                      } catch(std::exception& e) {
+                          std::cerr << "Error: Failure file opening: " << pofile << std::endl;
+                          std::cerr << e.what() << "\n";
+                      }
                     }
                 }
               closedir(dir);

@@ -4,6 +4,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <memory>
+#include <physfs.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
 
@@ -31,6 +32,39 @@ void initTTF()
         throw std::runtime_error(msg.str());
     }
 }
+
+void initPhysfs(const char* argv0)
+{
+    if(!PHYSFS_init(argv0)) {
+        std::stringstream msg;
+        msg << "Couldn't initialize physfs: " << PHYSFS_getLastError();
+        throw std::runtime_error(msg.str());
+    }
+    if(!PHYSFS_setSaneConfig("devs", PACKAGE, ".zip", 0, 1)) {
+        std::stringstream msg;
+        msg << "Couldn't set physfs config: " << PHYSFS_getLastError();
+        throw std::runtime_error(msg.str());
+    }
+#ifdef APPDATADIR
+    if(!PHYSFS_addToSearchPath(APPDATADIR, 1)) {
+        std::stringstream msg;
+        msg << "Couldn't add '" << APPDATADIR << "' to physfs searchpath: "
+            << PHYSFS_getLastError();
+        throw std::runtime_error(msg.str());
+    }
+#endif
+    
+    // when started from source dir...
+    std::string dir = PHYSFS_getBaseDir();
+    dir += "/data";
+    if(!PHYSFS_addToSearchPath(dir.c_str(), 1)) {
+        std::stringstream msg;
+        msg << "Couldn't add '" << dir << "' to physfs searchpath: "
+            << PHYSFS_getLastError();
+        throw std::runtime_error(msg.str());
+    }
+}
+    
 
 void initVideo(int width, int height)
 {
@@ -77,7 +111,7 @@ void mainLoop()
     }
 }
 
-int main(int , char** )
+int main(int , char** argv)
 {
     int result = 0;
 
@@ -86,6 +120,7 @@ int main(int , char** )
 #ifndef DEBUG //in debug mode we wanna have a backtrace
     try {
 #endif
+        initPhysfs(argv[0]);
         initSDL();
         initTTF();
         initVideo();
@@ -109,5 +144,6 @@ int main(int , char** )
         TTF_Quit();
     if(SDL_WasInit(0))
         SDL_Quit();
+    PHYSFS_deinit();
     return result;
 }

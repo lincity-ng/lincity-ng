@@ -3,6 +3,7 @@
 import os
 import glob
 import string
+from stat import *
 
 class ConfigHeader:
     def __init__(self):
@@ -154,7 +155,9 @@ env['APPDATADIR'] = "$DATADIR/$PACKAGE"
 env['LOCALEDIR'] = "$DATADIR/locale"
 
 # Configuration phase
-if not os.path.exists("build_config.py") or not os.path.exists("config.h"):
+if not os.path.exists("build_config.py") or not os.path.exists("config.h") \
+     or os.stat("build_config.py")[ST_MTIME] < os.stat("SConstruct")[ST_MTIME]\
+     or os.stat("config.h")[ST_MTIME] < os.stat("SConstruct")[ST_MTIME]:
     print "build_config.py or config.h don't exist - Generating new build config..."
 
     header = ConfigHeader()
@@ -195,6 +198,9 @@ if not os.path.exists("build_config.py") or not os.path.exists("config.h"):
     if not conf.CheckLib('SDL_gfx'):
         print "Couldn't find SDL_gfx library!"
         Exit(1)
+    if not conf.CheckLib('physfs'):
+        print "Couldn't find physfs library!"
+        Exit(1)                                  
     if not conf.CheckPKGConfig('libxml-2.0', "2.6.11"):
         print "Couldn't find libxml-2.0 library!"
         Exit(1)

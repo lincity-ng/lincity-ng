@@ -130,6 +130,9 @@ public:
        
 private:
     xmlTextReaderPtr reader;
+
+    static int readCallback(void* context, char* buffer, int len);
+    static int closeCallback(void* context);
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include <stdexcept>
 
 #include "TextureManager.hpp"
+#include "PhysfsStream/PhysfsSDL.hpp"
 
 TextureManager* texture_manager = 0;
 
@@ -25,10 +26,7 @@ TextureManager::create(SDL_Surface* image)
 Texture*
 TextureManager::load(const std::string& filename)
 {
-    // hack until we have proper resource management
-    std::string real_filename = "data/" + filename;
-    
-    SDL_Surface* image = IMG_Load(real_filename.c_str());
+    SDL_Surface* image = IMG_Load_RW(getPhysfsSDLRWops(filename), 1);
     if(!image) {
         std::stringstream msg;
         msg << "Couldn't load image '" << filename
