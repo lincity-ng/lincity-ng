@@ -9,6 +9,9 @@
 #include "lcstring.h"
 #include "ldsvgui.h"
 #include "lcintl.h"
+#include "screen.h"
+#include "pbar.h"
+#include "module_buttons.h"
 
 /* this is for OS/2 - RVI */
 #ifdef __EMX__

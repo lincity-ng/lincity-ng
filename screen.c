@@ -30,6 +30,7 @@
 #include "lclib.h"
 #include "module_buttons.h"
 #include "stats.h"
+#include "engine.h"
 
 /* ---------------------------------------------------------------------- *
  * External Global Variables
@@ -1795,15 +1796,14 @@ void
 print_total_money (void)
 {
     Rect* b = &scr.money;
-    char str[MONEY_W / CHAR_WIDTH];
+    char str[MONEY_W / CHAR_WIDTH + 1];
     size_t count;
 
     count = sprintf(str, "Money: ");
-
     count += commify(str + count, (MONEY_W / CHAR_WIDTH) - count, total_money);
-
     count += snprintf(str + count, (MONEY_W / CHAR_WIDTH) - count, 
 		      "                                            ");
+    str[MONEY_W / CHAR_WIDTH] = '\0';
 
     if (total_money < 0)
 	Fgl_setfontcolors (TEXT_BG_COLOUR, red (30));
@@ -2202,6 +2202,28 @@ yn_dial_box (char * s1, char * s2, char * s3, char *s4)
 }
 
 void
+undosify_string (char *s)
+{
+    /* Convert '\r\n' to '\n' in string */
+    char prev_char = 0;
+    char *p = s, *q = s;
+    while (*p) {
+	if (*p != '\r') {
+	    if (prev_char == '\r' && *p != '\n') {
+		*q++ = '\n';
+	    }
+	    *q++ = *p;
+	}
+	prev_char = *p;
+        p++;
+    }
+    if (prev_char == '\r') {
+	*q++ = '\n';
+    }
+    *q = '\0';
+}
+
+void
 ok_dial_box (char *fn, int good_bad, char *xs)
 {
     FILE *inf;
@@ -2227,28 +2249,26 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 	strcat (s, fn);
     }
 
-    if ((inf = fopen (s, "r")) == NULL)
+    if ((inf = fopen (s, "rb")) == NULL)
     {
 	printf ("Can't open message <%s> for OK dialog box\n", s);
 	strcpy (s, message_path);
 	strcat (s, "error.mes");
-	if ((inf = fopen (s, "r")) == NULL)
+	if ((inf = fopen (s, "rb")) == NULL)
 	{
 	    fprintf (stderr,
 		     "Can't open default message <%s> either\n", s);
 	    fprintf (stderr, " ...it was not displayed");
 	    return;
 	}
-
-	stat(s,&statbuf);
-
-    } else 
-	stat(s,&statbuf);
-    
+    } 
+    stat(s,&statbuf);
 
     ss = (char *)lcalloc(statbuf.st_size + 1);
     retval = fread(ss,sizeof(char),statbuf.st_size,inf);
     ss[statbuf.st_size] = '\0';
+
+    undosify_string (ss);
 
     if (xs != 0)
 	dialog_box(colour,3,

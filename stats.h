@@ -92,5 +92,12 @@ extern int ly_cricket_cost;
 /* Averaging variables */
 extern int data_last_month;
 
+/* Function prototypes */
+void init_inventory(void);
+void inventory(int x, int y);
+void init_daily(void);
+void init_monthly(void);
+void init_yearly(void);
+void add_daily_to_monthly(void);
 
 #endif

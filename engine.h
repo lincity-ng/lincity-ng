@@ -12,5 +12,6 @@ void do_coal_survey (void);
 void do_bulldoze_area (short fill, int xx, int yy);
 void launch_rocket (int x, int y);
 void connect_rivers (void);
+int adjust_money(int value);
 
 #endif	/* __engine_h__ */

@@ -11,6 +11,7 @@
 #include "screen.h"
 #include "mouse.h"
 #include "module_buttons.h"
+#include "stats.h"
 
 #include <fcntl.h>
 #include <sys/types.h>

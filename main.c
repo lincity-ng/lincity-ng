@@ -48,7 +48,8 @@
 #include "pixmap.h"
 #include "screen.h"
 #include "lcintl.h"
-#include "module_buttons.h" /* KBR - 10/14/2002 - Missing prototype(s) */
+#include "engine.h"
+#include "module_buttons.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
