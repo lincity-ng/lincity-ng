@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <gui>
   <!-- <Image src="images/gui/background.png"/> -->
-  <!--<IsoDisplay width="800" height="600"/> -->
   <GameView/>
   <TableLayout rows="2" cols="3">
     <colsize col="1" fixed="100"/>
@@ -21,5 +20,6 @@
     </cell>
   </TableLayout>
   <Import src="gui/helpwindow.xml"/>
+  <Import src="gui/messagearea.xml"/>
   <!-- <Import src="gui/piemenu.xml"/> -->
 </gui>

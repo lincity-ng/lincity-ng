@@ -1,9 +1,12 @@
 #include <config.h>
+#include <iostream>
+#include <stdarg.h>
 
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/pbar_interface.h"
 
 #include "lincity/engglobs.h"
+#include "lincity/lclib.h"
 
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
@@ -54,9 +57,12 @@ void init_mini_map_mouse(void);
 void mini_map_handler(int x, int y, int button);
 void mini_aux_handler(int x, int y, int button);
 /* Message area */
-void display_info_message (int colour, char* ss, char* xs);
-void reset_status_message (void);
+void display_info_message (int colour, char* ss, char* xs)
+{
+    std::cout << "display_info_message: '" << ss << "' + \"" << xs << "\"\n";
+}
 
+void reset_status_message (void);
 
 /*
  * Display some Text in a Dialog Box with an OK Button.
@@ -72,12 +78,10 @@ void reset_status_message (void);
  * 
  * xs is some additional Text, that is shown after the Message
  *    from the File. (maybe XtraString?)  
- *                                
- * 
- * 
  */
- void ok_dial_box (char *, int, char *)
+ void ok_dial_box (char *fn, int, char *xs)
 {
+    std::cout << "ok_dial_box:'" << fn << "' + \"" << xs << "\"\n";
 }
 
 
@@ -107,6 +111,13 @@ void reset_status_message (void);
  */
 int dialog_box(int colour, int argc, ...)
 {
+    std::cout << "dialog_box: " << argc <<"\n";
+    va_list arg;
+    va_start( arg, argc );
+     for( int i = 0; i < argc; i++ ) {
+        std::cout <<  va_arg( arg, int ) << " '"<<  va_arg( arg, int )  << "' " << va_arg( arg, char* ) <<"\n";
+     }
+    va_end( arg );    
   return 0;
 }
 
@@ -117,12 +128,14 @@ int dialog_box(int colour, int argc, ...)
  *  showing percent completed, but is also used to update
  *  the current Progressbar.
  */
-void prog_box (char *, int)
+void prog_box (char *title, int percent)
 {
+    std::cout << "prog_box:'" << title << "' " << percent << "%\n";
 }
 
 void print_total_money (void)
 {
+    std::cout << "print_total_money " << total_money << "£\n";
 }
 
 void refresh_population_text (void)
@@ -145,6 +158,8 @@ void refresh_main_screen()
 
 void screen_full_refresh ()
 {
+    std::cout << "screen_full_refresh:  Date " <<  current_month( total_time );
+    std::cout << " "<< current_year( total_time )<< "\n";
   update_main_screen (true);
 }
 
@@ -193,8 +208,17 @@ int getMainWindowHeight()
   //  return getScreen().getRect().h;
 }
 
-
-int yn_dial_box (char *, char *, char *, char *)
+int yn_dial_box (char * s1, char * s2, char * s3, char *s4)
 {
-  return 0;
+    int result;
+    result = dialog_box(red(10),7,
+			0,0,s1,
+			0,0,"",
+			0,0,s2,
+			0,0,s3,
+			0,0,s4,
+			1,'y',"Yes",
+			1,'n',"No");
+
+    return (result == 'y') ? 1 : 0;
 }
