@@ -1,8 +1,5 @@
-BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
-  o None.
-
-BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+KNOWN BUGS and MISFEATURES in version 1.12.0
 
   o I found inconsistent behavior with using the middle mouse button
     (mmb).  Clicking with mmb on mini-map causes the main win to jump, and

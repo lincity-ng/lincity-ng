@@ -35,6 +35,7 @@ Bug fixes
 - Fix close directory problem introduced in 1.11.
 - Fix wrong cost being charged for residences.
 - Code is now ANSI C compliant (I hope).
+- Fix crashes when installed in directory with long file name.
 
 Other changes
 - Moved save game directory from .Lin-city to .lincity

@@ -2,7 +2,7 @@
                      **  Welcome to lincity  **
 
 
-This is the README for lincity 1.12, pre-release version.  
+This is the README for lincity 1.12.
 
 
 WHAT IS LINCITY
@@ -10,7 +10,7 @@ WHAT IS LINCITY
 
 Lincity is a city/country simulation game for Linux (SVGALIB and X), 
 Solaris, FreeBSD, HPUX, AIX, SCO, IRIX, Compaq True64, BeOS, OS/2, VMS,
-AtheOS, and Win32 (Win95, Win98, ME, NT, 2000, XP).
+OS X, AtheOS, and Win32 (Win95, Win98, ME, NT, 2000, XP).
 
 You are required to build and maintain a city. You must feed, house, 
 provide jobs and goods for your residents. You can build a sustainable
@@ -64,13 +64,13 @@ REQUIREMENTS
 INSTALLATION (UNIX)
 ===================
 
-To install lincity, (as root) untar the file lincity-1.12pre48.tar.gz 
+To install lincity, (as root) untar the file lincity-1.12.0.gz 
 
-     tar -xzvf lincity-1.12pre48.tar.gz
+     tar -xzvf lincity-1.12.0.tar.gz
 
 You now want to compile the source
 
-      cd lincity-1.12pre48
+      cd lincity-1.12.0
       ./configure
       make
 
@@ -102,7 +102,7 @@ INSTALLATION (WIN32)
 Simply unpack the archive, and double click on the LINCITY.EXE icon.  
 You can get your free copy of UNZIP from the INFO-ZIP web page at
 
-    http://www.cdrom.com/pub/infozip/UnZip.html.
+    http://www.info-zip.org
 
 
 UNINSTALLING (UNIX)
@@ -432,7 +432,9 @@ INTERNATIONALIZATION UNDER WINDOWS
 ==================================
 
 The situation under windows is similar.  Download lincity 
-version 1.12pre53 binary package, and the Italian translation pack.
+binary package, version 1.12pre53 or newer, and also download
+the Italian translation pack.
+
 Install the Italian translation pack directly into the lincity 
 directory.  Then run the batch file:
 
@@ -573,17 +575,20 @@ patches being applied.
 
 Development was restarted in late 1999 by Greg Sharp to provide
 some moderate improvents, including networking support, GUI
-improvements and additional gameplay developments.  
+improvements and additional gameplay developments.  Networking 
+support was subsequently dropped in 2001.
 
 In mid-2001, Greg was joined by Corey Keasling, who helped to bring
 the game to sourceforge.net.  In late 2001, Corey became
-co-maintainer.  Having him partially in charge is a devastating blow
-to the game, ensuring no stable release until lincity 1.12pre2451.
+co-maintainer.  Version 1.12 was released in November 2003.
+
 
 COPYRIGHT
 =========
-Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
-Portions are copyright (c) Corey Keasling 2000-2001.
+Lincity is copyrighted software.
+Copyright (c) I J Peters 1995-1997.
+Copyright (c) Greg Sharp 1997-2003.
+Copyright (c) Corey Keasling 2000-2003.
 
 You may freely copy, distribute and modify lincity under the terms of the
 
@@ -591,7 +596,11 @@ You may freely copy, distribute and modify lincity under the terms of the
 
 Please read the file COPYING for the GPL.
 
+THANK YOU
+=========
 This game could not have been possible without the patches, scripts, 
 bug reports, suggestions, and other contributions from hundreds of 
 developers and users around the world.  Please read the file 
 'Acknowledgements' for details.
+
+And a special thanks to *you* for playing and enjoying lincity!

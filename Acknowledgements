@@ -1,4 +1,4 @@
-This file lists those people that have contributed to LinCity.
+This file lists those people that have contributed to lincity.
 If you think you should be here please contact me - my apologies to you,
 I sometimes forget.
 
@@ -87,6 +87,8 @@ Support for Borland c++builder compiler.
 Corey Keasling <ckeasling@col1.1stlink.net>
 Add support for moving main window using middle mouse button under X11.
 Add support for moving click-drag-release multi-transport.
+Corey has done other nifty stuff too, but he no longer gets a special
+mention for it since he joined as maintainer.
 
 Dàvik <al016950@alumail.uji.es>
 Add gettext support, and marked up all the embedded strings.
