@@ -3,6 +3,8 @@
 
 #include "gui/Component.hpp"
 
+#include <map>
+
 class XmlReader;
 class CheckButton;
 
@@ -20,8 +22,10 @@ class ButtonPanel:public Component
  
  private:
   void attachButtons();
-  std::string getName(XmlReader &reader) const;
+  std::string getAttribute(XmlReader &reader,const std::string &pName) const;
   void doButton(const std::string &button);
+  void toggleMenu(std::string pName,bool enable);
+
 
   int module;
   bool alreadyAttached;
@@ -29,6 +33,8 @@ class ButtonPanel:public Component
   std::vector<std::string> mMenuButtons;
   std::vector<std::string> mMenus;
   std::vector<std::string> mButtons;
+  
+  std::map<std::string,int> mMenuSelected;
 };
 
 ButtonPanel *getButtonPanel();

@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
 <ButtonPanel width="200" height="376">
   <menubutton name="BPPointerButton"/>
-  <menu name="BPPointerMenu"/>
+  <menu name="BPPointerMenu" default="BPMPointerButton"/>
   <button name="BPMPointerButton"/>
   <button name="BPMBullDozeButton"/>
   
   <menubutton name="BPResidenceButton"/>
-  <menu name="BPResidenceMenu"/>
-  <button name="BPMResidenceButton"/>
+  <menu name="BPResidenceMenu" default="BPMResidence1Button"/>
+  <button name="BPMResidence1Button"/>
   <button name="BPMResidence2Button"/>
   <button name="BPMResidence3Button"/>
-  <button name="BPMFarmButton"/>
-  <button name="BPMMillButton"/>
+  <button name="BPMResidence4Button"/>
+  <button name="BPMResidence5Button"/>
+  <button name="BPMResidence6Button"/>
   
 	<menubutton name="BPHealthButton"/>
-  <menu name="BPHealthMenu"/>
+  <menu name="BPHealthMenu" default="BPMHealthButton"/>
   <button name="BPMHealthButton"/>
   <button name="BPMSportsButton"/>
   <button name="BPMFireButton"/>
@@ -22,7 +23,7 @@
   <button name="BPMUniversityButton"/>
 	
 	<menubutton name="BPTransportButton"/>
-  <menu name="BPTransportMenu"/>
+  <menu name="BPTransportMenu" default="BPMRailButton"/>
   <button name="BPMTrackButton"/>
   <button name="BPMStreetButton"/>
   <button name="BPMRailButton"/>
@@ -30,7 +31,7 @@
   <button name="BPMRocketButton"/>
 	
 	<menubutton name="BPPowerButton"/>
-  <menu name="BPPowerMenu"/>
+  <menu name="BPPowerMenu" default="BPMPowerLineButton"/>
   <button name="BPMPowerLineButton"/>
   <button name="BPMCoalPSButton"/>
   <button name="BPMSolarPSButton"/>
@@ -38,7 +39,7 @@
   <button name="BPMWindmillButton"/>
 	
 	<menubutton name="BPMiningButton"/>
-  <menu name="BPMiningMenu"/>
+  <menu name="BPMiningMenu" default="BPMCommuneButton"/>
   <button name="BPMCommuneButton"/>
   <button name="BPMCoalButton"/>
   <button name="BPMOreButton"/>
@@ -46,7 +47,7 @@
   <button name="BPMRecycleButton"/>
 	
 	<menubutton name="BPIndustryButton"/>
-  <menu name="BPIndustryMenu"/>
+  <menu name="BPIndustryMenu" default="BPMLIndustryButton"/>
   <button name="BPMLIndustryButton"/>
   <button name="BPMHIndustryButton"/>
   <button name="BPMMarketButton"/>
@@ -54,10 +55,12 @@
   <button name="BPMBlacksmithButton"/>
 
 	<menubutton name="BPParkButton"/>
-  <menu name="BPParkMenu"/>
+  <menu name="BPParkMenu" default="BPMMonumentButton"/>
   <button name="BPMMonumentButton"/>
   <button name="BPMParkButton"/>
   <button name="BPMWaterButton"/>
+  <button name="BPMFarmButton"/>
+  <button name="BPMMillButton"/>
 	
 	<!-- all types:
 				resident
@@ -148,10 +151,10 @@
           </CheckButton>
         </cell>
         <cell row="2" col="2" halign="left">
-          <Panel name="BPResidenceMenu" width="240" height="50">
-            <TableLayout rows="1" cols="5">
+          <Panel name="BPResidenceMenu" width="288" height="50">
+            <TableLayout rows="1" cols="6">
               <cell row="1" col="1">
-                <CheckButton name="BPMResidenceButton" main="BPResidenceButton">
+                <CheckButton name="BPMResidence1Button" main="BPResidenceButton">
                   <image src="images/gui/rnew_button_bg0.png"/>
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
@@ -178,21 +181,30 @@
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
-                <CheckButton name="BPMFarmButton" main="BPResidenceButton">
+                <CheckButton name="BPMResidence4Button" main="BPResidenceButton">
                   <image src="images/gui/rnew_button_bg0.png"/>
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/cow.png"/>
+                  <image-caption src="images/gui/round_resident.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
-                <CheckButton name="BPMMillButton" main="BPResidenceButton">
+                <CheckButton name="BPMResidence5Button" main="BPResidenceButton">
                   <image src="images/gui/rnew_button_bg0.png"/>
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/windmill.png"/>
+                  <image-caption src="images/gui/round_resident2.png"/>
+                </CheckButton>
+              </cell>
+              <cell row="1" col="6">
+                <CheckButton name="BPMResidence6Button" main="BPResidenceButton">
+                  <image src="images/gui/rnew_button_bg0.png"/>
+                  <image-hover src="images/gui/rnew_button_bg1.png"/>
+                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
+                  <image-checked src="images/gui/rnew_button_bg3.png"/>
+                  <image-caption src="images/gui/round_resident3.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -515,8 +527,8 @@
           </CheckButton>
         </cell>
         <cell row="8" col="2" halign="left">
-          <Panel name="BPParkMenu" width="146" height="50">
-            <TableLayout rows="1" cols="3">
+          <Panel name="BPParkMenu" width="240" height="50">
+            <TableLayout rows="1" cols="5">
               <cell row="1" col="1">
                 <CheckButton name="BPMMonumentButton" main="BPParkButton">
                   <image src="images/gui/rnew_button_bg0.png"/>
@@ -542,6 +554,24 @@
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
                   <image-caption src="images/gui/ship.png"/>
+                </CheckButton>
+              </cell>
+              <cell row="1" col="4">
+                <CheckButton name="BPMFarmButton" main="BPResidenceButton">
+                  <image src="images/gui/rnew_button_bg0.png"/>
+                  <image-hover src="images/gui/rnew_button_bg1.png"/>
+                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
+                  <image-checked src="images/gui/rnew_button_bg3.png"/>
+                  <image-caption src="images/gui/cow.png"/>
+                </CheckButton>
+              </cell>
+              <cell row="1" col="5">
+                <CheckButton name="BPMMillButton" main="BPResidenceButton">
+                  <image src="images/gui/rnew_button_bg0.png"/>
+                  <image-hover src="images/gui/rnew_button_bg1.png"/>
+                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
+                  <image-checked src="images/gui/rnew_button_bg3.png"/>
+                  <image-caption src="images/gui/windmill.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
