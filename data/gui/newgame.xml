@@ -48,7 +48,7 @@
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
                       <image-checked src="images/gui/savebutton3.png"/>
-                    </CheckButton>                    
+                    </CheckButton>
                 </cell>
                 <cell row="4" col="1">
                     <CheckButton name="File1">
@@ -57,7 +57,7 @@
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
                       <image-checked src="images/gui/savebutton3.png"/>
-                    </CheckButton>                    
+                    </CheckButton>
                 </cell>
                 <cell row="5" col="1">
                     <CheckButton name="File2">
@@ -66,7 +66,7 @@
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
                       <image-checked src="images/gui/savebutton3.png"/>
-                    </CheckButton>                    
+                    </CheckButton>
                 </cell>
                 <cell row="6" col="1">
                     <CheckButton name="File3">
@@ -75,7 +75,7 @@
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
                       <image-checked src="images/gui/savebutton3.png"/>
-                    </CheckButton>                    
+                    </CheckButton>
                 </cell>
                 <cell row="7" col="1">
                     <CheckButton name="File4">
@@ -84,7 +84,7 @@
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
                       <image-checked src="images/gui/savebutton3.png"/>
-                    </CheckButton>                    
+                    </CheckButton>
                 </cell>
                 <cell row="8" col="1">
                     <CheckButton name="File5">
@@ -93,7 +93,7 @@
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
                       <image-checked src="images/gui/savebutton3.png"/>
-                    </CheckButton>                    
+                    </CheckButton>
                 </cell>
 
             </TableLayout>
@@ -104,20 +104,18 @@
                 <rowsize row="2" relative="1"/>
                 <cell row="2" col="1" halign="left">
                     <Button name="BackButton">
-                        <text style="button" translatable="yes">Back</text>
-                        <text-hover style="button-hover"
-                        translatable="yes">Back</text-hover>
-                        <text-clicked style="button-clicked"
-                        translatable="yes">Back</text-clicked>
+			<text-caption style="button" translatable="yes">Back</text-caption>
+			<image src="images/mainmenu/buttons/back.png"/>
+			<image-hover src="images/mainmenu/buttons/back-hover.png"/>
+			<image-clicked src="images/mainmenu/buttons/back-clicked.png"/>
                     </Button>
                 </cell>
                 <cell row="2" col="2" halign="right">
                     <Button name="StartButton">
-                        <text style="button" translatable="yes">Start</text>
-                        <text-hover style="button-hover"
-                        translatable="yes">Start</text-hover>
-                        <text-clicked style="button-clicked"
-                        translatable="yes">Start</text-clicked>
+			<text-caption style="button" translatable="yes">Start</text-caption>
+			<image src="images/mainmenu/buttons/start.png"/>
+			<image-hover src="images/mainmenu/buttons/start-hover.png"/>
+			<image-clicked src="images/mainmenu/buttons/start-clicked.png"/>
                     </Button>
                 </cell>
             </TableLayout>
