@@ -21,9 +21,8 @@
 #include "Game.hpp"
 #include "Sound.hpp"
 
-#define USE_OPENGL
-
 Painter* painter = 0;
+bool useOpenGL = false;
 
 void initSDL()
 {
@@ -82,17 +81,17 @@ void initVideo(int width, int height)
 {
     int bpp = 0;
     int flags;
-#ifdef USE_OPENGL
-    flags = SDL_OPENGL | SDL_RESIZABLE;
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
-    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 1);
-    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 1);
-    //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
-    //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-#else
-    flags = SDL_HWSURFACE  | SDL_RESIZABLE;
-#endif
+    if( useOpenGL ){
+        flags = SDL_OPENGL | SDL_RESIZABLE;
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+        SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
+        SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 1);
+        SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 1);
+        //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
+        //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+    } else {
+        flags = SDL_HWSURFACE  | SDL_RESIZABLE;
+    }
     SDL_Surface* screen
         = SDL_SetVideoMode(width, height, bpp, flags);
     SDL_WM_SetCaption(PACKAGE_NAME " " PACKAGE_VERSION, 0);
@@ -105,35 +104,35 @@ void initVideo(int width, int height)
     }
 
     delete painter;
-#ifdef USE_OPENGL
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
+    if( useOpenGL ){
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
 
-    glClearColor(0, 0, 0, 0);
-    glViewport(0, 0, screen->w, screen->h);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+        glClearColor(0, 0, 0, 0);
+        glViewport(0, 0, screen->w, screen->h);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
 
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, screen->w, screen->h, 0, -1, 1);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, screen->w, screen->h, 0, -1, 1);
 
-    glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);
     
-    painter = new PainterGL();
-#else
-    painter = new PainterSDL(screen);
-#endif
+        painter = new PainterGL();
+    } else {
+        painter = new PainterSDL(screen);
+    }
 }
 
 void flipScreenBuffer()
 {
-#ifdef USE_OPENGL
-    SDL_GL_SwapBuffers();
-    //glClear(GL_COLOR_BUFFER_BIT);
-#else
-    SDL_Flip(SDL_GetVideoSurface());
-#endif
+    if( useOpenGL ){
+        SDL_GL_SwapBuffers();
+        //glClear(GL_COLOR_BUFFER_BIT);
+    } else {
+        SDL_Flip(SDL_GetVideoSurface());
+    }
 }
 
 void mainLoop()
@@ -165,12 +164,51 @@ void mainLoop()
     }
 }
 
-int main(int , char** argv)
+int main(int argc, char** argv)
 {
     int result = 0;
 
-    // TODO: parse commandline args
-    
+    //set default Values
+    useOpenGL = false;
+   
+    //parse commandline args
+    int currentArgument = 0; 
+    bool knownArgument = true; //argv[0] is the programname.
+    std::string argStr;
+    while( currentArgument < argc ) {
+        argStr = argv[ currentArgument ];
+        
+        if( argStr == "-v" ){ //show Version & exit
+            std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
+            knownArgument = true;
+            exit( 0 );
+        }
+        if( argStr == "-h" ){ //show Options & exit
+            std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
+            std::cout << "Known arguments are:\n";
+            std::cout << "-v show version and exit\n";
+            std::cout << "-h show his text and exit\n";
+            std::cout << "-gl use OpenGL\n";
+            std::cout << "-sdl use SDL (this is default)\n";
+            knownArgument = true;
+            exit( 0 );
+        }
+        if( argStr == "-gl" ){ //use OpenGL
+            useOpenGL = true; 
+            knownArgument = true;
+        }
+        if( argStr == "-sdl" ){ //use SGL
+            useOpenGL = false; 
+            knownArgument = true;
+        }
+        
+        //This has to be the last Test:
+        if( !knownArgument ){
+            std::cerr << "Unknown command line argument: " << argStr << "\n";
+        }
+        currentArgument++;
+        knownArgument = false;
+    }
 #ifndef DEBUG //in debug mode we wanna have a backtrace
     try {
 #endif
@@ -178,14 +216,13 @@ int main(int , char** argv)
         initSDL();
         initTTF();
         initVideo(1024, 800);
-	initLincity();
+	    initLincity();
 
-#ifdef USE_OPENGL
-        texture_manager = new TextureManagerGL();
-#else
-        texture_manager = new TextureManagerSDL();
-#endif
-
+        if( useOpenGL ) {
+            texture_manager = new TextureManagerGL();
+        } else {
+            texture_manager = new TextureManagerSDL();
+        }
         std::auto_ptr<Sound> sound;
         sound.reset(new Sound()); 
         
