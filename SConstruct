@@ -237,3 +237,5 @@ SConscript('src/oldgui/SConscript', build_dir = build_dir + '/oldgui',
         duplicate = 0)
 SConscript('src/lincity-ng/SConscript', build_dir = build_dir + '/lincity-ng',
         duplicate = 0)
+SConscript("src/tools/xmlgettext/SConscript", build_dir = build_dir +
+        "/tools/xmlgettext", duplicate = 0)
