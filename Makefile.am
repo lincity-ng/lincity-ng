@@ -28,6 +28,7 @@ noinst_HEADERS = \
 	module_buttons.h \
 	mouse.h      mps.h	  pbar.h    \
 	picedit.h    pixmap.h     power.h \
+	readpng.h \
 	resource.h	 screen.h \
 	shrglobs.h   stats.h \
 	simulate.h   timer.h	 transport.h \
@@ -171,6 +172,7 @@ xlincity_SOURCES = \
 	lclib.c power.c \
 	ldsvguts.c engine.c transport.c market.c \
 	simulate.c shrtypes.c lintypes.c \
+	readpng.c \
 	timer.c fileutil.c shrglobs.c stats.c
 EXTRA_xlincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
@@ -181,7 +183,7 @@ xlincity_DEPENDENCIES = \
 	${XLC_OBJ}
 xlincity_LDADD = \
 	${XLC_OBJ} \
-	@X_LIBS@ -lXext -lX11 -lm
+	@X_LIBS@ -lXext -lX11 -lpng -lz -lm
 
 
 ## ----- lincity -----
@@ -189,6 +191,7 @@ lincity_SOURCES = \
 	lclib.c power.c \
 	ldsvguts.c engine.c transport.c market.c \
 	simulate.c shrtypes.c lintypes.c \
+	readpng.c \
 	timer.c fileutil.c shrglobs.c stats.c
 EXTRA_lincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
@@ -199,7 +202,7 @@ lincity_DEPENDENCIES = \
 	${LC_OBJ}
 lincity_LDADD = \
 	${LC_OBJ} \
-	-lvgagl -lvga -lm
+	-lvgagl -lvga -lpng -lz -lm
 
 ## ----- xpicedit -----
 xpicedit_SOURCES = 
