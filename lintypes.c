@@ -10,6 +10,8 @@
 #include "shrglobs.h"
 #include "lintypes.h"
 #include "lcintl.h"
+#include "fileutil.h"
+#include "readpng.h"
 
 struct TYPE main_types[NUM_OF_TYPES];
 
@@ -526,9 +528,15 @@ struct GROUP main_groups[NUM_OF_GROUPS] =
     }
 };
 
-
 void init_types(void)
 {
+    char png_file[LC_PATH_MAX], txt_file[LC_PATH_MAX];
+    sprintf (png_file, "%s%c%s", opening_path, PATH_SLASH, "icons.png");
+    sprintf (txt_file, "%s%c%s", opening_path, PATH_SLASH, "iconlist.txt");
+
+    load_png_graphics (txt_file,png_file);
+
+#if defined (commentout)
     main_types[CST_GREEN].group=GROUP_BARE;
     main_types[CST_GREEN].graphic=load_graphic(CST_GREEN_G);
 
@@ -703,7 +711,6 @@ void init_types(void)
     main_types[CST_FARM_O16].group=GROUP_ORGANIC_FARM;
     main_types[CST_FARM_O16].graphic=load_graphic(CST_FARM_O16_G);
 
-
     main_types[CST_MARKET_EMPTY].group=GROUP_MARKET;
     main_types[CST_MARKET_EMPTY].graphic
 	    =load_graphic(CST_MARKET_EMPTY_G);
@@ -768,7 +775,6 @@ void init_types(void)
     main_types[CST_COALMINE_FULL].group=GROUP_COALMINE;
     main_types[CST_COALMINE_FULL].graphic
 	    =load_graphic(CST_COALMINE_FULL_G);
-
 
     main_types[CST_RAIL_LR].group=GROUP_RAIL;
     main_types[CST_RAIL_LR].graphic=load_graphic(CST_RAIL_LR_G);
@@ -908,8 +914,6 @@ void init_types(void)
     main_types[CST_INDUSTRY_L_H4].graphic
 	    =load_graphic(CST_INDUSTRY_L_H4_G);
 
-
-
     main_types[CST_COMMUNE_1].group=GROUP_COMMUNE;
     main_types[CST_COMMUNE_1].graphic=load_graphic(CST_COMMUNE_1_G);
 
@@ -951,7 +955,6 @@ void init_types(void)
 
     main_types[CST_COMMUNE_14].group=GROUP_COMMUNE;
     main_types[CST_COMMUNE_14].graphic=load_graphic(CST_COMMUNE_14_G);
-
 
     main_types[CST_UNIVERSITY].group=GROUP_UNIVERSITY;
     main_types[CST_UNIVERSITY].graphic=load_graphic(CST_UNIVERSITY_G);
@@ -1007,10 +1010,8 @@ void init_types(void)
     main_types[CST_TIP_8].group=GROUP_TIP;
     main_types[CST_TIP_8].graphic=load_graphic(CST_TIP_8_G);
 
-
     main_types[CST_EX_PORT].group=GROUP_PORT;
     main_types[CST_EX_PORT].graphic=load_graphic(CST_EX_PORT_G);
-
 
     main_types[CST_INDUSTRY_H_C].group=GROUP_INDUSTRY_H;
     main_types[CST_INDUSTRY_H_C].graphic
@@ -1113,7 +1114,6 @@ void init_types(void)
     main_types[CST_INDUSTRY_H_H8].graphic
 	    =load_graphic(CST_INDUSTRY_H_H8_G);
 
-
     main_types[CST_PARKLAND_PLANE].group=GROUP_PARKLAND;
     main_types[CST_PARKLAND_PLANE].graphic
 	    =load_graphic(CST_PARKLAND_PLANE_G);
@@ -1175,7 +1175,6 @@ void init_types(void)
     main_types[CST_WATER_LURD].group=GROUP_WATER;
     main_types[CST_WATER_LURD].graphic=load_graphic(CST_WATER_LURD_G);
 
-
     main_types[CST_HEALTH].group=GROUP_HEALTH;
     main_types[CST_HEALTH].graphic=load_graphic(CST_HEALTH_G);
 
@@ -1205,6 +1204,7 @@ void init_types(void)
     main_types[CST_ROCKET_FLOWN].group=GROUP_ROCKET;
     main_types[CST_ROCKET_FLOWN].graphic
 	    =load_graphic(CST_ROCKET_FLOWN_G);
+
 
     main_types[CST_BURNT].group=GROUP_BURNT;
     main_types[CST_BURNT].graphic=load_graphic(CST_BURNT_G);
@@ -1257,7 +1257,6 @@ void init_types(void)
     main_types[CST_WINDMILL_3_W].graphic
 	    =load_graphic(CST_WINDMILL_3_W_G);
 
-
     main_types[CST_MONUMENT_0].group=GROUP_MONUMENT;
     main_types[CST_MONUMENT_0].graphic=load_graphic(CST_MONUMENT_0_G);
 
@@ -1275,7 +1274,6 @@ void init_types(void)
 
     main_types[CST_MONUMENT_5].group=GROUP_MONUMENT;
     main_types[CST_MONUMENT_5].graphic=load_graphic(CST_MONUMENT_5_G);
-
 
     main_types[CST_SCHOOL].group=GROUP_SCHOOL;
     main_types[CST_SCHOOL].graphic=load_graphic(CST_SCHOOL_G);
@@ -1404,7 +1402,6 @@ void init_types(void)
     main_types[CST_FIRESTATION_10].graphic
 	    =load_graphic(CST_FIRESTATION_10_G);
 
-
     main_types[CST_CRICKET_1].group=GROUP_CRICKET;
     main_types[CST_CRICKET_1].graphic
 	    =load_graphic(CST_CRICKET_1_G);
@@ -1473,6 +1470,7 @@ void init_types(void)
 
     main_types[CST_SHANTY].group=GROUP_SHANTY;
     main_types[CST_SHANTY].graphic=load_graphic(CST_SHANTY_G);
+#endif
 
     main_types[CST_USED].group=GROUP_USED;
     main_types[CST_USED].graphic=0;         /* Won't be dereferenced! */

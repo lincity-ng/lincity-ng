@@ -606,7 +606,9 @@ make_savedir (void)
 void
 check_savedir (void)
 {
+#if defined (commentout)
     int i = 0, j, k, r, l;
+#endif
 
     if (!directory_exists (lc_save_dir)) {
 	make_savedir ();
