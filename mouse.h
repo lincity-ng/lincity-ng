@@ -39,10 +39,6 @@ struct mouse_button_struct {
 void cs_mouse_handler (int enc_button, int dx, int dy);
 void mouse_setup (void);
 
-#ifdef MOUSE_REPEAT
-void cs_mouse_repeat (void);
-#endif
-
 void cs_mouse_handler (int, int, int);
 void move_mouse (int, int); 
 void do_mouse_main_win (int, int, int);

@@ -2161,9 +2161,6 @@ close_market_cb (void)
 
     /* when exiting market cb, stop the mouse repeating straight away */
     cs_mouse_button = LC_MOUSE_LEFTBUTTON;
-#ifdef MOUSE_REPEAT
-    cs_mouse_button_repeat = real_time + 1000;
-#endif
 }
 
 void
@@ -2247,9 +2244,6 @@ close_port_cb (void)
     Fgl_putbox (mcb->x, mcb->y, mcb->w, mcb->h, market_cb_gbuf);
     /* when exiting port cb, stop the mouse repeating straight away */
     cs_mouse_button = LC_MOUSE_LEFTBUTTON;
-#ifdef MOUSE_REPEAT
-    cs_mouse_button_repeat = real_time + 1000;
-#endif
 }
 
 #ifdef __dialbox_h__
@@ -2281,10 +2275,6 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
 
     unrequest_mappoint_stats ();
     unrequest_main_screen ();
-
-#ifdef MOUSE_REPEAT
-    cs_mouse_button_delay = 0; 
-#endif
 
     /* find len of longest string */
     if (strlen (s1) > w)
@@ -2389,9 +2379,6 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
       // in the main loop!
     */
     reset_mouse_flag = 1;
-#ifdef MOUSE_REPEAT
-    cs_mouse_button_repeat = real_time + 1000;
-#endif
 
     request_main_screen ();
 
@@ -2477,9 +2464,6 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     unrequest_mappoint_stats ();
     unrequest_main_screen ();
 
-#ifdef MOUSE_REPEAT
-    cs_mouse_button_delay = 0;
-#endif
     /* select which colour to draw the box in. */
     if (suppress_ok_buttons != 0)
 	return;
@@ -2623,9 +2607,6 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     free (ss);
     /* when exiting dial box, stop the mouse repeating straight away */
     reset_mouse_flag = 1;
-#ifdef MOUSE_REPEAT
-    cs_mouse_button_repeat = real_time + 1000;
-#endif
 
     request_main_screen ();
 }

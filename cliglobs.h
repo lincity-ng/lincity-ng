@@ -43,10 +43,6 @@ extern int cs_mouse_x, cs_mouse_y, cs_mouse_button;	/* current mouse status */
 extern int cs_mouse_shifted;	/* shift key pressed with mouse. */
 extern int cs_mouse_xmax, cs_mouse_ymax, omx, omy, mox, moy;
 
-#ifdef MOUSE_REPEAT
-extern int cs_mouse_button_repeat, cs_mouse_button_delay;
-#endif
-
 extern int mouse_hide_count;
 #if defined (WIN32)
 /* extern int cs_current_mouse_x, cs_current_mouse_y, cs_current_mouse_button; */
