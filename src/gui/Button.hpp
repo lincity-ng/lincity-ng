@@ -24,6 +24,9 @@ public:
 
     void draw(Painter& painter);
     void event(const Event& event);
+    
+    void setCaptionText(const std::string &pText);
+    std::string getCaptionText();
 
     Signal<Button*> clicked;
 

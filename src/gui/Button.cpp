@@ -150,6 +150,34 @@ Button::setChildText(Child& child, XmlReader& reader)
     resetChild(child, paragraph.release());
 }
 
+void Button::setCaptionText(const std::string &pText)
+{
+  Child &c=comp_caption();
+  Component *cm=c.getComponent();
+  if(cm)
+  {
+    Paragraph *p=dynamic_cast<Paragraph*>(cm);
+    if(p)
+      p->setText(pText);
+  }
+}
+
+std::string Button::getCaptionText()
+{
+  std::string s;
+  Child &c=comp_caption();
+  Component *cm=c.getComponent();
+  if(cm)
+  {
+    Paragraph *p=dynamic_cast<Paragraph*>(cm);
+    if(p)
+      s=p->getText();
+  }  
+  
+  return s;
+}
+
+
 Button::~Button()
 {
 }

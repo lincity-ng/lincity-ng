@@ -278,6 +278,32 @@ std::string CheckButton::getMain() const
 {
   return mmain;
 }
+void CheckButton::setCaptionText(const std::string &pText)
+{
+  Child &c=comp_caption();
+  Component *cm=c.getComponent();
+  if(cm)
+  {
+    Paragraph *p=dynamic_cast<Paragraph*>(cm);
+    if(p)
+      p->setText(pText);
+  }
+}
+
+std::string CheckButton::getCaptionText()
+{
+  std::string s;
+  Child &c=comp_caption();
+  Component *cm=c.getComponent();
+  if(cm)
+  {
+    Paragraph *p=dynamic_cast<Paragraph*>(cm);
+    if(p)
+      s=p->getText();
+  }  
+  
+  return s;
+}
 
 
 IMPLEMENT_COMPONENT_FACTORY(CheckButton);

@@ -426,6 +426,15 @@ Paragraph::setText(const std::string& newtext)
     setText(newtext, style);
 }
 
+std::string Paragraph::getText() const
+{
+  std::string t;
+  for(TextSpans::const_iterator i = textspans.begin(); i != textspans.end(); ++i)
+    t+=(*i)->text;
+  return t;
+}
+
+
 void
 Paragraph::setText(const std::string& newtext, const Style& style)
 {

@@ -9,6 +9,8 @@
 #include "gui/Component.hpp"
 #include "gui/Paragraph.hpp"
 
+#include "CheckButton.hpp"
+
 template<typename T>
 void findComponent(T** result, Component& tree, const std::string& name)
 {
@@ -33,6 +35,12 @@ void findComponent(T** result, Component& tree, const std::string& name)
 Button* getButton(Component& tree, const std::string& name)
 {
     Button* result;
+    findComponent(&result, tree, name);
+    return result;
+}
+CheckButton* getCheckButton(Component& tree, const std::string& name)
+{
+    CheckButton* result;
     findComponent(&result, tree, name);
     return result;
 }

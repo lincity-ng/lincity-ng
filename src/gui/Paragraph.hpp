@@ -47,6 +47,8 @@ public:
      * Sets a new text in the Paragraph.
      */
     void setText(const std::string& text, const Style& style);
+    
+    std::string getText() const;
 
 private:
     typedef std::vector<TextSpan*> TextSpans;

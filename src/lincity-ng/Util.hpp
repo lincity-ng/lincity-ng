@@ -4,10 +4,12 @@
 #include <string>
 
 class Button;
+class CheckButton;
 class Paragraph;
 class Component;
 
 Button* getButton(Component& tree, const std::string& name);
+CheckButton* getCheckButton(Component& tree, const std::string& name);
 Paragraph* getParagraph(Component& tree, const std::string& name);
 
 #endif

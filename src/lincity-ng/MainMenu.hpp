@@ -5,6 +5,7 @@
 
 class Component;
 class Button;
+class CheckButton;
 
 class MainMenu
 {
@@ -19,6 +20,8 @@ private:
     void loadNewGameMenu();
     void loadLoadGameMenu();
     
+    void fillLoadMenu();
+    
     void quitButtonClicked(Button* );
     void continueButtonClicked(Button* );
     void newGameButtonClicked(Button* );
@@ -30,13 +33,17 @@ private:
     void loadGameBackButtonClicked(Button* );
     void loadGameLoadButtonClicked(Button* );
     
+    void selectLoadGameButtonClicked(CheckButton*,int);
+    
     std::auto_ptr<Component> mainMenu;
     std::auto_ptr<Component> newGameMenu;
     std::auto_ptr<Component> loadGameMenu;
     Component* currentMenu;
     
     bool running;
-    MainState quitState;               
+    MainState quitState;           
+    
+    std::string mFilename;    
 };
 
 #endif

@@ -20,6 +20,9 @@ public:
 
     Signal<CheckButton*,int> clicked; // give CheckButton and button
 
+    void setCaptionText(const std::string &pText);
+    std::string getCaptionText();
+
     Component *getCaption();
     std::string getMain() const;
     void uncheck();

@@ -2,7 +2,9 @@
 
 #include <stdexcept>
 #include <sstream>
+#include <iostream>
 #include <typeinfo>
+#include <physfs.h>
 
 #include "gui/TextureManager.hpp"
 #include "gui/ComponentLoader.hpp"
@@ -10,6 +12,10 @@
 #include "gui/Event.hpp"
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
+
+#include "lincity/lin-city.h"
+
+#include "CheckButton.hpp"
 
 #include "MainMenu.hpp"
 #include "Util.hpp"
@@ -50,6 +56,47 @@ MainMenu::loadMainMenu()
     mainMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
+void MainMenu::fillLoadMenu()
+{
+  char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
+  char *scenario[]={"Scenario0","Scenario1"};
+  
+  char **files= PHYSFS_enumerateFiles("data/savegames");
+  
+  char **fptr=files;
+ 
+  for(int i=0;i<6;i++)
+  {
+    CheckButton *button=getCheckButton(*loadGameMenu.get(),buttonNames[i]);
+    
+    button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+    while(*fptr)
+    {
+      if(std::string(*fptr).find(".scn")!=std::string::npos)
+        break;
+      fptr++;
+    }
+    if(*fptr)
+    {
+      std::string f=*fptr;
+      if(f.length()>5)
+        f=f.substr(0,f.length()-4); // truncate .scn
+      button->setCaptionText(f);
+      fptr++;
+    }
+    else
+      button->setCaptionText("");
+  }
+  
+  for(int i=0;i<2;i++)
+  {
+    CheckButton *button=getCheckButton(*loadGameMenu.get(),scenario[i]);
+    
+    button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+  }
+  PHYSFS_freeList(files);
+}
+
 void
 MainMenu::loadNewGameMenu()
 {
@@ -81,10 +128,37 @@ MainMenu::loadLoadGameMenu()
         Button* backButton = getButton(*loadGameMenu, "BackButton");
         backButton->clicked.connect(
                 makeCallback(*this, &MainMenu::loadGameBackButtonClicked));
+        // fill in file-names into slots
+        fillLoadMenu();
     }
 
     loadGameMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
+
+void 
+MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
+{
+  std::string fc=button->getCaptionText();
+  
+  std::string file="";
+  if(button->getName()=="Scenario0")
+    file="data/opening/good_times.scn";
+  else if(button->getName()=="Scenario1")
+    file="data/opening/bad_times.scn";
+  else if(fc.length())
+  {
+    file=std::string("data/")+fc+".scn";
+  }
+  char *bs[]={"Scenario0","Scenario1","File0","File1","File2","File3","File4","File5",""};
+  for(int i=0;std::string(bs[i]).length();i++)
+  {
+    CheckButton *b=getCheckButton(*loadGameMenu,bs[i]);
+    if(b->getName()!=button->getName())
+      b->uncheck();
+  }
+  mFilename=file;
+}
+
     
 void
 MainMenu::quitButtonClicked(Button* )
@@ -145,6 +219,8 @@ MainMenu::loadGameBackButtonClicked(Button* )
 void
 MainMenu::loadGameLoadButtonClicked(Button *)
 {
+    if(mFilename.length())
+      load_city(const_cast<char*>(mFilename.c_str()));
     getSound()->playwav( "Click" );
     quitState = INGAME;
     running = false;
