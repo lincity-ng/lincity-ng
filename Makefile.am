@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = foreign
 
 ### DEFS = @DEFS@ -DLIBDIR=\"${pkgdatadir}\"
 DEFS = @DEFS@
-X_DEFS = -DLC_X11=1
+X_DEFS = -DLC_X11=1 -Wall
 SVGA_DEFS = -DSVGALIB=1
 
 SUBDIRS = m4 intl po modules

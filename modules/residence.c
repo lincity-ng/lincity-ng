@@ -274,7 +274,8 @@ mps_residence (int x, int y)
     int i = 0;
     int l;
     char * p;
-    snprintf(mps_info[i++], MPS_INFO_CHARS, "%s", _("Residence"));
+
+    mps_store_title(i++,_("Residence"));
 
     i++;
 

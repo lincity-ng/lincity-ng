@@ -248,6 +248,7 @@ lincity_main (int argc, char *argv[])
     initialize_monthgraph ();
     init_mouse_registry ();
     init_mini_map_mouse ();
+    mps_init();
 
 #ifdef LC_X11
     x_key_value = 0;

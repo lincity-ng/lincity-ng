@@ -19,7 +19,7 @@ typedef int Int32;
 #elif (SIZEOF_LONG==4)
 typedef long Int32;
 #else
-ERROR.  Int32 is not defined.
+#error  Int32 is not defined.
 #endif
 
 #if (SIZEOF_SHORT==2)
@@ -27,7 +27,7 @@ typedef short Int16;
 #elif (SIZEOF_INT==2)
 typedef int Int16;
 #else
-ERROR.  Int16 is not defined.
+#error  Int16 is not defined.
 #endif
 
 #endif	/* __lcconfig_h__ */

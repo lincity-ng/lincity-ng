@@ -39,23 +39,32 @@ void mappoint_stats (int, int, int);
 
 #define MPS_INFO_CHARS (MAPPOINT_STATS_W / 8) + 1
 
+void mps_init();
+
 void mps_set(int style, int x, int y); /* Attaches an area or global display */
 void mps_redraw(void);  /* Re-draw the mps area, bezel and all */
 void mps_refresh(void); /* refresh the information display's contents */
 void mps_update(void);  /* Update text contents for later display (refresh) */
 void mps_global_advance(void); /* Changes global var to next display */
 
+
+/* mps_info storage functions; place values of corresponding type into
+   mps_info[], performing certain pretification. The single argument 
+   forms center their argument.  The dual arguments left-justify the
+   first and right-justify the second.  the ..p forms put a % after
+   the second argument 
+ */
+void mps_store_title(int i, char * t);
 void mps_store_ss(int i, char * s1, char * s2);
 void mps_store_sd(int i, char * s, int d);
+void mps_store_sfp(int i, char * s, double fl);
 
 /* Data for new mps routines */
 extern char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
 extern int mps_global_style;
-/* The following format strings are generated at init-time; we need this
-   because I can't figure out how to use a constant to specify a field
-   width to snprintf.  mps_rstring ends up something like "%15s" */
-extern char mps_rstring[6];  
-extern char mps_rint[6];
+
+/* MPS Global displays */
+void mps_global_finance(void);
 
 #define _generic_mps
 #ifdef _generic_mps
@@ -63,3 +72,4 @@ extern char mps_rint[6];
 
 
 #endif /* __mps_h__ */
+

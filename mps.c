@@ -20,6 +20,8 @@
 #include "lclib.h"
 #include "lcintl.h"
 #include "stats.h"
+#include <modules.h>
+#include <mouse.h>
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -91,14 +93,12 @@ void mps_health (int, int);
 char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
 int mps_global_style;
 
-char mps_rstring[6];
-char mps_rint[6];
-
 static int mps_style;
 
 static int mps_x;
 static int mps_y;
 
+static Mouse_Handle * mps_handle;
 
 
 /*
@@ -109,6 +109,32 @@ static int mps_y;
  * mps_info (see above)
  * ----------------------------------------------------------------------
  * */
+
+void
+mps_handler(int x, int y, int button)
+{
+    if (button == LC_MOUSE_LEFTBUTTON) {
+	if (mps_style == MPS_GLOBAL) {
+	    mps_global_advance();
+	} else {
+	    mps_set(0,0,MPS_GLOBAL);
+	}
+    } else if (button == LC_MOUSE_RIGHTBUTTON) {
+	/* XXX: Pop help here, depending on selected style */
+    }
+}
+
+/* mps_init: register mouse handles */
+
+void
+mps_init() 
+{
+    Rect* mps = &scr.mappoint_stats;
+
+    mps_handle = mouse_register(&scr.mappoint_stats,&mps_handler);
+}
+
+
 
 void
 mps_set(int x, int y, int style) {
@@ -123,12 +149,6 @@ mps_set(int x, int y, int style) {
 	mps_x = 0;
 	mps_y = 0;
     }
-
-    snprintf(mps_rstring, sizeof(mps_rstring), "%%%ds",
-	     MPS_INFO_CHARS - 1);
-
-    snprintf(mps_rint, sizeof(mps_rint), "%%%dd",
-	     MPS_INFO_CHARS - 1);
 
     mps_update();
     mps_refresh();
@@ -155,7 +175,7 @@ mps_refresh(void)
     Fgl_setfontcolors (14, TEXT_FG_COLOUR);
 
     for (i = 0; i < MAPPOINT_STATS_LINES; i++) {
-	Fgl_write (mps->x, mps->y + (i * 8), mps_info[i]);
+	Fgl_write (mps->x + 4, mps->y + (i * 8) + 4, mps_info[i]);
     }
 }
 
@@ -182,6 +202,16 @@ mps_update(void)
 	    case GROUP_RESIDENCE_MH:
 	    case GROUP_RESIDENCE_HH:
 		mps_residence(mps_x, mps_y);
+		break;
+	    case (GROUP_RAIL):
+		mps_rail (mps_x, mps_y);
+		break;
+	    case (GROUP_ROAD):
+		mps_road (mps_x, mps_y);
+		break;
+	    case (GROUP_TRACK):
+		mps_track(mps_x, mps_y);
+		break;
 	    default: 
 		printf("MPS unimplemented for that module\n");
 	    }
@@ -190,10 +220,21 @@ mps_update(void)
     case MPS_ENV:
 	printf("MPS unimplemented for right clicks\n");
 	break;
-    case MPS_GLOBAL:
-	printf("MPS Globals unimplemented\n");
+    case MPS_GLOBAL: 
+	{
+	    switch (mps_global_style) {
+	    case MPS_GLOBAL_FINANCE:
+		mps_global_finance();
+		break;
+	    default:
+		printf("MPS unimplemented for global display\n");
+		break;
+	    }
+	}
 	break;
     }
+
+    mps_refresh();
 }
 
 /* Cycle through the various global styles, but only update and display
@@ -210,28 +251,108 @@ mps_global_advance(void)
     }
 }
 
-/* mps_store_??: Store two items, with the second right justified.
+/* MPS String storage routines.
+   These handle the tedium of formatting strings for mps display.
+   store_title centers its single argument, while the others 
+   left justify the first arg and right justify the second.
+*/
+
+void
+mps_store_title(int i, char * t)
+{
+  int c;
+  int l;
+
+  l = strlen(t);
+  c = (int)((MPS_INFO_CHARS - l) / 2) + l;
+  snprintf(mps_info[i],MPS_INFO_CHARS,"%*s", c, t);
+}
+
+/* mps_store_??: Store two items, with the second one right justified.
    By writing the second string first and removing the null after
-   the first string, we can ensure proper layout even after i18n
+   the first string, we can ensure proper layout even after i18n.
+   There may be a better way to do this...
 */
 
 void
 mps_store_ss(int i, char * s1, char * s2)
 {
     int l;
-    snprintf(mps_info[i], MPS_INFO_CHARS, mps_rstring, s2);
     l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s1);
-    mps_info[i][l] = ' ';
+    snprintf(&mps_info[i][l], MPS_INFO_CHARS, "%*s", 
+	     (MPS_INFO_CHARS - 1 - l), s2);
 }
 
 void
 mps_store_sd(int i, char * s, int d)
 {
     int l;
-    snprintf(mps_info[i], MPS_INFO_CHARS, mps_rint, d);
     l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s);
-    mps_info[i][l] = ' ';
+    snprintf(&mps_info[i][l], MPS_INFO_CHARS, "%*d", 
+	     (MPS_INFO_CHARS - 1 - l), d);
 }
+
+void
+mps_store_sfp(int i, char * s, double fl)
+{
+    int l;
+    l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s); 
+    snprintf(&mps_info[i][l], MPS_INFO_CHARS, "%*.1f%%",
+	     MPS_INFO_CHARS - 2 - l, fl);
+}
+
+/* MPS Global routines */
+
+void mps_global_finance(void) {
+    int i = 0;
+    char s[12];
+
+    int cashflow = 0;
+
+    mps_store_title(i++,_("Tax Income"));
+
+    cashflow += ly_income_tax;
+    num_to_ansi (s, 12, ly_income_tax);
+    mps_store_ss(i++,_("Income"), s);
+
+    cashflow += ly_coal_tax;
+    num_to_ansi(s, 12, ly_coal_tax);
+    mps_store_ss(i++,_("Coal"), s);
+
+    cashflow += ly_goods_tax;
+    num_to_ansi(s, 12, ly_goods_tax);
+    mps_store_ss(i++,_("Goods"), s);
+
+    cashflow += ly_export_tax;
+    num_to_ansi(s, 12, ly_export_tax);
+    mps_store_ss(i++,_("Export"), s);
+
+    i++;
+
+    mps_store_title(i++,_("Expenses"));
+
+    cashflow -= ly_unemployment_cost;
+    num_to_ansi(s, 12, ly_unemployment_cost);
+    mps_store_ss(i++,_("Unemp."), s);
+
+    cashflow -= ly_transport_cost;
+    num_to_ansi(s, 12, ly_transport_cost);
+    mps_store_ss(i++,_("Transport"), s);
+
+    cashflow -= ly_import_cost;
+    num_to_ansi(s, 12, ly_import_cost);
+    mps_store_ss(i++,_("Imports"), s);
+
+    cashflow -= ly_other_cost;
+    num_to_ansi(s, 12, ly_other_cost);
+    mps_store_ss(i++,_("Others"), s);
+
+    i++;
+
+    num_to_ansi(s, 12, cashflow);
+    mps_store_ss(i++,_("Net"), s);
+}    
+
 
 #ifdef old_mps
 /* ---------------------------------------------------------------------- *
@@ -563,34 +684,6 @@ mps_transport_setup (void)
     Fgl_write (mps->x, mps->y + 80, _("Waste"));
 }
 
-void
-mps_road (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100.0
-	   / MAX_FOOD_ON_ROAD);
-  Fgl_write (mps->x + 8 * 8, mps->y + 32, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100.0
-	   / MAX_JOBS_ON_ROAD);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_3 * 100.0
-	   / MAX_COAL_ON_ROAD);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_4 * 100.0
-	   / MAX_GOODS_ON_ROAD);
-  Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_5 * 100.0
-	   / MAX_ORE_ON_ROAD);
-  Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_6 * 100
-	   / MAX_STEEL_ON_ROAD);
-  Fgl_write (mps->x + 8 * 8, mps->y + 72, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_7 * 100
-	   / MAX_WASTE_ON_ROAD);
-  Fgl_write (mps->x + 8 * 8, mps->y + 80, s);
-
-}
 
 void
 mps_rail (int x, int y)
@@ -1492,27 +1585,6 @@ mps_health (int x, int y)
 
 }
 
-void 
-mps_global_finance_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 32, mps->y, _("FINANCE"));
-
-    /* TRANSLATORS: Expend should be Expenses, but Expenses didn't fit
-       IT=Income tax, CT=Coal tax, GT=Goods tax, XP=Exports
-       OC=Other costs, UC=Unemployment costs, 
-       TC=Transportation costs, IP=Imports */
-    Fgl_write (mps->x, mps->y + 8, _("Income   Expend"));
-    Fgl_write (mps->x, mps->y + 16, _("IT"));
-    Fgl_write (mps->x, mps->y + 24, _("CT"));
-    Fgl_write (mps->x, mps->y + 32, _("GT"));
-    Fgl_write (mps->x, mps->y + 40, _("XP"));
-    Fgl_write (mps->x + 8*8, mps->y + 16, _("OC"));
-    Fgl_write (mps->x + 8*8, mps->y + 24, _("UC"));
-    Fgl_write (mps->x + 8*8, mps->y + 32, _("TC"));
-    Fgl_write (mps->x + 8*8, mps->y + 40, _("IP"));
-    Fgl_write (mps->x, mps->y + 80, _("Tot"));
-}
 
 void 
 mps_global_other_costs_setup (void)
@@ -1647,42 +1719,6 @@ mps_global_housing (void)
 	    / ((tpopulation / NUMOF_DAYS_IN_MONTH) + 1);
     sprintf (s, " %3d.%1d", i / 10, i % 10);
     Fgl_write (mps->x + offset, mps->y + 8*8+6, s);
-}
-
-void 
-mps_global_finance (void)
-{
-    char s[12];    /* This number is important, as it's the size of the 
-		    * money field in the mps box */
-    Rect* mps = &scr.mappoint_stats;
-    size_t count;
-
-    format_pos_number4 (s, ly_income_tax);
-    Fgl_write (mps->x + 3*8, mps->y + 16, s);
-    format_pos_number4 (s, ly_coal_tax);
-    Fgl_write (mps->x + 3*8, mps->y + 24, s);
-    format_pos_number4 (s, ly_goods_tax);
-    Fgl_write (mps->x + 3*8, mps->y + 32, s);
-    format_pos_number4 (s, ly_export_tax);
-    Fgl_write (mps->x + 3*8, mps->y + 40, s);
-    format_pos_number4 (s, ly_other_cost);
-    Fgl_write (mps->x + 11*8, mps->y + 16, s);
-    format_pos_number4 (s, ly_unemployment_cost);
-    Fgl_write (mps->x + 11*8, mps->y + 24, s);
-    format_pos_number4 (s, ly_transport_cost);
-    Fgl_write (mps->x + 11*8, mps->y + 32, s);
-    format_pos_number4 (s, ly_import_cost);
-    Fgl_write (mps->x + 11*8, mps->y + 40, s);
-
-    count = commify(s, 12, total_money);
-    pad_with_blanks(s, 12);
-
-    if (total_money < 0)
-	Fgl_setfontcolors (14, red (30));
-    //Fgl_write (mps->x + 3 * 8, mps->y + 80, s);
-    Fgl_write (mps->x + 4 * 8, mps->y + 80, s);
-    if (total_money < 0)
-	Fgl_setfontcolors (14, TEXT_FG_COLOUR);
 }
 
 

@@ -50,7 +50,7 @@ dnl "$LIBS"          (blank)
 dnl "$X_LIBS"        (-L/usr/X11R6/lib)
 dnl "$X_PRE_LIBS"    (-lSM -lICE)
 dnl "$X_EXTRA_LIBS"  (blank)
-CFLAGS="$CFLAGS $X_CFLAGS"
+CFLAGS="$CFLAGS $X_CFLAGS -Wall"
 LIBS="$LIBS $X_LIBS $X_PRE_LIBS $X_EXTRA_LIBS"
 
 dnl Checks for header files.

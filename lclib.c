@@ -54,7 +54,7 @@ num_to_ansi(char * s, size_t size, long num)
   int triplets = 0;
   float numf = (float)num;  
 
-  while (numf > 1000) {
+  while (numf > 1000 || numf < -1000) {
     numf /= 1000;
     triplets++;
   }
@@ -70,13 +70,19 @@ num_to_ansi(char * s, size_t size, long num)
     default: triplets = '?'; break;
     }
       
-  if (size == 4)  /* to make up for format_pos_number4.  Eeewwwwwww. */ 
-    if (numf < 10) 
-      snprintf(s, size + 1, "%1.1f%c", numf, triplets);
-    else 
-      snprintf(s,size + 1, "%3.0f%c", numf, triplets);
-  else
-    snprintf(s, size, "%3.1f%c", numf, triplets);
+  if (size == 4) { /* to make up for format_pos_number4.  Eeewwwwwww. */ 
+      if (numf < 10) { 
+	  snprintf(s, size + 1, "%1.1f%c", numf, triplets);
+      } else {
+	  snprintf(s,size + 1, "%3.0f%c", numf, triplets);
+      }
+  } else {
+      if (triplets == ' ') {
+	  snprintf(s, size, "%3.1f", numf);
+      } else {
+	  snprintf(s, size, "%3.1f%c", numf, triplets);
+      }
+  }
 }
 
 void 

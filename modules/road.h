@@ -9,5 +9,6 @@
 #define __road_h__
 
 void do_road(int x, int y);
+void mps_road(int x, int y);
 
 #endif /* __road_h__ */

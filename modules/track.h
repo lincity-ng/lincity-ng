@@ -9,5 +9,6 @@
 #define __track_h__
 
 void do_track(int x, int y);
+void mps_track(int x, int y);
 
 #endif /* __track_h__ */

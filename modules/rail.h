@@ -9,5 +9,6 @@
 #define __rail_h__
 
 void do_rail(int x, int y);
+void mps_rail(int x, int y);
 
 #endif /* __rail_h__ */

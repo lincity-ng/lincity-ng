@@ -1724,7 +1724,10 @@ print_stats (void)
 	} else {
 	    mappoint_stats (-1, -1, -1);
 	}
+#else
+	mps_update();
 #endif
+
     }
   
     if (update_scoreboard.mini) {

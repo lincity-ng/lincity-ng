@@ -8,5 +8,6 @@
 #define __residence_h__
 
 void do_residence(int x, int y);
+void mps_residence(int x, int y);
 
 #endif /* __residence_h__ */
