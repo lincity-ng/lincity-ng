@@ -5,9 +5,15 @@
  * Portions copyright (c) Corey Keasling 2001.
  * ---------------------------------------------------------------------- */
 
+#ifndef __dialbox_h__
+#define __dialbox_h__
+
+/* External argument typing constants */
+#define DB_PARA 0 /* Paragraph/line arguments; non-button */
+
 struct dialog_box_struct
 {
-    short type; /* 0 if line,  button return value (!0) if button */
+    short type; /* 0 if line/paragraph,  button return value (!0) if button */
     short retval; /* 0 for no return, character (keyboard hotkey) for others */
     char * text;
 };
@@ -18,7 +24,7 @@ typedef struct dialog_box_struct Dialog_Box;
 int dialog_box(int colour, char argc, ...); 
 void dialog_refresh();
 
-#define MAX_DBOX_ENTRIES 16 /* Small, but entirely adequate for current use */
+#define MAX_DBOX_ENTRIES 64 /* Huge, but necessary for current use */
 
 #define LINE_MIN_SPACING 10 /* Extra space on both sides of Line items */
 
@@ -33,3 +39,4 @@ void dialog_refresh();
 
 
 
+#endif
