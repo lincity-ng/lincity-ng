@@ -22,4 +22,9 @@ libmodules_a_SOURCES =	organic_farm.c organic_farm.h \
 			cricket.c cricket.h \
 			fire.c fire.c \
 			shanty.c shanty.h \
-			tip.c tip.h
+			tip.c tip.h \
+			substation.c substation.h \
+			windmill.c windmill.h \
+			solar_power.c solar_power.h \
+			coal_power.c coal_power.h \
+			power_line.c power_line.h

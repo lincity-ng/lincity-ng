@@ -37,6 +37,7 @@ void project_power(int x, int y);
 #endif */
 
 #define POWER_LINE_LOSS 1 /* one KW */
+#define POWER_MODULUS 25 /* Controls how often we see a packet in anim */
 
 #define WEST 1
 #define NORTH 2

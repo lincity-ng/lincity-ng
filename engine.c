@@ -153,17 +153,6 @@ place_item (int x, int y, short type)
 		}
 	    }
 	}
-#if defined (commentout)
-	if (MP_INFO(x,y).ore_reserve > ORE_RESERVE) {
-	    dialog_box(red(12),3,
-		       0,0,_("You can't build a tip here"),
-		       0,0,_("This is already landfill"),
-		       2,' ',_("OK"));
-	    return -4;
-	} else {
-	    MP_INFO(x,y).ore_reserve = ORE_RESERVE * 2;
-	}
-#endif
     } break;
     case GROUP_OREMINE:
     {
@@ -196,15 +185,6 @@ place_item (int x, int y, short type)
 		       2,' ',_("OK"));
 	    return -4;
 	}
-#if defined (commentout)
-	if (MP_INFO(x,y).ore_reserve != ORE_RESERVE) {
-	    dialog_box(red(12),3,
-		       0,0,_("You can't build a mine here"),
-		       0,0,_("This was already a mine or tip"),
-		       2,' ',_("OK"));
-	    return -4;
-	} 
-#endif
     }
     } /* end case */
 
