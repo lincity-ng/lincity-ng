@@ -20,11 +20,11 @@ public:
     struct RowColProperties
     {
         RowColProperties()
-            : type(REMAINING), val(1)
+            : type(RELATIVE), val(1)
         {
         }
 
-        enum Type { FIXEDSIZE, PERCENTUALSIZE, REMAINING };
+        enum Type { FIXEDSIZE, RELATIVE };
         Type type;
         float val;
         float realval;

@@ -141,7 +141,7 @@ TableLayout::removeComponents()
 int
 TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
 {
-    props.type = RowColProperties::REMAINING;
+    props.type = RowColProperties::RELATIVE;
 
     int num = -1;
     XmlReader::AttributeIterator iter(reader);
@@ -154,11 +154,11 @@ TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
                 std::cerr << "Eror parsing float value '"
                     << value << "' in fixed attribute.\n";
             }
-        } else if(strcmp(name, "remaining") == 0) {
-            props.type = RowColProperties::REMAINING;
+        } else if(strcmp(name, "relative") == 0) {
+            props.type = RowColProperties::RELATIVE;
             if(sscanf(value, "%f", &props.val) != 1) {
                 std::cerr << "Error parsing float vluae '"
-                    << value << "' in remaining attribute.\n";
+                    << value << "' in relative attribute.\n";
             }
         } else if(strcmp(name, "row") == 0 || strcmp(name, "col") == 0) {
             if(sscanf(value, "%d", &num) != 1) {
@@ -215,7 +215,7 @@ TableLayout::resize(float width, float height)
 
     for(Properties::iterator i = rowproperties.begin();
             i != rowproperties.end(); ++i) {
-        if(i->type == RowColProperties::REMAINING) {
+        if(i->type == RowColProperties::RELATIVE) {
             i->realval = heightfact * i->val;
         }
     }
@@ -228,7 +228,7 @@ TableLayout::resize(float width, float height)
 
     for(Properties::iterator i = colproperties.begin();
             i != colproperties.end(); ++i) {
-        if(i->type == RowColProperties::REMAINING) {
+        if(i->type == RowColProperties::RELATIVE) {
             i->realval = widthfact * i->val;
         }
     }
