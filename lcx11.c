@@ -976,6 +976,26 @@ init_full_mouse (void) /* added by WCK */
      button 2 is pressed. */
 }
 
+void
+draw_border (void)
+{
+    int col = TEXT_BG_COLOUR & 0xff;
+    int pd = pix_double + 1;
+    if (borderx > 0) {
+	XFillRectangle (display.dpy, display.win, display.pixcolour_gc[col],
+			0, bordery, borderx, display.winH - 2*bordery);
+	XFillRectangle (display.dpy, display.win, display.pixcolour_gc[col],
+			display.winW - borderx, bordery,
+			borderx, display.winH - 2*bordery);
+    }
+    if (bordery > 0) {
+	XFillRectangle (display.dpy, display.win, display.pixcolour_gc[col],
+			0, 0, display.winW, bordery);
+	XFillRectangle (display.dpy, display.win, display.pixcolour_gc[col],
+			0, display.winH - bordery, display.winW, bordery);
+    }
+}
+
 #ifdef USE_PIXMAPS
 
 void

@@ -5,19 +5,13 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
   o Clicking on the menu after opening the options page results in 
     option page no longer working.
 
-*  o ESC should bring up menu.
-
-*  o ESC should exit help.
-
 *  o Right click on track starts MT without showing track stats.
+
+  o Put the STATS button back
 
   o Some missing statistics:
 	sprintf (s, "%2d/%2d", rockets_launched_success, rockets_launched);
 	Fgl_write (STATS_X + (20 + 12) * 8, STATS_Y + 16, s);
-
-*  o Tech level is scaled incorrectly
-	sprintf (s, "%5.1f ", (float) tech_level * 100.0 / MAX_TECH_LEVEL);
-	Fgl_write (STATS_X + (20 + 12) * 8, STATS_Y, s);
 
   o Help screens need adjusting for new GUI (some help files missing).
 
@@ -30,11 +24,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
   o Remove multiplayer options from default compilation.
 
   o Dialog boxes are not centered on screen after a resize.
-
-  o Border not drawn correctly.
-
-*  o Pos/neg portion of pbars are not refreshed on screen resize.  Therefore,
-    even if something is increasing, you won't see it.
 
   o Need to compress and expand translation files and add installation hooks
     so that only desired translations get installed.
@@ -98,6 +87,8 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
   o Extra keystroke required when market checkbox is up.
 
   o Like to have info pages and/or printed documentation.
+
+  o Pressing quit doesn't work before city is loaded.
 
 
 CLIENT/SERVER BUGS

@@ -76,9 +76,13 @@ void mini_full_refresh (void);
 void
 draw_background (void)
 {
-  /* XXX: we don't need to draw the whole background! */
+    /* XXX: we don't need to draw the whole background! */
+    /* GCS: but this routine is only called on a full refresh, so it's OK */
 #if defined (LC_X11) || defined (WIN32)
-    /* Still need to add code here to draw border region */
+    /* Draw border region, but don't put into pixmap */
+    draw_border ();
+
+    /* Draw main area */
     Fgl_fillbox (0, 0, pixmap_width, pixmap_height, TEXT_BG_COLOUR);
 #else /* SVGALIB */
     Fgl_fillbox (0, 0, 640, 480, TEXT_BG_COLOUR);
