@@ -19,7 +19,7 @@ class MiniMap:public Component
   // colors must be corrected somehow - maybe get them from oldgui/screen.cc
   virtual void draw(Painter &painter);
 
-  virtual void event(Event& event);
+  virtual void event(const Event& event);
 
  private:
 

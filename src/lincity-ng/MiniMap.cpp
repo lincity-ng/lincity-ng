@@ -352,7 +352,7 @@ static MiniMap::DisplayMode getNextMode(MiniMap::DisplayMode mode)
     }
 }
 
-void MiniMap::event(Event& event)
+void MiniMap::event(const Event& event)
 {
   if(event.type==Event::MOUSEBUTTONDOWN)
     {

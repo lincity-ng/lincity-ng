@@ -59,8 +59,7 @@ Painter::fillRectangle(Rectangle rect)
     drect.w = (int) rect.getWidth();
     drect.h = (int) rect.getHeight();
 
-    SDL_FillRect(target, &drect, fillColor);
-    
+    SDL_FillRect(target, &drect, fillColor);    
 }
 
 void

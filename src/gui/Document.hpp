@@ -15,7 +15,8 @@ public:
 
     void parse(XmlReader& reader);
 
-    virtual void resize(float width, float height);
+    void draw(Painter& painter);
+    void resize(float width, float height);
 
     Style style;
 };

@@ -74,4 +74,14 @@ Document::resize(float newwidth, float )
     width = newwidth;
 }
 
+void
+Document::draw(Painter& painter)
+{
+    painter.setFillColor(style.background);
+    painter.fillRectangle(Rectangle(0, 0, width, height));
+
+    Component::draw(painter);
+}
+                
+
 IMPLEMENT_COMPONENT_FACTORY(Document);

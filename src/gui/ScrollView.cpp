@@ -67,7 +67,7 @@ ScrollView::resize(float newwidth, float newheight)
     if(contents().getComponent()->getFlags() & FLAG_RESIZABLE)
         contents().getComponent()->resize(newwidth - scrollBarWidth, newheight);
     contents().useClipRect = true;
-    contents().clipRect = Rectangle(0,0, newheight - scrollBarWidth, newheight);
+    contents().clipRect = Rectangle(0,0, newwidth - scrollBarWidth, newheight);
     float scrollarea = contents().getComponent()->getHeight() - newheight;
     if(scrollarea < 0)
         scrollarea = 0;

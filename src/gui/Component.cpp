@@ -30,21 +30,21 @@ void
 Component::drawChild(Child& child, Painter& painter)
 {
     assert(child.getComponent() != 0);
-    
+
+    if(child.useClipRect) {
+        painter.setClipRectangle(child.clipRect);
+    }                                                
     if(child.position != Vector2(0, 0)) {
         painter.pushTransform();
         painter.translate(child.position);
     }
-    if(child.useClipRect) {
-        painter.setClipRectangle(child.clipRect);
-    }
     child.component->draw(painter);
-    if(child.useClipRect) {
-        painter.clearClipRectangle();
-    }
     if(child.position != Vector2(0, 0)) {
         painter.popTransform();
     }
+    if(child.useClipRect) {
+        painter.clearClipRectangle();
+    }                                    
 }
 
 void
