@@ -19,7 +19,6 @@
 #include "module_buttons.h"
 #include "pbar.h"
 #include "stats.h"
-#include "mps.h"
 #include "screen.h"
 #include "dialbox.h"
 #include "modules.h"
@@ -31,7 +30,7 @@ adjust_money(int value)
 {
     total_money += value;
     print_total_money();
-    mappoint_stats(-3,-3,-3);
+    mps_update();
     update_pbar (PMONEY, total_money, 0);
     refresh_pbars(); /* This could be more specific */
     return total_money;

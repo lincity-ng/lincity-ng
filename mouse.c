@@ -476,11 +476,19 @@ do_mouse_main_win (int px, int py, int button)
 
     /* Bring up mappoint_stats for any right mouse click */
     if (button == LC_MOUSE_RIGHTBUTTON) {
+#ifdef old_mps
 	if (MP_TYPE(x,y) == CST_USED) {
 	    mappoint_stats (MP_INFO(x,y).int_1, MP_INFO(x,y).int_2, button);
 	} else {
 	    mappoint_stats (x, y, button);
 	}
+#else
+	if (MP_TYPE(x,y) == CST_USED) {
+	    mps_set(MP_INFO(x,y).int_1, MP_INFO(x,y).int_2, MPS_ENV);
+	} else {
+	    mps_set(x, y, MPS_ENV);
+	}
+#endif
 	return;
     }
 
@@ -507,7 +515,11 @@ do_mouse_main_win (int px, int py, int button)
 	if (mt_draw (px, py, MT_START)) {
 	    /* We need to set mps to current location, since the user might 
 	       click on the transport to see the mps */
+#ifdef old_mps
 	    mappoint_stats (x, y, button);
+#else
+	    mps_set(x, y, MPS_MAP);
+#endif
 	    return;
 	}
     }
@@ -521,9 +533,18 @@ do_mouse_main_win (int px, int py, int button)
     /* Bring up mappoint_stats for certain left mouse clicks */
     if (MP_TYPE(x,y) != CST_GREEN) {
 	if (MP_TYPE(x,y) == CST_USED) {
+
+#ifdef old_mps
 	    mappoint_stats (MP_INFO(x,y).int_1, MP_INFO(x,y).int_2, button);
+#else
+	    mps_set(MP_INFO(x,y).int_1, MP_INFO(x,y).int_2, MPS_MAP);
+#endif
 	} else {
+#ifdef old_mps
 	    mappoint_stats (x, y, button);
+#else
+	    mps_set(x, y, MPS_MAP);
+#endif
 	}
 	return;
     }
@@ -671,6 +692,8 @@ do_mouse_other_buttons (int x, int y, int button)
 	window_results ();
     }
 
+    /* XXX: WCK: This is broken; should be a mouse handler in 
+       mps.c anyway */
     /* Advance mps screen if clicked on */
     else if (mouse_in_rect (&scr.mappoint_stats,x,y)) {
 	if (button == LC_MOUSE_RIGHTBUTTON) {
@@ -687,8 +710,7 @@ do_mouse_other_buttons (int x, int y, int button)
 	    }
 	    return;
 	}
-	advance_mps_style ();
-	refresh_mps ();
+	mps_global_advance();
     }
 
    /* Advance monthgraph screen if clicked on */

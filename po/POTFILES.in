@@ -18,3 +18,5 @@ module_buttons.c
 mouse.c
 mps.c
 screen.c
+modules/organic_farm.c
+modules/residence.c

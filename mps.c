@@ -88,11 +88,152 @@ void mps_cricket (int, int);
 void mps_health_setup (void);
 void mps_health (int, int);
 
-/* ---------------------------------------------------------------------- *
- * Private Global Variables
- * ---------------------------------------------------------------------- */
+char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
+int mps_global_style;
+
+char mps_rstring[6];
+char mps_rint[6];
+
+static int mps_style;
+
+static int mps_x;
+static int mps_y;
 
 
+
+/*
+ * ----------------------------------------------------------------------
+ * * New, simplified mps routines.  All drawing is offloaded to
+ * mps_refresh and mps_redraw, with the various mps_module routines -
+ * called from mps_update - merely updating an array of strings:
+ * mps_info (see above)
+ * ----------------------------------------------------------------------
+ * */
+
+void
+mps_set(int x, int y, int style) {
+    mps_style = style;
+    switch(style) {
+    case MPS_MAP:
+    case MPS_ENV: 
+	mps_x = x;
+	mps_y = y;
+	break;
+    default:
+	mps_x = 0;
+	mps_y = 0;
+    }
+
+    snprintf(mps_rstring, sizeof(mps_rstring), "%%%ds",
+	     MPS_INFO_CHARS - 1);
+
+    snprintf(mps_rint, sizeof(mps_rint), "%%%dd",
+	     MPS_INFO_CHARS - 1);
+
+    mps_update();
+    mps_refresh();
+}
+
+
+void
+mps_redraw(void)
+{
+    Rect* mps = &scr.mappoint_stats;
+
+    draw_small_bezel (mps->x, mps->y, mps->w, mps->h, yellow(0));
+    mps_refresh();
+}
+
+void
+mps_refresh(void)
+{
+    int i;
+
+    Rect * mps = &scr.mappoint_stats;
+
+    Fgl_fillbox (mps->x, mps->y, mps->w + 1, mps->h + 1, 14);
+    Fgl_setfontcolors (14, TEXT_FG_COLOUR);
+
+    for (i = 0; i < MAPPOINT_STATS_LINES; i++) {
+	Fgl_write (mps->x, mps->y + (i * 8), mps_info[i]);
+    }
+}
+
+void
+mps_update(void)
+{
+    int i;
+    
+    for (i = 0; i < MAPPOINT_STATS_LINES; i++) {
+	strcpy(mps_info[i],"");
+    }
+
+    switch (mps_style) {
+    case MPS_MAP:
+	{
+	    switch(MP_GROUP(mps_x, mps_y)) {
+	    case GROUP_ORGANIC_FARM: 
+		mps_organic_farm(mps_x, mps_y);
+		break;
+	    case GROUP_RESIDENCE_LL:
+	    case GROUP_RESIDENCE_ML:
+	    case GROUP_RESIDENCE_HL:
+	    case GROUP_RESIDENCE_LH:
+	    case GROUP_RESIDENCE_MH:
+	    case GROUP_RESIDENCE_HH:
+		mps_residence(mps_x, mps_y);
+	    default: 
+		printf("MPS unimplemented for that module\n");
+	    }
+	}
+        break;
+    case MPS_ENV:
+	printf("MPS unimplemented for right clicks\n");
+	break;
+    case MPS_GLOBAL:
+	printf("MPS Globals unimplemented\n");
+	break;
+    }
+}
+
+/* Cycle through the various global styles, but only update and display
+   if global info display is active */
+
+void
+mps_global_advance(void)
+{
+    mps_global_style++;
+    mps_global_style %= MPS_GLOBAL_STYLES;
+
+    if (mps_style == MPS_GLOBAL) {
+      mps_update();
+    }
+}
+
+/* mps_store_??: Store two items, with the second right justified.
+   By writing the second string first and removing the null after
+   the first string, we can ensure proper layout even after i18n
+*/
+
+void
+mps_store_ss(int i, char * s1, char * s2)
+{
+    int l;
+    snprintf(mps_info[i], MPS_INFO_CHARS, mps_rstring, s2);
+    l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s1);
+    mps_info[i][l] = ' ';
+}
+
+void
+mps_store_sd(int i, char * s, int d)
+{
+    int l;
+    snprintf(mps_info[i], MPS_INFO_CHARS, mps_rint, d);
+    l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s);
+    mps_info[i][l] = ' ';
+}
+
+#ifdef old_mps
 /* ---------------------------------------------------------------------- *
  * Public Functions
  * ---------------------------------------------------------------------- */
@@ -407,76 +548,7 @@ mps_setup (int x, int y)
     }
 }
 
-void
-mps_res_setup (void)
-{
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 8, _("People"));
-  Fgl_write (mps->x, mps->y + 16, _("Power"));
-  Fgl_write (mps->x, mps->y + 24, _("Fed"));
-  Fgl_write (mps->x, mps->y + 32, _("Empld"));
-  Fgl_write (mps->x, mps->y + 40, _("H cov"));
-  Fgl_write (mps->x, mps->y + 48, _("F cov"));
-  Fgl_write (mps->x, mps->y + 56, _("C cov"));
-  Fgl_write (mps->x, mps->y + 64, _("Poll'n"));
-  Fgl_write (mps->x, mps->y + 80, _("Job pro"));
-}
 
-void
-mps_res (int x, int y)
-{
-    Rect* mps = &scr.mappoint_stats;
-    char s[100];
-    sprintf (s, "%d ", MP_INFO(x,y).population);
-    Fgl_write (mps->x + 7 * 8, mps->y + 8, s);
-    if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-	/* TRANSLATORS:  YES and NO must be same lengths */
-	strcpy (s, _("YES"));
-    else
-	strcpy (s, _("NO "));
-    Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
-
-    if ((MP_INFO(x,y).flags & FLAG_FED) != 0)
-	strcpy (s, _("YES"));
-    else
-	strcpy (s, _("NO "));
-    Fgl_write (mps->x + 7 * 8, mps->y + 24, s);
-
-    if ((MP_INFO(x,y).flags & FLAG_EMPLOYED) != 0)
-	strcpy (s, _("YES"));
-    else
-	strcpy (s, _("NO "));
-    Fgl_write (mps->x + 7 * 8, mps->y + 32, s);
-
-    if ((MP_INFO(x,y).flags & FLAG_HEALTH_COVER) != 0)
-	strcpy (s, _("YES"));
-    else
-	strcpy (s, _("NO "));
-    Fgl_write (mps->x + 7 * 8, mps->y + 40, s);
-
-    if ((MP_INFO(x,y).flags & FLAG_FIRE_COVER) != 0)
-	strcpy (s, _("YES"));
-    else
-	strcpy (s, _("NO "));
-    Fgl_write (mps->x + 7 * 8, mps->y + 48, s);
-
-    if ((MP_INFO(x,y).flags & FLAG_CRICKET_COVER) != 0)
-	strcpy (s, _("YES"));
-    else
-	strcpy (s, _("NO "));
-    Fgl_write (mps->x + 7 * 8, mps->y + 56, s);
-
-    /* pollution */
-    sprintf (s, "%7d", MP_POL(x,y));
-    Fgl_write (mps->x + 7 * 8, mps->y + 64, s);
-
-    /* job prospects */
-    if (MP_INFO(x,y).int_1 >= 10)
-	sprintf (s, _("   good"));
-    else
-	sprintf (s, "%7d", MP_INFO(x,y).int_1);
-    Fgl_write (mps->x + 7 * 8, mps->y + 80, s);
-}
 
 void
 mps_transport_setup (void)
@@ -629,33 +701,6 @@ mps_market (int x, int y)
 
 }
 
-void
-mps_farm_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 16, _("Power"));
-    Fgl_write (mps->x, mps->y + 40, _("Tech"));
-    Fgl_write (mps->x, mps->y + 48, _("Prod"));
-}
-
-void
-mps_farm (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-    strcpy (s, _("YES"));
-  else
-    strcpy (s, _("NO "));
-  Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100.0
-	   / MAX_TECH_LEVEL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_4 * 100.0
-	   / 1200.0);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-
-}
 
 void
 mps_indl_setup (void)
@@ -1691,3 +1736,5 @@ mps_global (int style)
 	break;
     }
 }
+
+#endif
