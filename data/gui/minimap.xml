@@ -1,68 +1,112 @@
-<Panel width="500" height="500" background="images/gui/mapview_back.png">
-    <TableLayout rows="2" cols="2">
-        <rowsize row="1" relative=".2"/>
-        <rowsize row="2" relative=".8"/>
-        <colsize col="1" relative=".2"/>
-        <colsize col="2" relative=".8"/>
-        <cell row="1" col="2">
+<Panel width="248" height="336" background="images/gui/minimap_bg.png">
+    <TableLayout rows="3" cols="2">
+        <rowsize row="1" relative="10"/>
+        <rowsize row="2" relative="48"/>
+        <rowsize row="3" relative="288"/>
+        <colsize col="1" relative="48"/>
+        <colsize col="2" relative="200"/>
+        <cell row="2" col="2">
             <TableLayout rows="1" cols="2">
                 <cell row="1" col="1">
                     <Button name="ZoomInButton">
-                        <image src="images/gui/mapview_zoomin.png"/>
+<!--                        <image src="images/gui/mapview_zoomin.png"/>-->
+                        <image src="images/gui/button_bg0.png"/>
+                        <image-caption src="images/gui/zoomin.png"/>
                     </Button>
                 </cell>
                 <cell row="1" col="2">
                     <Button name="ZoomOutButton">
-                        <image src="images/gui/mapview_zoomout.png"/>
+                        <image src="images/gui/button_bg0.png"/>
+                        <image-caption src="images/gui/zoomout.png"/>
                     </Button>
                 </cell>
             </TableLayout>
         </cell>
-        <cell row="2" col="1">
-            <TableLayout rows="7" cols="1">
+        <cell row="3" col="1">
+            <TableLayout rows="9" cols="1">
                 <cell row="1" col="1">
                     <Button name="MapViewBuildings">
-                        <image src="images/gui/mapview_buildings.png"/>
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+                        <image-caption src="images/gui/round_resident.png"/>
+<!--                        <image src="images/gui/mapview_buildings.png"/>-->
                     </Button>
                 </cell>
                 <cell row="2" col="1">
                     <Button name="MapViewOutlines">
-                        <image src="images/gui/mapview_transparent.png"/>
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+                        <image-caption src="images/gui/round_resident.png"/>
+<!--                        <image src="images/gui/mapview_transparent.png"/>-->
                     </Button>
                 </cell>
                 <cell row="3" col="1">
                     <Button name="MapViewPolution">
-                        <image src="images/gui/mapview_polution.png"/>
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+                         <image-caption src="images/gui/round_pollution.png"/>
+<!--                        <image src="images/gui/mapview_polution.png"/>-->
                     </Button>
                 </cell>
                 <cell row="4" col="1">
                     <Button name="MapViewNoIdea">
-                        <image src="images/gui/mapview_noidea.png"/>
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+<!--                        <image src="images/gui/mapview_noidea.png"/>-->
                     </Button>
                 </cell>
                 <cell row="5" col="1">
                     <Button name="MapViewSport">
-                        <image src="images/gui/mapview_sport.png"/>
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+<!--                        <image src="images/gui/mapview_sport.png"/>-->
                     </Button>
                 </cell>
                 <cell row="6" col="1">
                     <Button name="MapViewFire">
-                        <image src="images/gui/mapview_fire.png"/>
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+<!--                        <image src="images/gui/mapview_fire.png"/>-->
                     </Button>
                 </cell>
                 <cell row="7" col="1">
                     <Button name="MapViewHealth">
-                        <image src="images/gui/mapview_health.png"/>
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+<!--                        <image src="images/gui/mapview_health.png"/>-->
+                    </Button>
+                </cell>
+                <cell row="8" col="1">
+                    <Button name="MapViewHealth">
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+<!--                        <image src="images/gui/mapview_health.png"/>-->
+                    </Button>
+                </cell>
+                <cell row="9" col="1">
+                    <Button name="MapViewHealth">
+                        <image src="images/gui/round_button_bg0.png"/>
+                        <image-clicked src="images/gui/round_button_bg2.png"/>
+                        <image-hover src="images/gui/round_button_bg1.png"/>
+<!--                        <image src="images/gui/mapview_health.png"/>-->
                     </Button>
                 </cell>
             </TableLayout>
         </cell>
-        <cell row="2" col="2">
+        <cell row="3" col="2">
             <TableLayout rows="2" cols="1">
                 <rowsize row="1" relative=".8"/>
                 <rowsize row="2" relative=".2"/>
                 <cell row="1" col="1">
-                    <MiniMap width="100" height="100"/>
+                    <MiniMap width="200" height="200" tilesize="2"/>
                 </cell>
                 <cell row="2" col="1">
                     <TableLayout rows="1" cols="3">

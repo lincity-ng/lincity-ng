@@ -6,6 +6,8 @@
 #include <iomanip>
 #include "gui_interface/pbar_interface.h"
 #include "gui/Component.hpp"
+#include "gui/ComponentLoader.hpp"
+#include "gui/XmlReader.hpp"
 
 #define LCPBarDisplayCount 9
 extern char *LCPBarDisplays[];
@@ -24,6 +26,11 @@ class LCPBar:public Component//AGTable
     {
       (void) reader;
       (void) widget;
+      
+      Component* component = parseEmbeddedComponent(this, reader);
+      if(component)
+      	addChild(component);
+
       /*
       int i;
       for(i=0;i<2;i++)
