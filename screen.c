@@ -2205,8 +2205,8 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
     db_flag = 1;
     /* GCS FIX:  I'll bet this is the cause of the mouse droppings bug */
     /* shake the mouse a bit to make sure we have the correct cursor. */
-    cs_mouse_handler (0, -1, 0);
-    cs_mouse_handler (0, 1, 0);
+    //    cs_mouse_handler (0, -1, 0);
+    //    cs_mouse_handler (0, 1, 0);
     db_yesbox_clicked = 0;
     db_nobox_clicked = 0;
     db_yesbox_clicked = 0;
@@ -2237,8 +2237,8 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
     Fgl_putbox (x - 8, y - 8, w + 16, h + 16, ss);
     redraw_mouse ();
     /* shake the mouse a bit to make sure we have the correct cursor. */
-    cs_mouse_handler (0, -1, 0);
-    cs_mouse_handler (0, 1, 0);
+    //    cs_mouse_handler (0, -1, 0);
+    //cs_mouse_handler (0, 1, 0);
 
     free (ss);
     /*
@@ -2366,8 +2366,8 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     redraw_mouse ();
     db_okflag = 1;
     /* shake the mouse a bit to make sure we have the correct cursor. */
-    cs_mouse_handler (0, -1, 0);
-    cs_mouse_handler (0, 1, 0);
+    //    cs_mouse_handler (0, -1, 0);
+    //    cs_mouse_handler (0, 1, 0);
 
 #if defined (LC_X11) || defined (WIN32)
     call_event ();
@@ -2406,8 +2406,8 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     Fgl_putbox (x - 8, y - 8, w + 16, h + 16, ss);
     redraw_mouse ();
     /* shake the mouse a bit to make sure we have the correct cursor. */
-    cs_mouse_handler (0, -1, 0);
-    cs_mouse_handler (0, 1, 0);
+    //    cs_mouse_handler (0, -1, 0);
+    //    cs_mouse_handler (0, 1, 0);
 
     free (ss);
     /* when exiting dial box, stop the mouse repeating straight away */

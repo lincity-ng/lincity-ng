@@ -32,6 +32,7 @@ static struct mouse_button_struct buttons[NUM_BUTTONS];
 static int mt_cost;
 static int mt_grp;
 static char mt_name[20];
+static short mouse_buffer_fresh = 0;
 
 void check_bulldoze_area (int x, int y);
 
@@ -389,6 +390,7 @@ draw_square_mouse (int x, int y, int size)	/* size is pixels */
     Fgl_getbox (x - 2, y, 2, size, under_square_mouse_pointer_left);
     Fgl_getbox (x + size, y, 2, size, under_square_mouse_pointer_right);
     Fgl_getbox (x - 2, y + size, size + 4, 2, under_square_mouse_pointer_bottom);
+    mouse_buffer_fresh = 1;
 
     Fgl_hline (x - 2, y - 2, x + size + 1, yellow (31));
     Fgl_hline (x - 1, y - 1, x + size, blue (31));
@@ -414,11 +416,16 @@ hide_square_mouse (void)
     cs_square_mouse_visible = 0;
     RefreshArea (omx - 3, omy - 3, omx + size + 2, omy + size + 2);
 #else
-    Fgl_putbox (omx - 2, omy - 2, size + 4, 2, under_square_mouse_pointer_top);
-    Fgl_putbox (omx - 2, omy, 2, size, under_square_mouse_pointer_left);
-    Fgl_putbox (omx + size, omy, 2, size, under_square_mouse_pointer_right);
-    Fgl_putbox (omx - 2, omy + size, size + 4, 2, 
-		under_square_mouse_pointer_bottom);
+    if (mouse_buffer_fresh) {
+      Fgl_putbox (omx - 2, omy - 2, size + 4, 2, under_square_mouse_pointer_top);
+      Fgl_putbox (omx - 2, omy, 2, size, under_square_mouse_pointer_left);
+      Fgl_putbox (omx + size, omy, 2, size, under_square_mouse_pointer_right);
+      Fgl_putbox (omx - 2, omy + size, size + 4, 2, 
+		  under_square_mouse_pointer_bottom);
+      mouse_buffer_fresh = 0;
+    } else {
+      //      printf ("Mouse buffer stale in hide_mouse!  Not putting back!\n");
+    }
 #endif
 }
 
@@ -440,6 +447,7 @@ redraw_square_mouse (void)
     Fgl_getbox (omx - 2, omy, 2, size, under_square_mouse_pointer_left);
     Fgl_getbox (omx + size, omy, 2, size, under_square_mouse_pointer_right);
     Fgl_getbox (omx - 2, omy + size, size + 4, 2, under_square_mouse_pointer_bottom);
+    mouse_buffer_fresh = 1;
 
     Fgl_hline (omx - 2, omy - 2, omx + size + 1, yellow (31));
     Fgl_hline (omx - 1, omy - 1, omx + size, blue (31));

@@ -12,7 +12,7 @@ noinst_HEADERS = \
 	climsg.h     clinet.h	 clistubs.h \
 	common.h     config.h	  confw32.h    \
 	engglobs.h   engine.h	 fileutil.h \
-	generic.h    geometry.h   \
+	generic.h    geometry.h  dialbox.h \
 	lcconfig.h   \
 	lchelp.h       \
 	lcintl.h     lcstring.h	lclib.h\
@@ -120,7 +120,7 @@ bin_PROGRAMS = @PROGS@
 XLC_OBJ = \
 	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o \
 	x_cliglobs.o x_mps.o x_screen.o x_lcx11.o x_pixmap.o x_geometry.o \
-	x_pbar.o
+	x_pbar.o x_dialbox.o
 
 LC_OBJ = \
 	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o \
@@ -258,6 +258,9 @@ x_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
 
 x_screen.o: screen.c screen.h lin-city.h lctypes.h lcx11.h
 	$(COMPILE) $(X_DEFS) -o x_screen.o -c screen.c
+
+x_dialbox.o: dialbox.c dialbox.h lcx11.h geometry.h
+	$(COMPILE) $(X_DEFS) -o x_dialbox.o -c dialbox.c
 
 
 ## ----------------- PICEDIT RULES ------------------
