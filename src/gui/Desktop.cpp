@@ -5,6 +5,7 @@
 
 #include "XmlReader.hpp"
 #include "ComponentFactory.hpp"
+#include "ComponentLoader.hpp"
 
 Desktop::Desktop(Component* parent, XmlReader& reader)
     : Component(parent)

@@ -9,6 +9,7 @@
 #include "Painter.hpp"
 #include "Event.hpp"
 #include "ComponentFactory.hpp"
+#include "ComponentLoader.hpp"
 #include "XmlReader.hpp"
 
 TableLayout::TableLayout(Component* parent)

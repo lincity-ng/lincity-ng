@@ -8,7 +8,7 @@
 #include <SDL_ttf.h>
 
 #include "gui/TextureManager.hpp"
-#include "gui/ComponentFactory.hpp"
+#include "gui/ComponentLoader.hpp"
 #include "gui/Component.hpp"
 #include "gui/Event.hpp"
 #include "gui/Painter.hpp"

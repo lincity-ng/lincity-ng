@@ -7,6 +7,7 @@
 #include "XmlReader.hpp"
 #include "TextureManager.hpp"
 #include "ComponentFactory.hpp"
+#include "ComponentLoader.hpp"
 #include "Painter.hpp"
 
 Panel::Panel(Component* parent, XmlReader& reader)

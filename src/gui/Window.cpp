@@ -6,6 +6,7 @@
 #include <assert.h>
 
 #include "ComponentFactory.hpp"
+#include "ComponentLoader.hpp"
 #include "XmlReader.hpp"
 #include "Painter.hpp"
 #include "Button.hpp"

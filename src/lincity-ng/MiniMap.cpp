@@ -66,7 +66,7 @@ MiniMap::MiniMap(Component *parent, XmlReader& reader):
                 throw std::runtime_error(msg.str());
             }
         } else if(strcmp(name, "border") == 0) {
-            if(sscanf(value, "%f", &border) != 1) {
+            if(sscanf(value, "%d", &border) != 1) {
                 std::stringstream msg;
                 msg << "Couldn't parse border attribute (" << value << ").";
                 throw std::runtime_error(msg.str());
@@ -86,7 +86,7 @@ MiniMap::MiniMap(Component *parent, XmlReader& reader):
     
 
     // create alpha-surface
-    SDL_Surface* image = SDL_CreateRGBSurface(0, width,height, 32,
+    SDL_Surface* image = SDL_CreateRGBSurface(0, (int) width, (int) height, 32,
 					      0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
 
     SDL_Surface *copy = SDL_DisplayFormat(image);
@@ -182,7 +182,7 @@ Color MiniMap::getColor(int x,int y) const
 	  v=0;
 	if(v>1)
 	  v=1;
-	Color mc(0xFF*v,0xFF*(1-v),0);
+	Color mc((int) (0xFF*v), (int) (0xFF*(1-v)), 0);
 	mc=light(mc,brightness(getColorNormal(x,y)));
 	return mc;
       }
@@ -326,6 +326,31 @@ bool MiniMap::eventMouseClick(const AGEvent *m)
 }
 */
 
+static MiniMap::DisplayMode getNextMode(MiniMap::DisplayMode mode)
+{
+    switch(mode) {
+        case MiniMap::NORMAL:
+            return MiniMap::POLLUTION;
+        case MiniMap::POLLUTION:
+            return MiniMap::UB40;
+        case MiniMap::UB40:
+            return MiniMap::STARVE;
+        case MiniMap::STARVE:
+            return MiniMap::POWER;
+        case MiniMap::POWER:
+            return MiniMap::FIRE;
+        case MiniMap::FIRE:
+            return MiniMap::CRICKET;
+        case MiniMap::CRICKET:
+            return MiniMap::HEALTH;
+        case MiniMap::HEALTH:
+            return MiniMap::COAL;
+        case MiniMap::COAL:
+            return MiniMap::NORMAL;
+        case MiniMap::MAX:
+            assert(false);
+    }
+}
 
 void MiniMap::event(Event& event)
 {
@@ -335,9 +360,7 @@ void MiniMap::event(Event& event)
 	{
 	  CTRACE;
 	  cdebug("mousePos:"<<event.mousepos.x<<","<<event.mousepos.y);
-	  ++(int)mMode;
-	  if(mMode==MAX)
-	    mMode=NORMAL;
+          mMode = getNextMode(mMode);
 	  mFullRefresh=true;
 	  //      cdebug("MODE:"<<mMode<<":"<<mode[mMode]);
 	  //      mText->setText(mode[mMode]);

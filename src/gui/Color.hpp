@@ -4,6 +4,15 @@
 #include <stdint.h>
 #include <SDL.h>
 
+/**
+ * This class defines a color in RGBA color space. You can specify a red, green,
+ * blue and alpha value from 0 to 255. For red/green/blue a value of 0
+ * means no saturation a value of 255 is full saturation.
+ *
+ * The alpha value does not change the color, but specifies the opacity of drawn
+ * pixels. A value of 255 means full opacity a value of 0 means nothing is
+ * drawn (= full transparent).
+ */
 class Color
 {
 public:
@@ -18,6 +27,12 @@ public:
         return result;
     }
 
+    /** parse color values. Either specified in format #RRGGBBAA where
+     * RR,GG,BB,AA are the red, green, blue, alpha values as hexadecimal
+     * numbers.
+     * Alternatively you can use predefined color names (like red,
+     * black, yellow). Look in Color.cpp for a list of names.
+     */
     void parse(const char* value);
     
     uint8_t r, g, b, a;

@@ -74,9 +74,6 @@ LCMps *getMPS()
 
 void mps_update(int mps_x,int mps_y,int mps_style)
 {
-    int i;
-
-
     switch (mps_style) {
     case MPS_MAP:
 	{

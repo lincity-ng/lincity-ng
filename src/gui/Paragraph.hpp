@@ -9,7 +9,8 @@
 
 class XmlReader;
 
-/** contains a part of text in normalized form (ie. all spaces collapsed to ' ')
+/**
+ * contains a part of text in normalized form (all spaces collapsed to ' ')
  */
 class TextSpan
 {
@@ -19,7 +20,10 @@ public:
 };
 
 /**
- * A paragraph of text
+ * A paragraph of (formatted) text
+ * The text is constructed from a list of TextSpans. A TextSpan combines a list
+ * of words with a Style so that it can have different font attributes and
+ * color.
  */
 class Paragraph : public Component
 {
@@ -32,11 +36,20 @@ public:
     virtual void draw(Painter& painter);
     virtual void event(Event& event);
 
+    /**
+     * sets a new text in the Paragraph. The style of the paragraph is used
+     */
+    void setText(const std::string& text);
+    /**
+     * Sets a new text in the Paragraph.
+     */
+    void setText(const std::string& text, const Style& style);
+
+private:
     typedef std::vector<TextSpan*> TextSpans;
     TextSpans textspans;
     Style style;
 
-private:
     void parse(XmlReader& reader, Style parentstyle);
     
     Texture* texture;

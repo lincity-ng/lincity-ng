@@ -365,4 +365,25 @@ Paragraph::event(Event& event)
 {
 }
 
+void
+Paragraph::setText(const std::string& newtext)
+{
+    setText(newtext, style);
+}
+
+void
+Paragraph::setText(const std::string& newtext, const Style& style)
+{
+    for(TextSpans::iterator i = textspans.begin(); i != textspans.end(); ++i)
+        delete *i;
+    textspans.clear();
+    TextSpan* span = new TextSpan();
+    span->style = style;
+    span->text = newtext;
+    textspans.push_back(span);
+
+    // rerender text
+    resize(width, height); 
+}
+
 IMPLEMENT_COMPONENT_FACTORY(Paragraph)

@@ -5,6 +5,7 @@
 #include "XmlReader.hpp"
 #include "ScrollBar.hpp"
 #include "ComponentFactory.hpp"
+#include "ComponentLoader.hpp"
 
 ScrollView::ScrollView(Component* parent, XmlReader& reader)
     : Component(parent)

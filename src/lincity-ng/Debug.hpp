@@ -4,6 +4,7 @@
 #ifndef NDEBUG
 
 #include <string>
+#include <sstream>
 #include <iostream>
 
 #define cdebug(x) std::cout<<"("<<__FILE__<<":"<<__LINE__<<":"<<__PRETTY_FUNCTION__<<"):"<<x<<std::endl

@@ -16,11 +16,6 @@ public:
 typedef std::map<std::string, Factory*> ComponentFactories;
 extern ComponentFactories* component_factories;
 
-Component* parseEmbeddedComponent(Component* parent, XmlReader& reader);
-Component* createComponent(const std::string& type, Component* parent,
-        XmlReader& reader);
-Component* loadGUIFile(const std::string& filename);
-
 /** comment from Matze:
  * Yes I know macros are evil, but in this specific case they save
  * A LOT of typing and evil code duplication.
