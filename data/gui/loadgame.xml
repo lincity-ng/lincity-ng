@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<gui>
+    <DefineStyle name="menutitle" color="black" font-size="50" text-align="center"/>
+    <DefineStyle name="listtitle" color="black" font-size="30"/>
+    <DefineStyle name="button" color="blue" font-size="30" margin-left="20"
+    margin-right="20"/>
+    <DefineStyle name="button-hover" color="red" font-size="30"
+    margin-left="20" margin-right="20"/>
+    <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3"
+    margin-left="23" margin-right="20"/>
+    <Image src="images/mainmenu/newgame_back.png"/>
+    <!-- Split window into title/top - contents and bottom/buttons area -->
+    <TableLayout rows="3" cols="1">
+        <rowsize row="1" relative="1"/>
+        <rowsize row="2" relative="4"/>
+        <rowsize row="3" relative="1"/>
+        
+        <cell row="1" col="1">
+            <Paragraph style="menutitle" translatable="yes">Load Game</Paragraph>
+        </cell>
+        <cell row="2" col="1">
+            <TableLayout rows="2" cols="2">
+                <rowsize row="1" fixed="50"/>
+                <colsize col="1" relative="2"/>
+                <colsize col="2" relative="1"/>
+            
+                <cell row="1" col="1">
+                    <Paragraph style="listtitle" translatable="yes">
+                    Choose Savegame</Paragraph>
+                </cell>
+                <!-- put scenario list in here 
+                <cell row="2" col="1">
+                    
+                </cell>
+                -->
+            </TableLayout>
+        </cell>
+        <cell row="3" col="1">
+            <TableLayout rows="1" cols="2">
+                <colsize col="1" alignment="left"/>
+                <colsize col="2" alignment="right"/>
+                <cell row="1" col="1">
+                    <Button name="BackButton">
+                        <text style="button" translatable="yes">Back</text>
+                        <text-hover style="button-hover"
+                        translatable="yes">Back</text-hover>
+                        <text-clicked style="button-clicked"
+                        translatable="yes">Back</text-clicked>
+                    </Button>
+                </cell>
+                <cell row="1" col="2">
+                    <Button name="LoadButton">
+                        <text style="button" translatable="yes">Load</text>
+                        <text-hover style="button-hover"
+                        translatable="yes">Load</text-hover>
+                        <text-clicked style="button-clicked"
+                        translatable="yes">Load</text-clicked>
+                    </Button>
+                </cell>
+            </TableLayout>
+        </cell>
+    </TableLayout>
+</gui>

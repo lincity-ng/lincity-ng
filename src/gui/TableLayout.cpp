@@ -71,7 +71,7 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
             } else if(element == "colsize") {
                 RowColProperties props;
                 int num = parseProperties(reader, props) - 1;
-                if(num < 0 || num >= rows) {
+                if(num < 0 || num >= cols) {
                     std::cerr 
                         << "Invalid col specified in colsize element.\n";
                     continue;
@@ -222,9 +222,6 @@ TableLayout::resize(float width, float height)
             remainingwidth += i->val;
         }
     }
-
-    printf("FH: %f RemH: %f.\n", fixedheight, remainingheight);
-    printf("FW: %f RemW: %f.\n", fixedwidth, remainingwidth);
 
     // Step2: distribute remaining space to remaining rows/cols
     float heightfact;
