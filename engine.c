@@ -19,6 +19,8 @@
 #include "power.h"
 #include "mouse.h"
 #include "module_buttons.h"
+#include "pbar.h"
+#include "stats.h"
 
 extern int selected_type_cost;
 
@@ -28,6 +30,12 @@ adjust_money(int value)
     total_money += value;
 
     print_total_money();
+
+    mappoint_stats(-3,-3,-3);
+
+    update_pbar (PMONEY, total_money, 0);
+
+    refresh_pbars(); /* This could be more specific */
 
     return total_money;
 }
