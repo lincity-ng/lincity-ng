@@ -11,6 +11,7 @@
 #include "lin-city.h"
 #include "transport.h"
 #include "power.h"
+#include "stats.h" /* for transport_cost */
 
 
 /* ---------------------------------------------------------------------
