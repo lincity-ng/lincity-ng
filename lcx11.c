@@ -615,7 +615,7 @@ Fgl_putbox_low (Drawable dst, int x0, int y0, int x1, int y1,
 		       0,		/* data */
 		       pmult * w, pmult * h,	/* width and height */
 		       32, 0);	/* bitmap_pad and bytes_per_line */
-
+    /* XXX: assert is not the right way to check for errors - wck */
     assert (im != 0);
     im->data = (char *) malloc (im->bytes_per_line * pmult * h);
     assert (im->data != 0);

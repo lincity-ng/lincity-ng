@@ -10,6 +10,7 @@
 #include "mouse.h"
 #include "shrglobs.h"
 #include "pbar.h"
+#include "lin-city.h"
 
 
 void
