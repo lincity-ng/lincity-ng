@@ -82,6 +82,13 @@ Desktop::resize(float width, float height)
         Component* component = i->getComponent();
         if(component->getFlags() & FLAG_RESIZABLE)
             component->resize(width, height);
+#ifdef DEBUG
+        if(! (component->getFlags() & FLAG_RESIZABLE) 
+                && (component->getWidth() <= 0 || component->getHeight() <= 0))
+            std::cerr << "Warning: component with name '" 
+                << component->getName() 
+                << "' has invalid width/height but is not resizable.\n";
+#endif
     }
     this->width = width;
     this->height = height;

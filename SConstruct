@@ -207,7 +207,7 @@ else:
     print "Using build_config.py"
 
 if env['VARIANT'] == "optimize":
-    env.Append(CXXFLAGS = "-O2 -g -Wall")
+    env.Append(CXXFLAGS = "-O2 -g -Wall -W")
 elif env['VARIANT'] == "debug":
     env.Append(CXXFLAGS = "-O0 -g3 -Wall -W")
     env.Append(CPPDEFINES = { "DEBUG":"1" })
