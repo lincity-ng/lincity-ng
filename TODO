@@ -11,6 +11,8 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     and rebuild some power lines, things start up and everything is 
     back to normal.
 
+  o Re-remove c++ style comments.
+
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o When you discover power substations, it says you have just 
@@ -104,6 +106,8 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
   o Remove multiplayer options from default compilation.
 
   o Pressing quit doesn't work before city is loaded.
+
+  o Animations for paths/roads/railroads.
 
 REQUESTED FEATURES
 

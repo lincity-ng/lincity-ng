@@ -83,6 +83,15 @@ For example:
 
       ./configure --prefix=/usr/mylocal
 
+If you are installing a version downloaded from the cvs server, the 
+timestamps may be incorrect, which will cause the build to fail.  In this 
+case, you need to run a script to fix the timestamps:
+
+      ./fix-timestamps.sh
+      ./configure
+      make
+      make install
+
 
 INSTALLING PICEDIT
 ==================
