@@ -276,6 +276,16 @@ void editMap (int x, int y, int button)
           || MP_TYPE(x,y + 3) != CST_GREEN)
         return;
     }
+  
+  //how to build a lake in the park? Seems to be impossible
+  //in the original game :-)
+  if( selected_module_group == GROUP_PARKLAND ){
+      Uint8 *keystate = SDL_GetKeyState(NULL);
+      if ( keystate[SDLK_w] )
+        selected_module_type = CST_PARKLAND_LAKE;
+      else
+        selected_module_type = CST_PARKLAND_PLANE;
+  }
 
   /* Place the selected item */
   switch (place_item (x, y, selected_module_type))
