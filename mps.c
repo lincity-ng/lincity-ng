@@ -31,16 +31,6 @@ void mps_global_setup (int);
 void mps_global (int);
 void mps_setup(int x, int y);
 
-void mps_university_setup (void);
-void mps_university (int, int);
-void mps_recycle_setup (void);
-void mps_recycle (int, int);
-void mps_oremine_setup (void);
-void mps_oremine (int, int);
-void mps_rocket_setup (void);
-void mps_rocket (int, int);
-void mps_windmill_setup (int, int);
-void mps_windmill (int, int);
 void mps_monument_setup (void);
 void mps_monument (int, int);
 void mps_school_setup (void);
@@ -179,12 +169,21 @@ mps_update(void)
 	    case (GROUP_INDUSTRY_L):
 		mps_light_industry (mps_x, mps_y);
 		break;
+	    case (GROUP_OREMINE):
+	        mps_oremine (mps_x, mps_y);
+		break;
 	    case GROUP_ORGANIC_FARM: 
 		mps_organic_farm(mps_x, mps_y);
 		break;
 	    case GROUP_POWER_LINE:
 	        mps_power_line (mps_x, mps_y);
 	        break;
+	    case (GROUP_RAIL):
+		mps_rail (mps_x, mps_y);
+		break;
+	    case (GROUP_RECYCLE):
+	        mps_recycle (mps_x, mps_y);
+		break;
 	    case GROUP_RESIDENCE_LL:
 	    case GROUP_RESIDENCE_ML:
 	    case GROUP_RESIDENCE_HL:
@@ -193,11 +192,11 @@ mps_update(void)
 	    case GROUP_RESIDENCE_HH:
 		mps_residence(mps_x, mps_y);
 		break;
-	    case (GROUP_RAIL):
-		mps_rail (mps_x, mps_y);
-		break;
 	    case (GROUP_ROAD):
 		mps_road (mps_x, mps_y);
+		break;
+	    case (GROUP_ROCKET):
+	        mps_rocket (mps_x, mps_y);
 		break;
 	    case GROUP_SOLAR_POWER:
 	        mps_solar_power (mps_x, mps_y);
@@ -210,6 +209,12 @@ mps_update(void)
 		break;
 	    case (GROUP_MARKET):
 		mps_market (mps_x, mps_y);
+		break;
+	    case (GROUP_UNIVERSITY):
+	        mps_university (mps_x, mps_y);
+	        break;
+	    case (GROUP_WINDMILL):
+	        mps_windmill (mps_x, mps_y);
 		break;
 	    default: 
 		printf("MPS unimplemented for that module\n");
@@ -267,6 +272,19 @@ mps_store_title(int i, char * t)
   snprintf(mps_info[i],MPS_INFO_CHARS,"%*s", c, t);
 }
 
+void
+mps_store_fp(int i, double f)
+{
+  int c;
+  int l;
+  char s[12];
+  
+  snprintf(s, sizeof(s), "%.1f%%",f);
+  l = strlen(s);
+  c = (int)((MPS_INFO_CHARS - l) / 2) + l;
+  snprintf(mps_info[i],MPS_INFO_CHARS,"%*s", c, s);
+}
+
 /* mps_store_??: Store two items, with the second one right justified.
    By writing the second string first and removing the null after
    the first string, we can ensure proper layout even after i18n.
@@ -278,8 +296,8 @@ mps_store_ss(int i, char * s1, char * s2)
 {
     int l;
     l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s1);
-    snprintf(&mps_info[i][l], MPS_INFO_CHARS, "%*s", 
-	     (MPS_INFO_CHARS - 1 - l), s2);
+    snprintf(&mps_info[i][l], MPS_INFO_CHARS - l, "%*s", 
+	     (MPS_INFO_CHARS - l - 1), s2);
 }
 
 void
@@ -492,22 +510,11 @@ mappoint_stats (int x, int y, int button)
 
 
 
-	case (GROUP_UNIVERSITY):
-	    mps_university (x, y);
-	    break;
-	case (GROUP_OREMINE):
-	    mps_oremine (x, y);
-	    break;
-	case (GROUP_RECYCLE):
-	    mps_recycle (x, y);
-	    break;
 
-	case (GROUP_ROCKET):
-	    mps_rocket (x, y);
-	    break;
-	case (GROUP_WINDMILL):
-	    mps_windmill (x, y);
-	    break;
+
+
+
+
 	case (GROUP_MONUMENT):
 	    mps_monument (x, y);
 	    break;
@@ -652,181 +659,6 @@ mps_setup (int x, int y)
     }
 }
 
-
-void
-mps_university_setup (void)
-{
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, _("Jobs"));
-  Fgl_write (mps->x, mps->y + 48, _("Goods"));
-  Fgl_write (mps->x, mps->y + 56, _("T made"));
-  Fgl_write (mps->x, mps->y + 64, _("Capacity"));
-}
-
-void
-mps_university (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / UNIVERSITY_JOBS_STORE);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / UNIVERSITY_GOODS_STORE);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  sprintf (s, "%6.1f", (float) MP_INFO(x,y).int_3 * 100.0
-	   / MAX_TECH_LEVEL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-  sprintf (s, "%4d%%", MP_INFO(x,y).int_5);
-  Fgl_write (mps->x + 9 * 8, mps->y + 64, s);
-}
-
-void
-mps_recycle_setup (void)
-{
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 16, _("Power"));
-  Fgl_write (mps->x, mps->y + 40, _("O stock"));
-  Fgl_write (mps->x, mps->y + 48, _("W store"));
-  Fgl_write (mps->x, mps->y + 56, _("S store"));
-  Fgl_write (mps->x, mps->y + 64, _("Tech"));
-  Fgl_write (mps->x, mps->y + 80, _("Capacity"));
-}
-
-void
-mps_recycle (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-    strcpy (s, _("YES"));
-  else
-    strcpy (s, _("NO "));
-  Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / MAX_ORE_AT_RECYCLE);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / MAX_WASTE_AT_RECYCLE);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  Fgl_write (mps->x + 9 * 8, mps->y + 56, "-");
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_4 * 100
-	   / MAX_TECH_LEVEL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
-  sprintf (s, "%4d%%", MP_INFO(x,y).int_6);
-  Fgl_write (mps->x + 8 * 8, mps->y + 80, s);
-}
-
-void
-mps_oremine_setup (void)
-{
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, _("Stock"));
-  Fgl_write (mps->x, mps->y + 48, _("Reserve"));
-}
-
-void
-mps_oremine (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / DIG_MORE_ORE_TRIGGER);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / (ORE_RESERVE * 16));
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-}
-
-
-void
-mps_rocket_setup (void)
-{
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, _("Jobs"));
-  Fgl_write (mps->x, mps->y + 48, _("Goods"));
-  Fgl_write (mps->x, mps->y + 56, _("Steel"));
-  Fgl_write (mps->x, mps->y + 64, _("Launch"));
-}
-
-void
-mps_rocket (int x, int y)
-{
-    Rect* mps = &scr.mappoint_stats;
-    char s[100];
-    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	     / ROCKET_PAD_JOBS_STORE);
-    Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	     / ROCKET_PAD_GOODS_STORE);
-    Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_3 * 100
-	     / ROCKET_PAD_STEEL_STORE);
-    Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_4 * 100
-	     / ROCKET_PAD_LAUNCH);
-    Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
-
-    /* GCS:  Moved to mouse handler */
-#if defined (commentout)
-    if (MP_TYPE(x,y) == CST_ROCKET_5) {
-	if (yn_dial_box (_("ROCKET LAUNCH"),
-			 _("You can launch the rocket now or wait until later."),
-			 _("If you wait, it costs you *only* money to keep the"),
-			 _("rocket ready.    Launch?")) != 0)
-	    launch_rocket (x, y);
-    }
-#endif
-}
-
-void
-mps_windmill_setup (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 24, _("Tech"));
-
-  if (MP_INFO(x,y).int_2 >= MODERN_WINDMILL_TECH) {
-    Fgl_write (mps->x, mps->y + 32, _("Power"));
-    Fgl_write (mps->x, mps->y + 40, _("Grid"));
-    Fgl_write (mps->x, mps->y + 48, _("Max"));
-    Fgl_write (mps->x, mps->y + 56, _("Avail"));
-    Fgl_write (mps->x, mps->y + 64, _("Demand"));
-    Fgl_write (mps->x, mps->y + 72, _("Here"));
-  }
-}
-
-void
-mps_windmill (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[10];
-
-  snprintf (s, 10, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / MAX_TECH_LEVEL);
-  Fgl_write (mps->x + 8 * 8, mps->y + 24, s);
-
-  if (MP_INFO(x,y).int_2 >= MODERN_WINDMILL_TECH)
-    { /* power level */
-      format_power(s, 10, MP_INFO(x,y).int_1);
-      Fgl_write (mps->x + 8 * 8, mps->y + 32, s);
-
-      snprintf (s, 10, "%d", MP_INFO(x,y).int_6);
-      Fgl_write (mps->x + 8 * 8, mps ->y + 40, s);
-      
-      format_power (s, 10, grid[MP_INFO(x,y).int_6]->max_power);
-      Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-      
-      format_power (s, 10, grid[MP_INFO(x,y).int_6]->avail_power);
-      Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-      
-      format_power (s, 10, grid[MP_INFO(x,y).int_6]->demand);
-      Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
-
-      format_power (s, 10, MP_INFO(x,y).int_5);
-      Fgl_write (mps->x + 8 * 8, mps->y + 72, s);
-
-    }
-}
 
 void
 mps_monument_setup (void)

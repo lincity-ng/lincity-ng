@@ -9,5 +9,6 @@
 #define __windmill_h__
 
 void do_windmill(int x, int y);
+void mps_windmill(int x, int y);
 
 #endif /* __windmill_h__ */

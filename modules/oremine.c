@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <oremine.h>
 
 
@@ -178,3 +181,20 @@ do_oremine (int x, int y)
 	}
     }
 }
+
+void
+mps_oremine (int x, int y)
+{
+  int i = 0;
+
+  mps_store_title(i++,_("Ore Mine"));
+  i++;
+
+  mps_store_sfp(i++,_("Stock"), 
+		MP_INFO(x,y).int_1 * 100.0 / DIG_MORE_ORE_TRIGGER);
+  i++;
+
+  mps_store_sfp(i++,_("Reserve"),
+		MP_INFO(x,y).int_2 * 100.0 / (ORE_RESERVE * 16));
+}
+

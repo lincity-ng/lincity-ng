@@ -7,11 +7,16 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
-#include <windmill.h>
+#include <mps.h>
+#include <lclib.h>
 #include <power.h>
+#include <windmill.h>
+
 
 /*** Windmills ***/
 /*
@@ -68,3 +73,45 @@ do_windmill (int x, int y)
 	break;
       }      
 }
+
+void
+mps_windmill (int x, int y)
+{
+    int i = 0;
+    char s[12];
+    
+    mps_store_title(i++,_("Windmill"));
+    i++;
+   
+    if (MP_INFO(x,y).int_2 < MODERN_WINDMILL_TECH) {
+	mps_store_sfp(i++,_("Tech"),
+		      MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);  
+    } else {
+	mps_store_title(i++,_("Local Status"));
+
+	format_power (s, sizeof(s), MP_INFO(x,y).int_1);    
+	mps_store_ss(i++,_("Prod."),s);
+
+	format_power (s, sizeof(s), MP_INFO(x,y).int_5);    
+	mps_store_ss(i++,_("Demand"),s);
+
+	mps_store_sfp(i++,_("Tech"),
+		  MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);  
+	i++;
+	
+	mps_store_title(i++,_("Grid Status"));
+	
+	format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->max_power);
+	mps_store_ss(i++,_("T. Cap."), s);
+	
+	format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->avail_power);
+	mps_store_ss(i++,_("A. Cap."), s);
+	
+	format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->demand);
+	mps_store_ss(i++,_("Demand"), s);
+	i++;
+	
+	mps_store_sd(i++,_("Grid ID"), MP_INFO(x,y).int_6);
+    }
+}
+

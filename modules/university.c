@@ -7,6 +7,8 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
@@ -59,4 +61,25 @@ do_university (int x, int y)
       MP_INFO(x,y).int_4 = 0;
     }
   university_cost += UNIVERSITY_RUNNING_COST;
+}
+
+void
+mps_university (int x, int y)
+{
+  int i = 0;
+  char s[12];
+
+  mps_store_title(i++,_("University"));
+  i++;
+  mps_store_title(i++,_("Tech Produced"));
+  snprintf (s, sizeof(s), "%6.1f", 
+	    MP_INFO(x,y).int_3 * 100.0 / MAX_TECH_LEVEL);  
+  mps_store_title(i++,s);
+  i++;
+
+  mps_store_sfp(i++,_("Jobs"), 
+		MP_INFO(x,y).int_1 * 100.0 / UNIVERSITY_JOBS_STORE);
+  mps_store_sfp(i++,_("Goods"),
+		MP_INFO(x,y).int_2 * 100.0 / UNIVERSITY_GOODS_STORE);
+  mps_store_sfp(i++,_("Capacity"), MP_INFO(x,y).int_4);
 }

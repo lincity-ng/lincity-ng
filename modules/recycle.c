@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <recycle.h>
 
 void
@@ -162,4 +165,30 @@ do_recycle (int x, int y)
   if (MP_INFO(x,y).int_1 > (MAX_ORE_AT_RECYCLE * 9 / 10)
       && MP_INFO(x,y).int_2 > (MAX_WASTE_AT_RECYCLE * 9 / 10))
     MP_INFO(x,y).int_2 -= BURN_WASTE_AT_RECYCLE;
+}
+
+void
+mps_recycle (int x, int y)
+{
+  int i = 0;
+  char * p;
+
+  mps_store_title(i++,_("Recycling"));
+  mps_store_title(i++,_("Center"));
+  i++;
+
+  mps_store_sfp(i++,_("Capacity"), MP_INFO(x,y).int_6);
+
+  p = ((MP_INFO(x,y).flags & FLAG_POWERED) != 0) ? _("YES") : _("NO");
+  mps_store_ss(i++,_("Power"),p);
+
+  mps_store_sfp(i++,_("Tech"),
+		MP_INFO(x,y).int_4 * 100.0 / MAX_TECH_LEVEL);
+  i++;
+  mps_store_title(i++,_("Inventory"));
+  mps_store_sfp(i++,_("Ore"),
+		MP_INFO(x,y).int_1 * 100.0 / MAX_ORE_AT_RECYCLE);
+  mps_store_sfp(i++,_("Waste"),
+		MP_INFO(x,y).int_2 * 100.0 / MAX_WASTE_AT_RECYCLE);
+
 }

@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <rocket_pad.h>
 
 
@@ -153,4 +156,25 @@ launch_rocket (int x, int y)
 	    display_rocket_result_dialog (ROCKET_LAUNCH_GOOD);
 	}
     }
+}
+
+void
+mps_rocket (int x, int y)
+{
+    int i = 0;
+
+    mps_store_title(i++,_("Rocket Pad"));
+    i++;
+
+    mps_store_title(i++,_("Completion"));
+    mps_store_fp(i++, MP_INFO(x,y).int_4 * 100.0 / ROCKET_PAD_LAUNCH);    
+    i++;
+    mps_store_title(i++,_("Inventory"));
+    mps_store_sfp(i++,_("Jobs"), 
+		  MP_INFO(x,y).int_1 * 100.0 / ROCKET_PAD_JOBS_STORE);
+    mps_store_sfp(i++,_("Goods"),
+		  MP_INFO(x,y).int_2 * 100.0 / ROCKET_PAD_GOODS_STORE);
+    mps_store_sfp(i++,_("Steel"),
+		  MP_INFO(x,y).int_3 * 100.0 / ROCKET_PAD_STEEL_STORE);
+
 }

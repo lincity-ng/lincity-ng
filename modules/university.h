@@ -9,5 +9,6 @@
 #define __university_h__
 
 void do_university(int x, int y);
+void mps_university(int x, int y);
 
 #endif /* __university_h__ */
