@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -87,7 +88,8 @@ main (int argc, char *argv[])
 	exit (-1);
     }
     fprintf (fp,"P3\n# Created by csi2ppm from lincity file %s\n", infile);
-    fprintf (fp,"%d %d\n255\n",size,size);
+//    fprintf (fp,"%d %d\n255\n",size,size);
+    fprintf (fp,"%d %d\n62\n",size,size);
     while (fread(&c,1,1,fpi)) {
 	fprintf (fp, "%d %d %d\n", pal[c].red, pal[c].grn, pal[c].blu);
     }
