@@ -116,11 +116,13 @@ char okmessage[22][74];
 int db_okbox_x1, db_okbox_x2, db_okbox_y1, db_okbox_y2, db_okflag, db_okbox_clicked;
 int suppress_ok_buttons;
 
+disp display;
+int borderx, bordery;
+
+int command_line_debug = 0;
 
 #ifdef LC_X11
 int winX, winY, mouse_button;
-/* unsigned int winW, winH; */  /* GCS: Moved to display structure */
-disp display;
 
 char *bg_color = NULL;
 char dummy1[1024];
@@ -132,7 +134,6 @@ int text_fg = 255;
 int x_key_value;
 int x_key_shifted = 0;	/* Is the key shifted? */
 int xclip_x1, xclip_y1, xclip_x2, xclip_y2, clipping_flag = 0;
-int borderx, bordery;
 long unsigned int colour_table[256];
 unsigned char *open_font;
 int open_font_height, suppress_next_expose = 0;
@@ -146,7 +147,6 @@ char icon_pixmap_flag[NUM_OF_TYPES];
 
 #ifdef WIN32
 int mouse_button;
-disp display;
 char *bg_color = NULL;
 char dummy1[1024];
 char dummy2[1024];
@@ -157,7 +157,6 @@ int text_fg = 255;
 int x_key_value = 0;		/* GCS: Add initialization value */
 BOOL x_key_shifted = FALSE;	/* Is the key shifted? */
 int xclip_x1, xclip_y1, xclip_x2, xclip_y2, clipping_flag = 0;
-int borderx, bordery;
 long unsigned int colour_table[256];
 unsigned char *open_font;
 int open_font_height, suppress_next_expose = 0;

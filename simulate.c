@@ -625,8 +625,6 @@ random_start (int* originx, int* originy)
 		}
     } while (flag == 0 || (--watchdog) < 1);
 
-    printf ("origin = %d %d\n", xx, yy);
-
     /* These are going to be the main_screen_origin? vars */
     *originx = xx;
     *originy = yy;

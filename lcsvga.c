@@ -19,7 +19,6 @@
 #include "lcintl.h"
 /* #include "climsg.h" */
 
-
 unsigned char mouse_pointer[] = {
     255, 255, 255, 255, 1, 1, 1, 1,
     255, 1, 1, 1, 255, 255, 1, 1,
@@ -32,6 +31,7 @@ unsigned char mouse_pointer[] = {
 };
 unsigned char under_mouse_pointer[8 * 8];
 
+int vga_mode = 10;
 
 void lc_mouse_handler(int button, int dx, int dy, int dz,
 		      int drx, int dry, int drz);
@@ -109,6 +109,41 @@ mouse_setup(void)
 }
 
 void
+mouse_set_range (int width, int height)
+{
+    debug_printf ("setting mouse range: %d %d\n", width, height);
+    mouse_setxrange(0, width - 1);
+    mouse_setyrange(0, height - 1);
+    cs_mouse_xmax = width - 1;
+    cs_mouse_ymax = height - 1;
+}
+
+void
+set_vga_mode (void)
+{
+  vga_setmode (vga_mode);
+  gl_setcontextvga (vga_mode);
+  init_mouse();
+  switch (vga_mode) 
+    {
+    case 10:
+      resize_geometry (640,480);
+      break;
+    case 11:
+      resize_geometry (800,600);
+      break;
+    case 12:
+      resize_geometry (1024,768);
+      break;
+    case 13:
+      resize_geometry (1280,1024);
+      break;
+    default:
+      do_error ("illegal vga mode");
+    }
+}
+
+void
 lc_mouse_handler(int button, int dx, int dy, int dz,
 		 int drx, int dry, int drz)
 {
@@ -166,11 +201,15 @@ parse_args (int argc, char **argv)
   int option;
   extern char *optarg;
 
-  while ((option = getopt (argc, argv, "wR:G:B:")) != EOF)
+  while ((option = getopt (argc, argv, "wR:G:B:m:")) != EOF)
     {
       switch (option)
 	{
-
+	case 'm':
+	  sscanf (optarg, "%d", &vga_mode);
+	  if (vga_mode > 13 || vga_mode < 10)
+	      vga_mode = 10;
+	  break;
 	case 'w':
 	  gamma_correct_red = GAMMA_CORRECT_RED;
 	  gamma_correct_green = GAMMA_CORRECT_GREEN;

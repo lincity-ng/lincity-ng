@@ -1,4 +1,4 @@
-/* ---------------------------------------------------------------------- *
+ /* ---------------------------------------------------------------------- *
  * fileutil.c
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
@@ -84,7 +84,8 @@
 # define HAVE_LOCALE_NULL
 #endif
 
-#define DEBUG_PRINTF_ENABLED 0
+#define DEBUG_PRINTF_TO_FILE 0
+void debug_printf (char* fmt, ...);
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -631,22 +632,36 @@ undosify_string (char *s)
 void
 debug_printf (char* fmt, ...)
 {
-#if (DEBUG_PRINTF_ENABLED)
+#if (DEBUG_PRINTF_TO_FILE)
     static int initialized = 0;
     char* filename = "debug.txt";
     FILE* fp;
+#endif
     va_list argptr;
 
+#if (DEBUG_PRINTF_TO_FILE)
+    va_start (argptr, fmt);
     fp = fopen(filename, "a");
     if (!initialized) {
 	initialized = 1;
 	fprintf (fp, "=========================\n");
     }
-
-    va_start (argptr, fmt);
     vfprintf (fp, fmt, argptr);
-    va_end (argptr);
+#endif
 
+    if (command_line_debug) {
+#if (!DEBUG_PRINTF_TO_FILE)
+      va_start (argptr, fmt);
+#endif
+      vprintf (fmt, argptr);
+#if (!DEBUG_PRINTF_TO_FILE)
+      va_end (argptr);
+#endif
+    }
+
+#if (DEBUG_PRINTF_TO_FILE)
+    va_end (argptr);
     fclose (fp);
 #endif
 }
+

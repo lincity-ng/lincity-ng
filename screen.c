@@ -96,14 +96,14 @@ draw_background (void)
 {
     /* XXX: we don't need to draw the whole background! */
     /* GCS: but this routine is only called on a full refresh, so it's OK */
+
 #if defined (LC_X11) || defined (WIN32)
     /* Draw border region, but don't put into pixmap */
     draw_border ();
-
     /* Draw main area */
     Fgl_fillbox (0, 0, pixmap_width, pixmap_height, TEXT_BG_COLOUR);
 #else /* SVGALIB */
-    Fgl_fillbox (0, 0, 640, 480, TEXT_BG_COLOUR);
+    Fgl_fillbox (0, 0, display.winW, display.winH, TEXT_BG_COLOUR);
 #endif
 }
 
@@ -2085,6 +2085,8 @@ draw_cb_template (int is_market_cb)
     char s[100];
     Rect* mcb = &scr.market_cb;
 
+    debug_printf ("In draw_cb_template...\n");
+    debug_printf ("Coords are %d %d %d %d\n",mcb->x,mcb->y,mcb->w,mcb->h);
     x = mcbx;	/* x & y are the market's pos. */
     y = mcby;
     flags = MP_INFO(x,y).flags;
@@ -2140,9 +2142,7 @@ draw_cb_template (int is_market_cb)
 void
 draw_market_cb (void)
 {
-#if defined (LC_X11) || defined (WIN32)
     market_cb_drawn_flag = 1;
-#endif
     draw_cb_template (1);
 }
 
@@ -2152,9 +2152,8 @@ close_market_cb (void)
     Rect* mcb = &scr.market_cb;
 
     market_cb_flag = 0;
-#if defined (LC_X11) || defined (WIN32)
     market_cb_drawn_flag = 0;
-#endif
+
     Fgl_putbox (mcb->x, mcb->y, mcb->w, mcb->h
 		,market_cb_gbuf);
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
@@ -2174,9 +2173,7 @@ clicked_port_cb (int x, int y)
 void
 draw_port_cb (void)
 {
-#if defined (LC_X11) || defined (WIN32)
     port_cb_drawn_flag = 1;
-#endif
     draw_cb_template (0);
 }
 
@@ -2187,9 +2184,8 @@ close_port_cb (void)
     Rect* mcb = &scr.market_cb;
 
     port_cb_flag = 0;
-#if defined (LC_X11) || defined (WIN32)
     port_cb_drawn_flag = 0;
-#endif
+
     Fgl_putbox (mcb->x, mcb->y, mcb->w, mcb->h, market_cb_gbuf);
     /* when exiting port cb, stop the mouse repeating straight away */
     cs_mouse_button = LC_MOUSE_LEFTBUTTON;
@@ -2386,7 +2382,7 @@ do_sust_barchart (int draw)
 		   _("FIR"));
 	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 	/* draw the starting line */
-	Fgl_line (mg->x + 38, mg->y, mg->x + 18, mg->y + mg->h,
+	Fgl_line (mg->x + 38, mg->y, mg->x + 38, mg->y + mg->h,
 		  yellow (24));
 	/* ore coal */
 	Fgl_fillbox (mg->x + 36, mg->y + SUST_BAR_GAP_Y,

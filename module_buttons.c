@@ -49,7 +49,7 @@ init_modules (void)
     /* Tell the mouse where we are */
     mhandle = mouse_register(&scr.module_buttons,&module_buttons_handler);
 
-#ifdef DEBUG_MODULES
+#if (DEBUG_MODULES)
     printf("debug_modules:\t\tr=%d\tc=%d\n",module_rows, module_cols);
 #endif
 

@@ -416,9 +416,9 @@ draw_normal_mouse (int x, int y)
     }
 #if defined (SVGALIB)
     Fgl_getbox (x, y, 8, 8, under_mouse_pointer);
-    if (x > 631 || y > 471) {
+    if (x > cs_mouse_xmax - 8 || y > cs_mouse_ymax - 8) {
 	Fgl_enableclipping ();
-	Fgl_setclippingwindow (0, 0, 639, 479);
+	Fgl_setclippingwindow (0, 0, cs_mouse_xmax, cs_mouse_ymax);
 	Fgl_putbox (x, y, 8, 8, mouse_pointer);
 	Fgl_disableclipping ();
     } else {
@@ -433,9 +433,9 @@ void
 hide_normal_mouse (void)
 {
 #if defined (SVGALIB)
-    if (mox > 631 || moy > 471) {
+    if (mox > cs_mouse_xmax - 8 || moy > cs_mouse_ymax - 8) {
 	Fgl_enableclipping ();
-	Fgl_setclippingwindow (0, 0, 639, 479);
+	Fgl_setclippingwindow (0, 0, cs_mouse_xmax, cs_mouse_ymax);
 	Fgl_putbox (mox, moy, 8, 8, under_mouse_pointer);
 	Fgl_disableclipping ();
     } else {
@@ -448,9 +448,9 @@ void
 redraw_normal_mouse (void)
 {
 #if defined (SVGALIB)
-    if (mox > 631 || moy > 471) {
+    if (mox > cs_mouse_xmax - 8 || moy > cs_mouse_ymax - 8) {
 	Fgl_enableclipping ();
-	Fgl_setclippingwindow (0, 0, 639, 479);
+	Fgl_setclippingwindow (0, 0, cs_mouse_xmax, cs_mouse_ymax);
 	Fgl_getbox (mox, moy, 8, 8, under_mouse_pointer);
 	Fgl_putbox (mox, moy, 8, 8, mouse_pointer);
 	Fgl_disableclipping ();

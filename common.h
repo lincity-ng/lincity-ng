@@ -22,6 +22,7 @@
 #include <vgagl.h>
 #include <vgamouse.h>
 #include "lcsvga.h"
+
 #endif
 
 #endif	/* __common_h__ */

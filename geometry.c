@@ -276,7 +276,6 @@ initialize_geometry (Screen_Geometry* scr)
     scr->market_cb.w = MARKET_CB_W; */
 }
 
-#if !defined (SVGALIB)
 void 
 resize_geometry (int new_width, int new_height)
 {
@@ -303,7 +302,9 @@ resize_geometry (int new_width, int new_height)
     /* Expand pixmap if necessary */
     scr.client_w = new_width - 2*borderx;
     scr.client_h = new_height - 2*bordery;
+#if !defined (SVGALIB)
     resize_pixmap (scr.client_w, scr.client_h);
+#endif
 
     /* Adjust items that need adjusting */
 
@@ -345,10 +346,15 @@ resize_geometry (int new_width, int new_height)
     scr.results_button.x = scr.client_w - 2*56;
     scr.results_button.y = scr.client_h - 24;
 
-    /* Complete refresh of the screen required here */
-    screen_full_refresh ();
-}
+#if defined (SVGALIB)
+    mouse_set_range (new_width,new_height);
 #endif
+
+    /* Complete refresh of the screen required here */
+#if !defined (SVGALIB)
+    screen_full_refresh ();
+#endif
+}
 
 int 
 mouse_in_rect (Rect* b, int x, int y)

@@ -171,6 +171,12 @@ lincity_main (int argc, char *argv[])
     prefs_drawn_flag = 0;
     kmouse_val = 8;
 
+#ifdef LC_X11
+    borderx = 0;
+    bordery = 0;
+    parse_xargs (argc, argv, &geometry);
+#endif
+
     /* I18n */
     lincity_set_locale ();
 
@@ -190,9 +196,11 @@ lincity_main (int argc, char *argv[])
 #endif
 
 #ifdef LC_X11
+#if defined (commentout)
     borderx = 0;
     bordery = 0;
     parse_xargs (argc, argv, &geometry);
+#endif
     Create_Window (geometry);
     pirate_cursor = XCreateFontCursor (display.dpy, XC_pirate);
 #elif defined (WIN32)
@@ -222,6 +230,11 @@ lincity_main (int argc, char *argv[])
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 
     initialize_geometry (&scr);
+
+#if defined (SVGALIB)
+    set_vga_mode ();
+#endif
+
     initialize_monthgraph ();
     init_mouse_registry ();
     init_mini_map_mouse ();
@@ -248,7 +261,9 @@ lincity_main (int argc, char *argv[])
     prog_box ("", 100);
 #endif
     //draw_normal_mouse (1, 1);
-    init_mouse ();
+#if defined (LC_X11)
+    init_x_mouse ();
+#endif
     init_timer_buttons();
     mouse_initialized = 1;
     //set_selected_module (CST_TRACK_LR);
@@ -595,12 +610,11 @@ execute_timestep (void)
     }
     else /* if game is "stalled" */
     {
-#if defined (LC_X11) || defined (WIN32)
 	if (market_cb_flag != 0 && market_cb_drawn_flag == 0)
 	    draw_market_cb ();
 	if (port_cb_flag != 0 && port_cb_drawn_flag == 0)
 	    draw_port_cb ();
-#else
+#if defined (SVGALIB)
 	mouse_update ();
 #endif
     }

@@ -22,8 +22,6 @@ extern char lc_textdomain_directory[256];
 
 extern int no_init_help;
 
-
-
 extern int main_screen_flag;
 extern int mappoint_stats_flag, mappoint_stats_time;
 extern int mini_screen_flags, mini_screen_time;
@@ -156,11 +154,14 @@ extern char *askdir_path[4];
 extern int lc_save_dir_len;
 
 
+extern struct _disp display;
+extern int borderx, bordery;
+
+extern int command_line_debug;
 
 #ifdef LC_X11
 extern int winX, winY, mouse_button;
 extern unsigned int winW, winH;
-extern disp display;
 
 extern char *bg_color;
 extern char dummy1[1024];
@@ -173,7 +174,6 @@ extern int text_fg;
 extern int x_key_value;
 extern int x_key_shifted;	/* Is the key shifted? */
 extern int xclip_x1, xclip_y1, xclip_x2, xclip_y2, clipping_flag;
-extern int borderx, bordery;
 extern long unsigned int colour_table[256];
 extern unsigned char *open_font;
 extern int open_font_height, suppress_next_expose;
@@ -187,7 +187,6 @@ extern char icon_pixmap_flag[NUM_OF_TYPES];
 
 #ifdef WIN32
 extern int mouse_button;
-extern disp display;
 extern char *bg_color;
 extern char dummy1[1024];
 extern char dummy2[1024];
@@ -198,7 +197,6 @@ extern int text_fg;
 extern int x_key_value;		/* GCS: Add initialization value */
 extern BOOL x_key_shifted;	/* Is the key shifted? */
 extern int xclip_x1, xclip_y1, xclip_x2, xclip_y2, clipping_flag;
-extern int borderx, bordery;
 extern long unsigned int colour_table[256];
 extern unsigned char *open_font;
 extern int open_font_height, suppress_next_expose;

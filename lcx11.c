@@ -258,9 +258,9 @@ parse_xargs (int argc, char **argv, char **geometry)
     extern char *optarg;
 
 #ifdef ALLOW_PIX_DOUBLING
-    char* option_string = "vbrndg:wR:G:B:";
+    char* option_string = "vbrndg:wR:G:B:D";
 #else
-    char* option_string = "vbrng:wR:G:B:";
+    char* option_string = "vbrng:wR:G:B:D";
 #endif
     while ((option = getopt (argc, argv, option_string)) != EOF) {
 	switch (option)
@@ -301,8 +301,9 @@ parse_xargs (int argc, char **argv, char **geometry)
 	case 'B':
 	    sscanf (optarg, "%f", &gamma_correct_blue);
 	    break;
-
-
+	case 'D':
+	    command_line_debug = 1;
+	    break;
 	}
     }
     if (verbose)
@@ -342,10 +343,10 @@ Create_Window (char *geometry)
     xswa.event_mask = 0;
     xswa.background_pixel = display.bg;
     xswa.backing_store = Always;
-    printf ("DefaultVisual id=%d bp-rgb=%d map-entries=%d\n"
-	    ,(int) (*DefaultVisual (display.dpy, display.screen)).visualid
-	    ,(*DefaultVisual (display.dpy, display.screen)).bits_per_rgb
-	    ,(*DefaultVisual (display.dpy, display.screen)).map_entries);
+    debug_printf ("DefaultVisual id=%d bp-rgb=%d map-entries=%d\n",
+		  (int) (*DefaultVisual (display.dpy, display.screen)).visualid,
+		  (*DefaultVisual (display.dpy, display.screen)).bits_per_rgb,
+		  (*DefaultVisual (display.dpy, display.screen)).map_entries);
     vid = DefaultVisual (display.dpy, display.screen);
     display.cmap
 	    = XDefaultColormap (display.dpy, display.screen);
@@ -1027,8 +1028,9 @@ lc_get_keystroke (void)
 /* init_full_mouse is called just before the main client loop. */
 
 /* XXX: This needs a much better name */
+/* GCS: Yes it does, b/c it means something different for svgalib */
 void 
-init_mouse (void) 
+init_x_mouse (void) 
 {
   XSelectInput (display.dpy, display.win,
 		KeyPressMask | ButtonPressMask | ButtonReleaseMask
