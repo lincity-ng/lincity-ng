@@ -87,6 +87,12 @@ protected:
     Child& addChild(Component* component);
     void drawChild(Child& child, Painter& painter);
     void eventChild(Child& child, const Event& event);
+
+    void setDirty()
+    {
+        setDirty(Rect2D(0, 0, width, height));
+    }
+    void setDirty(const Rect2D& area);
     
     /**
      * used to parse attributes (from an xml stream for example). Currently

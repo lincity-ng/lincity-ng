@@ -4,6 +4,7 @@
 #include "ComponentFactory.hpp"
 #include "XmlReader.hpp"
 #include "Desktop.hpp"
+#include "Style.hpp"
 
 #include <sstream>
 #include <stdexcept>
@@ -59,7 +60,9 @@ Component* parseEmbeddedComponent(Component* parent, XmlReader& reader)
         while(reader.read() && reader.getDepth() > depth) {
             if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
                 const char* name = (const char*) reader.getName();
-                if(component == 0) {
+                if(strcmp(name, "DefineStyle") == 0) {
+                    parseStyleDef(reader);
+                } else if(component == 0) {
                     component = createComponent(name, parent, reader);
                 } else {
                     std::cerr << "Multiple components specified."

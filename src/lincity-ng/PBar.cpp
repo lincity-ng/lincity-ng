@@ -4,5 +4,3 @@
 LCPBar* LCPBarInstance = 0;
 
 IMPLEMENT_COMPONENT_FACTORY(LCPBar);
-
-INTERN_LCPBarFactory myLCPBarFactory;

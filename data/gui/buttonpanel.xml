@@ -11,10 +11,9 @@
         </cell>
         <cell row="1" col="2">
             <Button name="BullDozeButton">
-                <image src="images/gui/button_bg0.png"/>
-                <image-hover src="images/gui/button_bg1.png"/>
-                <image-clicked src="images/gui/button_bg2.png"/>
-                <image-caption src="images/gui/bulldozer1.png"/>
+                <image src="images/gui/tiledozer.png"/>
+                <image-hover src="images/gui/tiledozer-h.png"/>
+                <image-clicked src="images/gui/tiledozer-c.png"/>
             </Button>
         </cell>
         <cell row="2" col="1">

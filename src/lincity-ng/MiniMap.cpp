@@ -370,7 +370,4 @@ void MiniMap::event(const Event& event)
     }
 }
 
-
 IMPLEMENT_COMPONENT_FACTORY(MiniMap)
-
-INTERN_MiniMapFactory myMiniMapFactory;

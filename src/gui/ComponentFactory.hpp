@@ -22,7 +22,7 @@ extern ComponentFactories* component_factories;
  * I'll happily acceppt alternatives if someone can present me one that does
  * not involve typing 4 or more lines for each object class
  */
-#define IMPLEMENT_COMPONENT_FACTORY(CLASS)                                  \
+#define DECLARE_COMPONENT_FACTORY(CLASS)                                    \
 class INTERN_##CLASS##Factory : public Factory                              \
 {                                                                           \
 public:                                                                     \
@@ -38,9 +38,10 @@ public:                                                                     \
   {                                                                         \
     return new CLASS(parent, reader);                                       \
   }                                                                         \
-};                                                                          \
-//INTERN_##CLASS##Factory factory_##CLASS;
-
+};
+#define IMPLEMENT_COMPONENT_FACTORY(CLASS)                                  \
+DECLARE_COMPONENT_FACTORY(CLASS)                                            \
+INTERN_##CLASS##Factory factory_##CLASS;
 
 #endif
 
