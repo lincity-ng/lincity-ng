@@ -118,7 +118,7 @@
                     <MiniMap width="200" height="200" tilesize="2"/>
                 </cell>
                 <cell row="2" col="1">
-                    <TableLayout rows="1" cols="3">
+                    <TableLayout rows="1" cols="4">
                         <cell row="1" col="1">
                             <Button name="SpeedPauseButton">
                                 <image src="images/gui/new_button_bg2.png"/>
@@ -128,7 +128,7 @@
                             </Button>
                         </cell>
                         <cell row="1" col="2">
-                            <Button name="SpeedNormalButton">
+                            <Button name="SpeedSlowButton">
                                 <image src="images/gui/new_button_bg2.png"/>
                                 <image-hover src="images/gui/new_button_bg1.png"/>
                                 <image-clicked src="images/gui/new_button_bg0.png"/>
@@ -136,6 +136,14 @@
                             </Button>
                         </cell>
                         <cell row="1" col="3">
+                            <Button name="SpeedNormalButton">
+                                <image src="images/gui/new_button_bg2.png"/>
+                                <image-hover src="images/gui/new_button_bg1.png"/>
+                                <image-clicked src="images/gui/new_button_bg0.png"/>
+                                <image-caption src="images/gui/play.png"/>
+                            </Button>
+                        </cell>
+                        <cell row="1" col="4">
                             <Button name="SpeedFastButton">
                                 <image src="images/gui/new_button_bg2.png"/>
                                 <image-hover src="images/gui/new_button_bg1.png"/>

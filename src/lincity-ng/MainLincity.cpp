@@ -19,11 +19,21 @@
 
 #include "GameView.hpp"
 
+int lincitySpeed = MED_TIME_FOR_YEAR;
+
+void setLincitySpeed( int speed )
+{
+    lincitySpeed = speed;
+}
+
 void execute_timestep ()
 {
   static Uint32 oldTime = SDL_GetTicks();
   Uint32 now=SDL_GetTicks();
-  Uint32 mStepTime=(MED_TIME_FOR_YEAR*1000/NUMOF_DAYS_IN_YEAR); // Godrin:exchange MED with SLOW or FAST for other speeds
+  Uint32 mStepTime=( lincitySpeed *1000/NUMOF_DAYS_IN_YEAR); 
+
+  if( lincitySpeed == 0 )
+      return; // Pause
 
   if (now - oldTime < mStepTime)
     return; // skip frame

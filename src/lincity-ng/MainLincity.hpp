@@ -3,5 +3,6 @@
 
 void initLincity();
 void doLincityStep();
+void setLincitySpeed( int speed );
 
 #endif

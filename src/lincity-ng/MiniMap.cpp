@@ -2,6 +2,7 @@
 
 #include "MiniMap.hpp"
 #include "GameView.hpp"
+#include "MainLincity.hpp"
 
 #include "gui/Painter.hpp"
 #include "gui/Button.hpp"
@@ -30,8 +31,11 @@
 #define LC_MOUSE_RIGHTBUTTON 2
 #define LC_MOUSE_MIDDLEBUTTON 3
   
-char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood","MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal","ZoomInButton","ZoomOutButton"};
-#define BUTTON_COUNT 11
+char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood",
+    "MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal",
+    "ZoomInButton","ZoomOutButton","SpeedPauseButton","SpeedSlowButton",
+    "SpeedNormalButton","SpeedFastButton"};
+#define BUTTON_COUNT 15
 
 Uint8 brightness(const Color &c)
 {
@@ -159,6 +163,10 @@ void MiniMap::chooseButtonClicked(Button* button)
         case 8: mMode=COAL;break;
         case 9: getGameView()->zoomIn(); break;
         case 10:getGameView()->zoomOut() ;break;
+        case 11:setLincitySpeed( 0 ); break;
+        case 12:setLincitySpeed( SLOW_TIME_FOR_YEAR ) ; break;
+        case 13:setLincitySpeed( MED_TIME_FOR_YEAR ) ; break;
+        case 14:setLincitySpeed( FAST_TIME_FOR_YEAR ) ; break;
        }
      }
    }
