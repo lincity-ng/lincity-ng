@@ -638,41 +638,50 @@ void GameView::event(const Event& event)
             if ( event.keysym.sym == SDLK_KP9 ) {
                 viewport.x += stepx;
                 viewport.y -= stepy;
+                setDirty();
                 break;
             }
             if ( event.keysym.sym == SDLK_KP1 ) {
                 viewport.x -= stepx;
                 viewport.y += stepy;
+                setDirty();
                 break;
             }
             if ( event.keysym.sym == SDLK_KP8 ) {
                 viewport.y -= stepy;
+                setDirty();
                 break;
             }
             if ( event.keysym.sym == SDLK_KP2 ) {
                 viewport.y += stepy;
+                setDirty();
                 break;
             }
             if ( event.keysym.sym == SDLK_KP7 ) {
                 viewport.x -= stepx;
                 viewport.y -= stepy;
+                setDirty();
                 break;
             }
             if ( event.keysym.sym == SDLK_KP3 ) {
                 viewport.x += stepx;
                 viewport.y += stepy;
+                setDirty();
                 break;
             }
             if ( event.keysym.sym == SDLK_KP6 ) {
                 viewport.x += stepx;
+                setDirty();
                 break;
             }
             if ( event.keysym.sym == SDLK_KP4 ) {
                 viewport.x -= stepx;
+                setDirty();
                 break;
             }
             if ( event.keysym.sym == SDLK_KP5 ) {
                 show( WORLD_SIDE_LEN / 2, WORLD_SIDE_LEN / 2 );
+                setDirty();
                 break;
             }
             break;

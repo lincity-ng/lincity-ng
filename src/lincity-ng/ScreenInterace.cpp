@@ -58,14 +58,65 @@ void display_info_message (int colour, char* ss, char* xs);
 void reset_status_message (void);
 
 
+/*
+ * Display some Text in a Dialog Box with an OK Button.
+ * 
+ * see oldgui/screen.cpp: ok_dial_box (char *fn, int good_bad, char *xs)
+ *
+ * good_bad influences the color: GOOD, RESULTS in green
+ *                                BAD in red
+ *                                default white
+ * fn is the FileName of the message
+ *   if good_bad is RESULTS the fn is an absolute filename else
+ *   it is a File in message_path.                              
+ * 
+ * xs is some additional Text, that is shown after the Message
+ *    from the File. (maybe XtraString?)  
+ *                                
+ * 
+ * 
+ */
  void ok_dial_box (char *, int, char *)
 {
 }
 
+
+/*
+ *  Draw a Dialogbox, in oldgui/screen.cpp it is called from the 
+ *  other Dialog Functions to do the actual drawing.
+ *
+ *  see oldgui/dialbox.cpp 
+ *  -there must be just one DialogBox at a time.
+ *  colour is the color of the Background of the Dialog
+ *
+ *  Do we use dialog_box at all? Unfortunately yes. There is a lot of legacy code...
+ *  
+ *  argc is the number of following argument triplets.
+ *  Each triplet consists of
+ *      type, key, string
+ *      type is an integer that describes this entry
+ *          0 = it is a text to display
+ *          2 = a button 
+ *      key 
+ *        a char as hotkey for the button
+ *        10 (LF), 13(CR) or ' '(blank)
+ *        are used to mark the default button
+ *        also key is returned as result of the Dialog if the corespondending Button is pressed.
+ *           
+ *      string is the text
+ */
 int dialog_box(int colour, int argc, ...)
 {
   return 0;
 }
+
+/*
+ *  A DialogBox with a Progressbar.
+ *  see oldgui/screen.cpp: prog_box (char *title, int percent)
+ *  is used to open a Dialog with given Title an a Progressbar,
+ *  showing percent completed, but is also used to update
+ *  the current Progressbar.
+ */
 void prog_box (char *, int)
 {
 }
