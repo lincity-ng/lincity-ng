@@ -38,7 +38,9 @@ LC_DISTDIRS = \
 	help icons messages \
 	old.Makefiles opening tools
 
-EXTRA_DIST = config.rpath  $(LC_DISTDIRS) \
+##EXTRA_DIST = config.rpath  $(LC_DISTDIRS) \
+
+EXTRA_DIST = $(LC_DISTDIRS) \
 	colour.pal \
 	lcwin32.c winmain.c \
 	lincity.ico  small.ico lincity.rc \
@@ -50,7 +52,8 @@ EXTRA_DIST = config.rpath  $(LC_DISTDIRS) \
 man_MANS = lincity.6
 ## pkgdata_DATA = help/* icons/* messages/* messages/ca/* opening/* colour.pal
 ## pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
-nobase_pkgdata_DATA = help/* icons/* messages/ca/* messages/* opening/* colour.pal
+## nobase_pkgdata_DATA = help/* icons/* messages/ca/* messages/* opening/* colour.pal
+nobase_pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
 
 
 ############################################################################
@@ -171,8 +174,9 @@ xlincity_SOURCES = \
 	timer.c fileutil.c shrglobs.c stats.c
 EXTRA_xlincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c
+	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
+	dialbox.c \
+	lcx11.c 
 xlincity_DEPENDENCIES = \
 	${XLC_OBJ}
 xlincity_LDADD = \
@@ -183,12 +187,14 @@ xlincity_LDADD = \
 ## ----- lincity -----
 lincity_SOURCES = \
 	lclib.c power.c \
+	ldsvguts.c engine.c transport.c market.c \
 	simulate.c shrtypes.c lintypes.c \
 	timer.c fileutil.c shrglobs.c stats.c
 EXTRA_lincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c
+	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
+	dialbox.c \
+	lcsvga.c
 lincity_DEPENDENCIES = \
 	${LC_OBJ}
 lincity_LDADD = \

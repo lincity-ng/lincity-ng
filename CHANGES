@@ -2,6 +2,7 @@
 1.12
 ****
 
+- Now old tips degrade into grass, and can be mined for ore.
 - Overlay mode which displays mini-map stats in main window.
 - Completely new power code that uses a power grid instead of 
   individual packets of power.

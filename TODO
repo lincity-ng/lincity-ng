@@ -17,15 +17,12 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Bits of the square cursor are not refreshed from the main win frame.
     For example, this happens with pollution overlay turned on.
+    This problem is more pronouced in SVGA version.
 
   o I fixed problem with the windows version where it draws a square
 	cursor over the load/save screens.  This was caused because 
 	the windows version wasn't setting db_flag before calling 
 	GetKeystroke() which called cs_mouse_handler().
-
-	Still need to test this on SVGA version.  For now, I also added 
-	the code to set db_flag for SVGA version, but not sure if this 
-	is correct.
 
   o Help gets screwed up by game-related keystrokes.
     Consider also pressing "Enter" when mouse is over a button on the 
@@ -38,10 +35,13 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o There still seems to be a problem with putting multi-transport off 
     the bottom of the screen.  For example, resources can wrap-around 
-	from bottom to top.
+    from bottom to top.
 
-	To reproduce, put a horizontal bit of track across the top row.
-	Then, 
+    To reproduce, put a horizontal bit of track across the top row.
+    Then, drag track from the city down off past the edge of the main 
+    screen (you might need to do this a few times).  Now check the 
+    track on the top, and you will see goods, jobs, etc flowing off 
+    the bottom into the top.
 
   o Right click outside of help should exit help.
 
@@ -92,7 +92,7 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
   o Power stations list a "cycle" percentage, which under previous versions 
     cycled around (presumably one quanta of power is released at the end of 
     each cycle?).  However, in the CVS code the listed cycle never changes.
-	Display bug:  cycle is equal to capacity.
+    Display bug:  cycle is equal to capacity.
 
 
 REQUESTED FEATURES

@@ -179,7 +179,7 @@ LC_DISTDIRS = \
 	old.Makefiles opening tools
 
 
-EXTRA_DIST = config.rpath  $(LC_DISTDIRS) \
+EXTRA_DIST = $(LC_DISTDIRS) \
 	colour.pal \
 	lcwin32.c winmain.c \
 	lincity.ico  small.ico lincity.rc \
@@ -190,7 +190,7 @@ EXTRA_DIST = config.rpath  $(LC_DISTDIRS) \
 
 
 man_MANS = lincity.6
-nobase_pkgdata_DATA = help/* icons/* messages/ca/* messages/* opening/* colour.pal
+nobase_pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
 
 
 ############################################################################
@@ -219,8 +219,9 @@ xlincity_SOURCES = \
 
 EXTRA_xlincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c
+	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
+	dialbox.c \
+	lcx11.c 
 
 xlincity_DEPENDENCIES = \
 	${XLC_OBJ}
@@ -232,13 +233,15 @@ xlincity_LDADD = \
 
 lincity_SOURCES = \
 	lclib.c power.c \
+	ldsvguts.c engine.c transport.c market.c \
 	simulate.c shrtypes.c lintypes.c \
 	timer.c fileutil.c shrglobs.c stats.c
 
 EXTRA_lincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c
+	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
+	dialbox.c \
+	lcsvga.c
 
 lincity_DEPENDENCIES = \
 	${LC_OBJ}
@@ -267,9 +270,11 @@ EXTRA_PROGRAMS = xlincity$(EXEEXT) lincity$(EXEEXT) xpicedit$(EXEEXT) \
 bin_PROGRAMS = @PROGS@
 PROGRAMS = $(bin_PROGRAMS)
 
-am_lincity_OBJECTS = lclib.$(OBJEXT) power.$(OBJEXT) simulate.$(OBJEXT) \
-	shrtypes.$(OBJEXT) lintypes.$(OBJEXT) timer.$(OBJEXT) \
-	fileutil.$(OBJEXT) shrglobs.$(OBJEXT) stats.$(OBJEXT)
+am_lincity_OBJECTS = lclib.$(OBJEXT) power.$(OBJEXT) ldsvguts.$(OBJEXT) \
+	engine.$(OBJEXT) transport.$(OBJEXT) market.$(OBJEXT) \
+	simulate.$(OBJEXT) shrtypes.$(OBJEXT) lintypes.$(OBJEXT) \
+	timer.$(OBJEXT) fileutil.$(OBJEXT) shrglobs.$(OBJEXT) \
+	stats.$(OBJEXT)
 lincity_OBJECTS = $(am_lincity_OBJECTS)
 lincity_LDFLAGS =
 am_picedit_OBJECTS =
@@ -294,17 +299,18 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/cliglobs.Po ./$(DEPDIR)/dialbox.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/engine.Po ./$(DEPDIR)/fileutil.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/geometry.Po ./$(DEPDIR)/lchelp.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/lclib.Po ./$(DEPDIR)/lcx11.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/ldsvgui.Po ./$(DEPDIR)/ldsvguts.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/lintypes.Po ./$(DEPDIR)/main.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/market.Po ./$(DEPDIR)/module_buttons.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/mouse.Po ./$(DEPDIR)/mps.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/pbar.Po ./$(DEPDIR)/picedit.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/pixmap.Po ./$(DEPDIR)/power.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/screen.Po ./$(DEPDIR)/shrglobs.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/shrtypes.Po ./$(DEPDIR)/simulate.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/splash.Po ./$(DEPDIR)/stats.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/timer.Po ./$(DEPDIR)/transport.Po
+@AMDEP_TRUE@	./$(DEPDIR)/lclib.Po ./$(DEPDIR)/lcsvga.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx11.Po ./$(DEPDIR)/ldsvgui.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/ldsvguts.Po ./$(DEPDIR)/lintypes.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/main.Po ./$(DEPDIR)/market.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/module_buttons.Po ./$(DEPDIR)/mouse.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/mps.Po ./$(DEPDIR)/pbar.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/picedit.Po ./$(DEPDIR)/pixmap.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/power.Po ./$(DEPDIR)/screen.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/shrglobs.Po ./$(DEPDIR)/shrtypes.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/simulate.Po ./$(DEPDIR)/splash.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/stats.Po ./$(DEPDIR)/timer.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/transport.Po
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
@@ -423,6 +429,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/geometry.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lchelp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lclib.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx11.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ldsvgui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ldsvguts.Po@am__quote@

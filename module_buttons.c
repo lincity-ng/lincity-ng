@@ -10,7 +10,7 @@
 #include "lclib.h"
 #include "lchelp.h"
 
-#define DEBUG_MODULES 1
+#define DEBUG_MODULES 0
 
 static int module_rows;
 static int module_cols;

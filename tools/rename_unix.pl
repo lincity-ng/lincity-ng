@@ -40,6 +40,8 @@
 		    'opening/text*',
 		    'po/LINGUAS',
 		    'po/POT*',
+		    'po/*.sed',
+		    'po/*.sin',
 		    'tools/*.c',
 		    'tools/*.pl',
 		    'tools/*.bat',
@@ -54,12 +56,19 @@
 for $pat (@upcase_patlist) {
     for $file (`ls $pat 2> /dev/null`) {
 	chomp($file);
-	$newdir = $file;
-	$newdir =~ s|/[^/]*$||;
-	$newfn = $file;
-	$newfn =~ s|.*/||;
-	$newfn =~ tr/[a-z]/[A-Z]/;
-	$newname = "${newdir}/${newfn}";
+
+	if ($file =~ m|/|) {
+	    $newdir = $file;
+	    $newdir =~ s|/[^/]*$||;
+	    $newfn = $file;
+	    $newfn =~ s|.*/||;
+	    $newfn =~ tr/[a-z]/[A-Z]/;
+	    $newname = "${newdir}/${newfn}";
+	} else {
+	    $newfn = $file;
+	    $newfn =~ tr/[a-z]/[A-Z]/;
+	    $newname = ${newfn};
+	}
 	$cmd = "mv $file $newname";
 	print "$cmd\n";
 	print `$cmd\n`;

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Lincity 1.12pre51\n"
-"POT-Creation-Date: 2003-03-26 00:17-0500\n"
+"POT-Creation-Date: 2003-05-21 01:04-0400\n"
 "PO-Revision-Date: 2003-02-23 01:00-0500\n"
 "Last-Translator:  <gregsharp@geocities.com>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -62,131 +62,151 @@ msgstr ""
 msgid "Dec"
 msgstr ""
 
-#: engine.c:3144
-msgid "It's at a power line."
+#: engine.c:136
+msgid "You can't build a tip here"
 msgstr ""
 
-#: engine.c:3146
-msgid "It's at a solar power station."
+#: engine.c:137
+msgid "This is already landfill"
 msgstr ""
 
-#: engine.c:3148
-msgid "It's at a substation."
+#: engine.c:138 engine.c:151 screen.c:2271 screen.c:2275
+msgid "OK"
 msgstr ""
 
-#: engine.c:3150
-msgid "It's at a residential area."
+#: engine.c:149
+msgid "You can't build a mine here"
 msgstr ""
 
-#: engine.c:3152
-msgid "It's at a farm."
-msgstr ""
-
-#: engine.c:3154
-msgid "It's at a market."
-msgstr ""
-
-#: engine.c:3156
-msgid "It's at a track."
-msgstr ""
-
-#: engine.c:3158
-msgid "It's at a coal mine."
-msgstr ""
-
-#: engine.c:3160
-msgid "It's at a railway."
-msgstr ""
-
-#: engine.c:3162
-msgid "It's at a coal power station."
-msgstr ""
-
-#: engine.c:3164
-msgid "It's at a road."
-msgstr ""
-
-#: engine.c:3166
-msgid "It's at light industry."
-msgstr ""
-
-#: engine.c:3168
-msgid "It's at a university."
-msgstr ""
-
-#: engine.c:3170
-msgid "It's at a commune."
-msgstr ""
-
-#: engine.c:3172
-msgid "It's at a tip."
-msgstr ""
-
-#: engine.c:3174
-msgid "It's at a port."
-msgstr ""
-
-#: engine.c:3176
-msgid "It's at a steel works."
+#: engine.c:150
+msgid "This was already a mine or tip"
 msgstr ""
 
 #: engine.c:3178
-msgid "It's at a recycle centre."
+msgid "It's at a power line."
 msgstr ""
 
 #: engine.c:3180
-msgid "It's at a health centre."
+msgid "It's at a solar power station."
 msgstr ""
 
 #: engine.c:3182
-msgid "It's at a rocket site."
+msgid "It's at a substation."
 msgstr ""
 
 #: engine.c:3184
-msgid "It's at a windmill."
+msgid "It's at a residential area."
 msgstr ""
 
 #: engine.c:3186
-msgid "It's at a school."
+msgid "It's at a farm."
 msgstr ""
 
 #: engine.c:3188
-msgid "It's at a blacksmith."
+msgid "It's at a market."
 msgstr ""
 
 #: engine.c:3190
-msgid "It's at a mill."
+msgid "It's at a track."
 msgstr ""
 
 #: engine.c:3192
-msgid "It's at a pottery."
+msgid "It's at a coal mine."
 msgstr ""
 
 #: engine.c:3194
-msgid "It's at a fire station!!!."
+msgid "It's at a railway."
 msgstr ""
 
 #: engine.c:3196
-msgid "It's at a cricket pitch!!!."
+msgid "It's at a coal power station."
 msgstr ""
 
 #: engine.c:3198
-msgid "It's at a shanty town."
+msgid "It's at a road."
 msgstr ""
 
 #: engine.c:3200
+msgid "It's at light industry."
+msgstr ""
+
+#: engine.c:3202
+msgid "It's at a university."
+msgstr ""
+
+#: engine.c:3204
+msgid "It's at a commune."
+msgstr ""
+
+#: engine.c:3206
+msgid "It's at a tip."
+msgstr ""
+
+#: engine.c:3208
+msgid "It's at a port."
+msgstr ""
+
+#: engine.c:3210
+msgid "It's at a steel works."
+msgstr ""
+
+#: engine.c:3212
+msgid "It's at a recycle centre."
+msgstr ""
+
+#: engine.c:3214
+msgid "It's at a health centre."
+msgstr ""
+
+#: engine.c:3216
+msgid "It's at a rocket site."
+msgstr ""
+
+#: engine.c:3218
+msgid "It's at a windmill."
+msgstr ""
+
+#: engine.c:3220
+msgid "It's at a school."
+msgstr ""
+
+#: engine.c:3222
+msgid "It's at a blacksmith."
+msgstr ""
+
+#: engine.c:3224
+msgid "It's at a mill."
+msgstr ""
+
+#: engine.c:3226
+msgid "It's at a pottery."
+msgstr ""
+
+#: engine.c:3228
+msgid "It's at a fire station!!!."
+msgstr ""
+
+#: engine.c:3230
+msgid "It's at a cricket pitch!!!."
+msgstr ""
+
+#: engine.c:3232
+msgid "It's at a shanty town."
+msgstr ""
+
+#: engine.c:3234
 msgid "UNKNOWN!"
 msgstr ""
 
-#: fileutil.c:279 fileutil.c:329
+#: fileutil.c:281 fileutil.c:331
 msgid "Error. Can't find LINCITY_HOME"
 msgstr ""
 
-#: fileutil.c:571
+#: fileutil.c:573
 msgid "Error verifying package. Can't find colour.pal."
 msgstr ""
 
-#: fileutil.c:579
+#: fileutil.c:581
 msgid "Out of memory: malloc failure\n"
 msgstr ""
 
@@ -206,19 +226,19 @@ msgstr ""
 msgid "Sorry, lincity cannot run without this directory.  Exiting."
 msgstr ""
 
-#: lchelp.c:352
+#: lchelp.c:358
 msgid "tbutton 4 387 return-1 BACK"
 msgstr ""
 
-#: lchelp.c:356
+#: lchelp.c:362
 msgid "tbutton 370 387 return-2 OUT"
 msgstr ""
 
-#: lcsvga.c:190 lcx11.c:446
+#: lcsvga.c:196 lcx11.c:446
 msgid "An error has occurred.  The description is below...\n"
 msgstr ""
 
-#: lcsvga.c:194 lcx11.c:450
+#: lcsvga.c:200 lcx11.c:450
 msgid "Program aborting...\n"
 msgstr ""
 
@@ -236,116 +256,116 @@ msgstr ""
 msgid "xlincity, Version %s, (Copyright) IJ Peters - copying policy GNU GPL"
 msgstr ""
 
-#: ldsvgui.c:218
+#: ldsvgui.c:206
 msgid "Transport overwrite"
 msgstr ""
 
-#: ldsvgui.c:219
+#: ldsvgui.c:207
 msgid "Popup info to dialog boxes"
 msgstr ""
 
-#: ldsvgui.c:220
+#: ldsvgui.c:208
 msgid "Time multiplexed stats windows"
 msgstr ""
 
-#: ldsvgui.c:222
+#: ldsvgui.c:210
 msgid "Confine X pointer"
 msgstr ""
 
-#: ldsvgui.c:237
+#: ldsvgui.c:225
 msgid "OUT"
 msgstr ""
 
-#: ldsvgui.c:295
+#: ldsvgui.c:288
 msgid "Save a scene"
 msgstr ""
 
-#: ldsvgui.c:297
+#: ldsvgui.c:290
 msgid "Choose the number of the scene you want to save"
 msgstr ""
 
-#: ldsvgui.c:299 ldsvgui.c:391 ldsvgui.c:662
+#: ldsvgui.c:292 ldsvgui.c:384 ldsvgui.c:654
 msgid "Press space to cancel."
 msgstr ""
 
-#: ldsvgui.c:323
+#: ldsvgui.c:316
 msgid "Type comment for the saved scene"
 msgstr ""
 
-#: ldsvgui.c:325
+#: ldsvgui.c:318
 msgid "The comment may be up to 40 characters"
 msgstr ""
 
-#: ldsvgui.c:327
+#: ldsvgui.c:320
 msgid "and may contain spaces or % . - + ,"
 msgstr ""
 
-#: ldsvgui.c:336
+#: ldsvgui.c:329
 msgid "Saving city scene... please wait"
 msgstr ""
 
-#: ldsvgui.c:381
+#: ldsvgui.c:374
 msgid "Load a file"
 msgstr ""
 
-#: ldsvgui.c:383
+#: ldsvgui.c:376
 msgid "Choose the number of the scene you want"
 msgstr ""
 
-#: ldsvgui.c:385
+#: ldsvgui.c:378
 msgid "Entries coloured red are either not there,"
 msgstr ""
 
-#: ldsvgui.c:387
+#: ldsvgui.c:380
 msgid "or they are from an earlier version, they"
 msgstr ""
 
-#: ldsvgui.c:389
+#: ldsvgui.c:382
 msgid "might not load properly."
 msgstr ""
 
-#: ldsvgui.c:416 ldsvgui.c:687
+#: ldsvgui.c:408 ldsvgui.c:679
 msgid "No scene."
 msgstr ""
 
-#: ldsvgui.c:417 ldsvgui.c:688
+#: ldsvgui.c:409 ldsvgui.c:680
 msgid "There is no save scene with this number."
 msgstr ""
 
-#: ldsvgui.c:418 ldsvgui.c:689
+#: ldsvgui.c:410 ldsvgui.c:681
 msgid "Do you want to"
 msgstr ""
 
-#: ldsvgui.c:419 ldsvgui.c:690
+#: ldsvgui.c:411 ldsvgui.c:682
 msgid "try again?"
 msgstr ""
 
-#: ldsvgui.c:430 ldsvgui.c:701
+#: ldsvgui.c:422 ldsvgui.c:693
 msgid "Loading Scene"
 msgstr ""
 
-#: ldsvgui.c:431 ldsvgui.c:702
+#: ldsvgui.c:423 ldsvgui.c:694
 msgid "Do you want to load the scene"
 msgstr ""
 
-#: ldsvgui.c:433 ldsvgui.c:704
+#: ldsvgui.c:425 ldsvgui.c:696
 msgid "and forget the current game?"
 msgstr ""
 
-#: ldsvgui.c:436 ldsvgui.c:707
+#: ldsvgui.c:428 ldsvgui.c:699
 msgid "Loading scene...  please wait"
 msgstr ""
 
-#: ldsvgui.c:477
+#: ldsvgui.c:469
 #, c-format
 msgid "Couldn't find the save directory %s\n"
 msgstr ""
 
-#: ldsvgui.c:658
+#: ldsvgui.c:650
 msgid "Choose network server"
 msgstr ""
 
-#: ldsvgui.c:660
+#: ldsvgui.c:652
 msgid "Please enter the address and port of the server"
 msgstr ""
 
@@ -371,164 +391,164 @@ msgstr ""
 msgid "Loading scene"
 msgstr ""
 
-#: ldsvguts.c:723 ldsvguts.c:732
+#: ldsvguts.c:724 ldsvguts.c:733
 #, c-format
 msgid "Couldn't create the save directory %s\n"
 msgstr ""
 
-#: lintypes.c:18
+#: lintypes.c:19
 msgid "Empty"
 msgstr ""
 
-#: lintypes.c:30
+#: lintypes.c:31
 msgid "Power line"
 msgstr ""
 
-#: lintypes.c:42
+#: lintypes.c:43
 msgid "Solar PS"
 msgstr ""
 
-#: lintypes.c:54
+#: lintypes.c:55
 msgid "Substation"
 msgstr ""
 
-#: lintypes.c:66
+#: lintypes.c:67
 msgid "Residential LL"
 msgstr ""
 
-#: lintypes.c:78
+#: lintypes.c:79
 msgid "Farm"
 msgstr ""
 
-#: lintypes.c:90 screen.c:2092
+#: lintypes.c:91 screen.c:2106
 msgid "Market"
 msgstr ""
 
-#: lintypes.c:102
+#: lintypes.c:103
 msgid "Track"
 msgstr ""
 
-#: lintypes.c:114
+#: lintypes.c:115
 msgid "Coalmine"
 msgstr ""
 
-#: lintypes.c:126
+#: lintypes.c:127
 msgid "Railway"
 msgstr ""
 
-#: lintypes.c:138
+#: lintypes.c:139
 msgid "Coal PS"
 msgstr ""
 
-#: lintypes.c:150
+#: lintypes.c:151
 msgid "Road"
 msgstr ""
 
-#: lintypes.c:162
+#: lintypes.c:163
 msgid "Lt. Industry"
 msgstr ""
 
-#: lintypes.c:174
+#: lintypes.c:175
 msgid "University"
 msgstr ""
 
-#: lintypes.c:186
+#: lintypes.c:187
 msgid "Commune"
 msgstr ""
 
-#: lintypes.c:198
+#: lintypes.c:199
 msgid "Ore mine"
 msgstr ""
 
-#: lintypes.c:210
+#: lintypes.c:211
 msgid "Rubbish tip"
 msgstr ""
 
-#: lintypes.c:222 screen.c:2094
+#: lintypes.c:223 screen.c:2108
 msgid "Port"
 msgstr ""
 
-#: lintypes.c:234
+#: lintypes.c:235
 msgid "Hv. Industry"
 msgstr ""
 
-#: lintypes.c:246
+#: lintypes.c:247
 msgid "Park"
 msgstr ""
 
-#: lintypes.c:258
+#: lintypes.c:259
 msgid "Recycle"
 msgstr ""
 
-#: lintypes.c:270
+#: lintypes.c:271
 msgid "Water"
 msgstr ""
 
-#: lintypes.c:282
+#: lintypes.c:283
 msgid "Health centre"
 msgstr ""
 
-#: lintypes.c:294
+#: lintypes.c:295
 msgid "Rocket pad"
 msgstr ""
 
-#: lintypes.c:306
+#: lintypes.c:307
 msgid "Windmill"
 msgstr ""
 
-#: lintypes.c:318
+#: lintypes.c:319
 msgid "Monument"
 msgstr ""
 
-#: lintypes.c:330
+#: lintypes.c:331
 msgid "School"
 msgstr ""
 
-#: lintypes.c:342
+#: lintypes.c:343
 msgid "Blacksmith"
 msgstr ""
 
-#: lintypes.c:354
+#: lintypes.c:355
 msgid "Mill"
 msgstr ""
 
-#: lintypes.c:366
+#: lintypes.c:367
 msgid "Pottery"
 msgstr ""
 
-#: lintypes.c:378
+#: lintypes.c:379
 msgid "Fire sta'n"
 msgstr ""
 
-#: lintypes.c:390
+#: lintypes.c:391
 msgid "Cricket pitch"
 msgstr ""
 
-#: lintypes.c:403
+#: lintypes.c:404
 msgid "Burnt"
 msgstr ""
 
-#: lintypes.c:416
+#: lintypes.c:417
 msgid "Shanty town"
 msgstr ""
 
-#: lintypes.c:429
+#: lintypes.c:430
 msgid "Fire"
 msgstr ""
 
-#: lintypes.c:442
+#: lintypes.c:443
 msgid "Used"
 msgstr ""
 
-#: lintypes.c:454
+#: lintypes.c:455
 msgid "Residential ML"
 msgstr ""
 
-#: lintypes.c:466
+#: lintypes.c:467
 msgid "Residential HL"
 msgstr ""
 
-#: lintypes.c:478 lintypes.c:490 lintypes.c:502
+#: lintypes.c:479 lintypes.c:491 lintypes.c:503
 msgid "Residential"
 msgstr ""
 
@@ -540,163 +560,163 @@ msgstr ""
 msgid "Creating pixmaps"
 msgstr ""
 
-#: main.c:638
+#: main.c:645
 msgid "Quit The Game?"
 msgstr ""
 
-#: main.c:639
+#: main.c:646
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: main.c:640
+#: main.c:647
 msgid "If you want to save the game select NO."
 msgstr ""
 
 #. TRANSLATORS: Test mode is like using "cheat codes"
-#: main.c:674
+#: main.c:681
 msgid "TEST"
 msgstr ""
 
-#: main.c:674
+#: main.c:681
 msgid "You have pressed a test key"
 msgstr ""
 
-#: main.c:675
+#: main.c:682
 msgid "You will only see this message once"
 msgstr ""
 
-#: main.c:676
+#: main.c:683
 msgid "Do you really want to play in test mode..."
 msgstr ""
 
-#: main.c:721
+#: main.c:728
 #, c-format
 msgid "Can't open %s for writing, can't continue\n"
 msgstr ""
 
-#: main.c:730
+#: main.c:737
 #, c-format
 msgid "What!! can't open %s for reading after writing???\n"
 msgstr ""
 
-#: main.c:739
+#: main.c:746
 #, c-format
 msgid "Got mouse type: %d\n"
 msgstr ""
 
-#: main.c:763
+#: main.c:770
 #, c-format
 msgid "Unable to open %s\n"
 msgstr ""
 
-#: main.c:768
+#: main.c:775
 msgid "----- IN TEST MODE -------\n"
 msgstr ""
 
-#: main.c:769
+#: main.c:776
 #, c-format
 msgid "Game statistics from LinCity Version %s\n"
 msgstr ""
 
-#: main.c:771
+#: main.c:778
 #, c-format
 msgid "Initial loaded scene - %s\n"
 msgstr ""
 
-#: main.c:773
+#: main.c:780
 msgid "Economy is sustainable\n"
 msgstr ""
 
-#: main.c:774
+#: main.c:781
 #, c-format
 msgid "Population  %d  of which  %d  are not housed.\n"
 msgstr ""
 
-#: main.c:777
+#: main.c:784
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d\n"
 msgstr ""
 
-#: main.c:780
+#: main.c:787
 #, c-format
 msgid " Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"
 msgstr ""
 
-#: main.c:785
+#: main.c:792
 #, c-format
 msgid " Deaths by starvation %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:788
+#: main.c:795
 #, c-format
 msgid "Deaths from pollution %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:790
+#: main.c:797
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:792
+#: main.c:799
 #, c-format
 msgid "Rockets launched %2d  Successful launches %2d\n"
 msgstr ""
 
-#: main.c:795
+#: main.c:802
 #, c-format
 msgid "    Residences %4d         Markets %4d            Farms %4d\n"
 msgstr ""
 
-#: main.c:804
+#: main.c:811
 #, c-format
 msgid "        Tracks %4d           Roads %4d             Rail %4d\n"
 msgstr ""
 
-#: main.c:807
+#: main.c:814
 #, c-format
 msgid "     Potteries %4d     Blacksmiths %4d            Mills %4d\n"
 msgstr ""
 
-#: main.c:810
+#: main.c:817
 #, c-format
 msgid "     Monuments %4d         Schools %4d     Universities %4d\n"
 msgstr ""
 
-#: main.c:813
+#: main.c:820
 #, c-format
 msgid " Fire stations %4d           Parks %4d     Cricket gnds %4d\n"
 msgstr ""
 
-#: main.c:816
+#: main.c:823
 #, c-format
 msgid "    Coal mines %4d       Ore mines %4d         Communes %4d\n"
 msgstr ""
 
-#: main.c:819
+#: main.c:826
 #, c-format
 msgid "     Windmills %4d     Coal powers %4d     Solar powers %4d\n"
 msgstr ""
 
-#: main.c:823
+#: main.c:830
 #, c-format
 msgid "   Substations %4d     Power lines %4d            Ports %4d\n"
 msgstr ""
 
-#: main.c:826
+#: main.c:833
 #, c-format
 msgid "    Light inds %4d      Heavy inds %4d        Recyclers %4d\n"
 msgstr ""
 
-#: main.c:829
+#: main.c:836
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
 msgstr ""
 
-#: module_buttons.c:506
+#: module_buttons.c:510
 msgid "Bulldoze - cost varies"
 msgstr ""
 
-#: module_buttons.c:508
+#: module_buttons.c:512
 #, c-format
 msgid "%s %s  Bulldoze %s"
 msgstr ""
@@ -704,177 +724,177 @@ msgstr ""
 #. TRANSLATORS: The part about the cup of tea is one of Ian's
 #. jokes, but the part about ports needing to be connected
 #. to rivers is true.
-#: mouse.c:553 mouse.c:731 mouse.c:739 mouse.c:747
+#: mouse.c:567 mouse.c:745 mouse.c:753 mouse.c:761
 msgid "WARNING"
 msgstr ""
 
-#: mouse.c:554
+#: mouse.c:568
 msgid "Ports need to be"
 msgstr ""
 
-#: mouse.c:555
+#: mouse.c:569
 msgid "connected to rivers!"
 msgstr ""
 
-#: mouse.c:556
+#: mouse.c:570
 msgid "Want to make a cup of tea?"
 msgstr ""
 
-#: mouse.c:557
+#: mouse.c:571
 msgid "TEA BREAK"
 msgstr ""
 
-#: mouse.c:558
+#: mouse.c:572
 msgid "Boil->pour->wait->stir"
 msgstr ""
 
-#: mouse.c:559
+#: mouse.c:573
 msgid "stir->pour->stir->wait->drink...ahhh"
 msgstr ""
 
-#: mouse.c:560
+#: mouse.c:574
 msgid "Have you finished yet?"
 msgstr ""
 
-#: mouse.c:732
+#: mouse.c:746
 msgid "Bulldozing a monument costs"
 msgstr ""
 
-#: mouse.c:733
+#: mouse.c:747
 msgid "a lot of money."
 msgstr ""
 
-#: mouse.c:734 mouse.c:742 mouse.c:750
+#: mouse.c:748 mouse.c:756 mouse.c:764
 msgid "Want to bulldoze?"
 msgstr ""
 
-#: mouse.c:740
+#: mouse.c:754
 msgid "Bulldozing a section of river"
 msgstr ""
 
-#: mouse.c:741
+#: mouse.c:755
 msgid "costs a lot of money."
 msgstr ""
 
-#: mouse.c:748
+#: mouse.c:762
 msgid "Bulldozing a shanty town costs a"
 msgstr ""
 
-#: mouse.c:749
+#: mouse.c:763
 msgid "lot of money and may cause a fire."
 msgstr ""
 
 #. TRANSLATORS: Don't translate the leading "text"
-#: mouse.c:953
+#: mouse.c:967
 msgid "text -1 20 Choose the type of residence you want\n"
 msgstr ""
 
-#: mouse.c:957
+#: mouse.c:971
 msgid "text -1 45 (LB=Low Birthrate HB=High Birthrate)\n"
 msgstr ""
 
-#: mouse.c:959
+#: mouse.c:973
 msgid "text -1 55 (LD=Low Deathrate HD=High Deathrate)\n"
 msgstr ""
 
-#: mouse.c:961
+#: mouse.c:975
 msgid "text -1 85 Low Tech\n"
 msgstr ""
 
-#: mouse.c:964
+#: mouse.c:978
 #, c-format
 msgid "text 68 106 Cost %4d\n"
 msgstr ""
 
 #. TRANSLATORS: Only translate "pop" <<for population>>
-#: mouse.c:968
+#: mouse.c:982
 msgid "tbutton 82 180 return1 pop 50\n"
 msgstr ""
 
 #. TRANSLATORS: Only translate LB, HD (low birth, high death)
-#: mouse.c:970
+#: mouse.c:984
 msgid "text 89 195 LB HD\n"
 msgstr ""
 
-#: mouse.c:973
+#: mouse.c:987
 #, c-format
 msgid "text 155 106 Cost %4d\n"
 msgstr ""
 
-#: mouse.c:976
+#: mouse.c:990
 msgid "tbutton 164 180 return2 pop 100\n"
 msgstr ""
 
-#: mouse.c:977
+#: mouse.c:991
 msgid "text 175 195 HB LD\n"
 msgstr ""
 
-#: mouse.c:980
+#: mouse.c:994
 #, c-format
 msgid "text 238 106 Cost %4d\n"
 msgstr ""
 
-#: mouse.c:983
+#: mouse.c:997
 msgid "tbutton 250 180 return3 pop 200\n"
 msgstr ""
 
-#: mouse.c:984
+#: mouse.c:998
 msgid "text 261 195 HB HD\n"
 msgstr ""
 
-#: mouse.c:986
+#: mouse.c:1000
 msgid "text -1 215 Click on one to select\n"
 msgstr ""
 
-#: mouse.c:990
-msgid "text -1 255 High Tech\n"
-msgstr ""
-
-#: mouse.c:993
-#, c-format
-msgid "text 68 276 Cost %4d\n"
-msgstr ""
-
-#: mouse.c:996
-msgid "tbutton 78 350 return4 pop 100\n"
-msgstr ""
-
-#: mouse.c:997
-msgid "text 89 365 LB HD\n"
-msgstr ""
-
-#: mouse.c:1000
-#, c-format
-msgid "text 155 276 Cost %4d\n"
-msgstr ""
-
-#: mouse.c:1003
-msgid "tbutton 164 350 return5 pop 200\n"
-msgstr ""
-
 #: mouse.c:1004
-msgid "text 175 365 HB LD\n"
+msgid "text -1 255 High Tech\n"
 msgstr ""
 
 #: mouse.c:1007
 #, c-format
-msgid "text 238 276 Cost %4d\n"
+msgid "text 68 276 Cost %4d\n"
 msgstr ""
 
 #: mouse.c:1010
-msgid "tbutton 250 350 return6 pop 400\n"
+msgid "tbutton 78 350 return4 pop 100\n"
 msgstr ""
 
 #: mouse.c:1011
+msgid "text 89 365 LB HD\n"
+msgstr ""
+
+#: mouse.c:1014
+#, c-format
+msgid "text 155 276 Cost %4d\n"
+msgstr ""
+
+#: mouse.c:1017
+msgid "tbutton 164 350 return5 pop 200\n"
+msgstr ""
+
+#: mouse.c:1018
+msgid "text 175 365 HB LD\n"
+msgstr ""
+
+#: mouse.c:1021
+#, c-format
+msgid "text 238 276 Cost %4d\n"
+msgstr ""
+
+#: mouse.c:1024
+msgid "tbutton 250 350 return6 pop 400\n"
+msgstr ""
+
+#: mouse.c:1025
 msgid "text 261 365 HB HD\n"
 msgstr ""
 
-#: mouse.c:1239
+#: mouse.c:1253
 #, c-format
 msgid "Can't build %s over that!"
 msgstr ""
 
-#: mouse.c:1242
+#: mouse.c:1256
 #, c-format
 msgid "%d sections of %s will cost %3d to build"
 msgstr ""
@@ -984,7 +1004,7 @@ msgid "Capacity"
 msgstr ""
 
 #. TRANSLATORS:  "COAL", "YES ", and "NO  " must be same length
-#: mps.c:724 screen.c:2107
+#: mps.c:724 screen.c:2121
 msgid "COAL"
 msgstr ""
 
@@ -1378,140 +1398,136 @@ msgstr ""
 msgid "Starv %"
 msgstr ""
 
-#: mps.c:1645
+#: mps.c:1646
 #, c-format
 msgid "For year %04d"
 msgstr ""
 
-#: screen.c:863
+#: screen.c:866
 msgid "Coal survey"
 msgstr ""
 
-#: screen.c:864
+#: screen.c:867
 msgid "This will cost you 1 million"
 msgstr ""
 
-#: screen.c:865
+#: screen.c:868
 msgid "After that it's is free to call again"
 msgstr ""
 
-#: screen.c:866
+#: screen.c:869
 msgid "Do coal survey?"
 msgstr ""
 
-#: screen.c:1045
+#: screen.c:1048
 msgid "Land Use    "
 msgstr ""
 
-#: screen.c:1100
+#: screen.c:1103
 msgid "Pollution   "
 msgstr ""
 
-#: screen.c:1132
+#: screen.c:1135
 msgid "Fire cover  "
 msgstr ""
 
-#: screen.c:1168
+#: screen.c:1171
 msgid "Crickt cover"
 msgstr ""
 
-#: screen.c:1204
+#: screen.c:1207
 msgid "Health cover"
 msgstr ""
 
-#: screen.c:1240
+#: screen.c:1243
 msgid "Unemployment"
 msgstr ""
 
-#: screen.c:1269
+#: screen.c:1272
 msgid "Starvation  "
 msgstr ""
 
-#: screen.c:1299
+#: screen.c:1302
 msgid "Coal Reserve"
 msgstr ""
 
-#: screen.c:1317
+#: screen.c:1320
 msgid "Click here"
 msgstr ""
 
-#: screen.c:1318
+#: screen.c:1321
 msgid "   to do  "
 msgstr ""
 
-#: screen.c:1319
+#: screen.c:1322
 msgid "coal survey"
 msgstr ""
 
-#: screen.c:1360
+#: screen.c:1363
 msgid "Power       "
 msgstr ""
 
-#: screen.c:1362
+#: screen.c:1365
 msgid "Power (none)"
 msgstr ""
 
-#: screen.c:1804
+#: screen.c:1817
 msgid "Money: "
 msgstr ""
 
-#: screen.c:1825
+#: screen.c:1839
 #, c-format
 msgid "Date %s %04d "
 msgstr ""
 
-#: screen.c:1851
+#: screen.c:1865
 #, c-format
 msgid "%s%5.1f MINS/year  V %s"
 msgstr ""
 
-#: screen.c:1852 screen.c:1856
+#: screen.c:1866 screen.c:1870
 msgid "TEST MODE"
 msgstr ""
 
-#: screen.c:1855
+#: screen.c:1869
 #, c-format
 msgid "%s%5.1f secs/year  V %s "
 msgstr ""
 
-#: screen.c:2101
+#: screen.c:2115
 msgid "Buy"
 msgstr ""
 
-#: screen.c:2102
+#: screen.c:2116
 msgid "Sell"
 msgstr ""
 
-#: screen.c:2104
+#: screen.c:2118
 msgid "JOBS"
 msgstr ""
 
-#: screen.c:2106
+#: screen.c:2120
 msgid "FOOD"
 msgstr ""
 
-#: screen.c:2108
+#: screen.c:2122
 msgid "ORE"
 msgstr ""
 
-#: screen.c:2109
+#: screen.c:2123
 msgid "GOODS"
 msgstr ""
 
-#: screen.c:2110
+#: screen.c:2124
 msgid "STEEL"
 msgstr ""
 
-#: screen.c:2200
+#: screen.c:2214
 msgid "Yes"
 msgstr ""
 
-#: screen.c:2201
+#: screen.c:2215
 msgid "No"
-msgstr ""
-
-#: screen.c:2257 screen.c:2261
-msgid "OK"
 msgstr ""
 
 #. TRANSLATORS:
@@ -1519,42 +1535,42 @@ msgstr ""
 #. MNY=Money, POP=Population, TEC=Technology,
 #. FIR=Fire coverage
 #.
-#: screen.c:2363
+#: screen.c:2377
 msgid "MIN"
 msgstr ""
 
-#: screen.c:2366
+#: screen.c:2380
 msgid "PRT"
 msgstr ""
 
-#: screen.c:2369
+#: screen.c:2383
 msgid "MNY"
 msgstr ""
 
-#: screen.c:2372
+#: screen.c:2386
 msgid "POP"
 msgstr ""
 
-#: screen.c:2375
+#: screen.c:2389
 msgid "TEC"
 msgstr ""
 
-#: screen.c:2378
+#: screen.c:2392
 msgid "FIR"
 msgstr ""
 
-#: screen.c:2491
+#: screen.c:2505
 msgid "Rocket ready to launch"
 msgstr ""
 
-#: screen.c:2492
+#: screen.c:2506
 msgid "You can launch it now or wait until later."
 msgstr ""
 
-#: screen.c:2493
+#: screen.c:2507
 msgid "If you wait it will continue costing you money."
 msgstr ""
 
-#: screen.c:2494
+#: screen.c:2508
 msgid "Launch it later by clicking on the rocket area."
 msgstr ""

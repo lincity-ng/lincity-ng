@@ -2,15 +2,15 @@
                      **  Welcome to lincity  **
 
 
-This is the README for LinCity, pre-release version.  
+This is the README for lincity 1.12, pre-release version.  
 
 
 WHAT IS LINCITY
 ===============
 
-LinCity is a city/country simulation game for Linux (SVGALIB and X), 
-Solaris, FreeBSD, HPUX, AIX, SCO, IRIX, Compaq True64, BeOS, OS/2, VMS and 
-Win32 (Win9X and NT).
+Lincity is a city/country simulation game for Linux (SVGALIB and X), 
+Solaris, FreeBSD, HPUX, AIX, SCO, IRIX, Compaq True64, BeOS, OS/2, VMS,
+AthlOS, and Win32 (Win9X and NT)
 
 You are required to build and maintain a city. You must feed, house, 
 provide jobs and goods for your residents. You can build a sustainable
@@ -27,7 +27,7 @@ the new home page, which is not yet complete.  Anyone with an eye for
 design and a desire to help is welcome to make suggestions or design a
 page to replace this one.
 
-The LinCity home page is now located at:
+The lincity home page is now located at:
 
     http://lincity.sourceforge.net
 
@@ -67,7 +67,7 @@ REQUIREMENTS
 INSTALLATION (UNIX)
 ===================
 
-To install LinCity, (as root) untar the file lincity-1.12pre48.tar.gz 
+To install lincity, (as root) untar the file lincity-1.12pre48.tar.gz 
 
      tar -xzvf lincity-1.12pre48.tar.gz
 
@@ -183,7 +183,7 @@ screen res to 640x480 gives you a 'full screen' game. :) )
 NOTES FOR WIN32 VERSION
 =======================
 
-LinCity for Win32 automatically chooses whether or not to add a border 
+Lincity for Win32 automatically chooses whether or not to add a border 
 and/or perform pix doubling, depending on your resolution.  Furthermore,
 it will automatically maximize the window or even go into full screen
 mode.  Here is what you should see for some of the more popular 
@@ -218,7 +218,7 @@ and shift-click at the end, and you'll get a whole line of track, road,
 rail or power lines.  Look for the blue border around the main window to
 confirm that you are in multi-transport mode.
 
-Save files are gzip compatible with the UNIX version of LinCity.  That is,
+Save files are gzip compatible with the UNIX version of lincity.  That is,
 you will need to gzip/gunzip the save files when you transfer them to/from
 your UNIX box.
 
@@ -233,7 +233,7 @@ THE LINCITY HOME DIRECTORY
 ==========================
 
 If you get a message such as "Error. Can't find LINCITY_HOME", this
-means that Lincity can't find it's home directory.  The program searches
+means that lincity can't find it's home directory.  The program searches
 for the file "colour.pal" in the following three directories (in order).
 So in the worst case, you can set the LINCITY_HOME environment variable.
 
@@ -416,13 +416,13 @@ your translations.
 COMPILATION UNDER WIN32
 =======================
 
-I am using MS VC++ 4.0 under Win95 and Win98.  LinCity is reported to 
+I am using MS VC++ 4.0 under Win95 and Win98.  Lincity is reported to 
 compile under MS VC++ 6.0 also.  If you are using MSVC, you might
 be able to unpack the archive, and type something like this:
 
 	c:\lincity???> nmake /f lincity.mak
 
-I have also included the 4.0 workspace file, Lincity.mdp.  This may
+I have also included the 4.0 workspace file, lincity.mdp.  This may
 or may not be helpful for you.
 
 If you are using a different compiler, you may need to generate your own 
@@ -460,15 +460,15 @@ maintainer or to the lincity mailing list.
 HISTORY
 =======
 
-Ian Peters started writing LinCity in June 1995 as an exercise in 
+Ian Peters started writing lincity in June 1995 as an exercise in 
 mouse control in SVGALIB. It quickly became a usable, then even fun, 
 game to play. Over the next 18+ months it evolved into a challenging 
 and stable game which, in a number of people's opinion, is worth uploading 
 to the net.
 
-In late 1997, LinCity developers made grand plans for LinCity version 2, 
+In late 1997, lincity developers made grand plans for lincity version 2, 
 an intergalactic space simulation with all the trimmings.  But from 
-1998-1999, LinCity underwent a period of hibernation, with only minor 
+1998-1999, lincity underwent a period of hibernation, with only minor 
 patches being applied.  
 
 Development was restarted in late 1999 by Greg Sharp to provide
@@ -482,7 +482,7 @@ to the game, ensuring no stable release until lincity 1.12pre2451.
 
 COPYRIGHT
 =========
-LinCity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
+Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
 Portions are copyright (c) Corey Keasling 2000-2001.
 
 You may freely copy, distribute and modify lincity under the terms of the

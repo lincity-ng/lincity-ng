@@ -84,6 +84,8 @@
 # define HAVE_LOCALE_NULL
 #endif
 
+#define DEBUG_PRINTF_ENABLED 0
+
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
@@ -634,6 +636,7 @@ debug_printf (char* fmt, ...)
     FILE* fp;
     va_list argptr;
 
+#if (DEBUG_PRINTF_ENABLED)
     fp = fopen(filename, "a");
     if (!initialized) {
 	initialized = 1;
@@ -645,4 +648,5 @@ debug_printf (char* fmt, ...)
     va_end (argptr);
 
     fclose (fp);
+#endif
 }

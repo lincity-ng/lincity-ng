@@ -198,9 +198,7 @@ do_prefs_screen (void)
     int x,y,w,h;
     Rect* mw = &scr.main_win;
 
-#if defined (LC_X11) || defined (WIN32)
     prefs_drawn_flag = 1;
-#endif
 
     hide_mouse ();
     Fgl_fillbox (mw->x, mw->y, mw->w, mw->h, LOAD_BG_COLOUR);

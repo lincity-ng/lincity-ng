@@ -123,7 +123,7 @@ lincity_set_locale (void)
 
 #if defined (ENABLE_NLS)
 #if defined (WIN32)
-    /* Some special stoopid way of setting local for microsoft gettext */
+    /* Some special stoopid way of setting locale for microsoft gettext */
     language = getenv ("LANGUAGE");
     if (language) {
 	debug_printf ("Environment variable LANGUAGE is %s\n", language);
