@@ -9,9 +9,9 @@ text -1 120 station are displayed as normal.
 text -1 140 Remember, fire stations take three months
 text -1 150 to become active.
 
-text -1 280 Left click on the mini screen 
-text -1 290 to reposition the main window.
-text -1 310 Left click on the mini screen title 
-text -1 320 to choose a different mini screen view.
-text -1 340 Middle click on the mini screen title 
-text -1 350 to overlay the mini screen onto main screen.
+text -1 270 Left click on the mini screen 
+text -1 280 to reposition the main window.
+text -1 300 Left click on the mini screen title 
+text -1 310 to choose a different mini screen view.
+text -1 330 Toggle overlay mode by pressing 'v' 
+text -1 340 or middle click on the mini screen title (X only)
