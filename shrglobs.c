@@ -31,6 +31,7 @@ char *askdir_path[4];
 char colour_pal_file[256], opening_pic[256], graphic_path[256], fontfile[256];
 char opening_path[256];
 char help_path[256], message_path[256];
+char lc_textdomain_directory[256];
 
 
 int monthgraph_size = 0;

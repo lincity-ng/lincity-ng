@@ -21,4 +21,9 @@
 #define bindtextdomain(Package, Directory)
 #endif
 
+/* Windows needs this */
+#ifndef LC_MESSAGES
+#define LC_MESSAGES 1729
+#endif
+
 #endif	/* __lcintl_h__ */

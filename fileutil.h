@@ -28,4 +28,6 @@ int directory_exists (char *dir);
 char* load_graphic(char *s);
 void undosify_string(char *s);
 
+void debug_printf (char* fmt, ...);
+
 #endif	/* __fileutil_h__ */

@@ -18,6 +18,7 @@ extern char progbox[(PROGBOXW + 16) * (PROGBOXH + 16)];
 extern char colour_pal_file[256], opening_pic[256], graphic_path[256], fontfile[256];
 extern char opening_path[256];
 extern char help_path[256], message_path[256], given_scene[256];
+extern char lc_textdomain_directory[256];
 
 extern int no_init_help;
 

@@ -126,10 +126,12 @@ EnumFontFamProc (ENUMLOGFONT FAR * lpelf,     // pointer to logical-font data
 		 LPARAM lParam	// address of application-defined data  
 )
 {
+    int i = 0;
     //  if (0 != strcmp (lpelf->elfLogFont.lfFaceName, "iso8859-1-16x16"))
-    //  if (0 != strcmp (lpelf->elfLogFont.lfFaceName, "Lincity"))
+    if (0 != strcmp (lpelf->elfLogFont.lfFaceName, "Lincity"))
     //  if (0 != strcmp (lpelf->elfLogFont.lfFaceName, "Tester"))
-    if (0 != strcmp (lpelf->elfLogFont.lfFaceName, "iso8859-1-9x15"))
+    //  if (0 != strcmp (lpelf->elfLogFont.lfFaceName, "iso8859-1-9x15"))
+    // if (0 == strcmp (lpelf->elfLogFont.lfFaceName, "iso8859-1-8x8"))
         return 0;
 
     // GCS:  I'm not sure if it's OK to just copy the pointer here.
@@ -144,6 +146,7 @@ EnumFontFamProc (ENUMLOGFONT FAR * lpelf,     // pointer to logical-font data
 void
 init_windows_font (void)
 {
+    int rc;
 #if defined (USE_WINDOWS_FONT)
     LOGFONT logfont;
     int fonts_added = AddFontResource (windowsfontfile);
@@ -162,8 +165,9 @@ init_windows_font (void)
 #endif
     // GCS: Hmm.  There must be a way to get this to work on both compilers.  
     //            How about this?
-    EnumFontFamilies (display.hdcMem, "iso8859-1-9x15", (FONTENUMPROC) EnumFontFamProc, (LPARAM) & logfont);
     //EnumFontFamilies (display.hdcMem, "iso8859-1-16x16", (FONTENUMPROC) EnumFontFamProc, (LPARAM) & logfont);
+    //rc = EnumFontFamilies (display.hdcMem, "iso8859-1-8x8", (FONTENUMPROC) EnumFontFamProc, (LPARAM) & logfont);
+    rc = EnumFontFamilies (display.hdcMem, "Lincity", (FONTENUMPROC) EnumFontFamProc, (LPARAM) & logfont);
 
     display.hFont = CreateFontIndirect (&logfont);
     if (!display.hFont) {
