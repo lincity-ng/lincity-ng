@@ -7,9 +7,10 @@ DEFS = @DEFS@
 X_DEFS = -DLC_X11=1
 SVGA_DEFS = -DSVGALIB=1
 
-SUBDIRS = intl po
+### SUBDIRS = intl po
+## (deleted)
+##	acconfig.h   \
 noinst_HEADERS = \
-	acconfig.h   \
 	cliglobs.h   \
 	common.h     config.h	  confw32.h    \
 	engglobs.h   engine.h	 fileutil.h \
@@ -45,7 +46,9 @@ EXTRA_DIST = $(LC_DISTDIRS) \
 	lincity.6
 
 man_MANS = lincity.6
-pkgdata_DATA = help/* icons/* messages/* messages/ca/* opening/* colour.pal
+## pkgdata_DATA = help/* icons/* messages/* messages/ca/* opening/* colour.pal
+## pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
+nobase_pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
 
 
 ############################################################################
@@ -58,14 +61,20 @@ pkgdata_DATA = help/* icons/* messages/* messages/ca/* opening/* colour.pal
 ##     compiled picedit/xpicedit, and install these.
 ## 3)  I need to set the suid bit on lincity/picedit.
 ############################################################################
+###########   GCS Jan 19, 2003
+############################################################################
+##   1)  No longer need to make the directories.  Automake now supports the
+##       "nobase" option.
+##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/help
+##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/icons
+##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/messages
+##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/opening
+##   1)  Removed the following line from install-exec-local:
+##	    $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/messages/ca
+############################################################################
 
 install-exec-local:
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/help
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/icons
-	#$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/messages
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/messages/ca
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/opening
 	@list='$(EXTRA_PROGRAMS)'; for p in $$list; do \
 	  if test -f $$p; then \
 	    echo "  $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
@@ -90,6 +99,8 @@ uninstall-local:
 ## --
 ## This is needed to keep the CVS directories from being installed in 
 ## my subdirectories.
+## --
+## GCS Jan 19, 2003  Added a check for deleting the "ca" subdirectory
 ############################################################################
 dist-hook:
 	@list='$(LC_DISTDIRS)'; for p in $$list; do \
@@ -101,6 +112,10 @@ dist-hook:
 	    rm -rf $(distdir)/$$p/*/CVS ; \
 	    echo "rm -rf $(distdir)/$$p/*/*/CVS" ; \
 	    rm -rf $(distdir)/$$p/*/*/CVS ; \
+	  else :; fi; \
+	  if test -d $(distdir)/$$p/ca ; then \
+	    echo "rm -rf $(distdir)/$$p/ca" ; \
+	    rm -rf $(distdir)/$$p/ca ; \
 	  else :; fi; \
 	done
 
@@ -158,7 +173,7 @@ lincity_SOURCES = \
 	lclib.c power.c \
 	simulate.c shrtypes.c lintypes.c \
 	timer.c fileutil.c shrglobs.c stats.c
-EXTRA_xlincity_SOURCES = \
+EXTRA_lincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
 	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
 	dialbox.c
