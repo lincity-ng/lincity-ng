@@ -1,0 +1,2 @@
+This applications uses the scons build system
+(See scons.sf.net for details). So you have to type "scons" instead "make".
