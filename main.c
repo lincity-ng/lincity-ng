@@ -32,11 +32,6 @@
 
 #include <time.h>
 
-#if defined (HAVE_POPEN)
-FILE *popen(const char *command, const char *type);
-int pclose(FILE *stream);
-#endif
-
 #include <ctype.h>
 #include "common.h"
 #ifdef LC_X11

@@ -61,11 +61,6 @@
 #endif
 #endif
 
-#if defined (HAVE_POPEN)
-FILE *popen(const char *command, const char *type);
-int pclose(FILE *stream);
-#endif
-
 #include <ctype.h>
 #include "common.h"
 #ifdef LC_X11
@@ -143,6 +138,7 @@ execute_command (char *cmd, char *p1, char *p2, char *p3)
   }
   sprintf (sys_cmd, "%s %s %s %s", cmd, p1, p2, p3);
   ret_value = system (sys_cmd);
+/* fprintf(stderr, "system(%s)=%i\n", sys_cmd, ret_value); */
   free (sys_cmd);
   return ret_value;
 }
@@ -177,10 +173,22 @@ fopen_read_gzipped (char* fn)
     FILE* fp;
 
 #if defined (HAVE_GZIP) && defined (HAVE_POPEN)
+#ifdef __EMX__
+    const char* cmd_str = "gzip -d -c < %s 2> nul";
+#else
     const char* cmd_str = "gzip -d -c < %s 2> /dev/null";
+#endif
     char *cmd = (char*) malloc (strlen (cmd_str) + strlen (fn) + 1);
+    
     sprintf (cmd, cmd_str, fn);
+#ifdef __EMX__
+    fp=popen(cmd,"rb");
+#else
     fp=popen(cmd,"r");
+#endif
+    if (fp==NULL) {
+       fprintf(stderr, "Failed to open pipe cmd: %s\n", cmd);
+    }
     free(cmd);
 
 #elif defined (HAVE_GZIP) && !defined (HAVE_POPEN)
@@ -317,6 +325,7 @@ init_path_strings (void)
     homedir = LIBDIR;
 #elif defined (__EMX__)
     strcpy(LIBDIR, __XOS2RedirRoot(OS2_DEFAULT_LIBDIR));
+    homedir = getenv ("HOME");
 #else
     homedir = getenv ("HOME");
 #endif
