@@ -1783,7 +1783,7 @@ print_stats (void)
 
 	refresh_pbars();
 
-	update_avail_modules ();
+	update_avail_modules (1);
     }
 
     if (update_scoreboard.yearly_1) {

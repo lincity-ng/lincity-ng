@@ -631,6 +631,7 @@ load_city (char *cname)
     selected_module_type = CST_TRACK_LR;
     selected_module_cost = GROUP_TRACK_COST;
     old_selected_module = sbut[7];
+    update_avail_modules(0);
     highlight_module_button (sbut[7]);	/* 7 is track.  Watch out though! */
 
     print_total_money ();

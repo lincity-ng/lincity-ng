@@ -433,6 +433,7 @@ clear_game (void)
     total_money = 0;
     tech_level = 0;
     init_inventory();
+    update_avail_modules(0);
 }
 
 void

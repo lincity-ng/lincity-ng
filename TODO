@@ -13,15 +13,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     advance display.  Also, I'm not sure if mmb should initiate main win
     scrolling if the click was made outside the main win.
 
-  o Tech buttons are not disabled properly when loading a game with 
-    lower tech level from game with higher tech level.
-
-	To reproduce:  load a decent game (or hit 't' a bunch) and then start
-	a new game.  All techs that were available still are, only now your
-	brand new solar station has a tech of 0.0%.
-	Only happens on a new game, not on loading existing game.
-
-
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Bits of the square cursor are not refreshed from the main win frame.

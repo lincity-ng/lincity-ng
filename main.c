@@ -284,7 +284,7 @@ client_main_loop (void)
     /* Set up the game */
     reset_start_time ();
 
-    update_avail_modules ();
+    update_avail_modules (0);
 
     screen_full_refresh ();
 

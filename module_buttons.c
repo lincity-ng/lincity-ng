@@ -244,7 +244,7 @@ init_modules (void)
    tech level */
 
 void
-update_avail_modules (void)
+update_avail_modules (int popup)
 {
     int i;
     int f; /* remembers if a change is made to what is available, so we can
@@ -257,7 +257,8 @@ update_avail_modules (void)
 	if (tech_level >= main_groups[g].tech * MAX_TECH_LEVEL/1000)
 	{
 	    if (module_tflag[i] == 0)
-		activate_module (i);
+		if (popup)
+		    activate_module (i);
 	    f = 1;
 	}
 	else if (module_tflag[i] != 0 &&

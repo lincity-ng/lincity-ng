@@ -32,7 +32,7 @@ void draw_selected_module_cost (void);
 void draw_modules (void);
 
 // screen.c: void update_select_buttons (void);
-void update_avail_modules (void);
+void update_avail_modules (int popup);
 
 // mouse.c: int inv_sbut (int button);
 int inv_sbut (int module);
