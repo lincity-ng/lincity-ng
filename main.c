@@ -167,7 +167,6 @@ lincity_main (int argc, char *argv[])
 #endif
 
     /* Initialize some global variables */
-    //make_dir_ok_flag = 1;
     main_screen_originx = 1;
     main_screen_originy = 1;
     given_scene[0] = 0;
@@ -180,7 +179,9 @@ lincity_main (int argc, char *argv[])
 #ifdef LC_X11
     borderx = 0;
     bordery = 0;
-    parse_xargs (argc, argv, &geometry);
+    parse_xargs (argc, argv, &geometry);  /* GCS FIX: Why here? */
+#elif defined (WIN32)
+    /* borderx & bordery are autocomputed in WinMain() */
 #endif
 
     /* I18n */
@@ -198,28 +199,29 @@ lincity_main (int argc, char *argv[])
     /* Load preferences */
     load_lincityrc ();
 
+    /* Initialize random number generator */
 #ifndef CS_PROFILE
 #ifdef SEED_RAND
     srand (time (0));
 #endif
 #endif
 
+    /* Parse arguments and create window */
 #ifdef LC_X11
-#if defined (commentout)
-    borderx = 0;
-    bordery = 0;
-    parse_xargs (argc, argv, &geometry);
-#endif
     Create_Window (geometry);
     pirate_cursor = XCreateFontCursor (display.dpy, XC_pirate);
 #elif defined (WIN32)
-    /* Deal with all outstanding messages */
+    parse_args (argc, argv);
+    lc_create_window ();
     ProcessPendingEvents ();
 #else
     parse_args (argc, argv);
     q = vga_setmode (G640x480x256);
     gl_setcontextvga (G640x480x256);
 #endif
+
+    /* Save preferences */
+    save_lincityrc ();
 
 #if defined (WIN32) || defined (LC_X11)
     initialize_pixmap ();

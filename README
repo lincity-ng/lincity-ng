@@ -19,7 +19,7 @@ broke and build rockets to escape from a pollution ridden and resource
 starved planet, it's up to you. Due to the finite resources available in any
 one place, this is not a game that you can leave for long periods of time.
 
-Lincity recently moved to sourceforge.net.  This brings new CVS
+Lincity is hosted at sourceforge.net.  This brings new CVS
 access, mailing lists, and web pages.  If you are subscribed to 
 lincity-users@floot.demon.co.uk, please also subscribe to the new
 list, shown below, and make all of your posts there.  Please also note
@@ -156,7 +156,18 @@ run the X Windows version.  The SVGA version will not run under X.
              lincity  [opts]
              xlincity [opts]
 
-The following options apply to both.
+
+RUNNING LINCITY (WIN32)
+======================
+
+Usually you will simply double click the LINCITY.EXE icon.  However, 
+the WIN32 version does accept command line arguments too.
+
+
+COMMAND LINE OPTIONS
+====================
+
+The following options apply to all platforms:
 
         -w   Do some *crude* gamma correction to boost the red and blue.
              This makes some 'washed out' displays a bit more colourful.
@@ -169,24 +180,18 @@ The following options apply to both.
              <num> is a number between 0.0 and 1.0
              The default values for -w are  1.0   0.0   0.4  (ATTOW)
 
-This option only applies to lincity.
+This option only applies to svga lincity.
 
 	-m <num>
 	    Set the VGA mode.  See below for choices of mode.
 
-This option only applies to xlincity.
+These options apply to xlincity and win32 lincity:
 
 	-r   Add an extra border around the game.
-        -d   Double the size of the window to 1280x960
+	-b   Omit border around game (default).
 
-	-b   *obsolete* omit border around game.  Now on by default.
-
-
-RUNNING LINCITY (WIN32)
-======================
-
-Double click the LINCITY.EXE icon.  The WIN32 version does not accept
-command line arguments.
+        -d   Pix doubling: double the size of the window to 1280x960
+        -e   No pix doubling: keep window at 640x480
 
 
 UPGRADING FROM VERSION 1.11
@@ -301,10 +306,13 @@ resolutions:
        800 x 600       Window          Yes             No
        1024 x 768      Window          Yes             No
        1152 x 864      Window          Yes             No
-       1280 x 1024     Window          None            Yes
+       1280 x 1024     Full screen     None            Yes
+       Larger          Window          None            Yes
 
-If you are running 1280x1024, you may need to autohide the taskbar
-in order to see pix doubling.
+If you don't like the default choices, please edit lincity.ini or 
+use command line options to override these.  Note: if you are running 
+at 1280x1024, you may need to autohide the taskbar in order to see 
+pix doubling.  
 
 Lincity no longer uses a real windows font to draw text.  Although this 
 gives a considerable speed improvement (about 20%), it sometimes 
@@ -587,8 +595,12 @@ BUGS
 
 Many.  See the file TODO.
 
-If you wish to report a bug, you can send to directly to the current
-maintainer or to the lincity mailing list.
+If you wish to report a bug, you can send to any of these locations:
+
+  the bug trackers on sourceforge
+  the forum on sourceforge
+  the lincity mailing list
+  the current maintainer(s)
 
 
 HISTORY

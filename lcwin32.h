@@ -82,6 +82,7 @@ typedef struct _disp
     long colorDepth;		// Number of color planes (e.g. 24 for full color)
     int min_h;			// Minimum size for resizing
     int min_w;			// Minimum size for resizing
+    int nCmdShow;		// Initialize in which state?
 
     BOOL useDIB;		// Use DIB or DDB?
     BITMAPINFO *pbminfo;	// DIB Header
@@ -164,6 +165,7 @@ void do_call_event (int);
 void init_windows_font (void);
 void init_mouse (void);
 void draw_border (void);
+void lc_create_window (void);
 
 void EnableWindowsMenuItems (void);
 void DisableWindowsMenuItems (void);

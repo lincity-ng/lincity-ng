@@ -85,7 +85,7 @@ XXX: Then it shouldn't be here
 
 
 /* comment out the the next three lines for _slightly_ faster X drawing. */
-#ifdef LC_X11
+#if defined LC_X11 || defined WIN32
 #define ALLOW_PIX_DOUBLING
 #endif
 
@@ -96,9 +96,9 @@ XXX: Then it shouldn't be here
   You can also set the values from the command line.
    [x]lincity -R 1.0 -G 0.0 -B 0.4  is the same as [x]lincity -w
  */
-#define GAMMA_CORRECT_RED   1.0
-#define GAMMA_CORRECT_GREEN 0.0
-#define GAMMA_CORRECT_BLUE  0.4
+#define GAMMA_CORRECT_RED    ((float) 1.0)
+#define GAMMA_CORRECT_GREEN  ((float) 0.0)
+#define GAMMA_CORRECT_BLUE   ((float) 0.4)
 
 #define PROFILE_COUNTDOWN 10000
 

@@ -52,6 +52,9 @@ static void DoSquareMouse (HDC hdc);
 static void ResizeBackingStore (HWND hWnd);
 static void ResizeDDB (HWND hWnd);
 
+/* command line parameters */
+extern int __argc;
+extern char ** __argv;
 
 //----------------------------------------------------------------------------
 //  FUNCTION: WinMain(HANDLE, HANDLE, LPSTR, int)
@@ -88,7 +91,8 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmd
     ProcessPendingEvents ();
     
     // lincity_main() contains main message loop
-    lincity_main (1, args);
+    //lincity_main (1, args);
+    lincity_main (__argc, __argv);
 
     // Take care of any outstanding messages after main() finishes.
     ProcessPendingEvents ();
@@ -256,6 +260,175 @@ CheckClientSize (int width, int height, int with_menus)
 //----------------------------------------------------------------------------
 BOOL
 InitInstance (HINSTANCE hInstance, int nCmdShow)
+{
+    HDC hDCGlobal = GetDC (NULL);
+    INT iRasterCaps;
+
+    // Determine graphics capabilities
+    iRasterCaps = GetDeviceCaps (hDCGlobal, RASTERCAPS);
+    if (iRasterCaps & RC_PALETTE) {
+	display.hasPalette = TRUE;
+	display.paletteSize = GetDeviceCaps (hDCGlobal, SIZEPALETTE);
+	display.defaultPaletteSize = GetDeviceCaps (hDCGlobal, NUMCOLORS);
+    } else {
+	display.hasPalette = FALSE;
+    }
+
+    display.colorDepth = GetDeviceCaps (hDCGlobal, BITSPIXEL);
+    ReleaseDC (NULL, hDCGlobal);
+  
+    // Decide whether to use DIB's or DDB's
+#if defined (WIN32_USEDIB)
+    if (display.colorDepth == 8)	// Only use DIB for 256 colors
+	display.useDIB = TRUE;
+    else
+	display.useDIB = FALSE;
+#else /*  */
+    display.useDIB = FALSE;
+#endif /*  */
+    
+    // Do some global initializations
+    display.hInst = hInstance;
+    display.fullscreen = FALSE;
+    //display.fullscreen = TRUE;
+    display.screenW = GetSystemMetrics (SM_CXSCREEN);
+    display.screenH = GetSystemMetrics (SM_CYSCREEN);
+    display.winFullscreenClientW = (INT) GetSystemMetrics (SM_CXFULLSCREEN);
+    display.winFullscreenClientH = (INT) GetSystemMetrics (SM_CYFULLSCREEN);
+    InitializePalette ();
+
+    display.nCmdShow = nCmdShow;
+
+    // Choose one of Lin City window types
+    //    a)  no pix doubling, no border
+    //    b)  no pix doubling, 30 pixel border
+    //    c)  pix doubling, no border
+    // GCS FIX: This doesn't work.  I need to call AdjustWindowRect on these values (?)
+    // Note, this specifies default values.  User can override.
+    if ((display.screenW >= 2*WINWIDTH + 2*BORDERX) &&
+	(display.screenH >= 2*WINHEIGHT + 2*BORDERY)) {
+	pix_double = 1;
+	borderx = 1;
+	bordery = 1;
+    }
+    else if ((display.screenW >= 2*WINWIDTH) &&
+	     (display.screenH >= 2*WINHEIGHT)) {
+	pix_double = 1;
+	borderx = 0;
+	bordery = 0;
+    }
+    else if ((display.screenW >= WINWIDTH + (2 * BORDERX)) 
+	     &&(display.screenH >= WINHEIGHT + (2 * BORDERY))) {
+	pix_double = 0;
+	borderx = BORDERX;
+	bordery = BORDERY;
+    } else {
+	pix_double = 0;
+	borderx = 0;
+	bordery = 0;
+    }
+    
+    return TRUE;
+}
+
+void 
+lc_create_window (void)
+{
+    RECT client_size;
+    DWORD dwStyle;
+    char *szClassName = 0;
+    int nCmdShow = display.nCmdShow;
+
+    // Choose one of three client window types
+    //    a)  full screen
+    //    b)  maximized window
+    //    c)  regular window
+    // Prefer regular over maximized over full screen
+    display.clientW = ((pix_double + 1) * WINWIDTH) + (2 * borderx);
+    display.clientH = ((pix_double + 1) * WINHEIGHT) + (2 * bordery);
+    dwStyle = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SIZEBOX;
+    client_size.left = 0;
+    client_size.top = 0;
+    client_size.right = display.clientW;
+    client_size.bottom = display.clientH;
+    AdjustWindowRect (&client_size, dwStyle, TRUE);
+
+    if (((client_size.right - client_size.left) <= display.screenW) 
+	&&((client_size.bottom - client_size.top) <= display.screenH))
+    {
+	// Use regular (overlapped) window
+	szClassName = szClassNameWithMenu;
+	if (client_size.left < 0) {
+	    client_size.right -= client_size.left;
+	    client_size.left = CW_USEDEFAULT;
+	}
+	if (client_size.top < 0) {
+	    client_size.bottom -= client_size.top;
+	    client_size.top = CW_USEDEFAULT;
+	}
+    } else {
+	// Check maximized by subtracting out the DLGFRAME size.
+	// Note that the "obvious" method of calling AdjustWindowRect()
+	// with style WS_MAXIMIZE doesn't work!
+	int win_border_x = GetSystemMetrics (SM_CXDLGFRAME);
+	int win_border_y = GetSystemMetrics (SM_CYDLGFRAME);
+	if (((client_size.right - client_size.left - 2 * win_border_x) <= display.screenW) 
+	    &&((client_size.bottom - client_size.top - 2 * win_border_y) <= display.screenH))
+	{
+	    // Use maximized window
+	    szClassName = szClassNameWithMenu;
+	    // dwStyle |= WS_MAXIMIZE;
+	    if (client_size.left < 0) {
+		client_size.right -= client_size.left;
+		client_size.left = CW_USEDEFAULT;
+	    }
+	    if (client_size.top < 0) {
+		client_size.bottom -= client_size.top;
+		client_size.top = CW_USEDEFAULT;
+	    }
+	    nCmdShow = SW_SHOWMAXIMIZED;
+	} else {
+	    // Need fullsize window
+	    szClassName = szClassNameWithoutMenu;
+	    dwStyle = WS_POPUP;
+	    client_size.left = 0;
+	    client_size.top = 0;
+	    client_size.right = display.screenW;
+	    client_size.bottom = display.screenH;
+	}
+    }
+    
+    display.min_h = client_size.bottom - client_size.top;
+    display.min_w = client_size.right - client_size.left;
+
+    // Create the window
+    display.hWnd = CreateWindow (szClassName,	// Class name
+				 szTitle,	// Caption
+				 dwStyle,	// Style
+				 client_size.left, client_size.top,	// Position
+				 client_size.right, client_size.bottom,	// Size
+				 (HWND) NULL,	// Parent window (no parent)
+				 (HMENU) NULL,		// use class menu
+				 (HINSTANCE) display.hInst,	// handle to window instance
+				 (LPVOID) NULL		// no params to pass on
+				 );
+    if (!display.hWnd) {
+	exit (-1);
+    }
+  
+    // Display the window
+    ShowWindow (display.hWnd, nCmdShow);
+    UpdateWindow (display.hWnd);
+}
+
+
+//----------------------------------------------------------------------------
+//   FUNCTION: InitInstance(HANDLE, int)
+//
+//   PURPOSE:  Creates main window 
+//----------------------------------------------------------------------------
+BOOL
+InitInstance_OLD_VERSION (HINSTANCE hInstance, int nCmdShow)
 {
     HDC hDCGlobal = GetDC (NULL);
     INT iRasterCaps;

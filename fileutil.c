@@ -709,6 +709,22 @@ load_lincityrc (void)
 	    confine_flag = !!arg;
 	    continue;
 	}
+	if (sscanf(buf,"pix_double=%d",&arg)==1) {
+	    pix_double = !!arg;
+	    continue;
+	}
+	if (sscanf(buf,"borderx=%d",&arg)==1) {
+	    if (borderx >= 0) {
+		borderx = arg;
+	    }
+	    continue;
+	}
+	if (sscanf(buf,"bordery=%d",&arg)==1) {
+	    if (bordery >= 0) {
+		bordery = arg;
+	    }
+	    continue;
+	}
     }
     fclose (fp);
 }
@@ -755,6 +771,20 @@ save_lincityrc (void)
 	"# through the right panel.\n"
 	"time_multiplex_stats=%d\n\n",
 	time_multiplex_stats
+	);
+    fprintf (fp,
+	"# (X Windows and WIN32 only) Set this if you want pix doubling,\n"
+	"# where each pixel is drawn as a 2x2 square.\n"
+	"pix_double=%d\n\n",
+	pix_double
+	);
+    fprintf (fp,
+	"# (X Windows and WIN32 only) Set this if you want a blank area\n"
+	"# around the playing area.\n"
+	"borderx=%d\n"
+	"bordery=%d\n\n",
+	borderx,
+	bordery
 	);
     fprintf (fp,
 	"# (X Windows only) Set this if you want to confine the pointer\n"

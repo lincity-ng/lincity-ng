@@ -92,4 +92,4 @@
 #define PACKAGE "lincity"
 
 /* Version number of package */
-#define VERSION "1.12.0"
+#define VERSION "1.13.2"

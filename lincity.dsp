@@ -140,6 +140,10 @@ SOURCE=.\geometry.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\getopt.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\modules\health_centre.c
 # End Source File
 # Begin Source File
@@ -342,6 +346,10 @@ SOURCE=.\winmain.c
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\getopt.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\modules\modules.h

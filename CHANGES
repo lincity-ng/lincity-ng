@@ -1,4 +1,18 @@
 
+1.13.2 (win32 only)
+*******************
+- Add command line parsing to Windows version
+- Add borderx, bordery, pix_double to preference file
+
+1.13.1 (unix only)
+******************
+- Partial support for new module system
+- Improvements to autoconf
+
+1.13.0
+******
+- Partial support for PNG graphics
+
 1.12
 ****
 

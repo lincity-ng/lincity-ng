@@ -15,9 +15,64 @@
 #include "lctypes.h"
 #include "pixmap.h"
 #include "screen.h"
+#include "getopt.h"
 
 #define USE_WINDOWS_FONT 1
 #undef USE_WINDOWS_FONT
+
+void
+parse_args (int argc, char **argv)
+{
+    int option;
+    extern char *optarg;
+
+    #ifdef ALLOW_PIX_DOUBLING
+    char* option_string = "brndewR:G:B:D";
+    #else
+    char* option_string = "brnwR:G:B:D";
+    #endif
+    /* GCS FIX:  Need to print usage and exit when illegal option spec'd */
+    while ((option = getopt (argc, argv, option_string)) != EOF) {
+	switch (option) {
+	case 'b':
+	    borderx = 0;
+	    bordery = 0;
+	    break;
+	case 'r':
+	    borderx = BORDERX;
+	    bordery = BORDERY;
+	    break;
+#ifdef ALLOW_PIX_DOUBLING
+	case 'd':
+	    pix_double = 1;
+	    break;
+	case 'e':
+	    pix_double = 0;
+	    break;
+#endif
+	case 'n':
+	    no_init_help = TRUE;
+	    break;
+	case 'w':
+	    gamma_correct_red = GAMMA_CORRECT_RED;
+	    gamma_correct_green = GAMMA_CORRECT_GREEN;
+	    gamma_correct_blue = GAMMA_CORRECT_BLUE;
+	    break;
+	case 'R':
+	    sscanf (optarg, "%f", &gamma_correct_red);
+	    break;
+	case 'G':
+	    sscanf (optarg, "%f", &gamma_correct_green);
+	    break;
+	case 'B':
+	    sscanf (optarg, "%f", &gamma_correct_blue);
+	    break;
+	case 'D':
+	    command_line_debug = 1;
+	    break;
+	}
+    }
+}
 
 int
 AdjustX (int x)
