@@ -612,75 +612,7 @@ draw_results (void)
 /* ---------------------------------------------------------------------- *
  * Button click functions
  * ---------------------------------------------------------------------- */
-void
-select_fast (void)
-{
-    hide_mouse ();
-    pause_flag = 0;
-    draw_pause (0);
-    slow_flag = 0;
-    draw_slow (0);
-    med_flag = 0;
-    draw_med (0);
-    fast_flag = 1;
-    draw_fast (1);
-    redraw_mouse ();
-}
 
-void
-select_medium (void)
-{
-    hide_mouse ();
-    pause_flag = 0;
-    draw_pause (0);
-    slow_flag = 0;
-    draw_slow (0);
-    med_flag = 1;
-    draw_med (1);
-    fast_flag = 0;
-    draw_fast (0);
-    redraw_mouse ();
-}
-
-void
-select_slow (void)
-{
-    hide_mouse ();
-    pause_flag = 0;
-    draw_pause (0);
-    slow_flag = 1;
-    draw_slow (1);
-    med_flag = 0;
-    draw_med (0);
-    fast_flag = 0;
-    draw_fast (0);
-    redraw_mouse ();
-}
-
-void
-select_pause (void)
-{
-    if (pause_flag) {
-	/* unpause it */
-	if (fast_flag)
-	    select_fast ();
-	else if (med_flag)
-	    select_medium ();
-	else if (slow_flag)
-	    select_slow ();
-	else
-	    select_medium ();
-    } else {
-	/* pause it */
-	hide_mouse ();
-	pause_flag = 1;
-	draw_pause (1);
-	draw_slow (0);
-	draw_med (0);
-	draw_fast (0);
-	redraw_mouse ();
-    }
-}
 
 /* ---------------------------------------------------------------------- *
  * Mini map button functions

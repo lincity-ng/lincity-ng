@@ -566,7 +566,6 @@ do_mouse_main_win (int px, int py, int button)
     switch (place_item (x, y, selected_module_type)) {
     case 0:
 	/* Success */
-	print_total_money ();
 	break;
     case -1:
 	/* Not enough money */
@@ -590,109 +589,10 @@ void
 do_mouse_other_buttons (int x, int y, int button)
 {
     Rect* mw = &scr.main_win;
-#if defined (commentout)
-    /* these must be checked for before the scroll areas. */
-    /* this is the quit button */
-    if (mouse_in_rect (&scr.quit_button,x,y)) {
-	quit_flag = 1;
-	if (pause_flag)
-	    let_one_through = 1;
-    }
 
-    /* this is the load button */
-    else if (mouse_in_rect (&scr.load_button,x,y)) {
-	if (save_flag == 0)
-	    load_flag = 1;
-    }
-#endif
-    if (0) {}
-
-    /* this is the pause button */
-    else if (mouse_in_rect (&scr.pause_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("pause.hlp");
-	    return;
-	}
-	select_pause ();
-    }
+    if (0) {} /* XXX: Cute, very cute */
 
     /* main screen border scroll areas */
-#if defined (commentout)
-    /* up */
-    else if (x >= (mw->x - 8) && x < (mw->x + mw->w + 8)
-	     && y >= (mw->y - 8) && y < mw->y
-	     && main_screen_originy > 1)
-    {
-	if (button == LC_MOUSE_RIGHTBUTTON)
-	{
-	    main_screen_originy -= RIGHT_MOUSE_MOVE_VAL;
-	    if (main_screen_originy < 1)
-		main_screen_originy = 1;
-	}
-	else
-	    main_screen_originy--;
-	/*
-	  // we have a normal mouse so it
-	  // won't be taken care
-	  // of in refresh_main_screen.
-	*/
-	request_main_screen ();
-	hide_mouse ();
-	refresh_main_screen ();
-	redraw_mouse ();
-
-    }
-    /* down */
-    else if (x >= (mw->x - 8) && x < (mw->x + mw->w + 8)
-	     && y > (mw->y + mw->h)
-	     && y < (mw->y + mw->h + 16)	/* 16 for bigger area */
-	     && main_screen_originy < (WORLD_SIDE_LEN - mw->h / 16) - 1)
-    {
-	if (button == LC_MOUSE_RIGHTBUTTON)
-	{
-	    main_screen_originy += RIGHT_MOUSE_MOVE_VAL;
-	    if (main_screen_originy
-		> (WORLD_SIDE_LEN - mw->h / 16) - 2)
-		main_screen_originy
-			= (WORLD_SIDE_LEN - mw->h / 16) - 2;
-	}
-	main_screen_originy++;
-	request_main_screen ();
-	refresh_main_screen ();
-    }
-    /* left */
-    else if (x >= (mw->x - 16) && x < mw->x
-	     && y >= (mw->y - 8) && y < (mw->y + mw->h + 8)
-	     && main_screen_originx > 1)
-    {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    main_screen_originx -= RIGHT_MOUSE_MOVE_VAL;
-	    if (main_screen_originx < 1)
-		main_screen_originx = 1;
-	} else {
-	    main_screen_originx--;
-	}
-	request_main_screen ();
-	hide_mouse ();
-	refresh_main_screen ();
-	redraw_mouse ();
-    }
-    /* right */
-    else if (x > (mw->x + mw->w)
-	     && x < (mw->x + mw->w + 8)
-	     && y > (mw->y - 8) && y < (mw->y + mw->w + 8)
-	     && main_screen_originx < (WORLD_SIDE_LEN - mw->w / 16) - 1)
-    {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    main_screen_originx += RIGHT_MOUSE_MOVE_VAL;
-	    if (main_screen_originx > (WORLD_SIDE_LEN - mw->w / 16) - 2)
-		main_screen_originx = (WORLD_SIDE_LEN - mw->w / 16) - 2;
-	}
-	main_screen_originx++;
-	request_main_screen ();
-	refresh_main_screen ();
-    }
-#endif
 
     /* up */
     else if (x >= (mw->x - 8) && x < (mw->x + mw->w + 8)
@@ -895,68 +795,11 @@ do_mouse_other_buttons (int x, int y, int button)
 	activate_help ("index.hlp");
     }
 
-#if defined (commentout)
-    /* this is the save button */
-    else if (mouse_in_rect (&scr.save_button,x,y)) {
-	if (load_flag == 0)
-	    save_flag = 1;
-    }
-#endif
-
     /* this is the results (stats) button */
     else if (mouse_in_rect (&scr.results_button,x,y)) {
 	if (button == LC_MOUSE_RIGHTBUTTON)
 	    return;
 	window_results ();
-    }
-
-#if defined (commentout)
-    /* this is the overwrite transport button button */
-    else if (mouse_in_rect (&scr.tover_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("tover.hlp");
-	    return;
-	}
-	select_tover ();
-    }
-
-#ifdef LC_X11
-    /* this is the confine mouse pointer button */
-    else if (mouse_in_rect (&scr.confine_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("confinep.hlp");
-	    return;
-	}
-	select_confine ();
-    }
-#endif
-#endif
-
-    /* this is the slow button */
-    else if (mouse_in_rect (&scr.slow_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("slow.hlp");
-	    return;
-	}
-	select_slow ();
-    }
-
-    /* this is the medium button */
-    else if (mouse_in_rect (&scr.med_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("medium.hlp");
-	    return;
-	}
-	select_medium ();
-    }
-
-    /* this is the fast button */
-    else if (mouse_in_rect (&scr.fast_button,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("fast.hlp");
-	    return;
-	}
-	select_fast ();
     }
 
     /* Advance mps screen if clicked on */

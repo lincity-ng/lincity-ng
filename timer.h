@@ -8,5 +8,12 @@
 
 void reset_start_time (void);
 
+void init_timer_buttons(void);
+
+void select_pause (void);
+void select_slow (void);
+void select_medium (void);
+void select_fast (void);
+
 
 #endif	/* __timer_h__ */
