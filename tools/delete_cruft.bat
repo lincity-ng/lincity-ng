@@ -14,13 +14,15 @@ erase *.6
 erase *.ico
 erase *.ico
 erase *.rc
+erase *~
 erase missing
 erase mkinstalldirs
 deltree /y help\cvs
 deltree /y icons\cvs
 deltree /y intl
 deltree /y messages\cvs
-deltree /y messages\ca
+rem deltree /y messages\ca
+deltree /y messages\ca\cvs
 deltree /y old.Makefiles
 deltree /y opening\cvs
 deltree /y po
@@ -37,3 +39,8 @@ deltree /y release
 erase *.diff
 erase *.dsw
 deltree /y tools
+deltree /y m4
+erase depcomp
+erase config.guess
+erase config.sub
+erase debug.txt

@@ -242,8 +242,8 @@ So in the worst case, you can set the LINCITY_HOME environment variable.
 	The default directory
 
 
-INTERNATIONALIZATION
-====================
+INTERNATIONALIZATION UNDER LINUX
+================================
 
 Lincity supports a modest amount of internationalization.  Only languages
 that can be represented using a iso8859-1 font are currently supported.
@@ -342,6 +342,19 @@ correctly.  First, edit the file po/LINGUAS, and add your language
 
 You should now see the file "ca.po".  Edit this file.  If you are using
 emacs, there is a "po-mode" to facilitate (or obstruct) this task.
+Note, there is something like this near the beginning:
+
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2003-02-23 00:29-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+You should delete these lines.
+
 When you are done editing this file, you need to compile this file.
 Simply type "make" in the po directory to compile.  This will 
 create the file "ca.gmo".  Finally, you will need to install this file.
@@ -353,6 +366,75 @@ Now, you are ready to go.  Set the LANG environment variable and
 lincity should run using your translations.
 
 Email to gregsharp@geocities.com for comments about this process.
+
+
+INTERNATIONALIZATION UNDER WINDOWS
+==================================
+
+The situation under windows is similar.  As of version 1.12pre52, 
+the windows binary contains the same sample (partial) translation into 
+Catalan.  To get this to work, on the DOS prompt
+
+  c:\lincity> set LANGUAGE=ca
+  c:\lincity> lincity
+
+Now, you should see:
+
+  (1)  The month january will be written "JAN" instead of "jan"
+  (2)  Click on something that hasn't been invented yet, like a 
+       power station or windmill.  The message for "Not enough tech" 
+       will be translated.
+
+If the above doesn't work, email to gregsharp@geocities.com.
+
+OK, now you are ready to make translations for a new language.  
+There are three parts to making a tranlation:
+   making help files
+   making message files
+   making a .po file.
+
+The messages and help files are just a matter of editing the ASCII 
+files, and installing them.  If your language is "ca", you should 
+create two directories such as /usr/local/share/lincity/messages/ca
+and /usr/local/share/lincity/help/ca.  Copy the english language 
+help and message files to these directories, and translate them.
+
+The .po file is a matter of translating these and getting them to compile 
+correctly.  First, make copy the file lincity.pot to your language 
+(e.g. "ca.po" for Catalan).  Edit this file.  If you are using
+emacs, there is a "po-mode" to facilitate (or obstruct) this task.
+Note, there is something like this near the beginning:
+
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2003-02-23 00:29-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+You should delete these lines.
+
+When you are done editing this file, you need to compile this file.
+Use the executable "msgfmt.exe" which is distributed with lincity 
+for this purpose:
+
+  c:\lincity> msgfmt ca.po -o ca.gmo
+
+This should create the file ca.gmo.  You need to copy it to a 
+prespecified location, like this:
+
+  c:\lincity> copy ca.gmo locale\ca\LC_MESSAGES\lincity.mo
+
+If your language were Italian, it would go here.  You will have to 
+create the subdirectories.
+
+  c:\lincity> copy it.gmo locale\it\LC_MESSAGES\lincity.mo
+
+Now, you are ready to go.  Set the LANGUAGE environment variable 
+(note that LANG won't work for windows), and lincity should run using 
+your translations.
 
 
 COMPILATION UNDER WIN32

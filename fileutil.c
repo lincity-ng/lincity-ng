@@ -390,7 +390,7 @@ lincity_nl_find_language (char *name)
 }
 
 
-const char*
+void
 find_localized_paths (void)
 {
   int messages_done = 0;
