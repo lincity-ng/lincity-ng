@@ -3,6 +3,7 @@
 #include "MiniMap.hpp"
 
 #include "gui/Painter.hpp"
+#include "gui/Button.hpp"
 #include "gui/Rect2D.hpp"
 #include "gui/ComponentFactory.hpp"
 #include "gui/XmlReader.hpp"
@@ -12,6 +13,8 @@
 #include "lincity/lin-city.h"
 #include "lincity/engglobs.h"
 #include "lincity/lctypes.h"
+
+#include "gui/callback/Callback.hpp"
 
 #include "gui_interface/shared_globals.h"
 #include "gui_interface/screen_interface.h"
@@ -98,10 +101,54 @@ MiniMap::MiniMap(Component *parent, XmlReader& reader):
     mTexture.reset(texture_manager->create(image)); // don't delete image, as Texture-class takes ownage
 
     mFullRefresh=true;
+  
+  alreadyAttached=false;
+}
+
+Component *MiniMap::findRoot(Component *c)
+{
+  while(c->getParent())
+    return findRoot(c->getParent());
+  return c;
+}
+
+void MiniMap::attachButtons()
+{
+// MatzeB:uncomment this line  if(alreadyAttached)
+    return;
+  alreadyAttached=true;
+  char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood","MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal"};
+  
+  Component *root=findRoot(this);
+  
+  for(int i=0;i<9;i++)
+    {
+      Component *c=root->findComponent(buttonNames[i]);
+      if(c)
+      {
+        std::cout<<"Button "<<buttonNames[i]<<" found!"<<std::endl;
+        Button *b=dynamic_cast<Button*>(b);
+        if(b)
+        {
+          std::cout<<"Button1 "<<buttonNames[i]<<" found!"<<std::endl;
+          b->clicked.connect(makeCallback(*this, &MiniMap::chooseButtonClicked));
+          std::cout<<"Button2 "<<buttonNames[i]<<" found!"<<std::endl;
+        }
+      }
+      else
+        std::cout<<"Button "<<buttonNames[i]<<" not found!"<<std::endl;
+    }
+  
+}
+
+void MiniMap::chooseButtonClicked(Button* button)
+{
+  std::cout<<"MiniMap::button clicked"<<std::endl;
 }
 
 void MiniMap::draw(Painter &painter)
 {
+  attachButtons();
 
   int x, y;
   short typ, grp;

@@ -28,7 +28,7 @@
         <cell row="3" col="1">
             <TableLayout rows="9" cols="1">
                 <cell row="1" col="1">
-                    <Button name="MapViewBuildings">
+                    <Button name="MapViewNormal">
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
@@ -37,7 +37,7 @@
                     </Button>
                 </cell>
                 <cell row="2" col="1">
-                    <Button name="MapViewOutlines">
+                    <Button name="MapViewUB40">
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
@@ -46,7 +46,7 @@
                     </Button>
                 </cell>
                 <cell row="3" col="1">
-                    <Button name="MapViewPolution">
+                    <Button name="MapViewPollution">
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
@@ -55,7 +55,7 @@
                     </Button>
                 </cell>
                 <cell row="4" col="1">
-                    <Button name="MapViewNoIdea">
+                    <Button name="MapViewFood">
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
@@ -64,7 +64,7 @@
                     </Button>
                 </cell>
                 <cell row="5" col="1">
-                    <Button name="MapViewSport">
+                    <Button name="MapViewPower">
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
@@ -82,7 +82,7 @@
                     </Button>
                 </cell>
                 <cell row="7" col="1">
-                    <Button name="MapViewHealth">
+                    <Button name="MapViewSport">
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
@@ -100,7 +100,7 @@
                     </Button>
                 </cell>
                 <cell row="9" col="1">
-                    <Button name="MapViewHealth">
+                    <Button name="MapViewCoal">
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>

@@ -7,6 +7,7 @@
 #include "gui/Texture.hpp"
 
 class XmlReader;
+class Button;
 
 class MiniMap:public Component
 {
@@ -20,11 +21,15 @@ class MiniMap:public Component
   virtual void draw(Painter &painter);
 
   virtual void event(const Event& event);
+  
+  void chooseButtonClicked(Button* button);
 
  private:
 
   Color getColor(int x,int y) const;
   Color getColorNormal(int x,int y) const;
+  void attachButtons();
+  Component *findRoot(Component *c);
 
 
   short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
@@ -37,6 +42,7 @@ class MiniMap:public Component
   std::auto_ptr<Texture> mTexture;
 
   bool mFullRefresh;
+  bool alreadyAttached;
 };
 
 #endif
