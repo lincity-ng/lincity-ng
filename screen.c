@@ -224,6 +224,9 @@ update_main_screen (void)
 }
 
 /* *******************  SCREEN SETUP  ******************* */
+
+/* XXX: WCK: All of the drawing should be done already in screen_full_refresh;
+   Why do it here? */
 void
 screen_setup (void)
 {
@@ -335,9 +338,11 @@ screen_setup (void)
     draw_help ();
 #endif
 
+#ifdef SCREEN_SETUP_DRAWS
     mini_full_refresh ();
 
     redraw_mouse ();
+#endif
 
     /* load select button graphics */
     select_button_graphic[sbut[0]] = load_graphic ("buldoze-button.csi");
@@ -469,7 +474,9 @@ screen_setup (void)
     select_button_type[sbut[31]] = CST_CRICKET_1;
     strcpy (select_button_help[sbut[31]], "cricket.hlp");
 
+#ifdef SCREEN_SETUP_DRAWS
     draw_select_buttons ();
+#endif
 
     /* disable all the buttons 
        then enable the ones that are available at the start
@@ -478,8 +485,10 @@ screen_setup (void)
 	select_button_tflag[i] = 0;
     }
 
-    update_select_buttons ();
+#ifdef SCREEN_SETUP_DRAWS
     update_main_screen ();
+#endif
+
 }
 
 void
@@ -514,13 +523,18 @@ screen_full_refresh (void)
     draw_select_buttons ();
 
     /* GCS:  What about resize during load/save/prefs? */
+    /* WCK:  We could just lock resize off when we enter them. */
     if (help_flag) {
 	refresh_help_page ();
     }
     refresh_main_screen ();
     print_date();
     print_time_for_year();
+
+    draw_module_cost(get_group_of_type(selected_type));
+
     refresh_pbars();
+    redraw_mouse();  /* screen_setup used to do this */
 }
 
 #if defined (commentout)
@@ -552,10 +566,14 @@ draw_select_buttons (void)
     for (i = 0; i < NUMOF_SELECT_BUTTONS; i++) 
       draw_select_button_graphic (sbut[i], select_button_graphic[sbut[i]]);
 
-    update_select_buttons ();
+    highlight_select_button(old_selected_button);
+
 }
 
 
+
+/* XXX: WCK: this is engine code - what is it doing here?  Should be in
+   either (e.g.) tech.c or sbut.c and call draw_select_buttons. */
 void
 update_select_buttons (void)
 {
@@ -2122,7 +2140,7 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
     unrequest_mappoint_stats ();
     unrequest_main_screen ();
 
-    cs_mouse_button_delay = 0;
+    cs_mouse_button_delay = 0; /* XXX: go away */
     /* find len of longest string */
     if (strlen (s1) > w)
 	w = strlen (s1);
@@ -2399,26 +2417,26 @@ void
 order_select_buttons (void)
 {
     /* sbut converts a group into a column major index of the button array. */
-    sbut[0] = 16;			/* buldoze */
-    sbut[1] = 13;			/* powerline */
-    sbut[2] = 15;			/* solar power */
-    sbut[3] = 14;			/* substation */
-    sbut[4] = 0;			/* residence */
-    sbut[5] = 1;			/* farm */
-    sbut[6] = 2;			/* market */
-    sbut[7] = 19;			/* track */
-    sbut[8] = 10;			/* coalmine */
-    sbut[9] = 28;			/* rail */
+    sbut[0] = 16;		/* buldoze */
+    sbut[1] = 13;		/* powerline */
+    sbut[2] = 15;		/* solar power */
+    sbut[3] = 14;		/* substation */
+    sbut[4] = 0;		/* residence */
+    sbut[5] = 1;		/* farm */
+    sbut[6] = 2;		/* market */
+    sbut[7] = 19;		/* track */
+    sbut[8] = 10;		/* coalmine */
+    sbut[9] = 28;		/* rail */
     sbut[10] = 29;		/* coal power */
     sbut[11] = 25;		/* road */
     sbut[12] = 27;		/* light industry */
     sbut[13] = 11;		/* university */
-    sbut[14] = 3;			/* commune */
-    sbut[15] = 4;			/* oremine */
-    sbut[16] = 5;			/* tip */
-    sbut[17] = 9;			/* export */
+    sbut[14] = 3;		/* commune */
+    sbut[15] = 4;		/* oremine */
+    sbut[16] = 5;		/* tip */
+    sbut[17] = 9;		/* export */
     sbut[18] = 12;		/* heavy industry */
-    sbut[19] = 6;			/* parkland */
+    sbut[19] = 6;		/* parkland */
     sbut[20] = 30;		/* recycle */
     sbut[21] = 20;		/* water */
     sbut[22] = 26;		/* health */
@@ -2427,10 +2445,10 @@ order_select_buttons (void)
     sbut[25] = 17;		/* monument */
     sbut[26] = 21;		/* school */
     sbut[27] = 22;		/* blacksmith */
-    sbut[28] = 8;			/* mill */
+    sbut[28] = 8;		/* mill */
     sbut[29] = 18;		/* pottery */
     sbut[30] = 23;		/* fire station */
-    sbut[31] = 7;			/* cricket  */
+    sbut[31] = 7;		/* cricket  */
 }
 
 int
@@ -2463,6 +2481,7 @@ call_select_change_up (int button)
     else if (button == GROUP_COAL_POWER)
 	ok_dial_box ("coalpowerup.mes", GOOD, 0L);
     else if (button == (GROUP_SOLAR_POWER - 1))
+      /* XXX: */
 	/* -1 a hack to make it work. Really dirty :( 
 	   Caused by the fact that groups and buttons are different until 
 	   after the bulldoze button, then they are the same.

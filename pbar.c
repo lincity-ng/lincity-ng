@@ -29,7 +29,9 @@ init_pbars (void)
 	pbar_ore[i] = 0;
 	pbar_steel[i] = 0;
     }
+#ifdef SCREEN_SETUP_DRAWS
     pbars_full_refresh ();
+#endif
 }
 
 void

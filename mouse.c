@@ -37,6 +37,7 @@ void check_bulldoze_area (int x, int y);
 
 
 /* GCS -- we should get rid of mouse repeat. */
+/* WCK -- agreed */
 void
 cs_mouse_repeat (void)
 {
@@ -546,13 +547,35 @@ do_mouse_select_buttons (int rawx, int rawy, int mbutton)
 
 }
 
+void
+draw_module_cost (int grp)
+{
+  Rect* b = &scr.select_message;
+  char s[100];
 
+  get_group_cost(grp);
+  if (grp == GROUP_BARE) 
+    sprintf (s, "Bulldoze - cost POA");
+  else
+    sprintf (s, "%s %d  Bulldoze %d", main_groups[grp].name,
+	     get_group_cost(grp), main_groups[grp].bul_cost);
+
+#ifdef USE_EXPANDED_FONT
+    Fgl_fillbox (SELECT_BUTTON_MESSAGE_X, SELECT_BUTTON_MESSAGE_Y,
+		 44 * 8, 8, 0);
+    Fgl_fillbox (SELECT_BUTTON_MESSAGE_X, SELECT_BUTTON_MESSAGE_Y,
+		 44 * 8, 8, blue (10));
+    gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
+#else
+    Fgl_fillbox (b->x, b->y, 42 * 8, 8, TEXT_BG_COLOUR);
+#endif
+
+  Fgl_write (b->x, b->y, s);
+}
 
 void
 do_select_button (int button, int mbutton)
 {
-    Rect* b = &scr.select_message;
-    char s[100];
     short grp;
     if (select_button_tflag[button] == 0 && mbutton != LC_MOUSE_RIGHTBUTTON) {
 	ok_dial_box ("not_enough_tech.mes", BAD, 0L);
@@ -576,31 +599,17 @@ do_select_button (int button, int mbutton)
 	choose_residence ();
     }
     grp = get_group_of_type(selected_type);
-    if (grp < 0) return;
+    if (grp < 0) return; /* XXX: WCK: When is this hit?  Should it hurt? */
 
-#ifdef USE_EXPANDED_FONT
-    Fgl_fillbox (SELECT_BUTTON_MESSAGE_X, SELECT_BUTTON_MESSAGE_Y,
-		 44 * 8, 8, 0);
-    Fgl_fillbox (SELECT_BUTTON_MESSAGE_X, SELECT_BUTTON_MESSAGE_Y,
-		 44 * 8, 8, blue (10));
-    gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
-#else
-    Fgl_fillbox (b->x, b->y, 42 * 8, 8, TEXT_BG_COLOUR);
-#endif
-    selected_type_cost = get_group_cost(grp);
-    if (grp == GROUP_BARE) {
-	sprintf (s, " Bulldoze - cost POA");
 #ifdef LC_X11
+    if (grp == GROUP_BARE) 
 	XDefineCursor (display.dpy, display.win, pirate_cursor);
-#endif
-    } else {
-	sprintf (s, "%s %d  Bulldoze %d", main_groups[grp].name,
-		 selected_type_cost, main_groups[grp].bul_cost);
-#ifdef LC_X11
+    else
 	XDefineCursor (display.dpy, display.win, None);
 #endif
-    }
-    Fgl_write (b->x, b->y, s);
+
+    draw_module_cost(grp);
+
 #ifdef USE_EXPANDED_FONT
     gl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
 #endif

@@ -284,7 +284,16 @@ client_main_loop (void)
 
     /* Set up the game */
     reset_start_time ();
-    draw_mini_screen ();
+
+    //    draw_mini_screen ();
+    selected_type = CST_TRACK_LR;
+    selected_type_cost = GROUP_TRACK_COST;
+    old_selected_button = sbut[7];
+
+    update_select_buttons ();
+
+    screen_full_refresh ();
+
     if (no_init_help == 0) {
 	block_help_exit = 1;
 	help_flag = 1;
@@ -293,11 +302,9 @@ client_main_loop (void)
 	else
 	    activate_help ("opening.hlp");
     }
-    selected_type = CST_TRACK_LR;
-    selected_type_cost = GROUP_TRACK_COST;
-    old_selected_button = sbut[7];
-    highlight_select_button (sbut[7]);	/* 7 is track.  Watch out though! */
-    refresh_main_screen ();
+
+    //    highlight_select_button (sbut[7]);	/* 7 is track.  Watch out though! */
+    //    refresh_main_screen ();
     /* Set speed */
 #if defined (CS_PROFILE) || defined (START_FAST_SPEED)
     select_fast ();
