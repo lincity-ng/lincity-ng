@@ -224,6 +224,7 @@ save_city_raw (char *cname)
     fprintf (ofile, "%d\n", ore_made);
     fprintf (ofile, "%d\n", ore_used);
     fprintf (ofile, "%d\n", 0); /* Removed diff_old_population, version 1.12 */
+
     prog_box ("", 96);
     /* Changed, version 1.12 */
     fprintf (ofile, "%d\n", monthgraph_size);
@@ -348,6 +349,7 @@ load_city (char *cname)
     unsigned long q;
     int i, x, y, z, n, p, ver;
     int num_pbars, pbar_data_size;
+    int pbar_tmp;
     int dummy;
     FILE *ofile;
     char s[256];
@@ -490,6 +492,10 @@ load_city (char *cname)
     fscanf (ofile, "%d", &ore_made);
     fscanf (ofile, "%d", &ore_used);
     fscanf (ofile, "%d", &dummy); /* &diff_old_population */
+
+    /* Update variables calculated from those above */
+    housed_population = tpopulation / NUMOF_DAYS_IN_MONTH;
+
     prog_box ("", 96);
     /* Get size of monthgraph array */
     if (ver <= MG_C_VER) {
@@ -535,11 +541,10 @@ load_city (char *cname)
     
     for (x = 0; x < pbar_data_size; x++) {
 	for (p = 0; p < num_pbars; p++) {
-	    fscanf (ofile, "%d", &(pbars[p].data[x]));
-	    if (p == 2)
-		printf("%d\t",pbars[p].data[x]);
+	    fscanf (ofile, "%d", &(pbar_tmp));
+	    update_pbar(p,pbar_tmp,1);
+/*	    fscanf (ofile, "%d", &(pbars[p].data[x])); */
 	}
-	printf("\n");
     }
 
     for (p = 0; p < num_pbars; p++)
@@ -631,7 +636,6 @@ load_city (char *cname)
     print_total_money ();
     reset_animation_times ();
     map_power_grid (); /* WCK:  Is this safe to do here? */
-    update_pbars_daily();
 }
 
 void
