@@ -16,6 +16,7 @@
 #include "lin-city.h"
 #include "screen.h"
 #include "engglobs.h"
+#include "cliglobs.h"
 #include "clistubs.h"
 #include "pixmap.h"
 #include "lchelp.h"
@@ -101,14 +102,19 @@ void
 refresh_main_screen ()
 {
     Rect* b = &scr.main_win;
-    if (!(market_cb_flag || port_cb_flag))
+//    if (!(market_cb_flag || port_cb_flag))
     /* XXX: Don't resize the screen now! */
+    /* XXX: wck: Safer with the above test commented out;  atleast you can
+       still see the map */
+
     {
 	connect_transport (main_screen_originx, main_screen_originy,
 			   b->w / 16, b->h / 16);
-	screen_refresh_flag = 1;
+	screen_refresh_flag++;
 	update_main_screen ();
 	update_mini_screen ();
+	dialog_refresh();
+	screen_refresh_flag--;
     }
 }
 
@@ -147,7 +153,6 @@ update_main_screen (void)
     if (mouse_type == MOUSE_TYPE_SQUARE)
 	redraw_mouse ();
 #endif
-    screen_refresh_flag = 0;
 }
 
 void
@@ -235,6 +240,7 @@ update_main_screen_normal (void)
 			update_pixmap (x1, y1, sx, sy, dx, dy,
 				       main_groups[grp].size,
 				       main_types[typ].graphic);
+
 		    }
 		}
 		else
@@ -552,7 +558,7 @@ screen_setup (void)
 void
 screen_full_refresh (void)
 {
-    screen_refreshing = 1;
+    screen_refreshing++;
     draw_background ();
 
     monthgraph_full_refresh ();
@@ -594,9 +600,8 @@ screen_full_refresh (void)
     draw_module_cost(get_group_of_type(selected_type));
 
     refresh_pbars();
-    dialog_refresh();
     redraw_mouse();  /* screen_setup used to do this */
-    screen_refreshing = 0;
+    screen_refreshing--;
 }
 
 #if defined (commentout)
@@ -1797,9 +1802,13 @@ print_time_for_year (void)
 
 
     if (time_for_year > 3600.0)
-	sprintf (s, "%5.1f MINS/year  V %s", time_for_year / 60.0, VERSION);
+	sprintf (s, "%s%5.1f MINS/year  V %s", 
+		 cheat_flag ? "TEST MODE" : "",
+		 time_for_year / 60.0, VERSION);
     else
-	sprintf (s, "%5.1f secs/year  V %s ", time_for_year, VERSION);
+	sprintf (s, "%s%5.1f secs/year  V %s ", 
+		 cheat_flag ? "TEST MODE" : "",
+		 time_for_year, VERSION);
     Fgl_write (b->x, b->y, s);
 }
 
@@ -2438,7 +2447,7 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 	stat(s,&statbuf);
     
 
-    ss = lcalloc(statbuf.st_size + 1);
+    ss = (char *)lcalloc(statbuf.st_size + 1);
     retval = fread(ss,sizeof(char),statbuf.st_size,inf);
     ss[statbuf.st_size] = '\0';
 
