@@ -2,6 +2,7 @@
 <gui>
   <!-- <Image src="images/gui/background.png"/> -->
   <GameView/>
+  <Import src="gui/messagearea.xml"/>
   <TableLayout rows="2" cols="3">
     <colsize col="1" fixed="100"/>
     <colsize col="2" relative="1"/>
@@ -20,6 +21,5 @@
     </cell>
   </TableLayout>
   <Import src="gui/helpwindow.xml"/>
-  <Import src="gui/messagearea.xml"/>
   <!-- <Import src="gui/piemenu.xml"/> -->
 </gui>

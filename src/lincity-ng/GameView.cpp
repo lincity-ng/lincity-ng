@@ -947,9 +947,10 @@ void GameView::draw(Painter& painter)
     //draw Tiles
     Vector2 currentTile;
     //Draw some extra tiles depending on the maximal size of a building.
-    static const int extratiles = 4;
+    int extratiles = 7;
     upperLeftTile.x -= extratiles;
     upperRightTile.y -= extratiles;
+    upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
     int i, k;

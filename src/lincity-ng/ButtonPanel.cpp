@@ -231,6 +231,17 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
           }
         }
       }
+    //Tell GameView to use the right Cursor
+    if( selected_module_type == CST_NONE ) {
+        getGameView()->setCursorSize( 0 );
+    }
+    else
+    {
+        int selected_module_group = get_group_of_type(selected_module_type);
+        int size = main_groups[selected_module_group].size;
+        getGameView()->setCursorSize( size );
+    }
+    
 }
 
 void ButtonPanel::toggleMenu(std::string pName,bool enable)

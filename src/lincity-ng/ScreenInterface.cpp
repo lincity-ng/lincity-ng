@@ -13,6 +13,9 @@
 #include "GameView.hpp"
 #include "Util.hpp"
 
+void updateMessageText( const std::string text );
+void updateMessageTitle();
+
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
 
@@ -26,14 +29,29 @@ char screen_refreshing;
 
 char* current_month (int current_time);
 void draw_cb_box (int row, int col, int checked);
-int ask_launch_rocket_click (int x, int y);
 
+int ask_launch_rocket_click (int x, int y);
 int ask_launch_rocket_now (int x, int y)
 {
-  return 0;
+    return yn_dial_box ("Rocket ready to launch",
+	    "You can launch it now or wait until later.",
+		"If you wait it will continue costing you money.",
+		"Launch it later by clicking on the rocket area.");
 }
+
 void display_rocket_result_dialog (int result)
 {
+    switch (result) {
+    case ROCKET_LAUNCH_BAD:
+	ok_dial_box ("launch-fail.mes", BAD, 0L);
+	break;
+    case ROCKET_LAUNCH_GOOD:
+	ok_dial_box ("launch-good.mes", GOOD, 0L);
+	break;
+    case ROCKET_LAUNCH_EVAC:
+	ok_dial_box ("launch-evac.mes", GOOD, 0L);
+	break;
+    }
 }
 void draw_background (void);
 void screen_full_refresh (void);
@@ -64,7 +82,9 @@ void mini_aux_handler(int x, int y, int button);
 /* Message area */
 void display_info_message (int colour, char* ss, char* xs)
 {
-    std::cout << "display_info_message: '" << ss << "' + \"" << xs << "\"\n";
+    std::ostringstream text;
+    text << "display_info_message: '"<< colour << ss << "' + \"" << xs << "\"\n";
+    updateMessageText( text.str() );
 }
 
 void reset_status_message (void);
@@ -86,13 +106,58 @@ void reset_status_message (void);
  */
  void ok_dial_box (char *fn, int, char *xs)
 {
-    std::cout << "ok_dial_box:'" << fn << "' + \"" << xs << "\"\n";
+    std::ostringstream text;
+    text << "ok_dial_box:'" << fn << "' + \"" << xs << "\"\n";
+    updateMessageText( text.str() );
 }
 
+/* 
+ * Update Message in Message Window
+ */
+void updateMessageText( const std::string text )
+{
+    //Dialog Test
+    Component* root = getGameView();
+    if( !root ) return;
+    while( root->getParent() )
+        root = root->getParent();
+   //TODO: test if message Windows is open and cerate it on demand
+    
+    Paragraph* messageText = getParagraph( *root, "messageText");
+    if( !messageText ) return; 
+    
+    messageText->setText( text );
+}
+
+/*
+ * Update the Title of the Message Window
+ * $(Current Date) -- Messages -- $(Current Money) 
+ */
+void updateMessageTitle()
+{
+    std::ostringstream titleText;
+ 
+    titleText << current_month( total_time );
+    titleText << " "<< current_year( total_time ) << " -- ";
+    titleText << "Messages";
+    titleText << " -- " << total_money << "£";
+    
+    Component* root = getGameView();
+    if( !root ) return;
+    while( root->getParent() )
+        root = root->getParent();
+   //TODO: test if message Windows is open and cerate it on demand
+    
+    Paragraph* messageTitle = getParagraph( *root, "messageTitle");
+    if( !messageTitle ) return;
+    
+    messageTitle->setText( titleText.str() );
+}
 
 /*
  *  Draw a Dialogbox, in oldgui/screen.cpp it is called from the 
  *  other Dialog Functions to do the actual drawing.
+ *  TODO: at the moment we just dump the Text in the MessageArea...
  *
  *  see oldgui/dialbox.cpp 
  *  -there must be just one DialogBox at a time.
@@ -123,48 +188,12 @@ int dialog_box(int colour, int argc, ...)
         text << std::cout <<  va_arg( arg, int ) << " '"<<  va_arg( arg, int )  << "' " << va_arg( arg, char* ) <<"\n";
      }
     va_end( arg );    
-
-    //Dialog Test
-    //do some SDL Parachute jumping
-    Component* root = getGameView();
-    if( !root ) return 0;
-    while( root->getParent() )
-        root = root->getParent();
-   //TODO: test if message Windows is open and cerate it on demand
     
-    Paragraph* messageText = getParagraph( *root, "messageText");
-    if( !messageText ) return 0; 
-    
-    messageText->setText( text.str() );
+    updateMessageText(  text.str() );
     
     return 0;
 }
 
-/*
- * Update The Title of the Message Window
- * $(Current Date) -- Messages -- $(Current Money) 
- */
-void updateMessageTitle()
-{
-    std::ostringstream titleText;
- 
-    titleText << current_month( total_time );
-    titleText << " "<< current_year( total_time ) << " -- ";
-    titleText << "Messages";
-    titleText << " -- " << total_money << "£";
-    
-    Component* root = getGameView();
-    if( !root ) return;
-    while( root->getParent() )
-        root = root->getParent();
-   //TODO: test if message Windows is open and cerate it on demand
-    
-    Paragraph* messageTitle = getParagraph( *root, "messageTitle");
-    if( !messageTitle ) return;
-    
-    messageTitle->setText( titleText.str() );
-}
-    
 /*
  *  A DialogBox with a Progressbar.
  *  see oldgui/screen.cpp: prog_box (char *title, int percent)
@@ -174,7 +203,9 @@ void updateMessageTitle()
  */
 void prog_box (char *title, int percent)
 {
-    std::cout << "prog_box:'" << title << "' " << percent << "%\n";
+    std::ostringstream text;
+    text << "prog_box:'" << title << "' " << percent << "%\n";
+    updateMessageText( text.str() );
 }
 
 void print_total_money (void)
@@ -224,13 +255,6 @@ void update_main_screen_normal (int full_refresh)
 {
   update_main_screen_normal (full_refresh);
 }
-
-
-
-
-
-
-
 
 
 void print_time_for_year (void)
