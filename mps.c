@@ -128,7 +128,7 @@ mappoint_stats (int x, int y, int button)
 	else {
 	    /* this should be part of *_setup, but is needed by
 	       mps_right too */
-	    strcpy (s, main_groups[MP_GROUP(xx,yy)].name);
+	    strcpy (s, _(main_groups[MP_GROUP(xx,yy)].name));
 	    Fgl_write (mps->x + (14 - strlen (s)) * 4,
 		       mps->y, s);
 	    
@@ -183,7 +183,7 @@ mappoint_stats (int x, int y, int button)
 
 	Fgl_setfontcolors (14, TEXT_FG_COLOUR);
 
-	strcpy (s, main_groups[MP_GROUP(x,y)].name);
+	strcpy (s, _(main_groups[MP_GROUP(x,y)].name));
 	Fgl_write (mps->x + (14 - strlen (s)) * 4,
 		   mps->y, s);
 
