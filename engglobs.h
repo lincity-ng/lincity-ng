@@ -29,6 +29,7 @@ extern Map map;
 #define MP_INFO(x,y)   map.info[x][y]
 
 #define MP_SIZE(x,y)   main_groups[MP_GROUP(x,y)].size
+#define MP_COLOR(x,y)  main_groups[MP_GROUP(x,y)].colour
 #define MP_GROUP_IS_RESIDENCE(x,y)  (GROUP_IS_RESIDENCE(MP_GROUP(x,y)))
 
 

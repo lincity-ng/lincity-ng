@@ -976,22 +976,6 @@ do_mouse_other_buttons (int x, int y, int button)
 	    print_total_money ();
 	    return;
 	}
-#if defined (commentout)
-	main_screen_originx = x - b->x - mw->w / 32;
-	if (main_screen_originx > (WORLD_SIDE_LEN - mw->w / 16) - 1)
-	    main_screen_originx = (WORLD_SIDE_LEN - mw->w / 16) - 1;
-	if (main_screen_originx <= 0)
-	    main_screen_originx = 1;
-	main_screen_originy = y - b->y - mw->h / 32;
-	if (main_screen_originy > (WORLD_SIDE_LEN - mw->h / 16) - 1)
-	    main_screen_originy = (WORLD_SIDE_LEN - mw->h / 16) - 1;
-	if (main_screen_originy <= 0)
-	    main_screen_originy = 1;
-	request_main_screen ();
-	hide_mouse ();
-	refresh_main_screen ();
-	redraw_mouse ();
-#endif
 	adjust_main_origin (x - b->x - mw->w / 32, y - b->y - mw->h / 32, 1);
 	
 	if (mini_screen_flags == MINI_SCREEN_PORT_FLAG)
@@ -999,19 +983,11 @@ do_mouse_other_buttons (int x, int y, int button)
     }
 
     else if (mouse_in_rect (&scr.mini_map_aux,x,y)) {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    /* Quick hack here -- need to generalize later */
-	    if (main_screen_flag == MINI_SCREEN_POL_FLAG)
-		main_screen_flag = MINI_SCREEN_NORMAL_FLAG;
-	    else
-		main_screen_flag = MINI_SCREEN_POL_FLAG;
-	    refresh_main_screen ();
-#if defined (commentout)  /* Help-based drawing */
-	    mini_screen_draw_in_main_win ();
-#endif
-#if defined (commentout)  /* LC v1.11 */
-	    activate_help ("mini-screen.hlp");
-#endif
+	if (button == LC_MOUSE_MIDDLEBUTTON) {
+	    rotate_main_screen ();
+	    return;
+	} else if (button == LC_MOUSE_RIGHTBUTTON) {
+	    mini_screen_help ();
 	    return;
 	}
 	rotate_mini_screen ();

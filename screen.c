@@ -79,6 +79,13 @@ void draw_mini_pol_in_main_win ();
 void mini_full_refresh (void);
 void update_main_screen_normal (void);
 void update_main_screen_pollution (void);
+void update_main_screen_ub40 (void);
+void update_main_screen_starve (void);
+void update_main_screen_power (void);
+void update_main_screen_fire_cover (void);
+void update_main_screen_cricket_cover (void);
+void update_main_screen_health_cover (void);
+void update_main_screen_coal (void);
 
 
 
@@ -109,6 +116,7 @@ refresh_main_screen ()
     /* XXX: Don't resize the screen now! */
     /* XXX: wck: Safer with the above test commented out;  atleast you can
        still see the map */
+    /* GCS: Agreed.  */
 
     {
 	connect_transport (main_screen_originx, main_screen_originy,
@@ -136,18 +144,56 @@ unclip_main_window ()
 }
 
 void
+rotate_main_screen (void)
+{
+    if (main_screen_flag == MAIN_SCREEN_NORMAL_FLAG) {
+	main_screen_flag = MAIN_SCREEN_EQUALS_MINI;
+    } else {
+	main_screen_flag = MAIN_SCREEN_NORMAL_FLAG;
+    }
+    refresh_main_screen ();
+}
+
+void 
 update_main_screen (void)
 {
-    switch (main_screen_flag)
-    {
-    case MINI_SCREEN_NORMAL_FLAG:
+    if (main_screen_flag == MAIN_SCREEN_NORMAL_FLAG) {
 	update_main_screen_normal ();
-	break;
-    case MINI_SCREEN_POL_FLAG:
-	update_main_screen_pollution ();
-	break;
-    };
-
+    } else {
+	switch (mini_screen_flags) {
+	case MINI_SCREEN_NORMAL_FLAG:
+	    update_main_screen_normal ();
+	    break;
+	case MINI_SCREEN_POL_FLAG:
+	    update_main_screen_pollution ();
+	    break;
+	case MINI_SCREEN_UB40_FLAG:
+	    update_main_screen_ub40 ();
+	    break;
+	case MINI_SCREEN_STARVE_FLAG:
+	    update_main_screen_starve ();
+	    break;
+	case MINI_SCREEN_POWER_FLAG:
+	    update_main_screen_power ();
+	    break;
+	case MINI_SCREEN_FIRE_COVER:
+	    update_main_screen_fire_cover ();
+	    break;
+	case MINI_SCREEN_CRICKET_COVER:
+	    update_main_screen_cricket_cover ();
+	    break;
+	case MINI_SCREEN_HEALTH_COVER:
+	    update_main_screen_health_cover ();
+	    break;
+	case MINI_SCREEN_COAL_FLAG:
+	    if (coal_survey_done) {
+		update_main_screen_coal ();
+	    } else {
+		update_main_screen_normal ();
+	    }
+	    break;
+	}
+    }
 #if defined (WIN32)
     if (screen_refresh_flag) {
 	UpdateWindow (display.hWnd);
@@ -284,6 +330,216 @@ update_main_screen_pollution (void)
 	}
     }
 }
+
+void 
+update_main_screen_ub40 (void)
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    int xx = x;
+	    int yy = y;
+	    if (MP_TYPE(x,y) == CST_USED) {
+		xx = MP_INFO(x,y).int_1;
+		yy = MP_INFO(x,y).int_2;
+	    }
+	    if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
+		if (MP_INFO(xx,yy).int_1 < -20)
+		    col = red (28);
+		else if (MP_INFO(xx,yy).int_1 < 10)
+		    col = red (14);
+		else
+		    col = green (20);
+	    } else {
+		col = green (14);
+	    }
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+	}
+    }
+}
+
+void 
+update_main_screen_starve (void)
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    int xx = x;
+	    int yy = y;
+	    if (MP_TYPE(x,y) == CST_USED) {
+		xx = MP_INFO(x,y).int_1;
+		yy = MP_INFO(x,y).int_2;
+	    }
+	    if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
+		if ((total_time - MP_INFO(x,y).int_2) < 20)
+		    col = red (28);
+		else if ((total_time - MP_INFO(x,y).int_2) < 100)
+		    col = red (14);
+		else
+		    col = green (20);
+	    } else {
+		col = green (14);
+	    }
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+	}
+    }
+}
+
+void 
+update_main_screen_power (void)
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    int xx = x;
+	    int yy = y;
+	    int grp;
+	    if (MP_TYPE(x,y) == CST_USED) {
+		xx = MP_INFO(x,y).int_1;
+		yy = MP_INFO(x,y).int_2;
+	    }
+	    if (get_power (xx, yy, 1, 1) != 0) {
+		col = green (14);
+	    } else if (get_power (xx, yy, 1, 0) != 0) {
+		col = green (10);
+	    } else {
+		// col = MP_COLOR(xx,yy);
+		col = green (20);
+	    }
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+	}
+    }
+}
+
+void 
+update_main_screen_fire_cover (void)
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    int xx = x;
+	    int yy = y;
+	    int grp;
+	    if (MP_TYPE(x,y) == CST_USED) {
+		xx = MP_INFO(x,y).int_1;
+		yy = MP_INFO(x,y).int_2;
+	    }
+
+	    if ((MP_INFO(xx,yy).flags & FLAG_FIRE_COVER) == 0)
+		// col = MP_COLOR(xx,yy);
+		col = green (20);
+	    else
+		col = green (10);
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+	}
+    }
+}
+
+void 
+update_main_screen_health_cover (void)
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    int xx = x;
+	    int yy = y;
+	    int grp;
+	    if (MP_TYPE(x,y) == CST_USED) {
+		xx = MP_INFO(x,y).int_1;
+		yy = MP_INFO(x,y).int_2;
+	    }
+	    if ((MP_INFO(xx,yy).flags & FLAG_HEALTH_COVER) == 0)
+		// col = MP_COLOR(xx,yy);
+		col = green (20);
+	    else
+		col = green (10);
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+	}
+    }
+}
+
+void 
+update_main_screen_cricket_cover (void)
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    int xx = x;
+	    int yy = y;
+	    int grp;
+	    if (MP_TYPE(x,y) == CST_USED) {
+		xx = MP_INFO(x,y).int_1;
+		yy = MP_INFO(x,y).int_2;
+	    }
+	    if ((MP_INFO(xx,yy).flags & FLAG_CRICKET_COVER) == 0)
+		// col = MP_COLOR(xx,yy);
+		col = green (20);
+	    else
+		col = green (10);
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+	}
+    }
+}
+
+void 
+update_main_screen_coal (void)
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    if (MP_INFO(x,y).coal_reserve == 0)
+		col = white (4);
+	    else if (MP_INFO(x,y).coal_reserve >= COAL_RESERVE_SIZE / 2)
+		col = white (18);
+	    else if (MP_INFO(x,y).coal_reserve < COAL_RESERVE_SIZE / 2)
+		col = white (28);
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+	}
+    }
+}
+
 
 /* *******************  SCREEN SETUP  ******************* */
 
@@ -818,6 +1074,10 @@ rotate_mini_screen (void)
 	break;
     }
     update_mini_screen ();
+
+    if (main_screen_flag == MAIN_SCREEN_EQUALS_MINI) {
+	refresh_main_screen ();
+    }
 }
 
 void

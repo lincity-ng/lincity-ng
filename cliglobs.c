@@ -21,8 +21,7 @@ char *select_button_graphic[NUMOF_SELECT_BUTTONS];
 int select_button_tflag[NUMOF_SELECT_BUTTONS];
 char select_button_help[NUMOF_SELECT_BUTTONS][20];
 
-/* GCS FIX: Should change name to something like "SCREEN_NORMAL_FLAG" */
-int main_screen_flag = MINI_SCREEN_NORMAL_FLAG;
+int main_screen_flag = MAIN_SCREEN_NORMAL_FLAG;
 
 int mappoint_stats_flag = 0, mappoint_stats_time = 0;
 int mini_screen_flags = MINI_SCREEN_NORMAL_FLAG;

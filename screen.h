@@ -47,6 +47,7 @@ void Fgl_putrect(Rect *r, void * buffer);
 void mini_screen_help (void);
 void status_message(char * message, int colour);
 void print_time_for_year (void);
+void rotate_main_screen (void);
 
 #define CB_SPACE 20 // space between checkbuttons for market/port
 

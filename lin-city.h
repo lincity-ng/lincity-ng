@@ -200,6 +200,9 @@
 #define MINI_SCREEN_HEALTH_COVER   (8)
 #define MINI_SCREEN_COAL_FLAG      (9)
 
+#define MAIN_SCREEN_NORMAL_FLAG    (1)
+#define MAIN_SCREEN_EQUALS_MINI    (2)
+
 #define SEED_RAND
 #define OLD_LC_SAVE_DIR "Lin-city"
 #if defined (WIN32)
