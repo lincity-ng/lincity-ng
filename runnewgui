@@ -1,0 +1,4 @@
+#!/bin/bash
+export LINCITY_HOME=./data
+./lincity-ng
+
