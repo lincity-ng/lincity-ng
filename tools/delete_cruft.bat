@@ -44,3 +44,4 @@ erase depcomp
 erase config.guess
 erase config.sub
 erase debug.txt
+erase diff.out

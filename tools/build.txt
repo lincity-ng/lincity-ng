@@ -59,7 +59,7 @@ Make the Win package (version 1.12):
 
   5)     Build release version on Win
   6)     Build the catalan message file:
-            c:\gsharp\pkg\gettext\gettext.win32.msvcrt\bin\msgfmt ca.po -o ca.mo
+            c:\gsharp\pkg\gettext\gettext.win32.msvcrt\bin\msgfmt ca.po -o ca.gmo
 
   8)     Make a new copy of the lincity directory
   9)     cd to the newly created copy of the lincity directory
@@ -74,6 +74,7 @@ Make the Win package (version 1.12):
   11)    run tools\zip_source.bat
   12)    run tools\unzip_files.bat
   13)    run tools\delete_cruft.bat
+  13.1)  Look around for other cruft files
 
   14)    rename the directory (e.g. to lincity112)
   15)    zip -r lincity112.zip lincity112
