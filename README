@@ -39,7 +39,7 @@ CVS commit notification can be had at:
 
     http://lists.sourceforge.net/lists/listinfo/lincity-commits    
 
-Additionally, our sorceforge page is:
+Additionally, our sourceforge page is:
 
     http://sourceforge.net/projects/lincity/
 
@@ -298,6 +298,17 @@ The source code is distributed together with the binary distribution,
 in the file source.tgz.
 
 
+NOTES FOR CYGWIN
+================
+
+Cygwin is fully supported.  However, at the time of writing, 
+performance is very slow when X Windows is started in multiwindow 
+mode (which is the default setting).  To fix this, you can
+edit startxwin.bat to choose a different setting.
+
+http://sources.redhat.com/ml/cygwin-xfree/2003-09/msg00485.html
+
+
 INTERNATIONALIZATION UNDER LINUX
 ================================
 
@@ -339,10 +350,10 @@ Hopefully you will see something like this:
 
 
 If you see this, then everything worked perfectly.  You should see perfect
-italian.  In particular, note the following:
+Italian.  In particular, note the following:
 
   (1)  The opening screen (help page) is in Italian
-  (2)  The month january will be written "Gen" instead of "Jan"
+  (2)  The month January will be written "Gen" instead of "Jan"
   (3)  Click on something that hasn't been invented yet, like a 
        power station or windmill.  The message for "Not enough tech" 
        will be in Italian.
@@ -390,7 +401,7 @@ problem.  To fix it, do the following:
 Now check for the directory /usr/lib/locale/it_IT.  It will be there.
 
 OK, now you are ready to make translations for a new language.  
-There are three parts to making a tranlation:
+There are three parts to making a translation:
    making help files
    making message files
    making a .po file.
@@ -398,7 +409,7 @@ There are three parts to making a tranlation:
 The messages and help files are just a matter of editing the ASCII 
 files, and installing them.  If your language is "it", you should 
 create two directories such as /usr/local/share/lincity/messages/it
-and /usr/local/share/lincity/help/it.  Copy the english language 
+and /usr/local/share/lincity/help/it.  Copy the English language 
 help and message files to these directories, and translate them.
 
 The .po file is a matter of translating these and getting them to compile 
@@ -443,7 +454,7 @@ directory.  Then run the batch file:
 Now, you should see:
 
   (1)  The opening screen (help page) is in Italian
-  (2)  The month january will be written "Gen" instead of "Jan"
+  (2)  The month January will be written "Gen" instead of "Jan"
   (3)  Click on something that hasn't been invented yet, like a 
        power station or windmill.  The message for "Not enough tech" 
        will be in Italian.
@@ -452,7 +463,7 @@ If the above procedure doesn't work "out of the box", email
 to gregsharp@geocities.com.
 
 OK, now you are ready to make translations for a new language.  
-There are three parts to making a tranlation:
+There are three parts to making a translation:
    making help files
    making message files
    making a .po file.
@@ -460,7 +471,7 @@ There are three parts to making a tranlation:
 The messages and help files are just a matter of editing the ASCII 
 files, and installing them.  If your language is "it", you should 
 create two directories such as /usr/local/share/lincity/messages/it
-and /usr/local/share/lincity/help/it.  Copy the english language 
+and /usr/local/share/lincity/help/it.  Copy the English language 
 help and message files to these directories, and translate them.
 
 The .po file is a matter of translating these and getting them to compile 
@@ -546,7 +557,7 @@ was completely removed as of version 1.12pre50, so the last version to
 contain the (non-functioning) network code was 1.12pre49.
 
 If you are interested in working on a client/server version, please send 
-your email to the current maintainter or to the lincity mailing list.
+your email to the current maintainer or to the lincity mailing list.
 We are still interested in doing this!
 
 
@@ -574,13 +585,13 @@ an intergalactic space simulation with all the trimmings.  But from
 patches being applied.  
 
 Development was restarted in late 1999 by Greg Sharp to provide
-some moderate improvents, including networking support, GUI
+some moderate improvements, including networking support, GUI
 improvements and additional gameplay developments.  Networking 
 support was subsequently dropped in 2001.
 
 In mid-2001, Greg was joined by Corey Keasling, who helped to bring
 the game to sourceforge.net.  In late 2001, Corey became
-co-maintainer.  Version 1.12 was released in November 2003.
+co-maintainer.  Version 1.12 was released in December 2003.
 
 
 COPYRIGHT
