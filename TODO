@@ -14,6 +14,9 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 	Fgl_write (STATS_X + (20 + 12) * 8, STATS_Y + 16, s);
 
   o Help screens need adjusting for new GUI (some help files missing).
+    - Pbar help file should be unified
+    - Mini-map help files
+    - Help file for new power code
 
   o Help doesn't look so good after screen is resized.
 
@@ -22,8 +25,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     opening screen.
 
   o Remove multiplayer options from default compilation.
-
-  o Dialog boxes are not centered on screen after a resize.
 
   o Need to compress and expand translation files and add installation hooks
     so that only desired translations get installed.
