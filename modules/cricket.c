@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <cricket.h>
 
 
@@ -94,4 +97,19 @@ do_cricket_cover (int x, int y)
   for (; y1 < y2; y1++)
     for (xx = x1; xx < x2; xx++)
       MP_INFO(xx,y1).flags |= FLAG_CRICKET_COVER;
+}
+
+void
+mps_cricket (int x, int y)
+{
+    int i = 0;
+
+    mps_store_title(i++,_("Cricket Pitch"));
+    i++;
+    mps_store_title(i++,_("Inventory"));
+    mps_store_sfp(i++,_("Jobs"),
+		  MP_INFO(x,y).int_1 * 100.0 / MAX_JOBS_AT_CRICKET);
+    mps_store_sfp(i++,_("Goods"),
+		  MP_INFO(x,y).int_2 * 100.0 / MAX_GOODS_AT_CRICKET);
+
 }

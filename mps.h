@@ -56,6 +56,7 @@ void mps_global_advance(void); /* Changes global var to next display */
  */
 void mps_store_title(int i, char * t);
 void mps_store_ss(int i, char * s1, char * s2);
+void mps_store_sss(int i, char * s1, char * s2, char * s3);
 void mps_store_sd(int i, char * s, int d);
 void mps_store_sfp(int i, char * s, double fl);
 

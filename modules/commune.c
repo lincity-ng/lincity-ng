@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <commune.h>
 
 
@@ -135,4 +138,25 @@ do_commune (int x, int y)
 	}
     }
 
+}
+
+void
+mps_commune (int x, int y)
+{
+    int i = 0;
+    char * p;
+
+    mps_store_title(i++,_("Commune"));
+    i++;
+    i++;
+    mps_store_title(i++,_("Activity"));
+    i++;
+    p = (MP_INFO(x,y).int_5 & 1) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Coal"),p);
+    p = (MP_INFO(x,y).int_5 & 2) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Ore"),p);
+    p = (MP_INFO(x,y).int_5 & 4) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Steel"),p);
+    p = (MP_INFO(x,y).int_5 & 8) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Waste"),p);
 }

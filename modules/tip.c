@@ -7,8 +7,11 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
+#include <mps.h>
 #include <stats.h>
 #include <tip.h>
 
@@ -104,4 +107,22 @@ do_tip (int x, int y)
       MP_INFO(x,y).int_3 = MP_INFO(x,y).int_2;
       MP_INFO(x,y).int_2 = 0;
     }
+}
+
+void
+mps_tip (int x, int y)
+{
+  int i = 0;
+
+  mps_store_title(i++,_("Landfill"));
+  i++;
+
+  mps_store_title(i++,_("Last Month"));
+  mps_store_sd(i++,_("Tons"), MP_INFO(x,y).int_3);
+  mps_store_sfp(i++,_("Percent"), 
+	       MP_INFO(x,y).int_3 * 100.0 / MAX_WASTE_AT_TIP);
+  i++;
+  mps_store_title(i++,_("% Filled"));
+  mps_store_fp(i++,
+	       MP_INFO(x,y).int_1 * 100.0 / MAX_WASTE_AT_TIP);
 }

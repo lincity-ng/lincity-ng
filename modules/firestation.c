@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <firestation.h>
 
 
@@ -23,6 +26,7 @@ do_firestation (int x, int y)
      // int_4 is the time of the next frame
      // int_5 is the pause counter
    */
+    /* XXX: should note whether we actually _produced_ fire cover in int_6 */
   if (MP_INFO(x,y).int_1
       < (MAX_JOBS_AT_FIRESTATION - FIRESTATION_GET_JOBS))
     if (get_jobs (x, y, FIRESTATION_GET_JOBS) != 0)
@@ -112,4 +116,19 @@ do_fire_cover (int x, int y)
   for (; y1 < y2; y1++)
     for (xx = x1; xx < x2; xx++)
       MP_INFO(xx,y1).flags |= FLAG_FIRE_COVER;
+}
+
+void
+mps_firestation (int x, int y)
+{
+    int i = 0;
+
+    mps_store_title(i++,_("Fire Station"));
+    i++;
+    mps_store_title(i++,_("Inventory"));
+    mps_store_sfp(i++,_("Jobs"),
+		  MP_INFO(x,y).int_1 * 100.0 / MAX_JOBS_AT_FIRESTATION);
+    mps_store_sfp(i++,_("Goods"),
+		  MP_INFO(x,y).int_2 * 100.0 / MAX_GOODS_AT_FIRESTATION);
+
 }

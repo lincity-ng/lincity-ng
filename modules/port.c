@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <port.h>
 
 
@@ -196,3 +199,40 @@ do_port (int x, int y)
   MP_INFO(x,y).int_3 = et % 100;
   import_cost += ic;
 }
+
+void
+mps_port (int x, int y)
+{
+    int i = 0;
+    char buy[12], sell[12];
+
+    mps_store_title(i++,_("Port"));
+    i++;
+
+    num_to_ansi(buy, sizeof(buy), MP_INFO(x,y+1).int_3 / 100);
+    num_to_ansi(sell, sizeof(sell), MP_INFO(x,y+2).int_3 / 100);
+    mps_store_sss(i++,_("Food"),buy,sell);
+
+    num_to_ansi(buy, sizeof(buy), MP_INFO(x,y+1).int_4 / 100);
+    num_to_ansi(sell, sizeof(sell), MP_INFO(x,y+2).int_4 / 100);
+    mps_store_sss(i++,_("Coal"),buy,sell);
+
+    num_to_ansi(buy, sizeof(buy), MP_INFO(x,y+1).int_5 / 100);
+    num_to_ansi(sell, sizeof(sell), MP_INFO(x,y+2).int_5 / 100);
+    mps_store_sss(i++,_("Ore"),buy,sell);
+
+    num_to_ansi(buy, sizeof(buy), MP_INFO(x,y+1).int_6 / 100);
+    num_to_ansi(sell, sizeof(sell), MP_INFO(x,y+2).int_6 / 100);
+    mps_store_sss(i++,_("Goods"),buy,sell);
+
+    num_to_ansi(buy, sizeof(buy), MP_INFO(x,y+1).int_7 / 100);
+    num_to_ansi(sell, sizeof(sell), MP_INFO(x,y+2).int_7 / 100);
+    mps_store_sss(i++,_("Steel"),buy,sell);
+
+    num_to_ansi(buy, sizeof(buy), MP_INFO(x,y).int_2 / 100);
+    num_to_ansi(sell, sizeof(sell), MP_INFO(x,y).int_5 / 100);
+    mps_store_sss(i++,_("Total"),buy,sell);
+
+}
+
+

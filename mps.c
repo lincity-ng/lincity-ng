@@ -31,20 +31,11 @@ void mps_global_setup (int);
 void mps_global (int);
 void mps_setup(int x, int y);
 
-void mps_port_setup (int, int);
-void mps_port (int, int);
-void mps_tip_setup (void);
-void mps_tip (int, int);
-void mps_commune_setup (void);
-void mps_commune (int, int);
 void mps_right_setup (void);
 void mps_right (int, int);
-void mps_firestation_setup (void);
-void mps_firestation (int, int);
-void mps_cricket_setup (void);
-void mps_cricket (int, int);
-void mps_health_setup (void);
-void mps_health (int, int);
+
+
+
 
 char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
 int mps_global_style;
@@ -155,6 +146,18 @@ mps_update(void)
 	    case GROUP_COAL_POWER:
 		mps_coal_power (mps_x, mps_y);
 		break;
+	    case (GROUP_COMMUNE):
+	        mps_commune (mps_x, mps_y);
+		break;
+	    case (GROUP_CRICKET):
+		mps_cricket (mps_x, mps_y);
+		break;
+	    case (GROUP_FIRESTATION):
+	        mps_firestation (mps_x, mps_y);
+		break;
+	    case (GROUP_HEALTH):
+		mps_health_centre (mps_x, mps_y);
+		break;
 	    case (GROUP_INDUSTRY_H):
 		mps_heavy_industry (mps_x, mps_y);
 		break;
@@ -173,12 +176,15 @@ mps_update(void)
 	    case GROUP_ORGANIC_FARM: 
 		mps_organic_farm(mps_x, mps_y);
 		break;
-	    case GROUP_POWER_LINE:
-	        mps_power_line (mps_x, mps_y);
-	        break;
+	    case (GROUP_PORT):
+	        mps_port (mps_x, mps_y);
+		break;
 	    case (GROUP_POTTERY):
 	        mps_pottery (mps_x, mps_y);
 		break;
+	    case GROUP_POWER_LINE:
+	        mps_power_line (mps_x, mps_y);
+	        break;
 	    case (GROUP_RAIL):
 		mps_rail (mps_x, mps_y);
 		break;
@@ -208,6 +214,9 @@ mps_update(void)
 	    case (GROUP_SUBSTATION):
 	        mps_substation (mps_x, mps_y);
 	        break;
+	    case (GROUP_TIP):
+	        mps_tip (mps_x, mps_y);
+		break;
 	    case (GROUP_TRACK):
 		mps_track(mps_x, mps_y);
 		break;
@@ -308,9 +317,37 @@ mps_store_ss(int i, char * s1, char * s2)
 }
 
 void
+mps_store_sss(int i, char * s1, char * s2, char * s3)
+{
+
+    int l, e;  /* Length and End of the strings */
+    int c = (MPS_INFO_CHARS) / 3;
+    int m = (MPS_INFO_CHARS) % 3;
+
+    printf("Math: %d == %d * 3 + %d == %d\n", MPS_INFO_CHARS, c, m, (c*3)+m);
+
+    if (i > MAPPOINT_STATS_LINES) {
+	return;
+    }
+
+    l = snprintf(mps_info[i], c + m, "%s", s1);
+    e = l;
+    l = snprintf(&mps_info[i][e], (c * 2) + m - e, "%*s", 
+		 (c * 2) + m - e - 1, s2);
+    e += l;
+    snprintf(&mps_info[i][e],  (c * 3) + m - e, "%*s", 
+	     (c * 3) + m - e - 1, s3);
+}
+
+void
 mps_store_sd(int i, char * s, int d)
 {
     int l;
+
+    if (i > MAPPOINT_STATS_LINES) {
+	return;
+    }
+
     l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s);
     snprintf(&mps_info[i][l], MPS_INFO_CHARS, "%*d", 
 	     (MPS_INFO_CHARS - 1 - l), d);
@@ -491,61 +528,6 @@ mappoint_stats (int x, int y, int button)
 	switch (MP_GROUP(x,y))
 	{
 
-	case GROUP_RESIDENCE_LL:
-	case GROUP_RESIDENCE_ML:
-	case GROUP_RESIDENCE_HL:
-	case GROUP_RESIDENCE_LH:
-	case GROUP_RESIDENCE_MH:
-	case GROUP_RESIDENCE_HH:
-	    mps_res (x, y);
-	    break;
-	case (GROUP_ROAD):
-	    mps_road (x, y);
-	    break;
-	case (GROUP_RAIL):
-	    mps_rail (x, y);
-	    break;
-	case (GROUP_TRACK):
-	    mps_track (x, y);
-	    break;
-	case (GROUP_ORGANIC_FARM):
-	    mps_farm (x, y);
-	    break;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	case (GROUP_PORT):
-	    mps_port (x, y);
-	    break;
-	case (GROUP_TIP):
-	    mps_tip (x, y);
-	    break;
-	case (GROUP_COMMUNE):
-	    mps_commune (x, y);
-	    break;
-	case (GROUP_FIRESTATION):
-	    mps_firestation (x, y);
-	    break;
-	case (GROUP_CRICKET):
-	    mps_cricket (x, y);
-	    break;
-	case (GROUP_HEALTH):
-	    mps_health (x, y);
-	    break;
 	}
     }
 
@@ -655,103 +637,6 @@ mps_setup (int x, int y)
 }
 
 
-void
-mps_port_setup (int x, int y)
-{
-    Rect* mps = &scr.mappoint_stats;
-    /* TRANSLATORS F=food, C=coal, O=ore, G=goods, S=steel */
-    Fgl_write (mps->x + 4, mps->y + 1*8+4, _("     Buy   Sell"));
-    Fgl_write (mps->x + 4, mps->y + 3*8, _("F"));
-    Fgl_write (mps->x + 4, mps->y + 4*8, _("C"));
-    Fgl_write (mps->x + 4, mps->y + 5*8, _("O"));
-    Fgl_write (mps->x + 4, mps->y + 6*8, _("G"));
-    Fgl_write (mps->x + 4, mps->y + 7*8, _("S"));
-}
-
-void
-mps_port (int x, int y)
-{
-    Rect* mps = &scr.mappoint_stats;
-    int i, l;
-    int *p1, *p2;
-    char buy[256], sell[256], s[256];
-
-    p1 = &(MP_INFO(x,y + 1).int_3);
-    p2 = &(MP_INFO(x,y + 2).int_3);
-    for (i = 0; i < 5; i++)
-    {
-	l = *(p1++) / 100;
-	format_number5 (buy, l);
-	l = *(p2++) / 100;
-	format_number5 (sell, l);
-	sprintf (s, " %s  %s", buy, sell);
-	Fgl_write (mps->x + 20, mps->y + (3+i)*8, s);
-    }
-
-    /* Totals */
-    l = MP_INFO(x,y).int_5 / 100;
-    format_number5 (buy, l);
-    l = MP_INFO(x,y).int_2 / 100;
-    format_number5 (sell, l);
-    sprintf (s, " %s  %s", buy, sell);
-    Fgl_write (mps->x + 20, mps->y + (3+i)*8 + 4, s);
-}
-
-void
-mps_tip_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 32, _("  Waste stored"));
-    Fgl_write (mps->x, mps->y + 40, _("   last month"));
-    Fgl_write (mps->x, mps->y + 64, _("       % full"));
-}
-
-void
-mps_tip (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%7d", MP_INFO(x,y).int_3);
-  Fgl_write (mps->x + 3 * 8, mps->y + 52, s);
-  sprintf (s, "%4.1f", (float) (MP_INFO(x,y).int_1 * 100)
-	   / (float) MAX_WASTE_AT_TIP);
-  Fgl_write (mps->x + 3 * 8, mps->y + 64, s);
-}
-
-void
-mps_commune_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 12, _("   Activity"));
-    Fgl_write (mps->x, mps->y + 20, _("  last month"));
-    Fgl_write (mps->x, mps->y + 36, _("  Coal"));
-    Fgl_write (mps->x, mps->y + 44, _("   Ore"));
-    Fgl_write (mps->x, mps->y + 52, _(" Steel"));
-    Fgl_write (mps->x, mps->y + 60, _(" Waste"));
-}
-
-void
-mps_commune (int x, int y)
-{
-    Rect* mps = &scr.mappoint_stats;
-    if ((MP_INFO(x,y).int_5 & 1) != 0)
-	Fgl_write (mps->x + 7 * 8, mps->y + 36, _("YES"));
-    else
-	Fgl_write (mps->x + 7 * 8, mps->y + 36, _("NO "));
-    if ((MP_INFO(x,y).int_5 & 2) != 0)
-	Fgl_write (mps->x + 7 * 8, mps->y + 44, _("YES"));
-    else
-	Fgl_write (mps->x + 7 * 8, mps->y + 44, _("NO "));
-    if ((MP_INFO(x,y).int_5 & 4) != 0)
-	Fgl_write (mps->x + 7 * 8, mps->y + 52, _("YES"));
-    else
-	Fgl_write (mps->x + 7 * 8, mps->y + 52, _("NO "));
-    if ((MP_INFO(x,y).int_5 & 8) != 0)
-	Fgl_write (mps->x + 7 * 8, mps->y + 60, _("YES"));
-    else
-	Fgl_write (mps->x + 7 * 8, mps->y + 60, _("NO "));
-}
-
 
 void
 mps_right_setup (void)
@@ -813,71 +698,6 @@ mps_right (int x, int y)
     Fgl_write (mps->x + 48, mps->y + 76, s);
 }
 
-void
-mps_firestation_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
-    Fgl_write (mps->x, mps->y + 48, _("Goods"));
-}
-
-void
-mps_firestation (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / MAX_JOBS_AT_FIRESTATION);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / MAX_GOODS_AT_FIRESTATION);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-
-}
-
-void
-mps_cricket_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
-    Fgl_write (mps->x, mps->y + 48, _("Goods"));
-}
-
-void
-mps_cricket (int x, int y)
-{
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / MAX_JOBS_AT_CRICKET);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / MAX_GOODS_AT_CRICKET);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-
-}
-
-void
-mps_health_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
-    Fgl_write (mps->x, mps->y + 48, _("Goods"));
-}
-
-void
-mps_health (int x, int y)
-{
-    Rect* mps = &scr.mappoint_stats;
-    char s[100];
-    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	     / MAX_JOBS_AT_HEALTH_CENTRE);
-    Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	     / MAX_GOODS_AT_HEALTH_CENTRE);
-    Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-
-}
 
 
 void 
