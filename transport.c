@@ -13,7 +13,6 @@
 #include "power.h"
 #include "stats.h" /* for transport_cost */
 
-
 /* ---------------------------------------------------------------------
    For track, road and rail:
   
@@ -25,49 +24,6 @@
    int_6 contains the amount of steel
    int_7 contains the amount of waste
   --------------------------------------------------------------------- */
-void
-do_track (int x, int y)
-{
-    static int wb_count = 0;
-    general_transport (&MP_INFO(x,y), &MP_POL(x,y),
-		       MAX_WASTE_ON_TRACK, &wb_count);
-}
-
-void
-do_rail (int x, int y)
-{
-    static int wb_count = 0;
-    int *pol = &MP_POL(x,y);
-    Map_Point_Info *minfo = &MP_INFO(x,y);
-    transport_cost += 3;
-    if (total_time % DAYS_PER_RAIL_POLLUTION == 0)
-	*pol += RAIL_POLLUTION;
-    if ((total_time & RAIL_GOODS_USED_MASK) == 0 && minfo->int_4 > 0) {
-	--minfo->int_4;
-	++minfo->int_7;
-    }
-    if ((total_time & RAIL_STEEL_USED_MASK) == 0 && minfo->int_6 > 0) {
-	--minfo->int_6;
-	++minfo->int_7;
-    }
-    general_transport (minfo, pol, MAX_WASTE_ON_RAIL, &wb_count);
-}
-
-void
-do_road (int x, int y)
-{
-    static int wb_count = 0;
-    int *pol = &MP_POL(x,y);
-    Map_Point_Info *minfo = &MP_INFO(x,y);
-    ++transport_cost;
-    if (total_time % DAYS_PER_ROAD_POLLUTION == 0)
-	*pol += ROAD_POLLUTION;
-    if ((total_time & ROAD_GOODS_USED_MASK) == 0 && minfo->int_4 > 0) {
-	--minfo->int_4;
-	++minfo->int_7;
-    }
-    general_transport (minfo, pol, MAX_WASTE_ON_ROAD, &wb_count);
-}
 
 void
 general_transport (Map_Point_Info *minfo, int *pol,

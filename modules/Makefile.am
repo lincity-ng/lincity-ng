@@ -27,4 +27,7 @@ libmodules_a_SOURCES =	organic_farm.c organic_farm.h \
 			windmill.c windmill.h \
 			solar_power.c solar_power.h \
 			coal_power.c coal_power.h \
-			power_line.c power_line.h
+			power_line.c power_line.h \
+			track.c track.h \
+			rail.c rail.h \
+			road.c road.h
