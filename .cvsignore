@@ -8,3 +8,8 @@ stamp-h.in
 lincity
 xlincity
 Makefile
+build
+lincity_oldgui
+lincity-ng
+config.h
+build_config.py
