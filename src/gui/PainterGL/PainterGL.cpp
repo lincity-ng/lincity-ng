@@ -156,11 +156,18 @@ PainterGL::popTransform()
 void
 PainterGL::setClipRectangle(const Rect2D& rect)
 {
+    GLfloat matrix[16];
+    glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
+        
     int screenHeight = SDL_GetVideoSurface()->h;
-    glViewport(rect.p1.x, rect.p1.y, rect.getWidth(), rect.getHeight());
+    glViewport(rect.p1.x + matrix[12],
+            screenHeight - rect.getHeight() - (rect.p1.y + matrix[13]),
+            rect.getWidth(), rect.getHeight());
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, rect.getWidth(), rect.getHeight(), 0, -1, 1);
+    glOrtho(rect.p1.x + matrix[12], rect.p1.x + matrix[12] + rect.getWidth(),
+            rect.p1.y + matrix[13] + rect.getHeight(), 
+            rect.p1.y + matrix[13], -1, 1);
 }
 
 void
