@@ -365,6 +365,7 @@ add_a_market (int x, int y)	/* add to marketx markety to list */
   markety[numof_markets] = y;
   numof_markets++;
   /* oh dear. Got to bootstap markets with jobs, otherwise power won't work */
+  /* GCS: Is this still true?  */
   MP_INFO(x,y).int_2 = 2000;
   return (1);
 }

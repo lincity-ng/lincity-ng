@@ -844,6 +844,42 @@ update_mini_screen (void)
     }
 }
 
+
+void
+mini_screen_help (void)
+{
+    switch (mini_screen_flags)
+    {
+    case MINI_SCREEN_NORMAL_FLAG:
+	activate_help ("msb-normal.hlp");
+	break;
+    case MINI_SCREEN_POL_FLAG:
+	activate_help ("msb-pol.hlp");
+	break;
+    case MINI_SCREEN_UB40_FLAG:
+	activate_help ("msb-ub40.hlp");
+	break;
+    case MINI_SCREEN_STARVE_FLAG:
+	activate_help ("msb-starve.hlp");
+	break;
+    case MINI_SCREEN_POWER_FLAG:
+	activate_help ("msb-power.hlp");
+	break;
+    case MINI_SCREEN_FIRE_COVER:
+	activate_help ("msb-fire.hlp");
+	break;
+    case MINI_SCREEN_CRICKET_COVER:
+	activate_help ("msb-cricket.hlp");
+	break;
+    case MINI_SCREEN_HEALTH_COVER:
+	activate_help ("msb-health.hlp");
+	break;
+    case MINI_SCREEN_COAL_FLAG:
+	activate_help ("msb-coal.hlp");
+	break;
+    }
+}
+
 void
 mini_full_refresh (void)
 {

@@ -435,7 +435,11 @@ pbar_mouse(int rawx, int rawy, int button)
 
   if (button != LC_MOUSE_RIGHTBUTTON)
     return;
+
   /* check for help with pbars */
+  activate_help ("pbar.hlp");
+
+#if defined (commentout)
   if (mouse_in_rect (&scr.pbar_pop,x,y)) {
     activate_help ("pbar-pop.hlp");
     return;
@@ -472,4 +476,5 @@ pbar_mouse(int rawx, int rawy, int button)
     activate_help ("pbar-steel.hlp");
     return;
   }
+#endif
 }

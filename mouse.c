@@ -972,14 +972,14 @@ do_mouse_other_buttons (int x, int y, int button)
     else if (mouse_in_rect (&scr.mini_map,x,y)) {
 	Rect* b = &scr.mini_map;
 	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("mini-screen.hlp");
+	    mini_screen_help ();
 	    return;
 	}
 	if (mini_screen_flags == MINI_SCREEN_COAL_FLAG && !coal_survey_done) {
-	    if (yn_dial_box ("Coal survey"
-			     ,"This will cost you 1 million"
-			     ,"After that it's is free to call again"
-			     ,"Do coal survey?") == 0)
+	    if (yn_dial_box ("Coal survey",
+			     "This will cost you 1 million",
+			     "After that it's is free to call again",
+			     "Do coal survey?") == 0)
 	    {
 		return;
 	    }

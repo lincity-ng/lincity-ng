@@ -1466,8 +1466,8 @@ mps_global_housing_setup (void)
     Fgl_write (mps->x + 4, mps->y + 1*8+6, "Pop");
     Fgl_write (mps->x + 4, mps->y + 2*8+6, "Housed");
     Fgl_write (mps->x + 4, mps->y + 3*8+6, "Housed %");
-    Fgl_write (mps->x + 4, mps->y + 4*8+6, "Residenc");
-    Fgl_write (mps->x + 4, mps->y + 5*8+6, "Shanties");
+    Fgl_write (mps->x + 4, mps->y + 4*8+6, "Shanties");
+
     Fgl_write (mps->x + 4, mps->y + 6*8+6, "Unn Dths");
     Fgl_write (mps->x + 4, mps->y + 7*8+6, "Unemp %");
     Fgl_write (mps->x + 4, mps->y + 8*8+6, "Starv %");
@@ -1539,10 +1539,9 @@ mps_global_housing (void)
         sprintf (s, " %3d.%1d", 0, 0);
     }
     Fgl_write (mps->x + offset, mps->y + 3*8+6, s);
-    sprintf (s, "    ??");
-    Fgl_write (mps->x + offset, mps->y + 4*8+6, s);
     sprintf (s, " %5d", numof_shanties);
-    Fgl_write (mps->x + offset, mps->y + 5*8+6, s);
+    Fgl_write (mps->x + offset, mps->y + 4*8+6, s);
+
     sprintf (s, " %5d", unnat_deaths);
     Fgl_write (mps->x + offset, mps->y + 6*8+6, s);
     i = ((tunemployed_population / NUMOF_DAYS_IN_MONTH) * 1000)
