@@ -13,6 +13,7 @@
 
 #include "Debug.hpp"
 #include "gui_interface/shared_globals.h"
+#include "gui_interface/mps.h"
 
 #include "lincity/lctypes.h"
 
@@ -174,6 +175,53 @@ void ButtonPanel::attachButtons()
     }
 }
 
+/*
+ * Show Information about selected Tool
+ */
+void ButtonPanel::updateToolInfo()
+{       
+    if( selected_module_type == CST_NONE ) //query
+    {
+        mps_store_title(0, "Query Tool"); 
+        mps_store_title(1, "");
+        mps_store_title(2, "Show information" ); 
+        mps_store_title(3, "about selected area." ); 
+        mps_store_title(4, "" ); 
+        mps_store_title(5, "" ); 
+        mps_store_title(6, "" ); 
+        mps_store_title(7, "" ); 
+        mps_store_title(8, "" ); 
+        mps_store_title(9, "" ); 
+    } 
+    else if( selected_module_type == CST_GREEN ) //bulldoze
+    {
+        mps_store_title(0, "Bulldozer"); 
+        mps_store_title(1, "");
+        mps_store_title(2, "remove building");
+        mps_store_title(3, "-cost varies-" ); 
+        mps_store_title(4, "" ); 
+        mps_store_title(5, "" ); 
+        mps_store_title(6, "" ); 
+        mps_store_title(7, "" ); 
+        mps_store_title(8, "" ); 
+        mps_store_title(9, "" ); 
+    }
+    else
+    {
+        int group = main_types[ selected_module_type ].group;
+        mps_store_ss(0, "Build ", main_groups[ group ].name ); 
+        mps_store_title(1, "");
+        mps_store_title(2, "Cost");
+        mps_store_sd( 3, "to build", get_type_cost (selected_module_type) );
+        mps_store_sd( 4, "to bulldoze", main_groups[ group ].bul_cost );
+        mps_store_title(5, "");
+        mps_store_title(6, "" ); 
+        mps_store_title(7, "" ); 
+        mps_store_title(8, "" ); 
+        mps_store_title(9, "" ); 
+    }
+}
+
 void ButtonPanel::draw(Painter &painter)
 {
   attachButtons();
@@ -241,7 +289,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
         int size = main_groups[selected_module_group].size;
         getGameView()->setCursorSize( size );
     }
-    
+    updateToolInfo();        
 }
 
 void ButtonPanel::toggleMenu(std::string pName,bool enable)
@@ -321,6 +369,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
         int size = main_groups[selected_module_group].size;
         getGameView()->setCursorSize( size );
     }
+    updateToolInfo();
     
    setDirty();
 }

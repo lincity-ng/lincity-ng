@@ -27,7 +27,7 @@ class ButtonPanel : public Component
   std::string getAttribute(XmlReader &reader,const std::string &pName) const;
   void doButton(const std::string &button);
   void toggleMenu(std::string pName,bool enable);
-
+  void updateToolInfo();
 
   int module;
   bool alreadyAttached;
