@@ -408,7 +408,7 @@ load_city (char *cname)
 	fclose_read_gzipped (ofile);
 	return;
     }
-    unprint_cheat ();
+    print_time_for_year();
     q = (unsigned long) sizeof (Map_Point_Info);
     prog_box (_("Loading scene"), 0);
 
@@ -651,8 +651,6 @@ load_city (char *cname)
     numof_shanties = count_groups (GROUP_SHANTY);
     numof_communes = count_groups (GROUP_COMMUNE);
     prog_box ("", 100);
-    if (cheat_flag != 0)
-	print_cheat ();
 
     /* set up the university intake. */
     x = count_groups (GROUP_UNIVERSITY);
