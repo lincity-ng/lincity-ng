@@ -189,8 +189,8 @@ lincity_main (int argc, char *argv[])
     order_select_buttons ();
 
 #ifdef LC_X11
-    borderx = BORDERX;
-    bordery = BORDERY;
+    borderx = 0;
+    bordery = 0;
     parse_xargs (argc, argv, &geometry);
     Create_Window (geometry);
     pirate_cursor = XCreateFontCursor (display.dpy, XC_pirate);

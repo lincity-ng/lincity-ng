@@ -220,10 +220,10 @@ parse_xargs (int argc, char **argv, char **geometry)
     extern char *optarg;
 
 #ifdef ALLOW_PIX_DOUBLING
-    printf ("Options include Pix doubling\n");
-    while ((option = getopt (argc, argv, "vbndg:wR:G:B:")) != EOF)
+//    printf ("Options include Pix doubling\n");
+    while ((option = getopt (argc, argv, "vbrndg:wR:G:B:")) != EOF)
 #else
-	while ((option = getopt (argc, argv, "vbng:wR:G:B:")) != EOF)
+	while ((option = getopt (argc, argv, "vbrng:wR:G:B:")) != EOF)
 #endif
 	{
 	    switch (option)
@@ -242,6 +242,10 @@ parse_xargs (int argc, char **argv, char **geometry)
 	    case 'b':
 		borderx = 0;
 		bordery = 0;
+		break;
+	    case 'r':
+		borderx = BORDERX;
+		bordery = BORDERY;
 		break;
 	    case 'n':
 		no_init_help = TRUE;
