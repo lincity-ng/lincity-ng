@@ -9,11 +9,15 @@
 #include <SDL_ttf.h>
 
 #include "gui/TextureManager.hpp"
+#include "gui/PainterSDL/TextureManagerSDL.hpp"
+#include "gui/PainterSDL/PainterSDL.hpp"
 
 #include "main.hpp"
 #include "MainLincity.hpp"
 #include "MainMenu.hpp"
 #include "Game.hpp"
+
+Painter* painter = 0;
 
 void initSDL()
 {
@@ -83,6 +87,9 @@ void initVideo(int width, int height)
             << SDL_GetError();
         throw std::runtime_error(msg.str());
     }
+    
+    delete painter;
+    painter = new PainterSDL(screen);
 }
 
 void mainLoop()
@@ -129,7 +136,7 @@ int main(int , char** argv)
         initVideo(800, 600);
 	initLincity();
 
-        texture_manager = new TextureManager();
+        texture_manager = new TextureManagerSDL();
 
         mainLoop();
 #ifndef DEBUG
@@ -141,7 +148,8 @@ int main(int , char** argv)
         result = 1;
     }
 #endif
-   
+
+    delete painter;
     delete texture_manager;
     if(TTF_WasInit())
         TTF_Quit();

@@ -1,8 +1,8 @@
 #include <config.h>
 
-#include "Texture.hpp"
+#include "TextureSDL.hpp"
 
-Texture::~Texture()
+TextureSDL::~TextureSDL()
 {
     SDL_FreeSurface(surface);
 }

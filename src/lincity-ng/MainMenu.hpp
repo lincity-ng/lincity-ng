@@ -3,7 +3,6 @@
 
 #include "main.hpp"
 
-class Painter;
 class Component;
 class Button;
 
@@ -31,7 +30,6 @@ private:
     void loadGameBackButtonClicked(Button* );
     void loadGameLoadButtonClicked(Button* );
     
-    std::auto_ptr<Painter> painter;
     std::auto_ptr<Component> mainMenu;
     std::auto_ptr<Component> newGameMenu;
     std::auto_ptr<Component> loadGameMenu;

@@ -1,31 +1,37 @@
 #include <config.h>
 
+#include "PainterSDL.hpp"
+
 #include <iostream>
 #include <assert.h>
+#include <typeinfo>
 #include <SDL_opengl.h>
 #include <SDL_gfxPrimitives.h>
 #include <SDL_rotozoom.h>
 
-#include "Painter.hpp"
+#include "TextureSDL.hpp"
 
-Painter::Painter(SDL_Surface* _target)
+PainterSDL::PainterSDL(SDL_Surface* _target)
     : target(_target)
 {
 }
 
-Painter::Painter(Texture* texture)
+PainterSDL::PainterSDL(TextureSDL* texture)
     : target(texture->surface)
 {
 }
 
-Painter::~Painter()
+PainterSDL::~PainterSDL()
 {
 }
 
 void
-Painter::drawTexture(const Texture* tex, Rect2D rect)
+PainterSDL::drawTexture(const Texture* texture, const Vector2& pos)
 {
-    if(tex == 0) {
+    assert(typeid(*texture) == typeid(TextureSDL));
+    const TextureSDL* textureSDL = static_cast<const TextureSDL*> (texture);
+    
+    if(texture == 0) {
         std::cerr << "Trying to render 0 texture.";
 #ifdef DEBUG
         assert(false);
@@ -33,26 +39,21 @@ Painter::drawTexture(const Texture* tex, Rect2D rect)
         return;
     }
 
-#if 0
-    if(rect.getWidth() != tex->surface->w
-            || rect.getHeight() != tex->surface->h) {
-        std::cerr << "Scaling not implemented for software renderer.\n";
-        return;
-    }
-#endif
-    
-    Vector2 screenpos = transform.apply(rect.p1);
+    Vector2 screenpos = transform.apply(pos);
     
     SDL_Rect drect;
     drect.x = (int) screenpos.x;
     drect.y = (int) screenpos.y;
-    SDL_BlitSurface(tex->surface, 0, target, &drect);
+    SDL_BlitSurface(textureSDL->surface, 0, target, &drect);
 }
 
 void
-Painter::drawStretchTexture(const Texture* tex, Rect2D rect)
+PainterSDL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
 {
-    if(tex == 0) {
+    assert(typeid(*texture) == typeid(TextureSDL));
+    const TextureSDL* textureSDL = static_cast<const TextureSDL*> (texture);
+    
+    if(texture == 0 || texture->getWidth() == 0 || texture->getHeight() == 0) {
         std::cerr << "Trying to render 0 texture.";
 #ifdef DEBUG
         assert(false);
@@ -67,18 +68,18 @@ Painter::drawStretchTexture(const Texture* tex, Rect2D rect)
     drect.y = (int) screenpos.y;
     drect.w = (int) rect.getWidth();
     drect.h = (int) rect.getHeight();
-    if( tex->getWidth() * tex->getHeight() )
-    {
-        double zoomx = drect.w / tex->getWidth();
-        double zoomy = drect.h / tex->getHeight(); 
-        SDL_Surface *tmp = zoomSurface( tex->surface, zoomx, zoomy, SMOOTHING_OFF );
-        SDL_BlitSurface( tmp , 0, target, &drect);
-        SDL_FreeSurface( tmp );
-    }
+    
+    double zoomx = drect.w / textureSDL->getWidth();
+    double zoomy = drect.h / textureSDL->getHeight(); 
+    SDL_Surface *tmp 
+        = zoomSurface(textureSDL->surface, zoomx, zoomy, SMOOTHING_OFF);
+    SDL_BlitSurface(tmp, 0, target, &drect);
+    SDL_FreeSurface(tmp);
 }
 
+#if 0
 void
-Painter::fillDiamond(Rect2D rect)
+PainterSDL::fillDiamond(Rect2D rect)
 {
     Vector2 p1( rect.p1.x + ( rect.getWidth() / 2 ), rect.p1.y );
     Vector2 p2( rect.p1.x, rect.p1.y + ( rect.getHeight() / 2 ) );
@@ -101,21 +102,11 @@ Painter::fillDiamond(Rect2D rect)
     filledPolygonRGBA( target, vx, vy, 4 ,
             fillColor.r, fillColor.g, fillColor.b, fillColor.a);
 }
-
+#endif
 
 void
-Painter::fillRectangle(Rect2D rect)
+PainterSDL::fillRectangle(const Rect2D& rect)
 {
-  /*  Vector2 screenpos = transform.apply(rect.p1);
-    
-    SDL_Rect drect;
-    drect.x = (int) screenpos.x;
-    drect.y = (int) screenpos.y;
-    drect.w = (int) rect.getWidth();
-    drect.h = (int) rect.getHeight();
-
-    SDL_FillRect(target, &drect, fillColor);    */
-    
     Vector2 screenpos = transform.apply(rect.p1);
     Vector2 screenpos2 = transform.apply(rect.p2);
     boxRGBA(target, (int) screenpos.x, (int) screenpos.y,
@@ -124,7 +115,7 @@ Painter::fillRectangle(Rect2D rect)
 }
 
 void
-Painter::drawRectangle(Rect2D rect)
+PainterSDL::drawRectangle(const Rect2D& rect)
 {
     Vector2 screenpos = transform.apply(rect.p1);
     Vector2 screenpos2 = transform.apply(rect.p2);
@@ -134,39 +125,38 @@ Painter::drawRectangle(Rect2D rect)
 }
 
 void
-Painter::setFillColor(Color color)
+PainterSDL::setFillColor(Color color)
 {
-    //fillColor = SDL_MapRGBA(target->format, color.r, color.g, color.b, color.a);
     fillColor = color;
 }
 
 void
-Painter::setLineColor(Color color)
+PainterSDL::setLineColor(Color color)
 {
     lineColor = color;
 }
 
 void
-Painter::translate(const Vector2& vec)
+PainterSDL::translate(const Vector2& vec)
 {
     transform.translation -= vec;
 }
 
 void
-Painter::pushTransform()
+PainterSDL::pushTransform()
 {
     transformStack.push_back(transform);
 }
 
 void
-Painter::popTransform()
+PainterSDL::popTransform()
 {
     transform = transformStack.back();
     transformStack.pop_back();
 }
 
 void
-Painter::setClipRectangle(Rect2D rect)
+PainterSDL::setClipRectangle(const Rect2D& rect)
 {
     Vector2 screenpos = transform.apply(rect.p1);
     SDL_Rect cliprect;
@@ -178,7 +168,17 @@ Painter::setClipRectangle(Rect2D rect)
 }
 
 void
-Painter::clearClipRectangle()
+PainterSDL::clearClipRectangle()
 {
     SDL_SetClipRect(target, 0);
 }
+
+Painter*
+PainterSDL::createTexturePainter(Texture* texture)
+{
+    assert(typeid(*texture) == typeid(TextureSDL));
+    TextureSDL* textureSDL = static_cast<TextureSDL*> (texture);    
+    
+    return new PainterSDL(textureSDL);
+}
+

@@ -32,10 +32,10 @@ public:
     //decrease Zoomlevel 
     void zoomOut();
 private:
-    const void recenter(Vector2 pos);
-    const Vector2 getScreenPoint(Vector2 tile);
-    const Vector2 getTile(Vector2 point);
-    const void drawTile( Painter& painter, Vector2 tile );
+    const void recenter(const Vector2& pos);
+    const Vector2 getScreenPoint(const Vector2& tile);
+    const Vector2 getTile(const Vector2& point);
+    const void drawTile(Painter& painter, const Vector2& tile);
     const void loadTextures();
     void setZoom(const int newzoom);
     Texture* readTexture(const std::string& filename);

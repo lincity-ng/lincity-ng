@@ -4,7 +4,6 @@
 #include <SDL.h>
 #include <string>
 
-#include "Rect2D.hpp"
 #include "Texture.hpp"
 
 /**
@@ -17,11 +16,12 @@
 class TextureManager
 {
 public:
-    TextureManager();
-    ~TextureManager();
-
-    Texture* load(const std::string& filename);
-    Texture* create(SDL_Surface* surface);
+    /** load an image file from disk and create a texture */
+    virtual Texture* load(const std::string& filename) = 0;
+    /** Create a texture from an SDL_Surface. This function takes ownership of
+     * the SDL_Surface and will free it.
+     */
+    virtual Texture* create(SDL_Surface* surface) = 0;
 };
 
 extern TextureManager* texture_manager;

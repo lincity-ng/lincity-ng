@@ -57,7 +57,7 @@ Image::resize(float width, float height)
 void
 Image::draw(Painter& painter)
 {
-    painter.drawTexture(texture.get(), Rect2D(0, 0, width, height));
+    painter.drawTexture(texture.get(), Vector2(0, 0));
 }
 
 std::string Image::getFilename() const

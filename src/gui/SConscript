@@ -1,5 +1,6 @@
 Import('*')
 
 lib = env.Library(target = "gui", source = Glob("*.cpp") +
-        Glob("TinyGetText/*.cpp") + Glob("PhysfsStream/*.cpp"))
+        Glob("TinyGetText/*.cpp") + Glob("PhysfsStream/*.cpp") 
+        + Glob("PainterSDL/*.cpp"))
 Default(lib)

@@ -10,25 +10,8 @@
 class Texture
 {
 public:
-    ~Texture();
-
-    float getWidth() const 
-    {
-        return surface->w;
-    }
-    float getHeight() const
-    {
-        return surface->h;
-    }
-    
-private:
-    friend class Painter;
-    friend class TextureManager;
-    Texture(SDL_Surface* _surface)
-        : surface(_surface)
-    { }
-
-    SDL_Surface* surface;
+    virtual float getWidth() const = 0;
+    virtual float getHeight() const = 0;
 };
 
 #endif

@@ -60,7 +60,7 @@ void
 Panel::draw(Painter& painter)
 {
     if(background.get())
-      painter.drawTexture(background.get(), Rect2D(0, 0, width, height));
+      painter.drawTexture(background.get(), Vector2(0, 0));
     Component::draw(painter);
 }
 

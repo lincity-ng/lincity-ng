@@ -16,7 +16,6 @@ public:
     MainState run();
 
 private:
-    std::auto_ptr<Painter> painter;
     std::auto_ptr<Component> gui;
     
     bool running;

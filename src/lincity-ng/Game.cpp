@@ -6,13 +6,11 @@
 #include "gui/ComponentLoader.hpp"
 #include "gui/Component.hpp"
 #include "gui/Event.hpp"
-#include "gui/Painter.hpp"
 
 #include "MainLincity.hpp"
 
 Game::Game()
 {
-    painter.reset(new Painter(SDL_GetVideoSurface()));
     gui.reset(loadGUIFile("gui/app.xml"));
     gui->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
@@ -33,7 +31,6 @@ Game::run()
             switch(event.type) {
                 case SDL_VIDEORESIZE:
                     initVideo(event.resize.w, event.resize.h);
-                    painter.reset(new Painter(SDL_GetVideoSurface()));
                     gui->resize(event.resize.w, event.resize.h);
                     break;
                 case SDL_MOUSEMOTION:

@@ -400,10 +400,7 @@ Paragraph::draw(Painter& painter)
     if(!texture)
         return;
 
-    painter.drawTexture(texture,
-            Rect2D(style.margin_left, style.margin_top,
-                width - style.margin_right,
-                height - style.margin_bottom));
+    painter.drawTexture(texture, Vector2(style.margin_left, style.margin_top));
 }
 
 void

@@ -659,11 +659,11 @@ void GameView::resize(float newwidth , float newheight )
 /*
  * Pos is new Center of the Screen
  */
-const void GameView::recenter(Vector2 pos)
+const void GameView::recenter(const Vector2& pos)
 {
-    pos += viewport;
-    viewport.x = floor( pos.x - ( getWidth() / 2 ) );
-    viewport.y = floor( pos.y - ( getHeight() / 2 ) );
+    Vector2 position = pos + viewport;
+    viewport.x = floor( position.x - ( getWidth() / 2 ) );
+    viewport.y = floor( position.y - ( getHeight() / 2 ) );
     
     //request redraw
 }
@@ -672,7 +672,7 @@ const void GameView::recenter(Vector2 pos)
  * Find point on Screen, where lower right corner of tile
  * is placed.
  */
-const Vector2 GameView::getScreenPoint(Vector2 tile)
+const Vector2 GameView::getScreenPoint(const Vector2& tile)
 {
     Vector2 point;
     point.x = virtualScreenWidth / 2 + ( tile.x - tile.y ) * ( tileWidth / 2 );
@@ -689,12 +689,12 @@ const Vector2 GameView::getScreenPoint(Vector2 tile)
 /*
  * Find Tile at point on viewport
  */
-const Vector2 GameView::getTile(Vector2 point)
+const Vector2 GameView::getTile(const Vector2& p)
 {
     Vector2 tile;
     // Map Point to virtual Screen
-    point += viewport;
-    tile.x = ( point.x - virtualScreenWidth / 2 ) / tileWidth +  point.y  / tileHeight;
+    Vector2 point = p + viewport;
+    tile.x = (point.x - virtualScreenWidth / 2 ) / tileWidth +  point.y  / tileHeight;
     tile.y =  2 * point.y  / tileHeight  - tile.x; 
     tile.x = floor( tile.x );
     tile.y = floor( tile.y );
@@ -705,7 +705,7 @@ const Vector2 GameView::getTile(Vector2 point)
 /*
  *  Draw a Tile
  */
-const void GameView::drawTile( Painter& painter, Vector2 tile )
+const void GameView::drawTile(Painter& painter, const Vector2& tile)
 {
     int tx = (int) tile.x;
     int ty = (int) tile.y;
@@ -725,11 +725,11 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tilerect.setSize( blankTexture->getWidth()  * zoom / defaultZoom, blankTexture->getHeight() * zoom / defaultZoom );
         if( zoom == defaultZoom ) 
         {
-            painter.drawTexture( blankTexture, tilerect );
+            painter.drawTexture(blankTexture, tilerect.p1);
         }
         else
         {
-            painter.drawStretchTexture( blankTexture, tilerect );
+            painter.drawStretchTexture(blankTexture, tilerect);
         }
         return;
     }
@@ -768,11 +768,11 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tilerect.move( tileOnScreenPoint );    
         tilerect.setSize( texture->getWidth() * zoom / defaultZoom, texture->getHeight() * zoom / defaultZoom );
         if( zoom == defaultZoom ) {
-            painter.drawTexture( texture, tilerect );
+            painter.drawTexture(texture, tilerect.p1);
         }
         else
         {
-            painter.drawStretchTexture( texture, tilerect );
+            painter.drawStretchTexture(texture, tilerect);
         }
     }
     else 
@@ -782,14 +782,14 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
         painter.setFillColor( red );
-        painter.fillDiamond( tilerect );    
+        //painter.fillDiamond( tilerect );    
     }
 }
 
 /*
  *  Paint an isometric View of the City in the component.
  */
-void GameView::draw( Painter& painter )
+void GameView::draw(Painter& painter)
 {
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);
@@ -837,7 +837,7 @@ void GameView::draw( Painter& painter )
         tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
-        painter.fillDiamond( tilerect );    
+        //painter.fillDiamond( tilerect );    
     }
 }
 

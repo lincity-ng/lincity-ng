@@ -8,7 +8,6 @@
 #include "gui/ComponentLoader.hpp"
 #include "gui/Component.hpp"
 #include "gui/Event.hpp"
-#include "gui/Painter.hpp"
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
 
@@ -17,8 +16,6 @@
 
 MainMenu::MainMenu()
 {
-    painter.reset(new Painter(SDL_GetVideoSurface()));
-
     loadMainMenu();
     currentMenu = mainMenu.get();
 }
@@ -156,7 +153,6 @@ MainMenu::run()
             switch(event.type) {
                 case SDL_VIDEORESIZE:
                     initVideo(event.resize.w, event.resize.h);
-                    painter.reset(new Painter(SDL_GetVideoSurface()));
                     currentMenu->resize(event.resize.w, event.resize.h);
                     break;
                 case SDL_MOUSEMOTION:

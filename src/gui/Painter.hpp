@@ -15,45 +15,24 @@
 class Painter
 {
 public:
-    Painter(SDL_Surface* target);
-    Painter(Texture* texture);
-    ~Painter();
-    
-    void drawTexture(const Texture* texture, Rect2D rect);
-    void drawStretchTexture(const Texture* texture, Rect2D rect);
-    void fillRectangle(Rect2D rect);
-    void drawRectangle(Rect2D rect);
-    void fillDiamond(Rect2D rect);
+    virtual void drawTexture(const Texture* texture, const Vector2& pos) = 0;
+    virtual void drawStretchTexture(const Texture* texture, const Rect2D& rect) = 0;
+    virtual void fillRectangle(const Rect2D& rect) = 0;
+    virtual void drawRectangle(const Rect2D& rect) = 0;
+    //virtual void fillDiamond(Rect2D rect) = 0;
 
-    void pushTransform();
-    void popTransform();
+    virtual void pushTransform() = 0;
+    virtual void popTransform() = 0;
 
-    void setClipRectangle(Rect2D rect);
-    void clearClipRectangle();
+    virtual void setClipRectangle(const Rect2D& rect) = 0;
+    virtual void clearClipRectangle() = 0;
 
-    void translate(const Vector2& vec);
-    void setFillColor(Color color);
-    void setLineColor(Color color);
-private:
-    class Transform
-    {
-    public:
-        Vector2 translation;
+    virtual void translate(const Vector2& vec) = 0;
+    virtual void setFillColor(Color color) = 0;
+    virtual void setLineColor(Color color) = 0;
 
-        Vector2 apply(const Vector2& v) const
-        {
-            return v - translation;
-        }
-    };
-
-    // the stack used by push-/popTransform
-    std::vector<Transform> transformStack;
-    // the currently active transform
-    Transform transform;
-
-    SDL_Surface* target;
-    //Uint32 fillColor;
-    Color fillColor,lineColor;
+    /** create a new painter instance that draws on a texture */
+    virtual Painter* createTexturePainter(Texture* texture) = 0;
 };
 
 #endif

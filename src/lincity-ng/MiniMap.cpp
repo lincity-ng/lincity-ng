@@ -171,7 +171,7 @@ void MiniMap::draw(Painter &painter)
   // FIXME: should be stored SDL_Surface and then blitted
   // SDL_Surface should be updated, only if needed
 
-  Painter mpainter(mTexture.get());
+  std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
 
   for(y=0;y<WORLD_SIDE_LEN && y<height/tilesize;y++)
     for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)
@@ -184,13 +184,13 @@ void MiniMap::draw(Painter &painter)
 	    grp = get_group_of_type(typ);
 
 	    Color mc=getColor(x,y);
-	    mpainter.setFillColor(mc);
-	    mpainter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+	    mpainter->setFillColor(mc);
+	    mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
 	  }
       }
 
 
-  painter.drawTexture(mTexture.get(),Rect2D(0,0,width,height));
+  painter.drawTexture(mTexture.get(), Vector2(0, 0));
 
   mFullRefresh=false;
 }
@@ -331,8 +331,8 @@ void MiniMap::event(const Event& event)
         cdebug("mousePos:"<<event.mousepos.x<<","<<event.mousepos.y);
         // move main-map
         // get Tile, that was clicked
-        int tilex = ( event.mousepos.x - border ) / tilesize;
-        int tiley = ( event.mousepos.y - border ) / tilesize;
+        int tilex = (int) ((event.mousepos.x - border ) / tilesize);
+        int tiley = (int) ((event.mousepos.y - border ) / tilesize);
         getGameView()->show( tilex, tiley );
         //mMode = getNextMode(mMode);
         mFullRefresh=true;
