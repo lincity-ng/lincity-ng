@@ -44,4 +44,10 @@ erase depcomp
 erase config.guess
 erase config.sub
 erase debug.txt
-erase diff.out
+erase *.out
+deltree /y autom4te.cache
+erase *.ini
+erase *.aps
+erase *.junk
+erase lincity
+erase xlincity
