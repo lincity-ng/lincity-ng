@@ -32,7 +32,6 @@ init_pbars (void)
     pbars_full_refresh ();
 }
 
-
 void
 pbars_full_refresh (void)
 {
@@ -63,6 +62,7 @@ init_pbar_text (void)
 void 
 draw_pbar (Rect* b, char* graphic)
 /* XXX: WCK: why not just make the graphic include the black? */
+/* GCS: Good idea, but xpicedit is painful to use! */
 {
     Fgl_fillbox (b->x, b->y, b->w, b->h, 0);
     Fgl_putbox (b->x + (b->w / 2) - 8, b->y, 16, 16, graphic);
@@ -119,7 +119,8 @@ write_pbar_text (Rect* b, char * s)
 
 
 /* XXX: WCK: Macros anyone? */
-
+/* GCS: I thought I might like to change the "sensitivity" of the pbars
+   on a case-by-case basis, but never got around to it. */
 inline int 
 pbar_adjust_pop (int diff)
 {
@@ -180,60 +181,60 @@ refresh_pbars (void)
     Rect * b;
     char s[10];
 
-/* Population */
+    /* Population */
     b = &scr.pbar_pop;
     draw_pbar_new (b, pbar_pop[11], pbar_adjust_pop(pop_diff), 
-		    pbar_adjust_pop(pbar_pop_olddiff));
+		   pbar_adjust_pop(pbar_pop_olddiff));
     write_pbar_int (b, pbar_pop[11]);
 
-/* Technology */
+    /* Technology */
     b = &scr.pbar_tech;
     draw_pbar_new (b, pbar_tech[11], pbar_adjust_tech(tech_diff), 
-		    pbar_adjust_tech(pbar_tech_olddiff));
+		   pbar_adjust_tech(pbar_tech_olddiff));
     snprintf (s, 10, "%5.1f", (float) pbar_tech[11] * 100.0 / MAX_TECH_LEVEL);
     write_pbar_text (b, s);
 
-/* Food */
+    /* Food */
     b = &scr.pbar_food;
     draw_pbar_new (b, pbar_food[11], pbar_adjust_food(food_diff),
 		   pbar_adjust_food(pbar_food_olddiff));
     write_pbar_int (b, pbar_food[11]);
 
-/* Jobs */
+    /* Jobs */
     b = &scr.pbar_jobs;
     draw_pbar_new (b, pbar_jobs[11], pbar_adjust_jobs(jobs_diff),
 		   pbar_adjust_jobs(pbar_jobs_olddiff));
     write_pbar_int (b, pbar_jobs[11]);
 
-/* Coal */
+    /* Coal */
     b = &scr.pbar_coal;
     draw_pbar_new (b, pbar_coal[11], pbar_adjust_coal(coal_diff),
 		   pbar_adjust_coal(pbar_coal_olddiff));
     write_pbar_int (b, pbar_coal[11]);
 
-/* Goods */
+    /* Goods */
     b = &scr.pbar_goods;
     draw_pbar_new (b, pbar_goods[11], pbar_adjust_goods(goods_diff),
 		   pbar_adjust_goods(pbar_goods_olddiff));
     write_pbar_int (b, pbar_goods[11]);
 
-/* Ore */
+    /* Ore */
     b = &scr.pbar_ore;
     draw_pbar_new (b, pbar_ore[11], pbar_adjust_ore(ore_diff),
 		   pbar_adjust_ore(pbar_ore_olddiff));
     write_pbar_int (b, pbar_ore[11]);
 
-/* Steel */
+    /* Steel */
     b = &scr.pbar_steel;
     draw_pbar_new (b, pbar_steel[11], pbar_adjust_steel(steel_diff),
-		    pbar_adjust_steel(pbar_steel_olddiff));
+		   pbar_adjust_steel(pbar_steel_olddiff));
     write_pbar_int (b, pbar_steel[11]);
 
-/* Money */
+    /* Money */
     b = &scr.pbar_money;
     draw_pbar_new (b, pbar_money[11], pbar_adjust_money(money_diff),
 		   pbar_adjust_money(pbar_money_olddiff));
-    write_pbar_int (b, pbar_money[11]);
+    write_pbar_int (b, total_money);
 }
 
 /* XXX: WCK: I hate redundant code!  This could be made generic */
@@ -272,7 +273,6 @@ update_pbar_tech (int tech)
 void
 update_pbar_food (int food)
 {
-    
     int i, tot = 0;
 
     /* go on, it's only 11 :) */
@@ -283,7 +283,6 @@ update_pbar_food (int food)
 
     pbar_food_oldtot = tot;
     pbar_food_olddiff = food_diff;
-
 }
 
 void
@@ -376,7 +375,6 @@ update_pbar_money (int money)
     pbar_money_oldtot = tot;
     pbar_money_olddiff = money_diff;
 }
-
 
 
 int 
