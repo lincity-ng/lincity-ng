@@ -29,8 +29,6 @@ void dialog_close(int return_value);
 
 #define LINE_MIN_SPACING 10 /* Extra space on both sides of Line items */
 
-#define CHAR_HEIGHT 8 
-#define CHAR_WIDTH 8
 #define BUTTON_BORDER 2
 #define BUTTON_HEIGHT CHAR_HEIGHT + BUTTON_BORDER
 #define BUTTON_MIN_SPACING 8

@@ -6,6 +6,8 @@
 #ifndef __geometry_h__
 #define __geometry_h__
 
+#include "lin-city.h"
+
 struct rect_struct
 {
     int x;
@@ -126,6 +128,10 @@ void draw_ms_button (char* graphic);
 void draw_ms_text (char* txt);
 void draw_small_bezel (int x, int y, int w, int h, int colour);
 void draw_bezel (Rect r, short width, int color);
+
+/* Text width */
+#define CHAR_HEIGHT 8 
+#define CHAR_WIDTH 8
 
 /* Main window */
 #define MAIN_WIN_W 432
@@ -253,7 +259,7 @@ void draw_bezel (Rect r, short width, int color);
 #endif /* commentout */
 
 #define DATE_W                    112
-#define MONEY_W                   320
+#define MONEY_W                   32 * CHAR_WIDTH
 #define TIME_FOR_YEAR_X           320
 #define TIME_FOR_YEAR_Y           470
 #define SELECT_BUTTON_MESSAGE_X   MAIN_WIN_X
