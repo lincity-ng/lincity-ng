@@ -16,6 +16,9 @@
 class TextureManager
 {
 public:
+    virtual ~TextureManager()
+    {}
+    
     /** load an image file from disk and create a texture */
     virtual Texture* load(const std::string& filename) = 0;
     /** Create a texture from an SDL_Surface. This function takes ownership of

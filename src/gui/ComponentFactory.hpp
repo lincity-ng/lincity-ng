@@ -11,6 +11,9 @@ class XmlReader;
 class Factory
 {
 public:
+    virtual ~Factory()
+    { }
+    
     virtual Component* createComponent(XmlReader& reader) = 0;
 };
 
