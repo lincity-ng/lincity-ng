@@ -83,7 +83,7 @@ void
 num_to_ansi_unit(char * s, size_t size, long num, char unit) 
 {
   int triplets = 0;
-  float numf = (float)num;  
+  float numf = (float)num;
 
   while (numf > 1000) {
     numf /= 1000;
@@ -103,14 +103,12 @@ num_to_ansi_unit(char * s, size_t size, long num, char unit)
       
   if (size == 4)  /* to make up for format_pos_number4 */
     if (numf < 10) 
-      snprintf(s, size, "%1.1f%c%c", numf, triplets, unit);
+      snprintf(s, size, "%4.1f%c%c", numf, triplets, unit);
     else 
-      snprintf(s,size, "%3.0f%c%c", numf, triplets, unit);
+      snprintf(s,size, "%4.0f%c%c", numf, triplets, unit);
   else
-    snprintf(s, size, "%3.1f%c%c", numf, triplets, unit);
+    snprintf(s, size, "%5.1f%c%c", numf, triplets, unit);
 }
-
-
 
 void 
 format_pos_number4 (char* str, int num)

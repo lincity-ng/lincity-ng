@@ -17,6 +17,7 @@
 #include "mouse.h"
 #include "screen.h"
 #include "power.h"
+#include "lcintl.h"
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -899,11 +900,11 @@ void
 mps_substation_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Grid");
-  Fgl_write (mps->x, mps->y + 48, "Max");
-  Fgl_write (mps->x, mps->y + 56, "Avail");
-  Fgl_write (mps->x, mps->y + 64, "Demand");
-  Fgl_write (mps->x, mps->y + 72, "Here");
+  Fgl_write (mps->x, mps->y + 40, _("Grid"));
+  Fgl_write (mps->x, mps->y + 48, _("Max"));
+  Fgl_write (mps->x, mps->y + 56, _("Avail"));
+  Fgl_write (mps->x, mps->y + 64, _("Demand"));
+  Fgl_write (mps->x, mps->y + 72, _("Here"));
 }
 
 void
