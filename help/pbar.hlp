@@ -1,0 +1,28 @@
+text -1 50 This indicator is called the pbar.  It shows
+text -1 60 the change in quantity of things stored at markets.
+
+text -1 80 A green bar on the right side indicates an increase.
+text -1 90 A red bar on the left side indicates a decrease.
+text -1 100 The size of the bar indicates the amount of change.
+
+text -1 120 The number at the right indicates the total quantity.
+
+text 50 180 The things are as follows
+icon 50 190 pbarpop.csi
+text 75 195 Population
+icon 50 205 pbartech.csi
+text 75 210 Technology Level
+icon 50 220 pbarfood.csi
+text 75 225 Food
+icon 50 235 pbarjobs.csi
+text 75 240 Jobs
+icon 50 250 pbarcoal.csi
+text 75 255 Coal
+icon 50 265 pbarore.csi
+text 75 270 Ore
+icon 50 280 pbargoods.csi
+text 75 285 Goods
+icon 50 295 pbarsteel.csi
+text 75 300 Steel
+icon 50 310 pbarmoney.csi
+text 75 315 Money
