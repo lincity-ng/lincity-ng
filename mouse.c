@@ -1115,12 +1115,13 @@ do_mouse_other_buttons (int x, int y, int button)
     else if (mouse_in_rect (&scr.menu_button,x,y)) {
 	activate_help ("menu.hlp");
     }
-#if defined (commentout)
+
     /* this is the help button */
     else if (mouse_in_rect (&scr.help_button,x,y)) {
 	activate_help ("index.hlp");
     }
 
+#if defined (commentout)
     /* this is the save button */
     else if (mouse_in_rect (&scr.save_button,x,y)) {
 	if (load_flag == 0)

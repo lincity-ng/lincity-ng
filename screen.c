@@ -325,8 +325,11 @@ screen_setup (void)
 #endif
 
     /* Load and draw menu buttons */
+#if defined (commentout)
     menu_button_graphic = load_graphic ("menu-button.csi");
+#endif
     draw_menu ();
+    draw_help ();
 #if defined (commentout)
     load_button_graphic = load_graphic ("load-button.csi");
     draw_load ();
@@ -508,6 +511,7 @@ screen_full_refresh (void)
 	draw_main_window_box (green (8));
 
     draw_menu ();
+    draw_help ();
 #if defined (commentout)
     draw_load ();
     draw_save ();

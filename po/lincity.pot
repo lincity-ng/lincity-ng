@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-08-31 14:49-0400\n"
+"POT-Creation-Date: 2001-09-03 18:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -377,201 +377,201 @@ msgid "Creating pixmaps"
 msgstr ""
 
 #. this means we can't quit in help
-#: main.c:650
+#: main.c:657
 msgid "Quit The Game?"
 msgstr ""
 
-#: main.c:651
+#: main.c:658
 msgid "If you want to save the game select NO"
 msgstr ""
 
-#: main.c:652
+#: main.c:659
 msgid "here, then click on the save button."
 msgstr ""
 
-#: main.c:653
+#: main.c:660
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: main.c:684
+#: main.c:691
 msgid "TEST"
 msgstr ""
 
-#: main.c:684
+#: main.c:691
 msgid "You have pressed a test key"
 msgstr ""
 
-#: main.c:685
+#: main.c:692
 msgid "You will only see this message once"
 msgstr ""
 
-#: main.c:686
+#: main.c:693
 msgid "Do you really want to play in test mode..."
 msgstr ""
 
-#: main.c:698
+#: main.c:705
 msgid "TEST MODE!"
 msgstr ""
 
-#: main.c:743
+#: main.c:750
 #, c-format
 msgid "Can't open %s for writing, can't continue\n"
 msgstr ""
 
-#: main.c:752
+#: main.c:759
 #, c-format
 msgid "What!! can't open %s for reading after writing???\n"
 msgstr ""
 
-#: main.c:761
+#: main.c:768
 #, c-format
 msgid "Got mouse type: %d\n"
 msgstr ""
 
-#: main.c:785
+#: main.c:792
 #, c-format
 msgid "Unable to open %s\n"
 msgstr ""
 
-#: main.c:790
+#: main.c:797
 msgid "----- IN TEST MODE -------\n"
 msgstr ""
 
-#: main.c:791
+#: main.c:798
 #, c-format
 msgid "Game statistics from LinCity Version %s\n"
 msgstr ""
 
-#: main.c:793
+#: main.c:800
 #, c-format
 msgid "Initial loaded scene - %s\n"
 msgstr ""
 
-#: main.c:795
+#: main.c:802
 msgid "Economy is sustainable\n"
 msgstr ""
 
-#: main.c:796
+#: main.c:803
 #, c-format
 msgid "Population  %d  of which  %d  are not housed.\n"
 msgstr ""
 
-#: main.c:799
+#: main.c:806
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d\n"
 msgstr ""
 
-#: main.c:802
+#: main.c:809
 #, c-format
 msgid " Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"
 msgstr ""
 
-#: main.c:807
+#: main.c:814
 #, c-format
 msgid " Deaths by starvation %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:810
+#: main.c:817
 #, c-format
 msgid "Deaths from pollution %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:812
+#: main.c:819
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:814
+#: main.c:821
 #, c-format
 msgid "Rockets launched %2d  Successful launches %2d\n"
 msgstr ""
 
-#: main.c:817
+#: main.c:824
 #, c-format
 msgid "    Residences %4d         Markets %4d            Farms %4d\n"
 msgstr ""
 
-#: main.c:826
+#: main.c:833
 #, c-format
 msgid "        Tracks %4d           Roads %4d             Rail %4d\n"
 msgstr ""
 
-#: main.c:829
+#: main.c:836
 #, c-format
 msgid "     Potteries %4d     Blacksmiths %4d            Mills %4d\n"
 msgstr ""
 
-#: main.c:832
+#: main.c:839
 #, c-format
 msgid "     Monuments %4d         Schools %4d     Universities %4d\n"
 msgstr ""
 
-#: main.c:835
+#: main.c:842
 #, c-format
 msgid " Fire stations %4d           Parks %4d     Cricket gnds %4d\n"
 msgstr ""
 
-#: main.c:838
+#: main.c:845
 #, c-format
 msgid "    Coal mines %4d       Ore mines %4d         Communes %4d\n"
 msgstr ""
 
-#: main.c:841
+#: main.c:848
 #, c-format
 msgid "     Windmills %4d     Coal powers %4d     Solar powers %4d\n"
 msgstr ""
 
-#: main.c:845
+#: main.c:852
 #, c-format
 msgid "   Substations %4d     Power lines %4d            Ports %4d\n"
 msgstr ""
 
-#: main.c:848
+#: main.c:855
 #, c-format
 msgid "    Light inds %4d      Heavy inds %4d        Recyclers %4d\n"
 msgstr ""
 
-#: main.c:851
+#: main.c:858
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
 msgstr ""
 
-#: screen.c:1910
+#: screen.c:1932
 msgid "Market"
 msgstr ""
 
-#: screen.c:1912
+#: screen.c:1934
 msgid "Port"
 msgstr ""
 
-#: screen.c:1919
+#: screen.c:1941
 msgid "Buy"
 msgstr ""
 
-#: screen.c:1920
+#: screen.c:1942
 msgid "Sell"
 msgstr ""
 
-#: screen.c:1922
+#: screen.c:1944
 msgid "JOBS"
 msgstr ""
 
-#: screen.c:1924
+#: screen.c:1946
 msgid "FOOD"
 msgstr ""
 
-#: screen.c:1925
+#: screen.c:1947
 msgid "COAL"
 msgstr ""
 
-#: screen.c:1926
+#: screen.c:1948
 msgid "ORE"
 msgstr ""
 
-#: screen.c:1927
+#: screen.c:1949
 msgid "GOODS"
 msgstr ""
 
-#: screen.c:1928
+#: screen.c:1950
 msgid "STEEL"
 msgstr ""

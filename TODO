@@ -7,8 +7,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     - Mini-map help files
     - Help file for new power code
 
-  o Remove multiplayer options from default compilation.
-
   o Need to compress and expand translation files and add installation hooks
     so that only desired translations get installed.
 
@@ -18,6 +16,11 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+
+  o Multi transport status is not cleared when MT is done.
+    Also, does MT status include bulldozing costs???
+
+  o Screen gets messed up when resizing during dialog box.
 
   o There still seems to be a problem with putting multi-transport off 
     the bottom of the screen.
@@ -82,6 +85,8 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
   o Extra keystroke required when market checkbox is up.
 
   o Like to have info pages and/or printed documentation.
+
+  o Remove multiplayer options from default compilation.
 
   o Pressing quit doesn't work before city is loaded.
 

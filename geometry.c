@@ -320,8 +320,10 @@ resize_geometry (int new_width, int new_height)
     scr.mini_map.x = scr.mini_map_aux.x 
 	    + ((scr.mini_map_aux.w - scr.mini_map.w) / 2);
 
-    scr.results_button.x = scr.client_w - 32;
-    scr.results_button.y = scr.client_h - 16;
+    scr.help_button.x = scr.client_w - 56;
+    scr.help_button.y = scr.client_h - 24;
+    scr.results_button.x = scr.client_w - 2*56;
+    scr.results_button.y = scr.client_h - 24;
 
     /* Complete refresh of the screen required here */
     screen_full_refresh ();
@@ -491,14 +493,6 @@ draw_menu (void)
 
     Fgl_fillbox (b->x, b->y, b->w, b->h, white(20));
     Fgl_fillbox (b->x+5, b->y+4, b->w-10, b->h-5, menu_bg_color);
-    /*
-    Fgl_hline (b->x, b->y, b->x + b->w, 255);
-    Fgl_line (b->x, b->y, b->x, b->y + b->h-1, 255);
-    Fgl_hline (b->x, b->y + b->h-1, b->x + b->w, 0);
-    Fgl_line (b->x + b->w, b->y, b->x + b->w, b->y + b->h-1, 0);
-    Fgl_hline (b->x+1, b->y + b->h-2, b->x + b->w-1, 240);
-    Fgl_line (b->x + b->w-1, b->y+1, b->x + b->w-1, b->y + b->h-2, 240);
-    */
     
     Fgl_hline (b->x+5, b->y+4, b->x + b->w-5, white(8));
     Fgl_line (b->x+5, b->y+4, b->x+5, b->y + b->h-2, white(8));
@@ -507,6 +501,56 @@ draw_menu (void)
 
     Fgl_setfontcolors (menu_bg_color,menu_fg_color);
     Fgl_write (b->x + 12, b->y + 9, _("Menu"));
+    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+}
+
+void 
+draw_help (void)
+{
+    /*    int menu_bg_color = white(20);*/
+    /*    int menu_bg_color = TEXT_BG_COLOUR; */
+    /*    int menu_bg_color = 14;*/
+    /*    int menu_fg_color = TEXT_FG_COLOUR;*/
+    int menu_bg_color = 80;
+    int menu_fg_color = 226;
+
+    Rect* b = &scr.help_button;
+
+    Fgl_fillbox (b->x, b->y, b->w, b->h, white(20));
+    Fgl_fillbox (b->x+5, b->y+4, b->w-10, b->h-5, menu_bg_color);
+    
+    Fgl_hline (b->x+5, b->y+4, b->x + b->w-5, white(8));
+    Fgl_line (b->x+5, b->y+4, b->x+5, b->y + b->h-2, white(8));
+    Fgl_hline (b->x+5, b->y + b->h-2, b->x + b->w-5, white(8));
+    Fgl_line (b->x + b->w-5, b->y+4, b->x + b->w-5, b->y + b->h-2, white(8));
+
+    Fgl_setfontcolors (menu_bg_color,menu_fg_color);
+    Fgl_write (b->x + 12, b->y + 9, _("Help"));
+    Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+}
+
+void 
+draw_results (void)
+{
+    /*    int menu_bg_color = white(20);*/
+    /*    int menu_bg_color = TEXT_BG_COLOUR; */
+    /*    int menu_bg_color = 14;*/
+    /*    int menu_fg_color = TEXT_FG_COLOUR;*/
+    int menu_bg_color = 80;
+    int menu_fg_color = 226;
+
+    Rect* b = &scr.results_button;
+
+    Fgl_fillbox (b->x, b->y, b->w, b->h, white(20));
+    Fgl_fillbox (b->x+5, b->y+4, b->w-10, b->h-5, menu_bg_color);
+    
+    Fgl_hline (b->x+5, b->y+4, b->x + b->w-5, white(8));
+    Fgl_line (b->x+5, b->y+4, b->x+5, b->y + b->h-2, white(8));
+    Fgl_hline (b->x+5, b->y + b->h-2, b->x + b->w-5, white(8));
+    Fgl_line (b->x + b->w-5, b->y+4, b->x + b->w-5, b->y + b->h-2, white(8));
+
+    Fgl_setfontcolors (menu_bg_color,menu_fg_color);
+    Fgl_write (b->x + 12, b->y + 9, _("Stats"));
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 }
 
@@ -538,7 +582,6 @@ draw_help (void)
     Rect* b = &scr.help_button;
     Fgl_putbox (b->x, b->y, 32, 32, help_button_graphic);
 }
-#endif
 
 void 
 draw_results (void)
@@ -547,6 +590,7 @@ draw_results (void)
     Fgl_putbox (b->x, b->y, 16, 16, results_button1);
     Fgl_putbox (b->x + 16, b->y, 16, 16, results_button2);
 }
+#endif
 
 void
 draw_select_button_graphic (int button, char *graphic)
