@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <string>
+#include <map>
 
 #include "Color.hpp"
 
@@ -14,8 +15,8 @@ public:
     Style();
     ~Style();
 
-    void parseStyleAttributes(XmlReader& reader);
-    bool parseStyleAttribute(const char* name, const char* value);
+    void parseAttributes(XmlReader& reader);
+    bool parseAttribute(const char* name, const char* value);
     
     std::string font_family;
     bool italic;
@@ -35,6 +36,9 @@ public:
 private:
     Color parseColor(const char* value);
 };
+
+extern std::map<std::string, Style> styleRegistry;
+void parseStyleDef(XmlReader& reader);
 
 #endif
 

@@ -13,21 +13,16 @@ public:
     Desktop(Component* parent, XmlReader& reader);
     virtual ~Desktop();
 
-    virtual void resize(float width, float height);
-    virtual void draw(Painter& painter);
-    virtual void event(Event& event);
+    void resize(float width, float height);
+    void event(const Event& event);
 
     Vector2 getPos(Component* component);
     void move(Component* component, Vector2 pos);
     void remove(Component* component);
     
 private:
-    void removeComponents();
     void internal_remove(Component* component);
     
-    typedef std::vector<ComponentHolder<Component>* > Components;
-    Components components;
-
     std::vector<Component*> removeQueue;
 };
 

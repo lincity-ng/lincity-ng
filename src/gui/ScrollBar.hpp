@@ -14,21 +14,22 @@ public:
     ScrollBar(Component* parent, XmlReader& reader);
     virtual ~ScrollBar();
 
-    virtual void resize(float width, float height);
-    virtual void draw(Painter& painter);
-    virtual void event(Event& event);
+    void resize(float width, float height);
+    void draw(Painter& painter);
+    void event(const Event& event);
 
     void setRange(float min, float max);
 
     sigc::signal<void, ScrollBar*, float> signalValueChanged;
 
 private:
-    void setScrollPos();
+    Child& button1()
+    { return childs[0]; }
+    Child& button2()
+    { return childs[1]; }
+    Child& scroller()
+    { return childs[2]; }
     
-    ComponentHolder<Button> button1;
-    ComponentHolder<Button> button2;
-    ComponentHolder<Button> scroller;
-
     float minVal;
     float maxVal;
     float currentVal;

@@ -51,7 +51,8 @@ void initVideo(int width = 800, int height = 600)
 void mainLoop()
 {
     std::auto_ptr<Painter> painter (new Painter(SDL_GetVideoSurface()));
-    std::auto_ptr<Component> component (loadGUIFile("gui/app.xml"));
+    //std::auto_ptr<Component> component (loadGUIFile("gui/app.xml"));
+    std::auto_ptr<Component> component(loadGUIFile("gui/mainmenu.xml"));
     component->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 
     SDL_Event event;
@@ -91,7 +92,7 @@ void mainLoop()
     }
 }
 
-int main(int argc, char** argv)
+int main(int , char** )
 {
     int result = 0;
 

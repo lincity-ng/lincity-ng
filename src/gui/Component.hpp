@@ -2,8 +2,11 @@
 #define __COMPONENT_H__
 
 #include <SDL.h>
+#include <vector>
 #include <string>
+#include <assert.h>
 #include "Rectangle.hpp"
+#include "Child.hpp"
 
 class Painter;
 class Event;
@@ -41,15 +44,19 @@ public:
     Component(Component* parent);
     virtual ~Component();
 
-    virtual void draw(Painter& painter) = 0;
-    virtual void event(Event& event) = 0;
-    virtual void resize(float width, float height)
-    {}
+    virtual void draw(Painter& painter);
+    virtual void event(const Event& event);
+    virtual void resize(float width, float height);
 
-    virtual float getWidth() const
+    float getWidth() const
     {
         return width;
     }
+
+    float getHeight() const
+    {
+        return height;
+    }                          
 
     const std::string& getName() const
     {
@@ -61,11 +68,6 @@ public:
         this->name = name;
     }
     
-    virtual float getHeight() const
-    {
-        return height;
-    }
-
     /** returns the component flags (this is a bitfield) */
     int getFlags() const
     {
@@ -73,12 +75,19 @@ public:
     }
 
     /** returns the parent component or 0 if the component has no parent */
-    Component* getParent()
+    Component* getParent() const
     {
         return parent;
     }
+    Component* findComponent(const std::string& name);
 
 protected:
+    Childs childs;
+
+    Child& addChild(Component* component);
+    void drawChild(Child& child, Painter& painter);
+    void eventChild(Child& child, const Event& event);
+    
     /**
      * used to parse attributes (from an xml stream for example). Currently
      * parses only the name attribute

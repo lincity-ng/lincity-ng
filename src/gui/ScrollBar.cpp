@@ -33,22 +33,30 @@ ScrollBar::ScrollBar(Component* parent, XmlReader& reader)
         }
     }
 
+    // we have 3 child components
+    while(childs.size() < 3)
+        childs.push_back(Child());
+
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string element = (const char*) reader.getName();
             if(element == "button1") {
-                button1.setComponent(new Button(this, reader));
+                button1().setComponent(new Button(this, reader));
             } else if(element == "button2") {
-                button2.setComponent(new Button(this, reader));
+                button2().setComponent(new Button(this, reader));
             } else if(element == "scroller") {
-                scroller.setComponent(new Button(this, reader));
+                scroller().setComponent(new Button(this, reader));
             } else {
                 std::cerr << "Skipping unknown element '"
                     << element << "'.\n";
                 reader.nextNode();
             }
         }
+    }
+    if(scroller().getComponent() == 0 || button1().getComponent() == 0
+            || button2().getComponent() == 0) {
+        throw std::runtime_error("Not all components specified for scrollbar.");
     }
 
     setFlags(getFlags() | FLAG_RESIZABLE);
@@ -61,40 +69,38 @@ ScrollBar::~ScrollBar()
 void
 ScrollBar::resize(float newwidth, float newheight)
 {
+    (void) newwidth;
+
     // ensure a minimum height...
-    if(newheight < width*2 + scroller.getComponent()->getHeight())
-        newheight = width*2 + scroller.getComponent()->getHeight();
-    
+    float minHeight = scroller().getComponent()->getHeight()
+        + button1().getComponent()->getHeight()
+        + button2().getComponent()->getHeight()
+        + 32;
+    if(newheight < minHeight)
+        newheight = minHeight; 
     this->height = newheight;
 
-    button1.setPos(Vector2(0, 0));
-    button2.setPos(Vector2(0, height - button2.getComponent()->getHeight()));
+    button1().setPos(Vector2(0, 0));
+    button2().setPos(Vector2(0, height-button2().getComponent()->getHeight()));
     // TODO correctly set scroller pos...
-    scroller.setPos(Vector2(0, button1.getComponent()->getHeight()));
-}
-
-void
-ScrollBar::setScrollPos()
-{
+    scroller().setPos(Vector2(0, button1().getComponent()->getHeight()));
 }
 
 void
 ScrollBar::draw(Painter& painter)
 {
     // TODO draw rectangle around scrollbar...
-    button1.draw(painter);
-    button2.draw(painter);
-    scroller.draw(painter);
+    Component::draw(painter);
 }
 
 void
-ScrollBar::event(Event& event)
+ScrollBar::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEBUTTONDOWN:
-            if(scroller.inside(event.mousepos)) {
+            if(scroller().inside(event.mousepos)) {
                 scrolling = true;
-                scrollOffset = event.mousepos.y - scroller.getPos().y;
+                scrollOffset = event.mousepos.y - scroller().getPos().y;
             }
             break;
             
@@ -107,19 +113,21 @@ ScrollBar::event(Event& event)
                 break;
             
             float val = event.mousepos.y - scrollOffset;
-            if(val < button1.getComponent()->getHeight())
-                val = button1.getComponent()->getHeight();
-            if(val > button2.getPos().y - scroller.getComponent()->getHeight())
-                val = button2.getPos().y - scroller.getComponent()->getHeight();
-            scroller.setPos(Vector2(0, val));
+            if(val < button1().getComponent()->getHeight())
+                val = button1().getComponent()->getHeight();
+            if(val > button2().getPos().y 
+                    - scroller().getComponent()->getHeight())
+                val = button2().getPos().y 
+                    - scroller().getComponent()->getHeight();
+            scroller().setPos(Vector2(0, val));
 
             // map val to scrollrange...
             float scrollScreenRange = height 
-                - button1.getComponent()->getHeight()
-                - button2.getComponent()->getHeight()
-                - scroller.getComponent()->getHeight();
+                - button1().getComponent()->getHeight()
+                - button2().getComponent()->getHeight()
+                - scroller().getComponent()->getHeight();
             float scrollScreenRatio 
-                = (val - button1.getComponent()->getHeight()) /
+                = (val - button1().getComponent()->getHeight()) /
                         scrollScreenRange;
             float newScrollVal = minVal + 
                 ((maxVal - minVal) * scrollScreenRatio);
@@ -130,10 +138,8 @@ ScrollBar::event(Event& event)
         default:
             break;
     }
-    
-    button1.event(event);
-    button2.event(event);
-    scroller.event(event);
+
+    Component::event(event);
 }
 
 void

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<gui>
+    <DefineStyle name="normal" color="blue" font-size="30"/>
+    <DefineStyle name="hover" color="red" font-size="30"/>
+    <DefineStyle name="clicked" color="red" font-size="30" margin-left="5" margin-top="5"/>
+    <Image src="images/mainmenu/menu_back.png"/>
+    <TableLayout rows="6" cols="2">
+        <colsize col="1" relative="1"/>
+        <colsize col="2" relative="1"/>
+        <rowsize row="1" relative="2"/>
+        <rowsize row="2" relative="1"/>
+        <rowsize row="3" relative="1"/>
+        <rowsize row="4" relative="1"/>
+        <rowsize row="5" relative="1"/>
+        <rowsize row="6" relative="1.5"/>
+        <cell row="2" col="2">
+            <Button name="NewGameButton">
+                <text translatable="yes" style="normal">New Game</text>
+                <text-hover translatable="yes" style="hover">New Game</text-hover>
+                <text-clicked translatable="yes" style="clicked">New Game</text-clicked>
+            </Button>
+        </cell>
+        <cell row="3" col="2">
+            <Button name="ContinueButton">
+                <text translatable="yes" style="normal">Continue</text>
+                <text-hover translatable="yes" style="hover">Continue</text-hover>
+                <text-clicked translatable="yes" style="clicked">Continue</text-clicked>            
+            </Button>
+        </cell>
+        <cell row="4" col="2">
+            <Button name="LoadButton">
+                <text translatable="yes" style="normal">Load</text>
+                <text-hover translatable="yes" style="hover">Load</text-hover>
+                <text-clicked translatable="yes" style="clicked">Load</text-clicked>                        
+            </Button>
+        </cell>
+        <cell row="5" col="2">
+            <Button name="CreditsButton">
+                <text translatable="yes" style="normal">Credits</text>
+                <text-hover translatable="yes" style="hover">Credits</text-hover>
+                <text-clicked translatable="yes" style="clicked">Credits</text-clicked>                        
+            </Button>
+        </cell>
+        <cell row="6" col="2">
+            <Button name="QuitButton">
+                <text translatable="yes" style="normal">Quit</text>
+                <text-hover translatable="yes" style="hover">Quit</text-hover>
+                <text-clicked translatable="yes" style="clicked">Quit</text-clicked>            
+            </Button>
+        </cell>
+    </TableLayout>
+</gui>
+

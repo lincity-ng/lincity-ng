@@ -22,6 +22,8 @@ class LCPBar:public Component//AGTable
  public:
   LCPBar(Component *widget,XmlReader &reader):Component(widget)
     {
+      (void) reader;
+      (void) widget;
       /*
       int i;
       for(i=0;i<2;i++)
@@ -48,6 +50,8 @@ class LCPBar:public Component//AGTable
 
     void setValue(int num,int value)
     {
+      (void) num;
+      (void) value;
       /*
       if(num<mValues.size())
 	{

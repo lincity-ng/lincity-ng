@@ -2,6 +2,10 @@
 #include "XmlReader.hpp"
 
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
+
+std::map<std::string, Style> styleRegistry;
 
 Style::Style()
     : italic(false), bold(false), font_size(20),
@@ -17,7 +21,7 @@ Style::~Style()
 }
 
 void
-Style::parseStyleAttributes(XmlReader& reader)
+Style::parseAttributes(XmlReader& reader)
 {
     XmlReader::AttributeIterator iter(reader);
 
@@ -25,7 +29,7 @@ Style::parseStyleAttributes(XmlReader& reader)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(!parseStyleAttribute(attribute, value)) {
+        if(!parseAttribute(attribute, value)) {
             std::cerr << "Skipping unknown style attribute '"
                 << attribute << "'.\n";
         }
@@ -33,9 +37,17 @@ Style::parseStyleAttributes(XmlReader& reader)
 }
 
 bool
-Style::parseStyleAttribute(const char* attribute, const char* value)
+Style::parseAttribute(const char* attribute, const char* value)
 {
-    if(strcmp(attribute, "font-size") == 0) {
+    if(strcmp(attribute, "style") == 0) {
+        std::map<std::string, Style>::iterator i = styleRegistry.find(value);
+        if(i == styleRegistry.end()) {
+            std::stringstream msg;
+            msg << "No style with name '" << value << "' defined.";
+            throw std::runtime_error(msg.str());
+        }
+        *this = i->second;
+    } else if(strcmp(attribute, "font-size") == 0) {
         if(sscanf(value, "%f", &font_size) != 1) {
             std::cerr << "Warning problem parsing size '" <<
                 value << "'\n";
@@ -120,5 +132,32 @@ Style::parseStyleAttribute(const char* attribute, const char* value)
     }
 
     return true;
+}
+
+void parseStyleDef(XmlReader& reader)
+{
+    Style style;
+    std::string name;
+    XmlReader::AttributeIterator iter(reader);
+
+    while(iter.next()) {
+        const char* attribute = (const char*) iter.getName();
+        const char* value = (const char*) iter.getValue();
+
+        if(style.parseAttribute(attribute, value)) {
+            continue;
+        } else if(strcmp(attribute, "name") == 0) {
+            name = value;
+        } else {
+            std::cerr << "Unknown attribute '" << attribute
+                << "' in style definition.\n";
+        }
+    }
+    
+    reader.nextNode();
+    
+    if(name == "")
+        throw std::runtime_error("Missing name in style definition");
+    styleRegistry.insert(std::make_pair(name, style));
 }
 

@@ -68,9 +68,6 @@ Component* parseEmbeddedComponent(Component* parent, XmlReader& reader)
                 }
             }
         }
-        if(component == 0) {
-            std::cerr << "Warning: "
-                 << "No Component specified window title/buttons or contents\n";        }
     } catch(...) {
         delete component;
         throw;

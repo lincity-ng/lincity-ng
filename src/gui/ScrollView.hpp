@@ -14,14 +14,14 @@ public:
     virtual ~ScrollView();
 
     void resize(float width, float height);
-    void draw(Painter& painter);
-    void event(Event& event);
 
 private:
     void scrollBarChanged(ScrollBar* bar, float newvalue);
-    
-    ComponentHolder<ScrollBar> scrollBar;
-    ComponentHolder<Component> contents;
+
+    Child& contents()
+    { return childs[0]; }
+    Child& scrollBar()
+    { return childs[1]; }
 };
 
 #endif

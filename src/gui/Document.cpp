@@ -16,8 +16,6 @@ Document::Document(Component* parent, XmlReader& reader)
 
 Document::~Document()
 {
-    for(Components::iterator i = components.begin(); i != components.end(); ++i)
-        delete *i;
 }
 
 void
@@ -30,7 +28,7 @@ Document::parse(XmlReader& reader)
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(style.parseStyleAttribute(attribute, value))
+        if(style.parseAttribute(attribute, value))
             continue;
         if(strcmp(attribute, "src") == 0) {
             XmlReader fileReader(value);
@@ -48,7 +46,7 @@ Document::parse(XmlReader& reader)
             std::string node = (const char*) reader.getName();
             if(node == "p") {
                 Paragraph* paragraph = new Paragraph(this, reader, style);
-                components.push_back(paragraph);
+                addChild(paragraph);
             } else {
                 std::cerr << "Skipping unknown node type '" << node << "'.\n";
                 reader.nextNode();
@@ -63,40 +61,17 @@ Document::parse(XmlReader& reader)
 }
 
 void
-Document::resize(float newwidth, float newheight)
+Document::resize(float newwidth, float )
 {
     height = 0;
-    for(Components::iterator i = components.begin();
-            i != components.end(); ++i) {
-        Component* component = *i;
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        Child& child = *i;
+        Component* component = child.getComponent();
         component->resize(newwidth, -1);
+        child.position = Vector2(0, height);
         height += component->getHeight();
     }
     width = newwidth;
-}
-
-void
-Document::draw(Painter& painter)
-{
-    painter.setFillColor(style.background);
-    painter.fillRectangle(Rectangle(0, 0, width, height));
-    
-    Vector2 translation;    
-    for(Components::iterator i = components.begin();
-            i != components.end(); ++i) {
-        Component* component = *i;
-        
-        painter.pushTransform();
-        painter.translate(translation);
-        component->draw(painter);
-        painter.popTransform();
-        translation.y += component->getHeight();
-    }
-}
-
-void
-Document::event(Event& event)
-{
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Document);

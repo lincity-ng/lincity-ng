@@ -206,7 +206,6 @@ if not os.path.exists("build_config.py") or not os.path.exists("config.h"):
 
     env = conf.Finish()
 
-    env.ParseConfig('sdl-config --cflags --libs')
     opts.Save("build_config.py", env)
     header.Save("config.h")
 else:
@@ -215,10 +214,10 @@ else:
 if env['VARIANT'] == "optimize":
     env.Append(CXXFLAGS = "-O2 -g -Wall")
 elif env['VARIANT'] == "debug":
-    env.Append(CXXFLAGS = "-O0 -g3 -Wall")
+    env.Append(CXXFLAGS = "-O0 -g3 -Wall -W")
     env.Append(CPPDEFINES = { "DEBUG":"1" })
 elif env['VARIANT'] == "profile":
-    env.Append(CXXFLAGS = "-pg -O2")
+    env.Append(CXXFLAGS = "-pg -O2 -Wall -W")
 
 build_dir="build/" + env['PLATFORM'] + "/" + env['VARIANT']
 

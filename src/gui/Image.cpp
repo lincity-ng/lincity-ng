@@ -57,9 +57,4 @@ Image::draw(Painter& painter)
     painter.drawTexture(texture.get(), Rectangle(0, 0, width, height));
 }
 
-void
-Image::event(Event& event)
-{
-}
-
 IMPLEMENT_COMPONENT_FACTORY(Image)

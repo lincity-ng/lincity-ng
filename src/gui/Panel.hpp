@@ -15,10 +15,8 @@ public:
     virtual ~Panel();
 
     void draw(Painter& painter);
-    void event(Event& event);
 
 private:
-    ComponentHolder<Component> contents;
     std::auto_ptr<Texture> background;
 };
 

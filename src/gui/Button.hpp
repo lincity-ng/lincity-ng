@@ -2,6 +2,7 @@
 #define __BUTTON_HPP__
 
 #include "Component.hpp"
+#include "ComponentHolder.hpp"
 #include <sigc++/signal.h>
 
 class XmlReader;
@@ -20,8 +21,8 @@ public:
     Button(Component* parent, XmlReader& reader);
     virtual ~Button();
 
-    virtual void draw(Painter& painter);
-    virtual void event(Event& event);
+    void draw(Painter& painter);
+    void event(const Event& event);
 
     sigc::signal<void, Button*> signalClicked;
 
@@ -34,11 +35,15 @@ private:
         STATE_CLICKED
     };
     State state;
-   
-    std::auto_ptr<Texture> normal;
-    std::auto_ptr<Texture> hover;
-    std::auto_ptr<Texture> clicked;
-    std::auto_ptr<Texture> caption;
+
+    Child& normal()
+    { return childs[0]; }
+    Child& hover()
+    { return childs[1]; }
+    Child& clicked()
+    { return childs[2]; }
+    Child& caption()
+    { return childs[3]; }
 };
 
 #endif

@@ -16,12 +16,8 @@ public:
     void parse(XmlReader& reader);
 
     virtual void resize(float width, float height);
-    virtual void draw(Painter& painter);
-    virtual void event(Event& event);
 
     Style style;
-    typedef std::vector<Component*> Components;
-    Components components;
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "XmlReader.hpp"
 #include "ComponentFactory.hpp"
 #include "ComponentLoader.hpp"
+#include "Style.hpp"
 
 Desktop::Desktop(Component* parent, XmlReader& reader)
     : Component(parent)
@@ -22,53 +23,29 @@ Desktop::Desktop(Component* parent, XmlReader& reader)
         }
     }
 
-    try {
-        int depth = reader.getDepth();
-        while(reader.read() && reader.getDepth() > depth) {
-            if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-                std::string element = (const char*) reader.getName();
+    int depth = reader.getDepth();
+    while(reader.read() && reader.getDepth() > depth) {
+        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
+            std::string element = (const char*) reader.getName();
 
+            if(element == "DefineStyle") {
+                parseStyleDef(reader);
+            } else {
                 Component* component = createComponent(element, this, reader);
-                components.push_back(new ComponentHolder<Component> (component));
+                addChild(component);
             }
         }
-    } catch(...) {
-        removeComponents();
-        throw;
     }
 }
 
 Desktop::~Desktop()
 {
-    removeComponents();
 }
 
 void
-Desktop::removeComponents()
+Desktop::event(const Event& event)
 {
-    for(Components::iterator i = components.begin(); i != components.end(); ++i)
-        delete *i;
-    components.clear();
-}
-
-void
-Desktop::draw(Painter& painter)
-{
-    for(Components::iterator i = components.begin();
-            i != components.end(); ++i) {
-        ComponentHolder<Component>* holder = *i;
-        holder->draw(painter);
-    }
-}
-
-void
-Desktop::event(Event& event)
-{
-    for(Components::iterator i = components.begin();
-            i != components.end(); ++i) {
-        ComponentHolder<Component>* holder = *i;
-        holder->event(event);
-    }
+    Component::event(event);
 
     // process pending remove events...
     for(std::vector<Component*>::iterator i = removeQueue.begin();
@@ -81,11 +58,10 @@ Desktop::event(Event& event)
 void
 Desktop::resize(float width, float height)
 {
-    for(Components::iterator i = components.begin();
-            i != components.end(); ++i) {
-        ComponentHolder<Component>* holder = *i;
-        if(holder->getComponent()->getFlags() & FLAG_RESIZABLE)
-            holder->resize(width, height);      
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        Component* component = i->getComponent();
+        if(component->getFlags() & FLAG_RESIZABLE)
+            component->resize(width, height);
     }
     this->width = width;
     this->height = height;
@@ -94,20 +70,19 @@ Desktop::resize(float width, float height)
 Vector2
 Desktop::getPos(Component* component)
 {
-    // find componentholder...
-    ComponentHolder<Component>* holder = 0;
-    for(Components::iterator i = components.begin();
-            i != components.end(); ++i) {
-        if((*i)->getComponent() == component) {
-            holder = *i;
+    // find child
+    Child* child = 0;
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        if(i->getComponent() == component) {
+            child = &(*i);
             break;
         }
     }
-    if(holder == 0)
+    if(child == 0)
         throw std::runtime_error(
                 "Trying to getPos a component that is not a direct child");
 
-    return holder->getPos();
+    return child->position;
 }
 
 void
@@ -116,19 +91,18 @@ Desktop::move(Component* component, Vector2 newpos)
     if(component->getFlags() & FLAG_RESIZABLE)
         throw std::runtime_error("Can't move resizable components around");
 
-    // find componentholder...
-    ComponentHolder<Component>* holder = 0;
-    for(Components::iterator i = components.begin();
-            i != components.end(); ++i) {
-        if((*i)->getComponent() == component) {
-            holder = *i;
+    // find child
+    Child* child = 0;
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        if(i->getComponent() == component) {
+            child = &(*i);
             break;
         }
     }
-    if(holder == 0)
+    if(child == 0)
         throw std::runtime_error(
-                "Trying to move a component that is not a direct child");
-
+                "Trying to getPos a component that is not a direct child");
+    
     // keep component in bounds...
     if(newpos.x + component->getWidth() > width)
         newpos.x = width - component->getWidth();
@@ -139,7 +113,7 @@ Desktop::move(Component* component, Vector2 newpos)
     if(newpos.y < 0)
         newpos.y = 0;
 
-    holder->setPos(newpos);
+    child->position = newpos;
 }
 
 void
@@ -151,12 +125,10 @@ Desktop::remove(Component* component)
 void
 Desktop::internal_remove(Component* component)
 {
-    // find componentholder...
-    for(Components::iterator i = components.begin();
-            i != components.end(); ++i) {
-        if((*i)->getComponent() == component) {
-            components.erase(i);
-            delete component;
+    // find child
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        if(i->getComponent() == component) {
+            childs.erase(i);
             return;
         }
     }

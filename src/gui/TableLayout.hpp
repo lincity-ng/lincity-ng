@@ -33,25 +33,26 @@ public:
     TableLayout(Component* parent, XmlReader& reader);
     ~TableLayout();
 
-    void draw(Painter& painter);
-    void event(Event& event);
     void resize(float width, float height);
 
     struct RowColProperties
     {
         RowColProperties()
-            : type(RELATIVE), val(1)
+            : type(RELATIVE), alignment(CENTER), val(1)
         {
         }
 
         enum Type { FIXEDSIZE, RELATIVE };
+        enum Alignment { LEFT = 0, CENTER = 1, RIGHT = 2,
+                         TOP = 0, BOTTOM = 2 };
         Type type;
+        Alignment alignment;
         float val;
         float realval;
     };
     void addRow(const RowColProperties& props);
     void addColumn(const RowColProperties& props);
-    void setComponent(size_t col, size_t row, Component* component);
+    void addComponent(size_t col, size_t row, Component* component);
 
 private:
     void removeComponents();
@@ -61,8 +62,8 @@ private:
     Properties rowproperties;
     Properties colproperties;
 
-    typedef std::vector<Component*> Childs;
-    Childs childs;
+    typedef std::vector<int> Cells;
+    Cells cells;
 };
 
 #endif

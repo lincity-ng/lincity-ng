@@ -13,7 +13,7 @@ void pbars_full_refresh (void)
 void
 update_pbar (int pbar_num, int value, int month_flag)
 {
-
+  (void) month_flag;
   //  TRACE;
   //  cdebug(pbar_num<<":"<<value<<":"<<month_flag);
   if(LCPBarInstance)

@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <iostream>
+#include <typeinfo>
 
 #include "Painter.hpp"
 #include "Event.hpp"
@@ -41,85 +42,81 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
     
     rowproperties.assign(rows, RowColProperties());
     colproperties.assign(cols, RowColProperties());
-    childs.assign(rows*cols, (Component*) 0);
+    cells.assign(rows*cols, -1);
     
-    try {
-        int depth = reader.getDepth();
-        while(reader.read() && reader.getDepth() > depth) {
-            if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-                const std::string& element = (const char*) reader.getName();
-                if(element == "rowsize") {
-                    RowColProperties props;
-                    int num = parseProperties(reader, props) - 1;
-                    if(num < 0 || num >= rows) {
-                        std::cerr 
-                            << "Invalid row specified in rowsize element.\n";
-                        continue;
-                    }
-                    rowproperties[num] = props;
-                } else if(element == "colsize") {
-                    RowColProperties props;
-                    int num = parseProperties(reader, props) - 1;
-                    if(num < 0 || num >= rows) {
-                        std::cerr 
-                            << "Invalid col specified in colsize element.\n";
-                        continue;
-                    }
-                    colproperties[num] = props;
-                } else if(element == "cell") {
-                    int row = -1, col = -1;
-                    XmlReader::AttributeIterator iter(reader);
-                    while(iter.next()) {
-                        const char* name = (const char*) iter.getName();
-                        const char* value = (const char*) iter.getValue();
-
-                        if(strcmp(name, "row") == 0) {
-                            if(sscanf(value, "%d", &row) != 1) {
-                                std::cerr << "Couldn't parse integer value '"
-                                    << value << "' in row attribute.\n";
-                            }
-                        } else if(strcmp(name, "col") == 0) {
-                            if(sscanf(value, "%d", &col) != 1) {
-                                std::cerr << "Couldn't parse integer value '"
-                                    << value << "' in col attribute.\n";
-                            }
-                        } else {
-                            std::cerr << "Unknown attribute '" << name
-                                << "' in cell element.\n";
-                        }
-                    }
-                    row--;
-                    col--;
-                    if(row < 0 || row >= rows) {
-                        std::cerr 
-                            << "Skipping cell because row value is invalid.\n";
-                        continue;
-                    }
-                    if(col < 0 || col >= cols) {
-                        std::cerr
-                            << "Skipping cell because col value is invalid.\n";
-                        continue;
-                    }
-                    
-                    Component* component = parseEmbeddedComponent(this, reader);
-                    if(component == 0) {
-                        std::cerr << "No Component specified in cell "
-                            << (row+1) << ", " << (col+1) << "\n";
-                        continue;
-                    }
-                    childs[row*cols + col] = component;
-                } else {
-                    std::cerr << "Unknown element '" << element 
-                        << "' in TableLayout.\n";
-                    reader.nextNode();
+    int depth = reader.getDepth();
+    while(reader.read() && reader.getDepth() > depth) {
+        if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
+            const std::string& element = (const char*) reader.getName();
+            if(element == "rowsize") {
+                RowColProperties props;
+                int num = parseProperties(reader, props) - 1;
+                if(num < 0 || num >= rows) {
+                    std::cerr 
+                        << "Invalid row specified in rowsize element.\n";
                     continue;
                 }
-            }   
-        }
-    } catch(...) {
-        for(Childs::iterator i = childs.begin(); i != childs.end(); ++i)
-            delete *i;
-        throw;
+                rowproperties[num] = props;
+            } else if(element == "colsize") {
+                RowColProperties props;
+                int num = parseProperties(reader, props) - 1;
+                if(num < 0 || num >= rows) {
+                    std::cerr 
+                        << "Invalid col specified in colsize element.\n";
+                    continue;
+                }
+                colproperties[num] = props;
+            } else if(element == "cell") {
+                int row = -1, col = -1;
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next()) {
+                    const char* name = (const char*) iter.getName();
+                    const char* value = (const char*) iter.getValue();
+
+                    if(strcmp(name, "row") == 0) {
+                        if(sscanf(value, "%d", &row) != 1) {
+                            std::cerr << "Couldn't parse integer value '"
+                                << value << "' in row attribute.\n";
+                        }
+                    } else if(strcmp(name, "col") == 0) {
+                        if(sscanf(value, "%d", &col) != 1) {
+                            std::cerr << "Couldn't parse integer value '"
+                                << value << "' in col attribute.\n";
+                        }
+                    } else {
+                        std::cerr << "Unknown attribute '" << name
+                            << "' in cell element.\n";
+                    }
+                }
+                row--;
+                col--;
+                if(row < 0 || row >= rows) {
+                    std::cerr 
+                        << "Skipping cell because row value is invalid.\n";
+                    continue;
+                }
+                if(col < 0 || col >= cols) {
+                    std::cerr
+                        << "Skipping cell because col value is invalid.\n";
+                    continue;
+                }
+                
+                Component* component = parseEmbeddedComponent(this, reader);
+                if(component == 0) {
+                    std::cerr << "No Component specified in cell "
+                        << (row+1) << ", " << (col+1) << "\n";
+                    continue;
+                } else {
+                    addChild(component);
+                    cells[row*cols + col] = childs.size()-1;
+                }
+            } else {
+                std::cerr << "Unknown element '" << element 
+                    << "' in TableLayout.\n";
+                reader.nextNode();
+                continue;
+            }
+        }   
     }
 
     setFlags(getFlags() | FLAG_RESIZABLE);
@@ -127,16 +124,13 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
 
 TableLayout::~TableLayout()
 {
-    removeComponents();
 }
 
 void
 TableLayout::removeComponents()
 {
-    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-        delete *i;
-        *i = 0;
-    }
+    cells.clear();
+    childs.clear();
 }
 
 int
@@ -165,6 +159,20 @@ TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
             if(sscanf(value, "%d", &num) != 1) {
                 std::cerr << "Error parsing int value '"
                     << value << "' in row or col attribute.\n";
+            }
+        } else if(strcmp(name, "alignment") == 0) {
+            if(strcmp(value, "left") == 0) {
+                props.alignment = RowColProperties::LEFT;
+            } else if(strcmp(value, "center") == 0) {
+                props.alignment = RowColProperties::CENTER;
+            } else if(strcmp(value, "right") == 0) {
+                props.alignment = RowColProperties::RIGHT;
+            } else if(strcmp(value, "top") == 0) {
+                props.alignment = RowColProperties::TOP;
+            } else if(strcmp(value, "bottom") == 0) {
+                props.alignment = RowColProperties::BOTTOM;
+            } else {
+                std::cerr << "Unknown alignment type '" << value << "'.\n";
             }
         } else {
             std::cerr << "Unknown attribute '" << name 
@@ -234,103 +242,62 @@ TableLayout::resize(float width, float height)
         }
     }
 
-    // resize childs
+    // layout childs
     int r = 0, c;
+    Vector2 p;
     for(Properties::iterator row = rowproperties.begin();
         row != rowproperties.end(); ++row) {
         c = 0;
+        p.x = 0;
         for(Properties::iterator col = colproperties.begin();
             col != colproperties.end(); ++col) {
-            Component* component = childs[r * colproperties.size() + c];
+            int childid = cells[r * colproperties.size() + c];
             ++c;
-            if(!component || !(component->getFlags() & FLAG_RESIZABLE))
+
+            if(childid < 0) {
+                p.x += col->realval;
                 continue;
-            component->resize(col->realval, row->realval);
-        }
-        ++r;
-    }
-}
-
-void
-TableLayout::draw(Painter& painter)
-{
-    int r = 0, c;
-    float x = 0, y = 0;
-
-    for(Properties::iterator row = rowproperties.begin();
-        row != rowproperties.end(); ++row) {
-        x = 0;
-        c = 0;
-        for(Properties::iterator col = colproperties.begin();
-            col != colproperties.end(); ++col) {
-            Component* component = childs[r * colproperties.size() + c];
-            ++c;
+            }
+            Child& child = childs[childid];
+            Component* component = child.getComponent();
             if(!component) {
-                x += col->realval;
+                p.x += col->realval;
                 continue;
             }
+            if(component->getFlags() & FLAG_RESIZABLE)
+                component->resize(col->realval, row->realval);
 
-            painter.pushTransform();
-            Vector2 translation(
-                    x + (col->realval - component->getWidth())/2,
-                    y + (row->realval - component->getHeight())/2);
-            painter.translate(translation);
-            component->draw(painter);
-            painter.popTransform();
+            Vector2 pos = p;
+            switch(col->alignment) {
+                case RowColProperties::LEFT:
+                    break;
+                case RowColProperties::CENTER:
+                    pos.x += (col->realval - component->getWidth()) / 2;
+                    break;
+                case RowColProperties::RIGHT:
+                    pos.x += col->realval - component->getWidth();
+                    break;
+                default:
+                    assert(false);
+            }
+            switch(row->alignment) {
+                case RowColProperties::TOP:
+                    break;
+                case RowColProperties::CENTER:
+                    pos.y += (row->realval - component->getHeight()) / 2;
+                    break;
+                case RowColProperties::BOTTOM:
+                    pos.y += col->realval - component->getHeight();
+                    break;
+                default:
+                    assert(false);
+            }
+            child.setPos(pos);
 
-            x += col->realval;
+            p.x += col->realval;
         }
         ++r;
-        y += row->realval;
-    }
-}
-
-void
-TableLayout::event(Event& event)
-{
-    switch(event.type) {
-        // these events need the position changed relatived to the table cells
-        case Event::MOUSEMOTION:
-        case Event::MOUSEBUTTONDOWN:
-        case Event::MOUSEBUTTONUP: {
-            int r = 0, c;
-            float x = 0, y = 0;
-
-            for(Properties::iterator row = rowproperties.begin();
-                row != rowproperties.end(); ++row) {
-                x = 0;
-                c = 0;
-                for(Properties::iterator col = colproperties.begin();
-                    col != colproperties.end(); ++col) {
-                    Component* component = childs[r * colproperties.size() + c];
-                    ++c;
-                    if(!component) {
-                        x += col->realval;
-                        continue;
-                    }
-
-                    Vector2 oldpos = event.mousepos;
-                    Vector2 translation(
-                        x + (col->realval - component->getWidth())/2,
-                        y + (row->realval - component->getHeight())/2);
-                    event.mousepos -= translation;
-                    component->event(event);
-                    event.mousepos = oldpos;
-
-                    x += col->realval;
-                }                                                                                
-                ++r;
-                y += row->realval;
-            }
-            break;
-        }
-        default:
-            for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
-                if(! (*i))
-                    continue;
-                (*i)->event(event);
-            }
-            break;
+        p.y += row->realval;
     }
 }
 
@@ -339,7 +306,7 @@ TableLayout::addRow(const RowColProperties& props)
 {
     removeComponents();
     rowproperties.push_back(props);
-    childs.assign(rowproperties.size() * colproperties.size(), (Component*) 0);
+    cells.assign(rowproperties.size() * colproperties.size(), -1);
 }
 
 void
@@ -347,19 +314,22 @@ TableLayout::addColumn(const RowColProperties& props)
 {
     removeComponents();
     colproperties.push_back(props);
-    childs.assign(rowproperties.size() * colproperties.size(), (Component*) 0);
+    cells.assign(rowproperties.size() * colproperties.size(), -1);
 }
 
 void
-TableLayout::setComponent(size_t col, size_t row, Component* component)
+TableLayout::addComponent(size_t col, size_t row, Component* component)
 {
     if(row >= rowproperties.size())
         throw std::runtime_error("row out of range");
     if(col >= colproperties.size())
         throw std::runtime_error("col out of range");
- 
-    delete (childs[row * colproperties.size() + col]);
-    childs[row * colproperties.size() + col] = component;
+
+    if(cells[row * colproperties.size() + col] != 0)
+        throw std::runtime_error("Already a component in this cell.");
+    
+    addChild(component);
+    cells[row * colproperties.size() + col] = childs.size()-1;
 }
 
 IMPLEMENT_COMPONENT_FACTORY(TableLayout)

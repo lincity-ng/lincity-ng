@@ -58,17 +58,19 @@ Window::Window(Component* parent, XmlReader& reader)
     }
     if(width <= 0 || height <= 0)
         throw std::runtime_error("Width or Height invalid");
+
+    childs.assign(3, Child());
     
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string element = (const char*) reader.getName();
             if(element == "title") {
-                title.setComponent(parseEmbeddedComponent(this, reader));
+                title().setComponent(parseEmbeddedComponent(this, reader));
             } else if(element == "closebutton") {
-                closeButton.setComponent(new Button(this, reader));
+                closeButton().setComponent(new Button(this, reader));
             } else if(element == "contents") {
-                contents.setComponent(parseEmbeddedComponent(this, reader));
+                contents().setComponent(parseEmbeddedComponent(this, reader));
             } else {
                 std::cerr << "Skipping unknown element '"
                     << element << "'.\n";
@@ -77,33 +79,34 @@ Window::Window(Component* parent, XmlReader& reader)
         }
     }
 
-    if(closeButton.getComponent() == 0)
+    if(closeButton().getComponent() == 0)
         throw std::runtime_error("No closeButton specified.");
 
     // layout
-    float closeButtonHeight = closeButton.getComponent()->getHeight();
+    float closeButtonHeight = closeButton().getComponent()->getHeight();
     if(titlesize < closeButtonHeight) {
         titlesize = closeButtonHeight;
     }
 
-    float closeButtonWidth = closeButton.getComponent()->getWidth();
+    float closeButtonWidth = closeButton().getComponent()->getWidth();
     float closeButtonBorder = (titlesize - closeButtonHeight) / 2;
     closeButtonWidth += 2*closeButtonBorder;
     closeButtonHeight += 2*closeButtonBorder;
 
     float compWidth = width - 2*border;
     float compHeight = height - 2*border;
-    title.setPos(Vector2(border, border));
-    title.resize(compWidth - closeButtonWidth, titlesize);
-    closeButton.setPos(Vector2(
-                border + compWidth - closeButtonWidth + closeButtonBorder,
-                border + closeButtonBorder));
-    contents.setPos(Vector2(border, border + titlesize));
-    contents.resize(compWidth, compHeight - titlesize);
+    title().setPos(Vector2(border, border));
+    title().getComponent()->resize(compWidth - closeButtonWidth, titlesize);
+    closeButton().setPos(Vector2(
+          border + compWidth - closeButtonWidth + closeButtonBorder,
+          border + closeButtonBorder));
+    contents().setPos(Vector2(border, border + titlesize));
+    contents().getComponent()->resize(compWidth, compHeight - titlesize);
 
     // connect signals...
-    closeButton.getComponent()->signalClicked.connect(
-            sigc::mem_fun(*this, &Window::closeButtonClicked));
+    Button* button = (Button*) closeButton().getComponent();
+    button->signalClicked.connect(
+        sigc::mem_fun(*this, &Window::closeButtonClicked));
 }
 
 Window::~Window()
@@ -113,22 +116,20 @@ Window::~Window()
 void
 Window::draw(Painter& painter)
 {
-    contents.draw(painter);
-    title.draw(painter);
-    closeButton.draw(painter);
+    Component::draw(painter);
 
     painter.setLineColor(Color(0, 0, 0, 0xff));
     painter.drawRectangle(Rectangle(0, 0, width, height));
 }
 
 void
-Window::event(Event& event)
+Window::event(const Event& event)
 {
     switch(event.type) {
         case Event::MOUSEBUTTONDOWN:
-            if(title.inside(event.mousepos)) {
+            if(title().inside(event.mousepos)) {
                 dragging = true;
-                dragOffset = event.mousepos - title.getPos();
+                dragOffset = event.mousepos - title().getPos();
             }
             break;
             
@@ -158,13 +159,11 @@ Window::event(Event& event)
     }
    
     // distribute event to child components...
-    contents.event(event);
-    title.event(event);
-    closeButton.event(event);
+    Component::event(event);
 }
 
 void
-Window::closeButtonClicked(Button* button)
+Window::closeButtonClicked(Button* )
 {
     Desktop* desktop = dynamic_cast<Desktop*> (getParent());
     assert(desktop != 0);                                               

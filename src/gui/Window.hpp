@@ -13,8 +13,8 @@ public:
     Window(Component* parent, XmlReader& reader);
     virtual ~Window();
 
-    virtual void draw(Painter& painter);
-    virtual void event(Event& event);
+    void draw(Painter& painter);
+    void event(const Event& event);
 
 private:
     void closeButtonClicked(Button* button);
@@ -23,10 +23,13 @@ private:
     float titlesize;
     bool dragging;
     Vector2 dragOffset;
-    
-    ComponentHolder<Button> closeButton;
-    ComponentHolder<Component> title;
-    ComponentHolder<Component> contents;
+   
+    Child& closeButton()
+    { return childs[0]; }
+    Child& title()
+    { return childs[1]; }
+    Child& contents()
+    { return childs[2]; }
 };
 
 #endif

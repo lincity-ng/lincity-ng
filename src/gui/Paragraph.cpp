@@ -4,6 +4,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <ctype.h>
+#include <float.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
 
@@ -36,7 +37,19 @@ void
 Paragraph::parse(XmlReader& reader, Style parentstyle)
 {
     style = parentstyle;
-    style.parseStyleAttributes(reader);
+    XmlReader::AttributeIterator iter(reader);
+    while(iter.next()) {
+        const char* attribute = (const char*) iter.getName();
+        const char* value = (const char*) iter.getValue();
+
+        if(style.parseAttribute(attribute, value)) {
+            continue;
+        } else if(strcmp(attribute, "translatable") == 0) {
+            // todo mark for translation...
+        } else {
+            std::cerr << "Skipping unknown attribut '" << attribute << "'.\n";
+        }
+    }
 
     std::vector<Style> stylestack;
     stylestack.push_back(style);
@@ -59,7 +72,7 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
                         style.italic = true;
                     if(node == "b")
                         style.bold = true;
-                    style.parseStyleAttributes(reader);
+                    style.parseAttributes(reader);
                     // TODO parse style attributes...
                     stylestack.push_back(style);       
                 } else {
@@ -135,22 +148,17 @@ Paragraph::resize(float width, float height)
     }
     if(width < 0) {
         width = style.min_width;
-        if(width < 0) {
-            std::cerr << "Problem: all widths zero in Paragraph.\n";
-            this->width = this->height = 0;
-            return;
-        }
     }
     if(style.height < height) {
         height = style.height;
     }
 
-    width -= (style.margin_left + style.margin_right);
-    if(width < 0) {
-        std::cerr << "Problem no space left for text after applying margin.\n";
+    if(width > 0 && style.margin_left + style.margin_right > width) {
+        std::cerr << "Warning: no space left for text inside margin.\n";
         this->width = this->height = 0;
         return;
     }
+    width -= (style.margin_left + style.margin_right);
     
     std::auto_ptr<FontManager> fontManager (new FontManager());
 
@@ -205,7 +213,7 @@ Paragraph::resize(float width, float height)
         bool render = false;
         bool linefeed = false;
         // we need a linefeed if width isn't enough for current span
-        if(linepos + render_width >= width) {
+        if(width > 0 && linepos + render_width >= width) {
             render = true;
             linefeed = true;
            
@@ -324,6 +332,9 @@ Paragraph::resize(float width, float height)
     }
 
     /* Step2: compose all lines to the final image */
+    if(width < 0) {
+        width = lineimages[0]->w;
+    }
     SDL_Surface* result = SDL_CreateRGBSurface(0, (int) width, (int) height,
             32, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
     if(result == 0) {
@@ -353,16 +364,11 @@ Paragraph::draw(Painter& painter)
 {
     if(!texture)
         return;
-    
+
     painter.drawTexture(texture,
             Rectangle(style.margin_left, style.margin_top,
                 width - style.margin_right,
                 height - style.margin_bottom));
-}
-
-void
-Paragraph::event(Event& event)
-{
 }
 
 void

@@ -38,6 +38,9 @@ public:
 
     void draw(Painter& painter)
     {
+        if(!component)
+            return;
+
         painter.pushTransform();
         painter.translate(Vector2(pos));
         component->draw(painter);
@@ -45,6 +48,9 @@ public:
     }
     void event(Event& event)
     {
+        if(!component)
+            return;
+
         switch(event.type) {
             case Event::MOUSEMOTION:
             case Event::MOUSEBUTTONDOWN:
@@ -60,6 +66,9 @@ public:
     }
     void resize(float width, float height)
     {
+        if(!component)
+            return;
+
         component->resize(width, height);
     }
     bool inside(Vector2 testpos) const
@@ -70,6 +79,16 @@ public:
             return true;
 
         return false;
+    }
+
+    float getWidth() const
+    {
+        return component->getWidth();
+    }
+
+    float getHeight() const
+    {
+        return component->getHeight();
     }
 
 private:

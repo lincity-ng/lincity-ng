@@ -43,9 +43,10 @@ Panel::Panel(Component* parent, XmlReader& reader)
         throw std::runtime_error("invalid width/height");
     }
 
-    contents.setComponent(parseEmbeddedComponent(this, reader));
-    if(contents.getComponent()->getFlags() & FLAG_RESIZABLE) {
-        contents.resize(width, height);
+    Component* component = parseEmbeddedComponent(this, reader);
+    addChild(component);
+    if(component->getFlags() & FLAG_RESIZABLE) {
+        component->resize(width, height);
     }
 }
 
@@ -57,13 +58,7 @@ void
 Panel::draw(Painter& painter)
 {
     painter.drawTexture(background.get(), Rectangle(0, 0, width, height));
-    contents.draw(painter);
-}
-
-void
-Panel::event(Event& event)
-{
-    contents.event(event);
+    Component::draw(painter);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Panel)

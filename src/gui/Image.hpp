@@ -15,7 +15,6 @@ public:
 
     virtual void resize(float width, float height);
     virtual void draw(Painter& painter);
-    virtual void event(Event& event);
 
 private:
     std::auto_ptr<Texture> texture;

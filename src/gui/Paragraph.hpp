@@ -32,9 +32,8 @@ public:
     Paragraph(Component* parent, XmlReader& reader, Style parentstyle);
     virtual ~Paragraph();
 
-    virtual void resize(float width, float height);
-    virtual void draw(Painter& painter);
-    virtual void event(Event& event);
+    void resize(float width, float height);
+    void draw(Painter& painter);
 
     /**
      * sets a new text in the Paragraph. The style of the paragraph is used
