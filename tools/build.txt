@@ -29,19 +29,16 @@ How to make a final version
 
 Preliminaries:
 
-  1)     Update version number in:
-            README
-            lin-city.h
-            configure.in
+  1.1)   For point version, update version number in:
+            configure.ac
             confw32.h
+  1.2)   For full version, also update version number in:
+            README
             lincity.rc
   2)     Update CHANGES file
-  3)     Make sure start-fast-speed & skip-opening-scene are 
-         disabled in main.c
 
 Make the UNIX tarball:
 
-  5)     Run perl rename.pl
   6)     make dist
   7)     Done!
 
