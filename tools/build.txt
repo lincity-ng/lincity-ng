@@ -36,6 +36,8 @@ Preliminaries:
             README
             lincity.rc
   2)     Update CHANGES file
+  3)     Tag in CVS
+            cvs rtag -r HEAD lincity-1_12-pre55 lincity
 
 Make the UNIX tarball:
 
