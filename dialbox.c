@@ -102,7 +102,7 @@ dialog_key_handler (int key)
 	    
 
 int
-dialog_box(int arg_color, char argc, ...)
+dialog_box(int arg_color, int argc, ...)
 {
   va_list ap;
   int i;

@@ -21,7 +21,7 @@ struct dialog_box_struct
 typedef struct dialog_box_struct Dialog_Box;
 
 /* Public functions */
-int dialog_box(int colour, char argc, ...); 
+int dialog_box(int colour, int argc, ...); 
 void dialog_refresh();
 void dialog_close(int return_value);
 
