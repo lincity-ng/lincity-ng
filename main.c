@@ -330,8 +330,11 @@ client_main_loop (void)
 	mouse_update ();
 	key = vga_getkey ();
 #endif
-	if (key != 0) // nothing happened if key == 0 XXX: right?
+	/* nothing happened if key == 0 XXX: right? */
+	/* GCS: I'm not sure */
+	if (key != 0) {
             process_keystrokes (key);
+	}
 	/* Simulate the timestep */
 	quit = execute_timestep ();
     } while (quit == 0);
@@ -604,9 +607,6 @@ execute_timestep (void)
 	    real_quit_flag = 1;
 #endif
 
-#ifdef MP_SANITY_CHECK
-	sanity_check ();
-#endif
 	update_main_screen ();
 
 	print_stats ();

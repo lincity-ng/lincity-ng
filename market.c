@@ -41,10 +41,8 @@ int
 put_jobs (int x, int y, int jobs)
 {
   int q;
-  if (numof_markets > 0)
-    {
-      for (q = 0; q < numof_markets; q++)
-	{
+  if (numof_markets > 0) {
+      for (q = 0; q < numof_markets; q++) {
 	  if (MP_INFO(marketx[q],markety[q]).int_2
 	      >= (MAX_JOBS_IN_MARKET - jobs))
 	    continue;
@@ -56,8 +54,9 @@ put_jobs (int x, int y, int jobs)
 	    }
 	}
     }
-  if (put_stuff (x, y, jobs, T_JOBS) != 0)
-    return (1);
+  if (put_stuff (x, y, jobs, T_JOBS) != 0) {
+      return (1);
+  }
   return (0);
 }
 
@@ -926,24 +925,24 @@ get_stuff4 (Map_Point_Info *map, int stuff, int stuff_type)
 int
 put_stuff (int x, int y, int stuff, int stuff_type)
 {
-  int res = 0;
-  short *type = &MP_TYPE(x,y);
-  Map_Point_Info *minfo = &MP_INFO(x,y);
-  switch (MP_SIZE(x,y))
+    int res = 0;
+    short *type = &MP_TYPE(x,y);
+    Map_Point_Info *minfo = &MP_INFO(x,y);
+    switch (MP_SIZE(x,y))
     {
     case 2:
-      res = put_stuff2 (minfo, type, stuff, stuff_type);
-      break;
+	res = put_stuff2 (minfo, type, stuff, stuff_type);
+	break;
     case 3:
-      res = put_stuff3 (minfo, type, stuff, stuff_type);
-      break;
+	res = put_stuff3 (minfo, type, stuff, stuff_type);
+	break;
     case 4:
-      res = put_stuff4 (minfo, type, stuff, stuff_type);
-      break;
+	res = put_stuff4 (minfo, type, stuff, stuff_type);
+	break;
     default:
-      do_error ("Bad area size in put_stuff()");
+	do_error ("Bad area size in put_stuff()");
     }
-  return (res);
+    return res;
 }
 
 

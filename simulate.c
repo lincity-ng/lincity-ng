@@ -485,6 +485,7 @@ clear_game (void)
     numof_communes = 0;
     numof_substations = 0;
     numof_health_centres = 0;
+    numof_markets = 0;
     max_pop_ever = 0;
     total_evacuated = 0;
     total_births = 0;

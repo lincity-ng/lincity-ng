@@ -449,7 +449,6 @@ do_residence (int x, int y)
 }
 
 
-
 void
 do_industry_l (int x, int y)
 {
