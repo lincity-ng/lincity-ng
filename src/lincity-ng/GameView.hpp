@@ -76,6 +76,7 @@ private:
     Vector2 tileUnderMouse, dragStart;
     bool mouseInGameView;
     bool dragging, rightButtonDown;
+    Uint32 dragStartTime;
 
     int cursorSize;
 };

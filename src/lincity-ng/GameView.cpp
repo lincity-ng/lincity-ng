@@ -29,6 +29,7 @@
  *
  *  20050325
  *  preload Images in extra Thread
+ *  keep city in GameView
  *
  */
 #include <config.h>
@@ -90,7 +91,6 @@ int GameView::gameViewThread( void* data )
 {
     GameView* gv = (GameView*) data;
     gv->loadTextures();
-    std::cout << "** Finished loading Textures **\n";
     gv->requestRedraw();
     return 0;
 }
@@ -107,7 +107,7 @@ void GameView::parse(XmlReader& reader)
         if(parseAttribute(attribute, value)) {
             continue;
         } else {
-            std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
+            std::cerr << "GameView::parse# Skipping unknown attribute '" << attribute << "'.\n";
         }
     }
     // no more elements to parse
@@ -168,7 +168,6 @@ void GameView::setZoom(const int newzoom){
     if ( zoom < 125 ) zoom = 125;
     if ( zoom > 4000 ) zoom = 4000;
     
-    std::cout << "Zoom:" << zoom / 10.0 << "%\n";
     tileWidth = defaultTileWidth * zoom / defaultZoom;
     tileHeight = defaultTileHeight * zoom / defaultZoom; 
     //a virtual screen containing the whole city
@@ -200,7 +199,6 @@ void GameView::zoomOut(){
 void GameView::show( const int x, const int y )
 {    
     Vector2 center;
-    std::cout << "GameView::Show(" << x << "/" << y << ")\n";
     center.x = virtualScreenWidth / 2 + ( x - y ) * ( tileWidth / 2 );
     center.y = ( x + y ) * ( tileHeight / 2 ) + ( tileHeight / 2 ); 
     
@@ -224,11 +222,9 @@ Texture* GameView::readTexture(const std::string& filename)
     try {
         currentTexture = texture_manager->load(nfilename);
     } catch(std::exception& err) {
-        std::cerr << nfilename << " missing: " << err.what() << "\n";
+        std::cerr << nfilename << "GameView::readTexture# missing: " << err.what() << "\n";
         return 0;
     }
-        std::cerr << nfilename << "\n";
-
     return currentTexture;
 }
 
@@ -242,7 +238,7 @@ SDL_Surface* GameView::readImage(const std::string& filename)
     SDL_Surface* currentImage;
     currentImage = IMG_Load_RW(getPhysfsSDLRWops( nfilename ), 1);
     if( !currentImage ) {
-        std::cerr << "GameView::readImage Could not load image "<< nfilename << "\n";
+        std::cerr << "GameView::readImage# Could not load image "<< nfilename << "\n";
     }
     return currentImage;
 }
@@ -294,7 +290,7 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
                         {
                             if(sscanf(value, "%i", &xmlX) != 1) 
                             {
-                                std::cerr << "Error parsing integer value '" << value << "' in x attribute.\n";
+                                std::cerr << "GameView::preReadCityTexture# Error parsing integer value '" << value << "' in x attribute.\n";
                                 xmlX = -1;
                             }
                         }
@@ -302,7 +298,7 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
                         {
                             if(sscanf(value, "%i", &xmlY) != 1) 
                             {
-                                std::cerr << "Error parsing integer value '" << value << "' in y attribute.\n";
+                                std::cerr << "GameView::preReadCityTexture# Error parsing integer value '" << value << "' in y attribute.\n";
                                 xmlY = -1;
                             }
                         }
@@ -630,17 +626,32 @@ void GameView::event(const Event& event)
     switch(event.type) {
         case Event::MOUSEMOTION: {
             if( dragging ) {
+                Uint32 now = SDL_GetTicks();
                 dragDistance = event.mousepos - dragStart;
                 
-                //Mouse Acceleration
+                int elapsed =  now - dragStartTime;
+                if( elapsed < 30 ){ //do nothing if less than 0.03 sec passed.
+                    break;
+                }
                 int dragLength =  (int) sqrt( dragDistance.x * dragDistance.x + dragDistance.y * dragDistance.y ); 
-                if ( dragLength > 14 ) 
-                    dragDistance *= 8;
-                else if (dragLength > 7 )
-                    dragDistance *= 4;
-
+                int vPixelSec = (1000 * dragLength) / elapsed;
+                std::cout << "v=" << vPixelSec << " Pixels per second\n"; 
+               
+                //Mouse Acceleration
+                int accel = 1;
+                //TODO: read Acceleration Parameters from config file.
+                int accelThreshold = 200;
+                int max_accel = 8;
+                
+                if( vPixelSec > accelThreshold ) accel = 1 + ( ( vPixelSec - 200 ) / 100 );
+                if( accel > max_accel ) accel = max_accel;
+                // if( accel < 1 ) accel = 1;
+                std::cout << "Acceleration: " << accel << "\n"; 
+                
+                dragDistance *= accel;
                 viewport += dragDistance;
                 dragStart = event.mousepos;
+                dragStartTime = now;
                 setDirty();
                 break;            
             }         
@@ -652,6 +663,7 @@ void GameView::event(const Event& event)
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
+                dragStartTime = SDL_GetTicks();
             }
             Vector2 tile = getTile(event.mousepos);
             if(tileUnderMouse != tile) {
@@ -686,7 +698,6 @@ void GameView::event(const Event& event)
             }
             
             tile=getTile( event.mousepos );
-            std::cout << "Tile-pos:"<<tile.x<<","<<tile.y<<std::endl;
             if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
                 editMap((int) tile.x, (int) tile.y,SDL_BUTTON_LEFT); //edit tile
             }
@@ -939,7 +950,6 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
     if( !texture ) {
         SDL_mutexP( mTextures );
         if( cityImages[ textureType ] ){
-            std::cout << "Converting " << textureType << "\n";
             cityTextures[ textureType ] = texture_manager->create( cityImages[ textureType ] );
             cityImages[ textureType ] = 0; //Image is erased by texture_manager->create.
             texture = cityTextures[ textureType ];
@@ -963,7 +973,6 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
     }
     else 
     {
-    //std::cout << "drawTile Texture Missing " << MP_TYPE( upperLeftX, upperLeftY ) << "\n";
         tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
@@ -977,6 +986,32 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
  */
 void GameView::draw(Painter& painter)
 {
+    //If the centre of the Screen is not Part of the city
+    //adjust viewport so it is.
+    //find Tile in Center of Screen
+    Vector2 center( getWidth() / 2, getHeight() / 2 );
+    Vector2 centerTile  = getTile( center ); 
+    bool outside = false;
+    if( centerTile.x < 0 ){
+        centerTile.x = 0;
+        outside = true;
+    }
+    if( centerTile.x >= WORLD_SIDE_LEN ){
+        centerTile.x = WORLD_SIDE_LEN - 1;
+        outside = true;
+    }
+    if( centerTile.y < 0 ){
+        centerTile.y = 0;
+        outside = true;
+    }
+    if( centerTile.y >= WORLD_SIDE_LEN ){
+        centerTile.y = WORLD_SIDE_LEN - 1;
+        outside = true;
+    }
+    if( outside ){
+        show( centerTile );
+        return;
+    }
     //The Corners of The Screen
     //TODO: change here to only draw dirtyRect
     //      dirtyRectangle is the current Clippingarea (if set)
