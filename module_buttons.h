@@ -14,7 +14,7 @@ void draw_module (int button, char * graphic);
 void activate_module (int module);
 
 // mouse.c: void do_mouse_select_buttons (int rawx, int rawy, int mbutton)
-void handle_module_buttons (int x, int y, int mbutton);
+void module_buttons_handler (int x, int y, int mbutton);
 
 // mouse.c: void do_select_button (int button, int mbutton);
 void select_module (int module, int mbutton);
