@@ -109,6 +109,11 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Animations for paths/roads/railroads.
 
+  o Power stations list a "cycle" percentage, which under previous versions 
+    cycled around (presumably one quanta of power is released at the end of 
+    each cycle?).  However, in the CVS code the listed cycle never changes.
+
+
 REQUESTED FEATURES
 
   o Autosaves
