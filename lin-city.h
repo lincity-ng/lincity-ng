@@ -240,9 +240,6 @@
 #define SAVE_BUTTON_H 32
 #endif
 
-#define TESTM_X 50
-#define TESTM_Y 428
-
 #define HELPERRORPAGE "error.hlp"
 #define HELPBACKGROUNDCOLOUR (white(8))
 #define HELPBUTTON_COLOUR (white(25))
