@@ -1,13 +1,10 @@
 BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
-  o When you overwrite ("transport overwrite") a road/trail with
-    power lines and then undo it (i.e. drag over it, then drag off), it
-    replaces the road/trail with railway.
-
   o Need to compress and expand translation files and add installation hooks
     so that only desired translations get installed.
     *  I think we can just delete the translated version for 1.12, so the 
        above will not be necessary.
+	** Fixed in pre50?
 
   o I found inconsistent behavior with using the middle mouse button
     (mmb).  Clicking with mmb on mini-map causes the main win to jump, and
@@ -17,7 +14,8 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     scrolling if the click was made outside the main win.
 
   o There still seems to be a problem with putting multi-transport off 
-    the bottom of the screen.
+    the bottom of the screen.  For example, resources can wrap-around 
+	from bottom to top.
 
   o Help gets screwed up by game-related keystrokes.
     Consider also pressing "Enter" when mouse is over a button on the 
@@ -26,15 +24,18 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
   o Population pbar is wrong when starting new game, since game starts 
     with different number of people for random villiage and blank screen 
     this is difficult to fix.
+	*  Fixed by Corey?
 
   o Money is not updated while paused.
+	*  Fixed by Corey?
 
   o Bits of the square cursor are not refreshed from the main win frame.
     For example, this happens with pollution overlay turned on.
 
-  o Frame of main win is displayed before load game progress bar finishes.
+  o Location that money is displayed in lower status area is not 
+    updated on a resize.
 
-  o Unhook client/server code from main code.
+  o Frame of main win is displayed before load game progress bar finishes.
 
   o Windows, need to resolve what to do about resource files 
     (menu, and especially icon)
@@ -46,6 +47,14 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
   o Options screen should have a keystroke (perhaps "o" for options, 
     "v" for overlay).
+
+  o Tech buttons are not disabled properly when loading a game with 
+    lower tech level from game with higher tech level.
+
+	To reproduce:  load a decent game (or hit 't' a bunch) and then start
+	a new game.  All techs that were available still are, only now your
+	brand new solar station has a tech of 0.0%.
+	Only happens on a new game, not on loading existing game.
 
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
@@ -61,6 +70,7 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
     very expensive.  However, you only get this warning once, so that it's
     easy to bulldoze multiple times.  However, when you bulldoze shanties you
     get the message every time.  This is inconvenient.
+	*  Fixed by Corey?
 
   o Main screen should scroll when moving mouse outside of main window 
     during multi-transport.
@@ -74,16 +84,12 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o xpicedit doesn't seem to work on 24 bit color machines.
 
-  o Tech buttons are not disabled properly when loading a game with 
-    lower tech level from game with higher tech level.
-
-    GCS: I have had a few reports, but I cannot reproduce this.
-
   o When a tip burns up, there is no pollution at all, and the tip disappears.
     Tip should stay, should cause pollution(?).
 
   o Technology indicator sometimes shows both a rise and fall.  This happens
     after loading a game, old indicator remains as a ghost.
+	*  Fixed by Corey?
 
   o There is a display bug, where a small block is left when
     exiting a help page. The only happens when part of the mouse cursor is in
@@ -103,17 +109,14 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Slight streaking in monthgraph.
 
-  o Extra keystroke required when market checkbox is up.
-
   o Like to have info pages and/or printed documentation.
-
-  o Remove multiplayer options from default compilation.
 
   o Animations for paths/roads/railroads.
 
   o Power stations list a "cycle" percentage, which under previous versions 
     cycled around (presumably one quanta of power is released at the end of 
     each cycle?).  However, in the CVS code the listed cycle never changes.
+	Display bug:  cycle is equal to capacity.
 
 
 REQUESTED FEATURES
