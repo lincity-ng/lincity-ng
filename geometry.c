@@ -434,7 +434,6 @@ adjust_main_origin (int new_origin_x, int new_origin_y, int refresh)
 	request_main_screen ();
 	hide_mouse ();
 	refresh_main_screen ();
-	dialog_refresh();
 	redraw_mouse ();
     }
 }
