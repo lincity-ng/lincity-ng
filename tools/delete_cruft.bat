@@ -20,6 +20,7 @@ deltree /y help\cvs
 deltree /y icons\cvs
 deltree /y intl
 deltree /y messages\cvs
+deltree /y messages\ca
 deltree /y old.Makefiles
 deltree /y opening\cvs
 deltree /y po

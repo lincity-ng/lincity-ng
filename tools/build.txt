@@ -58,17 +58,15 @@ Make the Win package (version 1.11):
 Make the Win package (version 1.12):
 
   5)     Build release version on Win
-  8)     Make copy of entire directory (we're gonna delete the source)
-  9)     cd to the new directory
-  10)    copy Release/Lincity.exe .
-  11)    run tools\delete_cruft.bat
 
-  12)    Run tarsrc.sh (this script might need fixing)
-  13)    Make sure that the opening files are *not* gzip'ped
-            open.tga
-            bad_times.scn
-            good_times.scn
-  14)    Copy ../source.tgz into lincity directory
+  8)     Make a new copy of the lincity directory
+  9)     cd to the newly created copy of the lincity directory
+  10)    copy Release\Lincity.exe .
+  11)    run tools\zip_source.bat
+  12)    run tools\unzip_files.bat
+  13)    run tools\delete_cruft.bat
+
+  14)    rename the directory (e.g. to lincity109)
   15)    zip -r lincity109.zip lincity109
   16)    Done!
 
