@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <SDL_opengl.h>
 #include <SDL_gfxPrimitives.h>
+#include <SDL_rotozoom.h>
 
 #include "Painter.hpp"
 
@@ -47,6 +48,30 @@ Painter::drawTexture(const Texture* tex, Rect2D rect)
     drect.y = (int) screenpos.y;
     SDL_BlitSurface(tex->surface, 0, target, &drect);
 }
+
+void
+Painter::drawStretchTexture(const Texture* tex, Rect2D rect)
+{
+    if(tex == 0) {
+        std::cerr << "Trying to render 0 texture.";
+#ifdef DEBUG
+        assert(false);
+#endif
+        return;
+    }
+
+    Vector2 screenpos = transform.apply(rect.p1);
+    
+    SDL_Rect drect;
+    drect.x = (int) screenpos.x;
+    drect.y = (int) screenpos.y;
+    drect.w = (int) rect.getWidth();
+    drect.h = (int) rect.getHeight();
+    double zoomx = drect.w / tex->getWidth();
+    double zoomy = drect.h / tex->getHeight(); 
+    SDL_BlitSurface( zoomSurface( tex->surface, zoomx, zoomy, SMOOTHING_OFF ), 0, target, &drect);
+}
+
 
 void
 Painter::fillRectangle(Rect2D rect)

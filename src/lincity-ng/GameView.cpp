@@ -12,8 +12,8 @@
  *  20050205
  *  +get Offset-Info from images/tiles/images.xml
  *
- *  20050206
- *  TODO: working on Zoom
+ *  20050208
+ *  +Zoom now working
  */
 #include <config.h>
 
@@ -80,6 +80,10 @@ GameView::GameView(Component* parent, XmlReader& reader)
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
     viewport.x = floor ( ( virtualScreenWidth - 800 ) / 2 );
     viewport.y = floor ( ( virtualScreenHeight- 600 ) / 2 );
+
+    //performance Test
+    startTime10 = time( NULL );
+    frameCounter10 = 0;
 }
     
 GameView::~GameView()
@@ -688,7 +692,7 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tileOnScreenPoint.y -= (blankTexture->getHeight()  * zoom / 100 ); 
         tilerect.move( tileOnScreenPoint );    
         tilerect.setSize( blankTexture->getWidth()  * zoom / 100 , blankTexture->getHeight() * zoom / 100 );
-        painter.drawTexture( blankTexture, tilerect );
+        painter.drawStretchTexture( blankTexture, tilerect );
         return;
     }
 
@@ -725,7 +729,7 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tileOnScreenPoint.y -= ( cityTextureY[ textureType ] * zoom / 100 );  
         tilerect.move( tileOnScreenPoint );    
         tilerect.setSize( texture->getWidth() * zoom / 100, texture->getHeight() * zoom / 100  );
-        painter.drawTexture( texture, tilerect );
+        painter.drawStretchTexture( texture, tilerect );
     }
     else 
     {
@@ -743,6 +747,15 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
  */
 void GameView::draw( Painter& painter )
 {
+    //performance Test
+    time_t now = time(NULL);
+    if( ( now - startTime10 ) >= 10 ) { //ten Seconds passed
+        std::cout << "[" << frameCounter10 / 10.0  << "]"<< std::flush;
+        frameCounter10 = 0;
+        startTime10 = now;
+    } 
+    frameCounter10++;
+    
     //std::cout << "\nGameView::draw()\n";
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);

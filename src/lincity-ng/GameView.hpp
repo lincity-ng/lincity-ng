@@ -5,6 +5,7 @@
 #include "gui/XmlReader.hpp"
 #include "gui/Vector2.hpp"
 #include "gui/Texture.hpp"
+#include <time.h>
 
 #include "lincity/engglobs.h"
 
@@ -32,6 +33,8 @@ private:
     void readCityTexture( int textureType, const std::string& filename );
     void click(const Vector2 &pos);
     void setZoom(const int newzoom);
+    time_t startTime10;
+    int frameCounter10;
 
     static const int defaultTileWidth = 128;
     static const int defaultTileHeight = 64;

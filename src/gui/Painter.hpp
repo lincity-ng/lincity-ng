@@ -20,6 +20,7 @@ public:
     ~Painter();
     
     void drawTexture(const Texture* texture, Rect2D rect);
+    void drawStretchTexture(const Texture* texture, Rect2D rect);
     void fillRectangle(Rect2D rect);
     void drawRectangle(Rect2D rect);
 
