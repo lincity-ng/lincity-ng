@@ -65,6 +65,7 @@ static void do_history_linegraph (int draw);
 static void do_sust_barchart (int draw);
 static void draw_sustline (int yoffset, int count, int max, int col);
 void monthgraph_full_refresh (void);
+void draw_mini_pol_in_main_win ();
 
 void mini_full_refresh (void);
 
@@ -844,7 +845,6 @@ update_mini_screen (void)
     }
 }
 
-
 void
 mini_screen_help (void)
 {
@@ -878,6 +878,90 @@ mini_screen_help (void)
 	activate_help ("msb-coal.hlp");
 	break;
     }
+}
+
+void
+mini_screen_draw_in_main_win (void)
+{
+    switch (mini_screen_flags)
+    {
+    case MINI_SCREEN_NORMAL_FLAG:
+	/* do nothing */
+	break;
+    case MINI_SCREEN_POL_FLAG:
+	draw_mini_pol_in_main_win ();
+	break;
+    case MINI_SCREEN_UB40_FLAG:
+	/* not yet implemented */
+	break;
+    case MINI_SCREEN_STARVE_FLAG:
+	break;
+    case MINI_SCREEN_POWER_FLAG:
+	break;
+    case MINI_SCREEN_FIRE_COVER:
+	break;
+    case MINI_SCREEN_CRICKET_COVER:
+	break;
+    case MINI_SCREEN_HEALTH_COVER:
+	break;
+    case MINI_SCREEN_COAL_FLAG:
+	break;
+    }
+}
+
+void
+draw_mini_pol_in_main_win ()
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+#if defined (commentout)  /* Don't need for pollution, but need for starv */
+    int xm, ym;
+
+    xm = main_screen_originx;
+    if (xm > 3)
+	xm = 3;
+    ym = main_screen_originy;
+    if (ym > 3)
+	ym = 3;
+
+    clip_main_window ();
+    for (y = main_screen_originy - ym;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx - xm;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	}}
+#endif
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    if (MP_POL(x,y) < 4) {
+		col = green (24);
+	    } else if (MP_POL(x,y) < 600) {
+		col = green (23 - (MP_POL(x,y) / 45));
+	    } else {
+		col = (int) sqrt ((float) (MP_POL(x,y) - 600)) / 9;
+		if (col > 20)
+		    col = 20;
+		col += red (11);
+	    }
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+#if defined (commentout)
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16 * main_groups[grp].size,
+			 16 * main_groups[grp].size,
+			 col);
+#endif
+	}
+    }
+#if defined (commentout)
+    unclip_main_window ();
+#endif
+    activate_help ("mini-in-main.hlp");
 }
 
 void

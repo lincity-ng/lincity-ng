@@ -554,12 +554,12 @@ Fgl_fillbox (int x1, int y1, int w, int h, int col)
 
 #ifdef ALLOW_PIX_DOUBLING
     if (pix_double)
-	XFillRectangle (display.dpy, display.win
-			,display.pixcolour_gc[col], x1 * 2, y1 * 2, w * 2, h * 2);
+	XFillRectangle (display.dpy, display.win,
+			display.pixcolour_gc[col], x1 * 2, y1 * 2, w * 2, h * 2);
     else
 #endif
-	XFillRectangle (display.dpy, display.win
-			,display.pixcolour_gc[col], x1 + borderx, y1 + bordery, w, h);
+	XFillRectangle (display.dpy, display.win,
+			display.pixcolour_gc[col], x1 + borderx, y1 + bordery, w, h);
 }
 
 #ifdef USE_IMAGES

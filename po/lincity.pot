@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-05 22:50-0400\n"
+"POT-Creation-Date: 2001-09-06 00:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -536,42 +536,42 @@ msgstr ""
 msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
 msgstr ""
 
-#: screen.c:1974
+#: screen.c:2058
 msgid "Market"
 msgstr ""
 
-#: screen.c:1976
+#: screen.c:2060
 msgid "Port"
 msgstr ""
 
-#: screen.c:1983
+#: screen.c:2067
 msgid "Buy"
 msgstr ""
 
-#: screen.c:1984
+#: screen.c:2068
 msgid "Sell"
 msgstr ""
 
-#: screen.c:1986
+#: screen.c:2070
 msgid "JOBS"
 msgstr ""
 
-#: screen.c:1988
+#: screen.c:2072
 msgid "FOOD"
 msgstr ""
 
-#: screen.c:1989
+#: screen.c:2073
 msgid "COAL"
 msgstr ""
 
-#: screen.c:1990
+#: screen.c:2074
 msgid "ORE"
 msgstr ""
 
-#: screen.c:1991
+#: screen.c:2075
 msgid "GOODS"
 msgstr ""
 
-#: screen.c:1992
+#: screen.c:2076
 msgid "STEEL"
 msgstr ""

@@ -259,9 +259,10 @@ draw_help_page (char *helppage)
     strcpy (helppage_short, helppage);
 
     /* Right click on mini-screen */
-    if (strncmp (helppage, "mini-screen.hlp", 15) == 0)
-    {
+    if (strncmp (helppage, "mini-screen.hlp", 15) == 0) {
 	draw_big_mini_screen ();
+    } else if (strncmp (helppage, "mini-in-main.hlp", 17) == 0) {
+	/* do nothing */
     } else {
 	/* This buffer is for the full path of the help file.
 	   The file might be either in the help directory (most cases),

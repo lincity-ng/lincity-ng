@@ -1011,7 +1011,10 @@ do_mouse_other_buttons (int x, int y, int button)
 
     else if (mouse_in_rect (&scr.mini_map_aux,x,y)) {
 	if (button == LC_MOUSE_RIGHTBUTTON) {
+	    mini_screen_draw_in_main_win ();
+#if defined (commentout)
 	    activate_help ("mini-screen.hlp");
+#endif
 	    return;
 	}
 	rotate_mini_screen ();
