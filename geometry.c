@@ -273,6 +273,11 @@ resize_geometry (int new_width, int new_height)
 	return;
     }
 
+    if (pix_double) {
+	new_width = new_width / 2;
+	new_height = new_height / 2;
+    }
+
     /* Update display info */
     display.winW = new_width;
     display.winH = new_height;
