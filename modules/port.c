@@ -222,8 +222,8 @@ mps_port (int x, int y)
     num_to_ansi(sell, sizeof(sell), MP_INFO(x,y+2).int_7 / 100);
     mps_store_sss(i++,_("Steel"),buy,sell);
 
-    num_to_ansi(buy, sizeof(buy), MP_INFO(x,y).int_2 / 100);
-    num_to_ansi(sell, sizeof(sell), MP_INFO(x,y).int_5 / 100);
+    num_to_ansi(buy, sizeof(buy), MP_INFO(x,y).int_5 / 100);
+    num_to_ansi(sell, sizeof(sell), MP_INFO(x,y).int_2 / 100);
     mps_store_sss(i++,_("Total"),buy,sell);
 
 }
