@@ -108,10 +108,10 @@ initialize_geometry (Screen_Geometry* scr)
     scr->confine_button.h = CONFINE_BUTTON_H;
     scr->confine_button.w = CONFINE_BUTTON_W;
 
-    scr->select_buttons.x = SELECT_BUTTON_WIN_X;
-    scr->select_buttons.y = SELECT_BUTTON_WIN_Y;
-    scr->select_buttons.h = SELECT_BUTTON_WIN_H;
-    scr->select_buttons.w = SELECT_BUTTON_WIN_W;
+    scr->module_buttons.x = SELECT_BUTTON_WIN_X;
+    scr->module_buttons.y = SELECT_BUTTON_WIN_Y;
+    scr->module_buttons.h = SELECT_BUTTON_WIN_H;
+    scr->module_buttons.w = SELECT_BUTTON_WIN_W;
 
     scr->pbar_area.x = PBAR_AREA_X;
     scr->pbar_area.y = PBAR_AREA_Y;
@@ -605,32 +605,6 @@ draw_results (void)
     Fgl_putbox (b->x + 16, b->y, 16, 16, results_button2);
 }
 #endif
-
-void
-draw_select_button_graphic (int button, char *graphic)
-{
-    Rect* b = &scr.select_buttons;
-    int x, y, xx, yy;
-    if (button < NUMOF_SELECT_BUTTONS_DOWN) {
-	x = 8;
-	y = 8 + (button * 24);
-    } else {
-	x = 8 + 24;
-	y = 8 + ((button - NUMOF_SELECT_BUTTONS_DOWN) * 24);
-    }
-
-    Fgl_putbox (x + b->x, y + b->y, 16, 16, graphic);
-    unhighlight_select_button (button);
-    hide_mouse ();
-    if (select_button_tflag[button] == 0)
-    {
-	for (yy = -3; yy < 19; yy++)
-	    for (xx = -3; xx < 19; xx += 2)
-		Fgl_setpixel (x + xx + (yy % 2) + b->x,
-			      y + yy + b->y, white (15));
-    }
-    redraw_mouse ();
-}
 
 
 /* ---------------------------------------------------------------------- *

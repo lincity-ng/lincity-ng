@@ -29,6 +29,7 @@
 #include "pbar.h"
 #include "dialbox.h"
 #include "lclib.h"
+#include "module_buttons.h"
 
 /* ---------------------------------------------------------------------- *
  * External Global Variables
@@ -69,7 +70,6 @@ void print_time_for_year (void);
 void calculate_time_for_year (void);
 void clear_monthgraph (void);
 void draw_ms_buttons (void);
-void draw_select_buttons (void);
 static void do_monthgraph (int full_refresh);
 static void do_history_linegraph (int draw);
 static void do_sust_barchart (int draw);
@@ -665,150 +665,7 @@ screen_setup (void)
     mini_full_refresh ();
 
     redraw_mouse ();
-#endif
 
-    /* load select button graphics */
-    select_button_graphic[sbut[0]] = load_graphic ("buldoze-button.csi");
-    select_button_type[sbut[0]] = CST_GREEN;
-    strcpy (select_button_help[sbut[0]], "bulldoze.hlp");
-
-    select_button_graphic[sbut[1]] = load_graphic ("powerline-button.csi");
-    select_button_type[sbut[1]] = CST_POWERL_H_L;
-    strcpy (select_button_help[sbut[1]], "powerline.hlp");
-
-    select_button_graphic[sbut[2]] = load_graphic ("powerssolar-button.csi");
-    select_button_type[sbut[2]] = CST_POWERS_SOLAR;
-    strcpy (select_button_help[sbut[2]], "powerssolar.hlp");
-
-    select_button_graphic[sbut[3]] = load_graphic ("substation-button.csi");
-    select_button_type[sbut[3]] = CST_SUBSTATION_R;
-    strcpy (select_button_help[sbut[3]], "substation.hlp");
-
-    select_button_graphic[sbut[4]] = load_graphic ("residence-button.csi");
-    select_button_type[sbut[4]] = CST_RESIDENCE_LL;
-    strcpy (select_button_help[sbut[4]], "residential.hlp");
-
-    select_button_graphic[sbut[5]] = load_graphic ("organic-farm-button.csi");
-    select_button_type[sbut[5]] = CST_FARM_O0;
-    strcpy (select_button_help[sbut[5]], "farm.hlp");
-
-    select_button_graphic[sbut[6]] = load_graphic ("market-button.csi");
-    select_button_type[sbut[6]] = CST_MARKET_EMPTY;
-    strcpy (select_button_help[sbut[6]], "market.hlp");
-
-    select_button_help_flag[sbut[7]] = 1;        /* No help for track */
-    select_button_graphic[sbut[7]] = load_graphic ("track-button.csi");
-    select_button_type[sbut[7]] = CST_TRACK_LR;
-    strcpy (select_button_help[sbut[7]], "track.hlp");
-
-    select_button_graphic[sbut[8]] = load_graphic ("coalmine-button.csi");
-    select_button_type[sbut[8]] = CST_COALMINE_EMPTY;
-    strcpy (select_button_help[sbut[8]], "coalmine.hlp");
-
-    select_button_graphic[sbut[9]] = load_graphic ("rail-button.csi");
-    select_button_type[sbut[9]] = CST_RAIL_LR;
-    strcpy (select_button_help[sbut[9]], "rail.hlp");
-
-    select_button_graphic[sbut[10]] = load_graphic ("powerscoal-button.csi");
-    select_button_type[sbut[10]] = CST_POWERS_COAL_EMPTY;
-    strcpy (select_button_help[sbut[10]], "powerscoal.hlp");
-
-    select_button_graphic[sbut[11]] = load_graphic ("road-button.csi");
-    select_button_type[sbut[11]] = CST_ROAD_LR;
-    strcpy (select_button_help[sbut[11]], "road.hlp");
-
-    select_button_graphic[sbut[12]] = load_graphic ("industryl-button.csi");
-    select_button_type[sbut[12]] = CST_INDUSTRY_L_C;
-    strcpy (select_button_help[sbut[12]], "industryl.hlp");
-
-    select_button_graphic[sbut[13]] = load_graphic ("university-button.csi");
-    select_button_type[sbut[13]] = CST_UNIVERSITY;
-    strcpy (select_button_help[sbut[13]], "university.hlp");
-
-    select_button_graphic[sbut[14]] = load_graphic ("commune-button.csi");
-    select_button_type[sbut[14]] = CST_COMMUNE_1;
-    strcpy (select_button_help[sbut[14]], "commune.hlp");
-
-    select_button_graphic[sbut[15]] = load_graphic ("oremine-button.csi");
-    select_button_type[sbut[15]] = CST_OREMINE_1;
-    strcpy (select_button_help[sbut[15]], "oremine.hlp");
-
-    select_button_graphic[sbut[16]] = load_graphic ("tip-button.csi");
-    select_button_type[sbut[16]] = CST_TIP_0;
-    strcpy (select_button_help[sbut[16]], "tip.hlp");
-
-    select_button_graphic[sbut[17]] = load_graphic ("port-button.csi");
-    select_button_type[sbut[17]] = CST_EX_PORT;
-    strcpy (select_button_help[sbut[17]], "port.hlp");
-
-    select_button_graphic[sbut[18]] = load_graphic ("industryh-button.csi");
-    select_button_type[sbut[18]] = CST_INDUSTRY_H_C;
-    strcpy (select_button_help[sbut[18]], "industryh.hlp");
-
-    select_button_graphic[sbut[19]] = load_graphic ("parkland-button.csi");
-    select_button_type[sbut[19]] = CST_PARKLAND_PLANE;
-    strcpy (select_button_help[sbut[19]], "park.hlp");
-
-    select_button_graphic[sbut[20]] = load_graphic ("recycle-button.csi");
-    select_button_type[sbut[20]] = CST_RECYCLE;
-    strcpy (select_button_help[sbut[20]], "recycle.hlp");
-
-    select_button_graphic[sbut[21]] = load_graphic ("water-button.csi");
-    select_button_type[sbut[21]] = CST_WATER;
-    strcpy (select_button_help[sbut[21]], "river.hlp");
-
-    select_button_graphic[sbut[22]] = load_graphic ("health-button.csi");
-    select_button_type[sbut[22]] = CST_HEALTH;
-    strcpy (select_button_help[sbut[22]], "health.hlp");
-
-    select_button_graphic[sbut[23]] = load_graphic ("rocket-button.csi");
-    select_button_type[sbut[23]] = CST_ROCKET_1;
-    strcpy (select_button_help[sbut[23]], "rocket.hlp");
-
-    select_button_graphic[sbut[24]] = load_graphic ("windmill-button.csi");
-    select_button_type[sbut[24]] = CST_WINDMILL_1_R;
-    strcpy (select_button_help[sbut[24]], "windmill.hlp");
-
-    select_button_graphic[sbut[25]] = load_graphic ("monument-button.csi");
-    select_button_type[sbut[25]] = CST_MONUMENT_0;
-    strcpy (select_button_help[sbut[25]], "monument.hlp");
-
-    select_button_graphic[sbut[26]] = load_graphic ("school-button.csi");
-    select_button_type[sbut[26]] = CST_SCHOOL;
-    strcpy (select_button_help[sbut[26]], "school.hlp");
-
-    select_button_graphic[sbut[27]] = load_graphic ("blacksmith-button.csi");
-    select_button_type[sbut[27]] = CST_BLACKSMITH_0;
-    strcpy (select_button_help[sbut[27]], "blacksmith.hlp");
-
-    select_button_graphic[sbut[28]] = load_graphic ("mill-button.csi");
-    select_button_type[sbut[28]] = CST_MILL_0;
-    strcpy (select_button_help[sbut[28]], "mill.hlp");
-
-    select_button_graphic[sbut[29]] = load_graphic ("pottery-button.csi");
-    select_button_type[sbut[29]] = CST_POTTERY_0;
-    strcpy (select_button_help[sbut[29]], "pottery.hlp");
-
-    select_button_graphic[sbut[30]] = load_graphic ("firestation-button.csi");
-    select_button_type[sbut[30]] = CST_FIRESTATION_1;
-    strcpy (select_button_help[sbut[30]], "firestation.hlp");
-
-    select_button_graphic[sbut[31]] = load_graphic ("cricket-button.csi");
-    select_button_type[sbut[31]] = CST_CRICKET_1;
-    strcpy (select_button_help[sbut[31]], "cricket.hlp");
-
-#ifdef SCREEN_SETUP_DRAWS
-    draw_select_buttons ();
-#endif
-
-    /* disable all the buttons 
-       then enable the ones that are available at the start
-    */
-    for (i = 0; i < NUMOF_SELECT_BUTTONS; i++) {
-	select_button_tflag[i] = 0;
-    }
-
-#ifdef SCREEN_SETUP_DRAWS
     update_main_screen ();
 #endif
 
@@ -826,7 +683,7 @@ screen_full_refresh (void)
     mini_full_refresh ();
 
     /* GCS FIX: what about during MT? */
-    if (selected_type == CST_GREEN)
+    if (selected_module_type == CST_GREEN)
 	draw_main_window_box (red (8));
     else
 	draw_main_window_box (green (8));
@@ -845,7 +702,7 @@ screen_full_refresh (void)
     draw_fast (fast_flag & !pause_flag);
     draw_results ();
 
-    draw_select_buttons ();
+    draw_modules ();
 
     /* GCS:  What about resize during load/save/prefs? */
     /* WCK:  We could just lock resize off when we enter them. */
@@ -856,7 +713,7 @@ screen_full_refresh (void)
     print_date();
     print_time_for_year();
 
-    draw_module_cost(get_group_of_type(selected_type));
+    draw_selected_module_cost();
 
     refresh_pbars();
     redraw_mouse();  /* screen_setup used to do this */
@@ -881,56 +738,6 @@ draw_ms_buttons (void)
     draw_ms_button (&scr.ms_ocost_button, ms_ocost_button_graphic);
 }
 #endif
-
-void
-draw_select_buttons (void)
-{
-    int i;
-    Rect* sbw = &scr.select_buttons;
-    Fgl_fillbox (sbw->x, sbw->y, sbw->w, sbw->h, white (20));
-
-    for (i = 0; i < NUMOF_SELECT_BUTTONS; i++) 
-      draw_select_button_graphic (sbut[i], select_button_graphic[sbut[i]]);
-
-    highlight_select_button(old_selected_button);
-
-}
-
-
-
-/* XXX: WCK: this is engine code - what is it doing here?  Should be in
-   either (e.g.) tech.c or sbut.c and call draw_select_buttons. */
-void
-update_select_buttons (void)
-{
-    int i, f;
-    for (i = 0; i < NUMOF_SELECT_BUTTONS; i++)
-    {
-	int g = inv_sbut(i);
-	f = select_button_tflag[i];
-	if (tech_level >= main_groups[g].tech * MAX_TECH_LEVEL/1000)
-	{
-	    if (select_button_tflag[i] == 0)
-		call_select_change_up (i);
-	    f = 1;
-	}
-	else if (select_button_tflag[i] != 0 &&
-		 tech_level
-                 < ((main_groups[g].tech - (main_groups[g].tech/10)) * MAX_TECH_LEVEL/1000) )
-	    f = 0;
-	if (select_button_tflag[i] != f)
-	{
-	    select_button_tflag[i] = f;
-	    draw_select_button_graphic (i, select_button_graphic[i]);
-	}
-    }
-    /* XXX: Why is this here? Should be with rest of tech gained messages! */
-    if (tech_level > MODERN_WINDMILL_TECH && modern_windmill_flag == 0)
-    {
-	ok_dial_box ("mod_wind_up.mes", GOOD, 0L);
-	modern_windmill_flag = 1;
-    }
-}
 
 void
 draw_main_window_box (int colour)
@@ -1938,7 +1745,7 @@ print_stats (void)
 
 	refresh_pbars();
 
-	update_select_buttons ();
+	update_avail_modules ();
     }
 
     if (update_scoreboard.yearly_1) {
@@ -2826,140 +2633,6 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 
 #endif // #ifdef __dialbox_h__
 
-void
-order_select_buttons (void)
-{
-    /* sbut converts a group into a column major index of the button array. */
-    sbut[0] = 16;		/* buldoze */
-    sbut[1] = 13;		/* powerline */
-    sbut[2] = 15;		/* solar power */
-    sbut[3] = 14;		/* substation */
-    sbut[4] = 0;		/* residence */
-    sbut[5] = 1;		/* farm */
-    sbut[6] = 2;		/* market */
-    sbut[7] = 19;		/* track */
-    sbut[8] = 10;		/* coalmine */
-    sbut[9] = 28;		/* rail */
-    sbut[10] = 29;		/* coal power */
-    sbut[11] = 25;		/* road */
-    sbut[12] = 27;		/* light industry */
-    sbut[13] = 11;		/* university */
-    sbut[14] = 3;		/* commune */
-    sbut[15] = 4;		/* oremine */
-    sbut[16] = 5;		/* tip */
-    sbut[17] = 9;		/* export */
-    sbut[18] = 12;		/* heavy industry */
-    sbut[19] = 6;		/* parkland */
-    sbut[20] = 30;		/* recycle */
-    sbut[21] = 20;		/* water */
-    sbut[22] = 26;		/* health */
-    sbut[23] = 31;		/* rocket */
-    sbut[24] = 24;		/* windmill */
-    sbut[25] = 17;		/* monument */
-    sbut[26] = 21;		/* school */
-    sbut[27] = 22;		/* blacksmith */
-    sbut[28] = 8;		/* mill */
-    sbut[29] = 18;		/* pottery */
-    sbut[30] = 23;		/* fire station */
-    sbut[31] = 7;		/* cricket  */
-}
-
-int
-inv_sbut (int button)
-{
-    int i, j;
-    for (i = 0; i < 32; i++)	/* just a test recode later */
-	if (sbut[i] == button)
-	{
-	    j = i;
-	    return (j);
-	}
-    printf ("Button=%d\n", button);
-    for (i = 0; i < 32; i++)
-	printf ("%5d", sbut[i]);
-    printf ("\n");
-    do_error ("An inv_sbut error has happened. This is impossible!!");
-    return (-1);			/* can't get here */
-
-}
-
-
-void
-call_select_change_up (int button)
-{
-    button = inv_sbut (button);
-
-    if (button == GROUP_WINDMILL)
-	ok_dial_box ("windmillup.mes", GOOD, 0L);
-    else if (button == GROUP_COAL_POWER)
-	ok_dial_box ("coalpowerup.mes", GOOD, 0L);
-    else if (button == (GROUP_SOLAR_POWER - 1))
-      /* XXX: */
-	/* -1 a hack to make it work. Really dirty :( 
-	   Caused by the fact that groups and buttons are different until 
-	   after the bulldoze button, then they are the same.
-	*/
-	ok_dial_box ("solarpowerup.mes", GOOD, 0L);
-    else if (button == GROUP_COALMINE)
-	ok_dial_box ("coalmineup.mes", GOOD, 0L);
-    else if (button == GROUP_RAIL)
-	ok_dial_box ("railwayup.mes", GOOD, 0L);
-    else if (button == GROUP_ROAD)
-	ok_dial_box ("roadup.mes", GOOD, 0L);
-    else if (button == GROUP_INDUSTRY_L)
-	ok_dial_box ("ltindustryup.mes", GOOD, 0L);
-    else if (button == GROUP_UNIVERSITY)
-	ok_dial_box ("universityup.mes", GOOD, 0L);
-    else if (button == GROUP_OREMINE)
-    {
-	if (GROUP_OREMINE_TECH > 0)
-	    ok_dial_box ("oremineup.mes", GOOD, 0L);
-    }
-    else if (button == GROUP_PORT)	/* exports are the same */
-	ok_dial_box ("import-exportup.mes", GOOD, 0L);
-    else if (button == GROUP_INDUSTRY_H)
-	ok_dial_box ("hvindustryup.mes", GOOD, 0L);
-    else if (button == GROUP_PARKLAND)
-    {
-	if (GROUP_PARKLAND_TECH > 0)
-	    ok_dial_box ("parkup.mes", GOOD, 0L);
-    }
-    else if (button == GROUP_RECYCLE)
-	ok_dial_box ("recycleup.mes", GOOD, 0L);
-    else if (button == GROUP_RIVER)
-    {
-	if (GROUP_WATER_TECH > 0)
-	    ok_dial_box ("riverup.mes", GOOD, 0L);
-    }
-    else if (button == GROUP_HEALTH)
-	ok_dial_box ("healthup.mes", GOOD, 0L);
-    else if (button == GROUP_ROCKET)
-	ok_dial_box ("rocketup.mes", GOOD, 0L);
-    else if (button == GROUP_SCHOOL)
-    {
-	if (GROUP_SCHOOL_TECH > 0)
-	    ok_dial_box ("schoolup.mes", GOOD, 0L);
-    }
-    else if (button == GROUP_BLACKSMITH)
-    {
-	if (GROUP_BLACKSMITH_TECH > 0)
-	    ok_dial_box ("blacksmithup.mes", GOOD, 0L);
-    }
-    else if (button == GROUP_MILL)
-    {
-	if (GROUP_MILL_TECH > 0)
-	    ok_dial_box ("millup.mes", GOOD, 0L);
-    }
-    else if (button == GROUP_POTTERY)
-    {
-	if (GROUP_POTTERY_TECH > 0)
-	    ok_dial_box ("potteryup.mes", GOOD, 0L);
-    }
-    else if (button == GROUP_FIRESTATION)
-	ok_dial_box ("firestationup.mes", GOOD, 0L);
-    else if (button == GROUP_CRICKET)
-	ok_dial_box ("cricketup.mes", GOOD, 0L);
-}
 
 
 

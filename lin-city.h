@@ -125,11 +125,6 @@
 #define BORDERY 30
 #endif
 
-#define SELECT_BUTTONS_NEED_TECH
-/*
-  //#define USE_EXPANDED_FONT
-*/
-
 #define TEXT_FG_COLOUR  (white(24))
 #define TEXT_BG_COLOUR  105
 #define YN_DIALBOX_BG_COLOUR (red(10))
@@ -213,7 +208,6 @@
 #define RESULTS_FILENAME "results"
 
 #define MAX_ICON_LEN 4096
-#define NUMOF_SELECT_BUTTONS 32
 #define WORLD_SIDE_LEN 100
 #define NUMOF_DAYS_IN_MONTH 100
 #define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
@@ -634,14 +628,6 @@
 //#define MARKET_CB_W (18*8)
 #define MARKET_CB_W (17*8 - 2)
 #define MARKET_CB_H (23*8)
-
-#if defined (commentout)
-#define SELECT_BUTTON_WIN_X 1
-#define SELECT_BUTTON_WIN_W 56
-#define SELECT_BUTTON_WIN_Y 1
-#define SELECT_BUTTON_WIN_H 392
-#endif
-#define NUMOF_SELECT_BUTTONS_DOWN 16
 
 #define SCROLL_LONG_COUNT 5
 #define SCROLL_RIGHT_BUTTON_X 100

@@ -18,6 +18,7 @@
 #include "lcintl.h"
 #include "power.h"
 #include "mouse.h"
+#include "module_buttons.h"
 
 extern int selected_type_cost;
 
@@ -143,8 +144,7 @@ engine_place_item (int x, int y, short type)
 
     connect_transport (x-2,y-2,x+size+1,y+size+1);
 
-    selected_type_cost = get_type_cost (type);
-    total_money -= selected_type_cost;
+    total_money -= selected_module_cost;
     map_power_grid();
     return 0;
 }

@@ -10,6 +10,7 @@
 #include "lcintl.h"
 #include "screen.h"
 #include "mouse.h"
+#include "module_buttons.h"
 
 /* this is for OS/2 - RVI */
 #ifdef __EMX__
@@ -315,8 +316,8 @@ save_city_raw (char *cname)
     fprintf (ofile, "%d\n", max_pop_ever);
     fprintf (ofile, "%d\n", total_evacuated);
     fprintf (ofile, "%d\n", total_births);
-    for (x = 0; x < NUMOF_SELECT_BUTTONS; x++)
-	fprintf (ofile, "%d\n", select_button_help_flag[x]);
+    for (x = 0; x < NUMOF_MODULES; x++)
+	fprintf (ofile, "%d\n", module_help_flag[x]);
     fprintf (ofile, "%d\n", 0);	/* dummy values */
 
     fprintf (ofile, "%d\n", 0);	/* backward compatibility */
@@ -614,8 +615,8 @@ load_city (char *cname)
     fscanf (ofile, "%d", &max_pop_ever);
     fscanf (ofile, "%d", &total_evacuated);
     fscanf (ofile, "%d", &total_births);
-    for (x = 0; x < NUMOF_SELECT_BUTTONS; x++)
-	fscanf (ofile, "%d", &(select_button_help_flag[x]));
+    for (x = 0; x < NUMOF_MODULES; x++)
+	fscanf (ofile, "%d", &(module_help_flag[x]));
     fscanf (ofile, "%d", &x);	/* just dummy reads */
     fscanf (ofile, "%d", &x);	/* for backwards compatibility. */
     /* 10 dummy strings, for missed out things, have been put in save. */
@@ -672,10 +673,10 @@ load_city (char *cname)
 	}
     }
 
-    selected_type = CST_TRACK_LR;
-    selected_type_cost = GROUP_TRACK_COST;
-    old_selected_button = sbut[7];
-    highlight_select_button (sbut[7]);	/* 7 is track.  Watch out though! */
+    selected_module_type = CST_TRACK_LR;
+    selected_module_cost = GROUP_TRACK_COST;
+    old_selected_module = sbut[7];
+    highlight_module_button (sbut[7]);	/* 7 is track.  Watch out though! */
 
     print_total_money ();
     reset_animation_times ();

@@ -176,8 +176,6 @@ lincity_main (int argc, char *argv[])
 #endif
 #endif
 
-    order_select_buttons ();
-
 #ifdef LC_X11
     borderx = 0;
     bordery = 0;
@@ -222,6 +220,7 @@ lincity_main (int argc, char *argv[])
     draw_background ();
     prog_box (_("Loading the game"), 1);
     init_types ();
+    init_modules();
     init_mappoint_array ();
     initialize_tax_rates ();
     prog_box ("", 95);
@@ -269,11 +268,7 @@ client_main_loop (void)
     reset_start_time ();
 
     //    draw_mini_screen ();
-    selected_type = CST_TRACK_LR;
-    selected_type_cost = GROUP_TRACK_COST;
-    old_selected_button = sbut[7];
-
-    update_select_buttons ();
+    update_avail_modules ();
 
     screen_full_refresh ();
 
@@ -286,7 +281,6 @@ client_main_loop (void)
 	    activate_help ("opening.hlp");
     }
 
-    //    highlight_select_button (sbut[7]);	/* 7 is track.  Watch out though! */
     //    refresh_main_screen ();
     /* Set speed */
 #if defined (CS_PROFILE) || defined (START_FAST_SPEED)

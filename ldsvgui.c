@@ -364,7 +364,7 @@ load_opening_city (char *s)
   Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
   refresh_main_screen ();
   suppress_ok_buttons = 1;
-  update_select_buttons ();
+  update_avail_modules ();
   suppress_ok_buttons = 0;
   /* GCS: ?? */
   redraw_mouse ();
@@ -446,7 +446,7 @@ do_load_city (void)
     load_flag = 0;
     refresh_main_screen ();
     suppress_ok_buttons = 1;
-    update_select_buttons ();
+    update_avail_modules ();
     suppress_ok_buttons = 0;
     redraw_mouse ();
 }
@@ -808,7 +808,7 @@ do_get_nw_server (void)
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
     refresh_main_screen ();
     suppress_ok_buttons = 1;
-    update_select_buttons ();
+    update_avail_modules ();
     suppress_ok_buttons = 0;
     redraw_mouse ();
 }

@@ -24,13 +24,7 @@ char windowsfontfile[256];
 
 int cheat_flag;
 char given_scene[256];
-int select_button_help_flag[NUMOF_SELECT_BUTTONS];
 int modern_windmill_flag = 0;
-
-int sbut[NUMOF_SELECT_BUTTONS];
-short selected_type;	/* the type associated with button selected */
-int selected_button;	/* the button selected. So we can work out the cost */
-int old_selected_button = 0;
 
 int askdir_lines;
 char *askdir_path[4];

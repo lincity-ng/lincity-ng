@@ -22,6 +22,7 @@
 #include "lchelp.h"
 #include "pbar.h"
 #include "lclib.h"
+#include "module_buttons.h"
 
 #undef DEBUG_MT_CODE
 
@@ -31,8 +32,7 @@ extern Update_Scoreboard update_scoreboard;
  * Private global variables
  * ---------------------------------------------------------------------- */
 static struct mouse_button_struct buttons[NUM_BUTTONS];
-/* XXX: mt_cost is misnamed; should represent number of sections, not price */
-static int mt_cost; 
+static int mt_length; 
 static int mt_grp;
 static char mt_name[20];
 static short mouse_buffer_fresh = 0;
@@ -85,18 +85,11 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 	move_mouse (cs_mouse_x, cs_mouse_y);
     x = cs_mouse_x;
     y = cs_mouse_y;
-#ifdef DEBUG_MOUSE
-    printf ("button=%d enc=%d %d%d%d\n", button, enc_button, 
-	    buttons[0].pressed, buttons[1].pressed, buttons[2].pressed);
-    printf ("cs_mouse_button=%d  button=%d\n", cs_mouse_button, button);
-#endif
 
     /* see if we are all the way up */
     if (!mouse_initialized)
 	return;
 
-    group = get_group_of_type(selected_type);
-    
     /* button press */
     if (button_pressed) {
 
@@ -238,21 +231,12 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 			  &buttons[button_idx].r_mappoint_x, 
 			  &buttons[button_idx].r_mappoint_y);
       
-#ifdef DEBUG_MOUSE
-	printf ("button %d released at %d , %d\t mappoint %d , %d\n",
-		button, cs_mouse_x, cs_mouse_y, buttons[button_idx].r_mappoint_x,
-		buttons[button_idx].r_mappoint_y);
-#endif
-
 	buttons[button_idx].r_x = cs_mouse_x;
 	buttons[button_idx].r_y = cs_mouse_y;
 	buttons[button_idx].pressed = 0;
       
 	switch (button) {
 	case LC_MOUSE_LEFTBUTTON:
-#if defined (DEBUG_MT_CODE)
-	    printf("calling mt_draw(MT_SUCCESS)\n");
-#endif
 	    mt_draw(cs_mouse_x, cs_mouse_y, MT_SUCCESS);
 	    break;
 	case LC_MOUSE_RIGHTBUTTON:
@@ -267,7 +251,7 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 	/* mouse moved */
     } else {
 	if (buttons[LC_MOUSE_LEFTBUTTON-1].pressed 
-	    && GROUP_IS_TRANSPORT(group))
+	    && GROUP_IS_TRANSPORT(selected_module_group))
 	{
 	    mt_draw(cs_mouse_x, cs_mouse_y, MT_CONTINUE);
 	}
@@ -282,13 +266,7 @@ move_mouse (int x, int y)
     int size;
     int grp;
 
-    if( (grp = get_group_of_type(selected_type)) < 0 ) return;
-
-#ifdef DEBUGMOUSE
-    printf ("In move_mouse()\n");
-#endif
-
-    size = (main_groups[grp].size) * 16;
+    size = (main_groups[selected_module_group].size) * 16;
 
     /* GCS: we don't check for load_flag/save_flag because these guys
        set db_flag = 1 */
@@ -318,9 +296,6 @@ move_mouse (int x, int y)
     }
     else
     {
-#ifdef DEBUGMOUSE
-	printf ("mox=%d moy=%d x=%d y=%d\n", mox, moy, x, y);
-#endif
 	hide_mouse ();
 	mouse_hide_count--;
 	draw_normal_mouse (x, y);
@@ -335,9 +310,6 @@ move_mouse (int x, int y)
 	    update_scoreboard.mps = 1;
 	}
     }
-#ifdef DEBUGMOUSE
-    printf ("Got to the end of move_mouse()\n");
-#endif
 }
 
 void
@@ -400,11 +372,8 @@ void
 hide_square_mouse (void)
 {
     int size;
-    int grp;
 
-    if( (grp = get_group_of_type(selected_type)) < 0 ) return;
-
-    size = (main_groups[grp].size) * 16;
+    size = (main_groups[selected_module_group].size) * 16;
 #if defined (WIN32)
     cs_square_mouse_visible = 0;
     RefreshArea (omx - 3, omy - 3, omx + size + 2, omy + size + 2);
@@ -426,11 +395,8 @@ void
 redraw_square_mouse (void)
 {
     int size;
-    int grp;
 
-    if ((grp = get_group_of_type(selected_type)) < 0 ) return;
-
-    size = (main_groups[grp].size) * 16;
+    size = (main_groups[selected_module_group].size) * 16;
 
 #if defined (WIN32)
     cs_square_mouse_visible = 1;
@@ -511,169 +477,7 @@ redraw_normal_mouse (void)
 
 
 
-void 
-do_mouse_select_buttons (int rawx, int rawy, int mbutton)
-{
-    Rect* sbw = &scr.select_buttons;
-    int x, y;
-    int button = -1;
-    int rows;
-    int row, col;
-    x = rawx - sbw->x;
-    y = rawy - sbw->y;
 
-    rows = (sbw->h / (SELECT_BUTTON_INTERVAL));
-
-#ifdef DEBUG_SELECT_BUTTONS    
-    printf ("do_mouse_select_buttons() x=%d y=%d\n", x, y);
-#endif
-
-    row = (y / (SELECT_BUTTON_INTERVAL));
-    if ((y % SELECT_BUTTON_INTERVAL) <= 8) 
-      return;  /* in the gap */
-    
-    col = (x / (SELECT_BUTTON_INTERVAL));
-    if ((x % SELECT_BUTTON_INTERVAL) <= 8) 
-      return;
-    
-    button = row + (rows * col);
-
-#ifdef DEBUG_SELECT_BUTTONS    
-    printf("rows %d\n",rows);
-
-    printf("do_mouse_select_buttons: row %d\tcol %d\tbutton %d\n",
-	   row, col, button);
-#endif    
-    do_select_button (button, mbutton);
-
-}
-
-void
-draw_module_cost (int grp)
-{
-  Rect* b = &scr.select_message;
-  char s[100];
-
-  get_group_cost(grp);
-  if (grp == GROUP_BARE) 
-    sprintf (s, "Bulldoze - cost POA");
-  else
-    sprintf (s, "%s %d  Bulldoze %d", main_groups[grp].name,
-	     get_group_cost(grp), main_groups[grp].bul_cost);
-
-#ifdef USE_EXPANDED_FONT
-    Fgl_fillbox (SELECT_BUTTON_MESSAGE_X, SELECT_BUTTON_MESSAGE_Y,
-		 44 * 8, 8, 0);
-    Fgl_fillbox (SELECT_BUTTON_MESSAGE_X, SELECT_BUTTON_MESSAGE_Y,
-		 44 * 8, 8, blue (10));
-    gl_setwritemode (WRITEMODE_MASKED | FONT_EXPANDED);
-#else
-    Fgl_fillbox (b->x, b->y, 42 * 8, 8, TEXT_BG_COLOUR);
-#endif
-
-  Fgl_write (b->x, b->y, s);
-}
-
-void
-do_select_button (int button, int mbutton)
-{
-    short grp;
-    if (select_button_tflag[button] == 0 && mbutton != LC_MOUSE_RIGHTBUTTON) {
-	ok_dial_box ("not_enough_tech.mes", BAD, 0L);
-	return;
-    }
-    if (mbutton == LC_MOUSE_RIGHTBUTTON 
-	|| select_button_help_flag[button] == 0)
-    {
-	activate_help (select_button_help[button]);
-	if (mbutton != LC_MOUSE_RIGHTBUTTON)
-	    select_button_help_flag[button] = 1;
-	if (mbutton == LC_MOUSE_RIGHTBUTTON)
-	    return;
-    }
-    selected_button = button;
-    unhighlight_select_button (old_selected_button);
-    highlight_select_button (button);
-    old_selected_button = button;
-    selected_type = select_button_type[button];
-    if (selected_type == CST_RESIDENCE_LL) {
-	choose_residence ();
-    }
-    grp = get_group_of_type(selected_type);
-    if (grp < 0) return; /* XXX: WCK: When is this hit?  Should it hurt? */
-
-#ifdef LC_X11
-    if (grp == GROUP_BARE) 
-	XDefineCursor (display.dpy, display.win, pirate_cursor);
-    else
-	XDefineCursor (display.dpy, display.win, None);
-#endif
-
-    draw_module_cost(grp);
-
-#ifdef USE_EXPANDED_FONT
-    gl_setwritemode (WRITEMODE_OVERWRITE | FONT_EXPANDED);
-#endif
-    if (selected_type == CST_GREEN) {
-	draw_main_window_box (red (8));
-    } else {
-	draw_main_window_box (green (8));
-	monument_bul_flag = 0;
-	river_bul_flag = 0;
-    }
-}
-
-void
-highlight_select_button (int button)
-{
-    Rect* sbw = &scr.select_buttons;
-    int x, y, q;
-    if (button < NUMOF_SELECT_BUTTONS_DOWN)
-    {
-	x = 8 + sbw->x;
-	y = 8 + (button * 24) + sbw->y;
-    }
-    else
-    {
-	x = 8 + 24 + sbw->x;
-	y = 8 + ((button - NUMOF_SELECT_BUTTONS_DOWN) * 24) + sbw->y;
-    }
-    hide_mouse ();
-    for (q = 0; q < 3; q++)
-    {
-	Fgl_hline (x - 1 - q, y - 1 - q, x + 16 + q, yellow (16 + q * 4));
-	Fgl_hline (x - 1 - q, y + q + 16, x + 16 + q, yellow (16 + q * 4));
-	Fgl_line (x - 1 - q, y - 1 - q, x - 1 - q, y + q + 16, yellow (16 + q * 4));
-	Fgl_line (x + 16 + q, y - 1 - q, x + 16 + q, y + q + 16, yellow (16 + q * 4));
-    }
-    redraw_mouse ();
-}
-
-void
-unhighlight_select_button (int button)
-{
-    Rect* sbw = &scr.select_buttons;
-    int x, y, q;
-    if (button < NUMOF_SELECT_BUTTONS_DOWN)
-    {
-	x = 8 + sbw->x;
-	y = 8 + (button * 24) + sbw->y;
-    }
-    else
-    {
-	x = 8 + 24 + sbw->x;
-	y = 8 + ((button - NUMOF_SELECT_BUTTONS_DOWN) * 24) + sbw->y;
-    }
-    hide_mouse ();
-    for (q = 0; q < 3; q++)
-    {
-	Fgl_hline (x - 1 - q, y - 1 - q, x + 16 + q, blue (16 + q * 4));
-	Fgl_hline (x - 1 - q, y + q + 16, x + 16 + q, blue (16 + q * 4));
-	Fgl_line (x - 1 - q, y - 1 - q, x - 1 - q, y + q + 16, blue (16 + q * 4));
-	Fgl_line (x + 16 + q, y - 1 - q, x + 16 + q, y + q + 16, blue (16 + q * 4));
-    }
-    redraw_mouse ();
-}
 
 
 
@@ -681,19 +485,11 @@ void
 do_mouse_main_win (int px, int py, int button)
 {
     Rect* mw = &scr.main_win;
-    int g, size;
+    int size;
     int x, y; /* mappoint */
-
-#ifdef DEBUG_MAIN_SCREEN
-    printf ("In do_mouse_main_win() mappoint x=%d y=%d type=%d\n",
-	    (x - main->x) / 16, (y - main->y) / 16, selected_type);
-#endif
 
     if (button == LC_MOUSE_MIDDLEBUTTON)
 	return;
-
-    g = get_group_of_type(selected_type);
-    if (g < 0) return;
 
     pixel_to_mappoint(px, py, &x, &y);
 
@@ -708,7 +504,8 @@ do_mouse_main_win (int px, int py, int button)
     }
 
     /* Handle multitransport */
-    if (button == LC_MOUSE_LEFTBUTTON && GROUP_IS_TRANSPORT(g)) {
+    if (button == LC_MOUSE_LEFTBUTTON && 
+	GROUP_IS_TRANSPORT(selected_module_group)) {
 	if (mt_draw (px, py, MT_START)) {
 	    /* We need to set mps to current location, since the user might 
 	       click on the transport to see the mps */
@@ -718,7 +515,7 @@ do_mouse_main_win (int px, int py, int button)
     }
 
     /* Handle bulldozing */
-    if (selected_type == CST_GREEN && button != LC_MOUSE_RIGHTBUTTON) {
+    if (selected_module_type == CST_GREEN && button != LC_MOUSE_RIGHTBUTTON) {
 	check_bulldoze_area (x, y);
 	return;
     }
@@ -734,9 +531,9 @@ do_mouse_main_win (int px, int py, int button)
     }
 
     /* OK, by now we are certain that the user wants to place the item.  
-       Set the origin based on the size of the selected_type, and 
+       Set the origin based on the size of the selected_module_type, and 
        see if the selected item will fit. */
-    size = main_groups[g].size;
+    size = main_groups[selected_module_group].size;
     if (px > (mw->x + mw->w) - size*16)
 	px = (mw->x + mw->w) - size*16;
     if (py > (mw->y + mw->h) - size*16)
@@ -772,14 +569,14 @@ do_mouse_main_win (int px, int py, int button)
     }
 
     /* Place the selected item */
-    switch (place_item (x, y, selected_type)) {
+    switch (place_item (x, y, selected_module_type)) {
     case 0:
 	/* Success */
 	print_total_money ();
 	break;
     case -1:
 	/* Not enough money */
-	no_credit_build_msg (g);
+	no_credit_build_msg (selected_module_group);
 	break;
     case -2:
 	/* Improper port placement */
@@ -948,11 +745,6 @@ do_mouse_other_buttons (int x, int y, int button)
 	    new_origin_x = main_screen_originx + 1;
 	}
 	adjust_main_origin (new_origin_x, main_screen_originy, 1);
-    }
-
-    /* These are the select buttons */
-    else if (mouse_in_rect(&scr.select_buttons,x,y)) {
-	do_mouse_select_buttons (x, y, button);
     }
 
     /* This is the mini window. Clicking here move the main window 
@@ -1848,15 +1640,15 @@ mt_temp(int x, int y)
 	    } else {
 		MP_INFO(x,y).flags |= FLAG_MULTI_TRANS_PREV;
 	    }
-	    mt_cost++;
-	    MP_TYPE(x,y) = selected_type;
+	    mt_length++;
+	    MP_TYPE(x,y) = selected_module_type;
 	    MP_GROUP(x,y) = mt_grp;
 	    MP_INFO(x,y).flags |= FLAG_MULTI_TRANSPORT;
 	    return 1;
 	}
     } else if (MP_GROUP(x,y) == GROUP_BARE) { 
-	mt_cost++;
-	MP_TYPE(x,y) = selected_type;
+	mt_length++;
+	MP_TYPE(x,y) = selected_module_type;
 	MP_GROUP(x,y) = mt_grp;
 	MP_INFO(x,y).flags |= FLAG_MULTI_TRANSPORT;
 	return 1;
@@ -1877,11 +1669,11 @@ mt_perm(int x, int y)
 	    return 0;
 	} else {
 	    bulldoze_item(x,y);
-	    place_item (x,y,selected_type);
+	    place_item (x,y,selected_module_type);
 	    return 1;
 	}
     } else if (MP_GROUP(x,y) == GROUP_BARE) { 
-	place_item (x,y,selected_type);
+	place_item (x,y,selected_module_type);
 	return 1;
     }
     return 0;
@@ -1898,7 +1690,7 @@ do_mt_draw (int x1, int x2, int y1, int y2, int (*mode)())
     int ix = x1;
     int iy = y1;
 
-    mt_cost = 0;
+    mt_length = 0;
 
     if (!mode(ix, iy))
 	return 0;
@@ -2008,7 +1800,8 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	} else { 
 	    snprintf(s,STATUS_MESSAGE_LENGTH-1,
 		     "%d sections of %s will cost %3d to build",
-		     mt_cost, mt_name, mt_cost * get_type_cost(selected_type));
+		     mt_length, mt_name, 
+		     mt_length * get_type_cost(selected_module_type));
 	}
 
 	status_message(s,25);
@@ -2018,10 +1811,10 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
     case MT_START:
 	/* we assume that a transport type is selected.   */
 
-        if ((mt_grp = get_group_of_type(selected_type)) < 0 )
+        if ((mt_grp = get_group_of_type(selected_module_type)) < 0 )
 	  return 0;
 
-	get_type_name(selected_type,mt_name);
+	get_type_name(selected_module_type,mt_name);
 
 	dx = dy = 0;
 	ox = buttons[LC_MOUSE_LEFTBUTTON-1].mappoint_x;

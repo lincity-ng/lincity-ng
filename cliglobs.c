@@ -16,11 +16,6 @@ char progbox[(PROGBOXW + 16) * (PROGBOXH + 16)];
 
 int no_init_help;
 
-int select_button_type[NUMOF_SELECT_BUTTONS];
-char *select_button_graphic[NUMOF_SELECT_BUTTONS];
-int select_button_tflag[NUMOF_SELECT_BUTTONS];
-char select_button_help[NUMOF_SELECT_BUTTONS][20];
-
 int main_screen_flag = MAIN_SCREEN_NORMAL_FLAG;
 
 int mappoint_stats_flag = 0, mappoint_stats_time = 0;

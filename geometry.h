@@ -48,8 +48,8 @@ struct screen_geometry_struct
     Rect tover_button;
     Rect confine_button;
 
-    /* Icon palette (a.k.a. "select buttons") */
-    Rect select_buttons;
+    /* Icon palette (a.k.a. "module buttons") */
+    Rect module_buttons;
 
     /* Progress bars */
     Rect pbar_area;

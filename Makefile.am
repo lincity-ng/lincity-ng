@@ -20,6 +20,7 @@ noinst_HEADERS = \
 	lcx11.h      lcsvga.h \
 	ldsvgui.h    ldsvguts.h   \
 	lin-city.h   lintypes.h	 market.h \
+	module_buttons.h \
 	mouse.h      mps.h	  pbar.h    \
 	picedit.h    pixmap.h     power.h \
 	protocol.h   resource.h	 screen.h \
@@ -120,12 +121,12 @@ bin_PROGRAMS = @PROGS@
 XLC_OBJ = \
 	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o \
 	x_cliglobs.o x_mps.o x_screen.o x_lcx11.o x_pixmap.o x_geometry.o \
-	x_pbar.o x_dialbox.o
+	x_pbar.o x_dialbox.o x_module_buttons.o
 
 LC_OBJ = \
 	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o \
 	vga_cliglobs.o vga_mps.o vga_lcsvga.o vga_screen.o vga_geometry.o \
-	vga_pbar.o
+	vga_pbar.o vga_module_buttons.o
 
 
 ## ----- xlincity -----
@@ -135,7 +136,7 @@ xlincity_SOURCES = \
 	lclib.c power.c 
 EXTRA_xlincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c
+	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c
 xlincity_DEPENDENCIES = \
 	${XLC_OBJ} \
 	libutils.a \
@@ -151,7 +152,7 @@ lincity_SOURCES = \
 	lclib.c power.c
 EXTRA_lincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcsvga.c cliglobs.c geometry.c pbar.c
+	lcsvga.c cliglobs.c geometry.c pbar.c module_buttons.c
 lincity_DEPENDENCIES = \
 	${LC_OBJ} \
 	libutils.a \
@@ -200,7 +201,7 @@ vga_ldsvgui.o: ldsvgui.c
 vga_geometry.o: geometry.c geometry.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_geometry.o -c geometry.c
 
-vga_lchelp.o: lchelp.c lchelp.h lin-city.h lctypes.h
+vga_lchelp.o: lchelp.c lchelp.h lin-city.h lctypes.h module_buttons.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_lchelp.o -c lchelp.c
 
 vga_lcsvga.o: lcsvga.c lcsvga.h lin-city.h lctypes.h
@@ -209,7 +210,7 @@ vga_lcsvga.o: lcsvga.c lcsvga.h lin-city.h lctypes.h
 vga_main.o: main.c lin-city.h lctypes.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_main.o -c main.c
 
-vga_mouse.o: mouse.c mouse.h lin-city.h lctypes.h
+vga_mouse.o: mouse.c mouse.h lin-city.h lctypes.h module_buttons.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_mouse.o -c mouse.c
 
 vga_mps.o: mps.c mps.h lin-city.h lctypes.h
@@ -218,8 +219,12 @@ vga_mps.o: mps.c mps.h lin-city.h lctypes.h
 vga_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_pbar.o -c pbar.c
 
-vga_screen.o: screen.c screen.h lin-city.h lctypes.h
+vga_screen.o: screen.c screen.h lin-city.h lctypes.h module_buttons.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_screen.o -c screen.c
+
+vga_module_buttons.o: module_buttons.c module_buttons.h lin-city.h lctypes.h \
+	mouse.h
+	$(COMPILE) $(SVGA_DEFS) -o vga_module_buttons.o -c module_buttons.c
 
 
 ## ----------------- X RULES ------------------
@@ -235,7 +240,7 @@ x_ldsvgui.o: ldsvgui.c
 x_geometry.o: geometry.c geometry.h
 	$(COMPILE) $(X_DEFS) -o x_geometry.o -c geometry.c
 
-x_lchelp.o: lchelp.c lchelp.h lin-city.h lctypes.h
+x_lchelp.o: lchelp.c lchelp.h lin-city.h lctypes.h module_buttons.h
 	$(COMPILE) $(X_DEFS) -o x_lchelp.o -c lchelp.c
 
 x_lcx11.o: lcx11.c lcx11.h lin-city.h lctypes.h
@@ -247,7 +252,7 @@ x_pixmap.o: pixmap.c lcx11.h lin-city.h lctypes.h
 x_main.o: main.c lin-city.h lctypes.h lcx11.h
 	$(COMPILE) $(X_DEFS) -o x_main.o -c main.c
 
-x_mouse.o: mouse.c mouse.h lin-city.h lctypes.h
+x_mouse.o: mouse.c mouse.h lin-city.h lctypes.h module_buttons.h
 	$(COMPILE) $(X_DEFS) -o x_mouse.o -c mouse.c
 
 x_mps.o: mps.c mps.h lin-city.h lctypes.h
@@ -256,11 +261,15 @@ x_mps.o: mps.c mps.h lin-city.h lctypes.h
 x_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
 	$(COMPILE) $(X_DEFS) -o x_pbar.o -c pbar.c
 
-x_screen.o: screen.c screen.h lin-city.h lctypes.h lcx11.h
+x_screen.o: screen.c screen.h lin-city.h lctypes.h lcx11.h module_buttons.h
 	$(COMPILE) $(X_DEFS) -o x_screen.o -c screen.c
 
 x_dialbox.o: dialbox.c dialbox.h lcx11.h geometry.h
 	$(COMPILE) $(X_DEFS) -o x_dialbox.o -c dialbox.c
+
+x_module_buttons.o: module_buttons.c module_buttons.h lin-city.h lctypes.h \
+	mouse.h
+	$(COMPILE) $(X_DEFS) -o x_module_buttons.o -c module_buttons.c
 
 
 ## ----------------- PICEDIT RULES ------------------
