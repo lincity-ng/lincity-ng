@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<resources>
+  <image file="blacksmitth.png" x="131" y="79" />
+  <image file="coalmine.png" x="262" y="147" />
+  <image file="coalpower.png" x="193" y="78" />
+  <image file="commune.png" x="66" y="37" />
+  <image file="farm.png" x="262" y="101" />
+  <image file="firestation.png" x="131" y="79" />
+  <image file="hospital-1.png" x="131" y="220" />
+  <image file="hospital.png" x="36" y="31" />
+  <image file="market.png" x="128" y="55" />
+  <image file="mill.png" x="53" y="28" />
+  <image file="monument.png" x="131" y="46" />
+  <image file="oremine.png" x="258" y="102" />
+  <image file="port.png" x="262" y="112" />
+  <image file="pottery.png" x="111" y="66" />
+  <image file="PowerTower.png" x="111" y="66" />
+  <image file="rails.png" x="196" y="69" />
+  <image file="residence2.png" x="470" y="384" />
+  <image file="residence.png" x="87" y="30" />
+  <image file="rocket.png" x="188" y="310" />
+  <image file="school.png" x="131" y="82" />
+  <image file="skyscraper.png" x="512" y="384" />
+  <image file="solar.png" x="176" y="97" />
+  <image file="stadium.png" x="121" y="62" />
+  <image file="stadium-shadowtest.png" x="117" y="59" />
+  <image file="SteelMill-1.png" x="117" y="59" />
+  <image file="SteelMill.png" x="117" y="59" />
+  <image file="SubStation-1.png" x="117" y="59" />
+  <image file="SubStation.png" x="117" y="59" />
+  <image file="tuxmonument.png" x="124" y="153" />
+  <image file="water.png" x="393" y="168" />
+  <image file="windmill.png" x="93" y="148" />
+  <image file="windpower2-anim.png" x="134" y="368" />
+  <image file="windpower2.png" x="134" y="368" />
+  <image file="windpower.png" x="109" y="111" />
+</resources>
