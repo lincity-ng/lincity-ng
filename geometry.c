@@ -727,3 +727,19 @@ draw_small_bezel (int x, int y, int w, int h, int colour)
 	Fgl_line (x + w + i, y - 1 - i, x + w + i, y + h + i, colour + 24);
     }
 }
+
+void 
+draw_bezel (Rect r, short width, int color)
+{
+  int i;
+  int c;
+  for (i = 0; i < width; i++)
+    {
+      c = color + (width - i) * 2;
+      Fgl_hline (r.x + i, r.y + i, r.x + r.w - i - 1, c);
+      Fgl_hline (r.x + i, r.y + r.h - i - 1, r.x + r.w - i - 1, c);
+      Fgl_line (r.x + i, r.y + i, r.x + i, r.y + r.h - i - 1, c);
+      Fgl_line (r.x + r.w - i - 1, r.y + i, r.x + r.w - i - 1, 
+		r.y + r.h - i - 1, c);
+    }
+}

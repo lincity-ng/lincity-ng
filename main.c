@@ -517,6 +517,21 @@ process_keystrokes (int key)
 	save_flag = 1;
 	break;
 
+    case 'b':
+      dialog_box(red(10),10,
+		 0,"This is the first test",
+		 0,"Of the new dialog box code",
+		 0,"",
+		 0,"Do you like it?",
+		 1,"Yes",
+		 2,"No",
+		 3,"Maybe",
+		 4,"Kind of",
+		 5,"Not at all",
+		 6,"It is a flaming pile of excrement!"
+		 );
+      break;
+
     case 'r':
         window_results();
 	break;

@@ -608,20 +608,25 @@ do_power_source_coal (int x, int y)
 void
 do_power_line (int x, int y)
 {
-  switch(MP_INFO(x,y).int_5) {
-  case 0: {
-    MP_INFO(x,y).int_5 = POWER_MODULUS;
-  } break;
-  case 1: {
-    if (!(MP_TYPE(x,y) <= 11 && MP_TYPE(x,y) >= 1)) 
+
+  if (grid[MP_INFO(x,y).int_6]->powered == -1)
+     return;
+
+  switch(MP_INFO(x,y).int_5) 
+    {
+    case 0: 
+      MP_INFO(x,y).int_5 = POWER_MODULUS;
       break;
-    MP_TYPE(x,y) += 11;
-  } break;
-  case 2: {
-    if (!(MP_TYPE(x,y) >= 11 && MP_TYPE(x,y) <= 22))
+    case 1: 
+      if (!(MP_TYPE(x,y) <= 11 && MP_TYPE(x,y) >= 1)) 
 	break;
-    MP_TYPE(x,y) -= 11;
-  } break;
+      MP_TYPE(x,y) += 11;
+      break;
+    case 2: 
+      if (!(MP_TYPE(x,y) >= 11 && MP_TYPE(x,y) <= 22))
+	break;
+      MP_TYPE(x,y) -= 11;
+      break;
 
   }
 
