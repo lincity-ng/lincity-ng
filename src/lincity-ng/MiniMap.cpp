@@ -1,6 +1,7 @@
 #include <config.h>
 
 #include "MiniMap.hpp"
+#include "GameView.hpp"
 
 #include "gui/Painter.hpp"
 #include "gui/Button.hpp"
@@ -327,7 +328,11 @@ void MiniMap::event(const Event& event)
     {
         cdebug("mousePos:"<<event.mousepos.x<<","<<event.mousepos.y);
         // move main-map
-//        mMode = getNextMode(mMode);
+        // get Tile, that was clicked
+        int tilex = ( event.mousepos.x - border ) / tilesize;
+        int tiley = ( event.mousepos.y - border ) / tilesize;
+        getGameView()->show( tilex, tiley );
+        //mMode = getNextMode(mMode);
         mFullRefresh=true;
         //      cdebug("MODE:"<<mMode<<":"<<mode[mMode]);
         //      mText->setText(mode[mMode]);

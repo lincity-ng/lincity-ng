@@ -19,7 +19,9 @@ public:
     void draw(Painter& painter);
     void resize(float width, float height );
     void event(const Event& event);
- 
+
+    //Show City Tile(x/y) by centering the screen 
+    void show( const int x, const int y );
 private:
     const void recenter(Vector2 pos);
     const Vector2 getScreenPoint(Vector2 tile);
@@ -47,6 +49,8 @@ private:
     int cityTextureX[ NUM_OF_TYPES ];
     int cityTextureY[ NUM_OF_TYPES ];
 };
+
+GameView* getGameView();
 
 #endif
 

@@ -11,6 +11,9 @@
  *
  *  20050205
  *  +get Offset-Info from images/tiles/images.xml
+ *
+ *  20050206
+ *  TODO: working on Zoom
  */
 #include <config.h>
 
@@ -33,9 +36,18 @@
 #include <SDL_keysym.h>
 #include <math.h>
 
+GameView* gameViewPtr;
+
+GameView* getGameView()
+{
+    return gameViewPtr;
+}
+    
+
 GameView::GameView(Component* parent, XmlReader& reader)
     : Component(parent)
 {
+    gameViewPtr = this;
     //Read from config
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -99,6 +111,20 @@ void GameView::setZoom(const int newzoom){
     
     viewport.x = center.x - ( getWidth() / 2);
     viewport.y = center.y - ( getHeight() / 2 );
+}
+
+/**
+ *  Show City Tile(x/y) by centering the screen 
+ */
+void GameView::show( const int x, const int y )
+{    
+    Vector2 center;
+    center.x = virtualScreenWidth / 2 + ( x - y ) * ( tileWidth / 2 );
+    center.y = ( x + y ) * ( tileHeight / 2 ); 
+    
+    viewport.x = center.x - ( getWidth() / 2);
+    viewport.y = center.y - ( getHeight() / 2 );
+    //request redraw
 }
 
 /*
@@ -565,8 +591,7 @@ void GameView::event(const Event& event)
                 break;
             }
             if ( event.keysym.sym == SDLK_KP5 ) {
-                viewport.x = floor ( ( virtualScreenWidth - getWidth()  ) / 2 );
-                viewport.y = floor ( ( virtualScreenHeight- getHeight() ) / 2 );
+                show( WORLD_SIDE_LEN / 2, WORLD_SIDE_LEN / 2 );
                 break;
             }
             break;
@@ -600,9 +625,6 @@ void GameView::resize(float newwidth , float newheight )
  */
 const void GameView::recenter(Vector2 pos)
 {
-    //sanity check
-    
-    //
     pos += viewport;
     viewport.x = floor( pos.x - ( getWidth() / 2 ) );
     viewport.y = floor( pos.y - ( getHeight() / 2 ) );
@@ -662,10 +684,10 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
     //is Tile in City? If not draw Blank
     if( tx < 0 || ty < 0 || tx > WORLD_SIDE_LEN || ty > WORLD_SIDE_LEN )
     {
-        tileOnScreenPoint.x -= ( blankTexture->getWidth() / 2);
-        tileOnScreenPoint.y -= blankTexture->getHeight(); 
+        tileOnScreenPoint.x -= ( ( blankTexture->getWidth() / 2 )  * zoom / 100 );
+        tileOnScreenPoint.y -= (blankTexture->getHeight()  * zoom / 100 ); 
         tilerect.move( tileOnScreenPoint );    
-        tilerect.setSize( blankTexture->getWidth(), blankTexture->getHeight() );
+        tilerect.setSize( blankTexture->getWidth()  * zoom / 100 , blankTexture->getHeight() * zoom / 100 );
         painter.drawTexture( blankTexture, tilerect );
         return;
     }
@@ -699,10 +721,10 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
     
     if( texture )
     {
-        tileOnScreenPoint.x -= cityTextureX[ textureType ];
-        tileOnScreenPoint.y -= cityTextureY[ textureType ];  
+        tileOnScreenPoint.x -= ( cityTextureX[ textureType ] * zoom / 100 );
+        tileOnScreenPoint.y -= ( cityTextureY[ textureType ] * zoom / 100 );  
         tilerect.move( tileOnScreenPoint );    
-        tilerect.setSize( texture->getWidth(), texture->getHeight() );
+        tilerect.setSize( texture->getWidth() * zoom / 100, texture->getHeight() * zoom / 100  );
         painter.drawTexture( texture, tilerect );
     }
     else 
