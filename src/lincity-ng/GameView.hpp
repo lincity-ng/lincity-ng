@@ -6,6 +6,9 @@
 #include "gui/Vector2.hpp"
 #include "gui/Texture.hpp"
 #include <time.h>
+#include <SDL.h> 
+#include <SDL_thread.h>
+#include <SDL_image.h>
 
 #include "lincity/engglobs.h"
 
@@ -36,19 +39,20 @@ public:
 
     //size in Tiles of marking under Cursor
     void setCursorSize( int size ); 
-    
 private:
     const void recenter(const Vector2& pos);
     const Vector2 getScreenPoint(const Vector2& tile);
     const Vector2 getTile(const Vector2& point);
     const void drawTile(Painter& painter, const Vector2& tile);
-    const void loadTextures();
     const void fillDiamond( Painter& painter, const Rect2D rect );
     const void drawDiamond( Painter& painter, const Rect2D rect );
+    const void loadTextures();
+    static int gameViewThread( void* );
     
     void setZoom(const int newzoom);
     Texture* readTexture(const std::string& filename);
-    void readCityTexture( int textureType, const std::string& filename );
+    SDL_Surface* readImage(const std::string& filename);
+    void preReadCityTexture( int textureType, const std::string& filename );
 
     static const int defaultTileWidth = 128;
     static const int defaultTileHeight = 64;
@@ -61,12 +65,14 @@ private:
     //upper left corner of the viewport on virtual screen
     Vector2 viewport;
     
-    //std::map<int, Texture*> cityTextures;
     Texture* cityTextures[ NUM_OF_TYPES ];
+    SDL_Surface* cityImages[ NUM_OF_TYPES ];
     Texture* blankTexture;
     int cityTextureX[ NUM_OF_TYPES ];
     int cityTextureY[ NUM_OF_TYPES ];
-    
+    SDL_mutex* mTextures;
+    SDL_Thread* loaderThread;
+        
     Vector2 tileUnderMouse, dragStart;
     bool mouseInGameView;
     bool dragging, rightButtonDown;
