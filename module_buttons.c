@@ -5,9 +5,10 @@
 #include "module_buttons.h"
 #include "cliglobs.h"
 #include "mouse.h"
+#include "lcintl.h"
 #include "lctypes.h"
 #include "lclib.h"
-#include "lchelp.h" /* KBR 10/14/2002 Missing prototypes */
+#include "lchelp.h"
 
 #define DEBUG_MODULES 1
 

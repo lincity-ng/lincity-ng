@@ -9,6 +9,7 @@
 #include <math.h>
 #include <assert.h>
 #include "lcstring.h"
+#include "lcintl.h"
 #include "lin-city.h"
 #include "common.h"
 #include "lctypes.h"

@@ -638,7 +638,7 @@ execute_timestep (void)
 	if (yn_dial_box (_("Quit The Game?")
 			 ,_("Do you really want to quit?")
 			 ,_("If you want to save the game select NO.")
-			 ,_("")
+			 ,""     /* GCS: This can't be translated!. */
 			 ) != 0)
 	    real_quit_flag = 1;
 	else

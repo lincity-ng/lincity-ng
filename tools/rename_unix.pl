@@ -4,7 +4,10 @@
 		   'copying',
 		   'faq',
 		   'readme',
-		   'todo');
+		   'todo',
+		   'intl/version',
+		   'po/linguas',
+		   );
 
 ## THESE AREN'T HANDLED YET
 ## > lincity/intl/VERSION
@@ -26,6 +29,8 @@
 		    'install-sh',
 		    'mkinstalldirs',
 		    'configure',
+		    'config.sub',
+		    'config.guess',
 		    'README*',
 		    'Make*',
 		    'help/*.hlp',
@@ -33,6 +38,8 @@
 		    'opening/do_image',
 		    'opening/open.pov',
 		    'opening/text*',
+		    'po/LINGUAS',
+		    'po/POT*',
 		    'tools/*.c',
 		    'tools/*.pl',
 		    'tools/*.bat',
@@ -47,8 +54,12 @@
 for $pat (@upcase_patlist) {
     for $file (`ls $pat 2> /dev/null`) {
 	chomp($file);
-	$newname = $file;
-	$newname =~ tr/[a-z]/[A-Z]/;
+	$newdir = $file;
+	$newdir =~ s|/[^/]*$||;
+	$newfn = $file;
+	$newfn =~ s|.*/||;
+	$newfn =~ tr/[a-z]/[A-Z]/;
+	$newname = "${newdir}/${newfn}";
 	$cmd = "mv $file $newname";
 	print "$cmd\n";
 	print `$cmd\n`;

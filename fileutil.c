@@ -554,7 +554,7 @@ init_path_strings (void)
 #if defined (WIN32)
     sprintf (lc_textdomain_directory, "%s%c%s", LIBDIR, PATH_SLASH, "locale");
 #else
-    strcpy (lc_textdomain_directory, LOCALE_DIR);
+    strcpy (lc_textdomain_directory, LOCALEDIR);
 #endif
     dm = bindtextdomain (PACKAGE, lc_textdomain_directory);
     debug_printf ("Bound textdomain directory is %s\n", dm);

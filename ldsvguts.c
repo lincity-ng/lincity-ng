@@ -354,7 +354,7 @@ load_city (char *cname)
     FILE *ofile;
     char s[256];
     if ((ofile = fopen_read_gzipped (cname)) == NULL) {
-	printf (_("Can't open <%s> (gzipped))", cname);
+	printf (_("Can't open <%s> (gzipped)"), cname);
 	do_error ("Can't open it!");
     }
     fscanf (ofile, "%d", &ver);

@@ -9,6 +9,7 @@
 #include "lcstring.h"
 #include "common.h"
 #include "lctypes.h"
+#include "lcintl.h"
 #include "lin-city.h"
 #include "mouse.h"
 #include "engglobs.h"
