@@ -1,0 +1,24 @@
+
+text -1 30 This button is used to confine the
+text -1 40 mouse pointer within the X-window.
+
+text -1 60 Press the button again to allow the
+text -1 70 mouse pointer to leave the window.
+
+text -1 100 There are two main reasons why you
+text -1 110 would want to confine the pointer.
+
+text 10 140 1.
+text -1 150 Your X server can only display 256
+text -1 160 colours ( 8 bbp ) and you don't want
+text -1 170 the display to keep flashing at you.
+
+text 10 200 2.
+text -1 210 You want to play 'full screen'.
+
+text -1 230 To play 'full screen', start the game
+text -1 240 with  'xlincity -b', change your screen
+text -1 250 resolution to 640x480 (ctrl-alt-numpad+
+text -1 260 for linux YMMV). Then confine the pointer
+text -1 270 and move the mouse to each edge.
+text -1 280 Hey presto - full screen.
