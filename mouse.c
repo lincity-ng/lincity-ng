@@ -968,7 +968,17 @@ do_mouse_other_buttons (int x, int y, int button)
     /* Advance mps screen if clicked on */
     else if (mouse_in_rect (&scr.mappoint_stats,x,y)) {
 	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("stats.hlp");
+	    switch (mps_global_style) {
+	    case MPS_GLOBAL_FINANCE:
+		activate_help ("finance.hlp");
+		break;
+	    case MPS_GLOBAL_OTHER_COSTS:
+		activate_help ("other-costs.hlp");
+		break;
+	    case MPS_GLOBAL_HOUSING:
+		activate_help ("housing.hlp");
+		break;
+	    }
 	    return;
 	}
 	advance_mps_style ();

@@ -261,7 +261,6 @@ client_main_loop (void)
     /* Set up the game */
     reset_start_time ();
 
-    //    draw_mini_screen ();
     update_avail_modules ();
 
     screen_full_refresh ();
@@ -275,7 +274,6 @@ client_main_loop (void)
 	    activate_help ("opening.hlp");
     }
 
-    //    refresh_main_screen ();
     /* Set speed */
 #if defined (CS_PROFILE) || defined (START_FAST_SPEED)
     select_fast ();
@@ -472,8 +470,8 @@ process_keystrokes (int key)
 	/* Escape Key */
 #ifdef LC_X11
     case 27:
-      if (help_flag) // exit help
-	draw_help_page("return-2"); 
+	if (help_flag) /* exit help */
+	    draw_help_page("return-2"); 
       else
 	activate_help ("menu.hlp");
 	break;

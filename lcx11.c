@@ -219,54 +219,53 @@ parse_xargs (int argc, char **argv, char **geometry)
     extern char *optarg;
 
 #ifdef ALLOW_PIX_DOUBLING
-//    printf ("Options include Pix doubling\n");
-    while ((option = getopt (argc, argv, "vbrndg:wR:G:B:")) != EOF)
+    char* option_string = "vbrndg:wR:G:B:";
 #else
-	while ((option = getopt (argc, argv, "vbrng:wR:G:B:")) != EOF)
+    char* option_string = "vbrng:wR:G:B:";
 #endif
+    while ((option = getopt (argc, argv, option_string)) != EOF) {
+	switch (option)
 	{
-	    switch (option)
-	    {
-	    case 'v':
-		verbose = TRUE;
-		break;
-	    case 'g':
-		*geometry = optarg;
-		break;
+	case 'v':
+	    verbose = TRUE;
+	    break;
+	case 'g':
+	    *geometry = optarg;
+	    break;
 #ifdef ALLOW_PIX_DOUBLING
-	    case 'd':
-		pix_double = 1;
-		/* Fall through.  We are not allowed a border with pix doubling */
+	case 'd':
+	    pix_double = 1;
+	    /* Fall through.  We are not allowed a border with pix doubling */
 #endif
-	    case 'b':
-		borderx = 0;
-		bordery = 0;
-		break;
-	    case 'r':
-		borderx = BORDERX;
-		bordery = BORDERY;
-		break;
-	    case 'n':
-		no_init_help = TRUE;
-		break;
-	    case 'w':
-		gamma_correct_red = GAMMA_CORRECT_RED;
-		gamma_correct_green = GAMMA_CORRECT_GREEN;
-		gamma_correct_blue = GAMMA_CORRECT_BLUE;
-		break;
-	    case 'R':
-		sscanf (optarg, "%f", &gamma_correct_red);
-		break;
-	    case 'G':
-		sscanf (optarg, "%f", &gamma_correct_green);
-		break;
-	    case 'B':
-		sscanf (optarg, "%f", &gamma_correct_blue);
-		break;
+	case 'b':
+	    borderx = 0;
+	    bordery = 0;
+	    break;
+	case 'r':
+	    borderx = BORDERX;
+	    bordery = BORDERY;
+	    break;
+	case 'n':
+	    no_init_help = TRUE;
+	    break;
+	case 'w':
+	    gamma_correct_red = GAMMA_CORRECT_RED;
+	    gamma_correct_green = GAMMA_CORRECT_GREEN;
+	    gamma_correct_blue = GAMMA_CORRECT_BLUE;
+	    break;
+	case 'R':
+	    sscanf (optarg, "%f", &gamma_correct_red);
+	    break;
+	case 'G':
+	    sscanf (optarg, "%f", &gamma_correct_green);
+	    break;
+	case 'B':
+	    sscanf (optarg, "%f", &gamma_correct_blue);
+	    break;
 
 
-	    }
 	}
+    }
     if (verbose)
 	printf (_("Version %s\n"), VERSION);
     if (!(display.dpy = XOpenDisplay (display.dname)))
