@@ -17,8 +17,11 @@
 #include "clistubs.h"
 #include "lcintl.h"
 #include "power.h"
+#include "mouse.h"
 
 extern int selected_type_cost;
+
+int is_real_river (int x, int y);
 
 int
 no_credit_build (int selected_group)

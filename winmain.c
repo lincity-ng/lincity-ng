@@ -16,6 +16,8 @@
 #include "lchelp.h"
 
 // Define this to use DIB's instead of DDB's
+// GCS: WIN32_USEDIB will no longer work, since I didn't update the 
+// window resizing code for DIB's.
 //#define WIN32_USEDIB
 
 // Global Variables
@@ -29,6 +31,10 @@ int pending_mouse_event = 0;
 int pending_mouse_x = 0;
 int pending_mouse_y = 0;
 
+int pending_resize_event = 0;
+int pending_resize_w = 0;
+int pending_resize_h = 0;
+
 // Private Function Prototypes
 static ATOM MyRegisterClass (CONST WNDCLASS *);
 static BOOL InitApplication (HINSTANCE);
@@ -36,12 +42,14 @@ static BOOL InitInstance (HINSTANCE, int);
 static LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM);
 static LRESULT CALLBACK About (HWND, UINT, WPARAM, LPARAM);
 static BOOL CenterWindow (HWND, HWND);
-static HBITMAP InitializeBackingStore (HWND);
+static void InitializeBackingStore (HWND);
 static BOOL CopyBackingStoreToScreen (HDC, HWND, LPPAINTSTRUCT);
 static void CreateDDB (HWND hWnd);
 static void CreateDIB (void);
 static void InitializePalette (void);
 static void DoSquareMouse (HDC hdc);
+static void ResizeBackingStore (HWND hWnd);
+static void ResizeDDB (HWND hWnd);
 
 
 //----------------------------------------------------------------------------
@@ -224,6 +232,18 @@ BOOL InitApplication (HINSTANCE hInstance)
 
 
 //----------------------------------------------------------------------------
+// CheckClientSize (int width, int height, int with_menus)
+// --
+// Return 1 if the screen can support a client of this size
+//----------------------------------------------------------------------------
+void
+CheckClientSize (int width, int height, int with_menus)
+{
+    display.screenW = GetSystemMetrics (SM_CXSCREEN);
+    display.screenH = GetSystemMetrics (SM_CYSCREEN);
+}
+
+//----------------------------------------------------------------------------
 //   FUNCTION: InitInstance(HANDLE, int)
 //
 //   PURPOSE:  Creates main window 
@@ -274,7 +294,15 @@ InitInstance (HINSTANCE hInstance, int nCmdShow)
     //    a)  no pix doubling, no border
     //    b)  no pix doubling, 30 pixel border
     //    c)  pix doubling, no border
-    if ((display.screenW >= 2*WINWIDTH) &&display.screenH >= 2*WINHEIGHT) {
+    // GCS FIX: This doesn't work.  I need to call AdjustWindowRect on these values (?)
+    if ((display.screenW >= 2*WINWIDTH + 2*BORDERX) &&
+	(display.screenH >= 2*WINHEIGHT + 2*BORDERY)) {
+	pix_double = 1;
+	borderx = 1;
+	bordery = 1;
+    }
+    else if ((display.screenW >= 2*WINWIDTH) &&
+	     (display.screenH >= 2*WINHEIGHT)) {
 	pix_double = 1;
 	borderx = 0;
 	bordery = 0;
@@ -296,7 +324,7 @@ InitInstance (HINSTANCE hInstance, int nCmdShow)
     //    a)  full screen
     //    b)  maximized window
     //    c)  regular window
-    // Check regular window first.
+    // Prefer regular over maximized over full screen
     dwStyle = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SIZEBOX;
     client_size.left = 0;
     client_size.top = 0;
@@ -321,10 +349,10 @@ InitInstance (HINSTANCE hInstance, int nCmdShow)
 	// Check maximized by subtracting out the DLGFRAME size.
 	// Note that the "obvious" method of calling AdjustWindowRect()
 	// with style WS_MAXIMIZE doesn't work!
-	int border_x = GetSystemMetrics (SM_CXDLGFRAME);
-	int border_y = GetSystemMetrics (SM_CYDLGFRAME);
-	if (((client_size.right - client_size.left - 2 * border_x) <= display.screenW) 
-	    &&((client_size.bottom - client_size.top - 2 * border_y) <= display.screenH))
+	int win_border_x = GetSystemMetrics (SM_CXDLGFRAME);
+	int win_border_y = GetSystemMetrics (SM_CYDLGFRAME);
+	if (((client_size.right - client_size.left - 2 * win_border_x) <= display.screenW) 
+	    &&((client_size.bottom - client_size.top - 2 * win_border_y) <= display.screenH))
 	{
 	    // Use maximized window
 	    szClassName = szClassNameWithMenu;
@@ -349,6 +377,9 @@ InitInstance (HINSTANCE hInstance, int nCmdShow)
 	}
     }
     
+    display.min_h = client_size.bottom - client_size.top;
+    display.min_w = client_size.right - client_size.left;
+
     // Create the window
     display.hWnd = CreateWindow (szClassName,	// Class name
 				 szTitle,	// Caption
@@ -454,12 +485,15 @@ HandleMouse ()
 	    pending_mouse_x = cs_mouse_x;
 	    pending_mouse_y = cs_mouse_y;
 	    pending_mouse_event = 0;
+	    pending_resize_event = 0;
 	    TranslateMessage (&msg);
 	    DispatchMessage (&msg);
 	    if (pending_mouse_event)
 		cs_mouse_handler (pending_mouse_event,
 				  pending_mouse_x - cs_mouse_x,
 				  pending_mouse_y - cs_mouse_y);
+	    if (pending_resize_event)
+	        resize_geometry (pending_resize_w, pending_resize_h);
 	}
     }
   
@@ -671,9 +705,30 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	exit (0);		// OK??
 	break;
 	
-    case WM_SIZE:		// Resize window
-	MessageBox (GetFocus (), "Resized", szAppName, 0);
+    case WM_SIZE:
+	// Resize window
+	if (wParam != SIZE_MINIMIZED) {
+	    pending_resize_event = 1;
+	    pending_resize_w = LOWORD (lParam);
+	    pending_resize_h = HIWORD (lParam);
+	    ResizeBackingStore (hWnd);
+	}
 	break;
+
+    case WM_GETMINMAXINFO: {
+	/* GCS FIX */
+	/* This needs to include client menu */
+	/* To do this, I need to call AdjustWindowRect, but 
+	    probably I need consider that the window might be POPUP... */
+	LPMINMAXINFO lpmmi = (LPMINMAXINFO) lParam;
+#if defined (commentout)
+	lpmmi->ptMinTrackSize.x = (640 << pix_double) + 2 * borderx;
+	lpmmi->ptMinTrackSize.y = (480 << pix_double) + 2 * bordery;
+#endif
+	lpmmi->ptMinTrackSize.x = display.min_w;
+	lpmmi->ptMinTrackSize.y = display.min_h;
+	break;
+	}
 
     default:
 	return (DefWindowProc (hWnd, message, wParam, lParam));
@@ -686,7 +741,8 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 //----------------------------------------------------------------------------
 //  FUNCTION: InitializeBackingStore ()
 //----------------------------------------------------------------------------
-HBITMAP InitializeBackingStore (HWND hWnd) 
+void
+InitializeBackingStore (HWND hWnd) 
 {
     RECT rc;
     
@@ -701,8 +757,16 @@ HBITMAP InitializeBackingStore (HWND hWnd)
     }
     display.hSaveUnderHdc = 0;
     display.hSaveUnderBitmap = 0;
+}
 
-    return 0;
+void
+ResizeBackingStore (HWND hWnd) 
+{
+    ResizeDDB (hWnd);
+    if (display.useDIB) {
+	// This had better be false
+	exit(-1);
+    }
 }
 
 
@@ -860,6 +924,29 @@ CreateDDB (HWND hWnd)
 }
 
 
+void
+ResizeDDB (HWND hWnd) 
+{
+    RECT rect;
+    HDC hdc;
+    HBRUSH hbr, hbrOld;
+
+    hdc = GetDC (hWnd);
+    DeleteObject (display.hBitmap);
+    display.hBitmap = CreateCompatibleBitmap (hdc, pending_resize_w, pending_resize_h);
+    SelectObject (display.hdcMem, display.hBitmap);
+
+    rect.left = 0;
+    rect.top = 0;
+    rect.right = pending_resize_w;
+    rect.bottom = pending_resize_h;
+    hbr = hbrBackground;
+    hbrOld = (HBRUSH) SelectObject (hdc, hbr);		    // Select brush
+    FillRect (display.hdcMem, &rect, (HBRUSH) hbr);	    // Draw rectangle
+    hbr = (HBRUSH) SelectObject (display.hdcMem, hbrOld);   // Unselect brush
+
+    ReleaseDC (hWnd, hdc);
+}
 
 //----------------------------------------------------------------------------
 //  FUNCTION: CopyBackingStoreToScreen ()

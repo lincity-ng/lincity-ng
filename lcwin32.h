@@ -80,6 +80,8 @@ typedef struct _disp
     INT clientW;		// Width of pixmap (adjusted by borderx/pix_double)
     INT clientH;		// Height of pixmap (adjusted by borderx/pix_double)
     long colorDepth;		// Number of color planes (e.g. 24 for full color)
+    int min_h;			// Minimum size for resizing
+    int min_w;			// Minimum size for resizing
 
     BOOL useDIB;		// Use DIB or DDB?
     BITMAPINFO *pbminfo;	// DIB Header
@@ -161,6 +163,7 @@ void call_event (void);
 void do_call_event (int);
 void init_windows_font (void);
 void init_mouse (void);
+void draw_border (void);
 
 void EnableWindowsMenuItems (void);
 void DisableWindowsMenuItems (void);

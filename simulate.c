@@ -491,7 +491,6 @@ clear_game (void)
     total_births = 0;
     total_money = 0;
     tech_level = 0;
-    sanity_check();
 }
 
 void

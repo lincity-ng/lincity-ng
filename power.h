@@ -25,6 +25,7 @@ void do_power_substation(int x, int y);
 void do_power_source(int x, int y);
 void do_power_source_coal(int x, int y);
 void do_power_line(int x, int y);
+void power_time_step ();
 
 /* intended private */
 void recurse_power_grid (int startx, int starty, int steps);

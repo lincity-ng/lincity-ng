@@ -17,6 +17,7 @@
 #include "mouse.h"
 #include "screen.h"
 #include "power.h"
+#include "lclib.h"
 #include "lcintl.h"
 
 /* ---------------------------------------------------------------------- *

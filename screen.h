@@ -42,6 +42,11 @@ void advance_monthgraph_style (void);
 void refresh_monthgraph (void);
 void draw_small_yellow_bezel (int x, int y, int h, int w);
 void init_pbars (void);
+void Fgl_getrect(Rect * r, void * buffer);
+void Fgl_putrect(Rect *r, void * buffer);
+void mini_screen_help (void);
+void status_message(char * message, int colour);
+void print_time_for_year (void);
 
 #define CB_SPACE 20 // space between checkbuttons for market/port
 

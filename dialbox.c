@@ -14,6 +14,8 @@
 #include "geometry.h"
 #include "dialbox.h"
 #include "mouse.h"
+#include "lclib.h"
+#include "clistubs.h"
 
 static Dialog_Box db_entry[MAX_DBOX_ENTRIES];
 static Dialog_Box * button[MAX_DBOX_ENTRIES];
@@ -111,7 +113,7 @@ dialog_box(int arg_color, char argc, ...)
   /* Try the locks */
   if (db_up) {
       printf("Already have a dialog box on screen!\n");
-      return;
+      exit(-1);  /* GCS: I guess this must be a critical bug. */
   } else {
       db_up = 1; /* XXX: Need to reconcile these - don't need both flags */
       db_flag = 1;

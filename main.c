@@ -9,6 +9,7 @@
 #include <signal.h>
 #include "lcstring.h"
 #include "lchelp.h"
+#include "dialbox.h"
 
 /* this is for OS/2 - RVI */
 #ifdef __EMX__

@@ -3,7 +3,7 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * Portions copyright (c) 2001 Corey Keasling.
  * ---------------------------------------------------------------------- */
-
+#include "lcconfig.h"
 #include <math.h>
 #include "cliglobs.h"
 #include "lchelp.h"
@@ -11,7 +11,7 @@
 #include "shrglobs.h"
 #include "pbar.h"
 #include "lin-city.h"
-
+#include "lclib.h"
 
 void
 init_pbars (void)
@@ -99,9 +99,6 @@ clear_pbar_text (Rect* pbar)
 /* ---------------------------------------------------------------------- *
  * Horizontal pbar functions (pbar2)
  * ---------------------------------------------------------------------- */
-
-
-
 void 
 write_pbar_int (Rect* b, int val)
 {

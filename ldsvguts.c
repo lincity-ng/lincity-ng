@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include "lcstring.h"
 #include "lcintl.h"
+#include "screen.h"
+#include "mouse.h"
 
 /* this is for OS/2 - RVI */
 #ifdef __EMX__

@@ -9,7 +9,9 @@
 #include <math.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#if defined (HAVE_UNISTD_H)
 #include <unistd.h>
+#endif
 #include "lcstring.h"
 #include "common.h"
 #include "lctypes.h"
@@ -26,6 +28,7 @@
 #include "ldsvgui.h"
 #include "pbar.h"
 #include "dialbox.h"
+#include "lclib.h"
 
 /* ---------------------------------------------------------------------- *
  * External Global Variables
@@ -2990,5 +2993,17 @@ display_rocket_result_dialog (int result)
 	ok_dial_box ("launch-evac.mes", GOOD, 0L);
 	break;
     }
+}
+
+void
+Fgl_getrect(Rect * r, void * buffer)
+{
+    Fgl_getbox(r->x,r->y,r->w,r->h,buffer);
+}
+
+void 
+Fgl_putrect(Rect *r, void * buffer)
+{
+    Fgl_putbox(r->x,r->y,r->w,r->h,buffer);
 }
 

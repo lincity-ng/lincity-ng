@@ -76,7 +76,7 @@ struct screen_geometry_struct
     Rect mini_map;
     Rect mini_map_aux;
     Rect mini_map_area;    /* contains both mini_map and mini_map_aux */
-#if defined (commentout)
+#if defined (commentout)   /* GCS: keep these around for now */
     Rect ms_normal_button;
     Rect ms_pollution_button;
     Rect ms_fire_cover_button;
@@ -116,48 +116,15 @@ void draw_save (void);
 void draw_quit (void);
 void draw_help (void);
 void draw_results (void);
-#if defined (commentout)
-void draw_tover (int active);
-#if defined (LC_X11)
-void draw_confine (int active);
-#endif
-#endif
 void draw_select_button_graphic (int button, char *graphic);
 void select_fast (void);
 void select_medium (void);
 void select_slow (void);
 void select_pause (void);
-#if defined (commentout)
-void select_tover (void);
-#if defined (LC_X11)
-void select_confine (void);
-#endif
-#endif
-#ifdef commentout /* WCK: now in pbar.h */
-void init_pbar_text (void);
-void draw_pbar_pop (void);
-void draw_pbar_tech (void);
-void draw_pbar_food (void);
-void draw_pbar_jobs (void);
-void draw_pbar_money (void);
-void draw_pbar_coal (void);
-void draw_pbar_goods (void);
-void draw_pbar_ore (void);
-void draw_pbar_steel (void);
-void update_pbar_pop (int pop);
-void update_pbar_tech (int tech);
-void update_pbar_food (int food);
-void update_pbar_jobs (int jobs);
-void update_pbar_coal (int coal);
-void update_pbar_goods (int goods);
-void update_pbar_ore (int ore);
-void update_pbar_steel (int steel);
-void update_pbar_money (int money);
-void refresh_pbars (void);
-#endif /* commentout */
 void draw_ms_button (char* graphic);
 void draw_ms_text (char* txt);
 void draw_small_bezel (int x, int y, int w, int h, int colour);
+void draw_bezel (Rect r, short width, int color);
 
 /* Main window */
 #define MAIN_WIN_W 432

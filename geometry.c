@@ -17,7 +17,7 @@
 #include "clistubs.h"
 #include "lcintl.h"
 #include "pbar.h"
-
+#include "mouse.h"
 
 
 /* ---------------------------------------------------------------------- *

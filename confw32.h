@@ -13,6 +13,9 @@
 /* Define as __inline if that's what the C compiler calls it.  */
 #define inline __inline
 
+/* This is not yet fixed for UNIX...  */
+#define snprintf _snprintf
+
 /* Define if you need to in order for stat and other things to work.  */
 /* #undef _POSIX_SOURCE */
 

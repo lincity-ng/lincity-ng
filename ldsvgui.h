@@ -10,6 +10,5 @@ void do_prefs_mouse (int, int, int);
 void do_prefs_screen (void);
 void do_network_screen (void);
 void close_prefs_screen (void);
-void sanity_check (void);
 
 #endif	/* __ldsvgui_h__ */

@@ -21,6 +21,7 @@
 #include "fileutil.h"
 #include "lchelp.h"
 #include "pbar.h"
+#include "lclib.h"
 
 #undef DEBUG_MT_CODE
 
@@ -2095,7 +2096,6 @@ init_mouse_registry()
 Mouse_Handle *
 mouse_register(Rect * r, void (*function)(int, int, int)) 
 {
-
     mhandle_current = (Mouse_Handle *)lcalloc(sizeof(Mouse_Handle));
     mhandle_count++;
     if (mhandle_first == NULL) {
@@ -2121,18 +2121,18 @@ mouse_register(Rect * r, void (*function)(int, int, int))
 void 
 mouse_unregister(Mouse_Handle * mhandle)
 {
-
     if (mhandle->prev == NULL) {
 	if (mhandle_first != mhandle) 
 	    printf("debug: mhandle_first != mhandle\n");
 	if (mhandle->next != NULL) {
 	    mhandle_first = mhandle->next;
 	    mhandle_first->prev = NULL;
-	} else 
+	} else {
 	    mhandle_first = NULL;
-    } else if (mhandle->next == NULL) 
+	}
+    } else if (mhandle->next == NULL) {
 	mhandle->prev->next = NULL;
-    else {
+    } else {
 	mhandle->prev->next = mhandle->next;
 	mhandle->next->prev = mhandle->prev;
     }

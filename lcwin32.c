@@ -654,6 +654,11 @@ lc_get_keystroke (void)
 }
 
 void
+draw_border (void)
+{
+}
+
+void
 init_mouse (void)
 {
 }

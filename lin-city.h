@@ -1172,7 +1172,6 @@ extern void start_image_text (void);
 extern void si_scroll_text (void);
 extern char si_next_char (FILE *);
 extern void get_real_time (void);
-//extern void time_for_year (void);
 extern void debug_writeval (int);
 extern int cheat (void);
 extern void print_cheat (void);
@@ -1181,7 +1180,6 @@ extern void order_select_buttons (void);
 extern void lincityrc (void);
 extern void check_for_old_save_dir (void);
 extern int count_groups (int);
-/* extern void count_all_groups (void); */
 extern int compile_results (void);
 extern void print_results (void);
 extern void mail_results (void);
@@ -1189,9 +1187,6 @@ extern void window_results (void);
 extern void init_path_strings (void);
 extern void lc_usleep (unsigned long);
 extern void dump_tcore (void);
-#ifdef MP_SANITY_CHECK
-extern void sanity_check (void);
-#endif
 #ifndef LC_X11
 extern void parse_args (int, char **);
 #endif
