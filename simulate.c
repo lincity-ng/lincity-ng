@@ -136,8 +136,6 @@ clear_mappoint (short fill, int x, int y)
     if (MP_GROUP(x,y) < 0) MP_GROUP(x,y) = GROUP_BARE;
     MP_INFO(x,y).population = 0;
     MP_INFO(x,y).flags = 0;
-    MP_INFO(x,y).coal_reserve = 0;
-    MP_INFO(x,y).ore_reserve = 0;
     MP_INFO(x,y).int_1 = 0;
     MP_INFO(x,y).int_2 = 0;
     MP_INFO(x,y).int_3 = 0;
