@@ -7,7 +7,7 @@ DEFS = @DEFS@
 X_DEFS = -DLC_X11=1
 SVGA_DEFS = -DSVGALIB=1
 
-SUBDIRS = m4 intl po
+SUBDIRS = m4 intl po modules
 
 ## (deleted)
 ##	acconfig.h   \
@@ -32,7 +32,7 @@ noinst_HEADERS = \
 	resource.h	 screen.h \
 	shrglobs.h   stats.h \
 	simulate.h   timer.h	 transport.h \
-	typeinit.h   xpicedit.h
+	typeinit.h   xpicedit.h	modules.h
 
 # Directories that need to have CVS and ca subdirectories removed
 LC_DISTDIRS = \
@@ -180,10 +180,10 @@ EXTRA_xlincity_SOURCES = \
 	dialbox.c \
 	lcx11.c 
 xlincity_DEPENDENCIES = \
-	${XLC_OBJ}
+	${XLC_OBJ} modules/libmodules.a
 xlincity_LDADD = \
 	${XLC_OBJ} \
-	@X_LIBS@ -lXext -lX11 -lpng -lz -lm
+	@X_LIBS@ modules/libmodules.a -lXext -lX11 -lpng -lz -lm
 
 
 ## ----- lincity -----
@@ -199,10 +199,10 @@ EXTRA_lincity_SOURCES = \
 	dialbox.c \
 	lcsvga.c
 lincity_DEPENDENCIES = \
-	${LC_OBJ}
+	${LC_OBJ} modules/libmodules.a
 lincity_LDADD = \
 	${LC_OBJ} \
-	-lvgagl -lvga -lpng -lz -lm
+	modules/libmodules.a -lvgagl -lvga -lpng -lz -lm
 
 ## ----- xpicedit -----
 xpicedit_SOURCES = 
