@@ -56,8 +56,10 @@ TextureManagerGL::create(SDL_Surface* image)
     glTexImage2D(GL_TEXTURE_2D, 0, format->BytesPerPixel,
             convert->w, convert->h, 0, GL_RGBA,
             GL_UNSIGNED_BYTE, convert->pixels);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
     TextureGL* texture = new TextureGL(handle);
     texture->rect = Rect2D(0, 0,
