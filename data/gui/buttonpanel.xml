@@ -147,7 +147,7 @@
             <image-hover src="images/gui/rnew_button_bg1.png"/>
             <image-clicked src="images/gui/rnew_button_bg2.png"/>
             <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/residence.png"/>
+            <image-caption src="images/gui/residence-lotec-lo.png"/>
           </CheckButton>
         </cell>
         <cell row="2" col="2" halign="left">
@@ -462,7 +462,7 @@
             <image-hover src="images/gui/rnew_button_bg1.png"/>
             <image-clicked src="images/gui/rnew_button_bg2.png"/>
             <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/industry.png"/>
+            <image-caption src="images/gui/lightindustry.png"/>
           </CheckButton>
         </cell>
         <cell row="7" col="2" halign="left">
@@ -501,7 +501,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/pottery.png"/>
+                  <image-caption src="images/gui/pottery2.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
@@ -544,7 +544,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/gui_tree.png"/>
+                  <image-caption src="images/gui/tree.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
