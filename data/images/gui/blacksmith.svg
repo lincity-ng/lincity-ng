@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   width="200.00000mm"
+   height="200.00000mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.40"
+   sodipodi:docbase="/home/egore/workspace/lincity-images"
+   sodipodi:docname="blacksmith.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   inkscape:export-filename="/home/egore/workspace/lincity-images/blacksmith.png"
+   inkscape:export-xdpi="4.0599999"
+   inkscape:export-ydpi="4.0599999">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient4368">
+      <stop
+         style="stop-color:#7a7a7a;stop-opacity:1.0000000;"
+         offset="0.00000000"
+         id="stop4370" />
+      <stop
+         style="stop-color:#464646;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop4372" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2052">
+      <stop
+         style="stop-color:#cfcfcf;stop-opacity:1.0000000;"
+         offset="0.00000000"
+         id="stop2054" />
+      <stop
+         style="stop-color:#787878;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop2056" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2052"
+       id="radialGradient2062"
+       gradientTransform="matrix(1.675950,0.000000,0.000000,1.979532,-337.4826,-791.6353)"
+       cx="479.24689"
+       cy="682.91156"
+       fx="479.24689"
+       fy="682.91156"
+       r="253.23238"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2052"
+       id="linearGradient2836"
+       gradientTransform="matrix(1.807910,0.000000,0.000000,1.835044,-337.4826,-791.6353)"
+       x1="349.33640"
+       y1="584.62213"
+       x2="215.09486"
+       y2="618.52570"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2052"
+       id="linearGradient2840"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.807910,0.000000,0.000000,1.835044,-53.79871,-900.4146)"
+       x1="349.33640"
+       y1="584.62213"
+       x2="215.09486"
+       y2="618.52570" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4368"
+       id="linearGradient4366"
+       gradientTransform="matrix(1.463365,0.000000,0.000000,2.267099,-337.4826,-791.6353)"
+       x1="330.10397"
+       y1="455.46826"
+       x2="308.09442"
+       y2="485.26382"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4368"
+       id="linearGradient5902"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.463365,0.000000,0.000000,2.267099,-300.7306,-678.4149)"
+       x1="330.10397"
+       y1="455.46826"
+       x2="308.09442"
+       y2="485.26382" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4368"
+       id="linearGradient5916"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.463365,0.000000,0.000000,2.267099,3.377330,-939.2682)"
+       x1="330.10397"
+       y1="455.46826"
+       x2="308.09442"
+       y2="485.26382" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4368"
+       id="linearGradient5918"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.803417,0.000000,0.000000,1.244683,178.7471,-95.71363)"
+       x1="330.10397"
+       y1="455.46826"
+       x2="308.09442"
+       y2="485.26382" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4368"
+       id="linearGradient5926"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.463365,0.000000,0.000000,2.267099,62.38848,-845.8711)"
+       x1="330.10397"
+       y1="455.46826"
+       x2="308.09442"
+       y2="485.26382" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4552084"
+     inkscape:cx="283.46455"
+     inkscape:cy="283.46455"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1270"
+     inkscape:window-height="994"
+     inkscape:window-x="0"
+     inkscape:window-y="5" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         rdf:about=""
+         id="Work6">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           id="type9"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:url(#linearGradient2836);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       d="M 104.09789,142.64869 C 77.850256,155.33813 62.323959,130.99221 61.779753,196.00635 C 61.368676,245.11668 86.090773,373.94206 129.51317,466.94915 C 163.62554,540.01501 234.87164,624.28636 299.12928,668.86549 C 461.38028,781.42812 628.47476,582.38929 622.95498,490.39336 C 620.58924,450.96430 634.36673,433.52934 604.55581,435.19578 C 559.54336,554.96399 410.48825,638.38257 348.80707,602.62840 C 229.56290,533.50720 141.07883,285.28439 104.09789,142.64869 z "
+       id="path2070"
+       sodipodi:nodetypes="csssscsc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:url(#linearGradient2840);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       d="M 409.86077,28.349626 C 383.61314,41.039068 340.60652,25.839153 362.02289,87.227044 C 370.81140,112.41843 441.40029,173.20314 488.63369,264.33399 C 550.34485,383.39781 534.96905,500.06437 538.65509,582.16521 C 568.43194,508.89612 607.69593,395.28918 586.49297,313.53705 C 551.89085,180.12187 446.84171,170.98532 409.86077,28.349626 z "
+       id="path2838"
+       sodipodi:nodetypes="csscsc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:url(#radialGradient2062);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       d="M 69.139428,186.80675 C 92.459883,329.09434 113.69725,436.23445 214.49302,565.83004 C 364.18635,758.29443 590.03142,696.95898 633.99451,470.15426 C 656.23790,355.40101 582.47678,153.68821 450.00263,28.573716 C 387.31856,-30.627881 328.56798,46.972912 376.40588,87.451135 C 402.30484,109.36565 565.59844,297.96490 541.99858,440.71555 C 518.46385,583.07212 412.70848,613.93662 306.48896,521.67199 C 226.42369,452.12553 188.59480,323.19941 161.13538,164.72773 C 149.91584,99.978379 56.235877,108.07686 69.139428,186.80675 z "
+       id="path1291"
+       sodipodi:nodetypes="cssssssss" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:url(#linearGradient4366);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 111.45756,246.60411 L 124.33700,311.00127 L 156.53558,301.80169 C 151.01582,282.17589 146.41603,259.79020 140.89627,240.16440 L 111.45756,246.60411 z "
+       id="path2842"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 116.28735,269.60310 L 131.69668,265.92326 L 141.12626,306.17149 L 123.87702,311.00127 L 116.28735,269.60310 z "
+       id="path4378"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 139.05635,240.16440 L 131.69668,266.84322"
+       id="path4374" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:url(#linearGradient5902);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 145.44983,361.20444 L 164.76899,424.22167 L 196.50759,415.02208 C 190.98783,395.39628 180.40829,372.55062 174.88853,352.92482 L 145.44983,361.20444 z "
+       id="path5896"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 152.50061,383.60874 L 169.36879,378.22371 L 183.85815,418.47192 L 165.22896,424.22167 L 152.50061,383.60874 z "
+       id="path5898"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 173.50860,352.92482 L 169.36879,379.60364"
+       id="path5900"
+       sodipodi:nodetypes="cc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:url(#linearGradient5916);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 446.79311,108.15741 L 478.14671,159.14021 L 503.54283,146.36283 L 471.84088,94.673711 L 446.79311,108.15741 z "
+       id="path5910"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 456.60854,123.89399 L 464.53224,119.80998 L 485.36406,155.66725 L 477.95616,159.30285 L 456.60854,123.89399 z "
+       id="path5912"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 471.43672,95.649467 L 464.69486,119.72625"
+       id="path5914"
+       sodipodi:nodetypes="cc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:url(#linearGradient5926);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 506.45454,199.27762 L 533.25458,253.83824 L 558.97595,242.03661 L 532.80334,187.09495 L 506.45454,199.27762 z "
+       id="path5920"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 515.29422,217.61623 L 526.14521,212.55647 L 544.37499,249.06424 L 533.38928,254.00085 L 515.29422,217.61623 z "
+       id="path5922"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:export-ydpi="15.030000"
+       inkscape:export-xdpi="15.030000"
+       inkscape:export-filename="E:\Documents and Settings\skg7047\My Documents\blacksmith.png"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.8214267px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1.0000000"
+       d="M 532.07393,188.39596 L 525.98257,211.82222"
+       id="path5924"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

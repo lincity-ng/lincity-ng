@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   width="200.00000mm"
+   height="200.00000mm"
+   id="svg1"
+   sodipodi:version="0.32"
+   inkscape:version="0.40"
+   sodipodi:docbase="/home/egore/workspace/lincity-images"
+   sodipodi:docname="lightindustry.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   inkscape:export-filename="/home/egore/workspace/lincity-images/lightindustry.png"
+   inkscape:export-xdpi="4.0599999"
+   inkscape:export-ydpi="4.0599999">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient9836">
+      <stop
+         style="stop-color:#aa5218;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop9837" />
+      <stop
+         style="stop-color:#e77800;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop9838" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2960">
+      <stop
+         style="stop-color:#434343;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop2961" />
+      <stop
+         style="stop-color:#1e1e1e;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop2962" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2952">
+      <stop
+         style="stop-color:#373737;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop2953" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop2954" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2944">
+      <stop
+         style="stop-color:#2a2a2a;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop2945" />
+      <stop
+         style="stop-color:#505050;stop-opacity:0.97254902;"
+         offset="1.0000000"
+         id="stop2946" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2944"
+       id="linearGradient2947"
+       gradientTransform="matrix(1.829598,0.000000,0.000000,2.102157,-369.3494,-681.6072)"
+       x1="567.88922"
+       y1="570.47388"
+       x2="312.86325"
+       y2="467.67075"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2952"
+       id="linearGradient2951"
+       gradientTransform="matrix(1.959475,0.000000,0.000000,1.962822,-369.3494,-681.6072)"
+       x1="400.56808"
+       y1="526.90326"
+       x2="576.81567"
+       y2="612.51868"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2960"
+       id="radialGradient2959"
+       gradientTransform="matrix(1.967208,0.000000,0.000000,1.955106,-369.3494,-681.6072)"
+       cx="414.84171"
+       cy="560.67798"
+       fx="414.84171"
+       fy="560.67798"
+       r="101.87887"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2952"
+       id="radialGradient6081"
+       gradientTransform="matrix(2.221115,0.000000,0.000000,1.731607,-369.3494,-681.6072)"
+       cx="342.48828"
+       cy="752.74274"
+       fx="342.48828"
+       fy="752.74274"
+       r="9.1700525"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2952"
+       id="radialGradient7328"
+       gradientTransform="matrix(2.077876,0.000000,0.000000,1.850978,-369.3494,-681.6072)"
+       cx="314.61295"
+       cy="717.93939"
+       fx="314.61295"
+       fy="717.93939"
+       r="8.4776039"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2952"
+       id="linearGradient7333"
+       gradientTransform="matrix(1.385812,0.000000,0.000000,2.775342,-369.3494,-681.6072)"
+       x1="467.27203"
+       y1="475.98328"
+       x2="454.49875"
+       y2="480.79538"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2960"
+       id="linearGradient7959"
+       gradientTransform="matrix(1.020356,0.000000,0.000000,3.769373,-369.3494,-681.6072)"
+       x1="670.23108"
+       y1="275.91122"
+       x2="269.76031"
+       y2="364.49463"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2952"
+       id="linearGradient8584"
+       gradientTransform="matrix(0.874733,0.000000,0.000000,4.396885,-369.3494,-681.6072)"
+       x1="348.72751"
+       y1="267.84894"
+       x2="739.19989"
+       y2="262.54541"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2960"
+       id="linearGradient9209"
+       gradientTransform="matrix(5.351870,0.000000,0.000000,0.718646,-369.3494,-681.6072)"
+       x1="88.990822"
+       y1="1252.3165"
+       x2="195.47275"
+       y2="1252.3165"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient9836"
+       id="linearGradient9834"
+       gradientTransform="matrix(2.889865,0.000000,0.000000,1.330894,-369.3494,-681.6072)"
+       x1="275.75467"
+       y1="668.32159"
+       x2="252.77122"
+       y2="631.77289"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient9836"
+       id="linearGradient9835"
+       gradientTransform="matrix(2.889865,0.000000,0.000000,1.330894,-369.3494,-681.6072)"
+       x1="275.75467"
+       y1="668.32159"
+       x2="252.77122"
+       y2="631.77289"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.86831672"
+     inkscape:cx="365.87271"
+     inkscape:cy="295.84042"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1270"
+     inkscape:window-height="994"
+     inkscape:window-x="0"
+     inkscape:window-y="5" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         rdf:about=""
+         id="Work6">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           id="type9"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:url(#linearGradient2947);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 226.34669,255.06674 L 229.16989,702.54474 L 672.41306,600.20354 L 673.82468,187.30985 L 226.34669,255.06674 z "
+       id="path1061"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#linearGradient7959);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 226.34669,253.65514 L 110.59529,247.30293 L 113.41853,672.19527 L 228.46410,702.54472 L 226.34669,253.65514 z "
+       id="path1062"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#linearGradient8584);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 58.365995,360.93693 L 110.59529,317.88304 L 112.71270,620.67177 L 62.600802,599.49774 L 58.365995,360.93693 z "
+       id="path1063"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#linearGradient9209);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 110.59529,247.30293 L 229.16989,252.94935 L 673.11888,186.60404 L 515.72519,183.78081 L 110.59529,247.30293 z "
+       id="path1064"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#linearGradient2951);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 249.63814,277.65240 L 252.46136,622.78918 L 652.65065,538.09306 L 655.47383,216.24768 L 249.63814,277.65240 z "
+       id="path1065"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#linearGradient9834);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 347.03871,226.12890 L 505.84396,202.13165 L 445.14505,156.96038 L 361.86053,167.54738 L 347.03871,226.12890 z "
+       id="path1066"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#linearGradient9835);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 346.68580,226.12888 L 275.04698,224.71728 L 318.80665,164.72419 L 361.15472,167.54738 L 346.68580,226.12888 z "
+       id="path1067"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 379.50556,161.90098 L 194.27127,91.436008 L 379.50556,161.90098 z "
+       id="path1068"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 250.07558,184.06473 L 300.18745,66.195944 L 250.07558,184.06473 z "
+       id="path1069"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 390.09257,162.60679 L 486.34229,7.5992055 L 390.09257,162.60679 z "
+       id="path1071"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 411.06709,16.697876 L 511.99666,78.102562 L 411.06709,16.697876 z "
+       id="path1073"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#radialGradient7328);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 272.92958,639.72842 L 273.63537,673.60689 L 323.74726,661.60827 L 323.74726,629.14139 L 272.92958,639.72842 z "
+       id="path1074"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#radialGradient2959);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 249.99102,277.65238 L 252.10844,610.08475 C 387.85755,588.91072 513.01963,559.26707 636.06431,527.50602 C 644.29865,425.40011 646.88660,321.88260 637.47591,219.07088 L 249.99102,277.65238 z "
+       id="path1696"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#linearGradient7333);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 259.51936,638.31680 L 260.22515,670.78367 L 273.28247,673.25398 L 272.92958,639.72840 L 259.51936,638.31680 z "
+       id="path1697"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 259.51936,637.61100 L 272.57667,640.08132 L 323.74726,629.14141 L 311.04284,626.67106 L 259.51936,637.61100 z "
+       id="path1698"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 360.80182,167.54738 L 318.45375,164.01837 L 386.91648,157.66617 L 443.38055,156.25456 L 360.80182,167.54738 z "
+       id="path1699"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 390.95176,50.223417 L 491.88131,111.62810 L 390.95176,50.223417 z "
+       id="path2321"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 208.78621,165.36100 L 258.89809,47.492225 L 208.78621,165.36100 z "
+       id="path2322"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:url(#radialGradient6081);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:7.3543081;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 370.32642,607.24757 L 370.03406,660.59003 L 466.56008,638.11080 L 467.55822,586.17992 L 370.32642,607.24757 z "
+       id="path2963"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#24ff00;stroke-width:4.9028726;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 434.10180,601.30082 L 455.37492,596.43482 L 454.43916,633.11696 L 433.60270,638.17015 L 434.10180,601.30082 z "
+       id="path2970"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#24ff00;stroke-width:4.9028726;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 425.24314,602.92285 L 424.55691,640.16643"
+       id="path2971"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/egore/lightindustry.png"
+       inkscape:export-xdpi="14.450000"
+       inkscape:export-ydpi="14.450000" />
+  </g>
+</svg>

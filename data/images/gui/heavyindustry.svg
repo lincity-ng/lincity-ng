@@ -3,8 +3,13 @@
 "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
-   width="210mm"
-   height="297mm"
+   width="200.00000mm"
+   height="200.00000mm"
+   id="svg5455"
+   sodipodi:version="0.32"
+   inkscape:version="0.40"
+   sodipodi:docbase="/home/egore/workspace/lincity-images"
+   sodipodi:docname="heavyindustry.svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:cc="http://web.resource.org/cc/"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -12,11 +17,9 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:xlink="http://www.w3.org/1999/xlink"
-   id="svg5455"
-   sodipodi:version="0.32"
-   inkscape:version="0.40"
-   sodipodi:docbase="/home/egore/workspace"
-   sodipodi:docname="heavyindustry.svg">
+   inkscape:export-filename="/home/egore/workspace/lincity-images/heavyindustry.png"
+   inkscape:export-xdpi="4.0599999"
+   inkscape:export-ydpi="4.0599999">
   <defs
      id="defs3">
     <linearGradient
@@ -34,7 +37,7 @@
        inkscape:collect="always"
        xlink:href="#linearGradient6087"
        id="linearGradient6719"
-       gradientTransform="matrix(1.221783,0.000000,0.000000,0.369708,153.6998,170.4359)"
+       gradientTransform="matrix(1.597988,0.000000,0.000000,0.483547,75.74886,-80.15818)"
        x1="-28.593918"
        y1="1032.4681"
        x2="414.24335"
@@ -128,9 +131,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.86831672"
-     inkscape:cx="286.16720"
-     inkscape:cy="464.09844"
+     inkscape:zoom="1.4552084"
+     inkscape:cx="283.46455"
+     inkscape:cy="283.46455"
      inkscape:current-layer="layer1"
      inkscape:window-width="1270"
      inkscape:window-height="994"
@@ -157,7 +160,7 @@
      id="layer1">
     <g
        id="g7357"
-       transform="matrix(0.672088,0.000000,0.000000,0.672088,123.0014,303.5599)"
+       transform="matrix(0.879034,0.000000,0.000000,0.879034,35.59795,93.95665)"
        style="stroke-width:5.5796266;stroke-miterlimit:4.0000000"
        inkscape:export-filename="/home/egore/workspace/heavyindustry.png"
        inkscape:export-xdpi="11.410000"
@@ -180,7 +183,7 @@
     </g>
     <g
        id="g7362"
-       transform="matrix(0.672088,0.000000,0.000000,0.672088,371.7841,257.8902)"
+       transform="matrix(0.879034,0.000000,0.000000,0.879034,363.8636,-26.23722)"
        style="stroke-width:5.5796266;stroke-miterlimit:4.0000000"
        inkscape:export-filename="/home/egore/workspace/heavyindustry.png"
        inkscape:export-xdpi="11.410000"
@@ -202,8 +205,8 @@
          transform="translate(-34.54961,54.70354)" />
     </g>
     <path
-       style="fill:url(#linearGradient6719);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#5c5c5c;stroke-width:3.7500000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
-       d="M 118.86922,608.74673 C 281.41191,617.13187 406.22148,543.27815 568.76417,551.66329 L 620.04252,425.88620 C 464.27244,419.75860 348.17051,476.51954 192.40044,470.39194 L 118.86922,608.74673 z "
+       style="fill:url(#linearGradient6719);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#5c5c5c;stroke-width:4.9046793;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 30.193413,493.11489 C 385.30248,514.15891 256.31065,329.75098 601.34275,355.11369 L 668.41045,190.60801 C 310.64284,181.15406 410.71565,325.93130 126.36596,312.15865 L 30.193413,493.11489 z "
        id="path6094"
        sodipodi:nodetypes="ccccc"
        inkscape:export-filename="/home/egore/workspace/heavyindustry.png"
@@ -211,7 +214,7 @@
        inkscape:export-ydpi="11.410000" />
     <g
        id="g7354"
-       transform="matrix(0.672088,0.000000,0.000000,0.672088,122.7393,170.4359)"
+       transform="matrix(0.879034,0.000000,0.000000,0.879034,35.25514,-80.15821)"
        style="stroke-width:5.5796266;stroke-miterlimit:4.0000000"
        inkscape:export-filename="/home/egore/workspace/heavyindustry.png"
        inkscape:export-xdpi="11.410000"
@@ -234,7 +237,7 @@
     </g>
     <g
        id="g7365"
-       transform="matrix(0.672088,0.000000,0.000000,0.672088,371.5219,124.7661)"
+       transform="matrix(0.879034,0.000000,0.000000,0.879034,363.5207,-200.3522)"
        style="stroke-width:5.5796266;stroke-miterlimit:4.0000000"
        inkscape:export-filename="/home/egore/workspace/heavyindustry.png"
        inkscape:export-xdpi="11.410000"
