@@ -21,7 +21,8 @@ Programming
  [H] Links in helptext.
  [M] Images in helptext.
  [H] image-component should be resizable (eg main menu)
- [H] drawToTexture in OpenGL (for Minimap)
+ [L] drawToTexture in OpenGL (noone using this at the moment, could be used to
+         optimize minimap in the future)
  [M] Add tooltips for buttonpanel
  [M] Scale background images in menu
 
