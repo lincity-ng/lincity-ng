@@ -44,7 +44,12 @@ public:                                                                     \
     return new CLASS(parent, reader);                                       \
   }                                                                         \
 };                                                                          \
-//INTERN_##CLASS##Factory factory_##CLASS;
+INTERN_##CLASS##Factory factory_##CLASS;                                    \
+static void Dummy_##CLASS##Dummy()                                          \
+{                                                                           \
+  INTERN_##CLASS##Factory factory;                                          \
+}
+
 
 #endif
 
