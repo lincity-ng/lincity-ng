@@ -45,26 +45,34 @@ static short db_up = 0;
 static int db_return_value;
 
 char * db_screen_buffer; /* hold the screen we overwrite */
-char db_screen_fresh;    /* does it hold information? */
+char db_screen_fresh;    /* does the buffer hold information? */
 
+/* Mouse handling routines: main_handler() and text_handler()
+   main_handler handles the main dialog window: the text area and border.  
+   Clicks in the border are useless and ignored; text_handler takes the
+   interesting ones
+*/
 void 
 main_handler(int x, int y, int button) 
 {
     
 }
 
-
 void
 text_handler(int x, int y, int button)
 {
     int i;
     for (i = 0; i < dbn; i++) {
-	if (mouse_in_rect(&db_rect[i], x, y)) 
+	if (mouse_in_rect(&db_rect[i], x, y) && db_entry[i].retval)
 	    dialog_close(db_entry[i].retval);
     }
 
 
 }
+
+/* Keypress handler: dialog_key_handler()
+   Iterate through possible hotkeys, returning if key matches.
+*/
 
 void
 dialog_key_handler (int key) 
@@ -74,12 +82,20 @@ dialog_key_handler (int key)
     if (key == 0) 
 	return;
 
-    for (i = 0; i < dbn;  i++) {
-	if (key == db_entry[i].retval) {
-	    dialog_close(key);
-	    return;
-	}
-    }
+    /* CR, LF, and space all activate default button, type 2 */
+
+    if (key == 10 || key == 13 || key == 32) 
+	for (i = 0; i < dbn; i++) 
+	    if (db_entry[i].type == 2) {
+		dialog_close(db_entry[i].retval);
+		return;
+	    }
+    else
+	for (i = 0; i < dbn;  i++) 
+	    if (key == db_entry[i].retval) {
+		dialog_close(db_entry[i].retval);
+		return;
+	    }
 }
 	    
 
@@ -90,12 +106,14 @@ dialog_box(int arg_color, char argc, ...)
   int i;
   int db_last_button = -1;
   int key;
+  char * working_str;
 
+  /* Try the locks */
   if (db_up) {
       printf("Already have a dialog box on screen!\n");
       return;
   } else {
-      db_up = 1; /* XXX: Need to reconcile these - don't need both */
+      db_up = 1; /* XXX: Need to reconcile these - don't need both flags */
       db_flag = 1;
   }
 
@@ -105,12 +123,6 @@ dialog_box(int arg_color, char argc, ...)
   color = arg_color;
   db_screen_fresh = 0;
 
-  if (argc > MAX_DBOX_ENTRIES) {
-    fprintf(stderr,"Too many buttons in dialog_box!\n"
-	    "Tweak MAX_DBOX_ENTRIES\n");
-    exit(212);
-  }  
-
   va_start(ap, argc);
 
   /* For each argument pair, get the arguments, determine line or button,
@@ -118,23 +130,55 @@ dialog_box(int arg_color, char argc, ...)
      count. */
   
   for (i = 0; i < argc; i++) {
-    dbn++;
 
-    db_entry[i].type = (short) va_arg(ap, int);
-    db_entry[i].retval = (short) va_arg(ap, int);
-    db_entry[i].text = va_arg(ap, char *);
+      if (dbn >= MAX_DBOX_ENTRIES) {
+	  fprintf(stderr,"Too many buttons in dialog_box!\n"
+		  "Tweak MAX_DBOX_ENTRIES\n");
+	  exit(212);
+      }  
 
-    db_rect[i].w = (strlen(db_entry[i].text) * CHAR_WIDTH);
-    db_rect[i].h = CHAR_HEIGHT;
+    db_entry[dbn].type = (short) va_arg(ap, int);
+    db_entry[dbn].retval = (short) va_arg(ap, int);
 
-    if (db_entry[i].type) {
-      db_longest_button += db_rect[i].w;
-      bn++;
-    } else {
-      if (db_rect[i].w > db_longest_line) 
-	db_longest_line = db_rect[i].w;
-      ln++;
+    if (db_entry[dbn].type == 0) { /* Text strings: Chop a paragraph into
+				    individual lines.*/
+	char * newline;
+	working_str = va_arg(ap, char *);
+	do {
+	    newline = (char *)strchr(working_str,'\n');
+	    if (newline) {
+		int linelen = newline - working_str;
+		db_entry[dbn].text = (char *)lcalloc(1 + linelen);
+		strncpy(db_entry[dbn].text,working_str,linelen);
+		db_entry[dbn].text[linelen] = '\0';
+		working_str = (newline + 1) != '\0' ? newline + 1 : NULL;
+	    } else {
+		db_entry[dbn].text = (char *)lcalloc(1 + strlen(working_str));
+		strncpy(db_entry[dbn].text,working_str,strlen(working_str));
+		db_entry[dbn].text[strlen(working_str)] = '\0';
+		working_str = NULL;
+	    }
 
+	    db_entry[dbn].type = 0;
+	    db_entry[dbn].retval = 0;
+
+	    db_rect[dbn].w = (strlen(db_entry[dbn].text) * CHAR_WIDTH);
+	    db_rect[dbn].h = CHAR_HEIGHT;
+	    if (db_rect[dbn].w > db_longest_line) 
+		db_longest_line = db_rect[dbn].w;
+
+	    ln++;
+	    dbn++;
+	} while ((working_str != NULL) && (strlen(working_str) >= 1));
+    } else { 
+	db_entry[dbn].text = va_arg(ap, char *);
+	db_rect[dbn].w = ((strlen(db_entry[dbn].text) * CHAR_WIDTH)
+			  + (BUTTON_BORDER * 2));
+	db_rect[dbn].h = (CHAR_HEIGHT + (BUTTON_BORDER * 2));
+	
+	db_longest_button += db_rect[dbn].w;
+	bn++;
+	dbn++;
     }
   }
 
@@ -163,12 +207,14 @@ dialog_box(int arg_color, char argc, ...)
   {
       if (db_entry[i].type) {                                  /* Buttons */
 	  if (db_last_button == -1)
-	      db_rect[i].x = (bs + bse) / 2;
+	      db_rect[i].x = ((bs + bse) / 2) - BUTTON_BORDER;
 	  else
-	      db_rect[i].x = (db_rect[db_last_button].x + 
-			      db_rect[db_last_button].w + bs);
+	      db_rect[i].x = ((db_rect[db_last_button].x  
+			       + db_rect[db_last_button].w + bs)
+			      - BUTTON_BORDER);
 	  
-	  db_rect[i].y = (ln * (CHAR_HEIGHT + DB_V_SPACE) + DB_V_SPACE);
+	  db_rect[i].y = ((ln * (CHAR_HEIGHT + DB_V_SPACE) + DB_V_SPACE) 
+			  - BUTTON_BORDER);
 	  
 	  db_last_button = i;
       } else {                                                   /* Lines */
@@ -188,6 +234,9 @@ dialog_box(int arg_color, char argc, ...)
   dialog_refresh();
 
   db_return_value = 0;
+
+  /* Wait for the user to click on it or press an appropriate key */
+  /* Mouse clicks arrive from the mouse handler and set db_return_value */
 
   while (!db_return_value)  {
 #ifndef LC_X11
@@ -222,7 +271,7 @@ dialog_box(int arg_color, char argc, ...)
 	      }
 	  }
   }
-
+  printf("returning %d\n",db_return_value);
   return (db_return_value);
 }
 
@@ -274,13 +323,14 @@ dialog_refresh(void)
     {
 
 	if (db_entry[i].type) {
-	    Fgl_fillbox(db_rect[i].x + text_window.x - BUTTON_BORDER,
-			db_rect[i].y + text_window.y - BUTTON_BORDER,
-			db_rect[i].w + (BUTTON_BORDER * 2),
-			db_rect[i].h + (BUTTON_BORDER * 2),
+	    Fgl_fillbox(db_rect[i].x + text_window.x,
+			db_rect[i].y + text_window.y,
+			db_rect[i].w,
+			db_rect[i].h,
 			white(0));
 	}
-	Fgl_write(db_rect[i].x + text_window.x, db_rect[i].y + text_window.y, 
+	Fgl_write(db_rect[i].x + text_window.x + BUTTON_BORDER, 
+		  db_rect[i].y + text_window.y + BUTTON_BORDER,
 		  db_entry[i].text);
     }
 
@@ -294,16 +344,23 @@ dialog_refresh(void)
 void
 dialog_close(int return_value) 
 {
+    int i;
+    
     mouse_unregister(main_handle);
     mouse_unregister(text_handle);
     db_up = 0;
     db_return_value = return_value;
 
+    for (i = 0; i < dbn; i++) 
+	if (db_entry[i].type == DB_PARA) 
+	    free(db_entry[i].text);
+    
     if (db_screen_fresh) {
 	Fgl_putrect(&dialog_window,db_screen_buffer);
-	db_flag = 0;
 	free(db_screen_buffer);
 	db_screen_fresh = 0;
     }
+
+    db_flag = 0;
 }
 
