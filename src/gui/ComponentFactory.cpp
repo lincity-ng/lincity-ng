@@ -23,12 +23,12 @@ public:
         component_factories->insert(std::make_pair("Import", this));
     }
     
-    Component* createComponent(Component* parent, XmlReader& reader);
+    Component* createComponent(XmlReader& reader);
 };
 //static ImportFactory factory_Import;
 
 Component*
-ImportFactory::createComponent(Component* parent, XmlReader& reader)
+ImportFactory::createComponent(XmlReader& reader)
 {
     std::string importfile;
     
@@ -48,7 +48,7 @@ ImportFactory::createComponent(Component* parent, XmlReader& reader)
         throw std::runtime_error("No src attribute specified.");
 
     XmlReader nreader(importfile);
-    return ::createComponent((const char*) nreader.getName(), parent, nreader);
+    return ::createComponent((const char*) nreader.getName(), nreader);
 }
 
 //---------------------------------------------------------------------------

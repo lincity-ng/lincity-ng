@@ -10,8 +10,10 @@ class Texture;
 class Panel : public Component
 {
 public:
-    Panel(Component* parent, XmlReader& reader);
+    Panel();
     virtual ~Panel();
+
+    void parse(XmlReader& reader);
 
     void draw(Painter& painter);
 

@@ -9,8 +9,10 @@ class ScrollBar;
 class ScrollView : public Component
 {
 public:
-    ScrollView(Component* parent, XmlReader& reader);
+    ScrollView();
     virtual ~ScrollView();
+
+    void parse(XmlReader& reader);
 
     void resize(float width, float height);
 

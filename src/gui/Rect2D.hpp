@@ -64,19 +64,20 @@ public:
   {
     return v.x >= p1.x && v.y >= p1.y && v.x < p2.x && v.y < p2.y;
   }
-  bool inside(const Rect2D& other) const
+  bool overlap(const Rect2D& other) const
   {
-    if(p1.x >= other.p2.x || other.p1.x >= p2.x)
-      return false;
-    if(p1.y >= other.p2.y || other.p1.y >= p2.y)
-      return false;
+      if(p1.x >= other.p2.x || other.p1.x >= p2.x)
+          return false;
+      if(p1.y >= other.p2.y || other.p1.y >= p2.y)
+          return false;
 
-    return true;
+      return true;
   }
+  void join(const Rect2D& other);
    
-  // leave these 2 public to safe the headaches of set/get functions for such
-  // simple things :)
-
+  /* leave these 2 vars public to safe the headaches of set/get functions
+   * for such simple things :)
+   */
   /// upper left edge
   Vector2 p1;
   /// lower right edge

@@ -41,7 +41,7 @@
 #include <SDL_keysym.h>
 #include <math.h>
 
-GameView* gameViewPtr;
+GameView* gameViewPtr = 0;
 
 GameView* getGameView()
 {
@@ -49,10 +49,25 @@ GameView* getGameView()
 }
     
 
-GameView::GameView(Component* parent, XmlReader& reader)
-    : Component(parent)
+GameView::GameView()
 {
+    assert(gameViewPtr == 0);
     gameViewPtr = this;
+}
+
+GameView::~GameView()
+{
+    for(int i = 0; i < NUM_OF_TYPES; ++i)
+        delete cityTextures[i];
+    delete blankTexture;
+
+    if(gameViewPtr == this)
+        gameViewPtr = 0;
+}
+
+void
+GameView::parse(XmlReader& reader)
+{
     //Read from config
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -91,13 +106,6 @@ GameView::GameView(Component* parent, XmlReader& reader)
     tileUnderMouse.y = 0;
 }
     
-GameView::~GameView()
-{
-    for(int i = 0; i < NUM_OF_TYPES; ++i)
-        delete cityTextures[i];
-    delete blankTexture;
-}
-
 /*
  * Adjust the Zoomlevel. Argument is per mille.
  */

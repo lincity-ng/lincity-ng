@@ -17,16 +17,9 @@
 #include "ComponentFactory.hpp"
 #include "TinyGetText/TinyGetText.hpp"
 
-Paragraph::Paragraph(Component* parent, XmlReader& reader, Style parentstyle)
-    : Component(parent), texture(0)
+Paragraph::Paragraph()
+    : texture(0)
 {
-    parse(reader, parentstyle);
-}
-
-Paragraph::Paragraph(Component* parent, XmlReader& reader)
-    : Component(parent), texture(0)
-{
-    parse(reader, style);
 }
 
 Paragraph::~Paragraph()
@@ -34,6 +27,12 @@ Paragraph::~Paragraph()
     for(TextSpans::iterator i = textspans.begin(); i != textspans.end(); ++i)
         delete *i;
     delete texture;
+}
+
+void
+Paragraph::parse(XmlReader& reader)
+{
+    parse(reader, style);
 }
 
 void
@@ -392,6 +391,8 @@ Paragraph::resize(float width, float height)
 
     this->width = width + style.margin_left + style.margin_right;
     this->height = height + style.margin_top + style.margin_bottom;
+
+    setDirty();
 }
 
 void

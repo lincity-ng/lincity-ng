@@ -12,8 +12,6 @@ public:
     Child(Component* _component = 0);
     ~Child();
 
-    void setComponent(Component* newcomponent);
-
     Component* getComponent() const
     {
         return component;
@@ -28,6 +26,11 @@ public:
         this->enabled = enabled;
     }
 
+    bool isEnabled() const
+    {
+        return enabled;
+    }
+
     void setPos(const Vector2& position)
     {
         this->position = position;
@@ -39,6 +42,16 @@ public:
     }
 
     bool inside(const Vector2& pos) const;
+
+    void setClipRect(const Rect2D& rect)
+    {
+        useClipRect = true;
+        clipRect = rect;
+    }
+   
+private:
+    friend class Component;
+    friend class Childs;
     
     Vector2 position;
     bool enabled;

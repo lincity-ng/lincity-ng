@@ -41,7 +41,7 @@ public:
         FLAG_RESIZABLE = 0x00000001
     };
         
-    Component(Component* parent);
+    Component();
     virtual ~Component();
 
     virtual void draw(Painter& painter);
@@ -96,14 +96,16 @@ protected:
     Childs childs;
 
     Child& addChild(Component* component);
+    void resetChild(Child& child, Component* component);
     void drawChild(Child& child, Painter& painter);
     bool eventChild(Child& child, const Event& event, bool visible = false);
+    void setChildDirty(Component* child, const Rect2D& area);
 
     void setDirty()
     {
         setDirty(Rect2D(0, 0, width, height));
     }
-    void setDirty(const Rect2D& area);
+    virtual void setDirty(const Rect2D& area);
     
     /**
      * used to parse attributes (from an xml stream for example). Currently

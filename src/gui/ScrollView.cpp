@@ -2,14 +2,24 @@
 
 #include "ScrollView.hpp"
 
+#include <memory>
+
 #include "XmlReader.hpp"
 #include "ScrollBar.hpp"
 #include "ComponentFactory.hpp"
 #include "ComponentLoader.hpp"
 #include "callback/Callback.hpp"
 
-ScrollView::ScrollView(Component* parent, XmlReader& reader)
-    : Component(parent)
+ScrollView::ScrollView()
+{
+}
+
+ScrollView::~ScrollView()
+{
+}
+
+void
+ScrollView::parse(XmlReader& reader)
 {
     // parse xml attributes
     XmlReader::AttributeIterator iter(reader);
@@ -35,9 +45,11 @@ ScrollView::ScrollView(Component* parent, XmlReader& reader)
             std::string element = (const char*) reader.getName();
             
             if(element == "scrollbar") {
-                scrollBar().setComponent(new ScrollBar(this, reader));
+                std::auto_ptr<ScrollBar> scrollbar (new ScrollBar());
+                scrollbar->parse(reader);
+                resetChild(scrollBar(), scrollbar.release());
             } else if(element == "contents") {
-                contents().setComponent(parseEmbeddedComponent(this, reader));
+                resetChild(contents(), parseEmbeddedComponent(reader));
             } else {
                 std::cerr << "Skipping unknown element '" << element << "'.\n";
             }
@@ -54,10 +66,6 @@ ScrollView::ScrollView(Component* parent, XmlReader& reader)
     setFlags(FLAG_RESIZABLE);
 }
 
-ScrollView::~ScrollView()
-{
-}
-
 void
 ScrollView::resize(float newwidth, float newheight)
 {
@@ -67,8 +75,7 @@ ScrollView::resize(float newwidth, float newheight)
     
     if(contents().getComponent()->getFlags() & FLAG_RESIZABLE)
         contents().getComponent()->resize(newwidth - scrollBarWidth, newheight);
-    contents().useClipRect = true;
-    contents().clipRect = Rect2D(0,0, newwidth - scrollBarWidth, newheight);
+    contents().setClipRect(Rect2D(0, 0, newwidth - scrollBarWidth, newheight));
     float scrollarea = contents().getComponent()->getHeight() - newheight;
     if(scrollarea < 0)
         scrollarea = 0;
@@ -78,12 +85,15 @@ ScrollView::resize(float newwidth, float newheight)
 
     width = newwidth;
     height = newheight;
+
+    setDirty();
 }
 
 void
 ScrollView::scrollBarChanged(ScrollBar* , float newvalue)
 {
     contents().setPos(Vector2(0, -newvalue));
+    setDirty();
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ScrollView)

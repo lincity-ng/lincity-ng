@@ -5,8 +5,8 @@
 #include "Painter.hpp"
 #include "Event.hpp"
 
-Component::Component(Component* _parent)
-    : parent(_parent), flags(0), width(0), height(0)
+Component::Component()
+    : parent(0), flags(0), width(0), height(0)
 {
 }
 
@@ -115,12 +115,54 @@ Component::findComponent(const std::string& name)
 Child&
 Component::addChild(Component* component)
 {
+    assert(component->parent == 0);
+
     childs.push_back(Child(component));
+    component->parent = this;
+    component->setDirty();
     return childs.back();
+}
+
+void
+Component::resetChild(Child& child, Component* component)
+{
+    assert(child.component != component);
+    
+    delete child.component;
+    child.component = component;
+    if(component != 0) {
+        component->parent = this;
+        component->setDirty();
+        child.enabled = true;
+    }
 }
 
 void
 Component::resize(float , float )
 {
+}
+
+void
+Component::setDirty(const Rect2D& rect)
+{
+    if(parent)
+        parent->setChildDirty(this, rect);
+}
+
+void
+Component::setChildDirty(Component* childComponent, const Rect2D& area)
+{
+    for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
+        const Child& child = *i;
+        if(child.getComponent() != childComponent)
+            continue;
+
+        Rect2D rect = area;
+        rect.move(child.position);
+        setDirty(rect);
+        return;
+    }
+
+    assert(false);
 }
 

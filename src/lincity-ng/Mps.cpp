@@ -12,22 +12,31 @@
 #include "gui/ComponentLoader.hpp"
 #include "gui/Paragraph.hpp"
 
-LCMps *mLCMPS;
+LCMps *mLCMPS = 0;
 
 void mps_update(int,int,int);
 
-LCMps::LCMps(Component *parent,XmlReader &reader):
-  Component(parent)
+LCMps::LCMps()
 {
-  Component* component = parseEmbeddedComponent(this, reader);
-  if(component)
-    addChild(component);
+    assert(mLCMPS == 0);
+    mLCMPS = this;
+}
+
+LCMps::~LCMps()
+{
+    if(mLCMPS == this)
+        mLCMPS = 0;
+}
+
+void
+LCMps::parse(XmlReader& reader)
+{
+  Component* component = parseEmbeddedComponent(reader);
+  addChild(component);
 
   width = component->getWidth();
   height = component->getHeight();
 
-  mLCMPS=this;
-  
   setView(10,10);
 }
 

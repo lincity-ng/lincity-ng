@@ -17,8 +17,10 @@ class Texture;
 class Button : public Component
 {
 public:
-    Button(Component* parent, XmlReader& reader);
+    Button();
     virtual ~Button();
+
+    void parse(XmlReader& reader);
 
     void draw(Painter& painter);
     void event(const Event& event);
@@ -33,6 +35,8 @@ public:
     
     State state;
 private:
+    void setChildImage(Child& child, XmlReader& reader);
+    void setChildText(Child& child, XmlReader& reader);
 
     Child& comp_normal()
     { return childs[0]; }

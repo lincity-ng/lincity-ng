@@ -28,9 +28,11 @@ public:
 class Paragraph : public Component
 {
 public:
-    Paragraph(Component* parent, XmlReader& reader);
-    Paragraph(Component* parent, XmlReader& reader, Style parentstyle);
+    Paragraph();
     virtual ~Paragraph();
+
+    void parse(XmlReader& reader);
+    void parse(XmlReader& reader, Style parentstyle);
 
     void resize(float width, float height);
     void draw(Painter& painter);
@@ -49,8 +51,6 @@ private:
     TextSpans textspans;
     Style style;
 
-    void parse(XmlReader& reader, Style parentstyle);
-    
     Texture* texture;
 };
 

@@ -5,7 +5,6 @@
 #include <SDL_ttf.h>
 #include <stdexcept>
 #include <sstream>
-#include <fstream>
 
 #include "PhysfsStream/PhysfsSDL.hpp"
 

@@ -10,8 +10,16 @@
 #include "ComponentLoader.hpp"
 #include "Style.hpp"
 
-Desktop::Desktop(Component* parent, XmlReader& reader)
-    : Component(parent)
+Desktop::Desktop()
+{
+}
+
+Desktop::~Desktop()
+{
+}
+
+void
+Desktop::parse(XmlReader& reader)
 {
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -33,17 +41,13 @@ Desktop::Desktop(Component* parent, XmlReader& reader)
             if(element == "DefineStyle") {
                 parseStyleDef(reader);
             } else {
-                Component* component = createComponent(element, this, reader);
+                Component* component = createComponent(element, reader);
                 addChild(component);
             }
         }
     }
 
     setFlags(FLAG_RESIZABLE);
-}
-
-Desktop::~Desktop()
-{
 }
 
 void
@@ -59,15 +63,22 @@ Desktop::event(const Event& event)
     removeQueue.clear();
 }
 
+void
+Desktop::draw(Painter& painter)
+{
+    Component::draw(painter);
+    dirtyRectangles.clear();
+}
+
 bool
 Desktop::opaque(const Vector2& pos) const
 {
     for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
         const Child& child = *i;
-        if(child.component == 0)
+        if(child.getComponent() == 0)
             continue;
         
-        if(child.component->opaque(pos + child.position)) {
+        if(child.getComponent()->opaque(pos + child.getPos())) {
             return true;
         }
     }
@@ -92,6 +103,7 @@ Desktop::resize(float width, float height)
     }
     this->width = width;
     this->height = height;
+    Component::setDirty();
 }
 
 Vector2
@@ -109,7 +121,7 @@ Desktop::getPos(Component* component)
         throw std::runtime_error(
                 "Trying to getPos a component that is not a direct child");
 
-    return child->position;
+    return child->getPos();
 }
 
 void
@@ -140,7 +152,7 @@ Desktop::move(Component* component, Vector2 newpos)
     if(newpos.y < 0)
         newpos.y = 0;
 
-    child->position = newpos;
+    child->setPos(newpos);
 }
 
 void
@@ -162,3 +174,25 @@ Desktop::internal_remove(Component* component)
     throw std::runtime_error(
             "Trying to remove a component that is not a direct child");
 }
+
+void
+Desktop::setDirty(const Rect2D& rect)
+{
+    // check if rectangle overlaps with 1 of the existing rectangles
+    for(DirtyRectangles::iterator i = dirtyRectangles.begin();
+            i != dirtyRectangles.end(); ++i) {
+        if(i->overlap(rect)) {
+            i->join(rect);
+            return;
+        }
+    }
+
+    // add a new dirty rectangle if no overlap occured
+    std::cout << "Adding new rectangle: " 
+        << rect.p1.x << "," << rect.p1.y << ","
+        << rect.p2.x << "," << rect.p2.y << "\n";
+    dirtyRectangles.push_back(rect);
+
+    Component::setDirty(rect);
+}
+

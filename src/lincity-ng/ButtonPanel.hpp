@@ -8,10 +8,12 @@
 class XmlReader;
 class CheckButton;
 
-class ButtonPanel:public Component
+class ButtonPanel : public Component
 {
  public:
-  ButtonPanel(Component *pWidget,XmlReader &reader);
+  ButtonPanel();
+
+  void parse(XmlReader& reader);
 
   int getModule() const;
   

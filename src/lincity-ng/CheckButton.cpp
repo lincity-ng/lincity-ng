@@ -14,8 +14,17 @@
 #include "gui/Paragraph.hpp"
 #include "gui/XmlReader.hpp"
 
-CheckButton::CheckButton(Component* parent, XmlReader& reader)
-    : Component(parent), state(STATE_NORMAL), lowerOnClick(false),checked(false),mclicked(false)
+CheckButton::CheckButton()
+    : state(STATE_NORMAL), lowerOnClick(false), checked(false), mclicked(false)
+{
+}
+
+CheckButton::~CheckButton()
+{
+}
+
+void
+CheckButton::parse(XmlReader& reader)
 {
     // parse xml attributes
     XmlReader::AttributeIterator iter(reader);
@@ -62,47 +71,47 @@ CheckButton::CheckButton(Component* parent, XmlReader& reader)
                 if(comp_normal().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
                         "comp_normal defined.\n";
-                comp_normal().setComponent(new Image(this, reader));
+                setChildImage(comp_normal(), reader);
             } else if(element == "text") {
                 if(comp_normal().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
                         "comp_normal defined.\n";
-                comp_normal().setComponent(new Paragraph(this, reader));
+                setChildText(comp_normal(), reader);
             } else if(element == "image-hover") {
                 if(comp_hover().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
                         "comp_hover defined.\n";
-                comp_hover().setComponent(new Image(this, reader));
+                setChildImage(comp_hover(), reader);
             } else if(element == "image-checked") {
                 if(comp_checked().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
                         "comp_hover defined.\n";
-                comp_checked().setComponent(new Image(this, reader));
+                setChildImage(comp_checked(), reader);
             } else if(element == "text-hover") {
                 if(comp_hover().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
                         "comp_hover defined.\n";
-                comp_hover().setComponent(new Paragraph(this, reader));
+                setChildText(comp_hover(), reader);
             } else if(element == "image-clicked") {
                 if(comp_clicked().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
                         "comp_clicked defined.\n";
-                comp_clicked().setComponent(new Image(this, reader));
+                setChildImage(comp_clicked(), reader);
             } else if(element == "text-clicked") {
                 if(comp_clicked().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for state "
                         "comp_clicked defined.\n";
-                comp_clicked().setComponent(new Paragraph(this, reader));
+                setChildText(comp_clicked(), reader);
             } else if(element == "image-caption") {
                 if(comp_caption().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for comp_caption "
                         "defined.\n";
-                comp_caption().setComponent(new Image(this, reader));
+                setChildImage(comp_caption(), reader);
             } else if(element == "text-caption") {
                 if(comp_caption().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for comp_caption "
                         "defined.\n";
-                comp_caption().setComponent(new Paragraph(this, reader));
+                setChildText(comp_caption(), reader);
             } else {
                 std::cerr << "Skipping unknown element '" << element << "'.\n";
             }
@@ -140,16 +149,28 @@ CheckButton::CheckButton(Component* parent, XmlReader& reader)
     }
 }
 
-CheckButton::~CheckButton()
+void
+CheckButton::setChildImage(Child& child, XmlReader& reader)
 {
+    std::auto_ptr<Image> image(new Image());
+    image->parse(reader);
+    resetChild(child, image.release());
 }
 
+void
+CheckButton::setChildText(Child& child, XmlReader& reader)
+{
+    std::auto_ptr<Paragraph> paragraph(new Paragraph());
+    paragraph->parse(reader);
+    resetChild(child, paragraph.release());
+}
 
 void CheckButton::uncheck()
 {
   checked=false;
   state=STATE_NORMAL;
 }
+
 void CheckButton::check()
 {
   checked=true;
@@ -211,19 +232,19 @@ CheckButton::draw(Painter& painter)
 {
     switch(state) {
         case STATE_CLICKED:
-            if(comp_clicked().enabled) {
+            if(comp_clicked().isEnabled()) {
                 drawChild(comp_clicked(), painter);
                 break;
             }
             // fallthrough
         case STATE_HOVER:
-            if(comp_hover().enabled) {
+            if(comp_hover().isEnabled()) {
                 drawChild(comp_hover(), painter);
                 break;
             }
             // fallthrough
         case STATE_CHECKED:
-            if(comp_checked().enabled) {
+            if(comp_checked().isEnabled()) {
                 drawChild(comp_checked(), painter);
                 break;
             }
@@ -240,7 +261,7 @@ CheckButton::draw(Painter& painter)
        painter.pushTransform();
        painter.translate(Vector2(1,1));
     }
-    if(comp_caption().enabled)
+    if(comp_caption().isEnabled())
         drawChild(comp_caption(), painter);
     if(lowerOnClick && state==STATE_CLICKED)
         painter.popTransform();

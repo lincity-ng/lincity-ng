@@ -26,6 +26,7 @@ public:
 
     virtual void setClipRectangle(const Rect2D& rect) = 0;
     virtual void clearClipRectangle() = 0;
+    //virtual Rect2D getClipRectangle() = 0;
 
     virtual void translate(const Vector2& vec) = 0;
     virtual void setFillColor(Color color) = 0;

@@ -3,14 +3,15 @@
 
 #include "gui/Component.hpp"
 
-//#include "ag_table.h"
-//#include "ag_text.h"
 class XmlReader;
 
-class LCMps:public Component
+class LCMps : public Component
 {
- public:
-  LCMps(Component *pWidget,XmlReader &reader);
+public:
+  LCMps();
+  ~LCMps();
+
+  void parse(XmlReader& reader);
 
   void setView(int x,int y);
   

@@ -10,8 +10,10 @@ class Texture;
 class Image : public Component
 {
 public:
-    Image(Component* parent, XmlReader& reader);
+    Image();
     virtual ~Image();
+
+    void parse(XmlReader& reader);
 
     void resize(float width, float height);
     void draw(Painter& painter);

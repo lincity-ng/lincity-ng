@@ -9,8 +9,10 @@ class Button;
 class Window : public Component
 {
 public:
-    Window(Component* parent, XmlReader& reader);
+    Window();
     virtual ~Window();
+
+    void parse(XmlReader& reader);
 
     void draw(Painter& painter);
     void event(const Event& event);

@@ -29,9 +29,10 @@ class XmlReader;
 class TableLayout : public Component
 {
 public:
-    TableLayout(Component* parent);
-    TableLayout(Component* parent, XmlReader& reader);
+    TableLayout();
     ~TableLayout();
+
+    void parse(XmlReader& reader);
 
     void resize(float width, float height);
     bool opaque(const Vector2& pos) const;

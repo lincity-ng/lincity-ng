@@ -9,9 +9,11 @@ class Alternate;
 
 class CheckButton : public Component
 {
-  public:
-    CheckButton(Component* parent, XmlReader& reader);
+public:
+    CheckButton();
     virtual ~CheckButton();
+
+    void parse(XmlReader& reader);
 
     void draw(Painter& painter);
     void event(const Event& event);
@@ -31,8 +33,11 @@ class CheckButton : public Component
     };
     
     State state;
-private:
 
+private:
+    void setChildImage(Child& child, XmlReader& reader);
+    void setChildText(Child& child, XmlReader& reader);
+    
     Child& comp_normal()
     { return childs[0]; }
     Child& comp_hover()
@@ -44,12 +49,12 @@ private:
     Child& comp_caption()
     { return childs[4]; }
     
+    
     std::string mmain;
     
     bool lowerOnClick;
     bool checked;    
     bool mclicked;
 };
-
 
 #endif

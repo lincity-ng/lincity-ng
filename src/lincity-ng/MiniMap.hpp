@@ -11,11 +11,12 @@ class Button;
 
 class MiniMap:public Component
 {
- public:
-
+public:
   enum DisplayMode {NORMAL,POLLUTION,UB40,STARVE,POWER,FIRE,CRICKET,HEALTH,COAL,MAX};
 
-  MiniMap(Component *parent, XmlReader& reader);
+  MiniMap();
+
+  void parse(XmlReader& reader);
   
   // colors must be corrected somehow - maybe get them from oldgui/screen.cc
   virtual void draw(Painter &painter);

@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <memory>
 
 class Component;
 class XmlReader;
@@ -10,7 +11,7 @@ class XmlReader;
 class Factory
 {
 public:
-    virtual Component* createComponent(Component* parent, XmlReader& reader) =0;
+    virtual Component* createComponent(XmlReader& reader) = 0;
 };
 
 typedef std::map<std::string, Factory*> ComponentFactories;
@@ -34,9 +35,11 @@ public:                                                                     \
     component_factories->insert(std::make_pair(#CLASS, this));              \
   }                                                                         \
                                                                             \
-  virtual Component* createComponent(Component* parent, XmlReader& reader)  \
+  virtual Component* createComponent(XmlReader& reader)                     \
   {                                                                         \
-    return new CLASS(parent, reader);                                       \
+      std::auto_ptr<CLASS> component (new CLASS());                         \
+      component->parse(reader);                                             \
+      return component.release();                                           \
   }                                                                         \
 };
 #define IMPLEMENT_COMPONENT_FACTORY(CLASS)                                  \

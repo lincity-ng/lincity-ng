@@ -10,8 +10,10 @@ class Button;
 class ScrollBar : public Component
 {
 public:
-    ScrollBar(Component* parent, XmlReader& reader);
+    ScrollBar();
     virtual ~ScrollBar();
+
+    void parse(XmlReader& reader);
 
     void resize(float width, float height);
     void draw(Painter& painter);

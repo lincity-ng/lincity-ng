@@ -13,14 +13,17 @@
 #include "ComponentLoader.hpp"
 #include "XmlReader.hpp"
 
-TableLayout::TableLayout(Component* parent)
-    : Component(parent)
+TableLayout::TableLayout()
 {
     setFlags(FLAG_RESIZABLE);
 }
 
-TableLayout::TableLayout(Component* parent, XmlReader& reader)
-    : Component(parent)
+TableLayout::~TableLayout()
+{
+}
+
+void
+TableLayout::parse(XmlReader& reader)
 {
     int rows = -1, cols = -1;
     
@@ -155,7 +158,7 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
                     spany = 1;
                 }   
                 
-                Component* component = parseEmbeddedComponent(this, reader);
+                Component* component = parseEmbeddedComponent(reader);
                 if(component == 0) {
                     std::cerr << "No Component specified in cell "
                         << (row+1) << ", " << (col+1) << "\n";
@@ -176,12 +179,6 @@ TableLayout::TableLayout(Component* parent, XmlReader& reader)
             }
         }   
     }
-
-    setFlags(FLAG_RESIZABLE);
-}
-
-TableLayout::~TableLayout()
-{
 }
 
 bool
@@ -189,10 +186,10 @@ TableLayout::opaque(const Vector2& pos) const
 {
     for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
         const Child& child = *i;
-        if(child.component == 0)
+        if(child.getComponent() == 0 || !child.isEnabled())
             continue;
         
-        if(child.enabled && child.component->opaque(pos - child.position)) {
+        if(child.getComponent()->opaque(pos - child.getPos())) {
             return true;
         }
     }
@@ -372,6 +369,8 @@ TableLayout::resize(float width, float height)
         ++r;
         p.y += row->realval;
     }
+
+    setDirty();
 }
 
 void

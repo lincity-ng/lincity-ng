@@ -13,17 +13,6 @@ Child::~Child()
 {
 }
 
-void
-Child::setComponent(Component* newcomponent)
-{
-    assert(component != newcomponent);
-
-    delete component;
-    component = newcomponent;
-    if(component != 0)
-        enabled = true;
-}
-
 bool
 Child::inside(const Vector2& pos) const
 {

@@ -10,7 +10,7 @@ class XmlReader;
 class Document : public Component
 {
 public:
-    Document(Component* parent, XmlReader& reader);
+    Document();
     virtual ~Document();
 
     void parse(XmlReader& reader);

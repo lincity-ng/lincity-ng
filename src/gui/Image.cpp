@@ -6,8 +6,16 @@
 #include "ComponentFactory.hpp"
 #include "Painter.hpp"
 
-Image::Image(Component* parent, XmlReader& reader)
-    : Component(parent)
+Image::Image()
+{
+}
+
+Image::~Image()
+{
+}
+
+void
+Image::parse(XmlReader& reader)
 {
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -41,10 +49,6 @@ Image::Image(Component* parent, XmlReader& reader)
         width = texture->getWidth();
         height = texture->getHeight();
     }
-}
-
-Image::~Image()
-{
 }
 
 void

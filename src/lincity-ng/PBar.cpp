@@ -10,16 +10,8 @@
 
 LCPBar* LCPBarInstance = 0;
 
-LCPBar::LCPBar(Component* parent, XmlReader& reader)
-    : Component(parent)
+LCPBar::LCPBar()
 {
-    Component* component = parseEmbeddedComponent(this, reader);
-    if(component)
-        addChild(component);
-
-    width = component->getWidth();
-    height = component->getHeight();
-    
     LCPBarInstance = this;
 }
 
@@ -27,6 +19,16 @@ LCPBar::~LCPBar()
 {
     if(LCPBarInstance == this)
         LCPBarInstance = 0;
+}
+
+void
+LCPBar::parse(XmlReader& reader)
+{
+    Component* component = parseEmbeddedComponent(reader);
+    addChild(component);
+
+    width = component->getWidth();
+    height = component->getHeight();
 }
 
 // copied from old-gui
@@ -134,9 +136,18 @@ LCPBar::setValue(int num, int value)
 // BarView
 ///////////////////////////////////////////////////////////////////////////////////////
 
-BarView::BarView(Component *widget, XmlReader &reader):Component(widget)
+BarView::BarView()
 {
-  dir=true;
+}
+
+BarView::~BarView()
+{
+}
+
+void
+BarView::parse(XmlReader& reader)
+{
+    dir=true;
      // parse attributes...
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -172,10 +183,7 @@ BarView::BarView(Component *widget, XmlReader &reader):Component(widget)
       throw std::runtime_error("Width or Height invalid");
    value=0.7;
 }
-BarView::~BarView()
-{
-}
-   
+
 void BarView::setValue(float v)
 {
   if(v>=-1.0 && v<=1.0)

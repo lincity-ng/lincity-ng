@@ -14,8 +14,10 @@
 class GameView : public Component
 {
 public:
-    GameView(Component* parent, XmlReader& reader);
+    GameView();
     ~GameView();
+
+    void parse(XmlReader& reader);
     
     void draw(Painter& painter);
     void resize(float width, float height );

@@ -10,10 +10,8 @@
 #include "Painter.hpp"
 #include "ComponentFactory.hpp"
 
-Document::Document(Component* parent, XmlReader& reader)
-    : Component(parent)
+Document::Document()
 {
-    parse(reader);
 }
 
 Document::~Document()
@@ -23,8 +21,6 @@ Document::~Document()
 void
 Document::parse(XmlReader& reader)
 {
-    std::cout << "parse...\n";
-
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
@@ -49,8 +45,9 @@ Document::parse(XmlReader& reader)
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string node = (const char*) reader.getName();
             if(node == "p") {
-                Paragraph* paragraph = new Paragraph(this, reader, style);
-                addChild(paragraph);
+                std::auto_ptr<Paragraph> paragraph (new Paragraph());
+                paragraph->parse(reader, style);
+                addChild(paragraph.release());
             } else {
                 std::cerr << "Skipping unknown node type '" << node << "'.\n";
                 reader.nextNode();
@@ -72,7 +69,7 @@ Document::resize(float newwidth, float )
         Child& child = *i;
         Component* component = child.getComponent();
         component->resize(newwidth, -1);
-        child.position = Vector2(0, height);
+        child.setPos(Vector2(0, height));
         height += component->getHeight();
     }
     width = newwidth;

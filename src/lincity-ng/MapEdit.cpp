@@ -29,6 +29,7 @@ clicked_port_cb (int x, int y)
     mcbx = x;
     mcby = y;*/
 }
+
 void
 clicked_market_cb (int x, int y)
 {
@@ -36,8 +37,6 @@ clicked_market_cb (int x, int y)
     mcbx = x;
     mcby = y;*/
 }
-
-
 
 void 
 no_credit_build_msg (int selected_group)

@@ -25,7 +25,12 @@ ButtonPanel *getButtonPanel()
   return ButtonPanelInstance;
 }
 
-ButtonPanel::ButtonPanel(Component *pWidget,XmlReader &reader):Component(pWidget)
+ButtonPanel::ButtonPanel()
+{
+}
+
+void
+ButtonPanel::parse(XmlReader& reader)
 {
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -76,7 +81,7 @@ ButtonPanel::ButtonPanel(Component *pWidget,XmlReader &reader):Component(pWidget
               mMenuButtons.push_back(getAttribute(reader,"name"));
             else
             {
-                Component* component = parseEmbeddedComponent(this, reader);
+                Component* component = parseEmbeddedComponent(reader);
                 addChild(component);
                 if(component->getFlags() & FLAG_RESIZABLE) {
                   component->resize(width, height);
@@ -96,7 +101,6 @@ ButtonPanel::ButtonPanel(Component *pWidget,XmlReader &reader):Component(pWidget
     
     checked_cast<CheckButton>(findComponent(mMenuButtons[0]))->check();
 }
-
 
 std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName) const
 {
@@ -174,7 +178,7 @@ void ButtonPanel::draw(Painter &painter)
   Component::draw(painter);
 }
 
-void ButtonPanel::chooseButtonClicked(CheckButton* button,int b)
+void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
 {
   CTRACE;
   Image *i=dynamic_cast<Image*>(button->getCaption());
@@ -266,7 +270,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
             for(;i!=p->childs.end();i++)
               if(i->getComponent()==c)
                {
-                if(i->enabled)
+                if(i->isEnabled())
                   i->enable(false);
                 else if(b!=SDL_BUTTON_LEFT)
                   i->enable(true);
@@ -294,21 +298,21 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
      
    // get selected button and set module
 }
+
 int ButtonPanel::getModule() const
 {
   return module;
 }
 
- bool ButtonPanel::opaque(const Vector2& pos) const
-  {
-    Childs::const_iterator i=childs.begin();
-    for(;i!=childs.end();i++)
-      if(i->component->opaque(pos))
+bool ButtonPanel::opaque(const Vector2& pos) const
+{
+    for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i)
+      if(i->getComponent()->opaque(pos))
         return true;
+    
     return false;
-  }
-  
-  
+}
+ 
 void ButtonPanel::doButton(const std::string &button)
 {
   if(button=="BPMPointerButton")

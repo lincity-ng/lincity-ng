@@ -20,13 +20,12 @@ Component* loadGUIFile(const std::string& filename);
  * </Contents>
  * the Image component is embedded in the Contents element.
  */
-Component* parseEmbeddedComponent(Component* parent, XmlReader& reader);
+Component* parseEmbeddedComponent(XmlReader& reader);
 
 /**
  * Given the name of the component and an xml-reader, this function will parse
  * the component and return it.
  */
-Component* createComponent(const std::string& type, Component* parent,
-        XmlReader& reader);
+Component* createComponent(const std::string& type, XmlReader& reader);
 
 #endif

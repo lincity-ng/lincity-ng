@@ -12,8 +12,16 @@
 #include "ComponentLoader.hpp"
 #include "Painter.hpp"
 
-Panel::Panel(Component* parent, XmlReader& reader)
-    : Component(parent)
+Panel::Panel()
+{
+}
+
+Panel::~Panel()
+{
+}
+
+void
+Panel::parse(XmlReader& reader)
 {
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -45,15 +53,11 @@ Panel::Panel(Component* parent, XmlReader& reader)
         throw std::runtime_error("invalid width/height");
     }
 
-    Component* component = parseEmbeddedComponent(this, reader);
+    Component* component = parseEmbeddedComponent(reader);
     addChild(component);
     if(component->getFlags() & FLAG_RESIZABLE) {
         component->resize(width, height);
     }
-}
-
-Panel::~Panel()
-{
 }
 
 void

@@ -16,15 +16,18 @@
 #include "Event.hpp"
 #include "Desktop.hpp"
 
-Window::Window(Component* parent, XmlReader& reader)
-    : Component(parent), border(1), titlesize(0), dragging(false)
+Window::Window()
+    : border(1), titlesize(0), dragging(false)
 {
-    Desktop* desktop = dynamic_cast<Desktop*> (parent);
-    if(desktop == 0) {
-        throw std::runtime_error(
-                "Windows have to be childs of a Desktop component.");
-    }
+}
 
+Window::~Window()
+{
+}
+
+void
+Window::parse(XmlReader& reader)
+{
     // parse attributes...
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -69,11 +72,13 @@ Window::Window(Component* parent, XmlReader& reader)
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string element = (const char*) reader.getName();
             if(element == "title") {
-                title().setComponent(parseEmbeddedComponent(this, reader));
+                resetChild(title(), parseEmbeddedComponent(reader));
             } else if(element == "closebutton") {
-                closeButton().setComponent(new Button(this, reader));
+                std::auto_ptr<Button> button (new Button());
+                button->parse(reader);
+                resetChild(closeButton(), button.release());
             } else if(element == "contents") {
-                contents().setComponent(parseEmbeddedComponent(this, reader));
+                resetChild(contents(), parseEmbeddedComponent(reader));
             } else {
                 std::cerr << "Skipping unknown element '"
                     << element << "'.\n";
@@ -110,10 +115,6 @@ Window::Window(Component* parent, XmlReader& reader)
     Button* button = (Button*) closeButton().getComponent();
     button->clicked.connect(
         makeCallback(*this, &Window::closeButtonClicked));
-}
-
-Window::~Window()
-{
 }
 
 void

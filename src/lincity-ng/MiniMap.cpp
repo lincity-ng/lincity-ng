@@ -54,8 +54,13 @@ Color light(const Color &c,Uint8 b)
 	       ((Uint16(c.b)*b)>>8));
 }
 
-MiniMap::MiniMap(Component *parent, XmlReader& reader):
-  Component(parent),mMode(NORMAL),tilesize(2),mTexture(0)
+MiniMap::MiniMap()
+    : mMode(NORMAL), tilesize(2), mTexture(0)
+{
+}
+
+void
+MiniMap::parse(XmlReader& reader)
 {
      // parse attributes...
     XmlReader::AttributeIterator iter(reader);

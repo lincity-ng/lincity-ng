@@ -12,8 +12,17 @@
 #include "Painter.hpp"
 #include "Event.hpp"
 
-ScrollBar::ScrollBar(Component* parent, XmlReader& reader)
-    : Component(parent), minVal(0), maxVal(0), currentVal(0), scrolling(false)
+ScrollBar::ScrollBar()
+    : minVal(0), maxVal(0), currentVal(0), scrolling(false)
+{
+}
+
+ScrollBar::~ScrollBar()
+{
+}
+
+void
+ScrollBar::parse(XmlReader& reader)
 {
     width = 30; // default width...
     XmlReader::AttributeIterator iter(reader);
@@ -45,11 +54,17 @@ ScrollBar::ScrollBar(Component* parent, XmlReader& reader)
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string element = (const char*) reader.getName();
             if(element == "button1") {
-                button1().setComponent(new Button(this, reader));
+                std::auto_ptr<Button> button(new Button());
+                button->parse(reader);
+                resetChild(button1(), button.release());
             } else if(element == "button2") {
-                button2().setComponent(new Button(this, reader));
+                std::auto_ptr<Button> button(new Button());
+                button->parse(reader);
+                resetChild(button2(), button.release());
             } else if(element == "scroller") {
-                scroller().setComponent(new Button(this, reader));
+                std::auto_ptr<Button> button(new Button());
+                button->parse(reader);                                     
+                resetChild(scroller(), button.release());                   
             } else {
                 std::cerr << "Skipping unknown element '"
                     << element << "'.\n";
@@ -63,10 +78,6 @@ ScrollBar::ScrollBar(Component* parent, XmlReader& reader)
     }
 
     setFlags(FLAG_RESIZABLE);
-}
-
-ScrollBar::~ScrollBar()
-{
 }
 
 void
@@ -87,6 +98,8 @@ ScrollBar::resize(float newwidth, float newheight)
     button2().setPos(Vector2(0, height-button2().getComponent()->getHeight()));
     // TODO correctly set scroller pos...
     scroller().setPos(Vector2(0, button1().getComponent()->getHeight()));
+
+    setDirty();
 }
 
 void
@@ -136,6 +149,7 @@ ScrollBar::event(const Event& event)
                 ((maxVal - minVal) * scrollScreenRatio);
             assert(newScrollVal >= minVal && newScrollVal <= maxVal);
             valueChanged(this, newScrollVal);
+            setDirty();
             break;
         }
         default:

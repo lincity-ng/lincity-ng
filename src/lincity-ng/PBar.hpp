@@ -18,8 +18,10 @@ extern LCPBar *LCPBarInstance;
 class LCPBar : public Component
 {
 public:
-  LCPBar(Component *widget, XmlReader &reader);
+  LCPBar();
   ~LCPBar();
+
+  void parse(XmlReader& reader);
   
   void setValue(int num, int value);
 private:
@@ -29,8 +31,10 @@ private:
 class BarView : public Component
 {
   public:
-   BarView(Component *widget, XmlReader &reader);
+   BarView();
    ~BarView();
+
+   void parse(XmlReader& reader);
    
    void setValue(float v);
    virtual void draw(Painter &painter);

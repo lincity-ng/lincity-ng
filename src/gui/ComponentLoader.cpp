@@ -9,11 +9,11 @@
 #include <sstream>
 #include <stdexcept>
 #include <iostream>
+#include <memory>
 
 void initFactories();
 
-Component* createComponent(const std::string& type, Component* parent,
-        XmlReader& reader)
+Component* createComponent(const std::string& type, XmlReader& reader)
 {
     initFactories();
     
@@ -28,7 +28,7 @@ Component* createComponent(const std::string& type, Component* parent,
     }
    
     try {
-        return i->second->createComponent(parent, reader);
+        return i->second->createComponent(reader);
     } catch(std::exception& e) {
         std::stringstream msg;
         msg << "Error while parsing component '" << type << "': " << e.what();
@@ -48,11 +48,12 @@ Component* loadGUIFile(const std::string& filename)
         throw std::runtime_error(msg.str());
     }
 
-    Desktop* desktop = new Desktop(0, reader);
-    return desktop;
+    std::auto_ptr<Desktop> desktop (new Desktop());
+    desktop->parse(reader);
+    return desktop.release();
 }
 
-Component* parseEmbeddedComponent(Component* parent, XmlReader& reader)
+Component* parseEmbeddedComponent(XmlReader& reader)
 {
     Component* component = 0;
     try {
@@ -63,7 +64,7 @@ Component* parseEmbeddedComponent(Component* parent, XmlReader& reader)
                 if(strcmp(name, "DefineStyle") == 0) {
                     parseStyleDef(reader);
                 } else if(component == 0) {
-                    component = createComponent(name, parent, reader);
+                    component = createComponent(name, reader);
                 } else {
                     std::cerr << "Multiple components specified."
                         << " Skipping '" << name << "'.\n";
