@@ -251,6 +251,7 @@ lincity_main (int argc, char *argv[])
     init_mouse ();
     init_timer_buttons();
     mouse_initialized = 1;
+    //set_selected_module (CST_TRACK_LR);
     screen_setup ();
 
     /* Main loop! */

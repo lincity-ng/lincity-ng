@@ -233,7 +233,10 @@ init_modules (void)
     selected_module_group = get_group_of_type(selected_module_type);
 #endif
     old_selected_module = sbut[7];
+    /* GCS: Move to later in initialization because I don't want to draw_main_window_box() yet */
+#if defined (commentout)
     set_selected_module (CST_TRACK_LR);
+#endif
 }
 
 

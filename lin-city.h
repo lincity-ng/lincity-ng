@@ -1242,7 +1242,6 @@ extern int select_water_type (int, int, int, int);
 extern int select_track_type (int, int, int, int);
 extern int select_rail_type (int, int, int, int);
 extern int select_road_type (int, int, int, int);
-extern void screen_setup (void);
 extern void update_select_buttons (void);
 extern void draw_main_window_box (int);
 extern void draw_select_button_graphic (int, char *);

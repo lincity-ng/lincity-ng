@@ -13,18 +13,7 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     advance display.  Also, I'm not sure if mmb should initiate main win
     scrolling if the click was made outside the main win.
 
-  o There still seems to be a problem with putting multi-transport off 
-    the bottom of the screen.  For example, resources can wrap-around 
-	from bottom to top.
-
-  o Help gets screwed up by game-related keystrokes.
-    Consider also pressing "Enter" when mouse is over a button on the 
-    opening screen.
-
-  o Population pbar is wrong when starting new game, since game starts 
-    with different number of people for random villiage and blank screen 
-    this is difficult to fix.
-	*  Fixed by Corey?
+  o Windows version messes up the load/save screens with square mouse.
 
   o Bits of the square cursor are not refreshed from the main win frame.
     For example, this happens with pollution overlay turned on.
@@ -48,6 +37,19 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+
+  o Help gets screwed up by game-related keystrokes.
+    Consider also pressing "Enter" when mouse is over a button on the 
+    opening screen.
+
+  o Population pbar is wrong when starting new game, since game starts 
+    with different number of people for random villiage and blank screen 
+    this is difficult to fix.  GCS: I verified that this still exists, 
+	Apr 5, 2003.
+
+  o There still seems to be a problem with putting multi-transport off 
+    the bottom of the screen.  For example, resources can wrap-around 
+	from bottom to top.
 
   o Right click outside of help should exit help.
 

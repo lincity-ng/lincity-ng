@@ -26,7 +26,6 @@ int mps_global_style;
 /* This is on in screen_full_refresh, used in *_refresh() */
 extern char screen_refreshing;
 
-
 char* current_month (int current_time);
 void draw_cb_box (int row, int col, int checked);
 int ask_launch_rocket_now (int x, int y);
@@ -48,7 +47,7 @@ void mini_screen_help (void);
 void status_message(char * message, int colour);
 void print_time_for_year (void);
 void rotate_main_screen (void);
-
+void screen_setup (void);
 /* Miniscreen */
 void init_mini_map_mouse(void);
 void mini_map_handler(int x, int y, int button);

@@ -653,6 +653,9 @@ screen_setup (void)
     draw_help ();
 #endif
 
+    /* GCS moved selection to here */
+    set_selected_module (CST_TRACK_LR);
+
 #ifdef SCREEN_SETUP_DRAWS
     mini_full_refresh ();
 
