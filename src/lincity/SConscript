@@ -17,5 +17,5 @@ print "Source files:"
 print libsrc
 print ""
 
-Library('lincity',libsrc,CCFLAGS="-Igui_interface -I. -Ilincity -DHAVE_CONFIG_H")
+Library('lincity',libsrc,CCFLAGS="-Isrc/gui_interface -I. -Ilincity -DHAVE_CONFIG_H")
 

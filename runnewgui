@@ -1,5 +1,5 @@
 #!/bin/bash
-export LINCITY_HOME=./data
+export LINCITY_HOME=../data
 cd newgui
 ./lincity_newgui
 
