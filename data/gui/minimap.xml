@@ -11,7 +11,7 @@
                     <Button name="ZoomInButton">
                         <image src="images/gui/buttonpanel/background/button.png"/>
                         <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
-                        <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                        <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
 			<image-caption src="images/gui/mapview/buttons/zoomin.png"/>
                     </Button>
                 </cell>
@@ -19,7 +19,7 @@
                     <Button name="ZoomOutButton">
                         <image src="images/gui/buttonpanel/background/button.png"/>
                         <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
-                        <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                        <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
 			<image-caption src="images/gui/mapview/buttons/zoomout.png"/>
                     </Button>
                 </cell>
@@ -123,7 +123,7 @@
                             <Button name="SpeedPauseButton">
                                 <image src="images/gui/buttonpanel/background/button.png"/>
                                 <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
-                                <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                                <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
                                 <image-caption src="images/gui/speed/pause.png"/>
                             </Button>
                         </cell>
@@ -131,7 +131,7 @@
                             <Button name="SpeedSlowButton">
                                 <image src="images/gui/buttonpanel/background/button.png"/>
                                 <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
-                                <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                                <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
                                 <image-caption src="images/gui/speed/normal.png"/>
                             </Button>
                         </cell>
@@ -139,7 +139,7 @@
                             <Button name="SpeedNormalButton">
                                 <image src="images/gui/buttonpanel/background/button.png"/>
                                 <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
-                                <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                                <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
                                 <image-caption src="images/gui/speed/fast.png"/>
                             </Button>
                         </cell>
@@ -147,7 +147,7 @@
                             <Button name="SpeedFastButton">
                                 <image src="images/gui/buttonpanel/background/button.png"/>
                                 <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
-                                <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                                <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
                                 <image-caption src="images/gui/speed/faster.png"/>
                             </Button>
                         </cell>
