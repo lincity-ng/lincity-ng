@@ -1,13 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: main.c:611
+#: main.c:622
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-06 11:33-0400\n"
+"POT-Creation-Date: 2003-02-23 00:29-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,507 +64,507 @@ msgstr ""
 msgid "Dec"
 msgstr ""
 
-#: ldsvgui.c:293
+#: ldsvgui.c:295
 msgid "Save a scene"
 msgstr ""
 
-#: ldsvgui.c:295
+#: ldsvgui.c:297
 msgid "Choose the number of the scene you want to save"
 msgstr ""
 
-#: ldsvgui.c:297 ldsvgui.c:388 ldsvgui.c:752
+#: ldsvgui.c:299 ldsvgui.c:391 ldsvgui.c:755
 msgid "Press space to cancel."
 msgstr ""
 
-#: ldsvgui.c:320
+#: ldsvgui.c:323
 msgid "Type comment for the saved scene"
 msgstr ""
 
-#: ldsvgui.c:322
+#: ldsvgui.c:325
 msgid "The comment may be up to 40 characters"
 msgstr ""
 
-#: ldsvgui.c:324
+#: ldsvgui.c:327
 msgid "and may contain spaces or % . - + ,"
 msgstr ""
 
-#: ldsvgui.c:333
+#: ldsvgui.c:336
 msgid "Saving city scene... please wait"
 msgstr ""
 
-#: ldsvgui.c:378
+#: ldsvgui.c:381
 msgid "Load a file"
 msgstr ""
 
-#: ldsvgui.c:380
+#: ldsvgui.c:383
 msgid "Choose the number of the scene you want"
 msgstr ""
 
-#: ldsvgui.c:382
+#: ldsvgui.c:385
 msgid "Entries coloured red are either not there,"
 msgstr ""
 
-#: ldsvgui.c:384
+#: ldsvgui.c:387
 msgid "or they are from an earlier version, they"
 msgstr ""
 
-#: ldsvgui.c:386
+#: ldsvgui.c:389
 msgid "might not load properly."
 msgstr ""
 
-#: ldsvgui.c:413 ldsvgui.c:777
+#: ldsvgui.c:416 ldsvgui.c:780
 msgid "No scene."
 msgstr ""
 
-#: ldsvgui.c:414 ldsvgui.c:778
+#: ldsvgui.c:417 ldsvgui.c:781
 msgid "There is no save scene with this number."
 msgstr ""
 
-#: ldsvgui.c:415 ldsvgui.c:779
+#: ldsvgui.c:418 ldsvgui.c:782
 msgid "Do you want to"
 msgstr ""
 
-#: ldsvgui.c:416 ldsvgui.c:780
+#: ldsvgui.c:419 ldsvgui.c:783
 msgid "try again?"
 msgstr ""
 
-#: ldsvgui.c:427 ldsvgui.c:791
+#: ldsvgui.c:430 ldsvgui.c:794
 msgid "Loading Scene"
 msgstr ""
 
-#: ldsvgui.c:428 ldsvgui.c:792
+#: ldsvgui.c:431 ldsvgui.c:795
 msgid "Do you want to load the scene"
 msgstr ""
 
-#: ldsvgui.c:430 ldsvgui.c:794
+#: ldsvgui.c:433 ldsvgui.c:797
 msgid "and forget the current game?"
 msgstr ""
 
-#: ldsvgui.c:433 ldsvgui.c:797
+#: ldsvgui.c:436 ldsvgui.c:800
 msgid "Loading scene...  please wait"
 msgstr ""
 
-#: ldsvgui.c:474
+#: ldsvgui.c:477
 #, c-format
 msgid "Couldn't find the save directory %s\n"
 msgstr ""
 
-#: ldsvgui.c:661
+#: ldsvgui.c:664
 #, c-format
 msgid "Tcore file <%s> - "
 msgstr ""
 
-#: ldsvgui.c:662
+#: ldsvgui.c:665
 msgid "Can't open it!"
 msgstr ""
 
-#: ldsvgui.c:664
+#: ldsvgui.c:667
 #, c-format
 msgid "Version=%d\n"
 msgstr ""
 
-#: ldsvgui.c:666
+#: ldsvgui.c:669
 msgid "Saving tcore"
-msgstr ""
-
-#: ldsvgui.c:674
-#, c-format
-msgid "mappoint[%d][%d]b%d=%d\n"
 msgstr ""
 
 #: ldsvgui.c:677
 #, c-format
+msgid "mappoint[%d][%d]b%d=%d\n"
+msgstr ""
+
+#: ldsvgui.c:680
+#, c-format
 msgid "mappointpol[%d][%d]=%d\n"
 msgstr ""
 
-#: ldsvgui.c:679
+#: ldsvgui.c:682
 #, c-format
 msgid "mappoint[%d][%d].type=%d\n"
 msgstr ""
 
-#: ldsvgui.c:684
+#: ldsvgui.c:687
 #, c-format
 msgid "Origx=%d\n"
 msgstr ""
 
-#: ldsvgui.c:685
+#: ldsvgui.c:688
 #, c-format
 msgid "Origy=%d\n"
 msgstr ""
 
-#: ldsvgui.c:686
+#: ldsvgui.c:689
 #, c-format
 msgid "Total time=%d\n"
 msgstr ""
 
-#: ldsvgui.c:689
+#: ldsvgui.c:692
 #, c-format
 msgid "SustationX[%d]=%d\n"
 msgstr ""
 
-#: ldsvgui.c:690
+#: ldsvgui.c:693
 #, c-format
 msgid "Substation[%d]=%d\n"
 msgstr ""
 
-#: ldsvgui.c:693
+#: ldsvgui.c:696
 #, c-format
 msgid "Num of substations=%d\n"
 msgstr ""
 
-#: ldsvgui.c:696
+#: ldsvgui.c:699
 #, c-format
 msgid "MarketX[%d]=%d\n"
 msgstr ""
 
-#: ldsvgui.c:697
+#: ldsvgui.c:700
 #, c-format
 msgid "MarketY[%d]=%d\n"
 msgstr ""
 
-#: ldsvgui.c:700
+#: ldsvgui.c:703
 #, c-format
 msgid "numof_markets=%d\n"
 msgstr ""
 
-#: ldsvgui.c:701
+#: ldsvgui.c:704
 #, c-format
 msgid "people_pool=%d\n"
 msgstr ""
 
-#: ldsvgui.c:702
+#: ldsvgui.c:705
 #, c-format
 msgid "total_money=%d\n"
 msgstr ""
 
-#: ldsvgui.c:703
+#: ldsvgui.c:706
 #, c-format
 msgid "income_tax_rate=%d\n"
 msgstr ""
 
-#: ldsvgui.c:704
+#: ldsvgui.c:707
 #, c-format
 msgid "coal_tax_rate=%d\n"
 msgstr ""
 
-#: ldsvgui.c:705
+#: ldsvgui.c:708
 #, c-format
 msgid "dole_rate=%d\n"
 msgstr ""
 
-#: ldsvgui.c:706
+#: ldsvgui.c:709
 #, c-format
 msgid "transport_cost_rate=%d\n"
 msgstr ""
 
-#: ldsvgui.c:707
+#: ldsvgui.c:710
 #, c-format
 msgid "goods_tax_rate=%d\n"
 msgstr ""
 
-#: ldsvgui.c:708
+#: ldsvgui.c:711
 #, c-format
 msgid "export_tax=%d\n"
 msgstr ""
 
-#: ldsvgui.c:709
+#: ldsvgui.c:712
 #, c-format
 msgid "export_tax_rate=%d\n"
 msgstr ""
 
-#: ldsvgui.c:710
+#: ldsvgui.c:713
 #, c-format
 msgid "import_cost=%d\n"
 msgstr ""
 
-#: ldsvgui.c:711
+#: ldsvgui.c:714
 #, c-format
 msgid "import_cost_rate=%d\n"
 msgstr ""
 
-#: ldsvgui.c:712
+#: ldsvgui.c:715
 #, c-format
 msgid "tech_level=%d\n"
 msgstr ""
 
-#: ldsvgui.c:713
+#: ldsvgui.c:716
 #, c-format
 msgid "tpopulation=%d\n"
 msgstr ""
 
-#: ldsvgui.c:714
+#: ldsvgui.c:717
 #, c-format
 msgid "tstarving_population=%d\n"
 msgstr ""
 
-#: ldsvgui.c:715
+#: ldsvgui.c:718
 #, c-format
 msgid "tunemployed_population=%d\n"
 msgstr ""
 
-#: ldsvgui.c:716
+#: ldsvgui.c:719
 #, c-format
 msgid "waste_goods=%d\n"
 msgstr ""
 
-#: ldsvgui.c:717
+#: ldsvgui.c:720
 #, c-format
 msgid "power_made=%d\n"
 msgstr ""
 
-#: ldsvgui.c:718
+#: ldsvgui.c:721
 #, c-format
 msgid "power_used=%d\n"
 msgstr ""
 
-#: ldsvgui.c:720
+#: ldsvgui.c:723
 #, c-format
 msgid "coal_used=%d\n"
 msgstr ""
 
-#: ldsvgui.c:721
+#: ldsvgui.c:724
 #, c-format
 msgid "goods_made=%d\n"
 msgstr ""
 
-#: ldsvgui.c:722
+#: ldsvgui.c:725
 #, c-format
 msgid "goods_used=%d\n"
 msgstr ""
 
-#: ldsvgui.c:723
+#: ldsvgui.c:726
 #, c-format
 msgid "ore_made=%d\n"
 msgstr ""
 
-#: ldsvgui.c:724
+#: ldsvgui.c:727
 #, c-format
 msgid "ore_used=%d\n"
 msgstr ""
 
-#: ldsvgui.c:725
+#: ldsvgui.c:728
 #, c-format
 msgid "diff_old_population=%d\n"
 msgstr ""
 
-#: ldsvgui.c:728
+#: ldsvgui.c:731
 #, c-format
 msgid "rockets_launched=%d\n"
 msgstr ""
 
-#: ldsvgui.c:729
+#: ldsvgui.c:732
 #, c-format
 msgid "rockets_launched_success=%d\n"
 msgstr ""
 
-#: ldsvgui.c:730
+#: ldsvgui.c:733
 #, c-format
 msgid "coal_survey_done=%d\n"
 msgstr ""
 
-#: ldsvgui.c:748
+#: ldsvgui.c:751
 msgid "Choose network server"
 msgstr ""
 
-#: ldsvgui.c:750
+#: ldsvgui.c:753
 msgid "Please enter the address and port of the server"
 msgstr ""
 
-#: main.c:210
+#: main.c:217
 msgid "Loading the game"
 msgstr ""
 
-#: main.c:220
+#: main.c:227
 msgid "Creating pixmaps"
 msgstr ""
 
-#: main.c:608
+#: main.c:619
 msgid "Quit The Game?"
 msgstr ""
 
-#: main.c:609
+#: main.c:620
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: main.c:610
+#: main.c:621
 msgid "If you want to save the game select NO."
 msgstr ""
 
-#: main.c:643
+#: main.c:654
 msgid "TEST"
 msgstr ""
 
-#: main.c:643
+#: main.c:654
 msgid "You have pressed a test key"
 msgstr ""
 
-#: main.c:644
+#: main.c:655
 msgid "You will only see this message once"
 msgstr ""
 
-#: main.c:645
+#: main.c:656
 msgid "Do you really want to play in test mode..."
 msgstr ""
 
-#: main.c:690
+#: main.c:701
 #, c-format
 msgid "Can't open %s for writing, can't continue\n"
 msgstr ""
 
-#: main.c:699
+#: main.c:710
 #, c-format
 msgid "What!! can't open %s for reading after writing???\n"
 msgstr ""
 
-#: main.c:708
+#: main.c:719
 #, c-format
 msgid "Got mouse type: %d\n"
 msgstr ""
 
-#: main.c:732
+#: main.c:743
 #, c-format
 msgid "Unable to open %s\n"
 msgstr ""
 
-#: main.c:737
+#: main.c:748
 msgid "----- IN TEST MODE -------\n"
-msgstr ""
-
-#: main.c:738
-#, c-format
-msgid "Game statistics from LinCity Version %s\n"
-msgstr ""
-
-#: main.c:740
-#, c-format
-msgid "Initial loaded scene - %s\n"
-msgstr ""
-
-#: main.c:742
-msgid "Economy is sustainable\n"
-msgstr ""
-
-#: main.c:743
-#, c-format
-msgid "Population  %d  of which  %d  are not housed.\n"
-msgstr ""
-
-#: main.c:746
-#, c-format
-msgid "Max population %d  Number evacuated %d Total births %d\n"
 msgstr ""
 
 #: main.c:749
 #, c-format
-msgid " Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"
+msgid "Game statistics from LinCity Version %s\n"
+msgstr ""
+
+#: main.c:751
+#, c-format
+msgid "Initial loaded scene - %s\n"
+msgstr ""
+
+#: main.c:753
+msgid "Economy is sustainable\n"
 msgstr ""
 
 #: main.c:754
 #, c-format
-msgid " Deaths by starvation %7d   History %8.3f\n"
+msgid "Population  %d  of which  %d  are not housed.\n"
 msgstr ""
 
 #: main.c:757
 #, c-format
+msgid "Max population %d  Number evacuated %d Total births %d\n"
+msgstr ""
+
+#: main.c:760
+#, c-format
+msgid " Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"
+msgstr ""
+
+#: main.c:765
+#, c-format
+msgid " Deaths by starvation %7d   History %8.3f\n"
+msgstr ""
+
+#: main.c:768
+#, c-format
 msgid "Deaths from pollution %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:759
+#: main.c:770
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:761
+#: main.c:772
 #, c-format
 msgid "Rockets launched %2d  Successful launches %2d\n"
 msgstr ""
 
-#: main.c:764
+#: main.c:775
 #, c-format
 msgid "    Residences %4d         Markets %4d            Farms %4d\n"
 msgstr ""
 
-#: main.c:773
+#: main.c:784
 #, c-format
 msgid "        Tracks %4d           Roads %4d             Rail %4d\n"
 msgstr ""
 
-#: main.c:776
+#: main.c:787
 #, c-format
 msgid "     Potteries %4d     Blacksmiths %4d            Mills %4d\n"
 msgstr ""
 
-#: main.c:779
+#: main.c:790
 #, c-format
 msgid "     Monuments %4d         Schools %4d     Universities %4d\n"
 msgstr ""
 
-#: main.c:782
+#: main.c:793
 #, c-format
 msgid " Fire stations %4d           Parks %4d     Cricket gnds %4d\n"
 msgstr ""
 
-#: main.c:785
+#: main.c:796
 #, c-format
 msgid "    Coal mines %4d       Ore mines %4d         Communes %4d\n"
 msgstr ""
 
-#: main.c:788
+#: main.c:799
 #, c-format
 msgid "     Windmills %4d     Coal powers %4d     Solar powers %4d\n"
 msgstr ""
 
-#: main.c:792
+#: main.c:803
 #, c-format
 msgid "   Substations %4d     Power lines %4d            Ports %4d\n"
 msgstr ""
 
-#: main.c:795
+#: main.c:806
 #, c-format
 msgid "    Light inds %4d      Heavy inds %4d        Recyclers %4d\n"
 msgstr ""
 
-#: main.c:798
+#: main.c:809
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
 msgstr ""
 
-#: screen.c:2034
+#: screen.c:2091
 msgid "Market"
 msgstr ""
 
-#: screen.c:2036
+#: screen.c:2093
 msgid "Port"
 msgstr ""
 
-#: screen.c:2043
+#: screen.c:2100
 msgid "Buy"
 msgstr ""
 
-#: screen.c:2044
+#: screen.c:2101
 msgid "Sell"
 msgstr ""
 
-#: screen.c:2046
+#: screen.c:2103
 msgid "JOBS"
 msgstr ""
 
-#: screen.c:2048
+#: screen.c:2105
 msgid "FOOD"
 msgstr ""
 
-#: screen.c:2049
+#: screen.c:2106
 msgid "COAL"
 msgstr ""
 
-#: screen.c:2050
+#: screen.c:2107
 msgid "ORE"
 msgstr ""
 
-#: screen.c:2051
+#: screen.c:2108
 msgid "GOODS"
 msgstr ""
 
-#: screen.c:2052
+#: screen.c:2109
 msgid "STEEL"
 msgstr ""

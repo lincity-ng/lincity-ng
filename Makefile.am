@@ -7,7 +7,8 @@ DEFS = @DEFS@
 X_DEFS = -DLC_X11=1
 SVGA_DEFS = -DSVGALIB=1
 
-### SUBDIRS = intl po
+SUBDIRS = m4 intl po
+
 ## (deleted)
 ##	acconfig.h   \
 ##	config.h \
@@ -37,7 +38,7 @@ LC_DISTDIRS = \
 	help icons messages \
 	old.Makefiles opening tools
 
-EXTRA_DIST = $(LC_DISTDIRS) \
+EXTRA_DIST = config.rpath  $(LC_DISTDIRS) \
 	colour.pal \
 	lcwin32.c winmain.c \
 	lincity.ico  small.ico lincity.rc \
@@ -49,7 +50,7 @@ EXTRA_DIST = $(LC_DISTDIRS) \
 man_MANS = lincity.6
 ## pkgdata_DATA = help/* icons/* messages/* messages/ca/* opening/* colour.pal
 ## pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
-nobase_pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
+nobase_pkgdata_DATA = help/* icons/* messages/ca/* messages/* opening/* colour.pal
 
 
 ############################################################################
@@ -298,3 +299,5 @@ x_picedit.o: picedit.c
 vga_picedit.o: picedit.c
 	$(COMPILE) $(X_DEFS) -o vga_picedit.o -c picedit.c
 
+
+ACLOCAL_AMFLAGS = -I m4

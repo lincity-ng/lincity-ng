@@ -118,9 +118,15 @@ lincity_set_locale (void)
     char* td = NULL;
 #if defined (ENABLE_NLS)
     locale = setlocale (LC_ALL, "");
+    printf ("Setting entire locale to %s\n", locale);
+    locale = setlocale (LC_MESSAGES, "");
+    printf ("Setting messages locale to %s\n", locale);
     localem = setlocale (LC_MESSAGES, NULL);
+    printf ("Query locale is %s\n", localem);
     dm = bindtextdomain (PACKAGE, LOCALEDIR);
+    printf ("Bound textdomain directory is %s\n", dm);
     td = textdomain (PACKAGE);
+    printf ("Textdomain is %s\n", td);
 #endif
     return;
 }

@@ -53,7 +53,7 @@ REQUIREMENTS
 
       OR	 A Win32 OS.
 
-      NOTE: SVGA and Win32 are currently mostly untested for version 1.12.
+      NOTE: SVGA is currently mostly untested for version 1.12.
       Caveat emptor, and send us a patch if you can.
 
    *  A graphics card supported by your above choice.

@@ -6,6 +6,11 @@
 		   'readme',
 		   'todo');
 
+## THESE AREN'T HANDLED YET
+## > lincity/intl/VERSION
+## > lincity/po/POTFILES
+## > lincity/po/LINGUAS
+
 @unixify_patlist = ('*.c',
 		    '*.h',
 		    '*.6',

@@ -258,6 +258,7 @@ find_libdir (void)
     const char searchfile[] = "Colour.pal";
     /* default_dir will be something like "C:\\LINCITY1.11" */
     const char default_dir[] = "C:\\LINCITY" VERSION;
+//    const char default_dir[] = "D:\\LINCITY";	/* For GCS's use */
 
     /* Check 1: environment variable */
     _searchenv (searchfile, "LINCITY_HOME", LIBDIR);
@@ -331,6 +332,8 @@ find_libdir (void)
 
 /* GCS:  This function comes from dcgettext.c in the gettext package.      */
 /* Guess value of current locale from value of the environment variables.  */
+/* GCS Feb 23, 2003.  This was updated in gettext, but I'm going with the  */
+/* old version here. */
 static const char *
 guess_category_value (int category, const char *categoryname)
 {
@@ -346,7 +349,14 @@ guess_category_value (int category, const char *categoryname)
        methods of looking to `LC_ALL', `LC_xxx', and `LANG'.  On some
        systems this can be done by the `setlocale' function itself.  */
 #if defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
+#if defined (commentout)
     return setlocale (category, NULL);
+#endif
+    retval setlocale (category, NULL);
+    if (retval != NULL)
+      return retval;
+    else
+      return "C";
 #else
     /* Setting of LC_ALL overwrites all other.  */
     retval = getenv ("LC_ALL");
@@ -369,6 +379,95 @@ guess_category_value (int category, const char *categoryname)
 #endif
 }
 
+/* GCS:  This function is modified from gettext.  It finds the language 
+   portion of the locale. */
+static void 
+lincity_nl_find_language (char *name)
+{
+  while (name[0] != '\0' && name[0] != '_' && name[0] != '@'
+	 && name[0] != '+' && name[0] != ',')
+    ++name;
+
+  *name = '\0';
+}
+
+
+const char*
+find_localized_paths (void)
+{
+  int messages_done = 0;
+  int help_done = 0;
+
+  const char* intl_suffix = "";
+  char intl_lang[128];
+
+  /* First, try the locale "as is" */
+#if defined (ENABLE_NLS) && defined (HAVE_LC_MESSAGES)
+  intl_suffix = guess_category_value(LC_MESSAGES,"LC_MESSAGES");
+#else
+  intl_suffix = guess_category_value(0,"LC_MESSAGES");
+#endif
+  printf ("GUESS 1 -- intl_suffix is %s\n", intl_suffix);
+  if (strcmp(intl_suffix,"C") && strcmp(intl_suffix,"")) {
+    sprintf (message_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "messages",
+	     PATH_SLASH, intl_suffix, PATH_SLASH);
+    printf ("Trying Message Path %s\n", message_path);
+    if (directory_exists(message_path)) {
+      printf ("Set Message Path %s\n", message_path);
+      messages_done = 1;
+    }
+    sprintf (help_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "help",
+	     PATH_SLASH, intl_suffix, PATH_SLASH);
+    printf ("Trying Help Path %s\n", help_path);
+    if (directory_exists(help_path)) {
+      printf ("Set Help Path %s\n", help_path);
+      help_done = 1;
+    }
+  }
+  if (messages_done && help_done) return;
+
+  /* Next, try stripping off the country suffix */
+  strncpy (intl_lang, intl_suffix, 128);
+  intl_lang[127] = '\0';
+  lincity_nl_find_language (intl_lang);
+  intl_suffix = intl_lang;
+  printf ("GUESS 2 -- intl_suffix is %s\n", intl_suffix);
+  if (strcmp(intl_suffix,"C") && strcmp(intl_suffix,"")) {
+    if (!messages_done) {
+      sprintf (message_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "messages",
+	       PATH_SLASH, intl_suffix, PATH_SLASH);
+      printf ("Trying Message Path %s\n", message_path);
+      if (directory_exists(message_path)) {
+	printf ("Set Message Path %s\n", message_path);
+	messages_done = 1;
+      }
+    }
+    if (!help_done) {
+      sprintf (help_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "help",
+	       PATH_SLASH, intl_suffix, PATH_SLASH);
+      printf ("Trying Help Path %s\n", help_path);
+      if (directory_exists(help_path)) {
+	printf ("Set Help Path %s\n", help_path);
+	help_done = 1;
+      }
+    }
+  }
+  if (messages_done && help_done) return;
+    
+  /* Finally, settle for default English messages */
+  if (!messages_done) {
+    sprintf (message_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "messages",
+	     PATH_SLASH);
+    printf ("Settling for message Path %s\n", message_path);
+  }
+  if (!help_done) {
+    sprintf (help_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "help",
+	     PATH_SLASH);
+    printf ("Settling for help Path %s\n", help_path);
+  }
+}
+
+
 void
 init_path_strings (void)
 {
@@ -385,6 +484,7 @@ init_path_strings (void)
     homedir = getenv ("HOME");
 #endif
 
+#if defined (commentout)
 #if defined (ENABLE_NLS)
 #if defined (HAVE_LC_MESSAGES)
     intl_suffix = guess_category_value(LC_MESSAGES,"LC_MESSAGES");
@@ -392,8 +492,9 @@ init_path_strings (void)
     intl_suffix = guess_category_value(0,"LC_MESSAGES");
 #endif
 #endif
-
     printf ("intl_suffix is %s\n", intl_suffix);
+#endif
+
 
     lc_save_dir_len = strlen (homedir) + strlen (LC_SAVE_DIR) + 1;
     if ((lc_save_dir = (char *) malloc (lc_save_dir_len + 1)) == 0)
@@ -408,6 +509,11 @@ init_path_strings (void)
 #endif
     sprintf (graphic_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "icons",
 	     PATH_SLASH);
+
+    
+    find_localized_paths ();
+
+#if defined (commentout)
     if (strcmp(intl_suffix,"C") && strcmp(intl_suffix,"")) {
 	sprintf (message_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "messages",
 		 PATH_SLASH, intl_suffix, PATH_SLASH);
@@ -430,6 +536,9 @@ init_path_strings (void)
 		 PATH_SLASH);
 	printf ("Default message path %s\n", message_path);
     }
+#endif
+
+
     sprintf (fontfile, "%s%c%s", opening_path, PATH_SLASH,
 	     "iso8859-1-8x8.raw");
 #if defined (WIN32)
