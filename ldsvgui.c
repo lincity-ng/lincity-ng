@@ -298,9 +298,9 @@ do_save_city ()
     Fgl_write (mw->x + 110, mw->y + 210
 	       ,_("Press space to cancel."));
     draw_save_dir (SAVE_BG_COLOUR);
+    db_flag = 1;
 #ifdef LC_X11
     redraw_mouse ();
-    db_flag = 1;
     cs_mouse_handler (0, -1, 0);
     cs_mouse_handler (0, 1, 0);
     do
@@ -390,10 +390,10 @@ do_load_city (void)
     Fgl_write (mw->x + 110, mw->y + 210
 	       ,_("Press space to cancel."));
     draw_save_dir (LOAD_BG_COLOUR);
+    db_flag = 1;
     do
     {
 #ifdef LC_X11
-	db_flag = 1;
 	redraw_mouse ();
 	cs_mouse_handler (0, -1, 0);
 	cs_mouse_handler (0, 1, 0);
