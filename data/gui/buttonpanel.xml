@@ -557,7 +557,7 @@
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
-                <CheckButton name="BPMFarmButton" main="BPResidenceButton">
+                <CheckButton name="BPMFarmButton" main="BPParkButton">
                   <image src="images/gui/rnew_button_bg0.png"/>
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
@@ -566,7 +566,7 @@
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
-                <CheckButton name="BPMMillButton" main="BPResidenceButton">
+                <CheckButton name="BPMMillButton" main="BPParkButton">
                   <image src="images/gui/rnew_button_bg0.png"/>
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>

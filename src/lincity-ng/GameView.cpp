@@ -97,9 +97,11 @@ GameView::~GameView()
 //Static function to use with SDL_CreateThread
 int GameView::gameViewThread( void* data )
 {
+    std::cout << "** Start loading Textures **\n";
     GameView* gv = (GameView*) data;
     gv->loadTextures();
     gv->requestRedraw();
+    std::cout << "** Finished loading Textures **\n";
     return 0;
 }
 
@@ -650,6 +652,8 @@ void GameView::event(const Event& event)
                 int dragLength =  (int) sqrt( dragDistance.x * dragDistance.x + dragDistance.y * dragDistance.y ); 
                 int vPixelSec = (1000 * dragLength) / elapsed;
                 std::cout << "v=" << vPixelSec << " Pixels per second\n"; 
+                //TODO: sometimes the Distance is way too big, why?
+                std::cout << "dragDistance=" << dragDistance.x << " " << dragDistance.y << "\n"; 
                
                 //Mouse Acceleration
                 int accel = 1;
