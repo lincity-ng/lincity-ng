@@ -21,6 +21,7 @@ erase mkinstalldirs
 deltree /y help\cvs
 deltree /y icons\cvs
 deltree /y intl
+deltree /y libpng-1.2.5
 deltree /y messages\cvs
 deltree /y messages\ca
 rem deltree /y messages\ca\cvs
@@ -28,6 +29,7 @@ deltree /y modules
 deltree /y old.Makefiles
 deltree /y opening\cvs
 deltree /y po
+deltree /y zlib
 erase *.mak
 deltree /y lib
 deltree /y debug
