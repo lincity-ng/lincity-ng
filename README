@@ -250,10 +250,14 @@ that can be represented using a iso8859-1 font are currently supported.
 I have created a lincity-compatible iso8859-2 also, but have not used 
 it yet because of no demand (send me an email if you would like to try).
 
-If you wish to make a translation for your language, first get the sample 
-Catalan to display correctly.  After doing a configure, make and make install,
-set LANG environment variable to "ca_ES", and run.  Hopefully you will 
-see something like this:
+If you wish to make a translation for your language, you will need to 
+download and install gettext 0.11.5.
+
+The first task is to get the sample Catalan translation to display 
+correctly.  Download a fresh lincity from cvs on sourceforge.  Do a 
+configure, make, and make install, and then set the LANG environment 
+variable to "ca_ES", and run lincity.  Hopefully you will see something 
+like this:
 
    Setting entire locale to ca_ES
    Setting messages locale to ca_ES
