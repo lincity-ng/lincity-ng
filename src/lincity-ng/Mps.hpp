@@ -22,7 +22,8 @@ public:
   void playwav( int id );
  private:
   int mX,mY;
-  Mix_Chunk* clickWav;
+  static const int maxWaves = 15;
+  Mix_Chunk* waves[ maxWaves ];
   bool audioOpen;
 
   //  std::vector<AGText*> mTexts;
