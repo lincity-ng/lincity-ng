@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libmodules.a
+noinst_LTLIBRARIES = libmodules.la
 
-libmodules_a_SOURCES =	organic_farm.c organic_farm.h \
+libmodules_la_SOURCES =	organic_farm.c organic_farm.h \
 			residence.c residence.h \
 			light_industry.c light_industry.h \
 			heavy_industry.c heavy_industry.h \
@@ -20,7 +20,7 @@ libmodules_a_SOURCES =	organic_farm.c organic_farm.h \
 			pottery.c pottery.h \
 			firestation.c firestation.h \
 			cricket.c cricket.h \
-			fire.c fire.c \
+			fire.c fire.h \
 			shanty.c shanty.h \
 			tip.c tip.h \
 			substation.c substation.h \

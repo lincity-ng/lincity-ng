@@ -143,66 +143,47 @@ dist-hook:
 ## These executables might not be built
 EXTRA_PROGRAMS = xlincity lincity xpicedit picedit
 
+EXTRA_LTLIBRARIES = liblcx.la liblcsvga.la
 X_PROGS: xlincity$(EXEEXT)
 SVGA_PROGS: lincity$(EXEEXT)
 LCSERVER_PROGS: lcserver$(EXEEXT)
 
+LCX_LIBS: liblcx.la
+LCSVGA_LIBS: liblcsvga.la
+
 ## These executables are always built
 bin_PROGRAMS = @PROGS@
+lib_LTLIBRARIES = @LCLIBS@
 
+## Note: If the source file makes use of any graphic routines, it should 
+## be listed under gui_SOURCES, otherwise its safe for engine_SOURCES
 
-XLC_OBJ = \
-	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o \
-	x_cliglobs.o x_mps.o x_screen.o x_lcx11.o x_pixmap.o x_geometry.o \
-	x_pbar.o x_dialbox.o x_module_buttons.o
-
-LC_OBJ = \
-	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o \
-	vga_cliglobs.o vga_mps.o vga_lcsvga.o vga_screen.o vga_geometry.o \
-	vga_pbar.o vga_dialbox.o vga_module_buttons.o
-
-
-## Note:  If the executable requires a prefix (x_ or vga_), then 
-##        it should be listed below under EXTRA_*_SOURCES.  Otherwise,
-##        it is a "regular" source file.
-
-
-## ----- xlincity -----
-xlincity_SOURCES = \
-	lclib.c power.c \
-	ldsvguts.c engine.c transport.c market.c \
-	simulate.c shrtypes.c lintypes.c \
-	readpng.c \
-	timer.c fileutil.c shrglobs.c stats.c
-EXTRA_xlincity_SOURCES = \
-	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
+gui_SOURCES =	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
 	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c \
-	lcx11.c 
-xlincity_DEPENDENCIES = \
-	${XLC_OBJ} modules/libmodules.a
-xlincity_LDADD = \
-	${XLC_OBJ} \
-	@X_LIBS@ modules/libmodules.a -lXext -lX11 -lpng -lz -lm
+	dialbox.c
+
+engine_SOURCES = lclib.c power.c ldsvguts.c engine.c transport.c market.c \
+	simulate.c shrtypes.c lintypes.c readpng.c timer.c fileutil.c \
+	shrglobs.c stats.c
+
+liblcx_la_SHORTNAME = lcx
+liblcx_la_SOURCES = $(gui_SOURCES) lcx11.c 
+liblcx_la_LIBADD = @X_LIBS@ -lXext -lX11 -lpng -lz -lm
+liblcx_la_CPPFLAGS = $(X_DEFS)
+
+liblcsvga_la_SHORTNAME = lcsvga
+liblcsvga_la_SOURCES = $(gui_SOURCES) lcsvga.c
+liblcsvga_la_LIBADD = @SVGA_LIBS@ -lvgagl -lvga -lpng -lz -lm
+liblcsvga_la_CPPFLAGS = $(SVGA_DEFS)
 
 
-## ----- lincity -----
-lincity_SOURCES = \
-	lclib.c power.c \
-	ldsvguts.c engine.c transport.c market.c \
-	simulate.c shrtypes.c lintypes.c \
-	readpng.c \
-	timer.c fileutil.c shrglobs.c stats.c
-EXTRA_lincity_SOURCES = \
-	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c \
-	lcsvga.c
-lincity_DEPENDENCIES = \
-	${LC_OBJ} modules/libmodules.a
-lincity_LDADD = \
-	${LC_OBJ} \
-	modules/libmodules.a -lvgagl -lvga -lpng -lz -lm
+lincity_SOURCES = $(engine_SOURCES)
+lincity_DEPENDENCIES = LCSVGA_LIBS modules/libmodules.la
+lincity_LDADD = liblcsvga.la modules/libmodules.la
+
+xlincity_SOURCES = $(engine_SOURCES)
+xlincity_DEPENDENCIES = LCX_LIBS modules/libmodules.la 
+xlincity_LDADD = liblcx.la modules/libmodules.la
 
 ## ----- xpicedit -----
 xpicedit_SOURCES = 
@@ -214,92 +195,6 @@ picedit_SOURCES =
 EXTRA_picedit_SOURCES = picedit.c
 picedit_LDADD = vga_picedit.o -lvgagl -lvga -lm
 
-## ----------------- VGA RULES ------------------
-vga_cliglobs.o: cliglobs.c cliglobs.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_cliglobs.o -c cliglobs.c
-
-vga_splash.o: splash.c
-	$(COMPILE) $(SVGA_DEFS) -o vga_splash.o -c splash.c
-
-vga_ldsvgui.o: ldsvgui.c
-	$(COMPILE) $(SVGA_DEFS) -o vga_ldsvgui.o -c ldsvgui.c
-
-vga_geometry.o: geometry.c geometry.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_geometry.o -c geometry.c
-
-vga_lchelp.o: lchelp.c lchelp.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_lchelp.o -c lchelp.c
-
-vga_lcsvga.o: lcsvga.c lcsvga.h lin-city.h lctypes.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_lcsvga.o -c lcsvga.c
-
-vga_main.o: main.c lin-city.h lctypes.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_main.o -c main.c
-
-vga_mouse.o: mouse.c mouse.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_mouse.o -c mouse.c
-
-vga_mps.o: mps.c mps.h lin-city.h lctypes.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_mps.o -c mps.c
-
-vga_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_pbar.o -c pbar.c
-
-vga_screen.o: screen.c screen.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_screen.o -c screen.c
-
-vga_dialbox.o: dialbox.c dialbox.h geometry.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_dialbox.o -c dialbox.c
-
-vga_module_buttons.o: module_buttons.c module_buttons.h lin-city.h lctypes.h \
-	mouse.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_module_buttons.o -c module_buttons.c
-
-
-## ----------------- X RULES ------------------
-x_cliglobs.o: cliglobs.c cliglobs.h
-	$(COMPILE) $(X_DEFS) -o x_cliglobs.o -c cliglobs.c
-
-x_splash.o: splash.c
-	$(COMPILE) $(X_DEFS) -o x_splash.o -c splash.c
-
-x_ldsvgui.o: ldsvgui.c
-	$(COMPILE) $(X_DEFS) -o x_ldsvgui.o -c ldsvgui.c
-
-x_geometry.o: geometry.c geometry.h
-	$(COMPILE) $(X_DEFS) -o x_geometry.o -c geometry.c
-
-x_lchelp.o: lchelp.c lchelp.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(X_DEFS) -o x_lchelp.o -c lchelp.c
-
-x_lcx11.o: lcx11.c lcx11.h lin-city.h lctypes.h
-	$(COMPILE) $(X_DEFS) -o x_lcx11.o -c lcx11.c
-
-x_pixmap.o: pixmap.c lcx11.h lin-city.h lctypes.h
-	$(COMPILE) $(X_DEFS) -o x_pixmap.o -c pixmap.c
-
-x_main.o: main.c lin-city.h lctypes.h lcx11.h
-	$(COMPILE) $(X_DEFS) -o x_main.o -c main.c
-
-x_mouse.o: mouse.c mouse.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(X_DEFS) -o x_mouse.o -c mouse.c
-
-x_mps.o: mps.c mps.h lin-city.h lctypes.h
-	$(COMPILE) $(X_DEFS) -o x_mps.o -c mps.c
-
-x_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
-	$(COMPILE) $(X_DEFS) -o x_pbar.o -c pbar.c
-
-x_screen.o: screen.c screen.h lin-city.h lctypes.h lcx11.h module_buttons.h
-	$(COMPILE) $(X_DEFS) -o x_screen.o -c screen.c
-
-x_dialbox.o: dialbox.c dialbox.h lcx11.h geometry.h
-	$(COMPILE) $(X_DEFS) -o x_dialbox.o -c dialbox.c
-
-x_module_buttons.o: module_buttons.c module_buttons.h lin-city.h lctypes.h \
-	mouse.h
-	$(COMPILE) $(X_DEFS) -o x_module_buttons.o -c module_buttons.c
-
 
 ## ----------------- PICEDIT RULES ------------------
 x_picedit.o: picedit.c
@@ -310,3 +205,4 @@ vga_picedit.o: picedit.c
 
 
 ACLOCAL_AMFLAGS = -I m4
+

@@ -1,9 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 dnl Initialization
-dnl AC_INIT
-dnl AM_INIT_AUTOMAKE(lincity,1.12pre50)
-AC_INIT([Lincity],[1.13.0],[lincity-users@lists.sourceforge.net],[lincity])
+AC_INIT([Lincity],[1.13.1],[lincity-users@lists.sourceforge.net],[lincity])
 AC_CONFIG_SRCDIR([colour.pal])
 AM_INIT_AUTOMAKE
 
@@ -15,6 +13,7 @@ AC_ISC_POSIX
 AC_PROG_CC
 AC_AIX
 AC_PROG_MAKE_SET
+AC_PROG_LIBTOOL
 
 dnl Autodetect presence of gzip
 if eval "test x$with_gzip = x"; then
@@ -77,49 +76,29 @@ dnl If the system has X, make the X version
 dnl If the system has SVGA, make the SVGA version.
 dnl If the system has both, make both.
 dnl If the system has neither, exit
-dnl -------------------------------------------------------
-dnl GCS Jan 19, 2003
-dnl The following code no longer works with the new Autoconf
-dnl -------------------------------------------------------
-dnl PROGS=""
-dnl AC_SUBST(PROGS)
-dnl if eval "test x$with_x = xyes"; then
-dnl   PROGS="$PROGS X_PROGS"
-dnl else
-dnl   if eval "test x$with_x = x"; then
-dnl     AC_CHECK_LIB(X11,XOpenDisplay, PROGS="$PROGS X_PROGS", , )
-dnl   fi
-dnl fi
-dnl if eval "test x$with_svga = xyes"; then
-dnl   PROGS="$PROGS SVGA_PROGS"
-dnl else
-dnl   if eval "test x$with_svga = x"; then
-dnl     AC_CHECK_LIB(vgagl, gl_putbox, 
-dnl 	AC_CHECK_HEADERS(vga.h, PROGS="$PROGS SVGA_PROGS"), , -lvga)
-dnl   fi
-dnl fi
-dnl if test -z "$PROGS"; then
-dnl   AC_MSG_ERROR("Found neither SVGA nor X on your system.")
-dnl fi
-dnl -------------------------------------------------------
+
+LCLIBS=""
 PROGS=""
+AC_SUBST(LCLIBS)
 AC_SUBST(PROGS)
 if eval "test x$with_x = xyes"; then
-  PROGS="$PROGS X_PROGS"
+  LCLIBS="$LCLIBS LCX_LIBS"
 else
   if eval "test x$with_x = x"; then
-    AC_CHECK_LIB(X11,XOpenDisplay, PROGS="$PROGS X_PROGS")
+    AC_CHECK_LIB(X11,XOpenDisplay, LCLIBS="$LCLIBS LCX_LIBS";
+				   PROGS="$PROGS X_PROGS")
   fi
 fi
 if eval "test x$with_svga = xyes"; then
-  PROGS="$PROGS SVGA_PROGS"
+  LCLIBS="$LCLIBS LCSVGA_LIBS"
 else
   if eval "test x$with_svga = x"; then
     AC_CHECK_LIB(vgagl, gl_putbox, 
-	[AC_CHECK_HEADERS(vga.h, PROGS="$PROGS SVGA_PROGS")], , -lvga)
+	[AC_CHECK_HEADERS(vga.h, LCLIBS="$LCLIBS LCSVGA_LIBS"; 
+				 PROGS="$PROGS SVGA_PROGS")], , -lvga)
   fi
 fi
-if test -z "$PROGS"; then
+if test -z "$LCLIBS"; then
   AC_MSG_ERROR("Found neither SVGA nor X on your system.")
 fi
 

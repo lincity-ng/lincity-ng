@@ -41,6 +41,7 @@ ALLOCA = @ALLOCA@
 AMDEP_FALSE = @AMDEP_FALSE@
 AMDEP_TRUE = @AMDEP_TRUE@
 AMTAR = @AMTAR@
+AR = @AR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -52,17 +53,24 @@ CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
+CXX = @CXX@
+CXXCPP = @CXXCPP@
+CXXDEPMODE = @CXXDEPMODE@
+CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DATADIRNAME = @DATADIRNAME@
 
 ### DEFS = @DEFS@ -DLIBDIR=\"${pkgdatadir}\"
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+ECHO = @ECHO@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+F77 = @F77@
+FFLAGS = @FFLAGS@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
@@ -75,11 +83,14 @@ INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
+LCLIBS = @LCLIBS@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
@@ -109,11 +120,16 @@ X_CFLAGS = @X_CFLAGS@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_LIBS = @X_LIBS@
 X_PRE_LIBS = @X_PRE_LIBS@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
+ac_ct_CXX = @ac_ct_CXX@
+ac_ct_F77 = @ac_ct_F77@
 ac_ct_RANLIB = @ac_ct_RANLIB@
 ac_ct_STRIP = @ac_ct_STRIP@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
 am__fastdepCC_TRUE = @am__fastdepCC_TRUE@
+am__fastdepCXX_FALSE = @am__fastdepCXX_FALSE@
+am__fastdepCXX_TRUE = @am__fastdepCXX_TRUE@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
@@ -198,61 +214,38 @@ nobase_pkgdata_DATA = help/* icons/* messages/* opening/* colour.pal
 ############################################################################
 EXTRA_PROGRAMS = xlincity lincity xpicedit picedit
 
+EXTRA_LTLIBRARIES = liblcx.la liblcsvga.la
+
 bin_PROGRAMS = @PROGS@
+lib_LTLIBRARIES = @LCLIBS@
 
-XLC_OBJ = \
-	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o \
-	x_cliglobs.o x_mps.o x_screen.o x_lcx11.o x_pixmap.o x_geometry.o \
-	x_pbar.o x_dialbox.o x_module_buttons.o
-
-
-LC_OBJ = \
-	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o \
-	vga_cliglobs.o vga_mps.o vga_lcsvga.o vga_screen.o vga_geometry.o \
-	vga_pbar.o vga_dialbox.o vga_module_buttons.o
-
-
-xlincity_SOURCES = \
-	lclib.c power.c \
-	ldsvguts.c engine.c transport.c market.c \
-	simulate.c shrtypes.c lintypes.c \
-	readpng.c \
-	timer.c fileutil.c shrglobs.c stats.c
-
-EXTRA_xlincity_SOURCES = \
-	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
+gui_SOURCES = ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
 	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c \
-	lcx11.c 
-
-xlincity_DEPENDENCIES = \
-	${XLC_OBJ} modules/libmodules.a
-
-xlincity_LDADD = \
-	${XLC_OBJ} \
-	@X_LIBS@ modules/libmodules.a -lXext -lX11 -lpng -lz -lm
+	dialbox.c
 
 
-lincity_SOURCES = \
-	lclib.c power.c \
-	ldsvguts.c engine.c transport.c market.c \
-	simulate.c shrtypes.c lintypes.c \
-	readpng.c \
-	timer.c fileutil.c shrglobs.c stats.c
+engine_SOURCES = lclib.c power.c ldsvguts.c engine.c transport.c market.c \
+	simulate.c shrtypes.c lintypes.c readpng.c timer.c fileutil.c \
+	shrglobs.c stats.c
 
-EXTRA_lincity_SOURCES = \
-	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c \
-	lcsvga.c
 
-lincity_DEPENDENCIES = \
-	${LC_OBJ} modules/libmodules.a
+liblcx_la_SHORTNAME = lcx
+liblcx_la_SOURCES = $(gui_SOURCES) lcx11.c 
+liblcx_la_LIBADD = @X_LIBS@ -lXext -lX11 -lpng -lz -lm
+liblcx_la_CPPFLAGS = $(X_DEFS)
 
-lincity_LDADD = \
-	${LC_OBJ} \
-	modules/libmodules.a -lvgagl -lvga -lpng -lz -lm
+liblcsvga_la_SHORTNAME = lcsvga
+liblcsvga_la_SOURCES = $(gui_SOURCES) lcsvga.c
+liblcsvga_la_LIBADD = @SVGA_LIBS@ -lvgagl -lvga -lpng -lz -lm
+liblcsvga_la_CPPFLAGS = $(SVGA_DEFS)
 
+lincity_SOURCES = $(engine_SOURCES)
+lincity_DEPENDENCIES = LCSVGA_LIBS modules/libmodules.la
+lincity_LDADD = liblcsvga.la modules/libmodules.la
+
+xlincity_SOURCES = $(engine_SOURCES)
+xlincity_DEPENDENCIES = LCX_LIBS modules/libmodules.la 
+xlincity_LDADD = liblcx.la modules/libmodules.la
 
 xpicedit_SOURCES = 
 EXTRA_xpicedit_SOURCES = picedit.c
@@ -268,27 +261,42 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES = intl/Makefile
+LTLIBRARIES = $(lib_LTLIBRARIES)
+
+liblcsvga_la_LDFLAGS =
+liblcsvga_la_DEPENDENCIES =
+am__objects_1 = lcsvga-ldsvgui.lo lcsvga-splash.lo lcsvga-lchelp.lo \
+	lcsvga-main.lo lcsvga-mouse.lo lcsvga-mps.lo lcsvga-screen.lo \
+	lcsvga-pixmap.lo lcsvga-cliglobs.lo lcsvga-geometry.lo \
+	lcsvga-pbar.lo lcsvga-module_buttons.lo lcsvga-dialbox.lo
+am_liblcsvga_la_OBJECTS = $(am__objects_1) lcsvga-lcsvga.lo
+liblcsvga_la_OBJECTS = $(am_liblcsvga_la_OBJECTS)
+liblcx_la_LDFLAGS =
+liblcx_la_DEPENDENCIES =
+am__objects_2 = lcx-ldsvgui.lo lcx-splash.lo lcx-lchelp.lo lcx-main.lo \
+	lcx-mouse.lo lcx-mps.lo lcx-screen.lo lcx-pixmap.lo \
+	lcx-cliglobs.lo lcx-geometry.lo lcx-pbar.lo \
+	lcx-module_buttons.lo lcx-dialbox.lo
+am_liblcx_la_OBJECTS = $(am__objects_2) lcx-lcx11.lo
+liblcx_la_OBJECTS = $(am_liblcx_la_OBJECTS)
 EXTRA_PROGRAMS = xlincity$(EXEEXT) lincity$(EXEEXT) xpicedit$(EXEEXT) \
 	picedit$(EXEEXT)
 bin_PROGRAMS = @PROGS@
 PROGRAMS = $(bin_PROGRAMS)
 
-am_lincity_OBJECTS = lclib.$(OBJEXT) power.$(OBJEXT) ldsvguts.$(OBJEXT) \
+am__objects_3 = lclib.$(OBJEXT) power.$(OBJEXT) ldsvguts.$(OBJEXT) \
 	engine.$(OBJEXT) transport.$(OBJEXT) market.$(OBJEXT) \
 	simulate.$(OBJEXT) shrtypes.$(OBJEXT) lintypes.$(OBJEXT) \
 	readpng.$(OBJEXT) timer.$(OBJEXT) fileutil.$(OBJEXT) \
 	shrglobs.$(OBJEXT) stats.$(OBJEXT)
+am_lincity_OBJECTS = $(am__objects_3)
 lincity_OBJECTS = $(am_lincity_OBJECTS)
 lincity_LDFLAGS =
 am_picedit_OBJECTS =
 picedit_OBJECTS = $(am_picedit_OBJECTS)
 picedit_DEPENDENCIES = vga_picedit.o
 picedit_LDFLAGS =
-am_xlincity_OBJECTS = lclib.$(OBJEXT) power.$(OBJEXT) ldsvguts.$(OBJEXT) \
-	engine.$(OBJEXT) transport.$(OBJEXT) market.$(OBJEXT) \
-	simulate.$(OBJEXT) shrtypes.$(OBJEXT) lintypes.$(OBJEXT) \
-	readpng.$(OBJEXT) timer.$(OBJEXT) fileutil.$(OBJEXT) \
-	shrglobs.$(OBJEXT) stats.$(OBJEXT)
+am_xlincity_OBJECTS = $(am__objects_3)
 xlincity_OBJECTS = $(am_xlincity_OBJECTS)
 xlincity_LDFLAGS =
 am_xpicedit_OBJECTS =
@@ -299,28 +307,50 @@ xpicedit_LDFLAGS =
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
-@AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/cliglobs.Po ./$(DEPDIR)/dialbox.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/engine.Po ./$(DEPDIR)/fileutil.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/geometry.Po ./$(DEPDIR)/lchelp.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/lclib.Po ./$(DEPDIR)/lcsvga.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/lcx11.Po ./$(DEPDIR)/ldsvgui.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/ldsvguts.Po ./$(DEPDIR)/lintypes.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/main.Po ./$(DEPDIR)/market.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/module_buttons.Po ./$(DEPDIR)/mouse.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/mps.Po ./$(DEPDIR)/pbar.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/picedit.Po ./$(DEPDIR)/pixmap.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/power.Po ./$(DEPDIR)/readpng.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/screen.Po ./$(DEPDIR)/shrglobs.Po \
+@AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/engine.Po ./$(DEPDIR)/fileutil.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/lclib.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-cliglobs.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-dialbox.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-geometry.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-lchelp.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-lcsvga.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-ldsvgui.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-main.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-module_buttons.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-mouse.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-mps.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-pbar.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-pixmap.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-screen.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcsvga-splash.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-cliglobs.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-dialbox.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-geometry.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-lchelp.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-lcx11.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-ldsvgui.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-main.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-module_buttons.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-mouse.Plo ./$(DEPDIR)/lcx-mps.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-pbar.Plo ./$(DEPDIR)/lcx-pixmap.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-screen.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/lcx-splash.Plo ./$(DEPDIR)/ldsvguts.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/lintypes.Po ./$(DEPDIR)/market.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/picedit.Po ./$(DEPDIR)/power.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/readpng.Po ./$(DEPDIR)/shrglobs.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/shrtypes.Po ./$(DEPDIR)/simulate.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/splash.Po ./$(DEPDIR)/stats.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/timer.Po ./$(DEPDIR)/transport.Po
+@AMDEP_TRUE@	./$(DEPDIR)/stats.Po ./$(DEPDIR)/timer.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/transport.Po
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) \
+	$(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-DIST_SOURCES = $(lincity_SOURCES) $(EXTRA_lincity_SOURCES) \
-	$(picedit_SOURCES) $(EXTRA_picedit_SOURCES) $(xlincity_SOURCES) \
-	$(EXTRA_xlincity_SOURCES) $(xpicedit_SOURCES) \
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+DIST_SOURCES = $(liblcsvga_la_SOURCES) $(liblcx_la_SOURCES) \
+	$(lincity_SOURCES) $(picedit_SOURCES) $(EXTRA_picedit_SOURCES) \
+	$(xlincity_SOURCES) $(xpicedit_SOURCES) \
 	$(EXTRA_xpicedit_SOURCES)
 
 NROFF = nroff
@@ -337,16 +367,17 @@ RECURSIVE_TARGETS = info-recursive dvi-recursive pdf-recursive \
 	check-recursive installcheck-recursive
 DIST_COMMON = README $(noinst_HEADERS) $(srcdir)/Makefile.in \
 	$(srcdir)/configure ABOUT-NLS COPYING Makefile.am TODO \
-	acinclude.m4 aclocal.m4 config.guess config.h.in config.sub \
-	configure configure.ac depcomp install-sh missing mkinstalldirs
+	acinclude.m4 aclocal.m4 compile config.guess config.h.in \
+	config.sub configure configure.ac depcomp install-sh ltmain.sh \
+	missing mkinstalldirs
 DIST_SUBDIRS = $(SUBDIRS)
-SOURCES = $(lincity_SOURCES) $(EXTRA_lincity_SOURCES) $(picedit_SOURCES) $(EXTRA_picedit_SOURCES) $(xlincity_SOURCES) $(EXTRA_xlincity_SOURCES) $(xpicedit_SOURCES) $(EXTRA_xpicedit_SOURCES)
+SOURCES = $(liblcsvga_la_SOURCES) $(liblcx_la_SOURCES) $(lincity_SOURCES) $(picedit_SOURCES) $(EXTRA_picedit_SOURCES) $(xlincity_SOURCES) $(xpicedit_SOURCES) $(EXTRA_xpicedit_SOURCES)
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj
+.SUFFIXES: .c .lo .o .obj
 
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno
@@ -382,6 +413,38 @@ distclean-hdr:
 	-rm -f config.h stamp-h1
 intl/Makefile: $(top_builddir)/config.status $(top_srcdir)/intl/Makefile.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
+libLTLIBRARIES_INSTALL = $(INSTALL)
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    f="`echo $$p | sed -e 's|^.*/||'`"; \
+	    echo " $(LIBTOOL) --mode=install $(libLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(libdir)/$$f"; \
+	    $(LIBTOOL) --mode=install $(libLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(libdir)/$$f; \
+	  else :; fi; \
+	done
+
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	    p="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(LIBTOOL) --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p"; \
+	  $(LIBTOOL) --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+	done
+
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
+	  test "$$dir" = "$$p" && dir=.; \
+	  echo "rm -f \"$${dir}/so_locations\""; \
+	  rm -f "$${dir}/so_locations"; \
+	done
+liblcsvga.la: $(liblcsvga_la_OBJECTS) $(liblcsvga_la_DEPENDENCIES) 
+	$(LINK)  $(liblcsvga_la_LDFLAGS) $(liblcsvga_la_OBJECTS) $(liblcsvga_la_LIBADD) $(LIBS)
+liblcx.la: $(liblcx_la_OBJECTS) $(liblcx_la_DEPENDENCIES) 
+	$(LINK)  $(liblcx_la_LDFLAGS) $(liblcx_la_OBJECTS) $(liblcx_la_LIBADD) $(LIBS)
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
@@ -389,10 +452,11 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
 	  p1=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
 	  if test -f $$p \
+	     || test -f $$p1 \
 	  ; then \
 	    f=`echo "$$p1" | sed 's,^.*/,,;$(transform);s/$$/$(EXEEXT)/'`; \
-	   echo " $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) $$p $(DESTDIR)$(bindir)/$$f"; \
-	   $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) $$p $(DESTDIR)$(bindir)/$$f || exit 1; \
+	   echo " $(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(binPROGRAMS_INSTALL) $$p $(DESTDIR)$(bindir)/$$f"; \
+	   $(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(binPROGRAMS_INSTALL) $$p $(DESTDIR)$(bindir)/$$f || exit 1; \
 	  else :; fi; \
 	done
 
@@ -405,7 +469,11 @@ uninstall-binPROGRAMS:
 	done
 
 clean-binPROGRAMS:
-	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+	  f=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
+	  echo " rm -f $$p $$f"; \
+	  rm -f $$p $$f ; \
+	done
 lincity$(EXEEXT): $(lincity_OBJECTS) $(lincity_DEPENDENCIES) 
 	@rm -f lincity$(EXEEXT)
 	$(LINK) $(lincity_LDFLAGS) $(lincity_OBJECTS) $(lincity_LDADD) $(LIBS)
@@ -425,33 +493,46 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cliglobs.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dialbox.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/engine.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fileutil.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/geometry.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lchelp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lclib.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx11.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ldsvgui.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-cliglobs.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-dialbox.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-geometry.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-lchelp.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-lcsvga.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-ldsvgui.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-main.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-module_buttons.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-mouse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-mps.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-pbar.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-pixmap.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-screen.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcsvga-splash.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-cliglobs.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-dialbox.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-geometry.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-lchelp.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-lcx11.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-ldsvgui.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-main.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-module_buttons.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-mouse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-mps.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-pbar.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-pixmap.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-screen.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lcx-splash.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ldsvguts.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lintypes.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/market.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/module_buttons.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mouse.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mps.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pbar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/picedit.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pixmap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/power.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/readpng.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shrglobs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shrtypes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/simulate.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/splash.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stats.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/timer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/transport.Po@am__quote@
@@ -477,6 +558,950 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`
+
+.c.lo:
+@am__fastdepCC_TRUE@	if $(LTCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<
+
+lcsvga-ldsvgui.o: ldsvgui.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-ldsvgui.o -MD -MP -MF "$(DEPDIR)/lcsvga-ldsvgui.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-ldsvgui.o `test -f 'ldsvgui.c' || echo '$(srcdir)/'`ldsvgui.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-ldsvgui.Tpo" "$(DEPDIR)/lcsvga-ldsvgui.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-ldsvgui.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ldsvgui.c' object='lcsvga-ldsvgui.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-ldsvgui.Po' tmpdepfile='$(DEPDIR)/lcsvga-ldsvgui.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-ldsvgui.o `test -f 'ldsvgui.c' || echo '$(srcdir)/'`ldsvgui.c
+
+lcsvga-ldsvgui.obj: ldsvgui.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-ldsvgui.obj -MD -MP -MF "$(DEPDIR)/lcsvga-ldsvgui.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-ldsvgui.obj `if test -f 'ldsvgui.c'; then $(CYGPATH_W) 'ldsvgui.c'; else $(CYGPATH_W) '$(srcdir)/ldsvgui.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-ldsvgui.Tpo" "$(DEPDIR)/lcsvga-ldsvgui.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-ldsvgui.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ldsvgui.c' object='lcsvga-ldsvgui.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-ldsvgui.Po' tmpdepfile='$(DEPDIR)/lcsvga-ldsvgui.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-ldsvgui.obj `if test -f 'ldsvgui.c'; then $(CYGPATH_W) 'ldsvgui.c'; else $(CYGPATH_W) '$(srcdir)/ldsvgui.c'; fi`
+
+lcsvga-ldsvgui.lo: ldsvgui.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-ldsvgui.lo -MD -MP -MF "$(DEPDIR)/lcsvga-ldsvgui.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-ldsvgui.lo `test -f 'ldsvgui.c' || echo '$(srcdir)/'`ldsvgui.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-ldsvgui.Tpo" "$(DEPDIR)/lcsvga-ldsvgui.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-ldsvgui.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ldsvgui.c' object='lcsvga-ldsvgui.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-ldsvgui.Plo' tmpdepfile='$(DEPDIR)/lcsvga-ldsvgui.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-ldsvgui.lo `test -f 'ldsvgui.c' || echo '$(srcdir)/'`ldsvgui.c
+
+lcsvga-splash.o: splash.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-splash.o -MD -MP -MF "$(DEPDIR)/lcsvga-splash.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-splash.o `test -f 'splash.c' || echo '$(srcdir)/'`splash.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-splash.Tpo" "$(DEPDIR)/lcsvga-splash.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-splash.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='splash.c' object='lcsvga-splash.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-splash.Po' tmpdepfile='$(DEPDIR)/lcsvga-splash.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-splash.o `test -f 'splash.c' || echo '$(srcdir)/'`splash.c
+
+lcsvga-splash.obj: splash.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-splash.obj -MD -MP -MF "$(DEPDIR)/lcsvga-splash.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-splash.obj `if test -f 'splash.c'; then $(CYGPATH_W) 'splash.c'; else $(CYGPATH_W) '$(srcdir)/splash.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-splash.Tpo" "$(DEPDIR)/lcsvga-splash.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-splash.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='splash.c' object='lcsvga-splash.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-splash.Po' tmpdepfile='$(DEPDIR)/lcsvga-splash.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-splash.obj `if test -f 'splash.c'; then $(CYGPATH_W) 'splash.c'; else $(CYGPATH_W) '$(srcdir)/splash.c'; fi`
+
+lcsvga-splash.lo: splash.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-splash.lo -MD -MP -MF "$(DEPDIR)/lcsvga-splash.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-splash.lo `test -f 'splash.c' || echo '$(srcdir)/'`splash.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-splash.Tpo" "$(DEPDIR)/lcsvga-splash.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-splash.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='splash.c' object='lcsvga-splash.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-splash.Plo' tmpdepfile='$(DEPDIR)/lcsvga-splash.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-splash.lo `test -f 'splash.c' || echo '$(srcdir)/'`splash.c
+
+lcsvga-lchelp.o: lchelp.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-lchelp.o -MD -MP -MF "$(DEPDIR)/lcsvga-lchelp.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-lchelp.o `test -f 'lchelp.c' || echo '$(srcdir)/'`lchelp.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-lchelp.Tpo" "$(DEPDIR)/lcsvga-lchelp.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-lchelp.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lchelp.c' object='lcsvga-lchelp.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-lchelp.Po' tmpdepfile='$(DEPDIR)/lcsvga-lchelp.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-lchelp.o `test -f 'lchelp.c' || echo '$(srcdir)/'`lchelp.c
+
+lcsvga-lchelp.obj: lchelp.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-lchelp.obj -MD -MP -MF "$(DEPDIR)/lcsvga-lchelp.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-lchelp.obj `if test -f 'lchelp.c'; then $(CYGPATH_W) 'lchelp.c'; else $(CYGPATH_W) '$(srcdir)/lchelp.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-lchelp.Tpo" "$(DEPDIR)/lcsvga-lchelp.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-lchelp.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lchelp.c' object='lcsvga-lchelp.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-lchelp.Po' tmpdepfile='$(DEPDIR)/lcsvga-lchelp.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-lchelp.obj `if test -f 'lchelp.c'; then $(CYGPATH_W) 'lchelp.c'; else $(CYGPATH_W) '$(srcdir)/lchelp.c'; fi`
+
+lcsvga-lchelp.lo: lchelp.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-lchelp.lo -MD -MP -MF "$(DEPDIR)/lcsvga-lchelp.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-lchelp.lo `test -f 'lchelp.c' || echo '$(srcdir)/'`lchelp.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-lchelp.Tpo" "$(DEPDIR)/lcsvga-lchelp.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-lchelp.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lchelp.c' object='lcsvga-lchelp.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-lchelp.Plo' tmpdepfile='$(DEPDIR)/lcsvga-lchelp.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-lchelp.lo `test -f 'lchelp.c' || echo '$(srcdir)/'`lchelp.c
+
+lcsvga-main.o: main.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-main.o -MD -MP -MF "$(DEPDIR)/lcsvga-main.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-main.Tpo" "$(DEPDIR)/lcsvga-main.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-main.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='lcsvga-main.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-main.Po' tmpdepfile='$(DEPDIR)/lcsvga-main.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+
+lcsvga-main.obj: main.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-main.obj -MD -MP -MF "$(DEPDIR)/lcsvga-main.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-main.Tpo" "$(DEPDIR)/lcsvga-main.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-main.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='lcsvga-main.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-main.Po' tmpdepfile='$(DEPDIR)/lcsvga-main.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+
+lcsvga-main.lo: main.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-main.lo -MD -MP -MF "$(DEPDIR)/lcsvga-main.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-main.lo `test -f 'main.c' || echo '$(srcdir)/'`main.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-main.Tpo" "$(DEPDIR)/lcsvga-main.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-main.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='lcsvga-main.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-main.Plo' tmpdepfile='$(DEPDIR)/lcsvga-main.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-main.lo `test -f 'main.c' || echo '$(srcdir)/'`main.c
+
+lcsvga-mouse.o: mouse.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-mouse.o -MD -MP -MF "$(DEPDIR)/lcsvga-mouse.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-mouse.o `test -f 'mouse.c' || echo '$(srcdir)/'`mouse.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-mouse.Tpo" "$(DEPDIR)/lcsvga-mouse.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-mouse.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mouse.c' object='lcsvga-mouse.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-mouse.Po' tmpdepfile='$(DEPDIR)/lcsvga-mouse.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-mouse.o `test -f 'mouse.c' || echo '$(srcdir)/'`mouse.c
+
+lcsvga-mouse.obj: mouse.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-mouse.obj -MD -MP -MF "$(DEPDIR)/lcsvga-mouse.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-mouse.obj `if test -f 'mouse.c'; then $(CYGPATH_W) 'mouse.c'; else $(CYGPATH_W) '$(srcdir)/mouse.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-mouse.Tpo" "$(DEPDIR)/lcsvga-mouse.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-mouse.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mouse.c' object='lcsvga-mouse.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-mouse.Po' tmpdepfile='$(DEPDIR)/lcsvga-mouse.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-mouse.obj `if test -f 'mouse.c'; then $(CYGPATH_W) 'mouse.c'; else $(CYGPATH_W) '$(srcdir)/mouse.c'; fi`
+
+lcsvga-mouse.lo: mouse.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-mouse.lo -MD -MP -MF "$(DEPDIR)/lcsvga-mouse.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-mouse.lo `test -f 'mouse.c' || echo '$(srcdir)/'`mouse.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-mouse.Tpo" "$(DEPDIR)/lcsvga-mouse.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-mouse.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mouse.c' object='lcsvga-mouse.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-mouse.Plo' tmpdepfile='$(DEPDIR)/lcsvga-mouse.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-mouse.lo `test -f 'mouse.c' || echo '$(srcdir)/'`mouse.c
+
+lcsvga-mps.o: mps.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-mps.o -MD -MP -MF "$(DEPDIR)/lcsvga-mps.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-mps.o `test -f 'mps.c' || echo '$(srcdir)/'`mps.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-mps.Tpo" "$(DEPDIR)/lcsvga-mps.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-mps.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mps.c' object='lcsvga-mps.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-mps.Po' tmpdepfile='$(DEPDIR)/lcsvga-mps.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-mps.o `test -f 'mps.c' || echo '$(srcdir)/'`mps.c
+
+lcsvga-mps.obj: mps.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-mps.obj -MD -MP -MF "$(DEPDIR)/lcsvga-mps.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-mps.obj `if test -f 'mps.c'; then $(CYGPATH_W) 'mps.c'; else $(CYGPATH_W) '$(srcdir)/mps.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-mps.Tpo" "$(DEPDIR)/lcsvga-mps.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-mps.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mps.c' object='lcsvga-mps.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-mps.Po' tmpdepfile='$(DEPDIR)/lcsvga-mps.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-mps.obj `if test -f 'mps.c'; then $(CYGPATH_W) 'mps.c'; else $(CYGPATH_W) '$(srcdir)/mps.c'; fi`
+
+lcsvga-mps.lo: mps.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-mps.lo -MD -MP -MF "$(DEPDIR)/lcsvga-mps.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-mps.lo `test -f 'mps.c' || echo '$(srcdir)/'`mps.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-mps.Tpo" "$(DEPDIR)/lcsvga-mps.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-mps.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mps.c' object='lcsvga-mps.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-mps.Plo' tmpdepfile='$(DEPDIR)/lcsvga-mps.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-mps.lo `test -f 'mps.c' || echo '$(srcdir)/'`mps.c
+
+lcsvga-screen.o: screen.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-screen.o -MD -MP -MF "$(DEPDIR)/lcsvga-screen.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-screen.o `test -f 'screen.c' || echo '$(srcdir)/'`screen.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-screen.Tpo" "$(DEPDIR)/lcsvga-screen.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-screen.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='screen.c' object='lcsvga-screen.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-screen.Po' tmpdepfile='$(DEPDIR)/lcsvga-screen.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-screen.o `test -f 'screen.c' || echo '$(srcdir)/'`screen.c
+
+lcsvga-screen.obj: screen.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-screen.obj -MD -MP -MF "$(DEPDIR)/lcsvga-screen.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-screen.obj `if test -f 'screen.c'; then $(CYGPATH_W) 'screen.c'; else $(CYGPATH_W) '$(srcdir)/screen.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-screen.Tpo" "$(DEPDIR)/lcsvga-screen.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-screen.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='screen.c' object='lcsvga-screen.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-screen.Po' tmpdepfile='$(DEPDIR)/lcsvga-screen.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-screen.obj `if test -f 'screen.c'; then $(CYGPATH_W) 'screen.c'; else $(CYGPATH_W) '$(srcdir)/screen.c'; fi`
+
+lcsvga-screen.lo: screen.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-screen.lo -MD -MP -MF "$(DEPDIR)/lcsvga-screen.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-screen.lo `test -f 'screen.c' || echo '$(srcdir)/'`screen.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-screen.Tpo" "$(DEPDIR)/lcsvga-screen.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-screen.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='screen.c' object='lcsvga-screen.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-screen.Plo' tmpdepfile='$(DEPDIR)/lcsvga-screen.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-screen.lo `test -f 'screen.c' || echo '$(srcdir)/'`screen.c
+
+lcsvga-pixmap.o: pixmap.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-pixmap.o -MD -MP -MF "$(DEPDIR)/lcsvga-pixmap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-pixmap.o `test -f 'pixmap.c' || echo '$(srcdir)/'`pixmap.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-pixmap.Tpo" "$(DEPDIR)/lcsvga-pixmap.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-pixmap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pixmap.c' object='lcsvga-pixmap.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-pixmap.Po' tmpdepfile='$(DEPDIR)/lcsvga-pixmap.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-pixmap.o `test -f 'pixmap.c' || echo '$(srcdir)/'`pixmap.c
+
+lcsvga-pixmap.obj: pixmap.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-pixmap.obj -MD -MP -MF "$(DEPDIR)/lcsvga-pixmap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-pixmap.obj `if test -f 'pixmap.c'; then $(CYGPATH_W) 'pixmap.c'; else $(CYGPATH_W) '$(srcdir)/pixmap.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-pixmap.Tpo" "$(DEPDIR)/lcsvga-pixmap.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-pixmap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pixmap.c' object='lcsvga-pixmap.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-pixmap.Po' tmpdepfile='$(DEPDIR)/lcsvga-pixmap.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-pixmap.obj `if test -f 'pixmap.c'; then $(CYGPATH_W) 'pixmap.c'; else $(CYGPATH_W) '$(srcdir)/pixmap.c'; fi`
+
+lcsvga-pixmap.lo: pixmap.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-pixmap.lo -MD -MP -MF "$(DEPDIR)/lcsvga-pixmap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-pixmap.lo `test -f 'pixmap.c' || echo '$(srcdir)/'`pixmap.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-pixmap.Tpo" "$(DEPDIR)/lcsvga-pixmap.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-pixmap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pixmap.c' object='lcsvga-pixmap.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-pixmap.Plo' tmpdepfile='$(DEPDIR)/lcsvga-pixmap.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-pixmap.lo `test -f 'pixmap.c' || echo '$(srcdir)/'`pixmap.c
+
+lcsvga-cliglobs.o: cliglobs.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-cliglobs.o -MD -MP -MF "$(DEPDIR)/lcsvga-cliglobs.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-cliglobs.o `test -f 'cliglobs.c' || echo '$(srcdir)/'`cliglobs.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-cliglobs.Tpo" "$(DEPDIR)/lcsvga-cliglobs.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-cliglobs.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cliglobs.c' object='lcsvga-cliglobs.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-cliglobs.Po' tmpdepfile='$(DEPDIR)/lcsvga-cliglobs.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-cliglobs.o `test -f 'cliglobs.c' || echo '$(srcdir)/'`cliglobs.c
+
+lcsvga-cliglobs.obj: cliglobs.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-cliglobs.obj -MD -MP -MF "$(DEPDIR)/lcsvga-cliglobs.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-cliglobs.obj `if test -f 'cliglobs.c'; then $(CYGPATH_W) 'cliglobs.c'; else $(CYGPATH_W) '$(srcdir)/cliglobs.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-cliglobs.Tpo" "$(DEPDIR)/lcsvga-cliglobs.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-cliglobs.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cliglobs.c' object='lcsvga-cliglobs.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-cliglobs.Po' tmpdepfile='$(DEPDIR)/lcsvga-cliglobs.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-cliglobs.obj `if test -f 'cliglobs.c'; then $(CYGPATH_W) 'cliglobs.c'; else $(CYGPATH_W) '$(srcdir)/cliglobs.c'; fi`
+
+lcsvga-cliglobs.lo: cliglobs.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-cliglobs.lo -MD -MP -MF "$(DEPDIR)/lcsvga-cliglobs.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-cliglobs.lo `test -f 'cliglobs.c' || echo '$(srcdir)/'`cliglobs.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-cliglobs.Tpo" "$(DEPDIR)/lcsvga-cliglobs.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-cliglobs.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cliglobs.c' object='lcsvga-cliglobs.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-cliglobs.Plo' tmpdepfile='$(DEPDIR)/lcsvga-cliglobs.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-cliglobs.lo `test -f 'cliglobs.c' || echo '$(srcdir)/'`cliglobs.c
+
+lcsvga-geometry.o: geometry.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-geometry.o -MD -MP -MF "$(DEPDIR)/lcsvga-geometry.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-geometry.o `test -f 'geometry.c' || echo '$(srcdir)/'`geometry.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-geometry.Tpo" "$(DEPDIR)/lcsvga-geometry.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-geometry.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='geometry.c' object='lcsvga-geometry.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-geometry.Po' tmpdepfile='$(DEPDIR)/lcsvga-geometry.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-geometry.o `test -f 'geometry.c' || echo '$(srcdir)/'`geometry.c
+
+lcsvga-geometry.obj: geometry.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-geometry.obj -MD -MP -MF "$(DEPDIR)/lcsvga-geometry.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-geometry.obj `if test -f 'geometry.c'; then $(CYGPATH_W) 'geometry.c'; else $(CYGPATH_W) '$(srcdir)/geometry.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-geometry.Tpo" "$(DEPDIR)/lcsvga-geometry.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-geometry.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='geometry.c' object='lcsvga-geometry.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-geometry.Po' tmpdepfile='$(DEPDIR)/lcsvga-geometry.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-geometry.obj `if test -f 'geometry.c'; then $(CYGPATH_W) 'geometry.c'; else $(CYGPATH_W) '$(srcdir)/geometry.c'; fi`
+
+lcsvga-geometry.lo: geometry.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-geometry.lo -MD -MP -MF "$(DEPDIR)/lcsvga-geometry.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-geometry.lo `test -f 'geometry.c' || echo '$(srcdir)/'`geometry.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-geometry.Tpo" "$(DEPDIR)/lcsvga-geometry.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-geometry.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='geometry.c' object='lcsvga-geometry.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-geometry.Plo' tmpdepfile='$(DEPDIR)/lcsvga-geometry.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-geometry.lo `test -f 'geometry.c' || echo '$(srcdir)/'`geometry.c
+
+lcsvga-pbar.o: pbar.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-pbar.o -MD -MP -MF "$(DEPDIR)/lcsvga-pbar.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-pbar.o `test -f 'pbar.c' || echo '$(srcdir)/'`pbar.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-pbar.Tpo" "$(DEPDIR)/lcsvga-pbar.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-pbar.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pbar.c' object='lcsvga-pbar.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-pbar.Po' tmpdepfile='$(DEPDIR)/lcsvga-pbar.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-pbar.o `test -f 'pbar.c' || echo '$(srcdir)/'`pbar.c
+
+lcsvga-pbar.obj: pbar.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-pbar.obj -MD -MP -MF "$(DEPDIR)/lcsvga-pbar.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-pbar.obj `if test -f 'pbar.c'; then $(CYGPATH_W) 'pbar.c'; else $(CYGPATH_W) '$(srcdir)/pbar.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-pbar.Tpo" "$(DEPDIR)/lcsvga-pbar.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-pbar.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pbar.c' object='lcsvga-pbar.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-pbar.Po' tmpdepfile='$(DEPDIR)/lcsvga-pbar.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-pbar.obj `if test -f 'pbar.c'; then $(CYGPATH_W) 'pbar.c'; else $(CYGPATH_W) '$(srcdir)/pbar.c'; fi`
+
+lcsvga-pbar.lo: pbar.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-pbar.lo -MD -MP -MF "$(DEPDIR)/lcsvga-pbar.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-pbar.lo `test -f 'pbar.c' || echo '$(srcdir)/'`pbar.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-pbar.Tpo" "$(DEPDIR)/lcsvga-pbar.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-pbar.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pbar.c' object='lcsvga-pbar.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-pbar.Plo' tmpdepfile='$(DEPDIR)/lcsvga-pbar.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-pbar.lo `test -f 'pbar.c' || echo '$(srcdir)/'`pbar.c
+
+lcsvga-module_buttons.o: module_buttons.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-module_buttons.o -MD -MP -MF "$(DEPDIR)/lcsvga-module_buttons.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-module_buttons.o `test -f 'module_buttons.c' || echo '$(srcdir)/'`module_buttons.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-module_buttons.Tpo" "$(DEPDIR)/lcsvga-module_buttons.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-module_buttons.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='module_buttons.c' object='lcsvga-module_buttons.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-module_buttons.Po' tmpdepfile='$(DEPDIR)/lcsvga-module_buttons.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-module_buttons.o `test -f 'module_buttons.c' || echo '$(srcdir)/'`module_buttons.c
+
+lcsvga-module_buttons.obj: module_buttons.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-module_buttons.obj -MD -MP -MF "$(DEPDIR)/lcsvga-module_buttons.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-module_buttons.obj `if test -f 'module_buttons.c'; then $(CYGPATH_W) 'module_buttons.c'; else $(CYGPATH_W) '$(srcdir)/module_buttons.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-module_buttons.Tpo" "$(DEPDIR)/lcsvga-module_buttons.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-module_buttons.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='module_buttons.c' object='lcsvga-module_buttons.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-module_buttons.Po' tmpdepfile='$(DEPDIR)/lcsvga-module_buttons.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-module_buttons.obj `if test -f 'module_buttons.c'; then $(CYGPATH_W) 'module_buttons.c'; else $(CYGPATH_W) '$(srcdir)/module_buttons.c'; fi`
+
+lcsvga-module_buttons.lo: module_buttons.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-module_buttons.lo -MD -MP -MF "$(DEPDIR)/lcsvga-module_buttons.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-module_buttons.lo `test -f 'module_buttons.c' || echo '$(srcdir)/'`module_buttons.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-module_buttons.Tpo" "$(DEPDIR)/lcsvga-module_buttons.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-module_buttons.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='module_buttons.c' object='lcsvga-module_buttons.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-module_buttons.Plo' tmpdepfile='$(DEPDIR)/lcsvga-module_buttons.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-module_buttons.lo `test -f 'module_buttons.c' || echo '$(srcdir)/'`module_buttons.c
+
+lcsvga-dialbox.o: dialbox.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-dialbox.o -MD -MP -MF "$(DEPDIR)/lcsvga-dialbox.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-dialbox.o `test -f 'dialbox.c' || echo '$(srcdir)/'`dialbox.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-dialbox.Tpo" "$(DEPDIR)/lcsvga-dialbox.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-dialbox.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='dialbox.c' object='lcsvga-dialbox.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-dialbox.Po' tmpdepfile='$(DEPDIR)/lcsvga-dialbox.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-dialbox.o `test -f 'dialbox.c' || echo '$(srcdir)/'`dialbox.c
+
+lcsvga-dialbox.obj: dialbox.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-dialbox.obj -MD -MP -MF "$(DEPDIR)/lcsvga-dialbox.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-dialbox.obj `if test -f 'dialbox.c'; then $(CYGPATH_W) 'dialbox.c'; else $(CYGPATH_W) '$(srcdir)/dialbox.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-dialbox.Tpo" "$(DEPDIR)/lcsvga-dialbox.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-dialbox.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='dialbox.c' object='lcsvga-dialbox.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-dialbox.Po' tmpdepfile='$(DEPDIR)/lcsvga-dialbox.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-dialbox.obj `if test -f 'dialbox.c'; then $(CYGPATH_W) 'dialbox.c'; else $(CYGPATH_W) '$(srcdir)/dialbox.c'; fi`
+
+lcsvga-dialbox.lo: dialbox.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-dialbox.lo -MD -MP -MF "$(DEPDIR)/lcsvga-dialbox.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-dialbox.lo `test -f 'dialbox.c' || echo '$(srcdir)/'`dialbox.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-dialbox.Tpo" "$(DEPDIR)/lcsvga-dialbox.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-dialbox.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='dialbox.c' object='lcsvga-dialbox.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-dialbox.Plo' tmpdepfile='$(DEPDIR)/lcsvga-dialbox.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-dialbox.lo `test -f 'dialbox.c' || echo '$(srcdir)/'`dialbox.c
+
+lcsvga-lcsvga.o: lcsvga.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-lcsvga.o -MD -MP -MF "$(DEPDIR)/lcsvga-lcsvga.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-lcsvga.o `test -f 'lcsvga.c' || echo '$(srcdir)/'`lcsvga.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-lcsvga.Tpo" "$(DEPDIR)/lcsvga-lcsvga.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-lcsvga.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lcsvga.c' object='lcsvga-lcsvga.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-lcsvga.Po' tmpdepfile='$(DEPDIR)/lcsvga-lcsvga.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-lcsvga.o `test -f 'lcsvga.c' || echo '$(srcdir)/'`lcsvga.c
+
+lcsvga-lcsvga.obj: lcsvga.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-lcsvga.obj -MD -MP -MF "$(DEPDIR)/lcsvga-lcsvga.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-lcsvga.obj `if test -f 'lcsvga.c'; then $(CYGPATH_W) 'lcsvga.c'; else $(CYGPATH_W) '$(srcdir)/lcsvga.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-lcsvga.Tpo" "$(DEPDIR)/lcsvga-lcsvga.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-lcsvga.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lcsvga.c' object='lcsvga-lcsvga.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-lcsvga.Po' tmpdepfile='$(DEPDIR)/lcsvga-lcsvga.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-lcsvga.obj `if test -f 'lcsvga.c'; then $(CYGPATH_W) 'lcsvga.c'; else $(CYGPATH_W) '$(srcdir)/lcsvga.c'; fi`
+
+lcsvga-lcsvga.lo: lcsvga.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcsvga-lcsvga.lo -MD -MP -MF "$(DEPDIR)/lcsvga-lcsvga.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcsvga-lcsvga.lo `test -f 'lcsvga.c' || echo '$(srcdir)/'`lcsvga.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcsvga-lcsvga.Tpo" "$(DEPDIR)/lcsvga-lcsvga.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcsvga-lcsvga.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lcsvga.c' object='lcsvga-lcsvga.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcsvga-lcsvga.Plo' tmpdepfile='$(DEPDIR)/lcsvga-lcsvga.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcsvga_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcsvga-lcsvga.lo `test -f 'lcsvga.c' || echo '$(srcdir)/'`lcsvga.c
+
+lcx-ldsvgui.o: ldsvgui.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-ldsvgui.o -MD -MP -MF "$(DEPDIR)/lcx-ldsvgui.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-ldsvgui.o `test -f 'ldsvgui.c' || echo '$(srcdir)/'`ldsvgui.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-ldsvgui.Tpo" "$(DEPDIR)/lcx-ldsvgui.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-ldsvgui.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ldsvgui.c' object='lcx-ldsvgui.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-ldsvgui.Po' tmpdepfile='$(DEPDIR)/lcx-ldsvgui.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-ldsvgui.o `test -f 'ldsvgui.c' || echo '$(srcdir)/'`ldsvgui.c
+
+lcx-ldsvgui.obj: ldsvgui.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-ldsvgui.obj -MD -MP -MF "$(DEPDIR)/lcx-ldsvgui.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-ldsvgui.obj `if test -f 'ldsvgui.c'; then $(CYGPATH_W) 'ldsvgui.c'; else $(CYGPATH_W) '$(srcdir)/ldsvgui.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-ldsvgui.Tpo" "$(DEPDIR)/lcx-ldsvgui.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-ldsvgui.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ldsvgui.c' object='lcx-ldsvgui.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-ldsvgui.Po' tmpdepfile='$(DEPDIR)/lcx-ldsvgui.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-ldsvgui.obj `if test -f 'ldsvgui.c'; then $(CYGPATH_W) 'ldsvgui.c'; else $(CYGPATH_W) '$(srcdir)/ldsvgui.c'; fi`
+
+lcx-ldsvgui.lo: ldsvgui.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-ldsvgui.lo -MD -MP -MF "$(DEPDIR)/lcx-ldsvgui.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-ldsvgui.lo `test -f 'ldsvgui.c' || echo '$(srcdir)/'`ldsvgui.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-ldsvgui.Tpo" "$(DEPDIR)/lcx-ldsvgui.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-ldsvgui.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ldsvgui.c' object='lcx-ldsvgui.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-ldsvgui.Plo' tmpdepfile='$(DEPDIR)/lcx-ldsvgui.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-ldsvgui.lo `test -f 'ldsvgui.c' || echo '$(srcdir)/'`ldsvgui.c
+
+lcx-splash.o: splash.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-splash.o -MD -MP -MF "$(DEPDIR)/lcx-splash.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-splash.o `test -f 'splash.c' || echo '$(srcdir)/'`splash.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-splash.Tpo" "$(DEPDIR)/lcx-splash.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-splash.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='splash.c' object='lcx-splash.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-splash.Po' tmpdepfile='$(DEPDIR)/lcx-splash.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-splash.o `test -f 'splash.c' || echo '$(srcdir)/'`splash.c
+
+lcx-splash.obj: splash.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-splash.obj -MD -MP -MF "$(DEPDIR)/lcx-splash.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-splash.obj `if test -f 'splash.c'; then $(CYGPATH_W) 'splash.c'; else $(CYGPATH_W) '$(srcdir)/splash.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-splash.Tpo" "$(DEPDIR)/lcx-splash.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-splash.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='splash.c' object='lcx-splash.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-splash.Po' tmpdepfile='$(DEPDIR)/lcx-splash.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-splash.obj `if test -f 'splash.c'; then $(CYGPATH_W) 'splash.c'; else $(CYGPATH_W) '$(srcdir)/splash.c'; fi`
+
+lcx-splash.lo: splash.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-splash.lo -MD -MP -MF "$(DEPDIR)/lcx-splash.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-splash.lo `test -f 'splash.c' || echo '$(srcdir)/'`splash.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-splash.Tpo" "$(DEPDIR)/lcx-splash.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-splash.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='splash.c' object='lcx-splash.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-splash.Plo' tmpdepfile='$(DEPDIR)/lcx-splash.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-splash.lo `test -f 'splash.c' || echo '$(srcdir)/'`splash.c
+
+lcx-lchelp.o: lchelp.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-lchelp.o -MD -MP -MF "$(DEPDIR)/lcx-lchelp.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-lchelp.o `test -f 'lchelp.c' || echo '$(srcdir)/'`lchelp.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-lchelp.Tpo" "$(DEPDIR)/lcx-lchelp.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-lchelp.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lchelp.c' object='lcx-lchelp.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-lchelp.Po' tmpdepfile='$(DEPDIR)/lcx-lchelp.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-lchelp.o `test -f 'lchelp.c' || echo '$(srcdir)/'`lchelp.c
+
+lcx-lchelp.obj: lchelp.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-lchelp.obj -MD -MP -MF "$(DEPDIR)/lcx-lchelp.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-lchelp.obj `if test -f 'lchelp.c'; then $(CYGPATH_W) 'lchelp.c'; else $(CYGPATH_W) '$(srcdir)/lchelp.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-lchelp.Tpo" "$(DEPDIR)/lcx-lchelp.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-lchelp.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lchelp.c' object='lcx-lchelp.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-lchelp.Po' tmpdepfile='$(DEPDIR)/lcx-lchelp.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-lchelp.obj `if test -f 'lchelp.c'; then $(CYGPATH_W) 'lchelp.c'; else $(CYGPATH_W) '$(srcdir)/lchelp.c'; fi`
+
+lcx-lchelp.lo: lchelp.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-lchelp.lo -MD -MP -MF "$(DEPDIR)/lcx-lchelp.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-lchelp.lo `test -f 'lchelp.c' || echo '$(srcdir)/'`lchelp.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-lchelp.Tpo" "$(DEPDIR)/lcx-lchelp.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-lchelp.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lchelp.c' object='lcx-lchelp.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-lchelp.Plo' tmpdepfile='$(DEPDIR)/lcx-lchelp.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-lchelp.lo `test -f 'lchelp.c' || echo '$(srcdir)/'`lchelp.c
+
+lcx-main.o: main.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-main.o -MD -MP -MF "$(DEPDIR)/lcx-main.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-main.Tpo" "$(DEPDIR)/lcx-main.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-main.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='lcx-main.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-main.Po' tmpdepfile='$(DEPDIR)/lcx-main.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+
+lcx-main.obj: main.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-main.obj -MD -MP -MF "$(DEPDIR)/lcx-main.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-main.Tpo" "$(DEPDIR)/lcx-main.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-main.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='lcx-main.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-main.Po' tmpdepfile='$(DEPDIR)/lcx-main.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+
+lcx-main.lo: main.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-main.lo -MD -MP -MF "$(DEPDIR)/lcx-main.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-main.lo `test -f 'main.c' || echo '$(srcdir)/'`main.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-main.Tpo" "$(DEPDIR)/lcx-main.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-main.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='lcx-main.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-main.Plo' tmpdepfile='$(DEPDIR)/lcx-main.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-main.lo `test -f 'main.c' || echo '$(srcdir)/'`main.c
+
+lcx-mouse.o: mouse.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-mouse.o -MD -MP -MF "$(DEPDIR)/lcx-mouse.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-mouse.o `test -f 'mouse.c' || echo '$(srcdir)/'`mouse.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-mouse.Tpo" "$(DEPDIR)/lcx-mouse.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-mouse.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mouse.c' object='lcx-mouse.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-mouse.Po' tmpdepfile='$(DEPDIR)/lcx-mouse.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-mouse.o `test -f 'mouse.c' || echo '$(srcdir)/'`mouse.c
+
+lcx-mouse.obj: mouse.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-mouse.obj -MD -MP -MF "$(DEPDIR)/lcx-mouse.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-mouse.obj `if test -f 'mouse.c'; then $(CYGPATH_W) 'mouse.c'; else $(CYGPATH_W) '$(srcdir)/mouse.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-mouse.Tpo" "$(DEPDIR)/lcx-mouse.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-mouse.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mouse.c' object='lcx-mouse.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-mouse.Po' tmpdepfile='$(DEPDIR)/lcx-mouse.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-mouse.obj `if test -f 'mouse.c'; then $(CYGPATH_W) 'mouse.c'; else $(CYGPATH_W) '$(srcdir)/mouse.c'; fi`
+
+lcx-mouse.lo: mouse.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-mouse.lo -MD -MP -MF "$(DEPDIR)/lcx-mouse.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-mouse.lo `test -f 'mouse.c' || echo '$(srcdir)/'`mouse.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-mouse.Tpo" "$(DEPDIR)/lcx-mouse.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-mouse.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mouse.c' object='lcx-mouse.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-mouse.Plo' tmpdepfile='$(DEPDIR)/lcx-mouse.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-mouse.lo `test -f 'mouse.c' || echo '$(srcdir)/'`mouse.c
+
+lcx-mps.o: mps.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-mps.o -MD -MP -MF "$(DEPDIR)/lcx-mps.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-mps.o `test -f 'mps.c' || echo '$(srcdir)/'`mps.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-mps.Tpo" "$(DEPDIR)/lcx-mps.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-mps.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mps.c' object='lcx-mps.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-mps.Po' tmpdepfile='$(DEPDIR)/lcx-mps.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-mps.o `test -f 'mps.c' || echo '$(srcdir)/'`mps.c
+
+lcx-mps.obj: mps.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-mps.obj -MD -MP -MF "$(DEPDIR)/lcx-mps.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-mps.obj `if test -f 'mps.c'; then $(CYGPATH_W) 'mps.c'; else $(CYGPATH_W) '$(srcdir)/mps.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-mps.Tpo" "$(DEPDIR)/lcx-mps.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-mps.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mps.c' object='lcx-mps.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-mps.Po' tmpdepfile='$(DEPDIR)/lcx-mps.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-mps.obj `if test -f 'mps.c'; then $(CYGPATH_W) 'mps.c'; else $(CYGPATH_W) '$(srcdir)/mps.c'; fi`
+
+lcx-mps.lo: mps.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-mps.lo -MD -MP -MF "$(DEPDIR)/lcx-mps.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-mps.lo `test -f 'mps.c' || echo '$(srcdir)/'`mps.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-mps.Tpo" "$(DEPDIR)/lcx-mps.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-mps.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mps.c' object='lcx-mps.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-mps.Plo' tmpdepfile='$(DEPDIR)/lcx-mps.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-mps.lo `test -f 'mps.c' || echo '$(srcdir)/'`mps.c
+
+lcx-screen.o: screen.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-screen.o -MD -MP -MF "$(DEPDIR)/lcx-screen.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-screen.o `test -f 'screen.c' || echo '$(srcdir)/'`screen.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-screen.Tpo" "$(DEPDIR)/lcx-screen.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-screen.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='screen.c' object='lcx-screen.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-screen.Po' tmpdepfile='$(DEPDIR)/lcx-screen.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-screen.o `test -f 'screen.c' || echo '$(srcdir)/'`screen.c
+
+lcx-screen.obj: screen.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-screen.obj -MD -MP -MF "$(DEPDIR)/lcx-screen.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-screen.obj `if test -f 'screen.c'; then $(CYGPATH_W) 'screen.c'; else $(CYGPATH_W) '$(srcdir)/screen.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-screen.Tpo" "$(DEPDIR)/lcx-screen.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-screen.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='screen.c' object='lcx-screen.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-screen.Po' tmpdepfile='$(DEPDIR)/lcx-screen.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-screen.obj `if test -f 'screen.c'; then $(CYGPATH_W) 'screen.c'; else $(CYGPATH_W) '$(srcdir)/screen.c'; fi`
+
+lcx-screen.lo: screen.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-screen.lo -MD -MP -MF "$(DEPDIR)/lcx-screen.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-screen.lo `test -f 'screen.c' || echo '$(srcdir)/'`screen.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-screen.Tpo" "$(DEPDIR)/lcx-screen.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-screen.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='screen.c' object='lcx-screen.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-screen.Plo' tmpdepfile='$(DEPDIR)/lcx-screen.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-screen.lo `test -f 'screen.c' || echo '$(srcdir)/'`screen.c
+
+lcx-pixmap.o: pixmap.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-pixmap.o -MD -MP -MF "$(DEPDIR)/lcx-pixmap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-pixmap.o `test -f 'pixmap.c' || echo '$(srcdir)/'`pixmap.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-pixmap.Tpo" "$(DEPDIR)/lcx-pixmap.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-pixmap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pixmap.c' object='lcx-pixmap.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-pixmap.Po' tmpdepfile='$(DEPDIR)/lcx-pixmap.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-pixmap.o `test -f 'pixmap.c' || echo '$(srcdir)/'`pixmap.c
+
+lcx-pixmap.obj: pixmap.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-pixmap.obj -MD -MP -MF "$(DEPDIR)/lcx-pixmap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-pixmap.obj `if test -f 'pixmap.c'; then $(CYGPATH_W) 'pixmap.c'; else $(CYGPATH_W) '$(srcdir)/pixmap.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-pixmap.Tpo" "$(DEPDIR)/lcx-pixmap.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-pixmap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pixmap.c' object='lcx-pixmap.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-pixmap.Po' tmpdepfile='$(DEPDIR)/lcx-pixmap.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-pixmap.obj `if test -f 'pixmap.c'; then $(CYGPATH_W) 'pixmap.c'; else $(CYGPATH_W) '$(srcdir)/pixmap.c'; fi`
+
+lcx-pixmap.lo: pixmap.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-pixmap.lo -MD -MP -MF "$(DEPDIR)/lcx-pixmap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-pixmap.lo `test -f 'pixmap.c' || echo '$(srcdir)/'`pixmap.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-pixmap.Tpo" "$(DEPDIR)/lcx-pixmap.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-pixmap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pixmap.c' object='lcx-pixmap.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-pixmap.Plo' tmpdepfile='$(DEPDIR)/lcx-pixmap.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-pixmap.lo `test -f 'pixmap.c' || echo '$(srcdir)/'`pixmap.c
+
+lcx-cliglobs.o: cliglobs.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-cliglobs.o -MD -MP -MF "$(DEPDIR)/lcx-cliglobs.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-cliglobs.o `test -f 'cliglobs.c' || echo '$(srcdir)/'`cliglobs.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-cliglobs.Tpo" "$(DEPDIR)/lcx-cliglobs.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-cliglobs.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cliglobs.c' object='lcx-cliglobs.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-cliglobs.Po' tmpdepfile='$(DEPDIR)/lcx-cliglobs.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-cliglobs.o `test -f 'cliglobs.c' || echo '$(srcdir)/'`cliglobs.c
+
+lcx-cliglobs.obj: cliglobs.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-cliglobs.obj -MD -MP -MF "$(DEPDIR)/lcx-cliglobs.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-cliglobs.obj `if test -f 'cliglobs.c'; then $(CYGPATH_W) 'cliglobs.c'; else $(CYGPATH_W) '$(srcdir)/cliglobs.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-cliglobs.Tpo" "$(DEPDIR)/lcx-cliglobs.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-cliglobs.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cliglobs.c' object='lcx-cliglobs.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-cliglobs.Po' tmpdepfile='$(DEPDIR)/lcx-cliglobs.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-cliglobs.obj `if test -f 'cliglobs.c'; then $(CYGPATH_W) 'cliglobs.c'; else $(CYGPATH_W) '$(srcdir)/cliglobs.c'; fi`
+
+lcx-cliglobs.lo: cliglobs.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-cliglobs.lo -MD -MP -MF "$(DEPDIR)/lcx-cliglobs.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-cliglobs.lo `test -f 'cliglobs.c' || echo '$(srcdir)/'`cliglobs.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-cliglobs.Tpo" "$(DEPDIR)/lcx-cliglobs.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-cliglobs.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cliglobs.c' object='lcx-cliglobs.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-cliglobs.Plo' tmpdepfile='$(DEPDIR)/lcx-cliglobs.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-cliglobs.lo `test -f 'cliglobs.c' || echo '$(srcdir)/'`cliglobs.c
+
+lcx-geometry.o: geometry.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-geometry.o -MD -MP -MF "$(DEPDIR)/lcx-geometry.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-geometry.o `test -f 'geometry.c' || echo '$(srcdir)/'`geometry.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-geometry.Tpo" "$(DEPDIR)/lcx-geometry.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-geometry.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='geometry.c' object='lcx-geometry.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-geometry.Po' tmpdepfile='$(DEPDIR)/lcx-geometry.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-geometry.o `test -f 'geometry.c' || echo '$(srcdir)/'`geometry.c
+
+lcx-geometry.obj: geometry.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-geometry.obj -MD -MP -MF "$(DEPDIR)/lcx-geometry.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-geometry.obj `if test -f 'geometry.c'; then $(CYGPATH_W) 'geometry.c'; else $(CYGPATH_W) '$(srcdir)/geometry.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-geometry.Tpo" "$(DEPDIR)/lcx-geometry.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-geometry.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='geometry.c' object='lcx-geometry.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-geometry.Po' tmpdepfile='$(DEPDIR)/lcx-geometry.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-geometry.obj `if test -f 'geometry.c'; then $(CYGPATH_W) 'geometry.c'; else $(CYGPATH_W) '$(srcdir)/geometry.c'; fi`
+
+lcx-geometry.lo: geometry.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-geometry.lo -MD -MP -MF "$(DEPDIR)/lcx-geometry.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-geometry.lo `test -f 'geometry.c' || echo '$(srcdir)/'`geometry.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-geometry.Tpo" "$(DEPDIR)/lcx-geometry.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-geometry.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='geometry.c' object='lcx-geometry.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-geometry.Plo' tmpdepfile='$(DEPDIR)/lcx-geometry.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-geometry.lo `test -f 'geometry.c' || echo '$(srcdir)/'`geometry.c
+
+lcx-pbar.o: pbar.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-pbar.o -MD -MP -MF "$(DEPDIR)/lcx-pbar.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-pbar.o `test -f 'pbar.c' || echo '$(srcdir)/'`pbar.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-pbar.Tpo" "$(DEPDIR)/lcx-pbar.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-pbar.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pbar.c' object='lcx-pbar.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-pbar.Po' tmpdepfile='$(DEPDIR)/lcx-pbar.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-pbar.o `test -f 'pbar.c' || echo '$(srcdir)/'`pbar.c
+
+lcx-pbar.obj: pbar.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-pbar.obj -MD -MP -MF "$(DEPDIR)/lcx-pbar.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-pbar.obj `if test -f 'pbar.c'; then $(CYGPATH_W) 'pbar.c'; else $(CYGPATH_W) '$(srcdir)/pbar.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-pbar.Tpo" "$(DEPDIR)/lcx-pbar.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-pbar.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pbar.c' object='lcx-pbar.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-pbar.Po' tmpdepfile='$(DEPDIR)/lcx-pbar.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-pbar.obj `if test -f 'pbar.c'; then $(CYGPATH_W) 'pbar.c'; else $(CYGPATH_W) '$(srcdir)/pbar.c'; fi`
+
+lcx-pbar.lo: pbar.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-pbar.lo -MD -MP -MF "$(DEPDIR)/lcx-pbar.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-pbar.lo `test -f 'pbar.c' || echo '$(srcdir)/'`pbar.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-pbar.Tpo" "$(DEPDIR)/lcx-pbar.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-pbar.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pbar.c' object='lcx-pbar.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-pbar.Plo' tmpdepfile='$(DEPDIR)/lcx-pbar.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-pbar.lo `test -f 'pbar.c' || echo '$(srcdir)/'`pbar.c
+
+lcx-module_buttons.o: module_buttons.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-module_buttons.o -MD -MP -MF "$(DEPDIR)/lcx-module_buttons.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-module_buttons.o `test -f 'module_buttons.c' || echo '$(srcdir)/'`module_buttons.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-module_buttons.Tpo" "$(DEPDIR)/lcx-module_buttons.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-module_buttons.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='module_buttons.c' object='lcx-module_buttons.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-module_buttons.Po' tmpdepfile='$(DEPDIR)/lcx-module_buttons.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-module_buttons.o `test -f 'module_buttons.c' || echo '$(srcdir)/'`module_buttons.c
+
+lcx-module_buttons.obj: module_buttons.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-module_buttons.obj -MD -MP -MF "$(DEPDIR)/lcx-module_buttons.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-module_buttons.obj `if test -f 'module_buttons.c'; then $(CYGPATH_W) 'module_buttons.c'; else $(CYGPATH_W) '$(srcdir)/module_buttons.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-module_buttons.Tpo" "$(DEPDIR)/lcx-module_buttons.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-module_buttons.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='module_buttons.c' object='lcx-module_buttons.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-module_buttons.Po' tmpdepfile='$(DEPDIR)/lcx-module_buttons.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-module_buttons.obj `if test -f 'module_buttons.c'; then $(CYGPATH_W) 'module_buttons.c'; else $(CYGPATH_W) '$(srcdir)/module_buttons.c'; fi`
+
+lcx-module_buttons.lo: module_buttons.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-module_buttons.lo -MD -MP -MF "$(DEPDIR)/lcx-module_buttons.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-module_buttons.lo `test -f 'module_buttons.c' || echo '$(srcdir)/'`module_buttons.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-module_buttons.Tpo" "$(DEPDIR)/lcx-module_buttons.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-module_buttons.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='module_buttons.c' object='lcx-module_buttons.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-module_buttons.Plo' tmpdepfile='$(DEPDIR)/lcx-module_buttons.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-module_buttons.lo `test -f 'module_buttons.c' || echo '$(srcdir)/'`module_buttons.c
+
+lcx-dialbox.o: dialbox.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-dialbox.o -MD -MP -MF "$(DEPDIR)/lcx-dialbox.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-dialbox.o `test -f 'dialbox.c' || echo '$(srcdir)/'`dialbox.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-dialbox.Tpo" "$(DEPDIR)/lcx-dialbox.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-dialbox.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='dialbox.c' object='lcx-dialbox.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-dialbox.Po' tmpdepfile='$(DEPDIR)/lcx-dialbox.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-dialbox.o `test -f 'dialbox.c' || echo '$(srcdir)/'`dialbox.c
+
+lcx-dialbox.obj: dialbox.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-dialbox.obj -MD -MP -MF "$(DEPDIR)/lcx-dialbox.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-dialbox.obj `if test -f 'dialbox.c'; then $(CYGPATH_W) 'dialbox.c'; else $(CYGPATH_W) '$(srcdir)/dialbox.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-dialbox.Tpo" "$(DEPDIR)/lcx-dialbox.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-dialbox.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='dialbox.c' object='lcx-dialbox.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-dialbox.Po' tmpdepfile='$(DEPDIR)/lcx-dialbox.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-dialbox.obj `if test -f 'dialbox.c'; then $(CYGPATH_W) 'dialbox.c'; else $(CYGPATH_W) '$(srcdir)/dialbox.c'; fi`
+
+lcx-dialbox.lo: dialbox.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-dialbox.lo -MD -MP -MF "$(DEPDIR)/lcx-dialbox.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-dialbox.lo `test -f 'dialbox.c' || echo '$(srcdir)/'`dialbox.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-dialbox.Tpo" "$(DEPDIR)/lcx-dialbox.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-dialbox.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='dialbox.c' object='lcx-dialbox.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-dialbox.Plo' tmpdepfile='$(DEPDIR)/lcx-dialbox.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-dialbox.lo `test -f 'dialbox.c' || echo '$(srcdir)/'`dialbox.c
+
+lcx-lcx11.o: lcx11.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-lcx11.o -MD -MP -MF "$(DEPDIR)/lcx-lcx11.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-lcx11.o `test -f 'lcx11.c' || echo '$(srcdir)/'`lcx11.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-lcx11.Tpo" "$(DEPDIR)/lcx-lcx11.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-lcx11.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lcx11.c' object='lcx-lcx11.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-lcx11.Po' tmpdepfile='$(DEPDIR)/lcx-lcx11.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-lcx11.o `test -f 'lcx11.c' || echo '$(srcdir)/'`lcx11.c
+
+lcx-lcx11.obj: lcx11.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-lcx11.obj -MD -MP -MF "$(DEPDIR)/lcx-lcx11.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-lcx11.obj `if test -f 'lcx11.c'; then $(CYGPATH_W) 'lcx11.c'; else $(CYGPATH_W) '$(srcdir)/lcx11.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-lcx11.Tpo" "$(DEPDIR)/lcx-lcx11.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-lcx11.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lcx11.c' object='lcx-lcx11.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-lcx11.Po' tmpdepfile='$(DEPDIR)/lcx-lcx11.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-lcx11.obj `if test -f 'lcx11.c'; then $(CYGPATH_W) 'lcx11.c'; else $(CYGPATH_W) '$(srcdir)/lcx11.c'; fi`
+
+lcx-lcx11.lo: lcx11.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lcx-lcx11.lo -MD -MP -MF "$(DEPDIR)/lcx-lcx11.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o lcx-lcx11.lo `test -f 'lcx11.c' || echo '$(srcdir)/'`lcx11.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/lcx-lcx11.Tpo" "$(DEPDIR)/lcx-lcx11.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/lcx-lcx11.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lcx11.c' object='lcx-lcx11.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/lcx-lcx11.Plo' tmpdepfile='$(DEPDIR)/lcx-lcx11.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblcx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lcx-lcx11.lo `test -f 'lcx11.c' || echo '$(srcdir)/'`lcx11.c
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+	-rm -f libtool
 uninstall-info-am:
 
 man6dir = $(mandir)/man6
@@ -799,10 +1824,13 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(PROGRAMS) $(MANS) $(DATA) $(HEADERS) config.h
+all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(MANS) $(DATA) $(HEADERS) \
+		config.h
+install-binPROGRAMS: install-libLTLIBRARIES
+
 installdirs: installdirs-recursive
 installdirs-am:
-	$(mkinstalldirs) $(DESTDIR)$(bindir) $(DESTDIR)$(man6dir) $(DESTDIR)$(pkgdatadir)
+	$(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(bindir) $(DESTDIR)$(man6dir) $(DESTDIR)$(pkgdatadir)
 
 install: install-recursive
 install-exec: install-exec-recursive
@@ -830,14 +1858,15 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
+clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
+	clean-libtool mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic distclean-hdr \
-	distclean-tags
+	distclean-libtool distclean-tags
 
 dvi: dvi-recursive
 
@@ -849,7 +1878,8 @@ info-am:
 
 install-data-am: install-man install-nobase_pkgdataDATA
 
-install-exec-am: install-binPROGRAMS install-exec-local
+install-exec-am: install-binPROGRAMS install-exec-local \
+	install-libLTLIBRARIES
 
 install-info: install-info-recursive
 
@@ -866,7 +1896,8 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-recursive
 
-mostlyclean-am: mostlyclean-compile mostlyclean-generic
+mostlyclean-am: mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool
 
 pdf: pdf-recursive
 
@@ -876,33 +1907,37 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS uninstall-info-am uninstall-local \
-	uninstall-man uninstall-nobase_pkgdataDATA
+uninstall-am: uninstall-binPROGRAMS uninstall-info-am \
+	uninstall-libLTLIBRARIES uninstall-local uninstall-man \
+	uninstall-nobase_pkgdataDATA
 
 uninstall-info: uninstall-info-recursive
 
 uninstall-man: uninstall-man6
 
 .PHONY: $(RECURSIVE_TARGETS) CTAGS GTAGS all all-am check check-am clean \
-	clean-binPROGRAMS clean-generic clean-recursive ctags \
-	ctags-recursive dist dist-all dist-gzip distcheck distclean \
-	distclean-compile distclean-generic distclean-hdr \
+	clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
+	clean-libtool clean-recursive ctags ctags-recursive dist \
+	dist-all dist-gzip distcheck distclean distclean-compile \
+	distclean-generic distclean-hdr distclean-libtool \
 	distclean-recursive distclean-tags distcleancheck distdir \
 	distuninstallcheck dvi dvi-am dvi-recursive info info-am \
 	info-recursive install install-am install-binPROGRAMS \
 	install-data install-data-am install-data-recursive \
 	install-exec install-exec-am install-exec-local \
 	install-exec-recursive install-info install-info-am \
-	install-info-recursive install-man install-man6 \
-	install-nobase_pkgdataDATA install-recursive install-strip \
-	installcheck installcheck-am installdirs installdirs-am \
-	installdirs-recursive maintainer-clean maintainer-clean-generic \
-	maintainer-clean-recursive mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-recursive pdf pdf-am \
-	pdf-recursive ps ps-am ps-recursive tags tags-recursive \
-	uninstall uninstall-am uninstall-binPROGRAMS uninstall-info-am \
-	uninstall-info-recursive uninstall-local uninstall-man \
-	uninstall-man6 uninstall-nobase_pkgdataDATA uninstall-recursive
+	install-info-recursive install-libLTLIBRARIES install-man \
+	install-man6 install-nobase_pkgdataDATA install-recursive \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am installdirs-recursive maintainer-clean \
+	maintainer-clean-generic maintainer-clean-recursive mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	mostlyclean-recursive pdf pdf-am pdf-recursive ps ps-am \
+	ps-recursive tags tags-recursive uninstall uninstall-am \
+	uninstall-binPROGRAMS uninstall-info-am \
+	uninstall-info-recursive uninstall-libLTLIBRARIES \
+	uninstall-local uninstall-man uninstall-man6 \
+	uninstall-nobase_pkgdataDATA uninstall-recursive
 
 
 ############################################################################
@@ -952,93 +1987,12 @@ dist-hook:
 	  rm -rf `find $(distdir)/$$p -name cvs -print` ; \
 	  rm -rf `find $(distdir)/$$p -name ca -print` ; \
 	done
-
 X_PROGS: xlincity$(EXEEXT)
 SVGA_PROGS: lincity$(EXEEXT)
 LCSERVER_PROGS: lcserver$(EXEEXT)
 
-vga_cliglobs.o: cliglobs.c cliglobs.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_cliglobs.o -c cliglobs.c
-
-vga_splash.o: splash.c
-	$(COMPILE) $(SVGA_DEFS) -o vga_splash.o -c splash.c
-
-vga_ldsvgui.o: ldsvgui.c
-	$(COMPILE) $(SVGA_DEFS) -o vga_ldsvgui.o -c ldsvgui.c
-
-vga_geometry.o: geometry.c geometry.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_geometry.o -c geometry.c
-
-vga_lchelp.o: lchelp.c lchelp.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_lchelp.o -c lchelp.c
-
-vga_lcsvga.o: lcsvga.c lcsvga.h lin-city.h lctypes.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_lcsvga.o -c lcsvga.c
-
-vga_main.o: main.c lin-city.h lctypes.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_main.o -c main.c
-
-vga_mouse.o: mouse.c mouse.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_mouse.o -c mouse.c
-
-vga_mps.o: mps.c mps.h lin-city.h lctypes.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_mps.o -c mps.c
-
-vga_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_pbar.o -c pbar.c
-
-vga_screen.o: screen.c screen.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_screen.o -c screen.c
-
-vga_dialbox.o: dialbox.c dialbox.h geometry.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_dialbox.o -c dialbox.c
-
-vga_module_buttons.o: module_buttons.c module_buttons.h lin-city.h lctypes.h \
-	mouse.h
-	$(COMPILE) $(SVGA_DEFS) -o vga_module_buttons.o -c module_buttons.c
-
-x_cliglobs.o: cliglobs.c cliglobs.h
-	$(COMPILE) $(X_DEFS) -o x_cliglobs.o -c cliglobs.c
-
-x_splash.o: splash.c
-	$(COMPILE) $(X_DEFS) -o x_splash.o -c splash.c
-
-x_ldsvgui.o: ldsvgui.c
-	$(COMPILE) $(X_DEFS) -o x_ldsvgui.o -c ldsvgui.c
-
-x_geometry.o: geometry.c geometry.h
-	$(COMPILE) $(X_DEFS) -o x_geometry.o -c geometry.c
-
-x_lchelp.o: lchelp.c lchelp.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(X_DEFS) -o x_lchelp.o -c lchelp.c
-
-x_lcx11.o: lcx11.c lcx11.h lin-city.h lctypes.h
-	$(COMPILE) $(X_DEFS) -o x_lcx11.o -c lcx11.c
-
-x_pixmap.o: pixmap.c lcx11.h lin-city.h lctypes.h
-	$(COMPILE) $(X_DEFS) -o x_pixmap.o -c pixmap.c
-
-x_main.o: main.c lin-city.h lctypes.h lcx11.h
-	$(COMPILE) $(X_DEFS) -o x_main.o -c main.c
-
-x_mouse.o: mouse.c mouse.h lin-city.h lctypes.h module_buttons.h
-	$(COMPILE) $(X_DEFS) -o x_mouse.o -c mouse.c
-
-x_mps.o: mps.c mps.h lin-city.h lctypes.h
-	$(COMPILE) $(X_DEFS) -o x_mps.o -c mps.c
-
-x_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
-	$(COMPILE) $(X_DEFS) -o x_pbar.o -c pbar.c
-
-x_screen.o: screen.c screen.h lin-city.h lctypes.h lcx11.h module_buttons.h
-	$(COMPILE) $(X_DEFS) -o x_screen.o -c screen.c
-
-x_dialbox.o: dialbox.c dialbox.h lcx11.h geometry.h
-	$(COMPILE) $(X_DEFS) -o x_dialbox.o -c dialbox.c
-
-x_module_buttons.o: module_buttons.c module_buttons.h lin-city.h lctypes.h \
-	mouse.h
-	$(COMPILE) $(X_DEFS) -o x_module_buttons.o -c module_buttons.c
+LCX_LIBS: liblcx.la
+LCSVGA_LIBS: liblcsvga.la
 
 x_picedit.o: picedit.c
 	$(COMPILE) $(X_DEFS) -o x_picedit.o -c picedit.c
