@@ -43,6 +43,8 @@ private:
     //std::map<int, Texture*> cityTextures;
     Texture* cityTextures[ NUM_OF_TYPES ];
     Texture* blankTexture;
+    int cityTextureX[ NUM_OF_TYPES ];
+    int cityTextureY[ NUM_OF_TYPES ];
 };
 
 #endif

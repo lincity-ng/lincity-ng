@@ -6,6 +6,8 @@
 #include <sstream>
 #include <iostream>
 
+#include <assert.h>
+
 static int funcSeek(struct SDL_RWops* context, int offset, int whence)
 {
     PHYSFS_file* file = (PHYSFS_file*) context->hidden.unknown.data1;
