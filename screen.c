@@ -66,8 +66,9 @@ static void do_sust_barchart (int draw);
 static void draw_sustline (int yoffset, int count, int max, int col);
 void monthgraph_full_refresh (void);
 void draw_mini_pol_in_main_win ();
-
 void mini_full_refresh (void);
+void update_main_screen_normal (void);
+void update_main_screen_pollution (void);
 
 
 
@@ -122,7 +123,31 @@ unclip_main_window ()
 void
 update_main_screen (void)
 {
-    Rect* b = &scr.main_win;
+    switch (main_screen_flag)
+    {
+    case MINI_SCREEN_NORMAL_FLAG:
+	update_main_screen_normal ();
+	break;
+    case MINI_SCREEN_POL_FLAG:
+	update_main_screen_pollution ();
+	break;
+    };
+
+#if defined (WIN32)
+    if (screen_refresh_flag) {
+	UpdateWindow (display.hWnd);
+    }
+#else
+    if (mouse_type == MOUSE_TYPE_SQUARE)
+	redraw_mouse ();
+#endif
+    screen_refresh_flag = 0;
+}
+
+void
+update_main_screen_normal (void)
+{
+    Rect* mw = &scr.main_win;
     int x, y, xm, ym;
     short typ, grp;
 #ifdef USE_PIXMAPS
@@ -135,11 +160,8 @@ update_main_screen (void)
     if (help_flag || load_flag || save_flag)
 	return;
 
-    if (main_screen_originx > WORLD_SIDE_LEN - b->w / 16 - 1)
-	main_screen_originx = WORLD_SIDE_LEN - b->w / 16 - 1;
-
-    if (main_screen_originy > WORLD_SIDE_LEN - b->w / 16 - 1)
-	main_screen_originy = WORLD_SIDE_LEN - b->w / 16 - 1;
+    /* GCS: I moved the code to reset the main_screen_origin to the 
+       function load_city(), where I think is more appropriate. */
 
     xm = main_screen_originx;
     if (xm > 3)
@@ -153,9 +175,9 @@ update_main_screen (void)
 #endif
     clip_main_window ();
     for (y = main_screen_originy - ym; y < main_screen_originy
-		 + (b->h / 16); y++)
+		 + (mw->h / 16); y++)
 	for (x = main_screen_originx - xm; x < main_screen_originx
-		     + (b->w / 16); x++)
+		     + (mw->w / 16); x++)
 	{
 	    typ = MP_TYPE(x,y);
 	    if (typ != mappointoldtype[x][y] || screen_refresh_flag)
@@ -174,14 +196,14 @@ update_main_screen (void)
 		    if (y < main_screen_originy)
 			y1 = (main_screen_originy - y) * 16;
 		    sx = sy = main_groups[grp].size;
-		    if ((sx + x) > (main_screen_originx + (b->w / 16)))
-			sx = (main_screen_originx + (b->w / 16)) - x;
-		    if ((sy + y) > (main_screen_originy + (b->h / 16)))
-			sy = (main_screen_originy + (b->h / 16)) - y;
+		    if ((sx + x) > (main_screen_originx + (mw->w / 16)))
+			sx = (main_screen_originx + (mw->w / 16)) - x;
+		    if ((sy + y) > (main_screen_originy + (mw->h / 16)))
+			sy = (main_screen_originy + (mw->h / 16)) - y;
 		    sx = (sx << 4) - x1;
 		    sy = (sy << 4) - y1;
-		    dx = b->x + (x - main_screen_originx) * 16 + x1;
-		    dy = b->y + (y - main_screen_originy) * 16 + y1;
+		    dx = mw->x + (x - main_screen_originx) * 16 + x1;
+		    dy = mw->y + (y - main_screen_originy) * 16 + y1;
 		    if (sx > 0 && sy > 0)
 		    {
 #if defined (LC_X11)
@@ -211,30 +233,48 @@ update_main_screen (void)
 		}
 		else
 #endif /* USE_PIXMAPS */
-		    Fgl_putbox (b->x + (x - main_screen_originx) * 16,
-				b->y + (y - main_screen_originy) * 16,
+		    Fgl_putbox (mw->x + (x - main_screen_originx) * 16,
+				mw->y + (y - main_screen_originy) * 16,
 				16 * main_groups[grp].size,
 				16 * main_groups[grp].size,
 				main_types[typ].graphic);
 	    }
 	}
     unclip_main_window ();
-#if defined (WIN32)
-    if (screen_refresh_flag)
-    {
-	UpdateWindow (display.hWnd);
+}
+
+void
+update_main_screen_pollution (void)
+{
+    Rect* mw = &scr.main_win;
+    int x, y, col;
+
+    for (y = main_screen_originy;
+	 y < main_screen_originy + (mw->h / 16); y++) {
+	for (x = main_screen_originx;
+	     x < main_screen_originx + (mw->w / 16); x++) {
+	    if (MP_POL(x,y) < 4) {
+		col = green (24);
+	    } else if (MP_POL(x,y) < 600) {
+		col = green (23 - (MP_POL(x,y) / 45));
+	    } else {
+		col = (int) sqrt ((float) (MP_POL(x,y) - 600)) / 9;
+		if (col > 20)
+		    col = 20;
+		col += red (11);
+	    }
+	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
+			 mw->y + (y - main_screen_originy) * 16,
+			 16, 16, col);
+	}
     }
-#else
-    if (mouse_type == MOUSE_TYPE_SQUARE)
-	redraw_mouse ();
-#endif
-    screen_refresh_flag = 0;
 }
 
 /* *******************  SCREEN SETUP  ******************* */
 
 /* XXX: WCK: All of the drawing should be done already in screen_full_refresh;
    Why do it here? */
+/* GCS: Actually, this function loads the graphics from disk */
 void
 screen_setup (void)
 {
@@ -885,90 +925,6 @@ mini_screen_help (void)
 	activate_help ("msb-coal.hlp");
 	break;
     }
-}
-
-void
-mini_screen_draw_in_main_win (void)
-{
-    switch (mini_screen_flags)
-    {
-    case MINI_SCREEN_NORMAL_FLAG:
-	/* do nothing */
-	break;
-    case MINI_SCREEN_POL_FLAG:
-	draw_mini_pol_in_main_win ();
-	break;
-    case MINI_SCREEN_UB40_FLAG:
-	/* not yet implemented */
-	break;
-    case MINI_SCREEN_STARVE_FLAG:
-	break;
-    case MINI_SCREEN_POWER_FLAG:
-	break;
-    case MINI_SCREEN_FIRE_COVER:
-	break;
-    case MINI_SCREEN_CRICKET_COVER:
-	break;
-    case MINI_SCREEN_HEALTH_COVER:
-	break;
-    case MINI_SCREEN_COAL_FLAG:
-	break;
-    }
-}
-
-void
-draw_mini_pol_in_main_win ()
-{
-    Rect* mw = &scr.main_win;
-    int x, y, col;
-#if defined (commentout)  /* Don't need for pollution, but need for starv */
-    int xm, ym;
-
-    xm = main_screen_originx;
-    if (xm > 3)
-	xm = 3;
-    ym = main_screen_originy;
-    if (ym > 3)
-	ym = 3;
-
-    clip_main_window ();
-    for (y = main_screen_originy - ym;
-	 y < main_screen_originy + (mw->h / 16); y++) {
-	for (x = main_screen_originx - xm;
-	     x < main_screen_originx + (mw->w / 16); x++) {
-	}}
-#endif
-
-    for (y = main_screen_originy;
-	 y < main_screen_originy + (mw->h / 16); y++) {
-	for (x = main_screen_originx;
-	     x < main_screen_originx + (mw->w / 16); x++) {
-	    if (MP_POL(x,y) < 4) {
-		col = green (24);
-	    } else if (MP_POL(x,y) < 600) {
-		col = green (23 - (MP_POL(x,y) / 45));
-	    } else {
-		col = (int) sqrt ((float) (MP_POL(x,y) - 600)) / 9;
-		if (col > 20)
-		    col = 20;
-		col += red (11);
-	    }
-	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
-			 mw->y + (y - main_screen_originy) * 16,
-			 16, 16, col);
-#if defined (commentout)
-	    Fgl_fillbox (mw->x + (x - main_screen_originx) * 16,
-			 mw->y + (y - main_screen_originy) * 16,
-			 16 * main_groups[grp].size,
-			 16 * main_groups[grp].size,
-			 col);
-#endif
-	}
-    }
-#if defined (commentout)
-    unclip_main_window ();
-#endif
-    activate_help ("mini-in-main.hlp");
 }
 
 void

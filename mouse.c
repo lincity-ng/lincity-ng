@@ -13,6 +13,7 @@
 #include "mouse.h"
 #include "engglobs.h"
 #include "clistubs.h"
+#include "cliglobs.h"
 #include "engine.h"
 #include "screen.h"
 #include "climsg.h"
@@ -1011,8 +1012,16 @@ do_mouse_other_buttons (int x, int y, int button)
 
     else if (mouse_in_rect (&scr.mini_map_aux,x,y)) {
 	if (button == LC_MOUSE_RIGHTBUTTON) {
+	    /* Quick hack here -- need to generalize later */
+	    if (main_screen_flag == MINI_SCREEN_POL_FLAG)
+		main_screen_flag = MINI_SCREEN_NORMAL_FLAG;
+	    else
+		main_screen_flag = MINI_SCREEN_POL_FLAG;
+	    refresh_main_screen ();
+#if defined (commentout)  /* Help-based drawing */
 	    mini_screen_draw_in_main_win ();
-#if defined (commentout)
+#endif
+#if defined (commentout)  /* LC v1.11 */
 	    activate_help ("mini-screen.hlp");
 #endif
 	    return;

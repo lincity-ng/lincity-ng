@@ -471,6 +471,12 @@ load_city (char *cname)
 
     fscanf (ofile, "%d", &main_screen_originx);
     fscanf (ofile, "%d", &main_screen_originy);
+    if (main_screen_originx > WORLD_SIDE_LEN - scr.main_win.w / 16 - 1)
+	main_screen_originx = WORLD_SIDE_LEN - scr.main_win.w / 16 - 1;
+
+    if (main_screen_originy > WORLD_SIDE_LEN - scr.main_win.h / 16 - 1)
+	main_screen_originy = WORLD_SIDE_LEN - scr.main_win.h / 16 - 1;
+
     fscanf (ofile, "%d", &total_time);
     if (ver <= MM_MS_C_VER)
 	i = OLD_MAX_NUMOF_SUBSTATIONS;

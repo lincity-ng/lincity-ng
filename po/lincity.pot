@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-11 13:26-0400\n"
+"POT-Creation-Date: 2001-09-18 18:29-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,51 +14,51 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: cliglobs.c:59
+#: cliglobs.c:62
 msgid "Jan"
 msgstr ""
 
-#: cliglobs.c:59
+#: cliglobs.c:62
 msgid "Feb"
 msgstr ""
 
-#: cliglobs.c:59
+#: cliglobs.c:62
 msgid "Mar"
 msgstr ""
 
-#: cliglobs.c:59
+#: cliglobs.c:62
 msgid "Apr"
 msgstr ""
 
-#: cliglobs.c:60
+#: cliglobs.c:63
 msgid "May"
 msgstr ""
 
-#: cliglobs.c:60
+#: cliglobs.c:63
 msgid "Jun"
 msgstr ""
 
-#: cliglobs.c:60
+#: cliglobs.c:63
 msgid "Jul"
 msgstr ""
 
-#: cliglobs.c:60
+#: cliglobs.c:63
 msgid "Aug"
 msgstr ""
 
-#: cliglobs.c:61
+#: cliglobs.c:64
 msgid "Sep"
 msgstr ""
 
-#: cliglobs.c:61
+#: cliglobs.c:64
 msgid "Oct"
 msgstr ""
 
-#: cliglobs.c:61
+#: cliglobs.c:64
 msgid "Nov"
 msgstr ""
 
-#: cliglobs.c:61
+#: cliglobs.c:64
 msgid "Dec"
 msgstr ""
 
@@ -536,42 +536,42 @@ msgstr ""
 msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
 msgstr ""
 
-#: screen.c:2065
+#: screen.c:2021
 msgid "Market"
 msgstr ""
 
-#: screen.c:2067
+#: screen.c:2023
 msgid "Port"
 msgstr ""
 
-#: screen.c:2074
+#: screen.c:2030
 msgid "Buy"
 msgstr ""
 
-#: screen.c:2075
+#: screen.c:2031
 msgid "Sell"
 msgstr ""
 
-#: screen.c:2077
+#: screen.c:2033
 msgid "JOBS"
 msgstr ""
 
-#: screen.c:2079
+#: screen.c:2035
 msgid "FOOD"
 msgstr ""
 
-#: screen.c:2080
+#: screen.c:2036
 msgid "COAL"
 msgstr ""
 
-#: screen.c:2081
+#: screen.c:2037
 msgid "ORE"
 msgstr ""
 
-#: screen.c:2082
+#: screen.c:2038
 msgid "GOODS"
 msgstr ""
 
-#: screen.c:2083
+#: screen.c:2039
 msgid "STEEL"
 msgstr ""
