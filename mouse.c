@@ -21,7 +21,7 @@
 #include "lchelp.h"
 #include "pbar.h"
 
-#define DEBUG_MT_CODE 1
+#undef DEBUG_MT_CODE
 
 extern Update_Scoreboard update_scoreboard;
 

@@ -193,7 +193,7 @@ simulate_mappoints (void)
 		do_residence (x, y);
 		break;
 	    case GROUP_POWER_LINE:
-	      //		do_power_line (x, y);
+	        do_power_line (x, y);
 		break;
 	    case GROUP_SOLAR_POWER:
 		do_power_source (x, y);

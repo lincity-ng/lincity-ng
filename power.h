@@ -27,7 +27,7 @@ void do_power_source_coal(int x, int y);
 void do_power_line(int x, int y);
 
 /* intended private */
-void recurse_power_grid (int startx, int starty);
+void recurse_power_grid (int startx, int starty, int steps);
 int check_grid(int x, int y, int xi, int yi);
 void project_power(int x, int y);
 

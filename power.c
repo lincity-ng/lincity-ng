@@ -29,6 +29,7 @@ int grid_inc = 0;
 Grid * grid[MAX_GRIDS];
 int last_grid_alloc = -1;  
 
+#define POWER_MODULUS 25 // Controls how often we see a packet
 
 
 /* power_time_step 
@@ -96,7 +97,7 @@ map_power_grid ()
 	  grid[grid_num]->demand = 0;
 	  grid[grid_num]->max_power = 0;
 	  
-	  recurse_power_grid(mapx,mapy);
+	  recurse_power_grid(mapx,mapy,0);
 	  //	  grid[grid_num]->max_power = grid[grid_num]->total_power;
 	}      
       }
@@ -162,14 +163,18 @@ should really handle the connect_transport bit for power lines.  That
 would help perspicuity anyway. */
 
 void 
-recurse_power_grid (int startx, int starty) 
+recurse_power_grid (int startx, int starty, int steps) 
 {
   static int level;                /* debug: levels of recursion encountered */
+  int count = steps;                /* number of steps taken - for animation */
   short dir = -1;    /* -1 undetermined, 0 nothing left, Direction #defines  */
   int mapx = startx, mapy = starty;                         /* to move about */
   int inc;                /* handles special case of stepping over transport */
   
   level++;
+  
+  if (count % POWER_MODULUS == 0)
+    count = 0;
 
   /* Old windmills aren't grid connected, so they are on their own 'grid'.  We
    ignore them in the main loop.  This case should only be reached from a 
@@ -198,6 +203,9 @@ recurse_power_grid (int startx, int starty)
     /* figure out what we are on */
     if (IS_POWER_LINE(mapx,mapy)) {
       grid[grid_num]->power_lines++;
+      MP_INFO(mapx,mapy).int_5 = (count++ % POWER_MODULUS);
+      if ((MP_TYPE(mapx,mapy) >= 1) && (MP_TYPE(mapx,mapy) <= 11))
+	MP_TYPE(mapx,mapy) += 11;
     }
 
     /* For each direction, check map bounds, check if there is power stuff
@@ -210,7 +218,7 @@ recurse_power_grid (int startx, int starty)
 	if (dir < 1) 
 	  dir = WEST;
 	else
-	  recurse_power_grid(mapx - inc, mapy);
+	  recurse_power_grid(mapx - inc, mapy, count + 1);
 
 
 /* North */
@@ -219,7 +227,7 @@ recurse_power_grid (int startx, int starty)
 	if (dir < 1) 
 	  dir = NORTH;
 	else 
-	  recurse_power_grid(mapx, mapy - inc);
+	  recurse_power_grid(mapx, mapy - inc, count + 1);
 
 
 /* East */    
@@ -228,7 +236,7 @@ recurse_power_grid (int startx, int starty)
 	if (dir < 1) 
 	  dir = EAST;
 	else 
-	  recurse_power_grid(mapx + inc, mapy);
+	  recurse_power_grid(mapx + inc, mapy, count + 1);
 
 
 /* South */    
@@ -237,7 +245,7 @@ recurse_power_grid (int startx, int starty)
 	if (dir < 1) 
 	  dir = SOUTH;
 	else 
-	  recurse_power_grid(mapx, mapy + inc);
+	  recurse_power_grid(mapx, mapy + inc, count + 1);
 
 
     /* Move to a new square if the chosen direction is not already mapped. */
@@ -596,11 +604,19 @@ do_power_source_coal (int x, int y)
 void
 do_power_line (int x, int y)
 {
-  static int i;
-  if (++i > 10000) {
-    printf("i wrapped in do_power_line\n");
-    i = 0;
+  switch(MP_INFO(x,y).int_5 % POWER_MODULUS) {
+  case 0: {
+    if (!(MP_TYPE(x,y) >= 11 && MP_TYPE(x,y) <= 22))
+	break;
+    MP_INFO(x,y).int_5 = 0;
+    MP_TYPE(x,y) -= 11;
+  } break;
+  case 1: {
+    if (!(MP_TYPE(x,y) <= 11 && MP_TYPE(x,y) >= 1)) 
+      break;
+    MP_TYPE(x,y) += 11;
+  } break;
   }
-  return;
-}
 
+  MP_INFO(x,y).int_5++;
+}
