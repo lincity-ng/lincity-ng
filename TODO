@@ -26,7 +26,7 @@ Programming
  [M] Scale background images in menu
 
 --Bugs--
- [H] find memory-leak in OpenGL mode.
+
 
 --Game--
  [H] load/save game
