@@ -9,11 +9,6 @@ AM_INIT_AUTOMAKE
 
 AC_ARG_WITH(gzip,  [  --with-gzip             use gzip])
 AC_ARG_WITH(svga,  [  --with-svga             use svga library])
-AC_ARG_ENABLE(debug,[  --enable-debug          turn on debugging [default=no]],
-if eval "test x$enable_debug = xyes"; then
-  DEBUGFLAG="-g"
-fi)
-
 
 dnl Checks for programs.
 AC_ISC_POSIX
