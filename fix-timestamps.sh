@@ -1,0 +1,11 @@
+touch Makefile.am
+sleep 2
+touch configure.in
+sleep 2
+touch aclocal.m4
+sleep 2
+touch Makefile.in
+sleep 2
+touch stamp-h.in
+sleep 2
+touch configure
