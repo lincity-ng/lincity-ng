@@ -240,6 +240,7 @@ mps_update(void)
 		break;
 	    default: 
 		printf("MPS unimplemented for that module\n");
+		mps_style = MPS_NONE;
 	    }
 	}
         break;

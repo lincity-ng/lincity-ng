@@ -19,6 +19,8 @@ void mappoint_stats (int, int, int);
 #define MPS_ENV 1 /* Right click on map; x/y environmental status */
 #define MPS_GLOBAL 2 /* Global style; choose one of below */
 
+#define MPS_NONE 255
+
 #define MPS_GLOBAL_FINANCE 0 /* Overall financial information */
 #define MPS_GLOBAL_OTHER_COSTS 1 /* More detailed financials */
 #define MPS_GLOBAL_HOUSING 2 /* Citywide population information */

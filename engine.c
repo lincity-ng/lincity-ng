@@ -271,6 +271,9 @@ bulldoze_item (int x, int y)
 			do_bulldoze_area (CST_WATER, x + i, y + j);
 	}
     }
+
+    /* Tell mps about it, in case its selected */
+    mps_update();
     return size;  /* No longer used... */
 }
 
