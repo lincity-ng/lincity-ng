@@ -34,7 +34,7 @@ Programming
  [M] Statisitcs dialog
  [M] Statistics graph 
  [H] Dialogs for buildings (Harbour, Rocket)
- [M] Build multiple roads, streets, railroads, powerlines
+ [M] Build multiple roads, streets, railroads, powerlines, water
  [H] Implement Dialogs (y/n)
  [M] Translate Dialogs (hardcoded stuff im old engine)
  [H] draw rectangle for current GameView on Minimap
@@ -46,5 +46,8 @@ Programming
  [H] improve fast scrolling
  [H] Homepage
  [H] Tile graphics
-
+ [M] Show correct red/blue rectangles for harbour (ie. you can only build
+     harbours on water tiles on the right side)
+ [H] keep mouse at position when scrolling (so that you don't accidently move
+     out of the window)
 
