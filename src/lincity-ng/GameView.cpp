@@ -317,14 +317,14 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
                                 xmlY = -1;
                             }
                         }
-                    }//while(iter.next()) 
+                    } 
                     if( hit )
                     {
                         break;
                     }
                 }
             }
-        }//while( reader.read() ) 
+        } 
        
         if( hit && ( xmlX >= 0 ) )
         { 
@@ -651,24 +651,26 @@ void GameView::event(const Event& event)
                 }
                 int dragLength =  (int) sqrt( dragDistance.x * dragDistance.x + dragDistance.y * dragDistance.y ); 
                 int vPixelSec = (1000 * dragLength) / elapsed;
-                std::cout << "v=" << vPixelSec << " Pixels per second\n"; 
+                //std::cout << "v=" << vPixelSec << " Pixels per second\n"; 
                 //TODO: sometimes the Distance is way too big, why?
-                std::cout << "dragDistance=" << dragDistance.x << " " << dragDistance.y << "\n"; 
-               
-                //Mouse Acceleration
-                int accel = 1;
-                //TODO: read Acceleration Parameters from config file.
-                int accelThreshold = 200;
-                int max_accel = 8;
-                
-                if( vPixelSec > accelThreshold ) accel = 1 + ( ( vPixelSec - 200 ) / 100 );
-                if( accel > max_accel ) accel = max_accel;
-                // if( accel < 1 ) accel = 1;
-                std::cout << "Acceleration: " << accel << "\n"; 
-                
-                dragDistance *= accel;
-                viewport += dragDistance;
-                SDL_WarpMouse( (short unsigned int) dragStart.x, (short unsigned int) dragStart.y );
+                //std::cout << "dragDistance=" << dragDistance.x << " " << dragDistance.y << "\n"; 
+                if( vPixelSec < 2000 ) //if it is faster we just ignore it. TODO: find a better way...
+                {  
+                    //Mouse Acceleration
+                    int accel = 1;
+                    //TODO: read Acceleration Parameters from config file.
+                    int accelThreshold = 200;
+                    int max_accel = 8;
+                    
+                    if( vPixelSec > accelThreshold ) accel = 1 + ( ( vPixelSec - 200 ) / 100 );
+                    if( accel > max_accel ) accel = max_accel;
+                    // if( accel < 1 ) accel = 1;
+                    //std::cout << "Acceleration: " << accel << "\n"; 
+                    
+                    dragDistance *= accel;
+                    viewport += dragDistance;
+                    SDL_WarpMouse( (short unsigned int) dragStart.x, (short unsigned int) dragStart.y );
+                }
                 dragStartTime = now;
                 setDirty();
                 break;            
