@@ -186,22 +186,39 @@ void MiniMap::draw(Painter &painter)
 
   std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
   if(mpainter.get() == 0)
-      return;
+  {
+    // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
+  
+    for(y=0;y<WORLD_SIDE_LEN && y<height/tilesize;y++)
+      for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)
+        {
+          typ = MP_TYPE(x,y);
+          if (typ != mappointoldtype[x][y] || mFullRefresh)
+          {
+            mappointoldtype[x][y] = typ;
+            grp = get_group_of_type(typ);
+  
+            Color mc=getColor(x,y);
+            painter.setFillColor(mc);
+            painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+          }
+        }
+    return;
+  }
 
   for(y=0;y<WORLD_SIDE_LEN && y<height/tilesize;y++)
     for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)
       {
-	typ = MP_TYPE(x,y);
-	if (typ != mappointoldtype[x][y] || mFullRefresh)
-	  {
-	    mappointoldtype[x][y] = typ;
-	    
-	    grp = get_group_of_type(typ);
+        typ = MP_TYPE(x,y);
+        if (typ != mappointoldtype[x][y] || mFullRefresh)
+        {
+          mappointoldtype[x][y] = typ;
+          grp = get_group_of_type(typ);
 
-	    Color mc=getColor(x,y);
-	    mpainter->setFillColor(mc);
-	    mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
-	  }
+          Color mc=getColor(x,y);
+          mpainter->setFillColor(mc);
+          mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+        }
       }
 
 
