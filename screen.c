@@ -1803,11 +1803,17 @@ print_time_for_year (void)
     Fgl_write (b->x, b->y, s);
 }
 
+/* Write a message in the status area of the screen */
+
 void 
 status_message(char * message, int colour) 
 {
-    char s[50];
     Rect* b = &scr.status_message;
+
+    if (message == NULL) {
+	Fgl_fillbox(b->x, b->y, b->w, b->h, TEXT_BG_COLOUR);
+	return;
+    }
 
     Fgl_write (b->x, b->y, message);
 #if defined (WIN32)

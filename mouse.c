@@ -1996,7 +1996,7 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 
     switch(flag) {
     case MT_SUCCESS:
-	if (ox == 0) 
+	if (ox == 0)
 	    return 0;
 	draw_ret = do_mt_draw(ox, dx, oy, dy, mt_erase);
 
@@ -2005,15 +2005,18 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	       to build the road.  So clean up and exit. */
 	    mt_flag = 0;
 	    draw_main_window_box (green (8)); 
+	    status_message(NULL,25);
 	}
 	else if (draw_ret = do_mt_draw(ox, cx, oy, cy, mt_perm)) {
 
 	    print_total_money ();
 	    mt_flag = 0;
 	    draw_main_window_box (green (8)); 
+	    status_message(NULL,25);
 	} else {
 	    /* This shouldn't happen.  Clean up and continue anyway.  */
 	    mt_flag = 0;
+	    status_message(NULL,25);
 	    draw_main_window_box (green (8)); 
 	}
 	dx = 0; dy = 0;
@@ -2024,6 +2027,7 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	mt_flag = 0;
 	draw_main_window_box (green (8));
 	draw_ret = do_mt_draw(ox, dx, oy, dy, mt_erase);
+	status_message(NULL,25);
 
 	dx = 0; dy = 0;
 	ox = 0; oy = 0;
@@ -2039,7 +2043,7 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	if (!draw_ret) {
 	    draw_ret = do_mt_draw(ox, cx, oy, cy, mt_erase);
 	};
-	snprintf(s,STATUS_MESSAGE_LENGTH-1,"%10s: %3d * %20d",
+	snprintf(s,STATUS_MESSAGE_LENGTH-1,"%s: %3d * %3d",
 		 mt_name,mt_cost,
 		 mt_cost * get_type_cost(selected_type));
 	status_message(s,25);
