@@ -62,6 +62,8 @@ IsoDisplay::IsoDisplay(Component *parent, XmlReader& reader):
     
     mFullRefresh=true;
     mTexture.reset(texture_manager->create(image)); // don't delete image, as Texture-class takes ownage
+
+   setFlags(FLAG_RESIZABLE);
 }
 
 IsoDisplay::~IsoDisplay()
@@ -74,7 +76,7 @@ IsoDisplay::~IsoDisplay()
 
 void IsoDisplay::draw(Painter &painter)
 {
-  int sw=width,sh=height;
+  int sw=getWidth(),sh=getHeight();
   int x, y;
   int i, j;
   short typ, grp;
@@ -159,7 +161,7 @@ SDL_Surface *IsoDisplay::loadTexture(short t)
     
   int mc=t+20;
   
-  Color mc2((mc&3)*64,((mc>>2)&3)*64,((mc>>4)&3)*64, 100); // some random color
+  Color mc2((mc&3)*64,((mc>>2)&3)*64,((mc>>4)&3)*64, 255); // some random color
 
   p.setFillColor(mc2);
     
@@ -207,6 +209,28 @@ void IsoDisplay::event(const Event& event)
           py+=2;
       }
     }
+}
+
+void IsoDisplay::resize(float newwidth , float newheight )
+{
+    width = newwidth;
+    height = newheight;
+
+    // create new buffer
+    // create alpha-surface
+    SDL_Surface* image = SDL_CreateRGBSurface(0, (int) width, (int) height, 32,
+                0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
+
+    SDL_Surface *copy = SDL_DisplayFormat(image);
+    SDL_FreeSurface(image);
+    image=copy;
+
+    mFullRefresh=true;
+    mTexture.reset(texture_manager->create(image)); // don't delete image, as Texture-class takes ownage
+
+
+
+    //request redraw
 }
 
 

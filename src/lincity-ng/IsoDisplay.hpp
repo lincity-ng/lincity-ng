@@ -25,6 +25,8 @@ class IsoDisplay:public Component
 
   virtual void event(const Event& event);
 
+  virtual void resize(float w,float h);
+
  private:
 
   Texture *getTexture(int x,int y); // get Texture from cache or load from disk

@@ -7,6 +7,8 @@
 #include "gui_interface/pbar_interface.h"
 #include "gui/Component.hpp"
 
+#include <map>
+
 class LCPBar;
 class XmlReader;
 class Component;
@@ -20,6 +22,21 @@ public:
   ~LCPBar();
   
   void setValue(int num, int value);
+private:
+  std::map<int,int> oldValues;
+};
+
+class BarView : public Component
+{
+  public:
+   BarView(Component *widget, XmlReader &reader);
+   ~BarView();
+   
+   void setValue(float v);
+   virtual void draw(Painter &painter);
+  private:
+   float value;
+   bool dir;
 };
 
 #endif

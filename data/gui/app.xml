@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gui>
   <!-- <Image src="images/gui/background.png"/> -->
-  <!-- Godrins isoview <IsoDisplay width="800" height="600"/> -->
+  <!--<IsoDisplay width="800" height="600"/> -->
   <GameView/>
   <TableLayout rows="2" cols="3">
     <colsize col="1" fixed="100"/>
@@ -13,6 +13,9 @@
     <cell row="1" col="3" valign="top" halign="right">
         <Import src="gui/pbar.xml"/>
     </cell>
+    <cell row="1" col="2" valign="top" halign="left">
+      <Import src="gui/mps.xml"/>
+    </cell>  
     <cell row="2" col="3" valign="bottom" halign="right">
         <Import src="gui/minimap.xml"/>
     </cell>

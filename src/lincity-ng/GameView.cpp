@@ -20,6 +20,8 @@
 #include "lincity/lctypes.h"
 #include "lincity/engglobs.h"
 
+#include "Mps.hpp"
+
 #include <math.h>
 
 GameView::GameView(Component* parent, XmlReader& reader)
@@ -379,12 +381,27 @@ void GameView::event(const Event& event)
         case Event::MOUSEBUTTONUP:
              std::cout << "GameView::event click Button: " << event.mousebutton ;
              std::cout << "Pos " << event.mousepos.x << "/" << event.mousepos.y << "\n";
-             recenter(event.mousepos);
+             if(event.mousebutton==SDL_BUTTON_RIGHT)
+               recenter(event.mousepos);
+             else
+               click(event.mousepos);
              break;
         default:
              break;
     }
 }
+
+/*
+ * Process map-selection
+ */
+
+void GameView::click(const Vector2 &pos)
+{
+  Vector2 tile=getTile(pos);
+  std::cout << "Tile-pos:"<<tile.x<<","<<tile.y<<std::endl;
+  getMPS()->setView(tile.x,tile.y);
+}
+
 
 /*
  * Parent tells us to change size. 

@@ -1,88 +1,146 @@
 <LCPBar>
   <Panel width="204" height="204" background="images/gui/pbar_bg.png">
-    <DefineStyle name="title" color="black" font-size="18" text-align="left"/>
-    <DefineStyle name="text" color="black" font-size="18" text-align="right"/>
-    <TableLayout rows="2" cols="2">
-      <colsize col="1" relative="4"/>
+    <DefineStyle name="title" color="black" font-size="16" text-align="left"/>
+    <DefineStyle name="text" color="black" font-size="16" text-align="right"/>
+    <TableLayout rows="3" cols="3">
+      <colsize col="1" fixed="4"/>
       <colsize col="2" relative="196"/>
-      <rowsize col="1" relative="4"/>
+      <colsize col="3" fixed="4"/>
+      <rowsize col="1" fixed="4"/>
       <rowsize col="2" relative="196"/>
+      <rowsize col="3" fixed="4"/>
     <cell col="2" row="2">
-    <TableLayout rows="9" cols="2">
-        <colsize col="1" relative="2"/>
-        <colsize col="2" relative="1"/>
+    <TableLayout rows="9" cols="4">
+        <colsize col="1" relative="0.5"/>
+        <colsize col="2" fixed="16"/>
+        <colsize col="3" relative="0.25"/>
+        <colsize col="4" fixed="16"/>
    
         <cell row="1" col="1" halign="left">
           <Paragraph name="pbar_title1" style="title" translatable="yes">
           Population</Paragraph>
         </cell>
         <cell row="1" col="2" halign="right">
+          <BarView name="pbar_barview1a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="1" col="3" halign="right">
           <Paragraph name="pbar_text1" style="text">1</Paragraph>
         </cell>
-    
+        <cell row="1" col="4" halign="right">
+          <BarView name="pbar_barview1b" width="16" height="16" dir="1"/>
+        </cell>    
+        
         <cell row="2" col="1" halign="left">
           <Paragraph name="pbar_title2" style="title" translatable="yes">
           Tech Level</Paragraph>
         </cell>
         <cell row="2" col="2" halign="right">
+          <BarView name="pbar_barview2a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="2" col="3" halign="right">
           <Paragraph name="pbar_text2" style="text">1</Paragraph>
         </cell>
+        <cell row="2" col="4" halign="right">
+          <BarView name="pbar_barview2b" width="16" height="16" dir="1"/>
+        </cell>    
     
         <cell row="3" col="1" halign="left">
           <Paragraph name="pbar_title3" style="title" translatable="yes">
           Food</Paragraph>
         </cell>
         <cell row="3" col="2" halign="right">
+          <BarView name="pbar_barview3a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="3" col="3" halign="right">
           <Paragraph name="pbar_text3" style="text">1</Paragraph>
         </cell>
+        <cell row="3" col="4" halign="right">
+          <BarView name="pbar_barview3b" width="16" height="16" dir="1"/>
+        </cell>    
     
         <cell row="4" col="1" halign="left">
           <Paragraph name="pbar_title4" style="title" translatable="yes">
           Jobs</Paragraph>
         </cell>
         <cell row="4" col="2" halign="right">
+          <BarView name="pbar_barview4a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="4" col="3" halign="right">
           <Paragraph name="pbar_text4" style="text">1</Paragraph>
         </cell>
+        <cell row="4" col="4" halign="right">
+          <BarView name="pbar_barview4b" width="16" height="16" dir="1"/>
+        </cell>    
     
         <cell row="5" col="1" halign="left">
           <Paragraph name="pbar_title5" style="title" translatable="yes">
           Money</Paragraph>
         </cell>
         <cell row="5" col="2" halign="right">
+          <BarView name="pbar_barview5a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="5" col="3" halign="right">
           <Paragraph name="pbar_text5" style="text">1</Paragraph>
         </cell>
+        <cell row="5" col="4" halign="right">
+          <BarView name="pbar_barview5b" width="16" height="16" dir="1"/>
+        </cell>    
     
         <cell row="6" col="1" halign="left">
           <Paragraph name="pbar_title6" style="title" translatable="yes">
           Coal</Paragraph>
         </cell>
         <cell row="6" col="2" halign="right">
+          <BarView name="pbar_barview6a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="6" col="3" halign="right">
           <Paragraph name="pbar_text6" style="text">1</Paragraph>
         </cell>
+        <cell row="6" col="4" halign="right">
+          <BarView name="pbar_barview6b" width="16" height="16" dir="1"/>
+        </cell>    
     
         <cell row="7" col="1" halign="left">
           <Paragraph name="pbar_title7" style="title" translatable="yes">
           Goods</Paragraph>
         </cell>
         <cell row="7" col="2" halign="right">
+          <BarView name="pbar_barview7a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="7" col="3" halign="right">
           <Paragraph name="pbar_text7" style="text">1</Paragraph>
         </cell>
+        <cell row="7" col="4" halign="right">
+          <BarView name="pbar_barview7b" width="16" height="16" dir="1"/>
+        </cell>    
     
         <cell row="8" col="1" halign="left">
           <Paragraph name="pbar_title8" style="title" translatable="yes">
           Ore</Paragraph>
         </cell>
         <cell row="8" col="2" halign="right">
+          <BarView name="pbar_barview8a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="8" col="3" halign="right">
           <Paragraph name="pbar_text8" style="text">1</Paragraph>
         </cell>
+        <cell row="8" col="4" halign="right">
+          <BarView name="pbar_barview8b" width="16" height="16" dir="1"/>
+        </cell>    
     
         <cell row="9" col="1" halign="left">
           <Paragraph name="pbar_title9" style="title" translatable="yes">
           Steel</Paragraph>
         </cell>
         <cell row="9" col="2" halign="right">
+          <BarView name="pbar_barview9a" width="16" height="16" dir="-1"/>
+        </cell>    
+        <cell row="9" col="3" halign="right">
           <Paragraph name="pbar_text9" style="text">1</Paragraph>
         </cell>
+        <cell row="9" col="4" halign="right">
+          <BarView name="pbar_barview9b" width="16" height="16" dir="1"/>
+        </cell>    
       </TableLayout>
       </cell>
     </TableLayout>

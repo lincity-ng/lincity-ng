@@ -5,7 +5,12 @@
 #include "lincity/engglobs.h"
 #include "lincity/modules/all_modules.h"
 
+#include "Util.hpp"
+
 #include "gui/XmlReader.hpp"
+#include "gui/ComponentFactory.hpp"
+#include "gui/ComponentLoader.hpp"
+#include "gui/Paragraph.hpp"
 
 LCMps *mLCMPS;
 
@@ -14,56 +19,48 @@ void mps_update(int,int,int);
 LCMps::LCMps(Component *parent,XmlReader &reader):
   Component(parent)
 {
-  
+  Component* component = parseEmbeddedComponent(this, reader);
+  if(component)
+    addChild(component);
+
   mLCMPS=this;
-  /*
-  int i;
-  addFixedColumn();
-  for(i=0;i<10;i++)
-    {
-      addFixedRow();
-    }
-
-  AGFont f("Arial.ttf",13);
-  f.setColor(AGColor(0,0,0));
-
-  AGText *t;
-  for(int i=0;i<10;i++)
-    {
-      mTexts.push_back(t=new AGText(this,AGPoint(0,0),"nothing",f));
-      AGTable::addChild(0,i,t);
-    }
-
-
-    arrange();*/
+  
+  setView(10,10);
 }
 
 void LCMps::setText(int i,const std::string &s)
 {
-  /*
-  cdebug(i<<":"<<s);
-  if(i>=0 && i<10)
-    mTexts[i]->setText(s);
-    arrange();*/
+  if(i>=10)
+    return;
+    std::ostringstream compname;
+    compname << "mps_text" << (i+1);
+    Paragraph* p = getParagraph(*this, compname.str());
+    if(p)
+    {
+      p->setText(s);
+     }
+    else
+      std::cout<<"Paragraph with num:"<<i<<" not found"<<std::endl;
 }
-
-
-
 
 
 void LCMps::setView(int x,int y)
 {
-  /*
-  CTRACE;
-  cdebug(x<<"/"<<y);
+
+  int xx,yy;
+  
+  xx=x;
+  yy=y;
+  if (MP_TYPE(x,y) == CST_USED)
+    {
+      xx = MP_INFO(x,y).int_1;
+      yy = MP_INFO(x,y).int_2;
+    }
 
   // first clear all text
   for(int i=0;i<10;i++)
-    setText(i,"");
-  mps_update(x,y,MPS_GLOBAL);// MPS_ENV);// MPS_MAP);
-
-  //  if(x<0 || y<0)
-  */
+    setText(i," ");
+  mps_update(xx,yy,MPS_MAP);//GLOBAL);// MPS_ENV);// MPS_MAP);
 }
 
 
@@ -208,3 +205,6 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 
     mps_refresh();
 }
+
+IMPLEMENT_COMPONENT_FACTORY(LCMps)
+INTERN_LCMpsFactory myLCMpsFactory;
