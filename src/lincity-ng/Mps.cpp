@@ -173,6 +173,9 @@ void mps_update(int mps_x,int mps_y,int mps_style)
             mps_recycle (mps_x, mps_y);
         break;
         case GROUP_RESIDENCE_LL:
+            getSound()->playwav( "ResidentialLowLow" );
+            mps_residence(mps_x, mps_y);
+        break;
         case GROUP_RESIDENCE_LH:
             getSound()->playwav( "ResidentialLow" );
             mps_residence(mps_x, mps_y);

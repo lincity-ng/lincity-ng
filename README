@@ -1,3 +1,53 @@
+INSTALL
+
 This applications uses the scons build system
 (See scons.sf.net for details). So you have to type "scons" instead "make".
+
+
+GAMEPLAY
+
+Mouse
+-----
+
+any:
+ Click on Minimap shows the selected Area on mainscreen.
+
+right:
+ Drag mainscreen with right mousebutton.
+ Right click on mainscreen centers to tile under cursor.
+
+middle:
+ Middleclick on building shows Information about tile under cursor.
+
+left:
+ Perform action depending on selected tool. Bulldoze, show Information,
+ construct building.
+
+wheel:
+ up: zoom in
+ down: zoom out
+
+Keyboard
+--------
+
+ KP_PLUS: zoom in
+ KP_MINUS zoom out
+ KP_ENTER zoom 100%
+
+ KP5 put middle of the map in the center of the main screen  
+
+ KP9 scroll main screen north
+ KP1 scroll main screen south
+ KP7 scroll main screen west
+ KP3 scroll main screen east
+
+ KP2 scroll main screen se 
+ KP4 scroll main screen sw 
+ KP6 scroll main screen se 
+ KP8 scroll main screen nw 
+
+use shift + direction to scroll faster
+
+ 
+
 
