@@ -13,6 +13,7 @@ public:
     bool useOpenGL;
     int videoX, videoY;
     int soundVolume;
+    std::string lincityHome;
 private:
     void load( const std::string& filename );
     void save();

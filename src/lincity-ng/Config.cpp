@@ -29,6 +29,8 @@ Config::Config()
     videoY = 600;
 
     soundVolume = 128;
+
+    lincityHome = "./data";
     
     //First we load the global File which should contain
     //sane defaults for the local system.
@@ -109,6 +111,18 @@ void Config::load( const std::string& filename ){
                     }
                 }//while(iter.next())                 
             }//if element == "audio" 
+            else if ( element == "env" ) {
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next()) 
+                {
+                    const char* name = (const char*) iter.getName();
+                    const char* value = (const char*) iter.getValue();
+                    if( strcmp(name, "LINCITY_HOME" ) == 0 )
+                    {
+                        lincityHome = value;
+                    }
+                }//while(iter.next())                 
+            }//if element == "env" 
             else {
                 std::cerr << "Config::load# Unknown element '" << element << "' in lincityconfig.xml.\n";
             }

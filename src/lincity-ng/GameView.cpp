@@ -72,12 +72,16 @@ GameView::GameView()
     assert(gameViewPtr == 0);
     gameViewPtr = this;
     mTextures = SDL_CreateMutex();
+    mThreadRunning = SDL_CreateMutex();
     loaderThread = 0;
 }
 
 GameView::~GameView()
 {
+    stopThread = true;
+    SDL_mutexP( mThreadRunning );
     SDL_KillThread( loaderThread );
+    SDL_DestroyMutex( mThreadRunning );
     SDL_DestroyMutex( mTextures );
     
     for(int i = 0; i < NUM_OF_TYPES; ++i) {
@@ -120,6 +124,8 @@ void GameView::parse(XmlReader& reader)
     blankTexture = readTexture( "blank.png" );
     memset( &cityTextures, 0, sizeof( cityTextures ) );
     memset( &cityImages, 0, sizeof( cityImages ) );
+    stopThread = false;
+    SDL_mutexP( mThreadRunning );
     loaderThread = SDL_CreateThread( gameViewThread, this );
    
     //GameView is resizable
@@ -260,6 +266,9 @@ SDL_Surface* GameView::readImage(const std::string& filename)
  */
 void GameView::preReadCityTexture( int textureType, const std::string& filename )
 {
+    if( stopThread ){ //skip loading if we stop anyway
+        return;
+    }
     XmlReader reader( "images/tiles/images.xml" );
     int xmlX = -1;
     int xmlY = -1;
@@ -616,6 +625,7 @@ const void GameView::loadTextures()
    preReadCityTexture( CST_FARM_O15,           "farm15.png" );
    preReadCityTexture( CST_FARM_O16,           "farm16.png" );
    // End of generated Code.
+   SDL_mutexV( mThreadRunning );
 }
 
 /*
@@ -654,7 +664,7 @@ void GameView::event(const Event& event)
                 
                 dragDistance *= accel;
                 viewport += dragDistance;
-                SDL_WarpMouse( dragStart.x, dragStart.y );
+                SDL_WarpMouse( (short unsigned int) dragStart.x, (short unsigned int) dragStart.y );
                 dragStartTime = now;
                 setDirty();
                 break;            
@@ -961,7 +971,6 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
             cityTextures[ textureType ] = texture_manager->create( cityImages[ textureType ] );
             cityImages[ textureType ] = 0; //Image is erased by texture_manager->create.
             texture = cityTextures[ textureType ];
-            std::cout << "GameView::drawTile: create Texture for Type " << textureType <<"\n";
         }
         SDL_mutexV( mTextures );
     }

@@ -71,7 +71,9 @@ private:
     int cityTextureX[ NUM_OF_TYPES ];
     int cityTextureY[ NUM_OF_TYPES ];
     SDL_mutex* mTextures;
+    SDL_mutex* mThreadRunning;
     SDL_Thread* loaderThread;
+    volatile bool stopThread;
         
     Vector2 tileUnderMouse, dragStart;
     bool mouseInGameView;

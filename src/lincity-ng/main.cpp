@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_ttf.h>
+#include <stdlib.h>
 
 #include "gui/TextureManager.hpp"
 #include "gui/PainterSDL/TextureManagerSDL.hpp"
@@ -172,6 +173,9 @@ int main(int argc, char** argv)
     //get default Values from Config
     std::auto_ptr<Config> config; 
     config.reset(new Config()); 
+
+    //set LINCITY_HOME environment variable
+    setenv( "LINCITY_HOME", config->lincityHome.c_str(), 1 );
    
     //parse commandline args
     int currentArgument = 0; 
