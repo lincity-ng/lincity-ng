@@ -110,7 +110,7 @@ void mps_update(int mps_x,int mps_y,int mps_style)
             mps_coal_power (mps_x, mps_y);
         break;
         case (GROUP_COMMUNE):
-            getSound()->playwav( "Click" );
+            getSound()->playwav( "Commune" );
             mps_commune (mps_x, mps_y);
         break;
         case (GROUP_CRICKET):
@@ -158,6 +158,7 @@ void mps_update(int mps_x,int mps_y,int mps_style)
             mps_port (mps_x, mps_y);
         break;
         case (GROUP_POTTERY):
+            getSound()->playwav( "Pottery" );
             mps_pottery (mps_x, mps_y);
         break;
         case GROUP_POWER_LINE:

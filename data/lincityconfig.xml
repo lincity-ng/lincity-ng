@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<configuration>
+    <GlobalConfig />
+    <video x="1024" y="768" useOpenGL="false" />
+</configuration>

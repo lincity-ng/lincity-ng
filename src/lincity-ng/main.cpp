@@ -20,9 +20,9 @@
 #include "MainMenu.hpp"
 #include "Game.hpp"
 #include "Sound.hpp"
+#include "Config.hpp"
 
 Painter* painter = 0;
-bool useOpenGL = false;
 
 void initSDL()
 {
@@ -81,7 +81,7 @@ void initVideo(int width, int height)
 {
     int bpp = 0;
     int flags;
-    if( useOpenGL ){
+    if( getConfig()->useOpenGL ){
         flags = SDL_OPENGL | SDL_RESIZABLE;
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
@@ -104,7 +104,7 @@ void initVideo(int width, int height)
     }
 
     delete painter;
-    if( useOpenGL ){
+    if( getConfig()->useOpenGL ){
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
 
@@ -127,7 +127,7 @@ void initVideo(int width, int height)
 
 void flipScreenBuffer()
 {
-    if( useOpenGL ){
+    if( getConfig()->useOpenGL ){
         SDL_GL_SwapBuffers();
         //glClear(GL_COLOR_BUFFER_BIT);
     } else {
@@ -168,8 +168,10 @@ int main(int argc, char** argv)
 {
     int result = 0;
 
-    //set default Values
-    useOpenGL = false;
+    initPhysfs(argv[0]);
+    //get default Values from Config
+    std::auto_ptr<Config> config; 
+    config.reset(new Config()); 
    
     //parse commandline args
     int currentArgument = 0; 
@@ -194,11 +196,11 @@ int main(int argc, char** argv)
             exit( 0 );
         }
         if( argStr == "-gl" ){ //use OpenGL
-            useOpenGL = true; 
+            config->useOpenGL = true; 
             knownArgument = true;
         }
         if( argStr == "-sdl" ){ //use SGL
-            useOpenGL = false; 
+            config->useOpenGL = false; 
             knownArgument = true;
         }
         
@@ -212,15 +214,14 @@ int main(int argc, char** argv)
 #ifndef DEBUG //in debug mode we wanna have a backtrace
     try {
 #endif
-        initPhysfs(argv[0]);
         std::auto_ptr<Sound> sound; 
         sound.reset(new Sound()); 
         initSDL();
         initTTF();
-        initVideo(1024, 800);
+        initVideo( config->videoX, config->videoY );
 	    initLincity();
 
-        if( useOpenGL ) {
+        if( getConfig()->useOpenGL ) {
             texture_manager = new TextureManagerGL();
         } else {
             texture_manager = new TextureManagerSDL();

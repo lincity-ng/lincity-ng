@@ -30,7 +30,6 @@ Programming
  [H] ingame music
  [H] Credits (simple text for now)
  [M] Loading... sceen (startup, run game)
- [H] config file
  [M] Statisitcs dialog
  [M] Statistics graph 
  [H] Dialogs for buildings (Harbour, Rocket)
@@ -46,8 +45,6 @@ Programming
  [H] improve fast scrolling
  [H] Homepage
  [H] Tile graphics
- [M] Show correct red/blue rectangles for harbour (ie. you can only build
-     harbours on water tiles on the right side)
  [H] keep mouse at position when scrolling (so that you don't accidently move
      out of the window)
 

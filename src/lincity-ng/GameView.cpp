@@ -55,6 +55,8 @@
 #include <SDL_keysym.h>
 #include <math.h>
 
+#include "gui_interface/shared_globals.h"
+
 GameView* gameViewPtr = 0;
 
 GameView* getGameView()
@@ -1088,6 +1090,19 @@ void GameView::draw(Painter& painter)
                     }
                 }
             }
+            //special conditions for some buildings
+            //
+            //The Harbour needs a River on the East side.
+            if( selected_module_type == CST_EX_PORT ){
+                x = (int) tileUnderMouse.x + cursorSize;
+                y = (int) tileUnderMouse.y;
+                for( y = (int) tileUnderMouse.y; y < tileUnderMouse.y + cursorSize; y++ ) {
+                    if (!( ( MP_GROUP( x, y ) == GROUP_WATER ) && ( MP_INFO(x,y).flags & FLAG_IS_RIVER ) ) ){
+                        painter.setFillColor( alphared );
+                    }
+                }
+            }
+            
             Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
             tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth * cursorSize / 2));
             tileOnScreenPoint.y -= tileHeight; 
