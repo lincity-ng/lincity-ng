@@ -694,6 +694,8 @@ maintainer-clean
 ############################################################################
 ############################################################################
 ############################################################################
+############################################################################
+
 install-exec-local:
 	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
 	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/help
@@ -702,7 +704,7 @@ install-exec-local:
 	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/messages/ca
 	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/opening
 	@list='$(EXTRA_PROGRAMS)'; for p in $$list; do \
-	  if test -f $$p && test ! -f $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; then \
+	  if test -f $$p; then \
 	    echo "  $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
 	     $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
 	  else :; fi; \
