@@ -23,6 +23,7 @@
 #include <iostream>
 
 #include "Debug.hpp"
+#include "Util.hpp"
 
 #define LC_MOUSE_LEFTBUTTON 1
 #define LC_MOUSE_RIGHTBUTTON 2
@@ -114,7 +115,7 @@ Component *MiniMap::findRoot(Component *c)
 
 void MiniMap::attachButtons()
 {
-// MatzeB:uncomment this line  if(alreadyAttached)
+    if(alreadyAttached)
     return;
   alreadyAttached=true;
   char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood","MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal"};
@@ -123,27 +124,15 @@ void MiniMap::attachButtons()
   
   for(int i=0;i<9;i++)
     {
-      Component *c=root->findComponent(buttonNames[i]);
-      if(c)
-      {
-        std::cout<<"Button "<<buttonNames[i]<<" found!"<<std::endl;
-        Button *b=dynamic_cast<Button*>(b);
-        if(b)
-        {
-          std::cout<<"Button1 "<<buttonNames[i]<<" found!"<<std::endl;
-          b->clicked.connect(makeCallback(*this, &MiniMap::chooseButtonClicked));
-          std::cout<<"Button2 "<<buttonNames[i]<<" found!"<<std::endl;
-        }
-      }
-      else
-        std::cout<<"Button "<<buttonNames[i]<<" not found!"<<std::endl;
-    }
-  
+      Button* b = getButton(*root, buttonNames[i]);
+      std::cout<<"Button1 "<<buttonNames[i]<<" found!"<<std::endl;
+      b->clicked.connect(makeCallback(*this, &MiniMap::chooseButtonClicked));
+    } 
 }
 
 void MiniMap::chooseButtonClicked(Button* button)
 {
-  std::cout<<"MiniMap::button clicked"<<std::endl;
+  std::cout<<"MiniMap::button '" << button->getName() << "' clicked"<<std::endl;
 }
 
 void MiniMap::draw(Painter &painter)
