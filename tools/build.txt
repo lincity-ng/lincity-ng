@@ -110,7 +110,7 @@ Make the Win package (version 1.12pre53, w/o catalan):
   15)    zip -r lincity112pre53.zip lincity112pre53
   16)    Done!
 
-Make the Win package (version 1.12.0):
+Make the Win package (version 1.12.0, 1.13.X):
 
   5)     Build release version on Win
 
@@ -127,6 +127,6 @@ Make the Win package (version 1.12.0):
   13)    run tools\delete_cruft.bat
   13.1)  Look around for other cruft files
 
-  14)    rename the directory (e.g. to lincity112pre53)
-  15)    zip -r lincity112pre53.zip lincity112pre53
+  14)    rename the directory (e.g. to lincity-1.13.2)
+  15)    zip -r lincity-1.13.2.zip lincity-1.13.2
   16)    Done!

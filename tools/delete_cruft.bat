@@ -23,6 +23,7 @@ deltree /y intl
 deltree /y messages\cvs
 deltree /y messages\ca
 rem deltree /y messages\ca\cvs
+deltree /y modules
 deltree /y old.Makefiles
 deltree /y opening\cvs
 deltree /y po
