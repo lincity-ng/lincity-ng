@@ -8,11 +8,14 @@
 #include "gui/Event.hpp"
 
 #include "MainLincity.hpp"
+#include "Sound.hpp"
 
 Game::Game()
 {
     gui.reset(loadGUIFile("gui/app.xml"));
     gui->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+
+    sound.reset(new Sound()); 
 }
 
 Game::~Game()

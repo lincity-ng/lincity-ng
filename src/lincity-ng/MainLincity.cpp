@@ -21,15 +21,13 @@
 
 void execute_timestep ()
 {
-  static Uint32 oldTime=0;
+  static Uint32 oldTime = SDL_GetTicks();
   Uint32 now=SDL_GetTicks();
   Uint32 mStepTime=(MED_TIME_FOR_YEAR*1000/NUMOF_DAYS_IN_YEAR); // Godrin:exchange MED with SLOW or FAST for other speeds
 
-  if(!oldTime)
-    oldTime=now;
-
-  if(oldTime-now<mStepTime)
+  if (now - oldTime < mStepTime)
     return; // skip frame
+  oldTime = now;
 
   //  TRACE;
   do_time_step();

@@ -9,6 +9,8 @@
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
 
+#include "Sound.hpp"
+
 #include "Debug.hpp"
 
 // FIXME: is this correct ???
@@ -272,6 +274,7 @@ void editMap (int x, int y, int button)
     {
     case 0:
       /* Success */
+      getSound()->playwav( "Build" );
       break;
     case -1:
       /* Not enough money */

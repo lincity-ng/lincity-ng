@@ -10,19 +10,19 @@
  *  read sounds from physfs
  *  
  */
-
-
 #include <config.h>
 
 #include "Sound.hpp"
 
-#include "gui/XmlReader.hpp"
-#include "gui/ComponentFactory.hpp"
+#include <assert.h>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+
 #include "gui/PhysfsStream/PhysfsSDL.hpp"
 
 #include <SDL_mixer.h>
 #include <physfs.h>
-
 
 Sound* soundPtr = 0;
 
@@ -35,6 +35,49 @@ Sound::Sound()
 {
     assert( soundPtr == 0);
     soundPtr = this;
+
+    //Load Sound
+    audioOpen = false;
+    /* Open the audio device */
+    if (Mix_OpenAudio( MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
+        fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
+    } else {
+        audioOpen = true;
+                                                                                  
+        //Load Waves
+        std::string filename;
+        std::string directory = "sounds/";
+        std::string fullname;
+        Mix_Chunk *chunk;
+        SDL_RWops* file;
+        char **rc = PHYSFS_enumerateFiles( directory.c_str() );
+        char **i;
+        for (i = rc; *i != NULL; i++) {
+            fullname = directory;
+            fullname.append( *i );
+            filename.assign( *i );
+
+            if(PHYSFS_isDirectory(fullname.c_str()))
+                continue;
+                
+            try {        
+                file = getPhysfsSDLRWops( fullname.c_str() );
+                chunk = Mix_LoadWAV_RW( file, 1);
+                if(!chunk) {
+                    std::stringstream msg;
+                    msg << "Couldn't read soundfile '" << fullname
+                        << "': " << SDL_GetError();
+                    throw std::runtime_error(msg.str());
+                }
+                        
+                std::string idName = getIdName( filename );
+                waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
+            } catch(std::exception& e) {
+                std::cerr << "Error: " << e.what() << "\n";
+            }
+        }
+        PHYSFS_freeList(rc);
+    }
 }
 
 Sound::~Sound()
@@ -50,67 +93,7 @@ Sound::~Sound()
 		Mix_CloseAudio();
 		audioOpen = false;
 	}
-
 }
-
-void
-Sound::parse(XmlReader& reader)
-{
-    //Read from config
-    XmlReader::AttributeIterator iter(reader);
-    while(iter.next()) {
-        const char* attribute = (const char*) iter.getName();
-        const char* value = (const char*) iter.getValue();
-        
-        //check if Attribute handled by parent
-        if(parseAttribute(attribute, value)) {
-            continue;
-        } else {
-            std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
-        }
-    }
-    // no more elements to parse
- 
-    //Load Sound
-    audioOpen = false;
-   	/* Open the audio device */
-	if (Mix_OpenAudio( MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
-		fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
-	} else {
-		audioOpen = true;
-
-        //Load Waves
-        std::string filename;
-        std::string directory = "sounds/";
-        std::string fullname;
-        Mix_Chunk *chunk;
-        SDL_RWops* file;
-        char **rc = PHYSFS_enumerateFiles( directory.c_str() );
-        char **i;
-        for (i = rc; *i != NULL; i++) {
-            fullname = directory;
-            fullname.append( *i );
-            filename.assign( *i );
-            if( !PHYSFS_isDirectory( fullname.c_str() ) ) {
-                file = getPhysfsSDLRWops( fullname.c_str() );
-                if( file ) {
-                    chunk = Mix_LoadWAV_RW( file, 1);
-                    if (chunk) {
-                        std::string idName = getIdName( filename );
-                        waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
-                    }
-                    else
-                    {
-                        std::cerr << "Couldn't load '" << fullname << "'\n";
-                    }
-                }
-            //    delete file; //is done automagically by getPhysfsSDLRWops.
-            }
-        }
-        PHYSFS_freeList(rc);
-	}
-}
-
 
 /*
  *  Playback an Audio-Effect.
@@ -119,7 +102,7 @@ Sound::parse(XmlReader& reader)
  *  beep1.wav, beep2.wav, beep3.wav
  *  playwav( "beep" ) would pick one of the three FIles randomly
  */
-void Sound::playwav( const std::string name ) {
+void Sound::playwav(const std::string& name) {
     std::cout << "Audio " << name << " request...";
     
     if( !audioOpen ){
@@ -151,5 +134,3 @@ std::string Sound::getIdName( const std::string filename)
     return filename.substr(0, pos);
 }
 
-//Register as Component
-IMPLEMENT_COMPONENT_FACTORY(Sound)

@@ -5,6 +5,7 @@
 #include <memory>
 
 class Painter;
+class Sound;
 class Component;
 
 class Game
@@ -17,6 +18,7 @@ public:
 
 private:
     std::auto_ptr<Component> gui;
+    std::auto_ptr<Sound> sound;
     
     bool running;
     MainState quitState;
