@@ -325,6 +325,8 @@ TableLayout::event(Event& event)
         }
         default:
             for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+                if(! (*i))
+                    continue;
                 (*i)->event(event);
             }
             break;

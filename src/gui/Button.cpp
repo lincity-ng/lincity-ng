@@ -12,6 +12,7 @@
 Button::Button(Component* parent, XmlReader& reader)
     : Component(parent), state(STATE_NORMAL), normal(0), hover(0), clicked(0), caption(0)
 {
+    // parse xml attributes
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
@@ -36,7 +37,8 @@ Button::Button(Component* parent, XmlReader& reader)
                 << attribute << "'.\n";
         }
     }
-        
+    
+    // parse contents of the xml-element
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
@@ -56,7 +58,8 @@ Button::Button(Component* parent, XmlReader& reader)
             }
         }
     }
-   
+
+    // if no width/height was specified we use the one from the "normal" image.
     if(width <= 0 || height <= 0) {
         width = normal->getWidth();
         height = normal->getHeight();
@@ -97,7 +100,7 @@ Button::draw(Painter& painter)
     painter.drawTexture(current, Rectangle(0, 0, width, height));
 
     if(caption.get())
-      painter.drawTexture(caption.get(), Rectangle(0, 0, width, height));
+        painter.drawTexture(caption.get(), Rectangle(0, 0, width, height));
 }
 
 void

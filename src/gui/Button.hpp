@@ -7,6 +7,13 @@
 class XmlReader;
 class Texture;
 
+/**
+ * This Component is a clickable button. You can assign images for the 3
+ * differen states of the button: normal, hover (when the mouse is inside the
+ * button area) and clicked (when the mouse button is pressed on the button).
+ * 
+ * signalClicked is fired each time the button is pressed.
+ */
 class Button : public Component
 {
 public:
@@ -31,7 +38,6 @@ private:
     std::auto_ptr<Texture> normal;
     std::auto_ptr<Texture> hover;
     std::auto_ptr<Texture> clicked;
-
     std::auto_ptr<Texture> caption;
 };
 
