@@ -761,7 +761,7 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
 
     //is Tile in City? If not draw Blank
-    if( tx < 0 || ty < 0 || tx > WORLD_SIDE_LEN || ty > WORLD_SIDE_LEN )
+    if( tx < 0 || ty < 0 || tx >= WORLD_SIDE_LEN || ty >= WORLD_SIDE_LEN )
     {
         tileOnScreenPoint.x -= ( ( blankTexture->getWidth() / 2 )  * zoom / defaultZoom );
         tileOnScreenPoint.y -= (blankTexture->getHeight()  * zoom / defaultZoom ); 

@@ -60,7 +60,7 @@ void LCMps::setText(int i,const std::string &s)
 
 void LCMps::setView(int x,int y)
 {
-    if( x < 0 || y < 0 || x > WORLD_SIDE_LEN || y > WORLD_SIDE_LEN )
+    if( x < 0 || y < 0 || x >= WORLD_SIDE_LEN || y >= WORLD_SIDE_LEN )
         return;
 
   int xx,yy;

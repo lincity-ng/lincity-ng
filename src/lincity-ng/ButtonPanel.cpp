@@ -297,6 +297,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
      }
      
    // get selected button and set module
+   setDirty();
 }
 
 int ButtonPanel::getModule() const
