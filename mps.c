@@ -13,10 +13,10 @@
 #include "lin-city.h"
 #include "mps.h"
 #include "engglobs.h"
-#include "clistubs.h"
 #include "mouse.h"
 #include "screen.h"
 #include "power.h"
+#include "engine.h"
 #include "lclib.h"
 #include "lcintl.h"
 
@@ -153,7 +153,6 @@ mappoint_stats (int x, int y, int button)
 		return;
 	    }
 	}
-	request_mappoint_stats (x, y);   /* Ask engine to forward MPS data */
 	xx = x;
 	yy = y;
 	oldbut = button;

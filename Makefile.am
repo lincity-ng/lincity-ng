@@ -10,7 +10,6 @@ SVGA_DEFS = -DSVGALIB=1
 SUBDIRS = intl po
 noinst_HEADERS = \
 	acconfig.h   animate.h	  cliglobs.h   \
-	climsg.h     clinet.h	 clistubs.h \
 	common.h     config.h	  confw32.h    \
 	engglobs.h   engine.h	 fileutil.h \
 	generic.h    geometry.h  dialbox.h \
@@ -25,9 +24,14 @@ noinst_HEADERS = \
 	mouse.h      mps.h	  pbar.h    \
 	picedit.h    pixmap.h     power.h \
 	protocol.h   resource.h	 screen.h \
-	sernet.h     shrglobs.h   shrnet.h     \
+	shrglobs.h   \
 	simulate.h   timer.h	 transport.h \
 	typeinit.h   xpicedit.h
+
+junk_hdrs = \
+	sernet.h     shrnet.h     \
+	climsg.h     clinet.h	 clistubs.h
+
 
 # -- This can't contain subdirectories --
 LC_DISTDIRS = \
@@ -137,8 +141,6 @@ LC_OBJ = \
 
 ## ----- xlincity -----
 xlincity_SOURCES = \
-	clinet.c climsg.c \
-	animate.c clistubs.c shrnet.c \
 	lclib.c power.c
 EXTRA_xlincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
@@ -151,6 +153,11 @@ xlincity_DEPENDENCIES = \
 xlincity_LDADD = \
 	${XLC_OBJ} \
 	-L. -lengine -lutils @X_LIBS@ -lXext -lX11 -lm
+
+former_xlincity_srcs = \
+	clistubs.c \
+	animate.c shrnet.c \
+	clinet.c climsg.c
 
 ## ----- lincity -----
 lincity_SOURCES = \

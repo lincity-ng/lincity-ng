@@ -16,7 +16,6 @@
 #include "dialbox.h"
 #include "mouse.h"
 #include "lclib.h"
-#include "clistubs.h"
 
 static Dialog_Box db_entry[MAX_DBOX_ENTRIES];
 static Dialog_Box * button[MAX_DBOX_ENTRIES];
@@ -292,9 +291,6 @@ dialog_refresh(void)
   text_window.x = dialog_window.x + BORDER_SIZE;
   text_window.y = dialog_window.y + BORDER_SIZE;
 
-  unrequest_mappoint_stats();
-  unrequest_main_screen();
-  
   hide_mouse();
 
   if (screen_refreshing && db_screen_fresh) {

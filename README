@@ -48,11 +48,13 @@ REQUIREMENTS
 
    *  SVGALIB 1.3.0 (or greater).  This is required to use new mouse 
       interface that uses parameters spec'd in /etc/vga/libvga.conf.
-      NOTE: SVGA is currently mostly untested.  Caveat emptor.
 
       OR	 X11.
 
       OR	 A Win32 OS.
+
+      NOTE: SVGA and Win32 are currently mostly untested for version 1.12.
+      Caveat emptor, and send us a patch if you can.
 
    *  A graphics card supported by your above choice.
 
@@ -122,16 +124,17 @@ By the way, xpicedit does not work on hi-color or full-color displays.
 INSTALLATION (WIN32)
 ====================
 Simply unpack the archive, and double click on the LINCITY.EXE icon.  
-Be sure to use a program such as UNZIP which preserves long filenames.  
 You can get your free copy of UNZIP from the INFO-ZIP web page at
 
     http://www.cdrom.com/pub/infozip/UnZip.html.
 
 
-RUNNING LINCITY (MONOLITHIC)
-============================
+RUNNING LINCITY (UNIX)
+======================
 
-Usually you will invoke the game with    lincity   or   xlincity
+Usually you will invoke the game with 'lincity' or 'xlincity'.  
+Typing 'lincity' will run the SVGA version, while typing 'xlincity' will
+run the X Windows version.  The SVGA version will not run under X.
 
              lincity  [opts]
              xlincity [opts]
@@ -155,55 +158,6 @@ This option only applies to xlincity.
         -d   Double the size of the window to 1280x960
 
 	-b   *obsolete* omit border around game.  Now on by default.
-
-If you get a message such as "Error. Can't find LINCITY_HOME", this
-means that Lincity can't find it's home directory.  The program searches
-for the file "colour.pal" in the following three directories (in order).
-So in the worst case, you can set the LINCITY_HOME environment variable.
-
-	The directory pointed to by the $LINCITY_HOME environment variable
-	The current working directory
-	The default directory
-
-
-INTERNATIONALIZATION
-====================
-
-Lincity supports a modest amount of internationalization.  Only languages
-that can be represented using iso8859-1 or iso8859-2 font are currently
-supported.
-
-If you wish to make a translation for your language, first get the sample 
-Catalan to display correctly.  After doing a configure, make and make install,
-set LANGUAGE environment variable to "ca", and run.  Only the messages will 
-be in Catalan (since that is the only part of the translation that is 
-done), but at least you can see the "Not enough tech" message if you try 
-to select a rocket ship.
-
-There are three parts to making a tranlation: making help files, making 
-message files, and making a .po file.  The messages and help files are 
-just a matter of editing the ASCII files, and installing them.  If your 
-language is "ca", they should go in the directories messages/ca and 
-help/ca underneath /usr/local/share/lincity.
-
-The .po file is a matter of translating these and getting them to compile 
-correctly.  You'll need to edit the autoconf files to get this to work.
-Send an email to the current maintainer and he will help you.
-
-
-RUNNING LINCITY (CLIENT/SERVER)
-===============================
-
-Client/server version is disabled for this version.  If you are interested
-in working on a client/server version, please send email to the 
-current maintainter or to the lincity mailing list.
-
-Run the applications "lcserver" to start the server.  At this time, 
-the only port that the server will listen at 5139.  Edit the 
-file "protocol.h" to change this.  Once the server is running, 
-clients should connect by clicking on the "Connect to Server" button
-from the LinCity main screen.  The server supports up to 16 simultaneous 
-connections at this time.
 
 
 NOTES FOR X VERSION
@@ -275,6 +229,44 @@ The source code is distributed together with the binary distribution,
 in the file source.tgz.
 
 
+THE LINCITY HOME DIRECTORY
+==========================
+
+If you get a message such as "Error. Can't find LINCITY_HOME", this
+means that Lincity can't find it's home directory.  The program searches
+for the file "colour.pal" in the following three directories (in order).
+So in the worst case, you can set the LINCITY_HOME environment variable.
+
+	The directory pointed to by the $LINCITY_HOME environment variable
+	The current working directory
+	The default directory
+
+
+INTERNATIONALIZATION
+====================
+
+Lincity supports a modest amount of internationalization.  Only languages
+that can be represented using iso8859-1 or iso8859-2 font are currently
+supported.
+
+If you wish to make a translation for your language, first get the sample 
+Catalan to display correctly.  After doing a configure, make and make install,
+set LANGUAGE environment variable to "ca", and run.  Only the messages will 
+be in Catalan (since that is the only part of the translation that is 
+done), but at least you can see the "Not enough tech" message if you try 
+to select a rocket ship.
+
+There are three parts to making a tranlation: making help files, making 
+message files, and making a .po file.  The messages and help files are 
+just a matter of editing the ASCII files, and installing them.  If your 
+language is "ca", they should go in the directories messages/ca and 
+help/ca underneath /usr/local/share/lincity.
+
+The .po file is a matter of translating these and getting them to compile 
+correctly.  You'll need to edit the autoconf files to get this to work.
+Send an email to the current maintainer and he will help you.
+
+
 COMPILATION UNDER WIN32
 =======================
 
@@ -292,6 +284,22 @@ Makefile.  The file Makefile.am contains the information about which
 files you need to compile.  In addition to the supplied files, you must 
 link with your compiler supplied VERSION.LIB in addition to the standard 
 WIN32 libraries.  You'll need to link with WSOCK32.LIB also.
+
+Of note, lincity 1.11 was patched to compile with the Borland compiler 
+too.  If this is not still working in 1.12, please send me a patch 
+and I'll be happy to add it to the archive.
+
+
+RUNNING LINCITY (CLIENT/SERVER)
+===============================
+
+Client/server version is disabled for this version.  In fact, the code 
+was completely removed as of version 1.12pre50, so the last version to 
+contain the (non-functioning) network code was 1.12pre49.
+
+If you are interested in working on a client/server version, please send 
+your email to the current maintainter or to the lincity mailing list.
+We are still interested in doing this!
 
 
 BUGS

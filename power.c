@@ -14,8 +14,8 @@
 #include "engglobs.h"
 #include "cliglobs.h"
 #include "simulate.h"
-#include "sernet.h"
-#include "clistubs.h"
+/*#include "sernet.h"*/
+/*#include "clistubs.h"*/
 #include "lcintl.h"
 #include "power.h"
 

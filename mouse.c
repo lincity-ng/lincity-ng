@@ -12,11 +12,9 @@
 #include "lin-city.h"
 #include "mouse.h"
 #include "engglobs.h"
-#include "clistubs.h"
 #include "cliglobs.h"
 #include "engine.h"
 #include "screen.h"
-#include "climsg.h"
 #include "mps.h"
 #include "fileutil.h"
 #include "lchelp.h"
@@ -303,10 +301,6 @@ move_mouse (int x, int y)
 	    && port_cb_flag == 0)
 	{
 	    mappoint_stats_flag = 0;
-	    unrequest_mappoint_stats ();
-#if defined (commentout)
-	    draw_diffgraph ();
-#endif
 	    update_scoreboard.mps = 1;
 	}
     }
@@ -1232,9 +1226,11 @@ do_market_cb_template (int x, int y, int is_market_cb)
 
     redraw_mouse ();
 
+#if defined (NETWORK_ENABLE)
     if (MP_INFO(mcbx,mcby).flags != old_flags) {
 	send_flags (mcbx,mcby);
     }
+#endif
 }
 
 void

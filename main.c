@@ -41,9 +41,7 @@
 #include "lin-city.h"
 #include "cliglobs.h"
 #include "engglobs.h"
-#include "animate.h"
 #include "timer.h"
-#include "clistubs.h"
 #include "ldsvgui.h"
 #include "simulate.h"
 #include "mouse.h"
@@ -154,9 +152,6 @@ lincity_main (int argc, char *argv[])
 
     /* Set up the paths to certain files and directories */
     init_path_strings ();
-
-    /* Initialize animation variables */
-    init_animation ();
 
     /* Make sure that things are installed where they should be */
     verify_package ();
@@ -553,8 +548,6 @@ execute_timestep (void)
 		let_one_through = 0;
 	}
 
-	/* GCS FIX: -- This is still not quite right here.  I still need 
-	   to receive nw messages when the user hits "pause", etc. */
 	if (slow_flag)
 	    next_time_step = real_time + (SLOW_TIME_FOR_YEAR
 					  * 1000 / NUMOF_DAYS_IN_YEAR);
@@ -565,13 +558,7 @@ execute_timestep (void)
 	    next_time_step = real_time + (MED_TIME_FOR_YEAR
 					  * 1000 / NUMOF_DAYS_IN_YEAR);
 
-	/* If nothing happens this time step (i.e. no server messages),
-	   then sleep() to give up timestep. */
-	engine_updated = do_time_step ();
-	if (!engine_updated) {
-	    lc_usleep (10);
-	    return 0;
-	}
+	do_time_step ();
 
 #ifdef CS_PROFILE
 	if (--prof_countdown <= 0)
@@ -599,11 +586,13 @@ execute_timestep (void)
 #endif
     }
 
+#if defined (NETWORK_ENABLE)
     if (network_flag != 0) {
 	do_network_screen ();
 	network_flag = 0;
 	let_one_through = 1;	/* if we are paused we need */
     }			        /* this to redraw the screen */
+#endif
 
     if (prefs_flag != 0 && prefs_drawn_flag == 0) {
 	do_prefs_screen ();

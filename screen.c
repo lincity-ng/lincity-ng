@@ -19,7 +19,6 @@
 #include "screen.h"
 #include "engglobs.h"
 #include "cliglobs.h"
-#include "clistubs.h"
 #include "pixmap.h"
 #include "lchelp.h"
 #include "mouse.h"
@@ -1620,37 +1619,31 @@ print_stats (void)
     hide_mouse ();
 #endif
 
-    /* Networked games refresh the screen in response to server messages.
-       The message handler sets flags in the update_scoreboard struct, which 
-       are checked below.  Non-networked games set the flags periodically
-       based on the current timestep. */
-    if (!network_game) {
-	if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1)) {
-	    update_scoreboard.monthly = 1;
-	}
-	if (total_time % NUMOF_DAYS_IN_YEAR == (NUMOF_DAYS_IN_YEAR - 1)) {
-	    update_scoreboard.yearly_1 = 1;
-	    update_scoreboard.money = 1;
-	}
-	if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
-	    update_scoreboard.yearly_2 = 1;
-	}
-	if (real_time > mappoint_stats_time) {
-	    update_scoreboard.mps = 1;
-	    mappoint_stats_time = real_time + 1000;
-	}
-	if (mini_screen_flags != MINI_SCREEN_NORMAL_FLAG 
-	    && real_time > mini_screen_time) {
-	    update_scoreboard.mini = 1;
-	    mini_screen_time = real_time + 1000;
-	}
-	if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
-	    calculate_time_for_year ();
-	    print_time_for_year ();
-	}
-	if (total_time % NUMOF_DAYS_IN_MONTH == 1) {
-	    update_scoreboard.date = 1;
-	}
+    if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1)) {
+	update_scoreboard.monthly = 1;
+    }
+    if (total_time % NUMOF_DAYS_IN_YEAR == (NUMOF_DAYS_IN_YEAR - 1)) {
+	update_scoreboard.yearly_1 = 1;
+	update_scoreboard.money = 1;
+    }
+    if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
+	update_scoreboard.yearly_2 = 1;
+    }
+    if (real_time > mappoint_stats_time) {
+	update_scoreboard.mps = 1;
+	mappoint_stats_time = real_time + 1000;
+    }
+    if (mini_screen_flags != MINI_SCREEN_NORMAL_FLAG 
+	&& real_time > mini_screen_time) {
+	update_scoreboard.mini = 1;
+	mini_screen_time = real_time + 1000;
+    }
+    if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
+	calculate_time_for_year ();
+	print_time_for_year ();
+    }
+    if (total_time % NUMOF_DAYS_IN_MONTH == 1) {
+	update_scoreboard.date = 1;
     }
 
     /* Decode and perform update requests according to scoreboard */

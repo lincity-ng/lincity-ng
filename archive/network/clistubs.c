@@ -6,10 +6,10 @@
 #include "lin-city.h"
 #include "engglobs.h"
 #include "lctypes.h"
-#include "clinet.h"
-#include "climsg.h"
+/*#include "clinet.h"*/
+/*#include "climsg.h"*/
 #include "simulate.h"
-#include "animate.h"
+/*#include "animate.h"*/
 #include "engine.h"
 #include "screen.h"
 

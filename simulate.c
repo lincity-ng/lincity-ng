@@ -81,7 +81,7 @@ int ly_cricket_cost;
  * Public Functions
  * ---------------------------------------------------------------------- */
 void
-engine_do_time_step (void)
+do_time_step (void)
 {
     /* Increment game time */
     total_time++;
@@ -493,7 +493,7 @@ clear_game (void)
 }
 
 void
-engine_new_city (int* originx, int* originy, int random_village)
+new_city (int* originx, int* originy, int random_village)
 {
     clear_game ();
     coal_reserve_setup ();

@@ -71,8 +71,6 @@
 #include "lin-city.h"
 #include "cliglobs.h"
 #include "engglobs.h"
-#include "protocol.h"
-#include "clinet.h"
 #include "ldsvguts.h"
 #include "fileutil.h"
 #include "mouse.h"
@@ -247,6 +245,7 @@ close_prefs_screen (void)
     prefs_drawn_flag = 0;
 }
 
+#if defined (NETWORK_ENABLE)
 void
 do_network_screen (void)
 {
@@ -279,6 +278,7 @@ do_network_screen (void)
     refresh_main_screen ();
     redraw_mouse ();
 }
+#endif
 
 void
 do_save_city ()

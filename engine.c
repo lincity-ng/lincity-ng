@@ -13,8 +13,8 @@
 #include "engglobs.h"
 #include "cliglobs.h"
 #include "simulate.h"
-#include "sernet.h"
-#include "clistubs.h"
+/*#include "sernet.h"*/
+/*#include "clistubs.h"*/
 #include "lcintl.h"
 #include "power.h"
 #include "mouse.h"
@@ -63,7 +63,7 @@ no_credit_build (int selected_group)
 }
 
 int 
-engine_place_item (int x, int y, short type)
+place_item (int x, int y, short type)
 {
     int group;
     int size;
@@ -150,7 +150,7 @@ engine_place_item (int x, int y, short type)
 }
 
 int 
-engine_bulldoze_item (int x, int y)
+bulldoze_item (int x, int y)
 {
     int g, size;
 
@@ -190,9 +190,6 @@ engine_bulldoze_item (int x, int y)
 			do_bulldoze_area (CST_WATER, x + i, y + j);
 	}
     }
-
-    broadcast_map_types_region (x, y, size);
-
     return size;  /* No longer used... */
 }
 
@@ -1556,7 +1553,6 @@ do_oremine (int x, int y)
 	{
 	  do_bulldoze_area (CST_WATER, x, y);
 	  connect_rivers ();
-	  broadcast_map_types_region (x, y, 4);
 	  refresh_main_screen ();
 	}
     }
@@ -1624,7 +1620,6 @@ do_commune (int x, int y)
       else if (MP_TYPE(x,y) <= CST_COMMUNE_7)
 	MP_TYPE(x,y) += 7;
       if (MP_INFO(x,y).int_3 > 0)	/*  >0% */
-
 	{
 	  MP_INFO(x,y).int_3 = 0;
 	  if (--MP_INFO(x,y).int_4 < 0)
@@ -1635,10 +1630,8 @@ do_commune (int x, int y)
 	  MP_INFO(x,y).int_3 = 0;
 	  MP_INFO(x,y).int_4++;
 	  if (MP_INFO(x,y).int_4 > 120)	/* 10 years */
-
 	    {
 	      do_bulldoze_area (CST_PARKLAND_PLANE, x, y);
-	      broadcast_map_types_region (x, y, 4);
 	      return;
 	    }
 	}
@@ -2427,9 +2420,8 @@ do_rocket_pad (int x, int y)
     else if (MP_INFO(x,y).int_4 >= (100 * ROCKET_PAD_LAUNCH) / 100) {
 	MP_TYPE(x,y) = CST_ROCKET_5;
 	update_main_screen ();
-	broadcast_rocket_built (x,y);
 	if (ask_launch_rocket_now (x,y)) {
-	    engine_launch_rocket (x,y);
+	    launch_rocket (x,y);
 	}
 	/* so we don't get get our money back when we bulldoze. */
 	if (x == last_built_x && y == last_built_y) {
@@ -2440,7 +2432,7 @@ do_rocket_pad (int x, int y)
 }
 
 void
-engine_launch_rocket (int x, int y)
+launch_rocket (int x, int y)
 {
     int i, r, xx, yy, xxx, yyy;
     rockets_launched++;
@@ -2449,7 +2441,7 @@ engine_launch_rocket (int x, int y)
     r = rand () % MAX_TECH_LEVEL;
     if (r > tech_level || rand () % 100 > (rockets_launched * 15 + 25)) {
 	/* the launch failed */
-	broadcast_rocket_fired (x, y, ROCKET_LAUNCH_BAD);
+	display_rocket_result_dialog (ROCKET_LAUNCH_BAD);
 	rockets_launched_success = 0;
 	xx = ((rand () % 40) - 20) + x;
 	yy = ((rand () % 40) - 20) + y;
@@ -2468,14 +2460,13 @@ engine_launch_rocket (int x, int y)
     } else {
 	rockets_launched_success++;
 	if (rockets_launched_success > 5) {
-	    broadcast_rocket_fired (x, y, ROCKET_LAUNCH_EVAC);
 	    remove_people (1000);
+	    display_rocket_result_dialog (ROCKET_LAUNCH_EVAC);
 	} else {
-	    broadcast_rocket_fired (x, y, ROCKET_LAUNCH_GOOD);
+	    display_rocket_result_dialog (ROCKET_LAUNCH_BAD);
 	}
     }
 }
-
 
 void
 remove_people (int num)
@@ -3226,9 +3217,6 @@ do_fire (int x, int y)
 	MP_TYPE(x,y) = CST_FIRE_DONE2;
       else
 	MP_TYPE(x,y) = CST_FIRE_DONE1;
-      if (old_type != MP_TYPE(x,y)) {
-	broadcast_map_types_region (x, y, 1);
-      }
       return;
     }
   MP_INFO(x,y).int_2++;
@@ -3433,8 +3421,6 @@ add_a_shanty (void)
       x = r % WORLD_SIDE_LEN;
     }
   set_mappoint (x, y, CST_SHANTY);
-  /* GCS FIX: Client can't update numof_shanties this way. */
-  broadcast_map_types_region (x, y, 2);
   numof_shanties++;
 }
 
@@ -3711,7 +3697,7 @@ is_real_river (int x, int y)
 }
 
 void 
-engine_do_coal_survey (void)
+do_coal_survey (void)
 {
     if (coal_survey_done == 0) {
 	total_money -= 1000000;

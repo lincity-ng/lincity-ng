@@ -1187,12 +1187,6 @@ extern void eswap16 (unsigned short *);
 extern void malloc_failure (void);
 
 /*
-  clistubs
-  ********
-*/
-extern int do_time_step (void);
-
-/*
   fileutil
   ********
 */

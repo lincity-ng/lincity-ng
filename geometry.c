@@ -14,7 +14,6 @@
 #include "cliglobs.h"
 #include "pixmap.h"
 #include "screen.h"
-#include "clistubs.h"
 #include "lcintl.h"
 #include "pbar.h"
 #include "mouse.h"
@@ -431,7 +430,6 @@ adjust_main_origin (int new_origin_x, int new_origin_y, int refresh)
     main_screen_originy = new_origin_y;
 
     if (refresh) {
-	request_main_screen ();
 	hide_mouse ();
 	refresh_main_screen ();
 	redraw_mouse ();

@@ -13,7 +13,6 @@
 #include "fileutil.h"
 #include "lin-city.h"
 #include "lchelp.h"
-#include "clistubs.h"
 #include "mouse.h"
 #include "geometry.h"
 #include "lcintl.h"
@@ -37,7 +36,6 @@ activate_help (char *hp)
 #else
     Fgl_setfontcolors (HELPBACKGROUNDCOLOUR, TEXT_FG_COLOUR);
 #endif
-    unrequest_main_screen ();
     draw_help_page (hp);
 }
 
@@ -265,7 +263,6 @@ draw_help_page (char *helppage)
 #else
 	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 #endif
-	request_main_screen ();
 	refresh_main_screen ();
 	return;
     }
