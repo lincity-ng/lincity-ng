@@ -190,9 +190,9 @@
      inkscape:window-width="1272"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
-     inkscape:cy="87.239140"
-     inkscape:cx="193.17994"
-     inkscape:zoom="2.8000000"
+     inkscape:cy="70.892606"
+     inkscape:cx="155.62256"
+     inkscape:zoom="3.9597980"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -219,7 +219,9 @@
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
     <g
-       transform="translate(-538.9376,-247.2469)"
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
+       transform="translate(-539.1901,-250.0248)"
        id="slider-up">
       <path
          style="fill:#000000;fill-opacity:0.58823532;fill-rule:evenodd;stroke:none;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
@@ -238,7 +240,7 @@
          sodipodi:nodetypes="cssssss" />
     </g>
     <g
-       transform="translate(-473.9376,-538.1397)"
+       transform="translate(-474.1901,-540.9176)"
        id="slider-down">
       <path
          style="fill:#000000;fill-opacity:0.58823532;fill-rule:evenodd;stroke:none;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
@@ -257,7 +259,9 @@
          sodipodi:nodetypes="cssss" />
     </g>
     <g
-       transform="translate(-506.9733,-368.6754)"
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
+       transform="translate(-507.2258,-371.4533)"
        id="slider-position">
       <path
          style="fill:url(#linearGradient2817);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
@@ -271,8 +275,10 @@
          sodipodi:nodetypes="cssssss" />
     </g>
     <g
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
        transform="translate(-539.1995,-205.9286)"
-       id="g3583">
+       id="slider-up-highlight">
       <path
          style="fill:#000000;fill-opacity:0.58823532;fill-rule:evenodd;stroke:none;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
          d="M 568.85640,292.13576 C 572.15666,280.89816 577.83812,270.41253 585.14882,264.18799 C 588.36553,274.33942 593.58747,284.49085 599.18538,293.51435 C 585.71279,290.15142 578.56919,289.98433 568.85640,292.13576 z "
@@ -290,8 +296,10 @@
          sodipodi:nodetypes="cssssss" />
     </g>
     <g
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
        transform="translate(-474.1995,-496.8214)"
-       id="g3591">
+       id="slider-down-highlight">
       <path
          style="fill:#000000;fill-opacity:0.58823532;fill-rule:evenodd;stroke:none;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
          d="M 569.60835,557.82767 C 579.71801,555.36292 588.82506,554.90338 598.43342,557.95299 C 590.12010,566.89294 587.19582,575.45691 583.89555,586.40208 C 576.83551,579.42558 571.15404,567.56135 569.60835,557.82767 z "
@@ -309,8 +317,10 @@
          sodipodi:nodetypes="cssss" />
     </g>
     <g
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
        transform="translate(-507.2352,-327.3571)"
-       id="g3599">
+       id="slider-position-hightlight">
       <path
          style="fill:url(#linearGradient3605);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
          d="M 599.31071,393.77546 C 587.53943,367.78055 559.78816,384.76696 567.72846,406.80940 C 576.30299,430.61248 605.32638,407.06005 599.31071,393.77546 z "
