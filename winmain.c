@@ -523,7 +523,10 @@ char
 GetKeystroke () 
 {
     char key;
-    ProcessPendingEvents ();
+    /* GCS 02/02/2003  I found out that sometimes the mouse events were
+		       getting lost here. */
+    HandleMouse ();
+//    ProcessPendingEvents ();
     key = x_key_value;
     x_key_value = 0;
     return key;

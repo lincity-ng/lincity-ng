@@ -22,7 +22,7 @@
 #include "lclib.h"
 #include "module_buttons.h"
 
-#undef DEBUG_MT_CODE
+#define DEBUG_MT_CODE 1
 
 extern Update_Scoreboard update_scoreboard;
 
@@ -109,8 +109,6 @@ cs_mouse_handler (int enc_button, int dx, int dy)
     if (button_pressed) {
 
 	/* maintain button press status */
-
-
 	pixel_to_mappoint(cs_mouse_x, cs_mouse_y, 
 			  &buttons[button_idx].mappoint_x, 
 			  &buttons[button_idx].mappoint_y);
@@ -119,7 +117,6 @@ cs_mouse_handler (int enc_button, int dx, int dy)
 	buttons[button_idx].pressed = 1;
 
 	/* Try the event list before moving on to special cases */
-
 	if (!mouse_handle_click(x, y, button)) {
 	    switch (button) {
 	    case LC_MOUSE_LEFTBUTTON:
@@ -450,12 +447,6 @@ redraw_normal_mouse (void)
     }
 #endif
 }
-
-
-
-
-
-
 
 void
 do_mouse_main_win (int px, int py, int button)
@@ -1176,7 +1167,6 @@ do_mt_draw (int x1, int x2, int y1, int y2, int (*mode)())
     }
 }
 
-  
 int
 mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 {
@@ -1294,10 +1284,8 @@ cmp(int n1, int n2)
 	return 0;
 }
 
-
-
 void
-init_mouse_registry() /* This never gets called? */
+init_mouse_registry()
 {
     mhandle_first = NULL;
     mhandle_last = NULL;
@@ -1307,7 +1295,6 @@ init_mouse_registry() /* This never gets called? */
 
 /* Add and return an entry in the registry.  Add it at the beginning, so
    it supercedes earlier entries in mouse_handle_click() */
-
 Mouse_Handle *
 mouse_register(Rect * r, void (*function)(int, int, int)) 
 {
@@ -1332,7 +1319,6 @@ mouse_register(Rect * r, void (*function)(int, int, int))
 
 
 /* Remove an entry from the registry */
-
 void 
 mouse_unregister(Mouse_Handle * mhandle)
 {
@@ -1360,7 +1346,6 @@ mouse_unregister(Mouse_Handle * mhandle)
    BEWARE!!!  Some handlers unregister themselves when called.  Assume 
    mhandle_current is undefined after calling mhandle_current->handler()
 */
-
 int 
 mouse_handle_click(int x, int y, int button) 
 {

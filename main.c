@@ -204,6 +204,7 @@ lincity_main (int argc, char *argv[])
 
     initialize_geometry (&scr);
     initialize_monthgraph ();
+    init_mouse_registry ();
     init_mini_map_mouse ();
 
 #ifdef LC_X11

@@ -32,10 +32,11 @@ void free_pixmap (void);
 /* ---------------------------------------------------------------------- *
  * Public Inline Functions
  * ---------------------------------------------------------------------- */
+#if defined (WIN32)
 inline int 
 pixmap_index (int x, int y) {
     return y*pixmap_width + x;
 }
-
+#endif
 
 #endif	/* __pixmap_h__ */
