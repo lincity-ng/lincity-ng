@@ -2133,10 +2133,11 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
     if (w < 20)			/* min width */
 	w = 20;
     w *= 8;			/* convert chars to pixels */
-
-    x = (640 / 2) - (w / 2);
-    y = (480 / 2) - (8 * 9 / 2);
     h = 9 * 8;
+
+    x = (pixmap_width / 2) - (w / 2);
+    y = (pixmap_height / 2) - (h / 2);
+
     ss = (char *) malloc ((w + 16) * (h + 16) * sizeof (char));
     if (ss == 0) {
 	malloc_failure ();
@@ -2264,40 +2265,36 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     if ((inf = fopen (s, "r")) == NULL)
     {
 	printf ("Can't open message <%s> for OK dialog box\n", s);
-
-
 	strcpy (s, message_path);
 	strcat (s, "error.mes");
 	if ((inf = fopen (s, "r")) == NULL)
 	{
-	    fprintf (stderr
-		     ,"Can't open default message <%s> either\n", s);
+	    fprintf (stderr,
+		     "Can't open default message <%s> either\n", s);
 	    fprintf (stderr, " ...it was not displayed");
 	    return;
 	}
     }
     /* static 74*22 char array for the message info array */
     l = 0;
-    while (feof (inf) == 0 && l < 20)
-    {
+    while (feof (inf) == 0 && l < 20) {
 	if (fgets (okmessage[l], 70, inf) == 0)
 	    break;
 	l++;
     }
     fclose (inf);
-    if (xs != 0)
-    {
+    if (xs != 0) {
 	strncpy (okmessage[l], xs, 70);
 	l++;
     }
     /* 'l' is now the number of lines. Work out the height of the box. */
-    h = (l + 3) * 10;		/* half a line above and below the title, 2 lines */
-    /* for the ok button. 10 pixels per line */
+    /* Need half a line above and below the title and 2 lines for the 
+       ok button.  10 pixels per line. */
+    h = (l + 3) * 10;
 
+    /* Get rid of new line and work out the width of the longest line. */
     w = 0;
-    /* Get rid of new line and work out the width of the logest line. */
-    for (i = 0; i < l; i++)
-    {
+    for (i = 0; i < l; i++) {
 	/* get rid of the newline */
 	if (okmessage[i][strlen (okmessage[i]) - 1] == 0xa)
 	    okmessage[i][strlen (okmessage[i]) - 1] = 0;
@@ -2305,10 +2302,10 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 	    w = strlen (okmessage[i]);
     }
     w = (w + 2) * 8;		/* leave a space at either side. */
-    /* now we can work out the x and y points. */
 
-    x = (640 / 2) - (w / 2);
-    y = (480 / 2) - (h / 2);
+    /* now we can work out the x and y points. */
+    x = (pixmap_width / 2) - (w / 2);
+    y = (pixmap_height / 2) - (h / 2);
     ss = (char *) malloc ((w + 16) * (h + 16) * sizeof (char));
     if (ss == 0)
     {
@@ -2317,8 +2314,7 @@ ok_dial_box (char *fn, int good_bad, char *xs)
     hide_mouse ();
     Fgl_getbox (x - 8, y - 8, w + 16, h + 16, ss);
     Fgl_fillbox (x, y, w, h, colour);
-    for (i = 1; i < 8; i++)
-    {
+    for (i = 1; i < 8; i++) {
 	Fgl_hline (x - i, y - i, x + w + i - 1, colour + i + i);
 	Fgl_hline (x - i, y + h + i - 1, x + w + i - 1, colour + i + i);
 	Fgl_line (x - i, y - i, x - i, y + h + i - 1, colour + i + i);
