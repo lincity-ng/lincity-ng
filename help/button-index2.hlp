@@ -1,0 +1,54 @@
+text -1 5 Select button index page 2 of 3
+text -1 20 Click on a button for a help page
+
+text 80 54 Light industrial areas
+icon 50 50 industryl-button.csi
+button 48 48 20 20 industryl.hlp
+
+text 80 78 University
+icon 50 74 university-button.csi
+button 48 72 20 20 university.hlp
+
+text 80 102 Commune
+icon 50 98 commune-button.csi
+button 48 96 20 20 commune.hlp
+
+text 80 126 Ore mine
+icon 50 122 oremine-button.csi
+button 48 120 20 20 oremine.hlp
+
+text 80 150 Import
+icon 50 146 im_port-button.csi
+button 48 144 20 20 export.hlp
+
+text 80 174 Export
+icon 50 170 ex_port-button.csi
+button 48 168 20 20 export.hlp
+
+text 80 198 Heavy industry (steel works)
+icon 50 194 industryh-button.csi
+button 48 192 20 20 industryh.hlp
+
+text 80 222 Parkland
+icon 50 218 parkland-button.csi
+button 48 216 20 20 park.hlp
+
+text 80 246 Recycle centre
+icon 50 242 recycle-button.csi
+button 48 240 20 20 recycle.hlp
+
+text 80 270 Water/Rivers
+icon 50 266 water-button.csi
+button 48 264 20 20 river.hlp
+
+text 80 294 Health Centre
+icon 50 290 health-button.csi
+button 48 288 20 20 health.hlp
+
+text 80 318 Rocket Launch Pad
+icon 50 314 rocket-button.csi
+button 48 312 20 20 rocket.hlp
+
+
+text -1 364 Next Page
+button -1 360 84 14 button-index3.hlp

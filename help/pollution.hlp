@@ -1,0 +1,25 @@
+text -1 15 Pollution
+
+text -1 40 Most areas produce some pollution.
+text -1 50 The following are areas that can cause
+text -1 60 heavy pollution:
+text -1 75 Heavy industry.
+text -1 85 Light industry.
+text -1 95 Coal fired power stations.
+text -1 105 Coal mines.
+text -1 115 Markets that are full of waste.
+text -1 125 Roads/Rail, particularly when full of waste.
+
+text -1 150 People do not like living in polluted areas.
+text -1 160 They will move out, or even become ill and die.
+
+text -1 200 The prevailing wind is from the bottom left.
+text -1 210 Therefore the pollution tends to drift towards
+text -1 220 the top right hand side.
+
+text -1 290 Generally you would build strategically so
+text -1 300 people are not exposed to pollution. This
+text -1 310 is not always possible however. If this is
+text -1 320 the case then parks form quite a nice barrier.
+text -1 330 The more parks, the greater the protection.
+

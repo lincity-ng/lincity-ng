@@ -1,0 +1,578 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-05-28 15:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: cliglobs.c:54
+msgid "Jan"
+msgstr "JAN"
+
+#: cliglobs.c:54
+msgid "Feb"
+msgstr "FEB"
+
+#: cliglobs.c:54
+msgid "Mar"
+msgstr "MAR"
+
+#: cliglobs.c:54
+msgid "Apr"
+msgstr "APR"
+
+#: cliglobs.c:55
+msgid "May"
+msgstr "MAY"
+
+#: cliglobs.c:55
+msgid "Jun"
+msgstr "JUN"
+
+#: cliglobs.c:55
+msgid "Jul"
+msgstr "JUL"
+
+#: cliglobs.c:55
+msgid "Aug"
+msgstr "AUG"
+
+#: cliglobs.c:56
+msgid "Sep"
+msgstr "SEP"
+
+#: cliglobs.c:56
+msgid "Oct"
+msgstr "OCT"
+
+#: cliglobs.c:56
+msgid "Nov"
+msgstr "NOV"
+
+#: cliglobs.c:56
+msgid "Dec"
+msgstr "DEC"
+
+#: ldsvgui.c:297
+msgid "Save a scene"
+msgstr ""
+
+#: ldsvgui.c:299
+msgid "Choose the number of the scene you want to save"
+msgstr ""
+
+#: ldsvgui.c:301 ldsvgui.c:391 ldsvgui.c:753
+msgid "Press space to cancel."
+msgstr ""
+
+#: ldsvgui.c:324
+msgid "Type comment for the saved scene"
+msgstr ""
+
+#: ldsvgui.c:326
+msgid "The comment may be up to 40 characters"
+msgstr ""
+
+#: ldsvgui.c:328
+msgid "and may contain spaces or % . - + ,"
+msgstr ""
+
+#: ldsvgui.c:337
+msgid "Saving city scene... please wait"
+msgstr ""
+
+#: ldsvgui.c:381
+msgid "Load a file"
+msgstr ""
+
+#: ldsvgui.c:383
+msgid "Choose the number of the scene you want"
+msgstr ""
+
+#: ldsvgui.c:385
+msgid "Entries coloured red are either not there,"
+msgstr ""
+
+#: ldsvgui.c:387
+msgid "or they are from an earlier version, they"
+msgstr ""
+
+#: ldsvgui.c:389
+msgid "might not load properly."
+msgstr ""
+
+#: ldsvgui.c:416 ldsvgui.c:778
+msgid "No scene."
+msgstr ""
+
+#: ldsvgui.c:417 ldsvgui.c:779
+msgid "There is no save scene with this number."
+msgstr ""
+
+#: ldsvgui.c:418 ldsvgui.c:780
+msgid "Do you want to"
+msgstr ""
+
+#: ldsvgui.c:419 ldsvgui.c:781
+msgid "try again?"
+msgstr ""
+
+#: ldsvgui.c:430 ldsvgui.c:792
+#, fuzzy
+msgid "Loading Scene"
+msgstr "LOADING THE GAME"
+
+#: ldsvgui.c:431 ldsvgui.c:793
+msgid "Do you want to load the scene"
+msgstr ""
+
+#: ldsvgui.c:433 ldsvgui.c:795
+msgid "and forget the current game?"
+msgstr ""
+
+#: ldsvgui.c:436 ldsvgui.c:798
+msgid "Loading scene...  please wait"
+msgstr ""
+
+#: ldsvgui.c:475
+#, c-format
+msgid "Couldn't find the save directory %s\n"
+msgstr ""
+
+#: ldsvgui.c:662
+#, c-format
+msgid "Tcore file <%s> - "
+msgstr ""
+
+#: ldsvgui.c:663
+msgid "Can't open it!"
+msgstr ""
+
+#: ldsvgui.c:665
+#, c-format
+msgid "Version=%d\n"
+msgstr ""
+
+#: ldsvgui.c:667
+msgid "Saving tcore"
+msgstr ""
+
+#: ldsvgui.c:675
+#, c-format
+msgid "mappoint[%d][%d]b%d=%d\n"
+msgstr ""
+
+#: ldsvgui.c:678
+#, c-format
+msgid "mappointpol[%d][%d]=%d\n"
+msgstr ""
+
+#: ldsvgui.c:680
+#, c-format
+msgid "mappoint[%d][%d].type=%d\n"
+msgstr ""
+
+#: ldsvgui.c:685
+#, c-format
+msgid "Origx=%d\n"
+msgstr ""
+
+#: ldsvgui.c:686
+#, c-format
+msgid "Origy=%d\n"
+msgstr ""
+
+#: ldsvgui.c:687
+#, c-format
+msgid "Total time=%d\n"
+msgstr ""
+
+#: ldsvgui.c:690
+#, c-format
+msgid "SustationX[%d]=%d\n"
+msgstr ""
+
+#: ldsvgui.c:691
+#, c-format
+msgid "Substation[%d]=%d\n"
+msgstr ""
+
+#: ldsvgui.c:694
+#, c-format
+msgid "Num of substations=%d\n"
+msgstr ""
+
+#: ldsvgui.c:697
+#, c-format
+msgid "MarketX[%d]=%d\n"
+msgstr ""
+
+#: ldsvgui.c:698
+#, c-format
+msgid "MarketY[%d]=%d\n"
+msgstr ""
+
+#: ldsvgui.c:701
+#, c-format
+msgid "numof_markets=%d\n"
+msgstr ""
+
+#: ldsvgui.c:702
+#, c-format
+msgid "people_pool=%d\n"
+msgstr ""
+
+#: ldsvgui.c:703
+#, c-format
+msgid "total_money=%d\n"
+msgstr ""
+
+#: ldsvgui.c:704
+#, c-format
+msgid "income_tax_rate=%d\n"
+msgstr ""
+
+#: ldsvgui.c:705
+#, c-format
+msgid "coal_tax_rate=%d\n"
+msgstr ""
+
+#: ldsvgui.c:706
+#, c-format
+msgid "dole_rate=%d\n"
+msgstr ""
+
+#: ldsvgui.c:707
+#, c-format
+msgid "transport_cost_rate=%d\n"
+msgstr ""
+
+#: ldsvgui.c:708
+#, c-format
+msgid "goods_tax_rate=%d\n"
+msgstr ""
+
+#: ldsvgui.c:709
+#, c-format
+msgid "export_tax=%d\n"
+msgstr ""
+
+#: ldsvgui.c:710
+#, c-format
+msgid "export_tax_rate=%d\n"
+msgstr ""
+
+#: ldsvgui.c:711
+#, c-format
+msgid "import_cost=%d\n"
+msgstr ""
+
+#: ldsvgui.c:712
+#, c-format
+msgid "import_cost_rate=%d\n"
+msgstr ""
+
+#: ldsvgui.c:713
+#, c-format
+msgid "tech_level=%d\n"
+msgstr ""
+
+#: ldsvgui.c:714
+#, c-format
+msgid "tpopulation=%d\n"
+msgstr ""
+
+#: ldsvgui.c:715
+#, c-format
+msgid "tstarving_population=%d\n"
+msgstr ""
+
+#: ldsvgui.c:716
+#, c-format
+msgid "tunemployed_population=%d\n"
+msgstr ""
+
+#: ldsvgui.c:717
+#, c-format
+msgid "waste_goods=%d\n"
+msgstr ""
+
+#: ldsvgui.c:718
+#, c-format
+msgid "power_made=%d\n"
+msgstr ""
+
+#: ldsvgui.c:719
+#, c-format
+msgid "power_used=%d\n"
+msgstr ""
+
+#: ldsvgui.c:721
+#, c-format
+msgid "coal_used=%d\n"
+msgstr ""
+
+#: ldsvgui.c:722
+#, c-format
+msgid "goods_made=%d\n"
+msgstr ""
+
+#: ldsvgui.c:723
+#, c-format
+msgid "goods_used=%d\n"
+msgstr ""
+
+#: ldsvgui.c:724
+#, c-format
+msgid "ore_made=%d\n"
+msgstr ""
+
+#: ldsvgui.c:725
+#, c-format
+msgid "ore_used=%d\n"
+msgstr ""
+
+#: ldsvgui.c:726
+#, c-format
+msgid "diff_old_population=%d\n"
+msgstr ""
+
+#: ldsvgui.c:729
+#, c-format
+msgid "rockets_launched=%d\n"
+msgstr ""
+
+#: ldsvgui.c:730
+#, c-format
+msgid "rockets_launched_success=%d\n"
+msgstr ""
+
+#: ldsvgui.c:731
+#, c-format
+msgid "coal_survey_done=%d\n"
+msgstr ""
+
+#: ldsvgui.c:749
+msgid "Choose network server"
+msgstr ""
+
+#: ldsvgui.c:751
+msgid "Please enter the address and port of the server"
+msgstr ""
+
+#: main.c:229
+msgid "Loading the game"
+msgstr "LOADING THE GAME"
+
+#: main.c:241
+msgid "Creating pixmaps"
+msgstr ""
+
+#. this means we can't quit in help
+#: main.c:630
+msgid "Quit The Game?"
+msgstr ""
+
+#: main.c:631
+msgid "If you want to save the game select NO"
+msgstr ""
+
+#: main.c:632
+msgid "here, then click on the save button."
+msgstr ""
+
+#: main.c:633
+msgid "Do you really want to quit?"
+msgstr ""
+
+#: main.c:664
+msgid "TEST"
+msgstr ""
+
+#: main.c:664
+msgid "You have pressed a test key"
+msgstr ""
+
+#: main.c:665
+msgid "You will only see this message once"
+msgstr ""
+
+#: main.c:666
+msgid "Do you really want to play in test mode..."
+msgstr ""
+
+#: main.c:678
+msgid "TEST MODE!"
+msgstr ""
+
+#: main.c:723
+#, c-format
+msgid "Can't open %s for writing, can't continue\n"
+msgstr ""
+
+#: main.c:732
+#, c-format
+msgid "What!! can't open %s for reading after writing???\n"
+msgstr ""
+
+#: main.c:741
+#, c-format
+msgid "Got mouse type: %d\n"
+msgstr ""
+
+#: main.c:765
+#, c-format
+msgid "Unable to open %s\n"
+msgstr ""
+
+#: main.c:770
+msgid "----- IN TEST MODE -------\n"
+msgstr ""
+
+#: main.c:771
+#, c-format
+msgid "Results from LinCity Version %s\n"
+msgstr ""
+
+#: main.c:773
+#, c-format
+msgid "Initial loaded scene - %s\n"
+msgstr ""
+
+#: main.c:775
+msgid "Economy is sustainable\n"
+msgstr ""
+
+#: main.c:776
+#, c-format
+msgid "Population  %d  of which  %d  are not housed.\n"
+msgstr ""
+
+#: main.c:779
+#, c-format
+msgid "Max population %d  Number evacuated %d Total births %d\n"
+msgstr ""
+
+#: main.c:781
+#, c-format
+msgid " Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"
+msgstr ""
+
+#: main.c:785
+#, c-format
+msgid " Deaths by starvation %7d   History %8.3f\n"
+msgstr ""
+
+#: main.c:787
+#, c-format
+msgid "Deaths from pollution %7d   History %8.3f\n"
+msgstr ""
+
+#: main.c:789
+#, c-format
+msgid "Years of unemployment %7d   History %8.3f\n"
+msgstr ""
+
+#: main.c:791
+#, c-format
+msgid "    Residences %4d         Markets %4d            Farms %4d\n"
+msgstr ""
+
+#: main.c:800
+#, c-format
+msgid "        Tracks %4d           Roads %4d             Rail %4d\n"
+msgstr ""
+
+#: main.c:803
+#, c-format
+msgid "     Potteries %4d     Blacksmiths %4d            Mills %4d\n"
+msgstr ""
+
+#: main.c:806
+#, c-format
+msgid "     Monuments %4d         Schools %4d     Universities %4d\n"
+msgstr ""
+
+#: main.c:809
+#, c-format
+msgid " Fire stations %4d           Parks %4d     Cricket gnds %4d\n"
+msgstr ""
+
+#: main.c:812
+#, c-format
+msgid "    Coal mines %4d       Ore mines %4d         Communes %4d\n"
+msgstr ""
+
+#: main.c:815
+#, c-format
+msgid "     Windmills %4d     Coal powers %4d     Solar powers %4d\n"
+msgstr ""
+
+#: main.c:819
+#, c-format
+msgid "   Substations %4d     Power lines %4d            Ports %4d\n"
+msgstr ""
+
+#: main.c:822
+#, c-format
+msgid "    Light inds %4d      Heavy inds %4d        Recyclers %4d\n"
+msgstr ""
+
+#: main.c:825
+#, c-format
+msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
+msgstr ""
+
+#: main.c:881
+msgid "Game statistics"
+msgstr ""
+
+#: screen.c:1978
+#, fuzzy
+msgid "Market"
+msgstr "MAR"
+
+#: screen.c:1980
+msgid "Port"
+msgstr ""
+
+#: screen.c:1987
+msgid "Buy"
+msgstr ""
+
+#: screen.c:1988
+msgid "Sell"
+msgstr ""
+
+#: screen.c:1990
+msgid "JOBS"
+msgstr ""
+
+#: screen.c:1992
+msgid "FOOD"
+msgstr ""
+
+#: screen.c:1993
+msgid "COAL"
+msgstr ""
+
+#: screen.c:1994
+msgid "ORE"
+msgstr ""
+
+#: screen.c:1995
+msgid "GOODS"
+msgstr ""
+
+#: screen.c:1996
+msgid "STEEL"
+msgstr ""

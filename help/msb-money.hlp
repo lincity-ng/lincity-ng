@@ -1,0 +1,20 @@
+text -1 100 This is the mini screen money button.
+
+text -1 130 This shows a breakdown of the 'other
+text -1 140 costs' figure (just below 'expend',
+text -1 150 marked OC, in the finance window).
+
+text -1 170 The meanings of the abbreviations
+text -1 180 are as follows:
+
+text 50 200 Int - Interest costs.
+text 50 210 Scl - School costs.
+text 50 220 Uni - University costs.
+text 50 230 Und - Unnatural deaths costs.
+text 50 240 WiM - Windmill costs.
+text 50 250 Rcy - Recycling costs.
+text 50 260 Hth - Health costs.
+text 50 270 Rok - Rocket costs.
+text 50 280 Fst - Fire station costs.
+text 50 290 Ckt - Cricket costs.
+

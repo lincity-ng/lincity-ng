@@ -1,0 +1,24 @@
+text -1 100 This is the finance window.
+
+text -1 130 The finance window is updated every
+text -1 140 January 1st. The figures below 'income'
+text -1 150 and 'expend' show your income and
+text -1 160 expenditure for the previous year.
+
+text -1 180 The 'tot' figure is the amount of money
+text -1 190 in your acount. There are certain things
+text -1 200 you cannot do when you are 'in the red'.
+
+text 20 220 The meanings on the abbreviations are:
+
+text 20 240 Income:
+text 100 250 IT = Income tax.
+text 100 260 CT = Coal tax.
+text 100 270 GT = Goods tax.
+text 100 280 XP = Export tax.
+
+text 20 300 Expenditure:
+text 100 310 OC = Other costs.
+text 100 320 UC = Unemployment costs.
+text 100 330 TC = Transport costs.
+text 100 340 IP = Import costs.

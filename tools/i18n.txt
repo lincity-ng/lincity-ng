@@ -1,0 +1,27 @@
+
+Current status
+--------------
+
+Version 1.11 is partly translatable.  Just substitute
+the files in "messages" and "help" with your translations.
+You'll also have to substitute the fonts from version 1.12 so 
+that accented characters are visible.
+
+Version 1.12 has better translation support.  Strings which are 
+embedded in the code are marked using gettext.  It also contains
+the necessary ISO-8859-1 font.  It supports multiple languages 
+on the same installation by changing environment variables.
+Finally, there is a Catalan translation for v 1.12 which you can use 
+as an example.
+
+
+Getting the catalan version to work on v 1.12
+---------------------------------------------
+
+Do a configure, make and make install.  Then set LANGUAGE environment
+variable to "ca", and run.  Only the messages will be in Catalan 
+(since that is the only part of the translation that is done), but at 
+least you can see the translated "Not enough tech" message if you try to 
+build a high tech item like a rocket ship.
+
+

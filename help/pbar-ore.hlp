@@ -1,0 +1,11 @@
+text -1 150 This indicator shows the rate of
+text -1 160 change of ore stored in markets.
+
+text -1 200 It shows the change over the previous 12
+text -1 210 months. If the arrow is pointing upwards
+text -1 220 and is green, the ore store grew over
+text -1 230 the past 12 months. If it is pointing
+text -1 240 down and red, the ore store shrank.
+
+text -1 255 The larger the arrow,
+text -1 265 the greater the change.

@@ -1,0 +1,137 @@
+
+  ****  README.win32   for lincity  ****
+
+Welcome to the WIN32 version of Lin City.
+This README corresponds to Lin City version 1.11A.
+
+
+INSTALLATION
+============
+  Simply unpack the archive, and double click on the LINCITY.EXE icon.  
+  Be sure to use a program such as UNZIP which preserves long filenames.
+  You can get your free copy of UNZIP from the INFO-ZIP web page at
+  http://www.cdrom.com/pub/infozip/UnZip.html.
+
+RELEASE NOTES
+=============
+  LinCity for Win32 automatically chooses whether or not to add a border 
+  and/or perform pix doubling, depending on your resolution.  Furthermore,
+  it will automatically maximize the window or even go into full screen
+  mode.  Here is what you should see for some of the more popular 
+  resolutions:
+       
+       Resolution      Window Style     Border         Pix Doubling
+       ------------    ------------    ------------    ------------
+       640 x 480       Full screen     None            No
+       800 x 600       Window          Yes             No
+       1024 x 768      Window          Yes             No
+       1152 x 864      Window          Yes             No
+       1280 x 1024     Window          None            Yes
+
+  If you are running 1280x1024, you may need to autohide the taskbar
+  in order to see pix doubling.
+
+  Lin City now uses a real windows font to draw text.  This fix gave me
+  a speed improvement of 20% at year 800.
+
+  If you get a message such as "Can't open the font file", this probably 
+  means that the long file names did not get unzip'd correctly.  Go to the
+  C:\LINCITY???\OPENING directory, and look for the file winfont_8x8.fnt.
+  If this file does not exists (or if it is called winfont_.fnt), then
+  is definitely the problem.  Reinstall the archive using the UNZIP program.
+
+  If you get a message such as "Error. Can't find LINCITY_HOME", this
+  means that LinCity can't find it's home directory.  The program searches
+  for the file "Colour.pal" in the following three directories (in order):
+	The current working directory
+	The directory pointed to by the $LINCITY_HOME environment variable
+	The default directory C:\LINCITY111A
+
+  Multi-transport is now supported.  Simply shift-click at the beginning
+  and shift-click at the end, and you'll get a whole line of track, road,
+  rail or power lines.  Look for the blue border around the main window to
+  confirm that you are in multi-transport mode.
+
+  Save files are not binary compatible with the UNIX version of LinCity.
+  You will need to gzip/gunzip the save files when you transfer them to/from
+  your UNIX box.
+
+  You can now scroll the main screen using the arrow keys.  Furthermore, you
+  can do a "fast scroll" with the SHIFT+ARROW key.  Double doubleplus good!
+
+  The source code is now distributed together with the binary distribution,
+  in the file source.tgz.
+
+
+HISTORY
+=======
+  1.11
+    - See CHANGES file for more recent changes.
+  1.09
+    - Added full screen capability for VGA resolution.
+    - Fixed windows menus (open/save/help).
+    - Added "fast scroll" (SHIFT+ARROW KEY).
+    - Fixed bug for placing multiple random villages in first year.
+    - Added help screen for Windows keys.
+  1.08
+    - Chaged font drawing routines to use windows fonts.
+    - Fixed mouse offset problems (square cursor not centered under mouse).
+  1.07
+    - (UNIX only release)
+  1.06
+    - Merged in mouse click fix from Unix version.
+  1.05d
+    - Fixed 1/2 second delay between clicking and placing item.
+    - Fixed decreased performance when mouse is in main screen.
+  1.05c
+    - Initial beta release.
+
+
+KNOWN BUGS
+==========
+  o  Your OS must support long file names.
+
+  o  No mail sent when you win.  You can find your winning statistics
+     in the following file:
+         $LINCITYHOME/SAVED_GAMES/results
+
+  o  See the file BUGS for more bugs.
+
+
+COMPILATION
+===========
+I am using MS VC++ 4.0 under Win95.  LinCity is reported to compile
+under MS VC++ 6.0 also.  If you are using MSVC, you might
+be able to unpack the archive, and type something like this:
+
+	c:lincity???> nmake /f lincity.mak
+
+I have also included the 4.0 workspace file, Lincity.mdp.  This may
+or may not be helpful for you.
+
+If you are using a different compiler, you may need to generate your own 
+Makefile.  You need to compile the following files:
+
+	ENGINE.CXX
+	HELP.CXX
+	LCWIN32.CXX
+	MAIN.CXX
+	MARKET.CXX
+	MOUSE.CXX
+	MPS.CXX
+	SCREEN.CXX
+	TRANSPORT.CXX
+	TYPEINIT.CXX
+	WINMAIN.CXX
+
+And link with the following libraries (in addition to the standard WIN32 
+libraries):
+
+	VERSION.LIB
+
+
+COMMENTS?
+=========
+Any bugs or comments, send email to Greg Sharp at gregsharp@geocities.com.
+
+Have fun...

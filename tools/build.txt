@@ -1,0 +1,57 @@
+
+About automake/autoconf
+-----------------------
+
+You need to use automake 1.4 and autoconf version 2.13, with the gettext
+extensions installed.  
+
+
+How to make an intermediate version
+-----------------------------------
+
+  1)     Run config.sh on focus.eecs (required for gettext macros)
+  2)     make dist
+  3)     Done!
+
+
+How to make a final version
+---------------------------
+
+Preliminaries:
+
+  1)     Update version number in:
+            README
+            lin-city.h
+            configure.in
+            confw32.h
+            lincity.rc
+  2)     Update CHANGES file
+  3)     Make sure start-fast-speed & skip-opening-scene are 
+         disabled in main.c
+
+Make the UNIX tarball:
+
+  5)     Run perl rename.pl
+  6)     make dist
+  7)     Done!
+
+Make the Win package:
+
+  5)     Build release version on Win
+  6)     Reboot into Linux
+  7)     Run perl rename.pl
+  8)     Make copy of entire directory (we're gonna delete the source)
+  9)     cd to the new directory
+  10)    Copy Release/Lincity.exe .
+  11)    make distclean
+  11.1)  Delete lincity.ncb and lincity.aps
+  11.2)  Delete the Release and Debug directories
+  12)    Run tarsrc.sh (this script might need fixing)
+  13)    Make sure that the opening files are *not* gzip'ped
+            open.tga
+            bad_times.scn
+            good_times.scn
+  14)    Copy ../source.tgz into lincity directory
+  15)    zip -r lincity109.zip lincity109
+  16)    Done!
+

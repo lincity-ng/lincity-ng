@@ -1,0 +1,41 @@
+text -1 15 Rocket Launch Pad
+
+text -1 30 Rockets enable you to evacuate your
+text -1 40 population to another world, and thus
+text -1 50 end the game.
+
+text -1 65 You must have five successful unmanned
+text -1 75 launches before you can start evacuating.
+text -1 85 Each successful evacuation rocket holds
+text -1 95 1000 people.
+
+text -1 110 If any launch fails, you must launch
+text -1 120 a further 5 unmanned rockets before you
+text -1 130 can evacuate any more people.
+
+text -1 145 The tech level at the time of launch
+text -1 155 is the probability of a successful launch.
+text -1 165 This means that if your tech level is,
+text -1 175 say, 80%, then you have only a four in
+text -1 185 five chance of success. 100% or more
+text -1 195 means that a launch will always succeed.
+text -1 205 (Some of the _first 5_ may still fail.)
+text -1 215 You must build a new launch pad for each
+text -1 225 rocket you build.
+
+text -1 240 Rocket Launch Pads do not need to be
+text -1 250 connected to transport, they can get all they
+text -1 260 need from local markets. They use large
+text -1 270 quantities of steel, goods, jobs and money
+text -1 280 to build. When the rocket is built, you
+text -1 290 will get a message asking you if you want
+text -1 300 to launch now or later. If you choose
+text -1 310 later, then you can launch it when you wish
+text -1 320 by clicking on the area. You can have any
+text -1 330 number of rockets waiting to launch.
+
+text -1 345 When a rocket is built, but waiting to be
+text -1 355 launched, it no longer uses steel, goods or
+text -1 365 jobs, but still continues to cost a lot of
+text -1 375 money.
+

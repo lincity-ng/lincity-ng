@@ -1,0 +1,29 @@
+
+text -1 15 Transport - page 4 of 4
+
+text -1 30 Crossing rivers
+
+text -1 45 To cross a river with transport,
+text -1 55 simply bulldoze the river away and
+text -1 65 build a road, or whatever, through
+text -1 75 the gap.
+
+text -1 90 (With a little imagination), think
+text -1 100 of this as building a bridge.
+text -1 110 It costs you enough as bulldozing
+text -1 120 water is very expensive.
+
+icon 200 200 waterd.csi
+icon 200 216 waterurd.csi
+icon 216 216 waterld.csi
+icon 200 232 waterur.csi
+icon 216 232 waterlu.csi
+icon 184 248 roadlr.csi
+icon 200 248 roadlr.csi
+icon 216 248 roadlr.csi
+icon 232 248 roadlr.csi
+icon 248 248 roadlr.csi
+icon 216 264 waterrd.csi
+icon 232 264 waterld.csi
+icon 216 280 waterur.csi
+icon 232 280 waterlu.csi

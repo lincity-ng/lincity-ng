@@ -1,0 +1,12 @@
+text -1 100 This is the health cover
+text -1 110 mini screen button.
+
+text -1 140 When you click on this button the areas
+text -1 150 that have a health centre within range
+text -1 160 are dark green. 
+
+text -1 180 The areas out of range of a
+text -1 190 health centre are displayed as normal.
+
+text -1 210 Remember, health centres take three
+text -1 220 months to become active.

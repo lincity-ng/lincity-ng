@@ -1,0 +1,54 @@
+text -1 5 Select button index page 1 of 3
+text -1 20 Click on a button for a help page
+
+text 80 54 Power lines
+icon 50 50 powerline-button.csi
+button 48 48 20 20 powerline.hlp
+
+text 80 78 Solar Power station
+icon 50 74 powerssolar-button.csi
+button 48 72 20 20 powerssolar.hlp
+
+text 80 102 Substation
+icon 50 98 substation-button.csi
+button 48 96 20 20 substation.hlp
+
+text 80 126 Residential area
+icon 50 122 residence-button.csi
+button 48 120 20 20 residential.hlp
+
+text 80 150 Farm
+icon 50 146 organic-farm-button.csi
+button 48 144 20 20 farm.hlp
+
+text 80 174 Market
+icon 50 170 market-button.csi
+button 48 168 20 20 market.hlp
+
+text 80 198 Bulldoze
+icon 50 194 buldoze-button.csi
+button 48 192 20 20 bulldoze.hlp
+
+text 80 222 Track (transport)
+icon 50 218 tracklr.csi
+button 48 216 20 20 track.hlp
+
+text 80 246 Coalmine
+icon 50 242 coalmine-button.csi
+button 48 240 20 20 coalmine.hlp
+
+text 80 270 Railway
+icon 50 266 rail-button.csi
+button 48 264 20 20 rail.hlp
+
+text 80 294 Coal fired power station
+icon 50 290 powerscoal-button.csi
+button 48 288 20 20 powerscoal.hlp
+
+text 80 318 Road
+icon 50 314 road-button.csi
+button 48 312 20 20 road.hlp
+
+
+text -1 380 Next Page
+button -1 376 84 14 button-index2.hlp

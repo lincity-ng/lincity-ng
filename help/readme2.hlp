@@ -1,0 +1,6 @@
+text -1 50 Please read the changes file.
+text -1 65 This is where all the important
+text -1 75 information is before it gets to the
+text -1 85 manual or help screens.
+text -1 105 less /usr/local/games/lin-city/CHANGES
+text -1 125 ( Note the upper case CHANGES )

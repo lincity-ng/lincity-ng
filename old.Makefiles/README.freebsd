@@ -1,0 +1,17 @@
+
+   ****  README.freebsd   for lincity  ****
+
+Lincity is known to compile cleanly and start up on FreeBSD-2.1.0, but it is
+not thoroughly tested.
+
+GNUmake is required.
+
+To compile and install:
+
+    make clean
+    make freebsd
+    make install
+
+Run the game with  'xlincity'
+
+Have fun...

@@ -1,0 +1,14 @@
+text -1 100 This is the mini screen coal button.
+
+text -1 130 When you click on this button it shows
+text -1 140 you the coal reserves beneath your 'city'.
+text -1 150 The first time you ask for this
+text -1 160 information, you will have to undertake
+text -1 170 a coal survey, which will cost you one
+text -1 180 million currency units. After that the
+text -1 190 information is free to look at again.
+
+text -1 210 The coal seams are shown as white on a
+text -1 220 black background. You will have to build
+text -1 230 a coal mine close to one of these seams
+text -1 240 to extract its coal.

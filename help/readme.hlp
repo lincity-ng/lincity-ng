@@ -1,0 +1,27 @@
+text -1 30 Read me for lin city version 0.78
+
+text -1 65 Some things you need to know to get going.
+text -1 75 Monuments make tech points.
+text -1 85 Communes provide coal, ore and steel for
+text -1 95 things like Blacksmiths in the early
+text -1 105 stages of the game.
+
+
+text -1 165 One of your aims, if you choose, is to
+text -1 175 evacuate everyone with rockets. It isn't
+text -1 185 easy.
+
+text -1 200 Save writes to a directory Lin-city/
+text -1 210 off your HOME directory. Click on save,
+text -1 220 then choose the number (1-9) of the 'slot'
+text -1 230 you want to put it, edit the comment and
+text -1 240 press return.
+text -1 255 To reload a saved city,click on load and
+text -1 265 choose a number (1-9) using the comments
+text -1 280 as your guide to which one you want.
+
+
+text -1 350 Check out the other help screens,
+text -1 360 they are more colourful than this one.
+
+tbutton -1 380 readme2.hlp Next page  - IMPORTANT

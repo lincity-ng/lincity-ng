@@ -1,0 +1,21 @@
+text -1 90 This is the information window and,
+text -1 100 for now anyway, the 'diff-graph'.
+
+text -1 120 The main purpose of this window is to
+text -1 130 show information about a particular area.
+text -1 140 If you click the left button on an area
+text -1 150 that has already been built, you will see
+text -1 160 some information about what is happening
+text -1 170 within that area. The type of information
+text -1 180 displayed depends on the particular area
+text -1 190 that you selected. The display reverts to
+text -1 200 the 'diff-graph' display when the mouse
+text -1 210 pointer moves out of the main window.
+
+text -1 230 I will not explain the 'diff'graph' here,
+text -1 240 I think I will remove it soon, as it does
+text -1 250 not give much useful information (not even
+text -1 260 for me!). If you can read anything into
+text -1 270 them, feel free to use the information you
+text -1 280 obtain :)
+

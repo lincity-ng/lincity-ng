@@ -1,0 +1,13 @@
+text -1 100 This is the mini screen pollution button.
+
+text -1 130 When you click on this button, the mini
+text -1 140 screen shows the pollution levels across
+text -1 150 the whole of your city.
+
+text -1 160 Pollution gets stronger as you go from:
+text -1 175 Light-green -> Dark-green -> Darker-green
+text -1 185 Dark-red -> Lighter-red -> Bright-red.
+
+text -1 200 Places with residential areas that
+text -1 210 show as red, will cause sickness and make
+text -1 220 the area less desirable to live in.

@@ -1,0 +1,25 @@
+text -1 15 Residential area
+text -1 30 This is where people live. To encorage
+text -1 40 people to live in this area they must be
+text -1 50 fed. It also helps to provide them with
+text -1 60 work and goods to buy. They must be within
+text -1 70 range of a market or connected to transport.
+text -1 95 The following 3 icons show low, medium
+text -1 105 and high density housing, There are
+text -1 115 different birth and death rates associated
+text -1 125 with each area, this gives you some control
+text -1 135 over your population.
+
+icon 55 170 reslowlow.csi
+icon 215 170 resmedlow.csi
+icon 295 170 reshilow.csi
+
+tbutton 155 245 market.hlp Market
+icon 220 230 market-full.csi
+text -1 290 The above market is within range of the last
+text -1 300 two residential areas, however, it is
+text -1 310 probably out range of the first.
+
+text -1 350 Later in the game, if you have sufficient
+text -1 360 technology, you can build more 'modern'
+text -1 370 housing, even tower blocks.

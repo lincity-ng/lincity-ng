@@ -1,0 +1,14 @@
+text -1 100 This is the power cover
+text -1 110 mini screen button.
+
+text -1 140 When you click on this button the areas
+text -1 150 that have low tech windmill power within
+text -1 160 reange are dark green.
+
+text -1 180 The areas with high tech windmills are 
+text -1 190 a lighter green.
+
+text -1 210 The unpowerd areas are displayed as normal.
+
+text -1 240 This button uses power. Try not to leave it
+text -1 250 turned on too long.

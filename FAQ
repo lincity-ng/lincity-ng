@@ -1,0 +1,64 @@
+
+FAQ for LinCity.
+
+
+GENERAL
+*******
+
+Q. I did a make install, but I've got no binaries.
+
+A. If you got the source only distribution you need to compile the programs.
+Use 'make' on its own, to get a list of options.
+
+
+Q. I compiled and installed, but I get a 'no such file' error when I try to
+run lincity.
+
+A. Make sure the directory where the Makefile installed the binaries is on
+your path (the library directory does not have to be on your path). To see
+where it will be installed, type 'make' on its own. This will show you what
+the current install paths are.
+
+
+SVGALIB VERSION
+***************
+
+Q. The mouse doesn't seem to work even if I try every available type.
+
+A. SVGALib seems to want write permissions on /dev/ttySx  (aka /dev/mouse).
+My permissions are
+
+crw-rw-rw-   1 root     tty        4,  64 Feb 21 18:27 /dev/ttyS0
+
+The command   'chmod 666 /dev/ttyS0'   will give you the correct
+permissions. ( or ttyS1 if your mouse is on 'COM2' )
+
+
+Q. All the text seems to be 'Greek'.
+
+A. You need at least version 1.2.9 of SVGALIB.
+
+
+Q. I compiled and installed, but I get a permission denied when I try to run
+lincity as anyone but root.
+
+A. The install failed to make the file lincity suid root. 
+  'make install'   again making sure that you are root.
+
+
+X VERSION
+*********
+
+Q. When I move the mouse in and out of the xlincity window, the colour
+palette flashes between the 'normal' colours and lincity's own. It's REALLY
+annoying!
+
+A. If you can, run your X server in a mode that displays more than 256
+colours. Sorry, this is not always possible and depends on your hardware. I
+use a 2M pci card and 'startx -- -bpp 16' to get 64K colours. It's really
+nice.
+
+Alternatively, there is a 'confine pointer' button, under the select
+buttons, that traps the mouse pointer in the lincity window. Press it again
+to release it.
+

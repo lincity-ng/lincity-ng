@@ -1,0 +1,10 @@
+text -1 100 This is the mini screen 'normal' button.
+
+text -1 130 Clicking on this button restores the mini
+text -1 140 screen to its 'normal' display. It only
+text -1 150 really useful for flicking backwards and
+text -1 160 forwards between, say, pollution and
+text -1 170 normal, to see more clearly if pollution
+text -1 180 lies over important areas. This is
+text -1 190 because the 'normal' screen is displayed
+text -1 200 again when you click *almost* anywhere.

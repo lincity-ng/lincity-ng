@@ -1,0 +1,14 @@
+             README for OS/2 (XFree86) port of Lincity
+
+
+Ronald Van Iwaarden (rvaniwaa@cs.hope.edu) did the port
+of Lincity to XFree86 for OS/2 using EMX gcc. His changes
+in the source have been included before 1.0.
+
+Alexander Mai (st002279@hrzpub.tu-darmstadt.de) supplied the new
+Makefile.os2 and a few new patches.
+
+Note: To compile under OS/2 use:
+      x11make -f makefile.os2
+The command above will show you the available targets.
+

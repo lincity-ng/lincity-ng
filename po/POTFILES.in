@@ -1,0 +1,8 @@
+# List of files which containing translatable strings.
+# Copyright (C) 1995, 1998 Free Software Foundation, Inc.
+
+# Files to translate:
+cliglobs.c
+ldsvgui.c
+main.c
+screen.c

@@ -1,0 +1,41 @@
+text -1 15 Health Centre
+
+text -1 30 Health centres provide health cover for
+text -1 40 residences. They act in an area of about
+text -1 50 10 'squares' in each direction.
+
+text -1 65 Health cover makes the residence a more
+text -1 75 desirable place to live, less people die
+text -1 85 from pollution related illness and the
+text -1 95 people living there are more efficient
+text -1 105 at providing jobs to the surrounding
+text -1 115 areas. (They spend less time off sick.)
+
+text -1 130 Health centres are very expensive, 60000
+text -1 140 per year. However, they reduce the cost
+text -1 150 of 'unnatural deaths' and can provide
+text -1 160 extra income tax (as long as there are
+text -1 170 places for the people to work).
+
+text -1 185 After you put a health centre in, it
+text -1 195 takes three months for it to become
+text -1 205 active. They use goods. They don't,
+text -1 215 however, use jobs as such, these are
+text -1 225 taken into account when calculating the
+text -1 235 extra jobs created by the reduction in
+text -1 245 sickness of the surrounding areas.
+
+text -1 260 Health centres do not need to be connected
+text -1 270 transport, if not, they need to be within
+text -1 280 range of a market.
+
+text -1 295 To see the coverage of health cover, click
+text -1 305 on the health icon above the 'mini screen'
+text -1 315 (bottom left of centre on the display). The
+text -1 325 areas that show up as normal have health
+text -1 335 cover.
+
+text -1 350 Both the select and the 'mini screen'
+text -1 365 buttons look like this.
+
+icon 300 362 health-button.csi

@@ -1,0 +1,19 @@
+text -1 100 This is the 'mini' screen.
+
+text -1 120 This shows, in reduced scale, the whole
+text -1 130 of your playing area. The buttons above,
+text -1 140 when you click on them, show information
+text -1 150 such as pollution levels over the whole
+text -1 160 of your playing area.
+
+text -1 170 Click the right mouse button on each of
+text -1 180 the buttons above the mini screen to
+text -1 190 activate their help pages.
+
+text -1 220 Clicking the left button within the mini
+text -1 230 screen window moves the active playing
+text -1 240 area to the place where you clicked.
+
+text -1 260 The green square shows the area covered
+text -1 270 by the main screen. (Where this text is
+text -1 280 being displayed.)

@@ -1,0 +1,38 @@
+text -1 15 Jobs
+
+text -1 30 People living in residential areas
+text -1 40 provide jobs. Jobs are used by most areas
+text -1 50 for them to function. Some areas only
+text -1 60 need jobs when they are under construction,
+text -1 70 for example monuments.
+
+text -1 85 Jobs can be supplied by markets; you
+text -1 95 can have a market within range of the
+text -1 105 area you wish to supply. The market, of
+text -1 115 course, must get it's jobs from somewhere.
+text -1 125 Markets get their jobs in two ways. First,
+text -1 135 if there is a residential area within range,
+text -1 145 it will be supplying jobs to the market in
+text -1 155 proportion to its population and how many
+text -1 165 markets the jobs must be shared between.
+text -1 175 The second way is by transport. A market
+text -1 185 some distance away that has a surplus of
+text -1 195 jobs, will put some on transport. Any
+text -1 205 markets that are short of jobs that are
+text -1 215 connected to that transport will grab the
+text -1 225 jobs flowing along the track road or rail.
+
+text -1 240 If a market becomes 'full' of jobs, it will
+text -1 250 stop accepting them from residential areas.
+text -1 260 When this happens, if there are no other
+text -1 270 non full markets within range, the people
+text -1 280 will become unemployed.
+
+text -1 295 A health centre within range of a 
+text -1 305 residential area, will increase the number
+text -1 315 of jobs provided to any local markets.
+
+text 20 340 See also:
+tbutton 140 340 residential.hlp Residences
+tbutton 140 360 transport.hlp Transport
+tbutton 140 380 market.hlp Markets

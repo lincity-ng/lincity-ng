@@ -1,0 +1,15 @@
+#      This is the Imakefile for picedit. Part of LinCity.
+#
+#      DO NOT run imake on this file - it will not work.
+#      =================================================
+
+#      It needs to be called from the top level Makefile
+#      where variables are set. Use - make xpicedit
+
+#IMAKE_DEFINES= -DManSuffix=6
+
+DEFINES = -X11R4
+DEPLIBS = $(DEPXLIB)
+LOCAL_LIBRARIES = $(XLIB)
+
+SingleProgramTarget(xpicedit,xpicedit.o,$(DEPXLIB),$(XLIB))

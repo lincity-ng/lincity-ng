@@ -1,0 +1,11 @@
+text -1 100 This is the fire cover mini screen button.
+
+text -1 130 When you click on this button the areas
+text -1 140 that have a fire station within range are
+text -1 150 dark green.
+
+text -1 170 The areas out of range of a fire
+text -1 180 station are displayed as normal.
+
+text -1 200 Remember, fire stations take three months
+text -1 210 to become active.

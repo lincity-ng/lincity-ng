@@ -1,0 +1,34 @@
+text -1 30 This is the stats window.
+
+text -1 60 The stats window shows 8 variables:
+
+text 20 80 1.  Population - this shows the population
+text 60 90 in your residences. This figure does not
+text 60 100 include the homeless.
+
+text 20 120 2.  % Starving - this shows the percentage
+text 60 130 of your popluation that are starving.
+
+text 20 150 3.  Foodstore - this shows the total food
+text 60 160 held in markets.
+
+text 20 180 4.  % u-ployed - this shows the percentage
+text 60 190 of your population that is unemployed.
+
+text 20 210 5.  Tech Level - this shows your technology
+text 60 220 level. The scale is the percentage
+text 60 230 chance of a successful rocket launch.
+text 60 240 (A good a measure as any other, I feel.)
+
+text 20 260 6.  un-nat deaths - this shows the number
+text 60 270 of people that died through starvation
+text 60 280 or from pollution, in the last month.
+
+text 20 300 7.  Rockets - this shows the number of
+text 60 310 *successful* launches in a row, over
+text 60 320 the total number of launches.
+
+text 20 340 8.  Peoplepool - this shows the homeless
+text 60 350 population. Don't worry about this
+text 60 360 figure at the moment, it has little
+text 60 370 effect.

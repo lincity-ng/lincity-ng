@@ -1,0 +1,34 @@
+#  irixMakefile for LinCity
+#  Thanks to Frederic.Roussel@eng.efi.com (Frederic Roussel)
+
+#  DO NOT INVOKE THIS FILE DIRECTLY, it is called from the Makefile.
+#  Edit the Makefile to point to where you want the binary and libraries
+#  to go. Then  'make clean', 'make irix' and 'make install'.
+
+LIBS =        -lXext -lX11 -lm
+
+OPTS =        -O3 -DIRIX -DLC_X11 -DLIBDIR=\"$(LC_LIBDIR)/\"
+
+CXXFLAGS = $(OPTS) $(INCLUDES)
+
+SOURCE =      main.cxx \
+              mouse.cxx \
+              screen.cxx \
+              mps.cxx \
+              typeinit.cxx \
+              engine.cxx \
+              transport.cxx \
+              market.cxx \
+              help.cxx \
+              lcx11.cxx
+
+OBJECTS = $(SOURCE:.cxx=.o)
+
+all : $(OBJECTS)
+	CC -o xlin-city $(OBJECTS) $(LIBS)
+
+
+clean:
+	/bin/rm -f $(OBJECTS) xlin-city
+
+#    --------  End of irixMakefile for LinCity  -----------

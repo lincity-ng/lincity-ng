@@ -1,0 +1,12 @@
+text -1 100 This is the mini screen
+text -1 110 starvation button.
+
+text -1 140 When you click on this button, the
+text -1 150 mini screen shows only residential areas.
+
+text -1 165 Brighter green than the surrounding area
+text -1 175 means that there is enough food in
+text -1 185 that residential area. The darker the
+text -1 195 green, and then brighter the red, show
+text -1 205 the severity of the starvation in each
+text -1 215 residential area shown.

@@ -1,0 +1,26 @@
+text -1 15 Recycle centres
+
+text -1 40 Used goods produce waste. 
+
+text -1 95 Recycle centres convert used goods into ore.
+text -1 105 They must be connected to transport at the
+text -1 115 top left hand corner. Jobs and money are
+text -1 125 used to collect the waste goods and convert
+text -1 135 them into fresh ore.
+
+text -1 150 The efficiency of the centres is dependent
+text -1 160 on the tech level when the area is built.
+
+text -1 175 It is possible to run a sustainable economy,
+text -1 185 (ie no ore dug etc) with less than 100%
+text -1 195 efficient recycle centres if you have some
+text -1 205 mills to make up for the 'lost' waste goods.
+
+icon 180 300 roaddr.csi
+icon 180 316 recycle-centre.csi
+icon 196 300 roadlr.csi
+icon 212 300 roadlr.csi
+icon 164 316 raildr.csi
+icon 164 332 railud.csi
+icon 164 348 railud.csi
+

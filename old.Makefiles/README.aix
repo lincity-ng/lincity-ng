@@ -1,0 +1,17 @@
+
+AIX support for LinCity
+
+Andrew Costa  seagull@osiris.isys.ca
+
+reports that LinCity compiles 'out the box' with a simple
+
+ make xlincity (then make install)
+
+on the following machine:-
+
+- IBM Thinkpad-850
+- PowerPC-603e (100 MHz), 64 megs memory
+- X11R5 with the Common Desktop Environment
+- gcc-2.7.2, gas-2.7.?, make-3.74
+
+

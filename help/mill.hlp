@@ -1,0 +1,28 @@
+text -1 15 Mills
+
+text -1 30 Mills convert food, coal and jobs into
+text -1 40 goods. Food?... well, cotton and wool are
+text -1 50 counted as food in this game.
+
+text -1 65 Mills use quite a lot of food, so you can
+text -1 75 easily get into food shortages if you don't
+text -1 85 take this into account. (It is less of a
+text -1 95 problem when you have windmills, as they can
+text -1 105 power farms which makes them more efficient.
+
+text -1 120 Mills do not have to be connected to
+text -1 130 transport. If not, they do have to be in
+text -1 140 range of a market with coal, jobs and food.
+text -1 150 You can tell when mills are working by the
+text -1 160 smoke and steam coming from the building.
+
+text 30 190 This is a non-working mill.
+icon 290 180 mill0.csi
+
+text 20 250 See also:
+tbutton 100 250 goods.hlp Goods
+tbutton 100 270 food.hlp Food
+tbutton 100 290 coal.hlp Coal
+tbutton 100 310 jobs.hlp Jobs
+tbutton 100 330 transport.hlp Transport
+tbutton 100 350 windmill.hlp Windmills

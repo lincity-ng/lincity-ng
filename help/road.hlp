@@ -1,0 +1,12 @@
+text -1 15 Roads
+text -1 50 Roads carry more than tracks, but not as
+text -1 60 much as railways. They produce more
+text -1 70 pollution than railways as well. They are
+text -1 80 cheaper to buy and maintain than railways
+text -1 90 - I knew there must be a reason for them.
+
+text 50 140 See also:
+tbutton 50 160 transport.hlp Transport
+tbutton 50 180 commune.hlp Communes
+tbutton 50 220 pollution.hlp Pollution
+

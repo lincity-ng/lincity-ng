@@ -1,0 +1,53 @@
+#  hpuxMakefile for LinCity   (c)  I J Peters 1995,1996.
+# Thanks to john@meertech.demon.co.uk (John Woodgate)
+
+#  DO NOT INVOKE THIS FILE DIRECTLY, it is called from the Makefile.
+#  Edit the Makefile to point to where you want the binary and libraries
+#  to go. Then  'make clean', 'make hpux' and 'make install'.
+
+CFLAGS = -O2 -I/usr/include/X11R5 -DLIBDIR=\"$(LC_LIBDIR)/\"
+
+LC_XFLAGS = $(CFLAGS) -DLC_X11 -DHP_UX
+LC_XLIBS = -lm -lXext -lX11
+
+XOBJS = xmain.o xmouse.o xscreen.o xmps.o xtypeinit.o xengine.o\
+ xtransport.o xmarket.o xhelp.o lcx11.o
+
+# LC_IMAKE_ARGS = -DUseInstalled -I/usr/lib/X11R5/config
+
+hpux : $(XOBJS)
+	gcc -o xlincity *.o -L/usr/lib/X11R5 $(LC_XLIBS)
+	@echo HP-UX compile done.
+
+xmain.o : main.cxx main.h lin-city.h lctypes.h lcx11.h
+	gcc $(PROFF) $(PROFD) -c main.cxx -o xmain.o $(LC_XFLAGS)
+
+xmouse.o : mouse.cxx mouse.h lin-city.h lctypes.h
+	gcc $(PROFF) $(PROFD) -c mouse.cxx -o xmouse.o $(LC_XFLAGS)
+
+xscreen.o : screen.cxx screen.h lin-city.h lctypes.h lcx11.h
+	gcc $(PROFF) $(PROFD) -c screen.cxx -o xscreen.o $(LC_XFLAGS)
+
+xmps.o : mps.cxx mps.h lin-city.h lctypes.h
+	gcc $(PROFF) $(PROFD) -c mps.cxx -o xmps.o $(LC_XFLAGS)
+
+xtypeinit.o : typeinit.cxx typeinit.h lin-city.h lctypes.h
+	gcc $(PROFF) $(PROFD) -c typeinit.cxx -o xtypeinit.o $(LC_XFLAGS)
+
+xengine.o : engine.cxx engine.h lin-city.h lctypes.h
+	gcc $(PROFF) $(PROFD) -c engine.cxx -o xengine.o $(LC_XFLAGS)
+
+xtransport.o : transport.cxx transport.h lin-city.h lctypes.h
+	gcc $(PROFF) $(PROFD) -c transport.cxx -o xtransport.o $(LC_XFLAGS)
+
+xmarket.o    : market.cxx market.h lin-city.h lctypes.h
+	gcc $(PROFF) $(PROFD) -c market.cxx -o xmarket.o $(LC_XFLAGS)
+
+xhelp.o      : help.cxx help.h lin-city.h lctypes.h
+	gcc $(PROFF) $(PROFD) -c help.cxx -o xhelp.o $(LC_XFLAGS)
+
+lcx11.o    : lcx11.cxx lcx11.h lin-city.h
+	gcc -c lcx11.cxx -o lcx11.o $(LC_XFLAGS)
+
+
+#    --------  End of Makefile for LinCity  -----------

@@ -1,0 +1,47 @@
+#  sunosMakefile for LinCity   (c)  I J Peters 1995,1996.
+# Thanks to sarum@softdisk.monosys.com (David Allan Finch)
+
+#  DO NOT INVOKE THIS FILE DIRECTLY, it is called from the Makefile.
+#  Edit the Makefile to point to where you want the binary and libraries
+#  to go. Then  'make clean', 'make solaris' and 'make install'.
+
+OPENWIN =     /usr/openwin
+CDE =         /usr/dt
+
+LC_XFLAGS =   -I$(OPENWIN)/include \
+              -I$(CDE)/include
+
+LIBS =        -L$(OPENWIN)/lib \
+              -L$(CDE)/lib \
+              -lXext -lX11 -lm
+
+OPTS =        -O3 -DSUNOS
+
+CFLAGS = $(OPTS) $(INCLUDES) -DLC_X11 -DLIBDIR=\"$(LC_LIBDIR)/\"
+
+.SUFFIXES: .cxx .o .h
+
+%.o:  %.cxx
+	gcc $(CFLAGS) -c $< $(LC_XFLAGS)
+
+SOURCE =      main.cxx \
+              mouse.cxx \
+              screen.cxx \
+              mps.cxx \
+              typeinit.cxx \
+              engine.cxx \
+              transport.cxx \
+              market.cxx \
+              help.cxx \
+              lcx11.cxx
+
+OBJECTS = $(SOURCE:.cxx=.o)
+
+all : $(OBJECTS)
+	gcc -o xlincity $(OBJECTS) $(LIBS)
+
+# You'll have to hack the top Makefile if you want to use purify
+# purify : $(OBJECTS)
+#	purify gcc -o xlincity $(OBJECTS) $(LIBS)
+
+#    --------  End of sunosMakefile for LinCity  -----------

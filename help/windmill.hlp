@@ -1,0 +1,34 @@
+text -1 15 Windmills
+
+text -1 30 Windmills provide power for residences
+text -1 40 and farms. They enable the farmer to
+text -1 50 process food more eficiently and make
+text -1 60 residences more desirable.
+
+text -1 75 Providing power to residences makes the
+text -1 85 people there use more goods.
+
+text -1 95 Low tech windmills do NOT provide power
+text -1 105 to industries. (Heavy industry
+text -1 115 can get power from coal, light industry
+text -1 125 needs 'real' electricity to be
+text -1 135 'powered', they still work without power
+text -1 145 at a lower output.)
+
+text -1 160 There are two forms of windmills. The
+text -1 170 first is a low-tech 'wooden' windmill.
+text -1 180 The second is a 'modern' wind-farm type.
+
+icon 130 210 windmill1w.csi
+icon 230 210 windmill1g.csi
+
+text -1 255 The type you get depends on your
+text -1 265 tech-level when you build it.
+
+icon 216 316 windmill1g.csi
+icon 216 300 powerlldl.csi
+icon 200 300 powerlhd.csi
+icon 184 300 powerlhl.csi
+
+text -1 360 High tech ones can supply power lines.
+

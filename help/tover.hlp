@@ -1,0 +1,14 @@
+
+text -1 35 This is the OVERWRITE transport button.
+
+text -1 50 When active (green) it allows you to
+text -1 60 overwrite one type of transport with another.
+text -1 70 You can *upgrade* or *downgrade* existing
+text -1 80 transport.
+
+text -1 100 Remember to turn this off (red), once
+text -1 110 you have finished.
+
+text -1 130 The cost for using this option is the
+text -1 140 same as if you had bulldozed the existing
+text -1 150 transport, and built the new one, by hand.

@@ -1,0 +1,313 @@
+
+                     **  Welcome to lincity  **
+
+
+This is the README for LinCity BETA 1 (Version 1.12-pre42 or later)
+
+
+WHAT IS LINCITY
+===============
+
+LinCity is a city/country simulation game for Linux (SVGALIB and X), 
+Solaris, FreeBSD, HPUX, AIX, SCO, IRIX, Compaq True64, BeOS, OS/2, VMS and 
+Win32 (Win9X and NT).
+
+You are required to build and maintain a city. You must feed, house, 
+provide jobs and goods for your residents. You can build a sustainable
+economy with the help of renewable energy and recycling, or you can go for
+broke and build rockets to escape from a pollution ridden and resource
+starved planet, it's up to you. Due to the finite resources available in any
+one place, this is not a game that you can leave for long periods of time.
+
+The LinCity home page is located at:
+
+    http://www.floot.demon.co.uk/lincity.html
+
+Or to join the mailing list, send mail to:
+
+      majordomo@floot.demon.co.uk   with
+
+      subscribe lincity     in the body of your mail.
+
+
+REQUIREMENTS
+============
+
+   *  SVGALIB 1.3.0 (or greater).  This is required to use new mouse 
+      interface that uses parameters spec'd in /etc/vga/libvga.conf.
+
+      OR	 X11.
+
+      OR	 A Win32 OS.
+
+   *  A graphics card supported by your above choice.
+
+   *  You probably need at least a 486DX2-66. (Even better for the X version 
+      I suspect.)
+
+   *  Other things?  Send us an email.
+
+
+INSTALLATION (UNIX)
+===================
+
+To install LinCity, (as root) untar the file lincity-1.12.tar.gz 
+
+     tar -xzvf lincity-1.12.tar.gz
+
+You now want to compile the source
+
+      cd lincity-1.12
+      ./configure
+      make
+      make install
+
+The old method choosing the install directory by setting LC_BINDIR and 
+LC_LIBDIR in the makefile no longer applies.  To install to a different 
+directory, you must use the --prefix flag when you configure the package. 
+For example:
+
+      ./configure --prefix=/usr/mylocal
+
+
+INSTALLING PICEDIT
+==================
+
+picedit is a simple drawing program that was used to draw all the icons
+found within the game. You are free to play with this, and even send me
+new icons that you have designed - although I cannot guarantee that any
+icons sent to me will be included in later versions. If you intend to design
+some that you feel should be included, please e-mail me first, this may save
+a lot of wasted effort.  The following commands
+
+    ./configure
+    make picedit   (or make xpicedit)
+    make install
+
+will compile and install picedit (or xpicedit).  Most likely, you will 
+prefer to install picedit and lincity at the same time to avoid copying 
+all of the help and message files multiple times, like this:
+
+    ./configure
+    make lincity
+    make picedit
+    make install
+
+By the way, xpicedit does not work on hi-color or full-color displays.
+
+
+INSTALLATION (WIN32)
+====================
+Simply unpack the archive, and double click on the LINCITY.EXE icon.  
+Be sure to use a program such as UNZIP which preserves long filenames.  
+You can get your free copy of UNZIP from the INFO-ZIP web page at
+
+    http://www.cdrom.com/pub/infozip/UnZip.html.
+
+
+RUNNING LINCITY (MONOLITHIC)
+============================
+
+Usually you will invoke the game with    lincity   or   xlincity
+
+             lincity  [opts]
+             xlincity [opts]
+
+The following options apply to both.
+
+        -w   Do some *crude* gamma correction to boost the red and blue.
+             This makes some 'washed out' displays a bit more colourful.
+             You have control of the individual values, see below.
+
+        -R <num>
+	-G <num>
+	-B <num>
+             These options allow you to boost the individual colours.
+             <num> is a number between 0.0 and 1.0
+             The default values for -w are  1.0   0.0   0.4  (ATTOW)
+
+This option only applies to xlincity.
+
+        -b   Do not include the extra border around the game.
+        -d   Double the size of the window to 1280x960
+
+
+INTERNATIONALIZATION
+====================
+
+Lincity supports a modest amount of internationalization.  Only languages
+that can be represented using iso8859-1 or iso8859-2 font are currently
+supported.
+
+If you wish to make a translation for your language, first get the sample 
+Catalan to display correctly.  After doing a configure, make and make install,
+set LANGUAGE environment variable to "ca", and run.  Only the messages will 
+be in Catalan (since that is the only part of the translation that is 
+done), but at least you can see the "Not enough tech" message if you try 
+to select a rocket ship.
+
+There are three parts to making a tranlation: making help files, making 
+message files, and making a .po file.  The messages and help files are 
+just a matter of editing the ASCII files, and installing them.  If your 
+language is "ca", they should go in the directories messages/ca and 
+help/ca underneath /usr/local/share/lincity.
+
+The .po file is a matter of translating these and getting them to compile 
+correctly.  You'll need to edit the autoconf files to get this to work.
+Send an email to the current maintainer and he will help you.
+
+
+RUNNING LINCITY (CLIENT/SERVER)
+===============================
+
+Client/server version is disabled for this version.  If you are interested
+in working on a client/server version, please send email to the 
+current maintainter or to the lincity mailing list.
+
+Run the applications "lcserver" to start the server.  At this time, 
+the only port that the server will listen at 5139.  Edit the 
+file "protocol.h" to change this.  Once the server is running, 
+clients should connect by clicking on the "Connect to Server" button
+from the LinCity main screen.  The server supports up to 16 simultaneous 
+connections at this time.
+
+
+NOTES FOR X VERSION
+===================
+
+When playing in 256 colour (8bbp) display modes, when you go over the edge
+of your window, the window manager changes the colour palette back to the
+'normal' one, then back to the game's one when the mouse reenters the
+window. This is what is supposed to happen, but can be a bit annoying when
+trying to click on areas close to the edge and overshooting. For this
+reason, I have added an extra border around the game to give players a bit
+of 'breathing space'.
+
+You can disable this feature by starting the game with a '-b' switch. ie.
+
+                 xlincity -b
+
+There is now a button that enables you to confine the mouse pointer within
+the X window. ( xlincity -b, then confining the pointer and changing the
+screen res to 640x480 gives you a 'full screen' game. :) )
+
+
+NOTES FOR WIN32 VERSION
+=======================
+
+LinCity for Win32 automatically chooses whether or not to add a border 
+and/or perform pix doubling, depending on your resolution.  Furthermore,
+it will automatically maximize the window or even go into full screen
+mode.  Here is what you should see for some of the more popular 
+resolutions:
+       
+       Resolution      Window Style     Border         Pix Doubling
+       ------------    ------------    ------------    ------------
+       640 x 480       Full screen     None            No
+       800 x 600       Window          Yes             No
+       1024 x 768      Window          Yes             No
+       1152 x 864      Window          Yes             No
+       1280 x 1024     Window          None            Yes
+
+If you are running 1280x1024, you may need to autohide the taskbar
+in order to see pix doubling.
+
+Lin City now uses a real windows font to draw text.  This fix gave me
+a speed improvement of 20% at year 800.
+
+Sometimes the font doesn't work correctly, for a reason that I haven;t
+yet identified.  If this happens, you will need to set the define in 
+lcwin32.c so that USE_WINDOWS_FONT is 0, and recompile.
+
+If you get a message such as "Can't open the font file", this probably 
+means that the long file names did not get unzip'd correctly.  Go to the
+C:\LINCITY???\OPENING directory, and look for the file winfont_8x8.fnt.
+If this file does not exists (or if it is called winfont_.fnt), then
+is definitely the problem.  Reinstall the archive using the UNZIP program.
+
+If you get a message such as "Error. Can't find LINCITY_HOME", this
+means that LinCity can't find it's home directory.  The program searches
+for the file "Colour.pal" in the following three directories (in order):
+
+	The current working directory
+	The directory pointed to by the $LINCITY_HOME environment variable
+	The default directory
+
+Multi-transport is now supported.  Simply shift-click at the beginning
+and shift-click at the end, and you'll get a whole line of track, road,
+rail or power lines.  Look for the blue border around the main window to
+confirm that you are in multi-transport mode.
+
+Save files are gzip compatible with the UNIX version of LinCity.  That is,
+you will need to gzip/gunzip the save files when you transfer them to/from
+your UNIX box.
+
+You can now scroll the main screen using the arrow keys.  Furthermore, you
+can do a "fast scroll" with the SHIFT+ARROW key.
+
+The source code is distributed together with the binary distribution,
+in the file source.tgz.
+
+
+COMPILATION UNDER WIN32
+=======================
+
+I am using MS VC++ 4.0 under Win95 and Win98.  LinCity is reported to 
+compile under MS VC++ 6.0 also.  If you are using MSVC, you might
+be able to unpack the archive, and type something like this:
+
+	c:\lincity???> nmake /f lincity.mak
+
+I have also included the 4.0 workspace file, Lincity.mdp.  This may
+or may not be helpful for you.
+
+If you are using a different compiler, you may need to generate your own 
+Makefile.  The file Makefile.am contains the information about which 
+files you need to compile.  In addition to the supplied files, you must 
+link with your compiler supplied VERSION.LIB in addition to the standard 
+WIN32 libraries.  You'll need to link with WSOCK32.LIB also.
+
+
+BUGS
+====
+
+Many.  See the file TODO.
+
+If you wish to report a bug, you can send to directly to the current
+maintainer or to the lincity mailing list.
+
+
+HISTORY
+=======
+
+Ian Peters started writing LinCity in June 1995 as an exercise in 
+mouse control in SVGALIB. It quickly became a usable, then even fun, 
+game to play. Over the next 18+ months it evolved into a challenging 
+and stable game which, in a number of people's opinion, is worth uploading 
+to the net.
+
+In late 1997, LinCity developers made grand plans for LinCity version 2, 
+an intergalactic space simulation with all the trimmings.  But from 
+1998-1999, LinCity underwent a period of hibernation, with only minor 
+patches being applied.  
+
+Development has been restarted in late 1999 by Greg Sharp to provide some 
+moderate improvents, including networking support, GUI improvements and 
+perhaps some additional gameplay developments.  Version 1.12 is the results 
+of this effort.
+
+
+COPYRIGHT
+=========
+LinCity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
+
+You may freely copy, distribute and modify lincity under the terms of the
+
+                       GNU GENERAL PUBLIC LICENSE
+
+Please read the file COPYING for the GPL.
+
+This game could not have been possible without the patches, scripts, 
+bug reports, suggestions, and other contributions from hundreds of 
+developers and users around the world.  Please read the file 
+'Acknowledgements' for details.

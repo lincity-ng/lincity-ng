@@ -1,0 +1,20 @@
+text -1 15 Controlling what markets can buy and sell
+text -1 40 You can control the functioning of a market
+text -1 50 by selecting what may be bought and sold
+text -1 60 from transport. Click twice on a market
+text -1 70 (not the select button) and towards the top
+text -1 80 left hand side a window will appear allowing
+text -1 90 you to select what is traded.
+text -1 105 The default is to trade in everything.
+
+icon 50 140 checked_box.csi
+text 80 146 Means the trade is allowed.
+icon 50 170 unchecked_box.csi
+text 80 176 Means the trade is NOT allowed.
+
+text -1 200 The numbers between the words Buy and Sell
+text -1 210 are the map reference for that market.
+
+text 50 290 See also:
+tbutton 50 310 transport.hlp Transport
+ 

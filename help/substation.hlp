@@ -1,0 +1,30 @@
+text -1 15 Substations
+text -1 35 Substations take power packets from power
+text -1 45 lines and distribute the power to the
+text -1 55 surrounding area. You can see if, for example,
+text -1 65 your residential area is powered by clicking
+text -1 75 on the icon, then looking at the mappoint
+text -1 85 stats window.
+text -1 100 The example below shows a solar power station
+text -1 110 feeding a substation. A medium populated
+text -1 120 residential area is within range.
+
+icon 220 200 powerssolar.csi
+icon 220 184 powerlvl.csi
+icon 204 200 powerlhl.csi
+icon 188 200 powerlhd.csi
+icon 172 200 powerlhl.csi
+icon 156 200 powerlrdl.csi
+text 60 228 Substation
+icon 156 216 substation-G.csi
+icon 130 280 resmedlow.csi
+
+tbutton 108 182 powerline.hlp Power lines
+//text 110 184 Power lines
+//button 108 182 92 12 powerline.hlp
+
+text 195 280 Solar power station
+button 193 278 156 12 powerssolar.hlp
+
+text 110 335 Residential
+button 108 333 92 12 residential.hlp

@@ -1,0 +1,53 @@
+	================     =================
+	README.profiling     part of Lin-city.
+	================     =================
+
+I have only profiled this program when running with SVGALib.
+(If you what to profile under X, you're on your own.)
+
+If you are using svgalib 1.2.9 or greater (as you should), then you will
+need to edit .../svgalibxxx/src/vga.c and stop svgalib catching the profile
+signal. The code should now look like this:-
+
+/* We invoke the old interrupt handler after setting text mode */
+/* We catch all signals that cause an exit by default (aka almost all) */
+static char sig2catch[] =
+{SIGHUP, SIGINT, SIGQUIT, SIGILL,
+ SIGTRAP, SIGIOT, SIGBUS, SIGFPE,
+ SIGSEGV, SIGPIPE, SIGALRM, SIGTERM,
+ SIGXCPU, SIGXFSZ, SIGVTALRM,
+ /* SIGPROF, */ SIGPWR};
+static struct sigaction old_signal_handler[sizeof(sig2catch)];
+
+	NOTE the comments around SIGPROF.
+
+Now recompile svgalib with make install but READ THE SVGALIB DOCS YOURSELF
+just in case.
+
+To enable profiling, uncomment the PROFx vars in the makefile.
+
+To disable profiling, comment the PROFx vars in the makefile.
+
+Then just run the program as usual.
+
+When you exit, put the profiling info in a file:
+
+	gprof /usr/local/bin/lincity > proffile.txt
+
+(The raw profiling info is stored in gmon.out, a binary.)
+
+Note:
+	I have pushed the gl_setpixel() etc. routines through another
+	function when profiling is enabled. It will slow things down 
+	a bit (<1%), but if you want to see how many times these routines 
+	are called, you'll have to put up with it. Not all the gl_routines
+	are redirected in this way, only the ones called during the main
+	body of the code. These routines are identified by the FP in front
+	of the 'old' function name, ie the above becomes FPgl_setpixel().
+	(Perhaps not the best choice of prefix for obvious reasons, but
+	it stands for Floyd's Profiling.) You can disable this part alone
+	by commenting out the 'PROFD = -DCS_PROFILE' line.
+
+
+
+ 

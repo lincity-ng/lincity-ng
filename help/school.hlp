@@ -1,0 +1,34 @@
+text -1 15 Schools
+
+text -1 30 Schools use jobs and goods to produce
+text -1 40 technology in a similar way to
+text -1 50 universities. They use many less jobs
+text -1 60 and goods than universities, but
+text -1 70 produce far fewer tech points. Given
+text -1 80 the choice of putting 4 or five schools
+text -1 90 in a given area, or a university, it is
+text -1 100 often (but not always) better to put a
+text -1 110 university in.
+
+text -1 125 Schools do NOT need to connect to
+text -1 135 transport, but do need to be within
+text -1 145 range of a market than can supply the
+text -1 155 quantity of jobs and goods to make the
+text -1 165 school work.
+
+text -1 180 Schools cost money to run. You can see
+text -1 190 the total cost for the LAST year by
+text -1 205 clicking on the money button.
+icon 316 202 ms-ocost-button.csi
+
+text -1 220 The value 'scl' is the school cost.
+
+text 20 250 See also:
+tbutton 100 250 market.hlp Markets
+tbutton 100 270 university.hlp Universities
+tbutton 100 290 transport.hlp Transport
+tbutton 100 310 goods.hlp Goods
+tbutton 100 330 jobs.hlp Jobs
+
+text 275 264 A school
+icon 290 280 school0.csi

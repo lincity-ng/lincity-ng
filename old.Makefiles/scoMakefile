@@ -1,0 +1,28 @@
+#  scoMakefile for LinCity   (c)  I J Peters 1995,1997.
+# Thanks to Simon Baldwin <simonb@sco.com>
+
+#  DO NOT INVOKE THIS FILE DIRECTLY, it is called from the Makefile.
+#  Edit the Makefile to point to where you want the binary and libraries
+#  to go. Then  'make clean', 'make sco' and 'make install'.
+
+#LIBS          = -lXext -lX11 -lm -lsocket
+LIBS           = -lXext -lX11 -lsocket -lm
+OPTS           = -O1 -DSCO -DLC_X11 -DLIBDIR=\"$(LC_LIBDIR)/\"
+INCLUDES       =
+CCFLAGS                = $(OPTS) $(INCLUDES)
+
+.SUFFIXES: .cxx .o .h
+
+.cxx.o: 
+	CC +.cxx -c $< $(CCFLAGS)
+
+SOURCES  = main.cxx mouse.cxx screen.cxx mps.cxx typeinit.cxx engine.cxx \
+           transport.cxx market.cxx help.cxx lcx11.cxx
+
+OBJECTS        = main.o mouse.o screen.o mps.o typeinit.o engine.o \
+               transport.o market.o help.o lcx11.o
+
+all : $(OBJECTS)
+	CC -o xlincity $(OBJECTS) $(LIBS)
+
+#    --------  End of scoMakefile for LinCity  -----------

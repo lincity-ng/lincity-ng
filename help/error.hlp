@@ -1,0 +1,8 @@
+text -1 200 Can't open requested page
+text -1 215 (Either the help page is not written
+text -1 225 yet, your install is not setup correctly,
+text -1 235 or there is a bug.)
+
+text -1 260 Go back to where you came from by clicking
+text -1 270 on the help button again, or...
+tbutton -1 290 index.hlp Go back to the start of the help

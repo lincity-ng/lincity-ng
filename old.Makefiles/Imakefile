@@ -1,0 +1,18 @@
+#      This is the Imakefile for LinCity.
+#
+#      DO NOT run imake on this file - it will not work.
+#      =================================================
+
+#      It needs to be called from the top level Makefile
+#      where variables are set. Use - make xlincity
+
+LOCAL_LIBRARIES = $(XLIB)
+        DEPLIBS = $(DEPXLIB)
+  SYS_LIBRARIES = -lm
+
+           SRCS = main.cxx mouse.cxx screen.cxx mps.cxx typeinit.cxx\
+                  engine.cxx transport.cxx market.cxx help.cxx lcx11.cxx
+           OBJS = xmain.o xmouse.o xscreen.o xmps.o xtypeinit.o\
+                  xengine.o xtransport.o xmarket.o xhelp.o lcx11.o
+
+ComplexProgramTarget(xlincity)

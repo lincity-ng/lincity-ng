@@ -1,0 +1,44 @@
+text -1 15 Commune
+
+text -1 30 Communes (for want of a better name) are
+text -1 40 areas where charcoal burners coppice woods
+text -1 50 to make charcoal (the same as coal here).
+text -1 60 They also produce small amounts of ore
+text -1 70 and steel.
+
+text -1 140 You will probably need a 'few' communes to
+text -1 150 provide enough coal and steel for areas such
+text -1 160 as potteries, blacksmiths and mills.
+
+icon 40 200 tracklr.csi
+icon 56 200 tracklr.csi
+icon 72 200 tracklr.csi
+icon 88 200 trackldr.csi
+icon 88 216 commune1.csi
+icon 104 200 tracklr.csi
+icon 120 200 tracklr.csi
+icon 136 200 tracklr.csi
+icon 152 200 tracklr.csi
+icon 168 200 tracklr.csi
+icon 184 200 tracklr.csi
+icon 200 200 tracklr.csi
+icon 216 200 tracklr.csi
+icon 232 200 trackldr.csi
+icon 232 216 trackur.csi
+icon 248 200 trackldr.csi
+icon 248 216 commune1.csi
+icon 264 200 tracklr.csi
+icon 280 200 tracklr.csi
+icon 296 200 tracklr.csi
+icon 310 200 tracklr.csi
+
+text -1 300 Communes can connect to transport at
+text -1 310 any point around it, not only to the gate.
+
+
+text 25 342 See also:
+tbutton 120 340 pottery.hlp Potteries
+tbutton 230 340 blacksmith.hlp Blacksmiths
+tbutton 50 360 mill.hlp Mills
+tbutton 120 360 oremine.hlp Ore mines
+tbutton 230 360 steel.hlp Steel

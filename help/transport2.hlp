@@ -1,0 +1,34 @@
+text -1 15 Transport  page 2 of 4
+
+text -1 40 All areas that require jobs (employees) get
+text -1 50 them from markets. (For example a steel works
+text -1 60 will get its employees from a local market.)
+text -1 70 They can also get them from passing transport.
+
+text -1 85 Farms can sell their food directly to markets,
+text -1 95 they do not have to deal with transport at all.
+
+text -1 110 Mills, Potteries and blacksmiths sell goods
+text -1 120 directly to nearby markets, they also get
+text -1 130 their raw materials from the same markets.
+#text -1 140 
+
+text -1 160 The following areas deal with transport
+text -1 170 and markets. It's up to you what you use,
+text -1 180 - markets hold more 'stock' than transport.
+
+tbutton 65 215 residential.hlp Residences
+tbutton 65 235 powerssolar.hlp Solar Power Stations
+tbutton 65 255 farm.hlp Farms
+tbutton 65 275 university.hlp Universities
+tbutton 65 295 health.hlp Medical Centres
+tbutton 65 315 rocket.hlp Rocket Launch Sites
+
+tbutton 250 215 windmill.hlp Wind Mills
+tbutton 250 235 monument.hlp Monuments
+tbutton 250 255 school.hlp Schools
+tbutton 250 275 blacksmith.hlp Blacksmiths
+tbutton 250 295 mill.hlp Mills
+tbutton 250 315 pottery.hlp Potteries
+
+tbutton -1 360 transport3.hlp Next Page - tracks, roads and railways

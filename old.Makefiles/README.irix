@@ -1,0 +1,15 @@
+
+  ****  README.irix   for lincity  ****
+
+This is ALPHA. Frederic Roussel sent me the patches but this
+hasn't been tested on any other machines.
+
+To compile and install:
+
+    make clean
+    make irix
+    make install
+
+Run the game with  'xlincity'
+
+Have fun...
