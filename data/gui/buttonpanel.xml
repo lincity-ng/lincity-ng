@@ -1,237 +1,75 @@
 <?xml version="1.0"?>
-<Panel width="92" height="700"> <!-- background="images/gui/buttonpanel_back.png">-->
-    <TableLayout rows="16" cols="2">
-        <cell row="1" col="1">
-            <Button name="ResidenceButton" lower="true">
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-                <image-caption src="images/gui/round_resident.png"/>
-            </Button>
+<ButtonPanel width="200" height="700">
+  <Panel width="200" height="376"> <!-- background="images/gui/buttonpanel_back.png">-->
+    <TableLayout rows="8" cols="2">
+      <colsize col="1" fixed="48"/>
+        <cell row="1" col="1" halign="left">
+          <CheckButton name="BPPointerButton" lower="true">
+            <image src="images/gui/rnew_button_bg0.png"/>
+            <image-hover src="images/gui/rnew_button_bg1.png"/>
+            <image-clicked src="images/gui/rnew_button_bg2.png"/>
+            <image-checked src="images/gui/rnew_button_bg3.png"/>
+            <image-caption src="images/gui/pointer1.png"/>
+          </CheckButton>
         </cell>
-        <cell row="1" col="2">
-            <Button name="BullDozeButton">
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-                <image-caption src="images/gui/bulldozer2.png"/>
-            </Button>
+        <cell row="1" col="2" halign="left">
+          <Panel name="BPPointerMenu" width="96" height="50" background="images/gui/button_back_menu2.png">
+            <TableLayout rows="1" cols="2">
+              <cell row="1" col="1">
+                <CheckButton name="BPMPointerButton" main="BPPointerButton">
+                  <image src="images/gui/rnew_button_bg0.png"/>
+                  <image-hover src="images/gui/rnew_button_bg1.png"/>
+                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
+                  <image-checked src="images/gui/rnew_button_bg3.png"/>
+                  <image-caption src="images/gui/pointer1.png"/>
+                </CheckButton>
+              </cell>
+              <cell row="1" col="2">
+                <CheckButton name="BPMBullDozeButton" main="BPPointerButton">
+                  <image src="images/gui/rnew_button_bg0.png"/>
+                  <image-hover src="images/gui/rnew_button_bg1.png"/>
+                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
+                  <image-checked src="images/gui/rnew_button_bg3.png"/>
+                  <image-caption src="images/gui/bulldozer2.png"/>
+                </CheckButton>
+              </cell>
+              </TableLayout>
+            </Panel>
         </cell>
-        <cell row="2" col="1">
-            <Button name="FarmButton">
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-                <image-caption src="images/gui/cow.png"/>
-            </Button>
+        <cell row="2" col="1" halign="left">
+          <CheckButton name="BPResidenceButton" lower="true">
+            <image src="images/gui/rnew_button_bg0.png"/>
+            <image-hover src="images/gui/rnew_button_bg1.png"/>
+            <image-clicked src="images/gui/rnew_button_bg2.png"/>
+            <image-checked src="images/gui/rnew_button_bg3.png"/>
+            <image-caption src="images/gui/round_resident.png"/>
+          </CheckButton>
         </cell>
-        <cell row="2" col="2">
-            <Button name="MonumentButton">
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-                <image-caption src="images/gui/pointer1.png"/>
-            </Button>
-        </cell>
-        <cell row="3" col="1">
-            <Button name="MarketButton">
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="3" col="2">
-            <Button name="PotterieButton">
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-                <image-caption src="images/gui/pottery.png"/>
-            </Button>
-        </cell>
-        <cell row="4" col="1">
-            <Button name="CommuneButton">
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="4" col="2">
-            <Button name="TrackButton">
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-                <image-caption src="images/gui/shoes.png"/>
-            </Button>
-        </cell>
-        <cell row="5" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-                <image-caption src="images/gui/round_soccer.png"/>
-            </Button>
-        </cell>
-        <cell row="5" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="6" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="6" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="7" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="7" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="8" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="8" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="9" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="9" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="10" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="10" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="11" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="11" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="12" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="12" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="13" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="13" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="14" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="14" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="15" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="15" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="16" col="1">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
-        </cell>
-        <cell row="16" col="2">
-            <Button>
-                <image src="images/gui/new_button_bg2.png"/>
-                <image-hover src="images/gui/new_button_bg1.png"/>
-                <image-clicked src="images/gui/new_button_bg0.png"/>
-            </Button>
+        <cell row="2" col="2" halign="left">
+          <Panel name="BPResidenceMenu" width="96" height="50" background="images/gui/button_back_menu2.png">
+            <TableLayout rows="1" cols="2">
+              <cell row="1" col="1">
+                <CheckButton name="BPMResidenceButton" main="BPResidenceButton">
+                  <image src="images/gui/rnew_button_bg0.png"/>
+                  <image-hover src="images/gui/rnew_button_bg1.png"/>
+                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
+                  <image-checked src="images/gui/rnew_button_bg3.png"/>
+                  <image-caption src="images/gui/round_resident.png"/>
+                </CheckButton>
+              </cell>
+              <cell row="1" col="2">
+                <CheckButton name="BPMResidence2Button" main="BPResidenceButton">
+                  <image src="images/gui/rnew_button_bg0.png"/>
+                  <image-hover src="images/gui/rnew_button_bg1.png"/>
+                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
+                  <image-checked src="images/gui/rnew_button_bg3.png"/>
+                  <image-caption src="images/gui/bulldozer2.png"/>
+                </CheckButton>
+              </cell>
+              </TableLayout>
+            </Panel>
         </cell>
     </TableLayout>
-</Panel>
+  </Panel>
+</ButtonPanel>
 

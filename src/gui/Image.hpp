@@ -15,10 +15,14 @@ public:
 
     void resize(float width, float height);
     void draw(Painter& painter);
+    
+    std::string getFilename() const;
+    void setFile(const std::string &filename);
 
 private:
     std::auto_ptr<Texture> texture;
     bool tiling;
+    std::string filename;
 };
 
 #endif

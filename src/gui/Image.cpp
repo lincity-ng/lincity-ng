@@ -29,6 +29,7 @@ Image::Image(Component* parent, XmlReader& reader)
                 throw std::runtime_error(msg.str());
             }
         } else if(strcmp(attribute, "src") == 0) {
+            filename=value;
             texture.reset(texture_manager->load(value));        
         } else {
             std::cerr << "Skipping unknown attribute '"
@@ -57,6 +58,16 @@ void
 Image::draw(Painter& painter)
 {
     painter.drawTexture(texture.get(), Rect2D(0, 0, width, height));
+}
+
+std::string Image::getFilename() const
+{
+  return filename;
+}
+void Image::setFile(const std::string &pfilename)
+{
+  filename=pfilename;
+  texture.reset(texture_manager->load(pfilename));
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Image)

@@ -125,6 +125,8 @@ protected:
     int flags;
     float width, height;
     std::string name;
+    
+    friend class ButtonPanel;
 };
 
 #endif

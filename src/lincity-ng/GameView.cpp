@@ -33,6 +33,7 @@
 #include "lincity/engglobs.h"
 
 #include "Mps.hpp"
+#include "MapEdit.hpp"
 
 #include <SDL_keysym.h>
 #include <math.h>
@@ -639,6 +640,7 @@ void GameView::click(const Vector2 &pos)
   Vector2 tile=getTile(pos);
   std::cout << "Tile-pos:"<<tile.x<<","<<tile.y<<std::endl;
   getMPS()->setView( (int) tile.x, (int) tile.y);
+  editMap((int) tile.x, (int) tile.y,SDL_BUTTON_LEFT);
 }
 
 /*

@@ -47,6 +47,35 @@ private:
   }
 };
 
+class LCexception: public std::exception
+{
+  public:
+  LCexception(std::string s):w(s)
+  {
+  }
+  virtual ~LCexception() throw ()
+  {
+  }
+  
+  const char*what() const throw ()
+  {
+    return w.c_str();
+  }
+  
+  private:
+  std::string w;
+};
+
+template<class T,class Y>
+T*checked_cast(Y *x)
+{
+  if(!x)
+    throw LCexception("checked_cast failed:input==0!");
+  T*t=dynamic_cast<T*>(x);
+  if(!t)  
+    throw LCexception("checked_cast failed:cast failed!");
+  return t;
+}
 
 #endif
 

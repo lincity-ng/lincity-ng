@@ -13,7 +13,7 @@
     <cell row="1" col="3" valign="top" halign="right">
         <Import src="gui/pbar.xml"/>
     </cell>
-    <cell row="1" col="2" valign="top" halign="left">
+    <cell row="1" col="2" valign="top" halign="right">
       <Import src="gui/mps.xml"/>
     </cell>  
     <cell row="2" col="3" valign="bottom" halign="right">
