@@ -27,6 +27,7 @@
 #include "mouse.h"
 #include "geometry.h"
 #include "lchelp.h"
+#include "timer.h"
 
 
 /* ---------------------------------------------------------------------- *
@@ -119,11 +120,11 @@ init_timer_buttons (void)
 void
 pause_handler(int x, int y, int button)
 {
-	if (button == LC_MOUSE_RIGHTBUTTON) {
-	    activate_help ("pause.hlp");
-	} else {
-	    select_pause ();
-	}
+    if (button == LC_MOUSE_RIGHTBUTTON) {
+	activate_help ("pause.hlp");
+    } else {
+	select_pause ();
+    }
 }
 
 void
