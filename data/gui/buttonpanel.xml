@@ -109,11 +109,11 @@
       <colsize col="1" fixed="48"/>
         <cell row="1" col="1" halign="left">
           <CheckButton name="BPPointerButton" lower="true">
-            <image src="images/gui/rnew_button_bg0.png"/>
-            <image-hover src="images/gui/rnew_button_bg1.png"/>
-            <image-clicked src="images/gui/rnew_button_bg2.png"/>
-            <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/pointer.png"/>
+            <image src="images/gui/buttonpanel/background/button.png"/>
+            <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+            <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+            <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+	    <image-caption src="images/gui/buttonpanel/base/pointer.png"/>
           </CheckButton>
         </cell>
         <cell row="1" col="2" halign="left">
@@ -121,20 +121,20 @@
             <TableLayout rows="1" cols="2">
               <cell row="1" col="1">
                 <CheckButton name="BPMPointerButton" main="BPPointerButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/pointer.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/base/pointer.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
                 <CheckButton name="BPMBullDozeButton" main="BPPointerButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/bulldozer.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/base/bulldozer.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -143,11 +143,11 @@
 				<!-- residents and so -->
         <cell row="2" col="1" halign="left">
           <CheckButton name="BPResidenceButton" lower="true">
-            <image src="images/gui/rnew_button_bg0.png"/>
-            <image-hover src="images/gui/rnew_button_bg1.png"/>
-            <image-clicked src="images/gui/rnew_button_bg2.png"/>
-            <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/residence-lotec-lo.png"/>
+            <image src="images/gui/buttonpanel/background/button.png"/>
+            <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+            <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+            <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+            <image-caption src="images/gui/buttonpanel/residence/residence.png"/>
           </CheckButton>
         </cell>
         <cell row="2" col="2" halign="left">
@@ -155,56 +155,56 @@
             <TableLayout rows="1" cols="6">
               <cell row="1" col="1">
                 <CheckButton name="BPMResidence1Button" main="BPResidenceButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/residence-lotec-lo.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                  <image-caption src="images/gui/buttonpanel/residence/residence-lotec-lo.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
                 <CheckButton name="BPMResidence2Button" main="BPResidenceButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/residence-lotec-med.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                  <image-caption src="images/gui/buttonpanel/residence/residence-lotec-med.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
                 <CheckButton name="BPMResidence3Button" main="BPResidenceButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/residence-lotec-high.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                  <image-caption src="images/gui/buttonpanel/residence/residence-lotec-high.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
                 <CheckButton name="BPMResidence4Button" main="BPResidenceButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/residence-hightec-lo.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                  <image-caption src="images/gui/buttonpanel/residence/residence-hightec-lo.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
                 <CheckButton name="BPMResidence5Button" main="BPResidenceButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/residence-hightec-med.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                  <image-caption src="images/gui/buttonpanel/residence/residence-hightec-med.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="6">
                 <CheckButton name="BPMResidence6Button" main="BPResidenceButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/residence-hightec-high.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+                  <image-caption src="images/gui/buttonpanel/residence/residence-hightec-high.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -213,11 +213,11 @@
 				<!-- fire health e.g. -->
         <cell row="3" col="1" halign="left">
           <CheckButton name="BPHealthButton" lower="true">
-            <image src="images/gui/rnew_button_bg0.png"/>
-            <image-hover src="images/gui/rnew_button_bg1.png"/>
-            <image-clicked src="images/gui/rnew_button_bg2.png"/>
-            <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/round_health.png"/>
+            <image src="images/gui/buttonpanel/background/button.png"/>
+            <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+            <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+            <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+	    <image-caption src="images/gui/buttonpanel/misc/health.png"/>
           </CheckButton>
         </cell>
         <cell row="3" col="2" halign="left">
@@ -225,47 +225,47 @@
             <TableLayout rows="1" cols="5">
               <cell row="1" col="1">
                 <CheckButton name="BPMHealthButton" main="BPHealthButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_health.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/misc/health.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
                 <CheckButton name="BPMSportsButton" main="BPHealthButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/sports.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/misc/sports.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
                 <CheckButton name="BPMFireButton" main="BPHealthButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/fire.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/misc/fire.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
                 <CheckButton name="BPMSchoolButton" main="BPHealthButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/book.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/misc/book.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
                 <CheckButton name="BPMUniversityButton" main="BPHealthButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/university.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/misc/university.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -274,11 +274,11 @@
 				<!-- transport -->
         <cell row="4" col="1" halign="left">
           <CheckButton name="BPTransportButton" lower="true">
-            <image src="images/gui/rnew_button_bg0.png"/>
-            <image-hover src="images/gui/rnew_button_bg1.png"/>
-            <image-clicked src="images/gui/rnew_button_bg2.png"/>
-            <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/rails2.png"/>
+            <image src="images/gui/buttonpanel/background/button.png"/>
+            <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+            <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+            <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+	    <image-caption src="images/gui/buttonpanel/transport/rails2.png"/>
           </CheckButton>
         </cell>
         <cell row="4" col="2" halign="left">
@@ -286,47 +286,47 @@
             <TableLayout rows="1" cols="5">
               <cell row="1" col="1">
                 <CheckButton name="BPMTrackButton" main="BPTransportButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/tracks.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/transport/tracks.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
                 <CheckButton name="BPMStreetButton" main="BPTransportButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/road.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/transport/road.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
                 <CheckButton name="BPMRailButton" main="BPTransportButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/rails2.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/transport/rails2.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
                 <CheckButton name="BPMPortButton" main="BPTransportButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/port.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/transport/port.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
                 <CheckButton name="BPMRocketButton" main="BPTransportButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/rocket.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/transport/rocket.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -335,11 +335,11 @@
 				<!-- power -->
         <cell row="5" col="1" halign="left">
           <CheckButton name="BPPowerButton" lower="true">
-            <image src="images/gui/rnew_button_bg0.png"/>
-            <image-hover src="images/gui/rnew_button_bg1.png"/>
-            <image-clicked src="images/gui/rnew_button_bg2.png"/>
-            <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/powerlines.png"/>
+            <image src="images/gui/buttonpanel/background/button.png"/>
+            <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+            <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+            <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+	    <image-caption src="images/gui/buttonpanel/power/powerlines.png"/>
           </CheckButton>
         </cell>
         <cell row="5" col="2" halign="left">
@@ -347,47 +347,47 @@
             <TableLayout rows="1" cols="5">
               <cell row="1" col="1">
                 <CheckButton name="BPMPowerLineButton" main="BPPowerButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/powerlines.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/power/powerlines.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
                 <CheckButton name="BPMCoalPSButton" main="BPPowerButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/coalpower.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/power/coalpower.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
                 <CheckButton name="BPMSolarPSButton" main="BPPowerButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/solarpower.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/power/solarpower.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
                 <CheckButton name="BPMSubstationButton" main="BPPowerButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/substation.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/power/substation.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
                 <CheckButton name="BPMWindmillButton" main="BPPowerButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/windmills.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/power/windmills.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -397,11 +397,11 @@
 				<!-- mining -->
         <cell row="6" col="1" halign="left">
           <CheckButton name="BPMiningButton" lower="true">
-            <image src="images/gui/rnew_button_bg0.png"/>
-            <image-hover src="images/gui/rnew_button_bg1.png"/>
-            <image-clicked src="images/gui/rnew_button_bg2.png"/>
-            <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/commune.png"/>
+            <image src="images/gui/buttonpanel/background/button.png"/>
+            <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+            <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+            <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+	    <image-caption src="images/gui/buttonpanel/mining/commune.png"/>
           </CheckButton>
         </cell>
         <cell row="6" col="2" halign="left">
@@ -409,47 +409,47 @@
             <TableLayout rows="1" cols="5">
               <cell row="1" col="1">
                 <CheckButton name="BPMCommuneButton" main="BPMiningButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/commune.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/mining/commune.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
                 <CheckButton name="BPMCoalButton" main="BPMiningButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/coalmine.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/mining/coalmine.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
                 <CheckButton name="BPMOreButton" main="BPMiningButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/oremine.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/mining/oremine.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
                 <CheckButton name="BPMTipButton" main="BPMiningButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/trash.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/mining/trash.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
                 <CheckButton name="BPMRecycleButton" main="BPMiningButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/recycling.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/mining/recycling.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -458,11 +458,11 @@
 				<!-- industry -->
         <cell row="7" col="1" halign="left">
           <CheckButton name="BPIndustryButton" lower="true">
-            <image src="images/gui/rnew_button_bg0.png"/>
-            <image-hover src="images/gui/rnew_button_bg1.png"/>
-            <image-clicked src="images/gui/rnew_button_bg2.png"/>
-            <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/lightindustry.png"/>
+            <image src="images/gui/buttonpanel/background/button.png"/>
+            <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+            <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+            <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+	    <image-caption src="images/gui/buttonpanel/industry/lightindustry.png"/>
           </CheckButton>
         </cell>
         <cell row="7" col="2" halign="left">
@@ -470,47 +470,47 @@
             <TableLayout rows="1" cols="5">
               <cell row="1" col="1">
                 <CheckButton name="BPMLIndustryButton" main="BPIndustryButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/lightindustry.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/industry/lightindustry.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
                 <CheckButton name="BPMHIndustryButton" main="BPIndustryButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/heavyindustry2.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
                 <CheckButton name="BPMMarketButton" main="BPIndustryButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/market.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/industry/market.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
                 <CheckButton name="BPMPotteryButton" main="BPIndustryButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/pottery2.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/industry/pottery.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
                 <CheckButton name="BPMBlacksmithButton" main="BPIndustryButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/blacksmith.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/industry/blacksmith.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -519,11 +519,11 @@
 				<!-- parks -->
         <cell row="8" col="1" halign="left">
           <CheckButton name="BPParkButton" lower="true">
-            <image src="images/gui/rnew_button_bg0.png"/>
-            <image-hover src="images/gui/rnew_button_bg1.png"/>
-            <image-clicked src="images/gui/rnew_button_bg2.png"/>
-            <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/monument.png"/>
+            <image src="images/gui/buttonpanel/background/button.png"/>
+            <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+            <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+            <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+	    <image-caption src="images/gui/buttonpanel/parks/monument.png"/>
           </CheckButton>
         </cell>
         <cell row="8" col="2" halign="left">
@@ -531,47 +531,47 @@
             <TableLayout rows="1" cols="5">
               <cell row="1" col="1">
                 <CheckButton name="BPMMonumentButton" main="BPParkButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/monument.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/parks/monument.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
                 <CheckButton name="BPMParkButton" main="BPParkButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/tree.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/parks/tree.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
                 <CheckButton name="BPMWaterButton" main="BPParkButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/water.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/parks/water.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
                 <CheckButton name="BPMFarmButton" main="BPParkButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/cow.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/parks/farm.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
                 <CheckButton name="BPMMillButton" main="BPParkButton">
-                  <image src="images/gui/rnew_button_bg0.png"/>
-                  <image-hover src="images/gui/rnew_button_bg1.png"/>
-                  <image-clicked src="images/gui/rnew_button_bg2.png"/>
-                  <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/mills.png"/>
+                  <image src="images/gui/buttonpanel/background/button.png"/>
+                  <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                  <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
+                  <image-checked src="images/gui/buttonpanel/background/button-clicked.png"/>
+		  <image-caption src="images/gui/buttonpanel/parks/mills.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
