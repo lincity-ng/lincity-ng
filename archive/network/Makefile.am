@@ -9,14 +9,13 @@ SVGA_DEFS = -DSVGALIB=1
 
 SUBDIRS = intl po
 noinst_HEADERS = \
-	acconfig.h   \
-	cliglobs.h   \
+	acconfig.h   animate.h	  cliglobs.h   \
 	common.h     config.h	  confw32.h    \
 	engglobs.h   engine.h	 fileutil.h \
 	generic.h    geometry.h  dialbox.h \
 	lcconfig.h   \
-	lchelp.h       \
-	lcintl.h     lcstring.h	lclib.h\
+	lchelp.h     \
+	lcintl.h     lcstring.h	lclib.h \
 	lctypes.h    lcwin32.h \
 	lcx11.h      lcsvga.h \
 	ldsvgui.h    ldsvguts.h   \
@@ -24,10 +23,14 @@ noinst_HEADERS = \
 	module_buttons.h \
 	mouse.h      mps.h	  pbar.h    \
 	picedit.h    pixmap.h     power.h \
-	resource.h	 screen.h \
+	protocol.h   resource.h	 screen.h \
 	shrglobs.h   \
 	simulate.h   timer.h	 transport.h \
 	typeinit.h   xpicedit.h
+
+junk_hdrs = \
+	sernet.h     shrnet.h     \
+	climsg.h     clinet.h	 clistubs.h
 
 
 # -- This can't contain subdirectories --
@@ -110,7 +113,7 @@ dist-hook:
 ############################################################################
 
 ## These executables might not be built
-EXTRA_PROGRAMS = xlincity lincity xpicedit picedit
+EXTRA_PROGRAMS = xlincity lincity lcserver xpicedit picedit
 
 X_PROGS: xlincity$(EXEEXT)
 SVGA_PROGS: lincity$(EXEEXT)
@@ -138,35 +141,40 @@ LC_OBJ = \
 
 ## ----- xlincity -----
 xlincity_SOURCES = \
-	lclib.c power.c \
-	ldsvguts.c engine.c transport.c market.c \
-	simulate.c shrtypes.c lintypes.c \
-	timer.c fileutil.c shrglobs.c
+	lclib.c power.c
 EXTRA_xlincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
 	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
 	dialbox.c
 xlincity_DEPENDENCIES = \
-	${XLC_OBJ}
+	${XLC_OBJ} \
+	libutils.a \
+	libengine.a
 xlincity_LDADD = \
 	${XLC_OBJ} \
-	@X_LIBS@ -lXext -lX11 -lm
+	-L. -lengine -lutils @X_LIBS@ -lXext -lX11 -lm
 
+former_xlincity_srcs = \
+	clistubs.c \
+	animate.c shrnet.c \
+	clinet.c climsg.c
 
 ## ----- lincity -----
 lincity_SOURCES = \
-	lclib.c power.c \
-	simulate.c shrtypes.c lintypes.c \
-	timer.c fileutil.c shrglobs.c
-EXTRA_xlincity_SOURCES = \
+	clinet.c climsg.c \
+	animate.c clistubs.c shrnet.c \
+	lclib.c power.c
+EXTRA_lincity_SOURCES = \
 	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
-	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
+	lcsvga.c cliglobs.c geometry.c pbar.c module_buttons.c \
 	dialbox.c
 lincity_DEPENDENCIES = \
-	${LC_OBJ}
+	${LC_OBJ} \
+	libutils.a \
+	libengine.a
 lincity_LDADD = \
 	${LC_OBJ} \
-	-lvgagl -lvga -lm
+	-L. -lengine -lutils -lvgagl -lvga -lm
 
 ## ----- xpicedit -----
 xpicedit_SOURCES = 
@@ -177,6 +185,23 @@ xpicedit_LDADD = x_picedit.o -lXext -lX11 -lm
 picedit_SOURCES = 
 EXTRA_picedit_SOURCES = picedit.c
 picedit_LDADD = vga_picedit.o -lvgagl -lvga -lm
+
+## ----- lcserver -----
+lcserver_SOURCES = sermain.c sernet.c shrnet.c serstubs.c sermsg.c
+lcserver_DEPENDENCIES = \
+	libutils.a \
+	libengine.a
+lcserver_LDADD = \
+	-L. -lengine -lutils -lm
+
+## ----- libraries -----
+noinst_LIBRARIES = libengine.a libutils.a
+libengine_a_SOURCES = \
+	ldsvguts.c engine.c transport.c market.c \
+	simulate.c shrtypes.c lintypes.c
+libutils_a_SOURCES = \
+	timer.c fileutil.c shrglobs.c
+
 
 ## ----------------- VGA RULES ------------------
 vga_cliglobs.o: cliglobs.c cliglobs.h

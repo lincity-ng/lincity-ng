@@ -57,24 +57,21 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-host_alias = @host_alias@
-host_triplet = @host@
-BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 EXEEXT = @EXEEXT@
 GENCAT = @GENCAT@
-GLIBC21 = @GLIBC21@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+GT_NO = @GT_NO@
+GT_YES = @GT_YES@
+INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
 INSTOBJEXT = @INSTOBJEXT@
-INTLBISON = @INTLBISON@
+INTLDEPS = @INTLDEPS@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
-INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
-LIBICONV = @LIBICONV@
 MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
@@ -86,6 +83,7 @@ RANLIB = @RANLIB@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
+l = @l@
 with_gzip = @with_gzip@
 
 AUTOMAKE_OPTIONS = foreign
@@ -96,10 +94,7 @@ X_DEFS = -DLC_X11=1
 SVGA_DEFS = -DSVGALIB=1
 
 SUBDIRS = intl po
-noinst_HEADERS =  	acconfig.h   animate.h	  cliglobs.h   	common.h     config.h	  confw32.h    	engglobs.h   engine.h	 fileutil.h 	generic.h    geometry.h  dialbox.h 	lcconfig.h   	lchelp.h       	lcintl.h     lcstring.h	lclib.h 	lctypes.h    lcwin32.h 	lcx11.h      lcsvga.h 	ldsvgui.h    ldsvguts.h   	lin-city.h   lintypes.h	 market.h 	module_buttons.h 	mouse.h      mps.h	  pbar.h    	picedit.h    pixmap.h     power.h 	protocol.h   resource.h	 screen.h 	shrglobs.h   	simulate.h   timer.h	 transport.h 	typeinit.h   xpicedit.h
-
-
-junk_hdrs =  	sernet.h     shrnet.h     	climsg.h     clinet.h	 clistubs.h
+noinst_HEADERS =  	acconfig.h   	cliglobs.h   	common.h     config.h	  confw32.h    	engglobs.h   engine.h	 fileutil.h 	generic.h    geometry.h  dialbox.h 	lcconfig.h   	lchelp.h       	lcintl.h     lcstring.h	lclib.h 	lctypes.h    lcwin32.h 	lcx11.h      lcsvga.h 	ldsvgui.h    ldsvguts.h   	lin-city.h   lintypes.h	 market.h 	module_buttons.h 	mouse.h      mps.h	  pbar.h    	picedit.h    pixmap.h     power.h 	resource.h	 screen.h 	shrglobs.h   	simulate.h   timer.h	 transport.h 	typeinit.h   xpicedit.h
 
 
 # -- This can't contain subdirectories --
@@ -115,7 +110,7 @@ pkgdata_DATA = help/* icons/* messages/* messages/ca/* opening/* colour.pal
 ############################################################################
 ############################################################################
 
-EXTRA_PROGRAMS = xlincity lincity lcserver xpicedit picedit
+EXTRA_PROGRAMS = xlincity lincity xpicedit picedit
 
 bin_PROGRAMS = @PROGS@
 
@@ -125,25 +120,20 @@ XLC_OBJ =  	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o 	x_cliglobs.o x
 LC_OBJ =  	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o 	vga_cliglobs.o vga_mps.o vga_lcsvga.o vga_screen.o vga_geometry.o 	vga_pbar.o vga_dialbox.o vga_module_buttons.o
 
 
-xlincity_SOURCES =  	lclib.c power.c
+xlincity_SOURCES =  	lclib.c power.c 	ldsvguts.c engine.c transport.c market.c 	simulate.c shrtypes.c lintypes.c 	timer.c fileutil.c shrglobs.c
 
 EXTRA_xlincity_SOURCES =  	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c 	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c 	dialbox.c
 
-xlincity_DEPENDENCIES =  	${XLC_OBJ} 	libutils.a 	libengine.a
+xlincity_DEPENDENCIES =  	${XLC_OBJ}
 
-xlincity_LDADD =  	${XLC_OBJ} 	-L. -lengine -lutils @X_LIBS@ -lXext -lX11 -lm
-
-
-former_xlincity_srcs =  	clistubs.c 	animate.c shrnet.c 	clinet.c climsg.c
+xlincity_LDADD =  	${XLC_OBJ} 	@X_LIBS@ -lXext -lX11 -lm
 
 
-lincity_SOURCES =  	clinet.c climsg.c 	animate.c clistubs.c shrnet.c 	lclib.c power.c
+lincity_SOURCES =  	lclib.c power.c 	simulate.c shrtypes.c lintypes.c 	timer.c fileutil.c shrglobs.c
 
-EXTRA_lincity_SOURCES =  	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c 	lcsvga.c cliglobs.c geometry.c pbar.c module_buttons.c 	dialbox.c
+lincity_DEPENDENCIES =  	${LC_OBJ}
 
-lincity_DEPENDENCIES =  	${LC_OBJ} 	libutils.a 	libengine.a
-
-lincity_LDADD =  	${LC_OBJ} 	-L. -lengine -lutils -lvgagl -lvga -lm
+lincity_LDADD =  	${LC_OBJ} 	-lvgagl -lvga -lm
 
 
 xpicedit_SOURCES = 
@@ -153,23 +143,12 @@ xpicedit_LDADD = x_picedit.o -lXext -lX11 -lm
 picedit_SOURCES = 
 EXTRA_picedit_SOURCES = picedit.c
 picedit_LDADD = vga_picedit.o -lvgagl -lvga -lm
-
-lcserver_SOURCES = sermain.c sernet.c shrnet.c serstubs.c sermsg.c
-lcserver_DEPENDENCIES =  	libutils.a 	libengine.a
-
-lcserver_LDADD =  	-L. -lengine -lutils -lm
-
-
-noinst_LIBRARIES = libengine.a libutils.a
-libengine_a_SOURCES =  	ldsvguts.c engine.c transport.c market.c 	simulate.c shrtypes.c lintypes.c
-
-libutils_a_SOURCES =  	timer.c fileutil.c shrglobs.c
-
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES = 
-LIBRARIES =  $(noinst_LIBRARIES)
+bin_PROGRAMS =  @PROGS@
+PROGRAMS =  $(bin_PROGRAMS)
 
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
@@ -178,22 +157,12 @@ X_CFLAGS = @X_CFLAGS@
 X_LIBS = @X_LIBS@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_PRE_LIBS = @X_PRE_LIBS@
-libengine_a_LIBADD = 
-libengine_a_OBJECTS =  ldsvguts.o engine.o transport.o market.o \
-simulate.o shrtypes.o lintypes.o
-libutils_a_LIBADD = 
-libutils_a_OBJECTS =  timer.o fileutil.o shrglobs.o
-AR = ar
-bin_PROGRAMS =  @PROGS@
-PROGRAMS =  $(bin_PROGRAMS)
-
-xlincity_OBJECTS =  lclib.o power.o
+xlincity_OBJECTS =  lclib.o power.o ldsvguts.o engine.o transport.o \
+market.o simulate.o shrtypes.o lintypes.o timer.o fileutil.o shrglobs.o
 xlincity_LDFLAGS = 
-lincity_OBJECTS =  clinet.o climsg.o animate.o clistubs.o shrnet.o \
-lclib.o power.o
+lincity_OBJECTS =  lclib.o power.o simulate.o shrtypes.o lintypes.o \
+timer.o fileutil.o shrglobs.o
 lincity_LDFLAGS = 
-lcserver_OBJECTS =  sermain.o sernet.o shrnet.o serstubs.o sermsg.o
-lcserver_LDFLAGS = 
 xpicedit_OBJECTS = 
 xpicedit_DEPENDENCIES =  x_picedit.o
 xpicedit_LDFLAGS = 
@@ -222,18 +191,15 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = gtar
 GZIP_ENV = --best
-DEP_FILES =  .deps/animate.P .deps/cliglobs.P .deps/climsg.P \
-.deps/clinet.P .deps/clistubs.P .deps/dialbox.P .deps/engine.P \
+DEP_FILES =  .deps/cliglobs.P .deps/dialbox.P .deps/engine.P \
 .deps/fileutil.P .deps/geometry.P .deps/lchelp.P .deps/lclib.P \
-.deps/lcsvga.P .deps/lcx11.P .deps/ldsvgui.P .deps/ldsvguts.P \
-.deps/lintypes.P .deps/main.P .deps/market.P .deps/module_buttons.P \
-.deps/mouse.P .deps/mps.P .deps/pbar.P .deps/picedit.P .deps/pixmap.P \
-.deps/power.P .deps/screen.P .deps/sermain.P .deps/sermsg.P \
-.deps/sernet.P .deps/serstubs.P .deps/shrglobs.P .deps/shrnet.P \
-.deps/shrtypes.P .deps/simulate.P .deps/splash.P .deps/timer.P \
-.deps/transport.P
-SOURCES = $(libengine_a_SOURCES) $(libutils_a_SOURCES) $(xlincity_SOURCES) $(EXTRA_xlincity_SOURCES) $(lincity_SOURCES) $(EXTRA_lincity_SOURCES) $(lcserver_SOURCES) $(xpicedit_SOURCES) $(EXTRA_xpicedit_SOURCES) $(picedit_SOURCES) $(EXTRA_picedit_SOURCES)
-OBJECTS = $(libengine_a_OBJECTS) $(libutils_a_OBJECTS) $(xlincity_OBJECTS) $(lincity_OBJECTS) $(lcserver_OBJECTS) $(xpicedit_OBJECTS) $(picedit_OBJECTS)
+.deps/lcx11.P .deps/ldsvgui.P .deps/ldsvguts.P .deps/lintypes.P \
+.deps/main.P .deps/market.P .deps/module_buttons.P .deps/mouse.P \
+.deps/mps.P .deps/pbar.P .deps/picedit.P .deps/pixmap.P .deps/power.P \
+.deps/screen.P .deps/shrglobs.P .deps/shrtypes.P .deps/simulate.P \
+.deps/splash.P .deps/timer.P .deps/transport.P
+SOURCES = $(xlincity_SOURCES) $(EXTRA_xlincity_SOURCES) $(lincity_SOURCES) $(xpicedit_SOURCES) $(EXTRA_xpicedit_SOURCES) $(picedit_SOURCES) $(EXTRA_picedit_SOURCES)
+OBJECTS = $(xlincity_OBJECTS) $(lincity_OBJECTS) $(xpicedit_OBJECTS) $(picedit_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
@@ -281,41 +247,6 @@ distclean-hdr:
 
 maintainer-clean-hdr:
 
-mostlyclean-noinstLIBRARIES:
-
-clean-noinstLIBRARIES:
-	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
-
-distclean-noinstLIBRARIES:
-
-maintainer-clean-noinstLIBRARIES:
-
-.s.o:
-	$(COMPILE) -c $<
-
-.S.o:
-	$(COMPILE) -c $<
-
-mostlyclean-compile:
-	-rm -f *.o core *.core
-
-clean-compile:
-
-distclean-compile:
-	-rm -f *.tab.c
-
-maintainer-clean-compile:
-
-libengine.a: $(libengine_a_OBJECTS) $(libengine_a_DEPENDENCIES)
-	-rm -f libengine.a
-	$(AR) cru libengine.a $(libengine_a_OBJECTS) $(libengine_a_LIBADD)
-	$(RANLIB) libengine.a
-
-libutils.a: $(libutils_a_OBJECTS) $(libutils_a_DEPENDENCIES)
-	-rm -f libutils.a
-	$(AR) cru libutils.a $(libutils_a_OBJECTS) $(libutils_a_LIBADD)
-	$(RANLIB) libutils.a
-
 mostlyclean-binPROGRAMS:
 
 clean-binPROGRAMS:
@@ -341,6 +272,22 @@ uninstall-binPROGRAMS:
 	  rm -f $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
 	done
 
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
 xlincity$(EXEEXT): $(xlincity_OBJECTS) $(xlincity_DEPENDENCIES)
 	@rm -f xlincity$(EXEEXT)
 	$(LINK) $(xlincity_LDFLAGS) $(xlincity_OBJECTS) $(xlincity_LDADD) $(LIBS)
@@ -348,10 +295,6 @@ xlincity$(EXEEXT): $(xlincity_OBJECTS) $(xlincity_DEPENDENCIES)
 lincity$(EXEEXT): $(lincity_OBJECTS) $(lincity_DEPENDENCIES)
 	@rm -f lincity$(EXEEXT)
 	$(LINK) $(lincity_LDFLAGS) $(lincity_OBJECTS) $(lincity_LDADD) $(LIBS)
-
-lcserver$(EXEEXT): $(lcserver_OBJECTS) $(lcserver_DEPENDENCIES)
-	@rm -f lcserver$(EXEEXT)
-	$(LINK) $(lcserver_LDFLAGS) $(lcserver_OBJECTS) $(lcserver_LDADD) $(LIBS)
 
 xpicedit$(EXEEXT): $(xpicedit_OBJECTS) $(xpicedit_DEPENDENCIES)
 	@rm -f xpicedit$(EXEEXT)
@@ -627,8 +570,7 @@ install: install-recursive
 uninstall-am: uninstall-binPROGRAMS uninstall-man uninstall-pkgdataDATA \
 		uninstall-local
 uninstall: uninstall-recursive
-all-am: Makefile $(LIBRARIES) $(PROGRAMS) $(MANS) $(DATA) $(HEADERS) \
-		config.h
+all-am: Makefile $(PROGRAMS) $(MANS) $(DATA) $(HEADERS) config.h
 all-redirect: all-recursive-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
@@ -647,30 +589,28 @@ distclean-generic:
 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
 
 maintainer-clean-generic:
-mostlyclean-am:  mostlyclean-hdr mostlyclean-noinstLIBRARIES \
-		mostlyclean-compile mostlyclean-binPROGRAMS \
-		mostlyclean-tags mostlyclean-depend mostlyclean-generic
+mostlyclean-am:  mostlyclean-hdr mostlyclean-binPROGRAMS \
+		mostlyclean-compile mostlyclean-tags mostlyclean-depend \
+		mostlyclean-generic
 
 mostlyclean: mostlyclean-recursive
 
-clean-am:  clean-hdr clean-noinstLIBRARIES clean-compile \
-		clean-binPROGRAMS clean-tags clean-depend clean-generic \
-		mostlyclean-am
+clean-am:  clean-hdr clean-binPROGRAMS clean-compile clean-tags \
+		clean-depend clean-generic mostlyclean-am
 
 clean: clean-recursive
 
-distclean-am:  distclean-hdr distclean-noinstLIBRARIES distclean-compile \
-		distclean-binPROGRAMS distclean-tags distclean-depend \
-		distclean-generic clean-am
+distclean-am:  distclean-hdr distclean-binPROGRAMS distclean-compile \
+		distclean-tags distclean-depend distclean-generic \
+		clean-am
 
 distclean: distclean-recursive
 	-rm -f config.status
 
-maintainer-clean-am:  maintainer-clean-hdr \
-		maintainer-clean-noinstLIBRARIES \
-		maintainer-clean-compile maintainer-clean-binPROGRAMS \
-		maintainer-clean-tags maintainer-clean-depend \
-		maintainer-clean-generic distclean-am
+maintainer-clean-am:  maintainer-clean-hdr maintainer-clean-binPROGRAMS \
+		maintainer-clean-compile maintainer-clean-tags \
+		maintainer-clean-depend maintainer-clean-generic \
+		distclean-am
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
 
@@ -678,12 +618,10 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f config.status
 
 .PHONY: mostlyclean-hdr distclean-hdr clean-hdr maintainer-clean-hdr \
-mostlyclean-noinstLIBRARIES distclean-noinstLIBRARIES \
-clean-noinstLIBRARIES maintainer-clean-noinstLIBRARIES \
+mostlyclean-binPROGRAMS distclean-binPROGRAMS clean-binPROGRAMS \
+maintainer-clean-binPROGRAMS uninstall-binPROGRAMS install-binPROGRAMS \
 mostlyclean-compile distclean-compile clean-compile \
-maintainer-clean-compile mostlyclean-binPROGRAMS distclean-binPROGRAMS \
-clean-binPROGRAMS maintainer-clean-binPROGRAMS uninstall-binPROGRAMS \
-install-binPROGRAMS install-man6 uninstall-man6 install-man \
+maintainer-clean-compile install-man6 uninstall-man6 install-man \
 uninstall-man uninstall-pkgdataDATA install-pkgdataDATA \
 install-data-recursive uninstall-data-recursive install-exec-recursive \
 uninstall-exec-recursive installdirs-recursive uninstalldirs-recursive \
