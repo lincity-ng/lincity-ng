@@ -1,0 +1,178 @@
+/*
+    AsciiDoc main stylesheet.
+ */
+
+body {
+    background: #dedede url("logo1.jpg") top left no-repeat fixed;
+    margin: 0;
+    min-height: 480px;
+}
+
+h1,h2,h3,h4,h5 {
+    padding: 0.5em 0 0 5%;
+    text-align: left;
+    background: transparent;
+    font-family: Tahoma, Verdana, sans-serif;
+    font-weight: bold;
+    margin-top: 1.5em;
+}
+
+h1 { font-size: 200%; }
+h2 { font-size: 125%; }
+h3 { font-size: 110%; font-family: sans-serif;}
+h4 { font-size: 100%; font-style: italic; font-family: sans-serif;}
+
+h1 {
+    padding: 0.5em 0 0.5em 5%;
+    color: white;
+    background: #1f764c;    /* Olive green */
+    margin: 0;
+    border-bottom: solid 1px black;
+}
+
+a {
+    font-weight: bold;
+    background: #ffd;       /* Light yellow */
+    color: #093;            /* Green */
+    text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+p { padding: 0 5%; }
+
+ul,ol {
+    padding: 0 5%;
+    margin-left: 1.25em;    /* for Konqueror 3 misbehavior*/
+    list-style-position: outside;
+}
+
+dl { padding: 0 5%; }
+dt { font-style: italic; }
+dd, li { padding-bottom: 0.5em; }
+dd p, li p { margin: 0; padding: 0; }
+li div.indentedparagraph { margin-left: 0; }
+div.indentedparagraph pre, li div.indentedparagraph pre { margin-left: 2%; }
+
+table {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+thead,tfoot,tbody {
+    /* No effect in IE6. */
+    border-top: 2px solid green;
+    border-bottom: 2px solid green;
+}
+thead,tfoot {
+    font-weight: bold;
+}
+p.tabletitle {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+p.blocktitle {
+  margin-top: 1.5em;
+  margin-bottom: 0.2em;
+}
+p.graphictitle {
+  margin-top: 0.2em;
+  margin-bottom: 1.5em;
+}
+
+
+div#content {
+    GCS-ORI-margin: 50px 3em 3em 140px;
+    margin: 0 0 0 0;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    background: white;
+}
+
+div#footer { 
+    background: #f0f0f0;    /* light gray */
+    font: 8pt sans-serif;
+    margin-top: 5em;
+    margin-bottom: 0;
+    padding: 1em 0 0.5em 0;
+    position: relative;
+    bottom: 0;
+    border-top: gray;
+}
+
+div#footer table {
+    margin-left: 2%;
+}
+
+div#footer p {
+    margin: .5em 0 0 0;
+    padding: 0 5%;
+}
+
+div#footer a {
+    color: black;
+    background: transparent;
+    text-decoration: underline;
+}
+
+div#badges {
+    padding: 0 15px;
+}
+
+div#badges td {
+    vertical-align: middle;
+}
+
+div#badges img {
+    border-style: none;
+}
+
+/*
+ * Style sheet rules that are applied using element class attributes.
+ */
+
+div.graphic {
+    width: 100%;
+    border-style: none;
+    margin-bottom: 1.5em;
+    margin-left: 1em;   /* for IE5,6 misbehavior */
+    padding: 0;
+    text-align: left;
+}
+
+/* Display for browsers that don't understand stylesheets. */
+.ahem { 
+    display: none;
+}
+
+p.under-construction {
+    color: red;
+    font: bold medium sans-serif;
+}
+
+/* Print nicely. */
+@media print {
+  @page             { margin: 10% } /* This _is_ valid CSS2. */
+  h1,h2,h3,h4       { page-break-after: avoid; page-break-inside: avoid }
+  blockquote,pre    { page-break-inside: avoid }
+  ul,ol,dl          { page-break-before: avoid }
+  /* Override existing property settings. */
+  h1,a              { color: black; background: white; }
+  div#content       { margin: 0; border: 0; }
+  div#footer        { display: none; }
+  /* IE5,6 only has the problem displaying, so restore margin for printing */
+  div.graphic       { margin-left: 0; }
+  p.graphictitle    { page-break-before: avoid; }
+  p.blocktitle, tabletitle { page-break-after: avoid; }
+}
+
+div.sidebarblock {
+  background: #ffffee;
+  margin: 0.5em 20% 0.5em 5%;
+  padding: 0.5em 1em;
+  border: 1px solid gray;
+}
+div.sidebarblock * { padding: 0; }
+div.sidebarblock div { margin: 0; }
+p.sidebartitle { font-family: sans-serif; font-style: italic; }
+
