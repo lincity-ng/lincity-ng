@@ -145,6 +145,14 @@ dnl note this has to match the path installed by po/Makefile
 FC_EXPAND_DIR(LOCALEDIR, '${prefix}/${DATADIRNAME}/locale')
 AC_DEFINE_UNQUOTED(LOCALEDIR, "$LOCALEDIR")
 
+
+dnl -------------------------------------------------------
+dnl GCS May 05, 2003
+dnl Newest i18n hack (gettext 11.5 ??).  Sigh.
+dnl -------------------------------------------------------
+dnl AC_MSG_WARN([libintl is $LIBINTL])
+LIBS="$LIBS $LIBINTL"
+
 dnl -------------------------------------------------------
 dnl GCS Jan 19, 2003
 dnl New autoheader stuff
