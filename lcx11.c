@@ -48,8 +48,6 @@ set_pointer_confinement (void)
     }
 }
 
-static int pointer_confined;
-
 int 
 confine_pointer (int x, int y, int w, int h) 
 {
@@ -1045,7 +1043,6 @@ void
 draw_border (void)
 {
     int col = TEXT_BG_COLOUR & 0xff;
-    int pd = pix_double + 1;
     if (borderx > 0) {
 	XFillRectangle (display.dpy, display.win, display.pixcolour_gc[col],
 			0, bordery, borderx, display.winH - 2*bordery);

@@ -11,6 +11,8 @@
 #include "lcstring.h"
 #include "ldsvgui.h"
 
+/* XXX: Where are SVGA specific includes? */
+
 /* this is for OS/2 - RVI */
 #ifdef __EMX__
 #include <sys/select.h>
@@ -44,6 +46,7 @@
 #include <io.h>
 #include <direct.h>
 #include <process.h>
+#include <lcwin32.h>
 #endif
 
 #if defined (HAVE_DIRENT_H)
@@ -67,6 +70,7 @@
 #include "common.h"
 #ifdef LC_X11
 #include <X11/cursorfont.h>
+#include <lcx11.h>
 #endif
 #include "lctypes.h"
 #include "lin-city.h"
@@ -486,7 +490,6 @@ void
 init_path_strings (void)
 {
     char* homedir = NULL;
-    const char* intl_suffix = "";
     char* dm = NULL;
     char* td = NULL;
 

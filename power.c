@@ -6,6 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "lclib.h"
 #include "common.h"
 #include "lctypes.h"
@@ -14,8 +15,6 @@
 #include "engglobs.h"
 #include "cliglobs.h"
 #include "simulate.h"
-/*#include "sernet.h"*/
-/*#include "clistubs.h"*/
 #include "lcintl.h"
 #include "power.h"
 #include "transport.h" /* for XY_IS_TRANSPORT */
@@ -204,40 +203,48 @@ recurse_power_grid (int startx, int starty, int steps)
 	   recursion to follow the path now */
 
 	/* West */
-	if (mapx >= 1) 
-	    if (inc = check_grid(mapx - 1, mapy, -1, 0))
-		if (dir < 1) 
+	if (mapx >= 1) {
+	    if ((inc = check_grid(mapx - 1, mapy, -1, 0))) {
+		if (dir < 1) {
 		    dir = WEST;
-		else
+		} else {
 		    recurse_power_grid(mapx - inc, mapy, count + 1);
-
+		}
+	    }
+	}
 
 	/* North */
-	if (mapy >= 1)
-	    if (inc = check_grid(mapx, mapy - 1, 0, -1))
-		if (dir < 1) 
+	if (mapy >= 1) {
+	    if ((inc = check_grid(mapx, mapy - 1, 0, -1))) {
+		if (dir < 1) {
 		    dir = NORTH;
-		else 
+		} else {
 		    recurse_power_grid(mapx, mapy - inc, count + 1);
-
+		}
+	    }
+	}
 
 	/* East */    
-	if (mapx < WORLD_SIDE_LEN)
-	    if (inc = check_grid(mapx + 1, mapy, 1, 0))
-		if (dir < 1) 
+	if (mapx < WORLD_SIDE_LEN) {
+	    if ((inc = check_grid(mapx + 1, mapy, 1, 0))) {
+		if (dir < 1) {
 		    dir = EAST;
-		else 
+		} else {
 		    recurse_power_grid(mapx + inc, mapy, count + 1);
-
+		}
+	    }
+	}
 
 	/* South */    
-	if (mapy < WORLD_SIDE_LEN)
-	    if (inc = check_grid(mapx, mapy + 1, 0, 1))
-		if (dir < 1) 
+	if (mapy < WORLD_SIDE_LEN) {
+	    if ((inc = check_grid(mapx, mapy + 1, 0, 1))) {
+		if (dir < 1) {
 		    dir = SOUTH;
-		else 
+		} else {
 		    recurse_power_grid(mapx, mapy + inc, count + 1);
-
+		}
+	    }
+	}
 
 	/* Move to a new square if the chosen direction is not already mapped. */
 	switch (dir) {
@@ -247,41 +254,50 @@ recurse_power_grid (int startx, int starty, int steps)
 	    } break;
 	case WEST: 
 	    {
-		if (mapx >= 1) 
-		    if (inc = check_grid(mapx - 1, mapy, -1, 0)) {
+		if (mapx >= 1) {
+		    if ((inc = check_grid(mapx - 1, mapy, -1, 0))) {
 			mapx -= inc;
 			dir = -1;
-		    } else 
+		    } else {
 			dir = 0;
+		    }
+		}
 	    } break;
 
 	case NORTH:
 	    {
-		if (mapy >= 1)
-		    if (inc = check_grid(mapx, mapy - 1, 0, -1)) {
+		if (mapy >= 1) {
+		    if ((inc = check_grid(mapx, mapy - 1, 0, -1))) {
 			mapy -= inc;
 			dir = -1;
-		    } else
+		    } else {
 			dir = 0;
+		    }
+		}
 	    } break;
 
 	case EAST:
 	    {
-		if (mapx < WORLD_SIDE_LEN)
-		    if (inc = check_grid(mapx + 1, mapy, 1, 0)) {
+		if (mapx < WORLD_SIDE_LEN) {
+		    if ((inc = check_grid(mapx + 1, mapy, 1, 0))) {
 			mapx += inc;
 			dir = -1;
-		    } else
+		    } else {
 			dir = 0;
+		    }
+		}
 	    } break;
 
 	case SOUTH:
-	    { if (mapy < WORLD_SIDE_LEN)
-		if (inc = check_grid(mapx, mapy + 1, 0, 1)) {
-		    mapy += inc;
-		    dir = -1;
-		} else
-		    dir = 0;
+	    { 
+		if (mapy < WORLD_SIDE_LEN) {
+		    if ((inc = check_grid(mapx, mapy + 1, 0, 1))) {
+			mapy += inc;
+			dir = -1;
+		    } else {
+			dir = 0;
+		    }
+		}
 	    } break;
 	}
     }

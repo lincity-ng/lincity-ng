@@ -112,7 +112,7 @@ load_png_graphics (char *txt_filename, char *png_filename)
     png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
 	&interlace_type, NULL, NULL);
 
-    printf ("PNG Header: %d x %d, bd=%d, ct=%d\n", height, width,
+    printf ("PNG Header: %d x %d, bd=%d, ct=%d\n", (int)height, (int)width,
 	bit_depth, color_type);
 
     /* Set up the data transformations you want.  Note that these are all

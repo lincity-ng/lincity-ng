@@ -174,8 +174,8 @@ inventory(int x, int y)
 	break;
     
     default: {
-	printf("Default in inventory(%d,%d): got %d\n"), 
-	    x, y, get_group_of_type(MP_TYPE(x,y));
+	printf("Default in inventory(%d,%d): got %d\n", 
+	    x, y, get_group_of_type(MP_TYPE(x,y)));
 	break;
     }
 

@@ -212,7 +212,7 @@ void
 update_pbar (int pbar_num, int value, int month_flag)
 {
 
-    int i, tot = 0;
+    int i;
 
     struct pbar_st * pbar = &pbars[pbar_num];
 
@@ -322,8 +322,6 @@ draw_pbar_new (Rect* b, int val)
 void
 pbar_mouse(int rawx, int rawy, int button) 
 {
-  int x = rawx, y = rawy; /* Eventually might use internal coords */
-
   if (button != LC_MOUSE_RIGHTBUTTON)
     return;
 

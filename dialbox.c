@@ -18,8 +18,6 @@
 #include "lclib.h"
 
 static Dialog_Box db_entry[MAX_DBOX_ENTRIES];
-static Dialog_Box * button[MAX_DBOX_ENTRIES];
-static Dialog_Box * line[MAX_DBOX_ENTRIES];
 
 static Rect dialog_window;   /* Describes position of window on screen */
 static Rect text_window;     /* Describes position of text area on screen */
@@ -86,18 +84,20 @@ dialog_key_handler (int key)
 
     /* CR, LF, and space all activate default button, type 2 */
 
-    if (key == 10 || key == 13 || key == 32) 
+    if (key == 10 || key == 13 || key == 32) {
 	for (i = 0; i < dbn; i++) 
 	    if (db_entry[i].type == 2) {
 		dialog_close(db_entry[i].retval);
 		return;
 	    }
-    else
-	for (i = 0; i < dbn;  i++) 
+    } else {
+	for (i = 0; i < dbn;  i++) {
 	    if (key == db_entry[i].retval) {
 		dialog_close(db_entry[i].retval);
 		return;
 	    }
+	}
+    }
 }
 	    
 

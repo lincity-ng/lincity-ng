@@ -853,8 +853,6 @@ init_mini_map_mouse (void)
 void
 mini_map_handler(int x, int y, int button)
 {
-    Rect* b = &scr.mini_map;
-
     if (button == LC_MOUSE_RIGHTBUTTON) {
 	mini_screen_help ();
 	return;

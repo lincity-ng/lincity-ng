@@ -158,6 +158,9 @@ lib_LTLIBRARIES = @LCLIBS@
 ## Note: If the source file makes use of any graphic routines, it should 
 ## be listed under gui_SOURCES, otherwise its safe for engine_SOURCES
 
+## XXX: fileutil.c uses HandleError, a platform specific function, yet
+## its compiled without appropriate -Ds.  Fixme post 1.13.1
+
 gui_SOURCES =	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
 	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
 	dialbox.c
