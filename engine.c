@@ -94,24 +94,30 @@ place_item (int x, int y, short type)
     }
 
     /* Not enough slots in the substation array */
-    if (group == GROUP_SUBSTATION || group == GROUP_WINDMILL)
+
+    switch (group) {
+    case GROUP_SUBSTATION:
+    case GROUP_WINDMILL:
+    {
 	if (add_a_substation (x, y) == 0)
 	    return -3;
-
-    if (group == GROUP_PORT) {
+    } break;
+    case GROUP_PORT:
+    {
 	if (is_real_river (x + 4, y) != 1 
 	    || is_real_river (x + 4, y + 1) != 1
 	    || is_real_river (x + 4, y + 2) != 1 
 	    || is_real_river (x + 4, y + 3) != 1) {
 	    return -2;
 	}
-    }
-
-    if (group == GROUP_COMMUNE)
+    } break;
+    case GROUP_COMMUNE:
+    {
 	numof_communes++;
-
-    if (group == GROUP_MARKET) {
-	/* Not enough slots in the market array */
+    } break;
+    case GROUP_MARKET:
+    {
+	/* Test for enough slots in the market array */
 	if (add_a_market (x, y) == 0)
 	    return -3;
 	MP_INFO(x,y).flags += (FLAG_MB_FOOD | FLAG_MB_JOBS
@@ -119,6 +125,33 @@ place_item (int x, int y, short type)
 			       | FLAG_MB_GOODS | FLAG_MS_FOOD | FLAG_MS_JOBS
 			       | FLAG_MS_COAL | FLAG_MS_GOODS | FLAG_MS_ORE
 			       | FLAG_MS_STEEL);
+    } break;
+    case GROUP_TIP:
+    {
+	/* Don't build a tip if there has already been one.  If we succeed,
+	   mark the spot permanently by "doubling" the ore reserve */
+
+	if (MP_INFO(x,y).ore_reserve > ORE_RESERVE) {
+	    dialog_box(red(12),3,
+		       0,0,_("You can't build a tip here"),
+		       0,0,_("This is already landfill"),
+		       2,' ',_("OK"));
+	    return -4;
+	} else {
+	    MP_INFO(x,y).ore_reserve = ORE_RESERVE * 2;
+	}
+    } break;
+    case GROUP_OREMINE:
+    {
+	/* Don't allow new mines on old mines or old tips */
+	if (MP_INFO(x,y).ore_reserve != ORE_RESERVE) {
+	    dialog_box(red(12),3,
+		       0,0,_("You can't build a mine here"),
+		       0,0,_("This was already a mine or tip"),
+		       2,' ',_("OK"));
+	    return -4;
+	} 
+    }
     }
 
     /* Store last_built for refund on "mistakes" */
@@ -3542,6 +3575,11 @@ do_tip (int x, int y)
       MP_INFO(x,y - 1).int_7 -= i * 10;
       sust_dig_ore_coal_tip_flag = 0;
     }
+
+  /* Increment the "ore" reserve; this prevents a new tip from being
+     built on top of a degraded one. */
+  MP_INFO(x,y).ore_reserve++;
+
   /* now choose an icon. */
   if ((total_time % NUMOF_DAYS_IN_MONTH) == 0)
     {
