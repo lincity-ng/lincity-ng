@@ -541,7 +541,9 @@ GetKeystroke ()
 //----------------------------------------------------------------------------
 LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 {
+#if defined (USE_WIN32_MENU)
     int wmId, wmEvent;
+#endif
     
     switch (message)
     {
@@ -1019,7 +1021,6 @@ void
 DoSquareMouse (HDC hdc) 
 {
     RECT rect;
-    short grp;
     int size;
     HBRUSH hbr, hbrOld;
 

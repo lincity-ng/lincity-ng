@@ -13,8 +13,6 @@
 #include "engglobs.h"
 #include "cliglobs.h"
 #include "simulate.h"
-/*#include "sernet.h"*/
-/*#include "clistubs.h"*/
 #include "lcintl.h"
 #include "power.h"
 #include "mouse.h"
@@ -23,6 +21,7 @@
 #include "stats.h"
 #include "mps.h"
 #include "screen.h"
+#include "dialbox.h"
 
 extern int selected_type_cost;
 

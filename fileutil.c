@@ -631,12 +631,12 @@ undosify_string (char *s)
 void
 debug_printf (char* fmt, ...)
 {
+#if (DEBUG_PRINTF_ENABLED)
     static int initialized = 0;
     char* filename = "debug.txt";
     FILE* fp;
     va_list argptr;
 
-#if (DEBUG_PRINTF_ENABLED)
     fp = fopen(filename, "a");
     if (!initialized) {
 	initialized = 1;

@@ -147,8 +147,8 @@ EnumFontFamProc (ENUMLOGFONT FAR * lpelf,     // pointer to logical-font data
 void
 init_windows_font (void)
 {
-    int rc;
 #if defined (USE_WINDOWS_FONT)
+    int rc;
     LOGFONT logfont;
     int fonts_added = AddFontResource (windowsfontfile);
     if (fonts_added != 1) {
@@ -325,7 +325,6 @@ Fgl_line (int x1, int y1, int dummy, int y2, int col)
      /* vertical lines only. */
 {
     RECT rect;
-    int y;
     col &= 0xff;
     pixmap_vline (x1, y1, y2, col);
 

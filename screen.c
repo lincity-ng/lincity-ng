@@ -401,7 +401,6 @@ update_main_screen_power (void)
 	     x < main_screen_originx + (mw->w / 16); x++) {
 	    int xx = x;
 	    int yy = y;
-	    int grp;
 	    if (MP_TYPE(x,y) == CST_USED) {
 		xx = MP_INFO(x,y).int_1;
 		yy = MP_INFO(x,y).int_2;
@@ -433,7 +432,6 @@ update_main_screen_fire_cover (void)
 	     x < main_screen_originx + (mw->w / 16); x++) {
 	    int xx = x;
 	    int yy = y;
-	    int grp;
 	    if (MP_TYPE(x,y) == CST_USED) {
 		xx = MP_INFO(x,y).int_1;
 		yy = MP_INFO(x,y).int_2;
@@ -463,7 +461,6 @@ update_main_screen_health_cover (void)
 	     x < main_screen_originx + (mw->w / 16); x++) {
 	    int xx = x;
 	    int yy = y;
-	    int grp;
 	    if (MP_TYPE(x,y) == CST_USED) {
 		xx = MP_INFO(x,y).int_1;
 		yy = MP_INFO(x,y).int_2;
@@ -492,7 +489,6 @@ update_main_screen_cricket_cover (void)
 	     x < main_screen_originx + (mw->w / 16); x++) {
 	    int xx = x;
 	    int yy = y;
-	    int grp;
 	    if (MP_TYPE(x,y) == CST_USED) {
 		xx = MP_INFO(x,y).int_1;
 		yy = MP_INFO(x,y).int_2;
@@ -542,8 +538,6 @@ update_main_screen_coal (void)
 void
 screen_setup (void)
 {
-    int i;
-
     /* draw the graph boxes */
     monthgraph_full_refresh ();
     monthgraph_style_timeout = real_time + 10000;

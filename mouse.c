@@ -256,7 +256,6 @@ move_mouse (int x, int y)
 {
     Rect* mw = &scr.main_win;
     int size;
-    int grp;
 
     size = (main_groups[selected_module_group].size) * 16;
 
@@ -1251,7 +1250,7 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	    draw_ret = do_mt_draw(ox, cx, oy, cy, mt_erase);
 	    snprintf(s,STATUS_MESSAGE_LENGTH-1,
 		     _("Can't build %s over that!"), mt_name);
-	} else { 
+	} else {
 	    snprintf(s,STATUS_MESSAGE_LENGTH-1,
 		     _("%d sections of %s will cost %3d to build"),
 		     mt_length, mt_name, 

@@ -441,7 +441,7 @@ select_module (int module, int mbutton)
 void
 highlight_module_button (int module)
 {
-    int x, y, q;
+    int x, y;
     int row, col;
 
     if (module == 0) {
@@ -468,7 +468,7 @@ highlight_module_button (int module)
 void
 unhighlight_module_button (int module)
 {
-    int x, y, q;
+    int x, y;
 
     int row, col;
 

@@ -30,6 +30,7 @@
 #include "power.h"
 #include "stats.h"
 #include "pbar.h"
+#include "module_buttons.h"
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
