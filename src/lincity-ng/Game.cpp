@@ -52,7 +52,7 @@ Game::run()
         }
 
         gui->draw(*painter);
-        SDL_Flip(SDL_GetVideoSurface());
+        flipScreenBuffer();
         frame++;
         
         if(SDL_GetTicks() - ticks > 1000) {

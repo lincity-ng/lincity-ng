@@ -173,9 +173,8 @@ MainMenu::run()
             }
         }
 
-        //SDL_FillRect(SDL_GetVideoSurface(), 0, 0);
         currentMenu->draw(*painter);
-        SDL_Flip(SDL_GetVideoSurface());
+        flipScreenBuffer();
 
         frame++;
         if(SDL_GetTicks() - ticks > 1000) {

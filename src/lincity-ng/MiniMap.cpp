@@ -172,6 +172,8 @@ void MiniMap::draw(Painter &painter)
   // SDL_Surface should be updated, only if needed
 
   std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
+  if(mpainter.get() == 0)
+      return;
 
   for(y=0;y<WORLD_SIDE_LEN && y<height/tilesize;y++)
     for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)

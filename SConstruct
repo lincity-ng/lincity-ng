@@ -230,7 +230,7 @@ env.Alias('install-exec', env.subst('$DESTDIR/$BINDIR'))
 env.Alias('install', ['install-data', 'install-exec'])
 
 env.Export(["env", "Glob", "InstallData", "InstallExec"])
-env.Append(LIBS = ["SDL_ttf", "SDL_gfx"])
+env.Append(LIBS = ["SDL_ttf", "SDL_gfx", "GL"])
 env.Append(CPPPATH = ["#", "#/src"])
 env.Append(LIBPATH = ["#" + build_dir + "/lincity",
                       '#' + build_dir + "/gui"])

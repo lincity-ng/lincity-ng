@@ -165,7 +165,7 @@ Texture* GameView::readTexture(const std::string& filename)
     Texture* currentTexture;
     try {
         currentTexture = texture_manager->load(nfilename);
-    } catch(std::runtime_error err) {
+    } catch(std::exception& err) {
         std::cerr << nfilename << " missing: " << err.what() << "\n";
         return 0;
     }

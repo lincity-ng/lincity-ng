@@ -14,7 +14,7 @@ static int funcSeek(struct SDL_RWops* context, int offset, int whence)
     int res;
     switch(whence) {
         case SEEK_SET:
-            PHYSFS_seek(file, offset);
+            res = PHYSFS_seek(file, offset);
             break;
         case SEEK_CUR:
             res = PHYSFS_seek(file, PHYSFS_tell(file) + offset);

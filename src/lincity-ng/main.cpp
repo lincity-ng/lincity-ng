@@ -6,16 +6,21 @@
 #include <memory>
 #include <physfs.h>
 #include <SDL.h>
+#include <SDL_opengl.h>
 #include <SDL_ttf.h>
 
 #include "gui/TextureManager.hpp"
 #include "gui/PainterSDL/TextureManagerSDL.hpp"
 #include "gui/PainterSDL/PainterSDL.hpp"
+#include "gui/PainterGL/TextureManagerGL.hpp"
+#include "gui/PainterGL/PainterGL.hpp"
 
 #include "main.hpp"
 #include "MainLincity.hpp"
 #include "MainMenu.hpp"
 #include "Game.hpp"
+
+//#define USE_OPENGL
 
 Painter* painter = 0;
 
@@ -71,13 +76,18 @@ void initPhysfs(const char* argv0)
     // allow symbolic links
     PHYSFS_permitSymbolicLinks(1);
 }
-    
 
 void initVideo(int width, int height)
 {
     int bpp = 0;
-    int flags = SDL_HWSURFACE  | SDL_RESIZABLE;
-    SDL_Surface* screen 
+    int flags;
+#ifdef USE_OPENGL
+    flags = SDL_OPENGL | SDL_RESIZABLE;
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+#else
+    flags = SDL_HWSURFACE  | SDL_RESIZABLE;
+#endif
+    SDL_Surface* screen
         = SDL_SetVideoMode(width, height, bpp, flags);
     SDL_WM_SetCaption(PACKAGE_NAME " " PACKAGE_VERSION, 0);
     if(!screen) {
@@ -87,9 +97,37 @@ void initVideo(int width, int height)
             << SDL_GetError();
         throw std::runtime_error(msg.str());
     }
-    
+
     delete painter;
+#ifdef USE_OPENGL
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+
+    glClearColor(0, 0, 0, 0);
+    glViewport(0, 0, screen->w, screen->h);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, screen->w, screen->h, 0, -1, 1);
+
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    painter = new PainterGL();
+#else
     painter = new PainterSDL(screen);
+#endif
+}
+
+void flipScreenBuffer()
+{
+#ifdef USE_OPENGL
+    SDL_GL_SwapBuffers();
+    //glClear(GL_COLOR_BUFFER_BIT);
+#else
+    SDL_Flip(SDL_GetVideoSurface());
+#endif
 }
 
 void mainLoop()
@@ -136,7 +174,11 @@ int main(int , char** argv)
         initVideo(800, 600);
 	initLincity();
 
+#ifdef USE_OPENGL
+        texture_manager = new TextureManagerGL();
+#else
         texture_manager = new TextureManagerSDL();
+#endif
 
         mainLoop();
 #ifndef DEBUG
@@ -158,3 +200,4 @@ int main(int , char** argv)
     PHYSFS_deinit();
     return result;
 }
+

@@ -6,6 +6,7 @@ enum MainState {
 };
 
 void initVideo(int width = 800, int height = 600);
+void flipScreenBuffer();
 
 class Painter;
 
