@@ -215,11 +215,11 @@ do_prefs_screen (void)
     hide_mouse ();
     Fgl_fillbox (mw->x, mw->y, mw->w, mw->h, LOAD_BG_COLOUR);
     Fgl_setfontcolors (LOAD_BG_COLOUR, TEXT_FG_COLOUR);
-    Fgl_write (mw->x + 80, mw->y + 4*8, "Transport overwrite");
-    Fgl_write (mw->x + 80, mw->y + 6*8, "Popup info to dialog boxes");
-    Fgl_write (mw->x + 80, mw->y + 8*8, "Time multiplexed stats windows");
+    Fgl_write (mw->x + 80, mw->y + 4*8, _("Transport overwrite"));
+    Fgl_write (mw->x + 80, mw->y + 6*8, _("Popup info to dialog boxes"));
+    Fgl_write (mw->x + 80, mw->y + 8*8, _("Time multiplexed stats windows"));
 #if defined (LC_X11)
-    Fgl_write (mw->x + 80, mw->y + 10*8, "Confine X pointer");
+    Fgl_write (mw->x + 80, mw->y + 10*8, _("Confine X pointer"));
 #endif
 
     x = 370;
@@ -234,7 +234,7 @@ do_prefs_screen (void)
 	      mw->x + x, mw->y + y + h, HELPBUTTON_COLOUR);
     Fgl_line (mw->x + x + w, mw->y + y,
 	      mw->x + x + w, mw->y + y + h, HELPBUTTON_COLOUR);
-    Fgl_write (mw->x + x + 2, mw->y + y + 2, "OUT");
+    Fgl_write (mw->x + x + 2, mw->y + y + 2, _("OUT"));
 
     draw_prefs_cb ();
 
@@ -645,99 +645,6 @@ input_network_port (char *s)
     Fgl_write (mw->x + 50, mw->y + 280, "Port:");
     edit_string (s, 40, mw->x + 124, mw->y + 280);
 }
-
-#if 0
-void
-dump_tcore (void)
-{
-#ifdef ALLOW_TCORE_DUMP
-  char s[200];
-  int x, y, z, q, n;
-  FILE *ofile;
-  strcpy (s, getenv ("HOME"));
-  strcat (s, "/");
-  strcat (s, LC_SAVE_DIR);
-  strcat (s, "/");
-  strcat (s, "tcore.txt");
-  if ((ofile = fopen (s, "w")) == NULL)
-    {
-      printf (_("Tcore file <%s> - "), s);
-      do_error _("Can't open it!");
-    }
-  fprintf (ofile, _("Version=%d\n"), (int) VERSION_INT);
-  q = sizeof (struct MAPPOINT);
-  prog_box (_("Saving tcore"), 0);
-  for (x = 0; x < WORLD_SIDE_LEN; x++)
-    {
-      for (y = 0; y < WORLD_SIDE_LEN; y++)
-	{
-	  for (z = 0; z < q; z++)
-	    {
-	      n = *(((unsigned char *) &mappoint[x][y]) + z);
-	      fprintf (ofile, _("mappoint[%d][%d]b%d=%d\n")
-		       ,x, y, z, n);
-	    }
-	  fprintf (ofile, _("mappointpol[%d][%d]=%d\n")
-		   ,x, y, (int) mappointpol[x][y]);
-	  fprintf (ofile, _("mappoint[%d][%d].type=%d\n")
-		   ,x, y, (int) mappoint[x][y].type);
-	}
-      prog_box ("", (90 * x) / WORLD_SIDE_LEN);
-    }
-  fprintf (ofile, _("Origx=%d\n"), main_screen_originx);
-  fprintf (ofile, _("Origy=%d\n"), main_screen_originy);
-  fprintf (ofile, _("Total time=%d\n"), total_time);
-  for (x = 0; x < MAX_NUMOF_SUBSTATIONS; x++)
-    {
-      fprintf (ofile, _("SustationX[%d]=%d\n"), x, substationx[x]);
-      fprintf (ofile, _("Substation[%d]=%d\n"), x, substationy[x]);
-    }
-  prog_box ("", 92);
-  fprintf (ofile, _("Num of substations=%d\n"), numof_substations);
-  for (x = 0; x < MAX_NUMOF_MARKETS; x++)
-    {
-      fprintf (ofile, _("MarketX[%d]=%d\n"), x, marketx[x]);
-      fprintf (ofile, _("MarketY[%d]=%d\n"), x, markety[x]);
-    }
-  prog_box ("", 94);
-  fprintf (ofile, _("numof_markets=%d\n"), numof_markets);
-  fprintf (ofile, _("people_pool=%d\n"), people_pool);
-  fprintf (ofile, _("total_money=%d\n"), total_money);
-  fprintf (ofile, _("income_tax_rate=%d\n"), income_tax_rate);
-  fprintf (ofile, _("coal_tax_rate=%d\n"), coal_tax_rate);
-  fprintf (ofile, _("dole_rate=%d\n"), dole_rate);
-  fprintf (ofile, _("transport_cost_rate=%d\n"), transport_cost_rate);
-  fprintf (ofile, _("goods_tax_rate=%d\n"), goods_tax_rate);
-  fprintf (ofile, _("export_tax=%d\n"), export_tax);
-  fprintf (ofile, _("export_tax_rate=%d\n"), export_tax_rate);
-  fprintf (ofile, _("import_cost=%d\n"), import_cost);
-  fprintf (ofile, _("import_cost_rate=%d\n"), import_cost_rate);
-  fprintf (ofile, _("tech_level=%d\n"), tech_level);
-  fprintf (ofile, _("tpopulation=%d\n"), tpopulation);
-  fprintf (ofile, _("tstarving_population=%d\n"), tstarving_population);
-  fprintf (ofile, _("tunemployed_population=%d\n"), tunemployed_population);
-  fprintf (ofile, _("waste_goods=%d\n"), waste_goods);
-  fprintf (ofile, _("power_made=%d\n"), power_made);
-  fprintf (ofile, _("power_used=%d\n"), power_used);
-  fprintf (ofile, -("coal_made=%d\n"), coal_made);
-  fprintf (ofile, _("coal_used=%d\n"), coal_used);
-  fprintf (ofile, _("goods_made=%d\n"), goods_made);
-  fprintf (ofile, _("goods_used=%d\n"), goods_used);
-  fprintf (ofile, _("ore_made=%d\n"), ore_made);
-  fprintf (ofile, _("ore_used=%d\n"), ore_used);
-  fprintf (ofile, _("diff_old_population=%d\n"), diff_old_population);
-  prog_box ("", 96);
-  prog_box ("", 98);
-  fprintf (ofile, _("rockets_launched=%d\n"), rockets_launched);
-  fprintf (ofile, _("rockets_launched_success=%d\n"), rockets_launched_success);
-  fprintf (ofile, _("coal_survey_done=%d\n"), coal_survey_done);
-  prog_box ("", 99);
-
-  fclose (ofile);
-  prog_box ("", 100);
-#endif
-}
-#endif /* 0 */
 
 
 void

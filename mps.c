@@ -409,83 +409,84 @@ void
 mps_res_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 8, "People");
-  Fgl_write (mps->x, mps->y + 16, "Power");
-  Fgl_write (mps->x, mps->y + 24, "Fed");
-  Fgl_write (mps->x, mps->y + 32, "Empld");
-  Fgl_write (mps->x, mps->y + 40, "H cov");
-  Fgl_write (mps->x, mps->y + 48, "F cov");
-  Fgl_write (mps->x, mps->y + 56, "C cov");
-  Fgl_write (mps->x, mps->y + 64, "Poll'n");
-  Fgl_write (mps->x, mps->y + 80, "Job pro");
+  Fgl_write (mps->x, mps->y + 8, _("People"));
+  Fgl_write (mps->x, mps->y + 16, _("Power"));
+  Fgl_write (mps->x, mps->y + 24, _("Fed"));
+  Fgl_write (mps->x, mps->y + 32, _("Empld"));
+  Fgl_write (mps->x, mps->y + 40, _("H cov"));
+  Fgl_write (mps->x, mps->y + 48, _("F cov"));
+  Fgl_write (mps->x, mps->y + 56, _("C cov"));
+  Fgl_write (mps->x, mps->y + 64, _("Poll'n"));
+  Fgl_write (mps->x, mps->y + 80, _("Job pro"));
 }
 
 void
 mps_res (int x, int y)
 {
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%d ", MP_INFO(x,y).population);
-  Fgl_write (mps->x + 7 * 8, mps->y + 8, s);
-  if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-    strcpy (s, "YES");
-  else
-    strcpy (s, "NO ");
-  Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
+    Rect* mps = &scr.mappoint_stats;
+    char s[100];
+    sprintf (s, "%d ", MP_INFO(x,y).population);
+    Fgl_write (mps->x + 7 * 8, mps->y + 8, s);
+    if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
+	/* TRANSLATORS:  YES and NO must be same lengths */
+	strcpy (s, _("YES"));
+    else
+	strcpy (s, _("NO "));
+    Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
 
-  if ((MP_INFO(x,y).flags & FLAG_FED) != 0)
-    strcpy (s, "YES");
-  else
-    strcpy (s, "NO ");
-  Fgl_write (mps->x + 7 * 8, mps->y + 24, s);
+    if ((MP_INFO(x,y).flags & FLAG_FED) != 0)
+	strcpy (s, _("YES"));
+    else
+	strcpy (s, _("NO "));
+    Fgl_write (mps->x + 7 * 8, mps->y + 24, s);
 
-  if ((MP_INFO(x,y).flags & FLAG_EMPLOYED) != 0)
-    strcpy (s, "YES");
-  else
-    strcpy (s, "NO ");
-  Fgl_write (mps->x + 7 * 8, mps->y + 32, s);
+    if ((MP_INFO(x,y).flags & FLAG_EMPLOYED) != 0)
+	strcpy (s, _("YES"));
+    else
+	strcpy (s, _("NO "));
+    Fgl_write (mps->x + 7 * 8, mps->y + 32, s);
 
-  if ((MP_INFO(x,y).flags & FLAG_HEALTH_COVER) != 0)
-    strcpy (s, "YES");
-  else
-    strcpy (s, "NO ");
-  Fgl_write (mps->x + 7 * 8, mps->y + 40, s);
+    if ((MP_INFO(x,y).flags & FLAG_HEALTH_COVER) != 0)
+	strcpy (s, _("YES"));
+    else
+	strcpy (s, _("NO "));
+    Fgl_write (mps->x + 7 * 8, mps->y + 40, s);
 
-  if ((MP_INFO(x,y).flags & FLAG_FIRE_COVER) != 0)
-    strcpy (s, "YES");
-  else
-    strcpy (s, "NO ");
-  Fgl_write (mps->x + 7 * 8, mps->y + 48, s);
+    if ((MP_INFO(x,y).flags & FLAG_FIRE_COVER) != 0)
+	strcpy (s, _("YES"));
+    else
+	strcpy (s, _("NO "));
+    Fgl_write (mps->x + 7 * 8, mps->y + 48, s);
 
-  if ((MP_INFO(x,y).flags & FLAG_CRICKET_COVER) != 0)
-    strcpy (s, "YES");
-  else
-    strcpy (s, "NO ");
-  Fgl_write (mps->x + 7 * 8, mps->y + 56, s);
+    if ((MP_INFO(x,y).flags & FLAG_CRICKET_COVER) != 0)
+	strcpy (s, _("YES"));
+    else
+	strcpy (s, _("NO "));
+    Fgl_write (mps->x + 7 * 8, mps->y + 56, s);
 
-  /* pollution */
-  sprintf (s, "%7d", MP_POL(x,y));
-  Fgl_write (mps->x + 7 * 8, mps->y + 64, s);
+    /* pollution */
+    sprintf (s, "%7d", MP_POL(x,y));
+    Fgl_write (mps->x + 7 * 8, mps->y + 64, s);
 
-  /* job prospects */
-  if (MP_INFO(x,y).int_1 >= 10)
-    sprintf (s, "   good");
-  else
-    sprintf (s, "%7d", MP_INFO(x,y).int_1);
-  Fgl_write (mps->x + 7 * 8, mps->y + 80, s);
+    /* job prospects */
+    if (MP_INFO(x,y).int_1 >= 10)
+	sprintf (s, _("   good"));
+    else
+	sprintf (s, "%7d", MP_INFO(x,y).int_1);
+    Fgl_write (mps->x + 7 * 8, mps->y + 80, s);
 }
 
 void
 mps_transport_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 32, "Food");
-  Fgl_write (mps->x, mps->y + 40, "Jobs");
-  Fgl_write (mps->x, mps->y + 48, "Coal");
-  Fgl_write (mps->x, mps->y + 56, "Goods");
-  Fgl_write (mps->x, mps->y + 64, "Ore");
-  Fgl_write (mps->x, mps->y + 72, "Steel");
-  Fgl_write (mps->x, mps->y + 80, "Waste");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 32, _("Food"));
+    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
+    Fgl_write (mps->x, mps->y + 48, _("Coal"));
+    Fgl_write (mps->x, mps->y + 56, _("Goods"));
+    Fgl_write (mps->x, mps->y + 64, _("Ore"));
+    Fgl_write (mps->x, mps->y + 72, _("Steel"));
+    Fgl_write (mps->x, mps->y + 80, _("Waste"));
 }
 
 void
@@ -629,10 +630,10 @@ mps_market (int x, int y)
 void
 mps_farm_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 16, "Power");
-  Fgl_write (mps->x, mps->y + 40, "Tech");
-  Fgl_write (mps->x, mps->y + 48, "Prod");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 16, _("Power"));
+    Fgl_write (mps->x, mps->y + 40, _("Tech"));
+    Fgl_write (mps->x, mps->y + 48, _("Prod"));
 }
 
 void
@@ -641,9 +642,9 @@ mps_farm (int x, int y)
   Rect* mps = &scr.mappoint_stats;
   char s[100];
   if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-    strcpy (s, "YES");
+    strcpy (s, _("YES"));
   else
-    strcpy (s, "NO ");
+    strcpy (s, _("NO "));
   Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
   sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100.0
 	   / MAX_TECH_LEVEL);
@@ -657,13 +658,13 @@ mps_farm (int x, int y)
 void
 mps_indl_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 16, "Power");
-  Fgl_write (mps->x, mps->y + 40, "Output");
-  Fgl_write (mps->x, mps->y + 48, "Store");
-  Fgl_write (mps->x, mps->y + 56, "Ore");
-  Fgl_write (mps->x, mps->y + 64, "Steel");
-  Fgl_write (mps->x, mps->y + 80, "Capacity");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 16, _("Power"));
+    Fgl_write (mps->x, mps->y + 40, _("Output"));
+    Fgl_write (mps->x, mps->y + 48, _("Store"));
+    Fgl_write (mps->x, mps->y + 56, _("Ore"));
+    Fgl_write (mps->x, mps->y + 64, _("Steel"));
+    Fgl_write (mps->x, mps->y + 80, _("Capacity"));
 }
 
 void
@@ -673,9 +674,9 @@ mps_indl (int x, int y)
   char s[100];
   float f;
   if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-    strcpy (s, "YES");
+    strcpy (s, _("YES"));
   else
-    strcpy (s, "NO ");
+    strcpy (s, _("NO "));
   Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
   sprintf (s, "%7d", MP_INFO(x,y).int_1);
   Fgl_write (mps->x + 7 * 8, mps->y + 40, s);
@@ -702,13 +703,13 @@ mps_indl (int x, int y)
 void
 mps_indh_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 16, "Power");
-  Fgl_write (mps->x, mps->y + 40, "Output");
-  Fgl_write (mps->x, mps->y + 48, "Store");
-  Fgl_write (mps->x, mps->y + 56, "Ore");
-  Fgl_write (mps->x, mps->y + 64, "Coal");
-  Fgl_write (mps->x, mps->y + 80, "Capacity");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 16, _("Power"));
+    Fgl_write (mps->x, mps->y + 40, _("Output"));
+    Fgl_write (mps->x, mps->y + 48, _("Store"));
+    Fgl_write (mps->x, mps->y + 56, _("Ore"));
+    Fgl_write (mps->x, mps->y + 64, _("Coal"));
+    Fgl_write (mps->x, mps->y + 80, _("Capacity"));
 }
 
 void
@@ -719,11 +720,12 @@ mps_indh (int x, int y)
   float f;
   if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0) 
       if (MP_INFO(x,y).int_7 == 1) 
-	  strcpy(s, "COAL");
+	  /* TRANSLATORS:  "COAL", "YES ", and "NO  " must be same length */
+	  strcpy(s, _("COAL"));
       else
-	  strcpy (s, "YES ");
+	  strcpy (s, _("YES "));
   else
-    strcpy (s, "NO  ");
+    strcpy (s, _("NO  "));
 
   Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
   sprintf (s, "%7d", MP_INFO(x,y).int_1);
@@ -750,9 +752,9 @@ mps_indh (int x, int y)
 void
 mps_coalmine_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Stock");
-  Fgl_write (mps->x, mps->y + 48, "Reserve");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("Stock"));
+    Fgl_write (mps->x, mps->y + 48, _("Reserve"));
 }
 
 void
@@ -766,7 +768,7 @@ mps_coalmine (int x, int y)
   if (MP_INFO(x,y).int_2 > 0)
     sprintf (s, "%7d", MP_INFO(x,y).int_2);
   else
-    sprintf (s, " EMPTY ");
+    sprintf (s, _(" EMPTY "));
   Fgl_write (mps->x + 7 * 8, mps->y + 48, s);
 }
 
@@ -774,12 +776,12 @@ void
 mps_power_source_coal_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Cycle");
-  Fgl_write (mps->x, mps->y + 48, "Coal");
-  Fgl_write (mps->x, mps->y + 56, "Jobs");
-  Fgl_write (mps->x, mps->y + 64, "Tech");
-  Fgl_write (mps->x, mps->y + 72, "Grid");
-  Fgl_write (mps->x, mps->y + 80, "Capacity");
+  Fgl_write (mps->x, mps->y + 40, _("Cycle"));
+  Fgl_write (mps->x, mps->y + 48, _("Coal"));
+  Fgl_write (mps->x, mps->y + 56, _("Jobs"));
+  Fgl_write (mps->x, mps->y + 64, _("Tech"));
+  Fgl_write (mps->x, mps->y + 72, _("Grid"));
+  Fgl_write (mps->x, mps->y + 80, _("Capacity"));
 }
 
 void
@@ -818,9 +820,9 @@ void
 mps_power_line_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Anim");
-  Fgl_write (mps->x, mps->y + 48, "Grid");
-  Fgl_write (mps->x, mps->y + 56, "Debug");
+  Fgl_write (mps->x, mps->y + 40, _("Anim"));
+  Fgl_write (mps->x, mps->y + 48, _("Grid"));
+  Fgl_write (mps->x, mps->y + 56, _("Debug"));
 }
 
 void
@@ -841,10 +843,10 @@ void
 mps_power_source_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Cycle");
-  Fgl_write (mps->x, mps->y + 48, "Tech");
-  Fgl_write (mps->x, mps->y + 56, "Capacity");
-  Fgl_write (mps->x, mps->y + 72, "Grid");
+  Fgl_write (mps->x, mps->y + 40, _("Cycle"));
+  Fgl_write (mps->x, mps->y + 48, _("Tech"));
+  Fgl_write (mps->x, mps->y + 56, _("Capacity"));
+  Fgl_write (mps->x, mps->y + 72, _("Grid"));
 }
 
 void
@@ -872,10 +874,10 @@ void
 mps_university_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Jobs");
-  Fgl_write (mps->x, mps->y + 48, "Goods");
-  Fgl_write (mps->x, mps->y + 56, "T made");
-  Fgl_write (mps->x, mps->y + 64, "Capacity");
+  Fgl_write (mps->x, mps->y + 40, _("Jobs"));
+  Fgl_write (mps->x, mps->y + 48, _("Goods"));
+  Fgl_write (mps->x, mps->y + 56, _("T made"));
+  Fgl_write (mps->x, mps->y + 64, _("Capacity"));
 }
 
 void
@@ -900,12 +902,12 @@ void
 mps_recycle_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 16, "Power");
-  Fgl_write (mps->x, mps->y + 40, "O stock");
-  Fgl_write (mps->x, mps->y + 48, "W store");
-  Fgl_write (mps->x, mps->y + 56, "S store");
-  Fgl_write (mps->x, mps->y + 64, "Tech");
-  Fgl_write (mps->x, mps->y + 80, "Capacity");
+  Fgl_write (mps->x, mps->y + 16, _("Power"));
+  Fgl_write (mps->x, mps->y + 40, _("O stock"));
+  Fgl_write (mps->x, mps->y + 48, _("W store"));
+  Fgl_write (mps->x, mps->y + 56, _("S store"));
+  Fgl_write (mps->x, mps->y + 64, _("Tech"));
+  Fgl_write (mps->x, mps->y + 80, _("Capacity"));
 }
 
 void
@@ -914,9 +916,9 @@ mps_recycle (int x, int y)
   Rect* mps = &scr.mappoint_stats;
   char s[100];
   if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-    strcpy (s, "YES");
+    strcpy (s, _("YES"));
   else
-    strcpy (s, "NO ");
+    strcpy (s, _("NO "));
   Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
   sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
 	   / MAX_ORE_AT_RECYCLE);
@@ -936,8 +938,8 @@ void
 mps_oremine_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Stock");
-  Fgl_write (mps->x, mps->y + 48, "Reserve");
+  Fgl_write (mps->x, mps->y + 40, _("Stock"));
+  Fgl_write (mps->x, mps->y + 48, _("Reserve"));
 }
 
 void
@@ -990,36 +992,35 @@ void
 mps_rocket_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Jobs");
-  Fgl_write (mps->x, mps->y + 48, "Goods");
-  Fgl_write (mps->x, mps->y + 56, "Steel");
-  Fgl_write (mps->x, mps->y + 64, "Launch");
+  Fgl_write (mps->x, mps->y + 40, _("Jobs"));
+  Fgl_write (mps->x, mps->y + 48, _("Goods"));
+  Fgl_write (mps->x, mps->y + 56, _("Steel"));
+  Fgl_write (mps->x, mps->y + 64, _("Launch"));
 }
 
 void
 mps_rocket (int x, int y)
 {
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
-	   / ROCKET_PAD_JOBS_STORE);
-  Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
-	   / ROCKET_PAD_GOODS_STORE);
-  Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_3 * 100
-	   / ROCKET_PAD_STEEL_STORE);
-  Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
-  sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_4 * 100
-	   / ROCKET_PAD_LAUNCH);
-  Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
-  if (MP_TYPE(x,y) == CST_ROCKET_5)
-    {
-      if (yn_dial_box ("ROCKET LAUNCH"
-		       ,"You can launch the rocket now or wait until later."
-		       ,"If you wait, it costs you *only* money to keep the"
-		       ,"rocket ready.    Launch?") != 0)
-	  launch_rocket (x, y);
+    Rect* mps = &scr.mappoint_stats;
+    char s[100];
+    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_1 * 100
+	     / ROCKET_PAD_JOBS_STORE);
+    Fgl_write (mps->x + 8 * 8, mps->y + 40, s);
+    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_2 * 100
+	     / ROCKET_PAD_GOODS_STORE);
+    Fgl_write (mps->x + 8 * 8, mps->y + 48, s);
+    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_3 * 100
+	     / ROCKET_PAD_STEEL_STORE);
+    Fgl_write (mps->x + 8 * 8, mps->y + 56, s);
+    sprintf (s, "%5.1f%%", (float) MP_INFO(x,y).int_4 * 100
+	     / ROCKET_PAD_LAUNCH);
+    Fgl_write (mps->x + 8 * 8, mps->y + 64, s);
+    if (MP_TYPE(x,y) == CST_ROCKET_5) {
+	if (yn_dial_box (_("ROCKET LAUNCH"),
+			 _("You can launch the rocket now or wait until later."),
+			 _("If you wait, it costs you *only* money to keep the"),
+			 _("rocket ready.    Launch?")) != 0)
+	    launch_rocket (x, y);
     }
 }
 
@@ -1027,15 +1028,15 @@ void
 mps_windmill_setup (int x, int y)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 24, "Tech");
+  Fgl_write (mps->x, mps->y + 24, _("Tech"));
 
   if (MP_INFO(x,y).int_2 >= MODERN_WINDMILL_TECH) {
-    Fgl_write (mps->x, mps->y + 32, "Power");
-    Fgl_write (mps->x, mps->y + 40, "Grid");
-    Fgl_write (mps->x, mps->y + 48, "Max");
-    Fgl_write (mps->x, mps->y + 56, "Avail");
-    Fgl_write (mps->x, mps->y + 64, "Demand");
-    Fgl_write (mps->x, mps->y + 72, "Here");
+    Fgl_write (mps->x, mps->y + 32, _("Power"));
+    Fgl_write (mps->x, mps->y + 40, _("Grid"));
+    Fgl_write (mps->x, mps->y + 48, _("Max"));
+    Fgl_write (mps->x, mps->y + 56, _("Avail"));
+    Fgl_write (mps->x, mps->y + 64, _("Demand"));
+    Fgl_write (mps->x, mps->y + 72, _("Here"));
   }
 }
 
@@ -1075,9 +1076,9 @@ mps_windmill (int x, int y)
 void
 mps_monument_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Built");
-  Fgl_write (mps->x, mps->y + 48, "T made");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("Built"));
+    Fgl_write (mps->x, mps->y + 48, _("T made"));
 }
 
 
@@ -1097,11 +1098,11 @@ mps_monument (int x, int y)
 void
 mps_school_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Jobs");
-  Fgl_write (mps->x, mps->y + 48, "Goods");
-  Fgl_write (mps->x, mps->y + 56, "T made");
-  Fgl_write (mps->x, mps->y + 64, "Capacity");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
+    Fgl_write (mps->x, mps->y + 48, _("Goods"));
+    Fgl_write (mps->x, mps->y + 56, _("T made"));
+    Fgl_write (mps->x, mps->y + 64, _("Capacity"));
 }
 
 void
@@ -1126,10 +1127,10 @@ mps_school (int x, int y)
 void
 mps_blacksmith_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "G store");
-  Fgl_write (mps->x, mps->y + 48, "C store");
-  Fgl_write (mps->x, mps->y + 56, "Capacity");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("G store"));
+    Fgl_write (mps->x, mps->y + 48, _("C store"));
+    Fgl_write (mps->x, mps->y + 56, _("Capacity"));
 }
 
 void
@@ -1150,11 +1151,11 @@ mps_blacksmith (int x, int y)
 void
 mps_mill_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "G store");
-  Fgl_write (mps->x, mps->y + 48, "F store");
-  Fgl_write (mps->x, mps->y + 56, "C store");
-  Fgl_write (mps->x, mps->y + 64, "Capacity");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("G store"));
+    Fgl_write (mps->x, mps->y + 48, _("F store"));
+    Fgl_write (mps->x, mps->y + 56, _("C store"));
+    Fgl_write (mps->x, mps->y + 64, _("Capacity"));
 }
 
 void
@@ -1178,11 +1179,11 @@ mps_mill (int x, int y)
 void
 mps_pottery_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "G store");
-  Fgl_write (mps->x, mps->y + 48, "O store");
-  Fgl_write (mps->x, mps->y + 56, "C store");
-  Fgl_write (mps->x, mps->y + 64, "Capacity");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("G store"));
+    Fgl_write (mps->x, mps->y + 48, _("O store"));
+    Fgl_write (mps->x, mps->y + 56, _("C store"));
+    Fgl_write (mps->x, mps->y + 64, _("Capacity"));
 }
 
 void
@@ -1206,27 +1207,27 @@ mps_pottery (int x, int y)
 void
 mps_water (int x, int y)
 {
-  Rect* mps = &scr.mappoint_stats;
-  if (MP_INFO(x,y).flags & FLAG_IS_RIVER)
-    Fgl_write (mps->x + 1 * 8, mps->y + 40
-	       ,"  CONNECTED  ");
-  else
-    Fgl_write (mps->x + 1 * 8, mps->y + 40
-	       ,"NOT CONNECTED");
-  Fgl_write (mps->x, mps->y + 48, "to river sytem");
+    Rect* mps = &scr.mappoint_stats;
+    if (MP_INFO(x,y).flags & FLAG_IS_RIVER)
+	Fgl_write (mps->x + 1 * 8, mps->y + 40,
+		   _("  CONNECTED  "));
+    else
+	Fgl_write (mps->x + 1 * 8, mps->y + 40,
+		   _("NOT CONNECTED"));
+    Fgl_write (mps->x, mps->y + 48, _("to river sytem"));
 }
 
 void
 mps_port_setup (int x, int y)
 {
     Rect* mps = &scr.mappoint_stats;
-
-    Fgl_write (mps->x + 4, mps->y + 1*8+4, "     Buy   Sell");
-    Fgl_write (mps->x + 4, mps->y + 3*8, "F");
-    Fgl_write (mps->x + 4, mps->y + 4*8, "C");
-    Fgl_write (mps->x + 4, mps->y + 5*8, "O");
-    Fgl_write (mps->x + 4, mps->y + 6*8, "G");
-    Fgl_write (mps->x + 4, mps->y + 7*8, "S");
+    /* TRANSLATORS F=food, C=coal, O=ore, G=goods, S=steel */
+    Fgl_write (mps->x + 4, mps->y + 1*8+4, _("     Buy   Sell"));
+    Fgl_write (mps->x + 4, mps->y + 3*8, _("F"));
+    Fgl_write (mps->x + 4, mps->y + 4*8, _("C"));
+    Fgl_write (mps->x + 4, mps->y + 5*8, _("O"));
+    Fgl_write (mps->x + 4, mps->y + 6*8, _("G"));
+    Fgl_write (mps->x + 4, mps->y + 7*8, _("S"));
 }
 
 void
@@ -1261,10 +1262,10 @@ mps_port (int x, int y)
 void
 mps_tip_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 32, "  Waste stored");
-  Fgl_write (mps->x, mps->y + 40, "   last month");
-  Fgl_write (mps->x, mps->y + 64, "       % full");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 32, _("  Waste stored"));
+    Fgl_write (mps->x, mps->y + 40, _("   last month"));
+    Fgl_write (mps->x, mps->y + 64, _("       % full"));
 }
 
 void
@@ -1282,107 +1283,104 @@ mps_tip (int x, int y)
 void
 mps_commune_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 12, "   Activity");
-  Fgl_write (mps->x, mps->y + 20, "  last month");
-  Fgl_write (mps->x, mps->y + 36, "  Coal");
-  Fgl_write (mps->x, mps->y + 44, "   Ore");
-  Fgl_write (mps->x, mps->y + 52, " Steel");
-  Fgl_write (mps->x, mps->y + 60, " Waste");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 12, _("   Activity"));
+    Fgl_write (mps->x, mps->y + 20, _("  last month"));
+    Fgl_write (mps->x, mps->y + 36, _("  Coal"));
+    Fgl_write (mps->x, mps->y + 44, _("   Ore"));
+    Fgl_write (mps->x, mps->y + 52, _(" Steel"));
+    Fgl_write (mps->x, mps->y + 60, _(" Waste"));
 }
 
 void
 mps_commune (int x, int y)
 {
-  Rect* mps = &scr.mappoint_stats;
-  if ((MP_INFO(x,y).int_5 & 1) != 0)
-    Fgl_write (mps->x + 7 * 8, mps->y + 36, "YES");
-  else
-    Fgl_write (mps->x + 7 * 8, mps->y + 36, "NO ");
-  if ((MP_INFO(x,y).int_5 & 2) != 0)
-    Fgl_write (mps->x + 7 * 8, mps->y + 44, "YES");
-  else
-    Fgl_write (mps->x + 7 * 8, mps->y + 44, "NO ");
-  if ((MP_INFO(x,y).int_5 & 4) != 0)
-    Fgl_write (mps->x + 7 * 8, mps->y + 52, "YES");
-  else
-    Fgl_write (mps->x + 7 * 8, mps->y + 52, "NO ");
-  if ((MP_INFO(x,y).int_5 & 8) != 0)
-    Fgl_write (mps->x + 7 * 8, mps->y + 60, "YES");
-  else
-    Fgl_write (mps->x + 7 * 8, mps->y + 60, "NO ");
+    Rect* mps = &scr.mappoint_stats;
+    if ((MP_INFO(x,y).int_5 & 1) != 0)
+	Fgl_write (mps->x + 7 * 8, mps->y + 36, _("YES"));
+    else
+	Fgl_write (mps->x + 7 * 8, mps->y + 36, _("NO "));
+    if ((MP_INFO(x,y).int_5 & 2) != 0)
+	Fgl_write (mps->x + 7 * 8, mps->y + 44, _("YES"));
+    else
+	Fgl_write (mps->x + 7 * 8, mps->y + 44, _("NO "));
+    if ((MP_INFO(x,y).int_5 & 4) != 0)
+	Fgl_write (mps->x + 7 * 8, mps->y + 52, _("YES"));
+    else
+	Fgl_write (mps->x + 7 * 8, mps->y + 52, _("NO "));
+    if ((MP_INFO(x,y).int_5 & 8) != 0)
+	Fgl_write (mps->x + 7 * 8, mps->y + 60, _("YES"));
+    else
+	Fgl_write (mps->x + 7 * 8, mps->y + 60, _("NO "));
 }
 
 
 void
 mps_right_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x + 16, mps->y + 8,  "Grid:");
-  Fgl_write (mps->x + 16, mps->y + 16, "Coverages:");
-  Fgl_write (mps->x + 16, mps->y + 24, "Fire     ");
-  Fgl_write (mps->x + 16, mps->y + 32, "Health   ");
-  Fgl_write (mps->x + 16, mps->y + 40, "Cricket  ");
-  Fgl_write (mps->x + 16, mps->y + 48, "Pollution");
-  Fgl_write (mps->x + 16, mps->y + 76, " Bull");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x + 16, mps->y + 8,  _("Grid:"));
+    Fgl_write (mps->x + 16, mps->y + 16, _("Coverages:"));
+    Fgl_write (mps->x + 16, mps->y + 24, _("Fire     "));
+    Fgl_write (mps->x + 16, mps->y + 32, _("Health   "));
+    Fgl_write (mps->x + 16, mps->y + 40, _("Cricket  "));
+    Fgl_write (mps->x + 16, mps->y + 48, _("Pollution"));
+    Fgl_write (mps->x + 16, mps->y + 76, _(" Bull"));
 }
 
 void
 mps_right (int x, int y)
 {
-  Rect* mps = &scr.mappoint_stats;
-  char s[100];
-  int g;
-  snprintf(s,100,"%d,%d",x,y);
-  Fgl_write (mps->x + 8 * 8, mps->y + 8, s);
-  Fgl_write (mps->x + 8 * 12, mps->y + 24, 
-	     (MP_INFO(x,y).flags & FLAG_FIRE_COVER) ? "YES" : "NO ");
-  Fgl_write (mps->x + 8 * 12, mps->y + 32, 
-	     (MP_INFO(x,y).flags & FLAG_HEALTH_COVER) ? "YES" : "NO ");
-  Fgl_write (mps->x + 8 * 12, mps->y + 40, 
-	     (MP_INFO(x,y).flags & FLAG_CRICKET_COVER) ? "YES" : "NO ");
+    Rect* mps = &scr.mappoint_stats;
+    char s[100];
+    int g;
+    snprintf(s,100,"%d,%d",x,y);
+    Fgl_write (mps->x + 8 * 8, mps->y + 8, s);
+    Fgl_write (mps->x + 8 * 12, mps->y + 24, 
+	       (MP_INFO(x,y).flags & FLAG_FIRE_COVER) ? _("YES") : _("NO "));
+    Fgl_write (mps->x + 8 * 12, mps->y + 32, 
+	       (MP_INFO(x,y).flags & FLAG_HEALTH_COVER) ? _("YES") : _("NO "));
+    Fgl_write (mps->x + 8 * 12, mps->y + 40, 
+	       (MP_INFO(x,y).flags & FLAG_CRICKET_COVER) ? _("YES") : _("NO "));
 
-  sprintf (s, "%5d ", MP_POL(x,y));
-  if (MP_POL(x,y) < 10)
-    strcat (s, "(clear) ");
-  else if (MP_POL(x,y) < 25)
-    strcat (s, "(good)  ");
-  else if (MP_POL(x,y) < 70)
-    strcat (s, "(fair)  ");
-  else if (MP_POL(x,y) < 190)
-    strcat (s, "(smelly)");
-  else if (MP_POL(x,y) < 450)
-    strcat (s, "(smokey)");
-  else if (MP_POL(x,y) < 1000)
-    strcat (s, "(smoggy)");
-  else if (MP_POL(x,y) < 1700)
-    strcat (s, "(bad)   ");
-  else if (MP_POL(x,y) < 3000)
-    strcat (s, "(v bad) ");
-  else
-    strcat (s, "(death!)");
-  Fgl_write (mps->x + 8, mps->y + 56, s);
+    sprintf (s, "%5d ", MP_POL(x,y));
+    if (MP_POL(x,y) < 10)
+	strcat (s, _("(clear) "));
+    else if (MP_POL(x,y) < 25)
+	strcat (s, _("(good)  "));
+    else if (MP_POL(x,y) < 70)
+	strcat (s, _("(fair)  "));
+    else if (MP_POL(x,y) < 190)
+	strcat (s, _("(smelly)"));
+    else if (MP_POL(x,y) < 450)
+	strcat (s, _("(smokey)"));
+    else if (MP_POL(x,y) < 1000)
+	strcat (s, _("(smoggy)"));
+    else if (MP_POL(x,y) < 1700)
+	strcat (s, _("(bad)   "));
+    else if (MP_POL(x,y) < 3000)
+	strcat (s, _("(v bad) "));
+    else
+	strcat (s, _("(death!)"));
+    Fgl_write (mps->x + 8, mps->y + 56, s);
 
-  g = MP_GROUP(x,y);
-  if (g == 0)
-    {
-      sprintf (s, "  (N/A)");	/* Can't bulldoze grass. */
+    g = MP_GROUP(x,y);
+    if (g == 0) {
+	sprintf (s, _("  (N/A)"));	/* Can't bulldoze grass. */
+    } else {
+	if (g < 7)
+	    g--;			/* translate into button type */
+	sprintf (s, "%7d", main_groups[g].bul_cost);
     }
-  else
-    {
-      if (g < 7)
-	g--;			/* translate into button type */
-      sprintf (s, "%7d", main_groups[g].bul_cost);
-    }
-  Fgl_write (mps->x + 48, mps->y + 76, s);
+    Fgl_write (mps->x + 48, mps->y + 76, s);
 }
 
 void
 mps_firestation_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Jobs");
-  Fgl_write (mps->x, mps->y + 48, "Goods");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
+    Fgl_write (mps->x, mps->y + 48, _("Goods"));
 }
 
 void
@@ -1402,9 +1400,9 @@ mps_firestation (int x, int y)
 void
 mps_cricket_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Jobs");
-  Fgl_write (mps->x, mps->y + 48, "Goods");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
+    Fgl_write (mps->x, mps->y + 48, _("Goods"));
 }
 
 void
@@ -1424,9 +1422,9 @@ mps_cricket (int x, int y)
 void
 mps_health_setup (void)
 {
-  Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 40, "Jobs");
-  Fgl_write (mps->x, mps->y + 48, "Goods");
+    Rect* mps = &scr.mappoint_stats;
+    Fgl_write (mps->x, mps->y + 40, _("Jobs"));
+    Fgl_write (mps->x, mps->y + 48, _("Goods"));
 }
 
 void
@@ -1447,60 +1445,76 @@ void
 mps_global_finance_setup (void)
 {
     Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 32, mps->y, "FINANCE");
+    Fgl_write (mps->x + 32, mps->y, _("FINANCE"));
 
-    Fgl_write (mps->x, mps->y + 8, "Income   Expend");
-    Fgl_write (mps->x, mps->y + 16, "IT");
-    Fgl_write (mps->x, mps->y + 24, "CT");
-    Fgl_write (mps->x, mps->y + 32, "GT");
-    Fgl_write (mps->x, mps->y + 40, "XP");
-    Fgl_write (mps->x + 8*8, mps->y + 16, "OC");
-    Fgl_write (mps->x + 8*8, mps->y + 24, "UC");
-    Fgl_write (mps->x + 8*8, mps->y + 32, "TC");
-    Fgl_write (mps->x + 8*8, mps->y + 40, "IP");
-    Fgl_write (mps->x, mps->y + 80, "Tot");
+    /* TRANSLATORS: Expend should be Expenses, but Expenses didn't fit
+       IT=Income tax, CT=Coal tax, GT=Goods tax, XP=Exports
+       OC=Other costs, UC=Unemployment costs, 
+       TC=Transportation costs, IP=Imports */
+    Fgl_write (mps->x, mps->y + 8, _("Income   Expend"));
+    Fgl_write (mps->x, mps->y + 16, _("IT"));
+    Fgl_write (mps->x, mps->y + 24, _("CT"));
+    Fgl_write (mps->x, mps->y + 32, _("GT"));
+    Fgl_write (mps->x, mps->y + 40, _("XP"));
+    Fgl_write (mps->x + 8*8, mps->y + 16, _("OC"));
+    Fgl_write (mps->x + 8*8, mps->y + 24, _("UC"));
+    Fgl_write (mps->x + 8*8, mps->y + 32, _("TC"));
+    Fgl_write (mps->x + 8*8, mps->y + 40, _("IP"));
+    Fgl_write (mps->x, mps->y + 80, _("Tot"));
 }
 
 void 
 mps_global_other_costs_setup (void)
 {
     Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 20, mps->y, "OTHER COSTS");
+    Fgl_write (mps->x + 20, mps->y, _("OTHER COSTS"));
 
-    Fgl_write (mps->x, mps->y + 4*8, "It");
-    Fgl_write (mps->x, mps->y + 5*8, "Sc");
-    Fgl_write (mps->x, mps->y + 6*8, "Un");
-    Fgl_write (mps->x, mps->y + 7*8, "Dt");
-    Fgl_write (mps->x, mps->y + 8*8, "Wn");
-    Fgl_write (mps->x + 8*8, mps->y + 4*8, "Hl");
-    Fgl_write (mps->x + 8*8, mps->y + 5*8, "Rk");
-    Fgl_write (mps->x + 8*8, mps->y + 6*8, "Fr");
-    Fgl_write (mps->x + 8*8, mps->y + 7*8, "Ck");
-    Fgl_write (mps->x + 8*8, mps->y + 8*8, "Rc");
+    /* TRANSLATORS: 
+       It=Interest costs.
+       Sc=School costs.
+       Un=University costs.
+       Dt=Unnatural deaths costs.
+       Wn=Windmill costs.
+       Hl=Health costs.
+       Rk=Rocket costs.
+       Fr=Fire station costs.
+       Ck=Cricket costs.
+       Rc=Recycling costs.
+    */
+    Fgl_write (mps->x, mps->y + 4*8, _("It"));
+    Fgl_write (mps->x, mps->y + 5*8, _("Sc"));
+    Fgl_write (mps->x, mps->y + 6*8, _("Un"));
+    Fgl_write (mps->x, mps->y + 7*8, _("Dt"));
+    Fgl_write (mps->x, mps->y + 8*8, _("Wn"));
+    Fgl_write (mps->x + 8*8, mps->y + 4*8, _("Hl"));
+    Fgl_write (mps->x + 8*8, mps->y + 5*8, _("Rk"));
+    Fgl_write (mps->x + 8*8, mps->y + 6*8, _("Fr"));
+    Fgl_write (mps->x + 8*8, mps->y + 7*8, _("Ck"));
+    Fgl_write (mps->x + 8*8, mps->y + 8*8, _("Rc"));
 }
 
 void 
 mps_global_pop_setup (void)
 {
     Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 32, mps->y + 2, "PEOPLE");
-    Fgl_write (mps->x + 4, mps->y + 14, "Pop");
-    Fgl_write (mps->x + 4, mps->y + 30, "Unnat death");
+    Fgl_write (mps->x + 32, mps->y + 2, _("PEOPLE"));
+    Fgl_write (mps->x + 4, mps->y + 14, _("Pop"));
+    Fgl_write (mps->x + 4, mps->y + 30, _("Unnat death"));
 }
 
 void 
 mps_global_housing_setup (void)
 {
     Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 32, mps->y + 2, "PEOPLE");
-    Fgl_write (mps->x + 4, mps->y + 1*8+6, "Pop");
-    Fgl_write (mps->x + 4, mps->y + 2*8+6, "Housed");
-    Fgl_write (mps->x + 4, mps->y + 3*8+6, "Housed %");
-    Fgl_write (mps->x + 4, mps->y + 4*8+6, "Shanties");
+    Fgl_write (mps->x + 32, mps->y + 2, _("PEOPLE"));
+    Fgl_write (mps->x + 4, mps->y + 1*8+6, _("Pop"));
+    Fgl_write (mps->x + 4, mps->y + 2*8+6, _("Housed"));
+    Fgl_write (mps->x + 4, mps->y + 3*8+6, _("Housed %"));
+    Fgl_write (mps->x + 4, mps->y + 4*8+6, _("Shanties"));
 
-    Fgl_write (mps->x + 4, mps->y + 6*8+6, "Unn Dths");
-    Fgl_write (mps->x + 4, mps->y + 7*8+6, "Unemp %");
-    Fgl_write (mps->x + 4, mps->y + 8*8+6, "Starv %");
+    Fgl_write (mps->x + 4, mps->y + 6*8+6, _("Unn Dths"));
+    Fgl_write (mps->x + 4, mps->y + 7*8+6, _("Unemp %"));
+    Fgl_write (mps->x + 4, mps->y + 8*8+6, _("Starv %"));
 }
 
 void 
@@ -1628,7 +1642,7 @@ mps_global_other_costs (void)
     /* Don't write year if its negative. */
     yr = (total_time / NUMOF_DAYS_IN_YEAR) - 1;
     if (yr >= 0) {
-	sprintf (s, "For year %04d", yr);
+	sprintf (s, _("For year %04d"), yr);
 	Fgl_write (mps->x + 12, mps->y + 8, s);
     }
     format_pos_number4 (s, ly_interest);

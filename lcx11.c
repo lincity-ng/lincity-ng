@@ -443,7 +443,7 @@ void
 HandleError (char *description, int degree)
 {
   fprintf (stderr,
-	   "An error has occurred.  The description is below...\n");
+	   _("An error has occurred.  The description is below...\n"));
   fprintf (stderr, "%s\n", description);
 
   if (degree == FATAL) {

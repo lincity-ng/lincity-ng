@@ -122,7 +122,7 @@ save_city_raw (char *cname)
 #endif
     if (ofile == NULL) {
 	printf (_("Save file <%s> - "), cname);
-	do_error ("Can't open save file!");
+	do_error (_("Can't open save file!"));
     }
 
     fprintf (ofile, "%d\n", (int) VERSION_INT);
@@ -354,7 +354,7 @@ load_city (char *cname)
     FILE *ofile;
     char s[256];
     if ((ofile = fopen_read_gzipped (cname)) == NULL) {
-	printf ("Can't open <%s> (gzipped)", cname);
+	printf (_("Can't open <%s> (gzipped))", cname);
 	do_error ("Can't open it!");
     }
     fscanf (ofile, "%d", &ver);
@@ -767,99 +767,6 @@ verify_city (char *cname)
     return v == VERSION_INT;
 }
 
-#if 0
-void
-dump_tcore (void)
-{
-#ifdef ALLOW_TCORE_DUMP
-    char s[200];
-    int x, y, z, q, n;
-    FILE *ofile;
-    strcpy (s, getenv ("HOME"));
-    strcat (s, "/");
-    strcat (s, LC_SAVE_DIR);
-    strcat (s, "/");
-    strcat (s, "tcore.txt");
-    if ((ofile = fopen (s, "w")) == NULL)
-    {
-	printf (_("Tcore file <%s> - "), s);
-	do_error (_("Can't open it!"));
-    }
-  fprintf (ofile, _("Version=%d\n"), (int) VERSION_INT);
-  q = sizeof (struct MAPPOINT);
-  prog_box (_("Saving tcore"), 0);
-  for (x = 0; x < WORLD_SIDE_LEN; x++)
-    {
-      for (y = 0; y < WORLD_SIDE_LEN; y++)
-	{
-	  for (z = 0; z < q; z++)
-	    {
-	      n = *(((unsigned char *) &mappoint[x][y]) + z);
-	      fprintf (ofile, _("mappoint[%d][%d]b%d=%d\n")
-		       ,x, y, z, n);
-	    }
-	  fprintf (ofile, _("mappointpol[%d][%d]=%d\n")
-		   ,x, y, (int) mappointpol[x][y]);
-	  fprintf (ofile, _("mappoint[%d][%d].type=%d\n")
-		   ,x, y, (int) mappoint[x][y].type);
-	}
-      prog_box ("", (90 * x) / WORLD_SIDE_LEN);
-    }
-  fprintf (ofile, _("Origx=%d\n"), main_screen_originx);
-  fprintf (ofile, _("Origy=%d\n"), main_screen_originy);
-  fprintf (ofile, _("Total time=%d\n"), total_time);
-  for (x = 0; x < MAX_NUMOF_SUBSTATIONS; x++)
-    {
-      fprintf (ofile, "SustationX[%d]=%d\n", x, substationx[x]);
-      fprintf (ofile, _("Substation[%d]=%d\n"), x, substationy[x]);
-    }
-  prog_box ("", 92);
-  fprintf (ofile, _("Num of substations=%d\n"), numof_substations);
-  for (x = 0; x < MAX_NUMOF_MARKETS; x++)
-    {
-      fprintf (ofile, _("MarketX[%d]=%d\n"), x, marketx[x]);
-      fprintf (ofile, _("MarketY[%d]=%d\n"), x, markety[x]);
-    }
-  prog_box ("", 94);
-  fprintf (ofile, _("numof_markets=%d\n"), numof_markets);
-  fprintf (ofile, _("people_pool=%d\n"), people_pool);
-  fprintf (ofile, _("total_money=%d\n"), total_money);
-  fprintf (ofile, _("income_tax_rate=%d\n"), income_tax_rate);
-  fprintf (ofile, _("coal_tax_rate=%d\n"), coal_tax_rate);
-  fprintf (ofile, _("dole_rate=%d\n"), dole_rate);
-  fprintf (ofile, _("transport_cost_rate=%d\n"), transport_cost_rate);
-  fprintf (ofile, _("goods_tax_rate=%d\n"), goods_tax_rate);
-  fprintf (ofile, _("export_tax=%d\n"), export_tax);
-  fprintf (ofile, _("export_tax_rate=%d\n"), export_tax_rate);
-  fprintf (ofile, _("import_cost=%d\n"), import_cost);
-  fprintf (ofile, _("import_cost_rate=%d\n"), import_cost_rate);
-  fprintf (ofile, _("tech_level=%d\n"), tech_level);
-  fprintf (ofile, _("tpopulation=%d\n"), tpopulation);
-  fprintf (ofile, _("tstarving_population=%d\n"), tstarving_population);
-  fprintf (ofile, _("tunemployed_population=%d\n"), tunemployed_population);
-  fprintf (ofile, _("waste_goods=%d\n"), waste_goods);
-  fprintf (ofile, _("power_made=%d\n"), power_made);
-  fprintf (ofile, _("power_used=%d\n"), power_used);
-  fprintf (ofile, _("coal_made=%d\n"), coal_made);
-  fprintf (ofile, _("coal_used=%d\n"), coal_used);
-  fprintf (ofile, _("goods_made=%d\n"), goods_made);
-  fprintf (ofile, _("goods_used=%d\n"), goods_used);
-  fprintf (ofile, _("ore_made=%d\n"), ore_made);
-  fprintf (ofile, _("ore_used=%d\n"), ore_used);
-  fprintf (ofile, _("diff_old_population=%d\n"), diff_old_population);
-  prog_box ("", 96);
-  prog_box ("", 98);
-  fprintf (ofile, _("rockets_launched=%d\n"), rockets_launched);
-  fprintf (ofile, _("rockets_launched_success=%d\n"), rockets_launched_success);
-  fprintf (ofile, _("coal_survey_done=%d\n"), coal_survey_done);
-  prog_box ("", 99);
-
-  fclose (ofile);
-  prog_box ("", 100);
-#endif
-}
-#endif /* 0 */
-
 #ifdef MP_SANITY_CHECK
 void
 sanity_check (void)
@@ -874,12 +781,12 @@ sanity_check (void)
 		if (xx < (x - 4) || yy < (y - 4) || xx > x || yy > y ||
 		    xx < 0 || xx > WORLD_SIDE_LEN ||
 		    yy < 0 || yy > WORLD_SIDE_LEN) {
-		    printf (_("Sanity failed at %d %d, points to %d %d\n"), x, y, xx, yy);
+		    printf ("Sanity failed at %d %d, points to %d %d\n", x, y, xx, yy);
 		    if (flag == 0)
-			yn_dial_box (_("MP sanity check error")
-				     ,_("Please mail  ijp@floot.demon.co.uk")
-				     ,_("telling me what you just did.")
-				     ,_("Do you think I'll find this bug?"));
+			yn_dial_box ("MP sanity check error",
+				     "Please mail  lincity-users@lists.sourceforge.net",
+				     "telling me what you just did.",
+				     "Do you think I'll find this bug?");
 		    flag = 1;
 		}
 	    }
@@ -891,49 +798,41 @@ sanity_check (void)
 void
 check_endian (void)
 {
-  static int flag = 0;
-  char *cs;
-  int t, x, y;
-  t = 0;
-  cs = (char *) &t;
-  *cs = 1;
-  if (t == 1)			/* little endian */
-    return;
-  printf ("t=%x\n", t);
-  if (flag == 0)
-    {
-      printf (_("Big endian CPU detected, please e-mail\n"));
-      printf (_("ijp@floot.demon.co.uk if you have problems loading and saving.\n"));
-      flag = 1;
+    static int flag = 0;
+    char *cs;
+    int t, x, y;
+    t = 0;
+    cs = (char *) &t;
+    *cs = 1;
+    if (t == 1)			/* little endian */
+	return;
+    printf ("t=%x\n", t);
+    if (flag == 0) {
+	flag = 1;
     }
-  for (y = 0; y < WORLD_SIDE_LEN; y++)
-    for (x = 0; x < WORLD_SIDE_LEN; x++)
-      {
-	eswap32 (&(MP_INFO(x,y).population));
-	eswap32 (&(MP_INFO(x,y).flags));
-	if (sizeof (short) == 2)
-	  {
-	    eswap16 (&(MP_INFO(x,y).coal_reserve));
-	    eswap16 (&(MP_INFO(x,y).ore_reserve));
-	  }
-	else if (sizeof (short) == 4)
-	  {
-	    eswap32 ((int *) &(MP_INFO(x,y).coal_reserve));
-	    eswap32 ((int *) &(MP_INFO(x,y).ore_reserve));
-	  }
-	else
-	  {
-	    printf (_("Strange size (%d) for short, please mail me.\n"),
-		    sizeof (short));
-	  }
-	eswap32 (&(MP_INFO(x,y).int_1));
-	eswap32 (&(MP_INFO(x,y).int_2));
-	eswap32 (&(MP_INFO(x,y).int_3));
-	eswap32 (&(MP_INFO(x,y).int_4));
-	eswap32 (&(MP_INFO(x,y).int_5));
-	eswap32 (&(MP_INFO(x,y).int_6));
-	eswap32 (&(MP_INFO(x,y).int_7));
-      }
+    for (y = 0; y < WORLD_SIDE_LEN; y++) {
+	for (x = 0; x < WORLD_SIDE_LEN; x++) {
+	    eswap32 (&(MP_INFO(x,y).population));
+	    eswap32 (&(MP_INFO(x,y).flags));
+	    if (sizeof (short) == 2) {
+		eswap16 (&(MP_INFO(x,y).coal_reserve));
+		eswap16 (&(MP_INFO(x,y).ore_reserve));
+	    } else if (sizeof (short) == 4) {
+		eswap32 ((int *) &(MP_INFO(x,y).coal_reserve));
+		eswap32 ((int *) &(MP_INFO(x,y).ore_reserve));
+	    } else {
+		printf ("Strange size (%d) for short, please mail me.\n",
+			sizeof (short));
+	    }
+	    eswap32 (&(MP_INFO(x,y).int_1));
+	    eswap32 (&(MP_INFO(x,y).int_2));
+	    eswap32 (&(MP_INFO(x,y).int_3));
+	    eswap32 (&(MP_INFO(x,y).int_4));
+	    eswap32 (&(MP_INFO(x,y).int_5));
+	    eswap32 (&(MP_INFO(x,y).int_6));
+	    eswap32 (&(MP_INFO(x,y).int_7));
+	}
+    }
 }
 
 void

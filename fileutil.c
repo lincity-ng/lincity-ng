@@ -276,7 +276,7 @@ find_libdir (void)
     }
 
     /* Finally give up */
-    HandleError ("Error. Can't find LINCITY_HOME", FATAL);
+    HandleError (_("Error. Can't find LINCITY_HOME"), FATAL);
 }
 
 #elif defined (__EMX__)
@@ -326,7 +326,7 @@ find_libdir (void)
     }
 
     /* Finally give up */
-    HandleError ("Error. Can't find LINCITY_HOME", FATAL);
+    HandleError (_("Error. Can't find LINCITY_HOME"), FATAL);
 }
 #endif
 
@@ -484,18 +484,6 @@ init_path_strings (void)
     homedir = getenv ("HOME");
 #endif
 
-#if defined (commentout)
-#if defined (ENABLE_NLS)
-#if defined (HAVE_LC_MESSAGES)
-    intl_suffix = guess_category_value(LC_MESSAGES,"LC_MESSAGES");
-#else
-    intl_suffix = guess_category_value(0,"LC_MESSAGES");
-#endif
-#endif
-    printf ("intl_suffix is %s\n", intl_suffix);
-#endif
-
-
     lc_save_dir_len = strlen (homedir) + strlen (LC_SAVE_DIR) + 1;
     if ((lc_save_dir = (char *) malloc (lc_save_dir_len + 1)) == 0)
 	malloc_failure ();
@@ -580,8 +568,7 @@ verify_package (void)
 {
     FILE *fp = fopen (colour_pal_file,"rb");
     if (!fp) {
-	do_error ("Error. Can't find colour.pal.  "
-		  "Did you forget `make install`?");
+	do_error (_("Error verifying package. Can't find colour.pal."));
     }
     fclose (fp);
 }
@@ -589,7 +576,7 @@ verify_package (void)
 void
 malloc_failure (void)
 {
-  printf ("Out of memory: malloc failure\n");
+  printf (_("Out of memory: malloc failure\n"));
   exit (1);
 }
 

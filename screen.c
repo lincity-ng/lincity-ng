@@ -860,10 +860,10 @@ mini_map_handler(int x, int y, int button)
 	return;
     }
     if (mini_screen_flags == MINI_SCREEN_COAL_FLAG && !coal_survey_done) {
-	if (yn_dial_box ("Coal survey",
-			 "This will cost you 1 million",
-			 "After that it's is free to call again",
-			 "Do coal survey?") == 0)
+	if (yn_dial_box (_("Coal survey"),
+			 _("This will cost you 1 million"),
+			 _("After that it's is free to call again"),
+			 _("Do coal survey?")) == 0)
 	{
 	    return;
 	}
@@ -1042,7 +1042,7 @@ draw_mini_screen (void)
 
     mini_screen_flags = MINI_SCREEN_NORMAL_FLAG;
     draw_ms_button (ms_normal_button_graphic);
-    draw_ms_text ("Land Use    ");
+    draw_ms_text (_("Land Use    "));
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
 	for (x = 0; x < WORLD_SIDE_LEN; x++) {
 	    if (MP_TYPE(x,y) == CST_USED) {
@@ -1097,7 +1097,7 @@ draw_mini_screen_pollution (void)
     Rect* mm = &scr.mini_map;
 
     mini_screen_flags = MINI_SCREEN_POL_FLAG;
-    draw_ms_text ("Pollution   ");
+    draw_ms_text (_("Pollution   "));
     draw_ms_button (ms_pollution_button_graphic);
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
 	for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -1129,7 +1129,7 @@ draw_mini_screen_fire_cover (void)
     /* GCS: This sort of works.  Might be better to return to "normal"
        when user clicks on mini-screen, or else draw outline box. */
     mini_screen_flags = MINI_SCREEN_FIRE_COVER;
-    draw_ms_text ("Fire cover  ");
+    draw_ms_text (_("Fire cover  "));
     draw_ms_button (ms_fire_cover_button_graphic);
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
 	for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -1165,7 +1165,7 @@ draw_mini_screen_cricket_cover (void)
     Rect* mm = &scr.mini_map;
 
     mini_screen_flags = MINI_SCREEN_CRICKET_COVER;
-    draw_ms_text ("Crickt cover");
+    draw_ms_text (_("Crickt cover"));
     draw_ms_button (ms_cricket_cover_button_graphic);
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
 	for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -1201,7 +1201,7 @@ draw_mini_screen_health_cover (void)
     Rect* mm = &scr.mini_map;
 
     mini_screen_flags = MINI_SCREEN_HEALTH_COVER;
-    draw_ms_text ("Health cover");
+    draw_ms_text (_("Health cover"));
     draw_ms_button (ms_health_cover_button_graphic);
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
 	for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -1237,7 +1237,7 @@ draw_mini_screen_ub40 (void)
     Rect* mm = &scr.mini_map;
 
     mini_screen_flags = MINI_SCREEN_UB40_FLAG;
-    draw_ms_text ("Unemployment");
+    draw_ms_text (_("Unemployment"));
     draw_ms_button (ms_ub40_button_graphic);
     Fgl_fillbox (mm->x, mm->y, WORLD_SIDE_LEN, WORLD_SIDE_LEN, green (14));
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
@@ -1266,7 +1266,7 @@ draw_mini_screen_starve (void)
     Rect* mm = &scr.mini_map;
 
     mini_screen_flags = MINI_SCREEN_STARVE_FLAG;
-    draw_ms_text ("Starvation  ");
+    draw_ms_text (_("Starvation  "));
     draw_ms_button (ms_starve_button_graphic);
     Fgl_fillbox (mm->x, mm->y,
 		 WORLD_SIDE_LEN, WORLD_SIDE_LEN, green (14));
@@ -1296,7 +1296,7 @@ draw_mini_screen_coal (void)
     Rect* mm = &scr.mini_map;
 
     mini_screen_flags = MINI_SCREEN_COAL_FLAG;
-    draw_ms_text ("Coal Reserve");
+    draw_ms_text (_("Coal Reserve"));
     draw_ms_button (ms_coal_button_graphic);
     if (coal_survey_done) {
 	for (y = 0; y < WORLD_SIDE_LEN; y++) {
@@ -1314,9 +1314,9 @@ draw_mini_screen_coal (void)
     } else {
 	Fgl_setfontcolors (white(4), white(28));
 	Fgl_fillbox (mm->x, mm->y, WORLD_SIDE_LEN, WORLD_SIDE_LEN, white(4));
-	Fgl_write (mm->x + 4, mm->y + 20, "Click here");
-	Fgl_write (mm->x + 4, mm->y + 32, "   to do  ");
-	Fgl_write (mm->x + 4, mm->y + 44, "coal survey");
+	Fgl_write (mm->x + 4, mm->y + 20, _("Click here"));
+	Fgl_write (mm->x + 4, mm->y + 32, _("   to do  "));
+	Fgl_write (mm->x + 4, mm->y + 44, _("coal survey"));
 	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
     }
 #if defined (WIN32)
@@ -1357,9 +1357,9 @@ draw_mini_screen_power (void)
 	}
     }
     if (have_power) {
-	draw_ms_text ("Power       ");
+	draw_ms_text (_("Power       "));
     } else {
-	draw_ms_text ("Power (none)");
+	draw_ms_text (_("Power (none)"));
     }
     draw_mini_screen_cursor ();
 #if defined (WIN32)
@@ -1367,6 +1367,7 @@ draw_mini_screen_power (void)
 #endif
 }
 
+/* GCS -- This is obsolete, right?? */
 void
 draw_mini_screen_ocost (void)
 {
@@ -1800,7 +1801,7 @@ print_total_money (void)
     char str[MONEY_W / CHAR_WIDTH + 1];
     size_t count;
 
-    count = sprintf(str, "Money: ");
+    count = sprintf(str, _("Money: "));
     count += commify(str + count, (MONEY_W / CHAR_WIDTH) - count, total_money);
     count += snprintf(str + count, (MONEY_W / CHAR_WIDTH) - count, 
 		      "                                            ");
@@ -1821,7 +1822,7 @@ print_date (void)
 {
     char s[50];
     Rect* b = &scr.date;
-    sprintf (s, "Date %s %04d ", current_month(total_time),
+    sprintf (s, _("Date %s %04d "), current_month(total_time),
 	     current_year(total_time));
     Fgl_write (b->x, b->y, s);
 #if defined (WIN32)
@@ -1847,12 +1848,12 @@ print_time_for_year (void)
 
 
     if (time_for_year > 3600.0)
-	sprintf (s, "%s%5.1f MINS/year  V %s", 
-		 cheat_flag ? "TEST MODE" : "",
+	sprintf (s, _("%s%5.1f MINS/year  V %s"), 
+		 cheat_flag ? _("TEST MODE") : "",
 		 time_for_year / 60.0, VERSION);
     else
-	sprintf (s, "%s%5.1f secs/year  V %s ", 
-		 cheat_flag ? "TEST MODE" : "",
+	sprintf (s, _("%s%5.1f secs/year  V %s "), 
+		 cheat_flag ? _("TEST MODE") : "",
 		 time_for_year, VERSION);
     Fgl_write (b->x, b->y, s);
 }
@@ -2196,8 +2197,8 @@ yn_dial_box (char * s1, char * s2, char * s3, char *s4)
 			0,0,s2,
 			0,0,s3,
 			0,0,s4,
-			1,'y',"Yes",
-			1,'n',"No");
+			1,'y',_("Yes"),
+			1,'n',_("No"));
 
     return (result == 'y') ? 1 : 0;
 }
@@ -2253,11 +2254,11 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 	dialog_box(colour,3,
 		   0,0,ss,
 		   0,0,xs,
-		   2,' ',"OK");
+		   2,' ',_("OK"));
     else
 	dialog_box(colour,2,
 		   0,0,ss,
-		   2,' ',"OK");
+		   2,' ',_("OK"));
     fclose(inf);
 }
 
@@ -2354,22 +2355,27 @@ do_sust_barchart (int draw)
 	Fgl_setfontcolors (0, TEXT_FG_COLOUR);
 	Fgl_write (mg->x+3,
 		   mg->y + SUST_BAR_GAP_Y - 1,
-		   "MIN");
+		   /* TRANSLATORS: 
+		      MIN=Mining, PRT=Import/export from port,
+		      MNY=Money, POP=Population, TEC=Technology,
+		      FIR=Fire coverage
+		   */
+		   _("MIN"));
 	Fgl_write (mg->x+3,
 		   mg->y + SUST_BAR_GAP_Y + (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   "PRT");
+		   _("PRT"));
 	Fgl_write (mg->x+3,
 		   mg->y + SUST_BAR_GAP_Y + 2 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   "MNY");
+		   _("MNY"));
 	Fgl_write (mg->x+3,
 		   mg->y + SUST_BAR_GAP_Y + 3 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   "POP");
+		   _("POP"));
 	Fgl_write (mg->x+3,
 		   mg->y + SUST_BAR_GAP_Y + 4 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   "TEC");
+		   _("TEC"));
 	Fgl_write (mg->x+3,
 		   mg->y + SUST_BAR_GAP_Y + 5 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   "FIR");
+		   _("FIR"));
 	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 	/* draw the starting line */
 	Fgl_line (mg->x + 38, mg->y, mg->x + 18, mg->y + mg->h,
@@ -2482,10 +2488,10 @@ debug_writeval (int v)
 int
 ask_launch_rocket_now (int x, int y)
 {
-    return yn_dial_box ("Rocket ready to launch",
-			"You can launch it now or wait until later.",
-			"If you wait it will continue costing you money.",
-			"Launch it later by clicking on the rocket area.");
+    return yn_dial_box (_("Rocket ready to launch"),
+			_("You can launch it now or wait until later."),
+			_("If you wait it will continue costing you money."),
+			_("Launch it later by clicking on the rocket area."));
 }
 
 void 

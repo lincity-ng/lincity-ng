@@ -53,7 +53,7 @@ UnAdjustY (int y)
 void
 HandleError (char *description, int degree)
 {
-    MessageBox (NULL, description, "ERROR", MB_OK);
+    MessageBox (NULL, description, _("ERROR"), MB_OK);
     if (degree == FATAL)
     {
         exit (-1);

@@ -512,7 +512,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] =
     },
     /* 41 */
     /* End of Data */
-    { _("EOF"),
+    { "EOF",
       FALSE,                           /* need credit? */
       0,
       0,                               /* size */

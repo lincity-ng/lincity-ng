@@ -260,8 +260,7 @@ draw_help_page (char *helppage)
 	{
 	    if (help_return_val == 1) {
 		/* Clicking "no" means no directory is created */
-		do_error ("Sorry, lincity cannot run without this "
-		    "directory.  Exiting.");
+		do_error (_("Sorry, lincity cannot run without this directory.  Exiting."));
 	    } else if (help_return_val == -2) {
 		/* Clicking "out" means we want to create directory,
 		   and then go to opening screen. */
@@ -349,24 +348,13 @@ draw_help_page (char *helppage)
        to draw in the "BACK" and "OUT" buttons.  */
     if (help_history_count > 0) {
 	parse_helpline ("tcolour 122 153");
+	/* TRANSLATOR: Only translate "BACK" */
 	parse_helpline (_("tbutton 4 387 return-1 BACK"));
     }
     parse_helpline ("tcolour 188 153");
+    /* TRANSLATOR: Only translate "OUT" */
     parse_helpline (_("tbutton 370 387 return-2 OUT"));
     parse_helpline ("tcolour -1 -1");
-#if defined (commentout)
-    if (help_history_count > 0) {
-	parse_helpline ("tcolour 122 153");
-	snprintf (help_line, MAX_HELP_LINE, "tbutton %d %d return-1 %s",
-		  4, mw->h - 13, _("BACK"));
-	parse_helpline (help_line);
-    }
-    parse_helpline ("tcolour 188 153");
-    snprintf (help_line, MAX_HELP_LINE, "tbutton %d %d return-2 %s",
-	      mw->w - 34, mw->h - 13, _("OUT"));
-    parse_helpline (help_line);
-    parse_helpline ("tcolour -1 -1");
-#endif
 
     /* Add help page to history.  If history is going to overflow, 
        throw out oldest page.  */
@@ -474,7 +462,6 @@ parse_iconline (char *st)
 	{
 	    if (st[i] == 0)
 		return;		/* just silently ignore */
-
 	    i++;
 	}
 	while (isspace (st[i]) != 0)

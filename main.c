@@ -670,6 +670,7 @@ cheat (void)
 {
     if (cheat_flag != 0)
 	return (1);
+    /* TRANSLATORS: Test mode is like using "cheat codes" */
     if (yn_dial_box (_("TEST"), _("You have pressed a test key"),
 		     _("You will only see this message once"),
 		     _("Do you really want to play in test mode..."))!= 0)

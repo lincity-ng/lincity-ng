@@ -3399,8 +3399,7 @@ add_a_shanty (void)
       r = spiral_find_group (x, y, GROUP_SHANTY);
       if (r == -1)
 	{
-	  printf (
-		   "Looked for a shanty, without any! x=%d y=%d\n", x, y);
+	  printf ("Looked for a shanty, without any! x=%d y=%d\n", x, y);
 	  return;
 	}
       y = r / WORLD_SIDE_LEN;

@@ -546,14 +546,17 @@ do_mouse_main_win (int px, int py, int button)
 	break;
     case -2:
 	/* Improper port placement */
-	if (yn_dial_box ("WARNING",
-			 "Ports need to be",
-			 "connected to rivers!",
-			 "Want to make a cup of tea?") != 0)
-	    while (yn_dial_box ("TEA BREAK",
-				"Boil->pour->wait->stir",
-				"stir->pour->stir->wait->drink...ahhh",
-				"Have you finished yet?") == 0);
+	/* TRANSLATORS: The part about the cup of tea is one of Ian's 
+	   jokes, but the part about ports needing to be connected 
+	   to rivers is true.  */
+	if (yn_dial_box (_("WARNING"),
+			 _("Ports need to be"),
+			 _("connected to rivers!"),
+			 _("Want to make a cup of tea?")) != 0)
+	    while (yn_dial_box (_("TEA BREAK"),
+				_("Boil->pour->wait->stir"),
+				_("stir->pour->stir->wait->drink...ahhh"),
+				_("Have you finished yet?")) == 0);
 	break;
     }
 }
@@ -711,51 +714,48 @@ do_mouse_other_buttons (int x, int y, int button)
 void
 check_bulldoze_area (int x, int y)
 {
-  int xx, yy, g;
-  if (MP_TYPE(x,y) == CST_USED) {
-      xx = MP_INFO(x,y).int_1;
-      yy = MP_INFO(x,y).int_2;
-  } else {
-      xx = x;
-      yy = y;
-  }
-  g = MP_GROUP(xx,yy);
+    int xx, yy, g;
+    if (MP_TYPE(x,y) == CST_USED) {
+	xx = MP_INFO(x,y).int_1;
+	yy = MP_INFO(x,y).int_2;
+    } else {
+	xx = x;
+	yy = y;
+    }
+    g = MP_GROUP(xx,yy);
 
-  /* GCS: Free bulldozing of most recently placed item is disabled.
-     Still not sure how this can be done w/ multiplayer. */
-  if (g == GROUP_MONUMENT && monument_bul_flag == 0)
-    {
-      if (yn_dial_box ("WARNING"
-		       ,"Bulldozing a monument costs"
-		       ,"a lot of money.", "Want to buldoze?") == 0)
-	return;
-      monument_bul_flag = 1;
+    /* GCS: Free bulldozing of most recently placed item is disabled.
+       Still not sure how this can be done w/ multiplayer. */
+    if (g == GROUP_MONUMENT && monument_bul_flag == 0) {
+	if (yn_dial_box (_("WARNING"),
+			 _("Bulldozing a monument costs"),
+			 _("a lot of money."),
+			 _("Want to bulldoze?")) == 0)
+	    return;
+	monument_bul_flag = 1;
     }
-  else if (g == GROUP_RIVER && river_bul_flag == 0)
-    {
-      if (yn_dial_box ("WARNING"
-		       ,"Bulldozing a section of river"
-		       ,"costs a lot of money."
-		       ,"Want to buldoze?") == 0)
-	return;
-      river_bul_flag = 1;
+    else if (g == GROUP_RIVER && river_bul_flag == 0) {
+	if (yn_dial_box (_("WARNING"),
+			 _("Bulldozing a section of river"),
+			 _("costs a lot of money."),
+			 _("Want to bulldoze?")) == 0)
+	    return;
+	river_bul_flag = 1;
     }
-  else if (g == GROUP_SHANTY && shanty_bul_flag == 0)
-    {
-      if (yn_dial_box ("WARNING"
-		       ,"Bulldozing a shanty town costs a"
-		       ,"lot of money and may cause a fire."
-		       ,"Want to buldoze?") == 0)
-	return;
-      shanty_bul_flag = 1;
+    else if (g == GROUP_SHANTY && shanty_bul_flag == 0) {
+	if (yn_dial_box (_("WARNING"),
+			 _("Bulldozing a shanty town costs a"),
+			 _("lot of money and may cause a fire."),
+			 _("Want to bulldoze?")) == 0)
+	    return;
+	shanty_bul_flag = 1;
     }
-  else if (g == GROUP_TIP)
-    {
-      ok_dial_box ("nobull-tip.mes", BAD, 0L);
-      return;
+    else if (g == GROUP_TIP) {
+	ok_dial_box ("nobull-tip.mes", BAD, 0L);
+	return;
     }
 
-  bulldoze_item (xx,yy);
+    bulldoze_item (xx,yy);
 }
 
 void
@@ -948,63 +948,66 @@ choose_residence (void)
     free (s);
 
     fprintf (tempfile,
-	     "text -1 20 Choose the type of residence you want\n");
+	     /* TRANSLATORS: Don't translate the leading "text" */
+	     _("text -1 20 Choose the type of residence you want\n"));
     fprintf (tempfile,
 	     "text -1 30 =====================================\n");
     fprintf (tempfile,
-	     "text -1 45 (LB=Low Birthrate HB=High Birthrate)\n");
+	     _("text -1 45 (LB=Low Birthrate HB=High Birthrate)\n"));
     fprintf (tempfile,
-	     "text -1 55 (LD=Low Deathrate HD=High Deathrate)\n");
-    fprintf (tempfile, "text -1 85 Low Tech\n");
+	     _("text -1 55 (LD=Low Deathrate HD=High Deathrate)\n"));
+    fprintf (tempfile, 
+	     _("text -1 85 Low Tech\n"));
 
     cost = get_group_cost(GROUP_RESIDENCE_LL);
-    fprintf (tempfile, "text 68 106 Cost %4d\n", cost);
+    fprintf (tempfile, _("text 68 106 Cost %4d\n"), cost);
     fprintf (tempfile, "icon 85 120 reslowlow.csi\n");
     fprintf (tempfile, "button 83 118 52 52 return1\n");
-    fprintf (tempfile, "tbutton 82 180 return1 pop 50\n");
-    fprintf (tempfile, "text 89 195 LB HD\n");
+    /* TRANSLATORS: Only translate "pop" <<for population>> */
+    fprintf (tempfile, _("tbutton 82 180 return1 pop 50\n"));
+    /* TRANSLATORS: Only translate LB, HD (low birth, high death) */
+    fprintf (tempfile, _("text 89 195 LB HD\n"));
 
     cost = get_group_cost(GROUP_RESIDENCE_ML);
-    fprintf (tempfile, "text 155 106 Cost %4d\n", cost);
+    fprintf (tempfile, _("text 155 106 Cost %4d\n"), cost);
     fprintf (tempfile, "icon 170 120 resmedlow.csi\n");
     fprintf (tempfile, "button 168 118 52 52 return2\n");
-    fprintf (tempfile, "tbutton 164 180 return2 pop 100\n");
-    fprintf (tempfile, "text 175 195 HB LD\n");
+    fprintf (tempfile, _("tbutton 164 180 return2 pop 100\n"));
+    fprintf (tempfile, _("text 175 195 HB LD\n"));
 
     cost = get_group_cost(GROUP_RESIDENCE_HL);
-    fprintf (tempfile, "text 238 106 Cost %4d\n", cost);
+    fprintf (tempfile, _("text 238 106 Cost %4d\n"), cost);
     fprintf (tempfile, "icon 255 120 reshilow.csi\n");
     fprintf (tempfile, "button 253 118 52 52 return3\n");
-    fprintf (tempfile, "tbutton 250 180 return3 pop 200\n");
-    fprintf (tempfile, "text 261 195 HB HD\n");
+    fprintf (tempfile, _("tbutton 250 180 return3 pop 200\n"));
+    fprintf (tempfile, _("text 261 195 HB HD\n"));
 
-    fprintf (tempfile, "text -1 215 Click on one to select\n");
+    fprintf (tempfile, _("text -1 215 Click on one to select\n"));
     fprintf (tempfile, "text -1 225 ======================\n");
 
-    if (((tech_level * 10) / MAX_TECH_LEVEL) > 2)
-    {
-	fprintf (tempfile, "text -1 255 High Tech\n");
+    if (((tech_level * 10) / MAX_TECH_LEVEL) > 2) {
+	fprintf (tempfile, _("text -1 255 High Tech\n"));
 
 	cost = get_group_cost(GROUP_RESIDENCE_LH);
-	fprintf (tempfile, "text 68 276 Cost %4d\n", cost);
+	fprintf (tempfile, _("text 68 276 Cost %4d\n"), cost);
 	fprintf (tempfile, "icon 85 290 reslowhi.csi\n");
 	fprintf (tempfile, "button 83 288 52 52 return4\n");
-	fprintf (tempfile, "tbutton 78 350 return4 pop 100\n");
-	fprintf (tempfile, "text 89 365 LB HD\n");
+	fprintf (tempfile, _("tbutton 78 350 return4 pop 100\n"));
+	fprintf (tempfile, _("text 89 365 LB HD\n"));
 
 	cost = get_group_cost(GROUP_RESIDENCE_MH);
-	fprintf (tempfile, "text 155 276 Cost %4d\n", cost);
+	fprintf (tempfile, _("text 155 276 Cost %4d\n"), cost);
 	fprintf (tempfile, "icon 170 290 resmedhi.csi\n");
 	fprintf (tempfile, "button 168 288 52 52 return5\n");
-	fprintf (tempfile, "tbutton 164 350 return5 pop 200\n");
-	fprintf (tempfile, "text 175 365 HB LD\n");
+	fprintf (tempfile, _("tbutton 164 350 return5 pop 200\n"));
+	fprintf (tempfile, _("text 175 365 HB LD\n"));
 
 	cost = get_group_cost(GROUP_RESIDENCE_HH);
-	fprintf (tempfile, "text 238 276 Cost %4d\n", cost);
+	fprintf (tempfile, _("text 238 276 Cost %4d\n"), cost);
 	fprintf (tempfile, "icon 255 290 reshihi.csi\n");
 	fprintf (tempfile, "button 253 288 52 52 return6\n");
-	fprintf (tempfile, "tbutton 250 350 return6 pop 400\n");
-	fprintf (tempfile, "text 261 365 HB HD\n");
+	fprintf (tempfile, _("tbutton 250 350 return6 pop 400\n"));
+	fprintf (tempfile, _("text 261 365 HB HD\n"));
     }
 
     fclose (tempfile);
@@ -1232,10 +1235,10 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 	if (!draw_ret) {
 	    draw_ret = do_mt_draw(ox, cx, oy, cy, mt_erase);
 	    snprintf(s,STATUS_MESSAGE_LENGTH-1,
-		     "Can't build %s over that!", mt_name);
+		     _("Can't build %s over that!"), mt_name);
 	} else { 
 	    snprintf(s,STATUS_MESSAGE_LENGTH-1,
-		     "%d sections of %s will cost %3d to build",
+		     _("%d sections of %s will cost %3d to build"),
 		     mt_length, mt_name, 
 		     mt_length * get_type_cost(selected_module_type));
 	}

@@ -3,6 +3,18 @@
 
 # Files to translate:
 cliglobs.c
+engine.c
+fileutil.c
+geometry.c
+lchelp.c
+lcsvga.c
+lcwin32.c
+lcx11.c
 ldsvgui.c
+ldsvguts.c
+lintypes.c
 main.c
+module_buttons.c
+mouse.c
+mps.c
 screen.c
