@@ -9,5 +9,6 @@
 #define __light_industry_h__
 
 void do_industry_l(int x, int y);
+void mps_light_industry(int x, int y);
 
 #endif /* __light_industry_h__ */

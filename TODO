@@ -79,10 +79,7 @@ KNOWN BUGS and MISFEATURES in version 1.12.0
 
   o Animations for paths/roads/railroads.
 
-  o Power stations list a "cycle" percentage, which under previous versions 
-    cycled around (presumably one quanta of power is released at the end of 
-    each cycle?).  However, in the CVS code the listed cycle never changes.
-    Display bug:  cycle is equal to capacity.
+  o Coal Power Station does not accurately report actual power produced.
 
 
 REQUESTED FEATURES

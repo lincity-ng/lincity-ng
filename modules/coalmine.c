@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <coalmine.h>
 
 
@@ -163,4 +166,22 @@ do_coalmine (int x, int y)
     MP_TYPE(x,y) = CST_COALMINE_LOW;
   else
     MP_TYPE(x,y) = CST_COALMINE_EMPTY;
+}
+
+void
+mps_coalmine (int x, int y)
+{
+  int i = 0;
+
+  mps_store_title(i++,_("Coal Mine"));
+  i++;
+
+  mps_store_sfp(i++,_("Stock"),
+		MP_INFO(x,y).int_1 * 100 / MAX_COAL_AT_MINE);
+
+  if (MP_INFO(x,y).int_2 > 0) {
+      mps_store_sd(i++, _("Reserve"), MP_INFO(x,y).int_2);
+  } else {
+      mps_store_ss(i++, _("Reserve"), _("EMPTY"));
+  }
 }

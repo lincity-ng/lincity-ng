@@ -272,7 +272,6 @@ void
 mps_residence (int x, int y)
 {
     int i = 0;
-    int l;
     char * p;
 
     mps_store_title(i++,_("Residence"));

@@ -8,8 +8,13 @@
 #include "common.h"
 #include "lctypes.h"
 #include "lin-city.h"
-#include "market.h"
 #include "stats.h"
+#include <mps.h>
+#include <lcintl.h>
+#include <lcconfig.h>
+
+#include <market.h>
+
 
 
 int
@@ -1131,4 +1136,31 @@ put_stuff4 (Map_Point_Info *minfo, short *type, int stuff, int stuff_type)
   }
   return (0);
 }
+
+void
+mps_market (int x, int y)
+{
+  int i = 0;
+
+  mps_store_title(i++,_("Market"));
+
+  i++;
+
+  mps_store_sfp(i++,_("Food"), 
+		MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_IN_MARKET);
+  mps_store_sfp(i++,_("Jobs"), 
+		MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_IN_MARKET);
+  mps_store_sfp(i++,_("Coal"), 
+		MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_IN_MARKET);
+  mps_store_sfp(i++,_("Goods"), 
+		MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_IN_MARKET);
+  mps_store_sfp(i++,_("Ore"), 
+		MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_IN_MARKET);
+  mps_store_sfp(i++,_("Steel"), 
+		MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_IN_MARKET);
+  mps_store_sfp(i++,_("Waste"), 
+		MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_IN_MARKET);
+
+}
+
 

@@ -7,6 +7,8 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
@@ -35,4 +37,31 @@ do_power_source (int x, int y)
     } else {
 	MP_INFO(x,y).int_5 = 0;
     }
+}
+
+
+void
+mps_solar_power (int x, int y)
+{
+  int i = 0;
+
+  char s[12];
+
+  mps_store_title(i++,_("Solar"));
+  mps_store_title(i++,_("Power Station"));
+  i++;
+
+  format_power (s, sizeof(s), MP_INFO(x,y).int_3);
+  mps_store_title(i++,_("Max Output"));
+  mps_store_title(i++,s);
+  i++;
+
+  format_power (s, sizeof(s), MP_INFO(x,y).int_5);
+  mps_store_title(i++,_("Current Output"));
+  mps_store_title(i++,s);
+  i++;
+
+  mps_store_sfp(i++,_("Tech"),
+		MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);  
+  mps_store_sd(i++,_("Grid ID"), MP_INFO(x,y).int_6);
 }

@@ -9,5 +9,6 @@
 #define __coalmine_h__
 
 void do_coalmine(int x, int y);
+void mps_coalmine (int x, int y);
 
 #endif /* __coalmine_h__ */

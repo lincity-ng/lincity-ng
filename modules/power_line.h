@@ -9,5 +9,6 @@
 #define __power_line_h__
 
 void do_power_line(int x, int y);
+void mps_power_line (int x, int y);
 
 #endif /* __power_line_h__ */

@@ -7,6 +7,8 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
@@ -322,4 +324,31 @@ do_industry_l (int x, int y)
 	  break;
 	}
     }
+}
+
+
+void
+mps_light_industry (int x, int y)
+{
+  int i = 0;
+  char * p;
+
+  mps_store_title(i++,_("Light"));
+  mps_store_title(i++,_("Industry"));
+
+  i++;
+
+  p = ((MP_INFO(x,y).flags & FLAG_POWERED) != 0) ? _("YES") : _("NO");
+  mps_store_ss(i++,_("Power"),p);
+
+  mps_store_sd(i++,_("Output"),MP_INFO(x,y).int_1);
+
+  mps_store_sfp(i++,_("Store"),
+		MP_INFO(x,y).int_2 * 100.0 / MAX_GOODS_AT_INDUSTRY_L);
+  mps_store_sfp(i++,_("Ore"),
+		MP_INFO(x,y).int_3 * 100.0 / MAX_ORE_AT_INDUSTRY_L);
+  mps_store_sfp(i++,_("Steel"), 
+		MP_INFO(x,y).int_4 * 100.0 / MAX_STEEL_AT_INDUSTRY_L);
+  mps_store_sfp(i++,_("Capacity"),
+		MP_INFO(x,y).int_6);
 }

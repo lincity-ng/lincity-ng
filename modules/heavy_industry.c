@@ -7,9 +7,12 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
+#include <mps.h>
 #include <heavy_industry.h>
 
 
@@ -317,4 +320,34 @@ do_industry_h (int x, int y)
 }
 
 
+void
+mps_heavy_industry (int x, int y)
+{
+    int i = 0;
+    char * p;
+  
+    mps_store_title(i++,_("Heavy"));
+    mps_store_title(i++,_("Industry"));
+    i++;
 
+    if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0) {
+	if (MP_INFO(x,y).int_7 == 1) {
+	    p = _("Coal");
+	} else {
+	    p = _("Grid");
+	}
+    } else {
+	p = _("NO");
+    }
+
+    mps_store_ss(i++,_("Power"),p);
+
+    mps_store_sd(i++,_("Output"), MP_INFO(x,y).int_1);
+    mps_store_sfp(i++,_("Store"), 
+		 MP_INFO(x,y).int_2 * 100.0 / MAX_STEEL_AT_INDUSTRY_H);
+    mps_store_sfp(i++,_("Ore"), 
+		 MP_INFO(x,y).int_3 * 100.0 / MAX_ORE_AT_INDUSTRY_H);
+    mps_store_sfp(i++,_("Coal"),
+		 MP_INFO(x,y).int_4 * 100.0 / MAX_COAL_AT_INDUSTRY_H);
+    mps_store_sd(i++,_("Capacity"), MP_INFO(x,y).int_5);
+}

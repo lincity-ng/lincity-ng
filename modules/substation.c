@@ -7,6 +7,8 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
@@ -84,3 +86,33 @@ shuffle_substations (void)
     }
 }
 
+void
+mps_substation (int x, int y)
+{
+    int i = 0;
+    char s[12];
+    
+    mps_store_title(i++,_("Substation"));
+    i++;
+
+    format_power (s, sizeof(s), MP_INFO(x,y).int_5);    
+    mps_store_title(i++,_("Local Demand"));
+    mps_store_title(i++,s);
+    i++;
+
+    mps_store_title(i++,_("Grid Status"));
+
+    format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->max_power);
+    mps_store_ss(i++,_("T. Cap."), s);
+
+    format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->avail_power);
+    mps_store_ss(i++,_("A. Cap."), s);
+    
+    format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->demand);
+    mps_store_ss(i++,_("Demand"), s);
+    i++;
+
+    mps_store_sd(i++,_("Grid ID"), MP_INFO(x,y).int_6);
+
+
+}

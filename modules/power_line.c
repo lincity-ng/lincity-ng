@@ -7,6 +7,8 @@
 
 #include <lin-city.h>
 #include <lctypes.h>
+#include <lcintl.h>
+#include <lcconfig.h>
 #include <engglobs.h>
 #include <cliglobs.h>
 #include <stats.h>
@@ -44,4 +46,15 @@ do_power_line (int x, int y)
     }
 
     MP_INFO(x,y).int_5--;
+}
+
+void
+mps_power_line (int x, int y)
+{
+  int i = 0;
+
+  mps_store_title(i++,_("Power Line"));
+  i++;
+
+  mps_store_sd(i++,_("Grid ID"),MP_INFO(x,y).int_6);
 }

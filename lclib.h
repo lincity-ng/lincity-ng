@@ -16,6 +16,7 @@ void format_power(char * str, size_t size, long power);
 void * lcalloc (size_t size);
 int commify(char * str, size_t size, int argnum);
 void pad_with_blanks (char* str, int size);
+void num_to_ansi(char * s, size_t size, long num);
 
 int min_int (int i1, int i2);
 int max_int (int i1, int i2);

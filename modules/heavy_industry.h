@@ -9,4 +9,5 @@
 #define __heavy_industry_h__
 
 void do_industry_h(int x, int y);
+void mps_heavy_industry(int x, int y);
 #endif /* __heavy_industry_h__ */
