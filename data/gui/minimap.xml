@@ -38,7 +38,7 @@
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
-                        <image-caption src="images/gui/round_resident.png"/>
+                        <image-caption src="images/gui/round_ub40.png"/>
 <!--                        <image src="images/gui/mapview_transparent.png"/>-->
                     </Button>
                 </cell>
@@ -56,6 +56,7 @@
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
+			<image-caption src="images/gui/round_food.png"/>
 <!--                        <image src="images/gui/mapview_noidea.png"/>-->
                     </Button>
                 </cell>
@@ -64,6 +65,7 @@
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
+			<image-caption src="images/gui/round_power.png"/>
 <!--                        <image src="images/gui/mapview_sport.png"/>-->
                     </Button>
                 </cell>
@@ -72,6 +74,7 @@
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
+			<image-caption src="images/gui/round_fire.png"/>
 <!--                        <image src="images/gui/mapview_fire.png"/>-->
                     </Button>
                 </cell>
@@ -80,6 +83,7 @@
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
+			<image-caption src="images/gui/round_soccer.png"/>
 <!--                        <image src="images/gui/mapview_health.png"/>-->
                     </Button>
                 </cell>
@@ -88,6 +92,7 @@
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
+			<image-caption src="images/gui/round_health.png"/>
 <!--                        <image src="images/gui/mapview_health.png"/>-->
                     </Button>
                 </cell>
@@ -96,6 +101,7 @@
                         <image src="images/gui/round_button_bg0.png"/>
                         <image-clicked src="images/gui/round_button_bg2.png"/>
                         <image-hover src="images/gui/round_button_bg1.png"/>
+			<image-caption src="images/gui/round_coal.png"/>
 <!--                        <image src="images/gui/mapview_health.png"/>-->
                     </Button>
                 </cell>

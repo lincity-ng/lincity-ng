@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <gui>
-    <Image src="images/gui/background.png"/>
-    <Import src="gui/buttonpanel.xml"/>
-    <Import src="gui/minimap.xml"/>
-    <Import src="gui/helpwindow.xml"/>
+  <Image src="images/gui/background.png"/>
+  <Import src="gui/buttonpanel.xml"/>
+  <Import src="gui/helpwindow.xml"/>
+  <Import src="gui/minimap.xml"/>
+  <Import src="gui/pbar.xml"/>
 </gui>

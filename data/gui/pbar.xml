@@ -1,0 +1,79 @@
+<LCPBar>
+	<Panel width="204" height="204" background="images/gui/pbar_bg.png">
+    <TableLayout rows="2" cols="2">
+			<colsize col="1" relative="4"/>
+  		<colsize col="2" relative="196"/>
+	  	<rowsize col="1" relative="4"/>
+  		<rowsize col="2" relative="196"/>
+    <cell col="2" row="2">
+    <TableLayout rows="9" cols="2">
+        <colsize col="1" relative="2"/>
+        <colsize col="2" relative="1"/>
+   
+        <cell row="1" col="1">
+          <Paragraph name="pbar_title1" text-align="left" color="black" height="30" font-size="18">Population</Paragraph>
+        </cell>
+        <cell row="1" col="2">
+          <Paragraph name="pbar_text1" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+    
+        <cell row="2" col="1">
+          <Paragraph name="pbar_title2" text-align="left" color="black" height="30" font-size="18">Tech Level</Paragraph>
+        </cell>
+        <cell row="2" col="2">
+          <Paragraph name="pbar_text2" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+    
+        <cell row="3" col="1">
+          <Paragraph name="pbar_title3" text-align="left" color="black" height="30" font-size="18">Food</Paragraph>
+        </cell>
+        <cell row="3" col="2">
+          <Paragraph name="pbar_text3" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+    
+        <cell row="4" col="1">
+          <Paragraph name="pbar_title4" text-align="left" color="black" height="30" font-size="18">Jobs</Paragraph>
+        </cell>
+        <cell row="4" col="2">
+          <Paragraph name="pbar_text4" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+    
+        <cell row="5" col="1">
+          <Paragraph name="pbar_title5" text-align="left" color="black" height="30" font-size="18">Money</Paragraph>
+        </cell>
+        <cell row="5" col="2">
+          <Paragraph name="pbar_text5" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+    
+        <cell row="6" col="1">
+          <Paragraph name="pbar_title6" text-align="left" color="black" height="30" font-size="18">Coal</Paragraph>
+        </cell>
+        <cell row="6" col="2">
+          <Paragraph name="pbar_text6" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+    
+        <cell row="7" col="1">
+          <Paragraph name="pbar_title7" text-align="left" color="black" height="30" font-size="18">Goods</Paragraph>
+        </cell>
+        <cell row="7" col="2">
+          <Paragraph name="pbar_text7" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+    
+        <cell row="8" col="1">
+          <Paragraph name="pbar_title8" text-align="left" color="black" height="30" font-size="18">Ore</Paragraph>
+        </cell>
+        <cell row="8" col="2">
+          <Paragraph name="pbar_text8" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+    
+        <cell row="9" col="1">
+          <Paragraph name="pbar_title9" text-align="left" color="black" height="30" font-size="18">Steel</Paragraph>
+        </cell>
+        <cell row="9" col="2">
+          <Paragraph name="pbar_text9" text-align="right" color="black" height="30" font-size="18">1</Paragraph>
+        </cell>
+      </TableLayout>
+      </cell>
+    </TableLayout>
+  </Panel>
+</LCPBar>

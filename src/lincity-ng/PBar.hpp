@@ -8,19 +8,15 @@
 #include "gui/Component.hpp"
 #include "gui/ComponentLoader.hpp"
 #include "gui/XmlReader.hpp"
-
-#define LCPBarDisplayCount 9
-extern char *LCPBarDisplays[];
+#include "gui/Paragraph.hpp"
 
 class LCPBar;
 class XmlReader;
+
 extern LCPBar *LCPBarInstance;
-extern int LCPBarIDs[];
 
-class LCPBar:public Component//AGTable
+class LCPBar:public Component
 {
-  //  std::vector<AGText*> mValues;
-
  public:
   LCPBar(Component *widget,XmlReader &reader):Component(widget)
     {
@@ -31,61 +27,41 @@ class LCPBar:public Component//AGTable
       if(component)
       	addChild(component);
 
-      /*
-      int i;
-      for(i=0;i<2;i++)
-	{
-	  addFixedColumn();
-	}
-      for(i=0;i<LCPBarDisplayCount;i++)
-	{
-	  addFixedRow();
-	}
-
-      for(i=0;i<LCPBarDisplayCount;i++)
-	{
-	  AGText *v;
-	  AGFont f("Arial.ttf",13);
-	  f.setColor(AGColor(0,0,0));
-	  AGTable::addChild(0,i,new AGText(0,AGPoint(0,0),LCPBarDisplays[i],f));
-	  AGTable::addChild(1,i,v=new AGText(0,AGPoint(0,0),"0",f));
-	  mValues.push_back(v);
-	}
-	arrange();*/
       LCPBarInstance=this;
     }
 
     void setValue(int num,int value)
     {
+    	std::ostringstream os;
+      os<<"pbar_text"<<num+1;
+    	Component *c=findComponent(os.str());
+			if(c)
+			{
+				Paragraph *p=dynamic_cast<Paragraph*>(c);
+				if(p)
+				{
+	  			std::ostringstream os;
+	  			os<<std::fixed;
+	  			os<<std::setprecision(1);
+	  			if(num==PTECH)
+	    			os<<value/10000.0;
+	  			else if(num==PMONEY)
+	    		{
+	      		if(value>1000000)
+							os<<value/1000000.0<<"M";
+			      else if(value>1000)
+							os<<value/1000.0<<"K";
+	      		else
+							os<<value;
+	    		}
+	  			else
+	    			os<<value;
+					
+          p->setText(os.str());
+         }
+       }
       (void) num;
       (void) value;
-      /*
-      if(num<mValues.size())
-	{
-	  int i=0;
-	  for(;i<LCPBarDisplayCount;i++)
-	    if(LCPBarIDs[i]==num)
-	      break;
-
-	  std::ostringstream os;
-	  os<<std::fixed;
-	  os<<std::setprecision(1);
-	  if(i==PTECH)
-	    os<<value/10000.0;
-	  else if(num==PMONEY)
-	    {
-	      if(value>1000000)
-		os<<value/1000000.0<<"M";
-	      else if(value>1000)
-		os<<value/1000.0<<"K";
-	      else
-		os<<value;
-	    }
-	  else
-	    os<<value;
-	  mValues[i]->setText(os.str());
-	}
-	arrange();*/
     }
 
 };
