@@ -23,6 +23,9 @@ Programming
  [H] image-component should be resizable (eg main menu)
  [H] drawToTexture in OpenGL (for Minimap)
 
+--?-- 
+ [H] find memory-leak in OpenGL mode.
+
 --Game--
  [H] load/save game
  [H] quit/back to menu

@@ -709,9 +709,9 @@ void GameView::event(const Event& event)
             if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
                 editMap((int) tile.x, (int) tile.y,SDL_BUTTON_LEFT); //edit tile
             }
-            /*else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //right      
+            else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //right      
                 recenter(event.mousepos);                      //adjust view
-            }*/
+            }
             else if( event.mousebutton == SDL_BUTTON_MIDDLE ){ //middle
                 getMPS()->setView( (int) tile.x, (int) tile.y);//show info
             }

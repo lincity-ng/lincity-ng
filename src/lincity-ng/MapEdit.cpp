@@ -79,6 +79,10 @@ no_credit_build_msg (int selected_group)
 void
 check_bulldoze_area (int x, int y)
 {
+    //no need to bulldoze grass
+    if( MP_TYPE( x, y ) == CST_GREEN ) 
+        return;
+    
   int xx, yy, g;
   if (MP_TYPE(x,y) == CST_USED)
     {
