@@ -985,7 +985,7 @@ lc_get_keystroke (void)
 /* init_full_mouse is called just before the main client loop. */
    
 void 
-init_full_mouse (void) /* added by WCK */
+init_mouse (void) /* added by WCK */
 {
   XSelectInput (display.dpy, display.win,
 		KeyPressMask | ButtonPressMask | ButtonReleaseMask

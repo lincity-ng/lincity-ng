@@ -160,6 +160,7 @@ void open_x_putchar (int, int, unsigned char);
 void call_event (void);
 void do_call_event (int);
 void init_windows_font (void);
+void init_mouse (void);
 
 void EnableWindowsMenuItems (void);
 void DisableWindowsMenuItems (void);

@@ -231,9 +231,6 @@ lincity_main (int argc, char *argv[])
     setcustompalette ();
     draw_background ();
     prog_box (_("Loading the game"), 1);
-#if defined (SVGALIB)
-    mouse_setup ();
-#endif
     init_types ();
     init_mappoint_array ();
     initialize_tax_rates ();
@@ -247,13 +244,9 @@ lincity_main (int argc, char *argv[])
     prog_box ("", 100);
 #endif
     draw_normal_mouse (1, 1);
-    screen_setup ();
-    /*    draw_sustainable_window (); */
-
-#ifdef LC_X11 /* WCK */
-    init_full_mouse ();
-#endif
+    init_mouse ();
     mouse_initialized = 1;
+    screen_setup ();
 
     /* Main loop! */
     client_main_loop ();
@@ -451,12 +444,7 @@ process_keystrokes (int key)
 #endif
 
     case 'p':
-#ifndef commentout /* GCS FIX -- new geometry code */ /* wck: huh? */
 	select_pause ();
-#endif
-#ifdef LC_X11
-	x_key_value = 0;
-#endif
 	break;
 
 #ifdef DEBUG_KEYS
@@ -566,11 +554,6 @@ execute_timestep (void)
 #ifdef MOUSE_REPEAT
 	if ((--cs_mouse_button_delay) < 0)
 	    cs_mouse_button_delay = 0;
-#endif
-#if defined (LC_X11) || defined (WIN32)
-	call_event ();
-#else
-	mouse_update ();
 #endif
 
 	if ((real_time < next_time_step || pause_flag || mt_flag)

@@ -76,7 +76,7 @@ void call_wait_event (void);
 void open_setcustompalette (XColor *);
 void drag_screen(void); /* WCK */
 void draw_border (void);
-void init_full_mouse (void);
+void init_mouse (void);
 
 int lc_get_keystroke (void);
 

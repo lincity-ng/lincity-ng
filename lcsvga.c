@@ -194,3 +194,9 @@ HandleError (char *description, int degree)
       exit (-1);
     }
 }
+
+void
+init_mouse (void)
+{
+    mouse_setup ();
+}
