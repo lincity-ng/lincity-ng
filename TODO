@@ -1,0 +1,17 @@
+
+Programming
+~~~~~~~~~~~
+
+--Scons/Deployment--
+ * compile some test apps to make sure SDL, SDL_mixer and SDL_image really work.
+   Also test for their versions
+ * redo configuration phase if the SConstruct file changed...
+ * Add install targets
+
+--Gui--
+ * Cache fonts in FontManager
+ * Cache loaded images?
+ * Implement dirty rectangle methods to only redraw when needed
+ * Think about mechanism for attach arbitrary properties to components
+    (for tooltips, styles (and layout data?) )
+

@@ -223,6 +223,8 @@ CheckButton::event(const Event& event)
       else
         state=STATE_NORMAL;
     }
+    if(oldstate != state)
+        setDirty();
 
     Component::event(event);
 }
