@@ -22,8 +22,10 @@ Programming
  [M] Images in helptext.
  [H] image-component should be resizable (eg main menu)
  [H] drawToTexture in OpenGL (for Minimap)
+ [M] Add tooltips for buttonpanel
+ [M] Scale background images in menu
 
---?-- 
+--Bugs--
  [H] find memory-leak in OpenGL mode.
 
 --Game--
@@ -48,4 +50,3 @@ Programming
  [H] improve fast scrolling
  [H] Homepage
  [H] Tile graphics
- [M] Scale background images in menu
