@@ -134,7 +134,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/bulldozer2.png"/>
+                  <image-caption src="images/gui/bulldozer.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -147,7 +147,7 @@
             <image-hover src="images/gui/rnew_button_bg1.png"/>
             <image-clicked src="images/gui/rnew_button_bg2.png"/>
             <image-checked src="images/gui/rnew_button_bg3.png"/>
-            <image-caption src="images/gui/house.png"/>
+            <image-caption src="images/gui/residence-lotec-lo.png"/>
           </CheckButton>
         </cell>
         <cell row="2" col="2" halign="left">
@@ -159,7 +159,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/house.png"/>
+                  <image-caption src="images/gui/residence-lotec-lo.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="2">
@@ -168,7 +168,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_resident2.png"/>
+                  <image-caption src="images/gui/residence-lotec-med.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
@@ -177,7 +177,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_resident3.png"/>
+                  <image-caption src="images/gui/residence-lotec-high.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="4">
@@ -186,7 +186,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_resident.png"/>
+                  <image-caption src="images/gui/residence-hightec-lo.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="5">
@@ -195,7 +195,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_resident2.png"/>
+                  <image-caption src="images/gui/residence-hightec-med.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="6">
@@ -204,7 +204,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/round_resident3.png"/>
+                  <image-caption src="images/gui/residence-hightec-high.png"/>
                 </CheckButton>
               </cell>
               </TableLayout>
@@ -360,7 +360,7 @@
                   <image-hover src="images/gui/rnew_button_bg1.png"/>
                   <image-clicked src="images/gui/rnew_button_bg2.png"/>
                   <image-checked src="images/gui/rnew_button_bg3.png"/>
-                  <image-caption src="images/gui/coalps.png"/>
+                  <image-caption src="images/gui/coalpower.png"/>
                 </CheckButton>
               </cell>
               <cell row="1" col="3">
