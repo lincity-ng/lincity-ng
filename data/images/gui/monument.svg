@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   width="210mm"
+   height="297mm"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   id="svg1130"
+   sodipodi:version="0.32"
+   inkscape:version="0.40"
+   sodipodi:docbase="/home/egore/workspace"
+   sodipodi:docname="monument.svg">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient8668">
+      <stop
+         style="stop-color:#000000;stop-opacity:0.66666669;"
+         offset="0.0000000"
+         id="stop8669" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop8670" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient8043">
+      <stop
+         style="stop-color:#076c00;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop8044" />
+      <stop
+         style="stop-color:#044800;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop8045" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient5550">
+      <stop
+         style="stop-color:#098000;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop5551" />
+      <stop
+         style="stop-color:#065700;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop5552" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3649">
+      <stop
+         style="stop-color:#858585;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop3650" />
+      <stop
+         style="stop-color:#d1d1d1;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop3651" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1773">
+      <stop
+         style="stop-color:#3a3a3a;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop1774" />
+      <stop
+         style="stop-color:#d1d1d1;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop1775" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1773"
+       id="linearGradient1776"
+       gradientTransform="scale(0.610519,1.637951)"
+       x1="744.75513"
+       y1="421.35779"
+       x2="323.75998"
+       y2="157.71353"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1773"
+       id="linearGradient1777"
+       gradientTransform="scale(0.610519,1.637951)"
+       x1="744.75513"
+       y1="421.35779"
+       x2="323.75998"
+       y2="157.71353"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1773"
+       id="linearGradient2402"
+       gradientTransform="matrix(0.626717,0.000000,0.000000,1.373534,-24.43026,95.79116)"
+       x1="1359.4681"
+       y1="442.38748"
+       x2="428.45496"
+       y2="179.02896"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3649"
+       id="linearGradient3027"
+       gradientTransform="matrix(1.920581,0.000000,0.000000,0.520676,-7.125490,9.161334)"
+       x1="177.30511"
+       y1="801.74316"
+       x2="91.451393"
+       y2="675.90753"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3649"
+       id="linearGradient4277"
+       gradientTransform="scale(2.842848,0.351760)"
+       x1="184.57861"
+       y1="1128.7466"
+       x2="46.158596"
+       y2="734.01270"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1773"
+       id="linearGradient4279"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(1.920581,0.520676)"
+       x1="306.90689"
+       y1="823.05365"
+       x2="212.09261"
+       y2="657.24048" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1773"
+       id="linearGradient4902"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.610519,0.000000,0.000000,1.637951,199.0048,10.17927)"
+       x1="744.75513"
+       y1="421.35779"
+       x2="323.75998"
+       y2="157.71353" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5550"
+       id="radialGradient5546"
+       gradientTransform="scale(1.066644,0.937520)"
+       cx="431.20450"
+       cy="691.40253"
+       fx="431.20450"
+       fy="691.40253"
+       r="58.530869"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8043"
+       id="radialGradient7421"
+       gradientTransform="matrix(1.398647,0.000000,0.000000,0.714977,25.91220,-10.07697)"
+       cx="184.31937"
+       cy="967.57825"
+       fx="184.31937"
+       fy="967.57825"
+       r="388.56378"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8668"
+       id="radialGradient8671"
+       gradientTransform="scale(1.353997,0.738554)"
+       cx="106.31979"
+       cy="828.44961"
+       fx="106.31979"
+       fy="828.44961"
+       r="161.39606"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8668"
+       id="radialGradient9294"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(1.353997,0.738554)"
+       cx="74.619446"
+       cy="842.89111"
+       fx="76.128990"
+       fy="842.89117"
+       r="139.31332" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.61399264"
+     inkscape:cx="306.72661"
+     inkscape:cy="299.59088"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1270"
+     inkscape:window-height="994"
+     inkscape:window-x="0"
+     inkscape:window-y="5" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         rdf:about=""
+         id="Work6">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           id="type9"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:url(#radialGradient7421);fill-opacity:1.0;fill-rule:evenodd;stroke:#266a00;stroke-width:3.7500000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;"
+       d="M 138.19842,693.19024 C 140.23780,738.41664 198.01492,791.74505 284.31446,791.08079 C 471.33819,789.64122 564.55792,748.30712 586.62351,691.75067 C 598.97979,660.08020 576.18665,590.74106 517.52430,570.82705 C 439.83286,544.45328 273.36466,530.27635 203.69871,580.90403 C 144.43654,623.97107 135.78606,639.69258 138.19842,693.19024 z "
+       id="path6796"
+       sodipodi:nodetypes="csssss"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#radialGradient9294);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:3.7500000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;"
+       id="path9293"
+       sodipodi:cx="143.95670"
+       sodipodi:cy="611.85474"
+       sodipodi:rx="216.65482"
+       sodipodi:ry="117.32470"
+       d="M 360.61151 611.85474 A 216.65482 117.32470 0 1 1  -72.698120,611.85474 A 216.65482 117.32470 0 1 1  360.61151 611.85474 z"
+       transform="matrix(0.593023,0.000000,0.000000,0.687117,448.7097,187.1202)"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#radialGradient8671);fill-opacity:1.0000000;fill-rule:nonzero;stroke:none;stroke-width:3.7500000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="path8046"
+       sodipodi:cx="143.95670"
+       sodipodi:cy="611.85474"
+       sodipodi:rx="216.65482"
+       sodipodi:ry="117.32470"
+       d="M 360.61151 611.85474 A 216.65482 117.32470 0 1 1  -72.698120,611.85474 A 216.65482 117.32470 0 1 1  360.61151 611.85474 z"
+       transform="matrix(0.593023,0.000000,0.000000,0.687117,266.9644,179.9227)"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:url(#linearGradient1776);fill-opacity:1.0;fill-rule:evenodd;stroke:#000000;stroke-width:3.7500000;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;"
+       d="M 168.97596,373.40453 L 184.24488,668.60351 L 287.05556,693.03377 L 253.46395,388.67345 L 168.97596,373.40453 z "
+       id="path1140"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:url(#linearGradient4902);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:3.7500000;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 486.06039,703.21305 L 529.83127,657.40631 L 501.32930,391.72722 L 453.48671,399.87064 L 486.06039,703.21305 z "
+       id="path4901"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:url(#linearGradient2402);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:3.4792576;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 366.45391,693.29474 L 485.55142,702.88112 L 473.33629,393.83783 L 360.34634,412.84274 L 366.45391,693.29474 z "
+       id="path1141"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:url(#linearGradient1777);fill-opacity:1.0;fill-rule:evenodd;stroke:#000000;stroke-width:3.7500000;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;"
+       d="M 287.05556,693.03378 L 330.82644,647.22704 L 302.32447,381.54795 L 254.48188,389.69137 L 287.05556,693.03378 z "
+       id="path1151"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:url(#linearGradient3027);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:3.7500000;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       d="M 115.02581,310.29302 L 507.94583,353.04598 L 510.99961,438.55189 L 130.29472,378.49416 L 115.02581,310.29302 z "
+       id="path1146"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:url(#linearGradient4277);fill-opacity:1.0;fill-rule:evenodd;stroke:#000000;stroke-width:3.7500000;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;"
+       d="M 115.53477,309.78406 L 222.92612,290.95240 L 565.96769,314.36474 L 507.94583,352.02806 L 115.53477,309.78406 z "
+       id="path3652"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:url(#linearGradient4279);fill-opacity:1.0;fill-rule:evenodd;stroke:#000000;stroke-width:3.7500000;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;"
+       d="M 507.94583,353.04599 L 566.47666,313.85578 L 559.35116,399.87065 L 511.21042,438.61364 L 507.94583,353.04599 z "
+       id="path4278"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:url(#radialGradient5546);fill-opacity:1.0;fill-rule:evenodd;stroke:#044a00;stroke-width:2.5000000;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-dasharray:none;"
+       d="M 406.67765,696.78916 C 419.39382,677.59493 419.87368,657.68093 419.63375,633.44822 C 434.74920,646.88418 429.71072,653.12230 434.74920,662.95934 C 438.82797,619.77233 450.82436,624.09103 451.30422,598.17883 C 467.85924,616.41334 462.82075,621.69176 468.57902,633.44822 C 473.37758,624.81082 478.17613,616.17341 482.97469,607.53601 C 488.49303,603.21731 496.17072,604.65688 502.40884,589.54143 C 491.85202,626.01045 501.44914,620.01226 502.40885,632.72843 C 506.00777,631.04894 504.56820,648.80360 515.36495,621.93168 C 512.24589,649.04352 525.68184,648.80360 521.84299,667.27804 L 487.29339,703.26721 L 406.67765,696.78916 z "
+       id="path4921"
+       sodipodi:nodetypes="cccccccccccc"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#0d4a00;stroke-width:3.7500000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;"
+       d="M 482.25491,608.97558 L 486.93350,703.26721"
+       id="path5553"
+       inkscape:export-filename="/home/egore/workspace/monument.png"
+       inkscape:export-xdpi="10.480000"
+       inkscape:export-ydpi="10.480000" />
+  </g>
+</svg>
