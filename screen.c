@@ -29,14 +29,12 @@
 #include "dialbox.h"
 #include "lclib.h"
 #include "module_buttons.h"
+#include "stats.h"
 
 /* ---------------------------------------------------------------------- *
  * External Global Variables
  * ---------------------------------------------------------------------- */
 extern int network_game;
-extern int tfood_in_markets, tjobs_in_markets;
-extern int tcoal_in_markets, tgoods_in_markets;
-extern int tore_in_markets, tsteel_in_markets;
 extern int time_multiplex_stats;
 
 /* ---------------------------------------------------------------------- *
@@ -1721,15 +1719,7 @@ print_stats (void)
 	Fgl_write (STATS_X + (20 + 12) * 8, STATS_Y + 8, s);
 #endif
 
-	update_pbar_pop (housed_population + people_pool);
-	update_pbar_tech (tech_level);
-	update_pbar_food (tfood_in_markets / NUMOF_DAYS_IN_MONTH);
-	update_pbar_jobs (tjobs_in_markets / NUMOF_DAYS_IN_MONTH);
-	update_pbar_money (total_money / 400);
-	update_pbar_coal (tcoal_in_markets / NUMOF_DAYS_IN_MONTH);
-	update_pbar_goods (tgoods_in_markets / NUMOF_DAYS_IN_MONTH);
-	update_pbar_ore (tore_in_markets / NUMOF_DAYS_IN_MONTH);
-	update_pbar_steel (tsteel_in_markets / NUMOF_DAYS_IN_MONTH);
+	update_pbars_monthly();
 
 	refresh_pbars();
 
