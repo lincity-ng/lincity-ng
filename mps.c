@@ -1626,7 +1626,8 @@ mps_global_finance (void)
 
     if (total_money < 0)
 	Fgl_setfontcolors (14, red (30));
-    Fgl_write (mps->x + 3 * 8, mps->y + 80, s);
+    //Fgl_write (mps->x + 3 * 8, mps->y + 80, s);
+    Fgl_write (mps->x + 4 * 8, mps->y + 80, s);
     if (total_money < 0)
 	Fgl_setfontcolors (14, TEXT_FG_COLOUR);
 }

@@ -13,9 +13,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     advance display.  Also, I'm not sure if mmb should initiate main win
     scrolling if the click was made outside the main win.
 
-  o Bits of the square cursor are not refreshed from the main win frame.
-    For example, this happens with pollution overlay turned on.
-
   o Tech buttons are not disabled properly when loading a game with 
     lower tech level from game with higher tech level.
 
@@ -24,10 +21,11 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 	brand new solar station has a tech of 0.0%.
 	Only happens on a new game, not on loading existing game.
 
-  o Money format in finance window is ugly
-
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+
+  o Bits of the square cursor are not refreshed from the main win frame.
+    For example, this happens with pollution overlay turned on.
 
   o I fixed problem with the windows version where it draws a square
 	cursor over the load/save screens.  This was caused because 

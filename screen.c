@@ -1814,7 +1814,8 @@ print_total_money (void)
 	Fgl_setfontcolors (TEXT_BG_COLOUR, red (30));
 
 /*     Fgl_putbox (b->x, b->y, 16, 16, money_pbar_graphic); */
-    Fgl_write (b->x + 16, b->y, str);
+    //Fgl_write (b->x + 16, b->y, str);
+    Fgl_write (b->x + 32, b->y, str);
 
     if (total_money < 0)
 	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
