@@ -42,10 +42,6 @@ init_pbars (void)
 	    pbars[p].data[i] = 0;
     }
 
-    /* Initial population is 100 for empty board or 200 
-       for random villiage. */
-    for (i = 0; i < PBAR_DATA_SIZE; i++)
-	pbars[PPOP].data[i] = 100;
 }
 
 void
@@ -292,35 +288,21 @@ update_pbar (int pbar_num, int value, int month_flag)
 
     pbar->tot = 0;
 
-    if (pbar_num == PFOOD)
-	printf ("%d (%d) [%d]:\t", pbar_num, pbar->data_size, value);
-
-
     for (i = 0; i < (pbar->data_size - 1); i++) {
 	if (month_flag) 
 	    pbar->tot += (pbar->data[i] = pbar->data[i+1]);
 	else
 	    pbar->tot += pbar->data[i];
-
-	if (pbar_num == PFOOD)
-	    printf("%d:%d\t",i,pbar->data[i]);
     }
 
-//    i++;
 
     pbar->tot += pbar->data[i] = value;
-
     pbar->diff = pbar->tot - pbar->oldtot;
-
-    if (pbar_num == PFOOD)
-	printf("%d:%d\n",i,pbar->data[i]);
-
 }
 
 void
 update_pbars_daily()
 {
-    printf("daily:\t");
     update_pbar (PPOP, housed_population + people_pool, 0);
     update_pbar (PTECH, tech_level, 0);
     update_pbar (PFOOD, food_in_markets / 1000, 0);
@@ -335,7 +317,6 @@ update_pbars_daily()
 void
 update_pbars_monthly()
 {
-    printf("monthly:\t");
     update_pbar (PPOP, housed_population + people_pool, 1);
     update_pbar (PTECH, tech_level, 1);
     update_pbar (PFOOD, tfood_in_markets / data_last_month, 1);
