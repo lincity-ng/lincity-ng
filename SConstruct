@@ -231,8 +231,9 @@ env.Append(LIBS = ["SDL_ttf", "SDL_gfx"])
 env.Append(CPPPATH = ["#", "#/src"])
 env.Append(LIBPATH = ["#" + build_dir + "/lincity",
                       '#' + build_dir + "/gui"])
-env.Append(CPPDEFINES = {'DEFAULT_LIBDIR':"'\"" + env.subst('$APPDATADIR') +
-        "\"'"})
+env.Append(CPPDEFINES = 
+        {'DEFAULT_LIBDIR':"'\"" + env.subst('$APPDATADIR') + "\"'",
+         'HAVE_CONFIG_H':"1" })
 
 SConscript('src/gui/SConscript', build_dir = build_dir + '/gui', duplicate = 0)
 SConscript('src/lincity/SConscript', build_dir = build_dir + '/lincity',
