@@ -14,7 +14,7 @@
 #include "generic.h"
 #include "mouse.h"
 #include "lchelp.h"
-#include "module_buttons.h" /* KBR 10/14/2002 Missing prototype(s) */
+#include "module_buttons.h"
 
 // Define this to use DIB's instead of DDB's
 // GCS: WIN32_USEDIB will no longer work, since I didn't update the 
@@ -1010,8 +1010,6 @@ DoSquareMouse (HDC hdc)
     int size;
     HBRUSH hbr, hbrOld;
 
-/* KBR 10/14/2002 Implementation changed    if ((grp=get_group_of_type(selected_type)) < 0 ) return;
-    size = (main_groups[grp].size) * 16; */
     size = (main_groups[selected_module_group].size) * 16;
   
   // Select Brush

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "lcconfig.h"
 #include "lcstring.h"
 #include "geometry.h"
 #include "module_buttons.h"

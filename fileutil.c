@@ -265,7 +265,7 @@ find_libdir (void)
     HandleError ("Error. Can't find LINCITY_HOME", FATAL);
 }
 
-#elsif defined (__EMX__)
+#elif defined (__EMX__)
 void
 find_libdir (void)
 {
