@@ -7,6 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "lcstring.h"
 #include "common.h"
 #include "lctypes.h"
@@ -21,6 +24,7 @@
 #include "lcintl.h"
 #include "ldsvgui.h"
 #include "pbar.h"
+#include "dialbox.h"
 
 /* ---------------------------------------------------------------------- *
  * External Global Variables
@@ -239,7 +243,7 @@ update_main_screen_normal (void)
 				mw->y + (y - main_screen_originy) * 16,
 				16 * main_groups[grp].size,
 				16 * main_groups[grp].size,
-				main_types[typ].graphic);
+				main_types[typ].graphic); 
 	    }
 	}
     unclip_main_window ();
@@ -1793,7 +1797,7 @@ print_time_for_year (void)
 
 
     if (time_for_year > 3600.0)
-	sprintf (s, "%5.1f MINS/year  ", time_for_year / 60.0);
+	sprintf (s, "%5.1f MINS/year  V %s", time_for_year / 60.0, VERSION);
     else
 	sprintf (s, "%5.1f secs/year  V %s ", time_for_year, VERSION);
     Fgl_write (b->x, b->y, s);
@@ -2233,6 +2237,26 @@ close_port_cb (void)
 #endif
 }
 
+#ifdef __dialbox_h__
+int
+yn_dial_box (char * s1, char * s2, char * s3, char *s4)
+{
+    int result;
+    result = dialog_box(red(10),7,
+			0,0,s1,
+			0,0,"",
+			0,0,s2,
+			0,0,s3,
+			0,0,s4,
+			1,'y',"Yes",
+			1,'n',"No");
+
+    return (result == 'y') ? 1 : 0;
+}
+
+#else
+
+
 int
 yn_dial_box (char *title, char *s1, char *s2, char *s3)
 {
@@ -2360,6 +2384,72 @@ yn_dial_box (char *title, char *s1, char *s2, char *s3)
 	return (1);
     return (0);
 }
+#endif // #ifdef __dialbox_h__
+
+#ifdef __dialbox_h__
+void
+ok_dial_box (char *fn, int good_bad, char *xs)
+{
+    FILE *inf;
+    struct stat statbuf;
+    int colour;
+    char * ss;
+    char s[100];
+    int retval;
+
+    if (suppress_ok_buttons != 0)
+	return;
+    if (good_bad == GOOD || good_bad == RESULTS)
+	colour = green (14);
+    else if (good_bad == BAD)
+	colour = red (12);
+    else
+	colour = white (12);
+    if (good_bad == RESULTS)
+	strcpy (s, fn);
+    else
+    {
+	strcpy (s, message_path);
+	strcat (s, fn);
+    }
+
+    if ((inf = fopen (s, "r")) == NULL)
+    {
+	printf ("Can't open message <%s> for OK dialog box\n", s);
+	strcpy (s, message_path);
+	strcat (s, "error.mes");
+	if ((inf = fopen (s, "r")) == NULL)
+	{
+	    fprintf (stderr,
+		     "Can't open default message <%s> either\n", s);
+	    fprintf (stderr, " ...it was not displayed");
+	    return;
+	}
+
+	stat(s,&statbuf);
+
+    } else 
+	stat(s,&statbuf);
+    
+
+    ss = lcalloc(statbuf.st_size + 1);
+    retval = fread(ss,sizeof(char),statbuf.st_size,inf);
+    ss[statbuf.st_size] = '\0';
+
+    if (xs != 0)
+	dialog_box(colour,3,
+		   0,0,ss,
+		   0,0,xs,
+		   2,' ',"OK");
+    else
+	dialog_box(colour,2,
+		   0,0,ss,
+		   2,' ',"OK");
+    fclose(inf);
+}
+
+#else
+
 
 void
 ok_dial_box (char *fn, int good_bad, char *xs)
@@ -2524,6 +2614,8 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 
     request_main_screen ();
 }
+
+#endif // #ifdef __dialbox_h__
 
 void
 order_select_buttons (void)
