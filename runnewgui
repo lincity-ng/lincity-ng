@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# LINCITY_HOME is read from config file.
-#export LINCITY_HOME=./data
-echo \#
-echo \# You can start lincity-ng directly.
-echo \#
-./lincity-ng $*
-
