@@ -177,7 +177,7 @@ int main(int , char** argv)
         initPhysfs(argv[0]);
         initSDL();
         initTTF();
-        initVideo(1280, 1024);
+        initVideo(1024, 800);
 	initLincity();
 
 #ifdef USE_OPENGL
