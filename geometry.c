@@ -348,10 +348,11 @@ resize_geometry (int new_width, int new_height)
     scr.money.x = scr.main_win.x;
     scr.money.y = scr.main_win.y + scr.main_win.h + 16;
 
-    scr.help_button.x = scr.client_w - 56;
-    scr.help_button.y = scr.client_h - 24;
-    scr.results_button.x = scr.client_w - 2*56;
-    scr.results_button.y = scr.client_h - 24;
+
+    scr.pause_button.y = PAUSE_BUTTON_Y + (scr.main_win.h - MAIN_WIN_H);
+    scr.slow_button.y = SLOW_BUTTON_Y + (scr.main_win.h - MAIN_WIN_H);
+    scr.med_button.y = MED_BUTTON_Y + (scr.main_win.h - MAIN_WIN_H);
+    scr.fast_button.y = FAST_BUTTON_Y + (scr.main_win.h - MAIN_WIN_H);
 
 #if defined (SVGALIB)
     mouse_set_range (new_width,new_height);
