@@ -213,6 +213,8 @@ int main(int argc, char** argv)
     try {
 #endif
         initPhysfs(argv[0]);
+        std::auto_ptr<Sound> sound; 
+        sound.reset(new Sound()); 
         initSDL();
         initTTF();
         initVideo(1024, 800);
@@ -223,9 +225,8 @@ int main(int argc, char** argv)
         } else {
             texture_manager = new TextureManagerSDL();
         }
-        std::auto_ptr<Sound> sound;
-        sound.reset(new Sound()); 
         
+        std::cout << "MainLoop\n";
         mainLoop();
 #ifndef DEBUG
     } catch(std::exception& e) {

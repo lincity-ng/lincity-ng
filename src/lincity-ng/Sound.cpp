@@ -8,7 +8,9 @@
  *
  *  20050225
  *  read sounds from physfs
- *  
+ *
+ *  20050325
+ *  load waves in background thread
  */
 #include <config.h>
 
@@ -31,10 +33,55 @@ Sound *getSound()
   return soundPtr;
 }
 
+int Sound::soundThread( void* )
+{
+    std::cout << "** Start loading Sounds **\n";
+    getSound()->loadWaves();  
+    std::cout << "** Finished loading Sounds **\n";
+    return 0;
+}
+        
+void Sound::loadWaves(){
+    //Load Waves
+    std::string filename;
+    std::string directory = "sounds/";
+    std::string fullname;
+    Mix_Chunk *chunk;
+    SDL_RWops* file;
+    char **rc = PHYSFS_enumerateFiles( directory.c_str() );
+    char **i;
+    for (i = rc; *i != NULL; i++) {
+        fullname = directory;
+        fullname.append( *i );
+        filename.assign( *i );
+
+        if(PHYSFS_isDirectory(fullname.c_str()))
+            continue;
+            
+        try {        
+            file = getPhysfsSDLRWops( fullname.c_str() );
+            chunk = Mix_LoadWAV_RW( file, 1);
+            if(!chunk) {
+                std::stringstream msg;
+                msg << "Couldn't read soundfile '" << fullname
+                    << "': " << SDL_GetError();
+                throw std::runtime_error(msg.str());
+            }
+                    
+            std::string idName = getIdName( filename );
+            waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
+        } catch(std::exception& e) {
+            std::cerr << "Error: " << e.what() << "\n";
+        }
+    }
+    PHYSFS_freeList(rc);
+}
+
 Sound::Sound()
 {
     assert( soundPtr == 0);
     soundPtr = this;
+    loaderThread = 0;
 
     //Load Sound
     audioOpen = false;
@@ -43,45 +90,13 @@ Sound::Sound()
         fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
     } else {
         audioOpen = true;
-                                                                                  
-        //Load Waves
-        std::string filename;
-        std::string directory = "sounds/";
-        std::string fullname;
-        Mix_Chunk *chunk;
-        SDL_RWops* file;
-        char **rc = PHYSFS_enumerateFiles( directory.c_str() );
-        char **i;
-        for (i = rc; *i != NULL; i++) {
-            fullname = directory;
-            fullname.append( *i );
-            filename.assign( *i );
-
-            if(PHYSFS_isDirectory(fullname.c_str()))
-                continue;
-                
-            try {        
-                file = getPhysfsSDLRWops( fullname.c_str() );
-                chunk = Mix_LoadWAV_RW( file, 1);
-                if(!chunk) {
-                    std::stringstream msg;
-                    msg << "Couldn't read soundfile '" << fullname
-                        << "': " << SDL_GetError();
-                    throw std::runtime_error(msg.str());
-                }
-                        
-                std::string idName = getIdName( filename );
-                waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
-            } catch(std::exception& e) {
-                std::cerr << "Error: " << e.what() << "\n";
-            }
-        }
-        PHYSFS_freeList(rc);
+        loaderThread = SDL_CreateThread( soundThread, NULL );
     }
 }
 
 Sound::~Sound()
 {
+    SDL_KillThread( loaderThread );
     if( soundPtr == this )
     {
         soundPtr = 0;

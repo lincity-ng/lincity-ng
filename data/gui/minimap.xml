@@ -132,7 +132,7 @@
                                 <image src="images/gui/new_button_bg2.png"/>
                                 <image-hover src="images/gui/new_button_bg1.png"/>
                                 <image-clicked src="images/gui/new_button_bg0.png"/>
-                                <image-caption src="images/gui/slow.png"/>
+                                <image-caption src="images/gui/play.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="3">
@@ -140,7 +140,7 @@
                                 <image src="images/gui/new_button_bg2.png"/>
                                 <image-hover src="images/gui/new_button_bg1.png"/>
                                 <image-clicked src="images/gui/new_button_bg0.png"/>
-                                <image-caption src="images/gui/play.png"/>
+                                <image-caption src="images/gui/fast.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="4">
@@ -148,7 +148,7 @@
                                 <image src="images/gui/new_button_bg2.png"/>
                                 <image-hover src="images/gui/new_button_bg1.png"/>
                                 <image-clicked src="images/gui/new_button_bg0.png"/>
-                                <image-caption src="images/gui/fast.png"/>
+                                <image-caption src="images/gui/faster.png"/>
                             </Button>
                         </cell>
                     </TableLayout>
