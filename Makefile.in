@@ -211,7 +211,7 @@ configure configure.in install-sh missing mkinstalldirs
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
-TAR = gtar
+TAR = tar
 GZIP_ENV = --best
 DEP_FILES =  .deps/animate.P .deps/cliglobs.P .deps/climsg.P \
 .deps/clinet.P .deps/clistubs.P .deps/engine.P .deps/fileutil.P \
@@ -544,7 +544,7 @@ distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
-	    cp -pr $$/$$file $(distdir)/$$file; \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
 	  else \
 	    test -f $(distdir)/$$file \
 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
@@ -766,7 +766,7 @@ vga_mps.o: mps.c mps.h lin-city.h lctypes.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_mps.o -c mps.c
 
 vga_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
-	$(COMPILE) $(SVGA_DEFS) -o x_pbar.o -c pbar.c
+	$(COMPILE) $(SVGA_DEFS) -o vga_pbar.o -c pbar.c
 
 vga_screen.o: screen.c screen.h lin-city.h lctypes.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_screen.o -c screen.c

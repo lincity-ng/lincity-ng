@@ -216,7 +216,7 @@ vga_mps.o: mps.c mps.h lin-city.h lctypes.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_mps.o -c mps.c
 
 vga_pbar.o: pbar.c pbar.h lin-city.h shrglobs.h lchelp.h cliglobs.h
-	$(COMPILE) $(SVGA_DEFS) -o x_pbar.o -c pbar.c
+	$(COMPILE) $(SVGA_DEFS) -o vga_pbar.o -c pbar.c
 
 vga_screen.o: screen.c screen.h lin-city.h lctypes.h
 	$(COMPILE) $(SVGA_DEFS) -o vga_screen.o -c screen.c
