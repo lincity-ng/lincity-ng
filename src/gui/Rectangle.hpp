@@ -9,18 +9,18 @@
  * upper left and width/height here, because that makes the collision dectection
  * a little bit more efficient.
  */
-class Rectangle
+class Rect2D
 {
 public:
-  Rectangle()
+  Rect2D()
   { }
 
-  Rectangle(const Vector2& np1, const Vector2& np2)
+  Rect2D(const Vector2& np1, const Vector2& np2)
     : p1(np1), p2(np2)
   {
   }
 
-  Rectangle(float x1, float y1, float x2, float y2)
+  Rect2D(float x1, float y1, float x2, float y2)
     : p1(x1, y1), p2(x2, y2)
   {
     assert(p1.x <= p2.x && p1.y <= p2.y);
@@ -64,7 +64,7 @@ public:
   {
     return v.x >= p1.x && v.y >= p1.y && v.x < p2.x && v.y < p2.y;
   }
-  bool inside(const Rectangle& other) const
+  bool inside(const Rect2D& other) const
   {
     if(p1.x >= other.p2.x || other.p1.x >= p2.x)
       return false;
@@ -84,4 +84,3 @@ public:
 };
 
 #endif
-

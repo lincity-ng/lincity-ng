@@ -122,12 +122,12 @@ void MiniMap::draw(Painter &painter)
 
 	    Color mc=getColor(x,y);
 	    mpainter.setFillColor(mc);
-	    mpainter.fillRectangle(Rectangle(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+	    mpainter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
 	  }
       }
 
 
-  painter.drawTexture(mTexture.get(),Rectangle(0,0,width,height));
+  painter.drawTexture(mTexture.get(),Rect2D(0,0,width,height));
 
   mFullRefresh=false;
 }

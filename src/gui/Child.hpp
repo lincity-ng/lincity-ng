@@ -43,7 +43,7 @@ public:
     Vector2 position;
     bool enabled;
     bool useClipRect;
-    Rectangle clipRect;
+    Rect2D clipRect;
     Component* component;
 };
 

@@ -366,7 +366,7 @@ Paragraph::draw(Painter& painter)
         return;
 
     painter.drawTexture(texture,
-            Rectangle(style.margin_left, style.margin_top,
+            Rect2D(style.margin_left, style.margin_top,
                 width - style.margin_right,
                 height - style.margin_bottom));
 }

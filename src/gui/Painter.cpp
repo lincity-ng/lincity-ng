@@ -1,10 +1,8 @@
-#include <config.h>
-
 #include <iostream>
 #include <assert.h>
-
 #include <SDL_opengl.h>
 #include <SDL_gfxPrimitives.h>
+
 #include "Painter.hpp"
 
 Painter::Painter(SDL_Surface* _target)
@@ -22,7 +20,7 @@ Painter::~Painter()
 }
 
 void
-Painter::drawTexture(const Texture* tex, Rectangle rect)
+Painter::drawTexture(const Texture* tex, Rect2D rect)
 {
     if(tex == 0) {
         std::cerr << "Trying to render 0 texture.";
@@ -49,7 +47,7 @@ Painter::drawTexture(const Texture* tex, Rectangle rect)
 }
 
 void
-Painter::fillRectangle(Rectangle rect)
+Painter::fillRectangle(Rect2D rect)
 {
     Vector2 screenpos = transform.apply(rect.p1);
     
@@ -63,7 +61,7 @@ Painter::fillRectangle(Rectangle rect)
 }
 
 void
-Painter::drawRectangle(Rectangle rect)
+Painter::drawRectangle(Rect2D rect)
 {
     Vector2 screenpos = transform.apply(rect.p1);
     Vector2 screenpos2 = transform.apply(rect.p2);
@@ -104,7 +102,7 @@ Painter::popTransform()
 }
 
 void
-Painter::setClipRectangle(Rectangle rect)
+Painter::setClipRectangle(Rect2D rect)
 {
     Vector2 screenpos = transform.apply(rect.p1);
     SDL_Rect cliprect;

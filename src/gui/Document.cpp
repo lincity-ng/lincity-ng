@@ -78,7 +78,7 @@ void
 Document::draw(Painter& painter)
 {
     painter.setFillColor(style.background);
-    painter.fillRectangle(Rectangle(0, 0, width, height));
+    painter.fillRectangle(Rect2D(0, 0, width, height));
 
     Component::draw(painter);
 }

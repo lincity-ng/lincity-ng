@@ -119,7 +119,7 @@ Window::draw(Painter& painter)
     Component::draw(painter);
 
     painter.setLineColor(Color(0, 0, 0, 0xff));
-    painter.drawRectangle(Rectangle(0, 0, width, height));
+    painter.drawRectangle(Rect2D(0, 0, width, height));
 }
 
 void

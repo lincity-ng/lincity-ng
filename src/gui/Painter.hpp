@@ -19,14 +19,14 @@ public:
     Painter(Texture* texture);
     ~Painter();
     
-    void drawTexture(const Texture* texture, Rectangle rect);
-    void fillRectangle(Rectangle rect);
-    void drawRectangle(Rectangle rect);
+    void drawTexture(const Texture* texture, Rect2D rect);
+    void fillRectangle(Rect2D rect);
+    void drawRectangle(Rect2D rect);
 
     void pushTransform();
     void popTransform();
 
-    void setClipRectangle(Rectangle rect);
+    void setClipRectangle(Rect2D rect);
     void clearClipRectangle();
 
     void translate(const Vector2& vec);

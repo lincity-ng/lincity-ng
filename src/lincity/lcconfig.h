@@ -6,7 +6,11 @@
 #ifndef __lcconfig_h__
 #define __lcconfig_h__
 
-#include <config.h>
+#if defined (WIN32)
+#include "confw32.h"
+#else
+#include "config.h"
+#endif
 
 #warning deprecated header
 

@@ -57,7 +57,7 @@ Panel::~Panel()
 void
 Panel::draw(Painter& painter)
 {
-    painter.drawTexture(background.get(), Rectangle(0, 0, width, height));
+    painter.drawTexture(background.get(), Rect2D(0, 0, width, height));
     Component::draw(painter);
 }
 

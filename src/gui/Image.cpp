@@ -54,7 +54,7 @@ Image::resize(float width, float height)
 void
 Image::draw(Painter& painter)
 {
-    painter.drawTexture(texture.get(), Rectangle(0, 0, width, height));
+    painter.drawTexture(texture.get(), Rect2D(0, 0, width, height));
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Image)
