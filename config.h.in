@@ -53,6 +53,9 @@
 /* Define if the X Window System is missing or not being used.  */
 #undef X_DISPLAY_MISSING
 
+/* Define this to be the installed location of lincity helper files */
+#undef DEFAULT_LIBDIR
+
 /* Define if save files should be compressed with gzip.  */
 #undef HAVE_GZIP
 

@@ -10,6 +10,16 @@ extern char *lc_save_dir;
 extern char *lc_temp_file;
 extern int lc_save_dir_len;
 
+/* Try to find the maximum file name from OS */
+#if defined (_POSIX_PATH_MAX)          /* Posix */
+#define LC_PATH_MAX _POSIX_PATH_MAX
+#elif defined (_MAX_PATH)              /* Win32 */
+#define LC_PATH_MAX _MAX_PATH
+#elif defined (PATH_MAX)               /* X Windows */
+#define LC_PATH_MAX PATH_MAX
+#else
+#define LC_PATH_MAX 4096
+#endif
 
 void gunzip_file (char *f1, char *f2);
 int file_exists (char *filename);

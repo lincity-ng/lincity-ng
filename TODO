@@ -12,7 +12,7 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
   o I found inconsistent behavior with using the middle mouse button
     (mmb).  Clicking with mmb on mini-map causes the main win to jump, and
     then jump back before scrolling.  Clicking mmb on other displays (finance
-    or unemployment graph) advances the display.  Probably only rmb should
+    or unemployment graph) advances the display.  Probably only lmb should
     advance display.  Also, I'm not sure if mmb should initiate main win
     scrolling if the click was made outside the main win.
 
@@ -27,22 +27,20 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     with different number of people for random villiage and blank screen 
     this is difficult to fix.
 
-  o UNIX version should run out of current directory without needing
-    to do a "make install".
-
   o Money is not updated while paused.
 
+  o Bits of the square cursor are not refreshed from the main win frame.
+    For example, this happens with pollution overlay turned on.
+
+  o Frame of main win is displayed before load game progress bar finishes.
+
+  o Unhook client/server code from main code.
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Right click outside of help should exit help.
 
   o Re-remove c++ style comments.
-
-  o Bits of the square cursor are not refreshed from the main win frame.
-    For example, this happens with pollution overlay turned on.
-
-  o Frame of main win is displayed before load game progress bar finishes.
 
   o Since cvs doesn't store timestamps, need to manually set timestamps 
     to build from cvs.  For now, workaround using fix-timestamps.sh.

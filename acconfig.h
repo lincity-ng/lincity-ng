@@ -22,6 +22,9 @@
    autoheader seems to be broken without this.  */
 #undef VERSION
 
+/* Define this to be the installed location of lincity helper files */
+#undef DEFAULT_LIBDIR
+
 /* Define if save files should be compressed with gzip.  */
 #undef HAVE_GZIP
 

@@ -156,6 +156,15 @@ This option only applies to xlincity.
 
 	-b   *obsolete* omit border around game.  Now on by default.
 
+If you get a message such as "Error. Can't find LINCITY_HOME", this
+means that Lincity can't find it's home directory.  The program searches
+for the file "colour.pal" in the following three directories (in order).
+So in the worst case, you can set the LINCITY_HOME environment variable.
+
+	The directory pointed to by the $LINCITY_HOME environment variable
+	The current working directory
+	The default directory
+
 
 INTERNATIONALIZATION
 ====================
@@ -249,14 +258,6 @@ means that the long file names did not get unzip'd correctly.  Go to the
 C:\LINCITY???\OPENING directory, and look for the file winfont_8x8.fnt.
 If this file does not exists (or if it is called winfont_.fnt), then
 is definitely the problem.  Reinstall the archive using the UNZIP program.
-
-If you get a message such as "Error. Can't find LINCITY_HOME", this
-means that LinCity can't find it's home directory.  The program searches
-for the file "Colour.pal" in the following three directories (in order):
-
-	The current working directory
-	The directory pointed to by the $LINCITY_HOME environment variable
-	The default directory
 
 Multi-transport is now supported.  Simply shift-click at the beginning
 and shift-click at the end, and you'll get a whole line of track, road,

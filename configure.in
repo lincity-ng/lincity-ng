@@ -25,6 +25,13 @@ if eval "test x$with_gzip = xyes"; then
   AC_DEFINE(HAVE_GZIP)
 fi
 
+dnl GCS: This is idiotic. The only way to expand autoconf's own 
+dnl variables is to use the script I stole from freeciv???
+dnl What if directories other than $prefix and $exec_prefix need 
+dnl to be expanded?
+FC_EXPAND_DIR(DEFAULT_LIBDIR,"${datadir}/lincity")
+AC_DEFINE_UNQUOTED(DEFAULT_LIBDIR,"$DEFAULT_LIBDIR")
+
 dnl Checks for libraries.
 AC_PATH_XTRA
 
