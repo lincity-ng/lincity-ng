@@ -13,3 +13,9 @@ lincity_oldgui
 lincity-ng
 config.h
 build_config.py
+xmlgettext
+*.exe
+gmon.out
+.sconsign
+.sconf_temp
+
