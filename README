@@ -246,25 +246,109 @@ INTERNATIONALIZATION
 ====================
 
 Lincity supports a modest amount of internationalization.  Only languages
-that can be represented using iso8859-1 or iso8859-2 font are currently
-supported.
+that can be represented using a iso8859-1 font are currently supported.
+I have created a lincity-compatible iso8859-2 also, but have not used 
+it yet because of no demand (send me an email if you would like to try).
 
 If you wish to make a translation for your language, first get the sample 
 Catalan to display correctly.  After doing a configure, make and make install,
-set LANGUAGE environment variable to "ca", and run.  Only the messages will 
-be in Catalan (since that is the only part of the translation that is 
-done), but at least you can see the "Not enough tech" message if you try 
-to select a rocket ship.
+set LANG environment variable to "ca_ES", and run.  Hopefully you will 
+see something like this:
 
-There are three parts to making a tranlation: making help files, making 
-message files, and making a .po file.  The messages and help files are 
-just a matter of editing the ASCII files, and installing them.  If your 
-language is "ca", they should go in the directories messages/ca and 
-help/ca underneath /usr/local/share/lincity.
+   Setting entire locale to ca_ES
+   Setting messages locale to ca_ES
+   Query locale is ca_ES
+   Bound textdomain directory is /usr/local/share/locale
+   Textdomain is lincity
+   GUESS 1 -- intl_suffix is ca_ES
+   Trying Message Path /usr/local/lincity/messages/ca_ES/
+   Trying Help Path /usr/local/lincity/help/ca_ES/
+   GUESS 2 -- intl_suffix is ca
+   Trying Message Path /usr/local/lincity/messages/ca/
+   Set Message Path /usr/local/lincity/messages/ca/
+   Trying Help Path /usr/local/lincity/help/ca/
+   Settling for help Path /usr/local/lincity/help/
+
+If you see this, then everything worked perfectly.  Actually you might 
+not notice any Catalan becaue the translation isn't finished ;-)
+But anyway, test it out at the opening screen:
+
+  (1)  The month january will be written "JAN" instead of "jan"
+  (2)  Click on something that hasn't been invented yet, like a 
+       power station or windmill.  The message for "Not enough tech" 
+       will be translated.
+
+If you are less lucky, maybe only (2) worked correctly and not (1).
+If so, you probably saw something like this:
+
+   Setting entire locale to (null)
+   Setting messages locale to (null)
+   Query locale is C
+   Bound textdomain directory is /lincity/share/locale
+   Textdomain is lincity
+   GUESS 1 -- intl_suffix is ca_ES
+   Trying Message Path /usr/local/lincity/messages/ca_ES/
+   Trying Help Path /usr/local/lincity/help/ca_ES/
+   GUESS 2 -- intl_suffix is it
+   Trying Message Path /usr/local/lincity/messages/ca/
+   Set Message Path /usr/local/lincity/messages/ca/
+   Trying Help Path /usr/local/lincity/help/ca/
+   Settling for help Path /usr/local/lincity/help/
+   DefaultVisual id=35 bp-rgb=8 map-entries=256
+
+If this happens, it means that your system is missing some files which 
+are require to "set the locale" of your system to "ca_ES".  Probably 
+you are running Linux -- I don't think other Unix's have this peculiar 
+requirement.
+
+To check if this is the problem (on Linux), look for the directory 
+/usr/lib/locale/ca_ES.  If this directory doesn't exist, you have this
+problem.  To fix it, do the following:
+
+   1)  Make a backup of the directory /usr/share/i18n/charmaps
+   2)  Make a backup of the directory /usr/share/i18n/locale
+   3)  cd /usr/share/i18n/charmaps
+   4)  gunzip UTF-8.gz
+   5)  gunzip ISO-8859-1.gz
+   6)  cd /usr/share/i18n/locale
+   7)  localedef -f ../charmaps/UTF-8 -i ca_ES ca_ES.UTF-8
+   8)  localedef -f ../charmaps/ISO-8859-1 -i ca_ES ca_ES
+
+Now check for the directory /usr/lib/locale/ca_ES.  It will be there.
+
+OK, now you are ready to make translations for a new language.  
+There are three parts to making a tranlation:
+   making help files
+   making message files
+   making a .po file.
+
+The messages and help files are just a matter of editing the ASCII 
+files, and installing them.  If your language is "ca", you should 
+create two directories such as /usr/local/share/lincity/messages/ca
+and /usr/local/share/lincity/help/ca.  Copy the english language 
+help and message files to these directories, and translate them.
 
 The .po file is a matter of translating these and getting them to compile 
-correctly.  You'll need to edit the autoconf files to get this to work.
-Send an email to the current maintainer and he will help you.
+correctly.  First, edit the file po/LINGUAS, and add your language 
+(e.g. "ca") to the list.  Next, create the .po file.  For the language
+"ca", the command looks like this like this:
+
+   cd po
+   msginit -l ca
+
+You should now see the file "ca.po".  Edit this file.  If you are using
+emacs, there is a "po-mode" to facilitate (or obstruct) this task.
+When you are done editing this file, you need to compile this file.
+Simply type "make" in the po directory to compile.  This will 
+create the file "ca.gmo".  Finally, you will need to install this file.
+To install, you will copy this file to the following location:
+
+  cp ca.gmo /usr/local/share/locale/ca/LC_MESSAGES/lincity.mo
+
+Now, you are ready to go.  Set the LANG environment variable and 
+lincity should run using your translations.
+
+Email to gregsharp@geocities.com for comments about this process.
 
 
 COMPILATION UNDER WIN32
