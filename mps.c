@@ -1291,11 +1291,13 @@ void
 mps_right_setup (void)
 {
   Rect* mps = &scr.mappoint_stats;
-  Fgl_write (mps->x, mps->y + 8, "  Fire cover");
-  Fgl_write (mps->x, mps->y + 24, " Health cover");
-  Fgl_write (mps->x, mps->y + 40, "Cricket cover");
-  Fgl_write (mps->x, mps->y + 56, "  Pollution");
-  Fgl_write (mps->x, mps->y + 76, " Bull");
+  Fgl_write (mps->x + 16, mps->y + 8,  "Grid:");
+  Fgl_write (mps->x + 16, mps->y + 16, "Coverages:");
+  Fgl_write (mps->x + 16, mps->y + 24, "Fire     ");
+  Fgl_write (mps->x + 16, mps->y + 32, "Health   ");
+  Fgl_write (mps->x + 16, mps->y + 40, "Cricket  ");
+  Fgl_write (mps->x + 16, mps->y + 48, "Pollution");
+  Fgl_write (mps->x + 16, mps->y + 76, " Bull");
 }
 
 void
@@ -1304,18 +1306,15 @@ mps_right (int x, int y)
   Rect* mps = &scr.mappoint_stats;
   char s[100];
   int g;
-  if ((MP_INFO(x,y).flags & FLAG_FIRE_COVER) != 0)
-    Fgl_write (mps->x + 8 * 8, mps->y + 16, "YES");
-  else
-    Fgl_write (mps->x + 8 * 8, mps->y + 16, "NO ");
-  if ((MP_INFO(x,y).flags & FLAG_HEALTH_COVER) != 0)
-    Fgl_write (mps->x + 8 * 8, mps->y + 32, "YES");
-  else
-    Fgl_write (mps->x + 8 * 8, mps->y + 32, "NO ");
-  if ((MP_INFO(x,y).flags & FLAG_CRICKET_COVER) != 0)
-    Fgl_write (mps->x + 8 * 8, mps->y + 48, "YES");
-  else
-    Fgl_write (mps->x + 8 * 8, mps->y + 48, "NO ");
+  snprintf(s,100,"%d,%d",x,y);
+  Fgl_write (mps->x + 8 * 8, mps->y + 8, s);
+  Fgl_write (mps->x + 8 * 12, mps->y + 24, 
+	     (MP_INFO(x,y).flags & FLAG_FIRE_COVER) ? "YES" : "NO ");
+  Fgl_write (mps->x + 8 * 12, mps->y + 32, 
+	     (MP_INFO(x,y).flags & FLAG_HEALTH_COVER) ? "YES" : "NO ");
+  Fgl_write (mps->x + 8 * 12, mps->y + 40, 
+	     (MP_INFO(x,y).flags & FLAG_CRICKET_COVER) ? "YES" : "NO ");
+
   sprintf (s, "%5d ", MP_POL(x,y));
   if (MP_POL(x,y) < 10)
     strcat (s, "(clear) ");
@@ -1335,7 +1334,7 @@ mps_right (int x, int y)
     strcat (s, "(v bad) ");
   else
     strcat (s, "(death!)");
-  Fgl_write (mps->x + 8, mps->y + 64, s);
+  Fgl_write (mps->x + 8, mps->y + 56, s);
 
   g = MP_GROUP(x,y);
   if (g == 0)
