@@ -9,8 +9,6 @@
 
 #include "lincity/engglobs.h"
 
-#include <map>
-
 class GameView : public Component
 {
 public:
@@ -22,6 +20,8 @@ public:
     void draw(Painter& painter);
     void resize(float width, float height );
     void event(const Event& event);
+
+    void requestRedraw();
 
     //Show City Tile(x/y) by centering the screen 
     void show( const int x, const int y );

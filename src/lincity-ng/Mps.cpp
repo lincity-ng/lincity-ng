@@ -92,10 +92,12 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 	  switch(MP_GROUP(mps_x, mps_y)) 
 	    {
 	    case (GROUP_BLACKSMITH):
+            getSound()->playwav( "Blacksmith" );
 	        mps_blacksmith (mps_x, mps_y);
 		break;
 	    case (GROUP_COALMINE):
-		mps_coalmine (mps_x, mps_y);
+            getSound()->playwav( "CoalMine" );
+		    mps_coalmine (mps_x, mps_y);
 		break;
 	    case GROUP_COAL_POWER:
 		mps_coal_power (mps_x, mps_y);
@@ -104,19 +106,23 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 	        mps_commune (mps_x, mps_y);
 		break;
 	    case (GROUP_CRICKET):
-		mps_cricket (mps_x, mps_y);
+            getSound()->playwav( "SportsCroud" );
+		    mps_cricket (mps_x, mps_y);
 		break;
 	    case (GROUP_FIRESTATION):
+            getSound()->playwav( "FireStation" );
 	        mps_firestation (mps_x, mps_y);
 		break;
 	    case (GROUP_HEALTH):
 		mps_health_centre (mps_x, mps_y);
 		break;
 	    case (GROUP_INDUSTRY_H):
-		mps_heavy_industry (mps_x, mps_y);
+            getSound()->playwav( "IndustryHigh" );
+		    mps_heavy_industry (mps_x, mps_y);
 		break;
 	    case (GROUP_INDUSTRY_L):
-		mps_light_industry (mps_x, mps_y);
+            getSound()->playwav( "IndustryLight" );
+		    mps_light_industry (mps_x, mps_y);
 		break;
 	    case (GROUP_MILL):
 	        mps_mill (mps_x, mps_y);
@@ -137,22 +143,30 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 	        mps_pottery (mps_x, mps_y);
 		break;
 	    case GROUP_POWER_LINE:
+            getSound()->playwav( "PowerLine" );
 	        mps_power_line (mps_x, mps_y);
 	        break;
 	    case (GROUP_RAIL):
-            getSound()->playwav( 3 );
-		mps_rail (mps_x, mps_y);
+            getSound()->playwav( "RailTrain" );
+		    mps_rail (mps_x, mps_y);
 		break;
 	    case (GROUP_RECYCLE):
 	        mps_recycle (mps_x, mps_y);
 		break;
 	    case GROUP_RESIDENCE_LL:
-	    case GROUP_RESIDENCE_ML:
-	    case GROUP_RESIDENCE_HL:
 	    case GROUP_RESIDENCE_LH:
+            getSound()->playwav( "ResidentialLow" );
+		    mps_residence(mps_x, mps_y);
+		break;
+	    case GROUP_RESIDENCE_ML:
 	    case GROUP_RESIDENCE_MH:
+            getSound()->playwav( "ResidentialMed" );
+		    mps_residence(mps_x, mps_y);
+		break;
+	    case GROUP_RESIDENCE_HL:
 	    case GROUP_RESIDENCE_HH:
-		mps_residence(mps_x, mps_y);
+            getSound()->playwav( "ResidentialHigh" );
+		    mps_residence(mps_x, mps_y);
 		break;
 	    case (GROUP_ROAD):
 		mps_road (mps_x, mps_y);
@@ -161,21 +175,22 @@ void mps_update(int mps_x,int mps_y,int mps_style)
 	        mps_rocket (mps_x, mps_y);
 		break;
 	    case (GROUP_SCHOOL):
-            getSound()->playwav( 1 );
+            getSound()->playwav( "School" );
 	        mps_school (mps_x, mps_y);
 		break;
 	    case GROUP_SOLAR_POWER:
 	        mps_solar_power (mps_x, mps_y);
 	        break;
 	    case (GROUP_SUBSTATION):
+            getSound()->playwav( "Substation" );
 	        mps_substation (mps_x, mps_y);
 	        break;
 	    case (GROUP_TIP):
 	        mps_tip (mps_x, mps_y);
 		break;
 	    case (GROUP_TRACK):
-            getSound()->playwav( 4 );
-		mps_track(mps_x, mps_y);
+            getSound()->playwav( "DirtTrack" );
+		    mps_track(mps_x, mps_y);
 		break;
 	    case (GROUP_MARKET):
 		mps_market (mps_x, mps_y);

@@ -3,8 +3,10 @@
 
 #include "gui/Component.hpp"
 #include "gui/XmlReader.hpp"
+#include <map>
 #include <SDL_mixer.h>
 
+typedef std::multimap<std::string,Mix_Chunk*> chunks_t;
 
 class Sound : public Component
 {
@@ -13,11 +15,11 @@ class Sound : public Component
         ~Sound();
 
         void parse(XmlReader& reader);
-        void playwav( int id );
+        void playwav( const std::string name );
     private:
-        static const int maxWaves = 15;
-        Mix_Chunk* waves[ maxWaves ];
+        chunks_t waves;
         bool audioOpen;
+        std::string getIdName(const std::string filename);
 };
 
 Sound* getSound();

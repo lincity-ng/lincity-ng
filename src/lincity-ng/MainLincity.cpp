@@ -17,6 +17,8 @@
 
 #include "TimerInterface.hpp"
 
+#include "GameView.hpp"
+
 void execute_timestep ()
 {
   static Uint32 oldTime=0;
@@ -40,6 +42,9 @@ void execute_timestep ()
 
   print_stats ();
 
+  //GameView has to draw the updated city
+  getGameView()->requestRedraw();
+  
 }
 
 
