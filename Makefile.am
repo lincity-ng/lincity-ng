@@ -163,10 +163,10 @@ lib_LTLIBRARIES = @LCLIBS@
 
 gui_SOURCES =	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c \
 	pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c \
-	dialbox.c
+	dialbox.c fileutil.c
 
 engine_SOURCES = lclib.c power.c ldsvguts.c engine.c transport.c market.c \
-	simulate.c shrtypes.c lintypes.c readpng.c timer.c fileutil.c \
+	simulate.c shrtypes.c lintypes.c readpng.c timer.c  \
 	shrglobs.c stats.c
 
 liblcx_la_SHORTNAME = lcx
