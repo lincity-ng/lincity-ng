@@ -48,6 +48,7 @@
 #include "pixmap.h"
 #include "screen.h"
 #include "lcintl.h"
+#include "module_buttons.h" /* KBR - 10/14/2002 - Missing prototype(s) */
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
@@ -309,7 +310,9 @@ void
 process_keystrokes (int key)
 {
 
+#if defined (commentout)	/* KBR 10/14/2002 - Cleanup MSVC warning */
     int retval;
+#endif
 
     switch (key)
     {

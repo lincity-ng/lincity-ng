@@ -254,6 +254,8 @@ dialog_box(int arg_color, int argc, ...)
 #elif defined (WIN32)
       HandleMouse ();
       key = GetKeystroke ();
+	  if ( 0 == key )	/* KBR - 10/14/2002 */
+		  continue;
 #else
       mouse_update ();
       key = vga_getkey ();

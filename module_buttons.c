@@ -6,6 +6,7 @@
 #include "mouse.h"
 #include "lctypes.h"
 #include "lclib.h"
+#include "lchelp.h" /* KBR 10/14/2002 Missing prototypes */
 
 #define DEBUG_MODULES 1
 

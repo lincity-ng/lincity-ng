@@ -382,8 +382,8 @@ resize_pixmap (int new_width, int new_height)
 	pixmap_height = new_height;
     }
 }
-
-inline int 
+/* KBR 10/19/2002 MSVC was not happy with this being inline for release build */
+int 
 pixmap_index (int x, int y)
 {
     return y*pixmap_width + x;

@@ -1,6 +1,7 @@
 #ifndef __module_buttons_h__
 #define __module_buttons_h__
 
+void init_modules(void);  /* KBR 10/14/2002 Missing prototype */
 void init_module_buttons (void);
 
 // screen.c: void draw_select_buttons (void);
