@@ -90,15 +90,16 @@ void Config::load( const std::string& filename ){
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
                     if( strcmp( name, "useOpenGL" ) == 0 ) {
-                        if( strcmp( value, "true" ) == 0 ) {
-                            useOpenGL  = true;
-                        }
+                        useOpenGL  = parseBool(value, false);
                     } else if( strcmp(name, "x" ) == 0 ) {
                         videoX = parseInt( value, 800, 640 );
                     } else if(strcmp(name, "y") == 0 ) {
                         videoY = parseInt( value, 600, 480 );
                     } else if(strcmp(name, "fullscreen") == 0) {
                         useFullScreen = parseBool(value, false);
+                    } else {
+                        std::cerr << "Config::load# Unknown attribute '" << name;
+                        std::cerr << "' in element '" << element << "' from " << filename << ".\n";
                     }
                 }
             } else if ( element == "audio" ) {
@@ -108,13 +109,16 @@ void Config::load( const std::string& filename ){
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
                     if(strcmp(name, "soundVolume" ) == 0) {
-                        soundVolume = parseInt(value, 100, 0, 128);
+                        soundVolume = parseInt(value, 100, 0, 100);
                     } else if(strcmp(name, "musicVolume") == 0) {
                         musicVolume = parseInt(value, 100, 0, 100);
                     } else if(strcmp(name, "soundEnabled") == 0) {
                         soundEnabled = parseBool(value, true);
                     } else if(strcmp(name, "musicEnabled") == 0) {
                         musicEnabled = parseBool(value, true);
+                    } else {
+                        std::cerr << "Config::load# Unknown attribute '" << name;
+                        std::cerr << "' in element '" << element << "' from " << filename << ".\n";
                     }
                 }
             } else if ( element == "env" ) {
@@ -126,10 +130,13 @@ void Config::load( const std::string& filename ){
                     if( strcmp(name, "LINCITY_HOME" ) == 0 )
                     {
                         lincityHome = value;
+                    } else {
+                        std::cerr << "Config::load# Unknown attribute '" << name;
+                        std::cerr << "' in element '" << element << "' from " << filename << ".\n";
                     }
                 }
             } else {
-                std::cerr << "Config::load# Unknown element '" << element << "' in lincityconfig.xml.\n";
+                std::cerr << "Config::load# Unknown element '" << element << "' in "<< filename << ".\n";
             }
         }
     }
