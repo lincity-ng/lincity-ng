@@ -2,12 +2,7 @@
 
 BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
-  o Clicking on the menu after opening the options page results in 
-    option page no longer working.
-
   o Left click on track starts MT without showing track stats.
-
-  o Put the STATS button back
 
   o Some missing statistics:
 	sprintf (s, "%2d/%2d", rockets_launched_success, rockets_launched);
@@ -18,26 +13,26 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
     - Mini-map help files
     - Help file for new power code
 
-  o Help doesn't look so good after screen is resized.
-
-  o Help gets screwed up by game-related keystrokes.
-    Consider also pressing "Enter" when mouse is over a button on the 
-    opening screen.
-
   o Remove multiplayer options from default compilation.
 
   o Need to compress and expand translation files and add installation hooks
     so that only desired translations get installed.
 
-  o There still seems to be a problem with putting mutli-transport off 
-    the bottom of the screen.
-
   o Money display in pbar does not match finance screen.
 
   o Need to recode animation of power.
 
+  o Screen gets messed up when resizing during dialog box.
+
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+
+  o There still seems to be a problem with putting mutli-transport off 
+    the bottom of the screen.
+
+  o Help gets screwed up by game-related keystrokes.
+    Consider also pressing "Enter" when mouse is over a button on the 
+    opening screen.
 
   o Main screen should scroll when moving mouse outside of main window 
     during multi-transport.

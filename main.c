@@ -788,7 +788,7 @@ compile_results (void)
     }
     if (cheat_flag)
 	fprintf (outf, _("----- IN TEST MODE -------\n"));
-    fprintf (outf, _("Results from LinCity Version %s\n"), VERSION);
+    fprintf (outf, _("Game statistics from LinCity Version %s\n"), VERSION);
     if (strlen (given_scene) > 3)
 	fprintf (outf, _("Initial loaded scene - %s\n"), given_scene);
     if (sustain_flag)
@@ -798,16 +798,22 @@ compile_results (void)
     fprintf (outf,
 	     _("Max population %d  Number evacuated %d Total births %d\n")
 	     ,max_pop_ever, total_evacuated, total_births);
-    fprintf (outf, _(" Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"),
+    fprintf (outf,
+	     _(" Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"),
 	     current_month(total_time), current_year(total_time), total_money,
 	     (float) tech_level * 100.0 / MAX_TECH_LEVEL,
 	     (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
-    fprintf (outf, _(" Deaths by starvation %7d   History %8.3f\n")
-	     ,total_starve_deaths, starve_deaths_history);
-    fprintf (outf, _("Deaths from pollution %7d   History %8.3f\n")
-	     ,total_pollution_deaths, pollution_deaths_history);
-    fprintf (outf, _("Years of unemployment %7d   History %8.3f\n")
-	     ,total_unemployed_years, unemployed_history);
+    fprintf (outf,
+	     _(" Deaths by starvation %7d   History %8.3f\n"),
+	     total_starve_deaths, starve_deaths_history);
+    fprintf (outf,
+	     _("Deaths from pollution %7d   History %8.3f\n"),
+	     total_pollution_deaths, pollution_deaths_history);
+    fprintf (outf, _("Years of unemployment %7d   History %8.3f\n"),
+	     total_unemployed_years, unemployed_history);
+    fprintf (outf, _("Rockets launched %2d  Successful launches %2d\n"),
+	     rockets_launched, rockets_launched_success);
+    fprintf (outf, "\n");
     fprintf (outf, _("    Residences %4d         Markets %4d            Farms %4d\n"),
 	     group_count[GROUP_RESIDENCE_LL] + 
 	     group_count[GROUP_RESIDENCE_ML] + 
@@ -842,9 +848,9 @@ compile_results (void)
     fprintf (outf, _("    Light inds %4d      Heavy inds %4d        Recyclers %4d\n")
 	     ,group_count[GROUP_INDUSTRY_L], group_count[GROUP_INDUSTRY_H]
 	     ,group_count[GROUP_RECYCLE]);
-    fprintf (outf, _("Health centres %4d            Tips %4d         Shanties %4d\n")
-	     ,group_count[GROUP_HEALTH], group_count[GROUP_TIP]
-	     ,group_count[GROUP_SHANTY]);
+    fprintf (outf, _("Health centres %4d            Tips %4d         Shanties %4d\n"),
+	     group_count[GROUP_HEALTH], group_count[GROUP_TIP],
+	     group_count[GROUP_SHANTY]);
     fclose (outf);
     free (s);
     return (1);
@@ -898,5 +904,6 @@ window_results (void)
 			      + strlen (RESULTS_FILENAME) + 64)) == 0)
 	malloc_failure ();
     sprintf (s, "%s%c%s", lc_save_dir, PATH_SLASH, RESULTS_FILENAME);
-    ok_dial_box (s, RESULTS, _("Game statistics"));
+    ok_dial_box (s, RESULTS, 0L);
 }
+
