@@ -25,13 +25,14 @@ public:
 
     Signal<Button*> clicked;
 
-private:
     enum State {
         STATE_NORMAL,
         STATE_HOVER,
         STATE_CLICKED
     };
+    
     State state;
+private:
 
     Child& comp_normal()
     { return childs[0]; }
