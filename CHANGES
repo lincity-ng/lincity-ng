@@ -6,7 +6,6 @@ Major features
 - Resize window (or set SVGA mode) to enlarge playing area.
 - Completely new power code that uses a power grid instead of 
   individual packets of power.
-- Engine performance speedup of about 10%.
 - New pbar design including add'l stats: total goods/ore/steel/etc.
 - Mouse scrolling of main window using middle mouse button (X only).
 - Overlay mode which displays mini-map stats in main window.
@@ -22,7 +21,8 @@ Minor enhancements
 - New build/install procedure using autoconf/automake
 - SVGALIB now respects /etc/vga/libvga.config to set mouse parameters.
 - Partial support for iso8859-2.
-- Now old tips degrade into grass, and can be mined for ore.
+- Now old tips degrade into grass, and tips can be built on top
+  of ore mines.
 - New statistics available in mappoint stats window.
 - Time/click multiplexed monthgraph/mappoint stats window.
 - Simplified mini-map selection using mouse.
@@ -34,13 +34,12 @@ Bug fixes
 - Update opening screen to use new-style organic farm graphics.
 - Fix close directory problem introduced in 1.11.
 - Fix wrong cost being charged for residences.
-- Code is now ANSI C compliant (I hope).
 - Fix crashes when installed in directory with long file name.
+- Many, many others.
 
 Other changes
 - Moved save game directory from .Lin-city to .lincity
-- Semantic change to question about creating .lincity directory,
-  new default is to create directory.
+- Don't ask to creating .lincity directory any more
 - No more diffgraph.
 - No longer can bulldoze the most recently built item for free.
 - No more Win32-style menu.
