@@ -43,18 +43,15 @@ Additionally, our sorceforge page is:
 
     http://sourceforge.net/projects/lincity/
 
+
 REQUIREMENTS
 ============
 
-   *  SVGALIB 1.3.0 (or greater).  This is required to use new mouse 
-      interface that uses parameters spec'd in /etc/vga/libvga.conf.
+   *  SVGALIB 1.3.0 (or greater).
 
       OR	 X11.
 
       OR	 A Win32 OS.
-
-      NOTE: SVGA is currently mostly untested for version 1.12.
-      Caveat emptor, and send us a patch if you can.
 
    *  A graphics card supported by your above choice.
 
@@ -122,7 +119,7 @@ Otherwise, do this (assuming you installed to /usr/local)
       rm /usr/local/man/man6/lincity.6
       rm -rf /usr/local/share/lincity
 
-If you ran lincity, you should delete these:
+In addition, if you ran lincity, you should delete these:
 
       rm -rf $HOME/.lincity
       rm $HOME/.lincityrc
@@ -185,6 +182,46 @@ Double click the LINCITY.EXE icon.  The WIN32 version does not accept
 command line arguments.
 
 
+UPGRADING FROM VERSION 1.11
+===========================
+
+Lincity 1.12 is forward compatible with lincity 1.11, in the sense 
+that 1.12 can read files generated in 1.11.  However, please note 
+that you may need to copy over the save files.  Save files can 
+be found in the following directories.  UNIX users note the change!
+
+          Lincity 1.11                  Lincity 1.12
+          ----------------              ----------------
+UNIX      $HOME/.Lin-city               $HOME/.lincity
+WINDOWS   %LINCITY_HOME%\SAVED_GAMES    %LINCITY_HOME%\SAVED_GAMES
+
+
+THE LINCITY HOME DIRECTORY
+==========================
+
+If you get a message such as "Error. Can't find LINCITY_HOME", this
+means that lincity can't find its home directory.  To find its 
+home directory, lincity searches for the file "colour.pal" in 
+the following three directories (in order):
+
+	The directory pointed to by the $LINCITY_HOME environment variable
+	The current working directory
+	The default directory
+
+
+LINCITY CONFIGURATION FILE
+==========================
+
+Lincity now has a configuration file for saving defaults.  You can 
+find it in the following location:
+          
+UNIX:       $HOME/.lincityrc
+WINDOWS:    %LINCITY_HOME%\lincity.ini
+
+To reset to the "factory default" configuration, simply delete the 
+file.  Lincity will regenerate the file if it is missing.
+
+
 NOTES FOR SVGALIB VERSION
 =========================
 
@@ -226,7 +263,7 @@ You can disable this feature by starting the game with a '-b' switch. ie.
 
 There is now a button that enables you to confine the mouse pointer within
 the X window. ( xlincity -b, then confining the pointer and changing the
-screen res to 640x480 gives you a 'full screen' game. :) )
+screen resolution to 640x480 gives you a 'full screen' game. :) )
 
 
 NOTES FOR WIN32 VERSION
@@ -259,19 +296,6 @@ your UNIX box.
 
 The source code is distributed together with the binary distribution,
 in the file source.tgz.
-
-
-THE LINCITY HOME DIRECTORY
-==========================
-
-If you get a message such as "Error. Can't find LINCITY_HOME", this
-means that lincity can't find it's home directory.  The program searches
-for the file "colour.pal" in the following three directories (in order).
-So in the worst case, you can set the LINCITY_HOME environment variable.
-
-	The directory pointed to by the $LINCITY_HOME environment variable
-	The current working directory
-	The default directory
 
 
 INTERNATIONALIZATION UNDER LINUX
@@ -504,11 +528,10 @@ to send them to you.
 
 You may need to generate your own Makefile.  The file Makefile.am 
 contains the information about which files you need to compile.  
-In addition to the supplied files, you must link with your compiler 
-supplied VERSION.LIB in addition to the standard WIN32 libraries.  
-You no longer need to link with WSOCK32.LIB.
+As of version 1.12, you no longer need to link with your vendor 
+supplied versions VERSION.LIB or WSOCK32.LIB.
 
-Of note, lincity 1.11 was patched to compile with the Borland compiler 
+Lincity 1.11 was patched to compile with the Borland compiler 
 too.  If this is not still working in 1.12, please send me a patch 
 and I'll be happy to add it to the archive.
 
