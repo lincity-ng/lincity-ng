@@ -170,7 +170,7 @@ do_industry_l (int x, int y)
     d /= 1000;
     tmp_pol -= (tmp_pol * d);
     if (tmp_pol < 0) 
-      tmp_pol == 0;
+      tmp_pol = 0;
   }
 
   MP_POL(x,y) += (int)tmp_pol;
