@@ -3,6 +3,10 @@
  *   
  *  February 2005, Wolfgang Becker <uafr@gmx.de>
  *
+ *  20050204
+ *  +Numblock Scroll
+ *  +fixed bug in drawing Big Tiles  
+ * 
  */
 #include <config.h>
 
@@ -22,6 +26,7 @@
 
 #include "Mps.hpp"
 
+#include <SDL_keysym.h>
 #include <math.h>
 
 GameView::GameView(Component* parent, XmlReader& reader)
@@ -50,9 +55,9 @@ GameView::GameView(Component* parent, XmlReader& reader)
 
     //start in the centre of the city
     //because on startup the size of this Control is 0
-    //we use 640 and 480 instead of getWidth() and getHeight())
-    viewport.x = floor ( ( virtualScreenWidth - 640 ) / 2 );
-    viewport.y = floor ( ( virtualScreenHeight- 480 ) / 2 );
+    //we use 800 and 600 instead of getWidth() and getHeight())
+    viewport.x = floor ( ( virtualScreenWidth - 800 ) / 2 );
+    viewport.y = floor ( ( virtualScreenHeight- 600 ) / 2 );
 }
 
 GameView::~GameView()
@@ -377,6 +382,9 @@ const void GameView::loadTextures()
  */
 void GameView::event(const Event& event)
 {
+    int stepx = (int) floor ( tileWidth / 2 );
+    int stepy = (int) floor ( tileHeight / 2 );
+    
     switch(event.type) {
         case Event::MOUSEBUTTONUP:
              std::cout << "GameView::event click Button: " << event.mousebutton ;
@@ -386,6 +394,44 @@ void GameView::event(const Event& event)
              else
                click(event.mousepos);
              break;
+        case Event::KEYUP:
+             if( event.keysym.mod & KMOD_SHIFT ){
+                stepx =  (int) 5 * tileWidth;
+                stepy =  (int) 5 * tileHeight;
+             } 
+             if ( event.keysym.sym == SDLK_KP9 ) {
+                 viewport.x += stepx;
+                 viewport.y -= stepy;
+             }
+             if ( event.keysym.sym == SDLK_KP1 ) {
+                 viewport.x -= stepx;
+                 viewport.y += stepy;
+             }
+             if ( event.keysym.sym == SDLK_KP8 ) {
+                 viewport.y -= stepy;
+             }
+             if ( event.keysym.sym == SDLK_KP2 ) {
+                 viewport.y += stepy;
+             }
+             if ( event.keysym.sym == SDLK_KP7 ) {
+                 viewport.x -= stepx;
+                 viewport.y -= stepy;
+             }
+             if ( event.keysym.sym == SDLK_KP3 ) {
+                 viewport.x += stepx;
+                 viewport.y += stepy;
+             }
+             if ( event.keysym.sym == SDLK_KP6 ) {
+                 viewport.x += stepx;
+             }
+             if ( event.keysym.sym == SDLK_KP4 ) {
+                 viewport.x -= stepx;
+             }
+             if ( event.keysym.sym == SDLK_KP5 ) {
+                viewport.x = floor ( ( virtualScreenWidth - getWidth()  ) / 2 );
+                viewport.y = floor ( ( virtualScreenHeight- getHeight() ) / 2 );
+             }
+             break;
         default:
              break;
     }
@@ -394,14 +440,12 @@ void GameView::event(const Event& event)
 /*
  * Process map-selection
  */
-
 void GameView::click(const Vector2 &pos)
 {
   Vector2 tile=getTile(pos);
   std::cout << "Tile-pos:"<<tile.x<<","<<tile.y<<std::endl;
   getMPS()->setView(tile.x,tile.y);
 }
-
 
 /*
  * Parent tells us to change size. 
@@ -505,11 +549,16 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
     }
     size = MP_SIZE( upperLeftX, upperLeftY );
 
-    //is Tile the lower right corner of the Building? 
+    //is Tile the lower left corner of the Building? 
     //dont't draw if not.
-    if ( ( tx - size +1 != upperLeftX ) || ( ty - size +1 != upperLeftY ) )
+    if ( ( tx != upperLeftX ) || ( ty - size +1 != upperLeftY ) )
     {
         return;
+    }
+    //adjust OnScreenPoint of big Tiles
+    if( size > 1 ) { 
+        Vector2 lowerRightTile( tile.x + size - 1 , tile.y );
+        tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
     
     texture = cityTextures[ MP_TYPE( upperLeftX, upperLeftY ) ];
@@ -543,13 +592,11 @@ void GameView::draw( Painter& painter )
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );
     Vector2 lowerLeft( 0, getHeight() );
-    Vector2 lowerRight( getWidth(), getHeight() );
     
     //Find visible Tiles
     Vector2 upperLeftTile  = getTile( upperLeft ); 
     Vector2 upperRightTile = getTile( upperRight );
     Vector2 lowerLeftTile  = getTile( lowerLeft ); 
-    Vector2 lowerRightTile = getTile( lowerRight );
     
     //draw Background
     Color green;
@@ -560,20 +607,19 @@ void GameView::draw( Painter& painter )
 
     //draw Tiles
     Vector2 currentTile;
-    //Draw some extra tiles depending on te maximal size of a building.
+    //Draw some extra tiles depending on the maximal size of a building.
     static const int extratiles = 4;
-    for( int v = -extratiles; v <= lowerLeftTile.y - upperLeftTile.y + extratiles ; v++ )
+    upperLeftTile.x -= extratiles;
+    upperRightTile.y -= extratiles;
+    lowerLeftTile.y +=  extratiles;
+
+    int i, k;
+    for( k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
     {
-        for( int u = - extratiles; u <= upperRightTile.x - upperLeftTile.x + extratiles; u++ )
+        for( i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
         {
-            currentTile.x = upperLeftTile.x + u + v;
-            currentTile.y = upperLeftTile.y - u + v; 
-            drawTile( painter, currentTile );
-        }
-        for( int u = -extratiles; u <= upperRightTile.x - upperLeftTile.x + extratiles; u++ )
-        {
-            currentTile.x = upperLeftTile.x + u + v -1;
-            currentTile.y = upperLeftTile.y - u + v; 
+            currentTile.x = upperLeftTile.x + i + floor( k / 2 ) + k % 2;
+            currentTile.y = upperLeftTile.y - i + floor( k / 2 );
             drawTile( painter, currentTile );
         }
     }
