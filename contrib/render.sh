@@ -2,8 +2,8 @@
 
 set -e
 
-mkdir -p out/
-mkdir -p ../images/tiles/
+mkdir -p tmp/
+mkdir -p ../data/images/out/
 
 for i in *.blend; do
     blender -b "$i"  -P render.py

@@ -330,11 +330,13 @@ int main (int argc, char* argv[])
     {
       Image image(argv[1]);
       Rect  crop = image.calc_crop_region();
-      if (0)
+      if (1)
         {
           std::cout << "Crop: " << crop.x1 << ", " << crop.y1 << ", "
                     << crop.x2 << ", " << crop.y2 << std::endl;
         }
+
+      std::cout << "align: " << 512- crop.x1 << ", " << 384 - crop.y1 << std::endl;
 
       Image new_img = image.crop(crop);
       new_img.write_png_file("/tmp/bla.png");
