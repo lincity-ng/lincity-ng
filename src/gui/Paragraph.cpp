@@ -72,11 +72,12 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
     TextSpan* currentspan = 0;
   
     try {
+        std::string currenthref;
         int depth = reader.getDepth();
         while(reader.read() && reader.getDepth() > depth) {
             if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
                 std::string node((const char*) reader.getName());
-                if(node == "span" || node == "i" || node == "b") {
+                if(node == "span" || node == "i" || node == "b" || node == "a") {
                     if(currentspan != 0) {
                         if(translatable) {
                             currentspan->text 
@@ -91,6 +92,20 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
                         style.italic = true;
                     if(node == "b")
                         style.bold = true;
+                    currenthref = "";
+                    XmlReader::AttributeIterator iter(reader);
+                    while(iter.next()) {
+                        const char* attribute = (const char*) iter.getName();
+                        const char* value = (const char*) iter.getValue();
+                        if(style.parseAttribute(attribute, value))
+                            continue;
+                        else if(strcmp(attribute, "href") == 0) {
+                            currenthref = value;
+                        } else {
+                            std::cerr << "Unknown attribute '" << attribute
+                                << "' in textspan node.\n";
+                        }
+                    }
                     style.parseAttributes(reader);
                     // TODO parse style attributes...
                     stylestack.push_back(style);       
@@ -102,6 +117,7 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
                 if(currentspan == 0) {
                     currentspan = new TextSpan();
                     currentspan->style = stylestack.back();
+                    currentspan->href = currenthref;
                 }
                 
                 const char* p = (const char*) reader.getValue();

@@ -17,6 +17,8 @@ class TextSpan
 public:
     Style style;
     std::string text;
+    std::string href;
+    std::vector<Rect2D> rectangles;
 };
 
 /**
