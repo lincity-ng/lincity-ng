@@ -16,9 +16,12 @@ class ButtonPanel:public Component
   virtual void draw(Painter &painter);
   void chooseButtonClicked(CheckButton* button,int);
   void menuButtonClicked(CheckButton* button,int);
+  virtual bool opaque(const Vector2& pos) const;
+ 
  private:
   void attachButtons();
   std::string getName(XmlReader &reader) const;
+  void doButton(const std::string &button);
 
   int module;
   bool alreadyAttached;

@@ -192,7 +192,7 @@ TableLayout::opaque(const Vector2& pos) const
         if(child.component == 0)
             continue;
         
-        if(child.component->opaque(pos - child.position)) {
+        if(child.enabled && child.component->opaque(pos - child.position)) {
             return true;
         }
     }

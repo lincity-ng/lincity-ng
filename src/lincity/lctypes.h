@@ -878,6 +878,8 @@
 #define CST_FARM_O16_G           "farm16.csi"
 #define LCT_FARM_O16_G           "farm16"
 
+#define CST_NONE 1000
+
 /*
   //    *********************************
   //    400 is the maximum at the moment.

@@ -1,3 +1,4 @@
+#include "Mps.hpp"
 #include "SDL.h"
 #include "lincity/engglobs.h"
 #include "lincity/lctypes.h"
@@ -7,6 +8,8 @@
 #include "lincity/lcintl.h"
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
+
+#include "Debug.hpp"
 
 // FIXME: is this correct ???
 int monument_bul_flag=0;
@@ -216,8 +219,16 @@ void editMap (int x, int y, int button)
               return;
             }
         }
+      getMPS()->setView(x,y);
       return;
     }
+  if(selected_module_type==CST_NONE)
+  {
+    TRACE;
+    getMPS()->setView(x,y);
+
+    return;
+  }
 
   /* OK, by now we are certain that the user wants to place the item.
      Set the origin based on the size of the selected_module_type, and 

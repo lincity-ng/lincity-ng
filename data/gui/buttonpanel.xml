@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ButtonPanel width="200" height="700">
+<ButtonPanel width="200" height="376">
   <menubutton name="BPPointerButton"/>
   <menu name="BPPointerMenu"/>
   <button name="BPMPointerButton"/>
@@ -11,7 +11,7 @@
   <button name="BPMResidence2Button"/>
   
   <content>
-  <Panel width="200" height="376"> <!-- background="images/gui/buttonpanel_back.png">-->
+  <!--<Panel width="200" height="376">  background="images/gui/buttonpanel_back.png">-->
     <TableLayout rows="8" cols="2">
       <colsize col="1" fixed="48"/>
         <cell row="1" col="1" halign="left">
@@ -81,7 +81,7 @@
             </Panel>
         </cell>
     </TableLayout>
-  </Panel>
+  <!--</Panel>-->
   </content>
 </ButtonPanel>
 
