@@ -1566,7 +1566,8 @@ do_oremine (int x, int y)
 	}
       if (MP_INFO(x,y).int_2 <= 0)
 	{
-	  do_bulldoze_area (CST_WATER, x, y);
+	  do_bulldoze_area (CST_GREEN, x, y);
+	  place_item(x,y,CST_TIP_0);
 	  connect_rivers ();
 	  refresh_main_screen ();
 	}
@@ -3507,10 +3508,23 @@ do_tip (int x, int y)
      // int_1 is the amount of waste on the site.
      // int_2 if the amount that has flowed in so far this month
      // int_3 is the amount stored last month.
+     // int_4 counts up starting when tip fills, controlling how
+              long until the land is useful again.
    */
   int i;
-  if (MP_TYPE(x,y) == CST_TIP_8)
-    return;
+
+/* XXX: put this in a header somewhere */
+
+/* If the tip is full, age it until it degrades into useful soil */
+
+  if (MP_TYPE(x,y) == CST_TIP_8) {
+      MP_INFO(x,y).int_4++;
+      if (MP_INFO(x,y).int_4 >= TIP_DEGRADE_TIME) {
+	  do_bulldoze_area(CST_GREEN,x,y);
+      }
+      return;
+  }
+
   /* just grab as much as we can from transport */
   if (x > 0 && (MP_INFO(x - 1,y).flags & FLAG_IS_TRANSPORT) != 0)
     {
@@ -3563,6 +3577,7 @@ do_tip (int x, int y)
 	case (8):
 	  MP_TYPE(x,y) = CST_TIP_8;
 	  MP_INFO(x,y).int_2 = 0;
+	  MP_INFO(x,y).int_4 = 0;
 	  break;
 
 	}
