@@ -40,8 +40,6 @@ private:
     void setZoom(const int newzoom);
     Texture* readTexture(const std::string& filename);
     void readCityTexture( int textureType, const std::string& filename );
-    time_t startTime10;
-    int frameCounter10;
 
     static const int defaultTileWidth = 128;
     static const int defaultTileHeight = 64;
@@ -59,6 +57,9 @@ private:
     Texture* blankTexture;
     int cityTextureX[ NUM_OF_TYPES ];
     int cityTextureY[ NUM_OF_TYPES ];
+    
+    Vector2 tileUnderMouse;
+    bool mouseInGameView;
 };
 
 GameView* getGameView();

@@ -15,6 +15,9 @@
  *  20050208
  *  +Zoom now working
  *
+ *  20050211
+ *  +show Tile under Mouse
+ *
  */
 #include <config.h>
 
@@ -83,9 +86,9 @@ GameView::GameView(Component* parent, XmlReader& reader)
     viewport.x = floor ( ( virtualScreenWidth - 800 ) / 2 );
     viewport.y = floor ( ( virtualScreenHeight- 600 ) / 2 );
 
-    //performance Test
-    startTime10 = time( NULL );
-    frameCounter10 = 0;
+    mouseInGameView = false;
+    tileUnderMouse.x = 0;
+    tileUnderMouse.y = 0;
 }
     
 GameView::~GameView()
@@ -97,7 +100,6 @@ GameView::~GameView()
 
 /*
  * Adjust the Zoomlevel. Argument is per mille.
- *  
  */
 void GameView::setZoom(const int newzoom){
     //find Tile in Center of Screen
@@ -548,6 +550,14 @@ void GameView::event(const Event& event)
     Vector2 tile;
     
     switch(event.type) {
+        case Event::MOUSEMOTION:
+            if(!event.inside) {
+                mouseInGameView = false;
+                break;
+            }
+            mouseInGameView = true;
+            tileUnderMouse = getTile( event.mousepos );
+            break;
         case Event::MOUSEBUTTONUP:
             if(!event.inside) {
                 break;
@@ -772,7 +782,7 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
         painter.setFillColor( red );
-        painter.fillRectangle( tilerect );    
+        painter.fillDiamond( tilerect );    
     }
 }
 
@@ -781,15 +791,6 @@ const void GameView::drawTile( Painter& painter, Vector2 tile )
  */
 void GameView::draw( Painter& painter )
 {
-    //performance Test
-    time_t now = time(NULL);
-    if( ( now - startTime10 ) >= 10 ) { //ten Seconds passed
-        std::cout << "[" << frameCounter10 / 10.0  << "]"<< std::flush;
-        frameCounter10 = 0;
-        startTime10 = now;
-    } 
-    frameCounter10++;
-    
     //The Corners of The Screen
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );
@@ -824,6 +825,19 @@ void GameView::draw( Painter& painter )
             currentTile.y = upperLeftTile.y - i + floor( k / 2 );
             drawTile( painter, currentTile );
         }
+    }
+    
+    //Mark Tile under Mouse 
+    if( mouseInGameView )
+    {
+        Color alphablue( 0, 0, 255, 128 );
+        painter.setFillColor( alphablue );
+        Rect2D tilerect( 0, 0, tileWidth, tileHeight );
+        Vector2 tileOnScreenPoint = getScreenPoint( tileUnderMouse );
+        tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
+        tileOnScreenPoint.y -= tileHeight; 
+        tilerect.move( tileOnScreenPoint );    
+        painter.fillDiamond( tilerect );    
     }
 }
 

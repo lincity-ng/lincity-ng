@@ -77,11 +77,33 @@ Painter::drawStretchTexture(const Texture* tex, Rect2D rect)
     }
 }
 
+void
+Painter::fillDiamond(Rect2D rect)
+{
+    Vector2 p1( rect.p1.x + ( rect.getWidth() / 2 ), rect.p1.y );
+    Vector2 p2( rect.p1.x, rect.p1.y + ( rect.getHeight() / 2 ) );
+    Vector2 p3( rect.p2.x, rect.p1.y + ( rect.getHeight() / 2 ) );
+    Vector2 p4( rect.p1.x + ( rect.getWidth() / 2 ), rect.p2.y );
+    Vector2 screenpos = transform.apply(p1);
+    Vector2 screenpos2 = transform.apply(p2);
+    Vector2 screenpos3 = transform.apply(p3);
+    Vector2 screenpos4 = transform.apply(p4);
+    filledTrigonRGBA( target, (int) screenpos.x, (int) screenpos.y,
+            (int) screenpos2.x, (int) screenpos2.y,
+            (int) screenpos3.x, (int) screenpos3.y,
+            fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+
+    filledTrigonRGBA( target, (int) screenpos4.x, (int) screenpos4.y,
+            (int) screenpos2.x, (int) screenpos2.y,
+            (int) screenpos3.x, (int) screenpos3.y,
+            fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+}
+
 
 void
 Painter::fillRectangle(Rect2D rect)
 {
-    Vector2 screenpos = transform.apply(rect.p1);
+  /*  Vector2 screenpos = transform.apply(rect.p1);
     
     SDL_Rect drect;
     drect.x = (int) screenpos.x;
@@ -89,7 +111,13 @@ Painter::fillRectangle(Rect2D rect)
     drect.w = (int) rect.getWidth();
     drect.h = (int) rect.getHeight();
 
-    SDL_FillRect(target, &drect, fillColor);    
+    SDL_FillRect(target, &drect, fillColor);    */
+    
+    Vector2 screenpos = transform.apply(rect.p1);
+    Vector2 screenpos2 = transform.apply(rect.p2);
+    boxRGBA(target, (int) screenpos.x, (int) screenpos.y,
+            (int) screenpos2.x, (int) screenpos2.y,
+            fillColor.r, fillColor.g, fillColor.b, fillColor.a);
 }
 
 void
@@ -105,7 +133,8 @@ Painter::drawRectangle(Rect2D rect)
 void
 Painter::setFillColor(Color color)
 {
-    fillColor = SDL_MapRGBA(target->format, color.r, color.g, color.b, color.a);
+    //fillColor = SDL_MapRGBA(target->format, color.r, color.g, color.b, color.a);
+    fillColor = color;
 }
 
 void

@@ -23,6 +23,7 @@ public:
     void drawStretchTexture(const Texture* texture, Rect2D rect);
     void fillRectangle(Rect2D rect);
     void drawRectangle(Rect2D rect);
+    void fillDiamond(Rect2D rect);
 
     void pushTransform();
     void popTransform();
@@ -51,8 +52,8 @@ private:
     Transform transform;
 
     SDL_Surface* target;
-    Uint32 fillColor;
-    Color lineColor;
+    //Uint32 fillColor;
+    Color fillColor,lineColor;
 };
 
 #endif
