@@ -3,21 +3,7 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-/*
-  Note on variables (GCS):
-  --
-  Variables that begin with a "t" (e.g. tpopulation) are monthly 
-  accumulators.  They are initialized to zero on the first day of 
-  the month.
-  --
-  The yearly accumulators have no prefix (e.g. income_tax).
-  --
-  The daily accumulators have no prefix either (e.g. population).
-  --
-  Variables that begin with a "ly" (e.g. ly_university_cost) are 
-  yearly display variables.  They will be displayed in the mini-map
-  when the user clicks on the pound sterling icon.
-*/
+
 #include "lcconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,6 +28,7 @@
 #include "engglobs.h"
 #include "screen.h"
 #include "power.h"
+#include "stats.h"
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -53,29 +40,6 @@ static void end_of_year_update (void);
 static void random_start (int* originx, int* originy);
 static void simulate_mappoints (void);
 static void quick_start_add (int x, int y, short type, int size);
-
-
-/* ---------------------------------------------------------------------- *
- * Public Global Variables
- * ---------------------------------------------------------------------- */
-int tfood_in_markets = 0, tjobs_in_markets = 0;
-int tcoal_in_markets = 0, tgoods_in_markets = 0;
-int tore_in_markets = 0, tsteel_in_markets = 0;
-int tpopulation = 0, tstarving_population = 0, tunemployed_population = 0;
-
-int ly_income_tax = 0;
-int ly_coal_tax = 0;
-int ly_goods_tax = 0;
-int ly_export_tax = 0;
-int ly_other_cost = 0;
-int ly_unemployment_cost = 0;
-int ly_transport_cost = 0;
-int ly_import_cost = 0;
-
-int ly_university_cost, ly_recycle_cost, ly_school_cost, ly_deaths_cost;
-int ly_health_cost, ly_rocket_pad_cost, ly_interest, ly_windmill_cost;
-int ly_cricket_cost;
-
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -90,31 +54,16 @@ do_time_step (void)
 #endif
 
     /* Initialize daily accumulators */
-    population = 0;
-    starving_population = 0;
-    unemployed_population = 0;
-    food_in_markets = 0;
-    jobs_in_markets = 0;
-    coal_in_markets = 0;
-    goods_in_markets = 0;
-    ore_in_markets = 0;
-    steel_in_markets = 0;
+    init_daily();
 
     /* Initialize monthly accumulators */
     if (total_time % NUMOF_DAYS_IN_MONTH == 0) {
-	tpopulation = tstarving_population = tfood_in_markets
-		= tjobs_in_markets = tcoal_in_markets = tgoods_in_markets
-		= tore_in_markets = tsteel_in_markets
-		= tunemployed_population = unnat_deaths = 0;
+	init_monthly();
     }
 
     /* Initialize yearly accumulators */
     if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
-	income_tax = coal_tax = unemployment_cost = transport_cost
-		= goods_tax = export_tax = import_cost = windmill_cost
-		= university_cost = recycle_cost = deaths_cost
-		= health_cost = rocket_pad_cost = school_cost
-		= fire_cost = cricket_cost = 0;
+	init_yearly();
     }
 
     /* Clear the power grid */
@@ -280,16 +229,8 @@ simulate_mappoints (void)
 static void
 do_periodic_events (void)
 {
-  /* Add daily accumulators to monthly accumulators */
-  tpopulation += population;
-  tstarving_population += starving_population;
-  tfood_in_markets += food_in_markets / 1000;
-  tjobs_in_markets += jobs_in_markets / 1000;
-  tcoal_in_markets += coal_in_markets / 250;
-  tgoods_in_markets += goods_in_markets / 500;
-  tore_in_markets += ore_in_markets / 500;
-  tsteel_in_markets += steel_in_markets / 25;
-  tunemployed_population += unemployed_population;
+  add_daily_to_monthly();
+
 
   if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
     start_of_year_update ();
@@ -890,3 +831,4 @@ initialize_tax_rates (void)
   transport_cost_rate = TRANSPORT_COST_RATE;
   import_cost_rate = IM_PORT_COST_RATE;
 }
+
