@@ -4,6 +4,7 @@
 #include "gui/Rectangle.hpp"
 #include "gui/ComponentFactory.hpp"
 #include "gui/XmlReader.hpp"
+#include "gui/Event.hpp"
 #include "gui_interface/mps.h"
 
 #include "lincity/lin-city.h"
@@ -15,6 +16,8 @@
 
 #include <set>
 #include <iostream>
+
+#include "Debug.hpp"
 
 #define LC_MOUSE_LEFTBUTTON 1
 #define LC_MOUSE_RIGHTBUTTON 2
@@ -42,7 +45,7 @@ Color light(const Color &c,Uint8 b)
 }
 
 MiniMap::MiniMap(Component *parent, XmlReader& reader):
-  Component(parent),mMode(NORMAL),tilesize(2)
+  Component(parent),mMode(NORMAL),tilesize(2),mTexture(0)
 {
      // parse attributes...
     XmlReader::AttributeIterator iter(reader);
@@ -80,13 +83,23 @@ MiniMap::MiniMap(Component *parent, XmlReader& reader):
     }
     if(width <= 0 || height <= 0)
       throw std::runtime_error("Width or Height invalid");
+    
 
+    // create alpha-surface
+    SDL_Surface* image = SDL_CreateRGBSurface(0, width,height, 32,
+					      0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
 
+    SDL_Surface *copy = SDL_DisplayFormat(image);
+    SDL_FreeSurface(image);
+    image=copy;
+    
+    mTexture.reset(texture_manager->create(image)); // don't delete image, as Texture-class takes ownage
+
+    mFullRefresh=true;
 }
 
 void MiniMap::draw(Painter &painter)
 {
-  bool full_refresh=true;
 
   int x, y;
   short typ, grp;
@@ -95,25 +108,28 @@ void MiniMap::draw(Painter &painter)
   // FIXME: should be stored SDL_Surface and then blitted
   // SDL_Surface should be updated, only if needed
 
-  for(y=0;y<WORLD_SIDE_LEN && y<height;y++)
-    for(x=0;x<WORLD_SIDE_LEN && x<width;x++)
+  Painter mpainter(mTexture.get());
+
+  for(y=0;y<WORLD_SIDE_LEN && y<height/tilesize;y++)
+    for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)
       {
 	typ = MP_TYPE(x,y);
-	if (typ != mappointoldtype[x][y] || full_refresh)
+	if (typ != mappointoldtype[x][y] || mFullRefresh)
 	  {
 	    mappointoldtype[x][y] = typ;
-	    if (typ == CST_USED && mMode==NORMAL)
-	      {
-		//		continue;
-	      }
 	    
 	    grp = get_group_of_type(typ);
 
 	    Color mc=getColor(x,y);
-	    painter.setFillColor(mc);
-	    painter.fillRectangle(Rectangle(x*tilesize,y*tilesize,(x+1)*tilesize+1,(y+1)*tilesize));
+	    mpainter.setFillColor(mc);
+	    mpainter.fillRectangle(Rectangle(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
 	  }
       }
+
+
+  painter.drawTexture(mTexture.get(),Rectangle(0,0,width,height));
+
+  mFullRefresh=false;
 }
 
 Color MiniMap::getColorNormal(int x,int y) const
@@ -313,6 +329,20 @@ bool MiniMap::eventMouseClick(const AGEvent *m)
 
 void MiniMap::event(Event& event)
 {
+  if(event.type==Event::MOUSEBUTTONDOWN)
+    {
+      if(event.mousepos.x>=0 && event.mousepos.y>=0 && event.mousepos.x<width && event.mousepos.y<height)
+	{
+	  CTRACE;
+	  cdebug("mousePos:"<<event.mousepos.x<<","<<event.mousepos.y);
+	  ++(int)mMode;
+	  if(mMode==MAX)
+	    mMode=NORMAL;
+	  mFullRefresh=true;
+	  //      cdebug("MODE:"<<mMode<<":"<<mode[mMode]);
+	  //      mText->setText(mode[mMode]);
+	}
+    }
 }
 
 

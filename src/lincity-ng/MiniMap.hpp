@@ -3,10 +3,8 @@
 
 #include "gui/Component.hpp"
 #include "gui/Color.hpp"
-//#include "ag_text.h"
 #include "lincity/lin-city.h"
-
-// this is an example for a minimap
+#include "gui/Texture.hpp"
 
 class XmlReader;
 
@@ -33,10 +31,12 @@ class MiniMap:public Component
 
   DisplayMode mMode;
 
-  //AGText *mText;
-
   int tilesize;
   int border;
+
+  std::auto_ptr<Texture> mTexture;
+
+  bool mFullRefresh;
 };
 
 #endif
