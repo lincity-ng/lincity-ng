@@ -30,7 +30,8 @@ extern Update_Scoreboard update_scoreboard;
  * Private global variables
  * ---------------------------------------------------------------------- */
 static struct mouse_button_struct buttons[NUM_BUTTONS];
-static int mt_cost;
+/* XXX: mt_cost is misnamed; should represent number of sections, not price */
+static int mt_cost; 
 static int mt_grp;
 static char mt_name[20];
 static short mouse_buffer_fresh = 0;
@@ -1982,7 +1983,7 @@ int
 mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 {
 
-#define STATUS_MESSAGE_LENGTH 40
+#define STATUS_MESSAGE_LENGTH 80
     static int dx, dy; /* old current point; drawn point */
     static int ox, oy; /* coordinates for original button press */
     int cx, cy;   /* current mappoint coordinates */
@@ -2042,10 +2043,14 @@ mt_draw (int cxp, int cyp, int flag) /* c[xy]p are pixel coordinates */
 
 	if (!draw_ret) {
 	    draw_ret = do_mt_draw(ox, cx, oy, cy, mt_erase);
-	};
-	snprintf(s,STATUS_MESSAGE_LENGTH-1,"%s: %3d * %3d",
-		 mt_name,mt_cost,
-		 mt_cost * get_type_cost(selected_type));
+	    snprintf(s,STATUS_MESSAGE_LENGTH-1,
+		     "Can't build %s over that!", mt_name);
+	} else { 
+	    snprintf(s,STATUS_MESSAGE_LENGTH-1,
+		     "%d sections of %s will cost %3d to build",
+		     mt_cost, mt_name, mt_cost * get_type_cost(selected_type));
+	}
+
 	status_message(s,25);
 	dx = cx; dy = cy;
 	break;

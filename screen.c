@@ -1481,21 +1481,21 @@ draw_mini_screen_cursor (void)
     Fgl_hline (mini->x + main_screen_originx
 	       ,mini->y + main_screen_originy
 	       ,mini->x + main_screen_originx + mw->w / 16 - 1
-	       ,green (30));
+	       ,255);
     Fgl_hline (mini->x + main_screen_originx
 	       ,mini->y + main_screen_originy + mw->h / 16 - 1
 	       ,mini->x + main_screen_originx + mw->w / 16 - 1
-	       ,green (30));
+	       ,255);
     Fgl_line (mini->x + main_screen_originx
 	      ,mini->y + main_screen_originy
 	      ,mini->x + main_screen_originx
 	      ,mini->y + main_screen_originy + mw->h / 16 - 1
-	      ,green (30));
+	      ,255);
     Fgl_line (mini->x + main_screen_originx + mw->w / 16 - 1
 	      ,mini->y + main_screen_originy
 	      ,mini->x + main_screen_originx + mw->w / 16 - 1
 	      ,mini->y + main_screen_originy + mw->h / 16 - 1
-	      ,green (30));
+	      ,255);
 
 }
 
@@ -1819,10 +1819,10 @@ status_message(char * message, int colour)
 {
     Rect* b = &scr.status_message;
 
-    if (message == NULL) {
-	Fgl_fillbox(b->x, b->y, b->w, b->h, TEXT_BG_COLOUR);
+    Fgl_fillbox(b->x, b->y, b->w, b->h, TEXT_BG_COLOUR);
+
+    if (message == NULL)
 	return;
-    }
 
     Fgl_write (b->x, b->y, message);
 #if defined (WIN32)
