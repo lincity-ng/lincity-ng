@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<Panel width="80" height="450" background="images/gui/buttonpanel_back.png">
+    <TableLayout rows="10" cols="2">
+        <cell row="1" col="1">
+            <Button name="ResidenceButton">
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="1" col="2">
+            <Button name="BullDozeButton">
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="2" col="1">
+            <Button name="FarmButton">
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="2" col="2">
+            <Button name="MonumentButton">
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="3" col="1">
+            <Button name="MarketButton">
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="3" col="2">
+            <Button name="PotterieButton">
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="4" col="1">
+            <Button name="CommuneButton">
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="4" col="2">
+            <Button name="TrackButton">
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="5" col="1">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="5" col="2">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="6" col="1">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="6" col="2">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="7" col="1">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="7" col="2">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="8" col="1">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="8" col="2">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="9" col="1">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="9" col="2">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="10" col="1">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+        <cell row="10" col="2">
+            <Button>
+                <image src="images/gui/button_placeholder.png"/>
+            </Button>
+        </cell>
+    </TableLayout>
+</Panel>
+

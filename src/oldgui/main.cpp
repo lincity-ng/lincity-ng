@@ -748,7 +748,7 @@ compile_results (void)
     }
     if (cheat_flag)
 	fprintf (outf, _("----- IN TEST MODE -------\n"));
-    fprintf (outf, _("Game statistics from LinCity Version %s\n"), VERSION);
+    fprintf (outf, _("Game statistics from LinCity Version %s\n"), PACKAGE_VERSION);
     if (strlen (given_scene) > 3)
 	fprintf (outf, _("Initial loaded scene - %s\n"), given_scene);
     if (sustain_flag)

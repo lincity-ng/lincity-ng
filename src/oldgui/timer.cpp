@@ -3,11 +3,7 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#if defined (HAVE_CONFIG_H)
-#include "config.h"
-#elif defined (WIN32)
-#include "confw32.h"
-#endif
+#include <config.h>
 
 #if defined (TIME_WITH_SYS_TIME)
 #include <time.h>

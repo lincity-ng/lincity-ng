@@ -390,7 +390,7 @@ resize_pixmap (int new_width, int new_height)
 		  likes it in the file.  Still need to fix this in autoconf,
                   but for now this will do. */
 #if !defined (WIN32)
-inline int 
+int 
 pixmap_index (int x, int y)
 {
     return y*pixmap_width + x;

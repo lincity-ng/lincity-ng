@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gui>
+    <Image src="images/gui/background.png"/>
+    <Import src="gui/buttonpanel.xml"/>
+    <Import src="gui/helpwindow.xml"/>
+</gui>

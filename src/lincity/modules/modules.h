@@ -14,7 +14,7 @@
 #include "../engglobs.h"
 #include "../engine.h"
 #include "../stats.h"
-#include "mps.h"
+#include "gui_interface/mps.h"
 #include "../lclib.h"
 
 // for real_time

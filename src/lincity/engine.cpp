@@ -17,13 +17,13 @@
 #include "power.h"
 //#include "mouse.h"
 //#include "module_buttons.h"
-#include "pbar_interface.h"
+#include "gui_interface/pbar_interface.h"
 #include "stats.h"
 //#include "screen.h"
-#include "dialbox_interface.h"
-#include "mps.h"
-#include "screen_interface.h"
-#include "shared_globals.h"
+#include "gui_interface/dialbox_interface.h"
+#include "gui_interface/mps.h"
+#include "gui_interface/screen_interface.h"
+#include "gui_interface/shared_globals.h"
 
 extern int selected_type_cost;
 

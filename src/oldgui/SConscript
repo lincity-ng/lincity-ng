@@ -1,24 +1,10 @@
-import os
-import string
+Import('*')
 
-l=os.listdir("./")
-
-def isSourceFile(f):
-	return (string.find(f,".c")>=0 or string.find(f,".h")>=0) and not string.find(f,"~")>=0 and string.find(f,"main.c")<0
-
-
-def getAllSourceFiles(dir):
-	l=os.listdir(dir)
-	return filter(isSourceFile,l)
-
-
-libsrc=getAllSourceFiles("./")
-
-print "Source files:"
-print libsrc
-print ""
-
-
-Library('lincity_oldgui',libsrc,CCFLAGS="-Isrc/gui_interface -I. -Isrc/lincity -DHAVE_CONFIG_H")
-Program('lincity_oldgui',['main.cpp'],CCFLAGS="-Isrc/gui_interface -I. -I.. -Isrc/lincity -DHAVE_CONFIG_H",LIBS=['SDL','lincity_oldgui','lincity','lincity_modules','lincity','lincity_oldgui','png'],LIBPATH=['.','../lincity','../lincity/modules'])
+source = Glob("*.cpp")
+cpppath = env['CPPPATH'] + ["#/src/lincity", "#/src/gui_interface"]
+libs = env['LIBS'] + ["lincity"]
+app = env.Program(target = "lincity_oldgui", source = source,
+        CPPPATH = cpppath, LIBS = libs)
+AddPostAction(app, "ln -sf $TARGET .")
+Default(app)
 

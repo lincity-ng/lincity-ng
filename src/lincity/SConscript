@@ -1,21 +1,5 @@
-import os
-import string
+Import('*')
 
-
-l=os.listdir("./")
-
-def isSourceFile(f):
-	return (string.find(f,".c")>=0 or string.find(f,".h")>=0) and not string.find(f,"~")>=0
-def getAllSourceFiles(dir):
-	l=os.listdir(dir)
-	return filter(isSourceFile,l)
-
-
-libsrc=getAllSourceFiles("./")
-
-print "Source files:"
-print libsrc
-print ""
-
-Library('lincity',libsrc,CCFLAGS="-Isrc/gui_interface -I. -Ilincity -DHAVE_CONFIG_H")
-
+source = Glob("*.cpp") + Glob("modules/*.cpp")
+cpppath = env['CPPPATH'] + [ "#/src/lincity" ]
+lib = env.Library(target = "lincity", source = source, CPPPATH = cpppath)

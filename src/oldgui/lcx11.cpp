@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+#include <unistd.h>
 #include "lcstring.h"
 #include "lcintl.h"
 #include "fileutil.h"
@@ -307,7 +308,7 @@ parse_xargs (int argc, char **argv, char **geometry)
 	}
     }
     if (verbose)
-	printf (_("Version %s\n"), VERSION);
+	printf (_("Version %s\n"), PACKAGE_VERSION);
     if (!(display.dpy = XOpenDisplay (display.dname)))
     {
 	printf (" Can't open the dispay!\n");
@@ -394,7 +395,7 @@ Create_Window (char *geometry)
     sprintf ((char *) wname,
 	     _("xlincity, Version %s, "
 	     "(Copyright) IJ Peters - copying policy GNU GPL"),
-	     VERSION);
+	     PACKAGE_VERSION);
     XChangeProperty (display.dpy, display.win,
 		     XA_WM_NAME, XA_STRING, 8, PropModeReplace, wname,
 		     strlen ((char *) wname));

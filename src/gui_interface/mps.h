@@ -44,16 +44,16 @@ void mps_global_advance(void); /* Changes global var to next display */
    first and right-justify the second.  the ..p forms put a % after
    the second argument 
  */
-void mps_store_title(int i, char * t);
+void mps_store_title(int i, const char * t);
 void mps_store_fp(int i, double f);
 void mps_store_f(int i, double f);
 void mps_store_d(int i, int d);
 
-void mps_store_ss(int i, char * s1, char * s2);
-void mps_store_sd(int i, char * s, int d);
-void mps_store_sfp(int i, char * s, double fl);
+void mps_store_ss(int i, const char * s1, const char * s2);
+void mps_store_sd(int i, const char * s, int d);
+void mps_store_sfp(int i, const char * s, double fl);
 
-void mps_store_sss(int i, char * s1, char * s2, char * s3);
+void mps_store_sss(int i, const char * s1, const char * s2, const char * s3);
 
 
 /* Data for new mps routines */

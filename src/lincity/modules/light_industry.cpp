@@ -349,7 +349,7 @@ void
 mps_light_industry (int x, int y)
 {
   int i = 0;
-  char * p;
+  const char * p;
 
   mps_store_title(i++,_("Light"));
   mps_store_title(i++,_("Industry"));

@@ -6,7 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include "modules.h"
-#include "screen_interface.h"
+#include "gui_interface/screen_interface.h"
 #include "fire.h"
 //mouse.h" /* XXX: for fire_area! */
 #include "rocket_pad.h"

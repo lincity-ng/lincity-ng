@@ -6,7 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include "modules.h"
-#include "screen_interface.h"
+#include "gui_interface/screen_interface.h"
 #include "oremine.h"
 
 

@@ -11,7 +11,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 
-#include "shared_globals.h"
+#include "gui_interface/shared_globals.h"
 /*
 #if defined (WIN32)
 #include <winsock.h>
@@ -33,10 +33,10 @@
 #include "lin-city.h"
 //#include "cliglobs.h"
 #include "engglobs.h"
-#include "screen_interface.h"
+#include "gui_interface/screen_interface.h"
 #include "power.h"
 #include "stats.h"
-#include "pbar_interface.h"
+#include "gui_interface/pbar_interface.h"
 //#include "module_buttons.h"
 
 /* ---------------------------------------------------------------------- *

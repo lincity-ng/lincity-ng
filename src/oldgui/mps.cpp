@@ -295,7 +295,7 @@ mps_global_advance(void)
 */
 
 void
-mps_store_title(int i, char * t)
+mps_store_title(int i, const char * t)
 {
   int c;
   int l;
@@ -351,7 +351,7 @@ mps_store_d(int i, int d)
 }
 
 void
-mps_store_ss(int i, char * s1, char * s2)
+mps_store_ss(int i, const char * s1, const char * s2)
 {
     int l;
     l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s1);
@@ -360,7 +360,7 @@ mps_store_ss(int i, char * s1, char * s2)
 }
 
 void
-mps_store_sss(int i, char * s1, char * s2, char * s3)
+mps_store_sss(int i, const char * s1, const char * s2, const char * s3)
 {
 
     int l, e;  /* Length and End of the strings */
@@ -381,7 +381,7 @@ mps_store_sss(int i, char * s1, char * s2, char * s3)
 }
 
 void
-mps_store_sd(int i, char * s, int d)
+mps_store_sd(int i, const char* s, int d)
 {
     int l;
 
@@ -395,7 +395,7 @@ mps_store_sd(int i, char * s, int d)
 }
 
 void
-mps_store_sfp(int i, char * s, double fl)
+mps_store_sfp(int i, const char * s, double fl)
 {
     int l;
     l = snprintf(mps_info[i], MPS_INFO_CHARS, "%s", s); 
@@ -410,7 +410,7 @@ mps_right (int x, int y)
 {
     int i = 0;
     char s[12];
-    char * p;
+    const char* p;
     int g;
 
     snprintf(s,sizeof(s),"%d,%d",x,y);

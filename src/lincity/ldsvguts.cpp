@@ -11,8 +11,8 @@
 #include <stdlib.h>
 #include "lcstring.h"
 #include "lcintl.h"
-#include "screen_interface.h"
-#include "shared_globals.h"
+#include "gui_interface/screen_interface.h"
+#include "gui_interface/shared_globals.h"
 //#include "cliglobs.h"
 #include "stats.h"
 
@@ -72,7 +72,7 @@
 #include "engglobs.h"
 #include "fileutil.h"
 #include "power.h"
-#include "pbar_interface.h"
+#include "gui_interface/pbar_interface.h"
 #include "stats.h"
 
 #if defined (WIN32) && !defined (NDEBUG)

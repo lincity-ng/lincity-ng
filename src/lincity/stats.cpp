@@ -11,7 +11,7 @@
 #include "lin-city.h"
 #include "lctypes.h"
 #include "engglobs.h"
-#include "pbar_interface.h"
+#include "gui_interface/pbar_interface.h"
 #include "stats.h"
 
 /* ---------------------------------------------------------------------- *

@@ -11,7 +11,7 @@
 #include "lcstring.h"
 //#include "ldsvgui.h"
 #include "shrglobs.h"
-#include "screen_interface.h"
+#include "gui_interface/screen_interface.h"
 
 /* XXX: Where are SVGA specific includes? */
 

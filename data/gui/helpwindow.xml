@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Window width="500" height="400" border="5" titlesize="30">
+    <title>
+        <Paragraph text-align="center" color="white" margin-left="5"
+        margin-right="5" margin-top="5" margin-bottom="5"
+        height="30" font-size="20">Help - Communes</Paragraph>
+    </title>
+    <closebutton>
+        <image src="images/gui/window_close.png"/>
+        <image-hover src="images/gui/window_close_hover.png"/>
+        <image-clicked src="images/gui/window_close_clicked.png"/>
+    </closebutton>
+    <contents>
+        <ScrollView>
+            <scrollbar width="20">
+                <button1>
+                    <image src="images/gui/arrow_up.png"/>
+                    <image-hover src="images/gui/arrow_up_hover.png"/>
+                    <image-clicked src="images/gui/arrow_up_clicked.png"/>
+                </button1>
+                <button2>
+                    <image src="images/gui/arrow_down.png"/>
+                    <image-hover src="images/gui/arrow_down_hover.png"/>
+                    <image-clicked src="images/gui/arrow_down_clicked.png"/>
+                </button2>
+                <scroller>
+                    <image src="images/gui/scroller.png"/>
+                    <image-hover src="images/gui/scroller_hover.png"/>
+                    <image-clicked src="images/gui/scroller_clicked.png"/>
+                </scroller>                                              
+            </scrollbar>
+            <contents>
+                <Document src="help/test.xml"/>
+            </contents>
+        </ScrollView>
+    </contents>
+</Window>

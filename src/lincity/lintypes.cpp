@@ -12,7 +12,7 @@
 #include "lintypes.h"
 #include "lcintl.h"
 #include "fileutil.h"
-#include "readpng.h"
+#include "gui_interface/readpng.h"
 
 struct TYPE main_types[NUM_OF_TYPES];
 

@@ -6,14 +6,8 @@
 #ifndef __lcstring_h__
 #define __lcstring_h__
 
-#if defined (HAVE_STRING_H)
 #include <string.h>
-#endif
-#if defined (HAVE_STRINGS_H)
-#include <strings.h>
-#endif
-#if defined (HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
+#warning deprecated header
 
 #endif	/* __lcstring_h__ */

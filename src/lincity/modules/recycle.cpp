@@ -164,7 +164,7 @@ void
 mps_recycle (int x, int y)
 {
   int i = 0;
-  char * p;
+  const char * p;
 
   mps_store_title(i++,_("Recycling"));
   mps_store_title(i++,_("Center"));

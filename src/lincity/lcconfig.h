@@ -6,11 +6,9 @@
 #ifndef __lcconfig_h__
 #define __lcconfig_h__
 
-#if defined (HAVE_CONFIG_H)
-#include "config.h"
-#elif defined (WIN32)
-#include "confw32.h"
-#endif
+#include <config.h>
+
+#warning deprecated header
 
 #if (SIZEOF_SHORT==4)
 typedef short Int32;

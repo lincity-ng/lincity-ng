@@ -107,8 +107,6 @@ XXX: Then it shouldn't be here
 
 /* hof is 70 from 28/12 */
 
-#define DEBUG
-
 /*
 #define DEBUG_ENGINE 1
    #define ALLOW_TCORE_DUMP

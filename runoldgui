@@ -1,4 +1,4 @@
 #!/bin/bash
 export LINCITY_HOME=./data
-./src/oldgui/lincity_oldgui
+./lincity_oldgui
 

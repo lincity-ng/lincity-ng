@@ -10,7 +10,7 @@
 #include "lctypes.h"
 #include "lin-city.h"
 #include "stats.h"
-#include "mps.h"
+#include "gui_interface/mps.h"
 #include "lcintl.h"
 #include "market.h"
 

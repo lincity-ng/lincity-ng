@@ -1,0 +1,4 @@
+Import('*')
+
+lib = env.Library(target = "gui", source = Glob("*.cpp"))
+Default(lib)

@@ -1849,11 +1849,11 @@ print_time_for_year (void)
     if (time_for_year > 3600.0)
 	sprintf (s, _("%s%5.1f MINS/year  V %s"), 
 		 cheat_flag ? _("TEST MODE") : "",
-		 time_for_year / 60.0, VERSION);
+		 time_for_year / 60.0, PACKAGE_VERSION);
     else
 	sprintf (s, _("%s%5.1f secs/year  V %s "), 
 		 cheat_flag ? _("TEST MODE") : "",
-		 time_for_year, VERSION);
+		 time_for_year, PACKAGE_VERSION);
     Fgl_write (b->x, b->y, s);
 }
 
