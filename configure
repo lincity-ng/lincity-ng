@@ -954,7 +954,7 @@ else
   cat conftest.$ac_ext >&5
   ac_cv_prog_cc_works=no
 fi
-# rm -fr conftest*
+rm -fr conftest*
 ac_ext=c
 # CFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
 ac_cpp='$CPP $CPPFLAGS'

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-08-27 15:27-0400\n"
+"POT-Creation-Date: 2001-12-16 15:14-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,51 +14,51 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: cliglobs.c:54
+#: cliglobs.c:58
 msgid "Jan"
 msgstr "JAN"
 
-#: cliglobs.c:54
+#: cliglobs.c:58
 msgid "Feb"
 msgstr "FEB"
 
-#: cliglobs.c:54
+#: cliglobs.c:58
 msgid "Mar"
 msgstr "MAR"
 
-#: cliglobs.c:54
+#: cliglobs.c:58
 msgid "Apr"
 msgstr "APR"
 
-#: cliglobs.c:55
+#: cliglobs.c:59
 msgid "May"
 msgstr "MAY"
 
-#: cliglobs.c:55
+#: cliglobs.c:59
 msgid "Jun"
 msgstr "JUN"
 
-#: cliglobs.c:55
+#: cliglobs.c:59
 msgid "Jul"
 msgstr "JUL"
 
-#: cliglobs.c:55
+#: cliglobs.c:59
 msgid "Aug"
 msgstr "AUG"
 
-#: cliglobs.c:56
+#: cliglobs.c:60
 msgid "Sep"
 msgstr "SEP"
 
-#: cliglobs.c:56
+#: cliglobs.c:60
 msgid "Oct"
 msgstr "OCT"
 
-#: cliglobs.c:56
+#: cliglobs.c:60
 msgid "Nov"
 msgstr "NOV"
 
-#: cliglobs.c:56
+#: cliglobs.c:60
 msgid "Dec"
 msgstr "DEC"
 
@@ -369,210 +369,207 @@ msgstr ""
 msgid "Please enter the address and port of the server"
 msgstr ""
 
-#: main.c:233
+#: main.c:234
 msgid "Loading the game"
 msgstr "LOADING THE GAME"
 
-#: main.c:245
+#: main.c:243
 msgid "Creating pixmaps"
 msgstr ""
 
 #. this means we can't quit in help
-#: main.c:650
+#: main.c:654
 msgid "Quit The Game?"
 msgstr ""
 
-#: main.c:651
+#: main.c:655
 msgid "If you want to save the game select NO"
 msgstr ""
 
-#: main.c:652
+#: main.c:656
 msgid "here, then click on the save button."
 msgstr ""
 
-#: main.c:653
+#: main.c:657
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: main.c:684
+#: main.c:688
 msgid "TEST"
 msgstr ""
 
-#: main.c:684
+#: main.c:688
 msgid "You have pressed a test key"
 msgstr ""
 
-#: main.c:685
+#: main.c:689
 msgid "You will only see this message once"
 msgstr ""
 
-#: main.c:686
+#: main.c:690
 msgid "Do you really want to play in test mode..."
 msgstr ""
 
-#: main.c:698
-msgid "TEST MODE!"
-msgstr ""
-
-#: main.c:743
+#: main.c:735
 #, c-format
 msgid "Can't open %s for writing, can't continue\n"
 msgstr ""
 
-#: main.c:752
+#: main.c:744
 #, c-format
 msgid "What!! can't open %s for reading after writing???\n"
 msgstr ""
 
-#: main.c:761
+#: main.c:753
 #, c-format
 msgid "Got mouse type: %d\n"
 msgstr ""
 
-#: main.c:785
+#: main.c:777
 #, c-format
 msgid "Unable to open %s\n"
 msgstr ""
 
-#: main.c:790
+#: main.c:782
 msgid "----- IN TEST MODE -------\n"
 msgstr ""
 
-#: main.c:791
+#: main.c:783
 #, c-format
-msgid "Results from LinCity Version %s\n"
+msgid "Game statistics from LinCity Version %s\n"
 msgstr ""
 
-#: main.c:793
+#: main.c:785
 #, c-format
 msgid "Initial loaded scene - %s\n"
 msgstr ""
 
-#: main.c:795
+#: main.c:787
 msgid "Economy is sustainable\n"
 msgstr ""
 
-#: main.c:796
+#: main.c:788
 #, c-format
 msgid "Population  %d  of which  %d  are not housed.\n"
 msgstr ""
 
-#: main.c:799
+#: main.c:791
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d\n"
 msgstr ""
 
-#: main.c:801
+#: main.c:794
 #, c-format
 msgid " Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)\n"
 msgstr ""
 
-#: main.c:805
+#: main.c:799
 #, c-format
 msgid " Deaths by starvation %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:807
+#: main.c:802
 #, c-format
 msgid "Deaths from pollution %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:809
+#: main.c:804
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f\n"
 msgstr ""
 
-#: main.c:811
+#: main.c:806
+#, c-format
+msgid "Rockets launched %2d  Successful launches %2d\n"
+msgstr ""
+
+#: main.c:809
 #, c-format
 msgid "    Residences %4d         Markets %4d            Farms %4d\n"
 msgstr ""
 
-#: main.c:820
+#: main.c:818
 #, c-format
 msgid "        Tracks %4d           Roads %4d             Rail %4d\n"
 msgstr ""
 
-#: main.c:823
+#: main.c:821
 #, c-format
 msgid "     Potteries %4d     Blacksmiths %4d            Mills %4d\n"
 msgstr ""
 
-#: main.c:826
+#: main.c:824
 #, c-format
 msgid "     Monuments %4d         Schools %4d     Universities %4d\n"
 msgstr ""
 
-#: main.c:829
+#: main.c:827
 #, c-format
 msgid " Fire stations %4d           Parks %4d     Cricket gnds %4d\n"
 msgstr ""
 
-#: main.c:832
+#: main.c:830
 #, c-format
 msgid "    Coal mines %4d       Ore mines %4d         Communes %4d\n"
 msgstr ""
 
-#: main.c:835
+#: main.c:833
 #, c-format
 msgid "     Windmills %4d     Coal powers %4d     Solar powers %4d\n"
 msgstr ""
 
-#: main.c:839
+#: main.c:837
 #, c-format
 msgid "   Substations %4d     Power lines %4d            Ports %4d\n"
 msgstr ""
 
-#: main.c:842
+#: main.c:840
 #, c-format
 msgid "    Light inds %4d      Heavy inds %4d        Recyclers %4d\n"
 msgstr ""
 
-#: main.c:845
+#: main.c:843
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d\n"
 msgstr ""
 
-#: main.c:901
-msgid "Game statistics"
-msgstr ""
-
-#: screen.c:1909
+#: screen.c:1999
 #, fuzzy
 msgid "Market"
 msgstr "MAR"
 
-#: screen.c:1911
+#: screen.c:2001
 msgid "Port"
 msgstr ""
 
-#: screen.c:1918
+#: screen.c:2008
 msgid "Buy"
 msgstr ""
 
-#: screen.c:1919
+#: screen.c:2009
 msgid "Sell"
 msgstr ""
 
-#: screen.c:1921
+#: screen.c:2011
 msgid "JOBS"
 msgstr ""
 
-#: screen.c:1923
+#: screen.c:2013
 msgid "FOOD"
 msgstr ""
 
-#: screen.c:1924
+#: screen.c:2014
 msgid "COAL"
 msgstr ""
 
-#: screen.c:1925
+#: screen.c:2015
 msgid "ORE"
 msgstr ""
 
-#: screen.c:1926
+#: screen.c:2016
 msgid "GOODS"
 msgstr ""
 
-#: screen.c:1927
+#: screen.c:2017
 msgid "STEEL"
 msgstr ""

@@ -137,9 +137,6 @@ lincity_main (int argc, char *argv[])
 
 #if defined (SVGALIB)
     int q;
-#if defined (commentout)
-    vga_setmousesupport (1);
-#endif
     vga_init ();
 #endif
 
@@ -176,14 +173,6 @@ lincity_main (int argc, char *argv[])
 #ifndef CS_PROFILE
 #ifdef SEED_RAND
     srand (time (0));
-#endif
-#endif
-
-    /* GCS: SVGALIB mouse now initialized using libvga.config file. */
-#if defined (commentout)
-#if defined (SVGALIB)
-    /* Read .Lincityrc to find out what kind of mouse the user has */
-    lincityrc ();
 #endif
 #endif
 
@@ -647,14 +636,12 @@ execute_timestep (void)
 #if defined (WIN32)
 	DisableWindowsMenuItems ();
 #endif
-	if (help_flag != 0)	/*  mmm... could do this better */
-	    ;
-	/* this means we can't quit in help */
-
-	else if (yn_dial_box (_("Quit The Game?")
-			      ,_("If you want to save the game select NO")
-			      ,_("here, then click on the save button.")
-			      ,_("Do you really want to quit?")) != 0)
+	/* GCS:  Why not quit during help? */
+	if (yn_dial_box (_("Quit The Game?")
+			 ,_("Do you really want to quit?")
+			 ,_("If you want to save the game select NO.")
+			 ,_("")
+			 ) != 0)
 	    real_quit_flag = 1;
 	else
 	    quit_flag = 0;
