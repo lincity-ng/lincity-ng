@@ -13,6 +13,7 @@ void
 do_industry_l (int x, int y)
 {
   int goods = 0;
+  double tmp_pol;
   /*
      // int_1 is the goods produced this month so far
      // int_2 is the amount of goods in store.
@@ -115,7 +116,7 @@ do_industry_l (int x, int y)
 	  MP_INFO(x,y).int_5 -= INDUSTRY_L_JOBS_LOAD_STEEL;
 	}
     }
-  /* now make some goods */
+  /* now make some goods if there is room in inventory*/
   if (MP_INFO(x,y).int_2 < (MAX_GOODS_AT_INDUSTRY_L
 		      - (INDUSTRY_L_MAKE_GOODS * 8)) && MP_INFO(x,y).int_3
       >= INDUSTRY_L_ORE_USED)
@@ -124,7 +125,9 @@ do_industry_l (int x, int y)
       MP_INFO(x,y).int_3 -= INDUSTRY_L_ORE_USED;
       ore_used += INDUSTRY_L_ORE_USED;
       MP_INFO(x,y).int_5 -= INDUSTRY_L_JOBS_USED;
-      MP_POL(x,y) += INDUSTRY_L_POLLUTION;
+      /* Pollution is now determined by amount of goods made and affected by
+	 technology 
+	 MP_POL(x,y) += INDUSTRY_L_POLLUTION; */
 
       /* multiply by 2 if we have steel. */
       if (MP_INFO(x,y).int_4 >= INDUSTRY_L_STEEL_USED)
@@ -150,6 +153,27 @@ do_industry_l (int x, int y)
   MP_INFO(x,y).int_1 += goods;
   MP_INFO(x,y).int_2 += goods;
   goods_made += goods;
+
+  /* Pollution is based on goods produced and is affected by tech level above
+     1000 (displayed as 100) whereupon it is reduced by one percent per 10
+     tech_level points.  
+  */
+  /* XXX: it would be nice to convert tech-reduced air pollution into waste
+     to be hauled to a tip or recycled, and reduce that above tl 2000 */
+
+  tmp_pol = (float)(INDUSTRY_L_POL_PER_GOOD * goods);
+  if (tech_level > 1000) { 
+    double d;
+    d = (tech_level - 1000);
+    if (d > 1000) 
+      d = 1000;
+    d /= 1000;
+    tmp_pol -= (tmp_pol * d);
+    if (tmp_pol < 0) 
+      tmp_pol == 0;
+  }
+
+  MP_POL(x,y) += (int)tmp_pol;
 
   /* now sell the goods to the road/rail/track */
   if (MP_GROUP(x,y - 1) == GROUP_ROAD 

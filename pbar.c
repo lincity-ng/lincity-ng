@@ -108,12 +108,6 @@ write_pbar_text (Rect* b, char * s)
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
 }
 
-/* XXX: WCK: Macros anyone? */
-/* GCS: I thought I might like to change the "sensitivity" of the pbars
-   on a case-by-case basis, but never got around to it. */
-/* WCK: sure, but the preprocessor can still do some of the work, so: */
-/* GCS: The new macros look good.  I killed the old code. */
-
 #define pbar_adjust_pop(diff) 2 * diff
 #define pbar_adjust_tech(diff) diff > 0 ? diff / 4 + 1 : -((-diff+1)/ 2)
 #define pbar_adjust_food(diff) diff > 0 ? diff / 2 + 1 : diff

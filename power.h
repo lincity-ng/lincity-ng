@@ -32,10 +32,6 @@ void recurse_power_grid (int startx, int starty, int steps);
 int check_grid(int x, int y, int xi, int yi);
 void project_power(int x, int y);
 
-/* #ifdef POWER_LINE_CAPACITY
-#undef POWER_LINE_CAPACITY
-#endif */
-
 #define POWER_LINE_LOSS 1 /* one KW */
 #define POWER_MODULUS 25 /* Controls how often we see a packet in anim */
 

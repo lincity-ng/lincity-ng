@@ -534,10 +534,6 @@ update_main_screen_coal (void)
 
 /* *******************  SCREEN SETUP  ******************* */
 
-/* XXX: WCK: All of the drawing should be done already in screen_full_refresh;
-   Why do it here? */
-/* GCS: Actually, this function loads the graphics from disk */
-/* WCK: Yes, but it used to refresh everything after doing that. */
 void
 screen_setup (void)
 {

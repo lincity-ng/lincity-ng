@@ -91,6 +91,7 @@ do_industry_h (int x, int y)
   ore_used += steel * ORE_MAKE_STEEL;
   /* check there was enough electricity, or back up to 1/10 of the 
      production. ie same work and material useage for less production. 
+     XXX: there is no reason material usage should be the same 
      If no real power, see if we have enough coal to generate electricity.
   */
   if (get_power (x, y, steel * POWER_MAKE_STEEL, 1) == 0)

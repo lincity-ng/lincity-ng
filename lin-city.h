@@ -16,6 +16,7 @@
   amount. IMHO 3 is about the maximum useful value, 2 is quite
   comfortable.
     ** This is only relevant for linux-svgalib. **
+XXX: Then it shouldn't be here
 */
 #define MOUSE_SENSITIVITY 1
 
@@ -46,7 +47,7 @@
 
 /* VERSION_INT is used in the load/save code.  All other code uses 
    the symbol VERSION in config.h */
-#define VERSION_INT 112
+#define VERSION_INT 113
 
 /* Don't load if < MIN_LOAD_VERSION */
 #define MIN_LOAD_VERSION 97
@@ -168,6 +169,8 @@
 #define FLAG_MULTI_TRANS_PREV   (0x4000000)
 #define FLAG_POWER_LINE         (0x8000000)
 
+/* XXX: It would appear that the following T_ are used exactly two times each,
+   in market.c.  */
 #define T_FOOD  0
 #define T_JOBS  1
 #define T_COAL  2
@@ -176,6 +179,8 @@
 #define T_STEEL 5
 #define T_WASTE 6
 
+/* XXX: Move me to mouse.h or similar */
+
 #define MT_FAIL     0
 #define MT_START    1
 #define MT_CONTINUE 2
@@ -183,6 +188,8 @@
 
 #define HOF_START 845830134
 #define HOF_STOP 857843038
+
+/* XXX: screen.h? */
 
 #define MINI_SCREEN_NORMAL_FLAG    (0)
 #define MINI_SCREEN_POL_FLAG       (1)
@@ -222,25 +229,6 @@
 /* interest rate *10  ie 10 is 1% */
 #define INTEREST_RATE 15
 
-#if defined (commentout)
-#define HELP_BUTTON_X 608
-#define HELP_BUTTON_Y 448
-#define HELP_BUTTON_W 32
-#define HELP_BUTTON_H 32
-#define QUIT_BUTTON_X 608
-#define QUIT_BUTTON_Y 416
-#define QUIT_BUTTON_W 32
-#define QUIT_BUTTON_H 32
-#define LOAD_BUTTON_X 576
-#define LOAD_BUTTON_Y 416
-#define LOAD_BUTTON_W 32
-#define LOAD_BUTTON_H 32
-#define SAVE_BUTTON_X 576
-#define SAVE_BUTTON_Y 448
-#define SAVE_BUTTON_W 32
-#define SAVE_BUTTON_H 32
-#endif
-
 #define HELPERRORPAGE "error.hlp"
 #define HELPBACKGROUNDCOLOUR (white(8))
 #define HELPBUTTON_COLOUR (white(25))
@@ -262,7 +250,6 @@
 #define PROGBOX_DONE_COL 4
 #define PROGBOX_NOTDONE_COL 2
 
-#define POWER_LINE_CAPACITY 1000000
 #define POWERS_SOLAR_OUTPUT 1800
 #define WINDMILL_POWER      450
 #define WINDMILL_JOBS       10
@@ -278,6 +265,7 @@
 #define POWER_RES_OVERHEAD 30
 #define POWERS_COAL_OUTPUT 22000
 #define MAX_COAL_AT_POWER_STATION 100000
+
 #define MAX_ORE_AT_INDUSTRY_L 20000
 #define MAX_JOBS_AT_INDUSTRY_L 500
 #define MAX_GOODS_AT_INDUSTRY_L 65000
@@ -294,6 +282,9 @@
 #define MIN_JOBS_AT_INDUSTRY_L (INDUSTRY_L_JOBS_LOAD_ORE\
 +INDUSTRY_L_JOBS_LOAD_STEEL+INDUSTRY_L_JOBS_USED)
 #define INDUSTRY_L_ANIM_SPEED 290
+#define INDUSTRY_L_POL_PER_GOOD 0.05
+#define INDUSTRY_L_POLLUTION    10
+
 
 #define MAX_ORE_AT_INDUSTRY_H 10000
 #define MAX_COAL_AT_INDUSTRY_H 1000
@@ -303,7 +294,6 @@
 
 #define DAYS_PER_POLLUTION      14
 #define POWERS_COAL_POLLUTION   20
-#define INDUSTRY_L_POLLUTION    10
 #define INDUSTRY_H_POLLUTION    10
 #define COALMINE_POLLUTION      3
 #define PORT_POLLUTION          1
@@ -578,13 +568,6 @@
 #define ORE_MAKE_STEEL 17
 #define MAX_STEEL_IN_MARKET (MAX_STEEL_ON_RAIL*2)
 #define MARKET_STEEL_SEARCH_TRIGGER (MAX_STEEL_IN_MARKET/5)
-
-#if defined (commentout)
-#define MAIN_WIN_W 448
-#define MAIN_WIN_X (640-MAIN_WIN_W-8)
-#define MAIN_WIN_Y 8
-#define MAIN_WIN_H 400
-#endif
 
 #define SUST_ORE_COAL_COL 34
 #define SUST_PORT_COL     white(24)
