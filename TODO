@@ -32,9 +32,9 @@ Programming
  [M] some more sounds
  [H] ingame music
  [H] Credits (simple text for now)
- [M] Loading... sceen (startup, run game)
+ [M] "Loading..." screen (startup, run game)
  [M] Statisitcs dialog
- [M] Statistics graph 
+ [M] Statistics graph
  [H] Dialogs for buildings (Harbour, Rocket)
  [M] Build multiple roads, streets, railroads, powerlines, water
  [H] Implement Dialogs (y/n)
@@ -48,3 +48,4 @@ Programming
  [H] improve fast scrolling
  [H] Homepage
  [H] Tile graphics
+ [M] Scale background images in menu
