@@ -40,7 +40,6 @@ private:
     void setZoom(const int newzoom);
     Texture* readTexture(const std::string& filename);
     void readCityTexture( int textureType, const std::string& filename );
-    void click(const Vector2 &pos);
     time_t startTime10;
     int frameCounter10;
 

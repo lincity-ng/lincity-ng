@@ -545,27 +545,31 @@ void GameView::event(const Event& event)
 {
     int stepx = (int) floor ( tileWidth / 2 );
     int stepy = (int) floor ( tileHeight / 2 );
+    Vector2 tile;
     
     switch(event.type) {
         case Event::MOUSEBUTTONUP:
             if(!event.inside) {
-                //printf("notinside.\n");
                 break;
             }
-            //printf("inside.\n");
             
-            //std::cout << "GameView::event click Button: " << event.mousebutton ;
-            //std::cout << "Pos " << event.mousepos.x << "/" << event.mousepos.y << "\n";
-            if(event.mousebutton==SDL_BUTTON_RIGHT)
-                recenter(event.mousepos);
-            else if( event.mousebutton ==  4 ){
-                zoomIn();
+            tile=getTile( event.mousepos );
+            std::cout << "Tile-pos:"<<tile.x<<","<<tile.y<<std::endl;
+            if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
+                editMap((int) tile.x, (int) tile.y,SDL_BUTTON_LEFT); //edit tile
             }
-            else if( event.mousebutton == 5 ){
-                zoomOut();
+            else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //right      
+                recenter(event.mousepos);                      //adjust view
             }
-            else
-                click(event.mousepos);
+            else if( event.mousebutton == SDL_BUTTON_MIDDLE ){ //middle
+                getMPS()->setView( (int) tile.x, (int) tile.y);//show info
+            }
+            else if( event.mousebutton == SDL_BUTTON_WHEELUP ){ //up 
+                zoomIn();                                       //zoom in
+            }
+            else if( event.mousebutton == SDL_BUTTON_WHEELDOWN ){ //down
+                zoomOut();                                        //zoom out
+            }
             break;
         case Event::KEYUP:
             //Zoom
@@ -630,17 +634,6 @@ void GameView::event(const Event& event)
         default:
             break;
     }
-}
-
-/*
- * Process map-selection
- */
-void GameView::click(const Vector2 &pos)
-{
-  Vector2 tile=getTile(pos);
-  std::cout << "Tile-pos:"<<tile.x<<","<<tile.y<<std::endl;
-  getMPS()->setView( (int) tile.x, (int) tile.y);
-  editMap((int) tile.x, (int) tile.y,SDL_BUTTON_LEFT);
 }
 
 /*
