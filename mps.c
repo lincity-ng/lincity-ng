@@ -699,10 +699,14 @@ mps_indh (int x, int y)
   Rect* mps = &scr.mappoint_stats;
   char s[100];
   float f;
-  if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-    strcpy (s, "YES");
+  if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0) 
+      if (MP_INFO(x,y).int_7 == 1) 
+	  strcpy(s, "COAL");
+      else
+	  strcpy (s, "YES ");
   else
-    strcpy (s, "NO ");
+    strcpy (s, "NO  ");
+
   Fgl_write (mps->x + 7 * 8, mps->y + 16, s);
   sprintf (s, "%7d", MP_INFO(x,y).int_1);
   Fgl_write (mps->x + 7 * 8, mps->y + 40, s);

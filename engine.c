@@ -771,6 +771,7 @@ do_industry_h (int x, int y)
      // int_4 is the coal in store
      // int_5 is the percent max production last month
      // int_6 is the time of the next animation frame.
+     // int_7 is whether we get power from coal (1) or elsewhere (0)
    */
 
   /* See if there's any raw materials (ore) on the road/rail. If so, use some
@@ -841,6 +842,7 @@ do_industry_h (int x, int y)
   ore_used += steel * ORE_MAKE_STEEL;
   /* check there was enough electricity, or back up to 1/10 of the 
      production. ie same work and material useage for less production. 
+     If no real power, see if we have enough coal to generate electricity.
   */
   if (get_power (x, y, steel * POWER_MAKE_STEEL, 1) == 0)
     {
@@ -854,10 +856,14 @@ do_industry_h (int x, int y)
 	  MP_INFO(x,y).int_4 -= (steel * 2);
 	  coal_used += (steel * 2);
 	  MP_INFO(x,y).flags |= FLAG_POWERED;
+	  MP_INFO(x,y).int_7 = 1;
 	}
     }
-  else
-    MP_INFO(x,y).flags |= FLAG_POWERED;
+  else 
+    {
+      MP_INFO(x,y).flags |= FLAG_POWERED;
+      MP_INFO(x,y).int_7 = 0;
+    }
   MP_INFO(x,y).int_1 += steel;
   MP_INFO(x,y).int_2 += steel;
   /* now sell the steel to the road/rail */
