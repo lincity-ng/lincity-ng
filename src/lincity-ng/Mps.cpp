@@ -23,6 +23,9 @@ LCMps::LCMps(Component *parent,XmlReader &reader):
   if(component)
     addChild(component);
 
+  width = component->getWidth();
+  height = component->getHeight();
+
   mLCMPS=this;
   
   setView(10,10);
