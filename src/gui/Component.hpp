@@ -31,7 +31,7 @@ class Event;
  * typically don't have to take care of this. The corrdinates in the mouse
  * events are transformed into corrdinates relative to the component origin.
  * Also the painter passed to the draw function will have a transformation
- * set, so that you can pass in coordinates ralative to component origin.
+ * set, so that you can simply use coordinates ralative to the component origin.
  */
 class Component 
 {

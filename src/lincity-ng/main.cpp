@@ -8,12 +8,11 @@
 #include <SDL_ttf.h>
 
 #include "gui/TextureManager.hpp"
-#include "gui/ComponentLoader.hpp"
-#include "gui/Component.hpp"
-#include "gui/Event.hpp"
-#include "gui/Painter.hpp"
 
+#include "main.hpp"
 #include "MainLincity.hpp"
+#include "MainMenu.hpp"
+#include "Game.hpp"
 
 void initSDL()
 {
@@ -33,7 +32,7 @@ void initTTF()
     }
 }
 
-void initVideo(int width = 800, int height = 600)
+void initVideo(int width, int height)
 {
     int bpp = 32;
 
@@ -50,45 +49,26 @@ void initVideo(int width = 800, int height = 600)
 
 void mainLoop()
 {
-    std::auto_ptr<Painter> painter (new Painter(SDL_GetVideoSurface()));
-    //std::auto_ptr<Component> component (loadGUIFile("gui/app.xml"));
-    std::auto_ptr<Component> component(loadGUIFile("gui/mainmenu.xml"));
-    component->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    MainState state = MAINMENU;
+    MainState nextstate;
 
-    SDL_Event event;
-    bool done = false;
-    while(!done) {
-        while(SDL_PollEvent(&event)) {
-            switch(event.type) {
-                case SDL_VIDEORESIZE:
-                    initVideo(event.resize.w, event.resize.h);
-                    painter.reset(new Painter(SDL_GetVideoSurface()));
-                    component->resize(event.resize.w, event.resize.h);
-                    break;
-                case SDL_MOUSEMOTION:
-                case SDL_MOUSEBUTTONUP:
-                case SDL_MOUSEBUTTONDOWN:
-                case SDL_KEYDOWN:
-                case SDL_KEYUP: {
-                    Event component_event(event);
-                    component->event(component_event);
-                    break;
-                }
-                case SDL_QUIT:
-                    done = true;
-                    break;
-                default:
-                    break;
-            }
+    while(state != QUIT) {
+        switch(state) {
+            case MAINMENU:
+                MainMenu* menu = new MainMenu();
+                nextstate = menu->run();
+                delete menu;
+                break;
+            case INGAME:
+                Game* game = new Game();
+                nextstate = game->run();
+                delete game;
+                break;
+            default:
+                assert(false);
         }
 
-        SDL_FillRect(SDL_GetVideoSurface(), 0, 0);
-        component->draw(*painter);
-        SDL_Flip(SDL_GetVideoSurface());
-
-	doLincityStep();
-
-        SDL_Delay(20);
+        state = nextstate;
     }
 }
 

@@ -28,7 +28,10 @@ void mps_init()
 
 int mps_set(int style, int x, int y) /* Attaches an area or global display */
 {
-  return 0;
+    (void) style;
+    (void) x;
+    (void) y;
+    return 0;
 }
 void mps_redraw(void)  /* Re-draw the mps area, bezel and all */
 {
@@ -52,46 +55,50 @@ void mps_global_advance(void) /* Changes global var to next display */
  */
 void mps_store_title(int i, const char * t)
 {
-  getMPS()->setText(i,t);
+    getMPS()->setText(i,t);
 }
 void mps_store_fp(int i, double f)
 {
+    (void) i;
+    (void) f;
 }
 void mps_store_f(int i, double f)
 {
+    (void) i;
+    (void) f;
 }
 void mps_store_d(int i, int d)
 {
+    (void) i;
+    (void) d;
 }
 
 void mps_store_ss(int i, const char * s1, const char * s2)
 {
-  std::ostringstream os;
-  os<<s1<<": "<<s2;
-  getMPS()->setText(i,os.str());
+    std::ostringstream os;
+    os<<s1<<": "<<s2;
+    getMPS()->setText(i,os.str());
 }
 void mps_store_sd(int i, const char * s, int d)
 {
-  std::ostringstream os;
-  os<<s<<": "<<d;
-  getMPS()->setText(i,os.str());
+    std::ostringstream os;
+    os<<s<<": "<<d;
+    getMPS()->setText(i,os.str());
 }
 void mps_store_sfp(int i, const char * s, double fl)
 {
-  std::ostringstream os;
-  os<<std::setprecision(1)<<std::fixed;
-  os<<s<<": "<<fl<<"%";
-  getMPS()->setText(i,os.str());
+    std::ostringstream os;
+    os<<std::setprecision(1)<<std::fixed;
+    os<<s<<": "<<fl<<"%";
+    getMPS()->setText(i,os.str());
 }
 
 void mps_store_sss(int i, const char * s1, const char * s2, const char * s3)
 {
-  std::ostringstream os;
-  os<<s1<<": "<<s2<<" "<<s3;
-  getMPS()->setText(i,os.str());
-
+    std::ostringstream os;
+    os<<s1<<": "<<s2<<" "<<s3;
+    getMPS()->setText(i,os.str());
 }
-
 
 /* Data for new mps routines */
 //extern char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
@@ -100,10 +107,9 @@ int mps_global_style;
 /* MPS Global displays */
 void mps_right (int x, int y)
 {
+    (void) x;
+    (void) y;
 }
-
-
-
 
 void mps_global_finance(void) {
     int i = 0;
