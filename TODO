@@ -1,14 +1,37 @@
 BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
   o Help screens need adjusting for new GUI (some help files missing).
-    - Pbar help file should be unified
     - Mini-map help files
-    - Help file for new power code
+    - Finance screen
+    - New power code
+
+  o Load/save bug with new power code:  The problem is that power 
+    doesn't start up correctly.  All the power plants are running full 
+    speed, but none of the substations have power.  When I bulldoze 
+    and rebuild some power lines, things start up and everything is 
+    back to normal.
+
+BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+
+  o When you discover power substations, it says you have just 
+    discovered solar power stations.
+
+  o When you overwrite ("transport overwrite") a road/trail with
+    power lines and then undo it (i.e. drag over it, then drag off), it
+    replaces the road/trail with railway.
+
+  o Since cvs doesn't store timestamps, need to manually set timestamps 
+    to build from cvs.  For now, workaround using fix-timestamps.sh.
+
+  o When you bulldoze water or create water, you're warned that it is
+    very expensive.  However, you only get this warning once, so that it's
+    easy to bulldoze multiple times.  However, when you bulldoze shanties you
+    get the message every time.  This is inconvenient.
 
   o Need to compress and expand translation files and add installation hooks
     so that only desired translations get installed.
-
-BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
+    *  I think we can just delete the translated version for 1.12, so the 
+       above will not be necessary.
 
   o I found inconsistent behavior with using the middle mouse button
     (mmb).  Clicking with mmb on mini-map causes the main win to jump, and
@@ -82,60 +105,10 @@ BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
   o Pressing quit doesn't work before city is loaded.
 
+REQUESTED FEATURES
 
-CLIENT/SERVER BUGS
+  o Autosaves
 
-  o Figure out what to do with load/save/new game.
+  o Multi-buldozing
 
-    GCS: Partly fixed.  Now you can load a game onto the server with the 
-    command line.  Still need server-side autosave, server-side save 
-    and client-side save.  May not need client-side load, but it might 
-    be useful.  This is essentially a GUI problem.
-
-  o No message from server to client explaining why a place_item 
-    request fails.
-
-  o Various race conditions.  For example, if player A bulldozes 
-    the commune and builds the power plant, and meanwhile player B 
-    bulldozes the commune, then player B might accidentally bulldoze 
-    the power plant.
-
-    Similar race condition in setting buy/sell flags for ports.
-
-  o No report on how many seconds per year.
-
-  o Reported prices (place/bulldoze) shown in lower left are bogus.
-
-  o Client/server interface does not handle modal dialog boxes well.
-    In particular, client "wastes time" trying to catch up with all 
-    the server's queued messages.
-
-  o Client doesn't get launch success/fail messages.
-
-  o Client doesn't get random fires.
-
-  o Ore mine flashes the wrong graphic when placed (client/server).
-    This problem is caused by the fact that the client does not correctly 
-    set the MP_INFO() bits when an item is placed.
-
-  o Some animations incomplete (client/server)
-      - Power lines
-      - Substations
-
-  o No lcserver command line parsing on Win32.  Need a copy of getopt().
-
-  o Client joining game gets all messages for new technologies.
-
-  o The server crashes (or worse) after being fed invalid packets.
-    Similar problem exists when loading invalid save files.
-
-  o Slow servers send out too many map update messages.  It should send 
-    out at most one map update per month.
-
-  o Sometimes client cannot resynch on messages when server message 
-    buffer fills.  This happens on the SGI when you move the client 
-    window with pollution mini-screen turned on.
-
-  o Additional information is needed at game connect, such as whether 
-    or not coal survey has been done.
-
+  o Auto-upgrading
