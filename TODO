@@ -34,6 +34,7 @@ Programming
  [M] Statisitcs dialog
  [M] Statistics graph 
  [H] Dialogs for buildings (Harbour, Rocket)
+ [M] Build multiple roads, streets, railroads, powerlines
  [H] Implement Dialogs (y/n)
  [M] Translate Dialogs (hardcoded stuff im old engine)
  [H] draw rectangle for current GameView on Minimap

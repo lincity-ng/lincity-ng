@@ -14,7 +14,6 @@
 #include "Util.hpp"
 
 void updateMessageText( const std::string text );
-void updateMessageTitle();
 
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed

@@ -18,6 +18,7 @@
 #include "TimerInterface.hpp"
 
 #include "GameView.hpp"
+#include "ScreenInterface.hpp"
 
 int lincitySpeed = MED_TIME_FOR_YEAR;
 
@@ -49,6 +50,7 @@ void execute_timestep ()
      outside of the main screen */
 
   print_stats ();
+  updateMessageTitle();//show new Date
 
   //GameView has to draw the updated city
   getGameView()->requestRedraw();

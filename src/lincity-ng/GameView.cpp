@@ -911,11 +911,11 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
         tilerect.setSize( blankTexture->getWidth()  * zoom / defaultZoom, blankTexture->getHeight() * zoom / defaultZoom );
         if( zoom == defaultZoom ) 
         {
-            painter.drawTexture(blankTexture, tilerect.p1);
+            painter.drawTexture( blankTexture, tilerect.p1 );
         }
         else
         {
-            painter.drawStretchTexture(blankTexture, tilerect);
+            painter.drawStretchTexture( blankTexture, tilerect );
         }
         return;
     }
@@ -953,6 +953,7 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
             cityTextures[ textureType ] = texture_manager->create( cityImages[ textureType ] );
             cityImages[ textureType ] = 0; //Image is erased by texture_manager->create.
             texture = cityTextures[ textureType ];
+            std::cout << "GameView::drawTile: create Texture for Type " << textureType <<"\n";
         }
         SDL_mutexV( mTextures );
     }
@@ -1068,7 +1069,25 @@ void GameView::draw(Painter& painter)
         }
         else {
             Color alphablue( 0, 0, 255, 128 );
+            Color alphared( 255, 0, 0, 128 );
             painter.setFillColor( alphablue );
+            //check if building is allowed here if not unse Red Cursor
+            int x = (int) tileUnderMouse.x;
+            int y = (int) tileUnderMouse.y;
+            //  x + cursorSize -1 >= WORLD_SIDE_LEN  would be the same
+            if( x + cursorSize > WORLD_SIDE_LEN || y + cursorSize > WORLD_SIDE_LEN || x < 0 || y < 0 ) {
+                painter.setFillColor( alphared );
+            } else {
+                for( y = (int) tileUnderMouse.y; y < tileUnderMouse.y + cursorSize; y++ ) {
+                    for( x = (int) tileUnderMouse.x; x < tileUnderMouse.x + cursorSize; x++ ) {
+                        if( MP_TYPE( x, y ) != CST_GREEN ) {
+                            painter.setFillColor( alphared );
+                            y += cursorSize;
+                            break;
+                        }
+                    }
+                }
+            }
             Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
             tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth * cursorSize / 2));
             tileOnScreenPoint.y -= tileHeight; 
