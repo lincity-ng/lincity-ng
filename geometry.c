@@ -311,7 +311,7 @@ resize_geometry (int new_width, int new_height)
 
     scr.select_message.y = SELECT_BUTTON_MESSAGE_Y + (scr.client_h - 480);
     scr.time_for_year.y = TIME_FOR_YEAR_Y + (scr.client_h - 480);
-    scr.status_message.y = scr.client_win.h - 30;
+    scr.status_message.y = STATUS_MESSAGE_Y + (scr.client_h - 480);
     scr.status_message.w = scr.main_win.w;
 
     scr.date.y = scr.main_win.y + scr.main_win.h + 16;
