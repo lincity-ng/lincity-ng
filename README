@@ -160,6 +160,19 @@ This option only applies to xlincity.
 	-b   *obsolete* omit border around game.  Now on by default.
 
 
+NOTES FOR SVGALIB VERSION
+=========================
+
+Soon, it will be possible to run in other graphics modes.  Try this:
+
+      lincity                 ## default resolution of 640x480
+      lincity -m 10           ## mode 10, 640x480
+      lincity -m 11           ## mode 11, 800x600
+      lincity -m 12           ## mode 12, 1024x768
+      lincity -m 13           ## mode 13, 1280x1024
+
+
+
 NOTES FOR X VERSION
 ===================
 
@@ -200,30 +213,13 @@ resolutions:
 If you are running 1280x1024, you may need to autohide the taskbar
 in order to see pix doubling.
 
-Lin City now uses a real windows font to draw text.  This fix gave me
-a speed improvement of 20% at year 800.
-
-Sometimes the font doesn't work correctly, for a reason that I haven;t
-yet identified.  If this happens, you will need to set the define in 
-lcwin32.c so that USE_WINDOWS_FONT is 0, and recompile.
-
-If you get a message such as "Can't open the font file", this probably 
-means that the long file names did not get unzip'd correctly.  Go to the
-C:\LINCITY???\OPENING directory, and look for the file winfont_8x8.fnt.
-If this file does not exists (or if it is called winfont_.fnt), then
-is definitely the problem.  Reinstall the archive using the UNZIP program.
-
-Multi-transport is now supported.  Simply shift-click at the beginning
-and shift-click at the end, and you'll get a whole line of track, road,
-rail or power lines.  Look for the blue border around the main window to
-confirm that you are in multi-transport mode.
+Lincity no longer uses a real windows font to draw text.  Although this 
+gives a considerable speed improvement (about 20%), it sometimes 
+doesn't work correctly, for a reason that I haven't yet identified.
 
 Save files are gzip compatible with the UNIX version of lincity.  That is,
 you will need to gzip/gunzip the save files when you transfer them to/from
 your UNIX box.
-
-You can now scroll the main screen using the arrow keys.  Furthermore, you
-can do a "fast scroll" with the SHIFT+ARROW key.
 
 The source code is distributed together with the binary distribution,
 in the file source.tgz.
@@ -247,66 +243,79 @@ INTERNATIONALIZATION UNDER LINUX
 
 Lincity supports a modest amount of internationalization.  Only languages
 that can be represented using a iso8859-1 font are currently supported.
-I have created a lincity-compatible iso8859-2 also, but have not used 
+I have created a lincity-compatible iso8859-2 font also, but have not used 
 it yet because of no demand (send me an email if you would like to try).
 
 If you wish to make a translation for your language, you will need to 
-download and install gettext 0.11.5.
+download and install gettext 0.11.2 or higher.
 
-The first task is to get the sample Catalan translation to display 
-correctly.  Download a fresh lincity from cvs on sourceforge.  Do a 
-configure, make, and make install, and then set the LANG environment 
-variable to "ca_ES", and run lincity.  Hopefully you will see something 
-like this:
+The first task is to get the sample Italian translation to display 
+correctly.  Download a fresh lincity (1.12pre53 or higher) from
+sourceforge.  Do a configure, make, and make install.
 
-   Setting entire locale to ca_ES
-   Setting messages locale to ca_ES
-   Query locale is ca_ES
-   Bound textdomain directory is /usr/local/share/locale
+Next, download the Italian package.  Install as described in README.it.
+Run as follows:
+
+   export LANG=it_IT          ## (on bash and similar)
+   setenv LANG it_IT          ## (on csh and similar)
+   xlincity -D
+
+Hopefully you will see something like this:
+
+   Setting entire locale to it_IT
+   Setting messages locale to it_IT
+   Query locale is it_IT
+   GUESS 1 -- intl_suffix is it_IT
+   Trying Message Path /home/gsharp/lincity/share/lincity/messages/it_IT/
+   Trying Help Path /home/gsharp/lincity/share/lincity/help/it_IT/
+   GUESS 2 -- intl_suffix is it
+   Trying Message Path /home/gsharp/lincity/share/lincity/messages/it/
+   Set Message Path /home/gsharp/lincity/share/lincity/messages/it/
+   Trying Help Path /home/gsharp/lincity/share/lincity/help/it/
+   Set Help Path /home/gsharp/lincity/share/lincity/help/it/
+   Bound textdomain directory is /home/gsharp/lincity/share/locale
    Textdomain is lincity
-   GUESS 1 -- intl_suffix is ca_ES
-   Trying Message Path /usr/local/lincity/messages/ca_ES/
-   Trying Help Path /usr/local/lincity/help/ca_ES/
-   GUESS 2 -- intl_suffix is ca
-   Trying Message Path /usr/local/lincity/messages/ca/
-   Set Message Path /usr/local/lincity/messages/ca/
-   Trying Help Path /usr/local/lincity/help/ca/
-   Settling for help Path /usr/local/lincity/help/
+   DefaultVisual id=35 bp-rgb=8 map-entries=256
 
-If you see this, then everything worked perfectly.  Actually you might 
-not notice any Catalan becaue the translation isn't finished ;-)
-But anyway, test it out at the opening screen:
 
-  (1)  The month january will be written "JAN" instead of "jan"
-  (2)  Click on something that hasn't been invented yet, like a 
+If you see this, then everything worked perfectly.  You should see perfect
+italian.  In particular, note the following:
+
+  (1)  The opening screen (help page) is in Italian
+  (2)  The month january will be written "Gen" instead of "Jan"
+  (3)  Click on something that hasn't been invented yet, like a 
        power station or windmill.  The message for "Not enough tech" 
-       will be translated.
+       will be in Italian.
 
-If you are less lucky, maybe only (2) worked correctly and not (1).
-If so, you probably saw something like this:
+It is possible that you see English for (1) and (3).  If so, you 
+are probably running from the directory you built from.  Please cd 
+out of that directory, and try again.
+
+If you are less lucky, maybe only (1) and (3) worked correctly and 
+but not (2).  If so, you probably saw something like this:
 
    Setting entire locale to (null)
    Setting messages locale to (null)
    Query locale is C
+   GUESS 1 -- intl_suffix is it_IT
+   Trying Message Path /usr/local/lincity/messages/it_IT/
+   Trying Help Path /usr/local/lincity/help/it_IT/
+   GUESS 2 -- intl_suffix is it
+   Trying Message Path /usr/local/lincity/messages/it/
+   Set Message Path /usr/local/lincity/messages/it/
+   Trying Help Path /usr/local/lincity/help/it/
+   Settling for help Path /usr/local/lincity/help/
    Bound textdomain directory is /lincity/share/locale
    Textdomain is lincity
-   GUESS 1 -- intl_suffix is ca_ES
-   Trying Message Path /usr/local/lincity/messages/ca_ES/
-   Trying Help Path /usr/local/lincity/help/ca_ES/
-   GUESS 2 -- intl_suffix is it
-   Trying Message Path /usr/local/lincity/messages/ca/
-   Set Message Path /usr/local/lincity/messages/ca/
-   Trying Help Path /usr/local/lincity/help/ca/
-   Settling for help Path /usr/local/lincity/help/
    DefaultVisual id=35 bp-rgb=8 map-entries=256
 
 If this happens, it means that your system is missing some files which 
-are require to "set the locale" of your system to "ca_ES".  Probably 
+are require to "set the locale" of your system to "it_IT".  Probably 
 you are running Linux -- I don't think other Unix's have this peculiar 
 requirement.
 
 To check if this is the problem (on Linux), look for the directory 
-/usr/lib/locale/ca_ES.  If this directory doesn't exist, you have this
+/usr/lib/locale/it_IT.  If this directory doesn't exist, you have this
 problem.  To fix it, do the following:
 
    1)  Make a backup of the directory /usr/share/i18n/charmaps
@@ -315,10 +324,10 @@ problem.  To fix it, do the following:
    4)  gunzip UTF-8.gz
    5)  gunzip ISO-8859-1.gz
    6)  cd /usr/share/i18n/locale
-   7)  localedef -f ../charmaps/UTF-8 -i ca_ES ca_ES.UTF-8
-   8)  localedef -f ../charmaps/ISO-8859-1 -i ca_ES ca_ES
+   7)  localedef -f ../charmaps/UTF-8 -i it_IT it_IT.UTF-8
+   8)  localedef -f ../charmaps/ISO-8859-1 -i it_IT it_IT
 
-Now check for the directory /usr/lib/locale/ca_ES.  It will be there.
+Now check for the directory /usr/lib/locale/it_IT.  It will be there.
 
 OK, now you are ready to make translations for a new language.  
 There are three parts to making a tranlation:
@@ -327,28 +336,31 @@ There are three parts to making a tranlation:
    making a .po file.
 
 The messages and help files are just a matter of editing the ASCII 
-files, and installing them.  If your language is "ca", you should 
-create two directories such as /usr/local/share/lincity/messages/ca
-and /usr/local/share/lincity/help/ca.  Copy the english language 
+files, and installing them.  If your language is "it", you should 
+create two directories such as /usr/local/share/lincity/messages/it
+and /usr/local/share/lincity/help/it.  Copy the english language 
 help and message files to these directories, and translate them.
 
 The .po file is a matter of translating these and getting them to compile 
 correctly.  First, edit the file po/LINGUAS, and add your language 
-(e.g. "ca") to the list.  Next, create the .po file.  For the language
-"ca", the command looks like this like this:
+(e.g. "it") to the list.  Next, create the .po file.  For the language
+"it", the command looks like this like this:
 
    cd po
-   msginit -l ca
+   msginit -l it
 
-You should now see the file "ca.po".  Edit this file.  If you are using
-emacs, there is a "po-mode" to facilitate (or obstruct) this task.
+You should now see the file "it.po".  Edit this file.  Specifically,
+you should edit what comes after "msgstr".  Don't erase any of the 
+other stuff such as "msgid" or "#: cliglobs.c:54" or that stuff.
+If you are using emacs, there is a "po-mode" to facilitate 
+(or obstruct) this task.
 
 When you are done editing this file, you need to compile this file.
 Simply type "make" in the po directory to compile.  This will 
-create the file "ca.gmo".  Finally, you will need to install this file.
+create the file "it.gmo".  Finally, you will need to install this file.
 To install, you will copy this file to the following location:
 
-  cp ca.gmo /usr/local/share/locale/ca/LC_MESSAGES/lincity.mo
+  cp it.gmo /usr/local/share/locale/it/LC_MESSAGES/lincity.mo
 
 Now, you are ready to go.  Set the LANG environment variable and 
 lincity should run using your translations.
@@ -359,21 +371,23 @@ Email to gregsharp@geocities.com for comments about this process.
 INTERNATIONALIZATION UNDER WINDOWS
 ==================================
 
-The situation under windows is similar.  As of version 1.12pre52, 
-the windows binary contains the same sample (partial) translation into 
-Catalan.  To get this to work, on the DOS prompt
+The situation under windows is similar.  Download lincity 
+version 1.12pre53 binary package, and the Italian translation pack.
+Install the Italian translation pack directly into the lincity 
+directory.  Then run the batch file:
 
-  c:\lincity> set LANGUAGE=ca
-  c:\lincity> lincity
+  c:\lincity> lincity-it
 
 Now, you should see:
 
-  (1)  The month january will be written "JAN" instead of "jan"
-  (2)  Click on something that hasn't been invented yet, like a 
+  (1)  The opening screen (help page) is in Italian
+  (2)  The month january will be written "Gen" instead of "Jan"
+  (3)  Click on something that hasn't been invented yet, like a 
        power station or windmill.  The message for "Not enough tech" 
-       will be translated.
+       will be in Italian.
 
-If the above doesn't work, email to gregsharp@geocities.com.
+If the above procedure doesn't work "out of the box", email 
+to gregsharp@geocities.com.
 
 OK, now you are ready to make translations for a new language.  
 There are three parts to making a tranlation:
@@ -382,54 +396,53 @@ There are three parts to making a tranlation:
    making a .po file.
 
 The messages and help files are just a matter of editing the ASCII 
-files, and installing them.  If your language is "ca", you should 
-create two directories such as /usr/local/share/lincity/messages/ca
-and /usr/local/share/lincity/help/ca.  Copy the english language 
+files, and installing them.  If your language is "it", you should 
+create two directories such as /usr/local/share/lincity/messages/it
+and /usr/local/share/lincity/help/it.  Copy the english language 
 help and message files to these directories, and translate them.
 
 The .po file is a matter of translating these and getting them to compile 
 correctly.  First, make copy the file lincity.pot to your language 
-(e.g. "ca.po" for Catalan).  Edit this file.  If you are using
-emacs, there is a "po-mode" to facilitate (or obstruct) this task.
+(e.g. "it.po" for Italian).  If you do not have a lincity.pot file, 
+email gregsharp@geocities.com to get the latest one (or get it 
+directly from the CVS server on sourceforge).
+
+You should now see the file "it.po".  Edit this file.  Specifically,
+you should edit what comes after "msgstr".  Don't erase any of the 
+other stuff such as "msgid" or "#: cliglobs.c:54" or that stuff.
+If you are using emacs, there is a "po-mode" to facilitate 
+(or obstruct) this task.
 
 When you are done editing this file, you need to compile this file.
 Use the executable "msgfmt.exe" which is distributed with lincity 
 for this purpose:
 
-  c:\lincity> msgfmt ca.po -o ca.gmo
+  c:\lincity> msgfmt it.po -o it.gmo
 
-This should create the file ca.gmo.  You need to copy it to a 
+This should create the file it.gmo.  You need to copy it to a 
 prespecified location, like this:
-
-  c:\lincity> copy ca.gmo locale\ca\LC_MESSAGES\lincity.mo
-
-If your language were Italian, it would go here.  You will have to 
-create the subdirectories.
 
   c:\lincity> copy it.gmo locale\it\LC_MESSAGES\lincity.mo
 
-Now, you are ready to go.  Set the LANGUAGE environment variable 
-(note that LANG won't work for windows), and lincity should run using 
-your translations.
+Create the appropriate subdirectories as necessary.
+
+Now, you are ready to go.  Set the LANG environment variable 
+and lincity should run using your translations.
 
 
 COMPILATION UNDER WIN32
 =======================
 
-I am using MS VC++ 4.0 under Win95 and Win98.  Lincity is reported to 
-compile under MS VC++ 6.0 also.  If you are using MSVC, you might
-be able to unpack the archive, and type something like this:
+I use both MS VC++ 4.0 and MS VC++ 6.0 on Win95 and Win98.  I no longer
+include the MSVC workspace files or makefiles, since these do not 
+seem to be particularly useful.  If you would like them, I'd be glad 
+to send them to you.
 
-	c:\lincity???> nmake /f lincity.mak
-
-I have also included the 4.0 workspace file, lincity.mdp.  This may
-or may not be helpful for you.
-
-If you are using a different compiler, you may need to generate your own 
-Makefile.  The file Makefile.am contains the information about which 
-files you need to compile.  In addition to the supplied files, you must 
-link with your compiler supplied VERSION.LIB in addition to the standard 
-WIN32 libraries.  You'll need to link with WSOCK32.LIB also.
+You may need to generate your own Makefile.  The file Makefile.am 
+contains the information about which files you need to compile.  
+In addition to the supplied files, you must link with your compiler 
+supplied VERSION.LIB in addition to the standard WIN32 libraries.  
+You no longer need to link with WSOCK32.LIB.
 
 Of note, lincity 1.11 was patched to compile with the Borland compiler 
 too.  If this is not still working in 1.12, please send me a patch 
