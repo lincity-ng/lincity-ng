@@ -342,18 +342,6 @@ correctly.  First, edit the file po/LINGUAS, and add your language
 
 You should now see the file "ca.po".  Edit this file.  If you are using
 emacs, there is a "po-mode" to facilitate (or obstruct) this task.
-Note, there is something like this near the beginning:
-
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-02-23 00:29-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: 8bit\n"
-
-You should delete these lines.
 
 When you are done editing this file, you need to compile this file.
 Simply type "make" in the po directory to compile.  This will 
@@ -403,18 +391,6 @@ The .po file is a matter of translating these and getting them to compile
 correctly.  First, make copy the file lincity.pot to your language 
 (e.g. "ca.po" for Catalan).  Edit this file.  If you are using
 emacs, there is a "po-mode" to facilitate (or obstruct) this task.
-Note, there is something like this near the beginning:
-
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-02-23 00:29-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: 8bit\n"
-
-You should delete these lines.
 
 When you are done editing this file, you need to compile this file.
 Use the executable "msgfmt.exe" which is distributed with lincity 
