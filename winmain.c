@@ -502,8 +502,13 @@ HandleMouse ()
 		cs_mouse_handler (pending_mouse_event,
 				  pending_mouse_x - cs_mouse_x,
 				  pending_mouse_y - cs_mouse_y);
-	    if (pending_resize_event)
+	    if (pending_resize_event) {
+		/* Force resize, because I can't tell difference between
+		   size change and restoring a minimized window.  Ideally,
+		   this would simply redraw. */
+		display.winW = 0;
 	        resize_geometry (pending_resize_w, pending_resize_h);
+	    }
 	}
     }
   

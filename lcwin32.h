@@ -13,7 +13,7 @@
 /* ---------------------------------------------------------------------- *
  * Defines
  * ---------------------------------------------------------------------- */
-#define APPNAME "LinCity"
+#define APPNAME "Lincity"
 
 // Operating System Versions
 #if defined (WIN32)
