@@ -94,7 +94,7 @@ X_DEFS = -DLC_X11=1
 SVGA_DEFS = -DSVGALIB=1
 
 SUBDIRS = intl po
-noinst_HEADERS =  	acconfig.h   	cliglobs.h   	common.h     config.h	  confw32.h    	engglobs.h   engine.h	 fileutil.h 	generic.h    geometry.h  dialbox.h 	lcconfig.h   	lchelp.h       	lcintl.h     lcstring.h	lclib.h 	lctypes.h    lcwin32.h 	lcx11.h      lcsvga.h 	ldsvgui.h    ldsvguts.h   	lin-city.h   lintypes.h	 market.h 	module_buttons.h 	mouse.h      mps.h	  pbar.h    	picedit.h    pixmap.h     power.h 	resource.h	 screen.h 	shrglobs.h   	simulate.h   timer.h	 transport.h 	typeinit.h   xpicedit.h
+noinst_HEADERS =  	acconfig.h   	cliglobs.h   	common.h     config.h	  confw32.h    	engglobs.h   engine.h	 fileutil.h 	generic.h    geometry.h  dialbox.h 	lcconfig.h   	lchelp.h       	lcintl.h     lcstring.h	lclib.h 	lctypes.h    lcwin32.h 	lcx11.h      lcsvga.h 	ldsvgui.h    ldsvguts.h   	lin-city.h   lintypes.h	 market.h 	module_buttons.h 	mouse.h      mps.h	  pbar.h    	picedit.h    pixmap.h     power.h 	resource.h	 screen.h 	shrglobs.h   stats.h 	simulate.h   timer.h	 transport.h 	typeinit.h   xpicedit.h
 
 
 # -- This can't contain subdirectories --
@@ -120,7 +120,7 @@ XLC_OBJ =  	x_ldsvgui.o x_splash.o x_lchelp.o x_main.o x_mouse.o 	x_cliglobs.o x
 LC_OBJ =  	vga_ldsvgui.o vga_splash.o vga_lchelp.o vga_main.o vga_mouse.o 	vga_cliglobs.o vga_mps.o vga_lcsvga.o vga_screen.o vga_geometry.o 	vga_pbar.o vga_dialbox.o vga_module_buttons.o
 
 
-xlincity_SOURCES =  	lclib.c power.c 	ldsvguts.c engine.c transport.c market.c 	simulate.c shrtypes.c lintypes.c 	timer.c fileutil.c shrglobs.c
+xlincity_SOURCES =  	lclib.c power.c 	ldsvguts.c engine.c transport.c market.c 	simulate.c shrtypes.c lintypes.c 	timer.c fileutil.c shrglobs.c stats.c
 
 EXTRA_xlincity_SOURCES =  	ldsvgui.c splash.c lchelp.c main.c mouse.c mps.c screen.c 	lcx11.c pixmap.c cliglobs.c geometry.c pbar.c module_buttons.c 	dialbox.c
 
@@ -129,7 +129,7 @@ xlincity_DEPENDENCIES =  	${XLC_OBJ}
 xlincity_LDADD =  	${XLC_OBJ} 	@X_LIBS@ -lXext -lX11 -lm
 
 
-lincity_SOURCES =  	lclib.c power.c 	simulate.c shrtypes.c lintypes.c 	timer.c fileutil.c shrglobs.c
+lincity_SOURCES =  	lclib.c power.c 	simulate.c shrtypes.c lintypes.c 	timer.c fileutil.c shrglobs.c stats.c
 
 lincity_DEPENDENCIES =  	${LC_OBJ}
 
@@ -158,10 +158,11 @@ X_LIBS = @X_LIBS@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_PRE_LIBS = @X_PRE_LIBS@
 xlincity_OBJECTS =  lclib.o power.o ldsvguts.o engine.o transport.o \
-market.o simulate.o shrtypes.o lintypes.o timer.o fileutil.o shrglobs.o
+market.o simulate.o shrtypes.o lintypes.o timer.o fileutil.o shrglobs.o \
+stats.o
 xlincity_LDFLAGS = 
 lincity_OBJECTS =  lclib.o power.o simulate.o shrtypes.o lintypes.o \
-timer.o fileutil.o shrglobs.o
+timer.o fileutil.o shrglobs.o stats.o
 lincity_LDFLAGS = 
 xpicedit_OBJECTS = 
 xpicedit_DEPENDENCIES =  x_picedit.o
@@ -182,14 +183,13 @@ DATA =  $(pkgdata_DATA)
 HEADERS =  $(noinst_HEADERS)
 
 DIST_COMMON =  README ./stamp-h.in ABOUT-NLS COPYING Makefile.am \
-Makefile.in TODO acconfig.h acinclude.m4 aclocal.m4 config.guess \
-config.h.in config.sub configure configure.in install-sh missing \
-mkinstalldirs
+Makefile.in TODO acconfig.h acinclude.m4 aclocal.m4 config.h.in \
+configure configure.in install-sh missing mkinstalldirs
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
-TAR = gtar
+TAR = tar
 GZIP_ENV = --best
 DEP_FILES =  .deps/cliglobs.P .deps/dialbox.P .deps/engine.P \
 .deps/fileutil.P .deps/geometry.P .deps/lchelp.P .deps/lclib.P \
@@ -197,7 +197,7 @@ DEP_FILES =  .deps/cliglobs.P .deps/dialbox.P .deps/engine.P \
 .deps/main.P .deps/market.P .deps/module_buttons.P .deps/mouse.P \
 .deps/mps.P .deps/pbar.P .deps/picedit.P .deps/pixmap.P .deps/power.P \
 .deps/screen.P .deps/shrglobs.P .deps/shrtypes.P .deps/simulate.P \
-.deps/splash.P .deps/timer.P .deps/transport.P
+.deps/splash.P .deps/stats.P .deps/timer.P .deps/transport.P
 SOURCES = $(xlincity_SOURCES) $(EXTRA_xlincity_SOURCES) $(lincity_SOURCES) $(xpicedit_SOURCES) $(EXTRA_xpicedit_SOURCES) $(picedit_SOURCES) $(EXTRA_picedit_SOURCES)
 OBJECTS = $(xlincity_OBJECTS) $(lincity_OBJECTS) $(xpicedit_OBJECTS) $(picedit_OBJECTS)
 
@@ -497,7 +497,7 @@ distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
-	    cp -pr $$/$$file $(distdir)/$$file; \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
 	  else \
 	    test -f $(distdir)/$$file \
 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
