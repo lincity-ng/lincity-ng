@@ -2,7 +2,7 @@
                      **  Welcome to lincity  **
 
 
-This is the README for LinCity BETA 1 (Version 1.12-pre42 or later)
+This is the README for LinCity, pre-release version.  
 
 
 WHAT IS LINCITY
@@ -19,22 +19,36 @@ broke and build rockets to escape from a pollution ridden and resource
 starved planet, it's up to you. Due to the finite resources available in any
 one place, this is not a game that you can leave for long periods of time.
 
-The LinCity home page is located at:
+Lincity recently moved to sourceforge.net.  This brings new CVS
+access, mailing lists, and web pages.  If you are subscribed to 
+lincity-users@floot.demon.co.uk, please also subscribe to the new
+list, shown below, and make all of your posts there.  Please also note
+the new home page, which is not yet complete.  Anyone with an eye for
+design and a desire to help is welcome to make suggestions or design a
+page to replace this one.
 
-    http://www.floot.demon.co.uk/lincity.html
+The LinCity home page is now located at:
 
-Or to join the mailing list, send mail to:
+    http://lincity.sourceforge.net
 
-      majordomo@floot.demon.co.uk   with
+The official users mailing list (mailman) can be subscribed to by visiting:
 
-      subscribe lincity     in the body of your mail.
+    http://lists.sourceforge.net/lists/listinfo/lincity-users
 
+CVS commit notification can be had at:
+
+    http://lists.sourceforge.net/lists/listinfo/lincity-commits    
+
+Additionally, our sorceforge page is:
+
+    http://sourceforge.net/projects/lincity/
 
 REQUIREMENTS
 ============
 
    *  SVGALIB 1.3.0 (or greater).  This is required to use new mouse 
       interface that uses parameters spec'd in /etc/vga/libvga.conf.
+      NOTE: SVGA is currently mostly untested.  Caveat emptor.
 
       OR	 X11.
 
@@ -51,13 +65,13 @@ REQUIREMENTS
 INSTALLATION (UNIX)
 ===================
 
-To install LinCity, (as root) untar the file lincity-1.12.tar.gz 
+To install LinCity, (as root) untar the file lincity-1.12pre48.tar.gz 
 
-     tar -xzvf lincity-1.12.tar.gz
+     tar -xzvf lincity-1.12pre48.tar.gz
 
 You now want to compile the source
 
-      cd lincity-1.12
+      cd lincity-1.12pre48
       ./configure
       make
       make install
@@ -128,8 +142,10 @@ The following options apply to both.
 
 This option only applies to xlincity.
 
-        -b   Do not include the extra border around the game.
+	-r   Add an extra border around the game.
         -d   Double the size of the window to 1280x960
+
+	-b   *obsolete* omit border around game.  Now on by default.
 
 
 INTERNATIONALIZATION
@@ -291,15 +307,19 @@ an intergalactic space simulation with all the trimmings.  But from
 1998-1999, LinCity underwent a period of hibernation, with only minor 
 patches being applied.  
 
-Development has been restarted in late 1999 by Greg Sharp to provide some 
-moderate improvents, including networking support, GUI improvements and 
-perhaps some additional gameplay developments.  Version 1.12 is the results 
-of this effort.
+Development was restarted in late 1999 by Greg Sharp to provide
+some moderate improvents, including networking support, GUI
+improvements and additional gameplay developments.  
 
+In mid-2001, Greg was joined by Corey Keasling, who helped to bring
+the game to sourceforge.net.  In late 2001, Corey became
+co-maintainer.  Having him partially in charge is a devastating blow
+to the game, ensuring no stable release until lincity 1.12pre2451.
 
 COPYRIGHT
 =========
 LinCity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
+Portions are copyright (c) Corey Keasling 2000-2001.
 
 You may freely copy, distribute and modify lincity under the terms of the
 
