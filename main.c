@@ -636,7 +636,6 @@ execute_timestep (void)
 #if defined (WIN32)
 	DisableWindowsMenuItems ();
 #endif
-	/* GCS:  Why not quit during help? */
 	if (yn_dial_box (_("Quit The Game?")
 			 ,_("Do you really want to quit?")
 			 ,_("If you want to save the game select NO.")

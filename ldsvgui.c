@@ -342,6 +342,7 @@ do_save_city ()
     cs_mouse_handler (0, 1, 0);
     hide_mouse ();
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+    save_flag = 0;
     refresh_main_screen ();
     redraw_mouse ();
 }
@@ -442,6 +443,7 @@ do_load_city (void)
     cs_mouse_handler (0, 1, 0);
     hide_mouse ();
     Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+    load_flag = 0;
     refresh_main_screen ();
     suppress_ok_buttons = 1;
     update_select_buttons ();

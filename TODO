@@ -12,9 +12,6 @@ BUGS and MISFEATURES -- CRITICAL FOR FINAL VERSION
 
 BUGS and MISFEATURES and MISSING FEATURES -- NON-CRITICAL
 
-  o Try pausing the game, and then hitting 'q' to quit.
-    Or hit 'l' to load and then space to cancel.
-
   o I found inconsistent behavior with using the middle mouse button
     (mmb).  Clicking with mmb on mini-map causes the main win to jump, and
     then jump back before scrolling.  Clicking mmb on other displays (finance
