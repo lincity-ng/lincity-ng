@@ -9,17 +9,17 @@
             <TableLayout rows="1" cols="2">
                 <cell row="1" col="1">
                     <Button name="ZoomInButton">
-                        <image src="images/gui/new_button_bg2.png"/>
-                        <image-hover src="images/gui/new_button_bg1.png"/>
-                        <image-clicked src="images/gui/new_button_bg0.png"/>
+                        <image src="images/gui/buttonpanel/background/button.png"/>
+                        <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                        <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
                         <image-caption src="images/gui/zoomin.png"/>
                     </Button>
                 </cell>
                 <cell row="1" col="2">
                     <Button name="ZoomOutButton">
-                        <image src="images/gui/new_button_bg2.png"/>
-                        <image-hover src="images/gui/new_button_bg1.png"/>
-                        <image-clicked src="images/gui/new_button_bg0.png"/>
+                        <image src="images/gui/buttonpanel/background/button.png"/>
+                        <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                        <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
                         <image-caption src="images/gui/zoomout.png"/>
                     </Button>
                 </cell>
@@ -121,33 +121,33 @@
                     <TableLayout rows="1" cols="4">
                         <cell row="1" col="1">
                             <Button name="SpeedPauseButton">
-                                <image src="images/gui/new_button_bg2.png"/>
-                                <image-hover src="images/gui/new_button_bg1.png"/>
-                                <image-clicked src="images/gui/new_button_bg0.png"/>
+                                <image src="images/gui/buttonpanel/background/button.png"/>
+                                <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                                <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
                                 <image-caption src="images/gui/speed/pause.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="2">
                             <Button name="SpeedSlowButton">
-                                <image src="images/gui/new_button_bg2.png"/>
-                                <image-hover src="images/gui/new_button_bg1.png"/>
-                                <image-clicked src="images/gui/new_button_bg0.png"/>
+                                <image src="images/gui/buttonpanel/background/button.png"/>
+                                <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                                <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
                                 <image-caption src="images/gui/speed/normal.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="3">
                             <Button name="SpeedNormalButton">
-                                <image src="images/gui/new_button_bg2.png"/>
-                                <image-hover src="images/gui/new_button_bg1.png"/>
-                                <image-clicked src="images/gui/new_button_bg0.png"/>
+                                <image src="images/gui/buttonpanel/background/button.png"/>
+                                <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                                <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
                                 <image-caption src="images/gui/speed/fast.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="4">
                             <Button name="SpeedFastButton">
-                                <image src="images/gui/new_button_bg2.png"/>
-                                <image-hover src="images/gui/new_button_bg1.png"/>
-                                <image-clicked src="images/gui/new_button_bg0.png"/>
+                                <image src="images/gui/buttonpanel/background/button.png"/>
+                                <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
+                                <image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
                                 <image-caption src="images/gui/speed/faster.png"/>
                             </Button>
                         </cell>
