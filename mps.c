@@ -58,11 +58,17 @@ mps_handler(int x, int y, int button)
     }
 }
 
-/* mps_init: register mouse handles */
+/* mps_init(): Initialize mps vars and mouse handles */
 
 void
 mps_init() 
 {
+    mps_style = MPS_GLOBAL;
+    mps_global_style = MPS_GLOBAL_FINANCE;
+
+    mps_x = 0;
+    mps_y = 0;
+
     mps_handle = mouse_register(&scr.mappoint_stats,&mps_handler);
 }
 
@@ -340,8 +346,6 @@ mps_store_sss(int i, char * s1, char * s2, char * s3)
     int c = (MPS_INFO_CHARS) / 3;
     int m = (MPS_INFO_CHARS) % 3;
 
-    printf("Math: %d == %d * 3 + %d == %d\n", MPS_INFO_CHARS, c, m, (c*3)+m);
-
     if (i > MAPPOINT_STATS_LINES) {
 	return;
     }
@@ -525,22 +529,6 @@ mps_global_other_costs (void)
     mps_store_ss(i++,_("Recycle"),s);
 }
 
-#ifdef old_mps
-void 
-mps_global_housing_setup (void)
-{
-    Rect* mps = &scr.mappoint_stats;
-    Fgl_write (mps->x + 32, mps->y + 2, _("PEOPLE"));
-    Fgl_write (mps->x + 4, mps->y + 1*8+6, _("Pop"));
-    Fgl_write (mps->x + 4, mps->y + 2*8+6, _("Housed"));
-    Fgl_write (mps->x + 4, mps->y + 3*8+6, _("Housed %"));
-    Fgl_write (mps->x + 4, mps->y + 4*8+6, _("Shanties"));
-
-    Fgl_write (mps->x + 4, mps->y + 6*8+6, _("Unn Dths"));
-    Fgl_write (mps->x + 4, mps->y + 7*8+6, _("Unemp %"));
-    Fgl_write (mps->x + 4, mps->y + 8*8+6, _("Starv %"));
-}
-#endif
 
 void 
 mps_global_housing (void)
@@ -568,21 +556,6 @@ mps_global_housing (void)
 
 
 #ifdef old_mps
-
-void
-mappoint_stats (int x, int y, int button)
-{
-
-  /* XXX: Move this into mouse handler */
-	if (mappoint_stats_flag == 1 && x == xx && y == yy
-	    && oldbut == LC_MOUSE_LEFTBUTTON
-	    && button == LC_MOUSE_LEFTBUTTON)
-	{
-
-	}
-
-}
-
 
 void 
 mps_global_pop_setup (void)

@@ -7,18 +7,6 @@
 #ifndef __mps_h__
 #define __mps_h__
 
-#ifdef old_mps
-/* Note: these should not overlap with the LC_MOUSE_BUTTON defines.
-   See mappoint_stats() for details.  Sorry about the bad hack (GCS). */
-#define MPS_GLOBAL_FINANCE 0x10
-#define MPS_GLOBAL_OTHER_COSTS 0x11
-#define MPS_GLOBAL_HOUSING 0x12
-
-#define MPS_GLOBAL_STYLE_MIN MPS_GLOBAL_FINANCE
-#define MPS_GLOBAL_STYLE_MAX MPS_GLOBAL_HOUSING
-
-#endif
-
 #include "geometry.h"
 #include "cliglobs.h"
 

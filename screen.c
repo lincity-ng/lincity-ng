@@ -1614,27 +1614,6 @@ initialize_print_stats (void)
 #endif
 }
 
-#ifdef old_mps
-
-void
-advance_mps_style (void)
-{
-    mps_global_style = mps_global_style++;
-    if (mps_global_style > MPS_GLOBAL_STYLE_MAX) {
-	mps_global_style = MPS_GLOBAL_STYLE_MIN;
-    }
-    mps_global_style_timeout = real_time + 6000;
-}
-#endif
-
-#ifdef old_mps
-void
-refresh_mps (void)
-{
-    mappoint_stats (-2, -2, mps_global_style);
-}
-#endif
-
 void
 advance_monthgraph_style (void)
 {
@@ -1711,22 +1690,11 @@ print_stats (void)
 	}
 	if (real_time > mps_global_style_timeout) {
 	    if (time_multiplex_stats) {
-#ifdef old_mps
-		advance_mps_style ();
-#else
 		mps_global_advance ();
-#endif
 	    }
 	}
-#ifdef old_mps
-	if (!mappoint_stats_flag) {
-	    mappoint_stats (-2, -2, mps_global_style);
-	} else {
-	    mappoint_stats (-1, -1, -1);
-	}
-#else
+
 	mps_update();
-#endif
 
     }
   
