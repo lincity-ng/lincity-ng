@@ -134,6 +134,13 @@ update_main_screen (void)
 #endif
     if (help_flag || load_flag || save_flag)
 	return;
+
+    if (main_screen_originx > WORLD_SIDE_LEN - b->w / 16 - 1)
+	main_screen_originx = WORLD_SIDE_LEN - b->w / 16 - 1;
+
+    if (main_screen_originy > WORLD_SIDE_LEN - b->w / 16 - 1)
+	main_screen_originy = WORLD_SIDE_LEN - b->w / 16 - 1;
+
     xm = main_screen_originx;
     if (xm > 3)
 	xm = 3;
