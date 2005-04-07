@@ -22,12 +22,16 @@ Programming
  [M] Images in helptext.
  [H] image-component should be resizable (eg main menu)
  [L] drawToTexture in OpenGL (noone using this at the moment, could be used to
-         optimize minimap in the future)
+     optimize minimap in the future)
  [M] Add tooltips for buttonpanel
  [M] Scale background images in menu
+ [L] Add maximize for Windows (see Window.cpp 74 ff)
+ [?] Discuss if the colors on the minimap can be improved
 
 --Bugs--
-
+ [H] When zooming in and out, minimap represenation of the gameview in the minimap
+     produces bad results (see
+     http://netpanzer.berlios.de/lincity/uploads/lincity-ng-2005-04-05.png )
 
 --Game--
  [H] load/save game
@@ -36,6 +40,8 @@ Programming
  [H] ingame music
  [H] Credits (simple text for now)
  [M] "Loading..." screen (startup, run game)
+ [L] Use progress bar images provided in data/mainmenu/progressbar
+     for "Loading..." menu 
  [M] Statisitcs dialog
  [M] Statistics graph
  [H] Dialogs for buildings (Harbour, Rocket)

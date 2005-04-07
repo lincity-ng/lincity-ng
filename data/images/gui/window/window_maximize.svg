@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="20.000000px"
+   height="20.000000px"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.41"
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/window"
+   sodipodi:docname="window_maximize.svg"
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_close.png"
+   inkscape:export-xdpi="90.000000"
+   inkscape:export-ydpi="90.000000">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient4204">
+      <stop
+         style="stop-color:#55c329;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop4206" />
+      <stop
+         style="stop-color:#2b7d0a;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop4208" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4405">
+      <stop
+         style="stop-color:#c3c3c3;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop4407" />
+      <stop
+         style="stop-color:#919191;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop4409" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3618">
+      <stop
+         style="stop-color:#ff4a4a;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop3619" />
+      <stop
+         style="stop-color:#bc2a2a;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop3620" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4960">
+      <stop
+         id="stop4962"
+         offset="0.0000000"
+         style="stop-color:#ffffff;stop-opacity:0.73092371;" />
+      <stop
+         id="stop4964"
+         offset="1.0000000"
+         style="stop-color:#ffffff;stop-opacity:0.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2812">
+      <stop
+         style="stop-color:#303030;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop2814" />
+      <stop
+         style="stop-color:#b3b3b3;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop2816" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2812"
+       id="linearGradient3614"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(1.011153,1.010973)"
+       x1="16.189846"
+       y1="17.190893"
+       x2="1.2324450"
+       y2="-0.39325574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2812"
+       id="linearGradient3616"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(1.011153,1.010973)"
+       x1="2.6197338"
+       y1="0.016188154"
+       x2="17.950672"
+       y2="19.847095" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4960"
+       id="linearGradient3623"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.075957,0.000000,0.000000,0.929405,0.353553,-0.441942)"
+       x1="5.2469473"
+       y1="2.8582325"
+       x2="8.3656864"
+       y2="8.4963865" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2812"
+       id="linearGradient3637"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.011153,0.000000,0.000000,1.010973,22.75000,0.000000)"
+       x1="16.189846"
+       y1="17.190893"
+       x2="1.2324450"
+       y2="-0.39325574" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2812"
+       id="linearGradient3639"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.011153,0.000000,0.000000,1.010973,22.75000,0.000000)"
+       x1="2.6197338"
+       y1="0.016188154"
+       x2="17.950672"
+       y2="19.847095" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2812"
+       id="linearGradient4423"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(1.000089,0.999911)"
+       x1="46.836864"
+       y1="-1.0711026"
+       x2="62.739948"
+       y2="21.473057" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2812"
+       id="linearGradient4425"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="scale(1.000089,0.999911)"
+       x1="62.073170"
+       y1="19.621099"
+       x2="49.252834"
+       y2="-0.83020085" />
+    <linearGradient
+       y2="1027.3083"
+       x2="370.32205"
+       y1="824.52606"
+       x1="192.48090"
+       gradientTransform="matrix(4.417042e-2,0.000000,0.000000,4.196135e-2,-6.842060,-29.73510)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient1340"
+       xlink:href="#linearGradient4405"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="-0.39325574"
+       x2="1.2324450"
+       y1="17.190893"
+       x1="16.189846"
+       gradientTransform="matrix(1.011153,0.000000,0.000000,1.010973,22.71581,0.000000)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4196"
+       xlink:href="#linearGradient2812"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="19.847095"
+       x2="17.950672"
+       y1="0.016188154"
+       x1="2.6197338"
+       gradientTransform="matrix(1.011153,0.000000,0.000000,1.010973,22.71581,0.000000)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4198"
+       xlink:href="#linearGradient2812"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="1027.3083"
+       x2="370.32205"
+       y1="824.52606"
+       x1="192.48090"
+       gradientTransform="matrix(4.417042e-2,0.000000,0.000000,4.196135e-2,15.87375,-29.73510)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4200"
+       xlink:href="#linearGradient4204"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="8.4963865"
+       x2="8.3656864"
+       y1="2.8582325"
+       x1="5.2469473"
+       gradientTransform="matrix(1.075957,0.000000,0.000000,0.929405,23.06936,-0.441942)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4202"
+       xlink:href="#linearGradient4960"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="-0.39325574"
+       x2="1.2324450"
+       y1="17.190893"
+       x1="16.189846"
+       gradientTransform="matrix(1.011153,0.000000,0.000000,1.010973,44.98967,0.000000)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4220"
+       xlink:href="#linearGradient2812"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="19.847095"
+       x2="17.950672"
+       y1="0.016188154"
+       x1="2.6197338"
+       gradientTransform="matrix(1.011153,0.000000,0.000000,1.010973,44.98967,0.000000)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4222"
+       xlink:href="#linearGradient2812"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="1027.3083"
+       x2="370.32205"
+       y1="824.52606"
+       x1="192.48090"
+       gradientTransform="matrix(4.417042e-2,0.000000,0.000000,4.196135e-2,38.14761,-29.73510)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4224"
+       xlink:href="#linearGradient4204"
+       inkscape:collect="always" />
+    <linearGradient
+       y2="8.4963865"
+       x2="8.3656864"
+       y1="2.8582325"
+       x1="5.2469473"
+       gradientTransform="matrix(1.075957,0.000000,0.000000,0.929405,45.34322,-0.441942)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient4226"
+       xlink:href="#linearGradient4960"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:guide-bbox="true"
+     showguides="true"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.313708"
+     inkscape:cx="32.875948"
+     inkscape:cy="9.1459497"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="640"
+     inkscape:window-height="546"
+     inkscape:window-x="632"
+     inkscape:window-y="381" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         rdf:about=""
+         id="Work6">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           id="type9"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:url(#linearGradient4196);fill-opacity:1.0000000;stroke:none;stroke-width:2.9499996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="rect4186"
+       width="19.995689"
+       height="19.992136"
+       x="22.715805"
+       y="0.0000000"
+       rx="2.5132282"
+       ry="2.5132282"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-hover.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+    <rect
+       style="fill:url(#linearGradient4198);fill-opacity:1.0000000;stroke:none;stroke-width:2.9499996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="rect4188"
+       width="17.467585"
+       height="17.464479"
+       x="23.979858"
+       y="1.2638285"
+       rx="2.5132282"
+       ry="2.5132282"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-hover.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+    <path
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-hover.png"
+       id="path4190"
+       d="M 25.902385,3.2727476 L 27.964885,18.147747 L 38.308635,17.085247 L 40.464885,4.5539976 L 25.902385,3.2727476 z M 27.089885,6.3664976 L 39.308635,7.1789976 L 37.714885,16.397747 L 28.589885,17.335247 L 27.089885,6.3664976 z "
+       style="fill:#000000;fill-opacity:0.55294120;fill-rule:evenodd;stroke:none;stroke-width:0.21525852;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-hover.png"
+       id="path4192"
+       d="M 25.522944,2.6799175 L 27.585444,17.554917 L 37.929193,16.492417 L 40.085443,3.9611675 L 25.522944,2.6799175 z M 26.710444,5.7736675 L 38.929193,6.5861675 L 37.335443,15.804917 L 28.210444,16.742417 L 26.710444,5.7736675 z "
+       style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:0.21525852;stroke:#494949;fill-rule:evenodd;fill-opacity:1.0;fill:url(#linearGradient4200)" />
+    <path
+       sodipodi:nodetypes="cssss"
+       id="path4194"
+       d="M 26.729582,3.5070371 C 25.787657,4.0006446 27.033182,5.6755617 26.937376,5.2448744 C 26.625012,3.8406807 27.418231,4.2960591 28.904963,4.2449649 C 30.914885,4.1758905 34.819762,4.4359726 35.581791,4.2442013 C 35.936311,4.1549831 27.326600,3.1941753 26.729582,3.5070371 z "
+       style="fill:url(#linearGradient4202);fill-opacity:1.0000000;fill-rule:evenodd;stroke:none;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-hover.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+    <rect
+       style="fill:url(#linearGradient3614);fill-opacity:1.0000000;stroke:none;stroke-width:2.9499996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="rect1291"
+       width="19.995689"
+       height="19.992136"
+       x="0.0000000"
+       y="0.0000000"
+       rx="2.5132282"
+       ry="2.5132282"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+    <rect
+       style="fill:url(#linearGradient3616);fill-opacity:1.0000000;stroke:none;stroke-width:2.9499996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="rect2052"
+       width="17.467585"
+       height="17.464479"
+       x="1.2640532"
+       y="1.2638285"
+       rx="2.5132282"
+       ry="2.5132282"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+    <path
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize.png"
+       id="path2102"
+       d="M 3.1865801,3.2727476 L 5.2490801,18.147747 L 15.592830,17.085247 L 17.749080,4.5539976 L 3.1865801,3.2727476 z M 4.3740801,6.3664976 L 16.592830,7.1789976 L 14.999080,16.397747 L 5.8740801,17.335247 L 4.3740801,6.3664976 z "
+       style="fill:#000000;fill-opacity:0.55294120;fill-rule:evenodd;stroke:none;stroke-width:0.21525852;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize.png"
+       id="path3580"
+       d="M 2.8071384,2.6799175 L 4.8696384,17.554917 L 15.213388,16.492417 L 17.369638,3.9611675 L 2.8071384,2.6799175 z M 3.9946384,5.7736675 L 16.213388,6.5861675 L 14.619638,15.804917 L 5.4946384,16.742417 L 3.9946384,5.7736675 z "
+       style="fill:url(#linearGradient1340);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#494949;stroke-width:0.21525852;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="cssss"
+       id="path3584"
+       d="M 4.0137765,3.5070371 C 3.0718515,4.0006446 4.3173768,5.6755617 4.2215703,5.2448744 C 3.9092071,3.8406807 4.7024253,4.2960591 6.1891577,4.2449649 C 8.1990800,4.1758905 12.103957,4.4359726 12.865986,4.2442013 C 13.220506,4.1549831 4.6107945,3.1941753 4.0137765,3.5070371 z "
+       style="fill:url(#linearGradient3623);fill-opacity:1.0000000;fill-rule:evenodd;stroke:none;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+    <rect
+       style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:2.9499996;stroke:none;fill-opacity:1.0;fill:url(#linearGradient4423)"
+       id="rect4411"
+       width="19.995689"
+       height="19.992136"
+       x="45.000000"
+       y="0.0000000"
+       rx="2.5132282"
+       ry="2.5132282"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-clicked.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+    <rect
+       style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:2.9499996;stroke:none;fill-opacity:1.0;fill:url(#linearGradient4425)"
+       id="rect4413"
+       width="17.467585"
+       height="17.464479"
+       x="46.264053"
+       y="1.2638285"
+       rx="2.5132282"
+       ry="2.5132282"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-clicked.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+    <path
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-clicked.png"
+       id="path4214"
+       d="M 48.176249,3.2727476 L 50.238749,18.147747 L 60.582499,17.085247 L 62.738749,4.5539976 L 48.176249,3.2727476 z M 49.363749,6.3664976 L 61.582499,7.1789976 L 59.988749,16.397747 L 50.863749,17.335247 L 49.363749,6.3664976 z "
+       style="fill:#000000;fill-opacity:0.55294120;fill-rule:evenodd;stroke:none;stroke-width:0.21525852;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       inkscape:export-ydpi="90.000000"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-clicked.png"
+       id="path4216"
+       d="M 47.796808,2.6799175 L 49.859308,17.554917 L 60.203057,16.492417 L 62.359307,3.9611675 L 47.796808,2.6799175 z M 48.984308,5.7736675 L 61.203057,6.5861675 L 59.609307,15.804917 L 50.484308,16.742417 L 48.984308,5.7736675 z "
+       style="fill:url(#linearGradient4224);fill-opacity:1.0000000;fill-rule:evenodd;stroke:#494949;stroke-width:0.21525852;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="cssss"
+       id="path4218"
+       d="M 49.003446,3.5070371 C 48.061521,4.0006446 49.307046,5.6755617 49.211240,5.2448744 C 48.898876,3.8406807 49.692095,4.2960591 51.178827,4.2449649 C 53.188749,4.1758905 57.093626,4.4359726 57.855655,4.2442013 C 58.210175,4.1549831 49.600464,3.1941753 49.003446,3.5070371 z "
+       style="fill:url(#linearGradient4226);fill-opacity:1.0000000;fill-rule:evenodd;stroke:none;stroke-width:0.25000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/window/window_maximize-clicked.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000" />
+  </g>
+</svg>
