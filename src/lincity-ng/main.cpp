@@ -186,26 +186,27 @@ int main(int argc, char** argv)
     while( currentArgument < argc ) {
         argStr = argv[ currentArgument ];
         
-        if( argStr == "-v" ){ //show Version & exit
+        if(( argStr == "-v" ) || ( argStr == "--version" )){ //show Version & exit
             std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
             knownArgument = true;
             exit( 0 );
         }
-        if( argStr == "-h" ){ //show Options & exit
+        if(( argStr == "-h" ) || ( argStr == "--help" )){ //show Options & exit
             std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
             std::cout << "Known arguments are:\n";
-            std::cout << "-v show version and exit\n";
-            std::cout << "-h show his text and exit\n";
-            std::cout << "-gl use OpenGL\n";
-            std::cout << "-sdl use SDL (this is default)\n";
+            std::cout << "-v    --version  show version and exit\n";
+            std::cout << "-h    --help     show his text and exit\n";
+            std::cout << "-gl   --gl       use OpenGL\n";
+            std::cout << "-sdl  --sdl      use SDL (this is default)\n";
             knownArgument = true;
             exit( 0 );
         }
-        if( argStr == "-gl" ){ //use OpenGL
+        if(( argStr == "-gl" ) || ( argStr == "--gl" )
+	|| ( argStr == "-opengl" ) || ( argStr == "--opengl" )){ //use OpenGL
             getConfig()->useOpenGL = true; 
             knownArgument = true;
         }
-        if( argStr == "-sdl" ){ //use SGL
+        if(( argStr == "-sdl" ) || ( argStr == "--sdl" )){ //use SGL
             getConfig()->useOpenGL = false; 
             knownArgument = true;
         }
