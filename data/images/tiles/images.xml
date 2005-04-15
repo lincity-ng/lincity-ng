@@ -17,6 +17,30 @@
   <image file="oremine.png" x="258" y="102" />
   <image file="port.png" x="262" y="112" />
   <image file="pottery.png" x="111" y="66" />
+
+<image file="powerlhd.png" x="64" />
+<image file="powerlhl.png" x="64" />
+<image file="powerlldd.png" x="64" />
+<image file="powerlldl.png" x="64" />
+<image file="powerlldrd.png" x="64" />
+<image file="powerlldrl.png" x="64" />
+<image file="powerlldud.png" x="64" />
+<image file="powerlldul.png" x="64" />
+<image file="powerllud.png" x="64" />
+<image file="powerlludrd.png" x="64" />
+<image file="powerlludrl.png" x="64" />
+<image file="powerllul.png" x="64" />
+<image file="powerllurd.png" x="64" />
+<image file="powerllurl.png" x="64" />
+<image file="powerlrdd.png" x="64" />
+<image file="powerlrdl.png" x="64" />
+<image file="powerlrud.png" x="64" />
+<image file="powerlrul.png" x="64" />
+<image file="powerludrd.png" x="64" />
+<image file="powerludrl.png" x="64" />
+<image file="powerlvd.png" x="64" />
+<image file="powerlvl.png" x="64" />
+
   <image file="PowerTower.png" x="111" y="66" />
   <image file="rails.png" x="196" y="69" />
   <image file="residence2.png" x="470" y="384" />
@@ -33,7 +57,15 @@
   <image file="SubStation.png" x="117" y="59" />
   <image file="tuxmonument.png" x="124" y="153" />
   <image file="windmill.png" x="93" y="148" />
-  <image file="windpower2-anim.png" x="134" y="368" />
+  <image file="windmill1g.png" x="134" />
+  <image file="windmill1r.png" x="109" />
+  <image file="windmill1rg.png" x="109" />
+  <image file="windmill2g.png"  x="134" />
+  <image file="windmill2r.png"  x="109" />
+  <image file="windmill2rg.png" x="109" />
+  <image file="windmill3g.png"  x="134" />
+  <image file="windmill3r.png"  x="109" />
+  <image file="windmill3rg.png" x="109" />
   <image file="windpower2.png" x="134" y="368" />
   <image file="windpower.png" x="109" y="111" />
 </resources>

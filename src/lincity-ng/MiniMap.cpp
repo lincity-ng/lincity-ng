@@ -66,7 +66,7 @@ MiniMap* getMiniMap()
 }
     
 MiniMap::MiniMap()
-    : mMode(NORMAL), tilesize(2), mTexture(0)
+    : mMode(NORMAL), tilesize(2), mTexture(0), border(0)
 {   
     assert( miniMapPtr == 0 );
     miniMapPtr = this;
@@ -407,6 +407,7 @@ void MiniMap::event(const Event& event)
         // get Tile, that was clicked
         int tilex = (int) ((event.mousepos.x - border ) / tilesize);
         int tiley = (int) ((event.mousepos.y - border ) / tilesize);
+        //cdebug( "click on tile "<< tilex <<"/"<< tiley );
         getGameView()->show( tilex, tiley );
         //mMode = getNextMode(mMode);
         mFullRefresh=true;

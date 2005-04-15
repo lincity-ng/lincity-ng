@@ -12,6 +12,7 @@
 #include "gui/Paragraph.hpp"
 #include "GameView.hpp"
 #include "Util.hpp"
+#include "gui/ComponentLoader.hpp"
 
 void updateMessageText( const std::string text );
 
@@ -120,8 +121,14 @@ void updateMessageText( const std::string text )
     if( !root ) return;
     while( root->getParent() )
         root = root->getParent();
-   //TODO: test if message Windows is open and cerate it on demand
-    
+   //test if message Windows is open and TODO: create it on demand
+   Component* messageTextComponent = 0;
+   messageTextComponent = root->findComponent( "messageText" );
+   if( messageTextComponent == 0 ) {
+       std::cerr << "updateMessageText: No message window!\n";
+       //root->addChild( loadGUIFile( "gui/messagearea.xml" ));
+       return;
+   }
     Paragraph* messageText = getParagraph( *root, "messageText");
     if( !messageText ) return; 
     
@@ -145,8 +152,13 @@ void updateMessageTitle()
     if( !root ) return;
     while( root->getParent() )
         root = root->getParent();
-   //TODO: test if message Windows is open and cerate it on demand
-    
+   //test if message Windows is open and TODO: create it on demand
+   Component* messageTitleComponent = 0;
+   messageTitleComponent = root->findComponent( "messageTitle" );
+   if( messageTitleComponent == 0 ) {
+       std::cerr << "updateMessageTitle: No message window!\n";
+       return;
+   }
     Paragraph* messageTitle = getParagraph( *root, "messageTitle");
     if( !messageTitle ) return;
     
