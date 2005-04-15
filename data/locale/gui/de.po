@@ -47,11 +47,11 @@ msgstr "Nahrung"
 
 #: data/gui/pbar.xml
 msgid "Goods"
-msgstr "Wahren"
+msgstr "Waren"
 
 #: data/gui/pbar.xml
 msgid "Jobs"
-msgstr "Jobs"
+msgstr "Arbeitsplätze"
 
 #: data/gui/mainmenu.xml data/gui/loadgame.xml
 msgid "Load"
@@ -91,4 +91,4 @@ msgstr "Stahl"
 
 #: data/gui/pbar.xml
 msgid "Tech Level"
-msgstr "Tech Level"
+msgstr "Technologieniveau"

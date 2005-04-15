@@ -29,9 +29,6 @@ Programming
  [?] Discuss if the colors on the minimap can be improved
 
 --Bugs--
- [H] When zooming in and out, minimap represenation of the gameview in the minimap
-     produces bad results (see
-     http://netpanzer.berlios.de/lincity/uploads/lincity-ng-2005-04-05.png )
 
 --Game--
  [H] load/save game

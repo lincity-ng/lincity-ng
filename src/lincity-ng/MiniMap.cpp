@@ -205,6 +205,7 @@ void MiniMap::setGameViewCorners( const Vector2 &upperLeft, const Vector2 &upper
     gameViewPoints[ 1 ] = upperRight * tilesize;
     gameViewPoints[ 2 ] = lowerRight * tilesize;
     gameViewPoints[ 3 ] = lowerLeft * tilesize;
+    mFullRefresh=true;
     setDirty();
 }
 
