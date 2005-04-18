@@ -6,17 +6,37 @@
 #include "gui/ComponentLoader.hpp"
 #include "gui/Component.hpp"
 #include "gui/Event.hpp"
+#include "gui/Button.hpp"
+#include "gui/callback/Callback.hpp"
 
 #include "MainLincity.hpp"
+#include <iostream>
+#include "Util.hpp"
+#include "lincity/lin-city.h"
 
 Game::Game()
 {
     gui.reset(loadGUIFile("gui/app.xml"));
     gui->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+
+    Button* gameMenu = getButton( *gui, "GameMenuButton" );
+    gameMenu->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
 }
 
 Game::~Game()
 {
+}
+
+void Game::gameButtonClicked( Button* button ){
+    std::string name = button->getName();
+    if( name == "GameMenuButton" ) {
+        save_city( "currentGameNG.scn" );
+        running = false;
+        quitState = MAINMENU;
+    }
+    else {
+         std::cerr << " Game::gameButtonClicked unknown button '" << name << "'.\n";
+    }
 }
 
 MainState

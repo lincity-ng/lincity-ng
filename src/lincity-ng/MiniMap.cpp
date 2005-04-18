@@ -403,7 +403,6 @@ void MiniMap::event(const Event& event)
 {
   if(event.type==Event::MOUSEBUTTONDOWN && event.inside)
     {
-        cdebug("mousePos:"<<event.mousepos.x<<","<<event.mousepos.y);
         // move main-map
         // get Tile, that was clicked
         int tilex = (int) ((event.mousepos.x - border ) / tilesize);

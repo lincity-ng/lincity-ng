@@ -3,6 +3,7 @@
 
 #include "main.hpp"
 #include <memory>
+#include "gui/Button.hpp"
 
 class Painter;
 class Sound;
@@ -15,6 +16,7 @@ public:
     ~Game();
 
     MainState run();
+    void gameButtonClicked( Button* button );
 
 private:
     std::auto_ptr<Component> gui;
