@@ -61,6 +61,13 @@ Desktop::event(const Event& event)
         internal_remove(*i);
     }
     removeQueue.clear();
+
+    // process pending child adds...
+    for(std::vector<Component*>::iterator i = addQueue.begin();
+            i != addQueue.end(); ++i) {
+        addChild(*i);
+    }
+    addQueue.clear();
 }
 
 void
@@ -198,3 +205,8 @@ Desktop::setDirty(const Rect2D& rect)
     Component::setDirty(rect);
 }
 
+void
+Desktop::addChildComponent(Component* component)
+{
+    addQueue.push_back(component);
+}

@@ -17,7 +17,7 @@ for file-enumeration (no wildcards) -->
     margin-left="20" margin-right="20"/>
     <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3"
     margin-left="23" margin-right="20"/>
-    <Image src="images/mainmenu/newgame_back.png"/>
+    <Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
     <!-- Split window into title/top - contents and bottom/buttons area -->
     <TableLayout rows="3" cols="1">
         <rowsize row="1" fixed="260"/>

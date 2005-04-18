@@ -44,7 +44,7 @@ Document::parse(XmlReader& reader)
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string node = (const char*) reader.getName();
-            if(node == "p") {
+            if(node == "p" || node=="Paragraph") {
                 std::auto_ptr<Paragraph> paragraph (new Paragraph());
                 paragraph->parse(reader, style);
                 addChild(paragraph.release());

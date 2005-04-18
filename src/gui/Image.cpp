@@ -17,6 +17,8 @@ Image::~Image()
 void
 Image::parse(XmlReader& reader)
 {
+    bool resizable = false;
+    
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
@@ -38,7 +40,16 @@ Image::parse(XmlReader& reader)
             }
         } else if(strcmp(attribute, "src") == 0) {
             filename=value;
-            texture.reset(texture_manager->load(value));        
+            texture.reset(texture_manager->load(value));
+        } else if(strcmp(attribute, "resizable") == 0) {
+            if(strcmp(value, "yes") == 0)
+                resizable = true;
+            else if(strcmp(value, "no") == 0)
+                resizable = false;
+            else
+                std::cerr
+                    << "You should specify 'yes' or 'no' for the resizable"
+                    << "attribute\n";
         } else {
             std::cerr << "Skipping unknown attribute '"
                 << attribute << "'.\n";
@@ -49,6 +60,9 @@ Image::parse(XmlReader& reader)
         width = texture->getWidth();
         height = texture->getHeight();
     }
+
+    if(resizable)
+        flags |= FLAG_RESIZABLE;
 }
 
 void
@@ -61,7 +75,10 @@ Image::resize(float width, float height)
 void
 Image::draw(Painter& painter)
 {
-    painter.drawTexture(texture.get(), Vector2(0, 0));
+    if(width != texture->getWidth() || height != texture->getHeight())
+        painter.drawStretchTexture(texture.get(), Rect2D(0, 0, width, height));
+    else
+        painter.drawTexture(texture.get(), Vector2(0, 0));
 }
 
 std::string Image::getFilename() const

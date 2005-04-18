@@ -10,6 +10,7 @@
 
 #include "gui/Component.hpp"
 #include "gui/Paragraph.hpp"
+#include "gui/Desktop.hpp"
 #include "GameView.hpp"
 #include "Util.hpp"
 #include "gui/ComponentLoader.hpp"
@@ -31,7 +32,7 @@ char* current_month (int current_time);
 void draw_cb_box (int row, int col, int checked);
 
 int ask_launch_rocket_click (int x, int y);
-int ask_launch_rocket_now (int x, int y)
+int ask_launch_rocket_now (int , int )
 {
     return yn_dial_box ("Rocket ready to launch",
 	    "You can launch it now or wait until later.",
@@ -118,21 +119,35 @@ void updateMessageText( const std::string text )
 {
     //Dialog Test
     Component* root = getGameView();
-    if( !root ) return;
+    if(!root) {
+        std::cerr << "Root not found!?!\n";
+        return;
+    }
     while( root->getParent() )
         root = root->getParent();
-   //test if message Windows is open and TODO: create it on demand
-   Component* messageTextComponent = 0;
-   messageTextComponent = root->findComponent( "messageText" );
-   if( messageTextComponent == 0 ) {
-       std::cerr << "updateMessageText: No message window!\n";
-       //root->addChild( loadGUIFile( "gui/messagearea.xml" ));
-       return;
-   }
-    Paragraph* messageText = getParagraph( *root, "messageText");
-    if( !messageText ) return; 
-    
-    messageText->setText( text );
+    Desktop* desktop = dynamic_cast<Desktop*> (root);
+    if(!desktop) {
+        std::cerr << "Root not a desktop!?!\n";
+        return;
+    }
+
+    try {
+        //test if message Windows is open
+        Component* messageTextComponent = 0;
+        messageTextComponent = root->findComponent( "messageText" );
+        if(messageTextComponent == 0) {
+            messageTextComponent = loadGUIFile("gui/messagearea.xml");
+            desktop->addChildComponent(messageTextComponent);
+            assert(messageTextComponent != 0);
+        }
+        Paragraph* messageText = getParagraph(*messageTextComponent, "messageText");
+        
+        messageText->setText( text );
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't display message '" << text << "': "
+            << e.what() << "\n";
+        return;
+    }
 }
 
 /*

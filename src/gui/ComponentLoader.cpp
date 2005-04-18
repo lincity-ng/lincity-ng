@@ -41,16 +41,16 @@ Component* createComponent(const std::string& type, XmlReader& reader)
 Component* loadGUIFile(const std::string& filename)
 {
     XmlReader reader(filename);
-    
-    if(strcmp((const char*) reader.getName(), "gui") != 0) {
-        std::stringstream msg;
-        msg << "XML File '" << filename << "' is not a gui file.";
-        throw std::runtime_error(msg.str());
+   
+    std::string componentName = (const char*) reader.getName();
+    if(componentName == "gui") {
+        std::auto_ptr<Desktop> desktop (new Desktop());
+        desktop->parse(reader);
+        return desktop.release();
     }
-
-    std::auto_ptr<Desktop> desktop (new Desktop());
-    desktop->parse(reader);
-    return desktop.release();
+    
+    std::auto_ptr<Component> component (createComponent(componentName, reader));
+    return component.release();
 }
 
 Component* parseEmbeddedComponent(XmlReader& reader)
@@ -79,3 +79,4 @@ Component* parseEmbeddedComponent(XmlReader& reader)
 
     return component;
 }
+

@@ -15,6 +15,7 @@
 #include "Painter.hpp"
 #include "XmlReader.hpp"
 #include "ComponentFactory.hpp"
+#include "Document.hpp"
 #include "TinyGetText/TinyGetText.hpp"
 
 Paragraph::Paragraph()
@@ -447,7 +448,13 @@ Paragraph::setText(const std::string& newtext, const Style& style)
     textspans.push_back(span);
 
     // rerender text
-    resize(width, height); 
+    resize(width, height);
+
+    // eventually trigger resize of parent document
+    Document* doc = dynamic_cast<Document*> (getParent());
+    if(doc) {
+        doc->resize(doc->getWidth(), doc->getHeight());
+    }
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Paragraph)

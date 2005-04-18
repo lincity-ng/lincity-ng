@@ -28,12 +28,12 @@
 			<image-clicked src="images/gui/scrollbar/scroller_clicked.png"/>
                 </scroller>
             </scrollbar>
-            <contents background="white">
-                <DefineStyle name="normaltext" color="black" font-size="16"/>
-                <DefineStyle name="warningtext" color="red" font-size="16"/>
-                <Paragraph name="messageText" style="normaltext">
-                    Welcome to Lincity NG. 
-                </Paragraph>
+            <contents>
+                <Document background="#ffffff22">
+                    <Paragraph name="messageText">
+                        Welcome to Lincity NG. P
+                    </Paragraph>
+                </Document>
             </contents>
         </ScrollView>
     </contents>
