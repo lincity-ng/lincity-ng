@@ -14,6 +14,7 @@ public:
     ~MainMenu();
 
     MainState run();
+    void gotoMainMenu();
 
 private:
     void loadMainMenu();

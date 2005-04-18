@@ -162,6 +162,9 @@ void mainLoop()
                     if(game.get() == 0)
                         game.reset(new Game());
                     nextstate = game->run();
+                    if(menu.get() == 0)
+                        menu.reset(new MainMenu());
+                    menu->gotoMainMenu();
                 }
                 break;
             default:

@@ -248,6 +248,14 @@ MainMenu::loadGameBackButtonClicked(Button* )
 }
 
 void
+MainMenu::gotoMainMenu()
+{
+    getSound()->playSound( "Click" );
+    loadMainMenu();
+    currentMenu = mainMenu.get();
+}
+
+void
 MainMenu::loadGameLoadButtonClicked(Button *)
 {
     if(mFilename.length())
