@@ -143,6 +143,8 @@ void flipScreenBuffer()
 
 void mainLoop()
 {
+    std::auto_ptr<MainMenu> menu;
+    std::auto_ptr<Game> game;
     MainState state = MAINMENU;
     MainState nextstate;
 
@@ -150,16 +152,16 @@ void mainLoop()
         switch(state) {
             case MAINMENU:
                 {
-                    MainMenu* menu = new MainMenu();
+                    if(menu.get() == 0)
+                        menu.reset(new MainMenu());
                     nextstate = menu->run();
-                    delete menu;
                 }
                 break;
             case INGAME:
                 {
-                    Game* game = new Game();
+                    if(game.get() == 0)
+                        game.reset(new Game());
                     nextstate = game->run();
-                    delete game;
                 }
                 break;
             default:

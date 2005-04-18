@@ -30,7 +30,7 @@ Game::~Game()
 void Game::gameButtonClicked( Button* button ){
     std::string name = button->getName();
     if( name == "GameMenuButton" ) {
-        save_city( "currentGameNG.scn" );
+        save_city( "9_currentGameNG.scn" );
         running = false;
         quitState = MAINMENU;
     }
