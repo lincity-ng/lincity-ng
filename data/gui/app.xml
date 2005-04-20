@@ -28,5 +28,4 @@
         </cell>
     </TableLayout>
     <Import src="gui/helpwindow.xml"/>
-    <Import src="gui/yesnodialog.xml"/>
 </gui>
