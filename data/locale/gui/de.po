@@ -17,13 +17,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: data/gui/yesnodialog.xml
+msgid "Are you sure you want to do this?"
+msgstr "Sind Sie sicher?"
+
 #: data/gui/loadgame.xml data/gui/newgame.xml
 msgid "Back"
 msgstr "Zurück"
 
-#: data/gui/loadgame.xml
-msgid "Choose Savegame"
-msgstr "Gespeichertes Spiel Auswählen"
+#: data/gui/yesnodialog.xml
+msgid "Bulldozing water is expensive"
+msgstr "Gewässer zuschütten ist teuer"
+
+#: data/gui/yesnodialog.xml
+msgid "Bulldozing water is expensive "
+msgstr "Gewässer auffüllen ist teuer "
 
 #: data/gui/newgame.xml
 msgid "Choose Scenario"
@@ -44,6 +52,10 @@ msgstr "Mitwirkende"
 #: data/gui/pbar.xml
 msgid "Food"
 msgstr "Nahrung"
+
+#: data/gui/credits.xml
+msgid "GUI Code, Buildsystem, Bugfixes "
+msgstr ""
 
 #: data/gui/pbar.xml
 msgid "Goods"
@@ -69,6 +81,10 @@ msgstr "Vermögen"
 msgid "New Game"
 msgstr "Neues Spiel"
 
+#: data/gui/yesnodialog.xml
+msgid "No"
+msgstr "Nein"
+
 #: data/gui/pbar.xml
 msgid "Ore"
 msgstr "Erz"
@@ -81,6 +97,36 @@ msgstr "Bevölkerung"
 msgid "Quit"
 msgstr "Beenden"
 
+#: data/gui/loadgame.xml data/gui/newgame.xml
+#, fuzzy
+msgid "Savegame 1"
+msgstr "Gespeichertes Spiel Auswählen"
+
+#: data/gui/loadgame.xml data/gui/newgame.xml
+#, fuzzy
+msgid "Savegame 2"
+msgstr "Gespeichertes Spiel Auswählen"
+
+#: data/gui/loadgame.xml data/gui/newgame.xml
+#, fuzzy
+msgid "Savegame 3"
+msgstr "Gespeichertes Spiel Auswählen"
+
+#: data/gui/loadgame.xml data/gui/newgame.xml
+#, fuzzy
+msgid "Savegame 4"
+msgstr "Gespeichertes Spiel Auswählen"
+
+#: data/gui/loadgame.xml data/gui/newgame.xml
+#, fuzzy
+msgid "Savegame 5"
+msgstr "Gespeichertes Spiel Auswählen"
+
+#: data/gui/loadgame.xml data/gui/newgame.xml
+#, fuzzy
+msgid "Savegame 6"
+msgstr "Gespeichertes Spiel Auswählen"
+
 #: data/gui/newgame.xml
 msgid "Start"
 msgstr "Start"
@@ -92,3 +138,55 @@ msgstr "Stahl"
 #: data/gui/pbar.xml
 msgid "Tech Level"
 msgstr "Technologieniveau"
+
+#: data/gui/mps.xml
+msgid "Text1"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text10"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text2"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text3"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text4"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text5"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text6"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text7"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text8"
+msgstr ""
+
+#: data/gui/mps.xml
+msgid "Text9"
+msgstr ""
+
+#: data/gui/yesnodialog.xml
+msgid ""
+"The costs for bulldozing water is around 100 Billion Trillion Dollars and "
+"could harm the environment, you should think twice before doing such a "
+"stupid thing."
+msgstr ""
+"Die Kosten um Gewässer aufzufüllen sind sehr hoch. Das ist dumm!"
+
+#: data/gui/yesnodialog.xml
+msgid "Yes"
+msgstr "Ja"

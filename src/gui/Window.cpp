@@ -87,34 +87,40 @@ Window::parse(XmlReader& reader)
         }
     }
 
-    if(closeButton().getComponent() == 0)
-        throw std::runtime_error("No closeButton specified.");
-
     // layout
-    float closeButtonHeight = closeButton().getComponent()->getHeight();
-    if(titlesize < closeButtonHeight) {
-        titlesize = closeButtonHeight;
-    }
+    float closeButtonHeight = 0;
+    float closeButtonWidth = 0;
+    float closeButtonBorder = 0;
+    if(closeButton().getComponent() != 0) {
+        closeButtonHeight = closeButton().getComponent()->getHeight();
+        if(titlesize < closeButtonHeight) {
+            titlesize = closeButtonHeight;
+        }
 
-    float closeButtonWidth = closeButton().getComponent()->getWidth();
-    float closeButtonBorder = (titlesize - closeButtonHeight) / 2;
-    closeButtonWidth += 2*closeButtonBorder;
-    closeButtonHeight += 2*closeButtonBorder;
+        closeButtonWidth = closeButton().getComponent()->getWidth();
+        closeButtonBorder = (titlesize - closeButtonHeight) / 2;
+        closeButtonWidth += 2*closeButtonBorder;
+        closeButtonHeight += 2*closeButtonBorder;
+    }
 
     float compWidth = width - 2*border;
     float compHeight = height - 2*border;
     title().setPos(Vector2(border, border));
     title().getComponent()->resize(compWidth - closeButtonWidth, titlesize);
-    closeButton().setPos(Vector2(
-          border + compWidth - closeButtonWidth + closeButtonBorder,
-          border + closeButtonBorder));
+    if(closeButton().getComponent() != 0) {
+        closeButton().setPos(Vector2(
+                    border + compWidth - closeButtonWidth + closeButtonBorder,
+                    border + closeButtonBorder));
+    }
     contents().setPos(Vector2(border, border + titlesize));
     contents().getComponent()->resize(compWidth, compHeight - titlesize);
 
     // connect signals...
-    Button* button = (Button*) closeButton().getComponent();
-    button->clicked.connect(
-        makeCallback(*this, &Window::closeButtonClicked));
+    if(closeButton().getComponent() != 0) {
+        Button* button = (Button*) closeButton().getComponent();
+        button->clicked.connect(
+                makeCallback(*this, &Window::closeButtonClicked));
+    }
 }
 
 void
