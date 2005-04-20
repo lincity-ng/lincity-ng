@@ -6,14 +6,17 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <stdio.h>
 
 #include "lincity/simulate.h"
 #include "lincity/lin-city.h"
 #include "lincity/lc_locale.h"
 #include "lincity/fileutil.h"
+#include "lincity/ldsvguts.h"
 
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/mps.h"
+#include "gui_interface/shared_globals.h"
 
 #include "TimerInterface.hpp"
 
@@ -108,10 +111,23 @@ void initLincity()
   reset_start_time ();
   
   screen_full_refresh ();
-  
-  
-  load_city("data/opening/good_times.scn");
-  
+
+  //load current game if it exists
+  //ldsvguts.cpp load_saved_city (char *s)
+  //does not work if file is missing...
+    char* s = "9_currentGameNG.scn";
+    char *cname = (char *) malloc (strlen (lc_save_dir) + strlen (s) + 2);
+    sprintf (cname, "%s%c%s", lc_save_dir, PATH_SLASH, s);
+    if( file_exists( cname ) ){   
+        printf("Found city from last time.\n");
+        load_city (cname);
+    }
+    else {
+        //create a new City just in case
+        printf("No old city found.\n");
+        new_city( &main_screen_originx, &main_screen_originy, 0 );
+    }
+    free (cname);
 }
 
 

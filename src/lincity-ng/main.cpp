@@ -50,7 +50,7 @@ void initPhysfs(const char* argv0)
         msg << "Couldn't initialize physfs: " << PHYSFS_getLastError();
         throw std::runtime_error(msg.str());
     }
-    if(!PHYSFS_setSaneConfig("devs", PACKAGE, ".zip", 0, 1)) {
+    if(!PHYSFS_setSaneConfig("lincity", PACKAGE, ".zip", 0, 1)) {
         std::stringstream msg;
         msg << "Couldn't set physfs config: " << PHYSFS_getLastError();
         throw std::runtime_error(msg.str());
@@ -198,11 +198,12 @@ int main(int argc, char** argv)
         }
         if(( argStr == "-h" ) || ( argStr == "--help" )){ //show Options & exit
             std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
+            std::cout << "Command line overrides configfiles.\n";
             std::cout << "Known arguments are:\n";
             std::cout << "-v    --version  show version and exit\n";
             std::cout << "-h    --help     show his text and exit\n";
             std::cout << "-gl   --gl       use OpenGL\n";
-            std::cout << "-sdl  --sdl      use SDL (this is default)\n";
+            std::cout << "-sdl  --sdl      use SDL\n";
             knownArgument = true;
             exit( 0 );
         }
@@ -250,7 +251,7 @@ int main(int argc, char** argv)
         result = 1;
     }
 #endif
-
+    getConfig()->save();
     delete painter;
     delete texture_manager;
     if(TTF_WasInit())

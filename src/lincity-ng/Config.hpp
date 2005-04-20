@@ -22,9 +22,9 @@ public:
     bool musicEnabled;
     std::string lincityHome;
 
+    void save();
 private:
     void load( const std::string& filename );
-    void save();
     int parseInt(const char* value, int defaultValue, int minValue = MININT, 
             int maxValue = MAXINT );
     bool parseBool(const char* value, bool defaultvalue);

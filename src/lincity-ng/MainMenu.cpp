@@ -13,6 +13,7 @@
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
 
+#include "gui_interface/shared_globals.h"
 #include "lincity/lin-city.h"
 
 #include "CheckButton.hpp"
@@ -60,7 +61,7 @@ void MainMenu::fillNewGameMenu()
 {
   char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
   
-  char **files= PHYSFS_enumerateFiles("data/opening");
+  char **files= PHYSFS_enumerateFiles("opening");
   
   char **fptr=files;
  
@@ -91,9 +92,15 @@ void MainMenu::fillNewGameMenu()
 void MainMenu::fillLoadMenu()
 {
   char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
-  //char *scenario[]={"Scenario0","Scenario1"};
-  
-  char **files= PHYSFS_enumerateFiles("data/savegames");
+  //TODO: read savegames from ~/.lincity so we can use the original save_game()
+  /*
+  std::string lincitydir = PHYSFS_getUserDir();
+  lincitydir+="/.lincity"; 
+  char **files= PHYSFS_enumerateFiles( lincitydir.c_str() ); 
+  //quickfix: ~/.devs/lincityng/ is a symlink to ~/.lincity
+  */
+
+  char **files= PHYSFS_enumerateFiles( "savegames" );
   
   char **fptr=files;
  
@@ -135,6 +142,12 @@ MainMenu::loadNewGameMenu()
         Button* backButton = getButton(*newGameMenu, "BackButton");
         backButton->clicked.connect(
                 makeCallback(*this, &MainMenu::newGameBackButtonClicked));
+        Button* startBareButton = getButton(*newGameMenu, "StartBareButton");
+        startBareButton->clicked.connect(
+                makeCallback(*this, &MainMenu::newGameStartBareButtonClicked));
+        Button* startVillageButton = getButton(*newGameMenu, "StartVillageButton");
+        startVillageButton->clicked.connect(
+                makeCallback(*this, &MainMenu::newGameStartVillageClicked));
         fillNewGameMenu();
     }
 
@@ -168,15 +181,15 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
   
   std::string file="";
   if(button->getName()=="Scenario0")
-    file="data/opening/good_times.scn";
+    file="opening/good_times.scn";
   else if(button->getName()=="Scenario1")
-    file="data/opening/bad_times.scn";
+    file="opening/bad_times.scn";
   else if(fc.length())
   {
     if(newGameMenu.get()==currentMenu)
-      file=std::string("data/opening/")+fc+".scn";
+      file=std::string("opening/")+fc+".scn";
     else
-      file=std::string("data/savegames/")+fc+".scn";
+      file=std::string("savegames/")+fc+".scn";
   }
   char *bs[]={"File0","File1","File2","File3","File4","File5",""};
   for(int i=0;std::string(bs[i]).length();i++)
@@ -185,7 +198,9 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     if(b->getName()!=button->getName())
       b->uncheck();
   }
-  mFilename=file;
+  mFilename=PHYSFS_getRealDir( file.c_str() );
+  mFilename+="/";
+  mFilename+=file;
 }
 
     
@@ -224,9 +239,27 @@ MainMenu::loadGameButtonClicked(Button* )
 void
 MainMenu::newGameStartButtonClicked(Button* )
 {
+    getSound()->playSound( "Click" );
     if(mFilename.length())
       load_city(const_cast<char*>(mFilename.c_str()));
+    quitState = INGAME;
+    running = false;
+}
+
+void
+MainMenu::newGameStartBareButtonClicked(Button* )
+{
     getSound()->playSound( "Click" );
+    new_city( &main_screen_originx, &main_screen_originy, 0 );
+    quitState = INGAME;
+    running = false;
+}
+
+void
+MainMenu::newGameStartVillageClicked(Button* )
+{
+    getSound()->playSound( "Click" );
+    new_city( &main_screen_originx, &main_screen_originy, 1 );
     quitState = INGAME;
     running = false;
 }

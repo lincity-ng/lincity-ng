@@ -29,7 +29,6 @@ Programming
  [?] Discuss if the colors on the minimap can be improved
 
 --Bugs--
- [H] make "New Game" work like in old GUI. 
 
 --Game--
  [H] load/save game
@@ -42,7 +41,6 @@ Programming
  [M] Statisitcs dialog
  [M] Statistics graph
  [H] Dialogs for buildings (Harbour, Rocket)
- [M] Build multiple roads, streets, railroads, powerlines, water
  [H] Implement Dialogs (y/n)
  [M] Translate Dialogs (hardcoded stuff im old engine)
  [L] Minimap should have diamond-shape like main view

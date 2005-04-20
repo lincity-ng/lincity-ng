@@ -148,6 +148,8 @@ void GameView::parse(XmlReader& reader)
 
     mouseInGameView = false;
     dragging = false;
+    roadDragging = false;
+    startRoad = Vector2( 0, 0 );
     rightButtonDown = false;
     tileUnderMouse.x = 0;
     tileUnderMouse.y = 0;
@@ -687,8 +689,13 @@ void GameView::event(const Event& event)
                 SDL_ShowCursor( SDL_DISABLE );
                 SDL_WM_GrabInput( SDL_GRAB_ON );
                 dragStartTime = SDL_GetTicks();
-            }
+            }         
             Vector2 tile = getTile(event.mousepos);
+            if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) ) {
+                roadDragging = true;
+                startRoad = tile;
+            }
+ 
             if(tileUnderMouse != tile) {
                 tileUnderMouse = tile;
                 setDirty();
@@ -702,8 +709,13 @@ void GameView::event(const Event& event)
             if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 dragging = false;
                 rightButtonDown = true;
+                break;       
             }
-            break;       
+            if( event.mousebutton == SDL_BUTTON_LEFT ){
+                roadDragging = false;
+                leftButtonDown = true;
+                break;       
+            }
         }
         case Event::MOUSEBUTTONUP:
             if( event.mousebutton == SDL_BUTTON_RIGHT ){
@@ -717,7 +729,29 @@ void GameView::event(const Event& event)
                 dragging = false;
                 rightButtonDown = false;
             }
-
+            if( event.mousebutton == SDL_BUTTON_LEFT ){
+                if ( roadDragging && event.inside ) {
+                    Vector2 endRoad = getTile( event.mousepos );
+                    roadDragging = false;
+                    leftButtonDown = false;
+                    //use same method to find all Tiles as in void GameView::draw()
+                    int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
+                    int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
+                    Vector2 currenTile = startRoad;
+                    while( currenTile.x != endRoad.x ) {
+                        editMap((int) currenTile.x, (int) currenTile.y, SDL_BUTTON_LEFT);
+                        currenTile.x += stepx;
+                    }
+                    while( currenTile.y != endRoad.y ) {
+                        editMap((int) currenTile.x, (int) currenTile.y, SDL_BUTTON_LEFT);
+                        currenTile.y += stepy;
+                    }
+                    editMap((int) currenTile.x, (int) currenTile.y, SDL_BUTTON_LEFT);
+                    break;
+                } 
+                roadDragging = false;
+                leftButtonDown = false;
+            }
             if(!event.inside) {
                 break;
             }
@@ -1018,6 +1052,63 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
 }
 
 /*
+ * Mark a tile with current cursor
+ */
+void GameView::markTile( Painter& painter, Vector2 tile )
+{
+    Vector2 tileOnScreenPoint = getScreenPoint( tile );
+    if( cursorSize == 0 ) {
+        Color alphawhite( 255, 255, 255, 128 );
+        painter.setLineColor( alphawhite );
+        Rect2D tilerect( 0, 0, tileWidth, tileHeight );
+        tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
+        tileOnScreenPoint.y -= tileHeight; 
+        tilerect.move( tileOnScreenPoint );    
+        drawDiamond( painter, tilerect );    
+    }
+    else {
+        Color alphablue( 0, 0, 255, 128 );
+        Color alphared( 255, 0, 0, 128 );
+        painter.setFillColor( alphablue );
+        //check if building is allowed here, if not use Red Cursor
+        int x = (int) tile.x;
+        int y = (int) tile.y;
+        //  x + cursorSize -1 >= WORLD_SIDE_LEN  would be the same
+        if( x + cursorSize > WORLD_SIDE_LEN || y + cursorSize > WORLD_SIDE_LEN || x < 0 || y < 0 ) {
+            painter.setFillColor( alphared );
+        } else {
+            for( y = (int) tile.y; y < tile.y + cursorSize; y++ ) {
+                for( x = (int) tile.x; x < tile.x + cursorSize; x++ ) {
+                    if( MP_TYPE( x, y ) != CST_GREEN ) {
+                        painter.setFillColor( alphared );
+                        y += cursorSize;
+                        break;
+                    }
+                }
+            }
+        }
+        //special conditions for some buildings
+        //
+        //The Harbour needs a River on the East side.
+        if( selected_module_type == CST_EX_PORT ){
+            x = (int) tile.x + cursorSize;
+            y = (int) tile.y;
+            for( y = (int) tile.y; y < tile.y + cursorSize; y++ ) {
+                if (!( ( MP_GROUP( x, y ) == GROUP_WATER ) && ( MP_INFO(x,y).flags & FLAG_IS_RIVER ) ) ){
+                    painter.setFillColor( alphared );
+                }
+            }
+        }
+            
+        Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
+        tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth * cursorSize / 2));
+        tileOnScreenPoint.y -= tileHeight; 
+        tilerect.move( tileOnScreenPoint );    
+        fillDiamond( painter, tilerect );    
+    }
+}
+
+/*
  *  Paint an isometric View of the City in the component.
  */
 void GameView::draw(Painter& painter)
@@ -1090,58 +1181,22 @@ void GameView::draw(Painter& painter)
     }
     
     //Mark Tile under Mouse 
-    if( mouseInGameView )
-    {
-        Vector2 tileOnScreenPoint = getScreenPoint( tileUnderMouse );
-        if( cursorSize == 0 ) {
-            Color alphawhite( 255, 255, 255, 128 );
-            painter.setLineColor( alphawhite );
-            Rect2D tilerect( 0, 0, tileWidth, tileHeight );
-            tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
-            tileOnScreenPoint.y -= tileHeight; 
-            tilerect.move( tileOnScreenPoint );    
-            drawDiamond( painter, tilerect );    
-        }
-        else {
-            Color alphablue( 0, 0, 255, 128 );
-            Color alphared( 255, 0, 0, 128 );
-            painter.setFillColor( alphablue );
-            //check if building is allowed here if not unse Red Cursor
-            int x = (int) tileUnderMouse.x;
-            int y = (int) tileUnderMouse.y;
-            //  x + cursorSize -1 >= WORLD_SIDE_LEN  would be the same
-            if( x + cursorSize > WORLD_SIDE_LEN || y + cursorSize > WORLD_SIDE_LEN || x < 0 || y < 0 ) {
-                painter.setFillColor( alphared );
-            } else {
-                for( y = (int) tileUnderMouse.y; y < tileUnderMouse.y + cursorSize; y++ ) {
-                    for( x = (int) tileUnderMouse.x; x < tileUnderMouse.x + cursorSize; x++ ) {
-                        if( MP_TYPE( x, y ) != CST_GREEN ) {
-                            painter.setFillColor( alphared );
-                            y += cursorSize;
-                            break;
-                        }
-                    }
-                }
+    if( mouseInGameView ) {
+        if( roadDragging ){
+            //use same method to find all Tiles as in GameView::event(const Event& event)
+            int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
+            int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
+            Vector2 currenTile = startRoad;
+            while( currenTile.x != tileUnderMouse.x ) {
+                markTile( painter, currenTile );
+                currenTile.x += stepx;
             }
-            //special conditions for some buildings
-            //
-            //The Harbour needs a River on the East side.
-            if( selected_module_type == CST_EX_PORT ){
-                x = (int) tileUnderMouse.x + cursorSize;
-                y = (int) tileUnderMouse.y;
-                for( y = (int) tileUnderMouse.y; y < tileUnderMouse.y + cursorSize; y++ ) {
-                    if (!( ( MP_GROUP( x, y ) == GROUP_WATER ) && ( MP_INFO(x,y).flags & FLAG_IS_RIVER ) ) ){
-                        painter.setFillColor( alphared );
-                    }
-                }
+            while( currenTile.y != tileUnderMouse.y ) {
+                markTile( painter, currenTile );
+                currenTile.y += stepy;
             }
-            
-            Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
-            tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth * cursorSize / 2));
-            tileOnScreenPoint.y -= tileHeight; 
-            tilerect.move( tileOnScreenPoint );    
-            fillDiamond( painter, tilerect );    
-        }
+        } 
+        markTile( painter, tileUnderMouse );
     }
 }
 

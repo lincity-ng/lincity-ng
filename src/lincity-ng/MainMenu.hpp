@@ -31,7 +31,9 @@ private:
 
     void newGameBackButtonClicked(Button* );
     void newGameStartButtonClicked(Button* );
-
+    void newGameStartBareButtonClicked(Button* );
+    void newGameStartVillageClicked(Button* );
+        
     void loadGameBackButtonClicked(Button* );
     void loadGameLoadButtonClicked(Button* );
     

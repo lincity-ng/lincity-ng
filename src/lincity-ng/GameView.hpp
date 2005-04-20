@@ -80,6 +80,12 @@ private:
     bool mouseInGameView;
     bool dragging, rightButtonDown;
     Uint32 dragStartTime;
+    
+    bool roadDragging, leftButtonDown;
+    Vector2 startRoad;
+
+    void markTile( Painter& painter, Vector2 tile );
+
 
     int cursorSize;
 };

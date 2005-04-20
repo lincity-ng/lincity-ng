@@ -8,6 +8,7 @@
 
 #include "Config.hpp"
 #include "gui/XmlReader.hpp"
+#include "gui/PhysfsStream/PhysfsStream.hpp"
 
 #include <assert.h>
 #include <iostream>
@@ -162,10 +163,19 @@ Config::parseBool(const char* value, bool defaultValue)
 
 /*
  * Save configuration to File.
- * TODO: make it work.
  */
 void
 Config::save(){
-    std::cerr << "Config::save() not implemented!\n";
+    OFileStream userconfig( "userconfig.xml" );
+    userconfig << "<?xml version=\"1.0\"?>\n";
+    userconfig << "<configuration>\n";
+    userconfig << "    <video x=\"" << videoX << "\" y=\"" << videoY << "\" useOpenGL=\"" 
+        << (useOpenGL?"yes":"no") << "\" fullscreen=\"" << (useFullScreen?"yes":"no")  
+        << "\" />\n";
+    userconfig << "    <audio soundEnabled=\"" << (soundEnabled?"yes":"no")  
+        << "\" soundVolume=\"" << soundVolume << "\" \n";
+    userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")  
+        << "\" musicVolume=\"" << musicVolume << "\" />\n";
+    userconfig << "</configuration>\n";
 }
 

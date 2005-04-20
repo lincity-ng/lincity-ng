@@ -10,7 +10,7 @@
     margin-left="23" margin-right="20"/>
     <Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
     <!-- Split window into title/top - contents and bottom/buttons area -->
-    <TableLayout rows="3" cols="1">
+    <TableLayout rows="4" cols="1">
         <rowsize row="1" relative="1"/>
         <rowsize row="2" relative="4"/>
         <rowsize row="3" relative="1"/>
@@ -99,6 +99,27 @@
             </TableLayout>
         </cell>
         <cell row="3" col="1">
+            <TableLayout rows="2" cols="2">
+                <rowsize row="1" fixed="90"/>
+                <rowsize row="2" relative="1"/>
+                <cell row="2" col="1" halign="left">
+                    <Button name="StartBareButton">
+                        <text style="button" translatable="yes">Start with bare board.</text>
+                        <text-hover style="button-hover" translatable="yes">Start with bare board.</text-hover>
+                        <text-clicked style="button-clicked" translatable="yes">Start with bare board.</text-clicked>
+                    </Button>
+                </cell>
+                <cell row="2" col="2" halign="right">
+                    <Button name="StartVillageButton">
+                        <text style="button" translatable="yes">Start with random village.</text>
+                        <text-hover style="button-hover" translatable="yes">Start with random village.</text-hover>
+                        <text-clicked style="button-clicked" translatable="yes">Start with random village.</text-clicked>
+                    </Button>
+                </cell>
+            </TableLayout>
+ 
+        </cell>
+        <cell row="4" col="1">
             <TableLayout rows="2" cols="2">
                 <rowsize row="1" fixed="45"/>
                 <rowsize row="2" relative="1"/>
