@@ -8,9 +8,13 @@ Programming
 ~~~~~~~~~~~
 
 --Scons/Deployment--
- [M] compile some test apps to make sure SDL, SDL_mixer and SDL_image really work.
-     Also test for their versions
+ [M] compile some test apps to make sure SDL, SDL_mixer and SDL_image really
+     work. Also test for their versions
  [M] Add install targets
+ 
+ MatzeB: Alternatively I could use the jam scripts I already used in netpanzer
+ and supertux. I should be able to get them running in an hour or so, which
+ would be less work than fixing scons.
 
 --Gui--
  [L] Cache fonts in FontManager
@@ -20,21 +24,20 @@ Programming
     (for tooltips, styles (and layout data?) )
  [H] Links in helptext.
  [M] Images in helptext.
- [H] image-component should be resizable (eg main menu)
  [L] drawToTexture in OpenGL (noone using this at the moment, could be used to
      optimize minimap in the future)
  [M] Add tooltips for buttonpanel
- [M] Scale background images in menu
  [L] Add maximize for Windows (see Window.cpp 74 ff)
+      - really?
  [?] Discuss if the colors on the minimap can be improved
 
 --Bugs--
 
 --Game--
  [M] some more sounds
- [H] ingame music
- [H] Credits (simple text for now)
  [M] "Loading..." screen (startup, run game)
+        - is this really needed now that images and sounds get loaded in the
+        background by a thread?
  [L] Use progress bar images provided in data/mainmenu/progressbar
      for "Loading..." menu 
  [M] Statisitcs dialog
@@ -42,7 +45,8 @@ Programming
  [H] Dialogs for buildings (Harbour, Rocket)
  [H] Implement Dialogs (y/n)
  [M] Translate Dialogs (hardcoded stuff im old engine)
- [L] Minimap should have diamond-shape like main view
+        - this can probably be avoided by the new dialog aproach where we define
+        an xml file for each new dialog
  [H] Help System.
  [M] Display current money, current year, InfoMessages
  [M] Options-dialog
