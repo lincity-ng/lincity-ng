@@ -10,7 +10,7 @@
     <DefineStyle name="email" color="blue" font-size="20" font-style="italic"/>
     <DefineStyle name="button" color="blue" font-size="30" margin-left="20"
     margin-right="20"/>                                                        
-    <Image src="images/mainmenu/menu_back.png" resizable="yes"/>
+    <Image src="images/mainmenu/credits_back.png" resizable="yes"/>
     <TableLayout rows="2" cols="1">
         <rowsize row="2" relative=".1"/>
         <cell row="1" col="1" valign="top" halign="left">
