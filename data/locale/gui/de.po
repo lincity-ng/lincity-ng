@@ -21,7 +21,7 @@ msgstr ""
 msgid "Are you sure you want to do this?"
 msgstr "Sind Sie sicher?"
 
-#: data/gui/loadgame.xml data/gui/newgame.xml
+#: data/gui/credits.xml data/gui/loadgame.xml data/gui/newgame.xml
 msgid "Back"
 msgstr "Zurück"
 
@@ -41,11 +41,15 @@ msgstr "Szenario Auswählen"
 msgid "Coal"
 msgstr "Kohle"
 
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Programm"
+
 #: data/gui/mainmenu.xml
 msgid "Continue"
 msgstr "Fortsetzen"
 
-#: data/gui/mainmenu.xml
+#: data/gui/creditslist.xml data/gui/mainmenu.xml
 msgid "Credits"
 msgstr "Mitwirkende"
 
@@ -53,13 +57,13 @@ msgstr "Mitwirkende"
 msgid "Food"
 msgstr "Nahrung"
 
-#: data/gui/credits.xml
-msgid "GUI Code, Buildsystem, Bugfixes "
-msgstr ""
-
 #: data/gui/pbar.xml
 msgid "Goods"
 msgstr "Waren"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "Grafik"
 
 #: data/gui/pbar.xml
 msgid "Jobs"
@@ -70,8 +74,8 @@ msgid "Load"
 msgstr "Laden"
 
 #: data/gui/loadgame.xml
-msgid "Load Game"
-msgstr "Spiel Laden"
+msgid "Load/Save Game"
+msgstr "Spiel Laden/Speichern"
 
 #: data/gui/pbar.xml
 msgid "Money"
@@ -89,6 +93,10 @@ msgstr "Nein"
 msgid "Ore"
 msgstr "Erz"
 
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Ursprüngliche Idee und Programm"
+
 #: data/gui/pbar.xml
 msgid "Population"
 msgstr "Bevölkerung"
@@ -97,39 +105,21 @@ msgstr "Bevölkerung"
 msgid "Quit"
 msgstr "Beenden"
 
-#: data/gui/loadgame.xml data/gui/newgame.xml
-#, fuzzy
-msgid "Savegame 1"
-msgstr "Gespeichertes Spiel Auswählen"
-
-#: data/gui/loadgame.xml data/gui/newgame.xml
-#, fuzzy
-msgid "Savegame 2"
-msgstr "Gespeichertes Spiel Auswählen"
-
-#: data/gui/loadgame.xml data/gui/newgame.xml
-#, fuzzy
-msgid "Savegame 3"
-msgstr "Gespeichertes Spiel Auswählen"
-
-#: data/gui/loadgame.xml data/gui/newgame.xml
-#, fuzzy
-msgid "Savegame 4"
-msgstr "Gespeichertes Spiel Auswählen"
-
-#: data/gui/loadgame.xml data/gui/newgame.xml
-#, fuzzy
-msgid "Savegame 5"
-msgstr "Gespeichertes Spiel Auswählen"
-
-#: data/gui/loadgame.xml data/gui/newgame.xml
-#, fuzzy
-msgid "Savegame 6"
-msgstr "Gespeichertes Spiel Auswählen"
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Klänge und Musik"
 
 #: data/gui/newgame.xml
 msgid "Start"
 msgstr "Start"
+
+#: data/gui/newgame.xml
+msgid "Start with bare board."
+msgstr ""
+
+#: data/gui/newgame.xml
+msgid "Start with random village."
+msgstr ""
 
 #: data/gui/pbar.xml
 msgid "Steel"
@@ -139,54 +129,17 @@ msgstr "Stahl"
 msgid "Tech Level"
 msgstr "Technologieniveau"
 
-#: data/gui/mps.xml
-msgid "Text1"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text10"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text2"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text3"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text4"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text5"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text6"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text7"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text8"
-msgstr ""
-
-#: data/gui/mps.xml
-msgid "Text9"
-msgstr ""
-
 #: data/gui/yesnodialog.xml
 msgid ""
 "The costs for bulldozing water is around 100 Billion Trillion Dollars and "
 "could harm the environment, you should think twice before doing such a "
 "stupid thing."
-msgstr ""
-"Die Kosten um Gewässer aufzufüllen sind sehr hoch. Das ist dumm!"
+msgstr "Die Kosten um Gewässer aufzufüllen sind sehr hoch. Das ist dumm!"
 
 #: data/gui/yesnodialog.xml
 msgid "Yes"
 msgstr "Ja"
+
+#: data/gui/loadgame.xml
+msgid "save to selected slot"
+msgstr "Speichern"

@@ -13,34 +13,34 @@
       <colsize col="1" relative="1004"/>
       <colsize col="2" relative="1"/>
         <cell row="1" col="1" halign="left">
-          <Paragraph name="mps_text1" style="mps_text" translatable="yes">Text1</Paragraph>
+          <Paragraph name="mps_text1" style="mps_text">Text1</Paragraph>
         </cell>
         <cell row="2" col="1" halign="left">
-          <Paragraph name="mps_text2" style="mps_text" translatable="yes">Text2</Paragraph>
+          <Paragraph name="mps_text2" style="mps_text">Text2</Paragraph>
         </cell>
         <cell row="3" col="1" halign="left">
-          <Paragraph name="mps_text3" style="mps_text" translatable="yes">Text3</Paragraph>
+          <Paragraph name="mps_text3" style="mps_text">Text3</Paragraph>
         </cell>
         <cell row="4" col="1" halign="left">
-          <Paragraph name="mps_text4" style="mps_text" translatable="yes">Text4</Paragraph>
+          <Paragraph name="mps_text4" style="mps_text">Text4</Paragraph>
         </cell>
         <cell row="5" col="1" halign="left">
-          <Paragraph name="mps_text5" style="mps_text" translatable="yes">Text5</Paragraph>
+          <Paragraph name="mps_text5" style="mps_text">Text5</Paragraph>
         </cell>
         <cell row="6" col="1" halign="left">
-          <Paragraph name="mps_text6" style="mps_text" translatable="yes">Text6</Paragraph>
+          <Paragraph name="mps_text6" style="mps_text">Text6</Paragraph>
         </cell>
         <cell row="7" col="1" halign="left">
-          <Paragraph name="mps_text7" style="mps_text" translatable="yes">Text7</Paragraph>
+          <Paragraph name="mps_text7" style="mps_text">Text7</Paragraph>
         </cell>
         <cell row="8" col="1" halign="left">
-          <Paragraph name="mps_text8" style="mps_text" translatable="yes">Text8</Paragraph>
+          <Paragraph name="mps_text8" style="mps_text">Text8</Paragraph>
         </cell>
         <cell row="9" col="1" halign="left">
-          <Paragraph name="mps_text9" style="mps_text" translatable="yes">Text9</Paragraph>
+          <Paragraph name="mps_text9" style="mps_text">Text9</Paragraph>
         </cell>
         <cell row="10" col="1" halign="left">
-          <Paragraph name="mps_text10" style="mps_text" translatable="yes">Text10</Paragraph>
+          <Paragraph name="mps_text10" style="mps_text">Text10</Paragraph>
         </cell>
       </TableLayout>
       </cell>

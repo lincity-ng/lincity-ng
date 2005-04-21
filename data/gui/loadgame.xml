@@ -32,7 +32,7 @@
                 -->
                 <cell row="1" col="1">
                     <CheckButton name="File0">
-                      <text-caption style="button" translatable="yes">Savegame 1</text-caption>
+                      <text-caption style="button">Savegame 1</text-caption>
                       <image src="images/gui/savebutton.png"/>
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
@@ -41,7 +41,7 @@
                 </cell>
                 <cell row="2" col="1">
                     <CheckButton name="File1">
-                      <text-caption style="button" translatable="yes">Savegame 2</text-caption>
+                      <text-caption style="button">Savegame 2</text-caption>
                       <image src="images/gui/savebutton.png"/>
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
@@ -50,7 +50,7 @@
                 </cell>
                 <cell row="3" col="1">
                     <CheckButton name="File2">
-                      <text-caption style="button" translatable="yes">Savegame 3</text-caption>
+                      <text-caption style="button">Savegame 3</text-caption>
                       <image src="images/gui/savebutton.png"/>
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
@@ -59,7 +59,7 @@
                 </cell>
                 <cell row="4" col="1">
                     <CheckButton name="File3">
-                      <text-caption style="button" translatable="yes">Savegame 4</text-caption>
+                      <text-caption style="button">Savegame 4</text-caption>
                       <image src="images/gui/savebutton.png"/>
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
@@ -68,7 +68,7 @@
                 </cell>
                 <cell row="5" col="1">
                     <CheckButton name="File4">
-                      <text-caption style="button" translatable="yes">Savegame 5</text-caption>
+                      <text-caption style="button">Savegame 5</text-caption>
                       <image src="images/gui/savebutton.png"/>
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
@@ -77,7 +77,7 @@
                 </cell>
                 <cell row="6" col="1">
                     <CheckButton name="File5">
-                      <text-caption style="button" translatable="yes">Savegame 6</text-caption>
+                      <text-caption style="button">Savegame 6</text-caption>
                       <image src="images/gui/savebutton.png"/>
                       <image-hover src="images/gui/savebutton1.png"/>
                       <image-clicked src="images/gui/savebutton2.png"/>
@@ -106,7 +106,7 @@
                         <text-hover style="button-hover"
                         translatable="yes">save to selected slot</text-hover>
                         <text-clicked style="button-clicked"
-                        translatable="yes">save to selected slo</text-clicked>
+                        translatable="yes">save to selected slot</text-clicked>
                     </Button>
                 </cell>
                 <cell row="2" col="3" halign="right">
