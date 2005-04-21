@@ -138,9 +138,9 @@ void GameView::parse(XmlReader& reader)
     //because on startup the size of this Control is 0
     //we use 800 and 600 instead of getWidth() and getHeight())
     //so we can not use zoom( defaultZoom ) likewise
-    zoom = defaultZoom;
-    tileWidth = defaultTileWidth * zoom / defaultZoom;
-    tileHeight = defaultTileHeight * zoom / defaultZoom; 
+    zoom = 1.0;
+    tileWidth = defaultTileWidth * zoom;
+    tileHeight = defaultTileHeight * zoom; 
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
     viewport.x = floor ( ( virtualScreenWidth - 800 ) / 2 );
@@ -149,11 +149,10 @@ void GameView::parse(XmlReader& reader)
     mouseInGameView = false;
     dragging = false;
     roadDragging = false;
-    startRoad = Vector2( 0, 0 );
+    startRoad = MapPoint(0, 0);
     rightButtonDown = false;
-    tileUnderMouse.x = 0;
-    tileUnderMouse.y = 0;
-    dragStart = tileUnderMouse;
+    tileUnderMouse = MapPoint(0, 0);
+    dragStart = Vector2(0, 0);
 
     cursorSize = 0;
 }
@@ -174,17 +173,22 @@ void GameView::setCursorSize( int size )
 /*
  * Adjust the Zoomlevel. Argument is per mille.
  */
-void GameView::setZoom(const int newzoom){
+void GameView::setZoom(float newzoom){
     //find Tile in Center of Screen
     Vector2 center( getWidth() / 2, getHeight() / 2 );
-    Vector2 centerTile  = getTile( center ); 
-    
+    MapPoint centerTile  = getTile( center ); 
+   
     zoom = newzoom;
-    if ( zoom < 125 ) zoom = 125;
-    if ( zoom > 4000 ) zoom = 4000;
+    // fix rounding errors...
+    if(fabs(zoom - 1.0) < .01)
+        zoom = 1;
     
-    tileWidth = defaultTileWidth * zoom / defaultZoom;
-    tileHeight = defaultTileHeight * zoom / defaultZoom; 
+    if ( zoom < .125 ) zoom = .125;
+    if ( zoom > 4 ) zoom = 4;
+    
+    tileWidth = defaultTileWidth * zoom;
+    tileHeight = defaultTileHeight * zoom;
+    std::cout << "TileWidth: " << tileWidth;
     //a virtual screen containing the whole city
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
@@ -193,9 +197,9 @@ void GameView::setZoom(const int newzoom){
     show( centerTile );
 }
 
-/* set Zoomlevel to defaultZoom (100%) */
+/* set Zoomlevel to 100% */
 void GameView::resetZoom(){
-    setZoom( defaultZoom );
+    setZoom( 1.0 );
 }
 
 /* increase Zoomlevel */
@@ -211,19 +215,15 @@ void GameView::zoomOut(){
 /**
  *  Show City Tile(x/y) by centering the screen 
  */
-void GameView::show( const int x, const int y )
+void GameView::show( MapPoint map )
 {    
     Vector2 center;
-    center.x = virtualScreenWidth / 2 + ( x - y ) * ( tileWidth / 2 );
-    center.y = ( x + y ) * ( tileHeight / 2 ) + ( tileHeight / 2 ); 
+    center.x = virtualScreenWidth / 2 + ( map.x - map.y ) * ( tileWidth / 2 );
+    center.y = ( map.x + map.y ) * ( tileHeight / 2 ) + ( tileHeight / 2 ); 
     
     viewport.x = center.x - ( getWidth() / 2 );
     viewport.y = center.y - ( getHeight() / 2 );
     requestRedraw();
-}
-void GameView::show( const Vector2 pos )
-{
-    show( (int) pos.x, (int) pos.y );
 }
 
 /*
@@ -348,7 +348,7 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
  *  in OpenGL, so load just Images and convert them to Textures on 
  *  demand in the main Tread. 
  */
-const void GameView::loadTextures()
+void GameView::loadTextures()
 {
    //We need Textures for all Types from lincity/lctypes.h 
    //Code Generation:
@@ -638,9 +638,10 @@ const void GameView::loadTextures()
  */
 void GameView::event(const Event& event)
 {
-    int stepx = (int) floor ( tileWidth / 2 );
-    int stepy = (int) floor ( tileHeight / 2 );
-    Vector2 tile, dragDistance;
+    float stepx = tileWidth / 2;
+    float stepy = tileHeight / 2;
+    MapPoint tile;
+    Vector2 dragDistance;
     
     switch(event.type) {
         case Event::MOUSEMOTION: {
@@ -652,18 +653,19 @@ void GameView::event(const Event& event)
                 if( elapsed < 30 ){ //do nothing if less than 0.03 sec passed.
                     break;
                 }
-                int dragLength =  (int) sqrt( dragDistance.x * dragDistance.x + dragDistance.y * dragDistance.y ); 
-                int vPixelSec = (1000 * dragLength) / elapsed;
+                float dragLength = sqrt(dragDistance.x*dragDistance.x 
+                        + dragDistance.y*dragDistance.y);
+                float vPixelSec = (1000 * dragLength) / (float) elapsed;
                 //std::cout << "v=" << vPixelSec << " Pixels per second\n"; 
                 //TODO: sometimes the Distance is way too big, why?
                 //std::cout << "dragDistance=" << dragDistance.x << " " << dragDistance.y << "\n"; 
                 if( vPixelSec < 2000 ) //if it is faster we just ignore it. TODO: find a better way...
                 {  
                     //Mouse Acceleration
-                    int accel = 1;
+                    float accel = 1;
                     //TODO: read Acceleration Parameters from config file.
-                    int accelThreshold = 200;
-                    int max_accel = 8;
+                    float accelThreshold = 200;
+                    float max_accel = 8;
                     
                     if( vPixelSec > accelThreshold ) accel = 1 + ( ( vPixelSec - 200 ) / 100 );
                     if( accel > max_accel ) accel = max_accel;
@@ -690,7 +692,7 @@ void GameView::event(const Event& event)
                 SDL_WM_GrabInput( SDL_GRAB_ON );
                 dragStartTime = SDL_GetTicks();
             }         
-            Vector2 tile = getTile(event.mousepos);
+            MapPoint tile = getTile(event.mousepos);
             if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) ) {
                 roadDragging = true;
                 startRoad = tile;
@@ -731,22 +733,22 @@ void GameView::event(const Event& event)
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ){
                 if ( roadDragging && event.inside ) {
-                    Vector2 endRoad = getTile( event.mousepos );
+                    MapPoint endRoad = getTile( event.mousepos );
                     roadDragging = false;
                     leftButtonDown = false;
                     //use same method to find all Tiles as in void GameView::draw()
                     int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
                     int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
-                    Vector2 currenTile = startRoad;
+                    MapPoint currenTile = startRoad;
                     while( currenTile.x != endRoad.x ) {
-                        editMap((int) currenTile.x, (int) currenTile.y, SDL_BUTTON_LEFT);
+                        editMap(currenTile, SDL_BUTTON_LEFT);
                         currenTile.x += stepx;
                     }
                     while( currenTile.y != endRoad.y ) {
-                        editMap((int) currenTile.x, (int) currenTile.y, SDL_BUTTON_LEFT);
+                        editMap(currenTile, SDL_BUTTON_LEFT);
                         currenTile.y += stepy;
                     }
-                    editMap((int) currenTile.x, (int) currenTile.y, SDL_BUTTON_LEFT);
+                    editMap(currenTile, SDL_BUTTON_LEFT);
                     break;
                 } 
                 roadDragging = false;
@@ -758,13 +760,13 @@ void GameView::event(const Event& event)
             
             tile=getTile( event.mousepos );
             if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
-                editMap((int) tile.x, (int) tile.y,SDL_BUTTON_LEFT); //edit tile
+                editMap(tile, SDL_BUTTON_LEFT); //edit tile
             }
             else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //right      
                 recenter(event.mousepos);                      //adjust view
             }
             else if( event.mousebutton == SDL_BUTTON_MIDDLE ){ //middle
-                getMPS()->setView( (int) tile.x, (int) tile.y);//show info
+                getMPS()->setView(tile);//show info
             }
             else if( event.mousebutton == SDL_BUTTON_WHEELUP ){ //up 
                 zoomIn();                                       //zoom in
@@ -789,8 +791,8 @@ void GameView::event(const Event& event)
             }
             //Scroll
             if( event.keysym.mod & KMOD_SHIFT ){
-                stepx =  (int) 5 * tileWidth;
-                stepy =  (int) 5 * tileHeight;
+                stepx =  5 * tileWidth;
+                stepy =  5 * tileHeight;
             } 
             if ( event.keysym.sym == SDLK_KP9 ) {
                 viewport.x += stepx;
@@ -837,7 +839,7 @@ void GameView::event(const Event& event)
                 break;
             }
             if ( event.keysym.sym == SDLK_KP5 ) {
-                show( WORLD_SIDE_LEN / 2, WORLD_SIDE_LEN / 2 );
+                show(MapPoint(WORLD_SIDE_LEN / 2, WORLD_SIDE_LEN / 2));
                 setDirty();
                 break;
             }
@@ -864,8 +866,10 @@ void GameView::requestRedraw()
 {
     //TODO: do this only when View changed
     //Tell Minimap about new Corners
-    getMiniMap()->setGameViewCorners( getTile( 0, 0 ), getTile( (int) getWidth(), 0 ), 
-          getTile( (int) getWidth(), (int) getHeight() ), getTile( 0, (int) getHeight() ) );  
+    getMiniMap()->setGameViewCorners( getTile(Vector2(0, 0)),
+            getTile(Vector2(getWidth(), 0)), 
+            getTile(Vector2(getWidth(), getHeight())),
+            getTile(Vector2(0, getHeight()) ) );  
 
     //request redraw
     setDirty();
@@ -874,7 +878,7 @@ void GameView::requestRedraw()
 /*
  * Pos is new Center of the Screen
  */
-const void GameView::recenter(const Vector2& pos)
+void GameView::recenter(const Vector2& pos)
 {
     Vector2 position = pos + viewport;
     viewport.x = floor( position.x - ( getWidth() / 2 ) );
@@ -888,11 +892,11 @@ const void GameView::recenter(const Vector2& pos)
  * Find point on Screen, where lower right corner of tile
  * is placed.
  */
-const Vector2 GameView::getScreenPoint(const Vector2& tile)
+Vector2 GameView::getScreenPoint(MapPoint map)
 {
     Vector2 point;
-    point.x = virtualScreenWidth / 2 + ( tile.x - tile.y ) * ( tileWidth / 2 );
-    point.y = ( tile.x + tile.y ) * ( tileHeight / 2 ); 
+    point.x = virtualScreenWidth / 2 + (map.x - map.y) * ( tileWidth / 2 );
+    point.y = (map.x + map.y) * ( tileHeight / 2 ); 
     
     //we want the lower right corner
     point.y += tileHeight;
@@ -905,29 +909,22 @@ const Vector2 GameView::getScreenPoint(const Vector2& tile)
 /*
  * Find Tile at point on viewport
  */
-const Vector2 GameView::getTile(const Vector2& p)
+MapPoint GameView::getTile(const Vector2& p)
 {
-    Vector2 tile;
+    MapPoint tile;
     // Map Point to virtual Screen
     Vector2 point = p + viewport;
-    tile.x = (point.x - virtualScreenWidth / 2 ) / tileWidth +  point.y  / tileHeight;
-    tile.y =  2 * point.y  / tileHeight  - tile.x; 
-    tile.x = floor( tile.x );
-    tile.y = floor( tile.y );
+    tile.x = (int) 
+        ((point.x - virtualScreenWidth / 2 ) / tileWidth +  point.y  / tileHeight);
+    tile.y = (int) ( 2 * point.y  / tileHeight  - tile.x );
 
     return tile;
 }
 
-const Vector2 GameView::getTile( int x, int y )
-{
-    Vector2 pos( x ,y );
-    return getTile( pos );
-}
-    
 /*
  * Draw a filled Diamond inside given Rectangle
  */
-const void GameView::fillDiamond( Painter& painter, const Rect2D rect )
+void GameView::fillDiamond( Painter& painter, const Rect2D& rect )
 {
     Vector2 points[ 4 ];
     points[ 0 ].x = rect.p1.x + ( rect.getWidth() / 2 );
@@ -944,7 +941,7 @@ const void GameView::fillDiamond( Painter& painter, const Rect2D rect )
 /*
  * Draw a outlined Diamond inside given Rectangle
  */
-const void GameView::drawDiamond( Painter& painter, const Rect2D rect )
+void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
 {
     Vector2 points[ 4 ];
     points[ 0 ].x = rect.p1.x + ( rect.getWidth() / 2 );
@@ -958,28 +955,21 @@ const void GameView::drawDiamond( Painter& painter, const Rect2D rect )
     painter.drawPolygon( 4, points );    
 }
 
-/*
- *  Draw a Tile
- */
-const void GameView::drawTile(Painter& painter, const Vector2& tile)
+void GameView::drawTile(Painter& painter, MapPoint tile)
 {
-    int tx = (int) tile.x;
-    int ty = (int) tile.y;
-    
-    Color red;
-    red.parse( "red" );
-
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
 
     //is Tile in City? If not draw Blank
-    if( tx < 0 || ty < 0 || tx >= WORLD_SIDE_LEN || ty >= WORLD_SIDE_LEN )
+    if( tile.x < 0 || tile.y < 0 
+            || tile.x >= WORLD_SIDE_LEN || tile.y >= WORLD_SIDE_LEN )
     {
-        tileOnScreenPoint.x -= ( ( blankTexture->getWidth() / 2 )  * zoom / defaultZoom );
-        tileOnScreenPoint.y -= (blankTexture->getHeight()  * zoom / defaultZoom ); 
+        tileOnScreenPoint.x -= (blankTexture->getWidth() / 2)  * zoom;
+        tileOnScreenPoint.y -= blankTexture->getHeight()  * zoom; 
         tilerect.move( tileOnScreenPoint );    
-        tilerect.setSize( blankTexture->getWidth()  * zoom / defaultZoom, blankTexture->getHeight() * zoom / defaultZoom );
-        if( zoom == defaultZoom ) 
+        tilerect.setSize(blankTexture->getWidth() * zoom,
+                blankTexture->getHeight() * zoom);
+        if(zoom == 1.0) 
         {
             painter.drawTexture( blankTexture, tilerect.p1 );
         }
@@ -992,25 +982,25 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
 
     Texture* texture;
     int size; 
-    int upperLeftX = tx;
-    int upperLeftY = ty;    
+    int upperLeftX = tile.x;
+    int upperLeftY = tile.y;    
 
-    if ( MP_TYPE( tx, ty ) ==  CST_USED ) 
+    if ( MP_TYPE( tile.x, tile.y ) ==  CST_USED ) 
     {
-        upperLeftX = MP_INFO(tx,ty).int_1;
-        upperLeftY = MP_INFO(tx,ty).int_2;    
+        upperLeftX = MP_INFO(tile.x, tile.y).int_1;
+        upperLeftY = MP_INFO(tile.x, tile.y).int_2;    
     }
     size = MP_SIZE( upperLeftX, upperLeftY );
 
     //is Tile the lower left corner of the Building? 
     //dont't draw if not.
-    if ( ( tx != upperLeftX ) || ( ty - size +1 != upperLeftY ) )
+    if ( ( tile.x != upperLeftX ) || ( tile.y - size +1 != upperLeftY ) )
     {
         return;
     }
     //adjust OnScreenPoint of big Tiles
     if( size > 1 ) { 
-        Vector2 lowerRightTile( tile.x + size - 1 , tile.y );
+        MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
     
@@ -1029,11 +1019,11 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
     
     if( texture )
     {
-        tileOnScreenPoint.x -= ( cityTextureX[ textureType ] * zoom / defaultZoom );
-        tileOnScreenPoint.y -= ( cityTextureY[ textureType ] * zoom / defaultZoom );  
+        tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
+        tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;  
         tilerect.move( tileOnScreenPoint );    
-        tilerect.setSize( texture->getWidth() * zoom / defaultZoom, texture->getHeight() * zoom / defaultZoom );
-        if( zoom == defaultZoom ) {
+        tilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
+        if( zoom == 1.0 ) {
             painter.drawTexture(texture, tilerect.p1);
         }
         else
@@ -1043,10 +1033,10 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
     }
     else 
     {
-        tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
+        tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth / 2);
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
-        painter.setFillColor( red );
+        painter.setFillColor( Color(255, 0, 0, 255) );
         fillDiamond( painter, tilerect );    
     }
 }
@@ -1054,19 +1044,18 @@ const void GameView::drawTile(Painter& painter, const Vector2& tile)
 /*
  * Mark a tile with current cursor
  */
-void GameView::markTile( Painter& painter, Vector2 tile )
+void GameView::markTile( Painter& painter, MapPoint tile )
 {
-    Vector2 tileOnScreenPoint = getScreenPoint( tile );
+    Vector2 tileOnScreenPoint = getScreenPoint(tile);
     if( cursorSize == 0 ) {
         Color alphawhite( 255, 255, 255, 128 );
         painter.setLineColor( alphawhite );
         Rect2D tilerect( 0, 0, tileWidth, tileHeight );
-        tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth / 2));
+        tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
         drawDiamond( painter, tilerect );    
-    }
-    else {
+    } else {
         Color alphablue( 0, 0, 255, 128 );
         Color alphared( 255, 0, 0, 128 );
         painter.setFillColor( alphablue );
@@ -1101,7 +1090,7 @@ void GameView::markTile( Painter& painter, Vector2 tile )
         }
             
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
-        tileOnScreenPoint.x =  floor( tileOnScreenPoint.x - ( tileWidth * cursorSize / 2));
+        tileOnScreenPoint.x = tileOnScreenPoint.x - (tileWidth * cursorSize / 2);
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
         fillDiamond( painter, tilerect );    
@@ -1117,21 +1106,21 @@ void GameView::draw(Painter& painter)
     //adjust viewport so it is.
     //find Tile in Center of Screen
     Vector2 center( getWidth() / 2, getHeight() / 2 );
-    Vector2 centerTile  = getTile( center ); 
+    MapPoint centerTile = getTile(center);
     bool outside = false;
-    if( centerTile.x < 0 ){
+    if( centerTile.x < 0 ) {
         centerTile.x = 0;
         outside = true;
     }
-    if( centerTile.x >= WORLD_SIDE_LEN ){
+    if( centerTile.x >= WORLD_SIDE_LEN ) {
         centerTile.x = WORLD_SIDE_LEN - 1;
         outside = true;
     }
-    if( centerTile.y < 0 ){
+    if( centerTile.y < 0 ) {
         centerTile.y = 0;
         outside = true;
     }
-    if( centerTile.y >= WORLD_SIDE_LEN ){
+    if( centerTile.y >= WORLD_SIDE_LEN ) {
         centerTile.y = WORLD_SIDE_LEN - 1;
         outside = true;
     }
@@ -1149,9 +1138,9 @@ void GameView::draw(Painter& painter)
     Vector2 lowerLeft( 0, getHeight() );
     
     //Find visible Tiles
-    Vector2 upperLeftTile  = getTile( upperLeft ); 
-    Vector2 upperRightTile = getTile( upperRight );
-    Vector2 lowerLeftTile  = getTile( lowerLeft ); 
+    MapPoint upperLeftTile  = getTile( upperLeft ); 
+    MapPoint upperRightTile = getTile( upperRight );
+    MapPoint lowerLeftTile  = getTile( lowerLeft ); 
     
     //draw Background
     Color green;
@@ -1161,7 +1150,7 @@ void GameView::draw(Painter& painter)
     painter.fillRectangle( background );    
 
     //draw Tiles
-    Vector2 currentTile;
+    MapPoint currentTile;
     //Draw some extra tiles depending on the maximal size of a building.
     int extratiles = 7;
     upperLeftTile.x -= extratiles;
@@ -1169,13 +1158,12 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
-    int i, k;
-    for( k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
+    for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
     {
-        for( i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
+        for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
         {
-            currentTile.x = upperLeftTile.x + i + floor( k / 2 ) + k % 2;
-            currentTile.y = upperLeftTile.y - i + floor( k / 2 );
+            currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
+            currentTile.y = upperLeftTile.y - i + k / 2;
             drawTile( painter, currentTile );
         }
     }
@@ -1186,7 +1174,7 @@ void GameView::draw(Painter& painter)
             //use same method to find all Tiles as in GameView::event(const Event& event)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
-            Vector2 currenTile = startRoad;
+            MapPoint currenTile = startRoad;
             while( currenTile.x != tileUnderMouse.x ) {
                 markTile( painter, currenTile );
                 currenTile.x += stepx;

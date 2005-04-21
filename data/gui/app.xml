@@ -27,5 +27,5 @@
             <Import src="gui/minimap.xml"/>
         </cell>
     </TableLayout>
-    <Import src="gui/helpwindow.xml"/>
+    <!-- <Import src="gui/helpwindow.xml"/> -->
 </gui>

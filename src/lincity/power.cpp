@@ -63,13 +63,21 @@ power_time_step ()
 	MP_INFO(substationx[gi],substationy[gi]).int_5 = 0;
 }
 
-
 void 
-map_power_grid ()
+map_power_grid (bool resetgrids)
 {
     int mapx, mapy;
     grid_num = 0;  /* how many grids found so far */
     grid_inc++; /* how many times have we run map_power_grid */
+
+    // used to fix up bad int_7 values after loading a map
+    if(resetgrids) {
+        for(int mapx = 0; mapx < WORLD_SIDE_LEN; mapx++) {
+            for(int mapy = 0; mapy < WORLD_SIDE_LEN; mapy++) {
+                MP_INFO(mapx,mapy).int_7 = grid_inc-1;
+            }
+        }
+    }
 
     for (mapx = 0; mapx < WORLD_SIDE_LEN; mapx++) {
 	for (mapy = 0; mapy < WORLD_SIDE_LEN; mapy++) {

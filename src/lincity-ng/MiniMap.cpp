@@ -66,7 +66,7 @@ MiniMap* getMiniMap()
 }
     
 MiniMap::MiniMap()
-    : mMode(NORMAL), tilesize(2), mTexture(0), border(0)
+    : mMode(NORMAL), tilesize(2), border(0), mTexture(0)
 {   
     assert( miniMapPtr == 0 );
     miniMapPtr = this;
@@ -159,7 +159,6 @@ void MiniMap::attachButtons()
   for(int i=0;i<BUTTON_COUNT;i++)
     {
       Button* b = getButton(*root, buttonNames[i]);
-      std::cout<<"Button1 "<<buttonNames[i]<<" found!"<<std::endl;
       b->clicked.connect(makeCallback(*this, &MiniMap::chooseButtonClicked));
     } 
 }
@@ -195,16 +194,23 @@ void MiniMap::chooseButtonClicked(Button* button)
    mFullRefresh=true;
 }
 
+Vector2
+MiniMap::mapPointToVector(MapPoint p)
+{
+    return Vector2(p.x * tilesize, p.y * tilesize);
+}
+
 /*
  *  Set the Corners of the GameView to show in Minimap
  */
-void MiniMap::setGameViewCorners( const Vector2 &upperLeft, const Vector2 &upperRight, 
-          const Vector2 &lowerRight, const Vector2 &lowerLeft )
+void MiniMap::setGameViewCorners(const MapPoint& upperLeft,
+        const MapPoint& upperRight, const MapPoint& lowerRight,
+        const MapPoint& lowerLeft )
 {
-    gameViewPoints[ 0 ] = upperLeft * tilesize;
-    gameViewPoints[ 1 ] = upperRight * tilesize;
-    gameViewPoints[ 2 ] = lowerRight * tilesize;
-    gameViewPoints[ 3 ] = lowerLeft * tilesize;
+    gameViewPoints[ 0 ] = mapPointToVector(upperLeft);
+    gameViewPoints[ 1 ] = mapPointToVector(upperRight);
+    gameViewPoints[ 2 ] = mapPointToVector(lowerRight);
+    gameViewPoints[ 3 ] = mapPointToVector(lowerLeft);
     mFullRefresh=true;
     setDirty();
 }
@@ -405,10 +411,11 @@ void MiniMap::event(const Event& event)
     {
         // move main-map
         // get Tile, that was clicked
-        int tilex = (int) ((event.mousepos.x - border ) / tilesize);
-        int tiley = (int) ((event.mousepos.y - border ) / tilesize);
+        MapPoint tile (
+                (int) ((event.mousepos.x - border ) / tilesize),
+                (int) ((event.mousepos.y - border ) / tilesize));
         //cdebug( "click on tile "<< tilex <<"/"<< tiley );
-        getGameView()->show( tilex, tiley );
+        getGameView()->show(tile);
         //mMode = getNextMode(mMode);
         mFullRefresh=true;
         //      cdebug("MODE:"<<mMode<<":"<<mode[mMode]);

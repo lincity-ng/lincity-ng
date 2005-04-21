@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <assert.h>
+#include <math.h>
 #include <typeinfo>
 #include <SDL_opengl.h>
 #include <SDL_gfxPrimitives.h>
@@ -42,8 +43,8 @@ PainterSDL::drawTexture(const Texture* texture, const Vector2& pos)
     Vector2 screenpos = transform.apply(pos);
     
     SDL_Rect drect;
-    drect.x = (int) screenpos.x;
-    drect.y = (int) screenpos.y;
+    drect.x = lrint(screenpos.x);
+    drect.y = lrint(screenpos.y);
     SDL_BlitSurface(textureSDL->surface, 0, target, &drect);
 }
 
@@ -64,11 +65,11 @@ PainterSDL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
     Vector2 screenpos = transform.apply(rect.p1);
     
     SDL_Rect drect;
-    drect.x = (int) screenpos.x;
-    drect.y = (int) screenpos.y;
-    drect.w = (int) rect.getWidth();
-    drect.h = (int) rect.getHeight();
-    
+    drect.x = lrint(screenpos.x);
+    drect.y = lrint(screenpos.y);
+    drect.w = lrint(rect.getWidth());
+    drect.h = lrint(rect.getHeight());
+
     double zoomx = drect.w / textureSDL->getWidth();
     double zoomy = drect.h / textureSDL->getHeight(); 
     SDL_Surface *tmp 

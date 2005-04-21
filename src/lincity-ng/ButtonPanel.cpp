@@ -132,7 +132,6 @@ void ButtonPanel::attachButtons()
         CheckButton* b = dynamic_cast<CheckButton*>(c);
         if(b)
         {
-          std::cout<<"Button1 "<<mMenuButtons[i]<<" found!"<<std::endl;
           b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
         }
       }

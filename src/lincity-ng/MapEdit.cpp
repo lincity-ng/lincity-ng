@@ -18,14 +18,14 @@ int monument_bul_flag=0;
 int river_bul_flag=0;
 int shanty_bul_flag=0;
 
-int ask_launch_rocket_click (int x, int y)
+int ask_launch_rocket_click (int , int )
 {
   return true;
 }
 
 // FIXME: what is this for ???
 void
-clicked_port_cb (int x, int y)
+clicked_port_cb (int , int )
 {
 /*    port_cb_flag = 1;
     mcbx = x;
@@ -33,7 +33,7 @@ clicked_port_cb (int x, int y)
 }
 
 void
-clicked_market_cb (int x, int y)
+clicked_market_cb (int , int )
 {
 /*    market_cb_flag = 1;
     mcbx = x;
@@ -135,8 +135,10 @@ check_bulldoze_area (int x, int y)
 }
 
 
-void editMap (int x, int y, int button)
+void editMap (MapPoint point, int button)
 {
+  int x = point.x;
+  int y = point.y;
   int selected_module_group = get_group_of_type(selected_module_type);
 
   int size;
@@ -224,13 +226,13 @@ void editMap (int x, int y, int button)
               return;
             }
         }
-      getMPS()->setView(x,y);
+      getMPS()->setView(MapPoint(x, y));
       return;
     }
   if(selected_module_type==CST_NONE)
   {
     TRACE;
-    getMPS()->setView(x,y);
+    getMPS()->setView(MapPoint(x, y));
 
     return;
   }

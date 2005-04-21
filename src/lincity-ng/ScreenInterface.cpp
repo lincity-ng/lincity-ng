@@ -206,6 +206,8 @@ void updateMessageTitle()
  */
 int dialog_box(int colour, int argc, ...)
 {
+    (void) colour;
+
     std::ostringstream text;
     va_list arg;
     va_start( arg, argc );
@@ -245,12 +247,10 @@ void refresh_population_text (void)
 
 }
 
-
 void update_avail_modules (int popup)
 {
+    (void) popup;
 }
-
-
 
 void refresh_main_screen()
 {
@@ -272,20 +272,18 @@ void print_stats ()
 }
 void update_main_screen_normal (int full_refresh)
 {
-  return;
+    (void) full_refresh;
+    return;
 }
 
-
- void update_main_screen (int full_refresh)
+void update_main_screen (int full_refresh)
 {
-  update_main_screen_normal (full_refresh);
+    update_main_screen_normal (full_refresh);
 }
 
-
-void print_time_for_year (void)
+void print_time_for_year ()
 {
 }
-
 
 int getMainWindowWidth()
 {

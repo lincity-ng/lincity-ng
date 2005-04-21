@@ -1,6 +1,8 @@
 #ifndef __MAP_EDIT_HPP__
 #define __MAP_EDIT_HPP__
 
-void editMap (int x, int y, int button);
+#include "MapPoint.hpp"
+
+void editMap(MapPoint point, int button);
 
 #endif

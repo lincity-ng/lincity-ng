@@ -39,7 +39,7 @@ LCMps::parse(XmlReader& reader)
   width = component->getWidth();
   height = component->getHeight();
 
-  setView(10,10);
+  setView(MapPoint(10,10));
 }
 
 void LCMps::setText(int i,const std::string &s)
@@ -58,8 +58,10 @@ void LCMps::setText(int i,const std::string &s)
 }
 
 
-void LCMps::setView(int x,int y)
+void LCMps::setView(MapPoint point)
 {
+    int x = point.x;
+    int y = point.y;
     if( x < 0 || y < 0 || x >= WORLD_SIDE_LEN || y >= WORLD_SIDE_LEN )
         return;
 

@@ -16,9 +16,9 @@ typedef struct grid_struct Grid;
 
 /* public */
 #define MAX_GRIDS 128 // How many grids in the array, not how many to allocate
-extern Grid * grid[MAX_GRIDS];
+extern Grid* grid[MAX_GRIDS];
 
-void map_power_grid(void);
+void map_power_grid(bool resetgrids = false);
 int get_power (int x, int y, int power, int block_industry);
 void do_windmill(int x, int y);
 void do_power_substation(int x, int y);

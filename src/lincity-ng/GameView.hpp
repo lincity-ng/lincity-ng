@@ -11,6 +11,7 @@
 #include <SDL_image.h>
 
 #include "lincity/engglobs.h"
+#include "MapPoint.hpp"
 
 class GameView : public Component
 {
@@ -27,8 +28,7 @@ public:
     void requestRedraw();
 
     //Show City Tile(x/y) by centering the screen 
-    void show( const int x, const int y );
-    void show( const Vector2 pos );
+    void show(MapPoint point);
 
     //Set Zoomlevel to 100 Percent
     void resetZoom();
@@ -40,28 +40,26 @@ public:
     //size in Tiles of marking under Cursor
     void setCursorSize( int size ); 
 private:
-    const void recenter(const Vector2& pos);
-    const Vector2 getScreenPoint(const Vector2& tile);
-    const Vector2 getTile(const Vector2& point);
-    const Vector2 getTile( int x, int y );
-    const void drawTile(Painter& painter, const Vector2& tile);
-    const void fillDiamond( Painter& painter, const Rect2D rect );
-    const void drawDiamond( Painter& painter, const Rect2D rect );
-    const void loadTextures();
-    static int gameViewThread( void* );
+    void recenter(const Vector2& pos);
+    Vector2 getScreenPoint(MapPoint point);
+    MapPoint getTile(const Vector2& point);
+    void drawTile(Painter& painter, MapPoint point);
+    void fillDiamond( Painter& painter, const Rect2D& rect );
+    void drawDiamond( Painter& painter, const Rect2D& rect );
+    void loadTextures();
+    static int gameViewThread(void* data);
     
-    void setZoom(const int newzoom);
+    void setZoom(float newzoom);
     Texture* readTexture(const std::string& filename);
     SDL_Surface* readImage(const std::string& filename);
-    void preReadCityTexture( int textureType, const std::string& filename );
+    void preReadCityTexture(int textureType, const std::string& filename);
 
-    static const int defaultTileWidth = 128;
-    static const int defaultTileHeight = 64;
-    static const int defaultZoom = 1000;
+    static const float defaultTileWidth = 128;
+    static const float defaultTileHeight = 64;
 
-    int tileWidth, tileHeight, zoom; 
+    float tileWidth, tileHeight, zoom; 
     //a virtual screen containing the whole city
-    int virtualScreenWidth, virtualScreenHeight;
+    float virtualScreenWidth, virtualScreenHeight;
 
     //upper left corner of the viewport on virtual screen
     Vector2 viewport;
@@ -76,16 +74,16 @@ private:
     SDL_Thread* loaderThread;
     volatile bool stopThread;
         
-    Vector2 tileUnderMouse, dragStart;
+    MapPoint tileUnderMouse;
+    Vector2 dragStart;
     bool mouseInGameView;
     bool dragging, rightButtonDown;
     Uint32 dragStartTime;
     
     bool roadDragging, leftButtonDown;
-    Vector2 startRoad;
+    MapPoint startRoad;
 
-    void markTile( Painter& painter, Vector2 tile );
-
+    void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;
 };

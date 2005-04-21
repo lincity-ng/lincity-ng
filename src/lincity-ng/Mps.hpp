@@ -2,6 +2,7 @@
 #define __lc_mps_h__
 
 #include "gui/Component.hpp"
+#include "MapPoint.hpp"
 
 class XmlReader;
 
@@ -13,7 +14,7 @@ public:
 
   void parse(XmlReader& reader);
 
-  void setView(int x,int y);
+  void setView(MapPoint point);
   
   void setText(int i,const std::string &s);
  private:

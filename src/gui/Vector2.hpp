@@ -19,6 +19,8 @@
 #ifndef __VECTOR_HPP__
 #define __VECTOR_HPP__
 
+#include <math.h>
+
 /// 2D Vector.
 /** Simple two dimensional vector. */
 class Vector2
@@ -33,7 +35,7 @@ public:
     Vector2()
         : x(0), y(0)
     { }
-    
+
     bool operator ==(const Vector2& other) const
         {
             return x == other.x && y == other.y;

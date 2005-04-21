@@ -121,11 +121,7 @@ void
 save_city_raw (char *cname)
 {
     int x, y, z, q, n, p;
-#if defined (WIN32)
     FILE *ofile = fopen (cname, "wb");
-#else
-    FILE *ofile = fopen (cname, "w");
-#endif
     if (ofile == NULL) {
 	printf (_("Save file <%s> - "), cname);
 	do_error (_("Can't open save file!"));
@@ -641,7 +637,7 @@ load_city (char *cname)
 
     print_total_money ();
     reset_animation_times ();
-    map_power_grid (); /* WCK:  Is this safe to do here? */
+    map_power_grid(true); /* WCK:  Is this safe to do here? */
 }
 
 void
