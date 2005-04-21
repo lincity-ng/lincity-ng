@@ -23,6 +23,7 @@ private:
     
     bool running;
     MainState quitState;
+    void backToMainMenu();
 };
 
 #endif

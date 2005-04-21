@@ -30,6 +30,8 @@ wheel:
 Keyboard
 --------
 
+ ESCAPE back to main menu
+
  KP_PLUS: zoom in
  KP_MINUS zoom out
  KP_ENTER zoom 100%

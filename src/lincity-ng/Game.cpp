@@ -27,12 +27,16 @@ Game::~Game()
 {
 }
 
+void Game::backToMainMenu(){
+    save_city( "9_currentGameNG.scn" );
+    running = false;
+    quitState = MAINMENU;
+}
+
 void Game::gameButtonClicked( Button* button ){
     std::string name = button->getName();
     if( name == "GameMenuButton" ) {
-        save_city( "9_currentGameNG.scn" );
-        running = false;
-        quitState = MAINMENU;
+        backToMainMenu();
     }
     else {
          std::cerr << " Game::gameButtonClicked unknown button '" << name << "'.\n";
@@ -53,11 +57,19 @@ Game::run()
                     initVideo(event.resize.w, event.resize.h);
                     gui->resize(event.resize.w, event.resize.h);
                     break;
+                case SDL_KEYUP: {
+                     Event gui_event(event);
+                     if( gui_event.keysym.sym == SDLK_ESCAPE ){
+                         backToMainMenu();
+                         break;
+                     }
+                        gui->event(gui_event);
+                     break;
+                }
                 case SDL_MOUSEMOTION:
                 case SDL_MOUSEBUTTONUP:
                 case SDL_MOUSEBUTTONDOWN:
-                case SDL_KEYDOWN:
-                case SDL_KEYUP: {
+                case SDL_KEYDOWN: {
                     Event gui_event(event);
                     gui->event(gui_event);
                     break;

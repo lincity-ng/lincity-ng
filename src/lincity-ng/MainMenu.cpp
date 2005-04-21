@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <iostream>
+#include <iomanip>
 #include <typeinfo>
 #include <physfs.h>
 #include <sys/types.h>
@@ -326,8 +327,9 @@ MainMenu::loadGameSaveButtonClicked(Button *)
         remove( mFilename.c_str() );
     }
     std::stringstream newStart;
-    newStart << slotNr << "_" << (1900 + datetime->tm_year);
-    newStart << "-" << datetime->tm_mon << "-" << datetime->tm_mday << "_";
+    newStart << slotNr << "_" << (1900 + datetime->tm_year) << "-";
+    newStart << std::setfill('0') << std::setw(2);
+    newStart << datetime->tm_mon << "-" << datetime->tm_mday << "_";
     newStart << datetime->tm_hour << ":" << datetime->tm_min;
     std::string newFilename( newStart.str() ); 
     std::cout << "save_city( " << newFilename.c_str() <<")\n";

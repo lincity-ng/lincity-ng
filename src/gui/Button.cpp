@@ -152,14 +152,25 @@ Button::setChildText(Child& child, XmlReader& reader)
 
 void Button::setCaptionText(const std::string &pText)
 {
-  Child &c=comp_caption();
-  Component *cm=c.getComponent();
-  if(cm)
-  {
-    Paragraph *p=dynamic_cast<Paragraph*>(cm);
-    if(p)
-      p->setText(pText);
-  }
+    Child &c=comp_caption();
+    Component *cm=c.getComponent();
+    if(cm)
+    {
+        Paragraph *p=dynamic_cast<Paragraph*>(cm);
+        if(p)
+            p->setText(pText);
+    }
+
+    // place components at the middle of the button
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        Child& child = *i;
+        if(!child.getComponent())
+            continue;
+        Component* component = child.getComponent();
+        
+        child.setPos( Vector2 ((width - component->getWidth())/2,
+                    (height - component->getHeight())/2));
+    }
 }
 
 std::string Button::getCaptionText()
