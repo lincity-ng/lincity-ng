@@ -1,14 +1,5 @@
 <?xml version="1.0"?>
 <gui>
-<!-- FIXME: put here some surrounding tag, which represents a loading-component -->
-<!-- use char ** PHYSFS_enumerateFiles 
-( 
-const char * 
-dir 
- ) 
-
-for file-enumeration (no wildcards) -->
-
     <DefineStyle name="menutitle" color="black" font-size="50" text-align="center"/>
     <DefineStyle name="listtitle" color="black" font-size="30"/>
     <DefineStyle name="button" color="blue" font-size="30" margin-left="20"

@@ -58,6 +58,9 @@ MainMenu::loadMainMenu()
         Button* loadGameButton = getButton(*mainMenu, "LoadButton");
         loadGameButton->clicked.connect(
                 makeCallback(*this, &MainMenu::loadGameButtonClicked));
+        Button* creditsButton = getButton(*mainMenu, "CreditsButton");
+        creditsButton->clicked.connect(
+                makeCallback(*this, &MainMenu::creditsButtonClicked));
     }
 
     mainMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
@@ -155,6 +158,19 @@ MainMenu::loadNewGameMenu()
 }
 
 void
+MainMenu::loadCreditsMenu()
+{
+    if(creditsMenu.get() == 0) {
+        creditsMenu.reset(loadGUIFile("gui/credits.xml"));
+        Button* backButton = getButton(*creditsMenu, "BackButton");
+        backButton->clicked.connect(
+                makeCallback(*this, &MainMenu::creditsBackButtonClicked));
+    }
+
+    creditsMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+}
+
+void
 MainMenu::loadLoadGameMenu()
 {
     if(loadGameMenu.get() == 0) {
@@ -228,6 +244,14 @@ MainMenu::quitButtonClicked(Button* )
 }
 
 void
+MainMenu::creditsButtonClicked(Button* )
+{
+    getSound()->playSound( "Click" );
+    loadCreditsMenu();
+    currentMenu = creditsMenu.get();
+}
+
+void
 MainMenu::continueButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
@@ -249,6 +273,14 @@ MainMenu::loadGameButtonClicked(Button* )
     getSound()->playSound( "Click" );
     loadLoadGameMenu();
     currentMenu = loadGameMenu.get();
+}
+
+void
+MainMenu::creditsBackButtonClicked(Button* )
+{
+    getSound()->playSound("Click");
+    loadMainMenu();
+    currentMenu = mainMenu.get();    
 }
 
 void

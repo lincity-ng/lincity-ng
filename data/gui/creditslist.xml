@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Document style="creditsdoc">
+    <p style="title" margin-top="20" margin-bottom="20"
+    translatable="yes">Credits</p>
+    
+    <p style="section" translatable="yes">Original Idea and Code</p>
+    <p style="person">Gregory Sharp
+    <span style="email">&lt;gregsharp@geocities.com&gt;</span></p>
+    <p style="person">Cory Keasling</p>
+    <p style="person">I J Peters</p>
+
+    <p style="section" translatable="yes">Code</p>
+    <p style="person">Wolfgang Becker
+    <span style="email">&lt;uafr@gmx.de&gt;</span></p>    
+    <p style="person">Matthias Braun
+    <span style="email">&lt;matze@braunis.de&gt;</span></p>    
+    <p style="person">David Kamphausen
+    <span style="email">&lt;david.kamphausen@web.de&gt;</span></p>
+
+    <p style="section" translatable="yes">Graphics</p>
+    <p style="person">Ingo Ruhnke
+    <span style="email">&lt;grumbel@gmx.de&gt;</span></p>
+    <p style="person">Christoph Brill
+    <span style="email">&lt;egore@gmx.de&gt;</span></p>
+    <p style="person">Ken Hirsch</p>
+
+    <p style="section" translatable="yes">Sound and Music</p>
+    <p style="person">Paulo Augusto</p>
+    <p style="person">Pronobozo
+    <span style="email">&lt;pronobozo@pronobozo.com&gt;</span></p>
+    
+</Document>

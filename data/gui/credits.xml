@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<gui>
+    <DefineStyle name="creditsdoc" background="#ffffff99"/>
+    <DefineStyle name="title" color="black" font-size="40" text-align="center"
+        margin-top="20" margin-bottom="10"/>
+    <DefineStyle name="section" color="black" margin-top="35" font-size="30"
+        margin-left="20"/>
+    <DefineStyle name="person" color="black" margin-left="50" font-size="20"
+        margin-top="5"/>
+    <DefineStyle name="email" color="blue" font-size="20" font-style="italic"/>
+    <DefineStyle name="button" color="blue" font-size="30" margin-left="20"
+    margin-right="20"/>                                                        
+    <Image src="images/mainmenu/menu_back.png" resizable="yes"/>
+    <TableLayout rows="2" cols="1">
+        <rowsize row="2" relative=".1"/>
+        <cell row="1" col="1" valign="top" halign="left">
+            <Import src="gui/creditslist.xml"/>
+        </cell>
+        <cell row="2" col="1" halign="left">
+            <Button name="BackButton">
+                <text-caption style="button" translatable="yes">Back</text-caption>
+                <image src="images/mainmenu/buttons/back.png"/>
+                <image-hover src="images/mainmenu/buttons/back-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/back-clicked.png"/>
+            </Button>
+        </cell>
+    </TableLayout>
+</gui>

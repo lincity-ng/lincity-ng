@@ -20,12 +20,16 @@ private:
     void loadMainMenu();
     void loadNewGameMenu();
     void loadLoadGameMenu();
+    void loadCreditsMenu();
     
     void fillLoadMenu();
     void fillNewGameMenu();
+
+    void creditsBackButtonClicked(Button* );
     
     void quitButtonClicked(Button* );
     void continueButtonClicked(Button* );
+    void creditsButtonClicked(Button* );
     void newGameButtonClicked(Button* );
     void loadGameButtonClicked(Button* );
 
@@ -43,6 +47,7 @@ private:
     std::auto_ptr<Component> mainMenu;
     std::auto_ptr<Component> newGameMenu;
     std::auto_ptr<Component> loadGameMenu;
+    std::auto_ptr<Component> creditsMenu;
     Component* currentMenu;
     
     bool running;

@@ -16,6 +16,7 @@ Style::Style()
     min_width(-1), min_height(-1)
 {
     font_family = "sans";
+    background.a = 0;
 }
 
 Style::~Style()

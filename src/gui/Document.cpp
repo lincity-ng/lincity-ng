@@ -78,11 +78,12 @@ Document::resize(float newwidth, float )
 void
 Document::draw(Painter& painter)
 {
-    painter.setFillColor(style.background);
-    painter.fillRectangle(Rect2D(0, 0, width, height));
+    if(style.background.a != 0) {
+        painter.setFillColor(style.background);
+        painter.fillRectangle(Rect2D(0, 0, width, height));
+    }
 
     Component::draw(painter);
 }
-                
 
 IMPLEMENT_COMPONENT_FACTORY(Document);

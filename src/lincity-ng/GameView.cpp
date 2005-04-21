@@ -200,12 +200,12 @@ void GameView::resetZoom(){
 
 /* increase Zoomlevel */
 void GameView::zoomIn(){
-    setZoom( zoom * 2 );
+    setZoom( zoom * 1.5 );
 }
 
 /** decrease Zoomlevel */
 void GameView::zoomOut(){
-    setZoom( zoom / 2 );
+    setZoom( zoom / 1.5 );
 }
 
 /**

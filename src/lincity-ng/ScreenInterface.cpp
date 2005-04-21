@@ -167,13 +167,12 @@ void updateMessageTitle()
     if( !root ) return;
     while( root->getParent() )
         root = root->getParent();
-   //test if message Windows is open and TODO: create it on demand
-   Component* messageTitleComponent = 0;
-   messageTitleComponent = root->findComponent( "messageTitle" );
-   if( messageTitleComponent == 0 ) {
-       std::cerr << "updateMessageTitle: No message window!\n";
-       return;
-   }
+    //test if message Windows is open and TODO: create it on demand
+    Component* messageTitleComponent = 0;
+    messageTitleComponent = root->findComponent( "messageTitle" );
+    if( messageTitleComponent == 0 ) {
+        return;
+    }
     Paragraph* messageTitle = getParagraph( *root, "messageTitle");
     if( !messageTitle ) return;
     
