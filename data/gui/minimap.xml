@@ -124,7 +124,7 @@
                                 <image src="images/gui/buttonpanel/background/button.png"/>
                                 <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
                                 <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
-                                <image-caption src="images/gui/speed/pause.png"/>
+                                <image-caption src="images/gui/speed/pause2.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="2">
@@ -132,7 +132,7 @@
                                 <image src="images/gui/buttonpanel/background/button.png"/>
                                 <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
                                 <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
-                                <image-caption src="images/gui/speed/normal.png"/>
+                                <image-caption src="images/gui/speed/normal2.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="3">
@@ -140,7 +140,7 @@
                                 <image src="images/gui/buttonpanel/background/button.png"/>
                                 <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
                                 <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
-                                <image-caption src="images/gui/speed/fast.png"/>
+                                <image-caption src="images/gui/speed/fast2.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="4">
@@ -148,7 +148,7 @@
                                 <image src="images/gui/buttonpanel/background/button.png"/>
                                 <image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
                                 <image-clicked src="images/gui/buttonpanel/background/button-checked.png"/>
-                                <image-caption src="images/gui/speed/faster.png"/>
+                                <image-caption src="images/gui/speed/faster2.png"/>
                             </Button>
                         </cell>
                     </TableLayout>
