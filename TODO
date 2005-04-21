@@ -32,6 +32,10 @@ Programming
  [?] Discuss if the colors on the minimap can be improved
 
 --Bugs--
+ [M] mills.png shows a windmill but is used as button to build a mill.
+     Should be more like a factory. 
+ [H] New text on buttons is truncated to original textlength. 
+     (eg in load game menu)
 
 --Game--
  [M] some more sounds
@@ -52,5 +56,5 @@ Programming
  [M] Options-dialog
  [L] manpage, documentation
  [H] improve fast scrolling
- [H] Homepage
+ [H] Homepage http://lincity-ng.berlios.de/ 
  [H] Tile graphics

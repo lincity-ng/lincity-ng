@@ -3,36 +3,6 @@
  *   
  *  February 2005, Wolfgang Becker <uafr@gmx.de>
  *
- *  20050204
- *  +Numblock Scroll
- *  +fixed bug in drawing Big Tiles  
- *  
- *  +Zoom with Numblock + - and enter (Graphics do not get resized yet!)
- *
- *  20050205
- *  +get Offset-Info from images/tiles/images.xml
- *
- *  20050208
- *  +Zoom now working
- *
- *  20050211
- *  +show Tile under Mouse
- *
- *  20050225
- *  +support setDirty
- *
- *  20050228
- *  +setCursorSize()
- *
- *  20050306
- *  drag support
- *
- *  20050325
- *  preload Images in extra Thread
- *  keep city in GameView
- *
- *  20050326
- *  Hide mouse while scrolling map.
  */
 #include <config.h>
 
@@ -171,27 +141,28 @@ void GameView::setCursorSize( int size )
 } 
     
 /*
- * Adjust the Zoomlevel. Argument is per mille.
+ * Adjust the Zoomlevel.
  */
 void GameView::setZoom(float newzoom){
     //find Tile in Center of Screen
     Vector2 center( getWidth() / 2, getHeight() / 2 );
     MapPoint centerTile  = getTile( center ); 
-   
+    
+    if ( newzoom < .125 ) return;
+    if ( newzoom > 4 ) return;
+    
     zoom = newzoom;
+    
     // fix rounding errors...
     if(fabs(zoom - 1.0) < .01)
         zoom = 1;
     
-    if ( zoom < .125 ) zoom = .125;
-    if ( zoom > 4 ) zoom = 4;
-    
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom;
-    std::cout << "TileWidth: " << tileWidth;
     //a virtual screen containing the whole city
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
+    std::cout << "Zoom " << zoom  << "\n";
 
     //Show the Center
     show( centerTile );
@@ -204,12 +175,12 @@ void GameView::resetZoom(){
 
 /* increase Zoomlevel */
 void GameView::zoomIn(){
-    setZoom( zoom * 1.5 );
+    setZoom( zoom * sqrt( 2 ) );
 }
 
 /** decrease Zoomlevel */
 void GameView::zoomOut(){
-    setZoom( zoom / 1.5 );
+    setZoom( zoom / sqrt( 2 ) );
 }
 
 /**
@@ -914,9 +885,10 @@ MapPoint GameView::getTile(const Vector2& p)
     MapPoint tile;
     // Map Point to virtual Screen
     Vector2 point = p + viewport;
-    tile.x = (int) 
-        ((point.x - virtualScreenWidth / 2 ) / tileWidth +  point.y  / tileHeight);
-    tile.y = (int) ( 2 * point.y  / tileHeight  - tile.x );
+    float x = (point.x - virtualScreenWidth / 2 ) / tileWidth 
+        +  point.y  / tileHeight;
+    tile.x = (int) floorf(x);
+    tile.y = (int) floorf( 2 * point.y  / tileHeight  - x );
 
     return tile;
 }

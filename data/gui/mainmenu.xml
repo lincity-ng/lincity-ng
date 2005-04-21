@@ -32,7 +32,7 @@
         </cell>
         <cell row="4" col="3">
             <Button name="LoadButton">
-		<text-caption translatable="yes" style="normal">Load</text-caption>
+		<text-caption translatable="yes" style="normal">Load/Save</text-caption>
 		<image src="images/mainmenu/buttons/load.png"/>
 		<image-hover src="images/mainmenu/buttons/load-hover.png"/>
 		<image-clicked src="images/mainmenu/buttons/load-clicked.png"/>
