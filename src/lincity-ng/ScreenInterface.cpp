@@ -231,7 +231,7 @@ void prog_box (char *title, int percent)
 {
     std::ostringstream text;
     text << "prog_box:'" << title << "' " << percent << "%\n";
-    updateMessageText( text.str() );
+    std::cout << text;
 }
 
 void print_total_money (void)

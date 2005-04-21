@@ -25,7 +25,7 @@ for file-enumeration (no wildcards) -->
         <rowsize row="3" relative="1"/>
         
         <cell row="1" col="1">
-            <Paragraph style="menutitle" translatable="yes">Load Game</Paragraph>
+            <Paragraph style="menutitle" translatable="yes">Load/Save Game</Paragraph>
         </cell>
         <cell row="2" col="1">
             <TableLayout rows="6" cols="2">
@@ -96,7 +96,7 @@ for file-enumeration (no wildcards) -->
             </TableLayout>
         </cell>
         <cell row="3" col="1">
-            <TableLayout rows="2" cols="2">
+            <TableLayout rows="2" cols="3">
                 <rowsize row="1" fixed="115"/>
                 <rowsize row="2" relative="1"/>
               
@@ -109,7 +109,16 @@ for file-enumeration (no wildcards) -->
                         translatable="yes">Back</text-clicked>
                     </Button>
                 </cell>
-                <cell row="2" col="2" halign="right">
+                <cell row="2" col="2" >
+                    <Button name="SaveButton">
+                        <text style="button" translatable="yes">save to selected slot</text>
+                        <text-hover style="button-hover"
+                        translatable="yes">save to selected slot</text-hover>
+                        <text-clicked style="button-clicked"
+                        translatable="yes">save to selected slo</text-clicked>
+                    </Button>
+                </cell>
+                <cell row="2" col="3" halign="right">
                     <Button name="LoadButton">
                         <text style="button" translatable="yes">Load</text>
                         <text-hover style="button-hover"

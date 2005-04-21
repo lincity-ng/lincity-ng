@@ -5,6 +5,10 @@
 #include <iostream>
 #include <typeinfo>
 #include <physfs.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <time.h>
 
 #include "gui/TextureManager.hpp"
 #include "gui/ComponentLoader.hpp"
@@ -15,6 +19,7 @@
 
 #include "gui_interface/shared_globals.h"
 #include "lincity/lin-city.h"
+#include "lincity/fileutil.h"
 
 #include "CheckButton.hpp"
 
@@ -92,41 +97,35 @@ void MainMenu::fillNewGameMenu()
 void MainMenu::fillLoadMenu()
 {
   char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
-  //TODO: read savegames from ~/.lincity so we can use the original save_game()
-  /*
-  std::string lincitydir = PHYSFS_getUserDir();
-  lincitydir+="/.lincity"; 
-  char **files= PHYSFS_enumerateFiles( lincitydir.c_str() ); 
-  //quickfix: ~/.devs/lincityng/ is a symlink to ~/.lincity
-  */
+  //read savegames from ~/.lincity so we can use the original save_city()
+  std::string lincityDirName = PHYSFS_getUserDir();
+  lincityDirName+="/.lincity"; 
+  DIR* lincityDir = opendir( lincityDirName.c_str() );
 
-  char **files= PHYSFS_enumerateFiles( "savegames" );
-  
-  char **fptr=files;
- 
+  dirent* curfile;
   for(int i=0;i<6;i++)
   {
+    std::stringstream filestart;
+    filestart << i+1 << "_";
     CheckButton *button=getCheckButton(*loadGameMenu.get(),buttonNames[i]);
     
     button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
-    while(*fptr)
-    {
-      if(std::string(*fptr).find(".scn")!=std::string::npos)
+    while( ( curfile = readdir( lincityDir ) ) )
+    { 
+      if(std::string( curfile->d_name ).find( filestart.str() ) == 0 && !( curfile->d_type & DT_DIR  ) )
         break;
-      fptr++;
     }
-    if(*fptr)
+    if( curfile )
     {
-      std::string f=*fptr;
-      if(f.length()>5)
-        f=f.substr(0,f.length()-4); // truncate .scn
+      std::string f= curfile->d_name;
       button->setCaptionText(f);
-      fptr++;
     }
     else
       button->setCaptionText("");
+
+    rewinddir( lincityDir );
   }
-  PHYSFS_freeList(files);
+  closedir( lincityDir );
 }
 
 void
@@ -164,6 +163,9 @@ MainMenu::loadLoadGameMenu()
         Button* loadButton = getButton(*loadGameMenu, "LoadButton");
         loadButton->clicked.connect(
                 makeCallback(*this, &MainMenu::loadGameLoadButtonClicked));
+        Button* saveButton = getButton(*loadGameMenu, "SaveButton");
+        saveButton->clicked.connect(
+                makeCallback(*this, &MainMenu::loadGameSaveButtonClicked));
         Button* backButton = getButton(*loadGameMenu, "BackButton");
         backButton->clicked.connect(
                 makeCallback(*this, &MainMenu::loadGameBackButtonClicked));
@@ -186,10 +188,11 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     file="opening/bad_times.scn";
   else if(fc.length())
   {
-    if(newGameMenu.get()==currentMenu)
+    if(newGameMenu.get()==currentMenu )
       file=std::string("opening/")+fc+".scn";
-    else
-      file=std::string("savegames/")+fc+".scn";
+    else{
+      file=fc;
+    }
   }
   char *bs[]={"File0","File1","File2","File3","File4","File5",""};
   for(int i=0;std::string(bs[i]).length();i++)
@@ -198,9 +201,20 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     if(b->getName()!=button->getName())
       b->uncheck();
   }
-  mFilename=PHYSFS_getRealDir( file.c_str() );
-  mFilename+="/";
-  mFilename+=file;
+
+  if(newGameMenu.get()==currentMenu){
+    mFilename=PHYSFS_getRealDir( file.c_str() );
+  } else {
+    slotNr = 1 + atoi( const_cast<char*>(button->getName().substr(4).c_str()) );
+    if( file.length() == 0){
+        mFilename = "";
+        return;
+    }
+    mFilename=PHYSFS_getUserDir();
+    mFilename+="/.lincity"; 
+  }
+    mFilename+="/";
+    mFilename+=file;
 }
 
     
@@ -239,11 +253,12 @@ MainMenu::loadGameButtonClicked(Button* )
 void
 MainMenu::newGameStartButtonClicked(Button* )
 {
-    getSound()->playSound( "Click" );
-    if(mFilename.length())
-      load_city(const_cast<char*>(mFilename.c_str()));
-    quitState = INGAME;
-    running = false;
+    if( file_exists( const_cast<char*>(mFilename.c_str()) ) ){
+        getSound()->playSound( "Click" );
+        load_city(const_cast<char*>(mFilename.c_str()));
+        quitState = INGAME;
+        running = false;
+    }
 }
 
 void
@@ -291,12 +306,35 @@ MainMenu::gotoMainMenu()
 void
 MainMenu::loadGameLoadButtonClicked(Button *)
 {
-    if(mFilename.length())
-      load_city(const_cast<char*>(mFilename.c_str()));
-    getSound()->playSound( "Click" );
-    quitState = INGAME;
-    running = false;
+    if( file_exists( const_cast<char*>(mFilename.c_str()) ) ){
+        getSound()->playSound( "Click" );
+        load_city(const_cast<char*>(mFilename.c_str()));
+        quitState = INGAME;
+        running = false;
+    }
 }
+
+void
+MainMenu::loadGameSaveButtonClicked(Button *)
+{
+    time_t now = time(NULL);
+    struct tm* datetime = localtime(&now);
+
+    getSound()->playSound( "Click" );
+    if( file_exists( const_cast<char*>(mFilename.c_str()) ) ){
+        std::cout << "remove( " << mFilename << ")\n";
+        remove( mFilename.c_str() );
+    }
+    std::stringstream newStart;
+    newStart << slotNr << "_" << (1900 + datetime->tm_year);
+    newStart << "-" << datetime->tm_mon << "-" << datetime->tm_mday << "_";
+    newStart << datetime->tm_hour << ":" << datetime->tm_min;
+    std::string newFilename( newStart.str() ); 
+    std::cout << "save_city( " << newFilename.c_str() <<")\n";
+    save_city(const_cast<char*>( newFilename.c_str() ) );
+    fillLoadMenu();
+}
+
 
 MainState
 MainMenu::run()

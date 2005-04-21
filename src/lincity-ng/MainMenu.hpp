@@ -36,6 +36,7 @@ private:
         
     void loadGameBackButtonClicked(Button* );
     void loadGameLoadButtonClicked(Button* );
+    void loadGameSaveButtonClicked(Button* );
     
     void selectLoadGameButtonClicked(CheckButton*,int);
     
@@ -46,6 +47,7 @@ private:
     
     bool running;
     MainState quitState;           
+    int slotNr;
     
     std::string mFilename;    
 };
