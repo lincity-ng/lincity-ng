@@ -221,7 +221,7 @@
 				<image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
 				<image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
 				<image-checked src="images/gui/buttonpanel/background/button-checked.png"/>
-				<image-caption src="images/gui/buttonpanel/misc/health.png"/>
+				<image-caption src="images/gui/buttonpanel/misc/health2.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="3" col="2" halign="left">
@@ -233,7 +233,7 @@
 						<image-hover src="images/gui/buttonpanel/background/button-hover.png"/>
 						<image-clicked src="images/gui/buttonpanel/background/button-clicked.png"/>
 						<image-checked src="images/gui/buttonpanel/background/button-checked.png"/>
-						<image-caption src="images/gui/buttonpanel/misc/health.png"/>
+						<image-caption src="images/gui/buttonpanel/misc/health2.png"/>
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
