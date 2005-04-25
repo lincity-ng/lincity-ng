@@ -8,5 +8,5 @@ SubInclude TOP doc ;
 UseAutoconf ;
 
 # add some additional files to package
-Package README ;
-InstallDoc README ;
+Package README TODO ;
+InstallDoc README TODO ;

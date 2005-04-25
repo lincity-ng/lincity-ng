@@ -41,10 +41,22 @@ Config::Config()
     lincityHome = "./data";
     
     //First we load the global File which should contain
-    //sane defaults for the local system.
-    load( "lincityconfig.xml" );
+    try {
+        //sane defaults for the local system.
+        load( "lincityconfig.xml" );
+    } catch(std::exception& e) {
+#ifdef DEBUG
+        std::cerr << "Couldn't load lincityconfig.xml: " << e.what() << "\n";
+#endif
+    }
     //Then load another file where to overwrite some values.
-    load( "userconfig.xml" );
+    try {
+        load( "userconfig.xml" );
+    } catch(std::exception& e) {
+#ifdef DEBUG
+        std::cerr << "Couldn't load userconfig.xml: " << e.what() << "\n";
+#endif
+    }
 }
 
 Config::~Config()
