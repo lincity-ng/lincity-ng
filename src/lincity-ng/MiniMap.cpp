@@ -288,11 +288,19 @@ Color MiniMap::getColorNormal(int x,int y) const
       yy = MP_INFO(x,y).int_2;
     }
 
+  int mc = main_groups[MP_GROUP(xx,yy)].colour;
+  int red = 0;
+  int green = 0;
+  int blue = 0;
 
-  short typ = MP_TYPE(xx,yy);
-  int mc=typ+20;
-  
-  return Color((mc&3)*64,((mc>>2)&3)*64,((mc>>4)&3)*64); // some random color
+  if( mc & 32 ) 
+      red = 8 * ( mc & 31 );
+  if( mc & 64 )
+      green = 8 * ( mc & 31 );
+  if( mc & 128 )
+      blue = 8 * (mc & 31 );
+
+  return Color( red, green, blue ); 
 }
 
 Color MiniMap::getColor(int x,int y) const

@@ -29,7 +29,6 @@ Programming
  [M] Add tooltips for buttonpanel
  [L] Add maximize for Windows (see Window.cpp 74 ff)
       - really?
- [M] Use static colors on the minimap.
 
 --Bugs--
  [M] mills.png shows a windmill but is used as button to build a mill.
