@@ -109,13 +109,62 @@ void mps_store_sss(int i, const char * s1, const char * s2, const char * s3)
 
 /* Data for new mps routines */
 //extern char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
-int mps_global_style;
+int mps_global_style = MPS_GLOBAL_FINANCE;
 
 /* MPS Global displays */
 void mps_right (int x, int y)
 {
-    (void) x;
-    (void) y;
+    int i = 0;
+    char s[12];
+    const char* p;
+    int g;
+
+    snprintf(s,sizeof(s),"%d,%d",x,y);
+    mps_store_title(i++,s);
+    i++;
+    mps_store_title(i++,_("Coverage"));
+    p = (MP_INFO(x,y).flags & FLAG_FIRE_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Fire"),p);
+
+    p = (MP_INFO(x,y).flags & FLAG_HEALTH_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Health"),p);
+
+    p = (MP_INFO(x,y).flags & FLAG_CRICKET_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Cricket"),p);
+    i++;
+    mps_store_title(i++,_("Pollution"));
+
+    if (MP_POL(x,y) < 10)
+	p = _("clear");
+    else if (MP_POL(x,y) < 25)
+	p = _("good");
+    else if (MP_POL(x,y) < 70)
+	p = _("fair");
+    else if (MP_POL(x,y) < 190)
+	p = _("smelly");
+    else if (MP_POL(x,y) < 450)
+	p = _("smokey");
+    else if (MP_POL(x,y) < 1000)
+	p = _("smoggy");
+    else if (MP_POL(x,y) < 1700)
+	p = _("bad");
+    else if (MP_POL(x,y) < 3000)
+	p = _("very bad");
+    else
+	p = _("death!");
+
+    mps_store_sd(i++,p,MP_POL(x,y));
+    i++;
+
+    mps_store_title(i++,_("Bulldoze Cost"));
+    g = MP_GROUP(x,y);
+    if (g == 0) {	/* Can't bulldoze grass. */
+	mps_store_title(i++,_("N/A"));
+    } else {
+	if (g < 7)
+	    g--;			/* translate into button type */
+	mps_store_d(i++,main_groups[g].bul_cost);
+    }
 }
 
 void mps_global_finance(void) {

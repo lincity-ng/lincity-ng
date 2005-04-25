@@ -44,8 +44,10 @@ LCMps::parse(XmlReader& reader)
 
 void LCMps::setText(int i,const std::string &s)
 {
-  if(i>=10)
+  if(i>paragraphCount) {
+    std::cerr<<"setText("<<i<<") '"<< s << "' failed."<<std::endl;
     return;
+  }
     std::ostringstream compname;
     compname << "mps_text" << (i+1);
     Paragraph* p = getParagraph(*this, compname.str());
@@ -54,11 +56,11 @@ void LCMps::setText(int i,const std::string &s)
       p->setText(s);
      }
     else
-      std::cout<<"Paragraph with num:"<<i<<" not found"<<std::endl;
+      std::cerr<<"Paragraph with num:"<<i<<" not found"<<std::endl;
 }
 
 
-void LCMps::setView(MapPoint point)
+void LCMps::setView(MapPoint point, int style /* = MPS_MAP */ )
 {
     int x = point.x;
     int y = point.y;
@@ -76,9 +78,9 @@ void LCMps::setView(MapPoint point)
     }
 
   // first clear all text
-  for(int i=0;i<10;i++)
+  for(int i=0;i<paragraphCount;i++)
     setText(i," ");
-  mps_update(xx,yy,MPS_MAP);//GLOBAL);// MPS_ENV);// MPS_MAP);
+  mps_update(xx,yy,style); //MPS_GLOBAL);// MPS_ENV);// MPS_MAP);
 }
 
 
@@ -264,8 +266,8 @@ void mps_update(int mps_x,int mps_y,int mps_style)
     }
         break;
     case MPS_ENV:
-    mps_right (mps_x, mps_y);
-    break;
+        mps_right (mps_x, mps_y);
+        break;
     case MPS_GLOBAL: 
     {
         switch (mps_global_style) {

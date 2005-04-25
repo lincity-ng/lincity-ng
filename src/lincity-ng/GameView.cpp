@@ -124,7 +124,7 @@ void GameView::parse(XmlReader& reader)
     dragging = false;
     roadDragging = false;
     startRoad = MapPoint(0, 0);
-    rightButtonDown = false;
+    middleButtonDown = false;
     tileUnderMouse = MapPoint(0, 0);
     dragStart = Vector2(0, 0);
 
@@ -660,7 +660,7 @@ void GameView::event(const Event& event)
                 break;
             }
             mouseInGameView = true;
-            if( !dragging && rightButtonDown ) {
+            if( !dragging && middleButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
                 SDL_ShowCursor( SDL_DISABLE );
@@ -683,9 +683,9 @@ void GameView::event(const Event& event)
             if(!event.inside) {
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ){
                 dragging = false;
-                rightButtonDown = true;
+                middleButtonDown = true;
                 break;       
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ){
@@ -696,16 +696,16 @@ void GameView::event(const Event& event)
             break;
         }
         case Event::MOUSEBUTTONUP:
-            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ){
                 if ( dragging ) {
                     dragging = false;
-                    rightButtonDown = false;
+                    middleButtonDown = false;
                     SDL_ShowCursor( SDL_ENABLE );
                     SDL_WM_GrabInput( SDL_GRAB_OFF );
                     break;
                 } 
                 dragging = false;
-                rightButtonDown = false;
+                middleButtonDown = false;
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ){
                 if ( roadDragging && event.inside ) {
@@ -742,11 +742,11 @@ void GameView::event(const Event& event)
                 if( !blockingDialogIsOpen )
                     editMap(tile, SDL_BUTTON_LEFT); //edit tile
             }
-            else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //right      
+            else if( event.mousebutton == SDL_BUTTON_MIDDLE ){  //middle      
                 recenter(event.mousepos);                      //adjust view
             }
-            else if( event.mousebutton == SDL_BUTTON_MIDDLE ){ //middle
-                getMPS()->setView(tile);//show info
+            else if( event.mousebutton == SDL_BUTTON_RIGHT ){ //right
+                getMPS()->setView( tile, MPS_ENV );//show basic info
             }
             else if( event.mousebutton == SDL_BUTTON_WHEELUP ){ //up 
                 zoomIn();                                       //zoom in

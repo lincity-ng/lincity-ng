@@ -26,6 +26,7 @@
 
 #include "Debug.hpp"
 #include "Util.hpp"
+#include "Mps.hpp"
 
 #define LC_MOUSE_LEFTBUTTON 1
 #define LC_MOUSE_RIGHTBUTTON 2
@@ -415,19 +416,24 @@ Color MiniMap::getColor(int x,int y) const
 
 void MiniMap::event(const Event& event)
 {
-  if(event.type==Event::MOUSEBUTTONDOWN && event.inside)
-    {
-        // move main-map
+    if(event.type==Event::MOUSEBUTTONDOWN && event.inside){
         // get Tile, that was clicked
         MapPoint tile (
                 (int) ((event.mousepos.x - border ) / tilesize),
                 (int) ((event.mousepos.y - border ) / tilesize));
-        //cdebug( "click on tile "<< tilex <<"/"<< tiley );
+        
+        if(event.mousebutton == SDL_BUTTON_RIGHT ){ //right mouse
+            getMPS()->setView( tile, MPS_GLOBAL );//show global info
+            //cycle through global styles
+            mps_global_style++;
+            if( mps_global_style >= MPS_GLOBAL_STYLES )
+                mps_global_style = 0;
+            return;
+        }
+
+        // move main-map
         getGameView()->show(tile);
-        //mMode = getNextMode(mMode);
         mFullRefresh=true;
-        //      cdebug("MODE:"<<mMode<<":"<<mode[mMode]);
-        //      mText->setText(mode[mMode]);
     }
 }
 
