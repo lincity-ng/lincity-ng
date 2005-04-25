@@ -138,8 +138,8 @@ void updateMessageText( const std::string text )
         messageTextComponent = root->findComponent( "messageText" );
         if(messageTextComponent == 0) {
             messageTextComponent = loadGUIFile("gui/messagearea.xml");
-            desktop->addChildComponent(messageTextComponent);
             assert(messageTextComponent != 0);
+            desktop->addChildComponent(messageTextComponent);
         }
         Paragraph* messageText = getParagraph(*messageTextComponent, "messageText");
         
@@ -301,49 +301,12 @@ int getMainWindowHeight()
 
 int yn_dial_box (char * s1, char * s2, char * s3, char *s4)
 {
-    int result = 0;
-    
-    std::string dialogString1 = s1;
-    std::string dialogString2 = s2;
-    std::string dialogString3 = s3;
-    std::string dialogString4 = s4;
-    std::string guiFile;
-    
-    //which Message?
-    if( dialogString2 == "Bulldozing a section of river" ){
-        guiFile = "bulldoze_river_yn.xml";
-    } else {
-        std::cerr << "DIALOG MISSING:\n";
-        std::cerr << "---[yn_dial_box]---------\n";
-        std::cerr << dialogString1 << "\n";
-        std::cerr << dialogString2 << "\n";
-        std::cerr << dialogString3 << "\n";
-        std::cerr << dialogString4 << "\n";
-        std::cerr << "-------------------------\n";
-        return 0;
-    }
-        
-    Component* root = getGameView();
-    if(!root) {
-        std::cerr << "Root not found.\n";
-        return 0;
-    }
-    while( root->getParent() )
-        root = root->getParent();
-    Desktop* desktop = dynamic_cast<Desktop*> (root);
-    if(!desktop) {
-        std::cerr << "Root not a desktop!?!\n";
-        return 0;
-    }
-    try {
-        Component* ynDialogComponent = loadGUIFile("gui/" + guiFile);
-        desktop->addChildComponent( ynDialogComponent );
-        assert( ynDialogComponent != 0);
-    } catch(std::exception& e) {
-        std::cerr << "Couldn't display message '" << s1 << "': "
-            << e.what() << "\n";
-        return 0;
-    }
-    //TODO: we need the exit-button of the Dialog
-    return result;
+    std::cerr << "DIALOG MISSING:\n";
+    std::cerr << "---[yn_dial_box]---------\n";
+    std::cerr << s1 << "\n";
+    std::cerr << s2 << "\n";
+    std::cerr << s3 << "\n";
+    std::cerr << s4 << "\n";
+    std::cerr << "-------------------------\n";
+    return 0;
 }

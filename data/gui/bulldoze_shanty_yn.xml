@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<Window width="700" height="200" border="5" titlesize="25">
+    <title>
+        <Paragraph style="title" translatable="yes">
+            Bulldozing shantys is dangerous.
+        </Paragraph>
+    </title>
+    <contents>
+        <TableLayout rows="2" cols="1">
+            <rowsize row="2" fixed="30"/>
+            <cell row="1" col="1">
+                <TableLayout rows="1" cols="2">
+                    <colsize col="1" fixed="95"/>
+                    <cell row="1" col="1">
+                        <Image src="images/gui/dialogs/yesno.png"/>
+                    </cell>
+                    <cell row="1" col="2">
+                        <Document style="message">
+                            <p style="messagebold" translatable="yes">
+                            Warning</p>
+                            <p translatable="yes">
+                            Bulldozing a shanty town costs
+                            lot of money and may cause a fire.</p>
+                            <p translatable="yes">
+                            Want to bulldoze?</p>
+                        </Document>
+                    </cell>
+                </TableLayout>
+            </cell>
+            <cell row="2" col="1">
+                <TableLayout rows="1" cols="2">
+                    <cell row="1" col="1">
+                        <Button name="No">
+                            <text-caption style="dialogbutton" translatable="yes">No</text-caption>
+                            <image src="images/gui/dialogs/nobutton.png"/>
+                        </Button>
+                    </cell>
+                    <cell row="1" col="2">
+                        <Button name="Yes">
+                            <text-caption style="dialogbutton"
+                            translatable="yes">Yes</text-caption>
+                            <image src="images/gui/dialogs/yesbutton.png"/>
+                        </Button>
+                    </cell>
+                </TableLayout>
+            </cell>
+        </TableLayout>
+    </contents>
+</Window>

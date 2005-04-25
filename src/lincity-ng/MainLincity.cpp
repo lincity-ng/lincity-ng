@@ -22,6 +22,7 @@
 
 #include "GameView.hpp"
 #include "ScreenInterface.hpp"
+#include "Dialog.hpp"
 
 int lincitySpeed = MED_TIME_FOR_YEAR;
 
@@ -36,8 +37,8 @@ void execute_timestep ()
   Uint32 now=SDL_GetTicks();
   Uint32 mStepTime=( lincitySpeed *1000/NUMOF_DAYS_IN_YEAR); 
 
-  if( lincitySpeed == 0 )
-      return; // Pause
+  if( lincitySpeed == 0 || blockingDialogIsOpen )
+      return;
 
   if (now - oldTime < mStepTime)
     return; // skip frame

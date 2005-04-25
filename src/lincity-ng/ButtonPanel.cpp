@@ -18,6 +18,7 @@
 #include "lincity/lctypes.h"
 
 #include "GameView.hpp"
+#include "MapEdit.hpp"
 
 ButtonPanel *ButtonPanelInstance=0;
 
@@ -179,6 +180,12 @@ void ButtonPanel::attachButtons()
  */
 void ButtonPanel::updateToolInfo()
 {       
+    //Tool was changed, so we reset the bulldozeflags to enable 
+    //the warnings again.
+    monument_bul_flag = 0;
+    river_bul_flag = 0;
+    shanty_bul_flag = 0;
+    
     if( selected_module_type == CST_NONE ) //query
     {
         mps_store_title(0, "Query Tool"); 

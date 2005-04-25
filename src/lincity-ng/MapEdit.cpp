@@ -10,10 +10,11 @@
 #include "lincity/lin-city.h"
 
 #include "Sound.hpp"
+#include "MapEdit.hpp"
+#include "Dialog.hpp"
 
 #include "Debug.hpp"
 
-// FIXME: is this correct ???
 int monument_bul_flag=0;
 int river_bul_flag=0;
 int shanty_bul_flag=0;
@@ -96,34 +97,20 @@ check_bulldoze_area (int x, int y)
     }
   g = MP_GROUP(xx,yy);
 
-  /* GCS: Free bulldozing of most recently placed item is disabled.
-     Still not sure how this can be done w/ multiplayer. */
   if (g == GROUP_MONUMENT && monument_bul_flag == 0)
     {
-      if (yn_dial_box (_("WARNING"),
-                       _("Bulldozing a monument costs"),
-                       _("a lot of money."),
-                       _("Want to bulldoze?")) == 0)
+        new Dialog( BULLDOZE_MONUMENT, xx, yy ); // deletes itself
         return;
-      monument_bul_flag = 1;
     }
   else if (g == GROUP_RIVER && river_bul_flag == 0)
     {
-      if (yn_dial_box (_("WARNING"),
-                       _("Bulldozing a section of river"),
-                       _("costs a lot of money."),
-                       _("Want to bulldoze?")) == 0)
+        new Dialog( BULLDOZE_RIVER, xx, yy ); // deletes itself
         return;
-      river_bul_flag = 1;
     }
   else if (g == GROUP_SHANTY && shanty_bul_flag == 0)
     {
-      if (yn_dial_box (_("WARNING"),
-                       _("Bulldozing a shanty town costs a"),
-                       _("lot of money and may cause a fire."),
-                       _("Want to bulldoze?")) == 0)
+        new Dialog( BULLDOZE_SHANTY, xx, yy ); // deletes itself
         return;
-      shanty_bul_flag = 1;
     }
   else if (g == GROUP_TIP)
     {
@@ -179,25 +166,6 @@ void editMap (MapPoint point, int button)
               launch_rocket (mod_x, mod_y);
             }
         }
-    }
-
-  /* Handle multitransport */
-  if (button == SDL_BUTTON_LEFT &&
-      GROUP_IS_TRANSPORT(selected_module_group))
-    {
-
-      /*
-        FIXME: what was this supposed to be ???
-
-      if (mt_draw (px, py, MT_START))
-        {
-          // We need to set mps to current location, since the user might
-          //   click on the transport to see the mps 
-
-          mps_set(mod_x, mod_y, MPS_MAP);
-          return;
-        }
-        */
     }
 
   /* Handle bulldozing */
@@ -302,18 +270,9 @@ void editMap (MapPoint point, int button)
       break;
     case -2:
       /* Improper port placement */
-      /* TRANSLATORS: The part about the cup of tea is one of Ian's
-         jokes, but the part about ports needing to be connected 
-         to rivers is true.  */
-      if (yn_dial_box (_("WARNING"),
-                       _("Ports need to be"),
-                       _("connected to rivers!"),
-                       _("Want to make a cup of tea?")) != 0)
-        while (yn_dial_box (_("TEA BREAK"),
-                            _("Boil->pour->wait->stir"),
-                            _("stir->pour->stir->wait->drink...ahhh"),
-                            _("Have you finished yet?")) == 0)
-          ;
+        // WolfgangB: The correct placement for the port (river to the east)
+        // is shown by red/blue cursor in GameView. So we don't need    
+        // a dialog here.
       break;
     }
 }

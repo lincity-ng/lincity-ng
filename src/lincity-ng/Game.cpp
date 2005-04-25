@@ -63,7 +63,7 @@ Game::run()
                          backToMainMenu();
                          break;
                      }
-                        gui->event(gui_event);
+                     gui->event(gui_event);
                      break;
                 }
                 case SDL_MOUSEMOTION:

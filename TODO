@@ -29,7 +29,7 @@ Programming
  [M] Add tooltips for buttonpanel
  [L] Add maximize for Windows (see Window.cpp 74 ff)
       - really?
- [?] Discuss if the colors on the minimap can be improved
+ [M] Use static colors on the minimap.
 
 --Bugs--
  [M] mills.png shows a windmill but is used as button to build a mill.
@@ -38,6 +38,7 @@ Programming
      (eg in load game menu)
  [H] Check tech-requirements for buildings.
  [H] don't show Coal Reserve on Minimap until survey is done
+ [M] also show area-information from right-click in oldgui
 
 --Game--
  [M] some more sounds

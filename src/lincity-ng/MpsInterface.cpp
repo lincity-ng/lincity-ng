@@ -61,18 +61,23 @@ void mps_store_title(int i, const char * t)
 }
 void mps_store_fp(int i, double f)
 {
-    (void) i;
-    (void) f;
+    std::ostringstream os;
+    os<<f<<"%";
+    os<<std::setprecision(1)<<std::fixed;
+    getMPS()->setText(i,os.str());
 }
 void mps_store_f(int i, double f)
 {
-    (void) i;
-    (void) f;
+    std::ostringstream os;
+    os<<f;
+    os<<std::setprecision(1)<<std::fixed;
+    getMPS()->setText(i,os.str());
 }
 void mps_store_d(int i, int d)
 {
-    (void) i;
-    (void) d;
+    std::ostringstream os;
+    os<<d;
+    getMPS()->setText(i,os.str());
 }
 
 void mps_store_ss(int i, const char * s1, const char * s2)

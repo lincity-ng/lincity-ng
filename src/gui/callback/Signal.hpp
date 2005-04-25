@@ -33,6 +33,11 @@ public:
         callbacks.push_back(callback);
     }
 
+    void clear()
+    {
+        callbacks.clear();
+    }
+
 private:
     Callbacks callbacks;
 };
@@ -64,6 +69,11 @@ public:
     void connect(CallbackBase<Arg1T>* callback)
     {
         callbacks.push_back(callback);
+    }
+
+    void clear()
+    {
+        callbacks.clear();
     }
 
 private:

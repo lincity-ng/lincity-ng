@@ -24,6 +24,7 @@
 #include "Mps.hpp"
 #include "MapEdit.hpp"
 #include "MiniMap.hpp"
+#include "Dialog.hpp"
 
 #include <SDL_keysym.h>
 #include <math.h>
@@ -689,6 +690,7 @@ void GameView::event(const Event& event)
                 leftButtonDown = true;
                 break;       
             }
+            break;
         }
         case Event::MOUSEBUTTONUP:
             if( event.mousebutton == SDL_BUTTON_RIGHT ){
@@ -712,14 +714,17 @@ void GameView::event(const Event& event)
                     int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
                     MapPoint currenTile = startRoad;
                     while( currenTile.x != endRoad.x ) {
-                        editMap(currenTile, SDL_BUTTON_LEFT);
+                        if( !blockingDialogIsOpen )
+                            editMap(currenTile, SDL_BUTTON_LEFT);
                         currenTile.x += stepx;
                     }
                     while( currenTile.y != endRoad.y ) {
-                        editMap(currenTile, SDL_BUTTON_LEFT);
+                        if( !blockingDialogIsOpen )
+                            editMap(currenTile, SDL_BUTTON_LEFT);
                         currenTile.y += stepy;
                     }
-                    editMap(currenTile, SDL_BUTTON_LEFT);
+                    if( !blockingDialogIsOpen )
+                        editMap(currenTile, SDL_BUTTON_LEFT);
                     break;
                 } 
                 roadDragging = false;
@@ -731,7 +736,8 @@ void GameView::event(const Event& event)
             
             tile=getTile( event.mousepos );
             if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
-                editMap(tile, SDL_BUTTON_LEFT); //edit tile
+                if( !blockingDialogIsOpen )
+                    editMap(tile, SDL_BUTTON_LEFT); //edit tile
             }
             else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //right      
                 recenter(event.mousepos);                      //adjust view
@@ -1141,7 +1147,7 @@ void GameView::draw(Painter& painter)
     }
     
     //Mark Tile under Mouse 
-    if( mouseInGameView ) {
+    if( mouseInGameView  && !blockingDialogIsOpen ) {
         if( roadDragging ){
             //use same method to find all Tiles as in GameView::event(const Event& event)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
