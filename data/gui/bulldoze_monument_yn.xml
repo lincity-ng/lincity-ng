@@ -33,6 +33,8 @@
                         <Button name="No">
                             <text-caption style="dialogbutton" translatable="yes">No</text-caption>
                             <image src="images/gui/dialogs/nobutton.png"/>
+			    <image-hover src="images/gui/dialogs/nobutton-hover.png"/>
+			    <image-clicked src="images/gui/dialogs/nobutton-clicked.png"/>
                         </Button>
                     </cell>
                     <cell row="1" col="2">
@@ -40,6 +42,8 @@
                             <text-caption style="dialogbutton"
                             translatable="yes">Yes</text-caption>
                             <image src="images/gui/dialogs/yesbutton.png"/>
+			    <image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
+			    <image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
                         </Button>
                     </cell>
                 </TableLayout>
