@@ -50,7 +50,7 @@ void initPhysfs(const char* argv0)
         msg << "Couldn't initialize physfs: " << PHYSFS_getLastError();
         throw std::runtime_error(msg.str());
     }
-    if(!PHYSFS_setSaneConfig("lincity", PACKAGE, ".zip", 0, 1)) {
+    if(!PHYSFS_setSaneConfig("lincity", PACKAGE_NAME, ".zip", 0, 1)) {
         std::stringstream msg;
         msg << "Couldn't set physfs config: " << PHYSFS_getLastError();
         throw std::runtime_error(msg.str());
@@ -68,10 +68,10 @@ void initPhysfs(const char* argv0)
     std::string dir = PHYSFS_getBaseDir();
     dir += "/data";
     if(!PHYSFS_addToSearchPath(dir.c_str(), 1)) {
-        std::stringstream msg;
-        msg << "Couldn't add '" << dir << "' to physfs searchpath: "
-            << PHYSFS_getLastError();
-        throw std::runtime_error(msg.str());
+#ifdef DEBUG
+        std::cout << "Warning: Couldn't add '" << dir << 
+            "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+#endif
     }
 
     // allow symbolic links

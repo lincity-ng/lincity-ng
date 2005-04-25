@@ -1,0 +1,3 @@
+SubDir TOP doc ;
+
+InstallDoc userconfig.xml ;

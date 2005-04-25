@@ -191,7 +191,7 @@ Sound::playMusic(const std::string& name)
 
         // transform filename... because the music commands in SDL_Mixer don't
         // support reading callbacks to read from physfs directly
-        std::string filename = "data/music/";
+        std::string filename = "music/";
         filename += name;
         const char* dir = PHYSFS_getRealDir(filename.c_str());
         if(dir == 0) {
@@ -199,7 +199,7 @@ Sound::playMusic(const std::string& name)
             return;
         }
         filename = dir;
-        filename += "/data/music/";
+        filename += "/music/";
         filename += name;
         
         currentMusic = Mix_LoadMUS(filename.c_str());

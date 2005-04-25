@@ -1,6 +1,6 @@
 <LCMps>
   <Panel width="204" height="204" background="images/gui/pbar_bg.png">
-    <DefineStyle name="mps_text" color="black" font-size="14" text-align="left"/>
+    <DefineStyle name="mps_text" color="black" font-size="14" halign="left"/>
     <TableLayout rows="3" cols="3">
       <colsize col="1" fixed="4"/>
       <colsize col="2" relative="1"/>

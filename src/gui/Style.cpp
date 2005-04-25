@@ -75,7 +75,7 @@ Style::parseAttribute(const char* attribute, const char* value)
             std::cerr << "Invalid value for font-weight "
                 << "(only 'normal' and 'bold' allowed)\n";
         }
-    } else if(strcmp(attribute, "text-align") == 0) {
+    } else if(strcmp(attribute, "halign") == 0) {
         if(strcmp(value, "left") == 0) {
             alignment = Style::ALIGN_LEFT;
         } else if(strcmp(value, "center") == 0) {
@@ -83,7 +83,7 @@ Style::parseAttribute(const char* attribute, const char* value)
         } else if(strcmp(value, "right") == 0) {
             alignment = Style::ALIGN_RIGHT;
         } else {
-            std::cerr << "Invalid value for text-align attribute "
+            std::cerr << "Invalid value for halign attribute "
                 << "(only 'left', 'center' and 'right' allowed)\n";
         }
     } else if(strcmp(attribute, "width") == 0) {

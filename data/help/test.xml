@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
-<help font-family="sans" text-align="left" background="#ffffff22" font-size="20"
-    color="black">
-    <p font-size="30" margin-bottom="20" margin-top="20" text-align="center">
-    Residential Area</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+<help style="helpdocument">
+    <p style="htitle">Residential Area</p>
+    <p style="hp">
     This is where people live. To encourage people to live in this area they
     must be fed. It also helps to provide them with work and goods to buy. They
     must be within range of a market or connected to transport. <span
@@ -11,54 +9,54 @@
     icons show low, medium and high density housing. There are different birth
     and death rates associated with each area. This gives you some control over
     your population.</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     The above market is within range of the last two residential areas, however
     it is probably out of range of the first.</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     Later in the game, if you have sufficient technology, you can build more
     <i>modern</i> housing, even tower blocks.</p>
-
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <img src="data/images/gui/tiledozer.png" halign="left"/>
+    <p style="hp">
     This is where people live. To encourage people to live in this area they
     must be fed. It also helps to provide them with work and goods to buy. They
     must be within range of a market or connected to transport. The following 3
     icons show low, medium and high density housing. There are different birth
     and death rates associated with each area. This gives you some control over
     your population.</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <img src="data/images/gui/tiledozer.png" halign="center"/>
+    <p style="hp">
     The above market is within range of the last two residential areas, however
     it is probably out of range of the first.</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     Later in the game, if you have sufficient technology, you can build more
     <i>modern</i> housing, even tower blocks.</p>
 
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     This is where people live. To encourage people to live in this area they
     must be fed. It also helps to provide them with work and goods to buy. They
     must be within range of a market or connected to transport. The following 3
     icons show low, medium and high density housing. There are different birth
     and death rates associated with each area. This gives you some control over
     your population.</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     The above market is within range of the last two residential areas, however
     it is probably out of range of the first.</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     Later in the game, if you have sufficient technology, you can build more
     <i>modern</i> housing, even tower blocks.</p>
 
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     This is where people live. To encourage people to live in this area they
     must be fed. It also helps to provide them with work and goods to buy. They
     must be within range of a market or connected to transport. The following 3
     icons show low, medium and high density housing. There are different birth
     and death rates associated with each area. This gives you some control over
     your population.</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     The above market is within range of the last two residential areas, however
     it is probably out of range of the first.</p>
-    <p margin-left="20" margin-right="20" margin-bottom="20">
+    <p style="hp">
     Later in the game, if you have sufficient technology, you can build more
     <i>modern</i> housing, even tower blocks.</p>
-
 </help>
 

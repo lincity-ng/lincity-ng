@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <gui>
-    <DefineStyle name="menutitle" color="black" font-size="50" text-align="center"/>
+    <DefineStyle name="menutitle" color="black" font-size="50" halign="center"/>
     <DefineStyle name="listtitle" color="black" font-size="30"/>
     <DefineStyle name="button" color="blue" font-size="30" margin-left="20"
     margin-right="20"/>

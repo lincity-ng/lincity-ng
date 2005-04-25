@@ -31,6 +31,9 @@
 
 #include "gui_interface/shared_globals.h"
 
+const float GameView::defaultTileWidth;
+const float GameView::defaultTileHeight;
+
 GameView* gameViewPtr = 0;
 
 GameView* getGameView()

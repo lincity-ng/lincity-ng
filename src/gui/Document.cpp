@@ -9,6 +9,7 @@
 #include "Vector2.hpp"
 #include "Painter.hpp"
 #include "ComponentFactory.hpp"
+#include "DocumentImage.hpp"
 
 Document::Document()
 {
@@ -48,6 +49,10 @@ Document::parse(XmlReader& reader)
                 std::auto_ptr<Paragraph> paragraph (new Paragraph());
                 paragraph->parse(reader, style);
                 addChild(paragraph.release());
+            } else if(node == "img") {
+                std::auto_ptr<DocumentImage> image (new DocumentImage());
+                image->parse(reader, style);
+                addChild(image.release());
             } else {
                 std::cerr << "Skipping unknown node type '" << node << "'.\n";
                 reader.nextNode();
@@ -68,9 +73,36 @@ Document::resize(float newwidth, float )
     for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
         Child& child = *i;
         Component* component = child.getComponent();
-        component->resize(newwidth, -1);
-        child.setPos(Vector2(0, height));
-        height += component->getHeight();
+        DocumentElement* element = dynamic_cast<DocumentElement*> (component);
+        if(!element) {
+            std::cerr << "Component not a DocumentElement in Document::resize!\n";
+            continue;
+        }
+
+        float compwidth = newwidth - element->getStyle().margin_left - element->getStyle().margin_right;
+        if(compwidth < 0)
+            compwidth = 0;
+        
+        component->resize(compwidth, -1);
+        float posx = element->getStyle().margin_left;
+        switch(element->getStyle().alignment) 
+        {
+            case Style::ALIGN_LEFT:
+                posx += 0;
+                break;
+            case Style::ALIGN_RIGHT:
+                posx += compwidth - component->getWidth();
+                break;
+            case Style::ALIGN_CENTER:
+                posx += (compwidth - component->getWidth()) / 2;
+                break;
+            default:
+                assert(false);
+                break;
+        }
+        height += element->getStyle().margin_top;
+        child.setPos(Vector2(posx, height));
+        height += component->getHeight() + element->getStyle().margin_bottom;
     }
     width = newwidth;
 }

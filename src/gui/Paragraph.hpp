@@ -6,6 +6,7 @@
 #include "Texture.hpp"
 #include "Component.hpp"
 #include "Style.hpp"
+#include "DocumentElement.hpp"
 
 class XmlReader;
 
@@ -27,14 +28,14 @@ public:
  * of words with a Style so that it can have different font attributes and
  * color.
  */
-class Paragraph : public Component
+class Paragraph : public Component, public DocumentElement
 {
 public:
     Paragraph();
     virtual ~Paragraph();
 
     void parse(XmlReader& reader);
-    void parse(XmlReader& reader, Style parentstyle);
+    void parse(XmlReader& reader, const Style& parentstyle);
 
     void resize(float width, float height);
     void draw(Painter& painter);
@@ -49,6 +50,11 @@ public:
     void setText(const std::string& text, const Style& style);
     
     std::string getText() const;
+
+    const Style& getStyle() const
+    {
+        return style;
+    }
 
 private:
     typedef std::vector<TextSpan*> TextSpans;

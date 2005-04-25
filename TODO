@@ -4,6 +4,14 @@
 [L] Low priority (nice to have)
 [?] I am not sure.
 
+Graphics
+~~~~~~~~
+
+[H] Look around for a ttf font that can be distributed in a GPL game.
+    (Warning: The currently used sans.ttf is from the bitstream vera fonts
+     package which is not 100% compatible with GPL)
+[H] Finish tiles for the game
+
 Programming
 ~~~~~~~~~~~
 

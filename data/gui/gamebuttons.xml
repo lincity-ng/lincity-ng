@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TableLayout rows="2" cols="1">
 	<rowsize row="1" fixed="50"/>
-	<cell row="1" col="1" spany="2" halign="left" valign="top">
+	<cell row="1" col="1" halign="left" valign="top">
 		<Button name="GameMenuButton">
 			<image src="images/gui/buttonpanel/background/button-menu.png"/>
 			<image-hover src="images/gui/buttonpanel/background/button-menu-hover.png"/>

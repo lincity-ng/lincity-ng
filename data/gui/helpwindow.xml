@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Window width="500" height="400" border="5" titlesize="30">
     <title>
-        <Paragraph text-align="center" color="white"
+        <Paragraph halign="center" color="white"
         height="30" font-size="20">Help - Communes</Paragraph>
     </title>
     <closebutton>

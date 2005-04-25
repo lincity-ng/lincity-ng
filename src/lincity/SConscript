@@ -1,5 +1,0 @@
-Import('*')
-
-source = Glob("*.cpp") + Glob("modules/*.cpp")
-cpppath = env['CPPPATH'] + [ "#/src/lincity" ]
-lib = env.Library(target = "lincity", source = source, CPPPATH = cpppath)

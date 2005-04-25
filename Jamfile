@@ -1,0 +1,12 @@
+SubDir TOP ;
+
+# Decend into subdirs
+SubInclude TOP src ;
+SubInclude TOP data ;
+SubInclude TOP doc ;
+
+UseAutoconf ;
+
+# add some additional files to package
+Package README ;
+InstallDoc README ;

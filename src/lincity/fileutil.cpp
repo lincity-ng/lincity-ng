@@ -3,12 +3,12 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#include "lcconfig.h"
+#include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h> /* XXX: GCS FIX: What does configure need to know? */
 #include "lcintl.h"
-#include "lcstring.h"
+#include <string.h>
 //#include "ldsvgui.h"
 #include "shrglobs.h"
 #include "gui_interface/screen_interface.h"
@@ -74,6 +74,7 @@
 #endif
 
 #include <ctype.h>
+#include <unistd.h>
 /*
 #include "common.h"
 #ifdef LC_X11
@@ -707,7 +708,8 @@ load_lincityrc (void)
 	save_lincityrc();
 	return;
     }
-    /* FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
+#if 0
+    //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
 
     while (fgets (buf,128,fp)) {
 	if (sscanf(buf,"overwrite_transport=%d",&arg)==1) {
@@ -755,7 +757,8 @@ load_lincityrc (void)
 	    }
 	    continue;
 	}
-    }*/
+    }
+#endif
     fclose (fp);
 }
 
@@ -768,7 +771,8 @@ save_lincityrc (void)
 	return;
     }
 
-    /* FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
+#if 0
+    //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
     fprintf (fp, 
 	"# Set this if you want to be able to overwrite one\n"
 	"# kind of transport with another.\n"
@@ -823,7 +827,7 @@ save_lincityrc (void)
 	"x_confine_pointer=%d\n\n",
 	confine_flag
 	);
-    */
+#endif
     fclose (fp);
 }
 

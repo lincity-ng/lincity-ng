@@ -1,0 +1,9 @@
+SubDir TOP src lincity-ng ;
+
+Application lincity-ng
+	: [ Wildcard *.cpp *.hpp ]
+;
+LinkWith lincity-ng : lincity_gui lincity_lib ;
+C++Flags lincity-ng : -DAPPDATADIR=\\\"$(appdatadir)\\\" ;
+ExternalLibs lincity-ng : LIBXML SDL SDLIMAGE SDLMIXER SDLTTF SDLGFX PHYSFS GL ;
+

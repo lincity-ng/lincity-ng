@@ -245,29 +245,27 @@ DictionaryManager::get_dictionary(const std::string& spec)
 
       for (SearchPath::iterator p = search_path.begin(); p != search_path.end(); ++p)
         {
-          DIR* dir = opendir(p->c_str());
-          if (!dir)
+          char** files = PHYSFS_enumerateFiles(p->c_str());
+          if(!files) 
             {
-              std::cerr << "Error: opendir() failed on " << *p << std::endl;
+              std::cerr << "Error: enumerateFiles() failed on " << *p << std::endl;
             }
           else
             {
-              struct dirent* ent;
-              while((ent = readdir(dir)))
-                {
-                  if (std::string(ent->d_name) == lang + ".po")
-                    {
-                      std::string pofile = *p + "/" + ent->d_name;
-                      try {
-                          IFileStream in(pofile);
-                          read_po_file(dict, in);
-                      } catch(std::exception& e) {
-                          std::cerr << "Error: Failure file opening: " << pofile << std::endl;
-                          std::cerr << e.what() << "\n";
-                      }
-                    }
+              for(const char* const* filename = files;
+                      *filename != 0; filename++) {
+                if(std::string(*filename) == lang + ".po") {
+                  std::string pofile = *p + "/" + *filename;
+                  try {
+                      IFileStream in(pofile);
+                      read_po_file(dict, in);
+                  } catch(std::exception& e) {
+                      std::cerr << "Error: Failure file opening: " << pofile << std::endl;
+                      std::cerr << e.what() << "\n";
+                  }
                 }
-              closedir(dir);
+              }
+              PHYSFS_freeList(files);
             }
         }
 
@@ -282,23 +280,20 @@ DictionaryManager::get_languages()
 
   for (SearchPath::iterator p = search_path.begin(); p != search_path.end(); ++p)
     {
-      DIR* dir = opendir(p->c_str());
-      if (!dir)
+      char** files = PHYSFS_enumerateFiles(p->c_str());
+      if (!files)
         {
           std::cerr << "Error: opendir() failed on " << *p << std::endl;
         }
       else
         {
-          struct dirent* ent;
-          while((ent = readdir(dir)))
-            {
-              if (has_suffix(ent->d_name, ".po"))
-                {
-                  std::string filename = ent->d_name;
+          for(const char* const* file = files; *file != 0; file++) {
+              if(has_suffix(*file, ".po")) {
+                  std::string filename = *file;
                   languages.insert(filename.substr(0, filename.length()-3));
-                }
-            }
-          closedir(dir);
+              }
+          }
+          PHYSFS_freeList(files);
         }
     }  
   return languages;

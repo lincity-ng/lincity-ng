@@ -1,0 +1,9 @@
+SubDir TOP src lincity ;
+
+Library lincity_lib
+	: [ Wildcard *.cpp *.h ]
+	  [ Wildcard modules : *.cpp *.h ]
+	: noinstall
+;
+C++Flags lincity_lib : -DDEFAULT_LIBDIR=\\\"$(appdatadir)\\\" ;
+IncludeDir lincity_lib : . ;

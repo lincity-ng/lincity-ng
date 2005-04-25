@@ -37,7 +37,7 @@ Paragraph::parse(XmlReader& reader)
 }
 
 void
-Paragraph::parse(XmlReader& reader, Style parentstyle)
+Paragraph::parse(XmlReader& reader, const Style& parentstyle)
 {
     bool translatable = false;
     
@@ -62,7 +62,7 @@ Paragraph::parse(XmlReader& reader, Style parentstyle)
     TinyGetText::Dictionary* dictionary = 0;
     if(translatable) {
         dictionaryManager.reset(new TinyGetText::DictionaryManager());
-        dictionaryManager->add_directory("data/locale/gui");
+        dictionaryManager->add_directory("locale/gui");
         dictionary = &(dictionaryManager->get_dictionary());
     }
         
@@ -187,24 +187,10 @@ Paragraph::resize(float width, float height)
         texture = 0;
     }
 
-    // check sizes with styles...
-    if(style.width > 0 && style.width < width) {
-        width = style.width;
-    }
-    if(width < 0) {
-        width = style.min_width;
-    }
-    if(style.height < height) {
-        height = style.height;
-    }
-
-    if(width > 0 && style.margin_left + style.margin_right > width) {
-        std::cerr << "Warning: no space left for text inside margin.\n";
+    if(width == 0) {
         this->width = this->height = 0;
         return;
     }
-    width -= (style.margin_left + style.margin_right);
-    
     std::auto_ptr<FontManager> fontManager (new FontManager());
 
     std::vector<int> ycoords;
@@ -363,16 +349,18 @@ Paragraph::resize(float width, float height)
         }
     }
 
-    // check height defined in style
     if(height < 0) {
         height = boxheight;
         if(height < style.min_height) {
             height = style.min_height;
         }
     }
+    // check height defined in style
     if(height == 0) {
-        std::cerr << "Empty Paragraph.\n";
         this->width = this->height = 0;
+        for(std::vector<SDL_Surface*>::iterator i = lineimages.begin();
+                i != lineimages.end(); ++i)
+            SDL_FreeSurface(*i);
         return;
     }
 
@@ -406,8 +394,8 @@ Paragraph::resize(float width, float height)
     
     texture = texture_manager->create(surface);
 
-    this->width = width + style.margin_left + style.margin_right;
-    this->height = height + style.margin_top + style.margin_bottom;
+    this->width = width;
+    this->height = height;
 
     setDirty();
 }
@@ -418,7 +406,7 @@ Paragraph::draw(Painter& painter)
     if(!texture)
         return;
 
-    painter.drawTexture(texture, Vector2(style.margin_left, style.margin_top));
+    painter.drawTexture(texture, Vector2(0, 0));
 }
 
 void

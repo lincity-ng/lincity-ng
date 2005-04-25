@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Window width="700" height="200" border="5" titlesize="30">
     <title>
-        <Paragraph text-align="center" color="white" name="messageTitle"
+        <Paragraph halign="center" color="white" name="messageTitle"
         height="30" font-size="20">Year 0000 - Messages - 12345$</Paragraph>
     </title>
     <closebutton>

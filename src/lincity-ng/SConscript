@@ -1,7 +1,0 @@
-Import('*')
-
-source = Glob("*.cpp")
-libs = env['LIBS'] + [ "gui" , "lincity" ];
-app = env.Program(target = "lincity-ng", source = source, LIBS = libs)
-AddPostAction(app, "ln -sf $TARGET .")
-Default(app)

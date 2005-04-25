@@ -160,9 +160,10 @@ PainterGL::setClipRectangle(const Rect2D& rect)
     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
         
     int screenHeight = SDL_GetVideoSurface()->h;
-    glViewport(rect.p1.x + matrix[12],
-            screenHeight - rect.getHeight() - (rect.p1.y + matrix[13]),
-            rect.getWidth(), rect.getHeight());
+    glViewport((GLint) (rect.p1.x + matrix[12]),
+               (GLint) (screenHeight - rect.getHeight() - (rect.p1.y + matrix[13])),
+               (GLsizei) rect.getWidth(),
+               (GLsizei) rect.getHeight());
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(rect.p1.x + matrix[12], rect.p1.x + matrix[12] + rect.getWidth(),

@@ -315,12 +315,21 @@ TableLayout::resize(float width, float height)
             }
             Child& child = childs[childid];
             Component* component = child.getComponent();
+			
             if(!component) {
                 p.x += col->realval;
                 continue;
             }
+
+            float width = 0;
+            for(int i = 0; i < cell.spanx; ++i)
+                width += (col+i)->realval;
+            float height = 0;
+            for(int i = 0; i < cell.spany; ++i)
+                height += (row+i)->realval;
+			
             if(component->getFlags() & FLAG_RESIZABLE)
-                component->resize(col->realval, row->realval);
+                component->resize(width, height);
 #ifdef DEBUG
             if(! (component->getFlags() & FLAG_RESIZABLE) 
                     && (component->getWidth() <= 0 
@@ -329,13 +338,6 @@ TableLayout::resize(float width, float height)
                     << component->getName() 
                     << "' has invalid width/height but is not resizable.\n";
 #endif
-
-            float width = 0;
-            for(int i = 0; i < cell.spanx; ++i)
-                width += (col+i)->realval;
-            float height = 0;
-            for(int i = 0; i < cell.spany; ++i)
-                height += (row+i)->realval;
 
             Vector2 pos = p;
             switch(cell.halign) {

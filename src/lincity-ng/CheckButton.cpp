@@ -243,8 +243,10 @@ CheckButton::draw(Painter& painter)
             if(comp_hover().isEnabled()) {
                 drawChild(comp_hover(), painter);
                 break;
-            }
-            // fallthrough
+            } else {
+				drawChild(comp_normal(), painter);
+				break;
+			}
         case STATE_CHECKED:
             if(comp_checked().isEnabled()) {
                 drawChild(comp_checked(), painter);

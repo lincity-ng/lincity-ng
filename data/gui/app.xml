@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <gui>
+    <!-- TODO move these elsewhere once the system allows that -->
     <DefineStyle name="title" color="white" font-size="20"/>
     <DefineStyle name="messagebold" color="black" font-size="20"
     background="white" font-weight="bold"/>
@@ -8,6 +9,14 @@
     <DefineStyle name="dialogbutton" color="white" font-size="20" margin-left="20" margin-right="20"/>
     <DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>
     <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3"    margin-left="23" margin-right="20"/>
+
+    <DefineStyle name="helpdocument" font-family="sans" background="#ffffff22"
+    font-size="20" color="black"/>
+    <DefineStyle name="htitle" style="helpdocument" font-size="30"
+    halign="center" margin-top="20" margin-bottom="20"/>
+    <DefineStyle name="hp" style="helpdocument"
+    margin-left="20" margin-right="20" margin-bottom="20"/>
+
     <GameView/>
     <Import src="gui/messagearea.xml"/>
     <TableLayout rows="2" cols="3">
@@ -27,5 +36,6 @@
             <Import src="gui/minimap.xml"/>
         </cell>
     </TableLayout>
-    <!-- <Import src="gui/helpwindow.xml"/> -->
+	<!-- <Import src="gui/helpwindow.xml"/> -->
+	<Import src="gui/tradedialog.xml"/>
 </gui>
