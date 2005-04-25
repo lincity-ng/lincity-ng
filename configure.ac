@@ -78,7 +78,7 @@ AC_CHECK_FUNCS(gettimeofday mkdir popen)
 # find libraries
 #----------------------------------------------------------------------------
 PKG_CHECK_MODULES([LIBXML], [libxml-2.0 >= 2.6.11])
-	
+
 AX_CHECK_GL
 
 AM_PATH_SDL([1.2.5], , AC_MSG_ERROR([Please install libsdl >= 1.2.5]))

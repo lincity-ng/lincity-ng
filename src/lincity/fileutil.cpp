@@ -211,32 +211,15 @@ fopen_read_gzipped (char* fn)
 {
     FILE* fp;
 
-#if defined (HAVE_GZIP) && defined (HAVE_POPEN)
-#ifdef __EMX__
-    const char* cmd_str = "gzip -d -c < %s 2> nul";
-#else
     const char* cmd_str = "gzip -d -c < %s 2> /dev/null";
-#endif
     char *cmd = (char*) malloc (strlen (cmd_str) + strlen (fn) + 1);
     
     sprintf (cmd, cmd_str, fn);
-#ifdef __EMX__
-    fp=popen(cmd,"rb");
-#else
     fp=popen(cmd,"r");
-#endif
     if (fp==NULL) {
        fprintf(stderr, "Failed to open pipe cmd: %s\n", cmd);
     }
     free(cmd);
-
-#elif defined (HAVE_GZIP) && !defined (HAVE_POPEN)
-    gunzip_file (fn, lc_temp_filename);
-    fp = fopen (lc_temp_filename, "rb");
-
-#else /* No gzip */
-    fp = fopen (fn, "rb");
-#endif
 
     return fp;
 }
@@ -244,14 +227,7 @@ fopen_read_gzipped (char* fn)
 void 
 fclose_read_gzipped (FILE* fp)
 {
-#if defined (HAVE_GZIP) && defined (HAVE_POPEN)
     pclose (fp);
-#elif defined (HAVE_GZIP) && !defined (HAVE_POPEN)
-    fclose (fp);
-    remove (lc_temp_filename);
-#else
-    fclose (fp);
-#endif
 }
 
 int

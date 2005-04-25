@@ -107,20 +107,21 @@ void initLCengine()
 
 void initLincity()
 {
-  initLCengine();
+    initLCengine();
 
-  reset_start_time ();
+    reset_start_time ();
   
-  screen_full_refresh ();
+    screen_full_refresh ();
 
-  //load current game if it exists
-  //ldsvguts.cpp load_saved_city (char *s)
-  //does not work if file is missing...
+    //load current game if it exists
+    //ldsvguts.cpp load_saved_city (char *s)
+    //does not work if file is missing...
+
     char* s = "9_currentGameNG.scn";
     char *cname = (char *) malloc (strlen (lc_save_dir) + strlen (s) + 2);
     sprintf (cname, "%s%c%s", lc_save_dir, PATH_SLASH, s);
     if( file_exists( cname ) ){   
-        printf("Found city from last time.\n");
+        printf("Found city from last time (%s).\n", cname);
         load_city (cname);
     }
     else {
