@@ -57,10 +57,10 @@ void initPhysfs(const char* argv0)
     }
 #ifdef APPDATADIR
     if(!PHYSFS_addToSearchPath(APPDATADIR, 1)) {
-        std::stringstream msg;
-        msg << "Couldn't add '" << APPDATADIR << "' to physfs searchpath: "
-            << PHYSFS_getLastError();
-        throw std::runtime_error(msg.str());
+#ifdef DEBUG
+        std::cout << "Couldn't add '" << APPDATADIR 
+            << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+#endif
     }
 #endif
     

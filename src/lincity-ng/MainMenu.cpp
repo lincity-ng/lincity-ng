@@ -105,6 +105,12 @@ void MainMenu::fillLoadMenu()
   std::string lincityDirName = PHYSFS_getUserDir();
   lincityDirName+="/.lincity"; 
   DIR* lincityDir = opendir( lincityDirName.c_str() );
+  if(!lincityDir) {
+#ifdef DEBUG
+      std::cerr << "Warning directory " << lincityDirName << " doesn't exist.\n";
+#endif
+      return;
+  }
 
   dirent* curfile;
   for(int i=0;i<6;i++)
