@@ -2,6 +2,7 @@
 #include "Util.hpp"
 
 #include <exception>
+#include <sstream>
 
 #include "gui/ComponentFactory.hpp"
 #include "gui/XmlReader.hpp"
@@ -13,12 +14,12 @@
 
 #include "Debug.hpp"
 #include "gui_interface/shared_globals.h"
-#include "gui_interface/mps.h"
 
 #include "lincity/lctypes.h"
 
 #include "GameView.hpp"
 #include "MapEdit.hpp"
+#include "ScreenInterface.hpp"
 
 ButtonPanel *ButtonPanelInstance=0;
 
@@ -185,47 +186,25 @@ void ButtonPanel::updateToolInfo()
     monument_bul_flag = 0;
     river_bul_flag = 0;
     shanty_bul_flag = 0;
+    std::stringstream infotextstream;
     
     if( selected_module_type == CST_NONE ) //query
-    {
-        mps_store_title(0, "Query Tool"); 
-        mps_store_title(1, "");
-        mps_store_title(2, "Show information" ); 
-        mps_store_title(3, "about selected area." ); 
-        mps_store_title(4, "" ); 
-        mps_store_title(5, "" ); 
-        mps_store_title(6, "" ); 
-        mps_store_title(7, "" ); 
-        mps_store_title(8, "" ); 
-        mps_store_title(9, "" ); 
+    {   
+        infotextstream << "Query Tool: Show information about selected building."; 
     } 
     else if( selected_module_type == CST_GREEN ) //bulldoze
     {
-        mps_store_title(0, "Bulldozer"); 
-        mps_store_title(1, "");
-        mps_store_title(2, "remove building");
-        mps_store_title(3, "-cost varies-" ); 
-        mps_store_title(4, "" ); 
-        mps_store_title(5, "" ); 
-        mps_store_title(6, "" ); 
-        mps_store_title(7, "" ); 
-        mps_store_title(8, "" ); 
-        mps_store_title(9, "" ); 
+        infotextstream << "Bulldozer: remove building -price varies-"; 
     }
     else
     {
         int group = main_types[ selected_module_type ].group;
-        mps_store_ss(0, "Build ", main_groups[ group ].name ); 
-        mps_store_title(1, "");
-        mps_store_title(2, "Cost");
-        mps_store_sd( 3, "to build", get_type_cost (selected_module_type) );
-        mps_store_sd( 4, "to bulldoze", main_groups[ group ].bul_cost );
-        mps_store_title(5, "");
-        mps_store_title(6, "" ); 
-        mps_store_title(7, "" ); 
-        mps_store_title(8, "" ); 
-        mps_store_title(9, "" ); 
+        infotextstream << "Build " << main_groups[ group ].name; 
+        infotextstream << "      Cost ";
+        infotextstream << "to build" << get_type_cost (selected_module_type);
+        infotextstream << "to bulldoze" << main_groups[ group ].bul_cost;
     }
+    updateMessageText( infotextstream.str() );
 }
 
 void ButtonPanel::draw(Painter &painter)

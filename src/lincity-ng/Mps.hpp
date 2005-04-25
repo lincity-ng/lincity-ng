@@ -7,6 +7,8 @@
 
 class XmlReader;
 
+void mps_update(int mps_x,int mps_y,int mps_style);
+
 class LCMps : public Component
 {
 public:

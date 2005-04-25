@@ -16,8 +16,6 @@
 
 LCMps *mLCMPS = 0;
 
-void mps_update(int,int,int);
-
 LCMps::LCMps()
 {
     assert(mLCMPS == 0);
@@ -88,8 +86,11 @@ LCMps *getMPS()
   return mLCMPS;
 }
 
-void mps_update(int mps_x,int mps_y,int mps_style)
+int mps_set_silent( int x, int y, int style );
+
+void mps_update(int mps_x, int mps_y,int mps_style)
 {
+    mps_set_silent( mps_x, mps_y, mps_style);
     switch (mps_style) {
         case MPS_MAP:
             //cdebug(MP_GROUP(mps_x,mps_y));
@@ -288,8 +289,6 @@ void mps_update(int mps_x,int mps_y,int mps_style)
             assert(false);
             break;
     }
-
-    mps_refresh();
 }
 
 IMPLEMENT_COMPONENT_FACTORY(LCMps)

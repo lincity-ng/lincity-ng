@@ -109,6 +109,11 @@ void GameView::parse(XmlReader& reader)
     setFlags(FLAG_RESIZABLE);
 
     //start in the centre of the city
+    //TODO: change start-position to location from savegame
+    //and set these values so they will be stored in savegame.
+    //main_screen_originx main_screen_originy
+    std::cout << "main_screen_originx=" << main_screen_originx; 
+    std::cout << " main_screen_originy=" << main_screen_originy << "\n";
     //because on startup the size of this Control is 0
     //we use 800 and 600 instead of getWidth() and getHeight())
     //so we can not use zoom( defaultZoom ) likewise

@@ -45,6 +45,7 @@ Programming
      (eg in load game menu)
  [H] Check tech-requirements for buildings.
  [H] don't show Coal Reserve on Minimap until survey is done
+ [H] in oldgui you can edit (1,1) to (98,98) in NG it is (0,0) to (99,99)
 
 --Game--
  [M] some more sounds
@@ -55,11 +56,7 @@ Programming
      for "Loading..." menu 
  [M] Statisitcs dialog
  [M] Statistics graph
- [H] Dialogs for buildings (Harbour, Rocket)
- [H] Implement Dialogs (y/n)
- [M] Translate Dialogs (hardcoded stuff im old engine)
-        - this can probably be avoided by the new dialog aproach where we define
-        an xml file for each new dialog
+ [H] Dialogs for buildings (Harbour, Rocket, Market)
  [H] Help System.
  [M] Display current money, current year, InfoMessages
  [M] Options-dialog

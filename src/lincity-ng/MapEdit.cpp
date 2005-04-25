@@ -24,18 +24,21 @@ int ask_launch_rocket_click (int , int )
   return true;
 }
 
-// FIXME: what is this for ???
+// Open Dialog for selected Port 
 void
 clicked_port_cb (int , int )
 {
+    std::cout << "TODO: open port dialog\n";
 /*    port_cb_flag = 1;
     mcbx = x;
     mcby = y;*/
 }
 
+// Open Dialog for selected Market 
 void
 clicked_market_cb (int , int )
 {
+    std::cout << "TODO: open market dialog\n"; 
 /*    market_cb_flag = 1;
     mcbx = x;
     mcby = y;*/

@@ -18,4 +18,9 @@ xmlgettext
 gmon.out
 .sconsign
 .sconf_temp
-
+configure
+Jamconfig
+config.h.in
+Jamconfig.in
+autom4te.cache
+aclocal.m4

@@ -10,4 +10,6 @@ void print_stats ();
 void update_main_screen (int full_refresh);
 void updateMessageTitle();
 
+void updateMessageText( const std::string text );
+
 #endif

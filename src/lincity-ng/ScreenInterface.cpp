@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdarg.h>
 
+#include "ScreenInterface.hpp"
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/pbar_interface.h"
 
@@ -14,8 +15,6 @@
 #include "GameView.hpp"
 #include "Util.hpp"
 #include "gui/ComponentLoader.hpp"
-
-void updateMessageText( const std::string text );
 
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed

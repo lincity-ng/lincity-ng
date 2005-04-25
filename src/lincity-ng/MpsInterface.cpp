@@ -11,11 +11,15 @@
 #include "lincity/lclib.h"
 #include "lincity/engglobs.h"
 #include "lincity/lcintl.h"
+#include "lincity/modules/all_modules.h"
 
 // implement everything here
 
 // this is the MPS-status display, which describes the cells
 
+int mps_x = 0;
+int mps_y = 0;
+int mps_style = 0;
 
 void mps_full_refresh (void)
 {
@@ -28,21 +32,185 @@ void mps_init()
 {
 }
 
-int mps_set(int style, int x, int y) /* Attaches an area or global display */
+int mps_set_silent( int x, int y, int style )
 {
-    (void) style;
-    (void) x;
-    (void) y;
-    return 0;
+    int same_square = 0;
+    mps_style = style;
+    switch(style) {
+    case MPS_MAP:
+    case MPS_ENV: 
+	if (mps_x == x && mps_y == y) {
+	    same_square = 1;
+	}
+	mps_x = x;
+	mps_y = y;
+	break;
+    default:
+	mps_x = 0;
+	mps_y = 0;
+    }
+    return same_square;
 }
+
+int mps_set( int x, int y, int style ) /* Attaches an area or global display */
+{
+    int same_square = mps_set_silent( x, y, style);
+    mps_update();
+    mps_refresh();
+    return same_square;
+}
+
 void mps_redraw(void)  /* Re-draw the mps area, bezel and all */
 {
+    mps_refresh();
 }
 void mps_refresh(void) /* refresh the information display's contents */
 {
+        switch (mps_style) {
+        case MPS_MAP:
+            switch(MP_GROUP(mps_x, mps_y)) 
+            {
+                case GROUP_BLACKSMITH:
+                    mps_blacksmith (mps_x, mps_y);
+                    break;
+                case GROUP_COALMINE:
+                    mps_coalmine (mps_x, mps_y);
+                    break;
+                case GROUP_COAL_POWER:
+                    mps_coal_power (mps_x, mps_y);
+                    break;
+                case GROUP_COMMUNE:
+                    mps_commune (mps_x, mps_y);
+                    break;
+                case GROUP_CRICKET:
+                    mps_cricket (mps_x, mps_y);
+                    break;
+                case GROUP_FIRESTATION:
+                    mps_firestation (mps_x, mps_y);
+                    break;
+                case GROUP_HEALTH:
+                    mps_health_centre (mps_x, mps_y);
+                    break;
+                case GROUP_INDUSTRY_H:
+                    mps_heavy_industry (mps_x, mps_y);
+                    break;
+                case GROUP_INDUSTRY_L:
+                    mps_light_industry (mps_x, mps_y);
+                    break;
+                case GROUP_MILL:
+                    mps_mill (mps_x, mps_y);
+                    break;
+                case (GROUP_MONUMENT):
+                    mps_monument (mps_x, mps_y);
+                    break;
+                case (GROUP_OREMINE):
+                    mps_oremine (mps_x, mps_y);
+                    break;
+                case GROUP_ORGANIC_FARM: 
+                    mps_organic_farm(mps_x, mps_y);
+                    break;
+                case GROUP_PORT:
+                    mps_port (mps_x, mps_y);
+                    break;
+                case GROUP_POTTERY:
+                    mps_pottery (mps_x, mps_y);
+                    break;
+                case GROUP_POWER_LINE:
+                    mps_power_line (mps_x, mps_y);
+                    break;
+                case GROUP_RAIL:
+                    mps_rail (mps_x, mps_y);
+                    break;
+                case GROUP_RECYCLE:
+                    mps_recycle (mps_x, mps_y);
+                    break;
+                case GROUP_RESIDENCE_LL:
+                    mps_residence(mps_x, mps_y);
+                    break;
+                case GROUP_RESIDENCE_LH:
+                    mps_residence(mps_x, mps_y);
+                    break;
+                case GROUP_RESIDENCE_ML:
+                case GROUP_RESIDENCE_MH:
+                case GROUP_RESIDENCE_HL:
+                case GROUP_RESIDENCE_HH:
+                    mps_residence(mps_x, mps_y);
+                    break;
+                case GROUP_ROAD:
+                    mps_road (mps_x, mps_y);
+                    break;
+                case GROUP_ROCKET:
+                    mps_rocket (mps_x, mps_y);
+                    break;
+                case GROUP_SCHOOL:
+                    mps_school (mps_x, mps_y);
+                    break;
+                case GROUP_SOLAR_POWER:
+                    mps_solar_power (mps_x, mps_y);
+                    break;
+                case GROUP_SUBSTATION:
+                    mps_substation (mps_x, mps_y);
+                    break;
+                case GROUP_TIP:
+                    mps_tip (mps_x, mps_y);
+                    break;
+                case GROUP_TRACK:
+                    mps_track(mps_x, mps_y);
+                    break;
+                case GROUP_MARKET:
+                    mps_market (mps_x, mps_y);
+                    break;
+                case GROUP_UNIVERSITY:
+                    mps_university (mps_x, mps_y);
+                    break;
+                case GROUP_WATER:
+                    mps_water (mps_x, mps_y);
+                    break;
+                case GROUP_WINDMILL:
+                    mps_windmill (mps_x, mps_y);
+                    break;
+                default: 
+                    if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
+                        mps_store_title(0,"Green");
+                        mps_store_title(4, "build something here" );
+                    }
+                    //no special information on this group, just show the Name.
+                    mps_store_title(0, main_groups[ MP_GROUP( mps_x, mps_y ) ].name );
+                    mps_store_title(2, "no further information available" );
+                    
+                    printf("MPS unimplemented for that module\n");
+                    mps_style = MPS_NONE;
+            }
+            break;
+            
+        case MPS_ENV:
+            mps_right (mps_x, mps_y);
+            break;
+            
+        case MPS_GLOBAL:
+            switch (mps_global_style) {
+                case MPS_GLOBAL_FINANCE:
+                    mps_global_finance();
+                    break;
+                case MPS_GLOBAL_OTHER_COSTS:
+                    mps_global_other_costs();
+                    break;
+                case MPS_GLOBAL_HOUSING:
+                    mps_global_housing();
+                    break;
+                default:
+                    printf("MPS unimplemented for global display\n");
+                    break;
+            }
+            break;
+
+        default:
+            break;
+    }
 }
 void mps_update(void)  /* Update text contents for later display (refresh) */
 {
+    mps_update( mps_x, mps_y , mps_style );
 }
 void mps_global_advance(void) /* Changes global var to next display */
 {
