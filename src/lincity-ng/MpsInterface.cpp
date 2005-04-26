@@ -4,6 +4,7 @@
 
 #include "Mps.hpp"
 
+#include <iostream>
 #include <sstream>
 #include <iomanip>
 
@@ -209,7 +210,7 @@ void mps_refresh(void) /* refresh the information display's contents */
     }
 }
 void mps_update(void)  /* Update text contents for later display (refresh) */
-{
+{   
     mps_update( mps_x, mps_y , mps_style );
 }
 void mps_global_advance(void) /* Changes global var to next display */

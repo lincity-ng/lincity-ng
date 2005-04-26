@@ -250,7 +250,7 @@ void refresh_population_text (void)
 
 void update_avail_modules (int popup)
 {
-    (void) popup;
+    std::cout << "update_avail_modules " << popup <<"\n";
 }
 
 void refresh_main_screen()

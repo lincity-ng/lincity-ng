@@ -189,7 +189,6 @@ void editMap (MapPoint point, int button)
               return;
             }
         }
-      getMPS()->setView(MapPoint(x, y));
       return;
     }
   if(selected_module_type==CST_NONE)
