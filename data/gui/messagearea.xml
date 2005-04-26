@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
-<Window width="700" height="200" border="5" titlesize="30">
+<Window width="500" height="200" border="5" titlesize="30">
     <title>
-        <Paragraph halign="center" color="white" name="messageTitle"
-        height="30" font-size="20">Year 0000 - Messages - 12345$</Paragraph>
+        <Document background="#00000044">
+            <Paragraph halign="center" color="white" name="messageTitle"
+            height="30" font-size="20">Year 0000 - Messages - 12345$</Paragraph>
+        </Document>
     </title>
     <closebutton>
 	    <image src="images/gui/window/window_close.png"/>
@@ -29,7 +31,7 @@
                 </scroller>
             </scrollbar>
             <contents>
-                <Document background="#ffffff22">
+                <Document background="#ffffff44">
                     <Paragraph name="messageText">
                         Welcome to Lincity NG.
                     </Paragraph>

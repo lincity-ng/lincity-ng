@@ -83,6 +83,8 @@ private:
     bool roadDragging, leftButtonDown;
     MapPoint startRoad;
 
+    bool hideHigh;
+
     void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;

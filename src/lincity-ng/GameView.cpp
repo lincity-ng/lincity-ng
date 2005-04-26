@@ -25,6 +25,7 @@
 #include "MapEdit.hpp"
 #include "MiniMap.hpp"
 #include "Dialog.hpp"
+#include "Config.hpp"
 
 #include <SDL_keysym.h>
 #include <math.h>
@@ -109,21 +110,21 @@ void GameView::parse(XmlReader& reader)
     setFlags(FLAG_RESIZABLE);
 
     //start in the centre of the city
-    //TODO: change start-position to location from savegame
-    //and set these values so they will be stored in savegame.
-    //main_screen_originx main_screen_originy
-    std::cout << "main_screen_originx=" << main_screen_originx; 
-    std::cout << " main_screen_originy=" << main_screen_originy << "\n";
+      //TODO: change start-position to location from savegame
+      //and set these values so they will be stored in savegame.
+      //main_screen_originx main_screen_originy
+      //std::cout << "main_screen_originx=" << main_screen_originx; 
+      //std::cout << " main_screen_originy=" << main_screen_originy << "\n";
     //because on startup the size of this Control is 0
-    //we use 800 and 600 instead of getWidth() and getHeight())
+    //we use values from config instead of getWidth() and getHeight())
     //so we can not use zoom( defaultZoom ) likewise
     zoom = 1.0;
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom; 
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
-    viewport.x = floor ( ( virtualScreenWidth - 800 ) / 2 );
-    viewport.y = floor ( ( virtualScreenHeight- 600 ) / 2 );
+    viewport.x = floor ( ( virtualScreenWidth - getConfig()->videoX  ) / 2 );
+    viewport.y = floor ( ( virtualScreenHeight- getConfig()->videoY  ) / 2 );
 
     mouseInGameView = false;
     dragging = false;
@@ -132,7 +133,7 @@ void GameView::parse(XmlReader& reader)
     middleButtonDown = false;
     tileUnderMouse = MapPoint(0, 0);
     dragStart = Vector2(0, 0);
-
+    hideHigh = false;
     cursorSize = 0;
 }
 
@@ -761,6 +762,16 @@ void GameView::event(const Event& event)
             }
             break;
         case Event::KEYUP:
+            //Hide High Buildings
+            if( event.keysym.sym == SDLK_h ){
+                if( hideHigh ){
+                    hideHigh = false;
+                } else {
+                    hideHigh = true;
+                }
+                requestRedraw();
+                break;
+            }
             //Zoom
             if( event.keysym.sym == SDLK_KP_PLUS ){
                 zoomIn();
@@ -986,6 +997,9 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     }
     //adjust OnScreenPoint of big Tiles
     if( size > 1 ) { 
+        if( hideHigh ){ //don't draw big buildings
+            return;
+        }
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
