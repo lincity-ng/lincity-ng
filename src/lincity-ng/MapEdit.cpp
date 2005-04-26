@@ -211,7 +211,7 @@ void editMap (MapPoint point, int button)
   pixel_to_mappoint(px, py, &x, &y);
 */
     //Check if we are too close to the border
-    if( x + size > WORLD_SIDE_LEN || y + size > WORLD_SIDE_LEN || x < 0 || y < 0 )
+    if( x + size > WORLD_SIDE_LEN - 1 || y + size > WORLD_SIDE_LEN - 1 || x < 1 || y < 1 )
         return;
     
   if (size >= 2)

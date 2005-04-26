@@ -69,6 +69,9 @@ private:
 
     //upper left corner of the viewport on virtual screen
     Vector2 viewport;
+
+    //check if tile is in city
+    bool inCity( MapPoint tile );
     
     Texture* cityTextures[ NUM_OF_TYPES ];
     SDL_Surface* cityImages[ NUM_OF_TYPES ];
@@ -97,6 +100,8 @@ private:
     static const int overlayOnly = 2;
     static const int overlayMAX = 2;
 
+    static const int gameAreaMin = 1;
+    static const int gameAreaMax = WORLD_SIDE_LEN -2;
     void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;

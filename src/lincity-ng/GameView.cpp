@@ -981,6 +981,18 @@ void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
 }
 
 /*
+ * Check if Tile is in City
+ * in oldgui you can edit (1,1) to (98,98) with WORLD_SIDE_LEN 100
+ * i.e. there is a hidden border of green tiles arround the city
+ */
+bool GameView::inCity( MapPoint tile ){
+    if( tile.x > gameAreaMax || tile.y > gameAreaMax || tile.x < gameAreaMin || tile.y < gameAreaMin ) {
+        return false;
+    }
+    return true;
+}
+
+/*
  * Draw MiniMapOverlay for tile.
  */
 void GameView::drawOverlay(Painter& painter, MapPoint tile){
@@ -994,7 +1006,7 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
     tileOnScreenPoint.y -= tileHeight; 
     tilerect.move( tileOnScreenPoint );         
     //Outside of the Map gets Black overlay
-    if( tile.x > WORLD_SIDE_LEN || tile.y > WORLD_SIDE_LEN || tile.x < 0 || tile.y < 0 ) {
+    if( !inCity( tile ) ) {
             painter.setFillColor( black );
     } else {
         miniMapColor = getMiniMap()->getColor( tile.x, tile.y );
@@ -1012,8 +1024,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
 
     //is Tile in City? If not draw Blank
-    if( tile.x < 0 || tile.y < 0 
-            || tile.x >= WORLD_SIDE_LEN || tile.y >= WORLD_SIDE_LEN )
+    if( ! inCity( tile ) )
     {
         tileOnScreenPoint.x -= (blankTexture->getWidth() / 2)  * zoom;
         tileOnScreenPoint.y -= blankTexture->getHeight()  * zoom; 
@@ -1116,8 +1127,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         //check if building is allowed here, if not use Red Cursor
         int x = (int) tile.x;
         int y = (int) tile.y;
-        //  x + cursorSize -1 >= WORLD_SIDE_LEN  would be the same
-        if( x + cursorSize > WORLD_SIDE_LEN || y + cursorSize > WORLD_SIDE_LEN || x < 0 || y < 0 ) {
+        MapPoint seCorner( x + cursorSize -1, y + cursorSize -1 );
+        if( !inCity( seCorner ) || !inCity( tile ) ) {
             painter.setFillColor( alphared );
         } else {
             for( y = (int) tile.y; y < tile.y + cursorSize; y++ ) {
@@ -1160,20 +1171,20 @@ void GameView::draw(Painter& painter)
     //adjust viewport so it is.
     MapPoint centerTile = getCenter();
     bool outside = false;
-    if( centerTile.x < 0 ) {
-        centerTile.x = 0;
+    if( centerTile.x < gameAreaMin ) {
+        centerTile.x = gameAreaMin;
         outside = true;
     }
-    if( centerTile.x >= WORLD_SIDE_LEN ) {
-        centerTile.x = WORLD_SIDE_LEN - 1;
+    if( centerTile.x > gameAreaMax ) {
+        centerTile.x = gameAreaMax;
         outside = true;
     }
-    if( centerTile.y < 0 ) {
-        centerTile.y = 0;
+    if( centerTile.y < gameAreaMin ) {
+        centerTile.y = gameAreaMin;
         outside = true;
     }
-    if( centerTile.y >= WORLD_SIDE_LEN ) {
-        centerTile.y = WORLD_SIDE_LEN - 1;
+    if( centerTile.y > gameAreaMax ) {
+        centerTile.y = gameAreaMax;
         outside = true;
     }
     if( outside ){

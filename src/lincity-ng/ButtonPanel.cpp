@@ -201,8 +201,8 @@ void ButtonPanel::updateToolInfo()
         int group = main_types[ selected_module_type ].group;
         infotextstream << "Build " << main_groups[ group ].name; 
         infotextstream << "      Cost ";
-        infotextstream << "to build" << get_type_cost (selected_module_type);
-        infotextstream << "to bulldoze" << main_groups[ group ].bul_cost;
+        infotextstream << "   to build " << get_type_cost (selected_module_type);
+        infotextstream << "   to bulldoze " << main_groups[ group ].bul_cost;
     }
     updateMessageText( infotextstream.str() );
 }
