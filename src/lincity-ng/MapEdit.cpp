@@ -26,22 +26,16 @@ int ask_launch_rocket_click (int , int )
 
 // Open Dialog for selected Port 
 void
-clicked_port_cb (int , int )
+clicked_port_cb (int x, int y)
 {
-    std::cout << "TODO: open port dialog\n";
-/*    port_cb_flag = 1;
-    mcbx = x;
-    mcby = y;*/
+    new Dialog( EDIT_PORT, x, y );
 }
 
 // Open Dialog for selected Market 
 void
-clicked_market_cb (int , int )
+clicked_market_cb (int x, int y)
 {
-    std::cout << "TODO: open market dialog\n"; 
-/*    market_cb_flag = 1;
-    mcbx = x;
-    mcby = y;*/
+    new Dialog( EDIT_MARKET, x, y );
 }
 
 void 

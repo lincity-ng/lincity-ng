@@ -15,10 +15,12 @@
 #include "GameView.hpp"
 #include "Util.hpp"
 #include "MapEdit.hpp"
+#include "CheckButton.hpp"
 
 #include "gui/ComponentLoader.hpp"
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
+#include "gui/Paragraph.hpp"
 
 bool blockingDialogIsOpen = false;
 
@@ -49,6 +51,12 @@ Dialog::Dialog( int type, int x, int y ){
         case BULLDOZE_SHANTY:
             askBulldozeShanty();
             break;
+        case EDIT_MARKET:
+            editMarket();
+            break;
+        case EDIT_PORT:
+            editPort();
+            break;
         default:
             std::stringstream msg;
             msg <<"Unknown Dialog type " << type << ".";
@@ -57,7 +65,6 @@ Dialog::Dialog( int type, int x, int y ){
 }
 
 Dialog::~Dialog(){
-    std::cout << "~Dialog()\n";
 }
 
 void Dialog::askBulldozeMonument() {
@@ -124,6 +131,188 @@ void Dialog::askBulldozeShanty() {
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeShantyButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+}
+
+void Dialog::editMarket(){
+    if( !desktop ) {
+        std::cerr << "No desktop found.\n";
+        return;
+    }
+    try {
+        myDialogComponent = loadGUIFile( "gui/tradedialog.xml" );
+        assert( myDialogComponent != 0);
+        desktop->addChildComponent( myDialogComponent );
+        blockingDialogIsOpen = true;
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't display dialog 'tradedialog.xml': "
+            << e.what() << "\n";
+        return;
+    }
+    // set Dialog to Market-Data
+    Paragraph* p = getParagraph( *myDialogComponent, "tradeTitle" );
+    std::stringstream title;
+	title << "Market ( " << pointX <<" , " << pointY << " )";
+    p->setText( title.str() );
+
+    CheckButton* cb;
+    cb = getCheckButton( *myDialogComponent, "BuyJobs" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_JOBS ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellJobs" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_JOBS ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyFood" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_FOOD) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellFood" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_FOOD) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyCoal" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_COAL) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellCoal" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_COAL) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyOre" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_ORE) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellOre" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_ORE) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyGoods" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_GOODS) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellGoods" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_GOODS) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuySteel" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_STEEL) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellSteel" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_STEEL) cb->check(); else cb->uncheck();
+    // connect signals
+    Button* applyButton = getButton( *myDialogComponent, "Apply" );
+    applyButton->clicked.connect( makeCallback(*this, &Dialog::applyMarketButtonClicked ) );
+}
+
+void Dialog::editPort(){
+    if( !desktop ) {
+        std::cerr << "No desktop found.\n";
+        return;
+    }
+    try {
+        myDialogComponent = loadGUIFile( "gui/portdialog.xml" );
+        assert( myDialogComponent != 0);
+        desktop->addChildComponent( myDialogComponent );
+        blockingDialogIsOpen = true;
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't display dialog 'tradedialog.xml': "
+            << e.what() << "\n";
+        return;
+    }
+    // set Dialog to Port-Data
+    Paragraph* p = getParagraph( *myDialogComponent, "tradeTitle" );
+    std::stringstream title;
+	title << "Port ( " << pointX <<" , " << pointY << " )";
+    p->setText( title.str() );
+
+    CheckButton* cb;
+    cb = getCheckButton( *myDialogComponent, "BuyFood" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_FOOD) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellFood" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_FOOD) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyCoal" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_COAL) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellCoal" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_COAL) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyOre" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_ORE) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellOre" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_ORE) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuyGoods" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_GOODS) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellGoods" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_GOODS) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "BuySteel" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_STEEL) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellSteel" );
+    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_STEEL) cb->check(); else cb->uncheck();
+    // connect signals
+    Button* applyButton = getButton( *myDialogComponent, "Apply" );
+    applyButton->clicked.connect( makeCallback(*this, &Dialog::applyPortButtonClicked ) );
+}
+
+void Dialog::applyMarketButtonClicked( Button* b ){
+    CheckButton* cb;
+    cb = getCheckButton( *myDialogComponent, "BuyJobs" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_JOBS; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_JOBS; 
+    }
+    cb = getCheckButton( *myDialogComponent, "SellJobs" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_JOBS; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_JOBS; 
+    }
+    applyPortButtonClicked( b );
+}
+    
+void Dialog::applyPortButtonClicked( Button* ){
+    CheckButton* cb;
+    cb = getCheckButton( *myDialogComponent, "BuyFood" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_FOOD; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_FOOD; 
+    }
+    cb = getCheckButton( *myDialogComponent, "SellFood" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_FOOD; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_FOOD; 
+    }
+    cb = getCheckButton( *myDialogComponent, "BuyCoal" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_COAL; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_COAL; 
+    }
+    cb = getCheckButton( *myDialogComponent, "SellCoal" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_COAL; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_COAL; 
+    }
+    cb = getCheckButton( *myDialogComponent, "BuyOre" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_ORE; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_ORE; 
+    }
+    cb = getCheckButton( *myDialogComponent, "SellOre" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_ORE; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_ORE; 
+    }
+    cb = getCheckButton( *myDialogComponent, "BuyGoods" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_GOODS; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_GOODS; 
+    }
+    cb = getCheckButton( *myDialogComponent, "SellGoods" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_GOODS; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_GOODS; 
+    }
+    cb = getCheckButton( *myDialogComponent, "BuySteel" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_STEEL; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_STEEL; 
+    }
+    cb = getCheckButton( *myDialogComponent, "SellSteel" );
+    if( cb->state == CheckButton::STATE_CHECKED ){  
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_STEEL; 
+    } else {
+        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_STEEL; 
+    }
+    desktop->remove( myDialogComponent );
+    blockingDialogIsOpen = false;
+    delete( this );
 }
 
 void Dialog::okayBulldozeRiverButtonClicked( Button* ){
