@@ -78,7 +78,12 @@ void LCMps::setView(MapPoint point, int style /* = MPS_MAP */ )
     // first clear all text
     for(int i=0;i<paragraphCount;i++)
         setText(i," ");
-    mps_update(xx,yy,style); //MPS_GLOBAL);// MPS_ENV);// MPS_MAP);
+    
+    if( style == MPS_ENV ){
+        mps_update(x , y, style); 
+    } else {
+        mps_update(xx,yy,style); //MPS_GLOBAL);// MPS_ENV);// MPS_MAP);
+    }
 }
 
 LCMps *getMPS()

@@ -230,15 +230,15 @@ void mps_store_title(int i, const char * t)
 void mps_store_fp(int i, double f)
 {
     std::ostringstream os;
-    os<<f<<"%";
     os<<std::setprecision(1)<<std::fixed;
+    os<<f<<"%";
     getMPS()->setText(i,os.str());
 }
 void mps_store_f(int i, double f)
 {
     std::ostringstream os;
-    os<<f;
     os<<std::setprecision(1)<<std::fixed;
+    os<<f;
     getMPS()->setText(i,os.str());
 }
 void mps_store_d(int i, int d)
@@ -325,7 +325,10 @@ void mps_right (int x, int y)
     i++;
 
     mps_store_title(i++,_("Bulldoze Cost"));
-    g = MP_GROUP(x,y);
+    if (MP_TYPE(x,y) == CST_USED)
+        g = MP_GROUP( MP_INFO(x,y).int_1, MP_INFO(x,y).int_2 );
+    else
+        g = MP_GROUP(x,y);
     if (g == 0) {	/* Can't bulldoze grass. */
 	mps_store_title(i++,_("N/A"));
     } else {

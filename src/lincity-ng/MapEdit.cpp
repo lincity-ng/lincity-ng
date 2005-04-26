@@ -142,11 +142,9 @@ void editMap (MapPoint point, int button)
     }
 
   /* Bring up mappoint_stats for any right mouse click */
-  /* XXX: Environmental (right click) MPS should show the clicked
-     square, not the master square */
   if (button == SDL_BUTTON_RIGHT)
     {
-      mps_set(mod_x, mod_y, MPS_ENV);
+      mps_set( x, y, MPS_ENV);
       return;
     }
 
