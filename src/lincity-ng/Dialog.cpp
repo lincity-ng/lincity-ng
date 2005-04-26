@@ -237,13 +237,13 @@ void Dialog::applyMarketButtonClicked( Button* b ){
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MB_JOBS; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_JOBS; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_JOBS; 
     }
     cb = getCheckButton( *myDialogComponent, "SellJobs" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MS_JOBS; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_JOBS; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_JOBS; 
     }
     applyPortButtonClicked( b );
 }
@@ -254,61 +254,61 @@ void Dialog::applyPortButtonClicked( Button* ){
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MB_FOOD; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_FOOD; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_FOOD; 
     }
     cb = getCheckButton( *myDialogComponent, "SellFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MS_FOOD; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_FOOD; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_FOOD; 
     }
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MB_COAL; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_COAL; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_COAL; 
     }
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MS_COAL; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_COAL; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_COAL; 
     }
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MB_ORE; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_ORE; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_ORE; 
     }
     cb = getCheckButton( *myDialogComponent, "SellOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MS_ORE; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_ORE; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_ORE; 
     }
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MB_GOODS; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_GOODS; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_GOODS; 
     }
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MS_GOODS; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_GOODS; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_GOODS; 
     }
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MB_STEEL; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MB_STEEL; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_STEEL; 
     }
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){  
         MP_INFO( pointX,pointY ).flags |= FLAG_MS_STEEL; 
     } else {
-        MP_INFO( pointX,pointY ).flags ^= FLAG_MS_STEEL; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_STEEL; 
     }
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
