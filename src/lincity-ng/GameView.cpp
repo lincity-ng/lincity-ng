@@ -135,6 +135,9 @@ void GameView::parse(XmlReader& reader)
     dragStart = Vector2(0, 0);
     hideHigh = false;
     cursorSize = 0;
+
+    mapOverlay = overlayNone;
+    mapMode = MiniMap::NORMAL;
 }
 
 /*
@@ -149,14 +152,30 @@ void GameView::setCursorSize( int size )
         setDirty();
     }
 } 
+
+/*
+ *  inform GameView about change in Mini Map Mode
+ */
+void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
+    mapMode = mMode;
+    if( mapOverlay != overlayNone ){
+    requestRedraw();
+    }
+}
+
+/*
+ *  Get Tile in Center of Screen.
+ */
+MapPoint GameView::getCenter(){
+    Vector2 center( getWidth() / 2, getHeight() / 2 );
+    return getTile( center ); 
+}
     
 /*
  * Adjust the Zoomlevel.
  */
 void GameView::setZoom(float newzoom){
-    //find Tile in Center of Screen
-    Vector2 center( getWidth() / 2, getHeight() / 2 );
-    MapPoint centerTile  = getTile( center ); 
+    MapPoint centerTile  = getCenter(); 
     
     if ( newzoom < .125 ) return;
     if ( newzoom > 4 ) return;
@@ -772,6 +791,15 @@ void GameView::event(const Event& event)
                 requestRedraw();
                 break;
             }
+            //overlay MiniMap Information
+            if( event.keysym.sym == SDLK_v ){
+                mapOverlay++;
+                if( mapOverlay > overlayMAX ) {
+                    mapOverlay = overlayNone;
+                }
+                requestRedraw();
+                break;
+            }
             //Zoom
             if( event.keysym.sym == SDLK_KP_PLUS ){
                 zoomIn();
@@ -952,6 +980,32 @@ void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
     painter.drawPolygon( 4, points );    
 }
 
+/*
+ * Draw MiniMapOverlay for tile.
+ */
+void GameView::drawOverlay(Painter& painter, MapPoint tile){
+    Color black;
+    black.parse("black");
+    Color miniMapColor;
+    
+    Vector2 tileOnScreenPoint = getScreenPoint(tile);
+    Rect2D tilerect( 0, 0, tileWidth, tileHeight );
+    tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
+    tileOnScreenPoint.y -= tileHeight; 
+    tilerect.move( tileOnScreenPoint );         
+    //Outside of the Map gets Black overlay
+    if( tile.x > WORLD_SIDE_LEN || tile.y > WORLD_SIDE_LEN || tile.x < 0 || tile.y < 0 ) {
+            painter.setFillColor( black );
+    } else {
+        miniMapColor = getMiniMap()->getColor( tile.x, tile.y );
+        if( mapOverlay == overlayOn ){
+            miniMapColor.a = 200;  //Transparent
+        }
+        painter.setFillColor( miniMapColor );
+    }
+    fillDiamond( painter, tilerect );  
+}
+    
 void GameView::drawTile(Painter& painter, MapPoint tile)
 {
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
@@ -1104,9 +1158,7 @@ void GameView::draw(Painter& painter)
 {
     //If the centre of the Screen is not Part of the city
     //adjust viewport so it is.
-    //find Tile in Center of Screen
-    Vector2 center( getWidth() / 2, getHeight() / 2 );
-    MapPoint centerTile = getTile(center);
+    MapPoint centerTile = getCenter();
     bool outside = false;
     if( centerTile.x < 0 ) {
         centerTile.x = 0;
@@ -1158,13 +1210,26 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
-    for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
-    {
-        for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
+    if( mapOverlay != overlayOnly ){
+        for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
         {
-            currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
-            currentTile.y = upperLeftTile.y - i + k / 2;
-            drawTile( painter, currentTile );
+            for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
+            {
+                currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
+                currentTile.y = upperLeftTile.y - i + k / 2;
+                drawTile( painter, currentTile );
+            }
+        }
+    }
+    if( mapOverlay != overlayNone ){
+        for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
+        {
+            for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
+            {
+                currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
+                currentTile.y = upperLeftTile.y - i + k / 2;
+                drawOverlay( painter, currentTile );
+            }
         }
     }
     

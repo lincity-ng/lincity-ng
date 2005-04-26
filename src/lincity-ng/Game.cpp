@@ -8,7 +8,6 @@
 #include "gui/Event.hpp"
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
-#include "gui_interface/mps.h"
 
 #include "MainLincity.hpp"
 #include <iostream>
@@ -95,7 +94,6 @@ Game::run()
         }
 
         doLincityStep();
-        mps_refresh();
     }
 
     return quitState;

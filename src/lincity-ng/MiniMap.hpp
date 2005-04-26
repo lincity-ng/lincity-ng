@@ -30,8 +30,8 @@ public:
             const MapPoint& upperRight, const MapPoint& lowerRight,
             const MapPoint& lowerLeft);
 
-private:
     Color getColor(int x,int y) const;
+private:
     Color getColorNormal(int x,int y) const;
     void attachButtons();
     Component *findRoot(Component *c);

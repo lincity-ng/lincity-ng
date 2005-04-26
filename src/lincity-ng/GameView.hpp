@@ -12,6 +12,7 @@
 
 #include "lincity/engglobs.h"
 #include "MapPoint.hpp"
+#include "MiniMap.hpp"
 
 class GameView : public Component
 {
@@ -29,7 +30,8 @@ public:
 
     //Show City Tile(x/y) by centering the screen 
     void show(MapPoint point);
-
+    MapPoint getCenter();
+        
     //Set Zoomlevel to 100 Percent
     void resetZoom();
     //increase Zoomlevel 
@@ -39,11 +41,15 @@ public:
 
     //size in Tiles of marking under Cursor
     void setCursorSize( int size ); 
+
+    //inform GameView about change in Mini Map Mode
+    void setMapMode( MiniMap::DisplayMode mMode );
 private:
     void recenter(const Vector2& pos);
     Vector2 getScreenPoint(MapPoint point);
     MapPoint getTile(const Vector2& point);
     void drawTile(Painter& painter, MapPoint point);
+    void drawOverlay(Painter& painter, MapPoint point);
     void fillDiamond( Painter& painter, const Rect2D& rect );
     void drawDiamond( Painter& painter, const Rect2D& rect );
     void loadTextures();
@@ -84,6 +90,12 @@ private:
     MapPoint startRoad;
 
     bool hideHigh;
+    int mapOverlay;
+    MiniMap::DisplayMode mapMode;
+    static const int overlayNone = 0;
+    static const int overlayOn = 1;
+    static const int overlayOnly = 2;
+    static const int overlayMAX = 2;
 
     void markTile( Painter& painter, MapPoint map );
 

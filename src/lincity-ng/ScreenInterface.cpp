@@ -5,6 +5,7 @@
 #include "ScreenInterface.hpp"
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/pbar_interface.h"
+#include "gui_interface/mps.h"
 
 #include "lincity/engglobs.h"
 #include "lincity/lclib.h"
@@ -266,8 +267,10 @@ void print_stats ()
 {
   // this show update the financy window or mps
 
-  if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1))
+  if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1)) {
     update_pbars_monthly();
+    mps_refresh();
+  }
 
 }
 void update_main_screen_normal (int full_refresh)

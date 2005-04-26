@@ -174,15 +174,15 @@ void MiniMap::chooseButtonClicked(Button* button)
      {
        switch(i)
        {
-        case 0: mMode=NORMAL;break;
-        case 1: mMode=UB40;break;
-        case 2: mMode=POLLUTION;break;
-        case 3: mMode=STARVE;break;
-        case 4: mMode=POWER;break;
-        case 5: mMode=FIRE;break;
-        case 6: mMode=CRICKET;break;
-        case 7: mMode=HEALTH;break;
-        case 8: mMode=COAL;break;
+        case 0: mMode=NORMAL;getGameView()->setMapMode(NORMAL);break;
+        case 1: mMode=UB40;getGameView()->setMapMode(UB40);break;
+        case 2: mMode=POLLUTION;getGameView()->setMapMode(POLLUTION);break;
+        case 3: mMode=STARVE;getGameView()->setMapMode(STARVE);break;
+        case 4: mMode=POWER;getGameView()->setMapMode(POWER);break;
+        case 5: mMode=FIRE;getGameView()->setMapMode(FIRE);break;
+        case 6: mMode=CRICKET;getGameView()->setMapMode(CRICKET);break;
+        case 7: mMode=HEALTH;getGameView()->setMapMode(HEALTH);break;
+        case 8: mMode=COAL;getGameView()->setMapMode(COAL);break;
         case 9: getGameView()->zoomIn(); break;
         case 10:getGameView()->zoomOut() ;break;
         case 11:setLincitySpeed( 0 ); break;
