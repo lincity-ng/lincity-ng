@@ -1,5 +1,40 @@
 <?xml version="1.0"?>
 <help style="helpdocument">
+ 
+    <p style="htitle">Keyboard</p>
+    <p style="hp">ESCAPE: back to main menu</p>
+    <p style="hp">h to hide high buildings. Press h again to show them.</p>
+    <p style="hp">v to cycle through MiniMap-overlay modes</p>
+    <p style="hp">KP_PLUS: zoom in</p>
+    <p style="hp">KP_MINUS zoom out</p>
+    <p style="hp">KP_ENTER zoom 100%</p>
+    <p style="hp">KP5 put middle of the map in the center of the main screen</p>  
+    <p style="hp">KP9 scroll main screen north</p>
+    <p style="hp">KP1 scroll main screen south</p>
+    <p style="hp">KP7 scroll main screen west</p>
+    <p style="hp">KP3 scroll main screen east</p>
+    <p style="hp">KP2 scroll main screen se</p> 
+    <p style="hp">KP4 scroll main screen sw</p> 
+    <p style="hp">KP6 scroll main screen se</p> 
+    <p style="hp">KP8 scroll main screen nw</p> 
+    <p style="hp">same with cursor</p>
+    <p style="hp">use shift + direction to scroll faster</p>
+
+    <p style="htitle">Mouse</p>
+    <p style="hp">middle:</p>
+    <p style="hp"> Drag mainscreen with middle mousebutton.</p>
+    <p style="hp">middle click on mainscreen centers to tile under cursor.</p>
+    <p style="hp">right:</p>
+    <p style="hp">right click on mainscreen to show information about area under cursor.</p>
+    <p style="hp">right click on minimap to cycle through global informations.</p>
+    <p style="hp">left:</p>
+    <p style="hp">Click on Minimap shows the selected Area on mainscreen.</p>
+    <p style="hp">Perform action depending on selected tool. Bulldoze, show Information,
+    construct building.:</p>
+    <p style="hp">wheel:</p>
+    <p style="hp"> up: zoom in</p>
+    <p style="hp">down: zoom out </p>
+
     <p style="htitle">Residential Area</p>
     <p style="hp">
     This is where people live. To encourage people to live in this area they

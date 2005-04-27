@@ -29,7 +29,7 @@ public:
     void requestRedraw();
 
     //Show City Tile(x/y) by centering the screen 
-    void show(MapPoint point);
+    void show(MapPoint point, bool redraw = true );
     MapPoint getCenter();
         
     //Set Zoomlevel to 100 Percent
@@ -44,6 +44,11 @@ public:
 
     //inform GameView about change in Mini Map Mode
     void setMapMode( MiniMap::DisplayMode mMode );
+
+    //evaluate main_screen_originx and main_screen_originy
+    void readOrigin();
+    //set main_screen_originx and main_screen_originy
+    void writeOrigin();    
 private:
     void recenter(const Vector2& pos);
     Vector2 getScreenPoint(MapPoint point);

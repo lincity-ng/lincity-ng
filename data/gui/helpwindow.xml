@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<Window width="500" height="400" border="5" titlesize="30">
+<Window width="500" height="400" border="5" titlesize="30" >
     <title>
-        <Paragraph halign="center" color="white"
-        height="30" font-size="20">Help - Communes</Paragraph>
+        <Paragraph halign="center" color="white" name="HelpWindowTitle"
+        height="30" font-size="20">Help - Lincity NG</Paragraph>
     </title>
     <closebutton>
         <image src="images/gui/window/window_close.png"/>

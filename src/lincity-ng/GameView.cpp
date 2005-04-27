@@ -109,12 +109,7 @@ void GameView::parse(XmlReader& reader)
     //GameView is resizable
     setFlags(FLAG_RESIZABLE);
 
-    //start in the centre of the city
-      //TODO: change start-position to location from savegame
-      //and set these values so they will be stored in savegame.
-      //main_screen_originx main_screen_originy
-      //std::cout << "main_screen_originx=" << main_screen_originx; 
-      //std::cout << " main_screen_originy=" << main_screen_originy << "\n";
+    //start at location from savegame
     //because on startup the size of this Control is 0
     //we use values from config instead of getWidth() and getHeight())
     //so we can not use zoom( defaultZoom ) likewise
@@ -123,8 +118,7 @@ void GameView::parse(XmlReader& reader)
     tileHeight = defaultTileHeight * zoom; 
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
-    viewport.x = floor ( ( virtualScreenWidth - getConfig()->videoX  ) / 2 );
-    viewport.y = floor ( ( virtualScreenHeight- getConfig()->videoY  ) / 2 );
+    show( MapPoint( main_screen_originx, main_screen_originy ), false );
 
     mouseInGameView = false;
     dragging = false;
@@ -153,6 +147,21 @@ void GameView::setCursorSize( int size )
     }
 } 
 
+/*
+ * evaluate main_screen_originx and main_screen_originy
+ */
+void GameView::readOrigin(){
+    MapPoint newCenter( main_screen_originx, main_screen_originy );
+    show( newCenter );
+}
+
+/*
+ * set main_screen_originx and main_screen_originy
+ */
+void GameView::writeOrigin(){
+    main_screen_originx = getCenter().x;
+    main_screen_originy = getCenter().y;
+}   
 /*
  *  inform GameView about change in Mini Map Mode
  */
@@ -214,8 +223,9 @@ void GameView::zoomOut(){
 
 /**
  *  Show City Tile(x/y) by centering the screen 
+ *  redraw = false is used on initialisation.
  */
-void GameView::show( MapPoint map )
+void GameView::show( MapPoint map , bool redraw /* = true */ )
 {    
     Vector2 center;
     center.x = virtualScreenWidth / 2 + ( map.x - map.y ) * ( tileWidth / 2 );
@@ -223,6 +233,7 @@ void GameView::show( MapPoint map )
     
     viewport.x = center.x - ( getWidth() / 2 );
     viewport.y = center.y - ( getHeight() / 2 );
+    if( redraw )
     requestRedraw();
 }
 

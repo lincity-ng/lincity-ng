@@ -17,6 +17,7 @@ public:
 
     MainState run();
     void gameButtonClicked( Button* button );
+    void openHelpWindow();
 
 private:
     std::auto_ptr<Component> gui;

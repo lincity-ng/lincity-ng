@@ -5,6 +5,7 @@
 #include "gui/TextureManager.hpp"
 #include "gui/ComponentLoader.hpp"
 #include "gui/Component.hpp"
+#include "gui/Desktop.hpp"
 #include "gui/Event.hpp"
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
@@ -13,6 +14,7 @@
 #include <iostream>
 #include "Util.hpp"
 #include "lincity/lin-city.h"
+#include "GameView.hpp"
 
 Game::Game()
 {
@@ -28,6 +30,7 @@ Game::~Game()
 }
 
 void Game::backToMainMenu(){
+    getGameView()->writeOrigin();
     save_city( "9_currentGameNG.scn" );
     running = false;
     quitState = MAINMENU;
@@ -40,6 +43,36 @@ void Game::gameButtonClicked( Button* button ){
     }
     else {
          std::cerr << " Game::gameButtonClicked unknown button '" << name << "'.\n";
+    }
+}
+
+void Game::openHelpWindow(){
+    std::cout << "Help is on the way...\n";
+    Component* root = getGameView();
+    if(!root) {
+        std::cerr << "Root not found.\n";
+        return;
+    }
+    while( root->getParent() )
+        root = root->getParent();
+    Desktop* desktop = dynamic_cast<Desktop*> (root);
+    if(!desktop) {
+        std::cerr << "Root not a desktop!?!\n";
+        return;
+    }
+    try {
+        //test if Help-Windows is open
+        Component* messageTextComponent = 0;
+        messageTextComponent = root->findComponent( "HelpWindowTitle" );
+        if(messageTextComponent == 0) {
+            messageTextComponent = loadGUIFile("gui/helpwindow.xml");
+            assert(messageTextComponent != 0);
+            desktop->addChildComponent(messageTextComponent);
+        }
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't open HelpWindow"
+            << e.what() << "\n";
+        return;
     }
 }
 
@@ -61,6 +94,10 @@ Game::run()
                      Event gui_event(event);
                      if( gui_event.keysym.sym == SDLK_ESCAPE ){
                          backToMainMenu();
+                         break;
+                     }
+                     if( gui_event.keysym.sym == SDLK_F1 ){
+                         openHelpWindow();
                          break;
                      }
                      gui->event(gui_event);
