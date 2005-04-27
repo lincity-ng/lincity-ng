@@ -11,11 +11,13 @@
 #include "lincity/lclib.h"
 
 #include "gui/Component.hpp"
+#include "gui/ComponentLoader.hpp"
 #include "gui/Paragraph.hpp"
 #include "gui/Desktop.hpp"
+
 #include "GameView.hpp"
 #include "Util.hpp"
-#include "gui/ComponentLoader.hpp"
+#include "ButtonPanel.hpp"
 
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
@@ -250,7 +252,11 @@ void refresh_population_text (void)
 
 void update_avail_modules (int popup)
 {
-    std::cout << "update_avail_modules " << popup <<"\n";
+    //tell ButtonPanel to check for tech change.
+    ButtonPanel* bp = getButtonPanel();
+    if( bp ){
+        bp->checkTech( popup );
+    }
 }
 
 void refresh_main_screen()
@@ -271,6 +277,9 @@ void print_stats ()
     update_pbars_monthly();
     mps_refresh();
   }
+
+  //check for new tech
+  update_avail_modules (1);
 
 }
 void update_main_screen_normal (int full_refresh)

@@ -28,6 +28,7 @@ Programming
  [M] Add tooltips for buttonpanel
  [L] Add maximize for Windows (see Window.cpp 74 ff)
       - really?
+ [H] refresh after loading new elements (eg. help window)
 
 --Bugs--
  [M] mills.png shows a windmill but is used as button to build a mill.
@@ -52,5 +53,7 @@ Programming
  [M] Options-dialog
  [L] manpage, documentation
  [H] improve fast scrolling
- [H] Homepage http://lincity-ng.berlios.de/ 
+ [M] Homepage http://lincity-ng.berlios.de/ 
  [H] Tile graphics
+ [M] remove MPS_ENV, make MPS_MAP a popup 
+ [M] put MPS_GLOBAL to tabs behind minimap

@@ -75,9 +75,6 @@ void LCMps::setView(MapPoint point, int style /* = MPS_MAP */ )
         yy = MP_INFO(x,y).int_2;
     }
     
-    // first clear all text
-    for(int i=0;i<paragraphCount;i++)
-        setText(i," ");
     if( style == MPS_ENV ){
         mps_update(x , y, style); 
     } else {
@@ -94,6 +91,10 @@ int mps_set_silent( int x, int y, int style );
 
 void mps_update(int mps_x, int mps_y,int mps_style)
 {
+    // first clear all text
+    for(int i=0;i<paragraphCount;i++)
+        mps_store_title(i,"");
+    
     switch (mps_style) {
         case MPS_MAP:
             //cdebug(MP_GROUP(mps_x,mps_y));

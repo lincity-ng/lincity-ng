@@ -26,9 +26,11 @@
 #include "MiniMap.hpp"
 #include "Dialog.hpp"
 #include "Config.hpp"
+#include "ScreenInterface.hpp"
 
 #include <SDL_keysym.h>
 #include <math.h>
+#include <sstream>
 
 #include "gui_interface/shared_globals.h"
 
@@ -1272,6 +1274,25 @@ void GameView::draw(Painter& painter)
             }
         } 
         markTile( painter, tileUnderMouse );
+        //show bulldoze cost of tile under mouse
+        if( selected_module_type == CST_GREEN ) { //show only in bulldoze-mode
+            std::stringstream prize;
+            int group;
+            prize << "Bulldoze Cost: ";
+            if (MP_TYPE( tileUnderMouse.x, tileUnderMouse.y) == CST_USED)
+                group = MP_GROUP( MP_INFO(tileUnderMouse.x,tileUnderMouse.y).int_1,
+                                  MP_INFO(tileUnderMouse.x,tileUnderMouse.y).int_2 );
+            else
+                group = MP_GROUP( tileUnderMouse.x,tileUnderMouse.y );
+            if (group == 0) {  /* Can't bulldoze grass. */
+                prize << "N/A"; 
+            } else {
+                if (group < 7)
+                    group--;            /* translate into button type */
+                prize << main_groups[group].bul_cost << "£";
+            }
+            updateMessageText( prize.str() );
+        }
     }
 }
 

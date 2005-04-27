@@ -7,6 +7,11 @@ class Component;
 class Button;
 class CheckButton;
 
+//get Data form Lincity NG and Save City
+void saveCityNG( std::string newFilename );
+//Load City and do setup for Lincity NG.
+bool loadCityNG( std::string filename );
+
 class MainMenu
 {
 public:

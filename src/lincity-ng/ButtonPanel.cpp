@@ -102,7 +102,7 @@ ButtonPanel::parse(XmlReader& reader)
     selected_module_type=selected_module=module=CST_GREEN;
     alreadyAttached=false;
     selected_module_type=CST_NONE;
-    
+    checkTech(0);    
     
     checked_cast<CheckButton>(findComponent(mMenuButtons[0]))->check();
 }
@@ -118,6 +118,12 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
             return value;
     }
     return rname;
+}
+
+void ButtonPanel::checkTech( int showInfo ){
+    //TODO: enable/disabel buttons accordig to tech.
+    //if showinfo inform user abount newly available elements.
+
 }
 
 void ButtonPanel::attachButtons()

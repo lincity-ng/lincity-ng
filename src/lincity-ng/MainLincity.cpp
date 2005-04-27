@@ -61,6 +61,29 @@ void execute_timestep ()
   
 }
 
+/*
+ * get Data form Lincity NG and Save City
+ */
+void saveCityNG( std::string newFilename ){
+    std::cout << "saveCitNG( " << newFilename <<")\n";
+    GameView* gv = getGameView();
+    if( gv ){ gv->writeOrigin(); }
+    save_city(const_cast<char*>( newFilename.c_str() ) );
+}
+
+/*
+ * Load City and do setup for Lincity NG.
+ */
+bool loadCityNG( std::string filename ){
+    if( file_exists( const_cast<char*>( filename.c_str()) ) ){
+        load_city(const_cast<char*>(filename.c_str()));
+        update_avail_modules(0);
+        GameView* gv = getGameView();
+        if( gv ){ gv->readOrigin(); }
+        return true;
+    }
+    return false;
+}
 
 void initLCengine()
 {
@@ -120,9 +143,8 @@ void initLincity()
     char* s = "9_currentGameNG.scn";
     char *cname = (char *) malloc (strlen (lc_save_dir) + strlen (s) + 2);
     sprintf (cname, "%s%c%s", lc_save_dir, PATH_SLASH, s);
-    if( file_exists( cname ) ){   
+    if( loadCityNG( std::string( cname ) ) ){   
         printf("Found city from last time (%s).\n", cname);
-        load_city (cname);
     }
     else {
         //create a new City just in case

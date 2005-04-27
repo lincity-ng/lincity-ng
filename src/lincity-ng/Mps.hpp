@@ -6,6 +6,7 @@
 #include "gui_interface/mps.h"
 
 class XmlReader;
+static const int paragraphCount = 13;
 
 void mps_update(int mps_x,int mps_y,int mps_style);
 
@@ -24,7 +25,6 @@ public:
   int mX,mY;
   //Number of Paragraphs in mps.xml
   //<Paragraph name="mps_text13" style="mps_text">Text13</Paragraph>
-  static const int paragraphCount = 13;
 
   //  std::vector<AGText*> mTexts;
 };

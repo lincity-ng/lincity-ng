@@ -293,11 +293,8 @@ MainMenu::creditsBackButtonClicked(Button* )
 void
 MainMenu::newGameStartButtonClicked(Button* )
 {
-    if( file_exists( const_cast<char*>(mFilename.c_str()) ) ){
-        getSound()->playSound( "Click" );
-        load_city(const_cast<char*>(mFilename.c_str()));
-        GameView* gv = getGameView();
-        if( gv ){ gv->readOrigin(); }
+    getSound()->playSound( "Click" );
+    if( loadCityNG( mFilename ) ){
         quitState = INGAME;
         running = false;
     }
@@ -352,11 +349,8 @@ MainMenu::gotoMainMenu()
 void
 MainMenu::loadGameLoadButtonClicked(Button *)
 {
-    if( file_exists( const_cast<char*>(mFilename.c_str()) ) ){
-        getSound()->playSound( "Click" );
-        load_city(const_cast<char*>(mFilename.c_str()));
-        GameView* gv = getGameView();
-        if( gv ){ gv->readOrigin(); }
+    getSound()->playSound( "Click" );
+    if( loadCityNG( mFilename ) ){
         quitState = INGAME;
         running = false;
     }
@@ -379,10 +373,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     newStart << datetime->tm_mon << "-" << datetime->tm_mday << "_";
     newStart << datetime->tm_hour << ":" << datetime->tm_min;
     std::string newFilename( newStart.str() ); 
-    std::cout << "save_city( " << newFilename.c_str() <<")\n";
-    GameView* gv = getGameView();
-    if( gv ){ gv->writeOrigin(); }
-    save_city(const_cast<char*>( newFilename.c_str() ) );
+    saveCityNG( newFilename );
     fillLoadMenu();
 }
 
