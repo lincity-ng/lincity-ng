@@ -1256,44 +1256,64 @@ void GameView::draw(Painter& painter)
             }
         }
     }
-    
+   
+    int cost = 0; 
     //Mark Tile under Mouse 
     if( mouseInGameView  && !blockingDialogIsOpen ) {
         if( roadDragging ){
             //use same method to find all Tiles as in GameView::event(const Event& event)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
-            MapPoint currenTile = startRoad;
-            while( currenTile.x != tileUnderMouse.x ) {
-                markTile( painter, currenTile );
-                currenTile.x += stepx;
+            currentTile = startRoad;
+            while( currentTile.x != tileUnderMouse.x ) {
+                markTile( painter, currentTile );
+                if( selected_module_type == CST_GREEN ) 
+                    cost += bulldozeCost( currentTile );
+                currentTile.x += stepx;
             }
-            while( currenTile.y != tileUnderMouse.y ) {
-                markTile( painter, currenTile );
-                currenTile.y += stepy;
+            while( currentTile.y != tileUnderMouse.y ) {
+                markTile( painter, currentTile );
+                if( selected_module_type == CST_GREEN ) 
+                    cost += bulldozeCost( currentTile );
+                currentTile.y += stepy;
             }
         } 
         markTile( painter, tileUnderMouse );
-        //show bulldoze cost of tile under mouse
         if( selected_module_type == CST_GREEN ) { //show only in bulldoze-mode
+            cost += bulldozeCost( tileUnderMouse );
+            
             std::stringstream prize;
-            int group;
-            prize << "Bulldoze Cost: ";
-            if (MP_TYPE( tileUnderMouse.x, tileUnderMouse.y) == CST_USED)
-                group = MP_GROUP( MP_INFO(tileUnderMouse.x,tileUnderMouse.y).int_1,
-                                  MP_INFO(tileUnderMouse.x,tileUnderMouse.y).int_2 );
-            else
-                group = MP_GROUP( tileUnderMouse.x,tileUnderMouse.y );
-            if (group == 0) {  /* Can't bulldoze grass. */
-                prize << "N/A"; 
+            if( roadDragging ){
+                prize << "Estimated Bulldoze Cost: ";
             } else {
-                if (group < 7)
-                    group--;            /* translate into button type */
-                prize << main_groups[group].bul_cost << "£";
+                prize << "Bulldoze Cost: ";
+            }
+            if( cost > 0 ) {
+                prize << cost << "£";
+            } else {
+                prize << "n/a";
             }
             updateMessageText( prize.str() );
         }
     }
+}
+
+int GameView::bulldozeCost( MapPoint tile ){
+    int group;
+    int prize = 0;
+    if (MP_TYPE( tile.x, tile.y) == CST_USED)
+        group = MP_GROUP( MP_INFO(tile.x,tile.y).int_1,
+                          MP_INFO(tile.x,tile.y).int_2 );
+    else
+        group = MP_GROUP( tile.x,tile.y );
+    if (group == 0) {  /* Can't bulldoze grass. */
+        prize = 0; 
+    } else {
+        if (group < 7)
+            group--;            /* translate into button type */
+        prize = main_groups[group].bul_cost;
+    }
+    return prize;
 }
 
 //Register as Component

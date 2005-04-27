@@ -77,6 +77,8 @@ private:
 
     //check if tile is in city
     bool inCity( MapPoint tile );
+
+    int bulldozeCost( MapPoint tile );
     
     Texture* cityTextures[ NUM_OF_TYPES ];
     SDL_Surface* cityImages[ NUM_OF_TYPES ];
