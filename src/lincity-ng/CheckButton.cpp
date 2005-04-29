@@ -15,7 +15,8 @@
 #include "gui/XmlReader.hpp"
 
 CheckButton::CheckButton()
-    : state(STATE_NORMAL), lowerOnClick(false), checked(false), mclicked(false)
+    : state(STATE_NORMAL), lowerOnClick(false), checked(false),
+      mclicked(false)
 {
 }
 
@@ -59,8 +60,8 @@ CheckButton::parse(XmlReader& reader)
         }
     }
 
-    // we need 5 child components
-    childs.assign(5, Child());
+    // we need 6 child components
+    childs.assign(6, Child());
     
     // parse contents of the xml-element
     int depth = reader.getDepth();
@@ -107,6 +108,12 @@ CheckButton::parse(XmlReader& reader)
                     std::cerr << "Warning: more than 1 component for comp_caption "
                         "defined.\n";
                 setChildImage(comp_caption(), reader);
+            } else if(element == "image-disabled") 
+            {
+                if(comp_disabled().getComponent() != 0)
+                    std::cerr << "Warning: More than 1 component for "
+                        "comp_disabled defined.\n";
+                setChildImage(comp_disabled(), reader);
             } else if(element == "text-caption") {
                 if(comp_caption().getComponent() != 0)
                     std::cerr << "Warning: more than 1 component for comp_caption "
@@ -165,44 +172,63 @@ CheckButton::setChildText(Child& child, XmlReader& reader)
     resetChild(child, paragraph.release());
 }
 
-void CheckButton::uncheck()
+void
+CheckButton::uncheck()
 {
   checked=false;
   state=STATE_NORMAL;
 }
 
-void CheckButton::check()
+void
+CheckButton::check()
 {
   checked=true;
   state=STATE_CHECKED;
 }
 
 void
+CheckButton::enable(bool enabled)
+{
+    printf("Enable %s -> %d.\n", getName().c_str(), enabled);
+    if(!enabled) {
+        state = STATE_DISABLED;
+    } else if(enabled && state == STATE_DISABLED) {
+        state = STATE_NORMAL;
+    }
+}
+
+bool
+CheckButton::isEnabled() const
+{
+    return state != STATE_DISABLED;
+}
+
+void
 CheckButton::event(const Event& event)
 {
-  bool nochange=false;
-  bool hovering=event.inside;
+    bool nochange=false;
   
     State oldstate=state;
     switch(event.type) {
         case Event::MOUSEMOTION:
           break;
         case Event::MOUSEBUTTONDOWN:
-            if(!event.inside)
-            {
+            if(!event.inside) {
               nochange=true;
               break;
             }
             mclicked=true;
             break;
         case Event::MOUSEBUTTONUP:
-            if(event.inside && oldstate == STATE_CLICKED) {
-                printf("Clicked on Button '%s'.\n", getName().c_str());
-                if(event.mousebutton==SDL_BUTTON_LEFT)
-                  checked=!checked;
+            if(event.inside && mclicked) {
+                if(event.mousebutton == SDL_BUTTON_LEFT &&
+                   state == STATE_DISABLED)
+                   break;
+                
+                if(event.mousebutton == SDL_BUTTON_LEFT)
+                  checked = !checked;
+                clicked(this, event.mousebutton);
             }
-            if(event.inside && mclicked)
-                clicked(this,event.mousebutton);
             mclicked=false;
             break;
         default:
@@ -212,13 +238,13 @@ CheckButton::event(const Event& event)
     if(mmain.length())
       checked=false; // these buttons have no state
     
-    if(!nochange)
+    if(!nochange && state != STATE_DISABLED)
     {
       if(mclicked)
         state=STATE_CLICKED;
       else if(checked)
         state=STATE_CHECKED;
-      else if(hovering)
+      else if(event.inside)
         state=STATE_HOVER;
       else
         state=STATE_NORMAL;
@@ -244,12 +270,19 @@ CheckButton::draw(Painter& painter)
                 drawChild(comp_hover(), painter);
                 break;
             } else {
-				drawChild(comp_normal(), painter);
-				break;
-			}
+                drawChild(comp_normal(), painter);
+                break;
+            }
         case STATE_CHECKED:
             if(comp_checked().isEnabled()) {
                 drawChild(comp_checked(), painter);
+            } else {
+                drawChild(comp_normal(), painter);
+            }
+            break;
+        case STATE_DISABLED:
+            if(comp_disabled().isEnabled()) {
+                drawChild(comp_disabled(), painter);
                 break;
             }
             // fallthrough

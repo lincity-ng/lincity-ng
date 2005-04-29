@@ -18,7 +18,11 @@ public:
     void draw(Painter& painter);
     void event(const Event& event);
 
-    Signal<CheckButton*,int> clicked; // give CheckButton and button
+    /** This signal is called when the button has been clicked.
+     * Arguments are a pointer to the checkbutton and the mousebutton number
+     * that has been pressed
+     */
+    Signal<CheckButton*, int> clicked;
 
     void setCaptionText(const std::string &pText);
     std::string getCaptionText();
@@ -27,12 +31,19 @@ public:
     std::string getMain() const;
     void uncheck();
     void check();
+
+    /** enable/disable a button. A disabled button doesn't react to left-mouse
+     * clicks anymore.
+     */
+    void enable(bool enabled = true);
+    bool isEnabled() const;
     
     enum State {
         STATE_NORMAL,
         STATE_HOVER,
         STATE_CLICKED,
-        STATE_CHECKED
+        STATE_CHECKED,
+        STATE_DISABLED
     };
     
     State state;
@@ -40,18 +51,19 @@ public:
 private:
     void setChildImage(Child& child, XmlReader& reader);
     void setChildText(Child& child, XmlReader& reader);
-    
-    Child& comp_normal()
+
+    Child& comp_disabled()
     { return childs[0]; }
-    Child& comp_hover()
+    Child& comp_normal()
     { return childs[1]; }
-    Child& comp_clicked()
+    Child& comp_hover()
     { return childs[2]; }
-    Child& comp_checked()
+    Child& comp_clicked()
     { return childs[3]; }
-    Child& comp_caption()
+    Child& comp_checked()
     { return childs[4]; }
-    
+    Child& comp_caption()
+    { return childs[5]; }
     
     std::string mmain;
     

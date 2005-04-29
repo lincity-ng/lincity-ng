@@ -121,9 +121,9 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
 }
 
 void ButtonPanel::checkTech( int showInfo ){
+    (void) showInfo;
     //TODO: enable/disabel buttons accordig to tech.
     //if showinfo inform user abount newly available elements.
-
 }
 
 void ButtonPanel::attachButtons()
