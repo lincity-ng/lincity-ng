@@ -26,6 +26,8 @@ Color::parse(const char* value)
             b = blue;
             if(res == 4)
                 a = alpha;
+            else
+                a = 0xff;
         }
     } else if(strcmp(value, "black") == 0) {
         r = 0;
