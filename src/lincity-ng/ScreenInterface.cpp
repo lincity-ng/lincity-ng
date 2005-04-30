@@ -233,6 +233,8 @@ int dialog_box(int colour, int argc, ...)
  */
 void prog_box (char *title, int percent)
 {
+    (void) title;
+    (void) percent;
 #if 0
     std::ostringstream text;
     text << "prog_box:'" << title << "' " << percent << "%\n";
