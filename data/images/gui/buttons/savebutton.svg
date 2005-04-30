@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="400.00000px"
+   height="50.000000px"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.41"
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/buttons"
+   sodipodi:docname="savebutton.svg"
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-menu-hover.png"
+   inkscape:export-xdpi="10.910000"
+   inkscape:export-ydpi="10.910000">
+  <defs
+     id="defs3">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3572">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop3574" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3576" />
+    </linearGradient>
+    <linearGradient
+       y2="315.58200"
+       x2="362.26712"
+       y1="528.35089"
+       x1="362.26712"
+       gradientTransform="matrix(1.157577,0.000000,0.000000,1.157577,-208.0488,-280.9944)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient1312"
+       xlink:href="#linearGradient3572"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="1531.2733"
+       x2="191.11186"
+       y1="170.92076"
+       x1="191.11186"
+       gradientTransform="scale(7.943629,0.125887)"
+       id="linearGradient2076"
+       xlink:href="#linearGradient3572"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.9798990"
+     inkscape:cx="137.86896"
+     inkscape:cy="-4.1438820"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="925"
+     inkscape:window-height="546"
+     inkscape:window-x="287"
+     inkscape:window-y="381" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         rdf:about=""
+         id="Work6">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           id="type9"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:nodetypes="ccccccccc"
+       id="path1316"
+       d="M 10.036787,4.5309455 L 390.38419,4.5309455 C 393.46578,4.5309455 395.94664,7.0117973 395.94664,10.093394 L 395.94664,39.917862 C 395.94664,42.999457 393.46578,45.480309 390.38419,45.480309 L 10.036787,45.480309 C 6.9551913,45.480309 4.4743394,42.999457 4.4743394,39.917862 L 4.4743394,10.093394 C 4.4743394,7.0117973 6.9551913,4.5309455 10.036787,4.5309455 z "
+       style="fill:#d0d0d0;fill-opacity:1.0000000;stroke:#525252;stroke-width:0.60729992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="ccccccccc"
+       id="button-blue"
+       d="M 10.036787,4.5309455 L 390.35262,4.5309455 C 393.43422,4.5309455 395.91507,7.0117973 395.91507,10.093394 L 395.91507,39.917862 C 395.91507,42.999457 393.43422,45.480309 390.35262,45.480309 L 10.036787,45.480309 C 6.9551913,45.480309 4.4743394,42.999457 4.4743394,39.917862 L 4.4743394,10.093394 C 4.4743394,7.0117973 6.9551913,4.5309455 10.036787,4.5309455 z "
+       style="fill:#889fc6;fill-opacity:1.0000000;stroke:#3d4652;stroke-width:0.60729992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <g
+       transform="matrix(0.120961,0.000000,0.000000,0.120961,5.579865e-3,5.533878e-2)"
+       id="highlights">
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         id="highlight-body"
+         d="M 82.604334,53.229813 L 3227.0001,53.229813 C 3243.7705,53.229813 3257.2715,66.730868 3257.2715,83.501238 L 3257.2715,329.03538 C 3257.2715,345.80575 3243.7705,359.30681 3227.0001,359.30681 L 82.604334,359.30681 C 65.833964,359.30681 52.332909,345.80575 52.332909,329.03538 L 52.332909,83.501238 C 52.332909,66.730868 65.833964,53.229813 82.604334,53.229813 z "
+         style="opacity:0.67948717;fill:url(#linearGradient1312);fill-opacity:1.0000000;stroke:none;stroke-width:13.632646;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+      <path
+         style="opacity:0.67948717;fill:url(#linearGradient2076);fill-opacity:1.0;stroke:none;stroke-width:13.632646;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+         d="M 82.729374,53.229814 L 3223.7434,53.229814 C 3240.5831,53.229814 3254.1399,71.335791 3254.1399,73.574330 C 3254.1399,84.824778 3240.5831,103.97078 3223.7434,103.97078 L 82.729374,103.97078 C 65.889734,103.97078 52.332909,84.824778 52.332909,73.574330 C 52.332909,71.335791 65.889734,53.229814 82.729374,53.229814 z "
+         id="highlight-top"
+         sodipodi:nodetypes="ccsccsc"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
+         inkscape:export-xdpi="13.150000"
+         inkscape:export-ydpi="13.150000" />
+    </g>
+  </g>
+</svg>
