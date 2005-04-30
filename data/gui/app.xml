@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <gui>
     <!-- TODO move these elsewhere once the system allows that -->
-    <DefineStyle name="title" color="white" font-size="20"/>
+    <DefineStyle name="title" color="white" font-size="20" margin-left="7"/>
     <DefineStyle name="messagebold" color="black" font-size="20"
-    background="white" font-weight="bold"/>
-    <DefineStyle name="message" color="black" font-size="16" background="white"/>
+    font-weight="bold"/>
+    <DefineStyle name="message" color="black" font-size="16"/>
     <DefineStyle name="button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
     <DefineStyle name="dialogbutton" color="white" font-size="20" margin-left="20" margin-right="20"/>
     <DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>
-    <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3"    margin-left="23" margin-right="20"/>
+    <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3" margin-left="23" margin-right="20"/>
 
     <DefineStyle name="helpdocument" font-family="sans" background="#ffffff22"
     font-size="20" color="black"/>
@@ -20,7 +20,7 @@
     <GameView/>
     <Import src="gui/messagearea.xml"/>
     <TableLayout rows="2" cols="3">
-        <colsize col="1" fixed="100"/>
+        <colsize col="1" fixed="173"/>
         <colsize col="2" relative="1"/>
         <colsize col="3" fixed="248"/>
         <cell row="1" col="1" spany="2" halign="left" valign="top">
@@ -31,7 +31,10 @@
         </cell>
         <cell row="1" col="2" valign="top" halign="right">
           <Import src="gui/mps.xml"/>
-        </cell>  
+        </cell>
+	<cell row="2" col="1" valign="bottom" halign="left">
+		<Import src="gui/speedpanel.xml"/>
+	</cell>
         <cell row="2" col="3" valign="bottom" halign="right">
             <Import src="gui/minimap.xml"/>
         </cell>
