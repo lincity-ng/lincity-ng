@@ -23,7 +23,7 @@
 			<cell row="1" col="2">
 				<Document style="message">
 				<p style="messagebold" translatable="yes">Warning</p>
-				<p translatable="yes"> Bulldozing a monument costs a lot of money.</p>
+				<p translatable="yes">Bulldozing a monument costs a lot of money.</p>
 				<p translatable="yes">Want to bulldoze?</p>
 				</Document>
 			</cell>
@@ -41,8 +41,7 @@
 			</cell>
 			<cell row="1" col="2">
 				<Button name="Yes">
-				<text-caption style="dialogbutton"
-				translatable="yes">Yes</text-caption>
+				<text-caption style="dialogbutton" translatable="yes">Yes</text-caption>
 				<image src="images/gui/dialogs/yesbutton.png"/>
 				<image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
 				<image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
