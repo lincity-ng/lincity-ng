@@ -153,6 +153,7 @@ void GameView::setCursorSize( int size )
  * evaluate main_screen_originx and main_screen_originy
  */
 void GameView::readOrigin(){
+    std::cout << "readOrigin "<< main_screen_originx << " " << main_screen_originy << "\n";
     MapPoint newCenter( main_screen_originx, main_screen_originy );
     show( newCenter );
 }
@@ -163,6 +164,7 @@ void GameView::readOrigin(){
 void GameView::writeOrigin(){
     main_screen_originx = getCenter().x;
     main_screen_originy = getCenter().y;
+    std::cout << "writeOrigin "<< main_screen_originx << " " << main_screen_originy << "\n";
 }   
 /*
  *  inform GameView about change in Mini Map Mode

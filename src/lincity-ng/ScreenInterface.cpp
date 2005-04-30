@@ -299,15 +299,13 @@ void print_time_for_year ()
 
 int getMainWindowWidth()
 {
-  // FIXME: insert some function to return screen size
-  return 800;
-  //  return getScreen().getRect().w;
+  //is only used by old code. 0 is the value that hurts least when the
+  //load_city does some "corrections" to main_screen_originx
+  return 0;
 }
 int getMainWindowHeight()
 {
-  // FIXME: insert some function to return screen size
-  return 800;
-  //  return getScreen().getRect().h;
+  return 0;
 }
 
 int yn_dial_box (char * s1, char * s2, char * s3, char *s4)
