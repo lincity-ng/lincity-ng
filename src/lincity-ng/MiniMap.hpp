@@ -9,6 +9,7 @@
 
 class XmlReader;
 class Button;
+class CheckButton;
 
 class MiniMap:public Component
 {
@@ -25,13 +26,17 @@ public:
 
     virtual void event(const Event& event);
   
-    void chooseButtonClicked(Button* button);
     void setGameViewCorners(const MapPoint& upperLeft,
             const MapPoint& upperRight, const MapPoint& lowerRight,
             const MapPoint& lowerLeft);
 
     Color getColor(int x,int y) const;
 private:
+    void mapViewButtonClicked(CheckButton* button, int);
+    void speedButtonClicked(CheckButton* button, int);
+    void zoomInButtonClicked(Button* button);
+    void zoomOutButtonClicked(Button* button);
+
     Color getColorNormal(int x,int y) const;
     void attachButtons();
     Component *findRoot(Component *c);

@@ -27,16 +27,17 @@
 #include "Debug.hpp"
 #include "Util.hpp"
 #include "Mps.hpp"
+#include "CheckButton.hpp"
 
 #define LC_MOUSE_LEFTBUTTON 1
 #define LC_MOUSE_RIGHTBUTTON 2
 #define LC_MOUSE_MIDDLEBUTTON 3
   
-char *buttonNames[]={"MapViewNormal","MapViewUB40","MapViewPollution","MapViewFood",
-    "MapViewPower","MapViewFire","MapViewSport","MapViewHealth","MapViewCoal",
-    "ZoomInButton","ZoomOutButton","SpeedPauseButton","SpeedSlowButton",
-    "SpeedNormalButton","SpeedFastButton"};
-#define BUTTON_COUNT 15
+const char* mapViewButtons[] = { "MapViewNormal", "MapViewUB40",
+                                 "MapViewPollution", "MapViewFood", "MapViewPower", "MapViewFire",
+                                 "MapViewSport", "MapViewHealth", "MapViewCoal", 0
+};
+const char* speedButtons[] = { "SpeedPauseButton","SpeedSlowButton", "SpeedNormalButton", "SpeedFastButton", 0 };
 
 Uint8 brightness(const Color &c)
 {
@@ -89,7 +90,7 @@ MiniMap::~MiniMap() {
 void
 MiniMap::parse(XmlReader& reader)
 {
-     // parse attributes...
+    // parse attributes...
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* name = (const char*) iter.getName();
@@ -138,8 +139,7 @@ MiniMap::parse(XmlReader& reader)
     mTexture.reset(texture_manager->create(image)); // don't delete image, as Texture-class takes ownage
 
     mFullRefresh=true;
-  
-  alreadyAttached=false;
+    alreadyAttached=false;
 }
 
 Component *MiniMap::findRoot(Component *c)
@@ -152,28 +152,52 @@ Component *MiniMap::findRoot(Component *c)
 void MiniMap::attachButtons()
 {
     if(alreadyAttached)
-    return;
-  alreadyAttached=true;
+        return;
+    alreadyAttached=true;
   
-  Component *root=findRoot(this);
+    Component *root=findRoot(this);
   
-  for(int i=0;i<BUTTON_COUNT;i++)
-    {
-      Button* b = getButton(*root, buttonNames[i]);
-      b->clicked.connect(makeCallback(*this, &MiniMap::chooseButtonClicked));
-    } 
+    for(int i = 0; mapViewButtons[i] != 0; ++i) {
+        CheckButton* b = getCheckButton(*root, mapViewButtons[i]);
+        if(i == 0)
+            b->check();
+        b->clicked.connect(makeCallback(*this, &MiniMap::mapViewButtonClicked));
+    }
+    for(int i = 0; speedButtons[i] != 0; ++i) {
+        CheckButton* b = getCheckButton(*root, speedButtons[i]);
+        // we start in normal speed...
+        if(i == 1)
+            b->check();
+        b->clicked.connect(makeCallback(*this, &MiniMap::speedButtonClicked));
+    }
+
+    Button* zoomInButton = getButton(*root, "ZoomInButton");
+    zoomInButton->clicked.connect(makeCallback(*this, &MiniMap::zoomInButtonClicked));
+    Button* zoomOutButton = getButton(*root, "ZoomOutButton");
+    zoomOutButton->clicked.connect(makeCallback(*this, &MiniMap::zoomOutButtonClicked));
 }
 
-void MiniMap::chooseButtonClicked(Button* button)
+void MiniMap::mapViewButtonClicked(CheckButton* button, int)
 {
-  std::cout<<"MiniMap::button '" << button->getName() << "' clicked"<<std::endl;
-  std::string name=button->getName();
-  for(int i=0;i<BUTTON_COUNT;i++)
-  {
-    if(name==buttonNames[i])
-     {
-       switch(i)
-       {
+    Component *root = findRoot(this);
+    std::string name = button->getName();
+    int i;
+    for(i = 0; mapViewButtons[i] != 0; ++i) {
+        if(name == mapViewButtons[i])
+            break;
+    }
+    assert(mapViewButtons[i] != 0);
+
+    for(int b = 0; mapViewButtons[b] != 0; ++b) {
+        if(b != i) {
+            CheckButton* button = getCheckButton(*root, mapViewButtons[b]);
+            button->uncheck();
+        } else {
+            button->check();
+        }
+    }
+
+    switch(i) {
         case 0: mMode=NORMAL;getGameView()->setMapMode(NORMAL);break;
         case 1: mMode=UB40;getGameView()->setMapMode(UB40);break;
         case 2: mMode=POLLUTION;getGameView()->setMapMode(POLLUTION);break;
@@ -183,16 +207,63 @@ void MiniMap::chooseButtonClicked(Button* button)
         case 6: mMode=CRICKET;getGameView()->setMapMode(CRICKET);break;
         case 7: mMode=HEALTH;getGameView()->setMapMode(HEALTH);break;
         case 8: mMode=COAL;getGameView()->setMapMode(COAL);break;
-        case 9: getGameView()->zoomIn(); break;
-        case 10:getGameView()->zoomOut() ;break;
-        case 11:setLincitySpeed( 0 ); break;
-        case 12:setLincitySpeed( SLOW_TIME_FOR_YEAR ) ; break;
-        case 13:setLincitySpeed( MED_TIME_FOR_YEAR ) ; break;
-        case 14:setLincitySpeed( FAST_TIME_FOR_YEAR ) ; break;
-       }
-     }
-   }
-   mFullRefresh=true;
+        default:
+            assert(false);
+    }
+    
+    mFullRefresh=true;
+}
+
+void
+MiniMap::speedButtonClicked(CheckButton* button, int)
+{
+    Component *root = findRoot(this);
+    std::string name = button->getName();
+    int i;
+    for(i = 0; speedButtons[i] != 0; ++i) {
+        if(name == speedButtons[i])
+            break;
+    }
+    assert(speedButtons[i] != 0);
+
+    for(int b = 0; speedButtons[b] != 0; ++b) {
+        if(b != i) {
+            CheckButton* button = getCheckButton(*root, speedButtons[b]);
+            button->uncheck();
+        } else {
+            button->check();
+        }
+    }
+
+    switch(i) {
+        case 0:
+            setLincitySpeed(0);
+            break;
+        case 1:
+            setLincitySpeed(SLOW_TIME_FOR_YEAR);
+            break;
+        case 2:
+            setLincitySpeed(MED_TIME_FOR_YEAR);
+            break;
+        case 3:
+            setLincitySpeed(FAST_TIME_FOR_YEAR);
+            break;
+        default:
+            assert(false);
+            break;
+    }
+}
+
+void
+MiniMap::zoomInButtonClicked(Button* )
+{
+    getGameView()->zoomIn();
+}
+
+void
+MiniMap::zoomOutButtonClicked(Button* )
+{
+    getGameView()->zoomOut();
 }
 
 Vector2
