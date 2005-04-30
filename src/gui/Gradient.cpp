@@ -1,5 +1,6 @@
 #include <config.h>
 
+#include <iostream>
 #include <stdexcept>
 #include <sstream>
 #include <assert.h>
@@ -112,6 +113,8 @@ Gradient::resize(float width, float height)
     }
 
     texture.reset(texture_manager->create(surface));
+    this->width = width;
+    this->height = height;
 }
 
 void
