@@ -301,7 +301,7 @@ Paragraph::resize(float width, float height)
             
             // render span
             //printf("Rendering: '%s'.\n", line.c_str());
-            SDL_Surface* spansurface = TTF_RenderText_Blended(font,
+            SDL_Surface* spansurface = TTF_RenderUTF8_Blended(font,
                     line.c_str(), span->style.text_color.getSDLColor());
             if(spansurface == 0) {
                 std::stringstream msg;
