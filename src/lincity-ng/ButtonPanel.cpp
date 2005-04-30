@@ -120,11 +120,176 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
     return rname;
 }
 
-void ButtonPanel::checkTech( int showInfo ){
-    (void) showInfo;
-    //TODO: enable/disabel buttons accordig to tech.
-    //if showinfo inform user abount newly available elements.
+bool ButtonPanel::enoughTech( int moduleType ){
+    int group = get_group_of_type( moduleType );
+    //High Tech Residences are special
+    if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH 
+            || group == GROUP_RESIDENCE_HH ){
+        if( ( ( tech_level * 10 ) / MAX_TECH_LEVEL) > 2 ){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if ( tech_level >= main_groups[ group ].tech * MAX_TECH_LEVEL/1000 ){
+        return true;
+    }
+    return false;
 }
+
+/*
+ * enable/disabel buttons accordig to tech.
+ *  lincity/ldsvguts.cpp
+ *  oldgui/module_buttons.cpp
+ */
+void ButtonPanel::checkTech( int showInfo ){
+    std::string name;
+    //Buttons in SubMenus
+    for( size_t i=0; i<mButtons.size(); i++ ){
+        examineButton( mButtons[i], showInfo );
+    }
+    //Buttons in MainMenu
+    examineMenuButtons();
+
+    if (tech_level > MODERN_WINDMILL_TECH && modern_windmill_flag == 0 && showInfo != 0){
+	    ok_dial_box ("mod_wind_up.mes", GOOD, 0L);
+	    modern_windmill_flag = 1;
+    }
+}
+
+void ButtonPanel::examineButton( std::string name, int showInfo ){
+    int tmp = selected_module_type;
+    Component *c=findComponent( name );
+    if( !c ) {
+        std::cerr << "examineButton# Component "<< name << " not found!?\n";
+        return;
+    }
+    CheckButton* b = dynamic_cast<CheckButton*>(c);
+    if( !b ){
+        std::cerr << "examineButton# Component "<< name << " is not a Button???\n";
+        return;
+    }
+    doButton( name );
+	if ( enoughTech( selected_module_type ) ){
+        if( !b->isEnabled() ){
+            newTechMessage( selected_module_type, showInfo );
+            b->enable();
+        }
+    } else {
+        if( b->isEnabled() ){
+            b->enable( false );
+        }
+    }
+    selected_module_type = tmp;
+}
+
+void ButtonPanel::examineMenuButtons(){
+    std::string name; 
+    Component *c;
+    for( size_t number=0; number < mMenuButtons.size(); number++ ){
+       // std::cout << "number=" << number << " Name=" << name << "\n";
+       // std::cout << " mMenuSelected[mMenus[number]] =" << mMenuSelected[mMenus[number]];
+       // std::cout << " [mMenus[number]] ="  << mMenus[number] << " \n";
+        name = mMenuButtons[ number ]; 
+        c=findComponent( name );
+            
+        if( !c ) {
+            std::cerr << "examineMenuButton# Component" << name << "not found!?\n";
+            return;
+        }
+        CheckButton* b = dynamic_cast<CheckButton*>(c);
+        if( !b ){
+            std::cerr << "examineMenuButton# Component "<< name << " is not a Button???\n";
+            return;
+        }
+        if ( enoughTech( mMenuSelected[mMenus[number]] ) ){
+            if( !b->isEnabled() ){
+                b->enable();
+            }
+        } else {
+            if( b->isEnabled() ){
+                b->enable( false );
+            }
+        }
+    }
+}
+
+/* Display message for module when it is activated (see above) */
+// from oldgui/module_buttons.cpp activate_module
+void ButtonPanel::newTechMessage( int moduleType, int showInfo )
+{
+    if( showInfo == 0) return;
+
+    int module = get_group_of_type( moduleType );
+
+    if (module == GROUP_WINDMILL)
+	ok_dial_box ("windmillup.mes", GOOD, 0L);
+    else if (module == GROUP_COAL_POWER)
+	ok_dial_box ("coalpowerup.mes", GOOD, 0L);
+    /*    else if (module == (GROUP_SOLAR_POWER - 1)) */
+    else if (module == GROUP_SOLAR_POWER)
+	ok_dial_box ("solarpowerup.mes", GOOD, 0L);
+    else if (module == GROUP_COALMINE)
+	ok_dial_box ("coalmineup.mes", GOOD, 0L);
+    else if (module == GROUP_RAIL)
+	ok_dial_box ("railwayup.mes", GOOD, 0L);
+    else if (module == GROUP_ROAD)
+	ok_dial_box ("roadup.mes", GOOD, 0L);
+    else if (module == GROUP_INDUSTRY_L)
+	ok_dial_box ("ltindustryup.mes", GOOD, 0L);
+    else if (module == GROUP_UNIVERSITY)
+	ok_dial_box ("universityup.mes", GOOD, 0L);
+    else if (module == GROUP_OREMINE)
+    {
+	if (GROUP_OREMINE_TECH > 0)
+	    ok_dial_box ("oremineup.mes", GOOD, 0L);
+    }
+    else if (module == GROUP_PORT)	/* exports are the same */
+	ok_dial_box ("import-exportup.mes", GOOD, 0L);
+    else if (module == GROUP_INDUSTRY_H)
+	ok_dial_box ("hvindustryup.mes", GOOD, 0L);
+    else if (module == GROUP_PARKLAND)
+    {
+	if (GROUP_PARKLAND_TECH > 0)
+	    ok_dial_box ("parkup.mes", GOOD, 0L);
+    }
+    else if (module == GROUP_RECYCLE)
+	ok_dial_box ("recycleup.mes", GOOD, 0L);
+    else if (module == GROUP_RIVER)
+    {
+	if (GROUP_WATER_TECH > 0)
+	    ok_dial_box ("riverup.mes", GOOD, 0L);
+    }
+    else if (module == GROUP_HEALTH)
+	ok_dial_box ("healthup.mes", GOOD, 0L);
+    else if (module == GROUP_ROCKET)
+	ok_dial_box ("rocketup.mes", GOOD, 0L);
+    else if (module == GROUP_SCHOOL)
+    {
+	if (GROUP_SCHOOL_TECH > 0)
+	    ok_dial_box ("schoolup.mes", GOOD, 0L);
+    }
+    else if (module == GROUP_BLACKSMITH)
+    {
+	if (GROUP_BLACKSMITH_TECH > 0)
+	    ok_dial_box ("blacksmithup.mes", GOOD, 0L);
+    }
+    else if (module == GROUP_MILL)
+    {
+	if (GROUP_MILL_TECH > 0)
+	    ok_dial_box ("millup.mes", GOOD, 0L);
+    }
+    else if (module == GROUP_POTTERY)
+    {
+	if (GROUP_POTTERY_TECH > 0)
+	    ok_dial_box ("potteryup.mes", GOOD, 0L);
+    }
+    else if (module == GROUP_FIRESTATION)
+	ok_dial_box ("firestationup.mes", GOOD, 0L);
+    else if (module == GROUP_CRICKET)
+	ok_dial_box ("cricketup.mes", GOOD, 0L);
+}
+
 
 void ButtonPanel::attachButtons()
 {
@@ -180,6 +345,7 @@ void ButtonPanel::attachButtons()
           }
         }
     }
+  examineMenuButtons();
 }
 
 /*
@@ -245,10 +411,11 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
       }
     }
   }
-  
-   doButton(button->getName());
+  //check tech:
+  int prevTech = selected_module_type;
+  doButton(button->getName());
   // now hide menu
-  for(size_t i=0;i<mMenuButtons.size();i++)
+  for(size_t i=0;i<mMenuButtons.size();i++){ 
     if(mmain==mMenuButtons[i])
     {
         mMenuSelected[mMenus[i]]=selected_module_type;// set default      
@@ -269,18 +436,25 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
                }
           }
         }
-      }
-    //Tell GameView to use the right Cursor
-    if( selected_module_type == CST_NONE ) {
-        getGameView()->setCursorSize( 0 );
     }
-    else
-    {
-        int selected_module_group = get_group_of_type(selected_module_type);
-        int size = main_groups[selected_module_group].size;
-        getGameView()->setCursorSize( size );
-    }
-    updateToolInfo();        
+  }
+
+  if( !enoughTech( selected_module_type ) ){
+      std::cout <<"chooseButton not enough tech for " << selected_module_type << "\n";
+      selected_module_type = prevTech;
+  }     
+  examineMenuButtons();
+  //Tell GameView to use the right Cursor
+  if( selected_module_type == CST_NONE ) {
+      getGameView()->setCursorSize( 0 );
+  }
+  else
+  {
+      int selected_module_group = get_group_of_type(selected_module_type);
+      int size = main_groups[selected_module_group].size;
+      getGameView()->setCursorSize( size );
+  }
+  updateToolInfo();        
 }
 
 void ButtonPanel::toggleMenu(std::string pName,bool enable)
@@ -309,8 +483,13 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
     if(button->getName()==mMenuButtons[i])
       {
         // get Component
-        Component *c=findComponent(mMenus[i]);
-        selected_module_type=selected_module=mMenuSelected[mMenus[i]];
+        Component* c=findComponent(mMenus[i]);
+        //Check if Techlevel is sufficient.
+        if( enoughTech( mMenuSelected[mMenus[i]] ) ){
+            selected_module_type=selected_module=mMenuSelected[mMenus[i]];
+        } else {
+            std::cout <<"menuButtonClicked, not enough tech for " << mMenus[i] << "\n";
+        } 
         if(c)
         {
           // try en-/disabling compoent
@@ -361,7 +540,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
         getGameView()->setCursorSize( size );
     }
     updateToolInfo();
-    
+   examineMenuButtons();
    setDirty();
 }
 

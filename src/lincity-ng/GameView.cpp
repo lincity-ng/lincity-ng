@@ -188,7 +188,7 @@ MapPoint GameView::getCenter(){
 void GameView::setZoom(float newzoom){
     MapPoint centerTile  = getCenter(); 
     
-    if ( newzoom < .125 ) return;
+    if ( newzoom < .0625 ) return;
     if ( newzoom > 4 ) return;
     
     zoom = newzoom;

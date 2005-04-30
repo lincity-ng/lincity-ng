@@ -32,7 +32,11 @@ class ButtonPanel : public Component
 
   int module;
   bool alreadyAttached;
-  
+  bool enoughTech( int moduleType );
+  void examineButton( std::string name, int showInfo );
+  void examineMenuButtons();
+  void newTechMessage( int moduleType, int showInfo );
+
   std::vector<std::string> mMenuButtons;
   std::vector<std::string> mMenus;
   std::vector<std::string> mButtons;

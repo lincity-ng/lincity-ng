@@ -1,8 +1,12 @@
 INSTALL
 
-This applications uses the scons build system
-(See scons.sf.net for details). So you have to type "scons" instead "make".
+$ ./autogen.sh 
+$ jam
+$ jam install
 
+This applications uses the jam build system
+(See http://www.perforce.com/jam/jam.html for details). 
+So you have to type "jam" instead "make".
 
 GAMEPLAY
 
@@ -55,7 +59,4 @@ use shift + direction to scroll faster
  h  to hide high buildings. Press h again to show them.
  v  to cycle through MiniMap-overlay modes
  F1 Help
-
- 
-
 
