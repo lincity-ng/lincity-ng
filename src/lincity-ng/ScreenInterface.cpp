@@ -233,9 +233,11 @@ int dialog_box(int colour, int argc, ...)
  */
 void prog_box (char *title, int percent)
 {
+#if 0
     std::ostringstream text;
     text << "prog_box:'" << title << "' " << percent << "%\n";
-    std::cout << text;
+    std::cout << text.str();
+#endif
 }
 
 void print_total_money (void)
