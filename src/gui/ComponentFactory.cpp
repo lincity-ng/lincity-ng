@@ -62,6 +62,7 @@ ImportFactory::createComponent(XmlReader& reader)
 #include "Button.hpp"
 #include "Desktop.hpp"
 #include "Document.hpp"
+#include "Gradient.hpp"
 #include "Image.hpp"
 #include "Panel.hpp"
 #include "Paragraph.hpp"
@@ -73,6 +74,7 @@ ImportFactory::createComponent(XmlReader& reader)
 DECLARE_COMPONENT_FACTORY(Button)
 DECLARE_COMPONENT_FACTORY(Desktop)
 DECLARE_COMPONENT_FACTORY(Document)
+DECLARE_COMPONENT_FACTORY(Gradient)
 DECLARE_COMPONENT_FACTORY(Image)
 DECLARE_COMPONENT_FACTORY(Panel)
 DECLARE_COMPONENT_FACTORY(Paragraph)
@@ -88,6 +90,7 @@ void initFactories()
         new INTERN_ButtonFactory();
         new INTERN_DesktopFactory();
         new INTERN_DocumentFactory();
+        new INTERN_GradientFactory();
         new INTERN_ImageFactory();
         new INTERN_PanelFactory();
         new INTERN_ParagraphFactory();
