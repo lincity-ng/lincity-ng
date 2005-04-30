@@ -753,7 +753,6 @@ check_endian (void)
     *cs = 1;
     if (t == 1)			/* little endian */
 	return;
-    printf ("t=%x\n", t);
     if (flag == 0) {
 	flag = 1;
     }
