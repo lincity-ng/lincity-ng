@@ -245,7 +245,7 @@
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
 				        <image-disabled src="images/gui/buttonpanel/background/button-disabled.png"/>
-						<image-caption src="images/gui/buttonpanel/misc/health2.png"/>
+						<image-caption src="images/gui/buttonpanel/misc/health.png"/>
 						</CheckButton>
 					</cell>
 					<cell row="1" col="2">
