@@ -1,42 +1,44 @@
 <?xml version="1.0"?>
 <Window width="500" height="400" border="5" titlesize="30" >
-    <title>
-        <Paragraph halign="center" color="white" name="HelpWindowTitle"
-        height="30" font-size="20">Help - Lincity NG</Paragraph>
-    </title>
-    <title-background>
-        <Gradient from="#ff0000ff" to="#88776655" direction="left-right"/>
-    </title-background>
-    <closebutton>
-        <image src="images/gui/window/window_close.png"/>
-	<image-hover src="images/gui/window/window_close_hover.png"/>
-	<image-clicked src="images/gui/window/window_close_clicked.png"/>
-    </closebutton>
-    <background>
-        <FilledRectangle color="#ffffffbb"/>
-    </background>
-    <contents>
-        <ScrollView>
-            <scrollbar width="20">
-                <button1>
-			<image src="images/gui/scrollbar/arrow_up.png"/>
-			<image-hover src="images/gui/scrollbar/arrow_up_hover.png"/>
-			<image-clicked src="images/gui/scrollbar/arrow_up_clicked.png"/>
-                </button1>
-                <button2>
-			<image src="images/gui/scrollbar/arrow_down.png"/>
-			<image-hover src="images/gui/scrollbar/arrow_down_hover.png"/>
-			<image-clicked src="images/gui/scrollbar/arrow_down_clicked.png"/>
-                </button2>
-                <scroller>
-			<image src="images/gui/scrollbar/scroller.png"/>
-			<image-hover src="images/gui/scrollbar/scroller_hover.png"/>
-			<image-clicked src="images/gui/scrollbar/scroller_clicked.png"/>
-                </scroller>
-            </scrollbar>
-            <contents>
-                <Document src="help/test.xml"/>
-            </contents>
-        </ScrollView>
-    </contents>
+	<title>
+		<Paragraph halign="center" color="white" name="HelpWindowTitle"
+		height="30" font-size="20">Help - Lincity NG</Paragraph>
+	</title>
+	<title-background>
+		<Gradient from="#ff0000ff" to="#88776655" direction="left-right"/>
+	</title-background>
+	<closebutton>
+		<image src="images/gui/window/window_close.png"/>
+		<image-hover src="images/gui/window/window_close_hover.png"/>
+		<image-clicked src="images/gui/window/window_close_clicked.png"/>
+	</closebutton>
+	<background>
+		<FilledRectangle color="#ffffffbb"/>
+	</background>
+	<contents>
+		<ScrollView>
+		<scrollbar width="20">
+			<button1>
+				<image src="images/gui/buttons/button-round-20.png"/>
+				<image-hover src="images/gui/buttons/button-round-hover-20.png"/>
+				<image-clicked src="images/gui/buttons/button-round-checked-20.png"/>
+				<image-caption src="images/gui/scrollbar/arrow_up.png"/>
+			</button1>
+			<button2>
+				<image src="images/gui/buttons/button-round-20.png"/>
+				<image-hover src="images/gui/buttons/button-round-hover-20.png"/>
+				<image-clicked src="images/gui/buttons/button-round-checked-20.png"/>
+				<image-caption src="images/gui/scrollbar/arrow_down.png"/>
+			</button2>
+			<scroller>
+				<image src="images/gui/buttons/button-round-20.png"/>
+				<image-hover src="images/gui/buttons/button-round-hover-20.png"/>
+				<image-clicked src="images/gui/buttons/button-round-checked-20.png"/>
+			</scroller>
+		</scrollbar>
+		<contents>
+			<Document src="help/test.xml"/>
+		</contents>
+		</ScrollView>
+	</contents>
 </Window>

@@ -9,82 +9,182 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:export-ydpi="90.000000"
-   inkscape:export-xdpi="90.000000"
-   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton.png"
-   sodipodi:docname="roundbutton.svg"
-   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons"
-   inkscape:version="0.41"
-   sodipodi:version="0.32"
-   id="svg2"
+   width="32.000000px"
    height="32.000000px"
-   width="32.000000px">
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.41"
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons"
+   sodipodi:docname="roundbutton.svg"
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton.png"
+   inkscape:export-xdpi="90.000000"
+   inkscape:export-ydpi="90.000000">
   <defs
      id="defs3">
     <linearGradient
        id="linearGradient8274">
       <stop
-         id="stop8276"
+         style="stop-color:#e1eb38;stop-opacity:1.0000000;"
          offset="0.0000000"
-         style="stop-color:#e1eb38;stop-opacity:1.0000000;" />
+         id="stop8276" />
       <stop
-         id="stop8278"
+         style="stop-color:#7c830f;stop-opacity:1.0000000;"
          offset="1.0000000"
-         style="stop-color:#7c830f;stop-opacity:1.0000000;" />
+         id="stop8278" />
     </linearGradient>
     <linearGradient
        id="linearGradient7483">
       <stop
-         id="stop7485"
+         style="stop-color:#6670d7;stop-opacity:1.0000000;"
          offset="0.0000000"
-         style="stop-color:#6670d7;stop-opacity:1.0000000;" />
+         id="stop7485" />
       <stop
-         id="stop7487"
+         style="stop-color:#222546;stop-opacity:1.0000000;"
          offset="1.0000000"
-         style="stop-color:#222546;stop-opacity:1.0000000;" />
+         id="stop7487" />
     </linearGradient>
     <linearGradient
        id="linearGradient5901">
       <stop
-         id="stop5903"
+         style="stop-color:#000000;stop-opacity:0.89075631;"
          offset="0.0000000"
-         style="stop-color:#000000;stop-opacity:0.89075631;" />
+         id="stop5903" />
       <stop
-         id="stop5905"
+         style="stop-color:#000000;stop-opacity:0.0000000;"
          offset="1.0000000"
-         style="stop-color:#000000;stop-opacity:0.0000000;" />
+         id="stop5905" />
     </linearGradient>
     <linearGradient
        id="linearGradient2855">
       <stop
-         id="stop2857"
+         style="stop-color:#d7d7d7;stop-opacity:1.0000000;"
          offset="0.0000000"
-         style="stop-color:#d7d7d7;stop-opacity:1.0000000;" />
+         id="stop2857" />
       <stop
-         id="stop2859"
+         style="stop-color:#464646;stop-opacity:1.0000000;"
          offset="1.0000000"
-         style="stop-color:#464646;stop-opacity:1.0000000;" />
+         id="stop2859" />
     </linearGradient>
     <linearGradient
        id="linearGradient2085">
       <stop
-         id="stop2087"
+         style="stop-color:#3f32d2;stop-opacity:1.0000000;"
          offset="0.0000000"
-         style="stop-color:#3f32d2;stop-opacity:1.0000000;" />
+         id="stop2087" />
       <stop
-         id="stop2089"
+         style="stop-color:#100d36;stop-opacity:1.0000000;"
          offset="1.0000000"
-         style="stop-color:#100d36;stop-opacity:1.0000000;" />
+         id="stop2089" />
     </linearGradient>
     <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2085"
+       id="radialGradient2091"
+       cx="5.5026450"
+       cy="4.4912281"
+       fx="5.5026450"
+       fy="4.4912281"
+       r="30.800863"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2855"
+       id="radialGradient2095"
        gradientUnits="userSpaceOnUse"
+       cx="12.675861"
+       cy="9.4736843"
+       fx="12.675861"
+       fy="9.4736843"
+       r="26.545149" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5901"
+       id="radialGradient5921"
+       cx="10.765802"
+       cy="6.9473686"
+       fx="10.765802"
+       fy="6.9473686"
+       r="19.265682"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2085"
+       id="radialGradient6719"
+       gradientUnits="userSpaceOnUse"
+       cx="5.5026450"
+       cy="4.4912281"
+       fx="5.5026450"
+       fy="4.4912281"
+       r="30.800863" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5901"
+       id="radialGradient6721"
+       gradientUnits="userSpaceOnUse"
+       cx="10.765802"
+       cy="6.9473686"
+       fx="10.765802"
+       fy="6.9473686"
+       r="19.265682" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7483"
+       id="radialGradient6723"
+       gradientUnits="userSpaceOnUse"
+       cx="12.675861"
+       cy="9.4736843"
+       fx="12.675861"
+       fy="9.4736843"
+       r="26.545149" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient8274"
+       id="radialGradient7495"
+       gradientUnits="userSpaceOnUse"
+       cx="5.5026450"
+       cy="4.4912281"
+       fx="5.5026450"
+       fy="4.4912281"
+       r="30.800863" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5901"
+       id="radialGradient7497"
+       gradientUnits="userSpaceOnUse"
+       cx="10.765802"
+       cy="6.9473686"
+       fx="10.765802"
+       fy="6.9473686"
+       r="19.265682" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7483"
+       id="radialGradient7499"
+       gradientUnits="userSpaceOnUse"
+       cx="12.675861"
+       cy="9.4736843"
+       fx="12.675861"
+       fy="9.4736843"
+       r="26.545149" />
+    <radialGradient
        r="30.800863"
        fy="4.4912281"
        fx="5.5026450"
        cy="4.4912281"
        cx="5.5026450"
-       id="radialGradient2091"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient1461"
        xlink:href="#linearGradient2085"
+       inkscape:collect="always" />
+    <radialGradient
+       r="19.265682"
+       fy="6.9473686"
+       fx="10.765802"
+       cy="6.9473686"
+       cx="10.765802"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient1463"
+       xlink:href="#linearGradient5901"
        inkscape:collect="always" />
     <radialGradient
        r="26.545149"
@@ -93,57 +193,17 @@
        cy="9.4736843"
        cx="12.675861"
        gradientUnits="userSpaceOnUse"
-       id="radialGradient2095"
+       id="radialGradient1465"
        xlink:href="#linearGradient2855"
        inkscape:collect="always" />
     <radialGradient
-       gradientUnits="userSpaceOnUse"
-       r="19.265682"
-       fy="6.9473686"
-       fx="10.765802"
-       cy="6.9473686"
-       cx="10.765802"
-       id="radialGradient5921"
-       xlink:href="#linearGradient5901"
-       inkscape:collect="always" />
-    <radialGradient
        r="30.800863"
        fy="4.4912281"
        fx="5.5026450"
        cy="4.4912281"
        cx="5.5026450"
        gradientUnits="userSpaceOnUse"
-       id="radialGradient6719"
-       xlink:href="#linearGradient2085"
-       inkscape:collect="always" />
-    <radialGradient
-       r="19.265682"
-       fy="6.9473686"
-       fx="10.765802"
-       cy="6.9473686"
-       cx="10.765802"
-       gradientUnits="userSpaceOnUse"
-       id="radialGradient6721"
-       xlink:href="#linearGradient5901"
-       inkscape:collect="always" />
-    <radialGradient
-       r="26.545149"
-       fy="9.4736843"
-       fx="12.675861"
-       cy="9.4736843"
-       cx="12.675861"
-       gradientUnits="userSpaceOnUse"
-       id="radialGradient6723"
-       xlink:href="#linearGradient7483"
-       inkscape:collect="always" />
-    <radialGradient
-       r="30.800863"
-       fy="4.4912281"
-       fx="5.5026450"
-       cy="4.4912281"
-       cx="5.5026450"
-       gradientUnits="userSpaceOnUse"
-       id="radialGradient7495"
+       id="radialGradient1475"
        xlink:href="#linearGradient8274"
        inkscape:collect="always" />
     <radialGradient
@@ -153,7 +213,7 @@
        cy="6.9473686"
        cx="10.765802"
        gradientUnits="userSpaceOnUse"
-       id="radialGradient7497"
+       id="radialGradient1477"
        xlink:href="#linearGradient5901"
        inkscape:collect="always" />
     <radialGradient
@@ -163,170 +223,212 @@
        cy="9.4736843"
        cx="12.675861"
        gradientUnits="userSpaceOnUse"
-       id="radialGradient7499"
+       id="radialGradient1479"
        xlink:href="#linearGradient7483"
        inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
-     inkscape:window-y="0"
-     inkscape:window-x="0"
-     inkscape:window-height="966"
-     inkscape:window-width="1272"
-     inkscape:current-layer="layer1"
-     inkscape:document-units="px"
-     inkscape:cy="5.8750684"
-     inkscape:cx="-28.094844"
-     inkscape:zoom="11.313709"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base" />
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8.0000004"
+     inkscape:cx="-85.747616"
+     inkscape:cy="-9.6867366"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="791"
+     inkscape:window-height="966"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
   <metadata
      id="metadata4">
     <rdf:RDF
        id="RDF5">
       <cc:Work
-         id="Work6"
-         rdf:about="">
+         rdf:about=""
+         id="Work6">
         <dc:format
            id="format7">image/svg+xml</dc:format>
         <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
-           id="type9" />
+           id="type9"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     id="layer1"
+     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     inkscape:label="Layer 1">
+     id="layer1">
     <g
-       inkscape:export-ydpi="90.000000"
-       inkscape:export-xdpi="90.000000"
+       id="g7511"
        inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton.png"
-       id="g7511">
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000">
       <path
-         transform="translate(-0.169312,0.000000)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
-         sodipodi:cx="16.169312"
-         id="path1317"
+         sodipodi:type="arc"
          style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:3.0000000;stroke:none;fill-opacity:1.0;fill:url(#radialGradient2091)"
-         sodipodi:type="arc" />
-      <path
-         transform="matrix(0.901291,0.000000,0.000000,0.901291,1.020497,1.110596)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
+         id="path1317"
          sodipodi:cx="16.169312"
-         id="path5139"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="translate(-0.169312,0.000000)" />
+      <path
+         sodipodi:type="arc"
          style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:3.0000000;stroke:none;fill-opacity:1.0;fill:url(#radialGradient5921)"
-         sodipodi:type="arc" />
-      <path
-         transform="matrix(0.856369,0.000000,0.000000,0.856369,2.153103,2.298097)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
+         id="path5139"
          sodipodi:cx="16.169312"
-         id="path2093"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="matrix(0.901291,0.000000,0.000000,0.901291,1.020497,1.110596)" />
+      <path
+         sodipodi:type="arc"
          style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:3.0000000;stroke:none;fill-opacity:1.0;fill:url(#radialGradient2095)"
-         sodipodi:type="arc" />
+         id="path2093"
+         sodipodi:cx="16.169312"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="matrix(0.856369,0.000000,0.000000,0.856369,2.153103,2.298097)" />
     </g>
     <g
-       inkscape:export-ydpi="90.000000"
-       inkscape:export-xdpi="90.000000"
+       id="g7506"
        inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-hover.png"
-       id="g7506">
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000">
       <path
-         inkscape:export-ydpi="90.000000"
-         inkscape:export-xdpi="90.000000"
-         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
-         transform="translate(-33.04978,0.000000)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
-         sodipodi:cx="16.169312"
-         id="path6713"
+         sodipodi:type="arc"
          style="fill:url(#radialGradient6719);fill-opacity:1.0000000;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
-         sodipodi:type="arc" />
-      <path
-         inkscape:export-ydpi="90.000000"
-         inkscape:export-xdpi="90.000000"
-         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
-         transform="matrix(0.901291,0.000000,0.000000,0.901291,-31.85997,1.110596)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
+         id="path6713"
          sodipodi:cx="16.169312"
-         id="path6715"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="translate(-33.04978,0.000000)"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
+         inkscape:export-xdpi="90.000000"
+         inkscape:export-ydpi="90.000000" />
+      <path
+         sodipodi:type="arc"
          style="fill:url(#radialGradient6721);fill-opacity:1.0000000;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
-         sodipodi:type="arc" />
-      <path
-         inkscape:export-ydpi="90.000000"
-         inkscape:export-xdpi="90.000000"
-         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
-         transform="matrix(0.856369,0.000000,0.000000,0.856369,-30.72736,2.298097)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
+         id="path6715"
          sodipodi:cx="16.169312"
-         id="path6717"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="matrix(0.901291,0.000000,0.000000,0.901291,-31.85997,1.110596)"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
+         inkscape:export-xdpi="90.000000"
+         inkscape:export-ydpi="90.000000" />
+      <path
+         sodipodi:type="arc"
          style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:3.0000000;stroke:none;fill-opacity:1.0;fill:url(#radialGradient6723)"
-         sodipodi:type="arc" />
+         id="path6717"
+         sodipodi:cx="16.169312"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="matrix(0.856369,0.000000,0.000000,0.856369,-30.72736,2.298097)"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
+         inkscape:export-xdpi="90.000000"
+         inkscape:export-ydpi="90.000000" />
+    </g>
+    <g
+       id="g7501"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-clicked.png"
+       inkscape:export-xdpi="90.000000"
+       inkscape:export-ydpi="90.000000">
+      <path
+         sodipodi:type="arc"
+         style="fill:url(#radialGradient7495);fill-opacity:1.0;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+         id="path7489"
+         sodipodi:cx="16.169312"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="translate(-65.93025,0.000000)"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
+         inkscape:export-xdpi="90.000000"
+         inkscape:export-ydpi="90.000000" />
+      <path
+         sodipodi:type="arc"
+         style="fill:url(#radialGradient7497);fill-opacity:1.0000000;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+         id="path7491"
+         sodipodi:cx="16.169312"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="matrix(0.901291,0.000000,0.000000,0.901291,-64.74044,1.110596)"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
+         inkscape:export-xdpi="90.000000"
+         inkscape:export-ydpi="90.000000" />
+      <path
+         sodipodi:type="arc"
+         style="fill:url(#radialGradient7499);fill-opacity:1.0000000;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+         id="path7493"
+         sodipodi:cx="16.169312"
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="matrix(0.856369,0.000000,0.000000,0.856369,-63.60783,2.298097)"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
+         inkscape:export-xdpi="90.000000"
+         inkscape:export-ydpi="90.000000" />
     </g>
     <g
        inkscape:export-ydpi="90.000000"
        inkscape:export-xdpi="90.000000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-clicked.png"
-       id="g7501">
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-checked.png"
+       id="g1487">
       <path
-         inkscape:export-ydpi="90.000000"
-         inkscape:export-xdpi="90.000000"
-         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
-         transform="translate(-65.93025,0.000000)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
+         sodipodi:type="arc"
+         style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:3.0000000;stroke:none;fill-opacity:1.0000000;fill:url(#radialGradient1475)"
+         id="path1469"
          sodipodi:cx="16.169312"
-         id="path7489"
-         style="fill:url(#radialGradient7495);fill-opacity:1.0;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
-         sodipodi:type="arc" />
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="translate(-99.43025,0.000000)"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
+         inkscape:export-xdpi="90.000000"
+         inkscape:export-ydpi="90.000000" />
       <path
-         inkscape:export-ydpi="90.000000"
-         inkscape:export-xdpi="90.000000"
-         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
-         transform="matrix(0.901291,0.000000,0.000000,0.901291,-64.74044,1.110596)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
+         sodipodi:type="arc"
+         style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:3.0000000;stroke:none;fill-opacity:1.0000000;fill:url(#radialGradient1477)"
+         id="path1471"
          sodipodi:cx="16.169312"
-         id="path7491"
-         style="fill:url(#radialGradient7497);fill-opacity:1.0000000;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
-         sodipodi:type="arc" />
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="matrix(0.901291,0.000000,0.000000,0.901291,-98.24044,1.110596)"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
+         inkscape:export-xdpi="90.000000"
+         inkscape:export-ydpi="90.000000" />
       <path
-         inkscape:export-ydpi="90.000000"
-         inkscape:export-xdpi="90.000000"
-         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons/roundbutton-highlight.png"
-         transform="matrix(0.856369,0.000000,0.000000,0.856369,-63.60783,2.298097)"
-         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
-         sodipodi:ry="16.000000"
-         sodipodi:rx="16.000000"
-         sodipodi:cy="16.000000"
+         sodipodi:type="arc"
+         style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:3.0000000;stroke:none;fill-opacity:1.0000000;fill:url(#radialGradient1465)"
+         id="path1459"
          sodipodi:cx="16.169312"
-         id="path7493"
-         style="fill:url(#radialGradient7499);fill-opacity:1.0000000;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
-         sodipodi:type="arc" />
+         sodipodi:cy="16.000000"
+         sodipodi:rx="16.000000"
+         sodipodi:ry="16.000000"
+         d="M 32.169312 16.000000 A 16.000000 16.000000 0 1 1  0.16931152,16.000000 A 16.000000 16.000000 0 1 1  32.169312 16.000000 z"
+         transform="matrix(0.856369,0.000000,0.000000,0.856369,-97.09690,2.298097)" />
     </g>
   </g>
 </svg>
