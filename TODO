@@ -41,7 +41,6 @@ Programming
  [H] New text on buttons is truncated to original textlength. 
      (eg in load game menu)
  [H] don't show Coal Reserve on Minimap until survey is done
- [M] save map position is not allways working.
 
 --Game--
  [M] some more sounds
@@ -62,3 +61,4 @@ Programming
  [H] Tile graphics
  [M] remove MPS_ENV, make MPS_MAP a popup 
  [M] put MPS_GLOBAL to tabs behind minimap
+ [H] it would be helpfull if the speed button for the currently active speed would be in state "checked"

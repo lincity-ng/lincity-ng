@@ -46,7 +46,7 @@ public:
     void setMapMode( MiniMap::DisplayMode mMode );
 
     //evaluate main_screen_originx and main_screen_originy
-    void readOrigin();
+    void readOrigin( bool redraw = true );
     //set main_screen_originx and main_screen_originy
     void writeOrigin();    
 private:

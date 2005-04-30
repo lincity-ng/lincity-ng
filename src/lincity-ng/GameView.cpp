@@ -112,15 +112,12 @@ void GameView::parse(XmlReader& reader)
     setFlags(FLAG_RESIZABLE);
 
     //start at location from savegame
-    //because on startup the size of this Control is 0
-    //we use values from config instead of getWidth() and getHeight())
-    //so we can not use zoom( defaultZoom ) likewise
     zoom = 1.0;
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom; 
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
-    show( MapPoint( main_screen_originx, main_screen_originy ), false );
+    readOrigin( false );
 
     mouseInGameView = false;
     dragging = false;
@@ -152,10 +149,9 @@ void GameView::setCursorSize( int size )
 /*
  * evaluate main_screen_originx and main_screen_originy
  */
-void GameView::readOrigin(){
-    std::cout << "readOrigin "<< main_screen_originx << " " << main_screen_originy << "\n";
+void GameView::readOrigin( bool redraw /* = true */ ){
     MapPoint newCenter( main_screen_originx, main_screen_originy );
-    show( newCenter );
+    show( newCenter, redraw );
 }
 
 /*
@@ -164,7 +160,6 @@ void GameView::readOrigin(){
 void GameView::writeOrigin(){
     main_screen_originx = getCenter().x;
     main_screen_originy = getCenter().y;
-    std::cout << "writeOrigin "<< main_screen_originx << " " << main_screen_originy << "\n";
 }   
 /*
  *  inform GameView about change in Mini Map Mode
@@ -204,7 +199,7 @@ void GameView::setZoom(float newzoom){
     //a virtual screen containing the whole city
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
-    std::cout << "Zoom " << zoom  << "\n";
+    //std::cout << "Zoom " << zoom  << "\n";
 
     //Show the Center
     show( centerTile );
@@ -234,11 +229,14 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
     Vector2 center;
     center.x = virtualScreenWidth / 2 + ( map.x - map.y ) * ( tileWidth / 2 );
     center.y = ( map.x + map.y ) * ( tileHeight / 2 ) + ( tileHeight / 2 ); 
-    
-    viewport.x = center.x - ( getWidth() / 2 );
-    viewport.y = center.y - ( getHeight() / 2 );
-    if( redraw )
-    requestRedraw();
+    if( redraw ){
+        viewport.x = center.x - ( getWidth() / 2 );
+        viewport.y = center.y - ( getHeight() / 2 );
+        requestRedraw();
+    } else { //on startup getWidth is 0.
+        viewport.x = center.x - ( getConfig()->videoX / 2 );
+        viewport.y = center.y - ( getConfig()->videoY / 2 );
+    }
 }
 
 /*
@@ -796,6 +794,13 @@ void GameView::event(const Event& event)
             }
             break;
         case Event::KEYUP:
+            //TEst
+            if( event.keysym.sym == SDLK_x ){
+                writeOrigin();
+                readOrigin();
+                break;
+            }
+          
             //Hide High Buildings
             if( event.keysym.sym == SDLK_h ){
                 if( hideHigh ){
