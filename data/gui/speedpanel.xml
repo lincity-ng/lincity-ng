@@ -1,0 +1,49 @@
+<Panel width="173" height="103" background="images/gui/speedpanel.png">
+	<TableLayout rows="4" cols="6">
+		<rowsize row="1" fixed="42"/>
+		<rowsize row="2" fixed="30"/>
+		<rowsize row="3" fixed="3"/>
+		<rowsize row="4" fixed="7"/>
+		<colsize col="1" fixed="3"/>
+		<colsize col="2" fixed="44"/>
+		<colsize col="3" fixed="50"/>
+		<colsize col="4" fixed="50"/>
+		<colsize col="5" fixed="50"/>
+		<cell row="1" col="2" halign="left" valign="top">
+			<CheckButton name="SpeedPauseButton">
+				<image src="images/gui/buttons/button-round.png"/>
+				<image-hover src="images/gui/buttons/button-round-hover.png"/>
+				<image-clicked src="images/gui/buttons/button-round-clicked.png"/>
+				<image-checked src="images/gui/buttons/button-round-checked.png"/>
+				<image-caption src="images/gui/speed/pause.png"/>
+			</CheckButton>
+		</cell>
+		<cell row="2" col="3">
+			<CheckButton name="SpeedSlowButton">
+				<image src="images/gui/buttons/button-round.png"/>
+				<image-hover src="images/gui/buttons/button-round-hover.png"/>
+				<image-clicked src="images/gui/buttons/button-round-clicked.png"/>
+				<image-checked src="images/gui/buttons/button-round-checked.png"/>
+				<image-caption src="images/gui/speed/normal.png"/>
+			</CheckButton>
+		</cell>
+		<cell row="3" col="4">
+			<CheckButton name="SpeedNormalButton">
+				<image src="images/gui/buttons/button-round.png"/>
+				<image-hover src="images/gui/buttons/button-round-hover.png"/>
+				<image-clicked src="images/gui/buttons/button-round-clicked.png"/>
+				<image-checked src="images/gui/buttons/button-round-checked.png"/>
+				<image-caption src="images/gui/speed/fast.png"/>
+			</CheckButton>
+		</cell>
+		<cell row="4" col="5">
+			<CheckButton name="SpeedFastButton">
+				<image src="images/gui/buttons/button-round.png"/>
+				<image-hover src="images/gui/buttons/button-round-hover.png"/>
+				<image-clicked src="images/gui/buttons/button-round-clicked.png"/>
+				<image-checked src="images/gui/buttons/button-round-checked.png"/>
+				<image-caption src="images/gui/speed/faster.png"/>
+			</CheckButton>
+		</cell>
+	</TableLayout>
+</Panel>
