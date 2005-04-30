@@ -35,6 +35,8 @@ public:
     virtual ~Paragraph();
 
     void parse(XmlReader& reader);
+    // hack to parse <li> elements for now...
+    void parseList(XmlReader& reader, const Style& parentstyle);
     void parse(XmlReader& reader, const Style& parentstyle);
 
     void resize(float width, float height);

@@ -37,6 +37,26 @@ Paragraph::parse(XmlReader& reader)
 }
 
 void
+Paragraph::parseList(XmlReader& reader, const Style& )
+{
+    // query for "list" style
+    std::map<std::string, Style>::iterator i 
+        = styleRegistry.find("list");
+    if(i == styleRegistry.end()) {
+        throw std::runtime_error("<li> element used but no"
+                " list style defined");
+    }
+
+    // add a bullet char at the front of the text
+    TextSpan* currentspan = new TextSpan();
+    currentspan->style = i->second;
+    currentspan->text = " \342\200\200 ";
+    textspans.push_back(currentspan);
+
+    parse(reader, i->second);
+}
+
+void
 Paragraph::parse(XmlReader& reader, const Style& parentstyle)
 {
     bool translatable = false;
@@ -78,7 +98,8 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
         while(reader.read() && reader.getDepth() > depth) {
             if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
                 std::string node((const char*) reader.getName());
-                if(node == "span" || node == "i" || node == "b" || node == "a") {
+                if(node == "span" || node == "i" || node == "b"
+                        || node == "a") {
                     if(currentspan != 0) {
                         if(translatable) {
                             currentspan->text 
@@ -89,10 +110,14 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                     }
                     
                     Style style(stylestack.back());
-                    if(node == "i")
+                    if (node == "a") {
+                        style.text_color.parse("blue");
+                    } else if(node == "i") {
                         style.italic = true;
-                    if(node == "b")
+                    } else if(node == "b") {
                         style.bold = true;
+                    }
+                    
                     currenthref = "";
                     XmlReader::AttributeIterator iter(reader);
                     while(iter.next()) {
@@ -140,7 +165,8 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                 }
             } else if(reader.getNodeType() == XML_READER_TYPE_END_ELEMENT) {
                 std::string node((const char*) reader.getName());
-                if(node == "span" || node == "b" || node == "i") {
+                if(node == "span" || node == "b" || node == "i"
+                        || node == "a") {
                     if(currentspan != 0) {
                         if(translatable) {
                             currentspan->text 

@@ -10,8 +10,8 @@
 	<p style="hp">and this it's icon</p>
 	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 	<p style="hsubtitle">See also:</p>
-	<p style="hp">- <a href="data/help/market.xml">Market</a></p>
-	<p style="hp">- <a href="data/help/ore.xml">Ore</a></p>
-	<p style="hp">- <a href="data/help/commune.xml">Commune</a></p>
-	<p style="hp">- <a href="data/help/steel.xml">Steel</a></p>
+        <li><a href="data/help/market.xml">Market</a></li>
+        <li><a href="data/help/ore.xml">Ore</a></li>
+        <li><a href="data/help/commune.xml">Commune</a></li>
+        <li><a href="data/help/steel.xml">Steel</a></li>
 </help>

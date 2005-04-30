@@ -37,7 +37,7 @@
 			</scroller>
 		</scrollbar>
 		<contents>
-			<Document src="help/test.xml"/>
+			<Document src="help/blacksmith.xml"/>
 		</contents>
 		</ScrollView>
 	</contents>

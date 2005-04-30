@@ -14,6 +14,7 @@
 	<DefineStyle name="htitle" style="helpdocument" font-size="30" halign="center" margin-top="20" margin-bottom="20"/>
 	<DefineStyle name="hsubtitle" style="helpdocument" font-size="24" margin-top="20" margin-bottom="20"/>
 	<DefineStyle name="hp" style="helpdocument" margin-left="20" margin-right="20" margin-bottom="20"/>
+        <DefineStyle name="list" style="helpdocument" margin-left="40"/>
 	
 	<GameView/>
 	<Import src="gui/messagearea.xml"/>

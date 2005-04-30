@@ -45,9 +45,13 @@ Document::parse(XmlReader& reader)
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string node = (const char*) reader.getName();
-            if(node == "p" || node=="Paragraph") {
+            if(node == "p" || node=="Paragraph" || node == "li") {
                 std::auto_ptr<Paragraph> paragraph (new Paragraph());
-                paragraph->parse(reader, style);
+                if(node != "li") {
+                    paragraph->parse(reader, style);
+                } else {
+                    paragraph->parseList(reader, style);
+                }
                 addChild(paragraph.release());
             } else if(node == "img") {
                 std::auto_ptr<DocumentImage> image (new DocumentImage());
