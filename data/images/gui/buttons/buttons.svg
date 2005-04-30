@@ -9,206 +9,232 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:export-ydpi="10.910000"
-   inkscape:export-xdpi="10.910000"
-   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-menu-hover.png"
-   sodipodi:docname="buttons.svg"
-   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background"
-   inkscape:version="0.41"
-   sodipodi:version="0.32"
-   id="svg2"
+   width="330.00000pt"
    height="330.00000pt"
-   width="330.00000pt">
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.41"
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/buttons"
+   sodipodi:docname="buttons.svg"
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttons/button-disabled.png"
+   inkscape:export-xdpi="10.910000"
+   inkscape:export-ydpi="10.910000">
   <defs
      id="defs3">
     <linearGradient
-       id="linearGradient3572"
-       inkscape:collect="always">
+       id="linearGradient2838">
       <stop
-         id="stop3574"
-         offset="0"
-         style="stop-color:#ffffff;stop-opacity:1;" />
+         id="stop2840"
+         offset="0.0000000"
+         style="stop-color:#ff0000;stop-opacity:1.0000000;" />
       <stop
-         id="stop3576"
-         offset="1"
-         style="stop-color:#ffffff;stop-opacity:0;" />
+         id="stop2842"
+         offset="1.0000000"
+         style="stop-color:#7b0000;stop-opacity:1.0000000;" />
     </linearGradient>
     <linearGradient
-       gradientTransform="matrix(1.157577,0.000000,0.000000,1.157577,-208.0488,-280.9944)"
-       gradientUnits="userSpaceOnUse"
-       y2="315.58200"
-       x2="362.26712"
-       y1="528.35089"
-       x1="362.26712"
-       id="linearGradient3578"
+       inkscape:collect="always"
+       id="linearGradient3572">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop3574" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop3576" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
        xlink:href="#linearGradient3572"
-       inkscape:collect="always" />
+       id="linearGradient3578"
+       x1="362.26712"
+       y1="528.35089"
+       x2="362.26712"
+       y2="315.58200"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.157577,0.000000,0.000000,1.157577,-208.0488,-280.9944)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3572"
+       id="radialGradient3593"
+       gradientTransform="matrix(2.466187,0.000000,0.000000,0.408841,-152.4062,-216.4038)"
+       cx="142.69258"
+       cy="642.58405"
+       fx="142.69258"
+       fy="642.58405"
+       r="163.60149"
+       gradientUnits="userSpaceOnUse" />
     <radialGradient
        gradientUnits="userSpaceOnUse"
-       r="163.60149"
-       fy="642.58405"
-       fx="142.69258"
-       cy="642.58405"
-       cx="142.69258"
-       gradientTransform="matrix(2.466187,0.000000,0.000000,0.408841,-152.4062,-216.4038)"
-       id="radialGradient3593"
-       xlink:href="#linearGradient3572"
+       r="352.36337"
+       fy="37.213886"
+       fx="602.46979"
+       cy="37.213886"
+       cx="602.46979"
+       gradientTransform="matrix(0.839807,0.000000,0.000000,0.839882,-389.6323,65.99675)"
+       id="radialGradient2846"
+       xlink:href="#linearGradient2838"
        inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
-     inkscape:window-y="381"
-     inkscape:window-x="287"
-     inkscape:window-height="546"
-     inkscape:window-width="925"
-     inkscape:current-layer="layer1"
-     inkscape:document-units="px"
-     inkscape:cy="220.78160"
-     inkscape:cx="301.41403"
-     inkscape:zoom="0.70000000"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base" />
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70000000"
+     inkscape:cx="583.59566"
+     inkscape:cy="154.10165"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="925"
+     inkscape:window-height="546"
+     inkscape:window-x="287"
+     inkscape:window-y="381" />
   <metadata
      id="metadata4">
     <rdf:RDF
        id="RDF5">
       <cc:Work
-         id="Work6"
-         rdf:about="">
+         rdf:about=""
+         id="Work6">
         <dc:format
            id="format7">image/svg+xml</dc:format>
         <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
-           id="type9" />
+           id="type9"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     id="layer1"
+     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     inkscape:label="Layer 1">
+     id="layer1">
     <rect
-       inkscape:export-ydpi="13.150000"
-       inkscape:export-xdpi="13.150000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
-       ry="45.985710"
-       rx="45.985710"
-       y="37.000607"
-       x="36.944000"
-       height="338.53540"
-       width="338.53540"
-       id="button-purple"
-       style="fill:#b27f9a;fill-opacity:1.0000000;stroke:#523d48;stroke-width:5.0206523;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
-    <rect
-       inkscape:export-ydpi="13.150000"
-       inkscape:export-xdpi="13.150000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
-       ry="45.985710"
-       rx="45.985710"
-       y="37.000607"
-       x="36.944000"
-       height="338.53540"
-       width="338.53540"
-       id="button-white"
-       style="fill:#d0d0d0;fill-opacity:1.0000000;stroke:#525252;stroke-width:5.0206523;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
-    <rect
-       inkscape:export-ydpi="13.150000"
-       inkscape:export-xdpi="13.150000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
-       ry="45.985710"
-       rx="45.985710"
-       y="37.000607"
-       x="36.944000"
-       height="338.53540"
-       width="338.53540"
+       style="fill:#889fc6;fill-opacity:1.0000000;stroke:#3d4652;stroke-width:5.0206523;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
        id="button-blue"
-       style="fill:#889fc6;fill-opacity:1.0000000;stroke:#3d4652;stroke-width:5.0206523;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
-    <rect
-       button-border=""
-       inkscape:export-ydpi="13.150000"
-       inkscape:export-xdpi="13.150000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
-       ry="45.985706"
-       rx="45.985706"
-       y="3.0763931"
-       x="3.0197871"
-       height="406.38385"
-       width="406.38385"
-       id="button-border"
-       style="fill:#abbfe1;fill-opacity:0.78169012;stroke:#596c8e;stroke-width:6.0268788;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
-    <rect
-       inkscape:export-ydpi="13.150000"
-       inkscape:export-xdpi="13.150000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
-       ry="45.985710"
-       rx="45.985710"
-       y="37.000607"
-       x="36.944000"
-       height="338.53540"
        width="338.53540"
+       height="338.53540"
+       x="36.944000"
+       y="37.000607"
+       rx="45.985710"
+       ry="45.985710"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
+       inkscape:export-xdpi="13.150000"
+       inkscape:export-ydpi="13.150000" />
+    <rect
+       style="fill:#666666;fill-opacity:1.0000000;stroke:#2d2d2d;stroke-width:5.0206523;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
        id="button-gray"
-       style="fill:#666666;fill-opacity:1.0000000;stroke:#2d2d2d;stroke-width:5.0206523;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+       width="338.53540"
+       height="338.53540"
+       x="36.944000"
+       y="37.000607"
+       rx="45.985710"
+       ry="45.985710"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
+       inkscape:export-xdpi="13.150000"
+       inkscape:export-ydpi="13.150000" />
+    <rect
+       style="fill:#b27f9a;fill-opacity:1.0000000;stroke:#523d48;stroke-width:5.0206523;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="button-purple"
+       width="338.53540"
+       height="338.53540"
+       x="36.944000"
+       y="37.000607"
+       rx="45.985710"
+       ry="45.985710"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
+       inkscape:export-xdpi="13.150000"
+       inkscape:export-ydpi="13.150000" />
+    <rect
+       style="fill:#abbfe1;fill-opacity:0.78169012;stroke:#596c8e;stroke-width:6.0268788;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="button-border"
+       width="406.38385"
+       height="406.38385"
+       x="3.0197871"
+       y="3.0763931"
+       rx="45.985706"
+       ry="45.985706"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
+       inkscape:export-xdpi="13.150000"
+       inkscape:export-ydpi="13.150000"
+       button-border="" />
+    <rect
+       style="fill:#d0d0d0;fill-opacity:1.0000000;stroke:#525252;stroke-width:5.0206523;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="button-white"
+       width="338.53540"
+       height="338.53540"
+       x="36.944000"
+       y="37.000607"
+       rx="45.985710"
+       ry="45.985710"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
+       inkscape:export-xdpi="13.150000"
+       inkscape:export-ydpi="13.150000" />
+    <path
+       id="path2066"
+       d="M 207.86453,62.086216 C 128.39130,62.086216 63.883794,126.59372 63.883786,206.06696 C 63.883786,285.54019 128.39130,350.04771 207.86453,350.04771 C 287.33777,350.04771 351.81902,285.54019 351.81904,206.06696 C 351.81904,126.59372 287.33777,62.086216 207.86453,62.086216 z M 207.83829,105.18071 C 226.52847,105.18071 243.97441,110.35354 258.99004,119.22184 L 120.99318,257.21870 C 112.13034,242.20644 106.95202,224.75090 106.95203,206.06696 C 106.95203,150.36640 152.13772,105.18071 207.83829,105.18071 z M 294.70965,154.94145 C 303.57092,169.95277 308.75078,187.38479 308.75079,206.06696 C 308.75079,261.76752 263.53884,306.97944 207.83829,306.97945 C 189.15612,306.97945 171.72409,301.79957 156.71279,292.93831 L 294.70965,154.94145 z "
+       style="opacity:0.69999999;fill:url(#radialGradient2846);fill-opacity:1.0000000;stroke:#4c1500;stroke-width:4.1992197;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
     <g
        id="highlights">
       <rect
-         inkscape:export-ydpi="13.150000"
-         inkscape:export-xdpi="13.150000"
-         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
-         ry="30.271425"
-         rx="30.271425"
-         y="53.229813"
-         x="52.332909"
-         height="306.07700"
-         width="306.07700"
+         style="opacity:0.67948717;fill:url(#linearGradient3578);fill-opacity:1.0000000;stroke:none;stroke-width:13.632646;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
          id="highlight-body"
-         style="opacity:0.67948717;fill:url(#linearGradient3578);fill-opacity:1.0000000;stroke:none;stroke-width:13.632646;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
-      <path
-         inkscape:export-ydpi="13.150000"
-         inkscape:export-xdpi="13.150000"
+         width="306.07700"
+         height="306.07700"
+         x="52.332909"
+         y="53.229813"
+         rx="30.271425"
+         ry="30.271425"
          inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
-         sodipodi:nodetypes="ccsccsc"
-         id="highlight-top"
+         inkscape:export-xdpi="13.150000"
+         inkscape:export-ydpi="13.150000" />
+      <path
+         style="opacity:0.67948717;fill:url(#radialGradient3593);fill-opacity:1.0000000;stroke:none;stroke-width:13.632646;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
          d="M 82.729374,53.229814 L 328.01344,53.229814 C 344.85308,53.229814 358.40991,71.335791 358.40991,73.574330 C 358.40991,84.824778 344.85308,103.97078 328.01344,103.97078 L 82.729374,103.97078 C 65.889734,103.97078 52.332909,84.824778 52.332909,73.574330 C 52.332909,71.335791 65.889734,53.229814 82.729374,53.229814 z "
-         style="opacity:0.67948717;fill:url(#radialGradient3593);fill-opacity:1.0000000;stroke:none;stroke-width:13.632646;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+         id="highlight-top"
+         sodipodi:nodetypes="ccsccsc"
+         inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-checked.png"
+         inkscape:export-xdpi="13.150000"
+         inkscape:export-ydpi="13.150000" />
     </g>
     <rect
-       inkscape:export-ydpi="11.160000"
-       inkscape:export-xdpi="11.160000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-border-2.png"
-       ry="45.985706"
-       rx="45.985706"
-       y="441.39404"
-       x="3.0197871"
-       height="394.43918"
-       width="776.09967"
+       style="fill:#abbfe1;fill-opacity:0.78169012;stroke:#596c8e;stroke-width:5.9376454;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
        id="button-border-2"
-       style="fill:#abbfe1;fill-opacity:0.78169012;stroke:#596c8e;stroke-width:5.9376454;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
-    <rect
-       inkscape:export-ydpi="11.150000"
-       inkscape:export-xdpi="11.150000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-border-6.png"
-       ry="45.985706"
-       rx="45.985706"
-       y="867.10834"
-       x="3.0197871"
+       width="776.09967"
        height="394.43918"
-       width="2327.5283"
-       id="button-border-6"
-       style="fill:#abbfe1;fill-opacity:0.78169012;stroke:#596c8e;stroke-width:5.9376454;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
-    <rect
-       inkscape:export-ydpi="11.160000"
+       x="3.0197871"
+       y="441.39404"
+       rx="45.985706"
+       ry="45.985706"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-border-2.png"
        inkscape:export-xdpi="11.160000"
-       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-border-5.png"
-       ry="45.985706"
-       rx="45.985706"
-       y="1289.9655"
-       x="3.0197871"
+       inkscape:export-ydpi="11.160000" />
+    <rect
+       style="fill:#abbfe1;fill-opacity:0.78169012;stroke:#596c8e;stroke-width:5.9376454;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       id="button-border-6"
+       width="2327.5283"
        height="394.43918"
-       width="1958.9568"
+       x="3.0197871"
+       y="867.10834"
+       rx="45.985706"
+       ry="45.985706"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-border-6.png"
+       inkscape:export-xdpi="11.150000"
+       inkscape:export-ydpi="11.150000" />
+    <rect
+       style="fill:#abbfe1;fill-opacity:0.78169012;stroke:#596c8e;stroke-width:5.9376454;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
        id="button-border-5"
-       style="fill:#abbfe1;fill-opacity:0.78169012;stroke:#596c8e;stroke-width:5.9376454;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+       width="1958.9568"
+       height="394.43918"
+       x="3.0197871"
+       y="1289.9655"
+       rx="45.985706"
+       ry="45.985706"
+       inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-border-5.png"
+       inkscape:export-xdpi="11.160000"
+       inkscape:export-ydpi="11.160000" />
   </g>
 </svg>

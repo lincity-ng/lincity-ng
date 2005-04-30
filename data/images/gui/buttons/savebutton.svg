@@ -16,9 +16,9 @@
    inkscape:version="0.41"
    sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/buttons"
    sodipodi:docname="savebutton.svg"
-   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/background/button-menu-hover.png"
-   inkscape:export-xdpi="10.910000"
-   inkscape:export-ydpi="10.910000">
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttons/savebutton-hover.png"
+   inkscape:export-xdpi="90.000000"
+   inkscape:export-ydpi="90.000000">
   <defs
      id="defs3">
     <linearGradient
@@ -62,8 +62,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.9798990"
-     inkscape:cx="137.86896"
-     inkscape:cy="-4.1438820"
+     inkscape:cx="89.973562"
+     inkscape:cy="19.635064"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:window-width="925"
@@ -91,14 +91,19 @@
      id="layer1">
     <path
        sodipodi:nodetypes="ccccccccc"
+       id="button-blue"
+       d="M 10.036787,4.5309455 L 390.35262,4.5309455 C 393.43422,4.5309455 395.91507,7.0117973 395.91507,10.093394 L 395.91507,39.917862 C 395.91507,42.999457 393.43422,45.480309 390.35262,45.480309 L 10.036787,45.480309 C 6.9551913,45.480309 4.4743394,42.999457 4.4743394,39.917862 L 4.4743394,10.093394 C 4.4743394,7.0117973 6.9551913,4.5309455 10.036787,4.5309455 z "
+       style="fill:#889fc6;fill-opacity:1.0000000;stroke:#3d4652;stroke-width:0.60729992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="ccccccccc"
        id="path1316"
        d="M 10.036787,4.5309455 L 390.38419,4.5309455 C 393.46578,4.5309455 395.94664,7.0117973 395.94664,10.093394 L 395.94664,39.917862 C 395.94664,42.999457 393.46578,45.480309 390.38419,45.480309 L 10.036787,45.480309 C 6.9551913,45.480309 4.4743394,42.999457 4.4743394,39.917862 L 4.4743394,10.093394 C 4.4743394,7.0117973 6.9551913,4.5309455 10.036787,4.5309455 z "
        style="fill:#d0d0d0;fill-opacity:1.0000000;stroke:#525252;stroke-width:0.60729992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
     <path
        sodipodi:nodetypes="ccccccccc"
-       id="button-blue"
-       d="M 10.036787,4.5309455 L 390.35262,4.5309455 C 393.43422,4.5309455 395.91507,7.0117973 395.91507,10.093394 L 395.91507,39.917862 C 395.91507,42.999457 393.43422,45.480309 390.35262,45.480309 L 10.036787,45.480309 C 6.9551913,45.480309 4.4743394,42.999457 4.4743394,39.917862 L 4.4743394,10.093394 C 4.4743394,7.0117973 6.9551913,4.5309455 10.036787,4.5309455 z "
-       style="fill:#889fc6;fill-opacity:1.0000000;stroke:#3d4652;stroke-width:0.60729992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+       id="path2078"
+       d="M 10.036787,4.5309455 L 390.38419,4.5309455 C 393.46578,4.5309455 395.94664,7.0117973 395.94664,10.093394 L 395.94664,39.917862 C 395.94664,42.999457 393.46578,45.480309 390.38419,45.480309 L 10.036787,45.480309 C 6.9551913,45.480309 4.4743394,42.999457 4.4743394,39.917862 L 4.4743394,10.093394 C 4.4743394,7.0117973 6.9551913,4.5309455 10.036787,4.5309455 z "
+       style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:0.60729992;stroke:#ffffff;fill-opacity:1.0000000;fill:#d0d0d0" />
     <g
        transform="matrix(0.120961,0.000000,0.000000,0.120961,5.579865e-3,5.533878e-2)"
        id="highlights">
