@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<help style="helpdocument">
+	<p style="htitle">Bulldoze</p>
+	<p style="hp">To demolish an area, you select the bulldoze button, then click on the area you wish to get rid of. Demolition costs money. When you build an area, the cost to build it and demolish it are shown at the botton left of the screen.</p>
+	<p style="hp">Some things, such as monuments, are very expensive to demolish. The cost of demolition takes acount not only of the physical cost of disposal, but also the political cost. For example, to demolish a monument, you will have protesters and court costs as well.</p>
+	<p style="hp">At this time, demolishing river areas are the only way to cross them with transport. Think of the demolished river with transport crossing the cleared area as a bridge.</p>
+	<p style="hp">This is the bulldozer icon</p>
+	<img src="data/images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+	<p style="hsubtitle">See also:</p>
+	<li><a href="data/help/transport.xml">Transport</a></li>
+	<li><a href="data/help/river.xml">Rivers</a></li>
+</help>
+
+
