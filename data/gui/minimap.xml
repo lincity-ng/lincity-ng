@@ -12,7 +12,7 @@
                         <image src="images/gui/buttons/button.png"/>
                         <image-hover src="images/gui/buttons/button-hover.png"/>
                         <image-clicked src="images/gui/buttons/button-checked.png"/>
-			<image-caption src="images/gui/mapview/buttons/zoomin.png"/>
+			<image-caption src="images/gui/zoom/zoomin.png"/>
                     </Button>
                 </cell>
                 <cell row="1" col="2">
@@ -20,7 +20,7 @@
                         <image src="images/gui/buttons/button.png"/>
                         <image-hover src="images/gui/buttons/button-hover.png"/>
                         <image-clicked src="images/gui/buttons/button-checked.png"/>
-			<image-caption src="images/gui/mapview/buttons/zoomout.png"/>
+			<image-caption src="images/gui/zoom/zoomout.png"/>
                     </Button>
                 </cell>
             </TableLayout>
@@ -124,7 +124,7 @@
                                 <image src="images/gui/buttons/button-round.png"/>
                                 <image-hover src="images/gui/buttons/button-round-hover.png"/>
                                 <image-clicked src="images/gui/buttons/button-round-checked.png"/>
-                                <image-caption src="images/gui/speed/pause2.png"/>
+                                <image-caption src="images/gui/speed/pause.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="2">
@@ -132,7 +132,7 @@
                                 <image src="images/gui/buttons/button-round.png"/>
                                 <image-hover src="images/gui/buttons/button-round-hover.png"/>
                                 <image-clicked src="images/gui/buttons/button-round-checked.png"/>
-                                <image-caption src="images/gui/speed/normal2.png"/>
+                                <image-caption src="images/gui/speed/normal.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="3">
@@ -140,7 +140,7 @@
                                 <image src="images/gui/buttons/button-round.png"/>
                                 <image-hover src="images/gui/buttons/button-round-hover.png"/>
                                 <image-clicked src="images/gui/buttons/button-round-checked.png"/>
-                                <image-caption src="images/gui/speed/fast2.png"/>
+                                <image-caption src="images/gui/speed/fast.png"/>
                             </Button>
                         </cell>
                         <cell row="1" col="4">
@@ -148,7 +148,7 @@
                                 <image src="images/gui/buttons/button-round.png"/>
                                 <image-hover src="images/gui/buttons/button-round-hover.png"/>
                                 <image-clicked src="images/gui/buttons/button-round-checked.png"/>
-                                <image-caption src="images/gui/speed/faster2.png"/>
+                                <image-caption src="images/gui/speed/faster.png"/>
                             </Button>
                         </cell>
                     </TableLayout>
