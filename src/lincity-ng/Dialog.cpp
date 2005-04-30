@@ -16,6 +16,7 @@
 #include "Util.hpp"
 #include "MapEdit.hpp"
 #include "CheckButton.hpp"
+#include "lincity/engine.h"
 
 #include "gui/ComponentLoader.hpp"
 #include "gui/Button.hpp"
@@ -24,23 +25,21 @@
 
 bool blockingDialogIsOpen = false;
 
-Dialog::Dialog( int type, int x, int y ){
-    Component* root = getGameView();
-    desktop = 0;
-    myDialogComponent = 0;
-    pointX = x;
-    pointY = y;
-        
-    if( root ) {
-        while( root->getParent() )
-            root = root->getParent();
-        desktop = dynamic_cast<Desktop*> (root);
-        if(!desktop) 
-            std::cerr << "Root not a desktop!?!\n";
-    } else {
-        std::cerr << "Dialog: Root not found.\n";
+Dialog::Dialog( int type ){
+    initDialog();   
+    switch( type ){
+        case ASK_COAL_SURVEY:
+            coalSurvey();
+            break;
+        default:
+            std::stringstream msg;
+            msg <<"Can't open Dialog type " << type << " without coordinates.";
+        throw std::runtime_error(msg.str());
     }
-
+}
+    
+Dialog::Dialog( int type, int x, int y ){
+    initDialog( x, y );
     switch( type ) {
         case BULLDOZE_MONUMENT:
             askBulldozeMonument();
@@ -61,6 +60,23 @@ Dialog::Dialog( int type, int x, int y ){
             std::stringstream msg;
             msg <<"Unknown Dialog type " << type << ".";
             throw std::runtime_error(msg.str());
+    }
+}
+
+void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
+    Component* root = getGameView();
+    desktop = 0;
+    myDialogComponent = 0;
+    pointX = x;
+    pointY = y;
+    if( root ) {
+        while( root->getParent() )
+            root = root->getParent();
+        desktop = dynamic_cast<Desktop*> (root);
+        if(!desktop) 
+            std::cerr << "Root not a desktop!?!\n";
+    } else {
+        std::cerr << "Dialog: Root not found.\n";
     }
 }
 
@@ -129,6 +145,28 @@ void Dialog::askBulldozeShanty() {
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeShantyButtonClicked ) );
+    Button* noButton = getButton( *myDialogComponent, "No" );
+    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+}
+
+void Dialog::coalSurvey(){
+    if( !desktop ) {
+        std::cerr << "No desktop found.\n";
+        return;
+    }
+    try {
+        myDialogComponent = loadGUIFile( "gui/coal_survey_yn.xml" );
+        assert( myDialogComponent != 0);
+        desktop->addChildComponent( myDialogComponent );
+        blockingDialogIsOpen = true;
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't display message 'coal_survey_yn': "
+            << e.what() << "\n";
+        return;
+    }
+    // connect signals
+    Button* yesButton = getButton( *myDialogComponent, "Yes" );
+    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayCoalSurveyButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
@@ -310,6 +348,13 @@ void Dialog::applyPortButtonClicked( Button* ){
     } else {
         MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_STEEL; 
     }
+    desktop->remove( myDialogComponent );
+    blockingDialogIsOpen = false;
+    delete( this );
+}
+
+void Dialog::okayCoalSurveyButtonClicked( Button* ){
+    do_coal_survey();    
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
     delete( this );

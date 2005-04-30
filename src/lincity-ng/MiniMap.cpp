@@ -28,6 +28,7 @@
 #include "Util.hpp"
 #include "Mps.hpp"
 #include "CheckButton.hpp"
+#include "Dialog.hpp"
 
 #define LC_MOUSE_LEFTBUTTON 1
 #define LC_MOUSE_RIGHTBUTTON 2
@@ -206,7 +207,12 @@ void MiniMap::mapViewButtonClicked(CheckButton* button, int)
         case 5: mMode=FIRE;getGameView()->setMapMode(FIRE);break;
         case 6: mMode=CRICKET;getGameView()->setMapMode(CRICKET);break;
         case 7: mMode=HEALTH;getGameView()->setMapMode(HEALTH);break;
-        case 8: mMode=COAL;getGameView()->setMapMode(COAL);break;
+        case 8: if(( coal_survey_done == 0 ) && ( !blockingDialogIsOpen )){
+                    new Dialog( ASK_COAL_SURVEY ); 
+                }
+                mMode=COAL;
+                getGameView()->setMapMode(COAL);
+                break;
         default:
             assert(false);
     }
@@ -444,6 +450,9 @@ Color MiniMap::getColor(int x,int y) const
     case COAL:
       {
 	Color c(0x77,0,0);
+    if( coal_survey_done == 0 ){
+        return Color(0,0,0);
+    }
 	if(MP_INFO(x,y).coal_reserve==0)
 	  return makeGrey(getColorNormal(x,y));
 	else if (MP_INFO(x,y).coal_reserve >= COAL_RESERVE_SIZE / 2)

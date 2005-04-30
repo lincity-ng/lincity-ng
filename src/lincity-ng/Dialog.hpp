@@ -11,6 +11,7 @@
 #define BULLDOZE_SHANTY   3
 #define EDIT_MARKET       4
 #define EDIT_PORT         5
+#define ASK_COAL_SURVEY   6 
 
 extern bool blockingDialogIsOpen;
 
@@ -18,6 +19,7 @@ class Dialog
 {
     public:
         Dialog( int type, int x, int y );
+        Dialog( int type );
         ~Dialog();
 
     private:
@@ -27,7 +29,10 @@ class Dialog
 
         void editMarket();
         void editPort();
-        
+
+        void coalSurvey();
+       
+        void initDialog( int x = -1 , int y = -1 );
         Desktop* desktop;
         Component* myDialogComponent;
         int pointX;
@@ -36,6 +41,7 @@ class Dialog
         void okayBulldozeRiverButtonClicked( Button* );
         void okayBulldozeShantyButtonClicked( Button* );
         void okayBulldozeMonumentButtonClicked( Button* );
+        void okayCoalSurveyButtonClicked( Button* );
         void closeDialogButtonClicked( Button* );
         void applyMarketButtonClicked( Button* );
         void applyPortButtonClicked( Button* );

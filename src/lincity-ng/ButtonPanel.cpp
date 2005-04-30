@@ -121,6 +121,9 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
 }
 
 bool ButtonPanel::enoughTech( int moduleType ){
+    if( moduleType == CST_NONE ){
+        return true;
+    }
     int group = get_group_of_type( moduleType );
     //High Tech Residences are special
     if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH 
