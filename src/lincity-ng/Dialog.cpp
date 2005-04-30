@@ -56,6 +56,9 @@ Dialog::Dialog( int type, int x, int y ){
         case EDIT_PORT:
             editPort();
             break;
+        case ASK_LAUNCH_ROCKET:
+            askRocket();
+            break;
         default:
             std::stringstream msg;
             msg <<"Unknown Dialog type " << type << ".";
@@ -81,6 +84,32 @@ void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
 }
 
 Dialog::~Dialog(){
+}
+
+void Dialog::askRocket(){
+    if( !desktop ) {
+        std::cerr << "No desktop found.\n";
+        return;
+    }
+    try {
+        myDialogComponent = loadGUIFile( "gui/launch_rocket_yn.xml" );
+        assert( myDialogComponent != 0);
+        desktop->addChildComponent( myDialogComponent );
+        blockingDialogIsOpen = true;
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't display message 'launch_rocket_yn': "
+            << e.what() << "\n";
+        return;
+    }
+    Paragraph* p = getParagraph( *myDialogComponent, "rocketTitle" );
+    std::stringstream title;
+	title << "Launchsite ( " << pointX <<" , " << pointY << " )";
+    p->setText( title.str() );
+    // connect signals
+    Button* yesButton = getButton( *myDialogComponent, "Yes" );
+    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayLaunchRocketButtonClicked ) );
+    Button* noButton = getButton( *myDialogComponent, "No" );
+    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
 void Dialog::askBulldozeMonument() {
@@ -352,6 +381,14 @@ void Dialog::applyPortButtonClicked( Button* ){
     blockingDialogIsOpen = false;
     delete( this );
 }
+
+void Dialog::okayLaunchRocketButtonClicked( Button* ){
+    launch_rocket( pointX, pointY );
+    desktop->remove( myDialogComponent );
+    blockingDialogIsOpen = false;
+    delete( this );
+}
+
 
 void Dialog::okayCoalSurveyButtonClicked( Button* ){
     do_coal_survey();    

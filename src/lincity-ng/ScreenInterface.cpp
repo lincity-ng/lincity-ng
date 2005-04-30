@@ -18,6 +18,7 @@
 #include "GameView.hpp"
 #include "Util.hpp"
 #include "ButtonPanel.hpp"
+#include "Dialog.hpp"
 
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
@@ -33,13 +34,10 @@ char screen_refreshing;
 char* current_month (int current_time);
 void draw_cb_box (int row, int col, int checked);
 
-int ask_launch_rocket_click (int x, int y);
-int ask_launch_rocket_now (int , int )
+int ask_launch_rocket_now (int x, int y)
 {
-    return yn_dial_box ("Rocket ready to launch",
-	    "You can launch it now or wait until later.",
-		"If you wait it will continue costing you money.",
-		"Launch it later by clicking on the rocket area.");
+    new Dialog( ASK_LAUNCH_ROCKET, x, y );
+    return 0;
 }
 
 void display_rocket_result_dialog (int result)

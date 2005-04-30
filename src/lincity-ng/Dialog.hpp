@@ -12,6 +12,7 @@
 #define EDIT_MARKET       4
 #define EDIT_PORT         5
 #define ASK_COAL_SURVEY   6 
+#define ASK_LAUNCH_ROCKET 7 
 
 extern bool blockingDialogIsOpen;
 
@@ -31,6 +32,7 @@ class Dialog
         void editPort();
 
         void coalSurvey();
+        void askRocket();
        
         void initDialog( int x = -1 , int y = -1 );
         Desktop* desktop;
@@ -42,6 +44,7 @@ class Dialog
         void okayBulldozeShantyButtonClicked( Button* );
         void okayBulldozeMonumentButtonClicked( Button* );
         void okayCoalSurveyButtonClicked( Button* );
+        void okayLaunchRocketButtonClicked( Button* );
         void closeDialogButtonClicked( Button* );
         void applyMarketButtonClicked( Button* );
         void applyPortButtonClicked( Button* );

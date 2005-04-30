@@ -19,11 +19,6 @@ int monument_bul_flag=0;
 int river_bul_flag=0;
 int shanty_bul_flag=0;
 
-int ask_launch_rocket_click (int , int )
-{
-  return true;
-}
-
 // Open Dialog for selected Port 
 void
 clicked_port_cb (int x, int y)
@@ -156,10 +151,7 @@ void editMap (MapPoint point, int button)
       if (MP_TYPE(mod_x,mod_y) >= CST_ROCKET_5 &&
           MP_TYPE(mod_x,mod_y) <= CST_ROCKET_7)
         {
-          if (ask_launch_rocket_click (mod_x,mod_y))
-            {
-              launch_rocket (mod_x, mod_y);
-            }
+          new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
         }
     }
 

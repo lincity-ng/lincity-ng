@@ -50,7 +50,6 @@ Programming
      for "Loading..." menu 
  [M] Statisitcs dialog
  [M] Statistics graph
- [H] Dialogs for Rocket
  [H] Help System.
  [M] Display InfoMessages
  [M] Options-dialog
@@ -60,4 +59,3 @@ Programming
  [H] Tile graphics
  [M] remove MPS_ENV, make MPS_MAP a popup 
  [M] put MPS_GLOBAL to tabs behind minimap
- [H] it would be helpfull if the speed button for the currently active speed would be in state "checked"
