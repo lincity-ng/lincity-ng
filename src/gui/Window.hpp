@@ -24,13 +24,17 @@ private:
     float titlesize;
     bool dragging;
     Vector2 dragOffset;
-   
-    Child& closeButton()
+
+    Child& background()
     { return childs[0]; }
+    Child& title_background()
+    { return childs[1]; }        
     Child& title()
-    { return childs[1]; }
-    Child& contents()
     { return childs[2]; }
+    Child& closeButton()
+    { return childs[3]; }
+    Child& contents()
+    { return childs[4]; }
 };
 
 #endif

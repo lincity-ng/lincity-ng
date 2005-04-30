@@ -65,7 +65,7 @@ Window::parse(XmlReader& reader)
     if(width <= 0 || height <= 0)
         throw std::runtime_error("Width or Height invalid");
 
-    childs.assign(3, Child());
+    childs.assign(5, Child());
     
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
@@ -79,6 +79,10 @@ Window::parse(XmlReader& reader)
                 resetChild(closeButton(), button.release());
             } else if(element == "contents") {
                 resetChild(contents(), parseEmbeddedComponent(reader));
+            } else if(element == "background") {
+                resetChild(background(), parseEmbeddedComponent(reader));
+            } else if(element == "title-background") {
+                resetChild(title_background(), parseEmbeddedComponent(reader));
             } else {
                 std::cerr << "Skipping unknown element '"
                     << element << "'.\n";
@@ -107,6 +111,11 @@ Window::parse(XmlReader& reader)
     float compHeight = height - 2*border;
     title().setPos(Vector2(border, border));
     title().getComponent()->resize(compWidth - closeButtonWidth, titlesize);
+    if(title_background().getComponent() != 0) {
+        title_background().setPos(title().getPos());
+        title_background().getComponent()->resize(
+                compWidth - closeButtonWidth, titlesize);
+    }
     if(closeButton().getComponent() != 0) {
         closeButton().setPos(Vector2(
                     border + compWidth - closeButtonWidth + closeButtonBorder,
@@ -114,6 +123,10 @@ Window::parse(XmlReader& reader)
     }
     contents().setPos(Vector2(border, border + titlesize));
     contents().getComponent()->resize(compWidth, compHeight - titlesize);
+    if(background().getComponent() != 0) {
+        background().setPos(Vector2(0, 0));
+        background().getComponent()->resize(width, height);
+    }
 
     // connect signals...
     if(closeButton().getComponent() != 0) {

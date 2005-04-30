@@ -62,10 +62,10 @@ Gradient::resize(float width, float height)
     else
         assert(false);
     
-    float dr = ((float) from.r - (float) to.r) / w;
-    float dg = ((float) from.g - (float) to.g) / w;
-    float db = ((float) from.b - (float) to.b) / w;
-    float da = ((float) from.a - (float) to.a) / w;
+    float dr = ((float) to.r - (float) from.r) / w;
+    float dg = ((float) to.g - (float) from.g) / w;
+    float db = ((float) to.b - (float) from.b) / w;
+    float da = ((float) to.a - (float) from.a) / w;
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
     SDL_Surface* surface = SDL_CreateRGBSurface(SDL_SWSURFACE,

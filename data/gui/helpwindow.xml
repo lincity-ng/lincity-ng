@@ -4,11 +4,17 @@
         <Paragraph halign="center" color="white" name="HelpWindowTitle"
         height="30" font-size="20">Help - Lincity NG</Paragraph>
     </title>
+    <title-background>
+        <Gradient from="#ff0000ff" to="#88776655" direction="left-right"/>
+    </title-background>
     <closebutton>
         <image src="images/gui/window/window_close.png"/>
 	<image-hover src="images/gui/window/window_close_hover.png"/>
 	<image-clicked src="images/gui/window/window_close_clicked.png"/>
     </closebutton>
+    <background>
+        <FilledRectangle color="#ffffffbb"/>
+    </background>
     <contents>
         <ScrollView>
             <scrollbar width="20">
