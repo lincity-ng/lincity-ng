@@ -69,7 +69,7 @@
                 </Button>
                 </cell>
                 <cell row="1" col="3">
-                    <Paragraph style="listtitle">Start game next time:</Paragraph>
+                    <Paragraph style="listtitle">GameMode:</Paragraph>
                 </cell>
             </TableLayout>
         </cell>

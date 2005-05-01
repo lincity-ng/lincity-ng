@@ -288,10 +288,18 @@ void MainMenu::optionsMenuButtonClicked( Button* button ){
         getSound()->playSound("Click");
     } else if( buttonName == "Fullscreen"){
         getSound()->playSound("Click");
-        getConfig()->useFullScreen = true;
+        if( getConfig()->useFullScreen == false ){
+            getConfig()->useFullScreen = true;
+            initVideo(getConfig()->videoX, getConfig()->videoY);
+            loadOptionsMenu();
+        }
     } else if( buttonName == "Windowed"){
         getSound()->playSound("Click");
-        getConfig()->useFullScreen = false;
+        if( getConfig()->useFullScreen == true ){
+            getConfig()->useFullScreen = false;
+            initVideo(getConfig()->videoX, getConfig()->videoY);
+            loadOptionsMenu();
+        }
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }    
