@@ -106,10 +106,8 @@ Sound::Sound()
     setMusicVolume(getConfig()->musicVolume);
     setSoundVolume(getConfig()->soundVolume);
 
-    if(getConfig()->musicEnabled) {
-        // for now...
-        playMusic("01 - pronobozo - lincity.ogg");
-    }
+    // for now...
+    playMusic("01 - pronobozo - lincity.ogg");
 }
 
 Sound::~Sound()
@@ -141,7 +139,9 @@ Sound::~Sound()
 void
 Sound::playSound(const std::string& name) {
     std::cout << "Audio " << name << " request...";
-    
+    if( !getConfig()->soundEnabled ){
+        return;
+    }
     if( !audioOpen ){
         std::cout << "Can't play Audio.";
         return;
