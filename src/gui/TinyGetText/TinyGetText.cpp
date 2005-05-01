@@ -41,7 +41,6 @@ std::string convert(const std::string& text,
   if (from_charset == to_charset)
     return text;
 
-  std::cout << from_charset << " -> " << to_charset << "\n";
   iconv_t cd = iconv_open(to_charset.c_str(), from_charset.c_str());
   
   size_t in_len = text.length();
@@ -56,7 +55,7 @@ std::string convert(const std::string& text,
   size_t out_len_temp = out_len; // iconv is counting down the bytes it has
                                  // written from this...
 
-  int retval = iconv(cd, &in, &in_len, &out, &out_len_temp);
+  size_t retval = iconv(cd, &in, &in_len, &out, &out_len_temp);
   out_len -= out_len_temp; // see above
   if (retval == (size_t) -1)
     {
