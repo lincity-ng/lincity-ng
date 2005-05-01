@@ -39,6 +39,7 @@ Config::Config()
     musicEnabled = true;
 
     lincityHome = "./data";
+    skipMonthsFast = 1;
     
     //First we load the global File which should contain
     try {
@@ -129,6 +130,19 @@ void Config::load( const std::string& filename ){
                         soundEnabled = parseBool(value, true);
                     } else if(strcmp(name, "musicEnabled") == 0) {
                         musicEnabled = parseBool(value, true);
+                    } else {
+                        std::cerr << "Config::load# Unknown attribute '" << name;
+                        std::cerr << "' in element '" << element << "' from " << filename << ".\n";
+                    }
+                }
+            } else if ( element == "game" ) {
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next()) 
+                {
+                    const char* name = (const char*) iter.getName();
+                    const char* value = (const char*) iter.getValue();
+                    if(strcmp(name, "skipMonthsFast" ) == 0) {
+                        skipMonthsFast = parseInt( value, 1, 1 );
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";

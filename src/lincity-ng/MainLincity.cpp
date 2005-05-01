@@ -23,6 +23,7 @@
 #include "GameView.hpp"
 #include "ScreenInterface.hpp"
 #include "Dialog.hpp"
+#include "Config.hpp"
 
 int lincitySpeed = MED_TIME_FOR_YEAR;
 
@@ -47,18 +48,15 @@ void execute_timestep ()
   //  TRACE;
   do_time_step();
 
-  update_main_screen (0);
-
-  /* XXX: Shouldn't the rest be handled in update_main_screen()? */
-  /* GCS: No, I don't think so.  These remaining items are
-     outside of the main screen */
-
-  print_stats ();
-  updateMessageTitle();//show new Date
-
-  //GameView has to draw the updated city
-  getGameView()->requestRedraw();
-  
+  //draw the updated city
+  //in FAST-Mode, update at the last day in Month, so print_stats will work.
+  if( ( lincitySpeed == FAST_TIME_FOR_YEAR ) && 
+          ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) == (NUMOF_DAYS_IN_MONTH - 1) ) ){
+    //update_main_screen (0); //does nothing in NG
+    print_stats ();
+    updateMessageTitle();//show new Date
+    getGameView()->requestRedraw();
+  }
 }
 
 /*

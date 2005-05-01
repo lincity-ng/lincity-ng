@@ -21,6 +21,7 @@ public:
     bool soundEnabled;
     bool musicEnabled;
     std::string lincityHome;
+    int skipMonthsFast;
 
     void save();
 private:
