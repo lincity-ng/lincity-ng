@@ -112,9 +112,14 @@ private:
     void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;
+
+    SDL_TimerID scrollTimer;
 };
 
 GameView* getGameView();
+  
+Uint32 autoScroll( Uint32 interval, void *param );
+static const int scrollBorder = 5;
 
 #endif
 

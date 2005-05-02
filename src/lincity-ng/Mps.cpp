@@ -109,11 +109,14 @@ void mps_update(int mps_x, int mps_y,int mps_style)
                     mps_coalmine (mps_x, mps_y);
                     break;
                 case GROUP_COAL_POWER:
-                    //TODO: play which sound?
-                    //getSound()->playSound( "PowerCoalEmpty" );
-                    //getSound()->playSound( "PowerCoalFull" );
-                    //getSound()->playSound( "PowerCoalLow" );
-                    getSound()->playSound( "PowerCoalMed" );
+                    if( MP_TYPE( mps_x,mps_y) == CST_POWERS_COAL_FULL )
+                        getSound()->playSound( "PowerCoalFull" );
+                    else if( MP_TYPE( mps_x,mps_y) == CST_POWERS_COAL_MED )
+                        getSound()->playSound( "PowerCoalMed" );
+                    else if( MP_TYPE( mps_x,mps_y) == CST_POWERS_COAL_LOW )
+                        getSound()->playSound( "PowerCoalLow" );
+                    else //if( MP_TYPE( mps_x,mps_y) == CST_POWERS_COAL_EMPTY )
+                        getSound()->playSound( "PowerCoalEmpty" );
                     mps_coal_power (mps_x, mps_y);
                     break;
                 case GROUP_COMMUNE:
@@ -230,11 +233,15 @@ void mps_update(int mps_x, int mps_y,int mps_style)
                     mps_track(mps_x, mps_y);
                     break;
                 case GROUP_MARKET:
-                    //TODO: which one?
-                    //getSound()->playSound( "MarketEmpty" );
-                    //getSound()->playSound( "MarketFull" );
-                    //getSound()->playSound( "MarketLow" );
-                    getSound()->playSound( "MarketMed" );
+                    if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_EMPTY )
+                        getSound()->playSound( "MarketEmpty" );
+                    else if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_LOW )
+                        getSound()->playSound( "MarketLow" );
+                    else if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_MED )
+                        getSound()->playSound( "MarketMed" );
+                    else //if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_FULL )
+                        getSound()->playSound( "MarketFull" );
+
                     mps_market (mps_x, mps_y);
                     break;
                 case GROUP_UNIVERSITY:

@@ -131,6 +131,8 @@ void GameView::parse(XmlReader& reader)
 
     mapOverlay = overlayNone;
     mapMode = MiniMap::NORMAL;
+
+    scrollTimer = 0;
 }
 
 /*
@@ -647,6 +649,37 @@ void GameView::loadTextures()
 }
 
 /*
+ * Callback for scroll timer
+ */
+Uint32 autoScroll( Uint32 interval, void *param ){
+    (void) param;
+    (void) interval;
+    SDL_Event key_event;
+    SDL_Surface* surface = SDL_GetVideoSurface();
+    int x,y;
+    SDL_GetMouseState( &x, &y );
+    key_event.type = SDL_KEYUP;
+    key_event.key.state = SDL_RELEASED;
+    if( y < scrollBorder ){ //upper border
+        key_event.key.keysym.sym = SDLK_UP;
+        SDL_PushEvent( &key_event );
+    }
+    if( y > surface->h - scrollBorder ){ //lower border
+        key_event.key.keysym.sym = SDLK_DOWN;
+        SDL_PushEvent( &key_event );
+    }
+    if( x < scrollBorder ){ //left border
+        key_event.key.keysym.sym = SDLK_LEFT;
+        SDL_PushEvent( &key_event );
+    }
+    if( x > surface->h - scrollBorder ){ //right border
+        key_event.key.keysym.sym = SDLK_RIGHT;
+        SDL_PushEvent( &key_event );
+    }
+    return 50;
+}
+
+/*
  * Process event
  */
 void GameView::event(const Event& event)
@@ -658,6 +691,18 @@ void GameView::event(const Event& event)
     
     switch(event.type) {
         case Event::MOUSEMOTION: {
+            if( scrollTimer == 0 ){
+                if( (event.mousepos.x < scrollBorder) || (event.mousepos.x > getWidth() - scrollBorder) 
+                        || (event.mousepos.y < scrollBorder) || (event.mousepos.y > getHeight() - scrollBorder) ){
+                    scrollTimer = SDL_AddTimer( 150, &autoScroll, 0 );
+                }
+            } else {
+                if( !( (event.mousepos.x < scrollBorder) || (event.mousepos.x > getWidth() - scrollBorder) 
+                            || (event.mousepos.y < scrollBorder) || (event.mousepos.y > getHeight() - scrollBorder) )){
+                    SDL_RemoveTimer( scrollTimer );
+                    scrollTimer = 0;
+                }
+            }
             if( dragging ) {
                 Uint32 now = SDL_GetTicks();
                 dragDistance = event.mousepos - dragStart;

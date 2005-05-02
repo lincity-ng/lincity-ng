@@ -15,7 +15,7 @@
         <rowsize row="5" relative="1"/>
         <rowsize row="6" relative="1"/>
         <rowsize row="7" relative="1.5"/>
-        <cell row="2" col="3">
+        <cell row="3" col="3">
             <Button name="NewGameButton">
 		<text-caption translatable="yes" style="normal">New Game</text-caption>
 		<image src="images/mainmenu/buttons/new.png"/>
@@ -23,7 +23,7 @@
 		<image-clicked src="images/mainmenu/buttons/new-clicked.png"/>
             </Button>
         </cell>
-        <cell row="3" col="3">
+        <cell row="2" col="3">
             <Button name="ContinueButton">
 		<text-caption translatable="yes" style="normal">Continue</text-caption>
 		<image src="images/mainmenu/buttons/continue.png"/>
