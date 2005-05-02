@@ -41,7 +41,7 @@ void execute_timestep ()
   if( lincitySpeed == 0 || blockingDialogIsOpen )
       return;
 
-  if (now - oldTime < mStepTime)
+  if ( (now - oldTime < mStepTime) && lincitySpeed != FAST_TIME_FOR_YEAR  )
     return; // skip frame
   oldTime = now;
 
@@ -50,7 +50,7 @@ void execute_timestep ()
 
   //draw the updated city
   //in FAST-Mode, update at the last day in Month, so print_stats will work.
-  if( ( lincitySpeed == FAST_TIME_FOR_YEAR ) && 
+  if( ( lincitySpeed != FAST_TIME_FOR_YEAR ) || 
           ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) == (NUMOF_DAYS_IN_MONTH - 1) ) ){
     //update_main_screen (0); //does nothing in NG
     print_stats ();
