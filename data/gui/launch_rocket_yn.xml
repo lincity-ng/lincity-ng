@@ -18,7 +18,7 @@
 			<TableLayout rows="1" cols="2">
 			<colsize col="1" fixed="95"/>
 			<cell row="1" col="1">
-				<Image src="images/gui/dialogs/yesno.png"/>
+				<Image src="images/gui/dialogs/info.png"/>
 			</cell>
 			<cell row="1" col="2">
 				<Document style="message">
