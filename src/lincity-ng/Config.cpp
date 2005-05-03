@@ -91,7 +91,6 @@ int Config::parseInt( const char* value, int defaultValue, int minValue, int max
  * Load configuration from File.
  */
 void Config::load( const std::string& filename ){
-    std::cout << "Load Config from " << filename <<"\n";
     XmlReader reader( filename );
     while( reader.read() ) {
         if( reader.getNodeType() == XML_READER_TYPE_ELEMENT) 

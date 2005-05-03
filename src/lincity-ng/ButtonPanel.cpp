@@ -390,14 +390,12 @@ void ButtonPanel::draw(Painter &painter)
 
 void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
 {
-  CTRACE;
   Image *i=dynamic_cast<Image*>(button->getCaption());
   
   std::string mmain=button->getMain();
   if(i)
   {
     std::string filename=i->getFilename();
-    cdebug("filename:"<<filename<<" main:"<<mmain);
     
     // set menu-caption
     if(mmain.length())
@@ -481,7 +479,6 @@ void ButtonPanel::toggleMenu(std::string pName,bool enable)
 
 void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
 {
-  CTRACE;
   for(size_t i=0;i<mMenuButtons.size();i++)
     if(button->getName()==mMenuButtons[i])
       {

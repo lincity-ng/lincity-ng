@@ -337,8 +337,6 @@ Paragraph::resize(float width, float height)
                     rect.x = x;
                     rect.y = baseline - spanbaselines[i];
                     if(rect.y < 0) {
-                        printf("smaller... %d %d\n",
-                                baseline, spanbaselines[i]);
                         rect.y = 0;
                     }
 

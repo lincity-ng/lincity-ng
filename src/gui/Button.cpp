@@ -218,7 +218,6 @@ Button::event(const Event& event)
             break;
         case Event::MOUSEBUTTONUP:
             if(event.inside && state == STATE_CLICKED) {
-                printf("Clicked on Button '%s'.\n", getName().c_str());
                 clicked(this);
             }
             state = event.inside ? STATE_HOVER : STATE_NORMAL;

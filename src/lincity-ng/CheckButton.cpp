@@ -392,7 +392,6 @@ void CheckButton::event(const Event& event)
             break;
         case Event::MOUSEBUTTONUP:
             if(event.inside && oldstate == STATE_CLICKED) {
-                printf("Clicked on Button '%s'.\n", getName().c_str());
                 //clicked(this);
                 checked=!checked;
             }

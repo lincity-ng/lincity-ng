@@ -42,9 +42,7 @@ int
 Sound::soundThread(void* ptr)
 {
     Sound* sound = (Sound*) ptr;
-    std::cout << "** Start loading Sounds **\n";
     sound->loadWaves();
-    std::cout << "** Finished loading Sounds **\n";
     return 0;
 }
         
@@ -138,18 +136,16 @@ Sound::~Sound()
  */
 void
 Sound::playSound(const std::string& name) {
-    std::cout << "Audio " << name << " request...";
     if( !getConfig()->soundEnabled ){
         return;
     }
     if( !audioOpen ){
-        std::cout << "Can't play Audio.";
         return;
     }
 
     chunks_t::size_type count = waves.count( name );
     if ( count == 0 ) {
-        std::cout << "No such file \n";
+        std::cout << "Couldn't find audio file '" << name << "'\n";
         return;
     }
 
@@ -160,7 +156,6 @@ Sound::playSound(const std::string& name) {
     
     Mix_Volume( 0, getConfig()->soundVolume );
     Mix_PlayChannel( 0, it->second, 0 ); 
-    std::cout << "done.\n";
 }
 
 /*

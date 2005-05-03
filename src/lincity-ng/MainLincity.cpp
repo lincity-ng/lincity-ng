@@ -141,12 +141,8 @@ void initLincity()
     char* s = "9_currentGameNG.scn";
     char *cname = (char *) malloc (strlen (lc_save_dir) + strlen (s) + 2);
     sprintf (cname, "%s%c%s", lc_save_dir, PATH_SLASH, s);
-    if( loadCityNG( std::string( cname ) ) ){   
-        printf("Found city from last time (%s).\n", cname);
-    }
-    else {
+    if( ! loadCityNG( std::string( cname ) ) ) {   
         //create a new City just in case
-        printf("No old city found.\n");
         new_city( &main_screen_originx, &main_screen_originy, 0 );
     }
     free (cname);

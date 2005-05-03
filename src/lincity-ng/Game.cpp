@@ -47,7 +47,6 @@ void Game::gameButtonClicked( Button* button ){
 }
 
 void Game::openHelpWindow(){
-    std::cout << "Help is on the way...\n";
     Component* root = getGameView();
     if(!root) {
         std::cerr << "Root not found.\n";

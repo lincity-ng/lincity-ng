@@ -75,11 +75,9 @@ GameView::~GameView()
 //Static function to use with SDL_CreateThread
 int GameView::gameViewThread( void* data )
 {
-    std::cout << "** Start loading Textures **\n";
     GameView* gv = (GameView*) data;
     gv->loadTextures();
     gv->requestRedraw();
-    std::cout << "** Finished loading Textures **\n";
     return 0;
 }
 

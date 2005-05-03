@@ -270,7 +270,6 @@ void mps_update(int mps_x, int mps_y,int mps_style)
                     mps_store_title(0, main_groups[ MP_GROUP( mps_x, mps_y ) ].name );
                     mps_store_title(2, "no further information available" );
                     
-                    printf("MPS unimplemented for that module\n");
                     mps_style = MPS_NONE;
             }
             break;

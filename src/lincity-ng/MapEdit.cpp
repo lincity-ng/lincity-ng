@@ -185,7 +185,6 @@ void editMap (MapPoint point, int button)
     }
   if(selected_module_type==CST_NONE)
   {
-    TRACE;
     getMPS()->setView(MapPoint(x, y));
 
     return;

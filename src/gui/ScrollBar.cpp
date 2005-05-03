@@ -167,7 +167,6 @@ ScrollBar::setRange(float min, float max)
     }
     minVal = min;
     maxVal = max;
-    printf("NewRange: %f %f.\n", min, max);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ScrollBar);

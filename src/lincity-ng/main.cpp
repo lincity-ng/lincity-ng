@@ -240,7 +240,6 @@ int main(int argc, char** argv)
             texture_manager = new TextureManagerSDL();
         }
         
-        std::cout << "MainLoop\n";
         mainLoop();
 #ifndef DEBUG
     } catch(std::exception& e) {
