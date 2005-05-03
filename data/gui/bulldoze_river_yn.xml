@@ -1,53 +1,57 @@
 <?xml version="1.0"?>
 <Window width="700" height="200" border="5" titlesize="25">
-    <title>
-        <Paragraph style="title" translatable="yes">
-            Bulldozing water is expensive
-        </Paragraph>
-    </title>
-    <contents>
-        <TableLayout rows="2" cols="1">
-            <rowsize row="2" fixed="30"/>
-            <cell row="1" col="1">
-                <TableLayout rows="1" cols="2">
-                    <colsize col="1" fixed="95"/>
-                    <cell row="1" col="1">
-                        <Image src="images/gui/dialogs/yesno.png"/>
-                    </cell>
-                    <cell row="1" col="2">
-                        <Document style="message">
-                            <p style="messagebold" translatable="yes">
-                            Warning</p>
-                            <p translatable="yes">
-                            Bulldozing a section of river
-                            costs a lot of money.</p>
-                            <p translatable="yes">
-                            Want to bulldoze?</p>
-                        </Document>
-                    </cell>
-                </TableLayout>
-            </cell>
-            <cell row="2" col="1">
-                <TableLayout rows="1" cols="2">
-                    <cell row="1" col="1">
-                        <Button name="No">
-                            <text-caption style="dialogbutton" translatable="yes">No</text-caption>
-			    <image src="images/gui/dialogs/nobutton.png"/>
-			    <image-hover src="images/gui/dialogs/nobutton-hover.png"/>
-			    <image-clicked src="images/gui/dialogs/nobutton-clicked.png"/>
-                        </Button>
-                    </cell>
-                    <cell row="1" col="2">
-                        <Button name="Yes">
-                            <text-caption style="dialogbutton"
-                            translatable="yes">Yes</text-caption>
-			    <image src="images/gui/dialogs/yesbutton.png"/>
-			    <image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
-			    <image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
-                        </Button>
-                    </cell>
-                </TableLayout>
-            </cell>
-        </TableLayout>
-    </contents>
+	<title>
+		<Document>
+			<Paragraph style="title" translatable="yes" halign="center">
+				Warning: Bulldozing water is expensive
+			</Paragraph>
+		</Document>
+	</title>
+	<title-background>
+		<Gradient from="#333377ff" to="#9999aaff" direction="left-right"/>
+	</title-background>
+	<background>
+		<FilledRectangle color="#cdcdcdff"/>
+	</background>
+	<contents>
+		<TableLayout rows="2" cols="1">
+		<rowsize row="2" fixed="30"/>
+		<cell row="1" col="1">
+			<TableLayout rows="1" cols="2">
+			<colsize col="1" fixed="95"/>
+			<cell row="1" col="1">
+				<Image src="images/gui/dialogs/yesno.png"/>
+			</cell>
+			<cell row="1" col="2">
+				<Document style="message">
+				<p style="messagebold" translatable="yes">Warning</p>
+				<p translatable="yes">Bulldozing a section of river costs a lot of money.</p>
+				<p translatable="yes">Want to bulldoze?</p>
+				</Document>
+			</cell>
+			</TableLayout>
+		</cell>
+		<cell row="2" col="1">
+			<TableLayout rows="1" cols="2">
+			<cell row="1" col="1">
+				<Button name="No">
+				<text-caption style="dialogbutton" translatable="yes">No</text-caption>
+				<image src="images/gui/dialogs/nobutton.png"/>
+				<image-hover src="images/gui/dialogs/nobutton-hover.png"/>
+				<image-clicked src="images/gui/dialogs/nobutton-clicked.png"/>
+				</Button>
+			</cell>
+			<cell row="1" col="2">
+				<Button name="Yes">
+				<text-caption style="dialogbutton"
+				translatable="yes">Yes</text-caption>
+				<image src="images/gui/dialogs/yesbutton.png"/>
+				<image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
+				<image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
+				</Button>
+			</cell>
+			</TableLayout>
+		</cell>
+		</TableLayout>
+	</contents>
 </Window>

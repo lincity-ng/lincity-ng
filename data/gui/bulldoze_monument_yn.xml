@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <Window width="700" height="200" border="5" titlesize="25">
 	<title>
-		<Paragraph style="title" translatable="yes">
-			Warning
-		</Paragraph>
+		<Document>
+			<Paragraph style="title" translatable="yes" halign="center">
+				Warning: Bulldozing monuments is expensive
+			</Paragraph>
+		</Document>
 	</title>
 	<title-background>
 		<Gradient from="#333377ff" to="#9999aaff" direction="left-right"/>
