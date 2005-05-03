@@ -123,39 +123,39 @@
 			<TableLayout rows="1" cols="4">
 				<cell row="1" col="1">
 				<CheckButton name="SpeedPauseButton">
-					<image src="images/gui/buttons/button-round.png"/>
-					<image-hover src="images/gui/buttons/button-round-hover.png"/>
-					<image-clicked src="images/gui/buttons/button-round-clicked.png"/>
-					<image-checked src="images/gui/buttons/button-round-checked.png"/>
+					<image src="images/gui/buttons/round/button-round-40.png"/>
+					<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+					<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
+					<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 					<image-caption src="images/gui/speed/pause.png"/>
 				</CheckButton>
 				</cell>
 				<cell row="1" col="2">
 				<CheckButton name="SpeedSlowButton">
-					<image src="images/gui/buttons/button-round.png"/>
-					<image-hover src="images/gui/buttons/button-round-hover.png"/>
-					<image-clicked src="images/gui/buttons/button-round-clicked.png"/>
-					<image-checked src="images/gui/buttons/button-round-checked.png"/>
+					<image src="images/gui/buttons/round/button-round-40.png"/>
+					<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+					<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
+					<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 					<image-caption src="images/gui/speed/normal.png"/>
 				</CheckButton>
 				</cell>
 				<cell row="1" col="3">
-				<CheckButton name="SpeedNormalButton">
-					<image src="images/gui/buttons/button-round.png"/>
-					<image-hover src="images/gui/buttons/button-round-hover.png"/>
-					<image-clicked src="images/gui/buttons/button-round-clicked.png"/>
-					<image-checked src="images/gui/buttons/button-round-checked.png"/>
-					<image-caption src="images/gui/speed/fast.png"/>
-				</CheckButton>
+					<CheckButton name="SpeedNormalButton">
+						<image src="images/gui/buttons/round/button-round-40.png"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
+						<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
+						<image-caption src="images/gui/speed/fast.png"/>
+					</CheckButton>
 				</cell>
 				<cell row="1" col="4">
-				<CheckButton name="SpeedFastButton">
-					<image src="images/gui/buttons/button-round.png"/>
-					<image-hover src="images/gui/buttons/button-round-hover.png"/>
-					<image-clicked src="images/gui/buttons/button-round-clicked.png"/>
-					<image-checked src="images/gui/buttons/button-round-checked.png"/>
-					<image-caption src="images/gui/speed/faster.png"/>
-				</CheckButton>
+					<CheckButton name="SpeedFastButton">
+						<image src="images/gui/buttons/round/button-round-40.png"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
+						<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
+						<image-caption src="images/gui/speed/faster.png"/>
+					</CheckButton>
 				</cell>
 			</TableLayout>
 			</cell>
