@@ -35,3 +35,7 @@ Event::Event(SDL_Event& event)
     }
 }
 
+Event::Event(Type _type)
+    : type(_type)
+{
+}

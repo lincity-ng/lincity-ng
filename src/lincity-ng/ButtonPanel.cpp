@@ -487,9 +487,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
         //Check if Techlevel is sufficient.
         if( enoughTech( mMenuSelected[mMenus[i]] ) ){
             selected_module_type=selected_module=mMenuSelected[mMenus[i]];
-        } else {
-            std::cout <<"menuButtonClicked, not enough tech for " << mMenus[i] << "\n";
-        } 
+        }
         if(c)
         {
           // try en-/disabling compoent

@@ -65,7 +65,6 @@ void Game::openHelpWindow(){
         messageTextComponent = root->findComponent( "HelpWindowTitle" );
         if(messageTextComponent == 0) {
             messageTextComponent = loadGUIFile("gui/helpwindow.xml");
-            assert(messageTextComponent != 0);
             desktop->addChildComponent(messageTextComponent);
         }
     } catch(std::exception& e) {
@@ -118,7 +117,7 @@ Game::run()
                     break;
             }
         }
-
+        gui->event(Event(Event::UPDATE));
         gui->draw(*painter);
         flipScreenBuffer();
         frame++;

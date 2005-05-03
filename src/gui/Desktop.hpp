@@ -20,6 +20,7 @@ public:
     bool opaque(const Vector2& pos) const;
 
     void addChildComponent(Component* child);
+    void centerChildComponent(Component* child);
 
     Vector2 getPos(Component* component);
     void move(Component* component, Vector2 pos);

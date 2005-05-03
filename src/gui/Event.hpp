@@ -14,6 +14,8 @@ public:
     Event(SDL_Event& event);
 
     enum Type {
+        /// update event, sent out once per frame
+        UPDATE,
         /// a key was pressed
         KEYDOWN,
         /// a key was released
@@ -25,6 +27,7 @@ public:
         /// a mouse button has been released
         MOUSEBUTTONUP
     };
+    Event(Type type);
     
     /// type of the event
     Type type;

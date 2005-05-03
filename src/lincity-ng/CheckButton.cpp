@@ -189,7 +189,6 @@ CheckButton::check()
 void
 CheckButton::enable(bool enabled)
 {
-    printf("Enable %s -> %d.\n", getName().c_str(), enabled);
     if(!enabled) {
         state = STATE_DISABLED;
     } else if(enabled && state == STATE_DISABLED) {

@@ -65,7 +65,10 @@ Desktop::event(const Event& event)
     // process pending child adds...
     for(std::vector<Component*>::iterator i = addQueue.begin();
             i != addQueue.end(); ++i) {
-        addChild(*i);
+        Child& child = addChild(*i);
+        child.setPos(Vector2( 
+                    (getWidth() - child.getComponent()->getWidth()) / 2,
+                    (getHeight() - child.getComponent()->getHeight()) / 2));
     }
     addQueue.clear();
 }
