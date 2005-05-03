@@ -192,11 +192,13 @@ void BarView::setValue(float v)
 
 void BarView::draw(Painter &painter)
 {
-  painter.setFillColor(Color(0,0,0xFF,255));
+  painter.setFillColor(Color(0,0xAA,0,255));
   if((int)(width*value)>0 && dir)
     painter.fillRectangle(Rect2D(0,0,width*value,height));
-  else if((int)(width*value)<0 && !dir)
+  else if((int)(width*value)<0 && !dir){
+    painter.setFillColor(Color(0xFF,0,0,255));
     painter.fillRectangle(Rect2D(width-1+width*value,0,width-1,height));
+  }
 }
 
 IMPLEMENT_COMPONENT_FACTORY(LCPBar)
