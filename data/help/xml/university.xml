@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<help style="helpdocument">
+	<p style="htitle">University</p>
+	<p style="hp">Universities help to increase your technology level. In the process they consume goods and jobs. They produce more than schools for a given goods/jobs input. However, they use a lot of these and also cost quite a lot of money to run, so you should have the economic and industrial capacity to supply them.</p>
+	<p style="hp">You will need a number of universities to achieve a tech level close to 100%</p>
+	<p style="hp">Universities do not need to be connected to transport; they can get all thier requirements from markets (which must be in range and have goods and jobs available).</p>
+
+	<p style="hsubtitle">NOTE</p>
+	<p style="hp">You <b>must</b> have 5 schools PER university to supply it with students.</p>
+
+	<p style="hp">This is a university</p>
+	<img src="data/images/tiles/university.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="data/help/market.xml">Market</a></li>
+	<li><a href="data/help/transport.xml">Transport</a></li>
+	<li><a href="data/help/goods.xml">Goods</a></li>
+	<li><a href="data/help/jobs.xml">Jobs</a></li>
+</help>
