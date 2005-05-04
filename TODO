@@ -34,6 +34,7 @@ Programming
      stats). This could be used to measure common user actions and improve
      usability.
  [H] Implement tabbed component
+ [H] Add possibility to filter image to turn grey for disabled checkbuttons
 
 --Bugs--
  [M] mills.png shows a windmill but is used as button to build a mill.
