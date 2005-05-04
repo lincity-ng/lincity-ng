@@ -29,6 +29,7 @@
 #include "Config.hpp"
 #include "Sound.hpp"
 #include "GameView.hpp"
+#include "MainLincity.hpp"
 
 MainMenu::MainMenu()
 {

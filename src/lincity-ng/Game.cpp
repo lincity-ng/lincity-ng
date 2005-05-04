@@ -31,7 +31,7 @@ Game::~Game()
 
 void Game::backToMainMenu(){
     getGameView()->writeOrigin();
-    save_city( "9_currentGameNG.scn" );
+    saveCityNG( "9_currentGameNG.scn" );
     running = false;
     quitState = MAINMENU;
 }
@@ -110,6 +110,7 @@ Game::run()
                     break;
                 }
                 case SDL_QUIT:
+                    saveCityNG( "9_currentGameNG.scn" );
                     running = false;
                     quitState = QUIT;
                     break;
