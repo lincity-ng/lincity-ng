@@ -1,32 +1,46 @@
-<Panel width="248" height="336" background="images/gui/mapview/minimap_bg.png">
-	<TableLayout rows="3" cols="2">
-		<rowsize row="1" relative="10"/>
-		<rowsize row="2" relative="48"/>
-		<rowsize row="3" relative="288"/>
-		<colsize col="1" relative="48"/>
-		<colsize col="2" relative="200"/>
-		<cell row="2" col="2">
-		<TableLayout rows="1" cols="2">
-			<cell row="1" col="1">
+<Panel width="384" height="270" background="images/gui/mapview/minimap_bg.png">
+	<TableLayout rows="2" cols="2">
+		<rowsize row="1" fixed="234"/>
+		<rowsize row="2" relative="36"/>
+		<colsize col="1" relative="174"/>
+		<colsize col="2" fixed="210"/>
+		<cell row="1" col="1">
+		<TableLayout rows="3" cols="3">
+			<rowsize row="1" fixed="163"/>
+			<rowsize row="2" fixed="30"/>
+			<rowsize row="3" fixed="40"/>
+			<colsize col="1" fixed="92"/>
+			<colsize col="2" fixed="40"/>
+			<colsize col="3" fixed="42"/>
+			<cell row="2" col="2">
 			<Button name="ZoomInButton">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-checked.png"/>
+				<image src="images/gui/buttons/round/button-round-40.png"/>
+				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-caption src="images/gui/zoom/zoomin.png"/>
 			</Button>
 			</cell>
-			<cell row="1" col="2">
+			<cell row="3" col="1">
 			<Button name="ZoomOutButton">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-checked.png"/>
+				<image src="images/gui/buttons/round/button-round-40.png"/>
+				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-caption src="images/gui/zoom/zoomout.png"/>
 			</Button>
 			</cell>
 		</TableLayout>
 		</cell>
-		<cell row="3" col="1">
-		<TableLayout rows="9" cols="1">
+		<cell row="2" col="2" spanx="2">
+		<TableLayout rows="1" cols="9">
+			<rowsize row="1" fixed="35"/>
+			<colsize col="2" fixed="35"/>
+			<colsize col="3" fixed="35"/>
+			<colsize col="4" fixed="35"/>
+			<colsize col="5" fixed="35"/>
+			<colsize col="6" fixed="35"/>
+			<colsize col="7" fixed="35"/>
+			<colsize col="8" fixed="35"/>
+			<colsize col="9" fixed="35"/>
 			<cell row="1" col="1">
 			<CheckButton name="MapViewNormal">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
@@ -36,7 +50,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_resident.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="2" col="1">
+			<cell row="1" col="2">
 			<CheckButton name="MapViewUB40">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -45,7 +59,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_ub40.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="3" col="1">
+			<cell row="1" col="3">
 			<CheckButton name="MapViewPollution">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -54,7 +68,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_pollution.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="4" col="1">
+			<cell row="1" col="4">
 			<CheckButton name="MapViewFood">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -63,7 +77,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_food.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="5" col="1">
+			<cell row="1" col="5">
 			<CheckButton name="MapViewPower">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -72,7 +86,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_power.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="6" col="1">
+			<cell row="1" col="6">
 			<CheckButton name="MapViewFire">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -81,7 +95,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_fire.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="7" col="1">
+			<cell row="1" col="7">
 			<CheckButton name="MapViewSport">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -90,7 +104,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_soccer.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="8" col="1">
+			<cell row="1" col="8">
 			<CheckButton name="MapViewHealth">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -99,7 +113,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_health.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="9" col="1">
+			<cell row="1" col="9">
 			<CheckButton name="MapViewCoal">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -110,7 +124,7 @@
 			</cell>
 		</TableLayout>
 		</cell>
-		<cell row="3" col="2">
+		<cell row="1" col="2">
 			<MiniMap width="200" height="200" tilesize="2"/>
 		</cell>
 	</TableLayout>
