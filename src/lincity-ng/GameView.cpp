@@ -1401,12 +1401,17 @@ void GameView::showToolInfo( int number /*= 0*/ )
         int group = main_types[ selected_module_type ].group;
         infotextstream << "Build " << main_groups[ group ].name; 
         infotextstream << "      Cost ";
-        infotextstream << "   to build " << get_type_cost (selected_module_type);
+        infotextstream << "   to build " << selected_module_cost;
         infotextstream << "   to bulldoze " << main_groups[ group ].bul_cost;
         if( number > 1 ){
             infotextstream << " To build " << number << " " << main_groups[ group ].name << "s ";
-            infotextstream << "will cost about " << number*get_type_cost (selected_module_type) << "£.";    
+            infotextstream << "will cost about " << number*selected_module_cost << "£.";    
         }
+        
+        if( get_type_cost (selected_module_type) != selected_module_cost ){
+            std::cout << "WARNING: get_type_cost (selected_module_type) = " << get_type_cost (selected_module_type);   
+            std::cout << " != selected_module_cost = " << selected_module_cost << "\n";   
+        }     
     }
     updateMessageText( infotextstream.str() );
 }

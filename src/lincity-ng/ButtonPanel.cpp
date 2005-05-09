@@ -184,6 +184,7 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         }
     }
     selected_module_type = tmp;
+    updateSelectedCost();
 }
 
 void ButtonPanel::examineMenuButtons(){
@@ -425,6 +426,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
   if( !enoughTech( selected_module_type ) ){
       std::cout <<"chooseButton not enough tech for " << selected_module_type << "\n";
       selected_module_type = prevTech;
+      updateSelectedCost();
   }     
   examineMenuButtons();
   //Tell GameView to use the right Cursor
@@ -469,6 +471,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
         //Check if Techlevel is sufficient.
         if( enoughTech( mMenuSelected[mMenus[i]] ) ){
             selected_module_type=selected_module=mMenuSelected[mMenus[i]];
+            updateSelectedCost();
         }
         if(c)
         {
@@ -626,7 +629,12 @@ void ButtonPanel::doButton(const std::string &button)
     selected_module_type=CST_PARKLAND_PLANE;
   else if(button=="BPMWaterButton")
     selected_module_type=CST_WATER;
-   
+  
+  updateSelectedCost(); 
+}
+
+void ButtonPanel::updateSelectedCost(){
+    selected_module_cost = get_type_cost (selected_module_type); 
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ButtonPanel)

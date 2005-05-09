@@ -36,6 +36,7 @@ class ButtonPanel : public Component
   void examineButton( std::string name, int showInfo );
   void examineMenuButtons();
   void newTechMessage( int moduleType, int showInfo );
+  void updateSelectedCost();
 
   std::vector<std::string> mMenuButtons;
   std::vector<std::string> mMenus;
