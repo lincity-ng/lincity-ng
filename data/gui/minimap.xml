@@ -6,13 +6,13 @@
 		<colsize col="2" fixed="210"/>
 		<cell row="1" col="1">
 		<TableLayout rows="3" cols="3">
-			<rowsize row="1" fixed="163"/>
-			<rowsize row="2" fixed="30"/>
-			<rowsize row="3" fixed="40"/>
-			<colsize col="1" fixed="92"/>
+			<rowsize row="1" relative="1"/>
+			<rowsize row="2" fixed="20"/>
+			<rowsize row="3" fixed="45"/>
+			<colsize col="1" relative="1"/>
 			<colsize col="2" fixed="40"/>
-			<colsize col="3" fixed="42"/>
-			<cell row="2" col="2">
+			<colsize col="3" fixed="35"/>
+			<cell row="2" col="3">
 			<Button name="ZoomInButton">
 				<image src="images/gui/buttons/round/button-round-40.png"/>
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
@@ -20,7 +20,7 @@
 				<image-caption src="images/gui/zoom/zoomin.png"/>
 			</Button>
 			</cell>
-			<cell row="3" col="1">
+			<cell row="3" col="2">
 			<Button name="ZoomOutButton">
 				<image src="images/gui/buttons/round/button-round-40.png"/>
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
