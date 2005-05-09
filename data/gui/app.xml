@@ -22,7 +22,7 @@
 		<colsize col="1" fixed="173"/>
 		<colsize col="2" relative="1"/>
 		<colsize col="3" fixed="248"/>
-		<cell row="1" col="1" spany="2" halign="left" valign="top">
+		<cell row="1" col="1" spanrows="2" halign="left" valign="top">
 		<Import src="gui/buttonpanel.xml"/>
 		</cell>
 		<cell row="1" col="3" valign="top" halign="right">

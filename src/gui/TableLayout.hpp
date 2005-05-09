@@ -54,7 +54,7 @@ public:
     {
         Cell(int _childid = -1)
             : childid(_childid), halign(CENTER), valign(CENTER),
-            spanx(1), spany(1)
+            spancols(1), spanrows(1)
         { }
 
         enum Alignment { LEFT = 0, CENTER = 1, RIGHT = 2,
@@ -62,8 +62,8 @@ public:
         int childid;
         Alignment halign;
         Alignment valign;
-        int spanx;
-        int spany;
+        int spancols;
+        int spanrows;
     };
     void addRow(const RowColProperties& props);
     void addColumn(const RowColProperties& props);

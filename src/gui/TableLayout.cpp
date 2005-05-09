@@ -82,7 +82,7 @@ TableLayout::parse(XmlReader& reader)
                 colproperties[num] = props;
             } else if(element == "cell") {
                 int row = -1, col = -1;
-                int spanx = 1, spany = 1;
+                int spancols = 1, spanrows = 1;
                 Cell::Alignment halign = Cell::CENTER;
                 Cell::Alignment valign = Cell::CENTER;
                 XmlReader::AttributeIterator iter(reader);
@@ -100,15 +100,15 @@ TableLayout::parse(XmlReader& reader)
                             std::cerr << "Couldn't parse integer value '"
                                 << value << "' in col attribute.\n";
                         }
-                    } else if(strcmp(name, "spanx") == 0) {
-                        if(sscanf(value, "%d", &spanx) != 1) {
+                    } else if(strcmp(name, "spanrows") == 0) {
+                        if(sscanf(value, "%d", &spanrows) != 1) {
                             std::cerr << "Couldn't parse integer value '"
-                                << value << "' in spanx attribute.\n";
+                                << value << "' in spanrows attribute.\n";
                         }
-                    } else if(strcmp(name, "spany") == 0) {
-                        if(sscanf(value, "%d", &spany) != 1) {
-                            std::cerr << "COuldn't parse integer value '"
-                                << value << "' in spany attribute.\n";
+                    } else if(strcmp(name, "spancols") == 0) {
+                        if(sscanf(value, "%d", &spancols) != 1) {
+                            std::cerr << "Couldn't parse integer value '"
+                                << value << "' in spancols attribute.\n";
                         }
                     } else if(strcmp(name, "halign") == 0) {
                         if(strcmp(value, "left") == 0) {
@@ -149,13 +149,13 @@ TableLayout::parse(XmlReader& reader)
                         << "Skipping cell because col value is invalid.\n";
                     continue;
                 }
-                if(spanx <= 0 || row + spanx - 1 >= rows) {
-                    std::cerr << "SpanX value invalid.\n";
-                    spanx = 1;
+                if(spanrows <= 0 || row + spanrows - 1 >= rows) {
+                    std::cerr << "spanrows value invalid.\n";
+                    spanrows = 1;
                 }
-                if(spany <= 0 || col + spany - 1 >= cols) {
-                    std::cerr << "SpanY value invalid.\n";
-                    spany = 1;
+                if(spancols <= 0 || col + spancols - 1 >= cols) {
+                    std::cerr << "spancols value invalid.\n";
+                    spancols = 1;
                 }   
                 
                 Component* component = parseEmbeddedComponent(reader);
@@ -168,8 +168,8 @@ TableLayout::parse(XmlReader& reader)
                 Cell cell(childs.size() - 1);
                 cell.halign = halign;
                 cell.valign = valign;
-                cell.spanx = spanx;
-                cell.spany = spany;
+                cell.spanrows = spanrows;
+                cell.spancols = spancols;
                 cells[row*cols + col] = cell;
             } else {
                 std::cerr << "Unknown element '" << element 
@@ -322,10 +322,10 @@ TableLayout::resize(float width, float height)
             }
 
             float width = 0;
-            for(int i = 0; i < cell.spanx; ++i)
+            for(int i = 0; i < cell.spancols; ++i)
                 width += (col+i)->realval;
             float height = 0;
-            for(int i = 0; i < cell.spany; ++i)
+            for(int i = 0; i < cell.spanrows; ++i)
                 height += (row+i)->realval;
 			
             if(component->getFlags() & FLAG_RESIZABLE)
