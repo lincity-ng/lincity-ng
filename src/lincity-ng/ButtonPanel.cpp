@@ -361,25 +361,7 @@ void ButtonPanel::updateToolInfo()
     monument_bul_flag = 0;
     river_bul_flag = 0;
     shanty_bul_flag = 0;
-    std::stringstream infotextstream;
-    
-    if( selected_module_type == CST_NONE ) //query
-    {   
-        infotextstream << "Query Tool: Show information about selected building."; 
-    } 
-    else if( selected_module_type == CST_GREEN ) //bulldoze
-    {
-        infotextstream << "Bulldozer: remove building -price varies-"; 
-    }
-    else
-    {
-        int group = main_types[ selected_module_type ].group;
-        infotextstream << "Build " << main_groups[ group ].name; 
-        infotextstream << "      Cost ";
-        infotextstream << "   to build " << get_type_cost (selected_module_type);
-        infotextstream << "   to bulldoze " << main_groups[ group ].bul_cost;
-    }
-    updateMessageText( infotextstream.str() );
+    getGameView()->showToolInfo();
 }
 
 void ButtonPanel::draw(Painter &painter)

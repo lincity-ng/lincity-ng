@@ -793,22 +793,27 @@ void GameView::event(const Event& event)
                     MapPoint endRoad = getTile( event.mousepos );
                     roadDragging = false;
                     leftButtonDown = false;
+                    MapPoint currentTile = startRoad;
+                    //build last tile first to play the sound
+                    if( !blockingDialogIsOpen )
+                        editMap(endRoad, SDL_BUTTON_LEFT);
+                    //turn off effects for the rest of the tiles
+                    bool fx = getConfig()->soundEnabled;
+                    getConfig()->soundEnabled = false;
                     //use same method to find all Tiles as in void GameView::draw()
                     int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
                     int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
-                    MapPoint currenTile = startRoad;
-                    while( currenTile.x != endRoad.x ) {
+                    while( currentTile.x != endRoad.x ) {
                         if( !blockingDialogIsOpen )
-                            editMap(currenTile, SDL_BUTTON_LEFT);
-                        currenTile.x += stepx;
+                            editMap(currentTile, SDL_BUTTON_LEFT);
+                        currentTile.x += stepx;
                     }
-                    while( currenTile.y != endRoad.y ) {
+                    while( currentTile.y != endRoad.y ) {
                         if( !blockingDialogIsOpen )
-                            editMap(currenTile, SDL_BUTTON_LEFT);
-                        currenTile.y += stepy;
+                            editMap(currentTile, SDL_BUTTON_LEFT);
+                        currentTile.y += stepy;
                     }
-                    if( !blockingDialogIsOpen )
-                        editMap(currenTile, SDL_BUTTON_LEFT);
+                    getConfig()->soundEnabled = fx;
                     break;
                 } 
                 roadDragging = false;
@@ -1080,7 +1085,23 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
     }
     fillDiamond( painter, tilerect );  
 }
-    
+
+/*
+ * If the current Tile is Part of a Building, return the 
+ * Coordinates of the tile that contains the real informations.
+ */ 
+MapPoint GameView::realTile( MapPoint tile ){
+    MapPoint real = tile;
+    if( ! inCity( tile ) )
+        return real;
+    if ( MP_TYPE( tile.x, tile.y ) ==  CST_USED ) 
+    {
+        real.x = MP_INFO(tile.x, tile.y).int_1;
+        real.y = MP_INFO(tile.x, tile.y).int_2;    
+    }
+    return real;
+}
+
 void GameView::drawTile(Painter& painter, MapPoint tile)
 {
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
@@ -1310,6 +1331,8 @@ void GameView::draw(Painter& painter)
     int cost = 0; 
     //Mark Tile under Mouse 
     if( mouseInGameView  && !blockingDialogIsOpen ) {
+        MapPoint lastRazed( -1,-1 );
+        int tiles = 0;
         if( roadDragging ){
             //use same method to find all Tiles as in GameView::event(const Event& event)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
@@ -1317,21 +1340,29 @@ void GameView::draw(Painter& painter)
             currentTile = startRoad;
             while( currentTile.x != tileUnderMouse.x ) {
                 markTile( painter, currentTile );
-                if( selected_module_type == CST_GREEN ) 
+                if( selected_module_type == CST_GREEN && realTile( currentTile ) != lastRazed ){ 
                     cost += bulldozeCost( currentTile );
+                    lastRazed = realTile( currentTile );
+                }
+                tiles++;
                 currentTile.x += stepx;
             }
             while( currentTile.y != tileUnderMouse.y ) {
                 markTile( painter, currentTile );
-                if( selected_module_type == CST_GREEN ) 
+                if( selected_module_type == CST_GREEN && realTile( currentTile ) != lastRazed ){ 
                     cost += bulldozeCost( currentTile );
+                    lastRazed = realTile( currentTile );
+                }
+                tiles++;
                 currentTile.y += stepy;
             }
         } 
         markTile( painter, tileUnderMouse );
-        if( selected_module_type == CST_GREEN ) { //show only in bulldoze-mode
+        tiles++;
+        if( selected_module_type == CST_GREEN && realTile( currentTile ) != lastRazed ) { 
             cost += bulldozeCost( tileUnderMouse );
-            
+        } 
+        if( selected_module_type == CST_GREEN ){
             std::stringstream prize;
             if( roadDragging ){
                 prize << "Estimated Bulldoze Cost: ";
@@ -1344,8 +1375,40 @@ void GameView::draw(Painter& painter)
                 prize << "n/a";
             }
             updateMessageText( prize.str() );
+        } else {
+           showToolInfo( tiles );
+        }    
+    }
+}
+
+/*
+ * Show informatiosn about selected Tool
+ */ 
+void GameView::showToolInfo( int number /*= 0*/ )
+{       
+    std::stringstream infotextstream;
+    
+    if( selected_module_type == CST_NONE ) //query
+    {   
+        infotextstream << "Query Tool: Show information about selected building."; 
+    } 
+    else if( selected_module_type == CST_GREEN ) //bulldoze
+    {
+        infotextstream << "Bulldozer: remove building -price varies-"; 
+    }
+    else
+    {
+        int group = main_types[ selected_module_type ].group;
+        infotextstream << "Build " << main_groups[ group ].name; 
+        infotextstream << "      Cost ";
+        infotextstream << "   to build " << get_type_cost (selected_module_type);
+        infotextstream << "   to bulldoze " << main_groups[ group ].bul_cost;
+        if( number > 1 ){
+            infotextstream << " To build " << number << " " << main_groups[ group ].name << "s ";
+            infotextstream << "will cost about " << number*get_type_cost (selected_module_type) << "£.";    
         }
     }
+    updateMessageText( infotextstream.str() );
 }
 
 int GameView::bulldozeCost( MapPoint tile ){

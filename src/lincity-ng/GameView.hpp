@@ -45,6 +45,9 @@ public:
     //inform GameView about change in Mini Map Mode
     void setMapMode( MiniMap::DisplayMode mMode );
 
+    //Show informations about selected Tool (and price to build several tiles)
+    void showToolInfo( int number = 0 );
+
     //evaluate main_screen_originx and main_screen_originy
     void readOrigin( bool redraw = true );
     //set main_screen_originx and main_screen_originy
@@ -112,8 +115,9 @@ private:
     void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;
-
     SDL_TimerID scrollTimer;
+
+    MapPoint realTile( MapPoint tile );
 };
 
 GameView* getGameView();
