@@ -35,6 +35,7 @@ public:
     void parse(XmlReader& reader);
 
     void resize(float width, float height);
+    void draw(Painter& painter);
     bool opaque(const Vector2& pos) const;
 
     struct RowColProperties
@@ -79,6 +80,7 @@ private:
 
     typedef std::vector<Cell> Cells;
     Cells cells;
+    bool border;
 };
 
 #endif

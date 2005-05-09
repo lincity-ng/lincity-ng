@@ -26,6 +26,7 @@ void
 TableLayout::parse(XmlReader& reader)
 {
     int rows = -1, cols = -1;
+    border = false;
     
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -45,6 +46,15 @@ TableLayout::parse(XmlReader& reader)
                 std::stringstream msg;
                 msg << "Error while parsing cols attribute: " << value;
                 throw std::runtime_error(msg.str());
+            }
+        } else if(strcmp(attribute, "border") == 0) {
+            if(strcmp(value, "true") == 0) {
+                border = true;
+            } else if(strcmp(value, "false") == 0) {
+                border = false;
+            } else {
+                std::cerr << "Invalid value for border attribute. "
+                    "Please specify 'true' or 'false'\n";
             }
         } else {
             std::cerr << "Skipping unknown attribute '" << attribute << "'.\n";
@@ -373,6 +383,28 @@ TableLayout::resize(float width, float height)
     }
 
     setDirty();
+}
+
+void
+TableLayout::draw(Painter& painter)
+{
+    Component::draw(painter);
+    
+    if(border) {
+        float r = 0;
+        float c = 0;
+        painter.setLineColor(Color(0, 0, 255));
+        for(size_t row = 0; row < rowproperties.size(); ++row) {
+            float nextr = r + rowproperties[row].realval;
+            for(size_t col = 0; col < colproperties.size(); ++col) {
+                float nextc = c + colproperties[col].realval;
+                painter.drawRectangle(Rect2D(c, r, nextc, nextr));
+                c = nextc;
+            }
+            r = nextr;
+            c = 0;
+        }
+    }
 }
 
 void
