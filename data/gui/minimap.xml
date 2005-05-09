@@ -30,7 +30,7 @@
 			</cell>
 		</TableLayout>
 		</cell>
-		<cell row="2" col="2" spancols="2">
+		<cell row="2" col="2" colspan="2">
 		<TableLayout rows="1" cols="9">
 			<rowsize row="1" fixed="35"/>
 			<colsize col="2" fixed="35"/>

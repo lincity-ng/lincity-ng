@@ -106,7 +106,7 @@
 					<image-checked src="images/gui/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
-			<cell row="7" col="1" spancols="3" halign="center">
+			<cell row="7" col="1" colspan="3" halign="center">
 				<Button name="Apply">
 					<image src="images/gui/dialogs/okaybutton.png"/>
 				</Button>
