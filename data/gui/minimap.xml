@@ -30,18 +30,21 @@
 			</cell>
 		</TableLayout>
 		</cell>
-		<cell row="2" col="2" colspan="2">
-		<TableLayout rows="1" cols="9">
+		<cell row="2" col="1" colspan="2">
+		<TableLayout rows="1" cols="10">
 			<rowsize row="1" fixed="35"/>
-			<colsize col="2" fixed="35"/>
-			<colsize col="3" fixed="35"/>
-			<colsize col="4" fixed="35"/>
-			<colsize col="5" fixed="35"/>
-			<colsize col="6" fixed="35"/>
-			<colsize col="7" fixed="35"/>
-			<colsize col="8" fixed="35"/>
-			<colsize col="9" fixed="35"/>
-			<cell row="1" col="1">
+                        <relative col="1" relative="1"/> <!-- move content to
+                        the right side -->
+			<colsize col="2" fixed="33"/>
+			<colsize col="3" fixed="33"/>
+			<colsize col="4" fixed="33"/>
+			<colsize col="5" fixed="33"/>
+			<colsize col="6" fixed="33"/>
+			<colsize col="7" fixed="33"/>
+			<colsize col="8" fixed="33"/>
+			<colsize col="9" fixed="33"/>
+			<colsize col="10" fixed="33"/>
+			<cell row="1" col="2">
 			<CheckButton name="MapViewNormal">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -50,7 +53,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_resident.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="1" col="2">
+			<cell row="1" col="3">
 			<CheckButton name="MapViewUB40">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -59,7 +62,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_ub40.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="1" col="3">
+			<cell row="1" col="4">
 			<CheckButton name="MapViewPollution">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -68,7 +71,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_pollution.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="1" col="4">
+			<cell row="1" col="5">
 			<CheckButton name="MapViewFood">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -77,7 +80,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_food.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="1" col="5">
+			<cell row="1" col="6">
 			<CheckButton name="MapViewPower">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -86,7 +89,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_power.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="1" col="6">
+			<cell row="1" col="7">
 			<CheckButton name="MapViewFire">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -95,7 +98,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_fire.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="1" col="7">
+			<cell row="1" col="8">
 			<CheckButton name="MapViewSport">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -104,7 +107,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_soccer.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="1" col="8">
+			<cell row="1" col="9">
 			<CheckButton name="MapViewHealth">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
@@ -113,7 +116,7 @@
 				<image-caption src="images/gui/mapview/roundbuttons/round_health.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="1" col="9">
+			<cell row="1" col="10">
 			<CheckButton name="MapViewCoal">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
