@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Market</p>
+	<p style="hp">Market is probably a bad name for these areas. They are more like job centres, shops, warehouses and markets all rolled into one. They buy and sell food, jobs, coal, goods, ore and steel to surrounding areas, and to transport such as roads. For example a residential area is supplying jobs to a market, the market is supplying jobs to a, half built, monument. <b>NOTE</b>, the residents are not being fe if the areas are more or less at the extent of their range.</p>
+	<p style="hsubtitle">Controlling what markets can buy and sell</p>
+	<p style="hp">You can control the functioning of a market by selecting what may be bought and sold from transport. Click twice on a market (not the select button) and towards the top left hand side a window will appear allowing you to select what is traded. The default is to trade in everything.</p>
+	<p style="hp">This is a market</p>
+	<img src="data/images/tiles/market.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/industry/market.png" halign="center"/>
+	
+	<p style="hp">This means the trade is allowed.</p>
+	<img src="data/images/gui/checkbox/checkbox_checked.png" halign="center"/>
+	<p style="hp">This means the trade is <b>not</b> allowed.</p>
+	<img src="data/images/gui/checkbox/checkbox.png" halign="center"/>
+	<p style="hp">The numbers between the words Buy and Sell are the map reference for that market.</p>
+	<p style="hsubtitle">See also:</p>
+	<li><a href="food">Food</a></li>
+	<li><a href="jobs">Jobs</a></li>
+	<li><a href="coal">Coal</a></li>
+	<li><a href="goods">Goods</a></li>
+	<li><a href="ore">Ore</a></li>
+	<li><a href="steel">Steel</a></li>
+	<li><a href="transport">Transport</a></li>
+</Document>
