@@ -2,7 +2,8 @@
 #define __CONFIG_HPP__
 
 #include <string>
-#include <values.h>
+#include <limits.h>
+#include <float.h>
 
 class Config 
 {
