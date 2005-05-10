@@ -662,7 +662,6 @@ Uint32 autoScroll( Uint32 interval, void *param ){
     }
     int x,y;
     SDL_GetMouseState( &x, &y );
-    std::cout<<"Maus "<< x << "/"<<y <<"\n"; 
     key_event.type = SDL_KEYUP;
     key_event.key.state = SDL_RELEASED;
     if( y < scrollBorder ){ //upper border
@@ -1153,9 +1152,6 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     }
     //adjust OnScreenPoint of big Tiles
     if( size > 1 ) { 
-        if( hideHigh ){ //don't draw big buildings
-            return;
-        }
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
@@ -1173,7 +1169,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         SDL_mutexV( mTextures );
     }
     
-    if( texture )
+    if( texture && ( !hideHigh || size == 1 ) )
     {
         tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
         tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;  
@@ -1189,10 +1185,11 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     }
     else 
     {
-        tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth / 2);
-        tileOnScreenPoint.y -= tileHeight; 
+        tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
+        tileOnScreenPoint.y -= tileHeight*size; 
         tilerect.move( tileOnScreenPoint );    
-        painter.setFillColor( Color(255, 0, 0, 255) );
+        tilerect.setSize( size * tileWidth, size * tileHeight );
+        painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
         fillDiamond( painter, tilerect );    
     }
 }

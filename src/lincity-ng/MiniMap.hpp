@@ -31,13 +31,13 @@ public:
             const MapPoint& lowerLeft);
 
     Color getColor(int x,int y) const;
+    Color getColorNormal(int x,int y) const;
 private:
     void mapViewButtonClicked(CheckButton* button, int);
     void speedButtonClicked(CheckButton* button, int);
     void zoomInButtonClicked(Button* button);
     void zoomOutButtonClicked(Button* button);
 
-    Color getColorNormal(int x,int y) const;
     void attachButtons();
     Component *findRoot(Component *c);
     Vector2 mapPointToVector(MapPoint p);
