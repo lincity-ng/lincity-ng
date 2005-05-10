@@ -17,11 +17,12 @@
         <DefineStyle name="list" style="helpdocument" margin-left="40"/>
 	
 	<GameView/>
-	<Import src="gui/messagearea.xml"/>
-	<TableLayout rows="2" cols="3">
+	<!-- Will be done on demand: Import src="gui/messagearea.xml"/ -->
+	<TableLayout rows="3" cols="3">
 		<colsize col="1" fixed="173"/>
 		<colsize col="2" relative="1"/>
 		<colsize col="3" fixed="248"/>
+        <rowsize row="3" fixed="20" />
 		<cell row="1" col="1" rowspan="2" halign="left" valign="top">
 		<Import src="gui/buttonpanel.xml"/>
 		</cell>
@@ -54,5 +55,11 @@
 		<cell row="2" col="3" valign="bottom" halign="right">
 		<Import src="gui/minimap.xml"/>
 		</cell>
+        <cell row="3" col="1" valign="bottom" colspan="3">
+                <Document background="#ffffff99">
+                    <Paragraph halign="left" color="black" name="statusParagraph"
+                        height="20" font-size="16">status bar</Paragraph>
+                </Document>
+        </cell>
 	</TableLayout>
 </gui>

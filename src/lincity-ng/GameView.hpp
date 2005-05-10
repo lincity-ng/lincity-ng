@@ -52,6 +52,8 @@ public:
     void readOrigin( bool redraw = true );
     //set main_screen_originx and main_screen_originy
     void writeOrigin();    
+
+    void printStatusMessage( std::string message );
 private:
     void recenter(const Vector2& pos);
     Vector2 getScreenPoint(MapPoint point);

@@ -16,6 +16,8 @@
 #include "gui/XmlReader.hpp"
 #include "gui/Event.hpp"
 #include "gui/PhysfsStream/PhysfsSDL.hpp"
+#include "gui/Paragraph.hpp"
+#include "gui/Desktop.hpp"
 
 #include "lincity/lin-city.h"
 #include "lincity/lctypes.h"
@@ -27,6 +29,7 @@
 #include "Dialog.hpp"
 #include "Config.hpp"
 #include "ScreenInterface.hpp"
+#include "Util.hpp"
 
 #include <SDL_keysym.h>
 #include <math.h>
@@ -1399,16 +1402,38 @@ void GameView::showToolInfo( int number /*= 0*/ )
     else
     {
         int group = main_types[ selected_module_type ].group;
-        infotextstream << "Build " << main_groups[ group ].name; 
-        infotextstream << "      Cost ";
-        infotextstream << "   to build " << selected_module_cost;
-        infotextstream << "   to bulldoze " << main_groups[ group ].bul_cost;
+        infotextstream << main_groups[ group ].name; 
+        infotextstream << ": Cost to build " << selected_module_cost;
+        infotextstream << "£, to bulldoze " << main_groups[ group ].bul_cost <<"£.";
         if( number > 1 ){
             infotextstream << " To build " << number << " " << main_groups[ group ].name << "s ";
             infotextstream << "will cost about " << number*selected_module_cost << "£.";    
         }
     }
-    updateMessageText( infotextstream.str() );
+    printStatusMessage( infotextstream.str() );
+}
+
+/*
+ * Print a Message to the StatusBar.
+ */
+void GameView::printStatusMessage( std::string message ){
+    Component* root = this;
+    while( root->getParent() )
+        root = root->getParent();
+    Desktop* desktop = dynamic_cast<Desktop*> (root);
+    if(!desktop) {
+        std::cerr << "Root not a desktop!?!\n";
+        return;
+    }
+
+    try {
+        Paragraph* statusParagraph = getParagraph( *root, "statusParagraph");
+        statusParagraph->setText( message );
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't print status message '" << message  << "': "
+            << e.what() << "\n";
+        return;
+    }
 }
 
 int GameView::bulldozeCost( MapPoint tile ){
