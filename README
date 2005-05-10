@@ -1,6 +1,7 @@
 INSTALL
 
 $ ./autogen.sh 
+% ./configure
 $ jam
 $ jam install
 
