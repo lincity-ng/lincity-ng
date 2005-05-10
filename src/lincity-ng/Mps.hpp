@@ -21,6 +21,7 @@ public:
   void setView(MapPoint point, int style = MPS_MAP );
   
   void setText(int i,const std::string &s);
+  void playBuildingSound( int mps_x, int mps_y );
  private:
   int mX,mY;
   //Number of Paragraphs in mps.xml

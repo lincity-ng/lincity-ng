@@ -163,9 +163,10 @@ void editMap (MapPoint point, int button)
     }
 
   /* Bring up mappoint_stats for certain left mouse clicks */
-  /* XXX: Need to check market and port double-clicks here */
+  /* Check market and port double-clicks here */
   if (MP_TYPE(x,y) != CST_GREEN)
     {
+      getMPS()->playBuildingSound( mod_x, mod_y );
       mps_result = mps_set(mod_x, mod_y, MPS_MAP);
 
       if (mps_result >= 1)

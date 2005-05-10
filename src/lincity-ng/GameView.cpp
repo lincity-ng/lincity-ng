@@ -1407,11 +1407,6 @@ void GameView::showToolInfo( int number /*= 0*/ )
             infotextstream << " To build " << number << " " << main_groups[ group ].name << "s ";
             infotextstream << "will cost about " << number*selected_module_cost << "£.";    
         }
-        
-        if( get_type_cost (selected_module_type) != selected_module_cost ){
-            std::cout << "WARNING: get_type_cost (selected_module_type) = " << get_type_cost (selected_module_type);   
-            std::cout << " != selected_module_cost = " << selected_module_cost << "\n";   
-        }     
     }
     updateMessageText( infotextstream.str() );
 }

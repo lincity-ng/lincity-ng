@@ -160,9 +160,9 @@ void updateMessageTitle()
     std::ostringstream titleText;
  
     titleText << current_month( total_time );
-    titleText << " "<< current_year( total_time ) << " -- ";
+    titleText << " "<< current_year( total_time ) << "    ";
     titleText << "Messages";
-    titleText << " -- " << total_money << "£";
+    titleText << "    " << total_money << "£";
     
     Component* root = getGameView();
     if( !root ) return;
