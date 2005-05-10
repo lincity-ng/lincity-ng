@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Pollution</p>
+	<p style="hp">Most areas produce some pollution. The following are areas that can cause heavy pollution:</p>
+	<li>Heavy industry.</li>
+	<li>Light industry.</li>
+	<li>Coal fired power stations.</li>
+	<li>Coal mines.</li>
+	<li>Markets that are full of waste.</li>
+	<li>Roads/Rail, particularly when full of waste.</li>
+	<p style="hp">People do not like living in polluted areas.  They will move out, or even become ill and die.</p>
+	<p style="hp">The prevailing wind is from the bottom left. Therefore the pollution tends to drift towards the top right hand side.</p>
+	<p style="hp">Generally you would build strategically so people are not exposed to pollution. This is not always possible however. If this is the case then parks form quite a nice barrier. The more parks, the greater the protection.</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="industryh">Heavy industry</a></li>
+	<li><a href="industryl">Light industry</a></li>
+	<li><a href="coalpower">Coal fired power stations</a></li>
+	<li><a href="coalmine">Coal mines</a></li>
+	<li><a href="market">Markets</a></li>
+	<li><a href="rail">Railw</a></li>
+	<li><a href="road">Roads</a></li>
+	<li><a href="park">Parks</a></li>
+</Document>

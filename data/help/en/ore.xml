@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ore</p>
+	<p style="hp">Ore is one of the game's basic raw materials. Communes oremines and recyclers produce ore.</p>
+	<p style="hp">Potteries, light industry and heavy industry use ore.</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="commune">Commune</a></li>
+	<li><a href="oremine">Oremine</a></li>
+	<li><a href="recycle">Recyclers</a></li>
+	<li><a href="pottery">Potteries</a></li>
+	<li><a href="indistryl">Light Industry</a></li>
+	<li><a href="indistryh">Heavy Industry</a></li>
+</Document>
