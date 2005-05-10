@@ -14,8 +14,10 @@
 	<img src="data/images/gui/buttonpanel/misc/university.png" halign="center"/>
 
 	<p style="hsubtitle">See also:</p>
-	<li><a href="data/help/market.xml">Market</a></li>
-	<li><a href="data/help/transport.xml">Transport</a></li>
-	<li><a href="data/help/goods.xml">Goods</a></li>
-	<li><a href="data/help/jobs.xml">Jobs</a></li>
+	<li><a href="market">Market</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="goods">Goods</a></li>
+	<li><a href="jobs">Jobs</a></li>
+	<li><a href="schools">Schools</a></li>
+	<li><a href="tech-level">Technology Level</a></li>
 </Document>

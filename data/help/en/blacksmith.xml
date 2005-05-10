@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Blacksmiths</p>
 	<p style="hp">Blacksmiths turn steel and coal into goods. You will use them mostly early on in the game. They also use jobs, of course.</p>
-	<p style="hp">Before you have steel works, you must rely on the steel produced by communes. 5 or 6 per blacksmith is recommended.</p>
+	<p style="hp">Before you have steel works, you must rely on the steel produced by communes. 5 or 6 communes per blacksmith is recommended.</p>
 	<p style="hp">Blacksmiths do not have to be connected to transport. They can get all they need from markets that are within range.</p>
 	<p style="hp">You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
 
@@ -16,4 +16,5 @@
 	<li><a href="ore">Ore</a></li>
 	<li><a href="commune">Commune</a></li>
 	<li><a href="steel">Steel</a></li>
+	<li><a href="jobs">Jobs</a></li>
 </Document>
