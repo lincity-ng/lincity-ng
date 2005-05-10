@@ -657,8 +657,12 @@ Uint32 autoScroll( Uint32 interval, void *param ){
     (void) interval;
     SDL_Event key_event;
     SDL_Surface* surface = SDL_GetVideoSurface();
+    if( !surface ){ //happens while resizing window.
+        return 50;
+    }
     int x,y;
     SDL_GetMouseState( &x, &y );
+    std::cout<<"Maus "<< x << "/"<<y <<"\n"; 
     key_event.type = SDL_KEYUP;
     key_event.key.state = SDL_RELEASED;
     if( y < scrollBorder ){ //upper border
