@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Food</p>
+	<p style="hp">Food is grown in farms or can be imported through a port.</p>
+	<p style="hp">Your people need food in order to survive. If you starve them, they will move away from that area and some may starve to death.</p>
+	<p style="hp">Mills also use food. They turn, say, cotton into cloths. They can use <i>a lot</i> of food - beware.</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="farm">Farm</a></li>
+	<li><a href="port">Port</a></li>
+	<li><a href="mill">Mill</a></li>
+	<li><a href="steel">Steel</a></li>
+</Document>
