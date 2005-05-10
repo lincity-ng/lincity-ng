@@ -46,7 +46,7 @@
 			<colsize col="10" fixed="33"/>
                         <cell row="1" col="1">
                             <Button name="HelpButton">
-                                <img src="images/gui/buttons/round/button-round-40.png"/>
+                                <image src="images/gui/buttons/round/button-round-40.png"/>
                                 <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
                                 <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
                                 <image-caption src="images/gui/info/info.png"/>
