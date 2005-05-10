@@ -3,7 +3,7 @@
 	<title>
 		<Document background="#00000044">
 		<Paragraph halign="center" color="white" name="messageTitle"
-		height="30" font-size="20">Year 0000 - Messages - 12345$</Paragraph>
+		height="30" font-size="20">Messages</Paragraph>
 		</Document>
 	</title>
 	<closebutton>

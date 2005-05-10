@@ -54,7 +54,8 @@ void execute_timestep ()
           ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) == (NUMOF_DAYS_IN_MONTH - 1) ) ){
     //update_main_screen (0); //does nothing in NG
     print_stats ();
-    updateMessageTitle();//show new Date
+    updateDate();
+    print_total_money();
     getGameView()->requestRedraw();
   }
 }

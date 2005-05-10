@@ -8,7 +8,8 @@ void screen_full_refresh ();
 void print_stats ();
 
 void update_main_screen (int full_refresh);
-void updateMessageTitle();
+void updateDate();
+void updateMoney();
 
 void updateMessageText( const std::string text );
 

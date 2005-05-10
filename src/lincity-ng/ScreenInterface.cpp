@@ -151,33 +151,46 @@ void updateMessageText( const std::string text )
     }
 }
 
-/*
- * Update the Title of the Message Window
- * $(Current Date) -- Messages -- $(Current Money) 
- */
-void updateMessageTitle()
-{
-    std::ostringstream titleText;
+void updateDate(){
+    std::ostringstream dateText;
  
-    titleText << current_month( total_time );
-    titleText << " "<< current_year( total_time ) << "    ";
-    titleText << "Messages";
-    titleText << "    " << total_money << "£";
+    dateText << current_month( total_time );
+    dateText << " "<< current_year( total_time );
     
     Component* root = getGameView();
     if( !root ) return;
     while( root->getParent() )
         root = root->getParent();
-    //test if message Windows is open and TODO: create it on demand
-    Component* messageTitleComponent = 0;
-    messageTitleComponent = root->findComponent( "messageTitle" );
-    if( messageTitleComponent == 0 ) {
+    
+    Component* dateParagraphComponent = 0;
+    dateParagraphComponent = root->findComponent( "dateParagraph" );
+    if( dateParagraphComponent == 0 ) {
         return;
     }
-    Paragraph* messageTitle = getParagraph( *root, "messageTitle");
-    if( !messageTitle ) return;
+    Paragraph* dateParagraph = getParagraph( *root, "dateParagraph");
+    if( !dateParagraph ) return;
     
-    messageTitle->setText( titleText.str() );
+    dateParagraph->setText( dateText.str() );
+}
+
+void updateMoney() {
+    std::ostringstream moneyText;
+ 
+    moneyText << total_money << "£";
+    
+    Component* root = getGameView();
+    if( !root ) return;
+    while( root->getParent() )
+        root = root->getParent();
+    Component* moneyParagraphComponent = 0;
+    moneyParagraphComponent = root->findComponent( "moneyParagraph" );
+    if( moneyParagraphComponent == 0 ) {
+        return;
+    }
+    Paragraph* moneyParagraph = getParagraph( *root, "moneyParagraph");
+    if( !moneyParagraph ) return;
+    
+    moneyParagraph->setText( moneyText.str() );
 }
 
 /*
@@ -242,7 +255,7 @@ void prog_box (char *title, int percent)
 
 void print_total_money (void)
 {
-    updateMessageTitle();
+    updateMoney();
 }
 
 void refresh_population_text (void)
@@ -267,7 +280,8 @@ void refresh_main_screen()
 
 void screen_full_refresh ()
 {
-  updateMessageTitle();
+  updateDate();
+  print_total_money();
   update_main_screen (true);
 }
 
