@@ -5,7 +5,7 @@
 		<colsize col="1" relative="174"/>
 		<colsize col="2" fixed="210"/>
 		<cell row="1" col="1">
-		<TableLayout rows="3" cols="3">
+		<TableLayout rows="3" cols="3" border="false">
 			<rowsize row="1" relative="1"/>
 			<rowsize row="2" fixed="20"/>
 			<rowsize row="3" fixed="45"/>
@@ -33,7 +33,7 @@
 		<cell row="2" col="1" colspan="2">
 		<TableLayout rows="1" cols="10">
 			<rowsize row="1" fixed="35"/>
-                        <relative col="1" relative="1"/> <!-- move content to
+                        <colsize col="1" relative="1"/> <!-- move content to
                         the right side -->
 			<colsize col="2" fixed="33"/>
 			<colsize col="3" fixed="33"/>
@@ -44,7 +44,15 @@
 			<colsize col="8" fixed="33"/>
 			<colsize col="9" fixed="33"/>
 			<colsize col="10" fixed="33"/>
-			<cell row="1" col="2">
+                        <cell row="1" col="1">
+                            <Button name="HelpButton">
+                                <img src="images/gui/buttons/round/button-round-40.png"/>
+                                <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+                                <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
+                                <image-caption src="images/gui/info/info.png"/>
+                            </Button>
+                        </cell>
+                        <cell row="1" col="2">
 			<CheckButton name="MapViewNormal">
 				<image src="images/gui/mapview/roundbuttons/roundbutton.png"/>
 				<image-clicked src="images/gui/mapview/roundbuttons/roundbutton-clicked.png"/>
