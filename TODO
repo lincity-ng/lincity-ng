@@ -39,7 +39,10 @@ Programming
  [H] New text on buttons is truncated to original textlength. 
      (eg in load game menu)
  [M] windmill starts "bouncing" up and down after you zoomed out
-
+ [H] autoscrolling causes a segfault when resizing the window (GameView.cpp:668,
+         because surface is NULL when resizing, so a simple if(surface) should
+         work)
+ 
 --Game--
  [M] some more sounds
  [M] "Loading..." screen (startup, run game)
