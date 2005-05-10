@@ -14,8 +14,8 @@ public:
     virtual ~Panel();
 
     void parse(XmlReader& reader);
-
     void draw(Painter& painter);
+    bool opaque(const Vector2& pos) const;
 
 private:
     std::auto_ptr<Texture> background;

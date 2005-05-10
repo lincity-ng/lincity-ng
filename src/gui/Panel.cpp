@@ -68,4 +68,19 @@ Panel::draw(Painter& painter)
     Component::draw(painter);
 }
 
+bool
+Panel::opaque(const Vector2& pos) const
+{
+    for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
+        const Child& child = *i;
+        if(child.getComponent() == 0 || !child.isEnabled())
+            continue;
+
+        if(child.getComponent()->opaque(pos - child.getPos()))
+            return true;
+    }
+    
+    return false;
+}
+
 IMPLEMENT_COMPONENT_FACTORY(Panel)
