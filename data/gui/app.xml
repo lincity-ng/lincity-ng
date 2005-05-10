@@ -18,7 +18,7 @@
 	
 	<GameView/>
 	<Import src="gui/messagearea.xml"/>
-	<TableLayout rows="2" cols="3" border="true">
+	<TableLayout rows="2" cols="3">
 		<colsize col="1" fixed="173"/>
 		<colsize col="2" relative="1"/>
 		<colsize col="3" fixed="248"/>
