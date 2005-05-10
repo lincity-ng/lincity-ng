@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Potteries</p>
+	<p style="hp">Potteries use ore, coal and jobs to make goods. They do not have to be connected to transport but they do, of course, have to be within range of a market with ore, coal and jobs and be able to receive goods.</p>
+	<p style="hp">You can tell when potteries are working by the kilns producing smoke. If the bottom kiln is not making smoke, then you are producing less than 100% of possible output.</p>
+	
+	<p style="hp">This is a pottery</p>
+	<img src="data/images/tiles/pottery.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="ore">Ore</a></li>
+	<li><a href="coal">Coal</a></li>
+	<li><a href="jobs">Jobs</a></li>
+	<li><a href="market">Markets</a></li>
+</Document>
