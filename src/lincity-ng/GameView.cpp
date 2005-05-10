@@ -1377,7 +1377,7 @@ void GameView::draw(Painter& painter)
             } else {
                 prize << "n/a";
             }
-            updateMessageText( prize.str() );
+            printStatusMessage( prize.str() );
         } else {
            showToolInfo( tiles );
         }    

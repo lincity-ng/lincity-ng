@@ -35,31 +35,32 @@
 		<cell row="2" col="1" valign="bottom" halign="left">
 			<Import src="gui/speedpanel.xml"/>
 		</cell>
-		<cell row="2" col="2" valign="bottom" halign="left">
-            <TableLayout rows="1" cols="2">
-            <colsize col="2" relative="3"/>
-            <cell row="1" col="1" valign="bottom">
-                <Document background="#00000044">
-                    <Paragraph halign="left" color="white" name="dateParagraph"
-                        height="30" font-size="20">Year 0000</Paragraph>
-                </Document>
-            </cell>
-            <cell row="1" col="2" valign="bottom">
-                <Document background="#00000044">
-                    <Paragraph halign="left" color="white" name="moneyParagraph"
-                        height="30" font-size="20">123456$</Paragraph>
-                </Document>
-            </cell>
-            </TableLayout>
-		</cell>
 		<cell row="2" col="3" valign="bottom" halign="right">
 		<Import src="gui/minimap.xml"/>
 		</cell>
         <cell row="3" col="1" valign="bottom" colspan="3">
-                <Document background="#ffffff99">
-                    <Paragraph halign="left" color="black" name="statusParagraph"
-                        height="20" font-size="16">status bar</Paragraph>
-                </Document>
+            <TableLayout rows="1" cols="3">
+                <colsize col="1" fixed="80"/>
+                <colsize col="2" fixed="160"/>
+                <cell row="1" col="1" valign="bottom">
+                    <Document background="#ffffff99">
+                        <Paragraph halign="left" color="blue" name="dateParagraph"
+                            height="20" font-size="16">Year 0000</Paragraph>
+                    </Document>
+                </cell>
+                <cell row="1" col="2" valign="bottom">
+                    <Document background="#ffffff99">
+                        <Paragraph halign="left" color="blue" name="moneyParagraph"
+                            height="20" font-size="16">123456$</Paragraph>
+                    </Document>
+                </cell>
+                <cell row="1" col="3" valign="bottom">
+                    <Document background="#ffffff99">
+                        <Paragraph halign="left" color="black" name="statusParagraph"
+                            height="20" font-size="16">status bar</Paragraph>
+                    </Document>
+                </cell>
+            </TableLayout>
         </cell>
 	</TableLayout>
 </gui>
