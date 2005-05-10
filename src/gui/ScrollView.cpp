@@ -105,6 +105,7 @@ void
 ScrollView::replaceContents(Component* component)
 {
     resetChild(contents(), component);
+    contents().setPos(Vector2(0, 0));
     resize(width, height);
 }
 
