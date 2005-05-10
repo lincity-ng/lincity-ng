@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Coal</p>
+	<p style="hp">Coal is used by coal fired power stations to make electricity (power). It is also used by potteries, mills and blacksmiths in the process of making goods. Heavy industry (steel works) use coal when they cannot get electricity.</p>
+	<p style="hp">Coal is dug from under the ground by coal mines. There is a finite coal reserve which you can see with use of the coal reserve button (see coal mines).</p>
+	<p style="hp">Communes provide a little 'coal' as well. Really this is charcoal make from copiced woods. They only provide small amounts, enough for a few potteries and blacksmiths.</p>
+	<p style="hp">You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="coalmine">Coal mines</a></li>
+	<li><a href="commune">Communes</a></li>
+	<li><a href="pottery">Potteries</a></li>
+	<li><a href="blacksmith">Blacksmiths</a></li>
+</Document>
