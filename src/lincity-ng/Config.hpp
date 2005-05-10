@@ -27,8 +27,8 @@ public:
     void save();
 private:
     void load( const std::string& filename );
-    int parseInt(const char* value, int defaultValue, int minValue = MININT, 
-            int maxValue = MAXINT );
+    int parseInt(const char* value, int defaultValue, int minValue = INT_MIN, 
+            int maxValue = INT_MAX );
     bool parseBool(const char* value, bool defaultvalue);
 };
 
