@@ -10,7 +10,7 @@
 	margin-left="23" margin-right="20"/>
 	<Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
 	<!-- Split window into title/top - contents and bottom/buttons area -->
-	<TableLayout rows="3" cols="1">
+	<TableLayout rows="3" cols="1" border="true">
 		<rowsize row="1" fixed="260"/>
 		<rowsize row="2" fixed="313"/>
 		<rowsize row="3" relative="1"/>

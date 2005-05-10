@@ -15,6 +15,7 @@
 #include "Util.hpp"
 #include "lincity/lin-city.h"
 #include "GameView.hpp"
+#include "HelpWindow.hpp"
 
 Game::Game()
 {
@@ -23,6 +24,11 @@ Game::Game()
 
     Button* gameMenu = getButton( *gui, "GameMenuButton" );
     gameMenu->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
+
+    Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
+    if(desktop == 0)
+        throw std::runtime_error("Game UI is not a Desktop Component");
+    helpWindow.reset(new HelpWindow(desktop));
 }
 
 Game::~Game()
@@ -43,34 +49,6 @@ void Game::gameButtonClicked( Button* button ){
     }
     else {
          std::cerr << " Game::gameButtonClicked unknown button '" << name << "'.\n";
-    }
-}
-
-void Game::openHelpWindow(){
-    Component* root = getGameView();
-    if(!root) {
-        std::cerr << "Root not found.\n";
-        return;
-    }
-    while( root->getParent() )
-        root = root->getParent();
-    Desktop* desktop = dynamic_cast<Desktop*> (root);
-    if(!desktop) {
-        std::cerr << "Root not a desktop!?!\n";
-        return;
-    }
-    try {
-        //test if Help-Windows is open
-        Component* messageTextComponent = 0;
-        messageTextComponent = root->findComponent( "HelpWindowTitle" );
-        if(messageTextComponent == 0) {
-            messageTextComponent = loadGUIFile("gui/helpwindow.xml");
-            desktop->addChildComponent(messageTextComponent);
-        }
-    } catch(std::exception& e) {
-        std::cerr << "Couldn't open HelpWindow"
-            << e.what() << "\n";
-        return;
     }
 }
 
@@ -95,7 +73,7 @@ Game::run()
                          break;
                      }
                      if( gui_event.keysym.sym == SDLK_F1 ){
-                         openHelpWindow();
+                         helpWindow->showTopic("help");
                          break;
                      }
                      gui->event(gui_event);
@@ -119,6 +97,7 @@ Game::run()
             }
         }
         gui->event(Event(Event::UPDATE));
+        helpWindow->update();
         gui->draw(*painter);
         flipScreenBuffer();
         frame++;

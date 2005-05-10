@@ -25,10 +25,7 @@ Programming
  [M] Images in helptext.
  [L] drawToTexture in OpenGL (noone using this at the moment, could be used to
      optimize minimap in the future)
- [M] Add tooltips for buttonpanel
- [L] Add maximize for Windows (see Window.cpp 74 ff)
-      - really?
- [H] refresh after loading new elements (eg. help window)
+ [H] Add tooltips for buttonpanel
  [?] Usability testing log. That the buttons the user pressed (and additional
      actions like scrolling the map, creating buildings, displaying building
      stats). This could be used to measure common user actions and improve

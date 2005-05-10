@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Window width="500" height="400" border="5" titlesize="30" >
+<Window width="500" height="400" border="5" titlesize="30" name="HelpWindow">
 	<title>
 		<Paragraph halign="center" color="white" name="HelpWindowTitle"
 		height="30" font-size="20">Help - Lincity NG</Paragraph>
@@ -16,7 +16,7 @@
 		<FilledRectangle color="#ffffffbb"/>
 	</background>
 	<contents>
-		<ScrollView>
+		<ScrollView name="HelpScrollView">
 		<scrollbar width="20">
 			<button1>
 				<image src="images/gui/buttons/round/button-round-20.png"/>
@@ -36,9 +36,6 @@
 				<image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
 			</scroller>
 		</scrollbar>
-		<contents>
-			<Document src="help/xml/blacksmith.xml"/>
-		</contents>
 		</ScrollView>
 	</contents>
 </Window>

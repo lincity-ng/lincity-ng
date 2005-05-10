@@ -10,6 +10,7 @@
 #include "Painter.hpp"
 #include "ComponentFactory.hpp"
 #include "DocumentImage.hpp"
+#include "callback/Callback.hpp"
 
 Document::Document()
 {
@@ -52,6 +53,8 @@ Document::parse(XmlReader& reader)
                 } else {
                     paragraph->parseList(reader, style);
                 }
+                paragraph->linkClicked.connect(
+                    makeCallback(*this, &Document::paragraphLinkClicked));
                 addChild(paragraph.release());
             } else if(node == "img") {
                 std::auto_ptr<DocumentImage> image (new DocumentImage());
@@ -120,6 +123,12 @@ Document::draw(Painter& painter)
     }
 
     Component::draw(painter);
+}
+
+void
+Document::paragraphLinkClicked(Paragraph* paragraph, const std::string& href)
+{
+    linkClicked(paragraph, href);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Document);

@@ -17,6 +17,8 @@ public:
 
     void parseAttributes(XmlReader& reader);
     bool parseAttribute(const char* name, const char* value);
+
+    std::string href;
     
     std::string font_family;
     bool italic;

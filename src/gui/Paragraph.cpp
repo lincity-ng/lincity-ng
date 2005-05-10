@@ -10,6 +10,7 @@
 #include <SDL_ttf.h>
 #include <SDL_image.h>
 
+#include "Event.hpp"
 #include "FontManager.hpp"
 #include "TextureManager.hpp"
 #include "Painter.hpp"
@@ -143,7 +144,6 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                 if(currentspan == 0) {
                     currentspan = new TextSpan();
                     currentspan->style = stylestack.back();
-                    currentspan->href = currenthref;
                 }
                 
                 const char* p = (const char*) reader.getValue();
@@ -219,13 +219,16 @@ Paragraph::resize(float width, float height)
     }
     std::auto_ptr<FontManager> fontManager (new FontManager());
 
+    // y coordinates for all the lines
     std::vector<int> ycoords;
+    // surfaces of all the lines rendered
     std::vector<SDL_Surface*> lineimages;
+    // surfaces for the current line
     std::vector<SDL_Surface*> spanimages;
+    std::vector<LinkRectangle> linerectangles;
     std::vector<int> spanbaselines;
     int lineheight = 0;
     int baseline = 0;
-    int boxheight = 0;
 
     TextSpans::iterator i = textspans.begin();
     if(i == textspans.end()) {
@@ -242,14 +245,16 @@ Paragraph::resize(float width, float height)
     std::string::size_type p = 0;
     std::string::size_type linestart = 0;
     lineheight = TTF_FontHeight(font);
+    // string that should be rendered next
     std::string line;
-    float linepos = 0;
+    // current rendering position
+    Vector2 pos;
 
     while(1) {
         std::string::size_type lastp = p;
         if( (*text) [p] == ' ') {
             // we don't need the space at the beginning of the line
-            if(p-linestart != 0 || linepos != 0)
+            if(p-linestart != 0 || pos.x != 0)
                 line += ' ';
             else {
                 lastp++;
@@ -270,12 +275,12 @@ Paragraph::resize(float width, float height)
         bool render = false;
         bool linefeed = false;
         // we need a linefeed if width isn't enough for current span
-        if(width > 0 && linepos + render_width >= width) {
+        if(width > 0 && pos.x + render_width >= width) {
             render = true;
             linefeed = true;
            
             // we have to leave out the last word (which made it too width)
-            if(lastp-linestart > 0 || linepos != 0) {
+            if(lastp-linestart > 0 || pos.x != 0) {
                 line = std::string(*text, linestart, lastp-linestart);
                 // set new linestart and set p back
                 p = lastp;
@@ -311,8 +316,18 @@ Paragraph::resize(float width, float height)
             SDL_SetAlpha(spansurface, 0, 0);
             spanimages.push_back(spansurface);
             spanbaselines.push_back(TTF_FontAscent(font));
+
+            // remember span position if it is a link
+            if(span->style.href != "") {
+                LinkRectangle link;
+                link.rect = Rect2D (pos.x, pos.y,
+                                    pos.x + spansurface->w,
+                                    pos.y + spansurface->h);
+                link.span = span;
+                linerectangles.push_back(link);
+            }
             
-            linepos += spansurface->w;
+            pos.x += spansurface->w;
             line = "";
         }
 
@@ -322,7 +337,7 @@ Paragraph::resize(float width, float height)
             if(spanimages.size() == 1) {
                 lineimages.push_back(spanimages.back());
             } else {
-                SDL_Surface* lineimage = SDL_CreateRGBSurface(0, (int) linepos,
+                SDL_Surface* lineimage = SDL_CreateRGBSurface(0, (int) pos.x,
                         (int) lineheight, 32,
                         0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
                 if(lineimage == 0) {
@@ -349,15 +364,31 @@ Paragraph::resize(float width, float height)
             }
             spanbaselines.clear();
             spanimages.clear();
+
+            // adjust link rectangles for alignment and add them to the list
+            float xoffset;
+            if(style.alignment == Style::ALIGN_LEFT) {
+                xoffset = 0;
+            } else if(style.alignment == Style::ALIGN_CENTER) {
+                xoffset = (width - lineimages.back()->w) / 2;
+            } else {
+                xoffset = (width - lineimages.back()->w);
+            }
+            for(std::vector<LinkRectangle>::iterator i =linerectangles.begin();
+                i != linerectangles.end(); ++i) {
+                i->rect.move(Vector2(xoffset, 0));
+                linkrectangles.push_back(*i);
+            }
+            linerectangles.clear();
+
+            line = "";
+            pos.x = 0;
                             
-            ycoords.push_back(boxheight);
-            boxheight += lineheight;
+            ycoords.push_back(static_cast<int> (pos.y));
+            pos.y += lineheight;
 
             lineheight = TTF_FontHeight(font);
             baseline = TTF_FontAscent(font);
-            
-            line = "";
-            linepos = 0;
         }
 
         // advance to next span if necessary
@@ -374,7 +405,7 @@ Paragraph::resize(float width, float height)
     }
 
     if(height < 0) {
-        height = boxheight;
+        height = pos.y;
         if(height < style.min_height) {
             height = style.min_height;
         }
@@ -431,6 +462,26 @@ Paragraph::draw(Painter& painter)
         return;
 
     painter.drawTexture(texture, Vector2(0, 0));
+}
+
+void
+Paragraph::event(const Event& event)
+{
+    if(event.type != Event::MOUSEMOTION &&
+       event.type != Event::MOUSEBUTTONDOWN)
+        return;
+    if(!event.inside)
+        return;
+    for(LinkRectangles::iterator i = linkrectangles.begin();
+        i != linkrectangles.end(); ++i) {
+        if(i->rect.inside(event.mousepos)) {
+            if(event.type == Event::MOUSEMOTION) {
+                // TODO change mouse cursor
+            } else if(event.type == Event::MOUSEBUTTONDOWN) {
+                linkClicked(this, i->span->style.href);
+            }
+        }
+    }
 }
 
 void

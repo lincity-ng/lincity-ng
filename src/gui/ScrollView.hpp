@@ -15,6 +15,7 @@ public:
     void parse(XmlReader& reader);
 
     void resize(float width, float height);
+    void replaceContents(Component* component);
 
 private:
     void scrollBarChanged(ScrollBar* bar, float newvalue);

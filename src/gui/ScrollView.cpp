@@ -72,13 +72,18 @@ ScrollView::resize(float newwidth, float newheight)
     float scrollBarWidth = scrollBar().getComponent()->getWidth();
     scrollBar().getComponent()->resize(scrollBarWidth, newheight);
     scrollBar().setPos(Vector2(newwidth - scrollBarWidth, 0));
-    
-    if(contents().getComponent()->getFlags() & FLAG_RESIZABLE)
-        contents().getComponent()->resize(newwidth - scrollBarWidth, newheight);
-    contents().setClipRect(Rect2D(0, 0, newwidth - scrollBarWidth, newheight));
-    float scrollarea = contents().getComponent()->getHeight() - newheight;
-    if(scrollarea < 0)
-        scrollarea = 0;
+   
+    float scrollarea = 0;
+    if(contents().getComponent() != 0) {
+        Component* component = contents().getComponent();
+        if(component->getFlags() & FLAG_RESIZABLE)
+            component->resize(newwidth - scrollBarWidth, newheight);
+        contents().setClipRect(
+                Rect2D(0, 0, newwidth - scrollBarWidth, newheight));
+        scrollarea = component->getHeight() - newheight;
+        if(scrollarea < 0)
+            scrollarea = 0;        
+    }
 
     ScrollBar* scrollBarComponent = (ScrollBar*) scrollBar().getComponent();
     scrollBarComponent->setRange(0, scrollarea);
@@ -96,4 +101,12 @@ ScrollView::scrollBarChanged(ScrollBar* , float newvalue)
     setDirty();
 }
 
-IMPLEMENT_COMPONENT_FACTORY(ScrollView)
+void
+ScrollView::replaceContents(Component* component)
+{
+    resetChild(contents(), component);
+    resize(width, height);
+}
+
+IMPLEMENT_COMPONENT_FACTORY(ScrollView);
+

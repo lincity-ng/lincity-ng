@@ -24,6 +24,7 @@
 #include "Config.hpp"
 
 Painter* painter = 0;
+TinyGetText::DictionaryManager dictionaryManager;
 
 void initSDL()
 {

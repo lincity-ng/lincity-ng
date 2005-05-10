@@ -7,6 +7,7 @@
 #include "Component.hpp"
 #include "Style.hpp"
 #include "DocumentElement.hpp"
+#include "callback/Signal.hpp"
 
 class XmlReader;
 
@@ -18,8 +19,6 @@ class TextSpan
 public:
     Style style;
     std::string text;
-    std::string href;
-    std::vector<Rect2D> rectangles;
 };
 
 /**
@@ -41,6 +40,7 @@ public:
 
     void resize(float width, float height);
     void draw(Painter& painter);
+    void event(const Event& event);
 
     /**
      * sets a new text in the Paragraph. The style of the paragraph is used
@@ -58,12 +58,24 @@ public:
         return style;
     }
 
+    Signal<Paragraph*, const std::string&> linkClicked;
+
 private:
+    class LinkRectangle
+    {
+    public:
+        Rect2D rect;
+        const TextSpan* span;
+    };
+    
     typedef std::vector<TextSpan*> TextSpans;
     TextSpans textspans;
     Style style;
 
     Texture* texture;
+
+    typedef std::vector<LinkRectangle> LinkRectangles;
+    LinkRectangles linkrectangles;
 };
 
 #endif

@@ -8,6 +8,7 @@
 class Painter;
 class Sound;
 class Component;
+class HelpWindow;
 
 class Game
 {
@@ -17,7 +18,6 @@ public:
 
     MainState run();
     void gameButtonClicked( Button* button );
-    void openHelpWindow();
 
 private:
     std::auto_ptr<Component> gui;
@@ -25,6 +25,7 @@ private:
     bool running;
     MainState quitState;
     void backToMainMenu();
+    std::auto_ptr<HelpWindow> helpWindow;
 };
 
 #endif

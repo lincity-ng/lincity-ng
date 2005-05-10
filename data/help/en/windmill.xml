@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<help style="helpdocument">
+<Document style="helpdocument">
 	<p style="htitle">Windmills</p>
 	<p style="hp">Windmills provide power for residences and farms. They enable the farmer to process food more eficiently and make residences more desirable.</p>
 	<p style="hp">Providing power to residences makes the people there use more goods.</p>
@@ -12,4 +12,4 @@
 	<img src="data/images/tiles/windpower.png" halign="center"/>
 	<p style="hp">The type you get depends on your tech-level when you build it.</p>
 	<p style="hp">High tech ones can supply power lines.</p>
-</help>
+</Document>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<help style="helpdocument">
+<Document style="helpdocument">
 	<p style="htitle">Blacksmiths</p>
 	<p style="hp">Blacksmiths turn steel and coal into goods. You will use them mostly early on in the game. They also use jobs, of course.</p>
 	<p style="hp">Before you have steel works, you must rely on the steel produced by communes. 5 or 6 per blacksmith is recommended.</p>
@@ -12,8 +12,8 @@
 	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
-	<li><a href="data/help/market.xml">Market</a></li>
-	<li><a href="data/help/ore.xml">Ore</a></li>
-	<li><a href="data/help/commune.xml">Commune</a></li>
-	<li><a href="data/help/steel.xml">Steel</a></li>
-</help>
+	<li><a href="market">Market</a></li>
+	<li><a href="ore">Ore</a></li>
+	<li><a href="commune">Commune</a></li>
+	<li><a href="steel">Steel</a></li>
+</Document>

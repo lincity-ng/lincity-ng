@@ -307,6 +307,12 @@ DictionaryManager::set_language(const std::string& lang)
   current_dict = & (get_dictionary(language));
 }
 
+const std::string&
+DictionaryManager::get_language() const
+{
+  return language;
+}
+
 void
 DictionaryManager::set_charset(const std::string& charset)
 {

@@ -34,7 +34,9 @@ Window::parse(XmlReader& reader)
         const char* name = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(strcmp(name, "width") == 0) {
+        if(parseAttribute(name, value)) {
+            continue;
+        } else if(strcmp(name, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
                 std::stringstream msg;
                 msg << "Couldn't parse width attribute (" << value << ").";

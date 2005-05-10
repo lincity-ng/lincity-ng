@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<help style="helpdocument">
+<Document style="helpdocument">
 	<p style="htitle">University</p>
 	<p style="hp">Universities help to increase your technology level. In the process they consume goods and jobs. They produce more than schools for a given goods/jobs input. However, they use a lot of these and also cost quite a lot of money to run, so you should have the economic and industrial capacity to supply them.</p>
 	<p style="hp">You will need a number of universities to achieve a tech level close to 100%</p>
@@ -18,4 +18,4 @@
 	<li><a href="data/help/transport.xml">Transport</a></li>
 	<li><a href="data/help/goods.xml">Goods</a></li>
 	<li><a href="data/help/jobs.xml">Jobs</a></li>
-</help>
+</Document>

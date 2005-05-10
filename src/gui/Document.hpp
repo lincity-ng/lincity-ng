@@ -4,8 +4,10 @@
 #include <vector>
 #include "Style.hpp"
 #include "Component.hpp"
+#include "callback/Signal.hpp"
 
 class XmlReader;
+class Paragraph;
 
 class Document : public Component
 {
@@ -19,6 +21,10 @@ public:
     void resize(float width, float height);
 
     Style style;
+    Signal<Paragraph*, const std::string& > linkClicked;
+
+private:
+    void paragraphLinkClicked(Paragraph* paragraph, const std::string& href);
 };
 
 #endif

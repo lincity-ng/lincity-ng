@@ -130,6 +130,8 @@ Style::parseAttribute(const char* attribute, const char* value)
         text_color.parse(value);
     } else if(strcmp(attribute, "background") == 0) {
         background.parse(value);
+    } else if(strcmp(attribute, "href") == 0) {
+        href = value;
     } else {
         return false;
     }
