@@ -51,7 +51,7 @@ Paragraph::parseList(XmlReader& reader, const Style& )
     // add a bullet char at the front of the text
     TextSpan* currentspan = new TextSpan();
     currentspan->style = i->second;
-    currentspan->text = " \342\200\200 ";
+    currentspan->text = " \342\200\242 ";
     textspans.push_back(currentspan);
 
     parse(reader, i->second);
