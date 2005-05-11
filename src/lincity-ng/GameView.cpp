@@ -1404,12 +1404,13 @@ void GameView::showToolInfo( int number /*= 0*/ )
     else
     {
         int group = main_types[ selected_module_type ].group;
-        infotextstream << main_groups[ group ].name; 
+        std::string buildingName = main_groups[ group ].name;
+        infotextstream << dictionaryManager->get_dictionary().translate( buildingName ); 
         infotextstream << _(": Cost to build ") << selected_module_cost <<_("$");
         infotextstream << _(", to bulldoze ") << main_groups[ group ].bul_cost <<_("$.");
         if( number > 1 ){
-            infotextstream << _(" To build ") << number << " " << main_groups[ group ].name << "s ";
-            infotextstream << _("will cost about ") << number*selected_module_cost << "$.";    
+            infotextstream << _(" To build ") << number << _(" of them ");
+            infotextstream << _("will cost about ") << number*selected_module_cost << _("$.");    
         }
     }
     printStatusMessage( infotextstream.str() );
