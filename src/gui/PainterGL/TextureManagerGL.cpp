@@ -8,7 +8,7 @@
 #include <sstream>
 #include <stdexcept>
 
-#include "gui/PhysfsStream/PhysfsSDL.hpp"
+#include "PhysfsStream/PhysfsSDL.hpp"
 #include "TextureGL.hpp"
 
 TextureManagerGL::TextureManagerGL()

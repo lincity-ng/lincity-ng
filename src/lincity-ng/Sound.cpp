@@ -24,7 +24,7 @@
 #include <sstream>
 #include <stdexcept>
 
-#include "gui/PhysfsStream/PhysfsSDL.hpp"
+#include "PhysfsStream/PhysfsSDL.hpp"
 
 #include <SDL_mixer.h>
 #include <physfs.h>

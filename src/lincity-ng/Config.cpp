@@ -8,7 +8,7 @@
 
 #include "Config.hpp"
 #include "gui/XmlReader.hpp"
-#include "gui/PhysfsStream/PhysfsStream.hpp"
+#include "PhysfsStream/PhysfsStream.hpp"
 
 #include <assert.h>
 #include <iostream>

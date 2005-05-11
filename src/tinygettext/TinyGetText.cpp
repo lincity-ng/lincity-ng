@@ -27,7 +27,7 @@
 #include <errno.h>
 
 #include "TinyGetText.hpp"
-#include "gui/PhysfsStream/PhysfsStream.hpp"
+#include "PhysfsStream/PhysfsStream.hpp"
 
 //#define TRANSLATION_DEBUG
 

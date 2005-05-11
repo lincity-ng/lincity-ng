@@ -1,5 +1,7 @@
 SubDir TOP ;
 
+TRANSLATABLE_SOURCES = ;
+
 # Decend into subdirs
 SubInclude TOP src ;
 SubInclude TOP data ;
@@ -7,6 +9,13 @@ SubInclude TOP doc ;
 
 UseAutoconf ;
 
+# run xgettext on sources
+if $(XGETTEXT) != ""
+{
+    DoXGetText data/locale/messages.pot : $(TRANSLATABLE_SOURCES) ;
+}
+
 # add some additional files to package
 Package README TODO ;
 InstallDoc README TODO ;
+

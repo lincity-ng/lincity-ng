@@ -8,7 +8,7 @@
 
 #include "TextureManagerSDL.hpp"
 #include "TextureSDL.hpp"
-#include "gui/PhysfsStream/PhysfsSDL.hpp"
+#include "PhysfsStream/PhysfsSDL.hpp"
 
 TextureManagerSDL::TextureManagerSDL()
 {}

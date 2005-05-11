@@ -1,0 +1,38 @@
+0. How to Translate
+~~~~~~~~~~~~~~~~~~~~
+
+* Install gettext
+* get a snv snapshot of lincity-ng and do the usual autogen.sh, configure.
+  Make sure configure can find the xgettext application.
+    (ie. "checking for xgettext... xgettext")
+* Run 'jam', let it compile. It should create data/locale/messages.pot and
+  data/locale/gui/messages.pot files
+* Go into data/locale and data/locale/gui and in each dir do:
+     - In case you want to create a new translation do
+        msginit -i messages.pot -o $LANG.po
+       (where $LANG is the 2character handle of your language)
+     - In case you want to update an existing translation do
+        msgmerge -U $LANG.po messages.pot
+
+* Edit the .po files with your favourite Editor or with 1 of the GUI tools
+  below.
+* Send the translated .po files to the lincity-devel@lists.sourceforge.net
+  mailing list.
+* You should also edit the lincity-ng.desktop file and add a comment entry for
+  your language
+
+2. GUI Tools
+~~~~~~~~~~~~~
+
+ KBabel      - a long dated KDE program that has been maturing over the years,
+               and it's really handy by now.
+ poEdit      - a multi-platform po editor (runs under Windows and Unix).
+               URL: http://poedit.sourceforge.net/
+ (X)Emacs    - a commonly used program for translating with the respective
+               plugin.
+ QTranslator - made by Qt, has the advantage of running in several platforms.
+               PO files are written in ASCII and are pretty intuitive, so they
+               can be used by any text editor. But it would be wise to use a
+               program made for that effect. If not possible, use a text editor
+               with highlighting for PO files.
+

@@ -1,10 +1,12 @@
 SubDir TOP src gui ;
 
-Library lincity_gui 
-	: [ Wildcard *.cpp *.hpp ] 
-	  [ Wildcard callback : *.cpp *.hpp ] 
-	  [ Wildcard PainterGL : *.cpp *.hpp ]
-	  [ Wildcard PainterSDL : *.cpp *.hpp ]
-	: noinstall
+SOURCES =
+    [ Wildcard *.cpp *.hpp ]
+    [ Wildcard callback : *.cpp *.hpp ]
+    [ Wildcard PainterGL : *.cpp *.hpp ]
+    [ Wildcard PainterSDL : *.cpp *.hpp ]
 ;
+Library lincity_gui : $(SOURCES) : noinstall ;
 ExternalLibs lincity_gui : LIBXML SDL SDLIMAGE PHYSFS GL ;
+
+TRANSLATABLE_SOURCES += [ SearchSource $(SOURCES) ] ;

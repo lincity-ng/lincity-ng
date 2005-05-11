@@ -40,3 +40,5 @@ InstallData [ Wildcard locale/gui : *.po ] : locale/gui ;
 InstallData [ Wildcard music : *.ogg ] : music ;
 InstallData [ Wildcard sounds : *.wav ] : sounds ;
 InstallData lincityconfig.xml ;
+
+DoXmlGetText locale/gui/messages.pot : [ Wildcard gui : *.xml ] ;
