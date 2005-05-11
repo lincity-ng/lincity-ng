@@ -184,7 +184,6 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         }
     }
     selected_module_type = tmp;
-    updateSelectedCost();
 }
 
 void ButtonPanel::examineMenuButtons(){
@@ -629,8 +628,6 @@ void ButtonPanel::doButton(const std::string &button)
     selected_module_type=CST_PARKLAND_PLANE;
   else if(button=="BPMWaterButton")
     selected_module_type=CST_WATER;
-  
-  updateSelectedCost(); 
 }
 
 void ButtonPanel::updateSelectedCost(){
