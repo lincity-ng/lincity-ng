@@ -1,7 +1,7 @@
 #ifndef __MAIN_HPP__
 #define __MAIN_HPP__
 
-#include "gui/TinyGetText/TinyGetText.hpp"
+#include "tinygettext/TinyGetText.hpp"
 
 enum MainState {
     MAINMENU, INGAME, QUIT
@@ -17,9 +17,6 @@ class Painter;
  *       function!
  */
 extern Painter* painter;
-
-/// global instance of tinygettext
-extern TinyGetText::DictionaryManager dictionaryManager;
 
 #endif
 

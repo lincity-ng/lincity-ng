@@ -3,7 +3,7 @@ SubDir TOP src lincity-ng ;
 Application lincity-ng
 	: [ Wildcard *.cpp *.hpp ]
 ;
-LinkWith lincity-ng : lincity_gui lincity_lib ;
+LinkWith lincity-ng : lincity_gui lincity_lib tinygettext physfsstream ;
 C++Flags lincity-ng : -DAPPDATADIR=\\\"$(appdatadir)\\\" ;
 ExternalLibs lincity-ng : LIBXML SDL SDLIMAGE SDLMIXER SDLTTF SDLGFX PHYSFS GL ;
 

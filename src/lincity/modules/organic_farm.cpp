@@ -174,7 +174,7 @@ void
 mps_organic_farm (int x, int y)
 {
   int i = 0;
-  char *p;
+  const char *p;
 
   /** removed depency on mps_info */
   mps_store_title(i++,_("Organic Farm"));

@@ -15,7 +15,7 @@
 #define MONTHGRAPH_STYLE_MAX  MONTHGRAPH_STYLE_SUSTAIN
 
 
-void HandleError (char *, int);
+void HandleError (const char *, int);
 
 
 extern unsigned char main_font[2048];
@@ -53,7 +53,7 @@ void refresh_monthgraph (void);
 void draw_small_yellow_bezel (int x, int y, int h, int w);
 void init_pbars (void);
 void mini_screen_help (void);
-void status_message(char *m1, char* m2);
+void status_message(const char *m1, const char* m2);
 void print_time_for_year (void);
 void rotate_main_screen (void);
 void screen_setup (void);
@@ -63,7 +63,7 @@ void init_mini_map_mouse(void);
 void mini_map_handler(int x, int y, int button);
 void mini_aux_handler(int x, int y, int button);
 /* Message area */
-void display_info_message (int colour, char* ss, char* xs);
+void display_info_message (int colour, const char* ss, const char* xs);
 void reset_status_message (void);
 
 #define CB_SPACE 20 // space between checkbuttons for market/port

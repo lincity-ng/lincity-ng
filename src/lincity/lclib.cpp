@@ -19,7 +19,7 @@ N_("May"), N_("Jun"), N_("Jul"), N_("Aug"),
 N_("Sep"), N_("Oct"), N_("Nov"), N_("Dec")};
 
 
-char* 
+const char* 
 current_month (int current_time)
 {
     return _(months[(current_time % NUMOF_DAYS_IN_YEAR) / NUMOF_DAYS_IN_MONTH]);

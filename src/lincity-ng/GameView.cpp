@@ -15,7 +15,7 @@
 #include "gui/ComponentFactory.hpp"
 #include "gui/XmlReader.hpp"
 #include "gui/Event.hpp"
-#include "gui/PhysfsStream/PhysfsSDL.hpp"
+#include "PhysfsStream/PhysfsSDL.hpp"
 #include "gui/Paragraph.hpp"
 #include "gui/Desktop.hpp"
 

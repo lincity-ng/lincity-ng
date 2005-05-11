@@ -448,7 +448,7 @@ unlock_window_size (void)
 
 
 void
-HandleError (char *description, int degree)
+HandleError (const char *description, int degree)
 {
   fprintf (stderr,
 	   _("An error has occurred.  The description is below...\n"));
@@ -534,7 +534,7 @@ Fgl_line (int x1, int y1, int dummy, int y2, int col)
 }
 
 void
-Fgl_write (int x, int y, char *s)
+Fgl_write (int x, int y, const char *s)
 {
   int i;
   for (i = 0; i < (int) (strlen (s)); i++)
@@ -542,7 +542,7 @@ Fgl_write (int x, int y, char *s)
 }
 
 void
-open_write (int x, int y, char *s)
+open_write (int x, int y, const char *s)
 {
   int i;
   for (i = 0; i < (int) (strlen (s)); i++)

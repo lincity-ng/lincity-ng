@@ -3,6 +3,7 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
+#define NEED_GETTEXT_CHARHACK
 #include "lcconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -1859,7 +1860,7 @@ print_time_for_year (void)
 
 /* Write a message in the status area of the screen */
 void 
-status_message_1 (char * message) 
+status_message_1 (const char * message) 
 {
     Rect* b = &scr.status_message_1;
 
@@ -1870,7 +1871,7 @@ status_message_1 (char * message)
 }
 
 void 
-status_message_2 (char * message) 
+status_message_2 (const char * message) 
 {
     Rect* b = &scr.status_message_2;
 
@@ -1881,7 +1882,7 @@ status_message_2 (char * message)
 }
 
 void
-status_message (char* m1, char* m2)
+status_message (const char* m1, const char* m2)
 {
     status_message_1(m1);
     status_message_2(m2);
@@ -2210,7 +2211,7 @@ close_port_cb (void)
 }
 
 int
-yn_dial_box (char * s1, char * s2, char * s3, char *s4)
+yn_dial_box (const char * s1, const char * s2, const char * s3, const char *s4)
 {
     int result;
     result = dialog_box(red(10),7,
@@ -2226,7 +2227,7 @@ yn_dial_box (char * s1, char * s2, char * s3, char *s4)
 }
 
 void
-ok_dial_box (char *fn, int good_bad, char *xs)
+ok_dial_box (const char *fn, int good_bad, const char *xs)
 {
     FILE *inf;
     struct stat statbuf;
@@ -2289,9 +2290,10 @@ ok_dial_box (char *fn, int good_bad, char *xs)
 }
 
 void
-format_status_message (char* sm1, char* sm2, int num_char, char* ss, char* xs)
+format_status_message (char* sm1, char* sm2, int num_char,
+                       const char* ss, const char* xs)
 {
-    char* src = ss;
+    const char* src = ss;
     char* tgt = sm1;
     int did_xs = 0;
     int did_sm2 = 0;
@@ -2329,7 +2331,7 @@ format_status_message (char* sm1, char* sm2, int num_char, char* ss, char* xs)
 
 /* Call this routine instead of dialog_box() */
 void
-display_info_message (int colour, char* ss, char* xs)
+display_info_message (int colour, const char* ss, const char* xs)
 {
     if (suppress_popups) {
 	/* display in the message area */
@@ -2361,7 +2363,7 @@ display_info_message (int colour, char* ss, char* xs)
 }
 
 void
-prog_box (char *title, int percent)
+prog_box (const char *title, int percent)
 {
     static int flag = 0, oldpercent = 0;
     char s[100];

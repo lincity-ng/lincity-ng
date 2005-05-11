@@ -318,7 +318,7 @@ void
 mps_heavy_industry (int x, int y)
 {
     int i = 0;
-    char * p;
+    const char * p;
   
     mps_store_title(i++,_("Heavy"));
     mps_store_title(i++,_("Industry"));

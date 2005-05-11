@@ -1,0 +1,23 @@
+#ifndef __GETTEXT_H__
+#define __GETTEXT_H__
+
+#include "tinygettext/TinyGetText.hpp"
+
+extern TinyGetText::DictionaryManager* dictionaryManager;
+
+#ifdef NEED_GETTEXT_CHARHACK
+static inline char* _(const char* message)
+{
+    return const_cast<char*>
+        (dictionaryManager->get_dictionary().translate(message).c_str());
+}
+#else
+static inline const char* _(const char* message)
+{
+    return dictionaryManager->get_dictionary().translate(message).c_str();
+}
+#endif
+
+#define N_(s)      s
+
+#endif

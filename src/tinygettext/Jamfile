@@ -1,0 +1,7 @@
+SubDir TOP src tinygettext ;
+
+Library tinygettext 
+    : [ Wildcard *.cpp *.hpp ] 
+    : noinstall
+;
+

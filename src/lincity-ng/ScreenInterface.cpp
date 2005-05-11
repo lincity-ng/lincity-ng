@@ -71,7 +71,7 @@ void refresh_monthgraph (void);
 void draw_small_yellow_bezel (int x, int y, int h, int w);
 void init_pbars (void);
 void mini_screen_help (void);
-void status_message(char *m1, char* m2);
+void status_message(const char *m1, const char* m2);
 void print_time_for_year (void);
 void rotate_main_screen (void);
 void screen_setup (void);
@@ -105,7 +105,7 @@ void reset_status_message (void);
  * xs is some additional Text, that is shown after the Message
  *    from the File. (maybe XtraString?)  
  */
- void ok_dial_box (char *fn, int, char *xs)
+ void ok_dial_box (const char *fn, int, const char *xs)
 {
     std::ostringstream text;
     text << "ok_dial_box:'" << fn << "' + \"" << xs << "\"\n";
@@ -242,7 +242,7 @@ int dialog_box(int colour, int argc, ...)
  *  showing percent completed, but is also used to update
  *  the current Progressbar.
  */
-void prog_box (char *title, int percent)
+void prog_box (const char *title, int percent)
 {
     (void) title;
     (void) percent;
@@ -324,7 +324,8 @@ int getMainWindowHeight()
   return 0;
 }
 
-int yn_dial_box (char * s1, char * s2, char * s3, char *s4)
+int yn_dial_box (const char * s1, const char * s2, const char * s3,
+        const char *s4)
 {
     std::cerr << "DIALOG MISSING:\n";
     std::cerr << "---[yn_dial_box]---------\n";

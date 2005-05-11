@@ -24,7 +24,7 @@
 #include "Config.hpp"
 
 Painter* painter = 0;
-TinyGetText::DictionaryManager dictionaryManager;
+TinyGetText::DictionaryManager* dictionaryManager = 0;
 
 void initSDL()
 {
@@ -180,8 +180,21 @@ int main(int argc, char** argv)
 {
     int result = 0;
 
-    initPhysfs(argv[0]);
-
+#ifndef DEBUG //in debug mode we wanna have a backtrace
+    try {
+#endif                                                     
+        initPhysfs(argv[0]);
+        dictionaryManager = new TinyGetText::DictionaryManager();
+#ifndef DEBUG
+    } catch(std::exception& e) {
+        std::cerr << "Unexpected exception: " << e.what() << "\n";        
+        return 1;
+    } catch(...) {
+        std::cerr << "Unexpected exception.\n";
+        return 1;
+    }                                                                     
+#endif
+    
     //set LINCITY_HOME environment variable
     setenv( "LINCITY_HOME", getConfig()->lincityHome.c_str(), 1 );
    
@@ -258,6 +271,8 @@ int main(int argc, char** argv)
         TTF_Quit();
     if(SDL_WasInit(0))
         SDL_Quit();
+    delete dictionaryManager;
+    dictionaryManager = 0;
     PHYSFS_deinit();
     return result;
 }

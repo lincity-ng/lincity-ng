@@ -21,8 +21,7 @@ Programming
  [M] Implement dirty rectangle methods to only redraw when needed
  [?] Think about mechanism for attach arbitrary properties to components
     (for tooltips, styles (and layout data?) )
- [H] Links in helptext.
- [M] Images in helptext.
+ [M] Add back/forward buttons to help window
  [L] drawToTexture in OpenGL (noone using this at the moment, could be used to
      optimize minimap in the future)
  [H] Add tooltips for buttonpanel

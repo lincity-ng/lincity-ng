@@ -31,6 +31,6 @@
 #endif
 
 
-void HandleError (char *, int);
+void HandleError (const char *, int);
 
 #endif	/* __common_h__ */

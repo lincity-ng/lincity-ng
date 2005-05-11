@@ -17,7 +17,7 @@
 #include "XmlReader.hpp"
 #include "ComponentFactory.hpp"
 #include "Document.hpp"
-#include "TinyGetText/TinyGetText.hpp"
+#include "tinygettext/TinyGetText.hpp"
 
 Paragraph::Paragraph()
     : texture(0)

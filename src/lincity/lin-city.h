@@ -1130,7 +1130,7 @@ typedef struct update_scoreboard_struct Update_Scoreboard;
 */
 extern int lincity_main (int, char **);
 extern void client_main_loop (void);
-extern void do_error (char *);
+extern void do_error (const char *);
 extern void do_save_city (void);
 extern void remove_scene (char *);
 extern void save_city (char *);
@@ -1265,11 +1265,11 @@ extern void close_market_cb (void);
 extern void draw_port_cb (void);
 extern void clicked_port_cb (int, int);
 extern void close_port_cb (void);
-extern int yn_dial_box (char *, char *, char *, char *);
-extern void ok_dial_box (char *, int, char *);
+extern int yn_dial_box (const char *, const char *, const char *, const char *);
+extern void ok_dial_box (const char *, int, const char *);
 extern int inv_sbut (int);
 extern void call_select_change_up (int);
-extern void beg_space_pad (char *, int);
+extern void beg_space_pad (const char *, int);
 extern void draw_up_pbar (int, int, int, int);
 extern void draw_down_pbar (int, int, int, int);
 extern void do_pbar_population (int);
@@ -1281,7 +1281,7 @@ extern void do_pbar_goods (int);
 extern void do_pbar_ore (int);
 extern void do_pbar_steel (int);
 extern void do_pbar_money (int);
-extern void prog_box (char *, int);
+extern void prog_box (const char *, int);
 /*
   mouse functions -- are now in mouse.h, where they should be!
   ***************
@@ -1457,8 +1457,8 @@ extern void sdl_clear (Uint32 col);
 
 #elif defined LC_X11
 /* ----- X11 functions ----- */
-extern void Fgl_write (int, int, char *);
-extern void open_write (int, int, char *);
+extern void Fgl_write (int, int, const char *);
+extern void open_write (int, int, const char *);
 extern void Fgl_getbox (int, int, int, int, void *);
 extern void Fgl_putbox (int, int, int, int, void *);
 extern void Fgl_fillbox (int, int, int, int, int);
@@ -1480,8 +1480,8 @@ extern void update_pixmap (int, int, int, int, int, int, int, char *);
 #elif defined (WIN32)
 /* ----- Win32 functions ----- */
 extern void gl_setpalettecolor (long, long, long, long);
-extern void Fgl_write (int, int, char *);
-extern void open_write (int, int, char *);
+extern void Fgl_write (int, int, const char *);
+extern void open_write (int, int, const char *);
 extern void Fgl_getbox (int, int, int, int, void *);
 extern void Fgl_putbox (int, int, int, int, void *);
 extern void Fgl_fillbox (int, int, int, int, int);

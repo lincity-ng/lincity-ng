@@ -12,6 +12,8 @@
 #include "lchelp.h"
 #include "dialbox.h"
 #include "mps.h"
+#include <physfs.h>
+#include "tinygettext/gettext.hpp"
 
 #include "lc_locale.h"
 
@@ -69,6 +71,9 @@
 #define SI_YELLOW 255
 
 #define DEBUG_KEYS 1
+
+// global gettext instance
+TinyGetText::DictionaryManager* dictionaryManager = 0;
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -156,6 +161,10 @@ lincity_set_locale (void)
 int
 lincity_main (int argc, char *argv[])
 {
+    // tinygettext hacks
+    PHYSFS_init(argv[0]);
+    dictionaryManager = new TinyGetText::DictionaryManager();
+    
 #if defined (LC_X11)
     char *geometry = NULL;
 #endif
@@ -698,7 +707,7 @@ execute_timestep (void)
 }
 
 void
-do_error (char *s)
+do_error (const char *s)
 {
 #if defined (LC_X11) || defined (WIN32)
     HandleError (s, FATAL);

@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-void do_error (char *s)
+void do_error (const char *s)
 {
   std::cerr<<s<<std::endl;
 }
 
-void HandleError (char *s, int i)
+void HandleError (const char *s, int i)
 {
   std::cerr<<"ERROR of degree "<<i<<":"<<s<<std::endl;
 }

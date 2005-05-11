@@ -1,0 +1,7 @@
+SubDir TOP src PhysfsStream ;
+
+Library physfsstream
+    : [ Wildcard *.cpp *.hpp ]
+    : noinstall
+;
+ExternalLibs physfsstream : SDL ;

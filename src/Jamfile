@@ -1,6 +1,8 @@
 SubDir TOP src ;
 
 SubInclude TOP src gui ;
+SubInclude TOP src PhysfsStream ;
+SubInclude TOP src tinygettext ;
 SubInclude TOP src lincity ;
 SubInclude TOP src oldgui ;
 SubInclude TOP src lincity-ng ;

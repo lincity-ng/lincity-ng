@@ -5,8 +5,6 @@ Library lincity_gui
 	  [ Wildcard callback : *.cpp *.hpp ] 
 	  [ Wildcard PainterGL : *.cpp *.hpp ]
 	  [ Wildcard PainterSDL : *.cpp *.hpp ]
-	  [ Wildcard PhysfsStream : *.cpp *.hpp ]
-	  [ Wildcard TinyGetText : *.cpp *.hpp ]
 	: noinstall
 ;
 ExternalLibs lincity_gui : LIBXML SDL SDLIMAGE PHYSFS GL ;

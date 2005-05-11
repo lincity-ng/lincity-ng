@@ -19,7 +19,7 @@
 
 struct GROUP
 {
-    char  name[GROUP_NAME_LEN+1];      /* name of group */
+    const char* name;      /* name of group */
     unsigned short        no_credit;   /* TRUE if need credit to build */
     unsigned short        group;       /* This is redundant: it must match
 					  the index into the table */

@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <physfs.h>
-#include "main.hpp"
+#include "tinygettext/gettext.hpp"
 #include "gui/Component.hpp"
 #include "gui/ScrollView.hpp"
 #include "gui/Document.hpp"
@@ -71,7 +71,7 @@ HelpWindow::getHelpFile(const std::string& topic)
 {
     // try in user language
     std::string filename = "help/";
-    filename += dictionaryManager.get_language() + "/";
+    filename += dictionaryManager->get_language() + "/";
     filename += topic;
     filename += ".xml";
     if(PHYSFS_exists(filename.c_str()))
