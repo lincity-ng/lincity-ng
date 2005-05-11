@@ -83,6 +83,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
     TinyGetText::Dictionary* dictionary = 0;
     if(translatable) {
         dictionaryManager.reset(new TinyGetText::DictionaryManager());
+        dictionaryManager->set_charset("UTF-8");
         dictionaryManager->add_directory("locale/gui");
         dictionary = &(dictionaryManager->get_dictionary());
     }

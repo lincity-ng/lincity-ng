@@ -478,6 +478,13 @@ public:
   {
     state = WANT_MSGID;
     line_num = 0;
+    char c = in.get();
+    if(c == (char) 0xef) { // skip UTF-8 intro that some texteditors produce
+        in.get();
+        in.get();
+    } else {
+        in.unget();
+    }
     tokenize_po(in);
   }
 

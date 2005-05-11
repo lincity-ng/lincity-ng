@@ -185,6 +185,8 @@ int main(int argc, char** argv)
 #endif                                                     
         initPhysfs(argv[0]);
         dictionaryManager = new TinyGetText::DictionaryManager();
+        dictionaryManager->set_charset("UTF-8");
+        dictionaryManager->add_directory("locale");
 #ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";        

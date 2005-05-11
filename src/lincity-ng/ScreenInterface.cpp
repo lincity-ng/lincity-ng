@@ -14,6 +14,7 @@
 #include "gui/ComponentLoader.hpp"
 #include "gui/Paragraph.hpp"
 #include "gui/Desktop.hpp"
+#include "tinygettext/gettext.hpp"
 
 #include "GameView.hpp"
 #include "Util.hpp"
@@ -176,7 +177,7 @@ void updateDate(){
 void updateMoney() {
     std::ostringstream moneyText;
  
-    moneyText << total_money << "£";
+    moneyText << total_money << _("$");
     
     Component* root = getGameView();
     if( !root ) return;
