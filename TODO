@@ -7,10 +7,9 @@
 Graphics
 ~~~~~~~~
 
-[H] Look around for a ttf font that can be distributed in a GPL game.
-    (Warning: The currently used sans.ttf is from the bitstream vera fonts
-     package which is not 100% compatible with GPL)
 [H] Finish tiles for the game
+[H] Draw Mousecursors for normal, link and what's this (eventually also
+    loading)
 
 Programming
 ~~~~~~~~~~~
@@ -40,6 +39,7 @@ Programming
  [M] windmill starts "bouncing" up and down after you zoomed out
  
 --Game--
+ [H] Implement a What's this button
  [M] some more sounds
  [M] "Loading..." screen (startup, run game)
         - is this really needed now that images and sounds get loaded in the
@@ -48,11 +48,9 @@ Programming
      for "Loading..." menu 
  [M] Statisitcs dialog
  [M] Statistics graph
- [H] Help System.
  [M] Display InfoMessages
  [L] manpage, documentation
  [H] improve fast scrolling
  [M] Homepage http://lincity-ng.berlios.de/ 
- [H] Tile graphics
  [M] remove MPS_ENV, make MPS_MAP a popup 
  [M] put MPS_GLOBAL to tabs behind minimap
