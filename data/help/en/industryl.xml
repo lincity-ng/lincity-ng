@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Light industrial areas</p>
+	<p style="hp">Light industry converts ore into goods. The conversion becomes more efficient if steel is also available. Power increases the output further still. Windmills do <b>not</b> provide power for these areas.</p>
+	<p style="hp">As a rule of thumb, ignoring the above, the output of a light industrial area is mainly dependent on the amount of raw materials, including jobs, that it can get, also the amount of goods that can be <b>taken away</b>.</p>
+	<p style="hp">These areas connect directly to transport to exchange ore, steel and goods. They may need a market to supply jobs.</p>
+	<p style="hp">These areas connect to transport <b>only</b> to the top left hand corner, as shown. Transport will curve in when it is connected.</p>
+	
+	<p style="hp">This is a blacksmith</p>
+	<img src="data/images/tiles/blacksmith0.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="transport">nsport</a></li>
+	<li><a href="road">Roads</a></li>
+	<li><a href="rail">Railways</a></li>
+	<li><a href="market">StMarkets</a></li>
+	<li><a href="jobs">Jobs</a></li>
+</Document>

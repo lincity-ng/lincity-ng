@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Fast speed</p>
+	<img src="data/images/gui/speed/fast.png"/>
+	<p style="hp">This is the fast speed button. It causes the game to run as fast as possible. On slow machines the speed buttons may have no effect. Care should be taken when using fast mode on fast machines; 'situations' can develop vary fast!</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="medium">Medium</a></li>
+	<li><a href="slow">Slow</a></li>
+</Document>

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-    <p style="htitle">Lincity Help</p>
-    <p style="hp">This is the lincity help system. Please choose a topic by
-    clicking on 1 of the blue worlds below.</p>
-    <li><a href="market">Market</a></li>
-    <li><a href="blacksmith">Blacksmith</a></li>
-    <li><a href="university">University</a></li>
+	<p style="htitle">Lincity Help</p>
+	<p style="hp">This is the lincity help system. Please choose a topic by clicking on 1 of the blue worlds below.</p>
+	<li><a href="button-index">List of all help entries</a></li>
 </Document>

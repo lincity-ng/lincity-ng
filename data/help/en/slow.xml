@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Slow speed</p>
+	<img src="data/images/gui/speed/slow.png"/>
+	<p style="hp">This is the slow button. It causes the to game run at it's slowest speed. On slow machines the speed buttons may have no effect.</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="medium">Medium</a></li>
+	<li><a href="fast">Fast</a></li>
+</Document>
