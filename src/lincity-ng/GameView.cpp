@@ -1370,14 +1370,14 @@ void GameView::draw(Painter& painter)
         if( selected_module_type == CST_GREEN ){
             std::stringstream prize;
             if( roadDragging ){
-                prize << "Estimated Bulldoze Cost: ";
+                prize << _("Estimated Bulldoze Cost: ");
             } else {
-                prize << "Bulldoze Cost: ";
+                prize << _("Bulldoze Cost: ");
             }
             if( cost > 0 ) {
-                prize << cost << "£";
+                prize << cost << _("$");
             } else {
-                prize << "n/a";
+                prize << _("n/a");
             }
             printStatusMessage( prize.str() );
         } else {
@@ -1405,11 +1405,11 @@ void GameView::showToolInfo( int number /*= 0*/ )
     {
         int group = main_types[ selected_module_type ].group;
         infotextstream << main_groups[ group ].name; 
-        infotextstream << _(": Cost to build ") << selected_module_cost <<"£";
-        infotextstream << _(", to bulldoze ") << main_groups[ group ].bul_cost <<"£.";
+        infotextstream << _(": Cost to build ") << selected_module_cost <<_("$");
+        infotextstream << _(", to bulldoze ") << main_groups[ group ].bul_cost <<_("$.");
         if( number > 1 ){
             infotextstream << _(" To build ") << number << " " << main_groups[ group ].name << "s ";
-            infotextstream << _("will cost about ") << number*selected_module_cost << "£.";    
+            infotextstream << _("will cost about ") << number*selected_module_cost << "$.";    
         }
     }
     printStatusMessage( infotextstream.str() );
