@@ -46,6 +46,7 @@ class Dialog
         void okayCoalSurveyButtonClicked( Button* );
         void okayLaunchRocketButtonClicked( Button* );
         void closeDialogButtonClicked( Button* );
+        void gotoButtonClicked( Button* );
         void applyMarketButtonClicked( Button* );
         void applyPortButtonClicked( Button* );
 

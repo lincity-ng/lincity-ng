@@ -33,7 +33,7 @@
 			<cell row="2" col="2">
 				<CheckButton name="BuyJobs">
 					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox/checkbox_checked.png"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="2" col="3">
@@ -123,7 +123,12 @@
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
-			<cell row="8" col="1" colspan="3" halign="center">
+            <cell row="8" col="1" halign="center">
+                <Button name="goto">
+                    <image src="images/gui/info/info.png"/>
+                </Button>
+            </cell>
+			<cell row="8" col="2" colspan="2" halign="center">
 				<Button name="Apply">
 					<image src="images/gui/dialogs/okaybutton.png"/>
 				</Button>

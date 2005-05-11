@@ -31,8 +31,13 @@
 			</TableLayout>
 		</cell>
 		<cell row="2" col="1">
-			<TableLayout rows="1" cols="2">
-			<cell row="1" col="1">
+			<TableLayout rows="1" cols="3">
+            <cell row="1" col="1">
+                <Button name="goto">
+                    <image src="images/gui/info/info.png"/>
+                </Button>
+            </cell>
+			<cell row="1" col="2">
 				<Button name="No">
 				<text-caption style="dialogbutton" translatable="yes">No</text-caption>
 				<image src="images/gui/dialogs/nobutton.png"/>
@@ -40,7 +45,7 @@
 				<image-clicked src="images/gui/dialogs/nobutton-clicked.png"/>
 				</Button>
 			</cell>
-			<cell row="1" col="2">
+			<cell row="1" col="3">
 				<Button name="Yes">
 				<text-caption style="dialogbutton"
 				translatable="yes">Yes</text-caption>

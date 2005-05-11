@@ -110,6 +110,8 @@ void Dialog::askRocket(){
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayLaunchRocketButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    Button* gotoButton = getButton( *myDialogComponent, "goto" );
+    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
 }
 
 void Dialog::askBulldozeMonument() {
@@ -249,6 +251,8 @@ void Dialog::editMarket(){
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
     applyButton->clicked.connect( makeCallback(*this, &Dialog::applyMarketButtonClicked ) );
+    Button* gotoButton = getButton( *myDialogComponent, "goto" );
+    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
 }
 
 void Dialog::editPort(){
@@ -296,6 +300,8 @@ void Dialog::editPort(){
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
     applyButton->clicked.connect( makeCallback(*this, &Dialog::applyPortButtonClicked ) );
+    Button* gotoButton = getButton( *myDialogComponent, "goto" );
+    gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
 }
 
 void Dialog::applyMarketButtonClicked( Button* b ){
@@ -419,6 +425,10 @@ void Dialog::okayBulldozeMonumentButtonClicked( Button* ){
     check_bulldoze_area( pointX, pointY );
     blockingDialogIsOpen = false;
     delete( this );
+}
+
+void Dialog::gotoButtonClicked( Button* ){
+    getGameView()->show( MapPoint( pointX, pointY ) );
 }
 
 void Dialog::closeDialogButtonClicked( Button* ){
