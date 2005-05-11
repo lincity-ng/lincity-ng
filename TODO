@@ -37,7 +37,8 @@ Programming
  [H] New text on buttons is truncated to original textlength. 
      (eg in load game menu)
  [M] windmill starts "bouncing" up and down after you zoomed out
- 
+ [M] "gameview on minimap" rectangle can be larger than the minimap itself
+
 --Game--
  [H] Implement a What's this button
  [M] some more sounds
