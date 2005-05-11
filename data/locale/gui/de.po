@@ -9,37 +9,50 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: %1\n"
-"PO-Revision-Date: 2005-02-01 19:45+0100\n"
-"Last-Translator:  <matze@braunis.de>\n"
+"PO-Revision-Date: 2005-05-11 14:31+0100\n"
+"Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/gui/yesnodialog.xml
-msgid "Are you sure you want to do this?"
-msgstr "Sind Sie sicher?"
-
-#: data/gui/credits.xml data/gui/loadgame.xml data/gui/newgame.xml
+#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
+#: data/gui/options.xml
 msgid "Back"
 msgstr "Zurück"
 
-#: data/gui/yesnodialog.xml
-msgid "Bulldozing water is expensive"
-msgstr "Gewässer zuschütten ist teuer"
+#: data/gui/options.xml
+msgid "Background Music."
+msgstr "Hintergrundmusik"
 
-#: data/gui/yesnodialog.xml
-msgid "Bulldozing water is expensive "
-msgstr "Gewässer auffüllen ist teuer "
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Ein Monument abzureisen ist sehr teuer."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "Flüsse zuschütten kostet viel Geld."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs lot of money and may cause a fire."
+msgstr "Barackensiedlungen abreisen ist sehr teuer und kann Brände verursachen."
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Buy"
+msgstr "Kaufen"
 
 #: data/gui/newgame.xml
 msgid "Choose Scenario"
 msgstr "Szenario Auswählen"
 
-#: data/gui/pbar.xml
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Coal"
 msgstr "Kohle"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Coal survey"
+msgstr "Kohleadern suchen"
 
 #: data/gui/creditslist.xml
 msgid "Code"
@@ -49,15 +62,35 @@ msgstr "Programm"
 msgid "Continue"
 msgstr "Fortsetzen"
 
-#: data/gui/creditslist.xml data/gui/mainmenu.xml
+#: data/gui/mainmenu.xml data/gui/creditslist.xml
 msgid "Credits"
 msgstr "Mitwirkende"
 
-#: data/gui/pbar.xml
+#: data/gui/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "Sollen Kohleadern gesucht werden?"
+
+#: data/gui/options.xml
+msgid "FX off"
+msgstr "FX aus"
+
+#: data/gui/options.xml
+msgid "FX on"
+msgstr "FX an"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Food"
 msgstr "Nahrung"
 
-#: data/gui/pbar.xml
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Vollbild"
+
+#: data/gui/options.xml
+msgid "GameMode:"
+msgstr "Anzeige"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Goods"
 msgstr "Waren"
 
@@ -65,13 +98,33 @@ msgstr "Waren"
 msgid "Graphics"
 msgstr "Grafik"
 
-#: data/gui/pbar.xml
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings "
+msgstr "Handelseinstellungen Hafen"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Info: Rocket ready at Launchsite "
+msgstr "Rakete auf Abschussrampe bereit."
+
+#: data/gui/coal_survey_yn.xml
+msgid "Info: Send out Prospectors? "
+msgstr "Prospektoren losschicken?"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml
 msgid "Jobs"
 msgstr "Arbeitsplätze"
 
-#: data/gui/mainmenu.xml data/gui/loadgame.xml
+#: data/gui/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "Jetzt starten?"
+
+#: data/gui/loadgame.xml
 msgid "Load"
 msgstr "Laden"
+
+#: data/gui/mainmenu.xml
+msgid "Load/Save"
+msgstr "Laden/Speichern"
 
 #: data/gui/loadgame.xml
 msgid "Load/Save Game"
@@ -81,15 +134,29 @@ msgstr "Spiel Laden/Speichern"
 msgid "Money"
 msgstr "Vermögen"
 
-#: data/gui/mainmenu.xml data/gui/newgame.xml
+#: data/gui/options.xml
+msgid "Music on"
+msgstr "Musik an"
+
+#: data/gui/options.xml
+msgid "Mute Music"
+msgstr "Musik stumm"
+
+#: data/gui/newgame.xml data/gui/mainmenu.xml
 msgid "New Game"
 msgstr "Neues Spiel"
 
-#: data/gui/yesnodialog.xml
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/launch_rocket_yn.xml
 msgid "No"
 msgstr "Nein"
 
-#: data/gui/pbar.xml
+#: data/gui/mainmenu.xml
+msgid "Options"
+msgstr "Einstellungen"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Ore"
 msgstr "Erz"
 
@@ -101,9 +168,25 @@ msgstr "Ursprüngliche Idee und Programm"
 msgid "Population"
 msgstr "Bevölkerung"
 
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Product"
+msgstr "Produkt"
+
 #: data/gui/mainmenu.xml
 msgid "Quit"
 msgstr "Beenden"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket ready to launch."
+msgstr "Rakete startklar."
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Sell"
+msgstr "Verkaufen"
+
+#: data/gui/options.xml
+msgid "Sound Effects."
+msgstr "Soundeffekte"
 
 #: data/gui/creditslist.xml
 msgid "Sound and Music"
@@ -115,31 +198,65 @@ msgstr "Start"
 
 #: data/gui/newgame.xml
 msgid "Start with bare board."
-msgstr ""
+msgstr "Mit leerem Feld beginnen."
 
 #: data/gui/newgame.xml
 msgid "Start with random village."
-msgstr ""
+msgstr "Mit zufälligem Dorf beginnen."
 
-#: data/gui/pbar.xml
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Steel"
 msgstr "Stahl"
 
 #: data/gui/pbar.xml
 msgid "Tech Level"
-msgstr "Technologieniveau"
+msgstr "Techniveau"
 
-#: data/gui/yesnodialog.xml
-msgid ""
-"The costs for bulldozing water is around 100 Billion Trillion Dollars and "
-"could harm the environment, you should think twice before doing such a "
-"stupid thing."
-msgstr "Die Kosten um Gewässer aufzufüllen sind sehr hoch. Das ist dumm!"
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it's is free to call again."
+msgstr "Hierfür fallen einmalige Kosten von einer Millionen an. Weitere Aufrufe sind kostenlos."
 
-#: data/gui/yesnodialog.xml
+#: data/gui/tradedialog.xml
+msgid "Trade Settings "
+msgstr "Handelseinstellungen"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "Möchten sie planieren?"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning"
+msgstr "Warung"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive "
+msgstr "Achtung: Monumente abreißen ist teuer."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shantys is dangerous. "
+msgstr "Achtung, Barackensiedlungen planieren ist gefährlich."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive "
+msgstr "Warung: Gewässer auffüllen ist teuer "
+
+#: data/gui/options.xml
+msgid "Windowed"
+msgstr "im Fenster"
+
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/launch_rocket_yn.xml
 msgid "Yes"
 msgstr "Ja"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
+msgstr "Sie können die Rakete jetzt starten, oder abwarten. Wenn sie warten kostet es sie weiterhin Geld, die Rakete abflugbereit zu halten. Klicken sie auf die Rakete um diesen Dialog später wieder zu öffnen."
 
 #: data/gui/loadgame.xml
 msgid "save to selected slot"
 msgstr "Speichern"
+

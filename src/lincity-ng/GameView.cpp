@@ -36,6 +36,7 @@
 #include <sstream>
 
 #include "gui_interface/shared_globals.h"
+#include "tinygettext/gettext.hpp"
 
 const float GameView::defaultTileWidth;
 const float GameView::defaultTileHeight;
@@ -1394,21 +1395,21 @@ void GameView::showToolInfo( int number /*= 0*/ )
     
     if( selected_module_type == CST_NONE ) //query
     {   
-        infotextstream << "Query Tool: Show information about selected building."; 
+        infotextstream << _("Query Tool: Show information about selected building."); 
     } 
     else if( selected_module_type == CST_GREEN ) //bulldoze
     {
-        infotextstream << "Bulldozer: remove building -price varies-"; 
+        infotextstream << _("Bulldozer: remove building -price varies-"); 
     }
     else
     {
         int group = main_types[ selected_module_type ].group;
         infotextstream << main_groups[ group ].name; 
-        infotextstream << ": Cost to build " << selected_module_cost;
-        infotextstream << "£, to bulldoze " << main_groups[ group ].bul_cost <<"£.";
+        infotextstream << _(": Cost to build ") << selected_module_cost <<"£";
+        infotextstream << _(", to bulldoze ") << main_groups[ group ].bul_cost <<"£.";
         if( number > 1 ){
-            infotextstream << " To build " << number << " " << main_groups[ group ].name << "s ";
-            infotextstream << "will cost about " << number*selected_module_cost << "£.";    
+            infotextstream << _(" To build ") << number << " " << main_groups[ group ].name << "s ";
+            infotextstream << _("will cost about ") << number*selected_module_cost << "£.";    
         }
     }
     printStatusMessage( infotextstream.str() );

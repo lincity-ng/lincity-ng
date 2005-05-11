@@ -23,6 +23,8 @@
 #include "gui/callback/Callback.hpp"
 #include "gui/Paragraph.hpp"
 
+#include "tinygettext/gettext.hpp"
+
 bool blockingDialogIsOpen = false;
 
 Dialog::Dialog( int type ){
@@ -103,7 +105,7 @@ void Dialog::askRocket(){
     }
     Paragraph* p = getParagraph( *myDialogComponent, "rocketTitle" );
     std::stringstream title;
-	title << "Launchsite ( " << pointX <<" , " << pointY << " )";
+	title << _("Launchsite") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
@@ -220,7 +222,7 @@ void Dialog::editMarket(){
     // set Dialog to Market-Data
     Paragraph* p = getParagraph( *myDialogComponent, "tradeTitle" );
     std::stringstream title;
-	title << "Market ( " << pointX <<" , " << pointY << " )";
+	title << _("Market") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
 
     CheckButton* cb;
@@ -273,7 +275,7 @@ void Dialog::editPort(){
     // set Dialog to Port-Data
     Paragraph* p = getParagraph( *myDialogComponent, "tradeTitle" );
     std::stringstream title;
-	title << "Port ( " << pointX <<" , " << pointY << " )";
+	title << _("Port") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
 
     CheckButton* cb;
