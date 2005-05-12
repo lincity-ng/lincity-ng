@@ -111,11 +111,11 @@
 			<!-- base -->
 			<cell row="1" col="1" halign="left">
 				<CheckButton name="BPPointerButton" lower="true">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-clicked.png"/>
-				<image-checked src="images/gui/buttons/button-checked.png"/>
-				<image-disabled src="images/gui/buttons/button-disabled.png"/>
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
 				<image-caption src="images/gui/buttonpanel/base/pointer.png"/>
 				</CheckButton>
 			</cell>
@@ -149,11 +149,11 @@
 			<!-- residents and so -->
 			<cell row="2" col="1" halign="left">
 				<CheckButton name="BPResidenceButton" lower="true">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-clicked.png"/>
-				<image-checked src="images/gui/buttons/button-checked.png"/>
-				<image-disabled src="images/gui/buttons/button-disabled.png"/>
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
 				<image-caption src="images/gui/buttonpanel/residence/residence-lotec-med.png"/>
 				</CheckButton>
 			</cell>
@@ -227,11 +227,11 @@
 			<!-- fire health e.g. -->
 			<cell row="3" col="1" halign="left">
 				<CheckButton name="BPHealthButton" lower="true">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-clicked.png"/>
-				<image-checked src="images/gui/buttons/button-checked.png"/>
-				<image-disabled src="images/gui/buttons/button-disabled.png"/>
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
 				<image-caption src="images/gui/buttonpanel/misc/book.png"/>
 				</CheckButton>
 			</cell>
@@ -295,11 +295,11 @@
 			<!-- transport -->
 			<cell row="4" col="1" halign="left">
 				<CheckButton name="BPTransportButton" lower="true">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-clicked.png"/>
-				<image-checked src="images/gui/buttons/button-checked.png"/>
-				<image-disabled src="images/gui/buttons/button-disabled.png"/>
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
 				<image-caption src="images/gui/buttonpanel/transport/tracks.png"/>
 				</CheckButton>
 			</cell>
@@ -363,11 +363,11 @@
 			<!-- power -->
 			<cell row="5" col="1" halign="left">
 				<CheckButton name="BPPowerButton" lower="true">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-clicked.png"/>
-				<image-checked src="images/gui/buttons/button-checked.png"/>
-				<image-disabled src="images/gui/buttons/button-disabled.png"/>
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
 				<image-caption src="images/gui/buttonpanel/power/windmills.png"/>
 				</CheckButton>
 			</cell>
@@ -431,11 +431,11 @@
 			<!-- mining -->
 			<cell row="6" col="1" halign="left">
 				<CheckButton name="BPMiningButton" lower="true">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-clicked.png"/>
-				<image-checked src="images/gui/buttons/button-checked.png"/>
-				<image-disabled src="images/gui/buttons/button-disabled.png"/>
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
 				<image-caption src="images/gui/buttonpanel/mining/commune.png"/>
 				</CheckButton>
 			</cell>
@@ -499,11 +499,11 @@
 			<!-- industry -->
 			<cell row="7" col="1" halign="left">
 				<CheckButton name="BPIndustryButton" lower="true">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-clicked.png"/>
-				<image-checked src="images/gui/buttons/button-checked.png"/>
-				<image-disabled src="images/gui/buttons/button-disabled.png"/>
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
 		    	<image-caption src="images/gui/buttonpanel/industry/market.png"/>
 				</CheckButton>
 			</cell>
@@ -567,11 +567,11 @@
 			<!-- parks -->
 			<cell row="8" col="1" halign="left">
 				<CheckButton name="BPParkButton" lower="true">
-				<image src="images/gui/buttons/button.png"/>
-				<image-hover src="images/gui/buttons/button-hover.png"/>
-				<image-clicked src="images/gui/buttons/button-clicked.png"/>
-				<image-checked src="images/gui/buttons/button-checked.png"/>
-				<image-disabled src="images/gui/buttons/button-disabled.png"/>
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
 				<image-caption src="images/gui/buttonpanel/parks/monument.png"/>
 				</CheckButton>
 			</cell>

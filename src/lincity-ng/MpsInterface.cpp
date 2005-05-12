@@ -13,6 +13,7 @@
 #include "lincity/engglobs.h"
 #include "lincity/lcintl.h"
 #include "lincity/modules/all_modules.h"
+#include "tinygettext/gettext.hpp"
 
 // implement everything here
 
@@ -172,12 +173,12 @@ void mps_refresh(void) /* refresh the information display's contents */
                     break;
                 default: 
                     if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
-                        mps_store_title(0,"Green");
-                        mps_store_title(4, "build something here" );
+                        mps_store_title(0,_("Green"));
+                        mps_store_title(4,_("build something here") );
                     }
                     //no special information on this group, just show the Name.
-                    mps_store_title(0, main_groups[ MP_GROUP( mps_x, mps_y ) ].name );
-                    mps_store_title(2, "no further information available" );
+                    mps_store_title(0, dictionaryManager->get_dictionary().translate(main_groups[ MP_GROUP( mps_x, mps_y ) ].name ).c_str() );
+                    mps_store_title(2, _("no further information available") );
                     
                     printf("MPS unimplemented for that module\n");
                     mps_style = MPS_NONE;

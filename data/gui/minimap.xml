@@ -1,6 +1,6 @@
-<Panel width="384" height="270" background="images/gui/mapview/minimap_bg.png">
-	<TableLayout rows="2" cols="2">
-		<rowsize row="1" fixed="234"/>
+<Panel width="384" height="240" background="images/gui/mapview/minimap_bg.png">
+	<TableLayout rows="2" cols="2" >
+		<rowsize row="1" fixed="204"/>
 		<rowsize row="2" relative="36"/>
 		<colsize col="1" relative="174"/>
 		<colsize col="2" fixed="210"/>

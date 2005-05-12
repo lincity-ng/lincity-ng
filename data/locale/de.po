@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lincity-ng 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-11 16:51+0200\n"
+"POT-Creation-Date: 2005-05-12 13:28+0200\n"
 "PO-Revision-Date: 2005-05-11 16:18+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -254,7 +254,7 @@ msgstr "Schwerindustrie"
 msgid "Park"
 msgstr "Park"
 
-#: src/lincity/lintypes.cpp:262 src/lincity-ng/MpsInterface.cpp:426
+#: src/lincity/lintypes.cpp:262 src/lincity-ng/MpsInterface.cpp:427
 msgid "Recycle"
 msgstr "Wertstoffhof"
 
@@ -271,7 +271,7 @@ msgid "Rocket pad"
 msgstr "Raketenbasis"
 
 #: src/lincity/lintypes.cpp:310 src/lincity/modules/windmill.cpp:73
-#: src/lincity-ng/MpsInterface.cpp:416
+#: src/lincity-ng/MpsInterface.cpp:417
 msgid "Windmill"
 msgstr "Windmühle"
 
@@ -312,7 +312,7 @@ msgid "Shanty town"
 msgstr "Barackensiedlung"
 
 #: src/lincity/lintypes.cpp:433 src/lincity/modules/residence.cpp:292
-#: src/lincity-ng/MpsInterface.cpp:296
+#: src/lincity-ng/MpsInterface.cpp:297
 msgid "Fire"
 msgstr "Feuer"
 
@@ -434,7 +434,7 @@ msgstr "Arbeitsplätze"
 #: src/lincity/modules/track.cpp:47 src/lincity/modules/pottery.cpp:126
 #: src/lincity/modules/blacksmith.cpp:103
 #: src/lincity/modules/firestation.cpp:124 src/lincity/modules/school.cpp:57
-#: src/lincity-ng/MpsInterface.cpp:360
+#: src/lincity-ng/MpsInterface.cpp:361
 msgid "Goods"
 msgstr "Waren"
 
@@ -494,15 +494,15 @@ msgstr ""
 
 #: src/lincity/modules/water.cpp:22 src/lincity/modules/commune.cpp:147
 #: src/lincity/modules/commune.cpp:149 src/lincity/modules/commune.cpp:151
-#: src/lincity/modules/commune.cpp:153 src/lincity-ng/MpsInterface.cpp:295
-#: src/lincity-ng/MpsInterface.cpp:298 src/lincity-ng/MpsInterface.cpp:301
+#: src/lincity/modules/commune.cpp:153 src/lincity-ng/MpsInterface.cpp:296
+#: src/lincity-ng/MpsInterface.cpp:299 src/lincity-ng/MpsInterface.cpp:302
 msgid "Yes"
 msgstr "Ja"
 
 #: src/lincity/modules/water.cpp:22 src/lincity/modules/commune.cpp:147
 #: src/lincity/modules/commune.cpp:149 src/lincity/modules/commune.cpp:151
-#: src/lincity/modules/commune.cpp:153 src/lincity-ng/MpsInterface.cpp:295
-#: src/lincity-ng/MpsInterface.cpp:298 src/lincity-ng/MpsInterface.cpp:301
+#: src/lincity/modules/commune.cpp:153 src/lincity-ng/MpsInterface.cpp:296
+#: src/lincity-ng/MpsInterface.cpp:299 src/lincity-ng/MpsInterface.cpp:302
 msgid "No"
 msgstr "Nein"
 
@@ -604,16 +604,16 @@ msgstr "Arbeit"
 msgid "Health Cvr"
 msgstr "ärztl. Vers."
 
-#: src/lincity/modules/residence.cpp:295 src/lincity-ng/MpsInterface.cpp:302
-#: src/lincity-ng/MpsInterface.cpp:424
+#: src/lincity/modules/residence.cpp:295 src/lincity-ng/MpsInterface.cpp:303
+#: src/lincity-ng/MpsInterface.cpp:425
 msgid "Cricket"
 msgstr "Sport"
 
-#: src/lincity/modules/residence.cpp:297 src/lincity-ng/MpsInterface.cpp:304
+#: src/lincity/modules/residence.cpp:297 src/lincity-ng/MpsInterface.cpp:305
 msgid "Pollution"
 msgstr "Verschmutzung"
 
-#: src/lincity/modules/residence.cpp:299 src/lincity-ng/MpsInterface.cpp:309
+#: src/lincity/modules/residence.cpp:299 src/lincity-ng/MpsInterface.cpp:310
 msgid "good"
 msgstr "gut"
 
@@ -651,7 +651,7 @@ msgstr "Industrie"
 #: src/lincity/modules/coal_power.cpp:103 src/lincity/modules/mill.cpp:112
 #: src/lincity/modules/commune.cpp:148 src/lincity/modules/track.cpp:45
 #: src/lincity/modules/pottery.cpp:130 src/lincity/modules/blacksmith.cpp:105
-#: src/lincity-ng/MpsInterface.cpp:356
+#: src/lincity-ng/MpsInterface.cpp:357
 msgid "Coal"
 msgstr "Kohle"
 
@@ -675,7 +675,7 @@ msgstr "Lager"
 msgid "Food"
 msgstr "Nahrung"
 
-#: src/lincity/modules/port.cpp:227 src/lincity-ng/MpsInterface.cpp:438
+#: src/lincity/modules/port.cpp:227 src/lincity-ng/MpsInterface.cpp:439
 msgid "Total"
 msgstr "Gesammt"
 
@@ -812,7 +812,7 @@ msgstr ": Baukosten "
 msgid ", to bulldoze "
 msgstr ", Abbruchkosten "
 
-#: src/lincity-ng/GameView.cpp:1410
+#: src/lincity-ng/GameView.cpp:1410 src/lincity-ng/GameView.cpp:1413
 msgid "$."
 msgstr "£."
 
@@ -828,162 +828,174 @@ msgstr " davon "
 msgid "will cost about "
 msgstr "wird ungefähr kosten "
 
-#: src/lincity-ng/MpsInterface.cpp:294
+#: src/lincity-ng/MpsInterface.cpp:176
+msgid "Green"
+msgstr "freie Fläche"
+
+#: src/lincity-ng/MpsInterface.cpp:177
+msgid "build something here"
+msgstr "Hier können sie bauen."
+
+#: src/lincity-ng/MpsInterface.cpp:181
+msgid "no further information available"
+msgstr "keine weitenen Infos"
+
+#: src/lincity-ng/MpsInterface.cpp:295
 msgid "Coverage"
 msgstr "Abdeckung"
 
-#: src/lincity-ng/MpsInterface.cpp:299
+#: src/lincity-ng/MpsInterface.cpp:300
 msgid "Health"
 msgstr "Gesundheit"
 
-#: src/lincity-ng/MpsInterface.cpp:307
+#: src/lincity-ng/MpsInterface.cpp:308
 msgid "clear"
 msgstr "sauber"
 
-#: src/lincity-ng/MpsInterface.cpp:311
+#: src/lincity-ng/MpsInterface.cpp:312
 msgid "fair"
 msgstr "ordentlich"
 
-#: src/lincity-ng/MpsInterface.cpp:313
+#: src/lincity-ng/MpsInterface.cpp:314
 msgid "smelly"
 msgstr "stinkig"
 
-#: src/lincity-ng/MpsInterface.cpp:315
+#: src/lincity-ng/MpsInterface.cpp:316
 msgid "smokey"
 msgstr "rauchig"
 
-#: src/lincity-ng/MpsInterface.cpp:317
+#: src/lincity-ng/MpsInterface.cpp:318
 msgid "smoggy"
 msgstr "smog"
 
-#: src/lincity-ng/MpsInterface.cpp:319
+#: src/lincity-ng/MpsInterface.cpp:320
 msgid "bad"
 msgstr "schlecht"
 
-#: src/lincity-ng/MpsInterface.cpp:321
+#: src/lincity-ng/MpsInterface.cpp:322
 msgid "very bad"
 msgstr "sehr schlecht"
 
-#: src/lincity-ng/MpsInterface.cpp:323
+#: src/lincity-ng/MpsInterface.cpp:324
 msgid "death!"
 msgstr "tötlich"
 
-#: src/lincity-ng/MpsInterface.cpp:328
+#: src/lincity-ng/MpsInterface.cpp:329
 msgid "Bulldoze Cost"
 msgstr "Abrisskosten"
 
-#: src/lincity-ng/MpsInterface.cpp:334
+#: src/lincity-ng/MpsInterface.cpp:335
 msgid "N/A"
 msgstr "keine"
 
-#: src/lincity-ng/MpsInterface.cpp:348
+#: src/lincity-ng/MpsInterface.cpp:349
 msgid "Tax Income"
 msgstr "Steuereinnahmen"
 
-#: src/lincity-ng/MpsInterface.cpp:352
+#: src/lincity-ng/MpsInterface.cpp:353
 msgid "Income"
 msgstr "Einnahmen"
 
-#: src/lincity-ng/MpsInterface.cpp:364
+#: src/lincity-ng/MpsInterface.cpp:365
 msgid "Export"
 msgstr "Export"
 
-#: src/lincity-ng/MpsInterface.cpp:368
+#: src/lincity-ng/MpsInterface.cpp:369
 msgid "Expenses"
 msgstr "Ausgaben"
 
-#: src/lincity-ng/MpsInterface.cpp:372
+#: src/lincity-ng/MpsInterface.cpp:373
 msgid "Unemp."
 msgstr "Arbeitsl."
 
-#: src/lincity-ng/MpsInterface.cpp:376
+#: src/lincity-ng/MpsInterface.cpp:377
 msgid "Transport"
 msgstr "Transport"
 
-#: src/lincity-ng/MpsInterface.cpp:380
+#: src/lincity-ng/MpsInterface.cpp:381
 msgid "Imports"
 msgstr "Import"
 
-#: src/lincity-ng/MpsInterface.cpp:384
+#: src/lincity-ng/MpsInterface.cpp:385
 msgid "Others"
 msgstr "Sonstige"
 
-#: src/lincity-ng/MpsInterface.cpp:389
+#: src/lincity-ng/MpsInterface.cpp:390
 msgid "Net"
 msgstr "Netto"
 
-#: src/lincity-ng/MpsInterface.cpp:399
+#: src/lincity-ng/MpsInterface.cpp:400
 msgid "Other Costs"
 msgstr "sonst. Kosten"
 
-#: src/lincity-ng/MpsInterface.cpp:404
+#: src/lincity-ng/MpsInterface.cpp:405
 msgid "For year"
 msgstr "Für"
 
-#: src/lincity-ng/MpsInterface.cpp:408
+#: src/lincity-ng/MpsInterface.cpp:409
 msgid "Interest"
 msgstr "Zinsen"
 
-#: src/lincity-ng/MpsInterface.cpp:410
+#: src/lincity-ng/MpsInterface.cpp:411
 msgid "Schools"
 msgstr "Schulen"
 
-#: src/lincity-ng/MpsInterface.cpp:412
+#: src/lincity-ng/MpsInterface.cpp:413
 msgid "Univers."
 msgstr "Unis"
 
-#: src/lincity-ng/MpsInterface.cpp:414
+#: src/lincity-ng/MpsInterface.cpp:415
 msgid "Deaths"
 msgstr "Todesfälle"
 
-#: src/lincity-ng/MpsInterface.cpp:418
+#: src/lincity-ng/MpsInterface.cpp:419
 msgid "Hospital"
 msgstr "Krankenhäuser"
 
-#: src/lincity-ng/MpsInterface.cpp:420
+#: src/lincity-ng/MpsInterface.cpp:421
 msgid "Rockets"
 msgstr "Raketen"
 
-#: src/lincity-ng/MpsInterface.cpp:422
+#: src/lincity-ng/MpsInterface.cpp:423
 msgid "Fire Stn"
 msgstr "Feuerwehr"
 
-#: src/lincity-ng/MpsInterface.cpp:436
+#: src/lincity-ng/MpsInterface.cpp:437
 msgid "Population"
 msgstr "Bevölkerung"
 
-#: src/lincity-ng/MpsInterface.cpp:439
+#: src/lincity-ng/MpsInterface.cpp:440
 msgid "Housed"
 msgstr "mit Wohnung"
 
-#: src/lincity-ng/MpsInterface.cpp:440
+#: src/lincity-ng/MpsInterface.cpp:441
 msgid "Homeless"
 msgstr "Obdachlos"
 
-#: src/lincity-ng/MpsInterface.cpp:441
+#: src/lincity-ng/MpsInterface.cpp:442
 msgid "Shanties"
 msgstr "Barackensiedlungen"
 
-#: src/lincity-ng/MpsInterface.cpp:442
+#: src/lincity-ng/MpsInterface.cpp:443
 msgid "Unn Dths"
 msgstr ""
 
-#: src/lincity-ng/MpsInterface.cpp:443
+#: src/lincity-ng/MpsInterface.cpp:444
 msgid "Unemployment"
 msgstr "Arbeitslosigkeit"
 
-#: src/lincity-ng/MpsInterface.cpp:444
+#: src/lincity-ng/MpsInterface.cpp:445
 msgid "Claims"
 msgstr "Ansprüche"
 
-#: src/lincity-ng/MpsInterface.cpp:445 src/lincity-ng/MpsInterface.cpp:450
+#: src/lincity-ng/MpsInterface.cpp:446 src/lincity-ng/MpsInterface.cpp:451
 msgid "Rate"
 msgstr "Rate"
 
-#: src/lincity-ng/MpsInterface.cpp:447
+#: src/lincity-ng/MpsInterface.cpp:448
 msgid "Starvation"
 msgstr "Verhungert"
 
-#: src/lincity-ng/MpsInterface.cpp:448
+#: src/lincity-ng/MpsInterface.cpp:449
 msgid "Cases"
 msgstr "Fälle"

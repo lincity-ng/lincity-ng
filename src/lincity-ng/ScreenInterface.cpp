@@ -176,8 +176,13 @@ void updateDate(){
 
 void updateMoney() {
     std::ostringstream moneyText;
- 
-    moneyText << total_money << _("$");
+    int money = total_money;
+
+    if( money > 1000000 ){
+        moneyText << money/1000000 << " "; 
+        money %= 1000000;
+    }
+    moneyText << money << _("$");
     
     Component* root = getGameView();
     if( !root ) return;
