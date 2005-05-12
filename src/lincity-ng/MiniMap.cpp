@@ -305,7 +305,8 @@ void MiniMap::draw(Painter &painter)
   // SDL_Surface should be updated, only if needed
 
   std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
-  Color alphawhite( 255, 255, 255, 128 );
+  Color white;
+  white.parse( "white" );
   if(mpainter.get() == 0)
   {
     // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
@@ -325,8 +326,11 @@ void MiniMap::draw(Painter &painter)
           }
         }
     //show current GameView
-    painter.setLineColor( alphawhite );
+    Rect2D miniRect( 0 , 0, WORLD_SIDE_LEN*tilesize, WORLD_SIDE_LEN*tilesize );
+    painter.setClipRectangle( miniRect ); 
+    painter.setLineColor( white );
     painter.drawPolygon( 4, gameViewPoints );    
+    painter.clearClipRectangle();
     return;
   }
 
@@ -345,7 +349,7 @@ void MiniMap::draw(Painter &painter)
         }
       }
     //show current GameView
-    mpainter->setLineColor( alphawhite );
+    mpainter->setLineColor( white );
     mpainter->drawPolygon( 4, gameViewPoints );    
 
 
