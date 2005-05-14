@@ -39,6 +39,10 @@ Programming
  [M] windmill starts "bouncing" up and down after you zoomed out
       -Wrong values in images/tiles/images.xml- (modern windmill) 
       -Scaling in SDL-Mode- (historic windmill)
+      WolfgangB: The problem is the scaling method. If all windmill?w.png
+      have the same height there is no bouncing. That means some aditional
+      blank lines, But until we find out what is wrong with the scaling 
+      its the only solution i can think of.
 
 --Game--
  [H] Implement a What's this button
