@@ -514,10 +514,16 @@ void MiniMap::event(const Event& event)
                 mps_global_style = 0;
             return;
         }
-
-        // move main-map
-        getGameView()->show(tile);
-        mFullRefresh=true;
+        if(event.mousebutton == SDL_BUTTON_LEFT ){ //left mouse
+     	    getGameView()->show(tile); // move main-map
+	}
+        if(event.mousebutton == SDL_BUTTON_WHEELUP ){ 
+	    getGameView()->zoomIn();
+	}
+        if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
+     	    getGameView()->zoomOut();
+	}
+	
     }
 }
 
