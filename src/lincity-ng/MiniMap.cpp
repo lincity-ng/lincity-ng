@@ -306,7 +306,6 @@ void MiniMap::draw(Painter &painter)
   std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
   Color white;
   white.parse( "white" );
-  int lasttype = -1;  
   if(mpainter.get() == 0)
   {
     // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
@@ -318,11 +317,8 @@ void MiniMap::draw(Painter &painter)
           {
             mappointoldtype[x][y] = typ;
             grp = get_group_of_type(typ);
-            if( grp != lasttype ){
-                Color mc=getColor(x,y);
-                painter.setFillColor(mc);
-                lasttype = grp;
-            }
+            Color mc=getColor(x,y);
+            painter.setFillColor(mc);
             painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
           }
         }
@@ -343,11 +339,8 @@ void MiniMap::draw(Painter &painter)
         {
           mappointoldtype[x][y] = typ;
           grp = get_group_of_type(typ);
-          if( grp != lasttype ){
-                Color mc=getColor(x,y);
-                painter.setFillColor(mc);
-                lasttype = grp;
-          }
+          Color mc=getColor(x,y);
+          painter.setFillColor(mc);
           mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
         }
       }
