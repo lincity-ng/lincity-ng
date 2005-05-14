@@ -405,12 +405,12 @@ Color MiniMap::getColor(int x,int y) const
       return getColorNormal(x,y);
     case POLLUTION:
       {
-	static std::set<short> pset;
+	//static std::set<short> pset;
 	short p=MP_POL(x,y);
-	if(pset.find(p)==pset.end())
-	  {
-	    pset.insert(p);
-	  }
+	//if(pset.find(p)==pset.end())
+	  //{
+	    //pset.insert(p);
+	  //}
 	float v=p/600.0;
 	if(v<0)
 	  v=0;
