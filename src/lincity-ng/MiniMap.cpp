@@ -296,7 +296,6 @@ void MiniMap::setGameViewCorners(const MapPoint& upperLeft,
 void MiniMap::draw(Painter &painter)
 {
   attachButtons();
-
   int x, y;
   short typ, grp;
 
@@ -307,21 +306,23 @@ void MiniMap::draw(Painter &painter)
   std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
   Color white;
   white.parse( "white" );
+  int lasttype = -1;  
   if(mpainter.get() == 0)
   {
     // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
-  
     for(y=0;y<WORLD_SIDE_LEN && y<height/tilesize;y++)
       for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)
         {
           typ = MP_TYPE(x,y);
-          if (typ != mappointoldtype[x][y] || mFullRefresh)
+          if( mFullRefresh || typ != mappointoldtype[x][y] )
           {
             mappointoldtype[x][y] = typ;
             grp = get_group_of_type(typ);
-  
-            Color mc=getColor(x,y);
-            painter.setFillColor(mc);
+            if( grp != lasttype ){
+                Color mc=getColor(x,y);
+                painter.setFillColor(mc);
+                lasttype = grp;
+            }
             painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
           }
         }
@@ -338,13 +339,15 @@ void MiniMap::draw(Painter &painter)
     for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)
       {
         typ = MP_TYPE(x,y);
-        if (typ != mappointoldtype[x][y] || mFullRefresh)
+        if ( mFullRefresh || typ != mappointoldtype[x][y] )
         {
           mappointoldtype[x][y] = typ;
           grp = get_group_of_type(typ);
-
-          Color mc=getColor(x,y);
-          mpainter->setFillColor(mc);
+          if( grp != lasttype ){
+                Color mc=getColor(x,y);
+                painter.setFillColor(mc);
+                lasttype = grp;
+          }
           mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
         }
       }
@@ -387,10 +390,9 @@ Color MiniMap::getColorNormal(int x,int y) const
 
 Color MiniMap::getColor(int x,int y) const
 {
-  int xx,yy;
+  int xx = x;
+  int yy = y;
   
-  xx=x;
-  yy=y;
   if (MP_TYPE(x,y) == CST_USED)
     {
       xx = MP_INFO(x,y).int_1;
@@ -405,12 +407,7 @@ Color MiniMap::getColor(int x,int y) const
       return getColorNormal(x,y);
     case POLLUTION:
       {
-	//static std::set<short> pset;
 	short p=MP_POL(x,y);
-	//if(pset.find(p)==pset.end())
-	  //{
-	    //pset.insert(p);
-	  //}
 	float v=p/600.0;
 	if(v<0)
 	  v=0;

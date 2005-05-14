@@ -51,7 +51,7 @@
                 <cell row="1" col="2" valign="bottom">
                     <Document background="#ffffff99">
                         <Paragraph halign="left" color="black" name="statusParagraph"
-                            height="20" font-size="16">status bar</Paragraph>
+                            height="20" font-size="16">Welcome to Lincity NG</Paragraph>
                     </Document>
                 </cell>
                 <cell row="1" col="3" valign="bottom">
