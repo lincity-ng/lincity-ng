@@ -10,7 +10,7 @@
 	<p style="hp">This is a nonworking mill</p>
 	<img src="data/images/tiles/mill0.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/industry/mills.png" halign="center"/>
+	<img src="data/images/gui/buttonpanel/parks/mills.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="goods">Goods</a></li>

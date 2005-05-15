@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Starvation overlay</p>
+	<img src="data/images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">The starvation mini screen shows only residential areas.</p>
+	<p style="hp">Bright green means that there is enough food in that residential area. Darker green and bright red show increasingly severe starvation in each residential area shown.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="msb-coal">Coal overlay</a></li>
+	<li><a href="msb-cricket">Sports overlay</a></li>
+	<li><a href="msb-fire">Fire overlay</a></li>
+	<li><a href="msb-health">Health overlay</a></li>
+	<li><a href="msb-normal">Normal overlay</a></li>
+	<li><a href="msb-pol">Pollution overlay</a></li>
+	<li><a href="msb-power">Power overlay</a></li>
+	<li><a href="msb-ub40">Unemployment overlay</a></li>
+</Document>

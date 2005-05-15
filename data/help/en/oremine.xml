@@ -9,7 +9,7 @@
 	<p style="hp">This is a ore mine</p>
 	<img src="data/images/tiles/oremine.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/mining/ore.png" halign="center"/>
+	<img src="data/images/gui/buttonpanel/mining/oremine.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="ore">Ore</a></li>

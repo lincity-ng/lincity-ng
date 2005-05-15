@@ -8,7 +8,7 @@
 	<p style="hp">This is a commune</p>
 	<img src="data/images/tiles/commune.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/industry/commune.png" halign="center"/>
+	<img src="data/images/gui/buttonpanel/mining/commune.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="pottery">Potteries</a></li>

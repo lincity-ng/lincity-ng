@@ -12,13 +12,14 @@
 	<p style="hp">and this it's icon</p>
 	<img src="data/images/gui/buttonpanel/misc/sports.png" halign="center"/>
 	<p style="hp">and this it's mapview overlay icon</p>
-	<img src="data/images/gui/buttonpanel/industry/round_soccer.png" halign="center"/>
+	<img src="data/images/gui/mapview/roundbuttons/round_soccer.png" halign="center"/>
 
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Mini-Screen</a></li>
 	<li><a href="goods">Goods</a></li>
-	<li><a href="market">Jobs</a></li>
+	<li><a href="market">Market</a></li>
 	<li><a href="jobs">Jobs</a></li>
+	<li><a href="msb-cricket">Sports overlay</a></li>
 </Document>
 
 

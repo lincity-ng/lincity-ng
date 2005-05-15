@@ -12,7 +12,7 @@
 	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
-	<li><a href="transport">nsport</a></li>
+	<li><a href="transport">Transport</a></li>
 	<li><a href="road">Roads</a></li>
 	<li><a href="rail">Railways</a></li>
 	<li><a href="market">StMarkets</a></li>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Health overlay</p>
+	<img src="data/images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">Areas that have a health centre within range are shown as dark green.</p>
+	<p style="hp">The areas out of range of a health centre are displayed as normal.</p>
+	<p style="hp">Remember, health centres take three months to become active.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="msb-coal">Coal overlay</a></li>
+	<li><a href="msb-cricket">Sports overlay</a></li>
+	<li><a href="msb-fire">Fire overlay</a></li>
+	<li><a href="msb-normal">Normal overlay</a></li>
+	<li><a href="msb-pol">Pollution overlay</a></li>
+	<li><a href="msb-power">Power overlay</a></li>
+	<li><a href="msb-starve">Starvation overlay</a></li>
+	<li><a href="msb-ub40">Unemployment overlay</a></li>
+</Document>
+
+
+
+
+
+
+text -1 270 Left click on the mini screen 
+text -1 280 to reposition the main window.
+text -1 300 Left click on the mini screen title 
+text -1 310 to choose a different mini screen view.
+text -1 330 Toggle overlay mode by pressing 'v' 
+text -1 340 or middle click on the mini screen title (X only)
