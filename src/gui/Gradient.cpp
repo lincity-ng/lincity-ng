@@ -11,6 +11,10 @@
 #include "Painter.hpp"
 #include "ComponentFactory.hpp"
 
+#ifdef _MSC_VER
+#define lrintf(x) (long int)x
+#endif
+
 Gradient::Gradient()
     : direction(LEFT_RIGHT)
 {}
