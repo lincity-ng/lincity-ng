@@ -12,6 +12,11 @@
 
 #include "TextureSDL.hpp"
 
+#ifdef _MSC_VER
+#define lrint(x) (long int)x
+#define alloca _alloca
+#endif
+
 PainterSDL::PainterSDL(SDL_Surface* _target)
     : target(_target)
 {
@@ -85,7 +90,8 @@ void
 PainterSDL::fillPolygon(int numberPoints, const Vector2* points)
 {
     Vector2 screenpos;
-    Sint16 vx[ numberPoints ], vy[ numberPoints ];
+    Sint16* vx = (Sint16*) alloca(numberPoints * sizeof(*vx));
+    Sint16* vy = (Sint16*) alloca(numberPoints * sizeof(*vy));
     for(int i = 0; i < numberPoints; i++ ) {
          screenpos = transform.apply( points[ i ] );
          vx[ i ] = (int) screenpos.x;
@@ -99,7 +105,8 @@ void
 PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
 {
     Vector2 screenpos;
-    Sint16 vx[ numberPoints ], vy[ numberPoints ];
+    Sint16* vx = (Sint16*) alloca(numberPoints * sizeof(*vx));
+    Sint16* vy = (Sint16*) alloca(numberPoints * sizeof(*vy));
     for(int i = 0; i < numberPoints; i++ ) {
          screenpos = transform.apply( points[ i ] );
          vx[ i ] = (int) screenpos.x;
