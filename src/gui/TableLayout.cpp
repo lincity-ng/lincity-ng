@@ -217,7 +217,7 @@ TableLayout::removeComponents()
 int
 TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
 {
-    props.type = RowColProperties::RELATIVE;
+    props.type = RowColProperties::TYPE_RELATIVE;
 
     int num = -1;
     XmlReader::AttributeIterator iter(reader);
@@ -225,13 +225,13 @@ TableLayout::parseProperties(XmlReader& reader, RowColProperties& props)
         const char* name = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
         if(strcmp(name, "fixed") == 0) {
-            props.type = RowColProperties::FIXEDSIZE;
+            props.type = RowColProperties::TYPE_FIXEDSIZE;
             if(sscanf(value, "%f", &props.val) != 1) {
                 std::cerr << "Eror parsing float value '"
                     << value << "' in fixed attribute.\n";
             }
         } else if(strcmp(name, "relative") == 0) {
-            props.type = RowColProperties::RELATIVE;
+            props.type = RowColProperties::TYPE_RELATIVE;
             if(sscanf(value, "%f", &props.val) != 1) {
                 std::cerr << "Error parsing float vluae '"
                     << value << "' in relative attribute.\n";
@@ -262,7 +262,7 @@ TableLayout::resize(float width, float height)
     // Step1: assign all fixed sizes
     for(Properties::iterator i = rowproperties.begin();
             i != rowproperties.end(); ++i) {
-        if(i->type == RowColProperties::FIXEDSIZE) {
+        if(i->type == RowColProperties::TYPE_FIXEDSIZE) {
             fixedheight += i->val;
             i->realval = i->val;
         } else {
@@ -271,7 +271,7 @@ TableLayout::resize(float width, float height)
     }
     for(Properties::iterator i = colproperties.begin();
             i != colproperties.end(); ++i) {
-        if(i->type == RowColProperties::FIXEDSIZE) {
+        if(i->type == RowColProperties::TYPE_FIXEDSIZE) {
             fixedwidth += i->val;
             i->realval = i->val;
         } else {
@@ -288,7 +288,7 @@ TableLayout::resize(float width, float height)
 
     for(Properties::iterator i = rowproperties.begin();
             i != rowproperties.end(); ++i) {
-        if(i->type == RowColProperties::RELATIVE) {
+        if(i->type == RowColProperties::TYPE_RELATIVE) {
             i->realval = heightfact * i->val;
         }
     }
@@ -301,7 +301,7 @@ TableLayout::resize(float width, float height)
 
     for(Properties::iterator i = colproperties.begin();
             i != colproperties.end(); ++i) {
-        if(i->type == RowColProperties::RELATIVE) {
+        if(i->type == RowColProperties::TYPE_RELATIVE) {
             i->realval = widthfact * i->val;
         }
     }

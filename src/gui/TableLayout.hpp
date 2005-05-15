@@ -41,11 +41,11 @@ public:
     struct RowColProperties
     {
         RowColProperties()
-            : type(RELATIVE), val(1)
+            : type(TYPE_RELATIVE), val(1)
         {
         }
 
-        enum Type { FIXEDSIZE, RELATIVE };
+        enum Type { TYPE_FIXEDSIZE, TYPE_RELATIVE };
         Type type;
         float val;
         float realval;
