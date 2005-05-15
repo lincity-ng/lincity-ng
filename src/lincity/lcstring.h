@@ -7,7 +7,14 @@
 #define __lcstring_h__
 
 #include <string.h>
+#ifndef WIN32
 #include <unistd.h>
+#endif
+
+#ifndef _MSC_VER
 #warning deprecated header
+#else
+#pragma message(__FILE__ ": deprecated header")
+#endif
 
 #endif	/* __lcstring_h__ */

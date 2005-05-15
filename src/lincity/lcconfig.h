@@ -12,6 +12,10 @@
 #include <config.h>
 #endif
 
+#ifndef _MSC_VER
 #warning deprecated header
+#else
+#pragma message(__FILE__ ": deprecated header")
+#endif
 
 #endif	/* __lcconfig_h__ */
