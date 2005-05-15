@@ -38,8 +38,8 @@
 #include "gui_interface/shared_globals.h"
 #include "tinygettext/gettext.hpp"
 
-const float GameView::defaultTileWidth;
-const float GameView::defaultTileHeight;
+const float GameView::defaultTileWidth = 128;
+const float GameView::defaultTileHeight = 64;
 
 GameView* gameViewPtr = 0;
 
@@ -216,12 +216,12 @@ void GameView::resetZoom(){
 
 /* increase Zoomlevel */
 void GameView::zoomIn(){
-    setZoom( zoom * sqrt( 2 ) );
+    setZoom( zoom * sqrt( 2.f ) );
 }
 
 /** decrease Zoomlevel */
 void GameView::zoomOut(){
-    setZoom( zoom / sqrt( 2 ) );
+    setZoom( zoom / sqrt( 2.f ) );
 }
 
 /**

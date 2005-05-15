@@ -70,8 +70,8 @@ private:
     SDL_Surface* readImage(const std::string& filename);
     void preReadCityTexture(int textureType, const std::string& filename);
 
-    static const float defaultTileWidth = 128;
-    static const float defaultTileHeight = 64;
+    static const float defaultTileWidth;
+    static const float defaultTileHeight;
 
     float tileWidth, tileHeight, zoom; 
     //a virtual screen containing the whole city
