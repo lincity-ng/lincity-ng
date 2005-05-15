@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-    <p style="htitle">Lincity Hilfe</p>
-    <p style="hp">Willkommen zum Lincity Hilfesystem. Bitte klicken sie auf
-    eines der blauen Wörter unten um Informationen zu einem Thema angezeigt zu
-    bekomment.</p>
-    <li><a href="market">Markt</a></li>
-    <li><a href="blacksmith">Schmiede</a></li>
-    <li><a href="university">Universität</a></li>
+	<p style="htitle">Lincity Help</p>
+	<p style="hp">Willkommen zum Lincity Hilfesystem. Bitte klicken sie auf eines der blauen Wörter unten um Informationen zu einem Thema angezeigt zu bekommen.</p>
+	<li><a href="button-index">Hilfe fUEr die GebAEude</a></li>
+	<li><a href="mini-screen">Hilfe fUEr die Minimap</a></li>
 </Document>
