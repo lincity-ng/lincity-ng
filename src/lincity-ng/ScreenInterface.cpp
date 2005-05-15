@@ -32,7 +32,7 @@ int getMainWindowHeight();
 /* This is on in screen_full_refresh, used in *_refresh() */
 char screen_refreshing;
 
-char* current_month (int current_time);
+const char* current_month (int current_time);
 void draw_cb_box (int row, int col, int checked);
 
 int ask_launch_rocket_now (int x, int y)
@@ -109,7 +109,7 @@ void reset_status_message (void);
  void ok_dial_box (const char *fn, int, const char *xs)
 {
     std::ostringstream text;
-    text << "ok_dial_box:'" << fn << "' + \"" << xs << "\"\n";
+    text << "ok_dial_box:'" << fn << "' + \"" << (xs ? xs : "") << "\"\n";
     updateMessageText( text.str() );
 }
 
