@@ -340,7 +340,7 @@ void MiniMap::draw(Painter &painter)
           mappointoldtype[x][y] = typ;
           grp = get_group_of_type(typ);
           Color mc=getColor(x,y);
-          painter.setFillColor(mc);
+          mpainter->setFillColor(mc);
           mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
         }
       }
