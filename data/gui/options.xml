@@ -1,86 +1,120 @@
 <?xml version="1.0"?>
 <gui>
-    <DefineStyle name="button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
-    <DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>
-    <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3" margin-left="23" margin-right="20"/>
+	<DefineStyle name="button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
+	<DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>
+	<DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3" margin-left="23" margin-right="20"/>
 	<DefineStyle name="listtitle" color="black" font-size="30" margin-left="20" margin-right="20" />
-	
-    <Image src="images/mainmenu/credits_back.png" resizable="yes"/>
-    <TableLayout rows="4" cols="1">
-        <rowsize row="4" relative=".1"/>
-        <cell row="1" col="1" valign="top" halign="left">
-            <TableLayout rows="1" cols="3">
-                <cell row="1" col="1">
-                <Button name="BackMusicOff">
-                    <text style="button" translatable="yes">Mute Music</text>
-                    <text-hover style="button-hover" translatable="yes">Mute Music</text-hover>
-                    <text-clicked style="button-clicked" translatable="yes">Mute Music</text-clicked>
-                </Button>
-                </cell>
-                <cell row="1" col="2">
-                <Button name="BackMusicOn">
-                    <text style="button" translatable="yes">Music on</text>
-                    <text-hover style="button-hover" translatable="yes">Music on</text-hover>
-                    <text-clicked style="button-clicked" translatable="yes">Music on</text-clicked>
-                </Button>
-                </cell>
-                <cell row="1" col="3">
-                    <Paragraph style="listtitle" translatable="yes">Background Music.</Paragraph>
-                </cell>
-            </TableLayout>
-        </cell>
-        <!--TODO: Adjust Music Volume -->
-        <cell row="2" col="1" valign="top" halign="left">
-            <TableLayout rows="1" cols="3">
-                <cell row="1" col="1">
-                <Button name="SoundFXOff">
-                    <text style="button" translatable="yes">FX off</text>
-                    <text-hover style="button-hover" translatable="yes">FX off</text-hover>
-                    <text-clicked style="button-clicked" translatable="yes">FX off</text-clicked>
-                </Button>
-                </cell>
-                <cell row="1" col="2">
-                <Button name="SoundFXOn">
-                    <text style="button" translatable="yes">FX on</text>
-                    <text-hover style="button-hover" translatable="yes">FX on</text-hover>
-                    <text-clicked style="button-clicked" translatable="yes">FX on</text-clicked>
-                </Button>
-                </cell>
-                <cell row="1" col="3">
-                    <Paragraph style="listtitle" translatable="yes" >Sound Effects.</Paragraph>
-                </cell>
-            </TableLayout>
-        </cell>
-        <!--TODO: Adjust FX Volume -->
-        <cell row="3" col="1" valign="top" halign="left">
-            <TableLayout rows="1" cols="3">
-                <cell row="1" col="1">
-                <Button name="Fullscreen">
-                    <text style="button" translatable="yes">Fullscreen</text>
-                    <text-hover style="button-hover" translatable="yes">Fullscreen</text-hover>
-                    <text-clicked style="button-clicked" translatable="yes">Fullscreen</text-clicked>
-                </Button>
-                </cell>
-                <cell row="1" col="2">
-                <Button name="Windowed">
-                    <text style="button" translatable="yes">Windowed</text>
-                    <text-hover style="button-hover" translatable="yes">Windowed</text-hover>
-                    <text-clicked style="button-clicked" translatable="yes">Windowed</text-clicked>
-                </Button>
-                </cell>
-                <cell row="1" col="3">
-                    <Paragraph style="listtitle" translatable="yes">GameMode:</Paragraph>
-                </cell>
-            </TableLayout>
-        </cell>
 
-        <cell row="4" col="1" halign="left">
-            <Button name="BackButton">
-                <text-caption style="button" translatable="yes">Back</text-caption>
-                <image src="images/mainmenu/buttons/back.png"/>
-                <image-hover src="images/mainmenu/buttons/back-hover.png"/>
-                <image-clicked src="images/mainmenu/buttons/back-clicked.png"/>
-            </Button>
-        </cell>
-    </TableLayout>
+	<Image src="images/mainmenu/settings_back.png" resizable="yes"/>
+	<TableLayout rows="5" cols="1" border="false">
+		<rowsize row="5" fixed="200"/>
+		<rowsize row="5" relative=".4"/>
+		<cell row="2" col="1" valign="top" halign="left">
+			<TableLayout rows="1" cols="5">
+				<colsize col="1" relative="2"/>
+				<colsize col="2" relative=".5"/>
+				<colsize col="3" relative="1"/>
+				<colsize col="4" relative=".5"/>
+				<colsize col="5" relative="1"/>
+				<cell row="1" col="1">
+					<Paragraph style="listtitle" translatable="yes">Background Music.</Paragraph>
+				</cell>
+				<cell row="1" col="2">
+					<Image src="images/mainmenu/settings/music-off.png"/>
+				</cell>
+				<cell row="1" col="3">
+					<Button name="BackMusicOff">
+						<text style="button" translatable="yes">Mute Music</text>
+						<text-hover style="button-hover" translatable="yes">Mute Music</text-hover>
+						<text-clicked style="button-clicked" translatable="yes">Mute Music</text-clicked>
+					</Button>
+				</cell>
+				<cell row="1" col="4">
+					<Image src="images/mainmenu/settings/music-on.png"/>
+				</cell>
+				<cell row="1" col="5">
+					<Button name="BackMusicOn">
+						<text style="button" translatable="yes">Music on</text>
+						<text-hover style="button-hover" translatable="yes">Music on</text-hover>
+						<text-clicked style="button-clicked" translatable="yes">Music on</text-clicked>
+					</Button>
+				</cell>
+			</TableLayout>
+		</cell>
+		<!--TODO: Adjust Music Volume -->
+		<cell row="3" col="1" valign="top" halign="left">
+		<TableLayout rows="1" cols="5">
+			<colsize col="1" relative="2"/>
+			<colsize col="2" relative=".5"/>
+			<colsize col="3" relative="1"/>
+			<colsize col="4" relative=".5"/>
+			<colsize col="5" relative="1"/>
+			<cell row="1" col="1">
+				<Paragraph style="listtitle" translatable="yes" >Sound Effects.</Paragraph>
+			</cell>
+			<cell row="1" col="2">
+				<Image src="images/mainmenu/settings/sound-off.png"/>
+			</cell>
+			<cell row="1" col="3">
+			<Button name="SoundFXOff">
+				<text style="button" translatable="yes">FX off</text>
+				<text-hover style="button-hover" translatable="yes">FX off</text-hover>
+				<text-clicked style="button-clicked" translatable="yes">FX off</text-clicked>
+			</Button>
+			</cell>
+			<cell row="1" col="4">
+				<Image src="images/mainmenu/settings/sound-on.png"/>
+			</cell>
+			<cell row="1" col="5">
+			<Button name="SoundFXOn">
+				<text style="button" translatable="yes">FX on</text>
+				<text-hover style="button-hover" translatable="yes">FX on</text-hover>
+				<text-clicked style="button-clicked" translatable="yes">FX on</text-clicked>
+			</Button>
+			</cell>
+		</TableLayout>
+		</cell>
+		<!--TODO: Adjust FX Volume -->
+		<cell row="4" col="1" valign="top" halign="left">
+		<TableLayout rows="1" cols="5">
+			<colsize col="1" relative="2"/>
+			<colsize col="2" relative=".5"/>
+			<colsize col="3" relative="1"/>
+			<colsize col="4" relative=".5"/>
+			<colsize col="5" relative="1"/>
+			<cell row="1" col="1">
+				<Paragraph style="listtitle" translatable="yes">GameMode:</Paragraph>
+			</cell>
+			<cell row="1" col="2">
+				<Image src="images/mainmenu/settings/fullscreen.png"/>
+			</cell>
+			<cell row="1" col="3" halign="left">
+			<Button name="Fullscreen">
+				<text style="button" translatable="yes">Fullscreen</text>
+				<text-hover style="button-hover" translatable="yes">Fullscreen</text-hover>
+				<text-clicked style="button-clicked" translatable="yes">Fullscreen</text-clicked>
+			</Button>
+			</cell>
+			<cell row="1" col="4">
+				<Image src="images/mainmenu/settings/windowed.png"/>
+			</cell>
+			<cell row="1" col="5" halign="left">
+			<Button name="Windowed">
+				<text style="button" translatable="yes">Windowed</text>
+				<text-hover style="button-hover" translatable="yes">Windowed</text-hover>
+				<text-clicked style="button-clicked" translatable="yes">Windowed</text-clicked>
+			</Button>
+			</cell>
+		</TableLayout>
+		</cell>
+	
+		<cell row="5" col="1" halign="left">
+			<Button name="BackButton">
+				<text-caption style="button" translatable="yes">Back</text-caption>
+				<image src="images/mainmenu/buttons/back.png"/>
+				<image-hover src="images/mainmenu/buttons/back-hover.png"/>
+				<image-clicked src="images/mainmenu/buttons/back-clicked.png"/>
+			</Button>
+		</cell>
+	</TableLayout>
 </gui>
