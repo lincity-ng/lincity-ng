@@ -12,7 +12,7 @@
 extern char *months[];
 
 
-char * current_month(int current_time);
+const char * current_month(int current_time);
 int current_year (int current_time);
 void format_number5 (char* str, int num);
 void format_pos_number4 (char* str, int num);
