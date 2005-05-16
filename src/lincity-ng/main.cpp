@@ -77,6 +77,11 @@ void initPhysfs(const char* argv0)
 
     // allow symbolic links
     PHYSFS_permitSymbolicLinks(1);
+
+    //show search Path 
+    char **i;
+    for (i = PHYSFS_getSearchPath(); *i != NULL; i++)
+        printf("[%s] is in the search path.\n", *i);
 }
 
 void initVideo(int width, int height)
@@ -127,8 +132,10 @@ void initVideo(int width, int height)
         glClear(GL_COLOR_BUFFER_BIT);
     
         painter = new PainterGL();
+        std::cout << "OpenGL Mode\n";
     } else {
         painter = new PainterSDL(screen);
+        std::cout << "SDL Mode\n";
     }
 }
 
@@ -181,6 +188,7 @@ int main(int argc, char** argv)
     int result = 0;
 
 #ifndef DEBUG //in debug mode we wanna have a backtrace
+    std::cout << "Starting Lincity-NG in Debug Mode...\n";
     try {
 #endif                                                     
         initPhysfs(argv[0]);
