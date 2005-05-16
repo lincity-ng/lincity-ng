@@ -110,7 +110,10 @@ Sound::Sound()
 
 Sound::~Sound()
 {
-    SDL_KillThread( loaderThread );
+    //SDL_KillThread( loaderThread );
+    std::cout << "Waiting for SoundThread ...";
+    SDL_WaitThread( loaderThread, NULL );
+    std::cout << " done.\n";
     if(currentMusic)
         Mix_FreeMusic(currentMusic);
 

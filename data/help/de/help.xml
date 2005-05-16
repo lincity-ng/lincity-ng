@@ -2,6 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Lincity Help</p>
 	<p style="hp">Willkommen zum Lincity Hilfesystem. Bitte klicken sie auf eines der blauen Wörter unten um Informationen zu einem Thema angezeigt zu bekommen.</p>
+    <li><a href="keys">Tastaturbefehle</a></li>
 	<li><a href="button-index">Hilfe fUEr die GebAEude</a></li>
 	<li><a href="mini-screen">Hilfe fUEr die Minimap</a></li>
 </Document>

@@ -61,8 +61,12 @@ GameView::GameView()
 GameView::~GameView()
 {
     stopThread = true;
+    std::cout << "Waiting for loaderThread ...";
     SDL_mutexP( mThreadRunning );
-    SDL_KillThread( loaderThread );
+    //SDL_KillThread( loaderThread );
+    SDL_WaitThread( loaderThread, NULL );
+    std::cout << " done.\n";
+
     SDL_DestroyMutex( mThreadRunning );
     SDL_DestroyMutex( mTextures );
     
