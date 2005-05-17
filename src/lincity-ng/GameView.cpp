@@ -56,6 +56,8 @@ GameView::GameView()
     mTextures = SDL_CreateMutex();
     mThreadRunning = SDL_CreateMutex();
     loaderThread = 0;
+    keyScrollState = 0;
+    mouseScrollState = 0;
 }
 
 GameView::~GameView()
@@ -137,8 +139,6 @@ void GameView::parse(XmlReader& reader)
 
     mapOverlay = overlayNone;
     mapMode = MiniMap::NORMAL;
-
-    scrollTimer = 0;
 }
 
 /*
@@ -655,37 +655,43 @@ void GameView::loadTextures()
 }
 
 /*
- * Callback for scroll timer
+ * Scroll the map.
  */
-Uint32 autoScroll( Uint32 interval, void *param ){
-    (void) param;
-    (void) interval;
-    SDL_Event key_event;
-    SDL_Surface* surface = SDL_GetVideoSurface();
-    if( !surface ){ //happens while resizing window.
-        return 50;
+void GameView::scroll( void )
+{
+    static Uint32 oldTime = SDL_GetTicks();
+    Uint32 now = SDL_GetTicks();
+    //TODO: scroll speed should be configurable
+    float stepx = (now - oldTime) * tileWidth / 100;
+    float stepy = (now - oldTime) * tileHeight / 100;
+    oldTime = now;
+
+    if( keyScrollState == 0 && mouseScrollState == 0 ) {
+        return;
     }
-    int x,y;
-    SDL_GetMouseState( &x, &y );
-    key_event.type = SDL_KEYUP;
-    key_event.key.state = SDL_RELEASED;
-    if( y < scrollBorder ){ //upper border
-        key_event.key.keysym.sym = SDLK_UP;
-        SDL_PushEvent( &key_event );
+
+    if( keyScrollState & (SCROLL_LSHIFT | SCROLL_RSHIFT) ) {
+        stepx *= 4;
+        stepy *= 4;
     }
-    if( y > surface->h - scrollBorder ){ //lower border
-        key_event.key.keysym.sym = SDLK_DOWN;
-        SDL_PushEvent( &key_event );
+
+    if( (keyScrollState | mouseScrollState) &
+            (SCROLL_UP | SCROLL_UP_LEFT | SCROLL_UP_RIGHT) ) {
+        viewport.y -= stepy;
     }
-    if( x < scrollBorder ){ //left border
-        key_event.key.keysym.sym = SDLK_LEFT;
-        SDL_PushEvent( &key_event );
+    if( (keyScrollState | mouseScrollState) &
+            (SCROLL_DOWN | SCROLL_DOWN_LEFT | SCROLL_DOWN_RIGHT) ) {
+        viewport.y += stepy;
     }
-    if( x > surface->h - scrollBorder ){ //right border
-        key_event.key.keysym.sym = SDLK_RIGHT;
-        SDL_PushEvent( &key_event );
+    if( (keyScrollState | mouseScrollState) &
+            (SCROLL_LEFT | SCROLL_UP_LEFT | SCROLL_DOWN_LEFT) ) {
+        viewport.x -= stepx;
     }
-    return 50;
+    if( (keyScrollState | mouseScrollState) &
+            (SCROLL_RIGHT | SCROLL_UP_RIGHT | SCROLL_DOWN_RIGHT) ) {
+        viewport.x += stepx;
+    }
+    setDirty();
 }
 
 /*
@@ -700,18 +706,18 @@ void GameView::event(const Event& event)
     
     switch(event.type) {
         case Event::MOUSEMOTION: {
-            if( scrollTimer == 0 ){
-                if( (event.mousepos.x < scrollBorder) || (event.mousepos.x > getWidth() - scrollBorder) 
-                        || (event.mousepos.y < scrollBorder) || (event.mousepos.y > getHeight() - scrollBorder) ){
-                    scrollTimer = SDL_AddTimer( 150, &autoScroll, 0 );
-                }
-            } else {
-                if( !( (event.mousepos.x < scrollBorder) || (event.mousepos.x > getWidth() - scrollBorder) 
-                            || (event.mousepos.y < scrollBorder) || (event.mousepos.y > getHeight() - scrollBorder) )){
-                    SDL_RemoveTimer( scrollTimer );
-                    scrollTimer = 0;
-                }
+            mouseScrollState = 0;
+            if( event.mousepos.x < scrollBorder ) {
+                mouseScrollState |= SCROLL_LEFT;
+            } else if( event.mousepos.x > getWidth() - scrollBorder ) {
+                mouseScrollState |= SCROLL_RIGHT;
             }
+            if( event.mousepos.y < scrollBorder ) {
+                mouseScrollState |= SCROLL_UP;
+            } else if( event.mousepos.y > getHeight() - scrollBorder ) {
+                mouseScrollState |= SCROLL_DOWN;
+            }
+
             if( dragging ) {
                 Uint32 now = SDL_GetTicks();
                 dragDistance = event.mousepos - dragStart;
@@ -852,6 +858,48 @@ void GameView::event(const Event& event)
                 zoomOut();                                        //zoom out
             }
             break;
+        case Event::KEYDOWN:
+            if( event.keysym.sym == SDLK_KP8 || event.keysym.sym == SDLK_UP ){
+                keyScrollState |= SCROLL_UP;
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP2 || event.keysym.sym == SDLK_DOWN ){
+                keyScrollState |= SCROLL_DOWN;
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP4 || event.keysym.sym == SDLK_LEFT ){
+                keyScrollState |= SCROLL_LEFT;
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP6 || event.keysym.sym == SDLK_RIGHT ){
+                keyScrollState |= SCROLL_RIGHT;
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP7 ){
+                keyScrollState |= SCROLL_UP_LEFT;
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP9 ){
+                keyScrollState |= SCROLL_UP_RIGHT;
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP1 ){
+                keyScrollState |= SCROLL_DOWN_LEFT;
+                break;
+            }
+            if( event.keysym.sym == SDLK_KP3 ){
+                keyScrollState |= SCROLL_DOWN_RIGHT;
+                break;
+            }
+            if( event.keysym.sym== SDLK_LSHIFT ){
+                keyScrollState |= SCROLL_LSHIFT;
+                break;
+            }
+            if( event.keysym.sym == SDLK_RSHIFT ){
+                keyScrollState |= SCROLL_RSHIFT;
+                break;
+            }
+            break;
         case Event::KEYUP:
             //TEst
             if( event.keysym.sym == SDLK_x ){
@@ -893,54 +941,47 @@ void GameView::event(const Event& event)
                 break;
             }
             //Scroll
-            if( event.keysym.mod & KMOD_SHIFT ){
-                stepx =  5 * tileWidth;
-                stepy =  5 * tileHeight;
-            } 
-            if ( event.keysym.sym == SDLK_KP9 ) {
-                viewport.x += stepx;
-                viewport.y -= stepy;
-                setDirty();
+            if( event.keysym.sym == SDLK_KP8 || event.keysym.sym == SDLK_UP ){
+                keyScrollState &= ~SCROLL_UP;
                 break;
             }
-            if ( event.keysym.sym == SDLK_KP1 ) {
-                viewport.x -= stepx;
-                viewport.y += stepy;
-                setDirty();
+            if( event.keysym.sym == SDLK_KP2 || event.keysym.sym == SDLK_DOWN ){
+                keyScrollState &= ~SCROLL_DOWN;
                 break;
             }
-            if ( ( event.keysym.sym == SDLK_KP8 ) || ( event.keysym.sym == SDLK_UP ) ) {
-                viewport.y -= stepy;
-                setDirty();
+            if( event.keysym.sym == SDLK_KP4 || event.keysym.sym == SDLK_LEFT ){
+                keyScrollState &= ~SCROLL_LEFT;
                 break;
             }
-            if ( ( event.keysym.sym == SDLK_KP2 ) || ( event.keysym.sym == SDLK_DOWN ) )  {
-                viewport.y += stepy;
-                setDirty();
+            if( event.keysym.sym == SDLK_KP6 || event.keysym.sym == SDLK_RIGHT ){
+                keyScrollState &= ~SCROLL_RIGHT;
                 break;
             }
-            if ( event.keysym.sym == SDLK_KP7 ) {
-                viewport.x -= stepx;
-                viewport.y -= stepy;
-                setDirty();
+            if( event.keysym.sym == SDLK_KP7 ){
+                keyScrollState &= ~SCROLL_UP_LEFT;
                 break;
             }
-            if ( event.keysym.sym == SDLK_KP3 ) {
-                viewport.x += stepx;
-                viewport.y += stepy;
-                setDirty();
+            if( event.keysym.sym == SDLK_KP9 ){
+                keyScrollState &= ~SCROLL_UP_RIGHT;
                 break;
             }
-            if ( ( event.keysym.sym == SDLK_KP6 ) || ( event.keysym.sym == SDLK_RIGHT ) )  {
-                viewport.x += stepx;
-                setDirty();
+            if( event.keysym.sym == SDLK_KP1 ){
+                keyScrollState &= ~SCROLL_DOWN_LEFT;
                 break;
             }
-            if ( ( event.keysym.sym == SDLK_KP4 ) || ( event.keysym.sym == SDLK_LEFT ) ) {
-                viewport.x -= stepx;
-                setDirty();
+            if( event.keysym.sym == SDLK_KP3 ){
+                keyScrollState &= ~SCROLL_DOWN_RIGHT;
                 break;
             }
+            if( event.keysym.sym == SDLK_LSHIFT ){
+                keyScrollState &= ~SCROLL_LSHIFT;
+                break;
+            }
+            if( event.keysym.sym == SDLK_RSHIFT ){
+                keyScrollState &= ~SCROLL_RSHIFT;
+                break;
+            }
+
             if ( event.keysym.sym == SDLK_KP5 ) {
                 show(MapPoint(WORLD_SIDE_LEN / 2, WORLD_SIDE_LEN / 2));
                 setDirty();

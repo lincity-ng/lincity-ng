@@ -39,6 +39,9 @@ public:
     //decrease Zoomlevel 
     void zoomOut();
 
+    //scroll the map
+    void scroll( void );
+
     //size in Tiles of marking under Cursor
     void setCursorSize( int size ); 
 
@@ -76,6 +79,21 @@ private:
     float tileWidth, tileHeight, zoom; 
     //a virtual screen containing the whole city
     float virtualScreenWidth, virtualScreenHeight;
+
+    enum {
+	SCROLL_UP = 1,
+	SCROLL_DOWN = (1 << 1),
+	SCROLL_LEFT = (1 << 2),
+	SCROLL_RIGHT = (1 << 3),
+	SCROLL_UP_LEFT = (1 << 4),
+	SCROLL_UP_RIGHT = (1 << 5),
+	SCROLL_DOWN_LEFT = (1 << 6),
+	SCROLL_DOWN_RIGHT = (1 << 7),
+	SCROLL_LSHIFT = (1 << 8),
+	SCROLL_RSHIFT = (1 << 9),
+    };
+    int keyScrollState;
+    int mouseScrollState;
 
     //upper left corner of the viewport on virtual screen
     Vector2 viewport;
@@ -117,7 +135,6 @@ private:
     void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;
-    SDL_TimerID scrollTimer;
 
     MapPoint realTile( MapPoint tile );
 };

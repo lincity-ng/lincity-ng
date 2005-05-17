@@ -64,6 +64,7 @@ Game::run()
     Uint32 ticks = SDL_GetTicks();
     int frame = 0;
     while(running) {
+        getGameView()->scroll();
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
                 case SDL_VIDEORESIZE:
