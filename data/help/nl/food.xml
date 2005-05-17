@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Voedsel</p>
+	<p style="hp">Voedsel groeit in boerderijen en kan geimporteerd worden via havens.</p>
+	<p style="hp">De bevolking heeft voedsel nodig om te kunnen overleven. Als ze verhongeren zullen ze verhuizen naar een ander gebied en zullen mogelijk sterven.</p>
+	<p style="hp">Textielfabrieken gebruiken ook voesel. Ze maken kleren van katoen. Wees voorzichtig, textielfabrieken kunnen <i>heel</i> veel voedsel verbruiken.</p>
+	
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="farm">Boerderij</a></li>
+	<li><a href="port">Haven</a></li>
+	<li><a href="mill">Textielfabriek</a></li>
+	<!--Waarom staat staal hiertussen?--><li><a href="steel">Staal</a></li>
+</Document>

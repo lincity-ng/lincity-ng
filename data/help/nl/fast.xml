@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Hoge snelheid</p>
+
+	<img src="data/images/gui/speed/fast.png"/>
+	<p style="hp">Dit is de hogesnelheid knop. Het zorgt ervoor dan het spel zo snel mogelijk loopt. Op tragere computers is het mogelijk dat deze knop geen effect heeft. Voorzichtigheid is aan te raden op snelle computers, 'situaties' kunnen zich zeer snel aanpassen!!</p>
+
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="medium">Gemiddeld</a></li>
+	<li><a href="slow">Traag</a></li>
+</Document>

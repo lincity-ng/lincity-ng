@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Steenkoolmijn</p>
+	<p style="hp">Steenkoolmijen graven steenkool op uit de grond. Er moet een steenkoolgebied zijn dichtbij de mijn. U kunt zien waar de steenkoolgebieden zijn door op de steenkoolknop te klikken juist boven de stadsplattegrond.</p>
+	<p style="hp">De eerste keer dat u deze knop gebruikt zal u dit 1 millioen kosten. Daarna is het gratis. U heeft deze knop niet nodig maar u zal de steenkool door middel van veel bouwen (en terug afbreken) moeten zoeken.</p>
+	<p style="hp">Steenkoolmijnen gebruiken jobs.</p>
+	
+	<p style="hp">Dit is een steenkoolmijn</p>
+	<img src="data/images/tiles/coalmine-full.png" halign="center"/>
+	<p style="hp">en dit is het icoontje</p>
+	<img src="data/images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+
+	<p style="hp">De tekeningen laten de reeds opgegraven hoeveelheid steenkool die nog niet vervoerd is zien. De steenkoolmijn hierboven heeft het maximum van steenkool in voorraad.</p>
+	<p style="hp">Klikken op een steenkoolmijn zal u in het statistiekenvenster de steenkoolvoorraad en, belangrijker, de steenkoolreserve in de grond tonen.</p>
+
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="coal">Steenkool</a></li>
+	<li><a href="powerscoal">Steenkoolcentrale</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="jobs">Jobs</a></li>
+</Document>

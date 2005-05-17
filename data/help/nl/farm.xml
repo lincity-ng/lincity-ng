@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Boerderij</p>
+	<p style="hp">Op boerderijen groeit eten voor de inwoners, ze leveren ook ruwe materialen aan textielfabrieken. Boeren kunnen voedsel verkopen aan markten. Ze leveren dit ùet de tractor, dus ze gebruiken geen transportroutes. Ze kunnen voedsel ook vekopen aan trnasportroutes als u dit wenst. U moet er wel voor zorgen dat de markt in het bereik van de boerderij lijgt. </p>
+	
+	<p style="hp">Dit is een boerderij</p>
+	<img src="data/images/tiles/farm.png" halign="center"/>
+	<p style="hp">en dit is het icoontje</p>
+	<img src="data/images/gui/buttonpanel/parks/farm.png" halign="center"/>
+	
+	<p style="hp">Boerderijen hebben jobs nodig om meer dan het minimum van voedsel te produceren . De boerderij verbinden met het electriciteitsnetwerk verhoogt ook de hoeveelheid voedsel dat geproduceerd wordt. Energie wordt ook geleverd aan boerderijen door 'oude' windmolens, dit vermindert de verspilling.</p>
+
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="market">Markt</a></li>
+	<li><a href="tech-level">Technologie level</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="windmill">Windmolen</a></li>
+	<li><a href="food">Voedsel</a></li>
+</Document>

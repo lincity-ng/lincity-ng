@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Afbreken</p>
+	<p style="hp">Om een gebied te vernietigen moet u de afbreken-knop aanklikken, daarna moet u klikken op het gebied dat u wilt vernietigen. Afbreken kost geld. Wanneer u iets wilt afbreken worden de kosten om het te bouwen en terug af te breken getoond in de linker benedenhoek van het scherm.</p>
+	<p style="hp">Sommige zaken, zoals monumenten zijn zeer duur om af te breken. De kosten om af te breken houdt niet alleen rekening met de echte kosten van het afbreken maar ook 'neveneffect'-kosten. Bijvoorbeeld door een monument af te breken krijgt u protestmarsen, en politie en rechtbanken kosten ook geld.</p>
+	<p style="hp">Op dit moment, is het verwijderen van rivier(gebieden) de enigste manier om ze te overbruggen met een (spoor)weg. U kunt dit als een brug zien.</p>
+	<p style="hp">Dit is het afbreken icoontje</p>
+	<img src="data/images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="data/help/transport.xml">Transport</a></li>
+	<li><a href="data/help/river.xml">Rivieren</a></li>
+</Document>
+

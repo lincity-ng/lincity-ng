@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Smidse</p>
+	<p style="hp">Smidsen maken goederen van kolen en staal. U zult ze voornamelijk in het begin van het spel gebruiken. Ze gebruiken uiteraard jobs.</p>
+	<p style="hp">Voordat u staalfabrieken heeft, moet u vertrouwen op steenkoolproductie van communies, 5of 6 communies per smidse is aanbevolen.</p>
+	<p style="hp">Smidsen moeten niet verbonden zijn met met transport. Ze moeten wel in het bereik van een markt liggen.</p>
+	<p style="hp">U kan zien ofdat een smidse werkt op de normale manier, door er op te klikken, om de zoveel tijd komt er ook een animatie tot leven.</p>
+	<p style="hp">Dit is een smidse</p>
+	<img src="data/images/tiles/blacksmith0.png" halign="center"/>
+	<p style="hp">en dit is het icoontje</p>
+	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="market">Markt</a></li>
+	<li><a href="ore">Ijzererts</a></li>
+	<li><a href="commune">Communie</a></li>
+	<li><a href="steel">Staal</a></li>
+	<li><a href="jobs">Jobs</a></li>
+</Document>

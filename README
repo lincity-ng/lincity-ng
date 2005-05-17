@@ -36,7 +36,7 @@ wheel:
 Keyboard
 --------
 
- ESCAPE back to main menu
+ ESCAPE switch to query tool
 
  KP_PLUS: zoom in
  KP_MINUS zoom out

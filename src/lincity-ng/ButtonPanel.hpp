@@ -22,6 +22,7 @@ class ButtonPanel : public Component
   void menuButtonClicked(CheckButton* button,int);
   virtual bool opaque(const Vector2& pos) const;
   void checkTech( int showInfo );
+  void selectQueryTool();
  
  private:
   void attachButtons();

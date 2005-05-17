@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Jobs</p>
+	<p style="hp">People living in residential areas provide jobs. Jobs are used by most areas for them to function. Some areas only need jobs when they are under construction, for example monuments.</p>
+	<p style="hp">Jobs can be supplied by markets; you can have a market within range of the area you wish to supply. The market, of course, must get it's jobs from somewhere. Markets get their jobs in two ways. First, if there is a residential area within range, it will be supplying jobs to the market in proportion to its population and how many markets the jobs must be shared between. The second way is by transport. A market some distance away that has a surplus of jobs, will put some on transport. Any markets that are short of jobs that are connected to that transport will grab the jobs flowing along the track road or rail.</p>
+	<p style="hp">If a market becomes 'full' of jobs, it will stop accepting them from residential areas. When this happens, if there are no other non full markets within range, the people will become unemployed.</p>
+	<p style="hp">A health centre within range of a residential area, will increase the number of jobs provided to any local markets.</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="residential">Residences</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Markets</a></li>
+</Document>

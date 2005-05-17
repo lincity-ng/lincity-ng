@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mills</p>
+	<p style="hp">Mills convert food, coal and jobs into goods. Food?... well, cotton and wool are counted as food in this game.</p>
+	<p style="hp">Mills use quite a lot of food, so you can easily get into food shortages if you don't take this into account. (It is less of a problem when you have windmills, as they can power farms which makes them more efficient.</p>
+	<p style="hp">Mills do not have to be connected to transport. If not, they do have to be in range of a market with coal, jobs and food. You can tell when mills are working by the smoke and steam coming from the building.</p>
+	
+	<p style="hp">This is a mill</p>
+	<img src="data/images/tiles/mill1.png" halign="center"/>
+	<p style="hp">This is a nonworking mill</p>
+	<img src="data/images/tiles/mill0.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/parks/mills.png" halign="center"/>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="goods">Goods</a></li>
+	<li><a href="food">Food</a></li>
+	<li><a href="coal">Coal</a></li>
+	<li><a href="jobs">Jobs</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="windmill">Windmills</a></li>
+</Document>

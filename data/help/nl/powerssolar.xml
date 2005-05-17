@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Solar power station</p>
+	<p style="hp">Solar power stations output their power to power lines in packets. The amount of power that it can produce increases with the tech-level when it was <b>built</b>.</p>
+	
+	<p style="hp">This is a Solar power station</p>
+	<img src="data/images/tiles/solar.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="substation">Substation</a></li>
+	<li><a href="powerline">Power lines</a></li>
+	<li><a href="residential">Residential</a></li>
+	<li><a href="tech-level">Tech-level</a></li>
+	<li><a href="msb-power">Power overlay</a></li>
+</Document>

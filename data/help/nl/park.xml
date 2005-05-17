@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Parks</p>
+	<p style="hp">Parks are very simple, they clear pollution.</p>
+	<p style="hp">A number of areas produce pollution. They are roads, railways, coal mines and light and heavy industry. Some produce more than others.</p>
+	<p style="hp">You can use parks to shield residential areas or to stop pollution escaping from the local area of the source.</p>
+	<p style="hp">The wind comes <b>from</b> the south west, so build you parks accordingly.</p>
+	
+	<p style="hp">This is a park</p>
+	<img src="data/images/tiles/park.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/parks/park.png" halign="center"/>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="pollution">Pollution</a></li>
+	<li><a href="road">Roads</a></li>
+	<li><a href="rail">Railways</a></li>
+	<li><a href="coalmine">Coal mines</a></li>
+	<li><a href="industryh">Heavy industry</a></li>
+	<li><a href="industryl">Light industry</a></li>
+</Document>

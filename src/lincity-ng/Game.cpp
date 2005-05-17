@@ -16,6 +16,7 @@
 #include "lincity/lin-city.h"
 #include "GameView.hpp"
 #include "HelpWindow.hpp"
+#include "ButtonPanel.hpp"
 
 Game::Game()
 {
@@ -74,7 +75,7 @@ Game::run()
                 case SDL_KEYUP: {
                      Event gui_event(event);
                      if( gui_event.keysym.sym == SDLK_ESCAPE ){
-                         backToMainMenu();
+                         getButtonPanel()->selectQueryTool();
                          break;
                      }
                      if( gui_event.keysym.sym == SDLK_F1 ){

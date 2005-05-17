@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Steel</p>
+	<p style="hp">Steel is generally made by heavy industry (steel works). You must have attained a sufficient tech level to build a steel works. Before this, communes are your only source of steel. Communes produce a small amount of steel (from ore), so you will usually need a number of communes to provide enough steel for your needs.</p>
+	<p style="hp">Steel is used by blacksmiths to make goods. Steel is used by light industry for tools and products (goods). Light industry works without steel, though its output is much reduced.</p>
+	<p style="hp">Rockets use a lot of steel, mainly to build the launch site, (seems that there is no aluminium or titanium, 'steel' is used in the construction of the rockets as well - don't worry about it, I don't).</p>
+	<p style="hp">Railways also use steel to maintain them.</p>
+	<p style="hp">Steel production is taxed.</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="commune">Commune</a></li>
+	<li><a href="blacksmith">Blacksmith</a></li>
+	<li><a href="goods">Goods</a></li>
+	<li><a href="industryh">Heavy Industry</a></li>
+	<li><a href="industryl">Light Industry</a></li>
+	<li><a href="rail">Railway</a></li>
+</Document>

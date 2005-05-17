@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Pollution overlay</p>
+	<img src="data/images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+	<p style="hp">The pollution mini screen shows the pollution levels across the city.</p>
+	<p style="hp">Pollution gets stronger as you go from: Light-green -> Dark-green -> Darker-green -> Dark-red -> Lighter-red -> Bright-red.</p>
+	<p style="hp">Places with residential areas that show as red, will cause sickness and make the area less desirable to live in.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<li><a href="msb-coal">Coal overlay</a></li>
+	<li><a href="msb-cricket">Sports overlay</a></li>
+	<li><a href="msb-fire">Fire overlay</a></li>
+	<li><a href="msb-health">Health overlay</a></li>
+	<li><a href="msb-normal">Normal overlay</a></li>
+	<li><a href="msb-power">Power overlay</a></li>
+	<li><a href="msb-starve">Starvation overlay</a></li>
+	<li><a href="msb-ub40">Unemployment overlay</a></li>
+</Document>

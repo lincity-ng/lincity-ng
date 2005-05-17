@@ -770,6 +770,9 @@ void GameView::event(const Event& event)
                 roadDragging = true;
                 startRoad = tile;
             }
+            if( roadDragging && ( cursorSize != 1 ) ){
+                roadDragging = false;
+            }
  
             if(tileUnderMouse != tile) {
                 tileUnderMouse = tile;
@@ -810,6 +813,9 @@ void GameView::event(const Event& event)
                     MapPoint endRoad = getTile( event.mousepos );
                     roadDragging = false;
                     leftButtonDown = false;
+                    if( cursorSize != 1 ){//roadDragging was aborted with Escape
+                        break;
+                    }
                     MapPoint currentTile = startRoad;
                     //build last tile first to play the sound
                     if( !blockingDialogIsOpen )
@@ -1383,7 +1389,7 @@ void GameView::draw(Painter& painter)
     if( mouseInGameView  && !blockingDialogIsOpen ) {
         MapPoint lastRazed( -1,-1 );
         int tiles = 0;
-        if( roadDragging ){
+        if( roadDragging && ( cursorSize == 1 ) ){
             //use same method to find all Tiles as in GameView::event(const Event& event)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;

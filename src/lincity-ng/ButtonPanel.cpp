@@ -20,6 +20,7 @@
 #include "GameView.hpp"
 #include "MapEdit.hpp"
 #include "ScreenInterface.hpp"
+#include "Util.hpp"
 
 ButtonPanel *ButtonPanelInstance=0;
 
@@ -368,6 +369,11 @@ void ButtonPanel::draw(Painter &painter)
 {
   attachButtons();
   Component::draw(painter);
+}
+
+void ButtonPanel::selectQueryTool(){
+    CheckButton* queryButton = getCheckButton( *this, "BPMPointerButton");
+    chooseButtonClicked( queryButton, SDL_BUTTON_LEFT ); 
 }
 
 void ButtonPanel::chooseButtonClicked(CheckButton* button, int )

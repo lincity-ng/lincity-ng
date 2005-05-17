@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Icoon index</p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="data/images/gui/buttonpanel/power/powerlines.png"/>
+	<p><a href="powerline">Electriciteitsdraad</a></p>
+	<img src="data/images/gui/buttonpanel/power/solarpower.png"/>
+	<p><a href="powerssolar">Zonne-energiecentrale</a></p>
+	<img src="data/images/gui/buttonpanel/power/substation.png"/>
+	<p><a href="substation">Onderstation</a></p>
+
+	<!--<p style="subtitle">Residences</p>-->
+	<img src="data/images/gui/buttonpanel/residence/residence.png"/>
+	<p><a href="residence-button">Residentieel gebied</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="data/images/gui/buttonpanel/parks/farm.png"/>
+	<p><a href="farm">Boerderij</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="data/images/gui/buttonpanel/industry/market.png"/>
+	<p><a href="market">Markt</a></p>
+
+	<!--<p style="subtitle">Base</p>-->
+	<img src="data/images/gui/buttonpanel/base/bulldozer.png"/>
+	<p><a href="bulldoze">Afbreken</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="data/images/gui/buttonpanel/transport/tracks.png"/>
+	<p><a href="track">Weg</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="data/images/gui/buttonpanel/mining/coalmine.png"/>
+	<p><a href="coalmine">Steenkoolmijn</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="data/images/gui/buttonpanel/transport/rails2.png"/>
+	<p><a href="rail">Spoorweg</a></p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="data/images/gui/buttonpanel/power/coalpower.png"/>
+	<p><a href="powerscoal">Kolencentrale</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="data/images/gui/buttonpanel/transport/road.png"/>
+	<p><a href="road">Straat</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="data/images/gui/buttonpanel/industry/lightindustry.png"/>
+	<p><a href="industryl">Licht industriegebied</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="data/images/gui/buttonpanel/misc/university.png"/>
+	<p><a href="university">Universiteit</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="data/images/gui/buttonpanel/mining/commune.png"/>
+	<p><a href="commune">Communie</a></p>
+	<img src="data/images/gui/buttonpanel/mining/oremine.png"/>
+	<p><a href="oremine">Ijzerertsmijn</a></p>
+
+	<!--<p style="subtitle">Trading</p>-->
+	<img src="data/images/gui/buttonpanel/bed.png"/>
+	<p><a href="export">Import</a></p>
+	<img src="data/images/gui/buttonpanel/bed.png"/>
+	<p><a href="export">Export</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="data/images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<p><a href="industryh">Zware industrie (staalfabriek)</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="data/images/gui/buttonpanel/parks/tree.png"/>
+	<p><a href="park">Park</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="data/images/gui/buttonpanel/mining/recycling.png"/>
+	<p><a href="recycle">Recycleercentrum</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="data/images/gui/buttonpanel/parks/water.png"/>
+	<p><a href="river">Water/Rivieren</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="data/images/gui/buttonpanel/misc/health.png"/>
+	<p><a href="health">Ziekenhuis</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="data/images/gui/buttonpanel/transport/rocket.png"/>
+	<p><a href="rocket">Lanceerbasis</a></p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="data/images/gui/buttonpanel/power/windmills.png"/>
+	<p><a href="windmill">Windmolen</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="data/images/gui/buttonpanel/parks/monument.png"/>
+	<p><a href="monument">Monument</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="data/images/gui/buttonpanel/misc/book.png"/>
+	<p><a href="school">School</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="data/images/gui/buttonpanel/parks/mills.png"/>
+	<p><a href="mill">Textielfabriek</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="data/images/gui/buttonpanel/industry/pottery.png"/>
+	<p><a href="pottery">Pottenbakkerij</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="data/images/gui/buttonpanel/misc/fire.png"/>
+	<p><a href="firestation">Brandweerstation</a></p>
+
+	<img src="data/images/gui/buttonpanel/misc/sports.png"/>
+	<p><a href="cricket">Basketbalveld</a></p>
+</Document>
