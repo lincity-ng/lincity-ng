@@ -45,12 +45,32 @@
 			<colsize col="9" fixed="33"/>
 			<colsize col="10" fixed="33"/>
                         <cell row="1" col="1">
+                          <TableLayout rows="1" cols="3">
+                           <cell row="1" col="1">
                             <Button name="HelpButton">
                                 <image src="images/gui/buttons/round/button-round-40.png"/>
                                 <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
                                 <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
                                 <image-caption src="images/gui/info/info.png"/>
                             </Button>
+                           </cell>
+                           <cell row="1" col="2">
+                            <Button name="hideHighBuildings">
+                                <image src="images/gui/buttons/round/button-round-40.png"/>
+                                <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+                                <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
+                                <image-caption src="images/gui/info/hidehigh.png"/>
+                            </Button>
+                           </cell>
+                           <cell row="1" col="3">
+                            <Button name="mapOverlay">
+                                <image src="images/gui/buttons/round/button-round-40.png"/>
+                                <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+                                <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
+                                <image-caption src="images/gui/info/mapoverlay.png"/>
+                            </Button>
+                           </cell>
+                          </TableLayout>
                         </cell>
                         <cell row="1" col="2">
 			<CheckButton name="MapViewNormal">

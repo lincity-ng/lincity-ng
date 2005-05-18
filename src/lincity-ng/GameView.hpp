@@ -58,6 +58,8 @@ public:
 
     void printStatusMessage( std::string message );
 private:
+    void connectButtons();
+    void buttonClicked( Button* button );
     void recenter(const Vector2& pos);
     Vector2 getScreenPoint(MapPoint point);
     MapPoint getTile(const Vector2& point);
@@ -135,6 +137,7 @@ private:
     void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;
+    bool buttonsConnected;
 
     MapPoint realTile( MapPoint tile );
 };

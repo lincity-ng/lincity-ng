@@ -38,6 +38,11 @@
 #include "gui_interface/shared_globals.h"
 #include "tinygettext/gettext.hpp"
 
+#include "gui/callback/Callback.hpp"
+#include "gui/Button.hpp"
+#include "CheckButton.hpp"
+
+
 const float GameView::defaultTileWidth = 128;
 const float GameView::defaultTileHeight = 64;
 
@@ -139,8 +144,49 @@ void GameView::parse(XmlReader& reader)
 
     mapOverlay = overlayNone;
     mapMode = MiniMap::NORMAL;
+    buttonsConnected = false;
 }
 
+/*
+ * Connect to GUI-Buttons.
+ */
+void GameView::connectButtons(){
+    if( buttonsConnected ){
+        return;
+    }
+    buttonsConnected = true;
+    Component* root = this;
+    while( root->getParent() ){
+        root = root->getParent();
+    }
+    Button* button = getButton( *root, "hideHighBuildings" );
+    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+    
+    button = getButton( *root, "mapOverlay" );
+    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+}
+
+/*
+ * Handle Clicks on Button.
+ */
+void GameView::buttonClicked( Button* button ){
+    std::string name = button->getName();
+    if( name == "hideHighBuildings" ){
+        hideHigh = !hideHigh;
+        requestRedraw();
+        return;
+    }
+    if( name == "mapOverlay" ){
+        mapOverlay++;
+        if( mapOverlay > overlayMAX ) {
+            mapOverlay = overlayNone;
+        }
+        requestRedraw();
+        return;
+    }
+    std::cerr << "GameView::buttonClicked# Unhandled Button '" << name <<"',\n";
+}
+ 
 /*
  * size in Tiles of marking under Cursor
  * atm 0 is an outlined Version of size 1.
@@ -175,7 +221,7 @@ void GameView::writeOrigin(){
 void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
     mapMode = mMode;
     if( mapOverlay != overlayNone ){
-    requestRedraw();
+        requestRedraw();
     }
 }
 
@@ -1014,6 +1060,9 @@ void GameView::resize(float newwidth , float newheight )
  */
 void GameView::requestRedraw()
 {
+    if( !getMiniMap() ){ //initialization not completed
+        return;
+    }
     //TODO: do this only when View changed
     //Tell Minimap about new Corners
     getMiniMap()->setGameViewCorners( getTile(Vector2(0, 0)),
@@ -1094,6 +1143,8 @@ void GameView::fillDiamond( Painter& painter, const Rect2D& rect )
  */
 void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
 {
+    if( !buttonsConnected ) connectButtons();//has to be done here,
+                    // because now everything else is initialized.
     Vector2 points[ 4 ];
     points[ 0 ].x = rect.p1.x + ( rect.getWidth() / 2 );
     points[ 0 ].y = rect.p1.y;

@@ -24,3 +24,4 @@ config.h.in
 Jamconfig.in
 autom4te.cache
 aclocal.m4
+core*
