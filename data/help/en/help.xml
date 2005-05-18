@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Lincity Help</p>
-	<p style="hp">This is the lincity help system. Please choose a topic by clicking on 1 of the blue worlds below.</p>
+	<p style="hp">This is the lincity help system. Please choose a topic by clicking on 1 of the blue worlds below. Blue words generally indicate a link to anoter document.</p>
 	<li><a href="keys">Keyboard commands</a></li>
 	<li><a href="button-index">List of all builable entries</a></li>
 	<li><a href="mini-screen">Help on the minimap</a></li>
+	<li><a href="dialogs">Help on the dialogs</a></li>
+	<p style="hp">While playing the game, you can get context sensitive help with most things using the help button.</p>
 </Document>

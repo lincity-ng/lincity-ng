@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Economy window</p>
+	<p style="hp">This is the economy window.</p>
+	<p style="hp">This shows 4 different economic factorswith graphs.</p>
+	<p style="hp">The brown line represents your population. It is shown as a log scale.</p>
+	<p style="hp">The blue line represents the demand for housing. The height of the graph is proportional to the square root of the 'unhoused' population.</p>
+	<p style="hp">The solid yellow 'bars' show that there is unemployment. The scale of this graph changes with your population. This graph is solid to draw your attention to it.</p>
+	<p style="hp">The solid red 'bars' show that there is starvation. The scale of this graph changes with your population. This graph is solid to draw your attention to it.</p>
+	<p style="hp">The unemployment bars are drawn over the top of the two lines. The starvation bars are drawn over everything else.</p>
+</Document>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">People window</p>
+	<p style="hp">This is the people window.</p>
+	<p style="hp">The window shows 7 statistics:</p>
+	<li><p style="hp">1.  Pop - this shows the population in your residences. This figure does not include the homeless.</p></li>
+	<li><p style="hp">2.  Housed - this shows the total number of people in your city that live in residences.</p></li>
+	<li><p style="hp">3.  Housed % - this shows the percentage of your city that live in residences.</p></li>
+	<li><p style="hp">4.  Shanties - this shows the number of shanty towns in your city.</p></li>
+	<li><p style="hp">5.  Unn Dths - this shows the number of people that died through starvation or from pollution, in the last month.</p></li>
+	<li><p style="hp">6.  Unemp % - this shows the percentage of your population that is unemployed.</p></li>
+	<li><p style="hp">7.  Starv % - this shows the percentage of your population that is starving.</p></li>
+	<li><p style="hp">Left clicking on this window will cycle through windows for finance, other costs and housing.</p></li>
+</Document>

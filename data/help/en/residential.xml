@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Residential area</p>
+	<p style="hp">This is where people live. To encorage people to live in this area they must be fed. It also helps to provide them with work and goods to buy. They must be within range of a market or connected to transport. There are 3 different types of residentials, low, medium and high density housing. These have different birth and death rates associated with them, this gives you some control over your population.</p>
+	<p style="hp">Later in the game, if you have sufficient technology, you can build more 'modern' housing, even tower blocks.</p>
+
+	<p style="hp">This is a low density housing (hightech)</p>
+	<img src="data/images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+	<p style="hp">This is a medium density housing (hightech)</p>
+	<img src="data/images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/industry/residence-hightec-med.png" halign="center"/>
+	<p style="hp">This is a high density housing (hightech)</p>
+	<img src="data/images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">and this it's icon</p>
+	<img src="data/images/gui/buttonpanel/industry/residence-hightec-low.png" halign="center"/>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="market">Market</a></li>
+</Document>
+
