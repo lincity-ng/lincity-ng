@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Heavy industry (steel works)</p>
-	<p style="hp">Steel works produce steel from ore, power and jobs. Ore is obtained directly from the connected transport, the steel is placed onto the transport as well. Jobs are obtained from a local market. Transport connects to the top left corner.</p>
-	<p style="hp">Power can be got to the steel works in two ways. The first is from coal, which is obtained directly from connected transport. The second is from electricity, you must have one, or more, active substations within range of the steel works. (Windmills do <b>not</b> supply power to steel works.)</p>
-	<p style="hp">Steel works produce Pollution</p>
-	<p style="hp">You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
+	<p style="htitle">Zware industrie (staalfabriek)</p>
+	<p style="hp">Staalfabrieken produceren staal van ijzererts, electriciteit en jobs. Ijzererts wordt verkregen door een verbinding met transport, het staal wordt ook op het transport gezet. Jobs worden verkregen van een lokale markt. <!--Transport wordt verbonden met de linkerbovenhoek--></p>
+	<p style="hp">Electricitet verkregen worden op twee manieren. De eerste is van steenkool, welke wordt verkregen door transport. De tweede manier is door een verbinding met het electriciteitsnetwerk, de staalfabriek moet in het bereik van een actief onderstation zijn --Windmolens leveren <b>geen</b> electriciteit aan staalfabrieken--.</p>
+	<p style="hp">Staalfabrieken verhogen de vervuiling</p>
+	<!--<p style="hp">You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
 	
 	<p style="hp">This is a blacksmith</p>
 	<img src="data/images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>-->
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="pollution">Pollution</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="pollution">Vervuiling</a></li>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="power">Power</a></li>
-	<li><a href="coal">Coal</a></li>
-	<li><a href="ore">Ore</a></li>
+	<li><a href="power">Electriciteit</a></li>
+	<li><a href="coal">Steenkool</a></li>
+	<li><a href="ore">Ijzererts</a></li>
 </Document>

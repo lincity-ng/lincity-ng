@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Light industrial areas</p>
-	<p style="hp">Light industry converts ore into goods. The conversion becomes more efficient if steel is also available. Power increases the output further still. Windmills do <b>not</b> provide power for these areas.</p>
-	<p style="hp">As a rule of thumb, ignoring the above, the output of a light industrial area is mainly dependent on the amount of raw materials, including jobs, that it can get, also the amount of goods that can be <b>taken away</b>.</p>
-	<p style="hp">These areas connect directly to transport to exchange ore, steel and goods. They may need a market to supply jobs.</p>
-	<p style="hp">These areas connect to transport <b>only</b> to the top left hand corner, as shown. Transport will curve in when it is connected.</p>
+	<p style="htitle">Lichte industrie</p>
+	<p style="hp">Lichte industrie produceert ijzererts in goederen. De productie kan verhoogd worden als er ook staal beschikbaar is. Electriciteit verhoogt de productie nog meer. Windmolens leveren <b>geen</b> electriciteit aan lichte industrie.</p>
+	<p style="hp">De productie is vooral afhankelijk van de hoeveelheid ruwe materialen beschikbaar, ook jobs en ook de goederen die <b>afgenomen kunnen worden</b></p>
+	<p style="hp">Deze gebieden worden rechtstreeks verbonden met transport om ijzererts, staal en goederen te verhandelen. Het is mogelijk dat ze een markt nodig hebben om jobs te verkrijgen.</p>
+	<!--Outdated<p style="hp">These areas connect to transport <b>only</b> to the top left hand corner, as shown. Transport will curve in when it is connected.</p>-->
 	
-	<p style="hp">This is a blacksmith</p>
+	<!--<p style="hp">This is a blacksmith</p>
 	<img src="data/images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>-->
 	
-	<p style="hsubtitle">See also:</p>
+	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="road">Roads</a></li>
-	<li><a href="rail">Railways</a></li>
-	<li><a href="market">StMarkets</a></li>
+	<li><a href="road">Straat</a></li>
+	<li><a href="rail">Spoorweg</a></li>
+	<li><a href="market">Markt</a></li>
 	<li><a href="jobs">Jobs</a></li>
 </Document>

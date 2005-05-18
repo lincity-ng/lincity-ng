@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Lincity-ng\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-12 13:28+0200\n"
-"PO-Revision-Date: 2005-05-17 14:54+0100\n"
+"PO-Revision-Date: 2005-05-17 16:52+0100\n"
 "Last-Translator: Nathan Samson <nathansamson@gmail.com>\n"
 "Language-Team: Dutch <nathansamson@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -227,7 +227,7 @@ msgstr "Straat"
 
 #: src/lincity/lintypes.cpp:166
 msgid "Lt. Industry"
-msgstr "Lage technologie Industrie"
+msgstr "Laag technologische Industrie"
 
 #: src/lincity/lintypes.cpp:178
 #: src/lincity/modules/university.cpp:67
@@ -265,7 +265,7 @@ msgstr "Park"
 #: src/lincity/lintypes.cpp:262
 #: src/lincity-ng/MpsInterface.cpp:427
 msgid "Recycle"
-msgstr "Recyclerewinkel"
+msgstr "Recyclage"
 
 #: src/lincity/lintypes.cpp:274
 #: src/lincity/modules/water.cpp:19
@@ -497,7 +497,7 @@ msgstr "Staal"
 #: src/lincity/modules/organic_farm.cpp:193
 #: src/lincity/modules/solar_power.cpp:58
 msgid "Tech"
-msgstr "Tech"
+msgstr "Tech. niveau"
 
 #: src/lincity/modules/windmill.cpp:80
 msgid "Local Status"
@@ -803,7 +803,7 @@ msgstr "Lichte"
 
 #: src/lincity/modules/university.cpp:69
 msgid "Tech Produced"
-msgstr "Tech geproduceerd"
+msgstr "Technologie geproduceerd"
 
 #: src/lincity/modules/cricket.cpp:99
 msgid "Cricket Pitch"
@@ -864,11 +864,11 @@ msgstr "Lanceerbasis"
 
 #: src/lincity-ng/GameView.cpp:1373
 msgid "Estimated Bulldoze Cost: "
-msgstr "Geschatte afbraakkosten:"
+msgstr "Geschatte afbraakkosten: "
 
 #: src/lincity-ng/GameView.cpp:1375
 msgid "Bulldoze Cost: "
-msgstr "Afbraakkosten:"
+msgstr "Afbraakkosten: "
 
 #: src/lincity-ng/GameView.cpp:1378
 #: src/lincity-ng/GameView.cpp:1409
@@ -890,11 +890,11 @@ msgstr "Bulldozer: verwijder gebouw -de prijs varieert-"
 
 #: src/lincity-ng/GameView.cpp:1409
 msgid ": Cost to build "
-msgstr ":Bouwkosten"
+msgstr ": Bouwkosten "
 
 #: src/lincity-ng/GameView.cpp:1410
 msgid ", to bulldoze "
-msgstr ", afbraakkost"
+msgstr ", afbraakkosten "
 
 #: src/lincity-ng/GameView.cpp:1410
 #: src/lincity-ng/GameView.cpp:1413
@@ -1027,7 +1027,7 @@ msgstr "Scholen"
 
 #: src/lincity-ng/MpsInterface.cpp:413
 msgid "Univers."
-msgstr "Univers."
+msgstr "Universiteiten"
 
 #: src/lincity-ng/MpsInterface.cpp:415
 msgid "Deaths"
@@ -1039,7 +1039,7 @@ msgstr "Ziekenhuizen"
 
 #: src/lincity-ng/MpsInterface.cpp:421
 msgid "Rockets"
-msgstr "Raketen"
+msgstr "Raketten"
 
 #: src/lincity-ng/MpsInterface.cpp:423
 msgid "Fire Stn"
@@ -1062,9 +1062,8 @@ msgid "Shanties"
 msgstr "Krottenwijken"
 
 #: src/lincity-ng/MpsInterface.cpp:443
-#, fuzzy
 msgid "Unn Dths"
-msgstr "Niet natuurlijke doden"
+msgstr "Onnatuurlijke doden"
 
 #: src/lincity-ng/MpsInterface.cpp:444
 msgid "Unemployment"
@@ -1072,12 +1071,12 @@ msgstr "Werkloosheid"
 
 #: src/lincity-ng/MpsInterface.cpp:445
 msgid "Claims"
-msgstr ""
+msgstr "Werkzoekenden"
 
 #: src/lincity-ng/MpsInterface.cpp:446
 #: src/lincity-ng/MpsInterface.cpp:451
 msgid "Rate"
-msgstr ""
+msgstr "% vd bevolking"
 
 #: src/lincity-ng/MpsInterface.cpp:448
 msgid "Starvation"
@@ -1085,5 +1084,5 @@ msgstr "Sterfte"
 
 #: src/lincity-ng/MpsInterface.cpp:449
 msgid "Cases"
-msgstr "gevallen"
+msgstr "Gevallen"
 

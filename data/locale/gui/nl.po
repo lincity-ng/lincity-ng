@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Lincity-ng GUI\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: %1\n"
-"PO-Revision-Date: 2005-05-17 14:22+0100\n"
+"PO-Revision-Date: 2005-05-17 16:52+0100\n"
 "Last-Translator: Nathan Samson <nathansamson@gmail.com>\n"
 "Language-Team: Dutch <nathansamson@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -91,7 +91,7 @@ msgstr "Goederen"
 
 #: data/gui/creditslist.xml
 msgid "Graphics"
-msgstr "Grafphics"
+msgstr "Graphics"
 
 #: data/gui/portdialog.xml
 msgid "Harbour Trade Settings "
@@ -205,7 +205,7 @@ msgstr "Staal"
 
 #: data/gui/pbar.xml
 msgid "Tech Level"
-msgstr "Technologisch niveau"
+msgstr "Tech niveau"
 
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it's is free t"
@@ -249,7 +249,7 @@ msgstr "Ja"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "You can launch the rocket now or wait until later. If you wait i"
-msgstr "U kan de raket nu lanceren of wachten. Als u wacht zal het gel"
+msgstr "U kan de raket nu lanceren of wachten. Als u wacht zal het u geld blijven kosten om de raket startklaar te houden. U kunt de raket later lanceren door te klikken op de lanceerbasisi."
 
 #: data/gui/loadgame.xml
 #, fuzzy
