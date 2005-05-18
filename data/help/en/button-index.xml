@@ -12,7 +12,7 @@
 
 	<!--<p style="subtitle">Residences</p>-->
 	<img src="data/images/gui/buttonpanel/residence/residence.png"/>
-	<p><a href="residence-button">Residential area</a></p>
+	<p><a href="residential">Residential area</a></p>
 
 	<!--<p style="subtitle">Parks</p>-->
 	<img src="data/images/gui/buttonpanel/parks/farm.png"/>

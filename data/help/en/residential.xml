@@ -11,11 +11,11 @@
 	<p style="hp">This is a medium density housing (hightech)</p>
 	<img src="data/images/tiles/resmedhi.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/industry/residence-hightec-med.png" halign="center"/>
+	<img src="data/images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
 	<p style="hp">This is a high density housing (hightech)</p>
 	<img src="data/images/tiles/reshihi.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/industry/residence-hightec-low.png" halign="center"/>
+	<img src="data/images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
 
 	<p style="hsubtitle">See also:</p>
 	<li><a href="market">Market</a></li>
