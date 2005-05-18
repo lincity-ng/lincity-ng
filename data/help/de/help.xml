@@ -5,4 +5,7 @@
     <li><a href="keys">Tastaturbefehle</a></li>
 	<li><a href="button-index">Hilfe zu den Gebäuden</a></li>
 	<li><a href="mini-screen">Hilfe zur Miniaturkarte</a></li>
+        <li><a href="dialogs">Hilfe zu den Dialogen</a></li>
+        <p style="hp">Während des Spiels kannst du dir mit dem "Hilfe"-Knopf
+        Informationen zu den jeweiligen Objekten verschaffen.</p>
 </Document>
