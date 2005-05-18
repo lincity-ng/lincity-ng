@@ -22,7 +22,14 @@ N_("Sep"), N_("Oct"), N_("Nov"), N_("Dec")};
 const char* 
 current_month (int current_time)
 {
-    return _(months[(current_time % NUMOF_DAYS_IN_YEAR) / NUMOF_DAYS_IN_MONTH]);
+    static bool doinit = true;
+    if (doinit) {
+	doinit = false;
+	for (int i = 0; i < 12; ++i) {
+	    months[i] = strdup(_(months[i]));
+	}
+    }
+    return months[(current_time % NUMOF_DAYS_IN_YEAR) / NUMOF_DAYS_IN_MONTH];
 }
 
 int 
