@@ -220,6 +220,37 @@ void GameView::writeOrigin(){
  */
 void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
     mapMode = mMode;
+    switch( mMode ){
+        case MiniMap::NORMAL:
+            printStatusMessage( _("Minimap: outline map") );
+            break;
+        case MiniMap::POLLUTION:
+            printStatusMessage( _("Minimap: pollution") );
+            break;
+        case MiniMap::STARVE:
+            printStatusMessage( _("Minimap: nourishments") );
+            break;
+        case MiniMap::POWER:
+            printStatusMessage( _("Minimap: power supply") );
+            break;
+        case MiniMap::FIRE: 
+            printStatusMessage( _("Minimap: firedepartment cover") );
+            break;
+        case MiniMap::CRICKET: 
+            printStatusMessage( _("Minimap: sport cover") );
+            break;
+        case MiniMap::HEALTH: 
+            printStatusMessage( _("Minimap: medical care") );
+            break;
+        case MiniMap::COAL: 
+            printStatusMessage( _("Minimap: coal depots") );
+            break;
+        case MiniMap::TRAFFIC: 
+            printStatusMessage( _("Minimap: traffic density") );
+            break;
+        default:
+            std::cerr << "Unknown minimap mode " << mMode<<"\n";
+    }
     if( mapOverlay != overlayNone ){
         requestRedraw();
     }

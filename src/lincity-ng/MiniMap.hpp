@@ -14,7 +14,7 @@ class CheckButton;
 class MiniMap:public Component
 {
 public:
-    enum DisplayMode {NORMAL,POLLUTION,UB40,STARVE,POWER,FIRE,CRICKET,HEALTH,COAL,MAX};
+    enum DisplayMode {NORMAL,POLLUTION,UB40,STARVE,POWER,FIRE,CRICKET,HEALTH,COAL,TRAFFIC,MAX};
 
     MiniMap();
     ~MiniMap();
