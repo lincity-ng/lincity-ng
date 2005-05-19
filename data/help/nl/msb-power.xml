@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Power overlay</p>
+	<p style="htitle">Electriciteitskaart</p>
 	<img src="data/images/gui/mapview/roundbuttons/round_power.png" halign="center"/>
-	<p style="hp">Areas that have low tech windmill power are shown as dark green.</p>
-	<p style="hp">The areas within the main power grid are shown as light green.</p>
-	<p style="hp">The unpowerd areas are displayed as normal.</p>
-	<p style="hp">This button uses power.  Try not to leave it turned on too long.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
-	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="mini-screen">Minimap</a></li>
-	<li><a href="msb-coal">Coal overlay</a></li>
-	<li><a href="msb-cricket">Sports overlay</a></li>
-	<li><a href="msb-fire">Fire overlay</a></li>
-	<li><a href="msb-health">Health overlay</a></li>
-	<li><a href="msb-normal">Normal overlay</a></li>
-	<li><a href="msb-pol">Pollution overlay</a></li>
-	<li><a href="msb-starve">Starvation overlay</a></li>
-	<li><a href="msb-ub40">Unemployment overlay</a></li>
+	<p style="hp">Gebieden die in het bereik van een laagtechnologische windmolen liggen worden donkergroen gekleurd.</p>
+	<p style="hp">Gebieden die verbonden zijn met het -hoog technologische- electricitetistnetwerk worden lichtgroen gekleurd..</p>
+	<p style="hp">De gebieden die helemaal geen toegang hebben tot electricitet worden gekleurd als normaal.</p>
+	<p style="hp">Deze knop verbruikt electrcitiet, probeer het zo weinig mogelijk te gebruiken.</p> <!--grappig-->
+	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>
+
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="mini-screen">Minikaart</a></li>
+	<li><a href="msb-cricket">Sportkaart</a></li>
+	<li><a href="msb-fire">Vuurkaart</a></li>
+	<li><a href="msb-health">Welzijnskaart</a></li>
+	<li><a href="msb-normal">Normale kaart</a></li>
+	<li><a href="msb-pol">Vervuilingkaart</a></li>
+	<li><a href="msb-power">Electriciteitskaart</a></li>
+	<li><a href="msb-starve">Sterftekaart</a></li>
+	<li><a href="msb-ub40">Werkloosheidskaart</a></li>
 </Document>

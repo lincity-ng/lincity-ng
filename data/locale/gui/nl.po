@@ -31,7 +31,7 @@ msgstr "Een rivier verwijderen kost heel veel geld."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs lot of money and may cause "
-msgstr "Een krottenwijk afbreken kost heel veel geld, dn kan bran"
+msgstr "Een krottenwijk afbreken kost heel veel geld, dit kan brand veroorzaken"
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Buy"
@@ -43,11 +43,11 @@ msgstr "Kies een scenario"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Coal"
-msgstr "Kolen"
+msgstr "Steenkool"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Coal survey"
-msgstr "Kolen onderzoek"
+msgstr "Steenkoolonderzoek"
 
 #: data/gui/creditslist.xml
 msgid "Code"
@@ -99,7 +99,7 @@ msgstr "Haven handelsinstelligen"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "Info: Rocket ready at Launchsite "
-msgstr "Info: raket staat klaar op de lanceersite"
+msgstr "Info: raket staat klaar op de lanceersite "
 
 #: data/gui/coal_survey_yn.xml
 msgid "Info: Send out Prospectors? "
@@ -197,7 +197,7 @@ msgstr "Met een leeg speelveld starten."
 
 #: data/gui/newgame.xml
 msgid "Start with random village."
-msgstr "Met een random -stad starten"
+msgstr "Met een random stad starten"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Steel"
@@ -208,8 +208,8 @@ msgid "Tech Level"
 msgstr "Tech niveau"
 
 #: data/gui/coal_survey_yn.xml
-msgid "This will cost you 1 million once. After that it's is free t"
-msgstr "Dit kost eenmalig 1 millioen. Daarna is het gratis om he"
+msgid "This will cost you 1 million once. After that it's is free to call again."
+msgstr "Dit kost eenmalig 1 millioen. Daarna is het gratis om het opnieuw op te roepen."
 
 #: data/gui/tradedialog.xml
 msgid "Trade Settings "
@@ -227,7 +227,7 @@ msgstr "Waarschuwing"
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Warning: Bulldozing monuments is expensive "
-msgstr "Waarschuwing: Monumenten afbreken is duur"
+msgstr "Waarschuwing: Monumenten afbreken is duur "
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Warning: Bulldozing shantys is dangerous. "
@@ -248,8 +248,8 @@ msgid "Yes"
 msgstr "Ja"
 
 #: data/gui/launch_rocket_yn.xml
-msgid "You can launch the rocket now or wait until later. If you wait i"
-msgstr "U kan de raket nu lanceren of wachten. Als u wacht zal het u geld blijven kosten om de raket startklaar te houden. U kunt de raket later lanceren door te klikken op de lanceerbasisi."
+msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
+msgstr "U kan de raket nu lanceren of wachten. Als u wacht zal het u geld blijven kosten om de raket startklaar te houden. U kunt de raket later lanceren door te klikken op de lanceerbasisis."
 
 #: data/gui/loadgame.xml
 #, fuzzy

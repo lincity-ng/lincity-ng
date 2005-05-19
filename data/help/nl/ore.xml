@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Ore</p>
-	<p style="hp">Ore is one of the game's basic raw materials. Communes oremines and recyclers produce ore.</p>
-	<p style="hp">Potteries, light industry and heavy industry use ore.</p>
+	<p style="htitle">Ijzererts</p>
+	<p style="hp">Ijzerets is een van de basis ruwe materialen. Communies, ijzerertsmijnen en recycleercentra prodceren ijzererts.</p>
+	<p style="hp">Pottenbakkerijen, lichte industrie en zware industrie verbruiken ijzererts.</p>
 
-	<p style="hsubtitle">See also:</p>
-	<li><a href="commune">Commune</a></li>
-	<li><a href="oremine">Oremine</a></li>
-	<li><a href="recycle">Recyclers</a></li>
-	<li><a href="pottery">Potteries</a></li>
-	<li><a href="indistryl">Light Industry</a></li>
-	<li><a href="indistryh">Heavy Industry</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="commune">Communie</a></li>
+	<li><a href="oremine">Ijzerertsmijn</a></li>
+	<li><a href="recycle">Recycleren</a></li>
+	<li><a href="pottery">Pottenbakkerij</a></li>
+	<li><a href="indistryl">Lichte industrie</a></li>
+	<li><a href="indistryh">Zware industrie</a></li>
 </Document>

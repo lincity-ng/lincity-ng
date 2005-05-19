@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Parks</p>
-	<p style="hp">Parks are very simple, they clear pollution.</p>
-	<p style="hp">A number of areas produce pollution. They are roads, railways, coal mines and light and heavy industry. Some produce more than others.</p>
-	<p style="hp">You can use parks to shield residential areas or to stop pollution escaping from the local area of the source.</p>
-	<p style="hp">The wind comes <b>from</b> the south west, so build you parks accordingly.</p>
+	<p style="htitle">Park</p>
+	<p style="hp">Het idee van parken is simepl: het vermindert de vervuiling</p>
+	<p style="hp">Een aantal gebouwen verhogen de vervuiling. Dit zijn straten, spoorwegen, steenkoolmijnen en lichte en zware industrie. Sommige gebieden verhogen de vervuiling meer dan andere.</p>
+	<p style="hp">U kunt parken gebruiken als schild voor residentiegebieden of om de vervuiling te beletten te ontsnappen van de bron.</p>
+	<p style="hp">De wind komt <b>van</b> het zuidwesten dus bouw u parken ook op een zo effectieve manier.</p>
 	
-	<p style="hp">This is a park</p>
+	<p style="hp">Dit is een park</p>
 	<img src="data/images/tiles/park.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="data/images/gui/buttonpanel/parks/park.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="pollution">Pollution</a></li>
-	<li><a href="road">Roads</a></li>
-	<li><a href="rail">Railways</a></li>
-	<li><a href="coalmine">Coal mines</a></li>
-	<li><a href="industryh">Heavy industry</a></li>
-	<li><a href="industryl">Light industry</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="pollution">Vervuiling</a></li>
+	<li><a href="road">Straten</a></li>
+	<li><a href="rail">Spoorwegen</a></li>
+	<li><a href="coalmine">Steenkoolmijnen</a></li>
+	<li><a href="industryh">Zware industrie</a></li>
+	<li><a href="industryl">Lichte industrie</a></li>
 </Document>

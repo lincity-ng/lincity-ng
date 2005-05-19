@@ -1,21 +1,20 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Minimap</p>
-	<p style="hp">The minimap shows, in reduced scale, the whole of your playing area. The buttons above, when you click on them, show information such as pollution levels over the whole of your playing area.</p>
-	<p style="hp">Click on the <i>help button</i> and then on each of the buttons above the minimap to activate their help pages.</p>
-	<p style="hp">The white bordered square shows the area covered by the main screen.</p>
+	<p style="htitle">Minikaart</p>
+	<p style="hp">De minikaart laat op schaal het hele gebied zien waar u op aan het spelen bent. De knoppen eronder zullen als u er op klikt informatie laten zien over oa. de vervuiling over u gebied.</p>
+	<p style="hp">Klik op de links hieronder om meer informatie te zien over elk van deze knoppen.</p>
+	<p style="hp">De witte rechthoek laat het gebied zien dat u kunt zien in het hoofdscherm.</p>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="msb-coal">Coal overlay</a></li>
-	<li><a href="msb-cricket">Sports overlay</a></li>
-	<li><a href="msb-fire">Fire overlay</a></li>
-	<li><a href="msb-health">Health overlay</a></li>
-	<li><a href="msb-normal">Normal overlay</a></li>
-	<li><a href="msb-pol">Pollution overlay</a></li>
-	<li><a href="msb-pol">Pollution overlay</a></li>
-	<li><a href="msb-power">Power overlay</a></li>
-	<li><a href="msb-starve">Starvation overlay</a></li>
-	<li><a href="msb-ub40">Unemployment overlay</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="msb-coal">Steenkoolkaart</a></li>
+	<li><a href="msb-cricket">Sportkaart</a></li>
+	<li><a href="msb-fire">Vuurkaart</a></li>
+	<li><a href="msb-health">Welzijnskaart</a></li>
+	<li><a href="msb-normal">Normale kaart</a></li>
+	<li><a href="msb-pol">Vrevuilingskaart</a></li>
+	<li><a href="msb-power">Energiekaart</a></li>
+	<li><a href="msb-starve">Sterftekaart</a></li>
+	<li><a href="msb-ub40">Werkloosheidskaart</a></li>
 </Document>
 
 

@@ -19,7 +19,7 @@ msgstr "Fout: Can LINCITY_HOME niet vinden"
 
 #: src/lincity/fileutil.cpp:575
 msgid "Error verifying package. Can't find colour.pal."
-msgstr "Fout bij het verifïeren van het pakket. Kan colour.pal nie"
+msgstr "Fout bij het verifïeren van het pakket. Kan colour.pal niet vinden"
 
 #: src/lincity/fileutil.cpp:594
 #: src/lincity/fileutil.cpp:603
@@ -30,7 +30,7 @@ msgstr "Kan de save-map %s niet aanmaken  \n"
 #: src/lincity/fileutil.cpp:649
 #, c-format
 msgid "Out of memory: malloc failure\n"
-msgstr "Te weinig geheugen: malloc fout\n"
+msgstr "Te weinig geheugen: malloc faalt\n"
 
 #: src/lincity/engine.cpp:157
 msgid "You can't build a tip here"
@@ -210,7 +210,7 @@ msgstr "Weg"
 
 #: src/lincity/lintypes.cpp:118
 msgid "Coalmine"
-msgstr "Koolmijn"
+msgstr "Steenkoolmijn"
 
 #: src/lincity/lintypes.cpp:130
 msgid "Railway"
@@ -294,12 +294,12 @@ msgstr "Monument"
 #: src/lincity/lintypes.cpp:334
 #: src/lincity/modules/school.cpp:49
 msgid "School"
-msgstr "Scool"
+msgstr "School"
 
 #: src/lincity/lintypes.cpp:346
 #: src/lincity/modules/blacksmith.cpp:97
 msgid "Blacksmith"
-msgstr "Smid"
+msgstr "Smidse"
 
 #: src/lincity/lintypes.cpp:358
 msgid "Mill"
@@ -311,7 +311,7 @@ msgid "Pottery"
 msgstr "Pottenbakkerij"
 
 #: src/lincity/lintypes.cpp:382
-msgid "Fire sta'n"
+msgid "Fire station"
 msgstr "Brandweerstation"
 
 #: src/lincity/lintypes.cpp:394
@@ -324,7 +324,7 @@ msgstr "Verbrand"
 
 #: src/lincity/lintypes.cpp:420
 msgid "Shanty town"
-msgstr "Barackensiedlung"
+msgstr "Krottenwijk"
 
 #: src/lincity/lintypes.cpp:433
 #: src/lincity/modules/residence.cpp:292
@@ -501,7 +501,7 @@ msgstr "Tech. niveau"
 
 #: src/lincity/modules/windmill.cpp:80
 msgid "Local Status"
-msgstr "lokale Status"
+msgstr "Lokale Status"
 
 #: src/lincity/modules/windmill.cpp:83
 msgid "Prod."
@@ -732,7 +732,7 @@ msgstr "Industrie"
 #: src/lincity/modules/blacksmith.cpp:105
 #: src/lincity-ng/MpsInterface.cpp:357
 msgid "Coal"
-msgstr "Kolen"
+msgstr "Steenkool"
 
 #: src/lincity/modules/heavy_industry.cpp:331
 msgid "Grid"
@@ -764,12 +764,12 @@ msgstr "Totaal"
 
 #: src/lincity/modules/rail.cpp:50
 msgid "Rail"
-msgstr "Spoor"
+msgstr "Spoorweg"
 
 #: src/lincity/modules/coal_power.cpp:90
 #: src/lincity/modules/solar_power.cpp:45
 msgid "Power Station"
-msgstr "Energie centrale"
+msgstr "Energiecentrale"
 
 #: src/lincity/modules/coal_power.cpp:94
 #: src/lincity/modules/solar_power.cpp:49
@@ -787,7 +787,7 @@ msgstr "Locale vraag"
 
 #: src/lincity/modules/mill.cpp:103
 msgid "Textile Mill"
-msgstr "Textielmolen"
+msgstr "Textielfabriek"
 
 #: src/lincity/modules/oremine.cpp:184
 msgid "Ore Mine"
@@ -807,11 +807,11 @@ msgstr "Technologie geproduceerd"
 
 #: src/lincity/modules/cricket.cpp:99
 msgid "Cricket Pitch"
-msgstr "Sportplatz"
+msgstr "Sportplaats"
 
 #: src/lincity/modules/tip.cpp:109
 msgid "Landfill"
-msgstr "Sortplaats"
+msgstr "Stortplaats"
 
 #: src/lincity/modules/tip.cpp:112
 msgid "Last Month"
@@ -899,7 +899,7 @@ msgstr ", afbraakkosten "
 #: src/lincity-ng/GameView.cpp:1410
 #: src/lincity-ng/GameView.cpp:1413
 msgid "$."
-msgstr "£."
+msgstr "€."
 
 #: src/lincity-ng/GameView.cpp:1412
 msgid " To build "
@@ -911,7 +911,7 @@ msgstr " van hun"
 
 #: src/lincity-ng/GameView.cpp:1413
 msgid "will cost about "
-msgstr "zal meer kosten dan"
+msgstr "zal meer kosten dan "
 
 #: src/lincity-ng/MpsInterface.cpp:176
 msgid "Green"
@@ -931,7 +931,7 @@ msgstr "Bedekking"
 
 #: src/lincity-ng/MpsInterface.cpp:300
 msgid "Health"
-msgstr "Gezondheid"
+msgstr "Welzijn"
 
 #: src/lincity-ng/MpsInterface.cpp:308
 msgid "clear"
@@ -987,7 +987,7 @@ msgstr "Export"
 
 #: src/lincity-ng/MpsInterface.cpp:369
 msgid "Expenses"
-msgstr "Uigaven"
+msgstr "Uitgaven"
 
 #: src/lincity-ng/MpsInterface.cpp:373
 msgid "Unemp."
@@ -1043,7 +1043,7 @@ msgstr "Raketten"
 
 #: src/lincity-ng/MpsInterface.cpp:423
 msgid "Fire Stn"
-msgstr "Brandweer"
+msgstr "Brandweerstations"
 
 #: src/lincity-ng/MpsInterface.cpp:437
 msgid "Population"

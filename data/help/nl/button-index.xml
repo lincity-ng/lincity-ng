@@ -62,9 +62,7 @@
 
 	<!--<p style="subtitle">Trading</p>-->
 	<img src="data/images/gui/buttonpanel/bed.png"/>
-	<p><a href="export">Import</a></p>
-	<img src="data/images/gui/buttonpanel/bed.png"/>
-	<p><a href="export">Export</a></p>
+	<p><a href="export">Import / Export</a></p>
 
 	<!--<p style="subtitle">Industry</p>-->
 	<img src="data/images/gui/buttonpanel/industry/heavyindustry2.png"/>
@@ -116,4 +114,8 @@
 
 	<img src="data/images/gui/buttonpanel/misc/sports.png"/>
 	<p><a href="cricket">Basketbalveld</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="data/images/gui/buttonpanel/transport/port.png"/>
+	<p><a href="port">Haven</a></p>
 </Document>

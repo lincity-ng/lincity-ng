@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Financiën venster</p>
+	<p style="hp">Dit is het financiën venster</p>
+	<p style="hp">Dit venster wordt elk jaar op 1 januari geüpdated. De grafieken onder 'inkomsten' en 'uitgaven' laten uw inkomensten en uitgaven zien voor het afgelopen jaar.</p>
+	<p style="hp">De 'Tot' grafiek is de hoevelheid geld op uw bankrekening. <!--Waarom staat dit hier?-->Er zijn verschillenden zaken die u kunt doen als u in het rood staat.</p>
+	<p style="hp">De betekenissen voor de afkortingen:</p>
+	<p style="hp">Inkomsten:</p>
+	<li><p style="hp">IT = Inkomensbelasting.</p></li>
+	<li><p style="hp">CT = Steenkoolbelasting.</p></li>
+	<li><p style="hp">GT = Goederenbelasting.</p></li>
+	<li><p style="hp">XP = Exportbelasting.</p></li>
+	<p style="hp">Uitgaven:</p>
+	<li><p style="hp">OC = Diverse kosten.</p></li>
+	<li><p style="hp">UC = Werkloosheidskosten.</p></li>
+	<li><p style="hp">TC = Transportkosten.</p></li>
+	<li><p style="hp">IP = Importkosten.</p></li>
+	<p style="hp">inksklikken op dit venster zal wisselen tussen het financiënvenster,diverse kosten en bevolkingskosten.</p>
+</Document>
+

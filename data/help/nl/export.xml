@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Import en export gebieden</p>
+	<p style="hp">Import en export werkt hetzelfde behalve dat het eerste je geld kost en het tweede je geld oplevert. Daarvor wordt alleen export hier uitvoerig besproken.</p>
+	<p style="hp">Om te exporteren moet de haven verbonden zijn met transport. <!-- volgens mij is dit foutTo export, you connect transport to the gate that deals with that product. For example, to export ore, you would connect a road, perhaps, that has ore on it, to the ore 'gate'.--></p>
+	<p style="hp">Havens moeten vervonden zijn met een rivier aan de rechterkant.</p>
+	<!--<p style="hp">The gates, from top to bottom, export coal, ore, goods and steel.</p>-->
+	<p style="hp">Het exportgebied zal zoveel mogelijk uitvoeren als mogelijk. Als u wilt exporteren maar de hoeveelheid beperken kunt u een transporttype kiezen met minder capaciteit, een lang sruk gebruiken of het product lang een markt laten passeren. U zal veel moeten experimenteren om de juiste exportconfiguratie te vinden.</p>
+
+	<p style="hp">Lees ook:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Markt</a></li>
+	<li><a href="coal">Steenkool</a></li>
+	<li><a href="ore">Ijzererts</a></li>
+	<li><a href="goods">Goederen</a></li>
+	<li><a href="steel">Staal</a></li>
+</Document>

@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Monuments</p>
-	<p style="hp">Monuments provide a focal point for the teaching and inspiration of inventers. Every monument you build will increase the rate of technology growth, but their effectiveness drops to zero as you get toward 40% tech level.</p>
-	<p style="hp">To build a monument, you need to provide jobs, a <b>lot</b> of jobs. For this reason they are useful for controlling unemployment. This is only a short term solution to an unemployment problem as monuments don't use any jobs after they are fully built.</p>
-	<p style="hp">You can tell how far building has progressed by clicking on the monument and looking at the stats window (top left of centre). Also the graphic changes as it is built. There are 6 graphics that show the stages of construction from 0% to 100%</p>
-	<p style="hp"><b>Hint</b>: How to stop monument building sucking too many jobs out of an area and therefore starving other areas of jobs: Build a monument farm away from other areas.</p>
+	<p style="htitle">Monument</p>
+	<p style="hp">Monumenen leveren een focuspunt voor de inspiratie van uitvinders. Elke monument dat u gebouwd heeft zal het technologisch niveau va uw stad laten stijgen, maar hun effectiviteit bereikt nul als de technoligsch niveau van uw stad 40% bereikt.</p>
+	<p style="hp">Om een monument te bouwen moet u jobs ter beschikking stellen -en dus ook hebben-, <b>heel veel</b> jobs meerbepaald. Daarom is het handig om monumenten te gebruiken om de werkloosheid te verminderen. Let op, dit is maar een korte termijnoplossing, omdat monumeten alleen jobs nodig hebben als ze in aanbouw zijn.</p>
+	<p style="hp">U kunt zien hoever de aanbouw van het monument als gevorderd is door te klikken op het monument en naar het statistiekenvenster te kijken (middenboven.). Ook veranderen de tekeningen als het monument gebouwd wordt. Er zijn 6 tekeningen die de zes stages laten zien van de constructie van het gebouw.</p>
+	<p style="hp"><b>Hint</b>: Om te voorkomen dat monumenten te veel jobs uit een bepaald gebied verbruiken en daardor sterfte veroorzaakt kunt u monumenten ver weg van andere gebieden bouwen.</p>
 
-	<p style="hp">This is a monument</p>
+	<p style="hp">Dit is een monument</p>
 	<img src="data/images/tiles/monument5.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje.</p>
 	<img src="data/images/gui/buttonpanel/parks/monument.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="market">Market</a></li>
-	<li><a href="ore">Ore</a></li>
-	<li><a href="commune">Commune</a></li>
-	<li><a href="steel">Steel</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="market">Markt</a></li>
+	<!--<li><a href="ore">Ijzererts</a></li>-->
+	<!--<li><a href="commune">Comunie</a></li>-->
+	<!--<li><a href="steel">Staal</a></li>-->
 	<li><a href="jobs">Jobs</a></li>
 </Document>
