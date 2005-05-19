@@ -219,7 +219,6 @@ void GameView::writeOrigin(){
  *  inform GameView about change in Mini Map Mode
  */
 void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
-    mapMode = mMode;
     switch( mMode ){
         case MiniMap::NORMAL:
             printStatusMessage( _("Minimap: outline map") );
@@ -251,6 +250,10 @@ void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
         default:
             std::cerr << "Unknown minimap mode " << mMode<<"\n";
     }
+    if( mapMode == mMode ){
+        return;
+    }
+    mapMode = mMode;
     if( mapOverlay != overlayNone ){
         requestRedraw();
     }

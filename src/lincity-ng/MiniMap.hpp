@@ -54,6 +54,7 @@ private:
 
     bool mFullRefresh;
     bool alreadyAttached;
+    bool inside;
 };
 
 MiniMap* getMiniMap();

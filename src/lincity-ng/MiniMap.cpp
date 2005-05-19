@@ -141,6 +141,7 @@ MiniMap::parse(XmlReader& reader)
 
     mFullRefresh=true;
     alreadyAttached=false;
+    inside = false;
 }
 
 Component *MiniMap::findRoot(Component *c)
@@ -524,6 +525,17 @@ Color MiniMap::getColor(int x,int y) const
 
 void MiniMap::event(const Event& event)
 {
+    if( event.type == Event::MOUSEMOTION ){
+        if( !event.inside ){
+            inside = false;
+            return;
+        }
+        if( !inside ){ //mouse just enterd the minimap, show current mapmode
+            getGameView()->setMapMode( mMode ); 
+            inside = true;
+        }
+        return;
+    }
     if(event.type==Event::MOUSEBUTTONDOWN && event.inside){
         // get Tile, that was clicked
         MapPoint tile (
