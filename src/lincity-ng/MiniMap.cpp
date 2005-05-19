@@ -491,20 +491,52 @@ Color MiniMap::getColor(int x,int y) const
     {
 	    if ( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ) 
 	    {
-            float max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_ROAD;
-		    float nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_ROAD;
-            if( nextValue > max ){ max = nextValue; }
-		    nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_ROAD;
-            if( nextValue > max ){ max = nextValue; }
-		    nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_ROAD;
-            if( nextValue > max ){ max = nextValue; }
-		    nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_ROAD;
-            if( nextValue > max ){ max = nextValue; }
-            nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_ROAD;
-            if( nextValue > max ){ max = nextValue; }
-            nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_ROAD;
-            if( nextValue > max ){ max = nextValue; }
+            float max;
+            float nextValue;
+            if( MP_GROUP(x,y) == GROUP_ROAD){
+                max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_ROAD;
+                nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_ROAD;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_ROAD;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_ROAD;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_ROAD;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_ROAD;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_ROAD;
+                if( nextValue > max ){ max = nextValue; }
+            } else if( MP_GROUP(x,y) == GROUP_TRACK ) {
+                max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_TRACK;
+                nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_TRACK;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_TRACK;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_TRACK;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_TRACK;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_TRACK;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_TRACK;
+                if( nextValue > max ){ max = nextValue; }
 
+            } else {
+                max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_RAIL;
+                nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_RAIL;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_RAIL;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_RAIL;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_RAIL;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_RAIL;
+                if( nextValue > max ){ max = nextValue; }
+                nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_RAIL;
+                if( nextValue > max ){ max = nextValue; }
+            }
 	        if( max > 99 )          //red
 	            return Color(0xFF,0,0);
 	        else if ( max > 85 )    //orange
