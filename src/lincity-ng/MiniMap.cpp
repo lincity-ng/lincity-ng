@@ -426,6 +426,9 @@ Color MiniMap::getColor(int x,int y) const
 	  mc=light(mc,brightness(getColorNormal(x,y)));
 	  return mc;
 	}
+      else if( mMode==FIRE && MP_GROUP( x, y ) == GROUP_FIRE ){
+	     return Color(0xFF,0,0);
+      }
       else
 	return makeGrey(getColorNormal(x,y));
     case UB40:

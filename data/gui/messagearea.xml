@@ -6,6 +6,12 @@
 		height="30" font-size="20">Messages</Paragraph>
 		</Document>
 	</title>
+	<title-background>
+		<Gradient from="#333377ff" to="#9999aaff" direction="left-right"/>
+	</title-background>
+	<background>
+		<FilledRectangle color="#cdcdcdff"/>
+	</background>
 	<closebutton>
 		<image src="images/gui/window/window_close.png"/>
 		<image-hover src="images/gui/window/window_close_hover.png"/>
