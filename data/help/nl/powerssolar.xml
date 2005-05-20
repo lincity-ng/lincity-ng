@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Solar power station</p>
-	<p style="hp">Solar power stations output their power to power lines in packets. The amount of power that it can produce increases with the tech-level when it was <b>built</b>.</p>
+	<p style="htitle">Zonne-energiecentrale</p>
+	<p style="hp">Zonne-energiecentrales produceren energie die geplaatst worden op electriciteitsdraden. De effectiviteit van de productie verhoogt met een hoge technologie level <b>op bouwdatum</b>. U kunt, wanneer u technologie level opmerkelijk gestegen is, een oude Zonne-energiecentrale afbreken en die herbouwen met een nieuwere, meer efficiente.</p>
 	
-	<p style="hp">This is a Solar power station</p>
+	<p style="hp">Dit is een zonne-energiecentrale</p>
 	<img src="data/images/tiles/solar.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="data/images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="substation">Substation</a></li>
-	<li><a href="powerline">Power lines</a></li>
-	<li><a href="residential">Residential</a></li>
-	<li><a href="tech-level">Tech-level</a></li>
-	<li><a href="msb-power">Power overlay</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="substation">Onderstation</a></li>
+	<li><a href="powerline">Electriciteitsdraden</a></li>
+	<li><a href="tech-level">Technologielevel</a></li>
+	<li><a href="msb-power">Electricitetiskaart</a></li>
 </Document>

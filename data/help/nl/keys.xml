@@ -2,7 +2,8 @@
 <Document style="helpdocument">
  
     <p style="htitle">Toetsenbord</p>
-    <p style="hp">ESCAPE: terug naar het hoofdmenu.</p>
+    <p style="hp">ESCAPE: ga naar de querytool.</p>
+	<p style="hp">b: wisselt tussen het huidige hulpmiddel en de afbraakmidddel.</p>
     <p style="hp">h: om hoge gebouwen niet meer te laten zien. Druk nog eens op h om ze terug te laten zien.</p>
     <p style="hp">v: om te verwisselen tussen de verschillen bedekkingsmodi.</p>
     <p style="hp">Numerieke +: inzoomen</p>

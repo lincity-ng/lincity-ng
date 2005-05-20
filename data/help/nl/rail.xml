@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Railways</p>
-	<p style="hp">Railways carry even more than roads. They produce slightly less pollution than roads. They are quite expensive to buy and maintain though. They are well worth the expense when you have a lot to transport over a long distance.</p>
+	<p style="htitle">Spoorweg</p>
+	<p style="hp">Spoorwegen vervoederen meer goederen (hieronder verstaan we goederen, voedsel, steenkool, ijzererts, staal,jobs). Ze produceren ook iets meer dan straten. Ze zijn ook redelijk duur om te bouwen en onderhouden. Ze zijn het waard om gebouwd te worden als u veel vervoer over een grote afstand heeft.</p>
 
-	<p style="hp">This is a railway</p>
+	<p style="hp">Dit is een spoorweg</p>
 	<img src="data/images/tiles/rails.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="data/images/gui/buttonpanel/transport/rails2.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
+	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="commune">Commune</a></li>
-	<li><a href="pollution">Pollution</a></li>
+	<li><a href="road">Straat</a></li>
+	<li><a href="pollution">Vervuiling</a></li>
 </Document>

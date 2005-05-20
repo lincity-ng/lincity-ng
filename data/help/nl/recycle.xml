@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Recycle centres</p>
-	<p style="hp">Used goods produce waste.</p>
-	<p style="hp">Recycle centres convert used goods into ore. They must be connected to transport at the top left hand corner. Jobs and money are used to collect the waste goods and convert them into fresh ore.</p>
-	<p style="hp">It is possible to run a sustainable economy, (ie no ore dug etc) with less than 100% efficient recycle centres if you have some mills to make up for the 'lost' waste goods.</p>
+	<p style="htitle">Recycleercentrum</p>
+	<p style="hp">Gebruikte goederen produceren verspilling.</p>
+	<p style="hp">Recycleercetra veradneren gebruikte goederen in ijzererts. Ze moeten verbonden zijn met transport aan de noordwestkant. Jobs en en geld worden gebruikt om verspilde goederen te verzamelen en ze om te zetten in nieuw ijzererts.</p>
+	<p style="hp">Het is mogelik om een goede economie op te bouwen (zonder ijzererts op te graven) met minder dan 100% effectieve recycleercentra, als u een aantal textielfabrieken hebt om de verspilling tegen te gaan.</p>
 	
-	<p style="hp">This is a recycle center</p>
+	<p style="hp">Dit is een rcycleercentrum</p>
 	<img src="data/images/tiles/recycle-centre.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="data/images/gui/buttonpanel/mining/recycle.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="goods">Goods</a></li>
-	<li><a href="ore">Ore</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="goods">Goederen</a></li>
+	<li><a href="ore">Ijzererts</a></li>
 	<li><a href="transport">Transport</a></li>
 </Document>
