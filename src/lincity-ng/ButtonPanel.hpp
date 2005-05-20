@@ -23,6 +23,8 @@ class ButtonPanel : public Component
   virtual bool opaque(const Vector2& pos) const;
   void checkTech( int showInfo );
   void selectQueryTool();
+  void toggleBulldozeTool();
+  void switchToTool( int newModuleType );
  
  private:
   void attachButtons();
@@ -38,6 +40,7 @@ class ButtonPanel : public Component
   void examineMenuButtons();
   void newTechMessage( int moduleType, int showInfo );
   void updateSelectedCost();
+  int previousTool;
 
   std::vector<std::string> mMenuButtons;
   std::vector<std::string> mMenus;

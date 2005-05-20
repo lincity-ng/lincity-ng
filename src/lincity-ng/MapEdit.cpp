@@ -12,7 +12,7 @@
 #include "Sound.hpp"
 #include "MapEdit.hpp"
 #include "Dialog.hpp"
-
+#include "Config.hpp"
 #include "Debug.hpp"
 
 int monument_bul_flag=0;
@@ -143,18 +143,6 @@ void editMap (MapPoint point, int button)
       return;
     }
 
-  /* Check rocket launches */
-  /* XXX: put this in modules/rocket.c */
-  /* XXX: wait for second click to ask for launch */
-  if (button == SDL_BUTTON_LEFT)
-    {
-      if (MP_TYPE(mod_x,mod_y) >= CST_ROCKET_5 &&
-          MP_TYPE(mod_x,mod_y) <= CST_ROCKET_7)
-        {
-          new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
-        }
-    }
-
   /* Handle bulldozing */
   if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT)
     {
@@ -164,32 +152,56 @@ void editMap (MapPoint point, int button)
 
   /* Bring up mappoint_stats for certain left mouse clicks */
   /* Check market and port double-clicks here */
-  if (MP_TYPE(x,y) != CST_GREEN)
-    {
-      getMPS()->playBuildingSound( mod_x, mod_y );
-      mps_result = mps_set(mod_x, mod_y, MPS_MAP);
+  /* Check rocket launches */
+    if( MP_TYPE( x,y ) != CST_GREEN ){
+        getMPS()->playBuildingSound( mod_x, mod_y );
+        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
 
-      if (mps_result >= 1)
-        {
-          if (MP_GROUP(mod_x,mod_y) == GROUP_MARKET)
-            {
-              clicked_market_cb (mod_x, mod_y);
-              return;
-            }
-          else if (MP_GROUP(mod_x,mod_y) == GROUP_PORT)
-            {
-              clicked_port_cb (mod_x, mod_y);
-              return;
+        if( mps_result >= 1 ){
+            if( MP_GROUP( mod_x,mod_y ) == GROUP_MARKET ){
+                clicked_market_cb (mod_x, mod_y);
+                return;
+            } else if (MP_GROUP(mod_x,mod_y) == GROUP_PORT) {
+                clicked_port_cb (mod_x, mod_y);
+                return;
+            } else if (MP_TYPE(mod_x,mod_y) >= CST_ROCKET_5 &&
+                         MP_TYPE(mod_x,mod_y) <= CST_ROCKET_7){
+                //Dialogs delete themself
+                new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
+                return;
             }
         }
-      return;
-    }
-  if(selected_module_type==CST_NONE)
-  {
-    getMPS()->setView(MapPoint(x, y));
+        //to be here we are not in bulldoze-mode and the tile
+        //under the cursor is not empty. 
+        //to allow up/downgrading of Tracks,Roads and Rails we can't allways return.
+        if( !getConfig()->upgradeTransport ){
+            return;
+        }
 
-    return;
-  }
+        if( ( selected_module_type != CST_TRACK_LR ) && 
+            ( selected_module_type != CST_ROAD_LR ) && 
+            ( selected_module_type != CST_RAIL_LR ) ) {
+            return; //not building a transport
+        }
+        if( !( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ) ){
+            return;//not on transport
+        }
+        //don't replace anything by itself.
+        if( ( selected_module_type == CST_TRACK_LR ) && ( MP_GROUP( x, y ) == GROUP_TRACK ) ){
+           return;
+        } 
+        if( ( selected_module_type == CST_ROAD_LR ) && ( MP_GROUP( x, y ) == GROUP_ROAD ) ){ 
+           return;
+        } 
+        if( ( selected_module_type == CST_RAIL_LR ) && ( MP_GROUP( x, y ) == GROUP_RAIL ) ){ 
+           return;
+        } 
+    }
+
+    if(selected_module_type==CST_NONE){ //query Tool 
+        getMPS()->setView(MapPoint(x, y));
+        return;
+    }
 
   /* OK, by now we are certain that the user wants to place the item.
      Set the origin based on the size of the selected_module_type, and 

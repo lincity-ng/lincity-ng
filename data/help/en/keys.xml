@@ -3,6 +3,7 @@
  
     <p style="htitle">Keyboard</p>
     <p style="hp">ESCAPE: switch to query tool</p>
+    <p style="hp">b toggles between current tool and bulldoze mode</p>
     <p style="hp">h to hide high buildings. Press h again to show them.</p>
     <p style="hp">v to cycle through MiniMap-overlay modes</p>
     <p style="hp">KP_PLUS: zoom in</p>

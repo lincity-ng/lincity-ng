@@ -78,6 +78,10 @@ Game::run()
                          getButtonPanel()->selectQueryTool();
                          break;
                      }
+                     if( gui_event.keysym.sym == SDLK_b ){
+                         getButtonPanel()->toggleBulldozeTool();
+                         break;
+                     }   
                      if( gui_event.keysym.sym == SDLK_F1 ){
                          helpWindow->showTopic("help");
                          break;

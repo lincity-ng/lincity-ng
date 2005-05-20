@@ -100,7 +100,7 @@ ButtonPanel::parse(XmlReader& reader)
        }      
     
     ButtonPanelInstance = this;
-    selected_module_type=selected_module=module=CST_GREEN;
+    previousTool = selected_module_type=selected_module=module=CST_GREEN;
     alreadyAttached=false;
     selected_module_type=CST_NONE;
     checkTech(0);    
@@ -376,6 +376,75 @@ void ButtonPanel::selectQueryTool(){
     chooseButtonClicked( queryButton, SDL_BUTTON_LEFT ); 
 }
 
+void ButtonPanel::toggleBulldozeTool(){
+    if( selected_module_type == CST_GREEN ){
+        switchToTool( previousTool );
+    }
+    else{
+        previousTool = selected_module_type;
+        CheckButton* bulldozeButton = getCheckButton( *this, "BPMBullDozeButton");
+        chooseButtonClicked( bulldozeButton, SDL_BUTTON_LEFT ); 
+    }
+}
+
+void ButtonPanel::switchToTool( int newModuleType ){
+    std::string newName;
+    switch( newModuleType ){
+        case CST_NONE: newName = "BPMPointerButton"; break;
+        case CST_GREEN :newName = "BPMBullDozeButton"; break;
+                        
+        case CST_RESIDENCE_LL: newName = "BPMResidence1Button"; break;
+        case CST_RESIDENCE_ML: newName = "BPMResidence2Button"; break;
+        case CST_RESIDENCE_HL: newName = "BPMResidence3Button"; break;
+        case CST_RESIDENCE_LH: newName = "BPMResidence4Button"; break;
+        case CST_RESIDENCE_MH: newName = "BPMResidence5Button"; break;
+        case CST_RESIDENCE_HH: newName = "BPMResidence6Button"; break;
+  
+        case CST_FARM_O0: newName ="BPMFarmButton"; break;
+        case CST_MILL_0: newName ="BPMMillButton"; break;
+  
+        case CST_HEALTH: newName="BPMHealthButton"; break;
+        case CST_CRICKET_1: newName="BPMSportsButton"; break;
+        case CST_FIRESTATION_1: newName="BPMFireButton"; break;
+        case CST_SCHOOL: newName="BPMSchoolButton"; break;
+        case CST_UNIVERSITY: newName="BPMUniversityButton"; break;
+  
+        case CST_TRACK_LR: newName="BPMTrackButton"; break;
+        case CST_ROAD_LR: newName="BPMStreetButton"; break;
+        case CST_RAIL_LR: newName="BPMRailButton"; break;
+        case CST_EX_PORT: newName="BPMPortButton"; break;
+        case CST_ROCKET_1: newName ="BPMRocketButton"; break;
+   
+        case CST_POWERL_H_L: newName ="BPMPowerLineButton"; break;
+  
+        case CST_POWERS_COAL_EMPTY: newName ="BPMCoalPSButton"; break;
+        case CST_POWERS_SOLAR: newName ="BPMSolarPSButton"; break;
+        case CST_SUBSTATION_R: newName ="BPMSubstationButton"; break;
+        case CST_WINDMILL_1_R: newName ="BPMWindmillButton"; break;
+  
+        case CST_COMMUNE_1: newName ="BPMCommuneButton"; break;
+        case CST_COALMINE_EMPTY: newName ="BPMCoalButton"; break;
+        case CST_OREMINE_1: newName ="BPMOreButton"; break;
+        case CST_TIP_0: newName ="BPMTipButton"; break;
+        case CST_RECYCLE: newName ="BPMRecycleButton"; break;
+  
+        case CST_INDUSTRY_L_C: newName ="BPMLIndustryButton"; break;
+        case CST_INDUSTRY_H_C: newName ="BPMHIndustryButton"; break;
+        case CST_MARKET_EMPTY: newName ="BPMMarketButton"; break;
+        case CST_POTTERY_0: newName ="BPMPotteryButton"; break;
+        case CST_BLACKSMITH_0: newName ="BPMBlacksmithButton"; break;
+
+        case CST_MONUMENT_0: newName ="BPMMonumentButton"; break;
+        case CST_PARKLAND_PLANE: newName ="BPMParkButton"; break;
+        case CST_WATER: newName ="BPMWaterButton"; break;
+        default:
+            std::cerr << "ButtonPanel::switchToTool# unknown Type " << newModuleType << "\n";
+            newName ="BPMPointerButton";
+    }
+    CheckButton* newButton = getCheckButton( *this, newName );
+    chooseButtonClicked( newButton, SDL_BUTTON_LEFT ); 
+}
+    
 void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
 {
   Image *i=dynamic_cast<Image*>(button->getCaption());

@@ -231,14 +231,15 @@ Button::event(const Event& event)
             }
             state = event.inside ? STATE_HOVER : STATE_NORMAL;
             break;
-        case Event::UPDATE:
-            Uint32 ticks = SDL_GetTicks();
-            if(mouseholdTicks != 0 && ticks - mouseholdTicks > TOOLTIP_TIME) {
-                if(tooltipManager && tooltip != "") {
-                    tooltipManager->showTooltip(tooltip,
-                            relative2Global(mouseholdPos));
+        case Event::UPDATE: {
+                Uint32 ticks = SDL_GetTicks();
+                if(mouseholdTicks != 0 && ticks - mouseholdTicks > TOOLTIP_TIME) {
+                    if(tooltipManager && tooltip != "") {
+                        tooltipManager->showTooltip(tooltip,
+                                relative2Global(mouseholdPos));
+                    }
+                    mouseholdTicks = 0;
                 }
-                mouseholdTicks = 0;
             }
             break;
         default:

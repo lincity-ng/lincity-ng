@@ -23,6 +23,7 @@ public:
     bool musicEnabled;
     std::string lincityHome;
     int skipMonthsFast;
+    bool upgradeTransport;
 
     void save();
 private:

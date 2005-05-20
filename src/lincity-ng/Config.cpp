@@ -40,7 +40,7 @@ Config::Config()
 
     lincityHome = "./data";
     skipMonthsFast = 1;
-    
+    upgradeTransport = true;
     //First we load the global File which should contain
     try {
         //sane defaults for the local system.
@@ -142,6 +142,8 @@ void Config::load( const std::string& filename ){
                     const char* value = (const char*) iter.getValue();
                     if(strcmp(name, "skipMonthsFast" ) == 0) {
                         skipMonthsFast = parseInt( value, 1, 1 );
+                    } else if( strcmp(name, "upgradeTransport" ) == 0 ){
+                       upgradeTransport  = parseBool(value, true);
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
