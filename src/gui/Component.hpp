@@ -92,6 +92,9 @@ public:
     }
     Component* findComponent(const std::string& name);
 
+    /** maps a relative coordinate from this component to a global one */
+    Vector2 relative2Global(const Vector2& pos);
+
 protected:
     Childs childs;
 
@@ -100,6 +103,7 @@ protected:
     void drawChild(Child& child, Painter& painter);
     bool eventChild(Child& child, const Event& event, bool visible = false);
     void setChildDirty(Component* child, const Rect2D& area);
+    Child& findChild(Component* component);
 
     void setDirty()
     {

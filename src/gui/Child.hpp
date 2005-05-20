@@ -16,7 +16,8 @@ public:
     {
         return component;
     }
-
+    void setComponent(Component* component);
+    
     void enable(bool enabled)
     {
         if(!component) {

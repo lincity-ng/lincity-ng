@@ -8,7 +8,10 @@
 #include "ScrollBar.hpp"
 #include "ComponentFactory.hpp"
 #include "ComponentLoader.hpp"
+#include "Event.hpp"
 #include "callback/Callback.hpp"
+
+static const float MOUSEWHEELSCROLL = 30;
 
 ScrollView::ScrollView()
 {
@@ -87,6 +90,7 @@ ScrollView::resize(float newwidth, float newheight)
 
     ScrollBar* scrollBarComponent = (ScrollBar*) scrollBar().getComponent();
     scrollBarComponent->setRange(0, scrollarea);
+    scrollBarComponent->setValue(0);
 
     width = newwidth;
     height = newheight;
@@ -99,6 +103,41 @@ ScrollView::scrollBarChanged(ScrollBar* , float newvalue)
 {
     contents().setPos(Vector2(0, -newvalue));
     setDirty();
+}
+
+void
+ScrollView::event(const Event& event)
+{
+    if(event.type == Event::MOUSEBUTTONDOWN
+            && (event.mousebutton == SDL_BUTTON_WHEELUP
+            || event.mousebutton == SDL_BUTTON_WHEELDOWN)) {
+        if(!event.inside)
+            return;
+
+        ScrollBar* scrollBarComp 
+            = dynamic_cast<ScrollBar*> (scrollBar().getComponent());
+        if(scrollBarComp == 0) {
+#ifdef DEBUG
+            assert(false);
+#endif
+            return;
+        }
+        float val = - contents().getPos().y;
+        if(event.mousebutton == SDL_BUTTON_WHEELUP) {
+            val -= MOUSEWHEELSCROLL;
+            if(val < 0)
+                val = 0;
+        } else {
+            val += MOUSEWHEELSCROLL;
+            if(val > scrollBarComp->getRangeMax())
+                val = scrollBarComp->getRangeMax();
+        }
+        contents().setPos(Vector2(0, -val));
+        scrollBarComp->setValue(val);
+        setDirty();
+    }
+
+    Component::event(event);
 }
 
 void

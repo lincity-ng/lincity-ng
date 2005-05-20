@@ -1,6 +1,7 @@
 #include <config.h>
 
 #include <typeinfo>
+#include <stdexcept>
 #include "Component.hpp"
 #include "Painter.hpp"
 #include "Event.hpp"
@@ -67,7 +68,6 @@ Component::eventChild(Child& child, const Event& event, bool visible)
     if(event.type == Event::MOUSEMOTION 
         || event.type == Event::MOUSEBUTTONDOWN
         || event.type == Event::MOUSEBUTTONUP) {
-        // TODO handle clip rectangles?
         ev.mousepos -= child.position;
         if(visible && child.component->opaque(ev.mousepos))
             ev.inside = true;
@@ -112,6 +112,16 @@ Component::findComponent(const std::string& name)
     return 0;
 }
 
+Vector2
+Component::relative2Global(const Vector2& pos)
+{
+    if(!parent)
+        return pos;
+
+    Child& me = parent->findChild(this);
+    return parent->relative2Global(me.getPos() + pos);
+}
+
 Child&
 Component::addChild(Component* component)
 {
@@ -147,6 +157,17 @@ Component::setDirty(const Rect2D& rect)
 {
     if(parent)
         parent->setChildDirty(this, rect);
+}
+
+Child&
+Component::findChild(Component* component)
+{
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        Child& child = *i;
+        if(child.getComponent() == component)
+            return child;
+    }
+    throw std::runtime_error("Child not found");
 }
 
 void

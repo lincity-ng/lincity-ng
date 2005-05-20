@@ -8,11 +8,14 @@
 #include "Button.hpp"
 #include "Image.hpp"
 #include "Paragraph.hpp"
+#include "TooltipManager.hpp"
 #include "ComponentFactory.hpp"
 #include "XmlReader.hpp"
 
+static const Uint32 TOOLTIP_TIME = 500;
+
 Button::Button()
-    : state(STATE_NORMAL), lowerOnClick(false)
+    : state(STATE_NORMAL), lowerOnClick(false), mouseholdTicks(0)
 {
 }
 
@@ -97,6 +100,8 @@ Button::parse(XmlReader& reader)
                     std::cerr << "Warning: more than 1 component for comp_caption "
                         "defined.\n";
                 setChildText(comp_caption(), reader);
+            } else if (element == "tooltip") {
+                tooltip = "Blup";
             } else {
                 std::cerr << "Skipping unknown element '" << element << "'.\n";
             }
@@ -203,14 +208,18 @@ Button::event(const Event& event)
                 if(state == STATE_NORMAL) {
                     state = STATE_HOVER;
                 }
+                mouseholdTicks = SDL_GetTicks();
+                mouseholdPos = event.mousepos;
             } else {
+                mouseholdTicks = 0;
                 if(state == STATE_HOVER) {
                     state = STATE_NORMAL;
                 }
             }
             break;
         case Event::MOUSEBUTTONDOWN:
-            if(event.inside) {
+            if(event.inside && event.mousebutton != SDL_BUTTON_WHEELUP &&
+                    event.mousebutton != SDL_BUTTON_WHEELDOWN) {
                 state = STATE_CLICKED;
             } else {
                 state = STATE_NORMAL;
@@ -221,6 +230,16 @@ Button::event(const Event& event)
                 clicked(this);
             }
             state = event.inside ? STATE_HOVER : STATE_NORMAL;
+            break;
+        case Event::UPDATE:
+            Uint32 ticks = SDL_GetTicks();
+            if(mouseholdTicks != 0 && ticks - mouseholdTicks > TOOLTIP_TIME) {
+                if(tooltipManager && tooltip != "") {
+                    tooltipManager->showTooltip(tooltip,
+                            relative2Global(mouseholdPos));
+                }
+                mouseholdTicks = 0;
+            }
             break;
         default:
             break;

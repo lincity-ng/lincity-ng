@@ -27,6 +27,13 @@ Child::inside(const Vector2& pos) const
     return false;
 }
 
+void
+Child::setComponent(Component* component)
+{
+    delete this->component;
+    this->component = component;
+}
+
 //---------------------------------------------------------------------------
 
 Childs::Childs()

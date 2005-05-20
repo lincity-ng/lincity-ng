@@ -779,8 +779,8 @@ void GameView::scroll( void )
  */
 void GameView::event(const Event& event)
 {
-    float stepx = tileWidth / 2;
-    float stepy = tileHeight / 2;
+    //float stepx = tileWidth / 2;
+    //float stepy = tileHeight / 2;
     MapPoint tile;
     Vector2 dragDistance;
     
@@ -1594,4 +1594,5 @@ int GameView::bulldozeCost( MapPoint tile ){
 }
 
 //Register as Component
-IMPLEMENT_COMPONENT_FACTORY(GameView)
+IMPLEMENT_COMPONENT_FACTORY(GameView);
+

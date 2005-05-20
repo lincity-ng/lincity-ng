@@ -15,6 +15,7 @@ public:
     void parse(XmlReader& reader);
 
     void resize(float width, float height);
+    void event(const Event& event);
     void replaceContents(Component* component);
 
 private:

@@ -18,6 +18,10 @@
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-caption src="images/gui/zoom/zoomin.png"/>
+                                <tooltip translatable="yes">
+                                    Zoom in view so that less buildings but more
+                                    details are visible
+                                </tooltip>
 			</Button>
 			</cell>
 			<cell row="3" col="2">
@@ -26,6 +30,9 @@
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-caption src="images/gui/zoom/zoomout.png"/>
+                                <tooltip translatable="yes">
+                                    Zoom out
+                                </tooltip>
 			</Button>
 			</cell>
 		</TableLayout>

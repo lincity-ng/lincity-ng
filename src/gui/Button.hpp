@@ -1,6 +1,7 @@
 #ifndef __BUTTON_HPP__
 #define __BUTTON_HPP__
 
+#include <SDL.h>
 #include "Component.hpp"
 #include "callback/Signal.hpp"
 
@@ -37,6 +38,7 @@ public:
     };
     
     State state;
+    
 private:
     void setChildImage(Child& child, XmlReader& reader);
     void setChildText(Child& child, XmlReader& reader);
@@ -51,7 +53,9 @@ private:
     { return childs[3]; }
     
     bool lowerOnClick;
+    std::string tooltip;
+    Uint32 mouseholdTicks;
+    Vector2 mouseholdPos;
 };
 
 #endif
-

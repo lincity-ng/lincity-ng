@@ -96,8 +96,7 @@ ScrollBar::resize(float newwidth, float newheight)
 
     button1().setPos(Vector2(0, 0));
     button2().setPos(Vector2(0, height-button2().getComponent()->getHeight()));
-    // TODO correctly set scroller pos...
-    scroller().setPos(Vector2(0, button1().getComponent()->getHeight()));
+    setValue(currentVal);
 
     setDirty();
 }
@@ -148,6 +147,7 @@ ScrollBar::event(const Event& event)
             float newScrollVal = minVal + 
                 ((maxVal - minVal) * scrollScreenRatio);
             assert(newScrollVal >= minVal && newScrollVal <= maxVal);
+            currentVal = newScrollVal;
             valueChanged(this, newScrollVal);
             setDirty();
             break;
@@ -167,6 +167,26 @@ ScrollBar::setRange(float min, float max)
     }
     minVal = min;
     maxVal = max;
+    currentVal = 0;
+}
+
+void
+ScrollBar::setValue(float value)
+{
+    if(value < minVal && value > maxVal)
+        return;
+    
+    float scrollScreenRange = height 
+        - button1().getComponent()->getHeight()
+        - button2().getComponent()->getHeight()
+        - scroller().getComponent()->getHeight();
+    float range = maxVal - minVal;
+    float y = button1().getComponent()->getHeight();
+    if(range != 0) {
+        y += value * scrollScreenRange / range;
+    }
+    currentVal = value;
+    scroller().setPos(Vector2(0, y));
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ScrollBar);

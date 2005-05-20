@@ -22,6 +22,7 @@
 Paragraph::Paragraph()
     : texture(0)
 {
+    setFlags(FLAG_RESIZABLE);
 }
 
 Paragraph::~Paragraph()
@@ -196,8 +197,6 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
             delete currentspan;
         throw;
     }
-
-    setFlags(FLAG_RESIZABLE);
 }
 
 /**
@@ -231,14 +230,15 @@ Paragraph::resize(float width, float height)
     int lineheight = 0;
     int baseline = 0;
 
-    TextSpans::iterator i = textspans.begin();
-    if(i == textspans.end()) {
+    if(textspans.empty()) {
         // no need to render anything if there are no spans
         this->width = 0;
         this->height = 0;
         texture = 0;
         return;
     }
+    
+    TextSpans::iterator i = textspans.begin();
 
     const TextSpan* span = *i;
     const std::string* text = &(span->text);
@@ -478,7 +478,9 @@ Paragraph::event(const Event& event)
         if(i->rect.inside(event.mousepos)) {
             if(event.type == Event::MOUSEMOTION) {
                 // TODO change mouse cursor
-            } else if(event.type == Event::MOUSEBUTTONDOWN) {
+            } else if(event.type == Event::MOUSEBUTTONDOWN
+                    && event.mousebutton != SDL_BUTTON_WHEELUP
+                    && event.mousebutton != SDL_BUTTON_WHEELDOWN) {
                 linkClicked(this, i->span->style.href);
             }
         }
@@ -498,7 +500,6 @@ std::string Paragraph::getText() const
     t+=(*i)->text;
   return t;
 }
-
 
 void
 Paragraph::setText(const std::string& newtext, const Style& style)
@@ -521,4 +522,5 @@ Paragraph::setText(const std::string& newtext, const Style& style)
     }
 }
 
-IMPLEMENT_COMPONENT_FACTORY(Paragraph)
+IMPLEMENT_COMPONENT_FACTORY(Paragraph);
+

@@ -20,6 +20,20 @@ public:
     void event(const Event& event);
 
     void setRange(float min, float max);
+    
+    float getRangeMin() const
+    {
+        return minVal;
+    }
+    float getRangeMax() const
+    {
+        return maxVal;
+    }
+    float getValue() const
+    {
+        return currentVal;
+    }
+    void setValue(float value);
 
     Signal<ScrollBar*, float> valueChanged;
 

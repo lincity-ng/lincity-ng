@@ -438,4 +438,5 @@ TableLayout::addComponent(size_t col, size_t row, Component* component)
     cells[row * colproperties.size() + col] = Cell(childs.size()-1);
 }
 
-IMPLEMENT_COMPONENT_FACTORY(TableLayout)
+IMPLEMENT_COMPONENT_FACTORY(TableLayout);
+
