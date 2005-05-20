@@ -177,7 +177,8 @@ void mps_refresh(void) /* refresh the information display's contents */
                         mps_store_title(4,_("build something here") );
                     }
                     //no special information on this group, just show the Name.
-                    mps_store_title(0, dictionaryManager->get_dictionary().translate(main_groups[ MP_GROUP( mps_x, mps_y ) ].name ).c_str() );
+                    mps_store_title(0, 
+                            _(main_groups[MP_GROUP(mps_x, mps_y)].name));
                     mps_store_title(2, _("no further information available") );
                     
                     printf("MPS unimplemented for that module\n");

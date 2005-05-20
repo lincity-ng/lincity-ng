@@ -9,12 +9,12 @@ extern TinyGetText::DictionaryManager* dictionaryManager;
 static inline char* _(const char* message)
 {
     return const_cast<char*>
-        (dictionaryManager->get_dictionary().translate(message).c_str());
+        (dictionaryManager->get_dictionary().translate(message));
 }
 #else
 static inline const char* _(const char* message)
 {
-    return dictionaryManager->get_dictionary().translate(message).c_str();
+    return dictionaryManager->get_dictionary().translate(message);
 }
 #endif
 

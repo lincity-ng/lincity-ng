@@ -418,6 +418,23 @@ Dictionary::translate(const std::string& msgid, const std::string& msgid2, int n
     }
 }
 
+const char*
+Dictionary::translate(const char* msgid)
+{
+  Entries::iterator i = entries.find(msgid);
+  if (i != entries.end() && !i->second.empty())
+    {
+      return i->second.c_str();
+    }
+  else
+    {
+#ifdef TRANSLATION_DBEUG
+      std::cout << "Error: Couldn't translate: " << msgid << std::endl;
+#endif
+      return msgid;
+    }
+}
+
 std::string
 Dictionary::translate(const std::string& msgid) 
 {
