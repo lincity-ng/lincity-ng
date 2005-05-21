@@ -70,6 +70,9 @@ private:
     bool lowerOnClick;
     bool checked;    
     bool mclicked;
+    std::string tooltip;
+    Uint32 mouseholdTicks;
+    Vector2 mouseholdPos;
 };
 
 #endif

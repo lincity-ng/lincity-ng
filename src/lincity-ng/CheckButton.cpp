@@ -12,6 +12,7 @@
 #include "gui/TextureManager.hpp"
 #include "gui/Image.hpp"
 #include "gui/Paragraph.hpp"
+#include "gui/TooltipManager.hpp"
 #include "gui/XmlReader.hpp"
 
 CheckButton::CheckButton()
@@ -64,6 +65,7 @@ CheckButton::parse(XmlReader& reader)
     childs.assign(6, Child());
     
     // parse contents of the xml-element
+    bool parseTooltip = false;
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
@@ -119,10 +121,37 @@ CheckButton::parse(XmlReader& reader)
                     std::cerr << "Warning: more than 1 component for comp_caption "
                         "defined.\n";
                 setChildText(comp_caption(), reader);
+            } else if (element == "tooltip") {
+                parseTooltip = true;
             } else {
                 std::cerr << "Skipping unknown element '" << element << "'.\n";
             }
-        }
+        } else if(reader.getNodeType() == XML_READER_TYPE_END_ELEMENT) {
+             std::string element = (const char*) reader.getName();
+             if(element == "tooltip")
+                 parseTooltip = false;
+        } else if(reader.getNodeType() == XML_READER_TYPE_TEXT) {
+            if(!parseTooltip)
+                continue;
+
+            const char* p = (const char*) reader.getValue();
+            // skip trailing spaces
+            while(*p != 0 && isspace(*p))
+                ++p;
+
+            bool lastspace = tooltip != "";
+            for( ; *p != 0; ++p) {
+                if(isspace(*p)) {
+                    if(!lastspace) {
+                        lastspace = true;
+                        tooltip += ' ';
+                    }
+                } else {
+                    lastspace = false;
+                    tooltip += *p;
+                }
+            }
+        }                
     }
 
     if(comp_normal().getComponent() == 0)
@@ -210,9 +239,22 @@ CheckButton::event(const Event& event)
     State oldstate=state;
     switch(event.type) {
         case Event::MOUSEMOTION:
-          break;
+            if(event.inside) {
+                if(state == STATE_NORMAL) {
+                    state = STATE_HOVER;
+                }
+                mouseholdTicks = SDL_GetTicks();
+                mouseholdPos = event.mousepos;
+            } else {
+                mouseholdTicks = 0;
+                if(state == STATE_HOVER) {
+                    state = STATE_NORMAL;
+                }
+            }
+            break;
         case Event::MOUSEBUTTONDOWN:
-            if(!event.inside) {
+            if(!event.inside || event.mousebutton == SDL_BUTTON_WHEELUP
+                    || event.mousebutton == SDL_BUTTON_WHEELDOWN) {
               nochange=true;
               break;
             }
@@ -230,8 +272,19 @@ CheckButton::event(const Event& event)
             }
             mclicked=false;
             break;
+        case Event::UPDATE: {
+             Uint32 ticks = SDL_GetTicks();
+             if(mouseholdTicks != 0 && ticks - mouseholdTicks > TOOLTIP_TIME) {
+                 if(tooltipManager && tooltip != "") {
+                     tooltipManager->showTooltip(tooltip,
+                             relative2Global(mouseholdPos));
+                 }
+                 mouseholdTicks = 0;
+             }
+             break;
+        }    
         default:
-          nochange=true;
+            nochange=true;
             break;
     }
     if(mmain.length())

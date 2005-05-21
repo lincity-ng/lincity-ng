@@ -115,6 +115,15 @@ Document::resize(float newwidth, float )
 }
 
 void
+Document::addParagraph(Paragraph* paragraph)
+{
+    paragraph->linkClicked.connect(
+            makeCallback(*this, &Document::paragraphLinkClicked));
+    addChild(paragraph);
+    resize(width, height);
+}
+
+void
 Document::draw(Painter& painter)
 {
     if(style.background.a != 0) {

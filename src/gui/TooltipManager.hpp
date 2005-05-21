@@ -7,6 +7,8 @@
 class XmlReader;
 class Paragraph;
 
+static const Uint32 TOOLTIP_TIME = 500;
+
 class TooltipManager : public Component
 {
 public:

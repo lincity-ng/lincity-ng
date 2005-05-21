@@ -4,6 +4,7 @@
 #include "XmlReader.hpp"
 #include "ComponentFactory.hpp"
 #include "Paragraph.hpp"
+#include "Document.hpp"
 #include "Event.hpp"
 
 TooltipManager* tooltipManager = 0;
@@ -77,6 +78,7 @@ TooltipManager::event(const Event& event)
 void
 TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
 {
+    std::auto_ptr<Document> d (new Document());
     std::auto_ptr<Paragraph> p (new Paragraph());
 
     std::map<std::string, Style>::iterator s = styleRegistry.find("tooltip");
@@ -85,11 +87,22 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
         p->setText(text);
     } else {
         p->setText(text, s->second);
+        d->style = s->second;
     }
-    p->resize(300, -1);
     printf("Tooltip '%s' at %f,%f.\n", text.c_str(), pos.x, pos.y);
-    comp_tooltip().setComponent(p.release());
-    comp_tooltip().setPos(Vector2(10, 10));
+    d->addParagraph(p.release());
+    d->resize(250, -1);
+    Vector2 dest = pos + Vector2(-100, 26);
+    if(dest.x < 0)
+        dest.x = 0;
+    if(dest.y < 0)
+        dest.y = 0;
+    if(dest.x + d->getWidth() > getWidth())
+        dest.x = getWidth() - d->getWidth();
+    if(dest.y + d->getHeight() > getHeight())
+        dest.y = pos.y - 10 - d->getHeight();
+    comp_tooltip().setComponent(d.release());
+    comp_tooltip().setPos(dest);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(TooltipManager);

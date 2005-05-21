@@ -8,7 +8,8 @@
 	<DefineStyle name="dialogbutton" color="white" font-size="20" margin-left="20" margin-right="20"/>
 	<DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>
 	<DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3" margin-left="23" margin-right="20"/>
-        <DefineStyle name="tooltip" color="red" font-size="30" background="#ff18abef"/>
+        <DefineStyle name="tooltip" color="black" font-size="16"
+        background="#ffffaaee"/>
 
 	<!-- Help styles -->
 	<DefineStyle name="helpdocument" font-family="sans" background="#ffffff22" font-size="20" color="black"/>

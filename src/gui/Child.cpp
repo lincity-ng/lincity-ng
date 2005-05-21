@@ -32,6 +32,7 @@ Child::setComponent(Component* component)
 {
     delete this->component;
     this->component = component;
+    enabled = component != 0;
 }
 
 //---------------------------------------------------------------------------

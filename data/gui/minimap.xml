@@ -59,6 +59,9 @@
                                 <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
                                 <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
                                 <image-caption src="images/gui/info/info.png"/>
+                                <tooltip translatable="yes">Press this button
+                                and click on another button to get
+                                help</tooltip>
                             </Button>
                            </cell>
                            <cell row="1" col="2">

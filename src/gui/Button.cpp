@@ -12,8 +12,6 @@
 #include "ComponentFactory.hpp"
 #include "XmlReader.hpp"
 
-static const Uint32 TOOLTIP_TIME = 500;
-
 Button::Button()
     : state(STATE_NORMAL), lowerOnClick(false), mouseholdTicks(0)
 {
@@ -56,6 +54,7 @@ Button::parse(XmlReader& reader)
     childs.assign(4, Child());
     
     // parse contents of the xml-element
+    bool parseTooltip = false;
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
@@ -101,9 +100,34 @@ Button::parse(XmlReader& reader)
                         "defined.\n";
                 setChildText(comp_caption(), reader);
             } else if (element == "tooltip") {
-                tooltip = "Blup";
+                parseTooltip = true;
             } else {
                 std::cerr << "Skipping unknown element '" << element << "'.\n";
+            }
+        } else if(reader.getNodeType() == XML_READER_TYPE_END_ELEMENT) {
+            std::string element = (const char*) reader.getName();
+            if(element == "tooltip")
+                parseTooltip = false;
+        } else if(reader.getNodeType() == XML_READER_TYPE_TEXT) {
+            if(!parseTooltip)
+                continue;
+
+            const char* p = (const char*) reader.getValue();
+            // skip trailing spaces
+            while(*p != 0 && isspace(*p))
+                ++p;
+
+            bool lastspace = tooltip != "";
+            for( ; *p != 0; ++p) {
+                if(isspace(*p)) {
+                    if(!lastspace) {
+                        lastspace = true;
+                        tooltip += ' ';
+                    }
+                } else {
+                    lastspace = false;
+                    tooltip += *p;
+                }
             }
         }
     }

@@ -18,6 +18,7 @@
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 				<image-caption src="images/gui/speed/pause.png"/>
+                                <tooltip>Pause the game</tooltip>
 			</CheckButton>
 		</cell>
 		<cell row="3" col="3" halign="left" valign="top">
@@ -45,6 +46,7 @@
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 				<image-caption src="images/gui/speed/faster.png"/>
+                                <tooltip>Fast forward game speed</tooltip>
 			</CheckButton>
 		</cell>
 		<cell row="6" col="2" halign="left" valign="top">
@@ -53,6 +55,7 @@
 				<image-hover src="images/gui/buttons/round/button-round-hover-30.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-30.png"/>
 				<image-caption src="images/gui/buttonpanel/menu/game_menu.png"/>
+                                <tooltip>Go back to Main Menu</tooltip>
 			</Button>
 		</cell>
 	</TableLayout>

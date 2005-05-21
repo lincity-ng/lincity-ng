@@ -19,6 +19,7 @@ public:
 
     void draw(Painter& painter);
     void resize(float width, float height);
+    void addParagraph(Paragraph* p);
 
     Style style;
     Signal<Paragraph*, const std::string& > linkClicked;
