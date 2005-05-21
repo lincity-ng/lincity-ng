@@ -13,11 +13,15 @@
        (where $LANG is the 2character handle of your language)
      - In case you want to update an existing translation do
         msgmerge -U $LANG.po messages.pot
-
 * Edit the .po files with your favourite Editor or with 1 of the GUI tools
   below.
 * Send the translated .po files to the lincity-devel@lists.sourceforge.net
   mailing list.
+* If you want to edit the help texts, then create a directory with your language
+  shortcut in the data/help directory (e.g. data/help/de) and write new xml
+  files in your language (similar to the ones in the data/help/en directory).
+  You don't need to copy over the english texts, the game will automatically use
+  the english version of a text if no translated version exists.
 * You should also edit the lincity-ng.desktop file and add a comment entry for
   your language
 

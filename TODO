@@ -10,6 +10,8 @@ Graphics
 [H] Finish tiles for the game
 [H] Draw Mousecursors for normal, link and what's this (eventually also
     loading and scrolling)
+[H] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
+        alpha for mac os/x and 32x32 keycolored (and/or alpha) for windows)
 
 Programming
 ~~~~~~~~~~~
