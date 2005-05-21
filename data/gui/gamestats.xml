@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Window width="700" height="200" border="5" titlesize="25">
+	<title>
+		<Document>
+			<Paragraph style="title" translatable="yes" halign="center">
+				Gamestats
+			</Paragraph>
+		</Document>
+	</title>
+	<title-background>
+		<Gradient from="#333377ff" to="#9999aaff" direction="left-right"/>
+	</title-background>
+	<background>
+		<FilledRectangle color="#cdcdcdff"/>
+	</background>
+	<contents>
+		<TableLayout rows="2" cols="1">
+		<rowsize row="2" fixed="30"/>
+		<cell row="1" col="1">
+				<Document style="message">
+				<p translatable="yes">This is a Test</p>
+				<p translatable="yes">Some Stats Here</p>
+				</Document>
+		</cell>
+		<cell row="2" col="1">
+			<Button name="Okay">
+				<text-caption style="dialogbutton" translatable="yes">Okay</text-caption>
+				<image src="images/gui/dialogs/yesbutton.png"/>
+				<image-hover src="images/gui/dialogs/yesbutton-hover.png"/>
+				<image-clicked src="images/gui/dialogs/yesbutton-clicked.png"/>
+			</Button>
+		</cell>
+		</TableLayout>
+	</contents>
+</Window>

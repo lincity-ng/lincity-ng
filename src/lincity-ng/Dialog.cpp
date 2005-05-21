@@ -33,6 +33,9 @@ Dialog::Dialog( int type ){
         case ASK_COAL_SURVEY:
             coalSurvey();
             break;
+        case GAME_STATS:
+            gameStats();
+            break;
         default:
             std::stringstream msg;
             msg <<"Can't open Dialog type " << type << " without coordinates.";
@@ -74,6 +77,7 @@ void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
     myDialogComponent = 0;
     pointX = x;
     pointY = y;
+    iAmBlocking = false;
     if( root ) {
         while( root->getParent() )
             root = root->getParent();
@@ -98,6 +102,7 @@ void Dialog::askRocket(){
         assert( myDialogComponent != 0);
         desktop->addChildComponent( myDialogComponent );
         blockingDialogIsOpen = true;
+        iAmBlocking = true;
     } catch(std::exception& e) {
         std::cerr << "Couldn't display message 'launch_rocket_yn': "
             << e.what() << "\n";
@@ -126,6 +131,7 @@ void Dialog::askBulldozeMonument() {
         assert( myDialogComponent != 0);
         desktop->addChildComponent( myDialogComponent );
         blockingDialogIsOpen = true;
+        iAmBlocking = true;
     } catch(std::exception& e) {
         std::cerr << "Couldn't display message 'bulldoze_monument_yn': "
             << e.what() << "\n";
@@ -148,6 +154,7 @@ void Dialog::askBulldozeRiver() {
         assert( myDialogComponent != 0);
         desktop->addChildComponent( myDialogComponent );
         blockingDialogIsOpen = true;
+        iAmBlocking = true;
     } catch(std::exception& e) {
         std::cerr << "Couldn't display message 'bulldoze_river_yn.xml': "
             << e.what() << "\n";
@@ -170,6 +177,7 @@ void Dialog::askBulldozeShanty() {
         assert( myDialogComponent != 0);
         desktop->addChildComponent( myDialogComponent );
         blockingDialogIsOpen = true;
+        iAmBlocking = true;
     } catch(std::exception& e) {
         std::cerr << "Couldn't display message 'bulldoze_shanty_yn': "
             << e.what() << "\n";
@@ -192,6 +200,7 @@ void Dialog::coalSurvey(){
         assert( myDialogComponent != 0);
         desktop->addChildComponent( myDialogComponent );
         blockingDialogIsOpen = true;
+        iAmBlocking = true;
     } catch(std::exception& e) {
         std::cerr << "Couldn't display message 'coal_survey_yn': "
             << e.what() << "\n";
@@ -201,6 +210,28 @@ void Dialog::coalSurvey(){
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayCoalSurveyButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
+    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+}
+
+void Dialog::gameStats(){
+     if( !desktop ) {
+        std::cerr << "No desktop found.\n";
+        return;
+    }
+    try {
+        myDialogComponent = loadGUIFile( "gui/gamestats.xml" );
+        assert( myDialogComponent != 0);
+        desktop->addChildComponent( myDialogComponent );
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't display message 'gamestats': "
+            << e.what() << "\n";
+        return;
+    }
+    // Fill in Fields.
+    // TODO
+    
+    // connect signals
+    Button* noButton = getButton( *myDialogComponent, "Okay" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
@@ -214,6 +245,7 @@ void Dialog::editMarket(){
         assert( myDialogComponent != 0);
         desktop->addChildComponent( myDialogComponent );
         blockingDialogIsOpen = true;
+        iAmBlocking = true;
     } catch(std::exception& e) {
         std::cerr << "Couldn't display dialog 'tradedialog.xml': "
             << e.what() << "\n";
@@ -267,6 +299,7 @@ void Dialog::editPort(){
         assert( myDialogComponent != 0);
         desktop->addChildComponent( myDialogComponent );
         blockingDialogIsOpen = true;
+        iAmBlocking = true;
     } catch(std::exception& e) {
         std::cerr << "Couldn't display dialog 'tradedialog.xml': "
             << e.what() << "\n";
@@ -435,6 +468,8 @@ void Dialog::gotoButtonClicked( Button* ){
 
 void Dialog::closeDialogButtonClicked( Button* ){
     desktop->remove( myDialogComponent );
-    blockingDialogIsOpen = false;
+    if( iAmBlocking ){
+        blockingDialogIsOpen = false;
+    }
     delete( this );
 }

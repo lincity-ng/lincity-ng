@@ -365,7 +365,7 @@ void mps_global_finance(void) {
     num_to_ansi(s, 12, ly_export_tax);
     mps_store_ss(i++,_("Export"), s);
 
-    i++;
+    mps_store_title(i++, "");
 
     mps_store_title(i++,_("Expenses"));
 
@@ -385,7 +385,7 @@ void mps_global_finance(void) {
     num_to_ansi(s, 12, ly_other_cost);
     mps_store_ss(i++,_("Others"), s);
 
-    i++;
+    mps_store_title(i++, "" );
 
     num_to_ansi(s, 12, cashflow);
     mps_store_ss(i++,_("Net"), s);
@@ -405,7 +405,7 @@ mps_global_other_costs (void)
     if (year >= 0) {
 	mps_store_sd(i++, _("For year"), year);
     }
-    i++;
+    mps_store_title(i++,"");
     num_to_ansi(s,sizeof(s),ly_interest);
     mps_store_ss(i++,_("Interest"),s);
     num_to_ansi(s,sizeof(s),ly_school_cost);
@@ -436,7 +436,7 @@ mps_global_housing (void)
     int tp = housed_population + people_pool;
 
     mps_store_title(i++,_("Population"));
-    i++;
+    mps_store_title(i++,"");
     mps_store_sd(i++,_("Total"),tp);
     mps_store_sd(i++,_("Housed"),housed_population);
     mps_store_sd(i++,_("Homeless"),people_pool);

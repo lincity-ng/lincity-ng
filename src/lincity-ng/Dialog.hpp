@@ -13,6 +13,7 @@
 #define EDIT_PORT         5
 #define ASK_COAL_SURVEY   6 
 #define ASK_LAUNCH_ROCKET 7 
+#define GAME_STATS        8            
 
 extern bool blockingDialogIsOpen;
 
@@ -33,6 +34,7 @@ class Dialog
 
         void coalSurvey();
         void askRocket();
+        void gameStats();
        
         void initDialog( int x = -1 , int y = -1 );
         Desktop* desktop;
@@ -49,6 +51,6 @@ class Dialog
         void gotoButtonClicked( Button* );
         void applyMarketButtonClicked( Button* );
         void applyPortButtonClicked( Button* );
-
+        bool iAmBlocking;
 };
 #endif

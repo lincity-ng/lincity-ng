@@ -17,6 +17,7 @@
 #include "GameView.hpp"
 #include "HelpWindow.hpp"
 #include "ButtonPanel.hpp"
+#include "Dialog.hpp"
 
 Game::Game()
 {
@@ -86,6 +87,12 @@ Game::run()
                          helpWindow->showTopic("help");
                          break;
                      }
+                     if( gui_event.keysym.sym == SDLK_F2 ){
+                         if( !blockingDialogIsOpen ){
+                            new Dialog( GAME_STATS );
+                         }
+                         break;
+                     }                   
                      gui->event(gui_event);
                      break;
                 }

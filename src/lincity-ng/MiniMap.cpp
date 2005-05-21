@@ -607,18 +607,22 @@ void MiniMap::event(const Event& event)
         }
         return;
     }
-    if(event.type==Event::MOUSEBUTTONDOWN && event.inside){
+    if( !event.inside ){
+        return;
+    }
+    if(event.type==Event::MOUSEBUTTONDOWN ){
         // get Tile, that was clicked
         MapPoint tile (
                 (int) ((event.mousepos.x - border ) / tilesize),
                 (int) ((event.mousepos.y - border ) / tilesize));
         
         if(event.mousebutton == SDL_BUTTON_RIGHT ){ //right mouse
-            getMPS()->setView( tile, MPS_GLOBAL );//show global info
             //cycle through global styles
             mps_global_style++;
-            if( mps_global_style >= MPS_GLOBAL_STYLES )
+            if( mps_global_style >= MPS_GLOBAL_STYLES ){
                 mps_global_style = 0;
+            }
+            getMPS()->setView( tile, MPS_GLOBAL );//show global info
             return;
         }
         if(event.mousebutton == SDL_BUTTON_LEFT ){ //left mouse
