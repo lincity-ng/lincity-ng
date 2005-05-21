@@ -41,7 +41,8 @@ class Dialog
         Component* myDialogComponent;
         int pointX;
         int pointY;
-       
+ 
+        void setParagraphN( std::string basename, int number, std::string text );
         void okayBulldozeRiverButtonClicked( Button* );
         void okayBulldozeShantyButtonClicked( Button* );
         void okayBulldozeMonumentButtonClicked( Button* );

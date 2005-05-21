@@ -63,7 +63,7 @@
 			<colsize col="9" fixed="33"/>
 			<colsize col="10" fixed="33"/>
                         <cell row="1" col="1">
-                          <TableLayout rows="1" cols="3">
+                          <TableLayout rows="1" cols="4">
                            <cell row="1" col="1">
                             <Button name="HelpButton">
                                 <image src="images/gui/buttons/round/button-round-40.png"/>
@@ -85,6 +85,16 @@
                             </Button>
                            </cell>
                            <cell row="1" col="3">
+                            <Button name="StatButton">
+                                <image src="images/gui/buttons/round/button-round-40.png"/>
+                                <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
+                                <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
+                                <image-caption src="images/gui/info/info.png"/>
+                                <tooltip translatable="yes">Press this button
+                                to show statistics</tooltip>
+                            </Button>
+                           </cell>
+                           <cell row="1" col="4">
                             <Button name="mapOverlay">
                                 <image src="images/gui/buttons/round/button-round-40.png"/>
                                 <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>

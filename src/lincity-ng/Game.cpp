@@ -30,6 +30,9 @@ Game::Game()
     Button* helpButton = getButton( *gui, "HelpButton" );
     helpButton->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
     
+    Button* statButton = getButton( *gui, "StatButton" );
+    statButton->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
+    
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(desktop == 0)
         throw std::runtime_error("Game UI is not a Desktop Component");
@@ -53,6 +56,10 @@ void Game::gameButtonClicked( Button* button ){
         backToMainMenu();
     } else if( name == "HelpButton" ) {
         helpWindow->showTopic("help");
+    } else if( name == "StatButton" ) {
+        if( !blockingDialogIsOpen ){
+            new Dialog( GAME_STATS );
+        }                   
     } else {
          std::cerr << " Game::gameButtonClicked unknown button '" << name << "'.\n";
     }
@@ -87,12 +94,6 @@ Game::run()
                          helpWindow->showTopic("help");
                          break;
                      }
-                     if( gui_event.keysym.sym == SDLK_F2 ){
-                         if( !blockingDialogIsOpen ){
-                            new Dialog( GAME_STATS );
-                         }
-                         break;
-                     }                   
                      gui->event(gui_event);
                      break;
                 }

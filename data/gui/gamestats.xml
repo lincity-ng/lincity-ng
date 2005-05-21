@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Window width="700" height="200" border="5" titlesize="25">
+<Window width="700" height="600" border="5" titlesize="25">
 	<title>
 		<Document>
 			<Paragraph style="title" translatable="yes" halign="center">
@@ -17,10 +17,82 @@
 		<TableLayout rows="2" cols="1">
 		<rowsize row="2" fixed="30"/>
 		<cell row="1" col="1">
-				<Document style="message">
-				<p translatable="yes">This is a Test</p>
-				<p translatable="yes">Some Stats Here</p>
-				</Document>
+    <!-- This should use a font with fixed width. Insert font-family="fixed" -->
+    <DefineStyle name="statistic_text" color="black" font-size="14" halign="left"/>
+		<TableLayout rows="23" cols="1">
+			<colsize col="1" relative="1004"/>
+			<cell row="1" col="1" halign="left">
+				<Paragraph name="statistic_text1" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="2" col="1" halign="left">
+				<Paragraph name="statistic_text2" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="3" col="1" halign="left">
+				<Paragraph name="statistic_text3" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="4" col="1" halign="left">
+				<Paragraph name="statistic_text4" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="5" col="1" halign="left">
+				<Paragraph name="statistic_text5" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="6" col="1" halign="left">
+				<Paragraph name="statistic_text6" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="7" col="1" halign="left">
+				<Paragraph name="statistic_text7" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="8" col="1" halign="left">
+				<Paragraph name="statistic_text8" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="9" col="1" halign="left">
+				<Paragraph name="statistic_text9" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="10" col="1" halign="left">
+				<Paragraph name="statistic_text10" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="11" col="1" halign="left">
+				<Paragraph name="statistic_text11" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="12" col="1" halign="left">
+				<Paragraph name="statistic_text12" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="13" col="1" halign="left">
+				<Paragraph name="statistic_text13" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="14" col="1" halign="left">
+				<Paragraph name="statistic_text14" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="15" col="1" halign="left">
+				<Paragraph name="statistic_text15" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="16" col="1" halign="left">
+				<Paragraph name="statistic_text16" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="17" col="1" halign="left">
+				<Paragraph name="statistic_text17" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="18" col="1" halign="left">
+				<Paragraph name="statistic_text18" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="19" col="1" halign="left">
+				<Paragraph name="statistic_text19" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="20" col="1" halign="left">
+				<Paragraph name="statistic_text20" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="21" col="1" halign="left">
+				<Paragraph name="statistic_text21" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="22" col="1" halign="left">
+				<Paragraph name="statistic_text22" style="statistic_text">Text</Paragraph>
+			</cell>
+			<cell row="23" col="1" halign="left">
+				<Paragraph name="statistic_text23" style="statistic_text">Text</Paragraph>
+			</cell>
+		</TableLayout>
+
+
 		</cell>
 		<cell row="2" col="1">
 			<Button name="Okay">
