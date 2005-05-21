@@ -187,21 +187,31 @@ MainMenu::loadOptionsMenu()
 {
     if(optionsMenu.get() == 0) {
         optionsMenu.reset(loadGUIFile("gui/options.xml"));
-        Button* currentButton = getButton(*optionsMenu, "BackMusicOff");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-        currentButton = getButton(*optionsMenu, "BackMusicOn");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-        currentButton = getButton(*optionsMenu, "SoundFXOff");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-        currentButton = getButton(*optionsMenu, "SoundFXOn");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-        currentButton = getButton(*optionsMenu, "Fullscreen");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-        currentButton = getButton(*optionsMenu, "Windowed");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        CheckButton* currentCheckButton = getCheckButton(*optionsMenu, "BackgroundMusic");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "SoundFX");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "Fullscreen");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         
-        currentButton = getButton(*optionsMenu, "BackButton");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        Button* currentButton = getButton(*optionsMenu, "BackButton");
+        currentButton->clicked.connect( makeCallback(*this, &MainMenu::creditsBackButtonClicked));
+    }
+    //adjust checkbutton-states
+    if( getConfig()->musicEnabled ){
+        getCheckButton(*optionsMenu, "BackgroundMusic")->check();
+    } else {
+        getCheckButton(*optionsMenu, "BackgroundMusic")->uncheck();
+    }
+    if( getConfig()->soundEnabled ){
+        getCheckButton(*optionsMenu, "SoundFX")->check();
+    } else {
+        getCheckButton(*optionsMenu, "SoundFX")->uncheck();
+    }
+    if( getConfig()->useFullScreen ){
+        getCheckButton(*optionsMenu, "Fullscreen")->check();
+    } else {
+        getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
     }
     optionsMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
@@ -270,37 +280,19 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     mFilename+=file;
 }
 
-void MainMenu::optionsMenuButtonClicked( Button* button ){
+void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     std::string buttonName = button->getName();
-    if( buttonName == "BackButton" ){
+    if( buttonName == "BackgroundMusic"){
         getSound()->playSound("Click");
-        loadMainMenu();
-        currentMenu = mainMenu.get();
-    } else if( buttonName == "BackMusicOff"){
-        getSound()->playSound("Click");
-        getSound()->enableMusic( false );
-    } else if( buttonName == "BackMusicOn"){
-        getSound()->playSound("Click");
-        getSound()->enableMusic( true );
-    } else if( buttonName == "SoundFXOff"){
-        getConfig()->soundEnabled = false;
-    } else if( buttonName == "SoundFXOn"){
-        getConfig()->soundEnabled = true;
+        getSound()->enableMusic( !getConfig()->musicEnabled );
+    } else if( buttonName == "SoundFX"){
+        getConfig()->soundEnabled = !getConfig()->soundEnabled;
         getSound()->playSound("Click");
     } else if( buttonName == "Fullscreen"){
         getSound()->playSound("Click");
-        if( getConfig()->useFullScreen == false ){
-            getConfig()->useFullScreen = true;
-            initVideo(getConfig()->videoX, getConfig()->videoY);
-            loadOptionsMenu();
-        }
-    } else if( buttonName == "Windowed"){
-        getSound()->playSound("Click");
-        if( getConfig()->useFullScreen == true ){
-            getConfig()->useFullScreen = false;
-            initVideo(getConfig()->videoX, getConfig()->videoY);
-            loadOptionsMenu();
-        }
+        getConfig()->useFullScreen = !getConfig()->useFullScreen; 
+        initVideo(getConfig()->videoX, getConfig()->videoY);
+        loadOptionsMenu();
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }    

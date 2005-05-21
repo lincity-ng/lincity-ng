@@ -16,6 +16,10 @@ Graphics
 Programming
 ~~~~~~~~~~~
 
+ [M] add something like #define REVISION `svnrevision src/` to some Header
+     during the build process. Show REVISION on startup and in Window Title.
+     Might be handy for bugreports.
+
 --Gui--
  [L] Cache fonts in FontManager
  [L] Share loaded images?
@@ -65,8 +69,4 @@ Programming
  [M] Homepage http://lincity-ng.berlios.de/ 
  [M] remove MPS_ENV, make MPS_MAP a popup 
  [M] put MPS_GLOBAL to tabs behind minimap
- [H] The settings dialog still doesn't look that good (strange table layout),
-     and the current way with 2 buttons for on/off settings makes it impossible
-     to see what setting is currently active -> use a CheckButton instead of 2
-     independent buttons.
-
+ [H] The settings dialog still doesn't look that good 

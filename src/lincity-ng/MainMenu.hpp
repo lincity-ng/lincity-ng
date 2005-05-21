@@ -45,8 +45,7 @@ private:
     void loadGameSaveButtonClicked(Button* );
 
     void selectLoadGameButtonClicked(CheckButton*,int);
-    
-    void optionsMenuButtonClicked(Button* button);
+    void optionsMenuButtonClicked(CheckButton* button, int );
     
     std::auto_ptr<Component> mainMenu;
     std::auto_ptr<Component> newGameMenu;
