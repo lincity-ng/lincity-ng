@@ -445,6 +445,16 @@ Color MiniMap::getColor(int x,int y) const
 	return mc;
       }
     case FIRE:
+      if( MP_GROUP( x, y ) == GROUP_FIRE ){
+         if( MP_INFO(x,y).int_2 < FIRE_LENGTH ){
+	        return Color(0xFF,0,0); //still burning (red)
+         } else  {
+	        return Color(0xFF,0x99,0); //unbulldozable (orange)
+         }
+      }
+      if( MP_GROUP( x, y ) == GROUP_BURNT ){
+            return Color(0xFF,0xFF,0); //(yellow)
+      }//fall through
     case CRICKET:
     case HEALTH:
       if( ((flags&FLAG_FIRE_COVER) && mMode==FIRE) ||
@@ -455,9 +465,6 @@ Color MiniMap::getColor(int x,int y) const
 	  mc=light(mc,brightness(getColorNormal(x,y)));
 	  return mc;
 	}
-      else if( mMode==FIRE && MP_GROUP( x, y ) == GROUP_FIRE ){
-	     return Color(0xFF,0,0);
-      }
       else
 	return makeGrey(getColorNormal(x,y));
     case UB40:

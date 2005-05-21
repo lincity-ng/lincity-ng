@@ -223,6 +223,9 @@ void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
         case MiniMap::NORMAL:
             printStatusMessage( _("Minimap: outline map") );
             break;
+        case MiniMap::UB40:
+            printStatusMessage( _("Minimap: unemployment") );
+            break;
         case MiniMap::POLLUTION:
             printStatusMessage( _("Minimap: pollution") );
             break;
@@ -771,7 +774,7 @@ void GameView::scroll( void )
             (SCROLL_RIGHT | SCROLL_UP_RIGHT | SCROLL_DOWN_RIGHT) ) {
         viewport.x += stepx;
     }
-    setDirty();
+   requestRedraw();
 }
 
 /*

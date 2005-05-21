@@ -33,7 +33,7 @@
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-caption src="images/gui/zoom/zoomin.png"/>
-				<tooltip translatable="yes">Zoom in view so that less buildings but more
+				<tooltip translatable="yes">[+] Zoom in view so that less buildings but more
 				details are visible</tooltip>
 			</Button>
 			</cell>
@@ -43,7 +43,7 @@
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-caption src="images/gui/zoom/zoomout.png"/>
-				<tooltip translatable="yes">Zoom out</tooltip>
+				<tooltip translatable="yes">[-] Zoom out</tooltip>
 			</Button>
 			</cell>
 		</TableLayout>
@@ -70,9 +70,8 @@
                                 <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
                                 <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
                                 <image-caption src="images/gui/info/info.png"/>
-                                <tooltip translatable="yes">Press this button
-                                and click on another button to get
-                                help</tooltip>
+                                <tooltip translatable="yes">[F1] Press this button
+                                to get help</tooltip>
                             </Button>
                            </cell>
                            <cell row="1" col="2">
@@ -81,6 +80,8 @@
                                 <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
                                 <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
                                 <image-caption src="images/gui/info/hidehigh.png"/>
+                                <tooltip translatable="yes">[h] Hide high buildings.
+                                </tooltip>
                             </Button>
                            </cell>
                            <cell row="1" col="3">
@@ -89,6 +90,8 @@
                                 <image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
                                 <image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
                                 <image-caption src="images/gui/info/mapoverlay.png"/>
+                                <tooltip translatable="yes">[v] Cycle through MiniMap overlay modes.
+                                </tooltip>
                             </Button>
                            </cell>
                           </TableLayout>
@@ -100,6 +103,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_resident.png"/>
+                <tooltip translatable="yes">outline map</tooltip>
 			</CheckButton>
 			</cell>
 			<cell row="1" col="3">
@@ -109,6 +113,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_ub40.png"/>
+                <tooltip translatable="yes">unemployment</tooltip>
 			</CheckButton>
 			</cell>
 			<cell row="1" col="4">
@@ -118,6 +123,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_pollution.png"/>
+                <tooltip translatable="yes">pollution, traffic density</tooltip>
 			</CheckButton>
 			</cell>
 			<cell row="1" col="5">
@@ -127,6 +133,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_food.png"/>
+                <tooltip translatable="yes">nourishments</tooltip>
 			</CheckButton>
 			</cell>
 			<cell row="1" col="6">
@@ -136,6 +143,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_power.png"/>
+                <tooltip translatable="yes">power supply</tooltip>
 			</CheckButton>
 			</cell>
 			<cell row="1" col="7">
@@ -145,6 +153,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_fire.png"/>
+                <tooltip translatable="yes">firedepartment cover</tooltip>
 			</CheckButton>
 			</cell>
 			<cell row="1" col="8">
@@ -154,6 +163,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_soccer.png"/>
+                <tooltip translatable="yes">sport cover</tooltip>
 			</CheckButton>
 			</cell>
 			<cell row="1" col="9">
@@ -163,6 +173,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_health.png"/>
+                <tooltip translatable="yes">medical care</tooltip>
 			</CheckButton>
 			</cell>
 			<cell row="1" col="10">
@@ -172,6 +183,7 @@
 				<image-checked src="images/gui/mapview/roundbuttons/roundbutton-checked.png"/>
 				<image-hover src="images/gui/mapview/roundbuttons/roundbutton-hover.png"/>
 				<image-caption src="images/gui/mapview/roundbuttons/round_coal.png"/>
+                <tooltip translatable="yes">coal depots</tooltip>
 			</CheckButton>
 			</cell>
 		</TableLayout>

@@ -16,6 +16,7 @@
 #include "gui_interface/shared_globals.h"
 
 #include "lincity/lctypes.h"
+#include "tinygettext/gettext.hpp"
 
 #include "GameView.hpp"
 #include "MapEdit.hpp"
@@ -103,7 +104,6 @@ ButtonPanel::parse(XmlReader& reader)
     previousTool = selected_module_type=selected_module=module=CST_GREEN;
     alreadyAttached=false;
     selected_module_type=CST_NONE;
-    checkTech(0);    
     
     checked_cast<CheckButton>(findComponent(mMenuButtons[0]))->check();
 }
@@ -121,6 +121,24 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
     return rname;
 }
 
+//show required tech in display-format
+float ButtonPanel::requiredTech( int moduleType ){
+    if( moduleType == CST_NONE ){
+        return 0;
+    }
+    int group = get_group_of_type( moduleType );
+    float tl;
+    //High Tech Residences are special
+    if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH 
+            || group == GROUP_RESIDENCE_HH ){
+        tl = MAX_TECH_LEVEL / 5;
+    } else {   
+        tl = main_groups[ group ].tech * MAX_TECH_LEVEL/1000;
+    }
+    return tl * 100 / MAX_TECH_LEVEL;
+}
+
+//test if there is enough tech to build moduleType.
 bool ButtonPanel::enoughTech( int moduleType ){
     if( moduleType == CST_NONE ){
         return true;
@@ -161,6 +179,26 @@ void ButtonPanel::checkTech( int showInfo ){
     }
 }
 
+std::string ButtonPanel::createTooltip( int module ){
+    switch( module ){
+        case CST_NONE: return _( "Query Tool" );
+        case CST_GREEN: return _( "Bulldozer" );
+                        
+        case CST_RESIDENCE_LL: return _( "Residential: 50 denizens, low birthrate, high deathrate" );
+        case CST_RESIDENCE_ML: return _( "Residential: 100 denizens, high birthrate, low deathrate" );
+        case CST_RESIDENCE_HL: return _( "Residential: 200 denizens, high birthrate, high deathrate" );
+        case CST_RESIDENCE_LH: return _( "Residential: 100 denizens, low birthrate, high deathrate" );
+        case CST_RESIDENCE_MH: return _( "Residential: 200 denizens, high birthrate, low deathrate" );
+        case CST_RESIDENCE_HH: return _( "Residential: 400 denizens, high birthrate, high deathrate" );
+  
+        default:{
+            int group = main_types[ module ].group;
+            std::string buildingName = main_groups[ group ].name;
+            return dictionaryManager->get_dictionary().translate( buildingName ); 
+        }
+    }
+}
+
 void ButtonPanel::examineButton( std::string name, int showInfo ){
     int tmp = selected_module_type;
     Component *c=findComponent( name );
@@ -177,11 +215,17 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
 	if ( enoughTech( selected_module_type ) ){
         if( !b->isEnabled() ){
             newTechMessage( selected_module_type, showInfo );
+            std::stringstream tooltip;
+            b->setTooltip( createTooltip( selected_module_type ) );
             b->enable();
         }
     } else {
         if( b->isEnabled() ){
             b->enable( false );
+            std::stringstream tooltip;
+            tooltip << createTooltip( selected_module_type );
+            tooltip <<  _(" (Techlevel ") << requiredTech(selected_module_type) << _(" required.)");            
+            b->setTooltip( tooltip.str() );
         }
     }
     selected_module_type = tmp;
@@ -206,12 +250,18 @@ void ButtonPanel::examineMenuButtons(){
             std::cerr << "examineMenuButton# Component "<< name << " is not a Button???\n";
             return;
         }
-        if ( enoughTech( mMenuSelected[mMenus[number]] ) ){
+        int type = mMenuSelected[mMenus[number]];
+        if ( enoughTech( type ) ){
             if( !b->isEnabled() ){
+                b->setTooltip( createTooltip( type ) );
                 b->enable();
             }
         } else {
             if( b->isEnabled() ){
+                std::stringstream tooltip;
+                tooltip << createTooltip( type );
+                tooltip <<  _(" (Techlevel ") << requiredTech( type ) << _(" required.)");            
+                b->setTooltip( tooltip.str() );
                 b->enable( false );
             }
         }
@@ -300,7 +350,6 @@ void ButtonPanel::attachButtons()
   if(alreadyAttached)
     return;
   alreadyAttached=true;
-  
   for(size_t i=0;i<mMenuButtons.size();i++)
     {
       Component *c=findComponent(mMenuButtons[i]);
@@ -310,9 +359,12 @@ void ButtonPanel::attachButtons()
         if(b)
         {
           b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
+          std::stringstream tooltip;
+          b->setTooltip( createTooltip( mMenuSelected[ mMenus[ i ] ] ) );
         }
       }
     } 
+  int tmp = selected_module_type; 
   for(size_t i=0;i<mButtons.size();i++)
     {
       Component *c=findComponent(mButtons[i]);
@@ -322,10 +374,14 @@ void ButtonPanel::attachButtons()
         if(b)
         {
           b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
+          std::stringstream tooltip;
+          doButton( mButtons[i] );
+          b->setTooltip( createTooltip( selected_module_type ) );
         }
       }
     } 
-    
+  selected_module_type = tmp; 
+  checkTech(0);    
    //FIXME : disable all menus
   
   // now hide menu
@@ -349,7 +405,6 @@ void ButtonPanel::attachButtons()
           }
         }
     }
-  examineMenuButtons();
 }
 
 /*

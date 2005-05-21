@@ -26,6 +26,8 @@ public:
 
     void setCaptionText(const std::string &pText);
     std::string getCaptionText();
+    
+    void setTooltip(const std::string &pText);
 
     Component *getCaption();
     std::string getMain() const;

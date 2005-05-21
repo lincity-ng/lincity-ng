@@ -12,14 +12,10 @@ Graphics
     loading and scrolling)
 [H] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
         alpha for mac os/x and 32x32 keycolored (and/or alpha) for windows)
+[H] give all ingames dialogs the same look and feel. (not like win32 is possible)
 
 Programming
 ~~~~~~~~~~~
-
- [M] add something like #define REVISION `svnrevision src/` to some Header
-     during the build process. Show REVISION on startup and in Window Title.
-     Might be handy for bugreports.
-        -> Matze: PACKAGE_VERSION from config.h is not enough?
 
 --Gui--
  [L] Cache fonts in FontManager

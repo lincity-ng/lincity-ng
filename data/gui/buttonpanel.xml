@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <ButtonPanel width="200" height="376">
+    <!-- Tooltips for the Button Pannel are created in ButtonPanle.cpp -->
 	<menubutton name="BPPointerButton"/>
 	<menu name="BPPointerMenu" default="BPMPointerButton"/>
 	<button name="BPMPointerButton"/>
