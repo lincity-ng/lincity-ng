@@ -38,6 +38,8 @@ private:
     void zoomInButtonClicked(Button* button);
     void zoomOutButtonClicked(Button* button);
 
+    void switchButton(Button* button);
+
     void attachButtons();
     Component *findRoot(Component *c);
     Vector2 mapPointToVector(MapPoint p);

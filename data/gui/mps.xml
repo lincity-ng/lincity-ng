@@ -1,58 +1,47 @@
 <LCMps>
   <Panel width="204" height="204" background="images/gui/pbar_bg.png">
     <DefineStyle name="mps_text" color="black" font-size="14" halign="left"/>
-    <TableLayout rows="3" cols="3">
-      <colsize col="1" fixed="4"/>
-      <colsize col="2" relative="1"/>
-      <colsize col="3" fixed="4"/>
-      <rowsize col="1" fixed="4"/>
-      <rowsize col="2" relative="196"/>
-      <rowsize col="3" fixed="4"/>
-    <cell col="2" row="2">-->
-    <TableLayout rows="13" cols="2">
-      <colsize col="1" relative="1004"/>
-      <colsize col="2" relative="1"/>
-        <cell row="1" col="1" halign="left">
-          <Paragraph name="mps_text1" style="mps_text">Text1</Paragraph>
-        </cell>
-        <cell row="2" col="1" halign="left">
-          <Paragraph name="mps_text2" style="mps_text">Text2</Paragraph>
-        </cell>
-        <cell row="3" col="1" halign="left">
-          <Paragraph name="mps_text3" style="mps_text">Text3</Paragraph>
-        </cell>
-        <cell row="4" col="1" halign="left">
-          <Paragraph name="mps_text4" style="mps_text">Text4</Paragraph>
-        </cell>
-        <cell row="5" col="1" halign="left">
-          <Paragraph name="mps_text5" style="mps_text">Text5</Paragraph>
-        </cell>
-        <cell row="6" col="1" halign="left">
-          <Paragraph name="mps_text6" style="mps_text">Text6</Paragraph>
-        </cell>
-        <cell row="7" col="1" halign="left">
-          <Paragraph name="mps_text7" style="mps_text">Text7</Paragraph>
-        </cell>
-        <cell row="8" col="1" halign="left">
-          <Paragraph name="mps_text8" style="mps_text">Text8</Paragraph>
-        </cell>
-        <cell row="9" col="1" halign="left">
-          <Paragraph name="mps_text9" style="mps_text">Text9</Paragraph>
-        </cell>
-        <cell row="10" col="1" halign="left">
-          <Paragraph name="mps_text10" style="mps_text">Text10</Paragraph>
-        </cell>
-        <cell row="11" col="1" halign="left">
-          <Paragraph name="mps_text11" style="mps_text">Text11</Paragraph>
-        </cell>
-        <cell row="12" col="1" halign="left">
-          <Paragraph name="mps_text12" style="mps_text">Text12</Paragraph>
-        </cell>
-        <cell row="13" col="1" halign="left">
-          <Paragraph name="mps_text13" style="mps_text">Text13</Paragraph>
-        </cell>
-      </TableLayout>
-      </cell>
-    </TableLayout>
+		<TableLayout rows="13" cols="1">
+			<colsize col="1" relative="1004"/>
+			<cell row="1" col="1" halign="left">
+				<Paragraph name="mps_text1" style="mps_text">Text1</Paragraph>
+			</cell>
+			<cell row="2" col="1" halign="left">
+				<Paragraph name="mps_text2" style="mps_text">Text2</Paragraph>
+			</cell>
+			<cell row="3" col="1" halign="left">
+				<Paragraph name="mps_text3" style="mps_text">Text3</Paragraph>
+			</cell>
+			<cell row="4" col="1" halign="left">
+				<Paragraph name="mps_text4" style="mps_text">Text4</Paragraph>
+			</cell>
+			<cell row="5" col="1" halign="left">
+				<Paragraph name="mps_text5" style="mps_text">Text5</Paragraph>
+			</cell>
+			<cell row="6" col="1" halign="left">
+				<Paragraph name="mps_text6" style="mps_text">Text6</Paragraph>
+			</cell>
+			<cell row="7" col="1" halign="left">
+				<Paragraph name="mps_text7" style="mps_text">Text7</Paragraph>
+			</cell>
+			<cell row="8" col="1" halign="left">
+				<Paragraph name="mps_text8" style="mps_text">Text8</Paragraph>
+			</cell>
+			<cell row="9" col="1" halign="left">
+				<Paragraph name="mps_text9" style="mps_text">Text9</Paragraph>
+			</cell>
+			<cell row="10" col="1" halign="left">
+				<Paragraph name="mps_text10" style="mps_text">Text10</Paragraph>
+			</cell>
+			<cell row="11" col="1" halign="left">
+				<Paragraph name="mps_text11" style="mps_text">Text11</Paragraph>
+			</cell>
+			<cell row="12" col="1" halign="left">
+				<Paragraph name="mps_text12" style="mps_text">Text12</Paragraph>
+			</cell>
+			<cell row="13" col="1" halign="left">
+				<Paragraph name="mps_text13" style="mps_text">Text13</Paragraph>
+			</cell>
+		</TableLayout>
   </Panel>
 </LCMps>

@@ -12,6 +12,7 @@
 
 Desktop::Desktop()
 {
+    setFlags(FLAG_RESIZABLE);
 }
 
 Desktop::~Desktop()
@@ -46,8 +47,6 @@ Desktop::parse(XmlReader& reader)
             }
         }
     }
-
-    setFlags(FLAG_RESIZABLE);
 }
 
 void

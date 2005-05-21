@@ -1,10 +1,25 @@
-<Panel width="384" height="240" background="images/gui/mapview/minimap_bg.png">
-	<TableLayout rows="2" cols="2" >
-		<rowsize row="1" fixed="204"/>
-		<rowsize row="2" relative="36"/>
-		<colsize col="1" relative="174"/>
+<Panel width="384" height="270" background="images/gui/mapview/minimap_bg.png">
+	<TableLayout rows="3" cols="2" >
+		<rowsize row="1" fixed="30"/>
+		<rowsize row="2" fixed="204"/>
+		<rowsize row="3" fixed="36"/>
+		<colsize col="1" fixed="174"/>
 		<colsize col="2" fixed="210"/>
-		<cell row="1" col="1">
+		<cell row="1" col="2">
+			<TableLayout rows="1" cols="2">
+				<cell row="1" col="1">
+					<Button name="SwitchMiniMap">
+						<text font-size="16">MiniMap</text>
+					</Button>
+				</cell>
+				<cell row="1" col="2">
+					<Button name="SwitchPBar">
+						<text font-size="16">Stats</text>
+					</Button>
+				</cell>
+			</TableLayout>
+		</cell>
+		<cell row="2" col="1">
 		<TableLayout rows="3" cols="3" border="false">
 			<rowsize row="1" relative="1"/>
 			<rowsize row="2" fixed="20"/>
@@ -18,10 +33,8 @@
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-caption src="images/gui/zoom/zoomin.png"/>
-                                <tooltip translatable="yes">
-                                    Zoom in view so that less buildings but more
-                                    details are visible
-                                </tooltip>
+				<tooltip translatable="yes">Zoom in view so that less buildings but more
+				details are visible</tooltip>
 			</Button>
 			</cell>
 			<cell row="3" col="2">
@@ -30,14 +43,12 @@
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-caption src="images/gui/zoom/zoomout.png"/>
-                                <tooltip translatable="yes">
-                                    Zoom out
-                                </tooltip>
+				<tooltip translatable="yes">Zoom out</tooltip>
 			</Button>
 			</cell>
 		</TableLayout>
 		</cell>
-		<cell row="2" col="1" colspan="2">
+		<cell row="3" col="1" colspan="2">
 		<TableLayout rows="1" cols="10">
 			<rowsize row="1" fixed="35"/>
                         <colsize col="1" relative="1"/> <!-- move content to
@@ -165,8 +176,11 @@
 			</cell>
 		</TableLayout>
 		</cell>
-		<cell row="1" col="2">
-			<MiniMap width="200" height="200" tilesize="2"/>
+		<cell row="2" col="2">
+			<SwitchComponent name="MiniMapSwitch">
+				<MiniMap name="MiniMap" width="200" height="200" tilesize="2"/>
+				<Import src="gui/pbar.xml"/>
+			</SwitchComponent>
 		</cell>
 	</TableLayout>
 </Panel>

@@ -10,6 +10,7 @@
 #include "gui/ComponentFactory.hpp"
 #include "gui/XmlReader.hpp"
 #include "gui/Event.hpp"
+#include "gui/SwitchComponent.hpp"
 #include "gui_interface/mps.h"
 
 #include "lincity/lin-city.h"
@@ -97,7 +98,9 @@ MiniMap::parse(XmlReader& reader)
         const char* name = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
 
-        if(strcmp(name, "width") == 0) {
+        if(parseAttribute(name, value)) {
+            continue;
+        } else if(strcmp(name, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
                 std::stringstream msg;
                 msg << "Couldn't parse width attribute (" << value << ").";
@@ -177,6 +180,32 @@ void MiniMap::attachButtons()
     zoomInButton->clicked.connect(makeCallback(*this, &MiniMap::zoomInButtonClicked));
     Button* zoomOutButton = getButton(*root, "ZoomOutButton");
     zoomOutButton->clicked.connect(makeCallback(*this, &MiniMap::zoomOutButtonClicked));
+
+    Button* switchMinimapButton = getButton(*root, "SwitchMiniMap");
+    switchMinimapButton->clicked.connect(
+            makeCallback(*this, &MiniMap::switchButton));
+    Button* switchPBarButton = getButton(*root, "SwitchPBar");
+    switchPBarButton->clicked.connect(
+            makeCallback(*this, &MiniMap::switchButton));
+}
+
+void
+MiniMap::switchButton(Button* button)
+{
+    SwitchComponent* switchComponent 
+        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
+    if(!switchComponent) {
+        std::cerr << "MiniMapSwitch not found!\n";
+        return;
+    }
+
+    if(button->getName() == "SwitchMiniMap") {
+        switchComponent->switchComponent("MiniMap");
+    } else if(button->getName() == "SwitchPBar") {
+        switchComponent->switchComponent("PBar");
+    } else {
+        std::cerr << "Unknown switch '" << button->getName() << "'.\n";
+    }
 }
 
 void MiniMap::mapViewButtonClicked(CheckButton* button, int)

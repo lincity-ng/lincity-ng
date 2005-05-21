@@ -8,6 +8,7 @@
 #include "gui/Button.hpp"
 #include "gui/Component.hpp"
 #include "gui/Paragraph.hpp"
+#include "gui/SwitchComponent.hpp"
 
 #include "CheckButton.hpp"
 
@@ -52,3 +53,9 @@ Paragraph* getParagraph(Component& tree, const std::string& name)
     return result;
 }
 
+SwitchComponent* getSwitchComponent(Component& tree, const std::string& name)
+{
+    SwitchComponent* result;
+    findComponent(&result, tree, name);
+    return result;
+}

@@ -24,6 +24,19 @@ LCPBar::~LCPBar()
 void
 LCPBar::parse(XmlReader& reader)
 {
+    XmlReader::AttributeIterator iter(reader);
+    while(iter.next()) {
+        const char* name = (const char*) iter.getName();
+        const char* value = (const char*) iter.getValue();
+
+        if(parseAttribute(name, value)) {
+            continue;
+        } else {
+            std::cerr << "Unknown attribute '" << name 
+                      << "' skipped in PBar.\n";
+        }
+    }
+    
     Component* component = parseEmbeddedComponent(reader);
     addChild(component);
 
@@ -148,7 +161,7 @@ void
 BarView::parse(XmlReader& reader)
 {
     dir=true;
-     // parse attributes...
+    // parse attributes...
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* name = (const char*) iter.getName();
@@ -156,8 +169,7 @@ BarView::parse(XmlReader& reader)
 
         if(parseAttribute(name, value)) {
             continue;
-        }
-        else if(strcmp(name, "width") == 0) {
+        } else if(strcmp(name, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
                 std::stringstream msg;
                 msg << "Couldn't parse width attribute (" << value << ").";
@@ -171,35 +183,37 @@ BarView::parse(XmlReader& reader)
             }
         } else if(strcmp(name, "dir") == 0) {
             if(strcmp(value,"1") == 0) {
-              dir=true;
+                dir=true;
+            } else {
+                dir=false;
             }
-            else
-              dir=false;
         } else {
-            std::cerr << "Unknown attribute '" << name << "' skipped.\n";
+            std::cerr << "Unknown attribute '" << name 
+                      << "' skipped in BarView.\n";
         }
     }
     if(width <= 0 || height <= 0)
-      throw std::runtime_error("Width or Height invalid");
-   value=0.7;
+        throw std::runtime_error("Width or Height invalid");
+    value=0.7;
 }
 
 void BarView::setValue(float v)
 {
-  if(v>=-1.0 && v<=1.0)
-    value=v;
+    if(v>=-1.0 && v<=1.0)
+        value=v;
 }
 
 void BarView::draw(Painter &painter)
 {
-  painter.setFillColor(Color(0,0xAA,0,255));
-  if((int)(width*value)>0 && dir)
-    painter.fillRectangle(Rect2D(0,0,width*value,height));
-  else if((int)(width*value)<0 && !dir){
-    painter.setFillColor(Color(0xFF,0,0,255));
-    painter.fillRectangle(Rect2D(width-1+width*value,0,width-1,height));
-  }
+    painter.setFillColor(Color(0,0xAA,0,255));
+  
+    if((int)(width*value)>0 && dir) {
+        painter.fillRectangle(Rect2D(0,0,width*value,height));
+    } else if((int)(width*value)<0 && !dir) {
+        painter.setFillColor(Color(0xFF,0,0,255));
+        painter.fillRectangle(Rect2D(width-1+width*value,0,width-1,height));
+    }
 }
 
-IMPLEMENT_COMPONENT_FACTORY(LCPBar)
-IMPLEMENT_COMPONENT_FACTORY(BarView)
+IMPLEMENT_COMPONENT_FACTORY(LCPBar);
+IMPLEMENT_COMPONENT_FACTORY(BarView);

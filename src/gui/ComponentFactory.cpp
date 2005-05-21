@@ -69,6 +69,7 @@ ImportFactory::createComponent(XmlReader& reader)
 #include "Paragraph.hpp"
 #include "ScrollBar.hpp"
 #include "ScrollView.hpp"
+#include "SwitchComponent.hpp"
 #include "TableLayout.hpp"
 #include "TooltipManager.hpp"
 #include "Window.hpp"
@@ -83,6 +84,7 @@ DECLARE_COMPONENT_FACTORY(Panel)
 DECLARE_COMPONENT_FACTORY(Paragraph)
 DECLARE_COMPONENT_FACTORY(ScrollBar)
 DECLARE_COMPONENT_FACTORY(ScrollView)
+DECLARE_COMPONENT_FACTORY(SwitchComponent)
 DECLARE_COMPONENT_FACTORY(TableLayout)
 DECLARE_COMPONENT_FACTORY(TooltipManager)
 DECLARE_COMPONENT_FACTORY(Window)
@@ -101,6 +103,7 @@ void initFactories()
         new INTERN_ParagraphFactory();
         new INTERN_ScrollBarFactory();
         new INTERN_ScrollViewFactory();
+        new INTERN_SwitchComponentFactory();
         new INTERN_TableLayoutFactory();
         new INTERN_TooltipManagerFactory();
         new INTERN_WindowFactory();
