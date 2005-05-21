@@ -103,6 +103,7 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
         dest.y = pos.y - 10 - d->getHeight();
     comp_tooltip().setComponent(d.release());
     comp_tooltip().setPos(dest);
+		setDirty();
 }
 
 IMPLEMENT_COMPONENT_FACTORY(TooltipManager);
