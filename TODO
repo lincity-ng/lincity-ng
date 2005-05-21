@@ -19,6 +19,7 @@ Programming
  [M] add something like #define REVISION `svnrevision src/` to some Header
      during the build process. Show REVISION on startup and in Window Title.
      Might be handy for bugreports.
+        -> Matze: PACKAGE_VERSION from config.h is not enough?
 
 --Gui--
  [L] Cache fonts in FontManager
@@ -34,7 +35,6 @@ Programming
      actions like scrolling the map, creating buildings, displaying building
      stats). This could be used to measure common user actions and improve
      usability.
- [H] Implement tabbed component (MatzeB)
  [H] Add possibility to filter image to turn grey for disabled checkbuttons
 
 --Bugs--
@@ -67,6 +67,18 @@ Programming
  [L] manpage, documentation
  [H] improve fast scrolling
  [M] Homepage http://lincity-ng.berlios.de/ 
- [M] remove MPS_ENV, make MPS_MAP a popup 
- [M] put MPS_GLOBAL to tabs behind minimap
+ [M] remove MPS_ENV, make MPS_MAP a popup
+        (Another idea would be to keep it in the upper left edge of the screen
+         and fade it in when the user requested info from a house, fade it out
+         again when the mouse has moved and a second passed or so...)
  [H] The settings dialog still doesn't look that good 
+ [?] We should change the buttonbar to expand on left mouse click. I assume
+     that's what you want to do most of the time. Put "just select it" on the
+     2nd mouse button if we really need that.
+ [H] Put scrolling on the right mouse button. Moving the mouse while holding
+     middle button isn't as ergonomically as moving with right button pressed
+     on most mice.
+     (This extra info that is know on the second mouse button can either be put
+      on the middle button or simply removed. After all it just states stuff
+      that you can see with the minimap/overlays or statustext too)
+
