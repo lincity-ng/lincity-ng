@@ -33,8 +33,9 @@ public:
     Color getColor(int x,int y) const;
     Color getColorNormal(int x,int y) const;
     void showMpsEnv( MapPoint tile );
-    void MiniMap::hideMpsEnv();
+    void hideMpsEnv();
     void showQueryTab();
+    void showMapTab();
 private:
     void mapViewButtonClicked(CheckButton* button, int);
     void speedButtonClicked(CheckButton* button, int);

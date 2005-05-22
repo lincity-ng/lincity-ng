@@ -211,8 +211,7 @@ MiniMap::switchButton(Button* button)
     }
 
     if(button->getName() == "SwitchMiniMap") {
-        shownTabName = "MiniMap";
-        switchComponent->switchComponent("MiniMap");
+        showMapTab();
     } else if(button->getName() == "SwitchPBar") {
         shownTabName = "PBar";
         switchComponent->switchComponent("PBar");
@@ -231,6 +230,20 @@ MiniMap::switchButton(Button* button)
     } else {
         std::cerr << "Unknown switch '" << button->getName() << "'.\n";
     }
+}
+
+void MiniMap::showMapTab(){
+    if( shownTabName == "MiniMap" ){
+        return;
+    }
+    SwitchComponent* switchComponent 
+        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
+    if(!switchComponent) {
+        std::cerr << "MiniMapSwitch not found!\n";
+        return;
+    }
+    shownTabName = "MiniMap";
+    switchComponent->switchComponent("MiniMap");
 }
 
 void MiniMap::showQueryTab(){
@@ -326,6 +339,7 @@ void MiniMap::mapViewButtonClicked(CheckButton* button, int)
         default:
             assert(false);
     }
+    showMapTab();
     getGameView()->setMapMode( mMode ); 
     mFullRefresh=true;
 }

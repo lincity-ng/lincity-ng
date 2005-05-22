@@ -359,6 +359,7 @@ MainMenu::newGameStartButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     if( loadCityNG( mFilename ) ){
+    	strcpy (given_scene, mFilename.c_str());
         quitState = INGAME;
         running = false;
     }
