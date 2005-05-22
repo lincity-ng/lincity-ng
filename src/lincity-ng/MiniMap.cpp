@@ -145,6 +145,11 @@ MiniMap::parse(XmlReader& reader)
     mFullRefresh=true;
     alreadyAttached=false;
     inside = false;
+
+    shownTabName = "MiniMap";
+    mpsXOld = mps_x;
+    mpsYOld = mps_y;
+    mpsStyleOld = mps_style;
 }
 
 Component *MiniMap::findRoot(Component *c)
@@ -187,6 +192,12 @@ void MiniMap::attachButtons()
     Button* switchPBarButton = getButton(*root, "SwitchPBar");
     switchPBarButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
+    Button* switchButton = getButton(*root, "SwitchQueryTool");
+    switchButton->clicked.connect(
+            makeCallback(*this, &MiniMap::switchButton));
+    switchButton = getButton(*root, "SwitchMPSGlobal");
+    switchButton->clicked.connect(
+            makeCallback(*this, &MiniMap::switchButton));
 }
 
 void
@@ -200,12 +211,77 @@ MiniMap::switchButton(Button* button)
     }
 
     if(button->getName() == "SwitchMiniMap") {
+        shownTabName = "MiniMap";
         switchComponent->switchComponent("MiniMap");
     } else if(button->getName() == "SwitchPBar") {
+        shownTabName = "PBar";
         switchComponent->switchComponent("PBar");
+    } else if(button->getName() == "SwitchMPSGlobal") {
+        //cycle through global styles
+        mps_global_style++;
+        if( mps_global_style >= MPS_GLOBAL_STYLES ){
+            mps_global_style = 0;
+        }
+        mps_set( mps_x, mps_y, MPS_GLOBAL );//show global info
+        shownTabName = "MPSPanel";
+        switchComponent->switchComponent("MPSPanel");
+    } else if(button->getName() == "SwitchQueryTool") {
+        mps_set( mps_x, mps_y, MPS_MAP );//show building info
+        showQueryTab();
     } else {
         std::cerr << "Unknown switch '" << button->getName() << "'.\n";
     }
+}
+
+void MiniMap::showQueryTab(){
+    if( mps_style != MPS_MAP ){
+        return;
+    }
+    SwitchComponent* switchComponent 
+        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
+    if(!switchComponent) {
+        std::cerr << "MiniMapSwitch not found!\n";
+        return;
+    }
+    shownTabName = "MPSPanel";
+    switchComponent->switchComponent("MPSPanel");
+}
+
+void MiniMap::hideMpsEnv(){
+    if( mps_style != MPS_ENV ){
+        return;
+    }
+    SwitchComponent* switchComponent 
+        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
+    if(!switchComponent) {
+        std::cerr << "MiniMapSwitch not found!\n";
+        return;
+    }
+    //restore saved stats
+    mps_x = mpsXOld;
+    mps_y = mpsYOld;
+    mps_style = mpsStyleOld;
+    switchComponent->switchComponent( shownTabName );
+    mps_set( mps_x, mps_y, mps_style );
+}
+
+void MiniMap::showMpsEnv( MapPoint tile ){
+   SwitchComponent* switchComponent 
+        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
+    if(!switchComponent) {
+        std::cerr << "MiniMapSwitch not found!\n";
+        return;
+    }
+    if( mps_style != MPS_ENV ){
+        //save old minimap and MPS setting
+        //shownTabName was set by switchButton already 
+        mpsXOld = mps_x;
+        mpsYOld = mps_y;
+        mpsStyleOld = mps_style;
+    }
+    std::cout << tile.x << " " <<tile.y << "\n";
+    getMPS()->setView( tile, MPS_ENV );//show basic info
+    switchComponent->switchComponent("MPSPanel");
 }
 
 void MiniMap::mapViewButtonClicked(CheckButton* button, int)
@@ -594,8 +670,7 @@ Color MiniMap::getColor(int x,int y) const
   return Color(0xFF,0,0xFF);
 }
 
-void MiniMap::event(const Event& event)
-{
+void MiniMap::event(const Event& event){
     if( event.type == Event::MOUSEMOTION ){
         if( !event.inside ){
             inside = false;
@@ -616,25 +691,15 @@ void MiniMap::event(const Event& event)
                 (int) ((event.mousepos.x - border ) / tilesize),
                 (int) ((event.mousepos.y - border ) / tilesize));
         
-        if(event.mousebutton == SDL_BUTTON_RIGHT ){ //right mouse
-            //cycle through global styles
-            mps_global_style++;
-            if( mps_global_style >= MPS_GLOBAL_STYLES ){
-                mps_global_style = 0;
-            }
-            getMPS()->setView( tile, MPS_GLOBAL );//show global info
-            return;
-        }
         if(event.mousebutton == SDL_BUTTON_LEFT ){ //left mouse
      	    getGameView()->show(tile); // move main-map
-	}
+	    }
         if(event.mousebutton == SDL_BUTTON_WHEELUP ){ 
-	    getGameView()->zoomIn();
-	}
+	        getGameView()->zoomIn();
+	    }
         if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
      	    getGameView()->zoomOut();
-	}
-	
+	    }
     }
 }
 

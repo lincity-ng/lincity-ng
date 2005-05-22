@@ -1,4 +1,8 @@
-<LCPBar name="PBar">
+<TableLayout rows="1" cols="1" name="PBar">
+<rowsize row="1" fixed="204" />
+<colsize col="1" fixed="204" />
+<cell row="1" col="1">
+<LCPBar>
   <Panel width="204" height="204" background="images/gui/pbar_bg.png">
     <DefineStyle name="ptitle" color="black" font-size="12" halign="left"/>
     <DefineStyle name="ptext" color="black" font-size="12" halign="right"/>
@@ -137,3 +141,5 @@
 	  </TableLayout>
   </Panel>
 </LCPBar>
+</cell>
+</TableLayout>

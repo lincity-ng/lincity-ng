@@ -23,7 +23,6 @@
 #include "lincity/lctypes.h"
 #include "lincity/engglobs.h"
 
-#include "Mps.hpp"
 #include "MapEdit.hpp"
 #include "MiniMap.hpp"
 #include "Dialog.hpp"
@@ -782,11 +781,6 @@ void GameView::scroll( void )
  */
 void GameView::event(const Event& event)
 {
-    //float stepx = tileWidth / 2;
-    //float stepy = tileHeight / 2;
-    MapPoint tile;
-    Vector2 dragDistance;
-    
     switch(event.type) {
         case Event::MOUSEMOTION: {
             mouseScrollState = 0;
@@ -802,6 +796,7 @@ void GameView::event(const Event& event)
             }
 
             if( dragging ) {
+                Vector2 dragDistance;
                 Uint32 now = SDL_GetTicks();
                 dragDistance = event.mousepos - dragStart;
                 
@@ -877,9 +872,15 @@ void GameView::event(const Event& event)
                 leftButtonDown = true;
                 break;       
             }
+            if( event.mousebutton == SDL_BUTTON_RIGHT ){ //right
+                getMiniMap()->showMpsEnv( getTile( event.mousepos ) );//show basic info
+            }
             break;
         }
         case Event::MOUSEBUTTONUP:
+            if(event.mousebutton == SDL_BUTTON_RIGHT ){ //right mouse
+                getMiniMap()->hideMpsEnv();
+            }
             if( event.mousebutton == SDL_BUTTON_MIDDLE ){
                 if ( dragging ) {
                     dragging = false;
@@ -929,16 +930,12 @@ void GameView::event(const Event& event)
                 break;
             }
             
-            tile=getTile( event.mousepos );
             if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
                 if( !blockingDialogIsOpen )
-                    editMap(tile, SDL_BUTTON_LEFT); //edit tile
+                    editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT); //edit tile
             }
             else if( event.mousebutton == SDL_BUTTON_MIDDLE ){  //middle      
                 recenter(event.mousepos);                      //adjust view
-            }
-            else if( event.mousebutton == SDL_BUTTON_RIGHT ){ //right
-                getMPS()->setView( tile, MPS_ENV );//show basic info
             }
             else if( event.mousebutton == SDL_BUTTON_WHEELUP ){ //up 
                 zoomIn();                                       //zoom in

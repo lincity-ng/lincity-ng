@@ -32,12 +32,15 @@ public:
 
     Color getColor(int x,int y) const;
     Color getColorNormal(int x,int y) const;
+    void showMpsEnv( MapPoint tile );
+    void MiniMap::hideMpsEnv();
+    void showQueryTab();
 private:
     void mapViewButtonClicked(CheckButton* button, int);
     void speedButtonClicked(CheckButton* button, int);
     void zoomInButtonClicked(Button* button);
     void zoomOutButtonClicked(Button* button);
-
+    
     void switchButton(Button* button);
 
     void attachButtons();
@@ -53,6 +56,9 @@ private:
     int border;
 
     std::auto_ptr<Texture> mTexture;
+    
+    std::string shownTabName;
+    int mpsXOld, mpsYOld, mpsStyleOld;
 
     bool mFullRefresh;
     bool alreadyAttached;

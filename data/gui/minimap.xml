@@ -6,15 +6,25 @@
 		<colsize col="1" fixed="174"/>
 		<colsize col="2" fixed="210"/>
 		<cell row="1" col="2">
-			<TableLayout rows="1" cols="2">
+			<TableLayout rows="1" cols="4">
 				<cell row="1" col="1">
 					<Button name="SwitchMiniMap">
-						<text font-size="16">MiniMap</text>
+						<text font-size="16">Map</text>
 					</Button>
 				</cell>
 				<cell row="1" col="2">
 					<Button name="SwitchPBar">
 						<text font-size="16">Stats</text>
+					</Button>
+				</cell>
+				<cell row="1" col="3">
+					<Button name="SwitchMPSGlobal">
+						<text font-size="16">$</text>
+					</Button>
+				</cell>
+				<cell row="1" col="4">
+					<Button name="SwitchQueryTool">
+						<text font-size="16">?</text>
 					</Button>
 				</cell>
 			</TableLayout>
@@ -202,6 +212,7 @@
 			<SwitchComponent name="MiniMapSwitch">
 				<MiniMap name="MiniMap" width="200" height="200" tilesize="2"/>
 				<Import src="gui/pbar.xml"/>
+                <Import src="gui/mps.xml"/>
 			</SwitchComponent>
 		</cell>
 	</TableLayout>

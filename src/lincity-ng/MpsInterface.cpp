@@ -14,6 +14,7 @@
 #include "lincity/lcintl.h"
 #include "lincity/modules/all_modules.h"
 #include "tinygettext/gettext.hpp"
+#include "MiniMap.hpp"
 
 // implement everything here
 
@@ -59,6 +60,7 @@ int mps_set( int x, int y, int style ) /* Attaches an area or global display */
     int same_square = mps_set_silent( x, y, style);
     mps_update();
     mps_refresh();
+    getMiniMap()->showQueryTab();
     return same_square;
 }
 

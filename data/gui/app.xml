@@ -27,9 +27,6 @@
 		<cell row="1" col="1" rowspan="2" halign="left" valign="top">
 			<Import src="gui/buttonpanel.xml"/>
 		</cell>
-		<cell row="1" col="3" valign="top" halign="right">
-			<Import src="gui/mps.xml"/>
-		</cell>
 		<cell row="2" col="1" valign="bottom" halign="left">
 			<Import src="gui/speedpanel.xml"/>
 		</cell>
