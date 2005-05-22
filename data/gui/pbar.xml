@@ -1,9 +1,12 @@
-<TableLayout rows="1" cols="1" name="PBar">
-<rowsize row="1" fixed="204" />
-<colsize col="1" fixed="204" />
-<cell row="1" col="1">
-<LCPBar>
+<LCPBar name="PBar" >
   <Panel width="204" height="204" background="images/gui/pbar_bg.png">
+   <TableLayout rows="3" cols ="3">
+    <colsize col="1" fixed="8"/> <!-- borders -->
+    <colsize col="3" fixed="8"/> >
+  	<rowsize row="1" fixed="8"/>
+  	<rowsize row="3" fixed="8"/>
+    
+    <cell row="2" col="2">
     <DefineStyle name="ptitle" color="black" font-size="12" halign="left"/>
     <DefineStyle name="ptext" color="black" font-size="12" halign="right"/>
  
@@ -139,7 +142,7 @@
 	      <BarView name="pbar_barview9b" width="16" height="16" dir="1"/>
 	    </cell>    
 	  </TableLayout>
+     </cell>
+	</TableLayout>
   </Panel>
 </LCPBar>
-</cell>
-</TableLayout>

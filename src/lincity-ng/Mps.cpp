@@ -31,6 +31,19 @@ LCMps::~LCMps()
 void
 LCMps::parse(XmlReader& reader)
 {
+    XmlReader::AttributeIterator iter(reader);
+    while(iter.next()) {
+        const char* name = (const char*) iter.getName();
+        const char* value = (const char*) iter.getValue();
+
+        if(parseAttribute(name, value)) {
+            continue;
+        } else {
+            std::cerr << "Unknown attribute '" << name 
+                      << "' skipped in LCMps.\n";
+        }
+    }
+
   Component* component = parseEmbeddedComponent(reader);
   addChild(component);
 

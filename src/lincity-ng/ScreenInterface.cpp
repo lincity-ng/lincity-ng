@@ -178,9 +178,10 @@ void updateMoney() {
     std::ostringstream moneyText;
     int money = total_money;
 
-    if( money > 1000000 ){
+    if( abs(money) > 1000000 ){
         moneyText << money/1000000 << " "; 
         money %= 1000000;
+        money = abs(money);
     }
     moneyText << money << _("$");
     

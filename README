@@ -23,7 +23,6 @@ middle:
 
 right:
  right click on mainscreen to show information about area under cursor.
- right click on minimap to cycle through global informations.
 
 left:
  Perform action depending on selected tool. Bulldoze, show Information,

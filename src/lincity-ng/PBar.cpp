@@ -75,9 +75,9 @@ LCPBar::setValue(int num, int value)
      }
     else if(num==PMONEY)
     {
-        if(value>1000000)
+        if(abs(value)>1000000)
             os<<value/1000000.0<<"M";
-        else if(value>1000)
+        else if(abs(value)>1000)
             os<<value/1000.0<<"K";
         else
             os<<value;
