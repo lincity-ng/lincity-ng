@@ -7,13 +7,13 @@
 Graphics (mostly egore's part)
 ~~~~~~~~
 
-[H] Finish tiles for the game
-[H] Draw Mousecursors for normal, link and what's this (eventually also
-    loading and scrolling)
-[H] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
+ [H] Finish tiles for the game
+ [H] Draw Mousecursors for normal, link and what's this (eventually also
+     loading and scrolling)
+ [H] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
         alpha for mac os/x and 32x32 keycolored (and/or alpha) for windows)
-[H] give all ingames dialogs the same look and feel. (not like win32 is possible)
-[H] rework resident icons
+ [H] give all ingames dialogs the same look and feel. (not like win32 is possible)
+ [H] rework resident icons
 
 Programming
 ~~~~~~~~~~~
@@ -62,7 +62,6 @@ Programming
  [M] Display InfoMessages
  [L] manpage, documentation
  [H] improve fast scrolling
- [M] Homepage http://lincity-ng.berlios.de/ 
  [H] The settings dialog still doesn't look that good 
  [H] Put scrolling on the right mouse button. Moving the mouse while holding
      middle button isn't as ergonomically as moving with right button pressed
@@ -72,6 +71,24 @@ Programming
       that you can see with the minimap/overlays or statustext too)
      [info is not that detailed in overlays]
  [M] Print out more debug infos that user can send in with debug reports:
-		architecture?, SDL version, opengl driver name, SDL software driver name,
-		SDL sound driver name, screen resolution
+  	 architecture?, SDL version, opengl driver name, SDL software driver name,
+		 SDL sound driver name, screen resolution
+
+-- Infrastructure/Deployment --
+ [H] Setup an automatic backup script for the wiki!
+ [H] Create a (real) Homepage. Needs a little description what lincity-ng is
+     about, who created it, where to download it, how to install (and play?)
+	   it, list of some screenshots, contact information for thank yous and
+		 bugreports.
+		 Actually we might just redesign the wiki for that...
+ [M] Create a bugs page in the wiki with explanations on how a good bug reports
+     looks like and how to fill new bugs into the wiki.
+ [H] Compile a win32 version and create an installer for it
+ [H] Create a compiled (x86) linux version that installs and runs out of the box
+     (www.autopackage.org?)
+ [H] Have some beta testing of the packages. (Someone has a ppc/mac?)
+ [M] Create packages or find people who will do that. (Gentoo, Debian, Rpms,
+		 ...). This will probably happen by itself, so there's no need to push too
+     much ourself. But we should listen to packagers and fix problems if they
+		 have some (instead of letting each distro patch stuff themselfes).
 
