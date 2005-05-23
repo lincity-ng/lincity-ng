@@ -207,8 +207,16 @@ int main(int argc, char** argv)
     }                                                                     
 #endif
     
-    //set LINCITY_HOME environment variable
-    setenv( "LINCITY_HOME", getConfig()->lincityHome.c_str(), 1 );
+    // ugly: set LINCITY_HOME environment variable
+    const char* dir = PHYSFS_getRealDir("colour.pal");
+    if(dir == 0) {
+        std::cerr << "Couldn't locate lincity data (colour.pal).\n";
+        return 1;
+    }
+    std::cout << "LINCITY_HOME: " << dir << "\n";
+    char tmp[256];
+    snprintf(tmp, sizeof(tmp), "%s/", dir);
+    setenv("LINCITY_HOME", tmp, 1);
    
     //parse commandline args
     int currentArgument = 0; 

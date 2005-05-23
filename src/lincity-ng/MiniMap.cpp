@@ -482,7 +482,7 @@ void MiniMap::draw(Painter &painter)
   mFullRefresh=false;
 }
 
-Color MiniMap::getColorNormal(int x,int y) const
+Color MiniMap::getColorNormal(int x, int y) const
 {
   int xx,yy;
   

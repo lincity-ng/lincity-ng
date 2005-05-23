@@ -38,7 +38,6 @@ Config::Config()
     soundEnabled = true;
     musicEnabled = true;
 
-    lincityHome = "./data";
     skipMonthsFast = 1;
     upgradeTransport = true;
     //First we load the global File which should contain
@@ -144,20 +143,6 @@ void Config::load( const std::string& filename ){
                         skipMonthsFast = parseInt( value, 1, 1 );
                     } else if( strcmp(name, "upgradeTransport" ) == 0 ){
                        upgradeTransport  = parseBool(value, true);
-                    } else {
-                        std::cerr << "Config::load# Unknown attribute '" << name;
-                        std::cerr << "' in element '" << element << "' from " << filename << ".\n";
-                    }
-                }
-            } else if ( element == "env" ) {
-                XmlReader::AttributeIterator iter(reader);
-                while(iter.next()) 
-                {
-                    const char* name = (const char*) iter.getName();
-                    const char* value = (const char*) iter.getValue();
-                    if( strcmp(name, "LINCITY_HOME" ) == 0 )
-                    {
-                        lincityHome = value;
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";

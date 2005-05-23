@@ -414,7 +414,6 @@ lincity_nl_find_language (char *name)
   *name = '\0';
 }
 
-
 void
 find_localized_paths (void)
 {
@@ -490,13 +489,10 @@ find_localized_paths (void)
   }
 }
 
-
 void
 init_path_strings (void)
 {
     char* homedir = NULL;
-    char* dm = NULL;
-    char* td = NULL;
 
     find_libdir ();
 
@@ -560,6 +556,8 @@ init_path_strings (void)
 #else
     strcpy (lc_textdomain_directory, LOCALEDIR);
 #endif
+    char* dm = NULL;
+    char* td = NULL;    
     dm = bindtextdomain (PACKAGE, lc_textdomain_directory);
     debug_printf ("Bound textdomain directory is %s\n", dm);
     td = textdomain (PACKAGE);
@@ -676,6 +674,8 @@ load_graphic(char *s)
 void
 load_lincityrc (void)
 {
+    //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
+#if 0
     FILE *fp;
     int arg;
     char buf[128];
@@ -684,7 +684,6 @@ load_lincityrc (void)
 	save_lincityrc();
 	return;
     }
-#if 0
     //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
 
     while (fgets (buf,128,fp)) {
@@ -734,21 +733,22 @@ load_lincityrc (void)
 	    continue;
 	}
     }
-#endif
     fclose (fp);
+#endif
 }
 
 void
 save_lincityrc (void)
 {
+    //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
+    
+#if 0
     FILE *fp;
 
     if ((fp = fopen (lincityrc_file, "w")) == 0) {
 	return;
     }
 
-#if 0
-    //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
     fprintf (fp, 
 	"# Set this if you want to be able to overwrite one\n"
 	"# kind of transport with another.\n"
@@ -803,8 +803,8 @@ save_lincityrc (void)
 	"x_confine_pointer=%d\n\n",
 	confine_flag
 	);
-#endif
     fclose (fp);
+#endif
 }
 
 void
@@ -838,6 +838,7 @@ debug_printf (char* fmt, ...)
     FILE* fp;
 #endif
     va_list argptr;
+    (void) argptr;
 
 #if (DEBUG_PRINTF_TO_FILE)
     va_start (argptr, fmt);

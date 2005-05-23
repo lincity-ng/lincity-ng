@@ -21,7 +21,7 @@ public:
     int musicVolume;
     bool soundEnabled;
     bool musicEnabled;
-    std::string lincityHome;
+    //std::string lincityHome;
     int skipMonthsFast;
     bool upgradeTransport;
 
