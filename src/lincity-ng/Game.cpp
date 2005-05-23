@@ -70,7 +70,12 @@ Game::run()
 {
     SDL_Event event;
     running = true;
-    Uint32 ticks = SDL_GetTicks();
+    Uint32 fpsTicks = SDL_GetTicks();
+    Uint32 lastticks = fpsTicks;
+    Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
+    if(!desktop)
+        throw std::runtime_error("Toplevel component is not a Desktop");
+
     int frame = 0;
     while(running) {
         getGameView()->scroll();
@@ -114,16 +119,27 @@ Game::run()
                     break;
             }
         }
-        gui->event(Event(Event::UPDATE));
+
+        // create update Event
+        Uint32 ticks = SDL_GetTicks();
+        float elapsedTime = ((float) (ticks - lastticks)) / 1000.0;
+        gui->event(Event(elapsedTime));
+        lastticks = ticks;
+
         helpWindow->update();
-        gui->draw(*painter);
-        flipScreenBuffer();
+        if(desktop->needsRedraw()) {
+            desktop->draw(*painter);
+            flipScreenBuffer();
+        } else {
+            // give the CPU time to relax...
+            SDL_Delay(10);
+        }
         frame++;
         
-        if(SDL_GetTicks() - ticks > 1000) {
+        if(ticks - fpsTicks > 1000) {
             printf("FPS: %d.\n", frame);
             frame = 0;
-            ticks = SDL_GetTicks();
+            fpsTicks = ticks;
         }
 
         doLincityStep();

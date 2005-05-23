@@ -72,6 +72,12 @@ Desktop::event(const Event& event)
     addQueue.clear();
 }
 
+bool
+Desktop::needsRedraw() const
+{
+    return dirtyRectangles.size() > 0;
+}
+
 void
 Desktop::draw(Painter& painter)
 {

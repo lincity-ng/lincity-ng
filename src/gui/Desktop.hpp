@@ -16,6 +16,7 @@ public:
 
     void resize(float width, float height);
     void event(const Event& event);
+    bool needsRedraw() const;
     void draw(Painter& painter);
     bool opaque(const Vector2& pos) const;
 

@@ -29,6 +29,8 @@ public:
     void setCaptionText(const std::string &pText);
     std::string getCaptionText();
 
+    Signal<Button*> pressed;
+    Signal<Button*> released;
     Signal<Button*> clicked;
 
     enum State {

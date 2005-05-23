@@ -11,10 +11,14 @@
 #include "Button.hpp"
 #include "Painter.hpp"
 #include "Event.hpp"
+#include "callback/Callback.hpp"
+
+static const float SCROLLSPEED = 200;
 
 ScrollBar::ScrollBar()
-    : minVal(0), maxVal(0), currentVal(0), scrolling(false)
+    : minVal(0), maxVal(0), currentVal(0), scrollspeed(0), scrolling(false)
 {
+    setFlags(FLAG_RESIZABLE);
 }
 
 ScrollBar::~ScrollBar()
@@ -77,7 +81,16 @@ ScrollBar::parse(XmlReader& reader)
         throw std::runtime_error("Not all components specified for scrollbar.");
     }
 
-    setFlags(FLAG_RESIZABLE);
+    Button* b1 = dynamic_cast<Button*> (button1().getComponent());
+    if(!b1)
+        throw std::runtime_error("Button1 of ScrollBar not a button.");
+    b1->pressed.connect( makeCallback(*this, &ScrollBar::buttonPressed) );
+    b1->released.connect( makeCallback(*this, &ScrollBar::buttonReleased) );
+    Button* b2 = dynamic_cast<Button*> (button2().getComponent());
+    if(!b2)
+        throw std::runtime_error("Button2 of ScrollBar not a button.");
+    b2->pressed.connect( makeCallback(*this, &ScrollBar::buttonPressed) );
+    b2->released.connect( makeCallback(*this, &ScrollBar::buttonReleased) );
 }
 
 void
@@ -152,6 +165,21 @@ ScrollBar::event(const Event& event)
             setDirty();
             break;
         }
+        case Event::UPDATE: {
+            if(scrollspeed == 0)
+                break;
+            
+            float newVal = currentVal + scrollspeed * event.elapsedTime;
+            if(newVal < minVal)
+                newVal = minVal;
+            if(newVal > maxVal)
+                newVal = maxVal;
+            if(newVal != currentVal) {
+                setValue(newVal);
+                valueChanged(this, currentVal);
+            }
+            break;
+        }
         default:
             break;
     }
@@ -187,6 +215,23 @@ ScrollBar::setValue(float value)
     }
     currentVal = value;
     scroller().setPos(Vector2(0, y));
+    setDirty();
+}
+
+void
+ScrollBar::buttonPressed(Button* button)
+{
+    if(button == button1().getComponent()) {
+        scrollspeed = -SCROLLSPEED;
+    } else {
+        scrollspeed = SCROLLSPEED;
+    }
+}
+
+void
+ScrollBar::buttonReleased(Button* )
+{
+    scrollspeed = 0;
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ScrollBar);

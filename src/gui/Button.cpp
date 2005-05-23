@@ -245,6 +245,7 @@ Button::event(const Event& event)
             if(event.inside && event.mousebutton != SDL_BUTTON_WHEELUP &&
                     event.mousebutton != SDL_BUTTON_WHEELDOWN) {
                 state = STATE_CLICKED;
+                pressed(this);
             } else {
                 state = STATE_NORMAL;
             }
@@ -253,6 +254,7 @@ Button::event(const Event& event)
             if(event.inside && state == STATE_CLICKED) {
                 clicked(this);
             }
+            released(this);
             state = event.inside ? STATE_HOVER : STATE_NORMAL;
             break;
         case Event::UPDATE: {

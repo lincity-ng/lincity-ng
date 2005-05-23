@@ -27,7 +27,8 @@ public:
         /// a mouse button has been released
         MOUSEBUTTONUP
     };
-    Event(Type type);
+    /// Create an update Event
+    Event(float elapsedTime);
     
     /// type of the event
     Type type;
@@ -42,6 +43,9 @@ public:
      * component at this position
      */
     bool inside;
+    /** For update events this is the time that has elapsed since the last frame
+     */
+    float elapsedTime;
 };
 
 #endif

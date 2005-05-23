@@ -4,6 +4,7 @@
 #include "main.hpp"
 
 class Component;
+class Desktop;
 class Button;
 class CheckButton;
 
@@ -17,6 +18,8 @@ public:
     void gotoMainMenu();
 
 private:
+    void switchMenu(Component* component);
+    
     void loadMainMenu();
     void loadNewGameMenu();
     void loadLoadGameMenu();
@@ -52,7 +55,7 @@ private:
     std::auto_ptr<Component> loadGameMenu;
     std::auto_ptr<Component> creditsMenu;
     std::auto_ptr<Component> optionsMenu;
-    Component* currentMenu;
+    Desktop* currentMenu;
     
     bool running;
     MainState quitState;           

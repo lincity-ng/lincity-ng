@@ -38,6 +38,9 @@ public:
     Signal<ScrollBar*, float> valueChanged;
 
 private:
+    void buttonPressed(Button* button);
+    void buttonReleased(Button* button);
+    
     Child& button1()
     { return childs[0]; }
     Child& button2()
@@ -48,6 +51,8 @@ private:
     float minVal;
     float maxVal;
     float currentVal;
+
+    float scrollspeed;
 
     bool scrolling;
     float scrollOffset;

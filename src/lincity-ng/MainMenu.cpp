@@ -15,6 +15,7 @@
 #include "gui/ComponentLoader.hpp"
 #include "gui/Component.hpp"
 #include "gui/Event.hpp"
+#include "gui/Desktop.hpp"
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
 
@@ -34,7 +35,7 @@
 MainMenu::MainMenu()
 {
     loadMainMenu();
-    currentMenu = mainMenu.get();
+    switchMenu(mainMenu.get());
 }
 
 MainMenu::~MainMenu()
@@ -307,11 +308,19 @@ MainMenu::quitButtonClicked(Button* )
 }
 
 void
+MainMenu::switchMenu(Component* newMenu)
+{
+    currentMenu = dynamic_cast<Desktop*> (newMenu);
+    if(!currentMenu)
+        throw std::runtime_error("Menu Component is not a Desktop");
+}
+
+void
 MainMenu::creditsButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     loadCreditsMenu();
-    currentMenu = creditsMenu.get();
+    switchMenu(creditsMenu.get());
 }
 
 void
@@ -319,7 +328,7 @@ MainMenu::optionsButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     loadOptionsMenu();
-    currentMenu = optionsMenu.get();
+    switchMenu(optionsMenu.get());
 }
 
 void
@@ -335,7 +344,7 @@ MainMenu::newGameButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     loadNewGameMenu();
-    currentMenu = newGameMenu.get();
+    switchMenu(newGameMenu.get());
 }
 
 void
@@ -343,7 +352,7 @@ MainMenu::loadGameButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     loadLoadGameMenu();
-    currentMenu = loadGameMenu.get();
+    switchMenu(loadGameMenu.get());
 }
 
 void
@@ -351,7 +360,7 @@ MainMenu::creditsBackButtonClicked(Button* )
 {
     getSound()->playSound("Click");
     loadMainMenu();
-    currentMenu = mainMenu.get();    
+    switchMenu(mainMenu.get());
 }
 
 void
@@ -392,7 +401,7 @@ MainMenu::newGameBackButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     loadMainMenu();
-    currentMenu = mainMenu.get();
+    switchMenu(mainMenu.get());
 }
 
 void
@@ -400,7 +409,7 @@ MainMenu::loadGameBackButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     loadMainMenu();
-    currentMenu = mainMenu.get();
+    switchMenu(mainMenu.get());   
 }
 
 void
@@ -408,7 +417,7 @@ MainMenu::gotoMainMenu()
 {
     getSound()->playSound( "Click" );
     loadMainMenu();
-    currentMenu = mainMenu.get();
+    switchMenu(mainMenu.get());   
 }
 
 void
@@ -450,6 +459,7 @@ MainMenu::run()
     running = true;
     quitState = QUIT;
     Uint32 ticks = SDL_GetTicks();
+    
     int frame = 0;
     while(running) {
         while(SDL_PollEvent(&event)) {
@@ -476,8 +486,13 @@ MainMenu::run()
             }
         }
 
-        currentMenu->draw(*painter);
-        flipScreenBuffer();
+        if(currentMenu->needsRedraw()) {
+            currentMenu->draw(*painter);
+            flipScreenBuffer();
+        } else {
+            // give the CPU time to relax...
+            SDL_Delay(25);
+        }
 
         frame++;
         if(SDL_GetTicks() - ticks > 1000) {
