@@ -19,8 +19,15 @@ public:
     virtual ~TextureManager()
     {}
     
+    enum Filter {
+        NO_FILTER,
+        /// Turn image into a greyscale image
+        FILTER_GREY
+    };
+    
     /** load an image file from disk and create a texture */
-    virtual Texture* load(const std::string& filename) = 0;
+    virtual Texture* load(const std::string& filename,
+            Filter filter = NO_FILTER) = 0;
     /** Create a texture from an SDL_Surface. This function takes ownership of
      * the SDL_Surface and will free it.
      */

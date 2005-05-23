@@ -9,7 +9,7 @@ public:
     TextureManagerGL();
     virtual ~TextureManagerGL();
 
-    Texture* load(const std::string& filename);
+    Texture* load(const std::string& filename, Filter filter);
     Texture* create(SDL_Surface* surface);
 };
 

@@ -18,7 +18,9 @@ void
 Image::parse(XmlReader& reader)
 {
     bool resizable = false;
-    
+
+    bool grey = false;
+
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
@@ -40,7 +42,15 @@ Image::parse(XmlReader& reader)
             }
         } else if(strcmp(attribute, "src") == 0) {
             filename=value;
-            texture.reset(texture_manager->load(value));
+        } else if(strcmp(attribute, "filter") == 0) {
+            if(strcmp(value, "grey") == 0) {
+                grey = true;
+            } else if(strcmp(value, "no") == 0) {
+                grey = false;
+            } else {
+                std::cerr << "Unknown filter value '" << value << "'.\n";
+                std::cerr << "Should be 'grey' or 'no'.\n";
+            }
         } else if(strcmp(attribute, "resizable") == 0) {
             if(strcmp(value, "yes") == 0)
                 resizable = true;
@@ -55,6 +65,13 @@ Image::parse(XmlReader& reader)
                 << attribute << "'.\n";
         }
     }
+
+    if(filename == "")
+        throw std::runtime_error("No filename specified for image");
+
+    texture.reset(texture_manager->load(filename,
+                                        grey ? TextureManager::FILTER_GREY
+                                        : TextureManager::NO_FILTER));
 
     if(width <= 0 || height <= 0) {
         width = texture->getWidth();
@@ -91,4 +108,5 @@ void Image::setFile(const std::string &pfilename)
   texture.reset(texture_manager->load(pfilename));
 }
 
-IMPLEMENT_COMPONENT_FACTORY(Image)
+IMPLEMENT_COMPONENT_FACTORY(Image);
+

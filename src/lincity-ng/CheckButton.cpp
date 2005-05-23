@@ -37,8 +37,7 @@ CheckButton::parse(XmlReader& reader)
         if(parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute,"main")==0) {
-          mmain=value;
-        
+            mmain=value;
         } else if(strcmp(attribute, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
                 std::stringstream msg;
@@ -52,7 +51,7 @@ CheckButton::parse(XmlReader& reader)
                 throw std::runtime_error(msg.str());
             }
         } else if(strcmp(attribute, "lower") == 0) {
-           lowerOnClick=true;
+            lowerOnClick=true;
         } else if(strcmp(attribute, "direction") == 0) {
             // skip
         } else {
@@ -110,8 +109,7 @@ CheckButton::parse(XmlReader& reader)
                     std::cerr << "Warning: more than 1 component for comp_caption "
                         "defined.\n";
                 setChildImage(comp_caption(), reader);
-            } else if(element == "image-disabled") 
-            {
+            } else if(element == "image-disabled") {
                 if(comp_disabled().getComponent() != 0)
                     std::cerr << "Warning: More than 1 component for "
                         "comp_disabled defined.\n";
@@ -333,10 +331,12 @@ CheckButton::draw(Painter& painter)
             }
             break;
         case STATE_DISABLED:
+#if 0
             if(comp_disabled().isEnabled()) {
                 drawChild(comp_disabled(), painter);
                 break;
             }
+#endif
             // fallthrough
         case STATE_NORMAL:
             drawChild(comp_normal(), painter);
@@ -350,8 +350,12 @@ CheckButton::draw(Painter& painter)
        painter.pushTransform();
        painter.translate(Vector2(1,1));
     }
-    if(comp_caption().isEnabled())
-        drawChild(comp_caption(), painter);
+    if(comp_caption().isEnabled()) {
+        if(state == STATE_DISABLED && comp_disabled().isEnabled())
+            drawChild(comp_disabled(), painter);
+        else
+            drawChild(comp_caption(), painter);
+    }
     if(lowerOnClick && state==STATE_CLICKED)
         painter.popTransform();
 }

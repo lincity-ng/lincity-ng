@@ -53,7 +53,6 @@ TooltipManager::parse(XmlReader& reader)
 void
 TooltipManager::resize(float width, float height)
 {
-    printf("Resized.\n");
     this->width = width;
     this->height = height;
 }
@@ -69,7 +68,6 @@ TooltipManager::event(const Event& event)
 {
     if(event.type == Event::MOUSEMOTION) {
         if(comp_tooltip().getComponent() != 0) {
-            printf("Hide tooltip.\n");
             comp_tooltip().setComponent(0);
         }
     }    
@@ -89,7 +87,6 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
         p->setText(text, s->second);
         d->style = s->second;
     }
-    printf("Tooltip '%s' at %f,%f.\n", text.c_str(), pos.x, pos.y);
     d->addParagraph(p.release());
     d->resize(250, -1);
     Vector2 dest = pos + Vector2(-100, 26);

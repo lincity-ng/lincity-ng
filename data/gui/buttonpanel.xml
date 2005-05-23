@@ -112,12 +112,12 @@
 			<!-- base -->
 			<cell row="1" col="1" halign="left">
 				<CheckButton name="BPPointerButton" lower="true">
-				<image src="images/gui/buttons/menu-button.png"/>
-				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
-				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
-				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
-				<image-caption src="images/gui/buttonpanel/base/pointer.png"/>
+					<image src="images/gui/buttons/menu-button.png"/>
+					<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+					<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+					<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+					<image-disabled src="images/gui/buttonpanel/base/pointer.png" filter="grey"/>
+					<image-caption src="images/gui/buttonpanel/base/pointer.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="1" col="2" halign="left">
@@ -129,7 +129,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/base/pointer.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/base/pointer.png"/>
 						</CheckButton>
 					</cell>
@@ -139,7 +139,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/base/bulldozer.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/base/bulldozer.png"/>
 						</CheckButton>
 					</cell>
@@ -154,7 +154,7 @@
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
+				<image-disabled src="images/gui/buttonpanel/residence/residence-lotec-med.png" filter="grey"/>
 				<image-caption src="images/gui/buttonpanel/residence/residence-lotec-med.png"/>
 				</CheckButton>
 			</cell>
@@ -167,7 +167,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/residence/residence-lotec-lo.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/residence/residence-lotec-lo.png"/>
 						</CheckButton>
 					</cell>
@@ -177,7 +177,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/residence/residence-lotec-med.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/residence/residence-lotec-med.png"/>
 						</CheckButton>
 					</cell>
@@ -187,7 +187,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/residence/residence-lotec-high.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/residence/residence-lotec-high.png"/>
 						</CheckButton>
 					</cell>
@@ -197,7 +197,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/residence/residence-hightec-lo.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/residence/residence-hightec-lo.png"/>
 						</CheckButton>
 					</cell>
@@ -207,7 +207,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/residence/residence-hightec-med.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/residence/residence-hightec-med.png"/>
 						</CheckButton>
 					</cell>
@@ -217,7 +217,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled	src="images/gui/buttonpanel/residence/residence-hightec-high.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/residence/residence-hightec-high.png"/>
 						</CheckButton>
 					</cell>
@@ -232,7 +232,7 @@
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
+				<image-disabled src="images/gui/buttonpanel/misc/book.png" filter="grey"/>
 				<image-caption src="images/gui/buttonpanel/misc/book.png"/>
 				</CheckButton>
 			</cell>
@@ -245,7 +245,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/misc/health.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/misc/health.png"/>
 						</CheckButton>
 					</cell>
@@ -255,7 +255,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/misc/sports.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/misc/sports.png"/>
 						</CheckButton>
 					</cell>
@@ -265,7 +265,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/misc/fire.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/misc/fire.png"/>
 						</CheckButton>
 					</cell>
@@ -275,7 +275,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/misc/book.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/misc/book.png"/>
 						</CheckButton>
 					</cell>
@@ -285,7 +285,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/misc/university.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/misc/university.png"/>
 						</CheckButton>
 					</cell>
@@ -300,7 +300,7 @@
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
+				<image-disabled src="images/gui/buttonpanel/transport/tracks.png" filter="grey"/>
 				<image-caption src="images/gui/buttonpanel/transport/tracks.png"/>
 				</CheckButton>
 			</cell>
@@ -313,7 +313,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/transport/tracks.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/transport/tracks.png"/>
 						</CheckButton>
 					</cell>
@@ -323,7 +323,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/transport/road.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/transport/road.png"/>
 						</CheckButton>
 					</cell>
@@ -333,7 +333,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/transport/rails2.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/transport/rails2.png"/>
 						</CheckButton>
 					</cell>
@@ -343,7 +343,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/transport/port.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/transport/port.png"/>
 						</CheckButton>
 					</cell>
@@ -353,7 +353,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/transport/rocket.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/transport/rocket.png"/>
 						</CheckButton>
 					</cell>
@@ -368,7 +368,7 @@
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
+				<image-disabled src="images/gui/buttonpanel/power/windmills.png" filter="grey"/>
 				<image-caption src="images/gui/buttonpanel/power/windmills.png"/>
 				</CheckButton>
 			</cell>
@@ -381,7 +381,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/power/powerlines.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/power/powerlines.png"/>
 						</CheckButton>
 					</cell>
@@ -391,7 +391,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/power/coalpower.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/power/coalpower.png"/>
 						</CheckButton>
 					</cell>
@@ -401,7 +401,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/power/solarpower.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/power/solarpower.png"/>
 						</CheckButton>
 					</cell>
@@ -411,7 +411,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/power/substation.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/power/substation.png"/>
 						</CheckButton>
 					</cell>
@@ -421,7 +421,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/power/windmills.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/power/windmills.png"/>
 						</CheckButton>
 					</cell>
@@ -436,7 +436,7 @@
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
+				<image-disabled src="images/gui/buttonpanel/mining/commune.png"	filter="grey"/>
 				<image-caption src="images/gui/buttonpanel/mining/commune.png"/>
 				</CheckButton>
 			</cell>
@@ -449,7 +449,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/mining/commune.png"/>
 						<image-caption src="images/gui/buttonpanel/mining/commune.png"/>
 						</CheckButton>
 					</cell>
@@ -459,7 +459,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/mining/coalmine.png"/>
 						<image-caption src="images/gui/buttonpanel/mining/coalmine.png"/>
 						</CheckButton>
 					</cell>
@@ -469,7 +469,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/mining/oremine.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/mining/oremine.png"/>
 						</CheckButton>
 					</cell>
@@ -479,7 +479,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/mining/trash.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/mining/trash.png"/>
 						</CheckButton>
 					</cell>
@@ -489,7 +489,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/mining/recycling.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/mining/recycling.png"/>
 						</CheckButton>
 					</cell>
@@ -504,8 +504,8 @@
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
-		    	<image-caption src="images/gui/buttonpanel/industry/market.png"/>
+				<image-disabled src="images/gui/buttonpanel/industry/market.png" filter="grey"/>
+				<image-caption src="images/gui/buttonpanel/industry/market.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="7" col="2" halign="left">
@@ -517,7 +517,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/industry/lightindustry.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/industry/lightindustry.png"/>
 						</CheckButton>
 					</cell>
@@ -527,7 +527,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/industry/heavyindustry2.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
 						</CheckButton>
 					</cell>
@@ -537,7 +537,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/industry/market.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/industry/market.png"/>
 						</CheckButton>
 					</cell>
@@ -547,7 +547,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/industry/pottery.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/industry/pottery.png"/>
 						</CheckButton>
 					</cell>
@@ -557,7 +557,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/industry/blacksmith.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/industry/blacksmith.png"/>
 						</CheckButton>
 					</cell>
@@ -572,7 +572,7 @@
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttons/menu-button-disabled.png"/>
+				<image-disabled src="images/gui/buttonpanel/parks/monument.png"	filter="grey"/>
 				<image-caption src="images/gui/buttonpanel/parks/monument.png"/>
 				</CheckButton>
 			</cell>
@@ -585,7 +585,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/monument.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/parks/monument.png"/>
 						</CheckButton>
 					</cell>
@@ -595,7 +595,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/tree.png"	filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/parks/tree.png"/>
 						</CheckButton>
 					</cell>
@@ -605,7 +605,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/water.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/parks/water.png"/>
 						</CheckButton>
 					</cell>
@@ -615,7 +615,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/farm.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/parks/farm.png"/>
 						</CheckButton>
 					</cell>
@@ -625,7 +625,7 @@
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-				        <image-disabled src="images/gui/buttons/button-disabled.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/mills.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/parks/mills.png"/>
 						</CheckButton>
 					</cell>

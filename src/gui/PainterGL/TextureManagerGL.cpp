@@ -10,6 +10,7 @@
 
 #include "PhysfsStream/PhysfsSDL.hpp"
 #include "TextureGL.hpp"
+#include "gui/Filter.hpp"
 
 TextureManagerGL::TextureManagerGL()
 {
@@ -76,7 +77,7 @@ TextureManagerGL::create(SDL_Surface* image)
 }
 
 Texture*
-TextureManagerGL::load(const std::string& filename)
+TextureManagerGL::load(const std::string& filename, Filter filter)
 {
     SDL_Surface* image = IMG_Load_RW(getPhysfsSDLRWops(filename), 1);
     if(!image) {
@@ -84,6 +85,19 @@ TextureManagerGL::load(const std::string& filename)
         msg << "Couldn't load image '" << filename
             << "' :" << SDL_GetError();
         throw std::runtime_error(msg.str());
+    }
+    switch(filter) {
+        case FILTER_GREY:
+            color2Grey(image);
+            break;
+        case NO_FILTER:
+            break;
+        default:
+#ifdef DEBUG
+            assert(false);
+#endif
+            std::cerr << "Unknown filter specified for image.\n";
+            break;
     }
 
     Texture* result = create(image);

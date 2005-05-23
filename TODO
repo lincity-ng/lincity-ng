@@ -72,4 +72,7 @@ Programming
       on the middle button or simply removed. After all it just states stuff
       that you can see with the minimap/overlays or statustext too)
      [info is not that detailed in overlays]
+ [M] Print out more debug infos that user can send in with debug reports:
+		architecture?, SDL version, opengl driver name, SDL software driver name,
+		SDL sound driver name, screen resolution
 
