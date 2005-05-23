@@ -10,7 +10,7 @@
 	margin-left="23" margin-right="20"/>
 	<Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
 	<!-- Split window into title/top - contents and bottom/buttons area -->
-	<TableLayout rows="3" cols="1" border="true">
+	<TableLayout rows="3" cols="1" >
 		<rowsize row="1" fixed="260"/>
 		<rowsize row="2" fixed="313"/>
 		<rowsize row="3" relative="1"/>
@@ -40,7 +40,7 @@
 			</cell>
 			<cell row="2" col="1">
 			<CheckButton name="File1">
-				<text-caption style="button">Savegame 23456789</text-caption>
+				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -49,7 +49,7 @@
 			</cell>
 			<cell row="3" col="1">
 			<CheckButton name="File2">
-				<text-caption style="button">Savegame 3456789</text-caption>
+				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -58,7 +58,7 @@
 			</cell>
 			<cell row="4" col="1">
 			<CheckButton name="File3">
-			<text-caption style="button">Savegame 456789</text-caption>
+			<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -67,7 +67,7 @@
 			</cell>
 			<cell row="5" col="1">
 			<CheckButton name="File4">
-				<text-caption style="button">Savegame 56789</text-caption>
+				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -76,7 +76,7 @@
 			</cell>
 			<cell row="6" col="1">
 			<CheckButton name="File5">
-				<text-caption style="button">Savegame 6</text-caption>
+				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>

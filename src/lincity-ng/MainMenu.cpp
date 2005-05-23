@@ -36,6 +36,7 @@ MainMenu::MainMenu()
 {
     loadMainMenu();
     switchMenu(mainMenu.get());
+    baseName = "";
 }
 
 MainMenu::~MainMenu()
@@ -252,6 +253,7 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     file="opening/bad_times.scn";
   else if(fc.length())
   {
+    baseName = fc;
     if(newGameMenu.get()==currentMenu )
       file=std::string("opening/")+fc+".scn";
     else{
@@ -368,7 +370,7 @@ MainMenu::newGameStartButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     if( loadCityNG( mFilename ) ){
-    	strcpy (given_scene, mFilename.c_str());
+    	strcpy (given_scene, baseName.c_str());
         quitState = INGAME;
         running = false;
     }

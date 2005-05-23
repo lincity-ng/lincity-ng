@@ -44,6 +44,7 @@ Game::~Game()
 }
 
 void Game::backToMainMenu(){
+    getButtonPanel()->selectQueryTool(); 
     getGameView()->writeOrigin();
     saveCityNG( "9_currentGameNG.scn" );
     running = false;

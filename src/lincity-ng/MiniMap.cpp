@@ -198,6 +198,9 @@ void MiniMap::attachButtons()
     switchButton = getButton(*root, "SwitchMPSGlobal");
     switchButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
+    switchButton = getButton(*root, "SwitchEconomy");
+    switchButton->clicked.connect(
+            makeCallback(*this, &MiniMap::switchButton));
 }
 
 void
@@ -224,9 +227,12 @@ MiniMap::switchButton(Button* button)
         mps_set( mps_x, mps_y, MPS_GLOBAL );//show global info
         shownTabName = "MPSPanel";
         switchComponent->switchComponent("MPSPanel");
-    } else if(button->getName() == "SwitchQueryTool") {
+    } else if( button->getName() == "SwitchQueryTool") {
         mps_set( mps_x, mps_y, MPS_MAP );//show building info
         showQueryTab();
+    } else if( button->getName() == "SwitchEconomy" ){
+        shownTabName = "EconomyGraph";
+        switchComponent->switchComponent("EconomyGraph");
     } else {
         std::cerr << "Unknown switch '" << button->getName() << "'.\n";
     }

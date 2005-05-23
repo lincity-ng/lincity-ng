@@ -84,13 +84,13 @@ LCPBar::setValue(int num, int value)
     }
     else
         os<<value;
-
-    p->setText(os.str());
-    
+    int diff=value-old;
+    if( diff != 0 ){
+        p->setText(os.str());
+    }
     os.str("");
     os<<"pbar_barview"<<(num+1);
 
-    int diff=value-old;
     float sv=0;
     switch(num)
     {

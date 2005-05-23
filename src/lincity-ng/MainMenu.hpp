@@ -62,6 +62,7 @@ private:
     int slotNr;
     
     std::string mFilename;    
+    std::string baseName;
 };
 
 #endif

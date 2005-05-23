@@ -6,7 +6,7 @@
 		<colsize col="1" fixed="174"/>
 		<colsize col="2" fixed="210"/>
 		<cell row="1" col="2">
-			<TableLayout rows="1" cols="4">
+			<TableLayout rows="1" cols="5">
 				<cell row="1" col="1">
 					<Button name="SwitchMiniMap">
 						<text font-size="16">Map</text>
@@ -25,6 +25,11 @@
 				<cell row="1" col="4">
 					<Button name="SwitchQueryTool">
 						<text font-size="16">?</text>
+					</Button>
+				</cell>
+				<cell row="1" col="5">
+					<Button name="SwitchEconomy">
+						<text font-size="16">Eco</text>
 					</Button>
 				</cell>
 			</TableLayout>
@@ -213,6 +218,7 @@
 				<MiniMap name="MiniMap" width="200" height="200" tilesize="2"/>
 				<Import src="gui/pbar.xml"/>
                 <Import src="gui/mps.xml"/>
+                <EconomyGraph name="EconomyGraph" />
 			</SwitchComponent>
 		</cell>
 	</TableLayout>
