@@ -14,13 +14,17 @@ IMAGEPATHS =
     images/gui/buttonpanel/power
     images/gui/buttonpanel/residence
     images/gui/buttonpanel/transport
+    images/gui/buttons
+    images/gui/buttons/round
     images/gui/dialogs
+    images/gui/info
     images/gui/mapview
     images/gui/mapview/roundbuttons
     images/gui/mapview/buttons
     images/gui/scrollbar
     images/gui/speed
     images/gui/window
+    images/gui/zoom
     images/mainmenu
     images/mainmenu/buttons
     images/mainmenu/progressbar
@@ -28,9 +32,17 @@ IMAGEPATHS =
     images/mainmenu/slider
     images/tiles
 ;
-
 for p in $(IMAGEPATHS) {
     InstallData [ Wildcard $(p) : *.png *.xml ] : $(p) ;
+}
+
+HELPPATHS =
+    help/de
+    help/en
+    help/nl
+;
+for p in $(HELPPATHS) {
+    InstallData [ Wildcard $(p) : *.xml ] : $(p) ;
 }
 
 InstallData [ Wildcard gui : *.xml ] : gui ;

@@ -16,6 +16,8 @@ if $(XGETTEXT) != ""
 }
 
 # add some additional files to package
-Package README TODO ;
-InstallDoc README TODO ;
+Package README RELNOTES TODO COPYING COPYING-fonts.txt ;
+InstallDoc README RELNOTES TODO COPYING COPYING-fonts.txt ;
 
+InstallDesktop lincity-ng.desktop ;
+InstallPixmap data/lincity-ng.png ;
