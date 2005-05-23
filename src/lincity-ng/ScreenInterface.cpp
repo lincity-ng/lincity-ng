@@ -29,6 +29,8 @@ int selected_module_cost; // this must be changed, when module (or celltype-butt
 int getMainWindowWidth();
 int getMainWindowHeight();
 
+std::string lastDateText = "";
+int lastMoney = -123456789; 
 
 /* This is on in screen_full_refresh, used in *_refresh() */
 char screen_refreshing;
@@ -163,7 +165,10 @@ void updateDate(){
     if( !root ) return;
     while( root->getParent() )
         root = root->getParent();
-    
+   
+    if( dateText.str() == lastDateText ){
+        return;
+    } 
     Component* dateParagraphComponent = 0;
     dateParagraphComponent = root->findComponent( "dateParagraph" );
     if( dateParagraphComponent == 0 ) {
@@ -173,9 +178,13 @@ void updateDate(){
     if( !dateParagraph ) return;
     
     dateParagraph->setText( dateText.str() );
+    lastDateText = dateText.str();
 }
 
 void updateMoney() {
+    if( lastMoney == total_money ){
+        return;
+    }
     std::ostringstream moneyText;
     int money = total_money;
 
@@ -201,6 +210,7 @@ void updateMoney() {
     if( !moneyParagraph ) return;
     
     moneyParagraph->setText( moneyText.str() );
+    lastMoney = total_money;
 }
 
 /*
