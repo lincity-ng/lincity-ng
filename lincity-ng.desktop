@@ -5,10 +5,9 @@ Encoding=UTF-8
 Name=Lincity-NG
 GenericName=City Simulation Game
 GenericName[de]=Stadtsimulationsspiel
-Comment=Plan and Build a city and take care of transpost, economics, elecriticty
-and others.
+Comment=Plan and Build a city and take care of transport, economics, electricityand others.
 Icon=lincity-ng.png
 Exec=lincity-ng
 Terminal=false
 StartupNotify=false
-Categories=Application;Game;Simulation
+Categories=Application;Game;Simulation;
