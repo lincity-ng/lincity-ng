@@ -430,9 +430,12 @@ void MiniMap::draw(Painter &painter)
   std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
   Color white;
   white.parse( "white" );
+  Rect2D miniRect( 0 , 0, WORLD_SIDE_LEN*tilesize, WORLD_SIDE_LEN*tilesize );
+  Color mc = getColor( 0, 0 ); 
   if(mpainter.get() == 0)
   {
     // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
+    
     for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
       for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++)
         {
@@ -441,13 +444,12 @@ void MiniMap::draw(Painter &painter)
           {
             mappointoldtype[x][y] = typ;
             grp = get_group_of_type(typ);
-            Color mc=getColor(x,y);
+            mc=getColor(x,y);
             painter.setFillColor(mc);
             painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
           }
         }
     //show current GameView
-    Rect2D miniRect( 0 , 0, WORLD_SIDE_LEN*tilesize, WORLD_SIDE_LEN*tilesize );
     painter.setClipRectangle( miniRect ); 
     painter.setLineColor( white );
     painter.drawPolygon( 4, gameViewPoints );    
@@ -455,6 +457,8 @@ void MiniMap::draw(Painter &painter)
     return;
   }
 
+  mpainter->setFillColor( mc );
+  mpainter->fillRectangle( miniRect );
   for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
     for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++)
       {
@@ -463,7 +467,7 @@ void MiniMap::draw(Painter &painter)
         {
           mappointoldtype[x][y] = typ;
           grp = get_group_of_type(typ);
-          Color mc=getColor(x,y);
+          mc=getColor(x,y);
           mpainter->setFillColor(mc);
           mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
         }

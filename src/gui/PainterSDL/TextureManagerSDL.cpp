@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <assert.h>
 
 #include "TextureManagerSDL.hpp"
 #include "TextureSDL.hpp"
