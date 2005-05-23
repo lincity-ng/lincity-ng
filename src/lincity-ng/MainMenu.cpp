@@ -379,6 +379,7 @@ MainMenu::newGameStartBareButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     new_city( &main_screen_originx, &main_screen_originy, 0 );
+    given_scene[0] = 0;
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
     quitState = INGAME;
@@ -390,6 +391,7 @@ MainMenu::newGameStartVillageClicked(Button* )
 {
     getSound()->playSound( "Click" );
     new_city( &main_screen_originx, &main_screen_originy, 1 );
+    given_scene[0] = 0;
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
     quitState = INGAME;

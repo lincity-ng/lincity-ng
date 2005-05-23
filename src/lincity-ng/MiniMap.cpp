@@ -433,8 +433,8 @@ void MiniMap::draw(Painter &painter)
   if(mpainter.get() == 0)
   {
     // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
-    for(y=0;y<WORLD_SIDE_LEN && y<height/tilesize;y++)
-      for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)
+    for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
+      for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++)
         {
           typ = MP_TYPE(x,y);
           if( mFullRefresh || typ != mappointoldtype[x][y] )
@@ -455,8 +455,8 @@ void MiniMap::draw(Painter &painter)
     return;
   }
 
-  for(y=0;y<WORLD_SIDE_LEN && y<height/tilesize;y++)
-    for(x=0;x<WORLD_SIDE_LEN && x<width/tilesize;x++)
+  for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
+    for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++)
       {
         typ = MP_TYPE(x,y);
         if ( mFullRefresh || typ != mappointoldtype[x][y] )

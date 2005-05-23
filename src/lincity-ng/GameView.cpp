@@ -144,6 +144,7 @@ void GameView::parse(XmlReader& reader)
     mapOverlay = overlayNone;
     mapMode = MiniMap::NORMAL;
     buttonsConnected = false;
+    lastStatusMessage = "";
 }
 
 /*
@@ -1556,6 +1557,9 @@ void GameView::showToolInfo( int number /*= 0*/ )
  * Print a Message to the StatusBar.
  */
 void GameView::printStatusMessage( std::string message ){
+    if( message == lastStatusMessage ){
+        return;
+    }
     Component* root = this;
     while( root->getParent() )
         root = root->getParent();
@@ -1573,6 +1577,7 @@ void GameView::printStatusMessage( std::string message ){
             << e.what() << "\n";
         return;
     }
+    lastStatusMessage = message;
 }
 
 int GameView::bulldozeCost( MapPoint tile ){

@@ -140,6 +140,7 @@ private:
     bool buttonsConnected;
 
     MapPoint realTile( MapPoint tile );
+    std::string lastStatusMessage;
 };
 
 GameView* getGameView();

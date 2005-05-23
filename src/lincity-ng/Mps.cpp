@@ -198,7 +198,13 @@ void LCMps::playBuildingSound( int mps_x, int mps_y  ){
             getSound()->playSound( "PowerSolar" );
             break;
         case GROUP_SUBSTATION:
-            getSound()->playSound( "Substation" );
+            if( MP_TYPE( mps_x, mps_y )== CST_SUBSTATION_R ){
+                getSound()->playSound( "SubstationOn" );
+            } else if( MP_TYPE( mps_x, mps_y ) == CST_SUBSTATION_G ){
+                getSound()->playSound( "SubstationOff" );
+            } else{   //CST_SUBSTATION_RG
+                getSound()->playSound( "Substation" );
+            }
             break;
         case GROUP_TIP:
             getSound()->playSound( "Tip" );
@@ -230,10 +236,19 @@ void LCMps::playBuildingSound( int mps_x, int mps_y  ){
                 getSound()->playSound( "WindMillHTech" );
             }
             break;
+        case GROUP_FIRE:
+            if( (MP_GROUP( mps_x, mps_y ) == GROUP_FIRE) &&
+                   ( MP_INFO( mps_x, mps_y ).int_2 < FIRE_LENGTH ) ){
+                getSound()->playSound( "Fire" );
+            }
+            break;
+        case GROUP_SHANTY: 
+            getSound()->playSound( "Shanty" );
+            break;
         default: 
             if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
                 getSound()->playSound( "Green" );
-            }
+            }  
     }
 }
 

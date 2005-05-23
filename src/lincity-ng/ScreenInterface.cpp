@@ -1,5 +1,6 @@
 #include <config.h>
 #include <iostream>
+#include <iomanip>
 #include <stdarg.h>
 
 #include "ScreenInterface.hpp"
@@ -182,6 +183,8 @@ void updateMoney() {
         moneyText << money/1000000 << " "; 
         money %= 1000000;
         money = abs(money);
+        moneyText << std::setw(6);
+        moneyText << std::setfill('0');
     }
     moneyText << money << _("$");
     
