@@ -138,6 +138,15 @@ void initVideo(int width, int height)
         painter = new PainterSDL(screen);
         std::cout << "SDL Mode\n";
     }
+
+    delete texture_manager;
+    if( getConfig()->useOpenGL ) {
+        texture_manager = new TextureManagerGL();
+    } else {
+        texture_manager = new TextureManagerSDL();
+    }
+    delete fontManager;
+    fontManager = new FontManager();
 }
 
 void flipScreenBuffer()
@@ -269,13 +278,6 @@ int main(int argc, char** argv)
         initVideo(getConfig()->videoX, getConfig()->videoY);
         initLincity();
 
-        if( getConfig()->useOpenGL ) {
-            texture_manager = new TextureManagerGL();
-        } else {
-            texture_manager = new TextureManagerSDL();
-        }
-        fontManager = new FontManager();
-        
         mainLoop();
 #ifndef DEBUG
     } catch(std::exception& e) {
@@ -288,6 +290,7 @@ int main(int argc, char** argv)
 #endif
     getConfig()->save();
     delete painter;
+    delete fontManager;
     delete texture_manager;
     if(TTF_WasInit())
         TTF_Quit();
