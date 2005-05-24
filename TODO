@@ -35,19 +35,10 @@ Programming
      usability.
 
 --Bugs--
- [M] mills.png shows a windmill but is used as button to build a mill.
+ [H] mills.png shows a windmill but is used as button to build a mill.
      Should be more like a factory. (egore)
- [H] New text on buttons is truncated to original textlength. 
+ [M] New text on buttons is truncated to original textlength. 
      (eg in load game menu)
- [M] windmill starts "bouncing" up and down after you zoomed out
-      -Wrong values in images/tiles/images.xml- (modern windmill) 
-      -Scaling in SDL-Mode- (historic windmill)
-      WolfgangB: The problem is the scaling method. If all windmill?w.png
-      have the same height there is no bouncing. That means some aditional
-      blank lines, But until we find out what is wrong with the scaling 
-      its the only solution i can think of.
- [H] scrolling slowly in SDL mode makes all houses bigger than 1x1 cells bounce
-     around.
 
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
