@@ -43,11 +43,24 @@ Dialog::Dialog( int type ){
             break;
         default:
             std::stringstream msg;
-            msg <<"Can't open Dialog type " << type << " without coordinates.";
-        throw std::runtime_error(msg.str());
+            msg <<"Can't open Dialog type " << type << " without assitional parameters.";
+            throw std::runtime_error(msg.str());
     }
 }
-    
+   
+Dialog::Dialog( int type, std::string message, std::string extraString){
+    initDialog();   
+    switch( type ){
+        case MSG_DIALOG:
+            msgDialog( message, extraString );
+            break;
+        default:
+            std::stringstream msg;
+            msg <<"Can't open Dialog type " << type << " with String parameters.";
+            throw std::runtime_error(msg.str());
+    }
+}
+
 Dialog::Dialog( int type, int x, int y ){
     initDialog( x, y );
     switch( type ) {
@@ -71,7 +84,7 @@ Dialog::Dialog( int type, int x, int y ){
             break;
         default:
             std::stringstream msg;
-            msg <<"Unknown Dialog type " << type << ".";
+            msg <<"Can't open Dialog type " << type << " with coordinates.";
             throw std::runtime_error(msg.str());
     }
 }
@@ -124,6 +137,31 @@ void Dialog::askRocket(){
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
     gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
+}
+
+//no Signals caught here, so ScreenInterface has to catch them.
+void Dialog::msgDialog( std::string message, std::string extraString){
+    if( !desktop ) {
+        std::cerr << "No desktop found.\n";
+        return;
+    }
+    //generate filename. foo.mes => gui/foo.xml
+    std::string filename = "gui/";
+    filename += message;
+    uint pos = filename.rfind( ".mes" );
+    if( pos != std::string::npos ){
+        filename.replace( pos, 4 ,".xml");
+    }
+    myDialogComponent = loadGUIFile( filename );
+    assert( myDialogComponent != 0);
+    desktop->addChildComponent( myDialogComponent );
+
+    //set Extra-String
+    getParagraph( *myDialogComponent, "extraString" )->setText( extraString );
+
+    // connect signals
+    Button* noButton = getButton( *myDialogComponent, "Okay" );
+    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
 void Dialog::askBulldozeMonument() {

@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <stdarg.h>
 
+#include <sys/stat.h>
+
 #include "ScreenInterface.hpp"
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/pbar_interface.h"
@@ -10,6 +12,7 @@
 
 #include "lincity/engglobs.h"
 #include "lincity/lclib.h"
+#include "lincity/fileutil.h"
 
 #include "gui/Component.hpp"
 #include "gui/ComponentLoader.hpp"
@@ -80,12 +83,13 @@ void print_time_for_year (void);
 void rotate_main_screen (void);
 void screen_setup (void);
 
+
 /* Miniscreen */
 void init_mini_map_mouse(void);
 void mini_map_handler(int x, int y, int button);
 void mini_aux_handler(int x, int y, int button);
 /* Message area */
-void display_info_message (int colour, char* ss, char* xs)
+void display_info_message (int colour, const char* ss, const char* xs)
 {
     std::ostringstream text;
     text << "display_info_message: '"<< colour << ss << "' + \"" << xs << "\"\n";
@@ -109,11 +113,17 @@ void reset_status_message (void);
  * xs is some additional Text, that is shown after the Message
  *    from the File. (maybe XtraString?)  
  */
- void ok_dial_box (const char *fn, int, const char *xs)
+void ok_dial_box (const char *fn, int good_bad, const char *xs)
 {
-    std::ostringstream text;
-    text << "ok_dial_box:'" << fn << "' + \"" << (xs ? xs : "") << "\"\n";
-    updateMessageText( text.str() );
+    (void) good_bad;
+    try{
+        new Dialog( MSG_DIALOG, std::string( fn ), std::string( xs ? xs : "" ) );
+    } catch(std::exception& e) {
+        std::cerr << "Problem with ok_dial_box: " << e.what() << "\n";
+        std::ostringstream text;
+        text << "ok_dial_box:'" << fn << "' + \"" << (xs ? xs : "") << "\"\n";
+        updateMessageText( text.str() );
+    }
 }
 
 /* 

@@ -39,18 +39,16 @@ int mps_set_silent( int x, int y, int style )
 {
     int same_square = 0;
     mps_style = style;
-    switch(style) {
+    switch(style){
     case MPS_MAP:
     case MPS_ENV: 
-	if (mps_x == x && mps_y == y) {
-	    same_square = 1;
-	}
-	mps_x = x;
-	mps_y = y;
-	break;
-    default:
-	mps_x = 0;
-	mps_y = 0;
+	    if (mps_x == x && mps_y == y) {
+	        same_square = 1;
+	    }
+	    mps_x = x;
+	    mps_y = y;
+	    break;
+    default: ;
     }
     return same_square;
 }
@@ -174,17 +172,15 @@ void mps_refresh(void) /* refresh the information display's contents */
                     mps_windmill (mps_x, mps_y);
                     break;
                 default: 
-                    if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
-                        mps_store_title(0,_("Green"));
-                        mps_store_title(4,_("build something here") );
-                    }
                     //no special information on this group, just show the Name.
                     mps_store_title(0, 
                             _(main_groups[MP_GROUP(mps_x, mps_y)].name));
+                    if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
+                        mps_store_title(4,_("build something here") );
+                    }
                     mps_store_title(2, _("no further information available") );
                     
                     printf("MPS unimplemented for that module\n");
-                    mps_style = MPS_NONE;
             }
             break;
             

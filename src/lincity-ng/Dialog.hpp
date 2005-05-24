@@ -14,12 +14,14 @@
 #define ASK_COAL_SURVEY   6 
 #define ASK_LAUNCH_ROCKET 7 
 #define GAME_STATS        8            
+#define MSG_DIALOG        9            
 
 extern bool blockingDialogIsOpen;
 
 class Dialog
 {
     public:
+        Dialog( int type, std::string message, std::string extraString);
         Dialog( int type, int x, int y );
         Dialog( int type );
         ~Dialog();
@@ -35,6 +37,8 @@ class Dialog
         void coalSurvey();
         void askRocket();
         void gameStats();
+
+        void msgDialog( std::string message, std::string extraString);
        
         void initDialog( int x = -1 , int y = -1 );
         Desktop* desktop;
