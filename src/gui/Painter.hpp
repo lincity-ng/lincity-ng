@@ -24,6 +24,7 @@ public:
     virtual void drawRectangle(const Rect2D& rect) = 0;
     virtual void fillPolygon(int numberPoints, const Vector2* points) = 0;
     virtual void drawPolygon(int numberPoints, const Vector2* points) = 0;
+    virtual void drawLine(const Vector2 pointA, const Vector2 pointB) = 0;
 
     virtual void pushTransform() = 0;
     virtual void popTransform() = 0;

@@ -116,6 +116,17 @@ PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
             lineColor.r, lineColor.g, lineColor.b, lineColor.a);
 }
 
+void
+PainterSDL::drawLine( const Vector2 pointA, const Vector2 pointB )
+{
+    Vector2 screenpos = transform.apply( pointA );
+    Vector2 screenpos2 = transform.apply( pointB );
+    aalineRGBA( target, (int) screenpos.x, (int) screenpos.y,
+            (int) screenpos2.x, (int) screenpos2.y,
+      lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+
+
+}
 
 void
 PainterSDL::fillRectangle(const Rect2D& rect)

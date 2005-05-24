@@ -27,6 +27,7 @@ public:
     void drawRectangle(const Rect2D& rect);
     void fillPolygon(int numberPoints, const Vector2* points);
     void drawPolygon(int numberPoints, const Vector2* points);
+    void drawLine(const Vector2 pointA, const Vector2 pointB);
 
     void pushTransform();
     void popTransform();

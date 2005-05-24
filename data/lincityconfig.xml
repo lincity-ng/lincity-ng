@@ -4,5 +4,5 @@
     <video x="1024" y="768" useOpenGL="true" />
     <audio soundEnabled="true" soundVolume="100" 
            musicEnabled="true" musicVolume="70" />
-    <game skipMonthsFast="1" upgradeTransport="true" />
+    <game skipMonthsFast="1" upgradeTransport="true" monthgraphW="190" />
 </configuration>

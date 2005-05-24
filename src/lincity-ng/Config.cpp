@@ -38,6 +38,8 @@ Config::Config()
     soundEnabled = true;
     musicEnabled = true;
 
+    monthgraphW = 120;
+    monthgraphH = 64;
     skipMonthsFast = 1;
     upgradeTransport = true;
     //First we load the global File which should contain
@@ -143,6 +145,10 @@ void Config::load( const std::string& filename ){
                         skipMonthsFast = parseInt( value, 1, 1 );
                     } else if( strcmp(name, "upgradeTransport" ) == 0 ){
                        upgradeTransport  = parseBool(value, true);
+                    } else if( strcmp(name, "monthgraphW" ) == 0 ){
+                       monthgraphW  = parseInt(value, 120, 0);
+                    } else if( strcmp(name, "monthgraphH" ) == 0 ){
+                       monthgraphH  = parseInt(value, 64, 0);
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";

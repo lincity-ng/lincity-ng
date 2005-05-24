@@ -218,7 +218,7 @@
 				<MiniMap name="MiniMap" width="200" height="200" tilesize="2"/>
 				<Import src="gui/pbar.xml"/>
                 <Import src="gui/mps.xml"/>
-                <EconomyGraph name="EconomyGraph" />
+                <EconomyGraph name="EconomyGraph" width="200" height="200" />
 			</SwitchComponent>
 		</cell>
 	</TableLayout>

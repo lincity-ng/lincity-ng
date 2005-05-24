@@ -109,7 +109,7 @@ void initLCengine()
 
     //    init_fonts ();
 
-    //    initialize_monthgraph ();
+    initialize_monthgraph ();
     //    init_mouse_registry ();
     //    init_mini_map_mouse ();
     mps_init();

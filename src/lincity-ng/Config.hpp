@@ -14,6 +14,7 @@ public:
     bool useOpenGL;
     bool useFullScreen;
     int videoX, videoY;
+    int monthgraphW, monthgraphH;
     
     // sound volume 0..100 (0=silent)
     int soundVolume;

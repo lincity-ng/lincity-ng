@@ -59,6 +59,20 @@ PainterGL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
 }
 
 void
+PainterGL::drawLine( const Vector2 pointA, const Vector2 pointB )
+{
+    glColor4ub(lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+    glDisable(GL_TEXTURE_2D);
+
+    glBegin(GL_LINES);
+    glVertex2f(pointA.x, pointA.y);
+    glVertex2f(pointB.x, pointB.y);
+    glEnd();
+
+    glEnable(GL_TEXTURE_2D);
+}
+
+void
 PainterGL::fillRectangle(const Rect2D& rect)
 {
     glColor4ub(fillColor.r, fillColor.g, fillColor.b, fillColor.a);
@@ -80,7 +94,6 @@ void
 PainterGL::drawRectangle(const Rect2D& rect)
 {
     glColor4ub(lineColor.r, lineColor.g, lineColor.b, lineColor.a);
-    (void) rect;
     glDisable(GL_TEXTURE_2D);
 
     glBegin(GL_LINE_LOOP);

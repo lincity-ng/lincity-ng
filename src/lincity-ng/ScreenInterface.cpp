@@ -7,6 +7,7 @@
 
 #include "ScreenInterface.hpp"
 #include "gui_interface/screen_interface.h"
+#include "gui_interface/shared_globals.h"
 #include "gui_interface/pbar_interface.h"
 #include "gui_interface/mps.h"
 
@@ -22,8 +23,10 @@
 
 #include "GameView.hpp"
 #include "Util.hpp"
+#include "Config.hpp"
 #include "ButtonPanel.hpp"
 #include "Dialog.hpp"
+#include "EconomyGraph.hpp"
 
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
@@ -64,7 +67,33 @@ void display_rocket_result_dialog (int result)
 void draw_background (void);
 void screen_full_refresh (void);
 void init_fonts (void);
-void initialize_monthgraph (void);
+void initialize_monthgraph (void){
+    int i;
+    monthgraph_size = getConfig()->monthgraphW;
+
+    monthgraph_pop = (int*) malloc (sizeof(int) * monthgraph_size);
+    if (monthgraph_pop == 0) {
+	malloc_failure ();
+    }
+    monthgraph_starve = (int*) malloc (sizeof(int) * monthgraph_size);
+    if (monthgraph_starve == 0) {
+	malloc_failure ();
+    }
+    monthgraph_nojobs = (int*) malloc (sizeof(int) * monthgraph_size);
+    if (monthgraph_nojobs == 0) {
+	malloc_failure ();
+    }
+    monthgraph_ppool = (int*) malloc (sizeof(int) * monthgraph_size);
+    if (monthgraph_ppool == 0) {
+	malloc_failure ();
+    }
+    for (i = 0; i < monthgraph_size; i++) {
+	monthgraph_pop[i] = 0;
+	monthgraph_starve[i] = 0;
+	monthgraph_nojobs[i] = 0;
+	monthgraph_ppool[i] = 0;
+    }
+}
 void rotate_mini_screen (void);
 void advance_mps_style (void);
 /*void update_main_screen (int full_refresh)
@@ -322,6 +351,7 @@ void print_stats ()
   if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1)) {
     update_pbars_monthly();
     mps_refresh();
+    getEconomyGraph()->updateData();
   }
 
   //check for new tech

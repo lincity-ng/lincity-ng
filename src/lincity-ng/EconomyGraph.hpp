@@ -11,8 +11,12 @@ public:
 
     void parse(XmlReader& reader);
     void draw(Painter& painter);
-    
+    void updateData();    
 private:
-
+    static const int border = 5;
+    
 };
+
+EconomyGraph* getEconomyGraph();
+
 #endif
