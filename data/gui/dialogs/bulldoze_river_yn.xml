@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<YesNoDialog>
+    <title>Warning: Bulldozing water is expensive</title>
+    <image>warning.png</image>
+    <bold>Warning</bold>
+    <p>Bulldozing a section of river costs a lot of money.</p>
+    <p>Want to bulldoze?</p>
+</YesNoDialog>

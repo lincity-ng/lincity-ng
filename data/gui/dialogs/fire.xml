@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>A Fire has started</title>
+	<image>info.png</image>
+	<bold>A Fire has started</bold>
+	<p>You better go and look for it</p>
+</OkDialog>

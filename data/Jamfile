@@ -1,5 +1,7 @@
 SubDir TOP data ;
 
+SubInclude TOP data gui ;
+
 IMAGEPATHS = 
     images
     images/gui

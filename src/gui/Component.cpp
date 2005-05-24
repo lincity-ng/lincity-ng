@@ -21,6 +21,8 @@ Component::parseAttribute(const char* attribute, const char* value)
     if(strcmp(attribute, "name") == 0) {
         name = value;
         return true;
+    } else if(strncmp(attribute, "xmlns", 5) == 0) { // can be ignored for now
+        return true;
     }
 
     return false;

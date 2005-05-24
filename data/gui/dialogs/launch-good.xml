@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>Launch Successfull</title>
+	<image>info.png</image>
+	<bold>Launch Successfull</bold>
+	<p>Doing well.</p>
+</OkDialog>

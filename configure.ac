@@ -43,7 +43,8 @@ AC_SUBST([VARIANT])
 #----------------------------------------------------------------------------
 AC_PROG_CXX
 AC_PROG_INSTALL
-AC_CHECK_PROGS(XGETTEXT, xgettext)
+AC_CHECK_PROGS([XGETTEXT], xgettext)
+AC_CHECK_PROGS([XSLTPROC], xsltproc)
 
 # check if our c++ compiler is gcc3.2 or newer
 AC_MSG_CHECKING([whether g++ is new enough])

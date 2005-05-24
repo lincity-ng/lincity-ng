@@ -126,7 +126,7 @@ void Dialog::askRocket(){
             << e.what() << "\n";
         return;
     }
-    Paragraph* p = getParagraph( *myDialogComponent, "rocketTitle" );
+    Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
 	title << _("Launchsite") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );

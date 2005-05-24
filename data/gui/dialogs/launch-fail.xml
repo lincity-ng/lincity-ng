@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>Launch Failure</title>
+	<image>warning.png</image>
+	<bold>Launch Failure</bold>
+	<p>Your rocket crashed shortly after launch. People no longer trust the
+	technology for evacuation. You must launch five more unmanned rockets to
+	restores confidence.</p>
+</OkDialog>

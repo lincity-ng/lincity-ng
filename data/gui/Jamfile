@@ -1,0 +1,32 @@
+SubDir TOP data gui ;
+
+if $(XSLTPROC) {
+    rule DoXSLTProc
+    {
+        local sources = [ SearchSource $(>) ] ;
+        local target = [ LocateTarget $(<) : $(SUBDIR) ] ;
+        local template = [ SearchSource $(3) ] ;
+		
+        XSLTProc $(target) : $(sources) ;
+        TEMPLATE on $(target) = $(template) ;
+        Depends $(target) : $(template) ;
+        Depends all : $(target) ;
+    }
+
+    rule XSLTProc
+    {
+        Depends $(<) : $(>) ;
+    }
+    
+    actions XSLTProc bind TEMPLATE
+    {
+        $(XSLTPROC) -o $(<) $(TEMPLATE) $(>)
+    }
+
+    local dialogs = [ Wildcard dialogs : *.xml ] ;
+    for d in $(dialogs) {
+        local target = $(d:BS) ;
+        DoXSLTProc $(target) : $(d) : dialogs/dialogs.xsl ;
+    }
+}
+
