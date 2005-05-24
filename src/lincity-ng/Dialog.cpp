@@ -152,16 +152,17 @@ void Dialog::msgDialog( std::string message, std::string extraString){
     if( pos != std::string::npos ){
         filename.replace( pos, 4 ,".xml");
     }
-    myDialogComponent = loadGUIFile( filename );
-    assert( myDialogComponent != 0);
-    desktop->addChildComponent( myDialogComponent );
+    std::auto_ptr<Component> myDialogComponent (loadGUIFile( filename ));
 
     //set Extra-String
-    getParagraph( *myDialogComponent, "extraString" )->setText( extraString );
+    getParagraph( *myDialogComponent, "ExtraText" )->setText( extraString );
 
     // connect signals
-    Button* noButton = getButton( *myDialogComponent, "Okay" );
+    Button* noButton = getButton( *myDialogComponent, "Ok" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+
+    desktop->addChildComponent( myDialogComponent.get() );
+    this->myDialogComponent = myDialogComponent.release();
 }
 
 void Dialog::askBulldozeMonument() {
