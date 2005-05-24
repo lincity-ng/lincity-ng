@@ -217,7 +217,6 @@ Paragraph::resize(float width, float height)
         this->width = this->height = 0;
         return;
     }
-    std::auto_ptr<FontManager> fontManager (new FontManager());
 
     // y coordinates for all the lines
     std::vector<int> ycoords;
@@ -394,7 +393,6 @@ Paragraph::resize(float width, float height)
 
         // advance to next span if necessary
         if(p >= text->size()) {
-            TTF_CloseFont(font);
             if(i == textspans.end())
                 break;
             span = *i;

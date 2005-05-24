@@ -10,6 +10,7 @@
 #include <SDL_ttf.h>
 #include <stdlib.h>
 
+#include "gui/FontManager.hpp"
 #include "gui/TextureManager.hpp"
 #include "gui/PainterSDL/TextureManagerSDL.hpp"
 #include "gui/PainterSDL/PainterSDL.hpp"
@@ -273,6 +274,7 @@ int main(int argc, char** argv)
         } else {
             texture_manager = new TextureManagerSDL();
         }
+        fontManager = new FontManager();
         
         mainLoop();
 #ifndef DEBUG
