@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>Fire</title>
+	<image>info.png</image>	
+	<bold>Fire!</bold>
+	<p>
+A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may
+spread to other areas.
+	</p>
+</OkDialog>

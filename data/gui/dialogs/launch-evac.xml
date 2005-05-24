@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>Evacuation Launch Good</title>
+	<image>info.png</image>
+	<bold>Evacuation Launch Good</bold>
+	<p>
+You have evacuated 1000 people. You might want to reduce the size of your
+economy to reflect the reduced population.
+	</p>
+</OkDialog>

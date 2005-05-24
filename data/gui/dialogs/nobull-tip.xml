@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>Not Allowed</title>
+	<image>warning.png</image>	
+	<bold>Not Allowed</bold>
+	<p>Sorry you can't bulldoze	a tip.</p>
+</OkDialog>
