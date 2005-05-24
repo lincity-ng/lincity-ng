@@ -84,9 +84,11 @@ SwitchComponent::switchComponent(const std::string& name)
         std::cerr << "No component named '" << name << "' found "
             << "while switching components.\n";
 #endif
-        if(!childs.empty())
+        if(!childs.empty()) {
             childs[0].enable(true);
+        }
     }
+    setDirty();
 }
 
 bool

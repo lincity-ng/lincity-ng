@@ -25,6 +25,7 @@ public:
 
     void draw(Painter& painter);
     void event(const Event& event);
+    void reLayout();
     
     void setCaptionText(const std::string &pText);
     std::string getCaptionText();
@@ -58,6 +59,7 @@ private:
     std::string tooltip;
     Uint32 mouseholdTicks;
     Vector2 mouseholdPos;
+    float fixWidth, fixHeight;
 };
 
 #endif

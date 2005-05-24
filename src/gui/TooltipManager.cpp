@@ -90,14 +90,14 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
     d->addParagraph(p.release());
     d->resize(250, -1);
     Vector2 dest = pos + Vector2(-100, 26);
-    if(dest.x < 0)
-        dest.x = 0;
-    if(dest.y < 0)
-        dest.y = 0;
-    if(dest.x + d->getWidth() > getWidth())
-        dest.x = getWidth() - d->getWidth();
-    if(dest.y + d->getHeight() > getHeight())
-        dest.y = pos.y - 10 - d->getHeight();
+    if(dest.x < 20)
+        dest.x = 20;
+    if(dest.y < 20)
+        dest.y = 20;
+    if(dest.x + d->getWidth() > getWidth() - 20)
+        dest.x = getWidth() - 20 - d->getWidth();
+    if(dest.y + d->getHeight() > getHeight() - 20)
+        dest.y = pos.y - 20 - d->getHeight();
     comp_tooltip().setComponent(d.release());
     comp_tooltip().setPos(dest);
 		setDirty();

@@ -515,11 +515,9 @@ Paragraph::setText(const std::string& newtext, const Style& style)
     // rerender text
     resize(width, height);
 
-    // eventually trigger resize of parent document
-    Document* doc = dynamic_cast<Document*> (getParent());
-    if(doc) {
-        doc->resize(doc->getWidth(), doc->getHeight());
-    }
+    // eventually trigger resize/relayout of parent component
+    if(getParent())
+        getParent()->reLayout();
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Paragraph);

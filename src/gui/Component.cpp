@@ -93,6 +93,14 @@ Component::event(const Event& event)
     }
 }
 
+void
+Component::reLayout()
+{
+    if(getFlags() & FLAG_RESIZABLE) {
+        resize(getWidth(), getHeight());
+    }
+}
+
 Component*
 Component::findComponent(const std::string& name)
 {

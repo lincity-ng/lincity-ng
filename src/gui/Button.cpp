@@ -15,6 +15,8 @@
 Button::Button()
     : state(STATE_NORMAL), lowerOnClick(false), mouseholdTicks(0)
 {
+    fixWidth = -1;
+    fixHeight = -1;
 }
 
 void
@@ -29,13 +31,13 @@ Button::parse(XmlReader& reader)
         if(parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute, "width") == 0) {
-            if(sscanf(value, "%f", &width) != 1) {
+            if(sscanf(value, "%f", &fixWidth) != 1) {
                 std::stringstream msg;
                 msg << "Couldn't parse width '" << value << "'.";
                 throw std::runtime_error(msg.str());
             }
         } else if(strcmp(attribute, "height") == 0) {
-            if(sscanf(value, "%f", &height) != 1) {
+            if(sscanf(value, "%f", &fixHeight) != 1) {
                 std::stringstream msg;
                 msg << "Couldn't parse height '" << value << "'.";
                 throw std::runtime_error(msg.str());
@@ -56,6 +58,8 @@ Button::parse(XmlReader& reader)
     // parse contents of the xml-element
     bool parseTooltip = false;
     int depth = reader.getDepth();
+    fixWidth = -1;
+    fixHeight = -1;
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string element = (const char*) reader.getName();
@@ -135,8 +139,16 @@ Button::parse(XmlReader& reader)
     if(comp_normal().getComponent() == 0)
         throw std::runtime_error("No component for state comp_normal defined.");
 
+    reLayout();
+}
+
+void
+Button::reLayout()
+{
     // if no width/height was specified we use the one from the biggest image
-    if(width <= 0 || height <= 0) {
+    if(fixWidth <= 0 || fixHeight <= 0) {
+        width = 0;
+        height = 0;
         for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
             Component* component = i->getComponent();
             if(!component)
@@ -149,14 +161,24 @@ Button::parse(XmlReader& reader)
             if(component->getHeight() > height)
                 height = component->getHeight();
         }
+    } else {
+        for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+            Component* component = i->getComponent();
+            if(!component)
+                continue;
+            if(component->getFlags() & FLAG_RESIZABLE)
+                component->resize(fixWidth, fixHeight);
+        }
+        width = fixWidth;
+        height = fixHeight;
     }
-
+    
     // place components at the middle of the button
     for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
         Child& child = *i;
-        if(!child.getComponent())
-            continue;
         Component* component = child.getComponent();
+        if(!component)
+            continue;
         
         child.setPos( Vector2 ((width - component->getWidth())/2,
                                (height - component->getHeight())/2));

@@ -47,6 +47,9 @@ public:
     virtual void draw(Painter& painter);
     virtual void event(const Event& event);
     virtual void resize(float width, float height);
+
+    /** Causes the component to layout it's child components again */
+    virtual void reLayout();
    
     /**
      * should returns true if the component is opaque at this place

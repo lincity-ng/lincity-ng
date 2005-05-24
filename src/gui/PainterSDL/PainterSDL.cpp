@@ -70,12 +70,12 @@ PainterSDL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
     Vector2 screenpos = transform.apply(rect.p1);
     
     SDL_Rect drect;
-    drect.x = lrint(screenpos.x);
-    drect.y = lrint(screenpos.y);
+    drect.x = lroundf(screenpos.x);
+    drect.y = lroundf(screenpos.y);
     // kinda hacky... but zoomSurface sometimes produces 1 pixel too small
     // images
-    drect.w = lrint(rect.getWidth()) + 1;
-    drect.h = lrint(rect.getHeight()) + 1;
+    drect.w = lroundf(rect.getWidth()) /*+ 1*/;
+    drect.h = lroundf(rect.getHeight()) /*+ 1*/;
 
     double zoomx = drect.w / textureSDL->getWidth();
     double zoomy = drect.h / textureSDL->getHeight(); 

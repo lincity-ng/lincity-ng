@@ -168,6 +168,9 @@ do_organic_farm (int x, int y)
 }
 
 /* FIXME: this isn't correct */
+#ifdef MPS_INFO_CHARS
+#undef MPS_INFO_CHARS
+#endif
 #define MPS_INFO_CHARS 30
 
 void
