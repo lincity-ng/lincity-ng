@@ -225,7 +225,7 @@ Sound::enableMusic(bool enabled)
         playMusic(musicFile);
     } else {
         if(Mix_PlayingMusic()) {
-            Mix_FadeOutMusic(2000);
+            Mix_FadeOutMusic(1000);
         }
     }
 }
