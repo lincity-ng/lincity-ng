@@ -42,7 +42,7 @@ private:
     void zoomInButtonClicked(Button* button);
     void zoomOutButtonClicked(Button* button);
     
-    void switchButton(Button* button);
+    void switchButton(CheckButton* button, int);
 
     void attachButtons();
     Component *findRoot(Component *c);
@@ -56,6 +56,7 @@ private:
     int tilesize;
     int border;
 
+    std::vector<CheckButton*> switchButtons;
     std::auto_ptr<Texture> mTexture;
     
     std::string shownTabName;

@@ -186,25 +186,34 @@ void MiniMap::attachButtons()
     Button* zoomOutButton = getButton(*root, "ZoomOutButton");
     zoomOutButton->clicked.connect(makeCallback(*this, &MiniMap::zoomOutButtonClicked));
 
-    Button* switchMinimapButton = getButton(*root, "SwitchMiniMap");
+    CheckButton* switchMinimapButton = getCheckButton(*root, "SwitchMiniMap");
     switchMinimapButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
-    Button* switchPBarButton = getButton(*root, "SwitchPBar");
+    switchButtons.push_back(switchMinimapButton);
+    
+    CheckButton* switchPBarButton = getCheckButton(*root, "SwitchPBar");
     switchPBarButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
-    Button* switchButton = getButton(*root, "SwitchQueryTool");
+    switchButtons.push_back(switchPBarButton);
+    
+    CheckButton* switchButton = getCheckButton(*root, "SwitchQueryTool");
     switchButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
-    switchButton = getButton(*root, "SwitchMPSGlobal");
+    switchButtons.push_back(switchButton);
+    
+    switchButton = getCheckButton(*root, "SwitchMPSGlobal");
     switchButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
-    switchButton = getButton(*root, "SwitchEconomy");
+    switchButtons.push_back(switchButton);
+    
+    switchButton = getCheckButton(*root, "SwitchEconomy");
     switchButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
+    switchButtons.push_back(switchButton);
 }
 
 void
-MiniMap::switchButton(Button* button)
+MiniMap::switchButton(CheckButton* button, int)
 {
     SwitchComponent* switchComponent 
         = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
@@ -235,6 +244,16 @@ MiniMap::switchButton(Button* button)
         switchComponent->switchComponent("EconomyGraph");
     } else {
         std::cerr << "Unknown switch '" << button->getName() << "'.\n";
+    }
+
+    for(std::vector<CheckButton*>::iterator i = switchButtons.begin();
+            i != switchButtons.end(); ++i) {
+        CheckButton* cbutton = *i;
+        if(cbutton == button) {
+            cbutton->check();
+        } else {
+            cbutton->uncheck();
+        }
     }
 }
 
