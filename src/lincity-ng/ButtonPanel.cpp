@@ -222,10 +222,11 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
     } else {
         if( b->isEnabled() ){
             b->enable( false );
-            std::stringstream tooltip;
-            tooltip << createTooltip( selected_module_type );
-            tooltip <<  _(" (Techlevel ") << requiredTech(selected_module_type) << _(" required.)");            
-            b->setTooltip( tooltip.str() );
+            char tooltip[2048];
+            snprintf(tooltip, sizeof(tooltip), "%s (Techlevel %.1f required.)",
+                    createTooltip(selected_module_type).c_str(),
+                    requiredTech(selected_module_type));
+            b->setTooltip(tooltip);
         }
     }
     selected_module_type = tmp;
@@ -258,10 +259,11 @@ void ButtonPanel::examineMenuButtons(){
             }
         } else {
             if( b->isEnabled() ){
-                std::stringstream tooltip;
-                tooltip << createTooltip( type );
-                tooltip <<  _(" (Techlevel ") << requiredTech( type ) << _(" required.)");            
-                b->setTooltip( tooltip.str() );
+                char tooltip[2048];
+                snprintf(tooltip, sizeof(tooltip), "%s (Techlevel %.1f required.)"
+                        , createTooltip(type).c_str(),
+                        requiredTech(type));
+                b->setTooltip( tooltip );
                 b->enable( false );
             }
         }
