@@ -150,6 +150,8 @@ MiniMap::parse(XmlReader& reader)
     mpsXOld = mps_x;
     mpsYOld = mps_y;
     mpsStyleOld = mps_style;
+
+    switchView("MiniMap");
 }
 
 Component *MiniMap::findRoot(Component *c)
@@ -257,19 +259,6 @@ MiniMap::switchView(const std::string& viewname)
             cbutton->uncheck();
         }
     }
-}
-
-void MiniMap::showQueryTab(){
-    if( mps_style != MPS_MAP ){
-        return;
-    }
-    SwitchComponent* switchComponent 
-        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
-    if(!switchComponent) {
-        std::cerr << "MiniMapSwitch not found!\n";
-        return;
-    }
-    switchComponent->switchComponent("MPSPanel");
 }
 
 #if 0

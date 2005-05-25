@@ -34,8 +34,6 @@ public:
     Color getColorNormal(int x,int y) const;
     void showMpsEnv( MapPoint tile );
     void hideMpsEnv();
-    void showQueryTab();
-    void showMapTab();
 
     void switchView(const std::string& viewname);
 
