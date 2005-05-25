@@ -64,6 +64,14 @@ Color::parse(const char* value)
         g = 42;
         b = 42;
         a = 0xff;
+    } else if(strcmp(value, "orange") == 0) {
+        r = 255;
+        g = 165;
+        b = 0;
+		} else if(strcmp(value, "gray") == 0) {
+				r = 127;
+				g = 127;
+				b = 127;
     } else {
         std::stringstream msg;
         msg << "Unknown color name '" << value << "'.";
