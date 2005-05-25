@@ -118,13 +118,14 @@ void EconomyGraph::updateData(){
 
 void EconomyGraph::draw( Painter& painter ){
     
-    Color white, black, red, yellow, blue, brown;
+    Color white, black, red, yellow, blue, brown, grey;
     white.parse( "white" );
     black.parse( "black" );
     red.parse( "red");
     yellow.parse( "yellow" );
     blue.parse( "blue" );
     brown.parse( "brown" );
+    grey.parse("#A9A9A9FF");
 
     Rect2D background( 0, 0, getWidth(), getHeight() );
     int mgX = border;
@@ -136,7 +137,7 @@ void EconomyGraph::draw( Painter& painter ){
     painter.setFillColor( white );
     painter.fillRectangle( background );
 
-    painter.setFillColor( black );
+    painter.setFillColor( grey );
     painter.fillRectangle( mg );
 
     // see oldgui/screen.cpp do_history_linegraph 

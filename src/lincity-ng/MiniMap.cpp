@@ -603,9 +603,9 @@ Color MiniMap::getColor(int x,int y) const
     case STARVE:
       {
 	if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
-	  if ((total_time - MP_INFO(x,y).int_2) < 20)
+	  if ((total_time - MP_INFO(xx,yy).int_2) < 20)
 	    return Color(0xFF,0,0);
-	  else if ((total_time - MP_INFO(x,y).int_2) < 100)
+	  else if ((total_time - MP_INFO(xx,yy).int_2) < 100)
 	      return Color(0x7F,0,0);
 	  else
 	      return Color(0,0xFF,0);

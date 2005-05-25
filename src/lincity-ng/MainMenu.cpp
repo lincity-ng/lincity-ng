@@ -382,6 +382,12 @@ MainMenu::newGameStartBareButtonClicked(Button* )
     getSound()->playSound( "Click" );
     new_city( &main_screen_originx, &main_screen_originy, 0 );
     given_scene[0] = 0;
+    for( int i = 0; i < monthgraph_size; i++ ){
+        monthgraph_pop[i] = 0;
+        monthgraph_starve[i] = 0;
+        monthgraph_nojobs[i] = 0;
+        monthgraph_ppool[i] = 0;
+    } 
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
     quitState = INGAME;
@@ -394,6 +400,12 @@ MainMenu::newGameStartVillageClicked(Button* )
     getSound()->playSound( "Click" );
     new_city( &main_screen_originx, &main_screen_originy, 1 );
     given_scene[0] = 0;
+    for( int i = 0; i < monthgraph_size; i++ ){
+        monthgraph_pop[i] = 0;
+        monthgraph_starve[i] = 0;
+        monthgraph_nojobs[i] = 0;
+        monthgraph_ppool[i] = 0;
+    } 
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
     quitState = INGAME;
