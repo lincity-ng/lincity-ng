@@ -512,7 +512,9 @@ MainMenu::run()
 
         frame++;
         if(SDL_GetTicks() - ticks > 1000) {
+#ifdef DEBUG
             printf("FPS: %d.\n", frame);
+#endif
             frame = 0;
             ticks = SDL_GetTicks();
         }

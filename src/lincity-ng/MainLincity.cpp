@@ -64,7 +64,6 @@ void execute_timestep ()
  * get Data form Lincity NG and Save City
  */
 void saveCityNG( std::string newFilename ){
-    std::cout << "saveCitNG( " << newFilename <<")\n";
     GameView* gv = getGameView();
     if( gv ){ gv->writeOrigin(); }
     save_city(const_cast<char*>( newFilename.c_str() ) );

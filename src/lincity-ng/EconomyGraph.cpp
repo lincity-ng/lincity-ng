@@ -128,7 +128,7 @@ void EconomyGraph::newFPS( int frame ){
     for( int i = w - 1; i > 0; i--) {
         fps[ i ] = fps[i-1];
     }
-    fps[ 0 ] = h * frame / 100;    
+    fps[ 0 ] = h * frame / 100;
 }
 
 void EconomyGraph::draw( Painter& painter ){

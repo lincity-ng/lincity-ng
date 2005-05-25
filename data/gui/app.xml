@@ -7,20 +7,15 @@
 	<DefineStyle name="messagebold" color="black" font-size="20"
         font-weight="bold" margin-bottom="10"/>
         
-	<DefineStyle name="button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
-	<DefineStyle name="dialogbutton" color="white" font-size="20" margin-left="20" margin-right="20"/>
-	<DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>
-	<DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3" margin-left="23" margin-right="20"/>
-        <DefineStyle name="tooltip" color="black" font-size="16"
-        background="#ffffaaee"/>
-
+	<DefineStyle name="tooltip" color="black" font-size="16" background="#ffffaaee"/>
+	
 	<!-- Help styles -->
 	<DefineStyle name="helpdocument" font-family="sans" background="#ffffff22" font-size="20" color="black"/>
 	<DefineStyle name="htitle" style="helpdocument" font-size="30" halign="center" margin-top="20" margin-bottom="20"/>
 	<DefineStyle name="hsubtitle" style="helpdocument" font-size="24" margin-top="20" margin-bottom="20"/>
 	<DefineStyle name="hp" style="helpdocument" margin-left="20" margin-right="20" margin-bottom="20"/>
-        <DefineStyle name="list" style="helpdocument" margin-left="40"/>
-	
+	<DefineStyle name="list" style="helpdocument" margin-left="40"/>
+
 	<GameView/>
 	<TableLayout rows="3" cols="3">
 		<colsize col="1" fixed="173"/>

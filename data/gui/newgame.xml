@@ -1,13 +1,5 @@
 <?xml version="1.0"?>
 <gui>
-	<DefineStyle name="menutitle" color="black" font-size="50" halign="center"/>
-	<DefineStyle name="listtitle" color="black" font-size="30"/>
-	<DefineStyle name="button" color="blue" font-size="30" margin-left="20"
-	margin-right="20"/>
-	<DefineStyle name="button-hover" color="red" font-size="30"
-	margin-left="20" margin-right="20"/>
-	<DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3"
-	margin-left="23" margin-right="20"/>
 	<Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
 	<!-- Split window into title/top - contents and bottom/buttons area -->
 	<TableLayout rows="4" cols="1">

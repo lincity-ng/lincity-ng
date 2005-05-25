@@ -56,7 +56,7 @@ Programming
  [M] Display InfoMessages
  [L] manpage, documentation
  [H] improve fast scrolling
- [H] The settings dialog still doesn't look that good 
+ [L] The settings dialog still doesn't look that good - looks a bit better now
  [H] Put scrolling on the right mouse button. Moving the mouse while holding
      middle button isn't as ergonomically as moving with right button pressed
      on most mice.

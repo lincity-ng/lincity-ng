@@ -139,7 +139,9 @@ Game::run()
         frame++;
         
         if(ticks - fpsTicks > 1000) {
+#ifdef DEBUG
             printf("FPS: %d.\n", frame);
+#endif
             getEconomyGraph()->newFPS( frame );
             frame = 0;
             fpsTicks = ticks;
