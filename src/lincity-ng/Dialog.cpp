@@ -399,7 +399,7 @@ void Dialog::editMarket(){
         return;
     }
     // set Dialog to Market-Data
-    Paragraph* p = getParagraph( *myDialogComponent, "tradeTitle" );
+    Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
 	title << _("Market") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
@@ -453,7 +453,7 @@ void Dialog::editPort(){
         return;
     }
     // set Dialog to Port-Data
-    Paragraph* p = getParagraph( *myDialogComponent, "tradeTitle" );
+    Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
 	title << _("Port") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );

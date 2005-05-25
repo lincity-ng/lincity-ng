@@ -403,12 +403,12 @@ Paragraph::resize(float width, float height)
         }
     }
 
-    if(height < 0) {
+    if(height < style.min_height) {
+        height = style.min_height;	
+    } else {
         height = pos.y;
-        if(height < style.min_height) {
-            height = style.min_height;
-        }
     }
+
     // check height defined in style
     if(height == 0) {
         this->width = this->height = 0;
