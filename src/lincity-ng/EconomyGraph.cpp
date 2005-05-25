@@ -32,12 +32,17 @@ EconomyGraph* getEconomyGraph()
 
 EconomyGraph::EconomyGraph(){
     economyGraphPtr = this;
+    fps = (int*) malloc (sizeof(int) * getConfig()->monthgraphW );
+    for ( int i = 0; i < getConfig()->monthgraphW; i++) {
+        fps[i] = 0;
+    }
 }
 
 EconomyGraph::~EconomyGraph(){
     if( economyGraphPtr == this ){
         economyGraphPtr = 0;
     }
+    free( fps );
 }
 
 void EconomyGraph::parse( XmlReader& reader ){
@@ -116,6 +121,16 @@ void EconomyGraph::updateData(){
     setDirty();
 }
 
+void EconomyGraph::newFPS( int frame ){
+    int w = getConfig()->monthgraphW;
+    int h = getConfig()->monthgraphH;
+
+    for( int i = w - 1; i > 0; i--) {
+        fps[ i ] = fps[i-1];
+    }
+    fps[ 0 ] = h * frame / 100;    
+}
+
 void EconomyGraph::draw( Painter& painter ){
     
     Color white, black, red, yellow, blue, brown, grey;
@@ -145,13 +160,13 @@ void EconomyGraph::draw( Painter& painter ){
     Vector2 b;
 
     painter.setClipRectangle( mg ); 
+    b.y = mgY + mgH;
     for( int i = mgW - 1; i >= 0; i-- ){
         painter.setLineColor( yellow );
         a.x = mgX + mgW - i;
         a.y = mgY + mgH - monthgraph_nojobs[i];
         
         b.x = mgX + mgW - i;
-        b.y = mgY + mgH;
         painter.drawLine( a, b );
         painter.setLineColor( red );
         a.y = mgY + mgH - monthgraph_starve[i];
@@ -167,6 +182,23 @@ void EconomyGraph::draw( Painter& painter ){
         a.y = mgY + mgH - monthgraph_ppool[ i ];
         b.y = mgY + mgH - monthgraph_ppool[ i-1 ];
         painter.setLineColor( blue );
+        painter.drawLine( a, b );
+    }
+    painter.clearClipRectangle();
+
+    Rect2D fpsRect = mg;
+    fpsRect.move( Vector2( 0, border + mgH ) );
+    painter.setFillColor( grey );
+    painter.fillRectangle( fpsRect );
+    painter.setClipRectangle( fpsRect ); 
+      
+    b.y = 2*(mgY + mgH) ;
+    for( int i = mgW - 1; i >= 0; i-- ){
+        painter.setLineColor( blue );
+        a.x = mgX + mgW - i;
+        a.y = 2*(mgY + mgH) - fps[i];
+        
+        b.x = mgX + mgW - i;
         painter.drawLine( a, b );
     }
     painter.clearClipRectangle();

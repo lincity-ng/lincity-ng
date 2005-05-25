@@ -12,9 +12,10 @@ public:
     void parse(XmlReader& reader);
     void draw(Painter& painter);
     void updateData();    
+    void newFPS( int frame );
 private:
     static const int border = 5;
-    
+    int* fps;
 };
 
 EconomyGraph* getEconomyGraph();

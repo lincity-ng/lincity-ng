@@ -180,7 +180,7 @@ void mps_refresh(void) /* refresh the information display's contents */
                     }
                     mps_store_title(2, _("no further information available") );
                     
-                    printf("MPS unimplemented for that module\n");
+                    //printf("MPS unimplemented for that module\n");
             }
             break;
             

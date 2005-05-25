@@ -18,6 +18,7 @@
 #include "HelpWindow.hpp"
 #include "ButtonPanel.hpp"
 #include "Dialog.hpp"
+#include "EconomyGraph.hpp"
 
 Game::Game()
 {
@@ -139,6 +140,7 @@ Game::run()
         
         if(ticks - fpsTicks > 1000) {
             printf("FPS: %d.\n", frame);
+            getEconomyGraph()->newFPS( frame );
             frame = 0;
             fpsTicks = ticks;
         }
