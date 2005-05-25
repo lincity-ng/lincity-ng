@@ -14,22 +14,20 @@
 
 #include "Sound.hpp"
 
-LCMps *mLCMPS = 0;
+Mps* globalMPS = 0;
+Mps* mapMPS = 0;
+Mps* envMPS = 0;
 
-LCMps::LCMps()
+Mps::Mps()
 {
-    assert(mLCMPS == 0);
-    mLCMPS = this;
 }
 
-LCMps::~LCMps()
+Mps::~Mps()
 {
-    if(mLCMPS == this)
-        mLCMPS = 0;
 }
 
 void
-LCMps::parse(XmlReader& reader)
+Mps::parse(XmlReader& reader)
 {
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -40,38 +38,51 @@ LCMps::parse(XmlReader& reader)
             continue;
         } else {
             std::cerr << "Unknown attribute '" << name 
-                      << "' skipped in LCMps.\n";
+                      << "' skipped in Mps.\n";
         }
     }
 
-  Component* component = parseEmbeddedComponent(reader);
-  addChild(component);
+    if(getName() == "GlobalMPS") {
+        globalMPS = this;
+    } else if(getName() == "MapMPS") {
+        mapMPS = this;
+    } else if(getName() == "EnvMPS") {
+        envMPS = this;
+    } else {
+        std::cerr << "Unknown MPS component '" << getName() << "' found.\n";
+    }
 
-  width = component->getWidth();
-  height = component->getHeight();
+    Component* component = parseEmbeddedComponent(reader);
+    addChild(component);
+    width = component->getWidth();
+    height = component->getHeight();
 
-  setView(MapPoint(10,10));
+    for(int i = 0; i < MPS_PARAGRAPH_COUNT; ++i) {
+        std::ostringstream compname;
+        compname << "mps_text" << i;
+        Paragraph* p = getParagraph(*this, compname.str());
+        paragraphs.push_back(p);
+    }
+
+    setView(MapPoint(10,10));
 }
 
-void LCMps::setText(int i,const std::string &s)
+void
+Mps::setText(int i, const std::string &s)
 {
-  if(i>paragraphCount) {
-    std::cerr<<"setText("<<i<<") '"<< s << "' failed."<<std::endl;
-    return;
-  }
-    std::ostringstream compname;
-    compname << "mps_text" << (i+1);
-    Paragraph* p = getParagraph(*this, compname.str());
-    if(p)
-    {
-      p->setText(s);
-     }
-    else
-      std::cerr<<"Paragraph with num:"<<i<<" not found"<<std::endl;
+    assert(i >= 0 && i < MPS_PARAGRAPH_COUNT);
+    paragraphs[i]->setText(s);
 }
 
+void
+Mps::clear()
+{
+    for(Paragraphs::iterator i = paragraphs.begin(); i != paragraphs.end(); ++i)
+        (*i)->setText("");
+}
 
-void LCMps::setView(MapPoint point, int style /* = MPS_MAP */ )
+void
+Mps::setView(MapPoint point, int style /* = MPS_MAP */ )
 {
     int x = point.x;
     int y = point.y;
@@ -88,19 +99,17 @@ void LCMps::setView(MapPoint point, int style /* = MPS_MAP */ )
         yy = MP_INFO(x,y).int_2;
     }
     
-    if( style == MPS_ENV ){
-        mps_update(x , y, style); 
+    if( style == MPS_ENV ) {
+        clear();
+        mps_update(x, y, style); 
     } else {
-        mps_update(xx,yy,style); //MPS_GLOBAL);// MPS_ENV);// MPS_MAP);
+        mps_update(xx, yy, style); //MPS_GLOBAL);// MPS_ENV);// MPS_MAP);
     }
 }
 
-LCMps *getMPS()
+void
+Mps::playBuildingSound(int mps_x, int mps_y)
 {
-  return mLCMPS;
-}
-
-void LCMps::playBuildingSound( int mps_x, int mps_y  ){
     switch(MP_GROUP(mps_x, mps_y)) 
     {
         case GROUP_BLACKSMITH:
@@ -252,17 +261,12 @@ void LCMps::playBuildingSound( int mps_x, int mps_y  ){
     }
 }
 
-int mps_set_silent( int x, int y, int style );
+int mps_set_silent(int x, int y, int style);
 
-void mps_update(int mps_x, int mps_y,int mps_style)
+void mps_update(int mps_x, int mps_y, int mps_style)
 {
-    // first clear all text
-    for(int i=0;i<paragraphCount;i++)
-        mps_store_title(i,"");
-    
-    mps_set_silent( mps_x, mps_y, mps_style);
-    mps_refresh();
+    mps_set(mps_x, mps_y, mps_style);
 }
 
-IMPLEMENT_COMPONENT_FACTORY(LCMps)
-INTERN_LCMpsFactory myLCMpsFactory;
+IMPLEMENT_COMPONENT_FACTORY(Mps);
+

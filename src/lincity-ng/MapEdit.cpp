@@ -116,47 +116,43 @@ check_bulldoze_area (int x, int y)
 
 void editMap (MapPoint point, int button)
 {
-  int x = point.x;
-  int y = point.y;
-  int selected_module_group = get_group_of_type(selected_module_type);
-
-  int size;
-  //  int x, y; /* mappoint */
-  int mod_x, mod_y; /* upper left coords of module clicked on */
-  int mps_result;
-
-  if (MP_TYPE(x,y) == CST_USED)
-    {
-      mod_x = MP_INFO(x,y).int_1;
-      mod_y = MP_INFO(x,y).int_2;
-    }
-  else
-    {
-      mod_x = x;
-      mod_y = y;
+    int x = point.x;
+    int y = point.y;
+    int selected_module_group = get_group_of_type(selected_module_type);
+    
+    int size;
+    //  int x, y; /* mappoint */
+    int mod_x, mod_y; /* upper left coords of module clicked on */
+    int mps_result;
+    
+    if (MP_TYPE(x,y) == CST_USED) {
+        mod_x = MP_INFO(x,y).int_1;
+        mod_y = MP_INFO(x,y).int_2;
+    } else {
+        mod_x = x;
+        mod_y = y;
     }
 
-  /* Bring up mappoint_stats for any right mouse click */
-  if (button == SDL_BUTTON_RIGHT)
-    {
-      mps_set( x, y, MPS_ENV);
-      return;
+    /* Bring up mappoint_stats for any right mouse click */
+    if (button == SDL_BUTTON_RIGHT) {
+        mps_set( x, y, MPS_ENV);
+        return;
     }
 
-  /* Handle bulldozing */
-  if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT)
-    {
-      check_bulldoze_area (x, y);
-      return;
+    /* Handle bulldozing */
+    if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT) {
+        check_bulldoze_area (x, y);
+        return;
     }
 
-  /* Bring up mappoint_stats for certain left mouse clicks */
-  /* Check market and port double-clicks here */
-  /* Check rocket launches */
-    if( MP_TYPE( x,y ) != CST_GREEN ){
-        getMPS()->playBuildingSound( mod_x, mod_y );
+    /* Bring up mappoint_stats for certain left mouse clicks */
+    /* Check market and port double-clicks here */
+    /* Check rocket launches */
+    if( MP_TYPE( x,y ) != CST_GREEN ) {
+        if(mapMPS)
+            mapMPS->playBuildingSound( mod_x, mod_y );
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
-
+        
         if( mps_result >= 1 ){
             if( MP_GROUP( mod_x,mod_y ) == GROUP_MARKET ){
                 clicked_market_cb (mod_x, mod_y);
@@ -198,79 +194,78 @@ void editMap (MapPoint point, int button)
         } 
     }
 
-    if(selected_module_type==CST_NONE){ //query Tool 
-        getMPS()->setView(MapPoint(x, y));
+    //query Tool 
+    if(selected_module_type==CST_NONE) {
+        if(mapMPS)
+            mapMPS->setView(MapPoint(x, y));
         return;
     }
 
-  /* OK, by now we are certain that the user wants to place the item.
-     Set the origin based on the size of the selected_module_type, and 
-     see if the selected item will fit. */
-  size = main_groups[selected_module_group].size;
-/*  if (px > (mw->x + mw->w) - size*16)
-    px = (mw->x + mw->w) - size*16;
-  if (py > (mw->y + mw->h) - size*16)
-    py = (mw->y + mw->h) - size*16;
-  pixel_to_mappoint(px, py, &x, &y);
-*/
+    /* OK, by now we are certain that the user wants to place the item.
+       Set the origin based on the size of the selected_module_type, and 
+       see if the selected item will fit. */
+    size = main_groups[selected_module_group].size;
+    /*  if (px > (mw->x + mw->w) - size*16)
+        px = (mw->x + mw->w) - size*16;
+        if (py > (mw->y + mw->h) - size*16)
+        py = (mw->y + mw->h) - size*16;
+        pixel_to_mappoint(px, py, &x, &y);
+    */
     //Check if we are too close to the border
     if( x + size > WORLD_SIDE_LEN - 1 || y + size > WORLD_SIDE_LEN - 1 || x < 1 || y < 1 )
         return;
     
-  if (size >= 2)
-    {
-      if (MP_TYPE(x + 1,y) != CST_GREEN
-          || MP_TYPE(x,y + 1) != CST_GREEN
-          || MP_TYPE(x + 1,y + 1) != CST_GREEN)
-        return;
+    if (size >= 2) {
+        if (MP_TYPE(x + 1,y) != CST_GREEN
+            || MP_TYPE(x,y + 1) != CST_GREEN
+            || MP_TYPE(x + 1,y + 1) != CST_GREEN)
+            return;
     }
-  if (size >= 3)
-    {
-      if (MP_TYPE(x + 2,y) != CST_GREEN
-          || MP_TYPE(x + 2,y + 1) != CST_GREEN
-          || MP_TYPE(x + 2,y + 2) != CST_GREEN
-          || MP_TYPE(x + 1,y + 2) != CST_GREEN
-          || MP_TYPE(x,y + 2) != CST_GREEN)
-        return;
+    if (size >= 3) {
+        if (MP_TYPE(x + 2,y) != CST_GREEN
+            || MP_TYPE(x + 2,y + 1) != CST_GREEN
+            || MP_TYPE(x + 2,y + 2) != CST_GREEN
+            || MP_TYPE(x + 1,y + 2) != CST_GREEN
+            || MP_TYPE(x,y + 2) != CST_GREEN)
+            return;
     }
-  if (size == 4)
-    {
-      if (MP_TYPE(x + 3,y) != CST_GREEN
-          || MP_TYPE(x + 3,y + 1) != CST_GREEN
-          || MP_TYPE(x + 3,y + 2) != CST_GREEN
-          || MP_TYPE(x + 3,y + 3) != CST_GREEN
-          || MP_TYPE(x + 2,y + 3) != CST_GREEN
-          || MP_TYPE(x + 1,y + 3) != CST_GREEN
-          || MP_TYPE(x,y + 3) != CST_GREEN)
-        return;
+    if (size == 4) {
+        if (MP_TYPE(x + 3,y) != CST_GREEN
+            || MP_TYPE(x + 3,y + 1) != CST_GREEN
+            || MP_TYPE(x + 3,y + 2) != CST_GREEN
+            || MP_TYPE(x + 3,y + 3) != CST_GREEN
+            || MP_TYPE(x + 2,y + 3) != CST_GREEN
+            || MP_TYPE(x + 1,y + 3) != CST_GREEN
+            || MP_TYPE(x,y + 3) != CST_GREEN)
+            return;
     }
-  
-  //how to build a lake in the park? Seems to be impossible
-  //in the original game :-)
-  if( selected_module_group == GROUP_PARKLAND ){
-      Uint8 *keystate = SDL_GetKeyState(NULL);
-      if ( keystate[SDLK_w] )
-        selected_module_type = CST_PARKLAND_LAKE;
-      else
-        selected_module_type = CST_PARKLAND_PLANE;
-  }
+    
+    //how to build a lake in the park? Seems to be impossible
+    //in the original game :-)
+    if( selected_module_group == GROUP_PARKLAND ){
+        Uint8 *keystate = SDL_GetKeyState(NULL);
+        if ( keystate[SDLK_w] )
+            selected_module_type = CST_PARKLAND_LAKE;
+        else
+            selected_module_type = CST_PARKLAND_PLANE;
+    }
 
-  /* Place the selected item */
-  switch (place_item (x, y, selected_module_type))
+    /* Place the selected item */
+    switch (place_item (x, y, selected_module_type))
     {
-    case 0:
-      /* Success */
-      getSound()->playSound( "Build" );
-      break;
-    case -1:
-      /* Not enough money */
-      no_credit_build_msg (selected_module_group);
-      break;
-    case -2:
-      /* Improper port placement */
-        // WolfgangB: The correct placement for the port (river to the east)
-        // is shown by red/blue cursor in GameView. So we don't need    
-        // a dialog here.
-      break;
+        case 0:
+            /* Success */
+            getSound()->playSound( "Build" );
+            break;
+        case -1:
+            /* Not enough money */
+            no_credit_build_msg (selected_module_group);
+            break;
+        case -2:
+            /* Improper port placement */
+            // WolfgangB: The correct placement for the port (river to the east)
+            // is shown by red/blue cursor in GameView. So we don't need    
+            // a dialog here.
+            break;
     }
 }

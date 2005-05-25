@@ -146,7 +146,7 @@ MiniMap::parse(XmlReader& reader)
     alreadyAttached=false;
     inside = false;
 
-    shownTabName = "MiniMap";
+    //shownTabName = "MiniMap";
     mpsXOld = mps_x;
     mpsYOld = mps_y;
     mpsStyleOld = mps_style;
@@ -195,18 +195,20 @@ void MiniMap::attachButtons()
     switchPBarButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
     switchButtons.push_back(switchPBarButton);
+   
+#if 0
+    CheckButton* switchMapMPSButton = getCheckButton(*root, "SwitchMapMPS");
+    switchMapMPSButton->clicked.connect(
+            makeCallback(*this, &MiniMap::switchButton));
+    switchButtons.push_back(switchMapMPSButton);
+#endif
     
-    CheckButton* switchButton = getCheckButton(*root, "SwitchQueryTool");
+    CheckButton* switchButton = getCheckButton(*root, "SwitchGlobalMPS");
     switchButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
     switchButtons.push_back(switchButton);
     
-    switchButton = getCheckButton(*root, "SwitchMPSGlobal");
-    switchButton->clicked.connect(
-            makeCallback(*this, &MiniMap::switchButton));
-    switchButtons.push_back(switchButton);
-    
-    switchButton = getCheckButton(*root, "SwitchEconomy");
+    switchButton = getCheckButton(*root, "SwitchEconomyGraph");
     switchButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
     switchButtons.push_back(switchButton);
@@ -215,60 +217,46 @@ void MiniMap::attachButtons()
 void
 MiniMap::switchButton(CheckButton* button, int)
 {
-    SwitchComponent* switchComponent 
-        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
-    if(!switchComponent) {
-        std::cerr << "MiniMapSwitch not found!\n";
-        return;
-    }
-
-    if(button->getName() == "SwitchMiniMap") {
-        showMapTab();
-    } else if(button->getName() == "SwitchPBar") {
-        shownTabName = "PBar";
-        switchComponent->switchComponent("PBar");
-    } else if(button->getName() == "SwitchMPSGlobal") {
+    if(button->getName() == "SwitchGlobalMPS") {
         //cycle through global styles
         mps_global_style++;
         if( mps_global_style >= MPS_GLOBAL_STYLES ){
             mps_global_style = 0;
         }
-        mps_set( mps_x, mps_y, MPS_GLOBAL );//show global info
-        shownTabName = "MPSPanel";
-        switchComponent->switchComponent("MPSPanel");
-    } else if( button->getName() == "SwitchQueryTool") {
-        mps_set( mps_x, mps_y, MPS_MAP );//show building info
-        showQueryTab();
-    } else if( button->getName() == "SwitchEconomy" ){
-        shownTabName = "EconomyGraph";
-        switchComponent->switchComponent("EconomyGraph");
-    } else {
-        std::cerr << "Unknown switch '" << button->getName() << "'.\n";
+        mps_set(mps_x, mps_y, MPS_GLOBAL);
+    } else if(button->getName() == "SwitchMapMPS") {
+        mps_set(mps_x, mps_y, MPS_MAP);
     }
-
-    for(std::vector<CheckButton*>::iterator i = switchButtons.begin();
-            i != switchButtons.end(); ++i) {
-        CheckButton* cbutton = *i;
-        if(cbutton == button) {
-            cbutton->check();
-        } else {
-            cbutton->uncheck();
-        }
-    }
+    
+    // remove "Switch" prefix
+    std::string switchname = std::string(button->getName(),
+            6, button->getName().size()-1);
+    switchView(switchname);
 }
 
-void MiniMap::showMapTab(){
-    if( shownTabName == "MiniMap" ){
-        return;
-    }
+void
+MiniMap::switchView(const std::string& viewname)
+{
     SwitchComponent* switchComponent 
         = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
     if(!switchComponent) {
         std::cerr << "MiniMapSwitch not found!\n";
         return;
     }
-    shownTabName = "MiniMap";
-    switchComponent->switchComponent("MiniMap");
+
+    switchComponent->switchComponent(viewname);
+
+    std::string buttonname = "Switch";
+    buttonname += viewname;
+    for(std::vector<CheckButton*>::iterator i = switchButtons.begin();
+            i != switchButtons.end(); ++i) {
+        CheckButton* cbutton = *i;
+        if(cbutton->getName() == buttonname) {
+            cbutton->check();
+        } else {
+            cbutton->uncheck();
+        }
+    }
 }
 
 void MiniMap::showQueryTab(){
@@ -281,10 +269,10 @@ void MiniMap::showQueryTab(){
         std::cerr << "MiniMapSwitch not found!\n";
         return;
     }
-    shownTabName = "MPSPanel";
     switchComponent->switchComponent("MPSPanel");
 }
 
+#if 0
 void MiniMap::hideMpsEnv(){
     if( mps_style != MPS_ENV ){
         return;
@@ -299,7 +287,7 @@ void MiniMap::hideMpsEnv(){
     mps_x = mpsXOld;
     mps_y = mpsYOld;
     mps_style = mpsStyleOld;
-    switchComponent->switchComponent( shownTabName );
+    //switchComponent->switchComponent( shownTabName );
     mps_set( mps_x, mps_y, mps_style );
 }
 
@@ -321,6 +309,7 @@ void MiniMap::showMpsEnv( MapPoint tile ){
     getMPS()->setView( tile, MPS_ENV );//show basic info
     switchComponent->switchComponent("MPSPanel");
 }
+#endif
 
 void MiniMap::mapViewButtonClicked(CheckButton* button, int)
 {
@@ -364,7 +353,7 @@ void MiniMap::mapViewButtonClicked(CheckButton* button, int)
         default:
             assert(false);
     }
-    showMapTab();
+    switchView("MiniMap");
     getGameView()->setMapMode( mMode ); 
     mFullRefresh=true;
 }

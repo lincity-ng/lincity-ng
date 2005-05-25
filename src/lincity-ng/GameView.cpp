@@ -863,24 +863,24 @@ void GameView::event(const Event& event)
             if(!event.inside) {
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_RIGHT ){
+            if( event.mousebutton == SDL_BUTTON_RIGHT ) {
                 dragging = false;
                 rightButtonDown = true;
                 break;       
             }
-            if( event.mousebutton == SDL_BUTTON_LEFT ){
+            if( event.mousebutton == SDL_BUTTON_LEFT ) {
                 roadDragging = false;
                 leftButtonDown = true;
                 break;       
             }
-            if( event.mousebutton == SDL_BUTTON_MIDDLE ){ //right
-                getMiniMap()->showMpsEnv( getTile( event.mousepos ) );//show basic info
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
+                //getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
             }
             break;
         }
         case Event::MOUSEBUTTONUP:
             if(event.mousebutton == SDL_BUTTON_MIDDLE ){
-                getMiniMap()->hideMpsEnv();
+                //getMiniMap()->hideMpsEnv();
             }
             if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 if ( dragging ) {

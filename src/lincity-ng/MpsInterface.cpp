@@ -24,10 +24,13 @@ int mps_x = 0;
 int mps_y = 0;
 int mps_style = 0;
 
-void mps_full_refresh (void)
+Mps* currentMPS = 0;
+
+void mps_full_refresh()
 {
 }
-void mappoint_stats (int, int, int)
+
+void mappoint_stats(int, int, int)
 {
 }
 
@@ -35,41 +38,63 @@ void mps_init()
 {
 }
 
-int mps_set_silent( int x, int y, int style )
+int mps_set_silent(int x, int y, int style)
 {
     int same_square = 0;
     mps_style = style;
-    switch(style){
-    case MPS_MAP:
-    case MPS_ENV: 
-	    if (mps_x == x && mps_y == y) {
-	        same_square = 1;
-	    }
-	    mps_x = x;
-	    mps_y = y;
-	    break;
-    default: ;
+    switch(style) {
+        case MPS_MAP:
+        case MPS_ENV: 
+            if (mps_x == x && mps_y == y) {
+                same_square = 1;
+            }
+            mps_x = x;
+            mps_y = y;
+            break;
+        default: 
+            break;
     }
     return same_square;
 }
 
 int mps_set( int x, int y, int style ) /* Attaches an area or global display */
 {
-    int same_square = mps_set_silent( x, y, style);
-    mps_update();
+    int same_square = mps_set_silent(x, y, style);
+
+    switch(style) {
+        case MPS_MAP:
+            if(mapMPS)
+                mapMPS->clear();
+            getMiniMap()->switchView("MapMPS");
+            break;
+        case MPS_ENV:
+            if(envMPS)
+                envMPS->clear();
+            getMiniMap()->switchView("EnvMPS");
+            break;
+        case MPS_GLOBAL:
+            if(globalMPS)
+                globalMPS->clear();
+            getMiniMap()->switchView("GlobalMPS");
+            break;
+        default:
+            assert(false);
+            break;
+    }                                                 
     mps_refresh();
-    getMiniMap()->showQueryTab();
     return same_square;
 }
 
-void mps_redraw(void)  /* Re-draw the mps area, bezel and all */
+void mps_redraw()  /* Re-draw the mps area, bezel and all */
 {
     mps_refresh();
 }
-void mps_refresh(void) /* refresh the information display's contents */
+
+void mps_refresh() /* refresh the information display's contents */
 {
-        switch (mps_style) {
+    switch (mps_style) {
         case MPS_MAP:
+            currentMPS = mapMPS;
             switch(MP_GROUP(mps_x, mps_y)) 
             {
                 case GROUP_BLACKSMITH:
@@ -182,13 +207,17 @@ void mps_refresh(void) /* refresh the information display's contents */
                     
                     //printf("MPS unimplemented for that module\n");
             }
+            currentMPS = 0;
             break;
             
         case MPS_ENV:
+            currentMPS = envMPS;
             mps_right (mps_x, mps_y);
+            currentMPS = 0;
             break;
             
         case MPS_GLOBAL:
+            currentMPS = globalMPS;
             switch (mps_global_style) {
                 case MPS_GLOBAL_FINANCE:
                     mps_global_finance();
@@ -203,77 +232,110 @@ void mps_refresh(void) /* refresh the information display's contents */
                     printf("MPS unimplemented for global display\n");
                     break;
             }
+            currentMPS = 0;
             break;
 
         default:
             break;
     }
 }
-void mps_update(void)  /* Update text contents for later display (refresh) */
+
+/** Update text contents for later display (refresh) */
+void mps_update()
 {   
     mps_update( mps_x, mps_y , mps_style );
 }
-void mps_global_advance(void) /* Changes global var to next display */
+
+/** Changes global var to next display */
+void mps_global_advance()
 {
 }
 
-
-/* mps_info storage functions; place values of corresponding type into
-   mps_info[], performing certain pretification. The single argument 
-   forms center their argument.  The dual arguments left-justify the
-   first and right-justify the second.  the ..p forms put a % after
-   the second argument 
+/**
+ * mps_info storage functions; place values of corresponding type into
+ * mps_info[], performing certain pretification. The single argument 
+ * forms center their argument.  The dual arguments left-justify the
+ * first and right-justify the second.  the ..p forms put a % after
+ * the second argument 
  */
 void mps_store_title(int i, const char * t)
 {
-    getMPS()->setText(i,t);
+    if(!currentMPS)
+        return;
+
+    currentMPS->setText(i,t);
 }
+
 void mps_store_fp(int i, double f)
 {
+    if(!currentMPS)
+        return;
+    
     std::ostringstream os;
-    os<<std::setprecision(1)<<std::fixed;
-    os<<f<<"%";
-    getMPS()->setText(i,os.str());
+    os << std::setprecision(1) << std::fixed << f << "%";
+    currentMPS->setText(i,os.str());
 }
+
 void mps_store_f(int i, double f)
 {
+    if(!currentMPS)
+        return;
+    
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
     os<<f;
-    getMPS()->setText(i,os.str());
+    currentMPS->setText(i,os.str());
 }
+
 void mps_store_d(int i, int d)
 {
+    if(!currentMPS)
+        return;
+    
     std::ostringstream os;
     os<<d;
-    getMPS()->setText(i,os.str());
+    currentMPS->setText(i,os.str());
 }
 
 void mps_store_ss(int i, const char * s1, const char * s2)
 {
+    if(!currentMPS)
+        return;
+    
     std::ostringstream os;
     os<<s1<<": "<<s2;
-    getMPS()->setText(i,os.str());
+    currentMPS->setText(i,os.str());
 }
+
 void mps_store_sd(int i, const char * s, int d)
 {
+    if(!currentMPS)
+        return;
+    
     std::ostringstream os;
     os<<s<<": "<<d;
-    getMPS()->setText(i,os.str());
+    currentMPS->setText(i,os.str());
 }
+
 void mps_store_sfp(int i, const char * s, double fl)
 {
+    if(!currentMPS)
+        return;
+    
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
     os<<s<<": "<<fl<<"%";
-    getMPS()->setText(i,os.str());
+    currentMPS->setText(i,os.str());
 }
 
 void mps_store_sss(int i, const char * s1, const char * s2, const char * s3)
 {
+    if(!currentMPS)
+        return;
+    
     std::ostringstream os;
     os<<s1<<": "<<s2<<" "<<s3;
-    getMPS()->setText(i,os.str());
+    currentMPS->setText(i,os.str());
 }
 
 /* Data for new mps routines */
@@ -287,6 +349,8 @@ void mps_right (int x, int y)
     char s[12];
     const char* p;
     int g;
+
+    currentMPS = envMPS;
 
     snprintf(s,sizeof(s),"%d,%d",x,y);
     mps_store_title(i++,s);
@@ -337,13 +401,17 @@ void mps_right (int x, int y)
 	    g--;			/* translate into button type */
 	mps_store_d(i++,main_groups[g].bul_cost);
     }
+
+    currentMPS = 0;
 }
 
-void mps_global_finance(void) {
+void mps_global_finance()
+{
     int i = 0;
     char s[12];
 
     int cashflow = 0;
+    currentMPS = globalMPS;
 
     mps_store_title(i++,_("Tax Income"));
 
@@ -387,15 +455,17 @@ void mps_global_finance(void) {
 
     num_to_ansi(s, 12, cashflow);
     mps_store_ss(i++,_("Net"), s);
+
+    currentMPS = 0;
 }    
 
-void 
-mps_global_other_costs (void)
+void mps_global_other_costs()
 {
     int i = 0;
     int year;
     char s[12];
 
+    currentMPS = globalMPS;
     mps_store_title(i++,_("Other Costs"));
 
     /* Don't write year if it's negative. */
@@ -424,14 +494,16 @@ mps_global_other_costs (void)
     mps_store_ss(i++,_("Cricket"),s);
     num_to_ansi(s,sizeof(s),ly_recycle_cost);
     mps_store_ss(i++,_("Recycle"),s);
+
+    currentMPS = 0;
 }
 
-
-void 
-mps_global_housing (void)
+void mps_global_housing()
 {
     int i = 0;
     int tp = housed_population + people_pool;
+
+    currentMPS = globalMPS;
 
     mps_store_title(i++,_("Population"));
     mps_store_title(i++,"");
@@ -449,4 +521,7 @@ mps_global_housing (void)
 
     mps_store_sfp(i++,_("Rate"),
 		  ((tstarving_population * 100.0) / tp));
+
+    currentMPS = 0;
 }
+

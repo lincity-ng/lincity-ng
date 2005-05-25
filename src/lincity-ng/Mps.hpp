@@ -6,33 +6,41 @@
 #include "gui_interface/mps.h"
 
 class XmlReader;
-static const int paragraphCount = 13;
+static const int MPS_PARAGRAPH_COUNT = 13;
 
-void mps_update(int mps_x,int mps_y,int mps_style);
+void mps_update(int mps_x, int mps_y, int mps_style);
 extern int mps_x;
 extern int mps_y;
 extern int mps_style;
 
-class LCMps : public Component
+class Paragraph;
+
+/**
+ * The MPS component is more or less a text component with 13 lines that 
+ * is used to display status information about the game/engine.
+ */
+class Mps : public Component
 {
 public:
-  LCMps();
-  ~LCMps();
+    Mps();
+    ~Mps();
 
-  void parse(XmlReader& reader);
+    void parse(XmlReader& reader);
 
-  void setView(MapPoint point, int style = MPS_MAP );
+    void clear();
+    void setView(MapPoint point, int style = MPS_MAP );
   
-  void setText(int i,const std::string &s);
-  void playBuildingSound( int mps_x, int mps_y );
- private:
-  int mX,mY;
-  //Number of Paragraphs in mps.xml
-  //<Paragraph name="mps_text13" style="mps_text">Text13</Paragraph>
+    void setText(int i, const std::string &s);
+    void playBuildingSound(int mps_x, int mps_y);
 
-  //  std::vector<AGText*> mTexts;
+private:
+    typedef std::vector<Paragraph*> Paragraphs;
+    Paragraphs paragraphs;
+    int mX, mY;
 };
 
-LCMps *getMPS();
+extern Mps* globalMPS;
+extern Mps* mapMPS;
+extern Mps* envMPS;
 
 #endif

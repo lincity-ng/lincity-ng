@@ -36,6 +36,9 @@ public:
     void hideMpsEnv();
     void showQueryTab();
     void showMapTab();
+
+    void switchView(const std::string& viewname);
+
 private:
     void mapViewButtonClicked(CheckButton* button, int);
     void speedButtonClicked(CheckButton* button, int);
@@ -43,7 +46,7 @@ private:
     void zoomOutButtonClicked(Button* button);
     
     void switchButton(CheckButton* button, int);
-
+    
     void attachButtons();
     Component *findRoot(Component *c);
     Vector2 mapPointToVector(MapPoint p);
@@ -59,7 +62,6 @@ private:
     std::vector<CheckButton*> switchButtons;
     std::auto_ptr<Texture> mTexture;
     
-    std::string shownTabName;
     int mpsXOld, mpsYOld, mpsStyleOld;
 
     bool mFullRefresh;
