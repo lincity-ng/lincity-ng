@@ -118,7 +118,7 @@ private:
     MapPoint tileUnderMouse;
     Vector2 dragStart;
     bool mouseInGameView;
-    bool dragging, middleButtonDown;
+    bool dragging, rightButtonDown;
     Uint32 dragStartTime;
     
     bool roadDragging, leftButtonDown;

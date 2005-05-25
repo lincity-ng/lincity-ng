@@ -22,12 +22,12 @@
     <p style="hp">use shift + direction to scroll faster</p>
 
     <p style="htitle">Mouse</p>
-    <p style="hp">middle:</p>
-    <p style="hp"> Drag mainscreen with middle mousebutton.</p>
-    <p style="hp">middle click on mainscreen centers to tile under cursor.</p>
     <p style="hp">right:</p>
-    <p style="hp">right click on mainscreen to show information about area under cursor.</p>
-    <p style="hp">right click on minimap to cycle through global informations.</p>
+    <p style="hp">Drag mainscreen with right mousebutton.</p>
+    <p style="hp">right click on mainscreen centers to tile under cursor.</p>
+    <p style="hp">middle:</p>
+    <p style="hp">middle click on mainscreen to show information about area under cursor.</p>
+    <p style="hp">middle click on minimap to cycle through global informations.</p>
     <p style="hp">left:</p>
     <p style="hp">Click on Minimap shows the selected Area on mainscreen.</p>
     <p style="hp">Perform action depending on selected tool. Bulldoze, show Information,

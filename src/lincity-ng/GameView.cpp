@@ -135,7 +135,7 @@ void GameView::parse(XmlReader& reader)
     dragging = false;
     roadDragging = false;
     startRoad = MapPoint(0, 0);
-    middleButtonDown = false;
+    rightButtonDown = false;
     tileUnderMouse = MapPoint(0, 0);
     dragStart = Vector2(0, 0);
     hideHigh = false;
@@ -837,7 +837,7 @@ void GameView::event(const Event& event)
                 break;
             }
             mouseInGameView = true;
-            if( !dragging && middleButtonDown ) {
+            if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
                 SDL_ShowCursor( SDL_DISABLE );
@@ -863,9 +863,9 @@ void GameView::event(const Event& event)
             if(!event.inside) {
                 break;
             }
-            if( event.mousebutton == SDL_BUTTON_MIDDLE ){
+            if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 dragging = false;
-                middleButtonDown = true;
+                rightButtonDown = true;
                 break;       
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ){
@@ -873,25 +873,25 @@ void GameView::event(const Event& event)
                 leftButtonDown = true;
                 break;       
             }
-            if( event.mousebutton == SDL_BUTTON_RIGHT ){ //right
+            if( event.mousebutton == SDL_BUTTON_MIDDLE ){ //right
                 getMiniMap()->showMpsEnv( getTile( event.mousepos ) );//show basic info
             }
             break;
         }
         case Event::MOUSEBUTTONUP:
-            if(event.mousebutton == SDL_BUTTON_RIGHT ){ //right mouse
+            if(event.mousebutton == SDL_BUTTON_MIDDLE ){
                 getMiniMap()->hideMpsEnv();
             }
-            if( event.mousebutton == SDL_BUTTON_MIDDLE ){
+            if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 if ( dragging ) {
                     dragging = false;
-                    middleButtonDown = false;
+                    rightButtonDown = false;
                     SDL_ShowCursor( SDL_ENABLE );
                     SDL_WM_GrabInput( SDL_GRAB_OFF );
                     break;
                 } 
                 dragging = false;
-                middleButtonDown = false;
+                rightButtonDown = false;
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ){
                 if ( roadDragging && event.inside ) {
@@ -935,7 +935,7 @@ void GameView::event(const Event& event)
                 if( !blockingDialogIsOpen )
                     editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT); //edit tile
             }
-            else if( event.mousebutton == SDL_BUTTON_MIDDLE ){  //middle      
+            else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //middle      
                 recenter(event.mousepos);                      //adjust view
             }
             else if( event.mousebutton == SDL_BUTTON_WHEELUP ){ //up 
