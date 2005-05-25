@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Document style="creditsdoc">
-    <p style="title" margin-top="20" margin-bottom="20"
+    <p style="menutitle" margin-top="20" margin-bottom="20"
     translatable="yes">Credits</p>
     
     <p style="section" translatable="yes">Original Idea and Code</p>
