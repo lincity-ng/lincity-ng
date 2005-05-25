@@ -21,9 +21,7 @@ public:
 
     void parse(XmlReader& reader);
   
-    // colors must be corrected somehow - maybe get them from oldgui/screen.cc
     virtual void draw(Painter &painter);
-
     virtual void event(const Event& event);
   
     void setGameViewCorners(const MapPoint& upperLeft,
