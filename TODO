@@ -55,13 +55,6 @@ Programming
  [M] Display InfoMessages
  [L] manpage, documentation
  [H] improve fast scrolling
- [H] Put scrolling on the right mouse button. Moving the mouse while holding
-     middle button isn't as ergonomically as moving with right button pressed
-     on most mice.
-     (This extra info that is know on the second mouse button can either be put
-      on the middle button or simply removed. After all it just states stuff
-      that you can see with the minimap/overlays or statustext too)
-     [info is not that detailed in overlays]
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
