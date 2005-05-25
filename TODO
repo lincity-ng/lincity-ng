@@ -12,7 +12,7 @@ Graphics (mostly egore's part)
      loading and scrolling)
  [H] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
         alpha for mac os/x and 32x32 keycolored (and/or alpha) for windows)
- [H] give all ingames dialogs the same look and feel. (not like win32 is possible)
+ [M] Review/Improve Look and Feel of the ingame dialogs
  [H] rework resident icons
 
 Programming
@@ -44,7 +44,8 @@ Programming
     
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
- [M] Implement a What's this button
+ [M] Implement a What's this button - down to [M], we can simply open the front
+     page of the help file for now...
  [M] some more sounds( "Pottery", "Commune", "Shanty" )
  [L] "Loading..." screen (startup, run game)
         - is this really needed now that images and sounds get loaded in the
