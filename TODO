@@ -40,6 +40,7 @@ Programming
      (eg in load game menu)
  [M] Teleporation power (removing power lines still allows that power is
      running where they were before)
+ [M] Fix help on sustain (might need code changes)
     
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
