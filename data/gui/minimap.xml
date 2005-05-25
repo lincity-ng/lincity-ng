@@ -8,29 +8,49 @@
 		<cell row="1" col="2">
 			<TableLayout rows="1" cols="5">
 				<cell row="1" col="1">
-					<Button name="SwitchMiniMap">
-						<text font-size="16">Map</text>
-					</Button>
+					<CheckButton name="SwitchMiniMap">
+						<image src="images/gui/buttons/tabbed/tabbed.png"/>
+						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
+						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+						<text-caption font-size="16">Map</text-caption>
+					</CheckButton>
 				</cell>
 				<cell row="1" col="2">
-					<Button name="SwitchPBar">
-						<text font-size="16">Stats</text>
-					</Button>
+					<CheckButton name="SwitchPBar">
+						<image src="images/gui/buttons/tabbed/tabbed.png"/>
+                                                <image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
+                                                <image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+                                                <image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+						<text-caption font-size="16">Stats</text-caption>
+					</CheckButton>
 				</cell>
 				<cell row="1" col="3">
-					<Button name="SwitchMPSGlobal">
-						<text font-size="16">$</text>
-					</Button>
+					<CheckButton name="SwitchMPSGlobal">
+						<image src="images/gui/buttons/tabbed/tabbed.png"/>
+                                                <image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
+                                                <image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+                                                <image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+                                                <text-caption font-size="16">$</text-caption>
+					</CheckButton>
 				</cell>
 				<cell row="1" col="4">
-					<Button name="SwitchQueryTool">
-						<text font-size="16">?</text>
-					</Button>
+					<CheckButton name="SwitchQueryTool">
+						<image src="images/gui/buttons/tabbed/tabbed.png"/>
+                                                <image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
+                                                <image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+                                                <image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+                                                <text-caption font-size="16">?</text-caption>
+					</CheckButton>
 				</cell>
 				<cell row="1" col="5">
-					<Button name="SwitchEconomy">
-						<text font-size="16">Eco</text>
-					</Button>
+					<CheckButton name="SwitchEconomy">
+						<image src="images/gui/buttons/tabbed/tabbed.png"/>
+                                                <image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
+                                                <image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+                                                <image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
+                                                <text-caption font-size="16">Eco</text-caption>
+					</CheckButton>
 				</cell>
 			</TableLayout>
 		</cell>
