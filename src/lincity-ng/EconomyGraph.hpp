@@ -15,6 +15,10 @@ public:
     void newFPS( int frame );
 private:
     static const int border = 5;
+    void drawHistoryLineGraph( Painter& painter, Rect2D mg );
+    void drawSustBarGraph( Painter& painter, Rect2D mg );
+    void drawFPSGraph( Painter& painter, Rect2D fpsRect );
+ 
     int* fps;
 };
 

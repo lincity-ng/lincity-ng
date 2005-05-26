@@ -118,6 +118,23 @@ void EconomyGraph::updateData(){
 	if (monthgraph_ppool[0] >= h)
 	    monthgraph_ppool[0] = h - 1;
     }
+    
+    //sustainability check from do_sust_barchart
+    if (sust_dig_ore_coal_count >= SUST_ORE_COAL_YEARS_NEEDED
+        && sust_port_count >= SUST_PORT_YEARS_NEEDED
+        && sust_old_money_count >= SUST_MONEY_YEARS_NEEDED
+        && sust_old_population_count >= SUST_POP_YEARS_NEEDED
+        && sust_old_tech_count >= SUST_TECH_YEARS_NEEDED
+        && sust_fire_count >= SUST_FIRE_YEARS_NEEDED)
+    {
+        if (sustain_flag == 0){
+	        ok_dial_box ("sustain.mes", GOOD, 0L);
+            sustain_flag = 1;
+        } else {
+            sustain_flag = 0;
+        }
+    }
+    
     //redraw
     setDirty();
 }
@@ -133,36 +150,28 @@ void EconomyGraph::newFPS( int frame ){
     setDirty();
 }
 
-void EconomyGraph::draw( Painter& painter ){
-    
-    Color white, black, red, yellow, blue, brown, grey;
-    white.parse( "white" );
-    black.parse( "black" );
+void EconomyGraph::drawHistoryLineGraph( Painter& painter, Rect2D mg ){ 
+    // see oldgui/screen.cpp do_history_linegraph 
+    Vector2 a;
+    Vector2 b;
+
+    Color red, yellow, blue, brown, grey;
     red.parse( "red");
     yellow.parse( "yellow" );
     blue.parse( "blue" );
     brown.parse( "brown" );
     grey.parse("#A9A9A9FF");
 
-    Rect2D background( 0, 0, getWidth(), getHeight() );
-    int mgX = border;
-    int mgY = border;
-    int mgW = getConfig()->monthgraphW; 
-    int mgH = getConfig()->monthgraphH;
-    Rect2D mg( mgX, mgY, mgW+border, mgH+border );
-    
-    painter.setFillColor( white );
-    painter.fillRectangle( background );
-
+    painter.setClipRectangle( mg ); 
     painter.setFillColor( grey );
     painter.fillRectangle( mg );
-
-    // see oldgui/screen.cpp do_history_linegraph 
-    Vector2 a;
-    Vector2 b;
-    float scale = (float) getConfig()->monthgraphH / 64; //MONTHGRAPH_H  ;
-
-    painter.setClipRectangle( mg ); 
+    int mgX = (int) mg.p1.x;
+    int mgY = (int) mg.p1.y;
+    int mgW = (int) mg.getWidth(); 
+    int mgH = (int) mg.getHeight();
+    
+    float scale = (float) mgH / 64; //MONTHGRAPH_H  ;
+    
     b.y = mgY + mgH;
     for( int i = mgW - 1; i >= 0; i-- ){
         painter.setLineColor( yellow );
@@ -189,22 +198,186 @@ void EconomyGraph::draw( Painter& painter ){
     }
     painter.clearClipRectangle();
 
-    Rect2D fpsRect = mg;
-    fpsRect.move( Vector2( 0, border + mgH ) );
+
+}
+
+void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){ 
+    // see oldgui/screen.cpp do_sust_barchart
+    Color grey,yellow,orange,black,green,blue,red;
+    grey.parse( "#A9A9A9FF" );
+    yellow.parse( "yellow" );
+    orange.parse( "orange" );
+    black.parse( "black" );
+    green.parse( "green" );
+    blue.parse( "blue" );
+    red.parse( "red" );
+
+    painter.setFillColor( grey );
+    painter.fillRectangle( mg );
+  
+    int mgX = (int) mg.p1.x;
+    int mgY = (int) mg.p1.y;
+    int mgW = (int) mg.getWidth(); 
+    int mgH = (int) mg.getHeight();
+
+    Vector2 a, b;
+    
+    //
+#define SUST_BAR_H      5
+#define SUST_BAR_GAP_Y  5
+ 
+#if 0 
+	/* write the "informative" text */
+	Fgl_setfontcolors (0, TEXT_FG_COLOUR);
+	Fgl_write (mg->x+3, mg->y + SUST_BAR_GAP_Y - 1,
+		   /* TRANSLATORS: 
+		      MIN=Mining, PRT=Import/export from port,
+		      MNY=Money, POP=Population, TEC=Technology,
+		      FIR=Fire coverage
+		   */
+		   _("MIN"));
+	Fgl_write (mg->x+3,
+		   mg->y + SUST_BAR_GAP_Y + (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
+		   _("PRT"));
+	Fgl_write (mg->x+3,
+		   mg->y + SUST_BAR_GAP_Y + 2 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
+		   _("MNY"));
+	Fgl_write (mg->x+3,
+		   mg->y + SUST_BAR_GAP_Y + 3 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
+		   _("POP"));
+	Fgl_write (mg->x+3,
+		   mg->y + SUST_BAR_GAP_Y + 4 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
+		   _("TEC"));
+	Fgl_write (mg->x+3,
+		   mg->y + SUST_BAR_GAP_Y + 5 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
+		   _("FIR"));
+	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
+#endif
+    
+	/* draw the starting line */
+    a.x = mgX + 38;
+    a.y = mgY;
+    b.x = mgX + 38;
+    b.y = mgY + mgH;
+    painter.setLineColor( yellow );
+    painter.drawLine( a, b);
+    
+    Rect2D bar;
+    bar.p1.x = mgX + 36;
+    bar.p1.y = mgY + SUST_BAR_GAP_Y;
+    bar.setHeight( SUST_BAR_H );
+    int maxBarLen = mgW - 40;
+    int newLen;
+    int len; 
+    
+	/* ore coal */
+    newLen = maxBarLen * sust_dig_ore_coal_count / SUST_ORE_COAL_YEARS_NEEDED;
+    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
+    bar.setWidth( len );
+    painter.setFillColor( orange );
+    painter.fillRectangle( bar );
+    
+	/* import export */
+    newLen = maxBarLen * sust_port_count / SUST_PORT_YEARS_NEEDED;
+    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
+    bar.setWidth( len );
+    painter.setFillColor( black );
+    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
+    painter.fillRectangle( bar );
+    
+	/* money */
+    newLen = maxBarLen * sust_old_money_count / SUST_MONEY_YEARS_NEEDED;
+    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
+    bar.setWidth( len );
+    painter.setFillColor( green );
+    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
+    painter.fillRectangle( bar );
+    
+	/* population */
+    newLen = maxBarLen * sust_old_population_count / SUST_POP_YEARS_NEEDED;
+    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
+    bar.setWidth( len );
+    painter.setFillColor( blue );
+    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
+    painter.fillRectangle( bar );
+    
+	/* tech */
+    newLen = maxBarLen * sust_old_tech_count / SUST_TECH_YEARS_NEEDED;
+    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
+    bar.setWidth( len );
+    painter.setFillColor( yellow );
+    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
+    painter.fillRectangle( bar );
+    
+	/* fire */
+    newLen = maxBarLen * sust_fire_count / SUST_FIRE_YEARS_NEEDED;
+    len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
+    bar.setWidth( len );
+    painter.setFillColor( red );
+    bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
+    painter.fillRectangle( bar );
+    
+}
+
+
+void EconomyGraph::drawFPSGraph( Painter& painter, Rect2D fpsRect ){ 
+    Color grey, blue;
+    blue.parse( "blue" );
+    grey.parse("#A9A9A9FF");
+    int mgX = (int) fpsRect.p1.x;
+    int mgY = (int) fpsRect.p1.y;
+    int mgW = (int) fpsRect.getWidth(); 
+    int mgH = (int) fpsRect.getHeight();
+
+    
     painter.setFillColor( grey );
     painter.fillRectangle( fpsRect );
+    
     painter.setClipRectangle( fpsRect ); 
       
-    b.y = 2*(mgY + mgH) ;
+    Vector2 a;
+    Vector2 b;
+    painter.setLineColor( blue );
+    
+    float scale = (float) mgH / 64; //MONTHGRAPH_H  ;
+
+    b.y = mgY + mgH;
     for( int i = mgW - 1; i >= 0; i-- ){
-        painter.setLineColor( blue );
         a.x = mgX + mgW - i;
-        a.y = 2*(mgY + mgH) - scale * fps[i];
+        a.y = mgY + mgH - scale * fps[i];
         
         b.x = mgX + mgW - i;
         painter.drawLine( a, b );
     }
     painter.clearClipRectangle();
+}
+    
+void EconomyGraph::draw( Painter& painter ){
+   
+    Color white;
+    white.parse( "white" );
+    
+    Rect2D background( 0, 0, getWidth(), getHeight() );
+    int mgX = border;
+    int mgY = border;
+    int mgW = getConfig()->monthgraphW; 
+    int mgH = getConfig()->monthgraphH;
+    
+    painter.setFillColor( white );
+    painter.fillRectangle( background );
+
+    //Draw HistoryLineGraph
+    Rect2D currentGraph( mgX, mgY, mgW+border, mgH+border );
+    drawHistoryLineGraph( painter, currentGraph );
+
+    //Draw Sustainability Bars
+    currentGraph.move( Vector2( 0, border + mgH ) );
+    drawSustBarGraph( painter, currentGraph);
+
+    //Draw FPS-Window
+    currentGraph.move( Vector2( 0, border + mgH ) );
+    currentGraph.setHeight( mgH/2 );
+    drawFPSGraph( painter, currentGraph );
 }
 
 IMPLEMENT_COMPONENT_FACTORY(EconomyGraph);
