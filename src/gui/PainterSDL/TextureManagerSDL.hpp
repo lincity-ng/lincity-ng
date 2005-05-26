@@ -16,7 +16,6 @@ public:
     TextureManagerSDL();
     virtual ~TextureManagerSDL();
 
-    Texture* load(const std::string& filename, Filter filter);
     Texture* create(SDL_Surface* surface);
 };
 

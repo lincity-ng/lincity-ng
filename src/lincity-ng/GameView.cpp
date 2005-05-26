@@ -78,9 +78,10 @@ GameView::~GameView()
     
     for(int i = 0; i < NUM_OF_TYPES; ++i) {
         delete cityTextures[i];
-        SDL_FreeSurface( cityImages[i] );
+        // in case the image was loaded but no texture created yet we have a
+        // dangling SDL_Surface here
+        SDL_FreeSurface(cityImages[i]);
     }
-    delete blankTexture;
 
     if(gameViewPtr == this)
         gameViewPtr = 0;
@@ -375,7 +376,8 @@ SDL_Surface* GameView::readImage(const std::string& filename)
  */
 void GameView::preReadCityTexture( int textureType, const std::string& filename )
 {
-    if( stopThread ){ //skip loading if we stop anyway
+    //skip loading if we stop anyway
+    if(stopThread) {
         return;
     }
     XmlReader reader( "images/tiles/images.xml" );

@@ -6,6 +6,7 @@
 #include "Painter.hpp"
 
 DocumentImage::DocumentImage()
+	: texture(0)
 {}
 
 DocumentImage::~DocumentImage()
@@ -39,7 +40,8 @@ DocumentImage::parse(XmlReader& reader, const Style& parentstyle)
             }
         } else if(strcmp(attribute, "src") == 0) {
             filename=value;
-            texture.reset(texture_manager->load(value));
+            texture = 0;
+            texture = texture_manager->load(value);
         } else {
             std::cerr << "Skipping unknown attribute '"
                 << attribute << "'.\n";
@@ -57,5 +59,6 @@ DocumentImage::resize(float , float )
 void
 DocumentImage::draw(Painter& painter)
 {
-    painter.drawTexture(texture.get(), Vector2(0, 0));
+    painter.drawTexture(texture, Vector2(0, 0));
 }
+

@@ -22,7 +22,7 @@ public:
     void setFile(const std::string &filename);
 
 private:
-    std::auto_ptr<Texture> texture;
+    Texture* texture;
     bool tiling;
     std::string filename;
 };

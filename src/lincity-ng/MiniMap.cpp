@@ -134,31 +134,27 @@ MiniMap::parse(XmlReader& reader)
 
     // create alpha-surface
     SDL_Surface* image = SDL_CreateRGBSurface(0, (int) width, (int) height, 32,
-					      0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
-
-    SDL_Surface *copy = SDL_DisplayFormat(image);
-    SDL_FreeSurface(image);
-    image=copy;
-    
-    mTexture.reset(texture_manager->create(image)); // don't delete image, as Texture-class takes ownage
+					      0x000000ff, 0x0000ff00,
+                                              0x00ff0000, 0xff000000);
+    mTexture.reset(texture_manager->create(image));
 
     mFullRefresh=true;
     alreadyAttached=false;
     inside = false;
 
-    //shownTabName = "MiniMap";
     mpsXOld = mps_x;
     mpsYOld = mps_y;
     mpsStyleOld = mps_style;
 
-    switchView("MiniMap");
+    //switchView("MiniMap");
 }
 
 Component *MiniMap::findRoot(Component *c)
 {
-  while(c->getParent())
-    return findRoot(c->getParent());
-  return c;
+    while(c->getParent())
+        return findRoot(c->getParent());
+
+    return c;
 }
 
 void MiniMap::attachButtons()
@@ -241,10 +237,6 @@ MiniMap::switchView(const std::string& viewname)
 {
     SwitchComponent* switchComponent 
         = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
-    if(!switchComponent) {
-        std::cerr << "MiniMapSwitch not found!\n";
-        return;
-    }
 
     switchComponent->switchComponent(viewname);
 
@@ -422,306 +414,290 @@ void MiniMap::setGameViewCorners(const MapPoint& upperLeft,
 
 void MiniMap::draw(Painter &painter)
 {
-  attachButtons();
-  int x, y;
-  short typ, grp;
+    attachButtons();
+    int x, y;
+    short typ, grp;
 
-  // simple and bad implementation
-  // FIXME: should be stored SDL_Surface and then blitted
-  // SDL_Surface should be updated, only if needed
+    // simple and bad implementation
+    // FIXME: should be stored SDL_Surface and then blitted
+    // SDL_Surface should be updated, only if needed
 
-  std::auto_ptr<Painter> mpainter (painter.createTexturePainter(mTexture.get()));
-  Color white;
-  white.parse( "white" );
-  Rect2D miniRect( 0 , 0, WORLD_SIDE_LEN*tilesize, WORLD_SIDE_LEN*tilesize );
-  Color mc = getColor( 0, 0 ); 
-  if(mpainter.get() == 0)
-  {
-    // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
-    
+    std::auto_ptr<Painter> mpainter 
+        (painter.createTexturePainter(mTexture.get()));
+    Color white;
+    white.parse( "white" );
+    Rect2D miniRect( 0 , 0, WORLD_SIDE_LEN*tilesize, WORLD_SIDE_LEN*tilesize );
+    Color mc = getColor( 0, 0 ); 
+    if(mpainter.get() == 0)
+    {
+        // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
+        
+        for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
+            for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++) {
+                typ = MP_TYPE(x,y);
+                if( mFullRefresh || typ != mappointoldtype[x][y] ) {
+                    mappointoldtype[x][y] = typ;
+                    grp = get_group_of_type(typ);
+                    mc=getColor(x,y);
+                    painter.setFillColor(mc);
+                    painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                }
+            }
+        
+        //show current GameView
+        painter.setClipRectangle( miniRect ); 
+        painter.setLineColor( white );
+        painter.drawPolygon( 4, gameViewPoints );    
+        painter.clearClipRectangle();
+        return;
+    }
+
+    mpainter->setFillColor( mc );
+    mpainter->fillRectangle( miniRect );
     for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
-      for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++)
-        {
-          typ = MP_TYPE(x,y);
-          if( mFullRefresh || typ != mappointoldtype[x][y] )
-          {
-            mappointoldtype[x][y] = typ;
-            grp = get_group_of_type(typ);
-            mc=getColor(x,y);
-            painter.setFillColor(mc);
-            painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
-          }
+        for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++) {
+            typ = MP_TYPE(x,y);
+            if ( mFullRefresh || typ != mappointoldtype[x][y] ) {
+                mappointoldtype[x][y] = typ;
+                grp = get_group_of_type(typ);
+                mc=getColor(x,y);
+                mpainter->setFillColor(mc);
+                mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+            }
         }
-    //show current GameView
-    painter.setClipRectangle( miniRect ); 
-    painter.setLineColor( white );
-    painter.drawPolygon( 4, gameViewPoints );    
-    painter.clearClipRectangle();
-    return;
-  }
-
-  mpainter->setFillColor( mc );
-  mpainter->fillRectangle( miniRect );
-  for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
-    for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++)
-      {
-        typ = MP_TYPE(x,y);
-        if ( mFullRefresh || typ != mappointoldtype[x][y] )
-        {
-          mappointoldtype[x][y] = typ;
-          grp = get_group_of_type(typ);
-          mc=getColor(x,y);
-          mpainter->setFillColor(mc);
-          mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
-        }
-      }
+    
     //show current GameView
     mpainter->setLineColor( white );
     mpainter->drawPolygon( 4, gameViewPoints );    
 
+    painter.drawTexture(mTexture.get(), Vector2(0, 0));
 
-  painter.drawTexture(mTexture.get(), Vector2(0, 0));
-
-  mFullRefresh=false;
+    mFullRefresh=false;
 }
 
 Color MiniMap::getColorNormal(int x, int y) const
 {
-  int xx,yy;
+    int xx,yy;
   
-  xx=x;
-  yy=y;
-  if (MP_TYPE(x,y) == CST_USED)
-    {
-      xx = MP_INFO(x,y).int_1;
-      yy = MP_INFO(x,y).int_2;
+    xx=x;
+    yy=y;
+    if (MP_TYPE(x,y) == CST_USED) {
+        xx = MP_INFO(x,y).int_1;
+        yy = MP_INFO(x,y).int_2;
     }
 
-  int mc = main_groups[MP_GROUP(xx,yy)].colour;
-  int red = 0;
-  int green = 0;
-  int blue = 0;
+    int mc = main_groups[MP_GROUP(xx,yy)].colour;
+    int red = 0;
+    int green = 0;
+    int blue = 0;
 
-  if( mc & 32 ) 
-      red = 8 * ( mc & 31 );
-  if( mc & 64 )
-      green = 8 * ( mc & 31 );
-  if( mc & 128 )
-      blue = 8 * (mc & 31 );
-
-  return Color( red, green, blue ); 
+    if( mc & 32 ) 
+        red = 8 * ( mc & 31 );
+    if( mc & 64 )
+        green = 8 * ( mc & 31 );
+    if( mc & 128 )
+        blue = 8 * (mc & 31 );
+    
+    return Color( red, green, blue ); 
 }
 
 Color MiniMap::getColor(int x,int y) const
 {
-  int xx = x;
-  int yy = y;
+    int xx = x;
+    int yy = y;
   
-  if (MP_TYPE(x,y) == CST_USED)
-    {
-      xx = MP_INFO(x,y).int_1;
-      yy = MP_INFO(x,y).int_2;
+    if (MP_TYPE(x,y) == CST_USED) {
+        xx = MP_INFO(x,y).int_1;
+        yy = MP_INFO(x,y).int_2;
     }
 
-  int flags=MP_INFO(xx,yy).flags;
+    int flags=MP_INFO(xx,yy).flags;
 
-  switch(mMode)
-    {
-    case NORMAL:
-      return getColorNormal(x,y);
-    case POLLUTION:
-      {
-	short p=MP_POL(x,y);
-	float v=p/600.0;
-	if(v<0)
-	  v=0;
-	if(v>1)
-	  v=1;
-	Color mc((int) (0xFF*v), (int) (0xFF*(1-v)), 0);
-	mc=light(mc,brightness(getColorNormal(x,y)));
-	return mc;
-      }
-    case FIRE:
-      if( MP_GROUP( x, y ) == GROUP_FIRE ){
-         if( MP_INFO(x,y).int_2 < FIRE_LENGTH ){
-	        return Color(0xFF,0,0); //still burning (red)
-         } else  {
-	        return Color(0xFF,0x99,0); //unbulldozable (orange)
-         }
-      }
-      if( MP_GROUP( x, y ) == GROUP_BURNT ){
-            return Color(0xFF,0xFF,0); //(yellow)
-      }//fall through
-    case CRICKET:
-    case HEALTH:
-      if( ((flags&FLAG_FIRE_COVER) && mMode==FIRE) ||
-	  ((flags&FLAG_CRICKET_COVER) && mMode==CRICKET) ||
-	  ((flags&FLAG_HEALTH_COVER) && mMode==HEALTH))
-	{
-	  Color mc(0,0xFF,0);
-	  mc=light(mc,brightness(getColorNormal(x,y)));
-	  return mc;
-	}
-      else
-	return makeGrey(getColorNormal(x,y));
-    case UB40:
-      {
-	
-	if (MP_GROUP_IS_RESIDENCE(xx,yy)) 
-	  {
-	    if (MP_INFO(xx,yy).int_1 < -20)
-	      return Color(0xFF,0,0);
-	    else if (MP_INFO(xx,yy).int_1 < 10)
-	      return Color(0x7F,0,0);
-	    else
-	      return Color(0,0xFF,0);
-	  } 
-	else 
-	  {
-	    return makeGrey(getColorNormal(x,y));//AGColor(0,0x7F,0);
-	    //	    col = green (14);
-	  }
-      }
-    case COAL:
-      {
-	Color c(0x77,0,0);
-    if( coal_survey_done == 0 ){
-        return Color(0,0,0);
-    }
-	if(MP_INFO(x,y).coal_reserve==0)
-	  return makeGrey(getColorNormal(x,y));
-	else if (MP_INFO(x,y).coal_reserve >= COAL_RESERVE_SIZE / 2)
-	  return Color(0,0xFF,0);
-	else if (MP_INFO(x,y).coal_reserve < COAL_RESERVE_SIZE / 2)
-	  return Color(0xFF,0,0);
-
-	return c;
-      }
-    case STARVE:
-      {
-	if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
-	  if ((total_time - MP_INFO(xx,yy).int_2) < 20)
-	    return Color(0xFF,0,0);
-	  else if ((total_time - MP_INFO(xx,yy).int_2) < 100)
-	      return Color(0x7F,0,0);
-	  else
-	      return Color(0,0xFF,0);
-	} else {
-	  return makeGrey(getColorNormal(x,y));
-	}
-      }
-    case POWER:
-      {
-	Color mc;
-	if (get_power (xx, yy, 1, 1) != 0) {
-	  mc=Color(0,0xFF,0);
-	} else if (get_power (xx, yy, 1, 0) != 0) {
-	  mc=Color(0,0x7F,0);
-	} else {
-	  mc=Color(0xFF,0xFF,0xFF);
-	}
-	  mc=light(mc,brightness(getColorNormal(x,y)));
-	return mc;
-      }
-    case TRAFFIC:
-    {
-	    if ( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ) 
-	    {
-            float max;
-            float nextValue;
-            if( MP_GROUP(x,y) == GROUP_ROAD){
-                max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_ROAD;
-                nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_ROAD;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_ROAD;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_ROAD;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_ROAD;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_ROAD;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_ROAD;
-                if( nextValue > max ){ max = nextValue; }
-            } else if( MP_GROUP(x,y) == GROUP_TRACK ) {
-                max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_TRACK;
-                nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_TRACK;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_TRACK;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_TRACK;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_TRACK;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_TRACK;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_TRACK;
-                if( nextValue > max ){ max = nextValue; }
-
-            } else {
-                max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_RAIL;
-                nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_RAIL;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_RAIL;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_RAIL;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_RAIL;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_RAIL;
-                if( nextValue > max ){ max = nextValue; }
-                nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_RAIL;
-                if( nextValue > max ){ max = nextValue; }
+    switch(mMode) {
+        case NORMAL:
+            return getColorNormal(x,y);
+        case POLLUTION: {
+            short p=MP_POL(x,y);
+            float v=p/600.0;
+            if(v<0)
+                v=0;
+            if(v>1)
+                v=1;
+            Color mc((int) (0xFF*v), (int) (0xFF*(1-v)), 0);
+            mc=light(mc,brightness(getColorNormal(x,y)));
+            return mc;
+        }
+        case FIRE:
+            if( MP_GROUP( x, y ) == GROUP_FIRE ){
+                if( MP_INFO(x,y).int_2 < FIRE_LENGTH ){
+                    return Color(0xFF,0,0); //still burning (red)
+                } else  {
+                    return Color(0xFF,0x99,0); //unbulldozable (orange)
+                }
             }
-	        if( max > 99 )          //red
-	            return Color(0xFF,0,0);
-	        else if ( max > 85 )    //orange
-	            return Color(0xFF,0x99,0); 
+            if( MP_GROUP( x, y ) == GROUP_BURNT ){
+                return Color(0xFF,0xFF,0); //(yellow)
+            }//fall through
+        case CRICKET:
+        case HEALTH:
+            if( ((flags&FLAG_FIRE_COVER) && mMode==FIRE) ||
+                    ((flags&FLAG_CRICKET_COVER) && mMode==CRICKET) ||
+                    ((flags&FLAG_HEALTH_COVER) && mMode==HEALTH))
+            {
+                Color mc(0,0xFF,0);
+                mc=light(mc,brightness(getColorNormal(x,y)));
+                return mc;
+            }
+            else
+                return makeGrey(getColorNormal(x,y));
+        case UB40: {
+            if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
+                if (MP_INFO(xx,yy).int_1 < -20)
+                    return Color(0xFF,0,0);
+                else if (MP_INFO(xx,yy).int_1 < 10)
+                    return Color(0x7F,0,0);
+                else
+                    return Color(0,0xFF,0);
+            } else {
+                return makeGrey(getColorNormal(x,y));
+            }
+        }
+        case COAL: {
+            Color c(0x77,0,0);
+            if( coal_survey_done == 0 ) {
+                return Color(0,0,0);
+            }
+            if(MP_INFO(x,y).coal_reserve==0)
+                return makeGrey(getColorNormal(x,y));
+            else if (MP_INFO(x,y).coal_reserve >= COAL_RESERVE_SIZE / 2)
+                return Color(0,0xFF,0);
+            else if (MP_INFO(x,y).coal_reserve < COAL_RESERVE_SIZE / 2)
+                return Color(0xFF,0,0);
+            
+            return c;
+        }
+        case STARVE: {
+            if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
+                if ((total_time - MP_INFO(xx,yy).int_2) < 20)
+                    return Color(0xFF,0,0);
+                else if ((total_time - MP_INFO(xx,yy).int_2) < 100)
+                    return Color(0x7F,0,0);
+                else
+                    return Color(0,0xFF,0);
+            } else {
+                return makeGrey(getColorNormal(x,y));
+            }
+        }
+        case POWER: {
+            Color mc;
+            if (get_power (xx, yy, 1, 1) != 0) {
+                mc=Color(0,0xFF,0);
+            } else if (get_power (xx, yy, 1, 0) != 0) {
+                mc=Color(0,0x7F,0);
+            } else {
+                mc=Color(0xFF,0xFF,0xFF);
+            }
+            mc=light(mc,brightness(getColorNormal(x,y)));
+            return mc;
+        }
+        case TRAFFIC: {
+            if ( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ) {
+                float max;
+                float nextValue;
+                if( MP_GROUP(x,y) == GROUP_ROAD){
+                    max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_ROAD;
+                    nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_ROAD;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_ROAD;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_ROAD;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_ROAD;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_ROAD;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_ROAD;
+                    if( nextValue > max ){ max = nextValue; }
+                } else if( MP_GROUP(x,y) == GROUP_TRACK ) {
+                    max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_TRACK;
+                    nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_TRACK;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_TRACK;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_TRACK;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_TRACK;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_TRACK;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_TRACK;
+                    if( nextValue > max ){ max = nextValue; }
+                } else {
+                    max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_RAIL;
+                    nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_RAIL;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_3 * 100.0 / MAX_COAL_ON_RAIL;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_4 * 100.0 / MAX_GOODS_ON_RAIL;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_5 * 100.0 / MAX_ORE_ON_RAIL;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_6 * 100.0 / MAX_STEEL_ON_RAIL;
+                    if( nextValue > max ){ max = nextValue; }
+                    nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_RAIL;
+                    if( nextValue > max ){ max = nextValue; }
+                }
+                if( max > 99 )          //red
+                    return Color(0xFF,0,0);
+                else if ( max > 85 )    //orange
+                    return Color(0xFF,0x99,0); 
 	        else if ( max > 50 )    //yellow
 	            return Color(0xFF,0xFF,0); 
 	        else                    //green
 	            return Color(0,0xFF,0); 
 	    } else {
 	        return makeGrey(getColorNormal(x,y));
-	    }
-    }
-    case MAX:
-      std::cerr<<"Undefined MiniMap-Display-type!"<<std::endl;
+            }
+        }
+        case MAX:
+            std::cerr<<"Undefined MiniMap-Display-type!"<<std::endl;
     };
-  return Color(0xFF,0,0xFF);
+    
+    return Color(0xFF,0,0xFF);
 }
 
-void MiniMap::event(const Event& event){
-    if( event.type == Event::MOUSEMOTION ){
-        if( !event.inside ){
+void MiniMap::event(const Event& event) {
+    if(event.type == Event::MOUSEMOTION) {
+        if(!event.inside) {
             inside = false;
             return;
         }
-        if( !inside ){ //mouse just enterd the minimap, show current mapmode
+        if(!inside) { //mouse just enterd the minimap, show current mapmode
             getGameView()->setMapMode( mMode ); 
             inside = true;
         }
         return;
     }
-    if( !event.inside ){
+    if(!event.inside) {
         return;
     }
-    if(event.type==Event::MOUSEBUTTONDOWN ){
+    if(event.type==Event::MOUSEBUTTONDOWN) {
         // get Tile, that was clicked
         MapPoint tile (
                 (int) ((event.mousepos.x - border ) / tilesize),
                 (int) ((event.mousepos.y - border ) / tilesize));
         
-        if(event.mousebutton == SDL_BUTTON_LEFT ){ //left mouse
-     	    getGameView()->show(tile); // move main-map
-	    }
-        if(event.mousebutton == SDL_BUTTON_WHEELUP ){ 
-	        getGameView()->zoomIn();
-	    }
+        if(event.mousebutton == SDL_BUTTON_LEFT ) {
+            getGameView()->show(tile); // move main-map
+        }
+        if(event.mousebutton == SDL_BUTTON_WHEELUP ) { 
+            getGameView()->zoomIn();
+        }
         if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
-     	    getGameView()->zoomOut();
-	    }
+            getGameView()->zoomOut();
+        }
     }
 }
 
-IMPLEMENT_COMPONENT_FACTORY(MiniMap)
+IMPLEMENT_COMPONENT_FACTORY(MiniMap);
+

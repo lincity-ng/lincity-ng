@@ -8,7 +8,7 @@
 		<cell row="1" col="2">
 			<TableLayout rows="1" cols="5">
 				<cell row="1" col="1">
-					<CheckButton name="SwitchMiniMap">
+					<CheckButton name="SwitchMiniMap" checked="true">
 						<image src="images/gui/buttons/tabbed/tabbed.png"/>
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />

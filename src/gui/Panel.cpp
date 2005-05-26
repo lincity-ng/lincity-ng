@@ -13,6 +13,7 @@
 #include "Painter.hpp"
 
 Panel::Panel()
+	: background(0)
 {
 }
 
@@ -31,7 +32,8 @@ Panel::parse(XmlReader& reader)
         if(parseAttribute(attribute, value)) {
             continue;
         } else if(strcmp(attribute, "background") == 0) {
-            background.reset(texture_manager->load(value));
+            background = 0;
+            background = texture_manager->load(value);
         } else if(strcmp(attribute, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
                 std::stringstream msg;
@@ -63,8 +65,9 @@ Panel::parse(XmlReader& reader)
 void
 Panel::draw(Painter& painter)
 {
-    if(background.get())
-      painter.drawTexture(background.get(), Vector2(0, 0));
+    if(background)
+        painter.drawTexture(background, Vector2(0, 0));
+    
     Component::draw(painter);
 }
 
@@ -83,4 +86,5 @@ Panel::opaque(const Vector2& pos) const
     return false;
 }
 
-IMPLEMENT_COMPONENT_FACTORY(Panel)
+IMPLEMENT_COMPONENT_FACTORY(Panel);
+

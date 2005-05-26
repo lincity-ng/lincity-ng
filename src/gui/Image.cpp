@@ -7,6 +7,7 @@
 #include "Painter.hpp"
 
 Image::Image()
+    : texture(0)
 {
 }
 
@@ -69,9 +70,9 @@ Image::parse(XmlReader& reader)
     if(filename == "")
         throw std::runtime_error("No filename specified for image");
 
-    texture.reset(texture_manager->load(filename,
-                                        grey ? TextureManager::FILTER_GREY
-                                        : TextureManager::NO_FILTER));
+    texture = 0;
+    texture = texture_manager->load(filename,
+				grey ? TextureManager::FILTER_GREY : TextureManager::NO_FILTER);
 
     if(width <= 0 || height <= 0) {
         width = texture->getWidth();
@@ -93,19 +94,21 @@ void
 Image::draw(Painter& painter)
 {
     if(width != texture->getWidth() || height != texture->getHeight())
-        painter.drawStretchTexture(texture.get(), Rect2D(0, 0, width, height));
+        painter.drawStretchTexture(texture, Rect2D(0, 0, width, height));
     else
-        painter.drawTexture(texture.get(), Vector2(0, 0));
+        painter.drawTexture(texture, Vector2(0, 0));
 }
 
 std::string Image::getFilename() const
 {
-  return filename;
+    return filename;
 }
+
 void Image::setFile(const std::string &pfilename)
 {
-  filename=pfilename;
-  texture.reset(texture_manager->load(pfilename));
+    filename=pfilename;
+    texture = 0;
+    texture = texture_manager->load(pfilename);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Image);

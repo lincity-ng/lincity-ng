@@ -21,7 +21,7 @@ public:
     }
 
 private:
-    std::auto_ptr<Texture> texture;
+    Texture* texture;
     Style style;
     std::string filename;
 };

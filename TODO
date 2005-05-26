@@ -19,7 +19,6 @@ Programming
 ~~~~~~~~~~~
 
 --Gui--
- [L] Share loaded images?
  [M] Implement dirty rectangle methods to only redraw when needed
  [?] Think about mechanism for attach arbitrary properties to components
     (for tooltips, styles (and layout data?) )

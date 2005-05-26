@@ -18,7 +18,7 @@ public:
     bool opaque(const Vector2& pos) const;
 
 private:
-    std::auto_ptr<Texture> background;
+    Texture* background;
 };
 
 #endif

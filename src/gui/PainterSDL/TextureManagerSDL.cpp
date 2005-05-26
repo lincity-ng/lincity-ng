@@ -1,7 +1,5 @@
 #include <config.h>
 
-#include <SDL_image.h>
-#include <SDL_opengl.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -9,8 +7,6 @@
 
 #include "TextureManagerSDL.hpp"
 #include "TextureSDL.hpp"
-#include "gui/Filter.hpp"
-#include "PhysfsStream/PhysfsSDL.hpp"
 
 static const Uint8 ALPHA_BARRIER = 100;
 
@@ -65,34 +61,5 @@ TextureManagerSDL::create(SDL_Surface* image)
 #endif
 
     return new TextureSDL(surface);
-}
-
-Texture*
-TextureManagerSDL::load(const std::string& filename, Filter filter)
-{
-    SDL_Surface* image = IMG_Load_RW(getPhysfsSDLRWops(filename), 1);
-    if(!image) {
-        std::stringstream msg;
-        msg << "Couldn't load image '" << filename
-            << "' :" << SDL_GetError();
-        throw std::runtime_error(msg.str());
-    }
-
-    switch(filter) {
-        case NO_FILTER:
-            break;
-        case FILTER_GREY:
-            color2Grey(image);
-            break;
-        default:
-            std::cerr << "Unknown filter specified for image.\n";
-#ifdef DEBUG
-            assert(false);
-#endif
-            break;
-    }
-
-    Texture* result = create(image);
-    return result;
 }
 

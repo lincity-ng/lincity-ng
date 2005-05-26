@@ -22,8 +22,12 @@ private:
         {
             if(other.name < name)
                 return true;
+            if(other.name > name)
+                return false;
             if(other.fontsize < fontsize)
                 return true;
+            if(other.fontsize > fontsize)
+                return false;
             if(other.fontstyle < fontstyle)
                 return true;
             return false;

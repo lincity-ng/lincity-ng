@@ -46,8 +46,6 @@ ButtonPanel::parse(XmlReader& reader)
 
         if(parseAttribute(attribute, value)) {
             continue;
-//        } else if(strcmp(attribute, "background") == 0) {
-//            background.reset(texture_manager->load(value));
         } else if(strcmp(attribute, "width") == 0) {
             if(sscanf(value, "%f", &width) != 1) {
                 std::stringstream msg;

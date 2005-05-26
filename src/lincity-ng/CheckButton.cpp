@@ -54,6 +54,16 @@ CheckButton::parse(XmlReader& reader)
             lowerOnClick=true;
         } else if(strcmp(attribute, "direction") == 0) {
             // skip
+        } else if(strcmp(attribute, "checked") == 0) {
+            if(strcmp(value, "true") == 0) {
+                check();
+            } else if(strcmp(value, "false") == 0) {
+                uncheck();
+            } else {
+                std::cerr << "Unknown value '" << value 
+                          << "' in check attribute."
+                          << " Should be 'true' or 'false'.\n";
+            }
         } else {
             std::cerr << "Skipping unknown attribute '"
                 << attribute << "'.\n";
