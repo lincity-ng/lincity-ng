@@ -77,7 +77,8 @@ void EconomyGraph::updateData(){
     int i;
     float f;
     int w = getConfig()->monthgraphW;
-    int h = getConfig()->monthgraphH;
+    //thats the value oldgui uses, so saved data has same scale as new.
+    int h = 64; //MONTHGRAPH_H; 
 
     for (i = w - 1; i > 0; i--) {
 	    monthgraph_pop[i] = monthgraph_pop[i-1];
@@ -129,6 +130,7 @@ void EconomyGraph::newFPS( int frame ){
         fps[ i ] = fps[i-1];
     }
     fps[ 0 ] = h * frame / 100;
+    setDirty();
 }
 
 void EconomyGraph::draw( Painter& painter ){
@@ -158,29 +160,30 @@ void EconomyGraph::draw( Painter& painter ){
     // see oldgui/screen.cpp do_history_linegraph 
     Vector2 a;
     Vector2 b;
+    float scale = (float) getConfig()->monthgraphH / 64; //MONTHGRAPH_H  ;
 
     painter.setClipRectangle( mg ); 
     b.y = mgY + mgH;
     for( int i = mgW - 1; i >= 0; i-- ){
         painter.setLineColor( yellow );
         a.x = mgX + mgW - i;
-        a.y = mgY + mgH - monthgraph_nojobs[i];
+        a.y = mgY + mgH - scale * monthgraph_nojobs[i];
         
         b.x = mgX + mgW - i;
         painter.drawLine( a, b );
         painter.setLineColor( red );
-        a.y = mgY + mgH - monthgraph_starve[i];
+        a.y = mgY + mgH - scale * monthgraph_starve[i];
         painter.drawLine( a, b );
     }                  
     for( int i = mgW - 1; i > 0; i-- ){
         painter.setLineColor( brown );
         a.x = mgX + mgW - i;
-        a.y = mgY + mgH - monthgraph_pop[ i ];
+        a.y = mgY + mgH - scale * monthgraph_pop[ i ];
         b.x = mgX + mgW - i-1;
-        b.y = mgY + mgH - monthgraph_pop[ i-1 ];
+        b.y = mgY + mgH - scale * monthgraph_pop[ i-1 ];
         painter.drawLine( a, b );
-        a.y = mgY + mgH - monthgraph_ppool[ i ];
-        b.y = mgY + mgH - monthgraph_ppool[ i-1 ];
+        a.y = mgY + mgH - scale * monthgraph_ppool[ i ];
+        b.y = mgY + mgH - scale * monthgraph_ppool[ i-1 ];
         painter.setLineColor( blue );
         painter.drawLine( a, b );
     }
@@ -196,7 +199,7 @@ void EconomyGraph::draw( Painter& painter ){
     for( int i = mgW - 1; i >= 0; i-- ){
         painter.setLineColor( blue );
         a.x = mgX + mgW - i;
-        a.y = 2*(mgY + mgH) - fps[i];
+        a.y = 2*(mgY + mgH) - scale * fps[i];
         
         b.x = mgX + mgW - i;
         painter.drawLine( a, b );

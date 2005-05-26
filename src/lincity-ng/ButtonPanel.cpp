@@ -234,9 +234,6 @@ void ButtonPanel::examineMenuButtons(){
     std::string name; 
     Component *c;
     for( size_t number=0; number < mMenuButtons.size(); number++ ){
-       // std::cout << "number=" << number << " Name=" << name << "\n";
-       // std::cout << " mMenuSelected[mMenus[number]] =" << mMenuSelected[mMenus[number]];
-       // std::cout << " [mMenus[number]] ="  << mMenus[number] << " \n";
         name = mMenuButtons[ number ]; 
         c=findComponent( name );
             
@@ -503,7 +500,7 @@ void ButtonPanel::switchToTool( int newModuleType ){
 void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
 {
   Image *i=dynamic_cast<Image*>(button->getCaption());
-  
+  CheckButton *cb;
   std::string mmain=button->getMain();
   if(i)
   {
@@ -515,9 +512,10 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
       Component *c=findComponent(mmain);
       if(c)
       {
-        CheckButton *cb=dynamic_cast<CheckButton*>(c);
+        cb=dynamic_cast<CheckButton*>(c);
         if(cb)
         {
+          cb->enable();
           cb->check(); menuButtonClicked(cb,SDL_BUTTON_LEFT);   // simply simulate button press
           dynamic_cast<Image*>(cb->getCaption())->setFile(filename);
         }
@@ -557,6 +555,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
       selected_module_type = prevTech;
       updateSelectedCost();
   }     
+  cb->setTooltip( createTooltip( selected_module_type ) );
   examineMenuButtons();
   //Tell GameView to use the right Cursor
   if( selected_module_type == CST_NONE ) {
@@ -652,7 +651,6 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
         getGameView()->setCursorSize( size );
     }
     updateToolInfo();
-   examineMenuButtons();
    setDirty();
 }
 

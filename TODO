@@ -39,6 +39,8 @@ Programming
      (eg in load game menu)
  [M] Teleporation power (removing power lines still allows that power is
      running where they were before)
+     [Sure? Does it take longer than in classic until the effect is 
+     visible?] 
     
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.

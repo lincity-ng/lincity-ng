@@ -17,12 +17,12 @@ Mouse
 any:
  Click on Minimap shows the selected Area on mainscreen.
 
-middle:
- Drag mainscreen with middle mousebutton.
- middle click on mainscreen centers to tile under cursor.
-
 right:
- right click on mainscreen to show information about area under cursor.
+ Drag mainscreen with right mousebutton.
+ right click on mainscreen centers to tile under cursor.
+
+middle:
+ middle click on mainscreen to show information about area under cursor.
 
 left:
  Perform action depending on selected tool. Bulldoze, show Information,

@@ -38,6 +38,8 @@ Config::Config()
     soundEnabled = true;
     musicEnabled = true;
 
+    //#define MONTHGRAPH_W 120 
+    //#define MONTHGRAPH_H 64
     monthgraphW = 120;
     monthgraphH = 64;
     skipMonthsFast = 1;

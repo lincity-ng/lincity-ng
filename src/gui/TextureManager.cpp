@@ -6,6 +6,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <iostream>
+#include <assert.h>
 #include "gui/Filter.hpp"
 #include "PhysfsStream/PhysfsSDL.hpp"
 
