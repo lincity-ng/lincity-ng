@@ -84,6 +84,9 @@ AC_SUBST([ICONV_LIBS], [$LIBICONV])
 PKG_CHECK_MODULES([LIBXML], [libxml-2.0 >= 2.6.11])
 
 AX_CHECK_GL
+if test "$no_gl" = "yes"; then
+    AC_MSG_ERROR([Couldn't find opengl libraries or headers])
+fi
 
 AM_PATH_SDL([1.2.5], , AC_MSG_ERROR([Please install libsdl >= 1.2.5]))
 
