@@ -225,8 +225,8 @@ int main(int argc, char** argv)
     }
     std::cout << "LINCITY_HOME: " << dir << "\n";
     char tmp[256];
-    snprintf(tmp, sizeof(tmp), "%s/", dir);
-    setenv("LINCITY_HOME", tmp, 1);
+    snprintf(tmp, sizeof(tmp), "LINCITY_HOME=%s/", dir);
+    putenv(tmp);
    
     //parse commandline args
     int currentArgument = 0; 
