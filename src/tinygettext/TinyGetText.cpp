@@ -20,7 +20,9 @@
 
 #include <sys/types.h>
 #include <iconv.h>
+#if defined (HAVE_DIRENT_H)
 #include <dirent.h>
+#endif
 #include <fstream>
 #include <iostream>
 #include <ctype.h>
