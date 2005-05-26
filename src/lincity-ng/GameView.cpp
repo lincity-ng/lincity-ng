@@ -800,9 +800,12 @@ void GameView::event(const Event& event)
 
             if( dragging ) {
                 Vector2 dragDistance;
-                Uint32 now = SDL_GetTicks();
                 dragDistance = event.mousepos - dragStart;
-                
+								if(fabsf(dragDistance.x) < 1 && fabsf(dragDistance.y) < 1)
+									break;
+               
+#if 0
+                Uint32 now = SDL_GetTicks();
                 int elapsed =  now - dragStartTime;
                 if( elapsed < 30 ){ //do nothing if less than 0.03 sec passed.
                     break;
@@ -831,6 +834,9 @@ void GameView::event(const Event& event)
                     SDL_WarpMouse( (short unsigned int) dragStart.x, (short unsigned int) dragStart.y );
                 }
                 dragStartTime = now;
+#endif
+								viewport += dragDistance;
+								SDL_WarpMouse( (Uint16) dragStart.x, (Uint16) dragStart.y );
                 setDirty();
                 break;            
             }         
@@ -843,7 +849,6 @@ void GameView::event(const Event& event)
                 dragging = true;
                 dragStart = event.mousepos;
                 SDL_ShowCursor( SDL_DISABLE );
-                SDL_WM_GrabInput( SDL_GRAB_ON );
                 dragStartTime = SDL_GetTicks();
             }         
             MapPoint tile = getTile(event.mousepos);
@@ -889,7 +894,7 @@ void GameView::event(const Event& event)
                     dragging = false;
                     rightButtonDown = false;
                     SDL_ShowCursor( SDL_ENABLE );
-                    SDL_WM_GrabInput( SDL_GRAB_OFF );
+										SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
                     break;
                 } 
                 dragging = false;

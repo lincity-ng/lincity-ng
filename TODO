@@ -53,7 +53,6 @@ Programming
  [M] Statistics graph
  [M] Display InfoMessages
  [L] manpage, documentation
- [H] improve fast scrolling
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
