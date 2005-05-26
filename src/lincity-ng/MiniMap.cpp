@@ -265,7 +265,7 @@ void MiniMap::hideMpsEnv(){
     mps_y = mpsYOld;
     mps_style = mpsStyleOld;
     mps_set( mps_x, mps_y, mps_style );
-    switchComponent->switchComponent( shownTabName );
+    switchView( shownTabName );
 }
 
 void MiniMap::showMpsEnv( MapPoint tile ){
