@@ -22,4 +22,21 @@ rule UseAutoconf
     Package [ Wildcard mk/jam : *.jam ] [ Wildcard mk/autoconf : *.m4 ]
             mk/autoconf/config.guess mk/autoconf/config.sub
             mk/autoconf/install-sh ;
+
+    actions CheckNewer {
+        echo Error: $(>) is newer than $(<).
+        echo ""
+        echo You should rerun ./autogen.sh and ./configure
+        exit 1
+    }
+
+    rule CheckNewer {
+        Depends $(<) : $(>) ;
+        Depends all : $(<) ;
+    }
+
+    configurefiles 
+        = configure.ac configure [ Wildcard mk/autoconf : *.m4 ] ;
+    CheckNewer Jamconfig : $(configurefiles) ;
+    CheckNewer config.h : $(configurefiles) ;
 }
