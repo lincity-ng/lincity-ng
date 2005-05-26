@@ -14,6 +14,7 @@
 
 #ifdef _MSC_VER
 #define lrint(x) (long int)x
+#define lroundf(x) (long int)(x + .5)
 #define alloca _alloca
 #endif
 
