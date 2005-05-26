@@ -61,7 +61,7 @@ rule XmlGetText
 }
 actions XmlGetText
 {
-    ./xmlgettext $(XMLGETTEXT_FLAGS) $(<) $(>)
+    $(LOCATE_TARGETS)/$(XMLGETTEXT) $(XMLGETTEXT_FLAGS) $(<) $(>)
 }
 
 rule DoXGetText
