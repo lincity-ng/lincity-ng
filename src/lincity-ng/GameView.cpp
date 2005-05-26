@@ -849,13 +849,13 @@ void GameView::event(const Event& event)
                 break;       
             }
             if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
-                //getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
+                getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
             }
             break;
         }
         case Event::MOUSEBUTTONUP:
             if(event.mousebutton == SDL_BUTTON_MIDDLE ){
-                //getMiniMap()->hideMpsEnv();
+                getMiniMap()->hideMpsEnv();
             }
             if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 if ( dragging ) {

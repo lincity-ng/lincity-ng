@@ -145,6 +145,7 @@ MiniMap::parse(XmlReader& reader)
     mpsXOld = mps_x;
     mpsYOld = mps_y;
     mpsStyleOld = mps_style;
+    shownTabName = "";
 
     //switchView("MiniMap");
 }
@@ -194,13 +195,6 @@ void MiniMap::attachButtons()
             makeCallback(*this, &MiniMap::switchButton));
     switchButtons.push_back(switchPBarButton);
    
-#if 0
-    CheckButton* switchMapMPSButton = getCheckButton(*root, "SwitchMapMPS");
-    switchMapMPSButton->clicked.connect(
-            makeCallback(*this, &MiniMap::switchButton));
-    switchButtons.push_back(switchMapMPSButton);
-#endif
-    
     CheckButton* switchButton = getCheckButton(*root, "SwitchGlobalMPS");
     switchButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
@@ -215,6 +209,9 @@ void MiniMap::attachButtons()
 void
 MiniMap::switchButton(CheckButton* button, int)
 {
+    if( !alreadyAttached ){
+        return;
+    }
     if(button->getName() == "SwitchGlobalMPS") {
         //cycle through global styles
         mps_global_style++;
@@ -253,7 +250,6 @@ MiniMap::switchView(const std::string& viewname)
     }
 }
 
-#if 0
 void MiniMap::hideMpsEnv(){
     if( mps_style != MPS_ENV ){
         return;
@@ -268,8 +264,8 @@ void MiniMap::hideMpsEnv(){
     mps_x = mpsXOld;
     mps_y = mpsYOld;
     mps_style = mpsStyleOld;
-    //switchComponent->switchComponent( shownTabName );
     mps_set( mps_x, mps_y, mps_style );
+    switchComponent->switchComponent( shownTabName );
 }
 
 void MiniMap::showMpsEnv( MapPoint tile ){
@@ -281,16 +277,14 @@ void MiniMap::showMpsEnv( MapPoint tile ){
     }
     if( mps_style != MPS_ENV ){
         //save old minimap and MPS setting
-        //shownTabName was set by switchButton already 
+        shownTabName = switchComponent->getActiveComponentName(); 
         mpsXOld = mps_x;
         mpsYOld = mps_y;
         mpsStyleOld = mps_style;
     }
     std::cout << tile.x << " " <<tile.y << "\n";
-    getMPS()->setView( tile, MPS_ENV );//show basic info
-    switchComponent->switchComponent("MPSPanel");
+    mps_set( tile.x, tile.y, MPS_ENV );//show basic info
 }
-#endif
 
 void MiniMap::mapViewButtonClicked(CheckButton* button, int)
 {

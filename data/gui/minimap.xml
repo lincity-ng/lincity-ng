@@ -242,6 +242,9 @@
 				<Mps name="MapMPS">
 					<Import src="gui/mps.xml"/>
 				</Mps>
+				<Mps name="EnvMPS">
+					<Import src="gui/mps.xml"/>
+				</Mps>
 				<EconomyGraph name="EconomyGraph" width="200" height="200" />
 			</SwitchComponent>
 		</cell>

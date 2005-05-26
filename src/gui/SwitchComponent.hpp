@@ -1,6 +1,7 @@
 #ifndef __SWITCH_COMPONENT_HPP__
 #define __SWITCH_COMPONENT_HPP__
 
+#include <string>
 #include "Component.hpp"
 
 class XmlReader;
@@ -19,6 +20,11 @@ public:
     bool opaque(const Vector2& pos) const;
 
     void switchComponent(const std::string& name);
+    std::string getActiveComponentName(){ return activeComponentName; }; 
+
+private:
+    std::string activeComponentName;
+        
 };
 
 #endif

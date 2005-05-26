@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>Total Evacuation Complete.</title>
+	<image>info.png</image>
+	<p> Well done you have evacuated all your people.</p>
+    <bold>You have won the game.</bold>
+</OkDialog>

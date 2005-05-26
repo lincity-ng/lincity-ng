@@ -63,6 +63,7 @@ private:
     bool mFullRefresh;
     bool alreadyAttached;
     bool inside;
+    std::string shownTabName;
 };
 
 MiniMap* getMiniMap();

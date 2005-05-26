@@ -265,7 +265,7 @@ int mps_set_silent(int x, int y, int style);
 
 void mps_update(int mps_x, int mps_y, int mps_style)
 {
-    mps_set(mps_x, mps_y, mps_style);
+    mps_set_silent(mps_x, mps_y, mps_style);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Mps);

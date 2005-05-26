@@ -8,6 +8,7 @@
 SwitchComponent::SwitchComponent()
 {
     setFlags(FLAG_RESIZABLE);
+    activeComponentName = "";
 }
 
 SwitchComponent::~SwitchComponent()
@@ -40,6 +41,7 @@ SwitchComponent::parse(XmlReader& reader)
             if(first) {
                 child.enable(true);
                 first = false;
+                activeComponentName = child.getComponent()->getName(); 
             } else {
                 child.enable(false);
             }
@@ -75,6 +77,7 @@ SwitchComponent::switchComponent(const std::string& name)
         if(child.getComponent()->getName() == name) {
             child.enable(true);
             found = true;
+            activeComponentName = name;
         } else {
             child.enable(false);
         }
@@ -86,6 +89,7 @@ SwitchComponent::switchComponent(const std::string& name)
 #endif
         if(!childs.empty()) {
             childs[0].enable(true);
+            activeComponentName = childs[0].getComponent()->getName(); 
         }
     }
     setDirty();
