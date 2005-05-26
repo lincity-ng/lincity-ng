@@ -60,5 +60,5 @@ DoXmlGetText locale/gui/messages.pot : [ Wildcard gui : *.xml ] ;
 # Stuff from old lincity, still needed for the lib at the moment
 InstallData colour.pal ;
 # InstallData [ Wildcard icons : *.csi ] : icons ;
-InstallData [ Wildcard opening : *.scn *.png ] : opening ;
-InstallData opening/iconlist.txt : opening ;
+InstallData [ Wildcard opening : *.scn ] : opening ;
+

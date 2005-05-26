@@ -5,197 +5,25 @@
 #include <config.h>
 
 #include <stdlib.h>
-#include "png.h"
-#include "malloc.h"
 #include "lincity/lin-city.h"
 #include "lincity/lctypes.h"
 #include "lincity/lintypes.h"
 
-/* Read a PNG file.  You may want to return an error code if the read
- * fails (depending upon the failure).  There are two "prototypes" given
- * here - one where we are given the filename, and we need to open the
- * file, and the other where we are given an open file (possibly with
- * some or all of the magic bytes read - see comments above).
+static void LG(short type, short group, const char* id)
+{
+    (void) id;
+    main_types[type].group = group;
+    main_types[type].graphic = 0;
+}
+
+/**
+ * The original lincity engine was loading it's tileset here. We still have this
+ * function because it had the strange side effect of initializing group numbers
+ * in the main_types array.
  */
-#define ERROR -1
-#define OK 0
-
-/* Private functions */
-static char* 
-load_png_graphic (short type, short group, char* id,
-		  FILE* txt_fp,png_bytep *row_pointers, 
-		  png_uint_32 width, png_uint_32 height);
-
-/* Let errors and warnings be handled by setjmp/longjmp */
-void* user_error_ptr = 0;
-
-void user_error_fn(png_structp png_ptr, png_const_charp error_msg)
-{
-}
-
-void user_warning_fn(png_structp png_ptr, png_const_charp warning_msg)
-{
-}
-
 int
-load_png_graphics (char *txt_filename, char *png_filename)
+load_png_graphics (char* , char* )
 {
-    png_uint_32 row;
-    png_structp png_ptr;
-    png_infop info_ptr;
-    unsigned int sig_read = 0;
-    png_uint_32 width, height;
-    int bit_depth, color_type, interlace_type;
-    FILE *fp, *txt_fp;
-    png_bytep *row_pointers;
-
-    if ((fp = fopen(png_filename, "rb")) == NULL)
-	return (ERROR);
-
-    if ((txt_fp = fopen(txt_filename, "r")) == NULL)
-	return (ERROR);
-
-    /* Create and initialize the png_struct with the desired error handler
-    * functions.  If you want to use the default stderr and longjump method,
-    * you can supply NULL for the last three parameters.  We also supply the
-    * the compiler header file version, so that we know if the application
-    * was compiled with a compatible version of the library.  REQUIRED
-    */
-    png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING,
-	(png_voidp) user_error_ptr, user_error_fn, user_warning_fn);
-
-    if (png_ptr == NULL) {
-	fclose(fp);
-	return (ERROR);
-    }
-
-    /* Allocate/initialize the memory for image information.  REQUIRED. */
-    info_ptr = png_create_info_struct(png_ptr);
-    if (info_ptr == NULL) {
-	fclose(fp);
-#if defined (commentout)
-	png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
-#endif
-	png_destroy_read_struct(&png_ptr, NULL, NULL);
-	return (ERROR);
-    }
-
-   /* Set error handling if you are using the setjmp/longjmp method (this is
-    * the normal method of doing things with libpng).  REQUIRED unless you
-    * set up your own error handlers in the png_create_read_struct() earlier.
-    */
-    if (setjmp(png_jmpbuf(png_ptr))) {
-	/* Free all of the memory associated with the png_ptr and info_ptr */
-#if defined (commentout)
-	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
-#endif
-	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-	fclose(fp);
-	/* If we get here, we had a problem reading the file */
-	return (ERROR);
-    }
-
-    /* Set up the input control if you are using standard C streams */
-    png_init_io(png_ptr, fp);
-
-    /* If we have already read some of the signature */
-    png_set_sig_bytes(png_ptr, sig_read);
-
-    /* OK, you're doing it the hard way, with the lower-level functions */
-    /* The call to png_read_info() gives us all of the information from the
-    * PNG file before the first IDAT (image data chunk).  REQUIRED
-    */
-    png_read_info(png_ptr, info_ptr);
-
-#if defined (commentout)
-    png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
-	&interlace_type, int_p_NULL, int_p_NULL);
-#endif
-    png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
-	&interlace_type, NULL, NULL);
-
-    /* Set up the data transformations you want.  Note that these are all
-     * optional.  Only call them if you want/need them.  Many of the
-     * transformations only work on specific types of images, and many
-     * are mutually exclusive.
-     */
-
-   /* tell libpng to strip 16 bit/color files down to 8 bits/color */
-//   png_set_strip_16(png_ptr);
-
-   /* Strip alpha bytes from the input data without combining with the
-    * background (not recommended).
-    */
-//   png_set_strip_alpha(png_ptr);
-
-   /* Extract multiple pixels with bit depths of 1, 2, and 4 from a single
-    * byte into separate bytes (useful for paletted and grayscale images).
-    */
-//   png_set_packing(png_ptr);
-
-   /* Change the order of packed pixels to least significant bit first
-    * (not useful if you are using png_set_packing). */
-//   png_set_packswap(png_ptr);
-
-   /* Require color fmt w/ palette */
-   if (color_type != PNG_COLOR_TYPE_PALETTE) {
-	printf ("Error - png image wasn't PNG_COLOR_TYPE_PALETTE\n");
-	/* Free all of the memory associated with the png_ptr and info_ptr */
-#if defined (commentout)
-	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
-#endif
-	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-	fclose(fp);
-	/* If we get here, we had a problem reading the file */
-	return (ERROR);
-   }
-
-   /* Require 1 byte per pixel */
-   if (bit_depth != 8) {
-	printf ("Error - png image wasn't bit_depth = 8\n");
-	/* Free all of the memory associated with the png_ptr and info_ptr */
-#if defined (commentout)
-	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
-#endif
-	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-	fclose(fp);
-	/* If we get here, we had a problem reading the file */
-	return (ERROR);
-   }
-
-    /* The easiest way to read the image: */
-   row_pointers = (png_byte**)malloc (sizeof(void*)*height);
-    for (row = 0; row < height; row++) {
-      row_pointers[row] = (png_byte*)png_malloc(png_ptr, 
-	    png_get_rowbytes(png_ptr, info_ptr));
-    }
-
-    png_read_image(png_ptr, row_pointers);
-
-#if defined (commentout)
-    for (col = 0; col < 16; col++) {
-	printf (" %02x ",row_pointers[0][col]);
-    }
-    printf ("\n");
-
-    for (col = 0; col < 16; col++) {
-	printf ("%3d ",row_pointers[0][col]);
-    }
-    printf ("\n");
-#endif
-
-    /* read rest of file, and get additional chunks in info_ptr - REQUIRED */
-    png_read_end(png_ptr, info_ptr);
-
-    /* close the png file */
-    fclose(fp);
-
-    /* get the icons out of the png */
-#ifdef LG
-#undef LG
-#endif
-#define LG(typ,grp,id) load_png_graphic(typ,grp,id,txt_fp,row_pointers,height,width)
-
     LG(CST_GREEN,GROUP_BARE,LCT_GREEN_G);
 
     LG(CST_FIRE_1,GROUP_FIRE,LCT_FIRE_1_G);
@@ -502,112 +330,6 @@ load_png_graphics (char *txt_filename, char *png_filename)
     LG(CST_TIP_7,GROUP_TIP,LCT_TIP_7_G);
     LG(CST_TIP_8,GROUP_TIP,LCT_TIP_8_G);
 
-    // main_t
-#undef LG
-
-#if defined (commentout)
-    /* PROCESS IMAGE HERE */
-    while (!feof(txt_fp)) {
-	char buf[128];
-	char *fnp,*rip,*cip;
-	int ri,ci;
-
-	/* Get line from text file */
-	fgets (buf,128,txt_fp);
-
-	/* Tokenize */
-	fnp = strtok(buf," \t");
-	if (!fnp || *fnp == '#') continue;
-	if (*fnp == '@') break;
-	rip = strtok(NULL," \t");
-	if (!rip) continue;
-	cip = strtok(NULL," \t");
-	if (!cip) continue;
-	ri = atoi(rip);
-	ci = atoi(cip);
-
-	/* Copy icon */
-	if (!strcmp(fnp,LCT_GREEN_G)) {
-	    int r,c;
-	    char* p;
-            main_types[CST_GREEN].graphic=malloc(16*16);
-	    p = main_types[CST_GREEN].graphic;
-	    for (r=ri*16;r<ri*16+16;r++) {
-	    for (c=ci*16;c<ci*16+16;c++) {
-		*p++ = row_pointers[r][c];
-	    } }
-	}
-    }
-#endif
-
-    /* Free the memory */
-    for (row = 0; row < height; row++) {
-	png_free(png_ptr, row_pointers[row]);
-    }
-    free(row_pointers);
-
-    /* clean up after the read, and free any memory allocated - REQUIRED */
-#if defined (commentout)
-    png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
-#endif
-    png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-
-    /* that's it */
-    return (OK);
-}
-
-static char* 
-load_png_graphic (short type, short group, char* id,
-		  FILE* txt_fp,png_bytep *row_pointers, 
-		  png_uint_32 width, png_uint_32 height)
-{
-    char buf[128];
-    char *fnp,*rip,*cip;
-    int ri,ci;
-    char *grphc = 0;
-
-    while (!feof(txt_fp)) {
-	/* Get line from text file */
-	fgets (buf,128,txt_fp);
-
-	/* Tokenize */
-	fnp = strtok(buf," \t");
-	if (!fnp || *fnp == '#') continue;
-	if (*fnp == '@') break;
-	rip = strtok(NULL," \t");
-	if (!rip) continue;
-	cip = strtok(NULL," \t");
-	if (!cip) continue;
-	ri = atoi(rip);
-	ci = atoi(cip);
-
-	/* Copy icon */
-	if (!strcmp(fnp,id)) {
-	    int r,c;
-	    int nr,nc;
-	    char* p;
-	    nr = nc = main_groups[group].size;
-	    p = grphc = (char*)malloc(nr*16*nc*16);
-	    if (!grphc) malloc_failure();
-	    for (r=ri*16;r<(ri+nr)*16;r++) {
-		for (c=ci*16;c<(ci+nc)*16;c++) {
-		    *p++ = row_pointers[r][c];
-		}
-	    }
-	    break;
-	} else {
-	    fprintf (stderr,"Error, wrong id string");
-	    exit(-1);
-	}
-    }
-
-    /* Set the main_type info */
-    if (grphc) {
-        main_types[type].group = group;
-	main_types[type].graphic = grphc;
-    } else {
-	fprintf (stderr,"Error, couldn't find id string");
-	exit(-1);
-    }
     return 0;
 }
+
