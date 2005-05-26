@@ -326,7 +326,11 @@ void Dialog::gameStats(){
 	     rockets_launched, rockets_launched_success);
     setParagraphN( "statistic_text", line++, outf );
     setParagraphN( "statistic_text", line++, "" );
-    snprintf (outf, maxlength, _("    Residences %4d         Markets %4d            Farms %4d"),
+    //as long as Paragraph.cpp stripes leading spaces there has to
+    //be something here ----------\
+    //                            |
+    //                            v                
+    snprintf (outf, maxlength, _(".   Residences %4d         Markets %4d            Farms %4d"),
 	     group_count[GROUP_RESIDENCE_LL] + 
 	     group_count[GROUP_RESIDENCE_ML] + 
 	     group_count[GROUP_RESIDENCE_HL] + 
@@ -336,36 +340,36 @@ void Dialog::gameStats(){
 	     group_count[GROUP_MARKET],
 	     group_count[GROUP_ORGANIC_FARM]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("        Tracks %4d           Roads %4d             Rail %4d")
+    snprintf (outf, maxlength, _(".       Tracks %4d           Roads %4d             Rail %4d")
 	     ,group_count[GROUP_TRACK], group_count[GROUP_ROAD]
 	     ,group_count[GROUP_RAIL]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("     Potteries %4d     Blacksmiths %4d            Mills %4d")
+    snprintf (outf, maxlength, _(".    Potteries %4d     Blacksmiths %4d            Mills %4d")
 	     ,group_count[GROUP_POTTERY], group_count[GROUP_BLACKSMITH]
 	     ,group_count[GROUP_MILL]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("     Monuments %4d         Schools %4d     Universities %4d")
+    snprintf (outf, maxlength, _(".    Monuments %4d         Schools %4d     Universities %4d")
 	     ,group_count[GROUP_MONUMENT], group_count[GROUP_SCHOOL]
 	     ,group_count[GROUP_UNIVERSITY]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(" Fire stations %4d           Parks %4d     Cricket gnds %4d")
+    snprintf (outf, maxlength, _(".Fire stations %4d           Parks %4d     Cricket gnds %4d")
 	     ,group_count[GROUP_FIRESTATION], group_count[GROUP_PARKLAND]
 	     ,group_count[GROUP_CRICKET]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("    Coal mines %4d       Ore mines %4d         Communes %4d")
+    snprintf (outf, maxlength, _(".   Coal mines %4d       Ore mines %4d         Communes %4d")
 	     ,group_count[GROUP_COALMINE], group_count[GROUP_OREMINE]
 	     ,group_count[GROUP_COMMUNE]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("     Windmills %4d     Coal powers %4d     Solar powers %4d"),
+    snprintf (outf, maxlength, _(".    Windmills %4d     Coal powers %4d     Solar powers %4d"),
 	     group_count[GROUP_WINDMILL],
 	     group_count[GROUP_COAL_POWER],
 	     group_count[GROUP_SOLAR_POWER]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("   Substations %4d     Power lines %4d            Ports %4d")
+    snprintf (outf, maxlength, _(".  Substations %4d     Power lines %4d            Ports %4d")
 	     ,group_count[GROUP_SUBSTATION], group_count[GROUP_POWER_LINE]
 	     ,group_count[GROUP_PORT]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("    Light inds %4d      Heavy inds %4d        Recyclers %4d")
+    snprintf (outf, maxlength, _(".   Light inds %4d      Heavy inds %4d        Recyclers %4d")
 	     ,group_count[GROUP_INDUSTRY_L], group_count[GROUP_INDUSTRY_H]
 	     ,group_count[GROUP_RECYCLE]);
     setParagraphN( "statistic_text", line++, outf );

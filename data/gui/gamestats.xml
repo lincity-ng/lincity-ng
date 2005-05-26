@@ -17,8 +17,7 @@
 		<TableLayout rows="2" cols="1">
 		<rowsize row="2" fixed="30"/>
 		<cell row="1" col="1">
-    <!-- This should use a font with fixed width. Insert font-family="fixed" -->
-    <DefineStyle name="statistic_text" color="black" font-size="14" halign="left"/>
+    <DefineStyle name="statistic_text" color="black" font-size="14" halign="left" font-family="fixed" />
 		<TableLayout rows="23" cols="1">
 			<colsize col="1" relative="1004"/>
 			<cell row="1" col="1" halign="left">
