@@ -55,7 +55,11 @@ InstallData [ Wildcard music : *.ogg ] : music ;
 InstallData [ Wildcard sounds : *.wav ] : sounds ;
 InstallData lincityconfig.xml ;
 
-DoXmlGetText locale/gui/messages.pot : [ Wildcard gui : *.xml ] ;
+# can only invoke xmlgettext when not cross compiling
+if $(build) = $(target)
+{
+    DoXmlGetText locale/gui/messages.pot : [ Wildcard gui : *.xml ] ;
+}
 
 # Stuff from old lincity, still needed for the lib at the moment
 InstallData colour.pal ;
