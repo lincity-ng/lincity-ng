@@ -327,7 +327,7 @@ void Dialog::gameStats(){
     setParagraphN( "statistic_text", line++, outf );
     setParagraphN( "statistic_text", line++, "" );
     //as long as Paragraph.cpp stripes leading spaces there has to
-    //be something here ----------|
+    //be something here ----------\ or the stats look strange.
     //                            |
     //                            v                
     snprintf (outf, maxlength, _(".   Residences %4d         Markets %4d            Farms %4d"),

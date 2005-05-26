@@ -130,7 +130,10 @@ void MainMenu::fillLoadMenu()
     button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
     while( ( curfile = readdir( lincityDir ) ) )
     { 
-      if(std::string( curfile->d_name ).find( filestart.str() ) == 0 && !( curfile->d_type & DT_DIR  ) )
+      if(std::string( curfile->d_name ).find( filestart.str() ) == 0 )
+          // && !( curfile->d_type & DT_DIR  ) ) is not portable. So dont create
+          // a directoy named 2_ in a savegame-directory or you can no longer
+          // load from slot 2.
         break;
     }
     if( curfile )
