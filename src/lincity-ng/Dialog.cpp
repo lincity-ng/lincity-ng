@@ -9,6 +9,7 @@
 #include "Dialog.hpp"
 
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <stdexcept>
 
@@ -279,6 +280,16 @@ void Dialog::gameStats(){
             << e.what() << "\n";
         return;
     }
+    //open File
+    char *s;
+    if ((s = (char *) malloc (lc_save_dir_len + strlen (LC_SAVE_DIR)
+			      + strlen (RESULTS_FILENAME) + 64)) == 0)
+	malloc_failure ();
+    sprintf (s, "%s%c%s", lc_save_dir, PATH_SLASH, RESULTS_FILENAME);
+
+    std::ofstream results( s );
+    free( s );
+    
     // Fill in Fields.
     int line = 1;
     int maxlength = 567;
@@ -287,45 +298,57 @@ void Dialog::gameStats(){
     count_all_groups (group_count);
     if (cheat_flag){
         setParagraphN( "statistic_text", line++, _("----- IN TEST MODE -------") );
+        results << _("----- IN TEST MODE -------")  << std::endl;
     }
     snprintf (outf, maxlength, _("Game statistics from LinCity-NG Version %s"), PACKAGE_VERSION);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     if (strlen (given_scene) > 3){
 	    snprintf (outf, maxlength, _("Initial loaded scene - %s"), given_scene);
         setParagraphN( "statistic_text", line++, outf );
+        results << outf << std::endl;
     }
     if (sustain_flag){
 	    snprintf (outf, maxlength, _("Economy is sustainable"));
         setParagraphN( "statistic_text", line++, outf );
+        results << outf << std::endl;
     }
     snprintf (outf, maxlength, _("Population  %d  of which  %d  are not housed.")
 	     ,housed_population + people_pool, people_pool);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength,
 	     _("Max population %d  Number evacuated %d Total births %d")
 	     ,max_pop_ever, total_evacuated, total_births);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength,
-	     _(" Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)"),
+	     _(".Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)"),
 	     current_month(total_time), current_year(total_time), total_money,
 	     (float) tech_level * 100.0 / MAX_TECH_LEVEL,
 	     (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength,
-	     _(" Deaths by starvation %7d   History %8.3f"),
+	     _(".Deaths by starvation %7d   History %8.3f"),
 	     total_starve_deaths, starve_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength,
 	     _("Deaths from pollution %7d   History %8.3f"),
 	     total_pollution_deaths, pollution_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _("Years of unemployment %7d   History %8.3f"),
 	     total_unemployed_years, unemployed_history);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _("Rockets launched %2d  Successful launches %2d"),
 	     rockets_launched, rockets_launched_success);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     setParagraphN( "statistic_text", line++, "" );
+    results << "" << std::endl;
     //as long as Paragraph.cpp stripes leading spaces there has to
     //be something here ----------\ or the stats look strange.
     //                            |
@@ -340,47 +363,61 @@ void Dialog::gameStats(){
 	     group_count[GROUP_MARKET],
 	     group_count[GROUP_ORGANIC_FARM]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _(".       Tracks %4d           Roads %4d             Rail %4d")
 	     ,group_count[GROUP_TRACK], group_count[GROUP_ROAD]
 	     ,group_count[GROUP_RAIL]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _(".    Potteries %4d     Blacksmiths %4d            Mills %4d")
 	     ,group_count[GROUP_POTTERY], group_count[GROUP_BLACKSMITH]
 	     ,group_count[GROUP_MILL]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _(".    Monuments %4d         Schools %4d     Universities %4d")
 	     ,group_count[GROUP_MONUMENT], group_count[GROUP_SCHOOL]
 	     ,group_count[GROUP_UNIVERSITY]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _(".Fire stations %4d           Parks %4d     Cricket gnds %4d")
 	     ,group_count[GROUP_FIRESTATION], group_count[GROUP_PARKLAND]
 	     ,group_count[GROUP_CRICKET]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _(".   Coal mines %4d       Ore mines %4d         Communes %4d")
 	     ,group_count[GROUP_COALMINE], group_count[GROUP_OREMINE]
 	     ,group_count[GROUP_COMMUNE]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _(".    Windmills %4d     Coal powers %4d     Solar powers %4d"),
 	     group_count[GROUP_WINDMILL],
 	     group_count[GROUP_COAL_POWER],
 	     group_count[GROUP_SOLAR_POWER]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _(".  Substations %4d     Power lines %4d            Ports %4d")
 	     ,group_count[GROUP_SUBSTATION], group_count[GROUP_POWER_LINE]
 	     ,group_count[GROUP_PORT]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _(".   Light inds %4d      Heavy inds %4d        Recyclers %4d")
 	     ,group_count[GROUP_INDUSTRY_L], group_count[GROUP_INDUSTRY_H]
 	     ,group_count[GROUP_RECYCLE]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     snprintf (outf, maxlength, _("Health centres %4d            Tips %4d         Shanties %4d"),
 	     group_count[GROUP_HEALTH], group_count[GROUP_TIP],
 	     group_count[GROUP_SHANTY]);
     setParagraphN( "statistic_text", line++, outf );
+    results << outf << std::endl;
     while( line <= 23 ){ //clear remaining lines
         setParagraphN( "statistic_text", line++, "" );
+        results << "" << std::endl;
     }
-    free( outf ); 
+    //close File
+    results.close();
+        
+    free( outf );
     // connect signals
     Button* noButton = getButton( *myDialogComponent, "Okay" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
