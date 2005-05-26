@@ -799,11 +799,8 @@ void GameView::event(const Event& event)
             }
 
             if( dragging ) {
-                Vector2 dragDistance;
-                dragDistance = event.mousepos - dragStart;
-								if(fabsf(dragDistance.x) < 1 && fabsf(dragDistance.y) < 1)
-									break;
-               
+                drag = event.mousepos - dragStart;
+                break;
 #if 0
                 Uint32 now = SDL_GetTicks();
                 int elapsed =  now - dragStartTime;
@@ -835,9 +832,6 @@ void GameView::event(const Event& event)
                 }
                 dragStartTime = now;
 #endif
-								viewport += dragDistance;
-								SDL_WarpMouse( (Uint16) dragStart.x, (Uint16) dragStart.y );
-                setDirty();
                 break;            
             }         
             if(!event.inside) {
@@ -894,7 +888,7 @@ void GameView::event(const Event& event)
                     dragging = false;
                     rightButtonDown = false;
                     SDL_ShowCursor( SDL_ENABLE );
-										SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
+                    SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
                     break;
                 } 
                 dragging = false;
@@ -1082,6 +1076,17 @@ void GameView::event(const Event& event)
                 break;
             }
             break;
+
+        case Event::UPDATE:
+            if(dragging) {
+                if(fabsf(drag.x) < 1 && fabsf(drag.y) < 1)
+                    break;
+                viewport += drag;
+                SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
+                setDirty();
+            }
+            break;
+                
         default:
             break;
     }

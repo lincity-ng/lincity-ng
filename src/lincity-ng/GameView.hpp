@@ -83,16 +83,16 @@ private:
     float virtualScreenWidth, virtualScreenHeight;
 
     enum {
-	SCROLL_UP = 1,
-	SCROLL_DOWN = (1 << 1),
-	SCROLL_LEFT = (1 << 2),
-	SCROLL_RIGHT = (1 << 3),
-	SCROLL_UP_LEFT = (1 << 4),
-	SCROLL_UP_RIGHT = (1 << 5),
-	SCROLL_DOWN_LEFT = (1 << 6),
-	SCROLL_DOWN_RIGHT = (1 << 7),
-	SCROLL_LSHIFT = (1 << 8),
-	SCROLL_RSHIFT = (1 << 9),
+        SCROLL_UP = 1,
+        SCROLL_DOWN = (1 << 1),
+        SCROLL_LEFT = (1 << 2),
+        SCROLL_RIGHT = (1 << 3),
+        SCROLL_UP_LEFT = (1 << 4),
+        SCROLL_UP_RIGHT = (1 << 5),
+        SCROLL_DOWN_LEFT = (1 << 6),
+        SCROLL_DOWN_RIGHT = (1 << 7),
+        SCROLL_LSHIFT = (1 << 8),
+        SCROLL_RSHIFT = (1 << 9),
     };
     int keyScrollState;
     int mouseScrollState;
@@ -117,6 +117,7 @@ private:
         
     MapPoint tileUnderMouse;
     Vector2 dragStart;
+    Vector2 drag;
     bool mouseInGameView;
     bool dragging, rightButtonDown;
     Uint32 dragStartTime;
