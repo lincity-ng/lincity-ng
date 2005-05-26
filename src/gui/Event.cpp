@@ -19,6 +19,7 @@ Event::Event(SDL_Event& event)
         case SDL_MOUSEMOTION:
             type = MOUSEMOTION;
             mousepos = Vector2(event.motion.x, event.motion.y);
+            mousemove = Vector2(event.motion.xrel, event.motion.yrel);
             break;
         case SDL_MOUSEBUTTONUP:
             type = MOUSEBUTTONUP;

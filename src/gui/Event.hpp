@@ -34,6 +34,8 @@ public:
     Type type;
     /// position of the mouse (relative to component origin)
     Vector2 mousepos;
+    /// relative mouse movement
+    Vector2 mousemove;
     /// number of the mousebutton that has been pressed
     int mousebutton;
     /// symbol of the key that has been pressed (see SDL_keysym)

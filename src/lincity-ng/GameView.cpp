@@ -799,40 +799,14 @@ void GameView::event(const Event& event)
             }
 
             if( dragging ) {
-                drag = event.mousepos - dragStart;
-                break;
-#if 0
-                Uint32 now = SDL_GetTicks();
-                int elapsed =  now - dragStartTime;
-                if( elapsed < 30 ){ //do nothing if less than 0.03 sec passed.
+                if(fabsf(event.mousemove.x) < 1 && fabsf(event.mousemove.y) < 1)
                     break;
-                }
-                float dragLength = sqrt(dragDistance.x*dragDistance.x 
-                        + dragDistance.y*dragDistance.y);
-                float vPixelSec = (1000 * dragLength) / (float) elapsed;
-                //std::cout << "v=" << vPixelSec << " Pixels per second\n"; 
-                //TODO: sometimes the Distance is way too big, why?
-                //std::cout << "dragDistance=" << dragDistance.x << " " << dragDistance.y << "\n"; 
-                if( vPixelSec < 2000 ) //if it is faster we just ignore it. TODO: find a better way...
-                {  
-                    //Mouse Acceleration
-                    float accel = 1;
-                    //TODO: read Acceleration Parameters from config file.
-                    float accelThreshold = 200;
-                    float max_accel = 8;
-                    
-                    if( vPixelSec > accelThreshold ) accel = 1 + ( ( vPixelSec - 200 ) / 100 );
-                    if( accel > max_accel ) accel = max_accel;
-                    // if( accel < 1 ) accel = 1;
-                    //std::cout << "Acceleration: " << accel << "\n"; 
-                    
-                    dragDistance *= accel;
-                    viewport += dragDistance;
-                    SDL_WarpMouse( (short unsigned int) dragStart.x, (short unsigned int) dragStart.y );
-                }
-                dragStartTime = now;
-#endif
-                break;            
+                // this was most probably a SDL_WarpMouse
+                if(event.mousepos == dragStart)
+                    break;
+                viewport += event.mousemove;
+                setDirty();
+                break;
             }         
             if(!event.inside) {
                 mouseInGameView = false;
@@ -1078,15 +1052,10 @@ void GameView::event(const Event& event)
             break;
 
         case Event::UPDATE:
-            if(dragging) {
-                if(fabsf(drag.x) < 1 && fabsf(drag.y) < 1)
-                    break;
-                viewport += drag;
+            if(dragging)
                 SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
-                setDirty();
-            }
             break;
-                
+
         default:
             break;
     }
