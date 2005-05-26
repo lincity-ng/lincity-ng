@@ -267,7 +267,7 @@ find_libdir (void)
 {
     const char searchfile[] = "Colour.pal";
     /* default_dir will be something like "C:\\LINCITY1.11" */
-    const char default_dir[] = "C:\\LINCITY" VERSION;
+    const char default_dir[] = "C:\\LINCITY" PACKAGE_VERSION;
 //    const char default_dir[] = "D:\\LINCITY";	/* For GCS's use */
 
     /* Check 1: environment variable */

@@ -7,6 +7,6 @@ SOURCES =
     [ Wildcard PainterSDL : *.cpp *.hpp ]
 ;
 Library lincity_gui : $(SOURCES) : noinstall ;
-ExternalLibs lincity_gui : LIBXML SDL SDLIMAGE PHYSFS GL ;
+ExternalLibs lincity_gui : LIBXML SDL SDLIMAGE PHYSFS GL ICONV ;
 
 TRANSLATABLE_SOURCES += [ SearchSource $(SOURCES) ] ;

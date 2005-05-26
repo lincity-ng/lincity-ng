@@ -148,7 +148,7 @@ void Dialog::msgDialog( std::string message, std::string extraString){
     //generate filename. foo.mes => gui/foo.xml
     std::string filename = "gui/";
     filename += message;
-    uint pos = filename.rfind( ".mes" );
+    unsigned int pos = filename.rfind( ".mes" );
     if( pos != std::string::npos ){
         filename.replace( pos, 4 ,".xml");
     }
@@ -327,7 +327,7 @@ void Dialog::gameStats(){
     setParagraphN( "statistic_text", line++, outf );
     setParagraphN( "statistic_text", line++, "" );
     //as long as Paragraph.cpp stripes leading spaces there has to
-    //be something here ----------\
+    //be something here ----------|
     //                            |
     //                            v                
     snprintf (outf, maxlength, _(".   Residences %4d         Markets %4d            Farms %4d"),

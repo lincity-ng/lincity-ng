@@ -76,6 +76,8 @@ AC_C_CONST
 AC_C_INLINE
 AC_CHECK_FUNCS(gettimeofday mkdir popen)
 
+AM_ICONV
+AC_SUBST([ICONV_LIBS], [$LIBICONV])
 #----------------------------------------------------------------------------
 # find libraries
 #----------------------------------------------------------------------------

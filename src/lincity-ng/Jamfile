@@ -4,6 +4,7 @@ SOURCES = [ Wildcard *.cpp *.hpp ] ;
 Application lincity-ng : $(SOURCES) ;
 LinkWith lincity-ng : lincity_gui lincity_lib tinygettext physfsstream ;
 C++Flags lincity-ng : -DAPPDATADIR=\\\"$(appdatadir)\\\" ;
-ExternalLibs lincity-ng : LIBXML SDL SDLIMAGE SDLMIXER SDLTTF SDLGFX PHYSFS GL ;
+ExternalLibs lincity-ng : LIBXML SDL SDLIMAGE SDLMIXER SDLTTF SDLGFX PHYSFS GL
+ICONV ;
 
 TRANSLATABLE_SOURCES += [ SearchSource $(SOURCES) ] ;

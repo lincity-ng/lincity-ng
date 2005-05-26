@@ -90,8 +90,13 @@ void
 PainterSDL::fillPolygon(int numberPoints, const Vector2* points)
 {
     Vector2 screenpos;
+#ifdef _MSC_VER
     Sint16* vx = (Sint16*) alloca(numberPoints * sizeof(*vx));
     Sint16* vy = (Sint16*) alloca(numberPoints * sizeof(*vy));
+#else
+    Sint16 vx[numberPoints];
+    Sint16 vy[numberPoints];
+#endif
     for(int i = 0; i < numberPoints; i++ ) {
          screenpos = transform.apply( points[ i ] );
          vx[ i ] = (int) screenpos.x;
@@ -105,8 +110,13 @@ void
 PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
 {
     Vector2 screenpos;
+#ifdef _MSC_VER
     Sint16* vx = (Sint16*) alloca(numberPoints * sizeof(*vx));
     Sint16* vy = (Sint16*) alloca(numberPoints * sizeof(*vy));
+#else
+    Sint16 vx[numberPoints];
+    Sint16 vy[numberPoints];
+#endif
     for(int i = 0; i < numberPoints; i++ ) {
          screenpos = transform.apply( points[ i ] );
          vx[ i ] = (int) screenpos.x;

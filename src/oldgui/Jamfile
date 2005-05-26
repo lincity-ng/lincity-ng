@@ -5,5 +5,5 @@ if $(VARIANT) = "debug" {
     Application lincity_oldgui : [ Wildcard *.cpp *.h ] : noinstall ;
     LinkWith lincity_oldgui : lincity_lib tinygettext physfsstream ;
     IncludeDir lincity_oldgui : ../gui_interface ../lincity ;
-    ExternalLibs lincity_oldgui : SDL SDLIMAGE PHYSFS ;
+    ExternalLibs lincity_oldgui : SDL SDLIMAGE PHYSFS ICONV ;
 }

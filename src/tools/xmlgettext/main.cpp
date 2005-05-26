@@ -102,7 +102,8 @@ int main(int argc, char** argv)
     }
     char buffer[128];
     time_t curtime = time(0);
-    strftime(buffer, sizeof(buffer), "%1", localtime(&curtime));
+    const char* strfformat = "%c"; // to avoid gcc warning...
+    strftime(buffer, sizeof(buffer), strfformat, localtime(&curtime));
     out <<
 "# SOME DESCRIPTIVE TITLE.\n"
 "# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER\n"
