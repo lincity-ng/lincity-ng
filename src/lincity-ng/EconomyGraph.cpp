@@ -89,7 +89,7 @@ void EconomyGraph::updateData(){
     if (tpopulation > 0)
     {
 	monthgraph_pop[0] = ((int) (log ((tpopulation / NUMOF_DAYS_IN_MONTH)
-					 + 1) * h / 15)) - 5;
+					 + 1.f) * h / 15)) - 5;
 	if (monthgraph_pop[0] < 0)
 	    monthgraph_pop[0] = 0;
 	f = ((float) tstarving_population 
@@ -112,7 +112,7 @@ void EconomyGraph::updateData(){
 	/* max out at 32  */
 	if (monthgraph_nojobs[0] >= h)
 	    monthgraph_nojobs[0] = h - 1;
-	monthgraph_ppool[0] = ((int) (sqrt (people_pool + 1) * h) / 35);
+	monthgraph_ppool[0] = ((int) (sqrt (people_pool + 1.f) * h) / 35);
 	if (monthgraph_ppool[0] < 0)
 	    monthgraph_ppool[0] = 0;
 	if (monthgraph_ppool[0] >= h)
