@@ -480,7 +480,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     std::stringstream newStart;
     newStart << slotNr << "_" << (1900 + datetime->tm_year) << "-";
     newStart << std::setfill('0') << std::setw(2);
-    newStart << datetime->tm_mon << "-" << datetime->tm_mday << "_";
+    newStart << datetime->tm_mon+1 << "-" << datetime->tm_mday << "_";
     newStart << datetime->tm_hour << ":" << datetime->tm_min;
     std::string newFilename( newStart.str() ); 
     saveCityNG( newFilename );
