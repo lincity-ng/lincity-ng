@@ -308,7 +308,6 @@ void MiniMap::showMpsEnv( MapPoint tile ){
         mpsYOld = mps_y;
         mpsStyleOld = mps_style;
     }
-    std::cout << tile.x << " " <<tile.y << "\n";
     mps_set( tile.x, tile.y, MPS_ENV );//show basic info
 }
 
