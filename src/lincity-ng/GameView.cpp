@@ -42,9 +42,6 @@
 #include "CheckButton.hpp"
 
 
-const float GameView::defaultTileWidth = 128;
-const float GameView::defaultTileHeight = 64;
-
 GameView* gameViewPtr = 0;
 
 GameView* getGameView()
@@ -125,7 +122,7 @@ void GameView::parse(XmlReader& reader)
     setFlags(FLAG_RESIZABLE);
 
     //start at location from savegame
-    zoom = 1.0;
+    zoom = defaultZoom;
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom; 
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
@@ -300,7 +297,7 @@ void GameView::setZoom(float newzoom){
 
 /* set Zoomlevel to 100% */
 void GameView::resetZoom(){
-    setZoom( 1.0 );
+    setZoom( defaultZoom );
 }
 
 /* increase Zoomlevel */

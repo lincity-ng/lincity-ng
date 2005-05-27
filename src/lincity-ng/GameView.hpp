@@ -32,7 +32,7 @@ public:
     void show(MapPoint point, bool redraw = true );
     MapPoint getCenter();
         
-    //Set Zoomlevel to 100 Percent
+    //Set Zoomlevel to default
     void resetZoom();
     //increase Zoomlevel 
     void zoomIn();
@@ -74,9 +74,6 @@ private:
     Texture* readTexture(const std::string& filename);
     SDL_Surface* readImage(const std::string& filename);
     void preReadCityTexture(int textureType, const std::string& filename);
-
-    static const float defaultTileWidth;
-    static const float defaultTileHeight;
 
     float tileWidth, tileHeight, zoom; 
     //a virtual screen containing the whole city
@@ -123,6 +120,10 @@ private:
     
     bool roadDragging, leftButtonDown;
     MapPoint startRoad;
+    
+    static const float defaultTileWidth = 128;
+    static const float defaultTileHeight = 64;
+    static const float defaultZoom = 0.5;
 
     bool hideHigh;
     int mapOverlay;
