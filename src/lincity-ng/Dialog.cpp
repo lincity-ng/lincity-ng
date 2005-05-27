@@ -334,7 +334,7 @@ void Dialog::gameStats(){
     setParagraphN( "statistic_text", line++, outf );
     results << outf << std::endl;
     snprintf (outf, maxlength,
-	     _(".Date  %s %04d   Money %8d   Tech-level %5.1f (%5.1f)"),
+	     _("Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"),
 	     current_month(total_time), current_year(total_time), total_money,
 	     (float) tech_level * 100.0 / MAX_TECH_LEVEL,
 	     (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);

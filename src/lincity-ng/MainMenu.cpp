@@ -400,25 +400,16 @@ void
 MainMenu::newGameStartBareButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
+    resetGameStats();
     new_city( &main_screen_originx, &main_screen_originy, 0 );
-    given_scene[0] = 0;
-    for( int i = 0; i < monthgraph_size; i++ ){
-        monthgraph_pop[i] = 0;
-        monthgraph_starve[i] = 0;
-        monthgraph_nojobs[i] = 0;
-        monthgraph_ppool[i] = 0;
-    } 
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
     quitState = INGAME;
     running = false;
 }
 
-void
-MainMenu::newGameStartVillageClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    new_city( &main_screen_originx, &main_screen_originy, 1 );
+//looks like not everything es reseted by new_city()
+void MainMenu::resetGameStats(){
     given_scene[0] = 0;
     for( int i = 0; i < monthgraph_size; i++ ){
         monthgraph_pop[i] = 0;
@@ -426,6 +417,21 @@ MainMenu::newGameStartVillageClicked(Button* )
         monthgraph_nojobs[i] = 0;
         monthgraph_ppool[i] = 0;
     } 
+    highest_tech_level = 0;
+    total_pollution_deaths = 0;
+    pollution_deaths_history = 0;
+    total_starve_deaths = 0;
+    starve_deaths_history = 0;
+    total_unemployed_years = 0;
+    unemployed_history = 0;
+}
+
+void
+MainMenu::newGameStartVillageClicked(Button* )
+{
+    getSound()->playSound( "Click" );
+    resetGameStats();
+    new_city( &main_screen_originx, &main_screen_originy, 1 );
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
     quitState = INGAME;
