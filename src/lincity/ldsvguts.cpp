@@ -329,7 +329,7 @@ load_city (char *cname)
     int dummy;
     gzFile gzfile;
     char s[256];
-    gzfile = gzopen( cname ,"r" ); 
+    gzfile = gzopen( cname, "rb" ); 
     if ( gzfile == NULL) {
 	    printf (_("Can't open <%s> (gzipped)"), cname);
 	    do_error ("Can't open it!");
@@ -581,7 +581,7 @@ load_city (char *cname)
 		= sust_old_money_count = sust_old_population_count
 		= sust_old_tech_count = sust_fire_count
 		= sust_old_money = sust_old_population = sust_old_tech = 0;
-	gzclose( gzfile );
+    gzclose( gzfile );
 
     numof_shanties = count_groups (GROUP_SHANTY);
     numof_communes = count_groups (GROUP_COMMUNE);
