@@ -84,7 +84,7 @@ void initPhysfs(const char* argv0)
         // try to create the directory
         char* mkdir = new char[strlen(application) + 2];
         sprintf(mkdir, ".%s", application);
-        if(PHYSFS_setWriteDir(userdir) || !PHYSFS_mkdir(mkdir)) {
+        if(!PHYSFS_setWriteDir(userdir) || !PHYSFS_mkdir(mkdir)) {
             std::ostringstream msg;
             msg << "Failed creating configuration directory '" <<
                 writedir << "': " << PHYSFS_getLastError();
