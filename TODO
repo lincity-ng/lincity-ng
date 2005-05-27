@@ -51,6 +51,10 @@ Programming
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
+ [H] Using gzip through pipes is problematic as that won't work on all OSes
+     (win32). And only enabling it conditionally like it is done in the old
+     lincity code is even worse as that means you can't exchange savegames or
+     use the provided scenarios.
 
 -- Infrastructure/Deployment --
  [H] Create a source package and test if it compiles and installs correctly
