@@ -51,7 +51,6 @@ Programming
      SDL sound driver name, screen resolution
 
 -- Infrastructure/Deployment --
- [H] Add GPL headers to all source files
  [H] Create a source package and test if it compiles and installs correctly
  [H] Setup an automatic backup script for the wiki!
  [H] Create a (real) Homepage. Needs a little description what lincity-ng is
