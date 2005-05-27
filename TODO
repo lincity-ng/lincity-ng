@@ -41,6 +41,7 @@ Programming
      visible?] 
  [M] When you have dialogs open (like the launch rocket dialog) and start a new
      game, the dialogs will still be able.
+ [H] Something seems to be broken with the costs displayed in the status bar...
     
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
