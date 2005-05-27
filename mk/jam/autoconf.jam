@@ -20,7 +20,7 @@ rule UseAutoconf
     Package autogen.sh configure.ac configure config.h.in
             Jamrules Jamconfig.in ;
     Package [ Wildcard mk/jam : *.jam ] [ Wildcard mk/autoconf : *.m4 ]
-            mk/autoconf/config.guess mk/autoconf/config.sub
+            [ Wildcard mk/autoconf : config.* ]
             mk/autoconf/install-sh ;
 
     actions CheckNewer {

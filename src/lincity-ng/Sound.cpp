@@ -93,7 +93,7 @@ Sound::Sound()
     //Load Sound
     audioOpen = false;
     /* Open the audio device */
-    if (Mix_OpenAudio( MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
+    if (Mix_OpenAudio( MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
         fprintf(stderr, "Couldn't open audio: %s\n", SDL_GetError());
         return;
     } else {
