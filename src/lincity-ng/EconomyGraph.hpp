@@ -3,6 +3,7 @@
 
 #include "gui/Component.hpp"
 #include "gui/XmlReader.hpp"
+#include "gui/TextureManager.hpp"
 
 class EconomyGraph : public Component {
 public:
@@ -20,6 +21,16 @@ private:
     void drawFPSGraph( Painter& painter, Rect2D fpsRect );
  
     int* fps;
+    Texture* labelTextureMIN;
+    Texture* labelTexturePRT;
+    Texture* labelTextureMNY;
+    Texture* labelTexturePOP;
+    Texture* labelTextureTEC;
+    Texture* labelTextureFIR;
+
+    Texture* labelTextureEconomy;
+    Texture* labelTextureSustainability;
+    Texture* labelTextureFPS;
 };
 
 EconomyGraph* getEconomyGraph();

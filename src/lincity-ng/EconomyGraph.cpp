@@ -12,8 +12,13 @@
 #include "gui/ComponentFactory.hpp"
 #include "gui/Painter.hpp"
 #include "gui/Rect2D.hpp"
+#include "gui/Style.hpp"
+#include "gui/FontManager.hpp"
+#include "gui/TextureManager.hpp"
 
 #include "gui_interface/shared_globals.h"
+
+#include "tinygettext/gettext.hpp"
 
 #include "lincity/shrglobs.h"
 #include "lincity/engglobs.h"
@@ -36,13 +41,31 @@ EconomyGraph::EconomyGraph(){
     for ( int i = 0; i < getConfig()->monthgraphW; i++) {
         fps[i] = 0;
     }
+    labelTextureMIN = 0;
+    labelTexturePRT = 0;
+    labelTextureMNY = 0;
+    labelTexturePOP = 0;
+    labelTextureTEC = 0;
+    labelTextureFIR = 0;
+    labelTextureEconomy = 0;
+    labelTextureSustainability = 0;
+    labelTextureFPS = 0;
 }
 
 EconomyGraph::~EconomyGraph(){
     if( economyGraphPtr == this ){
         economyGraphPtr = 0;
-    }
+    } 
     free( fps );
+    delete labelTextureMIN; 
+    delete labelTexturePRT; 
+    delete labelTextureMNY; 
+    delete labelTexturePOP; 
+    delete labelTextureTEC; 
+    delete labelTextureFIR; 
+    delete labelTextureEconomy;
+    delete labelTextureSustainability;
+    delete labelTextureFPS;
 }
 
 void EconomyGraph::parse( XmlReader& reader ){
@@ -70,6 +93,37 @@ void EconomyGraph::parse( XmlReader& reader ){
                       << "' skipped in EconomyGraph.\n";
         }
     }
+    //Generate Labels for Sustainability Graph
+    Style labelStyle;
+    labelStyle.font_family = "sans";
+    labelStyle.font_size = 10;
+    TTF_Font* font = fontManager->getFont( labelStyle );
+    SDL_Surface* labelXXX;
+		   /* MIN=Mining, PRT=Import/export from port,
+		      MNY=Money, POP=Population, TEC=Technology,
+		      FIR=Fire coverage
+		   */
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Mining"), labelStyle.text_color.getSDLColor() );
+    labelTextureMIN = texture_manager->create( labelXXX );
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Trade"), labelStyle.text_color.getSDLColor() );
+    labelTexturePRT = texture_manager->create( labelXXX ); 
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Money"), labelStyle.text_color.getSDLColor() );
+    labelTextureMNY = texture_manager->create( labelXXX ); 
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Popul."), labelStyle.text_color.getSDLColor() );
+    labelTexturePOP = texture_manager->create( labelXXX ); 
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Techn."), labelStyle.text_color.getSDLColor() );
+    labelTextureTEC = texture_manager->create( labelXXX ); 
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Fire"), labelStyle.text_color.getSDLColor() );
+    labelTextureFIR = texture_manager->create( labelXXX ); 
+
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Economy Overview:"), labelStyle.text_color.getSDLColor() );
+    labelTextureEconomy = texture_manager->create( labelXXX ); 
+    
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Sustainability:"), labelStyle.text_color.getSDLColor() );
+    labelTextureSustainability = texture_manager->create( labelXXX ); 
+
+    labelXXX = TTF_RenderUTF8_Blended( font, _("Frames per Second:"), labelStyle.text_color.getSDLColor() );
+    labelTextureFPS = texture_manager->create( labelXXX ); 
 }
 
 //see do_history_linegraph in oldgui/screen.cpp
@@ -220,45 +274,18 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     int mgW = (int) mg.getWidth(); 
     int mgH = (int) mg.getHeight();
 
-    Vector2 a, b;
+    Vector2 a, b, p;
     
-    //
 #define SUST_BAR_H      5
 #define SUST_BAR_GAP_Y  5
- 
-#if 0 
-	/* write the "informative" text */
-	Fgl_setfontcolors (0, TEXT_FG_COLOUR);
-	Fgl_write (mg->x+3, mg->y + SUST_BAR_GAP_Y - 1,
-		   /* TRANSLATORS: 
-		      MIN=Mining, PRT=Import/export from port,
-		      MNY=Money, POP=Population, TEC=Technology,
-		      FIR=Fire coverage
-		   */
-		   _("MIN"));
-	Fgl_write (mg->x+3,
-		   mg->y + SUST_BAR_GAP_Y + (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   _("PRT"));
-	Fgl_write (mg->x+3,
-		   mg->y + SUST_BAR_GAP_Y + 2 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   _("MNY"));
-	Fgl_write (mg->x+3,
-		   mg->y + SUST_BAR_GAP_Y + 3 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   _("POP"));
-	Fgl_write (mg->x+3,
-		   mg->y + SUST_BAR_GAP_Y + 4 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   _("TEC"));
-	Fgl_write (mg->x+3,
-		   mg->y + SUST_BAR_GAP_Y + 5 * (SUST_BAR_H + SUST_BAR_GAP_Y) - 1,
-		   _("FIR"));
-	Fgl_setfontcolors (TEXT_BG_COLOUR, TEXT_FG_COLOUR);
-#endif
-    
+
 	/* draw the starting line */
     a.x = mgX + 38;
     a.y = mgY;
     b.x = mgX + 38;
     b.y = mgY + mgH;
+    p.x = mgX;
+    p.y = mgY;
     painter.setLineColor( yellow );
     painter.drawLine( a, b);
     
@@ -276,47 +303,57 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     bar.setWidth( len );
     painter.setFillColor( orange );
     painter.fillRectangle( bar );
+    painter.drawTexture( labelTextureMIN, p ); 
     
 	/* import export */
+    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_port_count / SUST_PORT_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( black );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
+    painter.drawTexture( labelTexturePRT, p ); 
     
 	/* money */
+    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_old_money_count / SUST_MONEY_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( green );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
+    painter.drawTexture( labelTextureMNY, p ); 
     
 	/* population */
+    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_old_population_count / SUST_POP_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( blue );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
+    painter.drawTexture( labelTexturePOP, p ); 
     
 	/* tech */
+    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_old_tech_count / SUST_TECH_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( yellow );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
+    painter.drawTexture( labelTextureTEC, p ); 
     
 	/* fire */
+    p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_fire_count / SUST_FIRE_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( red );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
-    
+    painter.drawTexture( labelTextureFIR, p ); 
 }
 
 
@@ -359,23 +396,30 @@ void EconomyGraph::draw( Painter& painter ){
     
     Rect2D background( 0, 0, getWidth(), getHeight() );
     int mgX = border;
-    int mgY = border;
+    int mgY = 3*border;
     int mgW = getConfig()->monthgraphW; 
     int mgH = getConfig()->monthgraphH;
     
     painter.setFillColor( white );
     painter.fillRectangle( background );
 
+    Vector2 labelPos( 2 * border, border-1 );
+    
     //Draw HistoryLineGraph
-    Rect2D currentGraph( mgX, mgY, mgW+border, mgH+border );
+    painter.drawTexture( labelTextureEconomy, labelPos ); 
+    Rect2D currentGraph( mgX, mgY, mgX + mgW, mgY + mgH );
     drawHistoryLineGraph( painter, currentGraph );
 
     //Draw Sustainability Bars
-    currentGraph.move( Vector2( 0, border + mgH ) );
+    labelPos.y += 2 * border + mgH; 
+    painter.drawTexture( labelTextureSustainability, labelPos ); 
+    currentGraph.move( Vector2( 0, 2 * border + mgH ) );
     drawSustBarGraph( painter, currentGraph);
 
     //Draw FPS-Window
-    currentGraph.move( Vector2( 0, border + mgH ) );
+    labelPos.y += 2 * border + mgH; 
+    painter.drawTexture( labelTextureFPS, labelPos ); 
+    currentGraph.move( Vector2( 0, 2 * border + mgH ) );
     currentGraph.setHeight( mgH/2 );
     drawFPSGraph( painter, currentGraph );
 }
