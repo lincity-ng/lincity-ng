@@ -41,6 +41,9 @@
 #include "gui/Button.hpp"
 #include "CheckButton.hpp"
 
+const float GameView::defaultTileWidth = 128;
+const float GameView::defaultTileHeight = 64;
+const float GameView::defaultZoom = 0.5;
 
 GameView* gameViewPtr = 0;
 

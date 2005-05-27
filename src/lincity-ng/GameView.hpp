@@ -121,9 +121,9 @@ private:
     bool roadDragging, leftButtonDown;
     MapPoint startRoad;
     
-    static const float defaultTileWidth = 128;
-    static const float defaultTileHeight = 64;
-    static const float defaultZoom = 0.5;
+    static const float defaultTileWidth;
+    static const float defaultTileHeight;
+    static const float defaultZoom;
 
     bool hideHigh;
     int mapOverlay;
