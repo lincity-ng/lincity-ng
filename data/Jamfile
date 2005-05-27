@@ -66,5 +66,5 @@ if $(build) = $(target)
 # Stuff from old lincity, still needed for the lib at the moment
 InstallData colour.pal ;
 # InstallData [ Wildcard icons : *.csi ] : icons ;
-InstallData [ Wildcard opening : *.scn ] : opening ;
+InstallData opening/good_times.scn opening/bad_times.scn opening/Beach.scn : opening ;
 

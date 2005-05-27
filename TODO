@@ -39,6 +39,8 @@ Programming
      running where they were before)
      [Sure? Does it take longer than in classic until the effect is 
      visible?] 
+ [M] When you have dialogs open (like the launch rocket dialog) and start a new
+     game, the dialogs will still be able.
     
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
