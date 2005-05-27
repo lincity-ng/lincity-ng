@@ -42,6 +42,7 @@ private:
     void zoomOutButtonClicked(Button* button);
     
     void switchButton(CheckButton* button, int);
+    void switchMapViewButton(const std::string &pName);
     
     void attachButtons();
     Component *findRoot(Component *c);

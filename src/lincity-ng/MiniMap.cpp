@@ -34,11 +34,15 @@
 #define LC_MOUSE_LEFTBUTTON 1
 #define LC_MOUSE_RIGHTBUTTON 2
 #define LC_MOUSE_MIDDLEBUTTON 3
-  
-const char* mapViewButtons[] = { "MapViewNormal", "MapViewUB40",
-                                 "MapViewPollution", "MapViewFood", "MapViewPower", "MapViewFire",
-                                 "MapViewSport", "MapViewHealth", "MapViewCoal", 0
-};
+
+const char* mapViewButtons[] = { "MapViewNormal", "", 
+                                    "MapViewFood", "MapViewUB40","",
+                                    "MapViewPower", "MapViewFire", "MapViewSport", "MapViewHealth","",
+                                    "MapViewTraffic", "MapViewPollution", "",
+                                    "MapViewCoal","", 0};
+
+
+
 const char* speedButtons[] = { "SpeedPauseButton","SpeedSlowButton", "SpeedNormalButton", "SpeedFastButton", 0 };
 
 Uint8 brightness(const Color &c)
@@ -167,10 +171,13 @@ void MiniMap::attachButtons()
     Component *root=findRoot(this);
   
     for(int i = 0; mapViewButtons[i] != 0; ++i) {
-        CheckButton* b = getCheckButton(*root, mapViewButtons[i]);
-        if(i == 0)
-            b->check();
-        b->clicked.connect(makeCallback(*this, &MiniMap::mapViewButtonClicked));
+        if(strlen(mapViewButtons[i]))
+				{
+          CheckButton* b = getCheckButton(*root, mapViewButtons[i]);
+          if(i == 0)
+              b->check();
+          b->clicked.connect(makeCallback(*this, &MiniMap::mapViewButtonClicked));
+        }
     }
     for(int i = 0; speedButtons[i] != 0; ++i) {
         CheckButton* b = getCheckButton(*root, speedButtons[i]);
@@ -250,6 +257,25 @@ MiniMap::switchView(const std::string& viewname)
     }
 }
 
+void 
+MiniMap::switchMapViewButton(const std::string &buttonName)
+{
+  std::string switchName;
+  if(buttonName=="MapViewFood"||buttonName=="MapViewUB40")
+    switchName="FoodSwitch";
+  if(buttonName=="MapViewTraffic"||buttonName=="MapViewPollution")
+    switchName="TrafficSwitch";
+  if(buttonName=="MapViewPower"||buttonName=="MapViewHealth"||buttonName=="MapViewFire"||buttonName=="MapViewSport")
+    switchName="PowerSwitch";
+  if(switchName!="")
+  {
+    SwitchComponent *switchComponent
+      = getSwitchComponent(*(findRoot(this)), switchName);
+    switchComponent->switchComponent(buttonName);
+  }
+}
+
+
 void MiniMap::hideMpsEnv(){
     if( mps_style != MPS_ENV ){
         return;
@@ -286,48 +312,83 @@ void MiniMap::showMpsEnv( MapPoint tile ){
     mps_set( tile.x, tile.y, MPS_ENV );//show basic info
 }
 
+MiniMap::DisplayMode getMode(const std::string &pName)
+{
+	if(pName=="MapViewNormal")
+		return MiniMap::NORMAL;
+	if(pName=="MapViewUB40")
+		return MiniMap::UB40;
+	if(pName=="MapViewPollution")
+		return MiniMap::POLLUTION;
+	if(pName=="MapViewTraffic")
+		return MiniMap::TRAFFIC;
+	if(pName=="MapViewFood")
+		return MiniMap::STARVE;
+	if(pName=="MapViewPower")
+		return MiniMap::POWER;
+	if(pName=="MapViewFire")
+		return MiniMap::FIRE;
+	if(pName=="MapViewCricket")
+		return MiniMap::CRICKET;
+	if(pName=="MapViewHealth")
+		return MiniMap::HEALTH;
+	if(pName=="MapViewCoal")
+		return MiniMap::COAL;
+	return MiniMap::NORMAL;
+}
+std::string getNextButton(const std::string &pName)
+{
+  int i;
+  for(i=0;mapViewButtons[i];i++)
+    if(pName==mapViewButtons[i])
+      break;
+  assert(mapViewButtons[i]);
+  
+  i++;
+  if(strlen(mapViewButtons[i])==0)
+  {
+    // end of row - go to beginning
+    i--;
+    while(i>=0 && mapViewButtons[i] && strlen(mapViewButtons[i])) // assuming that this is processed from front to back
+      i--;
+    i++; // gone one too far
+  }
+  assert(i>=0 && mapViewButtons[i] && strlen(mapViewButtons[i]));
+  return mapViewButtons[i];
+}
+
 void MiniMap::mapViewButtonClicked(CheckButton* button, int)
 {
     Component *root = findRoot(this);
     std::string name = button->getName();
-    int i;
-    for(i = 0; mapViewButtons[i] != 0; ++i) {
-        if(name == mapViewButtons[i])
-            break;
+    
+    DisplayMode newMode=getMode(button->getName());
+    if(newMode==mMode)
+    {
+      // switch button
+      name=getNextButton(button->getName());
+      mMode=getMode(name);
     }
-    assert(mapViewButtons[i] != 0);
-
+    else
+      mMode=newMode;
+    
+    if(mMode==COAL)
+      if(( coal_survey_done == 0 ) && ( !blockingDialogIsOpen ))
+        new Dialog( ASK_COAL_SURVEY ); 
+    
     for(int b = 0; mapViewButtons[b] != 0; ++b) {
-        if(b != i) {
-            CheckButton* button = getCheckButton(*root, mapViewButtons[b]);
+      if(strlen(mapViewButtons[b]))
+      {
+        CheckButton* button = getCheckButton(*root, mapViewButtons[b]);
+        if(button->getName()==name)
+          button->check();
+        else
             button->uncheck();
-        } else {
-            button->check();
-        }
+      }
     }
 
-    switch(i) {
-        case 0: mMode=NORMAL;break;
-        case 1: mMode=UB40;break;
-        case 2: if(mMode == POLLUTION){
-                   mMode = TRAFFIC;
-                } else {
-                   mMode = POLLUTION;
-                }
-                break;
-        case 3: mMode=STARVE;break;
-        case 4: mMode=POWER;break;
-        case 5: mMode=FIRE;break;
-        case 6: mMode=CRICKET;break;
-        case 7: mMode=HEALTH;break;
-        case 8: if(( coal_survey_done == 0 ) && ( !blockingDialogIsOpen )){
-                    new Dialog( ASK_COAL_SURVEY ); 
-                }
-                mMode=COAL;
-                break;
-        default:
-            assert(false);
-    }
+    switchMapViewButton(name);
+
     switchView("MiniMap");
     getGameView()->setMapMode( mMode ); 
     mFullRefresh=true;
