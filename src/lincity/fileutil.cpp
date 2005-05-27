@@ -194,7 +194,8 @@ copy_file (char *f1, char *f2)
     }
 }
 
-void
+#if 0
+void //unused function
 gunzip_file (char *f1, char *f2)
 {
   int ret_value = execute_command ("gzip -c -d", f1, ">", f2);
@@ -205,6 +206,7 @@ gunzip_file (char *f1, char *f2)
       do_error ("Can't gunzip requested file");
     }
 }
+#endif
 
 FILE* 
 fopen_read_gzipped (char* fn)
@@ -363,6 +365,7 @@ find_libdir (void)
 static const char *
 guess_category_value (int category, const char *categoryname)
 {
+    (void) category;
     const char *retval;
 
     /* The highest priority value is the `LANGUAGE' environment
@@ -832,6 +835,7 @@ undosify_string (char *s)
 void
 debug_printf (char* fmt, ...)
 {
+    (void) fmt;
 #if (DEBUG_PRINTF_TO_FILE)
     static int initialized = 0;
     char* filename = "debug.txt";

@@ -6,10 +6,12 @@
 
 /* this is for saving */
 
-#include "lcconfig.h"
+//#include "lcconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "lcstring.h"
+#include <zlib.h>
+#include <iostream>
+//#include "lcstring.h"
 #include "lcintl.h"
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/shared_globals.h"
@@ -353,16 +355,17 @@ load_city (char *cname)
     int num_pbars, pbar_data_size;
     int pbar_tmp;
     int dummy;
-    FILE *ofile;
+    gzFile gzfile;
     char s[256];
-    if ((ofile = fopen_read_gzipped (cname)) == NULL) {
-	printf (_("Can't open <%s> (gzipped)"), cname);
-	do_error ("Can't open it!");
+    gzfile = gzopen( cname ,"r" ); 
+    if ( gzfile == NULL) {
+	    printf (_("Can't open <%s> (gzipped)"), cname);
+	    do_error ("Can't open it!");
     }
-    fscanf (ofile, "%d", &ver);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &ver);
     if (ver < MIN_LOAD_VERSION) {
-	ok_dial_box ("too-old.mes", BAD, 0L);
-	fclose_read_gzipped (ofile);
+	    ok_dial_box ("too-old.mes", BAD, 0L);
+	    gzclose( gzfile );
 	return;
     }
 
@@ -379,52 +382,52 @@ load_city (char *cname)
     for (x = 0; x < WORLD_SIDE_LEN; x++) {
 	for (y = 0; y < WORLD_SIDE_LEN; y++) {
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).population) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).flags) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(unsigned short); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).coal_reserve) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(unsigned short); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).ore_reserve) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).int_1) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).int_2) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).int_3) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).int_4) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).int_5) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).int_6) + z) = n;
 	    }
 	    for (z = 0; z < sizeof(int); z++) {
-		fscanf (ofile, "%d", &n);
+		sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 		*(((unsigned char *) &MP_INFO(x,y).int_7) + z) = n;
 	    }
-	    fscanf (ofile, "%d", &n);
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 	    MP_POL(x,y) = (unsigned short) n;
-	    fscanf (ofile, "%d", &n);
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &n);
 	    MP_TYPE(x,y) = (short) n;
 
 	    if (get_group_of_type(MP_TYPE(x,y)) == GROUP_MARKET)
@@ -436,64 +439,64 @@ load_city (char *cname)
     check_endian ();
     set_map_groups ();
 
-    fscanf (ofile, "%d", &main_screen_originx);
-    fscanf (ofile, "%d", &main_screen_originy);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &main_screen_originx);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &main_screen_originy);
     if (main_screen_originx > WORLD_SIDE_LEN - getMainWindowWidth() / 16 - 1)
 	main_screen_originx = WORLD_SIDE_LEN - getMainWindowWidth() / 16 - 1;
 
     if (main_screen_originy > WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1)
 	main_screen_originy = WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1;
 
-    fscanf (ofile, "%d", &total_time);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &total_time);
     if (ver <= MM_MS_C_VER)
 	i = OLD_MAX_NUMOF_SUBSTATIONS;
     else
 	i = MAX_NUMOF_SUBSTATIONS;
     for (x = 0; x < i; x++)
     {
-	fscanf (ofile, "%d", &substationx[x]);
-	fscanf (ofile, "%d", &substationy[x]);
+	sscanf( gzgets( gzfile, s, 256 ), "%d", &substationx[x]);
+	sscanf( gzgets( gzfile, s, 256 ), "%d", &substationy[x]);
     }
     prog_box ("", 92);
-    fscanf (ofile, "%d", &numof_substations);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &numof_substations);
     if (ver <= MM_MS_C_VER)
 	i = OLD_MAX_NUMOF_MARKETS;
     else
 	i = MAX_NUMOF_MARKETS;
     for (x = 0; x < i; x++)
     {
-	fscanf (ofile, "%d", &marketx[x]);
-	fscanf (ofile, "%d", &markety[x]);
+	sscanf( gzgets( gzfile, s, 256 ), "%d", &marketx[x]);
+	sscanf( gzgets( gzfile, s, 256 ), "%d", &markety[x]);
     }
     prog_box ("", 94);
-    fscanf (ofile, "%d", &numof_markets);
-    fscanf (ofile, "%d", &people_pool);
-    fscanf (ofile, "%d", &total_money);
-    fscanf (ofile, "%d", &income_tax_rate);
-    fscanf (ofile, "%d", &coal_tax_rate);
-    fscanf (ofile, "%d", &dole_rate);
-    fscanf (ofile, "%d", &transport_cost_rate);
-    fscanf (ofile, "%d", &goods_tax_rate);
-    fscanf (ofile, "%d", &export_tax);
-    fscanf (ofile, "%d", &export_tax_rate);
-    fscanf (ofile, "%d", &import_cost);
-    fscanf (ofile, "%d", &import_cost_rate);
-    fscanf (ofile, "%d", &tech_level);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &numof_markets);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &people_pool);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &total_money);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &income_tax_rate);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &coal_tax_rate);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &dole_rate);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &transport_cost_rate);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &goods_tax_rate);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &export_tax);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &export_tax_rate);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &import_cost);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &import_cost_rate);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &tech_level);
     if (tech_level > MODERN_WINDMILL_TECH)
 	modern_windmill_flag = 1;
-    fscanf (ofile, "%d", &tpopulation);
-    fscanf (ofile, "%d", &tstarving_population);
-    fscanf (ofile, "%d", &tunemployed_population);
-    fscanf (ofile, "%d", &x);  /* waste_goods obsolete */
-    fscanf (ofile, "%d", &power_made);
-    fscanf (ofile, "%d", &power_used);
-    fscanf (ofile, "%d", &coal_made);
-    fscanf (ofile, "%d", &coal_used);
-    fscanf (ofile, "%d", &goods_made);
-    fscanf (ofile, "%d", &goods_used);
-    fscanf (ofile, "%d", &ore_made);
-    fscanf (ofile, "%d", &ore_used);
-    fscanf (ofile, "%d", &dummy); /* &diff_old_population */
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &tpopulation);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &tstarving_population);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &tunemployed_population);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &x);  /* waste_goods obsolete */
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &power_made);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &power_used);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &coal_made);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &coal_used);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &goods_made);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &goods_used);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &ore_made);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &ore_used);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diff_old_population */
 
     /* Update variables calculated from those above */
     housed_population = tpopulation / NUMOF_DAYS_IN_MONTH;
@@ -503,29 +506,29 @@ load_city (char *cname)
     if (ver <= MG_C_VER) {
 	i = 120;
     } else {
-	fscanf (ofile, "%d", &i);
+	sscanf( gzgets( gzfile, s, 256 ), "%d", &i);
     }
     for (x = 0; x < i; x++) {
 	/* If more entries in file than will fit on screen, 
 	   then we need to skip past them. */
 	if (x >= monthgraph_size) {
-	    fscanf (ofile, "%d", &dummy); /* &monthgraph_pop[x] */
-	    fscanf (ofile, "%d", &dummy); /* &monthgraph_starve[x] */
-	    fscanf (ofile, "%d", &dummy); /* &monthgraph_nojobs[x] */
-	    fscanf (ofile, "%d", &dummy); /* &monthgraph_ppool[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &monthgraph_pop[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &monthgraph_starve[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &monthgraph_nojobs[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &monthgraph_ppool[x] */
 	} else {
-	    fscanf (ofile, "%d", &monthgraph_pop[x]);
-	    fscanf (ofile, "%d", &monthgraph_starve[x]);
-	    fscanf (ofile, "%d", &monthgraph_nojobs[x]);
-	    fscanf (ofile, "%d", &monthgraph_ppool[x]);
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &monthgraph_pop[x]);
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &monthgraph_starve[x]);
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &monthgraph_nojobs[x]);
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &monthgraph_ppool[x]);
 	}
 	/* If our save file is old, skip past obsolete diffgraph entries */
 	if (ver <= MG_C_VER) {
-	    fscanf (ofile, "%d", &dummy); /* &diffgraph_power[x] */
-	    fscanf (ofile, "%d", &dummy); /* &diffgraph_coal[x] */
-	    fscanf (ofile, "%d", &dummy); /* &diffgraph_goods[x] */
-	    fscanf (ofile, "%d", &dummy); /* &diffgraph_ore[x] */
-	    fscanf (ofile, "%d", &dummy); /* &diffgraph_population[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diffgraph_power[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diffgraph_coal[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diffgraph_goods[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diffgraph_ore[x] */
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diffgraph_population[x] */
 	}
     }
     /* If screen bigger than number of entries in file, pad with zeroes */
@@ -537,15 +540,15 @@ load_city (char *cname)
 	x++;
     }
     prog_box ("", 98);
-    fscanf (ofile, "%d", &rockets_launched);
-    fscanf (ofile, "%d", &rockets_launched_success);
-    fscanf (ofile, "%d", &coal_survey_done);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &rockets_launched);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &rockets_launched_success);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &coal_survey_done);
     
     for (x = 0; x < pbar_data_size; x++) {
 	for (p = 0; p < num_pbars; p++) {
-	    fscanf (ofile, "%d", &(pbar_tmp));
+	    sscanf( gzgets( gzfile, s, 256 ), "%d", &(pbar_tmp));
 	    update_pbar(p,pbar_tmp,1);
-/*	    fscanf (ofile, "%d", &(pbars[p].data[x])); */
+/*	    sscanf( gzgets( gzfile, s, 256 ), "%d", &(pbars[p].data[x])); */
 	}
     }
 
@@ -555,41 +558,41 @@ load_city (char *cname)
     prog_box ("", 99);
 
     for (p = 0; p < num_pbars; p++) {
-	fscanf (ofile, "%d", &(pbars[p].oldtot));
-	fscanf (ofile, "%d", &(pbars[p].diff));
+	sscanf( gzgets( gzfile, s, 256 ), "%d", &(pbars[p].oldtot));
+	sscanf( gzgets( gzfile, s, 256 ), "%d", &(pbars[p].diff));
     }
 
 
-    fscanf (ofile, "%d", &cheat_flag);
-    fscanf (ofile, "%d", &total_pollution_deaths);
-    fscanf (ofile, "%f", &pollution_deaths_history);
-    fscanf (ofile, "%d", &total_starve_deaths);
-    fscanf (ofile, "%f", &starve_deaths_history);
-    fscanf (ofile, "%d", &total_unemployed_years);
-    fscanf (ofile, "%f", &unemployed_history);
-    fscanf (ofile, "%d", &max_pop_ever);
-    fscanf (ofile, "%d", &total_evacuated);
-    fscanf (ofile, "%d", &total_births);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &cheat_flag);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &total_pollution_deaths);
+    sscanf( gzgets( gzfile, s, 256 ), "%f", &pollution_deaths_history);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &total_starve_deaths);
+    sscanf( gzgets( gzfile, s, 256 ), "%f", &starve_deaths_history);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &total_unemployed_years);
+    sscanf( gzgets( gzfile, s, 256 ), "%f", &unemployed_history);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &max_pop_ever);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &total_evacuated);
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &total_births);
     for (x = 0; x < NUMOF_MODULES; x++)
-	fscanf (ofile, "%d", &(module_help_flag[x]));
-    fscanf (ofile, "%d", &x);	/* just dummy reads */
-    fscanf (ofile, "%d", &x);	/* for backwards compatibility. */
+	sscanf( gzgets( gzfile, s, 256 ), "%d", &(module_help_flag[x]));
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &x);	/* just dummy reads */
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &x);	/* for backwards compatibility. */
 
     /* 10 dummy strings, for missed out things, have been put in save. */
     /* Input from this point uses them. */
     /* XXX: WCK: Huh? Missed out things? */
 
-    fscanf (ofile, "%128s", given_scene);
+    sscanf( gzgets( gzfile, s, 256 ), "%128s", given_scene);
     if (strncmp (given_scene, "dummy", 5) == 0 || strlen (given_scene) < 3)
 	given_scene[0] = 0;
-    fscanf (ofile, "%128s", s);
+    sscanf( gzgets( gzfile, s, 256 ), "%128s", s);
     if (strncmp (given_scene, "dummy", 5) != 0)
 	sscanf (s, "%d", &highest_tech_level);
     else
 	highest_tech_level = 0;
-    fgets (s, 80, ofile);		/* this is the CR */
+    gzgets( gzfile, s, 80 );		/* this is the CR */
 
-    fgets (s, 80, ofile);
+    gzgets( gzfile, s, 80 );
     if (sscanf (s, "sust %d %d %d %d %d %d %d %d %d %d"
 		,&sust_dig_ore_coal_count, &sust_port_count
 		,&sust_old_money_count, &sust_old_population_count
@@ -606,7 +609,7 @@ load_city (char *cname)
 		= sust_old_money_count = sust_old_population_count
 		= sust_old_tech_count = sust_fire_count
 		= sust_old_money = sust_old_population = sust_old_tech = 0;
-    fclose_read_gzipped (ofile);
+	gzclose( gzfile );
 
     numof_shanties = count_groups (GROUP_SHANTY);
     numof_communes = count_groups (GROUP_COMMUNE);
