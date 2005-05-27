@@ -13,7 +13,7 @@ Graphics (mostly egore's part)
  [M] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
         alpha for mac os/x and 32x32 keycolored (and/or alpha) for windows)
  [M] Review/Improve Look and Feel of the ingame dialogs
- [H] rework resident icons
+ [L] rework resident icons - is this really needed?
 
 Programming
 ~~~~~~~~~~~
