@@ -1,0 +1,24 @@
+
+          LinCity needs to know what sort of mouse you have.
+
+Select a number and press return
+
+   0 Microsoft
+   1 MouseSystems
+   2 MM series
+   3 Logitech
+   4 Busmouse
+   5 PS2
+   6 Logiman
+
+If your mouse is not included here, take a guess, If that fails mail
+ijp@floot.demon.co.uk and I'll see what I can do. We may have to wait for a
+new SVGAlib or even GGI.
+
+Once you have selected a mouse you will not be asked again, ever. If you
+make a mistake or change the type of mouse you use delete the file
+.lincityrc in your home directory.
+                                     rm ~/.lincityrc
+then start the game as normal.
+
+     What sort of mouse have you got?
