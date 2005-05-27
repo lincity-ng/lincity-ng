@@ -35,9 +35,10 @@ rule UseAutoconf
         Depends all : $(<) ;
     }
 
-    configurefiles 
-        = configure.ac [ Wildcard mk/autoconf : *.m4 ] ;
-    SEARCH on $(configurefiles) = $(top_srcdir) ;
-    CheckNewer configure : $(configurefiles) ;
-    CheckNewer Jamconfig : $(configurefiles) ;
+    # Disabled for now because it often gives false alarm...
+    #configurefiles 
+    #        = configure.ac [ Wildcard mk/autoconf : *.m4 ] ;
+    #    SEARCH on $(configurefiles) = $(top_srcdir) ;
+    #    CheckNewer configure : $(configurefiles) ;
+    #    CheckNewer Jamconfig : $(configurefiles) ;
 }
