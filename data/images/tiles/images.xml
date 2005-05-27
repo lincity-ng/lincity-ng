@@ -45,7 +45,14 @@
   <image file="rails.png" x="196" y="69" />
   <image file="residence2.png" x="470" y="384" />
   <image file="residence.png" x="87" y="30" />
-  <image file="rocket.png" x="188" y="310" />
+  <image file="rocket1.png" x="236" />
+  <image file="rocket2.png" x="236" />
+  <image file="rocket3.png" x="236" />
+  <image file="rocket4.png" x="236" />
+  <image file="rocket5.png" x="276" />
+  <image file="rocket6.png" x="276" />
+  <image file="rocket7.png" x="276" />
+  <image file="rocketflown.png" x="276" />
   <image file="school.png" x="131" y="82" />
   <image file="skyscraper.png" x="512" y="384" />
   <image file="solar.png" x="176" y="97" />
