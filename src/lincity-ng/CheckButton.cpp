@@ -1,7 +1,23 @@
+/*
+Copyright (C) 2005 David Kamphausen <david.kamphausen@web.de>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
 #include "CheckButton.hpp"
 #include "gui/Event.hpp"
 #include "gui/ComponentFactory.hpp"
-#include "Alternate.hpp"
 #include "Debug.hpp"
 
 #include <config.h>
@@ -411,78 +427,5 @@ std::string CheckButton::getCaptionText()
   return s;
 }
 
-
 IMPLEMENT_COMPONENT_FACTORY(CheckButton);
 
-/*
-
-CheckButton::CheckButton(Component *pParent,XmlReader &reader):
-  Button(pParent,reader),checked(false),alternate(0)
-{
-  //FIXME: implement attribute reader here somehow!!!
-  // find alternate in parent
-  
-  Component *c=pParent;
-  while(alternate==0 && c!=0)
-  {
-    Alternate *a=dynamic_cast<Alternate*>(c);
-    if(a)
-      alternate=a;
-    else
-      c=c->getParent();
-  }
-  
-}
-void CheckButton::event(const Event& event)
-{
-    State oldstate=state;
-    switch(event.type) {
-        case Event::MOUSEMOTION:
-            if(event.inside) {
-                if(state == STATE_NORMAL) {
-                    state = STATE_HOVER;
-                }
-            } else {
-                if(state == STATE_HOVER) {
-                    state = STATE_NORMAL;
-                }
-            }
-            if(checked)
-              state=STATE_CLICKED;
-            break;
-        case Event::MOUSEBUTTONDOWN:
-            if(event.inside) {
-                state = STATE_CLICKED;
-                if(alternate)
-                  alternate->toggleDisplay();
-            } else {
-                state = STATE_NORMAL;
-            }
-            if(checked)
-              state=STATE_CLICKED;
-            break;
-        case Event::MOUSEBUTTONUP:
-            if(event.inside && oldstate == STATE_CLICKED) {
-                //clicked(this);
-                checked=!checked;
-            }
-            state = event.inside ? STATE_HOVER : STATE_NORMAL;
-            if(checked)
-              state=STATE_CLICKED;
-            if(event.inside && oldstate == STATE_CLICKED)
-                clicked(this);
-            break;
-        default:
-            break;
-    }
-
-    Component::event(event);
-}
-
-void CheckButton::enable(bool flag)
-{
-  state=flag?STATE_CLICKED:STATE_NORMAL;
-}
-
-IMPLEMENT_COMPONENT_FACTORY(CheckButton)
-*/

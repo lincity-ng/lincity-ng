@@ -1,3 +1,20 @@
+/*
+Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
 #include <config.h>
 
 #include "PainterSDL.hpp"
@@ -10,14 +27,12 @@
 #include <SDL_gfxPrimitives.h>
 #include <SDL_rotozoom.h>
 #include <stdlib.h>
-#include <malloc.h>
 
 #include "TextureSDL.hpp"
 
 #ifdef _MSC_VER
 #define lrint(x) (long int)x
 #define lroundf(x) (long int)(x + .5)
-#define alloca _alloca
 #endif
 
 PainterSDL::PainterSDL(SDL_Surface* _target)
@@ -93,8 +108,8 @@ void
 PainterSDL::fillPolygon(int numberPoints, const Vector2* points)
 {
     Vector2 screenpos;
-    Sint16* vx = (Sint16*) alloca(numberPoints * sizeof(*vx));
-    Sint16* vy = (Sint16*) alloca(numberPoints * sizeof(*vy));
+    Sint16* vx = new Sint16[numberPoints];
+    Sint16* vy = new Sint16[numberPoints];
     for(int i = 0; i < numberPoints; i++ ) {
          screenpos = transform.apply( points[ i ] );
          vx[ i ] = (int) screenpos.x;
@@ -102,14 +117,16 @@ PainterSDL::fillPolygon(int numberPoints, const Vector2* points)
     }
     filledPolygonRGBA( target, vx, vy, numberPoints,
             fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+    delete[] vx;
+    delete[] vy;
 }
 
 void
 PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
 {
     Vector2 screenpos;
-    Sint16* vx = (Sint16*) alloca(numberPoints * sizeof(*vx));
-    Sint16* vy = (Sint16*) alloca(numberPoints * sizeof(*vy));
+    Sint16* vx = new Sint16[numberPoints];
+    Sint16* vy = new Sint16[numberPoints];
     for(int i = 0; i < numberPoints; i++ ) {
          screenpos = transform.apply( points[ i ] );
          vx[ i ] = (int) screenpos.x;
@@ -117,6 +134,8 @@ PainterSDL::drawPolygon(int numberPoints, const Vector2* points)
     }
     aapolygonRGBA( target, vx, vy, numberPoints,
             lineColor.r, lineColor.g, lineColor.b, lineColor.a);
+    delete[] vx;
+    delete[] vy;
 }
 
 void
