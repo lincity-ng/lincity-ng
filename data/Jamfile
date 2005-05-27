@@ -32,6 +32,7 @@ IMAGEPATHS =
     images/mainmenu/buttons
     images/mainmenu/progressbar
     images/mainmenu/progresswheel
+    images/mainmenu/settings
     images/mainmenu/slider
     images/tiles
 ;

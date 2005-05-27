@@ -22,7 +22,7 @@
 			</CheckButton>
 		</cell>
 		<cell row="3" col="3" halign="left" valign="top">
-			<CheckButton name="SpeedSlowButton">
+			<CheckButton name="SpeedNormalButton">
 				<image src="images/gui/buttons/round/button-round-40.png"/>
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
@@ -32,7 +32,7 @@
 			</CheckButton>
 		</cell>
 		<cell row="4" col="4" halign="left" valign="top">
-			<CheckButton name="SpeedNormalButton">
+			<CheckButton name="SpeedFastButton">
 				<image src="images/gui/buttons/round/button-round-40.png"/>
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
@@ -42,7 +42,7 @@
 			</CheckButton>
 		</cell>
 		<cell row="5" col="5" halign="left" valign="top">
-			<CheckButton name="SpeedFastButton">
+			<CheckButton name="SpeedFastestButton">
 				<image src="images/gui/buttons/round/button-round-40.png"/>
 				<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>

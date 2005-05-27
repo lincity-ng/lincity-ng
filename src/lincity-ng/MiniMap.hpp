@@ -64,7 +64,8 @@ private:
     bool mFullRefresh;
     bool alreadyAttached;
     bool inside;
-    std::string shownTabName;
+    // used for the middle mouse button popup to remember last visible tab
+    std::string lastTabName;
 };
 
 MiniMap* getMiniMap();

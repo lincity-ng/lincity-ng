@@ -78,9 +78,17 @@ AC_CHECK_FUNCS(gettimeofday mkdir popen)
 
 AM_ICONV
 AC_SUBST([ICONV_LIBS], [$LIBICONV])
+
 #----------------------------------------------------------------------------
 # find libraries
 #----------------------------------------------------------------------------
+NP_FINDLIB([ZLIB], [zlib], [zlib],
+	NP_LANG_PROGRAM([[#include <zlib.h>]],
+            [[gzFile* file = gzopen("", "");]]),
+	[], [-lz],
+	[],
+	[AC_MSG_ERROR([Please install zlib])])
+
 PKG_CHECK_MODULES([LIBXML], [libxml-2.0 >= 2.6.11])
 
 AX_CHECK_GL

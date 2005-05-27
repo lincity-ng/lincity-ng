@@ -8,7 +8,6 @@
 SwitchComponent::SwitchComponent()
 {
     setFlags(FLAG_RESIZABLE);
-    activeComponentName = "";
 }
 
 SwitchComponent::~SwitchComponent()
@@ -41,7 +40,6 @@ SwitchComponent::parse(XmlReader& reader)
             if(first) {
                 child.enable(true);
                 first = false;
-                activeComponentName = child.getComponent()->getName(); 
             } else {
                 child.enable(false);
             }
@@ -62,6 +60,7 @@ SwitchComponent::resize(float width, float height)
         }
         if(! (child.getComponent()->getFlags() & FLAG_RESIZABLE))
             continue;
+				
         child.getComponent()->resize(width, height);
     }
     this->width = width;
@@ -77,11 +76,11 @@ SwitchComponent::switchComponent(const std::string& name)
         if(child.getComponent()->getName() == name) {
             child.enable(true);
             found = true;
-            activeComponentName = name;
         } else {
             child.enable(false);
         }
     }
+		
     if(!found) {
 #ifdef DEBUG
         std::cerr << "No component named '" << name << "' found "
@@ -89,10 +88,21 @@ SwitchComponent::switchComponent(const std::string& name)
 #endif
         if(!childs.empty()) {
             childs[0].enable(true);
-            activeComponentName = childs[0].getComponent()->getName(); 
         }
     }
     setDirty();
+}
+
+Component*
+SwitchComponent::getActiveComponent()
+{
+    for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
+        Child& child = *i;
+        if(child.isEnabled())
+            return child.getComponent();
+    }
+
+    return 0;
 }
 
 bool

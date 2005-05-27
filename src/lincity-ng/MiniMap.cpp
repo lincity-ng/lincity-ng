@@ -31,39 +31,38 @@
 #include "CheckButton.hpp"
 #include "Dialog.hpp"
 
-#define LC_MOUSE_LEFTBUTTON 1
-#define LC_MOUSE_RIGHTBUTTON 2
-#define LC_MOUSE_MIDDLEBUTTON 3
+/** List of mapview buttons. The "" entries separate mapview buttons that are
+ * switched
+ */
+const char* mapViewButtons[] = { 
+    "MapViewNormal", "", "MapViewFood", "MapViewUB40", "", "MapViewPower",
+    "MapViewFire", "MapViewSport", "MapViewHealth", "", "MapViewTraffic",
+    "MapViewPollution", "", "MapViewCoal", "", 0};
 
-const char* mapViewButtons[] = { "MapViewNormal", "", 
-                                    "MapViewFood", "MapViewUB40","",
-                                    "MapViewPower", "MapViewFire", "MapViewSport", "MapViewHealth","",
-                                    "MapViewTraffic", "MapViewPollution", "",
-                                    "MapViewCoal","", 0};
+const char* speedButtons[] = {
+    "SpeedPauseButton", "SpeedNormalButton", "SpeedFastButton",
+    "SpeedFastestButton", 0 };
 
-
-
-const char* speedButtons[] = { "SpeedPauseButton","SpeedSlowButton", "SpeedNormalButton", "SpeedFastButton", 0 };
-
-Uint8 brightness(const Color &c)
+static inline Uint8 brightness(const Color &c)
 {
-  Uint16 x=c.r;
-  x+=c.g;
-  x+=c.b;
-  return x/3;
+    Uint16 x=c.r;
+    x+=c.g;
+    x+=c.b;
+    return x/3;
 }
 
-Color makeGrey(const Color &c)
+static inline Color makeGrey(const Color &c)
 {
-  Uint8 b=brightness(c);
-  return Color(b,b,b);
+    Uint8 b=brightness(c);
+    return Color(b,b,b);
 }
 
-Color light(const Color &c,Uint8 b)
+static inline Color light(const Color &c,Uint8 b)
 {
-  return Color(((Uint16(c.r)*b)>>8),
-	       ((Uint16(c.g)*b)>>8),
-	       ((Uint16(c.b)*b)>>8));
+    return Color(
+            ((Uint16(c.r)*b)>>8),
+            ((Uint16(c.g)*b)>>8),
+            ((Uint16(c.b)*b)>>8));
 }
 
 MiniMap* miniMapPtr = 0;
@@ -88,7 +87,8 @@ MiniMap::MiniMap()
     gameViewPoints[ 3 ].y = 0;
 }
 
-MiniMap::~MiniMap() {
+MiniMap::~MiniMap()
+{
     if(miniMapPtr == this)
         miniMapPtr = 0;
 }
@@ -135,7 +135,6 @@ MiniMap::parse(XmlReader& reader)
     if(width <= 0 || height <= 0)
       throw std::runtime_error("Width or Height invalid");
     
-
     // create alpha-surface
     SDL_Surface* image = SDL_CreateRGBSurface(0, (int) width, (int) height, 32,
 					      0x000000ff, 0x0000ff00,
@@ -149,7 +148,6 @@ MiniMap::parse(XmlReader& reader)
     mpsXOld = mps_x;
     mpsYOld = mps_y;
     mpsStyleOld = mps_style;
-    shownTabName = "";
 
     //switchView("MiniMap");
 }
@@ -171,14 +169,15 @@ void MiniMap::attachButtons()
     Component *root=findRoot(this);
   
     for(int i = 0; mapViewButtons[i] != 0; ++i) {
-        if(strlen(mapViewButtons[i]))
-				{
-          CheckButton* b = getCheckButton(*root, mapViewButtons[i]);
-          if(i == 0)
-              b->check();
-          b->clicked.connect(makeCallback(*this, &MiniMap::mapViewButtonClicked));
+        if(strlen(mapViewButtons[i])) {
+            printf("SearchFor: '%s'.\n", mapViewButtons[i]);
+            CheckButton* b = getCheckButton(*root, mapViewButtons[i]);
+            if(i == 0)
+                b->check();
+            b->clicked.connect(makeCallback(*this, &MiniMap::mapViewButtonClicked));
         }
     }
+
     for(int i = 0; speedButtons[i] != 0; ++i) {
         CheckButton* b = getCheckButton(*root, speedButtons[i]);
         // we start in normal speed...
@@ -260,19 +259,21 @@ MiniMap::switchView(const std::string& viewname)
 void 
 MiniMap::switchMapViewButton(const std::string &buttonName)
 {
-  std::string switchName;
-  if(buttonName=="MapViewFood"||buttonName=="MapViewUB40")
-    switchName="FoodSwitch";
-  if(buttonName=="MapViewTraffic"||buttonName=="MapViewPollution")
-    switchName="TrafficSwitch";
-  if(buttonName=="MapViewPower"||buttonName=="MapViewHealth"||buttonName=="MapViewFire"||buttonName=="MapViewSport")
-    switchName="PowerSwitch";
-  if(switchName!="")
-  {
-    SwitchComponent *switchComponent
-      = getSwitchComponent(*(findRoot(this)), switchName);
-    switchComponent->switchComponent(buttonName);
-  }
+    std::string switchName;
+    if(buttonName=="MapViewFood" || buttonName=="MapViewUB40") {
+        switchName = "FoodSwitch";
+    } else if(buttonName=="MapViewTraffic" || buttonName=="MapViewPollution") {
+        switchName = "TrafficSwitch";
+    } else if(buttonName=="MapViewPower" || buttonName=="MapViewHealth"
+            || buttonName=="MapViewFire" || buttonName=="MapViewSport") {
+        switchName = "PowerSwitch";
+    }
+    
+    if(switchName != "") {
+        SwitchComponent *switchComponent
+            = getSwitchComponent(*(findRoot(this)), switchName);
+        switchComponent->switchComponent(buttonName);
+    }
 }
 
 
@@ -280,30 +281,21 @@ void MiniMap::hideMpsEnv(){
     if( mps_style != MPS_ENV ){
         return;
     }
-    SwitchComponent* switchComponent 
-        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
-    if(!switchComponent) {
-        std::cerr << "MiniMapSwitch not found!\n";
-        return;
-    }
     //restore saved stats
     mps_x = mpsXOld;
     mps_y = mpsYOld;
     mps_style = mpsStyleOld;
     mps_set( mps_x, mps_y, mps_style );
-    switchView( shownTabName );
+    switchView(lastTabName);
 }
 
 void MiniMap::showMpsEnv( MapPoint tile ){
-   SwitchComponent* switchComponent 
-        = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
-    if(!switchComponent) {
-        std::cerr << "MiniMapSwitch not found!\n";
-        return;
-    }
-    if( mps_style != MPS_ENV ){
+    if(mps_style != MPS_ENV) {
+        SwitchComponent* switchComponent 
+            = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
+                
         //save old minimap and MPS setting
-        shownTabName = switchComponent->getActiveComponentName(); 
+        lastTabName = switchComponent->getActiveComponent()->getName(); 
         mpsXOld = mps_x;
         mpsYOld = mps_y;
         mpsStyleOld = mps_style;
@@ -313,47 +305,50 @@ void MiniMap::showMpsEnv( MapPoint tile ){
 
 MiniMap::DisplayMode getMode(const std::string &pName)
 {
-	if(pName=="MapViewNormal")
-		return MiniMap::NORMAL;
-	if(pName=="MapViewUB40")
-		return MiniMap::UB40;
-	if(pName=="MapViewPollution")
-		return MiniMap::POLLUTION;
-	if(pName=="MapViewTraffic")
-		return MiniMap::TRAFFIC;
-	if(pName=="MapViewFood")
-		return MiniMap::STARVE;
-	if(pName=="MapViewPower")
-		return MiniMap::POWER;
-	if(pName=="MapViewFire")
-		return MiniMap::FIRE;
-	if(pName=="MapViewCricket")
-		return MiniMap::CRICKET;
-	if(pName=="MapViewHealth")
-		return MiniMap::HEALTH;
-	if(pName=="MapViewCoal")
-		return MiniMap::COAL;
-	return MiniMap::NORMAL;
+    if(pName=="MapViewNormal")
+        return MiniMap::NORMAL;
+    if(pName=="MapViewUB40")
+        return MiniMap::UB40;
+    if(pName=="MapViewPollution")
+        return MiniMap::POLLUTION;
+    if(pName=="MapViewTraffic")
+        return MiniMap::TRAFFIC;
+    if(pName=="MapViewFood")
+        return MiniMap::STARVE;
+    if(pName=="MapViewPower")
+        return MiniMap::POWER;
+    if(pName=="MapViewFire")
+        return MiniMap::FIRE;
+    if(pName=="MapViewCricket")
+        return MiniMap::CRICKET;
+    if(pName=="MapViewHealth")
+        return MiniMap::HEALTH;
+    if(pName=="MapViewCoal")
+        return MiniMap::COAL;
+
+    return MiniMap::NORMAL;
 }
+
 std::string getNextButton(const std::string &pName)
 {
-  int i;
-  for(i=0;mapViewButtons[i];i++)
-    if(pName==mapViewButtons[i])
-      break;
-  assert(mapViewButtons[i]);
-  
-  i++;
-  if(strlen(mapViewButtons[i])==0)
-  {
-    // end of row - go to beginning
-    i--;
-    while(i>=0 && mapViewButtons[i] && strlen(mapViewButtons[i])) // assuming that this is processed from front to back
-      i--;
-    i++; // gone one too far
-  }
-  assert(i>=0 && mapViewButtons[i] && strlen(mapViewButtons[i]));
-  return mapViewButtons[i];
+    int i;
+    for(i=0; mapViewButtons[i]; ++i)
+        if(pName==mapViewButtons[i])
+            break;
+    assert(mapViewButtons[i]);
+    
+    i++;
+    if(strlen(mapViewButtons[i])==0) {
+        // end of row - go to beginning
+        i--;
+        // assuming that this is processed from front to back
+        while(i>=0 && mapViewButtons[i] && strlen(mapViewButtons[i]))
+            i--;
+        i++; // gone one too far
+    }
+    assert(i>=0 && mapViewButtons[i] && strlen(mapViewButtons[i]));
+    
+    return mapViewButtons[i];
 }
 
 void MiniMap::mapViewButtonClicked(CheckButton* button, int)
@@ -362,28 +357,27 @@ void MiniMap::mapViewButtonClicked(CheckButton* button, int)
     std::string name = button->getName();
     
     DisplayMode newMode=getMode(button->getName());
-    if(newMode==mMode)
-    {
-      // switch button
-      name=getNextButton(button->getName());
-      mMode=getMode(name);
+    if(newMode==mMode) {
+        // switch button
+        name=getNextButton(button->getName());
+        mMode=getMode(name);
+    } else {
+        mMode=newMode;
     }
-    else
-      mMode=newMode;
     
-    if(mMode==COAL)
-      if(( coal_survey_done == 0 ) && ( !blockingDialogIsOpen ))
-        new Dialog( ASK_COAL_SURVEY ); 
+    if(mMode==COAL) {
+        if(( coal_survey_done == 0 ) && ( !blockingDialogIsOpen ))
+            new Dialog( ASK_COAL_SURVEY ); 
+    }
     
     for(int b = 0; mapViewButtons[b] != 0; ++b) {
-      if(strlen(mapViewButtons[b]))
-      {
-        CheckButton* button = getCheckButton(*root, mapViewButtons[b]);
-        if(button->getName()==name)
-          button->check();
-        else
-            button->uncheck();
-      }
+        if(strlen(mapViewButtons[b])) {
+            CheckButton* button = getCheckButton(*root, mapViewButtons[b]);
+            if(button->getName()==name)
+                button->check();
+            else
+                button->uncheck();
+        }
     }
 
     switchMapViewButton(name);
@@ -462,7 +456,7 @@ void MiniMap::setGameViewCorners(const MapPoint& upperLeft,
     gameViewPoints[ 1 ] = mapPointToVector(upperRight);
     gameViewPoints[ 2 ] = mapPointToVector(lowerRight);
     gameViewPoints[ 3 ] = mapPointToVector(lowerLeft);
-    mFullRefresh=true;
+    mFullRefresh = true;
     setDirty();
 }
 
@@ -482,8 +476,7 @@ void MiniMap::draw(Painter &painter)
     white.parse( "white" );
     Rect2D miniRect( 0 , 0, WORLD_SIDE_LEN*tilesize, WORLD_SIDE_LEN*tilesize );
     Color mc = getColor( 0, 0 ); 
-    if(mpainter.get() == 0)
-    {
+    if(mpainter.get() == 0) {
         // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
         
         for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
@@ -508,7 +501,7 @@ void MiniMap::draw(Painter &painter)
 
     mpainter->setFillColor( mc );
     mpainter->fillRectangle( miniRect );
-    for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
+    for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++) {
         for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++) {
             typ = MP_TYPE(x,y);
             if ( mFullRefresh || typ != mappointoldtype[x][y] ) {
@@ -519,6 +512,7 @@ void MiniMap::draw(Painter &painter)
                 mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
             }
         }
+    }
     
     //show current GameView
     mpainter->setLineColor( white );

@@ -134,6 +134,7 @@ void GameView::parse(XmlReader& reader)
 
     mouseInGameView = false;
     dragging = false;
+		leftButtonDown = false;
     roadDragging = false;
     startRoad = MapPoint(0, 0);
     rightButtonDown = false;

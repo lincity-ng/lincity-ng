@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_ttf.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "gui/FontManager.hpp"
@@ -52,11 +53,78 @@ void initPhysfs(const char* argv0)
         msg << "Couldn't initialize physfs: " << PHYSFS_getLastError();
         throw std::runtime_error(msg.str());
     }
-    if(!PHYSFS_setSaneConfig("lincity", PACKAGE_NAME, ".zip", 0, 1)) {
-        std::stringstream msg;
-        msg << "Couldn't set physfs config: " << PHYSFS_getLastError();
-        throw std::runtime_error(msg.str());
+
+    // Initialize physfs (this is a slightly modified version of
+    // PHYSFS_setSaneConfig
+    const char* application = /* PACKAGE_NAME */ "lincity";
+    const char* userdir = PHYSFS_getUserDir();
+    const char* dirsep = PHYSFS_getDirSeparator();
+    char* writedir = new char[strlen(userdir) + strlen(application) + 2];
+
+    // Set configuration directory
+    sprintf(writedir, "%s.%s", userdir, application);
+    if(!PHYSFS_setWriteDir(writedir)) {
+        // try to create the directory
+        char* mkdir = new char[strlen(application) + 2];
+        sprintf(mkdir, ".%s", application);
+        if(PHYSFS_setWriteDir(userdir) || !PHYSFS_mkdir(mkdir)) {
+            std::ostringstream msg;
+            msg << "Failed creating configuration directory '" <<
+                writedir << "': " << PHYSFS_getLastError();
+            delete[] writedir;
+            delete[] mkdir;
+            throw std::runtime_error(msg.str());
+        }
+        delete[] mkdir;
+
+        if(!PHYSFS_setWriteDir(writedir)) {
+            std::ostringstream msg;
+            msg << "Failed to use configuration directory '" <<            
+                writedir << "': " << PHYSFS_getLastError();
+            delete[] writedir;
+            throw std::runtime_error(msg.str());
+        }
     }
+    PHYSFS_addToSearchPath(writedir, 0);
+    delete[] writedir;
+   
+    // Search for archives and add them to the search path
+    const char* archiveExt = "zip";
+    char** rc = PHYSFS_enumerateFiles("/");
+    size_t extlen = strlen(archiveExt);
+
+    for(char** i = rc; *i != 0; ++i) {
+        size_t l = strlen(*i);
+        if((l > extlen) && ((*i)[l - extlen - 1] == '.')) {
+            const char* ext = (*i) + (l - extlen);
+            if(strcasecmp(ext, archiveExt) == 0) {
+                const char* d = PHYSFS_getRealDir(*i);
+                char* str = new char[strlen(d) + strlen(dirsep) + l + 1];
+                sprintf(str, "%s%s%s", d, dirsep, *i);
+                PHYSFS_addToSearchPath(str, 1);
+                delete[] str;
+            }
+        }
+    }
+
+    PHYSFS_freeList(rc);
+            
+    // when started from source dir...
+    std::string dir = PHYSFS_getBaseDir();
+    dir += "/data";
+    std::string testfname = dir;
+    testfname += "/images/tiles/images.xml";
+    FILE* f = fopen(testfname.c_str(), "r");
+    if(f) {
+        fclose(f);
+        if(!PHYSFS_addToSearchPath(dir.c_str(), 1)) {
+#ifdef DEBUG
+            std::cout << "Warning: Couldn't add '" << dir << 
+                "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+#endif
+        }
+    }
+
 #ifdef APPDATADIR
     if(!PHYSFS_addToSearchPath(APPDATADIR, 1)) {
 #ifdef DEBUG
@@ -65,16 +133,6 @@ void initPhysfs(const char* argv0)
 #endif
     }
 #endif
-    
-    // when started from source dir...
-    std::string dir = PHYSFS_getBaseDir();
-    dir += "/data";
-    if(!PHYSFS_addToSearchPath(dir.c_str(), 1)) {
-#ifdef DEBUG
-        std::cout << "Warning: Couldn't add '" << dir << 
-            "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
-#endif
-    }
 
     // allow symbolic links
     PHYSFS_permitSymbolicLinks(1);
@@ -139,14 +197,17 @@ void initVideo(int width, int height)
         std::cout << "SDL Mode\n";
     }
 
-    delete texture_manager;
-    if( getConfig()->useOpenGL ) {
-        texture_manager = new TextureManagerGL();
-    } else {
-        texture_manager = new TextureManagerSDL();
+    if(texture_manager == 0) {
+        if( getConfig()->useOpenGL ) {
+            texture_manager = new TextureManagerGL();
+        } else {
+            texture_manager = new TextureManagerSDL();
+        }
     }
-    delete fontManager;
-    fontManager = new FontManager();
+
+    if(fontManager == 0) {
+        fontManager = new FontManager();
+    }
 }
 
 void flipScreenBuffer()

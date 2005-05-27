@@ -20,11 +20,7 @@ public:
     bool opaque(const Vector2& pos) const;
 
     void switchComponent(const std::string& name);
-    std::string getActiveComponentName(){ return activeComponentName; }; 
-
-private:
-    std::string activeComponentName;
-        
+    Component* getActiveComponent();
 };
 
 #endif

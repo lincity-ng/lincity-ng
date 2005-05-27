@@ -36,8 +36,8 @@ rule UseAutoconf
     }
 
     configurefiles 
-        = configure.ac configure [ Wildcard mk/autoconf : *.m4 ] ;
+        = configure.ac [ Wildcard mk/autoconf : *.m4 ] ;
     SEARCH on $(configurefiles) = $(top_srcdir) ;
+    CheckNewer configure : $(configurefiles) ;
     CheckNewer Jamconfig : $(configurefiles) ;
-    CheckNewer config.h : $(configurefiles) ;
 }

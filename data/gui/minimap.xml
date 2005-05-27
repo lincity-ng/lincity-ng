@@ -144,7 +144,7 @@
 						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 						<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 						<image-caption src="images/gui/buttonpanel/residence/residence.png"/>
-						<tooltip translatable="yes">outline map</tooltip>
+						<tooltip translatable="yes">Show map outline</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="7">
@@ -155,7 +155,7 @@
 							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 							<image-caption src="images/gui/mapview/roundbuttons/round_food.png"/>
-							<tooltip translatable="yes">nourishments</tooltip>
+							<tooltip translatable="yes">Show nourishments</tooltip>
 						</CheckButton>
 						<CheckButton name="MapViewUB40">
 							<image src="images/gui/buttons/round/button-round-40.png"/>
@@ -163,7 +163,7 @@
 							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 							<image-caption src="images/gui/mapview/roundbuttons/round_ub40.png"/>
-							<tooltip translatable="yes">unemployment</tooltip>
+							<tooltip translatable="yes">Show unemployment</tooltip>
 						</CheckButton>
 					</SwitchComponent>
 				</cell>
@@ -175,7 +175,7 @@
 							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 							<image-caption src="images/gui/buttonpanel/power/electrics.png"/>
-							<tooltip translatable="yes">power supply</tooltip>
+							<tooltip translatable="yes">Show power supply</tooltip>
 						</CheckButton>
 						<CheckButton name="MapViewFire">
 							<image src="images/gui/buttons/round/button-round-40.png"/>
@@ -183,7 +183,7 @@
 							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 							<image-caption src="images/gui/buttonpanel/misc/fire.png"/>
-							<tooltip translatable="yes">firedepartment cover</tooltip>
+							<tooltip translatable="yes">Show firedepartment cover</tooltip>
 						</CheckButton>
 						<CheckButton name="MapViewSport">
 							<image src="images/gui/buttons/round/button-round-40.png"/>
@@ -191,7 +191,7 @@
 							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 							<image-caption src="images/gui/buttonpanel/misc/sports.png"/>
-							<tooltip translatable="yes">sport cover</tooltip>
+							<tooltip translatable="yes">Show sport cover</tooltip>
 						</CheckButton>
 						<CheckButton name="MapViewHealth">
 							<image src="images/gui/buttons/round/button-round-40.png"/>
@@ -199,7 +199,7 @@
 							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 							<image-caption src="images/gui/buttonpanel/misc/health.png"/>
-							<tooltip translatable="yes">medical care</tooltip>
+							<tooltip translatable="yes">Show medical care</tooltip>
 						</CheckButton>
 					</SwitchComponent>
 				</cell>
@@ -211,7 +211,7 @@
 							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 							<image-caption src="images/gui/buttonpanel/transport/road.png"/>
-							<tooltip translatable="yes">traffic density</tooltip>
+							<tooltip translatable="yes">Show traffic density</tooltip>
 						</CheckButton>
 						<CheckButton name="MapViewPollution">
 							<image src="images/gui/buttons/round/button-round-40.png"/>
@@ -219,7 +219,7 @@
 							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 							<image-caption src="images/gui/buttonpanel/mining/trash.png"/>
-							<tooltip translatable="yes">pollution density</tooltip>
+							<tooltip translatable="yes">Show pollution density</tooltip>
 						</CheckButton>
 					</SwitchComponent>
 				</cell>
@@ -230,7 +230,7 @@
 						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 						<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 						<image-caption src="images/gui/buttonpanel/mining/coalmine.png"/>
-						<tooltip translatable="yes">coal depots</tooltip>
+						<tooltip translatable="yes">Show coal depots</tooltip>
 					</CheckButton>
 				</cell>
 			</TableLayout>
