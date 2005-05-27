@@ -3,12 +3,13 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
-#include "lcconfig.h"
+//#include "lcconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "lcstring.h"
+//#include "lcstring.h"
 #include "lin-city.h"
+#include <zlib.h>
 
 #if defined (WIN32)
 #include <winsock.h>
@@ -54,23 +55,23 @@ load_start_image (void)
   XEvent xev;
 #endif
   long x, y, l, r, g, b;
-  FILE *fp;
+  gzFile fp;
 
-  fp = fopen_read_gzipped (opening_pic);
+  fp = gzopen( opening_pic, "r" );
   if (fp == NULL) {
       return;
   }
 
   for (x = 0; x < 7; x++)
-    l = fgetc (fp);
+    l = gzgetc (fp);
   l &= 0xff;
   if (l == 0)
     l = 256;
   for (x = 0; x < l; x++)
     {
-      r = fgetc (fp);
-      g = fgetc (fp);
-      b = fgetc (fp);
+      r = gzgetc (fp);
+      g = gzgetc (fp);
+      b = gzgetc (fp);
 #ifdef LC_X11
       pal[x].red = r;
       pal[x].green = g;
@@ -120,7 +121,7 @@ load_start_image (void)
   for (y = 0; y < 480; y++)
     for (x = 0; x < 640; x++)
       {
-	l = fgetc (fp);
+	l = gzgetc (fp);
 	/*
 	   //      printf("l=%d x=%d y=%d ",l,x,y);
 	   // octree doesn't seem to want to generate images with 252 colours!
@@ -139,7 +140,7 @@ load_start_image (void)
 	Fgl_setpixel (x, y, l);
       }
 
-  fclose_read_gzipped (fp);
+  gzclose(fp);
 
 #if defined (WIN32)
   RefreshScreen ();

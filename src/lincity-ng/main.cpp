@@ -244,10 +244,12 @@ int main(int argc, char** argv)
             std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
             std::cout << "Command line overrides configfiles.\n";
             std::cout << "Known arguments are:\n";
-            std::cout << "-v    --version  show version and exit\n";
-            std::cout << "-h    --help     show his text and exit\n";
-            std::cout << "-gl   --gl       use OpenGL\n";
-            std::cout << "-sdl  --sdl      use SDL\n";
+            std::cout << "-v    --version    show version and exit\n";
+            std::cout << "-h    --help       show his text and exit\n";
+            std::cout << "-gl   --gl         use OpenGL\n";
+            std::cout << "-sdl  --sdl        use SDL\n";
+            std::cout << "-w    --window     run in window\n";
+            std::cout << "-f    --fullscreen run  fullscreen\n";
             knownArgument = true;
             exit( 0 );
         }
@@ -258,6 +260,14 @@ int main(int argc, char** argv)
         }
         if(( argStr == "-sdl" ) || ( argStr == "--sdl" )){ //use SGL
             getConfig()->useOpenGL = false; 
+            knownArgument = true;
+        }
+        if(( argStr == "-f" ) || ( argStr == "--fullscreen" )){ //fullscreen
+            getConfig()->useFullScreen = true; 
+            knownArgument = true;
+        }
+        if(( argStr == "-w" ) || ( argStr == "--window" )){ //windowed
+            getConfig()->useFullScreen = false; 
             knownArgument = true;
         }
         

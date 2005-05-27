@@ -206,7 +206,6 @@ gunzip_file (char *f1, char *f2)
       do_error ("Can't gunzip requested file");
     }
 }
-#endif
 
 FILE* 
 fopen_read_gzipped (char* fn)
@@ -231,6 +230,7 @@ fclose_read_gzipped (FILE* fp)
 {
     pclose (fp);
 }
+#endif
 
 int
 directory_exists (char *dir)

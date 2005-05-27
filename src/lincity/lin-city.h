@@ -1181,8 +1181,8 @@ extern void malloc_failure (void);
   ********
 */
 void malloc_failure (void);
-FILE* fopen_read_gzipped (char* fn);
-void fclose_read_gzipped (FILE* fp);
+//FILE* fopen_read_gzipped (char* fn);
+//void fclose_read_gzipped (FILE* fp);
 void verify_package (void);
 
 /*
