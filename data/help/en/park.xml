@@ -7,9 +7,9 @@
 	<p style="hp">The wind comes <b>from</b> the south west, so build you parks accordingly.</p>
 	
 	<p style="hp">This is a park</p>
-	<img src="data/images/tiles/park.png" halign="center"/>
+	<img src="images/tiles/park.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/parks/park.png" halign="center"/>
+	<img src="images/gui/buttonpanel/parks/park.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="pollution">Pollution</a></li>

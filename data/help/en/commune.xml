@@ -6,9 +6,9 @@
 	<p style="hp">Communes can connect to transport at any point around it, not only to the gate.</p>
 	
 	<p style="hp">This is a commune</p>
-	<img src="data/images/tiles/commune.png" halign="center"/>
+	<img src="images/tiles/commune.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/mining/commune.png" halign="center"/>
+	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="pottery">Potteries</a></li>

@@ -6,11 +6,11 @@
 	<p style="hp">Mills do not have to be connected to transport. If not, they do have to be in range of a market with coal, jobs and food. You can tell when mills are working by the smoke and steam coming from the building.</p>
 	
 	<p style="hp">This is a mill</p>
-	<img src="data/images/tiles/mill1.png" halign="center"/>
+	<img src="images/tiles/mill1.png" halign="center"/>
 	<p style="hp">This is a nonworking mill</p>
-	<img src="data/images/tiles/mill0.png" halign="center"/>
+	<img src="images/tiles/mill0.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/parks/mills.png" halign="center"/>
+	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="goods">Goods</a></li>

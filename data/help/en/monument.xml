@@ -7,9 +7,9 @@
 	<p style="hp"><b>Hint</b>: How to stop monument building sucking too many jobs out of an area and therefore starving other areas of jobs: Build a monument farm away from other areas.</p>
 
 	<p style="hp">This is a monument</p>
-	<img src="data/images/tiles/monument5.png" halign="center"/>
+	<img src="images/tiles/monument5.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/parks/monument.png" halign="center"/>
+	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="market">Market</a></li>

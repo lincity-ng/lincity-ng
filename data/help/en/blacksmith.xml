@@ -7,9 +7,9 @@
 	<p style="hp">You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
 
 	<p style="hp">This is a blacksmith</p>
-	<img src="data/images/tiles/blacksmith0.png" halign="center"/>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="market">Market</a></li>

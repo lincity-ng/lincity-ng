@@ -3,118 +3,118 @@
 	<p style="htitle">Select button index</p>
 
 	<!--<p style="subtitle">Power</p>-->
-	<img src="data/images/gui/buttonpanel/power/powerlines.png"/>
+	<img src="images/gui/buttonpanel/power/powerlines.png"/>
 	<p><a href="powerline">Power lines</a></p>
-	<img src="data/images/gui/buttonpanel/power/solarpower.png"/>
+	<img src="images/gui/buttonpanel/power/solarpower.png"/>
 	<p><a href="powerssolar">Solar Power station</a></p>
-	<img src="data/images/gui/buttonpanel/power/substation.png"/>
+	<img src="images/gui/buttonpanel/power/substation.png"/>
 	<p><a href="substation">Substation</a></p>
 
 	<!--<p style="subtitle">Residences</p>-->
-	<img src="data/images/gui/buttonpanel/residence/residence.png"/>
+	<img src="images/gui/buttonpanel/residence/residence.png"/>
 	<p><a href="residential">Residential area</a></p>
 
 	<!--<p style="subtitle">Parks</p>-->
-	<img src="data/images/gui/buttonpanel/parks/farm.png"/>
+	<img src="images/gui/buttonpanel/parks/farm.png"/>
 	<p><a href="farm">Farm</a></p>
 
 	<!--<p style="subtitle">Industry</p>-->
-	<img src="data/images/gui/buttonpanel/industry/market.png"/>
+	<img src="images/gui/buttonpanel/industry/market.png"/>
 	<p><a href="market">Market</a></p>
 
 	<!--<p style="subtitle">Base</p>-->
-	<img src="data/images/gui/buttonpanel/base/bulldozer.png"/>
+	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
 	<p><a href="bulldoze">Bulldoze</a></p>
 
 	<!--<p style="subtitle">Transport</p>-->
-	<img src="data/images/gui/buttonpanel/transport/tracks.png"/>
+	<img src="images/gui/buttonpanel/transport/tracks.png"/>
 	<p><a href="track">Track</a></p>
 
 	<!--<p style="subtitle">Mining</p>-->
-	<img src="data/images/gui/buttonpanel/mining/coalmine.png"/>
+	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
 	<p><a href="coalmine">Coalmine</a></p>
 
 	<!--<p style="subtitle">Transport</p>-->
-	<img src="data/images/gui/buttonpanel/transport/rails2.png"/>
+	<img src="images/gui/buttonpanel/transport/rails2.png"/>
 	<p><a href="rail">Railway</a></p>
 
 	<!--<p style="subtitle">Power</p>-->
-	<img src="data/images/gui/buttonpanel/power/coalpower.png"/>
+	<img src="images/gui/buttonpanel/power/coalpower.png"/>
 	<p><a href="powerscoal">Coal fired power station</a></p>
 
 	<!--<p style="subtitle">Transport</p>-->
-	<img src="data/images/gui/buttonpanel/transport/road.png"/>
+	<img src="images/gui/buttonpanel/transport/road.png"/>
 	<p><a href="road">Road</a></p>
 
 	<!--<p style="subtitle">Industry</p>-->
-	<img src="data/images/gui/buttonpanel/industry/lightindustry.png"/>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
 	<p><a href="industryl">Light industrial areas</a></p>
 
 	<!--<p style="subtitle">Misc</p>-->
-	<img src="data/images/gui/buttonpanel/misc/university.png"/>
+	<img src="images/gui/buttonpanel/misc/university.png"/>
 	<p><a href="university">University</a></p>
 
 	<!--<p style="subtitle">Mining</p>-->
-	<img src="data/images/gui/buttonpanel/mining/commune.png"/>
+	<img src="images/gui/buttonpanel/mining/commune.png"/>
 	<p><a href="commune">Commune</a></p>
-	<img src="data/images/gui/buttonpanel/mining/oremine.png"/>
+	<img src="images/gui/buttonpanel/mining/oremine.png"/>
 	<p><a href="oremine">Ore mine</a></p>
 
 	<!--<p style="subtitle">Trading</p>-->
-	<img src="data/images/gui/buttonpanel/bed.png"/>
+	<img src="images/gui/buttonpanel/bed.png"/>
 	<p><a href="export">Import and Export</a></p>
 
 	<!--<p style="subtitle">Industry</p>-->
-	<img src="data/images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
 	<p><a href="industryh">Heavy industry (steel works)</a></p>
 
 	<!--<p style="subtitle">Parks</p>-->
-	<img src="data/images/gui/buttonpanel/parks/tree.png"/>
+	<img src="images/gui/buttonpanel/parks/tree.png"/>
 	<p><a href="park">Parkland</a></p>
 
 	<!--<p style="subtitle">Mining</p>-->
-	<img src="data/images/gui/buttonpanel/mining/recycling.png"/>
+	<img src="images/gui/buttonpanel/mining/recycling.png"/>
 	<p><a href="recycle">Recycle centre</a></p>
 
 	<!--<p style="subtitle">Parks</p>-->
-	<img src="data/images/gui/buttonpanel/parks/water.png"/>
+	<img src="images/gui/buttonpanel/parks/water.png"/>
 	<p><a href="river">Water/Rivers</a></p>
 
 	<!--<p style="subtitle">Misc</p>-->
-	<img src="data/images/gui/buttonpanel/misc/health.png"/>
+	<img src="images/gui/buttonpanel/misc/health.png"/>
 	<p><a href="health">Health Centre</a></p>
 
 	<!--<p style="subtitle">Transport</p>-->
-	<img src="data/images/gui/buttonpanel/transport/rocket.png"/>
+	<img src="images/gui/buttonpanel/transport/rocket.png"/>
 	<p><a href="rocket">Rocket Launch Pad</a></p>
 
 	<!--<p style="subtitle">Power</p>-->
-	<img src="data/images/gui/buttonpanel/power/windmills.png"/>
+	<img src="images/gui/buttonpanel/power/windmills.png"/>
 	<p><a href="windmill">Windmill</a></p>
 
 	<!--<p style="subtitle">Misc</p>-->
-	<img src="data/images/gui/buttonpanel/parks/monument.png"/>
+	<img src="images/gui/buttonpanel/parks/monument.png"/>
 	<p><a href="monument">Monument</a></p>
 
 	<!--<p style="subtitle">Misc</p>-->
-	<img src="data/images/gui/buttonpanel/misc/book.png"/>
+	<img src="images/gui/buttonpanel/misc/book.png"/>
 	<p><a href="school">School</a></p>
 
 	<!--<p style="subtitle">Parks</p>-->
-	<img src="data/images/gui/buttonpanel/parks/mills.png"/>
+	<img src="images/gui/buttonpanel/parks/mills.png"/>
 	<p><a href="mill">Mill</a></p>
 
 	<!--<p style="subtitle">Industry</p>-->
-	<img src="data/images/gui/buttonpanel/industry/pottery.png"/>
+	<img src="images/gui/buttonpanel/industry/pottery.png"/>
 	<p><a href="pottery">Pottery</a></p>
 
 	<!--<p style="subtitle">Misc</p>-->
-	<img src="data/images/gui/buttonpanel/misc/fire.png"/>
+	<img src="images/gui/buttonpanel/misc/fire.png"/>
 	<p><a href="firestation">Fire station</a></p>
-	<img src="data/images/gui/buttonpanel/misc/sports.png"/>
+	<img src="images/gui/buttonpanel/misc/sports.png"/>
 	<p><a href="cricket">Basketball grounds</a></p>
 
         <!--<p style="subtitle">Transport</p>-->
-        <img src="data/images/gui/buttonpanel/transport/port.png"/>
+        <img src="images/gui/buttonpanel/transport/port.png"/>
         <p><a href="port">Port</a></p>
 </Document>

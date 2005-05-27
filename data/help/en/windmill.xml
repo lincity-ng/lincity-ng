@@ -5,11 +5,11 @@
 	<p style="hp">Providing power to residences makes the people there use more goods.</p>
 	<p style="hp">Low tech windmills do <b>not</b> provide power to industries. (Heavy industry can get power from coal, light industry needs <i>real</i> electricity to be <i>powered</i>, they still work without power at a lower output.)</p>
 	<p style="hp">There are two forms of windmills.</p>
-	<img src="data/images/gui/buttonpanel/parks/mills.png" halign="center"/>
+	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
 	<p style="hp">The first is a low-tech 'wooden' windmill.</p>
-	<img src="data/images/tiles/windmill.png" halign="center"/>
+	<img src="images/tiles/windmill.png" halign="center"/>
 	<p style="hp">The second is a 'modern' wind-farm type.</p>
-	<img src="data/images/tiles/windpower.png" halign="center"/>
+	<img src="images/tiles/windpower.png" halign="center"/>
 	<p style="hp">The type you get depends on your tech-level when you build it.</p>
 	<p style="hp">High tech ones can supply power lines.</p>
 </Document>

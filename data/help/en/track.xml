@@ -4,9 +4,9 @@
 	<p style="hp">Tracks are the simplest, and cheapest, form of transport. They also have the lowest capacity. On the other hand, they produce no pollution.</p>
 	
 	<p style="hp">This is a track</p>
-	<img src="data/images/tiles/trackud.png" halign="center"/>
+	<img src="images/tiles/trackud.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="transport">Transport</a></li>

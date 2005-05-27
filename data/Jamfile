@@ -18,6 +18,7 @@ IMAGEPATHS =
     images/gui/buttonpanel/transport
     images/gui/buttons
     images/gui/buttons/round
+    images/gui/buttons/tabbed
     images/gui/dialogs
     images/gui/info
     images/gui/mapview

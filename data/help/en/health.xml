@@ -9,11 +9,11 @@
 	<p style="hp">To see the coverage of health cover, click on the health icon above the 'mini screen' (bottom right of centre on the display). The areas that show up as normal have health cover.</p>
 
 	<p style="hp">This is a blacksmith</p>
-	<img src="data/images/tiles/health.png" halign="center"/>
+	<img src="images/tiles/health.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/misc/health.png" halign="center"/>
+	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
 	<p style="hp">and this it's mapview overlay icon</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
 
 	<p style="hsubtitle">See also:</p>
 	<li><a href="residential">Residences</a></li>

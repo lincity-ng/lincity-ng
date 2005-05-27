@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Fire overlay</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
 	<p style="hp">Areas that have a fire station within range are shown as dark green.</p>
 	<p style="hp">The areas out of range of a fire station are displayed as normal.</p>
 	<p style="hp">Remember, fire stations take three months to become active.</p>

@@ -6,9 +6,9 @@
 	<p style="hp">It is possible to run a sustainable economy, (ie no ore dug etc) with less than 100% efficient recycle centres if you have some mills to make up for the 'lost' waste goods.</p>
 	
 	<p style="hp">This is a recycle center</p>
-	<img src="data/images/tiles/recycle-centre.png" halign="center"/>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/mining/recycle.png" halign="center"/>
+	<img src="images/gui/buttonpanel/mining/recycle.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="goods">Goods</a></li>

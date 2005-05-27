@@ -4,9 +4,9 @@
 	<p style="hp">Substations take power packets from power lines and distribute the power to the surrounding area. You can see if, for example, your residential area is powered by clicking on the icon, then looking at the mappoint stats window.</p>
 	
 	<p style="hp">This is a substation</p>
-	<img src="data/images/tiles/substation-G.png" halign="center"/>
+	<img src="images/tiles/substation-G.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/power/substation.png" halign="center"/>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="powerline">Power lines</a></li>

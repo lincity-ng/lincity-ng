@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Health overlay</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
 	<p style="hp">Areas that have a health centre within range are shown as dark green.</p>
 	<p style="hp">The areas out of range of a health centre are displayed as normal.</p>
 	<p style="hp">Remember, health centres take three months to become active.</p>
