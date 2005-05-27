@@ -33,9 +33,7 @@ Programming
      usability.
 
 --Bugs--
- [H] mills.png shows a windmill but is used as button to build a mill.
-     Should be more like a factory. (egore)
- [M] New text on buttons is truncated to original textlength. 
+ [L] New text on buttons is truncated to original textlength. 
      (eg in load game menu)
  [M] Teleporation power (removing power lines still allows that power is
      running where they were before)
