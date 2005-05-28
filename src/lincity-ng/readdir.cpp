@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "readdir.hpp"
 
+#include <stdio.h>
+
 /* This is an MSVC implementation of the posix opendir/readdir/closedir
  * interfaces
  */
@@ -27,8 +29,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 DIR *opendir(const char *name)
 {
     DIR *dir = (DIR *)malloc(sizeof(DIR));
+    if (!dir) {
+        return NULL;
+    }
     dir->first = 1;
     snprintf(dir->path, sizeof(dir->path), "%s\\*.*", name);
+    dir->path[sizeof(dir->path) - 1] = '\0';
     if ((dir->handle = _findfirst(dir->path, &dir->info)) == -1) {
         free(dir);
         return NULL;
@@ -43,7 +49,9 @@ struct dirent *readdir(DIR *dir)
     } else if (_findnext(dir->handle, &dir->info) == -1) {
         return NULL;
     }
-    strcpy(dir->entry.d_name, dir->info.name);
+    dir->entry.d_reclen = (unsigned short)strlen(dir->info.name);
+    strncpy(dir->entry.d_name, dir->info.name, sizeof(dir->entry.d_name));
+    dir->entry.d_name[sizeof(dir->entry.d_name) - 1] = '\0';
     return &dir->entry;
 }
 

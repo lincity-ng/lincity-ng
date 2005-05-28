@@ -24,8 +24,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #else
 #ifdef WIN32
 
+#include <windows.h>
 #include <io.h>
+
 struct dirent {
+    unsigned short d_reclen;
     char d_name[MAX_PATH];
 };
 typedef struct DIR {
