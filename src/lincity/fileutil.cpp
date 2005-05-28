@@ -30,6 +30,10 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#ifdef _MSC_VER
+#include <direct.h>
+#include <io.h>
+#endif
 
 #if defined (TIME_WITH_SYS_TIME)
 #include <time.h>
@@ -74,7 +78,10 @@
 #endif
 
 #include <ctype.h>
+#if defined (HAVE_UNISTD_H)
 #include <unistd.h>
+#endif
+#include <errno.h>
 /*
 #include "common.h"
 #ifdef LC_X11
@@ -236,11 +243,10 @@ int
 directory_exists (char *dir)
 {
 #if defined (WIN32)
-    if (_chdir (dir) == -1) {
-	_chdir (LIBDIR);		/* go back... */
+    struct stat s;
+    if (stat(dir, &s) != 0 || !(s.st_mode & S_IFDIR)) {
 	return 0;
     }
-    _chdir (LIBDIR);		/* go back... */
 #else /* UNIX */
     DIR *dp;
     if ((dp = opendir (dir)) == NULL) {
@@ -591,8 +597,8 @@ make_savedir (void)
 #endif
 
 #if defined (WIN32)
-    if (_mkdir (lc_save_dir)) {
-	printf (_("Couldn't create the save directory %s\n"), lc_save_dir);
+    if (_mkdir (lc_save_dir) == -1 && errno != EEXIST) {
+	printf (_("Couldn't create the save directory '%s'\n"), lc_save_dir);
 	exit (-1);
     }
 #else
