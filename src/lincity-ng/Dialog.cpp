@@ -44,6 +44,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 bool blockingDialogIsOpen = false;
 
+void closeAllDialogs(){
+    std::cout << "start colse All \n";
+    std::vector<Dialog*>::iterator iter;
+    while( !dialogVector.empty() ){
+        iter = dialogVector.begin();
+        std::cout << " close.\n";
+        (*iter)->closeDialog();
+    }
+}
+
 Dialog::Dialog( int type ){
     initDialog();   
     switch( type ){
@@ -122,6 +132,27 @@ void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
 Dialog::~Dialog(){
 }
 
+void Dialog::registerDialog(){
+    dialogVector.push_back( this );
+    std::cout << "pushback " << this <<"\n";
+    desktop->addChildComponent( myDialogComponent );
+}
+
+void Dialog::unRegisterDialog(){
+    std::vector<Dialog*>::iterator iter = dialogVector.begin(); 
+    std::vector<Dialog*>::iterator del; 
+    while( iter <= dialogVector.end() ){
+        if ( *iter == this ){
+            del = iter;
+            iter++;
+            dialogVector.erase( del );
+        } else {
+            iter++;
+        }
+    }
+    delete( this );
+}
+
 void Dialog::askRocket(){
     if( !desktop ) {
         std::cerr << "No desktop found.\n";
@@ -130,7 +161,7 @@ void Dialog::askRocket(){
     try {
         myDialogComponent = loadGUIFile( "gui/launch_rocket_yn.xml" );
         assert( myDialogComponent != 0);
-        desktop->addChildComponent( myDialogComponent );
+        registerDialog();
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -173,7 +204,7 @@ void Dialog::msgDialog( std::string message, std::string extraString){
     Button* noButton = getButton( *myDialogComponent, "Ok" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 
-    desktop->addChildComponent( myDialogComponent.get() );
+    registerDialog();
     this->myDialogComponent = myDialogComponent.release();
 }
 
@@ -185,7 +216,7 @@ void Dialog::askBulldozeMonument() {
     try {
         myDialogComponent = loadGUIFile( "gui/bulldoze_monument_yn.xml" );
         assert( myDialogComponent != 0);
-        desktop->addChildComponent( myDialogComponent );
+        registerDialog();
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -208,7 +239,7 @@ void Dialog::askBulldozeRiver() {
     try {
         myDialogComponent = loadGUIFile( "gui/bulldoze_river_yn.xml" );
         assert( myDialogComponent != 0);
-        desktop->addChildComponent( myDialogComponent );
+        registerDialog();
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -231,7 +262,7 @@ void Dialog::askBulldozeShanty() {
     try {
         myDialogComponent = loadGUIFile( "gui/bulldoze_shanty_yn.xml" );
         assert( myDialogComponent != 0);
-        desktop->addChildComponent( myDialogComponent );
+        registerDialog();
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -254,7 +285,7 @@ void Dialog::coalSurvey(){
     try {
         myDialogComponent = loadGUIFile( "gui/coal_survey_yn.xml" );
         assert( myDialogComponent != 0);
-        desktop->addChildComponent( myDialogComponent );
+        registerDialog();
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -285,7 +316,7 @@ void Dialog::gameStats(){
     try {
         myDialogComponent = loadGUIFile( "gui/gamestats.xml" );
         assert( myDialogComponent != 0);
-        desktop->addChildComponent( myDialogComponent );
+        registerDialog();
     } catch(std::exception& e) {
         std::cerr << "Couldn't display message 'gamestats': "
             << e.what() << "\n";
@@ -442,7 +473,7 @@ void Dialog::editMarket(){
     try {
         myDialogComponent = loadGUIFile( "gui/tradedialog.xml" );
         assert( myDialogComponent != 0);
-        desktop->addChildComponent( myDialogComponent );
+        registerDialog();
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -496,7 +527,7 @@ void Dialog::editPort(){
     try {
         myDialogComponent = loadGUIFile( "gui/portdialog.xml" );
         assert( myDialogComponent != 0);
-        desktop->addChildComponent( myDialogComponent );
+        registerDialog();
         blockingDialogIsOpen = true;
         iAmBlocking = true;
     } catch(std::exception& e) {
@@ -619,14 +650,14 @@ void Dialog::applyPortButtonClicked( Button* ){
     }
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
-    delete( this );
+    unRegisterDialog();
 }
 
 void Dialog::okayLaunchRocketButtonClicked( Button* ){
     launch_rocket( pointX, pointY );
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
-    delete( this );
+    unRegisterDialog();
 }
 
 
@@ -634,7 +665,7 @@ void Dialog::okayCoalSurveyButtonClicked( Button* ){
     do_coal_survey();    
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
-    delete( this );
+    unRegisterDialog();
 }
 
 void Dialog::okayBulldozeRiverButtonClicked( Button* ){
@@ -642,7 +673,7 @@ void Dialog::okayBulldozeRiverButtonClicked( Button* ){
     desktop->remove( myDialogComponent );
     check_bulldoze_area( pointX, pointY );
     blockingDialogIsOpen = false;
-    delete( this );
+    unRegisterDialog();
 }
 
 void Dialog::okayBulldozeShantyButtonClicked( Button* ){
@@ -650,7 +681,7 @@ void Dialog::okayBulldozeShantyButtonClicked( Button* ){
     desktop->remove( myDialogComponent );
     check_bulldoze_area( pointX, pointY );
     blockingDialogIsOpen = false;
-    delete( this );
+    unRegisterDialog();
 }
 
 void Dialog::okayBulldozeMonumentButtonClicked( Button* ){
@@ -658,7 +689,7 @@ void Dialog::okayBulldozeMonumentButtonClicked( Button* ){
     desktop->remove( myDialogComponent );
     check_bulldoze_area( pointX, pointY );
     blockingDialogIsOpen = false;
-    delete( this );
+    unRegisterDialog();
 }
 
 void Dialog::gotoButtonClicked( Button* ){
@@ -666,10 +697,14 @@ void Dialog::gotoButtonClicked( Button* ){
 }
 
 void Dialog::closeDialogButtonClicked( Button* ){
-    std::cout << "closeDialogButtonClicked\n";
+    closeDialog();
+}
+
+void Dialog::closeDialog(){
+    std::cout << "closeing\n";
     desktop->remove( myDialogComponent );
     if( iAmBlocking ){
         blockingDialogIsOpen = false;
     }
-    delete( this );
+    unRegisterDialog();
 }

@@ -342,7 +342,8 @@ int main(int argc, char** argv)
             std::cout << "-gl   --gl         use OpenGL\n";
             std::cout << "-sdl  --sdl        use SDL\n";
             std::cout << "-w    --window     run in window\n";
-            std::cout << "-f    --fullscreen run  fullscreen\n";
+            std::cout << "-f    --fullscreen run fullscreen\n";
+            std::cout << "-m    --mute       run mute audio\n";
             knownArgument = true;
             exit( 0 );
         }
@@ -361,6 +362,11 @@ int main(int argc, char** argv)
         }
         if(( argStr == "-w" ) || ( argStr == "--window" )){ //windowed
             getConfig()->useFullScreen = false; 
+            knownArgument = true;
+        }
+        if(( argStr == "-m" ) || ( argStr == "--mute" )){ //mute
+            getConfig()->soundEnabled = false; 
+            getConfig()->musicEnabled = false; 
             knownArgument = true;
         }
         

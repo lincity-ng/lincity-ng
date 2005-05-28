@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DIALOG_HPP__
 #define __DIALOG_HPP__
 
+#include <iostream>
+#include <vector>
 #include "MapPoint.hpp"
 #include "gui/Component.hpp"
 #include "gui/Desktop.hpp"
@@ -35,6 +37,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 extern bool blockingDialogIsOpen;
 
+class Dialog;
+static std::vector<Dialog*> dialogVector;
+void closeAllDialogs();
+
 class Dialog
 {
     public:
@@ -42,6 +48,7 @@ class Dialog
         Dialog( int type, int x, int y );
         Dialog( int type );
         ~Dialog();
+        void closeDialog();
 
     private:
         void askBulldozeMonument();
@@ -74,5 +81,8 @@ class Dialog
         void applyMarketButtonClicked( Button* );
         void applyPortButtonClicked( Button* );
         bool iAmBlocking;
+        void registerDialog();
+        void unRegisterDialog();
 };
+
 #endif

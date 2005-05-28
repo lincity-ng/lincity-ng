@@ -51,7 +51,6 @@ Programming
  [H] make buttonbar pop up on left mouse button!
      [WolfgangB: I don't think thats a good idea. I often switch between
      two things already on rootbuttons.]
- [M] close all Dialogs on GameMenuButton (WolfgangB)
  [H] Back to 1 Button per MiniMapView.
 
 -- Infrastructure/Deployment --
