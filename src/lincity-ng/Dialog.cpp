@@ -44,12 +44,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 bool blockingDialogIsOpen = false;
 
+std::vector<Dialog*> dialogVector;
+
 void closeAllDialogs(){
-    std::cout << "start colse All \n";
     std::vector<Dialog*>::iterator iter;
     while( !dialogVector.empty() ){
         iter = dialogVector.begin();
-        std::cout << " close.\n";
         (*iter)->closeDialog();
     }
 }
@@ -134,7 +134,6 @@ Dialog::~Dialog(){
 
 void Dialog::registerDialog(){
     dialogVector.push_back( this );
-    std::cout << "pushback " << this <<"\n";
     desktop->addChildComponent( myDialogComponent );
 }
 
@@ -204,8 +203,8 @@ void Dialog::msgDialog( std::string message, std::string extraString){
     Button* noButton = getButton( *myDialogComponent, "Ok" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 
-    registerDialog();
     this->myDialogComponent = myDialogComponent.release();
+    registerDialog();
 }
 
 void Dialog::askBulldozeMonument() {
@@ -701,7 +700,6 @@ void Dialog::closeDialogButtonClicked( Button* ){
 }
 
 void Dialog::closeDialog(){
-    std::cout << "closeing\n";
     desktop->remove( myDialogComponent );
     if( iAmBlocking ){
         blockingDialogIsOpen = false;

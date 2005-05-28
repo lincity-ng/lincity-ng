@@ -233,5 +233,7 @@ Desktop::setDirty(const Rect2D& rect)
 void
 Desktop::addChildComponent(Component* component)
 {
+    assert( component != 0 );
+    assert( component->getParent() == 0 );
     addQueue.push_back(component);
 }

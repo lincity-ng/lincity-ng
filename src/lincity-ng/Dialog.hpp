@@ -18,7 +18,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __DIALOG_HPP__
 #define __DIALOG_HPP__
 
-#include <iostream>
 #include <vector>
 #include "MapPoint.hpp"
 #include "gui/Component.hpp"
@@ -38,7 +37,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 extern bool blockingDialogIsOpen;
 
 class Dialog;
-static std::vector<Dialog*> dialogVector;
 void closeAllDialogs();
 
 class Dialog
