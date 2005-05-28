@@ -147,6 +147,8 @@ void Dialog::askRocket(){
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayLaunchRocketButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    Button* gameMenuButton = getButton( *desktop, "GameMenuButton" );
+    gameMenuButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
     Button* gotoButton = getButton( *myDialogComponent, "goto" );
     gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
 }
@@ -172,6 +174,8 @@ void Dialog::msgDialog( std::string message, std::string extraString){
     // connect signals
     Button* noButton = getButton( *myDialogComponent, "Ok" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    Button* gameMenuButton = getButton( *desktop, "GameMenuButton" );
+    gameMenuButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 
     desktop->addChildComponent( myDialogComponent.get() );
     this->myDialogComponent = myDialogComponent.release();
@@ -198,6 +202,8 @@ void Dialog::askBulldozeMonument() {
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeMonumentButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    Button* gameMenuButton = getButton( *desktop, "GameMenuButton" );
+    gameMenuButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
 void Dialog::askBulldozeRiver() {
@@ -221,6 +227,8 @@ void Dialog::askBulldozeRiver() {
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeRiverButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    Button* gameMenuButton = getButton( *desktop, "GameMenuButton" );
+    gameMenuButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
 void Dialog::askBulldozeShanty() {
@@ -244,6 +252,8 @@ void Dialog::askBulldozeShanty() {
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBulldozeShantyButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    Button* gameMenuButton = getButton( *desktop, "GameMenuButton" );
+    gameMenuButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
 void Dialog::coalSurvey(){
@@ -267,6 +277,8 @@ void Dialog::coalSurvey(){
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayCoalSurveyButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    Button* gameMenuButton = getButton( *desktop, "GameMenuButton" );
+    gameMenuButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
 void Dialog::setParagraphN( std::string basename, int number, std::string text ){
@@ -432,6 +444,8 @@ void Dialog::gameStats(){
     // connect signals
     Button* noButton = getButton( *myDialogComponent, "Okay" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    Button* gameMenuButton = getButton( *desktop, "GameMenuButton" );
+    gameMenuButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
 void Dialog::editMarket(){
