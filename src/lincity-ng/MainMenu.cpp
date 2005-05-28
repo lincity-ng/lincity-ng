@@ -24,7 +24,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <typeinfo>
 #include <physfs.h>
 #include <sys/types.h>
+#ifdef HAVE_DIRENT_H
 #include <dirent.h>
+#endif
 #include <stdio.h>
 #include <time.h>
 
@@ -48,6 +50,63 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Sound.hpp"
 #include "GameView.hpp"
 #include "MainLincity.hpp"
+
+
+#ifdef _MSC_VER
+
+// Port opendir, readdir, etc to win32
+// FIXME: move this to another file
+
+#include <io.h>
+struct dirent {
+    char d_name[MAX_PATH];
+};
+typedef struct DIR {
+    long handle;
+    char path[MAX_PATH];
+    struct _finddata_t info;
+    int first;
+    struct dirent entry;
+} DIR;
+
+DIR *opendir(const char *name)
+{
+    DIR *dir = (DIR *)malloc(sizeof(DIR));
+    dir->first = 1;
+    snprintf(dir->path, sizeof(dir->path), "%s\\*.*", name);
+    if ((dir->handle = _findfirst(dir->path, &dir->info)) == -1) {
+        free(dir);
+        return NULL;
+    }
+    return dir;
+}
+
+struct dirent *readdir(DIR *dir)
+{
+    if (dir->first) {
+        dir->first = 0;
+    } else if (_findnext(dir->handle, &dir->info) == -1) {
+        return NULL;
+    }
+    strcpy(dir->entry.d_name, dir->info.name);
+    return &dir->entry;
+}
+
+void rewinddir(DIR *dir)
+{
+    _findclose(dir->handle);
+    dir->first = 1;
+    dir->handle = _findfirst(dir->path, &dir->info);
+}
+
+int closedir(DIR *dir)
+{
+    _findclose(dir->handle);
+    free(dir);
+    return 0;
+}
+#endif // _MSC_VER
+
 
 MainMenu::MainMenu()
 {
@@ -126,10 +185,8 @@ void MainMenu::fillNewGameMenu()
 void MainMenu::fillLoadMenu()
 {
   char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
-  //read savegames from ~/.lincity so we can use the original save_city()
-  std::string lincityDirName = PHYSFS_getUserDir();
-  lincityDirName+="/.lincity"; 
-  DIR* lincityDir = opendir( lincityDirName.c_str() );
+  //read savegames from lc_save_dir so we can use the original save_city()
+  DIR* lincityDir = opendir( lc_save_dir );
   if(!lincityDir) {
 #ifdef DEBUG
       std::cerr << "Warning directory " << lincityDirName << " doesn't exist.\n";
@@ -296,11 +353,10 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
         mFilename = "";
         return;
     }
-    mFilename=PHYSFS_getUserDir();
-    mFilename+="/.lincity"; 
+    mFilename=lc_save_dir;
   }
-    mFilename+="/";
-    mFilename+=file;
+  mFilename+="/";
+  mFilename+=file;
 }
 
 void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
@@ -487,7 +543,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     newStart << slotNr << "_" << (1900 + datetime->tm_year) << "-";
     newStart << std::setfill('0') << std::setw(2);
     newStart << datetime->tm_mon+1 << "-" << datetime->tm_mday << "_";
-    newStart << datetime->tm_hour << ":" << datetime->tm_min;
+    newStart << datetime->tm_hour << "_" << datetime->tm_min;
     std::string newFilename( newStart.str() ); 
     saveCityNG( newFilename );
     fillLoadMenu();
