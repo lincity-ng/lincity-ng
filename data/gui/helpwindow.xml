@@ -2,7 +2,7 @@
 <Window width="500" height="400" border="5" titlesize="30" name="HelpWindow">
 	<title>
 		<Paragraph halign="center" color="white" name="HelpWindowTitle"
-		height="30" font-size="20">Help - Lincity NG</Paragraph>
+		height="30" font-size="20">Help</Paragraph>
 	</title>
 	<title-background>
 		<Gradient from="#ff0000ff" to="#88776655" direction="left-right"/>
