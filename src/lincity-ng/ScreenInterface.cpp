@@ -213,7 +213,11 @@ void updateMessageText( const std::string text )
 
 void updateDate(){
     std::ostringstream dateText;
- 
+    if( getConfig()->showDay ){
+        int day = total_time % NUMOF_DAYS_IN_MONTH +1; // 1..NUMOF_DAYS_IN_MONTH
+        day = 1 + ( 29 * day / NUMOF_DAYS_IN_MONTH ); // 1..30
+        dateText << day << ". "; 
+    }
     dateText << current_month( total_time );
     dateText << " "<< current_year( total_time );
     

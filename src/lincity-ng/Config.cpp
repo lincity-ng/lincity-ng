@@ -48,6 +48,8 @@ Config::Config()
     musicVolume = 50;
     soundEnabled = true;
     musicEnabled = true;
+     
+    showDay = false;
 
     //#define MONTHGRAPH_W 120 
     //#define MONTHGRAPH_H 64
@@ -158,6 +160,8 @@ void Config::load( const std::string& filename ){
                         skipMonthsFast = parseInt( value, 1, 1 );
                     } else if( strcmp(name, "upgradeTransport" ) == 0 ){
                        upgradeTransport  = parseBool(value, true);
+                    } else if( strcmp(name, "showDay" ) == 0 ){
+                       showDay = parseBool(value, false);
                     } else if( strcmp(name, "monthgraphW" ) == 0 ){
                        monthgraphW  = parseInt(value, 120, 0);
                     } else if( strcmp(name, "monthgraphH" ) == 0 ){
@@ -207,6 +211,8 @@ Config::save(){
         << "\" soundVolume=\"" << soundVolume << "\" \n";
     userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")  
         << "\" musicVolume=\"" << musicVolume << "\" />\n";
+    userconfig << "    <game upgradeTransport=\""<< (upgradeTransport?"yes":"no");
+    userconfig <<"\" showDay=\""<<( showDay?"yes":"no") <<"\" />\n";
     userconfig << "</configuration>\n";
 }
 

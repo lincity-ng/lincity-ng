@@ -42,7 +42,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 ButtonPanel *ButtonPanelInstance=0;
 
-int selected_module_type=0; // must be set somehow
+int selected_module_type = CST_NONE;
 
 ButtonPanel *getButtonPanel()
 {
@@ -421,12 +421,13 @@ void ButtonPanel::attachButtons()
  */
 void ButtonPanel::updateToolInfo()
 {       
-    //Tool was changed, so we reset the bulldozeflags to enable 
+    //Tool was changed, so reset the bulldozeflags to enable 
     //the warnings again.
     monument_bul_flag = 0;
     river_bul_flag = 0;
     shanty_bul_flag = 0;
-    getGameView()->showToolInfo();
+    updateSelectedCost();
+    getGameView()->showToolInfo(); //display new values
 }
 
 void ButtonPanel::draw(Painter &painter)
@@ -608,7 +609,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
             // get Component
             Component* c=findComponent(mMenus[i]);
             //Check if Techlevel is sufficient.
-            if( enoughTech( mMenuSelected[mMenus[i]] ) ){
+            if( enoughTech( mMenuSelected[mMenus[i]] ) && ( b == SDL_BUTTON_LEFT ) ){
                 selected_module_type=selected_module=mMenuSelected[mMenus[i]];
                 updateSelectedCost();
             }

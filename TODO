@@ -39,8 +39,6 @@ Programming
      running where they were before)
      [Sure? Does it take longer than in classic until the effect is 
      visible?] 
- [H] Something seems to be broken with the costs displayed in the status bar...
-     [Details?] 
  [H] The game crashs from time to time when switching back to main menu
 
 --Game--
@@ -54,7 +52,8 @@ Programming
  [M] Add a dialog box when the user reached 0 citizens telling him that he lost
      and maybe with a button to get 100 citizens back...
  [H] make buttonbar pop up on left mouse button!
- [M] Display days in date
+     [WolfgangB: I don't think thats a good idea. I often switch between
+     two things already on rootbuttons.]
 
 -- Infrastructure/Deployment --
  [H] Create a source package and test if it compiles and installs correctly

@@ -42,6 +42,7 @@ public:
     //std::string lincityHome;
     int skipMonthsFast;
     bool upgradeTransport;
+    bool showDay;
 
     void save();
 private:
