@@ -125,44 +125,43 @@ void MainMenu::fillNewGameMenu()
 
 void MainMenu::fillLoadMenu()
 {
-  char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
+    char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
   
-  //read savegames from lc_save_dir so we can use the original save_city()
-  DIR* lincityDir = opendir( lc_save_dir );
-  if(!lincityDir) {
+    //read savegames from lc_save_dir so we can use the original save_city()
+    DIR* lincityDir = opendir( lc_save_dir );
+    if(!lincityDir) {
 #ifdef DEBUG
-      std::cerr << "Warning directory " << lc_save_dir << " doesn't exist.\n";
+        std::cerr << "Warning directory " << lc_save_dir << " doesn't exist.\n";
 #endif
-      return;
-  }
-
-  dirent* curfile;
-  for(int i=0;i<6;i++)
-  {
-    std::stringstream filestart;
-    filestart << i+1 << "_";
-    CheckButton *button=getCheckButton(*loadGameMenu.get(),buttonNames[i]);
-    
-    button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
-    while( ( curfile = readdir( lincityDir ) ) )
-    { 
-      if(std::string( curfile->d_name ).find( filestart.str() ) == 0 )
-          // && !( curfile->d_type & DT_DIR  ) ) is not portable. So dont create
-          // a directoy named 2_ in a savegame-directory or you can no longer
-          // load from slot 2.
-        break;
+        return;
     }
-    if( curfile )
-    {
-      std::string f= curfile->d_name;
-      button->setCaptionText(f);
-    }
-    else
-      button->setCaptionText("");
 
-    rewinddir( lincityDir );
-  }
-  closedir( lincityDir );
+    dirent* curfile;
+    for(int i=0;i<6;i++) {
+        std::stringstream filestart;
+        filestart << i+1 << "_";
+        CheckButton *button=getCheckButton(*loadGameMenu.get(),buttonNames[i]);
+        
+        button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+        while( ( curfile = readdir( lincityDir ) ) ) { 
+            if(std::string( curfile->d_name ).find( filestart.str() ) == 0 )
+                // && !( curfile->d_type & DT_DIR  ) ) is not portable. So
+                // don't create a directoy named 2_ in a savegame-directory or
+                // you can no longer load from slot 2.
+                break;
+        }
+        
+        if(curfile)  {
+            std::string f= curfile->d_name;
+            button->setCaptionText(f);
+        } else {
+            button->setCaptionText("");
+        }
+
+        rewinddir(lincityDir);
+    }
+
+    closedir(lincityDir);
 }
 
 void
@@ -263,42 +262,43 @@ MainMenu::loadLoadGameMenu()
 void 
 MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
 {
-  std::string fc=button->getCaptionText();
+    std::string fc=button->getCaptionText();
   
-  std::string file="";
-  if(button->getName()=="Scenario0")
-    file="opening/good_times.scn";
-  else if(button->getName()=="Scenario1")
-    file="opening/bad_times.scn";
-  else if(fc.length())
-  {
-    baseName = fc;
-    if(newGameMenu.get()==currentMenu )
-      file=std::string("opening/")+fc+".scn";
-    else{
-      file=fc;
+    std::string file="";
+    if(button->getName()=="Scenario0") {
+        file="opening/good_times.scn";
+    } else if(button->getName()=="Scenario1") {
+        file="opening/bad_times.scn";
+    } else if(fc.length()) {
+        baseName = fc;
+        if(newGameMenu.get()==currentMenu ) {
+            file=std::string("opening/")+fc+".scn";
+        } else {
+            file=fc;
+        }
     }
-  }
-  char *bs[]={"File0","File1","File2","File3","File4","File5",""};
-  for(int i=0;std::string(bs[i]).length();i++)
-  {
-    CheckButton *b=getCheckButton(*currentMenu,bs[i]);
-    if(b->getName()!=button->getName())
-      b->uncheck();
-  }
+    
+    char *bs[]={"File0","File1","File2","File3","File4","File5",""};
+    for(int i=0;std::string(bs[i]).length();i++) {
+        CheckButton *b=getCheckButton(*currentMenu,bs[i]);
+        if(b->getName()!=button->getName())
+            b->uncheck();
+    }
 
-  if(newGameMenu.get()==currentMenu){
-    mFilename=PHYSFS_getRealDir( file.c_str() );
-  } else {
-    slotNr = 1 + atoi( const_cast<char*>(button->getName().substr(4).c_str()) );
-    if( file.length() == 0){
-        mFilename = "";
-        return;
+    if(newGameMenu.get()==currentMenu) {
+        mFilename=PHYSFS_getRealDir( file.c_str() );
+    } else {
+        slotNr = 1 + atoi( 
+                const_cast<char*>(button->getName().substr(4).c_str()) );
+        if( file.length() == 0){
+            mFilename = "";
+            return;
+        }
+        mFilename=lc_save_dir;
     }
-    mFilename=lc_save_dir;
-  }
-  mFilename+="/";
-  mFilename+=file;
+    
+    mFilename+="/";
+    mFilename+=file;
 }
 
 void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
