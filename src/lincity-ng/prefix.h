@@ -77,13 +77,13 @@ extern "C" {
 /* The following functions are used internally by BinReloc
    and shouldn't be used directly in applications. */
 
-const char *br_thread_local_store (char *str);
 char *br_locate		(void *symbol);
 char *br_locate_prefix	(void *symbol);
 char *br_prepend_prefix	(void *symbol, char *path);
 
-
 #endif /* ENABLE_BINRELOC */
+
+const char *br_thread_local_store (char *str);
 
 
 /* These macros and functions are not guarded by the ENABLE_BINRELOC
@@ -93,9 +93,23 @@ char *br_prepend_prefix	(void *symbol, char *path);
 #define br_strcat BR_NAMESPACE(br_strcat)
 #define br_extract_dir BR_NAMESPACE(br_extract_dir)
 #define br_extract_prefix BR_NAMESPACE(br_extract_prefix)
+#define br_set_locate_fallback_func BR_NAMESPACE(br_set_locate_fallback_func)
 
 #ifndef BR_NO_MACROS
-	/* Convenience functions for concatenating paths */
+  #ifndef ENABLE_BINRELOC        
+	#define BR_SELFPATH(suffix)	SELFPATH suffix
+	#define BR_PREFIX(suffix)	PREFIX suffix
+	#define BR_PREFIXDIR(suffix)	BR_PREFIX suffix
+	#define BR_BINDIR(suffix)	BINDIR suffix
+	#define BR_SBINDIR(suffix)	SBINDIR suffix
+	#define BR_DATADIR(suffix)	DATADIR suffix
+	#define BR_LIBDIR(suffix)	LIBDIR suffix
+	#define BR_LIBEXECDIR(suffix)	LIBEXECDIR suffix
+	#define BR_ETCDIR(suffix)	ETCDIR suffix
+	#define BR_SYSCONFDIR(suffix)	SYSCONFDIR suffix
+	#define BR_CONFDIR(suffix)	CONFDIR suffix
+	#define BR_LOCALEDIR(suffix)	LOCALEDIR suffix
+  #else
 	#define BR_SELFPATH(suffix)	(br_thread_local_store (br_strcat (SELFPATH, suffix)))
 	#define BR_PREFIX(suffix)	(br_thread_local_store (br_strcat (PREFIX, suffix)))
 	#define BR_PREFIXDIR(suffix)	(br_thread_local_store (br_strcat (BR_PREFIX, suffix)))
@@ -107,12 +121,15 @@ char *br_prepend_prefix	(void *symbol, char *path);
 	#define BR_ETCDIR(suffix)	(br_thread_local_store (br_strcat (ETCDIR, suffix)))
 	#define BR_SYSCONFDIR(suffix)	(br_thread_local_store (br_strcat (SYSCONFDIR, suffix)))
 	#define BR_CONFDIR(suffix)	(br_thread_local_store (br_strcat (CONFDIR, suffix)))
-	#define BR_LOCALEDIR(suffix)	(br_thread_local_store (br_strcat (LOCALEDIR, suffix)))
+	#define BR_LOCALEDIR(suffix)	(br_thread_local_store (br_strcat (LOCALEDIR, suffix)))        
+  #endif
 #endif
 
 char *br_strcat	(const char *str1, const char *str2);
 char *br_extract_dir	(const char *path);
 char *br_extract_prefix(const char *path);
+typedef char *(*br_locate_fallback_func) (void *symbol, void *data);
+void br_set_locate_fallback_func (br_locate_fallback_func func, void *data);
 
 
 #ifdef __cplusplus

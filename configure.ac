@@ -82,6 +82,8 @@ AC_SUBST([ICONV_LIBS], [$LIBICONV])
 #----------------------------------------------------------------------------
 # find libraries
 #----------------------------------------------------------------------------
+AM_BINRELOC
+
 NP_FINDLIB([ZLIB], [zlib], [zlib],
 	NP_LANG_PROGRAM([[#include <zlib.h>]],
             [[gzFile* file = gzopen("", "");]]),

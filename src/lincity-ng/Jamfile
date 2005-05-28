@@ -5,6 +5,6 @@ Application lincity-ng : $(SOURCES) ;
 LinkWith lincity-ng : lincity_gui lincity_lib tinygettext physfsstream ;
 C++Flags lincity-ng : -DAPPDATADIR=\\\"$(appdatadir)\\\" ;
 ExternalLibs lincity-ng : LIBXML SDL SDLIMAGE SDLMIXER SDLTTF SDLGFX PHYSFS GL
-ICONV ZLIB ;
+ICONV ZLIB BINRELOC ;
 
 TRANSLATABLE_SOURCES += [ SearchSource $(SOURCES) ] ;

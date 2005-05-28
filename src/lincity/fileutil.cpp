@@ -23,10 +23,6 @@
 #define OS2_DEFAULT_LIBDIR "/XFree86/lib/X11/lincity"
 #endif
 
-#ifdef ENABLE_BINRELOC
-#include "prefix.h"
-#endif
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -311,9 +307,6 @@ find_libdir (void)
     char *home_dir, *cwd;
     char cwd_buf[LC_PATH_MAX];
     char filename_buf[LC_PATH_MAX];
-    #ifdef ENABLE_BINRELOC
-    char *datadir_buf;
-    #endif
 
     /* Check 1: environment variable */
     home_dir = getenv ("LINCITY_HOME");
@@ -337,27 +330,13 @@ find_libdir (void)
 	}
     }
 
-    /* Check 3: default (configuration) directory */
-    #ifdef ENABLE_BINRELOC
-    datadir_buf=br_strcat(DATADIR,"/lincity");
-    printf(datadir_buf);
-    snprintf (filename_buf, LC_PATH_MAX, "%s%c%s", 
-	      datadir_buf, PATH_SLASH, searchfile);
-
-    if (file_exists(filename_buf)) {
-	strncpy (LIBDIR, datadir_buf, LC_PATH_MAX);
-	return;
-    }
-    free(datadir_buf);
-
-    #else
     snprintf (filename_buf, LC_PATH_MAX, "%s%c%s", 
 	      DEFAULT_LIBDIR, PATH_SLASH, searchfile);
     if (file_exists(filename_buf)) {
 	strncpy (LIBDIR, DEFAULT_LIBDIR, LC_PATH_MAX);
 	return;
     }
-    #endif
+
     /* Finally give up */
     HandleError (_("Error. Can't find LINCITY_HOME"), FATAL);
 }

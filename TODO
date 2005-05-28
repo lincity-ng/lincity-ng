@@ -52,6 +52,7 @@ Programming
      SDL sound driver name, screen resolution
  [M] Add a dialog box when the user reached 0 citizens telling him that he lost
      and maybe with a button to get 100 citizens back...
+ [H] make buttonbar pop up on left mouse button!
 
 -- Infrastructure/Deployment --
  [H] Create a source package and test if it compiles and installs correctly

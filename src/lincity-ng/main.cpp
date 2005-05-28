@@ -42,6 +42,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Sound.hpp"
 #include "Config.hpp"
 
+#ifdef ENABLE_BINRELOC
+#include "prefix.h"
+#endif
+
 Painter* painter = 0;
 TinyGetText::DictionaryManager* dictionaryManager = 0;
 
@@ -142,12 +146,17 @@ void initPhysfs(const char* argv0)
         }
     }
 
-#ifdef APPDATADIR
-    if(!PHYSFS_addToSearchPath(APPDATADIR, 1)) {
-#ifdef DEBUG
-        std::cout << "Couldn't add '" << APPDATADIR 
-            << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
+#if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
+    std::string datadir;
+#ifdef ENABLE_BINRELOC
+    datadir = br_strcat(DATADIR, "/" PACKAGE_NAME);
+#else
+    datadir = APPDATADIR;
 #endif
+    
+    if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
+        std::cout << "Couldn't add '" << datadir
+            << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
     }
 #endif
 
