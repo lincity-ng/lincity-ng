@@ -343,7 +343,7 @@ int main(int argc, char** argv)
             std::cout << "-sdl  --sdl        use SDL\n";
             std::cout << "-w    --window     run in window\n";
             std::cout << "-f    --fullscreen run fullscreen\n";
-            std::cout << "-m    --mute       run mute audio\n";
+            std::cout << "-m    --mute       mute audio\n";
             knownArgument = true;
             exit( 0 );
         }

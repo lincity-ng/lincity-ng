@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- First lincityconfig.xml is evaluated, then userconfig.xml. 
+     Command line Parameters override configfiles
+     Some values can be changed from the ingame options menu -->
+<configuration>
+<!-- Video Section: -->
+ <video x="1024" y="768" useOpenGL="yes" fullscreen="no" />
+<!-- all Video-Values are saved to userconfig.xml
+     x and y is the Resolution/Windows-Size of the game
+     Commandline -gl and -sdl change useOpenGL  
+                 -w  and  -f  change fullscreen 
+                  fullscreen is in options menu -->
+
+<!-- Audio Section -->
+ <audio soundEnabled="yes" soundVolume="100" 
+           musicEnabled="no" musicVolume="70" />
+<!-- all Audio-Values are saved to userconfig.xml
+    Commandline -m sets soundEnabled and musicEnabled to "no"
+    soundEnabled and musicEnabled  are in options menu 
+    soundVolume is the Volume of the sound effects,
+    musicVolume is the Volume of the backgroundmusic.
+     Volume ranges from 0 to 100 -->
+
+<!-- Game Section -->
+ <game upgradeTransport="yes" showDay="yes" />
+<!--upgradeTransport and showDay are saved to userconfig.xml
+    upgradeTransport="yes" means you can build transports
+    (tracks, roads, railroad) over each other without
+    bulldozing first. 
+    showDay="yes" displays day, month and year in the statusbar
+    instead of just month and year.-->
+<!-- The values monthgraphW and monthgraphH influence the Size
+    of the Economy-Graphs. If you are not a developer just stick to 
+    the defaults.
+    skipMonthsFast determines how many Months are skipped in
+    fastest mode until the MainScreen is updated again. The
+    default of 1 seems to be a good choice.
+-->
+</configuration>
