@@ -197,6 +197,12 @@ void initVideo(int width, int height)
         msg << "Couldn't set video mode ("
             << width << "x" << height
             << "-" << bpp << "bpp) : " << SDL_GetError();
+        if(getConfig()->useOpenGL) {
+            std::cerr << "* Fallback to software mode.\n";
+            getConfig()->useOpenGL = false;
+            initVideo(width, height);
+            return;
+        }
         throw std::runtime_error(msg.str());
     }
 
