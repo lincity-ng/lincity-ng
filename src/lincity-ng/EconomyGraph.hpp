@@ -48,6 +48,8 @@ private:
     Texture* labelTextureEconomy;
     Texture* labelTextureSustainability;
     Texture* labelTextureFPS;
+
+    bool nobodyHomeDialogShown;
 };
 
 EconomyGraph* getEconomyGraph();

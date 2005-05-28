@@ -37,6 +37,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"
 
 #include "Config.hpp"
+#include "Dialog.hpp"
 
 
 EconomyGraph* economyGraphPtr = 0;
@@ -61,6 +62,8 @@ EconomyGraph::EconomyGraph(){
     labelTextureEconomy = 0;
     labelTextureSustainability = 0;
     labelTextureFPS = 0;
+
+    nobodyHomeDialogShown = false;
 }
 
 EconomyGraph::~EconomyGraph(){
@@ -199,7 +202,22 @@ void EconomyGraph::updateData(){
             sustain_flag = 0;
         }
     }
+
     
+    //sustain_flag == 1 means player had a sustainable economy
+    //total_evacuated >0 means player evacuated at least some people
+    if( !housed_population && !people_pool ){ //no people left
+        if( !nobodyHomeDialogShown ){
+            if( sustain_flag == 1 || total_evacuated >0  ){
+                new Dialog( MSG_DIALOG, "allgone", "" );
+            } else {
+                new Dialog( MSG_DIALOG, "allgone.xml", "You loose." );
+            }
+            nobodyHomeDialogShown = true;
+        }
+    } else if( nobodyHomeDialogShown ){ //reset flag if there are people
+        nobodyHomeDialogShown = false;
+    }
     //redraw
     setDirty();
 }

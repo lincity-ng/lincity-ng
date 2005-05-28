@@ -48,12 +48,11 @@ Programming
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
- [M] Add a dialog box when the user reached 0 citizens telling him that he lost
-     and maybe with a button to get 100 citizens back...
  [H] make buttonbar pop up on left mouse button!
      [WolfgangB: I don't think thats a good idea. I often switch between
      two things already on rootbuttons.]
  [M] close all Dialogs on GameMenuButton (WolfgangB)
+ [H] Back to 1 Button per MiniMapView.
 
 -- Infrastructure/Deployment --
  [H] Create a source package and test if it compiles and installs correctly

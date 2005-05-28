@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>Nobody Home</title>
+	<image>info.png</image>
+	<p>There are no people left in this city.</p>
+	<p>You should start a new career elsewhere.</p>
+</OkDialog>
