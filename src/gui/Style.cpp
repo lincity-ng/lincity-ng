@@ -149,6 +149,9 @@ Style::parseAttribute(const char* attribute, const char* value)
         background.parse(value);
     } else if(strcmp(attribute, "href") == 0) {
         href = value;
+    } else if(strncmp(attribute, "xmlns", 5) == 0) {
+        // simply ignore xmlns attributes
+        return true;
     } else {
         return false;
     }

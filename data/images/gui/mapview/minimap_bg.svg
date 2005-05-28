@@ -9,25 +9,28 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="minimap_bg.svg"
-   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/mapview"
-   height="270.00000px"
-   width="384.00000px"
-   inkscape:version="0.41"
+   inkscape:export-ydpi="90.000000"
+   inkscape:export-xdpi="90.000000"
+   inkscape:export-filename="/home/matze/projects/lincity-ng/data/images/gui/mapview/minimap_bg.png"
+   id="svg1340"
    sodipodi:version="0.32"
-   id="svg1340">
+   inkscape:version="0.41"
+   width="384.00000px"
+   height="270.00000px"
+   sodipodi:docbase="/home/matze/projects/lincity-ng/data/images/gui/mapview"
+   sodipodi:docname="minimap_bg.svg">
   <metadata
      id="metadata1345">
     <rdf:RDF
        id="RDF1347">
       <cc:Work
-         id="Work1349"
-         rdf:about="">
+         rdf:about=""
+         id="Work1349">
         <dc:format
            id="format1351">image/svg+xml</dc:format>
         <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
-           id="type1353" />
+           id="type1353"
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:title
            id="title2945">Right Border of Lincity NG</dc:title>
         <dc:date
@@ -41,80 +44,80 @@
           </cc:Agent>
         </dc:creator>
         <cc:license
-           rdf:resource="http://creativecommons.org/licenses/by/2.0/"
-           id="license2955" />
+           id="license2955"
+           rdf:resource="http://creativecommons.org/licenses/by/2.0/" />
       </cc:Work>
       <cc:License
-         id="License2957"
-         rdf:about="http://creativecommons.org/licenses/by/2.0/">
+         rdf:about="http://creativecommons.org/licenses/by/2.0/"
+         id="License2957">
         <cc:permits
-           id="permits2959"
-           rdf:resource="http://web.resource.org/cc/Reproduction" />
+           rdf:resource="http://web.resource.org/cc/Reproduction"
+           id="permits2959" />
         <cc:permits
-           id="permits2961"
-           rdf:resource="http://web.resource.org/cc/Distribution" />
+           rdf:resource="http://web.resource.org/cc/Distribution"
+           id="permits2961" />
         <cc:requires
-           id="requires2963"
-           rdf:resource="http://web.resource.org/cc/Notice" />
+           rdf:resource="http://web.resource.org/cc/Notice"
+           id="requires2963" />
         <cc:requires
-           id="requires2965"
-           rdf:resource="http://web.resource.org/cc/Attribution" />
+           rdf:resource="http://web.resource.org/cc/Attribution"
+           id="requires2965" />
         <cc:permits
-           id="permits2967"
-           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks"
+           id="permits2967" />
         <cc:requires
-           id="requires2969"
-           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+           rdf:resource="http://web.resource.org/cc/ShareAlike"
+           id="requires2969" />
       </cc:License>
     </rdf:RDF>
   </metadata>
   <defs
      id="defs1343">
     <linearGradient
-       id="linearGradient2135"
-       inkscape:collect="always">
+       inkscape:collect="always"
+       id="linearGradient2135">
       <stop
-         id="stop2137"
+         style="stop-color:#ffffff;stop-opacity:1;"
          offset="0"
-         style="stop-color:#ffffff;stop-opacity:1;" />
+         id="stop2137" />
       <stop
-         id="stop2139"
+         style="stop-color:#ffffff;stop-opacity:0;"
          offset="1"
-         style="stop-color:#ffffff;stop-opacity:0;" />
+         id="stop2139" />
     </linearGradient>
     <linearGradient
-       gradientUnits="userSpaceOnUse"
-       y2="241.90137"
-       x2="91.766640"
-       y1="547.62659"
-       x1="91.766640"
-       gradientTransform="scale(1.992020,0.502003)"
-       id="linearGradient2141"
+       inkscape:collect="always"
        xlink:href="#linearGradient2135"
-       inkscape:collect="always" />
+       id="linearGradient2141"
+       gradientTransform="scale(1.992020,0.502003)"
+       x1="91.766640"
+       y1="547.62659"
+       x2="91.766640"
+       y2="241.90137"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
-     inkscape:current-layer="svg1340"
-     inkscape:window-y="390"
-     inkscape:window-x="439"
-     inkscape:cy="20.665832"
-     inkscape:cx="203.80823"
-     inkscape:zoom="0.97294509"
-     inkscape:window-height="540"
-     inkscape:window-width="640"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base" />
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="540"
+     inkscape:zoom="0.97294509"
+     inkscape:cx="203.80823"
+     inkscape:cy="20.665832"
+     inkscape:window-x="439"
+     inkscape:window-y="390"
+     inkscape:current-layer="svg1340" />
   <path
-     sodipodi:nodetypes="ccccc"
-     id="path1361"
+     style="stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:1.2500000;stroke:#afafaf;fill-rule:evenodd;fill-opacity:1.0;fill:url(#linearGradient2141)"
      d="M 0.090846183,270.90846 L 384.82443,271.09015 L 384.73359,174.06643 L 175.42398,173.97558 C 148.95746,211.73731 88.332772,252.04273 0.090846183,270.90846 z "
-     style="stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:1.2500000;stroke:#afafaf;fill-rule:evenodd;fill-opacity:1.0;fill:url(#linearGradient2141)" />
+     id="path1361"
+     sodipodi:nodetypes="ccccc" />
   <path
-     id="path1357"
+     style="fill:#000000"
      d=""
-     style="fill:#000000" />
+     id="path1357" />
 </svg>

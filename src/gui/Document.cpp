@@ -31,6 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 Document::Document()
 {
+    setFlags(FLAG_RESIZABLE);
 }
 
 Document::~Document()
@@ -86,12 +87,10 @@ Document::parse(XmlReader& reader)
             std::cerr << "Warning: text outside paragraph not allowed (yet).\n";
         }
     }
-
-    setFlags(FLAG_RESIZABLE);
 }
 
 void
-Document::resize(float newwidth, float )
+Document::resize(float newwidth, float newheight)
 {
     height = 0;
     for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
@@ -129,6 +128,9 @@ Document::resize(float newwidth, float )
         height += component->getHeight() + element->getStyle().margin_bottom;
     }
     width = newwidth;
+
+    if(height < newheight)
+        height = newheight;
 }
 
 void

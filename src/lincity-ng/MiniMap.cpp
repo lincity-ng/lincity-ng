@@ -187,7 +187,6 @@ void MiniMap::attachButtons()
   
     for(int i = 0; mapViewButtons[i] != 0; ++i) {
         if(strlen(mapViewButtons[i])) {
-            printf("SearchFor: '%s'.\n", mapViewButtons[i]);
             CheckButton* b = getCheckButton(*root, mapViewButtons[i]);
             if(i == 0)
                 b->check();
