@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/XmlReader.hpp"
 #include "PhysfsStream/PhysfsStream.hpp"
 
+#include <SDL_opengl.h>
 #include <assert.h>
 #include <iostream>
 
@@ -37,9 +38,9 @@ Config *getConfig()
 Config::Config()
 {
     assert(configPtr == 0);
-    
+
     //Default Values
-    useOpenGL = false;
+    useOpenGL = true;
     useFullScreen = true;
     videoX = 800; 
     videoY = 600;

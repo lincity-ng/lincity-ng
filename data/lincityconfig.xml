@@ -1,8 +1,4 @@
 <?xml version="1.0"?>
-<!-- Main configuration file. -->
+<!-- You can set system config settings here, users can override them -->
 <configuration>
-    <video x="1024" y="768" useOpenGL="true" />
-    <audio soundEnabled="true" soundVolume="100" 
-           musicEnabled="true" musicVolume="70" />
-    <game skipMonthsFast="1" upgradeTransport="true" monthgraphW="190" />
 </configuration>
