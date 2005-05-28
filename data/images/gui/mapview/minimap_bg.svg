@@ -9,101 +9,112 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   id="svg2"
-   sodipodi:version="0.32"
-   inkscape:version="0.41"
-   width="255.00000px"
-   height="350.00000px"
-   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/mapview"
    sodipodi:docname="minimap_bg.svg"
-   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/mapview/minimap_bg.png"
-   inkscape:export-xdpi="90.000000"
-   inkscape:export-ydpi="90.000000">
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/mapview"
+   height="270.00000px"
+   width="384.00000px"
+   inkscape:version="0.41"
+   sodipodi:version="0.32"
+   id="svg1340">
   <metadata
-     id="metadata7">
+     id="metadata1345">
     <rdf:RDF
-       id="RDF9">
+       id="RDF1347">
       <cc:Work
-         rdf:about=""
-         id="Work11">
+         id="Work1349"
+         rdf:about="">
         <dc:format
-           id="format13">image/svg+xml</dc:format>
+           id="format1351">image/svg+xml</dc:format>
         <dc:type
-           id="type15"
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+           id="type1353" />
+        <dc:title
+           id="title2945">Right Border of Lincity NG</dc:title>
+        <dc:date
+           id="date2947">2005-05-28</dc:date>
+        <dc:creator
+           id="creator2949">
+          <cc:Agent
+             id="Agent2951">
+            <dc:title
+               id="title2953">Christoph Brill</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/2.0/"
+           id="license2955" />
       </cc:Work>
+      <cc:License
+         id="License2957"
+         rdf:about="http://creativecommons.org/licenses/by/2.0/">
+        <cc:permits
+           id="permits2959"
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           id="permits2961"
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           id="requires2963"
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:requires
+           id="requires2965"
+           rdf:resource="http://web.resource.org/cc/Attribution" />
+        <cc:permits
+           id="permits2967"
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           id="requires2969"
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs5">
+     id="defs1343">
     <linearGradient
-       inkscape:collect="always"
-       id="linearGradient2830">
+       id="linearGradient2135"
+       inkscape:collect="always">
       <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
+         id="stop2137"
          offset="0"
-         id="stop2832" />
+         style="stop-color:#ffffff;stop-opacity:1;" />
       <stop
-         style="stop-color:#ffffff;stop-opacity:0;"
+         id="stop2139"
          offset="1"
-         id="stop2834" />
+         style="stop-color:#ffffff;stop-opacity:0;" />
     </linearGradient>
     <linearGradient
-       id="linearGradient2060">
-      <stop
-         style="stop-color:#cbcbcb;stop-opacity:1.0000000;"
-         offset="0.0000000"
-         id="stop2062" />
-      <stop
-         style="stop-color:#737373;stop-opacity:1.0000000;"
-         offset="1.0000000"
-         id="stop2064" />
-    </linearGradient>
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient2060"
-       id="radialGradient2068"
-       gradientTransform="scale(0.853601,1.171508)"
-       cx="55.462517"
-       cy="77.239082"
-       fx="55.462517"
-       fy="77.239082"
-       r="345.16849"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient2830"
-       id="linearGradient2836"
-       gradientTransform="scale(0.808213,1.237298)"
-       x1="43.490940"
-       y1="-0.27038029"
-       x2="56.768799"
-       y2="39.668404"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       y2="241.90137"
+       x2="91.766640"
+       y1="547.62659"
+       x1="91.766640"
+       gradientTransform="scale(1.992020,0.502003)"
+       id="linearGradient2141"
+       xlink:href="#linearGradient2135"
+       inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:current-layer="svg1340"
+     inkscape:window-y="390"
+     inkscape:window-x="439"
+     inkscape:cy="20.665832"
+     inkscape:cx="203.80823"
+     inkscape:zoom="0.97294509"
+     inkscape:window-height="540"
+     inkscape:window-width="640"
      inkscape:pageshadow="2"
-     inkscape:window-width="1272"
-     inkscape:window-height="966"
-     inkscape:zoom="1.1185714"
-     inkscape:cx="-37.638963"
-     inkscape:cy="11.081034"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:current-layer="svg2" />
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
   <path
-     style="stroke-opacity:1.0000000;stroke-linejoin:miter;stroke-linecap:butt;stroke-width:1.0000000px;stroke:#ffffff;fill-rule:evenodd;fill-opacity:1.0;fill:url(#radialGradient2068)"
-     d="M 0.53405560,349.57238 L 254.53999,349.55033 L 254.53999,0.59455855 L 78.790249,0.63675348 C 24.230977,0.64985236 0.53405560,19.352874 0.53405560,62.092859 L 0.53405560,349.57238 z "
-     id="path1298"
-     sodipodi:nodetypes="cccssc" />
+     sodipodi:nodetypes="ccccc"
+     id="path1361"
+     d="M 0.090846183,270.90846 L 384.82443,271.09015 L 384.73359,174.06643 L 175.42398,173.97558 C 148.95746,211.73731 88.332772,252.04273 0.090846183,270.90846 z "
+     style="stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:1.2500000;stroke:#afafaf;fill-rule:evenodd;fill-opacity:1.0;fill:url(#linearGradient2141)" />
   <path
-     style="stroke-opacity:1.0000000;stroke-linejoin:miter;stroke-linecap:butt;stroke-width:1.0000000px;stroke:none;fill-rule:evenodd;fill-opacity:1.0;fill:url(#linearGradient2836)"
-     d="M 7.9092689,62.301294 C 7.8973363,53.158189 8.1060949,43.295947 12.590639,35.490986 C 19.710633,23.099253 32.913039,13.152055 48.255143,8.9291069 C 63.597248,4.7061585 114.31234,6.1199384 115.48186,6.5785742 C 116.49643,6.9764444 67.527114,6.9488984 53.806331,10.917435 C 40.085549,14.885971 26.300401,21.956592 17.986626,35.747938 C 9.8717082,49.209409 7.9122895,64.615754 7.9092689,62.301294 z "
-     id="path2070"
-     sodipodi:nodetypes="cssssss" />
+     id="path1357"
+     d=""
+     style="fill:#000000" />
 </svg>
