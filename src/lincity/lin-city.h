@@ -61,6 +61,10 @@ XXX: Then it shouldn't be here
 /* Load corrections if version <= MG_C_VER (max monthgraph size) */
 #define MG_C_VER 111
 
+#if defined (_MSC_VER)
+#define snprintf _snprintf
+#endif
+
 #if defined (WIN32)
 #define PATH_SLASH '\\'
 #define PATH_SLASH_STRING "\\"
