@@ -72,5 +72,6 @@ Programming
      much ourself. But we should listen to packagers and fix problems if they
      have some (instead of letting each distro patch stuff themselfes).
  [L] Is it possible to automatically generate/maintain a ChangeLog file from svn
-     commits?
+     commits? 
+     (Nathan: http://tiefighter.et.tudelft.nl/~arthur/svn2cl/)
 
