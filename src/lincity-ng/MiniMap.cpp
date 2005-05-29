@@ -52,8 +52,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * switched
  */
 const char* mapViewButtons[] = { 
-    "MapViewNormal", "", "MapViewFood", "MapViewUB40", "", "MapViewPower",
-    "MapViewFire", "MapViewSport", "MapViewHealth", "", "MapViewTraffic",
+    "MapViewNormal", "", "MapViewFood", "", "MapViewUB40", "", "MapViewPower", "",
+    "MapViewFire", "", "MapViewSport", "", "MapViewHealth", "", "MapViewTraffic", "",
     "MapViewPollution", "", "MapViewCoal", "", 0};
 
 const char* speedButtons[] = {
@@ -275,6 +275,7 @@ MiniMap::switchView(const std::string& viewname)
 void 
 MiniMap::switchMapViewButton(const std::string &buttonName)
 {
+    return; //no switch atm
     std::string switchName;
     if(buttonName=="MapViewFood" || buttonName=="MapViewUB40") {
         switchName = "FoodSwitch";
@@ -335,7 +336,7 @@ MiniMap::DisplayMode getMode(const std::string &pName)
         return MiniMap::POWER;
     if(pName=="MapViewFire")
         return MiniMap::FIRE;
-    if(pName=="MapViewCricket")
+    if(pName=="MapViewSport")
         return MiniMap::CRICKET;
     if(pName=="MapViewHealth")
         return MiniMap::HEALTH;

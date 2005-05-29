@@ -1,13 +1,12 @@
 <Panel width="384" height="270" background="images/gui/mapview/minimap_bg.png">
-	<TableLayout rows="3" cols="2" >
-		<rowsize row="1" fixed="20"/>
+	<TableLayout rows="3" cols="2" border="true">
 		<rowsize row="2" fixed="200"/>
 		<rowsize row="3" fixed="40"/>
 		<colsize col="1" fixed="174"/>
 		<colsize col="2" fixed="210"/>
-		<cell row="1" col="2">
+		<cell row="1" col="2" valign="bottom">
 			<TableLayout rows="1" cols="5">
-				<cell row="1" col="1">
+				<cell row="1" col="1" valign="bottom">
 					<CheckButton name="SwitchMiniMap" checked="true">
 						<image src="images/gui/buttons/tabbed/tabbed.png"/>
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
@@ -16,7 +15,7 @@
 						<text-caption font-size="16">Map</text-caption>
 					</CheckButton>
 				</cell>
-				<cell row="1" col="2">
+				<cell row="1" col="2" valign="bottom">
 					<CheckButton name="SwitchPBar">
 						<image src="images/gui/buttons/tabbed/tabbed.png"/>
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
@@ -25,7 +24,7 @@
 						<text-caption font-size="16">Stats</text-caption>
 					</CheckButton>
 				</cell>
-				<cell row="1" col="3">
+				<cell row="1" col="3" valign="bottom">
 					<CheckButton name="SwitchGlobalMPS">
 						<image src="images/gui/buttons/tabbed/tabbed.png"/>
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
@@ -34,18 +33,7 @@
 						<text-caption font-size="16">$</text-caption>
 					</CheckButton>
 				</cell>
-				<!--
-				<cell row="1" col="4">
-					<CheckButton name="SwitchMapMPS">
-						<image src="images/gui/buttons/tabbed/tabbed.png"/>
-						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
-						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<text-caption font-size="16">?</text-caption>
-					</CheckButton>
-				</cell>
-				-->
-				<cell row="1" col="4">
+				<cell row="1" col="4" valign="bottom">
 					<CheckButton name="SwitchEconomyGraph">
 						<image src="images/gui/buttons/tabbed/tabbed.png"/>
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
@@ -85,21 +73,14 @@
 				</cell>
 			</TableLayout>
 		</cell>
-		<cell row="3" col="1" colspan="2">
-			<TableLayout rows="1" cols="11">
+		<cell row="3" col="1" >
+			<TableLayout rows="1" cols="5">
 				<rowsize row="1" fixed="39"/>
-				<colsize col="1" fixed="39"/>
 				<colsize col="2" fixed="39"/>
 				<colsize col="3" fixed="39"/>
 				<colsize col="4" fixed="39"/>
-				<colsize col="5" relative="1"/> <!-- move content to the right side -->
-				<colsize col="6" fixed="39"/>
-				<colsize col="7" fixed="39"/>
-				<colsize col="8" fixed="39"/>
-				<colsize col="9" fixed="39"/>
-				<colsize col="10" fixed="39"/>
-				<colsize col="11" fixed="12"/>
-				<cell row="1" col="1">
+				<colsize col="5" fixed="39"/>
+				<cell row="1" col="2">
 					<Button name="HelpButton">
 						<image src="images/gui/buttons/round/button-round-40.png"/>
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
@@ -108,7 +89,7 @@
 						<tooltip translatable="yes">[F1] Press this button to get help</tooltip>
 					</Button>
 				</cell>
-				<cell row="1" col="2">
+				<cell row="1" col="3">
 					<Button name="hideHighBuildings">
 						<image src="images/gui/buttons/round/button-round-40.png"/>
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
@@ -118,7 +99,7 @@
 						</tooltip>
 					</Button>
 				</cell>
-				<cell row="1" col="3">
+				<cell row="1" col="4">
 					<Button name="StatButton">
 						<image src="images/gui/buttons/round/button-round-40.png"/>
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
@@ -127,7 +108,7 @@
 						<tooltip translatable="yes">Press this button	to show statistics</tooltip>
 					</Button>
 				</cell>
-				<cell row="1" col="4">
+				<cell row="1" col="5">
 					<Button name="mapOverlay">
 						<image src="images/gui/buttons/round/button-round-40.png"/>
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
@@ -137,99 +118,107 @@
 						</tooltip>
 					</Button>
 				</cell>
-				<cell row="1" col="6">
+			</TableLayout>
+        </cell>
+		<cell row="3" col="2" >
+			<TableLayout rows="1" cols="10"> <!-- The MiniMap ChangeView Buttons -->
+				<cell row="1" col="1">
 					<CheckButton name="MapViewNormal">
-						<image src="images/gui/buttons/round/button-round-40.png"/>
-						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-						<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
-						<image-caption src="images/gui/buttonpanel/residence/residence.png"/>
+						<image src="images/gui/buttons/round/button-round-20.png"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+						<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
+						<image-caption src="images/gui/mapview/roundbuttons/round_resident.png"/>
 						<tooltip translatable="yes">Show map outline</tooltip>
 					</CheckButton>
 				</cell>
-				<cell row="1" col="7">
-					<SwitchComponent name="FoodSwitch">
+				<cell row="1" col="2">
 						<CheckButton name="MapViewFood">
-							<image src="images/gui/buttons/round/button-round-40.png"/>
-							<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
+							<image src="images/gui/buttons/round/button-round-20.png"/>
+							<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+							<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+							<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
 							<image-caption src="images/gui/mapview/roundbuttons/round_food.png"/>
 							<tooltip translatable="yes">Show nourishments</tooltip>
 						</CheckButton>
+				</cell>
+				<cell row="1" col="3">
 						<CheckButton name="MapViewUB40">
-							<image src="images/gui/buttons/round/button-round-40.png"/>
-							<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
+							<image src="images/gui/buttons/round/button-round-20.png"/>
+							<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+							<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+							<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
 							<image-caption src="images/gui/mapview/roundbuttons/round_ub40.png"/>
 							<tooltip translatable="yes">Show unemployment</tooltip>
 						</CheckButton>
-					</SwitchComponent>
 				</cell>
-				<cell row="1" col="8">
-					<SwitchComponent name="PowerSwitch">
+				<cell row="1" col="4">
 						<CheckButton name="MapViewPower">
-							<image src="images/gui/buttons/round/button-round-40.png"/>
-							<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
-							<image-caption src="images/gui/buttonpanel/power/electrics.png"/>
+							<image src="images/gui/buttons/round/button-round-20.png"/>
+							<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+							<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+							<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
+							<image-caption src="images/gui/mapview/roundbuttons/round_electrics.png"/>
 							<tooltip translatable="yes">Show power supply</tooltip>
 						</CheckButton>
+				</cell>
+				<cell row="1" col="5">
 						<CheckButton name="MapViewFire">
-							<image src="images/gui/buttons/round/button-round-40.png"/>
-							<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
-							<image-caption src="images/gui/buttonpanel/misc/fire.png"/>
+							<image src="images/gui/buttons/round/button-round-20.png"/>
+							<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+							<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+							<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
+							<image-caption src="images/gui/mapview/roundbuttons/round_fire.png"/>
 							<tooltip translatable="yes">Show firedepartment cover</tooltip>
 						</CheckButton>
+				</cell>
+				<cell row="1" col="6">
 						<CheckButton name="MapViewSport">
-							<image src="images/gui/buttons/round/button-round-40.png"/>
-							<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
-							<image-caption src="images/gui/buttonpanel/misc/sports.png"/>
+							<image src="images/gui/buttons/round/button-round-20.png"/>
+							<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+							<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+							<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
+							<image-caption src="images/gui/mapview/roundbuttons/round_soccer.png"/>
 							<tooltip translatable="yes">Show sport cover</tooltip>
 						</CheckButton>
+				</cell>
+				<cell row="1" col="7">
 						<CheckButton name="MapViewHealth">
-							<image src="images/gui/buttons/round/button-round-40.png"/>
-							<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
-							<image-caption src="images/gui/buttonpanel/misc/health.png"/>
+							<image src="images/gui/buttons/round/button-round-20.png"/>
+							<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+							<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+							<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
+							<image-caption src="images/gui/mapview/roundbuttons/round_health.png"/>
 							<tooltip translatable="yes">Show medical care</tooltip>
 						</CheckButton>
-					</SwitchComponent>
 				</cell>
-				<cell row="1" col="9">
-					<SwitchComponent name="TrafficSwitch">
+				<cell row="1" col="8">
 						<CheckButton name="MapViewTraffic">
-							<image src="images/gui/buttons/round/button-round-40.png"/>
-							<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
-							<image-caption src="images/gui/buttonpanel/transport/road.png"/>
+							<image src="images/gui/buttons/round/button-round-20.png"/>
+							<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+							<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+							<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
+							<image-caption src="images/gui/mapview/roundbuttons/round_road.png"/>
 							<tooltip translatable="yes">Show traffic density</tooltip>
 						</CheckButton>
+				</cell>
+				<cell row="1" col="9">
 						<CheckButton name="MapViewPollution">
-							<image src="images/gui/buttons/round/button-round-40.png"/>
-							<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-							<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-							<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
-							<image-caption src="images/gui/buttonpanel/mining/trash.png"/>
+							<image src="images/gui/buttons/round/button-round-20.png"/>
+							<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+							<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+							<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
+							<image-caption src="images/gui/mapview/roundbuttons/round_pollution.png"/>
 							<tooltip translatable="yes">Show pollution density</tooltip>
 						</CheckButton>
-					</SwitchComponent>
 				</cell>
 				<cell row="1" col="10">
 					<CheckButton name="MapViewCoal">
-						<image src="images/gui/buttons/round/button-round-40.png"/>
-						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
-						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
-						<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
-						<image-caption src="images/gui/buttonpanel/mining/coalmine.png"/>
+						<image src="images/gui/buttons/round/button-round-20.png"/>
+						<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+						<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+						<image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
+						<image-caption src="images/gui/mapview/roundbuttons/round_coal.png"/>
 						<tooltip translatable="yes">Show coal depots</tooltip>
 					</CheckButton>
 				</cell>
