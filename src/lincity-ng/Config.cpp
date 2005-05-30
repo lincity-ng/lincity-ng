@@ -54,7 +54,7 @@ Config::Config()
 
     //#define MONTHGRAPH_W 120 
     //#define MONTHGRAPH_H 64
-    monthgraphW = 120;
+    monthgraphW = 190;
     monthgraphH = 64;
     skipMonthsFast = 1;
     upgradeTransport = true;
