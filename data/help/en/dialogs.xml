@@ -2,6 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Dialog Help</p>
 	<li><a href="sustain">Sustainability progress window</a></li>
+	<li><a href="economy">Economy Graph</a></li>
 	<li><a href="pbar">PBar</a></li>
 	<li><a href="housing">Housing</a></li>
 </Document>
