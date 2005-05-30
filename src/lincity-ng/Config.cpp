@@ -42,8 +42,8 @@ Config::Config()
     //Default Values
     useOpenGL = true;
     useFullScreen = true;
-    videoX = 800; 
-    videoY = 600;
+    videoX = 1024; 
+    videoY = 768;
 
     soundVolume = 100;
     musicVolume = 50;

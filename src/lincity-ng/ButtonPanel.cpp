@@ -612,6 +612,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
             if( enoughTech( mMenuSelected[mMenus[i]] ) && ( b == SDL_BUTTON_LEFT ) ){
                 selected_module_type=selected_module=mMenuSelected[mMenus[i]];
                 updateSelectedCost();
+                button->check();
             }
             if(c) {
                 // try en-/disabling compoent
