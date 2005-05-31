@@ -1,13 +1,13 @@
 # Check for binary relocation support
 # Hongli Lai
+#   slightly modified by Matze (don't enable automatically)
 # http://autopackage.org/
-
 AC_DEFUN([AM_BINRELOC],
 [
 	AC_ARG_ENABLE(binreloc,
 		[  --enable-binreloc       compile with binary relocation support
-                          (default=enable when available)],
-		enable_binreloc=$enableval,enable_binreloc=auto)
+                          (default=disabled)],
+		enable_binreloc=$enableval,enable_binreloc=no)
 
 	AC_ARG_ENABLE(binreloc-threads,
 		[  --enable-binreloc-threads      compile binary relocation with threads support
