@@ -1,6 +1,6 @@
 SubDir TOP src lincity-ng ;
 
-SOURCES = [ Wildcard *.cpp *.hpp ] ;
+SOURCES = [ Wildcard *.cpp *.hpp *.h ] ;
 Application lincity-ng : $(SOURCES) ;
 LinkWith lincity-ng : lincity_gui lincity_lib tinygettext physfsstream ;
 C++Flags lincity-ng : -DAPPDATADIR=\\\"$(appdatadir)\\\" ;

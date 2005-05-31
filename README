@@ -1,24 +1,98 @@
-INSTALL
+                            LinCity-NG
+                     a city simulation game
 
-$ ./autogen.sh 
-$ ./configure
-$ jam
-$ jam install
+                   http://lincity-ng.berlios.de/
 
-This applications uses the jam build system
-(See http://www.perforce.com/jam/jam.html for details). 
-So you have to type "jam" instead "make".
+Contents:
+1. Introduction
+2. Building and Installation
+3. Gameplay
+4. Contact
 
-GAMEPLAY
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Objective
----------
+1. Introduction
+
+LinCity-NG is a City Simulation Game. It is a polished and improved
+version of the old LinCity game. Within the scope of the GoTM
+project at happypenguin.org we create a new iso-3d graphics engine
+together with completely redone modern gui.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2. Building and Installation
+
+2.1 Prerequesites
+
+The game depends on some tools and libraries to be present, before
+you can start building it. Here's a list of them:
+
+* normal gnu compiler and additional tools (g++ version 3.2 or later is
+  required at the moment)
+
+* perforce jam 2.5 or later (used as build tool)
+  ftp://ftp.perforce.com/pub/jam
+
+* SDL 1.2.5 or later
+  http://www.libsdl.org
+
+* SDL_mixer 1.2.4 or later (with ogg-support enabled)
+  http://www.libsdl.org/projects/SDL_mixer/
+
+* SDL_image 1.2.3 or later (with png support)
+  http://www.libsdl.org/projects/SDL_image/
+
+* SDL_ttf 2.0 or later
+  http://www.libsdl.org/projects/SDL_ttf/
+
+* PhysicsFS 1.0.0 or later
+  http://www.icculus.org/physfs/
+
+* zlib 1.0 or later
+  http://www.gzip.org/zlib/
+
+* libxml 2.6.11 or later
+  http://xmlsoft.org/
+
+2.2 Building
+
+To build and install the game use the following commands:
+
+    ./configure 
+    jam
+
+If you want to install the game, run as root:
+    jam install
+
+(If you compile the svn version you have to run ./autogen.sh first.)
+
+The configure script also lets you set some more options like the installation
+directory (--prefix argument). You'll get a full list of these if you invoke
+"configure --help".
+
+2.3 Starting the game
+
+You can start the game by typing
+
+    lincity-ng
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+3. Gameplay
+
+See the ingame help [F1] for more details.
+
+
+3.1 Objective
 
 You can win Lincity either by building a sustainable economy or
 by evacuating all citizens with spaceships.
 
+3.2 Controls
+
 Mouse
------
 
 any:
  Click on Minimap shows the selected Area on mainscreen.
@@ -39,7 +113,6 @@ wheel:
  down: zoom out
 
 Keyboard
---------
 
  ESCAPE switch to query tool
 
@@ -66,4 +139,18 @@ use shift + direction to scroll faster
  v  to cycle through MiniMap-overlay modes
  b  toggle between current tool and bulldoze mode 
  F1 Help
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+4. Contact
+
+Bugs should be reported to the Lincity Wiki on Berlios:
+    http://lincity-ng.berlios.de/wiki/index.php/Bug_Reports
+    (press edit to add or modify bugreports)
+    
+You can contact us at the lincity-ng-devel mailinglist at Berlios:
+    http://lists.berlios.de/mailman/listinfo/lincity-ng-devel
+or you might be able to catch us in irc at irc.freenode.net #lincity.
+
+Visit our homepage: http://lincity-ng.berlios.de/
 
