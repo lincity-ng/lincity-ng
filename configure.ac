@@ -149,9 +149,13 @@ NP_FINDLIB([PHYSFS], [physfs], [physfs >= 0.1.9],
 	[], [-lphysfs],
 	[],
 	[AC_MSG_ERROR([Please install physfs >= 1.0])])
-
+    
 AC_INIT_JAM
 AC_CONFIG_FILES([Jamconfig])
+
+# We have a config.h file
+CPPFLAGS="$CPPFLAGS -DHAVE_CONFIG_H"
+
 AC_OUTPUT
 
 AC_MSG_NOTICE([
