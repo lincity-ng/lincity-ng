@@ -55,6 +55,10 @@ you can start building it. Here's a list of them:
 * libxml 2.6.11 or later
   http://xmlsoft.org/
 
+If you use packages from you distribution pay attention that you need
+the header files in addition to the libraries. They are often in 
+separate *-dev packages. Eg. for physfs you need libphysfs and libphysfs-dev.
+
 2.2 Building
 
 To build and install the game use the following commands:
