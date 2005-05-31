@@ -39,8 +39,6 @@ Programming
      running where they were before)
      [Sure? Does it take longer than in classic until the effect is 
      visible?] 
- [H] undefined reference to `br_prepend_prefix' if building without
-     ./configure --disable-binreloc
 
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
