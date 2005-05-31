@@ -159,8 +159,8 @@ void initLincity()
     char *cname = (char *) malloc (strlen (lc_save_dir) + strlen (s) + 2);
     sprintf (cname, "%s%c%s", lc_save_dir, PATH_SLASH, s);
     if( ! loadCityNG( std::string( cname ) ) ) {   
-        //create a new City just in case
-        new_city( &main_screen_originx, &main_screen_originy, 0 );
+        //create a new City with village just in case 
+        new_city( &main_screen_originx, &main_screen_originy, 1 );
     }
     free (cname);
 }
