@@ -186,8 +186,6 @@ void initVideo(int width, int height)
     }
     if(getConfig()->useFullScreen)
         flags |= SDL_FULLSCREEN;
-    else
-        flags |= SDL_RESIZABLE;
 
     SDL_Surface* screen
         = SDL_SetVideoMode(width, height, bpp, flags);

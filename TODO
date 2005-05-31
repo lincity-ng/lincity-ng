@@ -39,6 +39,8 @@ Programming
      running where they were before)
      [Sure? Does it take longer than in classic until the effect is 
      visible?] 
+ [M] Game does not handle Expose Events
+     (switch desktop and return to the credits-screen, then it is whole black.)   
 
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
