@@ -48,6 +48,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "MainLincity.hpp"
 #include "readdir.hpp"
 
+#include "tinygettext/gettext.hpp"
+
 MainMenu::MainMenu()
 {
     loadMainMenu();
@@ -155,7 +157,7 @@ void MainMenu::fillLoadMenu()
             std::string f= curfile->d_name;
             button->setCaptionText(f);
         } else {
-            button->setCaptionText("");
+            button->setCaptionText(_("empty"));
         }
 
         rewinddir(lincityDir);
@@ -392,6 +394,7 @@ MainMenu::newGameStartButtonClicked(Button* )
         quitState = INGAME;
         running = false;
     }
+    mFilename = "empty"; //don't erase szenarios later 
 }
 
 void
