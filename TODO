@@ -42,6 +42,8 @@ Programming
  [M] Game does not handle Expose Events
      (switch desktop and return to the credits-screen, then it is whole black.)   
  [L] add "change resolution" switch in preferences
+ [H] Loading/Saving doesn't work anymore, and just removes the file last used
+     for loading/saving (which can result in scenario files being removed)
 
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
