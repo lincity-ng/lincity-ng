@@ -19,6 +19,7 @@ IMAGEPATHS =
     images/gui/buttons
     images/gui/buttons/round
     images/gui/buttons/tabbed
+    images/gui/checkbox
     images/gui/dialogs
     images/gui/info
     images/gui/mapview
