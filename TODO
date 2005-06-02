@@ -31,6 +31,8 @@ Programming
      actions like scrolling the map, creating buildings, displaying building
      stats). This could be used to measure common user actions and improve
      usability.
+ [L] Looks like buttons that had an empty string as caption once won't change
+     to anything else. At least the caption is not shown on the screen.
 
 --Bugs--
  [L] New text on buttons is truncated to original textlength. 

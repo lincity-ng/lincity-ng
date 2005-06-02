@@ -394,7 +394,7 @@ MainMenu::newGameStartButtonClicked(Button* )
         quitState = INGAME;
         running = false;
     }
-    mFilename = "empty"; //don't erase szenarios later 
+    mFilename = "empty"; //don't erase scenarios later 
 }
 
 void
