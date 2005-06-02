@@ -495,16 +495,17 @@ void MiniMap::draw(Painter &painter)
     Color mc = getColor( 0, 0 ); 
     if(mpainter.get() == 0) {
         // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
-        
         for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
             for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++) {
                 typ = MP_TYPE(x,y);
                 if( mFullRefresh || typ != mappointoldtype[x][y] ) {
                     mappointoldtype[x][y] = typ;
-                    grp = get_group_of_type(typ);
-                    mc=getColor(x,y);
-                    painter.setFillColor(mc);
-                    painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                    if( typ != CST_USED ){
+                        grp = get_group_of_type(typ);
+                        mc=getColor(x,y);
+                        painter.setFillColor(mc);
+                        painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                    }
                 }
             }
         
@@ -515,18 +516,21 @@ void MiniMap::draw(Painter &painter)
         painter.clearClipRectangle();
         return;
     }
-
-    mpainter->setFillColor( mc );
-    mpainter->fillRectangle( miniRect );
+    if( mFullRefresh ){
+        mpainter->setFillColor( mc );
+        mpainter->fillRectangle( miniRect );
+    }
     for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++) {
         for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++) {
             typ = MP_TYPE(x,y);
             if ( mFullRefresh || typ != mappointoldtype[x][y] ) {
                 mappointoldtype[x][y] = typ;
-                grp = get_group_of_type(typ);
-                mc=getColor(x,y);
-                mpainter->setFillColor(mc);
-                mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                if( typ != CST_USED ){
+                    grp = get_group_of_type(typ);
+                    mc=getColor(x,y);
+                    mpainter->setFillColor(mc);
+                    mpainter->fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                }
             }
         }
     }
