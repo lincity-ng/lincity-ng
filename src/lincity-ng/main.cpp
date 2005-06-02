@@ -149,7 +149,9 @@ void initPhysfs(const char* argv0)
 #if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
     std::string datadir;
 #ifdef ENABLE_BINRELOC
-    datadir = br_strcat(DATADIR, "/" PACKAGE_NAME);
+    char* brdatadir = br_strcat(DATADIR, "/" PACKAGE_NAME);
+    datadir = brdatadir;
+    free(brdatadir);
 #else
     datadir = APPDATADIR;
 #endif

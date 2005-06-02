@@ -44,16 +44,17 @@ require @icculus.org/physfs 1.0
 require @libsdl.org/sdl_image 1.2
 require @libsdl.org/sdl_mixer 1.2
 require @libsdl.org/sdl_ttf 2.0
-require @libsdl.org/sdl_gfx 2.0.13
+require @ferzkopp.net/sdl_gfx 13.0
 require @zlib.org/zlib 1.0
-require @xmlsoft.org/libxml2 2.6.11
+require @xmlsoft.org/libxml2 2.6
 
 [Install]
 # Put your installation script here
-installExe ./bin/*
-installData ./share
-installIcon ./share/pixmaps/*.png
-installDesktop ./share/applications
+installExe bin/*
+installData share/lincity-ng
+installData share/doc
+installIcon share/pixmaps/*.png
+installDesktop Game share/applications/lincity-ng.desktop
 
 [Uninstall]
 # Usually just the following line is enough to uninstall everything

@@ -282,6 +282,7 @@ CheckButton::event(const Event& event)
               nochange=true;
               break;
             }
+            pressed(this, event.mousebutton);
             mclicked=true;
             break;
         case Event::MOUSEBUTTONUP:
@@ -292,6 +293,7 @@ CheckButton::event(const Event& event)
                 
                 if(event.mousebutton == SDL_BUTTON_LEFT)
                   checked = !checked;
+                released(this, event.mousebutton);
                 clicked(this, event.mousebutton);
             }
             mclicked=false;
@@ -314,16 +316,16 @@ CheckButton::event(const Event& event)
     if(mmain.length())
       checked=false; // these buttons have no state
     
-    if(!nochange && state != STATE_DISABLED)
-    {
-      if(mclicked)
-        state=STATE_CLICKED;
-      else if(checked)
-        state=STATE_CHECKED;
-      else if(event.inside)
-        state=STATE_HOVER;
-      else
-        state=STATE_NORMAL;
+    if(!nochange && state != STATE_DISABLED) {
+        if(mclicked) {
+            state=STATE_CLICKED;
+        } else if(checked) {
+            state=STATE_CHECKED;
+        } else if(event.inside) {
+            state=STATE_HOVER;
+        } else {
+            state=STATE_NORMAL;
+        }
     }
     if(oldstate != state)
         setDirty();

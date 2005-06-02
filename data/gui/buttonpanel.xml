@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ButtonPanel width="200" height="376">
-    <!-- Tooltips for the Button Pannel are created in ButtonPanle.cpp -->
+	<!-- Tooltips for the Button Pannel are created in ButtonPanel.cpp -->
 	<menubutton name="BPPointerButton"/>
 	<menu name="BPPointerMenu" default="BPMPointerButton"/>
 	<button name="BPMPointerButton"/>
@@ -63,51 +63,9 @@
 	<button name="BPMFarmButton"/>
 	<button name="BPMMillButton"/>
 	
-	<!-- all types:
-			resident
-			farm
-			mill
-		ok	bulldozer
-				
-		ok	monument
-		ok	park
-		ok	water
-				
-		ok	light industry
-		ok	heavy industry
-		ok	market
-		ok	pottery
-		ok	blacksmith
-		
-		ok	track
-		
-		ok	comune
-		ok	coal
-		ok	ore
-		ok	tipNamenlos
-		ok	recycle
-				
-		ok	school
-		ok	sports
-		ok	fire
-		ok	windmill
-		ok	port
-		ok	street
-		ok	health
-		ok	university
-		ok	rail
-		ok	powerline
-		ok	coal PS
-		ok	substation
-		ok	solar power
-		ok	rocket
-	
-	-->
-
 	<content>
-		<!--<Panel width="200" height="376" background="images/gui/buttons/buttonpanel_back.png">-->
 		<TableLayout rows="8" cols="2">
-		<colsize col="1" fixed="48"/>
+			<colsize col="1" fixed="48"/>
 
 			<!-- base -->
 			<cell row="1" col="1" halign="left">
@@ -633,7 +591,6 @@
 				</Panel>
 			</cell>
 		</TableLayout>
-		<!--</Panel>-->
 	</content>
 </ButtonPanel>
 

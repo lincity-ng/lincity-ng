@@ -39,6 +39,8 @@ public:
      * that has been pressed
      */
     Signal<CheckButton*, int> clicked;
+    Signal<CheckButton*, int> pressed;
+    Signal<CheckButton*, int> released;
 
     void setCaptionText(const std::string &pText);
     std::string getCaptionText();
