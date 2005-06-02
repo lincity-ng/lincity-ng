@@ -41,9 +41,7 @@ Programming
      visible?] 
  [M] Game does not handle Expose Events
      (switch desktop and return to the credits-screen, then it is whole black.)   
- [M] there is no way other way to change resolution than editing the config file
-  [M] add commandline switch
-  [L] add switch in preferences
+ [L] add "change resolution" switch in preferences
 
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.

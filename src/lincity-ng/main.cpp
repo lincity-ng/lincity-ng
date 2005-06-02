@@ -221,10 +221,12 @@ void initVideo(int width, int height)
         glClear(GL_COLOR_BUFFER_BIT);
     
         painter = new PainterGL();
-        std::cout << "OpenGL Mode\n";
+        std::cout << "OpenGL Mode " << getConfig()->videoX; 
+        std::cout << "x" << getConfig()->videoY << "\n";
     } else {
         painter = new PainterSDL(screen);
-        std::cout << "SDL Mode\n";
+        std::cout << "SDL Mode " << getConfig()->videoX;
+        std::cout << "x"<< getConfig()->videoY <<"\n";
     }
 
     if(texture_manager == 0) {
@@ -335,13 +337,14 @@ int main(int argc, char** argv)
             std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
             std::cout << "Command line overrides configfiles.\n";
             std::cout << "Known arguments are:\n";
-            std::cout << "-v    --version    show version and exit\n";
-            std::cout << "-h    --help       show his text and exit\n";
-            std::cout << "-gl   --gl         use OpenGL\n";
-            std::cout << "-sdl  --sdl        use SDL\n";
-            std::cout << "-w    --window     run in window\n";
-            std::cout << "-f    --fullscreen run fullscreen\n";
-            std::cout << "-m    --mute       mute audio\n";
+            std::cout << "-v        --version       show version and exit\n";
+            std::cout << "-h        --help          show his text and exit\n";
+            std::cout << "-gl       --gl            use OpenGL\n";
+            std::cout << "-sdl      --sdl           use SDL\n";
+            std::cout << "-s [size] --size [size]   specify screensize (eg. 1024x768)\n";
+            std::cout << "-w        --window        run in window\n";
+            std::cout << "-f        --fullscreen    run fullscreen\n";
+            std::cout << "-m        --mute          mute audio\n";
             knownArgument = true;
             exit( 0 );
         }
@@ -352,6 +355,28 @@ int main(int argc, char** argv)
         }
         if(( argStr == "-sdl" ) || ( argStr == "--sdl" )){ //use SGL
             getConfig()->useOpenGL = false; 
+            knownArgument = true;
+        }
+        if(( argStr == "-s" ) || ( argStr == "--size" )){ //screensize
+            currentArgument++;
+            if( currentArgument >=  argc ) {
+                std::cerr << "Error: --size needs a parameter.\n";
+                exit( 1 );
+            }
+            argStr = argv[ currentArgument ];
+            int newX, newY, count;
+            count = sscanf( argStr.c_str(), "%ix%i", &newX, &newY );
+            if( count != 2  ) {
+                std::cerr << "Error: Can not parse --size parameter.\n";
+                exit( 1 );
+            }
+            if( newX <= 0 || newY <= 0 ) { //even 800x600 is too small ATM.
+                std::cerr << "Error: Size parameter out of range.\n";
+                exit( 1 );
+            }
+            getConfig()->videoX = newX;
+            getConfig()->videoY = newY;
+            std::cout << newX <<" " << newY <<"\n";
             knownArgument = true;
         }
         if(( argStr == "-f" ) || ( argStr == "--fullscreen" )){ //fullscreen
@@ -371,6 +396,7 @@ int main(int argc, char** argv)
         //This has to be the last Test:
         if( !knownArgument ){
             std::cerr << "Unknown command line argument: " << argStr << "\n";
+            exit( 1 );
         }
         currentArgument++;
         knownArgument = false;
