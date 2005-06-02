@@ -1,0 +1,61 @@
+# -*-shell-script-*-
+
+[Meta]
+RootName: @lincity-ng.berlios.de:$SOFTWAREVERSION
+DisplayName: LinCity-NG
+ShortName: lincity-ng
+Maintainer: LinCity-NG Development Team
+Packager: Matthias Braun <matze@braunis.de>
+Summary: City Simulation Game
+URL: http://lincity-ng.berlios.de
+License: GNU General Public License, Version 2
+SoftwareVersion: 0.9_rc1
+AutopackageTarget: 1.0
+
+# Only uncomment InterfaceVersion if your package exposes interfaces to other software,
+# for instance if it includes DSOs or python/perl modules. See the developer guide for more info,
+# or ask on autopackage-dev if you don't understand interface versioning in autopackage.
+#
+# InterfaceVersion: 0.0
+
+[Description]
+LinCityNG is a polished and improved version of the old LinCity game. Within
+the scope of the GoTM project at happypenguin.org we create a new iso-3d
+graphics engine together with completely redone modern gui.
+
+[BuildPrepare]
+old_build_root="$build_root"  #prepareBuild changes build_root :-/
+APKG_BUILD_SKIP_MAKE=1
+APKG_BUILD_ROOT=0
+prepareBuild --enable-binreloc
+jam
+jam "-sDESTDIR=$old_build_root" install
+
+[BuildUnprepare]
+unprepareBuild
+
+[Imports]
+echo '*' | import
+
+[Prepare]
+require @opengl.org/opengl 1.4
+require @libsdl.org/sdl 1.2
+require @icculus.org/physfs 1.0
+require @libsdl.org/sdl_image 1.2
+require @libsdl.org/sdl_mixer 1.2
+require @libsdl.org/sdl_ttf 2.0
+require @libsdl.org/sdl_gfx 2.0.13
+require @zlib.org/zlib 1.0
+require @xmlsoft.org/libxml2 2.6.11
+
+[Install]
+# Put your installation script here
+installExe ./bin/*
+installData ./share
+installIcon ./share/pixmaps/*.png
+installDesktop ./share/applications
+
+[Uninstall]
+# Usually just the following line is enough to uninstall everything
+uninstallFromLog
+
