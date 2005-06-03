@@ -145,7 +145,7 @@ void GameView::parse(XmlReader& reader)
 
     mouseInGameView = false;
     dragging = false;
-		leftButtonDown = false;
+	leftButtonDown = false;
     roadDragging = false;
     startRoad = MapPoint(0, 0);
     rightButtonDown = false;
@@ -839,6 +839,11 @@ void GameView::event(const Event& event)
             if( roadDragging && ( cursorSize != 1 ) ){
                 roadDragging = false;
             }
+            if( roadDragging && ( selected_module_type == CST_GREEN ) 
+                    && getConfig()->instantBulldoze ){ 
+                editMap( tile, SDL_BUTTON_LEFT);
+                startRoad = tile;
+            }
  
             if(tileUnderMouse != tile) {
                 tileUnderMouse = tile;
@@ -965,7 +970,7 @@ void GameView::event(const Event& event)
                 keyScrollState |= SCROLL_DOWN_RIGHT;
                 break;
             }
-            if( event.keysym.sym== SDLK_LSHIFT ){
+            if( event.keysym.sym == SDLK_LSHIFT ){
                 keyScrollState |= SCROLL_LSHIFT;
                 break;
             }

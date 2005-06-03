@@ -43,6 +43,7 @@ public:
     int skipMonthsFast;
     bool upgradeTransport;
     bool showDay;
+    bool instantBulldoze;
 
     void save();
 private:
