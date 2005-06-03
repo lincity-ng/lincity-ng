@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="import-export.svg"
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui"
+   inkscape:export-ydpi="90.000000"
+   inkscape:export-xdpi="90.000000"
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/import-export.png"
+   inkscape:version="0.41"
+   sodipodi:version="0.32"
+   id="svg2"
+   height="25.600000pt"
+   width="25.600000pt">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient2838">
+      <stop
+         id="stop2840"
+         offset="0.0000000"
+         style="stop-color:#dc0000;stop-opacity:1.0000000;" />
+      <stop
+         id="stop2842"
+         offset="1.0000000"
+         style="stop-color:#6f0000;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2066">
+      <stop
+         id="stop2068"
+         offset="0.0000000"
+         style="stop-color:#13dc00;stop-opacity:1.0000000;" />
+      <stop
+         id="stop2070"
+         offset="1.0000000"
+         style="stop-color:#096f00;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       r="16.339140"
+       fy="8.4689102"
+       fx="12.086792"
+       cy="8.4689102"
+       cx="12.086792"
+       gradientTransform="matrix(1.000948,0.000000,0.000000,0.999053,5.024793,-0.705234)"
+       id="radialGradient2074"
+       xlink:href="#linearGradient2066"
+       inkscape:collect="always" />
+    <radialGradient
+       r="12.825411"
+       fy="-17.523775"
+       fx="-7.8421760"
+       cy="-17.523775"
+       cx="-7.8421760"
+       gradientTransform="matrix(-1.000948,0.000000,0.000000,-0.999053,0.000000,-0.793388)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient2078"
+       xlink:href="#linearGradient2838"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-y="153"
+     inkscape:window-x="370"
+     inkscape:window-height="827"
+     inkscape:window-width="812"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="16.000000"
+     inkscape:cx="16.000000"
+     inkscape:zoom="11.343750"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         id="Work6"
+         rdf:about="">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+           id="type9" />
+        <dc:title
+           id="title4368">Import and Export Icon for lincity-ng</dc:title>
+        <dc:date
+           id="date4370">03.06.2005</dc:date>
+        <dc:creator
+           id="creator4372">
+          <cc:Agent
+             id="Agent4374">
+            <dc:title
+               id="title4376">Christoph Brill</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/2.0/"
+           id="license4378" />
+      </cc:Work>
+      <cc:License
+         id="License4396"
+         rdf:about="http://creativecommons.org/licenses/by/2.0/">
+        <cc:permits
+           id="permits4398"
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           id="permits4400"
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           id="requires4402"
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:requires
+           id="requires4404"
+           rdf:resource="http://web.resource.org/cc/Attribution" />
+        <cc:prohibits
+           id="prohibits4406"
+           rdf:resource="http://web.resource.org/cc/CommercialUse" />
+        <cc:permits
+           id="permits4408"
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           id="requires4410"
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       sodipodi:nodetypes="cccccccc"
+       id="path2844"
+       d="M 23.272727,27.063362 L 8.9917355,27.063362 L 8.9917355,31.669422 L 1.2341601,20.407714 L 8.9917355,9.6749316 L 8.9917355,13.752067 L 23.272727,13.752067 L 23.272727,27.063362 z "
+       style="fill:none;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4.0000000;stroke-opacity:0.72023809" />
+    <path
+       sodipodi:nodetypes="cccccccc"
+       id="path2076"
+       d="M 22.743801,26.446282 L 8.4628099,26.446282 L 8.4628099,31.052342 L 0.70523444,19.790634 L 8.4628099,9.0578515 L 8.4628099,13.134987 L 22.743801,13.134987 L 22.743801,26.446282 z "
+       style="fill:url(#radialGradient2078);fill-opacity:1.0000000;stroke:#3b0000;stroke-width:1.0000000;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="cccccccc"
+       id="path2846"
+       d="M 9.5206614,5.5537190 L 23.801651,5.5537190 L 23.801651,0.94765842 L 31.559227,12.209367 L 23.801651,22.942149 L 23.801651,18.865014 L 9.5206614,18.865014 L 9.5206614,5.5537190 z "
+       style="fill:none;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.0000000;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4.0000000;stroke-opacity:0.72321427" />
+    <path
+       sodipodi:nodetypes="cccccccc"
+       id="rect1291"
+       d="M 9.1680438,4.8484848 L 23.449035,4.8484848 L 23.449035,0.24242429 L 31.206611,11.504133 L 23.449035,22.236915 L 23.449035,18.159780 L 9.1680438,18.159780 L 9.1680438,4.8484848 z "
+       style="fill:url(#radialGradient2074);fill-opacity:1.0000000;stroke:#003b00;stroke-width:1.0000000;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000" />
+  </g>
+</svg>
