@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 int monument_bul_flag=0;
 int river_bul_flag=0;
 int shanty_bul_flag=0;
+int last_no_credit_group = 0;
 
 // Open Dialog for selected Port 
 void
@@ -53,6 +54,10 @@ clicked_market_cb (int x, int y)
 void 
 no_credit_build_msg (int selected_group)
 {
+    if( last_no_credit_group == selected_group ){
+        return;
+    }
+    last_no_credit_group = selected_group;
 #ifdef GROUP_POWER_SOURCE_NO_CREDIT
   if (selected_group == GROUP_POWER_SOURCE) {
     ok_dial_box ("no-credit-solar-power.mes", BAD, 0L);
@@ -273,6 +278,7 @@ void editMap (MapPoint point, int button)
         case 0:
             /* Success */
             getSound()->playSound( "Build" );
+            last_no_credit_group = 0;
             break;
         case -1:
             /* Not enough money */
@@ -283,6 +289,7 @@ void editMap (MapPoint point, int button)
             // WolfgangB: The correct placement for the port (river to the east)
             // is shown by red/blue cursor in GameView. So we don't need    
             // a dialog here.
+            last_no_credit_group = 0;
             break;
     }
 }
