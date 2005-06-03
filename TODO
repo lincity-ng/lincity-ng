@@ -56,7 +56,7 @@ Programming
  [H] make buttonbar pop up on left mouse button!
      [WolfgangB: I don't think thats a good idea. I often switch between
      two things already on rootbuttons.]
- [H] Looks like watching electricity minimap uses power. Seems to this way
+ [H] Looks like watching electricity minimap uses power. Seems to be this way
      in classic already. Do we want to change that?
 
 -- Infrastructure/Deployment --
