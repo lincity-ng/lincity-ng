@@ -43,12 +43,12 @@ public:
 
     bool hasValue()
     {
-        return xmlTextReaderHasValue(reader);
+        return xmlTextReaderHasValue(reader) != 0;
     }
 
     bool isEmptyElement()
     {
-        return xmlTextReaderIsEmptyElement(reader);
+        return xmlTextReaderIsEmptyElement(reader) != 0;
     }
 
     const xmlChar* getName()
