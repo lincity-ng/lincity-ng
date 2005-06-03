@@ -211,7 +211,7 @@ void EconomyGraph::updateData(){
             if( sustain_flag == 1 || total_evacuated >0  ){
                 new Dialog( MSG_DIALOG, "allgone", "" );
             } else {
-                new Dialog( MSG_DIALOG, "allgone.xml", "You loose." );
+                new Dialog( MSG_DIALOG, "allgone.xml", "You lose." );
             }
             nobodyHomeDialogShown = true;
         }
