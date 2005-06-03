@@ -61,7 +61,7 @@
 	<p><a href="oremine">Ijzerertsmijn</a></p>
 
 	<!--<p style="subtitle">Trading</p>-->
-	<img src="data/images/gui/buttonpanel/bed.png"/>
+	<img src="images/gui/import-export.png"/>
 	<p><a href="export">Import / Export</a></p>
 
 	<!--<p style="subtitle">Industry</p>-->

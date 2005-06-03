@@ -1,12 +1,32 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Economievenster</p>
-	<p style="hp">Dit is het economievenstern.</p>
-	<p style="hp">Dit laat vier verschillende economische stabiliteitsfacoren zien in een grafiek.</p>
-	<p style="hp">De bruine lijn stelt je bevolking voor. Het is een logaritmische schaal ().</p>
-	<p style="hp">De blauwe lijn laat de vraag naar huizen zien. De hoogte van de grafiek is in verhouding met de vierkantswortel van het aantal daklozen.</p>
-	<p style="hp">De gele staaf laat u zien dat er werkloosheid is. De schaal van deze grafiek verandert met u populatie. De grafiek is opgevuld om u attentie te trekken.</p>
-	<p style="hp">De rode staaf laat zien dat u bevolking afneemt. De schaal verandert met uw populatie. De schaal van deze grafiek is opgevuld om uw aandacht te trekken.</p>
-	<p style="hp">De werkloosheidgrafiek wordt getekend over de top van de twee lijnen. De rode staaf wordt getekend over alles.</p>
+	<p style="htitle">Economy Graph</p>
+	<p style="hp">This graphs contains four coloured lines. They show the most important economic factors.</p>
+	<li>
+		<span color="brown">Population</span>	(brown) 
+        The brown line represents your population.
+        It is shown as a log scale.
+	</li>
+	<li>
+		<span color="blue">Unhoused</span> (blue) 
+        The blue line represents the demand for
+        housing. The height of the graph is
+        proportional to the square root of the
+        'unhoused' population.
+	</li>
+	<li>
+		<span color="yellow">Unemployment</span> (yellow) 
+        The solid yellow 'bars' show that there is
+        unemployment. The scale of this graph
+        changes with your population. This graph
+        is solid to draw your attention to it.
+	</li>
+	<li>
+		<span color="red">Starvation</span> (red) 
+        The solid red 'bars' show that there is
+        starvation. The scale of this graph
+        changes with your population. This graph
+        is solid to draw your attention to it.
+        This bar is drawn over the unemployment bar.
+	</li>
 </Document>
-
