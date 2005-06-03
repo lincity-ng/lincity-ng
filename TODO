@@ -44,6 +44,9 @@ Programming
  [M] Game does not handle Expose Events
      (switch desktop and return to the credits-screen, then it is whole black.)   
  [L] add "change resolution" switch in preferences
+ [H] Bulldozer can only destroy L-shapes, no rectangulars
+ [H] If you try building (more than one field) parks when having negative balance
+     you will get a warning/info message message for every field you tried to build.
 
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
@@ -58,6 +61,7 @@ Programming
      two things already on rootbuttons.]
  [H] Looks like watching electricity minimap uses power. Seems to be this way
      in classic already. Do we want to change that?
+ [M] "Dungeon Keeper"-like message queue
 
 -- Infrastructure/Deployment --
  [H] Create a source package and test if it compiles and installs correctly
