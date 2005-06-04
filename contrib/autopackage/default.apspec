@@ -24,6 +24,7 @@ the scope of the GoTM project at happypenguin.org we create a new iso-3d
 graphics engine together with completely redone modern gui.
 
 [BuildPrepare]
+APBUILD_STATIC="stdc++"
 old_build_root="$build_root"  #prepareBuild changes build_root :-/
 APKG_BUILD_SKIP_MAKE=1
 APKG_BUILD_ROOT=0
@@ -38,6 +39,7 @@ unprepareBuild
 echo '*' | import
 
 [Prepare]
+require @gnu.org/libstdc++ 3
 require @opengl.org/opengl 1.4
 require @libsdl.org/sdl 1.2
 require @icculus.org/physfs 1.0

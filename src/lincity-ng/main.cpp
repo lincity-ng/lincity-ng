@@ -380,6 +380,8 @@ int main(int argc, char** argv)
         return 1;
     }                                                                     
 #endif
+
+    parseCommandLine(argc, argv);
    
 // in debug mode we want a backtrace of the exceptions so we don't catch them
 #ifndef DEBUG
