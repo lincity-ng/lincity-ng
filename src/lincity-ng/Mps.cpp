@@ -225,9 +225,9 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             break;
         case GROUP_SUBSTATION:
             if( MP_TYPE( mps_x, mps_y )== CST_SUBSTATION_R ){
-                getSound()->playSound( "SubstationOn" );
-            } else if( MP_TYPE( mps_x, mps_y ) == CST_SUBSTATION_G ){
                 getSound()->playSound( "SubstationOff" );
+            } else if( MP_TYPE( mps_x, mps_y ) == CST_SUBSTATION_G ){
+                getSound()->playSound( "SubstationOn" );
             } else{   //CST_SUBSTATION_RG
                 getSound()->playSound( "Substation" );
             }

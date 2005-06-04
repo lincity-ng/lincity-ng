@@ -35,7 +35,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 int monument_bul_flag=0;
 int river_bul_flag=0;
 int shanty_bul_flag=0;
-int last_no_credit_group = 0;
+int last_message_group = 0;
+
+void resetLastMessage(){
+    last_message_group = 0;
+}
 
 // Open Dialog for selected Port 
 void
@@ -54,10 +58,10 @@ clicked_market_cb (int x, int y)
 void 
 no_credit_build_msg (int selected_group)
 {
-    if( last_no_credit_group == selected_group ){
+    if( last_message_group == selected_group ){
         return;
     }
-    last_no_credit_group = selected_group;
+    last_message_group = selected_group;
 #ifdef GROUP_POWER_SOURCE_NO_CREDIT
   if (selected_group == GROUP_POWER_SOURCE) {
     ok_dial_box ("no-credit-solar-power.mes", BAD, 0L);
@@ -113,24 +117,37 @@ check_bulldoze_area (int x, int y)
 
   if (g == GROUP_MONUMENT && monument_bul_flag == 0)
     {
-        new Dialog( BULLDOZE_MONUMENT, xx, yy ); // deletes itself
+        if( last_message_group != GROUP_MONUMENT ){
+            new Dialog( BULLDOZE_MONUMENT, xx, yy ); // deletes itself
+            last_message_group = GROUP_MONUMENT;
+        }
         return;
     }
   else if (g == GROUP_RIVER && river_bul_flag == 0)
     {
-        new Dialog( BULLDOZE_RIVER, xx, yy ); // deletes itself
+        if( last_message_group != GROUP_RIVER ){
+            new Dialog( BULLDOZE_RIVER, xx, yy ); // deletes itself
+            last_message_group = GROUP_RIVER;
+        }
         return;
     }
   else if (g == GROUP_SHANTY && shanty_bul_flag == 0)
     {
-        new Dialog( BULLDOZE_SHANTY, xx, yy ); // deletes itself
+        if( last_message_group != GROUP_SHANTY ){
+            new Dialog( BULLDOZE_SHANTY, xx, yy ); // deletes itself
+            last_message_group = GROUP_SHANTY;
+        }
         return;
     }
   else if (g == GROUP_TIP)
     {
-      ok_dial_box ("nobull-tip.mes", BAD, 0L);
+      if( last_message_group != GROUP_TIP ){
+        ok_dial_box ("nobull-tip.mes", BAD, 0L);
+        last_message_group = GROUP_TIP;
+      }
       return;
     }
+  last_message_group = 0;
   getSound()->playSound( "Raze" );
   bulldoze_item (xx,yy);
 }
@@ -278,7 +295,7 @@ void editMap (MapPoint point, int button)
         case 0:
             /* Success */
             getSound()->playSound( "Build" );
-            last_no_credit_group = 0;
+            last_message_group = 0;
             break;
         case -1:
             /* Not enough money */
@@ -289,7 +306,7 @@ void editMap (MapPoint point, int button)
             // WolfgangB: The correct placement for the port (river to the east)
             // is shown by red/blue cursor in GameView. So we don't need    
             // a dialog here.
-            last_no_credit_group = 0;
+            last_message_group = 0;
             break;
     }
 }

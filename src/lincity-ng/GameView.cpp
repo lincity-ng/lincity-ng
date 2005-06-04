@@ -886,6 +886,7 @@ void GameView::event(const Event& event)
                 rightButtonDown = false;
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ){
+                resetLastMessage();
                 if ( roadDragging && event.inside ) {
                     MapPoint endRoad = getTile( event.mousepos );
                     roadDragging = false;

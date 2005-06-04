@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 void editMap(MapPoint point, int button);
 void check_bulldoze_area (int x, int y);
+void resetLastMessage();
 
 extern int monument_bul_flag;
 extern int river_bul_flag;
