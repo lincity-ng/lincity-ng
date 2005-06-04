@@ -3,7 +3,7 @@
     <title>Coal Survey</title>
     <image>question.png</image>
     <bold>Send out Prospectors</bold>
-    <p>This will cost you 1 million once. After that it's is free to call
+    <p>This will cost you 1 million once. After that it is free to call
     again.</p>
     <p>Do coal survey?</p>
 </YesNoDialog>
