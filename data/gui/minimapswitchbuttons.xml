@@ -47,7 +47,7 @@
                 <image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
                 <image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
                 <image-caption src="images/gui/mapview/roundbuttons/round_fire.png"/>
-                <tooltip translatable="yes">Show firedepartment cover</tooltip>
+                <tooltip translatable="yes">Show fire department cover</tooltip>
             </CheckButton>
     </cell>
     <cell row="1" col="6">

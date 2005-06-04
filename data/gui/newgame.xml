@@ -96,9 +96,9 @@
 			<rowsize row="2" relative="1"/>
 			<cell row="2" col="1" halign="left">
 			<Button name="StartBareButton">
-				<text style="button" translatable="yes">Start with bare board.</text>
-				<text-hover style="button-hover" translatable="yes">Start with bare board.</text-hover>
-				<text-clicked style="button-clicked" translatable="yes">Start with bare board.</text-clicked>
+				<text style="button" translatable="yes">Start with empty board.</text>
+				<text-hover style="button-hover" translatable="yes">Start with empty board.</text-hover>
+				<text-clicked style="button-clicked" translatable="yes">Start with empty board.</text-clicked>
 			</Button>
 			</cell>
 			<cell row="2" col="2" halign="right">

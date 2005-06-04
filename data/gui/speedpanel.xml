@@ -28,7 +28,7 @@
 				<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 				<image-checked src="images/gui/buttons/round/button-round-checked-40.png"/>
 				<image-caption src="images/gui/speed/normal.png"/>
-				<tooltip>Run the simularion with normal speed</tooltip>
+				<tooltip>Run the simulation with normal speed</tooltip>
 			</CheckButton>
 		</cell>
 		<cell row="4" col="4" halign="left" valign="top">
