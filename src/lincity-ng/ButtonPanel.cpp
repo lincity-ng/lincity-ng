@@ -636,8 +636,10 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
             try
             {
                 CheckButton *b=checked_cast<CheckButton>(findComponent(mMenuButtons[i]));
-                // disable button
-                b->uncheck();
+                // unceck button, ignore disabled buttons
+                if( b->isEnabled() ){
+                    b->uncheck();
+                }
             } catch(std::exception &e) {
             }
         } else {
