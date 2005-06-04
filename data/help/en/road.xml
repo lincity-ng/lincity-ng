@@ -5,7 +5,7 @@
 	
 	<p style="hp">This is a road</p>
 	<img src="images/tiles/roadud.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>

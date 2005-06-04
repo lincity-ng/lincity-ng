@@ -6,7 +6,7 @@
 	<p style="hp">You can control the functioning of a market by selecting what may be bought and sold from transport. Click twice on a market (not the select button) and towards the top left hand side a window will appear allowing you to select what is traded. The default is to trade in everything.</p>
 	<p style="hp">This is a market</p>
 	<img src="images/tiles/market.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
 	
 	<p style="hp">This means the trade is allowed.</p>

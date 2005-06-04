@@ -5,7 +5,7 @@
 	
 	<p style="hp">This is a farm</p>
 	<img src="images/tiles/farm.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
 	
 	<p style="hp">Farms need jobs to produce more than a minimal amount of food. Giving the farm power also increases the amount of food produced. Power, also includes 'old' style windmills that help the food to be processed, thus cutting down on waste.</p>

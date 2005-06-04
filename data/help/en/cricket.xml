@@ -2,16 +2,16 @@
 <Document style="helpdocument">
 	<p style="htitle">Basketball courts</p>
 	<p style="hp">Basketball courts provide sport and entertainment for your residents. They need goods and jobs to work. They do not have to be connected to transport, if not, they do have to be within range of a market that can supply the jobs and goods. They also cost money to run.</p>
-	<p style="hp">When you put a basketball court in, it does not start straight away. There is usually a three month wait before baskets are put.</p>
+	<p style="hp">When you put a basketball court in, it does not start straight away. There is usually a three month wait before baskets are installed.</p>
 	<p style="hp">To see the range that your basketball courts cover, click on the sports button below the 'mini screen'. Areas that have cover are displayed as normal, areas not covered are just dark green.</p>
 	<p style="hp">Basketball courts increase the desirability of residential areas within their range.</p>
 	<p style="hp">Cricket grounds go through an animation sequence every month to show that they are working.</p>
 
 	<p style="hp">This is a basketball court</p>
 	<img src="images/tiles/cricket1.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
-	<p style="hp">and this it's mapview overlay icon</p>
+	<p style="hp">and this its mapview overlay icon</p>
 	<img src="images/gui/mapview/roundbuttons/round_soccer.png" halign="center"/>
 
 	<p style="hsubtitle">See also:</p>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Fire stations</p>
-	<p style="hp">BFire stations prevent the start and spread of fire with in the range that they cover. They need to be supplied with goods and jobs to work. They do <b>not</b> have to be connected to transport, they do, of course, have to be within range of a market that can supply the jobs and goods. They also cost money to run.</p>
+	<p style="hp">Fire stations prevent the start and spread of fire with in the range that they cover. They need to be supplied with goods and jobs to work. They do <b>not</b> have to be connected to transport, they do, of course, have to be within range of a market that can supply the jobs and goods. They also cost money to run.</p>
 	<p style="hp">When you put a fire station in, it does not start straight away. There is usually a three month wait before fire cover is provided.</p>
 	<p style="hp">To see the area that your fire stations cover, click on the fire station button under the <i>mini screen</i>. Areas that have fire cover are displayed as normal, areas not covered are just dark green.</p>
 	<p style="hp">Fire stations increase the desirability of residential areas within their range.</p>
@@ -9,9 +9,9 @@
 
 	<p style="hp">This is a fire station</p>
 	<img src="images/tiles/firestation.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
-	<p style="hp">and this it's mapview overlay icon</p>
+	<p style="hp">and this its mapview overlay icon</p>
 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
 
 	<p style="hsubtitle">See also:</p>

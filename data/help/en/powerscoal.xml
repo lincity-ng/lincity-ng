@@ -7,7 +7,7 @@
 	
 	<p style="hp">This is a coal fired power station</p>
 	<img src="images/tiles/coalpower.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>

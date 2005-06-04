@@ -5,7 +5,7 @@
 	
 	<p style="hp">This is a Solar power station</p>
 	<img src="images/tiles/solar.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
