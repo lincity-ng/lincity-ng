@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <libxml/parser.h>
 
 #include "gui/FontManager.hpp"
 #include "gui/TextureManager.hpp"
@@ -166,9 +167,18 @@ void initPhysfs(const char* argv0)
     PHYSFS_permitSymbolicLinks(1);
 
     //show search Path 
-    char **i;
-    for (i = PHYSFS_getSearchPath(); *i != NULL; i++)
+    for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++)
         printf("[%s] is in the search path.\n", *i);
+
+    // ugly: set LINCITY_HOME environment variable
+    const char* lincityhome = PHYSFS_getRealDir("colour.pal");
+    if(lincityhome == 0) {
+        throw std::runtime_error("Couldn't locate lincity data (colour.pal).");
+    }
+    std::cout << "LINCITY_HOME: " << lincityhome << "\n";
+    char tmp[256];
+    snprintf(tmp, sizeof(tmp), "LINCITY_HOME=%s", lincityhome);
+    putenv(tmp);
 }
 
 void initVideo(int width, int height)
@@ -288,6 +298,65 @@ void mainLoop()
     }
 }
 
+void parseCommandLine(int argc, char** argv)
+{
+    for(int currentArgument = 1; currentArgument < argc; ++currentArgument) {
+        std::string argStr = argv[currentArgument];
+        
+        if(argStr == "-v" || argStr == "--version") {
+            std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
+            exit(0);
+        } else  if(argStr == "-h" || argStr == "--help") {
+            std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
+            std::cout << "Command line overrides configfiles.\n";
+            std::cout << "Known arguments are:\n";
+            std::cout << "-v        --version         show version and exit\n";
+            std::cout << "-h        --help            show his text and exit\n";
+            std::cout << "-g        --gl              use OpenGL\n";
+            std::cout << "-s        --sdl             use SDL\n";
+            std::cout << "-g [size] --geometry [size] specify screensize (eg. 1024x768)\n";
+            std::cout << "-w        --window          run in window\n";
+            std::cout << "-f        --fullscreen      run fullscreen\n";
+            std::cout << "-m        --mute            mute audio\n";
+            exit(0);
+        } else if(argStr == "-g" || argStr == "--gl") {
+            getConfig()->useOpenGL = true;
+        } else if(argStr == "-s" || argStr == "--sdl") {
+            getConfig()->useOpenGL = false; 
+        } else if(argStr == "-s" || argStr == "--size") {
+            currentArgument++;
+            if(currentArgument >= argc) {
+                std::cerr << "Error: --size needs a parameter.\n";
+                exit(1);
+            }
+            argStr = argv[currentArgument];
+            int newX, newY, count;
+            count = sscanf( argStr.c_str(), "%ix%i", &newX, &newY );
+            if( count != 2  ) {
+                std::cerr << "Error: Can not parse --size parameter.\n";
+                exit( 1 );
+            }
+            if(newX <= 0 || newY <= 0) {
+                std::cerr << "Error: Size parameter out of range.\n";
+                exit(1);
+            }
+            getConfig()->videoX = newX;
+            getConfig()->videoY = newY;
+            std::cout << newX << " " << newY << "\n";
+        } else if(argStr == "-f" || argStr == "--fullscreen") {
+            getConfig()->useFullScreen = true; 
+        } else if(argStr == "-w" || argStr == "--window") {
+            getConfig()->useFullScreen = false; 
+        } else if(argStr == "-m" || argStr == "--mute") {
+            getConfig()->soundEnabled = false;
+            getConfig()->musicEnabled = false;
+        } else {
+            std::cerr << "Unknown command line argument: " << argStr << "\n";
+            exit(1);
+        }
+    }
+}
+
 int main(int argc, char** argv)
 {
     int result = 0;
@@ -311,101 +380,12 @@ int main(int argc, char** argv)
         return 1;
     }                                                                     
 #endif
-    
-    // ugly: set LINCITY_HOME environment variable
-    const char* dir = PHYSFS_getRealDir("colour.pal");
-    if(dir == 0) {
-        std::cerr << "Couldn't locate lincity data (colour.pal).\n";
-        return 1;
-    }
-    std::cout << "LINCITY_HOME: " << dir << "\n";
-    char tmp[256];
-    snprintf(tmp, sizeof(tmp), "LINCITY_HOME=%s/", dir);
-    putenv(tmp);
    
-    //parse commandline args
-    int currentArgument = 0; 
-    bool knownArgument = true; //argv[0] is the programname.
-    std::string argStr;
-    while( currentArgument < argc ) {
-        argStr = argv[ currentArgument ];
-        
-        if(( argStr == "-v" ) || ( argStr == "--version" )){ //show Version & exit
-            std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
-            knownArgument = true;
-            exit( 0 );
-        }
-        if(( argStr == "-h" ) || ( argStr == "--help" )){ //show Options & exit
-            std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
-            std::cout << "Command line overrides configfiles.\n";
-            std::cout << "Known arguments are:\n";
-            std::cout << "-v        --version       show version and exit\n";
-            std::cout << "-h        --help          show his text and exit\n";
-            std::cout << "-gl       --gl            use OpenGL\n";
-            std::cout << "-sdl      --sdl           use SDL\n";
-            std::cout << "-s [size] --size [size]   specify screensize (eg. 1024x768)\n";
-            std::cout << "-w        --window        run in window\n";
-            std::cout << "-f        --fullscreen    run fullscreen\n";
-            std::cout << "-m        --mute          mute audio\n";
-            knownArgument = true;
-            exit( 0 );
-        }
-        if(( argStr == "-gl" ) || ( argStr == "--gl" )
-	|| ( argStr == "-opengl" ) || ( argStr == "--opengl" )){ //use OpenGL
-            getConfig()->useOpenGL = true; 
-            knownArgument = true;
-        }
-        if(( argStr == "-sdl" ) || ( argStr == "--sdl" )){ //use SGL
-            getConfig()->useOpenGL = false; 
-            knownArgument = true;
-        }
-        if(( argStr == "-s" ) || ( argStr == "--size" )){ //screensize
-            currentArgument++;
-            if( currentArgument >=  argc ) {
-                std::cerr << "Error: --size needs a parameter.\n";
-                exit( 1 );
-            }
-            argStr = argv[ currentArgument ];
-            int newX, newY, count;
-            count = sscanf( argStr.c_str(), "%ix%i", &newX, &newY );
-            if( count != 2  ) {
-                std::cerr << "Error: Can not parse --size parameter.\n";
-                exit( 1 );
-            }
-            if( newX <= 0 || newY <= 0 ) { //even 800x600 is too small ATM.
-                std::cerr << "Error: Size parameter out of range.\n";
-                exit( 1 );
-            }
-            getConfig()->videoX = newX;
-            getConfig()->videoY = newY;
-            std::cout << newX <<" " << newY <<"\n";
-            knownArgument = true;
-        }
-        if(( argStr == "-f" ) || ( argStr == "--fullscreen" )){ //fullscreen
-            getConfig()->useFullScreen = true; 
-            knownArgument = true;
-        }
-        if(( argStr == "-w" ) || ( argStr == "--window" )){ //windowed
-            getConfig()->useFullScreen = false; 
-            knownArgument = true;
-        }
-        if(( argStr == "-m" ) || ( argStr == "--mute" )){ //mute
-            getConfig()->soundEnabled = false; 
-            getConfig()->musicEnabled = false; 
-            knownArgument = true;
-        }
-        
-        //This has to be the last Test:
-        if( !knownArgument ){
-            std::cerr << "Unknown command line argument: " << argStr << "\n";
-            exit( 1 );
-        }
-        currentArgument++;
-        knownArgument = false;
-    }
-#ifndef DEBUG //in debug mode we wanna have a backtrace
+// in debug mode we want a backtrace of the exceptions so we don't catch them
+#ifndef DEBUG
     try {
 #endif
+        xmlInitParser();
         std::auto_ptr<Sound> sound; 
         sound.reset(new Sound()); 
         initSDL();
@@ -431,6 +411,7 @@ int main(int argc, char** argv)
         TTF_Quit();
     if(SDL_WasInit(0))
         SDL_Quit();
+    xmlCleanupParser();
     delete dictionaryManager;
     dictionaryManager = 0;
     PHYSFS_deinit();
