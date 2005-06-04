@@ -61,21 +61,7 @@ Programming
  [M] "Dungeon Keeper"-like message queue
 
 -- Infrastructure/Deployment --
- [H] Create a source package and test if it compiles and installs correctly
  [H] Setup an automatic backup script for the wiki!
- [H] Create a (real) Homepage. Needs a little description what lincity-ng is
-     about, who created it, where to download it, how to install (and play?)
-     it, list of some screenshots, contact information for thank yous and
-     bugreports.
-     Actually we might just redesign the wiki for that...
- [M] Create a bugs page in the wiki with explanations on how a good bug reports
-     looks like and how to fill new bugs into the wiki.
- [H] Compile a win32 version and create an installer for it
- [H] Have some beta testing of the packages. (Someone has a ppc/mac?)
- [M] Create packages or find people who will do that. (Gentoo, Debian, Rpms,
-     ...). This will probably happen by itself, so there's no need to push too
-     much ourself. But we should listen to packagers and fix problems if they
-     have some (instead of letting each distro patch stuff themselfes).
  [L] Is it possible to automatically generate/maintain a ChangeLog file from svn
      commits? 
      (Nathan: http://tiefighter.et.tudelft.nl/~arthur/svn2cl/)
