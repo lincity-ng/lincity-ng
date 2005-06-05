@@ -56,7 +56,7 @@
 	<button name="BPMBlacksmithButton"/>
 
 	<menubutton name="BPParkButton"/>
-	<menu name="BPParkMenu" default="BPMMonumentButton"/>
+	<menu name="BPParkMenu" default="BPMFarmButton"/>
 	<button name="BPMMonumentButton"/>
 	<button name="BPMParkButton"/>
 	<button name="BPMWaterButton"/>
@@ -530,8 +530,8 @@
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttonpanel/parks/monument.png"	filter="grey"/>
-				<image-caption src="images/gui/buttonpanel/parks/monument.png"/>
+				<image-disabled src="images/gui/buttonpanel/parks/farm.png"	filter="grey"/>
+				<image-caption src="images/gui/buttonpanel/parks/farm.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="8" col="2" halign="left">

@@ -2,7 +2,7 @@
 <Dialog width="300" height="450">
 	<title>Harbour Trade Settings</title>
 	<contents>
-		<TableLayout rows="7" cols="3">
+		<TableLayout rows="6" cols="3">
 			<colsize col="1" relative=".3"/>
 			<colsize col="2" relative=".1"/>
 			<colsize col="3" relative=".1"/>
@@ -22,96 +22,79 @@
 
 			<cell row="2" col="1">
 				<Paragraph style="message" translatable="yes">
-				Jobs</Paragraph>
-			</cell>
-			<cell row="2" col="2">
-				<CheckButton name="BuyJobs">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
-			</cell>
-			<cell row="2" col="3">
-				<CheckButton name="SellJobs">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
-			</cell>
-
-			<cell row="3" col="1">
-				<Paragraph style="message" translatable="yes">
 				Food</Paragraph>
 			</cell>
-			<cell row="3" col="2">
+			<cell row="2" col="2">
 				<CheckButton name="BuyFood">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
-			<cell row="3" col="3">
+			<cell row="2" col="3">
 				<CheckButton name="SellFood">
+					<image src="images/gui/checkbox/checkbox.png"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+				</CheckButton>
+			</cell>
+			<cell row="3" col="1">
+				<Paragraph style="message" translatable="yes">
+				Coal</Paragraph>
+			</cell>
+			<cell row="3" col="2">
+				<CheckButton name="BuyCoal">
+					<image src="images/gui/checkbox/checkbox.png"/>
+					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+				</CheckButton>
+			</cell>
+			<cell row="3" col="3">
+				<CheckButton name="SellCoal">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="4" col="1">
 				<Paragraph style="message" translatable="yes">
-				Coal</Paragraph>
+				Ore</Paragraph>
 			</cell>
 			<cell row="4" col="2">
-				<CheckButton name="BuyCoal">
+				<CheckButton name="BuyOre">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="4" col="3">
-				<CheckButton name="SellCoal">
+				<CheckButton name="SellOre">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="5" col="1">
 				<Paragraph style="message" translatable="yes">
-				Ore</Paragraph>
+				Goods</Paragraph>
 			</cell>
 			<cell row="5" col="2">
-				<CheckButton name="BuyOre">
+				<CheckButton name="BuyGoods">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="5" col="3">
-				<CheckButton name="SellOre">
+				<CheckButton name="SellGoods">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="6" col="1">
 				<Paragraph style="message" translatable="yes">
-				Goods</Paragraph>
-			</cell>
-			<cell row="6" col="2">
-				<CheckButton name="BuyGoods">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
-			</cell>
-			<cell row="6" col="3">
-				<CheckButton name="SellGoods">
-					<image src="images/gui/checkbox/checkbox.png"/>
-					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-				</CheckButton>
-			</cell>
-			<cell row="7" col="1">
-				<Paragraph style="message" translatable="yes">
 				Steel</Paragraph>
 			</cell>
-			<cell row="7" col="2">
+			<cell row="6" col="2">
 				<CheckButton name="BuySteel">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
 				</CheckButton>
 			</cell>
-			<cell row="7" col="3">
+			<cell row="6" col="3">
 				<CheckButton name="SellSteel">
 					<image src="images/gui/checkbox/checkbox.png"/>
 					<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
