@@ -59,6 +59,11 @@ Programming
  [H] Looks like watching electricity minimap uses power. Seems to be this way
      in classic already. Do we want to change that?
  [M] "Dungeon Keeper"-like message queue
+ [H] Check all help texts for parse errors, or write a tool that does this
+     automatically.
+ [M] Rework the starting help pages: sort buildings alphabetically, add shanty,
+     add more index pages so that you can access each help page with 2 (maybe 3)
+     clicks from the start page.
 
 -- Infrastructure/Deployment --
  [H] Setup an automatic backup script for the wiki!

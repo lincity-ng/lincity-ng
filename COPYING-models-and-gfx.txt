@@ -1,3 +1,0 @@
-Models are licensed under GPL and CC-by-sa-v2
-
-SVG images are GPL and CC-by-sa-v2, too

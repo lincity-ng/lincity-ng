@@ -1,0 +1,3 @@
+The models, svg-files, images, sound and music files as well as the xml data
+files are dual licensed under under the GPL and CC-by-sa-v2
+

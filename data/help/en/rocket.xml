@@ -8,7 +8,7 @@
 	<p style="hp">Rocket Launch Pads do not need to be connected to transport, they can get all they need from local markets. They use large quantities of steel, goods, jobs and money to build. When the rocket is built, you will get a message asking you if you want to launch now or later. If you choose later, then you can launch it when you wish by clicking on the area. You can have any number of rockets waiting to launch.</p>
 	<p style="hp">When a rocket is built, but waiting to be launched, it no longer uses steel, goods or jobs, but still continues to cost a lot of money.</p>
 	<p style="hp">This is a Rocket Launch Pad</p>
-	<img src="images/tiles/rocket.png" halign="center"/>
+	<img src="images/tiles/rocket5.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
 	
