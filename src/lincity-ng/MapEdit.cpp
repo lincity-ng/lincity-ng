@@ -236,6 +236,7 @@ void editMap (MapPoint point, int button)
     //query Tool 
     if(selected_module_type==CST_NONE) {
         if(mapMPS)
+	    mapMPS->playBuildingSound( mod_x, mod_y );
             mapMPS->setView(MapPoint(x, y));
         return;
     }

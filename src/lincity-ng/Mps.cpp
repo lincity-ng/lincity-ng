@@ -275,6 +275,12 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
                 getSound()->playSound( "Green" );
             }  
+            if( MP_TYPE( mps_x, mps_y ) == CST_PARKLAND_PLANE ){
+                getSound()->playSound( "ParklandPlane" );
+            }  
+            if( MP_TYPE( mps_x, mps_y ) == CST_PARKLAND_LAKE ){
+                getSound()->playSound( "ParklandLake" );
+            }  
     }
 }
 
