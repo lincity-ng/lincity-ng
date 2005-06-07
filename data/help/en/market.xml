@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Market</p>
-	<p style="hp">Market is probably a bad name for these areas. They are more like job centres, shops, warehouses and markets all rolled into one. They buy and sell food, jobs, coal, goods, ore and steel to surrounding areas, and to transport such as roads. For example a residential area is supplying jobs to a market, the market is supplying jobs to a, half built, monument. <b>NOTE</b>, the residents are not being fe if the areas are more or less at the extent of their range.</p>
+	<p style="hp">Market is probably a bad name for these areas. They are more like job centres, shops, warehouses and markets all rolled into one. They buy and sell food, jobs, coal, goods, ore and steel to surrounding areas, and to transport such as roads. For example a residential area supplies job to a market, the market supplies jobs to a monument under construction. <b>NOTE</b>, the residents are not being fed if the areas are more or less at the extent of their range.</p>
 	<p style="hsubtitle">Controlling what markets can buy and sell</p>
-	<p style="hp">You can control the functioning of a market by selecting what may be bought and sold from transport. Click twice on a market (not the select button) and towards the top left hand side a window will appear allowing you to select what is traded. The default is to trade in everything.</p>
+	<p style="hp">You can control the function of a market by selecting what may be bought and sold from transport. Click twice on a market (not the select button) and towards the top left hand side a window will appear allowing you to select what is traded. The default is to trade in everything.</p>
 	<p style="hp">This is a market</p>
 	<img src="images/tiles/market.png" halign="center"/>
 	<p style="hp">and this its icon</p>

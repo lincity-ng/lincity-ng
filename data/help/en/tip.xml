@@ -4,11 +4,11 @@
 	<p style="hp">Tips provide a place to put your rubbish. If you accumulate too much at markets, they are forced to burn some. This makes quite a lot of pollution so you should be wary of letting rubbish accumulate.</p>
 	<p style="hp">As the tip is filled, it slowly turns into a hill, which is grassed over when it is full.</p>
 	<p style="hp">Transport connects to the top left hand corner of the tip as usual.</p>
-	<p style="hp">You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
+	<p style="hp">You can see when a tip is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
 	
 	<p style="hp">This is a tip</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
-	<p style="hp">and this its icon</p>
+	<p style="hp">and this is its icon</p>
 	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>

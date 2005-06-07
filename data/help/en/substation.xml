@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Substations</p>
-	<p style="hp">Substations take power packets from power lines and distribute the power to the surrounding area. You can see if, for example, your residential area is powered by clicking on the icon, then looking at the mappoint stats window.</p>
+	<p style="hp">Substations take power packets from power lines and distribute the power to the surrounding area. You can see if, for example, your residential area is powered by clicking on the icon, then looking at the map point stats window.</p>
 	
 	<p style="hp">This is a substation</p>
 	<img src="images/tiles/substation-G.png" halign="center"/>
-	<p style="hp">and this its icon</p>
+	<p style="hp">and this is its icon</p>
 	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>

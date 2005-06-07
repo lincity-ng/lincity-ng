@@ -22,10 +22,10 @@
 	<li>
 		<span color="yellow">TEC</span> (yellow) your technology is increasing or
 		falling by only a very small amount. If it falls by more than 1%, the year
-		is set back to zero. Also, your tech level must be at least 50.
+		is set back to zero. Also, your tech level must be at least 50%.
 	</li>
 	<li>
-		<span color="red">FIR</span> (red) all areas that can catch fire have fire
+		<span color="red">FIR</span> (red) all areas that can catch fire have	fire
 		cover. The following areas do *not* have to have fire cover: monuments,
 		ore mines, power lines and rockets.
 	</li>

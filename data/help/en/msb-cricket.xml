@@ -3,8 +3,8 @@
 	<p style="htitle">Sports overlay</p>
 	<img src="images/gui/mapview/roundbuttons/round_soccer.png" halign="center"/>
 	<p style="hp">Areas that have sport areas within range are shown as dark green.</p>
-	<p style="hp">Areas that are out of range of a cricket pitch are displayed as normal.</p>
-	<p style="hp">Remember, basketball grounds take three months to become active.</p>
+	<p style="hp">Areas that are out of range of a basketball court are displayed as normal.</p>
+	<p style="hp">Remember, basketball courts take three months to become active.</p>
 	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
 
 	<p style="hsubtitle">See also:</p>

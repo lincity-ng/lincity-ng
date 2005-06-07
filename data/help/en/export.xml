@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Import and export areas</p>
 	<p style="hp">Importing and exporting work in the same way except that the first costs you money and the second makes you money. For this reason, only exporting will be dealt with in detail.</p>
-	<p style="hp">To export, you connect transport to the gate that deals with that product. For example, to export ore, you would connect a road, perhaps, that has ore on it, to the ore 'gate'.</p>
+	<p style="hp">To export, you connect transport to the gate that deals with that product. For example, to export ore you would connect a road, perhaps, that has ore on it, to the ore gate.</p>
 	<p style="hp">They <b>must</b> be connected to rivers all along the right hand side.</p>
 	<p style="hp">The gates, from top to bottom, export coal, ore, goods and steel.</p>
 	<p style="hp">The export area will take as much as it is given. If you need to export, but want to  restrict the amount, you may want to use a type of transport with less capacity, use a long piece or pass the product through a market. You will need to experiment to get the right transport configuration.</p>

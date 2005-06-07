@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Roads</p>
-	<p style="hp">Roads carry more than tracks, but not as much as railways. They produce more pollution than railways as well. They are cheaper to buy and maintain than railways - I knew there must be a reason for them.</p>
+	<p style="hp">Roads carry more than tracks, but not as much as railways. They produce more pollution than railways as well. They are cheaper to buy and maintain than railways - there had to be a reason for them!</p>
 	
 	<p style="hp">This is a road</p>
 	<img src="images/tiles/roadud.png" halign="center"/>

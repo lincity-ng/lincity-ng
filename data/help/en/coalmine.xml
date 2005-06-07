@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Coal mine</p>
-	<p style="hp">Coal mines dig coal from under the ground. There must be a coal vein close to the mine. To see where the veins are, you can click on the coal button just above the mini screen.</p>
+	<p style="hp">Coal mines dig coal from under the ground. There must be a coal seam close to the mine. To see where the seams are you can click on the coal button just above the mini screen.</p>
 	<p style="hp">The first time you use this button, it will cost you 1 million. After that it is free. You don't need to use this button, but you will have to find the coal by trial and error.</p>
-	<p style="hp">Coal mines need jobs to dig coal.</p>
+	<p style="hp">Coal mines need jobs to mine coal.</p>
 	
-	<p style="hp">This is a coal mine</p>
+	<p style="hp">This is a coalmine</p>
 	<img src="images/tiles/coalmine-full.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
 
-	<p style="hp">The graphics show the amount of coal already dug but not put on to transport. The above coal mine has maximum stock.</p>
+	<p style="hp">The graphics show the amount of coal already dug but not put onto transport. The above coal mine has maximum stock.</p>
 	<p style="hp">Clicking on a coal mine will show you, in the mappoint stats window, the coal stock at the pit, and, more importantly, the coal reserve available to be dug.</p>
 
 	<p style="hsubtitle">See also:</p>

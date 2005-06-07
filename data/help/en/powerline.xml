@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Power lines</p>
-	<p style="hp">Power lines carry power from solar and coal power stations to substations. Power lines connect to the top left corner of each of the three types of icons, solar and coal power stations and substations.</p>
-	<p style="hp">Power lines cross <b>under</b> tracks, roads, railways and rivers (all of the width of 1). If a power line is placed either side of a transport or river area, they act as if they are joined. Often you will have to bulldoze a bit of river to cross a river, it's expensive! The power lines are joined when they are in a straight line to connect.</p>
+	<p style="hp">Power lines carry power from solar and coal power stations to substations. Power lines connect to the top left corner of each of the three types of icons, solar and coal power stations and substations..</p>
+	<p style="hp">Power lines cross <b>under</b> tracks, roads, railways and rivers (all of the width of 1). If a power line is placed either side of a transport or river area, they act as if they are joined. Often you will have to bulldoze a bit of river to cross a river - it's expensive! The power lines are joined when they are in a straight line.</p>
 
 	<p style="hp">This is a powerline</p>
 	<img src="images/tiles/powerlvd.png" halign="center"/>

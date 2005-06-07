@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Rivers/Water</p>
-	<p style="hp">Rivers are here mainly to get in your way. They are expensive to bridge, dig and demolish. Their only <i>use</i> is that ports must be connected to rivers.</p>
-	<p style="hp">There are two types of water. Lakes are water that is <b>not</b> connected to the river system, river is water that <b>is</b> connected to the river system. The river is defined as all the water that is there at the start of the game. For example, when an ore mine empties connected to a piece of river, it becomes part of the river, else it is just a lake.</p>
-	<p style="hp">If you demolish some river to make a path for, say, transport, you have built a bridge. Both sides of your gap are still part of the river system. This is one of the reasons it is so expensive to <i>demolish</i> water.</p>
+	<p style="hp">Rivers are here mainly to get in your way. They are expensive to bridge, dig and demolish. Their only use is that ports must be connected to rivers.</p>
+	<p style="hp">There are two types of water. Lakes are water that is <b>not</b> connected to the river system; rivers are water that <b>is</b> connected to the river system. The river is defined as all the water that is present at the start of the game. For example, when an ore mine exhausts its supply and becomes water, it becomes a piece of river if connected to the river. Otherwise it becomes a lake.</p>
+	<p style="hp">If you demolish some river to make a path for, say, transport, you have built a bridge. Both sides of your gap are still part of the river system. This is one of the reasons it is so expensive to 'demolish' water.</p>
 	<p style="hp">Once a piece of water is part of the river system it <b>cannot</b> revert to being a lake.</p>
 	<p style="hp">Power lines can transfer power under <b>one</b> piece of river in the same way that it can pass under transport.</p>
 </Document>

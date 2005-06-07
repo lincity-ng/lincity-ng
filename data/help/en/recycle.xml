@@ -3,11 +3,11 @@
 	<p style="htitle">Recycle centres</p>
 	<p style="hp">Used goods produce waste.</p>
 	<p style="hp">Recycle centres convert used goods into ore. They must be connected to transport at the top left hand corner. Jobs and money are used to collect the waste goods and convert them into fresh ore.</p>
-	<p style="hp">It is possible to run a sustainable economy, (ie no ore dug etc) with less than 100% efficient recycle centres if you have some mills to make up for the 'lost' waste goods.</p>
+	<p style="hp">It is possible to run a sustainable economy, (i.e. no more ore extracted, etc) with less than 100% efficient recycle centres if you have some mills to make up for the 'lost' waste goods.</p>
 	
 	<p style="hp">This is a recycle center</p>
 	<img src="images/tiles/recycle-centre.png" halign="center"/>
-	<p style="hp">and this its icon</p>
+	<p style="hp">and this is its icon</p>
 	<img src="images/gui/buttonpanel/mining/recycle.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
