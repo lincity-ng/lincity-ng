@@ -7,7 +7,7 @@
 	<p style="hp">These areas connect to transport <b>only</b> to the top left hand corner, as shown. Transport will curve in when it is connected.</p>
 	
 	<p style="hp">This is Light Industry</p>
-	<img src="images/tiles/industryl1.png" halign="center"/>
+	<img src="images/tiles/industryll1.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	

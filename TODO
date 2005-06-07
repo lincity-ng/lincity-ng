@@ -45,6 +45,10 @@ Programming
      (switch desktop and return to the credits-screen, then it is whole black.)   
  [L] add "change resolution" switch in preferences
 
+ [H] There are help page without any link to them. Some of the texts
+     are just wrong because they were taken from classic without any
+     adjustment to the new gui.
+
 --Game--
  [M] Check for missing tooltip texts for in-game buttons.
  [M] Implement a What's this button - down to [M], we can simply open the front

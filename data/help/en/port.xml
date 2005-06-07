@@ -9,7 +9,7 @@
 	<p style="hp">Note: Exporters discount large exports.</p>
 
 	<p style="hp">This is a port</p>
-	<img src="images/tiles/port.png" halign="center"/>
+	<img src="images/tiles/ex_port.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
 	

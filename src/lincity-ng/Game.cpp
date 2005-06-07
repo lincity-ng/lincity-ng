@@ -106,8 +106,9 @@ void Game::testAllHelpFiles(){
         pos = filename.rfind( ".xml" );
         if( pos != std::string::npos ){
             filename.replace( pos, 4 ,"");
-            std::cout << "Examining " << filename << "\n"; 
+            std::cerr << "--- Examining " << filename << "\n"; 
             helpWindow->showTopic( filename );
+            std::cerr << "\n"; 
         }
     }
     PHYSFS_freeList(rc);

@@ -6,15 +6,15 @@
 	<p style="hp">The 'Tot' figure is the amount of money in your account. There are certain things you cannot do when you are 'in the red'.</p>
 	<p style="hp">The meanings on the abbreviations are:</p>
 	<p style="hp">Income:</p>
-	<li><p style="hp">IT = Income tax.</p></li>
-	<li><p style="hp">CT = Coal tax.</p></li>
-	<li><p style="hp">GT = Goods tax.</p></li>
-	<li><p style="hp">XP = Export tax.</p></li>
+	<li>IT = Income tax.</li>
+	<li>CT = Coal tax.</li>
+	<li>GT = Goods tax.</li>
+	<li>XP = Export tax.</li>
 	<p style="hp">Expenditure:</p>
-	<li><p style="hp">OC = Other costs.</p></li>
-	<li><p style="hp">UC = Unemployment costs.</p></li>
-	<li><p style="hp">TC = Transport costs.</p></li>
-	<li><p style="hp">IP = Import costs.</p></li>
+	<li>OC = Other costs.</li>
+	<li>UC = Unemployment costs.</li>
+	<li>TC = Transport costs.</li>
+	<li>IP = Import costs.</li>
 	<p style="hp">Left clicking on this window will cycle through windows for finance, other costs and housing.</p>
 </Document>
 
