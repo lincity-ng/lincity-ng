@@ -29,6 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "MainLincity.hpp"
 #include <iostream>
+#include <physfs.h>
 #include "Util.hpp"
 #include "lincity/lin-city.h"
 #include "GameView.hpp"
@@ -85,6 +86,33 @@ void Game::gameButtonClicked( Button* button ){
     }
 }
 
+void Game::testAllHelpFiles(){
+    std::cout << "Testing Help Files...\n";
+
+    std::string filename;
+    std::string directory = "help/en";
+    std::string fullname;
+    char **rc = PHYSFS_enumerateFiles( directory.c_str() );
+    char **i;
+    unsigned int pos;
+    for (i = rc; *i != NULL; i++) {
+        fullname = directory;
+        fullname.append( *i );
+        filename.assign( *i );
+
+        if(PHYSFS_isDirectory(fullname.c_str()))
+            continue;
+
+        pos = filename.rfind( ".xml" );
+        if( pos != std::string::npos ){
+            filename.replace( pos, 4 ,"");
+            std::cout << "Examining " << filename << "\n"; 
+            helpWindow->showTopic( filename );
+        }
+    }
+    PHYSFS_freeList(rc);
+}
+
 MainState
 Game::run()
 {
@@ -119,6 +147,12 @@ Game::run()
                          helpWindow->showTopic("help");
                          break;
                      }
+#ifdef DEBUG
+                     if( gui_event.keysym.sym == SDLK_F5 ){
+                         testAllHelpFiles(); 
+                         break;
+                     }
+#endif
                      gui->event(gui_event);
                      break;
                 }

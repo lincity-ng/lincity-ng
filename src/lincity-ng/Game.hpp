@@ -42,6 +42,7 @@ private:
     bool running;
     MainState quitState;
     void backToMainMenu();
+    void testAllHelpFiles();
     std::auto_ptr<HelpWindow> helpWindow;
 };
 
