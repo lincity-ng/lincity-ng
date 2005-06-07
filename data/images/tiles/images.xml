@@ -5,8 +5,11 @@
   <image file="substation-R.png" x="128" y="0" />
   <image file="blacksmitth.png" x="131" y="79" />
   <image file="coalmine.png" x="262" y="147" />
-<image file="powerscoal-full.png" x="266" />
 <image file="powerscoal-empty.png" x="263" />
+<image file="powerscoal-low.png" x="266" />
+<image file="powerscoal-med.png" x="266" />
+<image file="powerscoal-full.png" x="266" />
+
 
   <image file="commune.png" x="66" y="37" />
   <image file="farm.png" x="262" y="101" />
