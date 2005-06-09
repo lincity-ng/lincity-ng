@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Event.hpp"
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
+#include "lincity/fileutil.h"
 
 #include "MainLincity.hpp"
 #include <iostream>
@@ -65,7 +66,6 @@ Game::~Game()
 void Game::backToMainMenu(){
     closeAllDialogs();
     getButtonPanel()->selectQueryTool(); 
-    getGameView()->writeOrigin();
     saveCityNG( "9_currentGameNG.scn" );
     running = false;
     quitState = MAINMENU;
@@ -86,8 +86,29 @@ void Game::gameButtonClicked( Button* button ){
     }
 }
 
+void Game::quickLoad(){
+    closeAllDialogs();
+    
+    //load file
+    getGameView()->printStatusMessage( "quick load...");
+    std::string filename;
+    filename.append( lc_save_dir );
+    filename.append( "/quicksave.scn" );
+    if( loadCityNG( filename ) ){
+          getGameView()->printStatusMessage( "quick load successful.");
+    } else {
+          getGameView()->printStatusMessage( "quick load failed!");
+    }
+}
+
+void Game::quickSave(){
+    //save file
+    getGameView()->printStatusMessage( "quick save...");
+    saveCityNG( "quicksave.scn" );
+}
+
 void Game::testAllHelpFiles(){
-    std::cout << "Testing Help Files...\n";
+    getGameView()->printStatusMessage( "Testing Help Files...");
 
     std::string filename;
     std::string directory = "help/en";
@@ -146,6 +167,14 @@ Game::run()
                      }   
                      if( gui_event.keysym.sym == SDLK_F1 ){
                          helpWindow->showTopic("help");
+                         break;
+                     }
+                     if( gui_event.keysym.sym == SDLK_F12 ){
+                         quickSave();
+                         break;
+                     }
+                     if( gui_event.keysym.sym == SDLK_F9 ){
+                         quickLoad();
                          break;
                      }
 #ifdef DEBUG

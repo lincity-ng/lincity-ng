@@ -43,6 +43,8 @@ private:
     MainState quitState;
     void backToMainMenu();
     void testAllHelpFiles();
+    void quickLoad();
+    void quickSave();
     std::auto_ptr<HelpWindow> helpWindow;
 };
 
