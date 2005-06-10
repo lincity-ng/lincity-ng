@@ -56,7 +56,7 @@
                 <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
                 <image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
                 <image-checked src="images/gui/buttons/round/button-round-checked-20.png"/>
-                <image-caption src="images/gui/mapview/roundbuttons/round_soccer.png"/>
+                <image-caption src="images/gui/mapview/roundbuttons/round_sport.png"/>
                 <tooltip translatable="yes">Show sport cover</tooltip>
             </CheckButton>
     </cell>
