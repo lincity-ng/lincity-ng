@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="4.0599999"
+   inkscape:export-xdpi="4.0599999"
+   inkscape:export-filename="/home/egore/source/lincity-ng/data/images/gui/buttonpanel/health2.png"
+   sodipodi:docname="round_pollution.svg"
+   sodipodi:docbase="/home/egore/source/lincity-ng/data/images/gui/mapview/roundbuttons"
+   inkscape:version="0.41"
+   sodipodi:version="0.32"
+   id="svg2"
+   height="200.00000mm"
+   width="200.00000mm">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient2073">
+      <stop
+         id="stop2075"
+         offset="0.0000000"
+         style="stop-color:#fcff00;stop-opacity:1.0000000;" />
+      <stop
+         id="stop2077"
+         offset="1.0000000"
+         style="stop-color:#ccce00;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2844">
+      <stop
+         style="stop-color:#fcff00;stop-opacity:1;"
+         offset="0"
+         id="stop2846" />
+      <stop
+         style="stop-color:#fcff00;stop-opacity:0.49803922;"
+         offset="0"
+         id="stop2852" />
+      <stop
+         style="stop-color:#fcff00;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop2848" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2070">
+      <stop
+         style="stop-color:#b2ff00;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop2072" />
+      <stop
+         style="stop-color:#0eff00;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop2074" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2091">
+      <stop
+         id="stop2093"
+         offset="0"
+         style="stop-color:#fe0000;stop-opacity:1;" />
+      <stop
+         id="stop2095"
+         offset="1.0000000"
+         style="stop-color:#6e0000;stop-opacity:1.0000000;" />
+    </linearGradient>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       r="689.05170"
+       fy="177.99417"
+       fx="211.10156"
+       cy="177.99417"
+       cx="211.10156"
+       id="radialGradient2081"
+       xlink:href="#linearGradient2073"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-y="5"
+     inkscape:window-x="0"
+     inkscape:window-height="815"
+     inkscape:window-width="765"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="367.53559"
+     inkscape:cx="-3819.2587"
+     inkscape:zoom="0.056797221"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata4">
+    <rdf:RDF
+       id="RDF5">
+      <cc:Work
+         id="Work6"
+         rdf:about="">
+        <dc:format
+           id="format7">image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+           id="type9" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <path
+       transform="translate(3.112418,0.000000)"
+       d="M 701.85028 353.84579 A 351.70325 351.70325 0 1 1  -1.5562134,353.84579 A 351.70325 351.70325 0 1 1  701.85028 353.84579 z"
+       sodipodi:ry="351.70325"
+       sodipodi:rx="351.70325"
+       sodipodi:cy="353.84579"
+       sodipodi:cx="350.14703"
+       id="path1313"
+       style="stroke-opacity:1.0000000;stroke-miterlimit:4.0000000;stroke-linejoin:round;stroke-linecap:round;stroke-width:3.0000000;stroke:none;fill-opacity:1.0;fill:url(#radialGradient2081)"
+       sodipodi:type="arc" />
+    <path
+       transform="matrix(0.236747,0.000000,0.000000,0.236747,270.3634,267.2806)"
+       d="M 701.85028 353.84579 A 351.70325 351.70325 0 1 1  -1.5562134,353.84579 A 351.70325 351.70325 0 1 1  701.85028 353.84579 z"
+       sodipodi:ry="351.70325"
+       sodipodi:rx="351.70325"
+       sodipodi:cy="353.84579"
+       sodipodi:cx="350.14703"
+       id="path2083"
+       style="fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:3.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000"
+       sodipodi:type="arc" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2093"
+       d="M 236.15317,369.64224 C 241.15771,401.67131 261.17587,430.69766 282.69541,446.21173 L 200.12047,642.89023 C 87.518271,569.82392 42.477395,475.73853 19.956955,369.64224 L 236.15317,369.64224 z "
+       style="fill:#000000;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.96475643px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2095"
+       d="M 470.36574,369.64224 C 465.36119,401.67131 445.34302,430.69766 423.82349,446.21173 L 506.39843,642.89023 C 619.00063,569.82392 664.04150,475.73853 686.56195,369.64224 L 470.36574,369.64224 z "
+       style="fill:#000000;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.96475643px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       id="path2097"
+       d="M 308.23888,246.54836 C 338.08668,233.89868 373.30607,235.58676 397.83972,245.68017 L 513.82891,67.251418 C 392.34594,8.6551586 306.67479,11.033141 191.15577,65.903408 L 308.23888,246.54836 z "
+       style="fill:#000000;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:0.96475643px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
+  </g>
+</svg>
