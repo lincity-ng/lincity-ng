@@ -41,18 +41,18 @@ tip6.png
 tip7.png
 tip8.png full tip, closed
 
-TODO:
+===========================================================================
 Commune:
 --------
 
-commune1.png  Animation 1..6
+commune1.png  Animation 1..6 
 commune2.png
 commune3.png
 commune4.png
 commune5.png
 commune6.png
 
-commune7.png unused?
+commune7.png unused
 
 commune8.png Animation 8..13
 commune9.png this Animation is used when producing steel
@@ -61,9 +61,8 @@ commune11.png
 commune12.png
 commune13.png
 
-commune14.png unused?
+commune14.png unused
 
-===========================================================================
 
 Sport:
 ------
