@@ -3,7 +3,6 @@
   <image file="substation-RG.png" x="128" y="0" />
   <image file="substation-G.png" x="128" y="0" />
   <image file="substation-R.png" x="128" y="0" />
-  <image file="blacksmitth.png" x="131" y="79" />
   <image file="coalmine.png" x="262" y="147" />
 <image file="powerscoal-empty.png" x="263" />
 <image file="powerscoal-low.png" x="266" />
@@ -22,6 +21,14 @@
 <image file="pottery8.png" x="131" />
 <image file="pottery9.png" x="131" />
 <image file="pottery10.png" x="131" />
+
+<image file="blacksmith0.png" x="132" />
+<image file="blacksmith1.png" x="132" />
+<image file="blacksmith2.png" x="132" />
+<image file="blacksmith3.png" x="132" />
+<image file="blacksmith4.png" x="132" />
+<image file="blacksmith5.png" x="132" />
+<image file="blacksmith6.png" x="132" />
 
   <image file="commune.png" x="66" y="37" />
   <image file="farm.png" x="262" y="101" />

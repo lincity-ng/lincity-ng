@@ -73,3 +73,15 @@ pottery7.png  is used, so    smoke 2 [4 keys]
 pottery8.png  only one       smoke 2 [8 keys]
 pottery9.png  smoking oven   smoke 2 [3 keys] 
 pottery10.png                smoke 2 ->  pottery6.png 
+
+Blacksmith:
+-----------
+
+blacksmith0.png not Working
+blacksmith1.png Animation 1..6 
+blacksmith2.png               
+blacksmith3.png              
+blacksmith4.png             
+blacksmith5.png            
+blacksmith6.png           
+
