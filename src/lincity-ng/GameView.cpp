@@ -44,6 +44,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <SDL_keysym.h>
 #include <math.h>
 #include <sstream>
+#include <physfs.h>
 
 #include "gui_interface/shared_globals.h"
 #include "tinygettext/gettext.hpp"
@@ -366,6 +367,10 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 {
     std::string nfilename = std::string("images/tiles/") + filename;
     SDL_Surface* currentImage;
+    if( !PHYSFS_exists( nfilename.c_str() ) ){
+        std::cerr << "GameView::readImage# No image file "<< nfilename << " found.\n";
+        return 0;
+    }
     currentImage = IMG_Load_RW(getPhysfsSDLRWops( nfilename ), 1);
     if( !currentImage ) {
         std::cerr << "GameView::readImage# Could not load image "<< nfilename << "\n";

@@ -26,18 +26,7 @@ Overview of original Pictures
 <grumbel> imagine a high tower with long shadow to the right
 
 
-Rocket:
--------
-rocket1.png     used while building Rocket < 25% completed
-rocket2.png     used while building Rocket < 60% completed
-rocket3.png     used while building Rocket < 90% completed
-rocket4.png     used while building Rocket <100% completed 
-rocket5.png     used when Rocket is ready for launch (100%)
-rocket6.png    rocket standby animation if you do not launch at once.
-rocket7.png     cycles through rocket5, rocket6, rocket7, rocket5 ...
- 
-rocketflown.png empty launchpad after launch.
-
+TODO:
 Commune:
 --------
 
@@ -58,6 +47,46 @@ commune12.png
 commune13.png
 
 commune14.png unused?
+
+TODO:
+Farm:
+-----
+
+Looks like only 0,3,7,11 and 15 are used.
+
+farm0.png new farm, all fields empty
+farm1.png
+farm2.png
+farm3.png start
+farm4.png
+farm5.png
+farm6.png
+farm7.png start
+farm8.png
+farm9.png
+farm10.png
+farm11.png start
+farm12.png
+farm13.png
+farm14.png
+farm15.png start
+farm16.png
+
+
+===========================================================================
+
+Rocket:
+-------
+rocket1.png     used while building Rocket < 25% completed
+rocket2.png     used while building Rocket < 60% completed
+rocket3.png     used while building Rocket < 90% completed
+rocket4.png     used while building Rocket <100% completed 
+rocket5.png     used when Rocket is ready for launch (100%)
+rocket6.png    rocket standby animation if you do not launch at once.
+rocket7.png     cycles through rocket5, rocket6, rocket7, rocket5 ...
+ 
+rocketflown.png empty launchpad after launch.
+
 
 Pottery:
 --------

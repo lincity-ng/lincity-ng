@@ -29,9 +29,9 @@
 <image file="blacksmith4.png" x="132" />
 <image file="blacksmith5.png" x="132" />
 <image file="blacksmith6.png" x="132" />
+<image file="farm0.png" x="256" />
 
   <image file="commune.png" x="66" y="37" />
-  <image file="farm.png" x="262" y="101" />
   <image file="firestation.png" x="131" y="79" />
   <image file="hospital-1.png" x="131" y="220" />
   <image file="hospital.png" x="36" y="31" />
