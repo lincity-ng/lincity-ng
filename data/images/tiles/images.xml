@@ -68,14 +68,20 @@
 <image file="powerlvd.png" x="64" />
 <image file="powerlvl.png" x="64" />
 
+<image file="cricket1.png" x="130" /> 
+<image file="cricket2.png" x="130" /> 
+<image file="cricket3.png" x="130" /> 
+<image file="cricket4.png" x="130" /> 
+<image file="cricket5.png" x="130" /> 
+<image file="cricket6.png" x="130" /> 
+<image file="cricket7.png" x="130" /> 
+
   <image file="PowerTower.png" x="111" y="66" />
   <image file="rails.png" x="196" y="69" />
   <image file="residence2.png" x="470" y="384" />
   <image file="residence.png" x="87" y="30" />
   <image file="school.png" x="131" y="82" />
   <image file="skyscraper.png" x="512" y="384" />
-  <image file="stadium.png" x="121" y="62" />
-  <image file="stadium-shadowtest.png" x="117" y="59" />
   <image file="SteelMill-1.png" x="117" y="59" />
   <image file="SteelMill.png" x="117" y="59" />
   <image file="SubStation-1.png" x="117" y="59" />

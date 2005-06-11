@@ -391,7 +391,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] =
       GROUP_FIRESTATION_TECH
     },
     /* 31 */
-    { N_("Cricket pitch"),
+    { N_("Sports field"),
       FALSE,                           /* need credit? */
       GROUP_CRICKET,
       2,                               /* size */

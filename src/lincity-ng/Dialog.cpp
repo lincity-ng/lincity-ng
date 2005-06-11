@@ -420,7 +420,7 @@ void Dialog::gameStats(){
 	     ,group_count[GROUP_UNIVERSITY]);
     setParagraphN( "statistic_text", line++, outf );
     results << outf << std::endl;
-    snprintf (outf, maxlength, _(".Fire stations %4d           Parks %4d     Cricket gnds %4d")
+    snprintf (outf, maxlength, _(".Fire stations %4d           Parks %4d    Sports fields %4d")
 	     ,group_count[GROUP_FIRESTATION], group_count[GROUP_PARKLAND]
 	     ,group_count[GROUP_CRICKET]);
     setParagraphN( "statistic_text", line++, outf );

@@ -96,7 +96,7 @@ mps_cricket (int x, int y)
 {
     int i = 0;
 
-    mps_store_title(i++,_("Cricket Pitch"));
+    mps_store_title(i++,_("Sports field"));
     i++;
     mps_store_title(i++,_("Inventory"));
     mps_store_sfp(i++,_("Jobs"),

@@ -801,7 +801,7 @@ compile_results (void)
     fprintf (outf, _("     Monuments %4d         Schools %4d     Universities %4d\n")
 	     ,group_count[GROUP_MONUMENT], group_count[GROUP_SCHOOL]
 	     ,group_count[GROUP_UNIVERSITY]);
-    fprintf (outf, _(" Fire stations %4d           Parks %4d     Cricket gnds %4d\n")
+    fprintf (outf, _(" Fire stations %4d           Parks %4d    Sports fields %4d\n")
 	     ,group_count[GROUP_FIRESTATION], group_count[GROUP_PARKLAND]
 	     ,group_count[GROUP_CRICKET]);
     fprintf (outf, _("    Coal mines %4d       Ore mines %4d         Communes %4d\n")

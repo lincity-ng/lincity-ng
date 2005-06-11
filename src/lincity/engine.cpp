@@ -740,7 +740,7 @@ do_random_fire (int x, int y, int pwarning)	/* well random if x=y=-1 */
       else if (MP_GROUP(x,y) == GROUP_FIRESTATION)
 	ok_dial_box ("fire.mes", BAD, _("It's at a fire station!!!."));
       else if (MP_GROUP(x,y) == GROUP_CRICKET)
-	ok_dial_box ("fire.mes", BAD, _("It's at a cricket pitch!!!."));
+	ok_dial_box ("fire.mes", BAD, _("It's at a sports field!!!."));
       else if (MP_GROUP(x,y) == GROUP_SHANTY)
 	ok_dial_box ("fire.mes", BAD, _("It's at a shanty town."));
       else

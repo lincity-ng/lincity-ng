@@ -380,7 +380,7 @@ void mps_right (int x, int y)
     mps_store_ss(i++,_("Health"),p);
 
     p = (MP_INFO(x,y).flags & FLAG_CRICKET_COVER) ? _("Yes") : _("No");
-    mps_store_ss(i++,_("Cricket"),p);
+    mps_store_ss(i++,_("Sport"),p);
     i++;
     mps_store_title(i++,_("Pollution"));
 
@@ -508,7 +508,7 @@ void mps_global_other_costs()
     num_to_ansi(s,sizeof(s),ly_fire_cost);
     mps_store_ss(i++,_("Fire Stn"),s);
     num_to_ansi(s,sizeof(s),ly_cricket_cost);
-    mps_store_ss(i++,_("Cricket"),s);
+    mps_store_ss(i++,_("Sport"),s);
     num_to_ansi(s,sizeof(s),ly_recycle_cost);
     mps_store_ss(i++,_("Recycle"),s);
 

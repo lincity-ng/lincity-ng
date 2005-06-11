@@ -27,6 +27,21 @@ Overview of original Pictures
 
 
 TODO:
+Tip:
+----
+graphic represents fillstate
+
+tip0.png new, empty tip
+tip1.png
+tip2.png
+tip3.png
+tip4.png
+tip5.png
+tip6.png
+tip7.png
+tip8.png full tip, closed
+
+TODO:
 Commune:
 --------
 
@@ -48,32 +63,41 @@ commune13.png
 
 commune14.png unused?
 
-TODO:
+===========================================================================
+
+Sport:
+------
+
+cricket1.png Animation 1..7 1 is empty field
+cricket2.png enter the players
+cricket3.png play the game ...
+cricket4.png
+cricket5.png
+cricket6.png
+cricket7.png players leaving
+
 Farm:
 -----
 
-Looks like only 0,3,7,11 and 15 are used.
+Only 0,3,7,11 and 15 are used.
 
 farm0.png new farm, all fields empty
 farm1.png
 farm2.png
-farm3.png start
+farm3.png used 
 farm4.png
 farm5.png
 farm6.png
-farm7.png start
+farm7.png used
 farm8.png
 farm9.png
 farm10.png
-farm11.png start
+farm11.png used
 farm12.png
 farm13.png
 farm14.png
-farm15.png start
+farm15.png used
 farm16.png
-
-
-===========================================================================
 
 Rocket:
 -------

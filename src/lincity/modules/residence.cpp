@@ -292,7 +292,7 @@ mps_residence (int x, int y)
     mps_store_ss(i++, _("Fire"), p);
 
     p = ((MP_INFO(x,y).flags & FLAG_CRICKET_COVER) != 0) ? _("YES") : _("NO");
-    mps_store_ss(i++, _("Cricket"), p);
+    mps_store_ss(i++, _("Sport"), p);
 
     mps_store_sd(i++, _("Pollution"), MP_POL(x,y));
 
