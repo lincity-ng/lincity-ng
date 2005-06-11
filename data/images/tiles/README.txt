@@ -85,3 +85,26 @@ blacksmith4.png
 blacksmith5.png            
 blacksmith6.png           
 
+Oremine:
+--------
+
+graphic represents remaining ore.
+
+oremine1.png new mine
+oremine2.png   
+oremine3.png
+oremine4.png
+oremine5.png
+oremine6.png
+oremine7.png
+oremine8.png almost depleted
+
+Market:
+-------
+
+graphic represents storage in market
+
+market-empty.png
+market-full.png
+market-low.png
+market-med.png

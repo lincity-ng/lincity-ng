@@ -35,11 +35,15 @@
   <image file="firestation.png" x="131" y="79" />
   <image file="hospital-1.png" x="131" y="220" />
   <image file="hospital.png" x="36" y="31" />
-  <image file="market.png" x="128" y="55" />
   <image file="mill.png" x="53" y="28" />
   <image file="monument.png" x="131" y="46" />
   <image file="oremine.png" x="258" y="102" />
   <image file="port.png" x="262" y="112" />
+
+<image file="market-empty.png" x="131" />
+<image file="market-low.png" x="131" />
+<image file="market-med.png" x="131" />
+<image file="market-full.png" x="131" />
 
 <image file="powerlhd.png" x="64" />
 <image file="powerlhl.png" x="64" />
