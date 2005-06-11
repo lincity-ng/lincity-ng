@@ -37,3 +37,39 @@ rocket6.png    rocket standby animation if you do not launch at once.
 rocket7.png     cycles through rocket5, rocket6, rocket7, rocket5 ...
  
 rocketflown.png empty launchpad after launch.
+
+Commune:
+--------
+
+commune1.png  Animation 1..6
+commune2.png
+commune3.png
+commune4.png
+commune5.png
+commune6.png
+
+commune7.png unused?
+
+commune8.png Animation 8..13
+commune9.png this Animation is used when producing steel
+commune10.png
+commune11.png
+commune12.png
+commune13.png
+
+commune14.png unused?
+
+Pottery:
+--------
+
+pottery0.png New Pottery
+pottery1.png Animation 1..10 (no smoke)
+pottery2.png                 smoke 1 [2 keys for smoke]
+pottery3.png  if pottery     smoke 1 [4 keys]
+pottery4.png   not working   smoke 1 [8 keys]
+pottery5.png  good enough    smoke 1 [3 keys]
+pottery6.png   just 1..5     smoke 2 [2 keys]
+pottery7.png  is used, so    smoke 2 [4 keys]
+pottery8.png  only one       smoke 2 [8 keys]
+pottery9.png  smoking oven   smoke 2 [3 keys] 
+pottery10.png                smoke 2 ->  pottery6.png 
