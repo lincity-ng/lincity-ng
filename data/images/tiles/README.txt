@@ -41,7 +41,26 @@ tip6.png
 tip7.png
 tip8.png full tip, closed
 
+
 ===========================================================================
+
+Modern Windmill:
+----------------
+Animation 1..3
+r red Light on  (power OK)
+g green Light on (blackout) 
+rg red+green Light on (brownout)
+
+windmill1g.png
+windmill1r.png
+windmill1rg.png
+windmill2g.png
+windmill2r.png
+windmill2rg.png
+windmill3g.png
+windmill3r.png
+windmill3rg.png
+
 Commune:
 --------
 

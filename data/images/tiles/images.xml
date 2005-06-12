@@ -44,6 +44,19 @@
 <image file="commune12.png" x="264" />
 <image file="commune13.png" x="264" />
 
+<image file="windmill1g.png" x="134" />
+<image file="windmill2g.png" x="131" />
+<image file="windmill3g.png" x="151" />
+
+<image file="windmill1r.png" x="134" />
+<image file="windmill2r.png" x="131" />
+<image file="windmill3r.png" x="151" />
+
+<image file="windmill1rg.png" x="134" />
+<image file="windmill2rg.png" x="131" />
+<image file="windmill3rg.png" x="151" />
+
+
   <image file="firestation.png" x="131" y="79" />
   <image file="hospital-1.png" x="131" y="220" />
   <image file="hospital.png" x="36" y="31" />
@@ -99,16 +112,4 @@
   <image file="SubStation-1.png" x="117" y="59" />
   <image file="SubStation.png" x="117" y="59" />
   <image file="tuxmonument.png" x="124" y="153" />
-  <image file="windmill.png" x="93" y="148" />
-  <image file="windmill1g.png" x="134" />
-  <image file="windmill1r.png" x="109" />
-  <image file="windmill1rg.png" x="109" />
-  <image file="windmill2g.png"  x="134" />
-  <image file="windmill2r.png"  x="109" />
-  <image file="windmill2rg.png" x="109" />
-  <image file="windmill3g.png"  x="134" />
-  <image file="windmill3r.png"  x="109" />
-  <image file="windmill3rg.png" x="109" />
-  <image file="windpower2.png" x="134" y="368" />
-  <image file="windpower.png" x="109" y="111" />
 </resources>
