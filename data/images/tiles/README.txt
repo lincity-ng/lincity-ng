@@ -41,8 +41,107 @@ tip6.png
 tip7.png
 tip8.png full tip, closed
 
+TODO:
+Heavy Industry
+--------------
+
+industryhh1.png >80% output 
+industryhh2.png 
+industryhh3.png Animation 1..8
+industryhh4.png 
+industryhh5.png 
+industryhh6.png 
+industryhh7.png 
+industryhh8.png 
+
+industryhm1.png >30% output
+industryhm2.png 
+industryhm3.png Animation 1..8
+industryhm4.png 
+industryhm5.png 
+industryhm6.png 
+industryhm7.png 
+industryhm8.png 
+
+industryhl1.png >0% output
+industryhl2.png 
+industryhl3.png 
+industryhl4.png Animation 1..8
+industryhl5.png 
+industryhl6.png 
+industryhl7.png 
+industryhl8.png 
+
+industryhc.png 0% output
+
+
+TODO:
+Light Industry
+--------------
+industrylh1.png >80% output Animate 1..4
+industrylh2.png 
+industrylh3.png 
+industrylh4.png 
+
+industrylm1.png >55% output Animate 1..4
+industrylm2.png 
+industrylm3.png 
+industrylm4.png 
+
+industryll1.png >25% output Animate 1..4
+industryll2.png 
+industryll3.png 
+industryll4.png 
+
+industrylq1.png 0% output 
+industrylq2.png >0% output Animate 1..4
+industrylq3.png 
+industrylq4.png 
+
+industrylq1.png is used for 0% output, too
+
+TODO:
+Oremine:
+--------
+
+graphic represents remaining ore.
+
+oremine1.png new mine
+oremine2.png   
+oremine3.png
+oremine4.png
+oremine5.png
+oremine6.png
+oremine7.png
+oremine8.png almost depleted
+
+TODO:
+Firesation:
+-----------
+animation 1..10
+
+firestation1.png 
+firestation2.png 
+firestation3.png 
+firestation4.png 
+firestation5.png 
+firestation6.png is shown longer
+firestation7.png 
+firestation8.png 
+firestation9.png 
+firestation10.png
+
 
 ===========================================================================
+
+Coalmine:
+---------
+
+graphic represents Coal storage on Surface
+coalmine-empty.png 
+coalmine-low.png 
+coalmine-med.png 
+coalmine-full.png 
 
 Modern Windmill:
 ----------------
@@ -155,20 +254,6 @@ blacksmith3.png
 blacksmith4.png             
 blacksmith5.png            
 blacksmith6.png           
-
-Oremine:
---------
-
-graphic represents remaining ore.
-
-oremine1.png new mine
-oremine2.png   
-oremine3.png
-oremine4.png
-oremine5.png
-oremine6.png
-oremine7.png
-oremine8.png almost depleted
 
 Market:
 -------
