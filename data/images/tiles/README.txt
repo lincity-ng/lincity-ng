@@ -27,6 +27,32 @@ Overview of original Pictures
 
 
 TODO:
+Fire:
+-----
+
+fire1.png
+fire2.png
+fire3.png
+fire4.png
+fire5.png
+
+firedone1.png
+firedone2.png
+firedone3.png
+firedone4.png
+
+TODO:
+Railroad:
+---------
+rail*
+
+TODO:
+Water:
+------
+water*
+
+
+TODO:
 Tip:
 ----
 graphic represents fillstate
@@ -120,16 +146,16 @@ Firesation:
 -----------
 animation 1..10
 
-firestation1.png 
-firestation2.png 
-firestation3.png 
-firestation4.png 
-firestation5.png 
-firestation6.png is shown longer
-firestation7.png 
-firestation8.png 
-firestation9.png 
-firestation10.png
+firestation1.png doors closed 
+firestation2.png \
+firestation3.png   moving out
+firestation4.png  /
+firestation5.png /
+firestation6.png all gone, doors open (is shown longer)
+firestation7.png  \
+firestation8.png   moving in 
+firestation9.png   /
+firestation10.png /
 
 
 ===========================================================================
