@@ -36,9 +36,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "tinygettext/gettext.hpp"
 
 #include "GameView.hpp"
+#include "Game.hpp"
 #include "MapEdit.hpp"
 #include "ScreenInterface.hpp"
 #include "Util.hpp"
+#include "HelpWindow.hpp"
 
 ButtonPanel *ButtonPanelInstance=0;
 
@@ -189,24 +191,29 @@ void ButtonPanel::checkTech( int showInfo ){
     }
 }
 
-std::string ButtonPanel::createTooltip( int module ){
+std::string ButtonPanel::createTooltip( int module, bool root /* = true */ ){
+    std::stringstream tooltip;
     switch( module ){
-        case CST_NONE: return _( "Query Tool" );
-        case CST_GREEN: return _( "Bulldozer" );
+        case CST_NONE: tooltip << _( "Query Tool" ); break;
+        case CST_GREEN: tooltip << _( "Bulldozer" ); break;
                         
-        case CST_RESIDENCE_LL: return _( "Residential: 50 denizens, low birthrate, high deathrate" );
-        case CST_RESIDENCE_ML: return _( "Residential: 100 denizens, high birthrate, low deathrate" );
-        case CST_RESIDENCE_HL: return _( "Residential: 200 denizens, high birthrate, high deathrate" );
-        case CST_RESIDENCE_LH: return _( "Residential: 100 denizens, low birthrate, high deathrate" );
-        case CST_RESIDENCE_MH: return _( "Residential: 200 denizens, high birthrate, low deathrate" );
-        case CST_RESIDENCE_HH: return _( "Residential: 400 denizens, high birthrate, high deathrate" );
+        case CST_RESIDENCE_LL: tooltip << _( "Residential: 50 denizens, low birthrate, high deathrate" ); break;
+        case CST_RESIDENCE_ML: tooltip << _( "Residential: 100 denizens, high birthrate, low deathrate" ); break;
+        case CST_RESIDENCE_HL: tooltip << _( "Residential: 200 denizens, high birthrate, high deathrate" ); break;
+        case CST_RESIDENCE_LH: tooltip << _( "Residential: 100 denizens, low birthrate, high deathrate" ); break;
+        case CST_RESIDENCE_MH: tooltip << _( "Residential: 200 denizens, high birthrate, low deathrate" ); break;
+        case CST_RESIDENCE_HH: tooltip << _( "Residential: 400 denizens, high birthrate, high deathrate" ); break;
   
         default:{
             int group = main_types[ module ].group;
             std::string buildingName = main_groups[ group ].name;
-            return dictionaryManager->get_dictionary().translate( buildingName ); 
+            tooltip << dictionaryManager->get_dictionary().translate( buildingName ); 
         }
     }
+    if( !root ){
+        tooltip << _(" [Click right for help.]");
+    }
+    return tooltip.str();
 }
 
 void ButtonPanel::examineButton( std::string name, int showInfo ){
@@ -225,16 +232,15 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
 	if ( enoughTech( selected_module_type ) ){
         if( !b->isEnabled() ){
             newTechMessage( selected_module_type, showInfo );
-            std::stringstream tooltip;
-            b->setTooltip( createTooltip( selected_module_type ) );
+            b->setTooltip( createTooltip( selected_module_type, false ) );
             b->enable();
         }
     } else {
         if( b->isEnabled() ){
             b->enable( false );
             char tooltip[2048];
-            snprintf(tooltip, sizeof(tooltip), "%s (Techlevel %.1f required.)",
-                    createTooltip(selected_module_type).c_str(),
+            snprintf(tooltip, sizeof(tooltip), "%s (Techlevel %.1f required.)", 
+                    createTooltip(selected_module_type, false ).c_str(),
                     requiredTech(selected_module_type));
             b->setTooltip(tooltip);
         }
@@ -267,8 +273,8 @@ void ButtonPanel::examineMenuButtons(){
         } else {
             if( b->isEnabled() ){
                 char tooltip[2048];
-                snprintf(tooltip, sizeof(tooltip), "%s (Techlevel %.1f required.)"
-                        , createTooltip(type).c_str(),
+                snprintf(tooltip, sizeof(tooltip), "%s (Techlevel %.1f required.)" 
+                        , createTooltip( type ).c_str(),
                         requiredTech(type));
                 b->setTooltip( tooltip );
                 b->enable( false );
@@ -368,7 +374,6 @@ void ButtonPanel::attachButtons()
         if(b)
         {
           b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
-          std::stringstream tooltip;
           b->setTooltip( createTooltip( mMenuSelected[ mMenus[ i ] ] ) );
         }
       }
@@ -383,9 +388,8 @@ void ButtonPanel::attachButtons()
         if(b)
         {
           b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
-          std::stringstream tooltip;
           doButton( mButtons[i] );
-          b->setTooltip( createTooltip( selected_module_type ) );
+          b->setTooltip( createTooltip( selected_module_type, false ) );
         }
       }
     } 
@@ -452,6 +456,93 @@ void ButtonPanel::toggleBulldozeTool(){
     }
 }
 
+void ButtonPanel::showToolHelp( int tooltype ){
+    switch( tooltype ) {
+        case CST_NONE: 
+            getGame()->showHelpWindow( "query" ); break;
+        case CST_GREEN :
+            getGame()->showHelpWindow( "bulldoze" ); break;
+                        
+        case CST_RESIDENCE_LL: 
+        case CST_RESIDENCE_ML: 
+        case CST_RESIDENCE_HL: 
+        case CST_RESIDENCE_LH: 
+        case CST_RESIDENCE_MH: 
+        case CST_RESIDENCE_HH: 
+            getGame()->showHelpWindow( "residential" ); break;
+  
+        case CST_FARM_O0:
+            getGame()->showHelpWindow( "farm" ); break;
+        case CST_MILL_0:
+            getGame()->showHelpWindow( "mill" ); break;
+  
+        case CST_HEALTH:
+            getGame()->showHelpWindow( "health" ); break;
+        case CST_CRICKET_1: 
+            getGame()->showHelpWindow( "cricket" ); break;
+        case CST_FIRESTATION_1:
+            getGame()->showHelpWindow( "firestation" ); break;
+        case CST_SCHOOL: 
+            getGame()->showHelpWindow( "school" ); break;
+        case CST_UNIVERSITY:
+            getGame()->showHelpWindow( "university" ); break;
+  
+        case CST_TRACK_LR:
+            getGame()->showHelpWindow( "track" ); break;
+        case CST_ROAD_LR:
+            getGame()->showHelpWindow( "road" ); break;
+        case CST_RAIL_LR:
+            getGame()->showHelpWindow( "rail" ); break;
+        case CST_EX_PORT:
+            getGame()->showHelpWindow( "port" ); break;
+        case CST_ROCKET_1:
+            getGame()->showHelpWindow( "rocket" ); break;
+   
+        case CST_POWERL_H_L:
+            getGame()->showHelpWindow( "powerline" ); break;
+  
+        case CST_POWERS_COAL_EMPTY:
+            getGame()->showHelpWindow( "powerscoal" ); break;
+        case CST_POWERS_SOLAR:
+            getGame()->showHelpWindow( "powerssolar" ); break;
+        case CST_SUBSTATION_R:
+            getGame()->showHelpWindow( "substation" ); break;
+        case CST_WINDMILL_1_R:
+            getGame()->showHelpWindow( "windmill" ); break;
+  
+        case CST_COMMUNE_1:
+            getGame()->showHelpWindow( "commune" ); break;
+        case CST_COALMINE_EMPTY:
+            getGame()->showHelpWindow( "coalmine" ); break;
+        case CST_OREMINE_1:
+            getGame()->showHelpWindow( "oremine" ); break;
+        case CST_TIP_0:
+            getGame()->showHelpWindow( "tip" ); break;
+        case CST_RECYCLE:
+            getGame()->showHelpWindow( "recycle" ); break;
+  
+        case CST_INDUSTRY_L_C:
+            getGame()->showHelpWindow( "industryl" ); break;
+        case CST_INDUSTRY_H_C:
+            getGame()->showHelpWindow( "industryh" ); break;
+        case CST_MARKET_EMPTY:
+            getGame()->showHelpWindow( "market" ); break;
+        case CST_POTTERY_0:
+            getGame()->showHelpWindow( "pottery" ); break;
+        case CST_BLACKSMITH_0:
+            getGame()->showHelpWindow( "blacksmith" ); break;
+
+        case CST_MONUMENT_0:
+            getGame()->showHelpWindow( "monument" ); break;
+        case CST_PARKLAND_PLANE:
+            getGame()->showHelpWindow( "park" ); break;
+        case CST_WATER:
+            getGame()->showHelpWindow( "river" ); break;
+        default:
+            std::cerr << "ButtonPanel::showToolHelp# unknown Type " << tooltype << "\n";
+    }
+}
+
 void ButtonPanel::switchToTool( int newModuleType ){
     std::string newName;
     switch( newModuleType ){
@@ -510,11 +601,19 @@ void ButtonPanel::switchToTool( int newModuleType ){
     chooseButtonClicked( newButton, SDL_BUTTON_LEFT ); 
 }
     
-void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
+void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
 {
     Image *i=dynamic_cast<Image*>(button->getCaption());
     CheckButton *cb = 0;
     std::string mmain=button->getMain();
+    //check tech:
+    int prevTech = selected_module_type;
+    doButton(button->getName());
+    
+    if( mousebutton == SDL_BUTTON_RIGHT ){
+        showToolHelp( selected_module_type );
+    }
+    
     if(i)
     {
         std::string filename=i->getFilename();
@@ -523,7 +622,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
         if(mmain.length())
         {
             Component *c=findComponent(mmain);
-            if(c)
+            if(c && enoughTech( selected_module_type))
             {
                 cb=dynamic_cast<CheckButton*>(c);
                 if(cb)
@@ -538,15 +637,13 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int )
         }
     }
     
-    //check tech:
-    int prevTech = selected_module_type;
-    doButton(button->getName());
-    
     // now hide menu
     for(size_t i=0;i<mMenuButtons.size();i++) {
         if(mmain==mMenuButtons[i])
         {
-            mMenuSelected[mMenus[i]]=selected_module_type;// set default      
+            if(enoughTech( selected_module_type)) {
+                mMenuSelected[mMenus[i]]=selected_module_type;// set default      
+            }
             // get Component
             Component *c=findComponent(mMenus[i]);
             if(c) {

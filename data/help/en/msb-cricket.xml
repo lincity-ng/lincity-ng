@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Sports overlay</p>
-	<img src="images/gui/mapview/roundbuttons/round_soccer.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 	<p style="hp">Areas that have sport areas within range are shown as dark green.</p>
 	<p style="hp">Areas that are out of range of a basketball court are displayed as normal.</p>
 	<p style="hp">Remember, basketball courts take three months to become active.</p>

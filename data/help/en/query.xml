@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Query</p>
+	<p style="hp">To show informations about a building use this tool and click on the Building in question.</p>
+	<p style="hp">The information is shown int the lower right corner, instead of the minimap.</p>
+	<p style="hp">There are no costs to use this tool.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	<p style="hsubtitle">See also:</p>
+    <li><a href="keys">Keyboard commands</a></li>
+	<li><a href="help">index</a></li>
+</Document>
+

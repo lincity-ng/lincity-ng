@@ -39,6 +39,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "EconomyGraph.hpp"
 
+Game* gameptr = 0;
+
+Game* getGame(){
+ return gameptr;
+}
+
 Game::Game()
 {
     gui.reset(loadGUIFile("gui/app.xml"));
@@ -57,10 +63,18 @@ Game::Game()
     if(desktop == 0)
         throw std::runtime_error("Game UI is not a Desktop Component");
     helpWindow.reset(new HelpWindow(desktop));
+    gameptr = this;
 }
 
 Game::~Game()
 {
+    if( gameptr == this ){
+        gameptr = 0;
+    }
+}
+
+void Game::showHelpWindow( std::string topic ){
+    helpWindow->showTopic( topic );
 }
 
 void Game::backToMainMenu(){

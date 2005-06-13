@@ -35,6 +35,7 @@ public:
 
     MainState run();
     void gameButtonClicked( Button* button );
+    void showHelpWindow( std::string topic );
 
 private:
     std::auto_ptr<Component> gui;
@@ -47,6 +48,8 @@ private:
     void quickSave();
     std::auto_ptr<HelpWindow> helpWindow;
 };
+
+Game* getGame();
 
 #endif
 

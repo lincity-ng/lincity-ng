@@ -5,7 +5,7 @@
 	<p style="hp">You can tell when potteries are working by the kilns producing smoke. If the bottom kiln is not making smoke, then you are producing less than 100% of possible output.</p>
 	
 	<p style="hp">This is a pottery</p>
-	<img src="images/tiles/pottery.png" halign="center"/>
+	<img src="images/tiles/pottery0.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
 	

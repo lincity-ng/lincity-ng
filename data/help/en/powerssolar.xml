@@ -4,7 +4,7 @@
 	<p style="hp">Solar power stations output their power to power lines in packets. The amount of power that it can produce increases with the tech-level when it was <b>built</b>.</p>
 	
 	<p style="hp">This is a Solar power station</p>
-	<img src="images/tiles/solar.png" halign="center"/>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 	

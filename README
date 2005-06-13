@@ -104,6 +104,8 @@ any:
 right:
  Drag mainscreen with right mousebutton.
  right click on mainscreen centers to tile under cursor.
+ open Tool-Menu 
+ show Help on Tool
 
 middle:
  middle click on mainscreen to show information about area under cursor.

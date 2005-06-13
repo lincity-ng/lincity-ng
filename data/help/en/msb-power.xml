@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Power overlay</p>
-	<img src="images/gui/mapview/roundbuttons/round_power.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 	<p style="hp">Areas that have low tech windmill power are shown as dark green.</p>
 	<p style="hp">The areas within the main power grid are shown as light green.</p>
 	<p style="hp">The unpowerd areas are displayed as normal.</p>

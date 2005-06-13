@@ -49,6 +49,7 @@ class ButtonPanel : public Component
   void doButton(const std::string &button);
   void toggleMenu(std::string pName,bool enable);
   void updateToolInfo();
+  void showToolHelp( int tooltype );
 
   int module;
   bool alreadyAttached;
@@ -60,7 +61,7 @@ class ButtonPanel : public Component
   void updateSelectedCost();
   int previousTool;
  
-  std::string ButtonPanel::createTooltip( int module );
+  std::string ButtonPanel::createTooltip( int module, bool root = true );
   std::vector<std::string> mMenuButtons;
   std::vector<std::string> mMenus;
   std::vector<std::string> mButtons;
