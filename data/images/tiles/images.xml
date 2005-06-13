@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <resources>
-  <image file="substation-RG.png" x="128" y="0" />
-  <image file="substation-G.png" x="128" y="0" />
-  <image file="substation-R.png" x="128" y="0" />
+    <image file="substation-RG.png" x="132" />
+    <image file="substation-R.png" x="132" />
+    <image file="substation-G.png" x="132" />
 
     <image file="powerscoal-empty.png" x="263" />
     <image file="powerscoal-low.png" x="266" />

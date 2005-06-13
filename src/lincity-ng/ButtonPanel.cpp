@@ -606,7 +606,6 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     Image *i=dynamic_cast<Image*>(button->getCaption());
     CheckButton *cb = 0;
     std::string mmain=button->getMain();
-    //check tech:
     int prevTech = selected_module_type;
     doButton(button->getName());
     
@@ -637,6 +636,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
         }
     }
     
+    doButton(button->getName());
     // now hide menu
     for(size_t i=0;i<mMenuButtons.size();i++) {
         if(mmain==mMenuButtons[i])
