@@ -68,40 +68,6 @@ tip7.png
 tip8.png full tip, closed
 
 TODO:
-Heavy Industry
---------------
-
-industryhh1.png >80% output 
-industryhh2.png 
-industryhh3.png Animation 1..8
-industryhh4.png 
-industryhh5.png 
-industryhh6.png 
-industryhh7.png 
-industryhh8.png 
-
-industryhm1.png >30% output
-industryhm2.png 
-industryhm3.png Animation 1..8
-industryhm4.png 
-industryhm5.png 
-industryhm6.png 
-industryhm7.png 
-industryhm8.png 
-
-industryhl1.png >0% output
-industryhl2.png 
-industryhl3.png 
-industryhl4.png Animation 1..8
-industryhl5.png 
-industryhl6.png 
-industryhl7.png 
-industryhl8.png 
-
-industryhc.png 0% output
-
-
-TODO:
 Light Industry
 --------------
 industrylh1.png >80% output Animate 1..4
@@ -159,6 +125,39 @@ firestation10.png /
 
 
 ===========================================================================
+Heavy Industry
+--------------
+
+industryhh1.png >80% output 
+industryhh2.png 
+industryhh3.png Animation 1..8
+industryhh4.png 
+industryhh5.png 
+industryhh6.png 
+industryhh7.png 
+industryhh8.png 
+
+industryhm1.png >30% output
+industryhm2.png 
+industryhm3.png Animation 1..8
+industryhm4.png 
+industryhm5.png 
+industryhm6.png 
+industryhm7.png 
+industryhm8.png 
+
+industryhl1.png >0% output
+industryhl2.png 
+industryhl3.png 
+industryhl4.png Animation 1..8
+industryhl5.png 
+industryhl6.png 
+industryhl7.png 
+industryhl8.png 
+
+industryhc.png 0% output 
+
+
 
 Coalmine:
 ---------

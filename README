@@ -145,6 +145,9 @@ use shift + direction to scroll faster
  v  to cycle through MiniMap-overlay modes
  b  toggle between current tool and bulldoze mode 
  F1 Help
+ 
+ F12 quick save
+ F9  quick load
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

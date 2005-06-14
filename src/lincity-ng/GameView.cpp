@@ -683,14 +683,14 @@ void GameView::loadTextures()
    preReadCityTexture( CST_COMMUNE_4,         "commune4.png" );
    preReadCityTexture( CST_COMMUNE_5,         "commune5.png" );
    preReadCityTexture( CST_COMMUNE_6,         "commune6.png" );
-   preReadCityTexture( CST_COMMUNE_7,         "commune7.png" );
+   //preReadCityTexture( CST_COMMUNE_7,         "commune7.png" );
    preReadCityTexture( CST_COMMUNE_8,         "commune8.png" );
    preReadCityTexture( CST_COMMUNE_9,         "commune9.png" );
    preReadCityTexture( CST_COMMUNE_10,        "commune10.png" );
    preReadCityTexture( CST_COMMUNE_11,        "commune11.png" );
    preReadCityTexture( CST_COMMUNE_12,        "commune12.png" );
    preReadCityTexture( CST_COMMUNE_13,        "commune13.png" );
-   preReadCityTexture( CST_COMMUNE_14,        "commune14.png" );
+   //preReadCityTexture( CST_COMMUNE_14,        "commune14.png" );
    preReadCityTexture( CST_INDUSTRY_H_C,      "industryhc.png" );
    preReadCityTexture( CST_INDUSTRY_H_L1,      "industryhl1.png" );
    preReadCityTexture( CST_INDUSTRY_H_L2,      "industryhl2.png" );
@@ -734,22 +734,23 @@ void GameView::loadTextures()
    preReadCityTexture( CST_INDUSTRY_L_H3,      "industrylh3.png" );
    preReadCityTexture( CST_INDUSTRY_L_H4,      "industrylh4.png" );
    preReadCityTexture( CST_FARM_O0,            "farm0.png" );
-   preReadCityTexture( CST_FARM_O1,            "farm1.png" );
-   preReadCityTexture( CST_FARM_O2,            "farm2.png" );
+   //preReadCityTexture( CST_FARM_O1,            "farm1.png" );
+   //preReadCityTexture( CST_FARM_O2,            "farm2.png" );
    preReadCityTexture( CST_FARM_O3,            "farm3.png" );
-   preReadCityTexture( CST_FARM_O4,            "farm4.png" );
-   preReadCityTexture( CST_FARM_O5,            "farm5.png" );
-   preReadCityTexture( CST_FARM_O6,            "farm6.png" );
+   //preReadCityTexture( CST_FARM_O4,            "farm4.png" );
+   //preReadCityTexture( CST_FARM_O5,            "farm5.png" );
+   //preReadCityTexture( CST_FARM_O6,            "farm6.png" );
    preReadCityTexture( CST_FARM_O7,            "farm7.png" );
-   preReadCityTexture( CST_FARM_O8,            "farm8.png" );
-   preReadCityTexture( CST_FARM_O9,            "farm9.png" );
-   preReadCityTexture( CST_FARM_O10,           "farm10.png" );
+   //preReadCityTexture( CST_FARM_O8,            "farm8.png" );
+   //preReadCityTexture( CST_FARM_O9,            "farm9.png" );
+   //preReadCityTexture( CST_FARM_O10,           "farm10.png" );
    preReadCityTexture( CST_FARM_O11,           "farm11.png" );
-   preReadCityTexture( CST_FARM_O12,           "farm12.png" );
-   preReadCityTexture( CST_FARM_O13,           "farm13.png" );
-   preReadCityTexture( CST_FARM_O14,           "farm14.png" );
+   //preReadCityTexture( CST_FARM_O12,           "farm12.png" );
+   //preReadCityTexture( CST_FARM_O13,           "farm13.png" );
+   //preReadCityTexture( CST_FARM_O14,           "farm14.png" );
    preReadCityTexture( CST_FARM_O15,           "farm15.png" );
-   preReadCityTexture( CST_FARM_O16,           "farm16.png" );
+   //preReadCityTexture( CST_FARM_O16,           "farm16.png" );
+   
    // End of generated Code.
    SDL_mutexV( mThreadRunning );
 }

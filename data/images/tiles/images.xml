@@ -44,6 +44,34 @@
     <image file="commune12.png" x="264" />
     <image file="commune13.png" x="264" />
 
+    <image file="industryhc.png" x="263" />
+    <image file="industryhl1.png" x="263" />
+    <image file="industryhl2.png" x="263" />
+    <image file="industryhl3.png" x="263" />
+    <image file="industryhl4.png" x="263" />
+    <image file="industryhl5.png" x="263" />
+    <image file="industryhl6.png" x="263" />
+    <image file="industryhl7.png" x="263" />
+    <image file="industryhl8.png" x="263" />
+
+    <image file="industryhm1.png" x="263" />
+    <image file="industryhm2.png" x="263" />
+    <image file="industryhm3.png" x="263" />
+    <image file="industryhm4.png" x="263" />
+    <image file="industryhm5.png" x="263" />
+    <image file="industryhm6.png" x="263" />
+    <image file="industryhm7.png" x="263" />
+    <image file="industryhm8.png" x="263" />
+
+    <image file="industryhh1.png" x="263" /> 
+    <image file="industryhh2.png" x="263" />
+    <image file="industryhh3.png" x="263" />
+    <image file="industryhh4.png" x="263" />
+    <image file="industryhh5.png" x="263" />
+    <image file="industryhh6.png" x="263" />
+    <image file="industryhh7.png" x="263" />
+    <image file="industryhh8.png" x="263" />
+
     <image file="windmill1g.png" x="134" />
     <image file="windmill2g.png" x="131" />
     <image file="windmill3g.png" x="151" />
