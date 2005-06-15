@@ -208,6 +208,14 @@ Game::run()
                     gui->event(gui_event);
                     break;
                 }
+                case SDL_ACTIVEEVENT:
+                    if( event.active.gain == 1 ){
+                        gui->resize( gui->getWidth(), gui->getHeight() );
+                    }
+                    break;
+                case SDL_VIDEOEXPOSE:
+                    gui->resize( gui->getWidth(), gui->getHeight() );
+                    break;
                 case SDL_QUIT:
                     saveCityNG( "9_currentGameNG.scn" );
                     running = false;

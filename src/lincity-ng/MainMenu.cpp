@@ -520,6 +520,14 @@ MainMenu::run()
                     currentMenu->event(gui_event);
                     break;
                 }
+                case SDL_VIDEOEXPOSE:
+                    currentMenu->resize( currentMenu->getWidth(), currentMenu->getHeight() );
+                    break;
+                case SDL_ACTIVEEVENT:
+                    if( event.active.gain == 1 ){
+                        currentMenu->resize( currentMenu->getWidth(), currentMenu->getHeight() );
+                    }
+                    break;
                 case SDL_QUIT:
                     running = false;
                     quitState = QUIT;
