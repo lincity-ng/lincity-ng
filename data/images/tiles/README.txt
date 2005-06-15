@@ -93,21 +93,6 @@ industrylq4.png
 industrylq1.png is used for 0% output, too
 
 TODO:
-Oremine:
---------
-
-graphic represents remaining ore.
-
-oremine1.png new mine
-oremine2.png   
-oremine3.png
-oremine4.png
-oremine5.png
-oremine6.png
-oremine7.png
-oremine8.png almost depleted
-
-TODO:
 Firesation:
 -----------
 animation 1..10
@@ -125,6 +110,20 @@ firestation10.png /
 
 
 ===========================================================================
+Oremine:
+--------
+
+graphic represents remaining ore.
+
+oremine1.png new mine
+oremine2.png   
+oremine3.png
+oremine4.png
+oremine5.png
+oremine6.png
+oremine7.png
+oremine8.png almost depleted
+
 Heavy Industry
 --------------
 

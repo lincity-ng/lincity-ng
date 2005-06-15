@@ -44,6 +44,16 @@
     <image file="commune12.png" x="264" />
     <image file="commune13.png" x="264" />
 
+    <image file="oremine1.png" x="256" />
+    <image file="oremine2.png" x="256" />
+    <image file="oremine3.png" x="256" />
+    <image file="oremine4.png" x="256" />
+    <image file="oremine5.png" x="256" />
+    <image file="oremine6.png" x="256" />
+    <image file="oremine7.png" x="256" />
+    <image file="oremine8.png" x="256" />
+
+
     <image file="industryhc.png" x="263" />
     <image file="industryhl1.png" x="263" />
     <image file="industryhl2.png" x="263" />
