@@ -716,7 +716,7 @@ void GameView::loadTextures()
    preReadCityTexture( CST_INDUSTRY_H_H6,      "industryhh6.png" );
    preReadCityTexture( CST_INDUSTRY_H_H7,      "industryhh7.png" );
    preReadCityTexture( CST_INDUSTRY_H_H8,      "industryhh8.png" );
-   preReadCityTexture( CST_INDUSTRY_L_C,       "industrylq1.png" );
+   preReadCityTexture( CST_INDUSTRY_L_C,       "industrylc.png" );
    preReadCityTexture( CST_INDUSTRY_L_Q1,      "industrylq1.png" );
    preReadCityTexture( CST_INDUSTRY_L_Q2,      "industrylq2.png" );
    preReadCityTexture( CST_INDUSTRY_L_Q3,      "industrylq3.png" );

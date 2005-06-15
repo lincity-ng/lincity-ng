@@ -53,31 +53,6 @@ water*
 
 
 TODO:
-Light Industry
---------------
-industrylh1.png >80% output Animate 1..4
-industrylh2.png 
-industrylh3.png 
-industrylh4.png 
-
-industrylm1.png >55% output Animate 1..4
-industrylm2.png 
-industrylm3.png 
-industrylm4.png 
-
-industryll1.png >25% output Animate 1..4
-industryll2.png 
-industryll3.png 
-industryll4.png 
-
-industrylq1.png 0% output 
-industrylq2.png >0% output Animate 1..4
-industrylq3.png 
-industrylq4.png 
-
-industrylq1.png is used for 0% output, too
-
-TODO:
 Firestation:
 -----------
 animation 1..10
@@ -95,6 +70,30 @@ firestation10.png /
 
 
 ===========================================================================
+Light Industry
+--------------
+industrylh1.png >80% output Animate 1..4
+industrylh2.png 
+industrylh3.png 
+industrylh4.png 
+
+industrylm1.png >55% output Animate 1..4
+industrylm2.png 
+industrylm3.png 
+industrylm4.png 
+
+industryll1.png >25% output Animate 1..4
+industryll2.png 
+industryll3.png 
+industryll4.png 
+
+industrylq1.png >0% output Animate 1..4
+industrylq2.png 
+industrylq3.png 
+industrylq4.png 
+
+industrylc.png is used for 0% output
+
 Tip:
 ----
 graphic represents fillstate

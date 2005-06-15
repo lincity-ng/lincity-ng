@@ -14,6 +14,28 @@
     <image file="tip7.png" x="254" />
     <image file="tip8.png" x="254" />
 
+    <image file="industrylc.png" x="197" />
+
+    <image file="industrylq1.png" x="197" />
+    <image file="industrylq2.png" x="197" />
+    <image file="industrylq3.png" x="197" />
+    <image file="industrylq4.png" x="197" />
+ 
+
+    <image file="industryll1.png" x="197" />
+    <image file="industryll2.png" x="197" />
+    <image file="industryll3.png" x="197" />
+    <image file="industryll4.png" x="197" />
+
+    <image file="industrylm1.png" x="197" />
+    <image file="industrylm2.png" x="197" />
+    <image file="industrylm3.png" x="197" />
+    <image file="industrylm4.png" x="197" />
+
+    <image file="industrylh1.png" x="197" />
+    <image file="industrylh2.png" x="197" />
+    <image file="industrylh3.png" x="197" />
+    <image file="industrylh4.png" x="197" />
 
     <image file="powerscoal-empty.png" x="263" />
     <image file="powerscoal-low.png" x="266" />
