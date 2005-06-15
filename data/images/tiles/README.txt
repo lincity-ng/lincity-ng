@@ -53,21 +53,6 @@ water*
 
 
 TODO:
-Tip:
-----
-graphic represents fillstate
-
-tip0.png new, empty tip
-tip1.png
-tip2.png
-tip3.png
-tip4.png
-tip5.png
-tip6.png
-tip7.png
-tip8.png full tip, closed
-
-TODO:
 Light Industry
 --------------
 industrylh1.png >80% output Animate 1..4
@@ -93,7 +78,7 @@ industrylq4.png
 industrylq1.png is used for 0% output, too
 
 TODO:
-Firesation:
+Firestation:
 -----------
 animation 1..10
 
@@ -110,6 +95,20 @@ firestation10.png /
 
 
 ===========================================================================
+Tip:
+----
+graphic represents fillstate
+
+tip0.png new, empty tip       
+tip1.png
+tip2.png
+tip3.png
+tip4.png
+tip5.png
+tip6.png
+tip7.png                      
+tip8.png full tip, closed     
+
 Oremine:
 --------
 

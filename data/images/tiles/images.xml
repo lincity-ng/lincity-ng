@@ -4,6 +4,17 @@
     <image file="substation-R.png" x="132" />
     <image file="substation-G.png" x="132" />
 
+    <image file="tip0.png" x="262" />
+    <image file="tip1.png" x="262" />
+    <image file="tip2.png" x="262" />
+    <image file="tip3.png" x="262" />
+    <image file="tip4.png" x="262" />
+    <image file="tip5.png" x="262" />
+    <image file="tip6.png" x="262" />
+    <image file="tip7.png" x="254" />
+    <image file="tip8.png" x="254" />
+
+
     <image file="powerscoal-empty.png" x="263" />
     <image file="powerscoal-low.png" x="266" />
     <image file="powerscoal-med.png" x="266" />
@@ -53,8 +64,8 @@
     <image file="oremine7.png" x="256" />
     <image file="oremine8.png" x="256" />
 
-
     <image file="industryhc.png" x="263" />
+
     <image file="industryhl1.png" x="263" />
     <image file="industryhl2.png" x="263" />
     <image file="industryhl3.png" x="263" />
