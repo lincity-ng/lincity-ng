@@ -8,7 +8,7 @@
 	<p style="hp">Fire stations go through an animation sequence every month to show that they are working.</p>
 
 	<p style="hp">This is a fire station</p>
-	<img src="images/tiles/firestation.png" halign="center"/>
+	<img src="images/tiles/firestation1.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
 	<p style="hp">and this its mapview overlay icon</p>

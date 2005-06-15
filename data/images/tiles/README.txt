@@ -52,7 +52,8 @@ Water:
 water*
 
 
-TODO:
+===========================================================================
+
 Firestation:
 -----------
 animation 1..10
@@ -61,15 +62,13 @@ firestation1.png doors closed
 firestation2.png \
 firestation3.png   moving out
 firestation4.png  /
-firestation5.png /
-firestation6.png all gone, doors open (is shown longer)
-firestation7.png  \
+firestation5.png / 
+firestation6.png/ 
+firestation7.png  all gone, doors open (is shown longer)
 firestation8.png   moving in 
 firestation9.png   /
 firestation10.png /
 
-
-===========================================================================
 Light Industry
 --------------
 industrylh1.png >80% output Animate 1..4

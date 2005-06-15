@@ -127,8 +127,17 @@
     <image file="windmill2rg.png" x="131" />
     <image file="windmill3rg.png" x="151" />
 
+    <image file="firestation1.png" x="132" /> 
+    <image file="firestation2.png" x="132" />
+    <image file="firestation3.png" x="132" />
+    <image file="firestation4.png" x="132" />
+    <image file="firestation5.png" x="132" />
+    <image file="firestation6.png" x="132" />
+    <image file="firestation7.png" x="132" />
+    <image file="firestation8.png" x="132" />
+    <image file="firestation9.png" x="132" />
+    <image file="firestation10.png" x="132" />
 
-  <image file="firestation.png" x="131" y="79" />
   <image file="mill.png" x="53" y="28" />
   <image file="monument.png" x="131" y="46" />
   <image file="oremine.png" x="258" y="102" />
