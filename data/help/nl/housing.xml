@@ -3,12 +3,12 @@
 	<p style="htitle">Bevolkingskosten</p>
 	<p style="hp">Dit is het bevolkingskosten venster.</p>
 	<p style="hp">Dit venster laat 7 statistieken zien:</p>
-	<li><p style="hp">1.  Pop - dit laat u aantal inwoners zien. Dit houdt geen rekening met daklozenn</p></li>
-	<li><p style="hp">2.  Housed - this shows the total number of people in your city that live in residences.</p></li>
-	<li><p style="hp">3.  Housed % - this shows the percentage of your city that live in residences.</p></li>
-	<li><p style="hp">4.  Krottenwijken - dit laat het aantal krottenwijken in uw stad zien</p></li>
-	<li><p style="hp">5.  Onnatuurlijke doden - dit laat het aantal onnatuurlijke doden van de laatste maand zien die verhongerd zijn of gestroven aan de vervuiling</p></li>
-	<li><p style="hp">6.  Werklossheid % - laat het percentage werklozen zien.</p></li>
-	<li><p style="hp">7.  Sterfte % - dit laat het percentage dat aan het sterven is zien.</p></li>
-	<li><p style="hp">inksklikken op dit venster zal wisselen tussen het financiënvenster,diverse kosten en bevolkingskosten.</p></li>
+	<li>1.  Pop - dit laat u aantal inwoners zien. Dit houdt geen rekening met daklozenn</li>
+	<li>2.  Housed - this shows the total number of people in your city that live in residences.</li>
+	<li>3.  Housed % - this shows the percentage of your city that live in residences.</li>
+	<li>4.  Krottenwijken - dit laat het aantal krottenwijken in uw stad zien</li>
+	<li>5.  Onnatuurlijke doden - dit laat het aantal onnatuurlijke doden van de laatste maand zien die verhongerd zijn of gestroven aan de vervuiling</li>
+	<li>6.  Werklossheid % - laat het percentage werklozen zien.</li>
+	<li>7.  Sterfte % - dit laat het percentage dat aan het sterven is zien.</li>
+	<li>inksklikken op dit venster zal wisselen tussen het financiënvenster,diverse kosten en bevolkingskosten.</li>
 </Document>

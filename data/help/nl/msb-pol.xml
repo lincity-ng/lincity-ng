@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Vervuilingskaart</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
 	<p style="hp">De vervuilingskaart laat de (lucht)vervuiling over uw stad zien.</p>
 	<p style="hp">De verschillende kleuren betekenen: Licht groen (geen vervuiling) -> Donkergroen -> Donkerderder groen -> Donkerrood -> Lichtrood -> Felrood (zwaar vervuild).</p>
 	<p style="hp">Gebieden met een rode kleur veroorzaken ziektes en een plek met minder welzijn.</p>

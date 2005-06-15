@@ -4,9 +4,9 @@
 	<p style="hp">Zonne-energiecentrales produceren energie die geplaatst worden op electriciteitsdraden. De effectiviteit van de productie verhoogt met een hoge technologie level <b>op bouwdatum</b>. U kunt, wanneer u technologie level opmerkelijk gestegen is, een oude Zonne-energiecentrale afbreken en die herbouwen met een nieuwere, meer efficiente.</p>
 	
 	<p style="hp">Dit is een zonne-energiecentrale</p>
-	<img src="data/images/tiles/solar.png" halign="center"/>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="data/images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="substation">Onderstation</a></li>

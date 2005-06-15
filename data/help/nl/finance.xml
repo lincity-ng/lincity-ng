@@ -6,15 +6,15 @@
 	<p style="hp">De 'Tot' grafiek is de hoevelheid geld op uw bankrekening. <!--Waarom staat dit hier?-->Er zijn verschillenden zaken die u kunt doen als u in het rood staat.</p>
 	<p style="hp">De betekenissen voor de afkortingen:</p>
 	<p style="hp">Inkomsten:</p>
-	<li><p style="hp">IT = Inkomensbelasting.</p></li>
-	<li><p style="hp">CT = Steenkoolbelasting.</p></li>
-	<li><p style="hp">GT = Goederenbelasting.</p></li>
-	<li><p style="hp">XP = Exportbelasting.</p></li>
+	<li>IT = Inkomensbelasting.</li>
+	<li>CT = Steenkoolbelasting.</li>
+	<li>GT = Goederenbelasting.</li>
+	<li>XP = Exportbelasting.</li>
 	<p style="hp">Uitgaven:</p>
-	<li><p style="hp">OC = Diverse kosten.</p></li>
-	<li><p style="hp">UC = Werkloosheidskosten.</p></li>
-	<li><p style="hp">TC = Transportkosten.</p></li>
-	<li><p style="hp">IP = Importkosten.</p></li>
+	<li>OC = Diverse kosten.</li>
+	<li>UC = Werkloosheidskosten.</li>
+	<li>TC = Transportkosten.</li>
+	<li>IP = Importkosten.</li>
 	<p style="hp">inksklikken op dit venster zal wisselen tussen het financiënvenster,diverse kosten en bevolkingskosten.</p>
 </Document>
 

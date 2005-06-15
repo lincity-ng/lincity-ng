@@ -6,11 +6,11 @@
 	<p style="hp">Textielfabrieken moeten niet verbonden zijn met transport, maar ze moeten in het bereik van een markt liggen om steenkool, voedsel en jobs te verrkijgen. U kunt zien weet dat textielfabriek werkt als er rook en licht van het gebouw komt.</p>
 	
 	<p style="hp">Dit is een werkenden textielfabriek</p>
-	<img src="data/images/tiles/mill1.png" halign="center"/>
+	<img src="images/tiles/mill1.png" halign="center"/>
 	<p style="hp">en dit is een nietwerkenden textielfabriek.</p>
-	<img src="data/images/tiles/mill0.png" halign="center"/>
+	<img src="images/tiles/mill0.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="data/images/gui/buttonpanel/parks/mills.png" halign="center"/>
+	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="goods">Goederen</a></li>

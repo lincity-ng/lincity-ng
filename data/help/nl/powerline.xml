@@ -5,11 +5,11 @@
 	<p style="hp">Electriciteitsdraden kruisen <b>onder</b> wegen, straten, spoorwegen en rivieren, als ze maar 1 breed zijn. Als een elctriciteitsdraad geplaatst wordt aan beide zijden van een transport of een riviergebied zijn deze draden verbonden. Vaak zult u een stuk rivier moeten afbreken, spijtig genoeg is dit duur. De electriciteitsdraden zijn verbonden als ze in een rechte lijn liggen.</p>
 
 	<p style="hp">Dit is een elecricitetisdraad</p>
-	<img src="data/images/tiles/powerlvd.png" halign="center"/>
+	<img src="images/tiles/powerlvd.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="data/images/gui/buttonpanel/power/powerlines.png" halign="center"/>
+	<img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
 	<p style="hp">en dit de die van de electriciteitskaart</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_power.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="substation">Onderstation</a></li>

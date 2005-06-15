@@ -6,9 +6,9 @@
 	<p style="hp">Het is mogelik om een goede economie op te bouwen (zonder ijzererts op te graven) met minder dan 100% effectieve recycleercentra, als u een aantal textielfabrieken hebt om de verspilling tegen te gaan.</p>
 	
 	<p style="hp">Dit is een rcycleercentrum</p>
-	<img src="data/images/tiles/recycle-centre.png" halign="center"/>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="data/images/gui/buttonpanel/mining/recycle.png" halign="center"/>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="goods">Goederen</a></li>

@@ -4,12 +4,12 @@
 	<p style="hp">Communies zijn gebieden waar houtskool (gelijk aan steenkool in dit spel) gemaakt wordt. Ze produceren ook kleine hoeveelheden ijzerersts en staal.</p>
 	<p style="hp">U zult mogelijk een aantal communies nodig hebben om genoeg steenkool en staal te leveren voor pottenbakkerijen, smidsen en textielfabrieken.</p>
 	<p style="hp">Communies moeten verbonden zijn met transport</p>
-	<p style="hp">Als een communie gedurende 10 jaar niets produceert, wordt het gelsoten en omgevorm tot een park.</p
+	<p style="hp">Als een communie gedurende 10 jaar niets produceert, wordt het gelsoten en omgevorm tot een park.</p>
 	
 	<p style="hp">Dit is een communie</p>
-	<img src="data/images/tiles/commune.png" halign="center"/>
+	<img src="images/tiles/commune1.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="data/images/gui/buttonpanel/mining/commune.png" halign="center"/>
+	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="pottery">Pottenbakkerij</a></li>

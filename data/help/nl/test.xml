@@ -50,7 +50,7 @@
     <p style="hp">
     Later in the game, if you have sufficient technology, you can build more
     <i>modern</i> housing, even tower blocks.</p>
-    <img src="data/images/gui/tiledozer.png" halign="left"/>
+    <img src="images/gui/tiledozer.png" halign="left"/>
     <p style="hp">
     This is where people live. To encourage people to live in this area they
     must be fed. It also helps to provide them with work and goods to buy. They
@@ -58,7 +58,7 @@
     icons show low, medium and high density housing. There are different birth
     and death rates associated with each area. This gives you some control over
     your population.</p>
-    <img src="data/images/gui/tiledozer.png" halign="center"/>
+    <img src="images/gui/tiledozer.png" halign="center"/>
     <p style="hp">
     The above market is within range of the last two residential areas, however
     it is probably out of range of the first.</p>

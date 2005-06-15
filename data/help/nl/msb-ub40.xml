@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Werkloosheidskaart</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
 	<p style="hp">De werkloosheidskaart kleurt alleen maar residenties.</p>
 	<p style="hp">Heldergroen betekent dat er geen wekloosheid heerst in dat gebied. Donkergroen betekent dat er een licht tekort aan jobs in die gebieden is. Helderrood betekent dat er grote werkloosheid heerst in die gebieden.</p>
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Sportkaart</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_soccer.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 	<p style="hp">Gebieden die toegang hebben tot sportvelden worden donkergroen getoond, andere gebieden worden normaal gekleurd.</p>
 	<p style="hp">Let op! Basketbalvelden treden pas drie maanden na de bouw in werking.</p>
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>

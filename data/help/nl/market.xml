@@ -5,14 +5,14 @@
 	<p style="hsubtitle">Controlleer wat markten kopen en verkopen</p>
 	<p style="hp">You can control the functioning of a market by selecting what may be bought and sold from transport. Click twice on a market (not the select button) and towards the top left hand side a window will appear allowing you to select what is traded. The default is to trade in everything.</p>
 	<p style="hp">Dit is een markt</p>
-	<img src="data/images/tiles/market.png" halign="center"/>
+	<img src="images/tiles/market-empty.png" halign="center"/>
 	<p style="hp">en dit is het icoon</p>
-	<img src="data/images/gui/buttonpanel/industry/market.png" halign="center"/>
+	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
 	
 	<p style="hp">Dit betekent dar er verhandeld mag worden.</p>
-	<img src="data/images/gui/checkbox/checkbox_checked.png" halign="center"/>
+	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
 	<p style="hp">Dit betekent dat er <b>niet</b> verhandeld mag worden</p>
-	<img src="data/images/gui/checkbox/checkbox.png" halign="center"/>
+	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
 	<p style="hp">De cijfers tussen de woorden kopen en verkopen zij de kaartreferenties voor dei markt.</p>
 	
 	<p style="hsubtitle">Lees ook:</p>

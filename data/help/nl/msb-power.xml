@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Electriciteitskaart</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_power.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 	<p style="hp">Gebieden die in het bereik van een laagtechnologische windmolen liggen worden donkergroen gekleurd.</p>
 	<p style="hp">Gebieden die verbonden zijn met het -hoog technologische- electricitetistnetwerk worden lichtgroen gekleurd..</p>
 	<p style="hp">De gebieden die helemaal geen toegang hebben tot electricitet worden gekleurd als normaal.</p>

@@ -6,9 +6,9 @@
 	<p style="hp">Smidsen moeten niet verbonden zijn met met transport. Ze moeten wel in het bereik van een markt liggen.</p>
 	<p style="hp">U kan zien ofdat een smidse werkt op de normale manier, door er op te klikken, om de zoveel tijd komt er ook een animatie tot leven.</p>
 	<p style="hp">Dit is een smidse</p>
-	<img src="data/images/tiles/blacksmith0.png" halign="center"/>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="market">Markt</a></li>

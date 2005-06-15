@@ -9,9 +9,9 @@
 	<p style="hp">You <b>must</b> have 5 schools PER university to supply it with students.</p>
 
 	<p style="hp">This is a university</p>
-	<img src="data/images/tiles/university.png" halign="center"/>
+	<img src="images/tiles/university.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/misc/university.png" halign="center"/>
+	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
 
 	<p style="hsubtitle">See also:</p>
 	<li><a href="market">Market</a></li>

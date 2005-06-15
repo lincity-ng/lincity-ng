@@ -5,9 +5,9 @@
 	<p style="hp">U kunt zien ofdat pottenbakkerijen werken door te kijken naar de ovens. Als de onderste oven geen rook produceert dan produceert de pottenbakkerij minder dan 100% van zijn mogelijke output.</p>
 	
 	<p style="hp">Dit is een pottenbakkerij</p>
-	<img src="data/images/tiles/pottery.png" halign="center"/>
+	<img src="images/tiles/pottery0.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="data/images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="transport">Transport</a></li>

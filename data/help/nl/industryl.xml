@@ -7,9 +7,9 @@
 	<!--Outdated<p style="hp">These areas connect to transport <b>only</b> to the top left hand corner, as shown. Transport will curve in when it is connected.</p>-->
 	
 	<!--<p style="hp">This is a blacksmith</p>
-	<img src="data/images/tiles/blacksmith0.png" halign="center"/>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">and this it's icon</p>
-	<img src="data/images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>-->
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>-->
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="transport">Transport</a></li>

@@ -2,11 +2,11 @@
 <Document style="helpdocument">
 	<p style="htitle">Sustainability progress window</p>
 	<p style="hp">This window contains six coloured lines.  When they all reach the right hand side of the window, you have a sustainable economy.</p>
-	<li><p style="hp">MIN (orange) you are not digging any ore or coal, and are not dumping waste on a tip.</p></li>
-	<li><p style="hp">PRT (grey) you are not importing or exporting.</p></li>
-	<li><p style="hp">MNY (green) your money is stable or rising, this means you cannot build anything but the cheapest of areas.</p></li>
-	<li><p style="hp">POP (blue) your population is stable to within 2% of the value when the 180 year count started. If it goes outside of this band, the new population will be the new value and the year count will be set back to zero. Also, your population must be at least 5000.</p></li>
-	<li><p style="hp">TEC (yellow) your technology is increasing or falling by only a very small amount. If it falls by more than 1%, the year is set back to zero. Also, your tech level must be at least 50.</p></li>
-	<li><p style="hp">FIR (red) all areas that can catch fire have fire cover. The following areas do *not* have to have fire cover: monuments, oremines, power lines and rockets.</p></li>
+	<li>MIN (orange) you are not digging any ore or coal, and are not dumping waste on a tip.</li>
+	<li>PRT (grey) you are not importing or exporting.</li>
+	<li>MNY (green) your money is stable or rising, this means you cannot build anything but the cheapest of areas.</li>
+	<li>POP (blue) your population is stable to within 2% of the value when the 180 year count started. If it goes outside of this band, the new population will be the new value and the year count will be set back to zero. Also, your population must be at least 5000.</li>
+	<li>TEC (yellow) your technology is increasing or falling by only a very small amount. If it falls by more than 1%, the year is set back to zero. Also, your tech level must be at least 50.</li>
+	<li>FIR (red) all areas that can catch fire have fire cover. The following areas do *not* have to have fire cover: monuments, oremines, power lines and rockets.</li>
 	<p style="hp">Years required for sustainability: MIN=180 PRT=180 MNY=60 POP=60 TEC=120 FIR=60</p>
 </Document>

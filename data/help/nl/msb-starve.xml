@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Sterftekaart</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
 	<p style="hp">De sterftekaart kleurt alleen maar residenties.</p>
 	<p style="hp">Helder groen betekent dat er genoeg voedsel in deze gebieden is. Donkergroen betekent dat er een licht tekort aan voedsel in die gebieden is, helderroodbetekent dat er hongersnood in die gebieden heerst.</p>
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>

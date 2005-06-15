@@ -8,11 +8,11 @@
 	<p style="hp">Basketbalvelden hebben elke maand een animatie als ze werken.</p>
 
 	<p style="hp">Dit is een basketbalveld</p>
-	<img src="data/images/tiles/cricket1.png" halign="center"/>
+	<img src="images/tiles/cricket1.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="data/images/gui/buttonpanel/misc/sports.png" halign="center"/>
+	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
 	<p style="hp">en dit is de stadsplattegrond overlay knop</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_soccer.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Mini-kaart</a></li>

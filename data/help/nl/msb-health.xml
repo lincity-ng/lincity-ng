@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Welzijnskaart</p>
-	<img src="data/images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
 	<p style="hp">Gebieden die een ziekenhuis in hun gebied hebben, worden donkergroen gekleurd, andere gebieden krijgen de normale kleur.</p>
 	<p style="hp">Let op! Ziekenhuizen treden pas drie maanden na de bouw in werking.</p>
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>

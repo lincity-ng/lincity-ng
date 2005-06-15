@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Normale snelheid</p>
-	<img src="data/images/gui/speed/normal.png"/>
+	<img src="images/gui/speed/normal.png"/>
 	<p style="hp">Dit is de normale snelheid knop. Het zorgt ervoor dat het spel in een gemiddelde snelheid loopt. Op trage computers kan het zijn dat deze knop geen effect heeft.</p>
 	
 	<p style="hsubtitle">Lees ook:</p>
