@@ -13,6 +13,7 @@
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<text-caption font-size="16">Map</text-caption>
+						<tooltip translatable="yes">Show the MiniMap</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="2" valign="bottom">
@@ -22,6 +23,7 @@
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<text-caption font-size="16">Stats</text-caption>
+						<tooltip translatable="yes">Show ressources.</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="3" valign="bottom">
@@ -31,6 +33,7 @@
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<text-caption font-size="16">$</text-caption>
+						<tooltip translatable="yes">Show Income and Expenses. Click this tab again to cycle through views.</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="4" valign="bottom">
@@ -40,6 +43,7 @@
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<text-caption font-size="16">Eco</text-caption>
+						<tooltip translatable="yes">Show economy graphs.</tooltip>
 					</CheckButton>
 				</cell>
 			</TableLayout>
