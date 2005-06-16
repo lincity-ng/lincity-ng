@@ -4,7 +4,7 @@
 	<p style="hp">Railways carry even more than roads. They produce slightly less pollution than roads. They are quite expensive to buy and maintain though. They are well worth the expense when you have a lot to transport over a long distance.</p>
 
 	<p style="hp">This is a railway</p>
-	<img src="images/tiles/rails.png" halign="center"/>
+	<img src="images/tiles/railud.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
 	

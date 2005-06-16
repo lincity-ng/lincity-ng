@@ -179,14 +179,15 @@
 <image file="cricket6.png" x="130" /> 
 <image file="cricket7.png" x="130" /> 
 
-  <image file="PowerTower.png" x="111" y="66" />
-  <image file="rails.png" x="196" y="69" />
-  <image file="residence2.png" x="470" y="384" />
-  <image file="residence.png" x="87" y="30" />
-  <image file="skyscraper.png" x="512" y="384" />
-  <image file="SteelMill-1.png" x="117" y="59" />
-  <image file="SteelMill.png" x="117" y="59" />
-  <image file="SubStation-1.png" x="117" y="59" />
-  <image file="SubStation.png" x="117" y="59" />
-  <image file="tuxmonument.png" x="124" y="153" />
+  <image file="raillr.png" x="66" />
+  <image file="raillu.png" x="66" />
+  <image file="railld.png" x="66" />
+  <image file="railud.png" x="66" />
+  <image file="railur.png" x="66" />
+  <image file="raildr.png" x="66" />
+  <image file="raillur.png" x="66" />
+  <image file="railldr.png" x="66" />
+  <image file="raillud.png" x="66" />
+  <image file="railudr.png" x="66" />
+  <image file="railludr.png" x="66" />
 </resources>

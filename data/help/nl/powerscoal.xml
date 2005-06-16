@@ -6,7 +6,7 @@
 	<p style="hp">De effectiviteit van de productie verhoogt met een hoge technologie level <b>op bouwdatum</b>. U kunt, wanneer u technologie level opmerkelijk gestegen is, een oude steenkoolcentrale afbreken en die herbouwen met een nieuwere, meer efficiente.</p>
 	
 	<p style="hp">Dit is Steenkoolcentrale</p>
-	<img src="images/tiles/coalpower.png" halign="center"/>
+	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
 	
