@@ -138,11 +138,11 @@
     <image file="firestation9.png" x="132" />
     <image file="firestation10.png" x="132" />
 
-    <image file="fire1.png" x="85" />
-    <image file="fire2.png" x="85" />
-    <image file="fire3.png" x="85" />
-    <image file="fire4.png" x="97" />
-    <image file="fire5.png" x="97" />
+    <image file="fire1.png" x="101" />
+    <image file="fire2.png" x="101" />
+    <image file="fire3.png" x="101" />
+    <image file="fire4.png" x="101" />
+    <image file="fire5.png" x="101" />
 
     <image file="firedone1.png" x="66" />
     <image file="firedone2.png" x="66" />
