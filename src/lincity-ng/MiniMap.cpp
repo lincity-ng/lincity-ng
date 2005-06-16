@@ -606,9 +606,20 @@ Color MiniMap::getColor(int x,int y) const
             }
             if( MP_GROUP( x, y ) == GROUP_BURNT ){
                 return Color(0xFF,0xFF,0); //(yellow)
-            }//fall through
+            }
+            if( MP_GROUP( x, y ) == GROUP_FIRESTATION ){
+                return Color(0,0xFF,0); //green
+            }
+            //fall through
         case CRICKET:
+            if( (MP_GROUP( x, y ) == GROUP_CRICKET)  && mMode==CRICKET ){
+                return Color(0,0xFF,0); //green
+            }
+            //fall through
         case HEALTH:
+            if( (MP_GROUP( x, y ) == GROUP_HEALTH)  && mMode==HEALTH ){
+                return Color(0,0xFF,0); //green
+            }
             if( ((flags&FLAG_FIRE_COVER) && mMode==FIRE) ||
                     ((flags&FLAG_CRICKET_COVER) && mMode==CRICKET) ||
                     ((flags&FLAG_HEALTH_COVER) && mMode==HEALTH))
