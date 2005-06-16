@@ -7,7 +7,7 @@
 Graphics (mostly egore's part)
 ~~~~~~~~
 
- [H] Finish tiles for the game, see data/images/tiles/README.txt
+ [M] Finish tiles for the game (water* data/images/tiles/README.txt)
  [M] Draw Mousecursors for normal, link and what's this (eventually also
      loading and scrolling)
  [M] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
