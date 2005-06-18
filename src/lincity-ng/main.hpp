@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "tinygettext/TinyGetText.hpp"
 
 enum MainState {
-    MAINMENU, INGAME, QUIT
+    MAINMENU, INGAME, QUIT, RESTART
 };
 
 void initVideo(int width, int height);

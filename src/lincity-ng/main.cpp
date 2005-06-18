@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdio.h>
 #include <stdlib.h>
 #include <libxml/parser.h>
+#include <unistd.h>
 
 #include "gui/FontManager.hpp"
 #include "gui/TextureManager.hpp"
@@ -49,6 +50,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 Painter* painter = 0;
 TinyGetText::DictionaryManager* dictionaryManager = 0;
+bool restart = false;
 
 void initSDL()
 {
@@ -290,6 +292,10 @@ void mainLoop()
                     menu->gotoMainMenu();
                 }
                 break;
+            case RESTART:
+                restart = true;
+                nextstate = QUIT;
+                break;
             default:
                 assert(false);
         }
@@ -417,6 +423,9 @@ int main(int argc, char** argv)
     delete dictionaryManager;
     dictionaryManager = 0;
     PHYSFS_deinit();
+    if( restart ){
+        execlp( argv[0], argv[0], (char *) NULL );
+    }
     return result;
 }
 

@@ -4,12 +4,17 @@
      Some values can be changed from the ingame options menu -->
 <configuration>
 <!-- Video Section: -->
- <video x="1024" y="768" useOpenGL="yes" fullscreen="no" />
-<!-- all Video-Values are saved to userconfig.xml
+ <video x="1024" y="768" useOpenGL="yes" fullscreen="no" 
+  restartOnChangeScreen="no" />
+<!-- all Video-Values but exitOnChangeScreen are saved to userconfig.xml
      x and y is the Resolution/Windows-Size of the game
      Commandline -gl and -sdl change useOpenGL  
                  -w  and  -f  change fullscreen 
-                  fullscreen is in options menu -->
+                  fullscreen is in options menu 
+
+     restartOnChangeScreen quit and restart program if 
+     user switches windowed/fullscreen
+-->
 
 <!-- Audio Section -->
  <audio soundEnabled="yes" soundVolume="100" 

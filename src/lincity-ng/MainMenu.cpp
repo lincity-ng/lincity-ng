@@ -314,8 +314,13 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     } else if( buttonName == "Fullscreen"){
         getSound()->playSound("Click");
         getConfig()->useFullScreen = !getConfig()->useFullScreen; 
-        initVideo(getConfig()->videoX, getConfig()->videoY);
-        loadOptionsMenu();
+        if( getConfig()->restartOnChangeScreen ){
+            quitState = RESTART;
+            running = false;
+        } else {
+            initVideo(getConfig()->videoX, getConfig()->videoY);
+            loadOptionsMenu();
+        }
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }    

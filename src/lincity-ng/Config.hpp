@@ -30,6 +30,7 @@ public:
     
     bool useOpenGL;
     bool useFullScreen;
+    bool restartOnChangeScreen;
     int videoX, videoY;
     int monthgraphW, monthgraphH;
     

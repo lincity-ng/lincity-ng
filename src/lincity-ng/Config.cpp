@@ -49,6 +49,7 @@ Config::Config()
     musicVolume = 50;
     soundEnabled = true;
     musicEnabled = true;
+    restartOnChangeScreen = true;
      
     showDay = true;
     instantBulldoze = true;
@@ -128,6 +129,8 @@ void Config::load( const std::string& filename ){
                         videoY = parseInt( value, 600, 480 );
                     } else if(strcmp(name, "fullscreen") == 0) {
                         useFullScreen = parseBool(value, false);
+                    } else if(strcmp(name, "restartOnChangeScreen") == 0) {
+                        restartOnChangeScreen = parseBool(value, true);
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
