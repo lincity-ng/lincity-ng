@@ -7,7 +7,6 @@
 Graphics (mostly egore's part)
 ~~~~~~~~
 
- [L] Finish tiles for the game 
  [M] Draw Mousecursors for normal, link and what's this (eventually also
      loading and scrolling)
  [M] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
@@ -33,16 +32,11 @@ Programming
      usability.
  [L] Looks like buttons that had an empty string as caption once won't change
      to anything else. At least the caption is not shown on the screen.
+ [L] add "change resolution" switch in preferences
 
 --Bugs--
  [L] New text on buttons is truncated to original textlength. 
      (eg in load game menu)
- [M] Teleporation power (removing power lines still allows that power is
-     running where they were before)
-     [Sure? Does it take longer than in classic until the effect is 
-     visible?] 
- [L] add "change resolution" switch in preferences
-
  [H] There are help page without any link to them. Some of the texts
      are just wrong because they were taken from classic without any
      adjustment to the new gui.
@@ -59,7 +53,7 @@ Programming
      [WolfgangB: I don't think thats a good idea. I often switch between
      two things already on rootbuttons.]
  [H] Looks like watching electricity minimap uses power. Seems to be this way
-     in classic already. Do we want to change that?
+     in classic already. Do we want to change that? No.
  [M] "Dungeon Keeper"-like message queue
  [M] Rework the starting help pages: sort buildings alphabetically, add shanty,
      add more index pages so that you can access each help page with 2 (maybe 3)
@@ -71,4 +65,3 @@ Programming
  [L] Is it possible to automatically generate/maintain a ChangeLog file from svn
      commits? 
      (Nathan: http://tiefighter.et.tudelft.nl/~arthur/svn2cl/)
-
