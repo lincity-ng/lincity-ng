@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Dialog Help</p>
-	<li><a href="economy">Economy Graph</a></li>
+	<p style="htitle">Information Tabs Help</p>
+    <p>Map-Tab</p>
+    <li><a href="mini-screen">Minimap</a></li>
+    <p>Stats-Tab</p>
+	<li><a href="pbar">Ressources Status Bar</a></li>
+    <p>$-Tab</p>
 	<li><a href="finance">Finance</a></li>
-	<li><a href="housing">Housing</a></li>
-	<li><a href="pbar">PBar</a></li>
+	<li><a href="housing">Population</a></li>
+    <p>Eco-Tab</p>
+	<li><a href="economy">Economy Graph</a></li>
 	<li><a href="sustain">Sustainability progress window</a></li>
 </Document>
