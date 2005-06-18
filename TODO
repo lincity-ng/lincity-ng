@@ -11,8 +11,6 @@ Graphics (mostly egore's part)
      loading and scrolling)
  [M] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
         alpha for mac os/x and 32x32 keycolored (and/or alpha) for windows)
- [M] Review/Improve Look and Feel of the ingame dialogs
- [L] rework resident icons - is this really needed?
 
 Programming
 ~~~~~~~~~~~
@@ -30,28 +28,21 @@ Programming
      actions like scrolling the map, creating buildings, displaying building
      stats). This could be used to measure common user actions and improve
      usability.
- [L] Looks like buttons that had an empty string as caption once won't change
-     to anything else. At least the caption is not shown on the screen.
- [L] add "change resolution" switch in preferences
 
 --Bugs--
  [L] New text on buttons is truncated to original textlength. 
-     (eg in load game menu)
+     (eg in load game menu) Buttons that had an empty string as caption once
+     won't change to anything else. At least the caption is not shown.
  [H] There are help page without any link to them. Some of the texts
      are just wrong because they were taken from classic without any
      adjustment to the new gui.
 
 --Game--
- [M] Check for missing tooltip texts for in-game buttons.
  [M] Implement a What's this button - down to [M], we can simply open the front
      page of the help file for now...
- [L] manpage, documentation
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
- [H] make buttonbar pop up on left mouse button!
-     [WolfgangB: I don't think thats a good idea. I often switch between
-     two things already on rootbuttons.]
  [H] Looks like watching electricity minimap uses power. Seems to be this way
      in classic already. Do we want to change that? No.
  [M] "Dungeon Keeper"-like message queue
@@ -63,5 +54,4 @@ Programming
 -- Infrastructure/Deployment --
  [H] Setup an automatic backup script for the wiki!
  [L] Is it possible to automatically generate/maintain a ChangeLog file from svn
-     commits? 
-     (Nathan: http://tiefighter.et.tudelft.nl/~arthur/svn2cl/)
+     commits?  (Nathan: http://tiefighter.et.tudelft.nl/~arthur/svn2cl/)
