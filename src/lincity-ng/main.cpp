@@ -424,7 +424,16 @@ int main(int argc, char** argv)
     dictionaryManager = 0;
     PHYSFS_deinit();
     if( restart ){
+#ifdef WIN32
+        //Windows has a Problem with Whitespaces.
+        std::string fixWhiteSpaceInPathnameProblem;
+	    fixWhiteSpaceInPathnameProblem="\"";
+	    fixWhiteSpaceInPathnameProblem+=argv[0];
+	    fixWhiteSpaceInPathnameProblem+="\"";
+        execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
+#else
         execlp( argv[0], argv[0], (char *) NULL );
+#endif
     }
     return result;
 }
