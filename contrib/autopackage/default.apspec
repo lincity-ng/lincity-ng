@@ -9,14 +9,8 @@ Packager: Matthias Braun <matze@braunis.de>
 Summary: City Simulation Game
 URL: http://lincity-ng.berlios.de
 License: GNU General Public License, Version 2
-SoftwareVersion: 0.9_rc1
+SoftwareVersion: 1.0
 AutopackageTarget: 1.0
-
-# Only uncomment InterfaceVersion if your package exposes interfaces to other software,
-# for instance if it includes DSOs or python/perl modules. See the developer guide for more info,
-# or ask on autopackage-dev if you don't understand interface versioning in autopackage.
-#
-# InterfaceVersion: 0.0
 
 [Description]
 LinCityNG is a polished and improved version of the old LinCity game. Within
