@@ -320,7 +320,7 @@ void parseCommandLine(int argc, char** argv)
             std::cout << "-h        --help            show his text and exit\n";
             std::cout << "-g        --gl              use OpenGL\n";
             std::cout << "-s        --sdl             use SDL\n";
-            std::cout << "-g [size] --geometry [size] specify screensize (eg. 1024x768)\n";
+            std::cout << "-S [size] --size [size]     specify screensize (eg. 1024x768)\n";
             std::cout << "-w        --window          run in window\n";
             std::cout << "-f        --fullscreen      run fullscreen\n";
             std::cout << "-m        --mute            mute audio\n";
@@ -329,7 +329,7 @@ void parseCommandLine(int argc, char** argv)
             getConfig()->useOpenGL = true;
         } else if(argStr == "-s" || argStr == "--sdl") {
             getConfig()->useOpenGL = false; 
-        } else if(argStr == "-s" || argStr == "--size") {
+        } else if(argStr == "-S" || argStr == "--size") {
             currentArgument++;
             if(currentArgument >= argc) {
                 std::cerr << "Error: --size needs a parameter.\n";
