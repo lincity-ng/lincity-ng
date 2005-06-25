@@ -369,9 +369,9 @@ int main(int argc, char** argv)
 
 #ifndef DEBUG //in debug mode we wanna have a backtrace
     try {
-        std::cout << "Starting Lincity-NG...\n";
+        std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ")...\n";
 #else
-        std::cout << "Starting Lincity-NG in Debug Mode...\n";
+        std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif                                                     
         initPhysfs(argv[0]);
         dictionaryManager = new TinyGetText::DictionaryManager();
