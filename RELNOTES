@@ -1,4 +1,4 @@
-*** LincityNG 1.1 ***
+*** LincityNG 1.0.1 ***
 
 * Fixed: Endgame evacuation causes termination of game.
 * Fixed: Hightech houses require tech 30, but the tooltip says 20.
