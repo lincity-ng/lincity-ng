@@ -267,17 +267,15 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     std::string fc=button->getCaptionText();
   
     std::string file="";
-    if(button->getName()=="Scenario0") {
-        file="opening/good_times.scn";
-    } else if(button->getName()=="Scenario1") {
-        file="opening/bad_times.scn";
-    } else if(fc.length()) {
-        baseName = fc;
-        if(newGameMenu.get()==currentMenu ) {
-            file=std::string("opening/")+fc+".scn";
-        } else {
-            file=fc;
-        }
+    if( !fc.length()) {
+        return;
+    }
+    
+    baseName = fc;
+    if(newGameMenu.get()==currentMenu ) {
+        file=std::string("opening/")+fc+".scn";
+    } else {
+        file=fc;
     }
     
     char *bs[]={"File0","File1","File2","File3","File4","File5",""};

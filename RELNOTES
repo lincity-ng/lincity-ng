@@ -1,3 +1,11 @@
+*** LincityNG 1.1 ***
+
+* Fixed: Endgame evacuation causes termination of game.
+* Fixed: Hightech houses require tech 30, but the tooltip says 20.
+* Fixed: Suppressed doublicated tech-messages.
+* Fixed: Doublicated command line arguments.
+* Fixed: Crash when empty szenario is selected.
+
 *** LincityNG 1.0 ***
 
 * The first release of LincityNG features everything from classic lincity
