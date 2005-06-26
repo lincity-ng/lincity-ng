@@ -209,7 +209,7 @@ void EconomyGraph::updateData(){
     if( !housed_population && !people_pool ){ //no people left
         if( !nobodyHomeDialogShown ){
             if( sustain_flag == 1 || total_evacuated >0  ){
-                new Dialog( MSG_DIALOG, "allgone", "" );
+                new Dialog( MSG_DIALOG, "allgone.xml", "" );
             } else {
                 new Dialog( MSG_DIALOG, "allgone.xml", "You lose." );
             }
