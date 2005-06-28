@@ -61,7 +61,7 @@
 	<p><a href="oremine">Ore mine</a></p>
 
 	<!--<p style="subtitle">Trading</p>-->
-	<img src="images/gui/buttonpanel/bed.png"/>
+    <img src="images/gui/buttonpanel/transport/port.png"/>
 	<p><a href="export">Import and Export</a></p>
 
 	<!--<p style="subtitle">Industry</p>-->
@@ -114,7 +114,7 @@
 	<img src="images/gui/buttonpanel/misc/sports.png"/>
 	<p><a href="cricket">Basketball grounds</a></p>
 
-        <!--<p style="subtitle">Transport</p>-->
-        <img src="images/gui/buttonpanel/transport/port.png"/>
-        <p><a href="port">Port</a></p>
+     <!--<p style="subtitle">Transport</p>-->
+     <img src="images/gui/buttonpanel/transport/port.png"/>
+     <p><a href="port">Port</a></p>
 </Document>

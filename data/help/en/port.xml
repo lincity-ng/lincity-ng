@@ -14,6 +14,7 @@
 	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
+    <li><a href="export">Import and Export</a></li>
 	<li><a href="rivers">Rivers</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="market">Markets</a></li>

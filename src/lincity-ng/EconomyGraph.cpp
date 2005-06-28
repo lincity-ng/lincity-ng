@@ -36,6 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/stats.h"
 #include "lincity/lin-city.h"
 
+#include "ScreenInterface.hpp"
 #include "Config.hpp"
 #include "Dialog.hpp"
 
@@ -208,10 +209,19 @@ void EconomyGraph::updateData(){
     //total_evacuated >0 means player evacuated at least some people
     if( !housed_population && !people_pool ){ //no people left
         if( !nobodyHomeDialogShown ){
+            std::string message;
             if( sustain_flag == 1 || total_evacuated >0  ){
-                new Dialog( MSG_DIALOG, "allgone.xml", "" );
+                message ="";
             } else {
-                new Dialog( MSG_DIALOG, "allgone.xml", "You lose." );
+                message = _("You lose.");
+            }
+            try{
+                new Dialog( MSG_DIALOG, "allgone.xml", message );
+            } catch(std::exception& e) {
+                std::cerr << "Problem with ok_dial_box: " << e.what() << "\n";
+                std::ostringstream text;
+                text << "ok_dial_box:' allgone.xml" << "' + \"" << message << "\"\n";
+                updateMessageText( text.str() );
             }
             nobodyHomeDialogShown = true;
         }
