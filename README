@@ -46,6 +46,9 @@ you can start building it. Here's a list of them:
 * SDL_ttf 2.0 or later
   http://www.libsdl.org/projects/SDL_ttf/
 
+* SDL_gfx 2.0.13 or later
+  http://www.ferzkopp.net/~aschiffler/Software/SDL_gfx-2.0
+
 * PhysicsFS 1.0.0 or later
   http://www.icculus.org/physfs/
 
