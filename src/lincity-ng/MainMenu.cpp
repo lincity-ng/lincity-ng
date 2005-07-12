@@ -55,6 +55,8 @@ MainMenu::MainMenu()
     loadMainMenu();
     switchMenu(mainMenu.get());
     baseName = "";
+    lastClickTick = 0;
+    doubleClickButtonName = "";
 }
 
 MainMenu::~MainMenu()
@@ -299,6 +301,23 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     
     mFilename+="/";
     mFilename+=file;
+    Uint32 now = SDL_GetTicks();
+    //doubleclick on Filename loads File
+    if( ( fc == doubleClickButtonName ) && 
+            ( now - lastClickTick < doubleClickTime ) ) {
+        lastClickTick = 0;
+        doubleClickButtonName = "";
+        if( newGameMenu.get() == currentMenu ) {
+            //load scenario 
+            newGameStartButtonClicked( 0 );
+        } else {
+            //load game
+            loadGameLoadButtonClicked( 0 );
+        }
+    } else {
+        lastClickTick = now;
+        doubleClickButtonName = fc;
+    }
 }
 
 void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){

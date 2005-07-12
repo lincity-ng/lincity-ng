@@ -82,6 +82,9 @@ private:
     
     std::string mFilename;    
     std::string baseName;
+    static const Uint32 doubleClickTime = 1000;
+    Uint32 lastClickTick;
+    std::string doubleClickButtonName;
 };
 
 #endif
