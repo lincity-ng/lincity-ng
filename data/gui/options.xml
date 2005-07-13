@@ -10,27 +10,56 @@
 		<cell row="1" col="1" colspan="3">
 			<Paragraph style="menutitle" translatable="yes">Options</Paragraph>
 		</cell> 
+
+		<!-- Adjust Music Volume -->
 		<cell row="2" col="2" valign="center" halign="left">
 			<Paragraph style="listtitle" translatable="yes">Background Music</Paragraph>
 		</cell>
 		<cell row="2" col="3">
-			<CheckButton name="BackgroundMusic">
-				<image src="images/mainmenu/settings/music-off.png" />
-				<image-checked src="images/mainmenu/settings/music-on.png" />
-			</CheckButton>
+            <TableLayout rows = "1" cols = "3">
+                <cell row="1" col ="1">
+                    <CheckButton name="MusicVolumeMinus">
+                        <text style="button">-</text>
+                    </CheckButton>
+                </cell>
+                <cell row="1" col ="2">
+                    <CheckButton name="BackgroundMusic">
+                        <image src="images/mainmenu/settings/music-off.png" />
+                        <image-checked src="images/mainmenu/settings/music-on.png" />
+                    </CheckButton>
+                </cell>
+                <cell row="1" col ="3">
+                    <CheckButton name="MusicVolumePlus">
+                        <text style="button">+</text>
+                    </CheckButton>
+                </cell>
+            </TableLayout>
 		</cell>
-		<!--TODO: Adjust Music Volume -->
+		<!-- Adjust FX Volume -->
 		<cell row="3" col="2" valign="center" halign="left">
 			<Paragraph style="listtitle" translatable="yes" >Sound Effects</Paragraph>
 		</cell>
 		<cell row="3" col="3">
-			<CheckButton name="SoundFX">
-				<image src="images/mainmenu/settings/sound-off.png"/>
-				<image-checked src="images/mainmenu/settings/sound-on.png"/>
-			</CheckButton>
+            <TableLayout rows = "1" cols = "3">
+                <cell row="1" col ="1">
+                    <CheckButton name="FXVolumeMinus">
+                        <text style="button">-</text>
+                    </CheckButton>
+                </cell>
+                <cell row="1" col ="2">
+                    <CheckButton name="SoundFX">
+                        <image src="images/mainmenu/settings/sound-off.png"/>
+                        <image-checked src="images/mainmenu/settings/sound-on.png"/>
+                    </CheckButton>
+                </cell>
+                <cell row="1" col ="3">
+                    <CheckButton name="FXVolumePlus">
+                        <text style="button">+</text>
+                    </CheckButton>
+                </cell>
+            </TableLayout>
 		</cell>
 		
-		<!--TODO: Adjust FX Volume -->
 		<cell row="4" col="2" valign="center" halign="left">
 			<Paragraph style="listtitle" translatable="yes">Fullscreen</Paragraph>
 		</cell>

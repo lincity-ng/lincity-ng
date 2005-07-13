@@ -217,6 +217,14 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "Fullscreen");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "MusicVolumePlus");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "MusicVolumeMinus");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "FXVolumePlus");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "FXVolumeMinus");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         
         Button* currentButton = getButton(*optionsMenu, "BackButton");
         currentButton->clicked.connect( makeCallback(*this, &MainMenu::creditsBackButtonClicked));
@@ -325,9 +333,45 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     if( buttonName == "BackgroundMusic"){
         getSound()->playSound("Click");
         getSound()->enableMusic( !getConfig()->musicEnabled );
+    } else if( buttonName == "MusicVolumePlus"){
+        int newVolume = getConfig()->musicVolume + 10;
+        if( newVolume > 100 ){
+           newVolume = 100; 
+        }
+        if( getConfig()->musicVolume != newVolume ){
+            getSound()->setMusicVolume( newVolume ); 
+            getSound()->playSound("Click");
+        }
+    } else if( buttonName == "MusicVolumeMinus"){
+        int newVolume = getConfig()->musicVolume -10;
+        if( newVolume < 0 ){
+           newVolume = 0; 
+        }
+        if( getConfig()->musicVolume != newVolume ){
+            getSound()->setMusicVolume( newVolume ); 
+            getSound()->playSound("Click");
+        }
     } else if( buttonName == "SoundFX"){
         getConfig()->soundEnabled = !getConfig()->soundEnabled;
         getSound()->playSound("Click");
+    } else if( buttonName == "FXVolumePlus"){
+        int newVolume = getConfig()->soundVolume + 10;
+        if( newVolume > 100 ){
+           newVolume = 100; 
+        }
+        if( getConfig()->soundVolume != newVolume ){
+            getSound()->setSoundVolume( newVolume ); 
+            getSound()->playSound("Click");
+        }
+    } else if( buttonName == "FXVolumeMinus"){
+        int newVolume = getConfig()->soundVolume - 10;
+        if( newVolume < 0 ){
+           newVolume = 0; 
+        }
+        if( getConfig()->soundVolume != newVolume ){
+            getSound()->setSoundVolume( newVolume ); 
+            getSound()->playSound("Click");
+        }
     } else if( buttonName == "Fullscreen"){
         getSound()->playSound("Click");
         getConfig()->useFullScreen = !getConfig()->useFullScreen; 

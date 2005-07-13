@@ -1,5 +1,7 @@
 *** LincityNG 1.0.1 ***
 
+* Adjust volume in options
+* Load game on doubleclick 
 * Fixed: Endgame evacuation causes termination of game.
 * Fixed: Hightech houses require tech 30, but the tooltip says 20.
 * Fixed: Suppressed doublicated tech-messages.
