@@ -8,8 +8,8 @@
   restartOnChangeScreen="no" />
 <!-- all Video-Values but exitOnChangeScreen are saved to userconfig.xml
      x and y is the Resolution/Windows-Size of the game
-     Commandline -gl and -sdl change useOpenGL  
-                 -w  and  -f  change fullscreen 
+     Commandline -g and -s change useOpenGL  
+                 -w and -f change fullscreen 
                   fullscreen is in options menu 
 
      restartOnChangeScreen quit and restart program if 
@@ -18,13 +18,18 @@
 
 <!-- Audio Section -->
  <audio soundEnabled="yes" soundVolume="100" 
-           musicEnabled="no" musicVolume="70" />
+        musicEnabled="no" musicVolume="70"
+        playSongName="01 - pronobozo - lincity.ogg" />
+
 <!-- all Audio-Values are saved to userconfig.xml
     Commandline -m sets soundEnabled and musicEnabled to "no"
     soundEnabled and musicEnabled  are in options menu 
     soundVolume is the Volume of the sound effects,
     musicVolume is the Volume of the backgroundmusic.
-     Volume ranges from 0 to 100 -->
+     Volume ranges from 0 to 100 
+    playSongName is the filename of the background music.
+    it is searched in the "music" subdirectory.
+-->
 
 <!-- Game Section -->
  <game upgradeTransport="yes" instantBulldoze="yes" showDay="yes" />

@@ -47,6 +47,7 @@ public:
     bool instantBulldoze;
 
     void save();
+    std::string playSongName;
 private:
     void load( const std::string& filename );
     int parseInt(const char* value, int defaultValue, int minValue = INT_MIN, 

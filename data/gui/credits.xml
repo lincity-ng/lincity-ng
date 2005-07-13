@@ -14,7 +14,7 @@
         <cell row="1" col="1" valign="top" halign="left">
             <Import src="gui/creditslist.xml"/>
         </cell>
-        <cell row="2" col="1" halign="left">
+        <cell row="2" col="1" halign="center">
             <Button name="BackButton">
                 <text-caption style="button" translatable="yes">Back</text-caption>
                 <image src="images/mainmenu/buttons/back.png"/>

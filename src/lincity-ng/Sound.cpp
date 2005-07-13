@@ -105,7 +105,8 @@ Sound::Sound()
     setSoundVolume(getConfig()->soundVolume);
 
     // for now...
-    playMusic("01 - pronobozo - lincity.ogg");
+    //playMusic("01 - pronobozo - lincity.ogg");
+    playMusic( getConfig()->playSongName );
 }
 
 Sound::~Sound()

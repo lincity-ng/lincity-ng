@@ -60,6 +60,8 @@ Config::Config()
     monthgraphH = 64;
     skipMonthsFast = 1;
     upgradeTransport = true;
+
+    playSongName = "city_blues.ogg";
     //First we load the global File which should contain
     try {
         //sane defaults for the local system.
@@ -150,6 +152,8 @@ void Config::load( const std::string& filename ){
                         soundEnabled = parseBool(value, true);
                     } else if(strcmp(name, "musicEnabled") == 0) {
                         musicEnabled = parseBool(value, true);
+                    } else if(strcmp(name, "playSongName") == 0) {
+                        playSongName = value;
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
@@ -217,7 +221,8 @@ Config::save(){
     userconfig << "    <audio soundEnabled=\"" << (soundEnabled?"yes":"no")  
         << "\" soundVolume=\"" << soundVolume << "\" \n";
     userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")  
-        << "\" musicVolume=\"" << musicVolume << "\" />\n";
+        << "\" musicVolume=\"" << musicVolume << "\"\n";
+    userconfig << "           playSongName=\"" << playSongName << "\" />\n";
     userconfig << "    <game upgradeTransport=\""<< (upgradeTransport?"yes":"no");
     userconfig << "\" instantBulldoze=\""<< (instantBulldoze?"yes":"no");
     userconfig <<"\" showDay=\""<<( showDay?"yes":"no") <<"\" />\n";

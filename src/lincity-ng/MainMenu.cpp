@@ -334,7 +334,7 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         getSound()->playSound("Click");
         getSound()->enableMusic( !getConfig()->musicEnabled );
     } else if( buttonName == "MusicVolumePlus"){
-        int newVolume = getConfig()->musicVolume + 10;
+        int newVolume = getConfig()->musicVolume + 5;
         if( newVolume > 100 ){
            newVolume = 100; 
         }
@@ -343,7 +343,7 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
             getSound()->playSound("Click");
         }
     } else if( buttonName == "MusicVolumeMinus"){
-        int newVolume = getConfig()->musicVolume -10;
+        int newVolume = getConfig()->musicVolume -5;
         if( newVolume < 0 ){
            newVolume = 0; 
         }
@@ -355,7 +355,7 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         getConfig()->soundEnabled = !getConfig()->soundEnabled;
         getSound()->playSound("Click");
     } else if( buttonName == "FXVolumePlus"){
-        int newVolume = getConfig()->soundVolume + 10;
+        int newVolume = getConfig()->soundVolume + 5;
         if( newVolume > 100 ){
            newVolume = 100; 
         }
@@ -364,7 +364,7 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
             getSound()->playSound("Click");
         }
     } else if( buttonName == "FXVolumeMinus"){
-        int newVolume = getConfig()->soundVolume - 10;
+        int newVolume = getConfig()->soundVolume - 5;
         if( newVolume < 0 ){
            newVolume = 0; 
         }
