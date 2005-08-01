@@ -1,3 +1,7 @@
+*** LincityNG 1.0.2 ***
+
+*
+
 *** LincityNG 1.0.1 ***
 
 * Adjust volume in options
@@ -6,7 +10,7 @@
 * Fixed: Hightech houses require tech 30, but the tooltip says 20.
 * Fixed: Suppressed doublicated tech-messages.
 * Fixed: Doublicated command line arguments.
-* Fixed: Crash when empty szenario is selected.
+* Fixed: Crash when empty scenario is selected.
 
 *** LincityNG 1.0 ***
 
