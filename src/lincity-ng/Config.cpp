@@ -61,7 +61,7 @@ Config::Config()
     skipMonthsFast = 1;
     upgradeTransport = true;
 
-    playSongName = "city_blues.ogg";
+    playSongName = "02 - Robert van Herk - City Blues.ogg";
     //First we load the global File which should contain
     try {
         //sane defaults for the local system.

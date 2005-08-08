@@ -4,13 +4,18 @@
 [L] Low priority (nice to have)
 [?] I am not sure.
 
-Graphics (mostly egore's part)
+Graphics 
 ~~~~~~~~
 
  [M] Draw Mousecursors for normal, link and what's this (eventually also
      loading and scrolling)
  [M] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
         alpha for mac os/x and 32x32 keycolored (and/or alpha) for windows)
+ [M] test if we run out of video memory and display some warnings at least
+ [L] graphics alignment wrong in non-1024x768 mode:
+     if I start lincity-ng with '-S 1280x960' or '-S 1600x1200', and 
+     then press the 'New Game' button, the available scenarios are rendered
+     outside the blue box.
 
 Programming
 ~~~~~~~~~~~
