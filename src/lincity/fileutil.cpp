@@ -419,15 +419,15 @@ find_localized_paths (void)
 #endif
   debug_printf ("GUESS 1 -- intl_suffix is %s\n", intl_suffix);
   if (strcmp(intl_suffix,"C") && strcmp(intl_suffix,"")) {
-    sprintf (message_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "messages",
-	     PATH_SLASH, intl_suffix, PATH_SLASH);
+    snprintf (message_path, sizeof(message_path), "%s%c%s%c%s%c", LIBDIR,
+	      PATH_SLASH, "messages", PATH_SLASH, intl_suffix, PATH_SLASH);
     debug_printf ("Trying Message Path %s\n", message_path);
     if (directory_exists(message_path)) {
       debug_printf ("Set Message Path %s\n", message_path);
       messages_done = 1;
     }
-    sprintf (help_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "help",
-	     PATH_SLASH, intl_suffix, PATH_SLASH);
+    snprintf (help_path, sizeof(help_path), "%s%c%s%c%s%c", LIBDIR, PATH_SLASH,
+	      "help", PATH_SLASH, intl_suffix, PATH_SLASH);
     debug_printf ("Trying Help Path %s\n", help_path);
     if (directory_exists(help_path)) {
       debug_printf ("Set Help Path %s\n", help_path);
