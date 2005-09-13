@@ -56,8 +56,12 @@ TextureManagerGL::create(SDL_Surface* image)
         texture_w, texture_h, 32,
         0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
 #endif
-    if(convert == 0)
-        throw std::runtime_error("Couldn't create texture: out of memory");
+    if(convert == 0) {
+        std::ostringstream msg;
+        msg << "Couldn't convert SDL_Surface while creating texture"
+            << " (out of memory?): " << SDL_GetError();
+        throw std::runtime_error(msg.str());
+    }
     SDL_SetAlpha(image, 0, 0);
     SDL_BlitSurface(image, 0, convert, 0);
 
