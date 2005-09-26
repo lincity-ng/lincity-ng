@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Zone résidentielle</p>
+	<p style="hp">C'est là que vivent les gens. Pour encourager les gens à vivre dans ces zones, ils doivent être nourris. Il est aussi utile de leur fournir du travail et des biens à acheter. Elles doivent être à proximité d'un marché ou connectées aux transport. Il existe 3 types differents de zones résidentielles : de Faible, Moyenne et Forte densité de logement. Ceux ci on differents taux de natalité et de mortalité associés. Cela vous donne du contrôle sur votre population.</p>
+	<p style="hp">Plus tard dans le jeu, si vous avez une technologie suffisante, vous pourrez contruire des logements plus 'modernes', voire même des blocs de tours.</p>
+
+	<p style="hp">Ceci est un logement de faible densité (hightech)</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">et ceci est son icône</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+	<p style="hp">Ceci est un logement de moyenne densité (hightech)</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">et ceci est son icône</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">Ceci est un logement de forte densité (hightech)</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">et ceci est son icône</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+
+	<p style="hsubtitle">Voir aussi :</p>
+	<li><a href="market">Marché</a></li>
+</Document>
+

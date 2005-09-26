@@ -1,8 +1,10 @@
-*** LincityNG 1.0.2 ***
+*** LincityNG 1.0.2 *** 
 
-*
+* Spanish translation
+* French translation
 
-*** LincityNG 1.0.1 ***
+
+*** LincityNG 1.0.1 *** [r1038 in svn]
 
 * Adjust volume in options
 * Load game on doubleclick 
@@ -12,7 +14,7 @@
 * Fixed: Doublicated command line arguments.
 * Fixed: Crash when empty scenario is selected.
 
-*** LincityNG 1.0 ***
+*** LincityNG 1.0 *** [r1026 in svn]
 
 * The first release of LincityNG features everything from classic lincity
   but with brand new graphics and modern user interface.
