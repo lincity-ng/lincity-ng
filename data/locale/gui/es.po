@@ -1,4 +1,4 @@
-# Traducci�n al espa�ol de lincity-ng GUI
+# Traducción al español de lincity-ng GUI
 # Spanish translation for lincity-ng GUI
 # Copyright (C) 2005 Jorge Gonzalez
 # This file is distributed under the same license as the lincity-ng package.
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gui_es\n"
 "Report-Msgid-Bugs-To: <jorge.gonzalez.gonzalez@hispalinux.es>\n"
 "POT-Creation-Date: 2005-05-12 13:28+0200\n"
-"PO-Revision-Date: 2005-08-01 14:17+0200\n"
+"PO-Revision-Date: 2005-09-21 12:24+0200\n"
 "Last-Translator: Jorge Gonzalez <jorge.gonzalez.gonzalez@hispalinux.es>\n"
 "Language-Team:  <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -269,7 +269,7 @@ msgstr "Opciones"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Ore"
-msgstr "Hierro"
+msgstr "Mineral"
 
 #: data/gui/creditslist.xml
 msgid "Original Idea and Code"
@@ -511,7 +511,7 @@ msgstr "Puedes lanzar el cohete ahora o dejarlo para más tarde. Si esperas tend
 
 #: data/gui/import-exportup.xml
 msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
-msgstr "Ahora puedes importar y exportar carbón, mercancías, hierro y acero. Lee las páginas de ayuda sobre estos artículos para saber cómo usarlos."
+msgstr "Ahora puedes importar y exportar carbón, mercancías, mineral y acero. Lee las páginas de ayuda sobre estos artículos para saber cómo usarlos."
 
 #: data/gui/no-credit-parkland.xml
 msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
@@ -575,7 +575,7 @@ msgstr "Has alcanzado un nivel tecnológico que te permite construir parques. Lo
 
 #: data/gui/potteryup.xml
 msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
-msgstr "Has alcanzado un nivel tecnológico que te permite construir alfarerías. Las alfarerías usan empleos y hierro para fabricar mercancías. (Necesitas minas de hierro para obtener hierro)."
+msgstr "Has alcanzado un nivel tecnológico que te permite construir alfarerías. Las alfarerías usan empleos y hierro para fabricar mercancías. (Necesitas minas de mineral para obtener mineral)."
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
@@ -615,7 +615,7 @@ msgstr "Has alcanzado un nivel tecnológico que te permite construir minas de ca
 
 #: data/gui/recycleup.xml
 msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
-msgstr "Has alcanzado un nivel tecnológico que te permite construir centros de reciclaje. Los centros de reciclaje usan mercancías para convertirlas en hierro."
+msgstr "Has alcanzado un nivel tecnológico que te permite construir centros de reciclaje. Los centros de reciclaje usan mercancías para reconvertirlas en mineral."
 
 #: data/gui/launch-gone.xml data/gui/sustain.xml
 msgid "You have won the game."

@@ -1,7 +1,7 @@
 # -*-shell-script-*-
 
 [Meta]
-RootName: @lincity-ng.berlios.de:$SOFTWAREVERSION
+RootName: @lincity-ng.berlios.de/lincity-ng:$SOFTWAREVERSION 
 DisplayName: LinCity-NG
 ShortName: lincity-ng
 Maintainer: LinCity-NG Development Team
@@ -9,7 +9,7 @@ Packager: Matthias Braun <matze@braunis.de>
 Summary: City Simulation Game
 URL: http://lincity-ng.berlios.de
 License: GNU General Public License, Version 2
-SoftwareVersion: 1.0
+SoftwareVersion: 1.0.1
 AutopackageTarget: 1.0
 
 [Description]
@@ -23,6 +23,8 @@ old_build_root="$build_root"  #prepareBuild changes build_root :-/
 APKG_BUILD_SKIP_MAKE=1
 APKG_BUILD_ROOT=0
 prepareBuild --enable-binreloc
+# hack to link libstdc++ statically
+# echo 'LIBS += "-nodefaultlibs -lc -lgcc_s -Wl,-Bstatic -lgcc -lstdc++ -Wl,-Bdynamic" ;' >> Jamconfig
 jam
 jam "-sDESTDIR=$old_build_root" install
 

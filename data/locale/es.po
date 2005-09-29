@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: locale_es\n"
 "Report-Msgid-Bugs-To: <jorge.gonzalez.gonzalez@hispalinux.es>\n"
 "POT-Creation-Date: 2005-05-12 13:28+0200\n"
-"PO-Revision-Date: 2005-08-01 14:03+0200\n"
+"PO-Revision-Date: 2005-09-28 19:13+0100\n"
 "Last-Translator: Jorge Gonzalez <jorge.gonzalez.gonzalez@hispalinux.es>\n"
 "Language-Team:  <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "No puedes construir una mina aquí"
 
 #: src/lincity/engine.cpp:196
 msgid "There is no ore left at this site"
-msgstr "No queda hierro en este sitio"
+msgstr "No queda mineral en este sitio"
 
 #: src/lincity/engine.cpp:691
 msgid "It's at a power line."
@@ -88,7 +88,7 @@ msgstr "Está en una granja."
 
 #: src/lincity/engine.cpp:701
 msgid "It's at a market."
-msgstr "Está en un mercado."
+msgstr "Está en un comercio."
 
 #: src/lincity/engine.cpp:703
 msgid "It's at a track."
@@ -233,7 +233,7 @@ msgstr "Granja"
 #: src/lincity/modules/market.cpp:1143
 #: src/lincity-ng/Dialog.cpp:486
 msgid "Market"
-msgstr "Mercado"
+msgstr "Comercio"
 
 #: src/lincity/lintypes.cpp:106
 #: src/lincity/modules/track.cpp:38
@@ -273,7 +273,7 @@ msgstr "Comuna"
 
 #: src/lincity/lintypes.cpp:202
 msgid "Ore mine"
-msgstr "Mina de hierro"
+msgstr "Mina de mineral"
 
 #: src/lincity/lintypes.cpp:214
 msgid "Rubbish tip"
@@ -634,7 +634,7 @@ msgstr "Electricidad"
 #: src/lincity/modules/track.cpp:49
 #: src/lincity/modules/pottery.cpp:128
 msgid "Ore"
-msgstr "Hierro"
+msgstr "Mineral"
 
 #: src/lincity/modules/recycle.cpp:184
 #: src/lincity/modules/market.cpp:1159
@@ -800,7 +800,7 @@ msgstr "Fábrica textil"
 
 #: src/lincity/modules/oremine.cpp:184
 msgid "Ore Mine"
-msgstr "Mina de hierro"
+msgstr "Mina de mineral"
 
 #: src/lincity/modules/power_line.cpp:50
 msgid "Power Line"
@@ -925,7 +925,7 @@ msgstr "Cohetes lanzados %2d  Lanzamientos exitosos %2d"
 #: src/lincity-ng/Dialog.cpp:397
 #, c-format
 msgid ".   Residences %4d         Markets %4d            Farms %4d"
-msgstr "        Residencias %4d              Mercados %4d                 Granjas %4d"
+msgstr "        Residencias %4d             Comercios %4d                 Granjas %4d"
 
 #: src/lincity-ng/Dialog.cpp:408
 #, c-format
@@ -950,7 +950,7 @@ msgstr "Parques de bomberos %4d               Parques %4d      Canchas de deport
 #: src/lincity-ng/Dialog.cpp:428
 #, c-format
 msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
-msgstr "    Minas de carbón %4d       Minas de hierro %4d                 Comunas %4d"
+msgstr "    Minas de carbón %4d      Minas de mineral %4d                 Comunas %4d"
 
 #: src/lincity-ng/Dialog.cpp:433
 #, c-format

@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __SIGNAL_HPP__
 
 #include <list>
+#include <assert.h>
 #include "CallbackBase.hpp"
 
 template<typename Arg1T, typename Arg2T = void>
@@ -56,6 +57,11 @@ public:
     }
 
 private:
+    Signal(const Signal& other)
+    { assert(false); }
+    void operator= (const Signal& other)
+    { assert(false); }
+    
     Callbacks callbacks;
 };
 
