@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Hospital</p>
+	<p style="hp">Los hospitales dan cobertura sanitaria a las zonas residenciales. Su radio de acción es de unos 4 cuadrados en cada dirección.</p>
+	<p style="hp">Los hospitales hacen que las zonas residenciales cercanas sean más demandadas, menos ciudadanos mueren por la polución y enfermedades derivadas y la población que vive allí es más eficiente proporcionando empleos a las zonas colindantes (están menos tiempo enfermos).</p>
+	<p style="hp">Los hospitales son muy caros, 60,000 al año. No obstante reducen el coste de las «muertes no naturales» y pueden dar ingresos por impuestos adicionales (ya que hay más empleos para los ciudadanos).</p>
+	<p style="hp">Después de construir un hospital se tardan unos tres meses en que empiece a funcionar. Usan mercancías. No obstante no usan muchos empleos. Éstos se toman en cuenta cuando se calculan los empleos adicionales generados por la reducción de enfermedades en las áreas colindantes.</p>
+	<p style="hp">Los hospitales no necesitan estar conectados con los medios de transporte. Si no lo están, sí que necesitan estar en el radio de acción de un comercio.</p>
+	<p style="hp">Para ver la cobertura sanitaria, pulsa con el icono de salud en el minimapa. Las areas que se muestran en verde tienen cobertura sanitaria.</p>
+
+	<p style="hp">Esto es un hospital</p>
+	<img src="images/tiles/health.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+	<p style="hp">y éste es su icono en el minimapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="residential">Área residencial</a></li>
+	<li><a href="pollution">Polución</a></li>
+	<li><a href="jobs">Empleos</a></li>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="msb-health">Vista de la cobertura sanitaria</a></li>
+</Document>

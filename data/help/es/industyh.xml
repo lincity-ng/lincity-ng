@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Industria pesada (trabajos del acero)</p>
+	<p style="hp">Las industrias pesadas requieren mineral, electricidad y empleos para producir acero. El mineral se obtiene directamente de la conexión con los medios de transporte. El acero se deposita en los medios de transporte. Los empleos se obtienen de algún comercio cercano. Los medios de transporte deben estar conectados en la esquina superior izquierda.</p>
+	<p style="hp">La electricidad que necesitan las industrias pesadas para funcionar se puede obtener de dos formas. La primera es del carbón, el que se obtiene directamente de los medios de transporte. La segunda es de la electricidad: debes tener una o más subestaciones activas en el área de la industria. (Los molinos de viento <b>no</b> dan energía eléctrica a las industrias pesadas.)</p>
+	<p style="hp">Las fábricas pesadas generan polución.</p>
+	<p style="hp">Puedes ver si una industria pesada está funcionando correctamente pulsando sobre ella, y porque a menudo el edificio está animado.</p>
+	
+	<p style="hp">Esto es una fábrica pesada</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="pollution">Polución</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="power">Electricidad</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="ore">Mineral</a></li>
+</Document>

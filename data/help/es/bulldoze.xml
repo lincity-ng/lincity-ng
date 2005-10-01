@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Niveladora</p>
+	<p style="hp">Para derribar un área selecciona el icono de la niveladora y después pulsa sobre el área que quieres eliminar. Nivelar, derribar o desecar ríos cuesta dinero. Cuando contruyas sobre un área, el coste de contruirlo y derribarlo se muestra en la esquina inferior izquierda de la pantalla.</p>
+	<p style="hp">Algunos edificios, como los monumentos, son muy caros de derribar. El coste del derribo no sólo hace referencia al coste materia, sino al coste político. Por ejemplo: al derribar un monumento tendrás protestas y costes judiciales.</p>
+	<p style="hp">En este momento, desecar ríos es la única manera de cruzarlos para los medios de transporte. Piensa en que la zona de río desecada para que circulen los transportes como si fuese un puente.</p>
+	<p style="hp">Éste es el icono de la niveladora</p>
+	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="help/transport.xml">Medios de transporte</a></li>
+	<li><a href="help/river.xml">Ríos</a></li>
+</Document>

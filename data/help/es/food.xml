@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Alimentos</p>
+	<p style="hp">Los alimentos se producen en las granjas o bien se pueden importar desde un puerto.</p>
+	<p style="hp">La población necesita alimentos para sobrevivir. Si no los tienen, se moveran fuera de esa área y algunos puede morir de hambre.</p>
+	<p style="hp">Las fábricas también necesitan alimentos. Ellas convierten, según se dice, algodón en ropa. Pueden usar <i>muchos</i> alimentos - ten cuidado.</p>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="farm">Granja</a></li>
+	<li><a href="port">Puerto</a></li>
+	<li><a href="mill">Fábrica</a></li>
+	<li><a href="steel">Acero</a></li>
+</Document>

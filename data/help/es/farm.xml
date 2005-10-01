@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Granjas</p>
+	<p style="hp">Las granjas producen alimentos para que la gente coma y para suministrar los materiales sin refinar a las fábricas. Los granjeros pueden vender los alimentos a los comercios. Los llevan en tractores de tal modo que las granjas no necesitan estar conectadas con los medios de transporte. No obstante pueden vender los alimentos a los medios de transporte. Debes asegurarte de que los comercios están en el radio de acción de las granjas.</p>
+	
+	<p style="hp">Esto es una granja</p>
+	<img src="images/tiles/farm0.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
+	
+	<p style="hp">Las granjas necesitan empleos para producir algo más de una mínima cantidad de alimentos. Al conectar las granjas con el tendido eléctrico aumentará la producción de alimentos. Las fuentes de tensión eléctrica también incluyen a los molinos de viento antiguos que ayudan a que los alimentos sean procesados, reduciendo los residuos que se producen en las granjas.</p>
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="market">Comercio</a></li>
+	<li><a href="tech-level">Nivel tecnológico</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="windmill">Molino de viento</a></li>
+	<li><a href="food">Alimentos</a></li>
+</Document>

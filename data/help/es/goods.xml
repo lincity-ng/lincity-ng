@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Mercancías</p>
+	<p style="hp">Las mercancías son necesarias para casi todos los áreas de trabajo. A la población también le encanta tener muchas mercancías y les atraen las zonas donde puedan obtenrelas.</p>
+	<p style="hp">Las mercancías tienen impuestos de tal manera que fabricar mercancías ayudará a tu economía.</p>
+	<p style="hp">Las mercancías se producen en las alfarerías, herrerías, fábricas e industrias ligeras.</p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="pottery">Alfarerías</a></li>
+	<li><a href="blacksmith">Herrerías</a></li>
+	<li><a href="mills">Fábricas</a></li>
+	<li><a href="industryl">Industria ligera</a></li>
+</Document>

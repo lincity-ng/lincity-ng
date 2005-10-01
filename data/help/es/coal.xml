@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Carbón</p>
+	<p style="hp">El carbón se usa en las centrales térmicas para producir electricidad. También lo usan las alfarerías, fábricas y herrerías para producir mercancías. Las industrias pesadas usan carbón cuando no se las suministra electricidad.</p>
+	<p style="hp">El cabón se extrae de las minas de carbón. Las reservas de carbón son finitas y puedes verlas pulsando sobre el botón de carbón que está debajo del minimapa.</p>
+	<p style="hp">Las comunas también proporcionan algo de carbón. Realmente es carbón de leña. Producen pequeñas cantidades, suficientes para pocas alfarerías y herrerías.</p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="coalmine">Minas de carbón</a></li>
+	<li><a href="powerscoal">Centrales térmicas</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="pottery">Alfarerías</a></li>
+	<li><a href="blacksmith">Herrerías</a></li>
+	<li><a href="msb-coal">Vista de los depósitos de carbón</a></li>
+</Document>

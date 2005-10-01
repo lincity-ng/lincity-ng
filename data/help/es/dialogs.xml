@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Ayuda sobre las solapas de información</p>
+    <p>Solapa del mapa</p>
+    <li><a href="mini-screen">Minimapa</a></li>
+    <p>Solapa de estadísticas</p>
+	<li><a href="pbar">Barra de estado de recursos</a></li>
+    <p>Solapa $</p>
+	<li><a href="finance">Finanzas</a></li>
+	<li><a href="housing">Población</a></li>
+    <p>Solapa de economía</p>
+	<li><a href="economy">Gráficos económicos</a></li>
+	<li><a href="sustain">Ventana de progresión de la sostenibilidad</a></li>
+</Document>

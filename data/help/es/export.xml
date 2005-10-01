@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Áreas de importación y exportación</p>
+	<p style="hp">La importación y exportación funcionan de la misma manera excepto que la primera te cuesta dinero y la segunda te da dinero. Ambas requieren un puerto. Por esta razón sólo la exportación se tratará con detalle.</p>
+	<p style="hp">Para exportar debes conectar un medio de transporte con la puerta del edificio que deseas que exporte un producto. Por ejemplo, para exportar hierro deberías conectar una carretera, mejor si tiene hierro, a la puerta del edificio.</p>
+	<p style="hp"><b>Deben</b> estar conectados con ríos por toda la parte derecha.</p>
+	<p style="hp">Las puertas, de arriba a abajo, exportan carbón, mineral, mercancías y acero.</p>
+	<p style="hp">El área de exportación tomará tanto como se le dé. Si necesitas exportar pero quieres restringir la cantidad, quizá quieras usar un tipo de transporte de menor capacidad o bien pasar el producto a través de un comercio. Deberás experimentar para llegar a la configuración de transporte adecuada.</p>
+	<p style="hp">Ver también:</p>
+    <li><a href="port">Puerto</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="market">Comercios</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="steel">Acero</a></li>
+</Document>

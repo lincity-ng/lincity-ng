@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Modo rápido</p>
+	<img src="images/gui/speed/fast.png"/>
+	<p style="hp">Este es el botón de modo rápido. Hace que el juego vaya lo más rápido posible. En equipos lentos puede que los modos de velocidad tengan ningún efecto. Has de tener cuidado cuando jueges en modo rápido ya que las situaciones pueden desarrollarse demasiado rápidamente. </p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="medium">Medio</a></li>
+	<li><a href="slow">Lento</a></li>
+</Document>

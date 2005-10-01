@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Ventana de finanzas</p>
+	<p style="hp">Esta es la ventana de los asuntos financieros.</p>
+	<p style="hp">La ventana de los asuntos financieros se actualiza cada 1 de Enero. Las estadísticas debajo de «ingresos» y «gastos» muestran tus ingresos y gastos del año anterior.</p>
+	<p style="hp">El dibujo total es la cantidad de dinero en tu cuenta. Hay algunas cosas que no puedes hacer cuando estás «en números rojos».</p>
+	<p style="hp">Las abreviaturas significan:</p>
+	<p style="hp">Ingresos:</p>
+	<li>IT = Ingresos por impuestos.</li>
+	<li>CT = Impuestos del carbón.</li>
+	<li>GT = Impuestos de las mercancías.</li>
+	<li>XP = Impuestos de las exportaciones.</li>
+	<p style="hp">Gastos:</p>
+	<li>OC = Otros gastos.</li>
+	<li>UC = Gastos del paro.</li>
+	<li>TC = Gastos de los medios de transporte.</li>
+	<li>IP = Gastos de las importaciones.</li>
+	<p style="hp">Al pulsar con el botón izquierdo sobre esta ventana rotará alrededor de las ventanas sobre finanzas, otros gastos y alojamiento.</p>
+</Document>

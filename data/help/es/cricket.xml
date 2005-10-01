@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Canchas de baloncesto</p>
+	<p style="hp">Las canchas de baloncesto proporcionan deporte y entretenimiento a la población. Necesitan mercancías y empleos para trabajar. No necesitan estar conectadas con los medios de transporte, pero si no lo están necesitan estar en el radio de cobertura de un mercado para que les pueda proporcionar los empleos y mercancías necesarios. También necesitan dinero para trabajar.</p>
+	<p style="hp">Cuando construyes una cancha de baloncesto, no comienza a funcionar en ese preciso momento. Han de pasar unos tres meses antes de que las pistas de baloncesto se instalen.</p>
+	<p style="hp">Para ver la cobertura que provee cada cancha de baloncesto, pulsa en el icono del balón que hay debajo del minimapa. Las áreas verdes están cubiertas por las canchas, el resto, en color gris oscuro, no.</p>
+	<p style="hp">Las canchas de baloncesto aumentan el deseo de zonas residenciales en el área que cubren.</p>
+	<p style="hp">Hay un partido cada mes en las canchas de baloncesto, de tal manera que se ve la animación y puedes comprobar que está funcionando.</p>
+
+	<p style="hp">Esto es una cancha de baloncesto</p>
+	<img src="images/tiles/cricket1.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+	<p style="hp">y éste es su icono del minimapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+
+	<p style="hsubtitle">Ver también</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="market">Comercio</a></li>
+	<li><a href="jobs">Empleos</a></li>
+	<li><a href="msb-cricket">Cobertura de las canchas de deporte</a></li>
+</Document>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Ventana de población</p>
+	<p style="hp">Esta es la ventana de población.</p>
+	<p style="hp">La ventana muestra 7 estadísticas:</p>
+	<li>Población       - muestra la población que vive en casas. No se incluyen los indigentes.</li>
+	<li>Alojados        - muestra el número total de población de la ciudad que vive en casas.</li>
+	<li>Alojados %      - muestra el porcentaje de población de la ciudad que vive en casas.</li>
+	<li>Chabolas        - muestra el número de barrios de chabolas de la ciudad.</li>
+	<li>Muertes descon. - muestra el número de personas que mueren por hambruna o polución en el último mes.</li>
+	<li>Paro %          - muestra el porcentaje de población que está sin trabajo.</li>
+	<li>Hambruna %      - muestra el porcentaje de población que está pasando hambre.</li>
+	<p style="hp">Al pulsar con el botón izquierdo sobre esta ventana rotará las vistas entre finanzas, otros gastos y población.</p>
+</Document>
