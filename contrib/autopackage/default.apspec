@@ -1,7 +1,7 @@
 # -*-shell-script-*-
 
 [Meta]
-RootName: @lincity-ng.berlios.de/lincity-ng:$SOFTWAREVERSION 
+RootName: @lincity-ng.berlios.de/lincity-ng:$SOFTWAREVERSION
 DisplayName: LinCity-NG
 ShortName: lincity-ng
 Maintainer: LinCity-NG Development Team
