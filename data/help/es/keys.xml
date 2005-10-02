@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Comandos del teclado</p>
+    <p style="hp">«ESCAPE»: cambiar a la herramienta de consulta.</p>
+    <p style="hp">«b» conmuta entre la herramienta actual y el modo niveladora.</p>
+    <p style="hp">«h» para ocultar los edificios. Pulsa otra vez «h» para mostrarlos.</p>
+    <p style="hp">«v» para seleccionar una vista diferente del minimapa.</p>
+    <p style="hp">Tecla «+»: ampliar</p>
+    <p style="hp">Tecla «-»: reducir</p>
+    <p style="hp">Tecla «Intro»: ampliación normal (100%)</p>
+    <p style="hp">Tecla «5»: sitúa la mitad del mapa en el centro de la pantalla principal</p>  
+    <p style="hp">Tecla «9»: desplaza la pantalla principal al norte</p>
+    <p style="hp">Tecla «1»: desplaza la pantalla principal al sur</p>
+    <p style="hp">Tecla «7»: desplaza la pantalla principal al oeste</p>
+    <p style="hp">Tecla «3»: desplaza la pantalla principal al este</p>
+    <p style="hp">Tecla «2»: desplaza la pantalla principal al sureste</p> 
+    <p style="hp">Tecla «4»: desplaza la pantalla principal al suroeste</p> 
+    <p style="hp">Tecla «9»: desplaza la pantalla principal al noreste</p> 
+    <p style="hp">Tecla «9»: desplaza la pantalla principal al noroeste</p> 
+    <p style="hp">igual que con el cursor</p>
+    <p style="hp">utiliza la combinación «mayúsculas + dirección» para desplazarte más rápidamente</p>
+    <p style="hp">F12 guardado rápido</p> 
+    <p style="hp">F9 carga rápida</p> 
+
+    <p style="htitle">Ratón</p>
+    <p style="hp">derecha:</p>
+    <p style="hp">Arrastra la pantalla principal con el botón derecho del ratón.</p>
+    <p style="hp">la pulsación con el botón derecho sobre la pantalla principal centra la vista debajo del cursor.</p>
+    <p style="hp">medio:</p>
+    <p style="hp">la pulsación con el botón del medio sobre la pantalla principal muestra información acerca del área que está debajo del cursor.</p>
+    <p style="hp">izquieda:</p>
+    <p style="hp">Al pulsar sobre el minimapa se mostrará el área seleccionado en la pantalla principal.</p>
+    <p style="hp">Realiza una acción que depende de la herramienta seleccionada, muestra información, construye un edifico:</p>
+    <p style="hp">rueda:</p>
+    <p style="hp">«arriba»: ampliar</p>
+    <p style="hp">«abajo»: reducir</p>
+</Document>

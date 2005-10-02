@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Herrerías</p>
+	<p style="htitle">Herrería</p>
 	<p style="hp">Las herrerías convierten acero y carbón en mercancías. Las usarás en las primeras fases del juego. También usan empleos, por supuesto.</p>
 	<p style="hp">Antes de que puedas tener industrias pesadas, dependes del acero producido por las comunas. Es recomendable tener 5 o 6 comunas por cada herrería.</p>
 	<p style="hp">Las herrerías no necesitan estar conectadas a los medios de transporte. Pueden obtener todo lo que necesitan de los mercados que están alrededor.</p>
@@ -12,9 +12,9 @@
 	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 	
 	<p style="hsubtitle">Ver también:</p>
-	<li><a href="market">Mercados</a></li>
+	<li><a href="market">Comercio</a></li>
 	<li><a href="ore">Hierro</a></li>
-	<li><a href="commune">Comunas</a></li>
+	<li><a href="commune">Comuna</a></li>
 	<li><a href="steel">Acero</a></li>
 	<li><a href="jobs">Empleos</a></li>
 </Document>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Gráficas económicos</p>
+	<p style="htitle">Gráficas económicas</p>
 	<p style="hp">Esta gráfica contiene cuatro líneas coloreadas. Muestran los aspectos económicos más importantes.</p>
 	<li><span color="brown">Población</span> (marrón) La línea marrón representa la población. Es una gráfica logarítmica.</li>
 	<li><span color="blue">Sin techo</span> (bazul) La línea azul representa la demanda de vivienda. La altura de la gráfica es proporcional a la raíz cuadrada de la población sin techo.</li>

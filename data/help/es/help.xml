@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Ayuda de Lincity</p>
-	<p style="hp">Esta es la ayuda de Lincity. Por favor, escoja un tema pulsado sobre una de las palabras azules siguientes. Las palabras azules generalmente indican un enlace a otro documento.</p>
+	<p style="hp">Esta es la ayuda de Lincity. Por favor, escoje un tema pulsado sobre una de las palabras azules siguientes. Las palabras azules generalmente indican un enlace a otro documento.</p>
 	<li><a href="keys">Comandos del teclado</a></li>
 	<li><a href="button-index">Lista de todos los objetos edificables</a></li>
 	<li><a href="mini-screen">Ayuda con el minimapa</a></li>

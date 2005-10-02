@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Vista de cobertura anti-incendios</p>
+	<p style="htitle">Vista de la cobertura anti-incendios</p>
 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
 	<p style="hp">Las áreas que tienen un parque de bomberos cerca se muestran con un color gris oscuro.</p>
 	<p style="hp">Las áreas fuera del radio de acción de los parques de bomberos se muestran normalmente.</p>
@@ -10,11 +10,11 @@
 	<p style="hsubtitle">Ver también:</p>
 	<li><a href="mini-screen">Minimapa</a></li>
 	<li><a href="msb-coal">Vista de los depósitos de carbón</a></li>
-	<li><a href="msb-cricket">Vista de cobertura deportiva</a></li>
+	<li><a href="msb-cricket">Vista de la cobertura deportiva</a></li>
 	<li><a href="msb-health">Vista de la cobertura sanitaria</a></li>
 	<li><a href="msb-normal">Vista normal</a></li>
-	<li><a href="msb-pol">Vista de polución</a></li>
-	<li><a href="msb-power">Vista de cobertura eléctrica</a></li>
-	<li><a href="msb-starve">Vista de hambruna</a></li>
-	<li><a href="msb-ub40">Vista de paro</a></li>
+	<li><a href="msb-pol">Vista de la polución</a></li>
+	<li><a href="msb-power">Vista de la cobertura eléctrica</a></li>
+	<li><a href="msb-starve">Vista de la hambruna</a></li>
+	<li><a href="msb-ub40">Vista del paro</a></li>
 </Document>

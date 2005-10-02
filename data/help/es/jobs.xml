@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Empleos</p>
+	<p style="hp">La población de las áreas residenciales proporcionan empleos. Los empleos se usan en casi todos las áreas para hacerlas funcionar. Algunas áreas sólo necesitan empleos cuando están en construcción, como los monumentos.</p>
+	<p style="hp">Los comercios pueden proporcionar empleos: puedes construir un comercio cerca del área donde necesites empleos. Un comercio, por supuesto, debe obtener sus empleos de alguna parte. Los comercios obtienen los empleos de dos maneras distintas. Primero, si hay alguna zona residencial cerca, ésta suministrará empleos al comercio según los residentes y según la cantidad de comercios que deban compartir esos empleos. La segunda vía es por los medios de transporte. Un comercio que esté lejos de una zona, si tiene excedente de empleos los pondrá en los medios de transporte para compartirlos. Cualquier comercio que tenga falta de empleos y esté conectado a los medios de transporte, ya sean caminos, carreteras o ferrocarril, podrá hacer uso del excedente de otros comercios.</p>
+	<p style="hp">Si un comercio «se llena» de empleos, dejará de acptarlos de las áreas residenciales. Cuando esto ocurra, si no hay otros comercios en la zona que no estén colapsados, habrá paro.</p>
+	<p style="hp">Un hospital en el radio de acción de una zona residencial incrementará el númerode empleos que se proporcionan a los comercios locales.</p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="residential">Área residencial</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="market">Comercio</a></li>
+</Document>

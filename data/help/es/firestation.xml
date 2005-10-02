@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Parques de bomberos</p>
+	<p style="htitle">Parque de bomberos</p>
 	<p style="hp">Los parques de bombreos previenen el inicio y la expansión de los fuegos en su radio de acción. Necesitan que se les sumistre mercancías y empleos para poder trabajar correctamente. <b>No</b> necesitan estar conectados con los medios de transporte, y también tienen que estar cerca de un comercio que puede suplir sus necesidades de empleos y mercancías. También gastan dinero para poder funcionar.</p>
 	<p style="hp">Cuando construyes un parque de bombreros no comienza a operar en el momento. Hay un periodo de espera de unos tres meses antes de que puedan realizar su trabajo.</p>
 	<p style="hp">Para ver el área que cubren los parques de bomberos, pulsa en el botón de parques de bomberos del <i>minimapa</i>. Las áreas que cubren los parques se muestran con un color verde oscuro, las que no están cubiertas se muestran normalmente.</p>
@@ -17,7 +17,7 @@
 	<p style="hsubtitle">Ver también:</p>
 	<li><a href="mini-screen">Minimapa</a></li>
 	<li><a href="goods">Mercancías</a></li>
-	<li><a href="market">Comercios</a></li>
+	<li><a href="market">Comercio</a></li>
 	<li><a href="jobs">Empleos</a></li>
-	<li><a href="msb-fire">Vista de cobertura anti-incendios</a></li>
+	<li><a href="msb-fire">Vista de la cobertura anti-incendios</a></li>
 </Document>

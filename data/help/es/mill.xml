@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Fábrica</p>
+	<p style="hp">Las fábricas convierten alimentos, carbón y empleos en mercancías. ¿Alimentos? ... bueno, en este juego el algodón y la lana se toman como alimetnos.</p>
+	<p style="hp">Las fábricas usan bastantes alimentos, así que si no tienes esto en cuenta puede que tengas hambruna. (El problema es menor cuando tienes molinos de viento, ya que proporcionan energía eléctrica a las granjas que hace que sean más eficientes).</p>
+	<p style="hp">Las fábricas no tienen por qué estar conectadas con los medios de transporte. Si no lo están, tienen que estar en el radio de acción de un comercio que les proporcione carbón, empleos y alimentos. Puedes ver cuándo una fábrica está funcionando por el humo y vapor que salen del edificio.</p>
+	
+	<p style="hp">Esto es una fábrica</p>
+	<img src="images/tiles/mill1.png" halign="center"/>
+	<p style="hp">Esto es una fábrica cerrada</p>
+	<img src="images/tiles/mill0.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="food">Alimentos</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="jobs">Empleos</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="windmill">Molino de viento</a></li>
+</Document>

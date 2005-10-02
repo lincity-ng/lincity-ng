@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Comercio</p>
+	<p style="hp">Comercio probablemente es un mal nombre para estos edificios. Son más parecidos a centros de trabajo, tiendas, almacenes y mercados, todo en un mismo edifico. Compran y venden alimentos, empleos, carbón, mercancías, mineral y acero a las áreas colindantes y a los medios de transporte tales como carreteras. Por ejemplo, un área residencial provee de empleos a un comercio, el comercio provee de empleos a un monumento que está en construcción. <b>NOTA</b>, los residentes no tendrán alimentos si las áreas están más o menos en los límites de su rango.</p>
+	<p style="hsubtitle">Controlar lo que vende y compra cada comercio</p>
+	<p style="hp">Puedes controlar el funcionamiento de un comercio seleccionando qué debe vender y/o comprar de los medios de transporte. Pulsa dos veces sobre el comercio (no con el botón de selección) y se mostrará una ventana en la parte superior izquierda que te permitirá cambiar las condiciones del comercio. Por omisión se permite comerciar con todo.</p>
+	<p style="hp">Esto es un comercio</p>
+	<img src="images/tiles/market-empty.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
+	
+	<p style="hp">Esto significa que el comercio está permitido.</p>
+	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
+	<p style="hp">Esto significa que el comercio <b>no</b> está permitido.</p>
+	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
+	<p style="hp">Los números que hay entre las palabras «Comprar» y «Vender» son las referencias del mapa para ése comercio.</p>
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="food">Alimentos</a></li>
+	<li><a href="jobs">Empleos</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="ore">Hierro</a></li>
+	<li><a href="steel">Acero</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+</Document>

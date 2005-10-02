@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Industria ligera</p>
+	<p style="hp">Las industrias ligeras convierten el mineral en mercancías. LA conversión es más eficiente si también hay acero disponible. La electricidad aumenta aún más la producción. Los molinos de viento <b>no</b> dan energía eléctrica a estas industrias.</p>
+	<p style="hp">La producción de las industrias ligeras depende en gran medida de la cantidad de materiales disponibles que tengan, incluyendo los empleos, que pueden recibir, y también de la cantidad de mercancías que pueden <b>coger</b>.</p>
+	<p style="hp">Estas áreas se conectan directamente con los medios de transporte para intercambiar mineral, acero y mercancías. Necesitarán un comercio para obtener los empleos que requieren.</p>
+	<p style="hp">Estas áreas se conectan con los medios de transporte <b>sólo</b> en la parte superior izquierda, como se muestra. El medio de transporte se curvará al conectarlo con la fábrica.</p>
+	
+	<p style="hp">Esto es una industria ligera</p>
+	<img src="images/tiles/industryll1.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="road">Carretera</a></li>
+	<li><a href="rail">Vía de tren</a></li>
+	<li><a href="market">Comercio</a></li>
+	<li><a href="jobs">Empleos</a></li>
+</Document>
