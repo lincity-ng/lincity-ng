@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Monumentos</p>
+	<p style="hp">Los monumentos proporcionan un punto importante para la enseñanza e inspiración para los inventores. Cada monumento que construyas aumentará el crecimiento del nivel tecnológico, pero su eficiencia desaparecerá cuando estés por encimal del 40% del nivel tecnológico.</p>
+	<p style="hp">Para construir un monumento necesitas empleos. Un <b>montón</b> de empleos. Por esta razón son útiles para controlar el paro. Es sólo una solución temporal al problema del paro ya que, una vez construidos, no necesitan ningún empleo.</p>
+	<p style="hp">Puedes ver cuánto ha progresado la construcción del monumento pulsando sobre él y mirando la ventana de las estadísitcas. También el edificio cambia mientras se construye. Hay 6 gráficas que muestran el estado de la construcción, desde el 0% al 100%.</p>
+	<p style="hp"><b>Truco</b>: Cómo hacer que un monumento deje de absorver demiasiados empeos de una zona que está haciendo que otras zonas se queden sin empleos: construye un monumento lejos de esas áreas.</p>
+
+	<p style="hp">Esto es un monumento</p>
+	<img src="images/tiles/monument5.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="market">Comercio</a></li>
+	<li><a href="ore">Hierro</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="steel">Acero</a></li>
+	<li><a href="jobs">Empleos</a></li>
+</Document>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Vista de la hambruna</p>
+	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
+	<p style="hp">La vista de la hambruna del minimapa muestra sólo las áreas residenciales.</p>
+	<p style="hp">El color verde brillante significa que hay suficiente comida en esa zona residencial. El color gris oscuro y rojo brillanete muestran una severa falta de alimentos en las áreas donde aparezcan.</p>
+	<p style="hp">Pulsa con el botón izquierdo sobre el minimapa para volver la pantalla principal. Pulsa con el botón izquierdo sobre el título del minimapa para seleccionar una vista diferente del minimapa. </p>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Vista de los depósitos de carbón</a></li>
+	<li><a href="msb-cricket">Cobertura de las canchas de deporte</a></li>
+	<li><a href="msb-fire">Vista de la cobertura anti-incendios</a></li>
+	<li><a href="msb-health">Vista de la cobertura sanitaria</a></li>
+	<li><a href="msb-normal">Vista normal</a></li>
+	<li><a href="msb-pol">Vista de la polución</a></li>
+	<li><a href="msb-power">Vista de la cobertura eléctrica</a></li>
+	<li><a href="msb-ub40">Vista del paro</a></li>
+</Document>

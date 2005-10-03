@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Cobertura de las canchas de deporte</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+	<p style="hp">Las áreas que tienen una cancha de baloncesto cerca se muestran con un color gris oscuro.</p>
+	<p style="hp">Las áreas fuera del radio de acción de las canchas de baloncesto se muestran normalmente.</p>
+	<p style="hp">Recuerda que las canchas de baloncesto tardan tres meses en comenzar a funcionar.</p>
+	<p style="hp">Pulsa con el botón izquierdo sobre el minimapa para volver la pantalla principal. Pulsa con el botón izquierdo sobre el título del minimapa para seleccionar una vista diferente del minimapa. </p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Vista de los depósitos de carbón</a></li>
+	<li><a href="msb-fire">Vista de la cobertura anti-incendios</a></li>
+	<li><a href="msb-health">Vista de la cobertura sanitaria</a></li>
+	<li><a href="msb-normal">Vista normal</a></li>
+	<li><a href="msb-pol">Vista de la polución</a></li>
+	<li><a href="msb-power">Vista de la cobertura eléctrica</a></li>
+	<li><a href="msb-starve">Vista de la hambruna</a></li>
+	<li><a href="msb-ub40">Vista del paro</a></li>
+</Document>

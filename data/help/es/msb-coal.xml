@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Vista de los depósitos de carbón</p>
+	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">La vista de los depósitos de carbón del minimapa muestra las reservas que hay en tu ciudad. Las vetas se muestran como blanco sobre un fondo negro. Deberás construir una mina de carbón cerca de una de esas vetas para poder extraer carbón.</p>
+	<p style="hp">La primera vez que haces uso de esta información, deberás hacer una prospección de carbón que te costará un millón. Después puedes consultar esa información siempre que quieras.</p>
+	<p style="hp">Pulsa con el botón izquierdo sobre el minimapa para volver la pantalla principal. Pulsa con el botón izquierdo sobre el título del minimapa para seleccionar una vista diferente del minimapa. </p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-cricket">Cobertura de las canchas de deporte</a></li>
+	<li><a href="msb-fire">Vista de la cobertura anti-incendios</a></li>
+	<li><a href="msb-health">Vista de la cobertura sanitaria</a></li>
+	<li><a href="msb-normal">Vista normal</a></li>
+	<li><a href="msb-pol">Vista de la polución</a></li>
+	<li><a href="msb-power">Vista de la cobertura eléctrica</a></li>
+	<li><a href="msb-starve">Vista de la hambruna</a></li>
+	<li><a href="msb-ub40">Vista del paro</a></li>
+</Document>

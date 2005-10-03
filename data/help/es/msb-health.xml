@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Vista de la cobertura sanitaria</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<p style="hp">Las áreas que tienen un hospital cerca se muestran con un color gris oscuro.</p>
+	<p style="hp">Las áreas fuera del radio de acción de los hospitales se muestran normalmente.</p>
+	<p style="hp">Recuerda que los hospitales tardan tres meses en comenzar a funcionar.</p>
+	<p style="hp">Pulsa con el botón izquierdo sobre el minimapa para volver la pantalla principal. Pulsa con el botón izquierdo sobre el título del minimapa para seleccionar una vista diferente del minimapa. </p>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Vista de los depósitos de carbón</a></li>
+	<li><a href="msb-cricket">Cobertura de las canchas de deporte</a></li>
+	<li><a href="msb-fire">Vista de la cobertura anti-incendios</a></li>
+	<li><a href="msb-normal">Vista normal</a></li>
+	<li><a href="msb-pol">Vista de la polución</a></li>
+	<li><a href="msb-power">Vista de la cobertura eléctrica</a></li>
+	<li><a href="msb-starve">Vista de la hambruna</a></li>
+	<li><a href="msb-ub40">Vista del paro</a></li>
+</Document>
+<!--
+
+text -1 270 Left click on the mini screen 
+text -1 280 to reposition the main window.
+text -1 300 Left click on the mini screen title 
+text -1 310 to choose a different mini screen view.
+text -1 330 Toggle overlay mode by pressing 'v' 
+text -1 340 or middle click on the mini screen title (X only)
+-->

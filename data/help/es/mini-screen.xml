@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Minimapa</p>
+	<p style="hp">El minimapa muestra, en escala reducida, el área completo de juego. Cuando pulsas sobre los botones de encima se mostrará información, tal como los niveles de pulución sobre el mapa entero.</p>
+	<p style="hp">Pulsa sobre el <i>botón de ayuda</i> y después sobre cada uno de los botones sobre el minimapa para activar sus correspondientes páginas de ayuda.</p>
+	<p style="hp">El cuadrado de bordes blancos muestra el área que cubre la pantalla principal.</p>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="msb-coal">Vista de los depósitos de carbón</a></li>
+	<li><a href="msb-cricket">Cobertura de las canchas de deporte</a></li>
+	<li><a href="msb-fire">Vista de la cobertura anti-incendios</a></li>
+	<li><a href="msb-health">Vista de la cobertura sanitaria</a></li>
+	<li><a href="msb-normal">Vista normal</a></li>
+	<li><a href="msb-pol">Vista de la polución</a></li>
+	<li><a href="msb-pol">Vista de la polución</a></li>
+	<li><a href="msb-power">Vista de la cobertura eléctrica</a></li>
+	<li><a href="msb-starve">Vista de la hambruna</a></li>
+	<li><a href="msb-ub40">Vista del paro</a></li>
+</Document>

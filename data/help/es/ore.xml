@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Hierro</p>
+	<p style="hp">El mineral es uno de los materiales crudos básicos del juego. Las comunas, las minas de mineral y los centros de ceciclaje procuden mineral.</p>
+	<p style="hp">Alfarerías, industrias ligeras e industrias pesadas utilizan minerales.</p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="oremine">Mina de mineral</a></li>
+	<li><a href="recycle">Centro de reciclaje</a></li>
+	<li><a href="pottery">Alfarería</a></li>
+	<li><a href="indistryl">Industria ligera</a></li>
+	<li><a href="indistryh">Industria pesada</a></li>
+</Document>
