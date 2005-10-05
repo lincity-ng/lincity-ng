@@ -4,7 +4,7 @@
 	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
 	<p style="hp">La vista del paro en la ventana del minimapa muestra sólo las áreas residenciales.</p>
 	<p style="hp">El color verde brillante significa que no hay paro en esa área residencial. El color verde oscuro y rojo brillante muestran un incremento del paro en las zonas donde se muestran.</p>
-	<p style="hp">Pulsa con el botón izquierdo sobre el minimapa para volver la pantalla principal. Pulsa con el botón izquierdo sobre el título del minimapa para seleccionar una vista diferente del minimapa. </p>
+	<p style="hp">Pulsa con el botón izquierdo sobre el minimapa para volver la pantalla principal. Pulsa con el botón izquierdo sobre el título del minimapa para seleccionar una vista diferente del minimapa.</p>
 	
 	<p style="hsubtitle">Ver también:</p>
 	<li><a href="mini-screen">Minimapa</a></li>

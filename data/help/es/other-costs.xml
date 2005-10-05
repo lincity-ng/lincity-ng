@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Otros gastos</p>
+	<p style="hp">Esta es la ventana otros gastos.</p>
+	<p style="hp">Esta ventana muestra los «otros gastos» que se muestran en la ventana de finanzas.</p>
+	<p style="hp">Las abreviaturas significan:</p>
+	<p style="hp">It - Gastos de los intereses</p>
+	<p style="hp">GE - Gastos de las escuelas y universidades</p>
+	<p style="hp">GM - Gastos de las muertes no naturales</p>
+	<p style="hp">GV - Gastos de los molinos de viento</p>
+	<p style="hp">GH - Gastos de los hospitales</p>
+	<p style="hp">GC - Gastos de las plataformas de cohetes</p>
+	<p style="hp">GB - Gastos de los parques de bomberos</p>
+	<p style="hp">GD - Gastos en deportes</p>
+	<p style="hp">Gr - Gastos de reciclajes</p>
+	<p style="hp">Al pulsar con el botón izquierdo sobre esta ventana rotará las vistas entre finanzas, otros gastos y alojamiento.</p>
+</Document>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Alfarerías</p>
+	<p style="hp">Las alfarerías usan mineral, carbón y empleos para fabricar mercancías. No necesitan estar conectadas con los medios de transporte, pero si no lo están necesitan estar en el radio de cobertura de un mercado para que les pueda proporcionar el mineral, el carbón y los empleos necesarios para producir las mercancías.</p>
+	<p style="hp">Puedes ver cuándo una alfarería está trabajando por el humo que sale del horno del edificio. Si el horno no produce humo es que la alfarería no está trabajando al 100%.</p>
+	
+	<p style="hp">Esto es una alfarería</p>
+	<img src="images/tiles/pottery0.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="jobs">Empleos</a></li>
+	<li><a href="market">Comercios</a></li>
+</Document>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Polución</p>
+	<p style="hp">Muchas áreas producen algo de polución. Las siguientes producen mucha:</p>
+	<li>Industrias pesadas.</li>
+	<li>Industrias ligeras.</li>
+	<li>Centrales térmicas.</li>
+	<li>Minas de carbón.</li>
+	<li>Comercios que están llenos de residuos.</li>
+	<li>Caminos/Vías de tren, particularmente cuando están llenas de residuos.</li>
+	<p style="hp">A la gente no le gusta vivir en zonas con mucha polución. Se cambiarán de casa, o peor aún, enfermarán y morirán.</p>
+	<p style="hp">El viento predominante viene del suroeste. Así que la polución tiende a ir hacia el noreste.</p>
+	<p style="hp">Generalmente deberías construir estratégicamente las zonas residenciles, así la población no estará expuesta a la polución. No obstante esto no siempre es posible. Si éste es el caso, entonces los parques son una buena barrera contra la polución. Cuantos más parques, mejor protección.</p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="industryh">Industrias pesadas</a></li>
+	<li><a href="industryl">Industrias ligeras</a></li>
+	<li><a href="powerscoal">Centrales térmicas</a></li>
+	<li><a href="coalmine">Minas de carbón</a></li>
+	<li><a href="market">Comercios</a></li>
+	<li><a href="rail">Vías de tren</a></li>
+	<li><a href="road">Carreteras</a></li>
+	<li><a href="park">Parques</a></li>
+	<li><a href="msb-pol">Vista de la polución</a></li>
+</Document>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Centros de reciclaje</p>
+	<p style="hp">Las mercancías usadas producen residuos.</p>
+	<p style="hp">Los centros de reciclaje convierten las mercancías usadas en mineral. Deben estar conectados con los medios de transporte en la esquina superior izquierda. Se usan empleos y dinero para recojer los resíduos de las mercancías y convertirlos en mineral.</p>
+	<p style="hp">Es posible mantener una economía sostenible (i.E. no extraer más mineral, etc) con una eficiencia menor del 100% en los centros de reciclaje si tienes algunas fábricas para hacerse cargo de las marcancías usadas «perdidas».</p>
+	
+	<p style="hp">Esto es un centro de reciclaje</p>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+</Document>

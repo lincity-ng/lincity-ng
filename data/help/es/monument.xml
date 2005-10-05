@@ -12,9 +12,9 @@
 	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
 	
 	<p style="hsubtitle">Ver también:</p>
-	<li><a href="market">Comercio</a></li>
+	<li><a href="market">Comercios</a></li>
 	<li><a href="ore">Hierro</a></li>
-	<li><a href="commune">Comuna</a></li>
+	<li><a href="commune">Comunas</a></li>
 	<li><a href="steel">Acero</a></li>
 	<li><a href="jobs">Empleos</a></li>
 </Document>

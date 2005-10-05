@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Mina de mineral</p>
+	<p style="htitle">Minas de mineral</p>
 	<p style="hp">Las minas de mineral proporcionan el mineral necesario para fabricar mercancías y acero. Puedes construir una mina de mineral donde quieras. El mineral que hay bajo la mina se consume muy lentamente; no puedes derribar la mina, construir otra mina encima y esperar que haya más mineral.</p>
 	<p style="hp">Cuando una mina de mineral se agota, se convierte en un lago. Si quieres usar el terreno que hay donde estaba la mina, ¡tendrás que desecar 16 zonas!</p>
 	<p style="hp">El gráfico muestra desde las minas que están siendo bien explotadas hasta las que están casi agotadas.</p>
@@ -12,7 +12,7 @@
 	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
 	
 	<p style="hsubtitle">Ver también:</p>
-	<li><a href="ore">Hierro</a></li>
+	<li><a href="ore">Mineral</a></li>
 	<li><a href="goods">Mercancías</a></li>
 	<li><a href="steel">Acero</a></li>
 </Document>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Parques</p>
+	<p style="hp">Los parques son muy simples: limpian la polución.</p>
+	<p style="hp">Ciertas áreas producen polución. Éstas son los caminos, las minas de carbón y las industrias pesadas y ligeras. Unas producen más que otras.</p>
+	<p style="hp">Puedes usar los parques para aislar las zonas residenciales o para parar la polución que se escapa de las zonas donde se produce.</p>
+	<p style="hp">El viento viene <b>del</b> suroeste, así que construye tus parques de acuerdo con esto.</p>
+	
+	<p style="hp">Esto es un parque</p>
+	<img src="images/tiles/parkland-plane.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="pollution">Polución</a></li>
+	<li><a href="road">Carreteras</a></li>
+	<li><a href="rail">Vía de tren</a></li>
+	<li><a href="coalmine">Minas de carbón</a></li>
+	<li><a href="industryh">Industrias pesadas</a></li>
+	<li><a href="industryl">Industrias ligeras</a></li>
+</Document>

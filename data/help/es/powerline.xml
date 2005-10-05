@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Torres de tensión</p>
+	<p style="hp">Las torres de tensión pueden llevar electricidad desde las centrales térmicas y solares a las subestaciones. Las torres de tensión se conectan en la esquina superior derecha de cada uno de los tres tipos de edificios, centrales térmicas, solares y subestaciones.</p>
+	<p style="hp">Las torres de tensión cruzan <b>por debajo</b> de los caminos, carreteras, vías de tren y ríos (todos de anchura 1). Si se construyen dos torres de tensión a ambos lados de un río, actúan como si estuvieran conectadas. A menudo tendrás que desecar una zona de un río para cruzarlo - ¡es muy caro! Las torres de tensión están unidas cuando están en fila.</p>
+
+	<p style="hp">Esto es una torre de tensión</p>
+	<img src="images/tiles/powerlvd.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
+	<p style="hp">y éste es su icono del minimapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="substation">Subestaciones</a></li>
+	<li><a href="powerssolar">Centrales eléctricas solares</a></li>
+	<li><a href="msb-power">Vista de la cobertura eléctrica</a></li>
+</Document>

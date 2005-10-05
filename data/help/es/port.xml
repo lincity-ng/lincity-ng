@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Puertos</p>
+	<p style="hp">Los puertos te permiten importar y exportar mercancías, acero, mineral, carbón y alimentos. La importación te cuesta dinero y la exportación te hace ganarlo.</p>
+	<p style="hp">Para que sea útil, un puerto debe estar conectado al transporte en la puerta de carga, en la esquina superior izquierda del edificio. Debes esojer qué importar pulsando dos veces sobre el edificio del puerto. Al hacerlo aparecerá un menú en el que debes seleccionar qué quieres importar y qué quieres exportar.</p>
+	<p style="hp"><b>Deben</b> estar conectados con ríos por toda la parte derecha.</p>
+	<p style="hp">No se importará o exportará nada hasta que hayas seleccionado la casilla apropiada.</p>
+	<p style="hp">El área de exportación tomará tanto como se le dé. Si necesitas exportar pero quieres restringir la cantidad, quizá quieras usar un tipo de transporte de menor capacidad o bien pasar el producto a través de un comercio. Deberás experimentar para llegar a la configuración de transporte adecuada.</p>
+	<p style="hp">Nota: los exportadores descuentan las grandes exportaciones.</p>
+
+	<p style="hp">Esto es un puerto</p>
+	<img src="images/tiles/ex_port.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+    <li><a href="export">Importación y exportación</a></li>
+	<li><a href="rivers">Ríos</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="market">Comercios</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="steel">Acero</a></li>
+</Document>

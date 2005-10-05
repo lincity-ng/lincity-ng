@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Áreas residenciales</p>
+	<p style="hp">Aquí es donde vive la gente. Para motivar a la población a vivir en ellas deben tener alimentos. También ayuda proporcionarles trabajo y mercancías que comprar. Deben estar en el radio de acción de un comercio o bien conectadas a los medios de transporte. Hay tres tipos de áreas residenciales: de baja, media y alta densidad. Éstas tienen diferentes tasas de natalidad y mortalidad asociadas, lo que te da cierto control sobre tu población.</p>
+	<p style="hp">Cuando lleves jugando un tiempo, si tienes suficiente nivel tecnológico, puedes construir zonas residenciales más «modernas», inclúso bloques de pisos.</p>
+
+	<p style="hp">Esta es una zona residencial de baja densidad (alta tecnología)</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+	<p style="hp">Esta es una zona residencial de densidad media (alta tecnología)</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">Esta es una zona residencial de alta densidad (alta tecnología)</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="market">Comercios</a></li>
+</Document>

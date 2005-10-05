@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Centrales eléctricas solares</p>
+	<p style="hp">Las centrales eléctricas solares producen energía eléctrica que se distribuye por las torres de tensión. La cantidad de energía eléctrica que proporcionan aumenta con cada nivel tecnológico - cuando la estación es <b>construida</b>.</p>
+	
+	<p style="hp">Esto es una central eléctrica solar</p>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="substation">Subestaciones</a></li>
+	<li><a href="powerline">Torres de tensión</a></li>
+	<li><a href="residential">Áreas residenciales</a></li>
+	<li><a href="tech-level">Nivel tecnológico</a></li>
+	<li><a href="msb-power">Vista de la cobertura eléctrica</a></li>
+</Document>

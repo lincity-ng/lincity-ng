@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Herramienta de consulta</p>
+	<p style="hp">Para mostrar información sobre un edificio utiliza esta herramienta y pulsa sobre el edificio en cuestión.</p>
+	<p style="hp">La información se muestra en la esquina inferior derecha, en lugar de en el minimapa.</p>
+	<p style="hp">El uso de esta herramienta no cuesta dinero.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	<p style="hsubtitle">Ver también:</p>
+    <li><a href="keys">Comandos del teclado</a></li>
+	<li><a href="help">Índice</a></li>
+</Document>
