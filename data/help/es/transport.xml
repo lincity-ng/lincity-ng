@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Medios de transporte</p>
+	<p style="hp">Hay tres tipos de trnasporte en Lincity-ng: caminos, carreteras y vías de tren. Hay un cuarto tipo que consiste en «esperanza a traves de un campo». Éste último es una forma de comercio de corto alcance y no sera tratada como medio de transporte en el futuro. No obstante es muy importante y será comentada antes que los caminos, carreteras y vías de tren.</p>
+	<p style="hp">Los habitantes pueden obtener comida, mercancías y empleos de los comercios que están cerca de sus lugares de residencia.</p>
+	<p style="hp">Todas las áreas requieren empleos (empleados) y los obtienen de los comercios. Por ejemplo, una industria pesada obtendrá sus empleados de un comercio local. También podrían obtenerlos de los medios de transporte.</p>
+	<p style="hp">Las granjas pueden vender sus alimentos directamente a los comercios, no necesitan mediar con los medios de transporte.</p>
+	<p style="hp">Las fábricas, alfarerías y herrerías venden sus mercancías a los comercios cercanos y también pueden obtener los materiales que necesitan de los mismos comercios.</p>
+	<p style="hp">Las siguientes áreas hacen de intermediarios entre los medios de transporte y los comercios. Tú eliges qué usar - los comercios tienen más <i>almacén</i> que los medios de transporte.</p>
+	<p style="hp">Los caminos, carreteras y vías de tren se usan para transportar alimentos, empleos, mercancías, carbón, mineral y acero entre las zonas.</p>
+	<p style="hp">Las industrias ligeras, minas de mineral, vertederos, puertos, minas de carbón, industrias pesadas y centros de reciclaje se conectan a los medios de transporte en la esquina superior izquierda del edificio.</p>
+	<p style="hp">Una excepción es la central térmica. Por ejemplo, si vemos una central térmica conectada a una mina de carbón por medio de una carretera. Una vía de tren sale de la puerta de la mina de carbón y va hacia la derecha.</p>
+	<p style="hp">Para cruzar un río con algún medio de transporte, simplemente deseca esa parte del río y construye un camino, carretera o vías de tren en ése espacio.</p>
+	<p style="hp">Piensa en esto como si construyeses un puente. Te costará mucho porque desecar una zona de río es muy caro.</p>
+
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="residential">Área residencial</a></li>
+	<li><a href="market">Comercios</a></li>
+	<li><a href="farm">Granjas</a></li>
+	<li><a href="mill">Fábricas</a></li>
+	<li><a href="pottery">Alfarerías</a></li>
+	<li><a href="industryl">Industrias ligeras</a></li>
+	<li><a href="oremine">Minas de mineral</a></li>
+	<li><a href="tip">Vertederos</a></li>
+	<li><a href="port">Puertos</a></li>
+	<li><a href="coalmine">Minas de carbón</a></li>
+	<li><a href="industryh">Industrias pesadas</a></li>
+	<li><a href="recycle">Centros de reciclaje</a></li>
+	<li><a href="powercoal">Centrales térmicas</a></li>
+</Document>

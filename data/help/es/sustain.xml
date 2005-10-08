@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Ventana de progresión de la sostenibilidad</p>
+	<p style="hp">Esta ventana contiene seis líneas de color. Cuando alcanzen la parde derecha de la ventana, habrás llegado a una economía sostenible.</p>
+	<li><span color="orange">MIN</span> (naranja) no estás extrayendo ni carbón ni mineral, y tampoco estás tirando residuos en los vertederos.</li>
+	<li><span color="gray">PRT</span> (gris) no estás importando ni exportando.</li>
+	<li><span color="green">DIN</span> (verde) tu dinero es estable o está aumentando, esto significa que no puedes construir nada salvo edificios baratos.</li>
+	<li><span color="blue">POB</span> (azul) tu población es estable entorno al 2% del valor cuando empezó el año 180. Si se sale de esta banda, el aumento de población será el nuevo valor y el año se borrará. Además la población de la ciudad debe ser de almenos 5.000 habitantes.</li>
+	<li><span color="yellow">TEC</span> (amarillo) tu tecnología aumenta o disminuye en cantidades pequeñas. Si cae más de un 1%, se borra el año. Además tu nivel tecnológico debe ser al menos 50%.</li>
+	<li><span color="red">PDB</span> (rojo) todas las áreas con peligro de incendio están cubiertas por los parques de bomberos. Las siguientes áreas *no* tienen protección: monumentos, minas de mineral, torres de tensión y cohetes.</li>
+	<p style="hp">Años necesarios para llegar a una economía sostenible: MIN=180 PRT=180 DIN=60 POB=60 TEC=120 PDB=60</p>
+</Document>

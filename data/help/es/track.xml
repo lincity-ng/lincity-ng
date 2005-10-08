@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Caminos</p>
+	<p style="hp">Los caminos son la forma más simple y barata de transporte. También son los que menor capacidad tienen. Por otra parte no producen polución.</p>
+	
+	<p style="hp">Esto es un camino</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="commune">Comunas</a></li>
+</Document>

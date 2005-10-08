@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Vertederos</p>
+	<p style="hp">Los vertederos te proporcionan un lugar donde tirar tus residuos. Si acumulas muchos residuos en los comercios, se ven forzados a quemar algunos. Esto hace que aumente la polución así que no debes dejar que se acumulen los residuos.</p>
+	<p style="hp">Según se vaya llenando el vertedero, se va transformando en una colina, cuando esté llena se plantará césped.</p>
+	<p style="hp">Los medios de transporte se conectan a la esquina superior izquierda del vertedero.</p>
+	<p style="hp">Puedes ver si un vertedero está funcionando correctamente pulsando sobre él, y porque a menudo el área está animado.</p>
+	
+	<p style="hp">Esto es un vertedero</p>
+	<img src="images/tiles/tip0.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="market">Comercios</a></li>
+</Document>

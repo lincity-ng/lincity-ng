@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Nivel tecnológico</p>
+	<p style="hp">El nivel tecnológico de tu ciudad determina cierto número de cosas, tal como qué puedes construir o la eficacia de ciertos procesos.</p>
+	<p style="hp">Para aumentar el nivel tecnológico, debes construir (y proveer a cada uno de sus necesidades) monumentos, escuelas y universidades.</p>
+	<p style="hp">Cuando tu nivel tecnológico es muy bajo sólo puedes construir monumentos. Cuando ya tengas algunos durante un tiempo, entonces se <i>inventarán</i> las escuelas.</p>
+	<p style="hp">Cuando tu nivel tecnológico llegue a niveles más altos, se <i>inventarán</i> las universidades. Éstas producen mucha más tecnología que las escuelas, pero necesitan <b>muchos</b> más recursos.</p>
+	<p style="hp">Cuanta más tecnología tengas, más rápidamente se «<i>erosiona</i>».Ésto significa que cuanto más alto quieres que sea tu nivel tecnológico, más escuelas y universidades necesitas.</p>
+	<p style="hp">También, ten en cuenta que si por alguna razón tienes que eliminar una universidad o dos (o bien no estas proporcionando los recursos que necesitan) tu nivel tecnológico comenzará a <b>caer</b>.</p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="school">Escuelas</a></li>
+	<li><a href="university">Universidades</a></li>
+</Document>

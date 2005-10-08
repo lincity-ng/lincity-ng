@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Barra de estado de los recursos</p>
+	<p style="hp">Este indicador se llama barra de estado. Muestra el cambio, en cantidad, de lo almacenado en los comercios.</p>
+	<p style="hp">Una barra de color verde a la derecha indica un aumento. Una barra de color rojo a la izquierda indica un descenso. Te tamaño de la barra indica la cantidad del cambio.</p>
+	<p style="hp">El número a la derecha indica la cantidad total.</p>
+</Document>

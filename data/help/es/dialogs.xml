@@ -4,7 +4,7 @@
     <p>Solapa del mapa</p>
     <li><a href="mini-screen">Minimapa</a></li>
     <p>Solapa de estadísticas</p>
-	<li><a href="pbar">Barra de estado de recursos</a></li>
+	<li><a href="pbar">Barra de estado de los recursos</a></li>
     <p>Solapa $</p>
 	<li><a href="finance">Finanzas</a></li>
 	<li><a href="housing">Población</a></li>

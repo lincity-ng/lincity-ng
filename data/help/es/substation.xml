@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Subestaciones</p>
+	<p style="hp">Las subestaciones obtienen la energía eléctrica de las torres de tensión y la distribuyen alrededor de su área. Puedes ver si una zona residencial tiene energía eléctrica pulsando sobre el icono y después mirando en la ventana de estado del mapa.</p>
+	
+	<p style="hp">Esto es una subestación</p>
+	<img src="images/tiles/substation-G.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="powerline">Torres de tensión</a></li>
+	<li><a href="powerssolar">Centrales eléctricas solares</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="steel">Acero</a></li>
+	<li><a href="jobs">Empleos</a></li>
+</Document>
