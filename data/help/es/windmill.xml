@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Molinos de viento</p>
+	<p style="hp">Los molinos de viento proporcionan energía eléctrica a las residencias y a las granjas. Permiten que el granjero procese la comida más eficientemente y hace que el deseo de vivienda en una zona sea mayor.</p>
+	<p style="hp">Proporcionar energía eléctrica a las zonas residenciales hace que la gente consuma más mercancías.</p>
+	<p style="hp">Los molinos de viento de baja tecnología <b>no</b> proporcionan electricidad a las industrias. Las industrias pesadas pueden obtener energía eléctrica del carbón, las industrias ligeras necesitan electricidad «<b>no</b>» para funcionar, si no tienen electricidad su producción se verá muy reducida.</p>
+	<p style="hp">Hay dos tipos de molinos de viento.</p>
+	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+	<p style="hp">El primero es un molino de viento de «madera» de baja tecnología.</p>
+	<img src="images/tiles/windmill1w.png" halign="center"/>
+	<p style="hp">El segundo es un molino de viento «moderno».</p>
+	<img src="images/tiles/windmill1g.png" halign="center"/>
+	<p style="hp">El tipo de molino depende de tu nivel tecnológico.</p>
+	<p style="hp">Los molinos de viento modernos pueden proporcionar energía eléctrica a las torres de tensión.</p>
+</Document>

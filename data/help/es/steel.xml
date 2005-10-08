@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Acero</p>
+	<p style="hp">El acero se produce principalmente en las industrias pesadas (trabajos del acero). Debes haber alcanzado un nivel tecnológico suficiente para construir industrias pesadas. Antes de esto, las comunas son tu única fuente de producción de acero. Las comunas producen una cantidad de acero muy pequeña (a partir del mineral), de tal forma que necesitarás bastantes comunas para obtener el acero suficiente para tus necesidades.</p>
+	<p style="hp">Las herrerías usan acero para producir mercancías. Las industrias ligeras usan acero para producir herramientas y productos (mercancías). Las industrias ligeras pueden trabajar sin acero pero su producción se verá muy reducida.</p>
+	<p style="hp">Los cohetes necesitan mucho acero, principalmente para construir la plataforma de lanzamiento.</p>
+	<p style="hp">Las vías de tren usan acero para su mantenimiento.</p>
+	<p style="hp">La producción de acero está gravada.</p>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="blacksmith">Herrerías</a></li>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="industryh">Industrias pesadas</a></li>
+	<li><a href="industryl">Industrias ligeras</a></li>
+	<li><a href="rail">Vías de tren</a></li>
+</Document>

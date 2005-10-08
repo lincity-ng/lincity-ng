@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Universidades</p>
+	<p style="hp">Las universidades te ayudarán a incrementar tu nivel tecnológico. En éste proceso necesitan mercancías y empleos. Producen más tecnología que las escuelas para una misma cantidad de mercancías/empleos. No obstante consumen muchas mercancías y empleos además del dinero que necesitan, así que debes tener una capacidad económica suficientemente grande para poder suministrarles lo que necesitan.</p>
+	<p style="hp">Necesitarás varias universidades para llegar a un nivel tecnológico del 100%.</p>
+	<p style="hp">Las universidades no necesitan estar conectadas a los medios de transporte; pueden obtener todo lo que necesitan de los mercados que están alrededor.</p>
+
+	<p style="hsubtitle">NOTA</p>
+	<p style="hp"><b>Debes</b> construir 5 escuelas por cada universidad para que haya suficientes estudiantes.</p>
+
+	<p style="hp">Esto es una universidad</p>
+	<img src="images/tiles/university.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="market">Comercios</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="jobs">Empleos</a></li>
+	<li><a href="schools">Escuelas</a></li>
+	<li><a href="tech-level">Nivel tecnológico</a></li>
+</Document>

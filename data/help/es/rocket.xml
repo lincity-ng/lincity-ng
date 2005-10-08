@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Plataforma de lanzamiento de cohetes</p>
+	<p style="hp">Los cohetes te permiten evacuar a la población a otro mundo, y con esto ganarías el juego.</p>
+	<p style="hp">Debes tener al menos cinco lanzamientos no tripulados que tengan éxito antes de empezar a evacuar a la población. Cada cohete puede transportar hasta 1.000 personas.</p>
+	<p style="hp">Si algún lanzamiento falla, debes lanzar de nuevo 5 cohetes no tripulados antes de volver a evacuar más población.</p>
+	<p style="hp">El nivel tecnológico en el momento del lanzamiento es la probabilidad de que el lanzamiento tenga éxito. Esto significa que si tu nivel tecnológico es, digamos, 80%, entonces la probabilidad es de cuatro contra cinco de éxito. 100% o más significa que el lanzamiento siempre tendrá éxito. (Algunos de los <i>cinco primeros</i> lanzamientos pueden fallar). Debes construir una nueva plataforma de lanzamiento de cohetes para cada cohete que construyas.</p>
+	<p style="hp">Las plataformas de lanzamiento de cohetes no necesitan estar conectadas a los medios de transporte, pueden obtener todo lo que necesitan de los comercios circundantes. Necesitan grandes cantidades de acero, mercancías, empleos y dinero para su construcción. Cuando se construye un cohete aparecerá un mensaje preguntándote si quieres lanzarlo más tarde. Si eliges lanzarlo más tarde, puedes lanzarlo cuando quieras pulsando sobre la plataforma. Puedes tener todos los cohetes que quieras esperando a ser lanzados.</p>
+	<p style="hp">Cuando un cohete está construído, pero esperando ser lanzado, no consume acero, mercancías o empleos, pero sigue costando mucho dinero mantenerlo.</p>
+	<p style="hp">Esto es una plataforma de lanzamiento de cohetes</p>
+	<img src="images/tiles/rocket5.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="market">Comercios</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="steel">Acero</a></li>
+	<li><a href="jobs">Empleos</a></li>
+</Document>

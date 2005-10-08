@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Carreteras</p>
+	<p style="hp">En las carreteras se pueden transportar más mercancías que en los caminos, pero no tantas como en las vías de tren. También producen más polución que las vías de tren. Son más baratas de construir y mantener que las vías de tren - ¡tenía que haber una razón para su existencia!</p>
+	
+	<p style="hp">Esto es una carretera</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="pollution">Polución</a></li>
+</Document>

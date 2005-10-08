@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Ríos/Agua</p>
+	<p style="hp">Muy a menudo los ríos estarán en medio de tus intereses. Es muy caro construir puentes, desecarlos o «limpiar» una zona que ocupan. Los puertos son los únicos que van a usar los ríos, y deben estar conectados con los ríos.</p>
+	<p style="hp">Hay dos tipos de aguas. Los lagos son aguas que <b>No</b> están conectadas con los ríos; y los ríos son aguas que <b>No</b> parte del río en sí. El río se define como el agua presente en la pantalla al iniciar el juego. Por ejemplo, cuando una mina se agota se convierte en zonas de agua, y si estaba conectada con el río se convertirá en parte de éste, si no, se transformará en lagos.</p>
+	<p style="hp">Si desecas una zona de un río para hacer una ruta de, digamos, medios de transporte, has construído un puente. Ambas partes del puente siguen formando parte del río. Esta es una de las razones por las que resulta tan caro «limpiar» una zona con agua.</p>
+	<p style="hp">Una vez que una zona acuática es parte de un río <b>no</b> se puede transformar de nuevo para convertirse en un lago.</p>
+	<p style="hp">Las torres de tensión pueden llevar energía eléctrica bajo <b>una</b> sección de río de la misma manera que pueden hacerlo bajo los medios de transporte.</p>
+</Document>

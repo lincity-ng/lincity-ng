@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Escuelas</p>
+	<p style="hp">Las escuelas usan empleos y mercancías para producir tecnología de una forma similar a las universidades. Usan bastantes menos empleos y mercancías que las universidades pero no producen tantos puntos de tecnología. Si tienes la posibilidad de construir cuatro o cinco escuelas sobre un mismo área, o bien una sola universidad, generalmente (pero no siempre) es mejor una universidad.</p>
+	<p style="hp">Las escuelas <b>no</b> necesitan estar conectadas con los medios de transporte, pero si neceistan estar cerca de un comercio que pueda proporcionarlas la cantidad de empleos y mercancías que necesitan para funcionar.</p>
+	<p style="hp">Mantener las escuelas cuesta dinero. Puedes ver el total del gasto de las escuelas del <b>último</b> año pulsando en el botón de economía. El valor GE es el que indica el gasto de las escuelas.</p>
+	<p style="hp">Puedes ver si una escuela está funcionando correctamente pulsando sobre ella, y porque a menudo el edificio está animado.</p>
+	
+	<p style="hp">Esto es una escuela</p>
+	<img src="images/tiles/school0.png" halign="center"/>
+	<p style="hp">y éste es su icono</p>
+	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver también:</p>
+	<li><a href="market">Comercios</a></li>
+	<li><a href="university">Universidades</a></li>
+	<li><a href="transport">Medios de transporte</a></li>
+	<li><a href="goods">Mercancías</a></li>
+	<li><a href="jobs">Empleos</a></li>
+</Document>
