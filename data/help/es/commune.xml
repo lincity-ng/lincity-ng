@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Comuna</p>
+	<p style="htitle">Comunas</p>
 	<p style="hp">Las comunas son áreas donde se transforma la madera en carbón de leña. También producen una pequeña cantidad de mineral y acero.</p>
 	<p style="hp">Probablemente necesitarás algunas comunas para proveer suficiente carbón y acero a las alfarerías, herrerías y fábricas.</p>
-	<p style="hp">If a commune is not producing anything for 10 years it is closed and the area turns in parks.</p>
+	<p style="hp">Si una comuna no produce nada durante 10 años se cierra y su lugar se convierte en parques.</p>
 	<p style="hp">Las comunas se pueden conectar con los medios de transporte en cualquier punto, no sólo en la entrada.</p>
 	
 	<p style="hp">Esto es una comuna</p>
@@ -12,9 +12,9 @@
 	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
 	
 	<p style="hsubtitle">Ver también</p>
-	<li><a href="pottery">Alfarería</a></li>
-	<li><a href="blacksmith">Herrería</a></li>
-	<li><a href="mill">Fábrica</a></li>
-	<li><a href="oremine">Mina de mineral</a></li>
+	<li><a href="pottery">Alfarerías</a></li>
+	<li><a href="blacksmith">Herrerías</a></li>
+	<li><a href="mill">Fábricas</a></li>
+	<li><a href="oremine">Minas de mineral</a></li>
 	<li><a href="steel">Acero</a></li>
 </Document>

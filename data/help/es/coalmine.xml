@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Mina de carbón</p>
-	<p style="hp">Las minas de carbón extraen carbón de minas profundas. Debe haber una veta de carbón cerca de la mina. Para ver dónde están las vetas puedes pulsar sobre el botón de carbón, justo debajo del minimapa.</p>
+	<p style="htitle">Minas de carbón</p>
+	<p style="hp">Las minas de carbón extraen carbón de vetas profundas. Debe haber una veta de carbón cerca de la mina. Para ver dónde están las vetas puedes pulsar sobre el botón de carbón, justo debajo del minimapa.</p>
 	<p style="hp">La primera vez que uses este botón, te costará 1 millón. Después lo puedes consultar cuando quieras sin coste alguno. No tienes por qué usar este botón, pero entonces tendrás que encontrar las vetas de carbón por el método de prueba y error.</p>
 	<p style="hp">Las minas de carbón necesitan empleos para poder extraer el carbón.</p>
 	
@@ -15,7 +15,7 @@
 
 	<p style="hsubtitle">Ver también:</p>
 	<li><a href="coal">Carbón</a></li>
-	<li><a href="powerscoal">Central térmica</a></li>
+	<li><a href="powerscoal">Centrales térmicas</a></li>
 	<li><a href="transport">Medios de transporte</a></li>
 	<li><a href="jobs">Empleos</a></li>
 </Document>
