@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Minikarta</p>
+	<p style="hp">Minikartan visar, i förminskad skala, hela ditt spelområde. När du klickar på knapparna ovan visar de information om till exempel miljöförstöring över hela ditt spelområde.</p>
+	<p style="hp">Klicka på <i>hjälpknappen</i> och sen på varje knapp ovanför minikartan för att aktivera dess hjälpsida.</p>
+	<p style="hp">Den vita inramade rutan visar området som täcks på huvudskärmen.</p>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="msb-coal">Kolöversikt</a></li>
+	<li><a href="msb-cricket">Sportöversikt</a></li>
+	<li><a href="msb-fire">Brandöversikt</a></li>
+	<li><a href="msb-health">Hälsoöversikt</a></li>
+	<li><a href="msb-normal">Normal översikt</a></li>
+	<li><a href="msb-pol">Miljöförstöringsöversikt</a></li>
+	<li><a href="msb-power">Kraftöversikt</a></li>
+	<li><a href="msb-starve">Svältöversikt</a></li>
+	<li><a href="msb-ub40">Arbetslöshetsöversikt</a></li>
+</Document>

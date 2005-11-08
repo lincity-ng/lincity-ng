@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Bondgårdar</p>
+	<p style="hp">Bondgårdar framställer mat så folk kan äta och för att ge råmaterial till spinnerier. Bönder kan sälja maten till marknader. De levererar den med traktor så de behöver inte någon transport. Men de kan sälja till transporter om du vill. Så klart behöver du se till att marknaden är inom räckhåll för bondgården.</p>
+
+	<p style="hp">Detta är en bondgård</p>
+	<img src="images/tiles/farm0.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
+	
+	<p style="hp">Bondgårdar behöver jobb för att producera mer än ett minimum av mat. Att ge bondgården ström ökar också mängden framställd mat. Ström inkluderar också klassiska väderkvarnar som hjälper till att framställda maten och mindre skräp blir kvar.</p>
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="market">Marknad</a></li>
+	<li><a href="tech-level">Teknologinivå</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="windmill">Väderkvarn</a></li>
+	<li><a href="food">Mat</a></li>
+</Document>

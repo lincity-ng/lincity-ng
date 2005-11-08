@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Miljöförstöring</p>
+	<p style="hp">De flesta områden bidrar till miljöförstöringen. Följande områden kan bidra till kraftig förstöring:</p>
+	<li>Tung industri.</li>
+	<li>Industri.</li>
+	<li>Kolkraftverk.</li>
+	<li>Kolgruvor.</li>
+	<li>Marknader som är fulla av skräp.</li>
+	<li>Vägar/Järnvägar, speciellt om de är fulla av skräp.</li>
+	<p style="hp">Folk tycker inte om att bo i förorenade områden. De kommer att flytta ut eller till och med bli sjuk och dö.</p>
+	<p style="hp">Den rådande vinden kommer från sydväst. Därför brukar föroreningen spridas mot nordöst.</p>
+	<p style="hp">Generellt sett bör du bygga strategiskt så att folk inte blir utsatta för föroreningen. Det är dock inte alltid möjligt. Om detta är fallet kan parker skapa en bra barriär. Ju fler parker, ju bättre skydd.</p>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="industryh">Tung industri</a></li>
+	<li><a href="industryl">Industri</a></li>
+	<li><a href="powerscoal">Kolkraftverk</a></li>
+	<li><a href="coalmine">Kolgruvor</a></li>
+	<li><a href="market">Marknader</a></li>
+	<li><a href="rail">Järnvägar</a></li>
+	<li><a href="road">Vägar</a></li>
+	<li><a href="park">Parker</a></li>
+	<li><a href="msb-pol">Miljöförstöring översikt</a></li>
+</Document>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Relästationer</p>
+	<p style="hp">Relästationer tar ström från kraftledningar och distribuerar strömmen till närliggande områden. Du kan se om, till exempel, ditt bostadsområde får ström genom att klicka på ikonen sedan se på minikartan.</p>
+	
+	<p style="hp">Detta är en relästation</p>
+	<img src="images/tiles/substation-G.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="powerline">Kraftledningar</a></li>
+	<li><a href="powerssolar">Solkraftverk</a></li>
+	<li><a href="commune">Kolmilor</a></li>
+	<li><a href="steel">Stål</a></li>
+	<li><a href="jobs">Jobb</a></li>
+</Document>
+

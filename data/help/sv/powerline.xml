@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kraftledningar</p>
+	<p style="hp">Kraftledningar leder ström från sol- och kolkraftverk till relästationer. Kraftledningar ansluts i övre vänstra hörnet för varje av de tre typerna av ikoner, sol- och kolkraftverk och relästationer..</p>
+	<p style="hp">Kraftledningar går <b>under</b> spår, vägar, järnvägar och kanaler (alla med bredden 1). Om en kraftledning är placerad på någon sida av en transport eller ett kanalområde kan de fungera som om de vore anslutna. Ofta måste du riva en bit av kanalen för att korsa den - det är dyrt! Kraftledningar ansluts när de är i en rak linje.</p>
+
+	<p style="hp">Detta är en kraftledning</p>
+	<img src="images/tiles/powerlvd.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
+	<p style="hp">och detta är dess ikon på kartöversikten</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="substation">Relästation</a></li>
+	<li><a href="powerssolar">Solkraftverk</a></li>
+	<li><a href="msb-power">Strömöversikt</a></li>
+</Document>
+

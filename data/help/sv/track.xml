@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Spår</p>
+	<p style="hp">Spår är det enklaste och billigast sättet för transporter. De har också den lägsta kapaciteten. Det som är bra är att de bidrar inte till miljöförstöringen.</p>
+	
+	<p style="hp">Detta är ett spår</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="commune">Kolmila</a></li>
+</Document>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Stål</p>
+	<p style="hp">Stål är generellt framställd av tung industri (stålverk). Du måste ha uppnått en tillräcklig teknologinivå för att bygga ett stålverk. Före detta kommer kolmilor vara din enda källa för stål. Kolmilor producerar en liten mängd stål (från malm) så du kommer normalt sett att behöver ett antal kolmilor för att ta fram tillräckligt med stål för dina behov.</p>
+	<p style="hp">Stål används av smedjor för att tillverka varor. Stål används också av (vanlig) industri för verktyg och produkter (varor). Industrier kan arbeta utan stål men produktionen är mycket reducerad.</p>
+	<p style="hp">Raketer använder en hel del stål, främst för att bygga avfyrningsrampen.</p>
+	<p style="hp">Järnvägar använder också stål för underhåll.</p>
+	<p style="hp">Stålproduktionen är beskattad.</p>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="commune">Kolmilor</a></li>
+	<li><a href="blacksmith">Smedjor</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="industryh">Tung industri</a></li>
+	<li><a href="industryl">Industri</a></li>
+	<li><a href="rail">Järnväg</a></li>
+</Document>

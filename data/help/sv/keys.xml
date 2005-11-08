@@ -1,0 +1,39 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Tangentbord</p>
+    <p style="hp">ESCAPE: byt till frågeverktyget</p>
+    <p style="hp">b växlar mellan nuvarande verktyg och rivningsläget</p>
+    <p style="hp">h för att gömma höga byggnader. Tryck h igen för att visa dom.</p>
+    <p style="hp">v för att hoppa mellan översikterna i minikartan</p>
+    <p style="hp">PLUS: zooma in</p>
+    <p style="hp">MINUS zooma ut</p>
+    <p style="hp">ENTER zooma till 100%</p>
+    <p style="hp">5 centrera huvudskärmen efter minikartan</p>  
+    <p style="hp">9 skrolla huvudskärmen norrut</p>
+    <p style="hp">1 skrolla huvudskärmen söderut</p>
+    <p style="hp">7 skrolla huvudskärmen västerut</p>
+    <p style="hp">3 skrolla huvudskärmen österut</p>
+    <p style="hp">2 skrolla huvudskärmen SÖ</p> 
+    <p style="hp">4 skrolla huvudskärmen SV</p> 
+    <p style="hp">6 skrolla huvudskärmen SÖ</p> 
+    <p style="hp">8 skrolla huvudskärmen NV</p> 
+    <p style="hp">samma med muspekaren</p>
+    <p style="hp">använd shift + riktning för att skrolla fortare</p>
+    <p style="hp">F12 snabbspara</p> 
+    <p style="hp">F9  snabbladda</p> 
+
+    <p style="htitle">Mus</p>
+    <p style="hp">höger:</p>
+    <p style="hp">Dra huvudskärmen med höger musknapp.</p>
+    <p style="hp">högerklicka på huvudskärmen centrerar rutan under muspekaren.</p>
+    <p style="hp">mitten:</p>
+    <p style="hp">klicka med mittenknappen på huvudskärmen för att visa information om området under muspekaren.</p>
+    <p style="hp">vänster:</p>
+    <p style="hp">Klicka på minikartan visar det valda området på huvudskärmen.</p>
+    <p style="hp">Genomför åtgärd beroende på valt verktyg. Riva, visa information, bygg byggnader.:</p>
+    <p style="hp">rullhjul:</p>
+    <p style="hp"> upp: zooma in</p>
+    <p style="hp"> ned: zooma ut </p>
+</Document>
+

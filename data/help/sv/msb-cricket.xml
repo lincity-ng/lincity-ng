@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Sportöversikt</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+	<p style="hp">Områden som har sportarenor inom räckhåll visas som mörkgröna.</p>
+	<p style="hp">Områden som är utanför räckhåll för en basketbollsplan visas som normal.</p>
+	<p style="hp">Tänk på att basketbollplaner tar tre månader innan de blir aktiva.</p>
+	<p style="hp">Vänsterklicka på miniskärmen för att ställa om huvudfönstret. Vänsterklicka på miniskärmens titel för att välja en annan vy för miniskärmen. Växla översiktsläge genom att trycka 'v' eller mittenknappen på musen på miniskärmens titel.</p>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="mini-screen">Minikarta</a></li>
+	<li><a href="msb-coal">Kolöversikt</a></li>
+	<li><a href="msb-cricket">Sportöversikt</a></li>
+	<li><a href="msb-fire">Brandöversikt</a></li>
+	<li><a href="msb-health">Sjukvårdsöversikt</a></li>
+	<li><a href="msb-pol">Översikt av miljöförstöring</a></li>
+	<li><a href="msb-power">Strömöversikt</a></li>
+	<li><a href="msb-starve">Svältöversikt</a></li>
+	<li><a href="msb-ub40">Arbetslöshetsöversikt</a></li>
+</Document>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ekonomigrafer</p>
+	<p style="hp">Dessa grafer innehåller fyra färgade rader. De visar de mest viktiga ekonomiska faktorerna.</p>
+	<li>
+		<span color="brown">Befolkning</span>	(brun) 
+        Den bruna raden representerar din befolkning. 
+		Den visas som en loggskala. 
+	</li>
+	<li>
+		<span color="blue">Hemlösa</span> (blå) 
+        Den blåa raden representerar efterfrågan efter hus. 
+		Höjden av grafen är proportionell till kvadratroten 
+		av den 'obebodda' befolkningen.
+	</li>
+	<li>
+	<span color="yellow">Arbetslöshet</span> (gul) 
+		De klargula 'balkarna' visar att det finns arbetslöshet. 
+		Skalan för denna graf ändras i takt med din befolkning. 
+		Denna graf är solid för att du ska vara medveten om den. 
+	</li>
+	<li>
+		<span color="red">Svält</span> (röd) 
+		De klarröda 'balkarna' visar att det finns svält. 
+		Skalan för denna graf ändras i takt med din befolkning. 
+		Denna graf är solid för att du ska vara medveten om den. 
+		Denna balk ritas över arbetslöshetens balk. 
+	</li>
+</Document>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Återvinningscentraler</p>
+	<p style="hp">Använda varor producerar skräp.</p>
+	<p style="hp">Återvinningscentraler konverterar använda varor till malm. De måste vara ansluta till transporter på övre vänstra sidan. Jobb och pengar används för att samla in skräp och konvertera dom till färsk malm.</p>
+	<p style="hp">Det är möjligt att driva en hållbar ekonomi (alltså ingen mer malmbrytning etc.) med mindre än 100% effektiva återvinningscentraler om du har några spinnerier som kompenserar för det 'förlorade' skräpet.</p>
+
+	<p style="hp">Detta är en återvinningscentral</p>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="ore">Malm</a></li>
+	<li><a href="transport">Transport</a></li>
+</Document>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Brandstationer</p>
+	<p style="hp">Brandstationer förebygger bränder och spridning av dom inom området de täcker in. De behöver varor och jobb för att fungera. De behöver <b>inte</b> vara anslutna till transporter, de behöver dock vara i närheten av en marknad som kan erbjuda jobb och varor. De kostar också pengar att driva.</p>
+	<p style="hp">När du bygger en brandstation kommer den inte vara aktiv direkt. Det tar cirka tre månader innan brandskyddet blir aktivt.</p>
+	<p style="hp">För att se det område som din brandstation täcker in, klicka på brandstationsknappen under <i>miniskärmen</i>. Områden som har brandskydd visas som normalt, områden som inte täcks in är bara mörkgröna.</p>
+	<p style="hp">Brandstationer gör dina bostadsområden attraktiva inom dess skyddsområde.</p>
+	<p style="hp">Brandstationen visar en animation varje månad för att indikera att den fungerar normalt.</p>
+
+	<p style="hp">Detta är en brandstation</p>
+	<img src="images/tiles/firestation1.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+	<p style="hp">och detta är dess ikon på översiktskartan</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="mini-screen">Miniskärmen</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="market">Marknader</a></li>
+	<li><a href="jobs">Jobb</a></li>
+	<li><a href="msb-fire">Brandöversikt</a></li>
+</Document>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Hjälp för Lincity</p>
+	<p style="hp">Detta är hjälpsystemet i Lincity. Vänligen välj ett ämne genom att klicka på en av de blåa raderna nedan. Blåa ord är generellt sett en länk till ett annat dokument.</p>
+	<li><a href="keys">Tangentbordskommandon</a></li>
+	<li><a href="button-index">Lista alla byggbara enheter</a></li>
+	<li><a href="mini-screen">Hjälp för minikartan</a></li>
+	<li><a href="dialogs">Hjälp för informationflikarna</a></li>
+
+	<p style="hp">Under spelets gång kan du få hjälp med de flesta saker via hjälpknappen.</p>
+</Document>

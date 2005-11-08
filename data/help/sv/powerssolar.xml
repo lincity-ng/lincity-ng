@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Solkraftverk</p>
+	<p style="hp">Solkraftverk skickar sin ström till kraftledningar i paket. Mängden ström som kan produceras ökar med teknologinivån som fanns när det <b>byggdes</b>.</p>
+	
+	<p style="hp">Detta är ett solkraftverk</p>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="substation">Relästationer</a></li>
+	<li><a href="powerline">Kraftledningar</a></li>
+	<li><a href="residential">Bostadsområden</a></li>
+	<li><a href="tech-level">Teknologinivå</a></li>
+	<li><a href="msb-power">Strömöversikt</a></li>
+</Document>

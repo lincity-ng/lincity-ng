@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Teknologinivå</p>
+	<p style="hp">Teknologinivån för sin stad fastställs av ett flertal saker såsom vad du kan bygga och effektiviteten av vissa processer.</p>
+	<p style="hp">För att öka din nivå måste du bygga (och underhålla med lämpliga material) Monument, Skolor och Universitet.</p>
+	<p style="hp">När din teknologinivå är väldigt låg kan du bara bygga monument. När ett antal av dessa har funnits ett tag kan du <i>uppfinna</i> skolor. Skolor producerar mer teknologi än monument.</p>
+	<p style="hp">När din teknologinivå når en högre nivå kan du <i>uppfinna</i> universitet. Dessa producerar ännu mer teknologi än skolor men de är <i>väldigt</i> resurskrävande.</p>
+	<p style="hp">Ju mer teknologi du har, desto fortare <i>undergrävs</i> den. Detta betyder att ju högre du vill att din teknologinivå ska vara, ju fler skolor och universitet måste du ha.</p>
+	<p style="hp">Tänk också på att av någon anledning måste du plocka bort, säg ett universitet eller två (eller att du plötsligt saknar resurser) kommer din teknologinivå att börja <b>sjunka</b>.</p>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="school">Skolor</a></li>
+	<li><a href="university">Universitet</a></li>
+</Document>

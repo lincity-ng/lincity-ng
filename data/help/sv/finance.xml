@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Finansfönstret</p>
+	<p style="hp">Detta är fönstret för finanser.</p>
+	<p style="hp">Finansfönstret uppdateras varje år den 1:a januari. Siffrorna nedan 'inkomster' och 'utgifter' visar dina inkomster och utgifter för det föregående året.</p>
+	<p style="hp">Siffran 'Tot' är mängden pengar på ditt konto. Det är vissa saker du inte kan göra när du är 'på det röda'.</p>
+	<p style="hp">Förkortningarna betyder:</p>
+	<p style="hp">Inkomster:</p>
+	<li>IT = Inkomstskatt</li>
+	<li>CT = Skatt på kol</li>
+	<li>GT = Skatt på varor</li>
+	<li>XP = Exportskatt</li>
+	<p style="hp">Utgifter:</p>
+	<li>OC = Andra kostnader</li>
+	<li>UC = Kostnader för arbetslöshet</li>
+	<li>TC = Transportkostnader</li>
+	<li>IP = Importkostnader</li>
+	<p style="hp">Vänsterklicka på detta fönster att växla mellan fönstren för finanser, andra kostnader och boende.</p>
+</Document>
+

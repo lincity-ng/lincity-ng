@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Fråga</p>
+	<p style="hp">För att visa information om en byggnad kan du använda detta verktyg och klicka på den önskade byggnaden.</p>
+	<p style="hp">Informationen visas i nedre högra hörnet, istället för i minikartan.</p>
+	<p style="hp">Det kostar inget att använda detta verktyg.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	<p style="hsubtitle">Se också:</p>
+    <li><a href="keys">Tangentbordskommandon</a></li>
+	<li><a href="help">Index</a></li>
+</Document>
+

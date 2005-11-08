@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kolöversikt</p>
+	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">Kolet på miniskärmen visar kolreserverna under din stad. Kolskikten visas som vita på svart bakgrund. Du behöver bygga en kolgruva nära en av dessa skikt för att samla in dess kol.</p>
+	<p style="hp">Första gången du frågar efter denna information behöver du göra en kolsökning som kommer att kosta dig en miljon. Efter det är information gratis att se igen.</p>
+	<p style="hp">Vänsterklicka på miniskärmen för centrera huvudfönstret. Vänsterklicka på miniskärmens titel för att välja olika vyer för miniskärmen. Växla översiktsläge genom att trycka 'v' eller mittenknappen på musen på miniskärmens titel.</p>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="mini-screen">Minikarta</a></li>
+	<li><a href="msb-cricket">Sportöversikt</a></li>
+	<li><a href="msb-fire">Brandöversikt</a></li>
+	<li><a href="msb-health">Sjukvårdsöversikt</a></li>
+	<li><a href="msb-normal">Normal översikt</a></li>
+	<li><a href="msb-pol">Översikt över miljöförstöring</a></li>
+	<li><a href="msb-power">Strömöversikt</a></li>
+	<li><a href="msb-starve">Svältöversikt</a></li>
+	<li><a href="msb-ub40">Arbetslöshetsöversikt</a></li>
+</Document>
+

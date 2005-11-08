@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Hamnar</p>
+	<p style="hp">Hamnar låter dig importera och exportera varor, stål, malm, kol och mat. Importering kostar dig pengar och exportering ger dig pengar.</p>
+	<p style="hp">För att vara användbar måste en hamn vara ansluten till en transport vid portarna (övre vänstra hörnet). Du väljer vad som ska importeras genom att dubbelklicka på hamnen. Detta visar en meny med rutor att välja vad som importeras och exporteras.</p>
+	<p style="hp">De <b>måste</b> vara anslutna till kanaler på hela högra sidan.</p>
+	<p style="hp">Inget kommer att importeras eller exporteras förrän du har valt vad som ska göras.</p>
+	<p style="hp">Exportområdet kommer att ta så mycket den får. Om du behöver exportera men vill begränsa mängden kan du använd en typ av transport som har mindre kapacitet, använd en lång väg eller låt produkterna passera en marknad. Du kommer att behöva experimentera för att få rätt transportkonfiguration.</p>
+	<p style="hp">Notera: Exportuppköpare ger rabatt vid stora exporter.</p>
+
+	<p style="hp">Detta är en hamn</p>
+	<img src="images/tiles/ex_port.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+    <li><a href="export">Import och Export</a></li>
+	<li><a href="rivers">Kanaler</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Marknader</a></li>
+	<li><a href="coal">Kol</a></li>
+	<li><a href="ore">Malm</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="steel">Stål</a></li>
+</Document>

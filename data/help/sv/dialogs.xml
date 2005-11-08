@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Hjälp för Informationsflikar</p>
+    <p>Kart-flikar</p>
+    <li><a href="mini-screen">Minikarta</a></li>
+    <p>Stat-flikar</p>
+	<li><a href="pbar">Status för resurser</a></li>
+    <p>$-flikar</p>
+	<li><a href="finance">Finanser</a></li>
+	<li><a href="housing">Befolkning</a></li>
+    <p>Miljö-flikar</p>
+	<li><a href="economy">Ekonomigrafer</a></li>
+	<li><a href="sustain">Förloppsfönster för ekonomisk hållbarhet</a></li>
+</Document>

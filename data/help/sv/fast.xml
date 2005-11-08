@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Snabb hastighet</p>
+	<img src="images/gui/speed/fast.png"/>
+	<p style="hp">Detta är knappen för snabb hastighet. Den gör så att spelet körs i snabb hastighet. På långsamma maskiner har hastighetsknapparna kanske ingen effekt. Tänk på att när snabbläget används på snabb maskiner kan "situation" i spelet komma väldigt fort!</p>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="medium">Medel</a></li>
+	<li><a href="slow">Långsam</a></li>
+</Document>

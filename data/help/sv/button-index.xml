@@ -1,0 +1,120 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Välj knappindex</p>
+
+	<!--<p style="subtitle">Ström</p>-->
+	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+	<p><a href="powerline">Kraftledningar</a></p>
+	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+	<p><a href="powerssolar">Solkraftverk</a></p>
+	<img src="images/gui/buttonpanel/power/substation.png"/>
+	<p><a href="substation">Relästation</a></p>
+
+	<!--<p style="subtitle">Bostäder</p>-->
+	<img src="images/gui/buttonpanel/residence/residence.png"/>
+	<p><a href="residential">Bostadsområde</a></p>
+
+	<!--<p style="subtitle">Parker</p>-->
+	<img src="images/gui/buttonpanel/parks/farm.png"/>
+	<p><a href="farm">Bondgård</a></p>
+
+	<!--<p style="subtitle">Industri</p>-->
+	<img src="images/gui/buttonpanel/industry/market.png"/>
+	<p><a href="market">Marknad</a></p>
+
+	<!--<p style="subtitle">Grund</p>-->
+	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
+	<p><a href="bulldoze">Rivning</a></p>
+
+	<!--<p style="subtitle">Transporter</p>-->
+	<img src="images/gui/buttonpanel/transport/tracks.png"/>
+	<p><a href="track">Spår</a></p>
+
+	<!--<p style="subtitle">Gruvdrift</p>-->
+	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
+	<p><a href="coalmine">Kolgruva</a></p>
+
+	<!--<p style="subtitle">Transporter</p>-->
+	<img src="images/gui/buttonpanel/transport/rails2.png"/>
+	<p><a href="rail">Järnväg</a></p>
+
+	<!--<p style="subtitle">Ström</p>-->
+	<img src="images/gui/buttonpanel/power/coalpower.png"/>
+	<p><a href="powerscoal">Kolkraftverk</a></p>
+
+	<!--<p style="subtitle">Transporter</p>-->
+	<img src="images/gui/buttonpanel/transport/road.png"/>
+	<p><a href="road">Väg</a></p>
+
+	<!--<p style="subtitle">Industri</p>-->
+	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
+	<p><a href="industryl">Industriområde</a></p>
+
+	<!--<p style="subtitle">Allmänt</p>-->
+	<img src="images/gui/buttonpanel/misc/university.png"/>
+	<p><a href="university">Universitet</a></p>
+
+	<!--<p style="subtitle">Gruvdrift</p>-->
+	<img src="images/gui/buttonpanel/mining/commune.png"/>
+	<p><a href="commune">Kolmila</a></p>
+	<img src="images/gui/buttonpanel/mining/oremine.png"/>
+	<p><a href="oremine">Malmgruva</a></p>
+
+	<!--<p style="subtitle">Handel</p>-->
+    <img src="images/gui/buttonpanel/transport/port.png"/>
+	<p><a href="export">Import och Export</a></p>
+
+	<!--<p style="subtitle">Industri</p>-->
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<p><a href="industryh">Tung industri(stålverk)</a></p>
+
+	<!--<p style="subtitle">Parker</p>-->
+	<img src="images/gui/buttonpanel/parks/tree.png"/>
+	<p><a href="park">Parkområde</a></p>
+
+	<!--<p style="subtitle">Gruvdrift</p>-->
+	<img src="images/gui/buttonpanel/mining/recycling.png"/>
+	<p><a href="recycle">Återvinningscentral</a></p>
+
+	<!--<p style="subtitle">Parker</p>-->
+	<img src="images/gui/buttonpanel/parks/water.png"/>
+	<p><a href="river">Vatten/Kanaler</a></p>
+
+	<!--<p style="subtitle">Allmänt</p>-->
+	<img src="images/gui/buttonpanel/misc/health.png"/>
+	<p><a href="health">Sjukhus</a></p>
+
+	<!--<p style="subtitle">Transporter</p>-->
+	<img src="images/gui/buttonpanel/transport/rocket.png"/>
+	<p><a href="rocket">Raketavfyrningsramp</a></p>
+
+	<!--<p style="subtitle">Ström</p>-->
+	<img src="images/gui/buttonpanel/power/windmills.png"/>
+	<p><a href="windmill">Väderkvarn</a></p>
+
+	<!--<p style="subtitle">Allmänt</p>-->
+	<img src="images/gui/buttonpanel/parks/monument.png"/>
+	<p><a href="monument">Monument</a></p>
+
+	<!--<p style="subtitle">Allmänt</p>-->
+	<img src="images/gui/buttonpanel/misc/book.png"/>
+	<p><a href="school">Skola</a></p>
+
+	<!--<p style="subtitle">Parker</p>-->
+	<img src="images/gui/buttonpanel/parks/mills.png"/>
+	<p><a href="mill">Spinneri</a></p>
+
+	<!--<p style="subtitle">Industri</p>-->
+	<img src="images/gui/buttonpanel/industry/pottery.png"/>
+	<p><a href="pottery">Keramikfabrik</a></p>
+
+	<!--<p style="subtitle">Allmänt</p>-->
+	<img src="images/gui/buttonpanel/misc/fire.png"/>
+	<p><a href="firestation">Brandstation</a></p>
+	<img src="images/gui/buttonpanel/misc/sports.png"/>
+	<p><a href="cricket">Basketbollplan</a></p>
+
+     <!--<p style="subtitle">Transporter</p>-->
+     <img src="images/gui/buttonpanel/transport/port.png"/>
+     <p><a href="port">Hamn</a></p>
+</Document>

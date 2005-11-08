@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Järnvägar</p>
+	<p style="hp">Järnvägar fraktar mer än vägar. De bidrar också lite mer till miljöförstöringen än vägar. De är dock ganska kostsamma att köpa och underhålla. De är värda kostadn när du har många transporter över en längre distans.</p>
+
+	<p style="hp">Detta är en järnväg</p>
+	<img src="images/tiles/railud.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="commune">Kolmilor</a></li>
+	<li><a href="pollution">Miljöförstöring</a></li>
+</Document>

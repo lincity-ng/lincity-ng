@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Strömöversikt</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+	<p style="hp">Områden som har ström från väderkvarnar av låg teknologi visas som mörkgröna.</p>
+	<p style="hp">Områden inom huvudkraftnätet visas som ljusgröna.</p>
+	<p style="hp">Områden utan ström visas som normal.</p>
+	<p style="hp">Detta knapp använda ström. Försök att inte lämna den på för länge.</p>
+	<p style="hp">Vänsterklicka på miniskärmen för att ställa om huvudfönstret. Vänsterklicka på miniskärmens titel för att välja en annan vy för miniskärmen. Växla översiktsläge genom att trycka 'v' eller mittenknappen på musen på miniskärmens titel.</p>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="mini-screen">Minikartan</a></li>
+	<li><a href="msb-coal">Kolöversikt</a></li>
+	<li><a href="msb-cricket">Sportöversikt</a></li>
+	<li><a href="msb-fire">Brandöversikt</a></li>
+	<li><a href="msb-health">Sjukvårdsöversikt</a></li>
+	<li><a href="msb-normal">Normal översikt</a></li>
+	<li><a href="msb-pol">Miljöföroreningsöversikt</a></li>
+	<li><a href="msb-starve">Svältöversikt</a></li>
+	<li><a href="msb-ub40">Arbetslöshetsöversikt</a></li>
+</Document>

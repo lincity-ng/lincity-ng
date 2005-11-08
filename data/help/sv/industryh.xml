@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Tung industri (Stålverk)</p>
+	<p style="hp">Stålverk producerar stål från malm, ström och jobb. Malm tas direkt från den anslutna transporten. Stål placeras på transporten också. Jobb tas från den lokala marknaden. Transporter ansluts i övre vänstra hörnet.</p>
+	<p style="hp">Ström kan ges till stålverket på två sätt. Första är från kol, som tas direkt från den anslutna transporten. Det andra sättet är från elektricitet: du måste ha en eller flera aktiva relästationer inom räckhåll för stålverket. (Väderkvarnar kan <b>inte</b> ge ström till stålverk.)</p>
+	<p style="hp">Stålverk bidrar till miljöförstöringen</p>
+	<p style="hp">Du kan se när tunga industrier arbetar normalt genom att klicka på den och då och då visas en animation.</p>
+	
+	<p style="hp">Detta är ett stålverk</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="pollution">Miljöförstöring</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="power">Ström</a></li>
+	<li><a href="coal">Kol</a></li>
+	<li><a href="ore">Malm</a></li>
+</Document>

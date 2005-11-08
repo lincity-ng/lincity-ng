@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Monument</p>
+	<p style="hp">Monument ger en fokuspunkt för lärorna och inspiration för uppfinnarna. Varje monument du bygger kommer att öka nivån för teknologiväxten men deras effektivitet kommer att sjunka till noll när du kommer förbi 40% i teknologinivån.</p>
+	<p style="hp">För att bygga ett monument behöver du arbetare. En <b>massa</b> arbetare. Av denna anledning är det användbart för att kontrollera arbetslösheten. Detta är dock en korttidslösning till ett arbetslöshetsproblem eftersom monument inte använder jobb efter de har byggts färdigt.</p>
+	<p style="hp">Du kan se hur långt byggnationen har gått genom att klicka på monumentet och se på statusfönstret (övre vänstra delen i mitten). Grafiken ändras också allt eftersom den byggs. Det finns sex olika grafiker som visar nivåerna för konstruktionen från 0% upp till 100%.</p>
+
+	<p style="hp">Detta är ett monument</p>
+	<img src="images/tiles/monument5.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="market">Marknad</a></li>
+	<li><a href="ore">Malm</a></li>
+	<li><a href="commune">Kolmilor</a></li>
+	<li><a href="steel">Stål</a></li>
+	<li><a href="jobs">Jobb</a></li>
+</Document>

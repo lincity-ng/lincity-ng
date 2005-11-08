@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kol</p>
+	<p style="hp">Kol används av kolkraftverk för att producera elektricitet (ström). Det är också använt av keramikfabriker, spinnerier och smedjor för att producera varor. Tung industri (stålverk) använder kol när du inte kan få elektricitet.</p>
+	<p style="hp">Kol grävs fram under marken av kolgruvor. Det finns en begränsad mängd som du kan se med hjälp av kolreservknappen (se kolgruvor).</p>
+	<p style="hp">Kolmilor ger lite 'kol' också. Egentligen är detta träkol från nedhuggen skog. De ger bara små mängder, tillräckligt för ett par keramikfabriker och smedjor.</p>
+	<p style="hp">Du kan se när en smedja arbetar normalt, genom att klicka på det och till och från visas animationen.</p>
+
+	<p style="hsubtitle">Se också</p>
+	<li><a href="coalmine">Kolgruvor</a></li>
+	<li><a href="powerscoal">Kolkraftverk</a></li>
+	<li><a href="commune">Kolmilor</a></li>
+	<li><a href="pottery">Keramikfabrik</a></li>
+	<li><a href="blacksmith">Smedjor</a></li>
+	<li><a href="msb-coal">Kolöversikt</a></li>
+</Document>

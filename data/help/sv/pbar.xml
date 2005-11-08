@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">PBar</p>
+	<p style="hp">Denna indikator kallas för PBar. Den visar ändringar i kvantiteten av saker som lagras på marknader.</p>
+	<p style="hp">En grön balk på högra sidan indikerar en ökning. En röd balk på vänster sida indikerar en minskning. Storleket på balken indikerar storleken av ändringen.</p>
+	<p style="hp">Numret till höger indikerar den totala mängden.</p>
+</Document>

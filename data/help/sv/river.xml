@@ -1,0 +1,9 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kanaler/Vatten</p>
+	<p style="hp">Kanaler är här mest för att vara i vägen för dig. De är kostsamma att komma över, gräna och riva. Deras enda användningsområde är för att hamnar måste vara ansluta till dom.</p>
+	<p style="hp">Det finns två typer av vatten. Sjöar är vatten som <b>inte</b> är anslutna till kanalsystemet, kanaler är vatten som <b>är</b> anslutna till kanalsystemet. Kanalen är definierad som allt vatten som finns i början av spelet. Till exempel, när en malmgruva töms och blir till vatten, blir den en del av kanalen om den	är ansluten till kanalen. Annars blir den en sjö.</p>
+	<p style="hp">Om du river en kanale för att göra en transport igenom den, har du byggt en bro. Båda sidor av hålet är fortfarande delar av kanalsystemet. Detta är en av anledningar till att det är så kostsamt att 'riva' vatten.</p>
+	<p style="hp">Så fort en del av vattnet är en del av ett kanalsystem kan den <b>inte</b> gå tillbaka och bli en sjö.</p>
+	<p style="hp">Kraftledningar kan överföra ström under <b>en</b> del av kanalen på samma sätt som den kan passera under en transport.</p>
+</Document>

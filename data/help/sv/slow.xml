@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Långsam hastighet</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Detta är knappen för långsam hastighet. Den gör så att spelet körs i långsam hastighet. På långsamma maskiner har hastighetsknapparna kanske ingen effekt.</p>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="medium">Medel</a></li>
+	<li><a href="fast">Snabb</a></li>
+</Document>

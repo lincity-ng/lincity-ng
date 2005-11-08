@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Keramikfabriker</p>
+	<p style="hp">Keramikfabriker använder malm, kol och jobb för att tillverka varor. De behöver inte anslutas till transporter men de måste, så klart, vara inom räckhåll för en marknad med malm, kol och jobb och erbjuder varor.</p>
+	<p style="hp">Du kan se när fabriken arbetar genom att se röken komma ut ur milorna. Om den nedre milan inte ryker så producerar den mindre än 100%.</p>
+	
+	<p style="hp">Detta är en keramikfabrik</p>
+	<img src="images/tiles/pottery0.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="ore">Malm</a></li>
+	<li><a href="coal">Kol</a></li>
+	<li><a href="jobs">Jobb</a></li>
+	<li><a href="market">Marknader</a></li>
+</Document>

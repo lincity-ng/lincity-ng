@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Transport</p>
+	<p style="hp">Det finns tre typer av transporter i Lincity: spår, vägar och järnvägar. Det finns en fjärde form som innehåller "hoppa över ett fält". Detta är en väldigt kort form av handel och kommer inte att benämnas som transport igen. Men den är väldigt viktigt och kommer att användas före spår, vägar och järnvägar.</p>
+	<p style="hp">Folk kan hämta mat, varor och jobb från marknader som är inom gångavstånd från deras bostadsområde.</p>
+	<p style="hp">Alla områden som behöver jobb (anställda) får dom från marknader. Till exempel kommer ett stålverk få sina anställda från den lokala marknaden. De kan också gå den från förbipasserande transporter.</p>
+	<p style="hp">Bondgårdar kan sälja sin mat direkt till marknader, de behöver inte transportera det alls.</p>
+	<p style="hp">Spinnerier, keramikfabriker och smedjor kan sälja varor direkt till närliggande marknader, de kan också få sitt råmaterial från samma marknad.</p>
+	<p style="hp">Följande områden innefattar transporter och marknader. Det är upp till dig vad du använder - marknader kan ha större <i>lager</i> än transporter.</p>
+	<p style="hp">Spår, vägar och järnvägar används för att transportera mat, jobb, varor, kol, malm och stål mellan områden.</p>
+	<p style="hp">Industier, malmgruvor, soptippar, hamnar, kolgruvor, tung industri och återvinningscentraler ansluts till transporter vid övre vänstra hörnet.</p>
+	<p style="hp">Ett undantag är kolkraftverk. Till exempel, ta ett kolkraftverk som är ansluten till en kolgruva med en väg. En järnväg kommer ut från toppen av kolgruvan och avgår till höger.</p>
+	<p style="hp">För att komma över en kanal med en transport, riv helt enkelt kanalen och bygg en väg, spår eller järnväg över den.</p>
+	<p style="hp">Tänk på denna byggnad som en bro. Det kostar dig en hel del för att rivning i vatten är mycket dyrt.</p>
+
+	<p style="hsubtitle">Se också</p>
+	<li><a href="residential">Bostäder</a></li>
+	<li><a href="market">Marknad</a></li>
+	<li><a href="farm">Bondgårdar</a></li>
+	<li><a href="mill">Spinnerier</a></li>
+	<li><a href="pottery">Keramikfabriker</a></li>
+	<li><a href="industryl">Industri</a></li>
+	<li><a href="oremine">Malmgruvor</a></li>
+	<li><a href="tip">Soptippar</a></li>
+	<li><a href="port">Hamnar</a></li>
+	<li><a href="coalmine">Kolgruvor</a></li>
+	<li><a href="industryh">Tung industri</a></li>
+	<li><a href="recycle">Återvinningscentraler</a></li>
+	<li><a href="coalmine">Kolgruva</a></li>
+	<li><a href="powercoal">Kolkraftverk</a></li>
+</Document>

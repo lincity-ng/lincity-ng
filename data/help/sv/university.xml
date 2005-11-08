@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Universitet</p>
+	<p style="hp">Universitet hjälper till att öka din teknologinivån. Samtidigt konsumerar de varor och jobb. De producerar mer än skolor per vara/jobb. Men de konsumerar en hel del varor och jobb och kostar också en hel del pengar att driva så du bör ha ekonomin och den industriella kapaciteten att underhålla dom.</p>
+	<p style="hp">Du behöver ett antal universitet för att nå en teknologinivå nära 100%</p>
+	<p style="hp">Universitet behöver inte vara ansluta till någon transport; de kan få allt som behövs från marknader inom räckhåll som har tillräckligt med arbetskraft och varor.</p>
+
+	<p style="hsubtitle">NOTERA</p>
+	<p style="hp">Du <b>måste</b>  ha 5 skolor per universitet för att underhålla det med studenter.</p>
+
+	<p style="hp">Detta är ett universitet</p>
+	<img src="images/tiles/university.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="market">Marknad</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="jobs">Jobb</a></li>
+	<li><a href="schools">Skolor</a></li>
+	<li><a href="tech-level">Teknologinivå</a></li>
+</Document>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kolmilor</p>
+	<p style="hp">Kolmilor är områden där träkol framställs av nedhuggen skog (samma som kol här). De producerar också små mängder av malm och stål.</p>
+	<p style="hp">Du kommer att behöver ett antal kolmilor för att framställa tillräckligt mycket kol och stål för områden såsom keramikfabriker, smedjor och spinnerier.</p>
+	<p style="hp">Om en kolmila inte har producerat något på 10 år kommer den att stängas och området ombildas till en park.</p>
+	<p style="hp">Kolmilor ansluts till transporter på vilken punkt som helst, inte bara till porten.</p>
+	
+	<p style="hp">Detta är en kolmila</p>
+	<img src="images/tiles/commune1.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="pottery">Keramikfabrik</a></li>
+	<li><a href="blacksmith">Smedjor</a></li>
+	<li><a href="mill">Spinnerier</a></li>
+	<li><a href="oremine">Malmgruvor</a></li>
+	<li><a href="steel">Stål</a></li>
+</Document>

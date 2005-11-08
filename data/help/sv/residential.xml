@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Bostadsområden</p>
+	<p style="hp">Detta är där folk bor. För att intressera folk att bo i detta område måste de ha tillgång till mat. Det hjälper också att ge dom arbete och varor att köpa. De måste finnas inom räckhåll av en marknad eller ansluta till en transport. Det finns tre type av bostadsområden: Låg, Medium och Hög som anger boendenivån. Dessa har olika födelse- och dödstal som associeras med dom. Detta ger dig viss kontroll över din befolkning.</p>
+	<p style="hp">Senare i spelet när du har tillräckligt med teknologi kan du bygga mer 'moderna' bostadsområden, till och med höghus.</p>
+
+	<p style="hp">Detta är ett bostadsområde med lågt boende (hög teknologi)</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+	<p style="hp">Detta är ett bostadsområde med medium boende (hög teknologi)</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">Detta är ett bostadsområde med högt boende (hög teknologi)</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="market">Marknader</a></li>
+</Document>
+

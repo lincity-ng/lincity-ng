@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Vägar</p>
+	<p style="hp">Vägar fraktar mer än spår men inte lika mycket som järnvägen. De bidrar mer till miljöförstöringen än järnvägen också. De är billigare att köpa och underhålla än järnvägen - det måste finnas en anledning att ha dom!</p>
+	
+	<p style="hp">Detta är en väg</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="commune">Kolmilor</a></li>
+	<li><a href="pollution">Miljöförstöring</a></li>
+</Document>

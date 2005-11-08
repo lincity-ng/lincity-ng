@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Industriområden</p>
+	<p style="hp">Industrier konverterar malm till varor. Framställningen blir mer effektiv om stål också finns att tillgå. Ström ökar på produktionen ännu mer. Väderkvarnar kan <b>inte</b> ge ström till dessa områden.</p>
+	<p style="hp">Som en tumregel, tänk inte på det som står ovan, är produktionen från en (vanlig) industri huvudsakligen beroende av mängden råmaterial, inklusive jobb, som den kan då och även mängden varor som kan bli <b>transporterade</b> därifrån.</p>
+	<p style="hp">Dessa områden ansluts direkt till transporter för att utbyta malm, stål och varor. Den behöver en marknad som erbjuder jobb.</b>
+	<p style="hp">Dessa områden ansluts till transporter <b>bara</b> på övre vänstra hörnet, som visad. Transporter kommer att börja in när de är anslutna.</p>
+	
+	<p style="hp">Detta är en industri</p>
+	<img src="images/tiles/industryll1.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="road">Vägar</a></li>
+	<li><a href="rail">Järnvägar</a></li>
+	<li><a href="market">Marknader</a></li>
+	<li><a href="jobs">Jobb</a></li>
+</Document>

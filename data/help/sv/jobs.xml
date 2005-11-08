@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Jobb</p>
+	<p style="hp">Folk som bor i bostadsområden erbjuder jobb. Jobb används mestadels av alla områden för att de ska fungera. Några områden behöver bara jobb när de är under uppbyggnad, till exempel monument.</p>
+	<p style="hp">Jobb kan ges via marknader, du kan ha en marknad inom räckhåll du önskar erbjuda jobb. Marknaden, så klart, måste gå sina jobb från någonstans. Marknader får sin jobb på två sätt. Första är om det finns ett bostadsområde inom räckhåll så kommer det erbjuda jobb till marknaden i proportion till dess befolkning och hur många marknader som jobben måste delas upp mellan. Det andra sättet är via transporter. En marknad en bit bort som har ett överflöd av jobb kan skicka några via transporten. Alla marknade som har lite jobb och som är anslutna till den transporten kan ta jobb från spår, vägar eller järnvägar.</p>
+	<p style="hp">Om en marknad blir 'full' på jobb kommer den sluta ta emot dom från bostadsområden. När detta händer och det inte finns andra icke-fulla marknader inom räckhåll kommer folket bli arbetslösa.</p>
+	<p style="hp">Ett sjukhus inom räckhåll för bostadsområdet kommer att öka antalet jobb som ges till alla lokala marknader.</p>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="residential">Bostadsområden</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Marknader</a></li>
+</Document>

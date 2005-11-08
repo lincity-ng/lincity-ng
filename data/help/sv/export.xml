@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Import- och export</p>
+	<p style="hp">Import och export fungerar på samma sätt förutom att den första kostar dig pengar och den andra ger dig pengar. Båda kräver en hamn. Av denna anledning kommer export bara att beskrivas mer i detalj.</p>
+	<p style="hp">För att exportera ansluter du en transport till porten som hanterar produkten. Till exempel, för att exportera malm bör du ansluta en väg, kanske, som har malm på sig, till malmporten.</p>
+	<p style="hp">De <b>måste</b> vara anslutna till kanaler längs hela högra sidan.</p>
+	<p style="hp">Portarna, från topp till botten, exporterar kol, malm, varor och stål.</p>
+	<p style="hp">Exportområdet kommer att ta så mycket det får. Om du behöver exportera men vill begränsa mängden kan du använda en typ av transport som har mindre kapacitet eller låta produkter passera genom en marknad. Du kommer att behöva experimentera med detta för att hitta rätt transportkonfiguration.</p>
+	<p style="hp">Se också:</p>
+    <li><a href="port">Hamn</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Marknader</a></li>
+	<li><a href="coal">Kol</a></li>
+	<li><a href="ore">Malm</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="steel">Stål</a></li>
+</Document>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Förloppsfönstret</p>
+	<p style="hp">Detta fönster innehåller sex färgade rader. När de alla når fram till den högra sidan av fönstret har du en hållbar ekonomi.</p>
+	<li>
+		<span color="orange">GRU</span> (orange) du gräver inte upp malm eller kol och dumpar inte skräp på soptippen.
+	</li>
+	<li>
+		<span color="gray">HAN</span>	(grå) du importerar eller exporterar inte.
+	</li>
+	<li>
+		<span color="green">PEN</span> (grön) dina pengar är stabila eller ökar, detta betyder att du inte kan 
+		bygga allt utom de billigaste områdena.
+	</li>
+	<li>
+		<span color="blue">BEF</span> (blå) din befolkning är stabila intill 2% 
+		av värdet när de 180 åren påbörjats. Om detta går utanför detta värde 
+		kommer den nya befolkningen att vara det nya värdet och räkningen av år 
+		att nollställas. Din befolkning måste också vara minst 5000.
+	</li>
+	<li>
+		<span color="yellow">TEK</span> (gul) din teknologi ökar eller faller tillbaka 
+		en mycket liten bit. Om den faller mer än 1% kommer årtalet att nollställas. 
+		Din teknologinivå måste också vara minst 50%.
+	</li>
+	<li>
+		<span color="red">BRA</span> (röd) alla områden som kan fatta eld har brandskydd.
+		De följande områdena har *inte* brandskydd: monument, malmgruvor, kraftledningar och raketer.
+	</li>
+	<p style="hp">År som krävs för hållbarhet: GRU=180 HAN=60 BEF=60 TEK=120 BRA=60</p>
+</Document>

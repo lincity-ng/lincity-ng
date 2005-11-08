@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Marknader</p>
+	<p style="hp">Marknader är antagligen ett felaktigt ord för dessa områden. De är mer som jobbcentrum, affärer, varuhus och marknader i ett. De köper och säljer mat, jobb, kol, varor, malm och stål för närliggande områden och transporteras på typ vägar. Till exempel kan ett bostadsområde erbjuda jobb till en marknad, marknaden erbjuder jobb till ett monument under byggnation. <b>NOTERA</b> de boende får ingen mat om områdena är mer eller mindre vid utkanten av täckningsområdet.</p>
+	<p style="hsubtitle">Kontrollera vad marknaden kan köpa och sälja</p>
+	<p style="hp">Du kan kontrollera funktionen för en marknad genom att välja vad som köps och säljs från transporter. Klicka två gånger på en marknad (inte valknappen) och mot övre vänstra sidan kommer ett fönster öppnas som tillåter dig att välja vad som ska handlas med. Standard är att handla med allt.</p>
+	<p style="hp">Detta är en marknad</p>
+	<img src="images/tiles/market-empty.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
+	
+	<p style="hp">Detta betyder att handel tillåts.</p>
+	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
+	<p style="hp">Detta betyder att handel <b>inte</b> tillåts.</p>
+	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
+	<p style="hp">Numren mellan orden Köp och Sälj är kartreferenser för den marknaden.</p>
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="food">Mat</a></li>
+	<li><a href="jobs">Jobb</a></li>
+	<li><a href="coal">Kol</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="ore">Malm</a></li>
+	<li><a href="steel">Stål</a></li>
+	<li><a href="transport">Transport</a></li>
+</Document>

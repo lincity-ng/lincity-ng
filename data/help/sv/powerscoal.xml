@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kolkraftverk</p>
+	<p style="hp">Kolkraftverk producerar elektricitet som skickas ut på ansluta kraftledningar.</p>
+	<p style="hp">Kraftledningar ansluts i övre väntra hörenet, transporter ansluter till nästa position. Se exemplet.</p>
+	<p style="hp">Effektiviteten av framställningen av elektricitet från kol ökar med varje teknologinivå - när stationen är <b>byggd</b>. Du kanske vill riva ett gammalt kraftverk och byta ut det mot ett nyare och mer effektivare när din teknologinivå har ökat en bit.</p>
+	
+	<p style="hp">Detta är ett kolkraftverk</p>
+	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="tech-level">Teknologinivå</a></li>
+	<li><a href="powerline">Kraftledningar</a></li>
+	<li><a href="msb-power">Strömöversikt</a></li>
+</Document>

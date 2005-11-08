@@ -1,0 +1,32 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Sjukvårdsöversikt</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<p style="hp">Omroden som har ett sjukhus inom räckhåll visas som mörkgröna.</p>
+	<p style="hp">Områden som är utanför räckhåll visas som normal.</p>
+	<p style="hp">Tänk på att sjukhus tar tre månader innan de blir aktiva.</p>
+	<p style="hp">Vänsterklicka på miniskärmen för att ställa om huvudfönstret. Vänsterklicka på miniskärmens titel för att välja en annan vy för miniskärmen. Växla översiktsläge genom att trycka 'v' eller mittenknappen på musen på miniskärmens titel.</p>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="mini-screen">Minikarta</a></li>
+	<li><a href="msb-coal">Kolöversikt</a></li>
+	<li><a href="msb-cricket">Sportöversikt</a></li>
+	<li><a href="msb-fire">Brandöversikt</a></li>
+	<li><a href="msb-health">Sjukvårdsöversikt</a></li>
+	<li><a href="msb-pol">Översikt av miljöförstöring</a></li>
+	<li><a href="msb-power">Strömöversikt</a></li>
+	<li><a href="msb-starve">Svältöversikt</a></li>
+	<li><a href="msb-ub40">Arbetslöshetsöversikt</a></li>
+</Document>
+
+
+
+<!--
+
+text -1 270 Left click on the mini screen 
+text -1 280 to reposition the main window.
+text -1 300 Left click on the mini screen title 
+text -1 310 to choose a different mini screen view.
+text -1 330 Toggle overlay mode by pressing 'v' 
+text -1 340 or middle click on the mini screen title (X only)
+-->

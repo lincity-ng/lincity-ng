@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Parker</p>
+	<p style="hp">Parker är väldigt enkla: de rensar föroreningar.</p>
+	<p style="hp">Ett antal området bidrar till föroreningar. Dessa är vägar, järnvägar, kolgruvor och vanliga och tunga industrier. Några bidrar mer än andra.</p>
+	<p style="hp">Du kan använda parker för att skydda bostadsområden eller för att stoppa föroreningar från att spridas från det lokala området runt källan.</p>
+	<p style="hp">Vinden kommer <b>från</b> sydväst så bygg dina parker enligt det.</p>
+	
+	<p style="hp">Detta är en park</p>
+	<img src="images/tiles/parkland-plane.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="pollution">Miljöförstöring</a></li>
+	<li><a href="road">Vägar</a></li>
+	<li><a href="rail">Järnvägar</a></li>
+	<li><a href="coalmine">Kolgruvor</a></li>
+	<li><a href="industryh">Tung industri</a></li>
+	<li><a href="industryl">Industri</a></li>
+</Document>

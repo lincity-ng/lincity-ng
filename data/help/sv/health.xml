@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Sjukhus</p>
+	<p style="hp">Sjukhus ger sjukvård för boende. De fungerar inom ett område av ungefär 4 rutor i varje riktining.</p>
+	<p style="hp">Sjukvården gör att bostadsområdena blir mer attraktiva att bo i, mindre folk dör av sjukdomar relaterade till förorening och folk som bor där är mer effektiva med att erbjuda jobb till närliggande områden (de är mindre sjukskrivna).</p>
+	<p style="hp">Sjukhus är väldigt kostsamma, 60,000 per år. Men de minskar kostnaden för 'onaturlig död' och kan ge extra inkomstskatt (så länge som det finns plats för folket att arbeta).</p>
+	<p style="hp">Efter du byggt ett sjukhus tar det tre månader för det att bli aktivt. Det använder varor. Men de använder inte jobb. Detta bör tas med i beräkningen när extra jobb skapas av minskningen av sjukfrånvaro i de närliggande områdena.</p>
+	<p style="hp">Sjukhus behöver inte anslutas till transporter. Om inte, behöver de vara inom räckhåll för en marknad.</p>
+	<p style="hp">För att se sjukvårdstäckningen, klicka på sjukhusikonen ovanför 'miniskärmen' (nedre högra delen i mitten av skärmen). De områden som visas har normal sjukvårdstäckning.</p>
+
+	<p style="hp">Detta är ett sjukhus</p>
+	<img src="images/tiles/health.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+	<p style="hp">och detta är ikonen på kartöversikten</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="residential">Bostadsområden</a></li>
+	<li><a href="pollution">Miljöförstöring</a></li>
+	<li><a href="jobs">Jobb</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="msb-health">Sjukvårdsöversikt</a></li>
+</Document>

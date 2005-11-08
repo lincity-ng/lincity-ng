@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Skolor</p>
+	<p style="hp">Skolor använder jobb och varor för att producera teknologi på ett liknande sätt som universitet. De använder mycket mindre jobb och varor än universiteten men producerar mycket mindre teknologipoäng. Om man räknar på att bygga fyra eller fem skolor på samma plats eller ett enda universitet är det oftast (men inte alltid) bäst att bygga ett universitet.</p>
+	<p style="hp">Skolor behöver <b>inte</b> anslutas till transporter men de behöver vara inom räckhåll av en marknad som kan erbjuda en mängd av jobb och varor för att skolan ska fungera.</p>
+	<p style="hp">Skolor kostar pengar att driva. Du kan se totalkostnaden för det <b>senaste</b> året genom att klicka på pengaknappen. Värdet 'scl' är kostanden för skolorna.</p>
+	<p style="hp">Du kan se när en skola arbetar normalt genom att klicka på den och till och från startas animationen upp.</p>
+	
+	<p style="hp">Detta är en skola</p>
+	<img src="images/tiles/school0.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="market">Marknad</a></li>
+	<li><a href="university">Universitet</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="jobs">Jobb</a></li>
+</Document>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Malmgruvor</p>
+	<p style="hp">Malmgruvor producerar malm för att göra varor eller stål. Du kan bygga en malmgruva var som helst. Malmen under ett område försvinner långsamt, du kan inte riva det eller bygga en annan ovanpå och hoppas få mer malm.</p>
+	<p style="hp">När en malmgruva är tömd förvandlas den till en sjö. Om du då vill ta över marken måste du riva 16 vattenområden!</p>
+	<p style="hp">Grafiken visar malmgruvor som arbetar hårt och nära uttömmning.</p>
+	<p style="hp">Transporter ansluts i övre vänstra hörnet av malmgruvan.</p>
+	
+	<p style="hp">Detta är en malmgruva</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="ore">Malm</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="steel">Stål</a></li>
+</Document>

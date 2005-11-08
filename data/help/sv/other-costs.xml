@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Andra kostnader</p>
+	<p style="hp">Detta är fönstret för andra kostnader.</p>
+	<p style="hp">Detta visar en nedbrytning av 'andra kostnader' som visas i finansfönstret.</p>
+	<p style="hp">Förkortningarna betyder:</p>
+	<p style="hp">It - Räntekostnader</p>
+	<p style="hp">Sc - Kostnader för skolor</p>
+	<p style="hp">Un - Kostnader för onaturligt döda</p>
+	<p style="hp">Wn - Kostnader för väderkvarnar</p>
+	<p style="hp">Hl - Sjukvårdskostnader</p>
+	<p style="hp">Rk - Kostnader för raketer</p>
+	<p style="hp">Fr - Kostnader för brandstationer</p>
+	<p style="hp">Ck - Kostnader för sport</p>
+	<p style="hp">Rc - Kostnader för återvinning</p>
+	<p style="hp">Vänsterklicka på detta fönster att växla mellan fönstren för finanser, andra kostnader och boende.</p>
+</Document>

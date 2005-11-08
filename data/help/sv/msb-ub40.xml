@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Arbetslöshetsöversikt</p>
+	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
+	<p style="hp">Arbetslöshet på miniskärmen visar bara bostadsområden.</p>
+	<p style="hp">Klargrönt betyder att det inte finns någon arbetslöshet i bostadsområdet. Mörkare grön och klar röd färg visar ökande kraftig arbetslöshet i varje bostadsområde.</p>
+	<p style="hp">Vänsterklicka på miniskärmen för att ställa om huvudfönstret. Vänsterklicka på miniskärmens titel för att välja en annan vy för miniskärmen. Växla översiktsläge genom att trycka 'v' eller mittenknappen på musen på miniskärmens titel.</p>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="mini-screen">Minikarta</a></li>
+	<li><a href="msb-coal">Kolöversikt</a></li>
+	<li><a href="msb-cricket">Sportöversikt</a></li>
+	<li><a href="msb-fire">Brandöversikt</a></li>
+	<li><a href="msb-health">Sjukvårdsöversikt</a></li>
+	<li><a href="msb-normal">Normal översikt</a></li>
+	<li><a href="msb-pol">Miljöförstöring översikt</a></li>
+	<li><a href="msb-power">Strömöversikt</a></li>
+	<li><a href="msb-starve">Svältöversikt</a></li>
+</Document>

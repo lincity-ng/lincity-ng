@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Raketavfyrningsramp</p>
+	<p style="hp">Raketer ger dig möjligheten att evakuera din befolkning till en annan värld och därigenom avsluta spelet.</p>
+	<p style="hp">Du måste ha fem lyckade obemannade avfyrningar före du kan börja evakueringen. Varje lyckad evakueringsraket har plats för 1000 personer.</p>
+	<p style="hp">Om en avfyrning misslyckas måste du skjuta upp ytterligare 5 obemannade raketer innan du kan evakuera fler personer.</p>
+	<p style="hp">Teknologinivån vid tiden för uppskjutningen är en faktor för en lyckad uppskjutning. Detta betyder att om din teknologinivå är, låt oss säga 80% så har du bara en chans på fyra av fem. 100% eller mer betyder att en uppskjutning alltid lyckas. (Några av de <i>första 5</i> kan dock misslyckas.) Du måste bygga en ny avfyrningsramp för varje raket du bygger.</p>
+	<p style="hp">Raketavfyrningsramper behöver inte anslutas till transporter, de kan få allt de behöver från lokala marknader. De använder stor mängder av stål, varor, jobb och pengar för att byggas. När en raket är byggd kommer du att få se ett meddelande som frågar dig om du vill skjuta upp den nu eller senare. Om du väljer senare kan du avfyra den när du vill genom att klicka på området. Det finns inget begränsning för hur många raket du har klara för uppskjutning.</p>
+	<p style="hp">När en raket har byggts men väntar på uppskjutning använder den inte längre stål, varor eller jobb men den fortsätter att kosta en stor del pengar.</p>
+	<p style="hp">Detta är en raketavfyrningsramp</p>
+	<img src="images/tiles/rocket5.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="market">Marknad</a></li>
+	<li><a href="ore">Malm</a></li>
+	<li><a href="commune">Kolmilor</a></li>
+	<li><a href="steel">Stål</a></li>
+	<li><a href="jobs">Jobb</a></li>
+</Document>

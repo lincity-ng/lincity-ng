@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Soptippar (skräp)</p>
+	<p style="hp">Soptippar erbjuder en plats att slänga ditt skräp. Om du samlar på dig för mycket skräp på marknaderna är de tvingade till att bränna delar av det. Detta skapar en hel del miljöförstöring så du bör tänka på att inte låta skräphögarna växa.</p>
+	<p style="hp">När soptippar växer blir de sakta till en kulle som gräs kommer att växa över när den är full.</p>
+	<p style="hp">Transporter ansluter uppe i vänstra hörnet som vanligt.</p>
+	<p style="hp">Du kan se när en soptipp arbetar normalt genom att klicka på den och till och från startas animationen upp.</p>
+	
+	<p style="hp">Detta är en soptipp</p>
+	<img src="images/tiles/tip0.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="market">Marknader</a></li>
+</Document>

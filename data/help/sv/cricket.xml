@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Basketbollplaner</p>
+	<p style="hp">Basketbollplaner ger sport och underhållning för dina boende. De behöver varor och jobb för att fungera. De behöver inte vara anslutna till transporter, om de inte är det behöver de vara inom räckhåll för en marknad som kan erbjuda jobb och varor. De kostar också pengar att driva.</p>
+	<p style="hp">När du bygger en basketbollplan kommer den inte vara aktiv direkt. Det tar normalt tre månader innan planen blir aktiv.</p>
+	<p style="hp">För att se området som din plan täcker in, klicka på sportknappen nedanför 'miniskärmen'. Områden som har täckning visas som normala, områden som inte täcks in är bara mörkgröna.</p>
+	<p style="hp">Basketbollplaner ökar intresset för bostadsområden inom dess räckvidd.</p>
+	<p style="hp">Basketbollplaner visar en animation varje månad för att indikera att den fungerar normalt.</p>
+
+	<p style="hp">Detta är en basketbollplan</p>
+	<img src="images/tiles/cricket1.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+	<p style="hp">och detta är dess ikon för kartöversikten</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="mini-screen">Minikartan</a></li>
+	<li><a href="goods">Varor</a></li>
+	<li><a href="market">Marknad</a></li>
+	<li><a href="jobs">Jobb</a></li>
+	<li><a href="msb-cricket">Sportöversikt</a></li>
+</Document>
+
+

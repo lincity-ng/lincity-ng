@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kolgruvor</p>
+	<p style="hp">Kolgruvor gräver upp kol från marken. Det måste finnas ett kolskikt nära gruvan. För att se var kolskikten finns kan du klicka på kolknappen ovanför miniskärmen.</p>
+	<p style="hp">Första gången du använder den knappen kommer det kosta dig 1 miljon. Efter det är det gratis. Du behöver inte använda knappen men då får du leta kol genom att lyckas och misslyckas.</p>
+	<p style="hp">Kolgruvor behöver jobb för att framställa kol.</p>
+	
+	<p style="hp">Detta är en kolgruva</p>
+	<img src="images/tiles/coalmine-full.png" halign="center"/>
+	<p style="hp">och detta är dess ikon</p>
+	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+
+	<p style="hp">Grafiken visar mängden kol redan framtagen men inte lastad på en transport. Kolgruvan ovan har maximalt lager.</p>
+	<p style="hp">Klicka på en kolgruva visar dig, i kartstatistikfönstret, lagret vid hålet och, mer intressant, även reserven tillgänglig att grävas upp.</p>
+
+	<p style="hsubtitle">Se också</p>
+	<li><a href="coal">Kol</a></li>
+	<li><a href="powerscoal">Kolkraftverk</a></li>
+	<li><a href="transport">Transporter</a></li>
+	<li><a href="jobs">Jobb</a></li>
+</Document>
