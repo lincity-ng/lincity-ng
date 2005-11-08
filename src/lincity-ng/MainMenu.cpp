@@ -145,7 +145,8 @@ void MainMenu::fillLoadMenu()
         std::stringstream filestart;
         filestart << i+1 << "_";
         CheckButton *button=getCheckButton(*loadGameMenu.get(),buttonNames[i]);
-        
+        //make sure Button is connected only once 
+        button->clicked.clear(); 
         button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
         while( ( curfile = readdir( lincityDir ) ) ) { 
             if(std::string( curfile->d_name ).find( filestart.str() ) == 0 )
