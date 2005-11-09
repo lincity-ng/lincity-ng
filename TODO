@@ -33,7 +33,6 @@ Programming
      actions like scrolling the map, creating buildings, displaying building
      stats). This could be used to measure common user actions and improve
      usability.
- [H] Make translations work in Windows without having the user set $LANG.
 
 --Bugs--
  [L] New text on buttons is truncated to original textlength. 

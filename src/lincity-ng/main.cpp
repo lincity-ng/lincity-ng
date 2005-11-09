@@ -377,6 +377,10 @@ int main(int argc, char** argv)
         dictionaryManager = new TinyGetText::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");
         dictionaryManager->add_directory("locale");
+#ifdef DEBUG
+        std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
+#endif
+        
 #ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";        

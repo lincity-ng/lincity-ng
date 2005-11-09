@@ -30,6 +30,7 @@
 
 #include "TinyGetText.hpp"
 #include "PhysfsStream/PhysfsStream.hpp"
+#include "findlocale.hpp"
 
 //#define TRANSLATION_DEBUG
 
@@ -181,15 +182,18 @@ DictionaryManager::DictionaryManager()
   : current_dict(&empty_dict)
 {
   parseLocaleAliases();
-  // setup language from environment vars
-  const char* lang = getenv("LC_ALL");
-  if(!lang)
-    lang = getenv("LC_MESSAGES");
-  if(!lang)
-    lang = getenv("LANG");
-  
-  if(lang)
-    set_language(lang);
+
+  const char* lang = getenv( "LINCITY_LANG" );
+  if( lang ){
+    set_language( lang );
+    return;
+  }  
+  // use findlocale to setup language
+  FL_Locale *locale;
+  FL_FindLocale( &locale, FL_MESSAGES );
+      if( locale->lang)
+        set_language( locale->lang );
+  FL_FreeLocale( &locale );
 }
 
 void
