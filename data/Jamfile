@@ -44,7 +44,10 @@ for p in $(IMAGEPATHS) {
 HELPPATHS =
     help/de
     help/en
+    help/es
+    help/fr
     help/nl
+    help/sv
 ;
 for p in $(HELPPATHS) {
     InstallData [ Wildcard $(p) : *.xml ] : $(p) ;
