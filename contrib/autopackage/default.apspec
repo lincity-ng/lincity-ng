@@ -5,17 +5,17 @@ RootName: @lincity-ng.berlios.de/lincity-ng:$SOFTWAREVERSION
 DisplayName: LinCity-NG
 ShortName: lincity-ng
 Maintainer: LinCity-NG Development Team
-Packager: Matthias Braun <matze@braunis.de>
+Packager: Wolfgang Becker <uafr@gmx.de>
 Summary: City Simulation Game
 URL: http://lincity-ng.berlios.de
 License: GNU General Public License, Version 2
-SoftwareVersion: 1.0.1
+SoftwareVersion: 1.0.3pre
 AutopackageTarget: 1.0
 
 [Description]
 LinCityNG is a polished and improved version of the old LinCity game. Within
-the scope of the GoTM project at happypenguin.org we create a new iso-3d
-graphics engine together with completely redone modern gui.
+the scope of the GoTM project at happypenguin.org a new iso-3d
+graphics engine together with completely redone modern gui was created.
 
 [BuildPrepare]
 APBUILD_STATIC="stdc++"

@@ -1,0 +1,16 @@
+[Meta]
+RootName: @ferzkopp.net/sdl_gfx
+DisplayName: SDL_gfx
+ShortName: sdl_gfx
+Skeleton-Author: Matthias Braun <matze@braunis.de>
+Skeleton-Version: 1
+Repository: http://lincity-ng.berlios.de/autopackage/sdl_gfx.xml
+
+[Notes]
+
+[Test]
+INTERFACE_VERSIONS=$( testForLib -i libSDL_gfx.so )
+if [ "$INTERFACE_VERSIONS" != "" ]; then
+    SOFTWARE_VERSIONS="2.0"
+fi
+

@@ -1,0 +1,17 @@
+[Meta]
+RootName: @libsdl.org/sdl_ttf
+DisplayName: Simple DirectMedia Layer TTF 
+ShortName: sdl_ttf
+Skeleton-Author: Matthias Braun <matze@braunis.de>
+Skeleton-Version: 1
+Repository: http://lincity-ng.berlios.de/autopackage/sdl_ttf.xml
+
+[Notes]
+The interface version follows the software version in this library.
+This skeleton can detect 2.0
+
+[Test]
+testForLib libSDL_ttf-2.0.so.0 && {
+	INTERFACE_VERSIONS="2.0"
+	SOFTWARE_VERSIONS="2.0"
+}
