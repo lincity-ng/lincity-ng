@@ -1594,8 +1594,6 @@ int GameView::bulldozeCost( MapPoint tile ){
     if (group == 0) {  /* Can't bulldoze grass. */
         prize = 0; 
     } else {
-        if (group < 7)
-            group--;            /* translate into button type */
         prize = main_groups[group].bul_cost;
     }
     return prize;

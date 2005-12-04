@@ -248,14 +248,19 @@ void updateMoney() {
     std::ostringstream moneyText;
     int money = total_money;
 
-    if( abs(money) > 1000000 ){
-        moneyText << money/1000000 << " "; 
-        money %= 1000000;
-        money = abs(money);
-        moneyText << std::setw(6);
-        moneyText << std::setfill('0');
+    if(  abs(money) > 100000000 ){
+       moneyText << money/1000000 << _("MM");  
+    } else {
+        if( abs(money) > 1000000 ){
+            moneyText << money/1000000 << " "; 
+            money %= 1000000;
+            money = abs(money);
+            moneyText << std::setw(6);
+            moneyText << std::setfill('0');
+        }
+        moneyText << money;
     }
-    moneyText << money << _("$");
+    moneyText << _("$");
     
     Component* root = getGameView();
     if( !root ) return;
