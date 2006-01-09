@@ -1,6 +1,6 @@
 
-[H] High priority (important for first release)
-[M] Medium priority (should be in the final game)
+[H] High priority
+[M] Medium priority
 [L] Low priority (nice to have)
 [?] I am not sure.
 
@@ -51,10 +51,6 @@ Programming
  [H] Looks like watching electricity minimap uses power. Seems to be this way
      in classic already. Do we want to change that? No.
  [M] "Dungeon Keeper"-like message queue
- [M] Rework the starting help pages: sort buildings alphabetically, add shanty,
-     add more index pages so that you can access each help page with 2 (maybe 3)
-     clicks from the start page.
- [M] Find a way to detect the language on windows.
 
 -- Infrastructure/Deployment --
  [H] Setup an automatic backup script for the wiki!

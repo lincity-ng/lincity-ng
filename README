@@ -84,6 +84,11 @@ You can start the game by typing
 
     lincity-ng
 
+2.4 Exit the game
+
+If you are in the main menu, you can quit the program also by
+pressing 'ESCAPE' or '^c'. This might be a way to terminate the
+program even if the selected video-mode is not working as expected.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
