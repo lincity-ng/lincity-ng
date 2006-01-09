@@ -28,7 +28,7 @@ TextureGL::TextureGL(GLuint newhandle)
 
 TextureGL::~TextureGL()
 {
-    unsigned int handles[1] = { handle };
+    GLuint handles[1] = { handle };
     glDeleteTextures(1, handles);
 }
 

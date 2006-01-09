@@ -65,7 +65,7 @@ TextureManagerGL::create(SDL_Surface* image)
     SDL_SetAlpha(image, 0, 0);
     SDL_BlitSurface(image, 0, convert, 0);
 
-    unsigned int handle;
+    GLuint handle;
     glGenTextures(1, &handle);
 
     SDL_PixelFormat* format = convert->format;
