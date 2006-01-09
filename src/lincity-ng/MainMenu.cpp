@@ -581,9 +581,21 @@ MainMenu::run()
                 case SDL_MOUSEMOTION:
                 case SDL_MOUSEBUTTONUP:
                 case SDL_MOUSEBUTTONDOWN:
-                case SDL_KEYDOWN:
+                case SDL_KEYDOWN:{
+                    Event gui_event(event);
+                    currentMenu->event(gui_event);
+                    break;
+                }
                 case SDL_KEYUP: {
                     Event gui_event(event);
+                    //In menu ESC as well as ^c exits the game.
+                    //might come in handy if video-mode is not working as expected.
+                    if( ( gui_event.keysym.sym == SDLK_ESCAPE ) ||
+                        ( gui_event.keysym.sym == SDLK_c && ( gui_event.keysym.mod & KMOD_CTRL) ) ){
+                        running = false;
+                        quitState = QUIT;
+                        break;
+                    }
                     currentMenu->event(gui_event);
                     break;
                 }
