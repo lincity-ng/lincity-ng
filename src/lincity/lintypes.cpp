@@ -479,7 +479,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] =
       GROUP_RESIDENCE_HL_TECH
     },
     /* 38 */
-    { N_("Residential"),
+    { N_("Residential LH"),
       FALSE,                           /* need credit? */
       GROUP_RESIDENCE_LH,
       3,                               /* size */
@@ -491,7 +491,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] =
       GROUP_RESIDENCE_LH_TECH
     },
     /* 39 */
-    { N_("Residential"),
+    { N_("Residential MH"),
       FALSE,                           /* need credit? */
       GROUP_RESIDENCE_MH,
       3,                               /* size */
@@ -503,9 +503,9 @@ struct GROUP main_groups[NUM_OF_GROUPS] =
       GROUP_RESIDENCE_MH_TECH
     },
     /* 40 */
-    { N_("Residential"),
+    { N_("Residential HH"),
       FALSE,                           /* need credit? */
-      GROUP_RESIDENCE_LH,
+      GROUP_RESIDENCE_HH,
       3,                               /* size */
       GROUP_RESIDENCE_HH_COLOUR,
       GROUP_RESIDENCE_HH_COST_MUL,

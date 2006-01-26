@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lincity-ng 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-12 13:28+0200\n"
-"PO-Revision-Date: 2005-12-04 03:08+0100\n"
+"PO-Revision-Date: 2006-01-26 16:15+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -377,10 +377,16 @@ msgid "Residential HL"
 msgstr "Wohngebiet HL"
 
 #: src/lincity/lintypes.cpp:482
+msgid "Residential LH"
+msgstr "großer Friedhof"
+
 #: src/lincity/lintypes.cpp:494
+msgid "Residential MH"
+msgstr "Wohngebiet MH"
+
 #: src/lincity/lintypes.cpp:506
-msgid "Residential"
-msgstr "Wohngebiet"
+msgid "Residential HH"
+msgstr "Wohngebiet HH"
 
 #: src/lincity/lclib.cpp:17
 msgid "Jan"
