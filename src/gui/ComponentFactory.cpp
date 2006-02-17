@@ -21,10 +21,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentLoader.hpp"
 #include "XmlReader.hpp"
 #include "Desktop.hpp"
+#include "tinygettext/TinyGetText.hpp"
 
 #include <sstream>
 #include <stdexcept>
 #include <iostream>
+
+TinyGetText::DictionaryManager dictionaryGUIManager;
+
+const char * 
+GUI_TRANSLATE(const char * msgid)
+{
+    return dictionaryGUIManager.get_dictionary().translate(msgid);
+}
+
+std::string  
+GUI_TRANSLATE(const std::string& msgid)
+{
+    return dictionaryGUIManager.get_dictionary().translate(msgid);
+}
 
 ComponentFactories* component_factories = 0;
 
@@ -125,6 +140,10 @@ void initFactories()
         new INTERN_TooltipManagerFactory();
         new INTERN_WindowFactory();
         new ImportFactory();
+        
+        dictionaryGUIManager.set_charset("UTF-8");
+        dictionaryGUIManager.add_directory("locale/gui");
+            
         initialized = true;
     }
 }

@@ -12,7 +12,7 @@
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<text-caption font-size="16">Map</text-caption>
+						<text-caption font-size="16" translatable="yes">Map</text-caption>
 						<tooltip translatable="yes">Show the MiniMap</tooltip>
 					</CheckButton>
 				</cell>
@@ -22,7 +22,7 @@
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<text-caption font-size="16">Stats</text-caption>
+						<text-caption font-size="16" translatable="yes">Stats</text-caption>
 						<tooltip translatable="yes">Show ressources.</tooltip>
 					</CheckButton>
 				</cell>
@@ -32,7 +32,7 @@
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<text-caption font-size="16">$</text-caption>
+						<text-caption font-size="16" translatable="yes">$</text-caption>
 						<tooltip translatable="yes">Show Income and Expenses. Click this tab again to cycle through views.</tooltip>
 					</CheckButton>
 				</cell>
@@ -42,7 +42,7 @@
 						<image-hover src="images/gui/buttons/tabbed/tabbed-hover.png"/>
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
-						<text-caption font-size="16">Eco</text-caption>
+						<text-caption font-size="16" translatable="yes">Eco</text-caption>
 						<tooltip translatable="yes">Show economy graphs.</tooltip>
 					</CheckButton>
 				</cell>
@@ -62,8 +62,7 @@
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 						<image-caption src="images/gui/zoom/zoomin.png"/>
-						<tooltip translatable="yes">[+] Zoom in view so that less
-						buildings but more details are visible</tooltip>
+						<tooltip translatable="yes">[+] Zoom in view so that less buildings but more details are visible</tooltip>
 					</Button>
 				</cell>
 				<cell row="3" col="2">
@@ -99,8 +98,7 @@
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 						<image-caption src="images/gui/info/hidehigh.png"/>
-						<tooltip translatable="yes">[h] Hide high buildings.
-						</tooltip>
+						<tooltip translatable="yes">[h] Hide high buildings. </tooltip>
 					</Button>
 				</cell>
 				<cell row="1" col="4">
@@ -109,7 +107,7 @@
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 						<image-caption src="images/gui/info/statistics.png"/>
-						<tooltip translatable="yes">Press this button	to show statistics</tooltip>
+						<tooltip translatable="yes">Press this button to show statistics</tooltip>
 					</Button>
 				</cell>
 				<cell row="1" col="5">
@@ -118,8 +116,7 @@
 						<image-hover src="images/gui/buttons/round/button-round-hover-40.png"/>
 						<image-clicked src="images/gui/buttons/round/button-round-clicked-40.png"/>
 						<image-caption src="images/gui/info/mapoverlay.png"/>
-						<tooltip translatable="yes">[v] Cycle through MiniMap overlay modes.
-						</tooltip>
+						<tooltip translatable="yes">[v] Cycle through MiniMap overlay modes. </tooltip>
 					</Button>
 				</cell>
 			</TableLayout>

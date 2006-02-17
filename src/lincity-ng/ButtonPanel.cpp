@@ -240,7 +240,7 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         if( b->isEnabled() ){
             b->enable( false );
             char tooltip[2048];
-            snprintf(tooltip, sizeof(tooltip), "%s (Techlevel %.1f required.)", 
+            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"), 
                     createTooltip(selected_module_type, false ).c_str(),
                     requiredTech(selected_module_type));
             b->setTooltip(tooltip);
@@ -274,8 +274,8 @@ void ButtonPanel::examineMenuButtons(){
         } else {
             if( b->isEnabled() ){
                 char tooltip[2048];
-                snprintf(tooltip, sizeof(tooltip), "%s (Techlevel %.1f required.)" 
-                        , createTooltip( type ).c_str(),
+                snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"), 
+                        createTooltip( type ).c_str(),
                         requiredTech(type));
                 b->setTooltip( tooltip );
                 b->enable( false );

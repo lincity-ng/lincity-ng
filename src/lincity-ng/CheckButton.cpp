@@ -158,7 +158,8 @@ CheckButton::parse(XmlReader& reader)
             if(!parseTooltip)
                 continue;
 
-            const char* p = (const char*) reader.getValue();
+            const char* p = GUI_TRANSLATE((const char*) reader.getValue());  
+
             // skip trailing spaces
             while(*p != 0 && isspace(*p))
                 ++p;

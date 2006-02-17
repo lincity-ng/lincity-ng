@@ -97,16 +97,6 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
         }
     }
 
-    std::auto_ptr<TinyGetText::DictionaryManager> dictionaryManager;
-    TinyGetText::Dictionary* dictionary = 0;
-    if(translatable) {
-        dictionaryManager.reset(new TinyGetText::DictionaryManager());
-        dictionaryManager->set_charset("UTF-8");
-        dictionaryManager->add_directory("locale/gui");
-        dictionary = &(dictionaryManager->get_dictionary());
-    }
-        
-
     std::vector<Style> stylestack;
     stylestack.push_back(style);
 
@@ -123,7 +113,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                     if(currentspan != 0) {
                         if(translatable) {
                             currentspan->text 
-                                = dictionary->translate(currentspan->text);
+                                = GUI_TRANSLATE(currentspan->text);
                         }
                         textspans.push_back(currentspan);
                         currentspan = 0;
@@ -189,7 +179,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                     if(currentspan != 0) {
                         if(translatable) {
                             currentspan->text 
-                                = dictionary->translate(currentspan->text);
+                                = GUI_TRANSLATE(currentspan->text);
                         }
                         textspans.push_back(currentspan);
                         currentspan = 0;
@@ -205,7 +195,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
         if(currentspan != 0) {
             if(translatable) {
                 currentspan->text 
-                    = dictionary->translate(currentspan->text);
+                    = GUI_TRANSLATE(currentspan->text);
             }
             textspans.push_back(currentspan);
         }

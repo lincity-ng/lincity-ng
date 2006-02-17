@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <string>
 #include <memory>
 
+const char * GUI_TRANSLATE(const char * msgid);
+std::string  GUI_TRANSLATE(const std::string& msgid);
+
 class Component;
 class XmlReader;
 
