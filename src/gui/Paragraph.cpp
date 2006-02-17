@@ -277,7 +277,7 @@ Paragraph::resize(float width, float height)
 
         // check line size...
         int render_width, render_height;
-        TTF_SizeText(font, line.c_str(), &render_width, &render_height);
+        TTF_SizeUTF8(font, line.c_str(), &render_width, &render_height);
 
         bool render = false;
         bool linefeed = false;

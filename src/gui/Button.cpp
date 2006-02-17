@@ -132,9 +132,9 @@ Button::parse(XmlReader& reader)
         } else if(reader.getNodeType() == XML_READER_TYPE_TEXT) {
             if(!parseTooltip)
                 continue;
+
+            const char* p = (const char*) reader.getValue();
                 
-            const char* p = GUI_TRANSLATE((const char*) reader.getValue());                        
-            
             // skip trailing spaces
             while(*p != 0 && isspace(*p))
                 ++p;
@@ -152,6 +152,10 @@ Button::parse(XmlReader& reader)
                 }
             }
         }
+    }
+
+    if(tooltip != "")  {
+        tooltip = GUI_TRANSLATE(tooltip);
     }
 
     if(comp_normal().getComponent() == 0)
