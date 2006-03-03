@@ -211,7 +211,9 @@ std::string ButtonPanel::createTooltip( int module, bool root /* = true */ ){
             tooltip << dictionaryManager->get_dictionary().translate( buildingName ); 
         }
     }
-    if( !root ){
+    if( root ){
+        tooltip << _(" [Press Right Mouse Button to open menu.]");
+    } else {
         tooltip << _(" [Click right for help.]");
     }
     return tooltip.str();
