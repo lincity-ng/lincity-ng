@@ -56,9 +56,9 @@ do_mill (int x, int y)
 	block_anim = 1;
     }
 
-  if (MP_INFO(x,y).int_1 > 0)
-    if (put_goods (x, y, MP_INFO(x,y).int_1) != 0)
-      MP_INFO(x,y).int_1 = 0;
+  if (MP_INFO(x,y).int_1 > GOODS_MADE_BY_MILL)
+    if (put_goods (x, y, GOODS_MADE_BY_MILL - 1) !=0)
+      MP_INFO(x,y).int_1 -= (GOODS_MADE_BY_MILL - 1); 
 
   if (total_time % 100 == 0)
     {
