@@ -49,7 +49,7 @@ you can start building it. Here's a list of them:
 * SDL_gfx 2.0.13 or later
   http://www.ferzkopp.net/~aschiffler/Software/SDL_gfx-2.0
 
-* PhysicsFS 1.0.0 or later
+* PhysicsFS 1.0.0 or later (use stable, not development branch 1.1.0)
   http://www.icculus.org/physfs/
 
 * zlib 1.0 or later
