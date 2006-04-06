@@ -31,6 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "Config.hpp"
 #include "Debug.hpp"
+#include "GameView.hpp"
 
 int monument_bul_flag=0;
 int river_bul_flag=0;
@@ -155,6 +156,10 @@ check_bulldoze_area (int x, int y)
 
 void editMap (MapPoint point, int button)
 {
+    if( !getGameView()->inCity( point ) ){
+        return;
+    }
+   
     int x = point.x;
     int y = point.y;
     int selected_module_group = get_group_of_type(selected_module_type);

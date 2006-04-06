@@ -74,6 +74,9 @@ public:
     void writeOrigin();    
 
     void printStatusMessage( std::string message );
+
+    //check if tile is in city
+    bool inCity( MapPoint tile );
 private:
     void connectButtons();
     void buttonClicked( Button* button );
@@ -113,9 +116,6 @@ private:
 
     //upper left corner of the viewport on virtual screen
     Vector2 viewport;
-
-    //check if tile is in city
-    bool inCity( MapPoint tile );
 
     int bulldozeCost( MapPoint tile );
     

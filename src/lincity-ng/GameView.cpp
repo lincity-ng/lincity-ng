@@ -870,7 +870,9 @@ void GameView::event(const Event& event)
                 break;       
             }
             if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
-                getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
+                if( inCity( getTile( event.mousepos ) ) ) {
+                    getMiniMap()->showMpsEnv( getTile( event.mousepos ) );
+                }
             }
             break;
         }
