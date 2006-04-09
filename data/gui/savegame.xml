@@ -8,7 +8,7 @@
 		<rowsize row="3" relative="1"/>
 		
 		<cell row="1" col="1">
-		<Paragraph style="menutitle" translatable="yes">Load Game</Paragraph>
+		<Paragraph style="menutitle" translatable="yes">Save Game</Paragraph>
 		</cell>
 		<cell row="2" col="1">
 		<TableLayout rows="6" cols="2">
@@ -78,13 +78,13 @@
 		</TableLayout>
 		</cell>
 		<cell row="3" col="1">
-		<TableLayout rows="2" cols="4">
+    	<TableLayout rows="2" cols="4">
             <rowsize row="1" fixed="115"/>
             <rowsize row="2" relative="1"/>
 
             <colsize col="1" fixed="75"/>
             <colsize col="4" fixed="75"/>
-		
+
 			<cell row="2" col="2" halign="left">
 			<Button name="BackButton">
 				<text style="button" translatable="yes">Back</text>
@@ -95,12 +95,12 @@
 			</Button>
 			</cell>
 			<cell row="2" col="3" halign="right">
-			<Button name="LoadButton">
-				<text style="button" translatable="yes">Load</text>
+			<Button name="SaveButton">
+				<text style="button" translatable="yes">save to selected slot</text>
 				<text-hover style="button-hover"
-				translatable="yes">Load</text-hover>
+				translatable="yes">save to selected slot</text-hover>
 				<text-clicked style="button-clicked"
-				translatable="yes">Load</text-clicked>
+				translatable="yes">save to selected slot</text-clicked>
 			</Button>
 			</cell>
 		</TableLayout>

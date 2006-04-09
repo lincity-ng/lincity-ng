@@ -40,10 +40,11 @@ private:
     void loadMainMenu();
     void loadNewGameMenu();
     void loadLoadGameMenu();
+    void loadSaveGameMenu();
     void loadCreditsMenu();
     void loadOptionsMenu();
     
-    void fillLoadMenu();
+    void fillLoadMenu( bool save = false );
     void fillNewGameMenu();
 
     void creditsBackButtonClicked(Button* );
@@ -53,6 +54,7 @@ private:
     void creditsButtonClicked(Button* );
     void newGameButtonClicked(Button* );
     void loadGameButtonClicked(Button* );
+    void saveGameButtonClicked(Button* );
     void optionsButtonClicked(Button* );
 
     void newGameBackButtonClicked(Button* );
@@ -64,7 +66,9 @@ private:
     void loadGameLoadButtonClicked(Button* );
     void loadGameSaveButtonClicked(Button* );
 
-    void selectLoadGameButtonClicked(CheckButton*,int);
+    void selectLoadGameButtonClicked(CheckButton*,int i);
+    void selectSaveGameButtonClicked(CheckButton*,int i);
+    void selectLoadSaveGameButtonClicked(CheckButton*,int, bool save );
     void optionsMenuButtonClicked(CheckButton* button, int );
 
     void resetGameStats();
@@ -72,6 +76,7 @@ private:
     std::auto_ptr<Component> mainMenu;
     std::auto_ptr<Component> newGameMenu;
     std::auto_ptr<Component> loadGameMenu;
+    std::auto_ptr<Component> saveGameMenu;
     std::auto_ptr<Component> creditsMenu;
     std::auto_ptr<Component> optionsMenu;
     Desktop* currentMenu;

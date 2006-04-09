@@ -1,8 +1,10 @@
 *** LincityNG 1.0.3 *** 
 
-* Show correct demolition costs for powerlines, substations and farms
+* Show correct demolition costs for powerlines, substations and farms.
 * Quantizing tile-images saves about 12MB.
 * Fixed Mills. Now they work.
+* Tool-Menu now opens on left mousebutton.
+* Separate menus for loading and saving games. 
 
 *** LincityNG 1.0.2 *** [r1063 in svn]
 

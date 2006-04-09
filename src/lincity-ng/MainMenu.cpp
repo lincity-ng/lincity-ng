@@ -82,6 +82,9 @@ MainMenu::loadMainMenu()
         Button* loadGameButton = getButton(*mainMenu, "LoadButton");
         loadGameButton->clicked.connect(
                 makeCallback(*this, &MainMenu::loadGameButtonClicked));
+        Button* saveGameButton = getButton(*mainMenu, "SaveButton");
+        saveGameButton->clicked.connect(
+                makeCallback(*this, &MainMenu::saveGameButtonClicked));
         Button* creditsButton = getButton(*mainMenu, "CreditsButton");
         creditsButton->clicked.connect(
                 makeCallback(*this, &MainMenu::creditsButtonClicked));
@@ -127,7 +130,7 @@ void MainMenu::fillNewGameMenu()
   PHYSFS_freeList(files);
 }
 
-void MainMenu::fillLoadMenu()
+void MainMenu::fillLoadMenu( bool save /*= false*/ )
 {
     char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
   
@@ -141,13 +144,22 @@ void MainMenu::fillLoadMenu()
     }
 
     dirent* curfile;
+    CheckButton *button;
     for(int i=0;i<6;i++) {
         std::stringstream filestart;
         filestart << i+1 << "_";
-        CheckButton *button=getCheckButton(*loadGameMenu.get(),buttonNames[i]);
+        if( save ){
+            button = getCheckButton(*saveGameMenu.get(),buttonNames[i]);
+        } else {
+            button = getCheckButton(*loadGameMenu.get(),buttonNames[i]);
+        }
         //make sure Button is connected only once 
         button->clicked.clear(); 
-        button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+        if( save )
+            button->clicked.connect(makeCallback(*this,&MainMenu::selectSaveGameButtonClicked));
+        else {
+            button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+        }
         while( ( curfile = readdir( lincityDir ) ) ) { 
             if(std::string( curfile->d_name ).find( filestart.str() ) == 0 )
                 // && !( curfile->d_type & DT_DIR  ) ) is not portable. So
@@ -259,9 +271,6 @@ MainMenu::loadLoadGameMenu()
         Button* loadButton = getButton(*loadGameMenu, "LoadButton");
         loadButton->clicked.connect(
                 makeCallback(*this, &MainMenu::loadGameLoadButtonClicked));
-        Button* saveButton = getButton(*loadGameMenu, "SaveButton");
-        saveButton->clicked.connect(
-                makeCallback(*this, &MainMenu::loadGameSaveButtonClicked));
         Button* backButton = getButton(*loadGameMenu, "BackButton");
         backButton->clicked.connect(
                 makeCallback(*this, &MainMenu::loadGameBackButtonClicked));
@@ -272,8 +281,39 @@ MainMenu::loadLoadGameMenu()
     loadGameMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
+void
+MainMenu::loadSaveGameMenu()
+{
+    if(saveGameMenu.get() == 0) {
+        saveGameMenu.reset(loadGUIFile("gui/savegame.xml"));
+
+        // connect signals
+        Button* saveButton = getButton(*saveGameMenu, "SaveButton");
+        saveButton->clicked.connect(
+                makeCallback(*this, &MainMenu::loadGameSaveButtonClicked));
+        Button* backButton = getButton(*saveGameMenu, "BackButton");
+        backButton->clicked.connect(
+                makeCallback(*this, &MainMenu::loadGameBackButtonClicked));
+        // fill in file-names into slots
+        fillLoadMenu( true );
+    }
+
+    saveGameMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+}
+
+
+void
+MainMenu::selectLoadGameButtonClicked(CheckButton* button, int i){
+    selectLoadSaveGameButtonClicked( button , i,  false );
+}
+
 void 
-MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
+MainMenu::selectSaveGameButtonClicked(CheckButton* button, int i){
+    selectLoadSaveGameButtonClicked( button , i, true );
+}
+
+void 
+MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
 {
     std::string fc=button->getCaptionText();
   
@@ -292,8 +332,11 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     char *bs[]={"File0","File1","File2","File3","File4","File5",""};
     for(int i=0;std::string(bs[i]).length();i++) {
         CheckButton *b=getCheckButton(*currentMenu,bs[i]);
-        if(b->getName()!=button->getName())
+        if(b->getName()!=button->getName()){
             b->uncheck();
+        } else {
+            b->check();
+        }
     }
 
     if(newGameMenu.get()==currentMenu) {
@@ -312,7 +355,7 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button ,int)
     mFilename+=file;
     Uint32 now = SDL_GetTicks();
     //doubleclick on Filename loads File
-    if( ( fc == doubleClickButtonName ) && 
+    if( ( fc == doubleClickButtonName ) &&  ( !save ) &&
             ( now - lastClickTick < doubleClickTime ) ) {
         lastClickTick = 0;
         doubleClickButtonName = "";
@@ -445,6 +488,14 @@ MainMenu::loadGameButtonClicked(Button* )
 }
 
 void
+MainMenu::saveGameButtonClicked(Button* )
+{
+    getSound()->playSound( "Click" );
+    loadSaveGameMenu();
+    switchMenu(saveGameMenu.get());
+}
+
+void
 MainMenu::creditsBackButtonClicked(Button* )
 {
     getSound()->playSound("Click");
@@ -558,7 +609,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     newStart << datetime->tm_hour << "_" << datetime->tm_min;
     std::string newFilename( newStart.str() ); 
     saveCityNG( newFilename );
-    fillLoadMenu();
+    fillLoadMenu( true );
 }
 
 
