@@ -52,9 +52,9 @@
 		<cell row="5" col="3">
 			<Button name="SaveButton">
 				<text-caption translatable="yes" style="normal">Save</text-caption>
-				<image src="images/mainmenu/buttons/load.png"/>
-				<image-hover src="images/mainmenu/buttons/load-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/load-clicked.png"/>
+				<image src="images/mainmenu/buttons/save.png"/>
+				<image-hover src="images/mainmenu/buttons/save-hover.png"/>
+				<image-clicked src="images/mainmenu/buttons/save-clicked.png"/>
 			</Button>
 		</cell>
 

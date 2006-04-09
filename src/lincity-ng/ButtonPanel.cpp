@@ -734,8 +734,11 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
                 selected_module_type=selected_module=mMenuSelected[mMenus[i]];
                 updateSelectedCost();
                 button->check();
+            }  
+            if( mMenuSelected[mMenus[i]] == selected_module_type ){ //button toggles on every click
+                button->check(); 
             } else {
-                button->uncheck();
+                button->uncheck(); 
             }
             if(c) {
                 // try en-/disabling compoent
