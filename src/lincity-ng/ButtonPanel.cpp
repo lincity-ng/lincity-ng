@@ -211,9 +211,7 @@ std::string ButtonPanel::createTooltip( int module, bool root /* = true */ ){
             tooltip << dictionaryManager->get_dictionary().translate( buildingName ); 
         }
     }
-    if( root ){
-        tooltip << _(" [Press Right Mouse Button to open menu.]");
-    } else {
+    if( !root ){
         tooltip << _(" [Click right for help.]");
     }
     return tooltip.str();
@@ -655,7 +653,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
                     cb->enable();
                     cb->check();
                     // simply simulate button press
-                    menuButtonClicked(cb,SDL_BUTTON_LEFT);
+                    menuButtonClicked(cb,SDL_BUTTON_RIGHT);
                     dynamic_cast<Image*>(cb->getCaption())->setFile(filename);
                 }
             }
@@ -732,7 +730,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
             // get Component
             Component* c=findComponent(mMenus[i]);
             //Check if Techlevel is sufficient.
-            if( enoughTech( mMenuSelected[mMenus[i]] ) && ( b == SDL_BUTTON_LEFT ) ){
+            if( enoughTech( mMenuSelected[mMenus[i]] ) && ( b == SDL_BUTTON_RIGHT ) ){
                 selected_module_type=selected_module=mMenuSelected[mMenus[i]];
                 updateSelectedCost();
                 button->check();
@@ -748,18 +746,18 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
                         {
                             if(i->isEnabled())
                                 i->enable(false);
-                            else if(b!=SDL_BUTTON_LEFT)
+                            else if(b!=SDL_BUTTON_RIGHT)
                                 i->enable(true);
                         }
                     }
                 }
             }
-        } else if(b==SDL_BUTTON_LEFT)  {
+        } else if(b==SDL_BUTTON_RIGHT)  {
             toggleMenu(mMenus[i],false);
             try
             {
                 CheckButton *b=checked_cast<CheckButton>(findComponent(mMenuButtons[i]));
-                // unceck button, ignore disabled buttons
+                // uncheck button, ignore disabled buttons
                 if( b->isEnabled() ){
                     b->uncheck();
                 }

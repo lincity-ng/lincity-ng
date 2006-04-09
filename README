@@ -112,8 +112,8 @@ any:
 right:
  Drag mainscreen with right mousebutton.
  right click on mainscreen centers to tile under cursor.
- open Tool-Menu 
- show Help on Tool
+ select tool from menu root
+ show help on tool
 
 middle:
  middle click on mainscreen to show information about area under cursor.
@@ -121,6 +121,8 @@ middle:
 left:
  Perform action depending on selected tool. Bulldoze, show Information,
  construct building.
+ open Tool-Selection-Menus 
+ select tool from menus
 
 wheel:
  up: zoom in
