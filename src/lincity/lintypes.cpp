@@ -1482,6 +1482,7 @@ void init_types(void)
 int
 get_group_of_type (short type)
 {
+    if( type == CST_NONE ) return GROUP_BARE;
     return main_types[type].group;
 }
 

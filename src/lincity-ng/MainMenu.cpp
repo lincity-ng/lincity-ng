@@ -274,10 +274,10 @@ MainMenu::loadLoadGameMenu()
         Button* backButton = getButton(*loadGameMenu, "BackButton");
         backButton->clicked.connect(
                 makeCallback(*this, &MainMenu::loadGameBackButtonClicked));
-        // fill in file-names into slots
-        fillLoadMenu();
     }
 
+    // fill in file-names into slots
+    fillLoadMenu();
     loadGameMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
