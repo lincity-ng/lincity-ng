@@ -9,13 +9,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: %1\n"
-"PO-Revision-Date: 2005-06-28 16:10+0100\n"
+"PO-Revision-Date: 2006-04-10 15:28+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/gui/minimap.xml
+msgid "$"
+msgstr "¤"
 
 #: data/gui/fire.xml
 msgid "A Fire has started"
@@ -30,6 +34,7 @@ msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and ma
 msgstr "In einer Barackensiedlung ist ein Feuer ausgebrochen. Das feuer ist AUSSER KONTROLLE und könnte sich in weitere Gebiete ausbreiten."
 
 #: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
+#: data/gui/savegame.xml
 msgid "Back"
 msgstr "Zurück"
 
@@ -101,6 +106,10 @@ msgstr "Sollen Kohleadern gesucht werden?"
 msgid "Doing well."
 msgstr "Es läuft gut."
 
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr ""
+
 #: data/gui/sustain.xml
 msgid "Economy Sustainable."
 msgstr "Nachhaltige Wirtschaft."
@@ -132,6 +141,10 @@ msgstr "Vollbild"
 #: data/gui/gamestats.xml
 msgid "Gamestats"
 msgstr "Spielstatistik"
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "zurück zum Hauptmenü"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Goods"
@@ -181,17 +194,17 @@ msgstr "Industrie verfügbar"
 msgid "LinCity has determined that you have a sustainable economy."
 msgstr "LinCity hat festgestellt, daß ihre Wirtschaft nachhaltig ist."
 
-#: data/gui/loadgame.xml
+#: data/gui/mainmenu.xml data/gui/loadgame.xml
 msgid "Load"
 msgstr "Laden"
 
-#: data/gui/mainmenu.xml
-msgid "Load/Save"
-msgstr "Laden/Speichern"
-
 #: data/gui/loadgame.xml
-msgid "Load/Save Game"
-msgstr "Spiel Laden/Speichern"
+msgid "Load Game"
+msgstr "Spiel Laden"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr ""
 
 #: data/gui/millup.xml
 msgid "Mills available"
@@ -278,6 +291,10 @@ msgstr "Ursprüngliche Idee und Programm"
 msgid "Parks available"
 msgstr "Parks verfügbar"
 
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Pause"
+
 #: data/gui/pbar.xml
 msgid "Population"
 msgstr "Bevölkerung"
@@ -325,6 +342,26 @@ msgstr "Rakete startklar."
 #: data/gui/launch_rocket_yn.xml
 msgid "Rocket ready to launch"
 msgstr "Rakete startklar."
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "schnelle Simulationsgeschwindigkeit"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "normale Simulationsgeschwindigkeit"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "sehr schnelle Simulationsgeschwindigkeit"
+
+#: data/gui/mainmenu.xml
+msgid "Save"
+msgstr "Speichern"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Spiel Speichern"
 
 #: data/gui/schoolup.xml
 msgid "Schools available"
@@ -435,6 +472,10 @@ msgstr "Mit leerem Feld beginnen."
 #: data/gui/newgame.xml
 msgid "Start with random village."
 msgstr "Mit zufälligem Dorf beginnen."
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr ""
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Steel"
@@ -652,7 +693,7 @@ msgstr "[h] Hohe Gebäude ausblenden."
 msgid "[v] Cycle through MiniMap overlay modes. "
 msgstr "[v] Minikarte über Hauptkarte legen."
 
-#: data/gui/loadgame.xml
+#: data/gui/savegame.xml
 msgid "save to selected slot"
 msgstr "Speichern"
 

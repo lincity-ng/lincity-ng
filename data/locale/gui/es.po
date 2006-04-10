@@ -9,16 +9,20 @@ msgstr ""
 "Project-Id-Version: gui.es\n"
 "Report-Msgid-Bugs-To: <jorge.gonzalez.gonzalez@hispalinux.es>\n"
 "POT-Creation-Date: Sun Oct 23 22:04:43 2005\n"
-"PO-Revision-Date: 2005-10-23 22:25+0200\n"
-"Last-Translator: Jorge González González <jorge.gonzalez.gonzalez@hispalinux.es>\n"
+"PO-Revision-Date: 2006-04-10 15:29+0100\n"
+"Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: Español <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/gui/fire.xml data/gui/fire.xml
+#: data/gui/minimap.xml
+msgid "$"
+msgstr ""
+
+#: data/gui/fire.xml
 msgid "A Fire has started"
 msgstr "Se ha iniciado un fuego"
 
@@ -30,7 +34,8 @@ msgstr "Se ha iniciado un fuego en un barrio de chabolas. Está en una zona cubi
 msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may spread to other areas. "
 msgstr "Se ha iniciado un fuego en un barrio de chabolas. El fuego está fuera de control y podría extenderse a otros áreas."
 
-#: data/gui/credits.xml data/gui/newgame.xml data/gui/loadgame.xml data/gui/loadgame.xml data/gui/loadgame.xml
+#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
+#: data/gui/savegame.xml
 msgid "Back"
 msgstr "Atrás"
 
@@ -58,7 +63,7 @@ msgstr "Limpiar una parte de un río cuesta mucho dinero."
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
 msgstr "Derribar un barrio de chabolas cuesta mucho dinero y puede iniciar un fuego."
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Buy"
 msgstr "Comprar"
 
@@ -66,7 +71,7 @@ msgstr "Comprar"
 msgid "Choose Scenario"
 msgstr "Escoge un escenario"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Coal"
 msgstr "Carbón"
 
@@ -102,11 +107,15 @@ msgstr "¿Realizar una prospección de carbón?"
 msgid "Doing well."
 msgstr "Lo estás haciendo bien."
 
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr ""
+
 #: data/gui/sustain.xml
 msgid "Economy Sustainable."
 msgstr "Economía sostenible"
 
-#: data/gui/launch-evac.xml data/gui/launch-evac.xml
+#: data/gui/launch-evac.xml
 msgid "Evacuation Launch Good"
 msgstr "El lanzamiento de evacuación ha sido todo un éxito"
 
@@ -122,7 +131,7 @@ msgstr "Parques de bomberos disponibles"
 msgid "Fire!"
 msgstr "¡Fuego!"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Food"
 msgstr "Alimentos"
 
@@ -134,7 +143,11 @@ msgstr "Pantalla completa"
 msgid "Gamestats"
 msgstr "Estadísticas del juego"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr ""
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Goods"
 msgstr "Mercancías"
 
@@ -158,15 +171,15 @@ msgstr "Industrias pesadas disponibles"
 msgid "Import/Export available"
 msgstr "Importación/exportación disponible"
 
-#: data/gui/tradedialog.xml data/gui/pbar.xml
+#: data/gui/pbar.xml data/gui/tradedialog.xml
 msgid "Jobs"
 msgstr "Empleos"
 
-#: data/gui/launch-fail.xml data/gui/launch-fail.xml
+#: data/gui/launch-fail.xml
 msgid "Launch Failure"
 msgstr "Fallo en el lanzamiento"
 
-#: data/gui/launch-good.xml data/gui/launch-good.xml
+#: data/gui/launch-good.xml
 msgid "Launch Successfull"
 msgstr "Lanzamiento exitoso"
 
@@ -182,17 +195,17 @@ msgstr "Industrias ligeras disponibles"
 msgid "LinCity has determined that you have a sustainable economy."
 msgstr "LinCity ha determinado que dispones de una economía sostenible."
 
-#: data/gui/loadgame.xml data/gui/loadgame.xml data/gui/loadgame.xml
+#: data/gui/mainmenu.xml data/gui/loadgame.xml
 msgid "Load"
 msgstr "Cargar"
 
-#: data/gui/mainmenu.xml
-msgid "Load/Save"
-msgstr "Cargar/Guardar"
-
 #: data/gui/loadgame.xml
-msgid "Load/Save Game"
-msgstr "Cargar/Guardar juego"
+msgid "Load Game"
+msgstr "Cargar juego"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr ""
 
 #: data/gui/millup.xml
 msgid "Mills available"
@@ -206,19 +219,30 @@ msgstr "Molinos modernos disponibles"
 msgid "Money"
 msgstr "Dinero"
 
-#: data/gui/mainmenu.xml data/gui/newgame.xml
+#: data/gui/newgame.xml data/gui/mainmenu.xml
 msgid "New Game"
 msgstr "Juego nuevo"
 
-#: data/gui/hvindustryup.xml data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml data/gui/cricketup.xml data/gui/recycleup.xml data/gui/coalmineup.xml data/gui/riverup.xml data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml data/gui/railwayup.xml data/gui/firestationup.xml data/gui/blacksmithup.xml data/gui/roadup.xml data/gui/millup.xml data/gui/rocketup.xml data/gui/schoolup.xml data/gui/import-exportup.xml data/gui/mod_wind_up.xml data/gui/healthup.xml
+#: data/gui/firestationup.xml data/gui/hvindustryup.xml
+#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
+#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/coalmineup.xml
+#: data/gui/riverup.xml data/gui/parkup.xml data/gui/coalpowerup.xml
+#: data/gui/solarpowerup.xml data/gui/roadup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/blacksmithup.xml data/gui/mod_wind_up.xml
+#: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/millup.xml
+#: data/gui/import-exportup.xml data/gui/healthup.xml
 msgid "New Invention"
 msgstr "Nuevo invento"
 
-#: data/gui/launch_rocket_yn.xml data/gui/coal_survey_yn.xml data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/launch_rocket_yn.xml
 msgid "No"
 msgstr "No"
 
-#: data/gui/no-credit-solar-power.xml data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml data/gui/no-credit-university.xml data/gui/no-credit-recycle.xml data/gui/no-credit-recycle.xml data/gui/no-credit-rocket.xml data/gui/no-credit-rocket.xml data/gui/no-credit-parkland.xml data/gui/no-credit-parkland.xml
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
+#: data/gui/no-credit-recycle.xml data/gui/no-credit-parkland.xml
+#: data/gui/no-credit-rocket.xml
 msgid "No Credit Available"
 msgstr "No dispones de crédito suficiente"
 
@@ -226,11 +250,25 @@ msgstr "No dispones de crédito suficiente"
 msgid "Nobody Home"
 msgstr "Nadie en casa"
 
-#: data/gui/nobull-tip.xml data/gui/nobull-tip.xml
+#: data/gui/nobull-tip.xml
 msgid "Not Allowed"
 msgstr "No está permitido"
 
-#: data/gui/hvindustryup.xml data/gui/windmillup.xml data/gui/fire.xml data/gui/shfire-uc.xml data/gui/ltindustryup.xml data/gui/launch-evac.xml data/gui/universityup.xml data/gui/cricketup.xml data/gui/options.xml data/gui/recycleup.xml data/gui/coalmineup.xml data/gui/riverup.xml data/gui/no-credit-solar-power.xml data/gui/launch-good.xml data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/no-credit-university.xml data/gui/allgone.xml data/gui/no-credit-recycle.xml data/gui/potteryup.xml data/gui/railwayup.xml data/gui/firestationup.xml data/gui/launch-fail.xml data/gui/nobull-tip.xml data/gui/blacksmithup.xml data/gui/sustain.xml data/gui/roadup.xml data/gui/millup.xml data/gui/rocketup.xml data/gui/schoolup.xml data/gui/import-exportup.xml data/gui/no-credit-rocket.xml data/gui/launch-gone.xml data/gui/mod_wind_up.xml data/gui/healthup.xml data/gui/no-credit-parkland.xml data/gui/shfire-oc.xml
+#: data/gui/options.xml data/gui/firestationup.xml data/gui/hvindustryup.xml
+#: data/gui/windmillup.xml data/gui/fire.xml data/gui/shfire-uc.xml
+#: data/gui/ltindustryup.xml data/gui/launch-evac.xml
+#: data/gui/universityup.xml data/gui/cricketup.xml data/gui/recycleup.xml
+#: data/gui/coalmineup.xml data/gui/riverup.xml data/gui/parkup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/launch-good.xml
+#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/roadup.xml
+#: data/gui/no-credit-university.xml data/gui/potteryup.xml
+#: data/gui/no-credit-recycle.xml data/gui/railwayup.xml
+#: data/gui/launch-fail.xml data/gui/nobull-tip.xml data/gui/blacksmithup.xml
+#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
+#: data/gui/millup.xml data/gui/import-exportup.xml
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-rocket.xml
+#: data/gui/healthup.xml data/gui/launch-gone.xml data/gui/shfire-oc.xml
+#: data/gui/sustain.xml data/gui/allgone.xml
 msgid "Ok"
 msgstr "Hecho"
 
@@ -238,11 +276,11 @@ msgstr "Hecho"
 msgid "Okay"
 msgstr "Hecho"
 
-#: data/gui/options.xml data/gui/mainmenu.xml
+#: data/gui/mainmenu.xml data/gui/options.xml
 msgid "Options"
 msgstr "Opciones"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Ore"
 msgstr "Mineral"
 
@@ -253,6 +291,10 @@ msgstr "Idea original y código"
 #: data/gui/parkup.xml
 msgid "Parks available"
 msgstr "Parques disponibles"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr ""
 
 #: data/gui/pbar.xml
 msgid "Population"
@@ -266,7 +308,7 @@ msgstr "Alfarerías disponibles"
 msgid "Press this button to show statistics"
 msgstr "Presiona este botón para mostrar las estadísticas"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Product"
 msgstr "Producto"
 
@@ -302,6 +344,26 @@ msgstr "Cohete listo"
 msgid "Rocket ready to launch"
 msgstr "Cohete listo para el lanzamiento"
 
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr ""
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr ""
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr ""
+
+#: data/gui/mainmenu.xml
+msgid "Save"
+msgstr "Guardar"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Guardar juego"
+
 #: data/gui/schoolup.xml
 msgid "Schools available"
 msgstr "Escuelas disponibles"
@@ -310,11 +372,17 @@ msgstr "Escuelas disponibles"
 msgid "See the help screen for more information on coal mines and coal surveys."
 msgstr "Para obtener más información sobre minas de carbón y prospecciones mira la pantalla de ayuda."
 
-#: data/gui/hvindustryup.xml data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml data/gui/cricketup.xml data/gui/recycleup.xml data/gui/riverup.xml data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml data/gui/railwayup.xml data/gui/firestationup.xml data/gui/blacksmithup.xml data/gui/millup.xml data/gui/rocketup.xml data/gui/schoolup.xml data/gui/mod_wind_up.xml data/gui/healthup.xml
+#: data/gui/firestationup.xml data/gui/hvindustryup.xml
+#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
+#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/riverup.xml
+#: data/gui/parkup.xml data/gui/coalpowerup.xml data/gui/solarpowerup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/blacksmithup.xml
+#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
+#: data/gui/millup.xml data/gui/healthup.xml
 msgid "See the help screen for more information."
 msgstr "Para obtener más información mira la pantalla de ayuda."
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Sell"
 msgstr "Vender"
 
@@ -398,15 +466,19 @@ msgstr "Sonido y música"
 msgid "Start"
 msgstr "Comenzar"
 
-#: data/gui/newgame.xml data/gui/newgame.xml data/gui/newgame.xml
+#: data/gui/newgame.xml
 msgid "Start with empty board."
 msgstr "Comenzar con un tablero vacío"
 
-#: data/gui/newgame.xml data/gui/newgame.xml data/gui/newgame.xml
+#: data/gui/newgame.xml
 msgid "Start with random village."
 msgstr "Comenzar con un pueblo aleatorio"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr ""
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Steel"
 msgstr "Acero"
 
@@ -434,11 +506,13 @@ msgstr "Configuración del comercio"
 msgid "University available"
 msgstr "Universidades disponibles"
 
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "Want to bulldoze?"
 msgstr "¿Deseas derribarlo?"
 
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "Warning"
 msgstr "Advertencia"
 
@@ -462,7 +536,9 @@ msgstr "Enhorabuena, has evacuado a toda la población."
 msgid "Windmills available"
 msgstr "Molinos de viento disponibles"
 
-#: data/gui/launch_rocket_yn.xml data/gui/coal_survey_yn.xml data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/launch_rocket_yn.xml
 msgid "Yes"
 msgstr "Sí"
 
@@ -582,7 +658,7 @@ msgstr "Has alcanzado un nivel tecnológico que te permite construir minas de ca
 msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
 msgstr "Has alcanzado un nivel tecnológico que te permite construir centros de reciclaje. Los centros de reciclaje usan mercancías para reconvertirlas en mineral."
 
-#: data/gui/sustain.xml data/gui/launch-gone.xml
+#: data/gui/launch-gone.xml data/gui/sustain.xml
 msgid "You have won the game."
 msgstr "Has ganado el juego."
 
@@ -618,7 +694,7 @@ msgstr "[h] Ocultar los edificios altos"
 msgid "[v] Cycle through MiniMap overlay modes. "
 msgstr "[v] Rotar los modos de vista del minimapa"
 
-#: data/gui/loadgame.xml data/gui/loadgame.xml data/gui/loadgame.xml
+#: data/gui/savegame.xml
 msgid "save to selected slot"
 msgstr "guardar en el bloque disponible"
 
