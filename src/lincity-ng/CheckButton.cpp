@@ -308,15 +308,16 @@ CheckButton::event(const Event& event)
                  }
                  mouseholdTicks = 0;
              }
+             nochange=true;
              break;
         }    
         default:
             nochange=true;
             break;
     }
-    if(mmain.length())
+    if(mmain.length()){
       checked=false; // these buttons have no state
-    
+    }
     if(!nochange && state != STATE_DISABLED) {
         if(mclicked) {
             state=STATE_CLICKED;
@@ -328,9 +329,9 @@ CheckButton::event(const Event& event)
             state=STATE_NORMAL;
         }
     }
-    if(oldstate != state)
+    if(oldstate != state){
         setDirty();
-
+    }
     Component::event(event);
 }
 
