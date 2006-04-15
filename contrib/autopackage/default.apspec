@@ -9,7 +9,7 @@ Packager: Wolfgang Becker <uafr@gmx.de>
 Summary: City Simulation Game
 URL: http://lincity-ng.berlios.de
 License: GNU General Public License, Version 2
-SoftwareVersion: 1.0.3pre
+SoftwareVersion: 1.0.4pre
 AutopackageTarget: 1.0
 
 [Description]

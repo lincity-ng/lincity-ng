@@ -1,4 +1,8 @@
-*** LincityNG 1.0.3 *** 
+*** LincityNG 1.0.4 *** 
+
+
+
+*** LincityNG 1.0.3 *** [r1089 in svn]
 
 * Show correct demolition costs for powerlines, substations and farms.
 * Quantizing tile-images saves about 12MB.
