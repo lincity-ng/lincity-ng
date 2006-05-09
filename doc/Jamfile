@@ -1,4 +1,5 @@
 SubDir TOP doc ;
 
+InstallDoc lincityconfig.xml ;
 InstallDoc userconfig.xml ;
 InstallMan lincity-ng.6 ;
