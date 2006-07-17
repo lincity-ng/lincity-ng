@@ -8,6 +8,82 @@
 #include "modules.h"
 #include "port.h"
 
+/* Trade with a transport.
+ * Port is at x/y, transport at u/v. */
+void trade_connection( const int x, const int y, const int u, const int v, int* ic_ptr, int* et_ptr ){
+  if (u >= 0 && v>=0 && (MP_INFO( u, v).flags
+              & FLAG_IS_TRANSPORT) != 0)
+  {
+      //printf("Port %i/%i trading with transport %i/%i\n", x,y,u,v);
+      int i, flags;
+      int ic = 0;
+      int et = 0;
+      flags = MP_INFO(x,y).flags;
+      if ((flags & FLAG_MB_FOOD) != 0)
+      {
+          i = buy_food ( u, v);
+          ic += i;
+          MP_INFO(x + 1,y).int_3 += i;
+      }
+      if ((flags & FLAG_MS_FOOD) != 0)
+      {
+          i = sell_food ( u, v);
+          et += i;
+          MP_INFO(x + 2,y).int_3 += i;
+      }
+      if ((flags & FLAG_MB_COAL) != 0)
+      {
+          i = buy_coal ( u, v);
+          ic += i;
+          MP_INFO(x + 1,y).int_4 += i;
+      }
+      if ((flags & FLAG_MS_COAL) != 0)
+      {
+          i = sell_coal ( u, v);
+          et += i;
+          MP_INFO(x + 2,y).int_4 += i;
+      }
+      if ((flags & FLAG_MB_ORE) != 0)
+      {
+          i = buy_ore ( u, v);
+          ic += i;
+          MP_INFO(x + 1,y).int_5 += i;
+      }
+      if ((flags & FLAG_MS_ORE) != 0)
+      {
+          i = sell_ore ( u, v);
+          et += i;
+          MP_INFO(x + 2,y).int_5 += i;
+      }
+      if ((flags & FLAG_MB_GOODS) != 0)
+      {
+          i = buy_goods ( u, v);
+          ic += i;
+          MP_INFO(x + 1,y).int_6 += i;
+      }
+      if ((flags & FLAG_MS_GOODS) != 0)
+      {
+          i = sell_goods ( u, v);
+          et += i;
+          MP_INFO(x + 2,y).int_6 += i;
+      }
+      if ((flags & FLAG_MB_STEEL) != 0)
+      {
+          i = buy_steel ( u, v);
+          ic += i;
+          MP_INFO(x + 1,y).int_7 += i;
+      }
+      if ((flags & FLAG_MS_STEEL) != 0)
+      {
+          i = sell_steel ( u, v);
+          et += i;
+          MP_INFO(x + 2,y).int_7 += i;
+      }
+      *ic_ptr += ic;
+      *et_ptr += et;
+  }
+}
+
 
 void
 do_port (int x, int y)
@@ -23,138 +99,33 @@ do_port (int x, int y)
      // Use int_3 to int_7 of (x+2,y) to hold the individual sell values
      //                       (x,y+2) is last month's
    */
-  int i, et = 0, ic = 0, flags, *b1, *b2, *s1, *s2;
-  /* left connection first */
-  flags = MP_INFO(x,y).flags;
-  if (x > 0 && (MP_INFO(x - 1,y).flags
-		& FLAG_IS_TRANSPORT) != 0)
-    {
-      if ((flags & FLAG_MB_FOOD) != 0)
-	{
-	  i = buy_food (x - 1, y);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_3 += i;
-	}
-      if ((flags & FLAG_MS_FOOD) != 0)
-	{
-	  i = sell_food (x - 1, y);
-	  et += i;
-	  MP_INFO(x + 2,y).int_3 += i;
-	}
-      if ((flags & FLAG_MB_COAL) != 0)
-	{
-	  i = buy_coal (x - 1, y);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_4 += i;
-	}
-      if ((flags & FLAG_MS_COAL) != 0)
-	{
-	  i = sell_coal (x - 1, y);
-	  et += i;
-	  MP_INFO(x + 2,y).int_4 += i;
-	}
-      if ((flags & FLAG_MB_ORE) != 0)
-	{
-	  i = buy_ore (x - 1, y);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_5 += i;
-	}
-      if ((flags & FLAG_MS_ORE) != 0)
-	{
-	  i = sell_ore (x - 1, y);
-	  et += i;
-	  MP_INFO(x + 2,y).int_5 += i;
-	}
-      if ((flags & FLAG_MB_GOODS) != 0)
-	{
-	  i = buy_goods (x - 1, y);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_6 += i;
-	}
-      if ((flags & FLAG_MS_GOODS) != 0)
-	{
-	  i = sell_goods (x - 1, y);
-	  et += i;
-	  MP_INFO(x + 2,y).int_6 += i;
-	}
-      if ((flags & FLAG_MB_STEEL) != 0)
-	{
-	  i = buy_steel (x - 1, y);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_7 += i;
-	}
-      if ((flags & FLAG_MS_STEEL) != 0)
-	{
-	  i = sell_steel (x - 1, y);
-	  et += i;
-	  MP_INFO(x + 2,y).int_7 += i;
-	}
+  int i, et = 0, ic = 0, *b1, *b2, *s1, *s2, a;
+
+      
+ /* left connection first */
+  for( a = 0; a < 4 ; a++ ) //try anywhere on the west side.
+    if ( x >= 0 && y>=0 && (MP_INFO( x-1, y+a ).flags
+              & FLAG_IS_TRANSPORT) != 0){
+        trade_connection( x, y, x-1, y+a, &ic, &et );
+        break;
     }
-  /* upper gate next */
-  if (y > 0 && (MP_INFO(x,y - 1).flags
-		& FLAG_IS_TRANSPORT) != 0)
-    {
-      if ((flags & FLAG_MB_FOOD) != 0)
-	{
-	  i = buy_food (x, y - 1);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_3 += i;
-	}
-      if ((flags & FLAG_MS_FOOD) != 0)
-	{
-	  i = sell_food (x, y - 1);
-	  et += i;
-	  MP_INFO(x + 2,y).int_3 += i;
-	}
-      if ((flags & FLAG_MB_COAL) != 0)
-	{
-	  i = buy_coal (x, y - 1);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_4 += i;
-	}
-      if ((flags & FLAG_MS_COAL) != 0)
-	{
-	  i = sell_coal (x, y - 1);
-	  et += i;
-	  MP_INFO(x + 2,y).int_4 += i;
-	}
-      if ((flags & FLAG_MB_ORE) != 0)
-	{
-	  i = buy_ore (x, y - 1);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_5 += i;
-	}
-      if ((flags & FLAG_MS_ORE) != 0)
-	{
-	  i = sell_ore (x, y - 1);
-	  et += i;
-	  MP_INFO(x + 2,y).int_5 += i;
-	}
-      if ((flags & FLAG_MB_GOODS) != 0)
-	{
-	  i = buy_goods (x, y - 1);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_6 += i;
-	}
-      if ((flags & FLAG_MS_GOODS) != 0)
-	{
-	  i = sell_goods (x, y - 1);
-	  et += i;
-	  MP_INFO(x + 2,y).int_6 += i;
-	}
-      if ((flags & FLAG_MB_STEEL) != 0)
-	{
-	  i = buy_steel (x, y - 1);
-	  ic += i;
-	  MP_INFO(x + 1,y).int_7 += i;
-	}
-      if ((flags & FLAG_MS_STEEL) != 0)
-	{
-	  i = sell_steel (x, y - 1);
-	  et += i;
-	  MP_INFO(x + 2,y).int_7 += i;
-	}
+ /* upper gate next */
+  bool deal = false;
+  for( a = 0; a < 3 ; a++ ) //try north
+    if ( x >= 0 && y>=0 && (MP_INFO( x+a, y-1 ).flags
+              & FLAG_IS_TRANSPORT) != 0){
+        trade_connection( x, y, x+a, y-1, &ic, &et );
+        deal = false;
+        break;
     }
+  if( !deal )
+  for( a = 0; a < 3 ; a++ ) //try south
+    if ( x >= 0 && y>=0 && (MP_INFO( x+a, y+4 ).flags
+              & FLAG_IS_TRANSPORT) != 0){
+        trade_connection( x, y, x+a, y+4, &ic, &et );
+        break;
+    }
+  
   MP_INFO(x,y).int_1 += et;
   MP_INFO(x,y).int_4 += ic;
   if (total_time % 100 == 0)
