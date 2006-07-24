@@ -245,6 +245,12 @@ void updateMoney() {
     if( lastMoney == total_money ){
         return;
     }
+    //Prevent overflow
+    if (total_money > 2000000000)
+	total_money = 2000000000;
+    else if (total_money < -2000000000)
+	total_money = -2000000000; 
+    
     std::ostringstream moneyText;
     int money = total_money;
 
