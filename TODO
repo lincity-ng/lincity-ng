@@ -48,7 +48,7 @@ Programming
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
- [H] Looks like watching electricity minimap uses power. Seems to be this way
+ [?] Looks like watching electricity minimap uses power. Seems to be this way
      in classic already. Do we want to change that? No.
  [M] "Dungeon Keeper"-like message queue
 
