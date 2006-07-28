@@ -318,17 +318,16 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
     std::string fc=button->getCaptionText();
   
     std::string file="";
-    if( !fc.length()) {
-        return;
-    }
     
-    baseName = fc;
-    if(newGameMenu.get()==currentMenu ) {
-        file=std::string("opening/")+fc+".scn";
-    } else {
-        file=fc;
-    }
-    
+    /* I guess this should be the proper way of selecting in the menu.
+       Everytime we check a new button the last one gets unchecked.
+       If the button checked is an empty one, nothing should be opened 
+       Could be done the other way around: the first time an existing item
+       is selected in the menu, an empty one could never be checked again.
+       Anyway I don't think both should be checked, when an empty is checked
+       after an existing one.
+    */
+       
     char *bs[]={"File0","File1","File2","File3","File4","File5",""};
     for(int i=0;std::string(bs[i]).length();i++) {
         CheckButton *b=getCheckButton(*currentMenu,bs[i]);
@@ -339,6 +338,18 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
         }
     }
 
+    if( !fc.length()) {
+        mFilename = "";
+        return;
+    }
+    
+    baseName = fc;
+    if(newGameMenu.get()==currentMenu ) {
+        file=std::string("opening/")+fc+".scn";
+    } else {
+        file=fc;
+    }
+    
     if(newGameMenu.get()==currentMenu) {
         mFilename=PHYSFS_getRealDir( file.c_str() );
     } else {
