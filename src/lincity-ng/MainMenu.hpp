@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __MAINMENU_HPP__
 
 #include "main.hpp"
+#include "gui/Paragraph.hpp"
 
 class Component;
 class Desktop;
@@ -90,6 +91,9 @@ private:
     static const Uint32 doubleClickTime = 1000;
     Uint32 lastClickTick;
     std::string doubleClickButtonName;
+    
+    Paragraph* musicParagraph;
+    void changeTrack( bool next);
 };
 
 #endif

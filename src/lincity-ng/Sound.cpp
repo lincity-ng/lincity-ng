@@ -174,6 +174,7 @@ Sound::getIdName(const std::string& filename)
 void
 Sound::playMusic(const std::string& name)
 {
+    getConfig()->playSongName = name;
     if(!audioOpen)
         return;
 

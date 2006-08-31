@@ -238,6 +238,10 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "FXVolumeMinus");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "TrackPrev");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "TrackNext");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         
         Button* currentButton = getButton(*optionsMenu, "BackButton");
         currentButton->clicked.connect( makeCallback(*this, &MainMenu::creditsBackButtonClicked));
@@ -258,6 +262,10 @@ MainMenu::loadOptionsMenu()
     } else {
         getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
     }
+    //current background track
+    musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
+    musicParagraph->setText(getConfig()->playSongName);
+
     optionsMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
@@ -437,11 +445,62 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
             initVideo(getConfig()->videoX, getConfig()->videoY);
             loadOptionsMenu();
         }
+    } else if( buttonName == "TrackPrev"){
+        changeTrack(false);
+    } else if( buttonName == "TrackNext"){
+        changeTrack(true);
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }    
 }
 
+void
+MainMenu::changeTrack( bool next)
+{
+    std::string filename;
+    std::string directory = "music/";
+    std::string fullname;
+    std::string currentname = getConfig()->playSongName;
+    std::string prevname = currentname;
+    std::string nextname = currentname;
+
+    bool hit = false;
+
+    char **files= PHYSFS_enumerateFiles(directory.c_str());
+    char **fptr=files;
+    while(*fptr)
+    {
+        fullname = directory;
+        fullname.append( *fptr );
+        filename.assign( *fptr );
+        
+        if(!PHYSFS_isDirectory(fullname.c_str())){
+            if( filename == currentname ){
+                hit = true;
+            } else if ( !hit ){
+                prevname = filename; 
+            } else {
+                nextname = filename;
+                break;
+            }
+        }
+        fptr++;
+    }
+    PHYSFS_freeList(files);
+
+    if(next){
+        if( nextname != currentname){
+            getSound()->playSound("Click");
+            getSound()->playMusic(nextname);
+        }
+    } else {
+        if( prevname != currentname){
+            getSound()->playSound("Click");
+            getSound()->playMusic(prevname);
+        }
+    }
+    musicParagraph->setText(getConfig()->playSongName);
+}
 void
 MainMenu::quitButtonClicked(Button* )
 {
