@@ -428,7 +428,7 @@ msgid "Show power supply"
 msgstr "Visa strömförsörjning"
 
 #: data/gui/minimap.xml
-msgid "Show ressources."
+msgid "Show resources."
 msgstr "Visa resurser"
 
 #: data/gui/minimapswitchbuttons.xml

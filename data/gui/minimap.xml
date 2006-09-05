@@ -23,7 +23,7 @@
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<text-caption font-size="16" translatable="yes">Stats</text-caption>
-						<tooltip translatable="yes">Show ressources.</tooltip>
+						<tooltip translatable="yes">Show resources.</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="3" valign="bottom">
