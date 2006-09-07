@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: %1\n"
-"PO-Revision-Date: 2006-04-10 15:28+0100\n"
+"PO-Revision-Date: 2006-09-07 23:02+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: data/gui/minimap.xml
 msgid "$"
-msgstr "¤"
+msgstr "£"
 
 #: data/gui/fire.xml
 msgid "A Fire has started"
@@ -391,7 +391,7 @@ msgstr "Prospektoren losschicken?"
 
 #: data/gui/minimap.xml
 msgid "Show Income and Expenses. Click this tab again to cycle through views."
-msgstr "Einnahmen und Ausgaben. Hier nochmal klicken um zwischen den verschiedenen Ansichten zu wechselen."
+msgstr "Einnahmen und Ausgaben. Hier nochmal klicken um zwischen den verschiedenen Ansichten zu wechseln."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show coal depots"

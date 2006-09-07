@@ -586,7 +586,7 @@ make_savedir (void)
     if ((dp = opendir (lc_save_dir)) == NULL)
     {
 	/* change this to a screen message. */
-	printf (_("Couldn't create the save directory %s\n"), lc_save_dir);
+	printf (_("Couldn't create the save directory '%s'\n"), lc_save_dir);
 	exit (1);
     }
     closedir (dp);

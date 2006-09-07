@@ -47,7 +47,7 @@
                     </CheckButton>
                 </cell>
                 <cell row="1" col ="2" halign="center" >
-                    <Paragraph translatable="no"  name="musicParagraph">02 - Robert van Herk - City Blues.ogg playing</Paragraph>
+                    <Paragraph name="musicParagraph">02 - Robert van Herk - City Blues.ogg playing</Paragraph>
                 </cell>
                 <cell row="1" col ="3" halign="left" >
                     <CheckButton name="TrackNext">

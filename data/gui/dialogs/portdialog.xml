@@ -4,8 +4,8 @@
 	<contents>
 		<TableLayout rows="6" cols="3">
 			<colsize col="1" relative=".3"/>
-			<colsize col="2" relative=".1"/>
-			<colsize col="3" relative=".1"/>
+			<colsize col="2" relative=".18"/>
+			<colsize col="3" relative=".18"/>
 
 			<cell row="1" col="1" valign="center" halign="center">
 				<Paragraph style="messagebold" translatable="yes" halign="center">
