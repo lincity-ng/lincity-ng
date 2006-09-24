@@ -688,8 +688,8 @@ void GameView::loadTextures()
    preReadCityTexture( CST_COMMUNE_9,         "commune9.png" );
    preReadCityTexture( CST_COMMUNE_10,        "commune10.png" );
    preReadCityTexture( CST_COMMUNE_11,        "commune11.png" );
-   preReadCityTexture( CST_COMMUNE_12,        "commune12.png" );
-   preReadCityTexture( CST_COMMUNE_13,        "commune13.png" );
+   //preReadCityTexture( CST_COMMUNE_12,        "commune12.png" );
+   //preReadCityTexture( CST_COMMUNE_13,        "commune13.png" );
    //preReadCityTexture( CST_COMMUNE_14,        "commune14.png" );
    preReadCityTexture( CST_INDUSTRY_H_C,      "industryhc.png" );
    preReadCityTexture( CST_INDUSTRY_H_L1,      "industryhl1.png" );

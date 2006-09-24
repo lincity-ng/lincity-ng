@@ -193,8 +193,10 @@ windmill3rg.png
 Commune:
 --------
 
-commune1.png  Animation 1..6 
-commune2.png
+
+commune1.png idle
+
+commune2.png Animation 2..6 
 commune3.png
 commune4.png
 commune5.png
@@ -202,13 +204,13 @@ commune6.png
 
 commune7.png unused
 
-commune8.png Animation 8..13
+commune8.png Animation 8..11
 commune9.png this Animation is used when producing steel
 commune10.png
 commune11.png
-commune12.png
-commune13.png
 
+commune12.png unused
+commune13.png unused
 commune14.png unused
 
 

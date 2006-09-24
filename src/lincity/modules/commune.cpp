@@ -56,17 +56,20 @@ do_commune (int x, int y)
 	MP_INFO(x,y).int_2 = 0;
       }
     }
-  if (total_time % 100 == 48)
-    {
-      MP_INFO(x,y).int_5 = MP_INFO(x,y).int_6;
-      MP_INFO(x,y).int_6 = 0;
-      if (MP_INFO(x,y).int_2 == 0 || trackflag == 0)
-	{
-	  if (MP_TYPE(x,y) > CST_COMMUNE_7)
-	    MP_TYPE(x,y) -= 7;
-	}
-      else if (MP_TYPE(x,y) <= CST_COMMUNE_7)
-	MP_TYPE(x,y) += 7;
+
+  if (total_time % 100 == 48){
+    MP_INFO(x,y).int_5 = MP_INFO(x,y).int_6;
+    MP_INFO(x,y).int_6 = 0;
+    if (MP_INFO(x,y).int_5 & 4) { //producing steel
+      if (MP_TYPE(x,y) < CST_COMMUNE_7){
+	    MP_TYPE(x,y) += 7;
+      }
+    } else {
+        if (MP_TYPE(x,y) >= CST_COMMUNE_7){
+	        MP_TYPE(x,y) -= 7;
+        }
+    }
+
       if (MP_INFO(x,y).int_3 > 0)	/*  >0% */
 	{
 	  MP_INFO(x,y).int_3 = 0;
@@ -84,51 +87,49 @@ do_commune (int x, int y)
 	      return;
 	    }
 	}
-    }
-  /* animate */
-  if (real_time >= MP_INFO(x,y).int_1)
-    {
-      MP_INFO(x,y).int_1 = real_time + COMMUNE_ANIM_SPEED;
-      switch (MP_TYPE(x,y))
-	{
-	case (CST_COMMUNE_1):
-	  MP_TYPE(x,y) = CST_COMMUNE_2;
-	  break;
-	case (CST_COMMUNE_2):
-	  MP_TYPE(x,y) = CST_COMMUNE_3;
-	  break;
-	case (CST_COMMUNE_3):
-	  MP_TYPE(x,y) = CST_COMMUNE_4;
-	  break;
-	case (CST_COMMUNE_4):
-	  MP_TYPE(x,y) = CST_COMMUNE_5;
-	  break;
-	case (CST_COMMUNE_5):
-	  MP_TYPE(x,y) = CST_COMMUNE_6;
-	  break;
-	case (CST_COMMUNE_6):
-	  MP_TYPE(x,y) = CST_COMMUNE_1;
-	  break;
-	case (CST_COMMUNE_8):
-	  MP_TYPE(x,y) = CST_COMMUNE_9;
-	  break;
-	case (CST_COMMUNE_9):
-	  MP_TYPE(x,y) = CST_COMMUNE_10;
-	  break;
-	case (CST_COMMUNE_10):
-	  MP_TYPE(x,y) = CST_COMMUNE_11;
-	  break;
-	case (CST_COMMUNE_11):
-	  MP_TYPE(x,y) = CST_COMMUNE_12;
-	  break;
-	case (CST_COMMUNE_12):
-	  MP_TYPE(x,y) = CST_COMMUNE_13;
-	  break;
-	case (CST_COMMUNE_13):
-	  MP_TYPE(x,y) = CST_COMMUNE_8;
-	  break;
+  }
 
-	}
+  /* animate */
+  if (real_time >= MP_INFO(x,y).int_1) {
+      MP_INFO(x,y).int_1 = real_time + COMMUNE_ANIM_SPEED;
+      switch (MP_TYPE(x,y)) {
+        case (CST_COMMUNE_1):
+          MP_TYPE(x,y) = CST_COMMUNE_2;
+          break;
+        case (CST_COMMUNE_2):
+          MP_TYPE(x,y) = CST_COMMUNE_3;
+          break;
+        case (CST_COMMUNE_3):
+          MP_TYPE(x,y) = CST_COMMUNE_4;
+          break;
+        case (CST_COMMUNE_4):
+          MP_TYPE(x,y) = CST_COMMUNE_5;
+          break;
+        case (CST_COMMUNE_5):
+          MP_TYPE(x,y) = CST_COMMUNE_6;
+          break;
+        case (CST_COMMUNE_6):
+          MP_TYPE(x,y) = CST_COMMUNE_2;
+          break;
+        case (CST_COMMUNE_8):
+          MP_TYPE(x,y) = CST_COMMUNE_9;
+          break;
+        case (CST_COMMUNE_9):
+          MP_TYPE(x,y) = CST_COMMUNE_10;
+          break;
+        case (CST_COMMUNE_10):
+          MP_TYPE(x,y) = CST_COMMUNE_11;
+          break;
+        case (CST_COMMUNE_11):
+          MP_TYPE(x,y) = CST_COMMUNE_8;
+          break;
+        default:
+          MP_TYPE(x,y) = CST_COMMUNE_1;
+          break;
+	    }
+        if( MP_INFO(x,y).int_5 == 0 ){ //not producing anything
+          MP_TYPE(x,y) = CST_COMMUNE_1;
+        }
     }
 
 }
