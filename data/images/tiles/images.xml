@@ -64,18 +64,16 @@
     <image file="blacksmith6.png" x="132" />
     <image file="farm0.png" x="256" />
 
-    <image file="commune1.png" x="264" />
-    <image file="commune2.png" x="264" />
-    <image file="commune3.png" x="264" />
-    <image file="commune4.png" x="264" />
-    <image file="commune5.png" x="264" />
-    <image file="commune6.png" x="264" />
-    <image file="commune8.png" x="264" />
-    <image file="commune9.png" x="264" />
-    <image file="commune10.png" x="264" />
-    <image file="commune11.png" x="264" />
-    <image file="commune12.png" x="264" />
-    <image file="commune13.png" x="264" />
+    <image file="commune1.png" x="256" />
+    <image file="commune2.png" x="256" />
+    <image file="commune3.png" x="256" />
+    <image file="commune4.png" x="256" />
+    <image file="commune5.png" x="256" />
+    <image file="commune6.png" x="256" />
+    <image file="commune8.png" x="256" />
+    <image file="commune9.png" x="256" />
+    <image file="commune10.png" x="256" />
+    <image file="commune11.png" x="256" />
 
     <image file="oremine1.png" x="256" />
     <image file="oremine2.png" x="256" />
