@@ -62,11 +62,11 @@ do_commune (int x, int y)
     MP_INFO(x,y).int_6 = 0;
     if (MP_INFO(x,y).int_5 & 4) { //producing steel
       if (MP_TYPE(x,y) < CST_COMMUNE_7){
-	    MP_TYPE(x,y) += 7;
+	    MP_TYPE(x,y) += 5;
       }
     } else {
         if (MP_TYPE(x,y) >= CST_COMMUNE_7){
-	        MP_TYPE(x,y) -= 7;
+	        MP_TYPE(x,y) -= 5;
         }
     }
 
@@ -111,6 +111,9 @@ do_commune (int x, int y)
         case (CST_COMMUNE_6):
           MP_TYPE(x,y) = CST_COMMUNE_2;
           break;
+        case (CST_COMMUNE_7):
+          MP_TYPE(x,y) = CST_COMMUNE_8;
+          break;
         case (CST_COMMUNE_8):
           MP_TYPE(x,y) = CST_COMMUNE_9;
           break;
@@ -121,7 +124,7 @@ do_commune (int x, int y)
           MP_TYPE(x,y) = CST_COMMUNE_11;
           break;
         case (CST_COMMUNE_11):
-          MP_TYPE(x,y) = CST_COMMUNE_8;
+          MP_TYPE(x,y) = CST_COMMUNE_7;
           break;
         default:
           MP_TYPE(x,y) = CST_COMMUNE_1;

@@ -202,10 +202,9 @@ commune4.png
 commune5.png
 commune6.png
 
-commune7.png unused
-
-commune8.png Animation 8..11
-commune9.png this Animation is used when producing steel
+commune7.png Animation 7..11
+commune8.png this Animation is used when producing steel
+commune9.png 
 commune10.png
 commune11.png
 
