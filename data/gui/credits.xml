@@ -12,7 +12,30 @@
     <TableLayout rows="2" cols="1">
         <rowsize row="2" relative=".1"/>
         <cell row="1" col="1" valign="top" halign="left">
-            <Import src="gui/creditslist.xml"/>
+            <ScrollView name="CreditsHelpScrollView">
+            <scrollbar width="20">
+                    <button1>
+                            <image src="images/gui/buttons/round/button-round-20.png"/>
+                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+                            <image-caption src="images/gui/scrollbar/arrow_up.png"/>
+                    </button1>
+                    <button2>
+                            <image src="images/gui/buttons/round/button-round-20.png"/>
+                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+                            <image-caption src="images/gui/scrollbar/arrow_down.png"/>
+                    </button2>
+                    <scroller>
+                            <image src="images/gui/buttons/round/button-round-20.png"/>
+                            <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+                            <image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+                    </scroller>
+            </scrollbar>
+            <contents>
+                <Import src="gui/creditslist.xml"/>
+            </contents>
+            </ScrollView>
         </cell>
         <cell row="2" col="1" halign="center">
             <Button name="BackButton">

@@ -91,7 +91,7 @@ do_commune (int x, int y)
 
   /* animate */
   if (real_time >= MP_INFO(x,y).int_1) {
-      MP_INFO(x,y).int_1 = real_time + COMMUNE_ANIM_SPEED;
+      MP_INFO(x,y).int_1 = real_time + COMMUNE_ANIM_SPEED - 25 + (rand() % 50);
       switch (MP_TYPE(x,y)) {
         case (CST_COMMUNE_1):
           MP_TYPE(x,y) = CST_COMMUNE_2;
