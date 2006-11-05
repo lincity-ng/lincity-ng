@@ -74,6 +74,12 @@ static inline Color makeGrey(const Color &c)
     return Color(b,b,b);
 }
 
+static inline Color makeBlue(const Color &c)
+{
+    Uint8 b=brightness(c);
+    return Color(0,0,b);
+}
+
 static inline Color light(const Color &c,Uint8 b)
 {
     return Color(
@@ -731,12 +737,19 @@ Color MiniMap::getColor(int x,int y) const
                     return Color(0xFF,0,0);
                 else if ( max > 85 )    //orange
                     return Color(0xFF,0x99,0); 
-	        else if ( max > 50 )    //yellow
-	            return Color(0xFF,0xFF,0); 
-	        else                    //green
-	            return Color(0,0xFF,0); 
-	    } else {
-	        return makeGrey(getColorNormal(x,y));
+	            else if ( max > 50 )    //yellow
+	                return Color(0xFF,0xFF,0); 
+	            else                    //green
+	                return Color(0,0xFF,0); 
+	        } else { //not a Transport, make bluish if in range of a markt
+                if (numof_markets > 0) {
+                    for ( int q = 0; q < numof_markets; q++) {
+	                    if ( (abs (marketx[q] - xx) < MARKET_RANGE)
+                             && (abs (markety[q] - yy) < MARKET_RANGE) )
+	                    return makeBlue(getColorNormal(x,y));
+                    }
+                }
+	            return makeGrey(getColorNormal(x,y));
             }
         }
         case MAX:
