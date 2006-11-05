@@ -7,18 +7,18 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="704pt"
    height="704pt"
    id="svg2"
    inkscape:label="Pozadí"
    sodipodi:version="0.32"
-   inkscape:version="0.43"
-   sodipodi:docbase="/home/onovy/Desktop"
-   sodipodi:docname="icon.svg"
+   inkscape:version="0.44.1"
+   sodipodi:docbase="/home/wolfgang/Diverses/lincity/trunk/data/images/gui/buttonpanel/mining"
+   sodipodi:docname="commune.svg"
    version="1.0"
-   inkscape:export-filename="/home/onovy/Desktop/icon.png"
+   inkscape:export-filename="/home/wolfgang/Diverses/lincity/trunk/data/images/gui/buttonpanel/mining/commune2.png"
    inkscape:export-xdpi="4.0900002"
    inkscape:export-ydpi="4.0900002">
   <defs
@@ -50,7 +50,7 @@
     <linearGradient
        id="linearGradient2778">
       <stop
-         style="stop-color:#fffc00;stop-opacity:1;"
+         style="stop-color:#593f17;stop-opacity:1;"
          offset="0"
          id="stop2780" />
       <stop
