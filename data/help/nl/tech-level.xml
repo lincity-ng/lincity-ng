@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Tech Level</p>
-	<p style="hp">Your city's technology level determines a number of things such as what you can build and the efficiency of certain processes.</p>
-	<p style="hp">To increase your technology, you must build (and supply with the appropriate inputs) Monuments, Schools and  Universities.</p>
-	<p style="hp">When your tech level is very low, you can only build monuments. When a few of these have been around for a while, you will then <i>invent</i> schools. Schools produce more technology than monuments.</p>
-	<p style="hp">When your tech level reaches a higher value still, you will <i>invent</i> universities. These produce even more technology than schools, but are <b>very</b> resource hungry.</p>
-	<p style="hp">The more technology you have, the faster it <i>erodes</i>. This means that the higher you want your tech level to be, the more schools and universities you will need.</p>
-	<p style="hp">Also, be aware that if for some reason you need to take out, say, a university or two (or they are suddenly starved of resources) your tech level is likely to start <b>falling</b>.</p>
+	<p style="htitle">Technologie nivo</p>
+	<p style="hp">Het technologie nivo van uw stad bepaald een aantal dingen zoals wat u kan bouwen en hoe efficient bepaalde dingen gebeuren.</p>
+	<p style="hp">Om uw technologie te vermeerderen, moet u Monumenten, Scholen en Universiteiten bouwen (en van de juiste voorraden voorzien).</p>
+	<p style="hp">Wanneer u nog weinig technologie heeft, kan u alleen monumenten bouwen. Wanneer deze er een tijdje zijn, zal u scholen <i>uitvinden</i>. Scholen zorgen voor meer technologie dan monumenten.</p>
+	<p style="hp">Wanneer u en nog hoger technologie nivo bereikt heeft, zal u universiteiten <i>uitvinden</i>. Deze zorgen voor nog meer technologie dan scholen, maar ze gebruiken <b>erg veel</b> voorraden.</p>
+	<p style="hp">Des te meer technologie u heeft, des te sneller het zal <i>verslijten</i>. Dit betekent dat hoe hoger technologie nivo u wilt, des te meer scholen en universiteiten u nodig zal hebben.</p>
+	<p style="hp">Wees er ook op bedacht dat als u voor een of andere reden, laten we zeggen, twee universiteiten sluit (of ze krijgen plotseling geen vooraden meer) uw technologie nivo begint te <b>dalen</b>.</p>
 
-	<p style="hsubtitle">See also:</p>
-	<li><a href="school">Schools</a></li>
-	<li><a href="university">Universities</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="school">Scholen</a></li>
+	<li><a href="university">Universiteiten</a></li>
 </Document>

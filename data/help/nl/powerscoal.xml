@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Steenkoolcentrale</p>
-	<p style="hp">Steenkoolcentrales produceren energie die geplaatst worden op electriciteitsdraden van steenkool.</p>
+	<p style="hp">Steenkoolcentrales produceren van steenkool electriciteit die geplaatst worden op electriciteitsdraden.</p>
 	<!--Outdated<p style="hp">Power lines connect at the top left corner of the station, transport connects to the next possition in. See the example.</p>-->
-	<p style="hp">De effectiviteit van de productie verhoogt met een hoge technologie level <b>op bouwdatum</b>. U kunt, wanneer u technologie level opmerkelijk gestegen is, een oude steenkoolcentrale afbreken en die herbouwen met een nieuwere, meer efficiente.</p>
+	<p style="hp">De effectiviteit van de productie gebruikt de technologie nivo <b>van de bouwdatum</b>. U kunt, wanneer uw technologie nivo veel gestegen is, een oude steenkoolcentrale afbreken en die herbouwen met een nieuwere, meer efficientere.</p>
 	
 	<p style="hp">Dit is Steenkoolcentrale</p>
 	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
@@ -12,7 +12,7 @@
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="tech-level">Technologie level</a></li>
+	<li><a href="tech-level">Technologie nivo</a></li>
 	<li><a href="powerline">Electriciteitsdraad</a></li>
 	<li><a href="msb-power">Electriciteitskaart</a></li>
 </Document>

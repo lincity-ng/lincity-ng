@@ -1,32 +1,23 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Economy Graph</p>
-	<p style="hp">This graphs contains four coloured lines. They show the most important economic factors.</p>
+	<p style="htitle">Economische grafieken</p>
+	<p style="hp">Dit grafiek laat vier gekleurde lijnen zien.Deze tonen de belangrijkste economische factoren.</p>
 	<li>
-		<span color="brown">Population</span>	(brown) 
-        The brown line represents your population.
-        It is shown as a log scale.
+		<span color="brown">Bevolking</span>
+        De bruine lijn is uw bevolking. 
+	U ziet dit in een logaritmische schaal.
 	</li>
 	<li>
-		<span color="blue">Unhoused</span> (blue) 
-        The blue line represents the demand for
-        housing. The height of the graph is
-        proportional to the square root of the
-        'unhoused' population.
+		<span color="blue">Daklozen</span>
+        De blauwe lijn lijn toont The blue line represents the demand for
+        housing. De hoogte van de grafiek is komt overeen met de hoeveelheid daklozen.
 	</li>
 	<li>
-		<span color="yellow">Unemployment</span> (yellow) 
-        The solid yellow 'bars' show that there is
-        unemployment. The scale of this graph
-        changes with your population. This graph
-        is solid to draw your attention to it.
+		<span color="yellow">Werkzoekende</span>
+        De massieve gele 'balken' laten zien dat er werkloosheid is. De schaal van deze grafiek verandert met het aantal van de bevolking mee. Deze grafiek is massief (gevuld) om uw aandacht te trekken.
 	</li>
 	<li>
-		<span color="red">Starvation</span> (red) 
-        The solid red 'bars' show that there is
-        starvation. The scale of this graph
-        changes with your population. This graph
-        is solid to draw your attention to it.
-        This bar is drawn over the unemployment bar.
+		<span color="red">Stervende</span> 
+        De massieve rode 'balken' laten zien dat er mensen sterven. De schaal van de grafiek verandert met het aantal van de bevolking mee. Deze grafiek is massief (gevuld) om uw aandacht te trekken. Deze balken worden over de werkloosheid-balken getekend.
 	</li>
 </Document>

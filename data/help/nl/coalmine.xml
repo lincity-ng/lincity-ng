@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Steenkoolmijn</p>
-	<p style="hp">Steenkoolmijen graven steenkool op uit de grond. Er moet een steenkoolgebied zijn dichtbij de mijn. U kunt zien waar de steenkoolgebieden zijn door op de steenkoolknop te klikken juist boven de stadsplattegrond.</p>
-	<p style="hp">De eerste keer dat u deze knop gebruikt zal u dit 1 millioen kosten. Daarna is het gratis. U heeft deze knop niet nodig maar u zal de steenkool door middel van veel bouwen (en terug afbreken) moeten zoeken.</p>
-	<p style="hp">Steenkoolmijnen gebruiken jobs.</p>
+	<p style="hp">Steenkoolmijnen graven steenkool op uit de grond. Er moet een steenkoolgebied dichtbij de mijn zijn. U kunt zien waar de steenkoolgebieden zijn door op de steenkoolknop te klikken juist boven de stadsplattegrond.</p>
+	<p style="hp">De eerste keer dat u deze knop gebruikt zal u dit 1 miljoen kosten. Daarna is het gratis. U heeft deze knop niet nodig maar u zal de steenkool door middel van veel bouwen (en terug afbreken) moeten zoeken.</p>
+	<p style="hp">Steenkoolmijnen gebruiken werk.</p>
 	
 	<p style="hp">Dit is een steenkoolmijn</p>
 	<img src="images/tiles/coalmine-full.png" halign="center"/>
@@ -16,6 +16,6 @@
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="coal">Steenkool</a></li>
 	<li><a href="powerscoal">Steenkoolcentrale</a></li>
-	<li><a href="transport">Transport</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="transport">Verkeer</a></li>
+	<li><a href="jobs">Werk</a></li>
 </Document>

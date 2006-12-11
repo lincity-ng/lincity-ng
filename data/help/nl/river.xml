@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Rivers/Water</p>
-	<p style="hp">Rivers are here mainly to get in your way. They are expensive to bridge, dig and demolish. Their only <i>use</i> is that ports must be connected to rivers.</p>
-	<p style="hp">There are two types of water. Lakes are water that is <b>not</b> connected to the river system, river is water that <b>is</b> connected to the river system. The river is defined as all the water that is there at the start of the game. For example, when an ore mine empties connected to a piece of river, it becomes part of the river, else it is just a lake.</p>
-	<p style="hp">If you demolish some river to make a path for, say, transport, you have built a bridge. Both sides of your gap are still part of the river system. This is one of the reasons it is so expensive to <i>demolish</i> water.</p>
-	<p style="hp">Once a piece of water is part of the river system it <b>cannot</b> revert to being a lake.</p>
-	<p style="hp">Power lines can transfer power under <b>one</b> piece of river in the same way that it can pass under transport.</p>
+	<p style="htitle">Rivieren/Water</p>
+	<p style="hp">Rivieren zijn er voornamelijk om in de weg te zitten als obstakel.Het is erg duur om een brug overheen te bouwen, om ze te graven en om ze te slopen (vullen met aarde). Het <i>enige nut</i> van rivieren is dat havens aan een rivier moet liggen.</p>
+	<p style="hp">Er zijn twee soorten water. Meren zijn water dat <b>niet<b/> is verbonden met een rivier, een rivier is water dat wel <b>is<b/> verbonden met een rivier. Al het water bij de start van het spel is rivier . Bijvoorbeeld, wanneer een ijzerertsmijn leeg raakt en naast een rivier ligt, wordt het ook een stukje rivier, in alle andere gevallen is het gewoon een meer. </p>
+	<p style="hp">Als u een stuk rivier sloopt om een route te maken voor, zeg, een (spoor)weg, bouwt u een peiler van een brug. Beide zijdes van uw brugpeiler zijn nog steeds een gedeelte van de rivier, U zult daarom een dam moeten aanleggen van kant tot kant. Dit is een reden waarom het zo duur is om water te <i>slopen</i>.</p>
+	<p style="hp">Wanneer een stuk water eenmaal een gedeelte van een rivier is, kan het <b>niet</b> weer een apart meertje worden.</p>
+	<p style="hp">Electriciteits-draden kunnen onder <b>één</b> rivierstukje doorgaan, op dezelfde manier als onder een (spoor)weg.</p>
 </Document>

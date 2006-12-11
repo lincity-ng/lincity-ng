@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Roads</p>
-	<p style="hp">Roads carry more than tracks, but not as much as railways. They produce more pollution than railways as well. They are cheaper to buy and maintain than railways - I knew there must be a reason for them.</p>
+	<p style="htitle">Straten</p>
+	<p style="hp">Er kan meer verkeer over een straat dan over een zandweg, maar niet zoveel als over rails. Ze maken ook meer luchtvervuiling dan rails. Ze zijn goedkoper om te maken en te onderhouden dan rails - ik wist dat er een reden was waarom ze bestaan.</p>
 	
-	<p style="hp">This is a road</p>
+	<p style="hp">Dit is een straat</p>
 	<img src="images/tiles/roadud.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">En dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="transport">Transport</a></li>
-	<li><a href="commune">Commune</a></li>
-	<li><a href="pollution">Pollution</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="transport">Verkeer</a></li>
+	<li><a href="commune">Communie</a></li>
+	<li><a href="pollution">Vervuiling</a></li>
 </Document>

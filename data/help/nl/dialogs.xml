@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Dialogvenster help</p>
-
+	   <p>Map-Tab</p>
+    <li><a href="mini-screen">Minikaart</a></li>
+<p>Stats-Tab</p>	
+    <li><a href="pbar">PBar</a></li>
+ <p>$-Tab</p>
+	<li><a href="finance">Financiële venster</a></li>
+	<li><a href="housing">Bevolkingskosten venster</a></li>
+<p>Eco-Tab</p>
+	<li><a href="economy">Economische grafieken</a></li>
 	<li><a href="sustain">Duurzaamheid voortgansvenster</a></li>
-	<li><a href="pbar">PBar</a></li>
-	<li><a href="housing">Huizen</a></li>
 </Document>

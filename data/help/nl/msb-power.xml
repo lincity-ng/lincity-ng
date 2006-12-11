@@ -3,15 +3,15 @@
 	<p style="htitle">Electriciteitskaart</p>
 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 	<p style="hp">Gebieden die in het bereik van een laagtechnologische windmolen liggen worden donkergroen gekleurd.</p>
-	<p style="hp">Gebieden die verbonden zijn met het -hoog technologische- electricitetistnetwerk worden lichtgroen gekleurd..</p>
-	<p style="hp">De gebieden die helemaal geen toegang hebben tot electricitet worden gekleurd als normaal.</p>
-	<p style="hp">Deze knop verbruikt electrcitiet, probeer het zo weinig mogelijk te gebruiken.</p> <!--grappig-->
+	<p style="hp">Gebieden die verbonden zijn met het -hoog technologische- electriciteitsnetwerk worden lichtgroen gekleurd..</p>
+	<p style="hp">De gebieden die helemaal geen toegang hebben tot electriciteit worden gekleurd als normaal.</p>
+	<p style="hp">Deze knop verbruikt electriciteit, probeer het zo weinig mogelijk te gebruiken.</p> <!--grappig-->
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Minikaart</a></li>
 	<li><a href="msb-cricket">Sportkaart</a></li>
-	<li><a href="msb-fire">Vuurkaart</a></li>
+	<li><a href="msb-fire">Brandkaart</a></li>
 	<li><a href="msb-health">Welzijnskaart</a></li>
 	<li><a href="msb-normal">Normale kaart</a></li>
 	<li><a href="msb-pol">Vervuilingkaart</a></li>

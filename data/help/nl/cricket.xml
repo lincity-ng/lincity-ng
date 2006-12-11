@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Basketbalveld</p>
-	<p style="hp">Basketbalevelden leveren sport en vermaak aan de inwoners van uw stad. Ze hebben goederen en jobs nodig om te werken. Er moet geen verbinding zijn met transport, maar als het dit niet is moet wel in het bereik liggen van een markt die jobs en goederen kan leveren. Ze kosten ook geld om te onderhouden.</p>
-	<p style="hp">Wanneer u een basketbalveld bouwt, begint deze niet meteen te werken, normaal gezien duurt het 3 maanden voordat er gespeeld wordt.</p>
-	<p style="hp">Om te zien welk bereik uw basketbalvelden hebben, kunt u klikken op de sportbereik-knop onder de mini-kaart. Gebieden die worden bediend, worden getoond als normaal, andere zijn donkergroen.</p>
-	<p style="hp">Basketbalvelden verhogen het welzijn van residentiegebieden in hun bereik.</p>
+	<p style="hp">Basketbalevelden leveren sport en vermaak aan de inwoners van uw stad. Ze hebben goederen en werk nodig om te werken. Er hoeft geen verbinding te zijn met verkeer, maar als het niet is verbonden met een weg, moet wel in de buurt liggen van een markt die werk en goederen kan leveren. Ze kosten ook geld om te onderhouden.</p>
+	<p style="hp">Wanneer u een basketbalveld bouwt, kan deze niet meteen gebruikt worden, normaal duurt het 3 maanden voordat er gespeeld wordt.</p>
+	<p style="hp">Om te zien welk bereik uw basketbalvelden hebben, kunt u klikken op de sportbereik-knop onder de mini-kaart. Gebieden die in de buurt liggen, worden getoond als normaal, andere zijn donkergroen.</p>
+	<p style="hp">Basketbalvelden verhogen het welzijn van woonwijken in hun bereik.</p>
 	<p style="hp">Basketbalvelden hebben elke maand een animatie als ze werken.</p>
 
 	<p style="hp">Dit is een basketbalveld</p>
@@ -18,7 +18,7 @@
 	<li><a href="mini-screen">Mini-kaart</a></li>
 	<li><a href="goods">Goederen</a></li>
 	<li><a href="market">Markt</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="jobs">Werk</a></li>
 	<li><a href="msb-cricket">Sportbereik</a></li>
 </Document>
 

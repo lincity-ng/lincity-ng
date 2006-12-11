@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Monument</p>
-	<p style="hp">Monumenen leveren een focuspunt voor de inspiratie van uitvinders. Elke monument dat u gebouwd heeft zal het technologisch niveau va uw stad laten stijgen, maar hun effectiviteit bereikt nul als de technoligsch niveau van uw stad 40% bereikt.</p>
-	<p style="hp">Om een monument te bouwen moet u jobs ter beschikking stellen -en dus ook hebben-, <b>heel veel</b> jobs meerbepaald. Daarom is het handig om monumenten te gebruiken om de werkloosheid te verminderen. Let op, dit is maar een korte termijnoplossing, omdat monumeten alleen jobs nodig hebben als ze in aanbouw zijn.</p>
-	<p style="hp">U kunt zien hoever de aanbouw van het monument als gevorderd is door te klikken op het monument en naar het statistiekenvenster te kijken (middenboven.). Ook veranderen de tekeningen als het monument gebouwd wordt. Er zijn 6 tekeningen die de zes stages laten zien van de constructie van het gebouw.</p>
-	<p style="hp"><b>Hint</b>: Om te voorkomen dat monumenten te veel jobs uit een bepaald gebied verbruiken en daardor sterfte veroorzaakt kunt u monumenten ver weg van andere gebieden bouwen.</p>
+	<p style="hp">Monumenen leveren een focuspunt voor de inspiratie van uitvinders. Elke monument dat u heeft gebouwd zal het technologisch niveau van uw stad laten stijgen, maar dat werkt alleen maar totdat het technologisch niveau van uw stad 40% heeft bereikt.</p>
+	<p style="hp">Om een monument te bouwen moet u werk ter beschikking stellen -en dus ook hebben-, <b>heel veel</b> werkers om precies te zijn. Daarom is het handig om monumenten te gebruiken om de werkloosheid te verminderen. Let op, dit is maar een korte termijnoplossing, omdat monumeten alleen werk geven als ze in aanbouw zijn.</p>
+	<p style="hp">U kunt zien hoever de aanbouw van het monument is gevorderd door te klikken op het monument en naar het statistiekenvenster te kijken (middenboven). Ook veranderen de tekeningen als het monument gebouwd wordt. Er zijn 6 tekeningen die de zes fases laten zien van de constructie van het gebouw.</p>
+	<p style="hp"><b>Hint</b>: Om te voorkomen dat monumenten te veel werkers uit een bepaald gebied verbruiken en daardor sterfte veroorzaakt kunt u monumenten ver weg van andere gebieden bouwen.</p>
 
 	<p style="hp">Dit is een monument</p>
 	<img src="images/tiles/monument5.png" halign="center"/>
@@ -16,5 +16,5 @@
 	<!--<li><a href="ore">Ijzererts</a></li>-->
 	<!--<li><a href="commune">Comunie</a></li>-->
 	<!--<li><a href="steel">Staal</a></li>-->
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="jobs">Werk</a></li>
 </Document>

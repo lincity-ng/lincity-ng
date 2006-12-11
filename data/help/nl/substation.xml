@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Substations</p>
-	<p style="hp">Substations take power packets from power lines and distribute the power to the surrounding area. You can see if, for example, your residential area is powered by clicking on the icon, then looking at the mappoint stats window.</p>
+	<p style="htitle">Transformatorhuisje</p>
+	<p style="hp">Transformatorhuisjes nemen electriciteit van electriciteitsdraden en verspreiden het naar het omliggende gebied. U kunt zien of, bijvoorbeeld, uw woonwijk electriciteit krijgt door op het icoontje te klikken, en dan op mappoint stats window te kijken.</p>
 	
-	<p style="hp">This is a substation</p>
+	<p style="hp">Dit is een transformatorhuisje</p>
 	<img src="images/tiles/substation-G.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="powerline">Power lines</a></li>
-	<li><a href="powerssolar">Solar power station</a></li>
-	<li><a href="commune">Commune</a></li>
-	<li><a href="steel">Steel</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="powerline">Electriciteitsdraden</a></li>
+	<li><a href="powerssolar">Zonne-energiecentrale</a></li>
+	<li><a href="commune">Communie</a></li>
+	<li><a href="steel">Staal</a></li>
+	<li><a href="jobs">Werk</a></li>
 </Document>
 

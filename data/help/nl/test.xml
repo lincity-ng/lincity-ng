@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <help style="helpdocument">
  
-    <p style="htitle">Keyboard</p>
-    <p style="hp">ESCAPE: back to main menu</p>
+    <p style="htitle">Toetsenbord</p>
+    <p style="hp">ESCAPE: terug naar het hoofdmenu</p>
     <p style="hp">h to hide high buildings. Press h again to show them.</p>
     <p style="hp">v to cycle through MiniMap-overlay modes</p>
     <p style="hp">KP_PLUS: zoom in</p>
@@ -20,8 +20,8 @@
     <p style="hp">same with cursor</p>
     <p style="hp">use shift + direction to scroll faster</p>
 
-    <p style="htitle">Mouse</p>
-    <p style="hp">middle:</p>
+    <p style="htitle">Muis</p>
+    <p style="hp">middel:</p>
     <p style="hp"> Drag mainscreen with middle mousebutton.</p>
     <p style="hp">middle click on mainscreen centers to tile under cursor.</p>
     <p style="hp">right:</p>
@@ -35,7 +35,7 @@
     <p style="hp"> up: zoom in</p>
     <p style="hp">down: zoom out </p>
 
-    <p style="htitle">Residential Area</p>
+    <p style="htitle">Woonwijk</p>
     <p style="hp">
     This is where people live. To encourage people to live in this area they
     must be fed. It also helps to provide them with work and goods to buy. They

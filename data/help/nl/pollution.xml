@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Vervuling</p>
+	<p style="htitle">Vervuiling</p>
 	<p style="hp">De meeste gebieden produceren vervuiling. De volgende gebieden produceren zware vervuiling.</p>
 	<li>Zware industrie.</li>
 	<li>Lichte industrie.</li>
@@ -8,16 +8,16 @@
 	<li>Steenkoolmijnen.</li>
 	<li>Markten die veel verspilling hebben.</li>
 	<li>Straten/Spoorwegen, zeker diegenen die veel verspilling hebben..</li>
-	<p style="hp">Mensen houden er niet van om in vervuilde gebieden te leven. Ze zullen verhuizen, of ziek worden en sterven.</p>
+	<p style="hp">Mensen houden er niet van om in vervuilde gebieden te leven. Ze zullen verhuizen, of worden ziek en sterven.</p>
 	<p style="hp">De overheersende wind komt uit het zuidwesten (de linker benedenhoek). Daardoor wordt de vervuiling naar het noordoosten geblazen (de linkerbovenhoek).</p>
-	<p style="hp">In het algrmeen zult u woongebieden bouwen zodat die geen last hebben van vervuiling. Dit is spijtig genoeg niet altijd mogelijk, bouw daarom parken om een schild te vormen. Hoe meer parken hoe groter de bescherming.</p>
+	<p style="hp">In het algemeen wilt u woonwijken bouwen zodat die geen last hebben van vervuiling. Dit is spijtig genoeg niet altijd mogelijk, u zal dan parken moeten bouwen om een schild te vormen. Hoe meer parken hoe groter de bescherming.</p>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="industryh">Zware industrie</a></li>
 	<li><a href="industryl">Lichte industrie</a></li>
 	<li><a href="powerscoal">Steenkoolcentrale</a></li>
 	<li><a href="coalmine">Steenkoolmijn</a></li>
-	<li><a href="market">Marks</a></li>
+	<li><a href="market">Markt</a></li>
 	<li><a href="rail">Spoorweg</a></li>
 	<li><a href="road">Straat</a></li>
 	<li><a href="park">Park</a></li>

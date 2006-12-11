@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Ijzerertsmijn</p>
-	<p style="hp">Ijzerertsmijnen graven ijzererts op om goederen en staal van te maken. U kunt een ijzerertsmijn bouwen waar u maar wilt op de kaart. Het ijzererts wordt zachtjes aan opgebruikt, u kunt geen mijn afbreken en een andere bouwen in de hoop om meer ijzererts te krijgen.</p>
-	<p style="hp">Wanneer een ijzerertsmijn is uitgeput verandert het in een meer. Als u daarna dit gebied opnieuw wilt gebruiken moet u <!--?-->16<!--?--> watergebieden afbreken!</p>
+	<p style="htitle">IJzerertsmijn</p>
+	<p style="hp">IJzerertsmijnen graven ijzererts op om goederen en staal van te maken. U kunt een ijzerertsmijn bouwen waar u maar wilt op de kaart. Het ijzererts wordt zachtjes aan opgebruikt, u kunt geen mijn afbreken en een andere bouwen in de hoop om meer ijzererts te krijgen.</p>
+	<p style="hp">Wanneer een ijzerertsmijn is uitgeput verandert het in een meer. Als u daarna dit gebied opnieuw wilt gebruiken moet u <b>16</b> watergebieden afbreken!</p>
 	<p style="hp">De tekening toont een ijzerertsmijn die bijna uitgeput is.</p>
-	<p style="hp">Ijzerertsmijnen moeten verbonden zijn met transport</p>
+	<p style="hp">IJzerertsmijnen moeten verbonden zijn met verkeer</p>
 	
 	<p style="hp">Dit is een ijzerertsmijn</p>
 	<img src="images/tiles/oremine1.png" halign="center"/>
@@ -12,7 +12,7 @@
 	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
-	<li><a href="ore">Ijzererts</a></li>
+	<li><a href="ore">IJzererts</a></li>
 	<li><a href="goods">Goederen</a></li>
 	<li><a href="steel">Staal</a></li>
 </Document>

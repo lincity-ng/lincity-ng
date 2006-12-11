@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Brandweerstation</p>
-	<p style="hp">Brandweerstations voorkomen dat er vuur uitbreikt of zich verspreidt in het berik dat ze hebben.  Ze verbruiken goederen en jobs. Ze moeten <b>niet</b> verbonden zijn met transport, ze moeten wel, uiteraard, in het bereik van een markt liggen die goederen en jobs kan leveren. Ze kosten geld om te werken.</p>
+	<p style="hp">Brandweerstations voorkomen dat er brand uitbreekt of zich verspreidt in het bereik dat ze hebben.  Ze verbruiken goederen en werk. Ze hoeven <b>niet</b> verbonden te zijn met verkeer, ze moeten wel, uiteraard, in de buurt van een markt liggen die goederen en werk kan leveren. Wanneer ze in bedrijf zijn, kosten ze geld.</p>
 	<p style="hp">Wanneer u een brandweerstation bouwt, begint deze niet onmiddelijk te werken? Normaal gezien duurt het drie maanden voordat ze beginnen te werken.</p>
-	<p style="hp">Om het gebied te zien dat brandweerstations bereiken moet u op de vuurprepventie-knop onder de mini-kaart klikken. Gebieden die vuurpreventie hebben zijn normaal gekleurd, andere zijn donkergroen.</p>
-	<p style="hp">Brandweerstations verhogen het welzijn van residentiegebieden in hun bereik.</p>
+	<p style="hp">Om de gebieden te zien die beschermd zijn door brandweerstations , moet u op de brandpreventie-knop onder de mini-kaart klikken. Gebieden die beschermd zijn tegen brand hebben zijn normaal gekleurd, andere zijn donkergroen.</p>
+	<p style="hp">Brandweerstations verhogen het welzijn van woonwijken binnen hun bereik.</p>
 	<p style="hp">Brandweerstations hebben elke maand een animatie om te laten zien dat ze werken.</p>
 
 	<p style="hp">Dit is een brandweerstation</p>
 	<img src="images/tiles/firestation1.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
-	<p style="hp">en dit is de vuurpreventie-knop</p>
+	<p style="hp">en dit is de brandpreventie-knop</p>
 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Mini-kaart</a></li>
 	<li><a href="goods">Goederen</a></li>
 	<li><a href="market">Markt</a></li>
-	<li><a href="jobs">Jobs</a></li>
-	<li><a href="msb-fire">Vuurpreventie</a></li>
+	<li><a href="jobs">Werk</a></li>
+	<li><a href="msb-fire">Brandpreventie</a></li>
 </Document>

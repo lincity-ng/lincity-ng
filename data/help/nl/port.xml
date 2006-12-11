@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Ports</p>
-	<p style="hp">Ports let you import and export goods, steel, ore, coal and food. Importing costs you money and exporting makes you money.</p>
-	<p style="hp">To be of use a port must be connected to transport at the dock gate at the top left of the area. You chose what to import by double clicking on the port. This brings up a menu with boxes to select what to import and what to export.</p>
-	<p style="hp">They <b>must</b> be connected to rivers all along the right hand side.</p>
-	<p style="hp">Nothing will be imported or exported until you have checked the appropriate box.</p>
-	<p style="hp">The export area will take as much as it isgiven. If you need to export, but want to restrict the amount, you may want to use a type of transport with less capacity, use a long piece or pass the product through a market. You will need to experiment to get the right transport configuration.</p>
-	<p style="hp">Note: Exporters discount large exports.</p>
+	<p style="htitle">Havens</p>
+	<p style="hp">Via havens kunt u goederen, staal, ijzererts, kolen en voedsel importeren en exporteren. Importeren kost geld en exporteren levert geld op.</p>
+	<p style="hp">De haven kan pas gebruikt worden als de poort aan de linkerbovenkant van de haven verbonden is met een weg of spoorweg. U kan kiezen wat wordt geïmporteerd door dubbelklikken op de haven. U krijgt dan een menu met lijsten waarmee u kunt selecteren wat u wel of niet wil importeren en exporten.</p>
+	<p style="hp">Een haven <b>moet</b> zo met een rivier verbonden zijn dat rechts van de haven water is.</p>
+	<p style="hp">Er wordt niets geïmporteerd totdat u dat heeft gekozen in de checkbox.</p>
+	<p style="hp">De haven probeert om zoveel mogelijk te exporteren. Als u moet exporteren (om geld te verdienen), maar de export-hoeveelheid wilt beperken, zult u een slechter verbindingsweggetje moeten bouwen, een lange verbindingsweg gebruiken of langs een markt moeten gaan. U zult een beetje moeten experimenteren om het juiste resultaat te krijgen.</p>
+	<p style="hp">Letop: Exporters discount large exports.</p>
 
-	<p style="hp">This is a port</p>
+	<p style="hp">Dit is een haven</p>
 	<img src="images/tiles/ex_port.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="rivers">Rivers</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="rivers">Rivieren</a></li>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="market">Markets</a></li>
-	<li><a href="coal">Coal</a></li>
-	<li><a href="ore">Ore</a></li>
-	<li><a href="goods">Goods</a></li>
-	<li><a href="steel">Steel</a></li>
+	<li><a href="market">Markten</a></li>
+	<li><a href="coal">Kolen</a></li>
+	<li><a href="ore">IJzererts</a></li>
+	<li><a href="goods">Goederen</a></li>
+	<li><a href="steel">Staal</a></li>
 </Document>

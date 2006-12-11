@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Informatie</p>
+	<p style="hp">Om informatie over een gebouw te laten zien, kunt u dit met de middenknop op het gebouw klikken.</p>
+	<p style="hp">De informatie is in rechteronderhoek te lezen, in plaats van de minikaart.</p>
+	<p style="hp">Het opvragen van informatie is gratis.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	
+	<p style="hsubtitle">Lees ook:</p>
+    <li><a href="keys">Toetsenbord</a></li>
+	<li><a href="help">index</a></li>
+</Document>
+

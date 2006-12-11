@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Vuurkaart</p>
+	<p style="htitle">Brandkaart</p>
 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
-	<p style="hp">Gebieden die vuurpreventie hebben, dus een brandweerstation in hun bereik, worden donkergroen gekleurd, andere gebieden krijgen de normale kleur.</p>
+	<p style="hp">Gebieden die brandpreventie hebben, dus een brandweerstation in hun bereik, worden donkergroen gekleurd, andere gebieden krijgen de normale kleur.</p>
 	<p style="hp">Let op! Brandweerstations treden pas drie maanden na de bouw in werking.</p>
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Minikaart</a></li>
 	<li><a href="msb-cricket">Sportkaart</a></li>
-	<li><a href="msb-fire">Vuurkaart</a></li>
+	<li><a href="msb-fire">Brandkaart</a></li>
 	<li><a href="msb-health">Welzijnskaart</a></li>
 	<li><a href="msb-normal">Normale kaart</a></li>
 	<li><a href="msb-pol">Vervuilingkaart</a></li>

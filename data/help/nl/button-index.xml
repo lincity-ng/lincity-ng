@@ -8,11 +8,11 @@
 	<img src="images/gui/buttonpanel/power/solarpower.png"/>
 	<p><a href="powerssolar">Zonne-energiecentrale</a></p>
 	<img src="images/gui/buttonpanel/power/substation.png"/>
-	<p><a href="substation">Onderstation</a></p>
+	<p><a href="substation">Transformatorhuisje</a></p>
 
 	<!--<p style="subtitle">Residences</p>-->
 	<img src="images/gui/buttonpanel/residence/residence.png"/>
-	<p><a href="residence-button">Residentieel gebied</a></p>
+	<p><a href="residence-button">Woonwijk</a></p>
 
 	<!--<p style="subtitle">Parks</p>-->
 	<img src="images/gui/buttonpanel/parks/farm.png"/>
@@ -28,7 +28,7 @@
 
 	<!--<p style="subtitle">Transport</p>-->
 	<img src="images/gui/buttonpanel/transport/tracks.png"/>
-	<p><a href="track">Weg</a></p>
+	<p><a href="track">Landweggetje</a></p>
 
 	<!--<p style="subtitle">Mining</p>-->
 	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
@@ -58,7 +58,7 @@
 	<img src="images/gui/buttonpanel/mining/commune.png"/>
 	<p><a href="commune">Communie</a></p>
 	<img src="images/gui/buttonpanel/mining/oremine.png"/>
-	<p><a href="oremine">Ijzerertsmijn</a></p>
+	<p><a href="oremine">IJzerertsmijn</a></p>
 
 	<!--<p style="subtitle">Trading</p>-->
 	<img src="images/gui/import-export.png"/>

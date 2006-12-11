@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Pottenbakkerij</p>
-	<p style="hp">Pottenbakkerijen gebruiken ijzererts, steenkool en jobs om goederen te produceren. Ze moeten niet verbonden met transport, maar ze moeten wel in het bereik van een markt liggen, om ijzererts steenkool en jobs te kunnen ontvangen.</p>
-	<p style="hp">U kunt zien ofdat pottenbakkerijen werken door te kijken naar de ovens. Als de onderste oven geen rook produceert dan produceert de pottenbakkerij minder dan 100% van zijn mogelijke output.</p>
+	<p style="hp">Pottenbakkerijen gebruiken ijzererts, steenkool en werk om goederen te produceren. Ze hoeven niet verbonden te zijn met transport, maar ze moeten wel in de buurt van een markt liggen, om ijzererts steenkool en werk te kunnen ontvangen.</p>
+	<p style="hp">U kunt zien of dat pottenbakkerijen werken door te kijken naar de ovens. Als de onderste oven geen rook produceert dan produceert de pottenbakkerij minder dan 100% van zijn mogelijke output.</p>
 	
 	<p style="hp">Dit is een pottenbakkerij</p>
 	<img src="images/tiles/pottery0.png" halign="center"/>
@@ -11,8 +11,8 @@
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="ore">Ijzererts</a></li>
+	<li><a href="ore">IJzererts</a></li>
 	<li><a href="coal">Steenkool</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="jobs">werk</a></li>
 	<li><a href="market">Markt</a></li>
 </Document>

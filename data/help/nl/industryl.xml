@@ -1,20 +1,19 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Lichte industrie</p>
-	<p style="hp">Lichte industrie produceert ijzererts in goederen. De productie kan verhoogd worden als er ook staal beschikbaar is. Electriciteit verhoogt de productie nog meer. Windmolens leveren <b>geen</b> electriciteit aan lichte industrie.</p>
-	<p style="hp">De productie is vooral afhankelijk van de hoeveelheid ruwe materialen beschikbaar, ook jobs en ook de goederen die <b>afgenomen kunnen worden</b></p>
-	<p style="hp">Deze gebieden worden rechtstreeks verbonden met transport om ijzererts, staal en goederen te verhandelen. Het is mogelijk dat ze een markt nodig hebben om jobs te verkrijgen.</p>
-	<!--Outdated<p style="hp">These areas connect to transport <b>only</b> to the top left hand corner, as shown. Transport will curve in when it is connected.</p>-->
+	<p style="hp">Lichte industrie maakt goederen van ijzererts. De productie kan verhoogd worden als er ook staal beschikbaar is. Electriciteit verhoogt de productie nog meer. Windmolens leveren <b>geen</b> electriciteit aan lichte industrie.</p>
+	<p style="hp">De productie is vooral afhankelijk van de hoeveelheid ruwe materialen beschikbaar, ook werkers en ook de goederen die <b>afgenomen kunnen worden</b></p>
+	<p style="hp">Deze gebieden moeten verbonden met verkeer om ijzererts, staal en goederen te verhandelen. De werkers kunnen ze van een markt halen.</p>
 	
-	<!--<p style="hp">This is a blacksmith</p>
-	<img src="images/tiles/blacksmith0.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
-	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>-->
+	<p style="hp">Dit is lichte industrie</p>
+	<img src="images/tiles/industryll1.png" halign="center"/>
+	<p style="hp">En dit is het icoontje</p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
-	<li><a href="transport">Transport</a></li>
+	<li><a href="transport">Verkeer</a></li>
 	<li><a href="road">Straat</a></li>
 	<li><a href="rail">Spoorweg</a></li>
 	<li><a href="market">Markt</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="jobs">Werk</a></li>
 </Document>

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Jobs</p>
-	<p style="hp">Bewoners die leven in residenties leveren jobs. Jobs zijn noodzakelijk voor een goede werking in de meeste gebieden. Sommige gebieden hebben alleen jobs nodig wanneer ze in construcite zijn, bijvoorbeeld monumenten.</p>
-	<p style="hp">Jobs kunnen verdeeld worden door markten; u kunt een markt bouwen in het bereik dat u wilt. De markt moet uiteraard zijn jobs krijgen van ergens. Markten kunnen jobs verkrijgen op twee manieren. De eerste manier is van residenties in het bereik van de markt, de hoeveelheid jobs die geleverd wordt hangt af van de inwoners van de residentie en hoeveel markten er in het bereik van de residentie zijn. De tweede manier is door transport. Een markt ver verwijderde markt die een teveel aan jobs heeft zet ze op transport. Elke markt die een tekort heeft aan jobs en verbonden is met transport zal deze jobs aannemen.</p>
-	<p style="hp">Als een markt volledig vol is van jobs, zal het stoppen met het afnemen van jobs van residenties. Als dit gebeurt en er zijn geen nietvolle markten beschikbaar zal er werkloosheid komen.</p>
-	<p style="hp">Een ziekenhuis in het bereik van een residentie zal het aantal jobs verhogen.</p>
+	<p style="htitle">Werk</p>
+	<p style="hp">Bewoners die in woonwijken leven, leveren werk. Werk is noodzakelijk voor een goede werking in de meeste gebieden. Sommige gebieden hebben alleen werk nodig wanneer ze gebouwd worden, bijvoorbeeld monumenten.</p>
+	<p style="hp">Werk kan verdeeld worden door markten; u kunt een markt bouwen in de buurt die u wilt. De markt moet uiteraard het werk ergens van krijgen. Markten kunnen werk krijgen op twee manieren. De eerste manier is van woonwijken in de buurt van de markt, de hoeveelheid werk die geleverd wordt hangt af van de inwoners van de woonwijk en hoeveel markten er in de buurt van de woonwijk zijn. De tweede manier is door verkeer. Een ver verwijderde markt die een teveel aan werk heeft zet ze op transport. Elke markt die een tekort heeft aan werk en verbonden is met verkeer zal dit werk aannemen.</p>
+	<p style="hp">Als een markt volledig vol is met werk, zal het stoppen met het aannemen van werk uit woonwijken. Als dit gebeurt en er zijn geen nietvolle markten beschikbaar zal er werkloosheid komen.</p>
+	<p style="hp">Een ziekenhuis in de buurt van een woonwijk zal zorgen voor meer werk.</p>
 
 	<p style="hsubtitle">Lees ook:</p>
-	<li><a href="residential">Residentie</a></li>
-	<li><a href="transport">Transport</a></li>
+	<li><a href="residential">Woonwijk</a></li>
+	<li><a href="transport">Verkeer</a></li>
 	<li><a href="market">Markt</a></li>
 </Document>

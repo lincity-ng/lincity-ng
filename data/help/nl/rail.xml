@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Spoorweg</p>
-	<p style="hp">Spoorwegen vervoederen meer goederen (hieronder verstaan we goederen, voedsel, steenkool, ijzererts, staal,jobs). Ze produceren ook iets meer dan straten. Ze zijn ook redelijk duur om te bouwen en onderhouden. Ze zijn het waard om gebouwd te worden als u veel vervoer over een grote afstand heeft.</p>
+	<p style="hp">Spoorwegen vervoeren meer goederen dan een straat (hieronder verstaan we goederen, voedsel, steenkool, ijzererts, staal en werkers). Ze produceren ook iets minder vervuiling dan straten. Ze zijn ook redelijk duur om te bouwen en onderhouden. Ze zijn het pas waard om gebouwd te worden als u veel vervoer over een grote afstand heeft.</p>
 
 	<p style="hp">Dit is een spoorweg</p>
 	<img src="images/tiles/railud.png" halign="center"/>
@@ -9,7 +9,7 @@
 	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
 	
 	<p style="hsubtitle">Lees ook:</p>
-	<li><a href="transport">Transport</a></li>
+	<li><a href="transport">Verkeer</a></li>
 	<li><a href="road">Straat</a></li>
 	<li><a href="pollution">Vervuiling</a></li>
 </Document>

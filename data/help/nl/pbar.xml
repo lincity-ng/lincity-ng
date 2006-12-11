@@ -2,6 +2,6 @@
 <Document style="helpdocument">
 	<p style="htitle">PBar</p>
 	<p style="hp">Deze indicator wordt de pbar genoemd. Het laat de hoeveelheidswijziging zien van zaken die worden opgeslagen in markten.</p>
-	<p style="hp">Een groene balk rechts duidt een verhoging aan. Een rode balk links duidt een vermindering aand. De grootte van de balk laat de grootte van de wijziging zien.</p>
+	<p style="hp">Een groene balk rechts duidt een verhoging aan. Een rode balk links duidt een vermindering aan. De grootte van de balk laat de grootte van de wijziging zien.</p>
 	<p style="hp">Het getal rechts duidt de totale hoeveelheid aan.</p>
 </Document>

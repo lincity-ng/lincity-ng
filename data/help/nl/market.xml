@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Markt</p>
-	<p style="hp">Martk is mogelijk een slechte naam voor deze gebieden. Ze zijn meer zoals jobcentra, winkels, warenhuizen en markten ineens. Ze kopen en verkopen voedsel, jobs, steenkool, goederen, ijzererts, en staal aan de omliggende gebieden en aan transport. Voorbeeld: een residentie levert goederen aan een markt, en die markt verkoopt die jobs aan een monument in aanbouw. <b>Opgelet!</b>, de residenties worden niet gevoed als de markten op de grens van het bereik ligt. <!-- Klopt dit wel?<b>NOTE</b>, the residents are not being fe if the areas are more or less at the extent of their range.--></p>
+	<p style="hp">Markt is mogelijk een slechte naam voor deze gebieden. Ze zijn meer zoals uitzendburo's, winkels, warenhuizen en markten ineens. Ze kopen en verkopen voedsel, werk, steenkool, goederen, ijzererts, en staal aan de omliggende gebieden en aan het verkeer. Voorbeeld: een woonwijk levert goederen aan een markt, en die markt verkoopt het werk aan een monument in aanbouw. <b>Opgelet!</b>, de woonwijken worden niet gevoed als de markten op de grens van het bereik ligt. <!-- Klopt dit wel?<b>NOTE</b>, the residents are not being fe if the areas are more or less at the extent of their range.--></p>
 	<p style="hsubtitle">Controlleer wat markten kopen en verkopen</p>
-	<p style="hp">You can control the functioning of a market by selecting what may be bought and sold from transport. Click twice on a market (not the select button) and towards the top left hand side a window will appear allowing you to select what is traded. The default is to trade in everything.</p>
+	<p style="hp">U kan de werking van de markt bepalen door selectie's te maken van wat kan worden gekocht en verkocht van het verkeer. Klik twee keer op een markt (niet de selecteer-knop) en linksboven komt een scherm zichtbaar waarmee bepaalt kan worden wat wordt verhandeld. Standaard wordt alles verhandeld.</p>
 	<p style="hp">Dit is een markt</p>
 	<img src="images/tiles/market-empty.png" halign="center"/>
-	<p style="hp">en dit is het icoon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
 	
-	<p style="hp">Dit betekent dar er verhandeld mag worden.</p>
+	<p style="hp">Dit betekent dat er verhandeld mag worden.</p>
 	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
 	<p style="hp">Dit betekent dat er <b>niet</b> verhandeld mag worden</p>
 	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
-	<p style="hp">De cijfers tussen de woorden kopen en verkopen zij de kaartreferenties voor dei markt.</p>
+	<p style="hp">De cijfers tussen de woorden kopen en verkopen zijn de kaartreferenties voor de markt.</p>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="food">Voedsel</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="jobs">Werk</a></li>
 	<li><a href="coal">Steenkool</a></li>
 	<li><a href="goods">Goederen</a></li>
-	<li><a href="ore">Ijzererts</a></li>
+	<li><a href="ore">IJzererts</a></li>
 	<li><a href="steel">Staal</a></li>
-	<li><a href="transport">Transport</a></li>
+	<li><a href="transport">Verkeer</a></li>
 </Document>

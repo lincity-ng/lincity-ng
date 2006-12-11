@@ -1,9 +1,34 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Transport</p>
-	<p style="hp">There are three types of transport in lin-city, tracks, roads and railways. There is a fourth form that consists of 'hopping across a field'. This is a short range form of trading and will not be referred to as transport again. However, it is very important and will be dealt with before tracks, roads and railways.</p>
-	<p style="hp">People can obtain food, goods and employment from markets that are within walking distance of their residential area. See below for an example of the distances involved. Be conservative until you have got the feel of it.</p>
-	<p style="hp"> !!MISSING SECTION!! </p>
-	<p><a href="help/transport2.xml">Next Page</a></p>
+	<p style="htitle">Verkeer</p>
+	<p style="hp">Er zijn drie soorten van verkeer in lin-city, landweggetjes, straten en spoorwegen. Er ook nog een vierden vorm dat bestaat uit 'door de velden lopen'. Dit is vorm van handelen over een korte afstand en wordt niet gezien als verkeer. Maar, het is wel erg belangrijk en wordt het eerst gebruikt voordat er landweggetjes, straten en spoorwegen zijn.</p>
+	<p style="hp">Mensen kunnen voedsel, goederen en werk krijgen op markten binnen loopafstand van hun woonwijk. Kijk beneden voor voorbeelden van afstanden. Wees voorzichtig totdat u er een gevoel voor ontwikkeld heeft.</p>
+	
+	<p style="hp">Mensen kunnen voedsel, goederen en werk krijgen op markten die binnen loopafstand zijn van hun woonwijk.</p>
+	<p style="hp">Alle gebieden die werk geven, doen dat via markten. Bijvoorbeeld een staalfabriek krijgt zijn werknemers van de lokale markt. Maar het kan die ook krijgen van passerend  verkeer.</p>
+	<p style="hp">Boerderijen kunnen hun voedsel direct op de markten verkopen, ze hebben niets te doen met verkeer.</p>
+	<p style="hp">Textielfabrieken, pottenbakkerijen en smeden verkopen hun goederen direct op de dichtbij liggende markten, ook kopen ze hun grondstoffen op dezelfde markten.</p>
+	<p style="hp">De volgende gebieden hebben wel met verkeer en markten te maken. Het is aan u om te kiezen - markten hebben meer <i>voorraad</i> dan verkeer.</p>
+	<p style="hp">Landweggetjes, straten en spoorwegen worden gebruikt om voedsel, goederen, kolen, ijzererts en staal te vervoeren tussen gebieden.</p>
+	<p style="hp">Lichte industrie, ijzerertsmijnen, vuilstorten, kolenmijnen, zware industrie en recycleercentrums kunnen alleen verbonden worden met het verkeer aan de linkerbovenhoek.</p>
+	<p style="hp">Een uitzondering is de steenkoolcentrale. Neem bijvoorbeeld een steenkoolcentrale die verbonden is met een kolenmijn via een straat. Een spoorweg komt uit de bovenste poort van de kolenmijn en gaat naar rechts.</p>
+	<p style="hp">Om een rivier te kruizen met verkeer, bulldozer simpel de rivier en bouw de straat, het landweggetje of de spoorweg over de dam.</p>
+	<p style="hp">Denk dit als het bouwen van een soort brug. Het kost u erg veel geld omdat het bulldozeren van water erg duur is.</p>
+	
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="residential">Woonwijken</a></li>
+	<li><a href="market">Markten</a></li>
+	<li><a href="farm">Boerderijen</a></li>
+	<li><a href="mill">Textielfabrieken</a></li>
+	<li><a href="pottery">Pottebakkerijen</a></li>
+	<li><a href="industryl">Lichte industrie</a></li>
+	<li><a href="oremine">IJzerertsmijnen</a></li>
+	<li><a href="tip">Vuilstort</a></li>
+	<li><a href="port">Havens</a></li>
+	<li><a href="coalmine">Kolenmijnen</a></li>
+	<li><a href="industryh">Zware industrie</a></li>
+	<li><a href="recycle">recycleercentrums</a></li>
+	<li><a href="coalmine">Kolenmijnen</a></li>
+	<li><a href="powercoal">Kolencentrales</a></li>
 </Document>
 

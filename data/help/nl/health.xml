@@ -2,11 +2,11 @@
 <Document style="helpdocument">
 	<p style="htitle">Ziekenhuis</p>
 	<p style="hp">Ziekenhuizen zorgen voor her welzijn van de inwoners. Ze opereren in een vierkant gebied met het ziekenhuis als middelpunt.</p>
-	<p style="hp">Ziekenhuizen zorgen ervoor dat woongebieden een leukere plaatsen worden om te leven, minder mensen zullen sterven van ziektes ten gevolge van vervuiling en de inwoners zullen meer jobs leveren omdat ze minder vaak ziek zijn.</p>
-	<p style="hp">Ziekenhuizen zijn zeer duur, 60000 per jaar. Maar ze verminderen de kosten van onnatuurlijke doden, en kunnen grotere belastingsinkomsen leveren, tenminste als er een plaats is voor de inwoners om te werken.</p>
-	<p style="hp">Nadat u een ziekenhuis heeft gebouwd duurt het drie maanden voordat deze in werking treedt. Een ziekenhuis verbruikt ook goederen, maar ze verbruiken geen jobs omdat ze meegerekend zijn in de extra jobs gecreëerd door de vermindering van ziektes in de omgeving.</p>
-	<p style="hp">Ziekenhuizen moeten niet verbonden zijn met transport, maar ze moeten dan wel in het bereik van een markt liggen.</p>
-	<p style="hp">Om het welzijnspeil van uw stad te bekijken moet u klikken op het welzijnsicoon onder de minikaart. Deze gebieden die normaal worden getoond hebben beschikking tot een ziekenhuisn.</p>
+	<p style="hp">Ziekenhuizen zorgen ervoor dat woongebieden een leukere plaatsen worden om te leven, minder mensen zullen sterven van ziektes ten gevolge van vervuiling en de inwoners zullen meer werk leveren omdat ze minder vaak ziek zijn.</p>
+	<p style="hp">Ziekenhuizen zijn zeer duur, 60000 per jaar. Maar ze verminderen de kosten van onnatuurlijke doden, en kunnen grotere belastingsinkomsten leveren, tenminste als er een plaats is voor de inwoners om te werken.</p>
+	<p style="hp">Nadat u een ziekenhuis heeft gebouwd duurt het drie maanden voordat deze in werking treedt. Een ziekenhuis verbruikt ook goederen, maar ze verbruiken geen werk omdat ze meegerekend zijn in het extra werk gecreëerd door de vermindering van ziektes in de omgeving.</p>
+	<p style="hp">Ziekenhuizen hoeven niet verbonden te zijn met verkeer, maar ze moeten dan wel in de buurt van een markt liggen.</p>
+	<p style="hp">Om het welzijnspeil van uw stad te bekijken moet u klikken op het welzijnsicoon onder de minikaart. Deze gebieden die normaal worden getoond hebben beschikking tot een ziekenhuizen.</p>
 
 	<p style="hp">Dit is een ziekenhuis</p>
 	<img src="images/tiles/health.png" halign="center"/>
@@ -16,10 +16,10 @@
 	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
 
 	<p style="hsubtitle">Lees ook:</p>
-	<li><a href="residential">Residentie</a></li>
+	<li><a href="residential">Woonwijk</a></li>
 	<li><a href="pollution">Vervuiling</a></li>
-	<li><a href="jobs">Jobs</a></li>
+	<li><a href="jobs">Werk</a></li>
 	<li><a href="goods">Goederen</a></li>
-	<li><a href="transport">Transport</a></li>
+	<li><a href="transport">Verkeer</a></li>
 	<li><a href="msb-health">Welzijnskaart</a></li>
 </Document>

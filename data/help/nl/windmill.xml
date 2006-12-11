@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Windmills</p>
-	<p style="hp">Windmills provide power for residences and farms. They enable the farmer to process food more eficiently and make residences more desirable.</p>
-	<p style="hp">Providing power to residences makes the people there use more goods.</p>
-	<p style="hp">Low tech windmills do <b>not</b> provide power to industries. (Heavy industry can get power from coal, light industry needs <i>real</i> electricity to be <i>powered</i>, they still work without power at a lower output.)</p>
-	<p style="hp">There are two forms of windmills.</p>
+	<p style="htitle">Windmolens</p>
+	<p style="hp">Windmolens maken electriciteit voor woonwijken en boerderijen. Ze zorgen ervoor dat boeren meer efficient voedsel maken en dat woonwijken meer geliefd zijn om in te wonen.</p>
+	<p style="hp">Door woonwijken electriciteit te geven gaan de mensen meer goederen gebruiken.</p>
+	<p style="hp">Eenvoudige windmolens geven <b>geen</b> electriciteit aan industrie. (zware industrie kan energie krijgen van kolen, lichte industrie heeft <i>echte</i> electriciteit nodig als energie, ze zullen wel werken zonder energie maar produceren (maken) dan minder.)</p>
+	<p style="hp">Er zijn twee soorten windmolens.</p>
 	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
-	<p style="hp">The first is a low-tech 'wooden' windmill.</p>
+	<p style="hp">Het eerste model is een simpele 'houten' windmolen.</p>
 	<img src="images/tiles/windmill1w.png" halign="center"/>
-	<p style="hp">The second is a 'modern' wind-farm type.</p>
+	<p style="hp">Het tweede model is een 'moderne' windmolen.</p>
 	<img src="images/tiles/windmill1g.png" halign="center"/>
-	<p style="hp">The type you get depends on your tech-level when you build it.</p>
-	<p style="hp">High tech ones can supply power lines.</p>
+	<p style="hp">De soort die u bouwt hangt af van uw technologie nivo.</p>
+	<p style="hp">electriciteitsdraden kunnen alleen aan 'moderne' windmolens vastzitten.</p>
 </Document>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Langzame snelheid</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Dit is de langzame-snelheid knop. Het zorgt ervoor dat het spel zo langzaam mogelijk loopt. Op tragere computers is het mogelijk dat deze knop geen effect heeft.</p>
+	
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="medium">Normale snelheid</a></li>
+	<li><a href="fast">Hoge snelheid</a></li>
+</Document>

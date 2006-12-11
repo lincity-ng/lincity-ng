@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Tracks</p>
-	<p style="hp">Tracks are the simplest, and cheapest, form of transport. They also have the lowest capacity. On the other hand, they produce no pollution.</p>
+	<p style="htitle">Landweggetjes</p>
+	<p style="hp">Landweggetjes zijn de eenvoudigste, en goedkoopste vorm van transport. Er kan ook het minste verkeer op (weinig capaciteit). Aan de andere kant, ze maken ook geen luchtvervuiling.</p>
 	
-	<p style="hp">This is a track</p>
+	<p style="hp">Dit is een landweggetje</p>
 	<img src="images/tiles/trackud.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="transport">Transport</a></li>
-	<li><a href="commune">Communes</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="transport">Verkeer</a></li>
+	<li><a href="commune">Communie</a></li>
 </Document>

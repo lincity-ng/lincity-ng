@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Tips (rubbish dumps)</p>
-	<p style="hp">Tips provide a place to put your rubbish. If you accumulate too much at markets, they are forced to burn some. This makes quite a lot of pollution so you should be wary of letting rubbish accumulate.</p>
-	<p style="hp">As the tip is filled, it slowly turns into a hill, which is grassed over when it is full.</p>
-	<p style="hp">Transport connects to the top left hand corner of the tip as usual.</p>
-	<p style="hp">You can see when a blacksmith is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
+	<p style="htitle">Vuilstort</p>
+	<p style="hp">Vuilstorten zijn een plaats waar u uw afval kunt storten. Als u teveel heeft verzameld op markten, zijn ze gedwongen om wat te verbranden. Dit zorgt voor veel luchtvervuiling, daarom moet u oppassen dat zich teveel afval verzameld.</p>
+	<p style="hp">Als de vuilstort vol is, verandert het langzaam in een heuvel, waarop gras gaat groeien als het vol is.</p>
+	<p style="hp">Het verkeer moet met de linkerbovenhoek verbonden zijn.</p>
+	<p style="hp">U kan zien dat een vuilstort in bedrijf is op de normale manier, door er op te klikken, om de zoveel tijd komt er ook een animatie tot leven.</p>
 	
-	<p style="hp">This is a tip</p>
+	<p style="hp">Dit is een vuilstort</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="market">Markets</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="market">Markt</a></li>
 </Document>

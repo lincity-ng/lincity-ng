@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Residential area</p>
-	<p style="hp">This is where people live. To encorage people to live in this area they must be fed. It also helps to provide them with work and goods to buy. They must be within range of a market or connected to transport. There are 3 different types of residentials, low, medium and high density housing. These have different birth and death rates associated with them, this gives you some control over your population.</p>
-	<p style="hp">Later in the game, if you have sufficient technology, you can build more 'modern' housing, even tower blocks.</p>
+	<p style="htitle">Woonwijk</p>
+	<p style="hp">Hier wonen de mensen. Om mensen aan te moedigen in een woonwijk te wonen, moeten ze eten krijgen. Het helpt ook om ze werk te geven en dat ze goederen kunnen kopen. Een woonwijk moet in de buurt van een markt liggen of aan een verkeersweg liggen. Er zijn 3 verschillende soorten huizen, met weinig, gemiddeld en veel inwoners. Ze hebben verschillende hoeveelheden geboortes en sterfte-cijfers, dit geeft een beetje controle over de bevolking.</p>
+	<p style="hp">Verderop in het spel, wanneer u voldoende technologie heeft, kunt u meer 'moderne' huizen bouwen, zelfs torenflats.</p>
 
-	<p style="hp">This is a low density housing (hightech)</p>
+	<p style="hp">Dit is een huis met weinig bewoners (modern)</p>
 	<img src="images/tiles/reslowhi.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
-	<p style="hp">This is a medium density housing (hightech)</p>
+	<p style="hp">Dit is een huis met gemiddeld bewoners (modern)</p>
 	<img src="images/tiles/resmedhi.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
-	<p style="hp">This is a high density housing (hightech)</p>
+	<p style="hp">Dit is een huis met veel bewoners (modern)</p>
 	<img src="images/tiles/reshihi.png" halign="center"/>
-	<p style="hp">and this it's icon</p>
+	<p style="hp">en dit is het icoontje</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
 
-	<p style="hsubtitle">See also:</p>
-	<li><a href="market">Market</a></li>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="market">Markt</a></li>
 </Document>
 
