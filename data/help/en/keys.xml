@@ -16,7 +16,7 @@
     <p style="hp">KP3 scroll main screen east</p>
     <p style="hp">KP2 scroll main screen se</p> 
     <p style="hp">KP4 scroll main screen sw</p> 
-    <p style="hp">KP6 scroll main screen se</p> 
+    <p style="hp">KP6 scroll main screen ne</p> 
     <p style="hp">KP8 scroll main screen nw</p> 
     <p style="hp">same with cursor</p>
     <p style="hp">use shift + direction to scroll faster</p>
@@ -32,7 +32,7 @@
     <p style="hp">left:</p>
     <p style="hp">Click on Minimap shows the selected Area on mainscreen.</p>
     <p style="hp">Perform action depending on selected tool. Bulldoze, show Information,
-    construct building.:</p>
+    construct building.</p>
     <p style="hp">wheel:</p>
     <p style="hp"> up: zoom in</p>
     <p style="hp">down: zoom out </p>
