@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Nápověda Lincity</p>
+	<p style="hp">
+		Vítejte v nápovědě Lincity. Vyberte si prosím téma
+		kliknutím na jedno z modrých slov níže. Modrá barva
+		vetšinou značí odkaz na jiný dokument.
+	</p>
+	<li><a href="keys">Klávesové zkratky</a></li>
+	<li><a href="button-index">Seznam všech postavitelných položek</a></li>
+	<li><a href="mini-screen">Nápověda minimapy</a></li>
+	<li><a href="dialogs">Nápověda informačních záložek</a></li>
+	<p style="hp">Behěm hry je možné u vetšiny věcí získat nápovědu
+		pomocí tlačítka nápovědy.</p>
+    
+    <li><a href="index">Index</a></li>
+</Document>

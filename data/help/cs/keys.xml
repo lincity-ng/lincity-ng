@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Klávesnice</p>
+    <p style="hp">ESCAPE: přepnout do dotazovacího režimu</p>
+    <p style="hp">b přepínání mezi aktuálním nástrojem a buldozerem</p>
+    <p style="hp">h pro schování vysokých budov. Opětovným stisknutím h se zobrazí.</p>
+    <p style="hp">v pro procházení režimů MiniMapy</p>
+    <p style="hp">KP_PLUS: přiblížení pohledu</p>
+    <p style="hp">KP_MINUS oddálení pohledu</p>
+    <p style="hp">KP_ENTER zobrazení 100%</p>
+    <p style="hp">KP5 umístění středu mapy do prostředku obrazovky</p>  
+    <p style="hp">KP9 posun hlavní obrazovky severněji</p>
+    <p style="hp">KP1 posun hlavní obrazovky jižněji</p>
+    <p style="hp">KP7 posun hlavní obrazovky západněji</p>
+    <p style="hp">KP3 posun hlavní obrazovky východněji</p>
+    <p style="hp">KP2 posun hlavní obrazovky jihovýchodně</p> 
+    <p style="hp">KP4 posun hlavní obrazovky jihozápadně</p> 
+    <p style="hp">KP6 posun hlavní obrazovky severovýchodně</p> 
+    <p style="hp">KP8 posun hlavní obrazovky severozápadně</p> 
+    <p style="hp">stejně jako kurzorem</p>
+    <p style="hp">použijte shift + směr pro větší rychlost posuvu</p>
+    <p style="hp">F12 ryhlé uložení</p> 
+    <p style="hp">F9  rychlé načtení</p> 
+
+    <p style="htitle">Myš</p>
+    <p style="hp">pravé tlačítko:</p>
+    <p style="hp">Chytněte a táhněte pravým tlačítkem v hlavní obrazovce
+	pro posuv.</p>
+    <p style="hp">Kliknutím pravým tlačítkem do hlavní obrazovky
+	vycentrujete položku pod kurzorem.</p>
+    
+    <p style="hp">prostřední:</p>
+    <p style="hp">Kliknetě prostředním tlačítkem myši do hlavní obrazovky
+	pro zobrazení informací o území pod kurzorem.</p>
+    <p style="hp">levé tlačítko:</p>
+    <p style="hp">Kliknutím do Minimapy zobrazíte zvolenou oblast na hlavní
+	obrazovce</p>
+    <p style="hp">Provede akci v závislosti na vybraném nástroji.</p>
+    
+    <p style="hp">kolečko:</p>
+    <p style="hp">nahoru: přiblížení pohledu</p>
+    <p style="hp">dolů: oddálení pohledu</p>
+</Document>
+

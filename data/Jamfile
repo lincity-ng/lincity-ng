@@ -42,6 +42,7 @@ for p in $(IMAGEPATHS) {
 }
 
 HELPPATHS =
+    help/cs
     help/de
     help/en
     help/es
