@@ -110,7 +110,7 @@
 
 	<!--<p style="subtitle">Misc</p>-->
 	<img src="images/gui/buttonpanel/misc/fire.png"/>
-	<p><a href="firestation">Brandweerstation</a></p>
+	<p><a href="firestation">Brandweerkazerne</a></p>
 
 	<img src="images/gui/buttonpanel/misc/sports.png"/>
 	<p><a href="cricket">Basketbalveld</a></p>

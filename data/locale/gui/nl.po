@@ -1,16 +1,19 @@
+# translation of nl.po to Nederlands
+# Ronald Stroethoff <stroet43@zonnet.nl>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Lincity-ng GUI\n"
+"Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: %1\n"
-"PO-Revision-Date: 2005-05-17 16:52+0100\n"
-"Last-Translator: Nathan Samson <nathansamson@gmail.com>\n"
-"Language-Team: Dutch <nathansamson@gmail.com>\n"
+"PO-Revision-Date: 2006-12-21 19:39+0100\n"
+"Last-Translator: Ronald Stroethoff <stroet43@zonnet.nl>\n"
+"Language-Team: Nederlands <en@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Dutch\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
 #: data/gui/options.xml
@@ -31,7 +34,7 @@ msgstr "Een rivier verwijderen kost heel veel geld."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs lot of money and may cause "
-msgstr "Een krottenwijk afbreken kost heel veel geld, dit kan brand veroorzaken"
+msgstr "Een krottenwijk afbreken kost heel veel geld en dit kan brand veroorzaken"
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Buy"
@@ -55,11 +58,11 @@ msgstr "Code"
 
 #: data/gui/mainmenu.xml
 msgid "Continue"
-msgstr "Verdergaan"
+msgstr "Doorgaan"
 
 #: data/gui/mainmenu.xml data/gui/creditslist.xml
 msgid "Credits"
-msgstr "Credits"
+msgstr "Met dank aan:"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Do coal survey?"
@@ -67,7 +70,7 @@ msgstr "Een steenkoolonderzoek houden?"
 
 #: data/gui/options.xml
 msgid "FX off"
-msgstr "FX af"
+msgstr "FX uit"
 
 #: data/gui/options.xml
 msgid "FX on"
@@ -79,7 +82,7 @@ msgstr "Voedsel"
 
 #: data/gui/options.xml
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Volledig scherm"
 
 #: data/gui/options.xml
 msgid "GameMode:"
@@ -99,7 +102,7 @@ msgstr "Haven handelsinstelligen"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "Info: Rocket ready at Launchsite "
-msgstr "Info: raket staat klaar op de lanceersite "
+msgstr "Info: raket staat klaar op de lanceerbasis "
 
 #: data/gui/coal_survey_yn.xml
 msgid "Info: Send out Prospectors? "
@@ -107,7 +110,7 @@ msgstr "Info: Prospectors uitzenden?"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml
 msgid "Jobs"
-msgstr "Jobs"
+msgstr "Werk"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "Launch now?"
@@ -135,7 +138,7 @@ msgstr "Muziek aan"
 
 #: data/gui/options.xml
 msgid "Mute Music"
-msgstr "Muziek dempen"
+msgstr "Muziek uit"
 
 #: data/gui/newgame.xml data/gui/mainmenu.xml
 msgid "New Game"
@@ -153,11 +156,11 @@ msgstr "Opties"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Ore"
-msgstr "Ijzererts"
+msgstr "IJzererts"
 
 #: data/gui/creditslist.xml
 msgid "Original Idea and Code"
-msgstr "Oorspronkelijk idee en code"
+msgstr "Oorspronkelijk idee en programeur"
 
 #: data/gui/pbar.xml
 msgid "Population"
@@ -165,7 +168,7 @@ msgstr "Bevolking"
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Product"
-msgstr "Product"
+msgstr "Produkt"
 
 #: data/gui/mainmenu.xml
 msgid "Quit"
@@ -189,15 +192,15 @@ msgstr "Geluid en muziek"
 
 #: data/gui/newgame.xml
 msgid "Start"
-msgstr "Start"
+msgstr "Begin"
 
 #: data/gui/newgame.xml
 msgid "Start with bare board."
-msgstr "Met een leeg speelveld starten."
+msgstr "Met een leeg speelveld beginnen."
 
 #: data/gui/newgame.xml
 msgid "Start with random village."
-msgstr "Met een random stad starten"
+msgstr "Met een willekeurige stad beginnen."
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Steel"
@@ -209,7 +212,7 @@ msgstr "Tech niveau"
 
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it's is free to call again."
-msgstr "Dit kost eenmalig 1 millioen. Daarna is het gratis om het opnieuw op te roepen."
+msgstr "Dit kost eenmalig 1 miljoen. Daarna is het gratis om het opnieuw op te vragen."
 
 #: data/gui/tradedialog.xml
 msgid "Trade Settings "
@@ -249,7 +252,7 @@ msgstr "Ja"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
-msgstr "U kan de raket nu lanceren of wachten. Als u wacht zal het u geld blijven kosten om de raket startklaar te houden. U kunt de raket later lanceren door te klikken op de lanceerbasisis."
+msgstr "U kan de raket nu lanceren of wachten tot later. Als u wacht zal het u geld blijven kosten om de raket startklaar te houden. U kunt de raket later lanceren door te klikken op de lanceerbasisis."
 
 #: data/gui/loadgame.xml
 #, fuzzy
