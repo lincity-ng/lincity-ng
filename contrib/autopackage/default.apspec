@@ -52,7 +52,7 @@ installExe bin/*
 installData share/lincity-ng
 installData share/doc
 installIcon share/pixmaps/*.png
-installDesktop Game share/applications/lincity-ng.desktop
+installDesktop Games share/applications/lincity-ng.desktop
 
 [Uninstall]
 # Usually just the following line is enough to uninstall everything
