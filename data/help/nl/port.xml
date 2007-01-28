@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Havens</p>
 	<p style="hp">Via havens kunt u goederen, staal, ijzererts, kolen en voedsel importeren en exporteren. Importeren kost geld en exporteren levert geld op.</p>
-	<p style="hp">De haven kan pas gebruikt worden als de poort aan de linkerbovenkant van de haven verbonden is met een weg of spoorweg. U kan kiezen wat wordt geïmporteerd door dubbelklikken op de haven. U krijgt dan een menu met lijsten waarmee u kunt selecteren wat u wel of niet wil importeren en exporten.</p>
+	<p style="hp">De haven kan pas gebruikt worden als het verbonden is met een weg of spoorweg. U kan kiezen wat wordt geïmporteerd door dubbelklikken op de haven. U krijgt dan een menu met lijsten waarmee u kunt selecteren wat u wel of niet wil importeren en exporten.</p>
 	<p style="hp">Een haven <b>moet</b> zo met een rivier verbonden zijn dat rechts van de haven water is.</p>
 	<p style="hp">Er wordt niets geïmporteerd totdat u dat heeft gekozen in de checkbox.</p>
 	<p style="hp">De haven probeert om zoveel mogelijk te exporteren. Als u moet exporteren (om geld te verdienen), maar de export-hoeveelheid wilt beperken, zult u een slechter verbindingsweggetje moeten bouwen, een lange verbindingsweg gebruiken of langs een markt moeten gaan. U zult een beetje moeten experimenteren om het juiste resultaat te krijgen.</p>

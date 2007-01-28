@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Import en export gebieden</p>
-	<p style="hp">Import en export werkt hetzelfde behalve dat het eerste je geld kost en het tweede je geld oplevert. Daarom wordt alleen export hier uitvoerig besproken.</p>
+	<p style="hp">Import en export werkt hetzelfde behalve dat het eerste je geld kost en het tweede je geld oplevert. Voor beide  is een haven nodig. Daarom wordt alleen export hier uitvoerig besproken.</p>
 	<p style="hp">Export is goederen verkopen naar een ander land, import is goederen kopen uit een ander land.</p>
-	<p style="hp">Om te exporteren moet de haven verbonden zijn met een weg, nu is dat nog via de poort linksboven in de hoek. <!-- volgens mij is dit foutTo export, you connect transport to the gate that deals with that product. For example, to export ore, you would connect a road, perhaps, that has ore on it, to the ore 'gate'.--></p>
+	<p style="hp">Om te exporteren moet de haven verbonden zijn met een weg.</p>
 	<p style="hp">Havens moeten verbonden zijn met een rivier aan de rechterkant.</p>
-	<!--<p style="hp">The gates, from top to bottom, export coal, ore, goods and steel.</p>-->
 	<p style="hp">Het exportgebied zal zoveel mogelijk uitvoeren als mogelijk. Als u wel wilt exporteren maar de hoeveelheid wilt beperken kunt u een verkeerstype kiezen met minder capaciteit, een lang stuk gebruiken of het product langs een markt laten passeren. U zal veel moeten experimenteren om de juiste exportconfiguratie te vinden.</p>
 
-	<p style="hp">Lees ook:</p>
+	<p style="hsubtitle">Lees ook:</p>
+	<li><a href="port">Haven</a></li>
 	<li><a href="transport">Verkeer</a></li>
 	<li><a href="market">Markt</a></li>
 	<li><a href="coal">Steenkool</a></li>

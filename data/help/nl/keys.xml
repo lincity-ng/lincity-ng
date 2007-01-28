@@ -3,23 +3,25 @@
  
     <p style="htitle">Toetsenbord</p>
     <p style="hp">ESCAPE: ga naar de querytool.</p>
-	<p style="hp">b: wisselt tussen het huidige hulpmiddel en de afbraakmidddel.</p>
+	<p style="hp">b: wisselt tussen het huidige hulpmiddel en de bulldozer.</p>
     <p style="hp">h: om hoge gebouwen niet meer te laten zien. Druk nog eens op h om ze terug te laten zien.</p>
     <p style="hp">v: om te verwisselen tussen de verschillen bedekkingsmodi.</p>
     <p style="hp">Numerieke +: inzoomen</p>
-    <p style="hp">Numeriek enter: uitzoomen</p>
+    <p style="hp">Numerieke -: uitzoomen</p>
     <p style="hp">Numerieke enter: standaardzoom (100%)</p>
     <p style="hp">Numerieke 5: zet het centrum van de kaart in het centrum van het scherm.</p>  
     <p style="hp">Numerieke 9: scroll het scherm noord.</p>
     <p style="hp">Numerieke 1: scroll het scherm zuid.</p>
     <p style="hp">Numerieke 7: scroll het scherm west.</p>
     <p style="hp">Numerieke 3: scroll het scherm oost.</p>
-    <p style="hp">Numerieke 2: scroll het scherm no.</p> 
+    <p style="hp">Numerieke 2: scroll het scherm zo.</p> 
     <p style="hp">Numerieke 4: scroll het scherm zw.</p> 
-    <p style="hp">Numerieke 6: scroll het scherm zo.</p> 
+    <p style="hp">Numerieke 6: scroll het scherm no.</p> 
     <p style="hp">Numerieke 8: scroll het scherm nw.</p> 
     <p style="hp">als u de muiscursor naar de rand van het scherm beweegt zal u scrollen in die richting.</p>
     <p style="hp">gebruik shift+de muiscursor om sneller te scrollen.</p>
+    <p style="hp">F12 opslaan</p>
+    <p style="hp">F9 laden</p>
 
     <p style="htitle">Muis</p>
     <p style="hp">rechtermuisknop:</p>
@@ -29,7 +31,7 @@
     <p style="hp">middenmuisknop in het hoofdscherm laat informatie zien over het gebied onder de cursor.</p>
     <p style="hp">linkermuisknop:</p>
     <p style="hp">linkermuisknop op de minikaart laat het geselcteerde gebie zijn in het hoofdscherm.</p>
-    <p style="hp">Voer actie uit afhankelijk van het geselcteerde hulpmiddel.</p>
+    <p style="hp">Voer actie uit afhankelijk van het geselcteerde hulpmiddel.Bulldozer, toon informatie, iets bouwen.</p>
     <p style="hp">muiswiel:</p>
     <p style="hp"> omhoog: inzoomen</p>
     <p style="hp">omlaag: uitzoomen</p>
