@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: %1\n"
-"PO-Revision-Date: 2006-09-07 23:02+0100\n"
+"POT-Creation-Date: Sat Jan 27 22:03:14 2007\n"
+"PO-Revision-Date: 2007-01-29 19:27+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -501,6 +501,10 @@ msgstr "Vollständige Evakuierung abgeschlossen."
 msgid "Trade Settings"
 msgstr "Handelseinstellungen"
 
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "Übersetzung"
+
 #: data/gui/universityup.xml
 msgid "University available"
 msgstr "Universitäten verfügbar"
@@ -513,7 +517,7 @@ msgstr "Möchten sie planieren?"
 #: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Warning"
-msgstr "Warung"
+msgstr "Warnung"
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Warning: Bulldozing monuments is expensive"
@@ -525,7 +529,7 @@ msgstr "Achtung, Barackensiedlungen planieren ist gefährlich."
 
 #: data/gui/bulldoze_river_yn.xml
 msgid "Warning: Bulldozing water is expensive"
-msgstr "Warung: Gewässer auffüllen ist teuer "
+msgstr "Warnung: Gewässer auffüllen ist teuer "
 
 #: data/gui/launch-gone.xml
 msgid "Well done you have evacuated all your people."

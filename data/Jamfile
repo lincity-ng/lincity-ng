@@ -56,8 +56,8 @@ for p in $(HELPPATHS) {
 
 InstallData [ Wildcard gui : *.xml ] : gui ;
 InstallData [ Wildcard fonts : *.ttf ] : fonts ;
-InstallData [ Wildcard locale : *.po* ] : locale ;
-InstallData [ Wildcard locale/gui : *.po* ] : locale/gui ;
+InstallData [ Wildcard locale : *.po ] : locale ;
+InstallData [ Wildcard locale/gui : *.po ] : locale/gui ;
 InstallData [ Wildcard music : *.ogg ] : music ;
 InstallData [ Wildcard sounds : *.wav ] : sounds ;
 InstallData lincityconfig.xml ;
