@@ -256,9 +256,49 @@ void initVideo(int width, int height)
     }
 }
 
+void checkGlErrors()
+{
+    GLenum glerror = glGetError();
+    if( glerror == GL_NO_ERROR ){
+        return;
+    }
+    std::cerr << "glGetError reports";
+    while( glerror != GL_NO_ERROR ){
+        switch( glerror ){
+            std::cerr << " ";
+            case GL_INVALID_ENUM:
+                std::cerr << "GL_INVALID_ENUM";
+                break;
+            case GL_INVALID_VALUE:
+                std::cerr << "GL_INVALID_VALUE";
+                break;
+            case GL_INVALID_OPERATION:
+                std::cerr << "GL_INVALID_OPERATION";
+                break;
+            case GL_STACK_OVERFLOW:
+                std::cerr << "GL_STACK_OVERFLOW";
+                break;
+            case GL_STACK_UNDERFLOW: 
+                std::cerr << "GL_STACK_UNDERFLOW";
+                break;
+            case GL_TABLE_TOO_LARGE:           
+                std::cerr << "GL_TABLE_TOO_LARGE";
+                break;
+            case GL_OUT_OF_MEMORY:           
+                std::cerr << "GL_OUT_OF_MEMORY";
+                break;
+            default:
+                std::cerr << glerror;
+        }
+        glerror = glGetError();
+    }
+    std::cerr << "\n";
+}
+
 void flipScreenBuffer()
 {
     if( getConfig()->useOpenGL ){
+        checkGlErrors();
         SDL_GL_SwapBuffers();
         //glClear(GL_COLOR_BUFFER_BIT);
     } else {
