@@ -7,6 +7,9 @@
 	<li><a href="mini-screen">Help on the minimap</a></li>
 	<li><a href="dialogs">Help on information tabs</a></li>
 	<p style="hp">While playing the game, you can get help with most things using the help button.</p>
-    
+
+    <p style="htitle">Objective</p>
+    <p style="hp">You can win Lincity either by building a <a href="sustain">sustainable economy </a> or
+    by evacuating all citizens with <a href="rocket">spaceships</a>.</p>
     <li><a href="index">Index</a></li>
 </Document>

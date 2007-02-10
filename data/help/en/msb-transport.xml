@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Land use overlay</p>
-	<img src="images/gui/mapview/roundbuttons/round_resident.png" halign="center"/>
-	<p style="hp">The land use mini screen shows buildings, roads, water and green space in the city.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	<p style="htitle">Transportation overlay</p>
+	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+	<p style="hp">The transportation mini screen shows the amount of goods on the 
+    city's <a href="track">tracks</a>, <a href="road">roads </a>
+    and <a href="rail">railways</a>.</p>
+	<p style="hp">The bluish colors indicate buildings that are inside the range of a <a href="market">market</a>.</p>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>
@@ -11,6 +13,7 @@
 	<li><a href="msb-cricket">Sports overlay</a></li>
 	<li><a href="msb-fire">Fire overlay</a></li>
 	<li><a href="msb-health">Health overlay</a></li>
+	<li><a href="msb-normal">Normal overlay</a></li>
 	<li><a href="msb-pol">Pollution overlay</a></li>
 	<li><a href="msb-power">Power overlay</a></li>
 	<li><a href="msb-starve">Starvation overlay</a></li>
