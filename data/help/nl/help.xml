@@ -9,4 +9,8 @@
 	<li><a href="dialogs">Help over de informatie kaartjes</a></li>
 	<p style="hp">Terwijl het spel wordt gespeeld, kan er kontext-gekoppelde help worden gekregen via de help-knop.</p>
 	<li><a href="index">Index</a></li>
+	
+	<p style="htitle">Doel van het spel</p>
+	<p style="hp">U heeft in Lincity gewonnen door een <a href="sustain">duurzame economie </a> te bouwen of door alle inwoners te evacueren met <a href="rocket">raketten</a>.</p>
+    <li><a href="index">Index</a></li>
 </Document>
