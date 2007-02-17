@@ -7,7 +7,7 @@
 	<p style="hp">Detta är ett bostadsområde med lågt boende (hög teknologi)</p>
 	<img src="images/tiles/reslowhi.png" halign="center"/>
 	<p style="hp">och detta är dess ikon</p>
-	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
 	<p style="hp">Detta är ett bostadsområde med medium boende (hög teknologi)</p>
 	<img src="images/tiles/resmedhi.png" halign="center"/>
 	<p style="hp">och detta är dess ikon</p>
@@ -15,7 +15,7 @@
 	<p style="hp">Detta är ett bostadsområde med högt boende (hög teknologi)</p>
 	<img src="images/tiles/reshihi.png" halign="center"/>
 	<p style="hp">och detta är dess ikon</p>
-	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
 
 	<p style="hsubtitle">Se också:</p>
 	<li><a href="market">Marknader</a></li>

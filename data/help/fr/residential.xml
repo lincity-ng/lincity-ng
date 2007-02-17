@@ -7,7 +7,7 @@
 	<p style="hp">Ceci est un logement de faible densité (hightech)</p>
 	<img src="images/tiles/reslowhi.png" halign="center"/>
 	<p style="hp">et ceci est son icône</p>
-	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
 	<p style="hp">Ceci est un logement de moyenne densité (hightech)</p>
 	<img src="images/tiles/resmedhi.png" halign="center"/>
 	<p style="hp">et ceci est son icône</p>
@@ -15,7 +15,7 @@
 	<p style="hp">Ceci est un logement de forte densité (hightech)</p>
 	<img src="images/tiles/reshihi.png" halign="center"/>
 	<p style="hp">et ceci est son icône</p>
-	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
 
 	<p style="hsubtitle">Voir aussi :</p>
 	<li><a href="market">Marché</a></li>

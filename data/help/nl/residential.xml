@@ -7,7 +7,7 @@
 	<p style="hp">Dit is een huis met weinig bewoners (modern)</p>
 	<img src="images/tiles/reslowhi.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
 	<p style="hp">Dit is een huis met gemiddeld bewoners (modern)</p>
 	<img src="images/tiles/resmedhi.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
@@ -15,7 +15,7 @@
 	<p style="hp">Dit is een huis met veel bewoners (modern)</p>
 	<img src="images/tiles/reshihi.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>
-	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="market">Markt</a></li>

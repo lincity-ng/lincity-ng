@@ -7,7 +7,7 @@
 	<p style="hp">Esta es una zona residencial de baja densidad (alta tecnología)</p>
 	<img src="images/tiles/reslowhi.png" halign="center"/>
 	<p style="hp">y éste es su icono</p>
-	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
 	<p style="hp">Esta es una zona residencial de densidad media (alta tecnología)</p>
 	<img src="images/tiles/resmedhi.png" halign="center"/>
 	<p style="hp">y éste es su icono</p>
@@ -15,7 +15,7 @@
 	<p style="hp">Esta es una zona residencial de alta densidad (alta tecnología)</p>
 	<img src="images/tiles/reshihi.png" halign="center"/>
 	<p style="hp">y éste es su icono</p>
-	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
 
 	<p style="hsubtitle">Ver también:</p>
 	<li><a href="market">Comercios</a></li>
