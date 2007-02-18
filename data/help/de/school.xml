@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Schulen</p>
+	<p style="hp">Schulen benötigen ähnlich wie Universitäten Arbeiter und
+     Waren um Technologie zu  erzeugen. Sie brauchen viel weniger
+    Arbeiter und Waren als die Unis, erzeugen aber auch viel weniger
+    Technologie. Wenn Sie die Wahl zwischen vier oder fünf Schulen
+    oder einer einzigen Uni in der gleichen Gegend haben sind Sie
+    mit der Uni fast immer besser dran.</p>
+	<p style="hp">Schulen müssen nicht mit Transportwegen verbunden
+    sein, aber sie müssen sich in Reichweite eines Marktes befinden
+    um sich mit den für den Schulbetrieb benötigten Waren und Arbeitern
+    auszustatten.</p>
+	<p style="hp">Schulen zu betreiben kostet Geld. Sie können die
+    Gesamtkosten des <b>letzten</b> Jahres dem Jahresabschluss entnehmen.</p>
+	<p style="hp">Ob eine Schule in Betrieb ist können sie wie üblich durch 
+    Anklicken der Schule erkenne.</p>
+	<p style="hp">Das ist eine Schule</p>
+	<img src="images/tiles/school0.png" halign="center"/>
+	<p style="hp">und das ihr Icon</p>
+	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="market">Markt</a></li>
+	<li><a href="university">Universität</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="goods">Waren</a></li>
+	<li><a href="jobs">Arbeitsplätze</a></li>
+</Document>

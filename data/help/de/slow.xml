@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Langsame Geschwindigkeit</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Dies ist der "Langsam"-Knopf.  Er lässt das Spiel am langsamsten laufen. </p>
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="medium">Normal</a></li>
+	<li><a href="fast">Schnell</a></li>
+</Document>

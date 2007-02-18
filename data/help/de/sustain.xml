@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Nachhaltigkeitsfortschrittsanzeige</p>
+	<p style="hp">Das Fenster zeigt sechs farbige Balken.
+    Sobald sie alle die rechte Seite erreicht haben, gilt
+    Ihre Wirtschaft als nachhaltig.</p>
+	<li>
+		<span color="orange">Bergbau</span> (orange) Sie bauen weder Erz noch
+        Kohle ab und verbringen auch keinen Müll auf Deponien.
+	</li>
+	<li>
+		<span color="gray">Handle</span>(grau) Weder importieren noch exportieren
+        sie irgendetwas.
+	</li>
+	<li>
+		<span color="green">Geld</span> (grün) Ihr Vermögen bleibt gleich oder
+        wächst. Das bedeutet, sic können nichts außer den günstigsten
+        Gebäuden bauen.
+	</li>
+	<li>
+		<span color="blue">Leute</span> (blau) Ihre Bevölkerungszahl weicht
+        um maximal 2% von der Zahl in dem Jahr ab, in dem die 180 Jahre 
+        begonnen haben. Wenn die Bevölkerungszahl außerhalb dieses 
+        Bandes liegt springt der Zähler auf Null und die aktuelle 
+        Bevölkerungszahl ist der neue Richtwert. Außerdem brauchen
+        sie mindestens 5000 Leute.
+	</li>
+	<li>
+		<span color="yellow">Tech</span> (gelb) Das Technologieniveau ist 
+        ansteigend oder es fällt nur unwesentlich. Wenn es um mehr als 1%
+		fällt wird der Zähler zurückgesetzt. Außerdem brauchen Sie
+        mindestens ein Technologieniveau von 50%.
+	</li>
+	<li>
+		<span color="red">Feuer</span> (red) Alle brennbaren Gebiete werden
+        von der Feuerwehr geschützt. Monumente, Erzgruben, Stromleitungen
+        und Raketenbasen brauchen *nicht* geschützt zu werden.
+	</li>
+	<p style="hp">Jahre bis zur Nachhaltigkeit: Bergbau=180 Handel=180 Geld=60 Leute=60 Tech=120 Feuer=60</p>
+</Document>
