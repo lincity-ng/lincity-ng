@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Gesundheits Layer</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<p style="hp">Gebiete im Einzugsbereich eines Krankenhauses liegen werden als Dunkelgrün dargestellt.</p>
+	<p style="hp">Gebiete die nicht im Einzugsbereich liegen werden normal dargestellt.</p>
+	<p style="hp">Beachte, Krankenhäuser brauchen drei Monate bis Sie ihren betrieb aufnehmen.</p>
+	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein andere Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="mini-screen">Miniaturansicht</a></li>
+	<li><a href="msb-coal">Kohle Layer</a></li>
+	<li><a href="msb-cricket">Sport Layer</a></li>
+	<li><a href="msb-fire">Feuer Layer</a></li>
+	<li><a href="msb-normal">Normaler Layer</a></li>
+	<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+	<li><a href="msb-power">Energie Layer</a></li>
+	<li><a href="msb-starve">Hunger Layer</a></li>
+	<li><a href="msb-transport">Verkehrs Layer</a></li>
+	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
+</Document>

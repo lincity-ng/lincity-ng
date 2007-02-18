@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Markt</p>
+	<p style="hp">Markt ist wahrscheinlich ein schlechter Name für dieses Gebäude.. es ist mehr wie ein Arbeitsamt, Warenhaus und Einkaufszentrum in einem - kurz: Überall findet sich ein "Markt". Sie kaufen und verkaufen Nahrung, Arbeitsplätze, Kohle, Güter, Erz und Stahl an die Anliegenden Gebiete und ins Verkehrsnetz. Als Beispiel: Die Wohngebiete versorgen den Markt mit Arbeitskräften und der Markt versorgt das im bau befindliche Denkmal mit Arbeitskräften. <b>HINWEIS</b>, die Wohngebiete werden nicht mehr versorgt wenn sie mehr oder weniger an/auf der Grenze zum Einzugsbereich des Markts liegen.</p>
+	<p style="hsubtitle">Einstellen was der Markt kauft und verkauft</p>
+	<p style="hp">Sie können festlegen was ein Markt kauft indem sie doppelt auf ihn klicken und das selektieren was Sie den Markt kaufen bzw. verkaufen lassen möchten. In der standart Einstellung wird alles gehandelt.</p>
+	<p style="hp">Dies ist ein Markt</p>
+	<img src="images/tiles/market-empty.png" halign="center"/>
+	<p style="hp">und das sein Symbol</p>
+	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
+	
+	<p style="hp">Bedeutet das der Handel erlaubt ist:</p>
+	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
+	<p style="hp">Bedeutet das der Handel <b>nicht</b> erlaubt ist:</p>
+	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
+	<p style="hp">Die Nummern zwischen den Worten kaufen und verkaufen sind die Koordinaten des Markts.</p>
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="food">Nahrung</a></li>
+	<li><a href="jobs">Arbeitsplätze</a></li>
+	<li><a href="coal">Kohle</a></li>
+	<li><a href="goods">Güter</a></li>
+	<li><a href="ore">Erz</a></li>
+	<li><a href="steel">Stahl</a></li>
+	<li><a href="transport">Verkehr</a></li>
+</Document>

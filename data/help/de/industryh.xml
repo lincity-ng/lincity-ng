@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Schwer Industrie</p>
+	<p style="hp">Die Schwerindustrie produziert Stahl aus Erz, Energie und Arbeitsplätzen. Das Erz wird direkt vom Verkehrsnetz bezogen, genauso wird der produzierte Stahl ans Verkehrsnetz übergeben. Arbeitsplätze werden über einen örtlichen Markt bezogen. Mit dem Verkehrverbunden wird die Schwerindustrie an der linken oberen Ecke</p>
+	<p style="hp">Die Energie kann auf zwei verschiedene Art und weißen zugeführt werden: 
+		1. Durch Kohle, die direkt aus dem Verkehrsnetz bezogen wird
+		2. Über das Stromnetz, hierzu muss mind. ein Umspannhäuschen in der Reichweite sein. (Windmühlen können <b>keine</b> Energie an die Schwerindustrie liefern, sie sind zu schwach.)</p>
+	<p style="hp">Die Schwerindustrie verschmutzt die Umwelt</p>
+	<p style="hp">Sie können auf die gewöhnliche Weise sehen ob die Schwerindustrie arbeitet: Indem Sie darauf klicken - außerdem ist sie animiert.</p>
+	
+	<p style="hp">Diest ist ein Gebäude der Schwerindustrie</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">und das ihr Symbol</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="pollution">Verschmutzung</a></li>
+	<li><a href="transport">Verkehr</a></li>
+	<li><a href="power">Energie</a></li>
+	<li><a href="coal">Kohle</a></li>
+	<li><a href="ore">Erz</a></li>
+</Document>

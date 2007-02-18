@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Leichtes Industrie Gebiet</p>
+	<p style="hp">Die leichte Industrie wandelt Erz in Güter um. Diese verarbeitung wird effizienter, wenn Stahl verfügbar ist. Energie erhöht ebenfalls den Ausschuss. Windmühlen sind jedoch <b>nicht</b> zur Energieversorgung für diese Gebiete geeignet.</p>
+	<p style="hp">Als Faustregel kann man das Obere jedoch ignoieren, der Hauptsächliche Ausschuss der leichten Industrie hängt vom verfügbaren Rohmaterial ab, das <b>verbraucht werden</b> kann, so wie die zur Verfügung stehenden Arbeitsplätze.</p>
+	<p style="hp">Dieses Gebiet wird direkt an den Verkehr angeschlossen um Erz, Stahl und Güter zu beziehen. Sie brauchen jedoch einen Markt für die Arbeitsplätze.</p>
+	<p style="hp">Diese gebiete können <b>NUR</b> an der oberen linken Ecke mit dem Verkehr verbunden werden. Transport will curve in when it is connected.</p>
+	
+	<p style="hp">Dies ist die leichte Industrie</p>
+	<img src="images/tiles/industryll1.png" halign="center"/>
+	<p style="hp">und das ihr Symbol</p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="transport">Verkehr</a></li>
+	<li><a href="road">Straße</a></li>
+	<li><a href="rail">Schienen</a></li>
+	<li><a href="market">Markt</a></li>
+	<li><a href="jobs">Arbeitsplätze</a></li>
+</Document>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Energie Layer</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+	<p style="hp">Gebiete die primitive Windmühlenenergie benutzen werden als Dunkelgrün dargestellt.</p>
+	<p style="hp">Die Gebiete die am Stromnetz hängen werden als Hellgrün dargestellt.</p>
+	<p style="hp">Die unversorgten Regionen werden Normal dargestellt.</p>
+	<p style="hp">Dieser Layer verbraucht Energie. Versuchen Sie ihn nicht zu lange aktiviert zu haben.</p>
+	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein andere Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="mini-screen">Miniaturansicht</a></li>
+	<li><a href="msb-coal">Kohle Layer</a></li>
+	<li><a href="msb-cricket">Sport Layer</a></li>
+	<li><a href="msb-fire">Feuer Layer</a></li>
+	<li><a href="msb-health">Gesundheits Layer</a></li>
+	<li><a href="msb-normal">Normaler Layer</a></li>
+	<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+	<li><a href="msb-starve">Hunger Layer</a></li>
+	<li><a href="msb-transport">Verkehrs Layer</a></li>
+	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
+</Document>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Miniaturansicht</p>
+	<p style="hp">Die Miniaturansicht zeigt, in verkleinerter Fassung das komplette Spielgebiet. Die Buttons darunter geben ihnen wichtige Informationen über die Situation in ihrer Stadt, z.B. Verschmutzung, gesundheitliche Versorgung, etc.</p>
+	<p style="hp">Klicken Sie auf den <i>Hilfe Knopf</i> und anschließend auf die Layer-Symbole unterhalb der Miniaturansicht um weitere Informationen über sie zu erhalten.</p>
+	<p style="hp">Das weiße Quadrat zeigt den Aktuellen Bildschirmausschnitt.</p>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="msb-coal">Kohle Layer</a></li>
+	<li><a href="msb-cricket">Sport Layer</a></li>
+	<li><a href="msb-fire">Feuer Layer</a></li>
+	<li><a href="msb-health">Gesundheits Layer</a></li>
+	<li><a href="msb-normal">Normaler Layer</a></li>
+	<li><a href="msb-pol">Verschmutzung Layer</a></li>
+	<li><a href="msb-power">Energie Layer</a></li>
+	<li><a href="msb-starve">Hunger Layer</a></li>
+	<li><a href="msb-transport">Verkehrs Layer</a></li>
+	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
+</Document>
+
+
+

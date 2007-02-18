@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Verschmutzungs Layer</p>
+	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+	<p style="hp">Der verschmutzungs Layer zeigt, den Grad der Verschmutzung in der Stadt an.</p>
+	<p style="hp">Die Verschmutzung wird mit folgenden Farben stärker: Hell-Grün -> Dunkel Grün -> Dunkleres Grün -> Dunkel Rot -> Helleres Rot -> Hell Rot.</p>
+	<p style="hp">In den Wohngebieten, die als Rot dargestellt werden leiden die Leute unter Krankheiten und senkt die Attraktivität der Region.</p>
+	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein andere Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="mini-screen">Miniaturansicht</a></li>
+	<li><a href="msb-coal">Kohle Layer</a></li>
+	<li><a href="msb-cricket">Sport Layer</a></li>
+	<li><a href="msb-fire">Feuer Layer</a></li>
+	<li><a href="msb-health">Gesundheits Layer</a></li>
+	<li><a href="msb-normal">Normaler Layer</a></li>
+	<li><a href="msb-power">Energie Layer</a></li>
+	<li><a href="msb-starve">Hunger Layer</a></li>
+	<li><a href="msb-transport">Verkehrs Layer</a></li>
+	<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
+</Document>
