@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Tastatur</p>
+    <p style="hsubtitle"><b>Tastenkürzel</b></p>
+    <p style="hp"><b>Esc</b>: Aktiviert das Abfragewerkzeug</p>
+    <p style="hp"><b>b</b>: schaltet zwischen dem aktuellen Cursor und dem Bulldozer um</p>
+    <p style="hp"><b>h</b>: drücken um hohe Gebäude auszublenden, erneutes drücken blendet sie wieder ein.</p>
+    <p style="hp"><b>v</b>: drücken um die Minimap-Schemas auf das Spiel zu übertragen. (Transparent-Deckend-Aus)</p>
+    <p style="hp"><b>KP_PLUS</b>: Vergrößern</p>
+    <p style="hp"><b>KP_MINUS</b>: Verkleinern</p>
+    <p style="hp"><b>KP_ENTER</b>: 100% Ansicht</p>
+    <p style="hsubtitle"><b>Navigation</b></p>
+    <p style="hp"><b>KP5</b>:  Springt in die Mitte der Karte</p>  
+    <p style="hp"><b>KP9</b>:  Fährt in den Norden der Ansicht</p>
+    <p style="hp"><b>KP1</b>:  Fährt in den Süden der Ansicht</p>
+    <p style="hp"><b>KP7</b>:  Fährt in den Westen der Ansicht</p>
+    <p style="hp"><b>KP3</b>:  Fährt in den Osten der Ansicht</p>
+    <p style="hp"><b>KP2</b>:  Fährt in den Südosten der Ansicht</p> 
+    <p style="hp"><b>KP4</b>:  Fährt in den Südwesten der Ansicht</p> 
+    <p style="hp"><b>KP6</b>:  fährt in den Nordosten der Ansicht</p> 
+    <p style="hp"><b>KP8</b>:  Fährt in den Nordwesten der Ansicht</p> 
+    <p style="hp">(Wenn gleichzeitig Shift gedrückt wird geht's schneller)</p>
+    <p style="hsubtitle"><b>Laden und Speichern</b></p>
+    <p style="hp"><b>F12</b>:  Schnell speichern</p> 
+    <p style="hp"><b>F9</b>:  Schnell laden</p> 
+
+    <p style="htitle">Maus</p>
+    <p style="hp"><b>Rechtsklick:</b></p>
+    <p style="hp">(gedrückt): Verschiebt die Ansicht.</p>
+    <p style="hp">(klick): zentriert das Feld unterm Cursor.</p>
+    <p style="hp"><b>Mittlere Maustaste:</b></p>
+    <p style="hp">(gedrückt): Zeigt Informationen zum Feld unterhalb des Cursors an(keine Gebäude Information!).</p>
+    <p style="hp"><b>Linksklick:</b></p>
+    <p style="hp">Minimap: Springt in der Ansicht zur entsprechenden Stelle.</p>
+    <p style="hp">Ansicht: Führt eine Aktion, entsprechend dem gewählten Werkzeug aus(z.B.planieren, bauen, Informationen anzeigen..)</p>
+    <p style="hsubtitle"><b>Mausrad:</b></p>
+    <p style="hp"><b>hoch:</b>  Vergrößern</p>
+    <p style="hp"><b>runter:</b>  Verkleinern</p>
+</Document>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Feuerwehr</p>
+	<p style="hp">Feuerwehren verhindern das ausbrechen und ausbreiten von Feuern in ihrem Einzugsbereich. Um ihrer Arbeit nachzukommen, brauchen sie Güter und Arbeitsplätze. Sie müssen <b>nicht</b> ans Verkehrsnetz angebunden sein, aber sie müssen in der Reichweite eines Markts sein, der sie mit Gütern und Arbeitsplätzen versorgen kann. Außerdem kostet ihr betrieb Geld.</p>
+	<p style="hp">Wenn Sie eine Feuerwehr bauen, wird diese noch nicht gleich Einsatzbereit sein, es dauert gewöhnlich drei Monate bis sie komplett eingerichtet ist und somit einen wirksamen Schutz gewährleisten kann.</p>
+	<p style="hp">Um zu sehen welche Bereiche von der Feuerwehr abgedeckt werden, klicken Sie einfach auf das Feuerwehr Symbol unter der <i>Miniaturansicht</i>. Gebiete die vor Feuer geschützt sind, werden normal angezeigt, ungeschützte Gebiete werden in Dunkelgrün dargestellt.</p>
+	<p style="hp">Feuerwehren steigern die attraktivität der Wohngebiete in ihrem Bereich.</p>
+	<p style="hp">Feuerwehren zeigen jeden Monat eine Animationssequenz um zu zeigen das sie arbeiten.</p>
+
+	<p style="hp">Dies ist eine Feuerwehr</p>
+	<img src="images/tiles/firestation1.png" halign="center"/>
+	<p style="hp">und das ihr Symbol</p>
+	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+	<p style="hp">und dies das Layer Symbol</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="mini-screen">Miniaturansicht</a></li>
+	<li><a href="goods">Güter</a></li>
+	<li><a href="market">Markt</a></li>
+	<li><a href="jobs">Arbeitsplätze</a></li>
+	<li><a href="msb-fire">Feuer Layer</a></li>
+</Document>

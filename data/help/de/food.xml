@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Nahrung</p>
+	<p style="hp">Nahrung wird auf Bauernhöfen angebaut oder kann über einen Hafen importiert werden.</p>
+	<p style="hp">Ihre Bewohner brauchen Nahrung um zu überleben. Wenn Sie sie hungern lassen werden sie die Stadt verlassen oder gar zu tode verhungern.</p>
+	<p style="hp">Spinnereien benötigen ebenfalls Nahrung. Sie wandeln z.B. Schafe in Kleider. Sie können u.U. <i>sehr viel</i> Nahrung verbrauchen - geben sie Acht darauf!</p>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="farm">Bauernhof</a></li>
+	<li><a href="port">Hafen</a></li>
+	<li><a href="mill">Spinnerei</a></li>
+	<li><a href="steel">Stahl</a></li>
+</Document>

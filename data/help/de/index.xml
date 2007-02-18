@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+<p style="htitle">Index</p>
+<p style="hsubtitle">Steuerung und Kontrolle</p>
+<p><b>Steuerung</b></p>
+<li><a href="keys">Tastatur</a></li>
+<li><a href="keys">Maus</a></li>
+<li><a href="query">Auswahlwerkzeug</a></li>
+<li><a href="bulldoze">Bulldozer</a></li>
+<p><b>Verwaltung</b></p>
+<li><a href="button-index">Symbol Verzeichniss</a></li>
+<li><a href="housing">Bevölkerungs Anzeige</a></li>
+<li><a href="dialogs">Informations System</a></li>
+<li><a href="economy">Wirtschaftsübersicht</a></li>
+<li><a href="export">Import und Export Gebiete</a></li>
+<li><a href="finance">Finanzübersicht</a></li>
+<li><a href="help">Lincity Hilfe</a></li>
+<li><a href="jobs">Arbeitsplätze</a></li>
+<li><a href="sustain">Nachhaltigkeits Anzeige</a></li>
+<li><a href="tech-level">Tech Level</a></li>
+<li><a href="mini-screen">Miniaturansicht</a></li>
+<li><a href="residential">Wohngebiet</a></li>
+<li><a href="river">Wasser</a></li>
+<li><a href="pbar">Statistik</a></li>
+<li><a href="pollution">Verschmutzung</a></li>
+<li><a href="other-costs">Andere Kosten</a></li>
+
+<p><b>Geschwindigkeiten</b></p>
+<li><a href="pause">Pause Knopf</a></li>
+<li><a href="slow">Langsam</a></li>
+<li><a href="medium">Normale</a></li>
+<li><a href="fast">Schnell</a></li>
+
+<p style="hsubtitle">Verkehr</p>
+<li><a href="track">Wege</a></li>
+<li><a href="road">Straßen</a></li>
+<li><a href="rail">Schienen</a></li>
+<li><a href="port">Hafen</a></li>
+<li><a href="rocket">Raketenbasis</a></li>
+<li><a href="transport">Verkehr</a></li>
+
+<p style="hsubtitle">Gebäude</p>
+<p><b>Produktive Gebäude</b></p>
+<li><a href="blacksmith">Schmiede</a></li>
+<li><a href="coalmine">Kohlegrube</a></li>
+<li><a href="commune">Köhlerei</a></li>
+<li><a href="farm">Bauernhof</a></li>
+<li><a href="windmill">Windmühle</a></li>
+<li><a href="mill">Spinnerei</a></li>
+<li><a href="industryh">Schwer Industrie (Stahl)</a></li>
+<li><a href="industryl">Leichtindustrie Gebiet</a></li>
+<li><a href="pottery">Töpferei</a></li>
+<li><a href="oremine">Erzmine</a></li>
+
+<p><b>Energie</b></p>
+<li><a href="substation">Umspannwerk</a></li>
+<li><a href="powerline">Stromleitung</a></li>
+<li><a href="powerscoal">Kohlekraftwerk</a></li>
+<li><a href="powerssolar">Solarkraftwerk</a></li>
+
+<p><b>Sonstige Gebäude</b></p>
+<li><a href="cricket">Sportplatz</a></li>
+<li><a href="monument">Denkmal</a></li>
+<li><a href="university">Universität</a></li>
+<li><a href="health">Krankenhaus</a></li>
+<li><a href="firestation">Feuerwehr</a></li>
+<li><a href="market">Markt</a></li>
+<li><a href="recycle">Wertstoffhof</a></li>
+<li><a href="school">Schule</a></li>
+<li><a href="tip">Deponie (Müllhalde)</a></li>
+<li><a href="park">Parks</a></li>
+
+<p style="hsubtitle">Ressourcen</p>
+<li><a href="coal">Kohle</a></li>
+<li><a href="ore">Erz</a></li>
+<li><a href="food">Nahrung</a></li>
+<li><a href="goods">Güter</a></li>
+<li><a href="steel">Stahl</a></li>
+
+<p style="hsubtitle">Layer</p>
+<li><a href="msb-coal">Kohle Layer</a></li>
+<li><a href="msb-cricket">Sport Layer</a></li>
+<li><a href="msb-fire">Feuer Layer</a></li>
+<li><a href="msb-health">Gesundheits Layer</a></li>
+<li><a href="msb-normal">Normaler Layer</a></li>
+<li><a href="msb-pol">Verschmutzungs Layer</a></li>
+<li><a href="msb-power">Energie Layer</a></li>
+<li><a href="msb-starve">Hunger Layer</a></li>
+<li><a href="msb-transport">Verkehrs Layer</a></li>
+<li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
+</Document>

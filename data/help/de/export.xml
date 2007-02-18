@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Import und Export Gebiete</p>
+	<p style="hp">Importieren und exportieren funktion auf die selbe Weise, außer das dich das erste Geld kostet und das zweite dir Geld einbringt. Beides benötigt einen Hafen, aus diesem Grund werden wir nur das exportieren im Detail betrachten:</p>
+	<p style="hp">Um zu exportieren, braucht der Hafen einen Anschluss an die Straße.</p>
+	<p style="hp">Sie <b>müssen</b> die ganze rechte Seite lang mit dem Wasser verbunden sein.</p>
+	<p style="hp">Das "Exportgebiet" wird sich soviel nehmen wie es bekommt. Wenn Sie exportieren wollen, aber die Menge beschränken sollten sie evtl. einen Verkehrsanschluss mit weniger Kapazität verwenden oder einen langen Weg zum Hafen bauen. Oder Sie lassen die Produkte zuerst durch einen Markt gehen.. Sie müssen experimentieren bis sie die richtige export Einstellungen haben.</p>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="port">Hafen</a></li>
+	<li><a href="transport">Verkehr</a></li>
+	<li><a href="market">Markt</a></li>
+	<li><a href="coal">Kohle</a></li>
+	<li><a href="ore">Erz</a></li>
+	<li><a href="goods">Güter</a></li>
+	<li><a href="steel">Stahl</a></li>
+</Document>

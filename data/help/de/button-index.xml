@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Symbol Verzeichniss</p>
+
+	<!--<p style="subtitle">Energie</p>-->
+	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+	<p><a href="powerline">Stromleitung</a></p>
+	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+	<p><a href="powerssolar">Solarkraftwerk</a></p>
+	<img src="images/gui/buttonpanel/power/substation.png"/>
+	<p><a href="substation">Umspannhäuschen</a></p>
+	<img src="images/gui/buttonpanel/power/coalpower.png"/>
+	<p><a href="powerscoal">Kohlekraftwerk</a></p>
+	<img src="images/gui/buttonpanel/power/windmills.png"/>
+	<p><a href="windmill">Windmühle</a></p>
+
+	<!--<p style="subtitle">Wohngebiete</p>-->
+	<img src="images/gui/buttonpanel/residence/residence.png"/>
+	<p><a href="residential">Wohngebiet</a></p>
+
+	<!--<p style="subtitle">Bauernhöfe</p>-->
+	<img src="images/gui/buttonpanel/parks/farm.png"/>
+	<p><a href="farm">Bauernhof</a></p>
+
+	<!--<p style="subtitle">Industrie</p>-->
+	<img src="images/gui/buttonpanel/industry/market.png"/>
+	<p><a href="market">Markt</a></p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
+	<p><a href="industryl">Industriegebiet</a></p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<p><a href="industryh">Schwerindustrie</a></p>
+	<img src="images/gui/buttonpanel/industry/pottery.png"/>
+	<p><a href="pottery">Töpferei</a></p>
+	
+	<!--<p style="subtitle">Base</p>-->
+	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
+	<p><a href="bulldoze">Bulldozer</a></p>
+
+	<!--<p style="subtitle">Verkehr</p>-->
+	<img src="images/gui/buttonpanel/transport/tracks.png"/>
+	<p><a href="track">Weg</a></p>
+	<img src="images/gui/buttonpanel/transport/rails2.png"/>
+	<p><a href="rail">Eisenbahn</a></p>
+	<img src="images/gui/buttonpanel/transport/road.png"/>
+	<p><a href="road">Straße</a></p>
+	<img src="images/gui/buttonpanel/transport/rocket.png"/>
+	<p><a href="rocket">Raketenbasis</a></p>
+	<img src="images/gui/buttonpanel/transport/port.png"/>
+	<p><a href="port">Hafen</a></p>
+	
+	<!--<p style="subtitle">Minen</p>-->
+	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
+	<p><a href="coalmine">Kohlegrube</a></p>
+	<img src="images/gui/buttonpanel/mining/commune.png"/>
+	<p><a href="commune">Köhlerei</a></p>
+	<img src="images/gui/buttonpanel/mining/oremine.png"/>
+	<p><a href="oremine">Erzmine</a></p>
+	<img src="images/gui/buttonpanel/mining/recycling.png"/>
+	<p><a href="recycle">Wertstoffhof</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/university.png"/>
+	<p><a href="university">Universität</a></p>
+	<img src="images/gui/buttonpanel/misc/health.png"/>
+	<p><a href="health">Krankenhaus</a></p>	
+	<img src="images/gui/buttonpanel/parks/monument.png"/>
+	<p><a href="monument">Monument</a></p>
+	<img src="images/gui/buttonpanel/misc/book.png"/>
+	<p><a href="school">Schule</a></p>
+	<img src="images/gui/buttonpanel/misc/fire.png"/>
+	<p><a href="firestation">Feuerwehr</a></p>
+	<img src="images/gui/buttonpanel/misc/sports.png"/>
+	<p><a href="cricket">Sportplatz</a></p>
+	
+	<!--<p style="subtitle">Handel</p>-->
+    <img src="images/gui/buttonpanel/transport/port.png"/>
+	<p><a href="export">Import und Export</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/tree.png"/>
+	<p><a href="park">Parks</a></p>
+	<img src="images/gui/buttonpanel/parks/water.png"/>
+	<p><a href="river">Wasser</a></p>
+	<img src="images/gui/buttonpanel/parks/mills.png"/>
+	<p><a href="mill">Spinnerei</a></p>
+</Document>

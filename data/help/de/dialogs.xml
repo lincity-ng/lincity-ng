@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Informationen zu den Tabs</p>
+    <p>Map-Tab</p>
+    <li><a href="mini-screen">Miniaturansicht</a></li>
+    <p>Stats-Tab</p>
+	<li><a href="pbar">Ressourcen Statusbar</a></li>
+    <p>€-Tab</p>
+	<li><a href="finance">Finanzen</a></li>
+	<li><a href="housing">Bevölkerung</a></li>
+    <p>Eco-Tab</p>
+	<li><a href="economy">Wirtschaftsübersicht</a></li>
+	<li><a href="sustain">Nachhaltigkeit</a></li>
+</Document>

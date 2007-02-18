@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Köhlerei</p>
+	<p style="hp">Köhlereien sind Plätze, auf denen durch das verbrennen von Bäumen Holzkohle(lincity-NG unterscheidet nicht zwischen den einzelnen Arten..) gewonnen wird. Sie produzieren außerdem kleine Mengen an Erz und Stahl.</p>
+	<p style="hp">Sie werden wahrscheinlich "ein paar" Köhlereien brauchen um genug Kohle und Stahl für z.B. Töpfereien, Schmieden und Spinnereien zu produzieren.</p>
+	<p style="hp">Falls eine Köhlerei für 10 Jahre nichts mehr Produziert, wird sie geschlossen und sie verwandelt sich in einen Park.</p>
+	<p style="hp">Köhlereien können an jeder Stelle mit dem Verkehr verbunden werden, nicht nur am Tor!</p>
+	
+	<p style="hp">Dies ist eine Köhlerei</p>
+	<img src="images/tiles/commune1.png" halign="center"/>
+	<p style="hp">und dies ihr Symbol</p>
+	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="pottery">Töpferei</a></li>
+	<li><a href="blacksmith">Schmiede</a></li>
+	<li><a href="mill">Spinnerei</a></li>
+	<li><a href="oremine">Erzmine</a></li>
+	<li><a href="steel">Stahl</a></li>
+</Document>

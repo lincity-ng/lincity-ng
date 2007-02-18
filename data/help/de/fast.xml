@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Schnell</p>
+	<img src="images/gui/speed/fast.png"/>
+	<p style="hp">Dies ist der "Schnell"-Knopf. Er lässt das Spiel am schnellsten laufen. Auf langsamen Maschinen dürfte der Button keinen Effekt haben. Vorsichtig sollte man auf schnellen Maschinen sein... "Situationen" können sich sehr schnell entwickeln!</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="medium">Normal</a></li>
+	<li><a href="slow">Langsam</a></li>
+</Document>
