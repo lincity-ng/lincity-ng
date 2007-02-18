@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Recyclinghöfe</p>
+	<p style="hp">Gebrauchte Waren erzeugen Abfall.</p>
+	<p style="hp">Auf Recyclinghöfen werden gebrauchte Waren zu Erz verarbeitet.
+    Sie werden an der Nordwestecke mit Transportwegen verbunden. Es werden
+    Arbeiter und Geld benötigt um Abfall einzusammeln und ihn in Erz
+     umzuwandeln.</p>
+	<p style="hp">Auch wenn Ihre Recyclinghöfe keinen Wirkungsgrad von 100%
+    haben können Sie eine nachhaltige Wirtschaft zu betreiben, indem sie
+    mittels Spinnereien die 'verlorenen' Waren ersetzen. </p>
+	
+	<p style="hp">Das ist ein Recyclinghof</p>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
+	<p style="hp">und das das Icon</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="goods">Waren</a></li>
+	<li><a href="ore">Erz</a></li>
+	<li><a href="transport">Transport</a></li>
+    <li><a href="sustain">nachhaltige Wirtschaft</a></li>
+</Document>

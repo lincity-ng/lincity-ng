@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Wohngebiete</p>
+	<p style="hp">Hier wohnt die Bevölkerung. Um die Leute dazu zu bringen, sich
+    in dieser Gegend niederzulassen müssen sie mit Nahrung versorgt werden.
+    Es hilft auch, ihnen Arbeitsplätze und Waren zur Verfügung zu stellen.
+    Wohngebiete müssen dazu im Bereich eines Marktes liegen, oder mit einem
+    Transportweg verbunden sein. Es gibt drei verschiedene Arten von Wohngebieten:
+    welche mit geringer, mittlerer und hoher Siedlungsdichte. Jede Art hat
+    eine Unterschiedliche Geburten- und Sterberate. Dadurch können sie das
+    Wachstum Ihrer Bevölkerung beeinflussen.</p>
+	<p style="hp">Später im Spiel, sobald sie das erforderliche Technologieniveau
+    erreicht haben, können Sie auch moderner Gebäude bauen, bis hin zu Hochhäusern.</p>
+
+	<p style="hp">Das Gebäude mit der geringen Siedlungsdichte hat eine geringe
+    Geburten- und eine hohe Sterberate, das mit der mittleren Dichte eine hohe
+    Geburten- und eine niedrige Sterberate und das Gebäude mit der hohen Dichte 
+    hat sowohl eine hohe Geburten- als auch Sterberate. Die modernen Häuser
+    verhalten sich genau so, nur finden in ihnen jeweils mehr Leute Platz als
+    im entsprechenden altmodischen Haus.</p>
+	<p style="hp">Dies ist die hightech version des Gebäudes mit geringer Siedlungsdichte</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">und das zugehörige Icon</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<p style="hp">mittlere Siedlungsdichte (hightech)</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">und das zugehörige Icon</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">hohe Siedlungsdichte (hightech)</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">und das zugehörige Icon</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="market">Markt</a></li>
+</Document>
+
