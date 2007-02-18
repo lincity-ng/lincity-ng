@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Sat Jan 27 22:03:14 2007\n"
-"PO-Revision-Date: 2007-01-29 19:27+0100\n"
+"PO-Revision-Date: 2007-02-18 15:28+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: data/gui/minimap.xml
 msgid "$"
-msgstr "£"
+msgstr "¤"
 
 #: data/gui/fire.xml
 msgid "A Fire has started"
@@ -108,7 +108,7 @@ msgstr "Es läuft gut."
 
 #: data/gui/minimap.xml
 msgid "Eco"
-msgstr ""
+msgstr "Wirt."
 
 #: data/gui/sustain.xml
 msgid "Economy Sustainable."
@@ -204,7 +204,7 @@ msgstr "Spiel Laden"
 
 #: data/gui/minimap.xml
 msgid "Map"
-msgstr ""
+msgstr "Karte"
 
 #: data/gui/millup.xml
 msgid "Mills available"
@@ -475,7 +475,7 @@ msgstr "Mit zufälligem Dorf beginnen."
 
 #: data/gui/minimap.xml
 msgid "Stats"
-msgstr ""
+msgstr "Stat."
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Steel"

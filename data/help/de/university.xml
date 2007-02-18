@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Universität</p>
+	<p style="hp">Universitäten tragen zur Erhöhung des Technologieniveaus bei.
+    Dafür benötigen sie Waren und Arbeiter. Sie erzeugen mit der gleichen Menge Waren
+    und Arbeiter mehr Technologie als Schulen. Allerdings benötigt eine Uni viel mehr
+    Waren und Arbeiter, zudem kostet der Universitätsbetrieb einen Haufen Geld. Sie
+    sollten also über genügend Industrie und Kapital verfügen um die Uni zu versorgen.</p>
+	<p style="hp">Sie werden einige Universitäten benötigen, um ein Technologieniveau
+    im Bereich von 100% zu erreichen.</p>
+	<p style="hp">Universitäten müssen nicht an das Verkehrsnetz angeschlossen sein, sei
+    können sich alles von Märkten holen, solange welche in Reichweite sind, die genügend
+    Waren und Arbeitskräfte haben.</p>
+
+	<p style="hsubtitle">Hinweis</p>
+	<p style="hp">Sie <b>müssen</b> für jede Universität fünf Schulen haben, die für
+    die erforderliche Menge Studenten sorgen.</p>
+
+	<p style="hp">Das ist eine Universität</p>
+	<img src="images/tiles/university.png" halign="center"/>
+	<p style="hp">und das das zugehörige Icon</p>
+	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="market">Markt</a></li>
+	<li><a href="transport">Verkehr</a></li>
+	<li><a href="goods">Waren</a></li>
+	<li><a href="jobs">Arbeitsplätze</a></li>
+	<li><a href="schools">Schulen</a></li>
+	<li><a href="tech-level">Technologieniveau</a></li>
+</Document>

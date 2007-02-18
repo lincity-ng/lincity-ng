@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lincity-ng 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-27 22:03+0100\n"
-"PO-Revision-Date: 2007-01-29 19:31+0100\n"
+"PO-Revision-Date: 2007-02-18 15:25+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1025,7 +1025,7 @@ msgstr "Abrisskosten:"
 #: src/lincity-ng/GameView.cpp:1551
 #: src/lincity-ng/ScreenInterface.cpp:269
 msgid "$"
-msgstr "£"
+msgstr "€"
 
 #: src/lincity-ng/GameView.cpp:1522
 msgid "n/a"
@@ -1050,7 +1050,7 @@ msgstr ", Abbruchkosten "
 #: src/lincity-ng/GameView.cpp:1552
 #: src/lincity-ng/GameView.cpp:1555
 msgid "$."
-msgstr "£."
+msgstr "€."
 
 #: src/lincity-ng/GameView.cpp:1554
 msgid " To build "
@@ -1318,7 +1318,4 @@ msgstr "%s (Techlevel %.1f erforderlich.)"
 #: src/lincity-ng/ScreenInterface.cpp:258
 msgid "MM"
 msgstr "Mio"
-
-#~ msgid "Couldn't create the save directory %s\n"
-#~ msgstr "Kann Speicherverzeichniss %s nicht anlegen\n"
 
