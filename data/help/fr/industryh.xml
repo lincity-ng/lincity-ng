@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Industrie lourde (métallurgie)</p>
+	<p style="hp">L'industrie lourde produit de l'acier à partir de minerai, d'énergie et d'emplois. Le minerai est obtenu directement par la connection aux transports, l'acier produit est également expédié par les transports. Les emplois sont obtenus dans un marché à proximité. La connection au transport se fait dans l'angle supérieur gauche.</p>
+	<p style="hp">L'énergie peut etre forunie de deux façons. La première est d'utiliser du charbon fourni par les transports. La deuxième par l'électricité : il faut avoir au moins un transformateur a proximité imédiate. (Les moulins a  vent et/éoliennes <b> ne fournissent pas </b> l'électricité nécessaire à une industrie lourde.</p>
+	<p style="hp">L'industrie lourde est une cause importante de pollution</p>
+	<p style="hp">Vous voyez l'activité soit en cliquant sur l'industrie, soit grâce à l'animation.</p>
+	
+	<p style="hp">Ceci est une industrie lourde (métallurgie)</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="pollution">Pollution</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="power">Energie</a></li>
+	<li><a href="coal">Charbon</a></li>
+	<li><a href="ore">Minerai</a></li>
+</Document>

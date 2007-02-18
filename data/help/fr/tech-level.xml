@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Niveau Technologique</p>
+	<p style="hp">Le niveau technologique détermine de nombreuses choses dans votre citée, par exemple ce que vous pouvez construire, et l'efficacité de nombreux processus.</p>
+	<p style="hp">Pour accroître votre technologie vous devez construire des monuments, des ecoles et des universités.</p>
+	<p style="hp">Au départ vous ne pouvez construire que des monuments. Après un certains temps vous <i>inventerez</i> l'école qui produisent davantage de savoir. Au dela d'un certain niveau les monuments ne produisent plus de savoir</p>
+	<p style="hp">A un niveau technologique plus élevé vous <i>inventerez</i> les universités. Elles produisent encore davantage de savoir, mais sont <b> très </b> consommatrice de ressources.</p>
+	<p style="hp">L'acquisition du savoir est de plus en plus difficile. En conséquence plus le niveau technologique est élevé, plus il faut d'écoles et universités.</p>
+	<p style="hp">Si vous tombez a court d'une ressource, ou si vous supprimer une université pour éviter une pénurie, votre niveau technologique chutera.</p>
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="monument">Monuments</a></li>
+	<li><a href="school">Ecoles</a></li>
+	<li><a href="university">Universités</a></li>
+</Document>

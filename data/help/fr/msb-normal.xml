@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Surimpression Plan d'occupation des sols</p>
+	<img src="images/gui/mapview/roundbuttons/round_resident.png" halign="center"/>
+	<p style="hp">La minicarte affiche les bâtiments, les routes, l'eau et les espaces verts.</p>
+	<p style="hp">Cliquer sur la minicarte pour recentrer la carte principale. Utiliser la touche 'v' pour surimprimer les informations sur la carte principale.</p>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="mini-screen">Minicarte</a></li>
+</Document>

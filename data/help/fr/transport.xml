@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Transport</p>
+	<p style="hp">Il y a trois types de transport dans Lincity: les pistes, les routes et les voies ferrées. Ils concernent les échanges d'aliments, de biens, d'emplois, de charbon, de minerai, d'acier et de déchets sur des distances plus ou moins importantes. Les echanges se font avec les marchés et/ou directement entre les entreprises concernées.</p>
+	<p style="hp">Il y a également une quatrième forme, qui consiste a 'bondir a travers une zone'. Cette forme est utilisée pour les échanges avec les marchés de proximités, ce qui est fondamental dans le jeu mais ceci ne sera pas considéré comme un transport qui concerne les plus longues distances. Les personnes obtiennent ce dont elles ont besoin à partir du marché local, qui est accessible à pied. Les petites entreprises également, sauf quand il est explicitement précisé qu'une connection au transport est nécessaire (par exemple industrie lourde).</p>
+	<p style="hp"> De même toutes les emplois nécessaires a une entreprise peuvent être fournis par un marché (les gens vont a pied du marché à l'entreprise si nécessaire. Les fermes vendent leurs aliments directements aux marchés et n'ont pas besoin de transports. De même les Fabriques, Poteries et Forgerons peuvent n'utiliser qu'un marché pour leur commerce.</p>
+		<p style="hp">Les industries (lourdes et légères), les mines, les carrières, les décharges et les centres de recyclage <b>doivent</b> être connectés à un transport par le coin supérieur gauche.</p>
+	<p style="hp">Une première exception concerne les centrales thermiques qui sont connectées aux lignes électriques par le coin, la connection aux transport se faisant juste a coté.</p>
+	<p style="hp">Une deuxième exception concerne les ports qui se connectent n'importe où par le bord</p>
+
+	<p style="hp">Pour traverser une rivière il faut passer au bulldozer (très cher) avant de construire le transport.</p>
+	<p style="hp">Des transports de différentes natures ne se croisent pas, mais les échanges se font via les marchés de proximité</p>
+
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="market">Marché</a></li>
+	<li><a href="track">Piste</a></li>
+	<li><a href="road">Route</a></li>
+	<li><a href="rail">Voie Ferrée</a></li>
+	<li></li>
+	<li><a href="industryl">Industrie légères</a></li>
+	<li><a href="industryh">Industrie lourdes</a></li>
+	<li><a href="oremine">Carrières de minerai</a></li>
+	<li><a href="tip">Décharges</a></li>
+	<li><a href="port">Ports</a></li>
+	<li><a href="coalmine">Mines de charbon</a></li>
+	<li><a href="recycle">Centre de recyclage</a></li>
+	<li><a href="coalmine">Mines de charbon</a></li>
+	<li><a href="powercoal">Centrales thermiques</a></li>
+</Document>

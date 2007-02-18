@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Base de lancement de fusées</p>
+	<p style="hp">Les fusées permettent d'évacuer la population vers une autre planète, ce qui est une des deux possibilités pour de victoire du jeu (l'autre étant d'atteindre une économie durable).</p>
+	<p style="hp">Vous devrez réussir consécutivement 5 lancements à vide avant de pouvoir commencer à évacuer la population. Chaque évacuation réussie emmène 1000 personnes. Vous devez (re)construire un site pour chaque lancement.</p>
+	<p style="hp">Si un lancement échoue, vous devrez réussir à nouveau 5 lancements consécutifs a vide avant que la population n'accepte de remonter dans vos fusées pour être évacuée.</p>
+	<p style="hp">Le Niveau Technologique <b> au moment </b> du lancement indique le pourcentage de chance de réussir. C'est à dire qu'un niveau technologique de 80 donne seulement 80% de chance. Un niveau technologique supérieur à 100 implique donc que tous les lancement réussiront, <b> mais </b> il se peut néanmoins qu'un des 5 premiers tirs échoue.</p>
+	<p style="hp">Les sites de lancements n'ont pas besin d'être connectés aux transports, ils peuvent puiser dans les marchés a proximité. Leur construction demande des quantités importantes d'acier, emplois, biens et argent. Un message apparaitra pour vous prévenir que la fusée est prête, et demandera si vous souhaitez la lancer immédiatement ou plus tard. Si vous choisissez de la lancer plus tard, il vous suffira de cliquer sur le site le moment venu pour procéder au lancement.</p>
+	<p style="hp">Une fusée en attente coute beaucoup d'argent, mais ne consomme plus d'emplois ni de matières premières. Vous pouvez avoir en attente autant de fusées que vous le souhaitez.</p>
+	<p style="hp">Ceci est une base de lancement de fusées.</p>
+	<img src="images/tiles/rocket5.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="market">Marché</a></li>
+	<li><a href="ore">Minerai</a></li>
+	<li><a href="steel">Acier</a></li>
+	<li><a href="jobs">Emplois</a></li>
+	<li><a href="sustain">Développement durable</a></li>
+
+</Document>

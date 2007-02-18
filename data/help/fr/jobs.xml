@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Emplois</p>
+	<p style="hp">Les habitants des résidences sont disponibles pour des emplois. Les emplois correspondent à la main d'oeuvre nécessaire pour réaliser la plupart des activités. Certaines n'en ont besoin que durant la construction (monuments par exemple) </p>
+	<p style="hp"> Les Emplois peuvent être fourni par les marchés, qui doivent avoir dans leur porté les zones a fournir. Le marché obtient ces emplois de deux façons. Premièrement, les résidences à proximité fourniront aux marchés les emplois, en proportion de leur population et du nombre de marchés. Deuxièmement, par les transports: un marché distant fournira son excédent de main d'oeuvre via les transports. Tous les marchés connectés aux transports et qui sont en manque de main d'ouvre, prendront parmi le flot transporté (piste, route, chemin de fer).</p>
+	<p style="hp">Si est marché est plein (100%) il n'acceptera plus d'emplois en provenance des residences. Si tous les marchés de la zone sont pleins, alors les personnes seront au chomage.</p>
+	<p style="hp">Un centre médical couvrant une zone résidentiel augmentera la main d'oeuvre fournie (moins de congés maladies)</p>
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="residential">Residences</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Marchés</a></li>
+</Document>

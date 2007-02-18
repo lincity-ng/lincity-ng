@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Surimpression Famine</p>
+	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
+	<p style="hp">Ce bouton situé sous la minicarte concerne les zones résidentielles.</p>
+	<p style="hp">Vert clair indique que les résidences ont suffisament d'aliments.</p>
+	<p style="hp">Vert sombre et rouge vif montrent un sous alimentation de plus en plus sévère dans chaque résidence. Ceci pouvant conduire a des morts prématurées par famine.</p>
+	<p style="hp">Cliquer sur la minicarte recentre la carte principale. Utiliser la touche 'v' pour surimprimer sur la carte principale.</p>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="mini-screen">Minicarte</a></li>
+	<li><a href="food">Aliments</a></li>
+	<li><a href="market">Marché</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="residential">Zone Résidentielle</a></li>
+
+</Document>

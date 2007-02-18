@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Aliments</p>
+	<p style="hp">Les Aliments sont produits dans les Fermes et/ou peuvent être importés dans un Port.</p>
+	<p style="hp">Les Aliments sont indispensable a la survie des populations. Si elles sont affamées (famine) ils quitteront la zone, et/ou pire encore peuvent mourrir de faim.</p>
+	<p style="hp">Les Fabriques utilisent aussi des Aliments. Par exemple pour faire des vements en laine, coton, cuir ... Attention, elles peuvent utiliser <b> beaucoup </b> d'aliments et provoquer des famines.</p>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="farm">Ferme</a></li>
+	<li><a href="port">Port</a></li>
+	<li><a href="mill">Fabrique</a></li>
+	<li><a href="steel">Acier</a></li>
+</Document>

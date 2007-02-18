@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Carrière de minerai</p>
+	<p style="hp">Les Carrières de minerai fournissent la matière première pour produire des biens et de l'acier. Vous pouvez ouvrir une carrière n'importe ou sur la carte.</p>
+	<p style="hp">La zone est progessivement grignotée par l'expoitation, et se rempli d'eau. A la fin la zone se transforme en lac. Si vous voulez terrasser la zone, il faudra passer au bulldozer 16 zones d'eau !. Même après cela, la zone ne fournira plus de minerai.</p>
+	<p style="hp">Les graphiques montrent un carrière du début d'exploitation à quasi épuisée..</p>
+	<p style="hp">La carrière doit être connectée aux transports dans le coin supérieur gaguche.</p>
+	
+	<p style="hp">Ceci est une carrière de minerai.</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="ore">Minerai</a></li>
+	<li><a href="goods">Biens</a></li>
+	<li><a href="steel">Acier</a></li>
+</Document>

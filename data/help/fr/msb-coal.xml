@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Surimpression Charbon</p>
+	<p style="hp"> Le bouton est situé sous la mini-carte:</p>
+	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">La mini-carte affiche les réserves de charbons enfouies dans le sol. Les veines de charbon sont représentées en vert et rouge sur un fond noir (vert = riche filon, rouge = filon pauvre ou épuisé). Pour extraire le charbon il faut construire une mine a proximité.</p>
+	<p style="hp"> La première fois que vous désirez cette information, cela coute un million pour la prospection, et dévoile les ressources sur toute la carte. Les fois suivante cela ne coute rien de consulter la carte.</p>
+	<p style="hp">Cliquer sur la mini carte pour recentrer la carte principale. Utiliser la touche 'v' pour surimprimer les information de la mini carte sur la carte principale</p>
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="mini-screen">Minicarte</a></li>
+	<li><a href="coal">Charbon</a></li>
+	<li><a href="coalmine">Mine de Charbon</a></li>
+
+</Document>
+

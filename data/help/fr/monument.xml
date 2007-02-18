@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Monuments</p>
+	<p style="hp">Les Monuments fournissent un point focal pour l'enseignement et l'inspiration des inventeurs. Tant que le Niveau Technologique est inférieur a 40% chaque monument construit augmentera la vitesse d'aquisition de nouvelle technologie.</p>
+	<p style="hp">Pour construire un Monument, il faut fournir des Emplois, <b>beaucoup </b> d'emplois. Pour cette raison ils peuvent être utilisés pour résorber provisoirement le chômage, mais c'est une solution a court-terme car ils ne nécessitent plus d'emplois une fois terminés.</p>
+	<p style="hp">En cliquant sur un monument en construction, vous verrez la progression des travaux. Les graphiques changent également au fur et à mesure de l'avancement.</p>
+	<p style="hp"><b>Astuce</b>: Pour éviter que la construction d'un monument absorbe tous les emplois, utiliser un marché, et/ou construire le monument dans une zone isolée</p>
+
+	<p style="hp">Ceci est un monument</p>
+	<img src="images/tiles/monument5.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="market">Marché</a></li>
+	<li><a href="jobs">Emplois</a></li>
+</Document>

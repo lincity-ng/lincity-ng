@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Surimpression Chômage</p>
+	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
+	<p style="hp">Cec bouton affichera concerne uniquement les zones résidentielles. Il affiche le taux de chomage.</p>
+	<p style="hp">Vert clair signifie qu'il n'y a pas de chômage dans cette résidence.</p>
+	<p style="hp">Vert sombre et rouge indiquent un taux de chomage de plus en plus important.</p>
+	<p style="hp">Cliquer sur la minicarte recentre la carte principale. Utiliser la touche 'v' pour surimprimer sur la carte principale.</p>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="mini-screen">Minicarte</a></li>
+	<li><a href="jobs">Emplois</a></li>
+	<li><a href="market">Marché</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="residential">Zone Résidentielle</a></li>
+</Document>

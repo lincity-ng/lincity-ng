@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Aide sur les onglet d'information</p>
+    <p>Map-Tab</p>
+    <li><a href="mini-screen">Mini-Ecran</a></li>
+    <p>Stats-Tab</p>
+	<li><a href="pbar">Barre d'état des Ressources</a></li>
+    <p>$-Tab</p>
+	<li><a href="finance">Finance</a></li>
+	<li><a href="housing">Population</a></li>
+    <p>Eco-Tab</p>
+	<li><a href="economy">Graphe Economique</a></li>
+	<li><a href="sustain">Fenêtre d'avancement du développement durable</a></li>
+</Document>

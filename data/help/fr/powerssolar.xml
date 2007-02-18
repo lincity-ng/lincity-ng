@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Centrale solaire</p>
+	<p style="hp">Les centrales solaires produisent de l'électricité et l'envoient via les lignes électriques connectées en haut a gauche. La quantité d'électricité produite dépend du niveau technologique <b> au moment de la construction</b>. Vous désirerez peut-être démolir une centrale solaire pour en reconstruire une quand le niveau technique aura beaucoup augmenté.</p>
+	
+	<p style="hp">Ceci est une centrale solaire</p>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="substation">Transformateur</a></li>
+	<li><a href="powerline">Lignes électriques</a></li>
+	<li><a href="residential">Residences</a></li>
+	<li><a href="tech-level">Niveau technologique</a></li>
+	<li><a href="msb-power">Surimpression électicité</a></li>
+</Document>

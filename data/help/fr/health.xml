@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Centre Médical</p>
+	<p style="hp">Les centres médicaux protègent les résidences à proximité (a peu près 4 patés de maisons dans chaque direction).</p>
+	<p style="hp">Les résidences deviennent plus désirables à vivre, avec moins de mortalité, moins de maladies dues à la pollution, et fournissent plus de personnes pour le marché du travail (moins d'absentéisme pour cause de maladie).</p>
+	<p style="hp">Les Cnetres médicaux sont très couteux, 60 000 par an. Cependant ils réduisent les couts de mortalité "non naturelle" et permettent d'avoir davantage de taxes sur le travail fourni (tant qu'il y a du travail pour les personnes disponibles).</p>
+	<p style="hp">3 mois sont nécessaires pour que le centre médical deviennet actif. Ils consomment des biens, mais n'utilisent pas d'Emplois. Ils sont pris en compte pour le calcul de la main d'oeuvre disponible dans une zone.</p>
+	<p style="hp">Les centres médicaux doivent être a portée d'un marché ou être connecté aux transports</p>
+	<p style="hp">Pour voir la zone couverte par un centre médical, cliquer sur l'icône sous le mini-écran.</p>
+
+	<p style="hp">Ceci est un Centre Médical</p>
+	<img src="images/tiles/health.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+	<p style="hp">et ceci l'icône pour visualiser la couverture</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="residential">Résidences</a></li>
+	<li><a href="pollution">Pollution</a></li>
+	<li><a href="jobs">Emplois</a></li>
+	<li><a href="goods">Biens</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="msb-health">Couverture médicale</a></li>
+</Document>

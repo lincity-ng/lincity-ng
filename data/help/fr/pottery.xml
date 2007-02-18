@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Poteries</p>
+	<p style="hp">Les Poteries utilisent du minerai, du charbon et des emplois pour produire des biens. Elles doivent être à portée d'un marché si elle ne sont pas connecté aux transports.</p>
+	<p style="hp">Quelques Communes sont suffisantes pour fournir les matières premières nécessaires. L'activité d'une poterie est visible par la fumée s'échappant du four. Si le four du bas ne produit pas de fumée, la production est inférieure à 100%.</p>
+	
+	<p style="hp">Ceci est une poterie</p>
+	<img src="images/tiles/pottery0.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="Communes">Communes</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="ore">Ore</a></li>
+	<li><a href="coal">Coal</a></li>
+	<li><a href="jobs">Jobs</a></li>
+	<li><a href="market">Markets</a></li>
+</Document>

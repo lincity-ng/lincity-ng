@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Surimpression Energie électique</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+	<p style="hp">Le bouton situé sous le miniécran indique la couverture en énergie électrique. Les zones alimentées par des mouilns à vent (bas niveau technologique) sont indiqués en vert sombre.</p>
+	<p style="hp">Les zones alimentées en électricité par le réseau principal sont indiquées en vert clair.</p>
+	<p style="hp">Les zones sans énergie sont indiquées normalement.</p>
+	<p style="hp">Utiliser ce bouton pour voir les information consomme de l'électricité. Essayez de ne pas l'utiliser trop longtemps, sinon cela risuqe de perturber l'économie de votre ville..</p>
+	<p style="hp">Cliquer sur la minicarte recentre la carte principale. Utiliser la touche 'v' pour surimprimer sur la carte principale.</p>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="mini-screen">Minicarte</a></li>
+	<li><a href="powerline">Lignes électriques</a></li>
+	<li><a href="powerscoal">Centrale électrique thermique</a></li>
+	<li><a href="powerssolar">Centrale électrqiue solaire</a></li>
+	<li><a href="substation">Transformateur</a></li>
+	<li><a href="windmill">Moulins à vent / Eoliennes</a></li>
+
+</Document>

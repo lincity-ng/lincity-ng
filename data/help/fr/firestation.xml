@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Pompiers</p>
+	<p style="hp">Les Pompiers empêchent les départs de feux et leur propagation, au sein de la zone qu'ils protègent. Ils doivent être fournis en Emplois et Biens. Ils <b> n' ont pas </b> besoin d'être reliés aux transport, masi ils doivent être a portée d'un marché. Ils coutent de l'argent.</p>
+	<p style="hp">Une caserne de pompier nécessite en général 3 mois avant d'être opérationnelle.</p>
+	<p style="hp">Pour voir la zone protégée cliquer sur le bouton "Pompiers" sous le mini-écran.</p>
+	<p style="hp">Les Pompiers augmentent la "désirabilité" des résidences sous leur protection.</p>
+	<p style="hp">Une animation mensuelle montre que la caserne fonctionne</p>
+
+	<p style="hp">Ceci est une caserne de Pompiers</p>
+	<img src="images/tiles/firestation1.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+	<p style="hp">et ceci l'icône de cartographie</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="mini-screen">Mini-Ecran</a></li>
+	<li><a href="goods">Bienss</a></li>
+	<li><a href="market">Marchés</a></li>
+	<li><a href="jobs">Emplois</a></li>
+	<li><a href="msb-fire">Couverture par les pompiers</a></li>
+</Document>

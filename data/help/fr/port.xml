@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ports</p>
+	<p style="hp">Les Ports permettent l'<a href="export">Import/Export</a> de marchandises (<a href="goods">Biens</a>, <a href="steel">Acier</a>, <a href="ore">Minerai</a>, <a href="coal">Charbon</a>, et <a href="food">Aliments</a>).</p>
+	<p style="hp">Importer coûte de l'argent, exporter rapporte de l'argent, l'onglet </p>
+	<p style="hp">Pour fonctionner, un port doit être connecté aux transports (par n'importe quel coté). Double cliquer sur le port ouvre une fenêtre de selection pour controler ce que vous désirer importer/exporter.</p>
+	<p style="hp">Rien ne sera importé/exporté tant que vous n'aurez pas fait de sélection.</p>
+	<p style="hp">Le port <b>doit</b> être connecté à une rivière sur tout le coté droit.</p>
+	<p style="hp">L'export utilisera tout ce qui est fourni par les transports. Pour réduire, il faut interposer un marché et/ou utiliser un transport de plus faible capacité. A vous de tester pour trouver la configuration adaptée.</p>
+	<p style="hp">Note: Les Exporters ont des tarifs réduits pour les grosses transactions.</p>
+
+	<p style="hp">Ceci est un port</p>
+	<img src="images/tiles/ex_port.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+    <li><a href="export">Import and Export</a></li>
+	<li><a href="rivers">Rivières</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Marchés</a></li>
+</Document>

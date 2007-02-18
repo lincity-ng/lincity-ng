@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Stade</p>
+	<p style="hp">Les Stades fournissent des lieux de sports et de loisirs pour les habitants. Ils otn besoin d'Emplois et de Biens et d'argent pour fonctionner. Ils n'ont pas besoin d'être connectés aux transport tant qu'ils sont à portée d'un marché fournissant les ressources.</p>
+	<p style="hp">Un stade ne fonctionne pas immédiatement. En général il faut 3 mois avant le démarrage.</p>
+	<p style="hp">Pour voir la portée couverte par vos stades, cliquez sur le bouton "sport" sous le mini-écran.</p>
+	<p style="hp">Les stades augmentent la "désirabilité" des habitations située dans leur portée.</p>
+	<p style="hp">Une animation tous les mois montre qu'il focntionnent.</p>
+
+	<p style="hp">Ceci est un Stade</p>
+	<img src="images/tiles/cricket1.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+	<p style="hp">et ceci l'icone pour visualiser la zone couverte</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="mini-screen">Mini-Ecran</a></li>
+	<li><a href="goods">Biens</a></li>
+	<li><a href="market">Marché</a></li>
+	<li><a href="jobs">Emplois</a></li>
+	<li><a href="msb-cricket">Sports overlay</a></li>
+</Document>
+
+

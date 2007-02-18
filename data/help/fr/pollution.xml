@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Pollution</p>
+	<p style="hp">La plupart des activités produisent de la pollution. Celles indiquées ci dessous peuvent en produire beaucoup:</p>
+	<li><a href="industryh">Industrie lourde</a></li>
+	<li><a href="industryl">Industrie légère</a></li>
+	<li><a href="powerscoal">Centrale thermique</a></li>
+	<li><a href="coalmine">Mine de charbon</a></li>
+	<li><a href="market">Marchés</a> remplis de déchets.</li>
+	<li><a href="rail">Voies ferrées</a> et <a href="road">Routes</a>, particulièrement quand ils sont pleins de déchets.</li>
+	<p style="hp">Les personnes n'aiment pas vivre dans des zones polluée. Ils essaieront de démenager, ou tomberont malade, voire mourront.</p>
+	<p style="hp">Le vent dominant vient du Sud-ouest et souffle vers le Nord-Est, entrainant avec lui la pollution.</p>
+	<p style="hp">Votre stratégie d'aménagement du territoire doit tenir compte de cela, pour ne pas exposer les habitants à la pollution. Cependant c'est parfois difficile. Les <a href="park">Parcs</a> forment une barrière filtrant la pollution, plusieurs rangées de parcs peuvent être nécessaire pour une bonne efficacité.</p>
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="msb-pol">Surimpression Pollution</a></li>
+	<li><a href="tip">Décharge</a></li>
+	<li><a href="recycle">Centre de Recyclage</a></li>
+</Document>

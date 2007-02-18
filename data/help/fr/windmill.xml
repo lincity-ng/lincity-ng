@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Moulins à vent / Eoliennes</p>
+	<p style="hp">Les moulins à vent fournissent de l'énergie aux fermes et aux résidences. Elles augmentent la production des fermes et rendent les résidences plus désirables.</p>
+	<p style="hp">Fournir de l'énergie aux résidence fait que les habitant consommet plus de biens.</p>
+	<p style="hp">Les moulins à vent <b> ne peuvent pas</b> fournir l'énergie aux industries. (L'industrie lourde peut utiliser du charbon, et l'industrie légère a besoin d'électricité pour fonctionner pleienement)</p>
+	<p style="hp">Selon le niveau technologique au moment de la construction il existe deux formes:</p>
+	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+	<p style="hp">Ceci est un moulin a vent (basse technologie).</p>
+	<img src="images/tiles/windmill1w.png" halign="center"/>
+	<p style="hp">Ceci est une éolienne (haute technologie).</p>
+	<img src="images/tiles/windmill1g.png" halign="center"/>
+	<p style="hp">Les éoliennes peuvent produire de l'électricité.</p>
+</Document>

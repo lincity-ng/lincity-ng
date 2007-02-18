@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Vitesse Rapide</p>
+	<img src="images/gui/speed/fast.png"/>
+	<p style="hp">Ceci est le bouton Vitesse Rapide. La simulation du jeu se fait aussi vite que possible. Sur les machines lente cela peut n'avoir aucun effet. Il faut faire attention en utilisant la vitesse rapide, car certains évènements peuvent avoir de graves conséquences (pénurie, feu, famine ...).</p>
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="medium">Moyen</a></li>
+	<li><a href="slow">Lent</a></li>
+</Document>

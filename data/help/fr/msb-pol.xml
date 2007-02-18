@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Surimpression Pollution</p>
+	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+	<p style="hp">Le bouton situé sous le mini écran affiche la surimpression de la pollution.</p>
+	<p style="hp">La pollution est indiquée en rouge et devient de plus en plus forte : vert-clair -> vert sombre -> rouge sombre -> rouge clair -> rouge vif.</p>
+	<p style="hp">Les résidences situées en zones polluées (rouge) provoqueront des maladies (et des mort prématurées) et ne seront pas désirées comme lieu d'habitation.</p>
+	<p style="hp">Cliquer sur la minicarte pour recentrer la carte principale. Utiliser la touche 'v' pour afficher en surimpression sur la carte principale.</p>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="mini-screen">Minicarte</a></li>
+	<li><a href="pollution">Pollution</a></li>
+	<li><a href="park">Parcs</a></li>
+</Document>

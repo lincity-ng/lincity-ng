@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+
+<p style="htitle">Index</p>
+<li><a href="help">Aide Lincity</a></li>
+<li><a href="button-index">Index des boutons de construction</a></li>
+<li><a href="keys">Clavier</a></li>
+<li><a href="keys">Souris</a></li>
+
+<p style="htitle">Outils et constructions (en haut a gauche)</p>
+<li><a href="query">Interrogation</a></li>
+<li><a href="blacksmith">Forgerons</a></li>
+<li><a href="bulldoze">Bulldozer</a></li>
+<li><a href="coal">Charbon</a></li>
+<li><a href="coalmine">Mine de Charbon</a></li>
+<li><a href="commune">Commune</a></li>
+<li><a href="cricket">Stade</a></li>
+<li><a href="export">Zone d'Import-export</a></li>
+<li><a href="farm">Fermes</a></li>
+<li><a href="firestation">Pompiers</a></li>
+<li><a href="food">Aliments</a></li>
+<li><a href="goods">Biens</a></li>
+<li><a href="health">Centre médical</a></li>
+<li><a href="industryh">Industrie Lourde (Métallurgie)</a></li>
+<li><a href="industryl">Industrie Légère</a></li>
+<li><a href="jobs">Emplois</a></li>
+<li><a href="market">Marché</a></li>
+<li><a href="mill">Fabrique</a></li>
+<li><a href="monument">Monuments</a></li>
+<li><a href="ore">Minerai</a></li>
+<li><a href="oremine">Carrière de minerai</a></li>
+<li><a href="park">Parcs</a></li>
+<li><a href="pollution">Pollution</a></li>
+<li><a href="port">Ports</a></li>
+<li><a href="pottery">Poteries</a></li>
+<li><a href="powerline">Lignes électriques</a></li>
+<li><a href="powerscoal">Centrale électrique thermique</a></li>
+<li><a href="powerssolar">Centrale électrqiue solaire</a></li>
+<li><a href="rail">Voie Ferrée</a></li>
+<li><a href="recycle">Centre de Recyclage</a></li>
+<li><a href="residential">Zone Résidentielle</a></li>
+<li><a href="river">Rivière/Eau</a></li>
+<li><a href="road">Route</a></li>
+<li><a href="rocket">Base de lancement de fusée</a></li>
+<li><a href="school">Ecoles</a></li>
+<li><a href="steel">Acier</a></li>
+<li><a href="substation">Transformateur</a></li>
+<li><a href="tip">Décharge</a></li>
+<li><a href="track">Piste</a></li>
+<li><a href="transport">Transport</a></li>
+<li><a href="university">Université</a></li>
+<li><a href="windmill">Moulins à vent / Eoliennes</a></li>
+
+<p style="htitle">Vitesse du jeu (en bas a gauche)</p>
+
+<li><a href="pause">Bouton Pause</a></li>
+<li><a href="slow">Vitesse lente</a></li>
+<li><a href="medium">Vitesse Moyenne</a></li>
+<li><a href="fast">Vitesse Rapide</a></li>
+
+<p style="htitle">Economie et informations (en bas a droite)</p>
+
+<li><a href="mini-screen">Mini-écran</a></li>
+<li><a href="other-costs">Autres coûts</a></li>
+<li><a href="pbar">Stats</a></li>
+<li><a href="sustain">Développement durable</a></li>
+<li><a href="tech-level">Niveau Tech</a></li>
+<li><a href="dialogs">Aide sur les onglets d'information</a></li>
+<li><a href="economy">Graphe Economie</a></li>
+<li><a href="finance">Onglet Finance €/$</a></li>
+<li><a href="housing">Onglet Population</a></li>
+
+<li><a href="msb-coal">surimpression Charbon</a></li>
+<li><a href="msb-cricket">surimpression Stade</a></li>
+<li><a href="msb-fire">surimpression Pompier</a></li>
+<li><a href="msb-health">Surimpression Santé</a></li>
+<li><a href="msb-normal">Surimpression Plan d'Occupation des Sols</a></li>
+<li><a href="msb-pol">surimpression pollution</a></li>
+<li><a href="msb-power">surimpression Energie</a></li>
+<li><a href="msb-starve">surimmpression famine</a></li>
+<li><a href="msb-transport">surimpression Transport</a></li>
+<li><a href="msb-ub40">surimpression chômage</a></li>
+
+</Document>

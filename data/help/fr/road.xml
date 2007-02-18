@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Routes</p>
+	<p style="hp">Les routes transportent davantage que les pistes, mais moins que les voies ferrées. Elles polluent davantage que les chemins de fers, mais sont moins couteuses à construire et entretenir - c'est pourquoi on les utilise !</p>
+	
+	<p style="hp">Ceci est une route</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="commune">Commune</a></li>
+	<li><a href="pollution">Pollution</a></li>
+	<li><a href="msb-transport">surimpression Transport</a></li>
+
+</Document>

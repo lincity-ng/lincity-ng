@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Surimpression Sports</p>
+	<p style="hp">Sous la mini-carte, pour visualiser la zone d'influence des stades, cliquer sur le bouton </p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/> 
+	<p style="hp">Les zones a portée d'un stade s'affichent en vert sombre dans la mini-carte. Les autres s'affichent normalement.</p>
+	<p style="hp">Ils nécessitent 3 mois pour devenir actifs</p>
+	<p style="hp">Cliquer sur la minicarte pour recentrer la carte principale. Utiliser 'v' pour surimprimer sur la carte principale.</p>
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="mini-screen">Minicarte</a></li>
+	<li><a href="cricket">Stade</a></li>
+</Document>

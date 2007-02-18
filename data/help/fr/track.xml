@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Piste</p>
+	<p style="hp">Les pistes sont le moyen de transport le plus simple et le moins cher. Elles ont également la plus faible capacité de transport, mais ne produisent pas de pollution.</p>
+	
+	<p style="hp">Ceci est une piste</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi :</p>
+	<li><a href="transport">Transport</a></li>
+</Document>

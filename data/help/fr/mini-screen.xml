@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Minicarte</p>
+	<p style="hp">Les minicartes montrent à une échelle réduite l'ensemble de la zone de jeu. Les boutons situés au dessous montrent des informations (pollution, couverture médicale, pompiers, tranport+marché, sport ...) </p>
+	<p style="hp"> On peu également voir en surimpression sur la carte principale en appuyant sur la touche 'v'. Les onglets au-dessus donnent accès aux informations économiques.</p>
+	<p style="hp">Le rectangle bordé de blanc montre la zone visible sur l'écran principal. Cliquer sur la minicarte recentre la carte principale sur l'endroit choisit.</p>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="msb-coal">Surimpression Charbon</a></li>
+	<li><a href="msb-cricket">Surimpression Sport</a></li>
+	<li><a href="msb-fire">Surimpression Pompiers</a></li>
+	<li><a href="msb-health">Surimpression Santé</a></li>
+	<li><a href="msb-normal">Surimpression standard</a></li>
+	<li><a href="msb-pol">Surimpression Pollution</a></li>
+	<li><a href="msb-power">Surimpression Energie</a></li>
+	<li><a href="msb-starve">Surimpression Famine</a></li>
+	<li><a href="msb-ub40">Surimpression Chômage</a></li>
+</Document>
+
+
+

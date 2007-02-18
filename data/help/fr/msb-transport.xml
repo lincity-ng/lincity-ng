@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+        <p style="htitle">Surimpression Transport</p>
+        <img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+        <p style="hp">Le mini écran montre la quantité de biens qui transitent par 
+    <a href="track">piste</a>, <a href="road">route </a>
+    et <a href="rail">voie ferrée</a>.</p>
+        <p style="hp">La couleur bleue indique les batiments qui sont a porté d'un <a href="market">marché</a>.</p>
+        
+        <p style="hsubtitle">Voir aussi:</p>
+        <li><a href="mini-screen">Minicarte</a></li>
+</Document>

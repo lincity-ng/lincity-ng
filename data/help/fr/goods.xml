@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Biens</p>
+	<p style="hp">Les Biens sont nécessaires pour presques toutes les activités et productions. Les populations les parrécient également et sont attirés par les résidences ou des biens sont accessibles.</p>
+	<p style="hp">Les biens sont taxés, donc en produire beaucoup améliorera vos finances.</p>
+	<p style="hp">Les biens sont produits par les Poteries, les Forgerons, les Fabriques et les Industries légères.</p>
+
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="pottery">Poteries</a></li>
+	<li><a href="blacksmith">Forgerons</a></li>
+	<li><a href="mills">Fabriquess</a></li>
+	<li><a href="industryl">Industrie Légère</a></li>
+</Document>

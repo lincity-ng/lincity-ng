@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Industrie Légère</p>
+	<p style="hp">L'industrie légère produits des biens à partir de minerai. La production est accrue quand de l'acier est disponible. L'électricité augmente encore la production. Les éoliennes <b> ne conviennent pas </b> pour l'apport électrique.</p>
+	<p style="hp">La connection au transport permet d'échanger le minerai, l'acier et les biens produits. La main d'oeuvre peut provenir d'un marché de proximité.</p>
+	<p style="hp"> La connection au transport se fait <b> uniquement </b> par le coin supérieur gauche, comme sur le dessin. La voie de transport se courbe indiquant la connection.</p>
+	<p style="hp">D'un façon approximative, la production d'une industrie légère dépend principalement de la quantité de matériau/emplois qu'elle peut recevoir, et également de la quantité de biens qui peuvent être <b> emportés </b> vers leurs lieux de ventes.</p>
+	
+	<p style="hp">Ceci est une industrie légère</p>
+	<img src="images/tiles/industryll1.png" halign="center"/>
+	<p style="hp">et ceci son icône</p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+	
+	<p style="hsubtitle">Voir aussi:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="road">Routes</a></li>
+	<li><a href="rail">Voie ferrées</a></li>
+	<li><a href="market">Marchés</a></li>
+	<li><a href="jobs">Emplois</a></li>
+</Document>
