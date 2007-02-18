@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Sat Jan 27 22:03:14 2007\n"
-"PO-Revision-Date: 2007-02-18 15:28+0100\n"
+"PO-Revision-Date: 2007-02-18 16:35+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -599,7 +599,7 @@ msgstr "Sie haben ein Technologieniveau erreicht, auf dem sie in der Lage sind, 
 
 #: data/gui/hvindustryup.xml
 msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
-msgstr "Sie haben ein Technologieniveau erreicht, auf dem sie in der Lage sind, Scherindustrie (Stahlwerke) zu bauen. Schwerindustrie erzeugt Stahl."
+msgstr "Sie haben ein Technologieniveau erreicht, auf dem sie in der Lage sind, Schwerindustrie (Stahlwerke) zu bauen. Schwerindustrie erzeugt Stahl."
 
 #: data/gui/ltindustryup.xml
 msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "

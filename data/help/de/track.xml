@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Wege</p>
+	<p style="hp">Wege sind die einfachste und billigste Art von Transportwegen.
+    Auch haben sie die geringste Kapazität. Andererseits erzeugen sie keine Verschmutzung.</p>
+	
+	<p style="hp">Das ist ein Weg</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">und das ist das Icon dazu</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="commune">Köhlerei</a></li>
+</Document>
