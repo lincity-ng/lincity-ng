@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Transportübersicht</p>
+	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+	<p style="hp">Die Transportminikarte zeigt die Menge von Gütern,
+    die sich auf den <a href="track">Wegen</a>, <a href="road">Straßen </a>
+    und <a href="rail">Eisenbahnen </a> der Stadt befinden.</p>
+	<p style="hp">Die bläulichen Farben sind Gebäude, die sich in der
+    Reichweite eines <a href="market">Marktes </a> befinden.</p>
+
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="mini-screen">Minikarte</a></li>
+	<li><a href="msb-coal">Kohlenflözekarte</a></li>
+	<li><a href="msb-cricket">Sportversorgungsübersicht</a></li>
+	<li><a href="msb-fire">Feuerwehrabdeckung</a></li>
+	<li><a href="msb-health">Gesundheitsversorgungsübersicht</a></li>
+	<li><a href="msb-normal">Normale Ansicht</a></li>
+	<li><a href="msb-pol">Verschmutzungsübersicht</a></li>
+	<li><a href="msb-power">Stromversorgungsübersichtskarte</a></li>
+	<li><a href="msb-starve">Nahrungsversorgunsübersicht</a></li>
+	<li><a href="msb-ub40">Arbeitslosenübersicht</a></li>
+</Document>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Töpferei</p>
+	<p style="hp">Töpfereien erzeugen aus Erz und Kohle mit der Hilfe von
+    Arbeitern Waren. Sie müssen nicht mit einem Transportweg verbunden sein,
+    aber dann müssen sie sich natürlich in Reichweite eines Marktes befinden,
+    von dem sie Erz, Kohle und Arbeiter beziehen und auf dem sie ihre Waren
+    abgeben können.</p>
+	<p style="hp">Sie sehen, ob eine Töpferei in Betrieb ist anhand des Rauches,
+    der dann von den Brennöfen aufsteigt. Wenn nur einer der beiden Öfen raucht
+    arbeitet die Töpferei nicht mit Vollast.</p>
+	
+	<p style="hp">So sieht eine Töpferei aus</p>
+	<img src="images/tiles/pottery0.png" halign="center"/>
+	<p style="hp">und so das Icon</p>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="ore">Erz</a></li>
+	<li><a href="coal">Kohle</a></li>
+	<li><a href="jobs">Arbeitsplätze</a></li>
+	<li><a href="market">Märkte</a></li>
+</Document>

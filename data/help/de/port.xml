@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Häfen</p>
+	<p style="hp">Mit einem Hafen können sie Waren, Stahl, Erz, Kohle und
+    Nahrung Im- und Exportieren. Import kostet Geld, mit Exporten verdienen
+    Sie welches.</p>
+	<p style="hp">Damit ein Hafen was bringt muss er mit einem Transportweg
+     verbunden sein. Stellen sie ein, was sie kaufen und verkaufen möchten,
+    indem sie den Hafen doppelklicken. Das öffnet ein Menü, in dem Sie
+    eine Auswahl treffen können.</p>
+	<p style="hp">Häfen <b>müssen</b> an schiffbaren Gewässern liegen. Das
+    heißt die ganze Ostseite des Hafens muss am Wasser liegen.</p>
+	<p style="hp">Solange sie es nicht im Menü eingestellt haben 
+    wird nichts ge- oder verkauft.</p>
+	<p style="hp">Es wird so viel wie Möglich verkauft, wenn sie die Menge
+    beschränken wollen sollten sie nur einen Transportweg mit geringer
+    Kapazität zum Hafen bauen.</p>
+	<p style="hp">Achtung: Wenn viel exportiert wird sinkt der Verkaufspreis.</p>
+
+	<p style="hp">Das ist ein Hafen.</p>
+	<img src="images/tiles/ex_port.png" halign="center"/>
+	<p style="hp">und das das Icon</p>
+	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+    <li><a href="export">Import und Export</a></li>
+	<li><a href="rivers">Flüsse</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Markt</a></li>
+	<li><a href="coal">Kohle</a></li>
+	<li><a href="ore">Erz</a></li>
+	<li><a href="goods">Waren</a></li>
+	<li><a href="steel">Stahl</a></li>
+</Document>

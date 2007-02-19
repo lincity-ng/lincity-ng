@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Parks</p>
+	<p style="hp">Parks funktionieren ganz einfach: sie säubern Verschmutzung.</p>
+	<p style="hp">Eine ganze Menge Gebiete erzeuge Verschmutzung. Da sind
+    Straßen, Eisenbahnen, Kohlebergwerke, Industriegebiete, Schwerindustrie  
+    und Kohlekraftwerke. Manche erzeugen mehr Dreck als andere.</p>
+	<p style="hp">Sie können Parks verwenden um Ihre Wohngebiete
+    abzuschirmen, oder um zu verhindern, daß sich die Verschmutzung 
+    über ihr Entstehungsgebiet hinaus ausbreitet. </p>
+	<p style="hp">Der Wind kommt <b>von</b> Südwest, also bauen sie die Parks
+    entsprechend.</p>
+	
+	<p style="hp">Das ist ein Parkk</p>
+	<img src="images/tiles/parkland-plane.png" halign="center"/>
+	<p style="hp">und sein Icon</p>
+	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="pollution">Verschmutzung</a></li>
+	<li><a href="road">Straßen</a></li>
+	<li><a href="rail">Eisenbahnen</a></li>
+	<li><a href="coalmine">Kohlebergwerke</a></li>
+	<li><a href="industryh">Schwerindustrie</a></li>
+	<li><a href="industryl">Industriegebiete</a></li>
+</Document>

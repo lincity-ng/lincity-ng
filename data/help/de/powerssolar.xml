@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Solarkraftwerke</p>
+	<p style="hp">Solarkraftwerke speisen Strom ins angeschlossene Netz 
+    ein. Die Menge des erzeugten Stromes hängt vom Technologieniveau zum
+    <b>Bauzeitpunkt</b> ab.</p>
+	
+	<p style="hp">Das ist ein Solarkraftwerk</p>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
+	<p style="hp">und das das Icon</p>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="substation">Umspannhäschen</a></li>
+	<li><a href="powerline">Stromleitungen</a></li>
+	<li><a href="residential">Wohngebiete</a></li>
+	<li><a href="tech-level">Tech-level</a></li>
+	<li><a href="msb-power">Stromversorgungskarte</a></li>
+</Document>

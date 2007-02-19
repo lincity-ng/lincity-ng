@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Stromleitungen</p>
+	<p style="hp">Stromleitungen leiten den Strom von Kohle- und 
+    Solarkraftwerken zu den Umspannhäuschen. Stromleitungen Werden 
+    an der Nordwestecke dieser Gebäude angeschlossen. Auch die moderne
+    Form der Windmühle erzeugt Strom.</p>
+	<p style="hp">Stromleitungen <b>unterqueren</b> Wege, Straßen
+     Eisenbahnschienen und Wasser jeweils mit der Breite von einem Feld.
+    Wenn eine Stromleitung also auf beide Seiten einer Straße gestellt wird
+    zählen sie als verbunden. Meistens müssen sie trotzdem einen Teil des
+    Flusses zuschütten um Ihn mit einer Stromleitung zu queren was recht teuer
+    ist. Stromleitungen gelten nur in in gerader Linie als verbunden.</p>
+
+	<p style="hp">Eine Stromleitung</p>
+	<img src="images/tiles/powerlvd.png" halign="center"/>
+	<p style="hp">und das Icon</p>
+	<img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
+	<p style="hp">Das ist das Icon für die Stromversorgungskarte</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="substation">Umspannhäuschen</a></li>
+	<li><a href="powerssolar">Solarkraftwerk</a></li>
+	<li><a href="msb-power">Stromversorgungskarte</a></li>
+</Document>
+

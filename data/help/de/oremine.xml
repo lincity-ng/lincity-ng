@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Erzgruben</p>
+	<p style="hp">Erzgruben stellen Erz zur Herstellung von Waren und
+    Stahl zur Verfügung. Sie können Erzgruben überall errichten. Das Erz
+    im Boden wird langsam abgebaut werden; die Grube abreißen und eine neue
+    an die gleiche Stelle stellen bringt nicht mehr Erz.</p>
+	<p style="hp">Sobald eine Grube erschöpft ist wird ihr Gebiet zu einem See.
+    Um das Land neu erschließen zu können müssen sie 16 Wasserfelder
+    zuschütten!</p>
+	<p style="hp">Transportwege verbinden sich mit der Nordwestecke der
+    Grube.</p>
+	
+	<p style="hp">Das ist eine Erzgrube</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">und das das Icon</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="ore">Ore</a></li>
+	<li><a href="goods">Waren</a></li>
+	<li><a href="steel">Stahl</a></li>
+</Document>

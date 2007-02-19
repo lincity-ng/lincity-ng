@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Ernährungsübersichtskarte</p>
+	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
+	<p style="hp">In der Ernährungsübersicht werden nur Wohngebiete 
+    berücksichtigt.</p>
+	<p style="hp">Hellgrün bedeutet, daß genügend Nahrung für alle Bewohner
+     vorhanden ist. Dunkelgrün und Hellrot zeigen zunehmende Unterversorgung
+     an.</p>
+	<p style="hp">Linksklick auf die Minikarte beweg die Hauptansicht zur
+    gewählten Stelle. Um die Minikarte über die Hauptansicht zu legen 
+    drücken sie 'v' oder den Overlay-Knopf links von der Minikarte.</p>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="mini-screen">Minikarte</a></li>
+	<li><a href="msb-coal">Kohlenflözekarte</a></li>
+	<li><a href="msb-cricket">Sportversorgungsübersicht</a></li>
+	<li><a href="msb-fire">Feuerwehrabdeckung</a></li>
+	<li><a href="msb-health">Gesundheitsversorgungsübersicht</a></li>
+	<li><a href="msb-normal">Normale Ansicht</a></li>
+	<li><a href="msb-pol">Verschmutzungsübersicht</a></li>
+	<li><a href="msb-power">Stromversorgungsübersichtskarte</a></li>
+	<li><a href="msb-transport">Transportübersicht</a></li>
+	<li><a href="msb-ub40">Arbeitslosenübersicht</a></li>
+</Document>

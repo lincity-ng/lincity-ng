@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Kohlekraftwerk</p>
+	<p style="hp">Kohlekraftwerke erzeugen elektrischen Strom, den sie ins
+    angeschlossene Netz einspeisen. </p>
+	<p style="hp">Stromleitungen werden an der Nordwestecke des Kraftwerks
+    angeschlossen, Transportwege auf den beiden Feldern daneben.</p>
+	<p style="hp">Der Wirkungsgrad der Kraftwerke steigt mit dem
+    Technologieniveau. Das Kafrtwerk behält immer den Technologiestand
+    <b>zum Bauzeitpunkt</b>. Es kann sinnvoll sein, alte Kraftwerke abzureisen
+    und sie durch modernere zu ersetzen, falls Ihr Technologieniveau deutlich
+    angestiegen ist.</p>
+	<p style="hp">Das ist ein Kohlekraftwerke</p>
+	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
+	<p style="hp">und das sein Icon</p>
+	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="tech-level">Tech level</a></li>
+	<li><a href="powerline">Stromleitungen</a></li>
+	<li><a href="msb-power">Stromversorgungskarte</a></li>
+</Document>
