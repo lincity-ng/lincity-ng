@@ -31,6 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Desktop.hpp"
 #include "gui/ComponentLoader.hpp"
 #include "gui/callback/Callback.hpp"
+#include "Util.hpp"
 
 HelpWindow::HelpWindow(Desktop* desktop)
 {
@@ -57,6 +58,10 @@ HelpWindow::showTopic(const std::string& topic)
         if(helpWindow == 0) {
             helpWindow = loadGUIFile("gui/helpwindow.xml");
             desktop->addChildComponent(helpWindow);
+            // connect history back button
+            historyBackButton = getButton(*helpWindow, "HistoryBack");
+            historyBackButton->clicked.connect(
+                makeCallback(*this, &HelpWindow::historyBackClicked));
         }
         // load new contents
         std::string filename = getHelpFile(topic);
@@ -76,6 +81,7 @@ HelpWindow::showTopic(const std::string& topic)
         if(scrollView == 0)
             throw std::runtime_error("HelpScrollView is not a ScrollView");
         scrollView->replaceContents(contents.release());
+        topicHistory.push(topic);
     } catch(std::exception& e) {
         std::cerr << "Couldn't open HelpWindow: "
             << e.what() << "\n";
@@ -110,4 +116,14 @@ void
 HelpWindow::linkClicked(Paragraph*, const std::string& href)
 {
     nextTopic = href;
+}
+
+void
+HelpWindow::historyBackClicked(Button*)
+{
+    if(topicHistory.size() > 1) {
+        topicHistory.pop(); //the current page is on the top, remove it.
+        nextTopic = topicHistory.top();
+        topicHistory.pop();
+    }
 }

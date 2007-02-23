@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __HELPWINDOW_HPP__
 
 #include <string>
+#include <stack>
+#include "gui/Button.hpp"
 
 class Desktop;
 class Paragraph;
@@ -34,10 +36,13 @@ public:
 
 private:
     void linkClicked(Paragraph* paragraph, const std::string& href);
+    void historyBackClicked(Button*);
     std::string getHelpFile(const std::string& topic);
 
     Desktop* desktop;
     std::string nextTopic;
+    std::stack<std::string> topicHistory;
+    Button* historyBackButton;
 };
 
 #endif

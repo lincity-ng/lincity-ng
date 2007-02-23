@@ -1,8 +1,21 @@
 <?xml version="1.0"?>
 <Window width="500" height="400" border="5" titlesize="30" name="HelpWindow">
 	<title>
-		<Paragraph halign="center" color="white" name="HelpWindowTitle"
-		height="30" font-size="20">Help</Paragraph>
+        <TableLayout rows="1" cols="2">
+            <colsize col="1" fixed="25"/>
+            <cell row="1" col="1"  halign="right">
+                <Button name="HistoryBack">
+		    		<image src="images/gui/buttons/round/button-round-20.png"/>
+	    			<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+    				<image-clicked src="images/gui/buttons/round/button-round-checked-20.png"/>
+				    <image-caption src="images/gui/back.png"/>
+                </Button>
+            </cell>
+            <cell row="1" col="2">
+		        <Paragraph halign="center" color="white" name="HelpWindowTitle"
+    		    height="30" font-size="20">Help</Paragraph>
+            </cell>
+        </TableLayout>
 	</title>
 	<title-background>
 		<Gradient from="#ff0000ff" to="#88776655" direction="left-right"/>
