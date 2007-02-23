@@ -386,6 +386,10 @@ void print_stats ()
     getEconomyGraph()->updateData();
   }
 
+  if (total_time % (NUMOF_DAYS_IN_MONTH/5) == NUMOF_DAYS_IN_MONTH / 5 - 1) {
+    mps_refresh();
+  }
+
   //check for new tech
   update_avail_modules (1);
 
