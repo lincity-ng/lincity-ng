@@ -26,23 +26,26 @@ do_industry_h (int x, int y)
   /* See if there's any raw materials (ore) on the road/rail. If so, use some
      jobs to get it.  First get some ore... 
   */
+  int load;
   if (MP_INFO(x,y).int_3 < MAX_ORE_AT_INDUSTRY_H
       && ((MP_INFO(x - 1,y).flags & FLAG_IS_TRANSPORT)
 	  != 0) && MP_INFO(x - 1,y).int_5 > 0)
     if (get_jobs (x, y, JOBS_LOAD_ORE) != 0)
       {
-	MP_INFO(x,y).int_3 += (MP_INFO(x - 1,y).int_5 / 2
-				 + ((MP_INFO(x - 1,y).int_5) % 2));
-	MP_INFO(x - 1,y).int_5 /= 2;
+        load = std::min(MAX_ORE_AT_INDUSTRY_H - MP_INFO(x,y).int_3,  
+            MP_INFO(x - 1,y).int_5 / 2 + ((MP_INFO(x - 1,y).int_5) % 2));
+	MP_INFO(x,y).int_3 += load;
+	MP_INFO(x - 1,y).int_5 -= load;
       }
   if (MP_INFO(x,y).int_3 < MAX_ORE_AT_INDUSTRY_H
       && ((MP_INFO(x,y - 1).flags & FLAG_IS_TRANSPORT)
 	  != 0) && MP_INFO(x,y - 1).int_5 > 0)
     if (get_jobs (x, y, JOBS_LOAD_ORE) != 0)
       {
-	MP_INFO(x,y).int_3 += (MP_INFO(x,y - 1).int_5 / 2
-				 + ((MP_INFO(x,y - 1).int_5) % 2));
-	MP_INFO(x,y - 1).int_5 /= 2;
+        load = std::min(MAX_ORE_AT_INDUSTRY_H - MP_INFO(x,y).int_3,  
+            MP_INFO(x,y - 1).int_5 / 2 + ((MP_INFO(x,y - 1).int_5) % 2));
+	MP_INFO(x,y).int_3 += load;
+	MP_INFO(x,y - 1).int_5 -= load;
       }
   /* then get some coal if needed */
   if (MP_INFO(x,y).int_4 < MAX_COAL_AT_INDUSTRY_H
@@ -50,18 +53,20 @@ do_industry_h (int x, int y)
 	  != 0) && MP_INFO(x - 1,y).int_3 > 0)
     if (get_jobs (x, y, JOBS_LOAD_COAL) != 0)
       {
-	MP_INFO(x,y).int_4 += (MP_INFO(x - 1,y).int_3 / 2
-				 + ((MP_INFO(x - 1,y).int_3) % 2));
-	MP_INFO(x - 1,y).int_3 /= 2;
+        load = std::min(MAX_COAL_AT_INDUSTRY_H-MP_INFO(x,y).int_4,
+            MP_INFO(x - 1,y).int_3 / 2 + ((MP_INFO(x - 1,y).int_3) % 2));
+	MP_INFO(x,y).int_4 += load;
+	MP_INFO(x - 1,y).int_3 -= load;
       }
-  if (MP_INFO(x,y).int_4 < MAX_ORE_AT_INDUSTRY_H
+  if (MP_INFO(x,y).int_4 < MAX_COAL_AT_INDUSTRY_H
       && ((MP_INFO(x,y - 1).flags & FLAG_IS_TRANSPORT)
 	  != 0) && MP_INFO(x,y - 1).int_3 > 0)
     if (get_jobs (x, y, JOBS_LOAD_COAL) != 0)
       {
-	MP_INFO(x,y).int_4 += (MP_INFO(x,y - 1).int_3 / 2
-				 + ((MP_INFO(x,y - 1).int_3) % 2));
-	MP_INFO(x,y - 1).int_3 /= 2;
+        load = std::min(MAX_COAL_AT_INDUSTRY_H-MP_INFO(x,y).int_4,
+            MP_INFO(x,y - 1).int_3 / 2 + ((MP_INFO(x,y - 1).int_3) % 2));
+	MP_INFO(x,y).int_4 += load;
+	MP_INFO(x,y - 1).int_3 -= load;
       }
 
   rawm = MP_INFO(x,y).int_3;
