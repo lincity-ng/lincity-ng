@@ -3,7 +3,7 @@
 	<p style="htitle">Hoge snelheid</p>
 
 	<img src="images/gui/speed/fast.png"/>
-	<p style="hp">Dit is de hogesnelheid knop. Het zorgt ervoor dan het spel zo snel mogelijk loopt. Op tragere computers is het mogelijk dat deze knop geen effect heeft. Voorzichtigheid is aan te raden op snelle computers, 'situaties' kunnen zeer snel veranderen!!</p>
+	<p style="hp">Dit is de hogesnelheid knop. Het zorgt ervoor dan het spel zo snel mogelijk loopt. Voorzichtigheid is aan te raden op snelle computers, 'situaties' kunnen zeer snel veranderen!!</p>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="medium">Normale snelheid</a></li>

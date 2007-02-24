@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Sportkaart</p>
-	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
-	<p style="hp">Gebieden die toegang hebben tot sportvelden worden donkergroen getoond, andere gebieden worden normaal gekleurd.</p>
-	<p style="hp">Let op! Basketbalvelden treden pas drie maanden na de bouw in werking.</p>
+	<p style="htitle">Verkeer kaart</p>
+	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+	<p style="hp">De verkeerskaart toont de hoeveelheid goederen die via <a href="track">landweggetjes</a>, <a href="road">straten</a>
+    en <a href="rail">spoorwegen</a> van de stad vervoert worden.</p>
+	<p style="hp">De gebouwen die binnen het bereik van een <a href="market">markt</a> liggen zijn blauw.</p>
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>
-
+	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Minikaart</a></li>
 	<li><a href="msb-coal">Steenkoolkaart</a></li>
+	<li><a href="msb-cricket">Sportkaart</a></li>
 	<li><a href="msb-fire">Brandkaart</a></li>
 	<li><a href="msb-health">Welzijnskaart</a></li>
 	<li><a href="msb-normal">Normale kaart</a></li>
-	<li><a href="msb-pol">Vervuilingkaart</a></li>
-	<li><a href="msb-transport">Verkeerskaart</a></li>
-	<li><a href="msb-power">Electriciteitskaart</a></li>
+	<li><a href="msb-pol">Vervuilingskaart</a></li
+	<li><a href="msb-power">Energiekaart</a></li>
 	<li><a href="msb-starve">Sterftekaart</a></li>
 	<li><a href="msb-ub40">Werkloosheidskaart</a></li>
 </Document>

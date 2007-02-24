@@ -3,17 +3,18 @@
 	<p style="htitle">Werkloosheidskaart</p>
 	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
 	<p style="hp">De werkloosheidskaart kleurt alleen maar woonwijken.</p>
-	<p style="hp">Heldergroen betekent dat er geen wekloosheid heerst in dat gebied. Donkergroen betekent dat er een licht tekort aan jobs in die gebieden is. Helderrood betekent dat er grote werkloosheid heerst in die gebieden.</p>
+	<p style="hp">Heldergroen betekent dat er geen werkloosheid heerst in dat gebied. Donkergroen betekent dat er een licht tekort aan werk in die gebieden is. Helderrood betekent dat er grote werkloosheid heerst in die gebieden.</p>
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Minikaart</a></li>
+	<li><a href="msb-coal">Steenkoolkaart</a></li>
 	<li><a href="msb-cricket">Sportkaart</a></li>
 	<li><a href="msb-fire">Brandkaart</a></li>
 	<li><a href="msb-health">Welzijnskaart</a></li>
 	<li><a href="msb-normal">Normale kaart</a></li>
 	<li><a href="msb-pol">Vervuilingkaart</a></li>
+	<li><a href="msb-transport">Verkeerskaart</a></li>
 	<li><a href="msb-power">Electriciteitskaart</a></li>
 	<li><a href="msb-starve">Sterftekaart</a></li>
-	<li><a href="msb-ub40">Werkloosheidskaart</a></li>
 </Document>

@@ -10,12 +10,13 @@
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Minikaart</a></li>
+	<li><a href="msb-coal">Steenkoolkaart</a></li>
 	<li><a href="msb-cricket">Sportkaart</a></li>
 	<li><a href="msb-fire">Brandkaart</a></li>
 	<li><a href="msb-health">Welzijnskaart</a></li>
 	<li><a href="msb-normal">Normale kaart</a></li>
 	<li><a href="msb-pol">Vervuilingkaart</a></li>
-	<li><a href="msb-power">Electriciteitskaart</a></li>
+	<li><a href="msb-transport">Verkeerskaart</a></li>
 	<li><a href="msb-starve">Sterftekaart</a></li>
 	<li><a href="msb-ub40">Werkloosheidskaart</a></li>
 </Document>
