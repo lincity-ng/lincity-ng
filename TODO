@@ -11,7 +11,6 @@ Graphics
      loading and scrolling)
  [M] We need an icon (48x48 png with alpha for kde/gnome, eventually 128x128 png
         alpha for mac os/x and 32x32 keycolored (and/or alpha) for windows)
- [M] test if we run out of video memory and display some warnings at least
  [L] graphics alignment wrong in non-1024x768 mode:
      if I start lincity-ng with '-S 1280x960' or '-S 1600x1200', and 
      then press the 'New Game' button, the available scenarios are rendered
@@ -24,7 +23,6 @@ Programming
  [M] Implement dirty rectangle methods to only redraw when needed
  [?] Think about mechanism for attach arbitrary properties to components
     (for tooltips, styles (and layout data?) )
- [M] Add back/forward buttons to help window
  [M] drawToTexture in OpenGL (noone using this at the moment, could be used to
      optimize minimap in the future. Maybe this is a good starting point :
      http://www.paulsprojects.net/opengl/rtotex/rtotex.html)

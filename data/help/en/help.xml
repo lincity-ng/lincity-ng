@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Lincity Help</p>
-	<p style="hp">This is the Lincity help system. Please choose a topic by clicking on one of the blue words below. Blue words generally indicate a link to another document.</p>
+	<p style="hp">This is the Lincity help system. Please choose a topic by clicking on one of the blue words below. Blue words generally indicate a link to another document. Use arrow on top left to go back to previous help.</p>
+	<li><a href="tutorial">Tutorial</a></li>
 	<li><a href="keys">Keyboard commands</a></li>
 	<li><a href="button-index">List of all buildable entries</a></li>
 	<li><a href="mini-screen">Help on the minimap</a></li>

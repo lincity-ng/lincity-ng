@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Aide de Lincity</p>
-	<p style="hp">Choisissez un sujet en cliquant sur les mots écrit en bleu ci dessous. (En général ce sont des liens vers un autre document).</p>
-	<li><a href="keys">Raccourcis clavier</a></li>
+	<p style="hp">Durant le jeu, vous pouvez invoquer l'aide en utilisant F1 (bouton aide) ou click-droit sur l'icône du bâtiment dans le dock d'icônes en haut a gauche.</p>
+	<p style="hp">Cliquez sur les mots écrit en bleu ci dessous. Ce sont des liens vers un autre document. La flèche en haut a gauche permet de revenir à la page précedente.</p>
+
+	<p style="hsubtitle">Objectif</p>
+	<p style="hp">Pour gagner Lincity, il faut soit atteindre une <a href="sustain">économie durable </a>, soit évacuer toute la population dans des <a href="rocket">fusées</a>.</p>
+
+	<p style="hsubtitle"> Fiches d'aides </p>
+	<li><a href="tutorial">Tutoriel - Guide</a></li>
 	<li><a href="button-index">Liste des constructions possibles</a></li>
 	<li><a href="mini-screen">Aide des mini-cartes</a></li>
 	<li><a href="dialogs">Aide sur les onglets d'information</a></li>
-	<p style="hp">Durant le jeu, vous pouvez invoquer l'aide en utilisant F1 (bouton aide) ou click-droit.</p>
-    
-	<p style="htitle">Objectif</p>
-	<p style="hp">Pour gagner Lincity, il faut soit atteindre une <a href="sustain">économie durable </a>, soit
-  	    évacuer toute la population dans des <a href="rocket">fusées</a>.</p>
-    <li><a href="index">Index</a></li>
-</Document>
+	<li><a href="keys">Raccourcis clavier/souris</a></li>
+	<li><a href="index">Index</a></li>
+</Document> 
