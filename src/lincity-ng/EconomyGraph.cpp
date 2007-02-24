@@ -199,9 +199,9 @@ void EconomyGraph::updateData(){
         if (sustain_flag == 0){
 	        ok_dial_box ("sustain.mes", GOOD, 0L);
             sustain_flag = 1;
-        } else {
-            sustain_flag = 0;
         }
+    } else {
+        sustain_flag = 0;
     }
 
     
