@@ -38,7 +38,7 @@
 <li><a href="msb-pol">Pollution overlay</a></li>
 <li><a href="msb-power">Power overlay</a></li>
 <li><a href="msb-starve">Starvation overlay</a></li>
-<li><a href="msb-transport">Transportation overlay</a></li>
+<li><a href="msb-transport">Transportation and market overlay</a></li>
 <li><a href="msb-ub40">Unemployment overlay</a></li>
 <li><a href="ore">Ore</a></li>
 <li><a href="oremine">Ore mine</a></li>
@@ -69,6 +69,11 @@
 <li><a href="track">Tracks</a></li>
 <li><a href="transport">Transport</a></li>
 <li><a href="tutorial">Tutorial</a></li>
+<li><a href="tutorial-aim">Aim</a></li>
+<li><a href="tutorial-overview">Overview of screen</a></li>
+<li><a href="tutorial-basics">First steps</a></li>
+<li><a href="tutorial-advanced">Advanced</a></li>
+<li><a href="tutorial-scenario">Scenario</a></li>
 <li><a href="university">University</a></li>
 <li><a href="windmill">Windmills</a></li>
 </Document>

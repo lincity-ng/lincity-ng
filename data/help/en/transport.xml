@@ -1,32 +1,35 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Transport</p>
-	<p style="hp">There are three types of transport in Lincity: tracks, roads and railways. There is a fourth form that consists of 'hopping across a field'. This is a very short range form of trading and will not be referred to as transport again. However, it is very important and will be dealt with before tracks, roads and railways.</p>
-	<p style="hp">People can obtain food, goods and employment from markets that are within walking distance of their residential area.</p>
-	<p style="hp">All areas that require jobs (employees) get them from markets. For example a steel works will get its employees from a local market. They can also get them from passing transport.</p>
-	<p style="hp">Farms can sell their food directly to markets, they do not have to deal with transport at all.</p>
-	<p style="hp">Mills, Potteries and blacksmiths sell goods directly to nearby markets, they also get their raw materials from the same markets.</p>
-	<p style="hp">The following areas deal with transport and markets. It's up to you what you use - markets hold more <i>stock</i> than transport.</p>
-	<p style="hp">Tracks, roads and railways are used to carry food, jobs, goods, coal, ore and steel between areas.</p>
-	<p style="hp">Light industries, ore mines, tips, ports, coal mines, heavy industries and recycling centers connect to transport at the top left hand edge.</p>
-	<p style="hp">An exception is the coal power station. For example take a coal fired power station connected to a coalmine with a road. A railway is coming out of the top gate of the coalmine and going off to the right.</p>
-	<p style="hp">To cross a river with transport, simply bulldoze the river and build a road, track or railway through the gap.</p>
-	<p style="hp">Think of this as building a bridge.  It costs you a lot because bulldozing water is very expensive.</p>
+	<p style="hp">There are three types of transport in Lincity: tracks, roads and railways.</p>
+	<p style="hp">There is a fourth form that consists of 'hopping across a field' to reach a market. This is a very short range form of trading and will not be referred to as transport again. However, it is very important, so you should read again <a href="market"> markets</a>.</p>
 
+	<p style="hp">Tracks, roads and railways are used to carry food, jobs, goods, coal, ore, steel and wastes between areas. Transport between markets, transport for buildings out of range of a market (this is generally a bad idea) and transport for building that explicitely need it:</p>
+	<li>Communes just need to be adjacent to transport</li>
+	<li>Light industries, ore mines, tips, ports, coal mines, heavy industries and recycling centers<b> need to </b>connect to transport at the top left hand corner. You will see the transport "bend", thus show the connection.</li>
+	<li>An exception is the coal power station: the top left corner is used for connection to the electric line, so the transport connect just near.</li>
+	<p style="hp">For example, an heavy industry can connect by road to a coal mine, and by rail to other resources like ore mine and markets.</p>
+
+	<p style="hp">To cross a river with transport, simply bulldoze the river and build a road, track or railway through the gap. Think of this as building a bridge.  It costs you a lot because bulldozing water is very expensive.</p>
+
+	<p style="hp">Roads and Rail causes yearly costs (for maintenance) and pollution (and more pollution if they carry lots of wastes).</p>
 
 	<p style="hsubtitle">See also:</p>
-	<li><a href="residential">Residences</a></li>
-	<li><a href="market">Market</a></li>
-	<li><a href="farm">Farms</a></li>
-	<li><a href="mill">Mills</a></li>
-	<li><a href="pottery">Potteries</a></li>
-	<li><a href="industryl">Light indusrty</a></li>
-	<li><a href="oremine">Ore mines</a></li>
-	<li><a href="tip">Tips</a></li>
-	<li><a href="port">Ports</a></li>
+	<li><a href="track">Tracks</a></li>
+	<li><a href="road">Roads</a></li>
+	<li><a href="rail">Railways</a></li>
+
+	<li><a href="commune">Communes</a></li>
 	<li><a href="coalmine">Coal mines</a></li>
-	<li><a href="industryh">Heavy industry</a></li>
-	<li><a href="recycle">Recycling centres</a></li>
-	<li><a href="coalmine">Coalmine</a></li>
 	<li><a href="powercoal">Coal fired power station</a></li>
+	<li><a href="tip">Tips</a></li>
+	<li><a href="recycle">Recycling centres</a></li>
+	<li><a href="oremine">Ore mines</a></li>
+	<li><a href="industryl">Light industry</a></li>
+	<li><a href="industryh">Heavy industry</a></li>
+	<li><a href="port">Ports</a></li>
+
+	<li><a href="finance">Finance window</a></li>
+	<li><a href="msb-transport">Transportation and market overlay</a></li>
+
 </Document>

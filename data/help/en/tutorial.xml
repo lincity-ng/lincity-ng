@@ -1,95 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document style="helpdocument">
-<p style="htitle">Tutorial</p>
-<p style="htitle">Aim of the game </p>
-<p style="hp">There are 2 ways to "win" the game:</p>
-<li>Reach sustainable development (you can still play after) </li>
-<li>Evacuate all the population with rockets to another planet, then the game stops. </li>
-<p style="hp"></p>
+	<p style="htitle">Tutorial</p>
 
-<p style="hp">Currently (1.1.0) there is only one way to lose:</p>
-<li>Everybody is dead because of starvation or pollution. (you know that you need at least 2 people to create a population ;-) </li>
-<p style="hp"></p>
-
-<p style="hp">You will need to increase your tech-level to get new possible buildings and industries. You have to manage the growth of population, and take care of various needs and economical balance. </p>
-<p style="htitle">First steps </p>
-<p style="hp">Choose "new game " &gt; "random village". Other scenarii are for more or less experienced players. </p>
-<p style="hsubtitle">Overview of the screen </p>
-
-
-<p style="hp">Top left contains icons dock with tools (query and bulldoze) and all the building you can get during the game. </p>
-<li>Left-Click on an icon to open the drawer and see more stuff. </li>
-<li>Right-click on an icon to get related help. </li>
-<li>Just wait with mouse pointer will popup a mini help message. </li>
-<p style="hp"></p>
-
-<p style="hp">Lower left is game speed control </p>
-<p style="hp"></p>
-
-<p style="hp">Lower right contains all the "information tools": miniscreen with 4 tabs, and below mini-icons for various informations. Click on them to see what happens. </p>
-<p style="hp"></p>
-
-<p style="hp">Try keyboard and mouse (left, middle and right click and wheel...) , F1 for Help. </p>
-
-<p style="hp">Observe that the random village contains basic resources: </p>
-<li>farms for feeding markets with foods </li>
-<li>markets where your people buy all they need, and also ask for jobs, and send their wastes. </li>
-<li>communes which produces charcoal and small amount of ore and steel </li>
-<li>houses </li>
-<li>pottery </li>
-<li>tracks </li>
-
-<p style="hsubtitle">Market </p>
-<p style="hp">Market is a key building in Lincity. It is mandatory for nearly all exchanges. For example farms sell their foods to the market, where people come to buy them. </p>
-<p style="hp"><b>Within the range </b>of a market all exchanges are done <b>without need of transport</b>, except when it is specified. On lower right there is a mini-icon "transport overlay" which shows the saturation of transport and in blue the range of a market. Use this to check if a building is in the range of a market. You can also overlay the minimap information on the main screen with "v" or the big overlay button. </p>
-<p style="hp">Clicking on a market shows information on its current <b>stocks</b> (in the information window in lower right). Of course, when a market is empty it cannot sell the corresponding item, and when it is full it cannot buy more :-) This may help you to understand why some building does not work (probably they cannot find what they need, or they cannot sell their production) </p>
-<p style="hp">On lower right too, the second tab of miniwindow shows the <b>total markets stocks</b>, and how this evolve with progress bar. In conjunction with minimaps (miniicons just below) it should help you a lot to have a good insight on specific resources (food, employment ...). </p>
-
-<p style="hsubtitle">Transport </p>
-<p style="hp">Transport is needed for long distance exchanges, and for some specific activities (it is then written in the corresponding help message, for example light industries). </p>
-<p style="hp">If a 'normal' building is not in the range of a market, then it must be connected to transport. But remember that roads and rails have a yearly cost, so unless you really want to isolate one building (e.g. a monument) it is generally better (and cheaper) to use markets when needed. </p>
-<p style="hp">In the village tracks are needed only for the communes production. Other activities need only market. </p>
-
-<p style="hsubtitle">Money </p>
-<p style="hp">Productions are taxed and thus earn you money. Take care of not investing too much too quickly: when your money is negative, you cannot build some things, and you have per year cost due to the debt. This can lead to bankruptcy (see "new game" &gt; "hard-time" scenario). </p>
-
-<p style="hsubtitle">Tech-Level </p>
-<p style="hp">In the beginning the only way to increase tech-level is to build "monuments" until you invent "schools" and later "universities". </p>
-<li>Higher tech-level allows you to build new stuff. </li>
-<li>The efficiency of some of them depends of tech-level at the time when they were built (e.g. solar power plant) </li>
-<li>Percentage of chance for a successful rocket launch is equal to your tech-level </li>
-
-<p style="hsubtitle">Developing the city </p>
-<p style="hp">Remember people eat food or die. To control population growth, you have to find a balance in the kind of housing you build (they have different rate of birth/death). The new population will allow more jobs ... </p>
-<p style="hp">You will have to augment your production (add potteries, blacksmith) and at the same time take care that they are supplied. So it will also need to add communes accordingly. </p>
-<p style="hp">The Stat mini-window shows the total amount available in markets, and how these evolve. You'll have to check this very often. The minimaps can give you better insight on your economy. </p>
-<li>Hint: put the game at maximum speed, and make one or two changes then wait a little (read help files ;-) and watch how your economic indicators vary. </li>
-
-<p style="htitle">Advanced features </p>
-<p style="hsubtitle">Markets and Transports </p>
-<p style="hp">Double click on a market in the main screen opens a windows. This is to control the <b> exchanges between markets and transports</b>. </p>
-<li>buy is what the market buy to the transport (so market stock will increase) </li>
-<li>sell is the opposite. </li>
-
-<p style="hp">This feature is rarely used, except when you want to precisely prevent something to happen. </p>
-
-<p style="hsubtitle">Sustainable development</p>
-<p style="hp">The fourth tab of the miniwindow shows progress bars for sustainable development. </p>
-<p style="hp">It is strongly recommended to save the game before you let it run for a long time and see if you have reached a sustainable state. If something goes very wrong (starvation for example) you can restart from the saved game :-) </p>
-<p style="hp">Watching at the total markets stocks (the miniwindow with progress bars) should prevent big troubles. From time to time check the sustainable progression in the ECO miniwindow should be enough. </p>
-
-<li>Hint: Beware of shanties and wastes in markets... </li>
-
-<p style="htitle">Pre-defined scenarii </p>
-<p style="hp">Under "new game" </p>
-
-<p style="hsubtitle"> Easy</p>
-<li>Good time </li>
-
-<li>Beach (remember that people eat food or die ;-) </li>
-
-<p style="hsubtitle">Hard </p>
-<li>"hard-time": try to avoid bankruptcy. Careful analysis of the whole city is needed, and drastic measures are needed to cut costs and make money. It is hard but possible, even possible to reach sustainable development. </li>
-<p style="hp"></p>
+	<li><a href="tutorial-aim">Aim of the game</a></li>
+	<li><a href="tutorial-overview">Overview of screen</a></li>
+	<li><a href="tutorial-basics">First steps</a></li>
+	<li><a href="tutorial-advanced">Advanced-features</a></li>
+	<li><a href="tutorial-scenario">Pre-defined scenario</a></li>
 </Document>
 

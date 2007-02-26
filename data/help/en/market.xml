@@ -1,19 +1,30 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Market</p>
-	<p style="hp">Market is probably a bad name for these areas. They are more like job centres, shops, warehouses and markets all rolled into one. They buy and sell food, jobs, coal, goods, ore and steel to surrounding areas, and to transport such as roads. For example a residential area supplies job to a market, the market supplies jobs to a monument under construction. <b>NOTE</b>, the residents are not being fed if the areas are more or less at the extent of their range.</p>
+	<p style="hp">Market is a key building in Lincity.</p>
+	<p style="hp">Market is probably a bad name for these areas. They are more like job centres, shops, warehouses and markets all rolled into one. They buy and sell food, jobs, coal, goods, ore and steel to surrounding areas, and to transports such as roads.</p>
+
+	<p style="hp"><b>Within the range </b>of a market all exchanges are done <b>without need of transport</b>, except when it is explicitely specified in the building help. Use the <a href="msb-transport">Transportation and market overlay </a> to check if a building is within the range of a market.</p>
+	<li>People can obtain food, goods and employment from markets that are within walking distance of their residential area.</li>
+	<li>All areas that require jobs (employees) get them from markets.</li>
+	<li>Farms can sell their food directly to markets.</li>
+	<li>Mills, Potteries and blacksmiths sell goods directly to nearby markets, they also get their raw materials from the same markets.</li>
+	<p style="hp">If no market is available, these buildings need connection to <a href="transport"> transport</a>.</p>
+	<p style="hp">The second tab of miniwindow shows the <b>total markets stocks</b>, and how this evolve with progress bar. In conjunction with minimaps (miniicons just below) it should help you a lot to have a good insight on specific resources (food, employment ...). </p>
+
 	<p style="hsubtitle">Controlling what markets can buy and sell</p>
 	<p style="hp">You can control the function of a market by selecting what may be bought and sold from transport. Click twice on a market (not the select button) and towards the top left hand side a window will appear allowing you to select what is traded. The default is to trade in everything.</p>
+
 	<p style="hp">This is a market</p>
 	<img src="images/tiles/market-empty.png" halign="center"/>
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
-	
 	<p style="hp">This means the trade is allowed.</p>
 	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
 	<p style="hp">This means the trade is <b>not</b> allowed.</p>
 	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
 	<p style="hp">The numbers between the words Buy and Sell are the map reference for that market.</p>
+
 	<p style="hsubtitle">See also:</p>
 	<li><a href="food">Food</a></li>
 	<li><a href="jobs">Jobs</a></li>

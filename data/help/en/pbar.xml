@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">PBar</p>
-	<p style="hp">This indicator is called the PBar. It shows the change in quantity of things stored at markets.</p>
+	<p style="hp">This is the second tab of the miniwindow</p>
+	<p style="hp">It shows the total stocks stored in all markets, and how it is changing.</p>
+	<p style="hp">The number indicates the total quantity.</p>
 	<p style="hp">A green bar on the right side indicates an increase. A red bar on the left side indicates a decrease. The size of the bar indicates the amount of change.</p>
-	<p style="hp">The number at the right indicates the total quantity.</p>
 </Document>

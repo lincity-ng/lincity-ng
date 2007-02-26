@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Aim of the game </p>
+<p style="hp">There are 2 ways to "win" the game:</p>
+<li>Reach <a href="sustain">sustainable economy </a> (you can still play after) </li>
+<li>Evacuate all the population with <a href="rocket">spaceships </a> to another planet, then the game stops. </li>
+<p style="hp"></p>
+
+<p style="hp">Currently (1.1.0) there is only one way to lose:</p>
+<li>Everybody is dead because of starvation or pollution. (you know that you need at least 2 people to create a population ;-) </li>
+<p style="hp"></p>
+
+<p style="hp">You will need to increase your tech-level to get new possible buildings and industries. You have to manage the growth of population, and take care of various needs and economical balance. </p>
+<p style="hp"></p>
+
+<p style="hp">See also:</p>
+<li><a href="tutorial-basics">First steps</a></li>
+<li><a href="tutorial-advanced">Advanced-features</a></li>
+<li><a href="tutorial-scenario">Pre-defined scenario</a></li>
+
+</Document>
+

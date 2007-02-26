@@ -2,15 +2,16 @@
 <Document style="helpdocument">
 	<p style="htitle">Lincity Help</p>
 	<p style="hp">This is the Lincity help system. Please choose a topic by clicking on one of the blue words below. Blue words generally indicate a link to another document. Use arrow on top left to go back to previous help.</p>
+	<p style="hp">While playing the game, you can get help with most things using the help button, or right-click on a specific building icon in the top-left dock.</p>
+
 	<li><a href="tutorial">Tutorial</a></li>
 	<li><a href="keys">Keyboard commands</a></li>
 	<li><a href="button-index">List of all buildable entries</a></li>
 	<li><a href="mini-screen">Help on the minimap</a></li>
 	<li><a href="dialogs">Help on information tabs</a></li>
-	<p style="hp">While playing the game, you can get help with most things using the help button.</p>
+	<li><a href="index">Index</a></li>
 
     <p style="htitle">Objective</p>
     <p style="hp">You can win Lincity either by building a <a href="sustain">sustainable economy </a> or
     by evacuating all citizens with <a href="rocket">spaceships</a>.</p>
-    <li><a href="index">Index</a></li>
 </Document>

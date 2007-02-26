@@ -11,4 +11,9 @@
 	<li>Unemp % - this shows the percentage of your population that is unemployed.</li>
 	<li>Starv % - this shows the percentage of your population that is starving.</li>
 	<p style="hp">Left clicking on this window will cycle through windows for finance, other costs and housing.</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="finance">Finance window</a></li>
+	<li><a href="other-costs">Other costs</a></li>
+
 </Document>
