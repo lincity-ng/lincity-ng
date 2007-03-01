@@ -702,5 +702,5 @@ msgstr "[v] Défiller les différentes surimpression."
 
 #: data/gui/savegame.xml
 msgid "save to selected slot"
-msgstr "Sauver dans l'emplacement sélectionné"
+msgstr "Sauver dans l'emplacement"
 

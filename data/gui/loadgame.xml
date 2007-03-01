@@ -3,25 +3,24 @@
 	<Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
 	<!-- Split window into title/top - contents and bottom/buttons area -->
 	<TableLayout rows="3" cols="1" >
-		<rowsize row="1" fixed="260"/>
-		<rowsize row="2" fixed="313"/>
-		<rowsize row="3" relative="1"/>
+		<rowsize row="1" relative="3"/>
+		<rowsize row="2" relative="5"/>
+		<rowsize row="3" relative="2.5"/>
 		
 		<cell row="1" col="1">
 		<Paragraph style="menutitle" translatable="yes">Load Game</Paragraph>
 		</cell>
 		<cell row="2" col="1">
-		<TableLayout rows="6" cols="2">
-			<rowsize row="1" fixed="50"/>
-			<rowsize row="4" fixed="50"/>
-			<colsize col="1" fixed="620"/>
-			<colsize col="2" relative="1"/>
+		<TableLayout rows="8" cols="3">
+			<colsize col="1" relative="4"/>
+			<colsize col="2" relative="10"/>
+			<colsize col="3" relative="15"/>
 		<!--	<cell row="1" col="1">
 			<Paragraph style="listtitle" translatable="yes">
 			Choose Scenario</Paragraph>
 			</cell>
 			-->
-			<cell row="1" col="1">
+			<cell row="2" col="2">
 			<CheckButton name="File0">
 				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
@@ -30,7 +29,7 @@
 				<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="2" col="1">
+			<cell row="3" col="2">
 			<CheckButton name="File1">
 				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
@@ -39,7 +38,7 @@
 				<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="3" col="1">
+			<cell row="4" col="2">
 			<CheckButton name="File2">
 				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
@@ -48,7 +47,7 @@
 				<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="4" col="1">
+			<cell row="5" col="2">
 			<CheckButton name="File3">
 			<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
@@ -57,7 +56,7 @@
 				<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="5" col="1">
+			<cell row="6" col="2">
 			<CheckButton name="File4">
 				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
@@ -66,7 +65,7 @@
 				<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="6" col="1">
+			<cell row="7" col="2">
 			<CheckButton name="File5">
 				<text-caption style="button">Savegame 123456789</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
@@ -78,12 +77,12 @@
 		</TableLayout>
 		</cell>
 		<cell row="3" col="1">
-		<TableLayout rows="2" cols="4">
-            <rowsize row="1" fixed="115"/>
-            <rowsize row="2" relative="1"/>
-
-            <colsize col="1" fixed="75"/>
-            <colsize col="4" fixed="75"/>
+		<TableLayout rows="3" cols="4">
+			<rowsize row="1" relative="1"/>
+			<rowsize row="2" relative="3"/>
+			<rowsize row="3" relative="1"/>
+			<colsize col="1" fixed="75"/>
+			<colsize col="4" fixed="75"/>
 		
 			<cell row="2" col="2" halign="left">
 			<Button name="BackButton">
