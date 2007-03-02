@@ -564,7 +564,6 @@ load_city (char *cname)
 	highest_tech_level = 0;
     gzgets( gzfile, s, 80 );		/* this is the CR */
 
-    gzgets( gzfile, s, 80 );
     if (sscanf (s, "sust %d %d %d %d %d %d %d %d %d %d"
 		,&sust_dig_ore_coal_count, &sust_port_count
 		,&sust_old_money_count, &sust_old_population_count
