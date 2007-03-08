@@ -47,6 +47,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Mps.hpp"
 #include "CheckButton.hpp"
 #include "Dialog.hpp"
+#include "Game.hpp"
+#include "HelpWindow.hpp"
 
 /** List of mapview buttons. The "" entries separate mapview buttons that are
  * switched
@@ -235,11 +237,15 @@ void MiniMap::attachButtons()
 }
 
 void
-MiniMap::switchButton(CheckButton* button, int)
+MiniMap::switchButton(CheckButton* button, int mousebutton)
 {
     if( !alreadyAttached ){
         return;
     }
+    if(mousebutton == SDL_BUTTON_RIGHT ) {
+            getGame()->showHelpWindow( "dialogs" );
+    }
+
     if(button->getName() == "SwitchGlobalMPS") {
         //cycle through global styles
         mps_global_style++;

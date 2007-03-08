@@ -3,10 +3,11 @@
 	<p style="htitle">Information Tabs Help</p>
     <p>Map-Tab</p>
     <li><a href="mini-screen">Minimap</a></li>
-    <p>Stats-Tab</p>
+    <p>Markets-Tab</p>
 	<li><a href="pbar">Ressources Status Bar</a></li>
     <p>$-Tab</p>
 	<li><a href="finance">Finance</a></li>
+	<li><a href="other-costs">Other costs</a></li>
 	<li><a href="housing">Population</a></li>
     <p>Eco-Tab</p>
 	<li><a href="economy">Economy Graph</a></li>
