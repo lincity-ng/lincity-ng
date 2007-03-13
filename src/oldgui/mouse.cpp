@@ -923,8 +923,8 @@ do_port_cb_mouse (int x, int y)
 void 
 no_credit_build_msg (int selected_group)
 {
-#ifdef GROUP_POWER_SOURCE_NO_CREDIT
-  if (selected_group == GROUP_POWER_SOURCE) {
+#ifdef GROUP_SOLAR_POWER_NO_CREDIT
+  if (selected_group == GROUP_SOLAR_POWER) {
     ok_dial_box ("no-credit-solar-power.mes", BAD, 0L);
     return;
   }

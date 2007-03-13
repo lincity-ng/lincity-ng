@@ -57,8 +57,8 @@ no_credit_build (int selected_group)
   if (total_money >= 0)
     return (0);
 
-#ifdef GROUP_POWER_SOURCE_NO_CREDIT
-  if (selected_group == GROUP_POWER_SOURCE) {
+#ifdef GROUP_SOLAR_POWER_NO_CREDIT
+  if (selected_group == GROUP_SOLAR_POWER) {
     return (1);
   }
 #endif

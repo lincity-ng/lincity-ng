@@ -667,18 +667,6 @@ XXX: Then it shouldn't be here
 #define GROUP_POWER_LINE_TECH 200
 #define GROUP_POWER_LINE_FIREC 0
 
-#if defined (commentout)
-/* GROUP_POWER_SOURCE is a solar ps - change the names  - real soon */
-#define GROUP_POWER_SOURCE 2
-#define GROUP_POWER_SOURCE_COLOUR (yellow(22))
-#define GROUP_POWER_SOURCE_COST 500000
-#define GROUP_POWER_SOURCE_COST_MUL 5
-#define GROUP_POWER_SOURCE_BUL_COST 100000
-#define GROUP_POWER_SOURCE_TECH 500
-#define GROUP_POWER_SOURCE_NO_CREDIT
-#define GROUP_POWER_SOURCE_FIREC 33
-#endif
-
 #define GROUP_SOLAR_POWER 2
 #define GROUP_SOLAR_POWER_COLOUR (yellow(22))
 #define GROUP_SOLAR_POWER_COST 500000
