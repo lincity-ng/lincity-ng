@@ -7,12 +7,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-07-18 22:54+0200\n"
-"PO-Revision-Date: 2007-03-08 06:34-0000\n"
+"PO-Revision-Date: 2007-03-11 05:30-0000\n"
 "Last-Translator: ASM <asm@asm.pp.ru>\n"
-"Language-Team: français <fr@li.org>\n"
+"Language-Team: ASM <asm@asm.pp.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -179,7 +179,7 @@ msgstr "Это хабарная постройка"
 
 #: src/lincity/engine.cpp:747
 msgid "UNKNOWN!"
-msgstr "Хз"
+msgstr "НЕ ИЗВЕСТНО!! "
 
 #: src/lincity/lintypes.cpp:22
 msgid "Empty"
@@ -307,7 +307,7 @@ msgstr "Школа"
 #: src/lincity/lintypes.cpp:346
 #: src/lincity/modules/blacksmith.cpp:97
 msgid "Blacksmith"
-msgstr "Куздецовая ложа"
+msgstr "Кузница "
 
 #: src/lincity/lintypes.cpp:358
 msgid "Mill"
@@ -333,7 +333,7 @@ msgstr "Сжигалка"
 
 #: src/lincity/lintypes.cpp:420
 msgid "Shanty town"
-msgstr "Хибарная ложа"
+msgstr "Хибарка "
 
 #: src/lincity/lintypes.cpp:433
 #: src/lincity/modules/residence.cpp:292
@@ -360,7 +360,7 @@ msgstr "Резиденция ЛВ"
 
 #: src/lincity/lintypes.cpp:494
 msgid "Residential MH"
-msgstr "R"
+msgstr "Резиденция СВ"
 
 #: src/lincity/lintypes.cpp:506
 msgid "Residential HH"
@@ -488,7 +488,7 @@ msgstr "Товар"
 
 #: src/lincity/modules/rocket_pad.cpp:163
 msgid "Rocket Pad"
-msgstr "Рокетная площядка"
+msgstr "Ракетная площадка "
 
 #: src/lincity/modules/rocket_pad.cpp:166
 msgid "Completion"
@@ -657,7 +657,7 @@ msgstr "Угльная шахта"
 #: src/lincity/modules/coalmine.cpp:171
 #: src/lincity/modules/oremine.cpp:187
 msgid "Stock"
-msgstr "На складе"
+msgstr "На складе "
 
 #: src/lincity/modules/coalmine.cpp:175
 #: src/lincity/modules/coalmine.cpp:177
@@ -683,11 +683,11 @@ msgstr "Питание"
 
 #: src/lincity/modules/residence.cpp:286
 msgid "Employed"
-msgstr "Наемник"
+msgstr "Работают?"
 
 #: src/lincity/modules/residence.cpp:289
 msgid "Health Cvr"
-msgstr "Больница Cvr"
+msgstr "Больница"
 
 #: src/lincity/modules/residence.cpp:295
 #: src/lincity-ng/MpsInterface.cpp:386
@@ -715,7 +715,7 @@ msgstr "Работа"
 
 #: src/lincity/modules/monument.cpp:63
 msgid "Wisdom Bestowed"
-msgstr "Мудрое Вознагрождение"
+msgstr "Мудрое Вознаграждение"
 
 #: src/lincity/modules/monument.cpp:67
 #, c-format
@@ -774,7 +774,7 @@ msgstr "Еда"
 #: src/lincity/modules/port.cpp:227
 #: src/lincity-ng/MpsInterface.cpp:530
 msgid "Total"
-msgstr "Итого"
+msgstr "Итого "
 
 #: src/lincity/modules/rail.cpp:50
 msgid "Rail"
@@ -885,12 +885,12 @@ msgstr "Статистика игры LinCity-NG Версии %s"
 #: src/lincity-ng/Dialog.cpp:348
 #, c-format
 msgid "Initial loaded scene - %s"
-msgstr "Загружено текстур - %s"
+msgstr "Загружена карта - %s"
 
 #: src/lincity-ng/Dialog.cpp:353
 #, c-format
 msgid "Economy is sustainable"
-msgstr "Экономика подержана"
+msgstr "Экономика поддержана "
 
 #: src/lincity-ng/Dialog.cpp:357
 #, c-format
@@ -900,32 +900,32 @@ msgstr "Население %d из них %d бездомные."
 #: src/lincity-ng/Dialog.cpp:362
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d"
-msgstr "Максимальное население %d Кол-во эвакуированных %d Кол-во рождений"
+msgstr "Максимальное население %d , Кол-во эвакуированных %d , Кол-во рождении %d"
 
 #: src/lincity-ng/Dialog.cpp:367
 #, c-format
 msgid "Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"
-msgstr "Дата %s %s04d  Деньги %8d Уровень обучения %5.1f(%5.1f)"
+msgstr "Дата %s %04d  Деньги %8d Уровень обучения %5.1f (%5.1f)"
 
 #: src/lincity-ng/Dialog.cpp:374
 #, c-format
 msgid ".Deaths by starvation %7d   History %8.3f"
-msgstr ".Погибло от голода %7d Истония %8.3f"
+msgstr "Погибло от голода        %7d История %8.3f"
 
 #: src/lincity-ng/Dialog.cpp:379
 #, c-format
 msgid "Deaths from pollution %7d   History %8.3f"
-msgstr "Погибло pollution %7d История %8.3f"
+msgstr "Погибло от загрязнения %7d История %8.3f"
 
 #: src/lincity-ng/Dialog.cpp:383
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f"
-msgstr "Лет без работы %7d  История %8.3"
+msgstr "Лет без работы %7d  История %8.3f"
 
 #: src/lincity-ng/Dialog.cpp:387
 #, c-format
 msgid "Rockets launched %2d  Successful launches %2d"
-msgstr "Запущенно ракет: %2d из низ удачно %2d"
+msgstr "Запущенно ракет %2d из них удачно %2d"
 
 #: src/lincity-ng/Dialog.cpp:397
 #, c-format
@@ -997,7 +997,7 @@ msgstr "Мини-карта: работа"
 
 #: src/lincity-ng/GameView.cpp:242
 msgid "Minimap: pollution"
-msgstr "Мини-карта: популяция"
+msgstr "Мини-карта: загрязнения"
 
 #: src/lincity-ng/GameView.cpp:245
 msgid "Minimap: nourishments"
@@ -1029,11 +1029,11 @@ msgstr "Мини-карта: траффик"
 
 #: src/lincity-ng/GameView.cpp:1513
 msgid "Estimated Bulldoze Cost: "
-msgstr "Оценка Сноса:"
+msgstr "Оценка Сноса: "
 
 #: src/lincity-ng/GameView.cpp:1515
 msgid "Bulldoze Cost: "
-msgstr "Снос стоит:"
+msgstr "Снос стоит: "
 
 #: src/lincity-ng/GameView.cpp:1520
 msgid "n/a"
@@ -1049,7 +1049,7 @@ msgstr "Бульдозер: удалить здания -цена варьиру
 
 #: src/lincity-ng/GameView.cpp:1549
 msgid ": Cost to build "
-msgstr ": Стоимость постройки"
+msgstr " : Стоимость постройки"
 
 #: src/lincity-ng/GameView.cpp:1550
 msgid ", to bulldoze "
@@ -1134,7 +1134,7 @@ msgstr "ХЗ"
 
 #: src/lincity-ng/MpsInterface.cpp:436
 msgid "Tax Income"
-msgstr "Налог "
+msgstr "Доход"
 
 #: src/lincity-ng/MpsInterface.cpp:440
 msgid "Income"
@@ -1178,7 +1178,7 @@ msgstr "За год"
 
 #: src/lincity-ng/MpsInterface.cpp:498
 msgid "Interest"
-msgstr "Община"
+msgstr "Долг. аренда."
 
 #: src/lincity-ng/MpsInterface.cpp:500
 msgid "Schools"
@@ -1279,7 +1279,7 @@ msgstr "Резиденция: 400 жителей, высокая рождаем�
 
 #: src/lincity-ng/ButtonPanel.cpp:215
 msgid " [Click right for help.]"
-msgstr "[Жми правую для помощи.]"
+msgstr " [Жмите правую для помощи.]"
 
 #: src/lincity-ng/EconomyGraph.cpp:121
 msgid "Mining"
@@ -1303,17 +1303,17 @@ msgstr "Наука"
 
 #: src/lincity-ng/EconomyGraph.cpp:134
 msgid "Economy Overview:"
-msgstr "Эконом развитие:"
+msgstr "Эконом развитие: "
 
 #: src/lincity-ng/EconomyGraph.cpp:137
 msgid "Sustainability:"
-msgstr "Поддержка:"
+msgstr "Поддержка: "
 
 #: src/lincity-ng/EconomyGraph.cpp:140
 msgid "Frames per Second:"
-msgstr "Кадров в секудну"
+msgstr "Кадров в секунду"
 
 #: src/lincity-ng/EconomyGraph.cpp:216
 msgid "You lose."
-msgstr "Ты проиграл."
+msgstr "Вы проиграли."
 

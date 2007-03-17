@@ -7,12 +7,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Fri Jul 29 23:27:48 2005\n"
-"PO-Revision-Date: 2007-03-11 01:13-0000\n"
+"PO-Revision-Date: 2007-03-11 02:39-0000\n"
 "Last-Translator: ASM <asm@asm.pp.ru>\n"
-"Language-Team: français <fr@li.org>\n"
+"Language-Team: ASM <asm@asm.pp.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -100,7 +100,7 @@ msgstr "Авторы"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Do coal survey?"
-msgstr ""
+msgstr "Сделать осмотр угольный месторождений?"
 
 #: data/gui/launch-good.xml
 msgid "Doing well."
@@ -369,7 +369,7 @@ msgstr "Школы доступны"
 
 #: data/gui/coalmineup.xml
 msgid "See the help screen for more information on coal mines and coal surveys."
-msgstr "Показать окно помощи для большей информации по уголь шахты и угольные осмотры."
+msgstr "Смотрите окно помощи для большей информации по уголь шахты и угольные осмотры."
 
 #: data/gui/firestationup.xml data/gui/hvindustryup.xml
 #: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
@@ -379,7 +379,7 @@ msgstr "Показать окно помощи для большей инфор�
 #: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
 #: data/gui/millup.xml data/gui/healthup.xml
 msgid "See the help screen for more information."
-msgstr "Показать окно помощи для большей информации."
+msgstr "Смотрите окно помощи для большей информации."
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Sell"
@@ -387,11 +387,11 @@ msgstr "Продано"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Send out Prospectors"
-msgstr ""
+msgstr "Запросить информацию?"
 
 #: data/gui/minimap.xml
 msgid "Show Income and Expenses. Click this tab again to cycle through views."
-msgstr ""
+msgstr "Показать затраты и прибыль. Нажимайте снова, что бы увидеть другие данные."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show coal depots"
@@ -407,7 +407,7 @@ msgstr "Показать противопожарное покрытие."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show map outline"
-msgstr ""
+msgstr "Показать карту построек."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show medical care"
@@ -415,11 +415,11 @@ msgstr "Показать медицинское покрытие"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show nourishments"
-msgstr ""
+msgstr "Показать обеспечение едой. "
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show pollution density"
-msgstr ""
+msgstr "Показать загрязнения."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show power supply"
@@ -427,7 +427,7 @@ msgstr "Показать электропокрытие "
 
 #: data/gui/minimap.xml
 msgid "Show ressources."
-msgstr ""
+msgstr "Показать ресурсы."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show sport cover"
@@ -443,7 +443,7 @@ msgstr "Показать напряженность трафика"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show unemployment"
-msgstr ""
+msgstr "Показать доступность работы. "
 
 #: data/gui/solarpowerup.xml
 msgid "Solar Power Stations available"
@@ -551,7 +551,7 @@ msgstr ""
 
 #: data/gui/import-exportup.xml
 msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
-msgstr ""
+msgstr "Теперь вы множите покупать и продавать ресурсы. Это уголь, товар и прочее. Прочитайте помощь, что бы найти ответ, как этим пользоваться."
 
 #: data/gui/no-credit-parkland.xml
 msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
@@ -579,7 +579,7 @@ msgstr "Вы увезли 1000 человек. Теперь нужно след�
 
 #: data/gui/blacksmithup.xml
 msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
-msgstr "Уровень научного развития позволяет строить кузницы. Которые дает работу и позволяют производить товары."
+msgstr "Уровень научного развития позволяет строить кузницы. Которые дают работу и позволяют производить товары."
 
 #: data/gui/coalpowerup.xml
 msgid "You have reached the tech level which enables you to build coal fired power stations."
@@ -635,7 +635,7 @@ msgstr "Уровень научного развития позволяет ст
 
 #: data/gui/schoolup.xml
 msgid "You have reached the tech level which enables you to build schools. Schools use jobs and goods to increase tech level. "
-msgstr "Уровень научного развития позволяет строить школы. Школы дают работу и товар позволяющий который увеличивает научный уровень."
+msgstr "Уровень научного развития позволяет строить школы. Школы дают работу и товар переделывают в научный уровень."
 
 #: data/gui/solarpowerup.xml
 msgid "You have reached the tech level which enables you to build solar power stations. "
@@ -691,7 +691,7 @@ msgstr "[h] Спрятать сложные здания"
 
 #: data/gui/minimap.xml
 msgid "[v] Cycle through MiniMap overlay modes. "
-msgstr ""
+msgstr "[v] Показать на основной карте то, что находиться на мини-карте."
 
 #: data/gui/savegame.xml
 msgid "save to selected slot"
