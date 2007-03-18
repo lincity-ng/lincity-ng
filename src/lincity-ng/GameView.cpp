@@ -1390,6 +1390,60 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         tileOnScreenPoint.y -= tileHeight; 
         tilerect.move( tileOnScreenPoint );    
         fillDiamond( painter, tilerect );    
+
+        // Draw range for selected_module_type
+        int range = 0;
+        switch ( selected_module_type ){
+            //case CST_RESIDENCE_LL: break; 
+            //case CST_RESIDENCE_ML: break;
+            //case CST_RESIDENCE_HL: break;
+            //case CST_RESIDENCE_LH: break;
+            //case CST_RESIDENCE_MH: break;
+            //case CST_RESIDENCE_HH: break;
+            //case CST_FARM_O0: break;
+            //case CST_MILL_0: break;
+            case CST_HEALTH:        range = HEALTH_CENTRE_RANGE; break;
+            case CST_CRICKET_1:     range = CRICKET_RANGE + 1; break;
+            case CST_FIRESTATION_1: range = FIRESTATION_RANGE + 1; break;
+            //case CST_SCHOOL: break;
+            //case CST_UNIVERSITY: break;
+            //case CST_TRACK_LR: break;
+            //case CST_ROAD_LR: break;
+            //case CST_RAIL_LR: break;
+            //case CST_EX_PORT: break;
+            //case CST_ROCKET_1: break;
+            //case CST_POWERL_H_L: break;
+            //case CST_POWERS_COAL_EMPTY: break;
+            //case CST_POWERS_SOLAR: break;
+            //case CST_SUBSTATION_R: break;
+            //case CST_WINDMILL_1_R: break;
+            //case CST_COMMUNE_1: break;
+            //case CST_COALMINE_EMPTY: break;
+            //case CST_OREMINE_1: break;
+            //case CST_TIP_0: break;
+            //case CST_RECYCLE: break;
+            //case CST_INDUSTRY_L_C: break;
+            //case CST_INDUSTRY_H_C: break;
+            case CST_MARKET_EMPTY:  range = MARKET_RANGE; break;
+            //case CST_POTTERY_0: break;
+            //case CST_BLACKSMITH_0: break;
+            //case CST_MONUMENT_0: break;
+            //case CST_PARKLAND_PLANE: break;
+            //case CST_WATER: break;
+        }
+       	
+        if (range > 0 )
+        {        	
+        	painter.setFillColor( Color( 0, 0, 128, 64 ) );
+        	Rect2D rangerect( 0, 0,
+        	                  tileWidth  * (2 * range - cursorSize) ,
+        	                  tileHeight * (2 * range - cursorSize) );
+        	Vector2 screenPoint = getScreenPoint(tile);
+        	screenPoint.x -= tileWidth  * (2 * range - cursorSize) / 2;
+        	screenPoint.y -= tileHeight * range;
+        	rangerect.move( screenPoint );
+        	fillDiamond( painter, rangerect );         	
+        }           
     }
 }
 
