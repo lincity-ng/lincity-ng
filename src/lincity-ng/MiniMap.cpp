@@ -380,11 +380,39 @@ std::string getNextButton(const std::string &pName)
     return mapViewButtons[i];
 }
 
-void MiniMap::mapViewButtonClicked(CheckButton* button, int)
+void MiniMap::mapViewButtonClicked(CheckButton* button, int mousebutton)
 {
     Component *root = findRoot(this);
     std::string name = button->getName();
     
+    if(mousebutton == SDL_BUTTON_RIGHT ) {
+	// switch button
+        std::string pName=getNextButton(button->getName());
+
+        if(pName=="MapViewNormal")
+            getGame()->showHelpWindow( "msb-normal" );
+        else if (pName=="MapViewUB40")
+	    getGame()->showHelpWindow( "msb-ub40" );
+        else if (pName=="MapViewPollution")
+	    getGame()->showHelpWindow( "msb-pol" );
+        else if (pName=="MapViewFood")
+	    getGame()->showHelpWindow( "msb-starve" );
+        else if (pName=="MapViewPower")
+	    getGame()->showHelpWindow( "msb-power" );
+        else if (pName=="MapViewFire")
+	    getGame()->showHelpWindow( "msb-fire" );
+        else if (pName=="MapViewSport")
+	    getGame()->showHelpWindow( "msb-cricket" );
+        else if (pName=="MapViewHealth")
+	    getGame()->showHelpWindow( "msb-health" );
+        else if (pName=="MapViewCoal")
+	    getGame()->showHelpWindow( "msb-coal" );
+        else if (pName=="MapViewTraffic")
+	    getGame()->showHelpWindow( "msb-transport" );
+    
+    return;
+    }
+     
     DisplayMode newMode=getMode(button->getName());
     if(newMode==mMode) {
         // switch button
