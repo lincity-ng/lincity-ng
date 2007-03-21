@@ -115,6 +115,9 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
         dest.x = getWidth() - 20 - d->getWidth();
     if(dest.y + d->getHeight() > getHeight() - 20)
         dest.y = pos.y - 20 - d->getHeight();
+    /* Show minimap tooltip above. Hardcoded size corresponding to .xml  */
+    if(dest.x > getWidth() - 310)
+        dest.y = pos.y - 20 - d->getHeight();
     comp_tooltip().setComponent(d.release());
     comp_tooltip().setPos(dest);
 		setDirty();
