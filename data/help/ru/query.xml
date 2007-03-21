@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Курсор</p>
+	<p style="hp">Показывает информацию о постройках. Для использования наведите на постройку и нажмите клавишу мыши.</p>
+	<p style="hp">Информация показывается слева внизу, вместо мини-карты </p>
+	<p style="hp">Использование бесплатно.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	<p style="hsubtitle">См ещё:</p>
+    <li><a href="keys">"Горячие" клавиши</a></li>
+	<li><a href="help">содержание</a></li>
+</Document>
+
