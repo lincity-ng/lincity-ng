@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Выберите что вам интересно</p>
+
+	<!--<p style="subtitle">Электричество</p>-->
+	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+	<p><a href="powerline">Электролинии</a></p>
+	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+	<p><a href="powerssolar">Солнечная электростанция</a></p>
+	<img src="images/gui/buttonpanel/power/substation.png"/>
+	<p><a href="substation">Подстанция</a></p>
+
+	<!--<p style="subtitle">Резиденции</p>-->
+	<img src="images/gui/buttonpanel/residence/residence.png"/>
+	<p><a href="residential">Резидентная постройка</a></p>
+
+	<!--<p style="subtitle">Парки</p>-->
+	<img src="images/gui/buttonpanel/parks/farm.png"/>
+	<p><a href="farm">Фермы</a></p>
+
+	<!--<p style="subtitle">Индустрия</p>-->
+	<img src="images/gui/buttonpanel/industry/market.png"/>
+	<p><a href="market">Магазины</a></p>
+
+	<!--<p style="subtitle">Базовые</p>-->
+	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
+	<p><a href="bulldoze">Бульдозер</a></p>
+
+	<!--<p style="subtitle">Транспорт</p>-->
+	<img src="images/gui/buttonpanel/transport/tracks.png"/>
+	<p><a href="track">Грунтовка</a></p>
+
+	<!--<p style="subtitle">Шахты</p>-->
+	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
+	<p><a href="coalmine">Шахта угля</a></p>
+
+	<!--<p style="subtitle">Транспорт</p>-->
+	<img src="images/gui/buttonpanel/transport/rails2.png"/>
+	<p><a href="rail">Железная дорога</a></p>
+
+	<!--<p style="subtitle">Электричество</p>-->
+	<img src="images/gui/buttonpanel/power/coalpower.png"/>
+	<p><a href="powerscoal">Угольные электростанции</a></p>
+
+	<!--<p style="subtitle">Транспорт</p>-->
+	<img src="images/gui/buttonpanel/transport/road.png"/>
+	<p><a href="road">Дорога</a></p>
+
+	<!--<p style="subtitle">Индустрия</p>-->
+	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
+	<p><a href="industryl">Здания легкой индустрии</a></p>
+
+	<!--<p style="subtitle">Другое</p>-->
+	<img src="images/gui/buttonpanel/misc/university.png"/>
+	<p><a href="university">Университеты</a></p>
+
+	<!--<p style="subtitle">Шахты</p>-->
+	<img src="images/gui/buttonpanel/mining/commune.png"/>
+	<p><a href="commune">Община</a></p>
+	<img src="images/gui/buttonpanel/mining/oremine.png"/>
+	<p><a href="oremine">Шахта руды</a></p>
+
+	<!--<p style="subtitle">Коммерция</p>-->
+    <img src="images/gui/buttonpanel/transport/port.png"/>
+    <p><a href="export">Импорт, экспорт </a></p>
+
+	<!--<p style="subtitle">Индустрия</p>-->
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<p><a href="industryh">Тяжёлая индустрия(сталь)</a></p>
+
+	<!--<p style="subtitle">Парки</p>-->
+	<img src="images/gui/buttonpanel/parks/tree.png"/>
+	<p><a href="park">Парк</a></p>
+
+	<!--<p style="subtitle">Шахты</p>-->
+	<img src="images/gui/buttonpanel/mining/recycling.png"/>
+	<p><a href="recycle">Переработка</a></p>
+
+	<!--<p style="subtitle">Парки</p>-->
+	<img src="images/gui/buttonpanel/parks/water.png"/>
+	<p><a href="river">Вода/Реки</a></p>
+
+	<!--<p style="subtitle">Другое</p>-->
+	<img src="images/gui/buttonpanel/misc/health.png"/>
+	<p><a href="health">Больницы</a></p>
+
+	<!--<p style="subtitle">Транспорт</p>-->
+	<img src="images/gui/buttonpanel/transport/rocket.png"/>
+	<p><a href="rocket">Ракетная площадка</a></p>
+
+	<!--<p style="subtitle">Электричество</p>-->
+	<img src="images/gui/buttonpanel/power/windmills.png"/>
+	<p><a href="windmill">Ветряная мельница</a></p>
+
+	<!--<p style="subtitle">Другое</p>-->
+	<img src="images/gui/buttonpanel/parks/monument.png"/>
+	<p><a href="monument">Монумент</a></p>
+
+	<!--<p style="subtitle">Другое</p>-->
+	<img src="images/gui/buttonpanel/misc/book.png"/>
+	<p><a href="school">Школы</a></p>
+
+	<!--<p style="subtitle">Парки</p>-->
+	<img src="images/gui/buttonpanel/parks/mills.png"/>
+	<p><a href="mill">Мельница</a></p>
+
+	<!--<p style="subtitle">Индустрия</p>-->
+	<img src="images/gui/buttonpanel/industry/pottery.png"/>
+	<p><a href="pottery">Гончарная</a></p>
+
+	<!--<p style="subtitle">Другое</p>-->
+	<img src="images/gui/buttonpanel/misc/fire.png"/>
+	<p><a href="firestation">Пожарная станция</a></p>
+	<img src="images/gui/buttonpanel/misc/sports.png"/>
+	<p><a href="cricket">Баскетбольная площадка</a></p>
+
+     <!--<p style="subtitle">Транспорт</p>-->
+     <img src="images/gui/buttonpanel/transport/port.png"/>
+     <p><a href="port">Порт</a></p>
+</Document>

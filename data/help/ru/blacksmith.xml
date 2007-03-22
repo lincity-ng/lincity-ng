@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Кузница</p>
+	<p style="hp">Кузница преобразовывает сталь и уголь в товар. Вы должны использовать это на ранней стадии игры. Да! Естественно дает рабочие места.</p>
+	<p style="hp">На одну кузницу рекомендуется построить 5/6 общин.</p>
+	<p style="hp">Кузницу не обязательно соединять с транспортными путями. Все нужные ресурсы она может купить и продать в близко стоящие магазины.</p>
+	<p style="hp">Что бы увидеть пользу от кузницы, можно нажать на неё и посмотреть статус. Так же по анимации можно понять работает она или нет.</p>
+
+	<p style="hp">Это кузница:</p>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
+	<p style="hp">а это иконка:</p>
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="market">Магазины</a></li>
+	<li><a href="ore">Руда</a></li>
+	<li><a href="commune">Община</a></li>
+	<li><a href="steel">Сталь</a></li>
+	<li><a href="jobs">Работа</a></li>
+</Document>
