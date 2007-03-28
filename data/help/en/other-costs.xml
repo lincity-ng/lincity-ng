@@ -3,15 +3,14 @@
 	<p style="htitle">Other costs</p>
 	<p style="hp">This is the other costs window.</p>
 	<p style="hp">This shows a breakdown of the 'other costs' that are shown in the finance window.s</p>
-	<p style="hp">The meanings on the abbreviations are:</p>
-	<p style="hp">It - Interest costs</p>
-	<p style="hp">Sc - School costs</p>
-	<p style="hp">Un - Unnatural deaths costs</p>
-	<p style="hp">Wn - Windmill costs</p>
-	<p style="hp">Hl - Health costs</p>
-	<p style="hp">Rk - Rocket costs</p>
-	<p style="hp">Fr - Fire station costs</p>
-	<p style="hp">Ck - Cricket costs</p>
-	<p style="hp">Rc - Recycling costs</p>
+	<p style="hp">Interest costs</p>
+	<p style="hp">School costs</p>
+	<p style="hp">Unnatural deaths costs</p>
+	<p style="hp">Windmill costs</p>
+	<p style="hp">Health costs</p>
+	<p style="hp">Rocket costs</p>
+	<p style="hp">Fire station costs</p>
+	<p style="hp">Sport costs</p>
+	<p style="hp">Recycling costs</p>
 	<p style="hp">Left clicking on this window will cycle through windows for finance, other costs and housing.</p>
 </Document>

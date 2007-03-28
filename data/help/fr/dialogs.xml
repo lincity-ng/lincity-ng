@@ -7,6 +7,7 @@
 	<li><a href="pbar">Barre d'état des Ressources</a></li>
     <p>$-Tab</p>
 	<li><a href="finance">Finance</a></li>
+	<li><a href="other-costs">Autres coûts</a></li>
 	<li><a href="housing">Population</a></li>
     <p>Eco-Tab</p>
 	<li><a href="economy">Graphe Economique</a></li>
