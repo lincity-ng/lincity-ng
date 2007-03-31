@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Угольная шахта</p>
+	<p style="hp">Угольная шахта должна быть построена на месторождениях угля. Месторождения вы можете увидеть нажав соответствующую кнопку под мини-картой.</p>
+	<p style="hp">Первое нажатие будет стоить вам 1 миллион рублей. После этого использовать можно будет бесплатно. Стоить вы можете и без использования этой кнопки.</p>
+	<p style="hp">Угольная шахта требует рабочих.</p>
+	
+	<p style="hp">Это угольная шахта</p>
+	<img src="images/tiles/coalmine-full.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+
+	<p style="hp">На карте месторождений вы будет выделено красным, где угля больше всего.</p>
+	<p style="hp">За добычу угля вы получаете деньги.</p>
+
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="coal">Уголь</a></li>
+	<li><a href="powerscoal">Угольная электростанция</a></li>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="jobs">Работа</a></li>
+</Document>
