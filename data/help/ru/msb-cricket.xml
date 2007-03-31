@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Спортивное покрытие</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+	<p style="hp">Места отмеченные зелёным цветом могут пользоваться спортивными площадками.</p>
+	<p style="hp">Места которые находятся на грани, тоже могут пользоваться спортивными площадками</p>
+	<p style="hp">Запомните, они доступны только через 3 месяца после постройки.</p>
+
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="mini-screen">Мини-карта</a></li>
+	<li><a href="msb-coal">Угольное покрытие</a></li>
+	<li><a href="msb-fire">Пожарное покрытие</a></li>
+	<li><a href="msb-health">Больничное покрытие</a></li>
+	<li><a href="msb-normal">Нормальное покрытие</a></li>
+	<li><a href="msb-pol">Покрытие населения</a></li>
+	<li><a href="msb-power">Электрическое покрытие</a></li>
+	<li><a href="msb-starve">Покрытие голодающих</a></li>
+	<li><a href="msb-transport">Транспортное покрытие</a></li>
+	<li><a href="msb-ub40">Покрытие безработицы</a></li>
+</Document>
