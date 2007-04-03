@@ -24,6 +24,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Texture.hpp"
 #include "MapPoint.hpp"
 
+#include <memory>
+
 class XmlReader;
 class Button;
 class CheckButton;

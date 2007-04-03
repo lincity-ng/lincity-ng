@@ -129,7 +129,7 @@ void Game::testAllHelpFiles(){
     std::string fullname;
     char **rc = PHYSFS_enumerateFiles( directory.c_str() );
     char **i;
-    unsigned int pos;
+    size_t pos;
     for (i = rc; *i != NULL; i++) {
         fullname = directory;
         fullname.append( *i );

@@ -4,8 +4,10 @@
 * Heavy industry no longer storing too much coal.
 * Sustainability progress is reload from saved games.
 * Draw range for selected building around cursor 
+* Online help includes a tutorial
+* Russian online help
 
-*** LincityNG 1.1.0 *** [r1139 in svn]
+*** LincityNG 1.1.0 *** [r1139 in svn] 2007-02-19
 
 * Display correct values for unemployment rate.
 * Port connects on all land parts.
@@ -14,7 +16,7 @@
 * French online help
 * German online help
 
-*** LincityNG 1.0.3 *** [r1089 in svn]
+*** LincityNG 1.0.3 *** [r1089 in svn] 2006-04-14
 
 * Show correct demolition costs for powerlines, substations and farms.
 * Quantizing tile-images saves about 12MB.
@@ -22,7 +24,7 @@
 * Tool-Menu now opens on left mousebutton.
 * Separate menus for loading and saving games. 
 
-*** LincityNG 1.0.2 *** [r1063 in svn]
+*** LincityNG 1.0.2 *** [r1063 in svn] 2005-11-09 
 
 * Catalan translation
 * Spanish translation
@@ -30,17 +32,17 @@
 * Swedish translation 
 * Fixed: unwanted double-clicks in file menu
 
-*** LincityNG 1.0.1 *** [r1038 in svn]
+*** LincityNG 1.0.1 *** [r1038 in svn] 2005-07-13
 
 * Adjust volume in options
 * Load game on doubleclick 
 * Fixed: Endgame evacuation causes termination of game.
 * Fixed: Hightech houses require tech 30, but the tooltip says 20.
-* Fixed: Suppressed doublicated tech-messages.
-* Fixed: Doublicated command line arguments.
+* Fixed: Suppressed duplicated tech-messages.
+* Fixed: Duplicated command line arguments.
 * Fixed: Crash when empty scenario is selected.
 
-*** LincityNG 1.0 *** [r1026 in svn]
+*** LincityNG 1.0 *** [r1026 in svn] 2005-06-20
 
 * The first release of LincityNG features everything from classic lincity
   but with brand new graphics and modern user interface.
