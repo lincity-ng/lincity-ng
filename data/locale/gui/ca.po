@@ -1,57 +1,60 @@
-# translation of ca.po to CatalÃ¡
+# translation of ca.po to Catalá
 # translation of ca.po to
 # translation of messages.po to
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# This file is distributed under the same license as the ca package.
+# Copyright (C) 2007 THE ca'S COPYRIGHT HOLDER.
 # Joan <info@lutesor.com>, 2005.
-# Joan PadrÃ³ <info@lutesor.com>, 2005.
-#
+# Joan Padró <info@lutesor.com>, 2005.
+# Wolfgang Becker <uafr@gmx.de>, 2007.
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: ca\n"
+"Project-Id-Version: ca v0.2 pendent de revisió\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Sat Jan 27 22:03:14 2007\n"
-"PO-Revision-Date: 2006-04-10 15:25+0100\n"
-"Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
-"Language-Team: CatalÃ¡ <ca@li.org>\n"
+"PO-Revision-Date: 2007-03-18 19:30+0100\n"
+"Last-Translator: felip alfred galitó <bratac@bratac.cat>\n"
+"Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: data/gui/minimap.xml
 msgid "$"
-msgstr ""
+msgstr "â‚¬"
 
 #: data/gui/fire.xml
 msgid "A Fire has started"
-msgstr "Incendi declarat"
+msgstr "S'ha declarat un incendi"
 
 #: data/gui/shfire-uc.xml
 msgid ""
 "A fire has broken out at a shanty town. It is in a fire cover area and "
 "APPEARS to be under control. "
-msgstr "Foc a shanty town"
+msgstr "S'ha produït un incendi en una zona de barraques. Es troba en una zona coberta pels bombers i"
+"SEMBLA estar sota control."
 
 #: data/gui/shfire-oc.xml
 msgid ""
 "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
 "spread to other areas. "
 msgstr ""
-"Incendi a shanty town. El foc estÃ¡  fore de control i perilla que sescampi."
+"S'ha declarat un incendi a les barraques. L'incendi es troba FORA DE CONTROL"
+"i es pot escampar a altres zones."
 
 #: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
 #: data/gui/savegame.xml
 msgid "Back"
-msgstr "Enrrera"
+msgstr "Enrera"
 
 #: data/gui/options.xml
 msgid "Background Music"
-msgstr "MÃºsica de fons"
+msgstr "Música de fons"
 
 #: data/gui/cricketup.xml
 msgid "Basketball Courts available"
-msgstr "Pista de Basket disponible"
+msgstr "Pista de bàsquet disponible"
 
 #: data/gui/blacksmithup.xml
 msgid "Blacksmiths available"
@@ -59,39 +62,39 @@ msgstr "Farga disponible"
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Bulldozing a monument costs a lot of money."
-msgstr "Destruir monuments coste molts diners."
+msgstr "Enderrocar un monument és molt car."
 
 #: data/gui/bulldoze_river_yn.xml
 msgid "Bulldozing a section of river costs a lot of money."
-msgstr "Escabar una secciÃ³ del riu coste molts diners."
+msgstr "Arrasar una part del riu és molt car."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
-msgstr "Enderrocar un shanty town coste molts diners i provoca incendis"
+msgstr "Enderrocar barraques és car i sol provocar incendis."
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Buy"
-msgstr "Facture"
+msgstr "Compra"
 
 #: data/gui/newgame.xml
 msgid "Choose Scenario"
-msgstr "Tria escenari"
+msgstr "Escull un escenari"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Coal"
-msgstr "CarbÃ³"
+msgstr "Carbó"
 
 #: data/gui/coalpowerup.xml
 msgid "Coal Fired Power Stations available"
-msgstr "Central TÃ©rmica disponible"
+msgstr "Central tèrmica disponible"
 
 #: data/gui/coalmineup.xml
 msgid "Coal Mine available"
-msgstr "Mine de carbÃ³ disponible"
+msgstr "Mina de carbó disponible"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Coal Survey"
-msgstr "CarbÃ³"
+msgstr "Carbó"
 
 #: data/gui/creditslist.xml
 msgid "Code"
@@ -103,7 +106,7 @@ msgstr "Continua"
 
 #: data/gui/mainmenu.xml data/gui/creditslist.xml
 msgid "Credits"
-msgstr "Credits"
+msgstr "Crèdits"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Do coal survey?"
@@ -111,23 +114,23 @@ msgstr ""
 
 #: data/gui/launch-good.xml
 msgid "Doing well."
-msgstr ""
+msgstr "Ho estàs fent bé."
 
 #: data/gui/minimap.xml
 msgid "Eco"
-msgstr ""
+msgstr "Economia"
 
 #: data/gui/sustain.xml
 msgid "Economy Sustainable."
-msgstr "EconomÃ­a sustenible"
+msgstr "Economia sostenible"
 
 #: data/gui/launch-evac.xml
 msgid "Evacuation Launch Good"
-msgstr "EvacuaciÃ³ correcte"
+msgstr "Evacuació correcta"
 
 #: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
 msgid "Fire"
-msgstr "Foc"
+msgstr "Incendi"
 
 #: data/gui/firestationup.xml
 msgid "Fire Stations available"
@@ -135,11 +138,11 @@ msgstr "Bombers disponibles"
 
 #: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
 msgid "Fire!"
-msgstr "Foc"
+msgstr "Foc!"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Food"
-msgstr "Aliment"
+msgstr "Menjar"
 
 #: data/gui/options.xml
 msgid "Fullscreen"
@@ -151,27 +154,27 @@ msgstr "Estat del Joc"
 
 #: data/gui/speedpanel.xml
 msgid "Go back to Main Menu"
-msgstr ""
+msgstr "Vés al menú principal"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Goods"
-msgstr "Bens"
+msgstr "Béns"
 
 #: data/gui/creditslist.xml
 msgid "Graphics"
-msgstr "Grafics"
+msgstr "Gràfics"
 
 #: data/gui/portdialog.xml
 msgid "Harbour Trade Settings"
-msgstr ""
+msgstr "Paràmetres del comerç portuari"
 
 #: data/gui/healthup.xml
 msgid "Health Centres available"
-msgstr ""
+msgstr "Centres sanitaris disponibles"
 
 #: data/gui/hvindustryup.xml
 msgid "Heavy Industry available"
-msgstr "Industria pesada disponible"
+msgstr "Indústria pesada disponible"
 
 #: data/gui/import-exportup.xml
 msgid "Import/Export available"
@@ -183,43 +186,43 @@ msgstr "Treball"
 
 #: data/gui/launch-fail.xml
 msgid "Launch Failure"
-msgstr "Llansament fallit"
+msgstr "Enlairament fallit"
 
 #: data/gui/launch-good.xml
 msgid "Launch Successfull"
-msgstr "Proxim llansament"
+msgstr "Proper enlairament"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "Launch now?"
-msgstr "Llansar ya"
+msgstr "El voleu enlairar ara?"
 
 #: data/gui/ltindustryup.xml
 msgid "Light Industry available"
-msgstr "Industria electrica disponible"
+msgstr "Indústria elèctrica disponible"
 
 #: data/gui/sustain.xml
 msgid "LinCity has determined that you have a sustainable economy."
-msgstr "Tens una economÃ­a sustanible"
+msgstr "Tens una economia sostenible"
 
 #: data/gui/mainmenu.xml data/gui/loadgame.xml
 msgid "Load"
-msgstr "Carregar"
+msgstr "Carrega"
 
 #: data/gui/loadgame.xml
 msgid "Load Game"
-msgstr "Carregar Joc"
+msgstr "Carrega una partida"
 
 #: data/gui/minimap.xml
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 #: data/gui/millup.xml
 msgid "Mills available"
-msgstr "FÃ¡brica disponible"
+msgstr "Fàbrica disponible"
 
 #: data/gui/mod_wind_up.xml
 msgid "Modern Windmills available"
-msgstr "MolÃ­ modern disponible"
+msgstr "Molí modern disponible"
 
 #: data/gui/pbar.xml
 msgid "Money"
@@ -238,7 +241,7 @@ msgstr "Nou Joc"
 #: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/millup.xml
 #: data/gui/import-exportup.xml data/gui/healthup.xml
 msgid "New Invention"
-msgstr "Nova VersiÃ³"
+msgstr "Nova Versió"
 
 #: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
 #: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
@@ -258,7 +261,7 @@ msgstr "Casa sense persones"
 
 #: data/gui/nobull-tip.xml
 msgid "Not Allowed"
-msgstr "No permÃ¨s"
+msgstr "No és permès"
 
 #: data/gui/options.xml data/gui/firestationup.xml data/gui/hvindustryup.xml
 #: data/gui/windmillup.xml data/gui/fire.xml data/gui/shfire-uc.xml
@@ -276,7 +279,7 @@ msgstr "No permÃ¨s"
 #: data/gui/healthup.xml data/gui/launch-gone.xml data/gui/shfire-oc.xml
 #: data/gui/sustain.xml data/gui/allgone.xml
 msgid "Ok"
-msgstr "OK"
+msgstr "D'acord"
 
 #: data/gui/gamestats.xml
 msgid "Okay"
@@ -292,7 +295,7 @@ msgstr "Coure"
 
 #: data/gui/creditslist.xml
 msgid "Original Idea and Code"
-msgstr "Idea Original y Codi"
+msgstr "Idea Original i Codi"
 
 #: data/gui/parkup.xml
 msgid "Parks available"
@@ -300,19 +303,19 @@ msgstr "Parcs disponibles"
 
 #: data/gui/speedpanel.xml
 msgid "Pause the game"
-msgstr ""
+msgstr "Pausa el joc"
 
 #: data/gui/pbar.xml
 msgid "Population"
-msgstr "ContaminaciÃ³"
+msgstr "Contaminació"
 
 #: data/gui/potteryup.xml
 msgid "Potteries available"
-msgstr "CerÃ¡mique disponible"
+msgstr "Terrissaire disponible"
 
 #: data/gui/minimap.xml
 msgid "Press this button to show statistics"
-msgstr "Prema aquet butÃ³ per veure les estadÃ­stiques"
+msgstr "Prem aquest botó per veure les estadístiques"
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Product"
@@ -324,7 +327,7 @@ msgstr "Sortida"
 
 #: data/gui/railwayup.xml
 msgid "Railways available"
-msgstr "Vias disponibles"
+msgstr "Vies de tren disponibles"
 
 #: data/gui/recycleup.xml
 msgid "Recycling Centres available"
@@ -332,7 +335,7 @@ msgstr "Centre de reciclat disponible"
 
 #: data/gui/riverup.xml
 msgid "Rivers available"
-msgstr "Rivera disponible"
+msgstr "Rius disponible"
 
 #: data/gui/roadup.xml
 msgid "Roads available"
@@ -340,35 +343,35 @@ msgstr "Carretera disponible"
 
 #: data/gui/rocketup.xml
 msgid "Rocket Launch Pad available"
-msgstr "Plataforma cohets disponible"
+msgstr "Plataforma coets disponible"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "Rocket Ready"
-msgstr "Cohet carregat"
+msgstr "Coet llest per a ser enlairat"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "Rocket ready to launch"
-msgstr "Cohet carregat per llansar"
+msgstr "Coet a punt per enlairar"
 
 #: data/gui/speedpanel.xml
 msgid "Run the simulation with fast speed"
-msgstr ""
+msgstr "Juga ràpidament."
 
 #: data/gui/speedpanel.xml
 msgid "Run the simulation with normal speed"
-msgstr ""
+msgstr "Juga a una velocitat normal"
 
 #: data/gui/speedpanel.xml
 msgid "Run the simulation with very fast speed"
-msgstr ""
+msgstr "Juga molt ràpidament"
 
 #: data/gui/mainmenu.xml
 msgid "Save"
-msgstr "Desar"
+msgstr "Desa-ho"
 
 #: data/gui/savegame.xml
 msgid "Save Game"
-msgstr "Desar Joc"
+msgstr "Desa el joc"
 
 #: data/gui/schoolup.xml
 msgid "Schools available"
@@ -377,7 +380,7 @@ msgstr "Escola disponible"
 #: data/gui/coalmineup.xml
 msgid ""
 "See the help screen for more information on coal mines and coal surveys."
-msgstr "Per mes informaciÃ³ veure pantalla de ayude mines de CarbÃ³ i Coure"
+msgstr "Per mes informació vés a a pantalla d'ajuda sobre les mines de carbó i coure"
 
 #: data/gui/firestationup.xml data/gui/hvindustryup.xml
 #: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
@@ -387,7 +390,7 @@ msgstr "Per mes informaciÃ³ veure pantalla de ayude mines de CarbÃ³ i Coure"
 #: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
 #: data/gui/millup.xml data/gui/healthup.xml
 msgid "See the help screen for more information."
-msgstr "Per mes informaciÃ³ veure pantalla de ayude"
+msgstr "Per mes informació veure pantalla de ayude"
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Sell"
@@ -395,71 +398,71 @@ msgstr "Ven"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Send out Prospectors"
-msgstr "Enviar exploradors"
+msgstr "Envia exploradors"
 
 #: data/gui/minimap.xml
 msgid "Show Income and Expenses. Click this tab again to cycle through views."
-msgstr ""
+msgstr "Mostra els impostos i les despeses. Clica en aquesta pestanya de nou per canviar els modes de visualització."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show coal depots"
-msgstr "Mostre diposits carbÃ³"
+msgstr "Mostra els dipòsits de carbó"
 
 #: data/gui/minimap.xml
 msgid "Show economy graphs."
-msgstr "Mostre grafics economÃ­a"
+msgstr "Mostra els gràfics de l'economia."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show fire department cover"
-msgstr "Mostre departaments bombers"
+msgstr "Mostra la cobertura dels bombers."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show map outline"
-msgstr "Mostre mapa"
+msgstr "Mostra el mapa"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show medical care"
-msgstr "Mostre centres mÃ©dics"
+msgstr "Mostra els centres mèdics."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show nourishments"
-msgstr "Mostre Aliment"
+msgstr "Mostra els aliments"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show pollution density"
-msgstr "Mostre densitat contaminaciÃ³"
+msgstr "Mostra la densitat de la contaminació."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show power supply"
-msgstr "Mostre Suministre d'energia"
+msgstr "Mostra el subministrament d'energia"
 
 #: data/gui/minimap.xml
 msgid "Show resources."
-msgstr "Mostre recursos"
+msgstr "Mostra els recursos."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show sport cover"
-msgstr "Mostrar esports "
+msgstr "Mostra la cobertura dels esports."
 
 #: data/gui/minimap.xml
 msgid "Show the MiniMap"
-msgstr "Mostrar el Minimapa"
+msgstr "Mostra el Minimapa"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show traffic density"
-msgstr "Mostrar densitat de trafic"
+msgstr "Mostra la densitat de trànsit."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show unemployment"
-msgstr "Mostrar Parats"
+msgstr "Mostra l'atur."
 
 #: data/gui/solarpowerup.xml
 msgid "Solar Power Stations available"
-msgstr "Central Solar disponible"
+msgstr "Central solar disponible"
 
 #: data/gui/nobull-tip.xml
 msgid "Sorry you can't bulldoze a tip."
-msgstr "No pots escabar en aquet lloc"
+msgstr "No pots enderrocar aquest lloc."
 
 #: data/gui/options.xml
 msgid "Sound Effects"
@@ -467,7 +470,7 @@ msgstr "Efectes de so"
 
 #: data/gui/creditslist.xml
 msgid "Sound and Music"
-msgstr "So i mÃºsica"
+msgstr "So i música"
 
 #: data/gui/newgame.xml
 msgid "Start"
@@ -483,7 +486,7 @@ msgstr "Entra amb poble aleatori"
 
 #: data/gui/minimap.xml
 msgid "Stats"
-msgstr ""
+msgstr "Estat"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Steel"
@@ -491,27 +494,27 @@ msgstr "Acer"
 
 #: data/gui/pbar.xml
 msgid "Tech Level"
-msgstr "Nivell TecnologÃ­a"
+msgstr "Nivell Tecnològic"
 
 #: data/gui/allgone.xml
 msgid "There are no people left in this city."
-msgstr "I a poque poblaciÃ³ en aquesta ciutat"
+msgstr "No hi ha habitants en aquesta ciutat."
 
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it is free to call again."
-msgstr "Et costarÃ¡ 1 miliÃ³. DesprÃ©s es lliure de pagament."
+msgstr "Costarà 1 milió, un sol cop. Després és lliure de pagament."
 
 #: data/gui/launch-gone.xml
 msgid "Total Evacuation Complete."
-msgstr "EvacuaciÃ³ Total Completada"
+msgstr "Evacuació total completada."
 
 #: data/gui/tradedialog.xml
 msgid "Trade Settings"
-msgstr "ParÃ metres de comerÃ§"
+msgstr "Paràmetres de comerç"
 
 #: data/gui/creditslist.xml
 msgid "Translation"
-msgstr ""
+msgstr "Traducció"
 
 #: data/gui/universityup.xml
 msgid "University available"
@@ -520,7 +523,7 @@ msgstr "Universitat disponible"
 #: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Want to bulldoze?"
-msgstr ""
+msgstr "Vols arrasar-ho?"
 
 #: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
 #: data/gui/bulldoze_shanty_yn.xml
@@ -529,19 +532,19 @@ msgstr "Perill"
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Warning: Bulldozing monuments is expensive"
-msgstr "En comte Destruir monuments es car"
+msgstr "Compte: Enderrocar monuments és car"
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Warning: Bulldozing shanties is dangerous."
-msgstr "Comte enderrocar shanties es perillÃ³s."
+msgstr "Compte!  És perillós enderrocar barraques."
 
 #: data/gui/bulldoze_river_yn.xml
 msgid "Warning: Bulldozing water is expensive"
-msgstr "En comte remoure aigÃ¼es es car"
+msgstr "Compte: Arrasar aigües és car."
 
 #: data/gui/launch-gone.xml
 msgid "Well done you have evacuated all your people."
-msgstr "AurÃ¡s de evacuar la gent"
+msgstr "Hauràs de evacuar la gent."
 
 #: data/gui/windmillup.xml
 msgid "Windmills available"
@@ -551,11 +554,11 @@ msgstr "Molins disponibles"
 #: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
 #: data/gui/launch_rocket_yn.xml
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 #: data/gui/fire.xml
 msgid "You better go and look for it"
-msgstr "Millor que aneu a cercar-ho"
+msgstr "Millor que ho aneu a cercar."
 
 #: data/gui/launch_rocket_yn.xml
 msgid ""
@@ -563,68 +566,72 @@ msgid ""
 "continue costing you money to keep the rocket ready. Launch it later by "
 "clicking on the rocket area."
 msgstr ""
-"Pots llansar el cohet ara o mes tard. Si vols continuar costarÃ¡ molts diners."
+"Pots enlairar el coet ara o esperar-te i fer-ho mes tard. Si vols continuar,"
+"mantenir el coet a punt et costarà diners. Fes-lo enlairar quan vulguis"
+"clicant a l'àrea del coet."
 
 #: data/gui/import-exportup.xml
 msgid ""
 "You can now import and export coal, goods, ore and steel. Read the help "
 "pages on these subjects to find out how to use them. "
 msgstr ""
-"Pots Importar i exportar carbÃ³, bens, coure i acer, llegeix la plana de "
-"ayude per fer-u correctement."
+"Pots Importar i exportar carbó, béns, coure i acer. Llegeix les pàgines d'ajuda "
+"per saber com funciona."
 
 #: data/gui/no-credit-parkland.xml
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build parks on credit."
 msgstr ""
-"Quan entras en deficit la legislaciÃ³ no et permet construir parcs a crÃ©dit."
+"Tens dèficit pressupostari. La legislació no et permet construir parcs a crèdit."
 
 #: data/gui/no-credit-recycle.xml
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build recycling centres on credit."
 msgstr ""
-"Quan estÃ¡s en deficit La legislaciÃ³ no et permet construir centres de "
-"reciclat a credit."
+"Tens dèficit pressupostari. La legislació no et permet construir centres"
+"de reciclatge a crèdit."
+""
 
 #: data/gui/no-credit-rocket.xml
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build rocket launch pads on credit."
 msgstr ""
-"Quan estas en deficit la legislaciÃ³ no et permet construir Plataformes de "
-"cohets a crÃ©dit."
+"Tens dèficit pressupostari. La legislació no et permet construir plataformes aeroespacials a crèdit."
+""
 
 #: data/gui/no-credit-solar-power.xml
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build solar power stations on credit."
 msgstr ""
-"Quan estas en deficit La legislaciÃ³ no et permet construir central solar a "
-"credit."
+"Tens dèficit pressupostari. La legislació no et permet construir centrals solars a crèdit."
+""
 
 #: data/gui/no-credit-university.xml
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build universities on credit."
 msgstr ""
-"Quan estÃ¡s en deficit. El consell legislatiu no et permet construir "
-"Universitats a crÃ©dit."
+"Tens dèficit pressupostari. La legislació no et permet construir universitats a crèdit."
+""
 
 #: data/gui/launch-evac.xml
 msgid ""
 "You have evacuated 1000 people. You might want to reduce the size of your "
 "economy to reflect the reduced population. "
 msgstr ""
-"Has evacuat a 1000 persones. Aquesta reducciÃ³ es reflectarÃ¡ en la economÃ­a. "
+"Has evacuat a 1000 persones. Hauries de reduir les mides de la teva economia per a "
+"reflexar la redució de la població."
 
 #: data/gui/blacksmithup.xml
 msgid ""
 "You have reached the tech level which enables you to build blacksmiths. "
 "Blacksmiths use jobs and steel to make goods."
 msgstr ""
-"Has arrivat al nivell tÃ©cnic de les fargues. Les fargues necessiten llocs de "
+"Has arribat al nivell tècnic de les fargues. Les fargues necessiten llocs de "
 "treball i acer."
 
 #: data/gui/coalpowerup.xml
@@ -632,7 +639,7 @@ msgid ""
 "You have reached the tech level which enables you to build coal fired power "
 "stations."
 msgstr ""
-"Has arrivat al nivell tÃ©cnic  amb edificis crema carbÃ³ a la central TÃ©rmica."
+"Has arribat al nivell tècnic que et permet construir centrals tèrmiques."
 
 #: data/gui/firestationup.xml
 msgid ""
@@ -640,8 +647,9 @@ msgid ""
 "Fire stations prevent most fires from starting. If you haven't had any fires "
 "yet, you might not think you need them."
 msgstr ""
-"Has arrivat al nivell tÃ©cnic. Habilita una EstaciÃ³ de Bombers. La EstaciÃ³ de "
-"Bombers  preveu els incendis avans que es produexin i no necesiten apagarlos."
+"Has arribat al nivell tècnic que et permet construir estacions de bombers."
+"Les estacions de bombers prevenen l'aparició de la majoria d'incendis. Encara"
+"que no hagis tingut cap incendi no et pensis que no els necessites."
 
 #: data/gui/healthup.xml
 msgid ""
@@ -649,72 +657,72 @@ msgid ""
 "Heath centres reduce the number of people killed by pollution and increase "
 "overall productivity."
 msgstr ""
-"Has arrivat al nivell tecno ara pots construir un centre de Salud. El centre "
-"de salud redueig el nombre de persones mortes per contaminaciÃ³ i incremente "
-"la productivitat."
+"Has arribat al nivell tecnològic que et permet construir un centres sanitaris."
+" Els centres sanitaris redueixen el nombre de morts per contaminació i fa que "
+"la productivitat s'incrementi."
 
 #: data/gui/hvindustryup.xml
 msgid ""
 "You have reached the tech level which enables you to build heavy industry "
 "(steel works). Heavy industry produces steel. "
 msgstr ""
-"Has asolit un nou nivell tÃ©cnic i podrÃ¡s contruir indÃºstria pesada (La "
-"industria pesada produeig acer)."
+"Has assolit un nou nivell tècnic i podrás construir indústries pesades (La "
+"industria pesada produeix acer)."
 
 #: data/gui/ltindustryup.xml
 msgid ""
 "You have reached the tech level which enables you to build light industry. "
 "Light industry produces goods. "
 msgstr ""
-"Has arrivat a un nou nivell tÃ¨cnic que et permet construir industria "
-"elÃ©ctrica'. La industria electrica produeix bens."
+"Has arribat a un nou nivell tècnic que et permet construir indústries "
+"elèctriques. La indústria elèctrica produeix béns."
 
 #: data/gui/millup.xml
 msgid ""
 "You have reached the tech level which enables you to build mills. Mills use "
 "jobs and food to make goods. Watch out, they can use a lot of food! "
 msgstr ""
-"Has arrivat a un nou nivell tÃ©cnic que et permet construir fÃ¡briques. Les "
-"fÃ¡briques donen feina, i aliment i produeixen bens."
+"Has arribat a un nou nivell tècnic que et permet construir fàbriques. Les "
+"fàbriques donen feina, aliment i produeixen béns."
 
 #: data/gui/mod_wind_up.xml
 msgid ""
 "You have reached the tech level which enables you to build modern, more "
 "efficient, windmills. "
 msgstr ""
-"Has arrivat a un nou nivell tÃ¡nic que et permet construir Molins mes moderns."
+"Has arribat a un nou nivell tècnic que et permet construir Molins de vent més moderns."
 
 #: data/gui/parkup.xml
 msgid ""
 "You have reached the tech level which enables you to build parks. Parks are "
 "used to absorb pollution. "
 msgstr ""
-"Has arrivat a un nivell tÃ©cnic que et permet contruir parcs. Els parcs es "
-"fan servir per absorvir la contaminaciÃ³"
+"Has arribat a un nivell tècnic que et permet contruir parcs. Els parcs es "
+"fan servir per absorbir la contaminació"
 
 #: data/gui/potteryup.xml
 msgid ""
 "You have reached the tech level which enables you to build potteries. "
 "Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
 msgstr ""
-"Has arrivat a un nou nivell tÃ©cnic que et permet construir fÃ¡briques de "
-"cerÃ¡mique. La cerÃ¡mique genera feina i produeix bens."
+"Has arribat a un nou nivell tècnic que et permet construir terrisseries."
+"La ceràmica genera feina i produeix béns."
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr "Has arrivat a un nivell tÃ©cnic que et permet construir vÃ­as fÃ©rreas."
+msgstr "Has arribat a un nivell tècnic que et permet construir vies fèrrees."
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
-msgstr "Has arrivat a un nivell tÃ©cnic que et permet contruir canals"
+msgstr "Has arribat a un nivell tècnic que et permet contruir canals."
 
 #: data/gui/roadup.xml
 msgid ""
 "You have reached the tech level which enables you to build roads. See the "
 "help screen for more information."
 msgstr ""
-"Has arrivat a un nivell tÃ©cnic que et permet construir carreteres. Per mes "
-"informaciÃ³ mire la pantalla d'ajuda."
+"Has arribat a un nivell tècnic que et permet construir carreteres. Trobaràs més"
+"informació a la pantalla d'ajuda."
 
 #: data/gui/rocketup.xml
 msgid ""
@@ -722,47 +730,47 @@ msgid ""
 "pads. Rockets enable you to evacuate your population and is a way to 'win' "
 "the game."
 msgstr ""
-"Has arrivat a un nivell tÃ©cnic que et permet construir Plataformes de cohets."
-"Els cohets et permeten evacuar la poblaciÃ³ i es un camÃ­ per guanyar el joc."
+"Has arribat a un nivell tècnic que et permet construir plataformes aeroespacials."
+"Els coets et permeten evacuar la població i es una via per guanyar el joc."
 
 #: data/gui/schoolup.xml
 msgid ""
 "You have reached the tech level which enables you to build schools. Schools "
 "use jobs and goods to increase tech level. "
 msgstr ""
-"Has arrivat a un nivell tÃ©nic que et permet construir escoles. Les escoles "
-"donen feina i bens a mÃ©s de incrementar el nivell tÃ©cnic."
+"Has arribat a un nivell tècnic que et permet construir escoles. Les escoles "
+"necessiten treballadors i béns per tal d'incrementar el nivell tècnic."
 
 #: data/gui/solarpowerup.xml
 msgid ""
 "You have reached the tech level which enables you to build solar power "
 "stations. "
-msgstr "Has arrivat a un nivell tÃ©nic que et permet construir Centarls Solars."
+msgstr "Has arribat a un nivell tècnic que et permet construir Centrals Solars."
 
 #: data/gui/universityup.xml
 msgid ""
 "You have reached the tech level which enables you to build universities. "
 "Universities produces PhDs, which produce more technology. "
 msgstr ""
-"Has arrivat a un nivell tÃ©nic que et permet construir Universitats. Les "
-"Universitats generen I+D, produint mes tecnologÃ­a."
+"Has arribat a un nivell tècnic que et permet construir universitats. Les "
+"Universitats generen I+D, produint mes tecnologia."
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr "Has arrivat a un nivell tÃ©nic que et permet construir Molins."
+msgstr "Has arribat a un nivell tècnic que et permet construir molins de vent."
 
 #: data/gui/coalmineup.xml
 msgid ""
 "You have reached the tech level which enables you to dig deep coal mines."
-msgstr "Has arrivat a un nivell tÃ©nic que et permet construir mines de carbÃ³."
+msgstr "Has arribat a un nivell tècnic que et permet construir mines de carbó."
 
 #: data/gui/recycleup.xml
 msgid ""
 "You have reached the tech level which enables you to recycling centres. "
 "Recycling centres recycle used goods back into ore. "
 msgstr ""
-"Has arrivat a un nivell tÃ©nic que et permet construir Centres de Reciclat. "
-"Els centres de reciclat reutilitzen els articles bells."
+"Has arribat a un nivell tècnic que et permet construir centres de reciclatge. "
+"Els centres de reciclatge reutilitzen els articles bells i els converteixen en coure."
 
 #: data/gui/launch-gone.xml data/gui/sustain.xml
 msgid "You have won the game."
@@ -770,14 +778,17 @@ msgstr "Has guanyat el Joc."
 
 #: data/gui/allgone.xml
 msgid "You should start a new career elsewhere."
-msgstr "Necesites comensar una nova partida"
+msgstr "Podrieu començar una nova partida."
 
 #: data/gui/cricketup.xml
 msgid ""
 "Your people have invented basketball. Basketball Courts use a few jobs and "
 "goods and make people in the surrounding areas (about 10 units in each "
 "direction) happier."
-msgstr "La gent a inventat el Basket. El deport fa la gent mÃ©s sana i feliÃ§."
+msgstr ""
+"Els teus habitants han inventat el bàsquet. Les pistes de bàsquet necessiten"
+"pocs treballadors i béns i fan que la gent que hi ha a la vora (aproximadament"
+"10 unitats en cada direcció) estigui millor."
 
 #: data/gui/launch-fail.xml
 msgid ""
@@ -785,22 +796,23 @@ msgid ""
 "technology for evacuation. You must launch five more unmanned rockets to "
 "restore confidence."
 msgstr ""
-"El teu cohet a explotat desprÃ©s del llansament. La gent que viatjava a dins "
-"a mort. Llansa cuatre cohets sense gent per agafar confiansa."
+"El teu coet a explotat després de l'enlairament. La gent no creu"
+"en la tecnologia per a ser evacuada. Has de llençar cinc coets nous"
+"per a guanyar-te la seva confiança."
 
 #: data/gui/minimap.xml
 msgid "[+] Zoom in view so that less buildings but more details are visible"
 msgstr ""
-"[+] Augmenta el zoom que fa que es mostrin menys edificis perÃ² mÃ©s detalls "
-"sÃ³n visibles"
+"[+] Augmenta el zoom que fa que es mostrin menys edificis però"
+"es fan visibles més detalls."
 
 #: data/gui/minimap.xml
 msgid "[-] Zoom out"
-msgstr "Allunyar"
+msgstr "[-] Allunyar"
 
 #: data/gui/minimap.xml
 msgid "[F1] Press this button to get help"
-msgstr "[F1] Prem aquet butÃ³ per ayude"
+msgstr "[F1] Prem aquet botó per obtenir ajuda."
 
 #: data/gui/minimap.xml
 msgid "[h] Hide high buildings. "
@@ -812,4 +824,5 @@ msgstr ""
 
 #: data/gui/savegame.xml
 msgid "save to selected slot"
-msgstr "Desa opciÃ³ triada"
+msgstr "Desa l'opció triada."
+
