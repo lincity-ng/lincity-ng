@@ -55,10 +55,10 @@ Game::Game()
 
     Button* helpButton = getButton( *gui, "HelpButton" );
     helpButton->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
-    
+
     Button* statButton = getButton( *gui, "StatButton" );
     statButton->clicked.connect( makeCallback(*this, &Game::gameButtonClicked ));
-    
+
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(desktop == 0)
         throw std::runtime_error("Game UI is not a Desktop Component");
@@ -79,7 +79,7 @@ void Game::showHelpWindow( std::string topic ){
 
 void Game::backToMainMenu(){
     closeAllDialogs();
-    getButtonPanel()->selectQueryTool(); 
+    getButtonPanel()->selectQueryTool();
     saveCityNG( "9_currentGameNG.scn" );
     running = false;
     quitState = MAINMENU;
@@ -94,7 +94,7 @@ void Game::gameButtonClicked( Button* button ){
     } else if( name == "StatButton" ) {
         if( !blockingDialogIsOpen ){
             new Dialog( GAME_STATS );
-        }                   
+        }
     } else {
          std::cerr << " Game::gameButtonClicked unknown button '" << name << "'.\n";
     }
@@ -102,7 +102,7 @@ void Game::gameButtonClicked( Button* button ){
 
 void Game::quickLoad(){
     closeAllDialogs();
-    
+
     //load file
     getGameView()->printStatusMessage( "quick load...");
     std::string filename;
@@ -141,9 +141,9 @@ void Game::testAllHelpFiles(){
         pos = filename.rfind( ".xml" );
         if( pos != std::string::npos ){
             filename.replace( pos, 4 ,"");
-            std::cerr << "--- Examining " << filename << "\n"; 
+            std::cerr << "--- Examining " << filename << "\n";
             helpWindow->showTopic( filename );
-            std::cerr << "\n"; 
+            std::cerr << "\n";
         }
     }
     PHYSFS_freeList(rc);
@@ -178,7 +178,7 @@ Game::run()
                      if( gui_event.keysym.sym == SDLK_b ){
                          getButtonPanel()->toggleBulldozeTool();
                          break;
-                     }   
+                     }
                      if( gui_event.keysym.sym == SDLK_F1 ){
                          helpWindow->showTopic("help");
                          break;
@@ -193,7 +193,7 @@ Game::run()
                      }
 #ifdef DEBUG
                      if( gui_event.keysym.sym == SDLK_F5 ){
-                         testAllHelpFiles(); 
+                         testAllHelpFiles();
                          break;
                      }
 #endif
@@ -241,10 +241,10 @@ Game::run()
             SDL_Delay(10);
         }
         frame++;
-        
+
         if(ticks - fpsTicks > 1000) {
 #ifdef DEBUG
-            printf("FPS: %d.\n", frame);
+            printf("FPS: %d.\n", (frame*1000) / (ticks - fpsTicks));
 #endif
             getEconomyGraph()->newFPS( frame );
             frame = 0;

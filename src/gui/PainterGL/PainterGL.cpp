@@ -36,32 +36,17 @@ PainterGL::PainterGL()
 PainterGL::~PainterGL()
 {
     glDisable(GL_BLEND);
-    glDisable(GL_TEXTURE_2D);       
+    glDisable(GL_TEXTURE_2D);
 }
 
 void
-PainterGL::drawTexture(const Texture* texture, const Vector2& pos)
+PainterGL::drawTextureRect(const Texture* texture, const Rect2D& rect)
 {
-    Rect2D rect(pos, pos + Vector2(texture->getWidth(), texture->getHeight()));
-    drawStretchTexture(texture, rect);
-}
-
-void
-PainterGL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
-{
-    assert(typeid(*texture) == typeid(TextureGL));
     const TextureGL* textureGL = static_cast<const TextureGL*> (texture);
+    const Rect2D& r = textureGL->rect;
 
-    if(texture == 0) {
-        std::cerr << "Trying to render 0 texture.";
-#ifdef DEBUG
-        assert(false);
-#endif
-        return;
-    }
     glColor4ub( 0xff, 0xff, 0xff, 0xff );
 
-    const Rect2D& r = textureGL->rect;
     glBindTexture(GL_TEXTURE_2D, textureGL->handle);
     glBegin(GL_QUADS);
     glTexCoord2f(r.p1.x, r.p1.y);
@@ -73,6 +58,28 @@ PainterGL::drawStretchTexture(const Texture* texture, const Rect2D& rect)
     glTexCoord2f(r.p2.x, r.p1.y);
     glVertex3f(rect.p2.x, rect.p1.y, 0);
     glEnd();
+}
+void
+PainterGL::drawTexture(const Texture* texture, const Vector2& pos)
+{
+    Rect2D rect(pos, pos + Vector2(texture->getWidth(), texture->getHeight()));
+    drawTextureRect(texture, rect);
+}
+
+void
+PainterGL::drawStretchTexture(Texture* texture, const Rect2D& rect)
+{
+    assert(typeid(*texture) == typeid(TextureGL));
+
+    if(texture == 0) {
+        std::cerr << "Trying to render 0 texture.";
+#ifdef DEBUG
+        assert(false);
+#endif
+        return;
+    }
+
+    drawTextureRect(texture, rect);
 }
 
 void
@@ -173,7 +180,7 @@ void
 PainterGL::pushTransform()
 {
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();    
+    glPushMatrix();
 }
 
 void
@@ -188,7 +195,7 @@ PainterGL::setClipRectangle(const Rect2D& rect)
 {
     GLfloat matrix[16];
     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
-        
+
     int screenHeight = SDL_GetVideoSurface()->h;
     glViewport((GLint) (rect.p1.x + matrix[12]),
                (GLint) (screenHeight - rect.getHeight() - (rect.p1.y + matrix[13])),
@@ -197,7 +204,7 @@ PainterGL::setClipRectangle(const Rect2D& rect)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(rect.p1.x + matrix[12], rect.p1.x + matrix[12] + rect.getWidth(),
-            rect.p1.y + matrix[13] + rect.getHeight(), 
+            rect.p1.y + matrix[13] + rect.getHeight(),
             rect.p1.y + matrix[13], -1, 1);
 }
 

@@ -30,7 +30,7 @@ class TextureSDL : public Texture
 public:
     virtual ~TextureSDL();
 
-    float getWidth() const 
+    float getWidth() const
     {
         return surface->w;
     }
@@ -38,15 +38,28 @@ public:
     {
         return surface->h;
     }
-    
+
+    void setZoomSurface(SDL_Surface* zs, double zx, double zy)
+    {
+        if(zoomSurface != NULL)
+            SDL_FreeSurface(zoomSurface);
+
+        zoomSurface = zs;
+        zoomx = zx;
+        zoomy = zy;
+    }
 private:
     friend class PainterSDL;
     friend class TextureManagerSDL;
     TextureSDL(SDL_Surface* _surface)
         : surface(_surface)
-    { }
+    {
+        zoomSurface = NULL;
+    }
 
     SDL_Surface* surface;
+    SDL_Surface* zoomSurface;
+    double zoomx,zoomy;
 };
 
 #endif
