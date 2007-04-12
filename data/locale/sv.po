@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lincity-ng 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-12 13:28+0200\n"
-"PO-Revision-Date: 2007-01-28 18:02+0100\n"
+"PO-Revision-Date: 2007-04-11 10:57+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -155,7 +155,7 @@ msgstr "Det är en smedja."
 
 #: src/lincity/engine.cpp:737
 msgid "It's at a mill."
-msgstr "Det är ett spinneri."
+msgstr "Det är en verkstad."
 
 #: src/lincity/engine.cpp:739
 msgid "It's at a pottery."
@@ -329,7 +329,7 @@ msgstr "Smedja"
 
 #: src/lincity/lintypes.cpp:358
 msgid "Mill"
-msgstr "Spinneri"
+msgstr "Verkstad"
 
 #: src/lincity/lintypes.cpp:370
 #: src/lincity/modules/pottery.cpp:119
@@ -906,7 +906,7 @@ msgstr "Datum %s %04d  Pengar %8d  Teknologinivå %5.1f (%5.1f)"
 #: src/lincity-ng/Dialog.cpp:374
 #, c-format
 msgid ".Deaths by starvation %7d   History %8.3f"
-msgstr ".Döda av svält %7d   Historik %8.3f"
+msgstr ".Döda av svält          %7d   Historik %8.3f"
 
 #: src/lincity-ng/Dialog.cpp:379
 #, c-format
@@ -916,7 +916,7 @@ msgstr "Döda av miljöförstöring %7d   Historik %8.3f"
 #: src/lincity-ng/Dialog.cpp:383
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f"
-msgstr "År av arbetslöshet %7d   Historik %8.3f"
+msgstr "År av arbetslöshet      %7d   Historik %8.3f"
 
 #: src/lincity-ng/Dialog.cpp:387
 #, c-format
@@ -926,52 +926,52 @@ msgstr "Raketer avfyrade %2d  Lyckade avfyrningar %2d"
 #: src/lincity-ng/Dialog.cpp:397
 #, c-format
 msgid ".   Residences %4d         Markets %4d            Farms %4d"
-msgstr ".   Bostäder %4d         Marknader %4d            Bondgårdar %4d"
+msgstr ".     Bostäder %4d       Marknader %4d       Bondgårdar %4d"
 
 #: src/lincity-ng/Dialog.cpp:408
 #, c-format
 msgid ".       Tracks %4d           Roads %4d             Rail %4d"
-msgstr ".       Spår %4d           Vägar %4d             Järnväg %4d"
+msgstr ".         Spår %4d           Vägar %4d          Järnväg %4d"
 
 #: src/lincity-ng/Dialog.cpp:413
 #, c-format
 msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
-msgstr ".    Keramikfabriker %4d     Smedjor %4d            Spinnerier %4d"
+msgstr ".Keramikfabrik %4d         Smedjor %4d       Verkstäder %4d"
 
 #: src/lincity-ng/Dialog.cpp:418
 #, c-format
 msgid ".    Monuments %4d         Schools %4d     Universities %4d"
-msgstr ".    Monument %4d         Skolor %4d     Universitet %4d"
+msgstr ".     Monument %4d          Skolor %4d      Universitet %4d"
 
 #: src/lincity-ng/Dialog.cpp:423
 #, c-format
 msgid ".Fire stations %4d           Parks %4d    Sports fields %4d"
-msgstr ". Brandstationer %4d           Parker %4d    Sportarenor %4d"
+msgstr ". Brandstation %4d          Parker %4d      Sportarenor %4d"
 
 #: src/lincity-ng/Dialog.cpp:428
 #, c-format
 msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
-msgstr ".   Kolgruvor %4d       Malmgruvor %4d         Kolmilor %4d"
+msgstr ".    Kolgruvor %4d      Malmgruvor %4d         Kolmilor %4d"
 
 #: src/lincity-ng/Dialog.cpp:433
 #, c-format
 msgid ".    Windmills %4d     Coal powers %4d     Solar powers %4d"
-msgstr ".    Väderkvarnar %4d     Kolkraft %4d     Solkraft %4d"
+msgstr ". Väderkvarnar %4d        Kolkraft %4d         Solkraft %4d"
 
 #: src/lincity-ng/Dialog.cpp:439
 #, c-format
 msgid ".  Substations %4d     Power lines %4d            Ports %4d"
-msgstr ".  Relästationer %4d     Kraftledningar %4d            Hamnar %4d"
+msgstr ".Relästationer %4d    Kraftledning %4d           Hamnar %4d"
 
 #: src/lincity-ng/Dialog.cpp:444
 #, c-format
 msgid ".   Light inds %4d      Heavy inds %4d        Recyclers %4d"
-msgstr ".   Industri %4d      Tung industri %4d        Återvinning %4d"
+msgstr ".   Industrier %4d   Tung industri %4d      Återvinning %4d"
 
 #: src/lincity-ng/Dialog.cpp:449
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d"
-msgstr "Sjukhus %4d            Soptippar %4d         Kåkstäder %4d"
+msgstr "       Sjukhus %4d       Soptippar %4d        Kåkstäder %4d"
 
 #: src/lincity-ng/GameView.cpp:236
 msgid "Minimap: outline map"

@@ -2,14 +2,14 @@
 # Swedish messages for lincity-ng.
 # Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the lincity-ng package.
-# Daniel Nylander <po@danielnylander.se>, 2005.
+# Daniel Nylander <po@danielnylander.se>, 2005, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lincity-ng 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: %1\n"
-"PO-Revision-Date: 2007-01-28 14:11+0100\n"
+"PO-Revision-Date: 2007-04-11 10:58+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -208,7 +208,7 @@ msgstr "Karta"
 
 #: data/gui/millup.xml
 msgid "Mills available"
-msgstr "Spinnerier tillgängliga"
+msgstr "Verkstäder tillgängliga"
 
 #: data/gui/mod_wind_up.xml
 msgid "Modern Windmills available"
@@ -607,7 +607,7 @@ msgstr "Du har nått fram till teknologinivån som låter dig bygga industri. In
 
 #: data/gui/millup.xml
 msgid "You have reached the tech level which enables you to build mills. Mills use jobs and food to make goods. Watch out, they can use a lot of food! "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga spinnerier. Spinnerier använder jobb och mat för att producera varor. Tänk på att de kan använda mycket mat! "
+msgstr "Du har nått fram till teknologinivån som låter dig bygga verkstäder. Verkstäder använder jobb och mat för att producera varor. Tänk på att de kan använda mycket mat! "
 
 #: data/gui/mod_wind_up.xml
 msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "

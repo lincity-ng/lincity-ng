@@ -5,7 +5,7 @@
 	<p style="hp">Folk kan hämta mat, varor och jobb från marknader som är inom gångavstånd från deras bostadsområde.</p>
 	<p style="hp">Alla områden som behöver jobb (anställda) får dom från marknader. Till exempel kommer ett stålverk få sina anställda från den lokala marknaden. De kan också gå den från förbipasserande transporter.</p>
 	<p style="hp">Bondgårdar kan sälja sin mat direkt till marknader, de behöver inte transportera det alls.</p>
-	<p style="hp">Spinnerier, keramikfabriker och smedjor kan sälja varor direkt till närliggande marknader, de kan också få sitt råmaterial från samma marknad.</p>
+	<p style="hp">Verkstäder, keramikfabriker och smedjor kan sälja varor direkt till närliggande marknader, de kan också få sitt råmaterial från samma marknad.</p>
 	<p style="hp">Följande områden innefattar transporter och marknader. Det är upp till dig vad du använder - marknader kan ha större <i>lager</i> än transporter.</p>
 	<p style="hp">Spår, vägar och järnvägar används för att transportera mat, jobb, varor, kol, malm och stål mellan områden.</p>
 	<p style="hp">Industier, malmgruvor, soptippar, hamnar, kolgruvor, tung industri och återvinningscentraler ansluts till transporter vid övre vänstra hörnet.</p>
@@ -17,7 +17,7 @@
 	<li><a href="residential">Bostäder</a></li>
 	<li><a href="market">Marknad</a></li>
 	<li><a href="farm">Bondgårdar</a></li>
-	<li><a href="mill">Spinnerier</a></li>
+	<li><a href="mill">Verkstäder</a></li>
 	<li><a href="pottery">Keramikfabriker</a></li>
 	<li><a href="industryl">Industri</a></li>
 	<li><a href="oremine">Malmgruvor</a></li>
