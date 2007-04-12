@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Doel van het spel </p>
+<p style="hp">Er zijn 2 manieren om het spel te "winnen":</p>
+<li>Het bereiken van een Reach <a href="sustain">duurzame economie </a> (er kan daarna gewoon verder gespeeld worden) </li>
+<li>Evacueer alle inwoners met <a href="rocket">raketten </a> naar een andere planeet, het spel stopt dan. </li>
+<p style="hp"/>
+
+<p style="hp">op dit moment (1.1.0) is er maar een manier om te verliezen:</p>
+<li>Iedereen is dood vanwege de hongerdood of vervuiling. (een bevolking bestaat uit tenminste 2 mensen;-) </li>
+<p style="hp"/>
+
+<p style="hp">Het technologie nivo moet verhoogd worden om nieuwe soorten gebouwen en industrieën te krijgen. De groei van de bevolking moet onder controle blijven, en U moet zorg dragen voor verschillende benodigheden en de economie moet in balans zijn.</p>
+<p style="hp"/>
+
+<p style="hp">Lees ook:</p>
+<li><a href="tutorial-basics">Tutorial voor beginners</a></li>
+<li><a href="tutorial-advanced">Tutorial voor gevorderden</a></li>
+<li><a href="tutorial-scenario">Voor gedefineerde landschappen</a></li>
+
+</Document>

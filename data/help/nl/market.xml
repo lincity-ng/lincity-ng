@@ -1,9 +1,23 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Markt</p>
-	<p style="hp">Markt is mogelijk een slechte naam voor deze gebieden. Ze zijn meer zoals uitzendburo's, winkels, warenhuizen en markten ineens. Ze kopen en verkopen voedsel, werk, steenkool, goederen, ijzererts, en staal aan de omliggende gebieden en aan het verkeer. Voorbeeld: een woonwijk levert goederen aan een markt, en die markt verkoopt het werk aan een monument in aanbouw. <b>Opgelet!</b>, de woonwijken worden niet gevoed als de markten op de grens van het bereik ligt. <!-- Klopt dit wel?<b>NOTE</b>, the residents are not being fe if the areas are more or less at the extent of their range.--></p>
-	<p style="hsubtitle">Controlleer wat markten kopen en verkopen</p>
+	
+	<p style="hp">De markt is een belangrijk gebouw in Lincity.</p>
+	<p style="hp">Markt is mogelijk een slechte naam voor deze gebieden. Ze zijn meer zoals uitzendburo's, winkels, warenhuizen en markten ineens. Ze kopen en verkopen voedsel, werk, steenkool, goederen, ijzererts, en staal aan de omliggende gebieden en aan het verkeer.</p>
+ 
+	<p style="hp"><b>Binnen het bereik </b>van een markt kan alles geruild worden <b>zonder gebruik te maken van verkeer</b>, behalve wanneer dat duidelijk is aangegeven. Gebruik de <a href="msb-transport">Verkeer en markt overlay </a> om te controleren of een gebouw binnen het bereik van een markt is.</p>
+	<li>Mensen kunnen voedsel, goederen en werk krijgen op markten binnen loopafstand van hun woonwijk.</li>
+	<li>Alle gebieden die werk (werknemers) nodig hebben, krijgen die van markten.</li>
+	<li>Boerderijen kunnen hun geproduceerde voedsel direkt op de markt verkopen.</li>
+	<li>Textielfabrieken, pottenbakkerijen en smederijen verkopen hun spullen direct op de dichtsbijzijnde markt, ze krijgen ook hun grondstoffen van dezelfde markt.</li>
+	<p style="hp">Als er geen markt in de buurt is, dan moeten deze gebouwen verbinding hebben met <a href="transport">verkeer</a>.</p>
+	<p style="hp">Rechtsonder, onder de tweede knop van het mini-venster is een overzicht zien van <b>alle marktvoorraden</b>,ook is te zien hoe dit verandert via een progres bar. Samen met de kleine kaartjes (kleine icoontjes onder het minivenster) zal het veel helpen inzicht te krijgen in de veranderingen van grondstoffen (voedsel, werk...).</p>
+		 
+	<p style="hp">Binnen het bereik van een markt of kan alles geruild worden <b>zonder gebruik te maken van verkeer</b>, behalve wanneer dat duidelijk is aangegeven. Rechtsonder is het kleine icoontje "verkeer kaart", op deze kaart is te zie  hoeveel verkeer er is en in het blauw wat het bereik van is van een markt. Controleer hier of een gebouw binnen het bereik van een markt is.Deze informatie kan ook op het grote scherm getoond worden door op het grote overlay icoon te klikken of door de "V"-toets in te drukken.</p>
+	
+	<p style="hsubtitle">Controleer wat markten kopen en verkopen</p>
 	<p style="hp">U kan de werking van de markt bepalen door selectie's te maken van wat kan worden gekocht en verkocht van het verkeer. Klik twee keer op een markt (niet de selecteer-knop) en linksboven komt een scherm zichtbaar waarmee bepaalt kan worden wat wordt verhandeld. Standaard wordt alles verhandeld.</p>
+	
 	<p style="hp">Dit is een markt</p>
 	<img src="images/tiles/market-empty.png" halign="center"/>
 	<p style="hp">en dit is het icoontje</p>

@@ -10,6 +10,7 @@
 <li><a href="commune">Communie</a></li>
 <li><a href="dialogs">Dialogvenster</a></li>
 <li><a href="other-costs">Diverse kosten</a></li>
+<li><a href="tutorial-aim">Doel van het spel</a></li>
 <li><a href="sustain">Duurzaamheid venster</a></li>
 <li><a href="economy">Economische grafieken</a></li>
 <li><a href="powerline">Electriciteitsdraad</a></li>
@@ -32,6 +33,7 @@
 <li><a href="keys">Muis</a></li>
 <li><a href="msb-normal">Normale landkaart</a></li>
 <li><a href="medium">Normale snelheid</a></li>
+<li><a href="tutorial-overview">Overzicht van het scherm</a></li>
 <li><a href="park">Park</a></li>
 <li><a href="pause">Pauzeknop</a></li>
 <li><a href="pbar">PBar</a></li>
@@ -53,12 +55,16 @@
 <li><a href="mill">Textielfabriek</a></li>
 <li><a href="keys">Toetsenbord</a></li>
 <li><a href="substation">Transformatorhuisje</a></li>
+<li><a href="tutorial">Tutorial</a></li>
+<li><a href="tutorial-basics">Tutorial voor beginners</a></li>
+<li><a href="tutorial-advanced">Tutorial voor gevorderden</a></li>
 <li><a href="university">Universiteit</a></li>
 <li><a href="transport">Verkeer</a></li>
 <li><a href="msb-transport">Verkeerskaart</a></li>
 <li><a href="pollution">Vervuiling</a></li>
 <li><a href="msb-pol">Vervuilings kaart</a></li>
 <li><a href="food">Voedsel</a></li>
+<li><a href="tutorial-scenario">Voor gedefineerde landschappen</a></li>
 <li><a href="tip">Vuilstort (vuilnis)</a></li>
 <li><a href="msb-health">Welzijns kaart</a></li>
 <li><a href="jobs">Werk</a></li>

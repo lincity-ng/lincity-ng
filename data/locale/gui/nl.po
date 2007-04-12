@@ -787,24 +787,3 @@ msgstr ""
 #, fuzzy
 msgid "save to selected slot"
 msgstr "Opslaan in het geselecteerde slot"
-
-#~ msgid "FX off"
-#~ msgstr "FX uit"
-
-#~ msgid "FX on"
-#~ msgstr "FX aan"
-
-#~ msgid "GameMode:"
-#~ msgstr "SpelModus:"
-
-#~ msgid "Info: Rocket ready at Launchsite "
-#~ msgstr "Info: raket staat klaar op de lanceerbasis "
-
-#~ msgid "Music on"
-#~ msgstr "Muziek aan"
-
-#~ msgid "Mute Music"
-#~ msgstr "Muziek uit"
-
-#~ msgid "Windowed"
-#~ msgstr "In een venster."

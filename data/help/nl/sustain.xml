@@ -9,7 +9,7 @@
 	<li>
 		<span color="green">MNY</span>(groen) uw hoeveelheid geld is stabiel of wordt meer, dit betekent u alleen op de goedkoopste gebieden kan bouwen.</li>
 	<li>
-		<span color="bleu">POP</span>(blauw) uw bevolking mag na 180 jaar niet met meer dan 2% zijn gestegen of gedaald. Als de bevolking in een jaar met meer dan 2% is gestegen of gedaald, wordt de jaarteller (om de 180 jaar te tellen) opnieuw gestart en krijgt de bevolking het nieuwe getal. Ook moet u minimaal 5000 inwoners hebben.</li>
+		<span color="blue">POP</span>(blauw) uw bevolking mag na 180 jaar niet met meer dan 2% zijn gestegen of gedaald. Als de bevolking in een jaar met meer dan 2% is gestegen of gedaald, wordt de jaarteller (om de 180 jaar te tellen) opnieuw gestart en krijgt de bevolking het nieuwe getal. Ook moet u minimaal 5000 inwoners hebben.</li>
 	<li>
 		<span color="yellow">TEC</span>(geel) uw technologie nivo mag maar weinig stijgen of dalen. Als het met meer dan 1% is gestegen of gedaalt, wordt de jaarteller (om de 120 jaar te tellen) opnieuw gestart. Ook moet uw technologie nivo minimaal 50 zijn.</li>
 	<li>

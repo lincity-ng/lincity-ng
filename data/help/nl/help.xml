@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Lincity Help</p>
-	<p style="hp">Dit is het lincity-help systeem. Kies een onderwerp door te klikken op een van de blauwe woorden hieronder.</p>
-
+	<p style="hp">Dit is het lincity-help systeem. Kies een onderwerp door te klikken op een van de blauwe woorden hieronder.Gebruik de pijl linksboven om terug tegaan naar de vorige help-pagina</p>
+	<p style="hp">Terwijl het spel wordt gespeeld, kan er context-gekoppelde help worden gekregen via de help-knop, of door rechtsklikken op een icoon in de lijst linksboven.</p>
+	
 	<li><a href="keys">Toetsenbord commandos</a></li>
 	<li><a href="button-index">Lijst van alle gebouwen</a></li>
 	<li><a href="mini-screen">Help over de minikaart</a></li>
 	<li><a href="dialogs">Help over de informatie kaartjes</a></li>
-	<p style="hp">Terwijl het spel wordt gespeeld, kan er kontext-gekoppelde help worden gekregen via de help-knop.</p>
 	<li><a href="index">Index</a></li>
 	
 	<p style="htitle">Doel van het spel</p>
 	<p style="hp">U heeft in Lincity gewonnen door een <a href="sustain">duurzame economie </a> te bouwen of door alle inwoners te evacueren met <a href="rocket">raketten</a>.</p>
-    <li><a href="index">Index</a></li>
 </Document>
