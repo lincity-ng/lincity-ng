@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Rivieren/Water</p>
 	<p style="hp">Rivieren zijn er voornamelijk om in de weg te zitten als obstakel.Het is erg duur om een brug overheen te bouwen, om ze te graven en om ze te slopen (vullen met aarde). Het <i>enige nut</i> van rivieren is dat havens aan een rivier moet liggen.</p>
-	<p style="hp">Er zijn twee soorten water. Meren zijn water dat <b>niet</b> is verbonden met een rivier, een rivier is water dat wel <b>is</b> verbonden met een rivier. Al het water bij de start van het spel is rivier . Bijvoorbeeld, wanneer een ijzerertsmijn leeg raakt en naast een rivier ligt, wordt het ook een stukje rivier, in alle andere gevallen is het gewoon een meer. </p>
+	<p style="hp">Er zijn twee soorten water. Meren zijn water dat <b>niet</b> is verbonden met een rivier, een rivier is water dat wel <b>is</b> verbonden met een rivier. Al het water bij de start van het spel is rivier . Bijvoorbeeld, wanneer een ijzerertsmijn leeg raakt en naast een rivier ligt, wordt het ook een stukje rivier, in alle andere gevallen is het gewoon een meer.</p>
 	<p style="hp">Als u een stuk rivier sloopt om een route te maken voor, zeg, een (spoor)weg, bouwt u een peiler van een brug. Beide zijdes van uw brugpeiler zijn nog steeds een gedeelte van de rivier, U zult daarom een dam moeten aanleggen van kant tot kant. Dit is een reden waarom het zo duur is om water te <i>slopen</i>.</p>
 	<p style="hp">Wanneer een stuk water eenmaal een gedeelte van een rivier is, kan het <b>niet</b> weer een apart meertje worden. Water dat een gedeelte van een rivier is wordt aangegeven als navigeerbaar</p>
 	<p style="hp">Electriciteits-draden kunnen onder <b>één</b> rivierstukje doorgaan, op dezelfde manier als onder een (spoor)weg.</p>

@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document style="helpdocument">
 <p style="htitle">Overzicht van het scherm </p>
+	<p style="hp"><b>Links boven</b> is een scherm met iconen en gereedschappen (informatie-vragen en bulldozer) en alle gebouwen die beschikbaar komen tijdens het spelen. </p>
+	<li>Klik links op een icoon om de drawer te openen om nog meer iconen te zien. </li>
+	<li>Klik rechts op een icoon om de bijbehorende help-pagina te krijgen. </li>
+	<li>Wacht even met de muis en er opent een mini help-bericht. </li>
+	<p style="hp"/>
 
-<p style="hp"><b>Links boven</b> is een scherm met iconen en gereedschappen (informatie-vragen en bulldozer) en alle gebouwen die beschikbaar komen tijdens het spelen. </p>
-<li>Klik links op een icoon om de drawer te openen om nog meer iconen te zien. </li>
-<li>Klik rechts op een icoon om de bijbehorende help-pagina te krijgen. </li>
-<li>Wacht even met de muis en er opent een mini help-bericht. </li>
-<p style="hp"/>
+	<p style="hp"><b>Links beneden</b> is de controle over de spelsnelheid.</p>
+	<p style="hp"/>
 
-<p style="hp"><b>Links beneden</b> is de controle over de spelsnelheid.</p>
-<p style="hp"/>
+	<p style="hp"><b>Rechts beneden</b> zijn alle "informatie gereedschappen": kaarten met 4 tabs, en daaronder mini-iconen voor verschillende soorten informatie. Klik erop om te zien wat gebeurt.</p>
+	<p style="hp"/>
 
-<p style="hp"><b>Rechts beneden</b> zijn alle "informatie gereedschappen": kaarten met 4 tabs, en daaronder mini-iconen voor verschillende soorten informatie. Klik erop om te zien wat gebeurt.</p>
-<p style="hp"/>
+	<p style="hp">Probeer het toetsenbord en de muis uit (links, midden en rechts klikken en de muiswiel...), klik op F1 voor help.</p>
 
-<p style="hp">Probeer het toetsenbord en de muis uit (links, midden en rechts klikken en de muiswiel...), klik op F1 voor help.</p>
-
-<p style="hp">Lees ook:</p>
-<li><a href="tutorial-basics">Tutorial voor beginners</a></li>
-<li><a href="tutorial-advanced">Tutorial voor gevorderden</a></li>
-<li><a href="tutorial-scenario">Voor gedefineerde landschappen</a></li>
+	<p style="hp">Lees ook:</p>
+	<li><a href="tutorial-basics">Tutorial voor beginners</a></li>
+	<li><a href="tutorial-advanced">Tutorial voor gevorderden</a></li>
+	<li><a href="tutorial-scenario">Voor gedefineerde landschappen</a></li>
 
 </Document>
