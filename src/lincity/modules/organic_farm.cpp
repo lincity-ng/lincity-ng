@@ -22,81 +22,110 @@ do_organic_farm (int x, int y)
      // int_4 is the food made last year.
      // int_5 is the random crop rotation key.
      // int_6 is the random month stagger, so they don't all flash at once
-     // int_7 is the tech-level dependent output of a powered farm with a full
-     // workforce.
+     // int_7 is the jobs stored at the farm 
+     // 	up to NG-1.1.0 int_7 was the tech-level dependent output of a
+     // 	 powered farm with full workforce. 
+     // 	= duplicate with int_1.  see below TECH_BONUS.
   */
   int i;
-  if (MP_INFO(x,y).int_5 == 0)	/* this should be done when we create */
+  int has_power = false;
+  int TECH_BONUS = (int)(((double) MP_INFO(x,y).int_1
+			      * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL);
 
-    {				/* the area! */
-
+  /* Animation */
+  if (MP_INFO(x,y).int_5 == 0) {
+      /* this should be done when we create the area! */
       MP_INFO(x,y).int_5 = (rand () % 4) + 1;
-      MP_INFO(x,y).int_6 = rand () % 300;
-    }
+      MP_INFO(x,y).int_6 = rand () % 300; /* AL1 will be sooner or later redefined as %100. see below */
+  }
+
+  /* check jobs */
+  if (MP_INFO(x,y).int_7 < FARM_JOBS_USED) {
+  	if (get_jobs (x, y, FARM_JOBS_USED) != 0)
+		MP_INFO(x,y).int_7 += FARM_JOBS_USED;
+	/* adding if (get_jobs ... /2) would allow to have some jobs stored at farm,
+	 * so would smooth the behavior and make farms more resistant to job penury.
+	 * Currently keep previous behavior.
+	 */
+  	else if (get_jobs (x, y, FARM_JOBS_USED / 4) != 0)
+		MP_INFO(x,y).int_7 += FARM_JOBS_USED / 4;
+  	else if (get_jobs (x, y, 1) != 0)
+		MP_INFO(x,y).int_7 += 1;
+  }
+
+  /* check power */
   MP_INFO(x,y).flags &= (0xffffffff - FLAG_POWERED);
-  if (get_jobs (x, y, 1) == 0)
-    put_food (x, y, 30);
-  else if (get_jobs (x, y, FARM_JOBS_USED) != 0)
-    {
-      if (get_power (x, y, ORG_FARM_POWER_REC, 0) != 0)
-	{
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT
-			       + MP_INFO(x,y).int_7)) == 0)
-	    put_jobs (x, y, FARM_JOBS_USED);
-	  else
-	    MP_INFO(x,y).int_3++;
-	  MP_INFO(x,y).flags |= FLAG_POWERED;
+  if (MP_INFO(x,y).int_7 >= 1) {
+  	/* There are jobs to do some production, so check for power */
+	if (get_power (x, y, ORG_FARM_POWER_REC, 0) != 0) {
+		MP_INFO(x,y).flags |= FLAG_POWERED;
+		has_power = true;
 	}
-      else
-	{
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT / 4)) == 0)
-	    put_jobs (x, y, FARM_JOBS_USED);
-	  else
-	    MP_INFO(x,y).int_3++;
-	}
-    }
-  else if (get_jobs (x, y, FARM_JOBS_USED / 4) != 0)
-    {
-      if (get_power (x, y, ORG_FARM_POWER_REC, 0) != 0)
-	{
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT
-			       + (MP_INFO(x,y).int_7 / 4))) == 0)
-	    put_jobs (x, y, FARM_JOBS_USED / 4);
-	  else
-	    MP_INFO(x,y).int_3++;
-	  MP_INFO(x,y).flags |= FLAG_POWERED;
-	}
-      else
-	{
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT / (4 * 4))) == 0)
-	    put_jobs (x, y, FARM_JOBS_USED / 4);
-	  else
-	    MP_INFO(x,y).int_3++;
-	}
-    }
-  else
-    {
-      if (get_power (x, y, ORG_FARM_POWER_REC, 0) != 0)
-	{
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT
-			       + (MP_INFO(x,y).int_7 / 8))) != 0)
-	    MP_INFO(x,y).int_3++;
-	  MP_INFO(x,y).flags |= FLAG_POWERED;
-	}
-      else if (put_food (x, y, 30
-			 + (ORGANIC_FARM_FOOD_OUTPUT / (4 * 8))) != 0)
-	MP_INFO(x,y).int_3++;
-    }
+  }
+
+  /* Produce some food */
+  if (MP_INFO(x,y).int_7 >= FARM_JOBS_USED) {
+      if (has_power) {
+	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT	+ TECH_BONUS)) != 0) {
+		MP_INFO(x,y).int_3++;
+		MP_INFO(x,y).int_7 -= FARM_JOBS_USED;
+	  }
+      } else {
+	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT / 4)) != 0) {
+		MP_INFO(x,y).int_3++;
+		MP_INFO(x,y).int_7 -= FARM_JOBS_USED;
+	  }
+      }
+  } else if (MP_INFO(x,y).int_7 >= FARM_JOBS_USED / 4) {
+      if (has_power) {
+	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT + TECH_BONUS / 4)) != 0) {
+		MP_INFO(x,y).int_3++;
+		MP_INFO(x,y).int_7 -= FARM_JOBS_USED / 4;
+	  }
+      } else {
+	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT / (4 * 4))) != 0) {
+		MP_INFO(x,y).int_3++;
+		MP_INFO(x,y).int_7 -= FARM_JOBS_USED / 4;
+	  }
+      }
+  } else if (MP_INFO(x,y).int_7 >= 1) {
+      /* got 1 job */
+      if (has_power) {
+	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT + (TECH_BONUS / 8))) != 0) {
+	    	MP_INFO(x,y).int_3++;
+		MP_INFO(x,y).int_7 -= 1;
+	  }
+      } else if (put_food (x, y, 30
+			 + (ORGANIC_FARM_FOOD_OUTPUT / (4 * 8))) != 0) {
+	  /* AL1 "small ouch":
+	   * without power output with 1 job is bigger than output with 3 !
+	   * 3 = FARMS_JOBS_USED / 4 
+	   * ORGANIC_FARM_FOOD_OUTPUT = 550 currently (ng_1.1)
+	   */
+	   MP_INFO(x,y).int_3++;
+	   MP_INFO(x,y).int_7 -= 1;
+      }
+  } else {
+      /* AL1 : the farm gives very small amount of food without job. 
+       *  ? Probably needed for start ?
+       *  ? Useful to prevent starvation when no jobs ? 
+       *  The various modules are done in random order, so it should be ok without this.
+       */
+      put_food (x, y, 30);
+      /* note that this does not generate revenu int_3) */
+  }
+
   if ((total_time & 0x7f) == 0)
     if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
       get_waste (x, y, 0x80 * ORG_FARM_WASTE_GET);
-  if ((total_time % 1200) == 0)
-    {
+
+  if ((total_time % 1200) == 0) {
       MP_INFO(x,y).int_4 = MP_INFO(x,y).int_3;
       MP_INFO(x,y).int_3 = 0;
-    }
-  i = ((total_time + (MP_INFO(x,y).int_5 * 1200)
-	+ MP_INFO(x,y).int_6) % 4800);
+  }
+
+  i = (total_time + MP_INFO(x,y).int_5 * 1200 + MP_INFO(x,y).int_6) % 4800;
+
   if (i % 300 == 0)
     {
       i /= 300;
@@ -105,7 +134,7 @@ do_organic_farm (int x, int y)
 	{
 	  if (i % 4 == 0)
 	    {
-	      MP_INFO(x,y).int_6 = rand () % 100;
+	      MP_INFO(x,y).int_6 = rand () % 100; /* AL1: initially defined as %300 */
 	    }
 	  switch (i)
 	    {
@@ -178,18 +207,17 @@ mps_organic_farm (int x, int y)
 {
   int i = 0;
   const char *p;
+  char text[MPS_INFO_CHARS+1];
 
   /** removed depency on mps_info */
   mps_store_title(i++,_("Organic Farm"));
-
-  char text[MPS_INFO_CHARS+1];
+  i++;
 
   if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
     p = _("YES");
   else
     p = _("NO ");
   
-
   snprintf(text, MPS_INFO_CHARS, "%s %s", _("Power"), p);
   mps_store_title(i++,text);
 

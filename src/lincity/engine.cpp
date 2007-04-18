@@ -920,10 +920,6 @@ update_tech_dep (int x, int y)
 {
   switch (MP_GROUP(x,y))
     {
-    case (GROUP_ORGANIC_FARM):
-      MP_INFO(x,y).int_7 = (int)(((double) MP_INFO(x,y).int_1
-			      * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL);
-      break;
     case (GROUP_WINDMILL):
 #ifdef OLD_POWER_CODE
       MP_INFO(x,y).int_5 = (int)(WINDMILL_POWER
