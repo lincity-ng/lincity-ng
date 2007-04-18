@@ -36,7 +36,7 @@ do_blacksmith (int x, int y)
 	}
     }
 
-  if (MP_INFO(x,y).int_7 == 0) {
+  if (MP_INFO(x,y).int_7 < BLACKSMITH_JOBS) {
   	if (get_jobs (x, y, BLACKSMITH_JOBS))
 		MP_INFO(x,y).int_7 = BLACKSMITH_JOBS;
   }
