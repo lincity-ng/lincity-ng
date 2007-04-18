@@ -6,15 +6,15 @@
 #
 #
 # Bart Vanherck <bart@herckb.be>, 2006.
-# Ronald Stroethoff <stroet43@zonnet.nl>, 2006.
+# Ronald Stroethoff <stroet43@zonnet.nl>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-27 22:03+0100\n"
-"PO-Revision-Date: 2006-12-21 19:41+0100\n"
+"PO-Revision-Date: 2007-04-12 23:58+0200\n"
 "Last-Translator: Ronald Stroethoff <stroet43@zonnet.nl>\n"
-"Language-Team: Nederlands <en@li.org>\n"
+"Language-Team: Nederlands\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,8 +26,7 @@ msgstr "Fout: Kan LINCITY_HOME niet vinden"
 
 #: src/lincity/fileutil.cpp:561
 msgid "Error verifying package. Can't find colour.pal."
-msgstr ""
-"Fout bij het controleren van het pakket. Kan het kleurenpallet niet vinden"
+msgstr "Fout bij het controleren van het pakket. Kan het kleurenpallet niet vinden"
 
 #: src/lincity/fileutil.cpp:580 src/lincity/fileutil.cpp:589
 #, c-format
@@ -114,7 +113,7 @@ msgstr "Het is bij een universiteit."
 
 #: src/lincity/engine.cpp:717
 msgid "It's at a commune."
-msgstr "Het is bij een communie."
+msgstr "Het is bij een houtskool-branderij."
 
 #: src/lincity/engine.cpp:719
 msgid "It's at a tip."
@@ -257,7 +256,7 @@ msgstr "Universiteit"
 
 #: src/lincity/lintypes.cpp:190 src/lincity/modules/commune.cpp:146
 msgid "Commune"
-msgstr "Communie"
+msgstr "Houtskool-branderij"
 
 #: src/lincity/lintypes.cpp:202
 msgid "Ore mine"
@@ -853,8 +852,7 @@ msgstr ".       Landwegen %4d           Wegen %4d             Treinsporen %4d"
 #: src/lincity-ng/Dialog.cpp:413
 #, c-format
 msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
-msgstr ""
-".····Pottenbakkerijen·%4d·····Smidsen·%4d············Textielfabrieken·%4d"
+msgstr ".····Pottenbakkerijen·%4d·····Smidsen·%4d············Textielfabrieken·%4d"
 
 #: src/lincity-ng/Dialog.cpp:418
 #, c-format
@@ -869,8 +867,7 @@ msgstr ".Brandweerkazernes·%4d···········Parken·%4d····Sportsvelden·%4d"
 #: src/lincity-ng/Dialog.cpp:428
 #, c-format
 msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
-msgstr ""
-".···Steenkoolmijnen·%4d·······Ijzerertsmijnen·%4d·········Communies·%4d"
+msgstr ".···Steenkoolmijnen·%4d·······Ijzerertsmijnen·%4d·········houtskool-branderijen·%4d"
 
 #: src/lincity-ng/Dialog.cpp:433
 #, c-format
@@ -880,8 +877,7 @@ msgstr ".····Windmolens·%4d·····Steenkoolenergie·%4d·····Zonneënergie·%4d"
 #: src/lincity-ng/Dialog.cpp:439
 #, c-format
 msgid ".  Substations %4d     Power lines %4d            Ports %4d"
-msgstr ""
-".··Transformatorhuisje·%4d·····Electriciteitsdraden·%4d············Havens·%4d"
+msgstr ".··Transformatorhuisje·%4d·····Electriciteitsdraden·%4d············Havens·%4d"
 
 #: src/lincity-ng/Dialog.cpp:444
 #, c-format
@@ -946,7 +942,7 @@ msgstr "Afbraakkosten: "
 #: src/lincity-ng/GameView.cpp:1520 src/lincity-ng/GameView.cpp:1551
 #: src/lincity-ng/ScreenInterface.cpp:269
 msgid "$"
-msgstr "EUR"
+msgstr "¤"
 
 #: src/lincity-ng/GameView.cpp:1522
 msgid "n/a"
@@ -970,7 +966,7 @@ msgstr ", afbraakkosten "
 
 #: src/lincity-ng/GameView.cpp:1552 src/lincity-ng/GameView.cpp:1555
 msgid "$."
-msgstr "EUR."
+msgstr "¤"
 
 #: src/lincity-ng/GameView.cpp:1554
 msgid " To build "
@@ -1236,3 +1232,4 @@ msgstr "%s·(Technisch niveau·%.1f·nodig.)"
 #: src/lincity-ng/ScreenInterface.cpp:258
 msgid "MM"
 msgstr "MM"
+
