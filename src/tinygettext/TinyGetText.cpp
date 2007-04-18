@@ -1,5 +1,5 @@
 //  $Id: tinygettext.cpp,v 1.4 2004/11/25 13:15:56 matzebraun Exp $
-// 
+//
 //  TinyGetText - A small flexible gettext() replacement
 //  Copyright (C) 2004 Ingo Ruhnke <grumbel@gmx.de>
 //
@@ -12,10 +12,11 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU General Public License
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
 #include <config.h>
 
 #include <sys/types.h>
@@ -26,6 +27,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 #include <ctype.h>
 #include <errno.h>
 
@@ -46,7 +48,7 @@ std::string convert(const std::string& text,
     return text;
 
   iconv_t cd = iconv_open(to_charset.c_str(), from_charset.c_str());
-  
+
   size_t in_len = text.length();
   size_t out_len = text.length()*3; // FIXME: cross fingers that this is enough
 
@@ -176,24 +178,29 @@ get_language_def(const std::string& name)
   else if (name == "sk") return lang_sk;
   else if (name == "pl") return lang_pl;
   else if (name == "sl") return lang_sl;
-  else return lang_en; 
+  else return lang_en;
 }
 
 DictionaryManager::DictionaryManager()
   : current_dict(&empty_dict)
 {
   parseLocaleAliases();
-
+  // Environment variable LINCITY_LANG overrides language settings.
   const char* lang = getenv( "LINCITY_LANG" );
   if( lang ){
     set_language( lang );
     return;
-  }  
+  }
   // use findlocale to setup language
   FL_Locale *locale;
   FL_FindLocale( &locale, FL_MESSAGES );
-      if( locale->lang)
-        set_language( locale->lang );
+  if(locale->lang) {
+    if (locale->country) {
+      set_language( std::string(locale->lang)+"_"+std::string(locale->country) );
+    } else {
+      set_language( std::string(locale->lang) );
+    }
+  }
   FL_FreeLocale( &locale );
 }
 
@@ -202,18 +209,18 @@ DictionaryManager::parseLocaleAliases()
 {
   // try to parse language alias list
   std::ifstream in("/usr/share/locale/locale.alias");
-  
+
   char c = ' ';
   while(in.good() && !in.eof()) {
     while(isspace(c) && !in.eof())
       in.get(c);
-    
+
     if(c == '#') { // skip comments
       while(c != '\n' && !in.eof())
         in.get(c);
       continue;
     }
-    
+
     std::string alias;
     while(!isspace(c) && !in.eof()) {
       alias += c;
@@ -232,7 +239,7 @@ DictionaryManager::parseLocaleAliases()
     set_language_alias(alias, language);
   }
 }
-  
+
 Dictionary&
 DictionaryManager::get_dictionary(const std::string& spec)
 {
@@ -254,7 +261,7 @@ DictionaryManager::get_dictionary(const std::string& spec)
       for (SearchPath::iterator p = search_path.begin(); p != search_path.end(); ++p)
         {
           char** files = PHYSFS_enumerateFiles(p->c_str());
-          if(!files) 
+          if(!files)
             {
               std::cerr << "Error: enumerateFiles() failed on " << *p << std::endl;
             }
@@ -262,7 +269,25 @@ DictionaryManager::get_dictionary(const std::string& spec)
             {
               for(const char* const* filename = files;
                       *filename != 0; filename++) {
-                if(std::string(*filename) == lang + ".po") {
+
+                // check if filename matches requested language
+		std::string fname = std::string(*filename);
+		std::string load_from_file = "";
+                if(fname == lang + ".po") {
+		  load_from_file = fname;
+		} else {
+                  std::string::size_type s = lang.find("_");
+                  if(s != std::string::npos) {
+                    std::string lang_short = std::string(lang, 0, s);
+		    if (fname == lang_short + ".po") {
+		      load_from_file = lang_short;
+		    }
+                  }
+		}
+
+	        // if it matched, load dictionary
+		if (load_from_file != "") {
+                  //log_debug << "Loading dictionary for language \"" << lang << "\" from \"" << filename << "\"" << std::endl;
                   std::string pofile = *p + "/" + *filename;
                   try {
                       IFileStream in(pofile);
@@ -303,7 +328,7 @@ DictionaryManager::get_languages()
           }
           PHYSFS_freeList(files);
         }
-    }  
+    }
   return languages;
 }
 
@@ -343,12 +368,21 @@ DictionaryManager::get_language_from_spec(const std::string& spec)
   if(i != language_aliases.end()) {
     lang = i->second;
   }
-  
-  std::string::size_type s = lang.find_first_of("_.");
-  if(s == std::string::npos)
-    return lang;
 
-  return std::string(lang, 0, s);  
+  std::string::size_type s = lang.find(".");
+  if(s != std::string::npos) {
+    lang = std::string(lang, 0, s);
+  }
+
+  s = lang.find("_");
+  if(s == std::string::npos) {
+    std::string lang_big = lang;
+    std::transform (lang_big.begin(), lang_big.end(), lang_big.begin(), toupper);
+    lang += "_" + lang_big;
+  }
+
+  return lang;
+
 }
 
 void
@@ -390,7 +424,7 @@ Dictionary::set_language(const LanguageDef& lang)
 }
 
 std::string
-Dictionary::translate(const std::string& msgid, const std::string& msgid2, int num) 
+Dictionary::translate(const std::string& msgid, const std::string& msgid2, int num)
 {
   PluralEntries::iterator i = plural_entries.find(msgid);
   std::map<int, std::string>& msgstrs = i->second;
@@ -443,7 +477,7 @@ Dictionary::translate(const char* msgid)
 }
 
 std::string
-Dictionary::translate(const std::string& msgid) 
+Dictionary::translate(const std::string& msgid)
 {
   Entries::iterator i = entries.find(msgid);
   if (i != entries.end() && !i->second.empty())
@@ -458,7 +492,7 @@ Dictionary::translate(const std::string& msgid)
       return msgid;
     }
 }
-  
+
 void
 Dictionary::add_translation(const std::string& msgid, const std::string& ,
                             const std::map<int, std::string>& msgstrs)
@@ -468,8 +502,8 @@ Dictionary::add_translation(const std::string& msgid, const std::string& ,
   plural_entries[msgid] = msgstrs;
 }
 
-void 
-Dictionary::add_translation(const std::string& msgid, const std::string& msgstr) 
+void
+Dictionary::add_translation(const std::string& msgid, const std::string& msgstr)
 {
   entries[msgid] = msgstr;
 }
@@ -517,7 +551,7 @@ public:
     // Seperate the header in lines
     typedef std::vector<std::string> Lines;
     Lines lines;
-    
+
     std::string::size_type start = 0;
     for(std::string::size_type i = 0; i < header.length(); ++i)
       {
@@ -551,10 +585,10 @@ public:
 
   void add_token(const Token& token)
   {
-    switch(state) 
+    switch(state)
       {
       case WANT_MSGID:
-        if (token.keyword == "msgid") 
+        if (token.keyword == "msgid")
           {
             current_msgid = token.content;
             state = WANT_MSGID_PLURAL;
@@ -569,13 +603,13 @@ public:
                       << " at line " << line_num << std::endl;
           }
         break;
-    
+
       case WANT_MSGID_PLURAL:
-        if (token.keyword == "msgid_plural") 
+        if (token.keyword == "msgid_plural")
           {
             current_msgid_plural = token.content;
             state = WANT_MSGSTR_PLURAL;
-          } 
+          }
         else
           {
             state = WANT_MSGSTR;
@@ -584,9 +618,9 @@ public:
         break;
 
       case WANT_MSGSTR:
-        if (token.keyword == "msgstr") 
+        if (token.keyword == "msgstr")
           {
-            if (current_msgid == "") 
+            if (current_msgid == "")
               { // .po Header is hidden in the msgid with the empty string
                 parse_header(token.content);
               }
@@ -595,7 +629,7 @@ public:
                 dict.add_translation(current_msgid, convert(token.content, from_charset, to_charset));
               }
             state = WANT_MSGID;
-          } 
+          }
         else
           {
             std::cerr << "tinygettext: expected 'msgstr' keyword, got " << token.keyword 
@@ -604,19 +638,19 @@ public:
         break;
 
       case WANT_MSGSTR_PLURAL:
-        if (has_prefix(token.keyword, "msgstr[")) 
+        if (has_prefix(token.keyword, "msgstr["))
           {
             int num;
             if (sscanf(token.keyword.c_str(), "msgstr[%d]", &num) != 1) 
               {
                 std::cerr << "Error: Couldn't parse: " << token.keyword << std::endl;
-              } 
-            else 
+              }
+            else
               {
                 msgstr_plural[num] = convert(token.content, from_charset, to_charset);
               }
           }
-        else 
+        else
           {
             dict.add_translation(current_msgid, current_msgid_plural, msgstr_plural);
 
@@ -626,18 +660,18 @@ public:
         break;
       }
   }
-  
-  inline int getchar(std::istream& in) 
+
+  inline int getchar(std::istream& in)
   {
     int c = in.get();
     if (c == '\n')
       line_num += 1;
     return c;
   }
-  
+
   void tokenize_po(std::istream& in)
   {
-    enum State { READ_KEYWORD, 
+    enum State { READ_KEYWORD,
                  READ_CONTENT,
                  READ_CONTENT_IN_STRING,
                  SKIP_COMMENT };
@@ -660,8 +694,8 @@ public:
               {
                 // Read a new token
                 token = Token();
-                
-                do { // Read keyword 
+
+                do { // Read keyword
                   token.keyword += c;
                 } while((c = getchar(in)) != EOF && !isspace(c));
                 in.unget();
@@ -673,7 +707,7 @@ public:
           case READ_CONTENT:
             while((c = getchar(in)) != EOF)
               {
-                if (c == '"') { 
+                if (c == '"') {
                   // Found start of content
                   state = READ_CONTENT_IN_STRING;
                   break;
@@ -697,6 +731,7 @@ public:
                   else if (c == 't') token.content += '\t';
                   else if (c == 'r') token.content += '\r';
                   else if (c == '"') token.content += '"';
+                  else if (c == '\\') token.content += '\\';
                   else
                     {
                       std::cout << "Unhandled escape character: " << char(c) << std::endl;
@@ -723,7 +758,7 @@ public:
   }
 };
 
-void read_po_file(Dictionary& dict_, std::istream& in) 
+void read_po_file(Dictionary& dict_, std::istream& in)
 {
   POFileReader reader(in, dict_);
 }

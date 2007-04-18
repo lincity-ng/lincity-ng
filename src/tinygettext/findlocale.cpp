@@ -1,6 +1,6 @@
 /*
  findlocale-0.46.tar.gz from http://icculus.org/~aspirin/findlocale/
- 
+
 Copyright (C) 2004 Adam D. Moss (the "Author").  All Rights Reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,6 +26,7 @@ use or other dealings in this Software without prior written authorization
 from the Author.
 
 */
+#include <config.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -34,6 +35,10 @@ from the Author.
 #ifdef WIN32
 #include <windows.h>
 #include <winnt.h>
+#endif
+
+#ifdef MACOSX
+#include <Carbon/Carbon.h>
 #endif
 
 #include "findlocale.hpp"
@@ -134,6 +139,7 @@ accumulate_locstring(const char *str, FL_Locale *l) {
 }
 
 
+#ifndef WIN32
 static int
 accumulate_env(const char *name, FL_Locale *l) {
   char *env;
@@ -147,7 +153,7 @@ accumulate_env(const char *name, FL_Locale *l) {
   free(lang); free(country); free(variant);
   return 0;
 }
-
+#endif
 
 static void
 canonise_fl(FL_Locale *l) {
@@ -420,7 +426,9 @@ lcid_to_fl(LCID lcid,
            FL_Locale *rtn) {
   LANGID langid       = LANGIDFROMLCID(lcid);
   LANGID primary_lang = PRIMARYLANGID(langid);
+#if 0
   LANGID sub_lang     = SUBLANGID(langid);
+#endif
   int i;
   /* try to find an exact primary/sublanguage combo that we know about */
   for (i=0; i<num_both_to_code; ++i) {
@@ -442,7 +450,7 @@ lcid_to_fl(LCID lcid,
 
 
 FL_Success
-FL_FindLocale(FL_Locale **locale, FL_Domain domain) {
+FL_FindLocale(FL_Locale **locale, FL_Domain /*domain*/) {
   FL_Success success = FL_FAILED;
   FL_Locale *rtn = (FL_Locale*) malloc(sizeof(FL_Locale));
   rtn->lang = NULL;
@@ -466,6 +474,32 @@ FL_FindLocale(FL_Locale **locale, FL_Domain domain) {
 #else
   /* assume unixoid */
   {
+#ifdef MACOSX
+    CFIndex sz;
+    CFArrayRef languages;
+    CFStringRef uxstylelangs;
+    char *uxsl;
+
+    /* get the languages from the user's presets */
+    languages = (CFArrayRef)CFPreferencesCopyValue(CFSTR("AppleLanguages"),
+      kCFPreferencesAnyApplication, kCFPreferencesCurrentUser,
+      kCFPreferencesAnyHost);
+
+    /* join the returned string array into a string separated by colons */
+    uxstylelangs = CFStringCreateByCombiningStrings(kCFAllocatorDefault,
+      languages, CFSTR(":"));
+
+    /* convert this string into a C string */
+    sz = CFStringGetLength(uxstylelangs) + 1;
+    uxsl = (char*)malloc(sz);
+    CFStringGetCString(uxstylelangs, uxsl, sz, kCFStringEncodingISOLatin1);
+
+    /* add it to the list */
+    if (accumulate_locstring(uxsl, rtn)) {
+      success = FL_CONFIDENT;
+    }
+    /* continue the UNIX method */
+#endif
     /* examples: */
     /* sv_SE.ISO_8859-1 */
     /* fr_FR.ISO8859-1 */
