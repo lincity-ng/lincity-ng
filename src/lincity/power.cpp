@@ -74,7 +74,8 @@ map_power_grid (bool resetgrids)
     if(resetgrids) {
         for(int mapx = 0; mapx < WORLD_SIDE_LEN; mapx++) {
             for(int mapy = 0; mapy < WORLD_SIDE_LEN; mapy++) {
-                MP_INFO(mapx,mapy).int_7 = grid_inc-1;
+	    	if (XY_IS_GRID(mapx,mapy))
+                	MP_INFO(mapx,mapy).int_7 = grid_inc-1;
             }
         }
     }
