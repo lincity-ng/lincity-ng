@@ -22,7 +22,7 @@
 			-->
 			<cell row="2" col="2">
 			<CheckButton name="File0">
-				<text-caption style="button">Savegame 123456789</text-caption>
+				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -31,7 +31,7 @@
 			</cell>
 			<cell row="3" col="2">
 			<CheckButton name="File1">
-				<text-caption style="button">Savegame 123456789</text-caption>
+				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -40,7 +40,7 @@
 			</cell>
 			<cell row="4" col="2">
 			<CheckButton name="File2">
-				<text-caption style="button">Savegame 123456789</text-caption>
+				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -49,7 +49,7 @@
 			</cell>
 			<cell row="5" col="2">
 			<CheckButton name="File3">
-			<text-caption style="button">Savegame 123456789</text-caption>
+				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -58,7 +58,7 @@
 			</cell>
 			<cell row="6" col="2">
 			<CheckButton name="File4">
-				<text-caption style="button">Savegame 123456789</text-caption>
+				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>
@@ -67,7 +67,7 @@
 			</cell>
 			<cell row="7" col="2">
 			<CheckButton name="File5">
-				<text-caption style="button">Savegame 123456789</text-caption>
+				<text-caption style="boxtext">Savegame 123456789012345678901234567890</text-caption>
 				<image src="images/gui/buttons/savebutton.png"/>
 				<image-hover src="images/gui/buttons/savebutton-hover.png"/>
 				<image-clicked src="images/gui/buttons/savebutton-clicked.png"/>

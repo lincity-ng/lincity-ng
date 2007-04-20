@@ -7,6 +7,7 @@
 	<!-- Menus -->
 	<DefineStyle name="menutitle" color="black" font-size="50" halign="center"/>
 	<DefineStyle name="listtitle" color="black" font-size="30"/>		
+	<DefineStyle name="boxtext" color="blue" font-size="16" margin-left="10"/>
 	<DefineStyle name="button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
 	<DefineStyle name="dialogbutton" color="white" font-size="20" margin-left="20" margin-right="20"/>
 	<DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>

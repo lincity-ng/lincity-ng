@@ -672,11 +672,37 @@ MainMenu::loadGameSaveButtonClicked(Button *)
         std::cout << "remove( " << mFilename << ")\n";
         remove( mFilename.c_str() );
     }
+    /* Build filename */
     std::stringstream newStart;
-    newStart << slotNr << "_" << (1900 + datetime->tm_year) << "-";
+    newStart << slotNr << "_";
     newStart << std::setfill('0') << std::setw(2);
-    newStart << datetime->tm_mon+1 << "-" << datetime->tm_mday << "_";
-    newStart << datetime->tm_hour << "_" << datetime->tm_min;
+    newStart << ( -100 + datetime->tm_year);
+    newStart << std::setfill('0') << std::setw(2);
+    newStart << datetime->tm_mon+1 << datetime->tm_mday << "-";
+    newStart << std::setfill('0') << std::setw(2);
+    newStart << datetime->tm_hour;
+    newStart << std::setfill('0') << std::setw(2);
+    newStart << datetime->tm_min;
+    newStart << "_Tech";
+    newStart << std::setfill('0') << std::setw(3);
+    newStart << tech_level/10000;
+    newStart << "_Cash";
+    if (total_money >= 0)
+    	newStart << "+";
+    else
+    	newStart << "-";
+    newStart << std::setfill('0') << std::setw(3);
+    int money = abs(total_money);
+    if (money > 1000000) {
+	newStart << money/1000000 << "M";  
+    } else  if(money > 1000){
+	newStart << money/1000 << "K"; 
+    } else {
+	newStart << money/1 << "_";
+    }
+    newStart << "_P";
+    newStart << std::setfill('0') << std::setw(5);
+    newStart << housed_population + people_pool;
     std::string newFilename( newStart.str() ); 
     saveCityNG( newFilename );
     fillLoadMenu( true );
