@@ -41,13 +41,13 @@ do_blacksmith (int x, int y)
 		MP_INFO(x,y).int_7 = BLACKSMITH_JOBS;
   }
 
-  if (MP_INFO(x,y).int_7 == BLACKSMITH_JOBS) {
+  if (MP_INFO(x,y).int_7 >= BLACKSMITH_JOBS) {
 	if (MP_INFO(x,y).int_1 > GOODS_MADE_BY_BLACKSMITH) {
 		if (put_goods (x, y, GOODS_MADE_BY_BLACKSMITH - 1) != 0) {
 		      MP_INFO(x,y).int_1 -= (GOODS_MADE_BY_BLACKSMITH - 1);
 		      MP_INFO(x,y).int_2 += (GOODS_MADE_BY_BLACKSMITH - 1);
 		      MP_INFO(x,y).int_5++;
-		      MP_INFO(x,y).int_7 = 0;
+		      MP_INFO(x,y).int_7 -= BLACKSMITH_JOBS;
 		}
 	}
   } else {
