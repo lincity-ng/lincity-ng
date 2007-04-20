@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Помощь</p>
+    <p>Map-Tab</p>
+    <li><a href="mini-screen">Мини карта</a></li>
+    <p>Markets-Tab</p>
+	<li><a href="pbar">Статус ресурсов</a></li>
+    <p>$-Tab</p>
+	<li><a href="finance">Финансы</a></li>
+	<li><a href="other-costs">Другие цены</a></li>
+	<li><a href="housing">Население</a></li>
+    <p>Eco-Tab</p>
+	<li><a href="economy">Графика экономики</a></li>
+	<li><a href="sustain">Работа прогресс бара </a></li>
+</Document>
