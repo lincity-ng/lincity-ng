@@ -114,10 +114,10 @@ num_to_ansi_unit(char * s, size_t size, long num, char unit)
     {
     case 0: triplets = ' '; break;
     case 1: triplets = 'k'; break; // kila
-    case 2: triplets = 'm'; break; // mega
-    case 3: triplets = 'g'; break; // giga 
-    case 4: triplets = 't'; break; // tera 
-    case 5: triplets = 'p'; break; // peta
+    case 2: triplets = 'M'; break; // mega
+    case 3: triplets = 'G'; break; // giga 
+    case 4: triplets = 'T'; break; // tera 
+    case 5: triplets = 'P'; break; // peta
     default: triplets = '?'; break;
     }
       
@@ -198,7 +198,8 @@ format_pos_number4 (char* str, int num)
 void 
 format_power(char * str, size_t size, long power)
 {
-  num_to_ansi_unit(str, size, power, 'w');
+  /* Lincity power unit is 1kW */
+  num_to_ansi_unit(str, size, power*1000, 'W');
 }
 
 int
