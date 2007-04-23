@@ -703,7 +703,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     	newStart << "-";
     newStart << std::setfill('0') << std::setw(3);
     int money = abs(total_money);
-    if (money > 1000000000) {
+    if (money > 1000000000)
         newStart << money/1000000000 << "G";  
     else if (money > 1000000)
         newStart << money/1000000 << "M";  
@@ -711,7 +711,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
         newStart << money/1000 << "K"; 
     else
         newStart << money/1 << "_";
-    }
+ 
     newStart << "_P";
     newStart << std::setfill('0') << std::setw(5);
     newStart << housed_population + people_pool;
