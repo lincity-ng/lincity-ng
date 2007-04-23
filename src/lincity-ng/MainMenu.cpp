@@ -137,15 +137,17 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
     //read savegames from lc_save_dir so we can use the original save_city()
     DIR* lincityDir = opendir( lc_save_dir );
     if(!lincityDir) {
-#ifdef DEBUG
         std::cerr << "Warning directory " << lc_save_dir << " doesn't exist.\n";
-#endif
         return;
     }
 
     dirent* curfile;
     CheckButton *button;
+
     for(int i=0;i<6;i++) {
+    	dirent* recentfile;
+        PHYSFS_sint64 t = 0;
+
         std::stringstream filestart;
         filestart << i+1 << "_";
         if( save ){
@@ -161,15 +163,31 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
             button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
         }
         while( ( curfile = readdir( lincityDir ) ) ) { 
-            if(std::string( curfile->d_name ).find( filestart.str() ) == 0 )
+            if(std::string( curfile->d_name ).find( filestart.str() ) == 0 ) {
                 // && !( curfile->d_type & DT_DIR  ) ) is not portable. So
                 // don't create a directoy named 2_ in a savegame-directory or
                 // you can no longer load from slot 2.
-                break;
+	        if (t == 0) {
+                    recentfile = curfile;
+                    t = PHYSFS_getLastModTime(recentfile->d_name);
+                } else {
+                    if (PHYSFS_getLastModTime(curfile->d_name) > t) {
+#ifdef DEBUG
+                       	fprintf(stderr," %s is more recent than previous %s\n",
+                                                curfile->d_name, recentfile->d_name);
+#endif
+                        recentfile = curfile;
+                        t = PHYSFS_getLastModTime(recentfile->d_name);
+                    }
+                }
+            }
         }
-        
-        if(curfile)  {
-            std::string f= curfile->d_name;
+#ifdef DEBUG
+        fprintf(stderr,"Most recent file: %s\n\n",recentfile->d_name);
+#endif
+
+        if(t != 0) {
+            std::string f= recentfile->d_name;
             button->setCaptionText(f);
         } else {
             button->setCaptionText(_("empty"));
@@ -664,9 +682,6 @@ MainMenu::loadGameLoadButtonClicked(Button *)
 void
 MainMenu::loadGameSaveButtonClicked(Button *)
 {
-    time_t now = time(NULL);
-    struct tm* datetime = localtime(&now);
-
     getSound()->playSound( "Click" );
     if( file_exists( const_cast<char*>(mFilename.c_str()) ) ){
         std::cout << "remove( " << mFilename << ")\n";
@@ -674,15 +689,10 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     }
     /* Build filename */
     std::stringstream newStart;
-    newStart << slotNr << "_";
-    newStart << std::setfill('0') << std::setw(2);
-    newStart << ( -100 + datetime->tm_year);
-    newStart << std::setfill('0') << std::setw(2);
-    newStart << datetime->tm_mon+1 << datetime->tm_mday << "-";
-    newStart << std::setfill('0') << std::setw(2);
-    newStart << datetime->tm_hour;
-    newStart << std::setfill('0') << std::setw(2);
-    newStart << datetime->tm_min;
+    newStart << slotNr << "_Y";
+    newStart << std::setfill('0') << std::setw(5);
+    fprintf(stderr,"total_time %i\n",total_time);
+    newStart << total_time/1200;
     newStart << "_Tech";
     newStart << std::setfill('0') << std::setw(3);
     newStart << tech_level/10000;
@@ -693,12 +703,14 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     	newStart << "-";
     newStart << std::setfill('0') << std::setw(3);
     int money = abs(total_money);
-    if (money > 1000000) {
-	newStart << money/1000000 << "M";  
-    } else  if(money > 1000){
-	newStart << money/1000 << "K"; 
-    } else {
-	newStart << money/1 << "_";
+    if (money > 1000000000) {
+        newStart << money/1000000000 << "G";  
+    else if (money > 1000000)
+        newStart << money/1000000 << "M";  
+    else  if(money > 1000)
+        newStart << money/1000 << "K"; 
+    else
+        newStart << money/1 << "_";
     }
     newStart << "_P";
     newStart << std::setfill('0') << std::setw(5);
@@ -773,7 +785,7 @@ MainMenu::run()
 
         frame++;
         if(SDL_GetTicks() - ticks > 1000) {
-#ifdef DEBUG
+#ifdef DEBUG_FPS
             printf("FPS: %d.\n", frame);
 #endif
             frame = 0;
