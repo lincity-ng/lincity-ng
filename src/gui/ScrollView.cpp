@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Event.hpp"
 #include "callback/Callback.hpp"
 
-static const float MOUSEWHEELSCROLL = 30;
+static const float MOUSEWHEELSCROLL = 90;
 
 ScrollView::ScrollView()
 {

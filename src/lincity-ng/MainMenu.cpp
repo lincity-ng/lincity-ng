@@ -775,13 +775,13 @@ MainMenu::run()
             }
         }
 
+        // give the CPU time to relax... (we are in main menu)
+        SDL_Delay(10);
+
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
             flipScreenBuffer();
-        } else {
-            // give the CPU time to relax...
-            SDL_Delay(25);
-        }
+        } 
 
         frame++;
         if(SDL_GetTicks() - ticks > 1000) {
