@@ -2,8 +2,10 @@
 # French translation for lincity-ng
 # This file is distributed under the same license as the lincity-ng package.
 # Copyright (C) 2005 THE lincity-ng'S COPYRIGHT HOLDER.
+#
 # Arnaud Quette <arnaud.quette@free.fr>, 2005.
 # Laurent Rocher <rocherl@club-internet.fr>, 2006.
+# alain.baeckeroot@laposte.net 2007
 #
 msgid ""
 msgstr ""
@@ -304,7 +306,7 @@ msgstr "Centre de soins"
 
 #: src/lincity/lintypes.cpp:298
 msgid "Rocket pad"
-msgstr "Tir de fusée"
+msgstr "Base de lancement de fusée"
 
 #: src/lincity/lintypes.cpp:310
 #: src/lincity/modules/windmill.cpp:73
@@ -447,7 +449,7 @@ msgstr "Centre de Soins"
 #: src/lincity/modules/firestation.cpp:121
 #: src/lincity/modules/school.cpp:54
 msgid "Inventory"
-msgstr "Inventaire"
+msgstr "Surplus"
 
 #: src/lincity/modules/health_centre.cpp:69
 #: src/lincity/modules/rocket_pad.cpp:170
@@ -484,11 +486,11 @@ msgstr "Biens"
 
 #: src/lincity/modules/rocket_pad.cpp:163
 msgid "Rocket Pad"
-msgstr "Tir de fusée"
+msgstr "Base de lancement de fusée"
 
 #: src/lincity/modules/rocket_pad.cpp:166
 msgid "Completion"
-msgstr "Accomplissement"
+msgstr "Avancement"
 
 #: src/lincity/modules/rocket_pad.cpp:174
 #: src/lincity/modules/market.cpp:1157
@@ -516,7 +518,7 @@ msgstr "Statut Local"
 
 #: src/lincity/modules/windmill.cpp:83
 msgid "Prod."
-msgstr "Prod."
+msgstr "Production."
 
 #: src/lincity/modules/windmill.cpp:86
 #: src/lincity/modules/windmill.cpp:101
@@ -527,17 +529,17 @@ msgstr "Demande"
 #: src/lincity/modules/windmill.cpp:92
 #: src/lincity/modules/substation.cpp:99
 msgid "Grid Status"
-msgstr ""
+msgstr "Status du réseau"
 
 #: src/lincity/modules/windmill.cpp:95
 #: src/lincity/modules/substation.cpp:102
 msgid "T. Cap."
-msgstr ""
+msgstr "Capacité maximale"
 
 #: src/lincity/modules/windmill.cpp:98
 #: src/lincity/modules/substation.cpp:105
 msgid "A. Cap."
-msgstr ""
+msgstr "Capacité actuelle"
 
 #: src/lincity/modules/windmill.cpp:104
 #: src/lincity/modules/coal_power.cpp:109
@@ -545,7 +547,7 @@ msgstr ""
 #: src/lincity/modules/power_line.cpp:53
 #: src/lincity/modules/solar_power.cpp:60
 msgid "Grid ID"
-msgstr ""
+msgstr "Numéro de réseau"
 
 #: src/lincity/modules/water.cpp:22
 #: src/lincity/modules/commune.cpp:151
@@ -671,7 +673,7 @@ msgstr "Résidence"
 
 #: src/lincity/modules/residence.cpp:277
 msgid "People"
-msgstr "Gens"
+msgstr "Habitants"
 
 #: src/lincity/modules/residence.cpp:283
 msgid "Fed"
@@ -751,12 +753,12 @@ msgstr ""
 #: src/lincity/modules/heavy_industry.cpp:339
 #: src/lincity/modules/light_industry.cpp:362
 msgid "Output"
-msgstr "Rendement"
+msgstr "Production"
 
 #: src/lincity/modules/heavy_industry.cpp:340
 #: src/lincity/modules/light_industry.cpp:364
 msgid "Store"
-msgstr "Magasin"
+msgstr "Réserve"
 
 #: src/lincity/modules/market.cpp:1147
 #: src/lincity/modules/port.cpp:178
@@ -784,12 +786,12 @@ msgstr "Centrale électrique"
 #: src/lincity/modules/coal_power.cpp:94
 #: src/lincity/modules/solar_power.cpp:49
 msgid "Max Output"
-msgstr "Rendement Max"
+msgstr "Production Max"
 
 #: src/lincity/modules/coal_power.cpp:99
 #: src/lincity/modules/solar_power.cpp:54
 msgid "Current Output"
-msgstr "Rendement Courant"
+msgstr "Production actuelle"
 
 #: src/lincity/modules/substation.cpp:95
 msgid "Local Demand"
@@ -975,7 +977,7 @@ msgstr ". Centre de soins %4d            Décharges %4d           Bidonvilles %4
 
 #: src/lincity-ng/GameView.cpp:236
 msgid "Minimap: outline map"
-msgstr "Minicarte : carte d'ensemble"
+msgstr "Minicarte : vue d'ensemble"
 
 #: src/lincity-ng/GameView.cpp:239
 msgid "Minimap: unemployment"
@@ -1114,7 +1116,7 @@ msgstr "très mauvais"
 
 #: src/lincity-ng/MpsInterface.cpp:407
 msgid "death!"
-msgstr "mortelle"
+msgstr "mortelle !"
 
 #: src/lincity-ng/MpsInterface.cpp:412
 msgid "Bulldoze Cost"
@@ -1178,7 +1180,7 @@ msgstr "Ecoles"
 
 #: src/lincity-ng/MpsInterface.cpp:502
 msgid "Univers."
-msgstr "Univers."
+msgstr "Universités"
 
 #: src/lincity-ng/MpsInterface.cpp:504
 msgid "Deaths"
@@ -1202,7 +1204,7 @@ msgstr "Population"
 
 #: src/lincity-ng/MpsInterface.cpp:533
 msgid "Housed"
-msgstr "Logé"
+msgstr "Logés"
 
 #: src/lincity-ng/MpsInterface.cpp:534
 msgid "Homeless"
@@ -1210,7 +1212,7 @@ msgstr "Sans Abri"
 
 #: src/lincity-ng/MpsInterface.cpp:535
 msgid "Shanties"
-msgstr "Huttes"
+msgstr "Bidonvilles"
 
 #: src/lincity-ng/MpsInterface.cpp:536
 msgid "Unn Dths"
