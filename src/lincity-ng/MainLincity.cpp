@@ -55,9 +55,11 @@ void execute_timestep ()
   Uint32 now=SDL_GetTicks();
   Uint32 mStepTime=( lincitySpeed *1000/NUMOF_DAYS_IN_YEAR); 
 
-  if( lincitySpeed == 0 || blockingDialogIsOpen )
+  if( lincitySpeed == 0 || blockingDialogIsOpen
+        || ( (now - oldTime < (mStepTime-10)) && (lincitySpeed != FAST_TIME_FOR_YEAR)) ) {
+      SDL_Delay(10); //don't burn cpu in active loop
       return;
-
+  }
   if ( (now - oldTime < mStepTime) && lincitySpeed != FAST_TIME_FOR_YEAR  )
     return; // skip frame
   oldTime = now;

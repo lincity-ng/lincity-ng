@@ -9,7 +9,7 @@
 #define __shanty_h__
 
 void add_a_shanty(void);
-void remove_a_shanty(void);
+void remove_a_shanty(int x, int y);
 void update_shanty(void);
 void do_shanty(int x, int y);
 

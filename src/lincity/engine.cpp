@@ -254,6 +254,9 @@ bulldoze_item (int x, int y)
 
     if (MP_TYPE(x,y) == CST_USED) {
 	/* This is considered "improper" input.  Silently ignore. */
+#ifdef DEBUG
+        fprintf(stderr," try to improperly bulldoze_item CST_USED\n");
+#endif
 	return -1;
     }
 
@@ -266,9 +269,8 @@ bulldoze_item (int x, int y)
 	return -1;
     }
     else if (g == GROUP_SHANTY) {
-	fire_area (x, y);
+	remove_a_shanty(x, y);
 	adjust_money(-GROUP_SHANTY_BUL_COST);
-        numof_shanties--;
     }
     else if (g == GROUP_FIRE) {
 	if (MP_INFO(x,y).int_2 >= FIRE_LENGTH)

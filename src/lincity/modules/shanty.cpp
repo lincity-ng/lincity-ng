@@ -61,28 +61,9 @@ add_a_shanty (void)
   numof_shanties++;
 }
 
-void
-remove_a_shanty (void)
-{
-  int x, y, r;
-  if (numof_shanties <= 0)
-    return;
-  x = rand () % WORLD_SIDE_LEN;
-  y = rand () % WORLD_SIDE_LEN;
-  r = spiral_find_group (x, y, GROUP_SHANTY);
-  if (r == -1) {
-      printf ("Can't find a shanty to remove! ?\n");
-      return;
-  }
-  y = r / WORLD_SIDE_LEN;
-  x = r % WORLD_SIDE_LEN;
-  /* decrement of numof_shanties is done in fire area() */
-  fire_area (x, y);
-  /* now put the fire out */
-  MP_INFO(x,y).int_2 = FIRE_LENGTH + 1;
-  MP_INFO(x + 1,y).int_2 = FIRE_LENGTH + 1;
-  MP_INFO(x,y + 1).int_2 = FIRE_LENGTH + 1;
-  MP_INFO(x + 1,y + 1).int_2 = FIRE_LENGTH + 1;
+void remove_a_shanty (int x, int y) {
+    numof_shanties--;
+    fire_area (x, y);
 }
 
 void
@@ -91,14 +72,27 @@ update_shanty (void)
   int i, pp;
   pp = people_pool - (COMMUNE_POP * numof_communes);
   i = (pp - SHANTY_MIN_PP) / SHANTY_POP;
-  if (i > numof_shanties)
-    add_a_shanty ();		/*                   vv-- schmitt trigger */
-
-  else if (numof_shanties > 0 && i < (numof_shanties - 1))
-    remove_a_shanty ();
-  else if (numof_shanties > 0 && rand () % 100 == 10)
-    remove_a_shanty ();		/* randomly close some down. */
-
+  if (i > numof_shanties) {
+      add_a_shanty ();
+  } else if ( numof_shanties > 0 && 
+                    ( i < (numof_shanties - 1) || rand () % 100 == 1) ) {
+        int x, y, r;
+        x = rand () % WORLD_SIDE_LEN;
+        y = rand () % WORLD_SIDE_LEN;
+        r = spiral_find_group (x, y, GROUP_SHANTY);
+        if (r == -1) {
+            fprintf (stderr,"Can't find a shanty to remove!\n");
+            return;
+        }
+        y = r / WORLD_SIDE_LEN;
+        x = r % WORLD_SIDE_LEN;
+        remove_a_shanty(x,y);  /* this will fire_area */
+        /* now put the fire out: it becomes impossible to bulldoze */
+        MP_INFO(x,y).int_2 = FIRE_LENGTH + 1;
+        MP_INFO(x + 1,y).int_2 = FIRE_LENGTH + 1;
+        MP_INFO(x,y + 1).int_2 = FIRE_LENGTH + 1;
+        MP_INFO(x + 1,y + 1).int_2 = FIRE_LENGTH + 1;
+  }
 }
 
 void

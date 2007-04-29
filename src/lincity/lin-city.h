@@ -1347,7 +1347,7 @@ extern void do_fire (int, int);
 extern int spiral_find_group (int, int, int);
 extern int spiral_find_2x2 (int, int);
 extern void add_a_shanty (void);
-extern void remove_a_shanty (void);
+extern void remove_a_shanty (int, int);
 extern void update_shanty (void);
 extern void do_shanty (int, int);
 extern void do_tip (int, int);
