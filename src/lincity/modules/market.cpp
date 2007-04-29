@@ -368,8 +368,11 @@ add_a_market (int x, int y)	/* add to marketx markety to list */
   marketx[numof_markets] = x;
   markety[numof_markets] = y;
   numof_markets++;
-  /* oh dear. Got to bootstap markets with jobs, otherwise power won't work */
-  /* GCS: Is this still true?  */
+  /* oh dear. Got to bootstap markets with jobs, otherwise power won't work
+   * GCS: Is this still true?
+   * AL1: FIXME it seems not :) it's just needed to wait for periodic event
+   */
+
   MP_INFO(x,y).int_2 = 2000;
   return (1);
 }
@@ -377,6 +380,9 @@ add_a_market (int x, int y)	/* add to marketx markety to list */
 void
 remove_a_market (int x, int y)
 {
+  /* AL1: Could use present jobs to try put_everything elsewhere
+   * at least half of the content
+   */
   int q;
   for (q = 0; q < numof_markets; q++)
     if (marketx[q] == x && markety[q] == y)
@@ -564,7 +570,10 @@ deal_with_transport (int x, int y, int tx, int ty)
 	  MP_POL(x,y) += 3000;
 	  MP_INFO(x,y).int_7 -= (7 * MAX_WASTE_IN_MARKET) / 10;
 #if defined (commentout)
-	  /* this should fire up the pollution mini screen within a second. */
+	  /* this should fire up the pollution mini screen within a second.
+           * AL1: oh this is not implemented in NG :(
+           * This works only with oldgui
+           */
 	  mini_screen_flags = MINI_SCREEN_POL_FLAG;
 #endif
 	}

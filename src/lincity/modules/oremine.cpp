@@ -128,13 +128,11 @@ do_oremine (int x, int y)
 
 
   /* choose a graphic */
-  if ((total_time & 0x7f) == 0)
-    {
+  if ((total_time & 0x7f) == 0) {
       xx = 7 * (MP_INFO(x,y).int_2 + (3 * ORE_RESERVE / 2))
 	/ (16 * ORE_RESERVE);
-      switch (xx)
-	{
-	case (0):
+      switch (xx) {
+        case (0):
 	  MP_TYPE(x,y) = CST_OREMINE_8;
 	  break;
 	case (1):
@@ -161,6 +159,7 @@ do_oremine (int x, int y)
 	}
 	if (MP_INFO(x,y).int_2 <= 0) {
 #if defined (commentout)
+            /* AL1. It seems to be overwritten just below! */
 	    do_bulldoze_area (CST_GREEN, x, y);
 	    place_item(x,y,CST_TIP_0);
 #endif
@@ -173,7 +172,7 @@ do_oremine (int x, int y)
 	    connect_rivers ();
 	    refresh_main_screen ();
 	}
-    }
+  }
 }
 
 void

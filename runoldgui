@@ -1,4 +1,5 @@
 #!/bin/bash
 export LINCITY_HOME=./data
-./lincity_oldgui
+#set dummy default language, and let oldgui manage it correctly
+LANG=zz ./lincity_oldgui
 

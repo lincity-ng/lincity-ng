@@ -93,6 +93,8 @@ no_credit_build (int selected_group)
 int 
 place_item (int x, int y, short type)
 {
+    int i,j;
+    int prev_tip = 0;
     int group;
     int size;
 
@@ -106,30 +108,55 @@ place_item (int x, int y, short type)
 	return -1;
     }
 
-    /* Not enough slots in the substation array */
-
     switch (group) {
+    case GROUP_ORGANIC_FARM:
+	MP_INFO(x,y).int_1 = tech_level;
+        break;
+    case GROUP_TRACK:
+    case GROUP_ROAD:
+    case GROUP_RAIL:
+	MP_INFO(x,y).flags |= FLAG_IS_TRANSPORT;
+        break;
     case GROUP_SUBSTATION:
     case GROUP_WINDMILL:
-    {
-	if (add_a_substation (x, y) == 0)
+	if (add_a_substation (x, y) == 0) {
+            /* Not enough slots in the substation array */
+            fprintf(stderr," Too much windmill+substations. Can't build any more.\n");
 	    return -3;
-    } break;
+        }
+        MP_INFO(x,y).int_2 = tech_level;
+        MP_INFO(x,y).int_1 = (int)(WINDMILL_POWER
+	        + (((double) MP_INFO(x,y).int_2 * WINDMILL_POWER) / MAX_TECH_LEVEL));
+        /* Make sure that the correct windmill graphic shows up */
+	if (tech_level > MODERN_WINDMILL_TECH)
+	    type = CST_WINDMILL_1_R;
+	else 
+	    type = CST_WINDMILL_1_W;
+        break;
+    case (GROUP_COAL_POWER):
+        MP_INFO(x,y).int_4 = tech_level;
+        MP_INFO(x,y).int_1 = (int)(POWERS_COAL_OUTPUT
+	        + (((double) MP_INFO(x,y).int_4 * POWERS_COAL_OUTPUT)
+	                / MAX_TECH_LEVEL));
+        break;
+    case (GROUP_SOLAR_POWER):
+ 	MP_INFO(x,y).int_2 = tech_level;
+        MP_INFO(x,y).int_3 = (int)(POWERS_SOLAR_OUTPUT
+	        + (((double) MP_INFO(x,y).int_2 * POWERS_SOLAR_OUTPUT)
+	                / MAX_TECH_LEVEL));
+        break;
     case GROUP_PORT:
-    {
 	if (is_real_river (x + 4, y) != 1 
 	    || is_real_river (x + 4, y + 1) != 1
 	    || is_real_river (x + 4, y + 2) != 1 
 	    || is_real_river (x + 4, y + 3) != 1) {
 	    return -2;
 	}
-    } break;
+        break;
     case GROUP_COMMUNE:
-    {
 	numof_communes++;
-    } break;
+        break;
     case GROUP_MARKET:
-    {
 	/* Test for enough slots in the market array */
 	if (add_a_market (x, y) == 0)
 	    return -3;
@@ -138,21 +165,20 @@ place_item (int x, int y, short type)
 			       | FLAG_MB_GOODS | FLAG_MS_FOOD | FLAG_MS_JOBS
 			       | FLAG_MS_COAL | FLAG_MS_GOODS | FLAG_MS_ORE
 			       | FLAG_MS_STEEL);
-    } break;
+        break;
+    case GROUP_RECYCLE:
+        MP_INFO(x,y).int_4 = tech_level;
+        break;
     case GROUP_TIP:
-    {
 	/* Don't build a tip if there has already been one.  If we succeed,
 	   mark the spot permanently by "doubling" the ore reserve */
-	int i,j;
-	int prev_tip = 0;
-	for (i=0;i<3;i++) {
-	    for (j=0;j<3;j++) {
+	prev_tip = 0;
+	for (i=0; i < size; i++)
+	    for (j=0; j < size; j++)
 		if (MP_INFO(x+i,y+j).ore_reserve > ORE_RESERVE) {
 		    prev_tip = 1;
 		    break;
 		}
-	    }
-	}
 	if (prev_tip) {
 	    dialog_box(red(12),3,
 		       0,0,_("You can't build a tip here"),
@@ -160,23 +186,18 @@ place_item (int x, int y, short type)
 		       2,' ',_("OK"));
 	    return -4;
 	} else {
-	    for (i=0;i<3;i++) {
-		for (j=0;j<3;j++) {
+	    for (i=0; i < size; i++)
+		for (j=0; j < size; j++)
 		    MP_INFO(x+i,y+j).ore_reserve = ORE_RESERVE * 2;
-		}
-	    }
 	}
-    } break;
+        break;
     case GROUP_OREMINE:
-    {
 	/* Don't allow new mines on old mines or old tips */
 	/* GCS: mines over old mines is OK if there is enough remaining 
 	        ore, as is the case when there is partial overlap. */
-	int i,j;
-	int prev_tip = 0;
 	int total_ore = 0;
-	for (i=0;i<3;i++) {
-	    for (j=0;j<3;j++) {
+	for (i=0;i<size;i++) {
+	    for (j=0;j<size;j++) {
 		total_ore += MP_INFO(x+i,y+j).ore_reserve;
 		if (MP_INFO(x+i,y+j).ore_reserve > ORE_RESERVE) {
 		    prev_tip = 1;
@@ -198,44 +219,13 @@ place_item (int x, int y, short type)
 		       2,' ',_("OK"));
 	    return -4;
 	}
-    }
     } /* end case */
 
     /* Store last_built for refund on "mistakes" */
     last_built_x = x;
     last_built_y = y;
 
-    /* Make sure that the correct windmill graphic shows up */
-    if (group == GROUP_WINDMILL) {
-	if (tech_level > MODERN_WINDMILL_TECH) {
-	    type = CST_WINDMILL_1_R;
-	} else {
-	    type = CST_WINDMILL_1_W;
-	}
-    }
-
-    if (group == GROUP_SOLAR_POWER || group == GROUP_WINDMILL) {
-	MP_INFO(x,y).int_2 = tech_level;
-	// FIXME: what is this for:	let_one_through = 1;
-    }
-    else if (group == GROUP_RECYCLE || group == GROUP_COAL_POWER)
-	MP_INFO(x,y).int_4 = tech_level;
-    else if (group == GROUP_ORGANIC_FARM)
-	MP_INFO(x,y).int_1 = tech_level;
-    else if (group == GROUP_TRACK
-	     || group == GROUP_ROAD
-	     || group == GROUP_RAIL)
-	MP_INFO(x,y).flags |= FLAG_IS_TRANSPORT;
-    else if (group == GROUP_COALMINE
-	     || group == GROUP_OREMINE)
-      {
-	// FIXME: what is this for:	let_one_through = 1;
-	//	let_one_through = 1;
-      }
-
     set_mappoint (x, y, type);
-
-    update_tech_dep (x, y);
 
     if (group == GROUP_RIVER)
 	connect_rivers ();
@@ -375,173 +365,6 @@ void shuffle_mappoint_array (void)
     }
 }
 
-
-int
-buy_food (int xt, int yt)
-{
-  int i = 0;
-  if (MP_GROUP(xt,yt) == GROUP_TRACK)
-    {
-      if (MP_INFO(xt,yt).int_1 < MAX_FOOD_ON_TRACK)
-	i = MAX_FOOD_ON_TRACK - MP_INFO(xt,yt).int_1;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
-    {
-      if (MP_INFO(xt,yt).int_1 < MAX_FOOD_ON_ROAD)
-	i = MAX_FOOD_ON_ROAD - MP_INFO(xt,yt).int_1;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
-    {
-      if (MP_INFO(xt,yt).int_1 < MAX_FOOD_ON_RAIL)
-	i = MAX_FOOD_ON_RAIL - MP_INFO(xt,yt).int_1;
-    }
-  i = (i * PORT_IMPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_1 += i;
-  return (i * PORT_FOOD_RATE);
-}
-
-int
-buy_coal (int xt, int yt)
-{
-  int i = 0;
-  if (MP_GROUP(xt,yt) == GROUP_TRACK)
-    {
-      if (MP_INFO(xt,yt).int_3 < MAX_COAL_ON_TRACK)
-	i = MAX_COAL_ON_TRACK - MP_INFO(xt,yt).int_3;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
-    {
-      if (MP_INFO(xt,yt).int_3 < MAX_COAL_ON_ROAD)
-	i = MAX_COAL_ON_ROAD - MP_INFO(xt,yt).int_3;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
-    {
-      if (MP_INFO(xt,yt).int_3 < MAX_COAL_ON_RAIL)
-	i = MAX_COAL_ON_RAIL - MP_INFO(xt,yt).int_3;
-    }
-  i = (i * PORT_IMPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_3 += i;
-  return (i * PORT_COAL_RATE);
-}
-
-int
-buy_ore (int xt, int yt)
-{
-  int i = 0;
-  if (MP_GROUP(xt,yt) == GROUP_TRACK)
-    {
-      if (MP_INFO(xt,yt).int_5 < MAX_ORE_ON_TRACK)
-	i = MAX_ORE_ON_TRACK - MP_INFO(xt,yt).int_5;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
-    {
-      if (MP_INFO(xt,yt).int_5 < MAX_ORE_ON_ROAD)
-	i = MAX_ORE_ON_ROAD - MP_INFO(xt,yt).int_5;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
-    {
-      if (MP_INFO(xt,yt).int_5 < MAX_ORE_ON_RAIL)
-	i = MAX_ORE_ON_RAIL - MP_INFO(xt,yt).int_5;
-    }
-  i = (i * PORT_IMPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_5 += i;
-  return (i * PORT_ORE_RATE);
-}
-
-int
-buy_goods (int xt, int yt)
-{
-  int i = 0;
-  if (MP_GROUP(xt,yt) == GROUP_TRACK)
-    {
-      if (MP_INFO(xt,yt).int_4 < MAX_GOODS_ON_TRACK)
-	i = MAX_GOODS_ON_TRACK - MP_INFO(xt,yt).int_4;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
-    {
-      if (MP_INFO(xt,yt).int_4 < MAX_GOODS_ON_ROAD)
-	i = MAX_GOODS_ON_ROAD - MP_INFO(xt,yt).int_4;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
-    {
-      if (MP_INFO(xt,yt).int_4 < MAX_GOODS_ON_RAIL)
-	i = MAX_GOODS_ON_RAIL - MP_INFO(xt,yt).int_4;
-    }
-  i = (i * PORT_IMPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_4 += i;
-  return (i * PORT_GOODS_RATE);
-}
-
-
-int
-buy_steel (int xt, int yt)
-{
-  int i = 0;
-  if (MP_GROUP(xt,yt) == GROUP_TRACK)
-    {
-      if (MP_INFO(xt,yt).int_6 < MAX_STEEL_ON_TRACK)
-	i = MAX_STEEL_ON_TRACK - MP_INFO(xt,yt).int_6;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
-    {
-      if (MP_INFO(xt,yt).int_6 < MAX_STEEL_ON_ROAD)
-	i = MAX_STEEL_ON_ROAD - MP_INFO(xt,yt).int_6;
-    }
-  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
-    {
-      if (MP_INFO(xt,yt).int_6 < MAX_STEEL_ON_RAIL)
-	i = MAX_STEEL_ON_RAIL - MP_INFO(xt,yt).int_6;
-    }
-  i = (i * PORT_IMPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_6 += i;
-  return (i * PORT_STEEL_RATE);
-}
-
-int
-sell_food (int xt, int yt)
-{
-  int i = 0;
-  i = (MP_INFO(xt,yt).int_1 * PORT_EXPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_1 -= i;
-  return (i * PORT_FOOD_RATE);
-}
-
-int
-sell_coal (int xt, int yt)
-{
-  int i = 0;
-  i = (MP_INFO(xt,yt).int_3 * PORT_EXPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_3 -= i;
-  return (i * PORT_COAL_RATE);
-}
-
-int
-sell_ore (int xt, int yt)
-{
-  int i = 0;
-  i = (MP_INFO(xt,yt).int_5 * PORT_EXPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_5 -= i;
-  return (i * PORT_ORE_RATE);
-}
-
-int
-sell_goods (int xt, int yt)
-{
-  int i = 0;
-  i = (MP_INFO(xt,yt).int_4 * PORT_EXPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_4 -= i;
-  return (i * PORT_GOODS_RATE);
-}
-
-int
-sell_steel (int xt, int yt)
-{
-  int i = 0;
-  i = (MP_INFO(xt,yt).int_6 * PORT_EXPORT_RATE) / 1000;
-  MP_INFO(xt,yt).int_6 -= i;
-  return (i * PORT_STEEL_RATE);
-}
-
 void
 do_pollution ()
 {
@@ -605,79 +428,6 @@ do_pollution ()
   } while (++pol < &map.pollution[WORLD_SIDE_LEN][0]);
 }
 
-
-/* XXX: remove_people is only used by rocket_pad, perhaps it should go there */
-
-void
-remove_people (int num)
-{
-#if defined (commentout)
-  int x, y, f;
-  time_t t;
-  f = 1;
-  t = time (0);
-  while (f && (num > 0)) {
-      for (y = 0; y < WORLD_SIDE_LEN; y++)
-	for (x = 0; x < WORLD_SIDE_LEN; x++)
-	  if (MP_GROUP_IS_RESIDENCE(x,y) && MP_INFO(x,y).population > 0)
-	    {
-	      MP_INFO(x,y).population--;
-	      // f = 1;
-	      f |= (MP_INFO(x,y).population > 0);
-	      num--;
-	      total_evacuated++;
-	    }
-  }
-  while (num > 0 && people_pool > 0) {
-      num--;
-      total_evacuated++;
-      people_pool--;
-  }
-#endif
-
-  int x, y;
-  /* reset housed population so that we can display it correctly */
-  housed_population = 1;
-  while (housed_population && (num > 0)) {
-      housed_population = 0;
-      for (y = 0; y < WORLD_SIDE_LEN; y++)
-	for (x = 0; x < WORLD_SIDE_LEN; x++)
-	  if (MP_GROUP_IS_RESIDENCE(x,y) && MP_INFO(x,y).population > 0) {
-	      MP_INFO(x,y).population--;
-	      housed_population += MP_INFO(x,y).population;
-	      num--;
-	      total_evacuated++;
-	  }
-  }
-  while (num > 0 && people_pool > 0) {
-      num--;
-      total_evacuated++;
-      people_pool--;
-  }
-
-  refresh_population_text ();
-
-#if defined (commentout)
-/* last ship wasn't full so everyone has gone. */
-  if (num > 0)
-    {
-      if (t > HOF_START && t < HOF_STOP)
-	ok_dial_box ("launch-gone-mail.mes", GOOD, 0L);
-      else
-	ok_dial_box ("launch-gone.mes", GOOD, 0L);
-      housed_population = 0;
-    }
-#endif
-
-  /* Note that the previous test was inaccurate.  There could be 
-     exactly 1000 people left. */
-  if (!housed_population && !people_pool) {
-    ok_dial_box ("launch-gone.mes", GOOD, 0L);
-  }
-}
-
-
-
 void
 clear_fire_health_and_cricket_cover (void)
 {
@@ -708,8 +458,6 @@ do_fire_health_and_cricket_cover (void)
 	  do_cricket_cover (x, y);
       }
 }
-
-
 
 void
 do_random_fire (int x, int y, int pwarning)	/* well random if x=y=-1 */
@@ -909,38 +657,6 @@ spiral_find_2x2 (int startx, int starty)
 	}
     }
   return (-1);
-}
-
-
-
-void
-update_tech_dep (int x, int y)
-{
-  switch (MP_GROUP(x,y))
-    {
-    case (GROUP_WINDMILL):
-#ifdef OLD_POWER_CODE
-      MP_INFO(x,y).int_5 = (int)(WINDMILL_POWER
-#else
-      MP_INFO(x,y).int_1 = (int)(WINDMILL_POWER
-#endif
-	+ (((double) MP_INFO(x,y).int_2 * WINDMILL_POWER) / MAX_TECH_LEVEL));
-      break;
-    case (GROUP_COAL_POWER):
-#ifdef OLD_POWER_CODE
-      MP_INFO(x,y).int_5 = (int)(POWERS_COAL_OUTPUT
-#else
-      MP_INFO(x,y).int_1 = (int)(POWERS_COAL_OUTPUT
-#endif
-	+ (((double) MP_INFO(x,y).int_4 * POWERS_COAL_OUTPUT)
-	   / MAX_TECH_LEVEL));
-      break;
-    case (GROUP_SOLAR_POWER):
-      MP_INFO(x,y).int_3 = (int)(POWERS_SOLAR_OUTPUT
-	+ (((double) MP_INFO(x,y).int_2 * POWERS_SOLAR_OUTPUT)
-	   / MAX_TECH_LEVEL));
-      break;
-    }
 }
 
 void

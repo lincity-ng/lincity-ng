@@ -596,13 +596,12 @@ load_city (char *cname)
     }
     else
 	university_intake_rate = 50;
-    for (x = 0; x < WORLD_SIDE_LEN; x++)
-    {
-	for (y = 0; y < WORLD_SIDE_LEN; y++)
-	{
-	    update_tech_dep (x, y);
-	}
-    }
+
+    /*Al1 : What is this ? This does nothing, the value are saved in MP_INFO.int_ 
+     * for (x = 0; x < WORLD_SIDE_LEN; x++)
+     *   for (y = 0; y < WORLD_SIDE_LEN; y++)
+     *     update_tech_dep (x, y);
+     */
 
     unhighlight_module_button (selected_module);
     selected_module = sbut[7];	/* 7 is track.  Watch out though! */

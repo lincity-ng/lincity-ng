@@ -8,9 +8,177 @@
 #include "modules.h"
 #include "port.h"
 
+static int
+buy_food (int xt, int yt)
+{
+  int i = 0;
+  if (MP_GROUP(xt,yt) == GROUP_TRACK)
+    {
+      if (MP_INFO(xt,yt).int_1 < MAX_FOOD_ON_TRACK)
+	i = MAX_FOOD_ON_TRACK - MP_INFO(xt,yt).int_1;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
+    {
+      if (MP_INFO(xt,yt).int_1 < MAX_FOOD_ON_ROAD)
+	i = MAX_FOOD_ON_ROAD - MP_INFO(xt,yt).int_1;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
+    {
+      if (MP_INFO(xt,yt).int_1 < MAX_FOOD_ON_RAIL)
+	i = MAX_FOOD_ON_RAIL - MP_INFO(xt,yt).int_1;
+    }
+  i = (i * PORT_IMPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_1 += i;
+  return (i * PORT_FOOD_RATE);
+}
+
+static int
+buy_coal (int xt, int yt)
+{
+  int i = 0;
+  if (MP_GROUP(xt,yt) == GROUP_TRACK)
+    {
+      if (MP_INFO(xt,yt).int_3 < MAX_COAL_ON_TRACK)
+	i = MAX_COAL_ON_TRACK - MP_INFO(xt,yt).int_3;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
+    {
+      if (MP_INFO(xt,yt).int_3 < MAX_COAL_ON_ROAD)
+	i = MAX_COAL_ON_ROAD - MP_INFO(xt,yt).int_3;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
+    {
+      if (MP_INFO(xt,yt).int_3 < MAX_COAL_ON_RAIL)
+	i = MAX_COAL_ON_RAIL - MP_INFO(xt,yt).int_3;
+    }
+  i = (i * PORT_IMPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_3 += i;
+  return (i * PORT_COAL_RATE);
+}
+
+static int
+buy_ore (int xt, int yt)
+{
+  int i = 0;
+  if (MP_GROUP(xt,yt) == GROUP_TRACK)
+    {
+      if (MP_INFO(xt,yt).int_5 < MAX_ORE_ON_TRACK)
+	i = MAX_ORE_ON_TRACK - MP_INFO(xt,yt).int_5;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
+    {
+      if (MP_INFO(xt,yt).int_5 < MAX_ORE_ON_ROAD)
+	i = MAX_ORE_ON_ROAD - MP_INFO(xt,yt).int_5;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
+    {
+      if (MP_INFO(xt,yt).int_5 < MAX_ORE_ON_RAIL)
+	i = MAX_ORE_ON_RAIL - MP_INFO(xt,yt).int_5;
+    }
+  i = (i * PORT_IMPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_5 += i;
+  return (i * PORT_ORE_RATE);
+}
+
+static int
+buy_goods (int xt, int yt)
+{
+  int i = 0;
+  if (MP_GROUP(xt,yt) == GROUP_TRACK)
+    {
+      if (MP_INFO(xt,yt).int_4 < MAX_GOODS_ON_TRACK)
+	i = MAX_GOODS_ON_TRACK - MP_INFO(xt,yt).int_4;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
+    {
+      if (MP_INFO(xt,yt).int_4 < MAX_GOODS_ON_ROAD)
+	i = MAX_GOODS_ON_ROAD - MP_INFO(xt,yt).int_4;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
+    {
+      if (MP_INFO(xt,yt).int_4 < MAX_GOODS_ON_RAIL)
+	i = MAX_GOODS_ON_RAIL - MP_INFO(xt,yt).int_4;
+    }
+  i = (i * PORT_IMPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_4 += i;
+  return (i * PORT_GOODS_RATE);
+}
+
+
+static int
+buy_steel (int xt, int yt)
+{
+  int i = 0;
+  if (MP_GROUP(xt,yt) == GROUP_TRACK)
+    {
+      if (MP_INFO(xt,yt).int_6 < MAX_STEEL_ON_TRACK)
+	i = MAX_STEEL_ON_TRACK - MP_INFO(xt,yt).int_6;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_ROAD)
+    {
+      if (MP_INFO(xt,yt).int_6 < MAX_STEEL_ON_ROAD)
+	i = MAX_STEEL_ON_ROAD - MP_INFO(xt,yt).int_6;
+    }
+  else if (MP_GROUP(xt,yt) == GROUP_RAIL)
+    {
+      if (MP_INFO(xt,yt).int_6 < MAX_STEEL_ON_RAIL)
+	i = MAX_STEEL_ON_RAIL - MP_INFO(xt,yt).int_6;
+    }
+  i = (i * PORT_IMPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_6 += i;
+  return (i * PORT_STEEL_RATE);
+}
+
+static int
+sell_food (int xt, int yt)
+{
+  int i = 0;
+  i = (MP_INFO(xt,yt).int_1 * PORT_EXPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_1 -= i;
+  return (i * PORT_FOOD_RATE);
+}
+
+static int
+sell_coal (int xt, int yt)
+{
+  int i = 0;
+  i = (MP_INFO(xt,yt).int_3 * PORT_EXPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_3 -= i;
+  return (i * PORT_COAL_RATE);
+}
+
+static int
+sell_ore (int xt, int yt)
+{
+  int i = 0;
+  i = (MP_INFO(xt,yt).int_5 * PORT_EXPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_5 -= i;
+  return (i * PORT_ORE_RATE);
+}
+
+static int
+sell_goods (int xt, int yt)
+{
+  int i = 0;
+  i = (MP_INFO(xt,yt).int_4 * PORT_EXPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_4 -= i;
+  return (i * PORT_GOODS_RATE);
+}
+
+static int
+sell_steel (int xt, int yt)
+{
+  int i = 0;
+  i = (MP_INFO(xt,yt).int_6 * PORT_EXPORT_RATE) / 1000;
+  MP_INFO(xt,yt).int_6 -= i;
+  return (i * PORT_STEEL_RATE);
+}
+
 /* Trade with a transport.
  * Port is at x/y, transport at u/v. */
-void trade_connection( const int x, const int y, const int u, const int v, int* ic_ptr, int* et_ptr ){
+static void
+trade_connection( const int x, const int y, const int u, const int v, int* ic_ptr, int* et_ptr )
+{
   if (u >= 0 && v>=0 && (MP_INFO( u, v).flags
               & FLAG_IS_TRANSPORT) != 0)
   {
@@ -83,7 +251,6 @@ void trade_connection( const int x, const int y, const int u, const int v, int* 
       *et_ptr += et;
   }
 }
-
 
 void
 do_port (int x, int y)

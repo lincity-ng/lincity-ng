@@ -314,5 +314,16 @@ void editMap (MapPoint point, int button)
             // a dialog here.
             last_message_group = 0;
             break;
+        case -3:
+            /* windmills/substations or market
+             * too much building of this kind, cannot build more ....
+             * the message for user was sent by place_item 
+             */
+        case -4:
+            /* previous tip here, cannot build oremine/tip here
+             * or not enough ore reserve for building a mine.
+             * the message for user was sent by place_item 
+             */
+            ;
     }
 }
