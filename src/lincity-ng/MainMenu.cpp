@@ -570,6 +570,10 @@ MainMenu::newGameButtonClicked(Button* )
 void
 MainMenu::loadGameButtonClicked(Button* )
 {
+    /* FIXME: NG 1.1 initialisation/clear is not enough yet
+     * This should be done in the engine.cpp or simulate.cpp not here:
+     * see clear_game
+     */
     getSound()->playSound( "Click" );
     loadLoadGameMenu();
     switchMenu(loadGameMenu.get());
@@ -594,6 +598,10 @@ MainMenu::creditsBackButtonClicked(Button* )
 void
 MainMenu::newGameStartButtonClicked(Button* )
 {
+    /* FIXME: NG 1.1 initialisation/clear is not enough yet
+     * This should be done in the engine.cpp or simulate.cpp not here:
+     * see clear_game
+     */
     getSound()->playSound( "Click" );
     if( loadCityNG( mFilename ) ){
     	strcpy (given_scene, baseName.c_str());
@@ -607,6 +615,10 @@ void
 MainMenu::newGameStartBareButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
+    /* FIXME: NG 1.1 initialisation/clear is not enough yet
+     * This should be done in the engine.cpp or simulate.cpp not here:
+     * see clear_game
+     */
     resetGameStats();
     new_city( &main_screen_originx, &main_screen_originy, 0 );
     GameView* gv = getGameView();
@@ -617,6 +629,10 @@ MainMenu::newGameStartBareButtonClicked(Button* )
 
 //looks like not everything es reseted by new_city()
 void MainMenu::resetGameStats(){
+    /* FIXME: NG 1.1 initialisation/clear is not enough yet
+     * This should be done in the engine.cpp or simulate.cpp not here
+     * see clear_game
+     */
     given_scene[0] = 0;
     for( int i = 0; i < monthgraph_size; i++ ){
         monthgraph_pop[i] = 0;
@@ -637,6 +653,10 @@ void
 MainMenu::newGameStartVillageClicked(Button* )
 {
     getSound()->playSound( "Click" );
+    /* FIXME: NG 1.1 initialisation/clear is not enough yet
+     * This should be done in the engine.cpp or simulate.cpp not here
+     * see clear_game
+     */
     resetGameStats();
     new_city( &main_screen_originx, &main_screen_originy, 1 );
     GameView* gv = getGameView();
@@ -672,6 +692,10 @@ MainMenu::gotoMainMenu()
 void
 MainMenu::loadGameLoadButtonClicked(Button *)
 {
+    /* FIXME: NG 1.1 initialisation/clear is not enough yet
+     * This should be done in the engine.cpp or simulate.cpp not here:
+     * see clear_game
+     */
     getSound()->playSound( "Click" );
     if( loadCityNG( mFilename ) ){
         quitState = INGAME;

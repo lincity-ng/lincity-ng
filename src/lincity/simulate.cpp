@@ -49,6 +49,7 @@ static void end_of_year_update (void);
 static void random_start (int* originx, int* originy);
 static void simulate_mappoints (void);
 static void quick_start_add (int x, int y, short type, int size);
+static void nullify_mappoint (int x, int y);
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -85,14 +86,17 @@ do_time_step (void)
     do_periodic_events ();
 }
 
-void 
-clear_mappoint (short fill, int x, int y)
+static void 
+nullify_mappoint (int x, int y)
 {
-    MP_TYPE(x,y) = fill;
-    MP_GROUP(x,y) = get_group_of_type(fill);
-    if (MP_GROUP(x,y) < 0) MP_GROUP(x,y) = GROUP_BARE;
+    MP_TYPE(x,y) = CST_GREEN;
+    MP_GROUP(x,y) = GROUP_BARE;
+    MP_SIZE(x,y) = 1;
+    MP_POL(x,y) = 0;
     MP_INFO(x,y).population = 0;
     MP_INFO(x,y).flags = 0;
+    MP_INFO(x,y).coal_reserve = 0;
+    MP_INFO(x,y).ore_reserve = 0;
     MP_INFO(x,y).int_1 = 0;
     MP_INFO(x,y).int_2 = 0;
     MP_INFO(x,y).int_3 = 0;
@@ -424,8 +428,7 @@ clear_game (void)
     int x, y;
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
 	for (x = 0; x < WORLD_SIDE_LEN; x++) {
-	    clear_mappoint (CST_GREEN, x, y);
-	    MP_POL(x,y) = 0;
+	    nullify_mappoint (x, y);
 	}
     }
     total_time = 0;
@@ -440,8 +443,13 @@ clear_game (void)
     total_births = 0;
     total_money = 0;
     tech_level = 0;
+    highest_tech_level = 0;
+    rockets_launched = 0;
+    rockets_launched_success = 0;
     init_inventory();
     update_avail_modules(0);
+    /* Al1. NG 1.1 is this enough ? Are all global variables reseted ? */
+    /* TODO reset screen, sustain info */
 }
 
 void
