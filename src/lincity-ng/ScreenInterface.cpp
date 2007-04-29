@@ -294,6 +294,7 @@ void updateMoney() {
  *  colour is the color of the Background of the Dialog
  *
  *  Do we use dialog_box at all? Unfortunately yes. There is a lot of legacy code...
+ *  Al1: in NG 1.1 only used in engine.cpp for 5 messages, and it is broken ;-)
  *  
  *  argc is the number of following argument triplets.
  *  Each triplet consists of
@@ -309,6 +310,7 @@ void updateMoney() {
  *           
  *      string is the text
  */
+
 int dialog_box(int colour, int argc, ...)
 {
     (void) colour;

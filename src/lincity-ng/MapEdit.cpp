@@ -315,14 +315,18 @@ void editMap (MapPoint point, int button)
             last_message_group = 0;
             break;
         case -3:
-            /* windmills/substations or market
-             * too much building of this kind, cannot build more ....
-             * the message for user was sent by place_item 
-             */
+            /* too many windmills/substations */
         case -4:
-            /* previous tip here, cannot build oremine/tip here
-             * or not enough ore reserve for building a mine.
-             * the message for user was sent by place_item 
+            /* too many market */
+        case -5:
+            /* previous tip here, cannot build tip here */
+        case -6:
+            /* previous tip here, cannot build oremine */
+        case -7:
+            /* no ore reserve. cannot build oremine here */
+            /* FIXME messages are supposed to be launched by place_item 
+             * FIXME but dialog_box is broken with NG 1.1
+             * FIXME no message appears 
              */
             ;
     }

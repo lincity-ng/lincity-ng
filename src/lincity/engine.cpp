@@ -93,6 +93,11 @@ no_credit_build (int selected_group)
 int 
 place_item (int x, int y, short type)
 {
+#ifdef DEBUG
+/* Al1: my ugly workaround. Debug should not be the same as oldgui */
+#define OLDGUI
+#endif
+
     int i,j;
     int prev_tip = 0;
     int group;
@@ -117,11 +122,25 @@ place_item (int x, int y, short type)
     case GROUP_RAIL:
 	MP_INFO(x,y).flags |= FLAG_IS_TRANSPORT;
         break;
+    case GROUP_PORT:
+	if (is_real_river (x + 4, y) != 1 
+	    || is_real_river (x + 4, y + 1) != 1
+	    || is_real_river (x + 4, y + 2) != 1 
+	    || is_real_river (x + 4, y + 3) != 1) {
+	    return -2;
+	}
+        break;
     case GROUP_SUBSTATION:
     case GROUP_WINDMILL:
 	if (add_a_substation (x, y) == 0) {
             /* Not enough slots in the substation array */
-            fprintf(stderr," Too much windmill+substations. Can't build any more.\n");
+#ifdef OLDGUI
+            dialog_box(red(12),3,
+		       0,0,_("Too many windmills + substations"),
+		       0,0,_("You cannot build one more"),
+		       2,' ',_("OK"));
+#endif
+            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
 	    return -3;
         }
         MP_INFO(x,y).int_2 = tech_level;
@@ -145,21 +164,21 @@ place_item (int x, int y, short type)
 	        + (((double) MP_INFO(x,y).int_2 * POWERS_SOLAR_OUTPUT)
 	                / MAX_TECH_LEVEL));
         break;
-    case GROUP_PORT:
-	if (is_real_river (x + 4, y) != 1 
-	    || is_real_river (x + 4, y + 1) != 1
-	    || is_real_river (x + 4, y + 2) != 1 
-	    || is_real_river (x + 4, y + 3) != 1) {
-	    return -2;
-	}
-        break;
     case GROUP_COMMUNE:
 	numof_communes++;
         break;
     case GROUP_MARKET:
 	/* Test for enough slots in the market array */
-	if (add_a_market (x, y) == 0)
-	    return -3;
+	if (add_a_market (x, y) == 0) {
+#ifdef OLDGUI
+            dialog_box(red(12),3,
+		       0,0,_("Too many markets"),
+		       0,0,_("You cannot build one more"),
+		       2,' ',_("OK"));
+#endif
+            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+	    return -4;
+        }
 	MP_INFO(x,y).flags += (FLAG_MB_FOOD | FLAG_MB_JOBS
 			       | FLAG_MB_COAL | FLAG_MB_ORE | FLAG_MB_STEEL
 			       | FLAG_MB_GOODS | FLAG_MS_FOOD | FLAG_MS_JOBS
@@ -180,11 +199,14 @@ place_item (int x, int y, short type)
 		    break;
 		}
 	if (prev_tip) {
+#ifdef OLDGUI
 	    dialog_box(red(12),3,
 		       0,0,_("You can't build a tip here"),
 		       0,0,_("This area was once a landfill"),
 		       2,' ',_("OK"));
-	    return -4;
+#endif
+            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+	    return -5;
 	} else {
 	    for (i=0; i < size; i++)
 		for (j=0; j < size; j++)
@@ -196,6 +218,7 @@ place_item (int x, int y, short type)
 	/* GCS: mines over old mines is OK if there is enough remaining 
 	        ore, as is the case when there is partial overlap. */
 	int total_ore = 0;
+	prev_tip = 0;
 	for (i=0;i<size;i++) {
 	    for (j=0;j<size;j++) {
 		total_ore += MP_INFO(x+i,y+j).ore_reserve;
@@ -206,18 +229,24 @@ place_item (int x, int y, short type)
 	    }
 	}
 	if (prev_tip) {
+#ifdef OLDGUI
 	    dialog_box(red(12),3,
 		       0,0,_("You can't build a mine here"),
 		       0,0,_("This area was once a landfill"),
 		       2,' ',_("OK"));
-	    return -4;
+#endif
+            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+	    return -6;
 	}
 	if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
+#ifdef OLDGUI
 	    dialog_box(red(12),3,
 		       0,0,_("You can't build a mine here"),
 		       0,0,_("There is no ore left at this site"),
 		       2,' ',_("OK"));
-	    return -4;
+#endif
+            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+	    return -7;
 	}
     } /* end case */
 
