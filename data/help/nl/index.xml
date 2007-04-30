@@ -7,7 +7,6 @@
 <li><a href="farm">Boerderij</a></li>
 <li><a href="msb-fire">Brand kaart</a></li>
 <li><a href="firestation">Brandweerkazerne</a></li>
-<li><a href="commune">Communie</a></li>
 <li><a href="dialogs">Dialogvenster</a></li>
 <li><a href="other-costs">Diverse kosten</a></li>
 <li><a href="tutorial-aim">Doel van het spel</a></li>
@@ -19,6 +18,7 @@
 <li><a href="goods">Goederen</a></li>
 <li><a href="port">Havens</a></li>
 <li><a href="fast">Hoge snelheid</a></li>
+<li><a href="commune">Houtskoolbranderij</a></li>
 <li><a href="button-index">Icoon index</a></li>
 <li><a href="export">Import en export gebieden</a></li>
 <li><a href="query">Informatie</a></li>

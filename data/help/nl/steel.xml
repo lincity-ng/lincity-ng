@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Staal</p>
-	<p style="hp">Het meeste staal wordt gemaakt door zware industrie (staalfabriek). U moet een voldoende technische ontwikkeling bereikt hebben (er moeten voldoende nieuwe ontdekkingen gedaan zijn) om een staalfabriek te kunnen bouwen. Daarvoor kunnen alleen communies een klein beetje staal van ijzererts maken, meestal heeft u daarom een aantal communies nodig om voldoende staal te maken.</p>
-	<p style="hp">Staal wordt door smiderijen gebruikt om goederen te maken. Staal wordt ook gebruikt door lichte industrie voor gereedschap en producten (goederen). Lichte industrie kan ook zonder staal werken, maar produceert dan veel minder.</p>
+	<p style="hp">Het meeste staal wordt gemaakt door zware industrie (staalfabriek). U moet een voldoende technische ontwikkeling bereikt hebben (er moeten voldoende nieuwe ontdekkingen gedaan zijn) om een staalfabriek te kunnen bouwen. Daarvoor kunnen alleen houtskoolbranderijen een klein beetje staal van ijzererts maken, meestal heeft u daarom een aantal houtskoolbranderijen nodig om voldoende staal te maken.</p>
+	<p style="hp">Staal wordt door smederijen gebruikt om goederen te maken. Staal wordt ook gebruikt door lichte industrie voor gereedschap en producten (goederen). Lichte industrie kan ook zonder staal werken, maar produceert dan veel minder.</p>
 	<p style="hp">Raketten gebruiken veel staal, voornamelijk voor het lanceerplatform, (het lijkt erop dat er geen aluminium of titanium bestaat, 'staal' wordt ook gebruikt voor om de raketten te maken - maakt u daarover geen zorgen, dat doe ik ook niet).</p>
 	<p style="hp">Voor de onderhoud en reparatie van spoorwegen is ook staal nodig.</p>
 	<p style="hp">Op staal zit belasting.</p>
 
 	<p style="hsubtitle">Lees ook:</p>
-	<li><a href="commune">Communie</a></li>
+	<li><a href="commune">Houtskoolbranderij</a></li>
 	<li><a href="blacksmith">Smidse</a></li>
 	<li><a href="goods">Goederen</a></li>
 	<li><a href="industryh">Zware Industrie</a></li>

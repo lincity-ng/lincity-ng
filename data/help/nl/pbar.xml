@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">PBar</p>
-	<p style="hp">Dit is de tweede tab van het minivensterThis is the second tab of the miniwindow</p>
-	<p style="hp">Het toont de totale voorrad op alle markten samen zien, en hoe dat verandert.</p>
+	<p style="hp">Dit is de tweede tab van het minivenster</p>
+	<p style="hp">Het laat de totale voorraad op alle markten samen zien, en hoe dat verandert.</p>
 	<p style="hp">Het getal rechts duidt de totale hoeveelheid aan.</p>
 </Document>

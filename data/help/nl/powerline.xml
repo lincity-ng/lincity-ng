@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Electriciteitsdraad</p>
-	<p style="hp">Electriciteitsdraden vervoeren electriciteit van energiecentrales (zonne-energiecentrales en steenkoolcentrales) naar transformatorhuisjes. <!-- outdated Power lines carry power from solar and coal power stations to substations. Power lines connect to the top left corner of each of the three types of icons, solar and coal power stations and substations..--></p>
-	<p style="hp">Electriciteitsdraden kruisen <b>onder</b> wegen, straten, spoorwegen en rivieren, als deze maar 1 breed zijn. Als een elctriciteitsdraad geplaatst wordt aan beide zijden van een verkeersweg of een riviergebied zijn deze draden verbonden. Vaak zult u een stuk rivier moeten afbreken, spijtig genoeg is dit duur. De electriciteitsdraden zijn verbonden als ze in een rechte lijn liggen.</p>
+	<p style="hp">Electriciteitsdraden vervoeren electriciteit van energiecentrales (zonne-energiecentrales en steenkoolcentrales) naar transformatorhuisjes. </p>
+	<p style="hp">Electriciteitsdraden kruisen <b>onder</b> wegen, straten, spoorwegen en rivieren, als deze maar 1 breed zijn. Als een electriciteitsdraad geplaatst wordt aan beide zijden van een verkeersweg of een riviergebied zijn deze draden verbonden. Vaak zult u een stuk rivier moeten afbreken, spijtig genoeg is dit duur. De electriciteitsdraden zijn verbonden als ze in een rechte lijn liggen.</p>
 
 	<p style="hp">Dit is een electriciteitsdraad</p>
 	<img src="images/tiles/powerlvd.png" halign="center"/>

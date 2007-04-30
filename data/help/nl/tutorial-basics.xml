@@ -4,7 +4,7 @@
 	<p style="hp">Kies "new game " &gt; "willekeurig dorp". Andere scenario's zijn voor min of meer ervaren spelers. </p>
 	<p style="hp">Merk op dat het willekeurige dorp basis-benodigheden heeft:</p>
 	<li><a href="farm">Boerderijen</a> maken voedsel voor markten</li>
-	<li><a href="commune">Communies</a> die houtskool en kleine hoeveelheden ijzererts en staal maken </li>
+	<li><a href="commune">Hoyskoolbranderijen</a> die houtskool en kleine hoeveelheden ijzererts en staal maken </li>
 	<li><a href="residential">Woonwijken</a></li>
 	<li><a href="pottery">Pottebakkerijen</a></li>
 	<li><a href="track">Landweggetjes</a></li>
@@ -12,22 +12,22 @@
 	<p style="hp">Klik op een gebouw (in het hoofdvenster) en er wordt informatie getoond in het kleine venstertje rechtsonder.</p>
 
 	<p style="hsubtitle">Markt </p>
-	<p style="hp">De markt is een belangrijk gebouw in Lincity. Ze zijn noodzakelijk voor bijna alle plaatselijke in- en verkopen. De help-pagina's op <a href="market">markt </a> <b>moeten</b> gelezen worden :-). <i>, wanneer iets niet op een markt aanwezig is, dan kan het ook niet niet verhandeld worden, en wanneer een markt vol met een soort product is, dan zal dat ook niet meer ingekocht worden. Dit kan mischien een beetje helpen om te begrijpen waarom sommige gebouwen niet werken (waarschijnlijk kan iets war dringend nodig is niet gekocht worden, of ze kunnen de spulletjes die ze gemaakt hebben niet verkopen)</i> </p>
+	<p style="hp">De markt is een belangrijk gebouw in Lincity. Ze zijn noodzakelijk voor bijna alle plaatselijke in- en verkopen. De help-pagina's op <a href="market">markt </a> <b>moeten</b> gelezen worden :-). <i>, wanneer iets niet op een markt aanwezig is, dan kan het ook niet niet verhandeld worden, en wanneer een markt vol met een soort product is, dan zal dat ook niet meer ingekocht worden. Dit kan mischien een beetje helpen om te begrijpen waarom sommige gebouwen niet werken (waarschijnlijk kan iets wat dringend nodig is niet gekocht worden, of ze kunnen de spulletjes die ze gemaakt hebben niet verkopen)</i> </p>
 
 	<p style="hsubtitle">Verkeer </p>
 	<p style="hp"><a href="transport">Verkeer </a> is nodig voor lange afstand vervoer van goederen, en voor sommige met name genoemde activiteiten (het wordt dan beschreven in het bijbehorende help-pagina, zoals lichte industrie). Net zoals markten hebben ook wegen een beperkte capaciteit en kunnen vol raken.</p>
 
 	<p style="hp">Wanneer een "normaal" gebouw niet in het bereik van een markt is, moet het verbonden worden met verkeer. Vergeet niet dat wegen en spoorwegen ieder jaar geld kosten, daarom is het handiger (en goedkoper) om wanneer nodig markten te gebruiken (tenzij een gebouw zoals een monument werkelijk apart moet staan). </p>
 
-	<p style="hp">Als een dorp net is gestart, zijn landweggetjes alleen nodig voor de produktie van communes. Alle andere aktiviteiten hebben alleen een markt nodig. </p>
+	<p style="hp">Als een dorp net is gestart, zijn landweggetjes alleen nodig voor de produktie van houtskoolbranderijen. Alle andere aktiviteiten hebben alleen een markt nodig. </p>
 
 	<p style="hsubtitle">Geld </p>
 	<p style="hp">Er zit belasting op produktie en daarmee verdien je geld. In de minikaart is de derde tab <a href="finance">het financiële kaartje</a>. Zorg ervoor dat er niet te snel, te veel geld wordt uitgegeven: wanneer er een geldtekoort is, kan er niets gebouwd worden en moet er rente betaald worden. Dit kan leiden tot een faillisement (lees ook <a href="tutorial-scenario"> Moeilijke scenario </a>). </p>
 
 	<p style="hsubtitle">De stad ontwikkelen </p>
 	<p style="hp">Vergeet niet dat mensen sterven als ze niet eten. Om controle te houden over de groei van de stad, moet er een balans gevonden in de soort gebouwde huizen  (Er worden meer of minder kinderen geboren en er sterven meer of minder mensen in verschillende soorten huizen) . De nieuwe bevolking kan meer werk verrichten, maar eten ook meer, en gebruiken meer goederen en hebben meer banen nodig...</p>
-	<p style="hp">De produktie moet vergroot worden (voeg pottebakkerijen en smederijen toe) en er moet voor gezorgd worden dat deze ook materialen krijgen. Er moet daarom ook communes bijgemaakt worden. </p>
-	<p style="hp">Om nieuwe soorten gebouwen te kunnen bouwen moet het <a href="tech-level"> Technologie nivo </a> verhoogt worden.</p>
+	<p style="hp">De produktie moet vergroot worden (voeg pottebakkerijen en smederijen toe) en er moet voor gezorgd worden dat deze ook materialen krijgen. Er moet daarom ook houtskoolbranderijen bijgemaakt worden. </p>
+	<p style="hp">Om nieuwe soorten gebouwen te kunnen bouwen moet het <a href="tech-level"> technologie nivo </a> verhoogt worden.</p>
 	<p style="hp">Op een gegeven moment moet er een speeldoel gekozen worden:of een <a href="sustain"> duurzame economie </a> of evacuatie met <a href="rocket"> raketten</a>.</p>
 
 	<p style="hp">Het statistieken venstertje toont de totale hoeveelheid voorraden beschikbaar in markten, en hoe dit zich ontwikkelt. Dit moet vaak gecontroleerd worden. De minikaartjes geven een beter inzicht de economie van dit spel.</p>
