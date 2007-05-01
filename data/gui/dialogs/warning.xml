@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OkDialog>
+	<title>Warning</title>
+	<image>warning.png</image>	
+	<bold>Warning</bold>
+	<p> </p>
+</OkDialog>
