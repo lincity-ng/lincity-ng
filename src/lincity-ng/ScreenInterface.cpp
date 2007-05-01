@@ -149,15 +149,18 @@ void reset_status_message (void);
  * 
  * see oldgui/screen.cpp: ok_dial_box (char *fn, int good_bad, char *xs)
  *
- * good_bad influences the color: GOOD, RESULTS in green
+ * in oldgui good_bad influences the color:
+ *                                GOOD, RESULTS in green
  *                                BAD in red
  *                                default white
+ * in NG good_bad is reseted to void !!!
+ *
  * fn is the FileName of the message
  *   if good_bad is RESULTS the fn is an absolute filename else
  *   it is a File in message_path.                              
  * 
  * xs is some additional Text, that is shown after the Message
- *    from the File. (maybe XtraString?)  
+ *    from the File. ( XtraString )  
  */
 void ok_dial_box (const char *fn, int good_bad, const char *xs)
 {
@@ -167,7 +170,7 @@ void ok_dial_box (const char *fn, int good_bad, const char *xs)
     } catch(std::exception& e) {
         std::cerr << "Problem with ok_dial_box: " << e.what() << "\n";
         std::ostringstream text;
-        text << "ok_dial_box:'" << fn << "' + \"" << (xs ? xs : "") << "\"\n";
+        text << "Problem with ok_dial_box: '" << fn << "' + \"" << (xs ? xs : "") << "\"\n";
         updateMessageText( text.str() );
     }
 }
@@ -282,50 +285,6 @@ void updateMoney() {
     
     moneyParagraph->setText( moneyText.str() );
     lastMoney = total_money;
-}
-
-/*
- *  Draw a Dialogbox, in oldgui/screen.cpp it is called from the 
- *  other Dialog Functions to do the actual drawing.
- *  TODO: at the moment we just dump the Text in the MessageArea...
- *
- *  see oldgui/dialbox.cpp 
- *  -there must be just one DialogBox at a time.
- *  colour is the color of the Background of the Dialog
- *
- *  Do we use dialog_box at all? Unfortunately yes. There is a lot of legacy code...
- *  Al1: in NG 1.1 only used in engine.cpp for 5 messages, and it is broken ;-)
- *  
- *  argc is the number of following argument triplets.
- *  Each triplet consists of
- *      type, key, string
- *      type is an integer that describes this entry
- *          0 = it is a text to display
- *          2 = a button 
- *      key 
- *        a char as hotkey for the button
- *        10 (LF), 13(CR) or ' '(blank)
- *        are used to mark the default button
- *        also key is returned as result of the Dialog if the corespondending Button is pressed.
- *           
- *      string is the text
- */
-
-int dialog_box(int colour, int argc, ...)
-{
-    (void) colour;
-
-    std::ostringstream text;
-    va_list arg;
-    va_start( arg, argc );
-     for( int i = 0; i < argc; i++ ) {
-        text << std::cout <<  va_arg( arg, int ) << " '"<<  va_arg( arg, int )  << "' " << va_arg( arg, char* ) <<"\n";
-     }
-    va_end( arg );    
-    
-    updateMessageText(  text.str() );
-    
-    return 0;
 }
 
 /*

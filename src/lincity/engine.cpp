@@ -27,6 +27,9 @@
 
 extern int selected_type_cost;
 static void bulldoze_mappoint (short fill, int x, int y);
+int is_real_river (int x, int y);
+
+int last_warning_message_group = 0;
 
 void
 fire_area (int x, int y)
@@ -49,8 +52,6 @@ adjust_money(int value)
     refresh_pbars(); /* This could be more specific */
     return total_money;
 }
-
-int is_real_river (int x, int y);
 
 int
 no_credit_build (int selected_group)
@@ -90,26 +91,69 @@ no_credit_build (int selected_group)
   return (0);
 }
 
+void 
+no_credit_build_msg_ng (int selected_group)
+{
+  if (last_warning_message_group == selected_group)
+        return;
+  last_warning_message_group = selected_group;
+
+#ifdef GROUP_SOLAR_POWER_NO_CREDIT
+  if (selected_group == GROUP_SOLAR_POWER) {
+    ok_dial_box ("no-credit-solar-power.mes", BAD, 0L);
+    return;
+  }
+#endif
+#ifdef GROUP_UNIVERSITY_NO_CREDIT
+  if (selected_group == GROUP_UNIVERSITY) {
+    ok_dial_box ("no-credit-university.mes", BAD, 0L);
+    return;
+  }
+#endif
+#ifdef GROUP_PARKLAND_NO_CREDIT
+  if (selected_group == GROUP_PARKLAND) {
+    ok_dial_box ("no-credit-parkland.mes", BAD, 0L);
+    return;
+  }
+#endif
+#ifdef GROUP_RECYCLE_NO_CREDIT
+  if (selected_group == GROUP_RECYCLE) {
+    ok_dial_box ("no-credit-recycle.mes", BAD, 0L);
+    return;
+  }
+#endif
+#ifdef GROUP_ROCKET
+  if (selected_group == GROUP_ROCKET) {
+    ok_dial_box ("no-credit-rocket.mes", BAD, 0L);
+    return;
+  }
+#endif
+  return;
+}
+
 int 
 place_item (int x, int y, short type)
 {
-#ifdef DEBUG
-/* Al1: my ugly workaround. Debug should not be the same as oldgui */
-#define OLDGUI
-#endif
-
     int i,j;
     int prev_tip = 0;
     int group;
     int size;
 
     group = get_group_of_type(type);
-    if (group < 0) return -1;
+    if (group < 0) {
+#ifdef DEBUG
+        fprintf(stderr,"Error: group does not exist %i\n", group);
+#endif
+        ok_dial_box ("warning.mes", BAD,
+                _("ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "));
+        return -1000;
+    }
 
     size = main_groups[group].size;
 
     /* You can't build because credit not available. */
     if (no_credit_build (group) != 0) {
+        no_credit_build_msg_ng (group);
 	return -1;
     }
 
@@ -124,23 +168,24 @@ place_item (int x, int y, short type)
         break;
     case GROUP_PORT:
 	if (is_real_river (x + 4, y) != 1 
-	    || is_real_river (x + 4, y + 1) != 1
-	    || is_real_river (x + 4, y + 2) != 1 
-	    || is_real_river (x + 4, y + 3) != 1) {
-	    return -2;
-	}
+	        || is_real_river (x + 4, y + 1) != 1
+	        || is_real_river (x + 4, y + 2) != 1 
+	        || is_real_river (x + 4, y + 3) != 1) {
+            if (last_warning_message_group != group)
+                ok_dial_box ("warning.mes", BAD,
+                    _("Port must be connected to river all along right side."));
+            last_warning_message_group = group;
+            return -2;
+        }
         break;
     case GROUP_SUBSTATION:
     case GROUP_WINDMILL:
 	if (add_a_substation (x, y) == 0) {
             /* Not enough slots in the substation array */
-#ifdef OLDGUI
-            dialog_box(red(12),3,
-		       0,0,_("Too many windmills + substations"),
-		       0,0,_("You cannot build one more"),
-		       2,' ',_("OK"));
-#endif
-            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+            if (last_warning_message_group != group)
+                ok_dial_box ("warning.mes", BAD,
+                    _("Too many substations + windmills. You cannot build one more"));
+            last_warning_message_group = group;
 	    return -3;
         }
         MP_INFO(x,y).int_2 = tech_level;
@@ -170,13 +215,10 @@ place_item (int x, int y, short type)
     case GROUP_MARKET:
 	/* Test for enough slots in the market array */
 	if (add_a_market (x, y) == 0) {
-#ifdef OLDGUI
-            dialog_box(red(12),3,
-		       0,0,_("Too many markets"),
-		       0,0,_("You cannot build one more"),
-		       2,' ',_("OK"));
-#endif
-            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+            if (last_warning_message_group != group)
+                ok_dial_box ("warning.mes", BAD,
+                        _("Too many markets. You cannot build one more"));
+            last_warning_message_group = group;
 	    return -4;
         }
 	MP_INFO(x,y).flags += (FLAG_MB_FOOD | FLAG_MB_JOBS
@@ -199,13 +241,8 @@ place_item (int x, int y, short type)
 		    break;
 		}
 	if (prev_tip) {
-#ifdef OLDGUI
-	    dialog_box(red(12),3,
-		       0,0,_("You can't build a tip here"),
-		       0,0,_("This area was once a landfill"),
-		       2,' ',_("OK"));
-#endif
-            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+	    ok_dial_box ("warning.mes", BAD,
+                    _("You can't build a tip here: this area was once a landfill"));
 	    return -5;
 	} else {
 	    for (i=0; i < size; i++)
@@ -229,26 +266,17 @@ place_item (int x, int y, short type)
 	    }
 	}
 	if (prev_tip) {
-#ifdef OLDGUI
-	    dialog_box(red(12),3,
-		       0,0,_("You can't build a mine here"),
-		       0,0,_("This area was once a landfill"),
-		       2,' ',_("OK"));
-#endif
-            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+	    ok_dial_box ("warning.mes", BAD,
+                    _("You can't build a mine here: This area was once a landfill"));
 	    return -6;
 	}
 	if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
-#ifdef OLDGUI
-	    dialog_box(red(12),3,
-		       0,0,_("You can't build a mine here"),
-		       0,0,_("There is no ore left at this site"),
-		       2,' ',_("OK"));
-#endif
-            /* FIXME launch a message. dialog_box is broken in NG-1.1*/
+	    ok_dial_box("warning.mes", BAD,
+                    _("You can't build a mine here: there is no ore left at this site"));
 	    return -7;
 	}
     } /* end case */
+    last_warning_message_group = 0;
 
     /* Store last_built for refund on "mistakes" */
     last_built_x = x;

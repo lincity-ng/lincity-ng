@@ -56,46 +56,6 @@ clicked_market_cb (int x, int y)
     new Dialog( EDIT_MARKET, x, y );
 }
 
-void 
-no_credit_build_msg (int selected_group)
-{
-    if( last_message_group == selected_group ){
-        return;
-    }
-    last_message_group = selected_group;
-#ifdef GROUP_SOLAR_POWER_NO_CREDIT
-  if (selected_group == GROUP_SOLAR_POWER) {
-    ok_dial_box ("no-credit-solar-power.mes", BAD, 0L);
-    return;
-  }
-#endif
-#ifdef GROUP_UNIVERSITY_NO_CREDIT
-  if (selected_group == GROUP_UNIVERSITY) {
-    ok_dial_box ("no-credit-university.mes", BAD, 0L);
-    return;
-  }
-#endif
-#ifdef GROUP_PARKLAND_NO_CREDIT
-  if (selected_group == GROUP_PARKLAND) {
-    ok_dial_box ("no-credit-parkland.mes", BAD, 0L);
-    return;
-  }
-#endif
-#ifdef GROUP_RECYCLE_NO_CREDIT
-  if (selected_group == GROUP_RECYCLE) {
-    ok_dial_box ("no-credit-recycle.mes", BAD, 0L);
-    return;
-  }
-#endif
-#ifdef GROUP_ROCKET
-  if (selected_group == GROUP_ROCKET) {
-    ok_dial_box ("no-credit-rocket.mes", BAD, 0L);
-    return;
-  }
-#endif
-  return;
-}
-
 void
 check_bulldoze_area (int x, int y)
 {
@@ -295,25 +255,20 @@ void editMap (MapPoint point, int button)
             selected_module_type = CST_PARKLAND_PLANE;
     }
 
-    /* Place the selected item */
-    switch (place_item (x, y, selected_module_type))
+    /* Place the selected item . Warning messages are managed by place_item(...) */
+    last_message_group = place_item (x, y, selected_module_type);
+    switch (last_message_group)
     {
         case 0:
             /* Success */
             getSound()->playSound( "Build" );
-            last_message_group = 0;
             break;
+        case -1000:
+            /* ouch group does not exist */
         case -1:
             /* Not enough money */
-            no_credit_build_msg (selected_module_group);
-            break;
         case -2:
             /* Improper port placement */
-            // WolfgangB: The correct placement for the port (river to the east)
-            // is shown by red/blue cursor in GameView. So we don't need    
-            // a dialog here.
-            last_message_group = 0;
-            break;
         case -3:
             /* too many windmills/substations */
         case -4:
@@ -324,10 +279,8 @@ void editMap (MapPoint point, int button)
             /* previous tip here, cannot build oremine */
         case -7:
             /* no ore reserve. cannot build oremine here */
-            /* FIXME messages are supposed to be launched by place_item 
-             * FIXME but dialog_box is broken with NG 1.1
-             * FIXME no message appears 
-             */
-            ;
+        default:
+            /* warning messages are managed by place item */
+            last_message_group = 0;
     }
 }
