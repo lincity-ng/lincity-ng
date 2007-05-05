@@ -45,7 +45,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Config.hpp"
 
 #ifdef ENABLE_BINRELOC
-#include "prefix.h"
+#include "binreloc/binreloc.h"
 #endif
 
 Painter* painter = 0;
@@ -152,6 +152,13 @@ void initPhysfs(const char* argv0)
 #if defined(APPDATADIR) || defined(ENABLE_BINRELOC)
     std::string datadir;
 #ifdef ENABLE_BINRELOC
+    BrInitError error;
+    if (br_init (&error) == 0 && error != BR_INIT_ERROR_DISABLED) {
+        printf ("Warning: BinReloc failed to initialize (error code %d)\n",
+                error);
+        printf ("Will fallback to hardcoded default path.\n");
+    }
+
     char* brdatadir = br_strcat(DATADIR, "/" PACKAGE_NAME);
     datadir = brdatadir;
     free(brdatadir);
