@@ -61,9 +61,13 @@ add_a_shanty (void)
   numof_shanties++;
 }
 
-void remove_a_shanty (int x, int y) {
+void remove_a_shanty (int x, int y)
+{
     numof_shanties--;
-    fire_area (x, y);
+    /* ATTENTION:
+     * fire_area calls bulldoze_item which calls remove shanty.
+     */
+    do_bulldoze_area(CST_FIRE_1,x,y);
 }
 
 void

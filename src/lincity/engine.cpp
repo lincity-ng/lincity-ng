@@ -32,13 +32,63 @@ int is_real_river (int x, int y);
 int last_warning_message_group = 0;
 
 void
-fire_area (int x, int y)
+fire_area (int xx, int yy)
 {
-  do_bulldoze_area (CST_FIRE_1, x, y);
-  refresh_main_screen ();
-  /*
+    /* this happens when a rocket crashes or on random_fire. */
+    int x = xx;
+    int y = yy;
+    int size;
+    if (MP_GROUP(x,y) == GROUP_WATER || MP_GROUP(x,y) == GROUP_FIRE)
+        return;
+    if (MP_TYPE(x,y) == CST_USED) {
+        x = MP_INFO(xx,yy).int_1;
+        y = MP_INFO(xx,yy).int_2;
+    }
+    size = MP_SIZE(x,y);
+
+    /* Destroy the content of the building to prevent special management
+     * when bulldozed.
+     */
+
+    /* Kill 'only' half of the people (bulldoze item put them in people_pool)
+     * lincity NG 1.1 and previous killed all the people!
+     */
+    if ((MP_INFO(x,y).flags & FLAG_FIRE_COVER) !=0)
+        MP_INFO(x,y).population = MP_INFO(x,y).population / 2;
+    else
+        MP_INFO(x,y).population = 0;
+    MP_INFO(x,y).flags = 0;
+    MP_INFO(x,y).int_1 = 0;
+    MP_INFO(x,y).int_2 = 0;
+    MP_INFO(x,y).int_3 = 0;
+    MP_INFO(x,y).int_4 = 0;
+    MP_INFO(x,y).int_5 = 0;
+    MP_INFO(x,y).int_6 = 0;
+    MP_INFO(x,y).int_7 = 0;
+
+    /* Correctly remove buildings (substations...) and adjust count,
+     * but don't count bulldoze cost
+     * */
+    adjust_money(+main_groups[MP_GROUP(x,y)].bul_cost);
+    bulldoze_item(x, y);
+
+    /* put fire */
+    for (int i = 0; i < size; i++)
+        for (int j = 0; j < size; j++) {
+            bulldoze_mappoint (CST_FIRE_1, x + i, y + j);
+            MP_GROUP(x + i, y + j) = GROUP_FIRE;
+        }
+
+
+    /* AL1: is it necessary ? It is the only place in lincity/. with such a call
+     *  all other are in lincity-ng/.
+     */
+    refresh_main_screen ();
+
+  /* 
     // update transport or we get stuff put in
     // the area from connected tracks etc.
+    // FIXME: AL1: NG 1.1: do the right thing and/or remove this comment
   */
 }
 
@@ -390,7 +440,8 @@ bulldoze_mappoint (short fill, int x, int y)
     /* bulldoze preserve underground resources */
     MP_TYPE(x,y) = fill;
     MP_GROUP(x,y) = get_group_of_type(fill);
-    if (MP_GROUP(x,y) < 0) MP_GROUP(x,y) = GROUP_BARE;
+    if (MP_GROUP(x,y) < 0)
+        MP_GROUP(x,y) = GROUP_BARE;
     MP_INFO(x,y).population = 0;
     MP_INFO(x,y).flags = 0;
     MP_INFO(x,y).int_1 = 0;

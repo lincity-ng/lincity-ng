@@ -108,7 +108,10 @@ do_rocket_pad (int x, int y)
 	MP_TYPE(x,y) = CST_ROCKET_5;
 	update_main_screen (0);
 	if (ask_launch_rocket_now (x,y)) {
-	    launch_rocket (x,y);
+            /* ? AL1: in NG 1.1 it seems we are never here ?
+             * ? ask_launch_rocket_now  manages everything and call launch_rocket ?
+             */
+            launch_rocket (x,y);
 	}
 	/* so we don't get get our money back when we bulldoze. */
 	if (x == last_built_x && y == last_built_y) {
@@ -193,6 +196,9 @@ launch_rocket (int x, int y)
     rockets_launched++;
     MP_TYPE(x,y) = CST_ROCKET_FLOWN;
     update_main_screen (0);
+    /* The first five failures gives 49.419 % chances of 5 success
+     * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...
+     */
     r = rand () % MAX_TECH_LEVEL;
     if (r > tech_level || rand () % 100 > (rockets_launched * 15 + 25)) {
 	/* the launch failed */
@@ -203,8 +209,8 @@ launch_rocket (int x, int y)
 	for (i = 0; i < 20; i++) {
 	    xxx = ((rand () % 20) - 10) + xx;
 	    yyy = ((rand () % 20) - 10) + yy;
-	    if (xxx > 0 && xxx < WORLD_SIDE_LEN	
-		&& yyy > 0 && yyy < WORLD_SIDE_LEN) {
+	    if (xxx > 0 && xxx < (WORLD_SIDE_LEN - 4)
+                    && yyy > 0 && yyy < (WORLD_SIDE_LEN - 4)) {
 		/* don't crash on it's own area */
 		if (xxx >= x && xxx < (x + 4) && yyy >= y && yyy < (y + 4))
 		    continue;
@@ -214,6 +220,7 @@ launch_rocket (int x, int y)
 	}
     } else {
 	rockets_launched_success++;
+        /* TODO: Maybe should generate some pollution ? */
 	if (rockets_launched_success > 5) {
 	    remove_people (1000);
 	    if (people_pool || housed_population)

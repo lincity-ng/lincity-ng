@@ -7,8 +7,17 @@
 Graphics 
 ~~~~~~~~
 
- [M] Draw Mousecursors for normal, link and what's this (eventually also
-     loading and scrolling)
+ [M] Draw Mousecursors for
+        - text normal, link (in help window)
+        - what's this (query tool), bulldoze
+        - (eventually also loading and scrolling)
+
+ [L] Animation of rocket launch 
+
+Sounds
+~~~~~~
+ [L] Add sound for rocket launch and rocket crash. 
+
 
 Programming
 ~~~~~~~~~~~
