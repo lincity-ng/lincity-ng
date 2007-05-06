@@ -179,6 +179,15 @@ place_item (int x, int y, short type)
         }
         break;
     case GROUP_SUBSTATION:
+        if (add_a_substation (x, y) == 0) {
+            /* Not enough slots in the substation array */
+            if (last_warning_message_group != group)
+                ok_dial_box ("warning.mes", BAD,
+                    _("Too many substations + windmills. You cannot build one more"));
+            last_warning_message_group = group;
+	    return -3;
+        }
+        break;
     case GROUP_WINDMILL:
 	if (add_a_substation (x, y) == 0) {
             /* Not enough slots in the substation array */
