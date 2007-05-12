@@ -11,12 +11,17 @@
 
 #include <stdlib.h>
 
-/*** Substations ***/
-/*
-  int_5 is the power demand at this substation
-  int_6 is the grid its connected to
-  int_7 is a grid timestamp
-*/
+/* Substations 
+ *
+ * int_1 unused
+ * int_2 unused
+ * int_3 unused
+ * int_4 is the power demand at this substation 
+ * int_5 forbidden for substations: it is power production from power sources
+ *                and windmill is both a source power and a substation
+ * int_6 is the grid its connected to
+ * int_7 is a grid timestamp
+ */
 
 void 
 do_power_substation (int x, int y) 
@@ -91,7 +96,7 @@ mps_substation (int x, int y)
     mps_store_title(i++,_("Substation"));
     i++;
 
-    format_power (s, sizeof(s), MP_INFO(x,y).int_5);    
+    format_power (s, sizeof(s), MP_INFO(x,y).int_4);    
     mps_store_title(i++,_("Local Demand"));
     mps_store_title(i++,s);
     i++;

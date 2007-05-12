@@ -1,5 +1,5 @@
  /* ---------------------------------------------------------------------- *
- * engine.c
+ * 
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * (c) Corey Keasling 2001-2004.
@@ -18,6 +18,8 @@
 #include "lcintl.h"
 #include "power.h"
 #include "transport.h" /* for XY_IS_TRANSPORT */
+
+#include "gui_interface/dialbox_interface.h"
 
 /* reset per map_power_grid run; how many different grids */
 int grid_num = 0;
@@ -42,11 +44,17 @@ power_time_step ()
     if (grid_num == 0)
 	return;
 
+    /* AL1: Do we want to shuffle substations ? It is not done in NG 1.1
+     *     shuffle_substations();
+     */
     for (gi = 1; gi <= grid_num; gi++) {
 	grid[gi]->total_power = grid[gi]->avail_power - 
 		(grid[gi]->power_lines * POWER_LINE_LOSS);
 
 	net = (grid[gi]->total_power - grid[gi]->demand);
+        /* ->powered is used only for animation of power_lines,
+         * substations and windmills
+         */
 	if (net < 0)
 	    grid[gi]->powered = -1;
 	else if (net < (grid[gi]->avail_power / 4))
@@ -59,8 +67,9 @@ power_time_step ()
     }
 
     /* Clear substation 'Here' counter */
+    /*  int_4 is the local power demand in the substation */
     for (gi = 0; gi < numof_substations; gi++) 
-	MP_INFO(substationx[gi],substationy[gi]).int_5 = 0;
+	MP_INFO(substationx[gi],substationy[gi]).int_4 = 0;
 }
 
 void 
@@ -79,13 +88,13 @@ map_power_grid (bool resetgrids)
             }
         }
     }
-
     for (mapx = 0; mapx < WORLD_SIDE_LEN; mapx++) {
 	for (mapy = 0; mapy < WORLD_SIDE_LEN; mapy++) {
 	    if (XY_IS_GRID(mapx,mapy)) {
 		if (MP_INFO(mapx,mapy).int_7 != grid_inc) {
 		    if (grid_num == MAX_GRIDS) {
-			printf("You have too many power grids.  Join some of them\n");
+			ok_dial_box("warning.mes", BAD,
+                                _("You have too many power grids. Join some of them\n"));
 			return;
 		    }
 		    grid[++grid_num] = (Grid *)lcalloc(sizeof(Grid));
@@ -104,8 +113,6 @@ map_power_grid (bool resetgrids)
 #endif
 }
 
-
-
 /* 
 check_grid(x, y, xi, yi) - coordinates, ?i being which one to increment if we
 need to step over transport
@@ -121,35 +128,36 @@ check_grid(int x, int y, int xi, int yi)
 {
   if (XY_IS_GRID(x,y) && !IS_OLD_WINDMILL(x,y)) {
     if (GRID_CURRENT(x,y)) {
-      if (MP_INFO(x,y).int_6 != grid_num)
-	/* XXX: This can occur if connecting to a power source at different
-	   locations.  Need a clean way to resolve this, either connect
-	   the two grids by treating a power source as a power line, or 
-	   let the power source be multihomed and figure out power distribution
-	*/
-	printf("recurse_power_grid insane: %d, %d on a different grid!\n",
-	       x,y);
+        if (MP_INFO(x,y).int_6 != grid_num) {
+                /* XXX: This can occur if connecting to a power source at different
+	         *   locations.
+	         *   Treat a power source or a substation as a power line in order to
+                 *   have both output with the same grid ID.
+	         */
+                return 1;
+        }
     } else if (!IS_POWER_LINE(x,y)) {
-      if (IS_POWER_SOURCE(x,y)) {
-	project_power(x,y); 
-	grid[grid_num]->total_power += MP_INFO(x,y).int_1;
-      }
-      
-      MP_INFO(x,y).int_6 = grid_num;
-      MP_INFO(x,y).int_7 = grid_inc;
-      
-    } else /* is a power line */
-      return 1;
-  } else if (XY_IS_TRANSPORT(x,y) || XY_IS_WATER(x,y)) { /* can we step over?*/
-    if (xi == 0 && yi == 0) /* already stepped */
-      return 0;
-    if (x+xi >= 1 && x+xi < WORLD_SIDE_LEN &&
-	y+yi >= 1 && y+yi < WORLD_SIDE_LEN)
-      return (check_grid(x+xi,y+yi,0,0) ? 2 : 0);
-    else
-      return 0;
-  }
+        if (IS_POWER_SOURCE(x,y)) {
+                /* Pick the produced power from power sources */
+                grid[grid_num]->total_power += MP_INFO(x,y).int_5;
+                grid[grid_num]->max_power += MP_INFO(x,y).int_1;
 
+        } /* else = is pure substation */
+        MP_INFO(x,y).int_6 = grid_num;
+        MP_INFO(x,y).int_7 = grid_inc;
+        return 1; /* say power sources and substation are power line */
+    } else /* is a power line */
+        return 1;
+
+  } else if (XY_IS_TRANSPORT(x,y) || XY_IS_WATER(x,y)) { /* can we step over?*/
+        if (xi == 0 && yi == 0) /* already stepped */
+                return 0;
+        if (x+xi >= 1 && x+xi < WORLD_SIDE_LEN &&
+                        y+yi >= 1 && y+yi < WORLD_SIDE_LEN)
+                return (check_grid(x+xi,y+yi,0,0) ? 2 : 0);
+        else
+                return 0;
+  }
   return 0;
 }
   
@@ -167,7 +175,6 @@ recurse_power_grid (int startx, int starty, int steps)
     int inc;           /* handles special case of stepping over transport */
   
     level++;
-  
     if (count % POWER_MODULUS == 0)
 	count = 0;
 
@@ -175,85 +182,59 @@ recurse_power_grid (int startx, int starty, int steps)
        ignore them in the main loop.  This case should only be reached from a 
        call from map_power_grid with a new grid_num, not from a new path in the
        code below */
-
     if (IS_OLD_WINDMILL(mapx, mapy)) {
 	MP_INFO(mapx,mapy).int_6 = grid_num;
 	MP_INFO(mapx,mapy).int_7 = grid_inc;
-
 	grid[grid_num]->max_power += MP_INFO(mapx,mapy).int_1;
-
 	level--;
 	return;
     }
 
-
     /* Crawl about the grid, finding paths and what not.  */
-
     while (dir != 0) {
-
 	/* Set to current grid */
-
 	/* figure out what we are on */
 	if (IS_POWER_LINE(mapx,mapy)) {
 	    grid[grid_num]->power_lines++;
 	    MP_INFO(mapx,mapy).int_5 = (count++ % POWER_MODULUS);
 	    if ((MP_TYPE(mapx,mapy) >= 1) && (MP_TYPE(mapx,mapy) <= 11))
 		MP_TYPE(mapx,mapy) += 11;
-
-
 	}
-
 	MP_INFO(mapx,mapy).int_6 = grid_num;
 	MP_INFO(mapx,mapy).int_7 = grid_inc;
-
 
 	/* For each direction, check map bounds, check if there is power stuff
 	   there, then either remember to follow it later or start a new
 	   recursion to follow the path now */
 
 	/* West */
-	if (mapx >= 1) {
-	    if ((inc = check_grid(mapx - 1, mapy, -1, 0))) {
-		if (dir < 1) {
+	if (mapx >= 1)
+	    if ((inc = check_grid(mapx - 1, mapy, -1, 0)))
+		if (dir < 1)
 		    dir = WEST;
-		} else {
+		else
 		    recurse_power_grid(mapx - inc, mapy, count + 1);
-		}
-	    }
-	}
-
 	/* North */
-	if (mapy >= 1) {
-	    if ((inc = check_grid(mapx, mapy - 1, 0, -1))) {
-		if (dir < 1) {
+	if (mapy >= 1) 
+	    if ((inc = check_grid(mapx, mapy - 1, 0, -1)))
+		if (dir < 1)
 		    dir = NORTH;
-		} else {
+		else
 		    recurse_power_grid(mapx, mapy - inc, count + 1);
-		}
-	    }
-	}
-
 	/* East */    
-	if (mapx < WORLD_SIDE_LEN) {
-	    if ((inc = check_grid(mapx + 1, mapy, 1, 0))) {
-		if (dir < 1) {
+	if (mapx < WORLD_SIDE_LEN)
+	    if ((inc = check_grid(mapx + 1, mapy, 1, 0)))
+		if (dir < 1)
 		    dir = EAST;
-		} else {
+		else 
 		    recurse_power_grid(mapx + inc, mapy, count + 1);
-		}
-	    }
-	}
-
 	/* South */    
-	if (mapy < WORLD_SIDE_LEN) {
-	    if ((inc = check_grid(mapx, mapy + 1, 0, 1))) {
-		if (dir < 1) {
+	if (mapy < WORLD_SIDE_LEN)
+	    if ((inc = check_grid(mapx, mapy + 1, 0, 1)))
+		if (dir < 1)
 		    dir = SOUTH;
-		} else {
+		else 
 		    recurse_power_grid(mapx, mapy + inc, count + 1);
-		}
-	    }
-	}
 
 	/* Move to a new square if the chosen direction is not already mapped. */
 	switch (dir) {
@@ -261,87 +242,44 @@ recurse_power_grid (int startx, int starty, int steps)
 	    {
 		dir = 0; 
 	    } break;
-	case WEST: 
-	    {
-		if (mapx >= 1) {
+	case WEST: {
+		if (mapx >= 1)
 		    if ((inc = check_grid(mapx - 1, mapy, -1, 0))) {
 			mapx -= inc;
 			dir = -1;
-		    } else {
+		    } else
 			dir = 0;
-		    }
-		}
 	    } break;
-
-	case NORTH:
-	    {
-		if (mapy >= 1) {
+	case NORTH: {
+		if (mapy >= 1)
 		    if ((inc = check_grid(mapx, mapy - 1, 0, -1))) {
 			mapy -= inc;
 			dir = -1;
-		    } else {
+		    } else
 			dir = 0;
-		    }
-		}
 	    } break;
-
-	case EAST:
-	    {
-		if (mapx < WORLD_SIDE_LEN) {
+	case EAST: {
+		if (mapx < WORLD_SIDE_LEN)
 		    if ((inc = check_grid(mapx + 1, mapy, 1, 0))) {
 			mapx += inc;
 			dir = -1;
-		    } else {
+		    } else
 			dir = 0;
-		    }
-		}
 	    } break;
-
-	case SOUTH:
-	    { 
-		if (mapy < WORLD_SIDE_LEN) {
+	case SOUTH: { 
+		if (mapy < WORLD_SIDE_LEN)
 		    if ((inc = check_grid(mapx, mapy + 1, 0, 1))) {
 			mapy += inc;
 			dir = -1;
-		    } else {
+		    } else
 			dir = 0;
-		    }
-		}
 	    } break;
-	}
-    }
+	} /* switch dir */
+    } /* while dir !=0 */
 
     level--;
     /*  printf("exiting recurse_power_grid:level %d\n",level);*/
 }
-
-/* project_power
-   Get the appropriate number from the proper variable */
-
-void 
-project_power(int mapx, int mapy) 
-{
-  switch (MP_GROUP(mapx,mapy)) {
-  case GROUP_COAL_POWER: 
-    {
-      grid[grid_num]->max_power += MP_INFO(mapx,mapy).int_1;
-    } break;
-  case GROUP_SOLAR_POWER: 
-    {
-      grid[grid_num]->max_power += MP_INFO(mapx,mapy).int_3;
-    } break;
-  case GROUP_WINDMILL: 
-    { 
-      grid[grid_num]->max_power += MP_INFO(mapx,mapy).int_1;
-    } break;
-  default: 
-    {
-      printf("default case in project_power");
-      printf("\tMP_GROUP = %d\n",MP_GROUP(mapx,mapy));
-    } break;
-  }
-}
-
 
 /* get_power
    get power for thing at x, y.  Don't use windmills if industry.
@@ -352,7 +290,7 @@ project_power(int mapx, int mapy)
 int 
 get_power (int x, int y, int power, int block_industry)
 {
-
+  /* block_industry = 1 for industries and recyclers */
   int i;
   int xi, yi;
   int grid_tmp; /* for simplicity */
@@ -372,10 +310,15 @@ get_power (int x, int y, int power, int block_industry)
 
 	grid_tmp = MP_INFO(xi,yi).int_6;
 
+        /* FIXME: in case of unsatisfied demand, the demand may be counted 
+         * several times in differents substations (in the same grid or not)
+         * and thus diplayed informations are misleading.
+         */
 	grid[grid_tmp]->demand += power;
+
 	if (grid[grid_tmp]->total_power >= power) {
 	  grid[grid_tmp]->total_power -= power;
-	  MP_INFO(xi,yi).int_5 += power;
+	  MP_INFO(xi,yi).int_4 += power; // local demand in substation xi yi
 	  return 1;
 	}
 	

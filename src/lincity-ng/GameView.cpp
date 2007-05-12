@@ -1415,7 +1415,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_POWERL_H_L: break;
             //case CST_POWERS_COAL_EMPTY: break;
             //case CST_POWERS_SOLAR: break;
-            //case CST_SUBSTATION_R: break;
+            case CST_SUBSTATION_R:   range = SUBSTATION_RANGE; break;
             //case CST_WINDMILL_1_R: break;
             //case CST_COMMUNE_1: break;
             //case CST_COALMINE_EMPTY: break;

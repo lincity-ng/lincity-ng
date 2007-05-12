@@ -263,10 +263,11 @@ place_item (int x, int y, short type)
 	                / MAX_TECH_LEVEL));
         break;
     case (GROUP_SOLAR_POWER):
- 	MP_INFO(x,y).int_2 = tech_level;
-        MP_INFO(x,y).int_3 = (int)(POWERS_SOLAR_OUTPUT
+        MP_INFO(x,y).int_1 = (int)(POWERS_SOLAR_OUTPUT
 	        + (((double) MP_INFO(x,y).int_2 * POWERS_SOLAR_OUTPUT)
-	                / MAX_TECH_LEVEL));
+	                / MAX_TECH_LEVEL)); /* like other power sources */
+ 	MP_INFO(x,y).int_2 = tech_level;
+        MP_INFO(x,y).int_3 = MP_INFO(x,y).int_1; /* Int_3 is kept for compatibility */
         break;
     case GROUP_COMMUNE:
 	numof_communes++;

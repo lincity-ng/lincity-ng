@@ -717,6 +717,9 @@ Color MiniMap::getColor(int x,int y) const
             } else {
                 mc=Color(0xFF,0xFF,0xFF);
             }
+            if (MP_GROUP(xx,yy) == GROUP_POWER_LINE)
+                mc=Color(0xFF,0xFF,0); //yellow
+
             mc=light(mc,brightness(getColorNormal(x,y)));
             return mc;
         }

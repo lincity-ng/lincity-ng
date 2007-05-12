@@ -18,6 +18,8 @@
   // int_3 is the stored jobs... Must be an interesting warehouse
   // int_4 is the tech level when built
   // int_5 is the projected output.
+  // int_6 is the grid ID
+  // int_7 is grid_timestamp
 */
 
 

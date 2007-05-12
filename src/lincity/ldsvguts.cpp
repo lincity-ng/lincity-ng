@@ -610,7 +610,37 @@ load_city (char *cname)
 
     print_total_money ();
     reset_animation_times ();
-    map_power_grid(true); /* WCK:  Is this safe to do here? */
+    /* update tech dep for compatibility with old games */
+    for (x = 0; x < WORLD_SIDE_LEN; x++)
+	for (y = 0; y < WORLD_SIDE_LEN; y++) {
+            switch (MP_GROUP(x,y)) {
+            case (GROUP_WINDMILL): 	 
+                MP_INFO(x,y).int_1 = (int)(WINDMILL_POWER 	 
+                        + (((double) MP_INFO(x,y).int_2 * WINDMILL_POWER)
+                                / MAX_TECH_LEVEL));
+                break;
+            case (GROUP_COAL_POWER): 	 
+                MP_INFO(x,y).int_1 = (int)(POWERS_COAL_OUTPUT 	 
+                        + (((double) MP_INFO(x,y).int_4 * POWERS_COAL_OUTPUT) 
+                                / MAX_TECH_LEVEL)); 	 
+                break; 	 
+            case (GROUP_SOLAR_POWER): 	 
+                MP_INFO(x,y).int_1 = (int)(POWERS_SOLAR_OUTPUT 	 
+                        + (((double) MP_INFO(x,y).int_2 * POWERS_SOLAR_OUTPUT) 	 
+                                / MAX_TECH_LEVEL)); 	 
+                break; 	 
+            }
+    }
+ 
+    map_power_grid(true); /* WCK:  Is this safe to do here?
+                           * AL1: No, in NG_1.1
+                           * In case of error message with ok_dial_box
+                           *    the dialog cannot appear because the screen
+                           *    is not set up => crash.
+                           * FIXME: move all initialisation elsewhere, in 
+                           *    engine.cpp or simulate.cpp.
+                           */
+                                
 }
 
 void

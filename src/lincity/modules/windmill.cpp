@@ -13,10 +13,15 @@
   // int_1 is the rated capacity 
   // int_2 is the tech level when built
   // int_3 is the sail count - to choose the right sail.
-  // int_4 is the last real time that a sail was turned
+  // int_4 reserved = local power demand for substations (like windmills)
   // int_5 is the power produced (basically _if_ power produced)
   // int_6 is the grid it's on
   // int_7 is a timestamp for mapping
+  // 
+  // Stored in (x+1, y)
+  //  int_1 reserved = x
+  //  int_2 reserved = y
+  //  int_3 is the last real time that a sail was turned
 */
 void
 do_windmill (int x, int y) 
@@ -27,17 +32,17 @@ do_windmill (int x, int y)
     MP_INFO(x,y).int_5 = MP_INFO(x,y).int_1;
     grid[MP_INFO(x,y).int_6]->avail_power += MP_INFO(x,y).int_1;
   } else {
-    MP_INFO(x,y).int_4 = real_time + MODERN_WINDMILL_ANIM_SPEED;
+    MP_INFO(x + 1, y).int_3 = real_time + MODERN_WINDMILL_ANIM_SPEED;
     return;
   }
 
-  /* update animation */
-  if (real_time > MP_INFO(x,y).int_4) {
+  /* update animation. ATTENTION: (x,y) and (x+1,y) are used to store info */
+  if (real_time > MP_INFO(x + 1, y).int_3) {
     MP_INFO(x,y).int_3++;
     if (MP_INFO(x,y).int_2 < MODERN_WINDMILL_TECH) {
-      MP_INFO(x,y).int_4 = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
+      MP_INFO(x + 1, y).int_3 = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
     } else {
-      MP_INFO(x,y).int_4 = real_time + MODERN_WINDMILL_ANIM_SPEED;
+      MP_INFO(x + 1, y).int_3 = real_time + MODERN_WINDMILL_ANIM_SPEED;
     }
   }
 
@@ -71,22 +76,19 @@ mps_windmill (int x, int y)
     char s[12];
     
     mps_store_title(i++,_("Windmill"));
+    mps_store_sfp(i++,_("Tech"),
+		  MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);  
     i++;
    
-    if (MP_INFO(x,y).int_2 < MODERN_WINDMILL_TECH) {
-	mps_store_sfp(i++,_("Tech"),
-		      MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);  
-    } else {
+    if (MP_INFO(x,y).int_2 >= MODERN_WINDMILL_TECH) {
 	mps_store_title(i++,_("Local Status"));
 
-	format_power (s, sizeof(s), MP_INFO(x,y).int_1);    
+	format_power (s, sizeof(s), MP_INFO(x,y).int_5);    
 	mps_store_ss(i++,_("Prod."),s);
 
-	format_power (s, sizeof(s), MP_INFO(x,y).int_5);    
+	format_power (s, sizeof(s), MP_INFO(x,y).int_4);    
 	mps_store_ss(i++,_("Demand"),s);
 
-	mps_store_sfp(i++,_("Tech"),
-		  MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);  
 	i++;
 	
 	mps_store_title(i++,_("Grid Status"));
