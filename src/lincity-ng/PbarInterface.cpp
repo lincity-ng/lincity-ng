@@ -31,9 +31,37 @@ void pbars_full_refresh (void)
 void
 update_pbar (int pbar_num, int value, int month_flag)
 {
-  (void) month_flag;
-  //  TRACE;
-  //  cdebug(pbar_num<<":"<<value<<":"<<month_flag);
+    // copy of update_pbar from src/oldgui/pbar.cpp 
+    // store values for savegame TODO: use them so we have pbars at once 
+    int i;
+
+    struct pbar_st * pbar = &pbars[pbar_num];
+
+    if (month_flag) {
+	pbar->oldtot = pbar->tot;
+
+	/* If the dataset isn't full, just add it and forget month_flag */
+	if (pbar->data_size < PBAR_DATA_SIZE) {
+	    pbar->data_size++;
+	    month_flag = 0;
+	}
+    }
+
+    pbar->tot = 0;
+
+    for (i = 0; i < (pbar->data_size - 1); i++) {
+	if (month_flag) 
+	    pbar->tot += (pbar->data[i] = pbar->data[i+1]);
+	else
+	    pbar->tot += pbar->data[i];
+    }
+
+
+    pbar->tot += pbar->data[i] = value;
+    pbar->diff = pbar->tot - pbar->oldtot;
+
+
+  // new: update bars
   if(LCPBarInstance)
     LCPBarInstance->setValue(pbar_num,value);
 }

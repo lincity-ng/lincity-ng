@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Gráfico econômico</p>
+	<p style="hp">Este gráfico contém quatro linhas coloridas. Eles mostram os fatores econômicos mais importantes.</p>
+	<li>
+		<span color="brown">População</span>	(marrom) 
+        A linha marrom representa sua população.
+        Ela é mostrada como histórico em escala.
+	</li>
+	<li>
+		<span color="blue">Desabrigados</span> (azul) 
+        A linha azul representa a demanda por
+        residências. A altura do gráfico é
+        proporcional à raiz quadrada da
+        população 'desabrigada'.
+	</li>
+	<li>
+		<span color="yellow">Desempregados</span> (amarelo) 
+        A 'barra' sólida amarela mostra que existem
+        desempregados. A escala deste gráfico
+        muda conforme sua população. Este gráfico é 
+        desenhado de forma sólida e você deve atentar a isto.
+	</li>
+	<li>
+		<span color="red">Famintos</span> (vermelho) 
+        A 'barra' sólida vermelha mostra que existem
+        famintos. A escala deste gráfico
+        muda conforme sua população. Este gráfico é
+        desenhado de forma sólida e você deve atentar a isto.
+        Esta barra é desenhada com base no gráfico de desemprego.
+	</li>
+</Document>

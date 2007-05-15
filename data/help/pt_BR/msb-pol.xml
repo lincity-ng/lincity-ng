@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Área de cobertura da poluição</p>
+	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+	<p style="hp">A mini tela da poluição mostra os níveis de poluição pela cidade.</p>
+	<p style="hp">A poluição vai ficando mais forte conforme vai de: Verde claro -> Verde escuro -> Verde mais escuro -> Vermelho escuro -> Vermelho claro -> Vermelho brilhante.</p>
+	<p style="hp">Lugares com áreas residenciais mostradas em vermelho causam doenças e tornam a área menos desejável de se viver.</p>
+	<p style="hp">Clique esquerdo no mini-mapa para reposicionar a janela principal. Clique esquerdo no título do mini-mapa para escolher uma mini tela diferente. Alterne entre os modos de corbertura pressionando 'v' ou com um clique com o botão do meio no título do mini-mapa.</p>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="mini-screen">Mini-mapa</a></li>
+	<li><a href="msb-coal">Área de cobertura do carvão</a></li>
+	<li><a href="msb-cricket">Área de cobertura de esportes</a></li>
+	<li><a href="msb-fire">Área de cobertura dos bombeiros</a></li>
+	<li><a href="msb-health">Área de cobertura dos hospitais</a></li>
+	<li><a href="msb-normal">Utilização do terreno</a></li>
+	<li><a href="msb-power">Área de cobertura elétrica</a></li>
+	<li><a href="msb-starve">Área de cobertura dos famintos</a></li>
+	<li><a href="msb-transport">Área de cobertura do transporte</a></li>
+	<li><a href="msb-ub40">Área de cobertura do desemprego</a></li>
+</Document>

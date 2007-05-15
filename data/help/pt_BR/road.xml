@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Estrada</p>
+	<p style="hp">Estradas transportam mais que as pistas, mas não tanto quanto as estradas de ferro. Elas produzem mais poluição que as estradas de ferro também. Elas são mais baratas para construir e manter do que as estradas de ferro - existem motivos para isso!</p>
+	
+	<p style="hp">Esta é uma estrada</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="pollution">Poluição</a></li>
+</Document>

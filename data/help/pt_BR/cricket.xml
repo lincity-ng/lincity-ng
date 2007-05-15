@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Quadra de basquete</p>
+	<p style="hp">Quadras de Basquete fornecem esporte e entreterimento para seus residentes. Elas precisam de bens e produção para funcionar. Elas não precisam estar conectadas ao transporte, mas neste caso elas devem estar próximas de um mercado para serem supridas de produção e bens. Elas também custam dinheiro para funcionar.</p>
+	<p style="hp">Quando você constrói um quadra de basquete, ela não funciona automaticamente. Leva mais ou menos três meses até que as quadras comecem a funcionar.</p>
+	<p style="hp">Para ver a área coberta pela quadra, clique no botão de esportes acima no 'mini-mapa'. As áreas cobertas são exibidas normalmente, e áreas não cobertas aparecem em verde escuro.</p>
+	<p style="hp">Quadras de basquete aumentam a procura de áreas residenciais em volta.</p>
+	<p style="hp">Quadras de basquete exibem uma sequëncia de animação todo mês para mostrar que elas estão em funcionamento.</p>
+
+	<p style="hp">Esta é uma quadra de basquete</p>
+	<img src="images/tiles/cricket1.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+	<p style="hp">e este é seu ícone de cobertura no mapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="mini-screen">Mini-mapa</a></li>
+	<li><a href="goods">Bens</a></li>
+	<li><a href="market">Mercado</a></li>
+	<li><a href="jobs">Produção</a></li>
+	<li><a href="msb-cricket">Área de cobertura de esportes</a></li>
+</Document>

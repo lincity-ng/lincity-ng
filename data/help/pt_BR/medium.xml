@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Aceleração média</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Este é o botão da aceleração média. Ele faz com que o jogo rode em aceleração média. Em computadores lentos os botões de aceleração podem não ter efeito.</p>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="slow">Aceleração lenta</a></li>
+	<li><a href="fast">Aceleração rápida</a></li>
+</Document>
+
+

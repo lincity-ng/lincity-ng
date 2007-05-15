@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Indústria pesada (siderúrgicas)</p>
+	<p style="hp">As siderúrgicas produzem aço a partir de minério, energia e produção. O minério é obtido diretamente do transporte. O aço é colocado no transporte também. A produção é obtida do mercado local. O transporte conecta ao canto esquerdo superior.</p>
+	<p style="hp">As siderúrgicas podem receber energia de duas formas. A primeira vinda do carvão, que é obtido diretamente do transporte. A segunda vem da eletricidade: você deve ter uma ou mais sub-estações ativas na área das siderúrgicas. (Os moinhos de vento <b>não</b> energizam as siderúrgicas.)</p>
+	<p style="hp">Siderúrgicas produzem poluição</p>
+	<p style="hp">Você pode ver as siderúrgicas em funcionamento da forma usual, clicando nelas, e de vem em quando a animação estará em movimento.</p>
+	
+	<p style="hp">Esta é uma siderúrgica</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="pollution">Poluição</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="power">Energia</a></li>
+	<li><a href="coal">Carvão</a></li>
+	<li><a href="ore">Minério</a></li>
+</Document>

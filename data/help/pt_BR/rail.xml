@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Estrada de ferro</p>
+	<p style="hp">Estradas de ferro transportam mais que as estradas. Elas produzem um pouco menos de poluição que as estradas. Elas são muito caras para comprar e a manutenção também. Elas valem o preço quando você tem muitas coisas para transportar e a longa distância.</p>
+
+	<p style="hp">Esta é uma estrada de ferro</p>
+	<img src="images/tiles/railud.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="pollution">Poluição</a></li>
+</Document>

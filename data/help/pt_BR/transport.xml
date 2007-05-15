@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Transporte</p>
+	<p style="hp">Existem três tipos de transporte no Lincity: pistas, estradas e estradas de ferro.</p>
+	<p style="hp">Existe uma quarta que consiste de 'pular sobre um campo' para alcançar um mercado. Esta é uma forma muito curta de comércio e não será referida como transporte novamente. Contudo, ela muito importante, então você poderá ler novamente em <a href="market"> mercados</a>.</p>
+
+	<p style="hp">Pistas, estradas e trilhos são utilizados para transportar, alimento, produção, bens, carvão, minério, aço e resíduos entre as áreas. Transporte entre mercados, transporte para construções não próximas de um mercado (isto geralmente é uma má idéia) e transporte para construções que precisam:</p>
+	<li>Comunas apenas precisam estar adjacentes ao transporte</li>
+	<li>Indústrias leves, minas de minério, aterros, portos, minas de carvão, indústrias pesadas e centros de reciclagem<b> precisam estar </b>conectadas ao transporte no topo esquerdo. Você verá o "nó" do transporte, que mostra a conexão.</li>
+	<li>Uma exceção é a usina elétrica carvoeira: o topo esquerdo é usado para conexão na linha de transmissão, então o transporte se conecta perto.</li>
+	<p style="hp">Por exemplo, uma indústria pesada pode se conectar pela estrada na mina de carvão, e pelos trilhos nos outros recursos como as minas de minério e mercados.</p>
+	<p style="hp">Para cruzar um rio com o transporte, simplesmente soterre o rio e construa uma estrada, pista ou trilho na área. Veja isso como a construção de uma ponte. Isto custa muito porque aterrar água é muito caro.</p>
+	<p style="hp">Estradas e Trilhos geram custos anuais (para manutenção) e poluição (e mais poluição se eles transportarem muitos resíduos).</p>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="track">Pista</a></li>
+	<li><a href="road">Estrada</a></li>
+	<li><a href="rail">Estrada de ferro</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="coalmine">Mina de carvão</a></li>
+	<li><a href="powercoal">Usina elétrica carvoeira</a></li>
+	<li><a href="tip">Aterro (depósitos de lixo)</a></li>
+	<li><a href="recycle">Centro de reciclagem</a></li>
+	<li><a href="oremine">Mina de minério</a></li>
+	<li><a href="industryl">Indústria leve</a></li>
+	<li><a href="industryh">Indústria pesada</a></li>
+	<li><a href="port">Porto</a></li>
+	<li><a href="finance">Finanças</a></li>
+	<li><a href="msb-transport">Áreas de cobertura do mercado e transporte</a></li>
+
+</Document>

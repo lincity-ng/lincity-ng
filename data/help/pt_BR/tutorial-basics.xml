@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Primeiros passos </p>
+<p style="hp">Escolha "novo jogo " &gt; "cidade aleatória". Outros cenários são para jogadores mais ou menos experientes. </p>
+<p style="hp">Note que a cidade aleatória tem recursos básicos: </p>
+<li>Fazendas para abastecer os mercados com bens </li>
+<li>Comunas que produzem carvão vegetal e uma pequena quantidade de minério e aço </li>
+<li>Áreas residenciais</li>
+<li>Olaria</li>
+<li>Pistas</li>
+
+<p style="hp">Clicar numa construção (na tela principal) mostra informações sobre ela na janela de informações embaixo à direita. </p>
+
+<p style="hsubtitle">Mercado </p>
+<p style="hp">O mercado é uma chave para a construção no Lincity. Eles são mandatórios para todos os comércios próximos. Você <b> deve </b> ler a ajuda em <a href="market">mercado </a> :-). <i>Certamente que, quando o mercado estiver vazio ele não poderá vender o item correspondente, e quando ele estiver cheio não poderá comprar mais. Isto pode ajuda-lo a entender porque algumas construções não funcionam (provavelmente elas não encontram o que precisam, ou elas não podem vender sua produção)</i> </p>
+
+<p style="hsubtitle">Transporte </p>
+<p style="hp">O <a href="transport">transporte </a>é necessário para comércio de longa distância, e para algumas atividades específicas (neste caso descritas na ajuda correspondente, por exemplo as comunas). Como mercados eles tem uma capacidade limitada e podem ficar saturados.</p>
+<p style="hp">Se uma construção 'normal' não estiver na área de um mercado, então ela deverá estar conectada ao transporte. Mas lembre-se que as estradas e trilhos tem um custo anual, então a menos que você realmente queira isolar uma construção (ex. um monumento) é geralmente melhor (e mais barato) utilizar os mercados quando necessário. </p>
+
+<p style="hp">Na cidade inicial as pistas são necessárias apenas para a produção das comunas. Outras atividades necessitam apenas do mercado. </p>
+
+<p style="hsubtitle">Dinheiro </p>
+<p style="hp">As produções são taxadas e com isso geram dinheiro pra você. No mini-mapa, a terceira aba é a <a href="finance"> janela de Finanças </a>. Tome o cuidade de não investir muito em pouco tempo: quando seu saldo estiver negativo, você não poderá construir algumas coisas, e você tem o custo anual devido aos débitos. Isto pode levar á falência (veja no <a href="tutorial-scenario"> Cenário tempos difíceis </a>). </p>
+
+<p style="hsubtitle">Desenvolvendo a cidade </p>
+<p style="hp">Lembre-se as pessoas ou comem ou morrem. Para controlar o crescimento populacional, você tem que encontrar um equilíbrio no tipo da <a href="residential"> Área residencial </a> que você construir (elas tem taxas de natalidade/mortalidade diferentes). A nova população permitirá mais produção, mas também precisam de mais alimento, bens, produção ... </p>
+<p style="hp">Você deverá aumentar sua produção (adicionar olarias, ferreiros) e ao mesmo tempo cuidar do que eles necessitam. Então deverá também adicionar comunas de acordo. </p>
+<p style="hp">Para ter novas construções você deve aumentar seu <a href="tech-level"> Nível Tecnológico </a>.</p>
+
+<p style="hp">Em algum ponto você deverá escolher seu objetivo: a <a href="sustain"> Economia sustentável </a> ou a evacuação com <a href="rocket"> foguetes </a>.</p>
+
+<p style="hp">Você deverá checar muito frequentemente o <a href="pbar"> estoque total dos mercados </a>. Também as mini-telas podem dar uma boa visão de sua economia, e para uma investigação precisa lembre que clicar numa construção (na tela principal) mostra informações sobre ela na janela de informações embaixo à direita. </p>
+
+<li>Dica: Faça uma ou duas alterações então espere um pouco (veja a ajuda ;-) ou coloque o jogo na velocidade rápida, e veja como seu indicadores econômicos mudam. </li>
+<p style="hp"></p>
+<p style="hp">Divirta-se.</p>
+<p style="hp"></p>
+
+<p style="hp">Veja também:</p>
+<li><a href="tutorial-advanced">Tutorial opções avançadas</a></li>
+<li><a href="tutorial-scenario">Tutorial cenário pré-definido</a></li>
+<li><a href="msb-starve">Área de cobertura dos famintos</a></li>
+<li><a href="msb-ub40">Área de cobertura do desemprego</a></li>
+
+</Document>

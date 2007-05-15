@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Poluição</p>
+	<p style="hp">Muitas áreas geram alguma poluição. As áreas a seguir são as que causam mais poluição:</p>
+	<li>Indústria pesada.</li>
+	<li>Indústria leve.</li>
+	<li>Usinas elétricas carvoeiras.</li>
+	<li>Minas de carvão.</li>
+	<li>Mercados que estão cheio de resíduos.</li>
+	<li>Estradas/Trilhos, particularmente quando cheio de resíduos.</li>
+	<p style="hp">As pessoas não gostam de viver em áreas poluidas. Elas irão embora, ou até ficarão doentes e morrerão.</p>
+	<p style="hp">O vento que prevalece é o vindo do Sudoeste. Então a poluição tende a ir para a direção Nordeste.</p>
+	<p style="hp">Você pode construir estratégicamente para que as pessoas não fiquem expostas a poluição. Mas isso nem sempre é possível. Neste caso então os parques podem formar uma boa barreira. Quanto mais parques, mais forte será a proteção.</p>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="industryh">Indústria pesada</a></li>
+	<li><a href="industryl">Indústria leve</a></li>
+	<li><a href="powerscoal">Usina elétrica carvoeira</a></li>
+	<li><a href="coalmine">Mina de carvão</a></li>
+	<li><a href="market">Mercado</a></li>
+	<li><a href="rail">Estrada de ferro</a></li>
+	<li><a href="road">Estrada</a></li>
+	<li><a href="park">Parque</a></li>
+	<li><a href="msb-pol">Área de cobertura da poluição</a></li>
+</Document>

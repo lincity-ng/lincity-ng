@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Área de importação e exportação</p>
+	<p style="hp">As importações e exportações trabalham da mesma forma, exceto que com a primeira você gasta dinheiro e na segunda ganha dinheiro. Ambas requerem um porto. Por esta razão, somente as exportações serão tratadas em detalhe.</p>
+	<p style="hp">Para exportar, o porto deve estar conectado a uma estrada.</p>
+	<p style="hp">Eles <b>devem</b> estar conectados a todos os rios e do lado direito.</p>
+	<p style="hp">A área de exportação suportará tanto quanto ela receber. Se você precisa exportar, mas gostaria de restringir a quantidade, você pode utilizar um tipo de transporte com menor capacidade, use um pedaço grande ou passe o produto através de um mercado. Você precisará experimentar para conseguir a melhor configuração de transporte.</p>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="port">Porto</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="market">Mercado</a></li>
+	<li><a href="coal">Carvão</a></li>
+	<li><a href="ore">Minério</a></li>
+	<li><a href="goods">Bens</a></li>
+	<li><a href="steel">Aço</a></li>
+</Document>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Bombeiro</p>
+	<p style="hp">Bombeiros previnem o início e o espalhamento do fogo na área coberta por eles. Eles precisam ser supridos com bens e produção para funcionar. Eles <b>não</b> precisam estar conectados ao transporte, porém eles devem estar perto de um mercado para que possam ser supridos com produção e bens. Eles também custam dinheiro para funcionar.</p>
+	<p style="hp">Quando você constrói um bombeiro, ele não começa a funcionar imediatamente. Geralmente eles levam três meses antes de prover a cobertura contra fogo.</p>
+	<p style="hp">Para ver a área de cobertura, clique no botão de bombeiros acima no <i>mini mapa</i>. Áreas cobertas contra fogo são mostradas como normal, e áreas não cobertas são apenas verde escuro.</p>
+	<p style="hp">Bombeiros aumentam a demanda nas áreas residenciais em sua volta.</p>
+	<p style="hp">Bombeiros são exibidos com uma animação todo o mês para mostrar que eles estão em funcionamento.</p>
+
+	<p style="hp">Este é um bombeiro</p>
+	<img src="images/tiles/firestation1.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+	<p style="hp">e este é o ícone de cobertura no mapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="mini-screen">Mini-mapa</a></li>
+	<li><a href="goods">Bens</a></li>
+	<li><a href="market">Mercado</a></li>
+	<li><a href="jobs">Produção</a></li>
+	<li><a href="msb-fire">Área de cobertura dos bombeiros</a></li>
+</Document>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Demolição</p>
+	<p style="hp">Para demolir uma área você deve selecionar o botão demolir e então clicar na área que deve ser demolida. A demolição custa dinheiro. Quando você constuir em uma área, o custo da construção e demolição é mostrado no rodapé esquerdo da tela.</p>
+	<p style="hp">Algumas coisas, como os monumentos, são muito custosos para serem demolidos. O custo da demolição leva em consideração não somente o custo físico, mas também o custo político. Exemplo, para demolir um monumento, você tera protestos e custos judiciais.</p>
+	<p style="hp">Por enquanto, demolir áreas de rios são o único meio de atravessá-los com o transporte. Pense no rio demolido com transporte como se fosse uma ponte.</p>
+	<p style="hp">Este é o ícone da demolição</p>
+	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="river">Rios/Água</a></li>
+</Document>

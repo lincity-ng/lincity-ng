@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Teclado</p>
+    <p style="hp">ESCAPE: troca para a ferramenta de pesquisa</p>
+    <p style="hp">b alterna entre a ferramenta atual e o modo demolição</p>
+    <p style="hp">h para esconder construções grandes. Pressione h novamente para mostrá-las.</p>
+    <p style="hp">v para alternar entre os modos de coberturas do Mini-Mapa</p>
+    <p style="hp">KP_PLUS: aumentar</p>
+    <p style="hp">KP_MINUS diminuir</p>
+    <p style="hp">KP_ENTER tamanho normal</p>
+    <p style="hp">KP5 coloca o meio do mapa no centro da tela</p>  
+    <p style="hp">KP9 rolar a tela para o norte</p>
+    <p style="hp">KP1 rolar a tela para o sul</p>
+    <p style="hp">KP7 rolar a tela para o oeste</p>
+    <p style="hp">KP3 rolar a tela para o leste</p>
+    <p style="hp">KP2 rolar a tela para sudeste</p> 
+    <p style="hp">KP4 rolar a tela para sudoeste</p> 
+    <p style="hp">KP6 rolar a tela para nordeste</p> 
+    <p style="hp">KP8 rolar a tela para noroeste</p> 
+    <p style="hp">mesmo com o cursor</p>
+    <p style="hp">use shift + direção para rolar rapidamente</p>
+    <p style="hp">F12 salvar rápido</p> 
+    <p style="hp">F9  abrir rápido</p> 
+
+    <p style="htitle">Mouse</p>
+    <p style="hp">direito:</p>
+    <p style="hp">Segure a tela com o botão direito do mouse.</p>
+    <p style="hp">clique com o direito na tela centraliza ao título sob o cursor.</p>
+    <p style="hp">meio:</p>
+    <p style="hp">clique com o do meio mostra informações sobre a área sob o cursor.</p>
+    <p style="hp">esquerdo:</p>
+    <p style="hp">Clique no Mini-Mapa mostra a Área selecionada na tela.</p>
+    <p style="hp">Executa uma ação dependendo da ferramenta selecionada. Demolir, mostra Informações, contruir edifício.</p>
+    <p style="hp">roda:</p>
+    <p style="hp"> up: aumentar</p>
+    <p style="hp">down: diminuir </p>
+</Document>
+

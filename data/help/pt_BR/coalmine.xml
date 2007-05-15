@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mina de carvão</p>
+	<p style="hp">Minas de carvão extraem carvão do fundo da terra. Deve existir uma jazida de carvão perto da mina. Para ver onde a jazida esta, você deve clicar no botão do carvão que esta um pouco acima do mini-mapa.</p>
+	<p style="hp">A primeira vez que você utilizar este botão, custará a você 1 milhão. Após isso será livre. Você não precisa utilizar este botão, mas pode tentar encontrar o carvão por tentativa e erro.</p>
+	<p style="hp">Minas de carvão precisam de produção para minerar o carvão.</p>
+	
+	<p style="hp">Esta é uma mina de carvão</p>
+	<img src="images/tiles/coalmine-full.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+
+	<p style="hp">Os gráficos mostram o montante de carvão ja extraido e não colocado para transporte. A mina de carvão acima tem o estoque máximo.</p>
+	<p style="hp">Clicar numa mina de carvão mostrará, em um ponto do mapa na janela de estatísticas, o estoque de carvão na mina, e, mais importantemente, a reserva de carvão disponível.</p>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="coal">Carvão</a></li>
+	<li><a href="powerscoal">Usina elétrica carvoeira</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="jobs">Produção</a></li>
+</Document>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Sub-estação</p>
+	<p style="hp">Sub-estações recebem pacotes de energia das linhas de distribuição e distribuidores de energia das redondezas. Você pode ver se, por exemplo, sua área residencial energizada clicando no ícone, e então olhar a janela de estatísticas no ponto do mapa.</p>
+	
+	<p style="hp">Esta é uma sub-estação</p>
+	<img src="images/tiles/substation-G.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="powerline">Linha de transmissão</a></li>
+	<li><a href="powerssolar">Usina elétrica solar</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="steel">Aço</a></li>
+	<li><a href="jobs">Produção</a></li>
+</Document>
+

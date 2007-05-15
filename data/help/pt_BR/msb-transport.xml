@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Área de cobertura do transporte</p>
+	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+	<p style="hp">A mini tela dos transportes mostra a quantidade de bens nas <a href="track">pistas</a>, <a href="road">estradas </a> e <a href="rail">trilhos</a> na cidade.</p>
+	<p style="hp">As cores azuladas indicam construções que estão dentro da área de um <a href="market">mercado</a>.</p>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="mini-screen">Mini-mapa</a></li>
+	<li><a href="msb-coal">Área de cobertura do carvão</a></li>
+	<li><a href="msb-cricket">Área de cobertura de esportes</a></li>
+	<li><a href="msb-fire">Área de cobertura dos bombeiros</a></li>
+	<li><a href="msb-health">Área de cobertura dos hospitais</a></li>
+	<li><a href="msb-normal">Utilização do terreno</a></li>
+	<li><a href="msb-pol">Área de cobertura da poluição</a></li>
+	<li><a href="msb-power">Área de cobertura elétrica</a></li>
+	<li><a href="msb-starve">Área de cobertura dos famintos</a></li>
+	<li><a href="msb-ub40">Área de cobertura do desemprego</a></li>
+</Document>

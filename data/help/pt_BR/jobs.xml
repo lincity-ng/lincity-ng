@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Produção</p>
+	<p style="hp">As pessoas que vivem nas áreas residenciais geram produção. Produção é utilizada pela maioria das áreas para funcionarem. Algumas áreas necessitam de produção apenas quando estão em construção, por exemplo, os monumentos.</p>
+	<p style="hp">A produção deve ser suprida por mercados; você deve ter um mercado perto da área que quer suprir. O mercado, certamente, deve pegar sua produção de algum lugar. Os mercados pegam a produção de duas formas. Primeira, se tiver uma área residencial por perto, ela suprirá o mercado com produção na proporção de sua população	e quanto mais mercados a produção pode ser compartilhada entre eles. A segunda forma e pelo transporte. Um mercado um pouco distante transportará um pouco do excedente de produção. Qualquer mercado conectado ao transporte que tiver pouca produção pegará a produção através das pistas, estradas ou trilhos.</p>
+	<p style="hp">Se o mercado estiver 'lotado' de produção, ele irá parar de aceitar produção das áreas residenciais. Quando isto acontecer, e se não tiver nenhum outro mercado vazio na área, as pessoas começarão a ficar desempregadas.</p>
+	<p style="hp">Um hospital perto da área residencial, irá aumentar o número de produção de qualquer mercado local.</p>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="residential">Residência</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="market">Mercado</a></li>
+</Document>

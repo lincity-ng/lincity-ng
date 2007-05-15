@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ferreiro</p>
+	<p style="hp">Ferreiros transformam aço e carvão em bens. Você ira utilizá-los brevemente neste jogo. Eles utilizam produção, obviamente.</p>
+	<p style="hp">Antes de ter siderúrgicas, você deve contar com o aço produzido pelas comunas. É recomendado 5 ou 6 comunas por ferreiro.</p>
+	<p style="hp">Ferreiros não precisam estar conectados ao transporte. Eles podem pegar tudo o que necessitam, dos mercados próximos.</p>
+	<p style="hp">Você pode ver o ferreiro em funcionamento da forma usual, clicando nele, e mais frequentemente verá a animação em movimento.</p>
+
+	<p style="hp">Este é um ferreiro</p>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="market">Mercado</a></li>
+	<li><a href="ore">Minério</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="steel">Aço</a></li>
+	<li><a href="jobs">Produção</a></li>
+</Document>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Usina elétrica solar</p>
+	<p style="hp">Usinas elétricas solares distribuem sua energia em pacotes nas linhas de transmissão. O montante de energia que elas produzem aumenta conforme o nível de tecnologia que elas tinham quando foram <b>construídas</b>.</p>
+	
+	<p style="hp">Esta é uma usina elétrica solar</p>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="substation">Sub-estação</a></li>
+	<li><a href="powerline">Linha de transmissão</a></li>
+	<li><a href="residential">Área residencial</a></li>
+	<li><a href="tech-level">Nível tecnológico</a></li>
+	<li><a href="msb-power">Área de cobertura elétrica</a></li>
+</Document>

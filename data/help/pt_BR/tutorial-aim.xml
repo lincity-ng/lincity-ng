@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Objetivo do jogo </p>
+<p style="hp">Existem 2 formas de "ganhar" o jogo:</p>
+<li>Alcançar a <a href="sustain">economia sustentável </a> (você pode ainda continuar jogando depois) </li>
+<li>Evacuar toda a população com <a href="rocket">foguetes </a> para outro planeta, então o jogo acaba. </li>
+<p style="hp"></p>
+
+<p style="hp">Atualmente (1.1.0) existe apenas uma forma de perder:</p>
+<li>Todo mundo morrer por fome ou poluição. (você sabe que é necessário ao menos 2 pessoas para criar uma população ;-) </li>
+<p style="hp"></p>
+
+<p style="hp">Você vai precisar aumentar seu nível tecnológico para ter novas possíveis construções e indústrias. Você precisa gerenciar o crescimento da população, tomar conta de várias coisas e da balança econômica. </p>
+<p style="hp"></p>
+
+<p style="hp">Veja também:</p>
+<li><a href="tutorial-basics">Primeiros passos</a></li>
+<li><a href="tutorial-advanced">Opções avançadas</a></li>
+<li><a href="tutorial-scenario">Cenário pré-definido</a></li>
+
+</Document>
+

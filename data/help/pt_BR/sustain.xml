@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Janela de progresso da sustentabilidade</p>
+	<p style="hp">Esta janela contém seis linhas coloridas. Quando elas todas alcançam o lado direito da janela, você tem uma economia sustentável.</p>
+	<li>
+		<span color="orange">MIN</span> (laranja) você não esta escavando minas de minério ou carvão, e 
+		não está despejando detritos nos depósitos de lixo.
+	</li>
+	<li>
+		<span color="gray">PRT</span>	(cinza) você não esta importando ou exportando.
+	</li>
+	<li>
+		<span color="green">MNY</span> (verde) seu dinheiro esta estável ou aumentando, 
+		isso significa que você não pode construir qualquer coisa exceto o mais barato das áreas.
+	</li>
+	<li>
+		<span color="blue">POP</span> (azul) sua população esta estável dentro dos
+		2% de quando a contagem dos 180 anos começou. Se estiver fora
+		desta faixa, a nova população será o novo valor e a contagem será
+		zerada. Além disso, sua população deve ser de ao menos 5000.		
+	</li>
+	<li>
+		<span color="yellow">TEC</span> (amarelo) sua tecnologia esta aumentando ou 
+		diminuindo por um pouco. Se ela cair mais que 1%, o ano é alterado para zero.
+		Do contrário, seu nível tecnológico deve ser ao menos 50%.
+	</li>
+	<li>
+		<span color="red">FIR</span> (vermelho) todas as áreas incendiáveis tem
+		cobertura contra fogo. As seguintes áreas *não* precisam ter cobertura:
+		monumentos, minas de minérios, linhas de transmissão e foguetes.
+	</li>
+	<p style="hp">Anos requerido para a sustentabilidade: MIN=180 PRT=180 MNY=60 POP=60 TEC=120 FIR=60</p>
+</Document>

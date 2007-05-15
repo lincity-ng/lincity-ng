@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Usina elétrica carvoeira</p>
+	<p style="hp">Usinas de energia carvoeira produzem eletricidade que são colocadas nas linhas de transmissão conectadas.</p>
+	<p style="hp">As linhas de transmissão se conectam ao topo esquerdo da usina, o transporte se conecta logo a próxima posição. Veja o exemplo.</p>
+	<p style="hp">A eficiência da transformação de carvão em eletricidade aumenta conforme o nível tecnológico - de quando a usina for <b>construida</b>. Você pode querer demolir uma usina antiga e trocar por uma mais nova, e mais eficiente, quando seu nível tecnológico tiver aumentado significantemente.</p>
+	
+	<p style="hp">Esta é uma usina de energia carvoeira</p>
+	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="tech-level">Nível tecnológico</a></li>
+	<li><a href="powerline">Linha de transmissão</a></li>
+	<li><a href="msb-power">Área de cobertura elétrica</a></li>
+</Document>

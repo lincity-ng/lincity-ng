@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Visão geral</p>
+
+<p style="hp"><b>Topo esquerdo </b>contém ícones com ferramentas (pesquisa e demolição) e todas as construções que você tem durante o jogo.</p>
+<li>Clique-Esquerdo num ícone para abrir o desenhista e ver mais coisas.</li>
+<li>Clique-Direito num ícone para ter a ajuda relativa.</li>
+<li>Esperar com o ponteiro do mouse abrirá um mini popup com mensagem de ajuda.</li>
+<p style="hp"></p>
+
+<p style="hp"><b>Abaixo esquerda </b>é o controle de aceleração do jogo </p>
+<p style="hp"></p>
+
+<p style="hp"><b>Abaixo direita </b>contém todas as "ferramentas informativas": minimapa com 4 abas, e abaixo mini-ícones de várias informações. Clique neles para ver o que acontece.</p>
+<p style="hp"></p>
+
+<p style="hp">Tente o teclado e mouse (clique esquerdo, meio, direito e a rodinha...) , F1 para Ajuda.</p>
+
+<p style="hsubtitle">Veja também:</p>
+<li><a href="tutorial-basics">Primeiros passos</a></li>
+<li><a href="tutorial-advanced">Opções avançadas</a></li>
+<li><a href="tutorial-scenario">Cenário pré-definido</a></li>
+
+</Document>

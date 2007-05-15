@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Hospital</p>
+	<p style="hp">Hospitais cuidam da saúde dos residentes. Eles atuam numa área de mais ou menos quatro quadros em cada direção.</p>
+	<p style="hp">Hospitais tornam as residências um local mais desejável para se viver, menos pessoas morrem por doenças relacionadas a poluição e as pessoas ficam mais eficientes na produção de trabalho nas áreas ao redor (eles perdem menos tempo doentes).</p>
+	<p style="hp">Hospitais são muito dispendiosos, 60.000,00 por ano. Contudo, eles reduzem o custo de 'mortes não naturais' e podem prover uma receita extra (desde que existam lugares para as pessoas trabalharem).</p>
+	<p style="hp">Após você criar um hospital, ele levará três meses para estar em funcionamento. Eles utilizam bens.	Eles contudo, não, utilizam produção. Ela é pega durante o cálculo do trabalho extra criado devido a redução de doenças nas redondezas.</p>
+	<p style="hp">Hospitais não precisam estar conectados ao transporte. Neste caso, eles precisam estar próximos de um mercado.</p>
+	<p style="hp">Para ver a a área de cobertura, clique no ícone do hospital acima no 'mini-mapa' (abaixo à direita do centro da tela). As áreas mostradas como normal tem cobertura hospitalar.</p>
+
+	<p style="hp">Este é um hospital</p>
+	<img src="images/tiles/health.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+	<p style="hp">e este é seu ícone no mini-mapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="residential">Área residencial</a></li>
+	<li><a href="pollution">Poluição</a></li>
+	<li><a href="jobs">Produção</a></li>
+	<li><a href="goods">Bens</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="msb-health">Área de cobertura dos hospitais</a></li>
+</Document>

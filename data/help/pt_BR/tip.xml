@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Aterro (depósitos de lixo)</p>
+	<p style="hp">Os aterros disponibilizam um lugar para você colocar seu lixo. Se você acumular muito nos mercados, eles serão obrigados a queimar uma parte. Isso gera bastante poluição então você deve tomar cuidado com o acumulo de lixo.</p>
+	<p style="hp">Quando o aterro estiver cheio, ele vagarosamente se transformará em uma colina, que ficará coberta de grama quando estiver completa.</p>
+	<p style="hp">O transporte se conecta ao topo esquerdo do aterro como é usualmente.</p>
+	<p style="hp">Você pode ver quando um aterro está em funcionamento da forma usual, clicando nele, e algumas vezes vendo a animação em movimento.</p>
+	
+	<p style="hp">Este é um aterro</p>
+	<img src="images/tiles/tip0.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="market">Mercado</a></li>
+</Document>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Área residencial</p>
+	<p style="hp">Isto é onde as pessoas vivem. Para encorajar as pessoas a viverem nestas áreas elas devem poder se alimentar. Isso também ajuda a provê-los com trabalho e bens para comprar. Eles devem estar próximos de um mercado ou conectados ao transporte. Existem 3 tipos de áreas residenciais: moradias de Baixa, Média e Alta densidade. E estas tem diferentes taxas de natalidade e mortalidade associadas. Isto da a você algum controle sobre sua população.</p>
+	<p style="hp">Mais tarde no jogo, se você tiver tecnologia suficiente, você poderá construir moradias mais 'modernas', até mesmo blocos de prédios.</p>
+
+	<p style="hp">Esta é uma moradia de baixa densidade (alta tecnologia)</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<p style="hp">Esta é uma moradia de média densidade (alta tecnologia)</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">Esta é uma moradia de alta densidade (alta tecnologia)</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="market">Mercado</a></li>
+</Document>

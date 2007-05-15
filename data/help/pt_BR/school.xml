@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Escola</p>
+	<p style="hp">As escolas utilizam produção e bens para produzir tecnologia de forma parecida com as universidades. Elas utlizam um pouco menos de produção e bens que as universidades, mas produzem menos pontos de tecnologia. Entre as escolhas de ou colocar quatro ou cinco escolas em uma área, ou uma simples universidade, as vezes (mas não sempre) é melhor colocar uma universidade.</p>
+	<p style="hp">As escolas <b>não</b> precisam estar conectadas ao transporte, mas precisam estar próximas de um mercado que possa supri-las com produção e bens para seu funcionamento.</p>
+	<p style="hp">As escolas custam dinheiro para funcionarem. Você pode ver o custo total do <b>último</b> ano clicando no botão do dinheiro. O valor 'scl' é o custo de escola.</p>
+	<p style="hp">Você pode ver uma escola em funcionamento da forma usual, clicando nela, e algumas vezes a animação estará em movimento.</p>
+	
+	<p style="hp">Esta é uma escola</p>
+	<img src="images/tiles/school0.png" halign="center"/>
+	<p style="hp">e este seu ícone</p>
+	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="market">Mercado</a></li>
+	<li><a href="university">Universidade</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="goods">Bens</a></li>
+	<li><a href="jobs">Produção</a></li>
+</Document>

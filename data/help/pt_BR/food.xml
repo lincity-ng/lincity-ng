@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Alimento</p>
+	<p style="hp">Alimento é produzido nas fazendas e podem ser importados através de um porto.</p>
+	<p style="hp">Seu povo precisa de alimento para sobreviver. Se você deixá-los famintos, eles irão embora da área e alguns poderão morrer de fome.</p>
+	<p style="hp">Moinhos também utilizam alimento. Eles transformam algodão em roupas. Eles podem usar <i>muito</i> alimento - tome cuidado.</p>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="farm">Fazenda</a></li>
+	<li><a href="port">Porto</a></li>
+	<li><a href="mill">Moinho</a></li>
+	<li><a href="steel">Aço</a></li>
+</Document>

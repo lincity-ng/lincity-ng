@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mini-mapa</p>
+	<p style="hp">O mini-mapa mostra, em uma escala reduzida, o conjunto da sua área do jogo. Os mini-botões a seguir, quando clicados, mostram informações como os níveis de poluição de toda a sua área do jogo.</p>
+	<p style="hp">Clique com o botão direito em cada um dos botões a seguir no mini-mapa para ativar as páginas de ajuda.</p>
+	<p style="hp">A borda em branco mostra a área coberta pela tela principal.</p>
+	<p style="hp">O botão grande "cobertura" mostra a área de cobertura do conteúdo no mini-mapa da tela principal</p>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="msb-coal">Área de cobertura do carvão</a></li>
+	<li><a href="msb-cricket">Área de cobertura de esportes</a></li>
+	<li><a href="msb-fire">Área de cobertura dos bombeiros</a></li>
+	<li><a href="msb-health">Área de cobertura dos hospitais</a></li>
+	<li><a href="msb-normal">Utilização do terreno</a></li>
+	<li><a href="msb-pol">Área de cobertura da poluição</a></li>
+	<li><a href="msb-power">Área de cobertura elétrica</a></li>
+	<li><a href="msb-starve">Área de cobertura dos famintos</a></li>
+	<li><a href="msb-transport">Área de cobertura do transporte</a></li>
+	<li><a href="msb-ub40">Área de cobertura do desemprego</a></li>
+</Document>

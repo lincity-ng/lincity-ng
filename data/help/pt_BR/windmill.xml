@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Moinho de vento</p>
+	<p style="hp">Moinhos de vento geram energia para as residências e fazendas. Elas ajudam as fazendas a processarem o alimento mais eficientemente o que fazem as residências mais desejáveis.</p>
+	<p style="hp">Prover energia para as residências faz com que os moradores utilizem mais bens.</p>
+	<p style="hp">Os antigos moinhos <b>não</b> geram energia para as indústrias. (Siderúrgicas podem receber energia de carvão, indústrias leves necessitam de eletricidade <i>real</i>, elas ainda funcionam sem energia no caso de falta)</p>
+	<p style="hp">Existem dois tipos de moinhos de vento.</p>
+	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+	<p style="hp">O primeiro é o antigo moinho de 'madeira'.</p>
+	<img src="images/tiles/windmill1w.png" halign="center"/>
+	<p style="hp">O segundo é o 'moderno' tipo fazenda de ventos.</p>
+	<img src="images/tiles/windmill1g.png" halign="center"/>
+	<p style="hp">O tipo que você poderá construir vai depender do seu nível tecnológico.</p>
+	<p style="hp">Moinhos de alta tecnologia podem energizar linhas de transmissão.</p>
+</Document>

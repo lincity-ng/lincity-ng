@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Ajuda do Lincity</p>
+	<p style="hp">Este é o sistema de ajuda do Lincity. Favor escolher o tópico clicando em uma das palavras em azul abaixo. Palavras em azul geralmente indicam um apontamento para outro documento. Utilize a seta no topo esquerdo para voltar para a tela anterior de ajuda.</p>
+	<p style="hp">Durante o jogo, você poderá obter ajuda sobre a maioria das coisas utilizando o botão de ajuda, ou clicando com o botão direito no ícone de alguma construção na barra localizada no topo esquerdo.</p>
+
+	<li><a href="tutorial">Tutorial</a></li>
+	<li><a href="keys">Comandos no teclado</a></li>
+	<li><a href="button-index">Listagem dos itens construíveis</a></li>
+	<li><a href="mini-screen">Ajuda no mini-mapa</a></li>
+	<li><a href="dialogs">Ajuda das abas de informação</a></li>
+	<li><a href="index">Índice</a></li>
+
+    <p style="htitle">Objetivo</p>
+    <p style="hp">Você pode vencer no Lincity ou por construir uma <a href="sustain">economia sustentável </a> ou
+    evacuando todos os cidadãos com <a href="rocket">foguetes</a>.</p>
+</Document>

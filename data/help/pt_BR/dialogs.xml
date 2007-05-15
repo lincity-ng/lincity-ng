@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Aba de ajuda</p>
+  <p>Mapa</p>
+    <li><a href="mini-screen">Mini-mapa</a></li>
+  <p>Mercados</p>
+	  <li><a href="pbar">Barra de status dos recursos</a></li>
+  <p>$</p>
+	  <li><a href="finance">Finanças</a></li>
+	  <li><a href="other-costs">Outros custos</a></li>
+	  <li><a href="housing">População</a></li>
+  <p>Eco</p>
+	  <li><a href="economy">Gráfico econômico</a></li>
+	  <li><a href="sustain">Janela do progresso sustentável</a></li>
+</Document>

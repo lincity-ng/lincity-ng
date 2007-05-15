@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Comuna</p>
+	<p style="hp">Comunas (por falta de um nome melhor) são áreas onde carvoeiros queimam as árvores para produzirem carvão vegetal. Elas também produzem pequenas quantidades de minério e aço.</p>
+	<p style="hp">Você provavelmente vai precisar de 'poucas' comunas para prover carvão e aço suficiente para áreas como as olarias, ferreiros e moinhos.</p>
+	<p style="hp">Se a comuna não produzir nada durante 10 anos ela será fechada e a área utilizada será transformada em parques.</p>
+	<p style="hp">Comunas podem se conectar ao transporte em qualquer ponto em volta dela, não somente pelo portão.</p>
+	
+	<p style="hp">Esta é uma comuna</p>
+	<img src="images/tiles/commune1.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="pottery">Olaria</a></li>
+	<li><a href="blacksmith">Ferreiro</a></li>
+	<li><a href="mill">Moinho</a></li>
+	<li><a href="oremine">Mina de minério</a></li>
+	<li><a href="steel">Aço</a></li>
+</Document>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Bens</p>
+	<p style="hp">Bens são necessários para a maioria das áreas trabalharem. As pessoas também gostam muito deles e são atraídas para áreas onde podem encontrá-los.</p>
+	<p style="hp">Bens são taxados, então produzir muitos ajudará nas suas finanças.</p>
+	<p style="hp">Bens são produzidos pelas Olarias, Ferreiros, Moinhos e Indústrias leves.</p>
+
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="pottery">Olaria</a></li>
+	<li><a href="blacksmith">Ferreiro</a></li>
+	<li><a href="mills">Moinho</a></li>
+	<li><a href="industryl">Indústria leve</a></li>
+</Document>

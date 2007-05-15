@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mina de minério</p>
+	<p style="hp">Minas de minérios provem minérios para a geração de bens e aço. Você pode construir uma mina de minério em qualquer lugar. O minério sob a área é consumido vagarosamente; você não pode demolir e construir outra esperando obter mais minério.</p>
+	<p style="hp">Quando uma mina se exaurir ela se tornará um lago. Se você quiser recuperar esta terra você deverá demolir 16 áreas de água!</p>
+	<p style="hp">O gráfico mostra as minas de minério que estão sendo fortemente trabalhadas para se exaurirem brevemente.</p>
+	<p style="hp">O transporte se conecta ao topo esquerdo da mina de minério.</p>
+	
+	<p style="hp">Esta é uma mina de minério</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">e este é seu ícone</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="ore">Minério</a></li>
+	<li><a href="goods">Bens</a></li>
+	<li><a href="steel">Aço</a></li>
+</Document>

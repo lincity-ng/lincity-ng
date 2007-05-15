@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Pesquisa</p>
+	<p style="hp">Para exibir informações sobre uma contrução utilize esta ferramenta e clique na Construção em questão.</p>
+	<p style="hp">A informação é mostrada embaixo no canto direito, ao invés de no mini-mapa.</p>
+	<p style="hp">Não existe custo para utilizar esta ferramenta.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	<p style="hsubtitle">Veja também:</p>
+    <li><a href="keys">Comandos de teclado</a></li>
+	<li><a href="help">Índice</a></li>
+</Document>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Opções avançadas </p>
+<p style="hsubtitle">Mercados e Transportes </p>
+<p style="hp">Um duplo clique em um mercado na tela principal abre uma janela. Isto é para controlar o <b> comércio entre os mercados e os transportes</b>. </p>
+<li>compra é o que o mercado compra do transporte (então o estoque de mercado irá aumentar). </li>
+<li>venda é o oposto. </li>
+
+<p style="hp">Esta opção é raramente utilizada, exceto quando você quiser prevenir alguma coisa de acontecer. </p>
+
+<p style="hsubtitle">Desenvolvimento sustentável</p>
+<p style="hp">A quarta aba da mini-janela mostra as barras de progresso do desenvolvimento sustentável. </p>
+<p style="hp">É fortemente recomendado salvar o jogo antes de você deixá-lo rodando por um longo tempo e ver se você alcançou um estado sustentável. Se alguma coisa acontecer de muito errado (fome por exemplo) você poderá reiniciar a partir do jogo salvo :-) </p>
+<p style="hp">Olhar para o estoque total dos mercados (a mini-janela com a barra de progresso) poderá prevenir grandes problemas. De tempos em tempos olhar a progressão de sustentabilidade na mini-janela ECO poderá ser suficiente. </p>
+
+<li>Dica: Cuidado com as favelas e o desperdício nos mercados... </li>
+<p style="hp"></p>
+</Document>
