@@ -4,6 +4,8 @@
 	<p style="hp">Windmills provide power for residences and farms. They enable the farmer to process food more efficiently and make residences more desirable.</p>
 	<p style="hp">Providing power to residences makes the people there use more goods.</p>
 	<p style="hp">Low tech windmills do <b>not</b> provide power to industries. (Heavy industry can get power from coal, light industry needs <i>real</i> electricity to be powered, they still work without power at a lower output)</p>
+	<p style="hp">Windmills need also manpower for producing power. If a windmill does not have enough jobs, it will produce less power and it will produce no power at all if it has no jobs.</p>
+	
 	<p style="hp">There are two forms of windmills.</p>
 	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
 	<p style="hp">The first is a low-tech 'wooden' windmill.</p>
@@ -12,4 +14,14 @@
 	<img src="images/tiles/windmill1g.png" halign="center"/>
 	<p style="hp">The type you get depends on your tech-level when you build it.</p>
 	<p style="hp">High tech windmills can supply power lines.</p>
+	
+		<p style="hsubtitle">See also:</p>
+	<li><a href="substation">Substation</a></li>
+	<li><a href="powerline">Power lines</a></li>
+	<li><a href="residential">Residential</a></li>
+	<li><a href="tech-level">Tech-level</a></li>
+	<li><a href="msb-power">Power overlay</a></li>
+	<li><a href="powersolar">Solar power station</p>
+	
+	
 </Document>
