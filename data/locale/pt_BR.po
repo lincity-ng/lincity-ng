@@ -2,12 +2,12 @@
 # Copyright (C) 2007 THE lincity-ng'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the lincity-ng package.
 # Jose Carlos Medeiros <jose@psabs.com.br>, 2007.
-#
+# Nilo Menezes <nilo.menezes@gmail.com>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lincity-ng 1.1.0rc2\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: jose@psabs.com.br\n"
 "POT-Creation-Date: 2007-01-27 22:03+0100\n"
 "PO-Revision-Date: 2007-01-29 14:56-0300\n"
 "Last-Translator: Jose Carlos Medeiros <jose@psabs.com.br>\n"
