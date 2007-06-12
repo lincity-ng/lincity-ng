@@ -2,14 +2,14 @@
 <Document style="helpdocument">
 	<p style="htitle">Mercado</p>
 	<p style="hp">Mercados são uma construção chave no Lincity.</p>
-	<p style="hp">Mercado é provavelmente um mau nome para estas áreas. Eles são mais como centros de trabalho, shoppings armazens e mercados todos em um só. Eles compram e vendem alimento, produção, carvão, bens, minério e aço para as áreas ao redor, e para tranportes como as estradas.</p>
+	<p style="hp">Mercado é provavelmente um mau nome para estas áreas. Eles são mais como centros de trabalho, shoppings armazens e mercados todos em um só. Eles compram e vendem alimento, mão-de-obra, carvão, bens, minério e aço para as áreas ao redor e para tranportes como as estradas.</p>
 	<p style="hp"><b>Dentro da área </b>de um mercado toda o comércio é feito <b>sem a necessidade de transporte</b>, exceto quando ele é explicitamente explicado na ajuda de construção. Utilize a <a href="msb-transport">Área de cobertura de transporte e mercado </a> para checar se a construção está dentro da área de um mercado.</p>
-	<li>Pessoas podem obter alimento, bens e empregos dos mercados que estão na distância de caminhada da área residencial.</li>
-	<li>Todas as áreas que requerem produção (empregados) obtida nos mercados.</li>
+	<li>Pessoas podem obter alimento, bens e empregos (mão-de-obra) dos mercados que estão na distância de caminhada da área residencial.</li>
+	<li>Todas as áreas que requerem mão-de-obra (empregados) a obtem nos mercados.</li>
 	<li>Fazendas podem vender os alimentos diretamente para os mercados.</li>
-	<li>Moinhos, olarias e ferreiros vendem bens diretamente para os mercados próximos, eles também pegam as matérias prima dos mesmos mercados.</li>
-	<p style="hp">Se não tiver mercado disponível, estas contruções precisaram estar conectadas ao <a href="transport"> transporte</a>.</p>
-	<p style="hp">A segunda aba do mini-mapa mostra o <b>estoque total dos mercados</b>, e como este evolui com uma barra de progresso. Nesta conjunção com mini-mapas (mini ícones logo abaixo) ajudará muito você a ter uma boa visão de recursos específicos (alimento, emprego ...).</p>
+	<li>Moinhos, olarias e ferreiros vendem bens diretamente para os mercados próximos, eles também pegam as matérias primas dos mesmos mercados.</li>
+	<p style="hp">Se não tiver mercado disponível, estas contruções precisarão estar conectadas ao <a href="transport">transporte</a>.</p>
+	<p style="hp">A segunda aba do mini-mapa mostra o <b>estoque total dos mercados</b> e como este evolui com uma barra de progresso. Esta conjunção com mini-mapas (mini ícones logo abaixo) ajudará muito você a ter uma boa visão de recursos específicos (alimento, emprego ...).</p>
 
 	<p style="hsubtitle">Controlar quais mercados podem comprar e vender</p>
 	<p style="hp">Você pode controlar a função do mercado selecionando o que pode vender e comprar do transporte. Clique duas vezes no mercado (não no botão de seleção) e na direção do topo esquerdo uma janela aparecerá permitindo você a selecionar o que será comercializado. O padrão é comercializar qualquer coisa.</p>
@@ -22,11 +22,11 @@
 	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
 	<p style="hp">Isto significa que o comércio <b>não</b> é permitido.</p>
 	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
-	<p style="hp">Os números entre as palavras Comprar e Vender são a referencia no mapa para este mercado.</p>
+	<p style="hp">Os números entre as palavras Comprar e Vender são a referência no mapa para este mercado.</p>
 
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="food">Alimento</a></li>
-	<li><a href="jobs">Produção</a></li>
+	<li><a href="jobs">Mão-de-obra</a></li>
 	<li><a href="coal">Carvão</a></li>
 	<li><a href="goods">Bens</a></li>
 	<li><a href="ore">Minério</a></li>

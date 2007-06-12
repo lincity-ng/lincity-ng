@@ -2,8 +2,8 @@
 <Document style="helpdocument">
 <p style="htitle">Opções avançadas </p>
 <p style="hsubtitle">Mercados e Transportes </p>
-<p style="hp">Um duplo clique em um mercado na tela principal abre uma janela. Isto é para controlar o <b> comércio entre os mercados e os transportes</b>. </p>
-<li>compra é o que o mercado compra do transporte (então o estoque de mercado irá aumentar). </li>
+<p style="hp">Um duplo clique em um mercado na tela principal abre uma janela, utilizada para controlar o <b> comércio entre os mercados e os transportes</b>. </p>
+<li>compra é o que o mercado compra do transporte (então o estoque do mercado irá aumentar). </li>
 <li>venda é o oposto. </li>
 
 <p style="hp">Esta opção é raramente utilizada, exceto quando você quiser prevenir alguma coisa de acontecer. </p>

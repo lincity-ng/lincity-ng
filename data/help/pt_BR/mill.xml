@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Moinho</p>
-	<p style="hp">Os moinhos transformam alimento, carvão e produção em bens. Alimento?... bem, algodão e lã são contados como alimento neste jogo.</p>
-	<p style="hp">Os moinhos utilizam bastante alimento, então você pode facilmente obte-los dos estoques de alimentos caso não queira que fiquem armazenados. (Isto é um pequeno problema quando você tem os moinhos de vento, ja que eles energizam as fazendas fazendo com que elas se tornem mais eficientes)</p>
-	<p style="hp">Os moinhos não precisam estar conectados ao transporte. Neste caso, eles devem estar próximos de um mercado com carvão, produção e alimentos. Você pode saber quando os moinhos estão em funcionamento pela fumaça e vapores vindo do mesmo.</p>
+	<p style="hp">Os moinhos transformam alimento, carvão e mão-de-obra em bens. Alimento?... bem, algodão e lã são contados como alimento neste jogo.</p>
+	<p style="hp">Os moinhos utilizam bastante alimento, então você pode facilmente obtê-los dos estoques de alimentos caso não queira que fiquem armazenados. (Isto é um pequeno problema quando você tem os moinhos de vento, já que eles energizam as fazendas fazendo com que elas se tornem mais eficientes)</p>
+	<p style="hp">Os moinhos não precisam estar conectados ao transporte. Neste caso, eles devem estar próximos de um mercado com carvão, produção e alimentos. Você pode saber quando os moinhos estão em funcionamento pela fumaça e vapores vindos do mesmo.</p>
 	
 	<p style="hp">Este é um moinho</p>
 	<img src="images/tiles/mill1.png" halign="center"/>

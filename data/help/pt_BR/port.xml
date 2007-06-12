@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Porto</p>
-	<p style="hp">Os portos permitem você a importar e exportar bens, aço, minério, carvão e alimento. As importações custam dinheiro e as exportações dão dinheiro para você.</p>
-	<p style="hp">Para ser utilizado o porto deve estar conectado ao transporte. Você pode escolher o que importar clicando duplamente no porto. Isso abre um menu com caixas para você selecionar o que importar e exportar.</p>
-	<p style="hp">Eles <b>devem</b> estar conectados a todos os rios pelo lado direito.</p>
+	<p style="hp">Os portos permitem importar e exportar bens, aço, minério, carvão e alimentos. As importações custam dinheiro e as exportações geram dinheiro para você.</p>
+	<p style="hp">Para ser utilizado, o porto deve estar conectado ao transporte. Você pode escolher o que importar clicando duplamente no porto. Isso abre um menu com caixas para você selecionar o que importar e exportar.</p>
+	<p style="hp">Eles <b>devem</b> estar conectados com rios pelo lado direito.</p>
 	<p style="hp">Nada será importado ou exportado até que você tenha selecionado a caixa apropriada.
 	</p>
 	<p style="hp">A área de exportação exportará tanto quanto for necessário. Se você precisa exportar, mas quer restringir a quantidade, você pode querer utilizar um tipo de transporte com menor capacidade, utilize um bom pedaço ou passe o produto através de um mercado. Você precisara experimentar para ter a melhor configuração de transporte.</p>

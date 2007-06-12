@@ -26,7 +26,7 @@
 
 	<!--<p style="subtitle">Base</p>-->
 	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
-	<p><a href="bulldoze">Demolição</a></p>
+	<p><a href="bulldoze">Demolir</a></p>
 
 	<!--<p style="subtitle">Transport</p>-->
 	<img src="images/gui/buttonpanel/transport/tracks.png"/>
@@ -65,7 +65,7 @@
 
 	<!--<p style="subtitle">Trading</p>-->
     <img src="images/gui/buttonpanel/transport/port.png"/>
-	<p><a href="export">Importação e Exportação</a></p>
+	<p><a href="export">Entreposto</a></p>
 
 	<!--<p style="subtitle">Industry</p>-->
 	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
@@ -116,7 +116,7 @@
 	<p><a href="firestation">Bombeiro</a></p>
 	
 	<img src="images/gui/buttonpanel/misc/sports.png"/>
-	<p><a href="cricket">Quadra de basquete</a></p>
+	<p><a href="cricket">Quadra de esportes</a></p>
 
   <!--<p style="subtitle">Transport</p>-->
   <img src="images/gui/buttonpanel/transport/port.png"/>

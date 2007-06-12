@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Fazenda</p>
-	<p style="hp">Fazendas geram alimento para as pessoas se alimentarem, e suprem com matéria prima os moinhos. Os fazendeiros podem vender o alimento nos mercados. Eles levam o alimento em tratores, logo eles não precisam estar conectados ao transporte. Contudo eles podem vender para o transporte se quiserem. Mas você deve se certificar que o mercado está próximo da fazenda.</p>
+	<p style="hp">Fazendas geram alimentos para o sustento das pessoas e suprem com matéria prima os moinhos. Os fazendeiros podem vender o alimento nos mercados. Eles levam o alimento em tratores, logo eles não precisam estar conectados ao transporte. Contudo eles podem vender para o transporte se quiserem. Mas você deve se certificar que o mercado está próximo da fazenda.</p>
 	
 	<p style="hp">Esta é uma fazenda</p>
 	<img src="images/tiles/farm0.png" halign="center"/>
 	<p style="hp">e este é seu ícone</p>
 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
 	
-	<p style="hp">As fazendas precisam de produção para produzir mais que a quantidade mínima de alimento. Dar energia para a fazenda também aumenta o montante de alimento produzido. Energia também inclui o 'velho' tipo de moinho de vento que ajudam o alimento ser processado, diminuindo o desperdício.</p>
+	<p style="hp">As fazendas precisam de mão-de-obra para produzir mais que a quantidade mínima de alimento. Dar energia para a fazenda também aumenta a quantidade de alimento produzido. Energia também inclui o 'velho' tipo de moinho de vento que ajuda no processamento do alimento, diminuindo o desperdício.</p>
 	
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="market">Mercado</a></li>

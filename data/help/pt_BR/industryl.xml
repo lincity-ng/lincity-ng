@@ -2,8 +2,8 @@
 <Document style="helpdocument">
 	<p style="htitle">Indústria leve</p>
 	<p style="hp">Indústrias leves transformam os minérios em bens. A transformação torna-se mais eficiente caso tenha aço disponível. Energia aumenta a produção ainda mais. Moinhos de vento <b>não</b> geram energia para estas áreas.</p>
-	<p style="hp">Como um princípio básico, ignorando o acima, a saída de uma área indústrial leve é muito dependente do montante de materiais básicos, incluindo produção, que elas podem receber, e também o montante de bens que podem ser <b>tirados</b>.</p>
-	<p style="hp">Estas áreas conectam-se diretamente ao transporte para comercializar minérios, aço e bens. Eles podem precisar de um mercado para suprí-las com produção.</p>
+	<p style="hp">Como um princípio básico, ignorando o acima, a saída de uma área indústrial leve é muito dependente do montante de materiais básicos, incluindo mão-de-obra, que elas podem receber, e também o montante de bens que podem ser <b>tirados</b>.</p>
+	<p style="hp">Estas áreas conectam-se diretamente ao transporte para comercializar minérios, aço e bens. Eles podem precisar de um mercado para suprí-las com mão-de-obra.</p>
 	<p style="hp">Estas áreas conectam ao transporte <b>somente</b> ao canto superior da mão esquerda, como mostrado. O transporte curvar-se-á em quando é conectado.</p>
 	
 	<p style="hp">Esta é uma indústria leve</p>
@@ -16,5 +16,5 @@
 	<li><a href="road">Estrada</a></li>
 	<li><a href="rail">Estrada de ferro</a></li>
 	<li><a href="market">Mercado</a></li>
-	<li><a href="jobs">Produção</a></li>
+	<li><a href="jobs">Mão-de-obra</a></li>
 </Document>

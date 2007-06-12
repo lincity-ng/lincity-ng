@@ -4,7 +4,7 @@
 	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
 	<p style="hp">A mini tela de famintos mostra somente áreas residenciais.</p>
 	<p style="hp">Verde brilhante significa que não há alimento suficiente na área residencial. O verde mais escuro e o vermelho brilhante mostra um grave crescimento de famintos em cada área residencial exibida.</p>
-	<p style="hp">Clique esquerdo no mini-mapa para reposicionar a janela principal. Clique esquerdo no título do mini-mapa para escolher uma mini tela diferente. Alterne entre os modos de corbertura pressionando 'v' ou com um clique com o botão do meio no título do mini-mapa.</p>
+	<p style="hp">Clique com o botão esquerdo no mini-mapa para reposicionar a janela principal. Clique com o botão esquerdo no título do mini-mapa para escolher uma mini tela diferente. Alterne entre os modos de corbertura pressionando 'v' ou com um clique com o botão do meio no título do mini-mapa.</p>
 	
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="mini-screen">Mini-mapa</a></li>

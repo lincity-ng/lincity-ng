@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Universidade</p>
-	<p style="hp">Universidades ajudam a aumentar o nível tecnológico. No processo elas consomem bens e produção. Elas produzem mais que as escolas por bens/produção gasto. Contudo elas consomem bastante bens e produção e também custam muito dinheiro para o funcionamento, então você deve ter capacidade econômica e industrial para suprí-las.</p>
+	<p style="hp">Universidades ajudam a aumentar o nível tecnológico. No processo elas consomem bens e mão-de-obra. Elas produzem mais que as escolas por bens/mão-de-obra gasto. Contudo elas consomem bastante bens e mão-de-obra e também custam muito dinheiro para o funcionamento, então você deve ter capacidade econômica e industrial para suprí-las.</p>
 	<p style="hp">Você vai precisar de um número de universidades para alcançar um nível de tecnologia perto dos 100%</p>
 	<p style="hp">Universidades não precisam estar conectadas ao transporte; elas podem pegar tudo o que necessitam, dos mercados próximos e com produção e bens suficiente disponíveis.</p>
 
@@ -17,7 +17,7 @@
 	<li><a href="market">Mercado</a></li>
 	<li><a href="transport">Transporte</a></li>
 	<li><a href="goods">Bens</a></li>
-	<li><a href="jobs">Produção</a></li>
+	<li><a href="jobs">Mão-de-obra</a></li>
 	<li><a href="schools">Escola</a></li>
 	<li><a href="tech-level">Nível tecnológico</a></li>
 </Document>

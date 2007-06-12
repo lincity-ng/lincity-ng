@@ -2,9 +2,9 @@
 <Document style="helpdocument">
 	<p style="htitle">Transporte</p>
 	<p style="hp">Existem três tipos de transporte no Lincity: pistas, estradas e estradas de ferro.</p>
-	<p style="hp">Existe uma quarta que consiste de 'pular sobre um campo' para alcançar um mercado. Esta é uma forma muito curta de comércio e não será referida como transporte novamente. Contudo, ela muito importante, então você poderá ler novamente em <a href="market"> mercados</a>.</p>
+	<p style="hp">Existe uma quarta que consiste de 'pular sobre um campo' para alcançar um mercado. Esta é uma forma muito curta de comércio e não será referida como transporte novamente. Contudo, ela é muito importante, então você poderá ler novamente em <a href="market">mercados</a>.</p>
 
-	<p style="hp">Pistas, estradas e trilhos são utilizados para transportar, alimento, produção, bens, carvão, minério, aço e resíduos entre as áreas. Transporte entre mercados, transporte para construções não próximas de um mercado (isto geralmente é uma má idéia) e transporte para construções que precisam:</p>
+	<p style="hp">Pistas, estradas e trilhos são utilizados para transportar, alimento, mão-de-obra, bens, carvão, minério, aço e resíduos entre as áreas. Transporte entre mercados, transporte para construções não próximas de um mercado (isto geralmente é uma má idéia) e transporte para construções que precisam:</p>
 	<li>Comunas apenas precisam estar adjacentes ao transporte</li>
 	<li>Indústrias leves, minas de minério, aterros, portos, minas de carvão, indústrias pesadas e centros de reciclagem<b> precisam estar </b>conectadas ao transporte no topo esquerdo. Você verá o "nó" do transporte, que mostra a conexão.</li>
 	<li>Uma exceção é a usina elétrica carvoeira: o topo esquerdo é usado para conexão na linha de transmissão, então o transporte se conecta perto.</li>

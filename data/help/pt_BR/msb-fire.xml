@@ -2,10 +2,10 @@
 <Document style="helpdocument">
 	<p style="htitle">Área de cobertura dos bombeiros</p>
 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
-	<p style="hp">Áreas que estão próximas de um bombeiro são mostradas em verde escuro.</p>
-	<p style="hp">As áreas não próximas de um bombeiro são exibidas como normal.</p>
+	<p style="hp">Áreas que estão próximas de um corpo de bombeiros são mostradas em verde escuro.</p>
+	<p style="hp">As áreas não próximas de um corpo de bombeiros são exibidas como normal.</p>
 	<p style="hp">Lembre-se, os bombeiros levam três meses para ficarem ativos.</p>
-	<p style="hp">Clique esquerdo no mini-mapa para reposicionar a janela principal. Clique esquerdo no título do mini-mapa para escolher uma mini tela diferente. Alterne entre os modos de corbertura pressionando 'v' ou com um clique com o botão do meio no título do mini-mapa.</p>
+	<p style="hp">Clique com o botão esquerdo no mini-mapa para reposicionar a janela principal. Clique com o botão esquerdo no título do mini-mapa para escolher uma mini tela diferente. Alterne entre os modos de corbertura pressionando 'v' ou com um clique com o botão do meio no título do mini-mapa.</p>
 	
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="mini-screen">Mini-mapa</a></li>

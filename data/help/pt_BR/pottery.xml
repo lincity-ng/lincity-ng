@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Olaria</p>
-	<p style="hp">As olarias utilizam minério, carvão e produção para produzir bens. Elas não precisam estar conectadas ao transporte mas devem, certamente, estar próximas de um mercado com minério, carvão e produção a estar hábil de receber bens.</p>
+	<p style="hp">As olarias utilizam minério, carvão e produção para produzir bens. Elas não precisam estar conectadas ao transporte mas devem, certamente, estar próximas de um mercado com minério, carvão e produção a estar habilitada a receber bens.</p>
 	<p style="hp">Você pode descobrir se as olarias estão em funcionamento pelas fornalhas produzindo fumaça. Se o forno não estiver fazendo fumaça, então você estará produzindo menos de 100% de saída possível.</p>
 	
 	<p style="hp">Esta é uma olaria</p>

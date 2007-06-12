@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Pista</p>
-	<p style="hp">As pistas são os mais simples e baratos meios de transporte. Elas também tem menor capacidade. E também, elas não produzem poluição.</p>
+	<p style="hp">As pistas são os mais simples e baratos meios de transporte. Elas também tem menor capacidade. Elas também não produzem poluição.</p>
 	
 	<p style="hp">Esta é uma pista</p>
 	<img src="images/tiles/trackud.png" halign="center"/>

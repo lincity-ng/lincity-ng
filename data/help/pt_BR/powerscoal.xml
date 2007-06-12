@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Usina elétrica carvoeira</p>
-	<p style="hp">Usinas de energia carvoeira produzem eletricidade que são colocadas nas linhas de transmissão conectadas.</p>
-	<p style="hp">As linhas de transmissão se conectam ao topo esquerdo da usina, o transporte se conecta logo a próxima posição. Veja o exemplo.</p>
+	<p style="hp">Usinas de energia carvoeira produzem eletricidade que é colocada nas linhas de transmissão conectadas.</p>
+	<p style="hp">As linhas de transmissão se conectam ao topo esquerdo da usina, o transporte se conecta logo na próxima posição. Veja o exemplo.</p>
 	<p style="hp">A eficiência da transformação de carvão em eletricidade aumenta conforme o nível tecnológico - de quando a usina for <b>construida</b>. Você pode querer demolir uma usina antiga e trocar por uma mais nova, e mais eficiente, quando seu nível tecnológico tiver aumentado significantemente.</p>
 	
 	<p style="hp">Esta é uma usina de energia carvoeira</p>

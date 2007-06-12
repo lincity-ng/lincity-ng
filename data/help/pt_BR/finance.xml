@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Finanças</p>
-	<p style="hp">Clique esquerdo nesta janela irá circular entre as janelas 'global finanças balanço', detalhe o que são 'outros custos' na janela anterior, e 'custo da populacional'.</p>
-	<p style="hp">A janela de finanças é atualizada todo dia 1 de Janeiro. A situação será correspondente as receitas e despesas do ano anterior.</p>
-	<p style="hp">O 'Total' mostrado é o montante de dinheiro em sua conta. Existem certas coisas que você não pode fazer quando esta 'no vermelho'.</p>
+	<p style="hp">Clique com o botão esquerdo nesta janela irá circular entre as janelas 'balanço global finanças', detalhes do que são 'outros custos' na janela anterior, e 'custo da população'.</p>
+	<p style="hp">A janela de finanças é atualizada todo dia 1 de Janeiro. A situação será relativa às receitas e despesas do ano anterior.</p>
+	<p style="hp">O 'Total' mostrado é o montante de dinheiro em sua conta. Existem certas coisas que você não pode fazer quando está 'no vermelho'.</p>
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="housing">População</a></li>
 	<li><a href="other-costs">Outros custos</a></li>

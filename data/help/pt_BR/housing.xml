@@ -10,7 +10,7 @@
 	<li>Mortes    - mostra o número de pessoas que morreram de fome ou por causa da poluição no último mês.</li>
 	<li>Desempr % - mostra a percentagem de pessoas desempregadas.</li>
 	<li>Fome    % - mostra a percentagem de pessoas que passam fome.</li>
-	<p style="hp">Clicar com o esquerdo nesta janela, irá alternar entre as janelas de finanças, outros custos e habitação.</p>
+	<p style="hp">Clicar com o botão esquerdo nesta janela irá alternar entre as janelas de finanças, outros custos e habitação.</p>
 
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="finance">Finanças</a></li>

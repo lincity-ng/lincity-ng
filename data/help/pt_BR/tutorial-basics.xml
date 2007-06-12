@@ -21,10 +21,10 @@
 <p style="hp">Na cidade inicial as pistas são necessárias apenas para a produção das comunas. Outras atividades necessitam apenas do mercado. </p>
 
 <p style="hsubtitle">Dinheiro </p>
-<p style="hp">As produções são taxadas e com isso geram dinheiro pra você. No mini-mapa, a terceira aba é a <a href="finance"> janela de Finanças </a>. Tome o cuidade de não investir muito em pouco tempo: quando seu saldo estiver negativo, você não poderá construir algumas coisas, e você tem o custo anual devido aos débitos. Isto pode levar á falência (veja no <a href="tutorial-scenario"> Cenário tempos difíceis </a>). </p>
+<p style="hp">As produções são taxadas e com isso geram dinheiro pra você. No mini-mapa, a terceira aba é a <a href="finance"> janela de Finanças </a>. Tome o cuidado de não investir muito em pouco tempo: quando seu saldo estiver negativo, você não poderá construir algumas coisas e você terá custos anuais devido aos débitos. Isto pode levá-lo á falência (veja no <a href="tutorial-scenario"> Cenário tempos difíceis </a>). </p>
 
 <p style="hsubtitle">Desenvolvendo a cidade </p>
-<p style="hp">Lembre-se as pessoas ou comem ou morrem. Para controlar o crescimento populacional, você tem que encontrar um equilíbrio no tipo da <a href="residential"> Área residencial </a> que você construir (elas tem taxas de natalidade/mortalidade diferentes). A nova população permitirá mais produção, mas também precisam de mais alimento, bens, produção ... </p>
+<p style="hp">Lembre-se de que as pessoas que não comem morrem. Para controlar o crescimento populacional, você tem que encontrar um equilíbrio no tipo da <a href="residential"> Área residencial </a> que você construir (elas tem taxas de natalidade/mortalidade diferentes). A nova população permitirá mais mão-de-obra, mas também precisá de mais alimento, bens ... </p>
 <p style="hp">Você deverá aumentar sua produção (adicionar olarias, ferreiros) e ao mesmo tempo cuidar do que eles necessitam. Então deverá também adicionar comunas de acordo. </p>
 <p style="hp">Para ter novas construções você deve aumentar seu <a href="tech-level"> Nível Tecnológico </a>.</p>
 
