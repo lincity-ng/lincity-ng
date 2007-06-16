@@ -289,10 +289,7 @@ CheckButton::event(const Event& event)
         case Event::MOUSEBUTTONUP:
             if(event.inside && mclicked) {
                 if(event.mousebutton == SDL_BUTTON_LEFT &&
-                   state == STATE_DISABLED)
-                   break;
-                
-                if(event.mousebutton == SDL_BUTTON_LEFT)
+                   state != STATE_DISABLED)
                   checked = !checked;
                 released(this, event.mousebutton);
                 clicked(this, event.mousebutton);
