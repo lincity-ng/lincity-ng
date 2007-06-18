@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Высокая скорость</p>
+	<img src="images/gui/speed/fast.png"/>
+	<p style="hp">Это кнопка высокой скорости. Она запускает игру на максимальной скорости. События будут происходить очень быстро.</p>
+
+	<p style="hsubtitle">См. ещё:</p>
+	<li><a href="medium">Средний</a></li>
+	<li><a href="slow">Медленный</a></li>
+</Document>

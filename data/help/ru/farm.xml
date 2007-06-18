@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Фермы</p>
+	<p style="hp">Фермы выращивают еду для людей и снабжают строения которые использую еду. Фермеры продают еду в магазины. Перевозят они на тракторах, по этому им не нужна дорога. Естественно магазины должны находиться не очень далеко от ферм.</p>
+	
+	<p style="hp">Это ферма.</p>
+	<img src="images/tiles/farm0.png" halign="center"/>
+	<p style="hp">а это её иконка</p>
+	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
+	
+	<p style="hp">Фермы дают работу и производят небольшое кол-во еды. В случае если к ним подвести электричество, то КПД значительно увеличится.</p>
+	<p style="hsubtitle">См. еще:</p>
+	<li><a href="market">Магазины</a></li>
+	<li><a href="tech-level">Научный уровень</a></li>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="windmill">Ветряные мельницы</a></li>
+	<li><a href="food">Еда</a></li>
+</Document>
