@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Товары</p>
+	<p style="hp">Товары нужны большинству построек. У людей товары тоже пользуются спросом.</p>
+	<p style="hp">Товары облагаются налогом, это может помочь поднять ваш капитал.</p>
+	<p style="hp">Товары умет делать: Гончарные, Кузнецы, Мельницы и Легкая индустрия.</p>
+
+	<p style="hsubtitle">см. ещё:</p>
+	<li><a href="pottery"></a>Гончарная</li>
+	<li><a href="blacksmith">Кузница</a></li>
+	<li><a href="mills">Мельница</a></li>
+	<li><a href="industryl">Легкая индустрия</a></li>
+</Document>

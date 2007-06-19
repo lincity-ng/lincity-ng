@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Обучение</p>
+
+	<li><a href="tutorial-aim">Цели в игре</a></li>
+	<li><a href="tutorial-overview">Навигация по экрану</a></li>
+	<li><a href="tutorial-basics">Первые шаги</a></li>
+	<li><a href="tutorial-advanced">Продвинутые возможности</a></li>
+	<li><a href="tutorial-scenario">Предопределённый сценарий</a></li>
+</Document>
+
