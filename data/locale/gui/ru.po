@@ -1,4 +1,4 @@
-# Traduction Française pour lincity-ng
+# Traduction Fran??aise pour lincity-ng
 # French translation for lincity-ng
 # This file is distributed under the same license as the lincity-ng package.
 # Copyright (C) 2005 THE lincity-ng'S COPYRIGHT HOLDER.
@@ -471,7 +471,7 @@ msgstr "Начать с пустой карты"
 
 #: data/gui/newgame.xml
 msgid "Start with random village."
-msgstr "Начать со случайного городишьки"
+msgstr "Начать со случайного городишки"
 
 #: data/gui/minimap.xml
 msgid "Stats"
