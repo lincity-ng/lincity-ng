@@ -1,4 +1,4 @@
-# Traduction Française pour lincity-ng
+# Traduction Fran??aise pour lincity-ng
 # French translation for lincity-ng
 # This file is distributed under the same license as the lincity-ng package.
 # Copyright (C) 2005 THE lincity-ng'S COPYRIGHT HOLDER.
@@ -119,7 +119,7 @@ msgstr "Это университет"
 
 #: src/lincity/engine.cpp:717
 msgid "It's at a commune."
-msgstr "Это община"
+msgstr "Это комуна"
 
 #: src/lincity/engine.cpp:719
 msgid "It's at a tip."
@@ -215,7 +215,7 @@ msgstr "Магазин"
 #: src/lincity/lintypes.cpp:106
 #: src/lincity/modules/track.cpp:38
 msgid "Track"
-msgstr "Дорога"
+msgstr "Грунтовка"
 
 #: src/lincity/lintypes.cpp:118
 msgid "Coalmine"
@@ -246,7 +246,7 @@ msgstr "Университет"
 #: src/lincity/lintypes.cpp:190
 #: src/lincity/modules/commune.cpp:142
 msgid "Commune"
-msgstr "Община"
+msgstr "Комуна"
 
 #: src/lincity/lintypes.cpp:202
 msgid "Ore mine"
@@ -316,7 +316,7 @@ msgstr "Мельница"
 #: src/lincity/lintypes.cpp:370
 #: src/lincity/modules/pottery.cpp:119
 msgid "Pottery"
-msgstr "Кончарные изделия"
+msgstr "Гончарные изделия"
 
 #: src/lincity/lintypes.cpp:382
 msgid "Fire sta'n"
@@ -484,7 +484,7 @@ msgstr "Работа"
 #: src/lincity/modules/firestation.cpp:124
 #: src/lincity-ng/MpsInterface.cpp:448
 msgid "Goods"
-msgstr "Товар"
+msgstr "Товары"
 
 #: src/lincity/modules/rocket_pad.cpp:163
 msgid "Rocket Pad"
@@ -707,7 +707,7 @@ msgstr "хорошо"
 
 #: src/lincity/modules/residence.cpp:299
 msgid "poor"
-msgstr "Плохо"
+msgstr "плохо"
 
 #: src/lincity/modules/residence.cpp:300
 msgid "Job"
@@ -778,7 +778,7 @@ msgstr "Итого "
 
 #: src/lincity/modules/rail.cpp:50
 msgid "Rail"
-msgstr "Путь"
+msgstr "Путь ж/д"
 
 #: src/lincity/modules/coal_power.cpp:90
 #: src/lincity/modules/solar_power.cpp:45
@@ -870,7 +870,7 @@ msgstr "Солнце"
 
 #: src/lincity-ng/Dialog.cpp:173
 msgid "Launchsite"
-msgstr ""
+msgstr "Запушенно"
 
 #: src/lincity-ng/Dialog.cpp:341
 #: src/lincity-ng/Dialog.cpp:342
@@ -1029,7 +1029,7 @@ msgstr "Мини-карта: траффик"
 
 #: src/lincity-ng/GameView.cpp:1513
 msgid "Estimated Bulldoze Cost: "
-msgstr "Оценка Сноса: "
+msgstr "Цена cноса: "
 
 #: src/lincity-ng/GameView.cpp:1515
 msgid "Bulldoze Cost: "
@@ -1098,7 +1098,7 @@ msgstr "чисто"
 
 #: src/lincity-ng/MpsInterface.cpp:395
 msgid "fair"
-msgstr ""
+msgstr "ярморка"
 
 #: src/lincity-ng/MpsInterface.cpp:397
 msgid "smelly"
@@ -1280,6 +1280,11 @@ msgstr "Резиденция: 400 жителей, высокая рождаем�
 #: src/lincity-ng/ButtonPanel.cpp:215
 msgid " [Click right for help.]"
 msgstr " [Жмите правую для помощи.]"
+
+#: src/lincity-ng/ButtonPanel.cpp:243 src/lincity-ng/ButtonPanel.cpp:277
+#, c-format
+msgid "%s (Techlevel %.1f required.)"
+msgstr "%s (Нужен %.1f научный уровень.)"
 
 #: src/lincity-ng/EconomyGraph.cpp:121
 msgid "Mining"

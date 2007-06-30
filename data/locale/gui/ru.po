@@ -471,7 +471,7 @@ msgstr "Начать с пустой карты"
 
 #: data/gui/newgame.xml
 msgid "Start with random village."
-msgstr "Начать со случайных построик"
+msgstr "Начать со случайного городишьки"
 
 #: data/gui/minimap.xml
 msgid "Stats"
