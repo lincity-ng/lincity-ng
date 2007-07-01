@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ButtonPanel width="200" height="376">
 	<!-- Tooltips for the Button Pannel are created in ButtonPanel.cpp -->
 	<menubutton name="BPPointerButton"/>

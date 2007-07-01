@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Panel width="200" height="200" background="images/gui/piemenu/pie_menu.png">
     <TableLayout rows="3" cols="3">
       <colsize col="1" relative="1"/>

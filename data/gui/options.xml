@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <gui>
 	<Image src="images/mainmenu/settings_back.png" resizable="yes"/>
 	<TableLayout rows="6" cols="3" border="false">

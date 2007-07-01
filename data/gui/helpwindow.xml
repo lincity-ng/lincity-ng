@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Window width="500" height="400" border="5" titlesize="30" name="HelpWindow">
 	<title>
         <TableLayout rows="1" cols="2">

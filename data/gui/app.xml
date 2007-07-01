@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <gui>
 	<!-- TODO move these elsewhere once the system allows that -->
 	<DefineStyle name="title" color="white" font-size="20" margin-left="7"/>

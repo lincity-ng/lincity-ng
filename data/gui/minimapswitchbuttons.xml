@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <TableLayout rows="1" cols="10"> <!-- The MiniMap ChangeView Buttons -->
     <cell row="1" col="1">
         <CheckButton name="MapViewNormal">

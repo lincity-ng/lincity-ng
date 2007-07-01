@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <gui>
     <DefineStyle name="creditsdoc"/>
     <DefineStyle name="section" color="black" margin-top="35" font-size="30"
