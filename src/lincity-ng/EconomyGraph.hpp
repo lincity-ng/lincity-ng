@@ -21,6 +21,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Component.hpp"
 #include "gui/XmlReader.hpp"
 #include "gui/TextureManager.hpp"
+#include "gui/Paragraph.hpp"
+#include "gui/Style.hpp"
+
+#include "CheckButton.hpp"
 
 class EconomyGraph : public Component {
 public:
@@ -50,6 +54,14 @@ private:
     Texture* labelTextureFPS;
 
     bool nobodyHomeDialogShown;
+
+    CheckButton* switchEconomyGraphButton;
+    std::string switchEconomyGraphText;
+    Paragraph* switchEconomyGraphParagraph;
+
+    Style normalStyle;
+    Style redStyle;
+    Style yellowStyle;
 };
 
 EconomyGraph* getEconomyGraph();

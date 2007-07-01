@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Style.hpp"
 #include "gui/FontManager.hpp"
 #include "gui/TextureManager.hpp"
+#include "gui/SwitchComponent.hpp"
 
 #include "gui_interface/shared_globals.h"
 
@@ -39,7 +40,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ScreenInterface.hpp"
 #include "Config.hpp"
 #include "Dialog.hpp"
-
+#include "Util.hpp"
 
 EconomyGraph* economyGraphPtr = 0;
 
@@ -65,6 +66,7 @@ EconomyGraph::EconomyGraph(){
     labelTextureFPS = 0;
 
     nobodyHomeDialogShown = false;
+    switchEconomyGraphButton = NULL;
 }
 
 EconomyGraph::~EconomyGraph(){
@@ -228,6 +230,34 @@ void EconomyGraph::updateData(){
     } else if( nobodyHomeDialogShown ){ //reset flag if there are people
         nobodyHomeDialogShown = false;
     }
+   
+
+    Component* root = this;
+    while( root->getParent() ){
+        root = root->getParent();
+    }
+
+    // Initialisation can not be done in constructor because the SwitchEconomyGraph-Button does not exist then.
+    if( switchEconomyGraphButton == NULL ){
+        switchEconomyGraphButton = getCheckButton( *root, "SwitchEconomyGraph" );
+        switchEconomyGraphText = switchEconomyGraphButton->getCaptionText();
+        switchEconomyGraphParagraph = dynamic_cast<Paragraph*>(switchEconomyGraphButton->getCaption());
+        redStyle = yellowStyle = normalStyle = switchEconomyGraphParagraph->getStyle();
+        yellowStyle.text_color.parse("yellow");
+        redStyle.text_color.parse("red");
+    }
+ 
+    // set tab Button colour
+    if( switchEconomyGraphParagraph ){
+        if( monthgraph_starve[0] > 0 ){ // people are starving: RED
+            switchEconomyGraphParagraph->setText(switchEconomyGraphText, redStyle);
+        } else if( monthgraph_nojobs[0] > 0 ){ // people are unemployed: YELLOW
+            switchEconomyGraphParagraph->setText(switchEconomyGraphText, yellowStyle);
+        } else {
+            switchEconomyGraphParagraph->setText(switchEconomyGraphText, normalStyle);
+        }
+    }
+    
     //redraw
     setDirty();
 }
