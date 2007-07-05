@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document style="helpdocument">
 <p style="htitle">Цель игры</p>
-<p style="hp">Существует 2 пути выиграть в игре:p>
+<p style="hp">Существует 2 пути выиграть в игре</p>
 <li>Доведение до <a href="sustain">стабильной экономики </a> (после этого вы можете продолжать игру) </li>
 <li>Эвакуация всего населения в <a href="rocket">другой мир</a> на другую планету (продолжить играть вы сможете только сами с собой :-D ). </li>
 <p style="hp"></p>
@@ -20,4 +20,3 @@
 <li><a href="tutorial-scenario">Сценарий игры</a></li>
 
 </Document>
-
