@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Средняя скорость</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Это кнопка средней скорости игры. На слабых машинах, кнопки скорости могут не работать.</p>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="slow">Медленно</a></li>
+	<li><a href="fast">Быстро</a></li>
+</Document>
+
+

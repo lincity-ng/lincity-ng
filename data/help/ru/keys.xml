@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Клавиатура</p>
+    <p style="hp">ESCAPE: Переключает курсор</p>
+    <p style="hp">b Переключает бульдозер и курсор</p>
+    <p style="hp">h прячит бульдозер. Жмите h снова, что бы показать его.</p>
+    <p style="hp">v переключает зоны миникарты</p>
+    <p style="hp">KP_PLUS: приближение</p>
+    <p style="hp">KP_MINUS одаление</p>
+    <p style="hp">KP_ENTER приближение 100%</p>
+    <p style="hp">KP5 переместить обзор на середину карты</p>  
+    <p style="hp">KP9 переместится севернее</p>
+    <p style="hp">KP1 переместится южнее</p>
+    <p style="hp">KP7 переместится заподнее</p>
+    <p style="hp">KP3 переместится восточне</p>
+    <p style="hp">KP2 переместится юв</p> 
+    <p style="hp">KP4 переместится юз</p> 
+    <p style="hp">KP6 переместится cв</p> 
+    <p style="hp">KP8 переместится сз</p> 
+    <p style="hp">жмите shiht+ перемешаться начинате быстре</p>
+    <p style="hp">F12 быстрое сохранение</p> 
+    <p style="hp">F9  быстрая загрузка</p> 
+
+    <p style="htitle">Мышка</p>
+    <p style="hp">правая:</p>
+    <p style="hp">Жмите на миникарте, что бы переместиться.</p>
+    <p style="hp">средная:</p>
+    <p style="hp">При наведении на постройку показывает информацию.</p>
+    <p style="hp">левая:</p>
+    <p style="hp">Minimap shows the selected Area on mainscreen.</p>
+    <p style="hp">Perform action depending on selected tool. Bulldoze, show Information,
+    construct building.</p>
+    <p style="hp">колёсико:</p>
+    <p style="hp">вверх: приближение</p>
+    <p style="hp"> вниз: удаление</p>
+</Document>
+

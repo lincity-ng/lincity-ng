@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Зоны угля</p>
+	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">Зоны угля показывают где находиться ресурсы угля в вашем городе. Месторождения показываются черным цветом. Если ваша угольная шахта построена на них, то она начинает добывать эти ресурсы.</p>
+	<p style="hp">Для первого запроса данной информации вам нужно заплатить 1 миллион рублей. Это разовый платеж, и в дальнейшем данная информация будет бесплатна.</p>
+
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="mini-screen">Мини карты</a></li>
+	<li><a href="msb-cricket">Спортивные зоны</a></li>
+	<li><a href="msb-fire">Пожарные зоны</a></li>
+	<li><a href="msb-health">Мед зоны</a></li>
+	<li><a href="msb-normal">Нормальное отображение</a></li>
+	<li><a href="msb-pol">Зоны загрязнения</a></li>
+	<li><a href="msb-power">Энегро зоны</a></li>
+	<li><a href="msb-starve">Зоны голодания</a></li>
+	<li><a href="msb-transport">Транспортные зоны</a></li>
+	<li><a href="msb-ub40">Зоны безработицы</a></li>
+</Document>
+

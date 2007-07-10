@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Пожарная зона</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+	<p style="hp">Зоны, которые защищены пожарными станциями окрашены в зелёный.</p>
+	<p style="hp">Все зоны что не охраняться пожарными станциями не окрашиваться.</p>
+	<p style="hp">Запомните станции начинают работать только после 3-х месяцев после постройки.</p>
+	<p style="hp">FIXME Left click on the mini screen title to choose a different mini screen view. Что бы переключить то что показывает миникарте, нужно пользоваться кнопкой "v".</p>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="mini-screen">Мини карта</a></li>
+	<li><a href="msb-coal">Угольные зоны</a></li>
+	<li><a href="msb-cricket">Спортивные зоны</a></li>
+	<li><a href="msb-health">Мед зоны</a></li>
+	<li><a href="msb-normal">Нормальное отображение</a></li>
+	<li><a href="msb-pol">Зоны загрязнения</a></li>
+	<li><a href="msb-power">Электро зоны</a></li>
+	<li><a href="msb-starve">Зоны голодания</a></li>
+	<li><a href="msb-transport">Транспортные зоны</a></li>
+	<li><a href="msb-ub40">Зоны безработицы</a></li>
+</Document>
