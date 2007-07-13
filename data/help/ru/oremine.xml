@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Шахта руды</p>
+	<p style="hp">Шахта руды снабжает рудой, из который можно делать товары и сталь. Вы можете строить шахту где угодно. Под вашей постройкой земля будет портится. Вы не смежите снести шахту и построить новую (точнее это будет стоить вам много денег).</p>
+	<p style="hp">Когда шахта опустошается в место неё появляется 16 зон воды!</p>
+	<p style="hp">График показывает, какие шахты близки и истощению.</p>
+	<p style="hp">Данной постройке нужен транспорт, который присоединяется к верхнему левому углу..</p>
+	
+	<p style="hp">Это шахта руды</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="ore">Руда</a></li>
+	<li><a href="goods">Товары</a></li>
+	<li><a href="steel">Сталь</a></li>
+</Document>

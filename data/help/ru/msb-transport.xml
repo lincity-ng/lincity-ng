@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Транспортные зоны</p>
+	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+	<p style="hp">Показывает передвижение ресурсов по карте в вашем городе по <a href="track">грунтовке</a>, <a href="road">дорогам </a>
+    и <a href="rail">рельсам</a>.</p>
+	<p style="hp">Голубоватый синий показывает зоны действия ваших <a href="market">магазинов</a>.</p>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="mini-screen">Мини карта</a></li>
+	<li><a href="msb-coal">Зоны угля</a></li>
+	<li><a href="msb-cricket">Спортивные зоны</a></li>
+	<li><a href="msb-fire">Пожарные зоны</a></li>
+	<li><a href="msb-normal">Нормальное отображение</a></li>
+	<li><a href="msb-pol">Зоны загрязнения</a></li>
+	<li><a href="msb-power">Энегро зоны</a></li>
+	<li><a href="msb-starve">Зоны безработицы</a></li>
+	<li><a href="msb-health">Мед зоны</a></li>
+	<li><a href="msb-ub40">Зоны голодания</a></li>
+</Document>

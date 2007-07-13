@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Руда</p>
+	<p style="hp">Руда одна из самых простых материалов в игре. Руду умеют добывать коммуны и рудные шахты. Так же из отходов её получает Переработка.</p>
+	<p style="hp">Гончары, легкая и тяжёлая индустрии используют руду.</p>
+
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="commune">Комуны</a></li>
+	<li><a href="oremine">Шахта руды</a></li>
+	<li><a href="recycle">Переработка</a></li>
+	<li><a href="pottery">Гончарная</a></li>
+	<li><a href="indistryl">Легкая индустрия</a></li>
+	<li><a href="indistryh">Тяжёлая индустрия</a></li>
+</Document>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Мед зоны</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<p style="hp">Зоны которые окрашены зелёным, находятся под наблюдением медицинского центра.</p>
+	<p style="hp">Все не окрашенные места, медицинским центром не обслуживаются.</p>
+	<p style="hp">Запомните, мед центр начинает работать только после 3 месяцев после постройки.</p>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="mini-screen">Мини карта</a></li>
+	<li><a href="msb-coal">Зоны угля</a></li>
+	<li><a href="msb-cricket">Спортивные зоны</a></li>
+	<li><a href="msb-fire">Пожарные зоны</a></li>
+	<li><a href="msb-normal">Нормальное отображение</a></li>
+	<li><a href="msb-pol">Зоны загрязнения</a></li>
+	<li><a href="msb-power">Энегро зоны</a></li>
+	<li><a href="msb-starve">Зоны безработицы</a></li>
+	<li><a href="msb-transport">Транспортные зоны</a></li>
+	<li><a href="msb-ub40">Зоны голодания</a></li>
+</Document>
+
+
+
+<!--
+
+text -1 270 Left click on the mini screen 
+text -1 280 to reposition the main window.
+text -1 300 Left click on the mini screen title 
+text -1 310 to choose a different mini screen view.
+text -1 330 Toggle overlay mode by pressing 'v' 
+text -1 340 or middle click on the mini screen title (X only)
+-->

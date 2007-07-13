@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Зоны безработицы</p>
+	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
+	<p style="hp">Безработица показывается только на резиденциях.</p>
+	<p style="hp">Светло зелёный означает, что безработица отсутствует. Темно зелёный и красный означает что безработица есть, причем в красной зоне она больше.</p>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="mini-screen">Мини карта</a></li>
+	<li><a href="msb-coal">Угольные зоны</a></li>
+	<li><a href="msb-cricket">Спортивные зоны</a></li>
+	<li><a href="msb-health">Мед зоны</a></li>
+	<li><a href="msb-normal">Нормальное отображение</a></li>
+	<li><a href="msb-pol">Зоны загрязнения</a></li>
+	<li><a href="msb-power">Электро зоны</a></li>
+	<li><a href="msb-starve">Зоны голодания</a></li>
+	<li><a href="msb-transport">Транспортные зоны</a></li>
+	<li><a href="msb-fire">Пожарные зоны</a></li>
+</Document>

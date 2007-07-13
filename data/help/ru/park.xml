@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Парки</p>
+	<p style="hp">Парки очень просты: очищают загрязнение.</p>
+	<p style="hp">Очищает все что создает загрязнение в основном это легкая, тяжёлая индустрии и угольная электростанция.</p>
+	<p style="hp">Вы можете использовать парки для защиты резиденций, или для того что бы остановить распространение загрязнения.</p>
+	<p style="hp">Ветер дует с юго-запада на северо-восток, стройте парки полагаясь на это.</p>
+	
+	<p style="hp">Это парк</p>
+	<img src="images/tiles/parkland-plane.png" halign="center"/>
+	<p style="hp">а это его иконка</p>
+	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+	
+	<p style="hsubtitle">см ещё:</p>
+	<li><a href="pollution">Загрязнение</a></li>
+	<li><a href="road">Дороги</a></li>
+	<li><a href="rail">Рельсы</a></li>
+	<li><a href="coalmine">Каменный уголь</a></li>
+	<li><a href="industryh">Тяжёлая индустрия</a></li>
+	<li><a href="industryl">Легкая индустрия</a></li>
+</Document>
