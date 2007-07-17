@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Центр переработки</p>
+	<p style="hp">Used goods produce waste.</p>
+	<p style="hp">Центр переработки делает из мусора руду. Транспорт нужно подсоединять к левому верхнему углу. Для работы требуется работа и деньги.</p>
+	<p style="hp">Данный центр дает возможность получить стабильную экономику, (т.е.. не нужно добывать руду) для того что бы поднять КПД до 100% нужно построить больше мельниц.</p>
+	
+	<p style="hp">Это центр переработки</p>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="goods">Товары</a></li>
+	<li><a href="ore">Руда</a></li>
+	<li><a href="transport">Транспорт</a></li>
+</Document>

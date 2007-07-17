@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">ЛЭП</p>
+	<p style="hp">Линии Электро Передач (ЛЭП) передают электроэнергию от солнечных и угольных станций подстанциям. Ко всем электропередающим(принимающим) постройкам ЛЭП подсоединяется к верхнему левому углу.</p>
+	<p style="hp">ЛЭП могут проходить <b>под</b> грунтовками, дорогами, рельсами и речками (но не более 1-ого поля). Если электролинии насположены или под транспортом или речкой, они могут передавать электричество. Много раз вы можете захотеть убрать речушку, но помните это будет стоить много денег. The power lines are joined when they are in a straight line.</p>
+
+	<p style="hp">Это ЛЭП</p>
+	<img src="images/tiles/powerlvd.png" halign="center"/>
+	<p style="hp">Это иконка</p>
+	<img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
+	<p style="hp">так выглядит на миникарте</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="substation">Подстанции</a></li>
+	<li><a href="powerssolar">Угольные электролинии</a></li>
+	<li><a href="msb-power">Электро зоны</a></li>
+</Document>
+

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Рельсы (железная дорога)</p>
+	<p style="hp">На рельсах можно перевозить больше чем по дорогам. Данный вид загрязняет чуть больше чем дороги. Однако их строительство и ремонт дороже. Однако это хорошая цена, если вам нужно перевозить много товара, на дальние расстояния.</p>
+
+	<p style="hp">Это рельсы</p>
+	<img src="images/tiles/railud.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="pollution">Загрязнения</a></li>
+</Document>

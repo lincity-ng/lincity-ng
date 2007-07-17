@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Солнечные электростанции</p>
+	<p style="hp">Солнечные электростанции делают электроэнергию и отдают на ЛЭП. Чем выше ваш научный уровень, тем больше электроэнергии могут вырабатывать солнечные электростанции. Данное значение устанавливается при постройки и не меняется.</p>
+	<p style="hp">Солнечная электростанция нуждается в большой рабочий силе. Если рабочий силы не хватает, то электричества вырабатывается меньше и без рабочих электростанция не работает.</p>
+	
+	<p style="hp">Это солнечная электростанция</p>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
+	<p style="hp">а это её иконка</p>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="substation">Подстанции</a></li>
+	<li><a href="powerline">Электролинии</a></li>
+	<li><a href="residential">Резиденции</a></li>
+	<li><a href="tech-level">Научный уровень</a></li>
+	<li><a href="msb-power">Электролинии</a></li>
+	<li><a href="windmill">Ветряные мельницы</a></li>
+</Document>

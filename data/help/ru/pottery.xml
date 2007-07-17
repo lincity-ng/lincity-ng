@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Гончарная</p>
+	<p style="hp">Гончарные делают товары из руды, угля и работы. Её не нужно соединять с транспортом, но она должна быть в зоне действия магазина(ов).</p>
+	<p style="hp">Вы можете сказать работать гончарным обжигать товар, из-за этого появляется загрязнение, но за то КПД увеличивается до 100%.</p>
+	
+	<p style="hp">Это гончарная</p>
+	<img src="images/tiles/pottery0.png" halign="center"/>
+	<p style="hp">это иконка</p>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="ore">Руда</a></li>
+	<li><a href="coal">Уголь</a></li>
+	<li><a href="jobs">Работа</a></li>
+	<li><a href="market">Магазин</a></li>
+</Document>

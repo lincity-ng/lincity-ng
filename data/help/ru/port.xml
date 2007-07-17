@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Порт</p>
+	<p style="hp">Порты могут импортировать и экспортировать товары, сталь, руду, уголь и еду. Импорт уменьшает кол-во денег, экспорт увеличивает.</p>
+	<p style="hp">Убедитесь, что порт соединен с транспортом. Для того чтобы выбрать что экспортировать/импортировать два раза нажмите на порт. Данное действие откроет соответствующее окно.</p>
+	<p style="hp">Порт <b>должен</b> быть соединен транспортом с правым верхним углом.</p>
+	<p style="hp">За экспорт вы получите меньше денег, чем потратите на импорте одинакового кол-ва ресурса.</p>
+	<p style="hp">Note: Exporters discount large exports.</p>
+
+	<p style="hp">Это порт</p>
+	<img src="images/tiles/ex_port.png" halign="center"/>
+	<p style="hp">это иконка</p>
+	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+    <li><a href="export">Экспорт и импорт</a></li>
+	<li><a href="rivers">Реки</a></li>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="market">Магазины</a></li>
+	<li><a href="coal">Уголь</a></li>
+	<li><a href="ore">Руда</a></li>
+	<li><a href="goods">Товары</a></li>
+	<li><a href="steel">Сталь</a></li>
+</Document>
