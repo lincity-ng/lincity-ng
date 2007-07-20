@@ -45,7 +45,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Config.hpp"
 
 #ifdef ENABLE_BINRELOC
-#include "binreloc/binreloc.h"
+#include "binreloc.h"
 #endif
 
 Painter* painter = 0;
@@ -158,9 +158,10 @@ void initPhysfs(const char* argv0)
                 error);
         printf ("Will fallback to hardcoded default path.\n");
     }
-
-    char* brdatadir = br_strcat(DATADIR, "/" PACKAGE_NAME);
+    
+    char* brdatadir = br_find_data_dir(APPDATADIR);
     datadir = brdatadir;
+    datadir += "/" PACKAGE_NAME;
     free(brdatadir);
 #else
     datadir = APPDATADIR;
@@ -271,8 +272,8 @@ void checkGlErrors()
     }
     std::cerr << "glGetError reports";
     while( glerror != GL_NO_ERROR ){
+        std::cerr << " ";
         switch( glerror ){
-            std::cerr << " ";
             case GL_INVALID_ENUM:
                 std::cerr << "GL_INVALID_ENUM";
                 break;

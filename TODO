@@ -40,6 +40,10 @@ Programming
  [L] New text on buttons is truncated to original textlength. 
      (eg in load game menu) Buttons that had an empty string as caption once
      won't change to anything else. At least the caption is not shown.
+ [H] Windows XP: non-ASCII messages that are read directly from XML without
+     translation are broken in Windows XP. Works fine in Linux and Win 98. 
+     https://developer.berlios.de/bugs/?func=detailbug&bug_id=10631&group_id=2929
+ [M] Get rid of all the compiler warnings.
 
 --Translations/Help--
  [H] There were help page without any link to them. Some of the texts

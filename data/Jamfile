@@ -48,6 +48,7 @@ HELPPATHS =
     help/es
     help/fr
     help/nl
+    help/ru
     help/sv
 ;
 for p in $(HELPPATHS) {
