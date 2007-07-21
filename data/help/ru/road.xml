@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Дороги</p>
+	<p style="hp">Дороги перевозят больше чем грунтовки, но не так много, как рельсы. Дороги загрязняют среду больше чем рельсы. Они дешевле в постройке и обслуживании чем рельсы.</p>
+	
+	<p style="hp">Это дорога</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="pollution">Загрязнения</a></li>
+</Document>

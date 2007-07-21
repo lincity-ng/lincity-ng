@@ -1178,7 +1178,7 @@ msgstr "За год"
 
 #: src/lincity-ng/MpsInterface.cpp:498
 msgid "Interest"
-msgstr "Долг. аренда."
+msgstr "Заём"
 
 #: src/lincity-ng/MpsInterface.cpp:500
 msgid "Schools"

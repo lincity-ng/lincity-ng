@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Резиденции</p>
+	<p style="hp">Это то место, где живут люди. Что бы люди жили в резиденциях, их нужно кормить. Так же помогает жизни работаустроеность и товары. Вам нужно или ставить магазины или подводить транспорт. Есть 3 вида резиденций: слабо, средние и сильно заселяемые постройки. Они имеют разный уровень рождаемости и смертности связанный с ними. Это дает возможность контролировать кол-во населения..</p>
+	<p style="hp">В дальнейшей игре вы будите иметь возможность строить продвинутые дома.</p>
+
+	<p style="hp">Так выглядит слабо заселяемая постройка(продвинутая)</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">а это её иконка</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<p style="hp">Это дома средней заселяeмости (продвинутые)</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">Это дом высокой заселяeмости (продвинутый)</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="market">Магазины</a></li>
+</Document>
+

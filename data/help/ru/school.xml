@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Школы</p>
+	<p style="hp">Школам нужна работа и товары, для того что бы создавать технологии, которые они могут применять в университетах. They use far fewer jobs and goods than universities, but produce far fewer tech points. Нужно 4 или 5 школ, для одного университета. It is often (but not always) better to put a university in.</p>
+	<p style="hp">Школам не нужно подсоединять к транспорту. Все что нужно они могут взять из магазина.</p>
+	<p style="hp">Школы стоят денег, что бы работать. Вы видите общую стоимость содержания всех школ за последний год.</p>
+	<p style="hp">Если изображение построенной школы изменятся, то она работает.</p>
+	
+	<p style="hp">Это школа</p>
+	<img src="images/tiles/school0.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="market">Магазины</a></li>
+	<li><a href="university">Университеты</a></li>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="goods">Товары</a></li>
+	<li><a href="jobs">Работа</a></li>
+</Document>
