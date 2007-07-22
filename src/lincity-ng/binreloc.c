@@ -9,6 +9,7 @@
  * See http://autopackage.org/docs/binreloc/ for
  * more information and how to use this.
  */
+#include <config.h>
 
 #ifndef __BINRELOC_C__
 #define __BINRELOC_C__

@@ -159,7 +159,7 @@ void initPhysfs(const char* argv0)
         printf ("Will fallback to hardcoded default path.\n");
     }
     
-    char* brdatadir = br_find_data_dir(APPDATADIR);
+    char* brdatadir = br_find_data_dir("/usr/local/share");
     datadir = brdatadir;
     datadir += "/" PACKAGE_NAME;
     free(brdatadir);
