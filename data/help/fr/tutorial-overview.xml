@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Survol de l'écran </p>
+
+<p style="hp"><b>En Haut à Gauche </b> se trouve le dock d'icones avec les outils (information et bulldozzer) et tous les batiments possibles durant le jeu.</p>
+<li>Click-gauche sur une icone ouvre un tiroir qui affiche d'autres icônes de la même catégorie. </li>
+<li>Click droit sur une icône ouvre l'aide correspondant. </li>
+<li>Simplement attendre en laissant la souris sur une icone affiche une bulle d'aide </li>
+<p style="hp"></p>
+
+<p style="hp"><b>En Bas à Gauche </b> se trouvent les contrôles de la vitesse de jeu, et le bouton pour sortir</p>
+<p style="hp"></p>
+
+<p style="hp"><b>En Bas à Droite </b> sont tous les outils d'informations: le mini écran avec 4 onglets, et en dessous les mini icônes pour différentes informations. Clickez pour tester ... </p>
+<p style="hp"></p>
+
+<p style="hp">Essayez le clavier, la souris (gauche, droit, milieu, roulette)... F1 pour avoir l'Aide. </p>
+
+<p style="hp">Voir aussi:</p>
+<li><a href="tutorial-basics">Premiers pas</a></li>
+<li><a href="tutorial-advanced">Fonctionalités avancées</a></li>
+<li><a href="tutorial-scenario">Scénarios pré-définis</a></li>
+
+</Document>
+

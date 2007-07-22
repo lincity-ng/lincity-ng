@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Tutoriel</p>
+
+	<li><a href="tutorial-aim">But du jeu</a></li>
+	<li><a href="tutorial-overview">Survol de l'écran</a></li>
+	<li><a href="tutorial-basics">Premiers pas</a></li>
+	<li><a href="tutorial-advanced">Fonctionalités avancées</a></li>
+	<li><a href="tutorial-scenario">Scenarios pré-définis</a></li>
+</Document>
+
