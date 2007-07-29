@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Подстанции</p>
+	<p style="hp">Подстанции берут электричество с ЛЭП и распределяют его в зонах покрытия. Вы можете убедиться, что электричество подсоединено, кликнув курсором, к примеру, на резиденция, потом посмотрев на миникарту.</p>
+	
+	<p style="hp">Это подстанция</p>
+	<img src="images/tiles/substation-G.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+	
+	<p style="hsubtitle">см ещё:</p>
+	<li><a href="powerline">Электролинии</a></li>
+	<li><a href="powerssolar">Солнечная электростанция</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="steel">Сталь</a></li>
+	<li><a href="jobs">Работа</a></li>
+</Document>
+

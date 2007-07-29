@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Грунтовка</p>
+	<p style="hp">Грунтовки простейший и дешёвый вид транспорта. У неё очень малая пропускная способность. Но зато она не загрязняет.</p>
+	
+	<p style="hp">Это грунтовка</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="commune">Коммуны</a></li>
+</Document>

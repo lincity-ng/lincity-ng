@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Мусорки </p>
+	<p style="hp">Собирают мусор. Если вы соберёте много мусора в магазинах, они могут его сжечь. От этого многие жители начинают смотреть с опаской. (This makes quite a lot of pollution so you should be wary of letting rubbish accumulate).</p>
+	<p style="hp">Мусорки заполняются с края, и потом к центру и вверх.</p>
+	<p style="hp">К мусоркe нужно соединять транспорт к верхнему левому углу.</p>
+	<p style="hp">Что бы увидеть, что мусорки работают, надо нажать по ним курсором, и посмотреть в мини окно. Так же при заполнении меняется изображение.</p>
+	
+	<p style="hp">Это мусорка</p>
+	<img src="images/tiles/tip0.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="market">Магазины</a></li>
+</Document>
