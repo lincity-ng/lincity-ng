@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Университеты</p>
+	<p style="hp">Помогают повысить научный уровень. Для этого они используют работу и товары. They produce more than schools for a given goods/jobs input. Однако большое количество товара и работы дорого стоит, итак вы должны не забывать про экономку.</p>
+	<p style="hp">У вас должны быть университеты, что бы поднять научный уровень выше чем 100%</p>
+	<p style="hp">Университеты не нужно соединять с транспортом; все что им нужно они могут взять в близлежащих магазинах.</p>
+
+	<p style="hsubtitle">Замечание</p>
+	<p style="hp">Вы <b>должны</b> иметь 5 школ, на каждый университеты.</p>
+
+	<p style="hp">Это университет</p>
+	<img src="images/tiles/university.png" halign="center"/>
+	<p style="hp">а это его иконка</p>
+	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="market">Магазины</a></li>
+	<li><a href="transport">Транспорт</a></li>
+	<li><a href="goods">Товары</a></li>
+	<li><a href="jobs">Работа</a></li>
+	<li><a href="schools">Школы</a></li>
+	<li><a href="tech-level">Технологический уровень</a></li>
+</Document>
