@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Окно стабилизированного развития</p>
+	<p style="hp">Это окно показывает шесть цветных линий. Когда все линии дотянуться до правого края, тогда вы имеете стабильную экономику.</p>
+	<li>
+		<span color="orange">Мнл</span> (оранжевая) вы не занимаетесь никакой добычей руды, или угля
+		и не накапливаете мусор на помойках.
+	</li>
+	<li>
+		<span color="gray">Экс</span>	(серый) вы не экспортируете и не импортируете.
+	</li>
+	<li>
+		<span color="green">Днг</span> (зелёный) в вас положительный или нулевой баланс,
+		this means you cannot build anything but the cheapest of areas.
+	</li>
+	<li>
+		<span color="blue">Нсл</span> (синий) ваше население стабилизировано 
+		изменение разрешено не более чем на 2% за 180 лет (of the value when the 180 year count started).
+		If it goes outside of
+		this band, the new population will be the new value and the year count
+		will be set back to zero. Also, your population must be at least 5000.
+	</li>
+	<li>
+		<span color="yellow">НУ</span> (желтый) ваш технологический уровень прибавляется 
+		или падает до нуля, если произошли очень малые изменения. Если научный уровень упал хоть на 1%, за год
+		то уровень падает до нуля. Так же научный уровень должен быть больше 50%.
+	</li>
+	<li>
+		<span color="red">Пжк</span> (Красный) Все здания должны защищаться пожарными. 
+		The following areas do *not* have to have fire cover: monuments,
+		ore mines, power lines and rockets.
+	</li>
+	<p style="hp">Время для стабильной экономики (в годах): Мнл=180 Экс=180 Днг=60 Нсл=60 НУ=120 Пжк=60</p>
+</Document>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Монумент</p>
+	<p style="hp">Монументы обучают и вдохновляют. Каждый монумент, который вы построили увеличивает ваш технологический уровень. Но не может поднять его выше 40%.</p>
+	<p style="hp">Для постройке монумента нужна рабочая сила. <b>Много</b> силы. Его можно использовать для контролирования безработицы. Это не долгое решение проблемы, как монумент построиться, появиться опять свободная рабочая сила.</p>
+	<p style="hp">Вы можете увидеть как идут дела, нажав на монумент. Так же по мере строительства изменяется иконка. Существует всего 6 таких иконок.</p>
+	<p style="hp"><b>Подсказка</b>: How to stop monument building sucking too many jobs out of an area and therefore starving other areas of jobs: build a monument farm away from other areas.</p>
+
+	<p style="hp">Это монумент</p>
+	<img src="images/tiles/monument5.png" halign="center"/>
+	<p style="hp">а это иконка</p>
+	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
+	
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="market">Магазин</a></li>
+	<li><a href="ore">Руда</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="steel">Сталь</a></li>
+	<li><a href="jobs">Работа</a></li>
+</Document>
