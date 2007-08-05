@@ -212,7 +212,7 @@ DictionaryManager::parseLocaleAliases()
 
   char c = ' ';
   while(in.good() && !in.eof()) {
-    while(isspace(c) && !in.eof())
+    while(isspace(static_cast<unsigned char>(c)) && !in.eof())
       in.get(c);
 
     if(c == '#') { // skip comments
@@ -222,14 +222,14 @@ DictionaryManager::parseLocaleAliases()
     }
 
     std::string alias;
-    while(!isspace(c) && !in.eof()) {
+    while(!isspace(static_cast<unsigned char>(c)) && !in.eof()) {
       alias += c;
       in.get(c);
     }
-    while(isspace(c) && !in.eof())
+    while(isspace(static_cast<unsigned char>(c)) && !in.eof())
       in.get(c);
     std::string language;
-    while(!isspace(c) && !in.eof()) {
+    while(!isspace(static_cast<unsigned char>(c)) && !in.eof()) {
       language += c;
       in.get(c);
     }
@@ -697,7 +697,7 @@ public:
 
                 do { // Read keyword
                   token.keyword += c;
-                } while((c = getchar(in)) != EOF && !isspace(c));
+                } while((c = getchar(in)) != EOF && !isspace(static_cast<unsigned char>(c)));
                 in.unget();
 
                 state = READ_CONTENT;
@@ -711,7 +711,7 @@ public:
                   // Found start of content
                   state = READ_CONTENT_IN_STRING;
                   break;
-                } else if (isspace(c)) {
+                } else if (isspace(static_cast<unsigned char>(c))) {
                   // skip
                 } else { // Read something that may be a keyword
                   in.unget();

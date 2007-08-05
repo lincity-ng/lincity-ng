@@ -157,12 +157,12 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                 
                 const char* p = (const char*) reader.getValue();
                 // skip trailing spaces...
-                while(*p != 0 && isspace(*p))
+                while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
                     ++p;
             
                 bool lastspace = false;
                 for( ; *p != 0; ++p) {
-                    if(isspace(*p)) {
+                    if(isspace(static_cast<unsigned char>(*p))) {
                         if(!lastspace) {
                             lastspace = true;
                             currentspan->text += ' ';
