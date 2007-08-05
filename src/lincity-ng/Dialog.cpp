@@ -65,7 +65,7 @@ Dialog::Dialog( int type ){
             break;
         default:
             std::stringstream msg;
-            msg <<"Can't open Dialog type " << type << " without assitional parameters.";
+            msg <<"Can't open Dialog type " << type << " without additional parameters.";
             throw std::runtime_error(msg.str());
     }
 }
@@ -307,19 +307,29 @@ void Dialog::setParagraphN( std::string basename, int number, std::string text )
     p->setText( text );
 }
 
+/* 
+ * Show game statistics in dialog and write them to RESULTS_FILENAME
+ * (~/.lincity/results)
+ */
 void Dialog::gameStats(){
      if( !desktop ) {
         std::cerr << "No desktop found.\n";
         return;
     }
-    try {
-        myDialogComponent = loadGUIFile( "gui/gamestats.xml" );
-        assert( myDialogComponent != 0);
-        registerDialog();
-    } catch(std::exception& e) {
-        std::cerr << "Couldn't display message 'gamestats': "
-            << e.what() << "\n";
-        return;
+    bool useExisting = false;
+    myDialogComponent = desktop->findComponent("GameStats");
+    if( myDialogComponent == 0){
+        try {
+            myDialogComponent = loadGUIFile( "gui/gamestats.xml" );
+            assert( myDialogComponent != 0);
+            registerDialog();
+        } catch(std::exception& e) {
+            std::cerr << "Couldn't display message 'gamestats': "
+                << e.what() << "\n";
+            return;
+        }
+    } else {
+        useExisting = true;
     }
     //open File
     char *s;
@@ -467,9 +477,11 @@ void Dialog::gameStats(){
     results.close();
         
     free( outf );
-    // connect signals
-    Button* noButton = getButton( *myDialogComponent, "Okay" );
-    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    if( !useExisting ){
+        // connect signals
+        Button* noButton = getButton( *myDialogComponent, "Okay" );
+        noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+    }
 }
 
 void Dialog::editMarket(){

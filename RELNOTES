@@ -10,6 +10,8 @@ This is a preview release made from r1236 in svn on 2007-07-19.
 * Russian online help
 * Brazilian Portuguese online help
 * Change colour of economy tab when people are unemployed or starving
+* Fixed problem with multi byte characters in WinXP
+* Reuse open statistics dialog
 
 *** LincityNG 1.1.0 *** [r1139 in svn] 2007-02-19
 
