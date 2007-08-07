@@ -204,7 +204,7 @@ void MiniMap::attachButtons()
 
     for(int i = 0; speedButtons[i] != 0; ++i) {
         CheckButton* b = getCheckButton(*root, speedButtons[i]);
-        // we start in normal speed...
+	setLincitySpeed(SLOW_TIME_FOR_YEAR);
         if(i == 1)
             b->check();
         b->clicked.connect(makeCallback(*this, &MiniMap::speedButtonClicked));

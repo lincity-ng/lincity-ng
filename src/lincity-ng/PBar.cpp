@@ -71,14 +71,10 @@ LCPBar::parse(XmlReader& reader)
 #define pbar_adjust_ore(diff) diff > 0 ? diff / 2 + 1 : diff
 #define pbar_adjust_steel(diff) diff > 0 ? diff / 2 + 1 : diff
 #define pbar_adjust_money(diff) diff  > 0 ? diff / 800 + 1 : diff / 400
-
-
+ 
 void
-LCPBar::setValue(int num, int value)
+LCPBar::setValue(int num, int value, int diff)
 {
-  int old=oldValues[num];
-  oldValues[num]=value;
-  
     std::ostringstream compname;
     compname << "pbar_text" << (num+1);
     Paragraph* p = getParagraph(*this, compname.str());
@@ -103,7 +99,6 @@ LCPBar::setValue(int num, int value)
     }
     else
         os<<value;
-    int diff=value-old;
     if( diff != 0 ){
         p->setText(os.str());
     }

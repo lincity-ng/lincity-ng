@@ -43,6 +43,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"
 #include "Sound.hpp"
 #include "Config.hpp"
+#include "PBar.hpp"
 
 #ifdef ENABLE_BINRELOC
 #include "binreloc.h"
@@ -320,6 +321,15 @@ void mainLoop()
     std::auto_ptr<Game> game;
     MainState state = MAINMENU;
     MainState nextstate;
+    
+    //we need the game-gui to set all states while loading a savegame
+    if(game.get() == 0)
+        game.reset(new Game());
+    while(!LCPBarInstance){//wait until PBars exist so they can be initalized
+        printf(".");
+        SDL_Delay(100);
+    }
+    initLincity();
 
     while(state != QUIT) {
         switch(state) {
@@ -451,7 +461,6 @@ int main(int argc, char** argv)
         initSDL();
         initTTF();
         initVideo(getConfig()->videoX, getConfig()->videoY);
-        initLincity();
 
         mainLoop();
 #ifndef DEBUG

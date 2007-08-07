@@ -39,10 +39,7 @@ public:
   ~LCPBar();
 
   void parse(XmlReader& reader);
-  
-  void setValue(int num, int value);
-private:
-  std::map<int,int> oldValues;
+  void setValue(int num, int value, int diff);
 };
 
 class BarView : public Component
