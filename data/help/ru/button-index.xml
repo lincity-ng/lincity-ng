@@ -4,7 +4,7 @@
 
 	<!--<p style="subtitle">Электричество</p>-->
 	<img src="images/gui/buttonpanel/power/powerlines.png"/>
-	<p><a href="powerline">Электролинии</a></p>
+	<p><a href="powerline">Электролинии (ЛЭП)</a></p>
 	<img src="images/gui/buttonpanel/power/solarpower.png"/>
 	<p><a href="powerssolar">Солнечная электростанция</a></p>
 	<img src="images/gui/buttonpanel/power/substation.png"/>
@@ -56,7 +56,7 @@
 
 	<!--<p style="subtitle">Шахты</p>-->
 	<img src="images/gui/buttonpanel/mining/commune.png"/>
-	<p><a href="commune">Община</a></p>
+	<p><a href="commune">Коммуна</a></p>
 	<img src="images/gui/buttonpanel/mining/oremine.png"/>
 	<p><a href="oremine">Шахта руды</a></p>
 

@@ -2,11 +2,11 @@
 <Document style="helpdocument">
 	<p style="htitle">Финансовое окно</p>
 	<p style="hp">Левое нажатие на окне открывает окна с 'глобальным финансовым балансом', ещё одно нажатие открывает 'другие затраты', и ещё одно нажатие открывает 'затраты населения'.</p>
-	<p style="hp">The finance window is updated every January 1st. The figures correspond to income or expenditure for the previous year.</p>
-	<p style="hp">The 'Total' figure is the amount of money in your account. There are certain things you cannot do when you are 'in the red'.</p>
-	<p style="hsubtitle">See also:</p>
-	<li><a href="housing">People window</a></li>
-	<li><a href="other-costs">Other costs</a></li>
+	<p style="hp">Финансовое окно обновляется каждый раз 1-ого января. Фигурально выражаясь, это затраты и поступления за год.</p>
+	<p style="hp">Итог изменяет ваш баланс (частенько в худшую сторону). There are certain things you cannot do when you are 'in the red'.</p>
+	<p style="hsubtitle">См ещё:</p>
+	<li><a href="housing">Окно людей</a></li>
+	<li><a href="other-costs">Другие затраты</a></li>
 
 </Document>
 
