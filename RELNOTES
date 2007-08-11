@@ -1,10 +1,8 @@
-*** LincityNG 1.1.1pre ***
-
-This is a preview release made from r1236 in svn on 2007-07-19.
+*** LincityNG 1.1.1 ***
 
 * History in online help
 * Heavy industry no longer storing too much coal.
-* Sustainability progress is reload from saved games.
+* Sustainability progress is reloaded from saved games.
 * Draw range for selected building around cursor 
 * Online help includes a tutorial
 * Russian online help
