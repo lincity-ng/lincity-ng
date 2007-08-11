@@ -141,14 +141,16 @@ int main(int argc, char** argv)
 "\"Content-Transfer-Encoding: 8bit\\n\"\n";
 
     for(Texts::iterator i = texts.begin(); i != texts.end(); ++i) {
-        out << "\n";
-        out << "#: ";
-        for(std::vector<std::string>::iterator p = i->second.begin();
+    	if(!i->first.empty()){ //no need to translate empty Strings
+            out << "\n";
+            out << "#: ";
+            for(std::vector<std::string>::iterator p = i->second.begin();
                 p != i->second.end(); ++p) {
-            out << *p << " ";
+                out << *p << " ";
+            }
+            out << "\n";
+            out << "msgid \"" << i->first << "\"\n";
+            out << "msgstr \"\"\n";
         }
-        out << "\n";
-        out << "msgid \"" << i->first << "\"\n";
-        out << "msgstr \"\"\n";
     }
 }

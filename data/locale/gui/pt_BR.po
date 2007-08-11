@@ -17,10 +17,6 @@ msgstr ""
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-Country: BRAZIL\n"
 
-#: data/gui/warning.xml
-msgid "G-U-I-B-U-G"
-msgstr ""
-
 #: data/gui/minimap.xml
 msgid "$"
 msgstr "$"
