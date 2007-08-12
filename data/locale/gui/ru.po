@@ -16,7 +16,7 @@ msgstr ""
 
 #: data/gui/minimap.xml
 msgid "$"
-msgstr " Экон"
+msgstr "Руб"
 
 #: data/gui/fire.xml
 msgid "A Fire has started"
@@ -73,7 +73,7 @@ msgstr "Уголь"
 
 #: data/gui/coalpowerup.xml
 msgid "Coal Fired Power Stations available"
-msgstr "Угольная стронция доступна"
+msgstr "Угольная станция доступна"
 
 #: data/gui/coalmineup.xml
 msgid "Coal Mine available"
@@ -101,7 +101,7 @@ msgstr "Сделать осмотр угольный месторождений?
 
 #: data/gui/launch-good.xml
 msgid "Doing well."
-msgstr "Удачно сделан"
+msgstr "Удачно сделан."
 
 #: data/gui/minimap.xml
 msgid "Eco"
@@ -109,7 +109,7 @@ msgstr "Эко"
 
 #: data/gui/sustain.xml
 msgid "Economy Sustainable."
-msgstr "Экономика стабилизированная."
+msgstr "Экономика стабилизирована."
 
 #: data/gui/launch-evac.xml
 msgid "Evacuation Launch Good"
@@ -173,7 +173,7 @@ msgstr "Работа"
 
 #: data/gui/launch-fail.xml
 msgid "Launch Failure"
-msgstr "Запуск провален "
+msgstr "Запуск провален"
 
 #: data/gui/launch-good.xml
 msgid "Launch Successfull"
@@ -189,7 +189,7 @@ msgstr "Легкая индустрия доступна"
 
 #: data/gui/sustain.xml
 msgid "LinCity has determined that you have a sustainable economy."
-msgstr "LinCity приняло решение, что у вас стабилизированная экономика."
+msgstr "LinCity приняла решение о том, что у вас стабилизированная экономика."
 
 #: data/gui/mainmenu.xml data/gui/loadgame.xml
 msgid "Load"
@@ -201,7 +201,7 @@ msgstr "Загрузить игру"
 
 #: data/gui/minimap.xml
 msgid "Map"
-msgstr "Крта"
+msgstr "Крт"
 
 #: data/gui/millup.xml
 msgid "Mills available"
@@ -298,7 +298,7 @@ msgstr "Население"
 
 #: data/gui/potteryup.xml
 msgid "Potteries available"
-msgstr "Каша доступна"
+msgstr "Гончарные доступны"
 
 #: data/gui/minimap.xml
 msgid "Press this button to show statistics"
@@ -314,7 +314,7 @@ msgstr "Выход"
 
 #: data/gui/railwayup.xml
 msgid "Railways available"
-msgstr "Доступна железная дорога"
+msgstr "Доступна железная дорога(рельсы)"
 
 #: data/gui/recycleup.xml
 msgid "Recycling Centres available"
@@ -400,11 +400,11 @@ msgstr "Показать график экономики."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show fire department cover"
-msgstr "Показать противопожарное покрытие."
+msgstr "Показать противопожарные зоны"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show map outline"
-msgstr "Показать карту построек."
+msgstr "Показать карту построек"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show medical care"
@@ -420,7 +420,7 @@ msgstr "Показать загрязнения."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show power supply"
-msgstr "Показать электропокрытие "
+msgstr "Показать электро зоны"
 
 #: data/gui/minimap.xml
 msgid "Show ressources."
@@ -428,7 +428,7 @@ msgstr "Показать ресурсы."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show sport cover"
-msgstr "Показать спортивное покрытие"
+msgstr "Показать спортивные зоны"
 
 #: data/gui/minimap.xml
 msgid "Show the MiniMap"
@@ -526,7 +526,7 @@ msgstr "Внимание: Попытка убрать речку. "
 
 #: data/gui/launch-gone.xml
 msgid "Well done you have evacuated all your people."
-msgstr ""
+msgstr "Поздравляем, вы эвакуировали всех людей."
 
 #: data/gui/windmillup.xml
 msgid "Windmills available"
@@ -540,7 +540,7 @@ msgstr "Да"
 
 #: data/gui/fire.xml
 msgid "You better go and look for it"
-msgstr ""
+msgstr "Пожар, обратите внимание"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
@@ -680,7 +680,7 @@ msgstr "[-] Отдалить"
 
 #: data/gui/minimap.xml
 msgid "[F1] Press this button to get help"
-msgstr "[F1] Нажми и уведешь помощь "
+msgstr "[F1] Нажмите и уведете помощь "
 
 #: data/gui/minimap.xml
 msgid "[h] Hide high buildings. "

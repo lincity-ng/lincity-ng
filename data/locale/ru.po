@@ -16,7 +16,7 @@ msgstr ""
 
 #: src/lincity/power.cpp:97
 msgid "You have too many power grids. Join some of them\n"
-msgstr "Слишком много проводов. Соединяйтесь где нибудь там\n"
+msgstr "Слишком много проводов. Соединяйтесь с существующими\n"
 
 #: src/lincity/fileutil.cpp:292 src/lincity/fileutil.cpp:341
 msgid "Error. Can't find LINCITY_HOME"
@@ -63,7 +63,7 @@ msgid ""
 "ERROR: group does not exist. This should not happen! Please consider filling "
 "a bug report to lincity-ng team, with the saved game and what you did :-) "
 msgstr "ОШИБКА: группы не существует. Это не страшно! Пожалуйста напишите "
-"отчет об ошибки, с сохранённой игрой и напишите что бы сделали :-D "
+"отчет об ошибки, с сохранённой игрой и напишите, что вы сделали :-D "
 
 #: src/lincity/engine.cpp:226
 msgid "Port must be connected to river all along right side."
@@ -71,7 +71,7 @@ msgstr "Порты должны соединяться с рекой, котор
 
 #: src/lincity/engine.cpp:236 src/lincity/engine.cpp:246
 msgid "Too many substations + windmills. You cannot build one more"
-msgstr "Слишком много подстанция и ветряных мельниц. Вы не можете их больше строить"
+msgstr "Слишком много подстанций и ветряных мельниц. Вы не можете их больше строить"
 
 #: src/lincity/engine.cpp:280
 msgid "Too many markets. You cannot build one more"
@@ -91,115 +91,115 @@ msgstr "Нельзя построить шахту здесь: руда тут �
 
 #: src/lincity/engine.cpp:691
 msgid "It's at a power line."
-msgstr "Это электролиния"
+msgstr "Это электролиния."
 
 #: src/lincity/engine.cpp:693
 msgid "It's at a solar power station."
-msgstr "Это солнечная электростанция"
+msgstr "Это солнечная электростанция."
 
 #: src/lincity/engine.cpp:695
 msgid "It's at a substation."
-msgstr "Это подстанция"
+msgstr "Это подстанция."
 
 #: src/lincity/engine.cpp:697
 msgid "It's at a residential area."
-msgstr "Это резиденция"
+msgstr "Это резиденция."
 
 #: src/lincity/engine.cpp:699
 msgid "It's at a farm."
-msgstr "Это ферма"
+msgstr "Это ферма."
 
 #: src/lincity/engine.cpp:701
 msgid "It's at a market."
-msgstr "Это магазин"
+msgstr "Это магазин."
 
 #: src/lincity/engine.cpp:703
 msgid "It's at a track."
-msgstr "Это грунтовка"
+msgstr "Это грунтовка."
 
 #: src/lincity/engine.cpp:705
 msgid "It's at a coal mine."
-msgstr "Это угольный рудник"
+msgstr "Это угольный рудник."
 
 #: src/lincity/engine.cpp:707
 msgid "It's at a railway."
-msgstr "Это железная дорога"
+msgstr "Это железная дорога."
 
 #: src/lincity/engine.cpp:709
 msgid "It's at a coal power station."
-msgstr "Это угольная электростанция"
+msgstr "Это угольная электростанция."
 
 #: src/lincity/engine.cpp:711
 msgid "It's at a road."
-msgstr "Это дорога"
+msgstr "Это дорога."
 
 #: src/lincity/engine.cpp:713
 msgid "It's at light industry."
-msgstr "Это легкая индустрия"
+msgstr "Это легкая индустрия."
 
 #: src/lincity/engine.cpp:715
 msgid "It's at a university."
-msgstr "Это университет"
+msgstr "Это университет."
 
 #: src/lincity/engine.cpp:717
 msgid "It's at a commune."
-msgstr "Это комуна"
+msgstr "Это коммуна."
 
 #: src/lincity/engine.cpp:719
 msgid "It's at a tip."
-msgstr "Это конец :-D"
+msgstr "Это мусорка."
 
 #: src/lincity/engine.cpp:721
 msgid "It's at a port."
-msgstr "Это порт"
+msgstr "Это порт."
 
 #: src/lincity/engine.cpp:723
 msgid "It's at a steel works."
-msgstr "Это стальная работа"
+msgstr "Это тяжёлая индустрия."
 
 #: src/lincity/engine.cpp:725
 msgid "It's at a recycle centre."
-msgstr "Это центр переработки "
+msgstr "Это центр переработки."
 
 #: src/lincity/engine.cpp:727
 msgid "It's at a health centre."
-msgstr "Это больница"
+msgstr "Это больница."
 
 #: src/lincity/engine.cpp:729
 msgid "It's at a rocket site."
-msgstr "Это ракетная установка"
+msgstr "Это ракетная площадка."
 
 #: src/lincity/engine.cpp:731
 msgid "It's at a windmill."
-msgstr "Это ветряная мельница"
+msgstr "Это ветряная мельница."
 
 #: src/lincity/engine.cpp:733
 msgid "It's at a school."
-msgstr "Это школа"
+msgstr "Это школа."
 
 #: src/lincity/engine.cpp:735
 msgid "It's at a blacksmith."
-msgstr "Это кузница "
+msgstr "Это кузница. "
 
 #: src/lincity/engine.cpp:737
 msgid "It's at a mill."
-msgstr "Это мельница"
+msgstr "Это мельница."
 
 #: src/lincity/engine.cpp:739
 msgid "It's at a pottery."
-msgstr "Это гончарная"
+msgstr "Это гончарная."
 
 #: src/lincity/engine.cpp:741
 msgid "It's at a fire station!!!."
-msgstr "Это пожарная станция"
+msgstr "Это пожарная станция."
 
 #: src/lincity/engine.cpp:743
 msgid "It's at a sports field!!!."
-msgstr "Это спортивное заведение"
+msgstr "Это спортивная зона."
 
 #: src/lincity/engine.cpp:745
 msgid "It's at a shanty town."
-msgstr "Это хабарная постройка"
+msgstr "Это хабарная постройка."
 
 #: src/lincity/engine.cpp:747
 msgid "UNKNOWN!"
@@ -223,7 +223,7 @@ msgstr "Подстанция"
 
 #: src/lincity/lintypes.cpp:70
 msgid "Residential LL"
-msgstr "Резиденция ЛЛ"
+msgstr "Резиденция НН"
 
 #: src/lincity/lintypes.cpp:82
 msgid "Farm"
@@ -244,7 +244,7 @@ msgstr "Угольная шахта"
 
 #: src/lincity/lintypes.cpp:130
 msgid "Railway"
-msgstr "Рельс дорога"
+msgstr "Рельсы"
 
 #: src/lincity/lintypes.cpp:142
 msgid "Coal PS"
@@ -256,7 +256,7 @@ msgstr "Дорога"
 
 #: src/lincity/lintypes.cpp:166
 msgid "Lt. Industry"
-msgstr "Лег Индустрия"
+msgstr "Лег. Индустрия"
 
 #: src/lincity/lintypes.cpp:178 src/lincity/modules/university.cpp:67
 msgid "University"
@@ -264,7 +264,7 @@ msgstr "Университет"
 
 #: src/lincity/lintypes.cpp:190 src/lincity/modules/commune.cpp:142
 msgid "Commune"
-msgstr "Комуна"
+msgstr "Коммуна"
 
 #: src/lincity/lintypes.cpp:202
 msgid "Ore mine"
@@ -272,7 +272,7 @@ msgstr "Шахта руды"
 
 #: src/lincity/lintypes.cpp:214
 msgid "Rubbish tip"
-msgstr "Мусор-ка"
+msgstr "Мусорка"
 
 #: src/lincity/lintypes.cpp:226 src/lincity/modules/port.cpp:202
 #: src/lincity-ng/Dialog.cpp:540
@@ -281,7 +281,7 @@ msgstr "Порт"
 
 #: src/lincity/lintypes.cpp:238
 msgid "Hv. Industry"
-msgstr "Тяж Индустрия"
+msgstr "Тяж. Индустрия"
 
 #: src/lincity/lintypes.cpp:250
 msgid "Park"
@@ -330,15 +330,15 @@ msgstr "Гончарные изделия"
 
 #: src/lincity/lintypes.cpp:382
 msgid "Fire sta'n"
-msgstr "Пожарная страцния"
+msgstr "Пожарная станция"
 
 #: src/lincity/lintypes.cpp:394 src/lincity/modules/cricket.cpp:99
 msgid "Sports field"
-msgstr "Спорт полщятка"
+msgstr "Спорт площадка"
 
 #: src/lincity/lintypes.cpp:407
 msgid "Burnt"
-msgstr "Сжигалка"
+msgstr "Пожар"
 
 #: src/lincity/lintypes.cpp:420
 msgid "Shanty town"
@@ -359,7 +359,7 @@ msgstr "Резиденция СЛ"
 
 #: src/lincity/lintypes.cpp:470
 msgid "Residential HL"
-msgstr "Резидения ВЛ"
+msgstr "Резиденция ВЛ"
 
 #: src/lincity/lintypes.cpp:482
 msgid "Residential LH"
@@ -430,7 +430,7 @@ msgstr "Наука"
 
 #: src/lincity/modules/windmill.cpp:80
 msgid "Local Status"
-msgstr "Локальный статус "
+msgstr "Локальный статус"
 
 #: src/lincity/modules/windmill.cpp:83
 msgid "Prod."
@@ -443,7 +443,7 @@ msgstr "Потребность"
 
 #: src/lincity/modules/windmill.cpp:92 src/lincity/modules/substation.cpp:99
 msgid "Grid Status"
-msgstr "Энергостатус "
+msgstr "Энергостатус"
 
 #: src/lincity/modules/windmill.cpp:97 src/lincity/modules/substation.cpp:107
 #: src/lincity/modules/windmill.cpp:95 src/lincity/modules/substation.cpp:102
@@ -464,7 +464,7 @@ msgstr "Энерго ID"
 
 #: src/lincity/modules/coalmine.cpp:168
 msgid "Coal Mine"
-msgstr "Угльная шахта"
+msgstr "Угольная шахта"
 
 #: src/lincity/modules/coalmine.cpp:171 src/lincity/modules/oremine.cpp:187
 msgid "Stock"
@@ -607,7 +607,7 @@ msgstr "Ракетная площадка "
 
 #: src/lincity/modules/rocket_pad.cpp:166
 msgid "Completion"
-msgstr "Завершение"
+msgstr "Завершено"
 
 #: src/lincity/modules/power_line.cpp:50
 msgid "Power Line"
@@ -700,7 +700,7 @@ msgstr "Уроков преподано"
 
 #: src/lincity/modules/oremine.cpp:184
 msgid "Ore Mine"
-msgstr "Щахта руды"
+msgstr "Шахта руды"
 
 #: src/lincity/modules/mill.cpp:103
 msgid "Textile Mill"
@@ -842,7 +842,7 @@ msgstr "%s (Нужен %.1f научный уровень.)"
 
 #: src/lincity-ng/MpsInterface.cpp:224
 msgid "build something here"
-msgstr "построить гдета тут"
+msgstr "тут можно строить"
 
 #: src/lincity-ng/MpsInterface.cpp:226
 msgid "no further information available"
@@ -966,7 +966,7 @@ msgstr "Ракеты"
 
 #: src/lincity-ng/MpsInterface.cpp:512
 msgid "Fire Stn"
-msgstr "Пожарка"
+msgstr "Пожарная ст"
 
 #: src/lincity-ng/MpsInterface.cpp:528
 msgid "Population"
@@ -994,7 +994,7 @@ msgstr "Беззаботность"
 
 #: src/lincity-ng/MpsInterface.cpp:536
 msgid "Claims"
-msgstr "Претензии"
+msgstr "Болезни"
 
 #: src/lincity-ng/MpsInterface.cpp:537 src/lincity-ng/MpsInterface.cpp:542
 msgid "Rate"
@@ -1200,7 +1200,7 @@ msgstr "Мини-карта: угольные места"
 
 #: src/lincity-ng/GameView.cpp:263
 msgid "Minimap: traffic density"
-msgstr "Мини-карта: траффик"
+msgstr "Мини-карта: трафик"
 
 #: src/lincity-ng/GameView.cpp:1513
 msgid "Estimated Bulldoze Cost: "
@@ -1253,7 +1253,7 @@ msgstr "Не могу создать директорию для сохране�
 
 #: src/lincity/engine.cpp:157
 msgid "You can't build a tip here"
-msgstr "Вы не можете построить мусор-ку здесь "
+msgstr "Вы не можете построить мусор-ку здесь"
 
 #: src/lincity/engine.cpp:158 src/lincity/engine.cpp:189
 msgid "This area was once a landfill"
