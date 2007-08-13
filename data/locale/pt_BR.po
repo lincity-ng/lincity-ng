@@ -37,8 +37,8 @@ msgid "Out of memory: malloc failure\n"
 msgstr "Sem memória. malloc falhou\n"
 
 #: src/lincity/power.cpp:97
-msgid "You have too many power grids. Join some of them\n"
-msgstr "Você possui muitas malhas de transmissão de energia. Junte algumas delas\n"
+msgid "You have too many power grids. Join some of them"
+msgstr "Você possui muitas malhas de transmissão de energia. Junte algumas delas"
 
 #: src/lincity/engine.cpp:198
 msgid ""

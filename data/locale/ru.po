@@ -15,8 +15,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/lincity/power.cpp:97
-msgid "You have too many power grids. Join some of them\n"
-msgstr "Слишком много проводов. Соединяйтесь с существующими\n"
+msgid "You have too many power grids. Join some of them"
+msgstr "Слишком много проводов. Соединяйтесь с существующими"
 
 #: src/lincity/fileutil.cpp:292 src/lincity/fileutil.cpp:341
 msgid "Error. Can't find LINCITY_HOME"

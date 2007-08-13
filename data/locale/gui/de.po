@@ -1,17 +1,16 @@
-# German translations for PACKAGE package
-# German messages for PACKAGE.
-# Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#  <matze@braunis.de>, 2005.
+# German translations for lincity-ng package
+# German messages for lincity-ng.
+# This file is distributed under the same license as the lincity-ng package.
+# Copyright (C) 2005 Matthias Braun <matze@braunis.de>
+# Copyright (C) 2006 Wolfgang Becker <uafr@gmx.de>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: LinCity NG\n"
 "POT-Creation-Date: Sat Jan 27 22:03:14 2007\n"
-"PO-Revision-Date: 2007-02-18 21:30+0100\n"
+"PO-Revision-Date: 2007-08-13 19:49+0100\n"
 "Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
-"Language-Team: German <de@li.org>\n"
+"Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -222,26 +221,26 @@ msgstr "Vermögen"
 msgid "New Game"
 msgstr "Neues Spiel"
 
-#: data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
-#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/coalmineup.xml
-#: data/gui/riverup.xml data/gui/parkup.xml data/gui/coalpowerup.xml
-#: data/gui/solarpowerup.xml data/gui/roadup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/blacksmithup.xml data/gui/mod_wind_up.xml
-#: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/millup.xml
-#: data/gui/import-exportup.xml data/gui/healthup.xml
+#: data/gui/hvindustryup.xml data/gui/windmillup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/parkup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/universityup.xml data/gui/recycleup.xml data/gui/blacksmithup.xml
+#: data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/import-exportup.xml data/gui/mod_wind_up.xml
 msgid "New Invention"
 msgstr "Neue Erfindung"
 
-#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
-#: data/gui/launch_rocket_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "No"
 msgstr "Nein"
 
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-parkland.xml
 #: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
-#: data/gui/no-credit-recycle.xml data/gui/no-credit-parkland.xml
-#: data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-recycle.xml
 msgid "No Credit Available"
 msgstr "Kein Darlehn möglich"
 
@@ -249,25 +248,24 @@ msgstr "Kein Darlehn möglich"
 msgid "Nobody Home"
 msgstr "Niemand zu Hause"
 
-#: data/gui/nobull-tip.xml
+#: data/gui/nobull-tip.xml data/gui/warning.xml
 msgid "Not Allowed"
 msgstr "Nicht zulässig"
 
-#: data/gui/options.xml data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/fire.xml data/gui/shfire-uc.xml
-#: data/gui/ltindustryup.xml data/gui/launch-evac.xml
-#: data/gui/universityup.xml data/gui/cricketup.xml data/gui/recycleup.xml
-#: data/gui/coalmineup.xml data/gui/riverup.xml data/gui/parkup.xml
-#: data/gui/no-credit-solar-power.xml data/gui/launch-good.xml
-#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/roadup.xml
-#: data/gui/no-credit-university.xml data/gui/potteryup.xml
-#: data/gui/no-credit-recycle.xml data/gui/railwayup.xml
-#: data/gui/launch-fail.xml data/gui/nobull-tip.xml data/gui/blacksmithup.xml
-#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
-#: data/gui/millup.xml data/gui/import-exportup.xml
-#: data/gui/no-credit-parkland.xml data/gui/no-credit-rocket.xml
-#: data/gui/healthup.xml data/gui/launch-gone.xml data/gui/shfire-oc.xml
-#: data/gui/sustain.xml data/gui/allgone.xml
+#: data/gui/hvindustryup.xml data/gui/windmillup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/fire.xml data/gui/options.xml
+#: data/gui/riverup.xml data/gui/coalmineup.xml data/gui/coalpowerup.xml
+#: data/gui/launch-good.xml data/gui/solarpowerup.xml data/gui/parkup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/nobull-tip.xml
+#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml
+#: data/gui/launch-evac.xml data/gui/universityup.xml data/gui/recycleup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
+#: data/gui/no-credit-recycle.xml data/gui/launch-fail.xml
+#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/import-exportup.xml data/gui/launch-gone.xml
+#: data/gui/mod_wind_up.xml data/gui/warning.xml data/gui/shfire-oc.xml
 msgid "Ok"
 msgstr "OK"
 
@@ -371,13 +369,13 @@ msgstr "Schulen verfügbar"
 msgid "See the help screen for more information on coal mines and coal surveys."
 msgstr "Sehen Sie in der Hilfe nach, um mehr Informationen über Kohlebergwerke und Prospektoren zu erhalten."
 
-#: data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
-#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/riverup.xml
-#: data/gui/parkup.xml data/gui/coalpowerup.xml data/gui/solarpowerup.xml
-#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/blacksmithup.xml
-#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
-#: data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/hvindustryup.xml data/gui/windmillup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalpowerup.xml
+#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/healthup.xml data/gui/universityup.xml data/gui/recycleup.xml
+#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/mod_wind_up.xml
 msgid "See the help screen for more information."
 msgstr "Siehe Hilfe für mehr Informationen."
 
@@ -509,13 +507,13 @@ msgstr "Übersetzung"
 msgid "University available"
 msgstr "Universitäten verfügbar"
 
-#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Want to bulldoze?"
 msgstr "Möchten sie planieren?"
 
-#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml
 msgid "Warning"
 msgstr "Warnung"
 
@@ -539,9 +537,9 @@ msgstr "Gut gemacht, sie haben all ihre Leute evakuiert."
 msgid "Windmills available"
 msgstr "Windmühlen verfügbar"
 
-#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
-#: data/gui/launch_rocket_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "Yes"
 msgstr "Ja"
 
@@ -661,7 +659,7 @@ msgstr "Sie haben ein Technologieniveau erreicht, auf dem sie in der Lage sind, 
 msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
 msgstr "Sie haben ein Technologieniveau erreicht, auf dem sie in der Lage sind, Recyclingwerke zu bauen. Recyclingwerke können gebrauchte Güter zurück in Erz aufarbeiten."
 
-#: data/gui/launch-gone.xml data/gui/sustain.xml
+#: data/gui/sustain.xml data/gui/launch-gone.xml
 msgid "You have won the game."
 msgstr "Sie haben gewonnen."
 

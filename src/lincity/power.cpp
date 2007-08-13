@@ -94,7 +94,7 @@ map_power_grid (bool resetgrids)
 		if (MP_INFO(mapx,mapy).int_7 != grid_inc) {
 		    if (grid_num == MAX_GRIDS) {
 			ok_dial_box("warning.mes", BAD,
-                                _("You have too many power grids. Join some of them\n"));
+                                _("You have too many power grids. Join some of them"));
 			return;
 		    }
 		    grid[++grid_num] = (Grid *)lcalloc(sizeof(Grid));

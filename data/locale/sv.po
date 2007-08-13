@@ -38,8 +38,8 @@ msgid "Out of memory: malloc failure\n"
 msgstr "Slut på minne: malloc misslyckades\n"
 
 #: src/lincity/power.cpp:97
-msgid "You have too many power grids. Join some of them\n"
-msgstr "Du har för många kraftledningar. Anslut några av dem till varandra\n"
+msgid "You have too many power grids. Join some of them"
+msgstr "Du har för många kraftledningar. Anslut några av dem till varandra"
 
 #: src/lincity/engine.cpp:198
 msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "

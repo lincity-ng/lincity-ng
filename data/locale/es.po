@@ -1,7 +1,7 @@
 # Traducción al español de lincity-ng locale
 # Spanish translation for lincity-ng locale
 # Copyright (C) 2005 Jorge Gonzalez
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the lincity-ng package.
 # Jorge González González <jorge.gonzalez.gonzalez@hispalinux.es>, 2005.
 #
 msgid ""
