@@ -4,6 +4,9 @@
 	<p style="hp">Solarkraftwerke speisen Strom ins angeschlossene Netz 
     ein. Die Menge des erzeugten Stromes hängt vom Technologieniveau zum
     <b>Bauzeitpunkt</b> ab.</p>
+	<p style="hp">Solarkraftwerke benötigen zudem Arbeitskräfte für 
+    Wartungsarbeiten. Wenn ein Solarkraftwerke nicht genügend Arbeitskräfte
+    hat wird es weniger Strom erzeugen, ganz ohne Arbeiter überhaupt keinen.</p>
 	
 	<p style="hp">Das ist ein Solarkraftwerk</p>
 	<img src="images/tiles/powerssolar.png" halign="center"/>
@@ -11,9 +14,10 @@
 	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="substation">Umspannhäschen</a></li>
+	<li><a href="substation">Umspannhäuschen</a></li>
 	<li><a href="powerline">Stromleitungen</a></li>
 	<li><a href="residential">Wohngebiete</a></li>
 	<li><a href="tech-level">Tech-level</a></li>
 	<li><a href="msb-power">Stromversorgungskarte</a></li>
+	<li><a href="windmill">Windmühlen</a></li>
 </Document>

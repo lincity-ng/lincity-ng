@@ -7,6 +7,14 @@
 <li><a href="keys">Maus</a></li>
 <li><a href="query">Auswahlwerkzeug</a></li>
 <li><a href="bulldoze">Bulldozer</a></li>
+
+<p><b><a href="tutorial">Tutorium</a></b></p>
+<li><a href="tutorial-aim">Spielziel</a></li>
+<li><a href="tutorial-overview">Bildschirmelemente</a></li>
+<li><a href="tutorial-basics">Erste Schritte</a></li>
+<li><a href="tutorial-advanced">Fortgeschrittene</a></li>
+<li><a href="tutorial-scenario">Szenarien</a></li>
+
 <p><b>Verwaltung</b></p>
 <li><a href="button-index">Symbol Verzeichniss</a></li>
 <li><a href="housing">Bevölkerungs Anzeige</a></li>
@@ -86,6 +94,6 @@
 <li><a href="msb-pol">Verschmutzungs Layer</a></li>
 <li><a href="msb-power">Energie Layer</a></li>
 <li><a href="msb-starve">Hunger Layer</a></li>
-<li><a href="msb-transport">Verkehrs Layer</a></li>
+<li><a href="msb-transport">Verkehrs- und Markt Layer</a></li>
 <li><a href="msb-ub40">Arbeitslosigkeits Layer</a></li>
 </Document>

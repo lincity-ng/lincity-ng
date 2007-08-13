@@ -3,10 +3,11 @@
 	<p style="htitle">Informationen zu den Tabs</p>
     <p>Map-Tab</p>
     <li><a href="mini-screen">Miniaturansicht</a></li>
-    <p>Stats-Tab</p>
+    <p>Markt-Tab</p>
 	<li><a href="pbar">Ressourcen Statusbar</a></li>
     <p>€-Tab</p>
 	<li><a href="finance">Finanzen</a></li>
+	<li><a href="other-costs">Sonstige Kosten</a></li>
 	<li><a href="housing">Bevölkerung</a></li>
     <p>Eco-Tab</p>
 	<li><a href="economy">Wirtschaftsübersicht</a></li>

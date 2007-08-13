@@ -4,6 +4,8 @@
 	<p style="hp">Windmühlen erzeugen Energie Wohngebiete und Bauernhöfe. Sie ermöglichen es den Bauern, mehr Nahrung herzustellen und machen Wohngebiete attraktiver.</p>
 	<p style="hp">Die Bewohner von Wohngebiete, die mit Energie versorgt werden verbrauchen mehr Waren.</p>
 	<p style="hp">Die altmodischen Windmühlen erzeugen <b>keine</b> Energie für die Industrie. (Die Schwerindustrie kann Energie aus Kohle gewinnen, Industriegebiete benötigen <i>elektrischen Strom</i>, sie funktionieren auch ohne, aber mit deutlich geringerer Produktion)</p>
+    <p style="hp">Windmühlen benötigen Arbeitskröfte um Energie zu erzeugen.
+    Sind nicht genügend Arbeiter da wird weniger Energie erzeugt, ohne Arbeiter überhaupt keine.</p>
 	<p style="hp">Es gibt zwei Arten Windmühlen.</p>
 	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
 	<p style="hp">Die Erste ist eine altmodische Holzwindmühle.</p>
@@ -12,4 +14,11 @@
 	<img src="images/tiles/windmill1g.png" halign="center"/>
 	<p style="hp">Die Art der Windmühle hängt vom Techniveau zur Bauzeit ab.</p>
 	<p style="hp">Die moderne Windmühle kann Strom ins Leitungsnetz einspeisen.</p>
+    <p style="hsubtitle">Siehe auch:</p>
+	<li><a href="substation">Umspannhäuschen</a></li>
+	<li><a href="powerline">Stromleitungen</a></li>
+	<li><a href="residential">Wohngebiete</a></li>
+	<li><a href="tech-level">Tech-level</a></li>
+	<li><a href="msb-power">Stromversorgungskarte</a></li>
+    <li><a href="powersolar">Solarkraftwerke</a></li>
 </Document>

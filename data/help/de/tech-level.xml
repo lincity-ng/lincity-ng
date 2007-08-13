@@ -18,8 +18,12 @@
 	<p style="hp">Beachten sie auch, daß wenn sie beispielsweise eine oder zwei
      Unis abreiße (oder sie nicht mehr genügend Ressourcen für deren Betrieb habe)
     Ihr Technologieniveau vermutlich <b>fallen</b> wird.</p>
+    <p style="hp">Die Wahrscheinlichkeit für den erfolgreichen Start einer Rakete
+    entspricht dem Technologieniveau.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
+    <li><a href="monument">Denkmäler</a></li>
 	<li><a href="school">Schulen</a></li>
 	<li><a href="university">Universitäten</a></li>
+    <li><a href="rocket">Raketenbasen</a></li>
 </Document>
