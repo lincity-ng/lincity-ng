@@ -10,4 +10,4 @@ Icon=lincity-ng.png
 Exec=lincity-ng
 Terminal=false
 StartupNotify=false
-Categories=Application;Game;Simulation;
+Categories=Game;Simulation;

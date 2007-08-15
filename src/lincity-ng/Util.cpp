@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <stdexcept>
 #include <sstream>
+#include <typeinfo>
 
 #include "gui/Button.hpp"
 #include "gui/Component.hpp"

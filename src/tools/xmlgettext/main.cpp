@@ -24,6 +24,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstdlib>
+#include <string.h>
 
 typedef std::map<std::string, std::vector<std::string> > Texts;
 Texts texts;

@@ -25,6 +25,7 @@
 #include <dirent.h>
 #endif
 #include <cstdlib>
+#include <string.h>
 #include <fstream>
 #include <iostream>
 #include <algorithm>

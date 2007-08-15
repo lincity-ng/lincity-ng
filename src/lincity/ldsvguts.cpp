@@ -32,6 +32,9 @@
 #endif
 #endif
 
+#include <cstdlib>
+#include <string.h>
+#include <math.h>
 /*
 #if defined (WIN32)
 #include <winsock.h>

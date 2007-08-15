@@ -7,6 +7,8 @@
 
 #include "modules.h"
 #include "commune.h"
+#include <cstdlib>
+#include <math.h>
 
 void
 do_commune (int x, int y)
