@@ -11,4 +11,8 @@
 	<li>Arbeitslosigkeit - Zeigt den Prozentsatz der Einwohner die ohne Arbeit sind.</li>
 	<li>Ansprüche - Bisher noch nicht Dokumentiert....</li>
 	<li>Verhungert - Fälle Zeigt die tatsächlichen Todesfälle an, Rate zeigt den Prozentsatz der Hungernden Bevölkerung.</li>
+
+    <p style="hsubtitle">Siehe auch:</p>
+    <li><a href="finance">Finanzübersicht</a></li>
+    <li><a href="other-costs">Sonstige Kosten</a></li>
 </Document>

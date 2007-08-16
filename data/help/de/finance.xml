@@ -18,5 +18,8 @@
 	<li>IP = Import costs.</li>
 	<p style="hp">Left clicking on this window will cycle through windows for finance, other costs and housing.</p>
 	-->
+    <p style="hsubtitle">Siehe auch:</p>
+    <li><a href="housing">Bevölkerungsanzeige</a></li>
+    <li><a href="other-costs">Sonstige Kosten</a></li>
 </Document>
 

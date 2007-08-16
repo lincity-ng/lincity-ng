@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Lincity Hilfe</p>
-	<p style="hp">Willkommen zum Lincity Hilfesystem. Bitte klicken sie auf eines der blauen Wörter unten um Informationen zu einem Thema angezeigt zu bekommen.</p>
+
+    <p style="hp">Willkommen zum Lincity Hilfesystem. Bitte klicken Sie auf
+    eines der blauen Wörter unten um Informationen zu einem Thema angezeigt
+    zu bekommen. Mit dem Pfeil links oben können Sie zum vorherigen Thema
+    zurückblättern.</p>
+
+    <li><a href="tutorial">Tutorial</a></li>
     <li><a href="keys">Tastaturbefehle</a></li>
 	<li><a href="button-index">Hilfe zu den Gebäuden</a></li>
 	<li><a href="mini-screen">Hilfe zur Miniaturkarte</a></li>
-        <li><a href="dialogs">Hilfe zu den Dialogen</a></li>
+    <li><a href="dialogs">Hilfe zu den Dialogen</a></li>
 	<p style="hp"></p>
-        <p style="hp">Während des Spiels kannst du dir mit dem "Hilfe"-Knopf
-        Informationen zu den jeweiligen Objekten verschaffen.</p>
-
+        <p style="hp">Während des Spiels können Sie sich mit dem "Hilfe"-Knopf
+        Informationen zu den jeweiligen Objekten verschaffen. Ein Rechtsklick
+        öffnet zu den meisten Knöpfen die entsprechende Hilfeseite.</p>
     <li><a href="index">Index</a></li>
 </Document>

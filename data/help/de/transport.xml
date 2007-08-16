@@ -34,6 +34,9 @@
     Eisenbahn auf dem Feld bauen.</p>
 	<p style="hp">Stellen sie Sich das Ganze als Brückenbau vor. Der Preis ist entsprechend hoch,
     da es eine Menge kostet, Flüsse zuzuschütten.</p>
+    <p style="hp">Straßen und Eisenbahnen verursachen jährliche Kosten für 
+    Wartung und verschmutzen die Umwelt. Wenn Sie viel Müll transportieren
+    ist die Verschmutzung noch stärker.</p>
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="residential">Wohngebiet</a></li>
 	<li><a href="market">Markt</a></li>
@@ -48,4 +51,6 @@
 	<li><a href="recycle">Recyclingwerk</a></li>
 	<li><a href="coalmine">Kohlemine</a></li>
 	<li><a href="powercoal">Kohlekraftwerk</a></li>
+    <li><a href="finance">Finanzübersicht</a></li>
+    <li><a href="msb-transport">Transportübersicht</a></li>
 </Document>
