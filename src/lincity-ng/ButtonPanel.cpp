@@ -635,6 +635,9 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     
     if( mousebutton == SDL_BUTTON_RIGHT ){
         showToolHelp( selected_module_type );
+        selected_module_type = prevTech;
+        updateSelectedCost();
+        return;
     }
     
     if(i)
