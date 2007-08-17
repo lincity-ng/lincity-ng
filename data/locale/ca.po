@@ -1,22 +1,19 @@
 # translation of ca.po to Catalá
-# translation of ca.po to
-# translation of messages.po to
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER.
-# Joan <info@lutesor.com>, 2005.
-# Joan Padró <info@lutesor.com>, 2005.
-#
+# This file is distributed under the same license as the Lincity-NG
+# package. # Copyright (C) 2007 Joan <info@lutesor.com>
+
 msgid ""
 msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-27 22:03+0100\n"
-"PO-Revision-Date: 2007-03-18 20:11+0100\n"
+"POT-Creation-Date: 2005-08-07 13:44+0000\n"
+"PO-Revision-Date: 2005-08-12 20:05+0000\n"
 "Last-Translator: Joan Padró <info@lutesor.com>\n"
 "Language-Team: Catalá <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.1\n"
 
 #: src/lincity/fileutil.cpp:292 src/lincity/fileutil.cpp:341
 msgid "Error. Can't find LINCITY_HOME"
@@ -24,159 +21,27 @@ msgstr "Error: No es pot trobar el LINCITY_HOME"
 
 #: src/lincity/fileutil.cpp:561
 msgid "Error verifying package. Can't find colour.pal."
-msgstr "Error al verificar el paquet. No es troba color.pal."
+msgstr "Error verificar paquet. No es troba color.pal."
 
-#: src/lincity/fileutil.cpp:580 src/lincity/fileutil.cpp:589
+#: src/lincity/fileutil.cpp:580
 #, c-format
 msgid "Couldn't create the save directory '%s'\n"
 msgstr "No s'ha pogut crear el directori '%s'\n"
+
+#: src/lincity/fileutil.cpp:589
+#, c-format
+msgid "Couldn't create the save directory %s\n"
+msgstr "No s'ha pogut crear el directori de desar %s\n"
 
 #: src/lincity/fileutil.cpp:635
 #, c-format
 msgid "Out of memory: malloc failure\n"
 msgstr "Memòria insuficient: fallida general\n"
 
-#: src/lincity/engine.cpp:157
-msgid "You can't build a tip here"
-msgstr "No pots construir aquí"
-
-#: src/lincity/engine.cpp:158 src/lincity/engine.cpp:189
-msgid "This area was once a landfill"
-msgstr "Aquesta àrea era un abocador"
-
-#: src/lincity/engine.cpp:159 src/lincity/engine.cpp:190
-#: src/lincity/engine.cpp:197
-msgid "OK"
-msgstr "D'acord"
-
-#: src/lincity/engine.cpp:188 src/lincity/engine.cpp:195
-msgid "You can't build a mine here"
-msgstr "No pots construir la mina aquí"
-
-#: src/lincity/engine.cpp:196
-msgid "There is no ore left at this site"
-msgstr "No queda coure en aquest lloc"
-
-#: src/lincity/engine.cpp:691
-msgid "It's at a power line."
-msgstr "Això és una línia elèctrica"
-
-#: src/lincity/engine.cpp:693
-msgid "It's at a solar power station."
-msgstr "Això és una central solar"
-
-#: src/lincity/engine.cpp:695
-msgid "It's at a substation."
-msgstr "Això és una sub-estació."
-
-#: src/lincity/engine.cpp:697
-msgid "It's at a residential area."
-msgstr "Això és una àrea residencial."
-
-#: src/lincity/engine.cpp:699
-msgid "It's at a farm."
-msgstr "Això és una granja."
-
-#: src/lincity/engine.cpp:701
-msgid "It's at a market."
-msgstr "Això és un mercat."
-
-#: src/lincity/engine.cpp:703
-msgid "It's at a track."
-msgstr "Això és un camí."
-
-#: src/lincity/engine.cpp:705
-msgid "It's at a coal mine."
-msgstr "Això és una mina de carbó."
-
-#: src/lincity/engine.cpp:707
-msgid "It's at a railway."
-msgstr "Això és una via de tren."
-
-#: src/lincity/engine.cpp:709
-msgid "It's at a coal power station."
-msgstr "Això és una central tèrmica."
-
-#: src/lincity/engine.cpp:711
-msgid "It's at a road."
-msgstr "Això és una carretera."
-
-#: src/lincity/engine.cpp:713
-msgid "It's at light industry."
-msgstr "Això és una indústria elèctrica."
-
-#: src/lincity/engine.cpp:715
-msgid "It's at a university."
-msgstr "Això és una universitat."
-
-#: src/lincity/engine.cpp:717
-msgid "It's at a commune."
-msgstr "Això és una comuna."
-
-#: src/lincity/engine.cpp:719
-msgid "It's at a tip."
-msgstr ""
-
-#: src/lincity/engine.cpp:721
-msgid "It's at a port."
-msgstr "Això és el port."
-
-#: src/lincity/engine.cpp:723
-msgid "It's at a steel works."
-msgstr "Això és un ferrer."
-
-#: src/lincity/engine.cpp:725
-msgid "It's at a recycle centre."
-msgstr "Això és un centre de reciclatge."
-
-#: src/lincity/engine.cpp:727
-msgid "It's at a health centre."
-msgstr "Això és un centre hospitalari."
-
-#: src/lincity/engine.cpp:729
-msgid "It's at a rocket site."
-msgstr "Això és una plataforma aeroespacial."
-
-#: src/lincity/engine.cpp:731
-msgid "It's at a windmill."
-msgstr "Això és un molí."
-
-#: src/lincity/engine.cpp:733
-msgid "It's at a school."
-msgstr "Això és una escola."
-
-#: src/lincity/engine.cpp:735
-msgid "It's at a blacksmith."
-msgstr "Això és una farga."
-
-#: src/lincity/engine.cpp:737
-msgid "It's at a mill."
-msgstr "Això és una fàbrica."
-
-#: src/lincity/engine.cpp:739
-msgid "It's at a pottery."
-msgstr "Això és un terrissaire."
-
-#: src/lincity/engine.cpp:741
-msgid "It's at a fire station!!!."
-msgstr "Això és una estació de bombers."
-
-#: src/lincity/engine.cpp:743
-msgid "It's at a sports field!!!."
-msgstr "Això és un poliesportiu!!!"
-
-#: src/lincity/engine.cpp:745
-msgid "It's at a shanty town."
-msgstr "Això és una barraca."
-
-#: src/lincity/engine.cpp:747
-msgid "UNKNOWN!"
-msgstr "DESCONEGUT!"
-
 #: src/lincity/ldsvguts.cpp:128
 #, c-format
 msgid "Save file <%s> - "
-msgstr "Desa el fitxer<%s> - "
+msgstr "Desa fitxer<%s> - "
 
 #: src/lincity/ldsvguts.cpp:129
 msgid "Can't open save file!"
@@ -184,7 +49,7 @@ msgstr "No es pot obrir el fitxer de desar!"
 
 #: src/lincity/ldsvguts.cpp:134
 msgid "Saving scene"
-msgstr "S'està desant l'escena"
+msgstr "Desant escena"
 
 #: src/lincity/ldsvguts.cpp:334
 #, c-format
@@ -193,7 +58,144 @@ msgstr "No es pot obrir <%s> (gzipped)"
 
 #: src/lincity/ldsvguts.cpp:352
 msgid "Loading scene"
-msgstr "S'està obrint l'escena."
+msgstr "Obrint escena"
+
+#: src/lincity/engine.cpp:157
+msgid "You can't build a tip here"
+msgstr "No pots construir aquí"
+
+#: src/lincity/engine.cpp:158 src/lincity/engine.cpp:189
+msgid "This area was once a landfill"
+msgstr "Aquesta area era un abocador"
+
+#: src/lincity/engine.cpp:159 src/lincity/engine.cpp:190
+#: src/lincity/engine.cpp:197
+msgid "OK"
+msgstr "D'acord"
+
+#: src/lincity/engine.cpp:188 src/lincity/engine.cpp:195
+msgid "You can't build a mine here"
+msgstr "No pots construir la mine aqui"
+
+#: src/lincity/engine.cpp:196
+msgid "There is no ore left at this site"
+msgstr "No queda coure en aquest lloc"
+
+#: src/lincity/engine.cpp:691
+msgid "It's at a power line."
+msgstr "Això és una línea electrica"
+
+#: src/lincity/engine.cpp:693
+msgid "It's at a solar power station."
+msgstr "Això és una central solar"
+
+#: src/lincity/engine.cpp:695
+msgid "It's at a substation."
+msgstr "Això és una sub-estació"
+
+#: src/lincity/engine.cpp:697
+msgid "It's at a residential area."
+msgstr "Això és una area residencial"
+
+#: src/lincity/engine.cpp:699
+msgid "It's at a farm."
+msgstr "Això és una Grange"
+
+#: src/lincity/engine.cpp:701
+msgid "It's at a market."
+msgstr "Això és un Mercat"
+
+#: src/lincity/engine.cpp:703
+msgid "It's at a track."
+msgstr "Això és un camí"
+
+#: src/lincity/engine.cpp:705
+msgid "It's at a coal mine."
+msgstr "Això és una mine de carbó"
+
+#: src/lincity/engine.cpp:707
+msgid "It's at a railway."
+msgstr "Això és una Via"
+
+#: src/lincity/engine.cpp:709
+msgid "It's at a coal power station."
+msgstr "Això és una central de carbó"
+
+#: src/lincity/engine.cpp:711
+msgid "It's at a road."
+msgstr "Això és una Carretera"
+
+#: src/lincity/engine.cpp:713
+msgid "It's at light industry."
+msgstr "Això és una Indústria electrica"
+
+#: src/lincity/engine.cpp:715
+msgid "It's at a university."
+msgstr "Això és una Universitat"
+
+#: src/lincity/engine.cpp:717
+msgid "It's at a commune."
+msgstr "Això és una comune"
+
+#: src/lincity/engine.cpp:719
+msgid "It's at a tip."
+msgstr "Això és una deixellería"
+
+#: src/lincity/engine.cpp:721
+msgid "It's at a port."
+msgstr "Això és el Port"
+
+#: src/lincity/engine.cpp:723
+msgid "It's at a steel works."
+msgstr "Taller Mecànic"
+
+#: src/lincity/engine.cpp:725
+msgid "It's at a recycle centre."
+msgstr "Centre de Reciclat"
+
+#: src/lincity/engine.cpp:727
+msgid "It's at a health centre."
+msgstr "Això és un Centre Hospitalari"
+
+#: src/lincity/engine.cpp:729
+msgid "It's at a rocket site."
+msgstr "Això és una plataforma de cohets"
+
+#: src/lincity/engine.cpp:731
+msgid "It's at a windmill."
+msgstr "Això és un molí"
+
+#: src/lincity/engine.cpp:733
+msgid "It's at a school."
+msgstr "Això és una Escola"
+
+#: src/lincity/engine.cpp:735
+msgid "It's at a blacksmith."
+msgstr "Això és una Farga"
+
+#: src/lincity/engine.cpp:737
+msgid "It's at a mill."
+msgstr "Això és una fábrica"
+
+#: src/lincity/engine.cpp:739
+msgid "It's at a pottery."
+msgstr "Això és un taller de cerámique"
+
+#: src/lincity/engine.cpp:741
+msgid "It's at a fire station!!!."
+msgstr "Això és una Estació de Bombers"
+
+#: src/lincity/engine.cpp:743
+msgid "It's at a sports field!!!."
+msgstr "Això és un Poliesportiu"
+
+#: src/lincity/engine.cpp:745
+msgid "It's at a shanty town."
+msgstr "Això és na gossera"
+
+#: src/lincity/engine.cpp:747
+msgid "UNKNOWN!"
+msgstr "DESCONEGUT!"
 
 #: src/lincity/lintypes.cpp:22
 msgid "Empty"
@@ -201,19 +203,19 @@ msgstr "Buit"
 
 #: src/lincity/lintypes.cpp:34
 msgid "Power line"
-msgstr "Línia elèctrica"
+msgstr "Liíea elèctrica "
 
 #: src/lincity/lintypes.cpp:46
 msgid "Solar PS"
-msgstr "Central solar"
+msgstr "Solar PS"
 
 #: src/lincity/lintypes.cpp:58 src/lincity/modules/substation.cpp:91
 msgid "Substation"
-msgstr "Subestació"
+msgstr "Sub-estació"
 
 #: src/lincity/lintypes.cpp:70
 msgid "Residential LL"
-msgstr "Residèncial LL"
+msgstr "Residencial LL"
 
 #: src/lincity/lintypes.cpp:82
 msgid "Farm"
@@ -234,11 +236,11 @@ msgstr "Mina de carbó"
 
 #: src/lincity/lintypes.cpp:130
 msgid "Railway"
-msgstr "Via de tren"
+msgstr "Via"
 
 #: src/lincity/lintypes.cpp:142
 msgid "Coal PS"
-msgstr "Central tèrmica"
+msgstr "Coure PS"
 
 #: src/lincity/lintypes.cpp:154 src/lincity/modules/road.cpp:47
 msgid "Road"
@@ -246,13 +248,13 @@ msgstr "Carretera"
 
 #: src/lincity/lintypes.cpp:166
 msgid "Lt. Industry"
-msgstr "Petita indústria"
+msgstr "Petita Indústria"
 
 #: src/lincity/lintypes.cpp:178 src/lincity/modules/university.cpp:67
 msgid "University"
 msgstr "Universitat"
 
-#: src/lincity/lintypes.cpp:190 src/lincity/modules/commune.cpp:146
+#: src/lincity/lintypes.cpp:190 src/lincity/modules/commune.cpp:142
 msgid "Commune"
 msgstr "Comuna"
 
@@ -262,39 +264,39 @@ msgstr "Mina de coure"
 
 #: src/lincity/lintypes.cpp:214
 msgid "Rubbish tip"
-msgstr "Deixalleria"
+msgstr "Deixelleria"
 
-#: src/lincity/lintypes.cpp:226 src/lincity/modules/port.cpp:173
+#: src/lincity/lintypes.cpp:226 src/lincity/modules/port.cpp:202
 #: src/lincity-ng/Dialog.cpp:540
 msgid "Port"
 msgstr "Port"
 
 #: src/lincity/lintypes.cpp:238
 msgid "Hv. Industry"
-msgstr "Indústria pesada"
+msgstr "Industria pesada"
 
 #: src/lincity/lintypes.cpp:250
 msgid "Park"
-msgstr "Parc"
+msgstr "Parq"
 
-#: src/lincity/lintypes.cpp:262 src/lincity-ng/MpsInterface.cpp:516
+#: src/lincity/lintypes.cpp:262 src/lincity-ng/MpsInterface.cpp:513
 msgid "Recycle"
-msgstr "Reciclatge"
+msgstr "Reciclat"
 
 #: src/lincity/lintypes.cpp:274 src/lincity/modules/water.cpp:19
 msgid "Water"
-msgstr "Aigua"
+msgstr "Aigüa"
 
 #: src/lincity/lintypes.cpp:286
 msgid "Health centre"
-msgstr "Centre de salut"
+msgstr "Ayuntament"
 
 #: src/lincity/lintypes.cpp:298
 msgid "Rocket pad"
-msgstr "Coet"
+msgstr "Cohet"
 
 #: src/lincity/lintypes.cpp:310 src/lincity/modules/windmill.cpp:73
-#: src/lincity-ng/MpsInterface.cpp:506
+#: src/lincity-ng/MpsInterface.cpp:503
 msgid "Windmill"
 msgstr "Molí"
 
@@ -308,15 +310,15 @@ msgstr "Escola"
 
 #: src/lincity/lintypes.cpp:346 src/lincity/modules/blacksmith.cpp:97
 msgid "Blacksmith"
-msgstr "Farga"
+msgstr "Farreter"
 
 #: src/lincity/lintypes.cpp:358
 msgid "Mill"
-msgstr "Molí"
+msgstr "Lleter"
 
 #: src/lincity/lintypes.cpp:370 src/lincity/modules/pottery.cpp:119
 msgid "Pottery"
-msgstr "Terrissaire"
+msgstr "Cerámique"
 
 #: src/lincity/lintypes.cpp:382
 msgid "Fire sta'n"
@@ -328,14 +330,14 @@ msgstr "Centre d'esport"
 
 #: src/lincity/lintypes.cpp:407
 msgid "Burnt"
-msgstr "Cremat"
+msgstr "Cremar"
 
 #: src/lincity/lintypes.cpp:420
 msgid "Shanty town"
-msgstr "Barraques"
+msgstr "Sanitat "
 
 #: src/lincity/lintypes.cpp:433 src/lincity/modules/residence.cpp:292
-#: src/lincity-ng/MpsInterface.cpp:380 src/lincity-ng/EconomyGraph.cpp:131
+#: src/lincity-ng/MpsInterface.cpp:377 src/lincity-ng/EconomyGraph.cpp:131
 msgid "Fire"
 msgstr "Foc"
 
@@ -345,23 +347,16 @@ msgstr "Ocupat"
 
 #: src/lincity/lintypes.cpp:458
 msgid "Residential ML"
-msgstr "Residència ML"
+msgstr "Residencia ML"
 
 #: src/lincity/lintypes.cpp:470
 msgid "Residential HL"
 msgstr "Residencil HL"
 
-#: src/lincity/lintypes.cpp:482
-msgid "Residential LH"
-msgstr "Residèncial LH"
-
-#: src/lincity/lintypes.cpp:494
-msgid "Residential MH"
-msgstr "Residència MH"
-
+#: src/lincity/lintypes.cpp:482 src/lincity/lintypes.cpp:494
 #: src/lincity/lintypes.cpp:506
-msgid "Residential HH"
-msgstr "Residencil HH"
+msgid "Residential"
+msgstr "Residencia"
 
 #: src/lincity/lclib.cpp:17
 msgid "Jan"
@@ -411,62 +406,12 @@ msgstr "Nov."
 msgid "Dec"
 msgstr "Dec."
 
-#: src/lincity/modules/health_centre.cpp:66
-msgid "Health Centre"
-msgstr "Hospital"
-
-#: src/lincity/modules/health_centre.cpp:68
-#: src/lincity/modules/rocket_pad.cpp:169 src/lincity/modules/recycle.cpp:181
-#: src/lincity/modules/mill.cpp:107 src/lincity/modules/university.cpp:74
-#: src/lincity/modules/cricket.cpp:101 src/lincity/modules/pottery.cpp:123
-#: src/lincity/modules/blacksmith.cpp:102
-#: src/lincity/modules/firestation.cpp:121 src/lincity/modules/school.cpp:54
-msgid "Inventory"
-msgstr "Inventari"
-
-#: src/lincity/modules/health_centre.cpp:69
-#: src/lincity/modules/rocket_pad.cpp:170 src/lincity/modules/market.cpp:1149
-#: src/lincity/modules/road.cpp:52 src/lincity/modules/rail.cpp:55
-#: src/lincity/modules/coal_power.cpp:105
-#: src/lincity/modules/university.cpp:75 src/lincity/modules/cricket.cpp:102
-#: src/lincity/modules/track.cpp:43 src/lincity/modules/pottery.cpp:124
-#: src/lincity/modules/firestation.cpp:122 src/lincity/modules/school.cpp:55
-msgid "Jobs"
-msgstr "Treball"
-
-#: src/lincity/modules/health_centre.cpp:71
-#: src/lincity/modules/rocket_pad.cpp:172 src/lincity/modules/market.cpp:1153
-#: src/lincity/modules/port.cpp:190 src/lincity/modules/road.cpp:56
-#: src/lincity/modules/rail.cpp:59 src/lincity/modules/mill.cpp:108
-#: src/lincity/modules/university.cpp:77 src/lincity/modules/cricket.cpp:104
-#: src/lincity/modules/track.cpp:47 src/lincity/modules/pottery.cpp:126
-#: src/lincity/modules/blacksmith.cpp:103
-#: src/lincity/modules/firestation.cpp:124 src/lincity/modules/school.cpp:57
-#: src/lincity-ng/MpsInterface.cpp:448
-msgid "Goods"
-msgstr "Béns"
-
-#: src/lincity/modules/rocket_pad.cpp:163
-msgid "Rocket Pad"
-msgstr "Plataforma de cohets"
-
-#: src/lincity/modules/rocket_pad.cpp:166
-msgid "Completion"
-msgstr "Acabat"
-
-#: src/lincity/modules/rocket_pad.cpp:174 src/lincity/modules/market.cpp:1157
-#: src/lincity/modules/port.cpp:194 src/lincity/modules/road.cpp:60
-#: src/lincity/modules/rail.cpp:63 src/lincity/modules/light_industry.cpp:368
-#: src/lincity/modules/commune.cpp:156 src/lincity/modules/track.cpp:51
-msgid "Steel"
-msgstr "Acer"
-
 #: src/lincity/modules/windmill.cpp:77 src/lincity/modules/windmill.cpp:88
 #: src/lincity/modules/recycle.cpp:178 src/lincity/modules/coal_power.cpp:107
 #: src/lincity/modules/organic_farm.cpp:196
 #: src/lincity/modules/solar_power.cpp:58
 msgid "Tech"
-msgstr "Tecnol."
+msgstr "Tec"
 
 #: src/lincity/modules/windmill.cpp:80
 msgid "Local Status"
@@ -493,87 +438,12 @@ msgstr "T. Cap"
 msgid "A. Cap."
 msgstr "A. Cap"
 
-#: src/lincity/modules/windmill.cpp:104 src/lincity/modules/coal_power.cpp:109
-#: src/lincity/modules/substation.cpp:111
-#: src/lincity/modules/power_line.cpp:53
+#: src/lincity/modules/windmill.cpp:104 src/lincity/modules/power_line.cpp:53
+#: src/lincity/modules/coal_power.cpp:109
 #: src/lincity/modules/solar_power.cpp:60
+#: src/lincity/modules/substation.cpp:111
 msgid "Grid ID"
-msgstr "ID de xarxa"
-
-#: src/lincity/modules/water.cpp:22 src/lincity/modules/commune.cpp:151
-#: src/lincity/modules/commune.cpp:153 src/lincity/modules/commune.cpp:155
-#: src/lincity/modules/commune.cpp:157 src/lincity-ng/MpsInterface.cpp:379
-#: src/lincity-ng/MpsInterface.cpp:382 src/lincity-ng/MpsInterface.cpp:385
-msgid "Yes"
-msgstr "Sí"
-
-#: src/lincity/modules/water.cpp:22 src/lincity/modules/commune.cpp:151
-#: src/lincity/modules/commune.cpp:153 src/lincity/modules/commune.cpp:155
-#: src/lincity/modules/commune.cpp:157 src/lincity-ng/MpsInterface.cpp:379
-#: src/lincity-ng/MpsInterface.cpp:382 src/lincity-ng/MpsInterface.cpp:385
-msgid "No"
-msgstr "No"
-
-#: src/lincity/modules/water.cpp:23
-msgid "Navigable"
-msgstr "Navegable"
-
-#: src/lincity/modules/recycle.cpp:169
-msgid "Recycling"
-msgstr "Reciclar"
-
-#: src/lincity/modules/recycle.cpp:170
-msgid "Center"
-msgstr "Centre"
-
-#: src/lincity/modules/recycle.cpp:173
-#: src/lincity/modules/heavy_industry.cpp:346 src/lincity/modules/mill.cpp:105
-#: src/lincity/modules/light_industry.cpp:370
-#: src/lincity/modules/university.cpp:79 src/lincity/modules/pottery.cpp:121
-#: src/lincity/modules/blacksmith.cpp:100 src/lincity/modules/school.cpp:60
-msgid "Capacity"
-msgstr "Capacitat"
-
-#: src/lincity/modules/recycle.cpp:175 src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282 src/lincity/modules/residence.cpp:285
-#: src/lincity/modules/residence.cpp:288 src/lincity/modules/residence.cpp:291
-#: src/lincity/modules/residence.cpp:294
-#: src/lincity/modules/light_industry.cpp:359
-#: src/lincity/modules/organic_farm.cpp:188
-msgid "YES"
-msgstr "SÍ"
-
-#: src/lincity/modules/recycle.cpp:175 src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282 src/lincity/modules/residence.cpp:285
-#: src/lincity/modules/residence.cpp:288 src/lincity/modules/residence.cpp:291
-#: src/lincity/modules/residence.cpp:294
-#: src/lincity/modules/heavy_industry.cpp:334
-#: src/lincity/modules/light_industry.cpp:359
-msgid "NO"
-msgstr "NO"
-
-#: src/lincity/modules/recycle.cpp:176 src/lincity/modules/residence.cpp:280
-#: src/lincity/modules/heavy_industry.cpp:337
-#: src/lincity/modules/light_industry.cpp:360
-#: src/lincity/modules/organic_farm.cpp:193
-msgid "Power"
-msgstr "Energia"
-
-#: src/lincity/modules/recycle.cpp:182
-#: src/lincity/modules/heavy_industry.cpp:342
-#: src/lincity/modules/market.cpp:1155 src/lincity/modules/port.cpp:186
-#: src/lincity/modules/road.cpp:58 src/lincity/modules/rail.cpp:61
-#: src/lincity/modules/light_industry.cpp:366
-#: src/lincity/modules/commune.cpp:154 src/lincity/modules/track.cpp:49
-#: src/lincity/modules/pottery.cpp:128
-msgid "Ore"
-msgstr "Coure"
-
-#: src/lincity/modules/recycle.cpp:184 src/lincity/modules/market.cpp:1159
-#: src/lincity/modules/road.cpp:62 src/lincity/modules/rail.cpp:65
-#: src/lincity/modules/commune.cpp:158 src/lincity/modules/track.cpp:53
-msgid "Waste"
-msgstr "Escombraries"
+msgstr ""
 
 #: src/lincity/modules/coalmine.cpp:168
 msgid "Coal Mine"
@@ -581,7 +451,7 @@ msgstr "Mine de carbó"
 
 #: src/lincity/modules/coalmine.cpp:171 src/lincity/modules/oremine.cpp:187
 msgid "Stock"
-msgstr "Magatzem"
+msgstr "Magatsem"
 
 #: src/lincity/modules/coalmine.cpp:175 src/lincity/modules/coalmine.cpp:177
 #: src/lincity/modules/oremine.cpp:191
@@ -592,47 +462,6 @@ msgstr "Reserva"
 msgid "EMPTY"
 msgstr "BUIT"
 
-#: src/lincity/modules/residence.cpp:273
-msgid "Residence"
-msgstr "Residència"
-
-#: src/lincity/modules/residence.cpp:277
-msgid "People"
-msgstr "Persones"
-
-#: src/lincity/modules/residence.cpp:283
-msgid "Fed"
-msgstr "Menjar"
-
-#: src/lincity/modules/residence.cpp:286
-msgid "Employed"
-msgstr "Ampleats"
-
-#: src/lincity/modules/residence.cpp:289
-msgid "Health Cvr"
-msgstr "Vida Cvr"
-
-#: src/lincity/modules/residence.cpp:295 src/lincity-ng/MpsInterface.cpp:386
-#: src/lincity-ng/MpsInterface.cpp:514
-msgid "Sport"
-msgstr "Esport"
-
-#: src/lincity/modules/residence.cpp:297 src/lincity-ng/MpsInterface.cpp:388
-msgid "Pollution"
-msgstr "Contaminació"
-
-#: src/lincity/modules/residence.cpp:299 src/lincity-ng/MpsInterface.cpp:393
-msgid "good"
-msgstr "bé"
-
-#: src/lincity/modules/residence.cpp:299
-msgid "poor"
-msgstr "Pobres"
-
-#: src/lincity/modules/residence.cpp:300
-msgid "Job"
-msgstr "Treballs"
-
 #: src/lincity/modules/monument.cpp:63
 msgid "Wisdom Bestowed"
 msgstr ""
@@ -642,93 +471,138 @@ msgstr ""
 msgid "% Complete"
 msgstr "%Complert"
 
-#: src/lincity/modules/heavy_industry.cpp:323
-msgid "Heavy"
-msgstr "Força"
+#: src/lincity/modules/commune.cpp:145
+msgid "Activity"
+msgstr "Activitat"
 
-#: src/lincity/modules/heavy_industry.cpp:324
-#: src/lincity/modules/light_industry.cpp:355
-msgid "Industry"
-msgstr "Indústria"
+#: src/lincity/modules/commune.cpp:147 src/lincity/modules/commune.cpp:149
+#: src/lincity/modules/commune.cpp:151 src/lincity/modules/commune.cpp:153
+#: src/lincity/modules/water.cpp:22 src/lincity-ng/MpsInterface.cpp:376
+#: src/lincity-ng/MpsInterface.cpp:379 src/lincity-ng/MpsInterface.cpp:382
+msgid "Yes"
+msgstr "Si"
 
-#: src/lincity/modules/heavy_industry.cpp:329
-#: src/lincity/modules/heavy_industry.cpp:344
-#: src/lincity/modules/market.cpp:1151 src/lincity/modules/port.cpp:182
-#: src/lincity/modules/road.cpp:54 src/lincity/modules/rail.cpp:57
+#: src/lincity/modules/commune.cpp:147 src/lincity/modules/commune.cpp:149
+#: src/lincity/modules/commune.cpp:151 src/lincity/modules/commune.cpp:153
+#: src/lincity/modules/water.cpp:22 src/lincity-ng/MpsInterface.cpp:376
+#: src/lincity-ng/MpsInterface.cpp:379 src/lincity-ng/MpsInterface.cpp:382
+msgid "No"
+msgstr "No"
+
+#: src/lincity/modules/commune.cpp:148 src/lincity/modules/market.cpp:1151
+#: src/lincity/modules/road.cpp:54 src/lincity/modules/blacksmith.cpp:105
+#: src/lincity/modules/port.cpp:211 src/lincity/modules/rail.cpp:57
+#: src/lincity/modules/mill.cpp:112 src/lincity/modules/pottery.cpp:130
 #: src/lincity/modules/coal_power.cpp:89
-#: src/lincity/modules/coal_power.cpp:103 src/lincity/modules/mill.cpp:112
-#: src/lincity/modules/commune.cpp:152 src/lincity/modules/track.cpp:45
-#: src/lincity/modules/pottery.cpp:130 src/lincity/modules/blacksmith.cpp:105
-#: src/lincity-ng/MpsInterface.cpp:444
+#: src/lincity/modules/coal_power.cpp:103
+#: src/lincity/modules/heavy_industry.cpp:329
+#: src/lincity/modules/heavy_industry.cpp:344 src/lincity/modules/track.cpp:45
+#: src/lincity-ng/MpsInterface.cpp:441
 msgid "Coal"
 msgstr "Carbó"
 
-#: src/lincity/modules/heavy_industry.cpp:331
-msgid "Grid"
-msgstr "Graella"
+#: src/lincity/modules/commune.cpp:150 src/lincity/modules/market.cpp:1155
+#: src/lincity/modules/road.cpp:58 src/lincity/modules/port.cpp:215
+#: src/lincity/modules/rail.cpp:61 src/lincity/modules/light_industry.cpp:366
+#: src/lincity/modules/recycle.cpp:182 src/lincity/modules/pottery.cpp:128
+#: src/lincity/modules/heavy_industry.cpp:342 src/lincity/modules/track.cpp:49
+msgid "Ore"
+msgstr "Coure"
 
-#: src/lincity/modules/heavy_industry.cpp:339
-#: src/lincity/modules/light_industry.cpp:362
-msgid "Output"
-msgstr "Sortida"
+#: src/lincity/modules/commune.cpp:152 src/lincity/modules/market.cpp:1157
+#: src/lincity/modules/rocket_pad.cpp:174 src/lincity/modules/road.cpp:60
+#: src/lincity/modules/port.cpp:223 src/lincity/modules/rail.cpp:63
+#: src/lincity/modules/light_industry.cpp:368 src/lincity/modules/track.cpp:51
+msgid "Steel"
+msgstr "Acer"
 
-#: src/lincity/modules/heavy_industry.cpp:340
-#: src/lincity/modules/light_industry.cpp:364
-msgid "Store"
-msgstr "Magatzem"
+#: src/lincity/modules/commune.cpp:154 src/lincity/modules/market.cpp:1159
+#: src/lincity/modules/road.cpp:62 src/lincity/modules/rail.cpp:65
+#: src/lincity/modules/recycle.cpp:184 src/lincity/modules/track.cpp:53
+msgid "Waste"
+msgstr "Escombreríes"
 
-#: src/lincity/modules/market.cpp:1147 src/lincity/modules/port.cpp:178
-#: src/lincity/modules/road.cpp:50 src/lincity/modules/rail.cpp:53
+#: src/lincity/modules/firestation.cpp:119
+msgid "Fire Station"
+msgstr "Bombers"
+
+#: src/lincity/modules/firestation.cpp:121 src/lincity/modules/cricket.cpp:101
+#: src/lincity/modules/university.cpp:74
+#: src/lincity/modules/health_centre.cpp:68
+#: src/lincity/modules/rocket_pad.cpp:169
+#: src/lincity/modules/blacksmith.cpp:102 src/lincity/modules/recycle.cpp:181
+#: src/lincity/modules/school.cpp:54 src/lincity/modules/mill.cpp:107
+#: src/lincity/modules/pottery.cpp:123
+msgid "Inventory"
+msgstr "Inventari"
+
+#: src/lincity/modules/firestation.cpp:122 src/lincity/modules/cricket.cpp:102
+#: src/lincity/modules/market.cpp:1149 src/lincity/modules/university.cpp:75
+#: src/lincity/modules/health_centre.cpp:69
+#: src/lincity/modules/rocket_pad.cpp:170 src/lincity/modules/road.cpp:52
+#: src/lincity/modules/rail.cpp:55 src/lincity/modules/school.cpp:55
+#: src/lincity/modules/pottery.cpp:124 src/lincity/modules/coal_power.cpp:105
+#: src/lincity/modules/track.cpp:43
+msgid "Jobs"
+msgstr "Treball"
+
+#: src/lincity/modules/firestation.cpp:124 src/lincity/modules/cricket.cpp:104
+#: src/lincity/modules/market.cpp:1153 src/lincity/modules/university.cpp:77
+#: src/lincity/modules/health_centre.cpp:71
+#: src/lincity/modules/rocket_pad.cpp:172 src/lincity/modules/road.cpp:56
+#: src/lincity/modules/blacksmith.cpp:103 src/lincity/modules/port.cpp:219
+#: src/lincity/modules/rail.cpp:59 src/lincity/modules/school.cpp:57
+#: src/lincity/modules/mill.cpp:108 src/lincity/modules/pottery.cpp:126
+#: src/lincity/modules/track.cpp:47 src/lincity-ng/MpsInterface.cpp:445
+msgid "Goods"
+msgstr "Mercaderíes"
+
+#: src/lincity/modules/market.cpp:1147 src/lincity/modules/road.cpp:50
+#: src/lincity/modules/port.cpp:207 src/lincity/modules/rail.cpp:53
 #: src/lincity/modules/mill.cpp:110 src/lincity/modules/track.cpp:41
 msgid "Food"
 msgstr "Aliment"
 
-#: src/lincity/modules/port.cpp:198 src/lincity-ng/MpsInterface.cpp:532
+#: src/lincity/modules/university.cpp:69
+msgid "Tech Produced"
+msgstr "Tecnologies produides"
+
+#: src/lincity/modules/university.cpp:79
+#: src/lincity/modules/blacksmith.cpp:100
+#: src/lincity/modules/light_industry.cpp:370
+#: src/lincity/modules/recycle.cpp:173 src/lincity/modules/school.cpp:60
+#: src/lincity/modules/mill.cpp:105 src/lincity/modules/pottery.cpp:121
+#: src/lincity/modules/heavy_industry.cpp:346
+msgid "Capacity"
+msgstr "Capacitat"
+
+#: src/lincity/modules/water.cpp:23
+msgid "Navigable"
+msgstr "Navegable"
+
+#: src/lincity/modules/health_centre.cpp:66
+msgid "Health Centre"
+msgstr "Hospital"
+
+#: src/lincity/modules/rocket_pad.cpp:163
+msgid "Rocket Pad"
+msgstr "Plataforma de cohets"
+
+#: src/lincity/modules/rocket_pad.cpp:166
+msgid "Completion"
+msgstr "Acabat"
+
+#: src/lincity/modules/power_line.cpp:50
+msgid "Power Line"
+msgstr "Linea electrica"
+
+#: src/lincity/modules/port.cpp:227 src/lincity-ng/MpsInterface.cpp:527
 msgid "Total"
 msgstr "Total"
 
 #: src/lincity/modules/rail.cpp:50
 msgid "Rail"
 msgstr "Via"
-
-#: src/lincity/modules/coal_power.cpp:90
-#: src/lincity/modules/solar_power.cpp:45
-msgid "Power Station"
-msgstr "Central elèctrica"
-
-#: src/lincity/modules/coal_power.cpp:94
-#: src/lincity/modules/solar_power.cpp:49
-msgid "Max Output"
-msgstr "Sortida màxima"
-
-#: src/lincity/modules/coal_power.cpp:99
-#: src/lincity/modules/solar_power.cpp:54
-msgid "Current Output"
-msgstr "Sortida actual"
-
-#: src/lincity/modules/substation.cpp:95
-msgid "Local Demand"
-msgstr "Demanda Local"
-
-#: src/lincity/modules/mill.cpp:103
-msgid "Textile Mill"
-msgstr "Fàbrica tèxtil"
-
-#: src/lincity/modules/oremine.cpp:184
-msgid "Ore Mine"
-msgstr "Mina de coure"
-
-#: src/lincity/modules/power_line.cpp:50
-msgid "Power Line"
-msgstr "Linea elèctrica"
-
-#: src/lincity/modules/light_industry.cpp:354
-msgid "Light"
-msgstr "Electricitat"
-
-#: src/lincity/modules/university.cpp:69
-msgid "Tech Produced"
-msgstr "Tecnologies produides"
 
 #: src/lincity/modules/tip.cpp:109
 msgid "Landfill"
@@ -749,19 +623,99 @@ msgstr "Percentatge"
 #: src/lincity/modules/tip.cpp:117
 #, c-format
 msgid "% Filled"
-msgstr "% ple"
+msgstr "% Lleno"
 
-#: src/lincity/modules/commune.cpp:149
-msgid "Activity"
-msgstr "Activitat"
+#: src/lincity/modules/light_industry.cpp:354
+msgid "Light"
+msgstr "Electricitat"
 
-#: src/lincity/modules/firestation.cpp:119
-msgid "Fire Station"
-msgstr "Bombers"
+#: src/lincity/modules/light_industry.cpp:355
+#: src/lincity/modules/heavy_industry.cpp:324
+msgid "Industry"
+msgstr "Industria"
+
+#: src/lincity/modules/light_industry.cpp:359
+#: src/lincity/modules/recycle.cpp:175
+#: src/lincity/modules/organic_farm.cpp:188
+#: src/lincity/modules/residence.cpp:279 src/lincity/modules/residence.cpp:282
+#: src/lincity/modules/residence.cpp:285 src/lincity/modules/residence.cpp:288
+#: src/lincity/modules/residence.cpp:291 src/lincity/modules/residence.cpp:294
+msgid "YES"
+msgstr "Si"
+
+#: src/lincity/modules/light_industry.cpp:359
+#: src/lincity/modules/recycle.cpp:175
+#: src/lincity/modules/heavy_industry.cpp:334
+#: src/lincity/modules/residence.cpp:279 src/lincity/modules/residence.cpp:282
+#: src/lincity/modules/residence.cpp:285 src/lincity/modules/residence.cpp:288
+#: src/lincity/modules/residence.cpp:291 src/lincity/modules/residence.cpp:294
+msgid "NO"
+msgstr "No"
+
+#: src/lincity/modules/light_industry.cpp:360
+#: src/lincity/modules/recycle.cpp:176
+#: src/lincity/modules/heavy_industry.cpp:337
+#: src/lincity/modules/organic_farm.cpp:193
+#: src/lincity/modules/residence.cpp:280
+msgid "Power"
+msgstr "Energía"
+
+#: src/lincity/modules/light_industry.cpp:362
+#: src/lincity/modules/heavy_industry.cpp:339
+msgid "Output"
+msgstr "Sortida"
+
+#: src/lincity/modules/light_industry.cpp:364
+#: src/lincity/modules/heavy_industry.cpp:340
+msgid "Store"
+msgstr "Magatzem"
+
+#: src/lincity/modules/recycle.cpp:169
+msgid "Recycling"
+msgstr "Reciclar"
+
+#: src/lincity/modules/recycle.cpp:170
+msgid "Center"
+msgstr "Centre"
+
+#: src/lincity/modules/school.cpp:51
+msgid "Lessons Learned"
+msgstr "Llisons apreses"
+
+#: src/lincity/modules/oremine.cpp:184
+msgid "Ore Mine"
+msgstr "Mine de coure"
+
+#: src/lincity/modules/mill.cpp:103
+msgid "Textile Mill"
+msgstr "Fábrica tèxtil"
+
+#: src/lincity/modules/coal_power.cpp:90
+#: src/lincity/modules/solar_power.cpp:45
+msgid "Power Station"
+msgstr "Central electrica"
+
+#: src/lincity/modules/coal_power.cpp:94
+#: src/lincity/modules/solar_power.cpp:49
+msgid "Max Output"
+msgstr "Sortida máxima"
+
+#: src/lincity/modules/coal_power.cpp:99
+#: src/lincity/modules/solar_power.cpp:54
+msgid "Current Output"
+msgstr "Sortida actual"
+
+#: src/lincity/modules/heavy_industry.cpp:323
+msgid "Heavy"
+msgstr "Force"
+
+#: src/lincity/modules/heavy_industry.cpp:331
+msgid "Grid"
+msgstr "Graella"
 
 #: src/lincity/modules/organic_farm.cpp:183
 msgid "Organic Farm"
-msgstr "Granja orgànica"
+msgstr "Grange orgánique"
 
 #: src/lincity/modules/organic_farm.cpp:190
 msgid "NO "
@@ -771,31 +725,281 @@ msgstr "NO"
 msgid "Prod"
 msgstr "Prod"
 
-#: src/lincity/modules/school.cpp:51
-msgid "Lessons Learned"
-msgstr "Lliçons apreses"
-
 #: src/lincity/modules/solar_power.cpp:44
 msgid "Solar"
 msgstr "Solar"
 
+#: src/lincity/modules/substation.cpp:95
+msgid "Local Demand"
+msgstr "Demanda Local"
+
+#: src/lincity/modules/residence.cpp:273
+msgid "Residence"
+msgstr "Residencia"
+
+#: src/lincity/modules/residence.cpp:277
+msgid "People"
+msgstr "Persones"
+
+#: src/lincity/modules/residence.cpp:283
+msgid "Fed"
+msgstr "Menjar"
+
+#: src/lincity/modules/residence.cpp:286
+msgid "Employed"
+msgstr "Ampleats"
+
+#: src/lincity/modules/residence.cpp:289
+msgid "Health Cvr"
+msgstr "Vida Cvr"
+
+#: src/lincity/modules/residence.cpp:295 src/lincity-ng/MpsInterface.cpp:383
+#: src/lincity-ng/MpsInterface.cpp:511
+msgid "Sport"
+msgstr "Esport"
+
+#: src/lincity/modules/residence.cpp:297 src/lincity-ng/MpsInterface.cpp:385
+msgid "Pollution"
+msgstr "Contaminació"
+
+#: src/lincity/modules/residence.cpp:299 src/lincity-ng/MpsInterface.cpp:390
+msgid "good"
+msgstr "Bè"
+
+#: src/lincity/modules/residence.cpp:299
+msgid "poor"
+msgstr "Pobres"
+
+#: src/lincity/modules/residence.cpp:300
+msgid "Job"
+msgstr "Treballs"
+
+#: src/lincity-ng/ScreenInterface.cpp:258 src/lincity-ng/GameView.cpp:1518
+#: src/lincity-ng/GameView.cpp:1549
+msgid "$"
+msgstr "$"
+
+#: src/lincity-ng/ButtonPanel.cpp:198
+msgid "Query Tool"
+msgstr "Eina de preguntar"
+
+#: src/lincity-ng/ButtonPanel.cpp:199
+msgid "Bulldozer"
+msgstr "Escabadora"
+
+#: src/lincity-ng/ButtonPanel.cpp:201
+msgid "Residential: 50 denizens, low birthrate, high deathrate"
+msgstr "Residencia; 50 habitants, pocs naixaments,alta defunció"
+
+#: src/lincity-ng/ButtonPanel.cpp:202
+msgid "Residential: 100 denizens, high birthrate, low deathrate"
+msgstr "Residencial; 100 hab., alta natalitat, poques morts"
+
+#: src/lincity-ng/ButtonPanel.cpp:203
+msgid "Residential: 200 denizens, high birthrate, high deathrate"
+msgstr "Residencial;200 hab., alta natalitat, alta defunció"
+
+#: src/lincity-ng/ButtonPanel.cpp:204
+msgid "Residential: 100 denizens, low birthrate, high deathrate"
+msgstr "Residencial; 100 hab. baixa natalitat, alta mortalitat"
+
+#: src/lincity-ng/ButtonPanel.cpp:205
+msgid "Residential: 200 denizens, high birthrate, low deathrate"
+msgstr "Residencial; 200 hab, alta natalitat, baixa mortalitat"
+
+#: src/lincity-ng/ButtonPanel.cpp:206
+msgid "Residential: 400 denizens, high birthrate, high deathrate"
+msgstr "Residencial; 400 hab.,alta natalitat, alta mortalitat"
+
+#: src/lincity-ng/ButtonPanel.cpp:215
+msgid " [Click right for help.]"
+msgstr " [Click esquerra per ayuda.]"
+
+#: src/lincity-ng/MpsInterface.cpp:221
+msgid "build something here"
+msgstr "Construir aquí"
+
+#: src/lincity-ng/MpsInterface.cpp:223
+msgid "no further information available"
+msgstr "Informació no disponible"
+
+#: src/lincity-ng/MpsInterface.cpp:375
+msgid "Coverage"
+msgstr "Cubert"
+
+#: src/lincity-ng/MpsInterface.cpp:380
+msgid "Health"
+msgstr "Vida"
+
+#: src/lincity-ng/MpsInterface.cpp:388
+msgid "clear"
+msgstr "Borrar"
+
+#: src/lincity-ng/MpsInterface.cpp:392
+msgid "fair"
+msgstr "Fals"
+
+#: src/lincity-ng/MpsInterface.cpp:394
+msgid "smelly"
+msgstr "Pudent"
+
+#: src/lincity-ng/MpsInterface.cpp:396
+msgid "smokey"
+msgstr "Fums"
+
+#: src/lincity-ng/MpsInterface.cpp:398
+msgid "smoggy"
+msgstr "nuvols tòxics"
+
+#: src/lincity-ng/MpsInterface.cpp:400
+msgid "bad"
+msgstr "enrrera"
+
+#: src/lincity-ng/MpsInterface.cpp:402
+msgid "very bad"
+msgstr "més enrrera"
+
+#: src/lincity-ng/MpsInterface.cpp:404
+msgid "death!"
+msgstr "mort"
+
+#: src/lincity-ng/MpsInterface.cpp:409
+msgid "Bulldoze Cost"
+msgstr "Cost Escabadora"
+
+#: src/lincity-ng/MpsInterface.cpp:415
+msgid "N/A"
+msgstr "N/A"
+
+#: src/lincity-ng/MpsInterface.cpp:433
+msgid "Tax Income"
+msgstr "Ingres Impostos"
+
+#: src/lincity-ng/MpsInterface.cpp:437
+msgid "Income"
+msgstr "Ingressos"
+
+#: src/lincity-ng/MpsInterface.cpp:449
+msgid "Export"
+msgstr "Exportar"
+
+#: src/lincity-ng/MpsInterface.cpp:453
+msgid "Expenses"
+msgstr "Despesses"
+
+#: src/lincity-ng/MpsInterface.cpp:457
+msgid "Unemp."
+msgstr "Parats"
+
+#: src/lincity-ng/MpsInterface.cpp:461
+msgid "Transport"
+msgstr "Transport"
+
+#: src/lincity-ng/MpsInterface.cpp:465
+msgid "Imports"
+msgstr "Importar"
+
+#: src/lincity-ng/MpsInterface.cpp:469
+msgid "Others"
+msgstr "Altres"
+
+#: src/lincity-ng/MpsInterface.cpp:474
+msgid "Net"
+msgstr "Net"
+
+#: src/lincity-ng/MpsInterface.cpp:486
+msgid "Other Costs"
+msgstr "Altres costos"
+
+#: src/lincity-ng/MpsInterface.cpp:491
+msgid "For year"
+msgstr "Per any"
+
+#: src/lincity-ng/MpsInterface.cpp:495
+msgid "Interest"
+msgstr "Interés"
+
+#: src/lincity-ng/MpsInterface.cpp:497
+msgid "Schools"
+msgstr "Escola"
+
+#: src/lincity-ng/MpsInterface.cpp:499
+msgid "Univers."
+msgstr "Univers."
+
+#: src/lincity-ng/MpsInterface.cpp:501
+msgid "Deaths"
+msgstr "Morts"
+
+#: src/lincity-ng/MpsInterface.cpp:505
+msgid "Hospital"
+msgstr "Hospital"
+
+#: src/lincity-ng/MpsInterface.cpp:507
+msgid "Rockets"
+msgstr "Cohets"
+
+#: src/lincity-ng/MpsInterface.cpp:509
+msgid "Fire Stn"
+msgstr "Bombers Stn"
+
+#: src/lincity-ng/MpsInterface.cpp:525
+msgid "Population"
+msgstr "Població"
+
+#: src/lincity-ng/MpsInterface.cpp:528
+msgid "Housed"
+msgstr "Ocupat"
+
+#: src/lincity-ng/MpsInterface.cpp:529
+msgid "Homeless"
+msgstr "Buit"
+
+#: src/lincity-ng/MpsInterface.cpp:530
+msgid "Shanties"
+msgstr "Pipican"
+
+#: src/lincity-ng/MpsInterface.cpp:531
+msgid "Unn Dths"
+msgstr "Morts inesperats"
+
+#: src/lincity-ng/MpsInterface.cpp:532
+msgid "Unemployment"
+msgstr "Parats"
+
+#: src/lincity-ng/MpsInterface.cpp:533
+msgid "Claims"
+msgstr "Reivindicacions"
+
+#: src/lincity-ng/MpsInterface.cpp:534 src/lincity-ng/MpsInterface.cpp:539
+msgid "Rate"
+msgstr "Rati"
+
+#: src/lincity-ng/MpsInterface.cpp:536
+msgid "Starvation"
+msgstr "Fam"
+
+#: src/lincity-ng/MpsInterface.cpp:537
+msgid "Cases"
+msgstr "Casos"
+
 #: src/lincity-ng/Dialog.cpp:173
 msgid "Launchsite"
-msgstr "Plataforma d'enlairament"
+msgstr "Zona de Llansament"
 
 #: src/lincity-ng/Dialog.cpp:341 src/lincity-ng/Dialog.cpp:342
 msgid "----- IN TEST MODE -------"
-msgstr "----- MODE DE PROVES -------"
+msgstr "-----MODE PROBA--------"
 
 #: src/lincity-ng/Dialog.cpp:344
 #, c-format
 msgid "Game statistics from LinCity-NG Version %s"
-msgstr "Estadístiques del LinCity-NG Versió %s"
+msgstr "Estadístiques de joc per la versió %s de LinCity-NG"
 
 #: src/lincity-ng/Dialog.cpp:348
 #, c-format
 msgid "Initial loaded scene - %s"
-msgstr "Escena carregada al principi - %s"
+msgstr "Escenari inicial carregat - %s"
 
 #: src/lincity-ng/Dialog.cpp:353
 #, c-format
@@ -805,352 +1009,91 @@ msgstr "L'economía es sustanible"
 #: src/lincity-ng/Dialog.cpp:357
 #, c-format
 msgid "Population  %d  of which  %d  are not housed."
-msgstr "%d de població de la qual %d són indigents."
+msgstr "Població  %d dels que un %d no viuan en casas"
 
 #: src/lincity-ng/Dialog.cpp:362
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d"
-msgstr "Màxima població %d  Nombre evacuats%d Total nascuts %d"
+msgstr "Maxime població%d  Nombre evacuats%d Total nascuts%d"
 
 #: src/lincity-ng/Dialog.cpp:367
 #, c-format
 msgid "Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"
-msgstr "Data %s %04d  Diners %8d  Nivell Tècnic %5.1f (%5.1f)"
+msgstr "Date%s %04d  Capital %8d  Nivell Tecnic %5.1f (%5.1f)"
 
 #: src/lincity-ng/Dialog.cpp:374
 #, c-format
 msgid ".Deaths by starvation %7d   History %8.3f"
-msgstr ".Morts de fam %7d   Historial %8.3f"
+msgstr "Morts per fam %7d   Históric %8.3f"
 
 #: src/lincity-ng/Dialog.cpp:379
 #, c-format
 msgid "Deaths from pollution %7d   History %8.3f"
-msgstr "Morts per contaminació %7d   Historial %8.3f"
+msgstr "Morts per contaminació %7d Históric %8.3f"
 
 #: src/lincity-ng/Dialog.cpp:383
 #, c-format
 msgid "Years of unemployment %7d   History %8.3f"
-msgstr "Anys d'atur %7d   Historial %8.3f"
+msgstr "Anys de paro"
 
 #: src/lincity-ng/Dialog.cpp:387
 #, c-format
 msgid "Rockets launched %2d  Successful launches %2d"
-msgstr "Coets enlairats %2d Enlairaments exitosos % 2d"
+msgstr "Cohets llansats%2d Próxim llansament% 2d"
 
 #: src/lincity-ng/Dialog.cpp:397
 #, c-format
 msgid ".   Residences %4d         Markets %4d            Farms %4d"
-msgstr ".Residències %4d         Mercats%4d             Granges%4d"
+msgstr ".Residencias%4d         Mercats%4d             Granges%4d"
 
 #: src/lincity-ng/Dialog.cpp:408
 #, c-format
 msgid ".       Tracks %4d           Roads %4d             Rail %4d"
-msgstr ".       Camins %4d           Carreteres %4d             Vies %4d"
+msgstr ".       Camins %4d           Carreteras %4d             Vias %4d"
 
 #: src/lincity-ng/Dialog.cpp:413
 #, c-format
 msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
-msgstr ".    Terrissaires %4d     Fargues%4d            Fàbriques%4d"
+msgstr ".    Cerámiques %4d     Fargues%4d            Fábriques%4d"
 
 #: src/lincity-ng/Dialog.cpp:418
 #, c-format
 msgid ".    Monuments %4d         Schools %4d     Universities %4d"
-msgstr ".    Monuments %4d         Escoles %4d     Universitats %4d"
+msgstr ",Monuments%4d Escoles%4d Universitats%4d"
 
 #: src/lincity-ng/Dialog.cpp:423
 #, c-format
 msgid ".Fire stations %4d           Parks %4d    Sports fields %4d"
-msgstr ".Bombers %4d            Parcs %4d    Esports %4d"
+msgstr ".Bombers%4d            Parcs%4d    Esports%4d"
 
 #: src/lincity-ng/Dialog.cpp:428
 #, c-format
 msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
-msgstr ".   Mines Carbó %4d         Mines Coure %4d           Comunes %4d"
+msgstr ".   Mines Carbó%4d         Mines Coure%4d           Comunes%4d"
 
 #: src/lincity-ng/Dialog.cpp:433
 #, c-format
 msgid ".    Windmills %4d     Coal powers %4d     Solar powers %4d"
-msgstr ".    Molins %4d     Centrals tèrmiques %4d     Centras solars %4d"
+msgstr ".    Molins%4d     Potencia carbó%4d     Potencia Solar%4d"
 
 #: src/lincity-ng/Dialog.cpp:439
 #, c-format
 msgid ".  Substations %4d     Power lines %4d            Ports %4d"
-msgstr "Sub-estacions %4d     Línias Elèctriques %4d        Ports %4d"
+msgstr "Sub-estacions %4d     Líneas Eléctriques%4d        Ports%4d"
 
 #: src/lincity-ng/Dialog.cpp:444
 #, c-format
 msgid ".   Light inds %4d      Heavy inds %4d        Recyclers %4d"
-msgstr ".   Ind. elèctrica%4d     Ind. Pesada%4d      Reciclatge %4d"
+msgstr ".   Ind. electrica%4d     Ind. Pesada%4d      Rciclat%4d"
 
 #: src/lincity-ng/Dialog.cpp:449
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d"
-msgstr "Centres Salut %4d  Abocadors%4d      Barraques %4d"
-
-#: src/lincity-ng/GameView.cpp:236
-msgid "Minimap: outline map"
-msgstr "Minimapa: mapa de línies"
-
-#: src/lincity-ng/GameView.cpp:239
-msgid "Minimap: unemployment"
-msgstr "Minimapa; Atur"
-
-#: src/lincity-ng/GameView.cpp:242
-msgid "Minimap: pollution"
-msgstr "Minimapa Contaminació"
-
-#: src/lincity-ng/GameView.cpp:245
-msgid "Minimap: nourishments"
-msgstr ""
-
-#: src/lincity-ng/GameView.cpp:248
-msgid "Minimap: power supply"
-msgstr "Minimapa: suport energia"
-
-#: src/lincity-ng/GameView.cpp:251
-msgid "Minimap: firedepartment cover"
-msgstr "Minimapa: Bombers"
-
-#: src/lincity-ng/GameView.cpp:254
-msgid "Minimap: sport cover"
-msgstr "Minimapa: esports"
-
-#: src/lincity-ng/GameView.cpp:257
-msgid "Minimap: medical care"
-msgstr "Minimapa: Sanitat"
-
-#: src/lincity-ng/GameView.cpp:260
-msgid "Minimap: coal depots"
-msgstr "Minimapa:dipòsits carbó"
-
-#: src/lincity-ng/GameView.cpp:263
-msgid "Minimap: traffic density"
-msgstr "Minimapa: Densitat del trànsit"
-
-#: src/lincity-ng/GameView.cpp:1515
-msgid "Estimated Bulldoze Cost: "
-msgstr "Cost estimat de l'enderroc"
-
-#: src/lincity-ng/GameView.cpp:1517
-msgid "Bulldoze Cost: "
-msgstr "Cost de l'enderroc"
-
-#: src/lincity-ng/GameView.cpp:1520 src/lincity-ng/GameView.cpp:1551
-#: src/lincity-ng/ScreenInterface.cpp:269
-msgid "$"
-msgstr "€"
-
-#: src/lincity-ng/GameView.cpp:1522
-msgid "n/a"
-msgstr "n/d"
-
-#: src/lincity-ng/GameView.cpp:1540
-msgid "Query Tool: Show information about selected building."
-msgstr "Eina d'investigar. Mostra informació sobre els edificis seleccionats."
-
-#: src/lincity-ng/GameView.cpp:1544
-msgid "Bulldozer: remove building -price varies-"
-msgstr "Enderroca: enderroca l'edifici -el preu canvia-"
-
-#: src/lincity-ng/GameView.cpp:1551
-msgid ": Cost to build "
-msgstr "Cost de la construcció"
-
-#: src/lincity-ng/GameView.cpp:1552
-msgid ", to bulldoze "
-msgstr "Excava"
-
-#: src/lincity-ng/GameView.cpp:1552 src/lincity-ng/GameView.cpp:1555
-msgid "$."
-msgstr "$"
-
-#: src/lincity-ng/GameView.cpp:1554
-msgid " To build "
-msgstr "Per construir"
-
-#: src/lincity-ng/GameView.cpp:1554
-msgid " of them "
-msgstr "d'ells"
-
-#: src/lincity-ng/GameView.cpp:1555
-msgid "will cost about "
-msgstr "Et costarà"
-
-#: src/lincity-ng/MainMenu.cpp:175
-msgid "empty"
-msgstr "Buit"
-
-#: src/lincity-ng/MpsInterface.cpp:224
-msgid "build something here"
-msgstr "Construeix quelcom aquí"
-
-#: src/lincity-ng/MpsInterface.cpp:226
-msgid "no further information available"
-msgstr "Informació no disponible"
-
-#: src/lincity-ng/MpsInterface.cpp:378
-msgid "Coverage"
-msgstr "Cobertura"
-
-#: src/lincity-ng/MpsInterface.cpp:383
-msgid "Health"
-msgstr "Vida"
-
-#: src/lincity-ng/MpsInterface.cpp:391
-msgid "clear"
-msgstr "Borrar"
-
-#: src/lincity-ng/MpsInterface.cpp:395
-msgid "fair"
-msgstr "Fals"
-
-#: src/lincity-ng/MpsInterface.cpp:397
-msgid "smelly"
-msgstr "Pudent"
-
-#: src/lincity-ng/MpsInterface.cpp:399
-msgid "smokey"
-msgstr "fumejant"
-
-#: src/lincity-ng/MpsInterface.cpp:401
-msgid "smoggy"
-msgstr "boirós"
-
-#: src/lincity-ng/MpsInterface.cpp:403
-msgid "bad"
-msgstr "enrrera"
-
-#: src/lincity-ng/MpsInterface.cpp:405
-msgid "very bad"
-msgstr "molt malament"
-
-#: src/lincity-ng/MpsInterface.cpp:407
-msgid "death!"
-msgstr "mort"
-
-#: src/lincity-ng/MpsInterface.cpp:412
-msgid "Bulldoze Cost"
-msgstr "Cost Escabadora"
-
-#: src/lincity-ng/MpsInterface.cpp:418
-msgid "N/A"
-msgstr "N/D"
-
-#: src/lincity-ng/MpsInterface.cpp:436
-msgid "Tax Income"
-msgstr "Ingressos per impostos"
-
-#: src/lincity-ng/MpsInterface.cpp:440
-msgid "Income"
-msgstr "Ingressos"
-
-#: src/lincity-ng/MpsInterface.cpp:452
-msgid "Export"
-msgstr "Exportar"
-
-#: src/lincity-ng/MpsInterface.cpp:456
-msgid "Expenses"
-msgstr "Despeses"
-
-#: src/lincity-ng/MpsInterface.cpp:460
-msgid "Unemp."
-msgstr "Atur"
-
-#: src/lincity-ng/MpsInterface.cpp:464
-msgid "Transport"
-msgstr "Transport"
-
-#: src/lincity-ng/MpsInterface.cpp:468
-msgid "Imports"
-msgstr "Importar"
-
-#: src/lincity-ng/MpsInterface.cpp:472
-msgid "Others"
-msgstr "Altres"
-
-#: src/lincity-ng/MpsInterface.cpp:477
-msgid "Net"
-msgstr "Net"
-
-#: src/lincity-ng/MpsInterface.cpp:489
-msgid "Other Costs"
-msgstr "Altres costos"
-
-#: src/lincity-ng/MpsInterface.cpp:494
-msgid "For year"
-msgstr "Per any"
-
-#: src/lincity-ng/MpsInterface.cpp:498
-msgid "Interest"
-msgstr "Interés"
-
-#: src/lincity-ng/MpsInterface.cpp:500
-msgid "Schools"
-msgstr "Escola"
-
-#: src/lincity-ng/MpsInterface.cpp:502
-msgid "Univers."
-msgstr "Univers."
-
-#: src/lincity-ng/MpsInterface.cpp:504
-msgid "Deaths"
-msgstr "Morts"
-
-#: src/lincity-ng/MpsInterface.cpp:508
-msgid "Hospital"
-msgstr "Hospital"
-
-#: src/lincity-ng/MpsInterface.cpp:510
-msgid "Rockets"
-msgstr "Coets"
-
-#: src/lincity-ng/MpsInterface.cpp:512
-msgid "Fire Stn"
-msgstr "Bombers"
-
-#: src/lincity-ng/MpsInterface.cpp:530
-msgid "Population"
-msgstr "Població"
-
-#: src/lincity-ng/MpsInterface.cpp:533
-msgid "Housed"
-msgstr "Amb casa"
-
-#: src/lincity-ng/MpsInterface.cpp:534
-msgid "Homeless"
-msgstr "Indigents"
-
-#: src/lincity-ng/MpsInterface.cpp:535
-msgid "Shanties"
-msgstr "Barraques"
-
-#: src/lincity-ng/MpsInterface.cpp:536
-msgid "Unn Dths"
-msgstr ""
-
-#: src/lincity-ng/MpsInterface.cpp:537
-msgid "Unemployment"
-msgstr "Atur"
-
-#: src/lincity-ng/MpsInterface.cpp:538
-msgid "Claims"
-msgstr "Peticions"
-
-#: src/lincity-ng/MpsInterface.cpp:539 src/lincity-ng/MpsInterface.cpp:544
-msgid "Rate"
-msgstr "Rati"
-
-#: src/lincity-ng/MpsInterface.cpp:541
-msgid "Starvation"
-msgstr "fam"
-
-#: src/lincity-ng/MpsInterface.cpp:542
-msgid "Cases"
-msgstr "Casos"
+msgstr "Centres Salu   t%4d  Abodcadors%4d      Shanties %4d"
 
 #: src/lincity-ng/EconomyGraph.cpp:121
 msgid "Mining"
-msgstr ""
+msgstr "Minería"
 
 #: src/lincity-ng/EconomyGraph.cpp:123
 msgid "Trade"
@@ -1170,67 +1113,105 @@ msgstr "Tecn."
 
 #: src/lincity-ng/EconomyGraph.cpp:134
 msgid "Economy Overview:"
-msgstr "Economia oberta."
+msgstr "Economía oberta"
 
 #: src/lincity-ng/EconomyGraph.cpp:137
 msgid "Sustainability:"
-msgstr "Sostenibilitat"
+msgstr "Sustenibilitat"
 
 #: src/lincity-ng/EconomyGraph.cpp:140
 msgid "Frames per Second:"
-msgstr "Frames per segon:"
+msgstr "Imatges per segon:"
 
 #: src/lincity-ng/EconomyGraph.cpp:216
 msgid "You lose."
 msgstr "Has perdut"
 
-#: src/lincity-ng/ButtonPanel.cpp:198
-msgid "Query Tool"
-msgstr "Eina de preguntar"
+#: src/lincity-ng/MainMenu.cpp:162
+msgid "empty"
+msgstr "Buit"
 
-#: src/lincity-ng/ButtonPanel.cpp:199
-msgid "Bulldozer"
-msgstr "Excabadora"
+#: src/lincity-ng/GameView.cpp:236
+msgid "Minimap: outline map"
+msgstr "Minimapa: perfil del mapa"
 
-#: src/lincity-ng/ButtonPanel.cpp:201
-msgid "Residential: 50 denizens, low birthrate, high deathrate"
-msgstr "Residència; 50 habitants, pocs naixements,alta mortalitat"
+#: src/lincity-ng/GameView.cpp:239
+msgid "Minimap: unemployment"
+msgstr "Minimap; Parats"
 
-#: src/lincity-ng/ButtonPanel.cpp:202
-msgid "Residential: 100 denizens, high birthrate, low deathrate"
-msgstr "Residència; 100 hab., alta natalitat, poques morts"
+#: src/lincity-ng/GameView.cpp:242
+msgid "Minimap: pollution"
+msgstr "Minimap Contaminació"
 
-#: src/lincity-ng/ButtonPanel.cpp:203
-msgid "Residential: 200 denizens, high birthrate, high deathrate"
-msgstr "Residència;200 hab., alta natalitat, alta mortalitat"
+#: src/lincity-ng/GameView.cpp:245
+msgid "Minimap: nourishments"
+msgstr "Minimapa: alimentació"
 
-#: src/lincity-ng/ButtonPanel.cpp:204
-msgid "Residential: 100 denizens, low birthrate, high deathrate"
-msgstr "Residència; 100 hab. baixa natalitat, alta mortalitat"
+#: src/lincity-ng/GameView.cpp:248
+msgid "Minimap: power supply"
+msgstr "Minimap: suport energía"
 
-#: src/lincity-ng/ButtonPanel.cpp:205
-msgid "Residential: 200 denizens, high birthrate, low deathrate"
-msgstr "Residència; 200 hab, alta natalitat, baixa mortalitat"
+#: src/lincity-ng/GameView.cpp:251
+msgid "Minimap: firedepartment cover"
+msgstr "Minimap Departament de foc"
 
-#: src/lincity-ng/ButtonPanel.cpp:206
-msgid "Residential: 400 denizens, high birthrate, high deathrate"
-msgstr "Residència; 400 hab.,alta natalitat, alta mortalitat"
+#: src/lincity-ng/GameView.cpp:254
+msgid "Minimap: sport cover"
+msgstr "Minimapa: esports"
 
-#: src/lincity-ng/ButtonPanel.cpp:215
-msgid " [Click right for help.]"
-msgstr " [Clica al botó esquerra per obtenir ajuda.]"
+#: src/lincity-ng/GameView.cpp:257
+msgid "Minimap: medical care"
+msgstr "Minimapa: Salut"
 
-#: src/lincity-ng/ButtonPanel.cpp:243 src/lincity-ng/ButtonPanel.cpp:277
-#, c-format
-msgid "%s (Techlevel %.1f required.)"
-msgstr "%s (Nivell tecnològic %1f necessari.)"
+#: src/lincity-ng/GameView.cpp:260
+msgid "Minimap: coal depots"
+msgstr "Minimapa:dipòsits carbó"
 
-#: src/lincity-ng/ScreenInterface.cpp:258
-msgid "MM"
-msgstr "MM"
+#: src/lincity-ng/GameView.cpp:263
+msgid "Minimap: traffic density"
+msgstr "Minimapa: Densitat de trafic"
 
-#~ msgid "Couldn't create the save directory %s\n"
-#~ msgstr "No s'ha pogut crear el directori de desar %s\n"
+#: src/lincity-ng/GameView.cpp:1513
+msgid "Estimated Bulldoze Cost: "
+msgstr "Cost estimat escabadora"
 
-#~ msgid "Residential"
-#~ msgstr "Residencia"
+#: src/lincity-ng/GameView.cpp:1515
+msgid "Bulldoze Cost: "
+msgstr "Cost Escabadora"
+
+#: src/lincity-ng/GameView.cpp:1520
+msgid "n/a"
+msgstr "n/a"
+
+#: src/lincity-ng/GameView.cpp:1538
+msgid "Query Tool: Show information about selected building."
+msgstr "Eina de investigar. Mostre informació sobres el edifici seleccionat"
+
+#: src/lincity-ng/GameView.cpp:1542
+msgid "Bulldozer: remove building -price varies-"
+msgstr "Enderroc: el.liminar l'edifici -preu variable-"
+
+#: src/lincity-ng/GameView.cpp:1549
+msgid ": Cost to build "
+msgstr "Cost de construcció"
+
+#: src/lincity-ng/GameView.cpp:1550
+msgid ", to bulldoze "
+msgstr "Excava"
+
+#: src/lincity-ng/GameView.cpp:1550 src/lincity-ng/GameView.cpp:1553
+msgid "$."
+msgstr "$"
+
+#: src/lincity-ng/GameView.cpp:1552
+msgid " To build "
+msgstr "Construeix"
+
+#: src/lincity-ng/GameView.cpp:1552
+msgid " of them "
+msgstr "d'ells"
+
+#: src/lincity-ng/GameView.cpp:1553
+msgid "will cost about "
+msgstr "Et costará"
+
