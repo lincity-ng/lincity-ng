@@ -118,7 +118,6 @@
 		<TableLayout rows="2" cols="2">
 			<rowsize row="1" relative="1"/>
 			<rowsize row="2" relative="3"/>
-			<rowsize row="3" relative="1"/>
 			<cell row="2" col="1" halign="left">
 			<Button name="BackButton">
 				<text-caption style="button" translatable="yes">Back</text-caption>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Spielziel </p>
+<p style="hp">Es gibt zwei Möglichkeiten zu gewinnen:
+Entweder betreiben Sie eine <a href="sustain">nachhaltige Wirtschaft </a>, 
+wenn Sie das erreicht haben können Sie trotzdem weiterspielen. Oder Sie  
+evakuieren die gesammte Bevölkerung mit <a href="rocket">Raumschiffen </a> 
+auf einen anderen Planeten. Dann ist das Spiel zu Ende. Ist ja keiner mehr
+da, mit dem Sie spielen können. </p>
+
+<p style="hp">Zur Zeit (Version 1.1.1.) kann man nur auf eine Weise
+verlieren: Alle Leute sind tot. Also sehen Sie zu, daß iher Bevölkerung
+nicht verhungert oder Aufgrund zu hoher Umweltbelastung vergiftet wird.</p>
+<p style="hp"></p>
+
+<p style="hp">Um mehr Baumöglichkeiten zu erhalten müssen Sie das 
+Technologieniveau Ihrer Stadt erhöhen. Sie müssen das Bevölkerungswachstum
+managen sich um die unterschiedlichen Anforderungen kümmern und die 
+Wirtschaft im Auge behalten.</p>
+<p style="hp"></p>
+
+<p style="hp"><a href="tutorial">Tutorium</a></p>
+	<li>Spielziel</li>
+	<li><a href="tutorial-overview">Bildschirmelemente</a></li>
+	<li><a href="tutorial-basics">Erste Schritte</a></li>
+	<li><a href="tutorial-advanced">Fortgeschrittene</a></li>
+	<li><a href="tutorial-scenario">Szenarien</a></li>
+</Document>
+
