@@ -48,6 +48,7 @@ HELPPATHS =
     help/es
     help/fr
     help/nl
+    help/pt_BR
     help/ru
     help/sv
 ;

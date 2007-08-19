@@ -9,9 +9,9 @@ Packager: Wolfgang Becker <uafr@gmx.de>
 Summary: City Simulation Game
 URL: http://lincity-ng.berlios.de
 License: GNU General Public License, Version 2
-SoftwareVersion: 1.1.1pre
+SoftwareVersion: 1.1.1
 AutopackageTarget: 1.2
-PackageVersion: 2
+PackageVersion: 1
 
 [Description]
 LinCityNG is a polished and improved version of the old LinCity game. Within

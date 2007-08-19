@@ -4,7 +4,7 @@
 #----------------------------------------------------------------------------
 AC_PREREQ([2.54])
 
-AC_INIT([lincity-ng], [1.1.1pre], [matze@braunis.de])
+AC_INIT([lincity-ng], [1.1.1], [matze@braunis.de])
 AC_CONFIG_SRCDIR([mk/jam/build.jam])
 AC_CONFIG_AUX_DIR([mk/autoconf])
 
