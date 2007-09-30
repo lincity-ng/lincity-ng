@@ -545,6 +545,10 @@ void MiniMap::draw(Painter &painter)
                         mc=getColor(x,y);
                         painter.setFillColor(mc);
                         painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                    } else if( mMode == COAL ) { //show coal under buildings, too
+                        mc=getColor(x,y);
+                        painter.setFillColor(mc);
+                        painter.fillRectangle(Rect2D(x*tilesize,y*tilesize,(x+1)*tilesize+1,(y+1)*tilesize));
                     }
                 }
             }
