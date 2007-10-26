@@ -24,6 +24,12 @@
 void
 do_power_source (int x, int y)
 {
+    /* Al1: fix for stupid bug i introduced before 1.1.1 => int1 and int3 had wrong valued as if tech = 0 ! */
+    MP_INFO(x,y).int_1 = (int)(POWERS_SOLAR_OUTPUT
+            + (((double) MP_INFO(x,y).int_2 * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
+    MP_INFO(x,y).int_3 = MP_INFO(x,y).int_1;
+    /* end of fix */
+
     if (get_jobs(x, y, SOLAR_POWER_JOBS)) {
 	MP_INFO(x,y).int_5 = MP_INFO(x,y).int_3;
 	grid[MP_INFO(x,y).int_6]->avail_power += MP_INFO(x,y).int_3;
