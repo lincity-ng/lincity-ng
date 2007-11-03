@@ -8,7 +8,7 @@
 ; files and the lincity-ng.exe file.
 [Setup]
 AppName=LinCity-NG
-AppVerName=LinCity-NG 1.0
+AppVerName=LinCity-NG 1.1.2
 AppPublisher=LinCity-NG Developers
 AppPublisherURL=http://lincity-ng.berlios.de/wiki
 AppSupportURL=http://lincity-ng.berlios.de/wiki

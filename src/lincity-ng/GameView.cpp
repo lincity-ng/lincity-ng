@@ -1393,6 +1393,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
 
         // Draw range for selected_module_type
         int range = 0;
+        int reduceNW = 0; // substation and market reduce the range to nort west by one. 
         switch ( selected_module_type ){
             //case CST_RESIDENCE_LL: break; 
             //case CST_RESIDENCE_ML: break;
@@ -1403,8 +1404,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_FARM_O0: break;
             //case CST_MILL_0: break;
             case CST_HEALTH:        range = HEALTH_CENTRE_RANGE; break;
-            case CST_CRICKET_1:     range = CRICKET_RANGE + 1; break;
-            case CST_FIRESTATION_1: range = FIRESTATION_RANGE + 1; break;
+            case CST_CRICKET_1:     range = CRICKET_RANGE; break;
+            case CST_FIRESTATION_1: range = FIRESTATION_RANGE; break;
             //case CST_SCHOOL: break;
             //case CST_UNIVERSITY: break;
             //case CST_TRACK_LR: break;
@@ -1415,16 +1416,16 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_POWERL_H_L: break;
             //case CST_POWERS_COAL_EMPTY: break;
             //case CST_POWERS_SOLAR: break;
-            case CST_SUBSTATION_R:   range = SUBSTATION_RANGE; break;
-            //case CST_WINDMILL_1_R: break;
+            case CST_SUBSTATION_R:   range = SUBSTATION_RANGE; reduceNW = 1; break;
+            case CST_WINDMILL_1_R:   range = SUBSTATION_RANGE; reduceNW = 1; break; //Windmills are handled like substations
             //case CST_COMMUNE_1: break;
-            //case CST_COALMINE_EMPTY: break;
+            case CST_COALMINE_EMPTY: range = COAL_RESERVE_SEARCH_LEN; break;
             //case CST_OREMINE_1: break;
             //case CST_TIP_0: break;
             //case CST_RECYCLE: break;
             //case CST_INDUSTRY_L_C: break;
             //case CST_INDUSTRY_H_C: break;
-            case CST_MARKET_EMPTY:  range = MARKET_RANGE; break;
+            case CST_MARKET_EMPTY:  range = MARKET_RANGE; reduceNW = 1; break;
             //case CST_POTTERY_0: break;
             //case CST_BLACKSMITH_0: break;
             //case CST_MONUMENT_0: break;
@@ -1433,14 +1434,14 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         }
        	
         if (range > 0 )
-        {        	
+        {
         	painter.setFillColor( Color( 0, 0, 128, 64 ) );
-        	Rect2D rangerect( 0, 0,
-        	                  tileWidth  * (2 * range - cursorSize) ,
-        	                  tileHeight * (2 * range - cursorSize) );
+        	Rect2D rangerect( 0,0,
+        	                  tileWidth  * ( 2 * range - reduceNW ) ,
+        	                  tileHeight * ( 2 * range - reduceNW ) );
         	Vector2 screenPoint = getScreenPoint(tile);
-        	screenPoint.x -= tileWidth  * (2 * range - cursorSize) / 2;
-        	screenPoint.y -= tileHeight * range;
+        	screenPoint.x -= tileWidth  * ( range - 0.5 * reduceNW );
+        	screenPoint.y -= tileHeight * ( range + 1 - reduceNW );
         	rangerect.move( screenPoint );
         	fillDiamond( painter, rangerect );         	
         }           
@@ -1479,7 +1480,7 @@ void GameView::draw(Painter& painter)
     //The Corners of The Screen
     //TODO: change here to only draw dirtyRect
     //      dirtyRectangle is the current Clippingarea (if set)
-    //      so we shold get clippingArea (as sonn this is implemented) 
+    //      so we shold get clippingArea (as soon this is implemented) 
     //      and adjust these Vectors:
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );

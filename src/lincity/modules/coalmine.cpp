@@ -14,10 +14,9 @@ do_coalmine (int x, int y)
 {
   /*
      // int_1 is the coal at the surface
-     // int_2 is the coal reserve under the ground. More than one mine can
+     // int_2 is the coal reserve under the ground. More than one mine can claim the coal under ground!
      // int_3 is the jobs collected.
    */
-  /* claim the coal under ground! */
   int xx, yy, xs, ys, xe, ye, cr;
   if (MP_INFO(x,y).int_1 < (DIG_MORE_COAL_TRIGGER - 1000))
     {
