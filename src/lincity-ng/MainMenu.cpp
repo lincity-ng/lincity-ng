@@ -170,6 +170,10 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
 	        if (t == 0) {
                     recentfile = curfile;
                     t = PHYSFS_getLastModTime(recentfile->d_name);
+#ifdef WIN32
+		    //something is broken in Windows
+		    break;
+#endif		    
                 } else {
                     if (PHYSFS_getLastModTime(curfile->d_name) > t) {
 #ifdef DEBUG
