@@ -41,6 +41,8 @@ Programming
      (eg in load game menu) Buttons that had an empty string as caption once
      won't change to anything else. At least the caption is not shown.
  [M] Get rid of all the compiler warnings.
+ [M] Windows: Use user's home for savegames
+ [H] Windows: Something in MainMenu.cpp with recentfile and curfile is broken. 
 
 --Translations/Help--
  [H] There were help page without any link to them. Some of the texts
@@ -57,8 +59,9 @@ Programming
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
  [?] Looks like watching electricity minimap uses power. Seems to be this way
-     in classic already. Do we want to change that? No.
+     in classic already. Do we want to change that?
  [M] "Dungeon Keeper"-like message queue
+ [M] Integrate waterwell branch in main. Maybe as option so we get playtesters?
 
 -- Infrastructure/Deployment --
  [H] Setup an automatic backup script for the wiki!
