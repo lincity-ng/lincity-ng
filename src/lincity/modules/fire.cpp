@@ -29,7 +29,11 @@ do_fire (int x, int y)
 	MP_INFO(x,y).int_4 = rand () % (AFTER_FIRE_LENGTH / 6);
       MP_INFO(x,y).int_4++;
       if (MP_INFO(x,y).int_4 > AFTER_FIRE_LENGTH)
-	do_bulldoze_area (CST_DESERT, x, y);
+          if (use_waterwell) {
+              do_bulldoze_area (CST_DESERT, x, y);
+          } else {
+              do_bulldoze_area (CST_GREEN, x, y);
+          }
       else if (MP_INFO(x,y).int_4 > (3 * AFTER_FIRE_LENGTH) / 4)
 	MP_TYPE(x,y) = CST_FIRE_DONE4;
       else if (MP_INFO(x,y).int_4 > (2 * AFTER_FIRE_LENGTH) / 4)

@@ -28,7 +28,11 @@ do_tip (int x, int y)
   if (MP_TYPE(x,y) == CST_TIP_8) {
       MP_INFO(x,y).int_4++;
       if (MP_INFO(x,y).int_4 >= TIP_DEGRADE_TIME) {
-	  do_bulldoze_area(CST_DESERT,x,y);
+          if (use_waterwell) {
+              do_bulldoze_area (CST_DESERT, x, y);
+          } else {
+              do_bulldoze_area(CST_GREEN,x,y);
+          }
       }
       return;
   }
