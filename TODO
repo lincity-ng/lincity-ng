@@ -58,9 +58,10 @@ Programming
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
- [?] Looks like watching electricity minimap uses power. Seems to be this way
-     in classic already. Do we want to change that?
- [M] "Dungeon Keeper"-like message queue
+ [H] Looks like watching electricity minimap uses power. Seems to be this way
+     in classic already. Minmap only shows if there is power in the area, not 
+     if there is enough of it.
+ [L] "Dungeon Keeper"-like message queue
  [M] Integrate waterwell branch in main. Maybe as option so we get playtesters?
 
 -- Infrastructure/Deployment --

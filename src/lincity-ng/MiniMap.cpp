@@ -714,9 +714,9 @@ Color MiniMap::getColor(int x,int y) const
         }
         case POWER: {
             Color mc;
-            if (get_power (xx, yy, 1, 1) != 0) {
+            if (get_power (xx, yy, 0, 1) != 0) {
                 mc=Color(0,0xFF,0);
-            } else if (get_power (xx, yy, 1, 0) != 0) {
+            } else if (get_power (xx, yy, 0, 0) != 0) {
                 mc=Color(0,0x7F,0);
             } else {
                 mc=Color(0xFF,0xFF,0xFF);
