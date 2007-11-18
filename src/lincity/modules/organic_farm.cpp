@@ -15,9 +15,10 @@
 void
 do_organic_farm (int x, int y)
 {
-  /* 
+  /* // MP_INFO(x,y)
      // int_1 is the tech level of the farm when built
      // int_2 is a flag so we don't create a farm with nearly ripe crops.
+      *      unused in NG1.1	
      // int_3 is the food sold count so far this year.
      // int_4 is the food made last year.
      // int_5 is the random crop rotation key.
@@ -25,13 +26,20 @@ do_organic_farm (int x, int y)
      // int_7 is the jobs stored at the farm 
      // 	up to NG-1.1.0 int_7 was the tech-level dependent output of a
      // 	 powered farm with full workforce. 
-     // 	= duplicate with int_1.  see below TECH_BONUS.
+     // 	= duplicate with int_1.  see below tech_bonus.
+      * 
+      * MP_INFO(x+1,y) stores additional info
+      *    int_1 reserved (=x)
+      *    int_2 reserved (=y)
+      *    int_3 max possible production (assuming 100% water and power)
+      *    int_4 number of 1x1 tiles with underground water inside the farm
+      *    int_5 current production
   */
   int i;
   int has_power = false;
-  int TECH_BONUS = (int)(((double) MP_INFO(x,y).int_1
+  int tech_bonus = (int)(((double) MP_INFO(x,y).int_1
 			      * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL);
-
+  MP_INFO(x+1,y).int_3 = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus;
   /* Animation */
   if (MP_INFO(x,y).int_5 == 0) {
       /* this should be done when we create the area! */
@@ -64,55 +72,62 @@ do_organic_farm (int x, int y)
   }
 
   /* Produce some food */
+  int prod = 0;
   if (MP_INFO(x,y).int_7 >= FARM_JOBS_USED) {
       if (has_power) {
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT	+ TECH_BONUS)) != 0) {
-		MP_INFO(x,y).int_3++;
-		MP_INFO(x,y).int_7 -= FARM_JOBS_USED;
-	  }
+	      	 prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus;
       } else {
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT / 4)) != 0) {
-		MP_INFO(x,y).int_3++;
-		MP_INFO(x,y).int_7 -= FARM_JOBS_USED;
-	  }
+	      	 prod = ORGANIC_FARM_FOOD_OUTPUT / 4;
       }
   } else if (MP_INFO(x,y).int_7 >= FARM_JOBS_USED / 4) {
       if (has_power) {
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT + TECH_BONUS / 4)) != 0) {
-		MP_INFO(x,y).int_3++;
-		MP_INFO(x,y).int_7 -= FARM_JOBS_USED / 4;
-	  }
+	      	 prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus / 4;
       } else {
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT / (4 * 4))) != 0) {
-		MP_INFO(x,y).int_3++;
-		MP_INFO(x,y).int_7 -= FARM_JOBS_USED / 4;
-	  }
+	      	 prod = ORGANIC_FARM_FOOD_OUTPUT / (4 * 4);
       }
   } else if (MP_INFO(x,y).int_7 >= 1) {
       /* got 1 job */
       if (has_power) {
-	  if (put_food (x, y, (ORGANIC_FARM_FOOD_OUTPUT + (TECH_BONUS / 8))) != 0) {
-	    	MP_INFO(x,y).int_3++;
-		MP_INFO(x,y).int_7 -= 1;
-	  }
-      } else if (put_food (x, y, 30
-			 + (ORGANIC_FARM_FOOD_OUTPUT / (4 * 8))) != 0) {
-	  /* AL1 "small ouch":
-	   * without power output with 1 job is bigger than output with 3 !
-	   * 3 = FARMS_JOBS_USED / 4 
-	   * ORGANIC_FARM_FOOD_OUTPUT = 550 currently (ng_1.1)
-	   */
-	   MP_INFO(x,y).int_3++;
-	   MP_INFO(x,y).int_7 -= 1;
+	     	prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus / 8;
+      } else {
+	        /* AL1 "small ouch":
+	         * without power output with 1 job is bigger than output with 3 !
+	         * 3 = FARMS_JOBS_USED / 4 
+	         * ORGANIC_FARM_FOOD_OUTPUT = 550 currently (ng_1.1)
+	         */
+	         prod = 30 + ORGANIC_FARM_FOOD_OUTPUT / (4 * 8);
       }
   } else {
-      /* AL1 : the farm gives very small amount of food without job. 
-       *  ? Probably needed for start ?
-       *  ? Useful to prevent starvation when no jobs ? 
-       *  The various modules are done in random order, so it should be ok without this.
-       */
-      put_food (x, y, 30);
-      /* note that this does not generate revenu int_3) */
+            /* AL1 : the farm gives very small amount of food without job. 
+             *  ? Probably needed for start ?
+             *  ? Useful to prevent starvation when no jobs ? 
+             *  The various buildings are "done" in random order,
+             *  so it should be ok without this.
+             */
+             put_food (x, y, 30);
+             /* note that this does not generate revenu int_3) */
+  }
+  /* Check underground water, and reduce production accordingly */
+  if (use_waterwell) {
+      int w = 0;
+      int n = 0;
+      for (int i = 0; i < MP_SIZE(x,y); i++) {
+          for (int j = 0; j < MP_SIZE(x,y); j++) {
+              n++;
+              if (HAS_UGWATER(x+i,y+j))
+                  w++;
+          }
+      }
+      prod = (prod * w)/n;
+      MP_INFO(x + 1, y).int_4 = w;
+  }
+  MP_INFO(x + 1, y).int_5 = prod;
+                 	 
+  if (prod != 0) {
+     if (put_food (x, y, prod) != 0) {
+	    	MP_INFO(x,y).int_3++;
+		    MP_INFO(x,y).int_7 -= 1;
+     }
   }
 
   if ((total_time & 0x7f) == 0)
@@ -229,6 +244,13 @@ mps_organic_farm (int x, int y)
 	   MP_INFO(x,y).int_4 * 100.0 / 1200.0);
   mps_store_title(i++,text);
 
+  if (use_waterwell) {
+      i++;
+      mps_store_title(i++,_("Debug info"));
+      mps_store_sd(i++,_(" max with power & water"), MP_INFO(x + 1, y).int_3);
+      mps_store_sd(i++,_(" number of tile with water"), MP_INFO(x + 1, y).int_4);
+      mps_store_sd(i++,_(" current production"), MP_INFO(x + 1, y).int_5);
+  }
 
   /*
   char * p;

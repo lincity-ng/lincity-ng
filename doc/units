@@ -1,0 +1,87 @@
+Some orders of magnitudes to check engine internals and try to display realistic units.
+
+POWER
+=====
+Power unit is 1kW
+=> Coal unit = 100 kg   (coal power plant and coal_make_power)
+
+Discussion power:
+_________________
+
+some RL indicators picked in wikipedia and other sites in 2007:
+ 1 ton equivalent oil
+    = 40 GJ
+    = 1.5 tons of coal
+    = gives 11 MW.h of thermic power
+    = gives less than 5 MW.h of electic power in thermic power plant
+    = production of 1 ton biofuel by 1 hectare (4t of biomass)
+        sometimes 2 crops/year.
+         (variable by a factor 0.5 to 2) 
+         (need to add work and water and fertilizer ...)
+    = sun at midday on 1 hectare during one hour 
+         (1000 W/m2, average on earth= 350 W/m2)
+    = power produced by a 10 ha solarplant.(10% efficiency)
+
+Big offshore windmill = 5 MW
+Big solar plant = 350 MW
+Big coal powerplant = 700 MW
+
+100 MW = 50 000 citizens
+
+build cost:
+-----------
+ clean coal power station:  1 MW = 1 M€  +need to be fed by tons of coal/day
+ solar plant / bio / wind:  1 MW = 2 M€
+
+prices:
+-------
+ oil 350€/ton equivalent oil
+ coal 50~100€/ton equivalent oil
+ bio  50~500€/ton equivalent oil
+ sun/wind/river  0€
+
+=> in NG
+--------
+ Windmill and solar power prices are rather realistic
+ but coal_power plants are far too much cheap 
+ even if we consider 10% efficiency for windmill and sunplant, there is still
+ a factor 3 in favor of coal plants. (moreover they don't pay the coal in NG
+ except when it is imported.
+ The only counter-part is the coal reserve are finite, even if sometimes they
+ are huge.
+
+=> idea:
+--------
+Like windmill add high tech thermic power plant and change as little as possible:
+ - price *=  1 + 2 * (tech - coalpower_tech)   (doesn't break too much)
+ - pollution -= some % tech
+ - check box to use food or coal
+
+Production of one farm of tech T gives enough biomass to produce the same amount
+of power as a solar plant of the same tech.
+
+
+ORE/STEEL
+=========
+RL:
+---
+average earth crust is 4% iron
+rich iron ore = 50% iron
+
+NG:
+--
+heavy industry : 16 ore -> 1 steel
+this is ok considering that ore is average earth crust (we can dig everywhere)
+
+need to find energy needed for producing steel to have steel weight unit in NG,
+then ore weight unit :)
+
+MAX_COAL_ON_TRACK 64    unit = 100 kg
+MAX_ORE_ON_TRACK 4096
+MAX_STEEL_ON_TRACK 128
+
+MAX_COAL_ON_ROAD (MAX_COAL_ON_TRACK * 8) = 512*100 = 51.2 tons
+MAX_ORE_ON_ROAD (MAX_ORE_ON_TRACK * 4) = 16384 ore_unit
+MAX_STEEL_ON_ROAD (MAX_STEEL_ON_TRACK * 4) = 512 steel_unit
+
+MAX_XXX_ON_RAIL (MAX_XXXX_ON_ROAD * same_coeff_as_road_vs_track)

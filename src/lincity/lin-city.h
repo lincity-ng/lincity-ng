@@ -52,6 +52,9 @@ XXX: Then it shouldn't be here
    the symbol VERSION in config.h */
 #define VERSION_INT 113
 
+/* Disable waterwell if version < MIN_WATERWELL_VERSION */
+#define MIN_WATERWELL_VERSION 1180
+
 /* Don't load if < MIN_LOAD_VERSION */
 #define MIN_LOAD_VERSION 97
 
@@ -165,9 +168,11 @@ XXX: Then it shouldn't be here
 #define FLAG_CRICKET_COVER      (0x400000)
 #define FLAG_IS_RIVER           (0x800000)
 #define FLAG_HAD_POWER          (0x1000000)
-#define FLAG_MULTI_TRANSPORT    (0x2000000)   /* Is it a multitransport? */
-#define FLAG_MULTI_TRANS_PREV   (0x4000000)
+#define FLAG_MULTI_TRANSPORT    (0x2000000)   /* Is it a multitransport? */ /* AL1: unused in NG 1.1 */
+#define FLAG_MULTI_TRANS_PREV   (0x4000000)	  /* AL1: unused in NG 1.1 */
 #define FLAG_POWER_LINE         (0x8000000)
+#define FLAG_WATERWELL_COVER    (0x10000000)
+#define FLAG_HAS_UNDERGROUND_WATER (0x20000000)
 
 /* XXX: It would appear that the following T_ are used exactly two times each,
    in market.c.  */
@@ -218,8 +223,8 @@ XXX: Then it shouldn't be here
 #endif
 #define RESULTS_FILENAME "results"
 
-#define MAX_ICON_LEN 4096
-#define WORLD_SIDE_LEN 100
+#define MAX_ICON_LEN 4096	/* AL1 unused in NG */
+#define WORLD_SIDE_LEN 100	/* Minimap size is hardcoded 200 pixel => some job to do ...*/
 #define NUMOF_DAYS_IN_MONTH 100
 #define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
 #define FAST_TIME_FOR_YEAR 1
@@ -549,13 +554,15 @@ XXX: Then it shouldn't be here
 #define MAX_ORE_IN_MARKET (MAX_ORE_ON_RAIL*2)
 #define MARKET_ORE_SEARCH_TRIGGER (MAX_ORE_IN_MARKET/5)
 
-
 #define MAX_STEEL_ON_TRACK 128
 #define MAX_STEEL_ON_RIVER (MAX_STEEL_ON_TRACK*2)
 #define MAX_STEEL_ON_ROAD (MAX_STEEL_ON_TRACK*4)
 #define MAX_STEEL_ON_RAIL (MAX_STEEL_ON_ROAD*4)
 #define RAIL_STEEL_USED_MASK 0x7f
 #define MAX_STEEL_AT_INDUSTRY_H (MAX_STEEL_ON_RAIL*10)
+
+#define WATERWELL_RANGE 10
+
 /*
   JOBS_MAKE_STEEL is the steel made per job at the steel works
   what's it doing here?
@@ -1043,6 +1050,47 @@ XXX: Then it shouldn't be here
 #define GROUP_RESIDENCE_HH_TECH 0
 #define GROUP_RESIDENCE_HH_FIREC 75
 
+#define GROUP_WATERWELL	   41
+#define GROUP_WATERWELL_COLOUR    (blue(31))
+#define GROUP_WATERWELL_COST      1
+#define GROUP_WATERWELL_COST_MUL 2
+#define GROUP_WATERWELL_BUL_COST      1
+#define GROUP_WATERWELL_TECH      0
+#define GROUP_WATERWELL_FIREC 0
+
+#define GROUP_DESERT 	  42 
+#define GROUP_DESERT_COLOUR  (yellow(18))
+#define GROUP_DESERT_COST    0
+#define GROUP_DESERT_COST_MUL 1
+#define GROUP_DESERT_BUL_COST 1
+#define GROUP_DESERT_TECH    0
+#define GROUP_DESERT_FIREC   0
+
+#define GROUP_TREE 	   43
+#define GROUP_TREE_COLOUR  (green(12))
+#define GROUP_TREE_COST    0
+#define GROUP_TREE_COST_MUL 1
+#define GROUP_TREE_BUL_COST 1
+#define GROUP_TREE_TECH    0
+#define GROUP_TREE_FIREC   0
+
+#define GROUP_TREE2 	   44
+#define GROUP_TREE2_COLOUR  (green(12))
+#define GROUP_TREE2_COST    0
+#define GROUP_TREE2_COST_MUL 1
+#define GROUP_TREE2_BUL_COST 1
+#define GROUP_TREE2_TECH    0
+#define GROUP_TREE2_FIREC   0
+
+#define GROUP_TREE3 	   45
+#define GROUP_TREE3_COLOUR  (green(12))
+#define GROUP_TREE3_COST    0
+#define GROUP_TREE3_COST_MUL 1
+#define GROUP_TREE3_BUL_COST 1
+#define GROUP_TREE3_TECH    0
+#define GROUP_TREE3_FIREC   0
+
+
 #define GROUP_IS_TRANSPORT(group) \
             ((group == GROUP_TRACK) || \
              (group == GROUP_ROAD) || \
@@ -1057,14 +1105,12 @@ XXX: Then it shouldn't be here
              (group == GROUP_RESIDENCE_MH) || \
              (group == GROUP_RESIDENCE_HH))
 
-#define GROUP_RESIDENCE_LL 4
-#define GROUP_RESIDENCE_LL_COLOUR (cyan(24))
-#define GROUP_RESIDENCE_LL_COST 1000
-#define GROUP_RESIDENCE_LL_COST_MUL 25
-#define GROUP_RESIDENCE_LL_BUL_COST 1000
-#define GROUP_RESIDENCE_LL_TECH 0
-#define GROUP_RESIDENCE_LL_FIREC 75
-
+#define GROUP_IS_BARE(group) \
+	    ((group == GROUP_BARE) || \
+	     (group == GROUP_DESERT) || \
+	     (group == GROUP_TREE) || \
+	     (group == GROUP_TREE2) || \
+	     (group == GROUP_TREE3))
 
 #define MOUSE_TYPE_NORMAL 1
 #define MOUSE_TYPE_SQUARE 2
@@ -1334,6 +1380,7 @@ extern void update_shanty (void);
 extern void do_shanty (int, int);
 extern void do_tip (int, int);
 extern void update_tech_dep (int, int);
+extern void do_waterwell_cover (int, int);
 /*
    transport functions
    *******************

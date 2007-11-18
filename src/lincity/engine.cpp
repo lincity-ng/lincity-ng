@@ -311,6 +311,7 @@ place_item (int x, int y, short type)
 	}
         break;
     case GROUP_OREMINE:
+    {
 	/* Don't allow new mines on old mines or old tips */
 	/* GCS: mines over old mines is OK if there is enough remaining 
 	        ore, as is the case when there is partial overlap. */
@@ -335,6 +336,19 @@ place_item (int x, int y, short type)
                     _("You can't build a mine here: there is no ore left at this site"));
 	    return -7;
 	}
+        break;
+    } 
+    case GROUP_WATERWELL:
+	numof_waterwell++;
+        break;
+    case GROUP_PARKLAND:
+        if (use_waterwell)
+            if (!HAS_UGWATER(x,y)) {
+                ok_dial_box("warning.mes", BAD,
+                        _("You can't build a park here: it is a desert, parks need water"));
+                return -8;
+            }
+
     } /* end case */
     last_warning_message_group = 0;
 
@@ -371,13 +385,14 @@ bulldoze_item (int x, int y)
     g = MP_GROUP(x,y);
     people_pool += MP_INFO(x,y).population;
 
-    if (g == GROUP_BARE) {
+    if (g == GROUP_DESERT) {
 	/* Nothing to do. */
 	return -1;
     }
     else if (g == GROUP_SHANTY) {
 	remove_a_shanty(x, y);
 	adjust_money(-GROUP_SHANTY_BUL_COST);
+        numof_shanties--;
     }
     else if (g == GROUP_FIRE) {
 	if (MP_INFO(x,y).int_2 >= FIRE_LENGTH)
@@ -406,7 +421,11 @@ bulldoze_item (int x, int y)
 		    if (MP_INFO(x + i,y + j).ore_reserve < ORE_RESERVE / 2)
 			do_bulldoze_area (CST_WATER, x + i, y + j);
 	} else {
-            do_bulldoze_area (CST_GREEN, x, y);
+            /* keep compatibility for saving pre_waterwell loaded game */
+            if (use_waterwell)
+                do_bulldoze_area (CST_DESERT, x, y);
+            else
+                do_bulldoze_area (CST_GREEN, x, y);
         }
     }
 
@@ -444,7 +463,7 @@ bulldoze_mappoint (short fill, int x, int y)
     if (MP_GROUP(x,y) < 0)
         MP_GROUP(x,y) = GROUP_BARE;
     MP_INFO(x,y).population = 0;
-    MP_INFO(x,y).flags = 0;
+    MP_INFO(x,y).flags &= FLAG_HAS_UNDERGROUND_WATER;
     MP_INFO(x,y).int_1 = 0;
     MP_INFO(x,y).int_2 = 0;
     MP_INFO(x,y).int_3 = 0;
@@ -507,7 +526,7 @@ do_pollution ()
 	  p = *pol / 16;
 	  *pol -= p;
 	  switch ( rand() % 11)
-	    {         /* prevailing wind is *from* SW ie right down */
+	    {         /* prevailing wind is *from* SW */
 	    case 0:
 	    case 1: /* up */
 	    case 2:
@@ -551,7 +570,7 @@ clear_fire_health_and_cricket_cover (void)
 {
   int x, y, m;
   m = 0xffffffff - (FLAG_FIRE_COVER | FLAG_HEALTH_COVER
-		    | FLAG_CRICKET_COVER);
+		    | FLAG_CRICKET_COVER| FLAG_WATERWELL_COVER);
   for (y = 0; y < WORLD_SIDE_LEN; y++)
     for (x = 0; x < WORLD_SIDE_LEN; x++)
       MP_INFO(x,y).flags &= m;
@@ -574,6 +593,8 @@ do_fire_health_and_cricket_cover (void)
 	  do_health_cover (x, y);
 	else if (MP_GROUP(x,y) == GROUP_CRICKET)
 	  do_cricket_cover (x, y);
+	else if (MP_GROUP(x,y) == GROUP_WATERWELL)
+	  do_waterwell_cover (x, y);
       }
 }
 
@@ -667,6 +688,17 @@ do_random_fire (int x, int y, int pwarning)	/* well random if x=y=-1 */
   fire_area (x, y);
 }
 
+void do_daily_ecology ()
+{
+    for (int x = 0; x < WORLD_SIDE_LEN; x++)
+        for (int y = 0; y < WORLD_SIDE_LEN; y++) {
+            /* approximately 3 monthes needed to turn bulldoze area into green */
+            if (MP_GROUP(x,y) == GROUP_DESERT && HAS_UGWATER(x,y) 
+                    && rand() %300 == 1)
+                do_bulldoze_area(CST_GREEN, x, y);
+        }
+}
+
 /*
    // spiral round from startx,starty until we hit something of group group.
    // return the x y coords encoded as x+y*WORLD_SIDE_LEN
@@ -733,10 +765,10 @@ spiral_find_2x2 (int startx, int starty)
 	  x--;
 	  if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1
 	      && y < WORLD_SIDE_LEN - 2)
-	    if (MP_TYPE(x,y) == CST_GREEN
-		&& MP_TYPE(x + 1,y) == CST_GREEN
-		&& MP_TYPE(x,y + 1) == CST_GREEN
-		&& MP_TYPE(x + 1,y + 1) == CST_GREEN)
+	    if (GROUP_IS_BARE(MP_GROUP(x,y))
+		&& GROUP_IS_BARE(MP_GROUP(x + 1,y))
+		&& GROUP_IS_BARE(MP_GROUP(x,y + 1))
+		&& GROUP_IS_BARE(MP_GROUP(x + 1,y + 1)) )
 	      return (x + y * WORLD_SIDE_LEN);
 	}
       for (j = 0; j < i; j++)
@@ -744,10 +776,10 @@ spiral_find_2x2 (int startx, int starty)
 	  y--;
 	  if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1
 	      && y < WORLD_SIDE_LEN - 2)
-	    if (MP_TYPE(x,y) == CST_GREEN
-		&& MP_TYPE(x + 1,y) == CST_GREEN
-		&& MP_TYPE(x,y + 1) == CST_GREEN
-		&& MP_TYPE(x + 1,y + 1) == CST_GREEN)
+	    if (GROUP_IS_BARE(MP_GROUP(x,y))
+		&& GROUP_IS_BARE(MP_GROUP(x + 1,y))
+		&& GROUP_IS_BARE(MP_GROUP(x,y + 1))
+		&& GROUP_IS_BARE(MP_GROUP(x + 1,y + 1)))
 	      return (x + y * WORLD_SIDE_LEN);
 	}
       i++;
@@ -756,10 +788,10 @@ spiral_find_2x2 (int startx, int starty)
 	  x++;
 	  if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1
 	      && y < WORLD_SIDE_LEN - 2)
-	    if (MP_TYPE(x,y) == CST_GREEN
-		&& MP_TYPE(x + 1,y) == CST_GREEN
-		&& MP_TYPE(x,y + 1) == CST_GREEN
-		&& MP_TYPE(x + 1,y + 1) == CST_GREEN)
+	    if (GROUP_IS_BARE(MP_GROUP(x,y))
+		&& GROUP_IS_BARE(MP_GROUP(x + 1,y))
+		&& GROUP_IS_BARE(MP_GROUP(x,y + 1))
+		&& GROUP_IS_BARE(MP_GROUP(x + 1,y + 1)))
 	      return (x + y * WORLD_SIDE_LEN);
 	}
       for (j = 0; j < i; j++)
@@ -767,10 +799,10 @@ spiral_find_2x2 (int startx, int starty)
 	  y++;
 	  if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1
 	      && y < WORLD_SIDE_LEN - 2)
-	    if (MP_TYPE(x,y) == CST_GREEN
-		&& MP_TYPE(x + 1,y) == CST_GREEN
-		&& MP_TYPE(x,y + 1) == CST_GREEN
-		&& MP_TYPE(x + 1,y + 1) == CST_GREEN)
+	    if (GROUP_IS_BARE(MP_GROUP(x,y))
+		&& GROUP_IS_BARE(MP_GROUP(x + 1,y))
+		&& GROUP_IS_BARE(MP_GROUP(x,y + 1))
+		&& GROUP_IS_BARE(MP_GROUP(x + 1,y + 1)))
 	      return (x + y * WORLD_SIDE_LEN);
 	}
     }

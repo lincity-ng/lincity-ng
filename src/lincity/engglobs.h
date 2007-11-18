@@ -10,6 +10,7 @@
 //#include "common.h"
 //#include "geometry.h"
 
+extern int use_waterwell, ldsv_version;
 
 /* GCS -- One of these days I will get this right. */
 struct map_struct
@@ -31,8 +32,7 @@ extern Map map;
 #define MP_SIZE(x,y)   main_groups[MP_GROUP(x,y)].size
 #define MP_COLOR(x,y)  main_groups[MP_GROUP(x,y)].colour
 #define MP_GROUP_IS_RESIDENCE(x,y)  (GROUP_IS_RESIDENCE(MP_GROUP(x,y)))
-
-
+#define HAS_UGWATER(x,y) (MP_INFO(x,y).flags & FLAG_HAS_UNDERGROUND_WATER) 
 
 extern int mappoint_array_x[WORLD_SIDE_LEN], mappoint_array_y[WORLD_SIDE_LEN];
 extern int numof_shanties, numof_communes;
@@ -52,6 +52,7 @@ extern int substationx[MAX_NUMOF_SUBSTATIONS], substationy[MAX_NUMOF_SUBSTATIONS
 extern int numof_substations;
 extern int marketx[MAX_NUMOF_MARKETS], markety[MAX_NUMOF_MARKETS], numof_markets;
 extern int numof_health_centres, max_pop_ever, total_evacuated, total_births;
+extern int numof_waterwell;
 
 extern int total_money, income_tax_rate, coal_tax_rate;
 extern int dole_rate, transport_cost_rate;

@@ -36,5 +36,6 @@
 #include "water.h"
 #include "windmill.h"
 #include "market.h"
+#include "waterwell.h"
 
 #endif

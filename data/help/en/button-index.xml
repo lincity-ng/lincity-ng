@@ -14,6 +14,10 @@
 	<img src="images/gui/buttonpanel/residence/residence.png"/>
 	<p><a href="residential">Residential area</a></p>
 
+	<!--<p style="subtitle">Water well</p>-->
+	<img src="images/gui/buttonpanel/waterwell.png"/>
+	<p><a href="waterwell">Water well</a></p>
+
 	<!--<p style="subtitle">Parks</p>-->
 	<img src="images/gui/buttonpanel/parks/farm.png"/>
 	<p><a href="farm">Farm</a></p>

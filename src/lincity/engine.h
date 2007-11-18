@@ -14,6 +14,7 @@ void launch_rocket (int x, int y);
 void connect_rivers (void);
 int adjust_money(int value);
 void fire_area (int x, int y);
+void do_daily_ecology (void);
 
 extern long real_time;
 

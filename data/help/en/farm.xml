@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Farms</p>
-	<p style="hp">Farms grow food for people to eat, and to supply the raw materials for mills. Farmers can sell food to markets. They deliver it by tractor so they do not need transport. However they can sell to transport if you wish. Of course you need to ensure that the market is in range of the farm.</p>
+        <p style="hp">Farms grow food for people to eat, and to supply the raw materials for mills. Farmers can sell food to markets. They deliver it by tractor so they do not need transport. However they can sell to transport if you wish. Of course you need to ensure that the market is in range of the farm.</p>
+        <p style="hp">Production of farm depends on underground water. Tiles with water are green, others are yellow-brown (like desert or bare ground).</p>
 	
 	<p style="hp">This is a farm</p>
 	<img src="images/tiles/farm0.png" halign="center"/>

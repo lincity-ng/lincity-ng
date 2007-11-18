@@ -565,6 +565,10 @@
 #define CST_WATER_LURD_G        "waterlurd.csi"
 #define LCT_WATER_LURD_G        "waterlurd"
 
+#define CST_WATERWELL           238
+#define CST_WATERWELL_G         "waterwell.csi"
+#define LCT_WATERWELL_G         "waterwell"
+
 #define CST_CRICKET_1           240
 #define CST_CRICKET_1_G         "cricket1.csi"
 #define LCT_CRICKET_1_G         "cricket1"
@@ -877,6 +881,15 @@
 #define CST_FARM_O16             348
 #define CST_FARM_O16_G           "farm16.csi"
 #define LCT_FARM_O16_G           "farm16"
+
+#define CST_DESERT		350
+#define LCT_DESERT_G		"desert"
+#define CST_TREE		351
+#define LCT_TREE_G		"tree"
+#define CST_TREE2		352
+#define LCT_TREE2_G		"tree2"
+#define CST_TREE3		353
+#define LCT_TREE3_G		"tree3"
 
 #define CST_NONE 1000
 

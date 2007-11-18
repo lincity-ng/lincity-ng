@@ -4,6 +4,7 @@
 <p style="hp">Choose "new game " &gt; "random village". Other scenarii are for more or less experienced players. </p>
 <p style="hp">Notice that the random village contains basic resources: </p>
 <li>Farms for feeding markets with foods </li>
+<li>A Water well for people
 <li>Communes which produces charcoal and small amount of ore and steel </li>
 <li>Residential areas</li>
 <li>Pottery</li>
@@ -19,13 +20,13 @@
 
 <p style="hp">If a 'normal' building is not in the range of a market, then it must be connected to transport. But remember that roads and rails have a yearly cost, so unless you really want to isolate one building (e.g. a monument) it is generally better (and cheaper) to use markets when needed. </p>
 
-<p style="hp">In the initial village tracks are needed only for the communes production. Other activities need only market. </p>
+<p style="hp">In the initial village tracks are not needed. But they will be useful when the village develops.</p>
 
 <p style="hsubtitle">Money </p>
 <p style="hp">Productions are taxed and thus earn you money. In the miniwindow, the third tab is <a href="finance"> Finance window </a>.  Take care of not investing too much too quickly: when your money is negative, you cannot build some things, and you have per year cost due to the debt. This can lead to bankruptcy (see <a href="tutorial-scenario"> Hard-time scenario </a>. </p>
 
 <p style="hsubtitle">Developing the city </p>
-<p style="hp">Remember people eat food or die. To control population growth, you have to find a balance in the kind of <a href="residential"> Residential area </a> you build (they have different rate of birth/death). The new population will allow more jobs, but also need more food, goods, jobs ... </p>
+<p style="hp">Remember people eat food and drink water, or die. To control population growth, you have to find a balance in the kind of <a href="residential"> Residential area </a> you build (they have different rate of birth/death). The new population will allow more jobs, but also need more food, goods, jobs ... </p>
 <p style="hp">You will have to augment your production (add potteries, blacksmith) and at the same time take care that they are supplied. So it will also need to add communes accordingly. </p>
 <p style="hp">To get new buildings you must raise your <a href="tech-level"> Tech Level </a>.</p>
 <p style="hp"> At some point you will have to choose your aim: either <a href="sustain"> Sustainable economy </a> or evacuation with <a href="rocket"> spaceships </a>.</p>

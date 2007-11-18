@@ -272,7 +272,7 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Shanty" );
             break;
         default: 
-            if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
+            if( GROUP_IS_BARE(MP_GROUP( mps_x, mps_y )) && (MP_GROUP( mps_x, mps_y) != CST_DESERT )){
                 getSound()->playSound( "Green" );
             }  
             if( MP_TYPE( mps_x, mps_y ) == CST_PARKLAND_PLANE ){

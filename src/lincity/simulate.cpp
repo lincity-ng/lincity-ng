@@ -39,6 +39,9 @@
 #include "gui_interface/pbar_interface.h"
 //#include "module_buttons.h"
 
+extern void connect_rivers (void);
+extern void do_daily_ecology (void);
+
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
@@ -50,6 +53,9 @@ static void random_start (int* originx, int* originy);
 static void simulate_mappoints (void);
 static void quick_start_add (int x, int y, short type, int size);
 static void nullify_mappoint (int x, int y);
+static void setup_land (void);
+
+#define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -117,7 +123,7 @@ simulate_mappoints (void)
 	for (xx = 0; xx < WORLD_SIDE_LEN; xx++) {
 	    int x = mappoint_array_x[xx];
 	    short grp = MP_GROUP(x,y);
-	    if (grp == GROUP_USED || grp == GROUP_BARE)
+	    if (grp == GROUP_USED || GROUP_IS_BARE(grp))
 		continue;
 	    switch (grp) {
 	    case GROUP_TRACK:
@@ -243,10 +249,13 @@ static void
 do_periodic_events (void)
 {
   add_daily_to_monthly();
-
+  do_daily_ecology ();
 
   if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
     start_of_year_update ();
+  }
+  if ((total_time % DAYS_PER_POLLUTION) == 3) {
+    do_pollution ();
   }
   if ((total_time % DAYS_BETWEEN_FIRES) == 9
       && tech_level > (GROUP_FIRESTATION_TECH * MAX_TECH_LEVEL / 1000)) {
@@ -265,9 +274,6 @@ do_periodic_events (void)
   }
   if (total_time % NUMOF_DAYS_IN_YEAR == (NUMOF_DAYS_IN_YEAR - 1)) {
     end_of_year_update ();
-  }
-  if ((total_time % DAYS_PER_POLLUTION) == 3) {
-    do_pollution ();
   }
 }
 
@@ -450,6 +456,8 @@ clear_game (void)
     update_avail_modules(0);
     /* Al1. NG 1.1 is this enough ? Are all global variables reseted ? */
     /* TODO reset screen, sustain info */
+    use_waterwell = true;
+    ldsv_version = MIN_WATERWELL_VERSION;
 }
 
 void
@@ -458,6 +466,7 @@ new_city (int* originx, int* originy, int random_village)
     clear_game ();
     coal_reserve_setup ();
     setup_river ();
+    setup_land ();
     ore_reserve_setup ();
     init_pbars ();
 
@@ -513,7 +522,7 @@ void
 setup_river (void)
 {
     int x, y, i, j;
-    x = WORLD_SIDE_LEN / 2;
+    x = (1 * WORLD_SIDE_LEN  + rand () % WORLD_SIDE_LEN) / 3 ;
     y = WORLD_SIDE_LEN - 1;
     i = (rand () % 12) + 6;
     for (j = 0; j < i; j++) {
@@ -556,8 +565,8 @@ setup_river2 (int x, int y, int d)
 	else if (r > 1)
 	    r = 1;
 	x += r;
-	if (MP_TYPE(x+(d+d),y) != 0
-	    || MP_TYPE(x+(d+d+d),y) != 0)
+	if (!GROUP_IS_BARE(MP_GROUP(x+(d+d),y))
+	    || !GROUP_IS_BARE(MP_GROUP(x+(d+d+d),y)) )
 	    return;
 	if (x > 5 && x < WORLD_SIDE_LEN - 5)
 	{
@@ -578,6 +587,156 @@ setup_river2 (int x, int y, int d)
 	if (x > 5 && x < WORLD_SIDE_LEN - 5)
 	    setup_river2 (x, y, 1);
     }
+}
+
+void
+setup_land (void)
+{
+  int x, y, xw, yw;
+  int aridity = rand () %400 -150;
+  for (y = 0; y < WORLD_SIDE_LEN; y++) {
+	for (x = 0; x < WORLD_SIDE_LEN; x++) {
+	    int d2w_min = 2 * WORLD_SIDE_LEN * WORLD_SIDE_LEN;
+	    int r;
+	    int arid=aridity;
+
+	    /* test against IS_RIVER to prevent terrible recursion */
+	    if ( IS_RIVER(x,y) || !GROUP_IS_BARE(MP_GROUP(x,y)))
+		continue;
+
+  	    for (yw = 0; yw < WORLD_SIDE_LEN; yw++) {
+		  for (xw = 0; xw < WORLD_SIDE_LEN; xw++) {
+			int d2w;
+			if (!IS_RIVER(xw,yw))
+				continue;
+			d2w = (xw-x)*(xw-x) + (yw-y)*(yw-y);
+			if (d2w < d2w_min)
+				d2w_min = d2w;
+		  }
+	    }
+
+	    /* near river lower aridity */
+	    if (aridity > 0) {
+		if (d2w_min < 5)
+			arid = aridity/3;
+		else if (d2w_min < 17)
+			arid = (aridity*2)/3;
+	    }
+	    r = rand () % (d2w_min/3+1) + arid;
+	    if (r >= 300) {
+	        /* very dry land */
+	    	int r2 = rand() % 10;
+	    	if (r2 <= 6)
+		        set_mappoint(x, y, CST_DESERT);
+	    	else if (r2 <= 8)
+		        set_mappoint(x, y, CST_GREEN);
+	    	else 
+		        set_mappoint(x, y, CST_TREE);
+	    } else if (r >= 160) {
+	    	int r2 = rand() % 10;
+	        if (r2 <= 2)
+	    	    set_mappoint(x, y, CST_DESERT);
+		else if (r2 <= 6)
+	    	    set_mappoint(x, y, CST_GREEN);
+		else 
+	    	    set_mappoint(x, y, CST_TREE);
+	    } else if (r >= 80) {
+	    	int r2 = rand() % 10;
+		if (r2 <= 1)
+	    		set_mappoint(x, y, CST_DESERT);
+                else if (r2 <= 4)
+	    		set_mappoint(x, y, CST_GREEN);
+                else if (r2 <= 6)
+                        set_mappoint(x, y, CST_TREE);
+                else
+	    		set_mappoint(x, y, CST_TREE2);
+            } else if (r >= 40) {
+	    	int r2 = rand() % 40;
+		    if (r2 == 0)
+	    		set_mappoint(x, y, CST_DESERT);
+		    else if (r2 <= 12)
+	    		set_mappoint(x, y, CST_GREEN);
+		    else if (r2 <= 24)
+	    		set_mappoint(x, y, CST_TREE);
+		    else if (r2 <= 36)
+			    set_mappoint(x, y, CST_TREE2);
+		    else
+			    set_mappoint(x, y, CST_TREE3);
+	    }  else if (r >= 0) {
+	    	    /* normal land */
+	    	    int r2 = rand() % 40;
+		    if (r2 <= 10)
+	    		set_mappoint(x, y, CST_GREEN);
+		    else if (r2 <= 20)
+	    		set_mappoint(x, y, CST_TREE);
+		    else if (r2 <= 30)
+			    set_mappoint(x, y, CST_TREE2);
+		    else
+			    set_mappoint(x, y, CST_TREE3);
+	    } else if (r >= -40) {
+	    	    /* forest */
+	    	    int r2 = rand() % 40;
+		    if (r2 <= 5)
+	    		set_mappoint(x, y, CST_GREEN);
+		    else if (r2 <= 10)
+	    		set_mappoint(x, y, CST_TREE);
+		    else if (r2 <= 25)
+			    set_mappoint(x, y, CST_TREE2);
+		    else
+			    set_mappoint(x, y, CST_TREE3);
+	    } else if (r >= -80) {
+	    	    int r2 = rand() % 40;
+		    if (r2 <= 0)
+			    MP_TYPE(x, y) = CST_WATER;
+		    else if (r2 <= 6)
+	    		set_mappoint(x, y, CST_GREEN);
+		    else if (r2 <= 15)
+	    		set_mappoint(x, y, CST_TREE);
+		    else if (r2 <= 28)
+			    set_mappoint(x, y, CST_TREE2);
+		    else
+			    set_mappoint(x, y, CST_TREE3);
+	    } else if (r >= -120) {
+	    	    int r2 = rand() % 40;
+		    if (r2 <= 1)
+			    MP_TYPE(x, y) = CST_WATER;
+		    else if (r2 <= 6)
+	    		set_mappoint(x, y, CST_GREEN);
+		    else if (r2 <= 16)
+	    		set_mappoint(x, y, CST_TREE);
+		    else if (r2 <= 30)
+			    set_mappoint(x, y, CST_TREE2);
+		    else
+			    set_mappoint(x, y, CST_TREE3);
+	    } else {
+	    	/* wetland */
+	    	int r2 = rand() % 40;
+		    if (r2 <= 3 )
+			    MP_TYPE(x, y) = CST_WATER;
+		    else if (r2 <= 8)
+	    		set_mappoint(x, y, CST_GREEN);
+		    else if (r2 <= 20)
+	    		set_mappoint(x, y, CST_TREE);
+		    else if (r2 <= 35)
+			    set_mappoint(x, y, CST_TREE2);
+		    else
+			    set_mappoint(x, y, CST_TREE3);
+	    }
+	    MP_POL(x,y) = 0;
+            /* preserve rivers, so that we can connect port later */
+            if (MP_TYPE(x,y) == CST_WATER){
+                int navigable = MP_INFO(x,y).flags & FLAG_IS_RIVER;
+                set_mappoint(x, y, CST_WATER);
+                MP_INFO(x,y).flags |= navigable;
+                MP_INFO(x,y).flags |= FLAG_HAS_UNDERGROUND_WATER;            
+            } else if (MP_TYPE(x,y) != CST_DESERT) {
+            	MP_INFO(x,y).flags |= FLAG_HAS_UNDERGROUND_WATER;
+            }	
+  	    /* TODO Store square of distance to river for each tile */
+	    /* MP_DIST2RIVER(x,y) = d2w_min; */
+        }
+    }
+    connect_rivers();
 }
 
 int
@@ -602,7 +761,7 @@ count_all_groups (int* group_count)
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
 	for (x = 0; x < WORLD_SIDE_LEN; x++) {
 	    t = MP_TYPE(x,y);
-	    if (t != CST_USED && t != CST_GREEN) {
+	    if (t != CST_USED && !GROUP_IS_BARE(MP_GROUP(x,y)))  {
 		g = get_group_of_type(t);
 		group_count[g]++;
 	    }
@@ -624,21 +783,26 @@ random_start (int* originx, int* originy)
 	    flag = 0;
 	    for (y = yy + 2; y < yy + 23; y++)
 		for (x = xx + 2; x < xx + 23; x++)
-		    if (MP_GROUP(x,y) == GROUP_WATER)
-		    {
+		    if (IS_RIVER(x,y)) {
 			flag = 1;
 			x = xx + 23;   /* break out of loop */
 			y = yy + 23;   /* break out of loop */
 		    }
-	} while (flag == 0 || (--watchdog) < 1);
+	} while (flag == 0 && (--watchdog) > 1);
 	for (y = yy + 4; y < yy + 22; y++)
 	    for (x = xx + 4; x < xx + 22; x++)
-		if (MP_GROUP(x,y) != GROUP_BARE) {
-		    flag = 0;
-		    x = xx + 22;   /* break out of loop */
-		    y = yy + 22;   /* break out of loop */
-		}
-    } while (flag == 0 || (--watchdog) < 1);
+                /* Don't put the village on a river, but don't care of
+                 * isolated random water tiles putted by setup_land
+                 */
+		if (IS_RIVER(x,y)) {
+                    flag = 0;
+                    x = xx + 22;   /* break out of loop */
+                    y = yy + 22;   /* break out of loop */
+                }
+    } while (flag == 0 && (--watchdog) > 1);
+#ifdef DEBUG
+    fprintf(stderr,"random village watchdog = %i\n", watchdog);
+#endif
 
     /* These are going to be the main_screen_origin? vars */
     *originx = xx;
@@ -646,36 +810,41 @@ random_start (int* originx, int* originy)
 
     /*  Draw the start scene. */
     quick_start_add (xx + 5, yy + 5, CST_FARM_O0, 4);
+    /* The first two farms have more underground water */
+    for (int i = 0; i < MP_SIZE(xx + 5, yy + 5); i++)
+        for (int j = 0; j < MP_SIZE(xx + 5, yy + 5); j++)
+            if (!HAS_UGWATER(xx + 5 + i, yy + 5 + j) && (rand() % 2))
+               MP_INFO(xx + 5 + i, yy + 5 + j).flags
+                              |= FLAG_HAS_UNDERGROUND_WATER;
+ 
     quick_start_add (xx + 9, yy + 6, CST_RESIDENCE_ML, 3);
     MP_INFO(xx + 9,yy + 6).population = 50;
-    MP_INFO(xx + 9,yy + 6).flags |= (FLAG_FED + FLAG_EMPLOYED);
-    quick_start_add (xx + 7, yy + 9, CST_MARKET_EMPTY, 2);
-    marketx[numof_markets] = xx + 7;
-    markety[numof_markets] = yy + 9;
-    numof_markets++;
-    /* Bootstap markets with some stuff. */
-    MP_INFO(xx + 7,yy + 9).int_1 = 2000;
-    MP_INFO(xx + 7,yy + 9).int_2 = 10000;
-    MP_INFO(xx + 7,yy + 9).int_3 = 100;
-    MP_INFO(xx + 7,yy + 9).int_5 = 10000;
-    MP_INFO(xx + 7,yy + 9).flags 
-	    |= (FLAG_MB_FOOD + FLAG_MS_FOOD + FLAG_MB_JOBS
-		+ FLAG_MS_JOBS + FLAG_MB_COAL + FLAG_MS_COAL + FLAG_MB_ORE
-		+ FLAG_MS_ORE + FLAG_MB_GOODS + FLAG_MS_GOODS + FLAG_MB_STEEL
-		+ FLAG_MS_STEEL);
-
+    MP_INFO(xx + 9,yy + 6).flags 
+                |= (FLAG_FED + FLAG_EMPLOYED + FLAG_WATERWELL_COVER);
+    quick_start_add (xx + 9, yy + 9, CST_POTTERY_0, 2);
+    quick_start_add (xx + 16, yy + 9, CST_WATERWELL, 2);
 
     quick_start_add (xx + 14, yy + 6, CST_RESIDENCE_ML, 3);
     MP_INFO(xx + 14,yy + 6).population = 50;
-    MP_INFO(xx + 14,yy + 6).flags |= (FLAG_FED + FLAG_EMPLOYED);
+    MP_INFO(xx + 14,yy + 6).flags 
+                |= (FLAG_FED + FLAG_EMPLOYED + FLAG_WATERWELL_COVER);
     quick_start_add (xx + 17, yy + 5, CST_FARM_O0, 4);
-    quick_start_add (xx + 17, yy + 9, CST_MARKET_EMPTY, 2);
-    marketx[numof_markets] = xx + 17;
+    for (int i = 0; i < MP_SIZE(xx + 17, yy + 5); i++)
+        for (int j = 0; j < MP_SIZE(xx + 17, yy + 5); j++)
+            if (!HAS_UGWATER(xx + 17 + i, yy + 5 + j) && (rand() % 2))
+                MP_INFO(xx + 17 + i, yy + 5 + j).flags 
+                              |= FLAG_HAS_UNDERGROUND_WATER; 
+
+    quick_start_add (xx + 14, yy + 9, CST_MARKET_EMPTY, 2);
+    marketx[numof_markets] = xx + 14;
     markety[numof_markets] = yy + 9;
     numof_markets++;
-    MP_INFO(xx + 17,yy + 9).int_1 = 2000;
-    MP_INFO(xx + 17,yy + 9).int_2 = 8000;
-    MP_INFO(xx + 17,yy + 9).flags 
+    /* Bootstrap markets with some stuff. */
+    MP_INFO(xx + 14,yy + 9).int_1 = 2000;
+    MP_INFO(xx + 14,yy + 9).int_2 = 10000;
+    MP_INFO(xx + 14,yy + 9).int_3 = 100;
+    MP_INFO(xx + 14,yy + 9).int_5 = 10000;
+    MP_INFO(xx + 14,yy + 9).flags 
 	    |= (FLAG_MB_FOOD + FLAG_MS_FOOD + FLAG_MB_JOBS
 		+ FLAG_MS_JOBS + FLAG_MB_COAL + FLAG_MS_COAL + FLAG_MB_ORE
 		+ FLAG_MS_ORE + FLAG_MB_GOODS + FLAG_MS_GOODS + FLAG_MB_STEEL
@@ -686,35 +855,12 @@ random_start (int* originx, int* originy)
 	quick_start_add (xx + x, yy + 11, CST_TRACK_LR, 1);
 	MP_INFO(xx + x,yy + 11).flags |= FLAG_IS_TRANSPORT;
     }
-    for (y = 12; y < 18; y++)
-    {
-	quick_start_add (xx + 5, yy + y, CST_TRACK_LR, 1);
-	MP_INFO(xx + 5,yy + y).flags |= FLAG_IS_TRANSPORT;
-    }
     quick_start_add (xx + 6, yy + 12, CST_COMMUNE_1, 4);
     quick_start_add (xx + 6, yy + 17, CST_COMMUNE_1, 4);
     quick_start_add (xx + 11, yy + 12, CST_COMMUNE_1, 4);
     quick_start_add (xx + 11, yy + 17, CST_COMMUNE_1, 4);
     quick_start_add (xx + 16, yy + 12, CST_COMMUNE_1, 4);
     quick_start_add (xx + 16, yy + 17, CST_COMMUNE_1, 4);
-    for (x = 6; x < 17; x++)
-    {
-	quick_start_add (xx + x, yy + 16, CST_TRACK_LR, 1);
-	MP_INFO(xx + x,yy + 16).flags |= FLAG_IS_TRANSPORT;
-    }
-    for (y = 12; y < 16; y++)
-    {
-	quick_start_add (xx + 10, yy + y, CST_TRACK_LR, 1);
-	MP_INFO(xx + 10,yy + y).flags |= FLAG_IS_TRANSPORT;
-	quick_start_add (xx + 15, yy + y, CST_TRACK_LR, 1);
-	MP_INFO(xx + 15,yy + y).flags |= FLAG_IS_TRANSPORT;
-    }
-    quick_start_add (xx + 10, yy + 17, CST_TRACK_LR, 1);
-    MP_INFO(xx + 10,yy + 17).flags |= FLAG_IS_TRANSPORT;
-    quick_start_add (xx + 15, yy + 17, CST_TRACK_LR, 1);
-    MP_INFO(xx + 15,yy + 17).flags |= FLAG_IS_TRANSPORT;
-
-    quick_start_add (xx + 9, yy + 9, CST_POTTERY_0, 2);
 }
 
 /* XXX: WCK: What is up with this?  Why not just use set_mappoint?! */
@@ -815,7 +961,7 @@ sust_fire_cover (void)
   for (x = 0; x < WORLD_SIDE_LEN; x++)
     for (y = 0; y < WORLD_SIDE_LEN; y++)
       {
-	if (MP_GROUP(x,y) == GROUP_BARE
+	if (GROUP_IS_BARE(MP_GROUP(x,y))
 	    || MP_TYPE(x,y) == CST_USED
 	    || MP_GROUP(x,y) == GROUP_WATER
 	    || MP_GROUP(x,y) == GROUP_POWER_LINE

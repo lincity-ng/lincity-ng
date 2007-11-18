@@ -173,7 +173,7 @@ bool ButtonPanel::enoughTech( int moduleType ){
 }
 
 /*
- * enable/disabel buttons accordig to tech.
+ * enable/disable buttons according to tech.
  *  lincity/ldsvguts.cpp
  *  oldgui/module_buttons.cpp
  */
@@ -230,7 +230,7 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         return;
     }
     doButton( name );
-	if ( enoughTech( selected_module_type ) ){
+    if ( enoughTech( selected_module_type ) ){
         if( !b->isEnabled() ){
             newTechMessage( selected_module_type, showInfo );
             b->setTooltip( createTooltip( selected_module_type, false ) );
@@ -246,6 +246,15 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
             b->setTooltip(tooltip);
         }
     }
+    if ( name=="BPMWaterwellButton" & !use_waterwell ) {
+            b->enable( false );
+            char tooltip[2048];
+            snprintf(tooltip, sizeof(tooltip), _("%s is disabled (loaded old game)."),
+	    		createTooltip(selected_module_type, false ).c_str());
+	    b->setTooltip(tooltip);
+    }
+
+
     selected_module_type = tmp;
 }
 
@@ -562,6 +571,8 @@ void ButtonPanel::showToolHelp( int tooltype ){
             getGame()->showHelpWindow( "park" ); break;
         case CST_WATER:
             getGame()->showHelpWindow( "river" ); break;
+        case CST_WATERWELL:
+            getGame()->showHelpWindow( "waterwell" ); break;
         default:
             std::cerr << "ButtonPanel::showToolHelp# unknown Type " << tooltype << "\n";
     }
@@ -617,6 +628,7 @@ void ButtonPanel::switchToTool( int newModuleType ){
         case CST_MONUMENT_0: newName ="BPMMonumentButton"; break;
         case CST_PARKLAND_PLANE: newName ="BPMParkButton"; break;
         case CST_WATER: newName ="BPMWaterButton"; break;
+        case CST_WATERWELL: newName ="BPMWaterwellButton"; break;
         default:
             std::cerr << "ButtonPanel::switchToTool# unknown Type " << newModuleType << "\n";
             newName ="BPMPointerButton";
@@ -893,6 +905,8 @@ void ButtonPanel::doButton(const std::string &button)
         selected_module_type=CST_PARKLAND_PLANE;
     else if(button=="BPMWaterButton")
         selected_module_type=CST_WATER;
+    else if(button=="BPMWaterwellButton")
+        selected_module_type=CST_WATERWELL;
 }
 
 void ButtonPanel::updateSelectedCost()

@@ -131,8 +131,11 @@ save_city_raw (char *cname)
 	printf (_("Save file <%s> - "), cname);
 	do_error (_("Can't open save file!"));
     }
+    /* save without waterwell are in NG 1.1 format, eg scenario good_time is ver 98 when loaded */
+    if (ldsv_version < VERSION_INT)
+    	ldsv_version = VERSION_INT;
 
-    gzprintf (ofile, "%d\n", (int) VERSION_INT);
+    gzprintf (ofile, "%d\n", ldsv_version);
     q = sizeof (Map_Point_Info);
     prog_box (_("Saving scene"), 0);
     check_endian ();
@@ -286,8 +289,10 @@ save_city_raw (char *cname)
 	     ,sust_old_money, sust_old_population, sust_old_tech
 	     ,sustain_flag);	/* 3 */
 
-    gzprintf (ofile, "dummy\n");	/* 4 */
-
+    if (use_waterwell == true) {
+    } else {
+	    gzprintf (ofile, "dummy\n");	/* 4 */
+    }
     gzprintf (ofile, "dummy\n");	/* 5 */
 
     gzprintf (ofile, "dummy\n");	/* 6 */
@@ -326,7 +331,7 @@ void
 load_city (char *cname)
 {
     unsigned long q;
-    int i, x, y, z, n, p, ver;
+    int i, x, y, z, n, p;
     int num_pbars, pbar_data_size;
     int pbar_tmp;
     int dummy;
@@ -337,11 +342,23 @@ load_city (char *cname)
 	    printf (_("Can't open <%s> (gzipped)"), cname);
 	    do_error ("Can't open it!");
     }
-    sscanf( gzgets( gzfile, s, 256 ), "%d", &ver);
-    if (ver < MIN_LOAD_VERSION) {
+    /* Add version to shared global variables for playing/saving games without waterwell */
+    sscanf( gzgets( gzfile, s, 256 ), "%d", &ldsv_version);
+    if (ldsv_version < MIN_LOAD_VERSION) {
 	    ok_dial_box ("too-old.mes", BAD, 0L);
 	    gzclose( gzfile );
 	return;
+    }
+
+    fprintf(stderr," ldsv_version = %i \n", ldsv_version);
+    if (ldsv_version < MIN_WATERWELL_VERSION) {
+	/* ok_dial_box ("no-waterwell.mes", GOOD, 0L);*/
+	use_waterwell=false;
+    } else {
+    	use_waterwell=true; 
+	/* needed until it is written in the saved file
+	 * in case of load after having played an old game
+	 */
     }
 
     init_pbars();
@@ -423,7 +440,7 @@ load_city (char *cname)
 	main_screen_originy = WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1;
 
     sscanf( gzgets( gzfile, s, 256 ), "%d", &total_time);
-    if (ver <= MM_MS_C_VER)
+    if (ldsv_version <= MM_MS_C_VER)
 	i = OLD_MAX_NUMOF_SUBSTATIONS;
     else
 	i = MAX_NUMOF_SUBSTATIONS;
@@ -434,7 +451,7 @@ load_city (char *cname)
     }
     prog_box ("", 92);
     sscanf( gzgets( gzfile, s, 256 ), "%d", &numof_substations);
-    if (ver <= MM_MS_C_VER)
+    if (ldsv_version <= MM_MS_C_VER)
 	i = OLD_MAX_NUMOF_MARKETS;
     else
 	i = MAX_NUMOF_MARKETS;
@@ -478,7 +495,7 @@ load_city (char *cname)
 
     prog_box ("", 96);
     /* Get size of monthgraph array */
-    if (ver <= MG_C_VER) {
+    if (ldsv_version <= MG_C_VER) {
 	i = 120;
     } else {
 	sscanf( gzgets( gzfile, s, 256 ), "%d", &i);
@@ -498,7 +515,7 @@ load_city (char *cname)
 	    sscanf( gzgets( gzfile, s, 256 ), "%d", &monthgraph_ppool[x]);
 	}
 	/* If our save file is old, skip past obsolete diffgraph entries */
-	if (ver <= MG_C_VER) {
+	if (ldsv_version <= MG_C_VER) {
 	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diffgraph_power[x] */
 	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diffgraph_coal[x] */
 	    sscanf( gzgets( gzfile, s, 256 ), "%d", &dummy); /* &diffgraph_goods[x] */
@@ -583,6 +600,8 @@ load_city (char *cname)
 		= sust_old_money_count = sust_old_population_count
 		= sust_old_tech_count = sust_fire_count
 		= sust_old_money = sust_old_population = sust_old_tech = 0;
+    if (use_waterwell == true) {
+    }
     gzclose( gzfile );
 
     numof_shanties = count_groups (GROUP_SHANTY);
@@ -691,7 +710,7 @@ reset_animation_times (void)
 	}
 }
 
-/* Returns 1 if the city is proper version */
+/* Returns 1 if the city is proper version */ /* AL1 unused in NG 1.1 */
 int 
 verify_city (char *cname)
 {

@@ -213,6 +213,9 @@ void mps_refresh() /* refresh the information display's contents */
                 case GROUP_WINDMILL:
                     mps_windmill (mps_x, mps_y);
                     break;
+		case GROUP_WATERWELL:
+		    mps_waterwell (mps_x, mps_y);
+		    break;
                 default: 
                     //no special information on this group, just show the Name.
                     for(int i = 1; i < MPS_PARAGRAPH_COUNT; ++i) {
@@ -220,7 +223,7 @@ void mps_refresh() /* refresh the information display's contents */
                     }
                     mps_store_title(0, 
                             _(main_groups[MP_GROUP(mps_x, mps_y)].name));
-                    if( MP_TYPE( mps_x, mps_y ) == CST_GREEN ){
+                    if( GROUP_IS_BARE(MP_GROUP( mps_x, mps_y )) ){
                         mps_store_title(4,_("build something here") );
                     }
                     mps_store_title(2, _("no further information available") );

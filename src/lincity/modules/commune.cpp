@@ -25,28 +25,42 @@ do_commune (int x, int y)
   /* GCS -- I folded the trackflag into int_2, changing the logic slightly.
      This change only affects the animation. */
   int trackflag = 0;
+  int coalprod = 2;
   /* stick coal and ore on tracks, in SMALL doses. */
-  if (put_coal (x, y, 2) != 0)
-    {
+  if (use_waterwell) {
+      int w = 0;
+      int n = 0;
+      /* Check underground water, and reduce production accordingly */
+      for (int i = 0; i < MP_SIZE(x,y); i++) {
+          for (int j = 0; j < MP_SIZE(x,y); j++) {
+              n++;
+              if (HAS_UGWATER(x+i,y+j))
+                  w++;
+          }
+      }
+      if (w < n / 3) 
+          coalprod = 0;
+      else if (w < (2 * n) / 3)
+          coalprod = 1;
+  }
+
+  if (put_coal (x, y, coalprod) != 0) {
       trackflag = 1;
       MP_INFO(x,y).int_3++;
       MP_INFO(x,y).int_6 |= 1;
-    }
-  if (put_ore (x, y, 6) != 0)
-    {
+  }
+  if (put_ore (x, y, 6) != 0) {
       trackflag = 1;
       MP_INFO(x,y).int_3++;
       MP_INFO(x,y).int_6 |= 2;
-    }
+  }
   /* recycle a bit of waste */
-  if (get_waste (x, y, 20) != 0)
-    {
+  if (get_waste (x, y, 20) != 0) {
       trackflag = 1;
       MP_INFO(x,y).int_3++;
       MP_INFO(x,y).int_6 |= 8;
-    }
-  if (total_time % 10 == 0)
-    {
+  }
+  if (total_time % 10 == 0) {
       MP_INFO(x,y).int_2 = 1;
       if (put_steel (x, y, 2) != 0) {
 	  MP_INFO(x,y).int_3++;
@@ -57,38 +71,50 @@ do_commune (int x, int y)
       if (trackflag) {
 	MP_INFO(x,y).int_2 = 0;
       }
-    }
+  }
 
-  if (total_time % 100 == 48){
+  /* each month. /AL1: is there a reason for day 48 ? */
+  if (total_time % 100 == 1) {
     MP_INFO(x,y).int_5 = MP_INFO(x,y).int_6;
     MP_INFO(x,y).int_6 = 0;
     if (MP_INFO(x,y).int_5 & 4) { //producing steel
-      if (MP_TYPE(x,y) < CST_COMMUNE_7){
+        if (MP_TYPE(x,y) < CST_COMMUNE_7){
 	    MP_TYPE(x,y) += 5;
-      }
+        }
     } else {
         if (MP_TYPE(x,y) >= CST_COMMUNE_7){
 	        MP_TYPE(x,y) -= 5;
         }
     }
 
-      if (MP_INFO(x,y).int_3 > 0)	/*  >0% */
-	{
+    if (MP_INFO(x,y).int_3 > 0)	/*  >0% */ {
 	  MP_INFO(x,y).int_3 = 0;
 	  if (--MP_INFO(x,y).int_4 < 0)
-	    MP_INFO(x,y).int_4 = 0;
-	}
-      else
-	{
+              MP_INFO(x,y).int_4 = 0;
+    } else {
 	  MP_INFO(x,y).int_3 = 0;
 	  MP_INFO(x,y).int_4++;
-	  /* XXX: Why do communes only last 10 years? */
-	  if (MP_INFO(x,y).int_4 > 120)	/* 10 years */
-	    {
-	      do_bulldoze_area (CST_PARKLAND_PLANE, x, y);
+	  /* Communes without production only last 10 years */
+	  if (MP_INFO(x,y).int_4 > 120)	/* 10 years */ {
+              if (use_waterwell) {
+                  int s =  MP_SIZE(x,y);
+                  /* first destroy the commune, then fill it with correct tiles
+                   * maybe paranoid, but tile is 4x4 thus becomes 16 tiles 1x1
+                   */
+                  do_bulldoze_area (CST_DESERT, x, y);
+                  for (int i = 0; i < s; i++) {
+                      for (int j = 0; j < s; j++)
+                          if (HAS_UGWATER(x+i,y+j))
+                                do_bulldoze_area (CST_PARKLAND_PLANE, x+i, y+j);
+                          else
+                                do_bulldoze_area (CST_DESERT, x+i, y+j);
+                  }
+              } else {
+                  do_bulldoze_area (CST_PARKLAND_PLANE, x, y);
+              }
 	      return;
-	    }
-	}
+          }
+    }
   }
 
   /* animate */

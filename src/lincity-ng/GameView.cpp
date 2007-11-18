@@ -481,6 +481,10 @@ void GameView::loadTextures()
            -e 's/"/.png" );/2'                 
    */
    preReadCityTexture( CST_GREEN, 	"green.png" );
+   preReadCityTexture( CST_DESERT, 	"desert.png" );
+   preReadCityTexture( CST_TREE, 	"tree.png" );
+   preReadCityTexture( CST_TREE2, 	"tree2.png" );
+   preReadCityTexture( CST_TREE3, 	"tree3.png" );
    preReadCityTexture( CST_POWERL_H_L, "powerlhl.png" );
    preReadCityTexture( CST_POWERL_V_L,  	"powerlvl.png" );
    preReadCityTexture( CST_POWERL_LD_L, 	"powerlldl.png" );
@@ -651,6 +655,7 @@ void GameView::loadTextures()
    preReadCityTexture( CST_WATER_LUR,         "waterlur.png" );
    preReadCityTexture( CST_WATER_URD,         "waterurd.png" );
    preReadCityTexture( CST_WATER_LURD,        "waterlurd.png" );
+   preReadCityTexture( CST_WATERWELL,         "waterwell.png" );
    preReadCityTexture( CST_CRICKET_1,         "cricket1.png" );
    preReadCityTexture( CST_CRICKET_2,         "cricket2.png" );
    preReadCityTexture( CST_CRICKET_3,         "cricket3.png" );
@@ -843,7 +848,11 @@ void GameView::event(const Event& event)
             if( roadDragging && ( cursorSize != 1 ) ){
                 roadDragging = false;
             }
-            if( roadDragging && ( selected_module_type == CST_GREEN ) 
+            if( roadDragging 
+	    	    && ( selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
+		        |selected_module_type == CST_TREE
+		        |selected_module_type == CST_TREE2
+		        |selected_module_type == CST_TREE3 ) 
                     && getConfig()->instantBulldoze ){ 
                 editMap( tile, SDL_BUTTON_LEFT);
                 startRoad = tile;
@@ -1364,7 +1373,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         } else {
             for( y = (int) tile.y; y < tile.y + cursorSize; y++ ) {
                 for( x = (int) tile.x; x < tile.x + cursorSize; x++ ) {
-                    if( MP_TYPE( x, y ) != CST_GREEN ) {
+                    if( !GROUP_IS_BARE(MP_GROUP( x, y ))) {
                         painter.setFillColor( alphared );
                         y += cursorSize;
                         break;
@@ -1431,6 +1440,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_MONUMENT_0: break;
             //case CST_PARKLAND_PLANE: break;
             //case CST_WATER: break;
+            case CST_WATERWELL: range = MARKET_RANGE; break;
         }
        	
         if (range > 0 )
@@ -1542,18 +1552,26 @@ void GameView::draw(Painter& painter)
             currentTile = startRoad;
             while( currentTile.x != tileUnderMouse.x ) {
                 markTile( painter, currentTile );
-                if( selected_module_type == CST_GREEN && realTile( currentTile ) != lastRazed ){ 
-                    cost += bulldozeCost( currentTile );
-                    lastRazed = realTile( currentTile );
+                if( (selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
+				|selected_module_type == CST_TREE 
+				|selected_module_type == CST_TREE2
+				|selected_module_type == CST_TREE3)
+		     && realTile( currentTile ) != lastRazed ){ 
+                    	cost += bulldozeCost( currentTile );
+                    	lastRazed = realTile( currentTile );
                 }
                 tiles++;
                 currentTile.x += stepx;
             }
             while( currentTile.y != tileUnderMouse.y ) {
                 markTile( painter, currentTile );
-                if( selected_module_type == CST_GREEN && realTile( currentTile ) != lastRazed ){ 
-                    cost += bulldozeCost( currentTile );
-                    lastRazed = realTile( currentTile );
+                if( (selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
+				|selected_module_type == CST_TREE 
+				|selected_module_type == CST_TREE2
+				|selected_module_type == CST_TREE3)
+		     && realTile( currentTile ) != lastRazed ){ 
+                    	cost += bulldozeCost( currentTile );
+                    	lastRazed = realTile( currentTile );
                 }
                 tiles++;
                 currentTile.y += stepy;
@@ -1561,10 +1579,17 @@ void GameView::draw(Painter& painter)
         } 
         markTile( painter, tileUnderMouse );
         tiles++;
-        if( selected_module_type == CST_GREEN && realTile( currentTile ) != lastRazed ) { 
-            cost += bulldozeCost( tileUnderMouse );
+        if( (selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
+				|selected_module_type == CST_TREE 
+				|selected_module_type == CST_TREE2
+				|selected_module_type == CST_TREE3)
+	     && realTile( currentTile ) != lastRazed ) { 
+            	  cost += bulldozeCost( tileUnderMouse );
         } 
-        if( selected_module_type == CST_GREEN ){
+        if( selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
+				|selected_module_type == CST_TREE 
+				|selected_module_type == CST_TREE2
+				|selected_module_type == CST_TREE3 ){
             std::stringstream prize;
             if( roadDragging ){
                 prize << _("Estimated Bulldoze Cost: ");
@@ -1648,11 +1673,7 @@ int GameView::bulldozeCost( MapPoint tile ){
                           MP_INFO(tile.x,tile.y).int_2 );
     else
         group = MP_GROUP( tile.x,tile.y );
-    if (group == 0) {  /* Can't bulldoze grass. */
-        prize = 0; 
-    } else {
-        prize = main_groups[group].bul_cost;
-    }
+    prize = main_groups[group].bul_cost;
     return prize;
 }
 

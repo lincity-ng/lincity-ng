@@ -7,6 +7,10 @@
 //#include "common.h"
 #include "fileutil.h"
 
+/* load/save version for compatibility with(out) waterwell */
+int ldsv_version = 1170;
+int use_waterwell = true;
+
 Map map;
 
 int mappoint_array_x[WORLD_SIDE_LEN];
@@ -60,6 +64,7 @@ int substationx[MAX_NUMOF_SUBSTATIONS], substationy[MAX_NUMOF_SUBSTATIONS];
 int numof_substations = 0;
 int marketx[MAX_NUMOF_MARKETS], markety[MAX_NUMOF_MARKETS], numof_markets = 0;
 int numof_health_centres, max_pop_ever = 0, total_evacuated = 0, total_births = 0;
+int numof_waterwell = 0;
 
 int total_money = 0, income_tax_rate, coal_tax_rate;
 int dole_rate, transport_cost_rate;

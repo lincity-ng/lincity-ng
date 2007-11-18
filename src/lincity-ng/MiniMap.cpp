@@ -709,7 +709,11 @@ Color MiniMap::getColor(int x,int y) const
                 else
                     return Color(0,0xFF,0);
             } else {
-                return makeGrey(getColorNormal(x,y));
+                    if (use_waterwell) {
+                        if ((flags & FLAG_WATERWELL_COVER) != 0)
+                                return makeBlue(getColorNormal(x,y));
+                    }
+                    return makeGrey(getColorNormal(x,y));
             }
         }
         case POWER: {

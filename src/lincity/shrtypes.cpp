@@ -14,7 +14,6 @@
 //#include "cliglobs.h"
 #include "engglobs.h"
 
-
 void
 set_mappoint_used (int fromx, int fromy, int x, int y)
 {

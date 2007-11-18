@@ -515,6 +515,70 @@ struct GROUP main_groups[NUM_OF_GROUPS] =
       GROUP_RESIDENCE_HH_TECH
     },
     /* 41 */
+        { N_("Water well"),
+      FALSE,                           /* need credit? */
+      GROUP_WATERWELL,
+      2,                               /* size */
+      GROUP_WATERWELL_COLOUR,
+      GROUP_WATERWELL_COST_MUL,
+      GROUP_WATERWELL_BUL_COST,
+      GROUP_WATERWELL_FIREC,
+      GROUP_WATERWELL_COST,
+      GROUP_WATERWELL_TECH
+    },
+
+    /* 42 */
+    { N_("Desert"),       	/* name */
+      FALSE,            	/* need credit? */
+      GROUP_DESERT,       	/* group number */
+      1,                	/* size */
+      GROUP_DESERT_COLOUR,      /* color */
+      GROUP_DESERT_COST_MUL,	/* cost multiplier */
+      GROUP_DESERT_BUL_COST,	/* bulldoze cost */
+      GROUP_DESERT_FIREC,	/* probability of fire */
+      GROUP_DESERT_COST,	/* cost */
+      GROUP_DESERT_TECH		/* tech */
+    },
+    /* 43 */
+    { N_("Tree"),       	/* name */
+      FALSE,            	/* need credit? */
+      GROUP_TREE,       	/* group number */
+      1,                	/* size */
+      GROUP_TREE_COLOUR,	/* color */
+      GROUP_TREE_COST_MUL,	/* cost multiplier */
+      GROUP_TREE_BUL_COST,	/* bulldoze cost */
+      GROUP_TREE_FIREC,		/* probability of fire */
+      GROUP_TREE_COST,		/* cost */
+      GROUP_TREE_TECH		/* tech */
+    },
+
+    /* 44 */
+    { N_("Trees"),       	/* name */
+      FALSE,            	/* need credit? */
+      GROUP_TREE2,       	/* group number */
+      1,                	/* size */
+      GROUP_TREE2_COLOUR,	/* color */
+      GROUP_TREE2_COST_MUL,	/* cost multiplier */
+      GROUP_TREE2_BUL_COST,	/* bulldoze cost */
+      GROUP_TREE2_FIREC,	/* probability of fire */
+      GROUP_TREE2_COST,		/* cost */
+      GROUP_TREE2_TECH		/* tech */
+    },
+
+    /* 45 */
+    { N_("Forest"),       	/* name */
+      FALSE,            	/* need credit? */
+      GROUP_TREE3,       	/* group number */
+      1,                	/* size */
+      GROUP_TREE3_COLOUR,	/* color */
+      GROUP_TREE3_COST_MUL,	/* cost multiplier */
+      GROUP_TREE3_BUL_COST,	/* bulldoze cost */
+      GROUP_TREE3_FIREC,	/* probability of fire */
+      GROUP_TREE3_COST,		/* cost */
+      GROUP_TREE3_TECH		/* tech */
+    },
+
+    /* 46 */
     /* End of Data */
     { "EOF",
       FALSE,                           /* need credit? */
@@ -1175,6 +1239,9 @@ void init_types(void)
 
     main_types[CST_WATER_LURD].group=GROUP_WATER;
     main_types[CST_WATER_LURD].graphic=load_graphic(CST_WATER_LURD_G);
+
+    main_types[CST_WATERWELL].group=GROUP_WATERWELL;
+    main_types[CST_WATERWELL].graphic=load_graphic(CST_WATERWELL_G);
 
     main_types[CST_HEALTH].group=GROUP_HEALTH;
     main_types[CST_HEALTH].graphic=load_graphic(CST_HEALTH_G);

@@ -59,8 +59,8 @@ clicked_market_cb (int x, int y)
 void
 check_bulldoze_area (int x, int y)
 {
-    //no need to bulldoze grass
-    if( MP_TYPE( x, y ) == CST_GREEN ) 
+    //no need to bulldoze desert
+    if( MP_TYPE( x, y ) == CST_DESERT ) 
         return;
     
   int xx, yy, g;
@@ -152,7 +152,7 @@ void editMap (MapPoint point, int button)
     /* Bring up mappoint_stats for certain left mouse clicks */
     /* Check market and port double-clicks here */
     /* Check rocket launches */
-    if( MP_TYPE( x,y ) != CST_GREEN ) {
+    if( !GROUP_IS_BARE(MP_GROUP( x,y )) ) {
         if(mapMPS)
             mapMPS->playBuildingSound( mod_x, mod_y );
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
@@ -221,27 +221,27 @@ void editMap (MapPoint point, int button)
         return;
     
     if (size >= 2) {
-        if (MP_TYPE(x + 1,y) != CST_GREEN
-            || MP_TYPE(x,y + 1) != CST_GREEN
-            || MP_TYPE(x + 1,y + 1) != CST_GREEN)
+        if (!GROUP_IS_BARE(MP_GROUP(x + 1,y))
+            || !GROUP_IS_BARE(MP_GROUP(x,y + 1))
+            || !GROUP_IS_BARE(MP_GROUP(x + 1,y + 1)))
             return;
     }
     if (size >= 3) {
-        if (MP_TYPE(x + 2,y) != CST_GREEN
-            || MP_TYPE(x + 2,y + 1) != CST_GREEN
-            || MP_TYPE(x + 2,y + 2) != CST_GREEN
-            || MP_TYPE(x + 1,y + 2) != CST_GREEN
-            || MP_TYPE(x,y + 2) != CST_GREEN)
+        if (!GROUP_IS_BARE(MP_GROUP(x + 2,y))
+            || !GROUP_IS_BARE(MP_GROUP(x + 2,y + 1))
+            || !GROUP_IS_BARE(MP_GROUP(x + 2,y + 2))
+            || !GROUP_IS_BARE(MP_GROUP(x + 1,y + 2))
+            || !GROUP_IS_BARE(MP_GROUP(x,y + 2)))
             return;
     }
     if (size == 4) {
-        if (MP_TYPE(x + 3,y) != CST_GREEN
-            || MP_TYPE(x + 3,y + 1) != CST_GREEN
-            || MP_TYPE(x + 3,y + 2) != CST_GREEN
-            || MP_TYPE(x + 3,y + 3) != CST_GREEN
-            || MP_TYPE(x + 2,y + 3) != CST_GREEN
-            || MP_TYPE(x + 1,y + 3) != CST_GREEN
-            || MP_TYPE(x,y + 3) != CST_GREEN)
+        if (!GROUP_IS_BARE(MP_GROUP(x + 3,y))
+            || !GROUP_IS_BARE(MP_GROUP(x + 3,y + 1))
+            || !GROUP_IS_BARE(MP_GROUP(x + 3,y + 2))
+            || !GROUP_IS_BARE(MP_GROUP(x + 3,y + 3))
+            || !GROUP_IS_BARE(MP_GROUP(x + 2,y + 3))
+            || !GROUP_IS_BARE(MP_GROUP(x + 1,y + 3))
+            || !GROUP_IS_BARE(MP_GROUP(x,y + 3)))
             return;
     }
     
