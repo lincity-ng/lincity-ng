@@ -258,9 +258,11 @@ do_residence (int x, int y)
 	    p--;
 	    people_pool++;
 	}
-    } else if (people_pool > 0 && r > ((good + bad) * (RESIDENCE_PPM - 1) + bad)) {
-	p++;
-	people_pool--;
+    } else if (people_pool > 0
+            &&  (MP_INFO(x,y).flags & FLAG_FED) != 0  /* No newcomer gets in when there is starvation */
+            && r > ((good + bad) * (RESIDENCE_PPM - 1) + bad)) /* r > (rmax - good) */ {
+        p++;
+        people_pool--;
     }
     MP_INFO(x,y).population = p;
     MP_INFO(x,y).int_4 = brm;
