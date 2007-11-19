@@ -1,0 +1,7 @@
+* regression from 1.0.3 (dont know precisely when)
+  When tech is not high enough, trying to build a gayed item, just close the item tray,
+  and show a message in the console only.
+  1.0.3 behavior is to let the  item tray open, so info_bubble pop-up and shows the required tech.
+
+* can build a water well on tiles without water :-)
+ 

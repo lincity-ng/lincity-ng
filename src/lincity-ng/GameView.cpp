@@ -130,6 +130,7 @@ void GameView::parse(XmlReader& reader)
     stopThread = false;
     SDL_mutexP( mThreadRunning );
     loaderThread = SDL_CreateThread( gameViewThread, this );
+    SDL_mutexV( mThreadRunning );
    
     //GameView is resizable
     setFlags(FLAG_RESIZABLE);
@@ -757,7 +758,6 @@ void GameView::loadTextures()
    //preReadCityTexture( CST_FARM_O16,           "farm16.png" );
    
    // End of generated Code.
-   SDL_mutexV( mThreadRunning );
 }
 
 /*
