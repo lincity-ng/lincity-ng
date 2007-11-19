@@ -339,7 +339,19 @@ place_item (int x, int y, short type)
         break;
     } 
     case GROUP_WATERWELL:
-	numof_waterwell++;
+        if (use_waterwell) {
+            int has_ugw=0;
+            for (i=0;i<size;i++) 
+                for (j=0;j<size;j++) 
+                    has_ugw = has_ugw | HAS_UGWATER(x+i, y+j);
+            if (!has_ugw) {
+                ok_dial_box("warning.mes", BAD,
+                        _("You can't build a water well here: it is all desert."));
+                return -8;
+            } else {
+                numof_waterwell++;
+            }
+        } /* else ... is not possible */
         break;
     case GROUP_PARKLAND:
         if (use_waterwell)
