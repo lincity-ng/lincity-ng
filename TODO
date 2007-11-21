@@ -58,13 +58,11 @@ Programming
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution
- [H] Looks like watching electricity minimap uses power. Seems to be this way
-     in classic already. Minmap only shows if there is power in the area, not 
-     if there is enough of it.
  [L] "Dungeon Keeper"-like message queue
- [M] Integrate waterwell branch in main. Maybe as option so we get playtesters?
+ [?] waterwell as a runtime option ?
 
 -- Infrastructure/Deployment --
  [H] Setup an automatic backup script for the wiki!
  [L] Is it possible to automatically generate/maintain a ChangeLog file from svn
      commits?  (Nathan: http://tiefighter.et.tudelft.nl/~arthur/svn2cl/)
+     Yes:  $ svn log >Changelog_full
