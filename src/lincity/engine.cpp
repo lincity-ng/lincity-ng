@@ -582,7 +582,8 @@ clear_fire_health_and_cricket_cover (void)
 {
   int x, y, m;
   m = 0xffffffff - (FLAG_FIRE_COVER | FLAG_HEALTH_COVER
-		    | FLAG_CRICKET_COVER| FLAG_WATERWELL_COVER);
+		    | FLAG_CRICKET_COVER| FLAG_WATERWELL_COVER
+                    | FLAG_ASKED_FOR_POWER |FLAG_GOT_POWER );
   for (y = 0; y < WORLD_SIDE_LEN; y++)
     for (x = 0; x < WORLD_SIDE_LEN; x++)
       MP_INFO(x,y).flags &= m;

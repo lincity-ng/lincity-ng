@@ -295,6 +295,7 @@ get_power (int x, int y, int power, int block_industry)
   int xi, yi;
   int grid_tmp; /* for simplicity */
 
+  MP_INFO(x,y).flags |= FLAG_ASKED_FOR_POWER;
   if (numof_substations == 0)
     return(0);
 
@@ -319,6 +320,7 @@ get_power (int x, int y, int power, int block_industry)
 	if (grid[grid_tmp]->total_power >= power) {
 	  grid[grid_tmp]->total_power -= power;
 	  MP_INFO(xi,yi).int_4 += power; // local demand in substation xi yi
+          MP_INFO(x,y).flags |= FLAG_GOT_POWER;
 	  return 1;
 	}
 	

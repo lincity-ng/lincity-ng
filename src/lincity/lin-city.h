@@ -173,6 +173,8 @@ XXX: Then it shouldn't be here
 #define FLAG_POWER_LINE         (0x8000000)
 #define FLAG_WATERWELL_COVER    (0x10000000)
 #define FLAG_HAS_UNDERGROUND_WATER (0x20000000)
+#define FLAG_ASKED_FOR_POWER       (0x40000000)
+#define FLAG_GOT_POWER             (0x80000000) /* 2^31 = last flag*/
 
 /* XXX: It would appear that the following T_ are used exactly two times each,
    in market.c.  */

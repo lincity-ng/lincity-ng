@@ -623,6 +623,7 @@ Color MiniMap::getColor(int x,int y) const
         xx = MP_INFO(x,y).int_1;
         yy = MP_INFO(x,y).int_2;
     }
+    /* FIXME: ugly coding: since here we should use xx, yy and not x,y */
 
     int flags=MP_INFO(xx,yy).flags;
 
@@ -718,17 +719,26 @@ Color MiniMap::getColor(int x,int y) const
         }
         case POWER: {
             Color mc;
-            if (get_power (xx, yy, 0, 1) != 0) {
-                mc=Color(0,0xFF,0);
-            } else if (get_power (xx, yy, 0, 0) != 0) {
-                mc=Color(0,0x7F,0);
-            } else {
-                mc=Color(0xFF,0xFF,0xFF);
+            /* default color = grey */
+            mc=Color(0xFF,0xFF,0xFF);
+            if (MP_INFO(xx, yy).flags & FLAG_ASKED_FOR_POWER) {
+                if ( (MP_INFO(xx, yy).flags & FLAG_GOT_POWER) != 0) {
+                    /* Windmill powered */
+                    if (get_power (xx, yy, 0, 0) != 0)
+                        mc=Color(0,0x7F,0);
+                    /* Normal powered */
+                    if (get_power (xx, yy, 0, 1) != 0)
+                        mc=Color(0,0xFF,0);
+                } else {
+                    /* did not get power */
+                    /* !!! don't call get power here or the flags will be set :-) */
+                        mc=Color(0xFF,0,0); // (red)
+                }
             }
             if (MP_GROUP(xx,yy) == GROUP_POWER_LINE)
                 mc=Color(0xFF,0xFF,0); //yellow
 
-            mc=light(mc,brightness(getColorNormal(x,y)));
+            mc=light( mc,(0xAA + brightness(getColorNormal(xx,yy)))/2 );
             return mc;
         }
         case TRAFFIC: {
