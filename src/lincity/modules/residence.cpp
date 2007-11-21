@@ -19,6 +19,10 @@ do_residence (int x, int y)
       // int 3 is the real time for the next icon update
       // int_4 is the birth rate modifier.
       // int_5 is the death rate modifier.
+      // int_6 unused
+      // int_7 unused Could be FLAG_HAD_POWER which is specific to residences, and will free 1 flag.
+      //                btw, FLAG_POWERED and FLAG_GOT_POWER means the same thing. => free 1 more flag.
+      //
       */
     int p;                           /* population */
     int bad = 35, good = 30;         /* (un)desirability of living here */
