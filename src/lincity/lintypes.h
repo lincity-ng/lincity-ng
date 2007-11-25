@@ -17,32 +17,30 @@
 #define NUM_OF_GROUPS    47
 #define GROUP_NAME_LEN   20
 
-struct GROUP
-{
-    const char* name;      /* name of group */
-    unsigned short        no_credit;   /* TRUE if need credit to build */
-    unsigned short        group;       /* This is redundant: it must match
-					  the index into the table */
-    unsigned short        size;
-    int   colour;         /* summary map colour */
-    int   cost_mul;       /* group cost multiplier */
-    int   bul_cost;       /* group bulldoze cost */
-    int   fire_chance;    /* probability of fire */
-    int   cost;           /* group cost */
-    int   tech;           /* group cost */
+struct GROUP {
+    const char *name;           /* name of group */
+    unsigned short no_credit;   /* TRUE if need credit to build */
+    unsigned short group;       /* This is redundant: it must match
+                                   the index into the table */
+    unsigned short size;
+    int colour;                 /* summary map colour */
+    int cost_mul;               /* group cost multiplier */
+    int bul_cost;               /* group bulldoze cost */
+    int fire_chance;            /* probability of fire */
+    int cost;                   /* group cost */
+    int tech;                   /* group cost */
 };
 
-struct TYPE
-{
-    int group;          /* What group does this type belong to? */
-    char* graphic;      /* Bitmap of the graphic */
+struct TYPE {
+    int group;                  /* What group does this type belong to? */
+    char *graphic;              /* Bitmap of the graphic */
 };
 
-int get_group_of_type (short selected_type);
-void set_map_groups (void);
-int get_type_cost (short type);
-int get_group_cost (short group);
-void get_type_name (short type, char * s);
+int get_group_of_type(short selected_type);
+void set_map_groups(void);
+int get_type_cost(short type);
+int get_group_cost(short group);
+void get_type_name(short type, char *s);
 
 extern struct GROUP main_groups[NUM_OF_GROUPS];
 extern struct TYPE main_types[NUM_OF_TYPES];

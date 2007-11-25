@@ -7,7 +7,7 @@
 #ifndef __organic_farm_h__
 #define __organic_farm_h__
 
-void do_organic_farm (int x, int y);
+void do_organic_farm(int x, int y);
 void mps_organic_farm(int x, int y);
 
 #endif /* __organic_farm_h__ */

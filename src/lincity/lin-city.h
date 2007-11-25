@@ -168,13 +168,13 @@ XXX: Then it shouldn't be here
 #define FLAG_CRICKET_COVER      (0x400000)
 #define FLAG_IS_RIVER           (0x800000)
 #define FLAG_HAD_POWER          (0x1000000)
-#define FLAG_MULTI_TRANSPORT    (0x2000000)   /* Is it a multitransport? */ /* AL1: unused in NG 1.1 */
-#define FLAG_MULTI_TRANS_PREV   (0x4000000)	  /* AL1: unused in NG 1.1 */
+#define FLAG_MULTI_TRANSPORT    (0x2000000)   /* Is it a multitransport? */     /* AL1: unused in NG 1.1 */
+#define FLAG_MULTI_TRANS_PREV   (0x4000000)     /* AL1: unused in NG 1.1 */
 #define FLAG_POWER_LINE         (0x8000000)
 #define FLAG_WATERWELL_COVER    (0x10000000)
 #define FLAG_HAS_UNDERGROUND_WATER (0x20000000)
 #define FLAG_ASKED_FOR_POWER       (0x40000000)
-#define FLAG_GOT_POWER             (0x80000000) /* 2^31 = last flag*/
+#define FLAG_GOT_POWER             (0x80000000) /* 2^31 = last flag */
 
 /* XXX: It would appear that the following T_ are used exactly two times each,
    in market.c.  */
@@ -225,8 +225,8 @@ XXX: Then it shouldn't be here
 #endif
 #define RESULTS_FILENAME "results"
 
-#define MAX_ICON_LEN 4096	/* AL1 unused in NG */
-#define WORLD_SIDE_LEN 100	/* Minimap size is hardcoded 200 pixel => some job to do ...*/
+#define MAX_ICON_LEN 4096       /* AL1 unused in NG */
+#define WORLD_SIDE_LEN 100      /* Minimap size is hardcoded 200 pixel => some job to do ... */
 #define NUMOF_DAYS_IN_MONTH 100
 #define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
 #define FAST_TIME_FOR_YEAR 1
@@ -292,7 +292,6 @@ XXX: Then it shouldn't be here
 #define INDUSTRY_L_POL_PER_GOOD 0.05
 #define INDUSTRY_L_POLLUTION    10
 
-
 #define MAX_ORE_AT_INDUSTRY_H 10000
 #define MAX_COAL_AT_INDUSTRY_H 1000
 #define MAX_MADE_AT_INDUSTRY_H MAX_ORE_AT_INDUSTRY_H/16
@@ -309,7 +308,7 @@ XXX: Then it shouldn't be here
 #define ROAD_POLLUTION          1
 #define DAYS_PER_ROAD_POLLUTION 20
 #define UNNAT_DEATHS_COST       500
-#define POL_DIV                 64	/* GCS -- from engine.c */
+#define POL_DIV                 64      /* GCS -- from engine.c */
 
 #define FINANCE_X 91
 #define FINANCE_W 120
@@ -766,7 +765,7 @@ XXX: Then it shouldn't be here
 #define GROUP_MARKET_FIREC 80
 
 #define GROUP_TRACK	   7
-#define GROUP_TRACK_COLOUR 32	/* 32 is a brown */
+#define GROUP_TRACK_COLOUR 32   /* 32 is a brown */
 #define GROUP_TRACK_COST   1
 #define GROUP_TRACK_COST_MUL 25
 #define GROUP_TRACK_BUL_COST   10
@@ -855,7 +854,7 @@ XXX: Then it shouldn't be here
 #define GROUP_PORT_FIREC 50
 
 #define GROUP_INDUSTRY_H   18
-#define GROUP_INDUSTRY_H_COLOUR (7)	/* colour 7 is an orange, sort of */
+#define GROUP_INDUSTRY_H_COLOUR (7)     /* colour 7 is an orange, sort of */
 #define GROUP_INDUSTRY_H_COST 50000
 #define GROUP_INDUSTRY_H_COST_MUL 20
 #define GROUP_INDUSTRY_H_BUL_COST 70000
@@ -886,7 +885,7 @@ XXX: Then it shouldn't be here
 #define GROUP_WATER_COST_MUL 2
 #define GROUP_WATER_BUL_COST      1000000
 #define GROUP_WATER_TECH      0
-#define GROUP_RIVER (GROUP_WATER)	/* oops -- GCS: Why oops? */
+#define GROUP_RIVER (GROUP_WATER)       /* oops -- GCS: Why oops? */
 #define GROUP_WATER_FIREC 0
 
 #define GROUP_HEALTH       22
@@ -972,18 +971,18 @@ XXX: Then it shouldn't be here
 
 #define GROUP_BURNT        32
 #define GROUP_BURNT_COLOUR    (red(30))
-#define GROUP_BURNT_COST   0        /* Unused */
-#define GROUP_BURNT_COST_MUL   1    /* Unused */
+#define GROUP_BURNT_COST   0    /* Unused */
+#define GROUP_BURNT_COST_MUL   1        /* Unused */
 #define GROUP_BURNT_BUL_COST  1000
-#define GROUP_BURNT_TECH   0        /* Unused */
+#define GROUP_BURNT_TECH   0    /* Unused */
 #define GROUP_BURNT_FIREC  0
 
 #define GROUP_SHANTY        33
 #define GROUP_SHANTY_COLOUR    (red(22))
-#define GROUP_SHANTY_COST   0        /* Unused */
-#define GROUP_SHANTY_COST_MUL   1    /* Unused */
+#define GROUP_SHANTY_COST   0   /* Unused */
+#define GROUP_SHANTY_COST_MUL   1       /* Unused */
 #define GROUP_SHANTY_BUL_COST  100000
-#define GROUP_SHANTY_TECH   0        /* Unused */
+#define GROUP_SHANTY_TECH   0   /* Unused */
 #define GROUP_SHANTY_FIREC     25
 
 #define SHANTY_MIN_PP     150
@@ -998,19 +997,19 @@ XXX: Then it shouldn't be here
 
 #define GROUP_FIRE        34
 #define GROUP_FIRE_COLOUR    (red(30))
-#define GROUP_FIRE_COST   0        /* Unused */
-#define GROUP_FIRE_COST_MUL   1    /* Unused */
+#define GROUP_FIRE_COST   0     /* Unused */
+#define GROUP_FIRE_COST_MUL   1 /* Unused */
 #define GROUP_FIRE_BUL_COST  1000
-#define GROUP_FIRE_TECH   0        /* Unused */
+#define GROUP_FIRE_TECH   0     /* Unused */
 #define GROUP_FIRE_FIREC  0
 
 #define GROUP_USED        35
-#define GROUP_USED_COLOUR (green(12))  /* Unused */
-#define GROUP_USED_COST   0            /* Unused */
-#define GROUP_USED_COST_MUL  1         /* Unused */
-#define GROUP_USED_BUL_COST  0         /* Unused */
-#define GROUP_USED_TECH   0            /* Unused */
-#define GROUP_USED_FIREC  0            /* Unused */
+#define GROUP_USED_COLOUR (green(12))   /* Unused */
+#define GROUP_USED_COST   0     /* Unused */
+#define GROUP_USED_COST_MUL  1  /* Unused */
+#define GROUP_USED_BUL_COST  0  /* Unused */
+#define GROUP_USED_TECH   0     /* Unused */
+#define GROUP_USED_FIREC  0     /* Unused */
 
 #define GROUP_RESIDENCE_ML 36
 #define GROUP_RESIDENCE_ML_COLOUR (cyan(24))
@@ -1033,7 +1032,7 @@ XXX: Then it shouldn't be here
 #define GROUP_RESIDENCE_LH_COST 800
 #define GROUP_RESIDENCE_LH_COST_MUL 25
 #define GROUP_RESIDENCE_LH_BUL_COST 1000
-#define GROUP_RESIDENCE_LH_TECH 0          /* ?? */
+#define GROUP_RESIDENCE_LH_TECH 0       /* ?? */
 #define GROUP_RESIDENCE_LH_FIREC 75
 
 #define GROUP_RESIDENCE_MH 39
@@ -1060,7 +1059,7 @@ XXX: Then it shouldn't be here
 #define GROUP_WATERWELL_TECH      0
 #define GROUP_WATERWELL_FIREC 0
 
-#define GROUP_DESERT 	  42 
+#define GROUP_DESERT 	  42
 #define GROUP_DESERT_COLOUR  (yellow(18))
 #define GROUP_DESERT_COST    0
 #define GROUP_DESERT_COST_MUL 1
@@ -1091,7 +1090,6 @@ XXX: Then it shouldn't be here
 #define GROUP_TREE3_BUL_COST 1
 #define GROUP_TREE3_TECH    0
 #define GROUP_TREE3_FIREC   0
-
 
 #define GROUP_IS_TRANSPORT(group) \
             ((group == GROUP_TRACK) || \
@@ -1126,197 +1124,191 @@ XXX: Then it shouldn't be here
 #define cyan(x) (192 + x)
 #define white(x) (224 + x)
 
-
-struct map_point_info_struct
-{
-  int population;
-  int flags;
-  unsigned short coal_reserve;
-  unsigned short ore_reserve;
-  int int_1;
-  int int_2;
-  int int_3;
-  int int_4;
-  int int_5;
-  int int_6;
-  int int_7;
+struct map_point_info_struct {
+    int population;
+    int flags;
+    unsigned short coal_reserve;
+    unsigned short ore_reserve;
+    int int_1;
+    int int_2;
+    int int_3;
+    int int_4;
+    int int_5;
+    int int_6;
+    int int_7;
 };
 typedef struct map_point_info_struct Map_Point_Info;
 
-
 /* Set these flags to true when they need to be updated on the screen */
-struct update_scoreboard_struct
-{
-  int mps;
-  int mini;
-  int date;
-  int money;
-  int monthly;
-  int yearly_1;
-  int yearly_2;
-  long int message_area;
+struct update_scoreboard_struct {
+    int mps;
+    int mini;
+    int date;
+    int money;
+    int monthly;
+    int yearly_1;
+    int yearly_2;
+    long int message_area;
 };
 typedef struct update_scoreboard_struct Update_Scoreboard;
-
 
 /*
   main functions
   **************
 */
-extern int lincity_main (int, char **);
-extern void client_main_loop (void);
-extern void do_error (const char *);
-extern void do_save_city (void);
-extern void remove_scene (char *);
-extern void save_city (char *);
-extern void do_load_city (void);
-extern void load_opening_city (char *);
-extern void load_city (char *);
-extern void reset_animation_times (void);
-extern void coal_reserve_setup (void);
-extern void ore_reserve_setup (void);
-extern void setup_river (void);
-extern void setup_river2 (int, int, int);
-extern void check_savedir (void);
-extern void make_savedir (void);
-extern void draw_save_dir (int);
-extern void input_save_filename (char *);
-extern void load_start_image (void);
-extern void start_image_text (void);
-extern void si_scroll_text (void);
-extern char si_next_char (FILE *);
-extern void get_real_time (void);
-extern void debug_writeval (int);
-extern int cheat (void);
-extern void print_cheat (void);
-extern void unprint_cheat (void);
-extern void order_select_buttons (void);
-extern void lincityrc (void);
-extern void check_for_old_save_dir (void);
-extern int count_groups (int);
-extern int compile_results (void);
-extern void print_results (void);
-extern void mail_results (void);
-extern void window_results (void);
-extern void init_path_strings (void);
-extern void lc_usleep (unsigned long);
-extern void dump_tcore (void);
+extern int lincity_main(int, char **);
+extern void client_main_loop(void);
+extern void do_error(const char *);
+extern void do_save_city(void);
+extern void remove_scene(char *);
+extern void save_city(char *);
+extern void do_load_city(void);
+extern void load_opening_city(char *);
+extern void load_city(char *);
+extern void reset_animation_times(void);
+extern void coal_reserve_setup(void);
+extern void ore_reserve_setup(void);
+extern void setup_river(void);
+extern void setup_river2(int, int, int);
+extern void check_savedir(void);
+extern void make_savedir(void);
+extern void draw_save_dir(int);
+extern void input_save_filename(char *);
+extern void load_start_image(void);
+extern void start_image_text(void);
+extern void si_scroll_text(void);
+extern char si_next_char(FILE *);
+extern void get_real_time(void);
+extern void debug_writeval(int);
+extern int cheat(void);
+extern void print_cheat(void);
+extern void unprint_cheat(void);
+extern void order_select_buttons(void);
+extern void lincityrc(void);
+extern void check_for_old_save_dir(void);
+extern int count_groups(int);
+extern int compile_results(void);
+extern void print_results(void);
+extern void mail_results(void);
+extern void window_results(void);
+extern void init_path_strings(void);
+extern void lc_usleep(unsigned long);
+extern void dump_tcore(void);
 #ifndef LC_X11
-extern void parse_args (int, char **);
+extern void parse_args(int, char **);
 #endif
-extern void sustainability_test (void);
-extern int sust_fire_cover (void);
-extern void check_endian (void);
-extern void eswap32 (int *);
-extern void eswap16 (unsigned short *);
-extern void malloc_failure (void);
+extern void sustainability_test(void);
+extern int sust_fire_cover(void);
+extern void check_endian(void);
+extern void eswap32(int *);
+extern void eswap16(unsigned short *);
+extern void malloc_failure(void);
 
 /*
   fileutil
   ********
 */
-void malloc_failure (void);
+void malloc_failure(void);
 //FILE* fopen_read_gzipped (char* fn);
 //void fclose_read_gzipped (FILE* fp);
-void verify_package (void);
+void verify_package(void);
 
 /*
   ldsvgui
   *******
 */
-void load_opening_city (char *s);
-void check_savedir (void);
+void load_opening_city(char *s);
+void check_savedir(void);
 
 /*
   opening
   *******
 */
-void load_start_image (void);
-
+void load_start_image(void);
 
 /*
   type init functions
   *******************
 */
-extern void init_types (void);
-extern void init_type_graphics (void);
-void init_costs (void);
-int get_selected_type_cost (short selected_type);
-extern char *load_graphic (char *);
+extern void init_types(void);
+extern void init_type_graphics(void);
+void init_costs(void);
+int get_selected_type_cost(short selected_type);
+extern char *load_graphic(char *);
 
 /*
   screen functions
   ****************
 */
 #ifdef CS_PROFILE
-extern void FPgl_write (int, int, char *);
-extern void FPgl_getbox (int, int, int, int, void *);
-extern void FPgl_putbox (int, int, int, int, void *);
-extern void FPgl_fillbox (int, int, int, int, int);
-extern void FPgl_hline (int, int, int, int);
-extern void FPgl_line (int, int, int, int, int);
-extern void FPgl_setpixel (int, int, int);
+extern void FPgl_write(int, int, char *);
+extern void FPgl_getbox(int, int, int, int, void *);
+extern void FPgl_putbox(int, int, int, int, void *);
+extern void FPgl_fillbox(int, int, int, int, int);
+extern void FPgl_hline(int, int, int, int);
+extern void FPgl_line(int, int, int, int, int);
+extern void FPgl_setpixel(int, int, int);
 #endif
-extern void check_power_line_graphics (void);
-extern void check_water_graphics (void);
-extern void check_track_graphics (void);
-extern void check_rail_graphics (void);
-extern void check_road_graphics (void);
-extern int select_power_line_type (int, int, int, int);
-extern int select_water_type (int, int, int, int);
-extern int select_track_type (int, int, int, int);
-extern int select_rail_type (int, int, int, int);
-extern int select_road_type (int, int, int, int);
-extern void update_select_buttons (void);
-extern void draw_main_window_box (int);
-extern void draw_select_button_graphic (int, char *);
-extern void setcustompalette (void);
-extern void clip_main_window (void);
-extern void unclip_main_window (void);
-extern void initfont (void);
-extern void load_scroll_buttons (void);
-extern void draw_scroll_buttons (void);
-extern void update_mini_screen (void);
-extern void draw_mini_screen (void);
-extern void draw_big_mini_screen (void);
-extern void draw_mini_screen_pollution (void);
-extern void draw_mini_screen_fire_cover (void);
-extern void draw_mini_screen_cricket_cover (void);
-extern void draw_mini_screen_health_cover (void);
-extern void draw_mini_screen_ub40 (void);
-extern void draw_mini_screen_starve (void);
-extern void draw_mini_screen_coal (void);
-extern void draw_mini_screen_power (void);
-extern void draw_mini_screen_ocost (void);
-extern void draw_mini_screen_port (void);
-extern void draw_mini_screen_cursor (void);
-extern void print_stats (void);
-extern void print_total_money (void);
-int ask_launch_rocket_now (int x, int y);
-void print_date (void);
-extern void draw_market_cb (void);
-extern void clicked_market_cb (int, int);
-extern void close_market_cb (void);
-extern void draw_port_cb (void);
-extern void clicked_port_cb (int, int);
-extern void close_port_cb (void);
-extern int yn_dial_box (const char *, const char *, const char *, const char *);
-extern void ok_dial_box (const char *, int, const char *);
-extern int inv_sbut (int);
-extern void call_select_change_up (int);
-extern void beg_space_pad (const char *, int);
-extern void draw_up_pbar (int, int, int, int);
-extern void draw_down_pbar (int, int, int, int);
-extern void do_pbar_population (int);
-extern void do_pbar_tech (int);
-extern void do_pbar_food (int);
-extern void do_pbar_jobs (int);
-extern void do_pbar_coal (int);
-extern void do_pbar_goods (int);
-extern void do_pbar_ore (int);
-extern void do_pbar_steel (int);
-extern void do_pbar_money (int);
-extern void prog_box (const char *, int);
+extern void check_power_line_graphics(void);
+extern void check_water_graphics(void);
+extern void check_track_graphics(void);
+extern void check_rail_graphics(void);
+extern void check_road_graphics(void);
+extern int select_power_line_type(int, int, int, int);
+extern int select_water_type(int, int, int, int);
+extern int select_track_type(int, int, int, int);
+extern int select_rail_type(int, int, int, int);
+extern int select_road_type(int, int, int, int);
+extern void update_select_buttons(void);
+extern void draw_main_window_box(int);
+extern void draw_select_button_graphic(int, char *);
+extern void setcustompalette(void);
+extern void clip_main_window(void);
+extern void unclip_main_window(void);
+extern void initfont(void);
+extern void load_scroll_buttons(void);
+extern void draw_scroll_buttons(void);
+extern void update_mini_screen(void);
+extern void draw_mini_screen(void);
+extern void draw_big_mini_screen(void);
+extern void draw_mini_screen_pollution(void);
+extern void draw_mini_screen_fire_cover(void);
+extern void draw_mini_screen_cricket_cover(void);
+extern void draw_mini_screen_health_cover(void);
+extern void draw_mini_screen_ub40(void);
+extern void draw_mini_screen_starve(void);
+extern void draw_mini_screen_coal(void);
+extern void draw_mini_screen_power(void);
+extern void draw_mini_screen_ocost(void);
+extern void draw_mini_screen_port(void);
+extern void draw_mini_screen_cursor(void);
+extern void print_stats(void);
+extern void print_total_money(void);
+int ask_launch_rocket_now(int x, int y);
+void print_date(void);
+extern void draw_market_cb(void);
+extern void clicked_market_cb(int, int);
+extern void close_market_cb(void);
+extern void draw_port_cb(void);
+extern void clicked_port_cb(int, int);
+extern void close_port_cb(void);
+extern int yn_dial_box(const char *, const char *, const char *, const char *);
+extern void ok_dial_box(const char *, int, const char *);
+extern int inv_sbut(int);
+extern void call_select_change_up(int);
+extern void beg_space_pad(const char *, int);
+extern void draw_up_pbar(int, int, int, int);
+extern void draw_down_pbar(int, int, int, int);
+extern void do_pbar_population(int);
+extern void do_pbar_tech(int);
+extern void do_pbar_food(int);
+extern void do_pbar_jobs(int);
+extern void do_pbar_coal(int);
+extern void do_pbar_goods(int);
+extern void do_pbar_ore(int);
+extern void do_pbar_steel(int);
+extern void do_pbar_money(int);
+extern void prog_box(const char *, int);
 /*
   mouse functions -- are now in mouse.h, where they should be!
   ***************
@@ -1326,134 +1318,134 @@ extern void prog_box (const char *, int);
   engine functions
   ****************
 */
-void initialize_tax_rates (void);
-void set_mappoint (int x, int y, short selected_type);
-void set_mappoint_used (int, int, int, int);
-int no_credit_build (int selected_type);
-void set_mappoint_ints (int fromx, int fromy, int x, int y);
-void new_city (int* originx, int* originy, int random_village);
-extern void engine_do_time_step (void);
-extern void do_residence (int, int);
-extern void debug_print (int);
-extern void do_power_source (int, int);
-extern void do_power_source_coal (int, int);
-extern void do_industry_l (int, int);
-extern void do_industry_h (int, int);
-extern void do_power_substation (int, int);
-extern int get_power (int, int, int, int);
-extern int add_a_substation (int, int);
-extern void remove_a_substation (int, int);
-extern void do_organic_farm (int, int);
-void init_mappoint_array (void);
-extern void shuffle_mappoint_array (void);
-extern void shuffle_substations (void);
-extern void do_coalmine (int, int);
-extern void do_oremine (int, int);
-extern void do_commune (int, int);
-extern void do_port (int, int);
+void initialize_tax_rates(void);
+void set_mappoint(int x, int y, short selected_type);
+void set_mappoint_used(int, int, int, int);
+int no_credit_build(int selected_type);
+void set_mappoint_ints(int fromx, int fromy, int x, int y);
+void new_city(int *originx, int *originy, int random_village);
+extern void engine_do_time_step(void);
+extern void do_residence(int, int);
+extern void debug_print(int);
+extern void do_power_source(int, int);
+extern void do_power_source_coal(int, int);
+extern void do_industry_l(int, int);
+extern void do_industry_h(int, int);
+extern void do_power_substation(int, int);
+extern int get_power(int, int, int, int);
+extern int add_a_substation(int, int);
+extern void remove_a_substation(int, int);
+extern void do_organic_farm(int, int);
+void init_mappoint_array(void);
+extern void shuffle_mappoint_array(void);
+extern void shuffle_substations(void);
+extern void do_coalmine(int, int);
+extern void do_oremine(int, int);
+extern void do_commune(int, int);
+extern void do_port(int, int);
 
-extern void do_pollution (void);
-extern void do_parkland (int, int);
-extern void do_university (int, int);
-extern void do_recycle (int, int);
-extern void do_health_centre (int, int);
-extern void do_rocket_pad (int, int);
-extern void launch_rocket (int x, int y);
-extern void do_windmill (int, int);
-extern void do_monument (int, int);
-extern void do_school (int, int);
-extern void do_blacksmith (int, int);
-extern void do_mill (int, int);
-extern void do_pottery (int, int);
-extern void do_firestation (int, int);
-extern void do_cricket (int, int);
-extern void clear_fire_health_and_cricket_cover (void);
-extern void do_fire_health_and_cricket_cover (void);
-extern void do_fire_cover (int, int);
-extern void do_health_cover (int, int);
-extern void do_cricket_cover (int, int);
-extern void do_random_fire (int, int, int);
-extern void do_fire (int, int);
-extern int spiral_find_group (int, int, int);
-extern int spiral_find_2x2 (int, int);
-extern void add_a_shanty (void);
-extern void remove_a_shanty (int, int);
-extern void update_shanty (void);
-extern void do_shanty (int, int);
-extern void do_tip (int, int);
-extern void update_tech_dep (int, int);
-extern void do_waterwell_cover (int, int);
+extern void do_pollution(void);
+extern void do_parkland(int, int);
+extern void do_university(int, int);
+extern void do_recycle(int, int);
+extern void do_health_centre(int, int);
+extern void do_rocket_pad(int, int);
+extern void launch_rocket(int x, int y);
+extern void do_windmill(int, int);
+extern void do_monument(int, int);
+extern void do_school(int, int);
+extern void do_blacksmith(int, int);
+extern void do_mill(int, int);
+extern void do_pottery(int, int);
+extern void do_firestation(int, int);
+extern void do_cricket(int, int);
+extern void clear_fire_health_and_cricket_cover(void);
+extern void do_fire_health_and_cricket_cover(void);
+extern void do_fire_cover(int, int);
+extern void do_health_cover(int, int);
+extern void do_cricket_cover(int, int);
+extern void do_random_fire(int, int, int);
+extern void do_fire(int, int);
+extern int spiral_find_group(int, int, int);
+extern int spiral_find_2x2(int, int);
+extern void add_a_shanty(void);
+extern void remove_a_shanty(int, int);
+extern void update_shanty(void);
+extern void do_shanty(int, int);
+extern void do_tip(int, int);
+extern void update_tech_dep(int, int);
+extern void do_waterwell_cover(int, int);
 /*
    transport functions
    *******************
 */
-void connect_transport (int originx, int originy, int w, int h);
-extern void do_power_line (int, int);
-extern void do_track (int, int);
-extern void do_rail (int, int);
-extern void do_road (int, int);
-extern void general_transport (Map_Point_Info *, int *, int, int *);
+void connect_transport(int originx, int originy, int w, int h);
+extern void do_power_line(int, int);
+extern void do_track(int, int);
+extern void do_rail(int, int);
+extern void do_road(int, int);
+extern void general_transport(Map_Point_Info *, int *, int, int *);
 
 /*
    market functions
    ****************
 */
-extern int get_food (int, int, int);
-extern int put_food (int, int, int);
-extern int get_jobs (int, int, int);
-extern int put_jobs (int, int, int);
-extern int get_goods (int, int, int);
-extern int put_goods (int, int, int);
-extern int get_ore (int, int, int);
-extern int put_ore (int, int, int);
-extern int get_coal (int, int, int);
-extern int put_coal (int, int, int);
-extern int add_a_market (int, int);
-extern void remove_a_market (int, int);
-extern void do_market (int, int);
-extern void shuffle_markets (void);
-extern int deal_with_transport (int, int, int, int);
-extern int get_steel (int, int, int);
-extern int put_steel (int, int, int);
-extern int get_waste (int, int, int);
-extern int put_waste (int, int, int);
-extern int get_stuff (int, int, int, int);
-extern int get_stuff2 (Map_Point_Info *, int, int);
-extern int get_stuff3 (Map_Point_Info *, int, int);
-extern int get_stuff4 (Map_Point_Info *, int, int);
-extern int put_stuff (int, int, int, int);
-extern int put_stuff2 (Map_Point_Info *, short *, int, int);
-extern int put_stuff3 (Map_Point_Info *, short *, int, int);
-extern int put_stuff4 (Map_Point_Info *, short *, int, int);
+extern int get_food(int, int, int);
+extern int put_food(int, int, int);
+extern int get_jobs(int, int, int);
+extern int put_jobs(int, int, int);
+extern int get_goods(int, int, int);
+extern int put_goods(int, int, int);
+extern int get_ore(int, int, int);
+extern int put_ore(int, int, int);
+extern int get_coal(int, int, int);
+extern int put_coal(int, int, int);
+extern int add_a_market(int, int);
+extern void remove_a_market(int, int);
+extern void do_market(int, int);
+extern void shuffle_markets(void);
+extern int deal_with_transport(int, int, int, int);
+extern int get_steel(int, int, int);
+extern int put_steel(int, int, int);
+extern int get_waste(int, int, int);
+extern int put_waste(int, int, int);
+extern int get_stuff(int, int, int, int);
+extern int get_stuff2(Map_Point_Info *, int, int);
+extern int get_stuff3(Map_Point_Info *, int, int);
+extern int get_stuff4(Map_Point_Info *, int, int);
+extern int put_stuff(int, int, int, int);
+extern int put_stuff2(Map_Point_Info *, short *, int, int);
+extern int put_stuff3(Map_Point_Info *, short *, int, int);
+extern int put_stuff4(Map_Point_Info *, short *, int, int);
 
 #if defined SDL
 #warning "SDL defined"
 #include <SDL/SDL.h>
 
-extern void sdl_gl_write (int, int, char *);
-extern void sdl_gl_getbox (int, int, int, int, void *);
-extern void sdl_gl_putbox (int, int, int, int, void *);
-extern void sdl_gl_fillbox (int, int, int, int, Uint32 col);
+extern void sdl_gl_write(int, int, char *);
+extern void sdl_gl_getbox(int, int, int, int, void *);
+extern void sdl_gl_putbox(int, int, int, int, void *);
+extern void sdl_gl_fillbox(int, int, int, int, Uint32 col);
 
-extern void sdl_gl_hline (int x1, int y1, int x2, Uint32 col);
-extern void sdl_gl_vline (int x1, int y1, int y2, Uint32 col);
-extern void sdl_gl_line (int x1, int y1, int x2, int y2, Uint32 col);
+extern void sdl_gl_hline(int x1, int y1, int x2, Uint32 col);
+extern void sdl_gl_vline(int x1, int y1, int y2, Uint32 col);
+extern void sdl_gl_line(int x1, int y1, int x2, int y2, Uint32 col);
 
-extern void sdl_gl_setpixel (int x, int y, Uint32 col);
-extern void sdl_gl_setfontcolors (Uint32 bg, Uint32 fg);
-extern void sdl_gl_setfont (int, int, void *);
-extern void sdl_gl_enableclipping (void);
-extern void sdl_gl_setclippingwindow (int, int, int, int);
-extern void sdl_gl_disableclipping (void);
+extern void sdl_gl_setpixel(int x, int y, Uint32 col);
+extern void sdl_gl_setfontcolors(Uint32 bg, Uint32 fg);
+extern void sdl_gl_setfont(int, int, void *);
+extern void sdl_gl_enableclipping(void);
+extern void sdl_gl_setclippingwindow(int, int, int, int);
+extern void sdl_gl_disableclipping(void);
 
-extern void sdl_blit (int x, int y, int w, int h, SDL_Surface *);
+extern void sdl_blit(int x, int y, int w, int h, SDL_Surface *);
 
 /* Wait for a key or some other event */
-extern int sdl_wait_for_key (void);
-extern int sdl_update_wait_for_key (void);
+extern int sdl_wait_for_key(void);
+extern int sdl_update_wait_for_key(void);
 
-extern int sdl_check_key (void);
-extern int sdl_update_check_key (void);
+extern int sdl_check_key(void);
+extern int sdl_update_check_key(void);
 
 #define sdl_map_rgb(r,g,b) SDL_MapRGB(display.surface->format, r, g, b)
 
@@ -1461,7 +1453,7 @@ extern int sdl_update_check_key (void);
 
 #define sdl_flip() SDL_Flip(display.surface)
 
-extern void sdl_clear (Uint32 col);
+extern void sdl_clear(Uint32 col);
 
 #define Fgl_write(a,b,c) sdl_gl_write(a,b,c)
 #define Fgl_getbox(a,b,c,d,e) sdl_gl_getbox(a,b,c,d,e)
@@ -1476,50 +1468,48 @@ extern void sdl_clear (Uint32 col);
 #define Fgl_setclippingwindow(a,b,c,d) sdl_gl_setclippingwindow(a,b,c,d)
 #define Fgl_disableclipping() sdl_gl_disableclipping()
 
-
-
 #elif defined LC_X11
 /* ----- X11 functions ----- */
-extern void Fgl_write (int, int, const char *);
-extern void open_write (int, int, const char *);
-extern void Fgl_getbox (int, int, int, int, void *);
-extern void Fgl_putbox (int, int, int, int, void *);
-extern void Fgl_fillbox (int, int, int, int, int);
-extern void Fgl_hline (int, int, int, int);
-extern void Fgl_line (int, int, int, int, int);
-extern void Fgl_setpixel (int, int, int);
-extern void Fgl_setfontcolors (int, int);
-extern void Fgl_setfont (int, int, void*);
-extern void Fgl_enableclipping (void);
-extern void Fgl_setclippingwindow (int, int, int, int);
-extern void Fgl_disableclipping (void);
+extern void Fgl_write(int, int, const char *);
+extern void open_write(int, int, const char *);
+extern void Fgl_getbox(int, int, int, int, void *);
+extern void Fgl_putbox(int, int, int, int, void *);
+extern void Fgl_fillbox(int, int, int, int, int);
+extern void Fgl_hline(int, int, int, int);
+extern void Fgl_line(int, int, int, int, int);
+extern void Fgl_setpixel(int, int, int);
+extern void Fgl_setfontcolors(int, int);
+extern void Fgl_setfont(int, int, void *);
+extern void Fgl_enableclipping(void);
+extern void Fgl_setclippingwindow(int, int, int, int);
+extern void Fgl_disableclipping(void);
 #ifdef USE_X11_PIXMAPS
 #define USE_PIXMAPS
-extern void init_pixmaps (void);
-extern void init_icon_pixmap (short);
-extern void update_pixmap (int, int, int, int, int, int, int, char *);
+extern void init_pixmaps(void);
+extern void init_icon_pixmap(short);
+extern void update_pixmap(int, int, int, int, int, int, int, char *);
 #endif
 
 #elif defined (WIN32)
 /* ----- Win32 functions ----- */
-extern void gl_setpalettecolor (long, long, long, long);
-extern void Fgl_write (int, int, const char *);
-extern void open_write (int, int, const char *);
-extern void Fgl_getbox (int, int, int, int, void *);
-extern void Fgl_putbox (int, int, int, int, void *);
-extern void Fgl_fillbox (int, int, int, int, int);
-extern void Fgl_hline (int, int, int, int);
-extern void Fgl_line (int, int, int, int, int);
-extern void Fgl_setpixel (int, int, int);
-extern void Fgl_setfontcolors (int, int);
-extern void Fgl_setfont (int, int, void*);
-extern void Fgl_enableclipping (void);
-extern void Fgl_setclippingwindow (int, int, int, int);
-extern void Fgl_disableclipping (void);
-#define USE_PIXMAPS		/* Always */
-extern void init_pixmaps (void);
-extern void init_icon_pixmap (short);
-extern void update_pixmap (int, int, int, int, int, int, int, char *);
+extern void gl_setpalettecolor(long, long, long, long);
+extern void Fgl_write(int, int, const char *);
+extern void open_write(int, int, const char *);
+extern void Fgl_getbox(int, int, int, int, void *);
+extern void Fgl_putbox(int, int, int, int, void *);
+extern void Fgl_fillbox(int, int, int, int, int);
+extern void Fgl_hline(int, int, int, int);
+extern void Fgl_line(int, int, int, int, int);
+extern void Fgl_setpixel(int, int, int);
+extern void Fgl_setfontcolors(int, int);
+extern void Fgl_setfont(int, int, void *);
+extern void Fgl_enableclipping(void);
+extern void Fgl_setclippingwindow(int, int, int, int);
+extern void Fgl_disableclipping(void);
+#define USE_PIXMAPS             /* Always */
+extern void init_pixmaps(void);
+extern void init_icon_pixmap(short);
+extern void update_pixmap(int, int, int, int, int, int, int, char *);
 
 #else
 /* ----- SVGALIB functions ----- */

@@ -23,87 +23,82 @@
   //  int_2 reserved = y
   //  int_3 is the last real time that a sail was turned
 */
-void
-do_windmill (int x, int y) 
+void do_windmill(int x, int y)
 {
-  int anim_tile; 
+    int anim_tile;
 
-  if (get_jobs (x, y, WINDMILL_JOBS) != 0) {
-    MP_INFO(x,y).int_5 = MP_INFO(x,y).int_1;
-    grid[MP_INFO(x,y).int_6]->avail_power += MP_INFO(x,y).int_1;
-  } else {
-    MP_INFO(x + 1, y).int_3 = real_time + MODERN_WINDMILL_ANIM_SPEED;
-    return;
-  }
-
-  /* update animation. ATTENTION: (x,y) and (x+1,y) are used to store info */
-  if (real_time > MP_INFO(x + 1, y).int_3) {
-    MP_INFO(x,y).int_3++;
-    if (MP_INFO(x,y).int_2 < MODERN_WINDMILL_TECH) {
-      MP_INFO(x + 1, y).int_3 = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
+    if (get_jobs(x, y, WINDMILL_JOBS) != 0) {
+        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_1;
+        grid[MP_INFO(x, y).int_6]->avail_power += MP_INFO(x, y).int_1;
     } else {
-      MP_INFO(x + 1, y).int_3 = real_time + MODERN_WINDMILL_ANIM_SPEED;
+        MP_INFO(x + 1, y).int_3 = real_time + MODERN_WINDMILL_ANIM_SPEED;
+        return;
     }
-  }
 
-  /* figure out which tile to use */
-  anim_tile = (MP_INFO(x,y).int_3 % 3);
+    /* update animation. ATTENTION: (x,y) and (x+1,y) are used to store info */
+    if (real_time > MP_INFO(x + 1, y).int_3) {
+        MP_INFO(x, y).int_3++;
+        if (MP_INFO(x, y).int_2 < MODERN_WINDMILL_TECH) {
+            MP_INFO(x + 1, y).int_3 = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
+        } else {
+            MP_INFO(x + 1, y).int_3 = real_time + MODERN_WINDMILL_ANIM_SPEED;
+        }
+    }
 
-  if (MP_INFO(x,y).int_2 < MODERN_WINDMILL_TECH)
-    MP_TYPE(x,y) = CST_WINDMILL_1_W + anim_tile;
-  else
-    switch(grid[MP_INFO(x,y).int_6]->powered) 
-      {
-      case -1: 
-	MP_TYPE(x,y) = CST_WINDMILL_1_R + anim_tile; 
-	break;
-      case 0 : 
-	MP_TYPE(x,y) = CST_WINDMILL_1_RG + anim_tile;
-	break;
-      case 1 : 
-	MP_TYPE(x,y) = CST_WINDMILL_1_G + anim_tile;
-	break;
-      default : 
-	printf("Default case in do_power_substation\n");
-	break;
-      }      
+    /* figure out which tile to use */
+    anim_tile = (MP_INFO(x, y).int_3 % 3);
+
+    if (MP_INFO(x, y).int_2 < MODERN_WINDMILL_TECH)
+        MP_TYPE(x, y) = CST_WINDMILL_1_W + anim_tile;
+    else
+        switch (grid[MP_INFO(x, y).int_6]->powered) {
+        case -1:
+            MP_TYPE(x, y) = CST_WINDMILL_1_R + anim_tile;
+            break;
+        case 0:
+            MP_TYPE(x, y) = CST_WINDMILL_1_RG + anim_tile;
+            break;
+        case 1:
+            MP_TYPE(x, y) = CST_WINDMILL_1_G + anim_tile;
+            break;
+        default:
+            printf("Default case in do_power_substation\n");
+            break;
+        }
 }
 
-void
-mps_windmill (int x, int y)
+void mps_windmill(int x, int y)
 {
     int i = 0;
     char s[12];
-    
-    mps_store_title(i++,_("Windmill"));
-    mps_store_sfp(i++,_("Tech"),
-		  MP_INFO(x,y).int_2 * 100.0 / MAX_TECH_LEVEL);  
+
+    mps_store_title(i++, _("Windmill"));
+    mps_store_sfp(i++, _("Tech"), MP_INFO(x, y).int_2 * 100.0 / MAX_TECH_LEVEL);
     i++;
-   
-    if (MP_INFO(x,y).int_2 >= MODERN_WINDMILL_TECH) {
-	mps_store_title(i++,_("Local Status"));
 
-	format_power (s, sizeof(s), MP_INFO(x,y).int_5);    
-	mps_store_ss(i++,_("Prod."),s);
+    if (MP_INFO(x, y).int_2 >= MODERN_WINDMILL_TECH) {
+        mps_store_title(i++, _("Local Status"));
 
-	format_power (s, sizeof(s), MP_INFO(x,y).int_4);    
-	mps_store_ss(i++,_("Demand"),s);
+        format_power(s, sizeof(s), MP_INFO(x, y).int_5);
+        mps_store_ss(i++, _("Prod."), s);
 
-	i++;
-	
-	mps_store_title(i++,_("Grid Status"));
-	
-	format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->max_power);
-	mps_store_ss(i++,_("T. Cap."), s);
-	
-	format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->avail_power);
-	mps_store_ss(i++,_("A. Cap."), s);
-	
-	format_power (s, sizeof(s), grid[MP_INFO(x,y).int_6]->demand);
-	mps_store_ss(i++,_("Demand"), s);
-	i++;
-	
-	mps_store_sd(i++,_("Grid ID"), MP_INFO(x,y).int_6);
+        format_power(s, sizeof(s), MP_INFO(x, y).int_4);
+        mps_store_ss(i++, _("Demand"), s);
+
+        i++;
+
+        mps_store_title(i++, _("Grid Status"));
+
+        format_power(s, sizeof(s), grid[MP_INFO(x, y).int_6]->max_power);
+        mps_store_ss(i++, _("T. Cap."), s);
+
+        format_power(s, sizeof(s), grid[MP_INFO(x, y).int_6]->avail_power);
+        mps_store_ss(i++, _("A. Cap."), s);
+
+        format_power(s, sizeof(s), grid[MP_INFO(x, y).int_6]->demand);
+        mps_store_ss(i++, _("Demand"), s);
+        i++;
+
+        mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
     }
 }
-

@@ -9,6 +9,6 @@
 #define __tip_h__
 
 void do_tip(int x, int y);
-void mps_tip (int x, int y);
+void mps_tip(int x, int y);
 
 #endif /* __tip_h__ */

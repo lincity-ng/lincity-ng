@@ -9,6 +9,6 @@
 #define __oremine_h__
 
 void do_oremine(int x, int y);
-void mps_oremine (int x, int y);
+void mps_oremine(int x, int y);
 
 #endif /* __oremine_h__ */

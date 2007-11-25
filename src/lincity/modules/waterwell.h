@@ -10,7 +10,7 @@
 
 #undef DEBUG_WATERWELL
 
-void do_waterwell_cover (int x, int y);
-void mps_waterwell (int x, int y);
+void do_waterwell_cover(int x, int y);
+void mps_waterwell(int x, int y);
 
 #endif /* __waterwell_h__ */

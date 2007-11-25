@@ -9,7 +9,7 @@
 #ifndef __ldsvguts_h__
 #define __ldsvguts_h__
 
-void load_saved_city (char *s);
-void sanity_check (void);
+void load_saved_city(char *s);
+void sanity_check(void);
 
-#endif	/* __ldsvguts_h__ */
+#endif /* __ldsvguts_h__ */

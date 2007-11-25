@@ -13,7 +13,6 @@ int add_a_substation(int x, int y);
 void remove_a_substation(int x, int y);
 void shuffle_substations(void);
 
-void mps_substation (int x, int y);
-
+void mps_substation(int x, int y);
 
 #endif /* __substation_h__ */

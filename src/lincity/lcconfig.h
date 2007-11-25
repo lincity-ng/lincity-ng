@@ -18,4 +18,4 @@
 #pragma message(__FILE__ ": deprecated header")
 #endif
 
-#endif	/* __lcconfig_h__ */
+#endif /* __lcconfig_h__ */

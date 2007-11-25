@@ -8,6 +8,6 @@
 #ifndef __water_h__
 #define __water_h__
 
-void mps_water (int x, int y);
+void mps_water(int x, int y);
 
 #endif /* __water_h__ */

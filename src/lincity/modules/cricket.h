@@ -10,6 +10,6 @@
 
 void do_cricket(int x, int y);
 void do_cricket_cover(int x, int y);
-void mps_cricket (int x, int y);
+void mps_cricket(int x, int y);
 
 #endif /* __cricket_h__ */

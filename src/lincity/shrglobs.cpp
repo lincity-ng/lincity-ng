@@ -55,7 +55,7 @@ int sust_dig_ore_coal_count = 0, sust_port_count = 0, sust_old_money = 0;
 int sust_old_money_count = 0, sust_old_population = 0, sust_old_population_count = 0;
 int sust_old_tech = 0, sust_old_tech_count = 0, sust_fire_count = 0;
 
-int total_time = 0;    /* game time */
+int total_time = 0;             /* game time */
 
 int population, starving_population;
 int housed_population;
@@ -85,14 +85,11 @@ int coal_survey_done;
 
 int selected_type_cost;
 
-int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS] =
-{
-  EX_DISCOUNT_TRIGGER_1,
-  EX_DISCOUNT_TRIGGER_2,
-  EX_DISCOUNT_TRIGGER_3,
-  EX_DISCOUNT_TRIGGER_4,
-  EX_DISCOUNT_TRIGGER_5,
-  EX_DISCOUNT_TRIGGER_6,
+int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS] = {
+    EX_DISCOUNT_TRIGGER_1,
+    EX_DISCOUNT_TRIGGER_2,
+    EX_DISCOUNT_TRIGGER_3,
+    EX_DISCOUNT_TRIGGER_4,
+    EX_DISCOUNT_TRIGGER_5,
+    EX_DISCOUNT_TRIGGER_6,
 };
-
-

@@ -13,8 +13,7 @@
 extern int use_waterwell, ldsv_version;
 
 /* GCS -- One of these days I will get this right. */
-struct map_struct
-{
+struct map_struct {
     short type[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     short group[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     int pollution[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
@@ -32,7 +31,7 @@ extern Map map;
 #define MP_SIZE(x,y)   main_groups[MP_GROUP(x,y)].size
 #define MP_COLOR(x,y)  main_groups[MP_GROUP(x,y)].colour
 #define MP_GROUP_IS_RESIDENCE(x,y)  (GROUP_IS_RESIDENCE(MP_GROUP(x,y)))
-#define HAS_UGWATER(x,y) (MP_INFO(x,y).flags & FLAG_HAS_UNDERGROUND_WATER) 
+#define HAS_UGWATER(x,y) (MP_INFO(x,y).flags & FLAG_HAS_UNDERGROUND_WATER)
 
 extern int mappoint_array_x[WORLD_SIDE_LEN], mappoint_array_y[WORLD_SIDE_LEN];
 extern int numof_shanties, numof_communes;
@@ -43,7 +42,7 @@ extern int sust_dig_ore_coal_count, sust_port_count, sust_old_money;
 extern int sust_old_money_count, sust_old_population, sust_old_population_count;
 extern int sust_old_tech, sust_old_tech_count, sust_fire_count;
 
-extern int total_time;    /* game time */
+extern int total_time;          /* game time */
 
 extern int population, starving_population;
 extern int housed_population;

@@ -12,11 +12,11 @@ extern int lc_save_dir_len;
 //extern int make_dir_ok_flag;
 
 /* Try to find the maximum file name from OS */
-#if defined (_POSIX_PATH_MAX)          /* Posix */
+#if defined (_POSIX_PATH_MAX)   /* Posix */
 #define LC_PATH_MAX _POSIX_PATH_MAX
-#elif defined (_MAX_PATH)              /* Win32 */
+#elif defined (_MAX_PATH)       /* Win32 */
 #define LC_PATH_MAX _MAX_PATH
-#elif defined (PATH_MAX)               /* X Windows */
+#elif defined (PATH_MAX)        /* X Windows */
 #define LC_PATH_MAX PATH_MAX
 #else
 #define LC_PATH_MAX 4096
@@ -34,13 +34,13 @@ extern char lincityrc_file[LC_PATH_MAX];
 extern char given_scene[LC_PATH_MAX];
 
 //void gunzip_file (char *f1, char *f2); //unused function
-int file_exists (char *filename);
-int directory_exists (char *dir);
-char* load_graphic(char *s);
+int file_exists(char *filename);
+int directory_exists(char *dir);
+char *load_graphic(char *s);
 void undosify_string(char *s);
-void load_lincityrc (void);
-void save_lincityrc (void);
+void load_lincityrc(void);
+void save_lincityrc(void);
 
-void debug_printf (char* fmt, ...);
+void debug_printf(char *fmt, ...);
 
-#endif	/* __fileutil_h__ */
+#endif /* __fileutil_h__ */

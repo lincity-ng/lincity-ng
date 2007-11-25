@@ -10,6 +10,6 @@
 
 void do_health_centre(int x, int y);
 void do_health_cover(int x, int y);
-void mps_health_centre (int x, int y);
+void mps_health_centre(int x, int y);
 
 #endif /* __health_centre_h__ */

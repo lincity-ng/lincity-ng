@@ -9,6 +9,6 @@
 #define __monument_h__
 
 void do_monument(int x, int y);
-void mps_monument (int x, int y);
+void mps_monument(int x, int y);
 
 #endif /* __monument_h__ */

@@ -9,6 +9,6 @@
 #define __school_h__
 
 void do_school(int x, int y);
-void mps_school (int x, int y);
+void mps_school(int x, int y);
 
 #endif /* __school_h__ */

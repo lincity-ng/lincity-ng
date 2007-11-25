@@ -10,6 +10,6 @@
 
 void do_firestation(int x, int y);
 void do_fire_cover(int x, int y);
-void mps_firestation (int x, int y);
+void mps_firestation(int x, int y);
 
 #endif /* __firestation_h__ */

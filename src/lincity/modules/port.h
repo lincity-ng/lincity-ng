@@ -9,6 +9,6 @@
 #define __port_h__
 
 void do_port(int x, int y);
-void mps_port (int x, int y);
+void mps_port(int x, int y);
 
 #endif /* __port_h__ */

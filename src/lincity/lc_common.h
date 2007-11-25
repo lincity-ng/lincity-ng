@@ -31,4 +31,4 @@
 #include "lcsdl.h"
 #endif
 
-#endif	/* __common_h__ */
+#endif /* __common_h__ */

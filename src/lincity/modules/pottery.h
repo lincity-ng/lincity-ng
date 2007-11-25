@@ -9,6 +9,6 @@
 #define __pottery_h__
 
 void do_pottery(int x, int y);
-void mps_pottery (int x, int y);
+void mps_pottery(int x, int y);
 
 #endif /* __pottery_h__ */

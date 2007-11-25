@@ -9,6 +9,6 @@
 #define __commune_h__
 
 void do_commune(int x, int y);
-void mps_commune (int x, int y);
+void mps_commune(int x, int y);
 
 #endif /* __commune_h__ */

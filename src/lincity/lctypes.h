@@ -103,7 +103,6 @@
 #define CST_POWERS_COAL_FULL_G  "powerscoal-full.csi"
 #define LCT_POWERS_COAL_FULL_G  "powerscoal-full"
 
-
 #define CST_BURNT		49
 #define CST_BURNT_G		"burnt_land.csi"
 #define LCT_BURNT_G		"burnt_land"
@@ -141,7 +140,6 @@
 #define CST_RESIDENCE_HH_G      "reshihi.csi"
 #define LCT_RESIDENCE_HH_G      "reshihi"
 
-
 #define CST_MARKET_EMPTY	71
 #define CST_MARKET_EMPTY_G	"market-empty.csi"
 #define LCT_MARKET_EMPTY_G	"market-empty"
@@ -154,7 +152,6 @@
 #define CST_MARKET_FULL         74
 #define CST_MARKET_FULL_G       "market-full.csi"
 #define LCT_MARKET_FULL_G       "market-full"
-
 
 #define CST_RECYCLE		79
 #define CST_RECYCLE_G		"recycle-centre.csi"
@@ -219,7 +216,6 @@
 #define CST_MONUMENT_5          98
 #define CST_MONUMENT_5_G        "monument5.csi"
 #define LCT_MONUMENT_5_G        "monument5"
-
 
 #define CST_COALMINE_EMPTY	100
 #define CST_COALMINE_EMPTY_G	"coalmine-empty.csi"
@@ -296,7 +292,6 @@
 #define CST_FIRE_DONE4_G       "firedone4.csi"
 #define LCT_FIRE_DONE4_G       "firedone4"
 
-
 #define CST_ROAD_LR            130
 #define CST_ROAD_LR_G          "roadlr.csi"
 #define LCT_ROAD_LR_G          "roadlr"
@@ -331,7 +326,6 @@
 #define CST_ROAD_LUDR_G        "roadludr.csi"
 #define LCT_ROAD_LUDR_G        "roadludr"
 
-
 #define CST_OREMINE_5           146
 #define CST_OREMINE_5_G         "oremine5.csi"
 #define LCT_OREMINE_5_G         "oremine5"
@@ -357,7 +351,6 @@
 #define CST_OREMINE_4		153
 #define CST_OREMINE_4_G		"oremine4.csi"
 #define LCT_OREMINE_4_G		"oremine4"
-
 
 #define CST_HEALTH		155
 #define CST_HEALTH_G		"health.csi"
@@ -392,7 +385,6 @@
 #define CST_MILL_6              168
 #define CST_MILL_6_G            "mill6.csi"
 #define LCT_MILL_6_G            "mill6"
-
 
 #define CST_ROCKET_1		180
 #define CST_ROCKET_1_G          "rocket1.csi"
@@ -458,7 +450,6 @@
 #define CST_WINDMILL_3_W        201
 #define CST_WINDMILL_3_W_G      "windmill3w.csi"
 #define LCT_WINDMILL_3_W_G      "windmill3w"
-
 
 #define CST_BLACKSMITH_0          202
 #define CST_BLACKSMITH_0_G        "blacksmith0.csi"
@@ -650,7 +641,6 @@
 #define CST_TIP_8_G             "tip8.csi"
 #define LCT_TIP_8_G             "tip8"
 
-
 #define CST_COMMUNE_1           270
 #define CST_COMMUNE_1_G         "commune1.csi"
 #define LCT_COMMUNE_1_G         "commune1"
@@ -693,7 +683,6 @@
 #define CST_COMMUNE_14          283
 #define CST_COMMUNE_14_G        "commune14.csi"
 #define LCT_COMMUNE_14_G        "commune14"
-
 
 #define CST_INDUSTRY_H_C        290
 #define CST_INDUSTRY_H_C_G      "industryhc.csi"

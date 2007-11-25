@@ -15,5 +15,4 @@
  (MP_GROUP(x,y) == GROUP_RAIL) || \
  (MP_GROUP(x,y) == GROUP_POWER_LINE))
 
-
 #endif

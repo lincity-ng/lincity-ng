@@ -8,8 +8,8 @@
 #include "modules.h"
 #include "../power.h"
 #include "coal_power.h"
-#include "../transport.h"  /* XXX: This seems to be an anomaly; no other modules
-			  use XY_IS_TRANSPORT */
+#include "../transport.h"       /* XXX: This seems to be an anomaly; no other modules
+                                   use XY_IS_TRANSPORT */
 
 /*** Coal Power ***/
 /*
@@ -22,91 +22,79 @@
   // int_7 is grid_timestamp
 */
 
-
-void
-do_power_source_coal (int x, int y)
+void do_power_source_coal(int x, int y)
 {
 
     /* Need coal?  Try transport. */
-    if (MP_INFO(x,y).int_2 < MAX_COAL_AT_POWER_STATION) {
+    if (MP_INFO(x, y).int_2 < MAX_COAL_AT_POWER_STATION) {
 
-	/* left side */
-	if (XY_IS_TRANSPORT(x-1, y+1) && MP_INFO(x-1, y+1).int_3 > 0) {
-	    if (get_jobs (x, y, JOBS_LOAD_COAL) != 0)
-	    {
-		MP_INFO(x,y).int_2 += (MP_INFO(x-1, y+1).int_3 / 2
-				       + ((MP_INFO(x-1, y+1).int_3) % 2));
-		MP_INFO(x-1, y+1).int_3 /= 2;
-		MP_POL(x,y)++;
-	    }
-	}
-	/* top side */
-	else if (XY_IS_TRANSPORT(x+1, y-1) && MP_INFO(x+1, y-1).int_3 > 0) {
-	    if (get_jobs (x, y, JOBS_LOAD_COAL) != 0)
-		MP_INFO(x,y).int_2 += (MP_INFO(x+1, y-1).int_3 / 2
-				       + ((MP_INFO(x+1, y-1).int_3) % 2));
-	    MP_INFO(x + 1,y - 1).int_3 /= 2;
-	    MP_POL(x,y)++;
-	}
+        /* left side */
+        if (XY_IS_TRANSPORT(x - 1, y + 1) && MP_INFO(x - 1, y + 1).int_3 > 0) {
+            if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
+                MP_INFO(x, y).int_2 += (MP_INFO(x - 1, y + 1).int_3 / 2 + ((MP_INFO(x - 1, y + 1).int_3) % 2));
+                MP_INFO(x - 1, y + 1).int_3 /= 2;
+                MP_POL(x, y)++;
+            }
+        }
+        /* top side */
+        else if (XY_IS_TRANSPORT(x + 1, y - 1) && MP_INFO(x + 1, y - 1).int_3 > 0) {
+            if (get_jobs(x, y, JOBS_LOAD_COAL) != 0)
+                MP_INFO(x, y).int_2 += (MP_INFO(x + 1, y - 1).int_3 / 2 + ((MP_INFO(x + 1, y - 1).int_3) % 2));
+            MP_INFO(x + 1, y - 1).int_3 /= 2;
+            MP_POL(x, y)++;
+        }
     }
 
     /* Need jobs?  get_jobs. */
-    if ((MP_INFO(x,y).int_3 + JOBS_COALPS_GENERATE + 10)
-	< MAX_JOBS_AT_COALPS)
-	if (get_jobs (x, y, JOBS_COALPS_GENERATE + 10) != 0)
-	    MP_INFO(x,y).int_3 += JOBS_COALPS_GENERATE + 10;
+    if ((MP_INFO(x, y).int_3 + JOBS_COALPS_GENERATE + 10)
+        < MAX_JOBS_AT_COALPS)
+        if (get_jobs(x, y, JOBS_COALPS_GENERATE + 10) != 0)
+            MP_INFO(x, y).int_3 += JOBS_COALPS_GENERATE + 10;
 
     /* Generate Power */
-    if (MP_INFO(x,y).int_2 > POWERS_COAL_OUTPUT / 500 &&
-	MP_INFO(x,y).int_3 > JOBS_COALPS_GENERATE) 
-    {
-	MP_INFO(x,y).int_5 = MP_INFO(x,y).int_1;
-	MP_INFO(x,y).int_3 -= JOBS_COALPS_GENERATE;
-	MP_INFO(x,y).int_2 -= POWERS_COAL_OUTPUT / 500;
-	coal_used += POWERS_COAL_OUTPUT / 500;
-	MP_POL(x,y) += POWERS_COAL_POLLUTION;
-	grid[MP_INFO(x,y).int_6]->avail_power += MP_INFO(x,y).int_1;
+    if (MP_INFO(x, y).int_2 > POWERS_COAL_OUTPUT / 500 && MP_INFO(x, y).int_3 > JOBS_COALPS_GENERATE) {
+        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_1;
+        MP_INFO(x, y).int_3 -= JOBS_COALPS_GENERATE;
+        MP_INFO(x, y).int_2 -= POWERS_COAL_OUTPUT / 500;
+        coal_used += POWERS_COAL_OUTPUT / 500;
+        MP_POL(x, y) += POWERS_COAL_POLLUTION;
+        grid[MP_INFO(x, y).int_6]->avail_power += MP_INFO(x, y).int_1;
     }
 
     /* Animation */
     /* choose a graphic */
-    if (MP_INFO(x,y).int_2 > (MAX_COAL_AT_POWER_STATION
-			      - (MAX_COAL_AT_POWER_STATION / 5)))
-	MP_TYPE(x,y) = CST_POWERS_COAL_FULL;
-    else if (MP_INFO(x,y).int_2 > (MAX_COAL_AT_POWER_STATION / 2))
-	MP_TYPE(x,y) = CST_POWERS_COAL_MED;
-    else if (MP_INFO(x,y).int_2 > (MAX_COAL_AT_POWER_STATION / 10))
-	MP_TYPE(x,y) = CST_POWERS_COAL_LOW;
+    if (MP_INFO(x, y).int_2 > (MAX_COAL_AT_POWER_STATION - (MAX_COAL_AT_POWER_STATION / 5)))
+        MP_TYPE(x, y) = CST_POWERS_COAL_FULL;
+    else if (MP_INFO(x, y).int_2 > (MAX_COAL_AT_POWER_STATION / 2))
+        MP_TYPE(x, y) = CST_POWERS_COAL_MED;
+    else if (MP_INFO(x, y).int_2 > (MAX_COAL_AT_POWER_STATION / 10))
+        MP_TYPE(x, y) = CST_POWERS_COAL_LOW;
     else
-	MP_TYPE(x,y) = CST_POWERS_COAL_EMPTY;
+        MP_TYPE(x, y) = CST_POWERS_COAL_EMPTY;
 }
 
-void
-mps_coal_power (int x, int y)
+void mps_coal_power(int x, int y)
 {
-  int i = 0;
+    int i = 0;
 
-  char s[12];
+    char s[12];
 
-  mps_store_title(i++,_("Coal"));
-  mps_store_title(i++,_("Power Station"));
-  i++;
+    mps_store_title(i++, _("Coal"));
+    mps_store_title(i++, _("Power Station"));
+    i++;
 
-  format_power (s, sizeof(s), MP_INFO(x,y).int_1);
-  mps_store_title(i++,_("Max Output"));
-  mps_store_title(i++,s);
-  i++;
+    format_power(s, sizeof(s), MP_INFO(x, y).int_1);
+    mps_store_title(i++, _("Max Output"));
+    mps_store_title(i++, s);
+    i++;
 
-  format_power (s, sizeof(s), MP_INFO(x,y).int_5);
-  mps_store_title(i++,_("Current Output"));
-  mps_store_title(i++,s);
-  i++;
+    format_power(s, sizeof(s), MP_INFO(x, y).int_5);
+    mps_store_title(i++, _("Current Output"));
+    mps_store_title(i++, s);
+    i++;
 
-  mps_store_sfp(i++,_("Coal"),
-		MP_INFO(x,y).int_2 * 100.0 / MAX_COAL_AT_POWER_STATION);
-  mps_store_sfp(i++,_("Jobs"), 
-		MP_INFO(x,y).int_3 * 100.0 / MAX_JOBS_AT_COALPS);
-  mps_store_sfp(i++,_("Tech"),
-		MP_INFO(x,y).int_4 * 100.0 / MAX_TECH_LEVEL);  
-  mps_store_sd(i++,_("Grid ID"), MP_INFO(x,y).int_6);
+    mps_store_sfp(i++, _("Coal"), MP_INFO(x, y).int_2 * 100.0 / MAX_COAL_AT_POWER_STATION);
+    mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_3 * 100.0 / MAX_JOBS_AT_COALPS);
+    mps_store_sfp(i++, _("Tech"), MP_INFO(x, y).int_4 * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
 }

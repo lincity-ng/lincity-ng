@@ -8,18 +8,15 @@
 #include "modules.h"
 #include "water.h"
 
-
-void
-mps_water (int x, int y)
+void mps_water(int x, int y)
 {
     int i = 0;
 
-    const char * p;
+    const char *p;
 
-    mps_store_title(i++,_("Water"));
+    mps_store_title(i++, _("Water"));
     i++;
 
-    p = (MP_INFO(x,y).flags & FLAG_IS_RIVER) ? _("Yes") : _("No");
-    mps_store_ss(i++,_("Navigable"),p);
+    p = (MP_INFO(x, y).flags & FLAG_IS_RIVER) ? _("Yes") : _("No");
+    mps_store_ss(i++, _("Navigable"), p);
 }
-

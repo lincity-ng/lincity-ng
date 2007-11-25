@@ -9,6 +9,6 @@
 #define __recycle_h__
 
 void do_recycle(int x, int y);
-void mps_recycle (int x, int y);
+void mps_recycle(int x, int y);
 
 #endif /* __recycle_h__ */

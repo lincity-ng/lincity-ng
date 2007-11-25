@@ -9,6 +9,6 @@
 #define __coal_power_h__
 
 void do_power_source_coal(int x, int y);
-void mps_coal_power (int, int);
+void mps_coal_power(int, int);
 
 #endif /* __coal_power_h__ */

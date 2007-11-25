@@ -6,8 +6,8 @@
 #ifndef __simulate_h__
 #define __simulate_h__
 
-void new_city (int* originx, int* originy, int random_village);
-void count_all_groups (int* group_count);
-void do_time_step (void);
+void new_city(int *originx, int *originy, int random_village);
+void count_all_groups(int *group_count);
+void do_time_step(void);
 
-#endif	/* __simulate_h__ */
+#endif /* __simulate_h__ */

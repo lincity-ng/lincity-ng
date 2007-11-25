@@ -10,6 +10,6 @@
 
 void do_rocket_pad(int x, int y);
 void launch_rocket(int x, int y);
-void mps_rocket (int x, int y);
+void mps_rocket(int x, int y);
 
 #endif /* __rocket_pad_h__ */

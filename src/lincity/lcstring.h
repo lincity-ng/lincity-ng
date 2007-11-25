@@ -17,4 +17,4 @@
 #pragma message(__FILE__ ": deprecated header")
 #endif
 
-#endif	/* __lcstring_h__ */
+#endif /* __lcstring_h__ */
