@@ -3,12 +3,6 @@ README:
 Attempt to implement some kind of water management.
 This file is a temporary note book.
 
-BUGS:
------
- -waterwell icon, tile (hmmm, must be redrawn by someone competent :-)
- -info with query tool seems to not work on desert and trees, or work randomly
- -bug of trunk = (re)initialisation of engine and UI is not enough.
-
 DONE:
 -----
 basic water management implemented:

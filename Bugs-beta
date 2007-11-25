@@ -1,5 +1,11 @@
 * regression from 1.0.3 (dont know precisely when)
-  When tech is not high enough, trying to build a gayed item, just close the item tray,
+  When tech is not high enough, trying to build a grayed item, just close the item tray,
   and show a message in the console only.
   1.0.3 behavior is to let the  item tray open, so info_bubble pop-up and shows the required tech.
+
+* waterwell icon, tile (hmmm, must be redrawn by someone competent :-)
+
+* info with query tool seems to not work on desert and trees, or work randomly
+
+* bug of trunk = (re)initialisation of engine and UI is not enough. (max tech level...)
 
