@@ -26,11 +26,17 @@
 #include "gui_interface/shared_globals.h"
 
 extern int selected_type_cost;
-static void bulldoze_mappoint(short fill, int x, int y);
-int is_real_river(int x, int y);
 
+/****** Private functions prototypes *****/
+static void bulldoze_mappoint(short fill, int x, int y);
+
+static int no_credit_build(int selected_group);
+static void no_credit_build_msg_ng(int selected_group);
+
+int is_real_river(int x, int y);
 int last_warning_message_group = 0;
 
+/************************************************/
 void fire_area(int xx, int yy)
 {
     /* this happens when a rocket crashes or on random_fire. */
@@ -100,7 +106,7 @@ int adjust_money(int value)
     return total_money;
 }
 
-int no_credit_build(int selected_group)
+static int no_credit_build(int selected_group)
 {
     if (total_money >= 0)
         return (0);
@@ -137,7 +143,7 @@ int no_credit_build(int selected_group)
     return (0);
 }
 
-void no_credit_build_msg_ng(int selected_group)
+static void no_credit_build_msg_ng(int selected_group)
 {
     if (last_warning_message_group == selected_group)
         return;
@@ -457,34 +463,6 @@ static void bulldoze_mappoint(short fill, int x, int y)
     MP_INFO(x, y).int_7 = 0;
 }
 
-/** Mappoint array shuffles mappoint in order to stop linear simulation effects */
-
-/** this is called on startup */
-void init_mappoint_array(void)
-{
-    int x;
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        mappoint_array_x[x] = x;
-        mappoint_array_y[x] = x;
-    }
-}
-
-/** this is called at the beginning of every frame */
-void shuffle_mappoint_array(void)
-{
-    int i, x, a;
-    for (i = 0; i < SHUFFLE_MAPPOINT_COUNT; i++) {
-        x = rand() % WORLD_SIDE_LEN;
-        a = mappoint_array_x[i];
-        mappoint_array_x[i] = mappoint_array_x[x];
-        mappoint_array_x[x] = a;
-        x = rand() % WORLD_SIDE_LEN;
-        a = mappoint_array_y[i];
-        mappoint_array_y[i] = mappoint_array_y[x];
-        mappoint_array_y[x] = a;
-    }
-}
-
 void do_pollution()
 {
     int x, p;
@@ -667,100 +645,6 @@ void do_daily_ecology()
                 && rand() % 300 == 1)
                 do_bulldoze_area(CST_GREEN, x, y);
         }
-}
-
-/*
-   // spiral round from startx,starty until we hit something of group group.
-   // return the x y coords encoded as x+y*WORLD_SIDE_LEN
-   // return -1 if we don't find one.
- */
-int spiral_find_group(int startx, int starty, int group)
-{
-    int i, j, x, y;
-    x = startx;
-    y = starty;
-    /* let's just do a complete spiral for now, work out the bounds later */
-    for (i = 1; i < (WORLD_SIDE_LEN + WORLD_SIDE_LEN); i++) {
-        for (j = 0; j < i; j++) {
-            x--;
-            if (x > 0 && x < WORLD_SIDE_LEN && y > 0 && y < WORLD_SIDE_LEN)
-                if (MP_GROUP(x, y) == group)
-                    return (x + y * WORLD_SIDE_LEN);
-        }
-        for (j = 0; j < i; j++) {
-            y--;
-            if (x > 0 && x < WORLD_SIDE_LEN && y > 0 && y < WORLD_SIDE_LEN)
-                if (MP_GROUP(x, y) == group)
-                    return (x + y * WORLD_SIDE_LEN);
-        }
-        i++;
-        for (j = 0; j < i; j++) {
-            x++;
-            if (x > 0 && x < WORLD_SIDE_LEN && y > 0 && y < WORLD_SIDE_LEN)
-                if (MP_GROUP(x, y) == group)
-                    return (x + y * WORLD_SIDE_LEN);
-        }
-        for (j = 0; j < i; j++) {
-            y++;
-            if (x > 0 && x < WORLD_SIDE_LEN && y > 0 && y < WORLD_SIDE_LEN)
-                if (MP_GROUP(x, y) == group)
-                    return (x + y * WORLD_SIDE_LEN);
-        }
-    }
-    return (-1);
-}
-
-/*
-   // spiral round from startx,starty until we hit a 2x2 space.
-   // return the x y coords encoded as x+y*WORLD_SIDE_LEN
-   // return -1 if we don't find one.
- */
-int spiral_find_2x2(int startx, int starty)
-{
-    int i, j, x, y;
-    x = startx;
-    y = starty;
-    /* let's just do a complete spiral for now, work out the bounds later */
-    for (i = 1; i < (WORLD_SIDE_LEN + WORLD_SIDE_LEN); i++) {
-        for (j = 0; j < i; j++) {
-            x--;
-            if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1 && y < WORLD_SIDE_LEN - 2)
-                if (GROUP_IS_BARE(MP_GROUP(x, y))
-                    && GROUP_IS_BARE(MP_GROUP(x + 1, y))
-                    && GROUP_IS_BARE(MP_GROUP(x, y + 1))
-                    && GROUP_IS_BARE(MP_GROUP(x + 1, y + 1)))
-                    return (x + y * WORLD_SIDE_LEN);
-        }
-        for (j = 0; j < i; j++) {
-            y--;
-            if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1 && y < WORLD_SIDE_LEN - 2)
-                if (GROUP_IS_BARE(MP_GROUP(x, y))
-                    && GROUP_IS_BARE(MP_GROUP(x + 1, y))
-                    && GROUP_IS_BARE(MP_GROUP(x, y + 1))
-                    && GROUP_IS_BARE(MP_GROUP(x + 1, y + 1)))
-                    return (x + y * WORLD_SIDE_LEN);
-        }
-        i++;
-        for (j = 0; j < i; j++) {
-            x++;
-            if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1 && y < WORLD_SIDE_LEN - 2)
-                if (GROUP_IS_BARE(MP_GROUP(x, y))
-                    && GROUP_IS_BARE(MP_GROUP(x + 1, y))
-                    && GROUP_IS_BARE(MP_GROUP(x, y + 1))
-                    && GROUP_IS_BARE(MP_GROUP(x + 1, y + 1)))
-                    return (x + y * WORLD_SIDE_LEN);
-        }
-        for (j = 0; j < i; j++) {
-            y++;
-            if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1 && y < WORLD_SIDE_LEN - 2)
-                if (GROUP_IS_BARE(MP_GROUP(x, y))
-                    && GROUP_IS_BARE(MP_GROUP(x + 1, y))
-                    && GROUP_IS_BARE(MP_GROUP(x, y + 1))
-                    && GROUP_IS_BARE(MP_GROUP(x + 1, y + 1)))
-                    return (x + y * WORLD_SIDE_LEN);
-        }
-    }
-    return (-1);
 }
 
 void connect_rivers(void)

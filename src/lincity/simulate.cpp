@@ -11,7 +11,6 @@
 #include <sys/types.h>
 #include <fcntl.h>
 
-#include "gui_interface/shared_globals.h"
 /*
 #if defined (WIN32)
 #include <winsock.h>
@@ -29,6 +28,8 @@
 #endif
 */
 
+#include "simulate.h"
+#include "gui_interface/shared_globals.h"
 #include "lctypes.h"
 #include "lin-city.h"
 //#include "cliglobs.h"
@@ -39,8 +40,12 @@
 #include "gui_interface/pbar_interface.h"
 //#include "module_buttons.h"
 
+/* AL1: they are all in engine.cpp */
 extern void connect_rivers(void);
 extern void do_daily_ecology(void);
+extern void clear_fire_health_and_cricket_cover(void);
+extern void do_pollution(void);
+extern void do_fire_health_and_cricket_cover(void);
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -49,11 +54,23 @@ static void do_periodic_events(void);
 static void end_of_month_update(void);
 static void start_of_year_update(void);
 static void end_of_year_update(void);
-static void random_start(int *originx, int *originy);
 static void simulate_mappoints(void);
-static void quick_start_add(int x, int y, short type, int size);
 static void nullify_mappoint(int x, int y);
+
+static void sustainability_test(void);
+static int sust_fire_cover(void);
+
+static void clear_game(void);
+static void random_start(int *originx, int *originy);
+static void quick_start_add(int x, int y, short type, int size);
 static void setup_land(void);
+static void coal_reserve_setup(void);
+static void ore_reserve_setup(void);
+static void setup_river(void);
+static void setup_river2(int x, int y, int d);
+static void quick_start_add(int x, int y, short type, int size);
+static void debug_mappoints(void);
+static void shuffle_mappoint_array(void);
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
@@ -91,157 +108,75 @@ void do_time_step(void)
     do_periodic_events();
 }
 
-static void nullify_mappoint(int x, int y)
+int count_groups(int g)
 {
-    MP_TYPE(x, y) = CST_GREEN;
-    MP_GROUP(x, y) = GROUP_BARE;
-    MP_SIZE(x, y) = 1;
-    MP_POL(x, y) = 0;
-    MP_INFO(x, y).population = 0;
-    MP_INFO(x, y).flags = 0;
-    MP_INFO(x, y).coal_reserve = 0;
-    MP_INFO(x, y).ore_reserve = 0;
-    MP_INFO(x, y).int_1 = 0;
-    MP_INFO(x, y).int_2 = 0;
-    MP_INFO(x, y).int_3 = 0;
-    MP_INFO(x, y).int_4 = 0;
-    MP_INFO(x, y).int_5 = 0;
-    MP_INFO(x, y).int_6 = 0;
-    MP_INFO(x, y).int_7 = 0;
+    int x, y, i;
+    i = 0;
+    for (y = 0; y < WORLD_SIDE_LEN; y++)
+        for (x = 0; x < WORLD_SIDE_LEN; x++)
+            if (MP_GROUP(x, y) == g)
+                i++;
+    return (i);
 }
 
-static void simulate_mappoints(void)
+void count_all_groups(int *group_count)
 {
-    int xx, yy;
-    shuffle_mappoint_array();
-    for (yy = 0; yy < WORLD_SIDE_LEN; yy++) {
-        /* indirection to rand array to stop lots of linear effects */
-        int y = mappoint_array_y[yy];
-        for (xx = 0; xx < WORLD_SIDE_LEN; xx++) {
-            int x = mappoint_array_x[xx];
-            short grp = MP_GROUP(x, y);
-            if (grp == GROUP_USED || GROUP_IS_BARE(grp))
-                continue;
-            switch (grp) {
-            case GROUP_TRACK:
-                do_track(x, y);
-                break;
-            case GROUP_RAIL:
-                do_rail(x, y);
-                break;
-            case GROUP_ROAD:
-                do_road(x, y);
-                break;
-            case GROUP_ORGANIC_FARM:
-                do_organic_farm(x, y);
-                break;
-            case GROUP_MARKET:
-                do_market(x, y);
-                break;
-            case GROUP_RESIDENCE_LL:
-                do_residence(x, y);
-                break;
-            case GROUP_RESIDENCE_ML:
-                do_residence(x, y);
-                break;
-            case GROUP_RESIDENCE_HL:
-                do_residence(x, y);
-                break;
-            case GROUP_RESIDENCE_LH:
-                do_residence(x, y);
-                break;
-            case GROUP_RESIDENCE_MH:
-                do_residence(x, y);
-                break;
-            case GROUP_RESIDENCE_HH:
-                do_residence(x, y);
-                break;
-            case GROUP_POWER_LINE:
-                do_power_line(x, y);
-                break;
-            case GROUP_SOLAR_POWER:
-                do_power_source(x, y);
-                break;
-            case GROUP_SUBSTATION:
-                do_power_substation(x, y);
-                break;
-            case GROUP_COALMINE:
-                do_coalmine(x, y);
-                break;
-            case GROUP_COAL_POWER:
-                do_power_source_coal(x, y);
-                break;
-            case GROUP_INDUSTRY_L:
-                do_industry_l(x, y);
-                break;
-            case GROUP_INDUSTRY_H:
-                do_industry_h(x, y);
-                break;
-            case GROUP_COMMUNE:
-                do_commune(x, y);
-                break;
-            case GROUP_OREMINE:
-                do_oremine(x, y);
-                break;
-            case GROUP_PORT:
-                do_port(x, y);
-                break;
-            case GROUP_TIP:
-                do_tip(x, y);
-                break;
-            case GROUP_PARKLAND:
-                do_parkland(x, y);
-                break;
-            case GROUP_UNIVERSITY:
-                do_university(x, y);
-                break;
-            case GROUP_RECYCLE:
-                do_recycle(x, y);
-                break;
-            case GROUP_HEALTH:
-                do_health_centre(x, y);
-                break;
-            case GROUP_ROCKET:
-                do_rocket_pad(x, y);
-                break;
-            case GROUP_WINDMILL:
-                do_windmill(x, y);
-                break;
-            case GROUP_MONUMENT:
-                do_monument(x, y);
-                break;
-            case GROUP_SCHOOL:
-                do_school(x, y);
-                break;
-            case GROUP_BLACKSMITH:
-                do_blacksmith(x, y);
-                break;
-            case GROUP_MILL:
-                do_mill(x, y);
-                break;
-            case GROUP_POTTERY:
-                do_pottery(x, y);
-                break;
-            case GROUP_FIRESTATION:
-                do_firestation(x, y);
-                break;
-            case GROUP_CRICKET:
-                do_cricket(x, y);
-                break;
-            case GROUP_FIRE:
-                do_fire(x, y);
-                break;
-            case GROUP_SHANTY:
-                do_shanty(x, y);
-                break;
+    int x, y;
+    unsigned short t, g;
+    for (x = 0; x < NUM_OF_GROUPS; x++)
+        group_count[x] = 0;
+    for (y = 0; y < WORLD_SIDE_LEN; y++) {
+        for (x = 0; x < WORLD_SIDE_LEN; x++) {
+            t = MP_TYPE(x, y);
+            if (t != CST_USED && !GROUP_IS_BARE(MP_GROUP(x, y))) {
+                g = get_group_of_type(t);
+                group_count[g]++;
             }
         }
+    }
+}
+
+void initialize_tax_rates(void)
+{
+    income_tax_rate = INCOME_TAX_RATE;
+    coal_tax_rate = COAL_TAX_RATE;
+    goods_tax_rate = GOODS_TAX_RATE;
+    dole_rate = DOLE_RATE;
+    transport_cost_rate = TRANSPORT_COST_RATE;
+    import_cost_rate = IM_PORT_COST_RATE;
+}
+
+
+void init_mappoint_array(void)
+{
+    int x;
+    for (x = 0; x < WORLD_SIDE_LEN; x++) {
+        mappoint_array_x[x] = x;
+        mappoint_array_y[x] = x;
     }
 }
 
 /* ---------------------------------------------------------------------- *
  * Private Functions
  * ---------------------------------------------------------------------- */
+
+/** this is called at the beginning of every frame */
+static void shuffle_mappoint_array(void)
+{
+    /** Mappoint array shuffles mappoint in order to stop linear simulation effects */
+    int i, x, a;
+    for (i = 0; i < SHUFFLE_MAPPOINT_COUNT; i++) {
+        x = rand() % WORLD_SIDE_LEN;
+        a = mappoint_array_x[i];
+        mappoint_array_x[i] = mappoint_array_x[x];
+        mappoint_array_x[x] = a;
+        x = rand() % WORLD_SIDE_LEN;
+        a = mappoint_array_y[i];
+        mappoint_array_y[i] = mappoint_array_y[x];
+        mappoint_array_y[x] = a;
+    }
+}
+
 static void do_periodic_events(void)
 {
     add_daily_to_monthly();
@@ -400,6 +335,135 @@ static void end_of_year_update(void)
     print_total_money();
 }
 
+static void simulate_mappoints(void)
+{
+    int xx, yy;
+    shuffle_mappoint_array();
+    for (yy = 0; yy < WORLD_SIDE_LEN; yy++) {
+        /* indirection to rand array to stop lots of linear effects */
+        int y = mappoint_array_y[yy];
+        for (xx = 0; xx < WORLD_SIDE_LEN; xx++) {
+            int x = mappoint_array_x[xx];
+            short grp = MP_GROUP(x, y);
+            if (grp == GROUP_USED || GROUP_IS_BARE(grp))
+                continue;
+            switch (grp) {
+            case GROUP_TRACK:
+                do_track(x, y);
+                break;
+            case GROUP_RAIL:
+                do_rail(x, y);
+                break;
+            case GROUP_ROAD:
+                do_road(x, y);
+                break;
+            case GROUP_ORGANIC_FARM:
+                do_organic_farm(x, y);
+                break;
+            case GROUP_MARKET:
+                do_market(x, y);
+                break;
+            case GROUP_RESIDENCE_LL:
+                do_residence(x, y);
+                break;
+            case GROUP_RESIDENCE_ML:
+                do_residence(x, y);
+                break;
+            case GROUP_RESIDENCE_HL:
+                do_residence(x, y);
+                break;
+            case GROUP_RESIDENCE_LH:
+                do_residence(x, y);
+                break;
+            case GROUP_RESIDENCE_MH:
+                do_residence(x, y);
+                break;
+            case GROUP_RESIDENCE_HH:
+                do_residence(x, y);
+                break;
+            case GROUP_POWER_LINE:
+                do_power_line(x, y);
+                break;
+            case GROUP_SOLAR_POWER:
+                do_power_source(x, y);
+                break;
+            case GROUP_SUBSTATION:
+                do_power_substation(x, y);
+                break;
+            case GROUP_COALMINE:
+                do_coalmine(x, y);
+                break;
+            case GROUP_COAL_POWER:
+                do_power_source_coal(x, y);
+                break;
+            case GROUP_INDUSTRY_L:
+                do_industry_l(x, y);
+                break;
+            case GROUP_INDUSTRY_H:
+                do_industry_h(x, y);
+                break;
+            case GROUP_COMMUNE:
+                do_commune(x, y);
+                break;
+            case GROUP_OREMINE:
+                do_oremine(x, y);
+                break;
+            case GROUP_PORT:
+                do_port(x, y);
+                break;
+            case GROUP_TIP:
+                do_tip(x, y);
+                break;
+            case GROUP_PARKLAND:
+                do_parkland(x, y);
+                break;
+            case GROUP_UNIVERSITY:
+                do_university(x, y);
+                break;
+            case GROUP_RECYCLE:
+                do_recycle(x, y);
+                break;
+            case GROUP_HEALTH:
+                do_health_centre(x, y);
+                break;
+            case GROUP_ROCKET:
+                do_rocket_pad(x, y);
+                break;
+            case GROUP_WINDMILL:
+                do_windmill(x, y);
+                break;
+            case GROUP_MONUMENT:
+                do_monument(x, y);
+                break;
+            case GROUP_SCHOOL:
+                do_school(x, y);
+                break;
+            case GROUP_BLACKSMITH:
+                do_blacksmith(x, y);
+                break;
+            case GROUP_MILL:
+                do_mill(x, y);
+                break;
+            case GROUP_POTTERY:
+                do_pottery(x, y);
+                break;
+            case GROUP_FIRESTATION:
+                do_firestation(x, y);
+                break;
+            case GROUP_CRICKET:
+                do_cricket(x, y);
+                break;
+            case GROUP_FIRE:
+                do_fire(x, y);
+                break;
+            case GROUP_SHANTY:
+                do_shanty(x, y);
+                break;
+            }
+        }
+    }
+}
+
 static void clear_game(void)
 {
     int x, y;
@@ -455,7 +519,7 @@ void new_city(int *originx, int *originy, int random_village)
     refresh_pbars();
 }
 
-void coal_reserve_setup(void)
+static void coal_reserve_setup(void)
 {
     int i, j, x, y, xx, yy;
     for (i = 0; i < NUMOF_COAL_RESERVES / 5; i++) {
@@ -474,7 +538,7 @@ void coal_reserve_setup(void)
     }
 }
 
-void ore_reserve_setup(void)
+static void ore_reserve_setup(void)
 {
     int x, y;
     for (y = 0; y < WORLD_SIDE_LEN; y++)
@@ -697,32 +761,23 @@ void setup_land(void)
     connect_rivers();
 }
 
-int count_groups(int g)
+static void nullify_mappoint(int x, int y)
 {
-    int x, y, i;
-    i = 0;
-    for (y = 0; y < WORLD_SIDE_LEN; y++)
-        for (x = 0; x < WORLD_SIDE_LEN; x++)
-            if (MP_GROUP(x, y) == g)
-                i++;
-    return (i);
-}
-
-void count_all_groups(int *group_count)
-{
-    int x, y;
-    unsigned short t, g;
-    for (x = 0; x < NUM_OF_GROUPS; x++)
-        group_count[x] = 0;
-    for (y = 0; y < WORLD_SIDE_LEN; y++) {
-        for (x = 0; x < WORLD_SIDE_LEN; x++) {
-            t = MP_TYPE(x, y);
-            if (t != CST_USED && !GROUP_IS_BARE(MP_GROUP(x, y))) {
-                g = get_group_of_type(t);
-                group_count[g]++;
-            }
-        }
-    }
+    MP_TYPE(x, y) = CST_GREEN;
+    MP_GROUP(x, y) = GROUP_BARE;
+    MP_SIZE(x, y) = 1;
+    MP_POL(x, y) = 0;
+    MP_INFO(x, y).population = 0;
+    MP_INFO(x, y).flags = 0;
+    MP_INFO(x, y).coal_reserve = 0;
+    MP_INFO(x, y).ore_reserve = 0;
+    MP_INFO(x, y).int_1 = 0;
+    MP_INFO(x, y).int_2 = 0;
+    MP_INFO(x, y).int_3 = 0;
+    MP_INFO(x, y).int_4 = 0;
+    MP_INFO(x, y).int_5 = 0;
+    MP_INFO(x, y).int_6 = 0;
+    MP_INFO(x, y).int_7 = 0;
 }
 
 static void random_start(int *originx, int *originy)
@@ -832,7 +887,7 @@ static void quick_start_add(int x, int y, short type, int size)
     MP_GROUP(x, y) = get_group_of_type(type);
 }
 
-void sustainability_test(void)
+static void sustainability_test(void)
 {
     int i;
     if (sust_dig_ore_coal_tip_flag == 0) {
@@ -889,7 +944,7 @@ void sustainability_test(void)
     }
 }
 
-int sust_fire_cover(void)
+static int sust_fire_cover(void)
 {
     int x, y;
     for (x = 0; x < WORLD_SIDE_LEN; x++)
@@ -905,7 +960,7 @@ int sust_fire_cover(void)
     return (1);
 }
 
-void debug_mappoints(void)
+static void debug_mappoints(void)
 {
     int x, y;
     for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -918,12 +973,4 @@ void debug_mappoints(void)
     }
 }
 
-void initialize_tax_rates(void)
-{
-    income_tax_rate = INCOME_TAX_RATE;
-    coal_tax_rate = COAL_TAX_RATE;
-    goods_tax_rate = GOODS_TAX_RATE;
-    dole_rate = DOLE_RATE;
-    transport_cost_rate = TRANSPORT_COST_RATE;
-    import_cost_rate = IM_PORT_COST_RATE;
-}
+

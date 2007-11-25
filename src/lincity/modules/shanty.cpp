@@ -10,6 +10,8 @@
 #include "shanty.h"
 
 #include <stdlib.h>
+static int spiral_find_2x2(int startx, int starty);
+static int spiral_find_group(int startx, int starty, int group);
 
 void add_a_shanty(void)
 {
@@ -109,4 +111,98 @@ void do_shanty(int x, int y)
         MP_POL(x, y)++;
     else
         MP_POL(x + 1, y + 1)++;
+}
+
+/*
+   // spiral round from startx,starty until we hit something of group group.
+   // return the x y coords encoded as x+y*WORLD_SIDE_LEN
+   // return -1 if we don't find one.
+ */
+static int spiral_find_group(int startx, int starty, int group)
+{
+    int i, j, x, y;
+    x = startx;
+    y = starty;
+    /* let's just do a complete spiral for now, work out the bounds later */
+    for (i = 1; i < (WORLD_SIDE_LEN + WORLD_SIDE_LEN); i++) {
+        for (j = 0; j < i; j++) {
+            x--;
+            if (x > 0 && x < WORLD_SIDE_LEN && y > 0 && y < WORLD_SIDE_LEN)
+                if (MP_GROUP(x, y) == group)
+                    return (x + y * WORLD_SIDE_LEN);
+        }
+        for (j = 0; j < i; j++) {
+            y--;
+            if (x > 0 && x < WORLD_SIDE_LEN && y > 0 && y < WORLD_SIDE_LEN)
+                if (MP_GROUP(x, y) == group)
+                    return (x + y * WORLD_SIDE_LEN);
+        }
+        i++;
+        for (j = 0; j < i; j++) {
+            x++;
+            if (x > 0 && x < WORLD_SIDE_LEN && y > 0 && y < WORLD_SIDE_LEN)
+                if (MP_GROUP(x, y) == group)
+                    return (x + y * WORLD_SIDE_LEN);
+        }
+        for (j = 0; j < i; j++) {
+            y++;
+            if (x > 0 && x < WORLD_SIDE_LEN && y > 0 && y < WORLD_SIDE_LEN)
+                if (MP_GROUP(x, y) == group)
+                    return (x + y * WORLD_SIDE_LEN);
+        }
+    }
+    return (-1);
+}
+
+/*
+   // spiral round from startx,starty until we hit a 2x2 space.
+   // return the x y coords encoded as x+y*WORLD_SIDE_LEN
+   // return -1 if we don't find one.
+ */
+static int spiral_find_2x2(int startx, int starty)
+{
+    int i, j, x, y;
+    x = startx;
+    y = starty;
+    /* let's just do a complete spiral for now, work out the bounds later */
+    for (i = 1; i < (WORLD_SIDE_LEN + WORLD_SIDE_LEN); i++) {
+        for (j = 0; j < i; j++) {
+            x--;
+            if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1 && y < WORLD_SIDE_LEN - 2)
+                if (GROUP_IS_BARE(MP_GROUP(x, y))
+                    && GROUP_IS_BARE(MP_GROUP(x + 1, y))
+                    && GROUP_IS_BARE(MP_GROUP(x, y + 1))
+                    && GROUP_IS_BARE(MP_GROUP(x + 1, y + 1)))
+                    return (x + y * WORLD_SIDE_LEN);
+        }
+        for (j = 0; j < i; j++) {
+            y--;
+            if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1 && y < WORLD_SIDE_LEN - 2)
+                if (GROUP_IS_BARE(MP_GROUP(x, y))
+                    && GROUP_IS_BARE(MP_GROUP(x + 1, y))
+                    && GROUP_IS_BARE(MP_GROUP(x, y + 1))
+                    && GROUP_IS_BARE(MP_GROUP(x + 1, y + 1)))
+                    return (x + y * WORLD_SIDE_LEN);
+        }
+        i++;
+        for (j = 0; j < i; j++) {
+            x++;
+            if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1 && y < WORLD_SIDE_LEN - 2)
+                if (GROUP_IS_BARE(MP_GROUP(x, y))
+                    && GROUP_IS_BARE(MP_GROUP(x + 1, y))
+                    && GROUP_IS_BARE(MP_GROUP(x, y + 1))
+                    && GROUP_IS_BARE(MP_GROUP(x + 1, y + 1)))
+                    return (x + y * WORLD_SIDE_LEN);
+        }
+        for (j = 0; j < i; j++) {
+            y++;
+            if (x > 1 && x < WORLD_SIDE_LEN - 2 && y > 1 && y < WORLD_SIDE_LEN - 2)
+                if (GROUP_IS_BARE(MP_GROUP(x, y))
+                    && GROUP_IS_BARE(MP_GROUP(x + 1, y))
+                    && GROUP_IS_BARE(MP_GROUP(x, y + 1))
+                    && GROUP_IS_BARE(MP_GROUP(x + 1, y + 1)))
+                    return (x + y * WORLD_SIDE_LEN);
+        }
+    }
+    return (-1);
 }

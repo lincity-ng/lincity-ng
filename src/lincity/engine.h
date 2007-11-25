@@ -15,6 +15,9 @@ void connect_rivers(void);
 int adjust_money(int value);
 void fire_area(int x, int y);
 void do_daily_ecology(void);
+void do_pollution(void);
+void clear_fire_health_and_cricket_cover(void);
+void do_fire_health_and_cricket_cover(void);
 
 extern long real_time;
 

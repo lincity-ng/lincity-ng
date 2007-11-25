@@ -7,7 +7,10 @@
 #define __simulate_h__
 
 void new_city(int *originx, int *originy, int random_village);
-void count_all_groups(int *group_count);
 void do_time_step(void);
+void initialize_tax_rates(void);
+int count_groups(int gr);
+void count_all_groups(int *group_count);
+void init_mappoint_array(void);
 
 #endif /* __simulate_h__ */

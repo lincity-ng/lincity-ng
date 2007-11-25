@@ -174,7 +174,7 @@ XXX: Then it shouldn't be here
 #define FLAG_WATERWELL_COVER    (0x10000000)
 #define FLAG_HAS_UNDERGROUND_WATER (0x20000000)
 #define FLAG_ASKED_FOR_POWER       (0x40000000)
-#define FLAG_GOT_POWER             (0x80000000) /* 2^31 = last flag */
+#define FLAG_GOT_POWER             (0x80000000) /* 2^31 = last flag */  //nearly duplicate of FLAG_POWERED 0x10
 
 /* XXX: It would appear that the following T_ are used exactly two times each,
    in market.c.  */
@@ -1166,10 +1166,6 @@ extern void do_load_city(void);
 extern void load_opening_city(char *);
 extern void load_city(char *);
 extern void reset_animation_times(void);
-extern void coal_reserve_setup(void);
-extern void ore_reserve_setup(void);
-extern void setup_river(void);
-extern void setup_river2(int, int, int);
 extern void check_savedir(void);
 extern void make_savedir(void);
 extern void draw_save_dir(int);
@@ -1197,8 +1193,6 @@ extern void dump_tcore(void);
 #ifndef LC_X11
 extern void parse_args(int, char **);
 #endif
-extern void sustainability_test(void);
-extern int sust_fire_cover(void);
 extern void check_endian(void);
 extern void eswap32(int *);
 extern void eswap16(unsigned short *);
@@ -1321,7 +1315,6 @@ extern void prog_box(const char *, int);
 void initialize_tax_rates(void);
 void set_mappoint(int x, int y, short selected_type);
 void set_mappoint_used(int, int, int, int);
-int no_credit_build(int selected_type);
 void set_mappoint_ints(int fromx, int fromy, int x, int y);
 void new_city(int *originx, int *originy, int random_village);
 extern void engine_do_time_step(void);
@@ -1336,15 +1329,12 @@ extern int get_power(int, int, int, int);
 extern int add_a_substation(int, int);
 extern void remove_a_substation(int, int);
 extern void do_organic_farm(int, int);
-void init_mappoint_array(void);
-extern void shuffle_mappoint_array(void);
 extern void shuffle_substations(void);
 extern void do_coalmine(int, int);
 extern void do_oremine(int, int);
 extern void do_commune(int, int);
 extern void do_port(int, int);
 
-extern void do_pollution(void);
 extern void do_parkland(int, int);
 extern void do_university(int, int);
 extern void do_recycle(int, int);
@@ -1359,15 +1349,11 @@ extern void do_mill(int, int);
 extern void do_pottery(int, int);
 extern void do_firestation(int, int);
 extern void do_cricket(int, int);
-extern void clear_fire_health_and_cricket_cover(void);
-extern void do_fire_health_and_cricket_cover(void);
 extern void do_fire_cover(int, int);
 extern void do_health_cover(int, int);
 extern void do_cricket_cover(int, int);
 extern void do_random_fire(int, int, int);
 extern void do_fire(int, int);
-extern int spiral_find_group(int, int, int);
-extern int spiral_find_2x2(int, int);
 extern void add_a_shanty(void);
 extern void remove_a_shanty(int, int);
 extern void update_shanty(void);
