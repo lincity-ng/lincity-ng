@@ -1,7 +1,6 @@
 #ifndef ALL_MODULES_H
 #define ALL_MODULES_H
 
-#include "all_modules.h"
 #include "blacksmith.h"
 #include "coalmine.h"
 #include "coal_power.h"

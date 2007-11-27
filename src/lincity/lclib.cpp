@@ -74,18 +74,18 @@ void num_to_ansi(char *s, size_t size, long num)
         break;
     case 1:
         triplets = 'k';
-        break;                  // kila
+        break;                  // kilo
     case 2:
-        triplets = 'm';
+        triplets = 'M';
         break;                  // mega
     case 3:
-        triplets = 'g';
+        triplets = 'G';
         break;                  // giga 
     case 4:
-        triplets = 't';
+        triplets = 'T';
         break;                  // tera 
     case 5:
-        triplets = 'p';
+        triplets = 'P';
         break;                  // peta
     default:
         triplets = '?';
