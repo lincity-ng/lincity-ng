@@ -26,17 +26,15 @@
 #include "gui_interface/shared_globals.h"
 
 extern int selected_type_cost;
+int last_warning_message_group = 0;
 
 /****** Private functions prototypes *****/
 static void bulldoze_mappoint(short fill, int x, int y);
-
 static int no_credit_build(int selected_group);
 static void no_credit_build_msg_ng(int selected_group);
+static int is_real_river(int x, int y);
 
-int is_real_river(int x, int y);
-int last_warning_message_group = 0;
-
-/************************************************/
+/*************** Global functions ********************/
 void fire_area(int xx, int yy)
 {
     /* this happens when a rocket crashes or on random_fire. */
@@ -104,82 +102,6 @@ int adjust_money(int value)
     update_pbar(PMONEY, total_money, 0);
     refresh_pbars();            /* This could be more specific */
     return total_money;
-}
-
-static int no_credit_build(int selected_group)
-{
-    if (total_money >= 0)
-        return (0);
-
-#ifdef GROUP_SOLAR_POWER_NO_CREDIT
-    if (selected_group == GROUP_SOLAR_POWER) {
-        return (1);
-    }
-#endif
-#ifdef GROUP_UNIVERSITY_NO_CREDIT
-    if (selected_group == GROUP_UNIVERSITY) {
-        return (1);
-    }
-#endif
-#ifdef GROUP_PARKLAND_NO_CREDIT
-    if (selected_group == GROUP_PARKLAND) {
-        return (1);
-    }
-#endif
-#ifdef GROUP_RECYCLE_NO_CREDIT
-    if (selected_group == GROUP_RECYCLE) {
-        return (1);
-    }
-#endif
-#ifdef GROUP_ROCKET
-    if (selected_group == GROUP_ROCKET) {
-        return (1);
-    }
-#endif
-
-    if (main_groups[selected_group].no_credit == TRUE) {
-        return (1);
-    }
-    return (0);
-}
-
-static void no_credit_build_msg_ng(int selected_group)
-{
-    if (last_warning_message_group == selected_group)
-        return;
-    last_warning_message_group = selected_group;
-
-#ifdef GROUP_SOLAR_POWER_NO_CREDIT
-    if (selected_group == GROUP_SOLAR_POWER) {
-        ok_dial_box("no-credit-solar-power.mes", BAD, 0L);
-        return;
-    }
-#endif
-#ifdef GROUP_UNIVERSITY_NO_CREDIT
-    if (selected_group == GROUP_UNIVERSITY) {
-        ok_dial_box("no-credit-university.mes", BAD, 0L);
-        return;
-    }
-#endif
-#ifdef GROUP_PARKLAND_NO_CREDIT
-    if (selected_group == GROUP_PARKLAND) {
-        ok_dial_box("no-credit-parkland.mes", BAD, 0L);
-        return;
-    }
-#endif
-#ifdef GROUP_RECYCLE_NO_CREDIT
-    if (selected_group == GROUP_RECYCLE) {
-        ok_dial_box("no-credit-recycle.mes", BAD, 0L);
-        return;
-    }
-#endif
-#ifdef GROUP_ROCKET
-    if (selected_group == GROUP_ROCKET) {
-        ok_dial_box("no-credit-rocket.mes", BAD, 0L);
-        return;
-    }
-#endif
-    return;
 }
 
 int place_item(int x, int y, short type)
@@ -445,24 +367,6 @@ void do_bulldoze_area(short fill, int xx, int yy)
             bulldoze_mappoint(fill, x + i, y + j);
 }
 
-static void bulldoze_mappoint(short fill, int x, int y)
-{
-    /* bulldoze preserve underground resources */
-    MP_TYPE(x, y) = fill;
-    MP_GROUP(x, y) = get_group_of_type(fill);
-    if (MP_GROUP(x, y) < 0)
-        MP_GROUP(x, y) = GROUP_BARE;
-    MP_INFO(x, y).population = 0;
-    MP_INFO(x, y).flags &= FLAG_HAS_UNDERGROUND_WATER;
-    MP_INFO(x, y).int_1 = 0;
-    MP_INFO(x, y).int_2 = 0;
-    MP_INFO(x, y).int_3 = 0;
-    MP_INFO(x, y).int_4 = 0;
-    MP_INFO(x, y).int_5 = 0;
-    MP_INFO(x, y).int_6 = 0;
-    MP_INFO(x, y).int_7 = 0;
-}
-
 void do_pollution()
 {
     int x, p;
@@ -522,20 +426,17 @@ void do_pollution()
     } while (++pol < &map.pollution[WORLD_SIDE_LEN][0]);
 }
 
-void clear_fire_health_and_cricket_cover(void)
+void do_fire_health_cricket_power_cover(void)
 {
-    int x, y, m;
+    int x, y,m;
+    /* Clear the flag */
     m = 0xffffffff - (FLAG_FIRE_COVER | FLAG_HEALTH_COVER
                       | FLAG_CRICKET_COVER | FLAG_WATERWELL_COVER | FLAG_ASKED_FOR_POWER | FLAG_GOT_POWER);
     for (y = 0; y < WORLD_SIDE_LEN; y++)
         for (x = 0; x < WORLD_SIDE_LEN; x++)
             MP_INFO(x, y).flags &= m;
-    /* Wow... chache misses or what! */
-}
 
-void do_fire_health_and_cricket_cover(void)
-{
-    int x, y;
+    /* Check cover */
     for (y = 0; y < WORLD_SIDE_LEN; y++)
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
             /*  The next few lines need changing to test for */
@@ -677,6 +578,34 @@ void connect_rivers(void)
     }
 }
 
+/* Feature: coal survey should vary in price and accuracy with technology */
+void do_coal_survey(void)
+{
+    if (coal_survey_done == 0) {
+        adjust_money(-1000000);
+        coal_survey_done = 1;
+    }
+}
+
+/************ Private functions ***************************/
+static void bulldoze_mappoint(short fill, int x, int y)
+{
+    /* bulldoze preserve underground resources */
+    MP_TYPE(x, y) = fill;
+    MP_GROUP(x, y) = get_group_of_type(fill);
+    if (MP_GROUP(x, y) < 0)
+        MP_GROUP(x, y) = GROUP_BARE;
+    MP_INFO(x, y).population = 0;
+    MP_INFO(x, y).flags &= FLAG_HAS_UNDERGROUND_WATER;
+    MP_INFO(x, y).int_1 = 0;
+    MP_INFO(x, y).int_2 = 0;
+    MP_INFO(x, y).int_3 = 0;
+    MP_INFO(x, y).int_4 = 0;
+    MP_INFO(x, y).int_5 = 0;
+    MP_INFO(x, y).int_6 = 0;
+    MP_INFO(x, y).int_7 = 0;
+}
+
 int is_real_river(int x, int y)
 {
     /* returns zero if not water at all or if out of bounds. */
@@ -689,11 +618,80 @@ int is_real_river(int x, int y)
     return (-1);
 }
 
-/* Feature: coal survey should vary in price and accuracy with technology */
-void do_coal_survey(void)
+static int no_credit_build(int selected_group)
 {
-    if (coal_survey_done == 0) {
-        adjust_money(-1000000);
-        coal_survey_done = 1;
+    if (total_money >= 0)
+        return (0);
+
+#ifdef GROUP_SOLAR_POWER_NO_CREDIT
+    if (selected_group == GROUP_SOLAR_POWER) {
+        return (1);
     }
+#endif
+#ifdef GROUP_UNIVERSITY_NO_CREDIT
+    if (selected_group == GROUP_UNIVERSITY) {
+        return (1);
+    }
+#endif
+#ifdef GROUP_PARKLAND_NO_CREDIT
+    if (selected_group == GROUP_PARKLAND) {
+        return (1);
+    }
+#endif
+#ifdef GROUP_RECYCLE_NO_CREDIT
+    if (selected_group == GROUP_RECYCLE) {
+        return (1);
+    }
+#endif
+#ifdef GROUP_ROCKET
+    if (selected_group == GROUP_ROCKET) {
+        return (1);
+    }
+#endif
+
+    if (main_groups[selected_group].no_credit == TRUE) {
+        return (1);
+    }
+    return (0);
 }
+
+static void no_credit_build_msg_ng(int selected_group)
+{
+    if (last_warning_message_group == selected_group)
+        return;
+    last_warning_message_group = selected_group;
+
+#ifdef GROUP_SOLAR_POWER_NO_CREDIT
+    if (selected_group == GROUP_SOLAR_POWER) {
+        ok_dial_box("no-credit-solar-power.mes", BAD, 0L);
+        return;
+    }
+#endif
+#ifdef GROUP_UNIVERSITY_NO_CREDIT
+    if (selected_group == GROUP_UNIVERSITY) {
+        ok_dial_box("no-credit-university.mes", BAD, 0L);
+        return;
+    }
+#endif
+#ifdef GROUP_PARKLAND_NO_CREDIT
+    if (selected_group == GROUP_PARKLAND) {
+        ok_dial_box("no-credit-parkland.mes", BAD, 0L);
+        return;
+    }
+#endif
+#ifdef GROUP_RECYCLE_NO_CREDIT
+    if (selected_group == GROUP_RECYCLE) {
+        ok_dial_box("no-credit-recycle.mes", BAD, 0L);
+        return;
+    }
+#endif
+#ifdef GROUP_ROCKET
+    if (selected_group == GROUP_ROCKET) {
+        ok_dial_box("no-credit-rocket.mes", BAD, 0L);
+        return;
+    }
+#endif
+    return;
+}
+
+

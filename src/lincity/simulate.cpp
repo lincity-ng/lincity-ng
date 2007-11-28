@@ -43,24 +43,24 @@
 /* AL1: they are all in engine.cpp */
 extern void connect_rivers(void);
 extern void do_daily_ecology(void);
-extern void clear_fire_health_and_cricket_cover(void);
 extern void do_pollution(void);
-extern void do_fire_health_and_cricket_cover(void);
+extern void do_fire_health_cricket_power_cover(void);
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
+static void shuffle_mappoint_array(void);
 static void do_periodic_events(void);
 static void end_of_month_update(void);
 static void start_of_year_update(void);
 static void end_of_year_update(void);
 static void simulate_mappoints(void);
-static void nullify_mappoint(int x, int y);
 
 static void sustainability_test(void);
 static int sust_fire_cover(void);
 
 static void clear_game(void);
+static void nullify_mappoint(int x, int y);
 static void random_start(int *originx, int *originy);
 static void quick_start_add(int x, int y, short type, int size);
 static void setup_land(void);
@@ -69,8 +69,7 @@ static void ore_reserve_setup(void);
 static void setup_river(void);
 static void setup_river2(int x, int y, int d);
 static void quick_start_add(int x, int y, short type, int size);
-static void debug_mappoints(void);
-static void shuffle_mappoint_array(void);
+static void debug_mappoints(void); /* AL1: NG 1.1.2 compiler warns that this is unused */
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
@@ -192,8 +191,7 @@ static void do_periodic_events(void)
         do_random_fire(-1, -1, 1);
     }
     if ((total_time % DAYS_BETWEEN_COVER) == 75) {
-        clear_fire_health_and_cricket_cover();
-        do_fire_health_and_cricket_cover();
+        do_fire_health_cricket_power_cover();
     }
     if ((total_time % DAYS_BETWEEN_SHANTY) == 85 && tech_level > (GROUP_HEALTH_TECH * MAX_TECH_LEVEL / 1000)) {
         update_shanty();
