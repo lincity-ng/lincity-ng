@@ -42,8 +42,13 @@ msgid "You have too many power grids. Join some of them"
 msgstr "Du har för många kraftledningar. Anslut några av dem till varandra"
 
 #: src/lincity/engine.cpp:198
-msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr "FEL: gruppen finns inte. Det här ska inte hända! Skicka gärna in en felrapport till lincity-ng-teamet med det sparade spelet och information om vad du gjorde :-) "
+msgid ""
+"ERROR: group does not exist. This should not happen! Please consider filling "
+"a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr ""
+"FEL: gruppen finns inte. Det här ska inte hända! Skicka gärna in en "
+"felrapport till lincity-ng-teamet med det sparade spelet och information om "
+"vad du gjorde :-) "
 
 #: src/lincity/engine.cpp:226
 msgid "Port must be connected to river all along right side."
@@ -60,15 +65,26 @@ msgstr "För många marknader. Du kan inte bygga en till"
 
 #: src/lincity/engine.cpp:305
 msgid "You can't build a tip here: this area was once a landfill"
-msgstr "Du kan inte bygga en soptipp här: den här platsen var tidigare en landfyllnad"
+msgstr ""
+"Du kan inte bygga en soptipp här: den här platsen var tidigare en "
+"landfyllnad"
 
 #: src/lincity/engine.cpp:330
 msgid "You can't build a mine here: This area was once a landfill"
-msgstr "Du kan inte bygga en gruva här: den här platsen var tidigare en landfyllnad"
+msgstr ""
+"Du kan inte bygga en gruva här: den här platsen var tidigare en landfyllnad"
 
 #: src/lincity/engine.cpp:335
 msgid "You can't build a mine here: there is no ore left at this site"
 msgstr "Du kan inte bygga en gruva här: det finns ingen malm kvar här"
+
+#: src/lincity/engine.cpp:259
+msgid "You can't build a water well here: it is all desert."
+msgstr ""
+
+#: src/lincity/engine.cpp:269
+msgid "You can't build a park here: it is a desert, parks need water"
+msgstr ""
 
 #: src/lincity/engine.cpp:609
 msgid "It's at a power line."
@@ -185,28 +201,6 @@ msgstr "Den är vid en kåkstad."
 #: src/lincity/engine.cpp:665
 msgid "UNKNOWN!"
 msgstr "OKÄND!"
-
-#: src/lincity/ldsvguts.cpp:128
-#, c-format
-msgid "Save file <%s> - "
-msgstr "Spara filen <%s> - "
-
-#: src/lincity/ldsvguts.cpp:129
-msgid "Can't open save file!"
-msgstr "Kan inte öppna sparad fil!"
-
-#: src/lincity/ldsvguts.cpp:134
-msgid "Saving scene"
-msgstr "Sparar scenario"
-
-#: src/lincity/ldsvguts.cpp:334
-#, c-format
-msgid "Can't open <%s> (gzipped)"
-msgstr "Kan inte öppna <%s> (gzippad)"
-
-#: src/lincity/ldsvguts.cpp:352
-msgid "Loading scene"
-msgstr "Laddar scenario"
 
 #: src/lincity/lintypes.cpp:22
 msgid "Empty"
@@ -392,6 +386,48 @@ msgstr "Bostadsområde"
 #: src/lincity/lintypes.cpp:506
 msgid "Residential HH"
 msgstr "Bostadsområde"
+
+#: src/lincity/lintypes.cpp:477
+msgid "Water well"
+msgstr ""
+
+#: src/lincity/lintypes.cpp:489
+msgid "Desert"
+msgstr ""
+
+#: src/lincity/lintypes.cpp:501
+msgid "Tree"
+msgstr ""
+
+#: src/lincity/lintypes.cpp:514
+msgid "Trees"
+msgstr ""
+
+#: src/lincity/lintypes.cpp:527
+msgid "Forest"
+msgstr ""
+
+#: src/lincity/ldsvguts.cpp:128
+#, c-format
+msgid "Save file <%s> - "
+msgstr "Spara filen <%s> - "
+
+#: src/lincity/ldsvguts.cpp:129
+msgid "Can't open save file!"
+msgstr "Kan inte öppna sparad fil!"
+
+#: src/lincity/ldsvguts.cpp:134
+msgid "Saving scene"
+msgstr "Sparar scenario"
+
+#: src/lincity/ldsvguts.cpp:334
+#, c-format
+msgid "Can't open <%s> (gzipped)"
+msgstr "Kan inte öppna <%s> (gzippad)"
+
+#: src/lincity/ldsvguts.cpp:352
+msgid "Loading scene"
+msgstr "Laddar scenario"
 
 #: src/lincity/lclib.cpp:17
 msgid "Jan"
@@ -689,6 +725,19 @@ msgstr "Matade"
 msgid "Employed"
 msgstr "Anställda"
 
+#: src/lincity/modules/residence.cpp:299
+#: src/lincity-ng/MpsInterface.cpp:393
+msgid "good"
+msgstr "bra"
+
+#: src/lincity/modules/residence.cpp:299
+msgid "poor"
+msgstr "dålig"
+
+#: src/lincity/modules/residence.cpp:300
+msgid "Job"
+msgstr "Jobb"
+
 #: src/lincity/modules/residence.cpp:289
 msgid "Health Cvr"
 msgstr "Sjukhustä."
@@ -703,19 +752,6 @@ msgstr "Sport"
 #: src/lincity-ng/MpsInterface.cpp:388
 msgid "Pollution"
 msgstr "Miljöförstöring"
-
-#: src/lincity/modules/residence.cpp:299
-#: src/lincity-ng/MpsInterface.cpp:393
-msgid "good"
-msgstr "bra"
-
-#: src/lincity/modules/residence.cpp:299
-msgid "poor"
-msgstr "dålig"
-
-#: src/lincity/modules/residence.cpp:300
-msgid "Job"
-msgstr "Jobb"
 
 #: src/lincity/modules/monument.cpp:63
 msgid "Wisdom Bestowed"
@@ -848,6 +884,10 @@ msgstr "% fylld"
 msgid "Activity"
 msgstr "Aktivitet"
 
+#: src/lincity/modules/school.cpp:51
+msgid "Lessons Learned"
+msgstr "Lexor lärda"
+
 #: src/lincity/modules/firestation.cpp:119
 msgid "Fire Station"
 msgstr "Brandstation"
@@ -864,13 +904,33 @@ msgstr "NEJ"
 msgid "Prod"
 msgstr "Produktion"
 
-#: src/lincity/modules/school.cpp:51
-msgid "Lessons Learned"
-msgstr "Lexor lärda"
+#: src/lincity/modules/organic_farm.cpp:238
+msgid "Debug info"
+msgstr ""
+
+#: src/lincity/modules/organic_farm.cpp:239
+msgid " max with power & water"
+msgstr ""
+
+#: src/lincity/modules/organic_farm.cpp:240
+msgid " number of tile with water"
+msgstr ""
+
+#: src/lincity/modules/organic_farm.cpp:241
+msgid " current production"
+msgstr ""
 
 #: src/lincity/modules/solar_power.cpp:43
 msgid "Solar"
 msgstr "Solkraft"
+
+#: src/lincity/modules/waterwell.cpp:44
+msgid "Water_well"
+msgstr ""
+
+#: src/lincity/modules/waterwell.cpp:51
+msgid "Drinkable"
+msgstr ""
 
 #: src/lincity-ng/Dialog.cpp:173
 msgid "Launchsite"
@@ -981,6 +1041,16 @@ msgstr ".   Industrier %4d   Tung industri %4d      Återvinning %4d"
 msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
 msgstr ".    Kolgruvor %4d      Malmgruvor %4d         Kolmilor %4d"
 
+#: src/lincity-ng/ScreenInterface.cpp:261
+msgid "MM"
+msgstr "M"
+
+#: src/lincity-ng/GameView.cpp:1574
+#: src/lincity-ng/GameView.cpp:1605
+#: src/lincity-ng/ScreenInterface.cpp:272
+msgid "$"
+msgstr "€"
+
 #: src/lincity-ng/GameView.cpp:236
 msgid "Minimap: outline map"
 msgstr "Minikarta: Översiktskarta"
@@ -1028,12 +1098,6 @@ msgstr "Uppskattad rivningskostnad: "
 #: src/lincity-ng/GameView.cpp:1571
 msgid "Bulldoze Cost: "
 msgstr "Rivningskostnad: "
-
-#: src/lincity-ng/GameView.cpp:1574
-#: src/lincity-ng/GameView.cpp:1605
-#: src/lincity-ng/ScreenInterface.cpp:272
-msgid "$"
-msgstr "€"
 
 #: src/lincity-ng/GameView.cpp:1576
 msgid "n/a"
@@ -1245,42 +1309,6 @@ msgstr "Svält"
 msgid "Cases"
 msgstr "Fall"
 
-#: src/lincity-ng/EconomyGraph.cpp:123
-msgid "Mining"
-msgstr "Gruvdrift"
-
-#: src/lincity-ng/EconomyGraph.cpp:125
-msgid "Trade"
-msgstr "Handel"
-
-#: src/lincity-ng/EconomyGraph.cpp:127
-msgid "Money"
-msgstr "Pengar"
-
-#: src/lincity-ng/EconomyGraph.cpp:129
-msgid "Popul."
-msgstr "Befolk."
-
-#: src/lincity-ng/EconomyGraph.cpp:131
-msgid "Techn."
-msgstr "Teknologi"
-
-#: src/lincity-ng/EconomyGraph.cpp:136
-msgid "Economy Overview:"
-msgstr "Ekonomiöversikt:"
-
-#: src/lincity-ng/EconomyGraph.cpp:139
-msgid "Sustainability:"
-msgstr "Hållbarhet:"
-
-#: src/lincity-ng/EconomyGraph.cpp:142
-msgid "Frames per Second:"
-msgstr "Bilder per sekund:"
-
-#: src/lincity-ng/EconomyGraph.cpp:218
-msgid "You lose."
-msgstr "Du har förlorat."
-
 #: src/lincity-ng/ButtonPanel.cpp:198
 msgid "Query Tool"
 msgstr "Frågeverktyg"
@@ -1323,7 +1351,43 @@ msgstr " [Högerklicka för hjälp]"
 msgid "%s (Techlevel %.1f required.)"
 msgstr "%s (Teknologinivå %.1f krävs.)"
 
-#: src/lincity-ng/ScreenInterface.cpp:261
-msgid "MM"
-msgstr "M"
+#: src/lincity-ng/ButtonPanel.cpp:252
+#, c-format
+msgid "%s is disabled (loaded old game)."
+msgstr ""
 
+#: src/lincity-ng/EconomyGraph.cpp:123
+msgid "Mining"
+msgstr "Gruvdrift"
+
+#: src/lincity-ng/EconomyGraph.cpp:125
+msgid "Trade"
+msgstr "Handel"
+
+#: src/lincity-ng/EconomyGraph.cpp:127
+msgid "Money"
+msgstr "Pengar"
+
+#: src/lincity-ng/EconomyGraph.cpp:129
+msgid "Popul."
+msgstr "Befolk."
+
+#: src/lincity-ng/EconomyGraph.cpp:131
+msgid "Techn."
+msgstr "Teknologi"
+
+#: src/lincity-ng/EconomyGraph.cpp:136
+msgid "Economy Overview:"
+msgstr "Ekonomiöversikt:"
+
+#: src/lincity-ng/EconomyGraph.cpp:139
+msgid "Sustainability:"
+msgstr "Hållbarhet:"
+
+#: src/lincity-ng/EconomyGraph.cpp:142
+msgid "Frames per Second:"
+msgstr "Bilder per sekund:"
+
+#: src/lincity-ng/EconomyGraph.cpp:218
+msgid "You lose."
+msgstr "Du har förlorat."

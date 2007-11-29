@@ -1,7 +1,6 @@
 # translation of ca.po to Catalá
 # This file is distributed under the same license as the Lincity-NG
 # package. # Copyright (C) 2007 Joan <info@lutesor.com>
-
 msgid ""
 msgstr ""
 "Project-Id-Version: ca\n"
@@ -24,12 +23,18 @@ msgid "A Fire has started"
 msgstr "Incendi declarat"
 
 #: data/gui/shfire-uc.xml
-msgid "A fire has broken out at a shanty town. It is in a fire cover area and APPEARS to be under control. "
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
 msgstr "Foc a la gossera"
 
 #: data/gui/shfire-oc.xml
-msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may spread to other areas. "
-msgstr "Incendi a la gossera shanty town. El foc está  fore de control i perilla que s'escampi."
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"Incendi a la gossera shanty town. El foc está  fore de control i perilla "
+"que s'escampi."
 
 #: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
 #: data/gui/savegame.xml
@@ -366,7 +371,8 @@ msgid "Schools available"
 msgstr "Escola disponible"
 
 #: data/gui/coalmineup.xml
-msgid "See the help screen for more information on coal mines and coal surveys."
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
 msgstr "Per mes informació veure pantalla de ayude mines de Carbó i Coure"
 
 #: data/gui/firestationup.xml data/gui/hvindustryup.xml
@@ -423,9 +429,9 @@ msgstr "Mostre densitat contaminació"
 msgid "Show power supply"
 msgstr "Mostre Suministre d'energia"
 
-#: data/gui/minimap.xml
-msgid "Show ressources."
-msgstr "Mostre recursos"
+#: data/gui/minimap.xml 
+msgid "Show resources."
+msgstr ""
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show sport cover"
@@ -499,6 +505,10 @@ msgstr "Evacuació Total Completada"
 msgid "Trade Settings"
 msgstr "Paràmetres de comerç"
 
+#: data/gui/creditslist.xml 
+msgid "Translation"
+msgstr ""
+
 #: data/gui/universityup.xml
 msgid "University available"
 msgstr "Universitat disponible"
@@ -544,116 +554,220 @@ msgid "You better go and look for it"
 msgstr "Millor que aneu a cercar-ho"
 
 #: data/gui/launch_rocket_yn.xml
-msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
-msgstr "Pots llansar el cohet ara o mes tard. Si vols continuar costará molts diners."
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"Pots llansar el cohet ara o mes tard. Si vols continuar costará molts "
+"diners."
 
 #: data/gui/import-exportup.xml
-msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
-msgstr "Pots Importar i exportar carbó, bens, coure i acer, llegeix la plana de ayuda per fer-u correctement."
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"Pots Importar i exportar carbó, bens, coure i acer, llegeix la plana de "
+"ayuda per fer-u correctement."
 
 #: data/gui/no-credit-parkland.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
-msgstr "Quan entras en deficit la legislació no et permet construir parcs a crédit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build parks on credit."
+msgstr ""
+"Quan entras en deficit la legislació no et permet construir parcs a crédit."
 
 #: data/gui/no-credit-recycle.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build recycling centres on credit."
-msgstr "Quan estás en deficit La legislació no et permet construir centres de reciclat a credit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build recycling centres on credit."
+msgstr ""
+"Quan estás en deficit La legislació no et permet construir centres de "
+"reciclat a credit."
 
 #: data/gui/no-credit-rocket.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build rocket launch pads on credit."
-msgstr "Quan estas en deficit la legislació no et permet construir Plataformes de cohets a crédit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build rocket launch pads on credit."
+msgstr ""
+"Quan estas en deficit la legislació no et permet construir Plataformes de "
+"cohets a crédit."
 
 #: data/gui/no-credit-solar-power.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build solar power stations on credit."
-msgstr "Quan estas en deficit La legislació no et permet construir central solar a credit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build solar power stations on credit."
+msgstr ""
+"Quan estas en deficit La legislació no et permet construir central solar a "
+"credit."
 
 #: data/gui/no-credit-university.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build universities on credit."
-msgstr "Quan estás en deficit. El consell legislatiu no et permet construir Universitats a crédit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build universities on credit."
+msgstr ""
+"Quan estás en deficit. El consell legislatiu no et permet construir "
+"Universitats a crédit."
 
 #: data/gui/launch-evac.xml
-msgid "You have evacuated 1000 people. You might want to reduce the size of your economy to reflect the reduced population. "
-msgstr "Has evacuat a 1000 persones. Aquesta reducció es reflectará en la economía. "
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"Has evacuat a 1000 persones. Aquesta reducció es reflectará en la "
+"economía. "
 
 #: data/gui/blacksmithup.xml
-msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
-msgstr "Has arrivat al nivell técnic de les fargues. Les fargues necessiten llocs de treball i acer."
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"Has arrivat al nivell técnic de les fargues. Les fargues necessiten llocs "
+"de treball i acer."
 
 #: data/gui/coalpowerup.xml
-msgid "You have reached the tech level which enables you to build coal fired power stations."
-msgstr "Has arrivat al nivell técnic  amb edificis crema carbó a la central Térmica."
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr ""
+"Has arrivat al nivell técnic  amb edificis crema carbó a la central "
+"Térmica."
 
 #: data/gui/firestationup.xml
-msgid "You have reached the tech level which enables you to build fire stations. Fire stations prevent most fires from starting. If you haven't had any fires yet, you might not think you need them."
-msgstr "Has arrivat al nivell técnic. Habilita una Estació de Bombers. La Estació de Bombers  preveu els incendis avans que es produexin i no necesiten apagarlos."
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"Has arrivat al nivell técnic. Habilita una Estació de Bombers. La Estació "
+"de Bombers  preveu els incendis avans que es produexin i no necesiten "
+"apagarlos."
 
 #: data/gui/healthup.xml
-msgid "You have reached the tech level which enables you to build health centres. Heath centres reduce the number of people killed by pollution and increase overall productivity."
-msgstr "Has arrivat al nivell tecnic a on pots construir un Centre Hospitalari. El Centre de Hospitalari redueig el nombre de persones mortes per contaminació i incremente la productivitat."
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"Has arrivat al nivell tecnic a on pots construir un Centre Hospitalari. El "
+"Centre de Hospitalari redueig el nombre de persones mortes per contaminació "
+"i incremente la productivitat."
 
 #: data/gui/hvindustryup.xml
-msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
-msgstr "Has asolit un nou nivell técnic a on podrás contruir indústria pesada (La industria pesada produeig acer)."
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"Has asolit un nou nivell técnic a on podrás contruir indústria pesada (La "
+"industria pesada produeig acer)."
 
 #: data/gui/ltindustryup.xml
-msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "
-msgstr "Has arrivat a un nou nivell tècnic que et permet construir industria eléctrica'. La industria electrica produeix bens."
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"Has arrivat a un nou nivell tècnic que et permet construir industria "
+"eléctrica'. La industria electrica produeix bens."
 
 #: data/gui/millup.xml
-msgid "You have reached the tech level which enables you to build mills. Mills use jobs and food to make goods. Watch out, they can use a lot of food! "
-msgstr "Has arrivat a un nou nivell técnic que et permet construir fábriques. Les fábriques donen feina, i aliment i produeixen bens."
+msgid ""
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr ""
+"Has arrivat a un nou nivell técnic que et permet construir fábriques. Les "
+"fábriques donen feina, i aliment i produeixen bens."
 
 #: data/gui/mod_wind_up.xml
-msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "
-msgstr "Has arrivat a un nou nivell tánic que et permet construir Molins mes moderns."
+msgid ""
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
+msgstr ""
+"Has arrivat a un nou nivell tánic que et permet construir Molins mes "
+"moderns."
 
 #: data/gui/parkup.xml
-msgid "You have reached the tech level which enables you to build parks. Parks are used to absorb pollution. "
-msgstr "Has arrivat a un nivell técnic que et permet contruir parcs. Els parcs es fan servir per absorvir la contaminació"
+msgid ""
+"You have reached the tech level which enables you to build parks. Parks are "
+"used to absorb pollution. "
+msgstr ""
+"Has arrivat a un nivell técnic que et permet contruir parcs. Els parcs es "
+"fan servir per absorvir la contaminació"
 
 #: data/gui/potteryup.xml
-msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
-msgstr "Has arrivat a un nou nivell técnic que et permet construir fábriques de cerámique. La cerámique genera feina i produeix bens."
+msgid ""
+"You have reached the tech level which enables you to build potteries. "
+"Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr ""
+"Has arrivat a un nou nivell técnic que et permet construir fábriques de "
+"cerámique. La cerámique genera feina i produeix bens."
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr "Has arrivat a un nivell técnic que et permet construir vías férreas."
+msgstr ""
+"Has arrivat a un nivell técnic que et permet construir vías férreas."
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
 msgstr "Has arrivat a un nivell técnic que et permet contruir canals"
 
 #: data/gui/roadup.xml
-msgid "You have reached the tech level which enables you to build roads. See the help screen for more information."
-msgstr "Has arrivat a un nivell técnic que et permet construir carreteres. Per mes informació mire la pantalla d'ajuda."
+msgid ""
+"You have reached the tech level which enables you to build roads. See the "
+"help screen for more information."
+msgstr ""
+"Has arrivat a un nivell técnic que et permet construir carreteres. Per mes "
+"informació mire la pantalla d'ajuda."
 
 #: data/gui/rocketup.xml
-msgid "You have reached the tech level which enables you to build rocket launch pads. Rockets enable you to evacuate your population and is a way to 'win' the game."
-msgstr "Has arrivat a un nivell técnic que et permet construir Plataformes de cohets.Els cohets et permeten evacuar la població i es un camí per guanyar el joc."
+msgid ""
+"You have reached the tech level which enables you to build rocket launch "
+"pads. Rockets enable you to evacuate your population and is a way to 'win' "
+"the game."
+msgstr ""
+"Has arrivat a un nivell técnic que et permet construir Plataformes de "
+"cohets.Els cohets et permeten evacuar la població i es un camí per guanyar "
+"el joc."
 
 #: data/gui/schoolup.xml
-msgid "You have reached the tech level which enables you to build schools. Schools use jobs and goods to increase tech level. "
-msgstr "Has arrivat a un nivell ténic que et permet construir escoles. Les escoles donen feina i bens a més de incrementar el nivell técnic."
+msgid ""
+"You have reached the tech level which enables you to build schools. Schools "
+"use jobs and goods to increase tech level. "
+msgstr ""
+"Has arrivat a un nivell ténic que et permet construir escoles. Les escoles "
+"donen feina i bens a més de incrementar el nivell técnic."
 
 #: data/gui/solarpowerup.xml
-msgid "You have reached the tech level which enables you to build solar power stations. "
-msgstr "Has arrivat a un nivell ténic que et permet construir Centarls Solars."
+msgid ""
+"You have reached the tech level which enables you to build solar power "
+"stations. "
+msgstr ""
+"Has arrivat a un nivell ténic que et permet construir Centarls Solars."
 
 #: data/gui/universityup.xml
-msgid "You have reached the tech level which enables you to build universities. Universities produces PhDs, which produce more technology. "
-msgstr "Has arrivat a un nivell ténic que et permet construir Universitats. Les Universitats generen I+D, produint mes tecnología."
+msgid ""
+"You have reached the tech level which enables you to build universities. "
+"Universities produces PhDs, which produce more technology. "
+msgstr ""
+"Has arrivat a un nivell ténic que et permet construir Universitats. Les "
+"Universitats generen I+D, produint mes tecnología."
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
 msgstr "Has arrivat a un nivell ténic que et permet construir Molins."
 
 #: data/gui/coalmineup.xml
-msgid "You have reached the tech level which enables you to dig deep coal mines."
-msgstr "Has arrivat a un nivell ténic que et permet construir mines de carbó."
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr ""
+"Has arrivat a un nivell ténic que et permet construir mines de carbó."
 
 #: data/gui/recycleup.xml
-msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
-msgstr "Has arrivat a un nivell ténic que et permet construir Centres de Reciclat. Els centres de reciclat reutilitzen els articles bells."
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr ""
+"Has arrivat a un nivell ténic que et permet construir Centres de Reciclat. "
+"Els centres de reciclat reutilitzen els articles bells."
 
 #: data/gui/launch-gone.xml data/gui/sustain.xml
 msgid "You have won the game."
@@ -664,16 +778,26 @@ msgid "You should start a new career elsewhere."
 msgstr "Necesites comensar una nova partida"
 
 #: data/gui/cricketup.xml
-msgid "Your people have invented basketball. Basketball Courts use a few jobs and goods and make people in the surrounding areas (about 10 units in each direction) happier."
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
 msgstr "La gent a inventat el Basket. El deport fa la gent més sana i feliç."
 
 #: data/gui/launch-fail.xml
-msgid "Your rocket crashed shortly after launch. People no longer trust the technology for evacuation. You must launch five more unmanned rockets to restore confidence."
-msgstr "El teu cohet a explotat després del llansament. La gent que viatjava a dins a mort. Llansa cuatre cohets sense gent per agafar confiansa."
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"El teu cohet a explotat després del llansament. La gent que viatjava a dins "
+"a mort. Llansa cuatre cohets sense gent per agafar confiansa."
 
 #: data/gui/minimap.xml
 msgid "[+] Zoom in view so that less buildings but more details are visible"
-msgstr "[+] Augmenta el zoom que fa que es mostrin menys edificis però més detalls són visibles"
+msgstr ""
+"[+] Augmenta el zoom que fa que es mostrin menys edificis però més detalls "
+"són visibles"
 
 #: data/gui/minimap.xml
 msgid "[-] Zoom out"
@@ -694,4 +818,3 @@ msgstr "[v] Rotar els modes de vista del Minimapa"
 #: data/gui/savegame.xml
 msgid "save to selected slot"
 msgstr "Desa opció triada"
-

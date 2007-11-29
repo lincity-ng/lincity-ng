@@ -40,8 +40,8 @@ msgid ""
 "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
 "spread to other areas. "
 msgstr ""
-"Pożar ogarnął slumsy. Ogień wymknął się spod kontroli i istnieje szansa jego "
-"rozprzestrzenienia się."
+"Pożar ogarnął slumsy. Ogień wymknął się spod kontroli i istnieje "
+"szansa jego rozprzestrzenienia się."
 
 #: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
 #: data/gui/savegame.xml
@@ -508,8 +508,8 @@ msgstr "W mieście nie ma już żadnych ludzi."
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it is free to call again."
 msgstr ""
-"To będzie Cię kosztować jednorazowo 1 milion. Później jest już dostępne za "
-"darmo."
+"To będzie Cię kosztować jednorazowo 1 milion. Później jest już "
+"dostępne za darmo."
 
 #: data/gui/launch-gone.xml
 msgid "Total Evacuation Complete."
@@ -574,8 +574,8 @@ msgid ""
 "clicking on the rocket area."
 msgstr ""
 "Możesz wystrzelić rakietę teraz lub później. Jeśli będziesz czekał, "
-"utrzymywanie rakiety w stanie gotowości będzie Cię kosztować. Możesz ją "
-"potem wystrzelić klikając na kosmodrom."
+"utrzymywanie rakiety w stanie gotowości będzie Cię kosztować. Możesz "
+"ją potem wystrzelić klikając na kosmodrom."
 
 #: data/gui/import-exportup.xml
 msgid ""
@@ -583,7 +583,8 @@ msgid ""
 "pages on these subjects to find out how to use them. "
 msgstr ""
 "Teraz możesz importować i eksportować węgiel, towary, rude i stal. "
-"Przeczytaj strony pomocy tych tematów, żeby dowiedzieć się jak to zrobić."
+"Przeczytaj strony pomocy tych tematów, żeby dowiedzieć się jak to "
+"zrobić."
 
 #: data/gui/no-credit-parkland.xml
 msgid ""
@@ -597,8 +598,8 @@ msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build recycling centres on credit."
 msgstr ""
-"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy zakładów recyklingu "
-"na kredyt."
+"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy zakładów "
+"recyklingu na kredyt."
 
 #: data/gui/no-credit-rocket.xml
 msgid ""
@@ -645,7 +646,8 @@ msgid ""
 "You have reached the tech level which enables you to build coal fired power "
 "stations."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe elektrowni węglowych."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe elektrowni "
+"węglowych."
 
 #: data/gui/firestationup.xml
 msgid ""
@@ -653,9 +655,10 @@ msgid ""
 "Fire stations prevent most fires from starting. If you haven't had any fires "
 "yet, you might not think you need them."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe remiz strażackich. "
-"Remizy strażackie zapobiegają większości pożarów. Jeśli nie miałeś jeszcze "
-"żadnych pożarów, może Ci się wydawać, że ich nie potrzebujesz."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe remiz "
+"strażackich. Remizy strażackie zapobiegają większości pożarów. Jeśli "
+"nie miałeś jeszcze żadnych pożarów, może Ci się wydawać, że ich nie "
+"potrzebujesz."
 
 #: data/gui/healthup.xml
 msgid ""
@@ -663,25 +666,25 @@ msgid ""
 "Heath centres reduce the number of people killed by pollution and increase "
 "overall productivity."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe szpitali. Szpitale "
-"zmniejszają ilość ludzi zabitych przez zanieczyszczenia oraz zwiększają "
-"całkowitą wydajność."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe szpitali. "
+"Szpitale zmniejszają ilość ludzi zabitych przez zanieczyszczenia oraz "
+"zwiększają całkowitą wydajność."
 
 #: data/gui/hvindustryup.xml
 msgid ""
 "You have reached the tech level which enables you to build heavy industry "
 "(steel works). Heavy industry produces steel. "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów ciężkiego "
-"przemysłu. Zakłady ciężkiego przemysłu produkują stal. "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów "
+"ciężkiego przemysłu. Zakłady ciężkiego przemysłu produkują stal. "
 
 #: data/gui/ltindustryup.xml
 msgid ""
 "You have reached the tech level which enables you to build light industry. "
 "Light industry produces goods. "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów lekkiego "
-"przemysłu. Zakłady lekkiego przemysłu produkują towary. "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów "
+"lekkiego przemysłu. Zakłady lekkiego przemysłu produkują towary. "
 
 #: data/gui/millup.xml
 msgid ""
@@ -713,14 +716,15 @@ msgid ""
 "You have reached the tech level which enables you to build potteries. "
 "Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe garncarni. Garncarnie "
-"wykorzystują siłę roboczą oraz rudę do wytwarzania towarów. (Musisz mieć "
-"kopalnie rudy, żeby uzyskać rudę) "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe garncarni. "
+"Garncarnie wykorzystują siłę roboczą oraz rudę do wytwarzania towarów. "
+"(Musisz mieć kopalnie rudy, żeby uzyskać rudę) "
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe torów kolejowych. "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe torów "
+"kolejowych. "
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
@@ -731,8 +735,8 @@ msgid ""
 "You have reached the tech level which enables you to build roads. See the "
 "help screen for more information."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe ulic. Zobacz ekran "
-"pomocy w celu uzyskania większej ilości informacji."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe ulic. Zobacz "
+"ekran pomocy w celu uzyskania większej ilości informacji."
 
 #: data/gui/rocketup.xml
 msgid ""
@@ -740,9 +744,9 @@ msgid ""
 "pads. Rockets enable you to evacuate your population and is a way to 'win' "
 "the game."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe kosmodromów. Rakiety "
-"pozwalają ewakuować mieszkańców miasta, co jest sposobem na 'przejście' tej "
-"gry."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe kosmodromów. "
+"Rakiety pozwalają ewakuować mieszkańców miasta, co jest sposobem na "
+"'przejście' tej gry."
 
 #: data/gui/schoolup.xml
 msgid ""
@@ -767,11 +771,13 @@ msgid ""
 "Universities produces PhDs, which produce more technology. "
 msgstr ""
 "Osiągnąłeś poziom technologiczny pozwalający na budowe uniwersytetów. "
-"Uniwersytety produkują jajogłowych, którzy opracowywują nowe technologię."
+"Uniwersytety produkują jajogłowych, którzy opracowywują nowe "
+"technologię."
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr "Osiągnąłeś poziom technologiczny pozwalający na budowe wiatraków. "
+msgstr ""
+"Osiągnąłeś poziom technologiczny pozwalający na budowe wiatraków. "
 
 #: data/gui/coalmineup.xml
 msgid ""
@@ -785,8 +791,8 @@ msgid ""
 "You have reached the tech level which enables you to recycling centres. "
 "Recycling centres recycle used goods back into ore. "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów recyklingu. "
-"Zakłady recyklingu przerabiają towary na rudę. "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów "
+"recyklingu. Zakłady recyklingu przerabiają towary na rudę. "
 
 #: data/gui/launch-gone.xml data/gui/sustain.xml
 msgid "You have won the game."
@@ -802,9 +808,9 @@ msgid ""
 "goods and make people in the surrounding areas (about 10 units in each "
 "direction) happier."
 msgstr ""
-"Twoi ludzie wynaleźli koszykówkę. Boiska do koszykówki wykorzystują niewiele "
-"siły roboczej oraz towarów, a ludzie w okolicy (około 10 pól w każdym "
-"kierunku) są szczęśliwsi."
+"Twoi ludzie wynaleźli koszykówkę. Boiska do koszykówki wykorzystują "
+"niewiele siły roboczej oraz towarów, a ludzie w okolicy (około 10 pól w "
+"każdym kierunku) są szczęśliwsi."
 
 #: data/gui/launch-fail.xml
 msgid ""
@@ -819,7 +825,8 @@ msgstr ""
 #: data/gui/minimap.xml
 msgid "[+] Zoom in view so that less buildings but more details are visible"
 msgstr ""
-"[+] Przybliżenie widoku - widać mniej budynków, ale są bardziej szczegółowe."
+"[+] Przybliżenie widoku - widać mniej budynków, ale są bardziej "
+"szczegółowe."
 
 #: data/gui/minimap.xml
 msgid "[-] Zoom out"

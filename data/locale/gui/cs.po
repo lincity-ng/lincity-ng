@@ -372,7 +372,8 @@ msgstr "Školy jsou nyní dostupné"
 #: data/gui/coalmineup.xml
 msgid ""
 "See the help screen for more information on coal mines and coal surveys."
-msgstr "Vizte nápovědu pro více informací o uhelných dolech a průzkumech."
+msgstr ""
+"Vizte nápovědu pro více informací o uhelných dolech a průzkumech."
 
 #: data/gui/firestationup.xml data/gui/hvindustryup.xml
 #: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
@@ -559,8 +560,9 @@ msgid ""
 "continue costing you money to keep the rocket ready. Launch it later by "
 "clicking on the rocket area."
 msgstr ""
-"Raketu můžete odpálit ihned, nebo chvíli počkat. Čekání ale bude stát peníza "
-"za údržbu rakety. Pro pozdější odpal klikněte na pole rakety."
+"Raketu můžete odpálit ihned, nebo chvíli počkat. Čekání ale bude "
+"stát peníza za údržbu rakety. Pro pozdější odpal klikněte na pole "
+"rakety."
 
 #: data/gui/import-exportup.xml
 msgid ""

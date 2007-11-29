@@ -26,7 +26,8 @@ msgstr "Erreur. Impossible de trouver LINCITY_HOME"
 
 #: src/lincity/fileutil.cpp:561
 msgid "Error verifying package. Can't find colour.pal."
-msgstr "Erreur de vérification du paquet. Impossible de trouver la couleur pal."
+msgstr ""
+"Erreur de vérification du paquet. Impossible de trouver la couleur pal."
 
 #: src/lincity/fileutil.cpp:580
 #: src/lincity/fileutil.cpp:589
@@ -41,20 +42,31 @@ msgstr "Mémoire insuffisante : échec de malloc\n"
 
 #: src/lincity/power.cpp:93
 msgid "You have too many power grids. Join some of them"
-msgstr "Vous avez de trop nombreux réseaux électriques. Réunissez-en quelques uns."
+msgstr ""
+"Vous avez de trop nombreux réseaux électriques. Réunissez-en quelques uns."
 
 #: src/lincity/engine.cpp:199
-msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr "ERREUR: ce group n'existe pas. Ceci ne devrait _jamais_ se produire. SVP envoyez un rapport de bug à l'équipe linicty-ng, si possible avec une copie de la suvegarde du jeu et ce que vous avez fait pour obtenir ce message :-)"
+msgid ""
+"ERROR: group does not exist. This should not happen! Please consider filling "
+"a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr ""
+"ERREUR: ce group n'existe pas. Ceci ne devrait _jamais_ se produire. SVP "
+"envoyez un rapport de bug à l'équipe linicty-ng, si possible avec une "
+"copie de la suvegarde du jeu et ce que vous avez fait pour obtenir ce "
+"message :-)"
 
 #: src/lincity/engine.cpp:225
 msgid "Port must be connected to river all along right side."
-msgstr "Les ports doivent être connectés à une rivière tout au long du coté droit."
+msgstr ""
+"Les ports doivent être connectés à une rivière tout au long du coté "
+"droit."
 
 #: src/lincity/engine.cpp:234
 #: src/lincity/engine.cpp:243
 msgid "Too many substations + windmills. You cannot build one more"
-msgstr "Trop d'éoliennes + transformateurs. Vous ne pouvez pas en construire davantage."
+msgstr ""
+"Trop d'éoliennes + transformateurs. Vous ne pouvez pas en construire "
+"davantage."
 
 #: src/lincity/engine.cpp:273
 msgid "Too many markets. You cannot build one more"
@@ -62,15 +74,19 @@ msgstr "Trop de marchés; Vous ne pouvez pas en construire d'avantage."
 
 #: src/lincity/engine.cpp:296
 msgid "You can't build a tip here: this area was once a landfill"
-msgstr "Vous ne pouvez pas construire de décharge ici. Il y en a déjà eu une dans le passé."
+msgstr ""
+"Vous ne pouvez pas construire de décharge ici. Il y en a déjà eu une dans "
+"le passé."
 
 #: src/lincity/engine.cpp:321
 msgid "You can't build a mine here: This area was once a landfill"
-msgstr "Vous ne pouvez pas construire une mine ici. Il y a eu une décharge ici."
+msgstr ""
+"Vous ne pouvez pas construire une mine ici. Il y a eu une décharge ici."
 
 #: src/lincity/engine.cpp:325
 msgid "You can't build a mine here: there is no ore left at this site"
-msgstr "Vous ne pouvez pas construire une carrière ici. Il ne reste plus de minerai."
+msgstr ""
+"Vous ne pouvez pas construire une carrière ici. Il ne reste plus de minerai."
 
 #: src/lincity/engine.cpp:337
 msgid "You can't build a water well here: it is all desert."
@@ -78,7 +94,9 @@ msgstr "Vous ne pouvez pas construire de puit ici. C'est un désert."
 
 #: src/lincity/engine.cpp:347
 msgid "You can't build a park here: it is a desert, parks need water"
-msgstr "Vous ne pouvez pas construire de parc ici. C'est un désert, hors les parcs ont besoin d'eau."
+msgstr ""
+"Vous ne pouvez pas construire de parc ici. C'est un désert, hors les parcs "
+"ont besoin d'eau."
 
 #: src/lincity/engine.cpp:691
 msgid "It's at a power line."
@@ -989,52 +1007,62 @@ msgstr "Lancements de Fusées %2d  Lancements réussis %2d"
 #: src/lincity-ng/Dialog.cpp:397
 #, c-format
 msgid ".   Residences %4d         Markets %4d            Farms %4d"
-msgstr ".      Résidences %4d              Marchés %4d                Fermes %4d"
+msgstr ""
+".      Résidences %4d              Marchés %4d                Fermes %4d"
 
 #: src/lincity-ng/Dialog.cpp:418
 #, c-format
 msgid ".    Monuments %4d         Schools %4d     Universities %4d"
-msgstr ".       Monuments %4d               Ecoles %4d           Universités %4d"
+msgstr ""
+".       Monuments %4d               Ecoles %4d           Universités %4d"
 
 #: src/lincity-ng/Dialog.cpp:423
 #, c-format
 msgid ".Fire stations %4d           Parks %4d    Sports fields %4d"
-msgstr ".        Pompiers %4d                Parcs %4d                Stades %4d"
+msgstr ""
+".        Pompiers %4d                Parcs %4d                Stades %4d"
 
 #: src/lincity-ng/Dialog.cpp:449
 #, c-format
 msgid "Health centres %4d            Tips %4d         Shanties %4d"
-msgstr ". Centre de soins %4d            Décharges %4d           Bidonvilles %4d"
+msgstr ""
+". Centre de soins %4d            Décharges %4d           Bidonvilles %4d"
 
 #: src/lincity-ng/Dialog.cpp:433
 #, c-format
 msgid ".    Windmills %4d     Coal powers %4d     Solar powers %4d"
-msgstr ".  Moulins à vent %4d  Centrales à charbon %4d     Centrales solaire %4d"
+msgstr ""
+".  Moulins à vent %4d  Centrales à charbon %4d     Centrales solaire %4d"
 
 #: src/lincity-ng/Dialog.cpp:439
 #, c-format
 msgid ".  Substations %4d     Power lines %4d            Ports %4d"
-msgstr ". Transformateurs %4d   Lignes électriques %4d                 Ports %4d"
+msgstr ""
+". Transformateurs %4d   Lignes électriques %4d                 Ports %4d"
 
 #: src/lincity-ng/Dialog.cpp:408
 #, c-format
 msgid ".       Tracks %4d           Roads %4d             Rail %4d"
-msgstr ".          Pistes %4d               Routes %4d                 Rails %4d"
+msgstr ""
+".          Pistes %4d               Routes %4d                 Rails %4d"
 
 #: src/lincity-ng/Dialog.cpp:413
 #, c-format
 msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
-msgstr ".        Poteries %4d               Forges %4d             Fabriques %4d"
+msgstr ""
+".        Poteries %4d               Forges %4d             Fabriques %4d"
 
 #: src/lincity-ng/Dialog.cpp:444
 #, c-format
 msgid ".   Light inds %4d      Heavy inds %4d        Recyclers %4d"
-msgstr ".   Inds. légères %4d        Inds. lourdes %4d  Centres de recyclage %4d"
+msgstr ""
+".   Inds. légères %4d        Inds. lourdes %4d  Centres de recyclage %4d"
 
 #: src/lincity-ng/Dialog.cpp:428
 #, c-format
 msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
-msgstr ".Mines de charbon %4d  Carrière de minerai %4d              Communes %4d"
+msgstr ""
+".Mines de charbon %4d  Carrière de minerai %4d              Communes %4d"
 
 #: src/lincity-ng/ScreenInterface.cpp:258
 msgid "MM"
@@ -1100,7 +1128,8 @@ msgstr "n/d"
 
 #: src/lincity-ng/GameView.cpp:1540
 msgid "Query Tool: Show information about selected building."
-msgstr "Outil de Requête : voir les informations sur le bâtiment sélectionné."
+msgstr ""
+"Outil de Requête : voir les informations sur le bâtiment sélectionné."
 
 #: src/lincity-ng/GameView.cpp:1544
 msgid "Bulldozer: remove building -price varies-"
@@ -1322,7 +1351,8 @@ msgstr "Résidences : 100 habitants, importante natalité, faible mortalité"
 
 #: src/lincity-ng/ButtonPanel.cpp:203
 msgid "Residential: 200 denizens, high birthrate, high deathrate"
-msgstr "Résidences : 200 habitants, importante natalité, importante mortalité"
+msgstr ""
+"Résidences : 200 habitants, importante natalité, importante mortalité"
 
 #: src/lincity-ng/ButtonPanel.cpp:204
 msgid "Residential: 100 denizens, low birthrate, high deathrate"
@@ -1334,7 +1364,8 @@ msgstr "Résidences : 200 habitants, importante natalité, faible mortalité"
 
 #: src/lincity-ng/ButtonPanel.cpp:206
 msgid "Residential: 400 denizens, high birthrate, high deathrate"
-msgstr "Résidences : 400 habitants, importante natalité, importante mortalité"
+msgstr ""
+"Résidences : 400 habitants, importante natalité, importante mortalité"
 
 #: src/lincity-ng/ButtonPanel.cpp:215
 msgid " [Click right for help.]"
@@ -1386,4 +1417,3 @@ msgstr "Trames par Seconde :"
 #: src/lincity-ng/EconomyGraph.cpp:216
 msgid "You lose."
 msgstr "Vous avez perdu."
-

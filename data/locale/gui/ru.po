@@ -23,12 +23,21 @@ msgid "A Fire has started"
 msgstr "Начался пожар"
 
 #: data/gui/shfire-uc.xml
-msgid "A fire has broken out at a shanty town. It is in a fire cover area and APPEARS to be under control. "
-msgstr "Пожар уничтожил хижину. Если так дальше пойдет, он может выйти из под контроля."
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr ""
+"Пожар уничтожил хижину. Если так дальше "
+"пойдет, он может выйти из под контроля."
 
 #: data/gui/shfire-oc.xml
-msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may spread to other areas. "
-msgstr "Пожар уничтожил хижину. Огонь вышел из под контроля! И может уничтожить другие постройки!!!"
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"Пожар уничтожил хижину. Огонь вышел из "
+"под контроля! И может уничтожить другие "
+"постройки!!!"
 
 #: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
 #: data/gui/savegame.xml
@@ -49,7 +58,9 @@ msgstr "Кузнечная доступна"
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Bulldozing a monument costs a lot of money."
-msgstr "Уничтожение монумента стоит больших денег."
+msgstr ""
+"Уничтожение монумента стоит больших "
+"денег."
 
 #: data/gui/bulldoze_river_yn.xml
 msgid "Bulldozing a section of river costs a lot of money."
@@ -57,7 +68,9 @@ msgstr "Уничтожение реки стоит больших денег."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
-msgstr "Уничтожение хижины стоит больших денег и вызовет пожар."
+msgstr ""
+"Уничтожение хижины стоит больших денег и "
+"вызовет пожар."
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Buy"
@@ -97,7 +110,8 @@ msgstr "Авторы"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Do coal survey?"
-msgstr "Сделать осмотр угольный месторождений?"
+msgstr ""
+"Сделать осмотр угольный месторождений?"
 
 #: data/gui/launch-good.xml
 msgid "Doing well."
@@ -189,7 +203,9 @@ msgstr "Легкая индустрия доступна"
 
 #: data/gui/sustain.xml
 msgid "LinCity has determined that you have a sustainable economy."
-msgstr "LinCity приняла решение о том, что у вас стабилизированная экономика."
+msgstr ""
+"LinCity приняла решение о том, что у вас "
+"стабилизированная экономика."
 
 #: data/gui/mainmenu.xml data/gui/loadgame.xml
 msgid "Load"
@@ -209,7 +225,8 @@ msgstr "Мельница доступна"
 
 #: data/gui/mod_wind_up.xml
 msgid "Modern Windmills available"
-msgstr "Продвинутая ветряная мельница доступна"
+msgstr ""
+"Продвинутая ветряная мельница доступна"
 
 #: data/gui/pbar.xml
 msgid "Money"
@@ -350,7 +367,8 @@ msgstr "Запустить игру с нормальной скоростью"
 
 #: data/gui/speedpanel.xml
 msgid "Run the simulation with very fast speed"
-msgstr "Запустить игру с очень быстрой скоростью"
+msgstr ""
+"Запустить игру с очень быстрой скоростью"
 
 #: data/gui/mainmenu.xml
 msgid "Save"
@@ -365,8 +383,12 @@ msgid "Schools available"
 msgstr "Школы доступны"
 
 #: data/gui/coalmineup.xml
-msgid "See the help screen for more information on coal mines and coal surveys."
-msgstr "Смотрите окно помощи для большей информации по уголь шахты и угольные осмотры."
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr ""
+"Смотрите окно помощи для большей "
+"информации по уголь шахты и угольные "
+"осмотры."
 
 #: data/gui/firestationup.xml data/gui/hvindustryup.xml
 #: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
@@ -376,7 +398,9 @@ msgstr "Смотрите окно помощи для большей инфор�
 #: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
 #: data/gui/millup.xml data/gui/healthup.xml
 msgid "See the help screen for more information."
-msgstr "Смотрите окно помощи для большей информации."
+msgstr ""
+"Смотрите окно помощи для большей "
+"информации."
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Sell"
@@ -388,7 +412,9 @@ msgstr "Запросить информацию?"
 
 #: data/gui/minimap.xml
 msgid "Show Income and Expenses. Click this tab again to cycle through views."
-msgstr "Показать затраты и прибыль. Нажимайте снова, что бы увидеть другие данные."
+msgstr ""
+"Показать затраты и прибыль. Нажимайте "
+"снова, что бы увидеть другие данные."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show coal depots"
@@ -422,9 +448,9 @@ msgstr "Показать загрязнения."
 msgid "Show power supply"
 msgstr "Показать электро зоны"
 
-#: data/gui/minimap.xml
-msgid "Show ressources."
-msgstr "Показать ресурсы."
+#: data/gui/minimap.xml 
+msgid "Show resources."
+msgstr ""
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show sport cover"
@@ -488,7 +514,9 @@ msgstr "В городе кончились люди"
 
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it is free to call again."
-msgstr "Это действие отнимет 1 миллион рублей, в дальнейшем платить не придется. "
+msgstr ""
+"Это действие отнимет 1 миллион рублей, в "
+"дальнейшем платить не придется. "
 
 #: data/gui/launch-gone.xml
 msgid "Total Evacuation Complete."
@@ -496,6 +524,10 @@ msgstr "Итого эвакуировано."
 
 #: data/gui/tradedialog.xml
 msgid "Trade Settings"
+msgstr ""
+
+#: data/gui/creditslist.xml 
+msgid "Translation"
 msgstr ""
 
 #: data/gui/universityup.xml
@@ -514,7 +546,8 @@ msgstr "Внимание"
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Warning: Bulldozing monuments is expensive"
-msgstr "Внимание: Попытка уничтожения монумента. "
+msgstr ""
+"Внимание: Попытка уничтожения монумента. "
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Warning: Bulldozing shanties is dangerous."
@@ -526,7 +559,8 @@ msgstr "Внимание: Попытка убрать речку. "
 
 #: data/gui/launch-gone.xml
 msgid "Well done you have evacuated all your people."
-msgstr "Поздравляем, вы эвакуировали всех людей."
+msgstr ""
+"Поздравляем, вы эвакуировали всех людей."
 
 #: data/gui/windmillup.xml
 msgid "Windmills available"
@@ -543,115 +577,218 @@ msgid "You better go and look for it"
 msgstr "Пожар, обратите внимание"
 
 #: data/gui/launch_rocket_yn.xml
-msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
 msgstr ""
 
 #: data/gui/import-exportup.xml
-msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
-msgstr "Теперь вы множите покупать и продавать ресурсы. Это уголь, товар и прочее. Прочитайте помощь, что бы найти ответ, как этим пользоваться."
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"Теперь вы множите покупать и продавать "
+"ресурсы. Это уголь, товар и прочее. "
+"Прочитайте помощь, что бы найти ответ, как "
+"этим пользоваться."
 
 #: data/gui/no-credit-parkland.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build parks on credit."
 msgstr ""
 
 #: data/gui/no-credit-recycle.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build recycling centres on credit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build recycling centres on credit."
 msgstr ""
 
 #: data/gui/no-credit-rocket.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build rocket launch pads on credit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build rocket launch pads on credit."
 msgstr ""
 
 #: data/gui/no-credit-solar-power.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build solar power stations on credit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build solar power stations on credit."
 msgstr ""
 
 #: data/gui/no-credit-university.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build universities on credit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build universities on credit."
 msgstr ""
 
 #: data/gui/launch-evac.xml
-msgid "You have evacuated 1000 people. You might want to reduce the size of your economy to reflect the reduced population. "
-msgstr "Вы увезли 1000 человек. Теперь нужно следить за экономикой и ростом населения."
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"Вы увезли 1000 человек. Теперь нужно "
+"следить за экономикой и ростом населения."
 
 #: data/gui/blacksmithup.xml
-msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
-msgstr "Уровень научного развития позволяет строить кузницы. Которые дают работу и позволяют производить товары."
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"Уровень научного развития позволяет "
+"строить кузницы. Которые дают работу и "
+"позволяют производить товары."
 
 #: data/gui/coalpowerup.xml
-msgid "You have reached the tech level which enables you to build coal fired power stations."
-msgstr "Уровень научного развития позволяет строить угольные электростанции."
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr ""
+"Уровень научного развития позволяет "
+"строить угольные электростанции."
 
 #: data/gui/firestationup.xml
-msgid "You have reached the tech level which enables you to build fire stations. Fire stations prevent most fires from starting. If you haven't had any fires yet, you might not think you need them."
-msgstr "Уровень научного развития позволяет строить пожарные станции. Которые следят за тем, что бы не начинались пожары. "
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"Уровень научного развития позволяет "
+"строить пожарные станции. Которые следят "
+"за тем, что бы не начинались пожары. "
 
 #: data/gui/healthup.xml
-msgid "You have reached the tech level which enables you to build health centres. Heath centres reduce the number of people killed by pollution and increase overall productivity."
-msgstr "Уровень научного развития позволяет строить больницы."
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"Уровень научного развития позволяет "
+"строить больницы."
 
 #: data/gui/hvindustryup.xml
-msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
-msgstr "Уровень научного развития позволяет строить тяжелую индустрию(производить сталь)."
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить тяжелую индустрию(производить "
+"сталь)."
 
 #: data/gui/ltindustryup.xml
-msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "
-msgstr "Уровень научного развития позволяет строить легкую индустрию. Она создает товары."
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить легкую индустрию. Она создает "
+"товары."
 
 #: data/gui/millup.xml
-msgid "You have reached the tech level which enables you to build mills. Mills use jobs and food to make goods. Watch out, they can use a lot of food! "
-msgstr "Уровень научного развития позволяет строить мельницы. Они дают работу и позволяют производить товары из еды. Она может истратить слишком много еды!"
+msgid ""
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить мельницы. Они дают работу и "
+"позволяют производить товары из еды. Она "
+"может истратить слишком много еды!"
 
 #: data/gui/mod_wind_up.xml
-msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "
-msgstr "Уровень научного развития позволяет строить продвинутые, эффективные ветряные мельницы. "
+msgid ""
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить продвинутые, эффективные "
+"ветряные мельницы. "
 
 #: data/gui/parkup.xml
-msgid "You have reached the tech level which enables you to build parks. Parks are used to absorb pollution. "
-msgstr "Уровень научного развития позволяет строить парки. Они действуют на население."
+msgid ""
+"You have reached the tech level which enables you to build parks. Parks are "
+"used to absorb pollution. "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить парки. Они действуют на население."
 
 #: data/gui/potteryup.xml
-msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgid ""
+"You have reached the tech level which enables you to build potteries. "
+"Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
 msgstr ""
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr "Уровень научного развития позволяет строить железную дорогу."
+msgstr ""
+"Уровень научного развития позволяет "
+"строить железную дорогу."
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
-msgstr "Уровень научного развития позволяет создавать реки."
+msgstr ""
+"Уровень научного развития позволяет "
+"создавать реки."
 
 #: data/gui/roadup.xml
-msgid "You have reached the tech level which enables you to build roads. See the help screen for more information."
-msgstr "Уровень научного развития позволяет строить дороги."
+msgid ""
+"You have reached the tech level which enables you to build roads. See the "
+"help screen for more information."
+msgstr ""
+"Уровень научного развития позволяет "
+"строить дороги."
 
 #: data/gui/rocketup.xml
-msgid "You have reached the tech level which enables you to build rocket launch pads. Rockets enable you to evacuate your population and is a way to 'win' the game."
-msgstr "Уровень научного развития позволяет строить ракетные площадки. На ракетах можно увести всех людей в другой мир, тем самым выиграть игру."
+msgid ""
+"You have reached the tech level which enables you to build rocket launch "
+"pads. Rockets enable you to evacuate your population and is a way to 'win' "
+"the game."
+msgstr ""
+"Уровень научного развития позволяет "
+"строить ракетные площадки. На ракетах "
+"можно увести всех людей в другой мир, тем "
+"самым выиграть игру."
 
 #: data/gui/schoolup.xml
-msgid "You have reached the tech level which enables you to build schools. Schools use jobs and goods to increase tech level. "
-msgstr "Уровень научного развития позволяет строить школы. Школы дают работу и товар переделывают в научный уровень."
+msgid ""
+"You have reached the tech level which enables you to build schools. Schools "
+"use jobs and goods to increase tech level. "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить школы. Школы дают работу и товар "
+"переделывают в научный уровень."
 
 #: data/gui/solarpowerup.xml
-msgid "You have reached the tech level which enables you to build solar power stations. "
-msgstr "Уровень научного развития позволяет строить солнечные электростанции."
+msgid ""
+"You have reached the tech level which enables you to build solar power "
+"stations. "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить солнечные электростанции."
 
 #: data/gui/universityup.xml
-msgid "You have reached the tech level which enables you to build universities. Universities produces PhDs, which produce more technology. "
-msgstr "Уровень научного развития позволяет строить университеты. "
+msgid ""
+"You have reached the tech level which enables you to build universities. "
+"Universities produces PhDs, which produce more technology. "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить университеты. "
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr "Уровень научного развития позволяет строить ветряные мельницы. "
+msgstr ""
+"Уровень научного развития позволяет "
+"строить ветряные мельницы. "
 
 #: data/gui/coalmineup.xml
-msgid "You have reached the tech level which enables you to dig deep coal mines."
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
 msgstr ""
 
 #: data/gui/recycleup.xml
-msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
 msgstr ""
 
 #: data/gui/launch-gone.xml data/gui/sustain.xml
@@ -660,15 +797,27 @@ msgstr "Вы выиграли!"
 
 #: data/gui/allgone.xml
 msgid "You should start a new career elsewhere."
-msgstr "Вы должны попробовать реализоваться где-нибудь ещё."
+msgstr ""
+"Вы должны попробовать реализоваться "
+"где-нибудь ещё."
 
 #: data/gui/cricketup.xml
-msgid "Your people have invented basketball. Basketball Courts use a few jobs and goods and make people in the surrounding areas (about 10 units in each direction) happier."
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
 msgstr ""
 
 #: data/gui/launch-fail.xml
-msgid "Your rocket crashed shortly after launch. People no longer trust the technology for evacuation. You must launch five more unmanned rockets to restore confidence."
-msgstr "Ваша ракета взорвалась после взлета. Люди перестали верить в них. Вы должны запустить ещё 5 ракет, что бы доказать, что они безопасны."
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"Ваша ракета взорвалась после взлета. Люди "
+"перестали верить в них. Вы должны "
+"запустить ещё 5 ракет, что бы доказать, что "
+"они безопасны."
 
 #: data/gui/minimap.xml
 msgid "[+] Zoom in view so that less buildings but more details are visible"
@@ -688,9 +837,10 @@ msgstr "[h] Спрятать сложные здания"
 
 #: data/gui/minimap.xml
 msgid "[v] Cycle through MiniMap overlay modes. "
-msgstr "[v] Показать на основной карте то, что находиться на мини-карте."
+msgstr ""
+"[v] Показать на основной карте то, что "
+"находиться на мини-карте."
 
 #: data/gui/savegame.xml
 msgid "save to selected slot"
 msgstr "Сохранить в выбранный слот"
-

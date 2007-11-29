@@ -26,12 +26,20 @@ msgid "A Fire has started"
 msgstr "En brand har brutit ut"
 
 #: data/gui/shfire-uc.xml
-msgid "A fire has broken out at a shanty town. It is in a fire cover area and APPEARS to be under control. "
-msgstr "En brand har brutit ut i en kåkstad. Den är inom brandskyddsområdet och VERKAR vara under kontroll."
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr ""
+"En brand har brutit ut i en kåkstad. Den är inom brandskyddsområdet och "
+"VERKAR vara under kontroll."
 
 #: data/gui/shfire-oc.xml
-msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may spread to other areas. "
-msgstr "En brand har brutit ut i en kåkstad. Branden är INTE UNDER KONTROLL och kan sprida sig till andra områden."
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"En brand har brutit ut i en kåkstad. Branden är INTE UNDER KONTROLL och "
+"kan sprida sig till andra områden."
 
 #: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
 #: data/gui/savegame.xml
@@ -367,8 +375,10 @@ msgid "Schools available"
 msgstr "Skolor tillgängliga"
 
 #: data/gui/coalmineup.xml
-msgid "See the help screen for more information on coal mines and coal surveys."
-msgstr "Se hjälpskärmen för mer information om kolgruvor och sökning efter kol."
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr ""
+"Se hjälpskärmen för mer information om kolgruvor och sökning efter kol."
 
 #: data/gui/hvindustryup.xml data/gui/windmillup.xml data/gui/ltindustryup.xml
 #: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalpowerup.xml
@@ -390,7 +400,8 @@ msgstr "Skicka ut prospektörer"
 
 #: data/gui/minimap.xml
 msgid "Show Income and Expenses. Click this tab again to cycle through views."
-msgstr "Visa inkomst och utgifter. Klicka här igen för att växla mellan vyer."
+msgstr ""
+"Visa inkomst och utgifter. Klicka här igen för att växla mellan vyer."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show coal depots"
@@ -490,7 +501,8 @@ msgstr "Det finns inget folk kvar i denna stad."
 
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it is free to call again."
-msgstr "Detta kommer att kosta dig 1 miljon. Senare är det gratis att ringa igen."
+msgstr ""
+"Detta kommer att kosta dig 1 miljon. Senare är det gratis att ringa igen."
 
 #: data/gui/launch-gone.xml
 msgid "Total Evacuation Complete."
@@ -549,116 +561,226 @@ msgid "You better go and look for it"
 msgstr "Bäst att du går och ser efter"
 
 #: data/gui/launch_rocket_yn.xml
-msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
-msgstr "Du kan avfyra raketen nu eller vänta tills senare. Om du väntar kommer den fortsätta att kosta dig pengar för att hålla raketen klar. Avfyra den senare genom att klicka på raketområdet."
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"Du kan avfyra raketen nu eller vänta tills senare. Om du väntar kommer den "
+"fortsätta att kosta dig pengar för att hålla raketen klar. Avfyra den "
+"senare genom att klicka på raketområdet."
 
 #: data/gui/import-exportup.xml
-msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
-msgstr "Du kan nu importera och exportera kol, varor, malm och stål. Läs hjälpsidorna för dessa ämnen för att få hjälp hur man använder dom. "
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"Du kan nu importera och exportera kol, varor, malm och stål. Läs "
+"hjälpsidorna för dessa ämnen för att få hjälp hur man använder dom. "
 
 #: data/gui/no-credit-parkland.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
-msgstr "Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att bygga parker på kredit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build parks on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga parker på kredit."
 
 #: data/gui/no-credit-recycle.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build recycling centres on credit."
-msgstr "Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att bygga återvinningsstationer på kredit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build recycling centres on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga återvinningsstationer på kredit."
 
 #: data/gui/no-credit-rocket.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build rocket launch pads on credit."
-msgstr "Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att bygga raketavfyrningsramper på kredit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build rocket launch pads on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga raketavfyrningsramper på kredit."
 
 #: data/gui/no-credit-solar-power.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build solar power stations on credit."
-msgstr "Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att bygga solkraftverk på kredit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build solar power stations on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga solkraftverk på kredit."
 
 #: data/gui/no-credit-university.xml
-msgid "You have a budget deficit. The legislative council will not allow you to build universities on credit."
-msgstr "Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att bygga universitet på kredit."
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build universities on credit."
+msgstr ""
+"Du har ett budgetunderskott. Det lagstiftande rådet tillåter inte dig att "
+"bygga universitet på kredit."
 
 #: data/gui/launch-evac.xml
-msgid "You have evacuated 1000 people. You might want to reduce the size of your economy to reflect the reduced population. "
-msgstr "Du har evakuerat 1000 personer. Du kanske vill minska storleken av din ekonomi för att passa den minskade befolkningen. "
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"Du har evakuerat 1000 personer. Du kanske vill minska storleken av din "
+"ekonomi för att passa den minskade befolkningen. "
 
 #: data/gui/blacksmithup.xml
-msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
-msgstr "Du har nått fram till teknologinivån som låter dig bygga smedjor. Smedjor använder jobb och stål för att producera varor."
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga smedjor. Smedjor "
+"använder jobb och stål för att producera varor."
 
 #: data/gui/coalpowerup.xml
-msgid "You have reached the tech level which enables you to build coal fired power stations."
-msgstr "Du har nått fram till teknologinivån som låter dig bygga kolkraftverk."
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga kolkraftverk."
 
 #: data/gui/firestationup.xml
-msgid "You have reached the tech level which enables you to build fire stations. Fire stations prevent most fires from starting. If you haven't had any fires yet, you might not think you need them."
-msgstr "Du har nått fram till teknologinivån som låter dig bygga brandstationer. Brandstationer förebygger de flesta bränder från början. Om du inte haft några bränder ännu kanske du tror att du inte behöver dom."
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga brandstationer. "
+"Brandstationer förebygger de flesta bränder från början. Om du inte haft "
+"några bränder ännu kanske du tror att du inte behöver dom."
 
 #: data/gui/healthup.xml
-msgid "You have reached the tech level which enables you to build health centres. Heath centres reduce the number of people killed by pollution and increase overall productivity."
-msgstr "Du har nått fram till teknologinivån som låter dig bygga sjukhus. Sjukhus reducerar antalet folk som dör av miljöförstöring och ökar allmänt produktiviteten."
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga sjukhus. Sjukhus "
+"reducerar antalet folk som dör av miljöförstöring och ökar allmänt "
+"produktiviteten."
 
 #: data/gui/hvindustryup.xml
-msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga tung industri (stålverk). Tung industri producerar stål. "
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga tung industri "
+"(stålverk). Tung industri producerar stål. "
 
 #: data/gui/ltindustryup.xml
-msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga industri. Industri producerar varor. "
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga industri. "
+"Industri producerar varor. "
 
 #: data/gui/millup.xml
-msgid "You have reached the tech level which enables you to build mills. Mills use jobs and food to make goods. Watch out, they can use a lot of food! "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga verkstäder. Verkstäder använder jobb och mat för att producera varor. Tänk på att de kan använda mycket mat! "
+msgid ""
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga verkstäder. "
+"Verkstäder använder jobb och mat för att producera varor. Tänk på att "
+"de kan använda mycket mat! "
 
 #: data/gui/mod_wind_up.xml
-msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga moderna och mer effektiva väderkvarnar. "
+msgid ""
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga moderna och mer "
+"effektiva väderkvarnar. "
 
 #: data/gui/parkup.xml
-msgid "You have reached the tech level which enables you to build parks. Parks are used to absorb pollution. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga parker. Parker används för att bekämpa miljöförstöringen. "
+msgid ""
+"You have reached the tech level which enables you to build parks. Parks are "
+"used to absorb pollution. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga parker. Parker "
+"används för att bekämpa miljöförstöringen. "
 
 #: data/gui/potteryup.xml
-msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga keramikfabriker. Keramikfabriker använder jobb och malm för att producera varor. (Du behöver malmgruvor för att få fram malm) "
+msgid ""
+"You have reached the tech level which enables you to build potteries. "
+"Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga keramikfabriker. "
+"Keramikfabriker använder jobb och malm för att producera varor. (Du "
+"behöver malmgruvor för att få fram malm) "
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga järnväg. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga järnväg. "
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
 msgstr "Du har nått fram till teknologinivån som låter dig bygga kanaler. "
 
 #: data/gui/roadup.xml
-msgid "You have reached the tech level which enables you to build roads. See the help screen for more information."
-msgstr "Du har nått fram till teknologinivån som låter dig bygga vägar. Se hjälpskärmen för mer information."
+msgid ""
+"You have reached the tech level which enables you to build roads. See the "
+"help screen for more information."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga vägar. Se "
+"hjälpskärmen för mer information."
 
 #: data/gui/rocketup.xml
-msgid "You have reached the tech level which enables you to build rocket launch pads. Rockets enable you to evacuate your population and is a way to 'win' the game."
-msgstr "Du har nått fram till teknologinivån som låter dig bygga raketavfyrningsramper. Raketer ger dig möjligheten att evakuera din befolkning och är ett sätt att \"vinna\" spelet."
+msgid ""
+"You have reached the tech level which enables you to build rocket launch "
+"pads. Rockets enable you to evacuate your population and is a way to 'win' "
+"the game."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga "
+"raketavfyrningsramper. Raketer ger dig möjligheten att evakuera din "
+"befolkning och är ett sätt att \"vinna\" spelet."
 
 #: data/gui/schoolup.xml
-msgid "You have reached the tech level which enables you to build schools. Schools use jobs and goods to increase tech level. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga skolor. Skolor använder jobb och varor för att öka teknologinivån. "
+msgid ""
+"You have reached the tech level which enables you to build schools. Schools "
+"use jobs and goods to increase tech level. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga skolor. Skolor "
+"använder jobb och varor för att öka teknologinivån. "
 
 #: data/gui/solarpowerup.xml
-msgid "You have reached the tech level which enables you to build solar power stations. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga solkraftverk. "
+msgid ""
+"You have reached the tech level which enables you to build solar power "
+"stations. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga solkraftverk. "
 
 #: data/gui/universityup.xml
-msgid "You have reached the tech level which enables you to build universities. Universities produces PhDs, which produce more technology. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga universitet. Universitet producerar professorer som producerar mer teknologi. "
+msgid ""
+"You have reached the tech level which enables you to build universities. "
+"Universities produces PhDs, which produce more technology. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga universitet. "
+"Universitet producerar professorer som producerar mer teknologi. "
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr "Du har nått fram till teknologinivån som låter dig bygga väderkvarnar. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig bygga väderkvarnar. "
 
 #: data/gui/coalmineup.xml
-msgid "You have reached the tech level which enables you to dig deep coal mines."
-msgstr "Du har nått fram till teknologinivån som låter dig gräva djupare kolgruvor."
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig gräva djupare "
+"kolgruvor."
 
 #: data/gui/recycleup.xml
-msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
-msgstr "Du har nått fram till teknologinivån som låter dig att ta fram återvinningsstationer. Återvinningsstationer återvinner använda varor och ger dig malm. "
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr ""
+"Du har nått fram till teknologinivån som låter dig att ta fram "
+"återvinningsstationer. Återvinningsstationer återvinner använda varor "
+"och ger dig malm. "
 
 #: data/gui/sustain.xml data/gui/launch-gone.xml
 msgid "You have won the game."
@@ -669,12 +791,24 @@ msgid "You should start a new career elsewhere."
 msgstr "Du bör starta en karriär någon annanstans."
 
 #: data/gui/cricketup.xml
-msgid "Your people have invented basketball. Basketball Courts use a few jobs and goods and make people in the surrounding areas (about 10 units in each direction) happier."
-msgstr "Ditt folk har uppfunnit sporten basketboll. Basketbollplaner använder ett fåtal jobb och varor men gör folk i de angränsande områdena (omkring 10 punkter i varje riktning) gladare."
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
+msgstr ""
+"Ditt folk har uppfunnit sporten basketboll. Basketbollplaner använder ett "
+"fåtal jobb och varor men gör folk i de angränsande områdena (omkring 10 "
+"punkter i varje riktning) gladare."
 
 #: data/gui/launch-fail.xml
-msgid "Your rocket crashed shortly after launch. People no longer trust the technology for evacuation. You must launch five more unmanned rockets to restore confidence."
-msgstr "Din raket kraschade kort efter avfyrning. Folk har inte längre någon tilltro för teknologin för evakuering. Du måste avfyra fem obemannade raketer till för att återställa förtroendet."
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"Din raket kraschade kort efter avfyrning. Folk har inte längre någon "
+"tilltro för teknologin för evakuering. Du måste avfyra fem obemannade "
+"raketer till för att återställa förtroendet."
 
 #: data/gui/minimap.xml
 msgid "[+] Zoom in view so that less buildings but more details are visible"
@@ -699,4 +833,3 @@ msgstr "[v] Växla mellan minikartans olika översikter. "
 #: data/gui/savegame.xml
 msgid "save to selected slot"
 msgstr "spara till vald post"
-

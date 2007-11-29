@@ -381,8 +381,8 @@ msgstr "Escuelas disponibles"
 msgid ""
 "See the help screen for more information on coal mines and coal surveys."
 msgstr ""
-"Para obtener más información sobre minas de carbón y prospecciones mira la "
-"pantalla de ayuda."
+"Para obtener más información sobre minas de carbón y prospecciones mira "
+"la pantalla de ayuda."
 
 #: data/gui/firestationup.xml data/gui/hvindustryup.xml
 #: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
@@ -629,8 +629,8 @@ msgid ""
 "You have evacuated 1000 people. You might want to reduce the size of your "
 "economy to reflect the reduced population. "
 msgstr ""
-"Has evacuado a 1000 personas. Quizá quieras reducir el tamaño de tu economía "
-"para adecuarla a la nueva población."
+"Has evacuado a 1000 personas. Quizá quieras reducir el tamaño de tu "
+"economía para adecuarla a la nueva población."
 
 #: data/gui/blacksmithup.xml
 msgid ""
@@ -666,8 +666,8 @@ msgid ""
 "overall productivity."
 msgstr ""
 "Has alcanzado un nivel tecnológico que te permite construir hospitales. Los "
-"hospitales reducen el número de muertos por polución y también incrementan "
-"la productividad general."
+"hospitales reducen el número de muertos por polución y también "
+"incrementan la productividad general."
 
 #: data/gui/hvindustryup.xml
 msgid ""
@@ -715,9 +715,9 @@ msgid ""
 "You have reached the tech level which enables you to build potteries. "
 "Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
 msgstr ""
-"Has alcanzado un nivel tecnológico que te permite construir alfarerías. Las "
-"alfarerías usan empleos y hierro para fabricar mercancías. (Necesitas minas "
-"de mineral para obtener mineral)."
+"Has alcanzado un nivel tecnológico que te permite construir alfarerías. "
+"Las alfarerías usan empleos y hierro para fabricar mercancías. (Necesitas "
+"minas de mineral para obtener mineral)."
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
@@ -733,8 +733,8 @@ msgid ""
 "You have reached the tech level which enables you to build roads. See the "
 "help screen for more information."
 msgstr ""
-"Has alcanzado un nivel tecnológico que te permite construir carreteras. Para "
-"obtener más información mira la pantalla de ayuda."
+"Has alcanzado un nivel tecnológico que te permite construir carreteras. "
+"Para obtener más información mira la pantalla de ayuda."
 
 #: data/gui/rocketup.xml
 msgid ""
@@ -781,8 +781,8 @@ msgstr ""
 msgid ""
 "You have reached the tech level which enables you to dig deep coal mines."
 msgstr ""
-"Has alcanzado un nivel tecnológico que te permite construir minas de carbón "
-"profundas."
+"Has alcanzado un nivel tecnológico que te permite construir minas de "
+"carbón profundas."
 
 #: data/gui/recycleup.xml
 msgid ""
@@ -817,8 +817,8 @@ msgid ""
 "technology for evacuation. You must launch five more unmanned rockets to "
 "restore confidence."
 msgstr ""
-"Tu cohete se estrelló al poco tiempo de despegar. La población no volverá a "
-"confiar en la tecnología para realizar evacuaciones. Debes lanzar cinco o "
+"Tu cohete se estrelló al poco tiempo de despegar. La población no volverá "
+"a confiar en la tecnología para realizar evacuaciones. Debes lanzar cinco o "
 "más cohetes vacíos para devolver la confianza al pueblo."
 
 #: data/gui/minimap.xml

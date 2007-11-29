@@ -38,15 +38,17 @@ msgstr "Sem memória. malloc falhou\n"
 
 #: src/lincity/power.cpp:97
 msgid "You have too many power grids. Join some of them"
-msgstr "Você possui muitas malhas de transmissão de energia. Junte algumas delas"
+msgstr ""
+"Você possui muitas malhas de transmissão de energia. Junte algumas delas"
 
 #: src/lincity/engine.cpp:198
 msgid ""
 "ERROR: group does not exist. This should not happen! Please consider filling "
 "a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr "Erro: grupo não existe. Isto não deveria ocorrer! Por favor, considere "
-"preencher um reporte de bug para o time do lincity-ng, com o arquivo do jogo salvo "
-"e uma descrição do que você fez :-)"
+msgstr ""
+"Erro: grupo não existe. Isto não deveria ocorrer! Por favor, considere "
+"preencher um reporte de bug para o time do lincity-ng, com o arquivo do jogo "
+"salvo e uma descrição do que você fez :-)"
 
 #: src/lincity/engine.cpp:226
 msgid "Port must be connected to river all along right side."
@@ -54,7 +56,8 @@ msgstr "Porto deve estar conectado ao rio pelo lado direito."
 
 #: src/lincity/engine.cpp:236 src/lincity/engine.cpp:246
 msgid "Too many substations + windmills. You cannot build one more"
-msgstr "Muitas estações e moinhos de vento. Você não pode construir mais um(a)."
+msgstr ""
+"Muitas estações e moinhos de vento. Você não pode construir mais um(a)."
 
 #: src/lincity/engine.cpp:280
 msgid "Too many markets. You cannot build one more"
@@ -74,6 +77,14 @@ msgstr "Este lugar foi antes um aterro"
 #, fuzzy
 msgid "You can't build a mine here: there is no ore left at this site"
 msgstr "Não existe mais minério neste terreno"
+
+#: src/lincity/engine.cpp:259
+msgid "You can't build a water well here: it is all desert."
+msgstr ""
+
+#: src/lincity/engine.cpp:269
+msgid "You can't build a park here: it is a desert, parks need water"
+msgstr ""
 
 #: src/lincity/engine.cpp:609
 msgid "It's at a power line."
@@ -359,6 +370,26 @@ msgstr "Residencial MH"
 msgid "Residential HH"
 msgstr "Residencial HH"
 
+#: src/lincity/lintypes.cpp:477
+msgid "Water well"
+msgstr ""
+
+#: src/lincity/lintypes.cpp:489
+msgid "Desert"
+msgstr ""
+
+#: src/lincity/lintypes.cpp:501
+msgid "Tree"
+msgstr ""
+
+#: src/lincity/lintypes.cpp:514
+msgid "Trees"
+msgstr ""
+
+#: src/lincity/lintypes.cpp:527
+msgid "Forest"
+msgstr ""
+
 #: src/lincity/ldsvguts.cpp:128
 #, c-format
 msgid "Save file <%s> - "
@@ -625,6 +656,18 @@ msgstr "Abastecer"
 msgid "Employed"
 msgstr "Empregados"
 
+#: src/lincity/modules/residence.cpp:299 src/lincity-ng/MpsInterface.cpp:393
+msgid "good"
+msgstr "bom"
+
+#: src/lincity/modules/residence.cpp:299
+msgid "poor"
+msgstr "pobres"
+
+#: src/lincity/modules/residence.cpp:300
+msgid "Job"
+msgstr "Trabalho"
+
 #: src/lincity/modules/residence.cpp:289
 msgid "Health Cvr"
 msgstr "Saúde Cvr"
@@ -637,18 +680,6 @@ msgstr "Esporte"
 #: src/lincity/modules/residence.cpp:297 src/lincity-ng/MpsInterface.cpp:388
 msgid "Pollution"
 msgstr "Poluição"
-
-#: src/lincity/modules/residence.cpp:299 src/lincity-ng/MpsInterface.cpp:393
-msgid "good"
-msgstr "bom"
-
-#: src/lincity/modules/residence.cpp:299
-msgid "poor"
-msgstr "pobres"
-
-#: src/lincity/modules/residence.cpp:300
-msgid "Job"
-msgstr "Trabalho"
 
 #: src/lincity/modules/monument.cpp:63
 msgid "Wisdom Bestowed"
@@ -792,9 +823,33 @@ msgstr "NÃO "
 msgid "Prod"
 msgstr "Prod"
 
+#: src/lincity/modules/organic_farm.cpp:238
+msgid "Debug info"
+msgstr ""
+
+#: src/lincity/modules/organic_farm.cpp:239
+msgid " max with power & water"
+msgstr ""
+
+#: src/lincity/modules/organic_farm.cpp:240
+msgid " number of tile with water"
+msgstr ""
+
+#: src/lincity/modules/organic_farm.cpp:241
+msgid " current production"
+msgstr ""
+
 #: src/lincity/modules/solar_power.cpp:43
 msgid "Solar"
 msgstr "Solar"
+
+#: src/lincity/modules/waterwell.cpp:44
+msgid "Water_well"
+msgstr ""
+
+#: src/lincity/modules/waterwell.cpp:51
+msgid "Drinkable"
+msgstr ""
 
 #: src/lincity-ng/Dialog.cpp:173
 msgid "Launchsite"
@@ -827,7 +882,8 @@ msgstr "A população é de  %d  dos quais  %d  são sem teto."
 #: src/lincity-ng/Dialog.cpp:372
 #, c-format
 msgid "Max population %d  Number evacuated %d Total births %d"
-msgstr "População máxima %d  Número de evacuados %d Total de nascimentos %d"
+msgstr ""
+"População máxima %d  Número de evacuados %d Total de nascimentos %d"
 
 #: src/lincity-ng/Dialog.cpp:377
 #, c-format
@@ -968,7 +1024,8 @@ msgstr "n/d"
 
 #: src/lincity-ng/GameView.cpp:1594
 msgid "Query Tool: Show information about selected building."
-msgstr "Ferr. de Pesquisa: Exibe informações sobre a construção selecionada."
+msgstr ""
+"Ferr. de Pesquisa: Exibe informações sobre a construção selecionada."
 
 #: src/lincity-ng/GameView.cpp:1598
 msgid "Bulldozer: remove building -price varies-"
@@ -1180,27 +1237,33 @@ msgstr "Niveladora"
 
 #: src/lincity-ng/ButtonPanel.cpp:201
 msgid "Residential: 50 denizens, low birthrate, high deathrate"
-msgstr "Residencial: 50 habitantes, baixo índice de natalidade, alta mortalidade"
+msgstr ""
+"Residencial: 50 habitantes, baixo índice de natalidade, alta mortalidade"
 
 #: src/lincity-ng/ButtonPanel.cpp:202
 msgid "Residential: 100 denizens, high birthrate, low deathrate"
-msgstr "Residencial: 100 habitantes, alto índice de natalidade, baixa mortalidade"
+msgstr ""
+"Residencial: 100 habitantes, alto índice de natalidade, baixa mortalidade"
 
 #: src/lincity-ng/ButtonPanel.cpp:203
 msgid "Residential: 200 denizens, high birthrate, high deathrate"
-msgstr "Residencial: 200 habitantes, alto índice de natalidade, alta mortalidade"
+msgstr ""
+"Residencial: 200 habitantes, alto índice de natalidade, alta mortalidade"
 
 #: src/lincity-ng/ButtonPanel.cpp:204
 msgid "Residential: 100 denizens, low birthrate, high deathrate"
-msgstr "Residencial: 100 habitantes, baixo índice de natalidade, alta mortalidade"
+msgstr ""
+"Residencial: 100 habitantes, baixo índice de natalidade, alta mortalidade"
 
 #: src/lincity-ng/ButtonPanel.cpp:205
 msgid "Residential: 200 denizens, high birthrate, low deathrate"
-msgstr "Residencial: 200 habitantes, alto índice de natalidade, baixa mortalidade"
+msgstr ""
+"Residencial: 200 habitantes, alto índice de natalidade, baixa mortalidade"
 
 #: src/lincity-ng/ButtonPanel.cpp:206
 msgid "Residential: 400 denizens, high birthrate, high deathrate"
-msgstr "Residencial: 400 habitantes, alto índice de natalidade, alta mortalidade"
+msgstr ""
+"Residencial: 400 habitantes, alto índice de natalidade, alta mortalidade"
 
 #: src/lincity-ng/ButtonPanel.cpp:215
 msgid " [Click right for help.]"
@@ -1210,6 +1273,11 @@ msgstr " [Clique com o botão direito para ajuda]"
 #, c-format
 msgid "%s (Techlevel %.1f required.)"
 msgstr "%s (Nível Tecno. %.1f requerido.)"
+
+#: src/lincity-ng/ButtonPanel.cpp:252
+#, c-format
+msgid "%s is disabled (loaded old game)."
+msgstr ""
 
 #: src/lincity-ng/EconomyGraph.cpp:123
 msgid "Mining"
@@ -1246,12 +1314,3 @@ msgstr "Quadros por Segundo:"
 #: src/lincity-ng/EconomyGraph.cpp:218
 msgid "You lose."
 msgstr "Você perdeu."
-
-#~ msgid "You can't build a tip here"
-#~ msgstr "Você não pode construir um aterro aqui"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "You can't build a mine here"
-#~ msgstr "Você não pode construir uma mina aqui"
