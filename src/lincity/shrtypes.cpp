@@ -10,7 +10,7 @@
 //#include "common.h"
 #include "lctypes.h"
 #include "lin-city.h"
-#include "typeinit.h"
+//#include "typeinit.h"
 //#include "cliglobs.h"
 #include "engglobs.h"
 

@@ -230,8 +230,10 @@ initfont ()
 {
   int i;
   FILE *finf;
-  if ((finf = fopen (fontfile, "r")) == 0)
+  if ((finf = fopen (fontfile, "r")) == 0) {
+    fprintf(stderr," font file should be = %s\n",fontfile);
     HandleError ("Can't open the font file", FATAL);
+  }
   for (i = 0; i < 256 * 8; i++)
     myfont[i] = fgetc (finf);
   fclose (finf);

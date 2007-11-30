@@ -792,8 +792,10 @@ load_fonts()
     int i;
     FILE *inf;
     /* main_font */
-    if ((inf = fopen (fontfile, "r")) == 0)
+    if ((inf = fopen (fontfile, "r")) == 0) {
+        fprintf(stderr," font file should be =%s;\n", fontfile);
 	HandleError ("Can't open the font file", FATAL);
+    }
     for (i = 0; i < 256 * 8; i++)
 	main_font[i] = fgetc (inf);
     fclose (inf);

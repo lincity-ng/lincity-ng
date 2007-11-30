@@ -36,6 +36,8 @@ Translations/Help
        -added data/help/en/waterwell.xml
        -modified residential.xml, farms.xml, parks.xml, communes.xml, index.xml, button-index.xml.
 
+ [H] all data/locale/xy.po and data/locale/gui/xy.po files have been update (rev 1290). 
+     Translators should check them with poedit for the rare new messages to translate.
 
 Programming
 ~~~~~~~~~~~
