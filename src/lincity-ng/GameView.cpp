@@ -1365,6 +1365,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         Color alphared( 255, 0, 0, 128 );
         painter.setFillColor( alphablue );
         //check if building is allowed here, if not use Red Cursor
+        // FIXME: AL1. These tests should go in engine.cpp with place_item, where they are done again.
         int x = (int) tile.x;
         int y = (int) tile.y;
         MapPoint seCorner( x + cursorSize -1, y + cursorSize -1 );
@@ -1382,7 +1383,6 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             }
         }
         //special conditions for some buildings
-        //
         //The Harbour needs a River on the East side.
         if( selected_module_type == CST_EX_PORT ){
             x = (int) tile.x + cursorSize;
@@ -1393,7 +1393,16 @@ void GameView::markTile( Painter& painter, MapPoint tile )
                 }
             }
         }
-            
+        //Waterwell needs ... water :-)
+        if (selected_module_type == CST_WATERWELL) {
+            int has_ugw = 0;
+            for (int i = 0; i < cursorSize; i++)
+                for (int j = 0; j < cursorSize; j++)
+                    has_ugw = has_ugw | HAS_UGWATER(tile.x + i, tile.y + j);
+            if (!has_ugw)
+                painter.setFillColor( alphared );
+        }
+
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
         tileOnScreenPoint.x = tileOnScreenPoint.x - (tileWidth * cursorSize / 2);
         tileOnScreenPoint.y -= tileHeight; 

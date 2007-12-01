@@ -9,4 +9,3 @@
 
 * bug of trunk = (re)initialisation of engine and UI is not enough. (max tech level...)
 
-* cursor is still blue even when we try to build a waterwell on 4 desert tiles. It Should become red
