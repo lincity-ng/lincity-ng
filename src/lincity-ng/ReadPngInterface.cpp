@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdlib.h>
 #include "lincity/lin-city.h"
 #include "lincity/lctypes.h"
-#include "lincity/lintypes.h"
+#include "lincity/engglobs.h"
 
 static void LG(short type, short group, const char* id)
 {

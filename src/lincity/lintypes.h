@@ -6,6 +6,12 @@
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
+int get_group_of_type(short selected_type);
+void set_map_groups(void);
+int get_type_cost(short type);
+int get_group_cost(short group);
+void get_type_name(short type, char *s);
+
 /********** Data structures ***************/
 
 struct GROUP {
@@ -26,16 +32,6 @@ struct TYPE {
     int group;                  /* What group does this type belong to? */
     char *graphic;              /* Bitmap of the graphic */
 };
-
-int get_group_of_type(short selected_type);
-void set_map_groups(void);
-int get_type_cost(short type);
-int get_group_cost(short group);
-void get_type_name(short type, char *s);
-
-extern struct GROUP main_groups[NUM_OF_GROUPS];
-extern struct TYPE main_types[NUM_OF_TYPES];
-
 
 struct map_point_info_struct {
     int population;
@@ -64,5 +60,27 @@ struct update_scoreboard_struct {
     long int message_area;
 };
 typedef struct update_scoreboard_struct Update_Scoreboard;
+
+/* GCS -- One of these days I will get this right. */
+struct map_struct {
+    short type[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    short group[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    int pollution[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    Map_Point_Info info[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+};
+typedef struct map_struct Map;
+
+
+#define MP_TYPE(x,y)   map.type[x][y]
+#define MP_GROUP(x,y)  map.group[x][y]
+#define MP_POL(x,y)    map.pollution[x][y]
+#define MP_INFO(x,y)   map.info[x][y]
+
+#define MP_SIZE(x,y)   main_groups[MP_GROUP(x,y)].size
+#define MP_COLOR(x,y)  main_groups[MP_GROUP(x,y)].colour
+#define MP_GROUP_IS_RESIDENCE(x,y)  (GROUP_IS_RESIDENCE(MP_GROUP(x,y)))
+#define HAS_UGWATER(x,y) (MP_INFO(x,y).flags & FLAG_HAS_UNDERGROUND_WATER)
+
+
 
 #endif /* __lintypes_h__ */

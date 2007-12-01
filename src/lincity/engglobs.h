@@ -7,31 +7,12 @@
 #define __engglobs_h__
 
 #include "lin-city.h"
-//#include "common.h"
-//#include "geometry.h"
 
 extern int use_waterwell, ldsv_version;
 
-/* GCS -- One of these days I will get this right. */
-struct map_struct {
-    short type[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
-    short group[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
-    int pollution[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
-    Map_Point_Info info[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
-};
-typedef struct map_struct Map;
-
 extern Map map;
-
-#define MP_TYPE(x,y)   map.type[x][y]
-#define MP_GROUP(x,y)  map.group[x][y]
-#define MP_POL(x,y)    map.pollution[x][y]
-#define MP_INFO(x,y)   map.info[x][y]
-
-#define MP_SIZE(x,y)   main_groups[MP_GROUP(x,y)].size
-#define MP_COLOR(x,y)  main_groups[MP_GROUP(x,y)].colour
-#define MP_GROUP_IS_RESIDENCE(x,y)  (GROUP_IS_RESIDENCE(MP_GROUP(x,y)))
-#define HAS_UGWATER(x,y) (MP_INFO(x,y).flags & FLAG_HAS_UNDERGROUND_WATER)
+extern struct GROUP main_groups[NUM_OF_GROUPS];
+extern struct TYPE main_types[NUM_OF_TYPES];
 
 extern int mappoint_array_x[WORLD_SIDE_LEN], mappoint_array_y[WORLD_SIDE_LEN];
 extern int numof_shanties, numof_communes;

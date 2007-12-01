@@ -12,7 +12,7 @@
 #endif
 
 #ifndef _MSC_VER
-#warning deprecated header
+//#warning deprecated header
 #else
 #pragma message(__FILE__ ": deprecated header")
 #endif
