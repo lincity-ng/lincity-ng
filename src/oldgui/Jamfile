@@ -1,9 +1,0 @@
-SubDir TOP src oldgui ;
-
-# the oldgui is a bit broken and only usefull for devs
-if $(VARIANT) = "debug" {
-    Application lincity_oldgui : [ Wildcard *.cpp *.h ] : noinstall ;
-    LinkWith lincity_oldgui : lincity_lib tinygettext physfsstream ;
-    IncludeDir lincity_oldgui : ../gui_interface ../lincity ;
-    ExternalLibs lincity_oldgui : SDL SDLIMAGE PHYSFS ICONV ZLIB ;
-}
