@@ -121,6 +121,8 @@ int place_item(int x, int y, short type)
                     ("ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "));
         return -1000;
     }
+    if (GROUP_IS_RESIDENCE(group))
+        group=GROUP_RESIDENCE_LL;
 
     size = main_groups[group].size;
 
@@ -131,7 +133,11 @@ int place_item(int x, int y, short type)
     }
 
     switch (group) {
-    case GROUP_ORGANIC_FARM:
+    case GROUP_RESIDENCE_LL:
+        /* all residences are treated. local variable 'group' is redefined to do so.*/
+        /* int_2 is date of last starvation. Needed for correct display */
+        MP_INFO(x, y).int_2 = total_time;
+        break;   case GROUP_ORGANIC_FARM:
         MP_INFO(x, y).int_1 = tech_level;
         break;
     case GROUP_TRACK:
@@ -269,6 +275,7 @@ int place_item(int x, int y, short type)
                 ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
                 return -8;
             }
+        break;
 
     }                           /* end case */
     last_warning_message_group = 0;

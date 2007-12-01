@@ -169,12 +169,17 @@ void do_residence(int x, int y)
         if ((MP_INFO(x, y).flags & FLAG_HAD_POWER) != 0)
             bad += 50;
     }
-    /* now get fed *//* AL1: should be done earlier, before check for starvation */
-    if (get_food(x, y, p) != 0) {
-        MP_INFO(x, y).flags |= FLAG_FED;
+    /* now get fed */
+    /* AL1: could be done earlier, before check for starvation */
+    /*      this will be taken into account at next turn */
+    if ( get_food(x, y, p) != 0 ) {
+        if (p>0)
+            MP_INFO(x, y).flags |= FLAG_FED;
         good += 10;
-    } else
+    } else {
         MP_INFO(x, y).flags &= (0xffffffff - FLAG_FED);
+        //MP_INFO(x,y).int_2 = total_time;
+    }
 
     /* now supply jobs and buy goods if employed */
     if (MP_INFO(x, y).int_1 > 0)
@@ -229,7 +234,7 @@ void do_residence(int x, int y)
             p--;
             people_pool++;
         }
-    } else if (people_pool > 0 && (MP_INFO(x, y).flags & FLAG_FED) != 0 /* No newcomer gets in when there is starvation */
+    } else if (people_pool > 0 
                && r > ((good + bad) * (RESIDENCE_PPM - 1) + bad)) {     /* r > (rmax - good) */
         p++;
         people_pool--;
