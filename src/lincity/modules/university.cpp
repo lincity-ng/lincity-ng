@@ -6,7 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include "modules.h"
-#include "../lcconfig.h"
+//#include "../lcconfig.h"
 #include "university.h"
 
 void do_university(int x, int y)

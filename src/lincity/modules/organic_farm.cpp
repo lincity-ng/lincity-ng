@@ -6,7 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include "modules.h"
-#include "../lcconfig.h"
+//#include "../lcconfig.h"
 #include "organic_farm.h"
 #include "lin-city.h"
 
