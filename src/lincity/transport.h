@@ -16,3 +16,6 @@
  (MP_GROUP(x,y) == GROUP_POWER_LINE))
 
 #endif
+
+void general_transport(Map_Point_Info * minfo, int *pol, int max_waste, int *waste_count);
+void connect_transport(int originx, int originy, int w, int h);

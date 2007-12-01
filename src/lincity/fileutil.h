@@ -6,6 +6,14 @@
 #ifndef __fileutil_h__
 #define __fileutil_h__
 
+void init_path_strings(void);
+void check_savedir(void);
+void check_endian(void);
+void eswap32(int *);
+void eswap16(unsigned short *);
+void malloc_failure(void);
+
+
 extern char *lc_save_dir;
 extern char *lc_temp_file;
 extern int lc_save_dir_len;

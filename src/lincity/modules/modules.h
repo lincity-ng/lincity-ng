@@ -15,6 +15,9 @@
 #include "gui_interface/mps.h"
 #include "../lclib.h"
 
+#include "market.h"
+#include "../power.h"
+
 // for real_time
 //#include "cliglobs.h"
 

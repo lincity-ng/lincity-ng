@@ -75,6 +75,7 @@
 #include "fileutil.h"
 #include "power.h"
 #include "gui_interface/pbar_interface.h"
+#include "lincity-ng/ErrorInterface.hpp"
 #include "stats.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
@@ -95,6 +96,8 @@ extern void ok_dial_box(const char *, int, const char *);
 extern void prog_box(const char *, int);
 
 extern void print_total_money(void);
+extern int count_groups(int);
+extern void reset_animation_times(void);
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -127,7 +130,8 @@ void remove_scene(char *cname)
 
 void save_city_raw(char *cname)
 {
-    int x, y, z, q, n, p;
+    int x, y, q, n, p;
+    unsigned int z;
     gzFile ofile = gzopen(cname, "wb");
     if (ofile == NULL) {
         printf(_("Save file <%s> - "), cname);
@@ -323,7 +327,8 @@ void save_city(char *cname)
 void load_city(char *cname)
 {
     unsigned long q;
-    int i, x, y, z, n, p;
+    int i, x, y, n, p;
+    unsigned int z;
     int num_pbars, pbar_data_size;
     int pbar_tmp;
     int dummy;

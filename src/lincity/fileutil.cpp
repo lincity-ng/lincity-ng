@@ -11,6 +11,7 @@
 #include "shrglobs.h"
 #include "gui_interface/screen_interface.h"
 #include "tinygettext/gettext.hpp"
+#include "lincity-ng/ErrorInterface.hpp"
 
 /* XXX: Where are SVGA specific includes? */
 

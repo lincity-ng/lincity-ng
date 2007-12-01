@@ -19,6 +19,8 @@
 #include "gui_interface/mps.h"
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/shared_globals.h"
+#include "modules/all_modules.h"
+#include "transport.h"
 
 extern int selected_type_cost;
 extern void ok_dial_box(const char *, int, const char *);

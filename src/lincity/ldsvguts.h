@@ -11,5 +11,7 @@
 
 void load_saved_city(char *s);
 void sanity_check(void);
+void save_city(char *);
+void load_city(char *);
 
 #endif /* __ldsvguts_h__ */

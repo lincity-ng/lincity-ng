@@ -9,6 +9,9 @@
 //#include "mouse.h" /* XXX: fire_area! */
 #include "shanty.h"
 
+extern void set_mappoint(int x, int y, short selected_type);
+
+
 #include <stdlib.h>
 static int spiral_find_2x2(int startx, int starty);
 static int spiral_find_group(int startx, int starty, int group);

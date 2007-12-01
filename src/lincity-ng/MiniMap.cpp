@@ -50,6 +50,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"
 #include "HelpWindow.hpp"
 
+extern int get_power(int x, int y, int power, int block_industry);
+
 /** List of mapview buttons. The "" entries separate mapview buttons that are
  * switched
  */

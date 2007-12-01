@@ -5,6 +5,7 @@
  * ---------------------------------------------------------------------- */
 #include "modules.h"
 #include "market.h"
+#include "lincity-ng/ErrorInterface.hpp"
 
 int get_jobs(int x, int y, int jobs)
 {

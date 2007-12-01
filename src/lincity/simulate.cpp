@@ -32,13 +32,13 @@
 #include "gui_interface/shared_globals.h"
 #include "lctypes.h"
 #include "lin-city.h"
-//#include "cliglobs.h"
 #include "engglobs.h"
 #include "gui_interface/screen_interface.h"
 #include "power.h"
 #include "stats.h"
 #include "gui_interface/pbar_interface.h"
-//#include "module_buttons.h"
+#include "modules/all_modules.h"
+#include "transport.h"
 
 /* extern resources */
 extern void print_total_money(void);
@@ -72,6 +72,7 @@ static void ore_reserve_setup(void);
 static void setup_river(void);
 static void setup_river2(int x, int y, int d);
 static void quick_start_add(int x, int y, short type, int size);
+static void set_mappoint_used(int fromx, int fromy, int x, int y);
 #ifdef DEBUG
         static void debug_mappoints(void); /* AL1: NG 1.1.2 compiler warns that this is unused */
 #endif
@@ -159,6 +160,50 @@ void init_mappoint_array(void)
         mappoint_array_y[x] = x;
     }
 }
+
+void set_mappoint(int x, int y, short selected_type)
+{
+    int grp;
+
+    if ((grp = get_group_of_type(selected_type)) < 0)
+        return;
+
+    MP_TYPE(x, y) = selected_type;
+    MP_GROUP(x, y) = grp;
+
+    if (main_groups[grp].size == 2) {
+        set_mappoint_used(x, y, x + 1, y);
+        set_mappoint_used(x, y, x, y + 1);
+        set_mappoint_used(x, y, x + 1, y + 1);
+    } else if (main_groups[grp].size == 3) {
+        set_mappoint_used(x, y, x + 1, y);
+        set_mappoint_used(x, y, x + 2, y);
+        set_mappoint_used(x, y, x + 1, y + 1);
+        set_mappoint_used(x, y, x + 2, y + 1);
+        set_mappoint_used(x, y, x + 1, y + 2);
+        set_mappoint_used(x, y, x + 2, y + 2);
+        set_mappoint_used(x, y, x, y + 1);
+        set_mappoint_used(x, y, x, y + 2);
+    } else if (main_groups[grp].size == 4) {
+        set_mappoint_used(x, y, x + 1, y);
+        set_mappoint_used(x, y, x + 2, y);
+        set_mappoint_used(x, y, x + 1, y + 1);
+        set_mappoint_used(x, y, x + 2, y + 1);
+        set_mappoint_used(x, y, x + 1, y + 2);
+        set_mappoint_used(x, y, x + 2, y + 2);
+        set_mappoint_used(x, y, x, y + 1);
+        set_mappoint_used(x, y, x, y + 2);
+
+        set_mappoint_used(x, y, x + 3, y);
+        set_mappoint_used(x, y, x + 3, y + 1);
+        set_mappoint_used(x, y, x + 3, y + 2);
+        set_mappoint_used(x, y, x + 3, y + 3);
+        set_mappoint_used(x, y, x, y + 3);
+        set_mappoint_used(x, y, x + 1, y + 3);
+        set_mappoint_used(x, y, x + 2, y + 3);
+    }
+}
+
 
 /* ---------------------------------------------------------------------- *
  * Private Functions
@@ -961,6 +1006,14 @@ static int sust_fire_cover(void)
                 return (0);
         }
     return (1);
+}
+
+static void set_mappoint_used(int fromx, int fromy, int x, int y)
+{
+    MP_TYPE(x, y) = CST_USED;
+    MP_GROUP(x, y) = GROUP_USED;
+    MP_INFO(x, y).int_1 = fromx;
+    MP_INFO(x, y).int_2 = fromy;
 }
 
 #ifdef DEBUG

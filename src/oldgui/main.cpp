@@ -72,6 +72,10 @@
 
 #define DEBUG_KEYS 1
 
+#ifndef LC_X11
+    extern void parse_args(int, char **);
+#endif
+
 // global gettext instance
 TinyGetText::DictionaryManager* dictionaryManager = 0;
 
