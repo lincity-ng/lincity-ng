@@ -42,6 +42,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "Config.hpp"
 
+extern void print_total_money(void);
+
 int lincitySpeed = MED_TIME_FOR_YEAR;
 
 void setLincitySpeed( int speed )

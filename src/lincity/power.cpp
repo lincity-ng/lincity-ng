@@ -18,6 +18,9 @@
 #include "tinygettext/gettext.hpp"
 #include "gui_interface/dialbox_interface.h"
 
+extern void ok_dial_box(const char *, int, const char *);
+
+
 /* reset per map_power_grid run; how many different grids */
 int grid_num = 0;
 

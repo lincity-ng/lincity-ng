@@ -14,6 +14,8 @@
 
 #include <stdlib.h>
 
+extern void ok_dial_box(const char *, int, const char *);
+
 void do_rocket_pad(int x, int y)
 {
     /*

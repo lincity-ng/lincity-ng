@@ -42,6 +42,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "Util.hpp"
 
+extern void ok_dial_box(const char *, int, const char *);
+
 EconomyGraph* economyGraphPtr = 0;
 
 EconomyGraph* getEconomyGraph()

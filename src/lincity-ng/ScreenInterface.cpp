@@ -45,6 +45,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "EconomyGraph.hpp"
 
+extern void ok_dial_box(const char *, int, const char *);
+
+
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
 

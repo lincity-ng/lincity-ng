@@ -33,6 +33,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Debug.hpp"
 #include "GameView.hpp"
 
+extern void ok_dial_box(const char *, int, const char *);
+
 int monument_bul_flag=0;
 int river_bul_flag=0;
 int shanty_bul_flag=0;

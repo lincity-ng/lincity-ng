@@ -89,6 +89,13 @@
 
 #define MP_SANITY_CHECK 1
 
+/* Extern resources */
+extern int yn_dial_box(const char *, const char *, const char *, const char *);
+extern void ok_dial_box(const char *, int, const char *);
+extern void prog_box(const char *, int);
+
+extern void print_total_money(void);
+
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */

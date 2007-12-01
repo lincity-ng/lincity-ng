@@ -42,6 +42,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Util.hpp"
 #include "HelpWindow.hpp"
 
+extern void ok_dial_box(const char *, int, const char *);
+
 ButtonPanel *ButtonPanelInstance=0;
 
 int selected_module_type = CST_NONE;

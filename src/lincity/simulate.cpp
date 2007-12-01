@@ -40,6 +40,9 @@
 #include "gui_interface/pbar_interface.h"
 //#include "module_buttons.h"
 
+/* extern resources */
+extern void print_total_money(void);
+
 /* AL1: they are all in engine.cpp */
 extern void connect_rivers(void);
 extern void do_daily_ecology(void);
@@ -69,7 +72,9 @@ static void ore_reserve_setup(void);
 static void setup_river(void);
 static void setup_river2(int x, int y, int d);
 static void quick_start_add(int x, int y, short type, int size);
-static void debug_mappoints(void); /* AL1: NG 1.1.2 compiler warns that this is unused */
+#ifdef DEBUG
+        static void debug_mappoints(void); /* AL1: NG 1.1.2 compiler warns that this is unused */
+#endif
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
@@ -958,6 +963,7 @@ static int sust_fire_cover(void)
     return (1);
 }
 
+#ifdef DEBUG
 static void debug_mappoints(void)
 {
     int x, y;
@@ -970,5 +976,4 @@ static void debug_mappoints(void)
         }
     }
 }
-
-
+#endif

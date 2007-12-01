@@ -21,6 +21,9 @@
 #include "gui_interface/shared_globals.h"
 
 extern int selected_type_cost;
+extern void ok_dial_box(const char *, int, const char *);
+extern void print_total_money(void);
+
 int last_warning_message_group = 0;
 
 /****** Private functions prototypes *****/
