@@ -6,8 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-//#include "common.h"
-#include "lctypes.h"
 #include "lin-city.h"
 #include "transport.h"
 #include "power.h"

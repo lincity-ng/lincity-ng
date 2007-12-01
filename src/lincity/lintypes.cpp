@@ -10,7 +10,7 @@
 #include "lctypes.h"
 #include "shrglobs.h"
 #include "lintypes.h"
-#include "lcintl.h"
+#include "tinygettext/gettext.hpp"
 #include "fileutil.h"
 #include "gui_interface/readpng.h"
 

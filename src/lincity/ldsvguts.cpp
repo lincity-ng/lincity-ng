@@ -6,16 +6,13 @@
 
 /* this is for saving */
 
-//#include "lcconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <zlib.h>
 #include <iostream>
-//#include "lcstring.h"
-#include "lcintl.h"
+#include "tinygettext/gettext.hpp"
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/shared_globals.h"
-//#include "cliglobs.h"
 #include "stats.h"
 
 #include <fcntl.h>

@@ -7,11 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>             /* XXX: GCS FIX: What does configure need to know? */
-#include "lcintl.h"
 #include <string.h>
-//#include "ldsvgui.h"
 #include "shrglobs.h"
 #include "gui_interface/screen_interface.h"
+#include "tinygettext/gettext.hpp"
 
 /* XXX: Where are SVGA specific includes? */
 

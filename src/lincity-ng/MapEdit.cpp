@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/mps.h"
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/shared_globals.h"
-#include "lincity/lcintl.h"
+#include "tinygettext/gettext.hpp"
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
 

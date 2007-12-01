@@ -8,17 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lclib.h"
-//#include "common.h"
 #include "lctypes.h"
 #include "lin-city.h"
 #include "engine.h"
 #include "engglobs.h"
-//#include "cliglobs.h"
 #include "simulate.h"
-#include "lcintl.h"
 #include "power.h"
 #include "transport.h"          /* for XY_IS_TRANSPORT */
-
+#include "tinygettext/gettext.hpp"
 #include "gui_interface/dialbox_interface.h"
 
 /* reset per map_power_grid run; how many different grids */

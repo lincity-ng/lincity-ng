@@ -8,7 +8,7 @@
 #define __modules_h__
 
 #include "../lctypes.h"
-#include "../lcintl.h"
+#include "tinygettext/gettext.hpp"
 #include "../engglobs.h"
 #include "../engine.h"
 #include "../stats.h"

@@ -9,9 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lcstring.h"
-//#include "cliglobs.h"
-#include "lcintl.h"
 #include "lin-city.h"
+#include "tinygettext/gettext.hpp"
 
 char *months[] = { N_("Jan"), N_("Feb"), N_("Mar"), N_("Apr"),
     N_("May"), N_("Jun"), N_("Jul"), N_("Aug"),
