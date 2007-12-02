@@ -47,16 +47,6 @@ XXX: Then it shouldn't be here
        ************************************************
 */
 
-/* VERSION_INT is used in the load/save code.  All other code uses 
-   the symbol VERSION in config.h */
-#define VERSION_INT 113
-
-/* Disable waterwell if version < MIN_WATERWELL_VERSION */
-#define MIN_WATERWELL_VERSION 1180
-
-/* Don't load if < MIN_LOAD_VERSION */
-#define MIN_LOAD_VERSION 97
-
 /* Load corrections if version <= MM_MS_C_VER (max markets/substations) */
 #define MM_MS_C_VER 97
 

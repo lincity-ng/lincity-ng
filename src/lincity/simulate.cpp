@@ -32,6 +32,7 @@
 #include "gui_interface/shared_globals.h"
 #include "lctypes.h"
 #include "lin-city.h"
+#include "ldsvguts.h"
 #include "engglobs.h"
 #include "gui_interface/screen_interface.h"
 #include "power.h"
@@ -204,6 +205,31 @@ void set_mappoint(int x, int y, short selected_type)
     }
 }
 
+void upgrade_to_v2 (void)
+{
+    int x,y;
+    /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
+    /* currently only dummy things in order to compile */
+    global_aridity = 0;
+    global_mountainity=0;
+    
+    for (x = 0; x < WORLD_SIDE_LEN; x++) {
+        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+            ground[x][y].altitude=0;
+            ground[x][y].ecotable=0;
+            ground[x][y].wastes=0;
+            ground[x][y].pollution=0;
+            ground[x][y].water_alt=0;
+            ground[x][y].water_pol=0;
+            ground[x][y].water_wast=0;
+            ground[x][y].water_next=0;
+            ground[x][y].int1=0;
+            ground[x][y].int2=0;
+            ground[x][y].int3=0;
+            ground[x][y].int4=0;
+        }
+    }
+}
 
 /* ---------------------------------------------------------------------- *
  * Private Functions
@@ -538,9 +564,9 @@ static void clear_game(void)
     init_inventory();
     update_avail_modules(0);
     /* Al1. NG 1.1 is this enough ? Are all global variables reseted ? */
-    /* TODO reset screen, sustain info */
+    /* TODO reset screen, sustain info, max_tech when load scenario... */
     use_waterwell = true;
-    ldsv_version = MIN_WATERWELL_VERSION;
+    ldsv_version = WATERWELL_V2;
 }
 
 void new_city(int *originx, int *originy, int random_village)
@@ -831,6 +857,28 @@ static void nullify_mappoint(int x, int y)
 static void random_start(int *originx, int *originy)
 {
     int x, y, xx, yy, flag, watchdog;
+    /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
+    /* currently only dummy things in order to compile */
+    global_aridity = 0;
+    global_mountainity=0;
+    
+    for (x = 0; x < WORLD_SIDE_LEN; x++) {
+        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+            ground[x][y].altitude=0;
+            ground[x][y].ecotable=0;
+            ground[x][y].wastes=0;
+            ground[x][y].pollution=0;
+            ground[x][y].water_alt=0;
+            ground[x][y].water_pol=0;
+            ground[x][y].water_wast=0;
+            ground[x][y].water_next=0;
+            ground[x][y].int1=0;
+            ground[x][y].int2=0;
+            ground[x][y].int3=0;
+            ground[x][y].int4=0;
+        }
+    }
+
 
     /* first find a place that has some water. */
     watchdog = 90;              /* if too many tries, random placement. */

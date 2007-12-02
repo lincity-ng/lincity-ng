@@ -81,6 +81,19 @@ typedef struct map_struct Map;
 #define MP_GROUP_IS_RESIDENCE(x,y)  (GROUP_IS_RESIDENCE(MP_GROUP(x,y)))
 #define HAS_UGWATER(x,y) (MP_INFO(x,y).flags & FLAG_HAS_UNDERGROUND_WATER)
 
-
+struct ground_struct {
+    int altitude;       //surface of ground. unused currently
+    int ecotable;       //done at init time: pointer to the table for vegetation
+    int wastes;         //wastes underground
+    int pollution;      //pollution underground
+    int water_alt;      //altitude of water (needed to know drainage basin)
+    int water_pol;      //pollution of water
+    int water_wast;     //wastes in water
+    int water_next;     //next tile(s) where the water will go from here
+    int int1;           //reserved for future (?) use
+    int int2;
+    int int3;
+    int int4;
+};
 
 #endif /* __lintypes_h__ */

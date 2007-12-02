@@ -70,13 +70,13 @@
 */
 #include "lctypes.h"
 #include "lin-city.h"
-//#include "cliglobs.h"
 #include "engglobs.h"
 #include "fileutil.h"
 #include "power.h"
 #include "gui_interface/pbar_interface.h"
 #include "lincity-ng/ErrorInterface.hpp"
 #include "stats.h"
+#include "ldsvguts.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
@@ -98,7 +98,7 @@ extern void prog_box(const char *, int);
 extern void print_total_money(void);
 extern int count_groups(int);
 extern void reset_animation_times(void);
-
+extern void upgrade_to_v2(void);
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
@@ -138,8 +138,10 @@ void save_city_raw(char *cname)
         do_error(_("Can't open save file!"));
     }
     /* save without waterwell are in NG 1.1 format, eg scenario good_time is ver 98 when loaded */
-    if (ldsv_version < VERSION_INT)
-        ldsv_version = VERSION_INT;
+       //if (ldsv_version < VERSION_INT)
+       //   ldsv_version = VERSION_INT;
+    /* Now we have upgraded game */
+    ldsv_version = WATERWELL_V2;
 
     gzprintf(ofile, "%d\n", ldsv_version);
     q = sizeof(Map_Point_Info);
@@ -288,7 +290,26 @@ void save_city_raw(char *cname)
 
     gzprintf(ofile, "sust %d %d %d %d %d %d %d %d %d %d\n", sust_dig_ore_coal_count, sust_port_count, sust_old_money_count, sust_old_population_count, sust_old_tech_count, sust_fire_count, sust_old_money, sust_old_population, sust_old_tech, sustain_flag); /* 3 */
 
-    if (use_waterwell == true) {
+    if (ldsv_version == WATERWELL_V2) {
+        gzprintf(ofile,"%d %d\n", global_aridity, global_mountainity);
+        for (x = 0; x < WORLD_SIDE_LEN; x++) {
+            for (y = 0; y < WORLD_SIDE_LEN; y++) {
+                gzprintf(ofile,"%d %d %d %d %d %d %d %d %d %d %d %d\n"
+                        , ground[x][y].altitude
+                        , ground[x][y].ecotable
+                        , ground[x][y].wastes
+                        , ground[x][y].pollution
+                        , ground[x][y].water_alt
+                        , ground[x][y].water_pol
+                        , ground[x][y].water_wast
+                        , ground[x][y].water_next
+                        , ground[x][y].int1
+                        , ground[x][y].int2
+                        , ground[x][y].int3
+                        , ground[x][y].int4
+                        );
+            }
+        }
     } else {
         gzprintf(ofile, "dummy\n");     /* 4 */
     }
@@ -334,6 +355,8 @@ void load_city(char *cname)
     int dummy;
     gzFile gzfile;
     char s[256];
+    int need_upgrade=true;
+
     gzfile = gzopen(cname, "rb");
     if (gzfile == NULL) {
         printf(_("Can't open <%s> (gzipped)"), cname);
@@ -348,15 +371,18 @@ void load_city(char *cname)
     }
 
     fprintf(stderr, " ldsv_version = %i \n", ldsv_version);
-    if (ldsv_version < MIN_WATERWELL_VERSION) {
-        /* ok_dial_box ("no-waterwell.mes", GOOD, 0L); */
+    /*if (ldsv_version < MIN_WATERWELL_VERSION) {
         use_waterwell = false;
     } else {
         use_waterwell = true;
-        /* needed until it is written in the saved file
-         * in case of load after having played an old game
-         */
-    }
+        // needed until it is written in the saved file
+        // in case of load after having played an old game
+        if (ldsv_version >= WATERWELL_V2)
+            need_upgrade = false;
+    }*/
+    if (ldsv_version >= WATERWELL_V2)
+            need_upgrade = false;
+    use_waterwell = true;
 
     init_pbars();
     num_pbars = NUM_PBARS;
@@ -589,7 +615,26 @@ void load_city(char *cname)
         sustain_flag = sust_dig_ore_coal_count = sust_port_count
             = sust_old_money_count = sust_old_population_count
             = sust_old_tech_count = sust_fire_count = sust_old_money = sust_old_population = sust_old_tech = 0;
-    if (use_waterwell == true) {
+
+    if (ldsv_version == WATERWELL_V2) {
+        sscanf(s,"%d %d\n", &global_aridity, &global_mountainity);
+        for (x = 0; x < WORLD_SIDE_LEN; x++) {
+            for (y = 0; y < WORLD_SIDE_LEN; y++) {
+                sscanf(s,"%d %d %d %d %d %d %d %d %d %d %d %d\n",&ground[x][y].altitude
+                        , &ground[x][y].ecotable
+                        , &ground[x][y].wastes
+                        , &ground[x][y].pollution
+                        , &ground[x][y].water_alt
+                        , &ground[x][y].water_pol
+                        , &ground[x][y].water_wast
+                        , &ground[x][y].water_next
+                        , &ground[x][y].int1
+                        , &ground[x][y].int2
+                        , &ground[x][y].int3
+                        , &ground[x][y].int4 
+                        );
+            }
+        }
     }
     gzclose(gzfile);
 
@@ -646,6 +691,8 @@ void load_city(char *cname)
                                  * FIXME: move all initialisation elsewhere, in 
                                  *    engine.cpp or simulate.cpp.
                                  */
+    if (need_upgrade)
+        upgrade_to_v2();
 
 }
 

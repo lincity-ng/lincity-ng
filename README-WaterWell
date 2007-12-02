@@ -1,3 +1,12 @@
+WARNING
+-------
+
+        BACKUP YOUR SAVED GAMES BEFORE USE.
+        
+        Data structure have changed and impact load/save.
+
+        YOU HAVE BEEN WARNED, BACKUP YOUR DATA.
+
 README:
 -------
 Attempt to implement some kind of water management.
@@ -16,7 +25,8 @@ basic water management implemented:
  -basic ecology: change desert with UGW (= bulldozed tile) to green after some monthes.
    (needed for showing UGW for placing farms communes and parks)
  -Tuning of aridity parameter and others (communes, farms, parks) seems rather correct.
-  
+ -additional data structure and load/save.
+
 AIM:
 ----
 * simple ecology = periodic event :

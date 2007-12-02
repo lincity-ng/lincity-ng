@@ -8,8 +8,8 @@
 #include "fileutil.h"
 
 /* load/save version for compatibility with(out) waterwell */
-int ldsv_version = 1170;
-int use_waterwell = true;
+int ldsv_version;
+int use_waterwell=true;
 
 Map map;
 
@@ -81,3 +81,9 @@ int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS] = {
     EX_DISCOUNT_TRIGGER_5,
     EX_DISCOUNT_TRIGGER_6,
 };
+
+
+int  global_aridity;
+int  global_mountainity;
+ground_struct ground[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+
