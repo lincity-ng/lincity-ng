@@ -5,7 +5,7 @@
  * ---------------------------------------------------------------------- */
 #ifndef __shrglobs_h__
 #define __shrglobs_h__
-
+/*
 extern int pix_double;
 
 // extern char graphic_path[256];
@@ -13,5 +13,5 @@ extern int pix_double;
 #if defined (WIN32)
 extern char windowsfontfile[256];
 #endif
-
+*/
 #endif /* __shrglobs_h__ */
