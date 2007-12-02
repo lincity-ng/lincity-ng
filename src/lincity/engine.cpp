@@ -22,7 +22,6 @@
 #include "modules/all_modules.h"
 #include "transport.h"
 
-extern int selected_type_cost;
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);
 
@@ -438,7 +437,7 @@ void do_fire_health_cricket_power_cover(void)
     int x, y,m;
     /* Clear the flag */
     m = 0xffffffff - (FLAG_FIRE_COVER | FLAG_HEALTH_COVER
-                      | FLAG_CRICKET_COVER | FLAG_WATERWELL_COVER | FLAG_ASKED_FOR_POWER | FLAG_GOT_POWER);
+                      | FLAG_CRICKET_COVER | FLAG_WATERWELL_COVER);
     for (y = 0; y < WORLD_SIDE_LEN; y++)
         for (x = 0; x < WORLD_SIDE_LEN; x++)
             MP_INFO(x, y).flags &= m;

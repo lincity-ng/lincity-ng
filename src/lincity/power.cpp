@@ -39,6 +39,7 @@ void power_time_step()
 {
     int gi;
     int net;                    /* net power */
+    int x, y,m;
 
     if (grid_num == 0)
         return;
@@ -68,6 +69,14 @@ void power_time_step()
     /*  int_4 is the local power demand in the substation */
     for (gi = 0; gi < numof_substations; gi++)
         MP_INFO(substationx[gi], substationy[gi]).int_4 = 0;
+
+    /* Clear building info wrt power */
+    m = 0xffffffff - (FLAG_ASKED_FOR_POWER | FLAG_GOT_POWER);
+    for (y = 0; y < WORLD_SIDE_LEN; y++)
+        for (x = 0; x < WORLD_SIDE_LEN; x++)
+            MP_INFO(x, y).flags &= m;
+
+
 }
 
 void map_power_grid(bool resetgrids)
