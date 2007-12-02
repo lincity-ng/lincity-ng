@@ -38,7 +38,8 @@ extern int sust_dig_ore_coal_count, sust_port_count, sust_old_money;
 extern int sust_old_money_count, sust_old_population, sust_old_population_count;
 extern int sust_old_tech, sust_old_tech_count, sust_fire_count;
 
-extern int total_time;          /* game time */
+extern int total_time;  // game time
+extern int deadline;    // + 10 years to upgrade with waterwell everywhere
 
 extern int population, starving_population;
 extern int housed_population;
@@ -69,5 +70,4 @@ extern int coal_survey_done;
 extern int selected_type_cost;
 
 extern int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS];
-
 #endif /* __engglobs_h__ */

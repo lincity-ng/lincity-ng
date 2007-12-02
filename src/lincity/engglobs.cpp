@@ -44,6 +44,7 @@ int sust_old_money_count = 0, sust_old_population = 0, sust_old_population_count
 int sust_old_tech = 0, sust_old_tech_count = 0, sust_fire_count = 0;
 
 int total_time = 0;             /* game time */
+int deadline = 0; 
 
 int population, starving_population;
 int housed_population;

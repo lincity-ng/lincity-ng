@@ -551,7 +551,7 @@ XXX: Then it shouldn't be here
 #define RAIL_STEEL_USED_MASK 0x7f
 #define MAX_STEEL_AT_INDUSTRY_H (MAX_STEEL_ON_RAIL*10)
 
-#define WATERWELL_RANGE 10
+#define WATERWELL_RANGE 20
 
 /*
   JOBS_MAKE_STEEL is the steel made per job at the steel works

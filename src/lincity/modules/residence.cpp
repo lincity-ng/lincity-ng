@@ -69,7 +69,7 @@ void do_residence(int x, int y)
         }
     }
     /* normal births - must have food, water and jobs... and people */
-    if (use_waterwell)
+    if (use_waterwell && (total_time >= deadline) )
         birth_flag = FLAG_FED + FLAG_WATERWELL_COVER + FLAG_EMPLOYED;
     else
         birth_flag = FLAG_FED + FLAG_EMPLOYED;
@@ -88,18 +88,21 @@ void do_residence(int x, int y)
     if (((MP_INFO(x, y).flags & FLAG_FED) == 0)
         | (use_waterwell & (MP_INFO(x, y).flags & FLAG_WATERWELL_COVER) == 0)
         && p > 0) {
+        if (total_time > deadline) {
 #ifdef DEBUG_WATERWELL
-        fprintf(stderr, " hey, we are dying: lack of food or water!, use_waterwell=%i\n", use_waterwell);
+            fprintf(stderr, " hey, we are dying: lack of food or water!, use_waterwell=%i\n", use_waterwell);
 #endif
-        if (rand() % DAYS_PER_STARVE == 1) {
-            p--;
-            unnat_deaths++;
-            total_starve_deaths++;
-            starve_deaths_history += 1.0;
+
+            if (rand() % DAYS_PER_STARVE == 1) {
+                p--;
+                unnat_deaths++;
+                total_starve_deaths++;
+                starve_deaths_history += 1.0;
+            }
+            starving_population += p;
+            bad += 250;
+            drm += 100;
         }
-        starving_population += p;
-        bad += 250;
-        drm += 100;
         MP_INFO(x, y).int_2 = total_time;       /* for the starve screen */
     }
     /* kick one out if overpopulated */

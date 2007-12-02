@@ -14,5 +14,6 @@ void count_all_groups(int *group_count);
 void init_mappoint_array(void);
 void set_mappoint(int x, int y, short selected_type);
 void upgrade_to_v2(void);
+void do_rand_ecology(int x, int y);
 
 #endif /* __simulate_h__ */

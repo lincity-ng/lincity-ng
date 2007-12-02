@@ -43,12 +43,17 @@
 
 /* extern resources */
 extern void print_total_money(void);
+void setLincitySpeed( int speed );
+extern void ok_dial_box(const char *, int, const char *);
 
 /* AL1: they are all in engine.cpp */
 extern void connect_rivers(void);
 extern void do_daily_ecology(void);
 extern void do_pollution(void);
 extern void do_fire_health_cricket_power_cover(void);
+
+/* Flag to warn users that they have 10 years to put waterwell everywhere */
+int flag_warning = false;
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
@@ -85,6 +90,14 @@ static void set_mappoint_used(int fromx, int fromy, int x, int y);
  * ---------------------------------------------------------------------- */
 void do_time_step(void)
 {
+    if (flag_warning) {
+        flag_warning = false;
+        setLincitySpeed(0);
+        ok_dial_box("warning.mes", GOOD, \
+                _("Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!\
+  You should check starvation minimap, and read waterwell help page :-)") );
+
+    }
     /* Increment game time */
     total_time++;
 #ifdef DEBUG_ENGINE
@@ -208,27 +221,21 @@ void set_mappoint(int x, int y, short selected_type)
 void upgrade_to_v2 (void)
 {
     int x,y;
-    /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
-    /* currently only dummy things in order to compile */
-    global_aridity = 0;
-    global_mountainity=0;
-    
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            ground[x][y].altitude=0;
-            ground[x][y].ecotable=0;
-            ground[x][y].wastes=0;
-            ground[x][y].pollution=0;
-            ground[x][y].water_alt=0;
-            ground[x][y].water_pol=0;
-            ground[x][y].water_wast=0;
-            ground[x][y].water_next=0;
-            ground[x][y].int1=0;
-            ground[x][y].int2=0;
-            ground[x][y].int3=0;
-            ground[x][y].int4=0;
-        }
-    }
+    flag_warning = true;
+    setup_land();
+    for (y = 0; y < WORLD_SIDE_LEN; y++)
+        for (x = 0; x < WORLD_SIDE_LEN; x++)
+            if ( !GROUP_IS_BARE(MP_GROUP(x, y)) ) {
+                /* be nice, put water under all existing builings / farms / parks ... */
+                /* This should change soon according to global_aridity and distance_to_river */
+                MP_INFO(x,y).flags |= FLAG_HAS_UNDERGROUND_WATER;
+            }
+    /* Let 10 years in game time to put waterwells where needed, then starvation will occur */
+    deadline=total_time + 1200 * 10;
+#ifdef DEBUG
+    fprintf(stderr," total_time %d, deadline %d\n", total_time, deadline);
+#endif
+
 }
 
 /* ---------------------------------------------------------------------- *
@@ -690,6 +697,30 @@ void setup_land(void)
 {
     int x, y, xw, yw;
     int aridity = rand() % 400 - 150;
+
+    /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
+    /* currently only dummy things in order to compile */
+    global_aridity = aridity;
+    global_mountainity=0;
+    
+    for (x = 0; x < WORLD_SIDE_LEN; x++) {
+        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+            ground[x][y].altitude=0;
+            ground[x][y].ecotable=0;
+            ground[x][y].wastes=0;
+            ground[x][y].pollution=0;
+            ground[x][y].water_alt=0;
+            ground[x][y].water_pol=0;
+            ground[x][y].water_wast=0;
+            ground[x][y].water_next=0;
+            ground[x][y].int1=0;
+            ground[x][y].int2=0;
+            ground[x][y].int3=0;
+            ground[x][y].int4=0;
+        }
+    }
+
+
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
             int d2w_min = 2 * WORLD_SIDE_LEN * WORLD_SIDE_LEN;
@@ -708,6 +739,8 @@ void setup_land(void)
                     d2w = (xw - x) * (xw - x) + (yw - y) * (yw - y);
                     if (d2w < d2w_min)
                         d2w_min = d2w;
+                    /* TODO Store square of distance to river for each tile */
+                    /* MP_DIST2RIVER(x,y) = d2w_min; */
                 }
             }
 
@@ -719,120 +752,136 @@ void setup_land(void)
                     arid = (aridity * 2) / 3;
             }
             r = rand() % (d2w_min / 3 + 1) + arid;
-            if (r >= 300) {
-                /* very dry land */
-                int r2 = rand() % 10;
-                if (r2 <= 6)
-                    set_mappoint(x, y, CST_DESERT);
-                else if (r2 <= 8)
-                    set_mappoint(x, y, CST_GREEN);
-                else
-                    set_mappoint(x, y, CST_TREE);
-            } else if (r >= 160) {
-                int r2 = rand() % 10;
-                if (r2 <= 2)
-                    set_mappoint(x, y, CST_DESERT);
-                else if (r2 <= 6)
-                    set_mappoint(x, y, CST_GREEN);
-                else
-                    set_mappoint(x, y, CST_TREE);
-            } else if (r >= 80) {
-                int r2 = rand() % 10;
-                if (r2 <= 1)
-                    set_mappoint(x, y, CST_DESERT);
-                else if (r2 <= 4)
-                    set_mappoint(x, y, CST_GREEN);
-                else if (r2 <= 6)
-                    set_mappoint(x, y, CST_TREE);
-                else
-                    set_mappoint(x, y, CST_TREE2);
-            } else if (r >= 40) {
-                int r2 = rand() % 40;
-                if (r2 == 0)
-                    set_mappoint(x, y, CST_DESERT);
-                else if (r2 <= 12)
-                    set_mappoint(x, y, CST_GREEN);
-                else if (r2 <= 24)
-                    set_mappoint(x, y, CST_TREE);
-                else if (r2 <= 36)
-                    set_mappoint(x, y, CST_TREE2);
-                else
-                    set_mappoint(x, y, CST_TREE3);
-            } else if (r >= 0) {
-                /* normal land */
-                int r2 = rand() % 40;
-                if (r2 <= 10)
-                    set_mappoint(x, y, CST_GREEN);
-                else if (r2 <= 20)
-                    set_mappoint(x, y, CST_TREE);
-                else if (r2 <= 30)
-                    set_mappoint(x, y, CST_TREE2);
-                else
-                    set_mappoint(x, y, CST_TREE3);
-            } else if (r >= -40) {
-                /* forest */
-                int r2 = rand() % 40;
-                if (r2 <= 5)
-                    set_mappoint(x, y, CST_GREEN);
-                else if (r2 <= 10)
-                    set_mappoint(x, y, CST_TREE);
-                else if (r2 <= 25)
-                    set_mappoint(x, y, CST_TREE2);
-                else
-                    set_mappoint(x, y, CST_TREE3);
-            } else if (r >= -80) {
-                int r2 = rand() % 40;
-                if (r2 <= 0)
-                    MP_TYPE(x, y) = CST_WATER;
-                else if (r2 <= 6)
-                    set_mappoint(x, y, CST_GREEN);
-                else if (r2 <= 15)
-                    set_mappoint(x, y, CST_TREE);
-                else if (r2 <= 28)
-                    set_mappoint(x, y, CST_TREE2);
-                else
-                    set_mappoint(x, y, CST_TREE3);
-            } else if (r >= -120) {
-                int r2 = rand() % 40;
-                if (r2 <= 1)
-                    MP_TYPE(x, y) = CST_WATER;
-                else if (r2 <= 6)
-                    set_mappoint(x, y, CST_GREEN);
-                else if (r2 <= 16)
-                    set_mappoint(x, y, CST_TREE);
-                else if (r2 <= 30)
-                    set_mappoint(x, y, CST_TREE2);
-                else
-                    set_mappoint(x, y, CST_TREE3);
-            } else {
-                /* wetland */
-                int r2 = rand() % 40;
-                if (r2 <= 3)
-                    MP_TYPE(x, y) = CST_WATER;
-                else if (r2 <= 8)
-                    set_mappoint(x, y, CST_GREEN);
-                else if (r2 <= 20)
-                    set_mappoint(x, y, CST_TREE);
-                else if (r2 <= 35)
-                    set_mappoint(x, y, CST_TREE2);
-                else
-                    set_mappoint(x, y, CST_TREE3);
-            }
+            ground[x][y].ecotable=r;
+            /* needed to setup quasi randome land. The flag is set below */
+            MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
+            do_rand_ecology(x,y);
             MP_POL(x, y) = 0;
+
             /* preserve rivers, so that we can connect port later */
             if (MP_TYPE(x, y) == CST_WATER) {
                 int navigable = MP_INFO(x, y).flags & FLAG_IS_RIVER;
                 set_mappoint(x, y, CST_WATER);
                 MP_INFO(x, y).flags |= navigable;
                 MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
-            } else if (MP_TYPE(x, y) != CST_DESERT) {
-                MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
             }
-            /* TODO Store square of distance to river for each tile */
-            /* MP_DIST2RIVER(x,y) = d2w_min; */
+            /* set undergroung water according to first random land setup */
+            if (MP_TYPE(x, y) == CST_DESERT) {
+                MP_INFO(x, y).flags &= (0xffffffff - FLAG_HAS_UNDERGROUND_WATER);
+            }
         }
     }
     connect_rivers();
+}
+
+void do_rand_ecology(int x, int y)
+{
+    int r = ground[x][y].ecotable;
+    if ( (MP_INFO(x, y).flags | FLAG_HAS_UNDERGROUND_WATER) == 0 ) {
+        /*desert*/
+        return;
+    }
+
+    if (r >= 300) {
+        /* very dry land */
+        int r2 = rand() % 10;
+        if (r2 <= 6)
+            set_mappoint(x, y, CST_DESERT);
+        else if (r2 <= 8)
+            set_mappoint(x, y, CST_GREEN);
+        else
+            set_mappoint(x, y, CST_TREE);
+    } else if (r >= 160) {
+        int r2 = rand() % 10;
+        if (r2 <= 2)
+            set_mappoint(x, y, CST_DESERT);
+        else if (r2 <= 6)
+            set_mappoint(x, y, CST_GREEN);
+        else
+            set_mappoint(x, y, CST_TREE);
+    } else if (r >= 80) {
+        int r2 = rand() % 10;
+        if (r2 <= 1)
+            set_mappoint(x, y, CST_DESERT);
+        else if (r2 <= 4)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 6)
+            set_mappoint(x, y, CST_TREE);
+        else
+            set_mappoint(x, y, CST_TREE2);
+    } else if (r >= 40) {
+        int r2 = rand() % 40;
+        if (r2 == 0)
+            set_mappoint(x, y, CST_DESERT);
+        else if (r2 <= 12)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 24)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 36)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else if (r >= 0) {
+        /* normal land */
+        int r2 = rand() % 40;
+        if (r2 <= 10)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 20)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 30)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else if (r >= -40) {
+        /* forest */
+        int r2 = rand() % 40;
+        if (r2 <= 5)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 10)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 25)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else if (r >= -80) {
+        int r2 = rand() % 40;
+        if (r2 <= 0)
+            MP_TYPE(x, y) = CST_WATER;
+        else if (r2 <= 6)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 15)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 28)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else if (r >= -120) {
+        int r2 = rand() % 40;
+        if (r2 <= 1)
+            MP_TYPE(x, y) = CST_WATER;
+        else if (r2 <= 6)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 16)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 30)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else {
+        /* wetland */
+        int r2 = rand() % 40;
+        if (r2 <= 3)
+            MP_TYPE(x, y) = CST_WATER;
+        else if (r2 <= 8)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 20)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 35)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    }
+
 }
 
 static void nullify_mappoint(int x, int y)
@@ -857,28 +906,6 @@ static void nullify_mappoint(int x, int y)
 static void random_start(int *originx, int *originy)
 {
     int x, y, xx, yy, flag, watchdog;
-    /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
-    /* currently only dummy things in order to compile */
-    global_aridity = 0;
-    global_mountainity=0;
-    
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            ground[x][y].altitude=0;
-            ground[x][y].ecotable=0;
-            ground[x][y].wastes=0;
-            ground[x][y].pollution=0;
-            ground[x][y].water_alt=0;
-            ground[x][y].water_pol=0;
-            ground[x][y].water_wast=0;
-            ground[x][y].water_next=0;
-            ground[x][y].int1=0;
-            ground[x][y].int2=0;
-            ground[x][y].int3=0;
-            ground[x][y].int4=0;
-        }
-    }
-
 
     /* first find a place that has some water. */
     watchdog = 90;              /* if too many tries, random placement. */
