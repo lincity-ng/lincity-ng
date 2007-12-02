@@ -370,10 +370,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 /* Next, set the connectivity into MP_TYPE */
                 MP_TYPE(x, y) = power_table[mask];
                 /* Finally, adjust MP_TYPE to show electon bolt */
-#ifdef commentout
-              WCK:This is done in do_power_line now if (MP_INFO(x, y).int_1 != 0)
-                    MP_TYPE(x, y) -= 11;
-#endif
+                /* WCK:This is done in do_power_line now if (MP_INFO(x, y).int_1 != 0) */
                 break;
 
             case GROUP_TRACK:

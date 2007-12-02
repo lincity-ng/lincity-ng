@@ -115,29 +115,6 @@ void do_rocket_pad(int x, int y)
 
 void remove_people(int num)
 {
-#if defined (commentout)
-    int x, y, f;
-    time_t t;
-    f = 1;
-    t = time(0);
-    while (f && (num > 0)) {
-        for (y = 0; y < WORLD_SIDE_LEN; y++)
-            for (x = 0; x < WORLD_SIDE_LEN; x++)
-                if (MP_GROUP_IS_RESIDENCE(x, y) && MP_INFO(x, y).population > 0) {
-                    MP_INFO(x, y).population--;
-                    // f = 1;
-                    f |= (MP_INFO(x, y).population > 0);
-                    num--;
-                    total_evacuated++;
-                }
-    }
-    while (num > 0 && people_pool > 0) {
-        num--;
-        total_evacuated++;
-        people_pool--;
-    }
-#endif
-
     int x, y;
     /* reset housed population so that we can display it correctly */
     housed_population = 1;
@@ -159,17 +136,6 @@ void remove_people(int num)
     }
 
     refresh_population_text();
-
-#if defined (commentout)
-/* last ship wasn't full so everyone has gone. */
-    if (num > 0) {
-        if (t > HOF_START && t < HOF_STOP)
-            ok_dial_box("launch-gone-mail.mes", GOOD, 0L);
-        else
-            ok_dial_box("launch-gone.mes", GOOD, 0L);
-        housed_population = 0;
-    }
-#endif
 
     /* Note that the previous test was inaccurate.  There could be 
        exactly 1000 people left. */

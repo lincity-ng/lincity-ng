@@ -38,18 +38,6 @@ int *monthgraph_starve;
 int *monthgraph_nojobs;
 int *monthgraph_ppool;
 
-#if defined (commentout)
-int monthgraph_pop[MAPPOINT_STATS_W], monthgraph_starve[MAPPOINT_STATS_W];
-int monthgraph_nojobs[MAPPOINT_STATS_W], monthgraph_ppool[MAPPOINT_STATS_W];
-#endif
-
-#if defined (commentout)
-int diffgraph_power[MAPPOINT_STATS_W], diffgraph_coal[MAPPOINT_STATS_W];
-int diffgraph_goods[MAPPOINT_STATS_W], diffgraph_ore[MAPPOINT_STATS_W];
-int diffgraph_population[MAPPOINT_STATS_W];
-int diff_old_population;
-#endif
-
 int sust_dig_ore_coal_tip_flag = 0, sust_port_flag = 0, sustain_flag = 0;
 int sust_dig_ore_coal_count = 0, sust_port_count = 0, sust_old_money = 0;
 int sust_old_money_count = 0, sust_old_population = 0, sust_old_population_count = 0;

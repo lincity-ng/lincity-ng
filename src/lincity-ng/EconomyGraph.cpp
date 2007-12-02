@@ -32,7 +32,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "tinygettext/gettext.hpp"
 
-#include "lincity/shrglobs.h"
 #include "lincity/engglobs.h"
 #include "lincity/stats.h"
 #include "lincity/lin-city.h"

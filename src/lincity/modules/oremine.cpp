@@ -122,11 +122,6 @@ void do_oremine(int x, int y)
             break;
         }
         if (MP_INFO(x, y).int_2 <= 0) {
-#if defined (commentout)
-            /* AL1. It seems to be overwritten just below! */
-            do_bulldoze_area(CST_GREEN, x, y);
-            place_item(x, y, CST_TIP_0);
-#endif
             int i, j;
             for (j = 0; j < 4; j++) {
                 for (i = 0; i < 4; i++) {

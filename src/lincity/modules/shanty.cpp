@@ -31,9 +31,8 @@ void add_a_shanty(void)
         x = r % WORLD_SIDE_LEN;
         r = spiral_find_2x2(x, y);
         if (r == -1) {
-#ifdef commentout               /* wck: These are annoying when the map is full */
-            printf("Adding a shanty (s), no space for it?!\n");
-#endif
+            /* wck: These are annoying when the map is full */
+            fprintf(stderr,"Adding a shanty (s), no space for it?!\n");
             return;
         }
         y = r / WORLD_SIDE_LEN;
@@ -47,9 +46,8 @@ void add_a_shanty(void)
         x = r % WORLD_SIDE_LEN;
         r = spiral_find_2x2(x, y);
         if (r == -1) {
-#ifdef commentout               /* see above */
-            printf("Adding a shanty (r), no space for it?!\n");
-#endif
+            /* see above */
+            fprintf(stderr,"Adding a shanty (r), no space for it?!\n");
             return;
         }
         y = r / WORLD_SIDE_LEN;

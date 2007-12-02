@@ -9,7 +9,6 @@
 
 #include <stdio.h>
 
-#undef commentout
 #define LC_X11
 
 /*
@@ -598,30 +597,8 @@ XXX: Then it shouldn't be here
 #define STATS_W 304
 #define STATS_H 32
 
-/* GCS FIX: This is still used in static data structure for size 
-   of monthgraph.  Fix by encapsulating the monthgraph and dynamically
-   allocating.  */
-#if defined (commentout)
-#ifndef MONTHGRAPH_W
-#define MONTHGRAPH_X 91
-#define MONTHGRAPH_W 120
-#define MONTHGRAPH_Y 116
-#define MONTHGRAPH_H 64
-#endif
-#define DIFFGRAPH_POWER_COLOUR (yellow(28))
-#define DIFFGRAPH_COAL_COLOUR  (white(18))
-#define DIFFGRAPH_GOODS_COLOUR (cyan(24))
-#define DIFFGRAPH_ORE_COLOUR   (red(22))
-#define DIFFGRAPH_POPULATION_COLOUR 7
-#endif
-
 #define GRAPHS_B_COLOUR (white(6))
 
-/* These constants are still used by save-under buffer */
-#if defined (commentout)
-#define MARKET_CB_X (79)
-#define MARKET_CB_Y 0
-#endif
 //#define MARKET_CB_W (18*8)
 #define MARKET_CB_W (17*8 - 2)
 #define MARKET_CB_H (23*8)
@@ -645,14 +622,6 @@ XXX: Then it shouldn't be here
 #define SCROLL_UP_BUTTON_H 32
 
 #define SHUFFLE_MAPPOINT_COUNT 4
-
-#if defined (commentout)
-#define MAPPOINT_STATS_X 91
-/* MAPPOINT_STATS_W must be == MONTHGRAPH_W because of the graph drawing. */
-#define MAPPOINT_STATS_W MONTHGRAPH_W
-#define MAPPOINT_STATS_Y 8
-#define MAPPOINT_STATS_H (11*8)
-#endif
 
 /******* Buildings // GROUPS ************/ 
 #define NUM_OF_TYPES    400
@@ -699,39 +668,6 @@ XXX: Then it shouldn't be here
 #define GROUP_RESIDENCE_LL_BUL_COST 1000
 #define GROUP_RESIDENCE_LL_TECH 0
 #define GROUP_RESIDENCE_LL_FIREC 75
-
-#if defined (commentout)
-#define RESIDENCE_BASE_BR     100
-#define RESIDENCE_BRM_HEALTH  5
-#define RESIDENCE_BASE_DR     (68*12)
-#define GROUP_RESIDENCE    4
-#define GROUP_RESIDENCE_COLOUR (cyan(24))
-#define GROUP_RESIDENCE_COST   0
-#define GROUP_RESIDENCE_COST1  1000
-#define RESIDENCE1_BRM (RESIDENCE_BASE_BR*12)
-#define RESIDENCE1_DRM ((RESIDENCE_BASE_DR*3)/4)
-#define GROUP_RESIDENCE_COST2  2000
-#define RESIDENCE2_BRM 0
-#define RESIDENCE2_DRM 0
-#define GROUP_RESIDENCE_COST3  4000
-#define RESIDENCE3_BRM (RESIDENCE_BASE_BR+RESIDENCE_BASE_BR/4)
-#define RESIDENCE3_DRM ((RESIDENCE_BASE_DR)/2)
-#define GROUP_RESIDENCE_COST4  800
-#define RESIDENCE4_BRM (RESIDENCE_BASE_BR*18)
-#define RESIDENCE4_DRM ((RESIDENCE_BASE_DR*3)/4)
-#define GROUP_RESIDENCE_COST5  1600
-#define RESIDENCE5_BRM (RESIDENCE_BASE_BR/2)
-#define RESIDENCE5_DRM ((RESIDENCE_BASE_DR)/4)
-#define GROUP_RESIDENCE_COST6  3200
-#define RESIDENCE6_BRM 0
-#define RESIDENCE6_DRM ((RESIDENCE_BASE_DR)/4)
-#define GROUP_RESIDENCE_COST_MUL 25
-#define GROUP_RESIDENCE_BUL_COST 1000
-#define GROUP_RESIDENCE_TECH 0
-#define GROUP_RESIDENCE_FIREC 75
-/* RESIDENCE_PPM is the people_pool mobitily. Higher number=less mobile. */
-#define RESIDENCE_PPM   20
-#endif
 
 /* RESIDENCE?_BRM is the birth rate modifier */
 /* RESIDENCE?_DRM is the death rate modifier */

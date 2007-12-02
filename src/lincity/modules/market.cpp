@@ -458,13 +458,6 @@ int deal_with_transport(int x, int y, int tx, int ty)
         if (MP_INFO(x, y).int_7 >= (99 * MAX_WASTE_IN_MARKET / 100)) {
             MP_POL(x, y) += 3000;
             MP_INFO(x, y).int_7 -= (7 * MAX_WASTE_IN_MARKET) / 10;
-#if defined (commentout)
-            /* this should fire up the pollution mini screen within a second.
-             * AL1: oh this is not implemented in NG :(
-             * This works only with oldgui
-             */
-            mini_screen_flags = MINI_SCREEN_POL_FLAG;
-#endif
         }
     }
 

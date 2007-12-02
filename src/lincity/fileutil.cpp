@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdarg.h>             /* XXX: GCS FIX: What does configure need to know? */
 #include <string.h>
-#include "shrglobs.h"
+#include "engglobs.h"
 #include "gui_interface/screen_interface.h"
 #include "tinygettext/gettext.hpp"
 #include "lincity-ng/ErrorInterface.hpp"
@@ -134,20 +134,6 @@ char help_path[LC_PATH_MAX];
 char message_path[LC_PATH_MAX];
 char lc_textdomain_directory[LC_PATH_MAX];
 char lincityrc_file[LC_PATH_MAX];
-
-/* The variable make_dir_ok_flag has 2 uses.
-
-   First, it is initialized to 1, and set to zero if the directory 
-   already exists.  Later, if it is found to be 1, the "create directory 
-   help page (ask-dir) is display, and then set to zero.  
-
-   Next, in the help handler, if the user says it's OK to create the 
-   directory, it is reset to 1.  Finally, in the main loop, if it is 
-   found to have value 1, the directory is created and it is reset to 0.
-   */
-#if defined (commentout)
-int make_dir_ok_flag;
-#endif
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -490,12 +476,6 @@ void init_path_strings(void)
 #if defined (WIN32)
     /* GCS: Use windows font for extra speed */
     strcpy(windowsfontfile, LIBDIR);
-#if defined (commentout)
-    if (!pix_double)
-        strcat(windowsfontfile, "\\opening\\iso8859-1-8x8.fnt");
-    else
-        strcat(windowsfontfile, "\\opening\\iso8859-1-9x15.fnt");
-#endif
     if (!pix_double)
         strcat(windowsfontfile, "\\opening\\winfont_8x8.fnt");
     else
@@ -540,11 +520,6 @@ void make_savedir(void)
     DIR *dp;
 #endif
 
-#if defined (commentout)
-    if (make_dir_ok_flag == 0)
-        return;
-#endif
-
 #if defined (WIN32)
     if (_mkdir(lc_save_dir) == -1 && errno != EEXIST) {
         printf(_("Couldn't create the save directory '%s'\n"), lc_save_dir);
@@ -561,40 +536,13 @@ void make_savedir(void)
     closedir(dp);
 #endif
 
-#if defined (commentout)
-    make_dir_ok_flag = 0;
-#endif
 }
 
 void check_savedir(void)
 {
-#if defined (commentout)
-    int i = 0, j, k, r, l;
-#endif
-
     if (!directory_exists(lc_save_dir)) {
         make_savedir();
-#if defined (commentout)
-        l = lc_save_dir_len;
-        if (l > 160) {
-            i = l - 160;
-            l = 160;
-        }
-        askdir_lines = l / 40 + ((l % 40) ? 1 : 0);
-        r = l / askdir_lines + ((l % askdir_lines) ? 1 : 0);
-        for (j = 0; j < askdir_lines; j++) {
-            if ((askdir_path[j] = (char *)malloc(r + 1)) == 0)
-                malloc_failure();
-            for (k = 0; k < r; k++, i++)
-                *(askdir_path[j] + k) = lc_save_dir[i];
-            *(askdir_path[j] + k) = 0;
-        }
-        return;
-#endif
     }
-#if defined (commentout)
-    make_dir_ok_flag = 0;       /* don't load the ask-dir */
-#endif
 }
 
 void malloc_failure(void)

@@ -50,11 +50,6 @@ void do_tip(int x, int y)
         MP_INFO(x, y - 1).int_7 -= i * 10;
         sust_dig_ore_coal_tip_flag = 0;
     }
-#if defined (commentout)
-    /* Increment the "ore" reserve; this prevents a new tip from being
-       built on top of a degraded one. */
-    MP_INFO(x, y).ore_reserve++;
-#endif
 
     /* now choose an icon. */
     if ((total_time % NUMOF_DAYS_IN_MONTH) == 0) {
