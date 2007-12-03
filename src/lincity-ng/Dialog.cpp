@@ -191,6 +191,7 @@ void Dialog::msgDialog( std::string message, std::string extraString){
     std::string filename = "gui/";
     filename += message;
     unsigned int pos = filename.rfind( ".mes" );
+#warning "on amd64 gcc says warning: comparison is always true due to limited range of data type";
     if( pos != std::string::npos ){
         filename.replace( pos, 4 ,".xml");
     }

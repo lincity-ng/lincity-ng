@@ -35,6 +35,7 @@ Translations/Help
      English help is more or less ok, other languages not: 
        -added data/help/en/waterwell.xml
        -modified residential.xml, farms.xml, parks.xml, communes.xml, index.xml, button-index.xml.
+          starvation.xml 
 
  [H] all data/locale/xy.po and data/locale/gui/xy.po files have been update (rev 1290). 
      Translators should check them with poedit for the rare new messages to translate.
@@ -72,12 +73,6 @@ Programming
      won't change to anything else. At least the caption is not shown.
 
 --Game--
- [H] Find a way to "upgrade" old games 
-        - add random underground water , trees, desert
-        - blocking message (and pause game) that waterwelll must be added or global starvation will occur
-
- [H] Upgrade scenarios good/bad time
-
  [H] Check that info obtained with query tool exists/are correct for
         waterwell, residences, farms, communes, parks
 

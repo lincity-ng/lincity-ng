@@ -814,7 +814,8 @@ void check_endian(void)
                 eswap32((int *)&(MP_INFO(x, y).coal_reserve));
                 eswap32((int *)&(MP_INFO(x, y).ore_reserve));
             } else {
-                printf("Strange size (%d) for short, please mail me.\n", sizeof(short));
+                /* prevent gcc warning on amd64: argument 2 has type 'long unsigned int' !!! */
+                printf("Strange size (%d) for short, please mail me.\n", (int) sizeof(short));
             }
             eswap32(&(MP_INFO(x, y).int_1));
             eswap32(&(MP_INFO(x, y).int_2));

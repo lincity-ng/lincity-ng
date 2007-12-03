@@ -25,19 +25,19 @@ basic water management implemented:
  -basic ecology: change desert with UGW (= bulldozed tile) to green after some monthes.
    (needed for showing UGW for placing farms communes and parks)
  -Tuning of aridity parameter and others (communes, farms, parks) seems rather correct.
+
  -additional data structure and load/save.
+ -automagic upgrade of old games
 
 AIM:
 ----
 * simple ecology = periodic event :
-   - probably need additional property (global aridity, tile_aridity_table_pointer)
    - neighbours  => % decrease/increase from desert to tree3. (tree3 need 4 neighbouring trees)
    - pollution ++%decrease
    - water ++%increase
    = just look nicer (change nothing in the game) but could show impact of human activities on forests :)
 
 * Water quality (from drinkable to mortal).
-  - tile property ++ UG_water, UG_pollution, UG_waste , UG_altitude.
   - altitude to know the local slope and the drainage basin.
         unit 1cm        +1/tile is enough slope for calm river, large river => +0/tile,
                         coast line +100, land + rand() % mountainity per tile.

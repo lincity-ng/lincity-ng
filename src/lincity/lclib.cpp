@@ -229,7 +229,8 @@ void *lcalloc(size_t size)
     void *tmp;
     tmp = malloc(size);
     if (tmp == NULL) {
-        printf("couldn't malloc %d bytes!  Dying.\n", size);
+        /* prevent gcc warning on amd64: argument 2 has type 'long unsigned int' !!! */
+        printf("couldn't malloc %d bytes!  Dying.\n", (int) size);
         exit(-1);
     }
 

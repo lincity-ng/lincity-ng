@@ -1449,7 +1449,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_MONUMENT_0: break;
             //case CST_PARKLAND_PLANE: break;
             //case CST_WATER: break;
-            case CST_WATERWELL: range = MARKET_RANGE; break;
+            case CST_WATERWELL: range = WATERWELL_RANGE; break;
         }
        	
         if (range > 0 )
