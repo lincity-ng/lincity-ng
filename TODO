@@ -73,9 +73,6 @@ Programming
      won't change to anything else. At least the caption is not shown.
 
 --Game--
- [H] Check that info obtained with query tool exists/are correct for
-        waterwell, residences, farms, communes, parks
-
  [M] Print out more debug infos that user can send in with debug reports:
      architecture?, SDL version, opengl driver name, SDL software driver name,
      SDL sound driver name, screen resolution

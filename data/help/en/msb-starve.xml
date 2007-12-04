@@ -3,8 +3,9 @@
 	<p style="htitle">Starvation overlay</p>
 	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
 	<p style="hp">The starvation mini screen shows only residential areas.</p>
-	<p style="hp">Bright green means that there is enough food in that residential area. Darker green and bright red show increasingly severe starvation in each residential area shown.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+        <p style="hp">Bright green means that there is enough food (from market) and water (in the range of a water well) in that residential area. Bright red shows starvation in each residential area shown.</p>
+        <p style="hp">Waterwell cover is shown in dark blue</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or use the big button "overlay".</p>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>

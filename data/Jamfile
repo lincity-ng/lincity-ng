@@ -68,7 +68,7 @@ InstallData lincityconfig.xml ;
 if $(build) = $(target)
 {
     DoXmlGetText locale/gui/messages.pot : [ Wildcard gui : *.xml ] ;
-    DoXmlGetText locale/messages.pot : [ Wildcard gui : *.xml ] ;
+    #DoXmlGetText locale/messages.pot : [ Wildcard gui : *.xml ] ;
 }
 
 # Stuff from old lincity, still needed for the lib at the moment

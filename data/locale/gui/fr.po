@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Jan 27 22:03:14 2007\n"
+"POT-Creation-Date: Tue Dec  4 01:12:57 2007\n"
 "PO-Revision-Date: 2007-11-28 01:43+0100\n"
 "Last-Translator: alain <alain.baeckeroot@laposte.net>\n"
 "Language-Team: français <fr@li.org>\n"
@@ -38,11 +38,11 @@ msgid ""
 "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
 "spread to other areas. "
 msgstr ""
-"Un incendie a éclaté dans un bidonville. Le feu est HORS DE CONTROLE et "
-"peut se répendre à d'autres secteurs."
+"Un incendie a éclaté dans un bidonville. Le feu est HORS DE CONTROLE et peut "
+"se répendre à d'autres secteurs."
 
-#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
-#: data/gui/savegame.xml
+#: data/gui/credits.xml data/gui/savegame.xml data/gui/newgame.xml
+#: data/gui/loadgame.xml
 msgid "Back"
 msgstr "Retour"
 
@@ -69,10 +69,9 @@ msgstr "Détruire une section de rivière coûte beaucoup d'argent."
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
 msgstr ""
-"Détruire un bidonville coûte beaucoup d'argent et peu provoquer un "
-"incendie."
+"Détruire un bidonville coûte beaucoup d'argent et peu provoquer un incendie."
 
-#: data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Buy"
 msgstr "Ach."
 
@@ -80,7 +79,7 @@ msgstr "Ach."
 msgid "Choose Scenario"
 msgstr "Choisir un Scenario"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Coal"
 msgstr "Charbon"
 
@@ -142,7 +141,7 @@ msgstr "Casernes de pompiers disponibles"
 msgid "Fire!"
 msgstr "Feu !"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Food"
 msgstr "Nourriture"
 
@@ -158,7 +157,7 @@ msgstr "Stats de Jeux"
 msgid "Go back to Main Menu"
 msgstr "Retour au menu principal"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Goods"
 msgstr "Biens"
 
@@ -182,7 +181,7 @@ msgstr "Industrie Lourde disponible"
 msgid "Import/Export available"
 msgstr "Import / Export disponible"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml
+#: data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Jobs"
 msgstr "Emplois"
 
@@ -230,30 +229,30 @@ msgstr "Moulins Modernes disponibles"
 msgid "Money"
 msgstr "Argent"
 
-#: data/gui/newgame.xml data/gui/mainmenu.xml
+#: data/gui/mainmenu.xml data/gui/newgame.xml
 msgid "New Game"
 msgstr "Nouveau Jeu"
 
-#: data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
-#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/coalmineup.xml
-#: data/gui/riverup.xml data/gui/parkup.xml data/gui/coalpowerup.xml
-#: data/gui/solarpowerup.xml data/gui/roadup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/blacksmithup.xml data/gui/mod_wind_up.xml
-#: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/millup.xml
-#: data/gui/import-exportup.xml data/gui/healthup.xml
+#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/parkup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/universityup.xml data/gui/recycleup.xml data/gui/blacksmithup.xml
+#: data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/import-exportup.xml data/gui/mod_wind_up.xml
 msgid "New Invention"
 msgstr "Nouvelle Invention"
 
-#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
-#: data/gui/launch_rocket_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "No"
 msgstr "Non"
 
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-parkland.xml
 #: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
-#: data/gui/no-credit-recycle.xml data/gui/no-credit-parkland.xml
-#: data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-recycle.xml
 msgid "No Credit Available"
 msgstr "Pas d'Argent Disponible"
 
@@ -266,21 +265,20 @@ msgstr "Personne à la maison"
 msgid "Not Allowed"
 msgstr "Non Autorisé"
 
-#: data/gui/options.xml data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/fire.xml data/gui/shfire-uc.xml
-#: data/gui/ltindustryup.xml data/gui/launch-evac.xml
-#: data/gui/universityup.xml data/gui/cricketup.xml data/gui/recycleup.xml
-#: data/gui/coalmineup.xml data/gui/riverup.xml data/gui/parkup.xml
-#: data/gui/no-credit-solar-power.xml data/gui/launch-good.xml
-#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/roadup.xml
-#: data/gui/no-credit-university.xml data/gui/potteryup.xml
-#: data/gui/no-credit-recycle.xml data/gui/railwayup.xml
-#: data/gui/launch-fail.xml data/gui/nobull-tip.xml data/gui/blacksmithup.xml
-#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
-#: data/gui/millup.xml data/gui/import-exportup.xml
-#: data/gui/no-credit-parkland.xml data/gui/no-credit-rocket.xml
-#: data/gui/healthup.xml data/gui/launch-gone.xml data/gui/shfire-oc.xml
-#: data/gui/sustain.xml data/gui/allgone.xml
+#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/options.xml data/gui/riverup.xml
+#: data/gui/coalmineup.xml data/gui/coalpowerup.xml data/gui/launch-good.xml
+#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/nobull-tip.xml data/gui/sustain.xml
+#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
+#: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
+#: data/gui/no-credit-recycle.xml data/gui/launch-fail.xml
+#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/import-exportup.xml data/gui/launch-gone.xml
+#: data/gui/mod_wind_up.xml data/gui/shfire-oc.xml data/gui/warning.xml
 msgid "Ok"
 msgstr "Ok"
 
@@ -288,11 +286,11 @@ msgstr "Ok"
 msgid "Okay"
 msgstr "D'accord"
 
-#: data/gui/mainmenu.xml data/gui/options.xml
+#: data/gui/options.xml data/gui/mainmenu.xml
 msgid "Options"
 msgstr "Options"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Ore"
 msgstr "Minerai"
 
@@ -320,7 +318,7 @@ msgstr "Poteries disponibles"
 msgid "Press this button to show statistics"
 msgstr "Pressez ce bouton pour voir les statistiques"
 
-#: data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Product"
 msgstr "Produit"
 
@@ -387,17 +385,17 @@ msgstr ""
 "Voir l'écran d'aide pour plus d'informations sur les aperçus du charbon et "
 "des mines de charbon ."
 
-#: data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
-#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/riverup.xml
-#: data/gui/parkup.xml data/gui/coalpowerup.xml data/gui/solarpowerup.xml
-#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/blacksmithup.xml
-#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
-#: data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalpowerup.xml
+#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/healthup.xml data/gui/universityup.xml data/gui/recycleup.xml
+#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/mod_wind_up.xml
 msgid "See the help screen for more information."
 msgstr "Voir l'écran d'aide pour plus d'informations."
 
-#: data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Sell"
 msgstr "Ven."
 
@@ -408,8 +406,8 @@ msgstr "Envoyer des Prospecteurs"
 #: data/gui/minimap.xml
 msgid "Show Income and Expenses. Click this tab again to cycle through views."
 msgstr ""
-"Voir les Revenus et Dépenses.Cliquez sur cet onglet à nouveau pour "
-"traverser les vues."
+"Voir les Revenus et Dépenses.Cliquez sur cet onglet à nouveau pour traverser "
+"les vues."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show coal depots"
@@ -495,7 +493,7 @@ msgstr "Démarrer un village aléatoire"
 msgid "Stats"
 msgstr "Stats"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Steel"
 msgstr "Acier"
 
@@ -529,13 +527,13 @@ msgstr "Traduction"
 msgid "University available"
 msgstr "Université disponible"
 
-#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Want to bulldoze?"
 msgstr "Voulez-vous démolir ?"
 
-#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml
 msgid "Warning"
 msgstr "Attention"
 
@@ -559,9 +557,9 @@ msgstr "Bravo, vous avez évacué tout le monde."
 msgid "Windmills available"
 msgstr "Moulins à vent disponibles"
 
-#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
-#: data/gui/launch_rocket_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "Yes"
 msgstr "Oui"
 
@@ -576,8 +574,8 @@ msgid ""
 "clicking on the rocket area."
 msgstr ""
 "Vous pouvez lancer la fusée maintenant ou attendre plus tard. Si vous "
-"attendez cela continuera de vous coûter de l'argent pour maintenir la "
-"fusée prête. Lancez-la en cliquant sur le site de lancement."
+"attendez cela continuera de vous coûter de l'argent pour maintenir la fusée "
+"prête. Lancez-la en cliquant sur le site de lancement."
 
 #: data/gui/import-exportup.xml
 msgid ""
@@ -609,16 +607,16 @@ msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build rocket launch pads on credit."
 msgstr ""
-"Vous avez un déficit budgétaire. Le conseil législatif ne vous permettra "
-"pas d'emprunter pour construire un site de lancement de fusée."
+"Vous avez un déficit budgétaire. Le conseil législatif ne vous permettra pas "
+"d'emprunter pour construire un site de lancement de fusée."
 
 #: data/gui/no-credit-solar-power.xml
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build solar power stations on credit."
 msgstr ""
-"Vous avez un déficit budgétaire. Le conseil législatif ne vous permettra "
-"pas d'emprunter pour construire une centrale électique solaire."
+"Vous avez un déficit budgétaire. Le conseil législatif ne vous permettra pas "
+"d'emprunter pour construire une centrale électique solaire."
 
 #: data/gui/no-credit-university.xml
 msgid ""
@@ -633,8 +631,8 @@ msgid ""
 "You have evacuated 1000 people. You might want to reduce the size of your "
 "economy to reflect the reduced population. "
 msgstr ""
-"Vous avez évacué 1000 personnes. Vous pourriez vouloir réduire la taille "
-"de votre économie pour refléter la population réduite. "
+"Vous avez évacué 1000 personnes. Vous pourriez vouloir réduire la taille de "
+"votre économie pour refléter la population réduite. "
 
 #: data/gui/blacksmithup.xml
 msgid ""
@@ -776,8 +774,8 @@ msgid ""
 "Universities produces PhDs, which produce more technology. "
 msgstr ""
 "Vous avez atteint le niveau technologique qui vous permet de construire des "
-"universités. Les universités forment des chercheurs, qui produisent plus "
-"de technologie."
+"universités. Les universités forment des chercheurs, qui produisent plus de "
+"technologie."
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
@@ -801,7 +799,7 @@ msgstr ""
 "centres de recyclage. Le recyclage permet de récuperer le minerai des "
 "dechets. "
 
-#: data/gui/launch-gone.xml data/gui/sustain.xml
+#: data/gui/sustain.xml data/gui/launch-gone.xml
 msgid "You have won the game."
 msgstr "Vous avez gagné la partie."
 
@@ -815,9 +813,9 @@ msgid ""
 "goods and make people in the surrounding areas (about 10 units in each "
 "direction) happier."
 msgstr ""
-"Les gens ont inventé le basketball. Les gymnases utilisent un peu "
-"d'emplois, des biens et rends les personnes dans les environs (environ 10 "
-"unités dans chaque direction) plus heureux."
+"Les gens ont inventé le basketball. Les gymnases utilisent un peu d'emplois, "
+"des biens et rends les personnes dans les environs (environ 10 unités dans "
+"chaque direction) plus heureux."
 
 #: data/gui/launch-fail.xml
 msgid ""

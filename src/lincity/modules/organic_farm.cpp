@@ -233,13 +233,15 @@ void mps_organic_farm(int x, int y)
     snprintf(text, MPS_INFO_CHARS, "%s  %5.1f%%", _("Prod"), MP_INFO(x, y).int_4 * 100.0 / 1200.0);
     mps_store_title(i++, text);
 
+#ifdef DEBUG
     if (use_waterwell) {
         i++;
         mps_store_title(i++, _("Debug info"));
-        mps_store_sd(i++, _(" max with power & water"), MP_INFO(x + 1, y).int_3);
-        mps_store_sd(i++, _(" number of tile with water"), MP_INFO(x + 1, y).int_4);
-        mps_store_sd(i++, _(" current production"), MP_INFO(x + 1, y).int_5);
+        mps_store_sd(i++, _("max with power&water"), MP_INFO(x + 1, y).int_3);
+        mps_store_sd(i++, _("N tiles with water"), MP_INFO(x + 1, y).int_4);
+        mps_store_sd(i++, _("Current production"), MP_INFO(x + 1, y).int_5);
     }
+#endif
 
     /*
        char * p;

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Jan 27 22:03:14 2007\n"
+"POT-Creation-Date: Tue Dec  4 01:12:57 2007\n"
 "PO-Revision-Date: 2006-12-17 17:16+0100\n"
 "Last-Translator: Michał Drzał <neurotoxic@wp.pl>\n"
 "Language-Team:  <pl@li.org>\n"
@@ -40,11 +40,11 @@ msgid ""
 "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
 "spread to other areas. "
 msgstr ""
-"Pożar ogarnął slumsy. Ogień wymknął się spod kontroli i istnieje "
-"szansa jego rozprzestrzenienia się."
+"Pożar ogarnął slumsy. Ogień wymknął się spod kontroli i istnieje szansa jego "
+"rozprzestrzenienia się."
 
-#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
-#: data/gui/savegame.xml
+#: data/gui/credits.xml data/gui/savegame.xml data/gui/newgame.xml
+#: data/gui/loadgame.xml
 msgid "Back"
 msgstr "Wróć"
 
@@ -72,7 +72,7 @@ msgstr "Wyburzenie części rzeki dużo kosztuje."
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
 msgstr "Wyburzenie slumsów dużo kosztuje i może wywołac pożar."
 
-#: data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Buy"
 msgstr "Kup"
 
@@ -80,7 +80,7 @@ msgstr "Kup"
 msgid "Choose Scenario"
 msgstr "Wybierz scenariusz"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Coal"
 msgstr "Węgiel"
 
@@ -140,7 +140,7 @@ msgstr "Remizy strażackie dostępne"
 msgid "Fire!"
 msgstr "Pożar!"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Food"
 msgstr "Żywność"
 
@@ -156,7 +156,7 @@ msgstr "Statystyki gry"
 msgid "Go back to Main Menu"
 msgstr "Wróć do głównego menu"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Goods"
 msgstr "Towary"
 
@@ -180,7 +180,7 @@ msgstr "Ciężki przemysł dostępny"
 msgid "Import/Export available"
 msgstr "Import/Export dostępny"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml
+#: data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Jobs"
 msgstr "Siła robocza."
 
@@ -228,30 +228,30 @@ msgstr "Nowoczesne fabryki dostępne"
 msgid "Money"
 msgstr "Kapitał"
 
-#: data/gui/newgame.xml data/gui/mainmenu.xml
+#: data/gui/mainmenu.xml data/gui/newgame.xml
 msgid "New Game"
 msgstr "Nowa gra"
 
-#: data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
-#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/coalmineup.xml
-#: data/gui/riverup.xml data/gui/parkup.xml data/gui/coalpowerup.xml
-#: data/gui/solarpowerup.xml data/gui/roadup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/blacksmithup.xml data/gui/mod_wind_up.xml
-#: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/millup.xml
-#: data/gui/import-exportup.xml data/gui/healthup.xml
+#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/parkup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/universityup.xml data/gui/recycleup.xml data/gui/blacksmithup.xml
+#: data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/import-exportup.xml data/gui/mod_wind_up.xml
 msgid "New Invention"
 msgstr "Nowy wynalazek"
 
-#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
-#: data/gui/launch_rocket_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "No"
 msgstr "Nie"
 
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-parkland.xml
 #: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
-#: data/gui/no-credit-recycle.xml data/gui/no-credit-parkland.xml
-#: data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-recycle.xml
 msgid "No Credit Available"
 msgstr "Brak dostępnego kredytu"
 
@@ -263,21 +263,20 @@ msgstr "Pusty dom"
 msgid "Not Allowed"
 msgstr "Nie dozwolone."
 
-#: data/gui/options.xml data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/fire.xml data/gui/shfire-uc.xml
-#: data/gui/ltindustryup.xml data/gui/launch-evac.xml
-#: data/gui/universityup.xml data/gui/cricketup.xml data/gui/recycleup.xml
-#: data/gui/coalmineup.xml data/gui/riverup.xml data/gui/parkup.xml
-#: data/gui/no-credit-solar-power.xml data/gui/launch-good.xml
-#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/roadup.xml
-#: data/gui/no-credit-university.xml data/gui/potteryup.xml
-#: data/gui/no-credit-recycle.xml data/gui/railwayup.xml
-#: data/gui/launch-fail.xml data/gui/nobull-tip.xml data/gui/blacksmithup.xml
-#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
-#: data/gui/millup.xml data/gui/import-exportup.xml
-#: data/gui/no-credit-parkland.xml data/gui/no-credit-rocket.xml
-#: data/gui/healthup.xml data/gui/launch-gone.xml data/gui/shfire-oc.xml
-#: data/gui/sustain.xml data/gui/allgone.xml
+#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/options.xml data/gui/riverup.xml
+#: data/gui/coalmineup.xml data/gui/coalpowerup.xml data/gui/launch-good.xml
+#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/nobull-tip.xml data/gui/sustain.xml
+#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
+#: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
+#: data/gui/no-credit-recycle.xml data/gui/launch-fail.xml
+#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/import-exportup.xml data/gui/launch-gone.xml
+#: data/gui/mod_wind_up.xml data/gui/shfire-oc.xml data/gui/warning.xml
 msgid "Ok"
 msgstr "Ok"
 
@@ -285,11 +284,11 @@ msgstr "Ok"
 msgid "Okay"
 msgstr "Dobrze."
 
-#: data/gui/mainmenu.xml data/gui/options.xml
+#: data/gui/options.xml data/gui/mainmenu.xml
 msgid "Options"
 msgstr "Opcje"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Ore"
 msgstr "Ruda"
 
@@ -317,7 +316,7 @@ msgstr "Garncarnie dostępne"
 msgid "Press this button to show statistics"
 msgstr "Naciśnij ten przycisk, żeby zobaczyć statystyki"
 
-#: data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Product"
 msgstr "Produkt"
 
@@ -384,17 +383,17 @@ msgstr ""
 "Zobacz ekran pomoy w celu uzyskania większej ilości informacji na temat "
 "kopalni oraz zasobów węgla"
 
-#: data/gui/firestationup.xml data/gui/hvindustryup.xml
-#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
-#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/riverup.xml
-#: data/gui/parkup.xml data/gui/coalpowerup.xml data/gui/solarpowerup.xml
-#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/blacksmithup.xml
-#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
-#: data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
+#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalpowerup.xml
+#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/healthup.xml data/gui/universityup.xml data/gui/recycleup.xml
+#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
+#: data/gui/mod_wind_up.xml
 msgid "See the help screen for more information."
 msgstr "Zobacz ekran pomocy w celu uzyskania większej ilości informacji. "
 
-#: data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Sell"
 msgstr "Sprzedaj"
 
@@ -493,7 +492,7 @@ msgstr "Rozpocznij grę z losową osadą."
 msgid "Stats"
 msgstr "Statystyki"
 
-#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Steel"
 msgstr "Stal"
 
@@ -508,8 +507,8 @@ msgstr "W mieście nie ma już żadnych ludzi."
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it is free to call again."
 msgstr ""
-"To będzie Cię kosztować jednorazowo 1 milion. Później jest już "
-"dostępne za darmo."
+"To będzie Cię kosztować jednorazowo 1 milion. Później jest już dostępne za "
+"darmo."
 
 #: data/gui/launch-gone.xml
 msgid "Total Evacuation Complete."
@@ -527,13 +526,13 @@ msgstr ""
 msgid "University available"
 msgstr "Uniwersytety dostępne"
 
-#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Want to bulldoze?"
 msgstr "Wyburzyć?"
 
-#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml
 msgid "Warning"
 msgstr "Uwaga"
 
@@ -557,9 +556,9 @@ msgstr "Bardzo dobrze, ewakuowałeś całą populacje."
 msgid "Windmills available"
 msgstr "Wiatraki dostępne"
 
-#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
-#: data/gui/launch_rocket_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
 msgid "Yes"
 msgstr "Tak"
 
@@ -574,8 +573,8 @@ msgid ""
 "clicking on the rocket area."
 msgstr ""
 "Możesz wystrzelić rakietę teraz lub później. Jeśli będziesz czekał, "
-"utrzymywanie rakiety w stanie gotowości będzie Cię kosztować. Możesz "
-"ją potem wystrzelić klikając na kosmodrom."
+"utrzymywanie rakiety w stanie gotowości będzie Cię kosztować. Możesz ją "
+"potem wystrzelić klikając na kosmodrom."
 
 #: data/gui/import-exportup.xml
 msgid ""
@@ -583,8 +582,7 @@ msgid ""
 "pages on these subjects to find out how to use them. "
 msgstr ""
 "Teraz możesz importować i eksportować węgiel, towary, rude i stal. "
-"Przeczytaj strony pomocy tych tematów, żeby dowiedzieć się jak to "
-"zrobić."
+"Przeczytaj strony pomocy tych tematów, żeby dowiedzieć się jak to zrobić."
 
 #: data/gui/no-credit-parkland.xml
 msgid ""
@@ -598,8 +596,8 @@ msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build recycling centres on credit."
 msgstr ""
-"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy zakładów "
-"recyklingu na kredyt."
+"Masz deficyt budżetu. Rada miejska zabroniła Ci budowy zakładów recyklingu "
+"na kredyt."
 
 #: data/gui/no-credit-rocket.xml
 msgid ""
@@ -646,8 +644,7 @@ msgid ""
 "You have reached the tech level which enables you to build coal fired power "
 "stations."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe elektrowni "
-"węglowych."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe elektrowni węglowych."
 
 #: data/gui/firestationup.xml
 msgid ""
@@ -655,10 +652,9 @@ msgid ""
 "Fire stations prevent most fires from starting. If you haven't had any fires "
 "yet, you might not think you need them."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe remiz "
-"strażackich. Remizy strażackie zapobiegają większości pożarów. Jeśli "
-"nie miałeś jeszcze żadnych pożarów, może Ci się wydawać, że ich nie "
-"potrzebujesz."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe remiz strażackich. "
+"Remizy strażackie zapobiegają większości pożarów. Jeśli nie miałeś jeszcze "
+"żadnych pożarów, może Ci się wydawać, że ich nie potrzebujesz."
 
 #: data/gui/healthup.xml
 msgid ""
@@ -666,25 +662,25 @@ msgid ""
 "Heath centres reduce the number of people killed by pollution and increase "
 "overall productivity."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe szpitali. "
-"Szpitale zmniejszają ilość ludzi zabitych przez zanieczyszczenia oraz "
-"zwiększają całkowitą wydajność."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe szpitali. Szpitale "
+"zmniejszają ilość ludzi zabitych przez zanieczyszczenia oraz zwiększają "
+"całkowitą wydajność."
 
 #: data/gui/hvindustryup.xml
 msgid ""
 "You have reached the tech level which enables you to build heavy industry "
 "(steel works). Heavy industry produces steel. "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów "
-"ciężkiego przemysłu. Zakłady ciężkiego przemysłu produkują stal. "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów ciężkiego "
+"przemysłu. Zakłady ciężkiego przemysłu produkują stal. "
 
 #: data/gui/ltindustryup.xml
 msgid ""
 "You have reached the tech level which enables you to build light industry. "
 "Light industry produces goods. "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów "
-"lekkiego przemysłu. Zakłady lekkiego przemysłu produkują towary. "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów lekkiego "
+"przemysłu. Zakłady lekkiego przemysłu produkują towary. "
 
 #: data/gui/millup.xml
 msgid ""
@@ -716,15 +712,14 @@ msgid ""
 "You have reached the tech level which enables you to build potteries. "
 "Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe garncarni. "
-"Garncarnie wykorzystują siłę roboczą oraz rudę do wytwarzania towarów. "
-"(Musisz mieć kopalnie rudy, żeby uzyskać rudę) "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe garncarni. Garncarnie "
+"wykorzystują siłę roboczą oraz rudę do wytwarzania towarów. (Musisz mieć "
+"kopalnie rudy, żeby uzyskać rudę) "
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe torów "
-"kolejowych. "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe torów kolejowych. "
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
@@ -735,8 +730,8 @@ msgid ""
 "You have reached the tech level which enables you to build roads. See the "
 "help screen for more information."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe ulic. Zobacz "
-"ekran pomocy w celu uzyskania większej ilości informacji."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe ulic. Zobacz ekran "
+"pomocy w celu uzyskania większej ilości informacji."
 
 #: data/gui/rocketup.xml
 msgid ""
@@ -744,9 +739,9 @@ msgid ""
 "pads. Rockets enable you to evacuate your population and is a way to 'win' "
 "the game."
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe kosmodromów. "
-"Rakiety pozwalają ewakuować mieszkańców miasta, co jest sposobem na "
-"'przejście' tej gry."
+"Osiągnąłeś poziom technologiczny pozwalający na budowe kosmodromów. Rakiety "
+"pozwalają ewakuować mieszkańców miasta, co jest sposobem na 'przejście' tej "
+"gry."
 
 #: data/gui/schoolup.xml
 msgid ""
@@ -771,13 +766,11 @@ msgid ""
 "Universities produces PhDs, which produce more technology. "
 msgstr ""
 "Osiągnąłeś poziom technologiczny pozwalający na budowe uniwersytetów. "
-"Uniwersytety produkują jajogłowych, którzy opracowywują nowe "
-"technologię."
+"Uniwersytety produkują jajogłowych, którzy opracowywują nowe technologię."
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe wiatraków. "
+msgstr "Osiągnąłeś poziom technologiczny pozwalający na budowe wiatraków. "
 
 #: data/gui/coalmineup.xml
 msgid ""
@@ -791,10 +784,10 @@ msgid ""
 "You have reached the tech level which enables you to recycling centres. "
 "Recycling centres recycle used goods back into ore. "
 msgstr ""
-"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów "
-"recyklingu. Zakłady recyklingu przerabiają towary na rudę. "
+"Osiągnąłeś poziom technologiczny pozwalający na budowe zakładów recyklingu. "
+"Zakłady recyklingu przerabiają towary na rudę. "
 
-#: data/gui/launch-gone.xml data/gui/sustain.xml
+#: data/gui/sustain.xml data/gui/launch-gone.xml
 msgid "You have won the game."
 msgstr "Wygrałeś."
 
@@ -808,9 +801,9 @@ msgid ""
 "goods and make people in the surrounding areas (about 10 units in each "
 "direction) happier."
 msgstr ""
-"Twoi ludzie wynaleźli koszykówkę. Boiska do koszykówki wykorzystują "
-"niewiele siły roboczej oraz towarów, a ludzie w okolicy (około 10 pól w "
-"każdym kierunku) są szczęśliwsi."
+"Twoi ludzie wynaleźli koszykówkę. Boiska do koszykówki wykorzystują niewiele "
+"siły roboczej oraz towarów, a ludzie w okolicy (około 10 pól w każdym "
+"kierunku) są szczęśliwsi."
 
 #: data/gui/launch-fail.xml
 msgid ""
@@ -825,8 +818,7 @@ msgstr ""
 #: data/gui/minimap.xml
 msgid "[+] Zoom in view so that less buildings but more details are visible"
 msgstr ""
-"[+] Przybliżenie widoku - widać mniej budynków, ale są bardziej "
-"szczegółowe."
+"[+] Przybliżenie widoku - widać mniej budynków, ale są bardziej szczegółowe."
 
 #: data/gui/minimap.xml
 msgid "[-] Zoom out"
