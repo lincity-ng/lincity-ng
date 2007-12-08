@@ -29,8 +29,6 @@ int last_warning_message_group = 0;
 
 /****** Private functions prototypes *****/
 static void bulldoze_mappoint(short fill, int x, int y);
-static int no_credit_build(int selected_group);
-static void no_credit_build_msg_ng(int selected_group);
 static int is_real_river(int x, int y);
 
 /*************** Global functions ********************/
@@ -108,20 +106,53 @@ int is_allowed_here(int x, int y, short type, short msg)
     int group = get_group_of_type( type );
     int size = main_groups[group].size; 
     int i,j;
+    int has_ugw = 0;
 
-    //The Harbour needs a River on the East side.
-    if( type == CST_EX_PORT ){
+    switch (group) {
+    case GROUP_SOLAR_POWER:
+        if (total_money <= 0) {
+            if (msg)
+                ok_dial_box("no-credit-solar-power.mes", BAD, 0L);
+            return false;
+        }
+        break;
+
+    case GROUP_UNIVERSITY:
+        if (total_money <= 0) {
+            if (msg)
+                ok_dial_box("no-credit-university.mes", BAD, 0L);
+            return false;
+        }
+        break;
+
+    case GROUP_RECYCLE:
+        if (total_money <= 0) {
+            if (msg)
+                ok_dial_box("no-credit-recycle.mes", BAD, 0L);
+            return false;
+        }
+        break;
+
+    case GROUP_ROCKET:
+        if (total_money <= 0) {
+            if (msg)
+                ok_dial_box("no-credit-rocket.mes", BAD, 0L);
+            return false;
+        }
+        break;
+
+        //The Harbour needs a River on the East side.
+    case GROUP_PORT:
         for( j = 0; j < size; j++ )
             if (!( MP_INFO(x + size, y + j).flags & FLAG_IS_RIVER ) ) {
                 if (msg)
                     ok_dial_box("warning.mes", BAD, _("Port must be connected to river all along right side."));
                 return false;
             }
-    }
+        break;
 
     //Waterwell needs ... water :-)
-    if (type == CST_WATERWELL) {
-        int has_ugw = 0;
+    case GROUP_WATERWELL:
         for ( i = 0; i < size; i++)
             for ( j = 0; j < size; j++)
                 has_ugw = has_ugw | HAS_UGWATER(x + i, y + j);
@@ -130,13 +161,13 @@ int is_allowed_here(int x, int y, short type, short msg)
                 ok_dial_box("warning.mes", BAD, _("You can't build a water well here: it is all desert."));
             return false;
         }
-    }
+        break;
 
     //Tip
     /* Don't build a tip if there has already been one.
      * This is marked permanently by setting the ore reserve to double of (max) ORE_RESERVE at tip build time
      */
-    if (type == CST_TIP_0)
+    case GROUP_TIP:
         for (i = 0; i < size; i++)
             for (j = 0; j < size; j++)
                 if (MP_INFO(x + i, y + j).ore_reserve > ORE_RESERVE) {
@@ -144,57 +175,69 @@ int is_allowed_here(int x, int y, short type, short msg)
                         ok_dial_box("warning.mes", BAD, _("You can't build a tip here: this area was once a landfill"));
                     return false;
                 }
-    
+
     //Oremine
     /* Don't allow new mines on old mines or old tips */
     /* GCS: mines over old mines is OK if there is enough remaining 
-       ore, as is the case when there is partial overlap. */
-    if (type == CST_OREMINE_1) {
-        for (i = 0; i < size; i++) 
-            for (j = 0; j < size; j++)
-                if (MP_INFO(x + i, y + j).ore_reserve > ORE_RESERVE) {
-                    if (msg)
-                        ok_dial_box("warning.mes", BAD, _("You can't build a mine here: This area was once a landfill"));
-                    return false; //previous tip
-                }
+     *  ore, as is the case when there is partial overlap. */
+    case GROUP_OREMINE:
+        {
 
-        int total_ore = 0;
-        for (i = 0; i < size; i++) 
-            for (j = 0; j < size; j++)
-                total_ore += MP_INFO(x + i, y + j).ore_reserve;
+            for (i = 0; i < size; i++) 
+                for (j = 0; j < size; j++)
+                    if (MP_INFO(x + i, y + j).ore_reserve > ORE_RESERVE) {
+                        if (msg)
+                            ok_dial_box("warning.mes", BAD, _("You can't build a mine here: This area was once a landfill"));
+                        return false; //previous tip
+                    }
 
-        if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
-            if (msg)
-                ok_dial_box("warning.mes", BAD, _("You can't build a mine here: there is no ore left at this site"));
-            return false; // not enought ore
+            int total_ore = 0;
+            for (i = 0; i < size; i++) 
+                for (j = 0; j < size; j++)
+                    total_ore += MP_INFO(x + i, y + j).ore_reserve;
+
+            if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
+                if (msg)
+                    ok_dial_box("warning.mes", BAD, _("You can't build a mine here: there is no ore left at this site"));
+                return false; // not enought ore
+            }
         }
-    }
 
     //Parkland
-    if (type == CST_PARKLAND_PLANE)
-            if (!HAS_UGWATER(x, y)) {
-                if (msg)
-                    ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
-                return false;
-            }
+    case GROUP_PARKLAND:
+        if (!HAS_UGWATER(x, y)) {
+            if (msg)
+                ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
+            return false;
+        }
+        if (total_money <= 0) {
+            if (msg) 
+                ok_dial_box("no-credit-parkland.mes", BAD, 0L);
+            return false;
+        }
+        break;
 
     //Substations and Windmills
-    if ( (type == CST_SUBSTATION_R) || (type == CST_WINDMILL_1_R) )
+    case GROUP_SUBSTATION:
+    case GROUP_WINDMILL:
         if (numof_substations >= MAX_NUMOF_SUBSTATIONS) {
             if (msg)
                 ok_dial_box("warning.mes", BAD, _("Too many substations + windmills. You cannot build one more"));
             return false;
         }
+        break;
 
     //Market
-    if ( type == CST_MARKET_EMPTY )
-         if (numof_markets >= MAX_NUMOF_MARKETS) {
+    case GROUP_MARKET:
+        if (numof_markets >= MAX_NUMOF_MARKETS) {
             if (msg)
                 ok_dial_box("warning.mes", BAD, _("Too many markets. You cannot build one more"));
             return false;
         }
+        break;
 
     //Other cases
+    }
     return true;
 }
 
@@ -225,13 +268,7 @@ int place_item(int x, int y, short type)
     if (GROUP_IS_RESIDENCE(group))
         group=GROUP_RESIDENCE_LL;
 
-    /* You can't build because credit not available. */
-    if (no_credit_build(group) != 0) {
-        no_credit_build_msg_ng(group);
-        return -1;
-    }
-
-    /* You can't build here because it's forbidden or impossible */
+    /* You can't build here because it's forbidden or impossible or not enough money */
     if (!is_allowed_here(x,y,type,msg)) {
             last_warning_message_group = group;
             return -2;
@@ -663,81 +700,4 @@ int is_real_river(int x, int y)
         return (1);
     return (-1);
 }
-
-static int no_credit_build(int selected_group)
-{
-    if (total_money >= 0)
-        return (0);
-
-#ifdef GROUP_SOLAR_POWER_NO_CREDIT
-    if (selected_group == GROUP_SOLAR_POWER) {
-        return (1);
-    }
-#endif
-#ifdef GROUP_UNIVERSITY_NO_CREDIT
-    if (selected_group == GROUP_UNIVERSITY) {
-        return (1);
-    }
-#endif
-#ifdef GROUP_PARKLAND_NO_CREDIT
-    if (selected_group == GROUP_PARKLAND) {
-        return (1);
-    }
-#endif
-#ifdef GROUP_RECYCLE_NO_CREDIT
-    if (selected_group == GROUP_RECYCLE) {
-        return (1);
-    }
-#endif
-#ifdef GROUP_ROCKET
-    if (selected_group == GROUP_ROCKET) {
-        return (1);
-    }
-#endif
-
-    if (main_groups[selected_group].no_credit == TRUE) {
-        return (1);
-    }
-    return (0);
-}
-
-static void no_credit_build_msg_ng(int selected_group)
-{
-    if (last_warning_message_group == selected_group)
-        return;
-    last_warning_message_group = selected_group;
-
-#ifdef GROUP_SOLAR_POWER_NO_CREDIT
-    if (selected_group == GROUP_SOLAR_POWER) {
-        ok_dial_box("no-credit-solar-power.mes", BAD, 0L);
-        return;
-    }
-#endif
-#ifdef GROUP_UNIVERSITY_NO_CREDIT
-    if (selected_group == GROUP_UNIVERSITY) {
-        ok_dial_box("no-credit-university.mes", BAD, 0L);
-        return;
-    }
-#endif
-#ifdef GROUP_PARKLAND_NO_CREDIT
-    if (selected_group == GROUP_PARKLAND) {
-        ok_dial_box("no-credit-parkland.mes", BAD, 0L);
-        return;
-    }
-#endif
-#ifdef GROUP_RECYCLE_NO_CREDIT
-    if (selected_group == GROUP_RECYCLE) {
-        ok_dial_box("no-credit-recycle.mes", BAD, 0L);
-        return;
-    }
-#endif
-#ifdef GROUP_ROCKET
-    if (selected_group == GROUP_ROCKET) {
-        ok_dial_box("no-credit-rocket.mes", BAD, 0L);
-        return;
-    }
-#endif
-    return;
-}
-
 
