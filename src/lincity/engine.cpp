@@ -103,6 +103,31 @@ int adjust_money(int value)
     return total_money;
 }
 
+int is_allowed_here(int x, int y, short selected_module_type)
+{
+    int group = get_group_of_type( selected_module_type );
+    int cursorSize = main_groups[group].size; 
+
+    //The Harbour needs a River on the East side.
+    if( selected_module_type == CST_EX_PORT ){
+        for( int j = 0; j < cursorSize; j++ )
+            if (!( MP_INFO(x + cursorSize, y + j).flags & FLAG_IS_RIVER ) ) {
+                fprintf(stderr," x=%d, y=%d, j=%d, cursorSize=%d\n", x, y, j, cursorSize);
+                return false;
+            }
+    }
+    //Waterwell needs ... water :-)
+    if (selected_module_type == CST_WATERWELL) {
+        int has_ugw = 0;
+        for (int i = 0; i < cursorSize; i++)
+            for (int j = 0; j < cursorSize; j++)
+                has_ugw = has_ugw | HAS_UGWATER(x + i, y + j);
+        if (!has_ugw)
+            return false;
+    }
+    return true;
+}
+
 int place_item(int x, int y, short type)
 {
     int i, j;

@@ -53,6 +53,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Button.hpp"
 #include "CheckButton.hpp"
 
+extern int is_allowed_here(int x, int y, short cst_type);
+
 const float GameView::defaultTileWidth = 128;
 const float GameView::defaultTileHeight = 64;
 const float GameView::defaultZoom = 0.5;
@@ -1364,44 +1366,25 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         Color alphablue( 0, 0, 255, 128 );
         Color alphared( 255, 0, 0, 128 );
         painter.setFillColor( alphablue );
-        //check if building is allowed here, if not use Red Cursor
-        // FIXME: AL1. These tests should go in engine.cpp with place_item, where they are done again.
+        //check if building is inside the map, if not use Red Cursor
         int x = (int) tile.x;
         int y = (int) tile.y;
         MapPoint seCorner( x + cursorSize -1, y + cursorSize -1 );
         if( !inCity( seCorner ) || !inCity( tile ) ) {
             painter.setFillColor( alphared );
         } else {
-            for( y = (int) tile.y; y < tile.y + cursorSize; y++ ) {
-                for( x = (int) tile.x; x < tile.x + cursorSize; x++ ) {
+            for( y = (int) tile.y; y < tile.y + cursorSize; y++ )
+                for( x = (int) tile.x; x < tile.x + cursorSize; x++ )
                     if( !GROUP_IS_BARE(MP_GROUP( x, y ))) {
                         painter.setFillColor( alphared );
                         y += cursorSize;
                         break;
                     }
-                }
-            }
         }
-        //special conditions for some buildings
-        //The Harbour needs a River on the East side.
-        if( selected_module_type == CST_EX_PORT ){
-            x = (int) tile.x + cursorSize;
-            y = (int) tile.y;
-            for( y = (int) tile.y; y < tile.y + cursorSize; y++ ) {
-                if (!( ( MP_GROUP( x, y ) == GROUP_WATER ) && ( MP_INFO(x,y).flags & FLAG_IS_RIVER ) ) ){
-                    painter.setFillColor( alphared );
-                }
-            }
-        }
-        //Waterwell needs ... water :-)
-        if (selected_module_type == CST_WATERWELL) {
-            int has_ugw = 0;
-            for (int i = 0; i < cursorSize; i++)
-                for (int j = 0; j < cursorSize; j++)
-                    has_ugw = has_ugw | HAS_UGWATER(tile.x + i, tile.y + j);
-            if (!has_ugw)
-                painter.setFillColor( alphared );
-        }
+        //check if building is allowed here, if not use Red Cursor
+        // These tests are in engine.cpp with place_item.
+        if ( !is_allowed_here(tile.x, tile.y, selected_module_type) )
+            painter.setFillColor( alphared );
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
         tileOnScreenPoint.x = tileOnScreenPoint.x - (tileWidth * cursorSize / 2);
