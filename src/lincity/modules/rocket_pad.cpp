@@ -105,11 +105,6 @@ void do_rocket_pad(int x, int y)
              */
             launch_rocket(x, y);
         }
-        /* so we don't get get our money back when we bulldoze. */
-        if (x == last_built_x && y == last_built_y) {
-            x = 0;
-            y = 0;
-        }
     }
 }
 

@@ -53,7 +53,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Button.hpp"
 #include "CheckButton.hpp"
 
-extern int is_allowed_here(int x, int y, short cst_type);
+extern int is_allowed_here(int x, int y, short cst_type, short msg);
 
 const float GameView::defaultTileWidth = 128;
 const float GameView::defaultTileHeight = 64;
@@ -1383,7 +1383,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         }
         //check if building is allowed here, if not use Red Cursor
         // These tests are in engine.cpp with place_item.
-        if ( !is_allowed_here(tile.x, tile.y, selected_module_type) )
+        if ( !is_allowed_here(tile.x, tile.y, selected_module_type, 0) )
             painter.setFillColor( alphared );
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );

@@ -103,37 +103,107 @@ int adjust_money(int value)
     return total_money;
 }
 
-int is_allowed_here(int x, int y, short selected_module_type)
+int is_allowed_here(int x, int y, short type, short msg)
 {
-    int group = get_group_of_type( selected_module_type );
-    int cursorSize = main_groups[group].size; 
+    int group = get_group_of_type( type );
+    int size = main_groups[group].size; 
+    int i,j;
 
     //The Harbour needs a River on the East side.
-    if( selected_module_type == CST_EX_PORT ){
-        for( int j = 0; j < cursorSize; j++ )
-            if (!( MP_INFO(x + cursorSize, y + j).flags & FLAG_IS_RIVER ) ) {
-                fprintf(stderr," x=%d, y=%d, j=%d, cursorSize=%d\n", x, y, j, cursorSize);
+    if( type == CST_EX_PORT ){
+        for( j = 0; j < size; j++ )
+            if (!( MP_INFO(x + size, y + j).flags & FLAG_IS_RIVER ) ) {
+                if (msg)
+                    ok_dial_box("warning.mes", BAD, _("Port must be connected to river all along right side."));
                 return false;
             }
     }
+
     //Waterwell needs ... water :-)
-    if (selected_module_type == CST_WATERWELL) {
+    if (type == CST_WATERWELL) {
         int has_ugw = 0;
-        for (int i = 0; i < cursorSize; i++)
-            for (int j = 0; j < cursorSize; j++)
+        for ( i = 0; i < size; i++)
+            for ( j = 0; j < size; j++)
                 has_ugw = has_ugw | HAS_UGWATER(x + i, y + j);
-        if (!has_ugw)
+        if (!has_ugw) {
+            if (msg)
+                ok_dial_box("warning.mes", BAD, _("You can't build a water well here: it is all desert."));
             return false;
+        }
     }
+
+    //Tip
+    /* Don't build a tip if there has already been one.
+     * This is marked permanently by setting the ore reserve to double of (max) ORE_RESERVE at tip build time
+     */
+    if (type == CST_TIP_0)
+        for (i = 0; i < size; i++)
+            for (j = 0; j < size; j++)
+                if (MP_INFO(x + i, y + j).ore_reserve > ORE_RESERVE) {
+                    if (msg)
+                        ok_dial_box("warning.mes", BAD, _("You can't build a tip here: this area was once a landfill"));
+                    return false;
+                }
+    
+    //Oremine
+    /* Don't allow new mines on old mines or old tips */
+    /* GCS: mines over old mines is OK if there is enough remaining 
+       ore, as is the case when there is partial overlap. */
+    if (type == CST_OREMINE_1) {
+        for (i = 0; i < size; i++) 
+            for (j = 0; j < size; j++)
+                if (MP_INFO(x + i, y + j).ore_reserve > ORE_RESERVE) {
+                    if (msg)
+                        ok_dial_box("warning.mes", BAD, _("You can't build a mine here: This area was once a landfill"));
+                    return false; //previous tip
+                }
+
+        int total_ore = 0;
+        for (i = 0; i < size; i++) 
+            for (j = 0; j < size; j++)
+                total_ore += MP_INFO(x + i, y + j).ore_reserve;
+
+        if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
+            if (msg)
+                ok_dial_box("warning.mes", BAD, _("You can't build a mine here: there is no ore left at this site"));
+            return false; // not enought ore
+        }
+    }
+
+    //Parkland
+    if (type == CST_PARKLAND_PLANE)
+            if (!HAS_UGWATER(x, y)) {
+                if (msg)
+                    ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
+                return false;
+            }
+
+    //Substations and Windmills
+    if ( (type == CST_SUBSTATION_R) || (type == CST_WINDMILL_1_R) )
+        if (numof_substations >= MAX_NUMOF_SUBSTATIONS) {
+            if (msg)
+                ok_dial_box("warning.mes", BAD, _("Too many substations + windmills. You cannot build one more"));
+            return false;
+        }
+
+    //Market
+    if ( type == CST_MARKET_EMPTY )
+         if (numof_markets >= MAX_NUMOF_MARKETS) {
+            if (msg)
+                ok_dial_box("warning.mes", BAD, _("Too many markets. You cannot build one more"));
+            return false;
+        }
+
+    //Other cases
     return true;
 }
 
 int place_item(int x, int y, short type)
 {
     int i, j;
-    int prev_tip = 0;
     int group;
     int size;
+    int msg;
 
     group = get_group_of_type(type);
     if (group < 0) {
@@ -141,14 +211,19 @@ int place_item(int x, int y, short type)
         fprintf(stderr, "Error: group does not exist %i\n", group);
 #endif
         ok_dial_box("warning.mes", BAD,
-                    _
-                    ("ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "));
+                _
+                ("ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "));
         return -1000;
     }
-    if (GROUP_IS_RESIDENCE(group))
-        group=GROUP_RESIDENCE_LL;
 
     size = main_groups[group].size;
+    if (last_warning_message_group != group)
+        msg = true;
+    else
+        msg =false;
+  
+    if (GROUP_IS_RESIDENCE(group))
+        group=GROUP_RESIDENCE_LL;
 
     /* You can't build because credit not available. */
     if (no_credit_build(group) != 0) {
@@ -156,46 +231,39 @@ int place_item(int x, int y, short type)
         return -1;
     }
 
+    /* You can't build here because it's forbidden or impossible */
+    if (!is_allowed_here(x,y,type,msg)) {
+            last_warning_message_group = group;
+            return -2;
+    } else
+        last_warning_message_group = 0;
+
     switch (group) {
     case GROUP_RESIDENCE_LL:
         /* all residences are treated. local variable 'group' is redefined to do so.*/
         /* int_2 is date of last starvation. Needed for correct display */
         MP_INFO(x, y).int_2 = total_time;
-        break;   case GROUP_ORGANIC_FARM:
+        break;
+
+    case GROUP_ORGANIC_FARM:
         MP_INFO(x, y).int_1 = tech_level;
         break;
+
     case GROUP_TRACK:
     case GROUP_ROAD:
     case GROUP_RAIL:
         MP_INFO(x, y).flags |= FLAG_IS_TRANSPORT;
         break;
+
     case GROUP_PORT:
-        if (is_real_river(x + 4, y) != 1
-            || is_real_river(x + 4, y + 1) != 1
-            || is_real_river(x + 4, y + 2) != 1 || is_real_river(x + 4, y + 3) != 1) {
-            if (last_warning_message_group != group)
-                ok_dial_box("warning.mes", BAD, _("Port must be connected to river all along right side."));
-            last_warning_message_group = group;
-            return -2;
-        }
         break;
+
     case GROUP_SUBSTATION:
-        if (add_a_substation(x, y) == 0) {
-            /* Not enough slots in the substation array */
-            if (last_warning_message_group != group)
-                ok_dial_box("warning.mes", BAD, _("Too many substations + windmills. You cannot build one more"));
-            last_warning_message_group = group;
-            return -3;
-        }
+        add_a_substation (x, y);
         break;
+
     case GROUP_WINDMILL:
-        if (add_a_substation(x, y) == 0) {
-            /* Not enough slots in the substation array */
-            if (last_warning_message_group != group)
-                ok_dial_box("warning.mes", BAD, _("Too many substations + windmills. You cannot build one more"));
-            last_warning_message_group = group;
-            return -3;
-        }
+        add_a_substation (x, y);
         MP_INFO(x, y).int_2 = tech_level;
         MP_INFO(x, y).int_1 = (int)(WINDMILL_POWER + (((double)MP_INFO(x, y).int_2 * WINDMILL_POWER) / MAX_TECH_LEVEL));
         /* Make sure that the correct windmill graphic shows up */
@@ -204,109 +272,56 @@ int place_item(int x, int y, short type)
         else
             type = CST_WINDMILL_1_W;
         break;
+
     case (GROUP_COAL_POWER):
         MP_INFO(x, y).int_4 = tech_level;
         MP_INFO(x, y).int_1 = (int)(POWERS_COAL_OUTPUT + (((double)MP_INFO(x, y).int_4 * POWERS_COAL_OUTPUT)
                                                           / MAX_TECH_LEVEL));
         break;
+
     case (GROUP_SOLAR_POWER):
         MP_INFO(x, y).int_2 = tech_level;
         MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_INFO(x, y).int_2 * POWERS_SOLAR_OUTPUT)
                                                            / MAX_TECH_LEVEL));  /* like other power sources */
         MP_INFO(x, y).int_3 = MP_INFO(x, y).int_1;      /* Int_3 is kept for compatibility */
         break;
+
     case GROUP_COMMUNE:
         numof_communes++;
         break;
+
     case GROUP_MARKET:
-        /* Test for enough slots in the market array */
-        if (add_a_market(x, y) == 0) {
-            if (last_warning_message_group != group)
-                ok_dial_box("warning.mes", BAD, _("Too many markets. You cannot build one more"));
-            last_warning_message_group = group;
-            return -4;
-        }
+        add_a_market(x,y);
         MP_INFO(x, y).flags += (FLAG_MB_FOOD | FLAG_MB_JOBS
                                 | FLAG_MB_COAL | FLAG_MB_ORE | FLAG_MB_STEEL
                                 | FLAG_MB_GOODS | FLAG_MS_FOOD | FLAG_MS_JOBS
                                 | FLAG_MS_COAL | FLAG_MS_GOODS | FLAG_MS_ORE | FLAG_MS_STEEL);
         break;
+
     case GROUP_RECYCLE:
         MP_INFO(x, y).int_4 = tech_level;
         break;
+
     case GROUP_TIP:
-        /* Don't build a tip if there has already been one.  If we succeed,
-           mark the spot permanently by "doubling" the ore reserve */
-        prev_tip = 0;
+        /* To prevent building a tip if there has already been one we
+         * mark the spot permanently by "doubling" the ore reserve */
         for (i = 0; i < size; i++)
             for (j = 0; j < size; j++)
-                if (MP_INFO(x + i, y + j).ore_reserve > ORE_RESERVE) {
-                    prev_tip = 1;
-                    break;
-                }
-        if (prev_tip) {
-            ok_dial_box("warning.mes", BAD, _("You can't build a tip here: this area was once a landfill"));
-            return -5;
-        } else {
-            for (i = 0; i < size; i++)
-                for (j = 0; j < size; j++)
-                    MP_INFO(x + i, y + j).ore_reserve = ORE_RESERVE * 2;
-        }
+                MP_INFO(x + i, y + j).ore_reserve = ORE_RESERVE * 2;
         break;
+
     case GROUP_OREMINE:
-        {
-            /* Don't allow new mines on old mines or old tips */
-            /* GCS: mines over old mines is OK if there is enough remaining 
-               ore, as is the case when there is partial overlap. */
-            int total_ore = 0;
-            prev_tip = 0;
-            for (i = 0; i < size; i++) {
-                for (j = 0; j < size; j++) {
-                    total_ore += MP_INFO(x + i, y + j).ore_reserve;
-                    if (MP_INFO(x + i, y + j).ore_reserve > ORE_RESERVE) {
-                        prev_tip = 1;
-                        break;
-                    }
-                }
-            }
-            if (prev_tip) {
-                ok_dial_box("warning.mes", BAD, _("You can't build a mine here: This area was once a landfill"));
-                return -6;
-            }
-            if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
-                ok_dial_box("warning.mes", BAD, _("You can't build a mine here: there is no ore left at this site"));
-                return -7;
-            }
-            break;
-        }
-    case GROUP_WATERWELL:
-        if (use_waterwell) {
-            int has_ugw = 0;
-            for (i = 0; i < size; i++)
-                for (j = 0; j < size; j++)
-                    has_ugw = has_ugw | HAS_UGWATER(x + i, y + j);
-            if (!has_ugw) {
-                ok_dial_box("warning.mes", BAD, _("You can't build a water well here: it is all desert."));
-                return -8;
-            } else {
-                numof_waterwell++;
-            }
-        }                       /* else ... is not possible */
+        /* New mines are not allowed on old mines or old tips */
         break;
+
+    case GROUP_WATERWELL:
+        numof_waterwell++; //AL1: unused so far.
+        break;
+
     case GROUP_PARKLAND:
-        if (use_waterwell)
-            if (!HAS_UGWATER(x, y)) {
-                ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
-                return -8;
-            }
         break;
 
     }                           /* end case */
-    last_warning_message_group = 0;
-
-    /* Store last_built for refund on "mistakes" */
-    last_built_x = x;
-    last_built_y = y;
 
     set_mappoint(x, y, type);
 

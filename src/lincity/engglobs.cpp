@@ -17,7 +17,6 @@ int mappoint_array_x[WORLD_SIDE_LEN];
 int mappoint_array_y[WORLD_SIDE_LEN];
 int numof_shanties;
 int numof_communes;
-int last_built_x, last_built_y;
 int main_screen_originx, main_screen_originy;
 
 int pix_double = 0;

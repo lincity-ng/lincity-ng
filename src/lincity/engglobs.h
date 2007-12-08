@@ -31,7 +31,6 @@ extern ground_struct ground[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 extern int global_aridity, global_mountainity;
 
 extern int numof_shanties, numof_communes;
-extern int last_built_x, last_built_y;
 
 extern int sust_dig_ore_coal_tip_flag, sust_port_flag, sustain_flag;
 extern int sust_dig_ore_coal_count, sust_port_count, sust_old_money;
