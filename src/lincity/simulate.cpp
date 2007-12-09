@@ -71,14 +71,14 @@ static int sust_fire_cover(void);
 static void clear_game(void);
 static void nullify_mappoint(int x, int y);
 static void random_start(int *originx, int *originy);
-static void quick_start_add(int x, int y, short type, int size);
 static void setup_land(void);
 static void coal_reserve_setup(void);
 static void ore_reserve_setup(void);
 static void setup_river(void);
-static void setup_river2(int x, int y, int d);
-static void quick_start_add(int x, int y, short type, int size);
+static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void set_mappoint_used(int fromx, int fromy, int x, int y);
+static void setup_ground(void);
+
 #ifdef DEBUG
         static void debug_mappoints(void); /* AL1: NG 1.1.2 compiler warns that this is unused */
 #endif
@@ -178,44 +178,22 @@ void init_mappoint_array(void)
 void set_mappoint(int x, int y, short selected_type)
 {
     int grp;
+    int size;
 
     if ((grp = get_group_of_type(selected_type)) < 0)
         return;
 
     MP_TYPE(x, y) = selected_type;
     MP_GROUP(x, y) = grp;
+    size = main_groups[grp].size;
 
-    if (main_groups[grp].size == 2) {
-        set_mappoint_used(x, y, x + 1, y);
-        set_mappoint_used(x, y, x, y + 1);
-        set_mappoint_used(x, y, x + 1, y + 1);
-    } else if (main_groups[grp].size == 3) {
-        set_mappoint_used(x, y, x + 1, y);
-        set_mappoint_used(x, y, x + 2, y);
-        set_mappoint_used(x, y, x + 1, y + 1);
-        set_mappoint_used(x, y, x + 2, y + 1);
-        set_mappoint_used(x, y, x + 1, y + 2);
-        set_mappoint_used(x, y, x + 2, y + 2);
-        set_mappoint_used(x, y, x, y + 1);
-        set_mappoint_used(x, y, x, y + 2);
-    } else if (main_groups[grp].size == 4) {
-        set_mappoint_used(x, y, x + 1, y);
-        set_mappoint_used(x, y, x + 2, y);
-        set_mappoint_used(x, y, x + 1, y + 1);
-        set_mappoint_used(x, y, x + 2, y + 1);
-        set_mappoint_used(x, y, x + 1, y + 2);
-        set_mappoint_used(x, y, x + 2, y + 2);
-        set_mappoint_used(x, y, x, y + 1);
-        set_mappoint_used(x, y, x, y + 2);
+    for (int i = 0; i<size; i++)
+        for (int j = 0; j<size; j++) {
+            if ( i == 0 && j == 0 )
+                continue;
+            set_mappoint_used(x, y, x+i, y+j);
+        }
 
-        set_mappoint_used(x, y, x + 3, y);
-        set_mappoint_used(x, y, x + 3, y + 1);
-        set_mappoint_used(x, y, x + 3, y + 2);
-        set_mappoint_used(x, y, x + 3, y + 3);
-        set_mappoint_used(x, y, x, y + 3);
-        set_mappoint_used(x, y, x + 1, y + 3);
-        set_mappoint_used(x, y, x + 2, y + 3);
-    }
 }
 
 void upgrade_to_v2 (void)
@@ -227,9 +205,11 @@ void upgrade_to_v2 (void)
         for (x = 0; x < WORLD_SIDE_LEN; x++)
             if ( !GROUP_IS_BARE(MP_GROUP(x, y)) ) {
                 /* be nice, put water under all existing builings / farms / parks ... */
-                /* This should change soon according to global_aridity and distance_to_river */
+                /* This may change according to global_aridity and distance_to_river */
                 MP_INFO(x,y).flags |= FLAG_HAS_UNDERGROUND_WATER;
             }
+    /* TODO: AL1 upgrade ground[x][y].water_alt and .altitude */
+
     /* Let 10 years in game time to put waterwells where needed, then starvation will occur */
     deadline=total_time + 1200 * 10;
 #ifdef DEBUG
@@ -574,13 +554,18 @@ static void clear_game(void)
     /* TODO reset screen, sustain info, max_tech when load scenario... */
     use_waterwell = true;
     ldsv_version = WATERWELL_V2;
+    global_aridity = 0;
+    global_mountainity =0;
 }
 
 void new_city(int *originx, int *originy, int random_village)
 {
     clear_game();
     coal_reserve_setup();
+
+    global_mountainity= 10 + rand () % 300; // roughly water slope = 30m / 1km (=from N to S)
     setup_river();
+    setup_ground();
     setup_land();
     ore_reserve_setup();
     init_pbars();
@@ -630,46 +615,75 @@ static void ore_reserve_setup(void)
 void setup_river(void)
 {
     int x, y, i, j;
+    int alt = 1; //lowest altitude in the map = surface of the river at mouth.
     x = (1 * WORLD_SIDE_LEN + rand() % WORLD_SIDE_LEN) / 3;
     y = WORLD_SIDE_LEN - 1;
+    ground[x][y].water_alt = alt; // 1 unit = 1 cm , 
+                        //for rivers .water_alt = .altitude = surface of the water
+                        //for "earth tile" .water_alt = alt of underground water
+                        //                 .altitude = alt of the ground
+                        //            so .water_alt <= .altitude
+
+    /* Mouth of the river, 3 tiles wide, 6 + %12 long */
     i = (rand() % 12) + 6;
     for (j = 0; j < i; j++) {
         x += (rand() % 3) - 1;
         MP_TYPE(x, y) = CST_WATER;
         MP_GROUP(x, y) = GROUP_WATER;
         MP_INFO(x, y).flags |= FLAG_IS_RIVER;
+        ground[x][y].altitude=alt;
+
         MP_TYPE(x + 1, y) = CST_WATER;
         MP_GROUP(x + 1, y) = GROUP_WATER;
         MP_INFO(x + 1, y).flags |= FLAG_IS_RIVER;
+        ground[x + 1][y].altitude=alt;
+
         MP_TYPE(x - 1, y) = CST_WATER;
         MP_GROUP(x - 1, y) = GROUP_WATER;
         MP_INFO(x - 1, y).flags |= FLAG_IS_RIVER;
+        ground[x -1][y].altitude=alt;
+
         y--;
+        alt += 1; // wide river, so very small slope
     }
+
     MP_TYPE(x, y) = CST_WATER;
     MP_GROUP(x, y) = GROUP_WATER;
     MP_INFO(x, y).flags |= FLAG_IS_RIVER;
+    ground[x][y].altitude=alt;
+
     MP_TYPE(x + 1, y) = CST_WATER;
     MP_GROUP(x + 1, y) = GROUP_WATER;
     MP_INFO(x + 1, y).flags |= FLAG_IS_RIVER;
+    ground[x + 1][y].altitude=alt;
+
     MP_TYPE(x - 1, y) = CST_WATER;
     MP_GROUP(x - 1, y) = GROUP_WATER;
     MP_INFO(x - 1, y).flags |= FLAG_IS_RIVER;
+    ground[x -1][y].altitude=alt;
 
-    setup_river2(x - 1, y, -1); /* left tributary */
-    setup_river2(x + 1, y, 1);  /* right tributary */
+    alt += 2;
+
+#ifdef DEBUG
+    fprintf(stderr," x= %d, y=%d, altitude = %d, mountainity = %d\n", x, y, alt, global_mountainity);
+#endif
+    setup_river2(x - 1, y, -1, alt, global_mountainity); /* left tributary */
+    setup_river2(x + 1, y, 1, alt, global_mountainity);  /* right tributary */
 }
 
-void setup_river2(int x, int y, int d)
+void setup_river2(int x, int y, int d, int alt, int mountain)
 {
     int i, j, r;
     i = (rand() % 55) + 15;
     for (j = 0; j < i; j++) {
         r = (rand() % 3) - 1 + (d * (rand() % 3));
-        if (r < -1)
+        if (r < -1) {
+            alt += rand() % (mountain / 10);
             r = -1;
-        else if (r > 1)
+        } else if (r > 1) {
+            alt += rand() % (mountain / 10);
             r = 1;
+        }
         x += r;
         if (!GROUP_IS_BARE(MP_GROUP(x + (d + d), y))
             || !GROUP_IS_BARE(MP_GROUP(x + (d + d + d), y)))
@@ -678,48 +692,120 @@ void setup_river2(int x, int y, int d)
             MP_TYPE(x, y) = CST_WATER;
             MP_GROUP(x, y) = GROUP_WATER;
             MP_INFO(x, y).flags |= FLAG_IS_RIVER;
+            ground[x][y].altitude = alt;
+            alt += rand() % (mountain / 10);
+
             MP_TYPE(x + d, y) = CST_WATER;
             MP_GROUP(x + d, y) = GROUP_WATER;
             MP_INFO(x + d, y).flags |= FLAG_IS_RIVER;
+            ground[x + d][y].altitude = alt;
+            alt += rand () % (mountain / 10);
         }
         if (--y < 10 || x < 5 || x > WORLD_SIDE_LEN - 5)
             break;
     }
+#ifdef DEBUG
+    fprintf(stderr," x= %d, y=%d, altitude = %d\n", x, y, alt);
+#endif
+
     if (y > 20) {
-        if (x > 5 && x < WORLD_SIDE_LEN - 5)
-            setup_river2(x, y, -1);
-        if (x > 5 && x < WORLD_SIDE_LEN - 5)
-            setup_river2(x, y, 1);
+        if (x > 5 && x < WORLD_SIDE_LEN - 5) {
+#ifdef DEBUG
+            fprintf(stderr," x= %d, y=%d, altitude = %d\n", x, y, alt);
+#endif
+            setup_river2(x, y, -1, alt, (mountain * 3)/2 );
+        }
+        if (x > 5 && x < WORLD_SIDE_LEN - 5) {
+#ifdef DEBUG
+            fprintf(stderr," x= %d, y=%d, altitude = %d\n", x, y, alt);
+#endif
+            setup_river2(x, y, 1, alt, (mountain *3)/2 );
+        }
     }
 }
 
+void setup_ground(void)
+{
+    int x,y;
+    int hmax =0;
+    /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
+    /* currently only dummy things in order to compile */
+#define ALT(x,y) ground[x][y].altitude
+#define TMP(x,y) ground[x][y].int4
+
+    for (x = 1; x < WORLD_SIDE_LEN - 1; x++) {
+         for (y = 1; y < WORLD_SIDE_LEN - 1; y++) {
+                if ( !IS_RIVER(x,y) ) {
+                    ALT(x,y) = 0;
+                    TMP(x,y) = 0;
+                } else {
+                    ground[x][y].water_alt = ALT(x,y);
+                    //shore is higher than water
+                    ALT(x,y) += 10 + rand() % (global_mountainity/7);
+                    TMP(x,y) = ALT(x,y);
+                    if (ALT(x,y) >= hmax)
+                        hmax = ALT(x,y);
+                }
+         }
+    }
+#ifdef DEBUG
+    fprintf(stderr,"\n river max = %d\n\n", hmax);
+    hmax=0;
+#endif
+
+    for (int i =0; i < 90; i++ ) {
+        for (x = 1; x < WORLD_SIDE_LEN - 1; x++) {
+            for (y = 1; y < WORLD_SIDE_LEN - 1; y++) {
+                if ( ALT(x,y) != 0 )
+                    continue;
+                int count = 0;
+                int lmax = 0;
+
+                for ( int k = -1; k <= 1; k++ )
+                    for ( int l = -1; l <= 1; l++) 
+                        if ( ALT(x+k, y+l) != 0 ) {
+                            count ++;
+                            if ( ALT(x+k, y+l) >= lmax )
+                                lmax = ALT(x+k, y+l);
+                        }
+
+                if (count != 0) {
+                    TMP(x,y) = lmax + rand () % (global_mountainity/3);
+                }
+                if (TMP(x,y) >= hmax)
+                    hmax = TMP(x,y);
+            }
+        }
+        for (x = 1; x < WORLD_SIDE_LEN - 1; x++)
+            for (y = 1; y < WORLD_SIDE_LEN - 1; y++)
+                ALT(x,y)=TMP(x,y);
+
+#ifdef DEBUG
+        if ( (i%5) == 1 )
+        fprintf(stderr," i= %2d, alt max = %d\n", i, hmax);
+#endif
+    }
+/*
+    ground[x][y].ecotable=0;
+    ground[x][y].wastes=0;
+    ground[x][y].pollution=0;
+    ground[x][y].water_alt=0;
+    ground[x][y].water_pol=0;
+    ground[x][y].water_wast=0;
+    ground[x][y].water_next=0;
+    ground[x][y].int1=0;
+    ground[x][y].int2=0;
+    ground[x][y].int3=0;
+    ground[x][y].int4=0;
+*/
+}
 void setup_land(void)
 {
     int x, y, xw, yw;
     int aridity = rand() % 400 - 150;
 
-    /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
-    /* currently only dummy things in order to compile */
     global_aridity = aridity;
-    global_mountainity=0;
     
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            ground[x][y].altitude=0;
-            ground[x][y].ecotable=0;
-            ground[x][y].wastes=0;
-            ground[x][y].pollution=0;
-            ground[x][y].water_alt=0;
-            ground[x][y].water_pol=0;
-            ground[x][y].water_wast=0;
-            ground[x][y].water_next=0;
-            ground[x][y].int1=0;
-            ground[x][y].int2=0;
-            ground[x][y].int3=0;
-            ground[x][y].int4=0;
-        }
-    }
-
 
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -739,8 +825,7 @@ void setup_land(void)
                     d2w = (xw - x) * (xw - x) + (yw - y) * (yw - y);
                     if (d2w < d2w_min)
                         d2w_min = d2w;
-                    /* TODO Store square of distance to river for each tile */
-                    /* MP_DIST2RIVER(x,y) = d2w_min; */
+                    /* TODO ? Store square of distance to river for each tile */
                 }
             }
 
@@ -771,6 +856,11 @@ void setup_land(void)
             }
         }
     }
+    for (y = 0; y < WORLD_SIDE_LEN; y++)
+        for (x = 0; x < WORLD_SIDE_LEN; x++)
+            if (MP_TYPE(x, y) == CST_WATER)
+                MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
+
     connect_rivers();
 }
 
@@ -778,7 +868,7 @@ void do_rand_ecology(int x, int y)
 {
     int r = ground[x][y].ecotable;
     if ( (MP_INFO(x, y).flags | FLAG_HAS_UNDERGROUND_WATER) == 0 ) {
-        /*desert*/
+        /*true desert*/
         return;
     }
 
@@ -901,6 +991,20 @@ static void nullify_mappoint(int x, int y)
     MP_INFO(x, y).int_5 = 0;
     MP_INFO(x, y).int_6 = 0;
     MP_INFO(x, y).int_7 = 0;
+
+    ground[x][y].altitude = 0;
+    ground[x][y].ecotable = 0;
+    ground[x][y].wastes = 0;
+    ground[x][y].pollution = 0;
+    ground[x][y].water_alt = 0;
+    ground[x][y].water_pol = 0;
+    ground[x][y].water_wast = 0;
+    ground[x][y].water_next = 0;
+    ground[x][y].int1 = 0;
+    ground[x][y].int2 = 0;
+    ground[x][y].int3 = 0;
+    ground[x][y].int4 = 0;
+
 }
 
 static void random_start(int *originx, int *originy)
@@ -942,29 +1046,29 @@ static void random_start(int *originx, int *originy)
     *originy = yy;
 
     /*  Draw the start scene. */
-    quick_start_add(xx + 5, yy + 5, CST_FARM_O0, 4);
+    set_mappoint(xx + 5, yy + 5, CST_FARM_O0);
     /* The first two farms have more underground water */
     for (int i = 0; i < MP_SIZE(xx + 5, yy + 5); i++)
         for (int j = 0; j < MP_SIZE(xx + 5, yy + 5); j++)
             if (!HAS_UGWATER(xx + 5 + i, yy + 5 + j) && (rand() % 2))
                 MP_INFO(xx + 5 + i, yy + 5 + j).flags |= FLAG_HAS_UNDERGROUND_WATER;
 
-    quick_start_add(xx + 9, yy + 6, CST_RESIDENCE_ML, 3);
+    set_mappoint(xx + 9, yy + 6, CST_RESIDENCE_ML);
     MP_INFO(xx + 9, yy + 6).population = 50;
     MP_INFO(xx + 9, yy + 6).flags |= (FLAG_FED + FLAG_EMPLOYED + FLAG_WATERWELL_COVER);
-    quick_start_add(xx + 9, yy + 9, CST_POTTERY_0, 2);
-    quick_start_add(xx + 16, yy + 9, CST_WATERWELL, 2);
+    set_mappoint(xx + 9, yy + 9, CST_POTTERY_0);
+    set_mappoint(xx + 16, yy + 9, CST_WATERWELL);
 
-    quick_start_add(xx + 14, yy + 6, CST_RESIDENCE_ML, 3);
+    set_mappoint(xx + 14, yy + 6, CST_RESIDENCE_ML);
     MP_INFO(xx + 14, yy + 6).population = 50;
     MP_INFO(xx + 14, yy + 6).flags |= (FLAG_FED + FLAG_EMPLOYED + FLAG_WATERWELL_COVER);
-    quick_start_add(xx + 17, yy + 5, CST_FARM_O0, 4);
+    set_mappoint(xx + 17, yy + 5, CST_FARM_O0);
     for (int i = 0; i < MP_SIZE(xx + 17, yy + 5); i++)
         for (int j = 0; j < MP_SIZE(xx + 17, yy + 5); j++)
             if (!HAS_UGWATER(xx + 17 + i, yy + 5 + j) && (rand() % 2))
                 MP_INFO(xx + 17 + i, yy + 5 + j).flags |= FLAG_HAS_UNDERGROUND_WATER;
 
-    quick_start_add(xx + 14, yy + 9, CST_MARKET_EMPTY, 2);
+    set_mappoint(xx + 14, yy + 9, CST_MARKET_EMPTY);
     marketx[numof_markets] = xx + 14;
     markety[numof_markets] = yy + 9;
     numof_markets++;
@@ -979,35 +1083,15 @@ static void random_start(int *originx, int *originy)
             + FLAG_MS_ORE + FLAG_MB_GOODS + FLAG_MS_GOODS + FLAG_MB_STEEL + FLAG_MS_STEEL);
 
     for (x = 5; x < 19; x++) {
-        quick_start_add(xx + x, yy + 11, CST_TRACK_LR, 1);
+        set_mappoint(xx + x, yy + 11, CST_TRACK_LR);
         MP_INFO(xx + x, yy + 11).flags |= FLAG_IS_TRANSPORT;
     }
-    quick_start_add(xx + 6, yy + 12, CST_COMMUNE_1, 4);
-    quick_start_add(xx + 6, yy + 17, CST_COMMUNE_1, 4);
-    quick_start_add(xx + 11, yy + 12, CST_COMMUNE_1, 4);
-    quick_start_add(xx + 11, yy + 17, CST_COMMUNE_1, 4);
-    quick_start_add(xx + 16, yy + 12, CST_COMMUNE_1, 4);
-    quick_start_add(xx + 16, yy + 17, CST_COMMUNE_1, 4);
-}
-
-/* XXX: WCK: What is up with this?  Why not just use set_mappoint?! */
-static void quick_start_add(int x, int y, short type, int size)
-{
-    int xx, yy;
-    if (size == 1) {
-        MP_TYPE(x, y) = type;
-        MP_GROUP(x, y) = get_group_of_type(type);
-        return;
-    }
-    for (yy = 0; yy < size; yy++) {
-        for (xx = 0; xx < size; xx++) {
-            if (xx == 0 && yy == 0)
-                continue;
-            set_mappoint_used(x, y, x + xx, y + yy);
-        }
-    }
-    MP_TYPE(x, y) = type;
-    MP_GROUP(x, y) = get_group_of_type(type);
+    set_mappoint(xx + 6, yy + 12, CST_COMMUNE_1);
+    set_mappoint(xx + 6, yy + 17, CST_COMMUNE_1);
+    set_mappoint(xx + 11, yy + 12, CST_COMMUNE_1);
+    set_mappoint(xx + 11, yy + 17, CST_COMMUNE_1);
+    set_mappoint(xx + 16, yy + 12, CST_COMMUNE_1);
+    set_mappoint(xx + 16, yy + 17, CST_COMMUNE_1);
 }
 
 static void sustainability_test(void)
@@ -1092,6 +1176,7 @@ static void set_mappoint_used(int fromx, int fromy, int x, int y)
 }
 
 #ifdef DEBUG
+/* AL1 : unused in NG 1.1.2 */
 static void debug_mappoints(void)
 {
     int x, y;

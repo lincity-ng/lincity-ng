@@ -246,7 +246,6 @@ XXX: Then it shouldn't be here
 #define PROGBOX_DONE_COL 4
 #define PROGBOX_NOTDONE_COL 2
 
-#define POWERS_SOLAR_OUTPUT 1800
 #define WINDMILL_POWER      450
 #define WINDMILL_JOBS       10
 /* WINDMILL_RCOST is days per quid */
@@ -641,6 +640,8 @@ XXX: Then it shouldn't be here
 #define GROUP_SOLAR_POWER_BUL_COST 100000
 #define GROUP_SOLAR_POWER_TECH 500
 #define GROUP_SOLAR_POWER_FIREC 33
+#define SOLAR_POWER_JOBS 50
+#define POWERS_SOLAR_OUTPUT 1800
 
 #define GROUP_SUBSTATION   3
 #define GROUP_SUBSTATION_COLOUR (yellow(18))

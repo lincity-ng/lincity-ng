@@ -28,7 +28,7 @@ int grid_num = 0;
    used to determine if a square has been mapped */
 int grid_inc = 0;
 
-Grid *grid[MAX_GRIDS];
+grid_struct *grid[MAX_GRIDS];
 
 /* power_time_step 
    Take the avail_power from last timestep, and move in into the 
@@ -78,46 +78,6 @@ void power_time_step()
 
 
 }
-
-void map_power_grid(bool resetgrids)
-{
-    int mapx, mapy;
-    grid_num = 0;               /* how many grids found so far */
-    grid_inc++;                 /* how many times have we run map_power_grid */
-
-    // used to fix up bad int_7 values after loading a map
-    if (resetgrids) {
-        for (int mapx = 0; mapx < WORLD_SIDE_LEN; mapx++) {
-            for (int mapy = 0; mapy < WORLD_SIDE_LEN; mapy++) {
-                if (XY_IS_GRID(mapx, mapy))
-                    MP_INFO(mapx, mapy).int_7 = grid_inc - 1;
-            }
-        }
-    }
-    for (mapx = 0; mapx < WORLD_SIDE_LEN; mapx++) {
-        for (mapy = 0; mapy < WORLD_SIDE_LEN; mapy++) {
-            if (XY_IS_GRID(mapx, mapy)) {
-                if (MP_INFO(mapx, mapy).int_7 != grid_inc) {
-                    if (grid_num == MAX_GRIDS) {
-                        ok_dial_box("warning.mes", BAD, _("You have too many power grids. Join some of them"));
-                        return;
-                    }
-                    grid[++grid_num] = (Grid *) lcalloc(sizeof(Grid));
-                    grid[grid_num]->total_power = 0;
-                    grid[grid_num]->power_lines = 0;
-                    grid[grid_num]->demand = 0;
-                    grid[grid_num]->max_power = 0;
-
-                    recurse_power_grid(mapx, mapy, 0);
-                }
-            }
-        }
-    }
-#ifdef DEBUG_POWER
-    printf("grid_inc: %d found %d grids\n", grid_inc, grid_num);
-#endif
-}
-
 /* 
 check_grid(x, y, xi, yi) - coordinates, ?i being which one to increment if we
 need to step over transport
@@ -128,7 +88,7 @@ power source, project the power for it and add that to our
 total.  Now set it to our grid.  If it is a power line, return
 1, otherwise 0. */
 
-int check_grid(int x, int y, int xi, int yi)
+static int check_grid(int x, int y, int xi, int yi)
 {
     if (XY_IS_GRID(x, y) && !IS_OLD_WINDMILL(x, y)) {
         if (GRID_CURRENT(x, y)) {
@@ -168,7 +128,7 @@ int check_grid(int x, int y, int xi, int yi)
 should really handle the connect_transport bit for power lines.  That
 would help perspicuity anyway. */
 
-void recurse_power_grid(int startx, int starty, int steps)
+static void recurse_power_grid(int startx, int starty, int steps)
 {
     static int level;           /* debug: levels of recursion encountered */
     int count = steps;          /* number of steps taken - for animation */
@@ -287,6 +247,46 @@ void recurse_power_grid(int startx, int starty, int steps)
     level--;
     /*  printf("exiting recurse_power_grid:level %d\n",level); */
 }
+
+void map_power_grid(bool resetgrids)
+{
+    int mapx, mapy;
+    grid_num = 0;               /* how many grids found so far */
+    grid_inc++;                 /* how many times have we run map_power_grid */
+
+    // used to fix up bad int_7 values after loading a map
+    if (resetgrids) {
+        for (int mapx = 0; mapx < WORLD_SIDE_LEN; mapx++) {
+            for (int mapy = 0; mapy < WORLD_SIDE_LEN; mapy++) {
+                if (XY_IS_GRID(mapx, mapy))
+                    MP_INFO(mapx, mapy).int_7 = grid_inc - 1;
+            }
+        }
+    }
+    for (mapx = 0; mapx < WORLD_SIDE_LEN; mapx++) {
+        for (mapy = 0; mapy < WORLD_SIDE_LEN; mapy++) {
+            if (XY_IS_GRID(mapx, mapy)) {
+                if (MP_INFO(mapx, mapy).int_7 != grid_inc) {
+                    if (grid_num == MAX_GRIDS) {
+                        ok_dial_box("warning.mes", BAD, _("You have too many power grids. Join some of them"));
+                        return;
+                    }
+                    grid[++grid_num] = (grid_struct *) lcalloc(sizeof(grid_struct));
+                    grid[grid_num]->total_power = 0;
+                    grid[grid_num]->power_lines = 0;
+                    grid[grid_num]->demand = 0;
+                    grid[grid_num]->max_power = 0;
+
+                    recurse_power_grid(mapx, mapy, 0);
+                }
+            }
+        }
+    }
+#ifdef DEBUG_POWER
+    printf("grid_inc: %d found %d grids\n", grid_inc, grid_num);
+#endif
+}
+
 
 /* get_power
    get power for thing at x, y.  Don't use windmills if industry.

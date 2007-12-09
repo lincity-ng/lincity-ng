@@ -291,7 +291,10 @@ void save_city_raw(char *cname)
     gzprintf(ofile, "sust %d %d %d %d %d %d %d %d %d %d\n", sust_dig_ore_coal_count, sust_port_count, sust_old_money_count, sust_old_population_count, sust_old_tech_count, sust_fire_count, sust_old_money, sust_old_population, sust_old_tech, sustain_flag); /* 3 */
 
     if (ldsv_version == WATERWELL_V2) {
-        gzprintf(ofile,"%d %d\n", global_aridity, global_mountainity);
+        gzprintf(ofile, "arid %d %d\n", global_aridity, global_mountainity);
+#ifdef DEBUG
+        fprintf(stderr," arid %d, mountain %d \n", global_aridity, global_mountainity);
+#endif
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
             for (y = 0; y < WORLD_SIDE_LEN; y++) {
                 gzprintf(ofile,"%d %d %d %d %d %d %d %d %d %d %d %d\n"
@@ -308,6 +311,10 @@ void save_city_raw(char *cname)
                         , ground[x][y].int3
                         , ground[x][y].int4
                         );
+#ifdef DEBUG
+                if (x == 10 && y == 10)
+                    fprintf(stderr," alt %d, int4 %d \n", ground[x][y].altitude, ground[x][y].int4);
+#endif
             }
         }
     } else {
@@ -617,10 +624,15 @@ void load_city(char *cname)
             = sust_old_tech_count = sust_fire_count = sust_old_money = sust_old_population = sust_old_tech = 0;
 
     if (ldsv_version == WATERWELL_V2) {
-        sscanf(s,"%d %d\n", &global_aridity, &global_mountainity);
+        gzgets(gzfile, s, 80);      /* this is the CR */
+        sscanf(s, "arid %d %d", &global_aridity, &global_mountainity);
+#ifdef DEBUG
+        fprintf(stderr," arid %d, mountain %d \n", global_aridity, global_mountainity);
+#endif
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
             for (y = 0; y < WORLD_SIDE_LEN; y++) {
-                sscanf(s,"%d %d %d %d %d %d %d %d %d %d %d %d\n",&ground[x][y].altitude
+                gzgets(gzfile, s, 80);      /* this is the CR */
+                sscanf(s,"%d %d %d %d %d %d %d %d %d %d %d %d",&(ground[x][y].altitude)
                         , &ground[x][y].ecotable
                         , &ground[x][y].wastes
                         , &ground[x][y].pollution
@@ -633,6 +645,10 @@ void load_city(char *cname)
                         , &ground[x][y].int3
                         , &ground[x][y].int4 
                         );
+#ifdef DEBUG
+                if (x == 10 && y == 10)
+                    fprintf(stderr," alt %d, int4 %d \n", ground[x][y].altitude, ground[x][y].int4);
+#endif
             }
         }
     }

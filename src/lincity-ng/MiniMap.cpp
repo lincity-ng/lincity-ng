@@ -678,6 +678,32 @@ Color MiniMap::getColor(int x,int y) const
             else
                 return makeGrey(getColorNormal(x,y));
         case UB40: {
+#ifdef DEBUG_ALTITUDE
+            // show ground altitude :-)
+            int alt=ground[x][y].altitude;
+            if (alt > 4500)
+                    return Color(0xFF,0,0); //red
+            else if ( alt> 4000 ) 
+                    return Color(0xFF,0x99,0); //orange
+	    else if ( alt > 3500 )
+	                return Color(0xFF,0xFF,0); //yellow
+	    else if ( alt > 3000 )
+	                return Color(0,0xFF,0); //green
+            else if ( alt > 2500)
+                return Color(0,0,0xFF); // blue
+            else if (alt > 2000)
+                    return Color(0xFF,0,0); //red
+            else if ( alt> 1500 ) 
+                    return Color(0xFF,0x99,0); //orange
+	    else if ( alt > 1000 )
+	                return Color(0xFF,0xFF,0); //yellow
+	    else if ( alt > 500 )
+	                return Color(0,0xFF,0); //green
+            else
+                return Color(0,0,0xFF); // blue
+#endif
+
+
             if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
                 if (MP_INFO(xx,yy).int_1 < -20)
                     return Color(0xFF,0,0);

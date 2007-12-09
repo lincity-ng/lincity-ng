@@ -12,15 +12,12 @@ struct grid_struct {
     short powered;
 };
 
-typedef struct grid_struct Grid;
-
 /* public */
 #define MAX_GRIDS 128           // How many grids in the array, not how many to allocate
-extern Grid *grid[MAX_GRIDS];
+extern grid_struct *grid[MAX_GRIDS];
 
 void map_power_grid(bool resetgrids = false);
 int get_power(int x, int y, int power, int block_industry);
-void do_windmill(int x, int y);
 void do_power_substation(int x, int y);
 void do_power_source(int x, int y);
 void do_power_source_coal(int x, int y);
@@ -28,9 +25,6 @@ void do_power_line(int x, int y);
 void power_time_step();
 
 /* intended private */
-void recurse_power_grid(int startx, int starty, int steps);
-int check_grid(int x, int y, int xi, int yi);
-void project_power(int x, int y);
 
 #define POWER_LINE_LOSS 1       /* one KW */
 #define POWER_MODULUS 25        /* Controls how often we see a packet in anim */
@@ -63,7 +57,5 @@ void project_power(int x, int y);
 
 #define GRID_CURRENT(x,y) (MP_INFO(x,y).int_7 == grid_inc)
 
-/*** JOBS ***/
-#define SOLAR_POWER_JOBS 50
 
 #endif
