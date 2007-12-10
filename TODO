@@ -61,6 +61,8 @@ Programming
  [?] Think about mechanism for attach arbitrary properties to components
     (for tooltips, styles (and layout data?) )
 
+    
+
 --Bugs--
  [H] Windows: Something in MainMenu.cpp with recentfile and curfile is broken. 
 
@@ -68,9 +70,13 @@ Programming
 
  [M] Get rid of all the compiler warnings.
 
+ [M] When starting another game, stats still show values from the previous game.
+
  [L] New text on buttons is truncated to original textlength. 
      (eg in load game menu) Buttons that had an empty string as caption once
      won't change to anything else. At least the caption is not shown.
+
+ [?] Generator for dialogs no longer works.
 
 --Game--
  [M] Print out more debug infos that user can send in with debug reports:
