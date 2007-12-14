@@ -301,6 +301,7 @@ void prog_box (const char *title, int percent)
 {
     (void) title;
     (void) percent;
+#define DEBUG_PROGBOX
 #ifdef DEBUG_PROGBOX
     std::ostringstream text;
     text << "prog_box:'" << title << "' " << percent << "%\n";

@@ -678,6 +678,7 @@ Color MiniMap::getColor(int x,int y) const
             else
                 return makeGrey(getColorNormal(x,y));
         case UB40: {
+//#define DEBUG_ALTITUDE
 #ifdef DEBUG_ALTITUDE
             // show ground altitude :-)
             int alt=ground[x][y].altitude;

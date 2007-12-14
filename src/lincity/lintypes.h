@@ -93,7 +93,9 @@ struct ground_struct {
     int int1;           //reserved for future (?) use
     int int2;
     int int3;
-    int int4;
+    int int4;           //used as tmp in setup_ground
 };
+#define ALT(x,y) ground[x][y].altitude
+
 
 #endif /* __lintypes_h__ */
