@@ -800,6 +800,8 @@ void setup_ground(void)
     int hmax =0;
     /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
     /* currently only dummy things in order to compile */
+
+    /* FIXME: AL1 i did it ugly: should not use ground struct for tmp */
 #define TMP(x,y) ground[x][y].int4
 
     for (x = 1; x < WORLD_SIDE_LEN - 1; x++) {
@@ -855,20 +857,8 @@ void setup_ground(void)
         fprintf(stderr," i= %2d, alt max = %d, tot_cnt = %d\n", i, hmax, tot_cnt);
 #endif
     }
-/*
-    ground[x][y].ecotable=0;
-    ground[x][y].wastes=0;
-    ground[x][y].pollution=0;
-    ground[x][y].water_alt=0;
-    ground[x][y].water_pol=0;
-    ground[x][y].water_wast=0;
-    ground[x][y].water_next=0;
-    ground[x][y].int1=0;
-    ground[x][y].int2=0;
-    ground[x][y].int3=0;
-    ground[x][y].int4=0;
-*/
 }
+
 void setup_land(void)
 {
     int x, y, xw, yw;

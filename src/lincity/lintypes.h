@@ -67,6 +67,11 @@ struct map_struct {
     short group[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     int pollution[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     Map_Point_Info info[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    int date[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    int tech[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    int anim[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    int im_index[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    int activity[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 };
 typedef struct map_struct Map;
 
@@ -75,6 +80,9 @@ typedef struct map_struct Map;
 #define MP_GROUP(x,y)  map.group[x][y]
 #define MP_POL(x,y)    map.pollution[x][y]
 #define MP_INFO(x,y)   map.info[x][y]
+#define MP_DATE(x,y)   map.date[x][y]
+#define MP_TECH(x,y)   map.tech[x][y]
+#define MP_ANIM(x,y)   map.anim[x][y]
 
 #define MP_SIZE(x,y)   main_groups[MP_GROUP(x,y)].size
 #define MP_COLOR(x,y)  main_groups[MP_GROUP(x,y)].colour
@@ -93,7 +101,7 @@ struct ground_struct {
     int int1;           //reserved for future (?) use
     int int2;
     int int3;
-    int int4;           //used as tmp in setup_ground
+    int int4;           //used as tmp in setup_ground  //FIXME : this is too ugly 
 };
 #define ALT(x,y) ground[x][y].altitude
 

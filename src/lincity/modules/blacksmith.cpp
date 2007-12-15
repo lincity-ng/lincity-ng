@@ -15,7 +15,7 @@ void do_blacksmith(int x, int y)
        // int_1 contains the goods at the blacksmith
        // int_2 contains the goods made - for the animation
        // int_3 contains the coal store
-       // int_4 is the animation trigger time
+       // int_4 is the animation trigger time == MP_ANIM(x,y) since 1.91
        // int_5 is the % made so far this month
        // int_6 is the % capacity last month
        // int_7 contains the jobs stored at the blacksmith

@@ -14,7 +14,7 @@ void do_mill(int x, int y)
        // int_1 contains the goods at the mill
        // int_2 contains the food store
        // int_3 contains the coal store
-       // int_4 contains the animation trigger time
+       // int_4 contains the animation trigger time == MP_ANIM(x,y) since 1.91
        // int_5 is the % count so far this month
        // int_6 is the % capacity last month
      */

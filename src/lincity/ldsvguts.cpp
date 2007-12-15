@@ -723,37 +723,43 @@ void load_saved_city(char *s)
 void reset_animation_times(void)
 {
     int x, y;
+
     for (y = 0; y < WORLD_SIDE_LEN; y++)
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
-            if (MP_GROUP_IS_RESIDENCE(x, y))
+            MP_ANIM(x,y) = 0;
+            if (MP_GROUP(x, y) == GROUP_FIRE)
                 MP_INFO(x, y).int_3 = 0;
+        }
+
+         /*   if (MP_GROUP_IS_RESIDENCE(x, y))
+                MP_INFO(x, y).int_3 = 0;//
             else if (MP_GROUP(x, y) == GROUP_WINDMILL)
-                MP_INFO(x, y).int_4 = 0;
+                MP_INFO(x, y).int_4 = 0;//
             else if (MP_GROUP(x, y) == GROUP_BLACKSMITH)
-                MP_INFO(x, y).int_4 = 0;
+                MP_INFO(x, y).int_4 = 0;//
             else if (MP_GROUP(x, y) == GROUP_MILL)
-                MP_INFO(x, y).int_4 = 0;
+                MP_INFO(x, y).int_4 = 0;//
             else if (MP_GROUP(x, y) == GROUP_POTTERY)
-                MP_INFO(x, y).int_4 = 0;
+                MP_INFO(x, y).int_4 = 0;//
             else if (MP_GROUP(x, y) == GROUP_CRICKET)
-                MP_INFO(x, y).int_4 = 0;
+                MP_INFO(x, y).int_4 = 0;//
             else if (MP_GROUP(x, y) == GROUP_FIRESTATION)
-                MP_INFO(x, y).int_4 = 0;
+                MP_INFO(x, y).int_4 = 0;//
             else if (MP_GROUP(x, y) == GROUP_FIRE) {
-                MP_INFO(x, y).int_1 = 0;
+                MP_INFO(x, y).int_1 = 0;//
                 MP_INFO(x, y).int_3 = 0;
             } else if (MP_GROUP(x, y) == GROUP_COMMUNE)
-                MP_INFO(x, y).int_1 = 0;
+                MP_INFO(x, y).int_1 = 0;//
             else if (MP_GROUP(x, y) == GROUP_ROCKET)
-                MP_INFO(x, y).int_5 = 0;
+                MP_INFO(x, y).int_5 = 0;//
             else if (MP_GROUP(x, y) == GROUP_INDUSTRY_H)
-                MP_INFO(x, y).int_6 = 0;
+                MP_INFO(x, y).int_6 = 0;//
             else if (MP_GROUP(x, y) == GROUP_INDUSTRY_L)
-                MP_INFO(x, y).int_7 = 0;
-        }
+                MP_INFO(x, y).int_7 = 0;//
+        }*/
 }
 
-                                              /* Returns 1 if the city is proper version *//* AL1 unused in NG 1.1 */
+/* Returns 1 if the city is proper version *//* FIXME: AL1 unused in NG 1.1 */
 int verify_city(char *cname)
 {
     gzFile fp;
@@ -785,6 +791,7 @@ int verify_city(char *cname)
 #ifdef MP_SANITY_CHECK
 void sanity_check(void)
 {
+    //FIXME: AL1 unused in NG 1.1.2
     static int flag = 0;
     int x, y, xx, yy;
     for (x = 0; x < WORLD_SIDE_LEN; x++)

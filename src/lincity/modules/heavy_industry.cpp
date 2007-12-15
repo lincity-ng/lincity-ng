@@ -17,7 +17,7 @@ void do_industry_h(int x, int y)
        // int_3 is the amount of raw materials in store (ore)
        // int_4 is the coal in store
        // int_5 is the percent max production last month
-       // int_6 is the time of the next animation frame.
+       // int_6 is the time of the next animation frame. == MP_ANIM(x,y) since 1.91
        // int_7 is whether we get power from coal (1) or elsewhere (0)
      */
 

@@ -19,7 +19,7 @@ void do_industry_l(int x, int y)
        // int_4 is the amount of steel in store.
        // int_5 is the jobs stored.
        // int_6 is the percent of capacity last month.
-       // int 7 is the next animation frame time.
+       // int 7 is the next animation frame time. == MP_ANIM(x,y) since 1.91
      */
     /* first get some jobs */
     if (MP_INFO(x, y).int_5 < MAX_JOBS_AT_INDUSTRY_L - INDUSTRY_L_GET_JOBS) {

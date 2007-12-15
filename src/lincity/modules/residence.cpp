@@ -15,7 +15,7 @@ void do_residence(int x, int y)
     /*
        // int_1 is a job swingometer to choose +/- JOB_SWING% of normal
        // int_2 is the date of the last starve
-       // int 3 is the real time for the next icon update
+       // int_3 is the real time for the next icon update  == MP_ANIM(x,y) since 1.91
        // int_4 is the birth rate modifier.
        // int_5 is the death rate modifier.
        // int_6 unused

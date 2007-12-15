@@ -11,9 +11,9 @@
 /*** Windmills ***/
 /*
   // int_1 is the rated capacity 
-  // int_2 is the tech level when built
+  // int_2 is the tech level when built == MP_TECH(x,y) since 1.91
   // int_3 is the sail count - to choose the right sail.
-  // int_4 reserved = local power demand for substations (like windmills)
+  // int_4 reserved = local power demand for substations (like substations)
   // int_5 is the power produced (basically _if_ power produced)
   // int_6 is the grid it's on
   // int_7 is a timestamp for mapping
@@ -21,7 +21,7 @@
   // Stored in (x+1, y)
   //  int_1 reserved = x
   //  int_2 reserved = y
-  //  int_3 is the last real time that a sail was turned
+  //  int_3 is the last real time that a sail was turned  == MP_ANIM(x,y) since 1.91
 */
 void do_windmill(int x, int y)
 {

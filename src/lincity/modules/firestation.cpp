@@ -13,7 +13,7 @@ void do_firestation(int x, int y)
     /*
        // int_1 is the jobs stored at the fire station
        // int_2 is the goods stored at the fire station
-       // int_3 is the animation flag
+       // int_3 is the animation flag == MP_ANIM(x,y) since 1.91
        // int_4 is the time of the next frame
        // int_5 is the pause counter
      */

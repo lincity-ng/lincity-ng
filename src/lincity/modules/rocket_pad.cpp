@@ -25,7 +25,7 @@ void do_rocket_pad(int x, int y)
        // int_2 is the stored goods
        // int_3 is the stored steel
        // int_4 is the count which gets to ROCKET_PAD_LAUNCH to fire.
-       // int_5 is the time of the next animation frame, when waiting for launch.
+       // int_5 is the time of the next animation frame, when waiting for launch. == MP_ANIM(x,y) since 1.91
      */
     if (MP_TYPE(x, y) == CST_ROCKET_FLOWN)
         return;                 /* The rocket has been launched. */

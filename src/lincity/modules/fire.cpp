@@ -12,7 +12,7 @@
 void do_fire(int x, int y)
 {
     /*
-       // int_1 is the next animation frame time
+       // int_1 is the next animation frame time == MP_ANIM(x,y) since 1.91
        // int_2 is the fire length
        // int_3 is the real_time before the fire can spread or -1 if triggered 
        // int_4 is the idle land length
@@ -73,10 +73,9 @@ void do_fire(int x, int y)
                 break;
             }
         }
-    }
-    /* check here 'cos we can wait in the ok box for ever. */
-    else if (MP_INFO(x, y).int_3 == 0)
+    } else if (MP_INFO(x, y).int_3 == 0) {
+        /* check here 'cos we can wait in the ok box for ever. */
         MP_INFO(x, y).int_3 = real_time + 15000;        /* 15 secs seem fair */
-    else if (real_time >= MP_INFO(x, y).int_3)
+    } else if (real_time >= MP_INFO(x, y).int_3)
         MP_INFO(x, y).int_3 = -1;
 }

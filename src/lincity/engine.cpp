@@ -259,6 +259,10 @@ int place_item(int x, int y, short type)
         return -1000;
     }
 
+    MP_DATE(x,y) = total_time;
+    MP_TECH(x,y) = tech_level;
+    MP_ANIM(x,y) = real_time;
+
     size = main_groups[group].size;
     if (last_warning_message_group != group)
         msg = true;
@@ -279,11 +283,11 @@ int place_item(int x, int y, short type)
     case GROUP_RESIDENCE_LL:
         /* all residences are treated. local variable 'group' is redefined to do so.*/
         /* int_2 is date of last starvation. Needed for correct display */
-        MP_INFO(x, y).int_2 = total_time;
+        MP_INFO(x, y).int_2 = MP_DATE(x,y);
         break;
 
     case GROUP_ORGANIC_FARM:
-        MP_INFO(x, y).int_1 = tech_level;
+        MP_INFO(x, y).int_1 = MP_TECH(x,y);
         break;
 
     case GROUP_TRACK:
@@ -301,7 +305,7 @@ int place_item(int x, int y, short type)
 
     case GROUP_WINDMILL:
         add_a_substation (x, y);
-        MP_INFO(x, y).int_2 = tech_level;
+        MP_INFO(x, y).int_2 = MP_TECH(x,y);
         MP_INFO(x, y).int_1 = (int)(WINDMILL_POWER + (((double)MP_INFO(x, y).int_2 * WINDMILL_POWER) / MAX_TECH_LEVEL));
         /* Make sure that the correct windmill graphic shows up */
         if (tech_level > MODERN_WINDMILL_TECH)
@@ -311,13 +315,13 @@ int place_item(int x, int y, short type)
         break;
 
     case (GROUP_COAL_POWER):
-        MP_INFO(x, y).int_4 = tech_level;
+        MP_INFO(x, y).int_4 = MP_TECH(x,y);
         MP_INFO(x, y).int_1 = (int)(POWERS_COAL_OUTPUT + (((double)MP_INFO(x, y).int_4 * POWERS_COAL_OUTPUT)
                                                           / MAX_TECH_LEVEL));
         break;
 
     case (GROUP_SOLAR_POWER):
-        MP_INFO(x, y).int_2 = tech_level;
+        MP_INFO(x, y).int_2 = MP_TECH(x,y);
         MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_INFO(x, y).int_2 * POWERS_SOLAR_OUTPUT)
                                                            / MAX_TECH_LEVEL));  /* like other power sources */
         MP_INFO(x, y).int_3 = MP_INFO(x, y).int_1;      /* Int_3 is kept for compatibility */
@@ -336,7 +340,7 @@ int place_item(int x, int y, short type)
         break;
 
     case GROUP_RECYCLE:
-        MP_INFO(x, y).int_4 = tech_level;
+        MP_INFO(x, y).int_4 = MP_TECH(x,y);
         break;
 
     case GROUP_TIP:

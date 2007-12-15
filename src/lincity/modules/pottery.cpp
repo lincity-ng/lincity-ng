@@ -14,7 +14,7 @@ void do_pottery(int x, int y)
        // int_1 contains the goods at the pottery
        // int_2 contains the ore at the pottery
        // int_3 contains the coal at the pottery
-       // int_4 is the animation trigger time
+       // int_4 is the animation trigger time == MP_ANIM(x,y) since 1.91
        // int_5 is the % made so far this month or the close time if negative
        // int_6 is the % capacity last month
        // int_7 contains the jobs stored at the pottery

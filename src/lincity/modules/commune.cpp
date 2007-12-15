@@ -13,7 +13,7 @@
 void do_commune(int x, int y)
 {
     /*
-       // int_1 is the animation trigger time
+       // int_1 is the animation trigger time  == MP_ANIM(x,y) since 1.91
        // int_2 is the steelflag/trackflag
        // int_3 is the coal sold in the last 100 days 200 units is 100%
        // steel adds more.

@@ -73,23 +73,14 @@ Don't consider this is important, it's just some ideas caught while wandering in
 code. They are written here instead of somewhere else, but maybe they will just be forgotten
 or go in the wiki.
 
-* initialise with srand (time) and add command line option --seed (easier debugging)
-
-* random village is placed near water in original lincity :) 
-  (see src/lincity/simulate.cpp random_start)
-
-* Code contains obsolete stuff from old lincity (eg .csi references ...). Maybe a clean up should
- be considered, but that can be a big job with compatibility issues.
- (so in another branch, and later as far as i m concerned :-)
-
 * separation of engine and graphics is rather good
    - additional data structure could be useful
-        map += group_xyz_no_credit + underground missing stuff + empty slots for future improvements.
    - a building gives: tech at build time, average state (needs %, production %) during last period
    - the drawing modules uses the info to choose correct tile, and manage looping for
                 cleaner animation (currently fast speed skip frames => weird animation).
 
-* With market range, everything can already jump accross rivers.
+* Within market range, everything can already jump accross rivers.
+
 * rivers are ready for transport: in lin-city.h  
   #define MAX_FOOD_ON_RIVER (MAX_FOOD_ON_TRACK*2)
   #define MAX_JOBS_ON_RIVER (MAX_JOBS_ON_TRACK*2)
