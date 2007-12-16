@@ -12,17 +12,6 @@
 #define LC_X11
 
 /*
-  The mouse sensitivity can be an integer such as 1, 2, 3 etc.
-  The higher the number the less you have to move the mouse.
-  It's a bit crude, it just multiples the mouse movement by this
-  amount. IMHO 3 is about the maximum useful value, 2 is quite
-  comfortable.
-    ** This is only relevant for linux-svgalib. **
-XXX: Then it shouldn't be here
-*/
-#define MOUSE_SENSITIVITY 1
-
-/*
   When your money reaches 1 million or more, to make it easier to
   read, it is split into two parts; a millions part, and the rest.
    For example  12,355232    You can choose any character you like,
@@ -33,13 +22,6 @@ XXX: Then it shouldn't be here
   #define MONEY_SEPARATOR ':'
 */
 #define MONEY_SEPARATOR ','
-
-/*
-   #define MP_SANITY_CHECK
-*/
-
-/* The number of milliseconds between scrolling text on the initial screen */
-#define SPLASH_SCROLL_DELAY 30  /* was 30 */
 
 /*
        ************************************************
@@ -56,15 +38,6 @@ XXX: Then it shouldn't be here
 #if defined (_MSC_VER)
 #   define snprintf _snprintf
 #endif
-
-#if defined (WIN32)
-#   define PATH_SLASH '\\'
-#   define PATH_SLASH_STRING "\\"
-#else
-#   define PATH_SLASH '/'
-#   define PATH_SLASH_STRING "/"
-#endif
-
 #define USE_X11_PIXMAPS
 
 #ifndef TRUE
@@ -82,36 +55,6 @@ XXX: Then it shouldn't be here
 #if defined LC_X11 || defined WIN32
 #   define ALLOW_PIX_DOUBLING
 #endif
-
-/*
-  Gamma correction. The numbers GAMMA_CORRECT_X are between 0.0 and 1.0
-  The following values are enabled with the -w option. This seems quite
-  good for 'washed out' monitors that lack red.
-  You can also set the values from the command line.
-   [x]lincity -R 1.0 -G 0.0 -B 0.4  is the same as [x]lincity -w
- */
-#define GAMMA_CORRECT_RED    ((float) 1.0)
-#define GAMMA_CORRECT_GREEN  ((float) 0.0)
-#define GAMMA_CORRECT_BLUE   ((float) 0.4)
-
-#define PROFILE_COUNTDOWN 10000
-
-/* hof is 70 from 28/12 */
-
-/*
-#define DEBUG_ENGINE 1
-   #define ALLOW_TCORE_DUMP
-   #define DEBUG_ROCKETS
-   #define DEBUGMOUSE
-   #define DEBUG_MOUSE
-   #define DEBUG_MAIN_SCREEN
-   #define DEBUG_GET_POWER
-   if DEBUG_KEYS is defined, pressing certain keys add money, tech points etc.
-   #define DEBUG_KEYS 1
-*/
-/*
-   #define CS_PROFILE
-*/
 
 #if defined (LC_X11) || defined (WIN32)
 #    define BORDERX 30
@@ -175,16 +118,6 @@ XXX: Then it shouldn't be here
 #define T_STEEL 5
 #define T_WASTE 6
 
-/* XXX: Move me to mouse.h or similar */
-
-#define MT_FAIL     0
-#define MT_START    1
-#define MT_CONTINUE 2
-#define MT_SUCCESS  3
-
-#define HOF_START 845830134
-#define HOF_STOP 857843038
-
 /* XXX: screen.h? */
 
 #define MINI_SCREEN_NORMAL_FLAG    (0)
@@ -200,19 +133,6 @@ XXX: Then it shouldn't be here
 
 #define MAIN_SCREEN_NORMAL_FLAG    (1)
 #define MAIN_SCREEN_EQUALS_MINI    (2)
-
-#define SEED_RAND
-#define OLD_LC_SAVE_DIR "Lin-city"
-#if defined (WIN32)
-#define LC_SAVE_DIR "SAVED_GAMES"
-#define LINCITYRC_FILENAME "lincity.ini"
-#else
-/* GCS: Changed for 1.12 */
-/* #define LC_SAVE_DIR ".Lin-city" */
-#define LC_SAVE_DIR ".lincity"
-#define LINCITYRC_FILENAME ".lincityrc"
-#endif
-#define RESULTS_FILENAME "results"
 
 #define MAX_ICON_LEN 4096       /* AL1 unused in NG */
 #define WORLD_SIDE_LEN 100      /* Minimap size is hardcoded 200 pixel => some job to do ... */
@@ -238,13 +158,7 @@ XXX: Then it shouldn't be here
 #define BAD (-1)
 #define RESULTS 0
 
-#define PROGBOXX 170
-#define PROGBOXY 180
-#define PROGBOXW 300
-#define PROGBOXH 120
-#define PROGBOX_BG_COLOUR 114
-#define PROGBOX_DONE_COL 4
-#define PROGBOX_NOTDONE_COL 2
+/************* Buildings stuff *********************/
 
 #define WINDMILL_POWER      450
 #define WINDMILL_JOBS       10
@@ -591,24 +505,6 @@ XXX: Then it shouldn't be here
 //#define MARKET_CB_W (18*8)
 #define MARKET_CB_W (17*8 - 2)
 #define MARKET_CB_H (23*8)
-
-#define SCROLL_LONG_COUNT 5
-#define SCROLL_RIGHT_BUTTON_X 100
-#define SCROLL_RIGHT_BUTTON_W 32
-#define SCROLL_RIGHT_BUTTON_Y 100
-#define SCROLL_RIGHT_BUTTON_H 32
-#define SCROLL_LEFT_BUTTON_X 100
-#define SCROLL_LEFT_BUTTON_W 32
-#define SCROLL_LEFT_BUTTON_Y 132
-#define SCROLL_LEFT_BUTTON_H 32
-#define SCROLL_DOWN_BUTTON_X 100
-#define SCROLL_DOWN_BUTTON_W 32
-#define SCROLL_DOWN_BUTTON_Y 164
-#define SCROLL_DOWN_BUTTON_H 32
-#define SCROLL_UP_BUTTON_X 100
-#define SCROLL_UP_BUTTON_W 32
-#define SCROLL_UP_BUTTON_Y 196
-#define SCROLL_UP_BUTTON_H 32
 
 #define SHUFFLE_MAPPOINT_COUNT 4
 
@@ -1038,10 +934,6 @@ XXX: Then it shouldn't be here
 	     (group == GROUP_TREE) || \
 	     (group == GROUP_TREE2) || \
 	     (group == GROUP_TREE3))
-
-#define MOUSE_TYPE_NORMAL 1
-#define MOUSE_TYPE_SQUARE 2
-#define MOUSE_BUTTON_REPEAT 4
 
 #define red(x) (32 + x)
 #define green(x) (64 + x)

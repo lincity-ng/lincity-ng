@@ -1235,18 +1235,3 @@ static void set_mappoint_used(int fromx, int fromy, int x, int y)
     MP_INFO(x, y).int_2 = fromy;
 }
 
-#ifdef DEBUG
-/* AL1 : unused in NG 1.1.2 */
-static void debug_mappoints(void)
-{
-    int x, y;
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            if ((MP_TYPE(x, y) < 0) || (MP_TYPE(x, y) > 400)) {
-                printf("Error in mappoint %d %d (%d)\n", x, y, MP_TYPE(x, y));
-                exit(-1);
-            }
-        }
-    }
-}
-#endif

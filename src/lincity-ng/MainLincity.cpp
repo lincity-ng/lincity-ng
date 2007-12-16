@@ -97,7 +97,10 @@ void saveCityNG( std::string newFilename ){
  */
 bool loadCityNG( std::string filename ){
     if( file_exists( const_cast<char*>( filename.c_str()) ) ){
-        load_city(const_cast<char*>(filename.c_str()));
+        if (false)
+            load_city(const_cast<char*>(filename.c_str()));
+        else
+            load_city_2(const_cast<char*>(filename.c_str()));
         update_avail_modules(0);
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }

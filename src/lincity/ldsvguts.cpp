@@ -88,8 +88,6 @@
 #define SI_GREEN 254
 #define SI_YELLOW 255
 
-#define MP_SANITY_CHECK 1
-
 /* Extern resources */
 extern int yn_dial_box(const char *, const char *, const char *, const char *);
 extern void ok_dial_box(const char *, int, const char *);
@@ -99,6 +97,7 @@ extern void print_total_money(void);
 extern int count_groups(int);
 extern void reset_animation_times(void);
 extern void upgrade_to_v2(void);
+
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
@@ -348,7 +347,8 @@ void save_city(char *cname)
 
     sprintf(s, "%s%c%s", lc_save_dir, PATH_SLASH, cname);
 
-    save_city_raw(s);
+    //save_city_raw(s);
+    save_city_2(s);
     free(s);
 }
 
@@ -740,13 +740,18 @@ void load_city(char *cname)
 
 }
 
+/*
 void load_saved_city(char *s)
 {
     char *cname = (char *)malloc(strlen(lc_save_dir) + strlen(s) + 2);
     sprintf(cname, "%s%c%s", lc_save_dir, PATH_SLASH, s);
-    load_city(cname);
+    if (false) 
+        load_city(cname);
+    else
+        load_city_2(cname);
     free(cname);
 }
+*/
 
 void reset_animation_times(void)
 {
@@ -815,31 +820,6 @@ int verify_city(char *cname)
     free(s);
     return v == VERSION_INT;
 }
-
-#ifdef MP_SANITY_CHECK
-void sanity_check(void)
-{
-    //FIXME: AL1 unused in NG 1.1.2
-    static int flag = 0;
-    int x, y, xx, yy;
-    for (x = 0; x < WORLD_SIDE_LEN; x++)
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            if (MP_TYPE(x, y) == CST_USED) {
-                xx = MP_INFO(x, y).int_1;
-                yy = MP_INFO(x, y).int_2;
-                if (xx < (x - 4) || yy < (y - 4) || xx > x || yy > y ||
-                    xx < 0 || xx > WORLD_SIDE_LEN || yy < 0 || yy > WORLD_SIDE_LEN) {
-                    printf("Sanity failed at %d %d, points to %d %d\n", x, y, xx, yy);
-                    if (flag == 0)
-                        yn_dial_box("MP sanity check error",
-                                    "Please mail  lincity-users@lists.sourceforge.net",
-                                    "telling me what you just did.", "Do you think I'll find this bug?");
-                    flag = 1;
-                }
-            }
-        }
-}
-#endif
 
 void check_endian(void)
 {

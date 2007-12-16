@@ -12,6 +12,7 @@
 #include "tinygettext/gettext.hpp"
 #include "fileutil.h"
 #include "gui_interface/readpng.h"
+#include "ldsvguts.h"
 
 struct TYPE main_types[NUM_OF_TYPES];
 

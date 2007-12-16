@@ -90,6 +90,7 @@
 //#include "cliglobs.h"
 #include "engglobs.h"
 #include "fileutil.h"
+#include "ldsvguts.h"
 
 /* GCS: This is from dcgettext.c in the gettext package.      */
 /* XPG3 defines the result of `setlocale (category, NULL)' as:

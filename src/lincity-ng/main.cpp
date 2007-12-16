@@ -44,6 +44,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Sound.hpp"
 #include "Config.hpp"
 #include "PBar.hpp"
+#include "lincity/ldsvguts.h"
 
 #ifdef ENABLE_BINRELOC
 #include "binreloc.h"
@@ -81,17 +82,18 @@ void initPhysfs(const char* argv0)
 
     // Initialize physfs (this is a slightly modified version of
     // PHYSFS_setSaneConfig
-    const char* application = /* PACKAGE_NAME */ "lincity";
+    const char* application = LC_SAVE_DIR;
     const char* userdir = PHYSFS_getUserDir();
     const char* dirsep = PHYSFS_getDirSeparator();
     char* writedir = new char[strlen(userdir) + strlen(application) + 2];
 
     // Set configuration directory
-    sprintf(writedir, "%s.%s", userdir, application);
+    //sprintf(writedir, "%s.%s", userdir, application);
+    sprintf(writedir, "%s%s", userdir, application);
     if(!PHYSFS_setWriteDir(writedir)) {
         // try to create the directory
         char* mkdir = new char[strlen(application) + 2];
-        sprintf(mkdir, ".%s", application);
+        sprintf(mkdir, "%s", application);
         if(!PHYSFS_setWriteDir(userdir) || !PHYSFS_mkdir(mkdir)) {
             std::ostringstream msg;
             msg << "Failed creating configuration directory '" <<
