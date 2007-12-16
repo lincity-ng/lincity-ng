@@ -79,10 +79,6 @@ static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void set_mappoint_used(int fromx, int fromy, int x, int y);
 static void setup_ground(void);
 
-#ifdef DEBUG
-        static void debug_mappoints(void); /* AL1: NG 1.1.2 compiler warns that this is unused */
-#endif
-
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
 /* ---------------------------------------------------------------------- *
