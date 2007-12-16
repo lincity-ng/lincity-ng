@@ -13,13 +13,15 @@
 void do_commune(int x, int y)
 {
     /*
-       // int_1 is the animation trigger time  == MP_ANIM(x,y) since 1.91
+       // int_1 unused
        // int_2 is the steelflag/trackflag
        // int_3 is the coal sold in the last 100 days 200 units is 100%
        // steel adds more.
        // int_4 is the months without selling much coal,steel,ore
        // int_5 is the coal, ore, steel waste flags for last month
        // int_6 is the coal, ore, steel waste flags so far this month
+       //
+       // MP_ANIM is the animation trigger time  since 1.91
      */
     /* GCS -- I folded the trackflag into int_2, changing the logic slightly.
        This change only affects the animation. */
@@ -117,8 +119,8 @@ void do_commune(int x, int y)
     }
 
     /* animate */
-    if (real_time >= MP_INFO(x, y).int_1) {
-        MP_INFO(x, y).int_1 = real_time + COMMUNE_ANIM_SPEED - 25 + (rand() % 50);
+    if (real_time >= MP_ANIM(x, y)) {
+        MP_ANIM(x, y) = real_time + COMMUNE_ANIM_SPEED - 25 + (rand() % 50);
         switch (MP_TYPE(x, y)) {
         case (CST_COMMUNE_1):
             MP_TYPE(x, y) = CST_COMMUNE_2;

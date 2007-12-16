@@ -13,9 +13,10 @@ void do_firestation(int x, int y)
     /*
        // int_1 is the jobs stored at the fire station
        // int_2 is the goods stored at the fire station
-       // int_3 is the animation flag == MP_ANIM(x,y) since 1.91
-       // int_4 is the time of the next frame
+       // int_3 is the animation flag
+       // int_4 unused
        // int_5 is the pause counter
+       // MP_ANIM is the time of the next frame since 1.91
      */
     /* XXX: should note whether we actually _produced_ fire cover in int_6 */
     if (MP_INFO(x, y).int_1 < (MAX_JOBS_AT_FIRESTATION - FIRESTATION_GET_JOBS))
@@ -25,8 +26,8 @@ void do_firestation(int x, int y)
         if (get_goods(x, y, FIRESTATION_GET_GOODS) != 0)
             MP_INFO(x, y).int_2 += FIRESTATION_GET_GOODS;
     /* animate */
-    if (MP_INFO(x, y).int_3 && real_time > MP_INFO(x, y).int_4) {
-        MP_INFO(x, y).int_4 = real_time + FIRESTATION_ANIMATION_SPEED;
+    if (MP_INFO(x, y).int_3 && real_time > MP_ANIM(x, y)) {
+        MP_ANIM(x, y) = real_time + FIRESTATION_ANIMATION_SPEED;
         if (MP_INFO(x, y).int_5 > 0)
             MP_INFO(x, y).int_5--;
         else {

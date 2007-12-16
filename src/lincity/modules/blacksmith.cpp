@@ -15,10 +15,11 @@ void do_blacksmith(int x, int y)
        // int_1 contains the goods at the blacksmith
        // int_2 contains the goods made - for the animation
        // int_3 contains the coal store
-       // int_4 is the animation trigger time == MP_ANIM(x,y) since 1.91
+       // int_4 unused
        // int_5 is the % made so far this month
        // int_6 is the % capacity last month
        // int_7 contains the jobs stored at the blacksmith
+       // MP_ANIM(x,y) is the animation trigger time (since 1.91)
      */
     if (MP_INFO(x, y).int_3 < MAX_COAL_AT_BLACKSMITH)
         if (get_coal(x, y, BLACKSMITH_GET_COAL) != 0)
@@ -49,8 +50,8 @@ void do_blacksmith(int x, int y)
         MP_TYPE(x, y) = CST_BLACKSMITH_0;
     }
 
-    if (MP_INFO(x, y).int_2 > BLACKSMITH_BATCH && real_time >= MP_INFO(x, y).int_4) {
-        MP_INFO(x, y).int_4 = real_time + BLACKSMITH_ANIM_SPEED;
+    if (MP_INFO(x, y).int_2 > BLACKSMITH_BATCH && real_time >= MP_ANIM(x, y)) {
+        MP_ANIM(x, y) = real_time + BLACKSMITH_ANIM_SPEED;
         switch (MP_TYPE(x, y)) {
         case (CST_BLACKSMITH_0):
             MP_TYPE(x, y) = CST_BLACKSMITH_1;

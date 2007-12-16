@@ -14,9 +14,11 @@ void do_mill(int x, int y)
        // int_1 contains the goods at the mill
        // int_2 contains the food store
        // int_3 contains the coal store
-       // int_4 contains the animation trigger time == MP_ANIM(x,y) since 1.91
+       // int_4 unused
        // int_5 is the % count so far this month
        // int_6 is the % capacity last month
+       // int_7 unused
+       // MP_ANIM contains the animation trigger time since 1.91
      */
     /* get food */
     int block_anim = 0;
@@ -53,8 +55,8 @@ void do_mill(int x, int y)
         MP_INFO(x, y).int_6 = MP_INFO(x, y).int_5;
         MP_INFO(x, y).int_5 = 0;
     }
-    if (real_time >= MP_INFO(x, y).int_4 && block_anim == 0) {
-        MP_INFO(x, y).int_4 = real_time + MILL_ANIM_SPEED;
+    if (real_time >= MP_ANIM(x, y) && block_anim == 0) {
+        MP_ANIM(x, y) = real_time + MILL_ANIM_SPEED;
         switch (MP_TYPE(x, y)) {
         case (CST_MILL_0):
             MP_TYPE(x, y) = CST_MILL_1;

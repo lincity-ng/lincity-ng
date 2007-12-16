@@ -14,10 +14,11 @@ void do_pottery(int x, int y)
        // int_1 contains the goods at the pottery
        // int_2 contains the ore at the pottery
        // int_3 contains the coal at the pottery
-       // int_4 is the animation trigger time == MP_ANIM(x,y) since 1.91
+       // int_4 unused
        // int_5 is the % made so far this month or the close time if negative
        // int_6 is the % capacity last month
        // int_7 contains the jobs stored at the pottery
+       // MP_ANIM is the animation trigger time since 1.91
      */
     if (MP_INFO(x, y).int_5 < 0) {
         MP_INFO(x, y).int_5++;
@@ -56,8 +57,8 @@ void do_pottery(int x, int y)
         MP_INFO(x, y).int_6 = MP_INFO(x, y).int_5;
         MP_INFO(x, y).int_5 = 0;
     }
-    if (real_time >= MP_INFO(x, y).int_4 /* && block_anim==0 */ ) {
-        MP_INFO(x, y).int_4 = real_time + POTTERY_ANIM_SPEED;
+    if (real_time >= MP_ANIM(x, y) /* && block_anim==0 */ ) {
+        MP_ANIM(x, y) = real_time + POTTERY_ANIM_SPEED;
         switch (MP_TYPE(x, y)) {
         case (CST_POTTERY_0):
             MP_TYPE(x, y) = CST_POTTERY_1;

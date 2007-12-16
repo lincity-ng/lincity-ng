@@ -17,8 +17,9 @@ void do_industry_h(int x, int y)
        // int_3 is the amount of raw materials in store (ore)
        // int_4 is the coal in store
        // int_5 is the percent max production last month
-       // int_6 is the time of the next animation frame. == MP_ANIM(x,y) since 1.91
+       // int_6 is unused
        // int_7 is whether we get power from coal (1) or elsewhere (0)
+       // MP_ANIM is the time of the next animation frame. since 1.91
      */
 
     /* See if there's any raw materials (ore) on the road/rail. If so, use some
@@ -178,8 +179,8 @@ void do_industry_h(int x, int y)
             MP_TYPE(x, y) = CST_INDUSTRY_H_C;
     }
     /* now animate */
-    if (real_time >= MP_INFO(x, y).int_6) {
-        MP_INFO(x, y).int_6 = real_time + INDUSTRY_H_ANIM_SPEED;
+    if (real_time >= MP_ANIM(x, y)) {
+        MP_ANIM(x, y) = real_time + INDUSTRY_H_ANIM_SPEED;
         switch (MP_TYPE(x, y)) {
         case (CST_INDUSTRY_H_L1):
             MP_TYPE(x, y) = CST_INDUSTRY_H_L2;

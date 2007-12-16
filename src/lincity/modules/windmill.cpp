@@ -11,17 +11,14 @@
 /*** Windmills ***/
 /*
   // int_1 is the rated capacity 
-  // int_2 is the tech level when built == MP_TECH(x,y) since 1.91
+  // int_2 unused
   // int_3 is the sail count - to choose the right sail.
   // int_4 reserved = local power demand for substations (like substations)
   // int_5 is the power produced (basically _if_ power produced)
   // int_6 is the grid it's on
   // int_7 is a timestamp for mapping
   // 
-  // Stored in (x+1, y)
-  //  int_1 reserved = x
-  //  int_2 reserved = y
-  //  int_3 is the last real time that a sail was turned  == MP_ANIM(x,y) since 1.91
+  // MP_ANIM(x,y) is the last real time that a sail was turned  (since 1.91)
 */
 void do_windmill(int x, int y)
 {
@@ -31,24 +28,24 @@ void do_windmill(int x, int y)
         MP_INFO(x, y).int_5 = MP_INFO(x, y).int_1;
         grid[MP_INFO(x, y).int_6]->avail_power += MP_INFO(x, y).int_1;
     } else {
-        MP_INFO(x + 1, y).int_3 = real_time + MODERN_WINDMILL_ANIM_SPEED;
+        MP_ANIM(x, y) = real_time + MODERN_WINDMILL_ANIM_SPEED;
         return;
     }
 
-    /* update animation. ATTENTION: (x,y) and (x+1,y) are used to store info */
-    if (real_time > MP_INFO(x + 1, y).int_3) {
+    /* update animation */
+    if (real_time > MP_ANIM(x , y)) {
         MP_INFO(x, y).int_3++;
-        if (MP_INFO(x, y).int_2 < MODERN_WINDMILL_TECH) {
-            MP_INFO(x + 1, y).int_3 = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
+        if (MP_TECH(x, y) < MODERN_WINDMILL_TECH) {
+            MP_ANIM(x,y) = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
         } else {
-            MP_INFO(x + 1, y).int_3 = real_time + MODERN_WINDMILL_ANIM_SPEED;
+            MP_ANIM(x,y) = real_time + MODERN_WINDMILL_ANIM_SPEED;
         }
     }
 
     /* figure out which tile to use */
     anim_tile = (MP_INFO(x, y).int_3 % 3);
 
-    if (MP_INFO(x, y).int_2 < MODERN_WINDMILL_TECH)
+    if (MP_TECH(x, y) < MODERN_WINDMILL_TECH)
         MP_TYPE(x, y) = CST_WINDMILL_1_W + anim_tile;
     else
         switch (grid[MP_INFO(x, y).int_6]->powered) {
@@ -73,10 +70,10 @@ void mps_windmill(int x, int y)
     char s[12];
 
     mps_store_title(i++, _("Windmill"));
-    mps_store_sfp(i++, _("Tech"), MP_INFO(x, y).int_2 * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, _("Tech"), (MP_TECH(x, y) * 100.0) / MAX_TECH_LEVEL);
     i++;
 
-    if (MP_INFO(x, y).int_2 >= MODERN_WINDMILL_TECH) {
+    if (MP_TECH(x, y) >= MODERN_WINDMILL_TECH) {
         mps_store_title(i++, _("Local Status"));
 
         format_power(s, sizeof(s), MP_INFO(x, y).int_5);

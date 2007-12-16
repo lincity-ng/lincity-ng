@@ -19,7 +19,7 @@ void do_industry_l(int x, int y)
        // int_4 is the amount of steel in store.
        // int_5 is the jobs stored.
        // int_6 is the percent of capacity last month.
-       // int 7 is the next animation frame time. == MP_ANIM(x,y) since 1.91
+       // MP_ANIM is the next animation frame time. since 1.91
      */
     /* first get some jobs */
     if (MP_INFO(x, y).int_5 < MAX_JOBS_AT_INDUSTRY_L - INDUSTRY_L_GET_JOBS) {
@@ -213,8 +213,8 @@ void do_industry_l(int x, int y)
             MP_TYPE(x, y) = CST_INDUSTRY_L_C;
     }
     /* now animate */
-    if (real_time >= MP_INFO(x, y).int_7) {
-        MP_INFO(x, y).int_7 = real_time + INDUSTRY_L_ANIM_SPEED;
+    if (real_time >= MP_ANIM(x, y)) {
+        MP_ANIM(x, y) = real_time + INDUSTRY_L_ANIM_SPEED;
         switch (MP_TYPE(x, y)) {
         case (CST_INDUSTRY_L_Q1):
             MP_TYPE(x, y) = CST_INDUSTRY_L_Q2;

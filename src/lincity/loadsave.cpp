@@ -118,7 +118,7 @@ void save_city_2(char *cname)
     for (x = 0; x < WORLD_SIDE_LEN; x++)
         for (y = 0; y < WORLD_SIDE_LEN; y++) {
             /*               TY po fl cr or i1 i2 i3 i4 i5 i6 i7 PL al ec ws gp wa wp ww wn g1 g2 g3 g4 DA TK AN d4 d5 d6 d7 d8 d9 */
-            gzprintf(ofile, "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" 
+            gzprintf(ofile, "%u %d %d %u %u %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" 
                        , MP_TYPE(x, y)
                        , MP_INFO(x, y).population
                        , MP_INFO(x, y).flags
@@ -296,8 +296,9 @@ void load_city_2(char *cname)
     // Easier debugging from saved game: #Line = 100 x + y + 1  (first line = ldsv_version)
     for (x = 0; x < WORLD_SIDE_LEN; x++) {
         for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            //                              TY po fl cr or i1 i2 i3 i4 i5 i6 i7 PL al ec ws gp wa wp ww wn g1 g2 g3 g4 DA TK AN d4 d5 d6 d7 d8 d9
-            sscanf(gzgets(gzfile, s, 512), "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d"
+            gzgets(gzfile, s, 512);
+            //         TY po fl cr or i1 i2 i3 i4 i5 i6 i7 PL al ec ws gp wa wp ww wn g1 g2 g3 g4 DA TK AN d4 d5 d6 d7 d8 d9
+            sscanf(s, "%u %d %d %u %u %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d"
                     , &MP_TYPE(x, y)
                     , &MP_INFO(x, y).population
                     , &MP_INFO(x, y).flags

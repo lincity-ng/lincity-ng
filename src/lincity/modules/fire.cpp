@@ -12,10 +12,11 @@
 void do_fire(int x, int y)
 {
     /*
-       // int_1 is the next animation frame time == MP_ANIM(x,y) since 1.91
+       // int_1 unused
        // int_2 is the fire length
        // int_3 is the real_time before the fire can spread or -1 if triggered 
        // int_4 is the idle land length
+       // MP_ANIM is the next animation frame time, since 1.91
      */
     int i;
     /* this so we don't get whole blocks changing in one go. */
@@ -42,8 +43,8 @@ void do_fire(int x, int y)
         return;
     }
     MP_INFO(x, y).int_2++;
-    if (real_time > MP_INFO(x, y).int_1) {
-        MP_INFO(x, y).int_1 = real_time + FIRE_ANIMATION_SPEED;
+    if (real_time > MP_ANIM(x, y)) {
+        MP_ANIM(x, y) = real_time + FIRE_ANIMATION_SPEED;
         if (MP_TYPE(x, y) == CST_FIRE_1)
             MP_TYPE(x, y) = CST_FIRE_2;
         else if (MP_TYPE(x, y) == CST_FIRE_2)
