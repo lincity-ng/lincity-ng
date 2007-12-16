@@ -19,6 +19,7 @@ void do_industry_h(int x, int y)
        // int_5 is the percent max production last month
        // int_6 is unused
        // int_7 is whether we get power from coal (1) or elsewhere (0)
+       //
        // MP_ANIM is the time of the next animation frame. since 1.91
      */
 

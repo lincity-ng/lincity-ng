@@ -369,6 +369,14 @@ void load_city(char *cname)
         printf(_("Can't open <%s> (gzipped)"), cname);
         do_error("Can't open it!");
     }
+    /* Initialise additional structure FIXME random village does not go here*/
+    for (x = 0; x < WORLD_SIDE_LEN; x++)
+        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+            MP_TECH(x,y) = 0;
+            MP_DATE(x,y) = 0;
+            MP_ANIM(x,y) = 0;
+        }
+
     /* Add version to shared global variables for playing/saving games without waterwell */
     sscanf(gzgets(gzfile, s, 256), "%d", &ldsv_version);
     if (ldsv_version < MIN_LOAD_VERSION) {
@@ -609,8 +617,8 @@ void load_city(char *cname)
         sscanf(s, "%d", &highest_tech_level);
     else
         highest_tech_level = 0;
-    gzgets(gzfile, s, 80);      /* this is the CR */
 
+    gzgets(gzfile, s, 200);   
     if (sscanf
         (s, "sust %d %d %d %d %d %d %d %d %d %d", &sust_dig_ore_coal_count, &sust_port_count, &sust_old_money_count,
          &sust_old_population_count, &sust_old_tech_count, &sust_fire_count, &sust_old_money, &sust_old_population,
@@ -624,14 +632,14 @@ void load_city(char *cname)
             = sust_old_tech_count = sust_fire_count = sust_old_money = sust_old_population = sust_old_tech = 0;
 
     if (ldsv_version == WATERWELL_V2) {
-        gzgets(gzfile, s, 80);      /* this is the CR */
+        gzgets(gzfile, s, 80);   
         sscanf(s, "arid %d %d", &global_aridity, &global_mountainity);
 #ifdef DEBUG
         fprintf(stderr," arid %d, mountain %d \n", global_aridity, global_mountainity);
 #endif
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
             for (y = 0; y < WORLD_SIDE_LEN; y++) {
-                gzgets(gzfile, s, 80);      /* this is the CR */
+                gzgets(gzfile, s, 200);  
                 sscanf(s,"%d %d %d %d %d %d %d %d %d %d %d %d",&(ground[x][y].altitude)
                         , &ground[x][y].ecotable
                         , &ground[x][y].wastes
@@ -667,12 +675,6 @@ void load_city(char *cname)
     } else
         university_intake_rate = 50;
 
-    /*Al1 : What is this ? This does nothing, the value are saved in MP_INFO.int_ 
-     * for (x = 0; x < WORLD_SIDE_LEN; x++)
-     *   for (y = 0; y < WORLD_SIDE_LEN; y++)
-     *     update_tech_dep (x, y);
-     */
-
     unhighlight_module_button(selected_module);
     selected_module = sbut[7];  /* 7 is track.  Watch out though! */
     highlight_module_button(selected_module);
@@ -680,21 +682,47 @@ void load_city(char *cname)
 
     print_total_money();
     reset_animation_times();
+    /* kind upgrade of MP_TECH for old buildings, when we don't know
+     * eg light industries pollution depends on tech */
+    int tk = (3 * highest_tech_level) / 4;
+    if (tech_level >= tk)
+        tk = tech_level;
+
     /* update tech dep for compatibility with old games */
     for (x = 0; x < WORLD_SIDE_LEN; x++)
         for (y = 0; y < WORLD_SIDE_LEN; y++) {
+
             switch (MP_GROUP(x, y)) {
             case (GROUP_WINDMILL):
-                MP_INFO(x, y).int_1 = (int)(WINDMILL_POWER + (((double)MP_INFO(x, y).int_2 * WINDMILL_POWER)
+                MP_TECH(x,y) = MP_INFO(x, y).int_2;
+                MP_INFO(x, y).int_1 = (int)(WINDMILL_POWER + (((double)MP_TECH(x, y) * WINDMILL_POWER)
                                                               / MAX_TECH_LEVEL));
                 break;
+
             case (GROUP_COAL_POWER):
-                MP_INFO(x, y).int_1 = (int)(POWERS_COAL_OUTPUT + (((double)MP_INFO(x, y).int_4 * POWERS_COAL_OUTPUT)
+                MP_TECH(x,y) = MP_INFO(x,y).int_4;
+                MP_INFO(x, y).int_1 = (int)(POWERS_COAL_OUTPUT + (((double)MP_TECH(x, y) * POWERS_COAL_OUTPUT)
                                                                   / MAX_TECH_LEVEL));
                 break;
+
             case (GROUP_SOLAR_POWER):
-                MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_INFO(x, y).int_2 * POWERS_SOLAR_OUTPUT)
+                MP_TECH(x,y) = MP_INFO(x,y).int_2;
+                MP_INFO(x, y).int_3 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_TECH(x, y) * POWERS_SOLAR_OUTPUT)
                                                                    / MAX_TECH_LEVEL));
+            case GROUP_ORGANIC_FARM:
+                MP_TECH(x,y) = MP_INFO(x,y).int_1;
+                break;
+
+            case GROUP_RECYCLE:
+                MP_TECH(x,y) = MP_INFO(x, y).int_4;
+                break;
+
+            case GROUP_INDUSTRY_L:
+                if ( MP_TECH(x,y) == 0 )
+                    if ( tk > GROUP_INDUSTRY_L_TECH )
+                        MP_TECH(x,y) = tk;
+                    else
+                        MP_TECH(x,y) = GROUP_INDUSTRY_L_TECH;
                 break;
             }
         }

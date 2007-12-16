@@ -15,17 +15,13 @@
 void do_organic_farm(int x, int y)
 {
     /* // MP_INFO(x,y)
-       // int_1 is the tech level of the farm when built
-       // int_2 is a flag so we don't create a farm with nearly ripe crops.
-       *      unused in NG1.1     
+       // int_1 unused
+       // int_2 unused
        // int_3 is the food sold count so far this year.
        // int_4 is the food made last year.
        // int_5 is the random crop rotation key.
        // int_6 is the random month stagger, so they don't all flash at once
        // int_7 is the jobs stored at the farm 
-       //         up to NG-1.1.0 int_7 was the tech-level dependent output of a
-       //          powered farm with full workforce. 
-       //         = duplicate with int_1.  see below tech_bonus.
        * 
        * MP_INFO(x+1,y) stores additional info
        *    int_1 reserved (=x)
@@ -33,10 +29,13 @@ void do_organic_farm(int x, int y)
        *    int_3 max possible production (assuming 100% water and power)
        *    int_4 number of 1x1 tiles with underground water inside the farm
        *    int_5 current production
+       *
+       // MP_TECH is the tech level of the farm when built
+       // MP_ANIM  FIXME, this is unused
      */
     int i;
     int has_power = false;
-    int tech_bonus = (int)(((double)MP_INFO(x, y).int_1 * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL);
+    int tech_bonus = (int)(((double)MP_TECH(x, y) * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL);
     MP_INFO(x + 1, y).int_3 = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus;
     /* Animation */
     if (MP_INFO(x, y).int_5 == 0) {
@@ -141,8 +140,7 @@ void do_organic_farm(int x, int y)
 
     if (i % 300 == 0) {
         i /= 300;
-        if ( /* MP_INFO(x,y).int_2!=0 &&  */ MP_INFO(x, y).int_4
-            > MIN_FOOD_SOLD_FOR_ANIM) {
+        if ( MP_INFO(x, y).int_4 > MIN_FOOD_SOLD_FOR_ANIM) {
             if (i % 4 == 0) {
                 MP_INFO(x, y).int_6 = rand() % 100;     /* AL1: initially defined as %300 */
             }
@@ -227,7 +225,7 @@ void mps_organic_farm(int x, int y)
     snprintf(text, MPS_INFO_CHARS, "%s %s", _("Power"), p);
     mps_store_title(i++, text);
 
-    snprintf(text, MPS_INFO_CHARS, "%s  %5.1f%%", _("Tech"), MP_INFO(x, y).int_1 * 100.0 / MAX_TECH_LEVEL);
+    snprintf(text, MPS_INFO_CHARS, "%s  %5.1f%%", _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
     mps_store_title(i++, text);
 
     snprintf(text, MPS_INFO_CHARS, "%s  %5.1f%%", _("Prod"), MP_INFO(x, y).int_4 * 100.0 / 1200.0);
@@ -243,24 +241,4 @@ void mps_organic_farm(int x, int y)
     }
 #endif
 
-    /*
-       char * p;
-
-       snprintf(mps_info[i++], MPS_INFO_CHARS, _("Organic Farm"));
-       i++;
-
-       if ((MP_INFO(x,y).flags & FLAG_POWERED) != 0)
-       p = _("YES");
-       else
-       p = _("NO ");
-
-       snprintf(mps_info[i++], MPS_INFO_CHARS, "%s %s", _("Power"), p);
-
-       snprintf(mps_info[i++], MPS_INFO_CHARS, "%s  %5.1f%%", _("Tech"), 
-       MP_INFO(x,y).int_1 * 100.0 / MAX_TECH_LEVEL);
-
-       snprintf(mps_info[i++], MPS_INFO_CHARS, "%s  %5.1f%%", _("Prod"),
-       MP_INFO(x,y).int_4 * 100.0 / 1200.0);
-
-     */
 }

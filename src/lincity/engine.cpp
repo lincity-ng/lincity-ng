@@ -287,7 +287,6 @@ int place_item(int x, int y, short type)
         break;
 
     case GROUP_ORGANIC_FARM:
-        MP_INFO(x, y).int_1 = MP_TECH(x,y);
         break;
 
     case GROUP_TRACK:
@@ -305,8 +304,7 @@ int place_item(int x, int y, short type)
 
     case GROUP_WINDMILL:
         add_a_substation (x, y);
-        MP_INFO(x, y).int_2 = MP_TECH(x,y);
-        MP_INFO(x, y).int_1 = (int)(WINDMILL_POWER + (((double)MP_INFO(x, y).int_2 * WINDMILL_POWER) / MAX_TECH_LEVEL));
+        MP_INFO(x, y).int_1 = (int)(WINDMILL_POWER + (((double)MP_TECH(x, y) * WINDMILL_POWER) / MAX_TECH_LEVEL));
         /* Make sure that the correct windmill graphic shows up */
         if (tech_level > MODERN_WINDMILL_TECH)
             type = CST_WINDMILL_1_R;
@@ -315,16 +313,13 @@ int place_item(int x, int y, short type)
         break;
 
     case (GROUP_COAL_POWER):
-        MP_INFO(x, y).int_4 = MP_TECH(x,y);
-        MP_INFO(x, y).int_1 = (int)(POWERS_COAL_OUTPUT + (((double)MP_INFO(x, y).int_4 * POWERS_COAL_OUTPUT)
+        MP_INFO(x, y).int_1 = (int)(POWERS_COAL_OUTPUT + (((double)MP_TECH(x, y) * POWERS_COAL_OUTPUT)
                                                           / MAX_TECH_LEVEL));
         break;
 
     case (GROUP_SOLAR_POWER):
-        MP_INFO(x, y).int_2 = MP_TECH(x,y);
-        MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_INFO(x, y).int_2 * POWERS_SOLAR_OUTPUT)
-                                                           / MAX_TECH_LEVEL));  /* like other power sources */
-        MP_INFO(x, y).int_3 = MP_INFO(x, y).int_1;      /* Int_3 is kept for compatibility */
+        MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_TECH(x, y) * POWERS_SOLAR_OUTPUT)
+                                                           / MAX_TECH_LEVEL));
         break;
 
     case GROUP_COMMUNE:
@@ -340,7 +335,6 @@ int place_item(int x, int y, short type)
         break;
 
     case GROUP_RECYCLE:
-        MP_INFO(x, y).int_4 = MP_TECH(x,y);
         break;
 
     case GROUP_TIP:
@@ -352,7 +346,6 @@ int place_item(int x, int y, short type)
         break;
 
     case GROUP_OREMINE:
-        /* New mines are not allowed on old mines or old tips */
         break;
 
     case GROUP_WATERWELL:
@@ -362,7 +355,7 @@ int place_item(int x, int y, short type)
     case GROUP_PARKLAND:
         break;
 
-    }                           /* end case */
+    } /* end case */
 
     set_mappoint(x, y, type);
 

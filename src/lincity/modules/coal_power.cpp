@@ -13,13 +13,16 @@
 
 /*** Coal Power ***/
 /*
-  // int_1 is the maximum possible power
+  // int_1 is the maximum possible power (depends on MP_TECH)
   // int_2 is the coal at the power station
   // int_3 is the stored jobs... Must be an interesting warehouse
-  // int_4 is the tech level when built
+  // int_4 unused  
   // int_5 is the projected output.
   // int_6 is the grid ID
   // int_7 is grid_timestamp
+  //
+  // MP_TECH is the tech level when built
+ 
 */
 
 void do_power_source_coal(int x, int y)
@@ -95,6 +98,6 @@ void mps_coal_power(int x, int y)
 
     mps_store_sfp(i++, _("Coal"), MP_INFO(x, y).int_2 * 100.0 / MAX_COAL_AT_POWER_STATION);
     mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_3 * 100.0 / MAX_JOBS_AT_COALPS);
-    mps_store_sfp(i++, _("Tech"), MP_INFO(x, y).int_4 * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
     mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
 }

@@ -15,12 +15,14 @@ void do_recycle(int x, int y)
        // int_1 is the ore made and waiting to go out
        // int_2 is the used goods in store
        // int_3 is the used steel in store       NOT USED at this time
-       // int_4 is the tech level when built
+       // int_4 unused
        // int_5 is the recycling done so far this month
        // int_6 is the percent of max recycling last month
        // int_7 is the waste in store
-       // cost
+       //
+       // MP_TECH is the tech level when built
      */
+    // cost
     recycle_cost += RECYCLE_RUNNING_COST;
 
     /*
@@ -58,8 +60,7 @@ void do_recycle(int x, int y)
             else
                 MP_INFO(x, y).flags |= FLAG_POWERED;
             MP_INFO(x, y).int_2 -= GOODS_RECYCLED;
-            i = (GOODS_RECYCLED * (10 + ((50 * MP_INFO(x, y).int_4)
-                                         / MAX_TECH_LEVEL))) / 100;
+            i = ( GOODS_RECYCLED * (10 + ( (50 * MP_TECH(x, y)) / MAX_TECH_LEVEL)) ) / 100;
             if (i > (GOODS_RECYCLED * 8) / 10)
                 i = (GOODS_RECYCLED * 8) / 10;
             MP_INFO(x, y).int_1 += i;
@@ -143,7 +144,7 @@ void mps_recycle(int x, int y)
     p = ((MP_INFO(x, y).flags & FLAG_POWERED) != 0) ? _("YES") : _("NO");
     mps_store_ss(i++, _("Power"), p);
 
-    mps_store_sfp(i++, _("Tech"), MP_INFO(x, y).int_4 * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
     i++;
     mps_store_title(i++, _("Inventory"));
     mps_store_sfp(i++, _("Ore"), MP_INFO(x, y).int_1 * 100.0 / MAX_ORE_AT_RECYCLE);

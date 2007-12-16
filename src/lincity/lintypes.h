@@ -80,9 +80,9 @@ typedef struct map_struct Map;
 #define MP_GROUP(x,y)  map.group[x][y]
 #define MP_POL(x,y)    map.pollution[x][y]
 #define MP_INFO(x,y)   map.info[x][y]
-#define MP_DATE(x,y)   map.date[x][y]
-#define MP_TECH(x,y)   map.tech[x][y]
-#define MP_ANIM(x,y)   map.anim[x][y]
+#define MP_DATE(x,y)   map.date[x][y] // date of built
+#define MP_TECH(x,y)   map.tech[x][y] // Tech at build time
+#define MP_ANIM(x,y)   map.anim[x][y] // real_time for next anim    //does not need to be saved
 
 #define MP_SIZE(x,y)   main_groups[MP_GROUP(x,y)].size
 #define MP_COLOR(x,y)  main_groups[MP_GROUP(x,y)].colour

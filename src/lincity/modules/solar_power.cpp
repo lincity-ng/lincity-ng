@@ -12,26 +12,23 @@
 /*** Solar Power ***/
 
 /*
-  int_1 unused
-  int_2 is the tech level when it was built.
-  int_3 is the rated output
+  int_1 is the rated output (depends on MP_TECH)
+  int_2 unused
+  int_3 unused
   int_4 unused
   int_5 is the current output
   int_6 is the grid it's on
-  int_7 is a grid mapping timestamp
+  int_7 unused
+
+  MP_TECH(x,y) is the tech level when it was built.
 */
 
 void do_power_source(int x, int y)
 {
-    /* Al1: fix for stupid bug i introduced before 1.1.1 => int1 and int3 had wrong valued as if tech = 0 ! */
-    MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT
-                                + (((double)MP_INFO(x, y).int_2 * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
-    MP_INFO(x, y).int_3 = MP_INFO(x, y).int_1;
-    /* end of fix */
 
     if (get_jobs(x, y, SOLAR_POWER_JOBS)) {
-        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_3;
-        grid[MP_INFO(x, y).int_6]->avail_power += MP_INFO(x, y).int_3;
+        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_1;
+        grid[MP_INFO(x, y).int_6]->avail_power += MP_INFO(x, y).int_1;
     } else {
         MP_INFO(x, y).int_5 = 0;
     }

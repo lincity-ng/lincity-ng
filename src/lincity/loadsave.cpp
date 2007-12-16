@@ -472,7 +472,7 @@ void load_city_2(char *cname)
     else
         highest_tech_level = 0;
 
-    gzgets(gzfile, s, 80);   
+    gzgets(gzfile, s, 200);   
     if (sscanf
         (s, "sust %d %d %d %d %d %d %d %d %d %d", &sust_dig_ore_coal_count, &sust_port_count, &sust_old_money_count,
          &sust_old_population_count, &sust_old_tech_count, &sust_fire_count, &sust_old_money, &sust_old_population,

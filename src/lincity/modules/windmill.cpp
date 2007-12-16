@@ -19,6 +19,7 @@
   // int_7 is a timestamp for mapping
   // 
   // MP_ANIM(x,y) is the last real time that a sail was turned  (since 1.91)
+  // MP_TECH(x,y) is the tech_level at build time
 */
 void do_windmill(int x, int y)
 {
