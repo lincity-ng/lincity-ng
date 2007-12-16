@@ -32,7 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/fileutil.h"
 #include "lincity/simulate.h"
 #include "lincity/lclib.h"
-#include "lincity/ldsvguts.h"
+#include "lincity/loadsave.h"
 
 #include "gui_interface/shared_globals.h"
 

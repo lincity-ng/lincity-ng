@@ -39,6 +39,7 @@ extern int sust_old_tech, sust_old_tech_count, sust_fire_count;
 
 extern int total_time;  // game time
 extern int deadline;    // + 10 years to upgrade with waterwell everywhere
+extern int flag_warning;// flag to send a message to player.
 
 extern int population, starving_population;
 extern int housed_population;

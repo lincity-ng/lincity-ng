@@ -90,7 +90,7 @@
 //#include "cliglobs.h"
 #include "engglobs.h"
 #include "fileutil.h"
-#include "ldsvguts.h"
+#include "loadsave.h"
 
 /* GCS: This is from dcgettext.c in the gettext package.      */
 /* XPG3 defines the result of `setlocale (category, NULL)' as:
@@ -177,41 +177,6 @@ void copy_file(char *f1, char *f2)
         do_error("Can't copy requested file");
     }
 }
-
-#if 0
-void                            //unused function
-gunzip_file(char *f1, char *f2)
-{
-    int ret_value = execute_command("gzip -c -d", f1, ">", f2);
-    if (ret_value != 0) {
-        /* GCS FIX:  Need to make do_error into var_args fn? */
-        printf("Tried to gzip -c -d %s > %s\n", f1, f2);
-        do_error("Can't gunzip requested file");
-    }
-}
-
-FILE *fopen_read_gzipped(char *fn)
-{
-    FILE *fp;
-
-    const char *cmd_str = "gzip -d -c < %s 2> /dev/null";
-    char *cmd = (char *)malloc(strlen(cmd_str) + strlen(fn) + 1);
-
-    sprintf(cmd, cmd_str, fn);
-    fp = popen(cmd, "r");
-    if (fp == NULL) {
-        fprintf(stderr, "Failed to open pipe cmd: %s\n", cmd);
-    }
-    free(cmd);
-
-    return fp;
-}
-
-void fclose_read_gzipped(FILE * fp)
-{
-    pclose(fp);
-}
-#endif
 
 int directory_exists(char *dir)
 {
@@ -571,112 +536,6 @@ char *load_graphic(char *s)
         *(graphic + x) = fgetc(inf);
     fclose(inf);
     return (graphic);
-}
-
-void load_lincityrc(void)
-{
-    //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
-#if 0
-    FILE *fp;
-    int arg;
-    char buf[128];
-
-    if ((fp = fopen(lincityrc_file, "r")) == 0) {
-        save_lincityrc();
-        return;
-    }
-    //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
-
-    while (fgets(buf, 128, fp)) {
-        if (sscanf(buf, "overwrite_transport=%d", &arg) == 1) {
-            overwrite_transport_flag = !!arg;
-            continue;
-        }
-        if (sscanf(buf, "no_init_help=%d", &arg) == 1) {
-            // Careful here ... 
-            no_init_help = !!arg;
-            continue;
-        }
-        if (sscanf(buf, "skip_splash_screen=%d", &arg) == 1) {
-            skip_splash_screen = !!arg;
-            continue;
-        }
-        if (sscanf(buf, "suppress_firsttime_module_help=%d", &arg) == 1) {
-            suppress_firsttime_module_help = !!arg;
-            continue;
-        }
-        if (sscanf(buf, "suppress_popups=%d", &arg) == 1) {
-            suppress_popups = !!arg;
-            continue;
-        }
-        if (sscanf(buf, "time_multiplex_stats=%d", &arg) == 1) {
-            time_multiplex_stats = !!arg;
-            continue;
-        }
-        if (sscanf(buf, "x_confine_pointer=%d", &arg) == 1) {
-            confine_flag = !!arg;
-            continue;
-        }
-        if (sscanf(buf, "pix_double=%d", &arg) == 1) {
-            pix_double = !!arg;
-            continue;
-        }
-        if (sscanf(buf, "borderx=%d", &arg) == 1) {
-            if (borderx >= 0) {
-                borderx = arg;
-            }
-            continue;
-        }
-        if (sscanf(buf, "bordery=%d", &arg) == 1) {
-            if (bordery >= 0) {
-                bordery = arg;
-            }
-            continue;
-        }
-    }
-    fclose(fp);
-#endif
-}
-
-void save_lincityrc(void)
-{
-    //FIXME: this whole function should be moved to oldgui/*, because it contains only things concerning the old gui 
-
-#if 0
-    FILE *fp;
-
-    if ((fp = fopen(lincityrc_file, "w")) == 0) {
-        return;
-    }
-
-    fprintf(fp,
-            "# Set this if you want to be able to overwrite one\n"
-            "# kind of transport with another.\n" "overwrite_transport=%d\n\n", overwrite_transport_flag);
-    fprintf(fp, "# Set this if you don't want the opening help screen.\n" "no_init_help=%d\n\n", no_init_help);
-    fprintf(fp,
-            "# Set this if you don't want the opening splash screen.\n"
-            "skip_splash_screen=%d\n\n", skip_splash_screen);
-    fprintf(fp,
-            "# Set this if you don't want help the first time you\n"
-            "# click to place an item.\n" "suppress_firsttime_module_help=%d\n\n", suppress_firsttime_module_help);
-    fprintf(fp,
-            "# Set this if don't want modal dialog boxes which you\n"
-            "# are required to click OK.  Instead, report the dialog\n"
-            "# box information to the message area.\n" "suppress_popups=%d\n\n", suppress_popups);
-    fprintf(fp,
-            "# Set this if want the different statistic windows to cycle\n"
-            "# through the right panel.\n" "time_multiplex_stats=%d\n\n", time_multiplex_stats);
-    fprintf(fp,
-            "# (X Windows and WIN32 only) Set this if you want pix doubling,\n"
-            "# where each pixel is drawn as a 2x2 square.\n" "pix_double=%d\n\n", pix_double);
-    fprintf(fp,
-            "# (X Windows and WIN32 only) Set this if you want a blank area\n"
-            "# around the playing area.\n" "borderx=%d\n" "bordery=%d\n\n", borderx, bordery);
-    fprintf(fp,
-            "# (X Windows only) Set this if you want to confine the pointer\n"
-            "# to within the window.\n" "x_confine_pointer=%d\n\n", confine_flag);
-    fclose(fp);
-#endif
 }
 
 void undosify_string(char *s)

@@ -47,7 +47,6 @@ void setLincitySpeed( int speed );
 extern void ok_dial_box(const char *, int, const char *);
 
 /* AL1: they are all in engine.cpp */
-extern void connect_rivers(void);
 extern void do_daily_ecology(void);
 extern void do_pollution(void);
 extern void do_fire_health_cricket_power_cover(void);
@@ -71,7 +70,6 @@ static int sust_fire_cover(void);
 static void clear_game(void);
 static void nullify_mappoint(int x, int y);
 static void random_start(int *originx, int *originy);
-static void setup_land(void);
 static void coal_reserve_setup(void);
 static void ore_reserve_setup(void);
 static void setup_river(void);
@@ -190,98 +188,6 @@ void set_mappoint(int x, int y, short selected_type)
             set_mappoint_used(x, y, x+i, y+j);
         }
 
-}
-
-void upgrade_to_v2 (void)
-{
-    // Follow order and logic of new_city
-    int x,y;
-    int alt0 = 0;
-    int mount;
-    int c;
-
-    global_mountainity= 10 + rand () % 300;
-    mount = global_mountainity;
-
-    // Grey border (not visible on the map, x = 0 , x = 99, y = 0, y = 99) 
-    for (x = 0; x < WORLD_SIDE_LEN; x++)
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            ALT(x,y) = 0;
-            if ( !GROUP_IS_BARE(MP_GROUP(x, y)) ) {
-                /* be nice, put water under all existing builings / farms / parks ... */
-                /* This may change according to global_aridity and distance_to_river */
-                MP_INFO(x,y).flags |= FLAG_HAS_UNDERGROUND_WATER;
-            }
-        }
-
-    /* Let 10 years in game time to put waterwells where needed, then starvation will occur */
-    deadline=total_time + 1200 * 10;
-    flag_warning = true; // warn player.
-
-    /* Upgrade ground[x][y].water_alt and .altitude */
-    /* choose this order for rivers and beach scenario 
-     *  = say the lowest part of the map is South-east
-     *    and the sea may have a slope :-) 
-     *     (strictly speaking this is true, but at much smaller order of magnitude */
-
-    /* River mouth is on south of the map */
-    y = WORLD_SIDE_LEN -2;
-    for (x = WORLD_SIDE_LEN - 1; x >=0; x--)
-        if ( IS_RIVER(x,y) )
-            ALT(x,y) = 1;
-
-    alt0 = 1;
-    #define max(X, Y) (X>Y?X:Y)
-    #define min(X, Y) (X>Y?Y:X)
-    for (y = WORLD_SIDE_LEN - 2; y >= 0; y--) {
-        for (x = WORLD_SIDE_LEN - 1; x >= 0; x--) {
-            if ( IS_RIVER(x,y) ) {
-                // attempt to find large area of water = lake or sea => slope = 0
-                c = 0;
-                int alt=0;
-                if (x < WORLD_SIDE_LEN - 2)  {
-                    if IS_RIVER(x + 1, y + 1) {
-                        c++;
-                        alt = max (alt, ALT(x+1, y+1));
-                    }
-                    if IS_RIVER(x + 1, y ) {
-                        c++;
-                        alt = max (alt, ALT(x+1, y));
-                    }
-                }
-                if IS_RIVER(x , y +1 ) {
-                    c++;
-                    alt = max (alt, ALT(x, y+1));
-                }
-                if (x > 1) {
-                    if IS_RIVER(x - 1, y+1 ) {
-                        c++;
-                        alt = max (alt, ALT(x-1, y+1));
-                    }
-                    if IS_RIVER(x - 1, y ) {
-                        c++;
-                        alt = max (alt, ALT(x-1, y));
-                    }
-                }
-                if (c == 0) {
-                    fprintf(stderr," error in upgrade_to_v2, c = 0, impossible, x = %d, y =%d\n", x, y);
-                    return;
-                }
-                if (c <= 2) {
-                    alt0 = alt + rand() % ( 2 + mount / 100 );
-                    alt += rand() % ( 2 + mount / 100 );
-                    ALT(x,y) = max(alt, alt0);
-                    fprintf(stderr, " x %d, y %d, alt %d, alt0 %d , c=%d \n", x, y, alt, alt0, c);
-                } else {
-                    fprintf(stderr, " x %d, y %d, alt %d, alt0 %d\n", x, y, alt, alt0);
-                    ALT(x,y) = alt;
-                }
-            }
-        }
-        alt0 ++; // minimum slope toward south
-    }
-
-    setup_land();
 }
 
 /* ---------------------------------------------------------------------- *
@@ -619,7 +525,6 @@ static void clear_game(void)
     /* Al1. NG 1.1 is this enough ? Are all global variables reseted ? */
     /* TODO reset screen, sustain info, max_tech when load scenario... */
     use_waterwell = true;
-    ldsv_version = WATERWELL_V2;
     global_aridity = 0;
     global_mountainity =0;
 }

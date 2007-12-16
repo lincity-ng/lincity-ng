@@ -76,7 +76,7 @@
 #include "gui_interface/pbar_interface.h"
 #include "lincity-ng/ErrorInterface.hpp"
 #include "stats.h"
-#include "ldsvguts.h"
+#include "loadsave.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
@@ -102,6 +102,23 @@ extern void upgrade_to_v2(void);
 /* ---------------------------------------------------------------------- *
  * Public functions
  * ---------------------------------------------------------------------- */
+
+void save_city(char *cname)
+{
+    char *s;
+    int l;
+
+    if ((l = strlen(cname)) < 2)
+        return;
+    if ((s = (char *)malloc(lc_save_dir_len + l + 16)) == 0)
+        malloc_failure();
+
+    sprintf(s, "%s%c%s", lc_save_dir, PATH_SLASH, cname);
+
+    save_city_2(s);
+    free(s);
+}
+
 void save_city_2(char *cname)
 {
     int x, y, p;
@@ -230,9 +247,6 @@ void save_city_2(char *cname)
 
     for (x = 0; x < NUMOF_MODULES; x++)
         gzprintf(ofile, "%d\n", module_help_flag[x]);
-    gzprintf(ofile, "%d\n", 0); /* dummy values */
-
-    gzprintf(ofile, "%d\n", 0); /* backward compatibility */
 
     if (strlen(given_scene) > 1)
         gzprintf(ofile, "%s\n", given_scene);
@@ -278,8 +292,8 @@ void load_city_2(char *cname)
 
     sscanf(gzgets(gzfile, s, 256), "%d", &ldsv_version);
     if (ldsv_version < WATERWELL_V2) {
-        ok_dial_box("too-old.mes", BAD, 0L); //FIXME: AL1 i guess this will crash as screen is not set */
         gzclose(gzfile);
+        load_city_old( cname );
         return;
     }
 
@@ -344,20 +358,14 @@ void load_city_2(char *cname)
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originy);
 
     sscanf(gzgets(gzfile, s, 256), "%d", &total_time);
-    if (ldsv_version <= MM_MS_C_VER)
-        i = OLD_MAX_NUMOF_SUBSTATIONS;
-    else
-        i = MAX_NUMOF_SUBSTATIONS;
-    for (x = 0; x < i; x++) {
+
+    for (x = 0; x < MAX_NUMOF_SUBSTATIONS; x++) {
         sscanf(gzgets(gzfile, s, 256), "%d", &substationx[x]);
         sscanf(gzgets(gzfile, s, 256), "%d", &substationy[x]);
     }
     sscanf(gzgets(gzfile, s, 256), "%d", &numof_substations);
-    if (ldsv_version <= MM_MS_C_VER)
-        i = OLD_MAX_NUMOF_MARKETS;
-    else
-        i = MAX_NUMOF_MARKETS;
-    for (x = 0; x < i; x++) {
+
+    for (x = 0; x < MAX_NUMOF_MARKETS; x++) {
         sscanf(gzgets(gzfile, s, 256), "%d", &marketx[x]);
         sscanf(gzgets(gzfile, s, 256), "%d", &markety[x]);
     }
@@ -392,11 +400,7 @@ void load_city_2(char *cname)
     housed_population = tpopulation / NUMOF_DAYS_IN_MONTH;
 
     /* Get size of monthgraph array */
-    if (ldsv_version <= MG_C_VER) {
-        i = 120;
-    } else {
-        sscanf(gzgets(gzfile, s, 256), "%d", &i);
-    }
+    sscanf(gzgets(gzfile, s, 256), "%d", &i);
     for (x = 0; x < i; x++) {
         /* If more entries in file than will fit on screen, 
            then we need to skip past them. */
@@ -410,14 +414,6 @@ void load_city_2(char *cname)
             sscanf(gzgets(gzfile, s, 256), "%d", &monthgraph_starve[x]);
             sscanf(gzgets(gzfile, s, 256), "%d", &monthgraph_nojobs[x]);
             sscanf(gzgets(gzfile, s, 256), "%d", &monthgraph_ppool[x]);
-        }
-        /* If our save file is old, skip past obsolete diffgraph entries */
-        if (ldsv_version <= MG_C_VER) {
-            sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &diffgraph_power[x] */
-            sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &diffgraph_coal[x] */
-            sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &diffgraph_goods[x] */
-            sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &diffgraph_ore[x] */
-            sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &diffgraph_population[x] */
         }
     }
     /* If screen bigger than number of entries in file, pad with zeroes */
@@ -436,7 +432,6 @@ void load_city_2(char *cname)
         for (p = 0; p < num_pbars; p++) {
             sscanf(gzgets(gzfile, s, 256), "%d", &(pbar_tmp));
             update_pbar(p, pbar_tmp, 1);
-/*	    sscanf( gzgets( gzfile, s, 256 ), "%d", &(pbars[p].data[x])); */
         }
     }
 
@@ -458,10 +453,9 @@ void load_city_2(char *cname)
     sscanf(gzgets(gzfile, s, 256), "%d", &max_pop_ever);
     sscanf(gzgets(gzfile, s, 256), "%d", &total_evacuated);
     sscanf(gzgets(gzfile, s, 256), "%d", &total_births);
+
     for (x = 0; x < NUMOF_MODULES; x++)
         sscanf(gzgets(gzfile, s, 256), "%d", &(module_help_flag[x]));
-    sscanf(gzgets(gzfile, s, 256), "%d", &x);   /* just dummy reads */
-    sscanf(gzgets(gzfile, s, 256), "%d", &x);   /* for backwards compatibility. */
 
     sscanf(gzgets(gzfile, s, 256), "%128s", given_scene);
     if (strncmp(given_scene, "dummy", 5) == 0 || strlen(given_scene) < 3)

@@ -28,13 +28,6 @@
         NO USER CONFIGURABLE OPTIONS BEYOND THIS POINT
        ************************************************
 */
-
-/* Load corrections if version <= MM_MS_C_VER (max markets/substations) */
-#define MM_MS_C_VER 97
-
-/* Load corrections if version <= MG_C_VER (max monthgraph size) */
-#define MG_C_VER 111
-
 #if defined (_MSC_VER)
 #   define snprintf _snprintf
 #endif
@@ -134,7 +127,6 @@
 #define MAIN_SCREEN_NORMAL_FLAG    (1)
 #define MAIN_SCREEN_EQUALS_MINI    (2)
 
-#define MAX_ICON_LEN 4096       /* AL1 unused in NG */
 #define WORLD_SIDE_LEN 100      /* Minimap size is hardcoded 200 pixel => some job to do ... */
 #define NUMOF_DAYS_IN_MONTH 100
 #define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)

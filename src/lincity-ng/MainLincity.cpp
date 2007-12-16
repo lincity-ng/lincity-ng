@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"
 #include "lincity/lc_locale.h"
 #include "lincity/fileutil.h"
-#include "lincity/ldsvguts.h"
+#include "lincity/loadsave.h"
 
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/mps.h"
@@ -97,10 +97,7 @@ void saveCityNG( std::string newFilename ){
  */
 bool loadCityNG( std::string filename ){
     if( file_exists( const_cast<char*>( filename.c_str()) ) ){
-        if (false)
-            load_city(const_cast<char*>(filename.c_str()));
-        else
-            load_city_2(const_cast<char*>(filename.c_str()));
+        load_city_2(const_cast<char*>(filename.c_str()));
         update_avail_modules(0);
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
@@ -124,13 +121,13 @@ void initLCengine()
   check_savedir ();
 
   /* Load preferences */
-  load_lincityrc ();
+  //load_lincityrc ();  //oldgui stuff, unused in NG
 
   /* Initialize random number generator */
   srand (time (0));
 
   /* Save preferences */
-    save_lincityrc ();
+    //save_lincityrc ();   //oldgui stuff, unused in NG 
 
     //    init_fonts ();
 

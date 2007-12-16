@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------------- *
  * ldsvguts.c
- * This file is part of lincity.
+ * This file is part of lincity-ng.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
@@ -77,6 +77,9 @@
 #include "lincity-ng/ErrorInterface.hpp"
 #include "stats.h"
 #include "ldsvguts.h"
+#include "loadsave.h"
+#include "simulate.h"
+#include "engine.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
@@ -89,270 +92,23 @@
 #define SI_YELLOW 255
 
 /* Extern resources */
-extern int yn_dial_box(const char *, const char *, const char *, const char *);
 extern void ok_dial_box(const char *, int, const char *);
 extern void prog_box(const char *, int);
 
 extern void print_total_money(void);
 extern int count_groups(int);
 extern void reset_animation_times(void);
-extern void upgrade_to_v2(void);
 
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
-void dump_screen(void);
-int verify_city(char *cname);
-
-/* ---------------------------------------------------------------------- *
- * Private Global Variables
- * ---------------------------------------------------------------------- */
-
-char save_names[10][42];
+void upgrade_to_v2 (void);
 
 /* ---------------------------------------------------------------------- *
  * Public functions
  * ---------------------------------------------------------------------- */
-void remove_scene(char *cname)
-{
-    char *s;
-    int l;
-    if ((l = strlen(cname)) < 2)        /* Thanks to Chris J. Kiick */
-        return;
 
-    if ((s = (char *)malloc(lc_save_dir_len + l + 16)) == 0)
-        malloc_failure();
-    sprintf(s, "%s%c%s", lc_save_dir, PATH_SLASH, cname);
-    remove(s);
-    free(s);
-}
-
-void save_city_raw(char *cname)
-{
-    int x, y, q, n, p;
-    unsigned int z;
-    gzFile ofile = gzopen(cname, "wb");
-    if (ofile == NULL) {
-        printf(_("Save file <%s> - "), cname);
-        do_error(_("Can't open save file!"));
-    }
-    /* save without waterwell are in NG 1.1 format, eg scenario good_time is ver 98 when loaded */
-       //if (ldsv_version < VERSION_INT)
-       //   ldsv_version = VERSION_INT;
-    /* Now we have upgraded game */
-    ldsv_version = WATERWELL_V2;
-
-    gzprintf(ofile, "%d\n", ldsv_version);
-    q = sizeof(Map_Point_Info);
-    prog_box(_("Saving scene"), 0);
-    check_endian();
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).population) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).flags) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(unsigned short); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).coal_reserve) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(unsigned short); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).ore_reserve) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).int_1) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).int_2) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).int_3) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).int_4) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).int_5) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).int_6) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            for (z = 0; z < sizeof(int); z++) {
-                n = *(((unsigned char *)&MP_INFO(x, y).int_7) + z);
-                gzprintf(ofile, "%d\n", n);
-            }
-            gzprintf(ofile, "%d\n", (int)MP_POL(x, y));
-            gzprintf(ofile, "%d\n", (int)MP_TYPE(x, y));
-        }
-        prog_box("", (90 * x) / WORLD_SIDE_LEN);
-    }
-    check_endian();             /* we have to put the byte order back. */
-
-    gzprintf(ofile, "%d\n", main_screen_originx);
-    gzprintf(ofile, "%d\n", main_screen_originy);
-    gzprintf(ofile, "%d\n", total_time);
-    for (x = 0; x < MAX_NUMOF_SUBSTATIONS; x++) {
-        gzprintf(ofile, "%d\n", substationx[x]);
-        gzprintf(ofile, "%d\n", substationy[x]);
-    }
-    prog_box("", 92);
-    gzprintf(ofile, "%d\n", numof_substations);
-    for (x = 0; x < MAX_NUMOF_MARKETS; x++) {
-        gzprintf(ofile, "%d\n", marketx[x]);
-        gzprintf(ofile, "%d\n", markety[x]);
-    }
-    prog_box("", 94);
-    gzprintf(ofile, "%d\n", numof_markets);
-    gzprintf(ofile, "%d\n", people_pool);
-    gzprintf(ofile, "%d\n", total_money);
-    gzprintf(ofile, "%d\n", income_tax_rate);
-    gzprintf(ofile, "%d\n", coal_tax_rate);
-    gzprintf(ofile, "%d\n", dole_rate);
-    gzprintf(ofile, "%d\n", transport_cost_rate);
-    gzprintf(ofile, "%d\n", goods_tax_rate);
-    gzprintf(ofile, "%d\n", export_tax);
-    gzprintf(ofile, "%d\n", export_tax_rate);
-    gzprintf(ofile, "%d\n", import_cost);
-    gzprintf(ofile, "%d\n", import_cost_rate);
-    gzprintf(ofile, "%d\n", tech_level);
-    gzprintf(ofile, "%d\n", tpopulation);
-    gzprintf(ofile, "%d\n", tstarving_population);
-    gzprintf(ofile, "%d\n", tunemployed_population);
-    gzprintf(ofile, "%d\n", 0); /* waste_goods is obsolete */
-    gzprintf(ofile, "%d\n", power_made);
-    gzprintf(ofile, "%d\n", power_used);
-    gzprintf(ofile, "%d\n", coal_made);
-    gzprintf(ofile, "%d\n", coal_used);
-    gzprintf(ofile, "%d\n", goods_made);
-    gzprintf(ofile, "%d\n", goods_used);
-    gzprintf(ofile, "%d\n", ore_made);
-    gzprintf(ofile, "%d\n", ore_used);
-    gzprintf(ofile, "%d\n", 0); /* Removed diff_old_population, version 1.12 */
-
-    prog_box("", 96);
-    /* Changed, version 1.12 */
-    gzprintf(ofile, "%d\n", monthgraph_size);
-    for (x = 0; x < monthgraph_size; x++) {
-        gzprintf(ofile, "%d\n", monthgraph_pop[x]);
-        gzprintf(ofile, "%d\n", monthgraph_starve[x]);
-        gzprintf(ofile, "%d\n", monthgraph_nojobs[x]);
-        gzprintf(ofile, "%d\n", monthgraph_ppool[x]);
-    }
-    prog_box("", 98);
-    gzprintf(ofile, "%d\n", rockets_launched);
-    gzprintf(ofile, "%d\n", rockets_launched_success);
-    gzprintf(ofile, "%d\n", coal_survey_done);
-    for (x = 0; x < PBAR_DATA_SIZE; x++)
-        for (p = 0; p < NUM_PBARS; p++)
-            gzprintf(ofile, "%d\n", pbars[p].data[x]);
-
-    prog_box("", 99);
-
-    for (p = 0; p < NUM_PBARS; p++) {
-        gzprintf(ofile, "%d\n", pbars[p].oldtot);
-        gzprintf(ofile, "%d\n", pbars[p].diff);
-    }
-
-    gzprintf(ofile, "%d\n", cheat_flag);
-    gzprintf(ofile, "%d\n", total_pollution_deaths);
-    gzprintf(ofile, "%f\n", pollution_deaths_history);
-    gzprintf(ofile, "%d\n", total_starve_deaths);
-    gzprintf(ofile, "%f\n", starve_deaths_history);
-    gzprintf(ofile, "%d\n", total_unemployed_years);
-    gzprintf(ofile, "%f\n", unemployed_history);
-    gzprintf(ofile, "%d\n", max_pop_ever);
-    gzprintf(ofile, "%d\n", total_evacuated);
-    gzprintf(ofile, "%d\n", total_births);
-    for (x = 0; x < NUMOF_MODULES; x++)
-        gzprintf(ofile, "%d\n", module_help_flag[x]);
-    gzprintf(ofile, "%d\n", 0); /* dummy values */
-
-    gzprintf(ofile, "%d\n", 0); /* backward compatibility */
-
-    if (strlen(given_scene) > 1)
-        gzprintf(ofile, "%s\n", given_scene);
-    else
-        gzprintf(ofile, "dummy\n");     /* 1 */
-
-    gzprintf(ofile, "%d\n", highest_tech_level);        /* 2 */
-
-    gzprintf(ofile, "sust %d %d %d %d %d %d %d %d %d %d\n", sust_dig_ore_coal_count, sust_port_count, sust_old_money_count, sust_old_population_count, sust_old_tech_count, sust_fire_count, sust_old_money, sust_old_population, sust_old_tech, sustain_flag); /* 3 */
-
-    if (ldsv_version == WATERWELL_V2) {
-        gzprintf(ofile, "arid %d %d\n", global_aridity, global_mountainity);
-#ifdef DEBUG
-        fprintf(stderr," arid %d, mountain %d \n", global_aridity, global_mountainity);
-#endif
-        for (x = 0; x < WORLD_SIDE_LEN; x++) {
-            for (y = 0; y < WORLD_SIDE_LEN; y++) {
-                gzprintf(ofile,"%d %d %d %d %d %d %d %d %d %d %d %d\n"
-                        , ground[x][y].altitude
-                        , ground[x][y].ecotable
-                        , ground[x][y].wastes
-                        , ground[x][y].pollution
-                        , ground[x][y].water_alt
-                        , ground[x][y].water_pol
-                        , ground[x][y].water_wast
-                        , ground[x][y].water_next
-                        , ground[x][y].int1
-                        , ground[x][y].int2
-                        , ground[x][y].int3
-                        , ground[x][y].int4
-                        );
-#ifdef DEBUG
-                if (x == 10 && y == 10)
-                    fprintf(stderr," alt %d, int4 %d \n", ground[x][y].altitude, ground[x][y].int4);
-#endif
-            }
-        }
-    } else {
-        gzprintf(ofile, "dummy\n");     /* 4 */
-    }
-    gzprintf(ofile, "dummy\n"); /* 5 */
-
-    gzprintf(ofile, "dummy\n"); /* 6 */
-
-    gzprintf(ofile, "dummy\n"); /* 7 */
-
-    gzprintf(ofile, "dummy\n"); /* 8 */
-
-    gzprintf(ofile, "dummy\n"); /* 9 */
-
-    gzprintf(ofile, "dummy\n"); /* 10 */
-
-    gzclose(ofile);
-    prog_box("", 100);
-}
-
-void save_city(char *cname)
-{
-    char *s;
-    int l;
-
-    if ((l = strlen(cname)) < 2)
-        return;
-    if ((s = (char *)malloc(lc_save_dir_len + l + 16)) == 0)
-        malloc_failure();
-
-    sprintf(s, "%s%c%s", lc_save_dir, PATH_SLASH, cname);
-
-    //save_city_raw(s);
-    save_city_2(s);
-    free(s);
-}
-
-void load_city(char *cname)
+void load_city_old(char *cname)
 {
     unsigned long q;
     int i, x, y, n, p;
@@ -362,8 +118,9 @@ void load_city(char *cname)
     int dummy;
     gzFile gzfile;
     char s[256];
-    int need_upgrade=true;
 
+    fprintf(stderr, "old file format, so i will backup, then load with old function, and then convert to new format\n");
+ 
     gzfile = gzopen(cname, "rb");
     if (gzfile == NULL) {
         printf(_("Can't open <%s> (gzipped)"), cname);
@@ -380,23 +137,14 @@ void load_city(char *cname)
     /* Add version to shared global variables for playing/saving games without waterwell */
     sscanf(gzgets(gzfile, s, 256), "%d", &ldsv_version);
     if (ldsv_version < MIN_LOAD_VERSION) {
-        ok_dial_box("too-old.mes", BAD, 0L);
+        //ok_dial_box("too-old.mes", BAD, 0L);  // FIXME: AL1 screen is not set, so ok_dial_box fails
+                                                //        => we have an error message, but not the good one ;-)
+        fprintf(stderr, "Too old file format, cannot load it, sorry\n");
         gzclose(gzfile);
         return;
     }
 
     fprintf(stderr, " ldsv_version = %i \n", ldsv_version);
-    /*if (ldsv_version < MIN_WATERWELL_VERSION) {
-        use_waterwell = false;
-    } else {
-        use_waterwell = true;
-        // needed until it is written in the saved file
-        // in case of load after having played an old game
-        if (ldsv_version >= WATERWELL_V2)
-            need_upgrade = false;
-    }*/
-    if (ldsv_version >= WATERWELL_V2)
-            need_upgrade = false;
     use_waterwell = true;
 
     init_pbars();
@@ -735,23 +483,9 @@ void load_city(char *cname)
                                  * FIXME: move all initialisation elsewhere, in 
                                  *    engine.cpp or simulate.cpp.
                                  */
-    if (need_upgrade)
-        upgrade_to_v2();
+    upgrade_to_v2();
 
 }
-
-/*
-void load_saved_city(char *s)
-{
-    char *cname = (char *)malloc(strlen(lc_save_dir) + strlen(s) + 2);
-    sprintf(cname, "%s%c%s", lc_save_dir, PATH_SLASH, s);
-    if (false) 
-        load_city(cname);
-    else
-        load_city_2(cname);
-    free(cname);
-}
-*/
 
 void reset_animation_times(void)
 {
@@ -763,62 +497,6 @@ void reset_animation_times(void)
             if (MP_GROUP(x, y) == GROUP_FIRE)
                 MP_INFO(x, y).int_3 = 0;
         }
-
-         /*   if (MP_GROUP_IS_RESIDENCE(x, y))
-                MP_INFO(x, y).int_3 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_WINDMILL)
-                MP_INFO(x, y).int_4 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_BLACKSMITH)
-                MP_INFO(x, y).int_4 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_MILL)
-                MP_INFO(x, y).int_4 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_POTTERY)
-                MP_INFO(x, y).int_4 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_CRICKET)
-                MP_INFO(x, y).int_4 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_FIRESTATION)
-                MP_INFO(x, y).int_4 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_FIRE) {
-                MP_INFO(x, y).int_1 = 0;//
-                MP_INFO(x, y).int_3 = 0;
-            } else if (MP_GROUP(x, y) == GROUP_COMMUNE)
-                MP_INFO(x, y).int_1 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_ROCKET)
-                MP_INFO(x, y).int_5 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_INDUSTRY_H)
-                MP_INFO(x, y).int_6 = 0;//
-            else if (MP_GROUP(x, y) == GROUP_INDUSTRY_L)
-                MP_INFO(x, y).int_7 = 0;//
-        }*/
-}
-
-/* Returns 1 if the city is proper version *//* FIXME: AL1 unused in NG 1.1 */
-int verify_city(char *cname)
-{
-    gzFile fp;
-    char *s;
-    char str[256];
-    int v;
-
-    if (strlen(cname) == 0) {
-        return 0;
-    }
-    if ((s = (char *)malloc(lc_save_dir_len + strlen(cname) + 2)) == 0)
-        malloc_failure();
-    sprintf(s, "%s%c%s", lc_save_dir, PATH_SLASH, cname);
-    if (!file_exists(s)) {
-        free(s);
-        return 0;
-    }
-    fp = gzopen(s, "r");
-    if (fp == NULL) {
-        v = 0;
-    } else if (1 != sscanf(gzgets(fp, str, 256), "%d", &v)) {
-        v = 0;
-    }
-    gzclose(fp);
-    free(s);
-    return v == VERSION_INT;
 }
 
 void check_endian(void)
@@ -881,4 +559,97 @@ void eswap16(unsigned short *i)
     c2 = *(cs + 1);
     *(cs++) = c2;
     *cs = c1;
+}
+
+void upgrade_to_v2 (void)
+{
+    // Follow order and logic of new_city
+    int x,y;
+    int alt0 = 0;
+    int mount;
+    int c;
+#define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
+
+    global_mountainity= 10 + rand () % 300;
+    mount = global_mountainity;
+
+    // Grey border (not visible on the map, x = 0 , x = 99, y = 0, y = 99) 
+    for (x = 0; x < WORLD_SIDE_LEN; x++)
+        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+            ALT(x,y) = 0;
+            if ( !GROUP_IS_BARE(MP_GROUP(x, y)) ) {
+                /* be nice, put water under all existing builings / farms / parks ... */
+                /* This may change according to global_aridity and distance_to_river */
+                MP_INFO(x,y).flags |= FLAG_HAS_UNDERGROUND_WATER;
+            }
+        }
+
+    /* Let 10 years in game time to put waterwells where needed, then starvation will occur */
+    deadline=total_time + 1200 * 10;
+    flag_warning = true; // warn player.
+
+    /* Upgrade ground[x][y].water_alt and .altitude */
+    /* choose this order for rivers and beach scenario 
+     *  = say the lowest part of the map is South-east
+     *    and the sea may have a slope :-) 
+     *     (strictly speaking this is true, but at much smaller order of magnitude */
+
+    /* River mouth is on south of the map */
+    y = WORLD_SIDE_LEN -2;
+    for (x = WORLD_SIDE_LEN - 1; x >=0; x--)
+        if ( IS_RIVER(x,y) )
+            ALT(x,y) = 1;
+
+    alt0 = 1;
+    #define max(X, Y) (X>Y?X:Y)
+    #define min(X, Y) (X>Y?Y:X)
+    for (y = WORLD_SIDE_LEN - 2; y >= 0; y--) {
+        for (x = WORLD_SIDE_LEN - 1; x >= 0; x--) {
+            if ( IS_RIVER(x,y) ) {
+                // attempt to find large area of water = lake or sea => slope = 0
+                c = 0;
+                int alt=0;
+                if (x < WORLD_SIDE_LEN - 2)  {
+                    if IS_RIVER(x + 1, y + 1) {
+                        c++;
+                        alt = max (alt, ALT(x+1, y+1));
+                    }
+                    if IS_RIVER(x + 1, y ) {
+                        c++;
+                        alt = max (alt, ALT(x+1, y));
+                    }
+                }
+                if IS_RIVER(x , y +1 ) {
+                    c++;
+                    alt = max (alt, ALT(x, y+1));
+                }
+                if (x > 1) {
+                    if IS_RIVER(x - 1, y+1 ) {
+                        c++;
+                        alt = max (alt, ALT(x-1, y+1));
+                    }
+                    if IS_RIVER(x - 1, y ) {
+                        c++;
+                        alt = max (alt, ALT(x-1, y));
+                    }
+                }
+                if (c == 0) {
+                    fprintf(stderr," Warning (not important): In upgrade_to_v2, c = 0, x = %d, y =%d\n", x, y);
+                    continue;
+                }
+                if (c <= 2) {
+                    alt0 = alt + rand() % ( 2 + mount / 100 );
+                    alt += rand() % ( 2 + mount / 100 );
+                    ALT(x,y) = max(alt, alt0);
+                    //fprintf(stderr, " x %d, y %d, alt %d, alt0 %d , c=%d \n", x, y, alt, alt0, c);
+                } else {
+                    //fprintf(stderr, " x %d, y %d, alt %d, alt0 %d\n", x, y, alt, alt0);
+                    ALT(x,y) = alt;
+                }
+            }
+        }
+        alt0 ++; // minimum slope toward south
+    }
+
+    setup_land();
 }
