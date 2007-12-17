@@ -97,7 +97,6 @@ extern void prog_box(const char *, int);
 
 extern void print_total_money(void);
 extern int count_groups(int);
-extern void upgrade_to_v2(void);
 
 /* ---------------------------------------------------------------------- *
  * Public functions

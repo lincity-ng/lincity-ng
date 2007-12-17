@@ -763,7 +763,7 @@ void setup_ground(void)
 void setup_land(void)
 {
     int x, y, xw, yw;
-    int aridity = rand() % 400 - 150;
+    int aridity = rand() % 450 - 150;
 
     global_aridity = aridity;
     
