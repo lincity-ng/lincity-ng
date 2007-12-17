@@ -1,10 +1,11 @@
 /* ---------------------------------------------------------------------- *
- * ldsvguts.c
+ * old_ldsvguts.c
  * This file is part of lincity-ng.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-/* this is for saving */
+/* This file is for loading old games (before NG 1.91) 
+ * and convert them to new format + data structure
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -76,7 +77,7 @@
 #include "gui_interface/pbar_interface.h"
 #include "lincity-ng/ErrorInterface.hpp"
 #include "stats.h"
-#include "ldsvguts.h"
+#include "old_ldsvguts.h"
 #include "loadsave.h"
 #include "simulate.h"
 #include "engine.h"

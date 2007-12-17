@@ -32,7 +32,6 @@
 #include "gui_interface/shared_globals.h"
 #include "lctypes.h"
 #include "lin-city.h"
-#include "ldsvguts.h"
 #include "engglobs.h"
 #include "gui_interface/screen_interface.h"
 #include "power.h"
