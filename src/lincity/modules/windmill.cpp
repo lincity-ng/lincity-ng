@@ -29,6 +29,7 @@ void do_windmill(int x, int y)
         MP_INFO(x, y).int_5 = MP_INFO(x, y).int_1;
         grid[MP_INFO(x, y).int_6]->avail_power += MP_INFO(x, y).int_1;
     } else {
+        MP_INFO(x,y).int_5 = 0;
         MP_ANIM(x, y) = real_time + MODERN_WINDMILL_ANIM_SPEED;
         return;
     }

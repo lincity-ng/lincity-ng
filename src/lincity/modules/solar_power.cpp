@@ -23,7 +23,7 @@
   MP_TECH(x,y) is the tech level when it was built.
 */
 
-void do_power_source(int x, int y)
+void do_power_source_solar(int x, int y)
 {
 
     if (get_jobs(x, y, SOLAR_POWER_JOBS)) {
@@ -44,7 +44,7 @@ void mps_solar_power(int x, int y)
     mps_store_title(i++, _("Power Station"));
     i++;
 
-    format_power(s, sizeof(s), MP_INFO(x, y).int_3);
+    format_power(s, sizeof(s), MP_INFO(x, y).int_1);
     mps_store_title(i++, _("Max Output"));
     mps_store_title(i++, s);
     i++;

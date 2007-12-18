@@ -455,8 +455,25 @@ void load_city_old(char *cname)
                 break;
 
             case (GROUP_SOLAR_POWER):
-                MP_TECH(x,y) = MP_INFO(x,y).int_2;
-                MP_INFO(x, y).int_3 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_TECH(x, y) * POWERS_SOLAR_OUTPUT)
+                if ( MP_INFO(x,y).int_2 !=0 ) {
+                    MP_TECH(x,y) = MP_INFO(x,y).int_2;
+                } else {
+                    float PSO = POWERS_SOLAR_OUTPUT;
+                    float MT = MAX_TECH_LEVEL;
+                    //because of bug introduced then fixed near 1207 1218 or in waterwell branch
+                    if (MP_INFO(x,y).int_1 != 0) {
+                        MP_TECH(x,y) = (int) ((MP_INFO(x,y).int_1 - PSO) * MT)/PSO;
+                    } else if (MP_INFO(x,y).int_3 != 0) {
+                        MP_TECH(x,y) = (int) ((MP_INFO(x,y).int_3 - PSO) * MT)/PSO;
+                    } else {
+                        fprintf(stderr," Error, unknown tech level for solar plant at x=%d, y=%d\n", x, y);
+                        if (tk > GROUP_SOLAR_POWER_TECH)
+                            MP_TECH(x,y) = tk;
+                        else
+                            MP_TECH(x,y) = GROUP_SOLAR_POWER_TECH;
+                    }
+                }
+                MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_TECH(x, y) * POWERS_SOLAR_OUTPUT)
                                                                    / MAX_TECH_LEVEL));
             case GROUP_ORGANIC_FARM:
                 MP_TECH(x,y) = MP_INFO(x,y).int_1;

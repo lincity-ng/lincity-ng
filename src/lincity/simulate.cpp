@@ -417,7 +417,7 @@ static void simulate_mappoints(void)
                 do_power_line(x, y);
                 break;
             case GROUP_SOLAR_POWER:
-                do_power_source(x, y);
+                do_power_source_solar(x, y);
                 break;
             case GROUP_SUBSTATION:
                 do_power_substation(x, y);

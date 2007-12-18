@@ -3,7 +3,7 @@
  * This file is part of lincity-ng
  * ---------------------------------------------------------------------- */
 
-/* This is the OLD saving facility, before lincity-NG 1.91 */
+/* This is the OLD facility, before lincity-NG 1.91 */
 /* Used for reading old games and convert them to new format + data structure */
 
 #ifndef __old_ldsvguts_h__
