@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Wohngebiete</p>
-	<p style="hp">Hier wohnt die Bevölkerung. Um die Leute dazu zu bringen, sich
-    in dieser Gegend niederzulassen müssen sie mit Nahrung versorgt werden.
-    Es hilft auch, ihnen Arbeitsplätze und Waren zur Verfügung zu stellen.
-    Wohngebiete müssen dazu im Bereich eines Marktes liegen, oder mit einem
-    Transportweg verbunden sein. Es gibt drei verschiedene Arten von Wohngebieten:
-    welche mit geringer, mittlerer und hoher Siedlungsdichte. Jede Art hat
-    eine Unterschiedliche Geburten- und Sterberate. Dadurch können sie das
-    Wachstum Ihrer Bevölkerung beeinflussen.</p>
+    <p style="hp">Hier wohnt die Bevölkerung. Um die Leute dazu
+    zu bringen, sich in dieser Gegend niederzulassen müssen
+    sie mit Nahrung und Wasser versorgt werden.  Es hilft auch,
+    ihnen Arbeitsplätze und Waren zur Verfügung zu stellen.
+    Wohngebiete müssen dazu im Bereich eines Marktes liegen,
+    oder mit einem Transportweg verbunden sein. Auch müssen sie
+    im Bereich eines Brunnens liegen. Es gibt drei verschiedene
+    Arten von Wohngebieten: welche mit geringer, mittlerer und
+    hoher Siedlungsdichte. Jede Art hat eine Unterschiedliche
+    Geburten- und Sterberate. Dadurch können sie das Wachstum Ihrer
+    Bevölkerung beeinflussen.</p>
 	<p style="hp">Später im Spiel, sobald sie das erforderliche Technologieniveau
     erreicht haben, können Sie auch moderner Gebäude bauen, bis hin zu Hochhäusern.</p>
 
@@ -32,6 +35,8 @@
 	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
 
 	<p style="hsubtitle">Siehe auch:</p>
+	<li><a href="waterwell">Brunnen</a></li>
 	<li><a href="market">Markt</a></li>
+	<li><a href="transport">Transport</a></li>
 </Document>
 

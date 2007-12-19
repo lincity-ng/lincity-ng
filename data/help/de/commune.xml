@@ -5,6 +5,7 @@
 	<p style="hp">Sie werden wahrscheinlich "ein paar" Köhlereien brauchen um genug Kohle und Stahl für z.B. Töpfereien, Schmieden und Spinnereien zu produzieren.</p>
 	<p style="hp">Falls eine Köhlerei für 10 Jahre nichts mehr Produziert, wird sie geschlossen und sie verwandelt sich in einen Park.</p>
 	<p style="hp">Köhlereien können an jeder Stelle mit dem Verkehr verbunden werden, nicht nur am Tor!</p>
+	<p style="hp">Die Produktion der Köhlerei hängt vom Grundwasser ab. Felder mit Grundwasser sind grün, die anderen gelb-braun wie die Wüste.</p>
 	
 	<p style="hp">Dies ist eine Köhlerei</p>
 	<img src="images/tiles/commune1.png" halign="center"/>

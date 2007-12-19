@@ -5,6 +5,7 @@
 In Ihrem neuen Dorf gibt es bereits die grundlegenden Elemente: </p>
 <li>Bauernhöfe, die die Märkte mit Nahrung beliefern </li>
 <li>Köhlereien, die Holzkohle sowie geringe Mengen Erz und Stahl erzeugen </li>
+<li>Einen Brunnen um die Leute mit Wasser zu versorgen</li>
 <li>Wohngebiete</li>
 <li>eine Töpferei, die Waren produziert</li>
 <li>Wege</li>
@@ -52,7 +53,7 @@ im (see <a href="tutorial-scenario">"bad_times" Szenario </a>. </p>
 <p style="hsubtitle">Stadtentwicklung </p>
 
 <p style="hp">Nicht vergessen, daß die Leute ohne Nahrung
-verhungern. Um das Bevölkerungswachstum zu regulieren müssen
+verhungern und ohne Wasser Verdursten. Um das Bevölkerungswachstum zu regulieren müssen
 sie ein Gleichgewicht aus den verschiedenen Arten von <a
 href="residential"> Wohngebieten </a> bauen. Diese haben
 verschiedene Geburten- und Sterberaten. Neu Bürger stellen mehr

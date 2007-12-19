@@ -9,6 +9,8 @@
 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
 	
 	<p style="hp">Bauernhöfe brauchen Arbeitsplätze um mehr als nur eine minimale Menge an Essen zu produzieren. Die Bauernhöfe mit Energie zu versorgen steigert die Produktion ebenfallsp. Energie beinhaltet auch "altmodische" Windmühlen, die helfen mehr Essen zu Produzieren und dabei keine Verschmutzung verursacht.</p>
+	<p style="hp">Die landwirtschaftliche Produktion hängt vom Grundwasser ab, 
+    Felder mit Grundwasser sind grün, andere gelbbraun wie die Wüste.</p>
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="market">Markt</a></li>
 	<li><a href="tech-level">Tech-Level</a></li>

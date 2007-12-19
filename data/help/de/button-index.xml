@@ -18,6 +18,9 @@
 	<img src="images/gui/buttonpanel/residence/residence.png"/>
 	<p><a href="residential">Wohngebiet</a></p>
 
+    <img src="images/gui/buttonpanel/waterwell.png"/>
+    <p><a href="waterwell">Brunnen</a></p>
+
 	<!--<p style="subtitle">Bauernhöfe</p>-->
 	<img src="images/gui/buttonpanel/parks/farm.png"/>
 	<p><a href="farm">Bauernhof</a></p>
