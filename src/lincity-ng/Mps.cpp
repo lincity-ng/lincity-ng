@@ -257,7 +257,7 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Water" );
             break;
         case GROUP_WINDMILL:
-            if( MP_INFO(mps_x, mps_y ).int_2 < MODERN_WINDMILL_TECH ){ 
+            if( MP_TECH(mps_x, mps_y ) < MODERN_WINDMILL_TECH ){ 
                 getSound()->playSound( "WindMill" );
             } else {
                 getSound()->playSound( "WindMillHTech" );

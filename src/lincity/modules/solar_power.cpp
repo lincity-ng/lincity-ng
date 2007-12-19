@@ -54,6 +54,6 @@ void mps_solar_power(int x, int y)
     mps_store_title(i++, s);
     i++;
 
-    mps_store_sfp(i++, _("Tech"), MP_INFO(x, y).int_2 * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, _("Tech"), ( MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL ) );
     mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
 }

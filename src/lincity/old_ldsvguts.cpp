@@ -437,7 +437,7 @@ void load_city_old(char *cname)
     if (tech_level >= tk)
         tk = tech_level;
 
-    /* update tech dep for compatibility with old games */
+    /* update tech dep */
     for (x = 0; x < WORLD_SIDE_LEN; x++)
         for (y = 0; y < WORLD_SIDE_LEN; y++) {
 
@@ -455,26 +455,32 @@ void load_city_old(char *cname)
                 break;
 
             case (GROUP_SOLAR_POWER):
-                if ( MP_INFO(x,y).int_2 !=0 ) {
-                    MP_TECH(x,y) = MP_INFO(x,y).int_2;
-                } else {
+                {
                     float PSO = POWERS_SOLAR_OUTPUT;
                     float MT = MAX_TECH_LEVEL;
+                    int t1, t2 , t3;
+                        t1 = (int) ((MP_INFO(x,y).int_1 - PSO) * MT)/PSO;
+                        t2 = MP_INFO(x,y).int_2;
+                        t3 = (int) ((MP_INFO(x,y).int_3 - PSO) * MT)/PSO;
                     //because of bug introduced then fixed near 1207 1218 or in waterwell branch
-                    if (MP_INFO(x,y).int_1 != 0) {
-                        MP_TECH(x,y) = (int) ((MP_INFO(x,y).int_1 - PSO) * MT)/PSO;
-                    } else if (MP_INFO(x,y).int_3 != 0) {
-                        MP_TECH(x,y) = (int) ((MP_INFO(x,y).int_3 - PSO) * MT)/PSO;
+                    if (MP_INFO(x,y).int_2 != 0) {
+                        MP_TECH(x,y) = t2;
+                    } else if ( MP_INFO(x,y).int_3 >=0 ) {
+                        MP_TECH(x,y) = t3;
+                    } else if (MP_INFO(x,y).int_1 != 0) {
+                        MP_TECH(x,y) = t1;
                     } else {
-                        fprintf(stderr," Error, unknown tech level for solar plant at x=%d, y=%d\n", x, y);
+                        fprintf(stderr,"    Error, unknown tech level for solar plant at x=%d, y=%d\n", x, y);
                         if (tk > GROUP_SOLAR_POWER_TECH)
                             MP_TECH(x,y) = tk;
                         else
                             MP_TECH(x,y) = GROUP_SOLAR_POWER_TECH;
                     }
+                    //fprintf(stderr,"TECH %d, t1 %d, t2 %d, t3 %d, plant at x=%d, y=%d\n", MP_TECH(x,y), t1, t2, t3, x, y);
+                    MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_TECH(x, y) * POWERS_SOLAR_OUTPUT)
+                                / MAX_TECH_LEVEL));
+                    break;
                 }
-                MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_TECH(x, y) * POWERS_SOLAR_OUTPUT)
-                                                                   / MAX_TECH_LEVEL));
             case GROUP_ORGANIC_FARM:
                 MP_TECH(x,y) = MP_INFO(x,y).int_1;
                 break;

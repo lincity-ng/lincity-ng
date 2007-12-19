@@ -53,7 +53,8 @@ void power_time_step();
 #define IS_OLD_WINDMILL(x,y) \
 ((MP_GROUP(x,y) == GROUP_WINDMILL) && \
  (MP_TYPE(x,y) != CST_USED) && \
- (MP_INFO(x,y).int_2 < MODERN_WINDMILL_TECH))
+ (MP_TECH(x,y) < MODERN_WINDMILL_TECH))
+// (MP_INFO(x,y).int_2 < MODERN_WINDMILL_TECH))
 
 #define GRID_CURRENT(x,y) (MP_INFO(x,y).int_7 == grid_inc)
 
