@@ -180,8 +180,12 @@ void initPhysfs(const char* argv0)
     PHYSFS_permitSymbolicLinks(1);
 
     //show search Path 
-    for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++)
+    for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++){
         printf("[%s] is in the search path.\n", *i);
+    }
+    //show write directory
+    printf("[%s] is the write directory.\n", PHYSFS_getWriteDir());
+
 
     // ugly: set LINCITY_HOME environment variable
     const char* lincityhome = PHYSFS_getRealDir("colour.pal");
@@ -190,8 +194,7 @@ void initPhysfs(const char* argv0)
     }
     std::cout << "LINCITY_HOME: " << lincityhome << "\n";
     char tmp[256];
-    snprintf(tmp, sizeof(tmp), "LINCITY_HOME=%s", lincityhome);
-    putenv(tmp);
+    setenv("LINCITY_HOME", lincityhome, 1);
 }
 
 void initVideo(int width, int height)
