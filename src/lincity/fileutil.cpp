@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdarg.h>             /* XXX: GCS FIX: What does configure need to know? */
 #include <string.h>
+#include <physfs.h>
 #include "engglobs.h"
 #include "gui_interface/screen_interface.h"
 #include "tinygettext/gettext.hpp"
@@ -407,17 +408,9 @@ void find_localized_paths(void)
 
 void init_path_strings(void)
 {
-    char *homedir = NULL;
-
     find_libdir();
-
-#if defined (WIN32)
-    homedir = LIBDIR;
-#elif defined (__EMX__)
-    homedir = getenv("HOME");
-#else
-    homedir = getenv("HOME");
-#endif
+    //TODO: use, remove unused vars.
+    const char* homedir = PHYSFS_getUserDir();
 
     /* Various dirs and files */
     lc_save_dir_len = strlen(homedir) + strlen(LC_SAVE_DIR) + 1;
@@ -439,14 +432,6 @@ void init_path_strings(void)
 
     /* Font stuff */
     sprintf(fontfile, "%s%c%s", opening_path, PATH_SLASH, "iso8859-1-8x8.raw");
-#if defined (WIN32)
-    /* GCS: Use windows font for extra speed */
-    strcpy(windowsfontfile, LIBDIR);
-    if (!pix_double)
-        strcat(windowsfontfile, "\\opening\\winfont_8x8.fnt");
-    else
-        strcat(windowsfontfile, "\\opening\\winfont_16x16.fnt");
-#endif
 
     /* Temp file for results */
     lc_temp_filename = (char *)malloc(lc_save_dir_len + 16);

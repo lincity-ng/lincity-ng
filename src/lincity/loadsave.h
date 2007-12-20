@@ -16,13 +16,9 @@
 #   define PATH_SLASH_STRING "/"
 #endif
 
-#if defined (WIN32)
-#    define LC_SAVE_DIR "SAVED_GAMES"
-#    define LINCITYRC_FILENAME "lincity-NG.ini"
-#else
-#    define LC_SAVE_DIR ".lincity-ng"
-#    define LINCITYRC_FILENAME ".lincity-NGrc"
-#endif
+# define LC_SAVE_DIR ".lincity-ng"
+# define LINCITYRC_FILENAME ".lincity-NGrc"
+
 #define RESULTS_FILENAME "results"
 
 

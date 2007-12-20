@@ -21,10 +21,6 @@ int main_screen_originx, main_screen_originy;
 
 int pix_double = 0;
 
-#if defined (WIN32)
-char windowsfontfile[LC_PATH_MAX];
-#endif
-
 int cheat_flag;
 int modern_windmill_flag = 0;
 

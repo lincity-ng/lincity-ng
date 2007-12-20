@@ -193,8 +193,13 @@ void initPhysfs(const char* argv0)
         throw std::runtime_error("Couldn't locate lincity data (colour.pal).");
     }
     std::cout << "LINCITY_HOME: " << lincityhome << "\n";
-    char tmp[256];
+#ifndef WIN32
     setenv("LINCITY_HOME", lincityhome, 1);
+#else
+    char tmp[256];
+    snprintf( tmp, 256, "LINCITY_HOME=%s", lincityhome ); 
+    putenv( tmp );
+#endif    
 }
 
 void initVideo(int width, int height)

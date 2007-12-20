@@ -12,13 +12,6 @@
 
 extern int pix_double;
 
-// extern char graphic_path[256];
-
-#if defined (WIN32)
-extern char windowsfontfile[256];
-#endif
-
-
 /* */
 extern int use_waterwell, ldsv_version;
 
