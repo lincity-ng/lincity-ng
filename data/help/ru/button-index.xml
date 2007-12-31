@@ -13,6 +13,10 @@
 	<!--<p style="subtitle">Резиденции</p>-->
 	<img src="images/gui/buttonpanel/residence/residence.png"/>
 	<p><a href="residential">Резидентная постройка</a></p>
+	
+	<!--<p style="subtitle">Water well</p>-->
+	<img src="images/gui/buttonpanel/waterwell.png"/>
+	<p><a href="waterwell">Водяная мельница</a></p>
 
 	<!--<p style="subtitle">Парки</p>-->
 	<img src="images/gui/buttonpanel/parks/farm.png"/>
