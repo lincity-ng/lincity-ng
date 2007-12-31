@@ -641,7 +641,7 @@ msgstr "Больница "
 
 #: src/lincity/modules/waterwell.cpp:56 src/lincity/modules/waterwell.cpp:44
 msgid "Water_well"
-msgstr ""
+msgstr "Водяная мельница"
 
 #: src/lincity/modules/residence.cpp:288 src/lincity/modules/waterwell.cpp:47
 #: src/lincity-ng/MpsInterface.cpp:391
