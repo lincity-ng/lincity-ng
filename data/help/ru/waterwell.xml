@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Водяная мельница</p>
-        <p style="hp">Снобжает водой дома в своей зоне действия. Lack of water will have the same consequences as lack of food. Informations is shown in starvation overlay/minimap.</p>
+	<p style="hp">Снабжает водой дома в своей зоне действия. Недосаток воды в последсвии приводит к недостатку еды. Информация о голодании можно увидеть на миникарте.</p>
 
 	<p style="hp">См ещё:</p>
 	<li><a href="food">Еда</a></li>
