@@ -1042,9 +1042,17 @@ static void random_start(int *originx, int *originy)
             + FLAG_MS_JOBS + FLAG_MB_COAL + FLAG_MS_COAL + FLAG_MB_ORE
             + FLAG_MS_ORE + FLAG_MB_GOODS + FLAG_MS_GOODS + FLAG_MB_STEEL + FLAG_MS_STEEL);
 
-    for (x = 5; x < 19; x++) {
+    for (x = 2; x < 23; x++) {
         set_mappoint(xx + x, yy + 11, CST_TRACK_LR);
         MP_INFO(xx + x, yy + 11).flags |= FLAG_IS_TRANSPORT;
+    }
+    for (y = 2; y < 11; y++) {
+        set_mappoint(xx + 13, yy + y, CST_TRACK_LR);
+        MP_INFO(xx + 13, yy + y).flags |= FLAG_IS_TRANSPORT;
+    }
+    for (y = 12; y < 23; y++) {
+        set_mappoint(xx + 15, yy + y, CST_TRACK_LR);
+        MP_INFO(xx + 15, yy + y).flags |= FLAG_IS_TRANSPORT;
     }
     set_mappoint(xx + 6, yy + 12, CST_COMMUNE_1);
     set_mappoint(xx + 6, yy + 17, CST_COMMUNE_1);
