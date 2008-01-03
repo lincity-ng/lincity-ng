@@ -120,8 +120,10 @@ void load_city_old(char *cname)
     gzFile gzfile;
     char s[256];
 
-    fprintf(stderr, "old file format, so i will backup, then load with old function, and then convert to new format\n");
- 
+#ifdef DEBUG
+    fprintf(stderr, "old file format, so load with old function, and then convert to new format\n");
+#endif
+
     gzfile = gzopen(cname, "rb");
     if (gzfile == NULL) {
         printf(_("Can't open <%s> (gzipped)"), cname);

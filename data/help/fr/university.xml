@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Université</p>
-	<p style="hp">Les université contribuent a augmenter le niveau technologique. Pour cela elles consomment <b>beaucoup</b> de biens et d'emplois, et coutent de l'argent. Cependant elles produisent davantage de technologie que des plusieurs écoles qui consommeraient les mêmes ressources.</p>
+	<p style="hp">Les universités contribuent a augmenter le niveau technologique. Pour cela elles consomment <b>beaucoup</b> de biens et d'emplois, et coutent de l'argent. Cependant elles produisent davantage de technologie que des plusieurs écoles qui consommeraient les mêmes ressources.</p>
 	<p style="hp">Vous aurez besoin de plusieurs universités pour atteindre un niveau technologique proche de 100%</p>
 	<p style="hp">Les Université n'ont pas besoin d'être connectées aux transport tant que les marchés locaux peuvent leur fournir les ressources nécessaires (biens et emplois).</p>
 
 	<p style="hsubtitle">NOTE</p>
-	<p style="hp">Vous <b>devez</b> avoir 5 écoles pour chaque université construite, afin d'avoir le nombre d'étudiants suffisant.</p>
+	<p style="hp">Vous <b>devez</b> avoir au moins 5 écoles pour chaque université construite, afin d'avoir le nombre d'étudiants suffisant.</p>
 
 	<p style="hp">Ceci est une Université</p>
 	<img src="images/tiles/university.png" halign="center"/>
