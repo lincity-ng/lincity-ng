@@ -175,7 +175,7 @@ int is_allowed_here(int x, int y, short type, short msg)
                         ok_dial_box("warning.mes", BAD, _("You can't build a tip here: this area was once a landfill"));
                     return false;
                 }
-
+	    break;
     //Oremine
     /* Don't allow new mines on old mines or old tips */
     /* GCS: mines over old mines is OK if there is enough remaining 
@@ -202,7 +202,8 @@ int is_allowed_here(int x, int y, short type, short msg)
                 return false; // not enought ore
             }
         }
-
+	break;
+	
     //Parkland
     case GROUP_PARKLAND:
         if (!HAS_UGWATER(x, y)) {
