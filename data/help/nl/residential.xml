@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Woonwijk</p>
-	<p style="hp">Hier wonen de mensen. Om mensen aan te moedigen in een woonwijk te wonen, moeten ze eten krijgen. Het helpt ook om ze werk te geven en dat ze goederen kunnen kopen. Een woonwijk moet in de buurt van een markt liggen of aan een verkeersweg liggen. Er zijn 3 verschillende soorten huizen, met weinig, gemiddeld en veel inwoners. Ze hebben verschillende hoeveelheden geboortes en sterfte-cijfers, dit geeft een beetje controle over de bevolking.</p>
+	<p style="hp">Hier wonen de mensen. Om mensen aan te moedigen in een woonwijk te wonen, moeten ze eten krijgen (ze moeten binnen het bereik van een waterbron liggen en eten krijgen van een markt of een verkeersweg). Het helpt ook om ze werk te geven en dat ze goederen kunnen kopen. Een woonwijk moet in de buurt van een markt liggen of aan een verkeersweg liggen.</p>
+	
+	<p style="hp">Er zijn 3 verschillende soorten huizen, met weinig, gemiddeld en veel inwoners. Ze hebben verschillende hoeveelheden geboortes en sterfte-cijfers, dit geeft een beetje controle over de bevolking.</p>
 	<p style="hp">Verderop in het spel, wanneer u voldoende technologie heeft, kunt u meer 'moderne' huizen bouwen, zelfs torenflats.</p>
 
 	<p style="hp">Dit is een huis met weinig bewoners (modern)</p>
@@ -19,5 +21,7 @@
 
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="market">Markt</a></li>
+	<li><a href="transport">Verkeer</a></li>
+	<li><a href="waterwell">Water bron</a></li>
 </Document>
 

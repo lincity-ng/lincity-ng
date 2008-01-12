@@ -3,7 +3,8 @@
 	<p style="htitle">Sterftekaart</p>
 	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
 	<p style="hp">De sterftekaart kleurt alleen maar woonwijken.</p>
-	<p style="hp">Helder groen betekent dat er genoeg voedsel in deze gebieden is. Donkergroen betekent dat er een licht tekort aan voedsel in die gebieden is, helderrood betekent dat er hongersnood in die gebieden heerst.</p>
+	<p style="hp">Helder groen betekent dat er genoeg voedsel en water (binnen het bereik van een waterbron) in deze woonwijk is. In iedere woonwijk worden sterfgevallen helder rood getoond.</p>
+	<p style="hp">Het bereik van een waterbron wordt in donkerblauw getoond</p>
 	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>
 
 	<p style="hsubtitle">Lees ook:</p>

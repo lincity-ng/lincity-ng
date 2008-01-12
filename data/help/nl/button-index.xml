@@ -13,7 +13,7 @@
 	<!--<p style="subtitle">Residences</p>-->
 	<img src="images/gui/buttonpanel/residence/residence.png"/>
 	<p><a href="residence-button">Woonwijk</a></p>
-
+	
 	<!--<p style="subtitle">Parks</p>-->
 	<img src="images/gui/buttonpanel/parks/farm.png"/>
 	<p><a href="farm">Boerderij</a></p>
@@ -80,6 +80,10 @@
 	<img src="images/gui/buttonpanel/parks/water.png"/>
 	<p><a href="river">Water/Rivieren</a></p>
 
+	<!--<p style="subtitle">Water well</p>-->
+	<img src="images/gui/buttonpanel/waterwell.png"/>
+	<p><a href="waterwell">Water bron</a></p>
+	
 	<!--<p style="subtitle">Misc</p>-->
 	<img src="images/gui/buttonpanel/misc/health.png"/>
 	<p><a href="health">Ziekenhuis</a></p>

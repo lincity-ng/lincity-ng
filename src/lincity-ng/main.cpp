@@ -187,7 +187,7 @@ void initPhysfs(const char* argv0)
     printf("[%s] is the write directory.\n", PHYSFS_getWriteDir());
 
 
-    // ugly: set LINCITY_HOME environment variable
+    // ugly: set LINCITY_HOME environment variable TODO: do it without var.
     const char* lincityhome = PHYSFS_getRealDir("colour.pal");
     if(lincityhome == 0) {
         throw std::runtime_error("Couldn't locate lincity data (colour.pal).");

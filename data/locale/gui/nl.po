@@ -1,12 +1,16 @@
 # translation of nl.po to Nederlands
-#
-# Ronald Stroethoff <stroet43@zonnet.nl>, 2006, 2007.
+# Nathan Samson <nathansamson@gmail.com>,2005.
+# Bart Vanherck <bart@herckb.be>, 2006.
+# Ronald Stroethoff <stroet43@zonnet.nl>, 2006, 2007, 2008.
+# Dutch translation of lincity-ng.
+# Copyright (C) 2006 THE lincity-ng'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the lincity-ng package.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Dec  4 01:12:57 2007\n"
-"PO-Revision-Date: 2007-04-17 21:51+0200\n"
+"PO-Revision-Date: 2008-01-10 20:55+0100\n"
 "Last-Translator: Ronald Stroethoff <stroet43@zonnet.nl>\n"
 "Language-Team: Nederlands\n"
 "MIME-Version: 1.0\n"
@@ -67,8 +71,7 @@ msgstr "Een rivier verwijderen kost heel veel geld."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
-msgstr ""
-"Een krottenwijk afbreken kost heel veel geld en dit kan brand veroorzaken."
+msgstr "Een krottenwijk afbreken kost heel veel geld en dit kan brand veroorzaken."
 
 #: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Buy"
@@ -375,8 +378,7 @@ msgid "Schools available"
 msgstr "Scholen zijn beschikbaar"
 
 #: data/gui/coalmineup.xml
-msgid ""
-"See the help screen for more information on coal mines and coal surveys."
+msgid "See the help screen for more information on coal mines and coal surveys."
 msgstr ""
 "Lees de help-pagina's voor meer informatie over kolenmijnen en surveys naar "
 "kolen."
@@ -487,7 +489,7 @@ msgstr "Met een willekeurige stad beginnen."
 
 #: data/gui/minimap.xml
 msgid "Stats"
-msgstr "Statistieken"
+msgstr "Stats"
 
 #: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
 msgid "Steel"
@@ -718,13 +720,11 @@ msgstr ""
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr ""
-"Het technische nivo is bereikt waarmee spoorwegen kunnen worden gebouwd. "
+msgstr "Het technische nivo is bereikt waarmee spoorwegen kunnen worden gebouwd. "
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
-msgstr ""
-"Het technische nivo is bereikt waarmee revieren kunnen worden gebouwd. "
+msgstr "Het technische nivo is bereikt waarmee revieren kunnen worden gebouwd. "
 
 #: data/gui/roadup.xml
 msgid ""
@@ -770,12 +770,10 @@ msgstr ""
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr ""
-"Het technische nivo is bereikt waarmee windmolens kunnen worden gebouwd."
+msgstr "Het technische nivo is bereikt waarmee windmolens kunnen worden gebouwd."
 
 #: data/gui/coalmineup.xml
-msgid ""
-"You have reached the tech level which enables you to dig deep coal mines."
+msgid "You have reached the tech level which enables you to dig deep coal mines."
 msgstr ""
 "Het technische nivo is bereikt waarmee diepe kolenmijnen kunnen worden "
 "gedolven."
@@ -835,9 +833,9 @@ msgstr "[h] Hoge gebouwen verbergen."
 
 #: data/gui/minimap.xml
 msgid "[v] Cycle through MiniMap overlay modes. "
-msgstr ""
-"[v] Hiermee kan tussen de verschillende mini-kaartjes gewisseld worden."
+msgstr "[v] Hiermee kan tussen de verschillende mini-kaartjes gewisseld worden."
 
 #: data/gui/savegame.xml
 msgid "save to selected slot"
 msgstr "Opslaan in het geselecteerde slot"
+

@@ -1,18 +1,16 @@
 # translation of nl.po to Nederlands
+# Nathan Samson <nathansamson@gmail.com>,2005.
+# Bart Vanherck <bart@herckb.be>, 2006.
+# Ronald Stroethoff <stroet43@zonnet.nl>, 2006, 2007, 2008.
 # Dutch translation of lincity-ng.
 # Copyright (C) 2006 THE lincity-ng'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the lincity-ng package.
-# Nathan Samson <nathansamson@gmail.com>
-#
-#
-# Bart Vanherck <bart@herckb.be>, 2006.
-# Ronald Stroethoff <stroet43@zonnet.nl>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-04 00:29+0100\n"
-"PO-Revision-Date: 2007-04-12 23:58+0200\n"
+"PO-Revision-Date: 2008-01-10 20:55+0100\n"
 "Last-Translator: Ronald Stroethoff <stroet43@zonnet.nl>\n"
 "Language-Team: Nederlands\n"
 "MIME-Version: 1.0\n"
@@ -24,39 +22,39 @@ msgstr ""
 msgid ""
 "ERROR: group does not exist. This should not happen! Please consider filling "
 "a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr ""
+msgstr "Foutmelding: groep bestaat niet. Dit zou niet mogen gebeuren! Meldt bugs (programmeerfouten) aan het lincity-NG team, met het bewaarde spel en vermeld ook wat Uw bewerking was :-) "
 
 #: src/lincity/engine.cpp:152
 msgid "Port must be connected to river all along right side."
-msgstr ""
+msgstr "De haven moet met de hele rechterkant verbonden zijn met de rivier."
 
 #: src/lincity/engine.cpp:161 src/lincity/engine.cpp:170
 msgid "Too many substations + windmills. You cannot build one more"
-msgstr ""
+msgstr "Teveel transformatorhuisjes & windmolens. Er kunnen niet meer bijgebouwd worden"
 
 #: src/lincity/engine.cpp:200
 msgid "Too many markets. You cannot build one more"
-msgstr ""
+msgstr "Teveel markten. Er kunnen niet meer bijgebouwd worden"
 
 #: src/lincity/engine.cpp:223
 msgid "You can't build a tip here: this area was once a landfill"
-msgstr ""
+msgstr "Hier kan geen vuilstort komen: op deze plek was vroeger al een vuilnisbelt"
 
 #: src/lincity/engine.cpp:248
 msgid "You can't build a mine here: This area was once a landfill"
-msgstr ""
+msgstr "Hier kan geen mijn komen: op deze plek was vroeger een vuilnisbelt"
 
 #: src/lincity/engine.cpp:252
 msgid "You can't build a mine here: there is no ore left at this site"
-msgstr ""
+msgstr "Hier kan geen mijn komen : op deze plek is geen erts meer"
 
 #: src/lincity/engine.cpp:264
 msgid "You can't build a water well here: it is all desert."
-msgstr ""
+msgstr "Hier kan geen water bron komen: dit is een woestijn."
 
 #: src/lincity/engine.cpp:274
 msgid "You can't build a park here: it is a desert, parks need water"
-msgstr ""
+msgstr "Hier kan geen park komen: dit is een woestijn, parken hebben water nodig"
 
 #: src/lincity/engine.cpp:485
 msgid "It's at a power line."
@@ -345,28 +343,28 @@ msgstr "Woonwijk HH"
 
 #: src/lincity/lintypes.cpp:476
 msgid "Water well"
-msgstr ""
+msgstr "Water bron"
 
 #: src/lincity/lintypes.cpp:488
 msgid "Desert"
-msgstr ""
+msgstr "Woestijn"
 
 #: src/lincity/lintypes.cpp:500
 msgid "Tree"
-msgstr ""
+msgstr "Boom"
 
 #: src/lincity/lintypes.cpp:513
 msgid "Trees"
-msgstr ""
+msgstr "Bomen"
 
 #: src/lincity/lintypes.cpp:526
 msgid "Forest"
-msgstr ""
+msgstr "Bos"
 
 #: src/lincity/ldsvguts.cpp:137
 #, c-format
 msgid "Save file <%s> - "
-msgstr "Sla bestand <%s> op"
+msgstr "Bestand <%s> opslaan"
 
 #: src/lincity/ldsvguts.cpp:138
 msgid "Can't open save file!"
@@ -391,8 +389,7 @@ msgstr "Fout: Kan LINCITY_HOME niet vinden"
 
 #: src/lincity/fileutil.cpp:512
 msgid "Error verifying package. Can't find colour.pal."
-msgstr ""
-"Fout bij het controleren van het pakket. Kan het kleurenpallet niet vinden"
+msgstr "Fout bij het controleren van het pakket. Kan het kleurenpallet niet vinden"
 
 #: src/lincity/fileutil.cpp:525 src/lincity/fileutil.cpp:533
 #, c-format
@@ -409,7 +406,7 @@ msgid ""
 "Upgrading from old game. You have 10 years to build water wells where "
 "needed. After, starvation will occur!  You should check starvation minimap, "
 "and read waterwell help page :-)"
-msgstr ""
+msgstr "Een oude versie wordt omgezet naar een nieuwe versie . U heeft 10 jaar om op de plaatsen waar ze nodig zijn water bronnen te bouwen. Daarna zal sterfte plaatsvinden!  Controleer de sterfte minimap, en lees de help-pagina over water bronnen :-)"
 
 #: src/lincity/lclib.cpp:15
 msgid "Jan"
@@ -461,7 +458,7 @@ msgstr "Dec"
 
 #: src/lincity/power.cpp:102
 msgid "You have too many power grids. Join some of them"
-msgstr ""
+msgstr "Er zijn teveel electriciteitsnetwerken. Voeg enkele samen"
 
 #: src/lincity/modules/health_centre.cpp:58
 msgid "Health Centre"
@@ -697,11 +694,11 @@ msgstr "% Compleet"
 
 #: src/lincity/modules/waterwell.cpp:44
 msgid "Water_well"
-msgstr ""
+msgstr "Water_bron"
 
 #: src/lincity/modules/waterwell.cpp:51
 msgid "Drinkable"
-msgstr ""
+msgstr "Drinkbaar"
 
 #: src/lincity/modules/heavy_industry.cpp:268
 msgid "Heavy"
@@ -837,20 +834,19 @@ msgstr "Productie"
 
 #: src/lincity/modules/organic_farm.cpp:239
 msgid "Debug info"
-msgstr ""
+msgstr "Debug informatie"
 
 #: src/lincity/modules/organic_farm.cpp:240
 msgid "max with power&water"
-msgstr ""
+msgstr "max met electriciteit & water"
 
 #: src/lincity/modules/organic_farm.cpp:241
 msgid "N tiles with water"
-msgstr ""
+msgstr "N tegels met water"
 
 #: src/lincity/modules/organic_farm.cpp:242
-#, fuzzy
 msgid "Current production"
-msgstr "Huidige opbrengst"
+msgstr "Huidige produktie"
 
 #: src/lincity/modules/solar_power.cpp:46
 msgid "Solar"
@@ -942,8 +938,7 @@ msgstr ".····Windmolens·%4d·····Steenkoolenergie·%4d·····Zonneënergie·%4d"
 #: src/lincity-ng/Dialog.cpp:444
 #, c-format
 msgid ".  Substations %4d     Power lines %4d            Ports %4d"
-msgstr ""
-".··Transformatorhuisje·%4d·····Electriciteitsdraden·%4d············Havens·%4d"
+msgstr ".··Transformatorhuisje·%4d·····Electriciteitsdraden·%4d············Havens·%4d"
 
 #: src/lincity-ng/Dialog.cpp:449
 #, c-format
@@ -953,8 +948,7 @@ msgstr ".       Landwegen %4d           Wegen %4d             Treinsporen %4d"
 #: src/lincity-ng/Dialog.cpp:457
 #, c-format
 msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
-msgstr ""
-".····Pottenbakkerijen·%4d·····Smidsen·%4d············Textielfabrieken·%4d"
+msgstr ".····Pottenbakkerijen·%4d·····Smidsen·%4d············Textielfabrieken·%4d"
 
 #: src/lincity-ng/Dialog.cpp:462
 #, c-format
@@ -1279,7 +1273,7 @@ msgstr "%s·(Technisch niveau·%.1f·nodig.)"
 #: src/lincity-ng/ButtonPanel.cpp:254
 #, c-format
 msgid "%s is disabled (loaded old game)."
-msgstr ""
+msgstr "%s is uitgeschakeld (oud spel geladen)."
 
 #: src/lincity-ng/EconomyGraph.cpp:124
 msgid "Mining"
@@ -1316,3 +1310,4 @@ msgstr "Frames per seconde:"
 #: src/lincity-ng/EconomyGraph.cpp:219
 msgid "You lose."
 msgstr "U heeft verloren."
+

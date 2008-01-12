@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Water bron</p>
+        <p style="hp">Geeft water aan huizen die binnen het bereik liggen. Gebrek aan water geeft hetzelfde resultaat als gebrek aan eten. Informatie is te zien in de sterftekaart/minikaart.</p>
+
+	<p style="hp">Lees ook:</p>
+	<li><a href="food">Voedsel</a></li>
+	<li><a href="msb-starve">Sterftekaart</a></li>
+</Document>
