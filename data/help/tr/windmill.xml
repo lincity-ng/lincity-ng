@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Yeldeğirmenleri</p>
+	<p style="hp">Yeldeğirmenleri konutlar ve çiflikler için elektrik sağlar. Çifçilerin yiyecekleri daha verimli işlemelerini sağlar ve konutları daha çekici kılar.</p>
+	<p style="hp">Konutlara elektrik sağlamak insanların daha fazla eşya tüketmesine yol açar.</p>
+	<p style="hp">Düşük teknoloji Yeldeğirmenleri sanayiye elektrik <b> sağlamaz</b>. (Ağır sanayi elektriğini kömürden alabilir, hafif sanayinin ihtiyacı 'gerçek' elektrik almaktır, yine de elektriksiz az bir miktar çıktı verirler)</p>
+	<p style="hp">Yeldeğirmenlerinin elektrik üretmek için insan gücüne de ihtiyaçları vardır. Eğer bir yeldeğirmeninin yeterli işçisi yoksa, daha az elektrik üretir ve hiç işçisi yoksa hiç elektrik üretmez.</p>
+	<p style="hp">İki çeşit yeldeğirmeni vardır.</p>
+	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+	<p style="hp">İlki, düşük teknoloji 'odundan'.</p>
+	<img src="images/tiles/windmill1w.png" halign="center"/>
+	<p style="hp">İkincisi gelişmiş yeldeğirmeni.</p>
+	<img src="images/tiles/windmill1g.png" halign="center"/>
+	<p style="hp">Hangi çeşit olacağı, yeldeğirmenini yaptığındaki teknoloji seviyene bağlıdır.</p>
+	<p style="hp">Yüksek teknoloji yeldeğirmenleri elektrik hatlarını besleyebilirler.</p>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="substation">Trafo</a></li>
+	<li><a href="powerline">Elektrik hatları</a></li>
+	<li><a href="residential">Yerleşim</a></li>
+	<li><a href="tech-level">Teknoloji seviyesi</a></li>
+	<li><a href="msb-power">Elektrik örtüsü</a></li>
+	<li><a href="powerssolar">Güneşsel Elekrtik üreteci</a></li>
+</Document>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kömürden elektrik üreteci</p>
+	<p style="hp">Kömürden elektrik üreteçleri kendilerine bağlı olan elektrik hatlarına elektriği paketler halinde sağlar.</p>
+	<p style="hp">Elektrik hatları sol-üst köşelerinden bağlanır, ulaşım ise yanındaki konuma. Örneğe bakın.</p>
+	<p style="hp">Kömürün elektriğe dönüştürme verimliliği, üretecin <b> yapıldığı </b> zamandaki teknoloji seviyesiyle artar. Teknoloji seviyesi arttığında eski üreteçten kurtulmak, daha yeni ve daha verimli bir tane kullanmak isteyebilirsin.</p>
+	
+	<p style="hp">Bu bir Kömürden elektrik üreteci</p>
+	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="tech-level">Teknoloji seviyesi</a></li>
+	<li><a href="powerline">Elektrik hatları</a></li>
+	<li><a href="msb-power">Elektrik kapsama alanı</a></li>
+</Document>

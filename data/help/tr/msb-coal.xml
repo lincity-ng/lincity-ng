@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kömür örtüsü</p>
+	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">Kömür küçük ekranı, şehrinin altındaki kömür birikimini gösterir. Kömür damarları siyah bir arkaplanda beyaz gibi görünür. Bir madenin kömür çıkarması için o madeni damara yakın kurmak zorundasın.</p>
+	<p style="hp">Yer altında kömür araştırması yapmanın ilk denemende sana 1 milyona mâl olduğu bilgisi verilecek. Bu ücret sonrasındaki bilgiler ücretsiz.</p>
+	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana soltıklayın. Başka bir küçükekran görüntüsü için küçükekran üzerindeki başlığa soltıklayın. Kroki görünümüne geçmek için 'v'ye yada küçükekran başlığı üzerinde farenin orta düğmesine basın.</p>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="mini-screen">Küçükharita</a></li>
+	<li><a href="msb-cricket">Spor Kapsama alanı</a></li>
+	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>
+	<li><a href="msb-health">Sağlık kapsama alanı</a></li>
+	<li><a href="msb-normal">Normal örtü</a></li>
+	<li><a href="msb-pol">Kirlilik örtüsü</a></li>
+	<li><a href="msb-power">Elektrik kapsama alanı</a></li>
+	<li><a href="msb-starve">Açlık örtüsü</a></li>
+	<li><a href="msb-transport">Ulaşım örtüsü</a></li>
+	<li><a href="msb-ub40">İşsizlik örtüsü</a></li>
+</Document>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Hafif Sanayi Bölgeleri</p>
+	<p style="hp">Hafif Sanayi; Minerali Eşyaya çevirir. Dönüştürme, çelik bulunabilir olduğunda daha verimlidir. Elektrik çeliğin daha uzağa çıkışını artırır. Yeldeğirmenleri bu bölgeler için elektrik <b> sağlamaz</b>.</p>
+	<p style="hp">Yukarıda bahsedilenlere bir kural gibi göz atın Hafif Sanayi bölgesinin çıktısı, başta hammaddenin miktarına bağlı olarak çevirebilecek işçi sağlar ve aynı zamanda eşya miktarını artırabilir.</p>
+	<p style="hp">Bu bölgeler Mineral, Çelik ve eşya takası için doğrudan ulaşıma bağlanır. İşçi sağlamak için bir Bakkala ihtiyaç duyabilirler.</p>
+	<p style="hp">Bu bölgeler görüldüğü gibi <b> sadece </b> sol üst kenarlarından ulaşıma bağlanır. Bağlandığında ulaşım eğimlenecek.</p>
+	
+	<p style="hp">Bu bir Hafif Sanayi</p>
+	<img src="images/tiles/industryll1.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="road">Yollar</a></li>
+	<li><a href="rail">Demiryolları</a></li>
+	<li><a href="market">Bakkallar</a></li>
+	<li><a href="jobs">İşçi</a></li>
+</Document>

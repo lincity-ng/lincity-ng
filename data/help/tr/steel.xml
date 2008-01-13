@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Çelik</p>
+	<p style="hp">Çelik genellikle Ağır sanayi (çelik işleme) tarafından yapılır. Bir çelik işletmesi yapabilmek için yeterli teknoloji seviyesine sahip olmalısın. Bundan öncede, Komünler tek çelik kaynağındır. Komünler küçük bir miktar çelik sağlar (mineralden), ihtiyaçlarını karşılamak için çok sayıda Komüne ihtiyacın olacak.</p>
+	<p style="hp">Çelik demircilerde eşya yapmak için kullanılır. Çelik eşya yapımı için Hafif sanayide de kullanılır. Hafif sanayi işlerinin çıktısı çeliksiz çok düşer.</p>
+	<p style="hp">Füzeler çokça çelik kullanır, rampaların temel yapı malzemesidir.</p>
+	<p style="hp">Demiryollarıda bakımları için çelik kullanır.</p>
+	<p style="hp">Çelik üretimi vergilendirilir.</p>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="commune">Komün</a></li>
+	<li><a href="blacksmith">Demirci</a></li>
+	<li><a href="goods">Eşya</a></li>
+	<li><a href="industryh">Ağır sanayi</a></li>
+	<li><a href="industryl">Hafif sanayi</a></li>
+	<li><a href="rail">Demiryolu</a></li>
+</Document>

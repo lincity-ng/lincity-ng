@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mineral madeni</p>
+	<p style="hp">Mineral madenleri eşya ve çelik yapımı için mineral sağlar. Bir mineral madenini herhangi bir yere yapabilirsiniz. Mineral bölgenin altından yavaşça elde edilir; bu bölgeyi yıkamazsın ve yeni bir tane yapıp daha fazla mineral çıkarmayı umamazsın.</p>
+	<p style="hp">Bir mineral madeni tükendiğinde göle dönüşür. Eğer bu halde iken bölgeyi geri kazanmak istiyorsan 16 su alanını yıkmalısın!</p>
+	<p style="hp">Canlandırmalar sıkı çalışıp tükenmeye yakın olan mineral madenlerini gösterir.</p>
+	<p style="hp">Mineral madenlerine ulaşım bağlantısı sol-üst kenarlarından yapılır.</p>
+	
+	<p style="hp">Bu bir Mineral madeni</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="goods">Eşya</a></li>
+	<li><a href="steel">Çelik</a></li>
+</Document>

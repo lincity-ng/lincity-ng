@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kömür</p>
+	<p style="hp">Kömür elektrik üretiminde yakılarak kullanılır. Çömlekçilik, Fabriklar ve Demirciler tarafından eşya yapmak için de kullanılır. Ağır Sanayi (çelik işleme) elektrik alamadığında Kömür kullanır.</p>
+	<p style="hp">Kömür, Kömür Madenleri tarafından yerin altından çıkarılır. Kömür Kaynağı düğmesiyle (kömür madenlerine bak) görebileceğiniz gibi sınırlı Kömür kaynakları var.</p>
+	<p style="hp">Komünler biraz 'kömür' tedarik eder. Aslında bunlar ağaçtan yapılan odun kömürüdür. Onlar yanlızca küçük bir miktar sağlar, birkaç Çömlekçi ve Demirciye yetecek kadar.</p>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="coalmine">Kömür Madeni</a></li>
+	<li><a href="powerscoal">Kömürden Elektrik Üreteci </a></li>
+	<li><a href="commune">Komünler</a></li>
+	<li><a href="pottery">Çömlekçiler</a></li>
+	<li><a href="blacksmith">Demirciler</a></li>
+	<li><a href="msb-coal">Kömür Örtüsü</a></li>
+</Document>

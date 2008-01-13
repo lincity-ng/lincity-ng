@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">İthalat ve İhracat alanları</p>
+	<p style="hp">İthalat ve İhracat, ilkinin size masraf ikincisinin ise gelir olduğunu hariç tutarsak aynı şekilde çalışır . İkiside bir Liman gerektirir. Bu durumda, detaylarda yalnızca İhracatla ilgilenilmeli.</p>
+	<p style="hp">İhracat için Liman bir Yolla bağlantılı olmalı.</p>
+	<p style="hp">Sağ taraflarından boylu boyunca nehre <b> bağlanmalıdırlar</b>.</p>
+	<p style="hp">İhracat bölgesi aldığı kadar verecek. Takasa ihtiyacınız varsa, fakat miktarı sınırlamak istiyorsanız, daha düşük kapasiteli bir ulaşım kullanmak isteyebilirsiniz, uzun bir parça kullanın yada ürünü bir market yoluyla geçirin. Doğru ulaşım şekli için tecrübeye ihtiyacınız olacak.</p>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="port">Liman</a></li>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="market">Bakkallar</a></li>
+	<li><a href="coal">Kömür</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="goods">Eşya</a></li>
+	<li><a href="steel">Çelik</a></li>
+</Document>

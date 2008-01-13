@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Eşya</p>
+	<p style="hp">Eşya çoğu birimin çalışması için gereklidir. İnsanlar da çokca sever ve eşyalarıları sağlayabileceğin mekanlar daha çekicidir.</p>
+	<p style="hp">Eşyalar vergilendirilir böylelikle parasal durumuna çokça yardımcı olacak.</p>
+	<p style="hp">Eşyalar; Çömlekçiler, Demirciler, Fabrikalar ve Hafif Sanayi tarafından sağlanır.</p>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="pottery">Çömlekçilik</a></li>
+	<li><a href="blacksmith">Demirciler</a></li>
+	<li><a href="mills">Fabrikalar</a></li>
+	<li><a href="industryl">Hafif Sanayi</a></li>
+</Document>

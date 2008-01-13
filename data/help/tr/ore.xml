@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mineral</p>
+	<p style="hp">Mineral oyunun temel hammadde nesnelerinden biridir. Komünler, mineral madenleri ve geridönüşümcüler mineral sağlar.</p>
+	<p style="hp">Çömlekçiler, Hafif sanayi ve Ağır sanayi mineral kullanır.</p>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="commune">Komün</a></li>
+	<li><a href="oremine">Mineral madeni</a></li>
+	<li><a href="recycle">Geridönüşümcüler</a></li>
+	<li><a href="pottery">Çömlekçiler</a></li>
+	<li><a href="indistryl">Hafif sanayi</a></li>
+	<li><a href="indistryh">Ağır sanayi</a></li>
+</Document>

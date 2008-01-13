@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">İçi</p>
+	<p style="hp">Yerleşim bölgelerinde yaşayan insanlardan işçi sağlanır. İşçiler görevlendirilmek üzere bir çok bölgede kullanılırlar. Bazı bölgeler sadece yapı aşamasında işçiye ihtiyaç duyar örn.; Anıtlar.</p>
+	<p style="hp">İşçi sağlamak istediğin bölgeyi bir Bakkal kapsama alanında yapabilirsin yada Bakkalı o bölgede. Şüphesiz Bakkalda işçileri bir yerden almalı. Bakkallar işçilerini iki yolla alır. İlki; eğer kapsama alanında bir yerleşim alanı varsa nüfusa orantılı olarak işçi sağlar ve işçiler birçok Bakkal arasında paylaşılabilir. İkinci yol ulaşımdır, bir Bakkal İşçilerin gideceği yere biraz uzak ise, ulaşımdaki işçi miktarı biraz artacak. Ulaşıma bağlanmış, işçilere kısa olacak  bir kaç Marketin bağlı olduğu ulaşım, işçilerin Tali yol, Yol yada demiryolu boyunca akışını tutacaktır.</p>
+	<p style="hp">Eğer bir Bakkalın işçisi 'tam' olursa yerleşim bölgesinden kabulü durduracak. Eğer bu olduğunda kapsama alanında başka tam olmayan market yoksa insanlar işsiz kalacak.</p>
+	<p style="hp">Yerleşim bölgesinin kapsama alanında olduğu bir Hastane, yerel bir kaç Bakkalın işçi sağlama sayısını artıracaktır.</p>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="residential">Konut</a></li>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="market">Bakkallar</a></li>
+</Document>

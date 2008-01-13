@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Füze rampası</p>
+	<p style="hp">Füzeler insanlarını başka bir gezegene tahliye etmeni sağlar ve böylece oyun biter.</p>
+	<p style="hp">Tahliyeye başlamadan önce 5 başarılı insansız fırlatma yapman gerekiyor. Her bir başarılı tahliye füzesi 1000 insan içerir.</p>
+	<p style="hp">Eğer herhangi bir fırlatma başarısız olursa, daha fazla insan tahliye etmeye başlamadan önce 5 insansız atış daha yapmalısın.</p>
+	<p style="hp">Fıratma esnasındaki teknoloji seviyesi başarılı bir fırlatma ihtimalini artırır. Bu şu anlama gelir,teknoloji seviyen %80 ise başarılı olma ihtimalin 5'te 4'dür. %100 yada daha fazlası tüm atışlarda başarı sağlayacaktır. (<i>ilk 5 </i> atışda yine hata olabilir.) Yaptığın her füze için yeni bir rampa yapmalısın.</p>
+	<p style="hp">Füze rampaları ulaşıma bağlantı gerektirmez, bütün ihtiyaçlarını yerel bir Bakkaldan karşılayabilirler. Yapımlarında oldukça fazla çelik, işçi, eşya ve para harcarlar. Bir Füze yapıldığında, şimdi mi sonra mı fırlatacağını soran bir mesaj alırsın. Eğer sonrayı seçersen, istediğin zaman üzerine tıklayıp fırlatabilirsin. Fırlatılmayı bekleyen çok sayıda füzen olabilir.</p>
+	<p style="hp">Bir Füze yapıldığında, fırlatılması bekletilirse artık; çelik, eşya yada işçi kullanmaz ama yinede biraz para harcar.</p>
+	<p style="hp">Bu bir Füze rampası</p>
+	<img src="images/tiles/rocket5.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="market">Bakkal</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="commune">Komün</a></li>
+	<li><a href="steel">Çelik</a></li>
+	<li><a href="jobs">İşçi</a></li>
+</Document>

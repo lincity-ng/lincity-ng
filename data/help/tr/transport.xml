@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ulaşım</p>
+	<p style="hp">Lincity'de 3 çeşit ulaşım vardır: Tali yollar, Yollar ve Demiryolları.</p>
+	<p style="hp">Bir Bakkalın, alanını bir uçtan bir uca geçilmesinden ibaret olan 4'üncü bir yol vardır. Bu ticaret için çok kısa bir kapsama alanıdır ve tekrar ulaşıma başvulurmayacaktır. Ancak<a href="market"> Bakkalları </a>tekrar okuman çok önemlidir.</p>
+
+	<p style="hp">Tali yollar, Yollar, Demiryolları bölgeler arasında yiyecek, işçi, eşya, kömür, mineral, çelik ve atık taşımada kullanılır. Bakkallar arası ulaşımla, Bakkalların kapsama alanı dışındaki yapıların ulaşımı (bu genelde kötü bir fikirdir) ve ulaşıma ihtiyacı olan yapılar belirtilmiştir:</p>
+	<li>Komünlerin sadece ulaşıma bitişik olmaları gerekir</li>
+	<li>Hafif sanayiler, mineral madenleri, çöplükler, limanlar, kömür madenleri, ağır sanayiler ve geridönüşüm merkezleri sol-üst köşelerinden ulaşıma <b> bağlanmalıdırlar</b>. Ulaşımın 'eğildiğini' göreceksin, böylece bağlantı görülür.</li>
+	<li>Kömürden elektrik üretecinde bir istisna: sol-üst köşe elektrik hattı bağlantısı için kullanılır, yani ulaşım hemen yanında olmalıdır.</li>
+	<p style="hp">Örneğin, bir Ağır sanayi Yol ile bir Kömür madenine bağlanabilir, ve Raylada Bakkal ve Mineral gibi diğer kaynaklara.</p>
+
+	<p style="hp">Ulaşımla nehri geçmek için, basitçe nehri yık ve aralık boyundan bir Tali yol, Yol yada Demiryolu yap. Bunun bir köprü gibi olduğunu düşün.  Bu sana masraflı olur çünkü suyu temizlemek pahalıdır.</p>
+
+	<p style="hp">Yollar ve Demiryolları yıllarca masraf çıkarır (bakım için), ve kirliliğe sebeptirler (eğer çok fazla atık taşırlarsa daha fazla kirliliğe).</p>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="track">Tali yollar</a></li>
+	<li><a href="road">Yollar</a></li>
+	<li><a href="rail">Demiryolları</a></li>
+
+	<li><a href="commune">Komünler</a></li>
+	<li><a href="coalmine">Kömür madenleri</a></li>
+	<li><a href="powercoal">Kömürden elektrik üreteçleri</a></li>
+	<li><a href="tip">Çöplükler</a></li>
+	<li><a href="recycle">Geridönüşüm merkezleri</a></li>
+	<li><a href="oremine">Mineral madenleri</a></li>
+	<li><a href="industryl">Hafif sanayi</a></li>
+	<li><a href="industryh">Ağır sanayi</a></li>
+	<li><a href="port">Limanlar</a></li>
+
+	<li><a href="finance">Parasal ekran</a></li>
+	<li><a href="msb-transport">Ulaşım ve Bakkal kapsama alanları</a></li>
+
+</Document>

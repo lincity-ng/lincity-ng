@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Fabrikalar</p>
+	<p style="hp">Fabrikalar yiyeceği, kömürü ve işçiyi Eşyaya çevirir. Yiyecek mi?... öyle ya, pamuk ve yün oyunda yiyecek gibi sayılır.</p>
+	<p style="hp">Fabrikalar çabukça yiyecek kullanır eğer bunu hesaba katmazsan kolayca yiyecek sıkıntısı çekebilirsin. (Çifliklere elektrik sağlayabildiklerinden Yeldeğirmenlerin olduğunda bu daha az sorun olur)</p>
+	<p style="hp">Fabrikaları ulaşıma bağlamak zorunda değilsin. Eğer bağlanmazlarsa kapsama alanında oldukları Bakkallardan kömür, işçi ve yiyecek sağlamak zorundalar. Bacalarından duman ve buhar geldiğinde Fabrikaların çalıştığını söyleyebilirsin.</p>
+	
+	<p style="hp">Bu bir Fabrika</p>
+	<img src="images/tiles/mill1.png" halign="center"/>
+	<p style="hp">Bu çalışmayan bir Fabrika</p>
+	<img src="images/tiles/mill0.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="goods">Eşya</a></li>
+	<li><a href="food">Yiyecek</a></li>
+	<li><a href="coal">Kömür</a></li>
+	<li><a href="jobs">İşçi</a></li>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="windmill">Yeldeğirmenlari</a></li>
+</Document>

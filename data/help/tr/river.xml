@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Nehir/Su</p>
+	<p style="hp">Nehirler burada temel olarak yolunu keserler. Köprü yapmak için kazmak ve yıkmak pahalıdır. Nehirler sadece Limanların nehirlere bağlantısında kullanılır.</p>
+	<p style="hp">İki şekil su vardır. Göl suyu; nehir sistemine bağlantılı olmayanlar, nehirler; nehir sistemine bağlı olanlar. Nehir Oyunun başlangıcında sunulmuş olan bütün sular gibi tarif edilebilir . Örneğin, bir mineral madeni kaynağını bitirir ve su olursa, eğer nehre bağlandıysa nehrin bir parçası olur. Diğer durumda bir göl olur.</p>
+	<p style="hp">Eğer nehrin bir kısmını yol yapmak, ulaşım yapmak için yıkarsan köprü yapmış olursun. Geçidin her iki tarafıda yine nehrin bir parçası sayılır. Bir nehri 'yıkmanın' pahalı olmasının sebeplerinden biri budur.</p>
+	<p style="hp">Suyun bir parçası birkere nehir sisteminin bir parçası olursa göle geri <b> çevirilemez</b>. Nehrin bir parçası olan bir su <a href="query"> sorgu aracında</a> <b> sefere elverişli </b> görünür.</p>
+	<p style="hp">Elektrik hatları nehrin <b> 1 </b> parçasının altından iletim yapabilirler, aynı şekilde ulaşımın altından da geçebilirler .</p>
+</Document>

@@ -1,0 +1,695 @@
+# translation of tr.po to Türkçe
+# This file is distributed under the same license as the Lincity-NG
+
+msgid ""
+msgstr ""
+"Project-Id-Version: tr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Aralık Salı  11 23:02:51 2007\n"
+"PO-Revision-Date: 2007-12-16 22:50+0100\n"
+"Last-Translator: benz <uyg01@hotmail.com>\n"
+"Language-Team: Türkçe\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/gui/minimap.xml
+msgid "$"
+msgstr "YTL"
+
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "Yangın Çıktı"
+
+#: data/gui/shfire-uc.xml
+msgid "A fire has broken out at a shanty town. It is in a fire cover area and APPEARS to be under control. "
+msgstr "Çıkan yangın gecekondu mahallesini bozdu. İtfaiye bölgesinde oldu ve kontrol altında olduğu aşikâr"
+
+#: data/gui/shfire-oc.xml
+msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may spread to other areas. "
+msgstr "Çıkan yangın gecekondu mahallesini bozdu. Yangın KONTROLDEN ÇIKTI ve diğer bölgelere yayılabilir."
+
+#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
+#: data/gui/savegame.xml
+msgid "Back"
+msgstr "Geri"
+
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "Arkaplan Müziği"
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "Basketbol Sahaları Kullanılabilir"
+
+#: data/gui/blacksmithup.xml
+msgid "Blacksmiths available"
+msgstr "Demirciler Kullanılabilir"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Anıtı yıkmak yüksek fiyatlıdır."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "Nehir yıkmak yüksek fiyatlıdır."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr "Gecekondu mahallesini yıkmak yüksek fiyatlıdır ve yangına sebep olabilir."
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Buy"
+msgstr "Satın al"
+
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Senaryo seç"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Coal"
+msgstr "Kömür"
+
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "Kömürden Elektrik Üreteçleri kullanılabilir "
+
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "Kömür Madeni kullanılabilir"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Coal Survey"
+msgstr "Kömür Araştırması"
+
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Kod"
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Devam"
+
+#: data/gui/mainmenu.xml data/gui/creditslist.xml
+msgid "Credits"
+msgstr "Hazırlayanlar"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "Kömür Araştırması yapacakmısınız?"
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "İyi gidiyor"
+
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Eko"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "Ekonomi Sürdürülebilir"
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "Tahliye iyi başladı"
+
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
+msgid "Fire"
+msgstr "Yangın"
+
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "İtfaiyeler kullanılabilir"
+
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
+msgid "Fire!"
+msgstr "Yangın!"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Food"
+msgstr "Yiyecek"
+
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Tam ekran"
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "Oyunİstat"
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "Ana menüye dön"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Goods"
+msgstr "Eşya"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "Canlandırmalar"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "Liman Ticareti Ayarları"
+
+#: data/gui/healthup.xml
+msgid "Health Centres available"
+msgstr "Hastaneler Kullanılabilir"
+
+#: data/gui/hvindustryup.xml
+msgid "Heavy Industry available"
+msgstr "Ağır Sanayi kullanılabilir"
+
+#: data/gui/import-exportup.xml
+msgid "Import/Export available"
+msgstr "İthalat/İhracat Kullanılabilir"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml
+msgid "Jobs"
+msgstr "İşçi"
+
+#: data/gui/launch-fail.xml
+msgid "Launch Failure"
+msgstr "Fırlatma Başarısız"
+
+#: data/gui/launch-good.xml
+msgid "Launch Successfull"
+msgstr "Fırlatma Başarılı"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "Şimdi fırlat?"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "Hafif Sanayi kullanılabilir"
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "Sahip olduğunuz sürdürülebilir ekonomi sayesinde LinCity azimkâr"
+
+#: data/gui/mainmenu.xml data/gui/loadgame.xml
+msgid "Load"
+msgstr "Yükle"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Oyunu Yükle"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "Hari."
+
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "Fabrikalar kullanılabilir"
+
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "Gelişmiş Yeldeğirmenleri kullanılabilir"
+
+#: data/gui/pbar.xml
+msgid "Money"
+msgstr "Para"
+
+#: data/gui/newgame.xml data/gui/mainmenu.xml
+msgid "New Game"
+msgstr "Yeni Oyun"
+
+#: data/gui/firestationup.xml data/gui/hvindustryup.xml
+#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
+#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/coalmineup.xml
+#: data/gui/riverup.xml data/gui/parkup.xml data/gui/coalpowerup.xml
+#: data/gui/solarpowerup.xml data/gui/roadup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/blacksmithup.xml data/gui/mod_wind_up.xml
+#: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/millup.xml
+#: data/gui/import-exportup.xml data/gui/healthup.xml
+msgid "New Invention"
+msgstr "Yeni Keşif"
+
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/launch_rocket_yn.xml
+msgid "No"
+msgstr "Hayır"
+
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
+#: data/gui/no-credit-recycle.xml data/gui/no-credit-parkland.xml
+#: data/gui/no-credit-rocket.xml
+msgid "No Credit Available"
+msgstr "Kullanılabilir Kredi yok"
+
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "Kimsesiz ev"
+
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "İzin Verilmedi"
+
+#: data/gui/options.xml data/gui/firestationup.xml data/gui/hvindustryup.xml
+#: data/gui/windmillup.xml data/gui/fire.xml data/gui/shfire-uc.xml
+#: data/gui/ltindustryup.xml data/gui/launch-evac.xml
+#: data/gui/universityup.xml data/gui/cricketup.xml data/gui/recycleup.xml
+#: data/gui/coalmineup.xml data/gui/riverup.xml data/gui/parkup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/launch-good.xml
+#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/roadup.xml
+#: data/gui/no-credit-university.xml data/gui/potteryup.xml
+#: data/gui/no-credit-recycle.xml data/gui/railwayup.xml
+#: data/gui/launch-fail.xml data/gui/nobull-tip.xml data/gui/blacksmithup.xml
+#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
+#: data/gui/millup.xml data/gui/import-exportup.xml
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-rocket.xml
+#: data/gui/healthup.xml data/gui/launch-gone.xml data/gui/shfire-oc.xml
+#: data/gui/sustain.xml data/gui/allgone.xml
+msgid "Ok"
+msgstr "Tamam"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "Tamam"
+
+#: data/gui/mainmenu.xml data/gui/options.xml
+msgid "Options"
+msgstr "Seçenekler"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Ore"
+msgstr "Mineral"
+
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Orjinal fikir ve kod"
+
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "Millet Bahçeleri kullanılabilir"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Oyunu Duraklat"
+
+#: data/gui/pbar.xml
+msgid "Population"
+msgstr "Nüfus"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "Çömlekçiler kullanılabilir"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "İstatistikleri görüntülemek için bu düğmeye basın"
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Product"
+msgstr "Ürün"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Çık"
+
+#: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "Demiryolları kullanılabilir"
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "Geridönüşüm Merkezleri kullanılabilir"
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "Nehir kullanılabilir"
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "Yollar kullanılabilir"
+
+#: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "Füze Rampası kullanılabilir"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket Ready"
+msgstr "Füze Hazır"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket ready to launch"
+msgstr "Füze Atılmaya Hazır"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "Benzetimi Yüksek Hızda Çalıştır"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "Benzetimi Normal Hızda Çalıştır"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "Benzetimi Çok Yüksek Hızda Çalıştır"
+
+#: data/gui/mainmenu.xml
+msgid "Save"
+msgstr "Kayıt"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Oyunu Kayıt Et"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "Okullar kullanılabilir"
+
+#: data/gui/coalmineup.xml
+msgid "See the help screen for more information on coal mines and coal surveys."
+msgstr "Kömür Madeninde ve Kömür Araştırmalarında daha fazla bilgi için yardım ekranına bakın."
+
+#: data/gui/firestationup.xml data/gui/hvindustryup.xml
+#: data/gui/windmillup.xml data/gui/ltindustryup.xml data/gui/universityup.xml
+#: data/gui/cricketup.xml data/gui/recycleup.xml data/gui/riverup.xml
+#: data/gui/parkup.xml data/gui/coalpowerup.xml data/gui/solarpowerup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/blacksmithup.xml
+#: data/gui/mod_wind_up.xml data/gui/rocketup.xml data/gui/schoolup.xml
+#: data/gui/millup.xml data/gui/healthup.xml
+msgid "See the help screen for more information."
+msgstr "Daha fazla bilgi için yardım ekranına bakın."
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Sell"
+msgstr "Sat"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "Maden Araştırmacılarını gönder"
+
+#: data/gui/minimap.xml
+msgid "Show Income and Expenses. Click this tab again to cycle through views."
+msgstr "Geliri ve masrafları göster. Görünümler arası dönüşüm için tekrar bu sekmeye basın."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "Kömür Depolarını Göster"
+
+#: data/gui/minimap.xml
+msgid "Show economy graphs."
+msgstr "Ekonomi canlandırmasını Göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show fire department cover"
+msgstr "İtfaiye alanlarını Göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show map outline"
+msgstr "Harita krokisini Göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show medical care"
+msgstr "Sağlık bakım alanlarını Göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show nourishments"
+msgstr "Gıdaları göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show pollution density"
+msgstr "Kirlilik yoğunluğunu göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show power supply"
+msgstr "Elektrik kaynaklarını göster"
+
+#: data/gui/minimap.xml
+msgid "Show ressources."
+msgstr "Kaynakları göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show sport cover"
+msgstr "Spor alanlarını göster "
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "Küçükharita'yı göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show traffic density"
+msgstr "Trafik yoğunluğunu göster"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show unemployment"
+msgstr "İşsizliği göster"
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "Güneşsel Elektrik Üreteçleri kullanılabilir"
+
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "Üzgünüm, çöplüğü yıkamazsnız"
+
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "Ses Etkileri"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Ses ve Müzik"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "Başla"
+
+#: data/gui/newgame.xml
+msgid "Start with empty board."
+msgstr "Boş Arazi ile Başla"
+
+#: data/gui/newgame.xml
+msgid "Start with random village."
+msgstr "Rasgele Köy ile Başla"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "İstat."
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Steel"
+msgstr "Çelik"
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "Tek. Seviyesi"
+
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "Bu şehirde insan kalmamış"
+
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr "Bu size 1 milyona mal olacak. Ödedikten sonra tekrar kullanmak ücretsiz."
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "Tamamlanan Toplam Tahliye"
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "Ticaret Seçenekleri"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "Üniversite kullanılabilir"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "Yıkmak mı istiyorsun?"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning"
+msgstr "Uyarı"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Uyarı: Anıt yıkmak pahalıdır."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Uyarı: Gecekondu Mahallesi yıkmak tehlikelidir."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Uyarı: Nehir yıkmak pahalıdır."
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "Başardın; bütün insanlarını tahliye ettin"
+
+#: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "Yeldeğirmenleri kullanılabilir"
+
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_monument_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/launch_rocket_yn.xml
+msgid "Yes"
+msgstr "Evet"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "Gidip bakarsan daha iyi olacak."
+
+#: data/gui/launch_rocket_yn.xml
+msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
+msgstr "Füzeyi şimdi fırlatabilirsiniz yada daha sonrası için beklersiniz. Eğer beklerseniz füzeyi hazır tutmak masraflı olmaya devam edecek. Füze bölgesine tıklayarak daha sonra fırlatın."
+
+#: data/gui/import-exportup.xml
+msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
+msgstr "Artık Kömür, Eşya, Mineral ve Çelik İthal/İhrac edebilirsiniz. Onları nasıl kullanacağınızı öğrenmek için o nesneler üzerindeki yardımı okuyun."
+
+#: data/gui/no-credit-parkland.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
+msgstr "Bütçenizde açık var. Yasama Kurulu Millet Bahçesi yapmanıza izin vermeyecek."
+
+#: data/gui/no-credit-recycle.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build recycling centres on credit."
+msgstr "Bütçenizde açık var. Yasama Kurulu Geridönüşüm Merkezi yapmanıza izin vermeyecek."
+
+#: data/gui/no-credit-rocket.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build rocket launch pads on credit."
+msgstr "Bütçenizde açık var. Yasam Kurulu Füze Rampası yapmanıza izin vermeyecek."
+
+#: data/gui/no-credit-solar-power.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build solar power stations on credit."
+msgstr "Bütçenizde açık var. Yasama Kurulu Güneşsel Elektrik Santrali yapmanıza izin vermeyecek."
+
+#: data/gui/no-credit-university.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build universities on credit."
+msgstr "Bütçenizde açık var. Yasam Kurulu Üniversite yapmanıza izin vermeyecek."
+
+#: data/gui/launch-evac.xml
+msgid "You have evacuated 1000 people. You might want to reduce the size of your economy to reflect the reduced population. "
+msgstr "Tahliye edilmiş 1000 şahıs var. Ekonominizin boyutunu nüfusunuzun azalmasına aksetmek isteyebilirsiniz."
+
+#: data/gui/blacksmithup.xml
+msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
+msgstr "Teknoloji seviyesini Demirciler yapabilecek düzeye ulaştırdınız. Demirciler işçileri kullanır ve çelikten eşyalar yapar."
+
+#: data/gui/coalpowerup.xml
+msgid "You have reached the tech level which enables you to build coal fired power stations."
+msgstr "Teknoloji seviyesini Kömürden Elektrik Üreteci yapabilecek düzeye ulaştırdınız."
+
+#: data/gui/firestationup.xml
+msgid "You have reached the tech level which enables you to build fire stations. Fire stations prevent most fires from starting. If you haven't had any fires yet, you might not think you need them."
+msgstr "Teknoloji seviyesini İtfaiye yapabilecek düzeye ulaştırdınız. İtfaiye birçok yangını başlamadan engeller. Eğer henüz hiç yangın çıkmadıysa, ihtiyacınız olmadığını düşünmemelisiniz."
+
+#: data/gui/healthup.xml
+msgid "You have reached the tech level which enables you to build health centres. Heath centres reduce the number of people killed by pollution and increase overall productivity."
+msgstr "Teknoloji seviyesini Hastaneler yapabilecek düzeye ulaştırdınız. Hastaneler kirlilikten insan ölümlerinin sayısını azaltır ve toplam verimliliği artırır."
+
+#: data/gui/hvindustryup.xml
+msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
+msgstr "Teknoloji seviyesini Ağır Sanayi yapabilecek düzeye ulaştırdınız (Çelik işçiliği). Ağır Sanayi Çeliği işler"
+
+#: data/gui/ltindustryup.xml
+msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "
+msgstr "Teknoloji seviyesini Hafif Sanayi yapabilecek düzeye ulaştırdınız. Hafif Sanayi Eşya yapar"
+
+#: data/gui/millup.xml
+msgid "You have reached the tech level which enables you to build mills. Mills use jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr "Teknoloji seviyenizi Fabrikalar yapabilecek düzeye ulaştırdınız. Fabrikalar Eşya üretmek için yiyecek ve işçi kullanır. Dikkat edin, fazla yiyecek kullanabilirler! "
+
+#: data/gui/mod_wind_up.xml
+msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "
+msgstr "Teknoloji seviyesini daha gelişmiş, daha verimli Yeldeğirmenleri yapabilecek düzeye ulaştırdınız."
+
+#: data/gui/parkup.xml
+msgid "You have reached the tech level which enables you to build parks. Parks are used to absorb pollution. "
+msgstr "Teknoloji seviyesini Millet Bahçesi yapabilecek düzeye ulaştırdınız. Millet Pahçeleri açlığı etkisizleştirmek için kullanılır."
+
+#: data/gui/potteryup.xml
+msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr "Teknoloji seviyesini Çömlekçiler yapabilecek düzeye ulaştırdınız. Çömlekçilik mineralden eşya yapmak için işçi kullanır. (Mineral almak için Mineral Madenine ihtiyacınız var) "
+
+#: data/gui/railwayup.xml
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr "Teknoloji seviyesini Demiryolları yapabilecek düzeye ulaştırdınız."
+
+#: data/gui/riverup.xml
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr "Teknoloji seviyesini Nehir yapabilecek düzeye ulaştırdınız."
+
+#: data/gui/roadup.xml
+msgid "You have reached the tech level which enables you to build roads. See the help screen for more information."
+msgstr "Teknoloji seviyesini Yol yapabilecek düzeye ulaştırdınız. Daha fazla bilgi için Yardım ekranına bakın."
+
+#: data/gui/rocketup.xml
+msgid "You have reached the tech level which enables you to build rocket launch pads. Rockets enable you to evacuate your population and is a way to 'win' the game."
+msgstr "Teknoloji seviyesini Füze Rampası yapabilecek düzeye ulaştırdınız. Füzeler nüfusunuzu tahliye etmenizi sağlar ve oyunu 'kazanmanızın' bir yoludur."
+
+#: data/gui/schoolup.xml
+msgid "You have reached the tech level which enables you to build schools. Schools use jobs and goods to increase tech level. "
+msgstr "Teknoloji seviyesini Okullar yapabilecek düzeye ulaştırdınız. Okullar teknoloji seviyesini artırmak için işçileri ve eşyaları kullanır."
+
+#: data/gui/solarpowerup.xml
+msgid "You have reached the tech level which enables you to build solar power stations. "
+msgstr "Teknoloji seviyesini Güneşsel Elektrik Üreteçleri yapabilecek düzeye ulaştırdınız."
+
+#: data/gui/universityup.xml
+msgid "You have reached the tech level which enables you to build universities. Universities produces PhDs, which produce more technology. "
+msgstr "Teknoloji seviyesini Üniversiteler yapabilecek düzeye ulaştırdınız. Üniversiteler daha fazla teknoloji sağlayan PhDs sağlar."
+
+#: data/gui/windmillup.xml
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr "Teknoloji seviyesini Yeldeğirmenleri yapabilecek düzeye ulaştırdınız."
+
+#: data/gui/coalmineup.xml
+msgid "You have reached the tech level which enables you to dig deep coal mines."
+msgstr "Teknoloji seviyesini derin Kömür Madenleri yapabilecek düzeye ulaştırdınız."
+
+#: data/gui/recycleup.xml
+msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
+msgstr "Teknoloji seviyesini Geridönüşüm Merkezleri yapabilecek düzeye ulaştırdınız. Geridönüşüm Merkezleri kullanılmış eşyaları minerale geri çevirir."
+
+#: data/gui/launch-gone.xml data/gui/sustain.xml
+msgid "You have won the game."
+msgstr "Oyunu kazandın."
+
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "Başka bir yerde yeni bir kariyer başlatmalısınız."
+
+#: data/gui/cricketup.xml
+msgid "Your people have invented basketball. Basketball Courts use a few jobs and goods and make people in the surrounding areas (about 10 units in each direction) happier."
+msgstr "İnsanların basketbolu keşfetti. Basketbol Sahaları biraz işçi ve eşya kullanır ve bölgenin etrafındaki insanları mutlu eder (her yöndeki 10 üniteyi) "
+
+#: data/gui/launch-fail.xml
+msgid "Your rocket crashed shortly after launch. People no longer trust the technology for evacuation. You must launch five more unmanned rockets to restore confidence."
+msgstr "Füzen, fırlatmadan kısa süre sonra infilak etti. Tahliye için insanlar teknolojiye artık güvenmez. Güveni tekrar kazanmak için 5 insansız füze daha fırlatmalısınız."
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr "[+] Görüntüye yaklaş bu şekilde daha az yapı fakat daha fazla ayrıntı görülebilir."
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] Uzaklaş"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "[F1] Yardım almak için bu düğmeye basın."
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] Yüksek yapıları gizle."
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] Küçükharita uygulama modları yoluyla dönüş"
+
+#: data/gui/savegame.xml
+msgid "save to selected slot"
+msgstr "seçilen dilimi kayıt etmek için"
+

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Tali yollar</p>
+	<p style="hp">Tali yollar ulaşımın basit ve ucuz yöntemidir. Hacimleri de daha düşüktür. Diğer taraftan kirliliğe sabep olmazlar.</p>
+	
+	<p style="hp">Bu bir Tali yol</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">bu da simgesi</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="commune">Komünler</a></li>
+</Document>

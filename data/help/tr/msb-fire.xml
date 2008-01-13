@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">İtfaiye kapsama alanı</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+	<p style="hp">Bir İtfaiyenin kapsama alanında olan bölgeler koyu yeşil görünür.</p>
+	<p style="hp">İtfaiye kapsama alanıdışındaki bölgeler normal görünür.</p>
+	<p style="hp">Hatırla, İtfaiyelerin çalışır hale gelmeleri 3 ay alır.</p>
+	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana soltıklayın. Başka bir küçükekran görüntüsü için küçükekran üzerindeki başlığa soltıklayın. Kroki görünümüne geçmek için 'v'ye yada küçükekran başlığı üzerinde farenin orta düğmesine basın.</p>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="mini-screen">Küçükharita</a></li>
+	<li><a href="msb-coal">Kömür örtüsü</a></li>
+	<li><a href="msb-cricket">Spor kapsama alanı</a></li>
+	<li><a href="msb-health">Sağlık kapsama alanı</a></li>
+	<li><a href="msb-normal">Normal örtü</a></li>
+	<li><a href="msb-pol">Kirlilik örtüsü</a></li>
+	<li><a href="msb-power">Elektrik kapsama alanı</a></li>
+	<li><a href="msb-starve">Açlık örtüsü</a></li>
+	<li><a href="msb-transport">Ulaşım örtüsü</a></li>
+	<li><a href="msb-ub40">İşsizlik örtüsü</a></li>
+</Document>

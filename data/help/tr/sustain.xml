@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Sürdürülebilirlik işlem penceresi</p>
+	<p style="hp">Bu pencere renklendirilmiş 6 çizgi içerir.  Bunların hepsi pencerenin sağ kenarına yetişti ise, sürdürülebilir bir ekonomin vardır.</p>
+	<li>
+		<span color="orange">Madencilik</span> (turuncu) hiçbir mineral yada kömür madeni kazmıyorsun yada çöp dökmüyorsun.
+	</li>
+	<li>
+		<span color="gray">Ticaret</span>	(gri) ithalat yada ihracat yapmıyorsun.
+	</li>
+	<li>
+		<span color="green">Para</span> (yeşil) paran kararlı yada yükseliyor, bunun anlamı; hiç bir şey yapamazsınız fakat bölgeleriniz daha ucuzlar.
+	</li>
+	<li>
+		<span color="blue">Nüfus</span> (mavi) Yıl sayacı 180'de saymaya başlamışken nüfusunuz değerinin %2'sinde kararlı. Eğer bu aralığın dışına çıkarsa, yeni nüfusla yeni bir değer oluşacak ve yıl sayacı 0'a doğru geri gidecek. Ayrıca, nüfusun en az 5000 olmalı.
+	</li>
+	<li>
+		<span color="yellow">Teknoloji</span> (sarı) teknolojin artıyor yada çok küçük bir miktarda düşüyor. Eğer %1'den daha fazla düşerse yıl 0'a geri döner. Ayrıca teknoloji seviyen en az %50 olmalı.
+	</li>
+	<li>
+		<span color="red">İtfaiye</span> (kırmızı) yangın koruması olan bütün bölgelerde yangın çıkabilir. Bu bölgeler yangın korumasına sahip olmak zorunda <b> değil</b>: anıtlar,
+		mineral madenleri, elektrik hatları ve füzeler.
+	</li>
+	<p style="hp">Sürdürülebilirlik için yılların gereksinimi: Madencilik=180 Ticaret=180 Para=60 Nüfus=60 Teknoloji=120 İtfaiye=60</p>
+</Document>

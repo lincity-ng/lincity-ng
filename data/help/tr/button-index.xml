@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Düğme Başlığını Seç</p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+	<p><a href="powerline">Elektrik Hatları</a></p>
+	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+	<p><a href="powerssolar">Güneşsel Elektrik Üreteci</a></p>
+	<img src="images/gui/buttonpanel/power/substation.png"/>
+	<p><a href="substation">Trafo</a></p>
+
+	<!--<p style="subtitle">Residences</p>-->
+	<img src="images/gui/buttonpanel/residence/residence.png"/>
+	<p><a href="residential">Yerleşim alanı</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/farm.png"/>
+	<p><a href="farm">Çiflik</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="images/gui/buttonpanel/industry/market.png"/>
+	<p><a href="market">Bakkal</a></p>
+
+	<!--<p style="subtitle">Base</p>-->
+	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
+	<p><a href="bulldoze">Dozer</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/tracks.png"/>
+	<p><a href="track">Tali Yol</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
+	<p><a href="coalmine">Kömür Madeni</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/rails2.png"/>
+	<p><a href="rail">Demiryolu</a></p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="images/gui/buttonpanel/power/coalpower.png"/>
+	<p><a href="powerscoal">Kömürden Elektrik Üreteci</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/road.png"/>
+	<p><a href="road">Yol</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
+	<p><a href="industryl">Hafif Sanayi alanları</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/university.png"/>
+	<p><a href="university">Üniversite</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="images/gui/buttonpanel/mining/commune.png"/>
+	<p><a href="commune">Komün</a></p>
+	<img src="images/gui/buttonpanel/mining/oremine.png"/>
+	<p><a href="oremine">Mineral Madeni</a></p>
+
+	<!--<p style="subtitle">Trading</p>-->
+    <img src="images/gui/buttonpanel/transport/port.png"/>
+	<p><a href="export">İthalat ve İhracat</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<p><a href="industryh">Ağır Sanayi (çelik işleme)</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/tree.png"/>
+	<p><a href="park">Bahçe</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="images/gui/buttonpanel/mining/recycling.png"/>
+	<p><a href="recycle">Geridönüşüm merkezi</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/water.png"/>
+	<p><a href="river">Su/Nehir</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/health.png"/>
+	<p><a href="health">Hastane</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/rocket.png"/>
+	<p><a href="rocket">Füze Rampası</a></p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="images/gui/buttonpanel/power/windmills.png"/>
+	<p><a href="windmill">Yeldeğirmeni</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/parks/monument.png"/>
+	<p><a href="monument">Anıt</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/book.png"/>
+	<p><a href="school">Okul</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/mills.png"/>
+	<p><a href="mill">Fabrika</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="images/gui/buttonpanel/industry/pottery.png"/>
+	<p><a href="pottery">Çömlekçi</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/fire.png"/>
+	<p><a href="firestation">İtfaiye</a></p>
+	<img src="images/gui/buttonpanel/misc/sports.png"/>
+	<p><a href="cricket">Basketbol Sahası</a></p>
+
+     <!--<p style="subtitle">Transport</p>-->
+     <img src="images/gui/buttonpanel/transport/port.png"/>
+     <p><a href="port">Liman</a></p>
+</Document>

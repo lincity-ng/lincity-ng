@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Sorgu</p>
+	<p style="hp">Bir yapı hakkında bilgi almak için bu aracı kullanın ve merak edilen yapıya tıklayın.</p>
+	<p style="hp">Bilgi, küçükharita yerinde sağ-alt köşede belirir.</p>
+	<p style="hp">Bu aracı kullanmak maliyetli değildir.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	<p style="hsubtitle">Ayrıca bak:</p>
+    <li><a href="keys">Kalavye komutları</a></li>
+	<li><a href="help">Ana sayfa</a></li>
+</Document>
+

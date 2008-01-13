@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Millet bahçeleri</p>
+	<p style="hp">Millet pahçeleri çok basittir: kirliliği temizler.</p>
+	<p style="hp">Kirlilik oluşturan bölgelerin bir nüshası. Yollar, Demiryolları, Kömür madenleri ve Hafif ve Ağır sanayiler. Bazıları diğerlerinden daha fazla kirliliğe sebeptir.</p>
+	<p style="hp">Millet bahçelerini yerleşim bölgelerin korumak yada yerel bölgeden kirlilik kaynaklı kaçışları durdurmak için kullanabilirsin.</p>
+	<p style="hp">Rüzgar kirliliği güney-batıdan <b> getirir</b>, Millet bahçelerini ona göre inşa et.</p>
+	
+	<p style="hp">Bu bir Millet bahçesi</p>
+	<img src="images/tiles/parkland-plane.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="pollution">Kirlilik</a></li>
+	<li><a href="road">Yollar</a></li>
+	<li><a href="rail">Demiryolları</a></li>
+	<li><a href="coalmine">Kömür madenleri</a></li>
+	<li><a href="industryh">Ağır sanayi</a></li>
+	<li><a href="industryl">Hafif sanayi</a></li>
+</Document>

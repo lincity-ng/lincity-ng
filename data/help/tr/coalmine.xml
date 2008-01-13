@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kömür Madeni</p>
+	<p style="hp">Kömür Madenleri yerin altını kazarak kömür çıkarır. Madene yakınlarda damar olmalı. Damarların nerede olduğunu görmek için küçükekranın altındaki kömür düğmesine tıklayabilirsiniz.</p>
+	<p style="hp">Bu düğmeyi ilk kullandığınızda size 1 milyona mâl olacak. Bundan sonrası ücretsiz. Bu düğmeyi kullanmaya ihtiyacınız olmayacak, fakat kömür bulmak için deneme ve yanılmalara mecbur kalacaksınız.</p>
+	<p style="hp">Kömür Madenleri kömür çıkarmak için işçiye ihtiyaç duyar.</p>
+	
+	<p style="hp">Bu bir Kömür Madeni</p>
+	<img src="images/tiles/coalmine-full.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+
+	<p style="hp">Grafik halihazırda kazılmış olan kömürün miktarını gösterir, ulaşıma konmuş olanı değil. Yukarıda gösterilen Kömür Madeni enüst düzeyde depolanmış.</p>
+	<p style="hp">Bir madenin üzerine tıkladığınızda harita istatistik penceresinde ocaktaki birikimi göreceksiniz ve daha önemlisi, kömür birikimi kazılmaya elverişli olacak.</p>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="coal">Kömür</a></li>
+	<li><a href="powerscoal">Kömürden Elektrik Üreteci</a></li>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="jobs">İşçi</a></li>
+</Document>

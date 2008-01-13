@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Anıtlar</p>
+	<p style="hp">Anıtlar eğitim için bir odak nokta ve icatlar için ilham kaynağı olur. Yaptığın her anıt teknoloji seviyeni artıracaktır, fakat etkilerini 0'dan %40'a gelince kaybederler .</p>
+	<p style="hp">Bir anıt yapmak için işçi sağlamalısın. Bir<b> çok </b>işçi. Bu durum işsizliği kontrol etmek için kullanılabilir. Anıtlar yapımları tamamlandıktan sonra işçi kullanmadıkları için bu geçici bir çözüm olacaktır.</p>
+	<p style="hp">Yapım işlemlerinin tamamlanmalarına ne kadar yaklaştıklarını anlamak için üzerlerine tıklayabilirsin, istatistik penceresinde belirir (merkezin sol-üstünde). Ayrıca yapıldıkça canlandırma değişir. %0'dan %100' kadar ilerlemeyi belirten 6 canlandırma vardır.</p>
+	<p style="hp"><b>İpucu</b>: Bir anıtın yapımında fazla işçinin diğer bölgeden emilmemesi için ve bu sebeple diğer bölgelerdeki işçilerin açlaşmamaları için: diğer bölgelerden uzakta bir 'anıt çifliği' yap.</p>
+
+	<p style="hp">Bu bir Anıt</p>
+	<img src="images/tiles/monument5.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="market">Bakkal</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="commune">Komün</a></li>
+	<li><a href="steel">Çelik</a></li>
+	<li><a href="jobs">İşçi</a></li>
+</Document>

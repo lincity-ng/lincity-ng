@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Yavaş hız</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Bu yavaş hız düğmesi. Oyunun daha yavaş bir hızda çalışmasını sağlar. Yavaş makinelerde hız düğmeleri etki etmeyebilir.</p>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="medium">Orta</a></li>
+	<li><a href="fast">Hızlı</a></li>
+</Document>

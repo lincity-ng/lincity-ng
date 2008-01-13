@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Üniversite</p>
+	<p style="hp">Üniversiteler teknoloji seviyeni arttırmana yardımcı olur. Çalışırken işçi ve eşya tüketirler. İşçi/eşya girdilerini aldıklarında okullardan daha fazla üretirler. Bununla birlikte biraz daha işçi ve eşya harcarlar ve çalışmalarıda biraz daha masraflıdır, yani onları besleyebilmek için yeterli ekonomi ve sanayin olmalı.</p>
+	<p style="hp">Teknoloji seviyeni %100'e yaklaştırmak için bir miktar Üniversiteye ihtiyacın olacak</p>
+	<p style="hp">Üniversitelerin ulaşıma bağlanmaları gerekmez; tüm ihtiyaçlarını kapsama alanında oldukları Bakkallardan alırlar, yeterli eşya ve işçiyle birlikte.</p>
+
+	<p style="hsubtitle">EK</p>
+	<p style="hp">Üniversitenin öğrencisini sağlamak için, herbirine 5 okul düşmeli .</p>
+
+	<p style="hp">Bu bir Üniversite</p>
+	<img src="images/tiles/university.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="market">Bakkal</a></li>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="goods">Eşya</a></li>
+	<li><a href="jobs">İşçi</a></li>
+	<li><a href="schools">Okul</a></li>
+	<li><a href="tech-level">Teknoloji seviyesi</a></li>
+</Document>

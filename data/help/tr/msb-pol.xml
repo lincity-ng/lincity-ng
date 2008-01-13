@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kirlilik örtüsü</p>
+	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+	<p style="hp">Uçtan uca şehirdeki kirlilik seviyesini gösterir.</p>
+	<p style="hp">Açık-yeşil -> Koyu-yeşil -> Daha koyu-yeşil -> Bordo -> Açık-kırmızı -> Parlak-kırmızı renklerinde ilerledikçe kirlilik güçlenmiştir.</p>
+	<p style="hp">Hastalığa sebep olacak kırmızı gibi görünen yerleşim alanlarının olduğu yerlerin yaşama cazibesi azalacaktır.</p>
+	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana soltıklayın. Başka bir küçükekran görüntüsü için küçükekran üzerindeki başlığa soltıklayın. Kroki görünümüne geçmek için 'v'ye yada küçükekran başlığı üzerinde farenin orta düğmesine basın.</p>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="mini-screen">Küçükharita</a></li>
+	<li><a href="msb-coal">Kömür örtüsü</a></li>
+	<li><a href="msb-cricket">Spor kapsama alanı</a></li>
+	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>
+	<li><a href="msb-health">Sağlık kapsama alanı</a></li>
+	<li><a href="msb-normal">Normal örtü</a></li>
+	<li><a href="msb-power">Elektrik kapsama alanı</a></li>
+	<li><a href="msb-starve">Açlık örtüsü</a></li>
+	<li><a href="msb-transport">Ulaşım örtüsü</a></li>
+	<li><a href="msb-ub40">İşsizlik örtüsü</a></li>
+</Document>

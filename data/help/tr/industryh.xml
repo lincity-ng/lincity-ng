@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ağır Sanayi (çelik işleme)</p>
+	<p style="hp">Çelik işleme; mineralden, işçiden ve elektrikten çelik sağlar. Mineral doğrudan bağlantılı olan ulaşımdan elde edilir.Çeliğin ulaşımda olduğu gibi. İşçi yerel bir Bakkaldan sağlanır. Ulaşım sol-üst köşeye bağlanır.</p>
+	<p style="hp">Çelik işlemeye Elektrik iki şekilde sağlanabilir. İlki; bağlantılı bir ulaşımdan doğrudan elde edilen Kömürdür. İkincisi elektriktendir: Çelik işlemeyi kapsayan bir yada iki Trafo bulundurmanız gerekir (Yeldeğirmenleri Çelik işleme için Elektrik <b> sağlamaz</b>).</p>
+	<p style="hp">Çelik işçiliği kirliliğe sebep olur.</p>
+	<p style="hp">Ağır Sanayinin çalıştığını, herzamanki gibi üzerine tıklayarak görebilirsiniz, böylece canlandırma hareketlenecek.</p>
+	
+	<p style="hp">Bu bir Çelik işleme</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">ve bu da düğmesi</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="pollution">Kirlilik</a></li>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="power">Elektrik</a></li>
+	<li><a href="coal">Kömür</a></li>
+	<li><a href="ore">Mineral</a></li>
+</Document>

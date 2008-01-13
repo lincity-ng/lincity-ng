@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Yüksek hız</p>
+	<img src="images/gui/speed/fast.png"/>
+	<p style="hp">Bu yüksek hız düğmesi. Oyunun olabildiğince hızlı çalışmasını sağlar. Hızlı makinelerde hızlı konumu kullanırken 'durumun' çok hızlı gelişebileceğini dikkate alman gerek!</p>
+
+	<p style="hsubtitle">Atrıca bak:</p>
+	<li><a href="medium">Orta</a></li>
+	<li><a href="slow">Yavaş</a></li>
+</Document>

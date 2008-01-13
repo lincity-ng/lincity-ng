@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Çiflikler</p>
+	<p style="hp">Çiflikler insanların yemesi ve Fabrikaların ham maddeleri için yiyecek yetiştirir. Çiflikler yiyecekleri Bakkalara satabilirler. Bu işi traktörle gerçekleştirirler yani yola ihtiyaçları yoktur. Fakat istersen ulaşıma satabilirler. Kesinlikle Bakkalın Çiflik kapsama alanında olmasını garanti etmelisin.</p>
+	
+	<p style="hp">Bu bir Çiflik</p>
+	<img src="images/tiles/farm0.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
+	
+	<p style="hp">Küçük bir miktardan daha fazla yiyecek sağlamak için Çifliklerin İşçiye ihtiyacı vardır. Çifliğe elektrik vermek de yiyecek miktarını artıracaktır. 'Elektrik' aynı zamanda eski tip Yeldeğirmenlerini da kapsar, bunlar yiyeceğin işlenmesine yardımcı olur böylece boş halden kurtulur.</p>
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="market">Bakkal</a></li>
+	<li><a href="tech-level">Teknoloji-Seviyesi</a></li>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="windmill">Yeldeğirmeni</a></li>
+	<li><a href="food">Yiyecek</a></li>
+</Document>

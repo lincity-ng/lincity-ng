@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Dozer</p>
+	<p style="hp">Bir alanı yıkmak için dozeri seç ve temizlemek istediğin alana tıkla. Yıkım maliyeti olan bir iştir. Bir alan yaptığınızda, yapım ve yıkım ücretleri ekranın sol-alt kısmında belirecek.</p>
+	<p style="hp">Anıt gibi bazı şeylerin yıkımı çok pahalıdır. Yıkım masrafı sadece fiziksel yıkım masrafıyla sınırlı kalmaz, aynı zamanda politiksel masraflıdır. Örneğin; bir Anıtı yıkmak sebebiyle protestocular oluşacak ve tabi ki mahkeme masrafları da.</p>
+	<p style="hp">Bu defa, Nehir alanını yıkmak diğer tarafa ulaşım sağlamanın tek yolu. Yıkılmış bir nehrin karşısına ulaşımla geçmek  köprü gibi güvenlidir.</p>
+	<p style="hp">Bu bir Dozer simgesi</p>
+	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="river">Nehir</a></li>
+</Document>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">İtfaiyeler</p>
+	<p style="hp">İtfaiyeler kapsama alanlarında yangın çıkmasını yada yayılmalarını engeller. Çalışmaları için İşçi ve Eşyaya ihtiyaçları var. Ulaşıma bağlantılı olmak zorunda değiller, ihtiyaçları olan İşçi ve Eşyaları sağlamak için bir Bakkalın kapsama alanında olmak zorundalar. Ayrıca çalışmaları masrafa yol açar.</p>
+	<p style="hp">Bir İtfaiye yaptığında doğrudan çalışmaz. Hazır olmaları için genellikle 3 ay kadar beklenir.</p>
+	<p style="hp">İtfaiyelerin kapsama alanlarını görmek için<i> küçük ekranın </i>altındaki İtfaiye düğmesine basın. Korunan bölgeler normal görünür, korunmayan bölgeler koyu yeşil.</p>
+	<p style="hp">İtfaiyeler kapsama alanlarındaki yerleşim alanlarının cazibesini artırır.</p>
+	<p style="hp">İtfaiyeler çalıştılarını aylık sıralı değişen canlandırmalarla gösterir.</p>
+
+	<p style="hp">Bu bir İtfaiye</p>
+	<img src="images/tiles/firestation1.png" halign="center"/>
+	<p style="hp">ve bu da simgesi</p>
+	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+	<p style="hp">ve bu da kapsama alanı düğmesi</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="mini-screen">Küçük ekran</a></li>
+	<li><a href="goods">Eşya</a></li>
+	<li><a href="market">Bakkal</a></li>
+	<li><a href="jobs">İşçi</a></li>
+	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>
+</Document>

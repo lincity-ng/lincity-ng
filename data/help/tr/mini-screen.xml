@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Küçükharita</p>
+	<p style="hp">Küçükharita oyun alanını küçültülmüş ölçekte gösterir. Küçükdüğmeler alttadır, onlardan birine tıklandığında oynadığın bölgenin üzerinde kirlilik seviyesi gibi bilgiler gösterir.</p>
+	<p style="hp">Küçükharitanın altındaki küçükdüğmelerin herbirine tıklandığında o düğmenin yardımı görüntülenir.</p>
+	<p style="hp">Beyaz çerçeveli kare ana ekrandaki bölgeyi gösterir.</p>
+	<p style="hp">Büyük kroki düğmesi küçükharita krokisini ana ekrana yansıtır</p>
+	
+	<p style="hsubtitle">Ayrıca bak:</p>
+	<li><a href="msb-coal">Kömür örtüsü</a></li>
+	<li><a href="msb-cricket">Spor kapsama alanı</a></li>
+	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>
+	<li><a href="msb-health">Sağlık kapsama alanı</a></li>
+	<li><a href="msb-normal">Normal örtü</a></li>
+	<li><a href="msb-pol">Kirlilik örtüsü</a></li>
+	<li><a href="msb-power">Elektirik kapsama alanı</a></li>
+	<li><a href="msb-starve">Açlık örtüsü</a></li>
+	<li><a href="msb-transport">Ulaşım örtüsü</a></li>
+	<li><a href="msb-ub40">İşsizlik örtüsü</a></li>
+</Document>
+
+
+

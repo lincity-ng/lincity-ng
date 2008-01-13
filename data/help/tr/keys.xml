@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Klavye</p>
+    <p style="hp">'ESC(escape)' Sorgu aracına geçer.</p>
+    <p style="hp">'b'  geçerli araç ve Dozer arasında geçiş.</p>
+    <p style="hp">'h'  yüksek yapıları saklar. Yüksek yapıları görmek için tekrar basın.</p>
+    <p style="hp">'v'  Küçükharita kroki konumları arasında geçiş yapar.</p>
+    <p style="hp">'num_artı'  yakınlaştırır</p>
+    <p style="hp">'num_eksi'  uzaklaştırır</p>
+    <p style="hp">'num_enter'  %100 yakınlaştırır</p>
+    <p style="hp">'num5'  haritanın ortasını ekranın ortasına getirir</p>  
+    <p style="hp">'num9'  ana ekranı kuzeye kaydırır</p>
+    <p style="hp">'num1'  ana ekranı güneye kaydırır</p>
+    <p style="hp">'num7'  ana ekranı batıya kaydırır</p>
+    <p style="hp">'num3'  ana ekranı doğuya kaydırır</p>
+    <p style="hp">'num2'  ana ekranı güney-doğuya kaydırır</p> 
+    <p style="hp">'num4'  ana ekranı güney-batıya kaydırır</p> 
+    <p style="hp">'num6'  ana ekranı kuzey-doğuya kaydırır</p> 
+    <p style="hp">'num8'  ana ekranı kuzey-batıya kaydırır</p> 
+    <p style="hp">İşaretçiyle aynıdırlar</p>
+    <p style="hp">rakamlarla daha hızlı kaydırma için 'shift'e basılı tutun</p>
+    <p style="hp">'F12'  hızlı kayıt</p> 
+    <p style="hp">'F9'  hızlı yükleme</p> 
+
+    <p style="htitle">Fare</p>
+    <p style="hp">sağ:</p>
+    <p style="hp">Ana ekranı sağ-düğme ile sürükleyin.</p>
+    <p style="hp">ana ekranda sağ-tık, ana ekranın ortasını fare işaretçisinin hizasına getirir.</p>
+    <p style="hp">orta:</p>
+    <p style="hp">işaretçi altındaki bölge ile ilgili bilgi almak için orta düğmeye tıklayın.</p>
+    <p style="hp">sol:</p>
+    <p style="hp">Küçük ekranda yıklanılan yeri ana ekranda gösterir.</p>
+    <p style="hp">Seçili aracın işlemini uygular. Yıkar yada yapılan yapının bilgisini gösterir.</p>
+    <p style="hp">teker:</p>
+    <p style="hp">yukarı: yakınlaştırır</p>
+    <p style="hp">aşağı: uzaklaştırır</p>
+</Document>
+

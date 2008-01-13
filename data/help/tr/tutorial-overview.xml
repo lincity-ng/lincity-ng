@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Ekrana genel bakış </p>
+
+<p style="hp"><b>Sol-üst </b>, araçlarla (sorgu ve dozer) simgelerin birikimi ve oyun sırasında inşa edebileceklerinin bütün simgeleri vardır. </p>
+<li>Bir simgenin üzerine sol-tıklandığında çekmece açılır daha fazla madde görülür. </li>
+<li>Bir simgenin üzerine sağ-tıkladığında uyumlu olan yardımı alırsın. </li>
+<li>Fare işaretçisi ile biraz beklediğinde küçük bir yardım iletisi açılır. </li>
+<p style="hp"></p>
+
+<p style="hp"><b>Aşağı-sol </b>, oyunun hız kontrolüdür.</p>
+<p style="hp"></p>
+
+<p style="hp"><b>Aşağı-sağ </b>, bütün "bilgi araçlarını" içerir: 4 sekmeli küçükekran, ve hemen altında çeşitli bilgiler için küçük simgeler. Ne olduğunu görmek için onlardan birinin üzerine tıklayın. </p>
+<p style="hp"></p>
+
+<p style="hp">Klavye ve fareyi deneyin (soli orta ve sağ tık ve teker...) , Yardım için ise 'F1'. </p>
+
+<p style="hp">Ayrıca bak:</p>
+<li><a href="tutorial-basics">İlk adımlar</a></li>
+<li><a href="tutorial-advanced">Gelişmiş ayarlar</a></li>
+<li><a href="tutorial-scenario">Önceden tanımlanmış senaryolar</a></li>
+
+</Document>
+

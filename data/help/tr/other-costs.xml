@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Diğer masraflar</p>
+	<p style="hp">Bu diğer masralar penceresidir.</p>
+	<p style="hp">Parasal ekranda 'diğer masrafların' bir dökümünü gösterir</p>
+	<p style="hp">Faiz masrafları</p>
+	<p style="hp">Okul masrafları</p>
+	<p style="hp">Doğal olmayan ölüm masrafları</p>
+	<p style="hp">Yeldeğirmeni masrafları</p>
+	<p style="hp">Sağlık masrafları</p>
+	<p style="hp">Füze masrafları</p>
+	<p style="hp">İtfaiye masrafları</p>
+	<p style="hp">Spor masrafları</p>
+	<p style="hp">Geridönüşüm masrafları</p>
+	<p style="hp">Bu pencerenin üstüne soltıklamak; parasal, diğer masraflar ve ev edindirme pencereleri arasında dönüşüm yaptırır.</p>
+</Document>
