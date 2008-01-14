@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Çiflikler</p>
-	<p style="hp">Çiflikler insanların yemesi ve Fabrikaların ham maddeleri için yiyecek yetiştirir. Çiflikler yiyecekleri Bakkalara satabilirler. Bu işi traktörle gerçekleştirirler yani yola ihtiyaçları yoktur. Fakat istersen ulaşıma satabilirler. Kesinlikle Bakkalın Çiflik kapsama alanında olmasını garanti etmelisin.</p>
+	<p style="hp">Çiflikler insanların yemesi ve Fabrikaların ham maddeleri için yiyecek yetiştirir. Çifçiler yiyecekleri Bakkalara satabilirler. Bu işi traktörle gerçekleştirirler yani yola ihtiyaçları yoktur. Fakat istersen ulaşımla satabilirler. Kesinlikle Bakkalın Çiflik kapsama alanında olmasını garanti etmelisin.</p>
+	<p style="hp">Çifliklerin üretimi yeraltı sularına bağlıdır. Sulu döşemeler yeşildir, diğerleri sarı-kahverengi (çöl yada verimsiz toprak gibi).</p>
 	
 	<p style="hp">Bu bir Çiflik</p>
 	<img src="images/tiles/farm0.png" halign="center"/>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Su kuyusu</p>
+        <p style="hp">Kapsama alanlarındaki evlere su sağlar. Sudan mahrum olunması yiyecekten mahrum olunması gibi bir sonuç oluşturur. Kroki/küçükharitadaki bilgi açlığı gösterir</p>
+
+	<p style="hp">Ayrıca Bak:</p>
+	<li><a href="food">Yiyecek</a></li>
+	<li><a href="msb-starve">Açlık örtüsü</a></li>
+</Document>

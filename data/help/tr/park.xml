@@ -2,9 +2,9 @@
 <Document style="helpdocument">
 	<p style="htitle">Millet bahçeleri</p>
 	<p style="hp">Millet pahçeleri çok basittir: kirliliği temizler.</p>
-	<p style="hp">Kirlilik oluşturan bölgelerin bir nüshası. Yollar, Demiryolları, Kömür madenleri ve Hafif ve Ağır sanayiler. Bazıları diğerlerinden daha fazla kirliliğe sebeptir.</p>
+	<p style="hp">Kirlilik oluşturan bölgelerin bir kısmı. Yollar, Demiryolları, Kömür madenleri ve Hafif ve Ağır sanayiler. Bazıları diğerlerinden daha fazla kirliliğe sebeptir.</p>
 	<p style="hp">Millet bahçelerini yerleşim bölgelerin korumak yada yerel bölgeden kirlilik kaynaklı kaçışları durdurmak için kullanabilirsin.</p>
-	<p style="hp">Rüzgar kirliliği güney-batıdan <b> getirir</b>, Millet bahçelerini ona göre inşa et.</p>
+	<p style="hp">Rüzgar kirliliği güney-batıdan <b> getirir</b>, Millet bahçelerini ona göre inşa et.Millet bahçeleri yeraltı suyuna ihtiyaç duyar, yani sadece "yeşil" döşemelerde yapılabilirler.</p>
 	
 	<p style="hp">Bu bir Millet bahçesi</p>
 	<img src="images/tiles/parkland-plane.png" halign="center"/>

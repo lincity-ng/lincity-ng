@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Yerleşim alanı</p>
-	<p style="hp">İnsanların yaşadığı yer. İnsanların buralarda yaşamalarının teşviki için doymuş olmalıları gerekir. Ayrıca çalışmaları ve eşya almaları için de yardımcı olacaktır. Bir Bakkalın kapsama alanında yada ulaşıma bağlanmış olmalılar. 3 farklı çeşit yerleşim alanı vardır: Düşük, Orta ve Yüksek yoğunluklu evler. Onlarla ilişkilendirilmiş farlı doğum ve ölüm oranları vardır. Bu sana nüfusunu kontrol etmen için biraz yetki verir.</p>
+	<p style="hp">İnsanların yaşadığı yer. İnsanların buralarda yaşamalarının teşviki için doymuş olmalıları gerekir (su kuyusu kapsama alanında ve yiyecek için bakkal kapsama alanı yada yol bağlantısı). Ayrıca çalışmaları ve eşya almaları için de yardımcı olacaktır. Bir Bakkalın kapsama alanında yada ulaşıma bağlanmış olmalılar (birçok yapı gibi).</p>
+	<p style="hp">3 farklı çeşit yerleşim alanı vardır: Düşük, Orta ve Yüksek yoğunluklu evler. Onlarla ilişkilendirilmiş farlı doğum ve ölüm oranları vardır. Bu sana nüfusunu kontrol etmen için biraz yetki verir.</p>
 	<p style="hp">Daha sonra oyunda, eğer yeterli teknolojin varsa, daha gelişmiş evler yapabilirsin, kule halinde büyük binalar.</p>
 
 	<p style="hp">Bu düşük yoğunluklu bir ev (yüksek teknoloji)</p>
@@ -19,5 +20,7 @@
 
 	<p style="hsubtitle">Ayrıca bak:</p>
 	<li><a href="market">Bakkal</a></li>
+	<li><a href="transport">Ulaşım</a></li>
+        <li><a href="waterwell">Su kuyusu</a></li>
 </Document>
 
