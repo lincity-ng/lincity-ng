@@ -51,6 +51,7 @@ HELPPATHS =
     help/pt_BR
     help/ru
     help/sv
+    help/tr
 ;
 for p in $(HELPPATHS) {
     InstallData [ Wildcard $(p) : *.xml ] : $(p) ;
