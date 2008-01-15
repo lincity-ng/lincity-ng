@@ -552,6 +552,8 @@ void new_city(int *originx, int *originy, int random_village)
         update_pbar(PPOP, 100, 1);
     }
     connect_transport(1, 1, WORLD_SIDE_LEN - 2, WORLD_SIDE_LEN - 2);
+    /* Fix desert frontier for old saved games and scenarios */
+    desert_frontier(0, 0, WORLD_SIDE_LEN, WORLD_SIDE_LEN);
     refresh_pbars();
 }
 

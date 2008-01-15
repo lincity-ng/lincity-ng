@@ -97,6 +97,7 @@ extern void prog_box(const char *, int);
 
 extern void print_total_money(void);
 extern int count_groups(int);
+extern void desert_frontier(int originx, int originy, int w, int h);
 
 /* ---------------------------------------------------------------------- *
  * Public functions
@@ -293,6 +294,8 @@ void load_city_2(char *cname)
     if (ldsv_version < WATERWELL_V2) {
         gzclose(gzfile);
         load_city_old( cname );
+        /* Fix desert frontier for old saved games and scenarios */
+        desert_frontier(0, 0, WORLD_SIDE_LEN, WORLD_SIDE_LEN);
         return;
     }
 
@@ -528,5 +531,8 @@ void load_city_2(char *cname)
     selected_module = sbut[7];  /* 7 is track.  Watch out though! */
     highlight_module_button(selected_module);
     set_selected_module(CST_TRACK_LR);
+    /* Fix desert frontier for old saved games and scenarios */
+    desert_frontier(0, 0, WORLD_SIDE_LEN, WORLD_SIDE_LEN);
+
 }
 

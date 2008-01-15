@@ -359,6 +359,7 @@ int place_item(int x, int y, short type)
     } /* end case */
 
     set_mappoint(x, y, type);
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
 
     if (group == GROUP_RIVER)
         connect_rivers();
@@ -446,6 +447,8 @@ void do_bulldoze_area(short fill, int xx, int yy)
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size; j++)
             bulldoze_mappoint(fill, x + i, y + j);
+
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
 }
 
 void do_pollution()
@@ -624,9 +627,13 @@ void do_daily_ecology()
         for (int y = 0; y < WORLD_SIDE_LEN; y++) {
             /* approximately 3 monthes needed to turn bulldoze area into green */
             if (MP_GROUP(x, y) == GROUP_DESERT && HAS_UGWATER(x, y)
-                && rand() % 300 == 1)
+                                        && rand() % 300 == 1) {
                 do_bulldoze_area(CST_GREEN, x, y);
+            }
         }
+    //TODO: depending on water, green can become trees
+    //      pollution can make desert 
+    //      etc ...
 }
 
 void connect_rivers(void)
@@ -668,6 +675,65 @@ void do_coal_survey(void)
     }
 }
 
+void desert_frontier(int originx, int originy, int w, int h)
+{
+    /* copied from connect_transport */
+    // sets the correct TYPE depending on neighbours, => gives the correct tile to display
+    int x, y, mask;
+
+    static const short desert_table[16] = {
+        CST_DESERT_0, CST_DESERT_1D, CST_DESERT_1R, CST_DESERT_2RD,
+        CST_DESERT_1L, CST_DESERT_2LD, CST_DESERT_2LR, CST_DESERT_3LRD,
+        CST_DESERT_1U, CST_DESERT_2UD, CST_DESERT_2RU, CST_DESERT_3RUD,
+        CST_DESERT_2LU, CST_DESERT_3LUD, CST_DESERT_3LRU, CST_DESERT
+    };
+
+#if	FLAG_LEFT != 1 || FLAG_UP != 2 || FLAG_RIGHT != 4 || FLAG_DOWN != 8
+#error  desert_frontier(): you loose
+#error  the algorithm depends on proper flag settings -- (ThMO)
+#endif
+
+    /* Adjust originx,originy,w,h to proper range */
+    if (originx <= 0) {
+        w -= 1 - originx;
+        originx = 1;
+    }
+    if (originy <= 0) {
+        h -= 1 - originy;
+        originy = 1;
+    }
+    if (originx + w >= WORLD_SIDE_LEN) {
+        w = WORLD_SIDE_LEN - originx;
+    }
+    if (originy + h >= WORLD_SIDE_LEN) {
+        h = WORLD_SIDE_LEN - originy;
+    }
+
+    for (x = originx; x < originx + w; x++) {
+        for (y = originy; y < originy + h; y++) {
+            if (MP_GROUP(x,y) == GROUP_DESERT) {
+                mask = 0;
+                /* up -- (ThMO) */
+                if (MP_GROUP(x, y - 1) == GROUP_DESERT)
+                    mask |= 8;
+
+                /* left -- (ThMO) */
+                if (MP_GROUP(x - 1, y) == GROUP_DESERT)
+                    mask |= 4;
+
+                /* right -- (ThMO) */
+                if (MP_GROUP(x + 1, y) == GROUP_DESERT)
+                    mask |= 2;
+
+                /* down -- (ThMO) */
+                if (MP_GROUP(x, y + 1) == GROUP_DESERT)
+                    ++mask;
+
+                MP_TYPE(x, y) = desert_table[mask];
+            }
+        }
+    }
+}
 /************ Private functions ***************************/
 static void bulldoze_mappoint(short fill, int x, int y)
 {
@@ -687,7 +753,7 @@ static void bulldoze_mappoint(short fill, int x, int y)
     MP_INFO(x, y).int_7 = 0;
 }
 
-int is_real_river(int x, int y)
+static int is_real_river(int x, int y)
 {
     /* returns zero if not water at all or if out of bounds. */
     if (x < 0 || x >= WORLD_SIDE_LEN || y < 0 || y >= WORLD_SIDE_LEN)
@@ -696,6 +762,6 @@ int is_real_river(int x, int y)
         return (0);
     if (MP_INFO(x, y).flags & FLAG_IS_RIVER)
         return (1);
-    return (-1);
+    return (-1); // only water, not river
 }
 

@@ -484,6 +484,21 @@ void GameView::loadTextures()
            -e 's/"/.png" );/2'                 
    */
    preReadCityTexture( CST_GREEN, 	"green.png" );
+   preReadCityTexture( CST_DESERT_0, 	"desert_0.png" );
+   preReadCityTexture( CST_DESERT_1L, 	"desert_1l.png" );
+   preReadCityTexture( CST_DESERT_1R, 	"desert_1r.png" );
+   preReadCityTexture( CST_DESERT_1U, 	"desert_1u.png" );
+   preReadCityTexture( CST_DESERT_1D, 	"desert_1d.png" );
+   preReadCityTexture( CST_DESERT_2LR, 	"desert_2lr.png" );
+   preReadCityTexture( CST_DESERT_2LU, 	"desert_2lu.png" );
+   preReadCityTexture( CST_DESERT_2LD, 	"desert_2ld.png" );
+   preReadCityTexture( CST_DESERT_2RU, 	"desert_2ru.png" );
+   preReadCityTexture( CST_DESERT_2RD, 	"desert_2rd.png" );
+   preReadCityTexture( CST_DESERT_2UD, 	"desert_2ud.png" );
+   preReadCityTexture( CST_DESERT_3LRD,	"desert_3lrd.png" );
+   preReadCityTexture( CST_DESERT_3LRU,	"desert_3lru.png" );
+   preReadCityTexture( CST_DESERT_3LUD,	"desert_3lud.png" );
+   preReadCityTexture( CST_DESERT_3RUD,	"desert_3rud.png" );
    preReadCityTexture( CST_DESERT, 	"desert.png" );
    preReadCityTexture( CST_TREE, 	"tree.png" );
    preReadCityTexture( CST_TREE2, 	"tree2.png" );
@@ -1544,6 +1559,7 @@ void GameView::draw(Painter& painter)
             currentTile = startRoad;
             while( currentTile.x != tileUnderMouse.x ) {
                 markTile( painter, currentTile );
+                //FIXME: AL1 : we are speaking of tools, so CST_GREEN == buldozer, no need to check DESERT and TREES
                 if( (selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
 				|selected_module_type == CST_TREE 
 				|selected_module_type == CST_TREE2

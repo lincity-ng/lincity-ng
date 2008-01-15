@@ -609,6 +609,38 @@
 #define CST_TREE3		353
 #define LCT_TREE3_G		"tree3"
 
+#define CST_DESERT_0		354             // 350 is desert = desert_4lrud
+#define LCT_DESERT_0_G		"desert_0"
+#define CST_DESERT_1D		355
+#define LCT_DESERT_1D_G		"desert_1d"
+#define CST_DESERT_1L		356
+#define LCT_DESERT_1L_G		"desert_1l"
+#define CST_DESERT_1R		357
+#define LCT_DESERT_1R_G		"desert_1r"
+#define CST_DESERT_1U		358
+#define LCT_DESERT_1U_G		"desert_1u"
+#define CST_DESERT_2LD		359
+#define LCT_DESERT_2LD_G	"desert_2ld"
+#define CST_DESERT_2LR		360
+#define LCT_DESERT_2LR_G	"desert_2lr"
+#define CST_DESERT_2LU		361
+#define LCT_DESERT_2LU_G	"desert_2lu"
+#define CST_DESERT_2RD		362
+#define LCT_DESERT_2RD_G	"desert_2rd"
+#define CST_DESERT_2RU		363
+#define LCT_DESERT_2RU_G	"desert_2ru"
+#define CST_DESERT_2UD		364
+#define LCT_DESERT_2UD_G	"desert_2ud"
+#define CST_DESERT_3LRD		365
+#define LCT_DESERT_3LRD_G	"desert_3lrd"
+#define CST_DESERT_3LRU		366
+#define LCT_DESERT_3LRU_G	"desert_3lru"
+#define CST_DESERT_3LUD		367
+#define LCT_DESERT_3LUD_G	"desert_3lud"
+#define CST_DESERT_3RUD		368
+#define LCT_DESERT_3RUD_G	"desert_3rud"
+
+
 #define CST_NONE 1000
 
 /*

@@ -15,6 +15,7 @@ void do_coal_survey(void);
 void do_random_fire(int x, int y, int pwarning);
 void launch_rocket(int x, int y);
 void fire_area(int x, int y);
+void desert_frontier(int originx, int originy, int w, int h);
 
 /* called only by simulate.cpp */
 void connect_rivers(void); // called by engine.cpp too.
