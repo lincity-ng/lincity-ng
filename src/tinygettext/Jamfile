@@ -5,3 +5,5 @@ Library tinygettext
     : noinstall
 ;
 
+ExternalLibs tinygettext : SDL ;
+

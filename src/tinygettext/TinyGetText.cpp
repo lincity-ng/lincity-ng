@@ -20,17 +20,13 @@
 #include <config.h>
 
 #include <sys/types.h>
-#include <iconv.h>
-#if defined (HAVE_DIRENT_H)
-#include <dirent.h>
-#endif
-#include <cstdlib>
-#include <string.h>
 #include <fstream>
 #include <iostream>
 #include <algorithm>
 #include <ctype.h>
 #include <errno.h>
+
+#include "SDL.h"
 
 #include "TinyGetText.hpp"
 #include "PhysfsStream/PhysfsStream.hpp"
@@ -48,7 +44,20 @@ std::string convert(const std::string& text,
   if (from_charset == to_charset)
     return text;
 
-  iconv_t cd = iconv_open(to_charset.c_str(), from_charset.c_str());
+  char *in = new char[text.length() + 1];
+  strcpy(in, text.c_str());
+  char *out = SDL_iconv_string(to_charset.c_str(), from_charset.c_str(), in, text.length() + 1);
+  delete[] in; 
+  if(out == 0)
+  {
+    std::cerr << "Error: conversion from " << from_charset << " to " << to_charset << " failed" << std::endl;
+    return "";
+  }
+  std::string ret(out);
+  SDL_free(out);
+  return ret;
+#if 0
+  iconv_t cd = SDL_iconv_open(to_charset.c_str(), from_charset.c_str());
 
   size_t in_len = text.length();
   size_t out_len = text.length()*3; // FIXME: cross fingers that this is enough
@@ -62,7 +71,7 @@ std::string convert(const std::string& text,
   size_t out_len_temp = out_len; // iconv is counting down the bytes it has
                                  // written from this...
 
-  size_t retval = iconv(cd, &in, &in_len, &out, &out_len_temp);
+  size_t retval = SDL_iconv(cd, &in, &in_len, &out, &out_len_temp);
   out_len -= out_len_temp; // see above
   if (retval == (size_t) -1)
     {
@@ -71,12 +80,13 @@ std::string convert(const std::string& text,
                 << " to " << to_charset << " went wrong: " << retval << std::endl;
       return "";
     }
-  iconv_close(cd);
+  SDL_iconv_close(cd);
 
   std::string ret(out_orig, out_len);
   delete[] out_orig;
   delete[] in_orig;
   return ret;
+#endif
 }
 
 bool has_suffix(const std::string& lhs, const std::string rhs)
@@ -244,7 +254,13 @@ DictionaryManager::parseLocaleAliases()
 Dictionary&
 DictionaryManager::get_dictionary(const std::string& spec)
 {
+
+  //log_debug << "Dictionary for language \"" << spec << "\" requested" << std::endl;
+
   std::string lang = get_language_from_spec(spec);
+
+  //log_debug << "...normalized as \"" << lang << "\"" << std::endl;
+
   Dictionaries::iterator i = dictionaries.find(get_language_from_spec(lang));
   if (i != dictionaries.end())
     {
@@ -336,7 +352,9 @@ DictionaryManager::get_languages()
 void
 DictionaryManager::set_language(const std::string& lang)
 {
+  //log_debug << "set_language \"" << lang << "\"" << std::endl;
   language = get_language_from_spec(lang);
+  //log_debug << "==> \"" << language << "\"" << std::endl;
   current_dict = & (get_dictionary(language));
 }
 
@@ -642,7 +660,7 @@ public:
         if (has_prefix(token.keyword, "msgstr["))
           {
             int num;
-            if (sscanf(token.keyword.c_str(), "msgstr[%d]", &num) != 1) 
+            if (sscanf(token.keyword.c_str(), "msgstr[%d]", &num) != 1)
               {
                 std::cerr << "Error: Couldn't parse: " << token.keyword << std::endl;
               }
@@ -691,6 +709,9 @@ public:
               {
                 state = SKIP_COMMENT;
               }
+            else if (c == '\n')
+              {
+              }
             else
               {
                 // Read a new token
@@ -718,6 +739,7 @@ public:
                   in.unget();
                   state = READ_KEYWORD;
                   add_token(token);
+                  token = Token();
                   break;
                 }
               }
@@ -756,6 +778,7 @@ public:
           }
       }
     add_token(token);
+    token = Token();
   }
 };
 
