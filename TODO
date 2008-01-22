@@ -61,12 +61,16 @@ Programming
  [?] Think about mechanism for attach arbitrary properties to components
     (for tooltips, styles (and layout data?) )
 
-    
+ [H] Make stats dialog work without fixed font and remove fixed font.
+     Add waterwell to stats dialog. Change "results" file to use
+     untranslated English text.
+
+ [?] Add new file format for score file, similar to "results" (but in xml?)
 
 --Bugs--
  [H] Windows: Something in MainMenu.cpp with recentfile and curfile is broken. 
 
- [M] Windows: Use user's home for savegames
+ [M] Windows: Use user's home for savegames (already fixed?)
 
  [M] Get rid of all the compiler warnings.
 
