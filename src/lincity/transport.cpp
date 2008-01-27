@@ -12,22 +12,75 @@
 #include "power.h"
 #include "stats.h"              /* for transport_cost */
 
+static int max_load(int x, int y, int i)
+{
+    int group=MP_GROUP(x,y);
+    int max;
+
+    static const int max_track_table[7] = {
+        MAX_FOOD_ON_TRACK,
+        MAX_JOBS_ON_TRACK,
+        MAX_COAL_ON_TRACK,
+        MAX_GOODS_ON_TRACK,
+        MAX_ORE_ON_TRACK,
+        MAX_STEEL_ON_TRACK,
+        MAX_WASTE_ON_TRACK
+    };
+
+    static const int max_road_table[7] = {
+        MAX_FOOD_ON_ROAD,
+        MAX_JOBS_ON_ROAD,
+        MAX_COAL_ON_ROAD,
+        MAX_GOODS_ON_ROAD,
+        MAX_ORE_ON_ROAD,
+        MAX_STEEL_ON_ROAD,
+        MAX_WASTE_ON_ROAD
+    };
+
+    static const int max_rail_table[7] = {
+        MAX_FOOD_ON_RAIL,
+        MAX_JOBS_ON_RAIL,
+        MAX_COAL_ON_RAIL,
+        MAX_GOODS_ON_RAIL,
+        MAX_ORE_ON_RAIL,
+        MAX_STEEL_ON_RAIL,
+        MAX_WASTE_ON_RAIL
+    };
+
+    if (group == GROUP_TRACK)
+        max = max_track_table[i];
+    else if (group == GROUP_ROAD)
+        max = max_road_table[i];
+    else if (group == GROUP_RAIL)
+        max = max_rail_table[i];
+    else {
+        // paranoid check, it should never happen
+        fprintf(stderr," ERROR in max_load x %i, y %i, i %i\n", x, y, i);
+        max = 0;
+    }
+
+    return max;
+
+}
+
 /* ---------------------------------------------------------------------
-   For track, road and rail:
+   For track, road and rail: 
   
-   int_1 contains the amount of food
-   int_2 contains the amount of jobs
-   int_3 contains the amount of coal
-   int_4 contains the amount of goods
-   int_5 contains the amount of ore
-   int_6 contains the amount of steel
-   int_7 contains the amount of waste
+   MP_INFO(x,y).int_1 contains the amount of food
+                int_2 contains the amount of jobs
+                int_3 contains the amount of coal
+                int_4 contains the amount of goods
+                int_5 contains the amount of ore
+                int_6 contains the amount of steel
+                int_7 contains the amount of waste
+
+   MP_INFO(x,y).flags indicates the type of tile wrt to neighbours
+                it is computed/updated at build time in connect_transport
+
   --------------------------------------------------------------------- */
 
-void general_transport(Map_Point_Info * minfo, int *pol, int max_waste, int *waste_count)
+void general_transport(int x, int y, int max_waste)
 {
-    int tot, av, *base, xm1, xp1, ym1, yp1;
-
     /* 30. Oct 1996:
      * we'll use a loop with pointers here instead of doin' each
      * operation by hand.  this reduces code complexity and should
@@ -46,186 +99,251 @@ void general_transport(Map_Point_Info * minfo, int *pol, int max_waste, int *was
      * (ThMO)
      */
 
+    /* Jan 2008: AL1
+     * Due to current computer speed, no more need to worry about optimisation.
+     * general_transport is less than 10% of the total simulation time AND
+     * the simulation is very fast and is bounded by anim rate:
+     * It could be about 5 times faster if we remove SDL_Delay in animation stuff
+     *          tested on AMD Athlon XP 2200+ (1600 Mhz) + 750 MB
+     *          with decent graphic card (GeForce 420 MX with 16MB)
+     */
+
+    /*   O---------------------->x
+     *   |      | Up     |
+     *   |  Left| Center |Right
+     *   |      | Down   |
+     *   v
+     *   y
+     */
+
+    int *pol = &MP_POL(x, y);
+    Map_Point_Info *minfo = &MP_INFO(x, y);
+
+    int tot, max, ratio, *base, xm1, xp1, ym1, yp1;
+    int i;
+    int CC; // x, y     Center Current load
+    int CM; //          Center Max load
+    int LC; // x-1, y   Left
+    int LM;
+    int RC; // x+1,y    Right
+    int RM;
+    int UC; // x, y-1   Up
+    int UM;
+    int DC; // x, y+1   Down
+    int DM;
+
+    /* With the grey border we are sure that x-1 et al are inside the boundaries */
     base = &minfo->int_1;
+    xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
+    ym1 = &minfo[-1].int_1 - base;
+    xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
+    yp1 = &minfo[1].int_1 - base;
+
+    /*  */
+    for (i = 0; i < 7; i++) {
+        /* left */
+        if ( XY_IS_TRANSPORT(x - 1, y) ) {
+            LC = base[xm1];
+            LM = max_load(x - 1, y, i);
+        } else {
+            LC = LM =0;
+        }
+        /* right */
+        if (XY_IS_TRANSPORT(x + 1, y)) {
+            RC = base[xp1];
+            RM = max_load(x + 1, y, i);
+        } else {
+            RC = RM =0;
+        }
+        /* up */
+        if (XY_IS_TRANSPORT(x, y - 1)) {
+            UC = base[ym1];
+            UM = max_load(x, y - 1, i);
+        } else {
+            UC = UM =0;
+        }
+        /* down */
+        if (XY_IS_TRANSPORT(x, y + 1)) {
+            DC = base[yp1];
+            DM = max_load(x, y + 1, i);
+        } else {
+            DC = DM =0;
+        }
+        /* center = here */
+        CC = *base;
+        CM = max_load(x,y,i);
+
+        tot = CC + LC + RC + UC + DC;
+        max = CM + LM + RM + UM + DM;
+        ratio = (tot * 100) / max;
+        
+        /* left */
+        if (XY_IS_TRANSPORT(x - 1, y)) {
+            LC = base[xm1] = (ratio * LM) / 100;
+        }
+        /* right */
+        if (XY_IS_TRANSPORT(x + 1, y)) {
+            RC = base[xp1] = (ratio * RM) / 100;
+        }
+        /* up */
+        if (XY_IS_TRANSPORT(x, y - 1)) {
+            UC = base[ym1] = (ratio * UM) / 100;
+        }
+        /* down */
+        if (XY_IS_TRANSPORT(x, y + 1)) {
+            DC = base[yp1] = (ratio * DM) / 100;
+        }
+
+        *base = tot - (LC + RC + UC + DC);
+        *base++; // loop on address of int_"i"
+    }
+
+    /*
     switch (minfo->flags & 0x0F) {
     case 0:
         return;
 
-    case 1:                    /* inlined t_av_l() -- (ThMO) */
-        xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-        do {
+    case 1:                    // inlined t_av_l() -- (ThMO)
+        for (i = 0; i < 7; i++) {        //loop on the adress of int_1 int_2 .... int_7
             tot = *base + base[xm1];
             av = tot / 2;
             base[xm1] = av;
             *base++ = av + tot % 2;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 2:                    /* inlined t_av_u() -- (ThMO) */
-        ym1 = &minfo[-1].int_1 - base;
-        do {
+    case 2:                    // inlined t_av_u() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[ym1];
             av = tot / 2;
             base[ym1] = av;
             *base++ = av + tot % 2;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 3:                    /* inlined t_av_lu() -- (ThMO) */
-        xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-        ym1 = &minfo[-1].int_1 - base;
-        do {
+    case 3:                    // inlined t_av_lu() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xm1] + base[ym1];
             av = tot / 3;
             base[xm1] = base[ym1] = av;
             *base++ = av + tot % 3;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 4:                    /* inlined t_av_r() -- (ThMO) */
-        xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-        do {
+    case 4:                    // inlined t_av_r() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xp1];
             av = tot / 2;
             base[xp1] = av;
             *base++ = av + tot % 2;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 5:                    /* inlined t_av_lr() -- (ThMO) */
-        xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-        xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-        do {
+    case 5:                    // inlined t_av_lr() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xm1] + base[xp1];
             av = tot / 3;
             base[xm1] = base[xp1] = av;
             *base++ = av + tot % 3;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 6:                    /* inline t_av_ur() -- (ThMO) */
-        ym1 = &minfo[-1].int_1 - base;
-        xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-        do {
+    case 6:                    // inline t_av_ur() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[ym1] + base[xp1];
             av = tot / 3;
             base[ym1] = base[xp1] = av;
             *base++ = av + tot % 3;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 7:                    /* inlined t_av_lur() -- (ThMO) */
-        xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-        ym1 = &minfo[-1].int_1 - base;
-        xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-        do {
+    case 7:                    // inlined t_av_lur() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xm1] + base[ym1] + base[xp1];
             av = tot / 4;
             base[xm1] = base[ym1] = base[xp1] = av;
             *base++ = av + tot % 4;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 8:                    /* inlined t_av_d() -- (ThMO) */
-        yp1 = &minfo[1].int_1 - base;
-        do {
+    case 8:                    // inlined t_av_d() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[yp1];
             av = tot / 2;
             base[yp1] = av;
             *base++ = av + tot % 2;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 9:                    /* inlined t_av_ld() -- (ThMO) */
-        xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-        yp1 = &minfo[1].int_1 - base;
-        do {
+    case 9:                    // inlined t_av_ld() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xm1] + base[yp1];
             av = tot / 3;
             base[xm1] = base[yp1] = av;
             *base++ = av + tot % 3;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 10:                   /* inlined t_av_ud() -- (ThMO) */
-        ym1 = &minfo[-1].int_1 - base;
-        yp1 = &minfo[1].int_1 - base;
-        do {
+    case 10:                   // inlined t_av_ud() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[ym1] + base[yp1];
             av = tot / 3;
             base[ym1] = base[yp1] = av;
             *base++ = av + tot % 3;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 11:                   /* inlined t_av_lud() -- (ThMO) */
-        xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-        ym1 = &minfo[-1].int_1 - base;
-        yp1 = &minfo[1].int_1 - base;
-        do {
+    case 11:                   // inlined t_av_lud() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xm1] + base[ym1] + base[yp1];
             av = tot / 4;
             base[xm1] = base[ym1] = base[yp1] = av;
             *base++ = av + tot % 4;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 12:                   /* inlined t_av_rd() -- (ThMO) */
-        xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-        yp1 = &minfo[1].int_1 - base;
-        do {
+    case 12:                   // inlined t_av_rd() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xp1] + base[yp1];
             av = tot / 3;
             base[xp1] = base[yp1] = av;
             *base++ = av + tot % 3;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 13:                   /* inlined t_av_lrd() -- (ThMO) */
-        xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-        xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-        yp1 = &minfo[1].int_1 - base;
-        do {
+    case 13:                   // inlined t_av_lrd() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xm1] + base[xp1] + base[yp1];
             av = tot / 4;
             base[xm1] = base[xp1] = base[yp1] = av;
             *base++ = av + tot % 4;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 14:                   /* inlined t_av_urd() -- (ThMO) */
-        ym1 = &minfo[-1].int_1 - base;
-        xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-        yp1 = &minfo[1].int_1 - base;
-        do {
+    case 14:                   // inlined t_av_urd() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[ym1] + base[xp1] + base[yp1];
             av = tot / 4;
             base[ym1] = base[xp1] = base[yp1] = av;
             *base++ = av + tot % 4;
-        } while (base <= &minfo->int_7);
+        }
         break;
 
-    case 15:                   /* inlined t_av_lurd() -- (ThMO) */
-        xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-        ym1 = &minfo[-1].int_1 - base;
-        xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-        yp1 = &minfo[1].int_1 - base;
-        do {
+    case 15:                   // inlined t_av_lurd() -- (ThMO)
+        for (i = 0; i < 7; i++) {
             tot = *base + base[xm1] + base[ym1] + base[xp1] + base[yp1];
             av = tot / 5;
             base[xm1] = base[ym1] = base[xp1] = base[yp1] = av;
             *base++ = av + tot % 5;
-        } while (base <= &minfo->int_7);
+        }
         break;
     }
+    */
+
+    //  *--base = &minfo->int_7 = current waste on this tile of transport 
     if (*--base >= max_waste) {
         *base -= WASTE_BURN_ON_TRANSPORT;
         ++*pol;
-        if (*waste_count > TRANSPORT_BURN_WASTE_COUNT) {
-            *waste_count = 0;
-        } else {
-            ++*waste_count;
-        }
     }
 }
 

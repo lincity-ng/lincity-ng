@@ -12,10 +12,8 @@
 #define XY_IS_TRANSPORT(x,y) \
 ((MP_GROUP(x,y) == GROUP_TRACK) || \
  (MP_GROUP(x,y) == GROUP_ROAD) || \
- (MP_GROUP(x,y) == GROUP_RAIL) || \
- (MP_GROUP(x,y) == GROUP_POWER_LINE))
-
+ (MP_GROUP(x,y) == GROUP_RAIL))
 #endif
 
-void general_transport(Map_Point_Info * minfo, int *pol, int max_waste, int *waste_count);
+void general_transport(int x, int y, int max_waste);
 void connect_transport(int originx, int originy, int w, int h);

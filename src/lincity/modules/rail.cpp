@@ -23,9 +23,9 @@
 
 void do_rail(int x, int y)
 {
-    static int wb_count = 0;
     int *pol = &MP_POL(x, y);
     Map_Point_Info *minfo = &MP_INFO(x, y);
+
     transport_cost += 3;
     if (total_time % DAYS_PER_RAIL_POLLUTION == 0)
         *pol += RAIL_POLLUTION;
@@ -37,7 +37,7 @@ void do_rail(int x, int y)
         --minfo->int_6;
         ++minfo->int_7;
     }
-    general_transport(minfo, pol, MAX_WASTE_ON_RAIL, &wb_count);
+    general_transport(x, y, MAX_WASTE_ON_RAIL);
 }
 
 void mps_rail(int x, int y)

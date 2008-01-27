@@ -68,10 +68,11 @@
    FLAG_M?_* into an int_? variable.  And add more int_? variables.  That keeps
    it simple and squeezes some life out of 32 bits.  I don't think we need to
    hurry.  I'd rather replace the whole scheme. */
-#define FLAG_LEFT               (1)
-#define FLAG_UP                 (2)
-#define FLAG_RIGHT              (4)
-#define FLAG_DOWN               (8)
+
+#define FLAG_LEFT               (1)             // Used for transports, power lines, rivers, and desert borders.
+#define FLAG_UP                 (2)             // Algorithm relies on the numerical values of 
+#define FLAG_RIGHT              (4)             // the flags. (a check is done at compile time)
+#define FLAG_DOWN               (8)             // 
 #define FLAG_POWERED            (0x10)
 #define FLAG_FED                (0x20)
 #define FLAG_EMPLOYED           (0x40)
@@ -369,15 +370,13 @@
 #define MAX_NUMOF_MARKETS 512
 #define MARKET_RANGE      10
 #define MAX_FOOD_ON_TRACK 2048
-#define MAX_FOOD_ON_RIVER (MAX_FOOD_ON_TRACK*2)
 #define MAX_FOOD_ON_ROAD (MAX_FOOD_ON_TRACK*4)
-#define MAX_FOOD_ON_RAIL (MAX_FOOD_ON_ROAD*4)
+#define MAX_FOOD_ON_RAIL (MAX_FOOD_ON_TRACK*16)
 #define MAX_FOOD_IN_MARKET (MAX_FOOD_ON_RAIL*8)
 #define MARKET_FOOD_SEARCH_TRIGGER (MAX_FOOD_IN_MARKET/5)
 #define MAX_JOBS_ON_TRACK 1024
-#define MAX_JOBS_ON_RIVER (MAX_JOBS_ON_TRACK*2)
 #define MAX_JOBS_ON_ROAD (MAX_JOBS_ON_TRACK*5)
-#define MAX_JOBS_ON_RAIL (MAX_JOBS_ON_ROAD*5)
+#define MAX_JOBS_ON_RAIL (MAX_JOBS_ON_TRACK*25)
 #define MAX_JOBS_IN_MARKET (MAX_JOBS_ON_RAIL*3)
 #define MARKET_JOBS_SEARCH_TRIGGER (MAX_JOBS_IN_MARKET/5)
 #define MARKET_ANIM_SPEED 750
@@ -396,15 +395,6 @@
 #define ORG_FARM_WASTE_GET 6
 #define MIN_FOOD_SOLD_FOR_ANIM 200
 #define DAYS_PER_STARVE 20
-
-#define MAX_WASTE_ON_TRACK 1024
-#define MAX_WASTE_ON_ROAD (MAX_WASTE_ON_TRACK*5)
-#define MAX_WASTE_ON_RAIL (MAX_WASTE_ON_ROAD*5)
-#define MAX_WASTE_IN_MARKET (MAX_WASTE_ON_RAIL*3)
-#define MARKET_WASTE_SEARCH_TRIGGER (MAX_WASTE_IN_MARKET/5)
-#define MAX_WASTE_AT_TIP  10000000
-#define WASTE_BURN_ON_TRANSPORT 20
-#define TRANSPORT_BURN_WASTE_COUNT 75000
 
 #define NUMOF_COAL_RESERVES 100
 #define COAL_RESERVE_SIZE 10000
@@ -428,33 +418,38 @@
 #define DIG_MORE_COAL_TRIGGER (MAX_COAL_AT_MINE)
 #define DIG_MORE_ORE_TRIGGER  (MAX_ORE_AT_MINE)
 #define MAX_COAL_ON_TRACK 64
-#define MAX_COAL_ON_RIVER (MAX_COAL_ON_TRACK*2)
 #define MAX_COAL_ON_ROAD (MAX_COAL_ON_TRACK*8)
-#define MAX_COAL_ON_RAIL (MAX_COAL_ON_ROAD*8)
+#define MAX_COAL_ON_RAIL (MAX_COAL_ON_TRACK*64)
 #define MAX_COAL_IN_MARKET (MAX_COAL_ON_RAIL*2)
 #define MARKET_COAL_SEARCH_TRIGGER (MAX_COAL_IN_MARKET/5)
 
 #define MAX_GOODS_ON_TRACK 2048
-#define MAX_GOODS_ON_RIVER (MAX_GOODS_ON_TRACK*2)
 #define MAX_GOODS_ON_ROAD (MAX_GOODS_ON_TRACK*5)
 #define ROAD_GOODS_USED_MASK 0x1f
-#define MAX_GOODS_ON_RAIL (MAX_GOODS_ON_ROAD*5)
+#define MAX_GOODS_ON_RAIL (MAX_GOODS_ON_TRACK*25)
 #define RAIL_GOODS_USED_MASK 0xf
 #define MAX_GOODS_IN_MARKET (MAX_GOODS_ON_RAIL*4)
 #define MARKET_GOODS_SEARCH_TRIGGER (MAX_GOODS_IN_MARKET/5)
 #define MAX_ORE_ON_TRACK 4096
-#define MAX_ORE_ON_RIVER (MAX_ORE_ON_TRACK*2)
 #define MAX_ORE_ON_ROAD (MAX_ORE_ON_TRACK*4)
-#define MAX_ORE_ON_RAIL (MAX_ORE_ON_ROAD*4)
+#define MAX_ORE_ON_RAIL (MAX_ORE_ON_TRACK*16)
 #define MAX_ORE_IN_MARKET (MAX_ORE_ON_RAIL*2)
 #define MARKET_ORE_SEARCH_TRIGGER (MAX_ORE_IN_MARKET/5)
 
 #define MAX_STEEL_ON_TRACK 128
-#define MAX_STEEL_ON_RIVER (MAX_STEEL_ON_TRACK*2)
 #define MAX_STEEL_ON_ROAD (MAX_STEEL_ON_TRACK*4)
-#define MAX_STEEL_ON_RAIL (MAX_STEEL_ON_ROAD*4)
+#define MAX_STEEL_ON_RAIL (MAX_STEEL_ON_TRACK*16)
 #define RAIL_STEEL_USED_MASK 0x7f
 #define MAX_STEEL_AT_INDUSTRY_H (MAX_STEEL_ON_RAIL*10)
+
+#define MAX_WASTE_ON_TRACK 1024
+#define MAX_WASTE_ON_ROAD (MAX_WASTE_ON_TRACK*5)
+#define MAX_WASTE_ON_RAIL (MAX_WASTE_ON_TRACK*25)
+#define MAX_WASTE_IN_MARKET (MAX_WASTE_ON_RAIL*3)
+#define MARKET_WASTE_SEARCH_TRIGGER (MAX_WASTE_IN_MARKET/5)
+#define MAX_WASTE_AT_TIP  10000000
+#define WASTE_BURN_ON_TRANSPORT 20
+#define TRANSPORT_BURN_WASTE_COUNT 75000
 
 #define WATERWELL_RANGE 20
 

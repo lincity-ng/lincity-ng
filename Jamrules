@@ -29,9 +29,9 @@ switch $(VARIANT) {
         CXXFLAGS += -Wall -W -O0 -g3 -DDEBUG ;
         LIBS += -g3 ;
     case profile :
-        CFLAGS += -O3 -g3 -pg ;
-        CXXFLAGS += -O3 -g3 -pg ;
-        LIBS += -g3 -pg ;
+        CFLAGS += -O3 -g -pg -funroll-loops ;
+        CXXFLAGS += -O3 -g -pg -funroll-loops ;
+        LIBS += -g -pg ;
     case * :
         EXIT "Invalid variant $(VARIANT) selected" ;
 }

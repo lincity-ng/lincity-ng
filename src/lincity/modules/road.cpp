@@ -23,7 +23,6 @@
 
 void do_road(int x, int y)
 {
-    static int wb_count = 0;
     int *pol = &MP_POL(x, y);
     Map_Point_Info *minfo = &MP_INFO(x, y);
     ++transport_cost;
@@ -33,7 +32,7 @@ void do_road(int x, int y)
         --minfo->int_4;
         ++minfo->int_7;
     }
-    general_transport(minfo, pol, MAX_WASTE_ON_ROAD, &wb_count);
+    general_transport(x, y, MAX_WASTE_ON_ROAD);
 }
 
 void mps_road(int x, int y)

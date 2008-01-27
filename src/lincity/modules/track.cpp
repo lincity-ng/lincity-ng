@@ -23,8 +23,7 @@
 
 void do_track(int x, int y)
 {
-    static int wb_count = 0;
-    general_transport(&MP_INFO(x, y), &MP_POL(x, y), MAX_WASTE_ON_TRACK, &wb_count);
+    general_transport(x, y, MAX_WASTE_ON_TRACK);
 }
 
 void mps_track(int x, int y)

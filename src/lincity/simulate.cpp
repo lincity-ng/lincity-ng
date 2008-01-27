@@ -1018,12 +1018,16 @@ static void random_start(int *originx, int *originy)
     set_mappoint(xx + 9, yy + 6, CST_RESIDENCE_ML);
     MP_INFO(xx + 9, yy + 6).population = 50;
     MP_INFO(xx + 9, yy + 6).flags |= (FLAG_FED + FLAG_EMPLOYED + FLAG_WATERWELL_COVER);
+
     set_mappoint(xx + 9, yy + 9, CST_POTTERY_0);
+
     set_mappoint(xx + 16, yy + 9, CST_WATERWELL);
 
     set_mappoint(xx + 14, yy + 6, CST_RESIDENCE_ML);
     MP_INFO(xx + 14, yy + 6).population = 50;
     MP_INFO(xx + 14, yy + 6).flags |= (FLAG_FED + FLAG_EMPLOYED + FLAG_WATERWELL_COVER);
+
+    /* The first two farms have more underground water */
     set_mappoint(xx + 17, yy + 5, CST_FARM_O0);
     for (int i = 0; i < MP_SIZE(xx + 17, yy + 5); i++)
         for (int j = 0; j < MP_SIZE(xx + 17, yy + 5); j++)
@@ -1044,6 +1048,7 @@ static void random_start(int *originx, int *originy)
             + FLAG_MS_JOBS + FLAG_MB_COAL + FLAG_MS_COAL + FLAG_MB_ORE
             + FLAG_MS_ORE + FLAG_MB_GOODS + FLAG_MS_GOODS + FLAG_MB_STEEL + FLAG_MS_STEEL);
 
+    /* build tracks */
     for (x = 2; x < 23; x++) {
         set_mappoint(xx + x, yy + 11, CST_TRACK_LR);
         MP_INFO(xx + x, yy + 11).flags |= FLAG_IS_TRANSPORT;
@@ -1056,6 +1061,8 @@ static void random_start(int *originx, int *originy)
         set_mappoint(xx + 15, yy + y, CST_TRACK_LR);
         MP_INFO(xx + 15, yy + y).flags |= FLAG_IS_TRANSPORT;
     }
+
+    /* build communes */
     set_mappoint(xx + 6, yy + 12, CST_COMMUNE_1);
     set_mappoint(xx + 6, yy + 17, CST_COMMUNE_1);
     set_mappoint(xx + 11, yy + 12, CST_COMMUNE_1);
