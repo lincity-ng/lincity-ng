@@ -6,10 +6,6 @@
 
 Graphics 
 ~~~~~~~~
- [H] Decent graphic for Waterwell icon and tiles (2 files)
-
- [M] Additional tiles for correct link between desert/green (like water/green)
-
  [M] Draw Mousecursors for
         - text normal, link (in help window)
         - what's this (query tool), bulldoze
@@ -91,8 +87,6 @@ Programming
      page of the help file for now... Right click for help for nearly every button.
 
  [L] "Dungeon Keeper"-like message queue
-
- [?] waterwell as a runtime option ?
 
 
 -- Infrastructure/Deployment --
