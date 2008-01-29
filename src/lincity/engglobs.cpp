@@ -83,3 +83,4 @@ int  global_aridity;
 int  global_mountainity;
 ground_struct ground[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 
+int fast_time_for_year;

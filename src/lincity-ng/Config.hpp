@@ -43,6 +43,8 @@ public:
     //std::string lincityHome;
     int skipMonthsFast;
     bool upgradeTransport;
+    // how fast is fast_time_for_year
+    int quickness;
     bool showDay;
     bool instantBulldoze;
 

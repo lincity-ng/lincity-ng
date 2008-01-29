@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Config.hpp"
 #include "gui/XmlReader.hpp"
 #include "PhysfsStream/PhysfsStream.hpp"
+#include "lincity/engglobs.h"
 
 #include <SDL_opengl.h>
 #include <assert.h>
@@ -63,6 +64,7 @@ Config::Config()
     monthgraphH = 64;
     skipMonthsFast = 1;
     upgradeTransport = true;
+    quickness = 9;
 
     playSongName = "02 - Robert van Herk - City Blues.ogg";
     //First we load the global File which should contain
@@ -180,6 +182,8 @@ void Config::load( const std::string& filename ){
                        monthgraphW  = parseInt(value, 120, 0);
                     } else if( strcmp(name, "monthgraphH" ) == 0 ){
                        monthgraphH  = parseInt(value, 64, 0);
+                    } else if( strcmp(name, "quickness" ) == 0 ){
+                        fast_time_for_year = parseInt(value, 9, 1, 9);
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
@@ -228,7 +232,7 @@ Config::save(){
     userconfig << "           playSongName=\"" << playSongName << "\" />\n";
     userconfig << "    <game upgradeTransport=\""<< (upgradeTransport?"yes":"no");
     userconfig << "\" instantBulldoze=\""<< (instantBulldoze?"yes":"no");
-    userconfig <<"\" showDay=\""<<( showDay?"yes":"no") <<"\" />\n";
+    userconfig <<"\" showDay=\""<<( showDay?"yes":"no") <<"\" quickness=\""<< fast_time_for_year <<"\" />\n";
     userconfig << "</configuration>\n";
 }
 

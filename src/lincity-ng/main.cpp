@@ -45,6 +45,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Config.hpp"
 #include "PBar.hpp"
 #include "lincity/loadsave.h"
+#include "lincity/engglobs.h"
+#include "lincity/lin-city.h"
 
 #ifdef ENABLE_BINRELOC
 #include "binreloc.h"
@@ -384,14 +386,19 @@ void parseCommandLine(int argc, char** argv)
             std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
             std::cout << "Command line overrides configfiles.\n";
             std::cout << "Known arguments are:\n";
-            std::cout << "-v        --version         show version and exit\n";
-            std::cout << "-h        --help            show his text and exit\n";
-            std::cout << "-g        --gl              use OpenGL\n";
-            std::cout << "-s        --sdl             use SDL\n";
-            std::cout << "-S [size] --size [size]     specify screensize (eg. 1024x768)\n";
-            std::cout << "-w        --window          run in window\n";
-            std::cout << "-f        --fullscreen      run fullscreen\n";
-            std::cout << "-m        --mute            mute audio\n";
+            std::cout << "-v           --version         show version and exit\n";
+            std::cout << "-h           --help            show his text and exit\n";
+            std::cout << "-g           --gl              use OpenGL\n";
+            std::cout << "-s           --sdl             use SDL\n";
+            std::cout << "-S [size]    --size [size]     specify screensize (eg. -S 1024x768)\n";
+            std::cout << "-w           --window          run in window\n";
+            std::cout << "-f           --fullscreen      run fullscreen\n";
+            std::cout << "-m           --mute            mute audio\n";
+            std::cout << "-q [delay]   --quick [delay]   Setting for fast speed (current " \
+                                                                << fast_time_for_year \
+                                                                << ")\n";
+            std::cout << "                               -q 9 is default.\n";
+            std::cout << "                               -q 1 is fastest. It may heat your hardware!\n";
             exit(0);
         } else if(argStr == "-g" || argStr == "--gl") {
             getConfig()->useOpenGL = true;
@@ -424,6 +431,23 @@ void parseCommandLine(int argc, char** argv)
         } else if(argStr == "-m" || argStr == "--mute") {
             getConfig()->soundEnabled = false;
             getConfig()->musicEnabled = false;
+        } else if (argStr == "-q" || argStr == "--quick") {
+            currentArgument++;
+            if(currentArgument >= argc) {
+                std::cerr << "Error: --quick needs a parameter.\n";
+                exit(1);
+            }
+            //fast_time_for_year
+            argStr = argv[currentArgument];
+            int count;
+            count = sscanf( argStr.c_str(), "%i", &fast_time_for_year );
+            if ( fast_time_for_year < 1 || fast_time_for_year > 9 ) {
+                fprintf(stderr, " --quick = %i out of range (1..9). Will use default value %i\n", \
+                                fast_time_for_year, FAST_TIME_FOR_YEAR);
+                fast_time_for_year = FAST_TIME_FOR_YEAR;
+            }
+
+   
         } else {
             std::cerr << "Unknown command line argument: " << argStr << "\n";
             exit(1);
@@ -433,7 +457,13 @@ void parseCommandLine(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
+    /* FIXME AL1: command line is parsed _before_ reading userconfig.xml
+     *            It is very hard to follow the flow of events and know where/when things are done
+     */
+
     int result = 0;
+    /* Initialise some global vars that can be changed by commandline or userconfig.xml */
+    fast_time_for_year = FAST_TIME_FOR_YEAR;
 
 #ifndef DEBUG //in debug mode we wanna have a backtrace
     try {
@@ -458,15 +488,18 @@ int main(int argc, char** argv)
         return 1;
     }                                                                     
 #endif
-
+    /* FIXME: AL1 Should read the config file, but it does not work as i hoped */
+    fast_time_for_year = getConfig()->quickness;
+    //fprintf(stderr," fast = %i\n", fast_time_for_year);
     parseCommandLine(argc, argv);
    
 // in debug mode we want a backtrace of the exceptions so we don't catch them
 #ifndef DEBUG
     try {
 #endif
-        xmlInitParser();
+        xmlInitParser ();
         std::auto_ptr<Sound> sound; 
+        /* FIXME: AL1: it seems getConfig is called here for the first time, hidden inside this call */
         sound.reset(new Sound()); 
         initSDL();
         initTTF();

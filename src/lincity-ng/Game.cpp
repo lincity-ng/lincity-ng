@@ -236,16 +236,7 @@ Game::run()
         if(desktop->needsRedraw()) {
             desktop->draw(*painter);
             flipScreenBuffer();
-            // Should we give the CPU some time to relax ?
-            // SDL_Delay(10); 
-        } else {
-            // give the CPU time to relax...
-            SDL_Delay(10);
-            // On athlon-xp 2200+ (1600MHz) this is the limiting factor for max_speed
-            // Removing it gives approximately the same speed as old-ng = 4.0 s/year
-            // instead of 24s/year with delay 10.
-            // SDL doc says to rely on at least 10 ms granurality.
-        }
+        } 
         frame++;
 
         if(ticks - fpsTicks > 1000) {
@@ -256,7 +247,7 @@ Game::run()
             frame = 0;
             fpsTicks = ticks;
         }
-
+        /* SDL_Delay is done in execute_timestep , which is called by doLincityStep */
         doLincityStep();
     }
 

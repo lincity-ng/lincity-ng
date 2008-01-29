@@ -805,8 +805,7 @@ MainMenu::run()
             }
         }
 
-        // give the CPU time to relax... (we are in main menu)
-        SDL_Delay(10);
+        SDL_Delay(10); // give the CPU time to relax... (we are in main menu)
 
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);

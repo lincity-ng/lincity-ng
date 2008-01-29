@@ -55,32 +55,44 @@ void setLincitySpeed( int speed )
 
 void execute_timestep ()
 {
-  static Uint32 oldTime = SDL_GetTicks();
-  Uint32 now=SDL_GetTicks();
-  Uint32 mStepTime=( lincitySpeed *1000/NUMOF_DAYS_IN_YEAR); 
 
-  if( lincitySpeed == 0 || blockingDialogIsOpen
-        || ( (now - oldTime < (mStepTime-10)) && (lincitySpeed != FAST_TIME_FOR_YEAR)) ) {
-      SDL_Delay(10); //don't burn cpu in active loop
-      return;
-  }
-  if ( (now - oldTime < mStepTime) && lincitySpeed != FAST_TIME_FOR_YEAR  )
-    return; // skip frame
-  oldTime = now;
+    if( lincitySpeed == 0 || blockingDialogIsOpen ) {
+        SDL_Delay(10); //don't burn cpu in active loop
+        return;
+    } else if ( lincitySpeed == fast_time_for_year) {
+        if ( (total_time % (10 - fast_time_for_year)) == 0 ) {
+            SDL_Delay(10);
+            /* fast = 1   => wait once for each 9 loop     => 1.3 real second / game year
+             *               beware it can warm hardware (nearly always active).
+             *
+             * fast = 9 = default  => wait at each step  => 12 real seconds / game year
+             *          = nearly old behavior, except we no more skeep frames.
+             *
+             * On athlon-xp 2200+ (1600MHz) 750 MB + Nvidia geforce 420 MX (16 MB)
+             * this is the limiting factor for max_speed
+             * Removing it gives approximately the same speed as old-ng = 4.0 s/year
+             * instead of 24s/year with delay 10 (default fast = 9)
+             *
+             * SDL doc says to rely on at least 10 ms granurality on all OS without 
+             * real time ability (Windows, Linux, MacOS X...) hence the trick
+             * of waiting 1/n loop.
+             */
+        }
+    } else
+        SDL_Delay(lincitySpeed);
 
-  //  TRACE;
-  do_time_step();
+    // Do the simulation. Remember 1 month = 100 days, only the display fits real life :)
+    do_time_step();
 
-  //draw the updated city
-  //in FAST-Mode, update at the last day in Month, so print_stats will work.
-  if( ( lincitySpeed != FAST_TIME_FOR_YEAR ) || 
-          ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) == (NUMOF_DAYS_IN_MONTH - 1) ) ){
-    //update_main_screen (0); //does nothing in NG
-    print_stats ();
-    updateDate();
-    print_total_money();
+    //draw the updated city
+    //in FAST-Mode, update at the last day in Month, so print_stats will work.
+    if( ( lincitySpeed != fast_time_for_year ) || 
+            ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) == (NUMOF_DAYS_IN_MONTH - 1) ) ){
+        print_stats ();
+        updateDate();
+        print_total_money();
+    }
     getGameView()->requestRedraw();
-  }
 }
 
 /*

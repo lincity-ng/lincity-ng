@@ -131,9 +131,9 @@
 #define WORLD_SIDE_LEN 100      /* Minimap size is hardcoded 200 pixel => some job to do ... */
 #define NUMOF_DAYS_IN_MONTH 100
 #define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
-#define FAST_TIME_FOR_YEAR 1
+#define FAST_TIME_FOR_YEAR 9
 #define MED_TIME_FOR_YEAR  20
-#define SLOW_TIME_FOR_YEAR  60
+#define SLOW_TIME_FOR_YEAR 60
 
 /* interest rate *10  ie 10 is 1% */
 #define INTEREST_RATE 15
