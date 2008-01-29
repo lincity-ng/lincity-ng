@@ -478,7 +478,7 @@ MiniMap::speedButtonClicked(CheckButton* button, int)
             setLincitySpeed(MED_TIME_FOR_YEAR);
             break;
         case 3:
-            setLincitySpeed(FAST_TIME_FOR_YEAR);
+            setLincitySpeed(fast_time_for_year);
             break;
         default:
             assert(false);
