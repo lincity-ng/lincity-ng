@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Poço</p>
+        <p style="hp">Fornece água para as casas dentro da área de alcance. Falta de água terá as mesmas conseqüências que falta de comida. Informação no mini mapa de escassez.</p>
+
+	<p style="hp">Veja também:</p>
+	<li><a href="food">Comida</a></li>
+	<li><a href="msb-starve">Área de cobertura de escassez</a></li>
+</Document>
