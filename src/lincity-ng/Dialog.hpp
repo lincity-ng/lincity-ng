@@ -59,6 +59,7 @@ class Dialog
         void coalSurvey();
         void askRocket();
         void gameStats();
+        void saveGameStats();
 
         void msgDialog( std::string message, std::string extraString);
        
