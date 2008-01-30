@@ -12,4 +12,11 @@
 	<img src="images/tiles/windmill1g.png" halign="center"/>
 	<p style="hp">O tipo que você poderá construir vai depender do seu nível tecnológico.</p>
 	<p style="hp">Moinhos de alta tecnologia podem energizar linhas de transmissão.</p>
+	<p style="hsubtitle">Veja também:</p>
+	<li><a href="substation">Sub-estação</a></li>
+	<li><a href="powerline">Linhas de transmissão</a></li>
+	<li><a href="residential">Áreas Residenciais</a></li>
+	<li><a href="tech-level">Nível tecnológico</a></li>
+	<li><a href="msb-power">Área de cobertura de energia</a></li>
+	<li><a href="powersolar">Estação de energia solar</a></li>
 </Document>

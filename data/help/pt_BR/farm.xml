@@ -8,7 +8,7 @@
 	<p style="hp">e este é seu ícone</p>
 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
 	
-	<p style="hp">As fazendas precisam de mão-de-obra para produzir mais que a quantidade mínima de alimento. Dar energia para a fazenda também aumenta a quantidade de alimento produzido. Energia também inclui o 'velho' tipo de moinho de vento que ajuda no processamento do alimento, diminuindo o desperdício.</p>
+	<p style="hp">As fazendas precisam de mão-de-obra para produzir mais que a quantidade mínima de alimento. Fornecer energia para a fazenda também aumenta a quantidade de alimento produzido. Energia também inclui o 'velho' tipo de moinho de vento que ajuda no processamento do alimento, diminuindo o desperdício.</p>
 	
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="market">Mercado</a></li>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Área residencial</p>
-	<p style="hp">Isto é onde as pessoas vivem. Para encorajar as pessoas a viverem nestas áreas elas devem poder se alimentar. Isso também ajuda a provê-los com trabalho e bens para comprar. Eles devem estar próximos de um mercado ou conectados ao transporte. Existem 3 tipos de áreas residenciais: moradias de Baixa, Média e Alta densidade. E estas tem diferentes taxas de natalidade e mortalidade associadas. Isto da a você algum controle sobre sua população.</p>
+	<p style="hp">Este é o lugar onde as pessoas vivem. Para encorajar as pessoas a viverem nestas áreas elas devem poder se alimentar (estar dentro da área de um poço e conseguir comida nos mercados ou pelos meios de transporte). Também ajuda  provê-los com trabalho e bens para comprar. Eles devem estar próximos de um mercado ou conectados ao transporte (como a maioria das construções). Existem 3 tipos de áreas residenciais: moradias de Baixa, Média e Alta densidade. E estas tem diferentes taxas de natalidade e mortalidade associadas. Isto dá a você algum controle sobre sua população.</p>
 	<p style="hp">Mais tarde no jogo, se você tiver tecnologia suficiente, você poderá construir moradias mais 'modernas', até mesmo blocos de prédios.</p>
 
 	<p style="hp">Esta é uma moradia de baixa densidade (alta tecnologia)</p>
@@ -19,4 +19,6 @@
 
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="market">Mercado</a></li>
+	<li><a href="transport">Transporte</a></li>
+  <li><a href="waterwell">Poço</a></li>
 </Document>
