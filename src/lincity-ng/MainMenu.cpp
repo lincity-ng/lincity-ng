@@ -101,11 +101,13 @@ MainMenu::loadMainMenu()
 
 void MainMenu::fillNewGameMenu()
 {
-  char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
+  const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
   
   char **files= PHYSFS_enumerateFiles("opening");
   
   char **fptr=files;
+
+  fileMap.clear(); 
  
   for(int i=0;i<6;i++)
   {
@@ -121,20 +123,31 @@ void MainMenu::fillNewGameMenu()
     if(*fptr)
     {
       std::string f=*fptr;
-      if(f.length()>5)
+      if(f.length()>5){
         f=f.substr(0,f.length()-4); // truncate .scn
-      button->setCaptionText(f);
+      }
+      // save real name
+      fileMap.insert(std::pair<std::string, std::string>(buttonNames[i], f ));
+      // use translated name for caption 
+      button->setCaptionText(_(f.c_str()));
       fptr++;
     }
     else
       button->setCaptionText("");
   }
   PHYSFS_freeList(files);
+  return;
+  /* Is there a better way to add filenames to the directory? */
+  _("good_times");
+  _("bad_times");
+  _("Beach");
+  _("extreme_arid");
+  _("extreme_wetland");
 }
 
 void MainMenu::fillLoadMenu( bool save /*= false*/ )
 {
-    char *buttonNames[]={"File0","File1","File2","File3","File4","File5"};
+    const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
   
     //read savegames from lc_save_dir so we can use the original save_city()
     DIR* lincityDir = opendir( lc_save_dir );
@@ -348,6 +361,13 @@ void
 MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
 {
     std::string fc=button->getCaptionText();
+    if( newGameMenu.get()==currentMenu ) {
+        std::map<std::string, std::string>::iterator iter;
+        iter = fileMap.find( button->getName() );
+        if( iter != fileMap.end() ){
+            fc = iter->second;
+        }
+    }
   
     std::string file="";
     
@@ -360,7 +380,7 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
        after an existing one.
     */
        
-    char *bs[]={"File0","File1","File2","File3","File4","File5",""};
+    const std::string bs[]={"File0","File1","File2","File3","File4","File5",""};
     for(int i=0;std::string(bs[i]).length();i++) {
         CheckButton *b=getCheckButton(*currentMenu,bs[i]);
         if(b->getName()!=button->getName()){

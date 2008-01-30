@@ -19,7 +19,7 @@
 # define LC_SAVE_DIR ".lincity-ng"
 # define LINCITYRC_FILENAME ".lincity-NGrc"
 
-#define RESULTS_FILENAME "results"
+#define RESULTS_FILENAME "results.txt"
 
 
 /* New load/save format */

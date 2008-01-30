@@ -311,7 +311,7 @@ void Dialog::setParagraphN( std::string basename, int number, std::string text )
 
 /* 
  * Show game statistics in dialog and write them to RESULTS_FILENAME
- * (~/.lincity/results)
+ * (~/.lincity/results.txt)
  */
 void Dialog::gameStats(){
      if( !desktop ) {
