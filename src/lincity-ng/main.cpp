@@ -395,7 +395,7 @@ void parseCommandLine(int argc, char** argv)
             std::cout << "-f           --fullscreen      run fullscreen\n";
             std::cout << "-m           --mute            mute audio\n";
             std::cout << "-q [delay]   --quick [delay]   Setting for fast speed (current " \
-                                                                << fast_time_for_year \
+                                                                << getConfig()->quickness \
                                                                 << ")\n";
             std::cout << "                               -q 9 is default.\n";
             std::cout << "                               -q 1 is fastest. It may heat your hardware!\n";
@@ -439,15 +439,15 @@ void parseCommandLine(int argc, char** argv)
             }
             //fast_time_for_year
             argStr = argv[currentArgument];
-            int count;
-            count = sscanf( argStr.c_str(), "%i", &fast_time_for_year );
-            if ( fast_time_for_year < 1 || fast_time_for_year > 9 ) {
+            int newSpeed;
+            sscanf( argStr.c_str(), "%i", &newSpeed );
+            if ( newSpeed < 1 || newSpeed > 9 ) {
                 fprintf(stderr, " --quick = %i out of range (1..9). Will use default value %i\n", \
-                                fast_time_for_year, FAST_TIME_FOR_YEAR);
-                fast_time_for_year = FAST_TIME_FOR_YEAR;
+                                newSpeed, FAST_TIME_FOR_YEAR);
+                newSpeed = FAST_TIME_FOR_YEAR;
             }
+            getConfig()->quickness = newSpeed;
 
-   
         } else {
             std::cerr << "Unknown command line argument: " << argStr << "\n";
             exit(1);
@@ -457,13 +457,7 @@ void parseCommandLine(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
-    /* FIXME AL1: command line is parsed _before_ reading userconfig.xml
-     *            It is very hard to follow the flow of events and know where/when things are done
-     */
-
     int result = 0;
-    /* Initialise some global vars that can be changed by commandline or userconfig.xml */
-    fast_time_for_year = FAST_TIME_FOR_YEAR;
 
 #ifndef DEBUG //in debug mode we wanna have a backtrace
     try {
@@ -488,10 +482,10 @@ int main(int argc, char** argv)
         return 1;
     }                                                                     
 #endif
-    /* FIXME: AL1 Should read the config file, but it does not work as i hoped */
+    parseCommandLine(argc, argv); // Do not use getConfig() before parseCommandLine.
+    
     fast_time_for_year = getConfig()->quickness;
-    //fprintf(stderr," fast = %i\n", fast_time_for_year);
-    parseCommandLine(argc, argv);
+    fprintf(stderr," fast = %i\n", fast_time_for_year);
    
 // in debug mode we want a backtrace of the exceptions so we don't catch them
 #ifndef DEBUG
@@ -499,7 +493,6 @@ int main(int argc, char** argv)
 #endif
         xmlInitParser ();
         std::auto_ptr<Sound> sound; 
-        /* FIXME: AL1: it seems getConfig is called here for the first time, hidden inside this call */
         sound.reset(new Sound()); 
         initSDL();
         initTTF();

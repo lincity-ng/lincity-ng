@@ -64,7 +64,7 @@ Config::Config()
     monthgraphH = 64;
     skipMonthsFast = 1;
     upgradeTransport = true;
-    quickness = 9;
+    quickness = FAST_TIME_FOR_YEAR;
 
     playSongName = "02 - Robert van Herk - City Blues.ogg";
     //First we load the global File which should contain
@@ -183,7 +183,7 @@ void Config::load( const std::string& filename ){
                     } else if( strcmp(name, "monthgraphH" ) == 0 ){
                        monthgraphH  = parseInt(value, 64, 0);
                     } else if( strcmp(name, "quickness" ) == 0 ){
-                        fast_time_for_year = parseInt(value, 9, 1, 9);
+                        quickness = parseInt(value, 9, 1, 9);
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
@@ -232,7 +232,7 @@ Config::save(){
     userconfig << "           playSongName=\"" << playSongName << "\" />\n";
     userconfig << "    <game upgradeTransport=\""<< (upgradeTransport?"yes":"no");
     userconfig << "\" instantBulldoze=\""<< (instantBulldoze?"yes":"no");
-    userconfig <<"\" showDay=\""<<( showDay?"yes":"no") <<"\" quickness=\""<< fast_time_for_year <<"\" />\n";
+    userconfig <<"\" showDay=\""<<( showDay?"yes":"no") <<"\" quickness=\""<< quickness <<"\" />\n";
     userconfig << "</configuration>\n";
 }
 
