@@ -99,6 +99,7 @@ LCPBar::setValue(int num, int value, int diff)
     }
     else
         os<<value;
+
     if( diff != 0 ){
         p->setText(os.str());
     }

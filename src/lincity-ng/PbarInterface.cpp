@@ -23,13 +23,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "PBar.hpp"
 #include "lincity/stats.h"
 
+struct pbar_st pbars[NUM_PBARS];
+
 void pbars_full_refresh (void)
 {
   //  TRACE;
 }
 
-void
-update_pbar (int pbar_num, int value, int month_flag)
+void update_pbar (int pbar_num, int value, int month_flag)
 {
     // copy of update_pbar from src/oldgui/pbar.cpp 
     // store values for savegame 
@@ -59,33 +60,31 @@ update_pbar (int pbar_num, int value, int month_flag)
     pbar->diff = pbar->tot - pbar->oldtot;
 
     // new: update bars
+    // NG 1.91 AL1: FIXME is this test needed ? 
     if(LCPBarInstance)
         LCPBarInstance->setValue(pbar_num,value,pbar->diff);
 }
 
-void 
-refresh_pbars (void)
+void refresh_pbars (void)
 {
   //  TRACE;
 }
-void
-init_pbars (void)
+
+void init_pbars (void)
 {
     int i, p;
     for (p = 0; p < NUM_PBARS; p++) {
-    pbars[p].data_size = 0;
-    pbars[p].oldtot = 0;
-    pbars[p].tot = 0;
-    pbars[p].diff = 0;
-    for (i = 0; i < PBAR_DATA_SIZE; i++)
-        pbars[p].data[i] = 0;
+        pbars[p].data_size = 0;
+        pbars[p].oldtot = 0;
+        pbars[p].tot = 0;
+        pbars[p].diff = 0;
+        for (i = 0; i < PBAR_DATA_SIZE; i++)
+            pbars[p].data[i] = 0;
     }
 }
 
-struct pbar_st pbars[NUM_PBARS];
 
-void
-update_pbars_monthly()
+void update_pbars_monthly()
 {
     update_pbar (PPOP, housed_population + people_pool, 1);
     update_pbar (PTECH, tech_level, 1);

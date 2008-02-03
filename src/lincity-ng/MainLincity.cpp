@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iostream>
 #include <stdio.h>
 
+#include "lincity/init_game.h"
 #include "lincity/simulate.h"
 #include "lincity/lin-city.h"
 #include "lincity/lc_locale.h"
@@ -140,24 +141,19 @@ void initLCengine()
 
   /* Save preferences */
     //save_lincityrc ();   //oldgui stuff, unused in NG 
-
-    //    init_fonts ();
+    //    init_fonts ();  // unsused in NG
 
     initialize_monthgraph ();
     //    init_mouse_registry ();
     //    init_mini_map_mouse ();
     mps_init();
 
-
-
-
     //    setcustompalette ();
     //    draw_background ();
     //    prog_box (_("Loading the game"), 1);
     init_types ();
     // means "init buttons"    init_modules();
-    init_mappoint_array ();
-    initialize_tax_rates ();
+
 }
 
 
@@ -165,6 +161,7 @@ void initLincity()
 {
     initLCengine();
 
+    // animation time
     reset_start_time ();
   
     screen_full_refresh ();

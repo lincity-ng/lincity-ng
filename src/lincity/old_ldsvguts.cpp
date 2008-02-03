@@ -15,6 +15,7 @@
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/shared_globals.h"
 #include "stats.h"
+#include "init_game.h"
 
 #include <fcntl.h>
 #include <sys/types.h>

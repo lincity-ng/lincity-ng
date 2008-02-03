@@ -125,7 +125,6 @@ void refresh_mps (void);
 void advance_monthgraph_style (void);
 void refresh_monthgraph (void);
 void draw_small_yellow_bezel (int x, int y, int h, int w);
-void init_pbars (void);
 void mini_screen_help (void);
 void status_message(const char *m1, const char* m2);
 void print_time_for_year (void);

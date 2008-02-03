@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------- *
- * ldsvguts.c
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
+ * loadsave.cpp
+ * This file is part of lincity-NG
+ * See COPYING for license, and CREDITS for authors
  * ---------------------------------------------------------------------- */
 
 /* this is for saving */
@@ -14,6 +14,7 @@
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/shared_globals.h"
 #include "stats.h"
+#include "init_game.h"
 
 #include <fcntl.h>
 #include <sys/types.h>
@@ -283,6 +284,8 @@ void load_city_2(char *cname)
     int dummy;
     gzFile gzfile;
     char s[512];
+
+    clear_game();
 
     gzfile = gzopen(cname, "rb");
     if (gzfile == NULL) {

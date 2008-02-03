@@ -417,9 +417,11 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
     mFilename+="/";
     mFilename+=file;
     Uint32 now = SDL_GetTicks();
+
     //doubleclick on Filename loads File
     if( ( fc == doubleClickButtonName ) &&  ( !save ) &&
             ( now - lastClickTick < doubleClickTime ) ) {
+
         lastClickTick = 0;
         doubleClickButtonName = "";
         if( newGameMenu.get() == currentMenu ) {
@@ -596,10 +598,6 @@ MainMenu::newGameButtonClicked(Button* )
 void
 MainMenu::loadGameButtonClicked(Button* )
 {
-    /* FIXME: NG 1.1 initialisation/clear is not enough yet
-     * This should be done in the engine.cpp or simulate.cpp not here:
-     * see clear_game
-     */
     getSound()->playSound( "Click" );
     loadLoadGameMenu();
     switchMenu(loadGameMenu.get());
@@ -624,10 +622,6 @@ MainMenu::creditsBackButtonClicked(Button* )
 void
 MainMenu::newGameStartButtonClicked(Button* )
 {
-    /* FIXME: NG 1.1 initialisation/clear is not enough yet
-     * This should be done in the engine.cpp or simulate.cpp not here:
-     * see clear_game
-     */
     getSound()->playSound( "Click" );
     if( loadCityNG( mFilename ) ){
     	strcpy (given_scene, baseName.c_str());
@@ -641,11 +635,6 @@ void
 MainMenu::newGameStartBareButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
-    /* FIXME: NG 1.1 initialisation/clear is not enough yet
-     * This should be done in the engine.cpp or simulate.cpp not here:
-     * see clear_game
-     */
-    resetGameStats();
     new_city( &main_screen_originx, &main_screen_originy, 0 );
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
@@ -653,37 +642,10 @@ MainMenu::newGameStartBareButtonClicked(Button* )
     running = false;
 }
 
-//looks like not everything es reseted by new_city()
-void MainMenu::resetGameStats(){
-    /* FIXME: NG 1.1 initialisation/clear is not enough yet
-     * This should be done in the engine.cpp or simulate.cpp not here
-     * see clear_game
-     */
-    given_scene[0] = 0;
-    for( int i = 0; i < monthgraph_size; i++ ){
-        monthgraph_pop[i] = 0;
-        monthgraph_starve[i] = 0;
-        monthgraph_nojobs[i] = 0;
-        monthgraph_ppool[i] = 0;
-    } 
-    highest_tech_level = 0;
-    total_pollution_deaths = 0;
-    pollution_deaths_history = 0;
-    total_starve_deaths = 0;
-    starve_deaths_history = 0;
-    total_unemployed_years = 0;
-    unemployed_history = 0;
-}
-
 void
 MainMenu::newGameStartVillageClicked(Button* )
 {
     getSound()->playSound( "Click" );
-    /* FIXME: NG 1.1 initialisation/clear is not enough yet
-     * This should be done in the engine.cpp or simulate.cpp not here
-     * see clear_game
-     */
-    resetGameStats();
     new_city( &main_screen_originx, &main_screen_originy, 1 );
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
@@ -718,10 +680,6 @@ MainMenu::gotoMainMenu()
 void
 MainMenu::loadGameLoadButtonClicked(Button *)
 {
-    /* FIXME: NG 1.1 initialisation/clear is not enough yet
-     * This should be done in the engine.cpp or simulate.cpp not here:
-     * see clear_game
-     */
     getSound()->playSound( "Click" );
     if( loadCityNG( mFilename ) ){
         quitState = INGAME;

@@ -75,8 +75,6 @@ private:
     void selectLoadSaveGameButtonClicked(CheckButton*,int, bool save );
     void optionsMenuButtonClicked(CheckButton* button, int );
 
-    void resetGameStats();
-    
     std::auto_ptr<Component> mainMenu;
     std::auto_ptr<Component> newGameMenu;
     std::auto_ptr<Component> loadGameMenu;
