@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Dec  4 01:12:57 2007\n"
+"POT-Creation-Date: Sun Feb  3 18:03:35 2008\n"
 "PO-Revision-Date: 2007-03-11 02:39-0000\n"
 "Last-Translator: ASM <asm@asm.pp.ru>\n"
 "Language-Team: ASM <asm@asm.pp.ru>\n"
@@ -262,9 +262,9 @@ msgstr "Запрещено"
 #: data/gui/cricketup.xml data/gui/options.xml data/gui/riverup.xml
 #: data/gui/coalmineup.xml data/gui/coalpowerup.xml data/gui/launch-good.xml
 #: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/nobull-tip.xml data/gui/sustain.xml
-#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/millup.xml
-#: data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
+#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
 #: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
 #: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
 #: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
@@ -272,6 +272,7 @@ msgstr "Запрещено"
 #: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
 #: data/gui/import-exportup.xml data/gui/launch-gone.xml
 #: data/gui/mod_wind_up.xml data/gui/shfire-oc.xml data/gui/warning.xml
+#: data/gui/too-old.xml
 msgid "Ok"
 msgstr "Угу"
 
@@ -461,6 +462,12 @@ msgstr "Солнечные электростанции доступны."
 msgid "Sorry you can't bulldoze a tip."
 msgstr "Уничтожить помойку невозможно."
 
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+
 #: data/gui/options.xml
 msgid "Sound Effects"
 msgstr "Звуковые эффекты"
@@ -499,8 +506,7 @@ msgstr "В городе кончились люди"
 
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it is free to call again."
-msgstr ""
-"Это действие отнимет 1 миллион рублей. В дальнейшем бесплатно. "
+msgstr "Это действие отнимет 1 миллион рублей. В дальнейшем бесплатно. "
 
 #: data/gui/launch-gone.xml
 msgid "Total Evacuation Complete."
@@ -524,7 +530,7 @@ msgid "Want to bulldoze?"
 msgstr "Хотите снести?"
 
 #: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
 msgid "Warning"
 msgstr "Внимание"
 
@@ -564,8 +570,7 @@ msgid ""
 "continue costing you money to keep the rocket ready. Launch it later by "
 "clicking on the rocket area."
 msgstr ""
-"Вы можете запустить ракету сейчас или позже. "
-"Содержание ракеты стоит денег. "
+"Вы можете запустить ракету сейчас или позже. Содержание ракеты стоит денег. "
 "Чтобы запустить позже, нажмите на ракетной площадке."
 
 #: data/gui/import-exportup.xml
@@ -580,15 +585,13 @@ msgstr ""
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build parks on credit."
-msgstr ""
-"Парки запрещается строить в долг"
+msgstr "Парки запрещается строить в долг"
 
 #: data/gui/no-credit-recycle.xml
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build recycling centres on credit."
-msgstr ""
-"Центры переработки запрещено строить при отрицательном балансе."
+msgstr "Центры переработки запрещено строить при отрицательном балансе."
 
 #: data/gui/no-credit-rocket.xml
 msgid ""
@@ -628,8 +631,7 @@ msgstr ""
 msgid ""
 "You have reached the tech level which enables you to build coal fired power "
 "stations."
-msgstr ""
-"Уровень научного развития позволяет строить угольные электростанции."
+msgstr "Уровень научного развития позволяет строить угольные электростанции."
 
 #: data/gui/firestationup.xml
 msgid ""
@@ -645,8 +647,7 @@ msgid ""
 "You have reached the tech level which enables you to build health centres. "
 "Heath centres reduce the number of people killed by pollution and increase "
 "overall productivity."
-msgstr ""
-"Уровень научного развития позволяет строить больницы."
+msgstr "Уровень научного развития позволяет строить больницы."
 
 #: data/gui/hvindustryup.xml
 msgid ""
@@ -693,8 +694,8 @@ msgid ""
 "You have reached the tech level which enables you to build potteries. "
 "Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
 msgstr ""
-"Уровень научного развития позволяет строить гончарные."
-"Гончарные дают работу и из руды делают товары."
+"Уровень научного развития позволяет строить гончарные.Гончарные дают работу "
+"и из руды делают товары."
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
@@ -724,8 +725,8 @@ msgid ""
 "You have reached the tech level which enables you to build schools. Schools "
 "use jobs and goods to increase tech level. "
 msgstr ""
-"Уровень научного развития позволяет строить школы. Школы дают работу, и товар "
-"преобразовывают в научный уровень."
+"Уровень научного развития позволяет строить школы. Школы дают работу, и "
+"товар преобразовывают в научный уровень."
 
 #: data/gui/solarpowerup.xml
 msgid ""
@@ -746,16 +747,15 @@ msgstr "Уровень научного развития позволяет ст
 #: data/gui/coalmineup.xml
 msgid ""
 "You have reached the tech level which enables you to dig deep coal mines."
-msgstr ""
-"Уровень научного развития позволяет копать глубокие угольные шахты."
+msgstr "Уровень научного развития позволяет копать глубокие угольные шахты."
 
 #: data/gui/recycleup.xml
 msgid ""
 "You have reached the tech level which enables you to recycling centres. "
 "Recycling centres recycle used goods back into ore. "
 msgstr ""
-"Уровень научного развития позволяет копать строить центры переработки."
-"Центры переработки из использованных товаров делают руду."
+"Уровень научного развития позволяет копать строить центры переработки.Центры "
+"переработки из использованных товаров делают руду."
 
 #: data/gui/sustain.xml data/gui/launch-gone.xml
 msgid "You have won the game."

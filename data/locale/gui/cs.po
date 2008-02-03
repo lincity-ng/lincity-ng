@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lincity-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Dec  4 01:12:57 2007\n"
+"POT-Creation-Date: Sun Feb  3 18:03:35 2008\n"
 "PO-Revision-Date: 2006-09-04 07:22+0200\n"
 "Last-Translator: Ondrej Novy <onovy@nomi.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -259,9 +259,9 @@ msgstr "Nepovoleno"
 #: data/gui/cricketup.xml data/gui/options.xml data/gui/riverup.xml
 #: data/gui/coalmineup.xml data/gui/coalpowerup.xml data/gui/launch-good.xml
 #: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/nobull-tip.xml data/gui/sustain.xml
-#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/millup.xml
-#: data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
+#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
 #: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
 #: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
 #: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
@@ -269,6 +269,7 @@ msgstr "Nepovoleno"
 #: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
 #: data/gui/import-exportup.xml data/gui/launch-gone.xml
 #: data/gui/mod_wind_up.xml data/gui/shfire-oc.xml data/gui/warning.xml
+#: data/gui/too-old.xml
 msgid "Ok"
 msgstr "Budiž"
 
@@ -456,6 +457,12 @@ msgstr "Solární elektrárna je nyní dostupná"
 msgid "Sorry you can't bulldoze a tip."
 msgstr "Nemůžete zbourat skládku."
 
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+
 #: data/gui/options.xml
 msgid "Sound Effects"
 msgstr "Zvukové efekty"
@@ -518,7 +525,7 @@ msgid "Want to bulldoze?"
 msgstr "Opravdu zbourat?"
 
 #: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
 msgid "Warning"
 msgstr "Varování"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Dec  4 01:12:57 2007\n"
+"POT-Creation-Date: Sun Feb  3 18:03:35 2008\n"
 "PO-Revision-Date: 2006-12-17 17:16+0100\n"
 "Last-Translator: Michał Drzał <neurotoxic@wp.pl>\n"
 "Language-Team:  <pl@li.org>\n"
@@ -267,9 +267,9 @@ msgstr "Nie dozwolone."
 #: data/gui/cricketup.xml data/gui/options.xml data/gui/riverup.xml
 #: data/gui/coalmineup.xml data/gui/coalpowerup.xml data/gui/launch-good.xml
 #: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/nobull-tip.xml data/gui/sustain.xml
-#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/millup.xml
-#: data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
+#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
 #: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
 #: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
 #: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
@@ -277,6 +277,7 @@ msgstr "Nie dozwolone."
 #: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
 #: data/gui/import-exportup.xml data/gui/launch-gone.xml
 #: data/gui/mod_wind_up.xml data/gui/shfire-oc.xml data/gui/warning.xml
+#: data/gui/too-old.xml
 msgid "Ok"
 msgstr "Ok"
 
@@ -468,6 +469,12 @@ msgstr "Elektrownie słoneczne dostępne"
 msgid "Sorry you can't bulldoze a tip."
 msgstr "Niestety, nie możesz wyburzyć wysypiska śmieci."
 
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+
 #: data/gui/options.xml
 msgid "Sound Effects"
 msgstr "Efekty dźwiękowe"
@@ -532,7 +539,7 @@ msgid "Want to bulldoze?"
 msgstr "Wyburzyć?"
 
 #: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
 msgid "Warning"
 msgstr "Uwaga"
 

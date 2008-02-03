@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Dec  4 01:12:57 2007\n"
+"POT-Creation-Date: Sun Feb  3 18:03:35 2008\n"
 "PO-Revision-Date: 2008-01-10 20:55+0100\n"
 "Last-Translator: Ronald Stroethoff <stroet43@zonnet.nl>\n"
 "Language-Team: Nederlands\n"
@@ -71,7 +71,8 @@ msgstr "Een rivier verwijderen kost heel veel geld."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
-msgstr "Een krottenwijk afbreken kost heel veel geld en dit kan brand veroorzaken."
+msgstr ""
+"Een krottenwijk afbreken kost heel veel geld en dit kan brand veroorzaken."
 
 #: data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Buy"
@@ -268,9 +269,9 @@ msgstr "Is niet toegestaan"
 #: data/gui/cricketup.xml data/gui/options.xml data/gui/riverup.xml
 #: data/gui/coalmineup.xml data/gui/coalpowerup.xml data/gui/launch-good.xml
 #: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/nobull-tip.xml data/gui/sustain.xml
-#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/millup.xml
-#: data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
+#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
 #: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
 #: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
 #: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
@@ -278,6 +279,7 @@ msgstr "Is niet toegestaan"
 #: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
 #: data/gui/import-exportup.xml data/gui/launch-gone.xml
 #: data/gui/mod_wind_up.xml data/gui/shfire-oc.xml data/gui/warning.xml
+#: data/gui/too-old.xml
 msgid "Ok"
 msgstr "Ok"
 
@@ -378,7 +380,8 @@ msgid "Schools available"
 msgstr "Scholen zijn beschikbaar"
 
 #: data/gui/coalmineup.xml
-msgid "See the help screen for more information on coal mines and coal surveys."
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
 msgstr ""
 "Lees de help-pagina's voor meer informatie over kolenmijnen en surveys naar "
 "kolen."
@@ -467,6 +470,12 @@ msgstr "Toon de electriciteits-centrales"
 msgid "Sorry you can't bulldoze a tip."
 msgstr "Sorry, een vuilstort kan niet afgebroken worden."
 
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+
 #: data/gui/options.xml
 msgid "Sound Effects"
 msgstr "Geluidseffecten"
@@ -531,7 +540,7 @@ msgid "Want to bulldoze?"
 msgstr "Wilt u het afbreken?"
 
 #: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
 msgid "Warning"
 msgstr "Waarschuwing"
 
@@ -720,11 +729,13 @@ msgstr ""
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr "Het technische nivo is bereikt waarmee spoorwegen kunnen worden gebouwd. "
+msgstr ""
+"Het technische nivo is bereikt waarmee spoorwegen kunnen worden gebouwd. "
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
-msgstr "Het technische nivo is bereikt waarmee revieren kunnen worden gebouwd. "
+msgstr ""
+"Het technische nivo is bereikt waarmee revieren kunnen worden gebouwd. "
 
 #: data/gui/roadup.xml
 msgid ""
@@ -770,10 +781,12 @@ msgstr ""
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr "Het technische nivo is bereikt waarmee windmolens kunnen worden gebouwd."
+msgstr ""
+"Het technische nivo is bereikt waarmee windmolens kunnen worden gebouwd."
 
 #: data/gui/coalmineup.xml
-msgid "You have reached the tech level which enables you to dig deep coal mines."
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
 msgstr ""
 "Het technische nivo is bereikt waarmee diepe kolenmijnen kunnen worden "
 "gedolven."
@@ -833,9 +846,9 @@ msgstr "[h] Hoge gebouwen verbergen."
 
 #: data/gui/minimap.xml
 msgid "[v] Cycle through MiniMap overlay modes. "
-msgstr "[v] Hiermee kan tussen de verschillende mini-kaartjes gewisseld worden."
+msgstr ""
+"[v] Hiermee kan tussen de verschillende mini-kaartjes gewisseld worden."
 
 #: data/gui/savegame.xml
 msgid "save to selected slot"
 msgstr "Opslaan in het geselecteerde slot"
-
