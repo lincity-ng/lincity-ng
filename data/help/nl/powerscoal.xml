@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Steenkoolcentrale</p>
 	<p style="hp">Steenkoolcentrales produceren van steenkool electriciteit die geplaatst worden op electriciteitsdraden.</p>
-	<p style="hp">De effectiviteit van de productie gebruikt de technologie nivo <b>van de bouwdatum</b>. U kunt, wanneer uw technologie nivo veel gestegen is, een oude steenkoolcentrale afbreken en die herbouwen met een nieuwere, meer efficientere.</p>
+	<p style="hp">De technologie <b>op de bouwdatum</b> bepaalt de effectiviteit van de productie. U kunt, wanneer uw technologie nivo veel gestegen is, een oude steenkoolcentrale afbreken en die herbouwen met een nieuwere, meer efficientere.</p>
 	
 	<p style="hp">Dit is Steenkoolcentrale</p>
 	<img src="images/tiles/powerscoal-empty.png" halign="center"/>

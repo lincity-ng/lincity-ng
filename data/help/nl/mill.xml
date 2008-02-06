@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Textielfabriek</p>
-	<p style="hp">Textielfabrieken produceren goederen en gebruiken voedsel, steenkool en jobs. Voedsel...? Ja voedsel, of katoen en wol, maar dat is hetzelfde in dit spel.</p>
+	<p style="hp">Textielfabrieken produceren goederen en gebruiken voedsel, steenkool en werkers. Voedsel...? Ja voedsel, of katoen en wol, maar dat is hetzelfde in dit spel.</p>
 	<p style="hp">Textielfabrieken verbruiken heel veel voedsel, dus u kan snel een hongersnood creëren als u hier geen rekening mee houdt - het is een minder groot probleem wanneer u windmolens bouwt omdat deze de productie van voedsel verhogen-.</p>
-	<p style="hp">Textielfabrieken hoeven niet verbonden te zijn met transport, maar ze moeten in de buurt van een markt liggen om steenkool, voedsel en werk te krijgen. U kunt zien dat textielfabriek werkt als er rook en licht van het gebouw komt.</p>
+	<p style="hp">Textielfabrieken hoeven niet verbonden te zijn met transport, maar ze moeten in de buurt van een markt liggen om steenkool, voedsel en werkers te krijgen. U kunt zien dat textielfabriek werkt als er rook en licht van het gebouw komt.</p>
 	
 	<p style="hp">Dit is een werkende textielfabriek</p>
 	<img src="images/tiles/mill1.png" halign="center"/>
