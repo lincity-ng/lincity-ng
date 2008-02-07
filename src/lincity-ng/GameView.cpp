@@ -1502,11 +1502,13 @@ void GameView::draw(Painter& painter)
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );
     Vector2 lowerLeft( 0, getHeight() );
+    Vector2 lowerRight( getWidth(), getHeight() );
     
     //Find visible Tiles
     MapPoint upperLeftTile  = getTile( upperLeft ); 
     MapPoint upperRightTile = getTile( upperRight );
     MapPoint lowerLeftTile  = getTile( lowerLeft ); 
+    MapPoint lowerRightTile  = getTile( lowerRight ); 
     
     //draw Background
     Color green;
@@ -1524,18 +1526,42 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
+    int xur = upperRightTile.x;
+    int yur = upperRightTile.y;
+    int xul = upperLeftTile.x;
+    int yul = upperLeftTile.y;
+    int xll = lowerLeftTile.x;
+    int yll = lowerLeftTile.y;
+    int xlr = lowerRightTile.x;
+    int ylr = lowerRightTile.y;
+
     if( mapOverlay != overlayOnly ){
-        for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
-        {
-            for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
-            {
-                currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
-                currentTile.y = upperLeftTile.y - i + k / 2;
-                drawTile( painter, currentTile );
+        /* The original was kind of z buffer: (kept for overlay just below)
+         *   filling from top of screen , line per line left to right (in 3d iso)
+         *  drawback: some shadows are overwritten eg windmill (x,y) cast shadows in (x+1, y-1)
+         *
+         * => Draw tile by beginning in Upper Right: for y++ { for x++ ...}. 
+         * Due to sun position it would be perfect if (x,y) does NOT cast shadow on (x+1,y) 
+         * I'm not sure that Modern Windmill does, but it is better than previous.
+         */
+        // Maybe need to be optimised for speed 
+        for(int j = upperRightTile.y; j <= lowerLeftTile.y; j++ ) {
+            for(int i = upperLeftTile.x; i <= lowerRightTile.x; i++ ) {
+                if (    ( i >= xur + ( (j - yur) * (xul - xur) )/(yul - yur) )
+                        && ( i <= xlr + ( (j - ylr) * (xll - xlr) )/(yll - ylr) )
+                        && ( j >= yur + ( (i - xur) * (yul - yur) )/(xul - xur) )
+                        && ( j <= ylr + ( (i - xlr) * (yll - ylr) )/(xll - xlr) ) ) {
+
+                    currentTile.x = i;
+                    currentTile.y = j;
+                    drawTile( painter, currentTile );
+                }
             }
         }
     }
+
     if( mapOverlay != overlayNone ){
+        /* original algo, faster */
         for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
         {
             for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
@@ -1546,7 +1572,7 @@ void GameView::draw(Painter& painter)
             }
         }
     }
-   
+
     int cost = 0; 
     //Mark Tile under Mouse 
     if( mouseInGameView  && !blockingDialogIsOpen ) {
