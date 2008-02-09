@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ButtonPanel width="200" height="376">
+<ButtonPanel width="348" height="376">
 	<!-- Tooltips for the Button Pannel are created in ButtonPanel.cpp -->
 	<menubutton name="BPPointerButton"/>
 	<menu name="BPPointerMenu" default="BPMPointerButton"/>
 	<button name="BPMPointerButton"/>
 	<button name="BPMBullDozeButton"/>
+	<button name="BPMWaterButton"/>
 
 	<menubutton name="BPResidenceButton"/>
 	<menu name="BPResidenceMenu" default="BPMResidence2Button"/>
@@ -15,13 +16,21 @@
 	<button name="BPMResidence5Button"/>
 	<button name="BPMResidence6Button"/>
 
-	<menubutton name="BPHealthButton"/>
-	<menu name="BPHealthMenu" default="BPMSchoolButton"/>
-	<button name="BPMHealthButton"/>
-	<button name="BPMSportsButton"/>
-	<button name="BPMFireButton"/>
+	<menubutton name="BPFarmButton"/>
+	<menu name="BPFarmMenu" default="BPMFarmButton"/>
+	<button name="BPMMarketButton"/>
+	<button name="BPMWaterwellButton"/>
+	<button name="BPMFarmButton"/>
+	<button name="BPMParkButton"/>
+	
+	<menubutton name="BPSchoolButton"/>
+	<menu name="BPSchoolMenu" default="BPMMonumentButton"/>
+	<button name="BPMMonumentButton"/>
 	<button name="BPMSchoolButton"/>
 	<button name="BPMUniversityButton"/>
+	<button name="BPMFireButton"/>
+	<button name="BPMHealthButton"/>
+	<button name="BPMSportsButton"/>
 
 	<menubutton name="BPTransportButton"/>
 	<menu name="BPTransportMenu" default="BPMTrackButton"/>
@@ -48,22 +57,13 @@
 	<button name="BPMRecycleButton"/>
 
 	<menubutton name="BPIndustryButton"/>
-	<menu name="BPIndustryMenu" default="BPMMarketButton"/>
-	<button name="BPMLIndustryButton"/>
-	<button name="BPMHIndustryButton"/>
-	<button name="BPMMarketButton"/>
+	<menu name="BPIndustryMenu" default="BPMPotteryButton"/>
 	<button name="BPMPotteryButton"/>
 	<button name="BPMBlacksmithButton"/>
-
-	<menubutton name="BPParkButton"/>
-	<menu name="BPParkMenu" default="BPMFarmButton"/>
-	<button name="BPMMonumentButton"/>
-	<button name="BPMParkButton"/>
-	<button name="BPMWaterButton"/>
-	<button name="BPMWaterwellButton"/>
-	<button name="BPMFarmButton"/>
 	<button name="BPMMillButton"/>
-	
+	<button name="BPMLIndustryButton"/>
+	<button name="BPMHIndustryButton"/>
+
 	<content>
 		<TableLayout rows="8" cols="2">
 			<colsize col="1" fixed="48"/>
@@ -80,8 +80,8 @@
 				</CheckButton>
 			</cell>
 			<cell row="1" col="2" halign="left">
-				<Panel name="BPPointerMenu" width="96" height="50" background="images/gui/buttons/button-border-2.png">
-					<TableLayout rows="1" cols="2">
+				<Panel name="BPPointerMenu" width="150" height="50" background="images/gui/buttons/button-border-3.png">
+					<TableLayout rows="1" cols="3">
 					<cell row="1" col="1">
 						<CheckButton name="BPMPointerButton" main="BPPointerButton">
 						<image src="images/gui/buttons/button.png"/>
@@ -102,7 +102,18 @@
 						<image-caption src="images/gui/buttonpanel/base/bulldozer.png"/>
 						</CheckButton>
 					</cell>
-					</TableLayout>
+	       				<cell row="1" col="3">
+						<CheckButton name="BPMWaterButton" main="BPPointerButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/water.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/parks/water.png"/>
+						</CheckButton>
+					</cell>
+
+				</TableLayout>
 				</Panel>
 			</cell>
 
@@ -118,7 +129,7 @@
 				</CheckButton>
 			</cell>
 			<cell row="2" col="2" halign="left">
-				<Panel name="BPResidenceMenu" width="289" height="50" background="images/gui/buttons/button-border-6.png">
+				<Panel name="BPResidenceMenu" width="300" height="50" background="images/gui/buttons/button-border-6.png">
 					<TableLayout rows="1" cols="6">
 					<cell row="1" col="1">
 						<CheckButton name="BPMResidence1Button" main="BPResidenceButton">
@@ -184,52 +195,90 @@
 				</Panel>
 			</cell>
 
-			<!-- fire health e.g. -->
+			<!-- Farms -->
 			<cell row="3" col="1" halign="left">
-				<CheckButton name="BPHealthButton" lower="true">
+				<CheckButton name="BPFarmButton" lower="true">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttonpanel/misc/book.png" filter="grey"/>
-				<image-caption src="images/gui/buttonpanel/misc/book.png"/>
+				<image-disabled src="images/gui/buttonpanel/parks/farm.png"	filter="grey"/>
+				<image-caption src="images/gui/buttonpanel/parks/farm.png"/>
 				</CheckButton>
 			</cell>
 			<cell row="3" col="2" halign="left">
-				<Panel name="BPHealthMenu" width="244" height="50" background="images/gui/buttons/button-border-5.png">
-					<TableLayout rows="1" cols="5">
+				<Panel name="BPFarmMenu"  width="200" height="50" background="images/gui/buttons/button-border-4.png">
+					<TableLayout rows="1" cols="4">
 					<cell row="1" col="1">
-						<CheckButton name="BPMHealthButton" main="BPHealthButton">
+						<CheckButton name="BPMMarketButton" main="BPFarmButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/misc/health.png" filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/misc/health.png"/>
+						<image-disabled src="images/gui/buttonpanel/industry/market.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/industry/market.png"/>
 						</CheckButton>
 					</cell>
-					<cell row="1" col="2">
-						<CheckButton name="BPMSportsButton" main="BPHealthButton">
+	        			<cell row="1" col="2">
+						<CheckButton name="BPMWaterwellButton" main="BPFarmButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/misc/sports.png" filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/misc/sports.png"/>
+						<image-disabled src="images/gui/buttonpanel/waterwell.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/waterwell.png"/>
 						</CheckButton>
 					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMFireButton" main="BPHealthButton">
+						<CheckButton name="BPMFarmButton" main="BPFarmButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
 						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/misc/fire.png" filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/misc/fire.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/farm.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/parks/farm.png"/>
 						</CheckButton>
 					</cell>
 					<cell row="1" col="4">
-						<CheckButton name="BPMSchoolButton" main="BPHealthButton">
+						<CheckButton name="BPMParkButton" main="BPFarmButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/tree.png"	filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/parks/tree.png"/>
+						</CheckButton>
+					</cell>
+				</TableLayout>
+				</Panel>
+			</cell>
+
+			<!-- fire health e.g. -->
+			<cell row="4" col="1" halign="left">
+				<CheckButton name="BPSchoolButton" lower="true">
+				<image src="images/gui/buttons/menu-button.png"/>
+				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
+				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
+				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
+				<image-disabled src="images/gui/buttonpanel/parks/monument.png" filter="grey"/>
+                                <image-caption src="images/gui/buttonpanel/parks/monument.png"/>
+				</CheckButton>
+			</cell>
+			<cell row="4" col="2" halign="left">
+				<Panel name="BPSchoolMenu" width="300" height="50" background="images/gui/buttons/button-border-6.png">
+					<TableLayout rows="1" cols="6">
+						<cell row="1" col="1">
+						<CheckButton name="BPMMonumentButton" main="BPSchoolButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/parks/monument.png"	filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/parks/monument.png"/>
+						</CheckButton>
+					</cell>
+					<cell row="1" col="2">
+						<CheckButton name="BPMSchoolButton" main="BPSchoolButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -238,8 +287,8 @@
 						<image-caption src="images/gui/buttonpanel/misc/book.png"/>
 						</CheckButton>
 					</cell>
-					<cell row="1" col="5">
-						<CheckButton name="BPMUniversityButton" main="BPHealthButton">
+					<cell row="1" col="3">
+						<CheckButton name="BPMUniversityButton" main="BPSchoolButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -248,12 +297,42 @@
 						<image-caption src="images/gui/buttonpanel/misc/university.png"/>
 						</CheckButton>
 					</cell>
-					</TableLayout>
+	        			<cell row="1" col="4">
+						<CheckButton name="BPMHealthButton" main="BPSchoolButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/misc/health.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/misc/health.png"/>
+						</CheckButton>
+					</cell>
+					<cell row="1" col="5">
+						<CheckButton name="BPMSportsButton" main="BPSchoolButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/misc/sports.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/misc/sports.png"/>
+						</CheckButton>
+					</cell>
+					<cell row="1" col="6">
+						<CheckButton name="BPMFireButton" main="BPSchoolButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/misc/fire.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/misc/fire.png"/>
+						</CheckButton>
+					</cell>
+				</TableLayout>
 				</Panel>
 			</cell>
 
 			<!-- transport -->
-			<cell row="4" col="1" halign="left">
+			<cell row="5" col="1" halign="left">
 				<CheckButton name="BPTransportButton" lower="true">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
@@ -263,8 +342,8 @@
 				<image-caption src="images/gui/buttonpanel/transport/tracks.png"/>
 				</CheckButton>
 			</cell>
-			<cell row="4" col="2" halign="left">
-				<Panel name="BPTransportMenu"  width="244" height="50" background="images/gui/buttons/button-border-5.png">
+			<cell row="5" col="2" halign="left">
+				<Panel name="BPTransportMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
 						<CheckButton name="BPMTrackButton" main="BPTransportButton">
@@ -321,7 +400,7 @@
 			</cell>
 
 			<!-- power -->
-			<cell row="5" col="1" halign="left">
+			<cell row="6" col="1" halign="left">
 				<CheckButton name="BPPowerButton" lower="true">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
@@ -331,8 +410,8 @@
 				<image-caption src="images/gui/buttonpanel/power/windmills.png"/>
 				</CheckButton>
 			</cell>
-			<cell row="5" col="2" halign="left">
-				<Panel name="BPPowerMenu"  width="244" height="50" background="images/gui/buttons/button-border-5.png">
+			<cell row="6" col="2" halign="left">
+				<Panel name="BPPowerMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
 						<CheckButton name="BPMPowerLineButton" main="BPPowerButton">
@@ -389,7 +468,7 @@
 			</cell>
 
 			<!-- mining -->
-			<cell row="6" col="1" halign="left">
+			<cell row="7" col="1" halign="left">
 				<CheckButton name="BPMiningButton" lower="true">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
@@ -399,8 +478,8 @@
 				<image-caption src="images/gui/buttonpanel/mining/commune.png"/>
 				</CheckButton>
 			</cell>
-			<cell row="6" col="2" halign="left">
-				<Panel name="BPMiningMenu"  width="244" height="50" background="images/gui/buttons/button-border-5.png">
+			<cell row="7" col="2" halign="left">
+				<Panel name="BPMiningMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
 						<CheckButton name="BPMCommuneButton" main="BPMiningButton">
@@ -457,50 +536,20 @@
 			</cell>
 
 			<!-- industry -->
-			<cell row="7" col="1" halign="left">
+			<cell row="8" col="1" halign="left">
 				<CheckButton name="BPIndustryButton" lower="true">
 				<image src="images/gui/buttons/menu-button.png"/>
 				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
 				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
 				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttonpanel/industry/market.png" filter="grey"/>
-				<image-caption src="images/gui/buttonpanel/industry/market.png"/>
+				<image-disabled src="images/gui/buttonpanel/industry/pottery.png" filter="grey"/>
+				<image-caption src="images/gui/buttonpanel/industry/pottery.png"/>
 				</CheckButton>
 			</cell>
-			<cell row="7" col="2" halign="left">
-				<Panel name="BPIndustryMenu"  width="244" height="50" background="images/gui/buttons/button-border-5.png">
+			<cell row="8" col="2" halign="left">
+				<Panel name="BPIndustryMenu"  width="250" height="50" background="images/gui/buttons/button-border-5.png">
 					<TableLayout rows="1" cols="5">
 					<cell row="1" col="1">
-						<CheckButton name="BPMLIndustryButton" main="BPIndustryButton">
-						<image src="images/gui/buttons/button.png"/>
-						<image-hover src="images/gui/buttons/button-hover.png"/>
-						<image-clicked src="images/gui/buttons/button-clicked.png"/>
-						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/industry/lightindustry.png"	filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/industry/lightindustry.png"/>
-						</CheckButton>
-					</cell>
-					<cell row="1" col="2">
-						<CheckButton name="BPMHIndustryButton" main="BPIndustryButton">
-						<image src="images/gui/buttons/button.png"/>
-						<image-hover src="images/gui/buttons/button-hover.png"/>
-						<image-clicked src="images/gui/buttons/button-clicked.png"/>
-						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/industry/heavyindustry2.png" filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
-						</CheckButton>
-					</cell>
-					<cell row="1" col="3">
-						<CheckButton name="BPMMarketButton" main="BPIndustryButton">
-						<image src="images/gui/buttons/button.png"/>
-						<image-hover src="images/gui/buttons/button-hover.png"/>
-						<image-clicked src="images/gui/buttons/button-clicked.png"/>
-						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/industry/market.png" filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/industry/market.png"/>
-						</CheckButton>
-					</cell>
-					<cell row="1" col="4">
 						<CheckButton name="BPMPotteryButton" main="BPIndustryButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
@@ -510,7 +559,7 @@
 						<image-caption src="images/gui/buttonpanel/industry/pottery.png"/>
 						</CheckButton>
 					</cell>
-					<cell row="1" col="5">
+					<cell row="1" col="2">
 						<CheckButton name="BPMBlacksmithButton" main="BPIndustryButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
@@ -520,77 +569,8 @@
 						<image-caption src="images/gui/buttonpanel/industry/blacksmith.png"/>
 						</CheckButton>
 					</cell>
-					</TableLayout>
-				</Panel>
-			</cell>
-
-			<!-- parks -->
-			<cell row="8" col="1" halign="left">
-				<CheckButton name="BPParkButton" lower="true">
-				<image src="images/gui/buttons/menu-button.png"/>
-				<image-hover src="images/gui/buttons/menu-button-hover.png"/>
-				<image-clicked src="images/gui/buttons/menu-button-clicked.png"/>
-				<image-checked src="images/gui/buttons/menu-button-checked.png"/>
-				<image-disabled src="images/gui/buttonpanel/parks/farm.png"	filter="grey"/>
-				<image-caption src="images/gui/buttonpanel/parks/farm.png"/>
-				</CheckButton>
-			</cell>
-			<cell row="8" col="2" halign="left">
-				<Panel name="BPParkMenu"  width="244" height="50" background="images/gui/buttons/button-border-5.png">
-					<TableLayout rows="1" cols="6">
-					<cell row="1" col="1">
-						<CheckButton name="BPMMonumentButton" main="BPParkButton">
-						<image src="images/gui/buttons/button.png"/>
-						<image-hover src="images/gui/buttons/button-hover.png"/>
-						<image-clicked src="images/gui/buttons/button-clicked.png"/>
-						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/parks/monument.png"	filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/parks/monument.png"/>
-						</CheckButton>
-					</cell>
-					<cell row="1" col="2">
-						<CheckButton name="BPMParkButton" main="BPParkButton">
-						<image src="images/gui/buttons/button.png"/>
-						<image-hover src="images/gui/buttons/button-hover.png"/>
-						<image-clicked src="images/gui/buttons/button-clicked.png"/>
-						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/parks/tree.png"	filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/parks/tree.png"/>
-						</CheckButton>
-					</cell>
 					<cell row="1" col="3">
-						<CheckButton name="BPMWaterButton" main="BPParkButton">
-						<image src="images/gui/buttons/button.png"/>
-						<image-hover src="images/gui/buttons/button-hover.png"/>
-						<image-clicked src="images/gui/buttons/button-clicked.png"/>
-						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/parks/water.png" filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/parks/water.png"/>
-						</CheckButton>
-					</cell>
-					<cell row="1" col="4">
-						<CheckButton name="BPMWaterwellButton" main="BPParkButton">
-						<image src="images/gui/buttons/button.png"/>
-						<image-hover src="images/gui/buttons/button-hover.png"/>
-						<image-clicked src="images/gui/buttons/button-clicked.png"/>
-						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/waterwell.png" filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/waterwell.png"/>
-						</CheckButton>
-					</cell>
-
-					<cell row="1" col="5">
-						<CheckButton name="BPMFarmButton" main="BPParkButton">
-						<image src="images/gui/buttons/button.png"/>
-						<image-hover src="images/gui/buttons/button-hover.png"/>
-						<image-clicked src="images/gui/buttons/button-clicked.png"/>
-						<image-checked src="images/gui/buttons/button-checked.png"/>
-						<image-disabled src="images/gui/buttonpanel/parks/farm.png" filter="grey"/>
-						<image-caption src="images/gui/buttonpanel/parks/farm.png"/>
-						</CheckButton>
-					</cell>
-					<cell row="1" col="6">
-						<CheckButton name="BPMMillButton" main="BPParkButton">
+						<CheckButton name="BPMMillButton" main="BPIndustryButton">
 						<image src="images/gui/buttons/button.png"/>
 						<image-hover src="images/gui/buttons/button-hover.png"/>
 						<image-clicked src="images/gui/buttons/button-clicked.png"/>
@@ -599,9 +579,30 @@
 						<image-caption src="images/gui/buttonpanel/parks/mills.png"/>
 						</CheckButton>
 					</cell>
-					</TableLayout>
+                			<cell row="1" col="4">
+						<CheckButton name="BPMLIndustryButton" main="BPIndustryButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/industry/lightindustry.png"	filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/industry/lightindustry.png"/>
+						</CheckButton>
+					</cell>
+					<cell row="1" col="5">
+						<CheckButton name="BPMHIndustryButton" main="BPIndustryButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/industry/heavyindustry2.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+						</CheckButton>
+					</cell>
+				</TableLayout>
 				</Panel>
 			</cell>
+
 		</TableLayout>
 	</content>
 </ButtonPanel>
