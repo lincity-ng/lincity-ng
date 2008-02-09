@@ -58,7 +58,6 @@ Programming
     (for tooltips, styles (and layout data?) )
 
  [H] Make stats dialog work without fixed font and remove fixed font.
-     Add waterwell to stats dialog.
 
  [?] Add new file format for score file, similar to "results" (but in xml?)
 
