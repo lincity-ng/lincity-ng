@@ -81,8 +81,7 @@ void mps_coal_power(int x, int y)
 
     char s[12];
 
-    mps_store_title(i++, _("Coal"));
-    mps_store_title(i++, _("Power Station"));
+    mps_store_title(i++, _("Coal Power Station"));
     i++;
 
     format_power(s, sizeof(s), MP_INFO(x, y).int_1);
