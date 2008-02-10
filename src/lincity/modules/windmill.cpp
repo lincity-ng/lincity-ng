@@ -73,6 +73,7 @@ void mps_windmill(int x, int y)
 
     mps_store_title(i++, _("Windmill"));
     mps_store_sfp(i++, _("Tech"), (MP_TECH(x, y) * 100.0) / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, _("Jobs"), (MP_INFO(x, y).int_5 * 100.0) / MP_INFO(x, y).int_1); // either 0 or 100%
     i++;
 
     if (MP_TECH(x, y) >= MODERN_WINDMILL_TECH) {
@@ -83,7 +84,6 @@ void mps_windmill(int x, int y)
 
         format_power(s, sizeof(s), MP_INFO(x, y).int_4);
         mps_store_ss(i++, _("Demand"), s);
-
         i++;
 
         mps_store_title(i++, _("Grid Status"));
@@ -96,8 +96,6 @@ void mps_windmill(int x, int y)
 
         format_power(s, sizeof(s), grid[MP_INFO(x, y).int_6]->demand);
         mps_store_ss(i++, _("Demand"), s);
-        i++;
-
         mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
     }
 }

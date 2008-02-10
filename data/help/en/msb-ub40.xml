@@ -2,19 +2,15 @@
 <Document style="helpdocument">
 	<p style="htitle">Unemployment overlay</p>
 	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
-	<p style="hp">The unemployment mini screen shows only residential areas.</p>
-	<p style="hp">Bright green means that there is no unemployment in that residential area. Darker green and bright red show increasingly severe unemployment in each residential area shown.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	<p style="hp">The unemployment mini screen shows residential areas (red or green) and building (yellow or grey)</p>
+        <p style="hp">Bright green means that there is no unemployment in that residential area. Darker green and bright red show increasingly severe unemployment in each residential area shown.(too many people here compared to the number of jobs)</p>
+        <p style="hp">Bright yellow means that a building asked for jobs, but could not get them (too few people here). Buildings are displayed in grey in this minimap when they have no problem with jobs.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>
-	<li><a href="msb-coal">Coal overlay</a></li>
-	<li><a href="msb-cricket">Sports overlay</a></li>
-	<li><a href="msb-fire">Fire overlay</a></li>
-	<li><a href="msb-health">Health overlay</a></li>
+        <li><a href="transport">Transport</a></li>
+        <li><a href="market">Market</a></li>
 	<li><a href="msb-normal">Normal overlay</a></li>
-	<li><a href="msb-pol">Pollution overlay</a></li>
-	<li><a href="msb-power">Power overlay</a></li>
-	<li><a href="msb-starve">Starvation overlay</a></li>
 	<li><a href="msb-transport">Transportation overlay</a></li>
 </Document>

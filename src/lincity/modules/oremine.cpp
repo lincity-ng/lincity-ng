@@ -16,7 +16,7 @@ void do_oremine(int x, int y)
        // int_2 is the ore reserve under the ground or at the surface really.
      */
     int xx, yy, xs, ys, xe, ye, cr;
-    if (MP_INFO(x, y).int_1 < DIG_MORE_ORE_TRIGGER - 5000) {
+    if (MP_INFO(x, y).int_1 < MAX_ORE_AT_MINE - 5000) {
         xs = x;
         ys = y;
         xe = x + 4;
@@ -141,7 +141,7 @@ void mps_oremine(int x, int y)
     mps_store_title(i++, _("Ore Mine"));
     i++;
 
-    mps_store_sfp(i++, _("Stock"), MP_INFO(x, y).int_1 * 100.0 / DIG_MORE_ORE_TRIGGER);
+    mps_store_sfp(i++, _("Stock"), MP_INFO(x, y).int_1 * 100.0 / MAX_ORE_AT_MINE);
     i++;
 
     mps_store_sfp(i++, _("Reserve"), MP_INFO(x, y).int_2 * 100.0 / (ORE_RESERVE * 16));

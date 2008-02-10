@@ -704,7 +704,7 @@ Color MiniMap::getColor(int x,int y) const
                 return Color(0,0,0xFF); // blue
 #endif
 
-
+            /* Display residence with un/employed people (red / green) == too many people here */
             if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
                 if (MP_INFO(xx,yy).int_1 < -20)
                     return Color(0xFF,0,0);
@@ -712,9 +712,14 @@ Color MiniMap::getColor(int x,int y) const
                     return Color(0x7F,0,0);
                 else
                     return Color(0,0xFF,0);
-            } else {
-                return makeGrey(getColorNormal(x,y));
+            } 
+
+            /* display buildings with unsatisfied requests for jobs (yellow) == too few people here */
+            if ( (MP_INFO(xx,yy).flags & FLAG_LACK_JOBS) > 0) {
+                    return Color(0xFF,0xFF,0); // yellow
             }
+
+            return makeGrey(getColorNormal(xx,yy));
         }
         case COAL: {
             Color c(0x77,0,0);

@@ -95,7 +95,7 @@
 #define FLAG_IS_RIVER           (0x800000)
 #define FLAG_HAD_POWER          (0x1000000)
 #define FLAG_MULTI_TRANSPORT    (0x2000000)   /* Is it a multitransport? */     /* AL1: unused in NG 1.1 */
-#define FLAG_MULTI_TRANS_PREV   (0x4000000)     /* AL1: unused in NG 1.1 */
+#define FLAG_LACK_JOBS          (0x4000000)     /* 1.92 svn , replace previous unused one. */
 #define FLAG_POWER_LINE         (0x8000000)
 #define FLAG_WATERWELL_COVER    (0x10000000)
 #define FLAG_HAS_UNDERGROUND_WATER (0x20000000)
@@ -415,8 +415,6 @@
 #define COMMUNE_ANIM_SPEED 750
 #define COMMUNE_POP  5
 
-#define DIG_MORE_COAL_TRIGGER (MAX_COAL_AT_MINE)
-#define DIG_MORE_ORE_TRIGGER  (MAX_ORE_AT_MINE)
 #define MAX_COAL_ON_TRACK 64
 #define MAX_COAL_ON_ROAD (MAX_COAL_ON_TRACK*8)
 #define MAX_COAL_ON_RAIL (MAX_COAL_ON_TRACK*64)

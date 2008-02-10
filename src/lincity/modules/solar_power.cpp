@@ -40,8 +40,9 @@ void mps_solar_power(int x, int y)
 
     char s[12];
 
-    mps_store_title(i++, _("Solar"));
-    mps_store_title(i++, _("Power Station"));
+    mps_store_title(i++, _("Solar Station"));
+    i++;
+    mps_store_sfp(i++, _("Jobs"), (MP_INFO(x, y).int_5 * 100) / MP_INFO(x, y).int_1 );
     i++;
 
     format_power(s, sizeof(s), MP_INFO(x, y).int_1);

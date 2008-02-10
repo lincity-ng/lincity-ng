@@ -14,9 +14,13 @@ void do_coalmine(int x, int y)
        // int_1 is the coal at the surface
        // int_2 is the coal reserve under the ground. More than one mine can claim the coal under ground!
        // int_3 is the jobs collected.
+       // int_4 is for displaying info, %jobs available to dig
+       // int_5 is for                  %jobs available to put on transport
      */
     int xx, yy, xs, ys, xe, ye, cr;
-    if (MP_INFO(x, y).int_1 < (DIG_MORE_COAL_TRIGGER - 1000)) {
+    MP_INFO(x,y).int_4 = 0;
+
+    if (MP_INFO(x, y).int_1 < (MAX_COAL_AT_MINE - 1000)) {
         if (MP_INFO(x, y).int_2 < 0)
             return;             /* run out of reserves */
 
@@ -40,6 +44,8 @@ void do_coalmine(int x, int y)
         if (cr > 0) {
             if (get_jobs(x, y, JOBS_DIG_COAL - MP_INFO(x, y).int_3) != 0) {
                 MP_INFO(x, y).int_3 = 0;
+                MP_INFO(x,y).int_4 = JOBS_DIG_COAL ;
+
                 for (yy = ys; yy < ye; yy++)
                     for (xx = xs; xx < xe; xx++)
                         if (MP_INFO(xx, yy).coal_reserve > 0) {
@@ -53,15 +59,22 @@ void do_coalmine(int x, int y)
                             xx = xe;    /* break out */
 
                         }
-            } else if (get_jobs(x, y, JOBS_DIG_COAL / 10) != 0)
+            } else if (get_jobs(x, y, JOBS_DIG_COAL / 10) != 0) {
                 MP_INFO(x, y).int_3 += JOBS_DIG_COAL / 10;
-            else if (get_jobs(x, y, JOBS_DIG_COAL / 50) != 0)
+                MP_INFO(x,y).int_4 += MP_INFO(x, y).int_3;
+            } else if (get_jobs(x, y, JOBS_DIG_COAL / 50) != 0) {
                 MP_INFO(x, y).int_3 += JOBS_DIG_COAL / 50;
+                MP_INFO(x,y).int_4 += MP_INFO(x, y).int_3;
+            }
         } else {
             MP_INFO(x, y).int_1 = 0;
             MP_INFO(x, y).int_2 = -1;
         }
+    } else {
+        MP_INFO(x,y).int_4 = JOBS_DIG_COAL ; // lot of coal at surface, so we don't dig,
+                                             // but say we did for better stats
     }
+
     /* put it on the railway */
     if (MP_GROUP(x - 1, y) == GROUP_RAIL
         && MP_INFO(x - 1, y).int_3 < MAX_COAL_ON_RAIL
@@ -69,6 +82,7 @@ void do_coalmine(int x, int y)
         if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
             MP_INFO(x, y).int_1 -= (MAX_COAL_ON_RAIL - MP_INFO(x - 1, y).int_3);
             MP_INFO(x - 1, y).int_3 = MAX_COAL_ON_RAIL;
+            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
         }
     }
     if (MP_GROUP(x, y - 1) == GROUP_RAIL
@@ -77,6 +91,7 @@ void do_coalmine(int x, int y)
         if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
             MP_INFO(x, y).int_1 -= (MAX_COAL_ON_RAIL - MP_INFO(x, y - 1).int_3);
             MP_INFO(x, y - 1).int_3 = MAX_COAL_ON_RAIL;
+            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
         }
     }
     /* put it on the road */
@@ -86,6 +101,7 @@ void do_coalmine(int x, int y)
         if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
             MP_INFO(x, y).int_1 -= (MAX_COAL_ON_ROAD - MP_INFO(x - 1, y).int_3);
             MP_INFO(x - 1, y).int_3 = MAX_COAL_ON_ROAD;
+            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
         }
     }
     if (MP_GROUP(x, y - 1) == GROUP_ROAD
@@ -94,6 +110,7 @@ void do_coalmine(int x, int y)
         if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
             MP_INFO(x, y).int_1 -= (MAX_COAL_ON_ROAD - MP_INFO(x, y - 1).int_3);
             MP_INFO(x, y - 1).int_3 = MAX_COAL_ON_ROAD;
+            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
         }
     }
     /* put it on the tracks */
@@ -103,6 +120,7 @@ void do_coalmine(int x, int y)
         if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
             MP_INFO(x, y).int_1 -= (MAX_COAL_ON_TRACK - MP_INFO(x - 1, y).int_3);
             MP_INFO(x - 1, y).int_3 = MAX_COAL_ON_TRACK;
+            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
         }
     }
     if (MP_GROUP(x, y - 1) == GROUP_TRACK
@@ -111,6 +129,7 @@ void do_coalmine(int x, int y)
         if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
             MP_INFO(x, y).int_1 -= (MAX_COAL_ON_TRACK - MP_INFO(x, y - 1).int_3);
             MP_INFO(x, y - 1).int_3 = MAX_COAL_ON_TRACK;
+            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
         }
     }
 
@@ -132,11 +151,15 @@ void mps_coalmine(int x, int y)
     mps_store_title(i++, _("Coal Mine"));
     i++;
 
-    mps_store_sfp(i++, _("Stock"), MP_INFO(x, y).int_1 * 100 / MAX_COAL_AT_MINE);
+    // Average of %job for 2 tasks
+    mps_store_sfp(i++, _("Jobs"), (MP_INFO(x, y).int_4 * 100 )/ ( JOBS_DIG_COAL + JOBS_LOAD_COAL) );
+    i++;
 
+    mps_store_sfp(i++, _("Stock"), MP_INFO(x, y).int_1 * 100 / MAX_COAL_AT_MINE);
     if (MP_INFO(x, y).int_2 > 0) {
         mps_store_sd(i++, _("Reserve"), MP_INFO(x, y).int_2);
     } else {
         mps_store_ss(i++, _("Reserve"), _("EMPTY"));
     }
+
 }

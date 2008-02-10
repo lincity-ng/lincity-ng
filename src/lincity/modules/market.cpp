@@ -7,23 +7,45 @@
 #include "market.h"
 #include "lincity-ng/ErrorInterface.hpp"
 
+    /*
+     * MP_INFO(x,y)
+     *  int_1 contains the food it holds
+     *  int_2 contains the jobs
+     *  int_3 contains the coal
+     *  int_4 contains the goods
+     *  int_5 contains the ore
+     *  int_6 contains the steel
+     *  int_7 contains the waste
+     *
+     */
+
+
 int get_jobs(int x, int y, int jobs)
 {
     int q;
     if (numof_markets > 0) {
         for (q = 0; q < numof_markets; q++) {
-            if ((abs(marketx[q] - x) < MARKET_RANGE
-                 && abs(markety[q] - y) < MARKET_RANGE && (MP_INFO(marketx[q], markety[q]).int_2 > (3 * jobs / 2)))) {
-                MP_INFO(marketx[q], markety[q]).int_2 -= jobs;
-                income_tax += jobs;
-                return (1);
+            if ( abs(marketx[q] - x) < MARKET_RANGE && abs(markety[q] - y) < MARKET_RANGE) {
+                if ( MP_INFO(marketx[q], markety[q]).int_2 > (3 * jobs / 2) ) {
+                    MP_INFO(marketx[q], markety[q]).int_2 -= jobs;
+                    income_tax += jobs;
+                    MP_INFO(marketx[q] + 1, markety[q]).int_3 += jobs;
+                    MP_INFO(x,y).flags &= (0xFFFFFFFF - FLAG_LACK_JOBS);
+                    return (1);
+                }
             }
         }
     }
+
+    /* second try with transports */
     if (get_stuff(x, y, jobs, T_JOBS) != 0) {
         income_tax += jobs;
+        MP_INFO(x,y).flags &= (0xFFFFFFFF - FLAG_LACK_JOBS);
         return (1);
     }
+
+    /* not enough jobs available */
+    MP_INFO(x,y).flags |= FLAG_LACK_JOBS;
     return (0);
 }
 
