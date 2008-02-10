@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Fast speed</p>
-	<img src="images/gui/speed/fast.png"/>
+	<img src="images/gui/speed/faster.png"/>
 	<p style="hp">This is the fast speed button. It causes the game to run as fast as possible. Care should be taken when using fast mode on fast machines; 'situations' can develop very quickly!</p>
+        <p style="hp">The command line option "-q 1" or "--quick 1" will give the fastest possible speed (less than 10s par year), but can heat your hardware. Default is -q 9 (near 25s per year). This option has no effect on other game speed.</p> 
 
 	<p style="hsubtitle">See also:</p>
 	<li><a href="medium">Medium</a></li>
