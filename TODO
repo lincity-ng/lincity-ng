@@ -6,12 +6,11 @@
 
 Graphics 
 ~~~~~~~~
- [M] Draw Mousecursors for
-        - text normal, link (in help window)
-        - what's this (query tool), bulldoze
-        - (eventually also loading and scrolling)
+ [M] Put an image with a message, while loading (instead of black screen)
 
  [L] Animation of rocket launch 
+
+ [?] Draw cursor for bulldoze (and scrolling?)
 
 Sounds
 ~~~~~~
@@ -40,6 +39,8 @@ Programming
 ~~~~~~~~~~~
 
 --Gui--
+ [H] Make stats dialog work without fixed font and remove fixed font.
+
  [M] Resize "help" window.
 
  [M] Implement dirty rectangle methods to only redraw when needed
@@ -49,6 +50,12 @@ Programming
      http://www.paulsprojects.net/opengl/rtotex/rtotex.html)
      glTexSubImage2D might be helpfull
 
+ [M] Use Mousecursors for
+        - text normal, link (in help window) 
+        - what's this (query tool)
+        see data/images/gui/buttonpanel/pointer-*.png
+
+
  [?] Usability testing log. That the buttons the user pressed (and additional
      actions like scrolling the map, creating buildings, displaying building
      stats). This could be used to measure common user actions and improve
@@ -57,7 +64,6 @@ Programming
  [?] Think about mechanism for attach arbitrary properties to components
     (for tooltips, styles (and layout data?) )
 
- [H] Make stats dialog work without fixed font and remove fixed font.
 
  [?] Add new file format for score file, similar to "results" (but in xml?)
 
@@ -74,7 +80,7 @@ Programming
      (eg in load game menu) Buttons that had an empty string as caption once
      won't change to anything else. At least the caption is not shown.
 
- [?] Generator for dialogs no longer works.
+ [?] Generator for dialogs no longer works.(xslt 1.0 vs 1.1 see 2007-04-30 mail)
 
 --Game--
  [M] Print out more debug infos that user can send in with debug reports:
