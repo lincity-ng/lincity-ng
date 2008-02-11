@@ -1340,6 +1340,9 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     
     if( texture && ( !hideHigh || size == 1 ) )
     {
+        /* TODO: it seems possible to put green or desert tile first,
+         * so that buildings without ground will look nice
+         * especially power lines :) */
         tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
         tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;  
         tilerect.move( tileOnScreenPoint );    
@@ -1559,12 +1562,8 @@ void GameView::draw(Painter& painter)
             currentTile = startRoad;
             while( currentTile.x != tileUnderMouse.x ) {
                 markTile( painter, currentTile );
-                //FIXME: AL1 : we are speaking of tools, so CST_GREEN == buldozer, no need to check DESERT and TREES
-                if( (selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
-				|selected_module_type == CST_TREE 
-				|selected_module_type == CST_TREE2
-				|selected_module_type == CST_TREE3)
-		     && realTile( currentTile ) != lastRazed ){ 
+                //we are speaking of tools, so CST_GREEN == bulldozer
+                if( (selected_module_type == CST_GREEN) && (realTile( currentTile ) != lastRazed) ){ 
                     	cost += bulldozeCost( currentTile );
                     	lastRazed = realTile( currentTile );
                 }
@@ -1573,11 +1572,7 @@ void GameView::draw(Painter& painter)
             }
             while( currentTile.y != tileUnderMouse.y ) {
                 markTile( painter, currentTile );
-                if( (selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
-				|selected_module_type == CST_TREE 
-				|selected_module_type == CST_TREE2
-				|selected_module_type == CST_TREE3)
-		     && realTile( currentTile ) != lastRazed ){ 
+                if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ){ 
                     	cost += bulldozeCost( currentTile );
                     	lastRazed = realTile( currentTile );
                 }
@@ -1587,17 +1582,10 @@ void GameView::draw(Painter& painter)
         } 
         markTile( painter, tileUnderMouse );
         tiles++;
-        if( (selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
-				|selected_module_type == CST_TREE 
-				|selected_module_type == CST_TREE2
-				|selected_module_type == CST_TREE3)
-	     && realTile( currentTile ) != lastRazed ) { 
+        if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ) { 
             	  cost += bulldozeCost( tileUnderMouse );
         } 
-        if( selected_module_type == CST_GREEN |selected_module_type == CST_DESERT
-				|selected_module_type == CST_TREE 
-				|selected_module_type == CST_TREE2
-				|selected_module_type == CST_TREE3 ){
+        if( selected_module_type == CST_GREEN ){
             std::stringstream prize;
             if( roadDragging ){
                 prize << _("Estimated Bulldoze Cost: ");
