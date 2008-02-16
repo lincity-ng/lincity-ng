@@ -38,6 +38,7 @@ static void ore_reserve_setup(void);
 static void setup_river(void);
 static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void setup_ground(void);
+static void new_setup_river_ground(void);
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
@@ -148,12 +149,17 @@ void clear_game(void)
 
 void new_city(int *originx, int *originy, int random_village)
 {
+    int old_setup_ground = true;
     clear_game();
     coal_reserve_setup();
 
-    global_mountainity= 10 + rand () % 300; // roughly water slope = 30m / 1km (=from N to S)
-    setup_river();
-    setup_ground();
+    global_mountainity= 100 + rand () % 300; // roughly water slope = 25m / 1km (=from N to S)
+    if (old_setup_ground) {
+        setup_river();
+        setup_ground();
+    } else {
+        new_setup_river_ground();
+    }
     setup_land();
     ore_reserve_setup();
     init_pbars();
@@ -290,6 +296,100 @@ static void ore_reserve_setup(void)
             MP_INFO(x, y).ore_reserve = ORE_RESERVE;
 }
 
+static void new_setup_river_ground(void)
+{
+    const int NLOOP = 7;
+    const int SZ=128; // must be = 2^NLOOP
+    const int d = ((SZ - WORLD_SIDE_LEN) * 3) / 4; // visible map start after this
+                                                 // shifted towerd one border for smoothing
+    int g[SZ][SZ];
+    int tmp[SZ][SZ];
+    int i,j,k,l,m,n,size,h;
+
+    // intialisation
+#ifdef DEBUG
+    fprintf(stderr," mountainity = %i \n", global_mountainity);
+#endif
+    n = 1;
+    h = ( rand() % 10 + rand() % 10 ) * global_mountainity / 20;
+    for (i = 0; i < SZ; i++) {
+        for (j = 0; j < SZ; j++) {
+            g[i][j]=h;
+            tmp[i][j]=0;
+        }
+    }
+
+    /* fractal iteration for height */
+    // iteration
+    for (k = 1; k <= NLOOP; k++) {
+        n *= 2;
+        size = SZ / n;
+        // n x n block of size
+        for ( l = 0; l < n; l++ ) {
+            for ( m = 0; m < n; m++ ) {
+                // one block
+                h = (rand() % 10 + rand() % 10) * global_mountainity / (size * 2 * 20);
+                for (i = 0 ; i < size; i++)
+                    for (j = 0 ; j < size; j++)
+                        g[l * size + i][ m * size + j ] += h;
+            }
+        }
+    }
+
+    // smooth the map
+    for (n = 0; n < 16 ; n++) {
+        //smooth
+        for (i = 1; i< SZ - 1; i++) 
+            for (j = 1; j< SZ - 1; j++) {
+                tmp[i][j] = 0;
+                for ( k = -1; k <= 1; k++ )
+                    for ( l = -1; l <= 1; l++ )
+                        tmp[i][j] += g[i + k][j + l];
+            }
+
+        for (i = 1; i< SZ - 1; i++) 
+            for (j = 1; j< SZ - 1; j++)
+                g[i][j] = tmp[i][j] / 9;
+
+        // put the border of the "big" map at the minimum visible height
+        alt_min = 2000000000;
+        for ( i = 0; i < WORLD_SIDE_LEN ; i++)
+            for ( j = 0; j < WORLD_SIDE_LEN ; j++)
+                if (g[d+i][d+j] < alt_min)
+                    alt_min = g[d+i][d+j];
+
+        for ( i = 0; i < SZ; i++) {
+            g[i][0] = alt_min;
+            g[0][i] = alt_min;
+            g[i][SZ - 1] = alt_min;
+            g[SZ - 1][ i] = alt_min;
+        }
+    }
+
+    // center our map in the fractal one
+    for ( i = 0; i < WORLD_SIDE_LEN; i++)
+        for ( j = 0; j < WORLD_SIDE_LEN; j++)
+            ALT(i,j) = g[d+i][d+j];
+
+    // take visible value for maximum color dynamic
+    alt_min =  2000000000;
+    alt_max = -2000000000;
+    for ( i = 1; i < WORLD_SIDE_LEN - 1; i++)
+        for ( j = 1; j < WORLD_SIDE_LEN - 1; j++) {
+            if ( ALT(i,j) > alt_max)
+                alt_max = ALT(i,j);
+            if ( ALT(i,j) < alt_min)
+                alt_min = ALT(i,j);
+        }
+
+    alt_step = (alt_max - alt_min)/10;
+    
+#ifdef DEBUG
+    fprintf(stderr," alt min = %i; max = %i\n", alt_min, alt_max);
+#endif
+
+}
+
 static void setup_river(void)
 {
     int x, y, i, j;
@@ -406,11 +506,12 @@ static void setup_ground(void)
 {
     int x,y;
     int hmax =0;
+    int tmp[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+
     /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
     /* currently only dummy things in order to compile */
 
-    /* FIXME: AL1 i did it ugly: should not use ground struct for tmp */
-#define TMP(x,y) ground[x][y].int4
+#define TMP(x,y) tmp[x][y]
 
     for (x = 1; x < WORLD_SIDE_LEN - 1; x++) {
          for (y = 1; y < WORLD_SIDE_LEN - 1; y++) {
@@ -465,6 +566,17 @@ static void setup_ground(void)
         fprintf(stderr," i= %2d, alt max = %d, tot_cnt = %d\n", i, hmax, tot_cnt);
 #endif
     }
+    alt_min = 2000000000;
+    alt_max = -alt_min;
+    for (x = 1; x < WORLD_SIDE_LEN - 1; x++)
+         for (y = 1; y < WORLD_SIDE_LEN - 1; y++) {
+             if (alt_min > ALT(x,y))
+                 alt_min = ALT(x,y);
+             if (alt_max < ALT(x,y))
+                 alt_max = ALT(x,y);
+         }
+    alt_step = (alt_max - alt_min) /10;
+
 }
 
 

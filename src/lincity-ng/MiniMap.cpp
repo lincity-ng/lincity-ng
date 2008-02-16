@@ -625,13 +625,44 @@ Color MiniMap::getColor(int x,int y) const
         xx = MP_INFO(x,y).int_1;
         yy = MP_INFO(x,y).int_2;
     }
-    /* FIXME: ugly coding: since here we should use xx, yy and not x,y */
+    /* FIXME: since here we should use xx, yy and not x,y */
 
     int flags=MP_INFO(xx,yy).flags;
 
     switch(mMode) {
         case NORMAL:
-            return getColorNormal(x,y);
+#define DEBUG_ALTITUDE
+#ifdef DEBUG_ALTITUDE
+            if (GROUP_IS_BARE(MP_GROUP(xx,yy))) 
+            {
+                // show ground altitude
+                int alt=ground[xx][yy].altitude;
+                if (alt > alt_min + 9 * alt_step)
+                    return Color(255,255,255);          // white
+                else if ( alt > alt_min + 8 * alt_step ) 
+                    return Color(173,173,173);          // bright grey
+                else if ( alt > alt_min + 7 * alt_step )
+                    return Color(130,130,130);          // grey
+                else if ( alt > alt_min + 6 * alt_step )
+                    return Color(197,170,74);           // bright brown
+                else if ( alt > alt_min + 5 * alt_step )
+                    return Color(106,97,41);            // brown
+                else if ( alt > alt_min + 4 * alt_step )
+                    return Color(0,198,0);              // bright green
+                else if ( alt > alt_min + 3 * alt_step ) 
+                    return Color(16,125,8);             // green
+                else if ( alt > alt_min + 2 * alt_step )
+                    return Color(248,229,30);           // yellow
+                else if ( alt > alt_min + 1 * alt_step )
+                    return Color(8,93,255);             // bright blue
+                else
+                    return Color(0,0,0x9F);             // dark blue
+            }
+            else
+#endif
+            {
+                return getColorNormal(xx,yy);
+            }
         case POLLUTION: {
             short p=MP_POL(x,y);
             float v=p/600.0;
@@ -678,32 +709,6 @@ Color MiniMap::getColor(int x,int y) const
             else
                 return makeGrey(getColorNormal(x,y));
         case UB40: {
-//#define DEBUG_ALTITUDE
-#ifdef DEBUG_ALTITUDE
-            // show ground altitude :-)
-            int alt=ground[x][y].altitude;
-            if (alt > 4500)
-                    return Color(0xFF,0,0); //red
-            else if ( alt> 4000 ) 
-                    return Color(0xFF,0x99,0); //orange
-	    else if ( alt > 3500 )
-	                return Color(0xFF,0xFF,0); //yellow
-	    else if ( alt > 3000 )
-	                return Color(0,0xFF,0); //green
-            else if ( alt > 2500)
-                return Color(0,0,0xFF); // blue
-            else if (alt > 2000)
-                    return Color(0xFF,0,0); //red
-            else if ( alt> 1500 ) 
-                    return Color(0xFF,0x99,0); //orange
-	    else if ( alt > 1000 )
-	                return Color(0xFF,0xFF,0); //yellow
-	    else if ( alt > 500 )
-	                return Color(0,0xFF,0); //green
-            else
-                return Color(0,0,0xFF); // blue
-#endif
-
             /* Display residence with un/employed people (red / green) == too many people here */
             if (MP_GROUP_IS_RESIDENCE(xx,yy)) {
                 if (MP_INFO(xx,yy).int_1 < -20)

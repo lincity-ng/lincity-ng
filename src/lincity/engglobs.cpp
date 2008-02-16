@@ -82,5 +82,6 @@ int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS] = {
 int  global_aridity;
 int  global_mountainity;
 ground_struct ground[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+int alt_min, alt_max, alt_step;
 
 int fast_time_for_year;

@@ -22,6 +22,7 @@ extern struct TYPE main_types[NUM_OF_TYPES];
 extern int mappoint_array_x[WORLD_SIDE_LEN], mappoint_array_y[WORLD_SIDE_LEN];
 extern ground_struct ground[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 extern int global_aridity, global_mountainity;
+extern int alt_min, alt_max, alt_step;
 
 extern int numof_shanties, numof_communes;
 
