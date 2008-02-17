@@ -13,6 +13,7 @@
 //  - start a random village (or a  void map)
 //
 
+#include <math.h>
 #include "init_game.h"
 #include "fileutil.h"
 #include "simulate.h"
@@ -149,7 +150,7 @@ void clear_game(void)
 
 void new_city(int *originx, int *originy, int random_village)
 {
-    int old_setup_ground = true;
+    int old_setup_ground = false;
     clear_game();
     coal_reserve_setup();
 
@@ -300,17 +301,23 @@ static void new_setup_river_ground(void)
 {
     const int NLOOP = 7;
     const int SZ=128; // must be = 2^NLOOP
-    const int d = ((SZ - WORLD_SIDE_LEN) * 3) / 4; // visible map start after this
-                                                 // shifted towerd one border for smoothing
-    int g[SZ][SZ];
-    int tmp[SZ][SZ];
+    const int SHIFT = (SZ - WORLD_SIDE_LEN) / 2; // center the visible map in the big one
+    const float sigma = 5.;
+    const float ods2 = 1. / (2. * sigma * sigma);
+    const int mask_size = 4; // useless to be larger than sigma && Must be smaller than SHIFT/2 
+
+    float mat[2 * mask_size + 1][2 * mask_size + 1];
+    float g[SZ][SZ];
+    float tmp[SZ][SZ];
+    float fract = 0.9;
+    float min = 10000000000000000000.;
+    float norm;
     int i,j,k,l,m,n,size,h;
 
     // intialisation
 #ifdef DEBUG
     fprintf(stderr," mountainity = %i \n", global_mountainity);
 #endif
-    n = 1;
     h = ( rand() % 10 + rand() % 10 ) * global_mountainity / 20;
     for (i = 0; i < SZ; i++) {
         for (j = 0; j < SZ; j++) {
@@ -320,7 +327,7 @@ static void new_setup_river_ground(void)
     }
 
     /* fractal iteration for height */
-    // iteration
+    n = 1;
     for (k = 1; k <= NLOOP; k++) {
         n *= 2;
         size = SZ / n;
@@ -328,7 +335,7 @@ static void new_setup_river_ground(void)
         for ( l = 0; l < n; l++ ) {
             for ( m = 0; m < n; m++ ) {
                 // one block
-                h = (rand() % 10 + rand() % 10) * global_mountainity / (size * 2 * 20);
+                h = int ( double((rand() % 10 + rand() % 10) * global_mountainity) * pow(fract,k));
                 for (i = 0 ; i < size; i++)
                     for (j = 0 ; j < size; j++)
                         g[l * size + i][ m * size + j ] += h;
@@ -336,57 +343,74 @@ static void new_setup_river_ground(void)
         }
     }
 
-    // smooth the map
-    for (n = 0; n < 16 ; n++) {
-        //smooth
-        for (i = 1; i< SZ - 1; i++) 
-            for (j = 1; j< SZ - 1; j++) {
-                tmp[i][j] = 0;
-                for ( k = -1; k <= 1; k++ )
-                    for ( l = -1; l <= 1; l++ )
-                        tmp[i][j] += g[i + k][j + l];
-            }
-
-        for (i = 1; i< SZ - 1; i++) 
-            for (j = 1; j< SZ - 1; j++)
-                g[i][j] = tmp[i][j] / 9;
-
-        // put the border of the "big" map at the minimum visible height
-        alt_min = 2000000000;
-        for ( i = 0; i < WORLD_SIDE_LEN ; i++)
-            for ( j = 0; j < WORLD_SIDE_LEN ; j++)
-                if (g[d+i][d+j] < alt_min)
-                    alt_min = g[d+i][d+j];
-
-        for ( i = 0; i < SZ; i++) {
-            g[i][0] = alt_min;
-            g[0][i] = alt_min;
-            g[i][SZ - 1] = alt_min;
-            g[SZ - 1][ i] = alt_min;
+    // gaussian mask 
+    norm = 0;
+    for ( i = 0; i < 2 * mask_size + 1; i++) {
+        for ( j = 0; j < 2 * mask_size + 1; j++) {
+            float r2 = (i - mask_size) * (i - mask_size) + (j - mask_size) * (j - mask_size);
+            mat[i][j] = exp(-r2 * ods2);
+            norm += mat[i][j];
         }
     }
+    norm = 1. / norm;
 
-    // center our map in the fractal one
+
+    //smooth is iterated to propagate a little the lowering of borders
+    for (n = 0; n < 3 ; n++) {
+        for (i = mask_size; i < SZ - mask_size; i++) 
+            for (j = mask_size; j < SZ - mask_size; j++) {
+                tmp[i][j] = 0;
+                for ( k = -mask_size; k <= mask_size; k++ )
+                    for ( l = -mask_size; l <= mask_size; l++ )
+                        tmp[i][j] += g[i + k][j - l] * mat[mask_size + k][mask_size + l];
+            }
+
+        for (i = mask_size; i< SZ - mask_size; i++) 
+            for (j = mask_size; j< SZ - mask_size; j++)
+                g[i][j] = tmp[i][j] * norm;
+
+        // put the south and east border of the "big" map at the minimum visible height
+        for ( i = 0; i < WORLD_SIDE_LEN ; i++)
+            for ( j = 0; j < WORLD_SIDE_LEN ; j++)
+                if (g[SHIFT + i][SHIFT + j] < min)
+                    min = g[SHIFT + i][SHIFT + j];
+
+        for ( i = 0; i < SZ; i++)
+            for (j = 0; j < (SZ - SHIFT - WORLD_SIDE_LEN); j++) {
+                g[i][SZ - 1 - j] = min; // south
+                g[SZ - 1 - j][i] = min; // west
+            }
+    }
+
+    alt_min =  int (min);
+    alt_max = 0;
+    // pick our map in the fractal one (not centered to take advantage of smoothing lower border)
     for ( i = 0; i < WORLD_SIDE_LEN; i++)
-        for ( j = 0; j < WORLD_SIDE_LEN; j++)
-            ALT(i,j) = g[d+i][d+j];
-
-    // take visible value for maximum color dynamic
-    alt_min =  2000000000;
-    alt_max = -2000000000;
-    for ( i = 1; i < WORLD_SIDE_LEN - 1; i++)
-        for ( j = 1; j < WORLD_SIDE_LEN - 1; j++) {
+        for ( j = 0; j < WORLD_SIDE_LEN; j++) {
+            ALT(i,j) = int (g[SHIFT + i][SHIFT + j]) - alt_min;
             if ( ALT(i,j) > alt_max)
                 alt_max = ALT(i,j);
-            if ( ALT(i,j) < alt_min)
-                alt_min = ALT(i,j);
         }
 
+    // take visible value for maximum color dynamic
+    alt_min = 0;
     alt_step = (alt_max - alt_min)/10;
     
 #ifdef DEBUG
     fprintf(stderr," alt min = %i; max = %i\n", alt_min, alt_max);
 #endif
+
+    // Put water in the lowest part of the map
+    for ( i = 1; i < WORLD_SIDE_LEN - 1; i++)
+        for ( j = 1; j < WORLD_SIDE_LEN - 1; j++)
+            if (ALT(i,j) < 2 * alt_step) {
+                MP_TYPE(i, j) = CST_WATER;
+                MP_GROUP(i, j) = GROUP_WATER;
+                MP_INFO(i, j).flags |= FLAG_IS_RIVER;
+            }
+
+    // TODO: WIP add rivers and connect lake to outside of the map 
+
 
 }
 
