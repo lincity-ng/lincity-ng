@@ -11,10 +11,13 @@
 
 void do_oremine(int x, int y)
 {
-    /*
-       // int_1 is the ore at in stock
-       // int_2 is the ore reserve under the ground or at the surface really.
-     */
+    // int_1 is the ore at in stock
+    // int_2 is the ore reserve under the ground or at the surface really.
+    //
+    // Animation stuff
+    // int_3 is current displayed tile
+    // int_4 is a time shift for animation to prevent identical animation
+    // int_6 is a tile increment/decrement   ..         ..        ..
     int xx, yy, xs, ys, xe, ye, cr;
     if (MP_INFO(x, y).int_1 < MAX_ORE_AT_MINE - 5000) {
         xs = x;
@@ -41,85 +44,102 @@ void do_oremine(int x, int y)
                         }
     }
 
-    if ((MP_INFO(x - 1, y).flags & FLAG_IS_TRANSPORT) != 0) {
-        if (MP_GROUP(x - 1, y) == GROUP_RAIL
-            && MP_INFO(x - 1, y).int_5 < MAX_ORE_ON_RAIL
-            && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_RAIL - MP_INFO(x - 1, y).int_5)) {
-            if (get_jobs(x, y, JOBS_LOAD_ORE) != 0) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_RAIL - MP_INFO(x - 1, y).int_5);
-                MP_INFO(x - 1, y).int_5 = MAX_ORE_ON_RAIL;
-            }
-        } else if (MP_GROUP(x - 1, y) == GROUP_ROAD
-                   && MP_INFO(x - 1, y).int_5 < MAX_ORE_ON_ROAD
-                   && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_ROAD - MP_INFO(x - 1, y).int_5)) {
-            if (get_jobs(x, y, JOBS_LOAD_ORE) != 0) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_ROAD - MP_INFO(x - 1, y).int_5);
-                MP_INFO(x - 1, y).int_5 = MAX_ORE_ON_ROAD;
-            }
-        } else if (MP_GROUP(x - 1, y) == GROUP_TRACK
-                   && MP_INFO(x - 1, y).int_5 < MAX_ORE_ON_TRACK
-                   && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_TRACK - MP_INFO(x - 1, y).int_5)) {
-            if (get_jobs(x, y, JOBS_LOAD_ORE) != 0) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_TRACK - MP_INFO(x - 1, y).int_5);
-                MP_INFO(x - 1, y).int_5 = MAX_ORE_ON_TRACK;
-            }
-        }
-    }
-
-    if ((MP_INFO(x, y - 1).flags & FLAG_IS_TRANSPORT) != 0) {
-        if (MP_GROUP(x, y - 1) == GROUP_RAIL
-            && MP_INFO(x, y - 1).int_5 < MAX_ORE_ON_RAIL
-            && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_RAIL - MP_INFO(x, y - 1).int_5)) {
-            if (get_jobs(x, y, JOBS_LOAD_ORE) != 0) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_RAIL - MP_INFO(x, y - 1).int_5);
-                MP_INFO(x, y - 1).int_5 = MAX_ORE_ON_RAIL;
-            }
-        } else if (MP_GROUP(x, y - 1) == GROUP_ROAD
-                   && MP_INFO(x, y - 1).int_5 < MAX_ORE_ON_ROAD
-                   && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_ROAD - MP_INFO(x, y - 1).int_5)) {
-            if (get_jobs(x, y, JOBS_LOAD_ORE) != 0) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_ROAD - MP_INFO(x, y - 1).int_5);
-                MP_INFO(x, y - 1).int_5 = MAX_ORE_ON_ROAD;
-            }
-        } else if (MP_GROUP(x, y - 1) == GROUP_TRACK
-                   && MP_INFO(x, y - 1).int_5 < MAX_ORE_ON_TRACK
-                   && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_TRACK - MP_INFO(x, y - 1).int_5)) {
-            if (get_jobs(x, y, JOBS_LOAD_ORE) != 0) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_TRACK - MP_INFO(x, y - 1).int_5);
-                MP_INFO(x, y - 1).int_5 = MAX_ORE_ON_TRACK;
+    for (cr=0, xx = x-1, yy = y; yy > y-2; xx++, yy--) {
+        // (xx,yy) = (x-1, y) then (x, y-1) ; neighbouring tranport coordinates
+        if ((MP_INFO(xx, yy).flags & FLAG_IS_TRANSPORT) && get_jobs(x, y, JOBS_LOAD_ORE)) {
+            if (MP_GROUP(xx, yy) == GROUP_RAIL
+                    && MP_INFO(xx, yy).int_5 < MAX_ORE_ON_RAIL
+                    && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_RAIL - MP_INFO(xx, yy).int_5)) {
+                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_RAIL - MP_INFO(xx, yy).int_5);
+                MP_INFO(xx, yy).int_5 = MAX_ORE_ON_RAIL;
+                cr += 3;
+            } else if (MP_GROUP(xx, yy) == GROUP_ROAD
+                    && MP_INFO(xx, yy).int_5 < MAX_ORE_ON_ROAD
+                    && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_ROAD - MP_INFO(xx, yy).int_5)) {
+                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_ROAD - MP_INFO(xx, yy).int_5);
+                MP_INFO(xx, yy).int_5 = MAX_ORE_ON_ROAD;
+                cr += 2;
+            } else if (MP_GROUP(xx, yy) == GROUP_TRACK
+                    && MP_INFO(xx, yy).int_5 < MAX_ORE_ON_TRACK
+                    && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_TRACK - MP_INFO(xx, yy).int_5)) {
+                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_TRACK - MP_INFO(xx, yy).int_5);
+                MP_INFO(xx, yy).int_5 = MAX_ORE_ON_TRACK;
+                cr += 1;
             }
         }
     }
 
-    /* choose a graphic */
-    if ((total_time & 0x7f) == 0) {
-        xx = 7 * (MP_INFO(x, y).int_2 + (3 * ORE_RESERVE / 2))
-            / (16 * ORE_RESERVE);
+    // Anim according to ore mine activity
+    if (cr && real_time > MP_ANIM(x, y)) {
+        // MP_ANIM is reseted to 0 when we start/load a game
+        if (MP_ANIM(x,y) == 0) {
+            MP_INFO(x,y).int_3 = 0;
+            MP_INFO(x,y).int_4 = 0;
+            MP_INFO(x,y).int_6 = 0;
+        } else {
+            // Compute random inc/dec
+            if (real_time > MP_INFO(x, y).int_4) {
+                MP_INFO(x, y).int_4 = real_time + (16 * OREMINE_ANIMATION_SPEED) + (rand() % (16 * OREMINE_ANIMATION_SPEED));
+                (MP_INFO(x, y).int_6 > 0) ? MP_INFO(x, y).int_6 = -1 : MP_INFO(x, y).int_6 = 1;
+            }
+        }
+        // old behavior was to show reserve
+        // xx = 7 * (MP_INFO(x, y).int_2 + (3 * ORE_RESERVE / 2)) / (16 * ORE_RESERVE);
+        //
+        // new behavior is to have faster animation for more active mines
+        MP_ANIM(x, y) = real_time + ((8 - cr) * OREMINE_ANIMATION_SPEED);
+
+        xx = (MP_INFO(x, y).int_3 + MP_INFO(x, y).int_6) & 15;
+        MP_INFO(x, y).int_3 = xx;
         switch (xx) {
-        case (0):
-            MP_TYPE(x, y) = CST_OREMINE_8;
-            break;
-        case (1):
-            MP_TYPE(x, y) = CST_OREMINE_7;
-            break;
-        case (2):
-            MP_TYPE(x, y) = CST_OREMINE_6;
-            break;
-        case (3):
-            MP_TYPE(x, y) = CST_OREMINE_5;
-            break;
-        case (4):
-            MP_TYPE(x, y) = CST_OREMINE_4;
-            break;
-        case (5):
-            MP_TYPE(x, y) = CST_OREMINE_3;
-            break;
-        case (6):
-            MP_TYPE(x, y) = CST_OREMINE_2;
-            break;
-        case (7):
-            MP_TYPE(x, y) = CST_OREMINE_1;
-            break;
+            case (0):
+                MP_TYPE(x, y) = CST_OREMINE_1;
+                break;
+            case (1):
+                MP_TYPE(x, y) = CST_OREMINE_2;
+                break;
+            case (2):
+                MP_TYPE(x, y) = CST_OREMINE_3;
+                break;
+            case (3):
+                MP_TYPE(x, y) = CST_OREMINE_4;
+                break;
+            case (4):
+                MP_TYPE(x, y) = CST_OREMINE_5;
+                break;
+            case (5):
+                MP_TYPE(x, y) = CST_OREMINE_6;
+                break;
+            case (6):
+                MP_TYPE(x, y) = CST_OREMINE_7;
+                break;
+            case (7):
+                MP_TYPE(x, y) = CST_OREMINE_8;
+                break;
+            case (8):
+                MP_TYPE(x, y) = CST_OREMINE_7;
+                break;
+            case (9):
+                MP_TYPE(x, y) = CST_OREMINE_6;
+                break;
+            case (10):
+                MP_TYPE(x, y) = CST_OREMINE_5;
+                break;
+            case (11):
+                MP_TYPE(x, y) = CST_OREMINE_4;
+                break;
+            case (12):
+                MP_TYPE(x, y) = CST_OREMINE_5;
+                break;
+            case (13):
+                MP_TYPE(x, y) = CST_OREMINE_4;
+                break;
+            case (14):
+                MP_TYPE(x, y) = CST_OREMINE_3;
+                break;
+            case (15):
+                MP_TYPE(x, y) = CST_OREMINE_2;
+                break;
         }
         if (MP_INFO(x, y).int_2 <= 0) {
             int i, j;
