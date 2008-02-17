@@ -2,8 +2,8 @@
 <Document style="helpdocument">
 	<p style="htitle">Centre de recyclage</p>
 	<p style="hp">La consommation et la fabrication des biens produit des déchets.</p>
-	<p style="hp">Les centres de recyclage transforment les déchets en matière première, c'est a dire du minerai. De l'argent et des emplois sont nécessaires. Avoir l'électricité augmente l'efficacité. Ils doivent être connectés aux transport en haut a gauche.</p>
-	<p style="hp">Il est possible d'atteinde une économie durable (donc plus d'utilisation de carrières etc ...) même avec des centres de recyclages ayant moins de 100% d'efficacité. Pour cela il faut quelques fabriques pour compenser les pertes.</p>
+	<p style="hp">Les centres de recyclage transforment les déchets en matière première, c'est à dire du minerai. De l'argent et des emplois sont nécessaires. Avoir l'électricité en augmente l'efficacité. Ils doivent être connectés aux transports en haut à gauche.</p>
+	<p style="hp">Il est possible d'atteindre une économie durable (donc plus d'utilisation de carrières etc ...) même avec des centres de recyclages ayant moins de 100% d'efficacité. Pour cela il faut quelques fabriques pour compenser les pertes.</p>
 	
 	<p style="hp">ceci est un centre de recyclage</p>
 	<img src="images/tiles/recycle-centre.png" halign="center"/>
@@ -15,6 +15,6 @@
 	<li><a href="ore">Minerai</a></li>
 	<li><a href="mill">Fabrique</a></li>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="sustain">Fenêtre d'avancement de développement durable</a></li>
+	<li><a href="sustain">Développement durable</a></li>
 	<li><a href="substation">Transformateur</a></li>
 </Document>

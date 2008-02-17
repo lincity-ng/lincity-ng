@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Aide sur les onglet d'information</p>
-    <p>Map-Tab</p>
-    <li><a href="mini-screen">Mini-Ecran</a></li>
-    <p>Stats-Tab</p>
-	<li><a href="pbar">Barre d'état des Ressources</a></li>
-    <p>$-Tab</p>
+	<p style="htitle">Aide sur les onglets d'information</p>
+    <p> Onglet "Carte"</p>
+    <li><a href="mini-screen">Mini-carte</a></li>
+    <p> Onglet "Stats"</p>
+	<li><a href="pbar">Barre d'état des ressources</a></li>
+    <p> Onglet "€"</p>
+	<li><a href="housing">Population</a></li>
 	<li><a href="finance">Finance</a></li>
 	<li><a href="other-costs">Autres coûts</a></li>
-	<li><a href="housing">Population</a></li>
-    <p>Eco-Tab</p>
-	<li><a href="economy">Graphe Economique</a></li>
-	<li><a href="sustain">Fenêtre d'avancement du développement durable</a></li>
+    <p> Onglet "Eco"</p>
+	<li><a href="economy">Graphe économique</a></li>
+	<li><a href="sustain">Développement durable</a></li>
 </Document>

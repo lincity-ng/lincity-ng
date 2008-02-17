@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document style="helpdocument">
 <p style="htitle">Premiers pas</p>
-<p style="hp">Choisissez "Nouveau jeu" &gt; "Village aléatoire". Les autres scénarios sont pour des joueurs plus ou moiins expérimentés. </p>
-<p style="hp">Rmearquez que le village contient les ressources élémentaires: </p>
-<li>un puit d'eau potable</li>
+<p style="hp">Choisissez "Nouveau jeu", "Village aléatoire". Les autres scénarios sont pour des joueurs plus ou moins expérimentés. </p>
+<p style="hp">Remarquez que le village contient les ressources élémentaires: </p>
+<li>un puits d'eau potable</li>
 <li>un marché</li>
 <li>Fermes, pour alimenter les marchés </li>
 <li>Communes, qui produisent le charbon de bois et un peu de minerai et d'acier</li>
@@ -11,31 +11,31 @@
 <li>Poterie</li>
 <li>Pistes</li>
 
-<p style="hp">Dans l'écran principal, cliquer sur un bâtiment affichera les informations le concernant en bas a droite dans le mini écran.</p>
+<p style="hp">Dans l'écran principal, cliquer sur un bâtiment affichera les informations le concernant en bas à droite dans la mini-carte.</p>
 
 <p style="hsubtitle">Marché </p>
-<p style="hp">Les Marchés sont des bâtiments fondamentaux dans Lincity. Ils sont indispensables pour la quasi totalités des échanges locaux. Vous <b> devez </b> lire la page d'aide <a href="market">market </a> :-). <i>Naturellement, quand un marché est vide il ne peux plus vendre le produit correspondant, et quand il est plein il ne peux plus acheter. Ceci devrait vous permettre de comprendre pourquoi certains batiments/industries ne fonctionnent pas: il leur manque probablement une ressource, ou ils ne peuvent pas vendre leur production.</i> </p>
+<p style="hp">Les marchés sont des bâtiments fondamentaux dans Lincity. Ils sont indispensables pour la quasi-totalité des échanges locaux. Vous <b> devez </b> lire la page d'aide <a href="market">marché </a> :-). <i>Naturellement, quand un marché est vide il ne peux plus vendre le produit correspondant, et quand il est plein il ne peut plus acheter. Ceci devrait vous permettre de comprendre pourquoi certains bâtiments / industries ne fonctionnent pas: ils leur manquent probablement une ressource, ou ils ne peuvent pas vendre leur production.</i> </p>
 
 <p style="hsubtitle">Transport </p>
-<p style="hp">Les <a href="transport">Transports </a> sont nécessaires pour les échanges sur de longues distances et pour certaines activités (c'est alors précisé dans la page d'aide). Tout comme les marchés ils ont une capacité limitée et peuvent être saturés.</p>
+<p style="hp">Les <a href="transport">transports </a> sont nécessaires pour les échanges sur de longues distances et pour certaines activités (c'est alors précisé dans la page d'aide). Tout comme les marchés, ils ont une capacité limitée et peuvent être saturés.</p>
 
-<p style="hp">Si un batiment "normal" n'est pas à portée d'un marché, alors doit être connecté (adjacent) à un transport. Mais, souvenez vous que les routes et le rail ont des coûts annuels (et génèrent de la pollution), donc à moins de vouloir réellement isoler un bâtiment (par exemple un "monument" il est générallement plus efficace (et moins cher) d'utiliser les marchés.</p>
+<p style="hp">Si un bâtiment "normal" n'est pas à portée d'un marché, alors doit être connecté (adjacent) à un transport. Mais, souvenez vous que les routes et le rail ont des coûts annuels et génèrent de la pollution. Donc à moins de vouloir réellement isoler un bâtiment (par exemple un monument), il est généralement plus efficace et moins cher d'utiliser les marchés.</p>
 
-<p style="hp">Dans le village initial les pistes ne sont pas nécessaires, mais elles dans le futur certaines seront avantageusement remplacées par des lignes électriques ou des routes, ou supprimées.</p>
+<p style="hp">Dans le village initial les pistes ne sont pas nécessaires, mais dans le futur certaines seront avantageusement remplacées par des lignes électriques, des routes ou supprimées.</p>
 
 <p style="hsubtitle">Puits </p>
-<p style="hp">Les <a href="waterwell">puits </a> fournissent l'eau potables aux habitations. Ils sont <b>indispensables</b>. </p>
+<p style="hp">Les <a href="waterwell">puits </a> fournissent l'eau potable aux habitations. Ils sont <b>indispensables</b>. </p>
 
 <p style="hsubtitle">Argent </p>
-<p style="hp">Les productions sont taxées, et donc vous rapportent de l'argent. Dans le mini écran, le troisième onglet <a href="finance"> Finance window </a> détaille vos revenus/dépenses. Prenez garde à ne pas investir trop rapidement: il est impossible de construire certains types de batiments quand vous êtes très endetté, et l'endettement coute cher (il faut payer les intérets) et celà peut conduire à la faillite (voir <a href="tutorial-scenario"> Scenario "les temps sont durs" (hard-time)</a>. </p>
+<p style="hp">Les productions sont taxées, et donc vous rapportent de l'argent. Dans la mini-carte, le troisième onglet <a href="finance"> "€" </a> détaille vos revenus / dépenses. Prenez garde à ne pas investir trop rapidement: il est impossible de construire certains types de bâtiments quand vous êtes très endetté, et l'endettement coûte cher (il faut payer les intérêts) et cela peut conduire à la faillite (voir <a href="tutorial-scenario"> Scénario "les temps sont durs" (hard-time)</a>. </p>
 
-<p style="hsubtitle">Developper la cité </p>
-<p style="hp">Souvenez vous que les gens doivent manger et boire, sinon ils meurrent. Pour contrôler la croissance démographique vous devrez trouver un équilibre dans les différents types de <a href="residential"> zones résidentielles </a> que vous construisez (elles ont des taux de natalité/mortalité différents). La nouvelle population permet plus de travail, donc plus de production et d'argent, mais aussi nécessite plus de nourritures, d'entreprises, biens ...</p>
+<p style="hsubtitle">Développer la cité </p>
+<p style="hp">Souvenez vous que les gens doivent manger et boire, sinon ils meurent. Pour contrôler la croissance démographique vous devrez trouver un équilibre dans les différents types de <a href="residential"> zones résidentielles </a> que vous construisez (elles ont des taux de natalité/mortalité différents). La nouvelle population permet plus de travail, donc plus de production et d'argent, mais aussi nécessite plus de nourritures, d'entreprises, de biens ...</p>
 <p style="hp">Vous devrez augmenter la production (ajouter des poteries, forgerons) et en même temps vous assurer qu'elles ont les ressources nécessaires, donc augmenter aussi le nombre de "communes" qui fournissent la matière première.</p>
-<p style="hp">Pour accéder à de nouveau type de constructions, vous devrez augmenter votre <a href="tech-level"> Niveau technologique </a>.</p>
-<p style="hp"> A un moment vous devrez choisir votre stratégie: soit <a href="sustain"> Développement durable </a> soit évacuation vers une autre planète avec des <a href="rocket"> vaisseaux spatiaux </a>.</p>
+<p style="hp">Pour accéder à de nouveaux types de constructions, vous devrez augmenter votre <a href="tech-level"> Niveau technologique </a>.</p>
+<p style="hp"> A un moment vous devrez choisir votre stratégie: soit <a href="sustain"> développement durable </a>, soit évacuation vers une autre planète avec des <a href="rocket"> vaisseaux spatiaux </a>.</p>
 
-<p style="hp">Vous devrez souvent vérifier les réserves totales des marchés <a href="pbar"> STAT </a>. Les minicartes vous donneront une vision plus précise de votre économie, et pour des investigations détaillées, double clicker sur un batiment donne les informations spécifique le concernant (dans le mini écran). </p>
+<p style="hp">Vous devrez souvent vérifier les réserves totales des marchés (onglet <a href="pbar"> "Stats"</a>). Les mini-cartes vous donneront une vision plus précise de votre économie, et pour des investigations détaillées, double-cliquer sur un bâtiment affiche les informations spécifiques le concernant.</p>
 
 <li>Astuce: Faite quelques changements et attendez un peu (lisez l'aide ;-) pour voir comment les indicateurs économiques varient, ou mettez le jeu en vitesse maximale...</li>
 <p style="hp"></p>
@@ -43,11 +43,8 @@
 <p style="hp"></p>
 
 <p style="hp">Voir aussi:</p>
-<li><a href="tutorial-advanced">Tutoriel fonctionalités avancées</a></li>
+<li><a href="tutorial-advanced">Tutoriel fonctionnalités avancées</a></li>
 <li><a href="tutorial-scenario">Tutoriel scénarios pré-définis</a></li>
-<li><a href="msb-starve">Surimpression famine</a></li>
-<li><a href="msb-ub40">Surimpression chômage</a></li>
-
-
+<li><a href="msb-starve">Surimpression Famine</a></li>
+<li><a href="msb-ub40">Surimpression Chômage</a></li>
 </Document>
-

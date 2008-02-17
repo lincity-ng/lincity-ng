@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Fenêtre Population</p>
+	<p style="htitle">Population</p>
 	<p style="hp">Cette fenêtre montre 7 statistiques:</p>
-	<li>Pop - Ceci montre la population de vos résidences. Ce chiffre inclus les sans-abris.</li>
+	<li>Total - Ceci montre la population de vos résidences. Ce chiffre inclus les sans-abris.</li>
 	<li>Logés - Ceci indique le nombre total de personnes vivant dans des résidences.</li>
-	<li>Logés % - ceci indique le pourcentage de personnes vivant dans des résidences.</li>
-	<li>Sans-abris - Ceci indique le nombre de personnes sans-abris dans votre cité (éventuellemnt ils campent dans des bidonvilles).</li>
-	<li>Mort Inattendues - ceci indique le nombre de décès dus à la famine ou la pollution durant le dernier mois.</li>
-	<li>Chômage % - ceci indique le pourcentage de personnes sans emploi.</li>
-	<li>Famine % - ceci indique le pourcentage de la population qui souffre de famine.</li>
-	<p style="hp">Cliquer (gauche) sur cette fenetre fait défiler les autres écrans: finance, autres couts, logement</p>
+	<li>Sans-abris - Ceci indique le nombre de personnes sans-abris dans votre cité (éventuellement ils campent dans des bidonvilles).</li>
+	<li>Morts non naturelles - Ceci indique le nombre de décès dus à la famine ou à la pollution durant le dernier mois.</li>
+	<li>Chômage - Ceci indique le pourcentage de personnes sans emploi.</li>
+	<li>Réclamations - Ceci indique le nombre de plaintes déposées par la population sur votre gestion.</li>
+	<li>Taux - Ceci indique le pourcentage de mécontents dans la population.</li>
+	<li>Famine % - Ceci indique le pourcentage de la population qui souffre de famine.</li>
+	<p style="hp"></p>
+	<p style="hp">Cliquez (bouton de gauche) sur l'onglet "€" pour faire défiler les autres fenêtres (population, finance et autres coûts).</p>
 </Document>

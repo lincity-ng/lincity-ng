@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Fenêtre Finance</p>
+	<p style="htitle">Finance</p>
 	<p style="hp">Ceci est la fenêtre de Finance.</p>
 	<p style="hp">Elle est mise a jour à chaque 1er Janvier. Les nombres sous "Revenus" et "Dépenses" montrent les résultats de l'année passée.</p>
-	<p style="hp">Le nombre 'Tot' est le montant disponible sur votre compte. Beaucoup de choses sont impossibles quand vous êtes en négatif.</p>
-	<p style="hp">Cliquer (bouton de gauche) sur cet onglet fait défiler les 3 fenêtres de finances: Bilan des taxes, Autres coûts et population.</p>
+	<p style="hp">Le nombre 'Net' est le montant (bénéficiaire ou déficitaire) transféré sur votre compte. Beaucoup de choses sont impossibles à réaliser quand votre solde est en négatif.</p>
+	<p style="hp">Cliquez (bouton de gauche) sur l'onglet "€" pour faire défiler les autres fenêtres (population, finance et autres coûts).</p>
 </Document>
-

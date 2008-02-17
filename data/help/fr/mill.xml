@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Fabrique</p>
-	<p style="hp">Les Fabriques convertissent les Aliments en Biens. Les aliments ? hmmm, la laine, le coton, le cuir ... sont considérés commes des aliments dans ce jeux, denrée agricole serait un terme plus exact ;-) </p>
-	<p style="hp"> Les Fabriques consomment beaucoup d'aliments, ce qui peut créer des famines si vous ne prenez pas garde.</p>
-	<p style="hp">Les Fabriques doivent être a portée d'un marché disposant d'Aliments, d'Emplois. Sinon elles doivent être connectée aux transports. Elles ont aussi besoin d'énergie, soit du charbon de bois (communes) soit du charbon, soit l'électricité. L'animation montre l'acitivité des fabriques par la fumée qui sort du batiment.</p>
+	<p style="hp">Les Fabriques convertissent les Aliments en Biens. Les aliments ? hmmm, la laine, le coton, le cuir ... sont considérés comme des aliments dans ce jeu, denrée agricole serait un terme plus exact ;-)</p>
+	<p style="hp">Les Fabriques consomment beaucoup d'aliments, ce qui peut créer des famines si vous n'y prenez pas garde.</p>
+	<p style="hp">Les Fabriques doivent être à portée d'un marché disposant d'Aliments et d'Emplois, sinon elles doivent être connectées aux transports. Elles ont aussi besoin d'énergie, soit du charbon de bois (communes), soit du charbon, soit d'électricité. L'animation montre l'activité des fabriques par la fumée qui s'échappe.</p>
 	
 	<p style="hp">Ceci est une Fabrique</p>
 	<img src="images/tiles/mill1.png" halign="center"/>

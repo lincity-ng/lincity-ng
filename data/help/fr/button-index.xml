@@ -12,7 +12,7 @@
 
 	<!--<p style="subtitle">Résidences</p>-->
 	<img src="images/gui/buttonpanel/residence/residence.png"/>
-	<p><a href="residential">Zone Résidentielle</a></p>
+	<p><a href="residential">Zone résidentielle</a></p>
 
 	<!--<p style="subtitle">Parcs</p>-->
 	<img src="images/gui/buttonpanel/parks/farm.png"/>
@@ -20,7 +20,7 @@
 
 	<!--<p style="subtitle">Industry</p>-->
 	<img src="images/gui/buttonpanel/industry/market.png"/>
-	<p><a href="market">Market</a></p>
+	<p><a href="market">Marché</a></p>
 
 	<!--<p style="subtitle">Base</p>-->
 	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
@@ -32,7 +32,7 @@
 
 	<!--<p style="subtitle">Mine</p>-->
 	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
-	<p><a href="coalmine">Mine de Charbon</a></p>
+	<p><a href="coalmine">Mine de charbon</a></p>
 
 	<!--<p style="subtitle">Transport</p>-->
 	<img src="images/gui/buttonpanel/transport/rails2.png"/>
@@ -62,7 +62,7 @@
 
 	<!--<p style="subtitle">Commerce</p>-->
     <img src="images/gui/buttonpanel/transport/port.png"/>
-	<p><a href="export">Import and Export</a></p>
+	<p><a href="export">Import-Export</a></p>
 
 	<!--<p style="subtitle">Industrie</p>-->
 	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
@@ -78,7 +78,7 @@
 
 	<!--<p style="subtitle">Parcs</p>-->
 	<img src="images/gui/buttonpanel/parks/water.png"/>
-	<p><a href="river">Rivière/eau</a></p>
+	<p><a href="river">Rivière / Eau</a></p>
 
 	<!--<p style="subtitle">Divers</p>-->
 	<img src="images/gui/buttonpanel/misc/health.png"/>
@@ -90,7 +90,7 @@
 
 	<!--<p style="subtitle">Energie</p>-->
 	<img src="images/gui/buttonpanel/power/windmills.png"/>
-	<p><a href="windmill">Moulin a vent / Eolienne</a></p>
+	<p><a href="windmill">Moulin à vent / Éolienne</a></p>
 
 	<!--<p style="subtitle">Divers</p>-->
 	<img src="images/gui/buttonpanel/parks/monument.png"/>
@@ -98,7 +98,7 @@
 
 	<!--<p style="subtitle">Divers</p>-->
 	<img src="images/gui/buttonpanel/misc/book.png"/>
-	<p><a href="school">Ecole</a></p>
+	<p><a href="school">École</a></p>
 
 	<!--<p style="subtitle">Parcs</p>-->
 	<img src="images/gui/buttonpanel/parks/mills.png"/>

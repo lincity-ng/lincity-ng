@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Vitesse de jeu lente</p>
 	<img src="images/gui/speed/normal.png"/>
-	<p style="hp">Ce bouton fait progresser le jeu a la vitesse la plus basse possible. Sur des machines lentes, il peut n'avoir aucun effet.</p>
+	<p style="hp">Ce bouton fait progresser le jeu à la vitesse la plus basse possible. Sur des machines lentes, il peut n'avoir aucun effet.</p>
 	
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="medium">Vitesse moyenne</a></li>

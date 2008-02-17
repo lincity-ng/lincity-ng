@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
  
-    <p style="htitle">Raccourcis Clavier et Souris</p>
+    <p style="htitle">Raccourcis clavier/souris</p>
     <p style="hp">F12 Sauvegarde rapide de la partie </p> 
     <p style="hp">F9  Chargement rapide d'une partie</p> 
     <p style="hp"></p>
     <p style="hp">ECHAP: annule l'outil courant et sélectionne l'outil de requête</p>
     <p style="hp">b bascule entre l'outil courant et le Bulldozer</p>
     <p style="hp">h cache la Hauteur des batiments. Appuyer sur h une nouvelle fois pour remettre la vue standard.</p>
-    <p style="hp">v pour faire défiler les différentes Vues des mini-cartes</p>
+    <p style="hp">v pour faire défiler les différentes vues des mini-cartes</p>
     <p style="hp">PN = Pavé numérique</p>
     <p style="hp">PN_PLUS: zoom plus détaillé</p>
     <p style="hp">PN_MOINS zoom lointain</p>
-    <p style="hp">PN_ENTR2E zoom 100%</p>
+    <p style="hp">PN_ENTRÉE zoom 100%</p>
     <p style="hp">PN5 place le centre de la carte au centre de l'écran</p>  
     <p style="hp">PN9 défile vers le Nord</p>
     <p style="hp">PN1 défile vers le Sud</p>
@@ -28,13 +28,13 @@
 
     <p style="htitle">Souris</p>
     <p style="hp">Bouton droit:</p>
-    <p style="hp">Click droit centre la carte sur la postion du curseur.</p>
+    <p style="hp">Cliquer centre la carte sur la postion du curseur.</p>
     <p style="hp">Bouton maintenu: Fait défiler la carte dans le sens de la souris.</p>
-    <p style="hp">Milieu:</p>
-    <p style="hp">click milieu affiche les information concernant la zone sous le curseur</p>
-    <p style="hp">Gauche:</p>
-    <p style="hp">Action correspondant à l'outil sélectionné (Information, Buldozzer, Construction)</p>
-    <p style="hp">Click sur la mini carte affiche la zone correspondant dans l'écran principal.</p>
+    <p style="hp">Bouton du m2ilieu:</p>
+    <p style="hp">Cliquer affiche les informations concernant la zone sous le curseur</p>
+    <p style="hp">Bouton gauche:</p>
+    <p style="hp">Action correspondant à l'outil sélectionné (information, buldozzer, construction)</p>
+    <p style="hp">Cliquer sur la mini-carte affiche la zone correspondante dans l'écran principal.</p>
     <p style="hp">Molette: fait un zoom de la carte</p>
 </Document>
 

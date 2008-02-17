@@ -2,21 +2,19 @@
 <Document style="helpdocument">
 <p style="htitle">But du jeu</p>
 <p style="hp">Il existe deux façons de "gagner" lincity:</p>
-<li>Atteindre un état de <a href="sustain">Dévelopement durable </a> (vous pouvez continuer à jouer ensuite) </li>
-<li>Evacuer toute la population avec des <a href="rocket">vaisseaux spatiaux </a> vers une autre planète, alors le jeu s'arrète. </li>
+<li>Atteindre un état de <a href="sustain">Développement durable </a> (vous pouvez continuer à jouer ensuite).</li>
+<li>Évacuer toute la population avec des <a href="rocket">vaisseaux spatiaux </a>vers une autre planète, alors le jeu s'arrête. </li>
 <p style="hp"></p>
 
-<p style="hp">Actuellement (version 1.1) il n'y a qu'une seule façon de perdre</p>
+<p style="hp">Actuellement (version 1.x) il n'y a qu'une seule façon de perdre.</p>
 <li>Tout le monde est mort de famine et/ou de pollution. (vous savez qu'il faut au moins 2 personnes pour engendrer une population ;-) </li>
 <p style="hp"></p>
 
-<p style="hp">Vous devrez augmenter votre niveau technologique pour pouvoir construire de nouveaux bâtiments et industries. Simultanément, vous devez gérer la croissance démographique et divers équilibres économiques, et à un certain moment vous devrez choisir votre stratégie, soit développement durable, soit évacuation vers une autre planète.</p>
+<p style="hp">Vous devrez augmenter votre niveau technologique pour pouvoir construire de nouveaux bâtiments et industries. Vous devez gérer simultanément la croissance démographique, divers équilibres économiques et à un certain moment vous devrez choisir votre stratégie: soit un développement durable, soit une évacuation vers une autre planète.</p>
 <p style="hp"></p>
 
 <p style="hp">Voir aussi:</p>
 <li><a href="tutorial-basics">Premiers pas</a></li>
-<li><a href="tutorial-advanced">Fonctionalités avancées</a></li>
-<li><a href="tutorial-scenario">Scénarios pré-definis</a></li>
-
+<li><a href="tutorial-advanced">Fonctionnalités avancées</a></li>
+<li><a href="tutorial-scenario">Scénarios pré-définis</a></li>
 </Document>
-

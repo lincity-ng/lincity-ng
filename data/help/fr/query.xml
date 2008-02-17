@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Outil information</p>
-	<p style="hp">Pour voir les informations concernant une construction ou une région cliquez dessus avec cet outil.</p>
-	<p style="hp">L'information est affichée en bas a droite, à la place des minicartes.</p>
-	<p style="hp">Cet outil ne coute rien et ne consome rien.</p>
+	<p style="hp">Pour voir les informations concernant une construction ou une région, cliquez dessus avec cet outil.</p>
+	<p style="hp">L'information est affichée en bas a droite, à la place des mini-cartes.</p>
+	<p style="hp">Cet outil ne coûte rien et ne consomme rien.</p>
 	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+
 	<p style="hsubtitle">Voir aussi:</p>
-	<li><a href="keys">Comandes clavier et souris</a></li>
+	<li><a href="keys">Comandes clavier/souris</a></li>
 	<li><a href="help">Aide de Lincity</a></li>
 	<li><a href="index">Index de Lincity</a></li>
 </Document>
-

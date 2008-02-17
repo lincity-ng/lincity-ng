@@ -1,27 +1,21 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Graphe Economique</p>
-	<p style="hp">Ce graphe contiend 4 lignes colorées. Elles représentent les facteurs économiques les plus importants.</p>
+	<p style="htitle">Graphe économique</p>
+	<p style="hp">Ce graphe contient 4 lignes colorées. Elles représentent les facteurs économiques les plus importants.</p>
 	<li>
 		<span color="brown">Population</span>	(marron)
-	La ligne marron représente votre population.
-	Elle utilise une échelle logarithmique. 
+	La ligne marron représente votre population. Elle utilise une échelle logarithmique.
         </li>
 	<li>
-		<span color="blue">Unhoused</span> (bleu) 
-        La ligne bleue représente la demande en logement. La hauteur du graphe est proportionnelle
-	à la racine carrée des 'sans-logis'.
+		<span color="blue">Sans-abris </span>(bleu)
+	La ligne bleue représente la demande en logement. La hauteur du graphe est proportionnelle à la racine carrée des sans-abris.
 	</li>
 	<li>
-		<span color="yellow">Chomage</span> (jaune)
-	Les barres pleines jaunes montre l'existence de chomage.
-	L'échelle du graphe change avec la population.
-	Le grape est en ligne pleine pour attirer votre attention. 
+		<span color="yellow">Chômage </span>(jaune)
+	Les barres pleines jaunes montre l'existence de chômage. L'échelle du graphe change avec la population. Le graphe est en ligne pleine pour attirer votre attention.
        	</li>
 	<li>
 		<span color="red">Famine</span> (rouge)
-	Les barres pleines rouges montre qu'il y a FAMINE.
-	Ces barres s'affichent par dessus les autres pour attirer votre attention.
-	L'échelle change avec la population
+	Les barres pleines rouges montre que la population souffre de famine. Ces barres sont superposées aux autres informations pour attirer votre attention. L'échelle change avec la population.
         </li>
 </Document>

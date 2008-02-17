@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Rivière/Eau</p>
-	<p style="hp">Les rivières sont principalement une gêne :-). Elles coutent cher à contruire, à démolir et à aménager. Leur seule utilité est de permettre de connecter un port.</p>
-	<p style="hp">Il y a deux type d'eaux. Les rivières et les lacs. Les rivières sont navigables et constituent toute l'eau présente au début du jeu. Toute étendue d'eau connectée à une rivière devient définitivement partie du système navigable de la rivière, sinon c'est un lac. Les lacs (par exemple une mine épuisée se rempli d'eau) ne sont pas connectées aux rivières.  </p>
-	<p style="hp">Si vous démolissez une partie de la rivière pour faire passer par exemple des transport, considérez que vous construisez un pont. Les deux cotés de la rivières restent définitivement navigables. C'est pour cela que le prix est si élevé.</p>
-	<p style="hp">Les lignes électriques traversent <b> en dessous</b> de la rivière de largeur 1, comme elles le font avec les routes. Il n'est pas nécessaire de détruire completement la rivière.</p>
+	<p style="hp">Les rivières sont principalement une gêne :-). Elles coûtent cher à construire, à démolir et à aménager. Leur seule utilité est de permettre de connecter un port.</p>
+	<p style="hp">Il y a deux type d'eau, les rivières et les lacs. Les rivières sont navigables et constituent toute l'eau présente au début du jeu. Toute étendue d'eau connectée à une rivière devient définitivement partie du système navigable de la rivière, sinon c'est un lac. Les lacs (par exemple une mine épuisée se rempli d'eau) ne sont pas connectées aux rivières.  </p>
+	<p style="hp">Si vous démolissez une partie de la rivière pour faire passer par exemple des transports, considérez que vous construisez un pont. Les deux cotés de la rivière restent définitivement navigables. C'est pour cela que le prix est si élevé.</p>
+	<p style="hp">Les lignes électriques traversent <b> en dessous </b>de la rivière de largeur 1, comme elles le font avec les routes. Il n'est pas nécessaire de détruire complètement la rivière.</p>
 </Document>

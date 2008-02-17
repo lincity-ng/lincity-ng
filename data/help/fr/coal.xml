@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Charbon</p>
-	<p style="hp">Le Charbon est utilisé par les Centrales à charbon pour produire de l'électricité. Egalement par les Poteries, les Fabriques et les Forgerons pour la fabrication de Biens. Les Industries Lourdes utilisent du charbon quand elles n'ont pas d'électricité.</p>
-	<p style="hp">Le charbon est extrait dans les mines de charbon. Les réserves de charbons sont limitées; vous pouvez les voir en utilisant le bouton reserve de charbon (voir mines de charbon)</p>
+	<p style="hp">Le Charbon est utilisé par les Centrales à charbon pour produire de l'électricité. Également par les Poteries, les Fabriques et les Forgerons pour la fabrication de Biens. Les Industries Lourdes utilisent du charbon quand elles n'ont pas d'électricité.</p>
+	<p style="hp">Le charbon est extrait dans les mines de charbon. Les réserves de charbons sont limitées; vous pouvez les voir en utilisant le bouton réserve de charbon (voir mines de charbon).</p>
 	<p style="hp">Les Communes fournissent également un peu de charbon. Cependant elles en fournissent très peu, et ce charbon de bois suffit juste pour les poteries et les forgerons.</p>
 
-	<p style="hsubtitle">Voir aussi</p>
+	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="coalmine">Mines de charbon</a></li>
-	<li><a href="powerscoal">Centrales à charbon</a></li>
-	<li><a href="commune">Communes</a></li>
-	<li><a href="pottery">Poteries</a></li>
-	<li><a href="blacksmith">Forgerons</a></li>
-	<li><a href="msb-coal">Coal overlay</a></li>
+	<li><a href="powerscoal">Centrale thermique</a></li>
+	<li><a href="commune">Commune</a></li>
+	<li><a href="pottery">Poterie</a></li>
+	<li><a href="blacksmith">Forgeron</a></li>
+	<li><a href="msb-coal">Surimpression Charbon</a></li>
 </Document>

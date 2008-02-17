@@ -2,19 +2,20 @@
 <Document style="helpdocument">
 	<p style="htitle">Marché</p>
 	<p style="hp">Marché est un nom imparfait pour ces zones. Ils ont les fonctions de centre d'embauche, boutique, entrepôt et marché. Ils achètent et vendent des Aliments, des Emplois, du Charbon, des Biens, du Minerai et de l'Acier, dans les zones avoisinantes et dans les Transports.</p>
-	<p style="hp"> Par exemple, une zone résidentielle fourni des emplois au marché, le marché fourni les emplois pour la construction d'un monument.<b>NOTE</b> Les marchés couvrent une zone délimitée. Pour la voir, cliquer sur la mini-carte des transport, la zone couverte par un marché s'affiche en bleu.</p>
-	<p style="hsubtitle">Controler ce qu'un marché achète et vend</p>
-	<p style="hp">Vous pouvez controler la fonction d'un marché en selectionnat ce qu'il achète/vend aux transports. Double-cliquer sur un marché (dans la carte) et une fenêtre apparaitra pour contrôler les échanges. Par défaut, un marché négocie tout.</p>
+	<p style="hp">Par exemple, une zone résidentielle fournit des emplois au marché, le marché fournit les emplois pour la construction d'un monument.</p>
+    <p style="hp"><b> NOTE: </b>Les marchés couvrent une zone délimitée. Pour la voir, cliquer sur la mini-carte des transports, la zone couverte par un marché s'affiche en bleu.</p>
+	<p style="hsubtitle">Contrôler ce qu'un marché achète et vend</p>
+	<p style="hp">Vous pouvez contrôler la fonction d'un marché en sélectionnant ce qu'il achète/vend aux transports. Double-cliquer sur un marché (dans la carte) et une fenêtre apparaîtra pour contrôler les échanges. Par défaut, un marché négocie tout.</p>
 	<p style="hp">Ceci est un marché</p>
 	<img src="images/tiles/market-empty.png" halign="center"/>
 	<p style="hp">et ceci son icône</p>
 	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
-	
-	<p style="hp">Ceci indique que les transactions sont autorisée</p>
+	<p style="hp">Ceci indique que les transactions sont autorisées</p>
 	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
-	<p style="hp">Ceci indique que les transactions <b> ne sont pas </b> autorisée</p>
+	<p style="hp">Ceci indique que les transactions <b> ne sont pas </b> autorisées</p>
 	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
-	<p style="hp">Les nombres entre Achat et Vente sont les cordonnées cartographique du marché</p>
+	<p style="hp">Les cordonnées cartographique du marché sont indiquées dans titre de la fenêtre.</p>
+
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="food">Aliments</a></li>
 	<li><a href="jobs">Emplois</a></li>

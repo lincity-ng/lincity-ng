@@ -2,18 +2,18 @@
 <Document style="helpdocument">
 	<p style="htitle">Zone résidentielle</p>
         <p style="hp">C'est là que vivent les gens. Pour vivre dans ces résidences, ils doivent être nourris (par un marché de proximité ou par les transports) et avoir de l'eau potable fournie par un puit. Il est aussi utile de leur fournir du travail et des biens à acheter, des loisirs... Elles doivent être à proximité d'un marché ou connectées aux transport.</p>
-        <p style="hp">Il existe 3 types differents de zones résidentielles : de Faible, Moyenne et Forte densité de logement. Ceux ci on differents taux de natalité et de mortalité associés. Cela vous donne du contrôle sur votre population.</p>
-	<p style="hp">Plus tard dans le jeu, si vous avez une technologie suffisante, vous pourrez contruire des logements plus 'modernes' qui accueillent davantage de population.</p>
+        <p style="hp">Il existe 3 types différents de zones résidentielles : de Faible, Moyenne et Forte densité de logement. Ceux ci ont différents taux de natalité et de mortalité associés. Cela vous donne du contrôle sur votre population.</p>
+	<p style="hp">Plus tard dans le jeu, si vous avez une technologie suffisante, vous pourrez construire des logements plus 'modernes' qui accueillent davantage de population.</p>
 
-	<p style="hp">Ceci est un logement de faible densité (hightech)</p>
+	<p style="hp">Ceci est un logement de faible densité (moderne)</p>
 	<img src="images/tiles/reslowhi.png" halign="center"/>
 	<p style="hp">et ceci est son icône</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
-	<p style="hp">Ceci est un logement de moyenne densité (hightech)</p>
+	<p style="hp">Ceci est un logement de moyenne densité (moderne)</p>
 	<img src="images/tiles/resmedhi.png" halign="center"/>
 	<p style="hp">et ceci est son icône</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
-	<p style="hp">Ceci est un logement de forte densité (hightech)</p>
+	<p style="hp">Ceci est un logement de forte densité (moderne)</p>
 	<img src="images/tiles/reshihi.png" halign="center"/>
 	<p style="hp">et ceci est son icône</p>
 	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
@@ -23,4 +23,3 @@
 	<li><a href="waterwell">Puits</a></li>
 	<li><a href="transport">Transport</a></li>
 </Document>
-

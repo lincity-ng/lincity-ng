@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Lignes électriques</p>
 	<p style="hp">Les lignes électriques transportent l'électricité depuis les centrales (solaires ou thermiques) jusqu'aux transformateurs. Les lignes électriques doivent être connectées en haut a gauche pour chaque centrales solaire, centrale thermique, éoliennes et transformateur.</p>
-	<p style="hp">Les lignes électriques peuvent croiser <b> par en dessous </b> les pistes, routes, voies ferrées, et rivières qui ont une largeur de 1 en ligne droite (pas en diagonale). C'est à dire qu'une ligne électrique située de part et d'autre d'un transport ou d'une rivière se comportera comme si elle était connectée. Il est souvent nécessaire de bulldozer un peu une riviere pour pouvoir la traverser (largeur 1), et ceci coûte cher.</p>
+	<p style="hp">Les lignes électriques peuvent croiser <b> par dessous </b> les pistes, routes, voies ferrées, et rivières qui ont une largeur de 1 en ligne droite (pas en diagonale). C'est à dire qu'une ligne électrique située de part et d'autre d'un transport ou d'une rivière se comportera comme si elle était connectée. Il est souvent nécessaire de bulldozer un peu une rivière pour pouvoir la traverser (largeur 1), et ceci coûte cher.</p>
 
 	<p style="hp">Ceci est une ligne électrique</p>
 	<img src="images/tiles/powerlvd.png" halign="center"/>
@@ -15,7 +15,6 @@
 	<li><a href="substation">Transformateur</a></li>
 	<li><a href="powerssolar">Centrale solaire</a></li>
 	<li><a href="powerscoal">Centrale thermique</a></li>
-	<li><a href="windmill">Moulins à vent/Eoliennes</a></li>
-	<li><a href="msb-power">Surimpression électricité</a></li>
+	<li><a href="windmill">Moulin à vent / Éolienne</a></li>
+	<li><a href="msb-power">Surimpression Électricité</a></li>
 </Document>
-

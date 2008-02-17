@@ -1,19 +1,18 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Ecoles</p>
+	<p style="htitle">Écoles</p>
 	<p style="hp">Les écoles nécessitent des emplois, des biens et de l'argent pour produire du savoir (niveau technologique), tout comme les universités. Il faut 5 écoles pour fournir assez d'élèves à une université. Les écoles utilisent beaucoup moins de ressources qu'une université, mais produisent nettement moins de savoirs. En général il vaut mieux construire une université qu'ajouter des écoles.</p>
-	<p style="hp">Les écoles n'ont pas besoin d'être connectées aux transport tant qu'elles sont a portée d'un marché qui leur fournit le nécessaire.</p>
-	<p style="hp">Les écoles coutent de l'argent. Vous pouvez voir le coût total pour l'année écoulée dans l'onglet finance (€/$) au dessus de la minicarte.</p>
+	<p style="hp">Les écoles n'ont pas besoin d'être connectées aux transports tant qu'elles sont a portée d'un marché qui leur fournit le nécessaire.</p>
+	<p style="hp">Les écoles coûtent de l'argent. Vous pouvez voir le coût total pour l'année écoulée dans l'onglet finance (€) au dessus de la mini-carte.</p>
 	<p style="hp">Vous pouvez voir l'activité d'une école par l'animation et en cliquant dessus pour voir les informations.</p>
-	
 	<p style="hp">Ceci est une école</p>
 	<img src="images/tiles/school0.png" halign="center"/>
 	<p style="hp">et ceci son icône</p>
 	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
 	
 	<p style="hsubtitle">Voir aussi:</p>
-	<li><a href="finance">Onglet Finance (€/$) </a></li>
-	<li><a href="university">Universités</a></li>
+	<li><a href="finance">Finance</a></li>
+	<li><a href="university">Université</a></li>
 	<li><a href="market">Marché</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="goods">Biens</a></li>

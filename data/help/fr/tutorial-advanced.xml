@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document style="helpdocument">
-<p style="htitle">Fonctionalités avancées</p>
+<p style="htitle">Fonctionnalités avancées</p>
 <p style="hsubtitle">Marchés et Transports</p>
-<p style="hp">Dans l'écran principal, double-clicker sur un marché ouvre une fenêtre avec des "cases a cocher". Ceci permet de contrôler <b>les échanges entre marché et transport</b>. </p>
+<p style="hp">Dans l'écran principal, double-cliquer sur un marché ouvre une fenêtre avec des "cases à cocher". Ceci permet de contrôler <b>les échanges entre marché et transport</b>. </p>
 <li>"Ach" est ce que le marché achète aux transports (donc le stock du marché augmente) </li>
-<li>"Ven" est le contraire: le marché vend au transport. </li>
+<li>"Ven" est le contraire: le marché vend au transports.</li>
 
-<p style="hp">Cette fonctionalité est rarement utilisée, sauf pour certaines actions très spécifiques </p>
+<p style="hp">Cette fonctionnalité est rarement utilisée, sauf pour certaines actions très spécifiques.</p>
 
 <p style="hsubtitle">Développement durable</p>
-<p style="hp">Le quatrième onglet du mini écrans montre les barres de progression du développement durable. </p>
+<p style="hp">Le quatrième onglet de la mini-carte montre les barres de progression du développement durable.</p>
 <p style="hp">Il est conseillé de sauvegarder le jeu avant de le laisser tourner pendant longtemps (180 ans de simulations) pour voir si vous avez atteint une économie durable. Au cas ou quelque chose tourne très mal (famine qui décime la population par exemple), vous pourrez repartir de la sauvegarde :-)</p>
-<p style="hp">Surveiller l'onglet "stats" qui indique les réserves totales des marchés devrait suffire pour éviter les gros problèmes, et de temps à autres vérifier la progression de l'onglet ECO</p>
+<p style="hp">Surveiller l'onglet "Stats" qui indique les réserves totales des marchés devrait suffire à éviter les gros problèmes et de temps à autres, vérifiez la progression de l'onglet "Eco".</p>
 
 <li>Astuce: Méfiez vous des bidonvilles et des déchets dans les marchés... </li>
 <p style="hp"></p>
 </Document>
-

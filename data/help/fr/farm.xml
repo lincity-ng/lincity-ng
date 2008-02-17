@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Fermes</p>
-	<p style="hp">Les Fermes produisent la nourriture pour alimenter les populations et la matière première pour les Fabriques. Les fermiers vendent au(x) marché(s) de proximité. Ils amènent leur récolte en tracteur, et n'ont donc pas besoin d'être relié au transport. Ils peuvent cependant vendre via les transports si vous le souhaitez.</p>
+	<p style="htitle">Ferme</p>
+	<p style="hp">Les Fermes produisent la nourriture pour alimenter les populations et la matière première pour les Fabriques. Les fermiers vendent aux marchés de proximité. Ils amènent leurs récoltes en tracteur, et n'ont donc pas besoin d'être relié aux transports. Ils peuvent cependant vendre via les transports si vous le souhaitez.</p>
 	
-	<p style="hp">Les Fermes ont besoin d'Emplois pour produire. Fournir de l'énergie augmente la production. Les vieux moulins a vent sont également utilisables comme source d'énergie.</p>
-        <p style="hp">Le rendement d'une ferme dépend également de la quantité d'eau disponible dans le sous-sol (les cases "desert" n'ont pas d'eau et ne produisent rien losrqu'on construit une ferme dessus).</p>
+	<p style="hp">Les Fermes ont besoin d'Emplois pour produire. Fournir de l'énergie augmente la production. Les vieux moulins à vent sont également utilisables comme source d'énergie.</p>
+        <p style="hp">Le rendement d'une ferme dépend également de la quantité d'eau disponible dans le sous-sol (les cases désert n'ont pas d'eau et ne produisent rien lorsqu'on construit une ferme dessus).</p>
 	<p style="hp">Ceci est une Ferme</p>
 	<img src="images/tiles/farm0.png" halign="center"/>
 	<p style="hp">et ceci son icône</p>
@@ -12,8 +12,8 @@
 	
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="market">Marché</a></li>
-	<li><a href="tech-level">Niveau-Tech</a></li>
+	<li><a href="tech-level">Niveau-technologique</a></li>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="windmill">Moulins à vents</a></li>
+	<li><a href="windmill">Moulin à vent / Éolienne</a></li>
 	<li><a href="food">Aliments</a></li>
 </Document>

@@ -3,20 +3,19 @@
 	<p style="htitle">Commune</p>
 	<p style="hp">Les Communes (faute de meilleur nom) sont des zones de fabrication de charbon de bois, et également de faibles quantité de minerai et d'acier.</p>
 	<p style="hp">Vous aurez besoin de quelques Communes pour alimenter en charbon (de bois) les poteries, forgerons et fabriques.</p>
-	<p style="hp">Si une commune ne produit rien pendant 10 ans, elle est fermée et transformée en parc.</p>
+	<p style="hp">Si une commune ne produit rien pendant 10 ans, elle sera fermée et transformée en parc.</p>
         <p style="hp">Les communes se connectent aux transports de n'importe quel coté</p>
         <p style="hp">Le rendement dépend également de la quantité d'eau disponible dans le sous-sol (les cases "désert" n'ont pas d'eau et ne produisent rien lorsqu'on construit une commune dessus).</p>
 
-	
 	<p style="hp">Ceci est une commune</p>
 	<img src="images/tiles/commune1.png" halign="center"/>
 	<p style="hp">et ceci son icône</p>
 	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
 	
 	<p style="hsubtitle">Voir aussi:</p>
-	<li><a href="pottery">Poteries</a></li>
-	<li><a href="blacksmith">Forgerons</a></li>
-	<li><a href="mill">Fabriquess</a></li>
+	<li><a href="pottery">Poterie</a></li>
+	<li><a href="blacksmith">Forgeron</a></li>
+	<li><a href="mill">Fabrique</a></li>
 	<li><a href="oremine">Minerai</a></li>
 	<li><a href="steel">Acier</a></li>
 </Document>

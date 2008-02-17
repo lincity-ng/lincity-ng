@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Centrale thermique (charbon)</p>
-	<p style="hp">Les centrales thermiques transforment le charbon fourni par les transport en électricité, et la distribuent via les lignes électriques.</p>
-	<p style="hp">Les lignes électriques sont connectées en haut a gauche. Le transport est connecté juste a coté, voir l'exemple.</p>
-	<p style="hp">Le rendement énergétique de la conversion du charbon en électricité dépend du Niveau Technologique <b>au moment de la construction</b> de la centrale. Vous démolirez peut-être une centrale pour en reconstruire une plus moderne quand le niveau technique aura suffisament augmenté.</p>
+	<p style="hp">Les centrales thermiques transforment le charbon fourni par les transports en électricité, et la distribuent via les lignes électriques.</p>
+	<p style="hp">Les lignes électriques sont connectées en haut a gauche. Le transport est connecté juste à coté, voir l'exemple.</p>
+	<p style="hp">Le rendement énergétique de la conversion du charbon en électricité dépend du Niveau technologique <b>au moment de la construction </b>de la centrale. Vous démolirez peut-être une centrale pour en reconstruire une plus moderne quand le niveau technique aura suffisamment augmenté.</p>
 	
 	<p style="hp">Ceci est une centrale thermique</p>
 	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
@@ -12,7 +12,7 @@
 	
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="tech-level">Niveau Technologique</a></li>
+	<li><a href="tech-level">Niveau technologique</a></li>
 	<li><a href="powerline">Lignes électriques</a></li>
-	<li><a href="msb-power">Surimpression électricité</a></li>
+	<li><a href="msb-power">Surimpression Électricité</a></li>
 </Document>

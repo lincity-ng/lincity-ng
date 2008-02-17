@@ -2,13 +2,13 @@
 <Document style="helpdocument">
 	<p style="htitle">Minerai</p>
 	<p style="hp">Le minerai est une matière première fondamentale dans le jeu. Les communes, les carrières et les centres de recyclage produisent du minerai.</p>
-	<p style="hp">Les Poteries, industrie légère et industrie lourdes utilisent du minerai.</p>
+	<p style="hp">Les Poteries, industries légères et industries lourdes utilisent du minerai.</p>
 
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="commune">Commune</a></li>
 	<li><a href="oremine">Carrière de minerai</a></li>
 	<li><a href="recycle">Centre de recyclage</a></li>
-	<li><a href="pottery">Poteries</a></li>
+	<li><a href="pottery">Poterie</a></li>
 	<li><a href="indistryl">Industrie légère</a></li>
 	<li><a href="indistryh">Industrie lourde</a></li>
 </Document>

@@ -4,18 +4,16 @@
 	<p style="hp">Les décharges permettent de stocker les déchets. Quand un marché est plein de déchets il faut les brûler, ce qui provoque beaucoup de pollution.</p>
 	<p style="hp">Quand une décharge est remplie, la zone forme une colline recouverte d'herbes. Cette zone est définitivement inutilisable, et ne peut pas être démolie.</p>
 	<p style="hp">Une décharge doit être connectée aux transports, dans le coin supérieur gauche (comme d'habitude).</p>
-	<p style="hp">Si vous souhaitez atteindre un développement durable, vous devez cesser d'utiliser des décharges. Les centres de recyclages permettent d'eliminer les déchets d'une bien meilleure façon. </p>
+	<p style="hp">Si vous souhaitez atteindre un développement durable, vous devez cesser d'utiliser des décharges. Les centres de recyclages permettent d'éliminer les déchets d'une bien meilleure façon.</p>
 	<p style="hp">L'animation de la décharge montre son activité. Cliquer dessus affichera les informations.</p>
-	
 	<p style="hp">Ceci est une décharge</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
 	<p style="hp">Et ceci son icône</p>
 	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 	
 	<p style="hsubtitle">Voir aussi:</p>
-	<li><a href="market">Markets</a></li>
-	<li><a href="recycle">Centre de Recyclage</a></li>
+	<li><a href="market">Marché</a></li>
+	<li><a href="recycle">Centre de recyclage</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="sustain">Développement durable</a></li>
-
 </Document>

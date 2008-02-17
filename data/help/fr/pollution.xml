@@ -6,14 +6,15 @@
 	<li><a href="industryl">Industrie légère</a></li>
 	<li><a href="powerscoal">Centrale thermique</a></li>
 	<li><a href="coalmine">Mine de charbon</a></li>
-	<li><a href="market">Marchés</a> remplis de déchets.</li>
-	<li><a href="rail">Voies ferrées</a> et <a href="road">Routes</a>, particulièrement quand ils sont pleins de déchets.</li>
-	<p style="hp">Les personnes n'aiment pas vivre dans des zones polluée. Ils essaieront de démenager, ou tomberont malade, voire mourront.</p>
-	<p style="hp">Le vent dominant vient du Sud-ouest et souffle vers le Nord-Est, entrainant avec lui la pollution.</p>
-	<p style="hp">Votre stratégie d'aménagement du territoire doit tenir compte de cela, pour ne pas exposer les habitants à la pollution. Cependant c'est parfois difficile. Les <a href="park">Parcs</a> forment une barrière filtrant la pollution, plusieurs rangées de parcs peuvent être nécessaire pour une bonne efficacité.</p>
+	<li>Les <a href="market">marchés </a>remplis de déchets.</li>
+	<li>Les <a href="rail">voies ferrées </a>et les <a href="road">routes</a>, particulièrement quand elles sont pleines de déchets.</li>
+	<p style="hp"></p>
+	<p style="hp">Les personnes n'aiment pas vivre dans des zones polluées. Ils essaieront de déménager ou tomberont malade, voire ils décéderont.</p>
+	<p style="hp">Le vent dominant vient du Sud-Ouest et souffle vers le Nord-Est, entraînant avec lui la pollution.</p>
+	<p style="hp">Votre stratégie d'aménagement du territoire doit tenir compte de cela, pour ne pas exposer les habitants à la pollution. Cependant c'est parfois difficile. Les <a href="park">parcs </a>forment une barrière filtrant la pollution, plusieurs rangées de parcs peuvent être nécessaires pour une bonne efficacité.</p>
 
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="msb-pol">Surimpression Pollution</a></li>
 	<li><a href="tip">Décharge</a></li>
-	<li><a href="recycle">Centre de Recyclage</a></li>
+	<li><a href="recycle">Centre de recyclage</a></li>
 </Document>

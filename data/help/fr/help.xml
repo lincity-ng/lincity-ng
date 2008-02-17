@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Aide de Lincity</p>
-	<p style="hp">Durant le jeu, vous pouvez invoquer l'aide en utilisant F1 (bouton aide) ou click-droit sur l'icône du bâtiment dans le dock d'icônes en haut a gauche.</p>
-	<p style="hp">Cliquez sur les mots écrit en bleu ci dessous. Ce sont des liens vers un autre document. La flèche en haut a gauche permet de revenir à la page précedente.</p>
+	<p style="hp">Durant le jeu, vous pouvez invoquer l'aide en utilisant F1 (bouton aide) ou cliquer avec le bouton droit sur l'icône du bâtiment dans le dock d'icônes en haut à gauche.</p>
+	<p style="hp">Cliquez sur les mots écrit en bleu ci-dessous. Ce sont des liens vers un autre document. La flèche en haut à gauche permet de revenir à la page précédente.</p>
 
 	<p style="hsubtitle">Objectif</p>
 	<p style="hp">Pour gagner Lincity, il faut soit atteindre une <a href="sustain">économie durable </a>, soit évacuer toute la population dans des <a href="rocket">fusées</a>.</p>
 
-	<p style="hsubtitle"> Fiches d'aides </p>
+	<p style="hsubtitle"> Fiches d'aide</p>
 	<li><a href="tutorial">Tutoriel - Guide</a></li>
 	<li><a href="button-index">Liste des constructions possibles</a></li>
 	<li><a href="mini-screen">Aide des mini-cartes</a></li>

@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Etat d'avancement vers une économie durable</p>
-	<p style="hp">L'onglet ECO de la minicarte (en bas à droite) indique dans le deuxième graphique la progression du développement durable par 6 lignes colorées. Les lignes progressent au fil des ans quand les critères sont respectés. Quand toutes les lignes ont atteint la droite de la fenêtre vous avez une économie durable (et donc gagné, mais vous pouvez continuer si vous le désirez) </p>
+	<p style="htitle">État d'avancement vers une économie durable</p>
+	<p style="hp">L'onglet "Eco" de la mini-carte (en bas à droite) indique dans le deuxième graphique la progression du développement durable par 6 lignes colorées. Les lignes progressent au fil des ans quand les critères sont respectés. Quand toutes les lignes ont atteint la droite de la fenêtre vous avez une économie durable (et donc gagné, mais vous pouvez continuer si vous le désirez).</p>
 	<li>
-		<span color="orange">Mines</span> (orange) Vous n'avez plus d'exploitation du sous-sol : pas de mine de charbon, pas de carrière de minerai, et pas de décharge d'ordures. (180 ans)
+		<span color="orange">Mines </span>(orange) Vous n'avez plus d'exploitation du sous-sol : pas de mine de charbon, pas de carrière de minerai, et pas de décharge d'ordures (180 ans).
 	</li>
 	<li>
-		<span color="gray">Port</span>	(gris) Vous n'utilisez plus de port. (180 ans)
+		<span color="gray">Port </span>(gris) Vous n'utilisez plus de port (180 ans).
 	</li>
 	<li>
-		<span color="green">Argent</span> (vert) Votre argent est stable, ou augmente. Ceci implique que vous ne pouvez plus faire de grosses dépenses. (60 ans)
+		<span color="green">Argent </span>(vert) Votre argent est stable, ou augmente. Ceci implique que vous ne pouvez plus faire de grosses dépenses (60 ans).
 	</li>
 	<li>
-		<span color="blue">Popul.</span> (bleu) La population est stable (à 2% près) durant 180 ans). Si la variation est plus importante, le décompte des ans repart à zero avec la nouvelle valeur de la population. De plus la population doit être supérieure à 5 000 habitants.
+		<span color="blue">Popul. </span>(bleu) La population est stable (à 2% près et durant 180 ans). Si la variation est plus importante, le décompte des ans repart à zéro avec la nouvelle valeur de la population. De plus la population doit être supérieure à 5 000 habitants.
 	</li>
 	<li>
-		<span color="yellow">Techn</span> (jaune) Le niveau technologique varie de moins de 1% durant 120 ans. Si la variation est plus importante, le décompte des ans repart à zero avec la nouvelle valeur de technologie.De plus le niveau technologique doit être supérieur à 50.
+		<span color="yellow">Techn. </span>(jaune) Le niveau technologique varie de moins de 1% durant 120 ans. Si la variation est plus importante, le décompte des années repart à zero avec la nouvelle valeur de technologie. De plus le niveau technologique doit être supérieur à 50.
 	</li>
 	<li>
-		<span color="red">Feu</span> (rouge) Toutes les zones qui peuvent prendre feu sont protégées par les pompiers. Les zones suivantes <b> n'ont pas besoin </b> d'être protégées: monuments, carrières, lignes électriques et fusées. (60 ans)
+		<span color="red">Feu </span>(rouge) Toutes les zones qui peuvent prendre feu sont protégées par les pompiers. Les zones suivantes <b> n'ont pas besoin </b> d'être protégées: monuments, carrières, lignes électriques et fusées (60 ans).
 	</li>
-	<p style="hp">Nombres d'années requises pour une économie durable: Mines=180 Port=180 Argent=60 Popul.=60 Techn.=120 Feu=60</p>
+	<p style="hp">Nombres d'années requises pour atteindre une économie durable: Mines=180 Port=180 Argent=60 Popul.=60 Techn.=120 Feu=60</p>
 </Document>

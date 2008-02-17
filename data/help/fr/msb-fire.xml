@@ -2,13 +2,12 @@
 <Document style="helpdocument">
 	<p style="htitle">Surimpression Pompiers</p>
 	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
-	<p style="hp">Les zones protégées par une caserne de pompier sont affichées en vert sombre. Les autres s'afficehnt normalement</p>
+	<p style="hp">Les zones protégées par une caserne de pompier sont affichées en vert sombre. Les autres s'affichent normalement.</p>
 	<p style="hp">Une Caserne de pompier nécessite 3 mois pour devenir active.</p>
-	<p style="hp">Utiliser 'v' pour surimprimer sur la carte principale.</p>
+	<p style="hp">Cliquer sur la mini-carte (bouton de gauche) recentre la carte principale. Utilisez la touche 'v' pour surimprimer les informations sur la carte principale.</p>
 	
 	<p style="hsubtitle">Voir aussi:</p>
-	<li><a href="mini-screen">Minicarte</a></li>
+	<li><a href="mini-screen">Mini-carte</a></li>
 	<li><a href="firestation">Pompiers</a></li>
-	<li><a href="sustain">Fenêtre d'avancement de développement durable</a></li>
-
+	<li><a href="sustain">Développement durable</a></li>
 </Document>

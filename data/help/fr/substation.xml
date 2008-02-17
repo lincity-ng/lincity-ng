@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Transformateur</p>
-	<p style="hp">Les transformateurs distribuent autour d'eux l'électricité aportée par les lignes électriques. Ils doivent être connectés en haut a gauche. Par exemple vous pouvez voir si une résidence est alimentée en électricité en cliquant dessus. L'information apparaitra dans la fenêtre en bas a droite.</p>
-	
+	<p style="hp">Les transformateurs distribuent autour d'eux l'électricité apportée par les lignes électriques. Ils doivent être connectés en haut à gauche. Par exemple vous pouvez voir si une résidence est alimentée en électricité en cliquant dessus. L'information apparaîtra dans la fenêtre en bas à droite.</p>
 	<p style="hp">Ceci est un transformateur</p>
 	<img src="images/tiles/substation-G.png" halign="center"/>
 	<p style="hp">et ceci son icône</p>
@@ -12,9 +11,7 @@
 	<li><a href="powerline">Lignes électiques</a></li>
 	<li><a href="powerssolar">Centrale solaire</a></li>
 	<li><a href="powerssolar">Centrale thermique</a></li>
-	<li><a href="windmill">Moulins a vents / Eoliennes</a></li>
-	<li><a href="industryl">Industrie Légère</a></li>
-	<li><a href="recycle">Centre de Recyclage</a></li>
-
+	<li><a href="windmill">Moulin à vent / Éolienne</a></li>
+	<li><a href="industryl">Industrie légère</a></li>
+	<li><a href="recycle">Centre de recyclage</a></li>
 </Document>
-

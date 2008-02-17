@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Puits</p>
-        <p style="hp">Ils fournissent l'eau potable aux habitations environnantes. Le manque d'eau provoque des famines tout comme le manque d'aliments.</p>
-        <p style="hp">Dans la mini-carte "Surimpression famine" les zones couvertes par un puit sont indiquées en bleu marine, les habitations non alimentée en eau apparaîtront en rouge.</p>
+        <p style="hp">Les puits fournissent l'eau potable aux habitations environnantes. Le manque d'eau provoque des famines tout comme le manque d'aliments.</p>
+        <p style="hp">Dans la mini-carte "Surimpression Famine" les zones couvertes par un puit sont indiquées en bleu marine, les habitations non alimentée en eau apparaîtront en rouge.</p>
 
 	<p style="hp">Voir aussi:</p>
 	<li><a href="food">Alimentation</a></li>
-	<li><a href="msb-starve">Surimpression famine</a></li>
+	<li><a href="msb-starve">Surimpression Famine</a></li>
 </Document>

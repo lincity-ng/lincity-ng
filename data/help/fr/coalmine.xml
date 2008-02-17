@@ -1,21 +1,19 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Mine de charbon</p>
-	<p style="hp">Les mines de charbons extraient le charbon du sous-sol. Il doit y avoir un filon de charbon a proximité de la mine. Pour voir où se situent les filons vous pouvez cliquer sur le bouton Charbon juste au dessus du mini-écran.</p>
-	<p style="hp">La première fois que vous utiliserez ce bouton celà vous coutera 1 million pour la prospection. Les fois suivante ce sera gratuit. Si vous ne faite pas de prospection, vous devrez trouver au hasard (c'est fortement déconseillé)</p>
-	<p style="hp">Les mines de charbons ont besoins d'emplois et de se connecter a un transport.</p>
-	
+	<p style="hp">Les mines de charbons extraient le charbon du sous-sol. Il doit y avoir un filon de charbon à proximité de la mine. Pour voir où se situent les filons vous pouvez cliquer sur le bouton Charbon juste au dessus du mini-écran.</p>
+	<p style="hp">La première fois que vous utiliserez ce bouton, cela vous coûtera 1 million pour la prospection. Les fois suivantes ce sera gratuit. Si vous ne faites pas de prospection, vous devrez trouver au hasard un filon (ceci est fortement déconseillé).</p>
+	<p style="hp">Les mines de charbons ont besoins d'emplois et d'être connectées à un transport.</p>
 	<p style="hp">Ceci est une mine de charbon</p>
 	<img src="images/tiles/coalmine-full.png" halign="center"/>
 	<p style="hp">et ceci son icône</p>
 	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
-
 	<p style="hp">Le dessin montre la quantité de charbon extraite mais pas encore envoyée par les transports. La mine ci dessus a un stock maximum.</p>
 	<p style="hp">Cliquer sur une mine de charbon montrera, dans la fenêtre des stats, les stocks de charbons déjà extraits et les réserves encore disponibles dans le filon.</p>
 
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="coal">Charbon</a></li>
-	<li><a href="powerscoal">Centrale à charbon</a></li>
+	<li><a href="powerscoal">Centrale thermique</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="jobs">Emplois</a></li>
 </Document>

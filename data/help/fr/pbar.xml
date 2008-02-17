@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Stats</p>
-	<p style="hp">L'onglet "Stat" au dessus de la minicarte montre les variations dans les réserves des marchés.</p>
-	<p style="hp">Une barre verte à droite indique une augmentation, une barre rouge a gauche indique une diminution. La taille de la barre est proportionnelle à l'importance du changement.</p>
-	<p style="hp">Le nombre à coté indique la quantité totale stockée</p>
+	<p style="htitle">Statistiques</p>
+	<p style="hp">L'onglet "Stats" au dessus de la mini-carte montre les variations dans les réserves des marchés.</p>
+	<p style="hp">Une barre verte à droite indique une augmentation, une barre rouge à gauche indique une diminution. La taille de la barre est proportionnelle à l'importance du changement.</p>
+	<p style="hp">Le nombre à coté indique la quantité totale stockée.</p>
 </Document>

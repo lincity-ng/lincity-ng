@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Zone d'Import-Export</p>
-	<p style="hp">L'Import et l'Export fonctionnent de la même façon, sauf que l'import coute de l'argent, alors que l'export rapporte de l'argent. Ces échanges se font dans un Port.</p>
-	<p style="hp">Le port doit être connecté aux transport</p>
-	<p style="hp">Il <b>doit</b> être connecté à une rivière sur tout le côtè droit.</p>
-	<p style="hp">L'export prendra tout ce qui est fourni. Si vous voulez restreindre les quantités, vous pouvez soit utiliser un transport a faible capacité, soit passer par un marché. Vous devrez expérimenter pour trouver la configuration adéquate.</p>
+	<p style="hp">L'import et l'export fonctionnent de la même façon, sauf que l'import coûte de l'argent, alors que l'export rapporte de l'argent. Ces échanges se font dans un Port.</p>
+	<p style="hp">Le port doit être connecté aux transports.</p>
+	<p style="hp">Il <b> doit </b> être connecté à une rivière sur tout le côté droit.</p>
+	<p style="hp">L'export prendra tout ce qui est fourni. Si vous voulez restreindre les quantités, vous pouvez soit utiliser un transport à faible capacité, soit passer par un marché. Vous devrez expérimenter pour trouver la configuration adéquate.</p>
 	
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="port">Port</a></li>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="market">Marchés</a></li>
+	<li><a href="market">Marché</a></li>
 	<li><a href="coal">Charbon</a></li>
 	<li><a href="ore">Minerai</a></li>
 	<li><a href="goods">Biens</a></li>
