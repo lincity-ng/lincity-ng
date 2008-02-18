@@ -1494,13 +1494,15 @@ void GameView::draw(Painter& painter)
         outside = true;
     }
     if( outside ){
+        mouseScrollState = 0;   //Avoid clipping in pause mode
+        keyScrollState = 0;
         show( centerTile );
         return;
     }
     //The Corners of The Screen
     //TODO: change here to only draw dirtyRect
     //      dirtyRectangle is the current Clippingarea (if set)
-    //      so we shold get clippingArea (as soon this is implemented) 
+    //      so we should get clippingArea (as soon this is implemented) 
     //      and adjust these Vectors:
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );

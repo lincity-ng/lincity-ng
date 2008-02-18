@@ -88,7 +88,7 @@ void execute_timestep ()
     //draw the updated city
     //in FAST-Mode, update at the last day in Month, so print_stats will work.
     if( ( lincitySpeed != fast_time_for_year ) || 
-            ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) == (NUMOF_DAYS_IN_MONTH - 1) ) ){
+        ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) ) == NUMOF_DAYS_IN_MONTH - 1 ){
         print_stats ();
         updateDate();
         print_total_money();

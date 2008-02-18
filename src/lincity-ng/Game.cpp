@@ -39,6 +39,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "EconomyGraph.hpp"
 
+extern int lincitySpeed;
+
 Game* gameptr = 0;
 
 Game* getGame(){
@@ -239,14 +241,16 @@ Game::run()
         } 
         frame++;
 
-        if(ticks - fpsTicks > 1000) {
+        // Slow down cpu consumption in pause mode
+        if(ticks - fpsTicks > 1000 && lincitySpeed) {
 #ifdef DEBUG_FPS
             printf("FPS: %d.\n", (frame*1000) / (ticks - fpsTicks));
 #endif
             getEconomyGraph()->newFPS( frame );
             frame = 0;
             fpsTicks = ticks;
-        }
+        } else if(!lincitySpeed)
+            frame = 0;
         /* SDL_Delay is done in execute_timestep , which is called by doLincityStep */
         doLincityStep();
     }
