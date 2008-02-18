@@ -40,6 +40,8 @@ static void setup_river(void);
 static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void setup_ground(void);
 static void new_setup_river_ground(void);
+static void new_setup_river();
+static void set_river_tile( int i, int j);
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
@@ -150,7 +152,7 @@ void clear_game(void)
 
 void new_city(int *originx, int *originy, int random_village)
 {
-    int old_setup_ground = false;
+    int old_setup_ground = true;
     clear_game();
     coal_reserve_setup();
 
@@ -302,19 +304,30 @@ static void new_setup_river_ground(void)
     const int NLOOP = 7;
     const int SZ=128; // must be = 2^NLOOP
     const int SHIFT = (SZ - WORLD_SIDE_LEN) / 2; // center the visible map in the big one
-    const float sigma = 5.;
+    const float sigma = 3.5; // gaussian smoothing
     const float ods2 = 1. / (2. * sigma * sigma);
-    const int mask_size = 4; // useless to be larger than sigma && Must be smaller than SHIFT/2 
+    const int mask_size = 11; // useless to be larger than 3*sigma && Must be < SHIFT 
+    const float fract = 0.9;
 
     float mat[2 * mask_size + 1][2 * mask_size + 1];
     float g[SZ][SZ];
     float tmp[SZ][SZ];
-    float fract = 0.9;
     float min = 10000000000000000000.;
     float norm;
     int i,j,k,l,m,n,size,h;
 
-    // intialisation
+    // build gaussian mask 
+    norm = 0;
+    for ( i = 0; i < 2 * mask_size + 1; i++) {
+        for ( j = 0; j < 2 * mask_size + 1; j++) {
+            float r2 = (i - mask_size) * (i - mask_size) + (j - mask_size) * (j - mask_size);
+            mat[i][j] = exp(-r2 * ods2);
+            norm += mat[i][j];
+        }
+    }
+    norm = 1. / norm;
+
+   // intialisation
 #ifdef DEBUG
     fprintf(stderr," mountainity = %i \n", global_mountainity);
 #endif
@@ -343,20 +356,9 @@ static void new_setup_river_ground(void)
         }
     }
 
-    // gaussian mask 
-    norm = 0;
-    for ( i = 0; i < 2 * mask_size + 1; i++) {
-        for ( j = 0; j < 2 * mask_size + 1; j++) {
-            float r2 = (i - mask_size) * (i - mask_size) + (j - mask_size) * (j - mask_size);
-            mat[i][j] = exp(-r2 * ods2);
-            norm += mat[i][j];
-        }
-    }
-    norm = 1. / norm;
-
-
     //smooth is iterated to propagate a little the lowering of borders
-    for (n = 0; n < 3 ; n++) {
+    for (n = 0; n < 2 ; n++) {
+        // apply the mask
         for (i = mask_size; i < SZ - mask_size; i++) 
             for (j = mask_size; j < SZ - mask_size; j++) {
                 tmp[i][j] = 0;
@@ -369,6 +371,40 @@ static void new_setup_river_ground(void)
             for (j = mask_size; j< SZ - mask_size; j++)
                 g[i][j] = tmp[i][j] * norm;
 
+        if (n == 0) {
+            // find the lowest borders
+            // switch the map to have lowest borders in SE an SW in ISO view
+            float Nmin = 0;
+            float Smin = 0;
+            float Emin = 0;
+            float Wmin = 0;
+            for ( i = 0; i < WORLD_SIDE_LEN ; i++) {
+                Nmin += g[SHIFT + i][SHIFT];
+                Smin += g[SHIFT + i][SHIFT + WORLD_SIDE_LEN];
+                Wmin += g[SHIFT][SHIFT + i];
+                Emin += g[SHIFT + WORLD_SIDE_LEN][SHIFT + i];
+            }
+            if (Nmin < Smin) {
+                for ( i = 0; i < SZ; i++)
+                    for ( j = 0; j < SZ; j++)
+                        tmp[i][j] = g[i][SZ - j -1];
+
+                for ( i = 0; i < SZ; i++)
+                    for ( j = 0; j < SZ; j++)
+                        g[i][j] = tmp[i][j];
+            }
+
+            if (Wmin < Emin) {
+                for ( i = 0; i < SZ; i++)
+                    for ( j = 0; j < SZ; j++)
+                        tmp[i][j] = g[SZ - i -1][j];
+
+                for ( i = 0; i < SZ; i++)
+                    for ( j = 0; j < SZ; j++)
+                        g[i][j] = tmp[i][j];
+            }
+        }
+
         // put the south and east border of the "big" map at the minimum visible height
         for ( i = 0; i < WORLD_SIDE_LEN ; i++)
             for ( j = 0; j < WORLD_SIDE_LEN ; j++)
@@ -378,7 +414,7 @@ static void new_setup_river_ground(void)
         for ( i = 0; i < SZ; i++)
             for (j = 0; j < (SZ - SHIFT - WORLD_SIDE_LEN); j++) {
                 g[i][SZ - 1 - j] = min; // south
-                g[SZ - 1 - j][i] = min; // west
+                g[SZ - 1 - j][i] = min; // east
             }
     }
 
@@ -400,17 +436,69 @@ static void new_setup_river_ground(void)
     fprintf(stderr," alt min = %i; max = %i\n", alt_min, alt_max);
 #endif
 
-    // Put water in the lowest part of the map
+    // Put lakes/seas in the lowest part of the map
     for ( i = 1; i < WORLD_SIDE_LEN - 1; i++)
         for ( j = 1; j < WORLD_SIDE_LEN - 1; j++)
-            if (ALT(i,j) < 2 * alt_step) {
-                MP_TYPE(i, j) = CST_WATER;
-                MP_GROUP(i, j) = GROUP_WATER;
-                MP_INFO(i, j).flags |= FLAG_IS_RIVER;
+            if (ALT(i,j) < 2 * alt_step)
+                set_river_tile(i,j);
+
+    for (n = 0; n < 10; n++)
+        new_setup_river();
+}
+
+static void set_river_tile( int i, int j)
+{
+    MP_TYPE(i, j) = CST_WATER;
+    MP_GROUP(i, j) = GROUP_WATER;
+    MP_INFO(i, j).flags |= FLAG_IS_RIVER;
+}
+
+static void new_setup_river()
+{
+    static const int di[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
+    static const int dj[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
+    int x, y, xx, yy, alt;
+
+    int watchdog = 300;              /* if too many tries, random placement. */
+    int flag = 0;
+    do {
+        xx = 15 + rand() % (WORLD_SIDE_LEN - 30);
+        yy = 15 + rand() % (WORLD_SIDE_LEN - 30);
+        /* find a place in altitude */
+        if (ALT(xx,yy) > 8 * alt_step)
+            flag = 1;
+    } while (flag == 0 && (--watchdog) > 1);
+#ifdef DEBUG
+    fprintf(stderr, "river watchdog = %i, x = %i, y = %i\n", watchdog, xx, yy);
+#endif
+
+    set_river_tile(xx,yy);
+
+    do {
+        int m = 0;
+        x = xx;
+        y = yy;
+        alt = ALT(x,y);
+        for (int n = 0; n < 8; n++) {
+            if (ALT(x + di[n], y + dj[n]) < alt) {
+                xx = x + di[n];
+                yy = y + dj[n];
+                alt = ALT(xx, yy);
+                m = n;
             }
-
-    // TODO: WIP add rivers and connect lake to outside of the map 
-
+        }
+        set_river_tile(xx,yy);
+        if (m>3) {
+            // we did diagonal move, so we need to connect river
+            if (ALT(x + di[m], y) > ALT(x, y + dj[m]))
+                set_river_tile(x, y + dj[m]);
+            else
+                set_river_tile(x + di[m], y);
+        }
+    } while ( (xx != x) || (yy != y) ); 
+    // We are in a local minimum
+    // TODO connect lakes to outside of the map
+    //
 
 }
 

@@ -633,8 +633,7 @@ Color MiniMap::getColor(int x,int y) const
         case NORMAL:
 #define DEBUG_ALTITUDE
 #ifdef DEBUG_ALTITUDE
-            if (GROUP_IS_BARE(MP_GROUP(xx,yy)) || MP_GROUP(x,y) == GROUP_WATER) 
-            {
+            if (GROUP_IS_BARE(MP_GROUP(xx,yy)) ) {
                 // show ground altitude
                 int alt=ground[xx][yy].altitude;
                 if (alt > alt_min + 9 * alt_step)
