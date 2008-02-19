@@ -114,20 +114,20 @@ void do_industry_l(int x, int y)
     goods_made += goods;
 
     /* Pollution is based on goods produced and is affected by tech level above
-     * 1000 (displayed as 100) whereupon it is reduced by one percent per 10
+     * MAX_TECH_LEVEL (displayed as 100) whereupon it is reduced by one percent per 10000
      * tech_level points.  
      *  before it was MP_POL(x,y) += INDUSTRY_L_POLLUTION; 
      */
     /* TODO: it would be nice to convert tech-reduced air pollution into waste
-     * to be hauled to a tip or recycled, and reduce that above tl 2000 */
+     * to be hauled to a tip or recycled, and reduce that above tl 2*MAX_TECH_LEVEL (200) */
 
     tmp_pol = (float)(INDUSTRY_L_POL_PER_GOOD * goods);
-    if (MP_TECH(x,y) > 1000) {
+    if (MP_TECH(x,y) > MAX_TECH_LEVEL) {
         double d;
-        d = (MP_TECH(x,y) - 1000.);
-        if (d > 1000.)
-            d = 1000.;
-        d /= 1000.;
+        d = (MP_TECH(x,y) - MAX_TECH_LEVEL);
+        if (d > MAX_TECH_LEVEL)
+            d = MAX_TECH_LEVEL;
+        d /= MAX_TECH_LEVEL;
         tmp_pol -= (tmp_pol * d);
         if (tmp_pol < 0)
             tmp_pol = 0;
