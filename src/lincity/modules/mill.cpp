@@ -10,7 +10,6 @@
 
 void do_mill(int x, int y)
 {
-    /*
        // int_1 contains the goods at the mill
        // int_2 contains the food store
        // int_3 contains the coal store
@@ -19,19 +18,24 @@ void do_mill(int x, int y)
        // int_6 is the % capacity last month
        // int_7 unused
        // MP_ANIM contains the animation trigger time since 1.91
-     */
+
     /* get food */
     int block_anim = 0;
     if (MP_INFO(x, y).int_2 < MAX_FOOD_AT_MILL)
         if (get_food(x, y, MILL_GET_FOOD) != 0)
             MP_INFO(x, y).int_2 += MILL_GET_FOOD;
-    /* get coal */
+
+    /* get coal or power */
     if (MP_INFO(x, y).int_3 < MAX_COAL_AT_MILL) {
         if (get_coal(x, y, MILL_GET_COAL) != 0)
             MP_INFO(x, y).int_3 += MILL_GET_COAL;
         else if (get_power(x, y, MILL_GET_COAL * MILL_POWER_PER_COAL, 0) != 0)
             MP_INFO(x, y).int_3 += MILL_GET_COAL;
+    } else {
+        // prevent blinking in minimap: we have power
+        get_power(x,y,0,0);
     }
+
     if (MP_INFO(x, y).int_1 < MAX_GOODS_AT_MILL) {
         if (MP_INFO(x, y).int_2 > FOOD_USED_BY_MILL && MP_INFO(x, y).int_3 > COAL_USED_BY_MILL) {
             if (get_jobs(x, y, MILL_JOBS) != 0) {

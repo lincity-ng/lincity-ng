@@ -758,7 +758,7 @@ Color MiniMap::getColor(int x,int y) const
         case POWER: {
             Color mc;
             /* default color = grey */
-            mc=Color(0xFF,0xFF,0xFF);
+            mc=Color(0x3F,0x3F,0x3F);
             if (MP_INFO(xx, yy).flags & FLAG_ASKED_FOR_POWER) {
                 if ( (MP_INFO(xx, yy).flags & FLAG_GOT_POWER) != 0) {
                     /* Windmill powered */
@@ -776,7 +776,6 @@ Color MiniMap::getColor(int x,int y) const
             if (MP_GROUP(xx,yy) == GROUP_POWER_LINE)
                 mc=Color(0xFF,0xFF,0); //yellow
 
-            mc=light( mc,(0xAA + brightness(getColorNormal(xx,yy)))/2 );
             return mc;
         }
         case TRAFFIC: {

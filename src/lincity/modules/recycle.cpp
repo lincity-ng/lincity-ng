@@ -42,14 +42,14 @@ void do_recycle(int x, int y)
 
     /* get some startup power if not powered yet */
     if ((MP_INFO(x, y).flags & FLAG_POWERED) == 0)
-        if (get_power(x, y, GOODS_RECYCLED, 1) != 0)
+        if (get_power(x, y, GOODS_RECYCLED / 2, 1) != 0)
             MP_INFO(x, y).flags |= FLAG_POWERED;
 
     /* no steel recycling yet - recycle to ore. */
     if (MP_INFO(x, y).int_1 < MAX_ORE_AT_RECYCLE
         && MP_INFO(x, y).int_2 > GOODS_RECYCLED && (MP_INFO(x, y).flags & FLAG_POWERED) != 0)
         if (get_jobs(x, y, RECYCLE_GOODS_JOBS) != 0) {
-            if (get_power(x, y, GOODS_RECYCLED / 2, 1) == 0)
+            if (get_power(x, y, GOODS_RECYCLED, 1) == 0)
                 MP_INFO(x, y).flags &= (0xffffffff - FLAG_POWERED);
             else
                 MP_INFO(x, y).flags |= FLAG_POWERED;
