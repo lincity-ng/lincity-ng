@@ -40,7 +40,8 @@ static void setup_river(void);
 static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void setup_ground(void);
 static void new_setup_river_ground(void);
-static void new_setup_river();
+static void new_setup_river(void);
+static void new_setup_one_river(int c, int *colx, int *coly, int t, int *topx, int *topy, int l, int *lakx, int *laky);
 static void set_river_tile( int i, int j);
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
@@ -198,6 +199,7 @@ void setup_land(void)
             int d2w_min = 2 * WORLD_SIDE_LEN * WORLD_SIDE_LEN;
             int r;
             int arid = aridity;
+            int alt0 = 0;
 
             /* test against IS_RIVER to prevent terrible recursion */
             if (IS_RIVER(x, y) || !GROUP_IS_BARE(MP_GROUP(x, y)))
@@ -209,8 +211,10 @@ void setup_land(void)
                     if (!IS_RIVER(xw, yw))
                         continue;
                     d2w = (xw - x) * (xw - x) + (yw - y) * (yw - y);
-                    if (d2w < d2w_min)
+                    if (d2w < d2w_min) {
                         d2w_min = d2w;
+                        alt0 = ALT(xw,yw); // altitude of the river
+                    }
                     /* TODO ? Store square of distance to river for each tile */
                 }
             }
@@ -222,7 +226,9 @@ void setup_land(void)
                 else if (d2w_min < 17)
                     arid = (aridity * 2) / 3;
             }
-            r = rand() % (d2w_min / 3 + 1) + arid;
+            /* Altitude has same effect as distance */
+            r = rand() % (d2w_min / 3 + 1) + arid +
+                abs((ALT(x,y) - alt0) * 19 / alt_step) + 3 * (ALT(x,y) * ALT(x,y)) /1000000 ;
             ground[x][y].ecotable=r;
             /* needed to setup quasi randome land. The flag is set below */
             MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
@@ -420,30 +426,115 @@ static void new_setup_river_ground(void)
 
     alt_min =  int (min);
     alt_max = 0;
-    // pick our map in the fractal one (not centered to take advantage of smoothing lower border)
+    // pick our map in the fractal one
     for ( i = 0; i < WORLD_SIDE_LEN; i++)
         for ( j = 0; j < WORLD_SIDE_LEN; j++) {
-            ALT(i,j) = int (g[SHIFT + i][SHIFT + j]) - alt_min;
+            ALT(i,j) = int (g[SHIFT + i][SHIFT + j]) - alt_min + 1;
             if ( ALT(i,j) > alt_max)
                 alt_max = ALT(i,j);
         }
 
     // take visible value for maximum color dynamic
-    alt_min = 0;
+    alt_min = 0; // visible alt_min is 1, we will use 0 for gray border
     alt_step = (alt_max - alt_min)/10;
     
 #ifdef DEBUG
     fprintf(stderr," alt min = %i; max = %i\n", alt_min, alt_max);
 #endif
+    new_setup_river();
+
+}
+void new_setup_river(void)
+{
+
+    int dx2[WORLD_SIDE_LEN][WORLD_SIDE_LEN], dy2[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+
+    int colx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], coly[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
+    int topx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], topy[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
+    int lakx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], laky[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
+
+    int i, j, c, t, l;
+
 
     // Put lakes/seas in the lowest part of the map
-    for ( i = 1; i < WORLD_SIDE_LEN - 1; i++)
-        for ( j = 1; j < WORLD_SIDE_LEN - 1; j++)
+    for ( i = 0; i < WORLD_SIDE_LEN; i++)
+        for ( j = 0; j < WORLD_SIDE_LEN; j++)
             if (ALT(i,j) < 2 * alt_step)
                 set_river_tile(i,j);
 
-    for (n = 0; n < 10; n++)
-        new_setup_river();
+    // Put the gray border (not visible) at alt_min, for easier rivers handling.
+    for ( i = 0; i < WORLD_SIDE_LEN; i++) {
+        ALT(i, 0) = alt_min;
+        ALT(i, WORLD_SIDE_LEN - 1) = alt_min;
+        ALT(0, i) = alt_min;
+        ALT(WORLD_SIDE_LEN - 1, i) = alt_min;
+    }
+
+    // second order derivatives in visible map
+    // => know curvature, local max, min, saddle points and find col (mountain pass)
+    c = 0;
+    l = 0;
+    t = 0;
+    for ( i = 1; i < WORLD_SIDE_LEN - 1 ; i++)
+        for ( j = 1; j < WORLD_SIDE_LEN - 1 ; j++) {
+            dx2[i][j] = ALT(i + 1,j) + ALT(i - 1,j) - 2 * ALT(i,j);
+            dy2[i][j] = ALT(i,j + 1) + ALT(i,j - 1) - 2 * ALT(i,j);
+            if (dx2[i][j] * dy2[i][j] <= 0) {
+                // saddle point
+                if ( ( ALT(i + 1,j) < ALT(i,j) && ALT(i - 1,j) < ALT(i,j) && 
+                       ALT(i,j + 1) > ALT(i,j) && ALT(i,j - 1) > ALT(i,j)
+                     ) || (
+                       ALT(i + 1,j) > ALT(i,j) && ALT(i - 1,j) > ALT(i,j) && 
+                       ALT(i,j + 1) < ALT(i,j) && ALT(i,j - 1) < ALT(i,j)
+                     ) )  {
+                    // mountain pass
+                    colx[c] = i;
+                    coly[c] = j;
+                    c++;
+#ifdef DEBUG_LAND
+                    if (GROUP_IS_BARE(MP_GROUP(i,j)))
+                            set_mappoint(i,j, CST_ROAD_LR);
+                    //XXX AL1: why is there a segfault if we use CST_POWERL_H_D ?
+#endif
+                }
+            } else if (dx2[i][j] < 0) {
+                // local top
+                if (  ALT(i + 1,j) < ALT(i,j) && ALT(i - 1,j) < ALT(i,j) && 
+                       ALT(i,j + 1) < ALT(i,j) && ALT(i,j - 1) < ALT(i,j)  )  {
+                    topx[t] = i;
+                    topy[t] = j;
+                    t++;
+#ifdef DEBUG_LAND
+                    if (GROUP_IS_BARE(MP_GROUP(i,j)))
+                        set_mappoint(i,j, CST_FIRE_1);
+#endif
+                }
+ 
+            } else {
+                // local min = potential lake => has water.
+                if (  ALT(i + 1,j) > ALT(i,j) && ALT(i - 1,j) > ALT(i,j) && 
+                       ALT(i,j + 1) > ALT(i,j) && ALT(i,j - 1) > ALT(i,j)  )  {
+                    lakx[l] = i;
+                    laky[l] = j;
+                    l++;
+                    if (GROUP_IS_BARE(MP_GROUP(i,j))) {
+                        set_mappoint(i,j, CST_PARKLAND_LAKE);
+                        MP_INFO(i,j).flags |= (FLAG_HAS_UNDERGROUND_WATER + FLAG_IS_RIVER);
+                    }
+                }
+ 
+            }
+
+        }
+
+#ifdef DEBUG_LAND
+    fprintf(stderr," pass c = %i, cx = %i, cy = %i\n", c, colx[c - 1], coly[c -1]);
+    fprintf(stderr," top t = %i, tx = %i, ty = %i\n", t, topx[t-1], topy[t-1]);
+    fprintf(stderr," lak l = %i, lx = %i, ly = %i\n", l, topx[l-1], topy[l-1]);
+#endif
+
+    for (i = 0; i < 10; i++)
+        new_setup_one_river(c, colx, coly, t, topx, topy, l, lakx, laky);
 }
 
 static void set_river_tile( int i, int j)
@@ -453,27 +544,27 @@ static void set_river_tile( int i, int j)
     MP_INFO(i, j).flags |= FLAG_IS_RIVER;
 }
 
-static void new_setup_river()
+static void new_setup_one_river(int c, int *colx, int *coly, int t, int *topx, int *topy, int l, int *lakx, int *laky)
 {
     static const int di[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
     static const int dj[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
-    int x, y, xx, yy, alt;
-
+    int x, y, xx, yy, alt, alt_max;
     int watchdog = 300;              /* if too many tries, random placement. */
-    int flag = 0;
+
+
+    /* find a place in altitude */
     do {
         xx = 15 + rand() % (WORLD_SIDE_LEN - 30);
         yy = 15 + rand() % (WORLD_SIDE_LEN - 30);
-        /* find a place in altitude */
-        if (ALT(xx,yy) > 8 * alt_step)
-            flag = 1;
-    } while (flag == 0 && (--watchdog) > 1);
-#ifdef DEBUG
+    } while ( ALT(xx,yy) < 8 * alt_step && (--watchdog) > 1);
+#ifdef DEBUG_LAND
     fprintf(stderr, "river watchdog = %i, x = %i, y = %i\n", watchdog, xx, yy);
 #endif
 
     set_river_tile(xx,yy);
+    alt_max = ALT(xx, yy);
 
+    /* follow most important slope and go downward */
     do {
         int m = 0;
         x = xx;
@@ -497,8 +588,14 @@ static void new_setup_river()
         }
     } while ( (xx != x) || (yy != y) ); 
     // We are in a local minimum
+
+    if ( x == 0 || x == WORLD_SIDE_LEN - 1 || y == 0 || y == WORLD_SIDE_LEN - 1) {
+        // borders of the map are strictly the lowest points 
+        return;
+    }
+
     // TODO connect lakes to outside of the map
-    //
+    // make a small lake
 
 }
 
