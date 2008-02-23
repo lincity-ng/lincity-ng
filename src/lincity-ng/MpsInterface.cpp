@@ -362,7 +362,6 @@ void mps_store_sss(int i, const char * s1, const char * s2, const char * s3)
 }
 
 /* Data for new mps routines */
-//extern char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
 int mps_global_style = MPS_GLOBAL_FINANCE;
 
 /* MPS Global displays */

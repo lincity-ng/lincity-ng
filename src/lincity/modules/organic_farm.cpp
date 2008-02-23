@@ -201,35 +201,16 @@ void do_organic_farm(int x, int y)
     }
 }
 
-/* FIXME: this isn't correct */
-#ifdef MPS_INFO_CHARS
-#undef MPS_INFO_CHARS
-#endif
-#define MPS_INFO_CHARS 30
-
 void mps_organic_farm(int x, int y)
 {
     int i = 0;
-    const char *p;
-    char text[MPS_INFO_CHARS + 1];
 
-  /** removed depency on mps_info */
     mps_store_title(i++, _("Organic Farm"));
     i++;
 
-    if ((MP_INFO(x, y).flags & FLAG_POWERED) != 0)
-        p = _("YES");
-    else
-        p = _("NO ");
-
-    snprintf(text, MPS_INFO_CHARS, "%s %s", _("Power"), p);
-    mps_store_title(i++, text);
-
-    snprintf(text, MPS_INFO_CHARS, "%s  %5.1f%%", _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
-    mps_store_title(i++, text);
-
-    snprintf(text, MPS_INFO_CHARS, "%s  %5.1f%%", _("Prod"), MP_INFO(x, y).int_4 * 100.0 / 1200.0);
-    mps_store_title(i++, text);
+    mps_store_ss(i++, _("Power"), (MP_INFO(x, y).flags & FLAG_POWERED) ? _("YES") : _("NO"));
+    mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, _("Prod"), MP_INFO(x, y).int_4 * 100.0 / 1200.0);
 
 #ifdef DEBUG
     if (use_waterwell) {

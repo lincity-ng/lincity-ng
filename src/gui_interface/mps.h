@@ -27,8 +27,6 @@ void mappoint_stats (int, int, int);
 
 #define MPS_GLOBAL_STYLES 3 /* Number of global styles */
 
-#define MPS_INFO_CHARS (MAPPOINT_STATS_W / 8) + 1
-
 void mps_init();
 
 int mps_set(int style, int x, int y); /* Attaches an area or global display */
@@ -57,7 +55,6 @@ void mps_store_sss(int i, const char * s1, const char * s2, const char * s3);
 
 
 /* Data for new mps routines */
-//extern char mps_info[MAPPOINT_STATS_LINES][MPS_INFO_CHARS];
 extern int mps_global_style;
 
 /* MPS Global displays */
