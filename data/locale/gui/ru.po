@@ -34,11 +34,11 @@ msgstr "Никого нет дома"
 #: data/gui/sustain.xml data/gui/too-old.xml data/gui/universityup.xml
 #: data/gui/warning.xml data/gui/windmillup.xml
 msgid "Ok"
-msgstr "Угу"
+msgstr "Так точно"
 
 #: data/gui/allgone.xml
 msgid "There are no people left in this city."
-msgstr "В городе кончились люди"
+msgstr "В городе больше нет людей."
 
 #: data/gui/allgone.xml
 msgid "You should start a new career elsewhere."
@@ -234,7 +234,7 @@ msgstr "Статистика игры"
 
 #: data/gui/gamestats.xml
 msgid "Okay"
-msgstr "Угу"
+msgstr "Понятно"
 
 #: data/gui/healthup.xml
 msgid "Health Centres available"
@@ -285,7 +285,7 @@ msgstr ""
 
 #: data/gui/launch-fail.xml
 msgid "Launch Failure"
-msgstr "Запуск провален"
+msgstr "Неудачный запуск"
 
 #: data/gui/launch-fail.xml
 msgid ""
@@ -293,8 +293,8 @@ msgid ""
 "technology for evacuation. You must launch five more unmanned rockets to "
 "restore confidence."
 msgstr ""
-"Ваша ракета взорвалась после взлета. Люди перестали верить в них. Вы должны "
-"запустить ещё 5 ракет, что бы доказать, что они безопасны."
+"Ваша ракета взорвалась после взлета. Теперь люди бояться летать в ракетах. Вы должны "
+"запустить 5 ракет, что бы люди в них снова поверили."
 
 #: data/gui/launch-gone.xml
 msgid "Total Evacuation Complete."
@@ -416,7 +416,7 @@ msgstr "Показать график экономики."
 
 #: data/gui/minimap.xml
 msgid "Show resources."
-msgstr ""
+msgstr "Показать ресурсы."
 
 #: data/gui/minimap.xml
 msgid "Show the MiniMap"
@@ -784,6 +784,8 @@ msgid ""
 "Sorry, the game you wanted is too old. Cannot load it. Still play with "
 "previous game."
 msgstr ""
+"Извините, файл с сохраненной игрой устарел. Используйтесь более старыми "
+"версиями игры."
 
 #: data/gui/tradedialog.xml
 msgid "Trade Settings"
