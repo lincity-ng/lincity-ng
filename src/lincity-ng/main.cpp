@@ -116,7 +116,7 @@ void initPhysfs(const char* argv0)
     }
     PHYSFS_addToSearchPath(writedir, 0);
     delete[] writedir;
-   
+  //TODO: zip später? , ~/.lincity für alte savegames?
     // Search for archives and add them to the search path
     const char* archiveExt = "zip";
     char** rc = PHYSFS_enumerateFiles("/");

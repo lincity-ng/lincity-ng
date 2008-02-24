@@ -67,6 +67,9 @@ Programming
 
  [?] Add new file format for score file, similar to "results" (but in xml?)
 
+ [M] Startup image instead of 10+ sec black screen. Show menu without
+     delay if possible.
+
 --Bugs--
  [H] Windows: Something in MainMenu.cpp with recentfile and curfile is broken. 
 

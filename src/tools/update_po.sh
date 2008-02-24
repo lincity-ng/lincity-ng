@@ -3,5 +3,6 @@ mkdir -p orig
 cp -af *.po *.pot orig
 for f in `/bin/ls *.po`
 do
-    msgmerge orig/$f messages.pot>$f
+    msgmerge --no-fuzzy-matching --sort-by-file orig/$f messages.pot>$f
+
 done

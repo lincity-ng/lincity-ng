@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Feb  3 18:03:35 2008\n"
+"POT-Creation-Date: Mon Feb 18 22:35:34 2008\n"
 "PO-Revision-Date: 2008-01-10 20:55+0100\n"
 "Last-Translator: Ronald Stroethoff <stroet43@zonnet.nl>\n"
 "Language-Team: Nederlands\n"
@@ -20,175 +20,318 @@ msgstr ""
 "X-Poedit-Language: Dutch\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: data/gui/minimap.xml
-msgid "$"
-msgstr "€"
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "Niemand thuis"
 
-#: data/gui/fire.xml
-msgid "A Fire has started"
-msgstr "Een brand is uitgebroken"
+#: data/gui/allgone.xml data/gui/blacksmithup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/cricketup.xml data/gui/fire.xml
+#: data/gui/firestationup.xml data/gui/healthup.xml data/gui/hvindustryup.xml
+#: data/gui/import-exportup.xml data/gui/launch-evac.xml
+#: data/gui/launch-fail.xml data/gui/launch-gone.xml data/gui/launch-good.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-recycle.xml
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-solar-power.xml
+#: data/gui/no-credit-university.xml data/gui/nobull-tip.xml
+#: data/gui/options.xml data/gui/parkup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/recycleup.xml data/gui/riverup.xml
+#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/schoolup.xml
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml data/gui/solarpowerup.xml
+#: data/gui/sustain.xml data/gui/too-old.xml data/gui/universityup.xml
+#: data/gui/warning.xml data/gui/windmillup.xml
+msgid "Ok"
+msgstr "Ok"
 
-#: data/gui/shfire-uc.xml
-msgid ""
-"A fire has broken out at a shanty town. It is in a fire cover area and "
-"APPEARS to be under control. "
-msgstr ""
-"Er is brand uitgebroken in een krottenwijk.Het is beschermd tegen brand en "
-"LIJKT onder controle."
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "Er zijn geen mensen meer in deze stad."
 
-#: data/gui/shfire-oc.xml
-msgid ""
-"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
-"spread to other areas. "
-msgstr ""
-"Er is brand uitgebroken in een krottenwijk.De brand is niet onder controle "
-"en kan zich verspreiden naar andere gebieden."
-
-#: data/gui/credits.xml data/gui/savegame.xml data/gui/newgame.xml
-#: data/gui/loadgame.xml
-msgid "Back"
-msgstr "Terug"
-
-#: data/gui/options.xml
-msgid "Background Music"
-msgstr "Achtergrond muziek"
-
-#: data/gui/cricketup.xml
-msgid "Basketball Courts available"
-msgstr "Basketbal velden zijn beschikbaar"
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "Begin ergens anders een nieuwe cariere."
 
 #: data/gui/blacksmithup.xml
 msgid "Blacksmiths available"
 msgstr "Smederijen zijn beschikbaar"
 
+#: data/gui/blacksmithup.xml data/gui/coalmineup.xml data/gui/coalpowerup.xml
+#: data/gui/cricketup.xml data/gui/firestationup.xml data/gui/healthup.xml
+#: data/gui/hvindustryup.xml data/gui/import-exportup.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/parkup.xml data/gui/potteryup.xml data/gui/railwayup.xml
+#: data/gui/recycleup.xml data/gui/riverup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/solarpowerup.xml
+#: data/gui/universityup.xml data/gui/windmillup.xml
+msgid "New Invention"
+msgstr "Nieuwe uitvinding"
+
+#: data/gui/blacksmithup.xml data/gui/coalpowerup.xml data/gui/cricketup.xml
+#: data/gui/firestationup.xml data/gui/healthup.xml data/gui/hvindustryup.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/parkup.xml data/gui/potteryup.xml data/gui/railwayup.xml
+#: data/gui/recycleup.xml data/gui/riverup.xml data/gui/rocketup.xml
+#: data/gui/schoolup.xml data/gui/solarpowerup.xml data/gui/universityup.xml
+#: data/gui/windmillup.xml
+msgid "See the help screen for more information."
+msgstr "Lees de help-pagina's voor meer informatie."
+
+#: data/gui/blacksmithup.xml
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"Het technische nivo is bereikt waarmee smederijen kunnen worden gebouwd. "
+"Smederijen gebruiken werk en staal om goederen te maken"
+
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Bulldozing a monument costs a lot of money."
 msgstr "Een monument afbreken, kost heel veel geld."
 
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/launch_rocket_yn.xml
+msgid "No"
+msgstr "Nee"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "Wilt u het afbreken?"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/too-old.xml data/gui/warning.xml
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Waarschuwing: Monumenten afbreken is duur "
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/launch_rocket_yn.xml
+msgid "Yes"
+msgstr "Ja"
+
 #: data/gui/bulldoze_river_yn.xml
 msgid "Bulldozing a section of river costs a lot of money."
 msgstr "Een rivier verwijderen kost heel veel geld."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Waarschuwing: water verwijderen is duur."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
 msgstr ""
 "Een krottenwijk afbreken kost heel veel geld en dit kan brand veroorzaken."
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
-msgid "Buy"
-msgstr "Kopen"
-
-#: data/gui/newgame.xml
-msgid "Choose Scenario"
-msgstr "Kies een scenario"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Coal"
-msgstr "Steenkool"
-
-#: data/gui/coalpowerup.xml
-msgid "Coal Fired Power Stations available"
-msgstr "Steenkool-centrales zijn beschikbaar"
-
-#: data/gui/coalmineup.xml
-msgid "Coal Mine available"
-msgstr "Kolenmijnen zijn beschikbaar"
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Waarschuwing: krottenwijken afbreken is gevaarlijk."
 
 #: data/gui/coal_survey_yn.xml
 msgid "Coal Survey"
 msgstr "Steenkool onderzoek"
 
-#: data/gui/creditslist.xml
-msgid "Code"
-msgstr "Code"
-
-#: data/gui/mainmenu.xml
-msgid "Continue"
-msgstr "Doorgaan"
-
-#: data/gui/mainmenu.xml data/gui/creditslist.xml
-msgid "Credits"
-msgstr "Met dank aan:"
-
 #: data/gui/coal_survey_yn.xml
 msgid "Do coal survey?"
 msgstr "Een steenkoolonderzoek houden?"
 
-#: data/gui/launch-good.xml
-msgid "Doing well."
-msgstr "Het gaat goed."
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "Prospectors uitzenden?"
 
-#: data/gui/minimap.xml
-msgid "Eco"
-msgstr "Eco"
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr ""
+"Dit kost eenmalig 1 miljoen €. Daarna is het gratis om het opnieuw op te "
+"vragen."
 
-#: data/gui/sustain.xml
-msgid "Economy Sustainable."
-msgstr "Economisch duurzaam"
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "Kolenmijnen zijn beschikbaar"
 
-#: data/gui/launch-evac.xml
-msgid "Evacuation Launch Good"
-msgstr "Lancering voor evacuatie is gelukt"
+#: data/gui/coalmineup.xml
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr ""
+"Lees de help-pagina's voor meer informatie over kolenmijnen en surveys naar "
+"kolen."
 
-#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
-msgid "Fire"
-msgstr "Brand"
+#: data/gui/coalmineup.xml
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr ""
+"Het technische nivo is bereikt waarmee diepe kolenmijnen kunnen worden "
+"gedolven."
 
-#: data/gui/firestationup.xml
-msgid "Fire Stations available"
-msgstr "Brandweerkazernes zijn beschikbaar"
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "Steenkool-centrales zijn beschikbaar"
 
-#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
-msgid "Fire!"
-msgstr "Brand!"
+#: data/gui/coalpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr ""
+"Het technische nivo is bereikt waarmee kolen-centrales kunnen worden "
+"gebouwd. "
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Food"
-msgstr "Voedsel"
+#: data/gui/credits.xml data/gui/loadgame.xml data/gui/newgame.xml
+#: data/gui/savegame.xml
+msgid "Back"
+msgstr "Terug"
 
-#: data/gui/options.xml
-msgid "Fullscreen"
-msgstr "Volledig scherm"
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Code"
 
-#: data/gui/gamestats.xml
-msgid "Gamestats"
-msgstr "Spel-statistieken"
-
-#: data/gui/speedpanel.xml
-msgid "Go back to Main Menu"
-msgstr "Terug naar het hoofdmenu"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Goods"
-msgstr "Goederen"
+#: data/gui/creditslist.xml data/gui/mainmenu.xml
+msgid "Credits"
+msgstr "Met dank aan:"
 
 #: data/gui/creditslist.xml
 msgid "Graphics"
 msgstr "Graphics"
 
-#: data/gui/portdialog.xml
-msgid "Harbour Trade Settings"
-msgstr "Haven handelsinstellingen"
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Oorspronkelijk idee en programeur"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Geluid en muziek"
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "Vertaling"
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "Basketbal velden zijn beschikbaar"
+
+#: data/gui/cricketup.xml
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
+msgstr ""
+"Het technische nivo is bereikt waarmee basketbal-velden kunnen worden "
+"gebouwd. Basket-velden gebruiken een beetje werk en goederen. En maakt de "
+"mensen in de omliggende wijken (ongeveer 10 eenheden in elke richting) "
+"gelukkiger."
+
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "Een brand is uitgebroken"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "Ga er naar zoeken"
+
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "Brandweerkazernes zijn beschikbaar"
+
+#: data/gui/firestationup.xml
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"Het technische nivo is bereikt waarmee brandweerkazernes kunnen worden "
+"gebouwd. Brandweerkazernes zorgen ervoor dat de meeste vuren doven. Als er "
+"nog geen branden geweest zijn, zou men denken dat ze niet nodig zijn."
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "Spel-statistieken"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "Okay"
 
 #: data/gui/healthup.xml
 msgid "Health Centres available"
 msgstr "Ziekenhuizen zijn beschikbaar"
 
+#: data/gui/healthup.xml
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"Het technische nivo is bereikt waarmee ziekenhuizen kunnen worden gebouwd. "
+"Ziekenhuizen zorgen ervoor dat er minder mensen dood gaan door vervuiling en "
+"verhogen daarom de productie."
+
 #: data/gui/hvindustryup.xml
 msgid "Heavy Industry available"
 msgstr "Zware industrie beschikbaar"
+
+#: data/gui/hvindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"Het technische nivo is bereikt waarmee zware industrie (staal-fabriek) kan "
+"worden gebouwd. Zware industrie produceert staal."
 
 #: data/gui/import-exportup.xml
 msgid "Import/Export available"
 msgstr "Import/Export is beschikbaar"
 
-#: data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Jobs"
-msgstr "Werk"
+#: data/gui/import-exportup.xml
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"Kolen, goederen, ijzererts en staal kunnen nu geïmporteerd en geëxporteerd "
+"worden. Lees de helppagina's over deze onderwerpen om te begrijpen hoe dit "
+"gebruikt kan worden. "
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "Lancering voor evacuatie is gelukt"
+
+#: data/gui/launch-evac.xml
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"Er zijn 1000 mensen geëvacueerd. Omdat er minder mensen zijn, wilt U "
+"mischien de economie kleiner maken."
 
 #: data/gui/launch-fail.xml
 msgid "Launch Failure"
 msgstr "Mislukte lancering"
+
+#: data/gui/launch-fail.xml
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"De raket is kort na de lancering neergestort.. De mensen vertrouwen niet "
+"langer deze technologie voor evacuatie. Eerst moeten vijf onbemande raketten "
+"gelanceerd worden om het vertrouwen te winnen."
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "Iedereen is geëvacueerd."
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "Goed gedaan, alle mensen zijn geëvacueerd"
+
+#: data/gui/launch-gone.xml data/gui/sustain.xml
+msgid "You have won the game."
+msgstr "U heeft het spel gewonnen."
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "Het gaat goed."
 
 #: data/gui/launch-good.xml
 msgid "Launch Successfull"
@@ -198,155 +341,6 @@ msgstr "Succesvolle lancering"
 msgid "Launch now?"
 msgstr "Nu lanceren?"
 
-#: data/gui/ltindustryup.xml
-msgid "Light Industry available"
-msgstr "Lichte industrie is beschikbaar"
-
-#: data/gui/sustain.xml
-msgid "LinCity has determined that you have a sustainable economy."
-msgstr "Lincity heeft besloten dat U een duurzame economie heeft."
-
-#: data/gui/mainmenu.xml data/gui/loadgame.xml
-msgid "Load"
-msgstr "Laden"
-
-#: data/gui/loadgame.xml
-msgid "Load Game"
-msgstr "Laad spel"
-
-#: data/gui/minimap.xml
-msgid "Map"
-msgstr "Kaart"
-
-#: data/gui/millup.xml
-msgid "Mills available"
-msgstr "Windmolens zijn beschikbaar"
-
-#: data/gui/mod_wind_up.xml
-msgid "Modern Windmills available"
-msgstr "Moderne windmolens zijn beschikbaar"
-
-#: data/gui/pbar.xml
-msgid "Money"
-msgstr "Geld"
-
-#: data/gui/mainmenu.xml data/gui/newgame.xml
-msgid "New Game"
-msgstr "Nieuw spel"
-
-#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
-#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalmineup.xml
-#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/parkup.xml
-#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/roadup.xml
-#: data/gui/rocketup.xml data/gui/millup.xml data/gui/healthup.xml
-#: data/gui/universityup.xml data/gui/recycleup.xml data/gui/blacksmithup.xml
-#: data/gui/schoolup.xml data/gui/firestationup.xml
-#: data/gui/import-exportup.xml data/gui/mod_wind_up.xml
-msgid "New Invention"
-msgstr "Nieuwe uitvinding"
-
-#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
-#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
-msgid "No"
-msgstr "Nee"
-
-#: data/gui/no-credit-rocket.xml data/gui/no-credit-parkland.xml
-#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
-#: data/gui/no-credit-recycle.xml
-msgid "No Credit Available"
-msgstr "Geen geld beschikbaar"
-
-#: data/gui/allgone.xml
-msgid "Nobody Home"
-msgstr "Niemand thuis"
-
-#: data/gui/nobull-tip.xml
-msgid "Not Allowed"
-msgstr "Is niet toegestaan"
-
-#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
-#: data/gui/cricketup.xml data/gui/options.xml data/gui/riverup.xml
-#: data/gui/coalmineup.xml data/gui/coalpowerup.xml data/gui/launch-good.xml
-#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
-#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
-#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
-#: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
-#: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
-#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
-#: data/gui/no-credit-recycle.xml data/gui/launch-fail.xml
-#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
-#: data/gui/import-exportup.xml data/gui/launch-gone.xml
-#: data/gui/mod_wind_up.xml data/gui/shfire-oc.xml data/gui/warning.xml
-#: data/gui/too-old.xml
-msgid "Ok"
-msgstr "Ok"
-
-#: data/gui/gamestats.xml
-msgid "Okay"
-msgstr "Okay"
-
-#: data/gui/options.xml data/gui/mainmenu.xml
-msgid "Options"
-msgstr "Opties"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Ore"
-msgstr "IJzererts"
-
-#: data/gui/creditslist.xml
-msgid "Original Idea and Code"
-msgstr "Oorspronkelijk idee en programeur"
-
-#: data/gui/parkup.xml
-msgid "Parks available"
-msgstr "Parken zijn beschikbaar"
-
-#: data/gui/speedpanel.xml
-msgid "Pause the game"
-msgstr "Pauze"
-
-#: data/gui/pbar.xml
-msgid "Population"
-msgstr "Bevolking"
-
-#: data/gui/potteryup.xml
-msgid "Potteries available"
-msgstr "Pottenbakkerijen zijn beschikbaar"
-
-#: data/gui/minimap.xml
-msgid "Press this button to show statistics"
-msgstr "Druk op deze knop om de statistieken te zien"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
-msgid "Product"
-msgstr "Produkt"
-
-#: data/gui/mainmenu.xml
-msgid "Quit"
-msgstr "Afsluiten"
-
-#: data/gui/railwayup.xml
-msgid "Railways available"
-msgstr "Spoorwegen zijn beschikbaar"
-
-#: data/gui/recycleup.xml
-msgid "Recycling Centres available"
-msgstr "Recycleercentrum is beschikbaar"
-
-#: data/gui/riverup.xml
-msgid "Rivers available"
-msgstr "Rivieren zijn beschikbaar"
-
-#: data/gui/roadup.xml
-msgid "Roads available"
-msgstr "Straten zijn beschikbaar"
-
-#: data/gui/rocketup.xml
-msgid "Rocket Launch Pad available"
-msgstr "Lanceerplatform is beschikbaar"
-
 #: data/gui/launch_rocket_yn.xml
 msgid "Rocket Ready"
 msgstr "De raket is klaar"
@@ -355,54 +349,84 @@ msgstr "De raket is klaar"
 msgid "Rocket ready to launch"
 msgstr "De raket is klaar om gelanceerd te worden."
 
-#: data/gui/speedpanel.xml
-msgid "Run the simulation with fast speed"
-msgstr "Zet het spel in de hoge snelheid"
+#: data/gui/launch_rocket_yn.xml
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"U kan de raket nu lanceren of wachten tot later. Als u wacht zal het u geld "
+"blijven kosten om de raket startklaar te houden. U kunt de raket later "
+"lanceren door te klikken op de lanceerbasisis."
 
-#: data/gui/speedpanel.xml
-msgid "Run the simulation with normal speed"
-msgstr "Zet het spel in normale snelheid"
+#: data/gui/loadgame.xml data/gui/mainmenu.xml
+msgid "Load"
+msgstr "Laden"
 
-#: data/gui/speedpanel.xml
-msgid "Run the simulation with very fast speed"
-msgstr "Zet het spel in de hoogste snelheid"
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Laad spel"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "Lichte industrie is beschikbaar"
+
+#: data/gui/ltindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"Het technische nivo is bereikt waarmee lichte industrie kan worden gebouwd. "
+"Lichte industrie produceert goederen."
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: data/gui/mainmenu.xml data/gui/newgame.xml
+msgid "New Game"
+msgstr "Nieuw spel"
+
+#: data/gui/mainmenu.xml data/gui/options.xml
+msgid "Options"
+msgstr "Opties"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Afsluiten"
 
 #: data/gui/mainmenu.xml
 msgid "Save"
 msgstr "Opslaan"
 
-#: data/gui/savegame.xml
-msgid "Save Game"
-msgstr "Spel opslaan"
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "Windmolens zijn beschikbaar"
 
-#: data/gui/schoolup.xml
-msgid "Schools available"
-msgstr "Scholen zijn beschikbaar"
-
-#: data/gui/coalmineup.xml
+#: data/gui/millup.xml
 msgid ""
-"See the help screen for more information on coal mines and coal surveys."
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
 msgstr ""
-"Lees de help-pagina's voor meer informatie over kolenmijnen en surveys naar "
-"kolen."
+"Het technische nivo is bereikt waarmee textiel-fabrieken kunnen worden "
+"gebouwd. Textielfabrieken gebruiken werk en voedsel om goederen te maken. "
+"Pasop: ze kunnen een heleboel voedsel gebruiken."
 
-#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
-#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalpowerup.xml
-#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/rocketup.xml data/gui/millup.xml
-#: data/gui/healthup.xml data/gui/universityup.xml data/gui/recycleup.xml
-#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
-#: data/gui/mod_wind_up.xml
-msgid "See the help screen for more information."
-msgstr "Lees de help-pagina's voor meer informatie."
+#: data/gui/minimap.xml
+msgid "$"
+msgstr "€"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
-msgid "Sell"
-msgstr "Verkopen"
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Eco"
 
-#: data/gui/coal_survey_yn.xml
-msgid "Send out Prospectors"
-msgstr "Prospectors uitzenden?"
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "Kaart"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "Druk op deze knop om de statistieken te zien"
 
 #: data/gui/minimap.xml
 msgid "Show Income and Expenses. Click this tab again to cycle through views."
@@ -410,13 +434,46 @@ msgstr ""
 "Toon inkomsten en uitgaven. klik opnieuw op deze tab om door de "
 "verschillende vensters te wisselen."
 
-#: data/gui/minimapswitchbuttons.xml
-msgid "Show coal depots"
-msgstr "Laat zien waar kolen in de grond zit"
-
 #: data/gui/minimap.xml
 msgid "Show economy graphs."
 msgstr "Toon de economische grafieken."
+
+#: data/gui/minimap.xml
+msgid "Show resources."
+msgstr "Toon de voorraden"
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "Toon het minikaartje"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "Stats"
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr "[+] zoom in, zodat minder gebouwen maar meer detils zichtbaar worden"
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] zoom out"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "[F1] druk op deze knop voor help-pagina's"
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] Hoge gebouwen verbergen."
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr ""
+"[v] Hiermee kan tussen de verschillende mini-kaartjes gewisseld worden."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "Laat zien waar kolen in de grond zit"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show fire department cover"
@@ -442,17 +499,9 @@ msgstr "Toon de vervuiling"
 msgid "Show power supply"
 msgstr "Toon het electriciteits net"
 
-#: data/gui/minimap.xml
-msgid "Show resources."
-msgstr "Toon de voorraden"
-
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show sport cover"
 msgstr "Toon de sportvelden"
-
-#: data/gui/minimap.xml
-msgid "Show the MiniMap"
-msgstr "Toon het minikaartje"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show traffic density"
@@ -462,27 +511,21 @@ msgstr "Toon het verkeer"
 msgid "Show unemployment"
 msgstr "Toon de werkloosheid"
 
-#: data/gui/solarpowerup.xml
-msgid "Solar Power Stations available"
-msgstr "Toon de electriciteits-centrales"
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "Moderne windmolens zijn beschikbaar"
 
-#: data/gui/nobull-tip.xml
-msgid "Sorry you can't bulldoze a tip."
-msgstr "Sorry, een vuilstort kan niet afgebroken worden."
-
-#: data/gui/too-old.xml
+#: data/gui/mod_wind_up.xml
 msgid ""
-"Sorry, the game you wanted is too old. Cannot load it. Still play with "
-"previous game."
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
 msgstr ""
+"Het technische nivo is bereikt waarmee moderne, meer efficiente windmolens "
+"kunnen worden gebouwd. "
 
-#: data/gui/options.xml
-msgid "Sound Effects"
-msgstr "Geluidseffecten"
-
-#: data/gui/creditslist.xml
-msgid "Sound and Music"
-msgstr "Geluid en muziek"
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Kies een scenario"
 
 #: data/gui/newgame.xml
 msgid "Start"
@@ -496,102 +539,11 @@ msgstr "Met een leeg speelveld beginnen."
 msgid "Start with random village."
 msgstr "Met een willekeurige stad beginnen."
 
-#: data/gui/minimap.xml
-msgid "Stats"
-msgstr "Stats"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Steel"
-msgstr "Staal"
-
-#: data/gui/pbar.xml
-msgid "Tech Level"
-msgstr "Tech niveau"
-
-#: data/gui/allgone.xml
-msgid "There are no people left in this city."
-msgstr "Er zijn geen mensen meer in deze stad."
-
-#: data/gui/coal_survey_yn.xml
-msgid "This will cost you 1 million once. After that it is free to call again."
-msgstr ""
-"Dit kost eenmalig 1 miljoen €. Daarna is het gratis om het opnieuw op te "
-"vragen."
-
-#: data/gui/launch-gone.xml
-msgid "Total Evacuation Complete."
-msgstr "Iedereen is geëvacueerd."
-
-#: data/gui/tradedialog.xml
-msgid "Trade Settings"
-msgstr "Handelsinstellingen"
-
-#: data/gui/creditslist.xml
-msgid "Translation"
-msgstr "Vertaling"
-
-#: data/gui/universityup.xml
-msgid "University available"
-msgstr "Universiteit is beschikbaar"
-
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
-msgid "Want to bulldoze?"
-msgstr "Wilt u het afbreken?"
-
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
-msgid "Warning"
-msgstr "Waarschuwing"
-
-#: data/gui/bulldoze_monument_yn.xml
-msgid "Warning: Bulldozing monuments is expensive"
-msgstr "Waarschuwing: Monumenten afbreken is duur "
-
-#: data/gui/bulldoze_shanty_yn.xml
-msgid "Warning: Bulldozing shanties is dangerous."
-msgstr "Waarschuwing: krottenwijken afbreken is gevaarlijk."
-
-#: data/gui/bulldoze_river_yn.xml
-msgid "Warning: Bulldozing water is expensive"
-msgstr "Waarschuwing: water verwijderen is duur."
-
-#: data/gui/launch-gone.xml
-msgid "Well done you have evacuated all your people."
-msgstr "Goed gedaan, alle mensen zijn geëvacueerd"
-
-#: data/gui/windmillup.xml
-msgid "Windmills available"
-msgstr "Windmolens zijn beschikbaar"
-
-#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
-#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
-msgid "Yes"
-msgstr "Ja"
-
-#: data/gui/fire.xml
-msgid "You better go and look for it"
-msgstr "Ga er naar zoeken"
-
-#: data/gui/launch_rocket_yn.xml
-msgid ""
-"You can launch the rocket now or wait until later. If you wait it will "
-"continue costing you money to keep the rocket ready. Launch it later by "
-"clicking on the rocket area."
-msgstr ""
-"U kan de raket nu lanceren of wachten tot later. Als u wacht zal het u geld "
-"blijven kosten om de raket startklaar te houden. U kunt de raket later "
-"lanceren door te klikken op de lanceerbasisis."
-
-#: data/gui/import-exportup.xml
-msgid ""
-"You can now import and export coal, goods, ore and steel. Read the help "
-"pages on these subjects to find out how to use them. "
-msgstr ""
-"Kolen, goederen, ijzererts en staal kunnen nu geïmporteerd en geëxporteerd "
-"worden. Lees de helppagina's over deze onderwerpen om te begrijpen hoe dit "
-"gebruikt kan worden. "
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-recycle.xml
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-solar-power.xml
+#: data/gui/no-credit-university.xml
+msgid "No Credit Available"
+msgstr "Geen geld beschikbaar"
 
 #: data/gui/no-credit-parkland.xml
 msgid ""
@@ -633,82 +585,29 @@ msgstr ""
 "U heeft geld tekort. De gemeenteraad staat niet toe dat er universiteiten "
 "gebouwd worden met geleend geld."
 
-#: data/gui/launch-evac.xml
-msgid ""
-"You have evacuated 1000 people. You might want to reduce the size of your "
-"economy to reflect the reduced population. "
-msgstr ""
-"Er zijn 1000 mensen geëvacueerd. Omdat er minder mensen zijn, wilt U "
-"mischien de economie kleiner maken."
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "Is niet toegestaan"
 
-#: data/gui/blacksmithup.xml
-msgid ""
-"You have reached the tech level which enables you to build blacksmiths. "
-"Blacksmiths use jobs and steel to make goods."
-msgstr ""
-"Het technische nivo is bereikt waarmee smederijen kunnen worden gebouwd. "
-"Smederijen gebruiken werk en staal om goederen te maken"
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "Sorry, een vuilstort kan niet afgebroken worden."
 
-#: data/gui/coalpowerup.xml
-msgid ""
-"You have reached the tech level which enables you to build coal fired power "
-"stations."
-msgstr ""
-"Het technische nivo is bereikt waarmee kolen-centrales kunnen worden "
-"gebouwd. "
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "Achtergrond muziek"
 
-#: data/gui/firestationup.xml
-msgid ""
-"You have reached the tech level which enables you to build fire stations. "
-"Fire stations prevent most fires from starting. If you haven't had any fires "
-"yet, you might not think you need them."
-msgstr ""
-"Het technische nivo is bereikt waarmee brandweerkazernes kunnen worden "
-"gebouwd. Brandweerkazernes zorgen ervoor dat de meeste vuren doven. Als er "
-"nog geen branden geweest zijn, zou men denken dat ze niet nodig zijn."
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Volledig scherm"
 
-#: data/gui/healthup.xml
-msgid ""
-"You have reached the tech level which enables you to build health centres. "
-"Heath centres reduce the number of people killed by pollution and increase "
-"overall productivity."
-msgstr ""
-"Het technische nivo is bereikt waarmee ziekenhuizen kunnen worden gebouwd. "
-"Ziekenhuizen zorgen ervoor dat er minder mensen dood gaan door vervuiling en "
-"verhogen daarom de productie."
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "Geluidseffecten"
 
-#: data/gui/hvindustryup.xml
-msgid ""
-"You have reached the tech level which enables you to build heavy industry "
-"(steel works). Heavy industry produces steel. "
-msgstr ""
-"Het technische nivo is bereikt waarmee zware industrie (staal-fabriek) kan "
-"worden gebouwd. Zware industrie produceert staal."
-
-#: data/gui/ltindustryup.xml
-msgid ""
-"You have reached the tech level which enables you to build light industry. "
-"Light industry produces goods. "
-msgstr ""
-"Het technische nivo is bereikt waarmee lichte industrie kan worden gebouwd. "
-"Lichte industrie produceert goederen."
-
-#: data/gui/millup.xml
-msgid ""
-"You have reached the tech level which enables you to build mills. Mills use "
-"jobs and food to make goods. Watch out, they can use a lot of food! "
-msgstr ""
-"Het technische nivo is bereikt waarmee textiel-fabrieken kunnen worden "
-"gebouwd. Textielfabrieken gebruiken werk en voedsel om goederen te maken. "
-"Pasop: ze kunnen een heleboel voedsel gebruiken."
-
-#: data/gui/mod_wind_up.xml
-msgid ""
-"You have reached the tech level which enables you to build modern, more "
-"efficient, windmills. "
-msgstr ""
-"Het technische nivo is bereikt waarmee moderne, meer efficiente windmolens "
-"kunnen worden gebouwd. "
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "Parken zijn beschikbaar"
 
 #: data/gui/parkup.xml
 msgid ""
@@ -717,6 +616,62 @@ msgid ""
 msgstr ""
 "Het technische nivo is bereikt waarmee parken kunnen worden gebouwd. Parken "
 "worden gebruikt om vervuiling te laten verdwijnen."
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Coal"
+msgstr "Steenkool"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Food"
+msgstr "Voedsel"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Goods"
+msgstr "Goederen"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml
+msgid "Jobs"
+msgstr "Werk"
+
+#: data/gui/pbar.xml
+msgid "Money"
+msgstr "Geld"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Ore"
+msgstr "IJzererts"
+
+#: data/gui/pbar.xml
+msgid "Population"
+msgstr "Bevolking"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Steel"
+msgstr "Staal"
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "Tech niveau"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Buy"
+msgstr "Kopen"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "Haven handelsinstellingen"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Product"
+msgstr "Produkt"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Sell"
+msgstr "Verkopen"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "Pottenbakkerijen zijn beschikbaar"
 
 #: data/gui/potteryup.xml
 msgid ""
@@ -728,14 +683,38 @@ msgstr ""
 "(ijzererts-mijnen zijn nodig om ijzererts te krijgen)"
 
 #: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "Spoorwegen zijn beschikbaar"
+
+#: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
 msgstr ""
 "Het technische nivo is bereikt waarmee spoorwegen kunnen worden gebouwd. "
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "Recycleercentrum is beschikbaar"
+
+#: data/gui/recycleup.xml
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr ""
+"Het technische nivo is bereikt waarmee een recycleercentrum kan worden "
+"gebouwd. Een recycleercentrum recycled gebruikte goederen naar ijzererts."
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "Rivieren zijn beschikbaar"
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
 msgstr ""
 "Het technische nivo is bereikt waarmee revieren kunnen worden gebouwd. "
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "Straten zijn beschikbaar"
 
 #: data/gui/roadup.xml
 msgid ""
@@ -744,6 +723,10 @@ msgid ""
 msgstr ""
 "Het technische nivo is bereikt waarmee straten kunnen worden gebouwd. Lees "
 "de help-pagina's voor meer informatie."
+
+#: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "Lanceerplatform is beschikbaar"
 
 #: data/gui/rocketup.xml
 msgid ""
@@ -755,6 +738,18 @@ msgstr ""
 "gebouwd. Lanceer-platformen maken mogelijk om de bevolking te evacueren en "
 "is daarmee een manier om het spel te winnen."
 
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Spel opslaan"
+
+#: data/gui/savegame.xml
+msgid "save to selected slot"
+msgstr "Opslaan in het geselecteerde slot"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "Scholen zijn beschikbaar"
+
 #: data/gui/schoolup.xml
 msgid ""
 "You have reached the tech level which enables you to build schools. Schools "
@@ -763,6 +758,34 @@ msgstr ""
 "Het technische nivo is bereikt waarmee scholen kunnen worden gebouwd. "
 "Scholen gebruiken werk en goederen om het technische nivo te verhogen."
 
+#: data/gui/shfire-oc.xml
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"Er is brand uitgebroken in een krottenwijk.De brand is niet onder controle "
+"en kan zich verspreiden naar andere gebieden."
+
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
+msgid "Fire"
+msgstr "Brand"
+
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
+msgid "Fire!"
+msgstr "Brand!"
+
+#: data/gui/shfire-uc.xml
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr ""
+"Er is brand uitgebroken in een krottenwijk.Het is beschermd tegen brand en "
+"LIJKT onder controle."
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "Toon de electriciteits-centrales"
+
 #: data/gui/solarpowerup.xml
 msgid ""
 "You have reached the tech level which enables you to build solar power "
@@ -770,6 +793,48 @@ msgid ""
 msgstr ""
 "Het technische nivo is bereikt waarmee zonne-energie centrales kunnen worden "
 "gebouwd."
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "Terug naar het hoofdmenu"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Pauze"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "Zet het spel in de hoge snelheid"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "Zet het spel in normale snelheid"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "Zet het spel in de hoogste snelheid"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "Economisch duurzaam"
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "Lincity heeft besloten dat U een duurzame economie heeft."
+
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "Handelsinstellingen"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "Universiteit is beschikbaar"
 
 #: data/gui/universityup.xml
 msgid ""
@@ -780,75 +845,10 @@ msgstr ""
 "Universiteiten leveren profesors, en die produceren meer kennis."
 
 #: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "Windmolens zijn beschikbaar"
+
+#: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
 msgstr ""
 "Het technische nivo is bereikt waarmee windmolens kunnen worden gebouwd."
-
-#: data/gui/coalmineup.xml
-msgid ""
-"You have reached the tech level which enables you to dig deep coal mines."
-msgstr ""
-"Het technische nivo is bereikt waarmee diepe kolenmijnen kunnen worden "
-"gedolven."
-
-#: data/gui/recycleup.xml
-msgid ""
-"You have reached the tech level which enables you to recycling centres. "
-"Recycling centres recycle used goods back into ore. "
-msgstr ""
-"Het technische nivo is bereikt waarmee een recycleercentrum kan worden "
-"gebouwd. Een recycleercentrum recycled gebruikte goederen naar ijzererts."
-
-#: data/gui/sustain.xml data/gui/launch-gone.xml
-msgid "You have won the game."
-msgstr "U heeft het spel gewonnen."
-
-#: data/gui/allgone.xml
-msgid "You should start a new career elsewhere."
-msgstr "Begin ergens anders een nieuwe cariere."
-
-#: data/gui/cricketup.xml
-msgid ""
-"Your people have invented basketball. Basketball Courts use a few jobs and "
-"goods and make people in the surrounding areas (about 10 units in each "
-"direction) happier."
-msgstr ""
-"Het technische nivo is bereikt waarmee basketbal-velden kunnen worden "
-"gebouwd. Basket-velden gebruiken een beetje werk en goederen. En maakt de "
-"mensen in de omliggende wijken (ongeveer 10 eenheden in elke richting) "
-"gelukkiger."
-
-#: data/gui/launch-fail.xml
-msgid ""
-"Your rocket crashed shortly after launch. People no longer trust the "
-"technology for evacuation. You must launch five more unmanned rockets to "
-"restore confidence."
-msgstr ""
-"De raket is kort na de lancering neergestort.. De mensen vertrouwen niet "
-"langer deze technologie voor evacuatie. Eerst moeten vijf onbemande raketten "
-"gelanceerd worden om het vertrouwen te winnen."
-
-#: data/gui/minimap.xml
-msgid "[+] Zoom in view so that less buildings but more details are visible"
-msgstr "[+] zoom in, zodat minder gebouwen maar meer detils zichtbaar worden"
-
-#: data/gui/minimap.xml
-msgid "[-] Zoom out"
-msgstr "[-] zoom out"
-
-#: data/gui/minimap.xml
-msgid "[F1] Press this button to get help"
-msgstr "[F1] druk op deze knop voor help-pagina's"
-
-#: data/gui/minimap.xml
-msgid "[h] Hide high buildings. "
-msgstr "[h] Hoge gebouwen verbergen."
-
-#: data/gui/minimap.xml
-msgid "[v] Cycle through MiniMap overlay modes. "
-msgstr ""
-"[v] Hiermee kan tussen de verschillende mini-kaartjes gewisseld worden."
-
-#: data/gui/savegame.xml
-msgid "save to selected slot"
-msgstr "Opslaan in het geselecteerde slot"

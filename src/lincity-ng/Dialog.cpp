@@ -395,7 +395,7 @@ void Dialog::gameStats(){
 	     group_count[GROUP_MARKET],
 	     group_count[GROUP_ORGANIC_FARM]);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(".     Water wells %4d"), group_count[GROUP_WATERWELL]);
+    snprintf (outf, maxlength, _(".  Water wells %4d"), group_count[GROUP_WATERWELL]);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, _(".    Monuments %4d         Schools %4d     Universities %4d")
 	     ,group_count[GROUP_MONUMENT], group_count[GROUP_SCHOOL]

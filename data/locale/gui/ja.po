@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LinCity NG\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Feb  3 18:03:35 2008\n"
+"POT-Creation-Date: Mon Feb 18 22:35:34 2008\n"
 "PO-Revision-Date: 2007-12-27 20:04+0900\n"
 "Last-Translator: MH35 <mh35jp@gmail.com>\n"
 "Language-Team: German\n"
@@ -17,54 +17,106 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/gui/minimap.xml
-msgid "$"
-msgstr "￥"
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "誰も家にいません"
 
-#: data/gui/fire.xml
-msgid "A Fire has started"
-msgstr "火事が起こりました。"
+#: data/gui/allgone.xml data/gui/blacksmithup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/cricketup.xml data/gui/fire.xml
+#: data/gui/firestationup.xml data/gui/healthup.xml data/gui/hvindustryup.xml
+#: data/gui/import-exportup.xml data/gui/launch-evac.xml
+#: data/gui/launch-fail.xml data/gui/launch-gone.xml data/gui/launch-good.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-recycle.xml
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-solar-power.xml
+#: data/gui/no-credit-university.xml data/gui/nobull-tip.xml
+#: data/gui/options.xml data/gui/parkup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/recycleup.xml data/gui/riverup.xml
+#: data/gui/roadup.xml data/gui/rocketup.xml data/gui/schoolup.xml
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml data/gui/solarpowerup.xml
+#: data/gui/sustain.xml data/gui/too-old.xml data/gui/universityup.xml
+#: data/gui/warning.xml data/gui/windmillup.xml
+msgid "Ok"
+msgstr "OK"
 
-#: data/gui/shfire-uc.xml
-msgid ""
-"A fire has broken out at a shanty town. It is in a fire cover area and "
-"APPEARS to be under control. "
-msgstr ""
-"火事はスラム街から発生しました。それは火事のカバーする区域にあり鎮火可能のよ"
-"うに見えます。"
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "この街にはもう誰もいません。"
 
-#: data/gui/shfire-oc.xml
-msgid ""
-"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
-"spread to other areas. "
-msgstr ""
-"火事はスラム街から発生しました。火事は制御不能で他の区域に広がるかもしれませ"
-"ん。"
-
-#: data/gui/credits.xml data/gui/savegame.xml data/gui/newgame.xml
-#: data/gui/loadgame.xml
-msgid "Back"
-msgstr "戻る"
-
-#: data/gui/options.xml
-msgid "Background Music"
-msgstr "BGM"
-
-#: data/gui/cricketup.xml
-msgid "Basketball Courts available"
-msgstr "バスケットボールコートが利用可能です"
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "あなたは新しい経歴を別の場所で開始すべきです。"
 
 #: data/gui/blacksmithup.xml
 msgid "Blacksmiths available"
 msgstr "鍛冶屋が利用可能です"
 
+#: data/gui/blacksmithup.xml data/gui/coalmineup.xml data/gui/coalpowerup.xml
+#: data/gui/cricketup.xml data/gui/firestationup.xml data/gui/healthup.xml
+#: data/gui/hvindustryup.xml data/gui/import-exportup.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/parkup.xml data/gui/potteryup.xml data/gui/railwayup.xml
+#: data/gui/recycleup.xml data/gui/riverup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/schoolup.xml data/gui/solarpowerup.xml
+#: data/gui/universityup.xml data/gui/windmillup.xml
+msgid "New Invention"
+msgstr "新しい発明"
+
+#: data/gui/blacksmithup.xml data/gui/coalpowerup.xml data/gui/cricketup.xml
+#: data/gui/firestationup.xml data/gui/healthup.xml data/gui/hvindustryup.xml
+#: data/gui/ltindustryup.xml data/gui/millup.xml data/gui/mod_wind_up.xml
+#: data/gui/parkup.xml data/gui/potteryup.xml data/gui/railwayup.xml
+#: data/gui/recycleup.xml data/gui/riverup.xml data/gui/rocketup.xml
+#: data/gui/schoolup.xml data/gui/solarpowerup.xml data/gui/universityup.xml
+#: data/gui/windmillup.xml
+msgid "See the help screen for more information."
+msgstr "より詳細な情報はヘルプスクリーンを見てください。"
+
+#: data/gui/blacksmithup.xml
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"あなたは鍛冶屋を建設するだけの技術レベルに到達しました。鍛冶屋は仕事と鉄を使"
+"い商品を作ります。"
+
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Bulldozing a monument costs a lot of money."
 msgstr "モニュメントを破壊するには多額の費用がかかります。"
 
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/launch_rocket_yn.xml
+msgid "No"
+msgstr "いいえ"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "破壊したいですか?"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/too-old.xml data/gui/warning.xml
+msgid "Warning"
+msgstr "警告"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "警告: モニュメント破壊は高いです。"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/launch_rocket_yn.xml
+msgid "Yes"
+msgstr "はい"
+
 #: data/gui/bulldoze_river_yn.xml
 msgid "Bulldozing a section of river costs a lot of money."
 msgstr "川の区域を破壊するには多額の費用がかかります。"
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "警告: 水の破壊は高いです"
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
@@ -72,121 +124,204 @@ msgstr ""
 "スラム街を破壊するには多額の費用がかかり、もしかしたら火事が起こるかもしれま"
 "せん。"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
-msgid "Buy"
-msgstr "購入する"
-
-#: data/gui/newgame.xml
-msgid "Choose Scenario"
-msgstr "シナリオを選ぶ"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Coal"
-msgstr "石炭"
-
-#: data/gui/coalpowerup.xml
-msgid "Coal Fired Power Stations available"
-msgstr "石炭発電所が利用可能です"
-
-#: data/gui/coalmineup.xml
-msgid "Coal Mine available"
-msgstr "炭鉱が利用可能です"
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "警告: スラム街の破壊は危険です。"
 
 #: data/gui/coal_survey_yn.xml
 msgid "Coal Survey"
 msgstr "石炭調査"
 
-#: data/gui/creditslist.xml
-msgid "Code"
-msgstr "プログラムコード"
-
-#: data/gui/mainmenu.xml
-msgid "Continue"
-msgstr "続ける"
-
-#: data/gui/mainmenu.xml data/gui/creditslist.xml
-msgid "Credits"
-msgstr "著作権表示"
-
 #: data/gui/coal_survey_yn.xml
 msgid "Do coal survey?"
 msgstr "石炭調査を行いますか?"
 
-#: data/gui/launch-good.xml
-msgid "Doing well."
-msgstr "よくやってます。"
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "採掘者を送り出す"
 
-#: data/gui/minimap.xml
-msgid "Eco"
-msgstr "Eco"
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr ""
+"これは1度だけ100万の費用がかかります。その後は自由に再び呼び出すことが可能で"
+"す。"
 
-#: data/gui/sustain.xml
-msgid "Economy Sustainable."
-msgstr "経済は持続可能です。"
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "炭鉱が利用可能です"
 
-#: data/gui/launch-evac.xml
-msgid "Evacuation Launch Good"
-msgstr "疎開のための打ち上げは成功です"
+#: data/gui/coalmineup.xml
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr ""
+"石炭鉱山および石炭調査のより詳細な情報はヘルプスクリーンを見てください。"
 
-#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
-msgid "Fire"
-msgstr "火事"
+#: data/gui/coalmineup.xml
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr "あなたは深い石炭鉱石を掘るだけの技術レベルに到達しました。"
 
-#: data/gui/firestationup.xml
-msgid "Fire Stations available"
-msgstr "消防署が利用可能です"
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "石炭発電所が利用可能です"
 
-#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
-msgid "Fire!"
-msgstr "火事だ!"
+#: data/gui/coalpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr "あなたは石炭火力発電所を建設するだけの技術レベルに到達しました。"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Food"
-msgstr "食料"
+#: data/gui/credits.xml data/gui/loadgame.xml data/gui/newgame.xml
+#: data/gui/savegame.xml
+msgid "Back"
+msgstr "戻る"
 
-#: data/gui/options.xml
-msgid "Fullscreen"
-msgstr "フルスクリーン"
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "プログラムコード"
 
-#: data/gui/gamestats.xml
-msgid "Gamestats"
-msgstr "ゲーム統計"
-
-#: data/gui/speedpanel.xml
-msgid "Go back to Main Menu"
-msgstr "メインメニューに戻る"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Goods"
-msgstr "商品"
+#: data/gui/creditslist.xml data/gui/mainmenu.xml
+msgid "Credits"
+msgstr "著作権表示"
 
 #: data/gui/creditslist.xml
 msgid "Graphics"
 msgstr "グラフィック"
 
-#: data/gui/portdialog.xml
-msgid "Harbour Trade Settings"
-msgstr "港の交易の設定"
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "元のアイデアとコード"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "効果音と音楽"
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "翻訳"
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "バスケットボールコートが利用可能です"
+
+#: data/gui/cricketup.xml
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
+msgstr ""
+"あなたの人々はバスケットボールを発明しました。バスケットボールのコートは少し"
+"の仕事と商品を用いて周囲の地域(おおむね各方向10ユニット程度)の人々を幸せにし"
+"ます。"
+
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "火事が起こりました。"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "それを見に行くべきです"
+
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "消防署が利用可能です"
+
+#: data/gui/firestationup.xml
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"あなたは消防署を建設するだけの技術レベルに到達しました。消防署はほとんどの火"
+"事を防止します。もしこれまで火事を起こしたことがなければ、これが必要ではない"
+"と思うでしょう。"
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "ゲーム統計"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "OK"
 
 #: data/gui/healthup.xml
 msgid "Health Centres available"
 msgstr "病院が利用可能です"
 
+#: data/gui/healthup.xml
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"あなたは病院を建設するだけの技術レベルに到達しました。病院は汚染による死者を"
+"削減し全体の生産力を向上させます。"
+
 #: data/gui/hvindustryup.xml
 msgid "Heavy Industry available"
 msgstr "重工業が利用可能です"
+
+#: data/gui/hvindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"あなたは重工業工場(製鋼場)を建設するだけの技術レベルに到達しました。製鋼場は"
+"鉄を生産します。"
 
 #: data/gui/import-exportup.xml
 msgid "Import/Export available"
 msgstr "輸入/輸出が利用可能です"
 
-#: data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Jobs"
-msgstr "職業"
+#: data/gui/import-exportup.xml
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"あなたは今や石炭、商品、鉱石、鉄の輸出入ができます。使い方を知るためにこの主"
+"題についてのヘルプページを読んでください。"
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "疎開のための打ち上げは成功です"
+
+#: data/gui/launch-evac.xml
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"あなたは1000人を疎開させました。あなたは削減された人口を反映して経済規模を縮"
+"小させたいでしょう。"
 
 #: data/gui/launch-fail.xml
 msgid "Launch Failure"
 msgstr "打ち上げ失敗"
+
+#: data/gui/launch-fail.xml
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"あなたのロケットは打ち上げ直後に衝突しました。人々は今や疎開のための技術を信"
+"用しません。あなたは5以上の無人ロケットを信頼回復のために打ち上げなければなり"
+"ません。"
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "全疎開が完了しました。"
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "よくやりました。あなたはすべての人間を疎開させました。"
+
+#: data/gui/launch-gone.xml data/gui/sustain.xml
+msgid "You have won the game."
+msgstr "あなたはゲームに勝利しました。"
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "よくやってます。"
 
 #: data/gui/launch-good.xml
 msgid "Launch Successfull"
@@ -196,155 +331,6 @@ msgstr "打ち上げ成功"
 msgid "Launch now?"
 msgstr "今打ち上げますか?"
 
-#: data/gui/ltindustryup.xml
-msgid "Light Industry available"
-msgstr "軽工業が利用可能です"
-
-#: data/gui/sustain.xml
-msgid "LinCity has determined that you have a sustainable economy."
-msgstr "LinCityはあなたが持続可能な経済を保有していることを決定しました。"
-
-#: data/gui/mainmenu.xml data/gui/loadgame.xml
-msgid "Load"
-msgstr "ロード"
-
-#: data/gui/loadgame.xml
-msgid "Load Game"
-msgstr "ゲームを読み込む"
-
-#: data/gui/minimap.xml
-msgid "Map"
-msgstr "地図"
-
-#: data/gui/millup.xml
-msgid "Mills available"
-msgstr "織物工場が利用可能です"
-
-#: data/gui/mod_wind_up.xml
-msgid "Modern Windmills available"
-msgstr "現代風風車が利用可能です"
-
-#: data/gui/pbar.xml
-msgid "Money"
-msgstr "金"
-
-#: data/gui/mainmenu.xml data/gui/newgame.xml
-msgid "New Game"
-msgstr "新しいゲーム"
-
-#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
-#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalmineup.xml
-#: data/gui/coalpowerup.xml data/gui/solarpowerup.xml data/gui/parkup.xml
-#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/roadup.xml
-#: data/gui/rocketup.xml data/gui/millup.xml data/gui/healthup.xml
-#: data/gui/universityup.xml data/gui/recycleup.xml data/gui/blacksmithup.xml
-#: data/gui/schoolup.xml data/gui/firestationup.xml
-#: data/gui/import-exportup.xml data/gui/mod_wind_up.xml
-msgid "New Invention"
-msgstr "新しい発明"
-
-#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
-#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
-msgid "No"
-msgstr "いいえ"
-
-#: data/gui/no-credit-rocket.xml data/gui/no-credit-parkland.xml
-#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
-#: data/gui/no-credit-recycle.xml
-msgid "No Credit Available"
-msgstr "何も著作権表示が利用可能ではありません"
-
-#: data/gui/allgone.xml
-msgid "Nobody Home"
-msgstr "誰も家にいません"
-
-#: data/gui/nobull-tip.xml
-msgid "Not Allowed"
-msgstr "許可されない"
-
-#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
-#: data/gui/cricketup.xml data/gui/options.xml data/gui/riverup.xml
-#: data/gui/coalmineup.xml data/gui/coalpowerup.xml data/gui/launch-good.xml
-#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
-#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
-#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
-#: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
-#: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
-#: data/gui/no-credit-solar-power.xml data/gui/no-credit-university.xml
-#: data/gui/no-credit-recycle.xml data/gui/launch-fail.xml
-#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
-#: data/gui/import-exportup.xml data/gui/launch-gone.xml
-#: data/gui/mod_wind_up.xml data/gui/shfire-oc.xml data/gui/warning.xml
-#: data/gui/too-old.xml
-msgid "Ok"
-msgstr "OK"
-
-#: data/gui/gamestats.xml
-msgid "Okay"
-msgstr "OK"
-
-#: data/gui/options.xml data/gui/mainmenu.xml
-msgid "Options"
-msgstr "オプション"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Ore"
-msgstr "鉱石"
-
-#: data/gui/creditslist.xml
-msgid "Original Idea and Code"
-msgstr "元のアイデアとコード"
-
-#: data/gui/parkup.xml
-msgid "Parks available"
-msgstr "公園が利用可能です"
-
-#: data/gui/speedpanel.xml
-msgid "Pause the game"
-msgstr "ゲームを一時停止する"
-
-#: data/gui/pbar.xml
-msgid "Population"
-msgstr "人口"
-
-#: data/gui/potteryup.xml
-msgid "Potteries available"
-msgstr "陶器工場が利用可能です"
-
-#: data/gui/minimap.xml
-msgid "Press this button to show statistics"
-msgstr "このボタンを押して統計を見る"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
-msgid "Product"
-msgstr "生産"
-
-#: data/gui/mainmenu.xml
-msgid "Quit"
-msgstr "終了"
-
-#: data/gui/railwayup.xml
-msgid "Railways available"
-msgstr "線路が利用可能です"
-
-#: data/gui/recycleup.xml
-msgid "Recycling Centres available"
-msgstr "リサイクル工場が利用可能です"
-
-#: data/gui/riverup.xml
-msgid "Rivers available"
-msgstr "川が利用可能です"
-
-#: data/gui/roadup.xml
-msgid "Roads available"
-msgstr "道路が利用可能です"
-
-#: data/gui/rocketup.xml
-msgid "Rocket Launch Pad available"
-msgstr "ロケット打ち上げ場が利用可能です"
-
 #: data/gui/launch_rocket_yn.xml
 msgid "Rocket Ready"
 msgstr "ロケット準備完了"
@@ -353,53 +339,83 @@ msgstr "ロケット準備完了"
 msgid "Rocket ready to launch"
 msgstr "ロケット打ち上げ準備完了"
 
-#: data/gui/speedpanel.xml
-msgid "Run the simulation with fast speed"
-msgstr "高速シミュレーション実行"
+#: data/gui/launch_rocket_yn.xml
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"あなたはロケットを今打ち上げるか後にするかできます。もしあなたが延期する場合"
+"はロケットを準備完了状態に維持するために費用がかかりつづけます。あとで打ち上"
+"げるにはロケット区域をクリックしてください。"
 
-#: data/gui/speedpanel.xml
-msgid "Run the simulation with normal speed"
-msgstr "中速シミュレーション実行"
+#: data/gui/loadgame.xml data/gui/mainmenu.xml
+msgid "Load"
+msgstr "ロード"
 
-#: data/gui/speedpanel.xml
-msgid "Run the simulation with very fast speed"
-msgstr "超高速シミュレーション実行"
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "ゲームを読み込む"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "軽工業が利用可能です"
+
+#: data/gui/ltindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"あなたは軽工業工場を建設するだけの技術レベルに到達しました。軽工業工場は商品"
+"を生産します。"
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "続ける"
+
+#: data/gui/mainmenu.xml data/gui/newgame.xml
+msgid "New Game"
+msgstr "新しいゲーム"
+
+#: data/gui/mainmenu.xml data/gui/options.xml
+msgid "Options"
+msgstr "オプション"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "終了"
 
 #: data/gui/mainmenu.xml
 msgid "Save"
 msgstr "保存"
 
-#: data/gui/savegame.xml
-msgid "Save Game"
-msgstr "ゲームを保存する"
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "織物工場が利用可能です"
 
-#: data/gui/schoolup.xml
-msgid "Schools available"
-msgstr "学校が利用可能です"
-
-#: data/gui/coalmineup.xml
+#: data/gui/millup.xml
 msgid ""
-"See the help screen for more information on coal mines and coal surveys."
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
 msgstr ""
-"石炭鉱山および石炭調査のより詳細な情報はヘルプスクリーンを見てください。"
+"あなたは織物工場を建設するだけの技術レベルに到達しました。織物工場は職業と食"
+"料を用いて商品を作ります。見てください、大量に食料を消費するでしょう。"
 
-#: data/gui/windmillup.xml data/gui/hvindustryup.xml data/gui/ltindustryup.xml
-#: data/gui/cricketup.xml data/gui/riverup.xml data/gui/coalpowerup.xml
-#: data/gui/solarpowerup.xml data/gui/parkup.xml data/gui/potteryup.xml
-#: data/gui/railwayup.xml data/gui/rocketup.xml data/gui/millup.xml
-#: data/gui/healthup.xml data/gui/universityup.xml data/gui/recycleup.xml
-#: data/gui/blacksmithup.xml data/gui/schoolup.xml data/gui/firestationup.xml
-#: data/gui/mod_wind_up.xml
-msgid "See the help screen for more information."
-msgstr "より詳細な情報はヘルプスクリーンを見てください。"
+#: data/gui/minimap.xml
+msgid "$"
+msgstr "￥"
 
-#: data/gui/portdialog.xml data/gui/tradedialog.xml
-msgid "Sell"
-msgstr "売る"
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Eco"
 
-#: data/gui/coal_survey_yn.xml
-msgid "Send out Prospectors"
-msgstr "採掘者を送り出す"
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "地図"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "このボタンを押して統計を見る"
 
 #: data/gui/minimap.xml
 msgid "Show Income and Expenses. Click this tab again to cycle through views."
@@ -407,13 +423,45 @@ msgstr ""
 "収入と支出を見る。見ることを繰り返すためにこのタブをもう一度クリックしてくだ"
 "さい。"
 
-#: data/gui/minimapswitchbuttons.xml
-msgid "Show coal depots"
-msgstr "石炭貯蔵庫を見る"
-
 #: data/gui/minimap.xml
 msgid "Show economy graphs."
 msgstr "経済グラフを見る"
+
+#: data/gui/minimap.xml
+msgid "Show resources."
+msgstr "資源を見る"
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "小さい地図を見る"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "統計"
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr "[+] 少ないがより詳細に見えるようにするためにズームする"
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] ズームアウト"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr " [F1] ヘルプを見る"
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] 高い建物を隠す。"
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] オーバーレイモードで小さい地図を循環する"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "石炭貯蔵庫を見る"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show fire department cover"
@@ -439,17 +487,9 @@ msgstr "汚染密度を見る"
 msgid "Show power supply"
 msgstr "電力供給を見る"
 
-#: data/gui/minimap.xml
-msgid "Show resources."
-msgstr "資源を見る"
-
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show sport cover"
 msgstr "スポーツのカバー領域を見る"
-
-#: data/gui/minimap.xml
-msgid "Show the MiniMap"
-msgstr "小さい地図を見る"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show traffic density"
@@ -459,27 +499,20 @@ msgstr "交通密度を見る"
 msgid "Show unemployment"
 msgstr "非雇用者を見る"
 
-#: data/gui/solarpowerup.xml
-msgid "Solar Power Stations available"
-msgstr "太陽光発電所が利用可能です"
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "現代風風車が利用可能です"
 
-#: data/gui/nobull-tip.xml
-msgid "Sorry you can't bulldoze a tip."
-msgstr "残念ですがあなたは埋め立て場を破壊できません。"
-
-#: data/gui/too-old.xml
+#: data/gui/mod_wind_up.xml
 msgid ""
-"Sorry, the game you wanted is too old. Cannot load it. Still play with "
-"previous game."
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
 msgstr ""
+"あなたはより効率的な現代的風車を建設するだけの技術レベルに到達しました。"
 
-#: data/gui/options.xml
-msgid "Sound Effects"
-msgstr "効果音"
-
-#: data/gui/creditslist.xml
-msgid "Sound and Music"
-msgstr "効果音と音楽"
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "シナリオを選ぶ"
 
 #: data/gui/newgame.xml
 msgid "Start"
@@ -493,101 +526,11 @@ msgstr "空のボードで始める"
 msgid "Start with random village."
 msgstr "ランダムな村で始める。"
 
-#: data/gui/minimap.xml
-msgid "Stats"
-msgstr "統計"
-
-#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
-msgid "Steel"
-msgstr "鉄"
-
-#: data/gui/pbar.xml
-msgid "Tech Level"
-msgstr "技術レベル"
-
-#: data/gui/allgone.xml
-msgid "There are no people left in this city."
-msgstr "この街にはもう誰もいません。"
-
-#: data/gui/coal_survey_yn.xml
-msgid "This will cost you 1 million once. After that it is free to call again."
-msgstr ""
-"これは1度だけ100万の費用がかかります。その後は自由に再び呼び出すことが可能で"
-"す。"
-
-#: data/gui/launch-gone.xml
-msgid "Total Evacuation Complete."
-msgstr "全疎開が完了しました。"
-
-#: data/gui/tradedialog.xml
-msgid "Trade Settings"
-msgstr "貿易設定"
-
-#: data/gui/creditslist.xml
-msgid "Translation"
-msgstr "翻訳"
-
-#: data/gui/universityup.xml
-msgid "University available"
-msgstr "大学が利用可能です。"
-
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
-msgid "Want to bulldoze?"
-msgstr "破壊したいですか?"
-
-#: data/gui/bulldoze_river_yn.xml data/gui/bulldoze_monument_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
-msgid "Warning"
-msgstr "警告"
-
-#: data/gui/bulldoze_monument_yn.xml
-msgid "Warning: Bulldozing monuments is expensive"
-msgstr "警告: モニュメント破壊は高いです。"
-
-#: data/gui/bulldoze_shanty_yn.xml
-msgid "Warning: Bulldozing shanties is dangerous."
-msgstr "警告: スラム街の破壊は危険です。"
-
-#: data/gui/bulldoze_river_yn.xml
-msgid "Warning: Bulldozing water is expensive"
-msgstr "警告: 水の破壊は高いです"
-
-#: data/gui/launch-gone.xml
-msgid "Well done you have evacuated all your people."
-msgstr "よくやりました。あなたはすべての人間を疎開させました。"
-
-#: data/gui/windmillup.xml
-msgid "Windmills available"
-msgstr "風車が利用可能です"
-
-#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
-#: data/gui/bulldoze_monument_yn.xml data/gui/coal_survey_yn.xml
-#: data/gui/bulldoze_shanty_yn.xml
-msgid "Yes"
-msgstr "はい"
-
-#: data/gui/fire.xml
-msgid "You better go and look for it"
-msgstr "それを見に行くべきです"
-
-#: data/gui/launch_rocket_yn.xml
-msgid ""
-"You can launch the rocket now or wait until later. If you wait it will "
-"continue costing you money to keep the rocket ready. Launch it later by "
-"clicking on the rocket area."
-msgstr ""
-"あなたはロケットを今打ち上げるか後にするかできます。もしあなたが延期する場合"
-"はロケットを準備完了状態に維持するために費用がかかりつづけます。あとで打ち上"
-"げるにはロケット区域をクリックしてください。"
-
-#: data/gui/import-exportup.xml
-msgid ""
-"You can now import and export coal, goods, ore and steel. Read the help "
-"pages on these subjects to find out how to use them. "
-msgstr ""
-"あなたは今や石炭、商品、鉱石、鉄の輸出入ができます。使い方を知るためにこの主"
-"題についてのヘルプページを読んでください。"
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-recycle.xml
+#: data/gui/no-credit-rocket.xml data/gui/no-credit-solar-power.xml
+#: data/gui/no-credit-university.xml
+msgid "No Credit Available"
+msgstr "何も著作権表示が利用可能ではありません"
 
 #: data/gui/no-credit-parkland.xml
 msgid ""
@@ -629,77 +572,29 @@ msgstr ""
 "あなたは財政赤字を保有しています。立法府は公約の大学を建設するのを許可しない"
 "でしょう。"
 
-#: data/gui/launch-evac.xml
-msgid ""
-"You have evacuated 1000 people. You might want to reduce the size of your "
-"economy to reflect the reduced population. "
-msgstr ""
-"あなたは1000人を疎開させました。あなたは削減された人口を反映して経済規模を縮"
-"小させたいでしょう。"
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "許可されない"
 
-#: data/gui/blacksmithup.xml
-msgid ""
-"You have reached the tech level which enables you to build blacksmiths. "
-"Blacksmiths use jobs and steel to make goods."
-msgstr ""
-"あなたは鍛冶屋を建設するだけの技術レベルに到達しました。鍛冶屋は仕事と鉄を使"
-"い商品を作ります。"
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "残念ですがあなたは埋め立て場を破壊できません。"
 
-#: data/gui/coalpowerup.xml
-msgid ""
-"You have reached the tech level which enables you to build coal fired power "
-"stations."
-msgstr "あなたは石炭火力発電所を建設するだけの技術レベルに到達しました。"
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "BGM"
 
-#: data/gui/firestationup.xml
-msgid ""
-"You have reached the tech level which enables you to build fire stations. "
-"Fire stations prevent most fires from starting. If you haven't had any fires "
-"yet, you might not think you need them."
-msgstr ""
-"あなたは消防署を建設するだけの技術レベルに到達しました。消防署はほとんどの火"
-"事を防止します。もしこれまで火事を起こしたことがなければ、これが必要ではない"
-"と思うでしょう。"
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "フルスクリーン"
 
-#: data/gui/healthup.xml
-msgid ""
-"You have reached the tech level which enables you to build health centres. "
-"Heath centres reduce the number of people killed by pollution and increase "
-"overall productivity."
-msgstr ""
-"あなたは病院を建設するだけの技術レベルに到達しました。病院は汚染による死者を"
-"削減し全体の生産力を向上させます。"
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "効果音"
 
-#: data/gui/hvindustryup.xml
-msgid ""
-"You have reached the tech level which enables you to build heavy industry "
-"(steel works). Heavy industry produces steel. "
-msgstr ""
-"あなたは重工業工場(製鋼場)を建設するだけの技術レベルに到達しました。製鋼場は"
-"鉄を生産します。"
-
-#: data/gui/ltindustryup.xml
-msgid ""
-"You have reached the tech level which enables you to build light industry. "
-"Light industry produces goods. "
-msgstr ""
-"あなたは軽工業工場を建設するだけの技術レベルに到達しました。軽工業工場は商品"
-"を生産します。"
-
-#: data/gui/millup.xml
-msgid ""
-"You have reached the tech level which enables you to build mills. Mills use "
-"jobs and food to make goods. Watch out, they can use a lot of food! "
-msgstr ""
-"あなたは織物工場を建設するだけの技術レベルに到達しました。織物工場は職業と食"
-"料を用いて商品を作ります。見てください、大量に食料を消費するでしょう。"
-
-#: data/gui/mod_wind_up.xml
-msgid ""
-"You have reached the tech level which enables you to build modern, more "
-"efficient, windmills. "
-msgstr ""
-"あなたはより効率的な現代的風車を建設するだけの技術レベルに到達しました。"
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "公園が利用可能です"
 
 #: data/gui/parkup.xml
 msgid ""
@@ -708,6 +603,62 @@ msgid ""
 msgstr ""
 "あなたは公園を建設するだけの技術レベルに到達しました。公園は汚染を吸収するた"
 "めに使用されます。"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Coal"
+msgstr "石炭"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Food"
+msgstr "食料"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Goods"
+msgstr "商品"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml
+msgid "Jobs"
+msgstr "職業"
+
+#: data/gui/pbar.xml
+msgid "Money"
+msgstr "金"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Ore"
+msgstr "鉱石"
+
+#: data/gui/pbar.xml
+msgid "Population"
+msgstr "人口"
+
+#: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Steel"
+msgstr "鉄"
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "技術レベル"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Buy"
+msgstr "購入する"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "港の交易の設定"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Product"
+msgstr "生産"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Sell"
+msgstr "売る"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "陶器工場が利用可能です"
 
 #: data/gui/potteryup.xml
 msgid ""
@@ -718,12 +669,36 @@ msgstr ""
 "石を利用して商品を生産します。 (あなたは鉱石を得るために鉱山が必要です。)"
 
 #: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "線路が利用可能です"
+
+#: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
 msgstr "あなたは線路を建設するだけの技術レベルに到達しました。"
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "リサイクル工場が利用可能です"
+
+#: data/gui/recycleup.xml
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr ""
+"あなたはリサイクル工場を建設するだけの技術レベルに到達しました。リサイクル工"
+"場は商品を使用して鉱石に戻します。"
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "川が利用可能です"
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
 msgstr "あなたは川を建設するだけの技術レベルに到達しました。"
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "道路が利用可能です"
 
 #: data/gui/roadup.xml
 msgid ""
@@ -734,6 +709,10 @@ msgstr ""
 "めにヘルプスクリーンを参照してください。"
 
 #: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "ロケット打ち上げ場が利用可能です"
+
+#: data/gui/rocketup.xml
 msgid ""
 "You have reached the tech level which enables you to build rocket launch "
 "pads. Rockets enable you to evacuate your population and is a way to 'win' "
@@ -741,6 +720,18 @@ msgid ""
 msgstr ""
 "あなたはロケット打ち上げ場を建設するだけの技術レベルに到達しました。ロケット"
 "打ち上げ場は人口を疎開させることを可能にしゲームに「勝利する」方法です。"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "ゲームを保存する"
+
+#: data/gui/savegame.xml
+msgid "save to selected slot"
+msgstr "選んだスロットにセーブする"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "学校が利用可能です"
 
 #: data/gui/schoolup.xml
 msgid ""
@@ -750,11 +741,81 @@ msgstr ""
 "あなたは学校を建設するだけの技術レベルに到達しました。学校は仕事と商品を使用"
 "して技術レベルを向上します。"
 
+#: data/gui/shfire-oc.xml
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"火事はスラム街から発生しました。火事は制御不能で他の区域に広がるかもしれませ"
+"ん。"
+
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
+msgid "Fire"
+msgstr "火事"
+
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
+msgid "Fire!"
+msgstr "火事だ!"
+
+#: data/gui/shfire-uc.xml
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr ""
+"火事はスラム街から発生しました。それは火事のカバーする区域にあり鎮火可能のよ"
+"うに見えます。"
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "太陽光発電所が利用可能です"
+
 #: data/gui/solarpowerup.xml
 msgid ""
 "You have reached the tech level which enables you to build solar power "
 "stations. "
 msgstr "あなたは太陽光発電所を建設するだけの技術レベルに到達しました。"
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "メインメニューに戻る"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "ゲームを一時停止する"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "高速シミュレーション実行"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "中速シミュレーション実行"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "超高速シミュレーション実行"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "経済は持続可能です。"
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "LinCityはあなたが持続可能な経済を保有していることを決定しました。"
+
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "貿易設定"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "大学が利用可能です。"
 
 #: data/gui/universityup.xml
 msgid ""
@@ -765,70 +826,9 @@ msgstr ""
 "れはより技術を生産します。"
 
 #: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "風車が利用可能です"
+
+#: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
 msgstr "あなたは風車を建設するだけの技術レベルに到達しました。"
-
-#: data/gui/coalmineup.xml
-msgid ""
-"You have reached the tech level which enables you to dig deep coal mines."
-msgstr "あなたは深い石炭鉱石を掘るだけの技術レベルに到達しました。"
-
-#: data/gui/recycleup.xml
-msgid ""
-"You have reached the tech level which enables you to recycling centres. "
-"Recycling centres recycle used goods back into ore. "
-msgstr ""
-"あなたはリサイクル工場を建設するだけの技術レベルに到達しました。リサイクル工"
-"場は商品を使用して鉱石に戻します。"
-
-#: data/gui/sustain.xml data/gui/launch-gone.xml
-msgid "You have won the game."
-msgstr "あなたはゲームに勝利しました。"
-
-#: data/gui/allgone.xml
-msgid "You should start a new career elsewhere."
-msgstr "あなたは新しい経歴を別の場所で開始すべきです。"
-
-#: data/gui/cricketup.xml
-msgid ""
-"Your people have invented basketball. Basketball Courts use a few jobs and "
-"goods and make people in the surrounding areas (about 10 units in each "
-"direction) happier."
-msgstr ""
-"あなたの人々はバスケットボールを発明しました。バスケットボールのコートは少し"
-"の仕事と商品を用いて周囲の地域(おおむね各方向10ユニット程度)の人々を幸せにし"
-"ます。"
-
-#: data/gui/launch-fail.xml
-msgid ""
-"Your rocket crashed shortly after launch. People no longer trust the "
-"technology for evacuation. You must launch five more unmanned rockets to "
-"restore confidence."
-msgstr ""
-"あなたのロケットは打ち上げ直後に衝突しました。人々は今や疎開のための技術を信"
-"用しません。あなたは5以上の無人ロケットを信頼回復のために打ち上げなければなり"
-"ません。"
-
-#: data/gui/minimap.xml
-msgid "[+] Zoom in view so that less buildings but more details are visible"
-msgstr "[+] 少ないがより詳細に見えるようにするためにズームする"
-
-#: data/gui/minimap.xml
-msgid "[-] Zoom out"
-msgstr "[-] ズームアウト"
-
-#: data/gui/minimap.xml
-msgid "[F1] Press this button to get help"
-msgstr " [F1] ヘルプを見る"
-
-#: data/gui/minimap.xml
-msgid "[h] Hide high buildings. "
-msgstr "[h] 高い建物を隠す。"
-
-#: data/gui/minimap.xml
-msgid "[v] Cycle through MiniMap overlay modes. "
-msgstr "[v] オーバーレイモードで小さい地図を循環する"
-
-#: data/gui/savegame.xml
-msgid "save to selected slot"
-msgstr "選んだスロットにセーブする"
