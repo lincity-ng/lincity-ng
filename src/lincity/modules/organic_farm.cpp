@@ -35,8 +35,10 @@ void do_organic_farm(int x, int y)
      */
     int i;
     int has_power = false;
+    int used_jobs = 0;
     int tech_bonus = (int)(((double)MP_TECH(x, y) * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL);
     MP_INFO(x + 1, y).int_3 = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus;
+
     /* Animation */
     if (MP_INFO(x, y).int_5 == 0) {
         /* this should be done when we create the area! */
@@ -71,12 +73,14 @@ void do_organic_farm(int x, int y)
     /* Produce some food */
     int prod = 0;
     if (MP_INFO(x, y).int_7 >= FARM_JOBS_USED) {
+        used_jobs = FARM_JOBS_USED;
         if (has_power) {
             prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus;
         } else {
             prod = ORGANIC_FARM_FOOD_OUTPUT / 4;
         }
     } else if (MP_INFO(x, y).int_7 >= FARM_JOBS_USED / 4) {
+        used_jobs = FARM_JOBS_USED / 4;
         if (has_power) {
             prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus / 4;
         } else {
@@ -84,6 +88,7 @@ void do_organic_farm(int x, int y)
         }
     } else if (MP_INFO(x, y).int_7 >= 1) {
         /* got 1 job */
+        used_jobs = 1;
         if (has_power) {
             prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus / 8;
         } else {
@@ -106,6 +111,7 @@ void do_organic_farm(int x, int y)
     }
     /* Check underground water, and reduce production accordingly */
     if (use_waterwell) {
+        // TODO No need to count each time. Should be done at build time, and stored 
         int w = 0;
         int n = 0;
         for (int i = 0; i < MP_SIZE(x, y); i++) {
@@ -123,7 +129,7 @@ void do_organic_farm(int x, int y)
     if (prod != 0) {
         if (put_food(x, y, prod) != 0) {
             MP_INFO(x, y).int_3++;
-            MP_INFO(x, y).int_7 -= 1;
+            MP_INFO(x, y).int_7 -= used_jobs;
         }
     }
 
