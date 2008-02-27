@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <time.h>
 #include <iostream>
 #include <stdio.h>
+#include <physfs.h>
 
 #include "lincity/init_game.h"
 #include "lincity/simulate.h"
@@ -109,6 +110,8 @@ void saveCityNG( std::string newFilename ){
  * Load City and do setup for Lincity NG.
  */
 bool loadCityNG( std::string filename ){
+    std::string dir = PHYSFS_getRealDir(filename.c_str());
+    filename = dir + PHYSFS_getDirSeparator() + filename;
     if( file_exists( const_cast<char*>( filename.c_str()) ) ){
         load_city_2(const_cast<char*>(filename.c_str()));
         update_avail_modules(0);
@@ -167,17 +170,10 @@ void initLincity()
     screen_full_refresh ();
 
     //load current game if it exists
-    //ldsvguts.cpp load_saved_city (char *s)
-    //does not work if file is missing...
-
-    char* s = "9_currentGameNG.scn";
-    char *cname = (char *) malloc (strlen (lc_save_dir) + strlen (s) + 2);
-    sprintf (cname, "%s%c%s", lc_save_dir, PATH_SLASH, s);
-    if( ! loadCityNG( std::string( cname ) ) ) {   
+    if( ! loadCityNG( std::string( "9_currentGameNG.scn" ) ) ) {   
         //create a new City with village just in case 
         new_city( &main_screen_originx, &main_screen_originy, 1 );
     }
-    free (cname);
 }
 
 

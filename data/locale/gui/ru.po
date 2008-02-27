@@ -293,8 +293,8 @@ msgid ""
 "technology for evacuation. You must launch five more unmanned rockets to "
 "restore confidence."
 msgstr ""
-"Ваша ракета взорвалась после взлета. Теперь люди бояться летать в ракетах. Вы должны "
-"запустить 5 ракет, что бы люди в них снова поверили."
+"Ваша ракета взорвалась после взлета. Теперь люди бояться летать в ракетах. "
+"Вы должны запустить 5 ракет, что бы люди в них снова поверили."
 
 #: data/gui/launch-gone.xml
 msgid "Total Evacuation Complete."

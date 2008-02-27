@@ -149,18 +149,13 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
 {
     const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
   
-    //read savegames from lc_save_dir so we can use the original save_city()
-    DIR* lincityDir = opendir( lc_save_dir );
-    if(!lincityDir) {
-        std::cerr << "Warning directory " << lc_save_dir << " doesn't exist.\n";
-        return;
-    }
+    char** rc = PHYSFS_enumerateFiles("/");
 
-    dirent* curfile;
+    char* curfile;
     CheckButton *button;
 
     for(int i=0;i<6;i++) {
-    	dirent* recentfile;
+    	char* recentfile;
         PHYSFS_sint64 t = 0;
 
         std::stringstream filestart;
@@ -177,45 +172,38 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
         else {
             button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
         }
-        while( ( curfile = readdir( lincityDir ) ) ) { 
-            if(std::string( curfile->d_name ).find( filestart.str() ) == 0 ) {
+        for(char** i = rc; *i != 0; i++){
+            curfile = *i;
+            if(std::string( curfile ).find( filestart.str() ) == 0 ) {
                 // && !( curfile->d_type & DT_DIR  ) ) is not portable. So
                 // don't create a directoy named 2_ in a savegame-directory or
                 // you can no longer load from slot 2.
-	        if (t == 0) {
+    	        if (t == 0) {
                     recentfile = curfile;
-                    t = PHYSFS_getLastModTime(recentfile->d_name);
-#ifdef WIN32
-		    //something is broken in Windows
-		    break;
-#endif		    
-                } else {
-                    if (PHYSFS_getLastModTime(curfile->d_name) > t) {
+                    t = PHYSFS_getLastModTime(recentfile);
+              } else {
+                    if (PHYSFS_getLastModTime(curfile) > t) {
 #ifdef DEBUG
-                       	fprintf(stderr," %s is more recent than previous %s\n",
-                                                curfile->d_name, recentfile->d_name);
+                        fprintf(stderr," %s is more recent than previous %s\n",
+                                          curfile, recentfile);
 #endif
                         recentfile = curfile;
-                        t = PHYSFS_getLastModTime(recentfile->d_name);
+                        t = PHYSFS_getLastModTime(recentfile);
                     }
                 }
             }
         }
 #ifdef DEBUG
-        fprintf(stderr,"Most recent file: %s\n\n",recentfile->d_name);
+        fprintf(stderr,"Most recent file: %s\n\n",recentfile);
 #endif
 
         if(t != 0) {
-            std::string f= recentfile->d_name;
+            std::string f= recentfile;
             button->setCaptionText(f);
         } else {
             button->setCaptionText(_("empty"));
         }
-
-        rewinddir(lincityDir);
     }
-
-    closedir(lincityDir);
 }
 
 void
@@ -402,19 +390,16 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
         file=fc;
     }
     
-    if(newGameMenu.get()==currentMenu) {
-        mFilename=PHYSFS_getRealDir( file.c_str() );
-    } else {
+    mFilename="";
+    if(newGameMenu.get()!=currentMenu) {
         slotNr = 1 + atoi( 
                 const_cast<char*>(button->getName().substr(4).c_str()) );
         if( file.length() == 0){
             mFilename = "";
             return;
         }
-        mFilename=lc_save_dir;
     }
     
-    mFilename+="/";
     mFilename+=file;
     Uint32 now = SDL_GetTicks();
 

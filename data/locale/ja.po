@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lincity-NG-Japanese-Translation-Ver0.00\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-18 23:05+0100\n"
+"POT-Creation-Date: 2008-02-24 21:11+0100\n"
 "PO-Revision-Date: 2007-12-27 19:22+0900\n"
 "Last-Translator: MH35 <mh35jp@gmail.com>\n"
 "Language-Team: MH35 <mh35jp@gmail.com>\n"
@@ -202,7 +202,7 @@ msgstr "人口"
 msgid "Techn."
 msgstr "技術"
 
-#: src/lincity-ng/EconomyGraph.cpp:134 src/lincity-ng/MpsInterface.cpp:383
+#: src/lincity-ng/EconomyGraph.cpp:134 src/lincity-ng/MpsInterface.cpp:382
 #: src/lincity/lintypes.cpp:399 src/lincity/modules/residence.cpp:283
 msgid "Fire"
 msgstr "火事"
@@ -345,106 +345,106 @@ msgstr "何かここに建てる"
 msgid "no further information available"
 msgstr "より詳細な情報はない"
 
-#: src/lincity-ng/MpsInterface.cpp:381
+#: src/lincity-ng/MpsInterface.cpp:380
 msgid "Coverage"
 msgstr "収容範囲"
 
-#: src/lincity-ng/MpsInterface.cpp:382 src/lincity-ng/MpsInterface.cpp:385
-#: src/lincity-ng/MpsInterface.cpp:388 src/lincity/modules/commune.cpp:179
+#: src/lincity-ng/MpsInterface.cpp:381 src/lincity-ng/MpsInterface.cpp:384
+#: src/lincity-ng/MpsInterface.cpp:387 src/lincity/modules/commune.cpp:179
 #: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
 #: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:20
 msgid "No"
 msgstr "いいえ"
 
-#: src/lincity-ng/MpsInterface.cpp:382 src/lincity-ng/MpsInterface.cpp:385
-#: src/lincity-ng/MpsInterface.cpp:388 src/lincity/modules/commune.cpp:179
+#: src/lincity-ng/MpsInterface.cpp:381 src/lincity-ng/MpsInterface.cpp:384
+#: src/lincity-ng/MpsInterface.cpp:387 src/lincity/modules/commune.cpp:179
 #: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
 #: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:20
 #: src/lincity/modules/waterwell.cpp:62
 msgid "Yes"
 msgstr "はい"
 
-#: src/lincity-ng/MpsInterface.cpp:386
+#: src/lincity-ng/MpsInterface.cpp:385
 msgid "Health"
 msgstr "健康"
 
-#: src/lincity-ng/MpsInterface.cpp:389 src/lincity-ng/MpsInterface.cpp:517
+#: src/lincity-ng/MpsInterface.cpp:388 src/lincity-ng/MpsInterface.cpp:516
 #: src/lincity/modules/residence.cpp:286
 msgid "Sport"
 msgstr "スポーツ"
 
-#: src/lincity-ng/MpsInterface.cpp:391 src/lincity/modules/residence.cpp:288
+#: src/lincity-ng/MpsInterface.cpp:390 src/lincity/modules/residence.cpp:288
 #: src/lincity/modules/waterwell.cpp:59
 msgid "Pollution"
 msgstr "汚染"
 
-#: src/lincity-ng/MpsInterface.cpp:394
+#: src/lincity-ng/MpsInterface.cpp:393
 msgid "clear"
 msgstr "きれいだ"
 
-#: src/lincity-ng/MpsInterface.cpp:396 src/lincity/modules/residence.cpp:276
+#: src/lincity-ng/MpsInterface.cpp:395 src/lincity/modules/residence.cpp:276
 msgid "good"
 msgstr "よい"
 
-#: src/lincity-ng/MpsInterface.cpp:398
+#: src/lincity-ng/MpsInterface.cpp:397
 msgid "fair"
 msgstr "公正だ"
 
-#: src/lincity-ng/MpsInterface.cpp:400
+#: src/lincity-ng/MpsInterface.cpp:399
 msgid "smelly"
 msgstr "よい匂いがする"
 
-#: src/lincity-ng/MpsInterface.cpp:402
+#: src/lincity-ng/MpsInterface.cpp:401
 msgid "smokey"
 msgstr "煙っぽい"
 
-#: src/lincity-ng/MpsInterface.cpp:404
+#: src/lincity-ng/MpsInterface.cpp:403
 msgid "smoggy"
 msgstr "霧が濃い"
 
-#: src/lincity-ng/MpsInterface.cpp:406
+#: src/lincity-ng/MpsInterface.cpp:405
 msgid "bad"
 msgstr "悪い"
 
-#: src/lincity-ng/MpsInterface.cpp:408
+#: src/lincity-ng/MpsInterface.cpp:407
 msgid "very bad"
 msgstr "とても悪い"
 
-#: src/lincity-ng/MpsInterface.cpp:410
+#: src/lincity-ng/MpsInterface.cpp:409
 msgid "death!"
 msgstr "死亡"
 
-#: src/lincity-ng/MpsInterface.cpp:415
+#: src/lincity-ng/MpsInterface.cpp:414
 msgid "Bulldoze Cost"
 msgstr "破壊費用"
 
-#: src/lincity-ng/MpsInterface.cpp:421
+#: src/lincity-ng/MpsInterface.cpp:420
 msgid "N/A"
 msgstr "なし"
 
-#: src/lincity-ng/MpsInterface.cpp:439
+#: src/lincity-ng/MpsInterface.cpp:438
 msgid "Tax Income"
 msgstr "税収"
 
-#: src/lincity-ng/MpsInterface.cpp:443
+#: src/lincity-ng/MpsInterface.cpp:442
 msgid "Income"
 msgstr "収入"
 
-#: src/lincity-ng/MpsInterface.cpp:447 src/lincity/modules/blacksmith.cpp:98
+#: src/lincity-ng/MpsInterface.cpp:446 src/lincity/modules/blacksmith.cpp:98
 #: src/lincity/modules/coal_power.cpp:97 src/lincity/modules/commune.cpp:180
 #: src/lincity/modules/heavy_industry.cpp:275
 #: src/lincity/modules/heavy_industry.cpp:287
-#: src/lincity/modules/market.cpp:1007 src/lincity/modules/mill.cpp:97
+#: src/lincity/modules/market.cpp:1007 src/lincity/modules/mill.cpp:101
 #: src/lincity/modules/port.cpp:290 src/lincity/modules/pottery.cpp:113
 #: src/lincity/modules/rail.cpp:52 src/lincity/modules/road.cpp:47
 #: src/lincity/modules/track.cpp:38
 msgid "Coal"
 msgstr "石炭"
 
-#: src/lincity-ng/MpsInterface.cpp:451 src/lincity/modules/blacksmith.cpp:97
+#: src/lincity-ng/MpsInterface.cpp:450 src/lincity/modules/blacksmith.cpp:97
 #: src/lincity/modules/cricket.cpp:96 src/lincity/modules/firestation.cpp:113
 #: src/lincity/modules/health_centre.cpp:62
-#: src/lincity/modules/market.cpp:1008 src/lincity/modules/mill.cpp:95
+#: src/lincity/modules/market.cpp:1008 src/lincity/modules/mill.cpp:99
 #: src/lincity/modules/port.cpp:298 src/lincity/modules/pottery.cpp:111
 #: src/lincity/modules/rail.cpp:53 src/lincity/modules/road.cpp:48
 #: src/lincity/modules/rocket_pad.cpp:196 src/lincity/modules/school.cpp:50
@@ -452,120 +452,120 @@ msgstr "石炭"
 msgid "Goods"
 msgstr "商品"
 
-#: src/lincity-ng/MpsInterface.cpp:455
+#: src/lincity-ng/MpsInterface.cpp:454
 msgid "Export"
 msgstr "輸出"
 
-#: src/lincity-ng/MpsInterface.cpp:459
+#: src/lincity-ng/MpsInterface.cpp:458
 msgid "Expenses"
 msgstr "費用"
 
-#: src/lincity-ng/MpsInterface.cpp:463
+#: src/lincity-ng/MpsInterface.cpp:462
 msgid "Unemp."
 msgstr "非雇用者"
 
-#: src/lincity-ng/MpsInterface.cpp:467
+#: src/lincity-ng/MpsInterface.cpp:466
 msgid "Transport"
 msgstr "輸送"
 
-#: src/lincity-ng/MpsInterface.cpp:471
+#: src/lincity-ng/MpsInterface.cpp:470
 msgid "Imports"
 msgstr "輸入"
 
-#: src/lincity-ng/MpsInterface.cpp:475
+#: src/lincity-ng/MpsInterface.cpp:474
 msgid "Others"
 msgstr "その他"
 
-#: src/lincity-ng/MpsInterface.cpp:480
+#: src/lincity-ng/MpsInterface.cpp:479
 msgid "Net"
 msgstr "合計"
 
-#: src/lincity-ng/MpsInterface.cpp:492
+#: src/lincity-ng/MpsInterface.cpp:491
 msgid "Other Costs"
 msgstr "その他の費用"
 
-#: src/lincity-ng/MpsInterface.cpp:497
+#: src/lincity-ng/MpsInterface.cpp:496
 msgid "For year"
 msgstr "1年にわたって"
 
-#: src/lincity-ng/MpsInterface.cpp:501
+#: src/lincity-ng/MpsInterface.cpp:500
 msgid "Interest"
 msgstr "観光地"
 
-#: src/lincity-ng/MpsInterface.cpp:503
+#: src/lincity-ng/MpsInterface.cpp:502
 msgid "Schools"
 msgstr "学校"
 
-#: src/lincity-ng/MpsInterface.cpp:505
+#: src/lincity-ng/MpsInterface.cpp:504
 msgid "Univers."
 msgstr "大学"
 
-#: src/lincity-ng/MpsInterface.cpp:507
+#: src/lincity-ng/MpsInterface.cpp:506
 msgid "Deaths"
 msgstr "死亡"
 
-#: src/lincity-ng/MpsInterface.cpp:509 src/lincity/lintypes.cpp:286
+#: src/lincity-ng/MpsInterface.cpp:508 src/lincity/lintypes.cpp:286
 #: src/lincity/modules/windmill.cpp:74
 msgid "Windmill"
 msgstr "風車"
 
-#: src/lincity-ng/MpsInterface.cpp:511
+#: src/lincity-ng/MpsInterface.cpp:510
 msgid "Hospital"
 msgstr "病院"
 
-#: src/lincity-ng/MpsInterface.cpp:513
+#: src/lincity-ng/MpsInterface.cpp:512
 msgid "Rockets"
 msgstr "ロケット"
 
-#: src/lincity-ng/MpsInterface.cpp:515
+#: src/lincity-ng/MpsInterface.cpp:514
 msgid "Fire Stn"
 msgstr "消防署"
 
-#: src/lincity-ng/MpsInterface.cpp:519 src/lincity/lintypes.cpp:242
+#: src/lincity-ng/MpsInterface.cpp:518 src/lincity/lintypes.cpp:242
 msgid "Recycle"
 msgstr "リサイクル工場"
 
-#: src/lincity-ng/MpsInterface.cpp:533
+#: src/lincity-ng/MpsInterface.cpp:532
 msgid "Population"
 msgstr "人口"
 
-#: src/lincity-ng/MpsInterface.cpp:535 src/lincity/modules/port.cpp:306
+#: src/lincity-ng/MpsInterface.cpp:534 src/lincity/modules/port.cpp:306
 msgid "Total"
 msgstr "合計"
 
-#: src/lincity-ng/MpsInterface.cpp:536
+#: src/lincity-ng/MpsInterface.cpp:535
 msgid "Housed"
 msgstr "居住"
 
-#: src/lincity-ng/MpsInterface.cpp:537
+#: src/lincity-ng/MpsInterface.cpp:536
 msgid "Homeless"
 msgstr "家なし"
 
-#: src/lincity-ng/MpsInterface.cpp:538
+#: src/lincity-ng/MpsInterface.cpp:537
 msgid "Shanties"
 msgstr "掘っ立て小屋"
 
-#: src/lincity-ng/MpsInterface.cpp:539
+#: src/lincity-ng/MpsInterface.cpp:538
 msgid "Unn Dths"
 msgstr "Unn 死亡"
 
-#: src/lincity-ng/MpsInterface.cpp:540
+#: src/lincity-ng/MpsInterface.cpp:539
 msgid "Unemployment"
 msgstr "非雇用者"
 
-#: src/lincity-ng/MpsInterface.cpp:541
+#: src/lincity-ng/MpsInterface.cpp:540
 msgid "Claims"
 msgstr "苦情"
 
-#: src/lincity-ng/MpsInterface.cpp:542 src/lincity-ng/MpsInterface.cpp:547
+#: src/lincity-ng/MpsInterface.cpp:541 src/lincity-ng/MpsInterface.cpp:546
 msgid "Rate"
 msgstr "率"
 
-#: src/lincity-ng/MpsInterface.cpp:544
+#: src/lincity-ng/MpsInterface.cpp:543
 msgid "Starvation"
 msgstr "飢餓"
 
-#: src/lincity-ng/MpsInterface.cpp:545
+#: src/lincity-ng/MpsInterface.cpp:544
 msgid "Cases"
 msgstr "場合"
 
@@ -984,7 +984,7 @@ msgstr " <%s> (gzip圧縮) を開けません。"
 
 #: src/lincity/modules/blacksmith.cpp:94
 #: src/lincity/modules/heavy_industry.cpp:288
-#: src/lincity/modules/light_industry.cpp:278 src/lincity/modules/mill.cpp:92
+#: src/lincity/modules/light_industry.cpp:278 src/lincity/modules/mill.cpp:96
 #: src/lincity/modules/pottery.cpp:107 src/lincity/modules/recycle.cpp:137
 #: src/lincity/modules/school.cpp:52 src/lincity/modules/university.cpp:68
 msgid "Capacity"
@@ -992,7 +992,7 @@ msgstr "能力"
 
 #: src/lincity/modules/blacksmith.cpp:96 src/lincity/modules/cricket.cpp:94
 #: src/lincity/modules/firestation.cpp:111
-#: src/lincity/modules/health_centre.cpp:60 src/lincity/modules/mill.cpp:94
+#: src/lincity/modules/health_centre.cpp:60 src/lincity/modules/mill.cpp:98
 #: src/lincity/modules/pottery.cpp:109 src/lincity/modules/recycle.cpp:144
 #: src/lincity/modules/rocket_pad.cpp:194 src/lincity/modules/school.cpp:48
 #: src/lincity/modules/university.cpp:65
@@ -1025,7 +1025,7 @@ msgid "Jobs"
 msgstr "仕事"
 
 #: src/lincity/modules/coal_power.cpp:99
-#: src/lincity/modules/organic_farm.cpp:228
+#: src/lincity/modules/organic_farm.cpp:212
 #: src/lincity/modules/recycle.cpp:142 src/lincity/modules/solar_power.cpp:58
 #: src/lincity/modules/windmill.cpp:75
 msgid "Tech"
@@ -1101,6 +1101,7 @@ msgstr "グリッド"
 
 #: src/lincity/modules/heavy_industry.cpp:280
 #: src/lincity/modules/light_industry.cpp:281
+#: src/lincity/modules/organic_farm.cpp:211
 #: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
 #: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
 #: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
@@ -1110,7 +1111,7 @@ msgstr "いいえ"
 
 #: src/lincity/modules/heavy_industry.cpp:283
 #: src/lincity/modules/light_industry.cpp:282
-#: src/lincity/modules/organic_farm.cpp:225
+#: src/lincity/modules/organic_farm.cpp:211
 #: src/lincity/modules/recycle.cpp:140 src/lincity/modules/residence.cpp:271
 msgid "Power"
 msgstr "電力"
@@ -1125,7 +1126,7 @@ msgid "Light Industry"
 msgstr ""
 
 #: src/lincity/modules/light_industry.cpp:281
-#: src/lincity/modules/organic_farm.cpp:221
+#: src/lincity/modules/organic_farm.cpp:211
 #: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
 #: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
 #: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
@@ -1133,13 +1134,13 @@ msgstr ""
 msgid "YES"
 msgstr "はい"
 
-#: src/lincity/modules/market.cpp:1005 src/lincity/modules/mill.cpp:96
+#: src/lincity/modules/market.cpp:1005 src/lincity/modules/mill.cpp:100
 #: src/lincity/modules/port.cpp:286 src/lincity/modules/rail.cpp:50
 #: src/lincity/modules/road.cpp:45 src/lincity/modules/track.cpp:36
 msgid "Food"
 msgstr "食料"
 
-#: src/lincity/modules/mill.cpp:90
+#: src/lincity/modules/mill.cpp:94
 msgid "Textile Mill"
 msgstr "織物工場"
 
@@ -1156,31 +1157,27 @@ msgstr "% 完了"
 msgid "Ore Mine"
 msgstr "鉱石鉱山"
 
-#: src/lincity/modules/organic_farm.cpp:217
+#: src/lincity/modules/organic_farm.cpp:208
 msgid "Organic Farm"
 msgstr "有機農場"
 
-#: src/lincity/modules/organic_farm.cpp:223
-msgid "NO "
-msgstr "いいえ"
-
-#: src/lincity/modules/organic_farm.cpp:231
+#: src/lincity/modules/organic_farm.cpp:213
 msgid "Prod"
 msgstr "生産"
 
-#: src/lincity/modules/organic_farm.cpp:237
+#: src/lincity/modules/organic_farm.cpp:218
 msgid "Debug info"
 msgstr ""
 
-#: src/lincity/modules/organic_farm.cpp:238
+#: src/lincity/modules/organic_farm.cpp:219
 msgid "max with power&water"
 msgstr ""
 
-#: src/lincity/modules/organic_farm.cpp:239
+#: src/lincity/modules/organic_farm.cpp:220
 msgid "N tiles with water"
 msgstr ""
 
-#: src/lincity/modules/organic_farm.cpp:240
+#: src/lincity/modules/organic_farm.cpp:221
 #, fuzzy
 msgid "Current production"
 msgstr "現状出力"
@@ -1323,29 +1320,32 @@ msgid ""
 "and read waterwell help page :-)"
 msgstr ""
 
-#~ msgid "Recycling"
-#~ msgstr "リサイクル"
-
-#~ msgid "Center"
-#~ msgstr "センター"
-
-#~ msgid "Heavy"
-#~ msgstr "重い"
-
-#~ msgid "Industry"
-#~ msgstr "工業"
-
-#~ msgid "Output"
-#~ msgstr "出力"
-
-#~ msgid "Power Station"
-#~ msgstr "発電所"
-
-#~ msgid "Light"
-#~ msgstr "軽い"
+#~ msgid "Saving scene"
+#~ msgstr "シナリオをセーブする"
 
 #~ msgid "Solar"
 #~ msgstr "太陽"
 
-#~ msgid "Saving scene"
-#~ msgstr "シナリオをセーブする"
+#~ msgid "Light"
+#~ msgstr "軽い"
+
+#~ msgid "Power Station"
+#~ msgstr "発電所"
+
+#~ msgid "Output"
+#~ msgstr "出力"
+
+#~ msgid "Industry"
+#~ msgstr "工業"
+
+#~ msgid "Heavy"
+#~ msgstr "重い"
+
+#~ msgid "Center"
+#~ msgstr "センター"
+
+#~ msgid "Recycling"
+#~ msgstr "リサイクル"
+
+#~ msgid "NO "
+#~ msgstr "いいえ"

@@ -115,13 +115,20 @@ void initPhysfs(const char* argv0)
         }
     }
     PHYSFS_addToSearchPath(writedir, 0);
+
+    // add ~/.lincity for old savegames
+    sprintf(writedir, "%s.lincity", userdir);
+    PHYSFS_addToSearchPath(writedir, 1);
     delete[] writedir;
-  //TODO: zip später? , ~/.lincity für alte savegames?
+
+  //TODO: add zips later
     // Search for archives and add them to the search path
     const char* archiveExt = "zip";
     char** rc = PHYSFS_enumerateFiles("/");
     size_t extlen = strlen(archiveExt);
-
+//TODO sort .zip files! so we are sure which patch is first.
+//and change all file access to physfs. what does PHYSFS_getRealDir 
+//do when file in in archive?
     for(char** i = rc; *i != 0; ++i) {
         size_t l = strlen(*i);
         if((l > extlen) && ((*i)[l - extlen - 1] == '.')) {
@@ -187,21 +194,6 @@ void initPhysfs(const char* argv0)
     }
     //show write directory
     printf("[%s] is the write directory.\n", PHYSFS_getWriteDir());
-
-
-    // ugly: set LINCITY_HOME environment variable TODO: do it without var.
-    const char* lincityhome = PHYSFS_getRealDir("colour.pal");
-    if(lincityhome == 0) {
-        throw std::runtime_error("Couldn't locate lincity data (colour.pal).");
-    }
-    std::cout << "LINCITY_HOME: " << lincityhome << "\n";
-#ifndef WIN32
-    setenv("LINCITY_HOME", lincityhome, 1);
-#else
-    char tmp[256];
-    snprintf( tmp, 256, "LINCITY_HOME=%s", lincityhome ); 
-    putenv( tmp );
-#endif    
 }
 
 void initVideo(int width, int height)

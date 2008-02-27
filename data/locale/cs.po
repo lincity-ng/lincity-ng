@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lincity-ng\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-18 23:05+0100\n"
+"POT-Creation-Date: 2008-02-24 21:11+0100\n"
 "PO-Revision-Date: 2006-09-04 07:22+0200\n"
 "Last-Translator: Ondrej Novy <onovy@nomi.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -205,7 +205,7 @@ msgstr "Popul."
 msgid "Techn."
 msgstr "Techn."
 
-#: src/lincity-ng/EconomyGraph.cpp:134 src/lincity-ng/MpsInterface.cpp:383
+#: src/lincity-ng/EconomyGraph.cpp:134 src/lincity-ng/MpsInterface.cpp:382
 #: src/lincity/lintypes.cpp:399 src/lincity/modules/residence.cpp:283
 msgid "Fire"
 msgstr "Oheň"
@@ -348,106 +348,106 @@ msgstr ""
 msgid "no further information available"
 msgstr ""
 
-#: src/lincity-ng/MpsInterface.cpp:381
+#: src/lincity-ng/MpsInterface.cpp:380
 msgid "Coverage"
 msgstr "Pokrytí"
 
-#: src/lincity-ng/MpsInterface.cpp:382 src/lincity-ng/MpsInterface.cpp:385
-#: src/lincity-ng/MpsInterface.cpp:388 src/lincity/modules/commune.cpp:179
+#: src/lincity-ng/MpsInterface.cpp:381 src/lincity-ng/MpsInterface.cpp:384
+#: src/lincity-ng/MpsInterface.cpp:387 src/lincity/modules/commune.cpp:179
 #: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
 #: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:20
 msgid "No"
 msgstr "Ne"
 
-#: src/lincity-ng/MpsInterface.cpp:382 src/lincity-ng/MpsInterface.cpp:385
-#: src/lincity-ng/MpsInterface.cpp:388 src/lincity/modules/commune.cpp:179
+#: src/lincity-ng/MpsInterface.cpp:381 src/lincity-ng/MpsInterface.cpp:384
+#: src/lincity-ng/MpsInterface.cpp:387 src/lincity/modules/commune.cpp:179
 #: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
 #: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:20
 #: src/lincity/modules/waterwell.cpp:62
 msgid "Yes"
 msgstr "Ano"
 
-#: src/lincity-ng/MpsInterface.cpp:386
+#: src/lincity-ng/MpsInterface.cpp:385
 msgid "Health"
 msgstr "Zdraví"
 
-#: src/lincity-ng/MpsInterface.cpp:389 src/lincity-ng/MpsInterface.cpp:517
+#: src/lincity-ng/MpsInterface.cpp:388 src/lincity-ng/MpsInterface.cpp:516
 #: src/lincity/modules/residence.cpp:286
 msgid "Sport"
 msgstr "Sport"
 
-#: src/lincity-ng/MpsInterface.cpp:391 src/lincity/modules/residence.cpp:288
+#: src/lincity-ng/MpsInterface.cpp:390 src/lincity/modules/residence.cpp:288
 #: src/lincity/modules/waterwell.cpp:59
 msgid "Pollution"
 msgstr "Znečistění"
 
-#: src/lincity-ng/MpsInterface.cpp:394
+#: src/lincity-ng/MpsInterface.cpp:393
 msgid "clear"
 msgstr "čistý"
 
-#: src/lincity-ng/MpsInterface.cpp:396 src/lincity/modules/residence.cpp:276
+#: src/lincity-ng/MpsInterface.cpp:395 src/lincity/modules/residence.cpp:276
 msgid "good"
 msgstr "dobré"
 
-#: src/lincity-ng/MpsInterface.cpp:398
+#: src/lincity-ng/MpsInterface.cpp:397
 msgid "fair"
 msgstr "uspokojivý"
 
-#: src/lincity-ng/MpsInterface.cpp:400
+#: src/lincity-ng/MpsInterface.cpp:399
 msgid "smelly"
 msgstr "zapáchající"
 
-#: src/lincity-ng/MpsInterface.cpp:402
+#: src/lincity-ng/MpsInterface.cpp:401
 msgid "smokey"
 msgstr "prašný"
 
-#: src/lincity-ng/MpsInterface.cpp:404
+#: src/lincity-ng/MpsInterface.cpp:403
 msgid "smoggy"
 msgstr "smog"
 
-#: src/lincity-ng/MpsInterface.cpp:406
+#: src/lincity-ng/MpsInterface.cpp:405
 msgid "bad"
 msgstr "špatný"
 
-#: src/lincity-ng/MpsInterface.cpp:408
+#: src/lincity-ng/MpsInterface.cpp:407
 msgid "very bad"
 msgstr "velmi špatný"
 
-#: src/lincity-ng/MpsInterface.cpp:410
+#: src/lincity-ng/MpsInterface.cpp:409
 msgid "death!"
 msgstr "smrtící!"
 
-#: src/lincity-ng/MpsInterface.cpp:415
+#: src/lincity-ng/MpsInterface.cpp:414
 msgid "Bulldoze Cost"
 msgstr "Cena zbourání"
 
-#: src/lincity-ng/MpsInterface.cpp:421
+#: src/lincity-ng/MpsInterface.cpp:420
 msgid "N/A"
 msgstr "N/A"
 
-#: src/lincity-ng/MpsInterface.cpp:439
+#: src/lincity-ng/MpsInterface.cpp:438
 msgid "Tax Income"
 msgstr "Příjem z daní"
 
-#: src/lincity-ng/MpsInterface.cpp:443
+#: src/lincity-ng/MpsInterface.cpp:442
 msgid "Income"
 msgstr "Příjmy"
 
-#: src/lincity-ng/MpsInterface.cpp:447 src/lincity/modules/blacksmith.cpp:98
+#: src/lincity-ng/MpsInterface.cpp:446 src/lincity/modules/blacksmith.cpp:98
 #: src/lincity/modules/coal_power.cpp:97 src/lincity/modules/commune.cpp:180
 #: src/lincity/modules/heavy_industry.cpp:275
 #: src/lincity/modules/heavy_industry.cpp:287
-#: src/lincity/modules/market.cpp:1007 src/lincity/modules/mill.cpp:97
+#: src/lincity/modules/market.cpp:1007 src/lincity/modules/mill.cpp:101
 #: src/lincity/modules/port.cpp:290 src/lincity/modules/pottery.cpp:113
 #: src/lincity/modules/rail.cpp:52 src/lincity/modules/road.cpp:47
 #: src/lincity/modules/track.cpp:38
 msgid "Coal"
 msgstr "Důl"
 
-#: src/lincity-ng/MpsInterface.cpp:451 src/lincity/modules/blacksmith.cpp:97
+#: src/lincity-ng/MpsInterface.cpp:450 src/lincity/modules/blacksmith.cpp:97
 #: src/lincity/modules/cricket.cpp:96 src/lincity/modules/firestation.cpp:113
 #: src/lincity/modules/health_centre.cpp:62
-#: src/lincity/modules/market.cpp:1008 src/lincity/modules/mill.cpp:95
+#: src/lincity/modules/market.cpp:1008 src/lincity/modules/mill.cpp:99
 #: src/lincity/modules/port.cpp:298 src/lincity/modules/pottery.cpp:111
 #: src/lincity/modules/rail.cpp:53 src/lincity/modules/road.cpp:48
 #: src/lincity/modules/rocket_pad.cpp:196 src/lincity/modules/school.cpp:50
@@ -455,120 +455,120 @@ msgstr "Důl"
 msgid "Goods"
 msgstr "Zboží"
 
-#: src/lincity-ng/MpsInterface.cpp:455
+#: src/lincity-ng/MpsInterface.cpp:454
 msgid "Export"
 msgstr "Vývoz"
 
-#: src/lincity-ng/MpsInterface.cpp:459
+#: src/lincity-ng/MpsInterface.cpp:458
 msgid "Expenses"
 msgstr "Náklady"
 
-#: src/lincity-ng/MpsInterface.cpp:463
+#: src/lincity-ng/MpsInterface.cpp:462
 msgid "Unemp."
 msgstr "Nezam."
 
-#: src/lincity-ng/MpsInterface.cpp:467
+#: src/lincity-ng/MpsInterface.cpp:466
 msgid "Transport"
 msgstr "Přeprava"
 
-#: src/lincity-ng/MpsInterface.cpp:471
+#: src/lincity-ng/MpsInterface.cpp:470
 msgid "Imports"
 msgstr "Dovoz"
 
-#: src/lincity-ng/MpsInterface.cpp:475
+#: src/lincity-ng/MpsInterface.cpp:474
 msgid "Others"
 msgstr "Ostatní"
 
-#: src/lincity-ng/MpsInterface.cpp:480
+#: src/lincity-ng/MpsInterface.cpp:479
 msgid "Net"
 msgstr "Síť"
 
-#: src/lincity-ng/MpsInterface.cpp:492
+#: src/lincity-ng/MpsInterface.cpp:491
 msgid "Other Costs"
 msgstr "Ostatní náklady"
 
-#: src/lincity-ng/MpsInterface.cpp:497
+#: src/lincity-ng/MpsInterface.cpp:496
 msgid "For year"
 msgstr "Ročně"
 
-#: src/lincity-ng/MpsInterface.cpp:501
+#: src/lincity-ng/MpsInterface.cpp:500
 msgid "Interest"
 msgstr "Úroky"
 
-#: src/lincity-ng/MpsInterface.cpp:503
+#: src/lincity-ng/MpsInterface.cpp:502
 msgid "Schools"
 msgstr "Školy"
 
-#: src/lincity-ng/MpsInterface.cpp:505
+#: src/lincity-ng/MpsInterface.cpp:504
 msgid "Univers."
 msgstr "Univer."
 
-#: src/lincity-ng/MpsInterface.cpp:507
+#: src/lincity-ng/MpsInterface.cpp:506
 msgid "Deaths"
 msgstr "Mrtví"
 
-#: src/lincity-ng/MpsInterface.cpp:509 src/lincity/lintypes.cpp:286
+#: src/lincity-ng/MpsInterface.cpp:508 src/lincity/lintypes.cpp:286
 #: src/lincity/modules/windmill.cpp:74
 msgid "Windmill"
 msgstr "Větrný mlýn"
 
-#: src/lincity-ng/MpsInterface.cpp:511
+#: src/lincity-ng/MpsInterface.cpp:510
 msgid "Hospital"
 msgstr "Nemocnice"
 
-#: src/lincity-ng/MpsInterface.cpp:513
+#: src/lincity-ng/MpsInterface.cpp:512
 msgid "Rockets"
 msgstr "Rakety"
 
-#: src/lincity-ng/MpsInterface.cpp:515
+#: src/lincity-ng/MpsInterface.cpp:514
 msgid "Fire Stn"
 msgstr "Požární st."
 
-#: src/lincity-ng/MpsInterface.cpp:519 src/lincity/lintypes.cpp:242
+#: src/lincity-ng/MpsInterface.cpp:518 src/lincity/lintypes.cpp:242
 msgid "Recycle"
 msgstr "Recyklace"
 
-#: src/lincity-ng/MpsInterface.cpp:533
+#: src/lincity-ng/MpsInterface.cpp:532
 msgid "Population"
 msgstr "Populace"
 
-#: src/lincity-ng/MpsInterface.cpp:535 src/lincity/modules/port.cpp:306
+#: src/lincity-ng/MpsInterface.cpp:534 src/lincity/modules/port.cpp:306
 msgid "Total"
 msgstr "Celkem"
 
-#: src/lincity-ng/MpsInterface.cpp:536
+#: src/lincity-ng/MpsInterface.cpp:535
 msgid "Housed"
 msgstr "Ubytováno"
 
-#: src/lincity-ng/MpsInterface.cpp:537
+#: src/lincity-ng/MpsInterface.cpp:536
 msgid "Homeless"
 msgstr "Bezdomovci"
 
-#: src/lincity-ng/MpsInterface.cpp:538
+#: src/lincity-ng/MpsInterface.cpp:537
 msgid "Shanties"
 msgstr ""
 
-#: src/lincity-ng/MpsInterface.cpp:539
+#: src/lincity-ng/MpsInterface.cpp:538
 msgid "Unn Dths"
 msgstr ""
 
-#: src/lincity-ng/MpsInterface.cpp:540
+#: src/lincity-ng/MpsInterface.cpp:539
 msgid "Unemployment"
 msgstr "Nezaměstnaní"
 
-#: src/lincity-ng/MpsInterface.cpp:541
+#: src/lincity-ng/MpsInterface.cpp:540
 msgid "Claims"
 msgstr ""
 
-#: src/lincity-ng/MpsInterface.cpp:542 src/lincity-ng/MpsInterface.cpp:547
+#: src/lincity-ng/MpsInterface.cpp:541 src/lincity-ng/MpsInterface.cpp:546
 msgid "Rate"
 msgstr ""
 
-#: src/lincity-ng/MpsInterface.cpp:544
+#: src/lincity-ng/MpsInterface.cpp:543
 msgid "Starvation"
 msgstr "Hladoví"
 
-#: src/lincity-ng/MpsInterface.cpp:545
+#: src/lincity-ng/MpsInterface.cpp:544
 msgid "Cases"
 msgstr ""
 
@@ -977,7 +977,7 @@ msgstr "Nemohu otevřít <%s> (komprese gzip)"
 
 #: src/lincity/modules/blacksmith.cpp:94
 #: src/lincity/modules/heavy_industry.cpp:288
-#: src/lincity/modules/light_industry.cpp:278 src/lincity/modules/mill.cpp:92
+#: src/lincity/modules/light_industry.cpp:278 src/lincity/modules/mill.cpp:96
 #: src/lincity/modules/pottery.cpp:107 src/lincity/modules/recycle.cpp:137
 #: src/lincity/modules/school.cpp:52 src/lincity/modules/university.cpp:68
 msgid "Capacity"
@@ -985,7 +985,7 @@ msgstr "Kapacita"
 
 #: src/lincity/modules/blacksmith.cpp:96 src/lincity/modules/cricket.cpp:94
 #: src/lincity/modules/firestation.cpp:111
-#: src/lincity/modules/health_centre.cpp:60 src/lincity/modules/mill.cpp:94
+#: src/lincity/modules/health_centre.cpp:60 src/lincity/modules/mill.cpp:98
 #: src/lincity/modules/pottery.cpp:109 src/lincity/modules/recycle.cpp:144
 #: src/lincity/modules/rocket_pad.cpp:194 src/lincity/modules/school.cpp:48
 #: src/lincity/modules/university.cpp:65
@@ -1018,7 +1018,7 @@ msgid "Jobs"
 msgstr "Práce"
 
 #: src/lincity/modules/coal_power.cpp:99
-#: src/lincity/modules/organic_farm.cpp:228
+#: src/lincity/modules/organic_farm.cpp:212
 #: src/lincity/modules/recycle.cpp:142 src/lincity/modules/solar_power.cpp:58
 #: src/lincity/modules/windmill.cpp:75
 msgid "Tech"
@@ -1094,6 +1094,7 @@ msgstr "Síť"
 
 #: src/lincity/modules/heavy_industry.cpp:280
 #: src/lincity/modules/light_industry.cpp:281
+#: src/lincity/modules/organic_farm.cpp:211
 #: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
 #: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
 #: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
@@ -1103,7 +1104,7 @@ msgstr "NE"
 
 #: src/lincity/modules/heavy_industry.cpp:283
 #: src/lincity/modules/light_industry.cpp:282
-#: src/lincity/modules/organic_farm.cpp:225
+#: src/lincity/modules/organic_farm.cpp:211
 #: src/lincity/modules/recycle.cpp:140 src/lincity/modules/residence.cpp:271
 msgid "Power"
 msgstr "Elektřina"
@@ -1118,7 +1119,7 @@ msgid "Light Industry"
 msgstr ""
 
 #: src/lincity/modules/light_industry.cpp:281
-#: src/lincity/modules/organic_farm.cpp:221
+#: src/lincity/modules/organic_farm.cpp:211
 #: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
 #: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
 #: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
@@ -1126,13 +1127,13 @@ msgstr ""
 msgid "YES"
 msgstr "ANO"
 
-#: src/lincity/modules/market.cpp:1005 src/lincity/modules/mill.cpp:96
+#: src/lincity/modules/market.cpp:1005 src/lincity/modules/mill.cpp:100
 #: src/lincity/modules/port.cpp:286 src/lincity/modules/rail.cpp:50
 #: src/lincity/modules/road.cpp:45 src/lincity/modules/track.cpp:36
 msgid "Food"
 msgstr "Jídlo"
 
-#: src/lincity/modules/mill.cpp:90
+#: src/lincity/modules/mill.cpp:94
 msgid "Textile Mill"
 msgstr "Zpracovatelský závod"
 
@@ -1149,31 +1150,27 @@ msgstr "% hotovo"
 msgid "Ore Mine"
 msgstr "Důl železné rudy"
 
-#: src/lincity/modules/organic_farm.cpp:217
+#: src/lincity/modules/organic_farm.cpp:208
 msgid "Organic Farm"
 msgstr "Živočisná farma"
 
-#: src/lincity/modules/organic_farm.cpp:223
-msgid "NO "
-msgstr "NE "
-
-#: src/lincity/modules/organic_farm.cpp:231
+#: src/lincity/modules/organic_farm.cpp:213
 msgid "Prod"
 msgstr "Prod"
 
-#: src/lincity/modules/organic_farm.cpp:237
+#: src/lincity/modules/organic_farm.cpp:218
 msgid "Debug info"
 msgstr ""
 
-#: src/lincity/modules/organic_farm.cpp:238
+#: src/lincity/modules/organic_farm.cpp:219
 msgid "max with power&water"
 msgstr ""
 
-#: src/lincity/modules/organic_farm.cpp:239
+#: src/lincity/modules/organic_farm.cpp:220
 msgid "N tiles with water"
 msgstr ""
 
-#: src/lincity/modules/organic_farm.cpp:240
+#: src/lincity/modules/organic_farm.cpp:221
 #, fuzzy
 msgid "Current production"
 msgstr "Aktuální výkon"
@@ -1315,29 +1312,32 @@ msgid ""
 "and read waterwell help page :-)"
 msgstr ""
 
-#~ msgid "Recycling"
-#~ msgstr "Recyklační"
-
-#~ msgid "Center"
-#~ msgstr "centrum"
-
-#~ msgid "Heavy"
-#~ msgstr "Těžký"
-
-#~ msgid "Industry"
-#~ msgstr "Průmysl"
-
-#~ msgid "Output"
-#~ msgstr "Výkon"
-
-#~ msgid "Power Station"
-#~ msgstr "Elektrárna"
-
-#~ msgid "Light"
-#~ msgstr "Lehký"
+#~ msgid "Saving scene"
+#~ msgstr "Ukládám scénu"
 
 #~ msgid "Solar"
 #~ msgstr "Sluneční"
 
-#~ msgid "Saving scene"
-#~ msgstr "Ukládám scénu"
+#~ msgid "Light"
+#~ msgstr "Lehký"
+
+#~ msgid "Power Station"
+#~ msgstr "Elektrárna"
+
+#~ msgid "Output"
+#~ msgstr "Výkon"
+
+#~ msgid "Industry"
+#~ msgstr "Průmysl"
+
+#~ msgid "Heavy"
+#~ msgstr "Těžký"
+
+#~ msgid "Center"
+#~ msgstr "centrum"
+
+#~ msgid "Recycling"
+#~ msgstr "Recyklační"
+
+#~ msgid "NO "
+#~ msgstr "NE "
