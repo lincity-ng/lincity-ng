@@ -393,7 +393,6 @@ int bulldoze_item(int x, int y)
     } else if (g == GROUP_SHANTY) {
         remove_a_shanty(x, y);
         adjust_money(-GROUP_SHANTY_BUL_COST);
-        numof_shanties--;
     } else if (g == GROUP_FIRE) {
         if (MP_INFO(x, y).int_2 >= FIRE_LENGTH)
             return -1;          /* Can't bulldoze ? */
