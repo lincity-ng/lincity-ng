@@ -6,7 +6,7 @@
 	<p style="hp">They <b>must</b> be connected to rivers all along the right hand side.</p>
 	<p style="hp">Nothing will be imported or exported until you have checked the appropriate box.</p>
 	<p style="hp">The export area will take as much as it is given. If you need to export, but want to restrict the amount, you may want to use a type of transport with less capacity, use a long piece or pass the product through a market. You will need to experiment to get the right transport configuration.</p>
-	<p style="hp">Note: Exporters discount large exports.</p>
+	<p style="hp">An active Port provides some technology. Note: Exporters discount large exports.</p>
 
 	<p style="hp">This is a port</p>
 	<img src="images/tiles/ex_port.png" halign="center"/>

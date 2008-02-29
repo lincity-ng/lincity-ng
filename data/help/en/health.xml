@@ -1,12 +1,21 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Health Centre</p>
-	<p style="hp">Health centres provide health cover for residences. They act in an area of about 4 squares in each direction.</p>
-	<p style="hp">Health cover makes the residence a more desirable place to live, less people die from pollution related illness and the people living there are more efficient at providing jobs to the surrounding areas (they spend less time off sick).</p>
-	<p style="hp">Health centres are very expensive, 60,000 per year. However, they reduce the cost of 'unnatural deaths' and can provide extra income tax (as long as there are places for the people to work).</p>
-	<p style="hp">After you put a health centre in, it takes three months for it to become active. They use goods. They don't, however, use jobs as such. These are taken into account when calculating the extra jobs created by the reduction in sickness of the surrounding areas.</p>
-	<p style="hp">Health centres do not need to be connected to transport. If not, they need to be within range of a market.</p>
-	<p style="hp">To see the range of health cover, click on the health icon above the 'mini screen' (bottom right of centre on the display). The areas that show up as normal have health cover.</p>
+	<p style="hp">Health centres provide health cover for residences.</p>
+	<p style="hp">Health cover makes the residence a more desirable place to
+        live, less people die from pollution related illness and the people 
+        living there are more efficient at providing jobs to the surrounding 
+        areas (they spend less time off sick).</p>
+	<p style="hp">Running health centres is expensive. However, they reduce
+        the cost of 'unnatural deaths' and can provide extra income tax
+        (as long as there are places for the people to work).</p>
+	<p style="hp">After you put a health centre in, it takes three months for
+        it to become active. They use goods.</p>
+	<p style="hp">Health centres need to be connected to transport or within
+        range of a market.</p>
+	<p style="hp">To see the range of health cover, click on the health icon
+        above the 'mini screen' (bottom right of centre on the display). 
+        The areas that show up as normal have health cover.</p>
 
 	<p style="hp">This is a Health Centre</p>
 	<img src="images/tiles/health.png" halign="center"/>
