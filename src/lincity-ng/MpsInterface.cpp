@@ -223,12 +223,19 @@ void mps_refresh() /* refresh the information display's contents */
                     }
                     mps_store_title(0, 
                             _(main_groups[MP_GROUP(mps_x, mps_y)].name));
+
+                    mps_store_title(2, _("no further information available") );
+
                     if( GROUP_IS_BARE(MP_GROUP( mps_x, mps_y )) ){
                         mps_store_title(4,_("build something here") );
                     }
-                    mps_store_title(2, _("no further information available") );
-                    
-                    //printf("MPS unimplemented for that module\n");
+#ifdef DEBUG
+                    mps_store_sd(10, "x = ", mps_x);
+                    mps_store_sd(11, "y = ", mps_y);
+                    mps_store_sd(12, "altitude = ", ALT(mps_x, mps_y));
+                   
+                    fprintf(stderr, "x %i, y %i, Alt %i\n", mps_x, mps_y, ALT(mps_x,mps_y));
+#endif
             }
             currentMPS = 0;
             break;

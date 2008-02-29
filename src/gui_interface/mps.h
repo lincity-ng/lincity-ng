@@ -13,6 +13,8 @@
 void mps_full_refresh (void);
 void mappoint_stats (int, int, int);
 
+static const int MPS_PARAGRAPH_COUNT = 13;
+
 /* New, simplified mps routines */
 
 #define MPS_MAP 0 /* Left click on map; x/y module statistics */

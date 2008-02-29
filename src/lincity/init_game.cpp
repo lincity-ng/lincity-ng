@@ -28,6 +28,11 @@
 #include "modules/all_modules.h"
 #include "transport.h"
 
+#define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
+
+static const int di[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
+static const int dj[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
+
 /* Private functions prototypes */
 
 static void init_mappoint_array(void);
@@ -41,10 +46,9 @@ static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void setup_ground(void);
 static void new_setup_river_ground(void);
 static void new_setup_river(void);
-static void new_setup_one_river(int c, int *colx, int *coly, int t, int *topx, int *topy, int l, int *lakx, int *laky);
+static void sort_by_altitude(int n, int *tabx, int *taby);
+static void new_setup_one_river(int num_river, int c, int *colx, int *coly, int t, int *topx, int *topy, int l, int *lakx, int *laky);
 static void set_river_tile( int i, int j);
-
-#define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -447,7 +451,6 @@ static void new_setup_river_ground(void)
 void new_setup_river(void)
 {
 
-    int dx2[WORLD_SIDE_LEN][WORLD_SIDE_LEN], dy2[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 
     int colx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], coly[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
     int topx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], topy[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
@@ -470,71 +473,115 @@ void new_setup_river(void)
         ALT(WORLD_SIDE_LEN - 1, i) = alt_min;
     }
 
-    // second order derivatives in visible map
+    // Hessian = second order derivatives in visible map
     // => know curvature, local max, min, saddle points and find col (mountain pass)
     c = 0;
     l = 0;
     t = 0;
     for ( i = 1; i < WORLD_SIDE_LEN - 1 ; i++)
         for ( j = 1; j < WORLD_SIDE_LEN - 1 ; j++) {
-            dx2[i][j] = ALT(i + 1,j) + ALT(i - 1,j) - 2 * ALT(i,j);
-            dy2[i][j] = ALT(i,j + 1) + ALT(i,j - 1) - 2 * ALT(i,j);
-            if (dx2[i][j] * dy2[i][j] <= 0) {
-                // saddle point
-                if ( ( ALT(i + 1,j) < ALT(i,j) && ALT(i - 1,j) < ALT(i,j) && 
-                       ALT(i,j + 1) > ALT(i,j) && ALT(i,j - 1) > ALT(i,j)
-                     ) || (
-                       ALT(i + 1,j) > ALT(i,j) && ALT(i - 1,j) > ALT(i,j) && 
-                       ALT(i,j + 1) < ALT(i,j) && ALT(i,j - 1) < ALT(i,j)
-                     ) )  {
-                    // mountain pass
+            float e1, e2;
+            float dx2, dy2, dxy, dyx, delta;
+
+            dx2 = float (ALT(i + 1,j) + ALT(i - 1,j) - 2 * ALT(i,j));
+            dy2 = float (ALT(i,j + 1) + ALT(i,j - 1) - 2 * ALT(i,j));
+            dxy = float ( (ALT(i+1 , j+1) + ALT(i-1, j-1) - ALT(i+1,j-1) - ALT(i-1,j+1)) * 0.25);
+            dyx = dxy;
+            // e1 e2 are the eigenvalues of Hessian, ie solutions of:
+            // X^2 - (dx2 + dy2).X + dx2.dy2 - dxy.dyx = 0     (wrt X)
+            delta =  (dx2 + dy2)*(dx2 + dy2) - 4 * (dx2 * dy2 - dxy * dyx);
+            e1 = (dx2 + dy2) + sqrt(delta);
+            e2 = (dx2 + dy2) - sqrt(delta);
+
+            if (e1 * e2 < 0) {
+                // saddle point = mountain pass  _IF_ tangent plane is _nearly_ horizontal !
+
+                /* Tangent plane has equation alpha.(x-x0) + beta.(y-y0) - z = 0
+                 * Least square method to find alpha and beta considering 8 neighbours
+                 *  (just partial derivatives along x and y are not enought)
+                 * After some calculus, alpha = (Sax.Syy - Say.Sxy)/(2.*(Sxx.Syy-Sxy*Syx))
+                 * beta is symetrical wrt x <-> y
+                 */
+                    // precomputed terms for least square, on 8 neighbours
+                    // (for i = 0; i < 8; i++) Sxy += (xi -x0) * (yi - y0);
+                    // => Sxy = Syx = 0 :-)
+                    // => simple result for alpha and beta.
+
+                const float Sxx = 6.; // Syy = Sxx
+                float alpha, beta;
+                float Sax = 0.;
+                float Say = 0.;
+                for (int n = 0; n < 8; n++) {
+                    Sax += float ((ALT(i + di[n], j + dj[n]) - ALT(i,j)) * di[n]);
+                    Say += float ((ALT(i + di[n], j + dj[n]) - ALT(i,j)) * dj[n]);
+                }
+                alpha = Sax / Sxx;
+                beta  = Say / Sxx; // because Syy = Sxx
+
+                // Normal vector is (alpha, beta, -1)
+                // so plane is nearly horizontal if alpha^2 + beta^2 is "small"
+                if ( (alpha * alpha + beta * beta) < float(global_mountainity / 2) ) {
+                    // mountain pass = col
                     colx[c] = i;
                     coly[c] = j;
                     c++;
+//#define DEBUG_LAND
 #ifdef DEBUG_LAND
+                    fprintf(stderr," x %i, y %i, norm %f\n", i, j, alpha * alpha + beta * beta);
                     if (GROUP_IS_BARE(MP_GROUP(i,j)))
-                            set_mappoint(i,j, CST_ROAD_LR);
+                        set_mappoint(i,j, CST_ROAD_LR);
                     //XXX AL1: why is there a segfault if we use CST_POWERL_H_D ?
 #endif
                 }
-            } else if (dx2[i][j] < 0) {
-                // local top
-                if (  ALT(i + 1,j) < ALT(i,j) && ALT(i - 1,j) < ALT(i,j) && 
-                       ALT(i,j + 1) < ALT(i,j) && ALT(i,j - 1) < ALT(i,j)  )  {
-                    topx[t] = i;
-                    topy[t] = j;
-                    t++;
+            } else if (e1 * e2 != 0) {
+                if ( e1 < 0) {
+                    // local top
+                    if (  ALT(i + 1,j) < ALT(i,j) && ALT(i - 1,j) < ALT(i,j) &&
+                            ALT(i,j + 1) < ALT(i,j) && ALT(i,j - 1) < ALT(i,j)  )  {
+
+                        topx[t] = i;
+                        topy[t] = j;
+                        t++;
 #ifdef DEBUG_LAND
-                    if (GROUP_IS_BARE(MP_GROUP(i,j)))
-                        set_mappoint(i,j, CST_FIRE_1);
+                        if (GROUP_IS_BARE(MP_GROUP(i,j)))
+                            set_mappoint(i,j, CST_FIRE_1);
 #endif
-                }
- 
-            } else {
-                // local min = potential lake => has water.
-                if (  ALT(i + 1,j) > ALT(i,j) && ALT(i - 1,j) > ALT(i,j) && 
-                       ALT(i,j + 1) > ALT(i,j) && ALT(i,j - 1) > ALT(i,j)  )  {
-                    lakx[l] = i;
-                    laky[l] = j;
-                    l++;
-                    if (GROUP_IS_BARE(MP_GROUP(i,j))) {
-                        set_mappoint(i,j, CST_PARKLAND_LAKE);
-                        MP_INFO(i,j).flags |= (FLAG_HAS_UNDERGROUND_WATER + FLAG_IS_RIVER);
+                    }
+                } else {
+                    // local min = potential lake => has water.
+                    if (  ALT(i + 1,j) > ALT(i,j) && ALT(i - 1,j) > ALT(i,j) &&
+                            ALT(i,j + 1) > ALT(i,j) && ALT(i,j - 1) > ALT(i,j)  )  {
+
+                        lakx[l] = i;
+                        laky[l] = j;
+                        l++;
+                        if (GROUP_IS_BARE(MP_GROUP(i,j))) {
+                            set_mappoint(i,j, CST_PARKLAND_LAKE);
+                            MP_INFO(i,j).flags |= (FLAG_HAS_UNDERGROUND_WATER + FLAG_IS_RIVER);
+                        }
                     }
                 }
- 
+            } else {
+                // parabolic point
+#ifdef DEBUG_LAND
+                if (GROUP_IS_BARE(MP_GROUP(i,j)))
+                    set_mappoint(i,j, CST_RAIL_LR);
+#endif
             }
+
 
         }
 
 #ifdef DEBUG_LAND
     fprintf(stderr," pass c = %i, cx = %i, cy = %i\n", c, colx[c - 1], coly[c -1]);
     fprintf(stderr," top t = %i, tx = %i, ty = %i\n", t, topx[t-1], topy[t-1]);
-    fprintf(stderr," lak l = %i, lx = %i, ly = %i\n", l, topx[l-1], topy[l-1]);
+    fprintf(stderr," lak l = %i, lx = %i, ly = %i\n", l, lakx[l-1], laky[l-1]);
 #endif
 
-    for (i = 0; i < 10; i++)
-        new_setup_one_river(c, colx, coly, t, topx, topy, l, lakx, laky);
+    // put one river from each top.
+    sort_by_altitude(t, topx, topy);
+    for (i = 0; i < t; i++)
+        new_setup_one_river(i, c, colx, coly, t, topx, topy, l, lakx, laky);
 }
 
 static void set_river_tile( int i, int j)
@@ -544,22 +591,42 @@ static void set_river_tile( int i, int j)
     MP_INFO(i, j).flags |= FLAG_IS_RIVER;
 }
 
-static void new_setup_one_river(int c, int *colx, int *coly, int t, int *topx, int *topy, int l, int *lakx, int *laky)
+static void sort_by_altitude(int n, int *tabx, int *taby)
 {
-    static const int di[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
-    static const int dj[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
+    int tmp_x, tmp_y;
+    bool sorted = false;
+
+    // bubble sort. n is near 10 so ...
+    for (int i = 0; i < n && !sorted ; i++) {
+        sorted = true;
+        for (int j=1; j < n - i; j++)
+            if (ALT(tabx[j],taby[j]) < ALT(tabx[j-1], taby[j-1])) {
+                tmp_x = tabx[j-1];
+                tmp_y = taby[j-1];
+                tabx[j-1] =  tabx[j];
+                taby[j-1] =  taby[j];
+                tabx[j] = tmp_x;
+                taby[j] = tmp_y;
+                sorted = false;
+            }
+        /*fprintf(stderr," sorted = %i, n - i -1 = %i, ALT() = %i\n", 
+         *       sorted, n - i -1, ALT(tabx[n-i-1], taby[n -i -1]));
+         */
+    }
+}
+
+static void new_setup_one_river(int num_river, int c, int *colx, int *coly, int t, int *topx, int *topy, int l, int *lakx, int *laky)
+{
     int x, y, xx, yy, alt, alt_max;
-    int watchdog = 300;              /* if too many tries, random placement. */
 
+    /* find a place in altitude near top */
+    xx = topx[t - num_river] + (1 + rand() % 2) * di[rand() % 8];
+    yy = topy[t - num_river] + (1 + rand() % 2) * dj[rand() % 8];
+    if ( xx < 0 || xx >= WORLD_SIDE_LEN)
+        xx =  topx[t - num_river];
 
-    /* find a place in altitude */
-    do {
-        xx = 15 + rand() % (WORLD_SIDE_LEN - 30);
-        yy = 15 + rand() % (WORLD_SIDE_LEN - 30);
-    } while ( ALT(xx,yy) < 8 * alt_step && (--watchdog) > 1);
-#ifdef DEBUG_LAND
-    fprintf(stderr, "river watchdog = %i, x = %i, y = %i\n", watchdog, xx, yy);
-#endif
+    if ( yy < 0 || yy >= WORLD_SIDE_LEN)
+        yy =  topy[t - num_river];
 
     set_river_tile(xx,yy);
     alt_max = ALT(xx, yy);
@@ -596,6 +663,8 @@ static void new_setup_one_river(int c, int *colx, int *coly, int t, int *topx, i
 
     // TODO connect lakes to outside of the map
     // make a small lake
+    sort_by_altitude(c, colx, coly);
+    sort_by_altitude(l, lakx, laky);
 
 }
 

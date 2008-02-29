@@ -75,6 +75,7 @@ void do_time_step(void)
 {
     if (flag_warning) {
         flag_warning = false;
+        /* FIXME use blocking_dialog_open instead */
         setLincitySpeed(0);
         ok_dial_box("warning.mes", GOOD, \
                 _("Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!\
