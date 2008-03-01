@@ -1319,8 +1319,8 @@ msgstr ""
 "миникарте. Так же прочесть страничку с помощью :-)"
 
 # My adds
-#~ msgid "Rocket_98"
-#~ msgstr "Ракета 98"
+msgid "Rocket_98"
+msgstr "Ракета 98"
 
 #~ msgid "NO "
 #~ msgstr "НЕТ"
