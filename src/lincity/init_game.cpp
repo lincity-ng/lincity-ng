@@ -14,6 +14,7 @@
 //
 
 #include <math.h>
+#include <cstdlib>
 #include "init_game.h"
 #include "fileutil.h"
 #include "simulate.h"

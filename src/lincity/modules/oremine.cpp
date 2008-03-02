@@ -8,6 +8,7 @@
 #include "modules.h"
 #include "gui_interface/screen_interface.h"
 #include "oremine.h"
+#include <cstdlib>
 
 void do_oremine(int x, int y)
 {
