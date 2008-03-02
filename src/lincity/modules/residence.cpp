@@ -86,7 +86,7 @@ void do_residence(int x, int y)
     }
     /* are people starving or lacking water ? */
     if (((MP_INFO(x, y).flags & FLAG_FED) == 0)
-        | (use_waterwell & (MP_INFO(x, y).flags & FLAG_WATERWELL_COVER) == 0)
+        | (use_waterwell & ((MP_INFO(x, y).flags & FLAG_WATERWELL_COVER) == 0))
         && p > 0) {
         if (total_time > deadline) {
 #ifdef DEBUG_WATERWELL

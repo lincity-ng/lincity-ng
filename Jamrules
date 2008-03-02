@@ -25,8 +25,8 @@ switch $(VARIANT) {
         CXXFLAGS += -O3 -g -Wall ;
         LIBS += -g ;
     case debug :
-        CFLAGS += -Wall -W -O0 -g3 -DDEBUG ;
-        CXXFLAGS += -Wall -W -O0 -g3 -DDEBUG ;
+        CFLAGS += -Wall -W -O0 -g3 -DDEBUG -Werror ;
+        CXXFLAGS += -Wall -W -O0 -g3 -DDEBUG -Werror ;
         LIBS += -g3 ;
     case profile :
         CFLAGS += -O3 -g3 -pg ;

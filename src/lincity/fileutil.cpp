@@ -171,7 +171,7 @@ int execute_command(char *cmd, char *p1, char *p2, char *p3)
 
 void copy_file(char *f1, char *f2)
 {
-    int ret_value = execute_command("cp", f1, f2, "");
+    int ret_value = execute_command((char*)"cp", f1, f2, (char*)"");
     if (ret_value != 0) {
         /* GCS FIX:  Need to make do_error into var_args fn? */
         printf("Tried to cp %s %s\n", f1, f2);
@@ -348,20 +348,20 @@ void find_localized_paths(void)
 #else
     intl_suffix = guess_category_value(0, "LC_MESSAGES");
 #endif
-    debug_printf("GUESS 1 -- intl_suffix is %s\n", intl_suffix);
+    debug_printf((char*)"GUESS 1 -- intl_suffix is %s\n", intl_suffix);
     if (strcmp(intl_suffix, "C") && strcmp(intl_suffix, "")) {
         snprintf(message_path, sizeof(message_path), "%s%c%s%c%s%c", LIBDIR,
                  PATH_SLASH, "messages", PATH_SLASH, intl_suffix, PATH_SLASH);
-        debug_printf("Trying Message Path %s\n", message_path);
+        debug_printf((char*)"Trying Message Path %s\n", message_path);
         if (directory_exists(message_path)) {
-            debug_printf("Set Message Path %s\n", message_path);
+            debug_printf((char*)"Set Message Path %s\n", message_path);
             messages_done = 1;
         }
         snprintf(help_path, sizeof(help_path), "%s%c%s%c%s%c", LIBDIR, PATH_SLASH,
                  "help", PATH_SLASH, intl_suffix, PATH_SLASH);
-        debug_printf("Trying Help Path %s\n", help_path);
+        debug_printf((char*)"Trying Help Path %s\n", help_path);
         if (directory_exists(help_path)) {
-            debug_printf("Set Help Path %s\n", help_path);
+            debug_printf((char*)"Set Help Path %s\n", help_path);
             help_done = 1;
         }
     }
@@ -373,21 +373,21 @@ void find_localized_paths(void)
     intl_lang[127] = '\0';
     lincity_nl_find_language(intl_lang);
     intl_suffix = intl_lang;
-    debug_printf("GUESS 2 -- intl_suffix is %s\n", intl_suffix);
+    debug_printf((char*)"GUESS 2 -- intl_suffix is %s\n", intl_suffix);
     if (strcmp(intl_suffix, "C") && strcmp(intl_suffix, "")) {
         if (!messages_done) {
             sprintf(message_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "messages", PATH_SLASH, intl_suffix, PATH_SLASH);
-            debug_printf("Trying Message Path %s\n", message_path);
+            debug_printf((char*)"Trying Message Path %s\n", message_path);
             if (directory_exists(message_path)) {
-                debug_printf("Set Message Path %s\n", message_path);
+                debug_printf((char*)"Set Message Path %s\n", message_path);
                 messages_done = 1;
             }
         }
         if (!help_done) {
             sprintf(help_path, "%s%c%s%c%s%c", LIBDIR, PATH_SLASH, "help", PATH_SLASH, intl_suffix, PATH_SLASH);
-            debug_printf("Trying Help Path %s\n", help_path);
+            debug_printf((char*)"Trying Help Path %s\n", help_path);
             if (directory_exists(help_path)) {
-                debug_printf("Set Help Path %s\n", help_path);
+                debug_printf((char*)"Set Help Path %s\n", help_path);
                 help_done = 1;
             }
         }
@@ -398,11 +398,11 @@ void find_localized_paths(void)
     /* Finally, settle for default English messages */
     if (!messages_done) {
         sprintf(message_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "messages", PATH_SLASH);
-        debug_printf("Settling for message Path %s\n", message_path);
+        debug_printf((char*)"Settling for message Path %s\n", message_path);
     }
     if (!help_done) {
         sprintf(help_path, "%s%c%s%c", LIBDIR, PATH_SLASH, "help", PATH_SLASH);
-        debug_printf("Settling for help Path %s\n", help_path);
+        debug_printf((char*)"Settling for help Path %s\n", help_path);
     }
 }
 

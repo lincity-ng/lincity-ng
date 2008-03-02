@@ -110,9 +110,9 @@ static int check_grid(int x, int y, int xi, int yi)
             MP_INFO(x, y).int_6 = grid_num;
             MP_INFO(x, y).int_7 = grid_inc;
             return 1;           /* say power sources and substation are power line */
-        } else                  /* is a power line */
+        } else {                 /* is a power line */
             return 1;
-
+        }
     } else if (XY_IS_TRANSPORT(x, y) || XY_IS_WATER(x, y)) {    /* can we step over? */
         if (xi == 0 && yi == 0) /* already stepped */
             return 0;
@@ -170,34 +170,45 @@ static void recurse_power_grid(int startx, int starty, int steps)
            recursion to follow the path now */
 
         /* West */
-        if (mapx >= 1)
-            if ((inc = check_grid(mapx - 1, mapy, -1, 0)))
-                if (dir < 1)
+        if (mapx >= 1){
+            if ((inc = check_grid(mapx - 1, mapy, -1, 0))){
+                if (dir < 1){
                     dir = WEST;
-                else
+                }else{
                     recurse_power_grid(mapx - inc, mapy, count + 1);
+                }
+            }
+        }
         /* North */
-        if (mapy >= 1)
-            if ((inc = check_grid(mapx, mapy - 1, 0, -1)))
-                if (dir < 1)
+        if (mapy >= 1){
+            if ((inc = check_grid(mapx, mapy - 1, 0, -1))){
+                if (dir < 1){
                     dir = NORTH;
-                else
+                }else{
                     recurse_power_grid(mapx, mapy - inc, count + 1);
+                }
+            }
+        }
         /* East */
-        if (mapx < WORLD_SIDE_LEN)
-            if ((inc = check_grid(mapx + 1, mapy, 1, 0)))
-                if (dir < 1)
+        if (mapx < WORLD_SIDE_LEN){
+            if ((inc = check_grid(mapx + 1, mapy, 1, 0))){
+                if (dir < 1){
                     dir = EAST;
-                else
+                }else{
                     recurse_power_grid(mapx + inc, mapy, count + 1);
+                }
+            }
+        }
         /* South */
-        if (mapy < WORLD_SIDE_LEN)
-            if ((inc = check_grid(mapx, mapy + 1, 0, 1)))
-                if (dir < 1)
+        if (mapy < WORLD_SIDE_LEN){
+            if ((inc = check_grid(mapx, mapy + 1, 0, 1))){
+                if (dir < 1){
                     dir = SOUTH;
-                else
+                }else{
                     recurse_power_grid(mapx, mapy + inc, count + 1);
-
+                }
+            }
+        }
         /* Move to a new square if the chosen direction is not already mapped. */
         switch (dir) {
         case (-1):             /* Didn't find one, must not be any.  Stop looping */
@@ -206,39 +217,47 @@ static void recurse_power_grid(int startx, int starty, int steps)
             }
             break;
         case WEST:{
-                if (mapx >= 1)
+                if (mapx >= 1){
                     if ((inc = check_grid(mapx - 1, mapy, -1, 0))) {
                         mapx -= inc;
                         dir = -1;
-                    } else
+                    } else {
                         dir = 0;
+                    }
+                }
             }
             break;
         case NORTH:{
-                if (mapy >= 1)
+                if (mapy >= 1){
                     if ((inc = check_grid(mapx, mapy - 1, 0, -1))) {
                         mapy -= inc;
                         dir = -1;
-                    } else
+                    } else{
                         dir = 0;
+                    }
+                }
             }
             break;
         case EAST:{
-                if (mapx < WORLD_SIDE_LEN)
+                if (mapx < WORLD_SIDE_LEN){
                     if ((inc = check_grid(mapx + 1, mapy, 1, 0))) {
                         mapx += inc;
                         dir = -1;
-                    } else
+                    } else{
                         dir = 0;
+                    }
+                }
             }
             break;
         case SOUTH:{
-                if (mapy < WORLD_SIDE_LEN)
+                if (mapy < WORLD_SIDE_LEN){
                     if ((inc = check_grid(mapx, mapy + 1, 0, 1))) {
                         mapy += inc;
                         dir = -1;
-                    } else
+                    } else {
                         dir = 0;
+                    }
+                }
             }
             break;
         }                       /* switch dir */

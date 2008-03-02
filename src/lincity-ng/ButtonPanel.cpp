@@ -248,7 +248,7 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
             b->setTooltip(tooltip);
         }
     }
-    if ( name=="BPMWaterwellButton" & !use_waterwell ) {
+    if ( (name=="BPMWaterwellButton") & !use_waterwell ) {
             b->enable( false );
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s is disabled (loaded old game)."),

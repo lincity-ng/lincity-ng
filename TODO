@@ -67,13 +67,12 @@ Programming
 
  [M] Startup image instead of 10+ sec black screen. Show menu without
      delay if possible.
+     Similar delay when opening stats dialog. Is findComponent() too slow? 
 
 --Bugs--
  [H] Windows: Something in MainMenu.cpp with recentfile and curfile is broken. 
 
  [M] Windows: Use user's home for savegames (already fixed?)
-
- [M] Get rid of all the compiler warnings.
 
  [M] When starting another game, stats still show values from the previous game.
 

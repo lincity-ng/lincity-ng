@@ -462,9 +462,9 @@ void load_city_old(char *cname)
                     float PSO = POWERS_SOLAR_OUTPUT;
                     float MT = MAX_TECH_LEVEL;
                     int t1, t2 , t3;
-                        t1 = (int) ((MP_INFO(x,y).int_1 - PSO) * MT)/PSO;
+                        t1 = (int) (((MP_INFO(x,y).int_1 - PSO) * MT)/PSO);
                         t2 = MP_INFO(x,y).int_2;
-                        t3 = (int) ((MP_INFO(x,y).int_3 - PSO) * MT)/PSO;
+                        t3 = (int) (((MP_INFO(x,y).int_3 - PSO) * MT)/PSO);
                     //because of bug introduced then fixed near 1207 1218 or in waterwell branch
                     if (MP_INFO(x,y).int_2 != 0) {
                         MP_TECH(x,y) = t2;
@@ -493,11 +493,13 @@ void load_city_old(char *cname)
                 break;
 
             case GROUP_INDUSTRY_L:
-                if ( MP_TECH(x,y) == 0 )
-                    if ( tk > GROUP_INDUSTRY_L_TECH )
+                if ( MP_TECH(x,y) == 0 ){
+                    if ( tk > GROUP_INDUSTRY_L_TECH ){
                         MP_TECH(x,y) = tk;
-                    else
+                    } else {
                         MP_TECH(x,y) = GROUP_INDUSTRY_L_TECH;
+                    }
+                }
                 break;
             }
         }

@@ -42,7 +42,7 @@ void color2Grey(SDL_Surface* surface)
             
             float greyvalf = 0.3 * red + 0.59 * green + 0.11 * blue;
             uint32_t greyval = (uint32_t) greyvalf;
-            *pixel = *pixel & surface->format->Amask 
+            *pixel = (*pixel & surface->format->Amask) 
                 | (greyval << surface->format->Rshift)
                 | (greyval << surface->format->Gshift)
                 | (greyval << surface->format->Bshift);

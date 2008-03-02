@@ -12,9 +12,9 @@
 #include "lin-city.h"
 #include "tinygettext/gettext.hpp"
 
-char *months[] = { N_("Jan"), N_("Feb"), N_("Mar"), N_("Apr"),
-    N_("May"), N_("Jun"), N_("Jul"), N_("Aug"),
-    N_("Sep"), N_("Oct"), N_("Nov"), N_("Dec")
+char *months[] = { (char*)N_("Jan"), (char*)N_("Feb"), (char*)N_("Mar"), (char*)N_("Apr"),
+    (char*)N_("May"), (char*)N_("Jun"), (char*)N_("Jul"), (char*)N_("Aug"),
+    (char*)N_("Sep"), (char*)N_("Oct"), (char*)N_("Nov"), (char*)N_("Dec")
 };
 
 const char *current_month(int current_time)
