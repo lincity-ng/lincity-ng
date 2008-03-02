@@ -155,7 +155,7 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
     CheckButton *button;
 
     for(int i=0;i<6;i++) {
-    	char* recentfile;
+    	char* recentfile = NULL;
         PHYSFS_sint64 t = 0;
 
         std::stringstream filestart;
