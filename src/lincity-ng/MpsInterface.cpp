@@ -218,10 +218,7 @@ void mps_refresh() /* refresh the information display's contents */
 		    break;
                 default: 
                     //no special information on this group, just show the Name.
-                    for(int i = 1; i < MPS_PARAGRAPH_COUNT; ++i) {
-                        mps_store_title( i, "" );
-                    }
-                    mps_store_title(0, 
+                    mps_store_title(0,
                             _(main_groups[MP_GROUP(mps_x, mps_y)].name));
 
                     mps_store_title(2, _("no further information available") );

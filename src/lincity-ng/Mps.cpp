@@ -107,22 +107,15 @@ Mps::setView(MapPoint point, int style /* = MPS_MAP */ )
     if( x < 0 || y < 0 || x >= WORLD_SIDE_LEN || y >= WORLD_SIDE_LEN )
         return;
 
-    int xx,yy;
-  
-    xx=x;
-    yy=y;
     if (MP_TYPE(x,y) == CST_USED)
     {
-        xx = MP_INFO(x,y).int_1;
-        yy = MP_INFO(x,y).int_2;
+        x = MP_INFO(x,y).int_1;
+        y = MP_INFO(x,y).int_2;
     }
-    
-    if( style == MPS_ENV ) {
-        clear();
-        mps_update(x, y, style); 
-    } else {
-        mps_update(xx, yy, style); //MPS_GLOBAL);// MPS_ENV);// MPS_MAP);
-    }
+
+    // Used with MPS_GLOBAL, MPS_ENV and MPS_MAP
+    clear();
+    mps_update(x, y, style);
 }
 
 void

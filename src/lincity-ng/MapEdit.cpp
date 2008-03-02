@@ -148,6 +148,7 @@ void editMap (MapPoint point, int button)
     /* Handle bulldozing */
     if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT) {
         check_bulldoze_area (x, y);
+        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
         return;
     }
 
@@ -202,9 +203,11 @@ void editMap (MapPoint point, int button)
 
     //query Tool 
     if(selected_module_type==CST_NONE) {
-        if(mapMPS)
-	    mapMPS->playBuildingSound( mod_x, mod_y );
-            mapMPS->setView(MapPoint(x, y));
+        if (mapMPS) {
+            mapMPS->playBuildingSound( mod_x, mod_y );
+            mapMPS->setView(MapPoint( mod_x, mod_y ));
+        }
+        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool on CST_NONE
         return;
     }
 
@@ -264,6 +267,7 @@ void editMap (MapPoint point, int button)
         case 0:
             /* Success */
             getSound()->playSound( "Build" );
+            mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on well-built
             break;
         case -1000:
             /* ouch group does not exist */
