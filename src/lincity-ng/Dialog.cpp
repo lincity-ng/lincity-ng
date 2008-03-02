@@ -300,16 +300,45 @@ void Dialog::coalSurvey(){
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
 
-void Dialog::setParagraphN( std::string basename, int number, std::string text ){
-    Paragraph* p;
+void Dialog::setParagraphN( const std::string basename, const int number, const std::string text ){
     std::stringstream paragraphName;
     paragraphName << basename << number;
-    p = getParagraph( *myDialogComponent, paragraphName.str() );
-    p->setText( text );
+    setParagraph( paragraphName.str(), text );
+}
+
+template<typename T> void Dialog::setTableRC( const std::string basename, const int row, const int column, const std::string text, T value ){
+    std::stringstream paragraphName;
+    paragraphName << basename << "_text_" << row << "_" << column;
+    setParagraph( paragraphName.str(), text );
+    paragraphName.str("");
+    paragraphName << basename << "_value_" << row << "_" << column;
+    std::stringstream stringvalue;
+    stringvalue << value;
+    setParagraph( paragraphName.str(), stringvalue.str() );
+}
+
+void Dialog::setParagraph( const std::string paragraphName, const std::string text ){
+    Paragraph* p;
+    try{
+        p = getParagraph( *myDialogComponent, paragraphName );
+        p->setText( text );
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't set " << paragraphName << " to '" << text << "': "
+            << e.what() << "\n";
+    }
 }
 
 /* 
  * Show game statistics in dialog and write them to RESULTS_FILENAME.
+ *
+ * gamestats.xml has 11 lines 
+ * statistic_text1 
+ * [...]
+ * statistic_text11
+ * and 12 lines in a Table with 6 columns
+ * statistic_text_1_1  statistic_number_1_1  statistic_text_1_2  statistic_number_1_2  statistic_text_1_3  statistic_number_1_3
+ * [...]
+ * statistic_text_12_1 statistic_number_12_1 statistic_text_12_2 statistic_number_12_2 statistic_text_12_3 statistic_number_12_3
  */
 void Dialog::gameStats(){
      saveGameStats();
@@ -366,7 +395,7 @@ void Dialog::gameStats(){
 	     (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength,
-	     _(".Deaths by starvation %7d   History %8.3f"),
+	     _("Deaths by starvation %7d   History %8.3f"),
 	     total_starve_deaths, starve_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength,
@@ -379,70 +408,66 @@ void Dialog::gameStats(){
     snprintf (outf, maxlength, _("Rockets launched %2d  Successful launches %2d"),
 	     rockets_launched, rockets_launched_success);
     setParagraphN( "statistic_text", line++, outf );
-    setParagraphN( "statistic_text", line++, "" );
 
-    //as long as Paragraph.cpp stripes leading spaces there has to
-    //be something here ----------\ or the stats look strange.
-    //                            |
-    //                            v                
-    snprintf (outf, maxlength, _(".   Residences %4d         Markets %4d            Farms %4d"),
+    while( line <= 11 ){ //clear remaining lines
+        setParagraphN( "statistic_text", line++, "" );
+    }
+    free( outf );
+
+    setTableRC("statistic", 1, 1, _("Residences"),
 	     group_count[GROUP_RESIDENCE_LL] + 
 	     group_count[GROUP_RESIDENCE_ML] + 
 	     group_count[GROUP_RESIDENCE_HL] + 
 	     group_count[GROUP_RESIDENCE_LH] + 
 	     group_count[GROUP_RESIDENCE_MH] + 
-	     group_count[GROUP_RESIDENCE_HH],
-	     group_count[GROUP_MARKET],
-	     group_count[GROUP_ORGANIC_FARM]);
-    setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(".  Water wells %4d"), group_count[GROUP_WATERWELL]);
-    setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(".    Monuments %4d         Schools %4d     Universities %4d")
-	     ,group_count[GROUP_MONUMENT], group_count[GROUP_SCHOOL]
-	     ,group_count[GROUP_UNIVERSITY]);
-    setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(".Fire stations %4d           Parks %4d    Sports fields %4d")
-	     ,group_count[GROUP_FIRESTATION], group_count[GROUP_PARKLAND]
-	     ,group_count[GROUP_CRICKET]);
-    setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("Health centres %4d            Tips %4d         Shanties %4d"),
-	     group_count[GROUP_HEALTH], group_count[GROUP_TIP],
-	     group_count[GROUP_SHANTY]);
-    setParagraphN( "statistic_text", line++, outf );
-    setParagraphN( "statistic_text", line++, "" );
+	     group_count[GROUP_RESIDENCE_HH]);
+    setTableRC("statistic", 1, 2, _("Markets"), group_count[GROUP_MARKET] );
+    setTableRC("statistic", 1, 3, _("Farms"), group_count[GROUP_ORGANIC_FARM]);
+    
+    setTableRC("statistic", 2, 1, _("Water wells"), group_count[GROUP_WATERWELL]);
+    setTableRC("statistic", 2, 2, "", "");
+    setTableRC("statistic", 2, 3, "", "");
 
-    snprintf (outf, maxlength, _(".    Windmills %4d     Coal powers %4d     Solar powers %4d"),
-	     group_count[GROUP_WINDMILL],
-	     group_count[GROUP_COAL_POWER],
-	     group_count[GROUP_SOLAR_POWER]);
-    setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(".  Substations %4d     Power lines %4d            Ports %4d")
-	     ,group_count[GROUP_SUBSTATION], group_count[GROUP_POWER_LINE]
-	     ,group_count[GROUP_PORT]);
-    setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(".       Tracks %4d           Roads %4d             Rail %4d")
-	     ,group_count[GROUP_TRACK], group_count[GROUP_ROAD]
-	     ,group_count[GROUP_RAIL]);
-    setParagraphN( "statistic_text", line++, outf );
-    setParagraphN( "statistic_text", line++, "" );
+    setTableRC("statistic", 3, 1, _("Monuments"), group_count[GROUP_MONUMENT]); 
+    setTableRC("statistic", 3, 2, _("Schools"),  group_count[GROUP_SCHOOL]);
+    setTableRC("statistic", 3, 3, _("Universities"), group_count[GROUP_UNIVERSITY]);
 
-    snprintf (outf, maxlength, _(".    Potteries %4d     Blacksmiths %4d            Mills %4d")
-	     ,group_count[GROUP_POTTERY], group_count[GROUP_BLACKSMITH]
-	     ,group_count[GROUP_MILL]);
-    setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(".   Light inds %4d      Heavy inds %4d        Recyclers %4d")
-	     ,group_count[GROUP_INDUSTRY_L], group_count[GROUP_INDUSTRY_H]
-	     ,group_count[GROUP_RECYCLE]);
-    setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _(".   Coal mines %4d       Ore mines %4d         Communes %4d")
-	     ,group_count[GROUP_COALMINE], group_count[GROUP_OREMINE]
-	     ,group_count[GROUP_COMMUNE]);
-    setParagraphN( "statistic_text", line++, outf );
+    setTableRC("statistic", 4, 1, _("Fire stations"), group_count[GROUP_FIRESTATION]);
+    setTableRC("statistic", 4, 2, _("Parks"), group_count[GROUP_PARKLAND]);
+    setTableRC("statistic", 4, 3, _("Sports fields"), group_count[GROUP_CRICKET]);
+
+    setTableRC("statistic", 5, 1, _("Health centres"), group_count[GROUP_HEALTH]);
+    setTableRC("statistic", 5, 2, _("Tips"), group_count[GROUP_TIP]);
+    setTableRC("statistic", 5, 3, _("Shanties"), group_count[GROUP_SHANTY]);
+
+    setTableRC("statistic", 6, 1, _("Windmills"), group_count[GROUP_WINDMILL]);
+    setTableRC("statistic", 6, 2, _("Coal powers"), group_count[GROUP_COAL_POWER]);
+    setTableRC("statistic", 6, 3, _("Solar powers"), group_count[GROUP_SOLAR_POWER]);
+
+    setTableRC("statistic", 7, 1, _("Substations"), group_count[GROUP_SUBSTATION]);
+    setTableRC("statistic", 7, 2, _("Power lines"), group_count[GROUP_POWER_LINE]);
+    setTableRC("statistic", 7, 3, _("Ports"), group_count[GROUP_PORT]);
+
+    setTableRC("statistic", 8, 1, _("Tracks"), group_count[GROUP_TRACK]);
+    setTableRC("statistic", 8, 2, _("Roads"), group_count[GROUP_ROAD]);
+    setTableRC("statistic", 8, 3, _("Rail"), group_count[GROUP_RAIL]);
+
+    setTableRC("statistic", 9, 1, _("Potteries"), group_count[GROUP_POTTERY]);
+    setTableRC("statistic", 9, 2, _("Blacksmiths"), group_count[GROUP_BLACKSMITH]);
+    setTableRC("statistic", 9, 3, _("Mills"), group_count[GROUP_MILL]);
+
+    setTableRC("statistic", 10, 1, _("Light inds"), group_count[GROUP_INDUSTRY_L]);
+    setTableRC("statistic", 10, 2, _("Heavy inds"), group_count[GROUP_INDUSTRY_H]);
+    setTableRC("statistic", 10, 3, _("Recyclers"), group_count[GROUP_RECYCLE]);
+
+    setTableRC("statistic", 11, 1, _("Coal mines"), group_count[GROUP_COALMINE]);
+    setTableRC("statistic", 11, 2, _("Ore mines"), group_count[GROUP_OREMINE]);
+    setTableRC("statistic", 11, 3, _("Communes"), group_count[GROUP_COMMUNE]);
+
+    setTableRC("statistic", 12, 1, "", "");
+    setTableRC("statistic", 12, 2, "", "");
+    setTableRC("statistic", 12, 3, "", "");
    
-    while( line <= 23 ){ //clear remaining lines
-        setParagraphN( "statistic_text", line++, "" );
-    }
-    free( outf );
     if( !useExisting ){
         // connect signals
         Button* noButton = getButton( *myDialogComponent, "Okay" );

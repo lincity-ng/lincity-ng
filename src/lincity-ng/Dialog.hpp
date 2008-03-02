@@ -69,7 +69,10 @@ class Dialog
         int pointX;
         int pointY;
  
-        void setParagraphN( std::string basename, int number, std::string text );
+        template<typename T> void setTableRC( const std::string basename, const int row, const int column, const std::string text, const T value );
+
+        void setParagraphN( const std::string basename, const int number, const std::string text );
+        void setParagraph( const std::string paragraphName, const std::string text );
         void okayBulldozeRiverButtonClicked( Button* );
         void okayBulldozeShantyButtonClicked( Button* );
         void okayBulldozeMonumentButtonClicked( Button* );

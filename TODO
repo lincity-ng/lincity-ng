@@ -39,8 +39,6 @@ Programming
 ~~~~~~~~~~~
 
 --Gui--
- [H] Make stats dialog work without fixed font and remove fixed font.
-
  [M] Resize "help" window.
 
  [M] Implement dirty rectangle methods to only redraw when needed

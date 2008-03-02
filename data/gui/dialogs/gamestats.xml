@@ -1,79 +1,280 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Dialog width="700" height="600" name="GameStats">
+<Dialog width="650" height="600" name="GameStats">
 	<title>Gamestats</title>
 	<contents>
-		<DefineStyle name="statistic_text" color="black" font-size="14" halign="left" font-family="fixed" />
-		<TableLayout rows="23" cols="1">
-			<colsize col="1" relative="1004"/>
-			<cell row="1" col="1" halign="left">
-				<Paragraph name="statistic_text1" style="statistic_text">Text</Paragraph>
+		<DefineStyle name="statistic_text" color="black" font-size="14" halign="left" />
+		<DefineStyle name="statistic_label" color="black" font-size="14" halign="right" />
+		<DefineStyle name="statistic_value" color="black" font-size="14" halign="right" />
+		<TableLayout rows="23" cols="6">
+            <colsize col="1" relative="20"/>
+            <colsize col="2" relative="10"/>
+            <colsize col="3" relative="20"/>
+            <colsize col="4" relative="10"/>
+            <colsize col="5" relative="20"/>
+            <colsize col="6" relative="10"/>
+
+			<cell row="1" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text1" style="statistic_text">----- IN TEST MODE -------</Paragraph>
 			</cell>
-			<cell row="2" col="1" halign="left">
-				<Paragraph name="statistic_text2" style="statistic_text">Text</Paragraph>
+			<cell row="2" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text2" style="statistic_text">Game statistics from LinCity-NG Version 1.99</Paragraph>
 			</cell>
-			<cell row="3" col="1" halign="left">
-				<Paragraph name="statistic_text3" style="statistic_text">Text</Paragraph>
+			<cell row="3" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text3" style="statistic_text">Initial loaded scene - meltdown.scn</Paragraph>
 			</cell>
-			<cell row="4" col="1" halign="left">
-				<Paragraph name="statistic_text4" style="statistic_text">Text</Paragraph>
+			<cell row="4" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text4" style="statistic_text">Economy is sustainable</Paragraph>
 			</cell>
-			<cell row="5" col="1" halign="left">
-				<Paragraph name="statistic_text5" style="statistic_text">Text</Paragraph>
+			<cell row="5" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text5" style="statistic_text">Population  %d  of which  %d  are not housed.</Paragraph>
 			</cell>
-			<cell row="6" col="1" halign="left">
-				<Paragraph name="statistic_text6" style="statistic_text">Text</Paragraph>
+			<cell row="6" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text6" style="statistic_text">Max population %d  Number evacuated %d Total births %d</Paragraph>
 			</cell>
-			<cell row="7" col="1" halign="left">
-				<Paragraph name="statistic_text7" style="statistic_text">Text</Paragraph>
+			<cell row="7" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text7" style="statistic_text">Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)</Paragraph>
 			</cell>
-			<cell row="8" col="1" halign="left">
-				<Paragraph name="statistic_text8" style="statistic_text">Text</Paragraph>
+			<cell row="8" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text8" style="statistic_text">Deaths by starvation %7d   History %8.3f</Paragraph>
 			</cell>
-			<cell row="9" col="1" halign="left">
-				<Paragraph name="statistic_text9" style="statistic_text">Text</Paragraph>
+			<cell row="9" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text9" style="statistic_text">Deaths from pollution %7d   History %8.3f</Paragraph>
 			</cell>
-			<cell row="10" col="1" halign="left">
-				<Paragraph name="statistic_text10" style="statistic_text">Text</Paragraph>
+			<cell row="10" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text10" style="statistic_text">Years of unemployment %7d   History %8.3f</Paragraph>
 			</cell>
-			<cell row="11" col="1" halign="left">
-				<Paragraph name="statistic_text11" style="statistic_text">Text</Paragraph>
+			<cell row="11" col="1" colspan="6" halign="left">
+				<Paragraph name="statistic_text11" style="statistic_text">Rockets launched %2d  Successful launches %2d</Paragraph>
 			</cell>
+
 			<cell row="12" col="1" halign="left">
-				<Paragraph name="statistic_text12" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_1_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="12" col="2" halign="left">
+				<Paragraph name="statistic_value_1_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="12" col="3" halign="left">
+				<Paragraph name="statistic_text_1_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="12" col="4" halign="left">
+				<Paragraph name="statistic_value_1_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="12" col="5" halign="left">
+				<Paragraph name="statistic_text_1_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="12" col="6" halign="left">
+				<Paragraph name="statistic_value_1_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="13" col="1" halign="left">
-				<Paragraph name="statistic_text13" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_2_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="13" col="2" halign="left">
+				<Paragraph name="statistic_value_2_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="13" col="3" halign="left">
+				<Paragraph name="statistic_text_2_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="13" col="4" halign="left">
+				<Paragraph name="statistic_value_2_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="13" col="5" halign="left">
+				<Paragraph name="statistic_text_2_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="13" col="6" halign="left">
+				<Paragraph name="statistic_value_2_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="14" col="1" halign="left">
-				<Paragraph name="statistic_text14" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_3_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="14" col="2" halign="left">
+				<Paragraph name="statistic_value_3_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="14" col="3" halign="left">
+				<Paragraph name="statistic_text_3_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="14" col="4" halign="left">
+				<Paragraph name="statistic_value_3_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="14" col="5" halign="left">
+				<Paragraph name="statistic_text_3_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="14" col="6" halign="left">
+				<Paragraph name="statistic_value_3_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="15" col="1" halign="left">
-				<Paragraph name="statistic_text15" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_4_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="15" col="2" halign="left">
+				<Paragraph name="statistic_value_4_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="15" col="3" halign="left">
+				<Paragraph name="statistic_text_4_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="15" col="4" halign="left">
+				<Paragraph name="statistic_value_4_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="15" col="5" halign="left">
+				<Paragraph name="statistic_text_4_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="15" col="6" halign="left">
+				<Paragraph name="statistic_value_4_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="16" col="1" halign="left">
-				<Paragraph name="statistic_text16" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_5_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="16" col="2" halign="left">
+				<Paragraph name="statistic_value_5_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="16" col="3" halign="left">
+				<Paragraph name="statistic_text_5_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="16" col="4" halign="left">
+				<Paragraph name="statistic_value_5_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="16" col="5" halign="left">
+				<Paragraph name="statistic_text_5_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="16" col="6" halign="left">
+				<Paragraph name="statistic_value_5_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="17" col="1" halign="left">
-				<Paragraph name="statistic_text17" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_6_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="17" col="2" halign="left">
+				<Paragraph name="statistic_value_6_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="17" col="3" halign="left">
+				<Paragraph name="statistic_text_6_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="17" col="4" halign="left">
+				<Paragraph name="statistic_value_6_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="17" col="5" halign="left">
+				<Paragraph name="statistic_text_6_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="17" col="6" halign="left">
+				<Paragraph name="statistic_value_6_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="18" col="1" halign="left">
-				<Paragraph name="statistic_text18" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_7_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="18" col="2" halign="left">
+				<Paragraph name="statistic_value_7_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="18" col="3" halign="left">
+				<Paragraph name="statistic_text_7_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="18" col="4" halign="left">
+				<Paragraph name="statistic_value_7_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="18" col="5" halign="left">
+				<Paragraph name="statistic_text_7_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="18" col="6" halign="left">
+				<Paragraph name="statistic_value_7_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="19" col="1" halign="left">
-				<Paragraph name="statistic_text19" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_8_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="19" col="2" halign="left">
+				<Paragraph name="statistic_value_8_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="19" col="3" halign="left">
+				<Paragraph name="statistic_text_8_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="19" col="4" halign="left">
+				<Paragraph name="statistic_value_8_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="19" col="5" halign="left">
+				<Paragraph name="statistic_text_8_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="19" col="6" halign="left">
+				<Paragraph name="statistic_value_8_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="20" col="1" halign="left">
-				<Paragraph name="statistic_text20" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_9_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="20" col="2" halign="left">
+				<Paragraph name="statistic_value_9_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="20" col="3" halign="left">
+				<Paragraph name="statistic_text_9_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="20" col="4" halign="left">
+				<Paragraph name="statistic_value_9_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="20" col="5" halign="left">
+				<Paragraph name="statistic_text_9_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="20" col="6" halign="left">
+				<Paragraph name="statistic_value_9_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="21" col="1" halign="left">
-				<Paragraph name="statistic_text21" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_10_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="21" col="2" halign="left">
+				<Paragraph name="statistic_value_10_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="21" col="3" halign="left">
+				<Paragraph name="statistic_text_10_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="21" col="4" halign="left">
+				<Paragraph name="statistic_value_10_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="21" col="5" halign="left">
+				<Paragraph name="statistic_text_10_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="21" col="6" halign="left">
+				<Paragraph name="statistic_value_10_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="22" col="1" halign="left">
-				<Paragraph name="statistic_text22" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_11_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="22" col="2" halign="left">
+				<Paragraph name="statistic_value_11_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="22" col="3" halign="left">
+				<Paragraph name="statistic_text_11_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="22" col="4" halign="left">
+				<Paragraph name="statistic_value_11_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="22" col="5" halign="left">
+				<Paragraph name="statistic_text_11_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="22" col="6" halign="left">
+				<Paragraph name="statistic_value_11_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 			<cell row="23" col="1" halign="left">
-				<Paragraph name="statistic_text23" style="statistic_text">Text</Paragraph>
+				<Paragraph name="statistic_text_12_1" style="statistic_label">Label</Paragraph>
 			</cell>
+			<cell row="23" col="2" halign="left">
+				<Paragraph name="statistic_value_12_1" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="23" col="3" halign="left">
+				<Paragraph name="statistic_text_12_2" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="23" col="4" halign="left">
+				<Paragraph name="statistic_value_12_2" style="statistic_value">value</Paragraph>
+			</cell>
+			<cell row="23" col="5" halign="left">
+				<Paragraph name="statistic_text_12_3" style="statistic_label">Label</Paragraph>
+			</cell>
+			<cell row="23" col="6" halign="left">
+				<Paragraph name="statistic_value_12_3" style="statistic_value">value</Paragraph>
+			</cell>
+
 		</TableLayout>
 	</contents>
 	<buttonbar>

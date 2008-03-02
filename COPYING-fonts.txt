@@ -1,4 +1,4 @@
-Te fonts bundled with LincityNG are the DejaVu Fonts from
+The fonts bundled with LincityNG are the DejaVu Fonts from
 http://dejavu.sourceforge.net/. Note that these have their own
 license:
 
