@@ -10,7 +10,7 @@
 #include "lclib.h"
 #include "lctypes.h"
 #include "lin-city.h"
-#include "engine.h"
+//#include "engine.h"
 #include "engglobs.h"
 #include "simulate.h"
 #include "power.h"

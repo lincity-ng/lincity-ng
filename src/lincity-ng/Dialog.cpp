@@ -428,45 +428,57 @@ void Dialog::gameStats(){
     setTableRC("statistic", 2, 2, "", "");
     setTableRC("statistic", 2, 3, "", "");
 
-    setTableRC("statistic", 3, 1, _("Monuments"), group_count[GROUP_MONUMENT]); 
-    setTableRC("statistic", 3, 2, _("Schools"),  group_count[GROUP_SCHOOL]);
-    setTableRC("statistic", 3, 3, _("Universities"), group_count[GROUP_UNIVERSITY]);
+    setTableRC("statistic", 3, 1, "", "");
+    setTableRC("statistic", 3, 2, "", "");
+    setTableRC("statistic", 3, 3, "", "");
 
-    setTableRC("statistic", 4, 1, _("Fire stations"), group_count[GROUP_FIRESTATION]);
-    setTableRC("statistic", 4, 2, _("Parks"), group_count[GROUP_PARKLAND]);
-    setTableRC("statistic", 4, 3, _("Sports fields"), group_count[GROUP_CRICKET]);
+    setTableRC("statistic", 4, 1, _("Monuments"), group_count[GROUP_MONUMENT]); 
+    setTableRC("statistic", 4, 2, _("Schools"),  group_count[GROUP_SCHOOL]);
+    setTableRC("statistic", 4, 3, _("Universities"), group_count[GROUP_UNIVERSITY]);
 
-    setTableRC("statistic", 5, 1, _("Health centres"), group_count[GROUP_HEALTH]);
-    setTableRC("statistic", 5, 2, _("Tips"), group_count[GROUP_TIP]);
-    setTableRC("statistic", 5, 3, _("Shanties"), group_count[GROUP_SHANTY]);
+    setTableRC("statistic", 5, 1, _("Fire stations"), group_count[GROUP_FIRESTATION]);
+    setTableRC("statistic", 5, 2, _("Parks"), group_count[GROUP_PARKLAND]);
+    setTableRC("statistic", 5, 3, _("Sports fields"), group_count[GROUP_CRICKET]);
 
-    setTableRC("statistic", 6, 1, _("Windmills"), group_count[GROUP_WINDMILL]);
-    setTableRC("statistic", 6, 2, _("Coal powers"), group_count[GROUP_COAL_POWER]);
-    setTableRC("statistic", 6, 3, _("Solar powers"), group_count[GROUP_SOLAR_POWER]);
+    setTableRC("statistic", 6, 1, _("Health centres"), group_count[GROUP_HEALTH]);
+    setTableRC("statistic", 6, 2, _("Tips"), group_count[GROUP_TIP]);
+    setTableRC("statistic", 6, 3, _("Shanties"), group_count[GROUP_SHANTY]);
 
-    setTableRC("statistic", 7, 1, _("Substations"), group_count[GROUP_SUBSTATION]);
-    setTableRC("statistic", 7, 2, _("Power lines"), group_count[GROUP_POWER_LINE]);
-    setTableRC("statistic", 7, 3, _("Ports"), group_count[GROUP_PORT]);
+    setTableRC("statistic", 7, 1, "", "");
+    setTableRC("statistic", 7, 2, "", "");
+    setTableRC("statistic", 7, 3, "", "");
 
-    setTableRC("statistic", 8, 1, _("Tracks"), group_count[GROUP_TRACK]);
-    setTableRC("statistic", 8, 2, _("Roads"), group_count[GROUP_ROAD]);
-    setTableRC("statistic", 8, 3, _("Rail"), group_count[GROUP_RAIL]);
+    setTableRC("statistic", 8, 1, _("Windmills"), group_count[GROUP_WINDMILL]);
+    setTableRC("statistic", 8, 2, _("Coal powers"), group_count[GROUP_COAL_POWER]);
+    setTableRC("statistic", 8, 3, _("Solar powers"), group_count[GROUP_SOLAR_POWER]);
 
-    setTableRC("statistic", 9, 1, _("Potteries"), group_count[GROUP_POTTERY]);
-    setTableRC("statistic", 9, 2, _("Blacksmiths"), group_count[GROUP_BLACKSMITH]);
-    setTableRC("statistic", 9, 3, _("Mills"), group_count[GROUP_MILL]);
+    setTableRC("statistic", 9, 1, _("Substations"), group_count[GROUP_SUBSTATION]);
+    setTableRC("statistic", 9, 2, _("Power lines"), group_count[GROUP_POWER_LINE]);
+    setTableRC("statistic", 9, 3, _("Ports"), group_count[GROUP_PORT]);
 
-    setTableRC("statistic", 10, 1, _("Light inds"), group_count[GROUP_INDUSTRY_L]);
-    setTableRC("statistic", 10, 2, _("Heavy inds"), group_count[GROUP_INDUSTRY_H]);
-    setTableRC("statistic", 10, 3, _("Recyclers"), group_count[GROUP_RECYCLE]);
+    setTableRC("statistic", 10, 1, _("Tracks"), group_count[GROUP_TRACK]);
+    setTableRC("statistic", 10, 2, _("Roads"), group_count[GROUP_ROAD]);
+    setTableRC("statistic", 10, 3, _("Rail"), group_count[GROUP_RAIL]);
 
-    setTableRC("statistic", 11, 1, _("Coal mines"), group_count[GROUP_COALMINE]);
-    setTableRC("statistic", 11, 2, _("Ore mines"), group_count[GROUP_OREMINE]);
-    setTableRC("statistic", 11, 3, _("Communes"), group_count[GROUP_COMMUNE]);
+    setTableRC("statistic", 11, 1, "", "");
+    setTableRC("statistic", 11, 2, "", "");
+    setTableRC("statistic", 11, 3, "", "");
 
-    setTableRC("statistic", 12, 1, "", "");
-    setTableRC("statistic", 12, 2, "", "");
-    setTableRC("statistic", 12, 3, "", "");
+    setTableRC("statistic", 12, 1, _("Potteries"), group_count[GROUP_POTTERY]);
+    setTableRC("statistic", 12, 2, _("Blacksmiths"), group_count[GROUP_BLACKSMITH]);
+    setTableRC("statistic", 12, 3, _("Mills"), group_count[GROUP_MILL]);
+
+    setTableRC("statistic", 13, 1, _("Light inds"), group_count[GROUP_INDUSTRY_L]);
+    setTableRC("statistic", 13, 2, _("Heavy inds"), group_count[GROUP_INDUSTRY_H]);
+    setTableRC("statistic", 13, 3, _("Recyclers"), group_count[GROUP_RECYCLE]);
+
+    setTableRC("statistic", 14, 1, _("Coal mines"), group_count[GROUP_COALMINE]);
+    setTableRC("statistic", 14, 2, _("Ore mines"), group_count[GROUP_OREMINE]);
+    setTableRC("statistic", 14, 3, _("Communes"), group_count[GROUP_COMMUNE]);
+
+    setTableRC("statistic", 15, 1, "", "");
+    setTableRC("statistic", 15, 2, "", "");
+    setTableRC("statistic", 15, 3, "", "");
    
     if( !useExisting ){
         // connect signals

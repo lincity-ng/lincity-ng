@@ -101,7 +101,7 @@ void do_rocket_pad(int x, int y)
         MP_TYPE(x, y) = CST_ROCKET_5;
         update_main_screen(0);
         if (ask_launch_rocket_now(x, y)) {
-            /* ? AL1: in NG 1.1 it seems we are never here ?
+            /* ? FIXME ? AL1: in NG 1.1 it seems we are never here ?
              * ? ask_launch_rocket_now  manages everything and call launch_rocket ?
              */
             launch_rocket(x, y);
