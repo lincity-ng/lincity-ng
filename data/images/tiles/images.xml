@@ -206,4 +206,7 @@
   <image file="raillud.png" x="66" />
   <image file="railudr.png" x="66" />
   <image file="railludr.png" x="66" />
+
+    <image file="parkland-plane.png" x="64" />
+    <image file="parkland-lake.png" x="64" />
 </resources>
