@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Muiños de Vento</p>
+	<p style="hp">Os Muiños de Vento proporcionan enerxía eléctrica para os residentes e as granxas. Permitenlle ós granxeiros procesa-los alimentos máis eficientemente e fai que as áreas residenciais sexan máis atractivas para vivir nelas.</p>
+	<p style="hp">Proporcionando electricidade ás áreas residenciais fas que a xente que vive nelas consuma máis mercadorías.</p>
+	<p style="hp">Os muiños de baixa tegnoloxía <b>non</b> proporcionan electricidade ás industrias. (As industrias pesadas poden obte-la electricidade do carbón, a industria lixeira precisa <i>electricidade real</i> para funcionar, poden funcionar sen ela pera a un redemento moi baixo)</p>
+	<p style="hp">Os muiños de vento precisan man de obra para producir enerxía. Se un muiño de vento non ten empregos dabondo verá reducida a súa produción de enerxía e esta irá a cero se non ten empregos dispoñibles.</p>
+	
+	<p style="hp">Hai dous tipos de muiños de vento.</p>
+	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+	<p style="hp">O primeiro e un muiño de 'madeira' de baixa tegnoloxía.</p>
+	<img src="images/tiles/windmill1w.png" halign="center"/>
+	<p style="hp">E o segundo e un muiño de vento 'moderno'.</p>
+	<img src="images/tiles/windmill1g.png" halign="center"/>
+	<p style="hp">O tipo de muiño dispoñible depende do teu nivel tegnolóxico.</p>
+	<p style="hp">Os muiños de vento modernos poden proporcionar enerxía ás liñas eléctricas.</p>
+	
+		<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="substation">Subestación</a></li>
+	<li><a href="powerline">Liñas Eléctricas</a></li>
+	<li><a href="residential">Áreas Residenciais</a></li>
+	<li><a href="tech-level">Nivel Tegnolóxico</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+	<li><a href="powersolar">Centrais Solares</a></li>
+	
+	
+</Document>

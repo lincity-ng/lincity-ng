@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Universidades</p>
+	<p style="hp">As Universidades axudanche a incrementa-lo teu nivel tegnolóxico. No proceso consume empregos e mercadorías. Producen máis tegnoloxía cás escolas para unha mesma cantidade de mercadorías/empregos. Con todo consumen mercadorías e empregos ademáis dos cartos necesarias para mantelas, así que debes ter unha capacidade económica o suficientemente grande para suministrallelo que precisan.</p>
+	<p style="hp">Necisitarás varias universidades para chegar a 100% do nivel tegnolóxico</p>
+	<p style="hp">As universidades non precisan estar conectadas ó transporte; poden obter todo o necesario dos mercados que estean o redor (sempre que estes teñan empregos e mercadorías dabondo).</p>
+
+	<p style="hsubtitle">NOTA</p>
+	<p style="hp">Debes <b>ter</b> 5 escolas por universidade para ter suficientes estudantes.</p>
+
+	<p style="hp">Esto é unha Universidade</p>
+	<img src="images/tiles/university.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="jobs">Empregos</a></li>
+	<li><a href="schools">Escolas</a></li>
+	<li><a href="tech-level">Nivel Tegnolóxico</a></li>
+</Document>

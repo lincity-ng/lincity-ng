@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Canchas de Baloncesto</p>
+	<p style="hp">As Canchas de Baloncesto aportan entretemento e deporte para os teus residentes. Precisan mercadorías e empregos para funcionar. Non precisan estar conectadas ó transporte, pero se non o están, deben estar dentro do radio dalgún mercado para que lle suministre os empregos e mercadorías necesarios. Evidentemente tamén custan cartos o mantelas funcionando.</p>
+	<p style="hp">Cando construes unha cancha, esta non comeza a traballar de inmediato. Normalmente tarda uns tres meses en comezar a traballar.</p>
+	<p style="hp">Para ve-la cobertura das túas canchas de baloncesto, pulsa na icona do balón xusto debaixo do minimapa. As áreas en verde están cubertas, e en verde escuro non.</p>
+	<p style="hp">As canchas de baloncesto aumento o atractivo das áreas residenciais que cubren.</p>
+	<p style="hp">Hai un partido nas canchas de baloncesto cada mes, co cal poderás ver se funcionan.</p>
+
+	<p style="hp">Esto é unha Cancha de Baloncesto</p>
+	<img src="images/tiles/cricket1.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+	<p style="hp">e esto é a icona para a vista no minimapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="jobs">Empregos</a></li>
+	<li><a href="msb-cricket">Cobertura de Deportes</a></li>
+</Document>
+
+

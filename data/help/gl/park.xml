@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Parques</p>
+	<p style="hp">Os Parques son moi simples: limpan a polución.</p>
+	<p style="hp">Algunhas áreas producen polución, estas son estradas, vías de tren, minas de carbón, industria lixeira e pesada. Algunhas producen máis que outras.</p>
+	<p style="hp">Podes usa-los parques para blinda-las zonas residenciais ou para para-la polución que escapa dunha área concreta.</p>
+	<p style="hp">o vento ven <b>do</b> sudoeste, asi que construe os teus parques dacordo a esta circustancias.</p>
+        <p style="hp">Os parques precisan auga, asi que deben ser construidos en cadrados "verdes".</p>
+	
+	<p style="hp">Esto é un Parque</p>
+	<img src="images/tiles/parkland-plane.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="pollution">Polución</a></li>
+	<li><a href="road">Estradas</a></li>
+	<li><a href="rail">Vías do Tren</a></li>
+	<li><a href="coalmine">Minas de Carbón</a></li>
+	<li><a href="industryh">Industrias Pesadas</a></li>
+	<li><a href="industryl">Industrias Lixeiras</a></li>
+</Document>

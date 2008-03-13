@@ -1,0 +1,20 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Industrias Pesadas (do metal)</p>
+	<p style="hp">As Industrias Pesadas producen aceiro a partires do mineral (mena de ferro), precisan tamén empregos e electricidade. O mineral é obtido directamente do transporte. O aceiro é recolocado polos medios de transporte. Os empregos obteñense dos mercados locais. O transporte conectase pola esquina esquerda superior da industria pesada.</p>
+	<p style="hp">A electricidade que precisan as industrias pesadas pode obterse de dúas formas. A primeira é directamente do carbón, o cal é obtido directamente do transporte. O segundo é a través da electricidade das subestacións, evidentemente debes ter unha ou varias subestacións no radio da industria pesada (Os muiños de vento <b>non</b> suministran electricidade ás industrias pesadas).</p>
+	<p style="hp">As industrias pesadas producen polución</p>
+	<p style="hp">Podes ver que unha industria pesada funciona pulsando sobre ela, e tamén por que a súa animación cobra vida moi a míudo.</p>
+	
+	<p style="hp">Esto é unha Industria Pesada</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="pollution">Polución</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="power">Electricidade</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="ore">Mineral</a></li>
+</Document>

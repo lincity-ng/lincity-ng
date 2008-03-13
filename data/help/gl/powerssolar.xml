@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Centrais Solares</p>
+	<p style="hp">As Centrais Solares producen enerxía en paquetes que son distribuidas polas liñas electricas. A cantidade de enerxía producida aumenta en relación co aumento do nivel tegnolóxico, unha vez foi <b>construida</b> a central.</p>
+	<p style="hp">As centrais solares tamén precisan man de obra para producir enerxía. Se unha central non ten man de obra dabondo, non producirá enerxía a pleno rendimento, e non producirá enerxía se hai unha falta total de man de obra.</p>
+	
+	<p style="hp">Esto é unha Central Solar</p>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="substation">Subestación</a></li>
+	<li><a href="powerline">Liñas Electricas</a></li>
+	<li><a href="residential">Áreas Residenciais</a></li>
+	<li><a href="tech-level">Nivel Tegnolóxico</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+	<li><a href="windmill">Muiños de Vento</a></li>
+</Document>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Vista dos Usos do Terreo</p>
+	<img src="images/gui/mapview/roundbuttons/round_resident.png" halign="center"/>
+	<p style="hp">Esta vista do terreo amosa no minimapa os edificios, estradas, auga e zonas verdes da cidade.</p>
+	<p style="hp">Pulsa co botón esquerdo no minimapa para voltar á pantalla principal. Pulsa co botón esquerdo no título do minimapa para escoller unha vista do minimapa diferente. Cambiar entre os modos de vista pulsando 'v' ou co botón do medio no título do minimapa.</p>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Vista das Reservas de Carbón</a></li>
+	<li><a href="msb-cricket">Cobertura de Deportes</a></li>
+	<li><a href="msb-fire">Cobertura ContraIncendios</a></li>
+	<li><a href="msb-health">Cobertura Sanitaria</a></li>
+	<li><a href="msb-pol">Vista da Polución</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+	<li><a href="msb-starve">Cobertura da Alimentación</a></li>
+	<li><a href="msb-transport">Cobertura do Transporte</a></li>
+	<li><a href="msb-ub40">Vista do Desemprego</a></li>
+</Document>

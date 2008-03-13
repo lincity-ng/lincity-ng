@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Fiestra do Progreso da Sostibilidade</p>
+	<p style="hp">Esta fiestra contén seis liñas de cores. Cando todas cheguen á marxe dereita da fiestra e que posues unha economía sostible.</p>
+	<li>
+		<span color="orange">MIN</span> (Laranxa) non estás extraendo carbón nin mineral, e tampouco estás tirando refugallos nos vertedoiros.
+	</li>
+	<li>
+		<span color="gray">PRT</span>	(Gris) non estás importando nin exportando nada.
+	</li>
+	<li>
+		<span color="green">MNY</span> (Verde) os teus cartos están estables ou crecendo, esto significa que non podes construir nada excepto edificios baratos.
+	</li>
+	<li>
+		<span color="blue">POP</span> (Azul) a túa poboación é estable dentro dun 2% do seu valor unha vez comezou o ano 180, se se sal da banda do 2%, o novo valor da poboación será a que se saiu da banda e a conta dos anos é reseteada a cero. Tamén a túa poboación debe superar os 5.000 habitantes.
+	</li>
+	<li>
+		<span color="yellow">TEC</span> (Amarelo) a túa tegnoloxía movese entorno ó 1%, Se esta cae por debaixo do 1% o contador dos anos resetease a cero. Tamén debes estar por riba do 50% do nivel tegnolóxico máximo do xogo.
+	</li>
+	<li>
+		<span color="red">FIR</span> (Vermello) tódalas áreas teñen cobertura dos parques de bombeiros. As seguintes áreas *non* teñen cobertura contraincendios: monumentos, minas de mineral, liñas eléctricas e foguetes.
+	</li>
+	<p style="hp">Anos requeridos para a sostibilidade: MIN=180 PRT=180 MNY=60 POP=60 TEC=120 FIR=60</p>
+</Document>

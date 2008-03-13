@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Olarías</p>
+	<p style="hp">As Olarías usan mineral, carbón e empregos para producir mercadorías. Non precisan estar conectadas ó transporte pero se non o están, deben de estar entón no radio dun mercado para que este surta ás olarías de mineral, carbón e empregos, e coma non podeller envia-las mercadorías producidas ó mercado.</p>
+	<p style="hp">Podes ver que funciona unha olaría porque os fornos producen fume. Se o forno non produce fume é que non esta a traballar ó 100% da súas posibilidades.</p>
+	
+	<p style="hp">Esto é unha Olaría</p>
+	<img src="images/tiles/pottery0.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="jobs">Empregos</a></li>
+	<li><a href="market">Mercados</a></li>
+</Document>

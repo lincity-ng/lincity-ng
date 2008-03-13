@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Polución</p>
+	<p style="hp">Case tódalas áreas producen algo de polución. As seguintes áreas son as que causan maior polución:</p>
+	<li>Industrias Pesadas.</li>
+	<li>Industrias Lixeiras.</li>
+	<li>Centrais Térmicas.</li>
+	<li>Minas de Carbón.</li>
+	<li>Mercados cheos de lixo.</li>
+	<li>Estradas/Vías do Tren, particularmente se están cheas de lixo.</li>
+	<p style="hp">Á xente non lle gusta vivir en lugares con polución. A maioría da xente marchará, ou enfermará e morrerá.</p>
+	<p style="hp">O vento dominante é do suroeste, así que a polución tende ir hacia ó norleste.</p>
+	<p style="hp">Xeralmente deberías contruir estratéxicamente para non expor á poboación á polución. Pero esto non é sempre posible, nese caso os parques son unha gran barreira. Cantos máis parques, máis proteción.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="industryh">Industrias Pesadas</a></li>
+	<li><a href="industryl">Industrias Lixeiras</a></li>
+	<li><a href="powerscoal">Centrais Térmicas</a></li>
+	<li><a href="coalmine">Minas de Carbón</a></li>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="rail">Vías de Tren</a></li>
+	<li><a href="road">Estradas</a></li>
+	<li><a href="park">Parques</a></li>
+	<li><a href="msb-pol">Vista da Polución</a></li>
+</Document>

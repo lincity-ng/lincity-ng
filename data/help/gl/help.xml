@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Axuda do Lincity</p>
+	<p style="hp">Este é o sistema de axuda do Lincity. Por favor escolle un tema pulsando nunha das palabras en azul de abaixo. As palabras en azul normalmente indican un enlace a outro documento. Usa a frecha de arriba a esquerda para voltar o documento anterior.</p>
+	<p style="hp">Cando esteas xogando, poderás atopar axuda de case todo có botón de axuda, ou co botón dereito na icona dunha construción especifica (iconas na marxe esquerda esquina superior).</p>
+
+	<li><a href="tutorial">Tutorial</a></li>
+	<li><a href="keys">Comandos do teclado</a></li>
+	<li><a href="button-index">Lista de tódolos obxectos construibles</a></li>
+	<li><a href="mini-screen">Axuda con minimapa</a></li>
+	<li><a href="dialogs">Axuda coas cellas de información</a></li>
+	<li><a href="index">Indice</a></li>
+
+    <p style="htitle">Obxectivo</p>
+    <p style="hp">Podes gañar en Lincity facendo <a href="sustain">unha economia sostible </a> ou
+    evacuando a tódolos cidadáns con <a href="rocket">naves espaciais</a>.</p>
+</Document>

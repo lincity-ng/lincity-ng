@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Empregos</p>
+	<p style="hp">A poboación de áreas residenciais proporcionan empregos. Os empregos son usados en case tódalas áreas para que estas funcionen. Algunhas áreas so precisan traballos mentres se están a construir, por ex. os monumentos.</p>
+	<p style="hp">Os empregos poden ser suministrados polos comercios; podes contruir un mercado na área onde tes que suministrar empregos. Os mercados, por suposto, obten dalgures os empregos. Os mercados obteñen empregos de dúas formas. A primeira, se na área de acción dun mercado hai unha área residencial, esta suministraralle empregos ó comercio en proporción a poboación de dita área residencial e segundo a cantidade de comercios que deban repartir eses empregos. A segunda forma é o transporte. Un mercado que teña excedentes de empregos vai por estes excedentes nos medios de transporte para así podelos compartir. Así calquera comercio que estea falto de empregos e estea conectado ó transporte por estrada, camiño ou tren, poderá facer uso destes excedentes.</p>
+	<p style="hp">Se un comercio está 'cheo' de empregos, parará de aceptar traballadores dende as áreas residenciais. Cando esto suceda, se non hai outros comercios non colapsados na zona, haberá paro.</p>
+	<p style="hp">Un hospital no radio de acción dunha zona residencial, incrementará o número de empregos que se lles proporcionan ós comercios locais.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="residential">Residencias</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="market">Mercados</a></li>
+</Document>

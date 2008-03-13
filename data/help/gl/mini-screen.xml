@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Minimapa</p>
+	<p style="hp">O minimapa amosa, nunha escala reducida, toda a área de xogo. Se pulsas nos mini-botóns de abaixo, estes amosaranche información coma por ex. a polución sobre o mapa ó completo.</p>
+	<p style="hp">Pulsa co botón dereito nos mini-botóns de embaixo do minimapa para activa-las súas respectivas axudas.</p>
+	<p style="hp">O rectángulo en branco amosa a área que cobre a pantalla principal.</p>
+	<p style="hp">O boton grande de "cobertura" fai a cobertura que hai nese intre no minimpa pase á pantalla principal.</p>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="msb-coal">Vista das Reservas de Carbón</a></li>
+	<li><a href="msb-cricket">Cobertura de Deportes</a></li>
+	<li><a href="msb-fire">Cobertura ContraIncendios</a></li>
+	<li><a href="msb-health">Cobertura Sanitaria</a></li>
+	<li><a href="msb-normal">Vista Normal</a></li>
+	<li><a href="msb-pol">Vista da Polución</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+	<li><a href="msb-starve">Cobertura da Alimentación</a></li>
+	<li><a href="msb-transport">Cobertura de Transporte</a></li>
+	<li><a href="msb-ub40">Vista do Desemprego</a></li>
+</Document>
+
+
+

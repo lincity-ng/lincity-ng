@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Portos</p>
+	<p style="hp">Os Portos permitenche exportar mercadorías, aceiro, mineral, carbón e alimentos. Importar custache cartos e exportar dache cartos.</p>
+	<p style="hp">Para usar un porto debe estar conectado ó transporte. Escolle o que queres importar pulsando dúas veces sobre o porto en cuestión. Esto amosarache un menú para seleccionar o que queres importar é exportar.</p>
+	<p style="hp">Os portos <b>deben</b> estar conectados ó longo da ribeira dereita.</p>
+	<p style="hp">Nada será importado ou exportado ata que sexa seleccionado.</p>
+	<p style="hp">A área de exportación tomará tanto coma se lle dea. Se precisas exportar pero queres restrinxi-la cantidade, podes usar un tipo de transporte de baixa capacidade, ou pasa-los productos a través dun mercado. Precisarás experimentar para te-la configuración máis axeitada.</p>
+	<p style="hp">Nota: os exportadores descontan as grandes exportacións.</p>
+
+	<p style="hp">Esto é un porto</p>
+	<img src="images/tiles/ex_port.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+  <li><a href="export">Importar e Exportar</a></li>
+	<li><a href="rivers">Ríos</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="steel">Aceiro</a></li>
+</Document>

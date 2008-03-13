@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Subestacións</p>
+	<p style="hp">As Subestacións reciben a enerxía eléctrica por paquetes dende as liñas eléctricas e distribuen a electricidade na área circundante. Podes ver se unha zona ten electricidade pulsando no icona da mesma e despois mirando na fiestra de estado do minimapa.</p>
+	
+	<p style="hp">Esto é unha Subestación</p>
+	<img src="images/tiles/substation-G.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="powerline">Liñas Eléctricas</a></li>
+	<li><a href="powerssolar">Centrais Solares</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="steel">Aceiro</a></li>
+	<li><a href="jobs">Empregos</a></li>
+</Document>
+

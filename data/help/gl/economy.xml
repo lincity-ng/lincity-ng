@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Gráficas Económicas</p>
+	<p style="hp">Estas gráficas conteñen catro cores. Mostran os factores económicos máis importantes.</p>
+	<li>
+		<span color="brown">Poboación</span>	(marrón) A liña marrón representa á túa poboación. É unha gráfica logarítmica.
+	</li>
+	<li>
+		<span color="blue">Sen Teito</span> (azul) A liña azul representa a demanda de vivenda. A altura da gráfica é proporcional á raíz cadrada da poboación sen teito. 
+    </li>
+	<li>
+		<span color="yellow">Sen traballo</span> (amarelo)  As barras sólidas en amarelo mostran que hai paro. A escala da gráfica cambia coa poboación. Esta gráfica é sólida para rechamar máis a túa atención.
+	</li>
+	<li>
+		<span color="red">Fame e Seca</span> (vermello) As barras sólidas en vermello mostran que hai seca e fame. A escala da gráfica varia coa poboación. Esta gráfica é solida para rechamar máis a túa atención. Esta barra debuxase enrriba da barra do paro. 
+	</li>
+</Document>

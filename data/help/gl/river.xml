@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ríos/Auga</p>
+	<p style="hp">Os Ríos estarán moi a míudo no medio dos teus intereses. É moi caro facer pontes, desecar e limpar áreas de auga. Somentes os portos usan os ríos e deben polo tanto estar conectados a eles.</p>
+	<p style="hp">Hai dous tipos de auga. As lagoas son áreas de auga <b>non</b> conectadas co sistema de ríos; pola contra os ríos son áreas de auga que <b>forman</b> un sistema (de ríos obviamente). Un río é definido coma tódalas áreas de auga presente o comeza-lo xogo. Por exemplo, cando unha mina de mineral pecha, o lugar que ocupa convertese en áreas de auga, se a mina estaba conectada ó río, estas áreas de auga pasarán a ser parte do río; se non converteranse en lagoas.</p>
+	<p style="hp">Se desecas unha área dun río para facer unha ruta de transporte, por exemplo, pois entón acabas de construir unha ponte. Ambas beiras da ponte seguen formando parte do río. Esta é unha das razóns polas que é tan caro desecar áreas de auga.</p>
+	<p style="hp">Unha vez que unha área de auga é convertida en parte do sistema de ríos, <b>non</b> pode voltar a ser unha lagoa. As áreas de auga que son parte dun río son indicadas coma <b>navegables</b> pola <a href="query">ferramenta de consulta</a>.</p>
+	<p style="hp">As liñas eléctricas poden transferir electricidade por debaixo <b>dunha</b> área de río, da mesma forma en que o poden facer por debaixo dos medios de transporte.</p>
+</Document>

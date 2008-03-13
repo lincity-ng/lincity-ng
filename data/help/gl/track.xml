@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Camiños</p>
+	<p style="hp">Os Camiños son a forma de transporte máis barata e simple, tamén son os que menos capacidade de transporte teñen. Non producen polución.</p>
+	
+	<p style="hp">Esto é un Camiño</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="commune">Comunas</a></li>
+</Document>

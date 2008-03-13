@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Vías do Tren</p>
+	<p style="hp">As Vías do Tren teñen máis capacidade que as estradas e producen menos polución cás estradas. Aínda que son máis caras á hora de contruilas e mantelas. Pero merecen a pena cando tes que transportar moitos materiais a longas distancias.</p>
+
+	<p style="hp">Esto é unha Vía de Tren</p>
+	<img src="images/tiles/railud.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="pollution">Polución</a></li>
+</Document>

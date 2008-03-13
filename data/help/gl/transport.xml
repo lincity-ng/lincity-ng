@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Transporte</p>
+	<p style="hp">Hai tres tipos diferentes de transporte en Lincity: camiños, estradas e vías do tren.</p>
+	<p style="hp">Hai unha cuarta forma que consiste en 'ir campo a través' para alcanzar un mercado. Esta última forma de comercio a corta distancia non será tratada de agora en adiante coma unha forma de transporte. Sen embargo esta forma de comerciar é moi importante e deberías ler sobre ela en <a href="market"> mercados</a>.</p>
+
+	<p style="hp">Camiños, estradas e as vías do tren son usadas para transportar comida, mercadorías, carbón, mineral, aceiro e refugallos entre as distintas áreas. Transportar entre mercados, transportar para edificios forá do rango dun mercado (esto normalmente é unha mala idea) e transportar para edificios que explicitamente o necesitan:</p>
+	<li>As comunas necesitan estar conectadas ó transporte (pero val que toquen o transporte de calquera forma)</li>
+	<li>As industrias lixeiras, minas de mineral, portos, minas de carbón, industrias pesadas e centros de reciclaxe <b> precisan </b> estar conectadas pola esquina superior esquerda. </li>
+	<li>Unha excepción son as centrais térmicas: onde a esquina superior esquerda é usada para a conexión da liña electrica, o transporte conectase xusto ó lado.</li>
+	<p style="hp">Por exemplo, unha industria pesada podese conectar por estrada cunha mina de carbón, e con vías de tren con outros recursos coma minas de mineral ou mercados.</p>
+	<p style="hp">Para cruzar un río, simplemente desecas a área por onde queres cruzar co medio de transporte, pensa que é coma se fose facer unha ponte. É moi caro xa que desecar áreas de auga custa moitos cartos.</p>
+
+	<p style="hp">As estradas e as vías do tren teñen un custo anual de mantemento e producen polución (esta polución acarrea uns custes de limpeza da mesma).</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="track">Camiños</a></li>
+	<li><a href="road">Estradas</a></li>
+	<li><a href="rail">Vías do Tren</a></li>
+
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="coalmine">Minas de Carbón</a></li>
+	<li><a href="powercoal">Centrais Térmicas</a></li>
+	<li><a href="tip">Vertedoiros</a></li>
+	<li><a href="recycle">Centros de Reciclaxe</a></li>
+	<li><a href="oremine">Minas de Mineral</a></li>
+	<li><a href="industryl">Industrias Lixeiras</a></li>
+	<li><a href="industryh">Industrias Pesadas</a></li>
+	<li><a href="port">Portos</a></li>
+
+	<li><a href="finance">Fiestra de Finanzas</a></li>
+	<li><a href="msb-transport">Cobertura de Transporte e Comercio</a></li>
+
+</Document>

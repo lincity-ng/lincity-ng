@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Vista das Reservas de Carbón</p>
+	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">A vista do carbón do minimapa amosa as reservas de carbón que hai na túa cidade. As vetas de carbón son amosadas en branco sobre fondo negro. Deberás construir esas minas preto das vetas de carbón para poder extraelo.</p>
+	<p style="hp">A primeira vez que preguntes por esta información, deberás facer unha prospeción de carbón que che custará 1 millón na actual moeda. Despois a información é totalmente gratuita.</p>
+	<p style="hp">Pulsa co botón esquerdo para voltar á pantalla principal. Pulsa co botón esquerdo sobre o título do minimapa para cambiar de vista. Conmuta o modo da vista pulsando 'v' ou co botón do medio no título do minimapa.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-cricket">Cobertura de Deportes</a></li>
+	<li><a href="msb-fire">Cobertura ContraIncendios</a></li>
+	<li><a href="msb-health">Cobertura Sanitaria</a></li>
+	<li><a href="msb-normal">Vista Normal</a></li>
+	<li><a href="msb-pol">Vista da Polución</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+	<li><a href="msb-starve">Cobertura da Alimentación</a></li>
+	<li><a href="msb-transport">Cobertura de Transporte</a></li>
+	<li><a href="msb-ub40">Vista do Desemprego</a></li>
+</Document>
+

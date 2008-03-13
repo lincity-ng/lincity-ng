@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Fiestra de Finanzas</p>
+	<p style="hp">Pulsando con botón esquerdo podemos rotar a través da fiestras do 'balance global de finanzas', detalla o que son chamados 'outros custes', e 'custes da poboación'.</p>
+	<p style="hp">A fiestras de finanzas é actualizada cada 1º de Xaneiro. Os datos de ingresos e gastos corresponde ó ano anterior.</p>
+	<p style="hp">O dato 'Total' é a cantidade de cartos que tes na túa conta. Haberá cousas que non poidas facer cando esteas en números vermellos.</p>
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="housing">Fiestra de Poboación</a></li>
+	<li><a href="other-costs">Outros Custes</a></li>
+
+</Document>
+

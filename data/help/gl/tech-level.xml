@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Nivel Tegnolóxico</p>
+	<p style="hp">O Nivel Tegnolóxico da túa cidade determina un certo número de cousas, coma os edificios que podes construir ou a eficiencia de certos procesos.</p>
+	<p style="hp">Para incrementa-lo teu nivel tegnolóxico, debes construir e manter Monumentos, Escolas e Universidades.</p>
+	<p style="hp">Cando o nivel tegnolóxico é moi baixo so podes construir monumentos. Cando vaias un pouco máis avanzado no xogo, <i>inventaranse</i> as escolas. As escolas producen máis tegnoloxía que os monumentos.</p>
+	<p style="hp">Cando chegues a niveis tegnolóxicos máis altos, entón <i>inventaranse</i> as universidades. Producen moita máis tegnoloxía que as escolas, pero consumen <b>moitisimos</b> máis recursos.</p>
+	<p style="hp">Canta máis tegnoloxía posues, máis rápido é <i>erosionada</i>. Esto significa que canto maior sexa o teu nivel tegnolóxico, máis escolas e universidades necesitarás.</p>
+	<p style="hp">Tamén ten en conta que se por calquera motivo precisas eliminar unha universidade ou dúas (ou non lles estás proporcionando os recursos necesarios) o teu nivel tegnolóxico comezará a <b>caer</b>.</p>
+	<p style="hp">A porcentaxe de éxito no lanzamento dun foguete é proporcional ó teu nivel tegnolóxico.</p>
+
+	<p style="hsubtitle">Ver támen:</p>
+	<li><a href="monument">Monumentos</a></li>
+	<li><a href="school">Escolas</a></li>
+	<li><a href="university">Universidades</a></li>
+	<li><a href="rocket">Plataformas de Lanzamento de Foguetes</a></li>
+</Document>

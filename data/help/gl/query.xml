@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Consulta</p>
+	<p style="hp">Para amosar informacións a cerca dun edificio usa esta ferramenta e pulsa sobre o edificio en cuestión.</p>
+	<p style="hp">A información amosase na esquina inferior dereita, no sitio do minimapa.</p>
+	<p style="hp">Usar esta ferramenta non ten custe algún.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	<p style="hsubtitle">Ver tamén:</p>
+    <li><a href="keys">Comandos do Teclado</a></li>
+	<li><a href="help">Índice</a></li>
+</Document>
+

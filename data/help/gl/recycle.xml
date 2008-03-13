@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Centros de Reciclaxe</p>
+	<p style="hp">As mercadorías usadas producen refugallos.</p>
+	<p style="hp">Os Centros de Reciclaxe converten as mercadorías usadas en mineral. Deben estar conectados ó transporte pola esquina superior esquerda. Usanse empregos e cartos para recolle-los refugallos e convertelos en novo mineral.</p>
+	<p style="hp">É posible manter unha economía sostible, (p.e. sen extraer máis mineral, etc) cunha eficiencia dos centros de reciclaxe menor ó 100% se algunhas fábricas se poden facer cargo das mercadorías 'perdidas'.</p>
+	
+	<p style="hp">Esto é un Centro de Reciclaxe</p>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="transport">Transporte</a></li>
+</Document>

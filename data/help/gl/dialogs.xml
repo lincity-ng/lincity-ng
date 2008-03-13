@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Axuda sobre as Cellas de Información</p>
+    <p>Cellas do Mapa</p>
+    <li><a href="mini-screen">Minimapa</a></li>
+    <p>Cella de Mercados</p>
+	<li><a href="pbar">Barra de Estado dos Recursos</a></li>
+    <p>Cella de €</p>
+	<li><a href="finance">Finanzas</a></li>
+	<li><a href="other-costs">Outros Custes</a></li>
+	<li><a href="housing">Poboación</a></li>
+    <p>Cella de Eco</p>
+	<li><a href="economy">Gráficas Económicas</a></li>
+	<li><a href="sustain">Fiestra da Progresión da Sostibilidade</a></li>
+</Document>

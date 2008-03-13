@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Área Residencial</p>
+        <p style="hp">Aquí é onde vive a xente. Para animar a xente a vivir nelas deben ter alimentos (estar no radio de acción dun mercado e dun pozo de auga ou estar conectadas ó transporte para poder traballar e mercar). </p>
+        <p style="hp">Hai tres tipos diferentes de áreas residenciais: Baixa, Media e Alta densidade. Estas áreas teñen asociadas diferentes taxas de mortandade e natalidade, o cal dache algo de control sobre a poboación.</p>
+	<p style="hp">Cando leves un tempo nunha partida, e se tes suficiente nivel tegnolóxico, poderás construir zonas residencias máis modernas e incluso bloques de pisos.</p>
+
+	<p style="hp">Esto é unha zona residencial de baixa densidade (alta tegnoloxía)</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<p style="hp">Esto é unha zona residencial de media densidade (alta tegnoloxía)</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">Esto é unha zona residencial de alta densidade (alta tegnoloxía)</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="market">Mercado</a></li>
+	<li><a href="transport">Transporte</a></li>
+        <li><a href="waterwell">Pozos de Auga</a></li>
+</Document>
+

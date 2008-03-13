@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Vertedoiros</p>
+	<p style="hp">Os Vertedoiros danche un lugar onde tira-los teus refugallos. Se acumulas moitos refugallos nos mercados, eles veranse forzados a queimar parte deses refugallos. Esto fai que aumente a polución así que non debes deixar que se che acumulen moitos refugallos.</p>
+	<p style="hp">Segundo se vaia enchendo o vertedoiro, este irase convertendo nun petouto, e cando estea cheo plantaraselle herba.</p>
+	<p style="hp">O transporte conectase á esquina superior esquerda.</p>
+	<p style="hp">Podes ver que un vertedoiro está traballando pulsando nel ou porque a míudo verás que está animado.</p>
+	
+	<p style="hp">Esto é un vertedoiro</p>
+	<img src="images/tiles/tip0.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="market">Mercados</a></li>
+</Document>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Escolas</p>
+	<p style="hp">As Escolas usan empregos e mercadorías para producir tegnoloxía de forma similar ás universidades. Usan bastantes menos mercadorías e empregos cás universidades, pero tamén producen puntos de tegnoloxía. Se tes a oportunidade de construir 4 ou 5 escolas nunha área, a míudo (pero non sempre) é mellor por unha soa universidade.</p>
+	<p style="hp">As escolas <b>non</b> precisan estar conectadas ó transporte, pero deben estar no radio de acción dun mercado para que este o poida abastecer de empregos e mercadorías.</p>
+	<p style="hp">Custa cartos mante-las escolas. Podes ve-lo custe total das escolas no <b>último</b> ano pulsando sobre o botón de economía. O valor 'esc' son os custes das escolas.</p>
+	<p style="hp">Podes ver que unha escola está funcionando pulsando sobre ela ou por que está animada.</p>
+	
+	<p style="hp">Esta é unha Escola</p>
+	<img src="images/tiles/school0.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="university">Universidades</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="jobs">Empregos</a></li>
+</Document>

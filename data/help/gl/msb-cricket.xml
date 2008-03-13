@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Cobertura de Deportes</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+	<p style="hp">As áreas con Canchas de Baloncesto son amosadas en verde escuro.</p>
+	<p style="hp">As áreas fora do radio das canchas de baloncesto son amosadas normalmente.</p>
+	<p style="hp">Lembra que as canchas de baloncesto tardan tres meses en seren activas.</p>
+	<p style="hp">Pulsa co botón esquerdo no minimapa para voltar á pantalla principal. Pulsa co botón esquerdo no título do minimapa para escoller unha vista do minimapa diferente. Cambiar entre os modos de vista pulsando 'v' ou co botón medio no título do minimapa.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Vista da Resevas de Carbón</a></li>
+	<li><a href="msb-fire">Cobertura ContraIncendios</a></li>
+	<li><a href="msb-health">Cobertura Sanitaria</a></li>
+	<li><a href="msb-normal">Vista Normal</a></li>
+	<li><a href="msb-pol">Vista da Polución</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+	<li><a href="msb-starve">Cobertura da Alimentación</a></li>
+	<li><a href="msb-transport">Cobertura de Transporte</a></li>
+	<li><a href="msb-ub40">Vista do Desemprego</a></li>
+</Document>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Fiestra de Poboación</p>
+	<p style="hp">Esta é a fiestra de poboación.</p>
+	<p style="hp">A fiestra amosa 7 estatísticas:</p>
+	<li>Pob         - amosa a poboación das túas áreas residenciais. Non se incluén os sen teito.</li>
+	<li>Aloxados    - amosa o total de xente na túa cidade que vive en casas.</li>
+	<li>Aloxados %  - amosa a porcentaxe de xente na túa cidade que vive en casas.</li>
+	<li>Chabolas    - amosa o número de poboados chabolistas na túa cidade.</li>
+	<li>Mortes Des. - amosa o número de persoas mortes por fame, seca ou polución no último mes.</li>
+	<li>Paro %      - amosa a porcentaxe de poboación en paro.</li>
+	<li>Fame %      - amosa a porcentase de poboación famenta.</li>
+	<p style="hp">Ó pulsar co botón esquerdo nesta fiestra poderás rotar entre finanzas, outros custes e poboación.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="finance">Fiestra de finanzas</a></li>
+	<li><a href="other-costs">Outros custes</a></li>
+
+</Document>

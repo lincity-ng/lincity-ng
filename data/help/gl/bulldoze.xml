@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Niveladora</p>
+	<p style="hp">Para derrubar unha área selecciona a icona da niveladora e despois pulsa sobre a área que queres derrubar ou limpar. As demolicións custan cartos. Cando contrues nunha área, o custe de contruir e derrubar é amosado na esquina inferior esquerda da pantalla.</p>
+	<p style="hp">Algunha cousas, coma monumentos, son moi caras á hora de derrubalas. O custe da demolición non só é economico, se non tamén político. Por exemplo, se derrubas un monumento, terás protestas e custes xudiciais coma mínimo.</p>
+	<p style="hp">Nestes intres, desecar áreas de río é a única forma de cruza-lo río con vías de transporte. Pensa nestas desecacións coma formas de facer pontes nos ríos</p>
+	<p style="hp">Este é a icona da niveladora</p>
+	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="river">Ríos</a></li>
+</Document>
+

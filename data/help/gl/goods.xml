@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mercadorías</p>
+	<p style="hp">As Mercadoría son necesarias para a maior parte das áreas. A xente tamén precisa moitas mercadorías e son atraídos as áreas que teñen mercadorías.</p>
+	<p style="hp">As mercadorías teñen impostos, co cal axudanche a mante-las túas finanzas.</p>
+	<p style="hp">As mercadorías son producidas polas olarías, ferrarías, fábricas e a industria lixeira.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="pottery">Olarías</a></li>
+	<li><a href="blacksmith">Ferrarías</a></li>
+	<li><a href="mills">Fábricas</a></li>
+	<li><a href="industryl">Industrias Lixeiras</a></li>
+</Document>

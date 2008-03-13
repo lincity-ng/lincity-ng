@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Velocidade Lenta</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Este é o botón do modo lento. Causa que o xogo vaia á súa velocidade máis lenta. En computadoras lentas os botóns de velocidade poida que non teñan efecto.</p>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="medium">Media</a></li>
+	<li><a href="fast">Rápida</a></li>
+</Document>

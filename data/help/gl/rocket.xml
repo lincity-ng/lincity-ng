@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Plataforma de Lanzamento de Foguetes</p>
+	<p style="hp">Os Foguetes permitenche evacua-la poboación a outro mundo, e así remata-lo xogo.</p>
+	<p style="hp">Debes ter cinco lanzamentos non tripulados antes de comeza-la evacuación. Cada foguete evacua a 1000 habitantes.</p>
+	<p style="hp">Se algún lanzamento falla, debes lanzar 5 foguetes non tripulados outra vez antes de poder evacuar máis xente.</p>
+	<p style="hp">O nivel tegnolóxico no intre do lanzamento é a probabilidade de que este teña éxito. Esto significa que se o te teu nivel tegnolóxico é dun 80%, entón terás catro posibilidades de cinco de ter éxito. 100% ou máis significa que o lanzamento terá éxito. (Con todo, algún dos <i>5 primeiros</i> lanzamentos poden fallar). Debes construir unha nova plataforma de lanzamento para cada foguete que vaias contruir.</p>
+	<p style="hp">As plataformas de lanzamento de foguetes non precisan estar conectadas ó transporte, poden obtelo todo dos mercados locais. Usan gran cantidade de aceiro, mercadorías, empregos e cartos para construir. Cando o foguete estea construido, poderás ver unha mensaxe preguntandoche se o queres lanzar xa ou esperas a máis tarde. Se escolles máis tarde, podelo lanzar cando desexes pulsando na plataforma. Podes ter tódolos foguetes que gustes esperando a ser lanzados.</p>
+	<p style="hp">Cando un foguete está construido, pero agardando a ser lanzado, non consume máis aceiro, mercadorías ou empregos pero segue a gastar moitos cartos.</p>
+	<p style="hp">Esto é unha Plataforma de Lanzamento de Foguetes</p>
+	<img src="images/tiles/rocket5.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="steel">Aceiro</a></li>
+	<li><a href="jobs">Empregos</a></li>
+</Document>

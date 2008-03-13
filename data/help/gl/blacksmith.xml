@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ferrarías</p>
+	<p style="hp">As Ferrarías transforman o aceiro e o carbón en mercadorías. Usaralas principalmente ó principio do xogo. Por suposto, tamén dan traballo.</p>
+	<p style="hp">Antes de que poidas ter industrias pesadas, dependes realmente do aceiro producido polas comunas. 5 ou 6 comunas por ferraría é o recomendable.</p>
+	<p style="hp">As Ferrarías non precisan estar conectadas ó transporte. Poden obter todo o que precisan dos mercados que existan ó redor.</p>
+	<p style="hp">Podes ver que unha ferraría está funcionando correctamente pulsando sobre ela, e tamén por que o edificio está animado.</p>
+
+	<p style="hp">Esto é unha Ferraría</p>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
+	<p style="hp">e esta é a súa icona</p>
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver Tamén:</p>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="steel">Aceiro</a></li>
+	<li><a href="jobs">Empregos</a></li>
+</Document>

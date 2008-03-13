@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Cobertura do Transporte</p>
+	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+	<p style="hp">O minimapa da Cobertura de Transporte amosa a cantidade de mercadorías nos<a href="track">camiños</a>, <a href="road">estradas </a>e <a href="rail">vías do tren</a>.</p>
+	<p style="hp">As cores en azul indican edificios dentro do radio de acción dun <a href="market">mercado</a>.</p>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Vista das Reservas do Carbón</a></li>
+	<li><a href="msb-cricket">Cobertura de Desportes</a></li>
+	<li><a href="msb-fire">Cobertura ContraIncendios</a></li>
+	<li><a href="msb-health">Cobertura Sanitaria</a></li>
+	<li><a href="msb-normal">Vista Normal</a></li>
+	<li><a href="msb-pol">Vista da Polución</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+	<li><a href="msb-starve">Cobertura da Alimentación</a></li>
+	<li><a href="msb-transport">Cobertura do Transporte</a></li>
+	<li><a href="msb-ub40">Vista do Desemprego</a></li>
+</Document>

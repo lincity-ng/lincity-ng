@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Estradas</p>
+	<p style="hp">As Estradas transportan moito máis que os camiños, pero non tanto coma as vías do tren. Tamén producen máis polución cás vías do tren. Pero son moito máis baratas á hora de construilas e mantelas - tiña que existir unha razón para a súa existencia!</p>
+	
+	<p style="hp">Esto é unha Estrada</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="pollution">Polución</a></li>
+</Document>

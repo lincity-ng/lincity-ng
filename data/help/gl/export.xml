@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Áreas de Importanción e Exportación</p>
+	<p style="hp">Importar e exportar funcionan da mesma forma excepto que a primeira custa cartos e a segunda dache cartos. Ambas requiren un Porto. Por esta razón, só se tratará con detalle a exportación.</p>
+	<p style="hp">Para exportar, o porto debe estar conectado cunha estrada.</p>
+	<p style="hp"><b>Deben</b> estar conectados cos ríos ó longo de todo o lado dereito.</p>
+	<p style="hp">As áreas de exportación tomarán tanto coma se lles dea. Se necesitas exportar, pero queres restrinxi-la cantidade, pode daquela que queiras usar un medio de transporte de menor capacidade ou pasa-lo produto a través dun mercado. Deberás experimentar para acada-la configuración máis axeitada.</p>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="port">Portos</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="steel">Aceiro</a></li>
+</Document>

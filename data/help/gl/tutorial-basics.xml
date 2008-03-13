@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Primeiros Pasos </p>
+<p style="hp">Escolle un "xogo novo " &gt; "vila aleatoria". Outros escenarios son para xogadores máis ou menos experimentados. </p>
+<p style="hp">Fágase notar que unha vila aleatoria contén os recursos básicos: </p>
+<li>Granxas para surtir ós mercados con alimentos </li>
+<li>Pozos de auga para a xente </li>
+<li>Comunas as cales producen carbón vexetal e pequenas cantidades de mineral e aceiro </li>
+<li>Áreas Residenciais</li>
+<li>Olarías</li>
+<li>Camiños</li>
+
+<p style="hp">Pulsando nun edificio (na pantalla principal) amosa información a cerca do mesmo na fiestra do minimapa.</p>
+
+<p style="hsubtitle">Mercados </p>
+<p style="hp">Os Mercados son uns dos edificios chave en Lincity. Eles mandan sobre os intercambios comerciais a nivel local. <b>Deberias </b> le-la axuda en <a href="market">mercados </a> :-).<i> Por suposto un mercado vacío non pode vender ese elemento e cando está cheo non pode comprar máis. Esto pode que che axude a entender por que algúns edificios non funcionan (probablemente non atopan o que precisan ou non poden vende-la súa produción)</i> </p>
+
+<p style="hsubtitle">Transporte </p>
+<p style="hp"><a href="transport">Transporte</a> é preciso para intercambios a longas distancias, e tamén para algunhas actividades especificas (esta está explicado nas correspondentes mensaxes de axuda, por exemplo nas comunas). Coma os mercados que teñen unha capacidade limitada poden chegar a estar saturados.</p>
+
+<p style="hp">Se un edificio 'normal' non está no radio dun mercado, entón terá que estar conectado ó transporte. Pero lembra cás estradas e as vías do tren teñen uns custes anuais de mantemento, sen que queiras ter un edificio aillado (e.x. un monumento), normalmente e mellor (e máis barato) usa-los mercados cando o precises. </p>
+
+<p style="hp">Nunha vila inicial os camiños non son necesarios. Pero serán moi importantes para o desenrolo da vila.</p>
+
+<p style="hsubtitle">Cartos </p>
+<p style="hp">As producións pagan tributos e esto axuda a aforrar cartos. Na fiestra do minimapa, a terceira cella é a <a href="finance"> Fiestra de Finanzas </a>.  Ten coidado con investir cartos moi rápido: cando estás en números vermellos, non podes construir certos edificios e tes que pagar intereses anuais. Esto pode levarte á bancarrota (mira o <a href="tutorial-scenario"> escenario de tempos duros</a>. </p>
+
+<p style="hsubtitle">Desenrolando a cidade </p>
+<p style="hp">Lembra que a xente ten que alimentarse e beber, ou morren. Para controla-lo crecemento da poboación, podes atopar unha especie de balance nos distintos tipos de <a href="residential"> Áreas Residenciais </a> que podes cosntruir (teñen diferentes taxas de nacementos/defuncións). A nova poboación permite ter máis empregos, pero tamén precisa máis alimentos, mercadorías, ...</p>
+<p style="hp">Terás que aumenta-la produción (engadir olarías, ferrarías) e o mesmo tempo surtilas de todo o necesario. Tamén terás que aumenta-las comunas proporcionalmente. </p>
+<p style="hp">Para poder construir novos edificios deberás aumenta-lo teu <a href="tech-level"> Nivel Tegnolóxico</a>.</p>
+<p style="hp"> Nalgún punto deberás escoller a túa aim: entre unha <a href="sustain"> Economía Sostible </a> ou a evacuación en <a href="rocket"> Naves Espaciais </a>.</p>
+
+<p style="hp">Terás que comprobar a míudo <a href="pbar"> o total dos stocks dos mercados </a>. Tamén o minimapa pode darche unha idea da túa economía, e para unha investigación máis profunda lembra pulsar nun edificio (na pantalla principal) para ver información acerca do mesmo na fiestra do minimapa. </p>
+
+<li>Consello: Fai un ou dous cambios e espera un pouco (lé os arquivos de axuda ;-) ou pon o xogo en velocidade rápida, e poderás ver coma cambiar os indicadores economicos. </li>
+<p style="hp"></p>
+<p style="hp">Disfruta.</p>
+<p style="hp"></p>
+
+<p style="hp">Ver tamén:</p>
+<li><a href="tutorial-advanced">Tutorial das Caracteristicas Avanzadas</a></li>
+<li><a href="tutorial-scenario">Tutorial para Escenarios Predefinidos</a></li>
+<li><a href="msb-starve">Cobertura da Alimentación</a></li>
+<li><a href="msb-ub40">Vista do Desemprego</a></li>
+
+
+</Document>
+

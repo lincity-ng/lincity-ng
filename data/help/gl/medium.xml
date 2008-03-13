@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Velocidade Media</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Este é o botón da velocidade media. Provoca que o xogo vaia a unha velocidade moderada. En computadoras lentas este botón non ten efecto.</p>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="slow">Lenta</a></li>
+	<li><a href="fast">Rápida</a></li>
+</Document>
+
+

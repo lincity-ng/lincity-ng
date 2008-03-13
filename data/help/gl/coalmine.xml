@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Minas de Carbón</p>
+	<p style="hp">As Minas de Carbón obteñen o carbón de vetas profundas. Debe existir unha veta de carbón preto da mina. Para ve-las vetas debes pulsa-lo botón do carbón que está debaixo do minimapa.</p>
+	<p style="hp">A primeira vez que use-lo botón custarache 1 millón, despois poderás consulta-las reservas de carbón gratuitamentee. Non precisas este botón, pero terás que encotra-las vetas a base de probar e errar.</p>
+	<p style="hp">As minas de carbón precisan traballadores para extrae-lo carbón.</p>
+	
+	<p style="hp">Esto é unha Mina de Carbón</p>
+	<img src="images/tiles/coalmine-full.png" halign="center"/>
+	<p style="hp">e esta é a súa icona</p>
+	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+
+	<p style="hp">Os gráficos amosan a cantidade total de carbón extraído pero que non foi aínda transportado. A mina de arriba chegou ó seu tope de almacenaxe.</p>
+	<p style="hp">O pulsar sobre a mina de carbón, a fiestra do minimapa amosarache o carbón almacenado na superficie, e o que é máis importante, as reservas dispoñibles.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="powerscoal">Centrais Térmicas</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="jobs">Empregos</a></li>
+</Document>

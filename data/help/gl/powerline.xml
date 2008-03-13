@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Liñas Eléctricas</p>
+	<p style="hp">As Liñas Eléctricas transportan a electricidade dende as centrais solares e térmicas ás subestacións. As liñas eléctricas conectanse a esquina esquerda superior para cada un dos tres edificios seguintes, centrais solares e térmicas, e subestacións.</p>
+	<p style="hp">As liñas eléctricas cruzan <b>por debaixo</b> de camiños, estradas, vias de tren e ríos (todo cun ancho de 1 cadrado). Se unha liña electrica é construida a ambos lados dun transporte ou rio, de facto esta unida e é operativa. A míudo terás que desecar algúns tramos de río para atravesalo - é moi caro! As liñas eléctricas están unidas cando estan en liña.</p>
+
+	<p style="hp">Esto é unha Liña de Eléctrica</p>
+	<img src="images/tiles/powerlvd.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
+	<p style="hp">e esto é a súa icona no minimapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="substation">Subestación</a></li>
+	<li><a href="powerssolar">Centrais Solares</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+</Document>
+

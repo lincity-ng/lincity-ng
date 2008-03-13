@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Comunas</p>
+	<p style="hp">As Comunas son áreas onde se transforma a leña en carbón vexetal. Tamén producen unha pequena cantidade de aceiro e mineral.</p>
+	<p style="hp">Probablemente precisarás unhas cantas comunas para proveer de aceiro e carbón ás olerías, ferrerías e fábricas.</p>
+	<p style="hp">Se unha comuna non produce nada en 10 anos, pechará e o sitio converterase en parques.</p>
+	<p style="hp">As comunas poden estar conectadas por calquera beira ou punto, non so pola entrada.</p>
+	<p style="hp">A produción das comunas depende da auga subterranea. (as áreas con auga son verdes, as amarelas-marróns son deserticas)</p>
+	
+	<p style="hp">Esto é unha Comuna</p>
+	<img src="images/tiles/commune1.png" halign="center"/>
+	<p style="hp">e esta é a súa icona</p>
+	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="pottery">Olarías</a></li>
+	<li><a href="blacksmith">Ferrarías</a></li>
+	<li><a href="mill">Fábricas</a></li>
+	<li><a href="oremine">Minas de Mineral</a></li>
+	<li><a href="steel">Aceiro</a></li>
+</Document>

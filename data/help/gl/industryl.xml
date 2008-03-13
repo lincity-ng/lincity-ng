@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Industrias Lixeiras</p>
+	<p style="hp">Ás Industrias Lixeiras converten o mineral en mercadorías. A conversión é máis eficiente se tamén hai dispoñible aceiro. A electricidade tamén aumenta a produtividade. Os muiños de vento <b>non</b> suministran electricidade a estas áreas.</p>
+	<p style="hp">A produtividade destas industrias depende da cantidade de materias primas das que se dispoña, incuindo empregos que poidan recibir, e das mercadorías que poidan <b>distribuir</b>.</p>
+	<p style="hp">Estas áreas debene estar conectadas ó transporte directamente para intercambiar mineral, aceiro,  e as mercadorías. Tamén debene estar no radio de acción dun comercio para seren surtidas de empregos.</p>
+	<p style="hp">Estas áreas conectanse ó transporte <b>só</b> pola esquina superior esquerda, tal coma se mostra. O transporte curvarase na industria cando esta sexa conectada.</p>
+	
+	<p style="hp">Esto é unha industria lixeira</p>
+	<img src="images/tiles/industryll1.png" halign="center"/>
+	<p style="hp">e esta é a súa icona</p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="road">Estradas</a></li>
+	<li><a href="rail">Vías de Tren</a></li>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="jobs">Empregos</a></li>
+</Document>

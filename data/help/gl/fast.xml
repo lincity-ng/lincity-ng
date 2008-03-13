@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Velocidade Rápida</p>
+	<img src="images/gui/speed/fast.png"/>
+	<p style="hp">Este é o botón da velocidade rápida. Fai que o xogo vaia o máis a presa posible. Ten coidado ó usar este modo en computadoras rápidas; 'as situacións' podense desenrolar a gran velocidade!</p>
+
+	<p style="hsubtitle">Ver Tamén:</p>
+	<li><a href="medium">Media</a></li>
+	<li><a href="slow">Lenta</a></li>
+</Document>

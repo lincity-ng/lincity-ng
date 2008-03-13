@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Alimentos</p>
+	<p style="hp">Os Alimentos son producidos nas granxas ou importados a través dos portos.</p>
+	<p style="hp">A túa xente precisa alimentos para poder sobrevivir. Se pasan fame, iranse a outros lugares e alguns deles morrerán de inanición.</p>
+	<p style="hp">As fábricas tamén usan alimentos. Transforman o algodón en roupa. Poden chegar <i>a usar moitos</i> alimentos - estate alerta.</p>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="farm">Granxas</a></li>
+	<li><a href="port">Portos</a></li>
+	<li><a href="mill">Fábricas</a></li>
+	<li><a href="steel">Aceiro</a></li>
+</Document>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">PBar</p>
+	<p style="hp">É a segunda cella do minimapa</p>
+	<p style="hp">Amosa os stocks totais almacenados en tódolos mercados, e coma estes stocks van cambiamdo.</p>
+	<p style="hp">O número indica a cantidade total.</p>
+	<p style="hp">Unha barra verde indica un crecemento. E unha barra vermella indica unha disminución, o tamaño da barra indica o montante total do cambio.</p>
+</Document>

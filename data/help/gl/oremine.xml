@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Minas de Mineral</p>
+	<p style="hp">As Minas de Mineral extraen as menas (de metais) necesarias para facer mercadorías e aceiro. Podes facer unha mina de mineral en calquera lugar. As menas nesas áreas son consumidas lentamente; non podes demoler estas áreas e contruir enriba unha nova mina e obter máis mineral.</p>
+	<p style="hp">Cando se esgota unha mina de mineral, esta convertese nun lago. Para reclamar esas terras terás que desecar 16 cadrados de auga!</p>
+	<p style="hp">As animacións amosan ás minas de mineral traballando pesadamente cando están preto de quedar esgotadas.</p>
+	<p style="hp">O transporte conectase pola esquina esquerda superior da mina de mineral.</p>
+	
+	<p style="hp">Esto é unha Mina de Mineral</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="steel">Aceiro</a></li>
+</Document>

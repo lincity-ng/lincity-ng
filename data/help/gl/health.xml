@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Hospitais</p>
+	<p style="hp">Os Hospitais dan cobertura ás áreas residenciais. Dan cobertura nun radio de catro cadrados.</p>
+	<p style="hp">Os hospitais fan que as zonas residenciais sexan máis atractivas para vivir, menos xente morre a causa da polución e enfermidades relacionadas, e a xente que vive nestas áreas é máis eficiente á hora de prestar man de obra (pasan menos tempo de baixa).</p>
+	<p style="hp">Os hospitais son moi caros, 60,000 por ano. Sen embargo, reducen as mortes 'non naturais' e dan ingresos por impostos adicionnais (xa que existen máis empregos para os cidadáns.</p>
+	<p style="hp">Despois de construir un hospital, este tarda uns tres meses en funcionar. Usan mercadorías pero non moitos empregos. Estes empregos tomanse en conta cando se calculan os traballos extra creados pola redución das enfermidades nas áreas colindantes.</p>
+	<p style="hp">Os hospitais non precisan estar conectados ó transporte, pero se non están conectados ó transporte deben estar no radio de acción dun mercado.</p>
+	<p style="hp">Para ve-la cobertura sanitaria, pulsa no icono de saúde que está debaixo do 'minimapa', as áreas amosadas normalmente teñen cobertura sanitaria.</p>
+
+	<p style="hp">Esto é un Hospital</p>
+	<img src="images/tiles/health.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+	<p style="hp">e esto é a icona da cobertura sanitaria no minimapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="residential">Áreas Residenciais</a></li>
+	<li><a href="pollution">Polución</a></li>
+	<li><a href="jobs">Empregos</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="msb-health">Cobertura Sanitaria</a></li>
+</Document>

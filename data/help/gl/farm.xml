@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Granxas</p>
+        <p style="hp">As Granxas producen alimentos para que a xente se alimente e para suministrar materiais sen refinar ás fábricas. Os granxeiros poden vende-los seus produtos ós mercados. Tranportannos nos tractores de tal xeito que as granxas non necesitan estar conectadas cós medios de transporte. Con todo poden vende-los produtos ós medios de transporte se asi o desexas. Debes de asegurarte de que as granxas estean no radio de acción dun mercado.</p>
+        <p style="hp">A produción da granxa depende da auga subterranea. As áreas con auga son verdes, e as secas-deserticas están en marrón-amarelo.</p>
+	
+	<p style="hp">Esto é unha Granxa</p>
+	<img src="images/tiles/farm0.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
+	
+	<p style="hp">As granxas precisan empregos para producir algo máis que a cantidade mínima de produtos. Dandolle a unha granxa electricidade aumentará a súa produción. Conecta-la granxa á electricidade (inclindo ós muiños antigos de vento) axuda a procesa-la produción da granxa, e reduci-los refugallos xerados pola mesma.</p>
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="tech-level">Nivel Tegnolóxico</a></li>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="windmill">Muiños de Vento</a></li>
+	<li><a href="food">Alimentos</a></li>
+</Document>

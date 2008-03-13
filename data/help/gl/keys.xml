@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Comandos do Teclado</p>
+    <p style="hp">ESCAPE: cambiar a ferramenta de consulta</p>
+    <p style="hp">b conmunta entre a ferramenta actual e o modo niveladora</p>
+    <p style="hp">h para oculta-los edificios. Pulsa en h para voltalos a ver.</p>
+    <p style="hp">v para rotar entre os modos de vistas do MiniMapa</p>
+    <p style="hp">Tecla +: ampliar</p>
+    <p style="hp">Tecla -: reducir</p>
+    <p style="hp">Tecla ENTER: ampliación ó 100%</p>
+    <p style="hp">Tecla 5: situa-la metade do mapa no centro da pantalla principal</p>  
+    <p style="hp">Tecla 9: desprazarse ó norte na pantalla principal</p>
+    <p style="hp">Tecla 1: desprazarse ó sur na pantalla principal</p>
+    <p style="hp">Tecla 7: desprazarse ó oeste na pantalla principal</p>
+    <p style="hp">Tecla 3: desprazarse ó leste na pantalla principal</p>
+    <p style="hp">Tecla 2: desprazarse ó surleste na pantalla principal</p> 
+    <p style="hp">Tecla 4: desprazarse ó suroeste na pantalla principal</p> 
+    <p style="hp">Tecla 6: desprazarse ó norleste na pantalla principal</p> 
+    <p style="hp">Tecla 8: desprazarse ó noroeste na pantalla principal</p> 
+    <p style="hp">igual có cursor</p>
+    <p style="hp">usar shift + dirección para desprazarse máis rápido</p>
+    <p style="hp">Tecla 12: gardardo rápido</p> 
+    <p style="hp">Tecla 9: carga rápida</p> 
+
+    <p style="htitle">Rato</p>
+    <p style="hp">dereito:</p>
+    <p style="hp">Arrastra a pantalla principal có botón dereito do rato.</p>
+    <p style="hp">Pulsar co botón dereito sobre a pantalla principal para centra-la vista baixo o cursor.</p>
+    <p style="hp">medio:</p>
+    <p style="hp">Pulsar co botón do medio na pantalla principal amosa información da área que está xusto debaixo do cursor.</p>
+    <p style="hp">esquerdo:</p>
+    <p style="hp">O pulsar sobre o minimapa amosa a área seleccionada na pantalla principal.</p>
+    <p style="hp">Realizar unha tarefa depende da ferramenta seleccionada. Nivelar, amosar información, construir un edificio.</p>
+    <p style="hp">roda:</p>
+    <p style="hp">arriba: ampliar</p>
+    <p style="hp">abaixo: reducir </p>
+</Document>
+

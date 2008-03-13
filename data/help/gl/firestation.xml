@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Parques de Bombeiros</p>
+	<p style="hp">Os Parques de Bombeiros preveñen o incio e expansión de lumes no seu radio de acción. Necitan ser surtidos con empregos e mercadorías para funcionar. <b>Non</b> precisan estar conectados ó transporte, pero deben estar no radio de acción dun mercado para ter suministro de empregos e mercadorías. O seu funcionamento tamén custa cartos.</p>
+	<p style="hp">Cando construes un parque de bombeiros, non comezar a funcionar de inmediato. Normalmente tarda uns tres meses en funcionar.</p>
+	<p style="hp">Para ve-la cobertura dos parques de bombeiros, pulsa no botón de incendios que hai debaixo do <i>minimapa</i>. As áreas con cobertura son mostradas normalmente, e sen cobertura son mostradas en verde escuro.</p>
+	<p style="hp">Os parques de bombeiros incrementan o atractivo das áreas residenciais que estean dentro da súa cobertura.</p>
+	<p style="hp">Os parques de bombeiros teñen unha animación mensual co cal poderalos ver funcionar mensualmente.</p>
+
+	<p style="hp">Esto é un Parque de Bombeiros</p>
+	<img src="images/tiles/firestation1.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+	<p style="hp">e esto é a icona da cobertura contraincendios</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="market">Mercados</a></li>
+	<li><a href="jobs">Empregos</a></li>
+	<li><a href="msb-fire">Cobertura Contra-Incendios</a></li>
+</Document>

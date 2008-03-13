@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Centrais Térmicas</p>
+	<p style="hp">As Centrais Térmicas producen paquetes de electricidade que envia as liñas eléctricas.</p>
+	<p style="hp">As liñas eléctricas conectanse á esquina superior esquerda da central, o transporte conectase na posición que podes ver no exemplo.</p>
+	<p style="hp">A eficiencia da conversión do carbón en electricidade incrementa o nivel tegnolóxico - cando a central estea <b>construida</b>. Podes demoler unha central vella e cambiala por unha nova, moito máis eficiente, cando o teu nivel tegnolóxico teña aumentado significativamente.</p>
+	
+	<p style="hp">Esto é unha Central Térmica</p>
+	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="transport">Transporte</a></li>
+	<li><a href="tech-level">Nivel Tegnolóxico</a></li>
+	<li><a href="powerline">Liñas Eléctricas</a></li>
+	<li><a href="msb-power">Cobertura Eléctrica</a></li>
+</Document>

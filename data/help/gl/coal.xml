@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Carbón</p>
+	<p style="hp">O Carbón é usado polas Centrais Térmicas para facer electricidade. Tamén é usado polas olarías, fábricas e ferrarías para producir mercadorías. As industrias pesadas (do metal) usan carbón cando non teñen electricidade.</p>
+	<p style="hp">O carbón é extraído das minas de carbón. Hai unha cantidade finita de carbón e podes ve-las reservas premendo no botón que hai debaixo do minimapa (ver minas de carbón).</p>
+	<p style="hp">As Comunas proporcionan algo de carbón. Realmente este carbón é vexetal. Producese en pequenas cantidades, o xusto para unhas poucas olarías e ferrarías.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="coalmine">Minas de Carbón</a></li>
+	<li><a href="powerscoal">Centrais Térmicas</a></li>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="pottery">Olarías</a></li>
+	<li><a href="blacksmith">Ferrarías</a></li>
+	<li><a href="msb-coal">Ve-las Reservas de Carbón</a></li>
+</Document>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mercados</p>
+	<p style="hp">Os Mercados son os edificios chave no Lincity.</p>
+	<p style="hp">Mercado é probablemente un mal nome para estas áreas. Son máis parecidos a centros de traballo, almacenaxe, de tendas, de comercios, de todo esto nun só edificio. Poden comerciar con empregos, mercadorías, alimentos, carbón, mineral, e aceiro coas áreas próximas, e tamén cos medios de transporte coma por ex. estradas..</p>
+
+	<p style="hp"><b>Dentro do radio</b> dun mercado todo está conectado <b>sen necesidade do transporte</b>, excepto cando un edificio o especifique na súa axuda. Usa a <a href="msb-transport">Vista de Transporte e Comercio</a> para comprobar se un edificio esta no radio dun mercado.</p>
+	<li>A xente pode obter comida, mercadorías e empregos dos mercados sen ter que usa-los medios de transporte.</li>
+	<li>Tódalas areas requiren traballo (empregos) que collen dos mercados.</li>
+	<li>As granxas poden vende-los seus alimentos directamente ós mercados.</li>
+	<li>Fábricas, olarías, e ferrarías vende as súas mercadorías directamente ós mercados máis cercanos, tamén obteñen as súas materias primas dos mesmos mercados.</li>
+	<p style="hp">Se non hai un mercado nos arredores, estes edificios precisan entón estar conectados ó <a href="transport"> transporte</a>.</p>
+	<p style="hp">A segunda cella do minimapa amosa o <b>total dos stocks dos mercados</b>, e a súa evolución cunha barra de progreso. En conxunción cos minimapas (mini-iconas xusto debaixo) poden axudarche moito para que poidas te-la cantidade precisa de recursos (alimentos, empregos ...). </p>
+
+	<p style="hsubtitle">Controlar que mercados poden comprare vender</p>
+	<p style="hp">Podes controla-la función dun mecado seleccionando que pode compar e vender ó transporte. Fai un dobre click sobre o mercado en cuestión e aparecerá unha fiestra para seleccionar con que cousas comerciar. Por defecto o mercado comercia con tódalas materias primas.</p>
+
+	<p style="hp">Esto é un Mercado</p>
+	<img src="images/tiles/market-empty.png" halign="center"/>
+	<p style="hp">e esto é a súa icona</p>
+	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
+	<p style="hp">Esto significa que o comercio está permitido.</p>
+	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
+	<p style="hp">Esto significa que ó comercio <b>non</b> está permitido.</p>
+	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
+	<p style="hp">Os números que hai entre as palabras Comprar e Vender son as coordenadas de referencia para ese comercio.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="food">Alimentos</a></li>
+	<li><a href="jobs">Empregos</a></li>
+	<li><a href="coal">Carbón</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="ore">Mineral</a></li>
+	<li><a href="steel">Aceiro</a></li>
+	<li><a href="transport">Transporte</a></li>
+</Document>

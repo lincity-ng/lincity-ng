@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Aceiro</p>
+	<p style="hp">O Aceiro normalmente producese nas industrias pesadas (do metal). Debes alcanzar un nivel tegnolóxico determinado para poder construir industrias pesadas. Antes das industrias pesadas, as comunas son as únicas fontes de aceiro. As Comunas producen unha pequena cantidade de aceiro (a partires do mineral), deste xeito vas precisar un bo número de comunas para obte-lo aceiro que precisas.</p>
+	<p style="hp">O aceiro é usado polas ferrarías para facer mercadorías. Tamén é usado polas industrias lixeiras para facer ferramentas e mercadorías. A industria lixeira pode traballar sen aceiro, pero a súa produción verase severamente reducida.</p>
+	<p style="hp">Os foguetes usan moito aceiro, principalmente para construi-la plataforma de lanzamento.</p>
+	<p style="hp">As vías do tren tamén usan aceiro no seu mantemento.</p>
+	<p style="hp">A produción de aceiro está gravada.</p>
+
+	<p style="hsubtitle">Ver tamén:</p>
+	<li><a href="commune">Comunas</a></li>
+	<li><a href="blacksmith">Ferrarías</a></li>
+	<li><a href="goods">Mercadorías</a></li>
+	<li><a href="industryh">Industrias Pesadas</a></li>
+	<li><a href="industryl">Industrias Lixeiras</a></li>
+	<li><a href="rail">Vías do Tren</a></li>
+</Document>
