@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file ComponentFactory.cpp
+ */
+
 #include <config.h>
 
 #include "ComponentFactory.hpp"
@@ -44,6 +50,9 @@ GUI_TRANSLATE(const std::string& msgid)
 ComponentFactories* component_factories = 0;
 
 // import factory
+/**
+ * @class ImportFactory
+ */
 class ImportFactory : public Factory
 {
 public:
@@ -85,9 +94,10 @@ ImportFactory::createComponent(XmlReader& reader)
 
 //---------------------------------------------------------------------------
 
-/** It seems ar or g++ strip out unused functions in static libraries. For some
- * reasons also global constructor seem to be considered unused if noone uses
- * the global object. So can't use our slick component factory registration
+/**
+ * @note It seems ar or g++ strip out unused functions in static libraries. For
+ * some reasons also global constructor seems to be considered unused if noone
+ * uses the global object. So can't use our slick component factory registration
  * tricks :-/ And have to fill in the list manually here
  */
 
@@ -140,10 +150,10 @@ void initFactories()
         new INTERN_TooltipManagerFactory();
         new INTERN_WindowFactory();
         new ImportFactory();
-        
+
         dictionaryGUIManager.set_charset("UTF-8");
         dictionaryGUIManager.add_directory("locale/gui");
-            
+
         initialized = true;
     }
 }

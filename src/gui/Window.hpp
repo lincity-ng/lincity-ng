@@ -23,6 +23,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class XmlReader;
 class Button;
 
+/**
+ * @class Window
+ * @brief Implement the main game window.
+ * @file Window.hpp
+ * @author Matthias Braun
+ */
+
 class Window : public Component
 {
 public:
@@ -36,7 +43,7 @@ public:
 
 private:
     void closeButtonClicked(Button* button);
-    
+
     float border;
     float titlesize;
     bool dragging;

@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file Panel.cpp
+ */
+
 #include <config.h>
 
 #include "Panel.hpp"
@@ -29,15 +35,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentLoader.hpp"
 #include "Painter.hpp"
 
+/**
+ * Class constructor.
+ */
 Panel::Panel()
 	: background(0)
 {
 }
 
+/**
+ * Class destructor.
+ */
 Panel::~Panel()
 {
 }
 
+/**
+ * Function for XML parsing.
+ *
+ * @param reader XmlReader object that represents a XML file.
+ */
 void
 Panel::parse(XmlReader& reader)
 {
@@ -79,15 +96,27 @@ Panel::parse(XmlReader& reader)
     }
 }
 
+/**
+ * @param Painter Painter object that represent the widget that needs to be
+ *                drawn.
+ */
 void
 Panel::draw(Painter& painter)
 {
     if(background)
         painter.drawTexture(background, Vector2(0, 0));
-    
+
     Component::draw(painter);
 }
 
+/**
+ * Check if a given component, identified by its position, is opaque or not.
+ *
+ * @param pos Constant vector representing the component's position.
+ * @return True if the component is opaque at this place.
+ * @todo Remove code duplication with SwitchComponent::opaque (pos) and
+ *       TableLayout::opaque(pos).
+ */
 bool
 Panel::opaque(const Vector2& pos) const
 {
@@ -99,7 +128,7 @@ Panel::opaque(const Vector2& pos) const
         if(child.getComponent()->opaque(pos - child.getPos()))
             return true;
     }
-    
+
     return false;
 }
 

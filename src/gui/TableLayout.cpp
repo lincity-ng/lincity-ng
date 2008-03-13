@@ -183,8 +183,8 @@ TableLayout::parse(XmlReader& reader)
                 if(colspan <= 0 || col + colspan - 1 >= cols) {
                     std::cerr << "colspan value invalid.\n";
                     colspan = 1;
-                }   
-                
+                }
+
                 Component* component = parseEmbeddedComponent(reader);
                 if(component == 0) {
                     std::cerr << "No Component specified in cell "
@@ -208,6 +208,14 @@ TableLayout::parse(XmlReader& reader)
     }
 }
 
+/**
+ * Check if a given component, identified by its position, is opaque or not.
+ *
+ * @param pos Constant vector representing the component's position.
+ * @return True if the component is opaque at this place.
+ * @todo Remove code duplication with SwitchComponent::opaque (pos) and
+ *       Panel::opaque(pos).
+ */
 bool
 TableLayout::opaque(const Vector2& pos) const
 {
@@ -215,7 +223,7 @@ TableLayout::opaque(const Vector2& pos) const
         const Child& child = *i;
         if(child.getComponent() == 0 || !child.isEnabled())
             continue;
-        
+
         if(child.getComponent()->opaque(pos - child.getPos())) {
             return true;
         }

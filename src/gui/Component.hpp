@@ -29,13 +29,18 @@ class Painter;
 class Event;
 
 /**
+ * @author Matthias Braun.
+ * @file Component.hpp
+ * @class Component
+ * @brief Implementation of blocks which are a rectangular area on screen.
+ *
  * The Component is the basic building block of the GUI. It represents a
  * rectangular area on screen which receives events and is able to draw itself.
  * This class has to be used as a base class to implement specific
  * gui-components like buttons or windows.
  *
  * Currently there are 2 sorts of components: resizable ones and fixed-size
- * ones. A fixed size component should have it's size set after creation. (You
+ * ones. A fixed size component should have it's size set after creation (you
  * should set the width and height fields in the constructor).
  * Resizable components should set the resize flag in the constructor and
  * override the resize function. If the resize function is called the component
@@ -43,7 +48,7 @@ class Event;
  * passed in in the resize call), and then set the width and height members
  * accordingly.
  *
- * Components are typically put in a tree. (For example you can put
+ * Components are typically put in a tree (for example you can put
  * child-components in a TableLayout or in a Window). However components
  * typically don't have to take care of this. The corrdinates in the mouse
  * events are transformed into corrdinates relative to the component origin.
@@ -53,11 +58,11 @@ class Event;
 class Component 
 {
 public:
-    /** values for the flags bitfield */
+    /** Values for the flags bitfield. */
     enum {
         FLAG_RESIZABLE = 0x00000001
     };
-        
+
     Component();
     virtual ~Component();
 
@@ -67,9 +72,9 @@ public:
 
     /** Causes the component to layout it's child components again */
     virtual void reLayout();
-   
+
     /**
-     * should returns true if the component is opaque at this place
+     * @return true if the component is opaque at this place.
      */
     virtual bool opaque(const Vector2& pos) const
     {
@@ -87,7 +92,7 @@ public:
     float getHeight() const
     {
         return height;
-    }                          
+    }
 
     const std::string& getName() const
     {
@@ -98,21 +103,25 @@ public:
     {
         this->name = name;
     }
-    
-    /** returns the component flags (this is a bitfield) */
+
+    /** @return The component flags (this is a bitfield). */
     int getFlags() const
     {
         return flags;
     }
 
-    /** returns the parent component or 0 if the component has no parent */
+    /**
+     * Get the current component parent.
+     * @return The parent component or 0 if the component has no parent. */
     Component* getParent() const
     {
         return parent;
     }
     Component* findComponent(const std::string& name);
 
-    /** maps a relative coordinate from this component to a global one */
+    /**
+     * Maps a relative coordinate from this component to a global one.
+     */
     Vector2 relative2Global(const Vector2& pos);
 
 protected:
@@ -130,18 +139,19 @@ protected:
         setDirty(Rect2D(0, 0, width, height));
     }
     virtual void setDirty(const Rect2D& area);
-    
+
     /**
-     * used to parse attributes (from an xml stream for example). Currently
-     * parses only the name attribute
-     * Returns true if the attribute has been used.
+     * Used to parse attributes (from an xml stream for example). Currently
+     * parses only the name attribute.
+     * @return True if the attribute has been used, false else.
      */
     virtual bool parseAttribute(const char* attribute, const char* value);
-    
+
     void setFlags(int flags)
     {
         this->flags |= flags;
     }
+
     void clearFlags(int flags)
     {
         this->flags &= ~flags;
@@ -151,7 +161,7 @@ protected:
     int flags;
     float width, height;
     std::string name;
-    
+
     friend class ButtonPanel;
 };
 

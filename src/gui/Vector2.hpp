@@ -16,13 +16,21 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+/**
+ * @author Matthias Braun
+ * @file Vector2.hpp
+ */
+
 #ifndef __VECTOR_HPP__
 #define __VECTOR_HPP__
 
 #include <math.h>
 
-/// 2D Vector.
-/** Simple two dimensional vector. */
+/**
+ * @class Vector2
+ * @brief Simple two dimensional vector.
+ */
 class Vector2
 {
 public:
@@ -106,7 +114,7 @@ public:
             return *this;
         }
 
-        /// Scalar product of 2 vectors
+    /** Scalar product of 2 vectors */
     float operator*(const Vector2& other) const
         {
             return x*other.x + y*other.y;

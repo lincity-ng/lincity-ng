@@ -15,16 +15,24 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file Rect2D.hpp
+ */
+
 #ifndef __RECTANGLE_H__
 #define __RECTANGLE_H__
 
 #include <assert.h>
 #include "Vector2.hpp"
 
-/** This class represents a rectangle.
- * (Implementation Note) We're using upper left and lower right point instead of
- * upper left and width/height here, because that makes the collision dectection
- * a little bit more efficient.
+/**
+ * @class Rect2D
+ * @brief This class represents a rectangle.
+ * @note Implementation Note: We're using upper left and lower right point
+ * instead of upper left and width/height here, because that makes the
+ * collision dectection a little bit more efficient.
  */
 class Rect2D
 {

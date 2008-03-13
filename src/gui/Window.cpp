@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @file Window.cpp
+ * @author Matthias Braun
+ */
+
 #include <config.h>
 
 #include "Window.hpp"
@@ -42,6 +48,11 @@ Window::~Window()
 {
 }
 
+/**
+ * Parse a given XmlReader objest that represents the map.
+ *
+ * @param reader Reference to a XmlReader object representing a given XML file.
+ */
 void
 Window::parse(XmlReader& reader)
 {
@@ -85,7 +96,7 @@ Window::parse(XmlReader& reader)
         throw std::runtime_error("Width or Height invalid");
 
     childs.assign(5, Child());
-    
+
     int depth = reader.getDepth();
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
@@ -155,6 +166,11 @@ Window::parse(XmlReader& reader)
     }
 }
 
+/**
+ * Draw the map.
+ *
+ * @param painter Reference to a Painter object.
+ */
 void
 Window::draw(Painter& painter)
 {
@@ -174,7 +190,7 @@ Window::event(const Event& event)
                 dragOffset = event.mousepos - title().getPos();
             }
             break;
-            
+
         case Event::MOUSEBUTTONUP:
             if(dragging) {
                 dragging = false;

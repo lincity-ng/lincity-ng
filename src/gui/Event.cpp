@@ -46,7 +46,7 @@ Event::Event(SDL_Event& event)
         case SDL_MOUSEBUTTONDOWN:
             type = MOUSEBUTTONDOWN;
             mousepos = Vector2(event.button.x, event.button.y);
-            mousebutton = event.button.button;                             
+            mousebutton = event.button.button;
             break;
         default:
             assert(false);

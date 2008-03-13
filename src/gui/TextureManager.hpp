@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file TextureManager.hpp
+ */
+
 #ifndef __TEXTUREMANAGER_HPP__
 #define __TEXTUREMANAGER_HPP__
 
@@ -25,8 +31,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Texture.hpp"
 
 /**
- * This handles the creation and sharing of textures.
- * 
+ * @class TextureManager
+ * @brief This handles the creation and sharing of textures.
+ *
  * A texture is a wrapper around a pixmaps. Using a wrapper allows to make use
  * of hardware acceleration in some scenarios (for example in opengl where the
  * pixmaps can get uploaded into the gfx cards memory).
@@ -35,15 +42,15 @@ class TextureManager
 {
 public:
     virtual ~TextureManager();
-    
+
     enum Filter {
         NO_FILTER = 0,
         /// Turn image into a greyscale image
         FILTER_GREY
     };
-    
+
     /**
-     * load an image file from disk and create a texture. The texture will be
+     * Load an image file from disk and create a texture. The texture will be
      * cached so don't delete it.
      */
     Texture* load(const std::string& filename, Filter filter = NO_FILTER);
@@ -65,7 +72,7 @@ private:
         TextureInfo(const TextureInfo& other)
             : filename(other.filename), filter(other.filter)
         { }
-        
+
         bool operator < (const TextureInfo& other) const
         {
             if(filename < other.filename)
@@ -82,7 +89,7 @@ private:
             return filename == other.filename && filter == other.filter;
         }
     };
-    
+
     typedef std::map<TextureInfo, Texture*> Textures;
     Textures textures;
 };

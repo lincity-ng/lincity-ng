@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file Paragraph.hpp
+ */
+
 #ifndef __TEXTBOX_HPP__
 #define __TEXTBOX_HPP__
 
@@ -29,7 +35,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class XmlReader;
 
 /**
- * contains a part of text in normalized form (all spaces collapsed to ' ')
+ * @class TextSpan
+ * @brief Contains a part of text in normalized form.
+ *
+ * All spaces are collapsed to ' '.
  */
 class TextSpan
 {
@@ -39,7 +48,9 @@ public:
 };
 
 /**
- * A paragraph of (formatted) text
+ * @class Paragraph
+ * @brief A paragraph of (formatted) text.
+ *
  * The text is constructed from a list of TextSpans. A TextSpan combines a list
  * of words with a Style so that it can have different font attributes and
  * color.
@@ -60,14 +71,18 @@ public:
     void event(const Event& event);
 
     /**
-     * sets a new text in the Paragraph. The style of the paragraph is used
+     * Sets a new text in the Paragraph. The style of the paragraph is used.
+     * @param text Text to set.
      */
     void setText(const std::string& text);
+
     /**
      * Sets a new text in the Paragraph.
+     * @param text Text to set.
+     * @param style Style to apply to the text.
      */
     void setText(const std::string& text, const Style& style);
-    
+
     std::string getText() const;
 
     const Style& getStyle() const
@@ -84,7 +99,7 @@ private:
         Rect2D rect;
         const TextSpan* span;
     };
-    
+
     typedef std::vector<TextSpan*> TextSpans;
     TextSpans textspans;
     Style style;

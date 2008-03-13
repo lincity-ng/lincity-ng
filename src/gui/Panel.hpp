@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file Panel.hpp
+ */
+
 #ifndef __PANEL_HPP__
 #define __PANEL_HPP__
 
@@ -24,6 +30,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class XmlReader;
 class Texture;
 
+/**
+ * @class Panel.
+ * @brief Code for the panel implementation.
+ * @todo Describe more precisely what is the panel.
+ */
 class Panel : public Component
 {
 public:

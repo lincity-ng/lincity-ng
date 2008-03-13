@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file Child.hpp
+ */
+
 #ifndef __CHILD_HPP__
 #define __CHILD_HPP__
 
@@ -23,6 +29,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 class Component;
 
+/**
+ * @class Child
+ */
 class Child
 {
 public:
@@ -34,7 +43,7 @@ public:
         return component;
     }
     void setComponent(Component* component);
-    
+
     void enable(bool enabled)
     {
         if(!component) {
@@ -66,11 +75,11 @@ public:
         useClipRect = true;
         clipRect = rect;
     }
-   
+
 private:
     friend class Component;
     friend class Childs;
-    
+
     Vector2 position;
     bool enabled;
     bool useClipRect;
@@ -79,6 +88,7 @@ private:
 };
 
 /**
+ * @class Childs
  * I create an own Child vector class here. So that components can get deleted
  * when they are removed from the vector.
  * (This can't be done in the Child destructor, because making Child the owner

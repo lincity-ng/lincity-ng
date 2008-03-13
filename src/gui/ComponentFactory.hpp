@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file ComponentFactory.hpp
+ */
+
 #ifndef __COMPONENT_FACTORY_HPP__
 #define __COMPONENT_FACTORY_HPP__
 
@@ -28,22 +34,26 @@ std::string  GUI_TRANSLATE(const std::string& msgid);
 class Component;
 class XmlReader;
 
+/**
+ * @class Factory
+ */
 class Factory
 {
 public:
     virtual ~Factory()
     { }
-    
+
     virtual Component* createComponent(XmlReader& reader) = 0;
 };
 
 typedef std::map<std::string, Factory*> ComponentFactories;
 extern ComponentFactories* component_factories;
 
-/** comment from Matze:
+/**
+ * @note From Matze:
  * Yes I know macros are evil, but in this specific case they save
  * A LOT of typing and evil code duplication.
- * I'll happily acceppt alternatives if someone can present me one that does
+ * I'll happily accept alternatives if someone can present me one that does
  * not involve typing 4 or more lines for each object class
  */
 #define DECLARE_COMPONENT_FACTORY(CLASS)                                    \

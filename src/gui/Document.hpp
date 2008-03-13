@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file Document.hpp
+ */
+
 #ifndef __DOCUMENT_HPP__
 #define __DOCUMENT_HPP__
 
@@ -26,6 +32,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class XmlReader;
 class Paragraph;
 
+/**
+ * @class Document
+ */
 class Document : public Component
 {
 public:

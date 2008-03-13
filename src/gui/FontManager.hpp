@@ -15,12 +15,21 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file FontManager.hpp
+ */
+
 #ifndef __FONTMANAGER_HPP__
 #define __FONTMANAGER_HPP__
 
 #include "Style.hpp"
 #include <SDL_ttf.h>
 
+/**
+ * @class FontManager
+ */
 class FontManager
 {
 public:
@@ -49,7 +58,7 @@ private:
                 return true;
             return false;
         }
-        
+
         bool operator ==(const FontInfo& other) const
         {
             return other.name == name && other.fontsize == fontsize

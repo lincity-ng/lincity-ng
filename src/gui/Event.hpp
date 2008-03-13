@@ -22,9 +22,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Vector2.hpp"
 
 /**
- * This class contains informations about events (such as keypresses or
+ * @file Event.hpp
+ * @brief This class contains informations about events (such as keypresses or
  * mouseclicks)
+ * @author Matthias Braun.
  */
+
 class Event
 {
 public:

@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file Button.hpp
+ */
+
 #ifndef __BUTTON_HPP__
 #define __BUTTON_HPP__
 
@@ -26,10 +32,13 @@ class XmlReader;
 class Texture;
 
 /**
- * This Component is a clickable button. You can assign images for the 3
- * differen states of the button: normal, hover (when the mouse is inside the
- * button area) and clicked (when the mouse button is pressed on the button).
- * 
+ * @class Button
+ * @brief This Component is a clickable button.
+ *
+ * You can assign images for the 3 differen states of the button: normal, hover
+ * (when the mouse is inside the button area) and clicked (when the mouse button
+ * is pressed on the button).
+ *
  * signalClicked is fired each time the button is pressed.
  */
 class Button : public Component

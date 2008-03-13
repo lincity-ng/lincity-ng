@@ -341,26 +341,34 @@ void Dialog::setParagraph( const std::string paragraphName, const std::string te
  * statistic_text_12_1 statistic_number_12_1 statistic_text_12_2 statistic_number_12_2 statistic_text_12_3 statistic_number_12_3
  */
 void Dialog::gameStats(){
+    std::cout << "XX saveGameStats " << SDL_GetTicks() << "\n";
      saveGameStats();
+    std::cout << "XX saveGameStats done " << SDL_GetTicks() << "\n";
      if( !desktop ) {
         std::cerr << "No desktop found.\n";
         return;
     }
     bool useExisting = false;
+    std::cout << "XX stat dialog " << SDL_GetTicks() << "\n";
     myDialogComponent = desktop->findComponent("GameStats");
     if( myDialogComponent == 0){
         try {
+    std::cout << "XX LOAD stat dialog " << SDL_GetTicks() << "\n";
             myDialogComponent = loadGUIFile( "gui/gamestats.xml" );
             assert( myDialogComponent != 0);
+    std::cout << "XX register dialog " << SDL_GetTicks() << "\n";
             registerDialog();
+    std::cout << "XX ok dialog " << SDL_GetTicks() << "\n";
         } catch(std::exception& e) {
             std::cerr << "Couldn't display message 'gamestats': "
                 << e.what() << "\n";
             return;
         }
     } else {
+    std::cout << "XX EXISTING dialog " << SDL_GetTicks() << "\n";
         useExisting = true;
     }
+    std::cout << "XX fill fields " << SDL_GetTicks() << "\n";
     
     // Fill in Fields.
     int line = 1;
@@ -480,11 +488,13 @@ void Dialog::gameStats(){
     setTableRC("statistic", 15, 2, "", "");
     setTableRC("statistic", 15, 3, "", "");
    
+    std::cout << "XX connect signals " << SDL_GetTicks() << "\n";
     if( !useExisting ){
         // connect signals
         Button* noButton = getButton( *myDialogComponent, "Okay" );
         noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
     }
+    std::cout << "XX done gameStats  " << SDL_GetTicks() << "\n";
 }
 
 /* 

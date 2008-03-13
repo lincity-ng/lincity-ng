@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @file Component.cpp
+ * @author Matthias Braun
+ */
+
 #include <config.h>
 
 #include <typeinfo>
@@ -52,7 +58,7 @@ Component::drawChild(Child& child, Painter& painter)
 
     if(child.useClipRect) {
         painter.setClipRectangle(child.clipRect);
-    }                                                
+    }
     if(child.position != Vector2(0, 0)) {
         painter.pushTransform();
         painter.translate(child.position);
@@ -63,7 +69,7 @@ Component::drawChild(Child& child, Painter& painter)
     }
     if(child.useClipRect) {
         painter.clearClipRectangle();
-    }                                    
+    }
 }
 
 void
@@ -73,7 +79,7 @@ Component::draw(Painter& painter)
         Child& child = *i;
         if(!child.enabled)
             continue;
-    
+
         drawChild(child, painter);
     }
 }
@@ -82,7 +88,7 @@ bool
 Component::eventChild(Child& child, const Event& event, bool visible)
 {
     assert(child.getComponent() != 0);
-   
+
     Event ev = event;
     if(event.type == Event::MOUSEMOTION 
         || event.type == Event::MOUSEBUTTONDOWN
@@ -93,7 +99,7 @@ Component::eventChild(Child& child, const Event& event, bool visible)
         else
             ev.inside = false;
     }
-    
+
     child.component->event(ev);
     return ev.inside;
 }
@@ -106,7 +112,7 @@ Component::event(const Event& event)
         Child& child = *i;
         if(!child.enabled)
           continue;
-    
+
         if(eventChild(child, event, visible))
             visible = false;
     }
@@ -164,7 +170,7 @@ void
 Component::resetChild(Child& child, Component* component)
 {
     assert(child.component != component);
-    
+
     delete child.component;
     child.component = component;
     if(component != 0) {

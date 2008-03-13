@@ -15,6 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @file SwitchComponent.cpp
+ * @brief Implement component switch for the implementation of tabbed dialogs.
+ * @author Matthias Braun.
+ */
+
 #include <config.h>
 
 #include "SwitchComponent.hpp"
@@ -22,6 +29,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentLoader.hpp"
 #include "ComponentFactory.hpp"
 
+/**
+ * Class constructor.
+ */
 SwitchComponent::SwitchComponent()
 {
     setFlags(FLAG_RESIZABLE);
@@ -31,6 +41,11 @@ SwitchComponent::~SwitchComponent()
 {
 }
 
+/**
+ * Function for XML parsing.
+ *
+ * @param reader XmlReader object that represents a XML file.
+ */
 void
 SwitchComponent::parse(XmlReader& reader)
 {
@@ -64,6 +79,12 @@ SwitchComponent::parse(XmlReader& reader)
     }
 }
 
+/**
+ * Function to resize all resizable components.
+ *
+ * @param width New width to resize to.
+ * @param height New height to resize to.
+ */
 void
 SwitchComponent::resize(float width, float height)
 {
@@ -84,6 +105,11 @@ SwitchComponent::resize(float width, float height)
     this->height = height;
 }
 
+/**
+ * Function to switch to a given component.
+ *
+ * @param name Name of the component to switch to.
+ */
 void
 SwitchComponent::switchComponent(const std::string& name)
 {
@@ -110,6 +136,11 @@ SwitchComponent::switchComponent(const std::string& name)
     setDirty();
 }
 
+/**
+ * Function to get the current active component.
+ *
+ * @return Returns a pointer to the active component.
+ */
 Component*
 SwitchComponent::getActiveComponent()
 {
@@ -122,6 +153,14 @@ SwitchComponent::getActiveComponent()
     return 0;
 }
 
+/**
+ * Check if a given component, identified by its position, is opaque or not.
+ *
+ * @param pos Constant vector representing the component's position.
+ * @return True if the component is opaque at this place.
+ * @todo Remove code duplication with TableLayout::opaque (pos) and
+ *       Panel::opaque(pos).
+ */
 bool
 SwitchComponent::opaque(const Vector2& pos) const
 {
@@ -133,7 +172,7 @@ SwitchComponent::opaque(const Vector2& pos) const
         if(child.getComponent()->opaque(pos - child.getPos()))
             return true;
     }
-    
+
     return false;
 }
 

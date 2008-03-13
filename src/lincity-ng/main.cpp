@@ -321,19 +321,24 @@ void flipScreenBuffer()
 
 void mainLoop()
 {
+    std::cout << "XXX mainLoop() " << SDL_GetTicks() << "\n";
+
     std::auto_ptr<MainMenu> menu;
     std::auto_ptr<Game> game;
     MainState state = MAINMENU;
     MainState nextstate;
     
     //we need the game-gui to set all states while loading a savegame
+    std::cout << "wait for pbars " << SDL_GetTicks() << "\n";
     if(game.get() == 0)
         game.reset(new Game());
     while(!LCPBarInstance){//wait until PBars exist so they can be initalized
         printf(".");
         SDL_Delay(100);
     }
+    std::cout << "XXX pbars exist " << SDL_GetTicks() << "\n";
     initLincity();
+    std::cout << "initLincity done " << SDL_GetTicks() << "\n";
 
     while(state != QUIT) {
         switch(state) {
@@ -489,6 +494,7 @@ int main(int argc, char** argv)
         initSDL();
         initTTF();
         initVideo(getConfig()->videoX, getConfig()->videoY);
+    std::cout << "XXX init Video done " << SDL_GetTicks() << "\n";
 
         mainLoop();
 #ifndef DEBUG

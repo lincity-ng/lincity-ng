@@ -15,12 +15,24 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @file XmlReader.cpp
+ * @brief Implement a simple XML file reader (simple wrapper around libxml2 xmlreader interface).
+ * @author Matthias Braun.
+ */
+
 #include <config.h>
 
 #include "XmlReader.hpp"
 
 #include <physfs.h>
 
+/**
+ * Class constructor: parses a given XML file and parse it with libxml2.
+ * 
+ * @param filename XML file to parse.
+ */
 XmlReader::XmlReader(const std::string& filename)
 {
     PHYSFS_file* file = PHYSFS_openRead(filename.c_str());
@@ -43,11 +55,21 @@ XmlReader::XmlReader(const std::string& filename)
         ;
 }
 
+/**
+ * Class destructor: destroy the object created when parsing a XML file.
+ */
 XmlReader::~XmlReader()
 {
     xmlFreeTextReader(reader);
 }
 
+/**
+ * Read callback: read a given file and handles errors.
+ * 
+ * @param context Pointer to a PHYSFS_file object representing the XML file.
+ * @param buffer Destination buffers.
+ * @param len Buffer lenght.
+ */
 int
 XmlReader::readCallback(void* context, char* buffer, int len)
 {
@@ -59,6 +81,11 @@ XmlReader::readCallback(void* context, char* buffer, int len)
     return (int) result;
 }
 
+/**
+ * Close callback, called whem closing a XML file we were parsing.
+ * 
+ * @param context Pointer to a PHYSFS_file object representing the XML file.
+ */
 int
 XmlReader::closeCallback(void* context)
 {

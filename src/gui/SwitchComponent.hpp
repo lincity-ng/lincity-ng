@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file SwitchComponent.hpp
+ */
+
 #ifndef __SWITCH_COMPONENT_HPP__
 #define __SWITCH_COMPONENT_HPP__
 
@@ -23,8 +29,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 class XmlReader;
 
-/** This component keeps a list of several components and can dynamically switch
- * between them. This is usefull to implement tabbed dialogs.
+/**
+ * @class SwitchComponent
+ * @author Matthias Braun
+ * @brief Component for component switch (used to implement tabbed dialogs).
+ *
+ * This component keeps a list of several components and
+ * can dynamically switch between them. This is usefull to implement tabbed
+ * dialogs.
  */
 class SwitchComponent : public Component
 {

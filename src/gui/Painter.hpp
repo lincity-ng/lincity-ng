@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file Painter.hpp
+ */
+
 #ifndef __PAINTER_HPP__
 #define __PAINTER_HPP__
 
@@ -25,7 +31,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Color.hpp"
 
 /**
- * This class is needed to perform drawing operations. It contains a stack of
+ * @class Painter
+ * @brief This class is needed to perform drawing operations.
+ *
+ * It contains a stack of
  * trasnformations (currently only translation) which is applied to the drawing
  * operations. This is usefull for child widgets in the gui-component tree.
  */

@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * @author Matthias Braun
+ * @file TableLayout.hpp
+ */
+
 #ifndef __TABLELAYOUT_HPP__
 #define __TABLELAYOUT_HPP__
 
@@ -24,8 +30,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 class XmlReader;
 
 /**
- * This components allows to layout child-components in a flat-rectangular
- * table. You can setup an arbitrary number of rows and columns (you need at
+ * @class TableLayout
+ * @brief This components allows to layout child-components in a
+ * flat-rectangular table. 
+ * 
+ * You can setup an arbitrary number of rows and columns (you need at
  * least 1 of course). You specify the sizing properties for each row and column
  * (see layouting algorithm below)
  *
