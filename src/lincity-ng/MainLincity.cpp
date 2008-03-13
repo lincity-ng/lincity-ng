@@ -110,21 +110,15 @@ void saveCityNG( std::string newFilename ){
  * Load City and do setup for Lincity NG.
  */
 bool loadCityNG( std::string filename ){
-    std::cout << "start loadCityNG " << SDL_GetTicks() << "\n";
     std::string dir = PHYSFS_getRealDir(filename.c_str());
     filename = dir + PHYSFS_getDirSeparator() + filename;
     if( file_exists( const_cast<char*>( filename.c_str()) ) ){
-        std::cout << "city2 " << SDL_GetTicks() << "\n";
         load_city_2(const_cast<char*>(filename.c_str()));
-        std::cout << "modules " << SDL_GetTicks() << "\n";
         update_avail_modules(0);
-        std::cout << "get GV " << SDL_GetTicks() << "\n";
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
-    std::cout << "done loadCityNG true " << SDL_GetTicks() << "\n";
         return true;
     }
-    std::cout << "done loadCityNG false" << SDL_GetTicks() << "\n";
     return false;
 }
 
@@ -168,22 +162,18 @@ void initLCengine()
 
 void initLincity()
 {
-    std::cout << "start initLincity " << SDL_GetTicks() << "\n";
     initLCengine();
-    std::cout << "reset times initLincity " << SDL_GetTicks() << "\n";
 
     // animation time
     reset_start_time ();
   
     screen_full_refresh ();
 
-    std::cout << "start loading " << SDL_GetTicks() << "\n";
     //load current game if it exists
     if( ! loadCityNG( std::string( "9_currentGameNG.scn" ) ) ) {   
         //create a new City with village just in case 
         new_city( &main_screen_originx, &main_screen_originy, 1 );
     }
-    std::cout << "init done " << SDL_GetTicks() << "\n";
 }
 
 

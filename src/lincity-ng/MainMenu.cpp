@@ -54,13 +54,11 @@ extern void new_city(int *originx, int *originy, int random_village);
 
 MainMenu::MainMenu()
 {
-    std::cout << "XXX MainMenu() " << SDL_GetTicks() << "\n";
     loadMainMenu();
     switchMenu(mainMenu.get());
     baseName = "";
     lastClickTick = 0;
     doubleClickButtonName = "";
-    std::cout << "XXX MainMenu() done" << SDL_GetTicks() << "\n";
 }
 
 MainMenu::~MainMenu()
@@ -70,9 +68,9 @@ MainMenu::~MainMenu()
 void
 MainMenu::loadMainMenu()
 {
-      std::cout << "XXX load main " << SDL_GetTicks() << "\n";
     if(mainMenu.get() == 0) {
         mainMenu.reset(loadGUIFile("gui/mainmenu.xml"));
+
         // connect signals
         Button* quitButton = getButton(*mainMenu, "QuitButton");
         quitButton->clicked.connect(
@@ -99,7 +97,6 @@ MainMenu::loadMainMenu()
     }
 
     mainMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
-      std::cout << "XXX done connecting " << SDL_GetTicks() << "\n";
 }
 
 void MainMenu::fillNewGameMenu()
