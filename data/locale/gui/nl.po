@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Mon Feb 18 22:35:34 2008\n"
-"PO-Revision-Date: 2008-01-10 20:55+0100\n"
+"PO-Revision-Date: 2008-03-23 08:15+0100\n"
 "Last-Translator: Ronald Stroethoff <stroet43@zonnet.nl>\n"
 "Language-Team: Nederlands\n"
 "MIME-Version: 1.0\n"
@@ -123,8 +123,7 @@ msgstr "Waarschuwing: water verwijderen is duur."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
-msgstr ""
-"Een krottenwijk afbreken kost heel veel geld en dit kan brand veroorzaken."
+msgstr "Een krottenwijk afbreken kost heel veel geld en dit kan brand veroorzaken."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Warning: Bulldozing shanties is dangerous."
@@ -144,24 +143,20 @@ msgstr "Prospectors uitzenden?"
 
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it is free to call again."
-msgstr ""
-"Dit kost eenmalig 1 miljoen €. Daarna is het gratis om het opnieuw op te "
-"vragen."
+msgstr "Dit kost eenmalig 1 miljoen €. Daarna is het gratis om het opnieuw op te vragen."
 
 #: data/gui/coalmineup.xml
 msgid "Coal Mine available"
 msgstr "Kolenmijnen zijn beschikbaar"
 
 #: data/gui/coalmineup.xml
-msgid ""
-"See the help screen for more information on coal mines and coal surveys."
+msgid "See the help screen for more information on coal mines and coal surveys."
 msgstr ""
 "Lees de help-pagina's voor meer informatie over kolenmijnen en surveys naar "
 "kolen."
 
 #: data/gui/coalmineup.xml
-msgid ""
-"You have reached the tech level which enables you to dig deep coal mines."
+msgid "You have reached the tech level which enables you to dig deep coal mines."
 msgstr ""
 "Het technische nivo is bereikt waarmee diepe kolenmijnen kunnen worden "
 "gedolven."
@@ -468,8 +463,7 @@ msgstr "[h] Hoge gebouwen verbergen."
 
 #: data/gui/minimap.xml
 msgid "[v] Cycle through MiniMap overlay modes. "
-msgstr ""
-"[v] Hiermee kan tussen de verschillende mini-kaartjes gewisseld worden."
+msgstr "[v] Hiermee kan tussen de verschillende mini-kaartjes gewisseld worden."
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show coal depots"
@@ -558,7 +552,7 @@ msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build recycling centres on credit."
 msgstr ""
-"U heeft geld tekort. De gemeenteraad staat niet toe dat er recycleercentrum "
+"U heeft geld tekort. De gemeenteraad staat niet toe dat er kringloop centrums "
 "gebouwd worden met geleend geld."
 
 #: data/gui/no-credit-rocket.xml
@@ -688,20 +682,20 @@ msgstr "Spoorwegen zijn beschikbaar"
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr ""
-"Het technische nivo is bereikt waarmee spoorwegen kunnen worden gebouwd. "
+msgstr "Het technische nivo is bereikt waarmee spoorwegen kunnen worden gebouwd. "
 
 #: data/gui/recycleup.xml
 msgid "Recycling Centres available"
-msgstr "Recycleercentrum is beschikbaar"
+msgstr "Kringloop centrums is beschikbaar"
 
 #: data/gui/recycleup.xml
 msgid ""
 "You have reached the tech level which enables you to recycling centres. "
 "Recycling centres recycle used goods back into ore. "
 msgstr ""
-"Het technische nivo is bereikt waarmee een recycleercentrum kan worden "
-"gebouwd. Een recycleercentrum recycled gebruikte goederen naar ijzererts."
+"Het technische nivo is bereikt waarmee een kringloop centrums kan worden "
+"gebouwd. "
+"Een kringloop centrum recycled gebruikte goederen naar ijzererts. "
 
 #: data/gui/riverup.xml
 msgid "Rivers available"
@@ -709,8 +703,7 @@ msgstr "Rivieren zijn beschikbaar"
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
-msgstr ""
-"Het technische nivo is bereikt waarmee revieren kunnen worden gebouwd. "
+msgstr "Het technische nivo is bereikt waarmee revieren kunnen worden gebouwd. "
 
 #: data/gui/roadup.xml
 msgid "Roads available"
@@ -780,7 +773,7 @@ msgid ""
 "APPEARS to be under control. "
 msgstr ""
 "Er is brand uitgebroken in een krottenwijk.Het is beschermd tegen brand en "
-"LIJKT onder controle."
+"LIJKT onder controle. "
 
 #: data/gui/solarpowerup.xml
 msgid "Solar Power Stations available"
@@ -826,7 +819,7 @@ msgstr "Lincity heeft besloten dat U een duurzame economie heeft."
 msgid ""
 "Sorry, the game you wanted is too old. Cannot load it. Still play with "
 "previous game."
-msgstr ""
+msgstr "Helaas, het gewenste spel is te oud. Het kan niet meer geladen worden. U speelt nog steeds het laatste spel."
 
 #: data/gui/tradedialog.xml
 msgid "Trade Settings"
@@ -850,5 +843,5 @@ msgstr "Windmolens zijn beschikbaar"
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr ""
-"Het technische nivo is bereikt waarmee windmolens kunnen worden gebouwd."
+msgstr "Het technische nivo is bereikt waarmee windmolens kunnen worden gebouwd."
+

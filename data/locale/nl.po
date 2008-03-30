@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-24 21:11+0100\n"
-"PO-Revision-Date: 2008-01-10 20:55+0100\n"
+"PO-Revision-Date: 2008-03-23 08:14+0100\n"
 "Last-Translator: Ronald Stroethoff <stroet43@zonnet.nl>\n"
 "Language-Team: Nederlands\n"
 "MIME-Version: 1.0\n"
@@ -130,7 +130,7 @@ msgstr "    Woonwijken·%4d·········Markten·%4d············Boerderijen·%4d"
 #: src/lincity-ng/Dialog.cpp:398
 #, c-format
 msgid ".  Water wells %4d"
-msgstr ""
+msgstr "Water bron %4d"
 
 #: src/lincity-ng/Dialog.cpp:400
 #, c-format
@@ -155,8 +155,7 @@ msgstr ".····Windmolens·%4d·····Steenkoolenergie·%4d·····Zonneënergie·%4d"
 #: src/lincity-ng/Dialog.cpp:419
 #, c-format
 msgid ".  Substations %4d     Power lines %4d            Ports %4d"
-msgstr ""
-".··Transformatorhuisje·%4d·····Electriciteitsdraden·%4d············Havens·%4d"
+msgstr ".··Transformatorhuisje·%4d·····Electriciteitsdraden·%4d············Havens·%4d"
 
 #: src/lincity-ng/Dialog.cpp:423
 #, c-format
@@ -166,8 +165,7 @@ msgstr ".       Landwegen %4d           Wegen %4d             Treinsporen %4d"
 #: src/lincity-ng/Dialog.cpp:429
 #, c-format
 msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
-msgstr ""
-".····Pottenbakkerijen·%4d·····Smidsen·%4d············Textielfabrieken·%4d"
+msgstr ".····Pottenbakkerijen·%4d·····Smidsen·%4d············Textielfabrieken·%4d"
 
 #: src/lincity-ng/Dialog.cpp:433
 #, c-format
@@ -325,24 +323,23 @@ msgstr "zal meer kosten dan "
 
 #: src/lincity-ng/MainMenu.cpp:141
 msgid "good_times"
-msgstr ""
+msgstr "Goede tijden"
 
 #: src/lincity-ng/MainMenu.cpp:142
 msgid "bad_times"
-msgstr ""
+msgstr "Slechte tijden"
 
 #: src/lincity-ng/MainMenu.cpp:143
-#, fuzzy
 msgid "Beach"
-msgstr "Tech. niveau"
+msgstr "Strand"
 
 #: src/lincity-ng/MainMenu.cpp:144
 msgid "extreme_arid"
-msgstr ""
+msgstr "Extreem droog"
 
 #: src/lincity-ng/MainMenu.cpp:145
 msgid "extreme_wetland"
-msgstr ""
+msgstr "Extreem moeras"
 
 #: src/lincity-ng/MainMenu.cpp:212
 msgid "empty"
@@ -594,8 +591,7 @@ msgstr "Hier kan geen water bron komen: dit is een woestijn."
 
 #: src/lincity/engine.cpp:175
 msgid "You can't build a tip here: this area was once a landfill"
-msgstr ""
-"Hier kan geen vuilstort komen: op deze plek was vroeger al een vuilnisbelt"
+msgstr "Hier kan geen vuilstort komen: op deze plek was vroeger al een vuilnisbelt"
 
 #: src/lincity/engine.cpp:190
 msgid "You can't build a mine here: This area was once a landfill"
@@ -607,8 +603,7 @@ msgstr "Hier kan geen mijn komen : op deze plek is geen erts meer"
 
 #: src/lincity/engine.cpp:211
 msgid "You can't build a park here: it is a desert, parks need water"
-msgstr ""
-"Hier kan geen park komen: dit is een woestijn, parken hebben water nodig"
+msgstr "Hier kan geen park komen: dit is een woestijn, parken hebben water nodig"
 
 #: src/lincity/engine.cpp:226
 msgid "Too many substations + windmills. You cannot build one more"
@@ -635,11 +630,11 @@ msgstr "Het is bij een electriciteitskabel"
 
 #: src/lincity/engine.cpp:567
 msgid "It's at a solar power station."
-msgstr "Het is bij een zonne-energiecentrale"
+msgstr "Het is bij een zonne-energiecentrale."
 
 #: src/lincity/engine.cpp:569
 msgid "It's at a substation."
-msgstr "Het is bij een transformatorhuisje"
+msgstr "Het is bij een transformatorhuisje."
 
 #: src/lincity/engine.cpp:571
 msgid "It's at a residential area."
@@ -699,7 +694,7 @@ msgstr "Het is bij een staalfabriek."
 
 #: src/lincity/engine.cpp:599
 msgid "It's at a recycle centre."
-msgstr "Het is bij een recycleercentrum."
+msgstr "Het is bij een kringloopcentrum."
 
 #: src/lincity/engine.cpp:601
 msgid "It's at a health centre."
@@ -731,15 +726,15 @@ msgstr "Het is bij een pottenbakkerij."
 
 #: src/lincity/engine.cpp:615
 msgid "It's at a fire station!!!."
-msgstr "Het is bij een brandweerkazerne!!!"
+msgstr "Het is bij een brandweerkazerne!!!."
 
 #: src/lincity/engine.cpp:617
 msgid "It's at a sports field!!!."
-msgstr "Het is bij een sportveld!!!"
+msgstr "Het is bij een sportveld!!!."
 
 #: src/lincity/engine.cpp:619
 msgid "It's at a shanty town."
-msgstr "Het is bij een krottenwijk"
+msgstr "Het is bij een krottenwijk."
 
 #: src/lincity/engine.cpp:621
 msgid "UNKNOWN!"
@@ -751,8 +746,7 @@ msgstr "Fout: Kan LINCITY_HOME niet vinden"
 
 #: src/lincity/fileutil.cpp:463
 msgid "Error verifying package. Can't find colour.pal."
-msgstr ""
-"Fout bij het controleren van het pakket. Kan het kleurenpallet niet vinden"
+msgstr "Fout bij het controleren van het pakket. Kan het kleurenpallet niet vinden"
 
 #: src/lincity/fileutil.cpp:476 src/lincity/fileutil.cpp:484
 #, c-format
@@ -1010,7 +1004,7 @@ msgstr "Inventaris"
 
 #: src/lincity/modules/coal_power.cpp:84
 msgid "Coal Power Station"
-msgstr ""
+msgstr "Kolencentrale"
 
 #: src/lincity/modules/coal_power.cpp:88
 #: src/lincity/modules/solar_power.cpp:49
@@ -1102,7 +1096,7 @@ msgstr "Ziekenhuis"
 
 #: src/lincity/modules/heavy_industry.cpp:270
 msgid "Heavy Industry"
-msgstr ""
+msgstr "Zware industrie"
 
 #: src/lincity/modules/heavy_industry.cpp:277
 msgid "Grid"
@@ -1132,7 +1126,7 @@ msgstr "Winkel"
 
 #: src/lincity/modules/light_industry.cpp:275
 msgid "Light Industry"
-msgstr ""
+msgstr "Lichte industrie"
 
 #: src/lincity/modules/light_industry.cpp:281
 #: src/lincity/modules/organic_farm.cpp:211
@@ -1155,7 +1149,7 @@ msgstr "Textielfabriek"
 
 #: src/lincity/modules/monument.cpp:57
 msgid "Wisdom Bestowed"
-msgstr "Wijsheid vergaard"
+msgstr "Kennis vergaard"
 
 #: src/lincity/modules/monument.cpp:61
 #, c-format
@@ -1200,7 +1194,7 @@ msgstr "Spoorweg"
 
 #: src/lincity/modules/recycle.cpp:134
 msgid "Recycling Center"
-msgstr ""
+msgstr "Kringloop centrum"
 
 #: src/lincity/modules/residence.cpp:255
 msgid "Residence"
@@ -1244,7 +1238,7 @@ msgstr "Lessen geleerd"
 
 #: src/lincity/modules/solar_power.cpp:43
 msgid "Solar power station"
-msgstr ""
+msgstr "Zonne-energie centrale"
 
 #: src/lincity/modules/substation.cpp:97
 msgid "Local Demand"
@@ -1331,32 +1325,3 @@ msgstr ""
 "plaatsvinden!  Controleer de sterfte minimap, en lees de help-pagina over "
 "water bronnen :-)"
 
-#~ msgid "Saving scene"
-#~ msgstr "Scene opslaan"
-
-#~ msgid "Solar"
-#~ msgstr "Zon"
-
-#~ msgid "Light"
-#~ msgstr "Lichte"
-
-#~ msgid "Power Station"
-#~ msgstr "Energiecentrale"
-
-#~ msgid "Output"
-#~ msgstr "Output"
-
-#~ msgid "Industry"
-#~ msgstr "Industrie"
-
-#~ msgid "Heavy"
-#~ msgstr "Zware"
-
-#~ msgid "Center"
-#~ msgstr "Centrum"
-
-#~ msgid "Recycling"
-#~ msgstr "Recycleren"
-
-#~ msgid "NO "
-#~ msgstr "NEE"

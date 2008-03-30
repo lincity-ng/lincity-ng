@@ -3,7 +3,8 @@
 	<p style="htitle">Windmolens</p>
 	<p style="hp">Windmolens maken electriciteit voor woonwijken en boerderijen. Ze zorgen ervoor dat boeren meer efficient voedsel maken en dat woonwijken meer geliefd zijn om in te wonen.</p>
 	<p style="hp">Door woonwijken electriciteit te geven gaan de mensen meer goederen gebruiken.</p>
-	<p style="hp">Eenvoudige windmolens geven <b>geen</b> electriciteit aan industrie. (zware industrie kan energie krijgen van kolen, lichte industrie heeft <i>echte</i> electriciteit nodig als energie, ze zullen wel werken zonder energie maar produceren (maken) dan minder.)</p>
+	<p style="hp">Eenvoudige windmolens geven <b>geen</b> electriciteit aan industrie. (zware industrie kan energie krijgen van kolen, lichte industrie heeft <i>echte</i> electriciteit nodig als energie, ze zullen wel werken zonder energie maar produceren (maken) dan minder. Windmolens kunnen niet direct electriciteit aan de industrie en kringloopcentrums geven 
+       recyclers.</p>
 	<p style="hp">Windmolens hebben ook arbeid nodig om energie te maken. Als een windmolen niet genoeg werkers heeft, zal het minder energie produceren en het produceert helemaal geen energie zonder enige werkers.</p>
 	
 	<p style="hp">Er zijn twee soorten windmolens.</p>
@@ -13,7 +14,7 @@
 	<p style="hp">Het tweede model is een 'moderne' windmolen.</p>
 	<img src="images/tiles/windmill1g.png" halign="center"/>
 	<p style="hp">De soort die u bouwt hangt af van uw technologie nivo.</p>
-	<p style="hp">electriciteitsdraden kunnen alleen aan 'moderne' windmolens vastzitten.</p>
+	<p style="hp">Electriciteitsdraden kunnen alleen aan 'moderne' windmolens vastzitten.</p>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="substation">Transformatorhuisje</a></li>

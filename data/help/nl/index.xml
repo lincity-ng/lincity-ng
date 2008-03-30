@@ -22,6 +22,7 @@
 <li><a href="button-index">Icoon index</a></li>
 <li><a href="export">Import en export gebieden</a></li>
 <li><a href="query">Informatie</a></li>
+<li><a href="recycle">Kringloop centrum</a></li>
 <li><a href="rocket">Lanceerplatform</a></li>
 <li><a href="track">Landweggetjes</a></li>
 <li><a href="slow">Langzame snelheid</a></li>
@@ -38,7 +39,6 @@
 <li><a href="pause">Pauzeknop</a></li>
 <li><a href="pbar">PBar</a></li>
 <li><a href="pottery">Pottenbakkerij</a></li>
-<li><a href="recycle">Recycleer centrum</a></li>
 <li><a href="river">Riveren/Water</a></li>
 <li><a href="school">Scholen</a></li>
 <li><a href="blacksmith">Smidse</a></li>

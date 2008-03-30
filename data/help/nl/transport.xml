@@ -10,7 +10,7 @@
 	<p style="hp">Textielfabrieken, pottenbakkerijen en smeden verkopen hun goederen direct op de dichtbij liggende markten, ook kopen ze hun grondstoffen op dezelfde markten.</p>
 	<p style="hp">De volgende gebieden hebben wel met verkeer en markten te maken. Het is aan u om te kiezen - markten hebben meer <i>voorraad</i> dan verkeer.</p>
 	<p style="hp">Landweggetjes, straten en spoorwegen worden gebruikt om voedsel, goederen, kolen, ijzererts en staal te vervoeren tussen gebieden.</p>
-	<p style="hp">Lichte industrie, ijzerertsmijnen, vuilstorten, kolenmijnen, zware industrie en recycleercentrums kunnen alleen verbonden worden met het verkeer aan de linkerbovenhoek.</p>
+	<p style="hp">Lichte industrie, ijzerertsmijnen, vuilstorten, kolenmijnen, zware industrie en kringloop centrums kunnen alleen verbonden worden met het verkeer aan de linkerbovenhoek.</p>
 	<p style="hp">Een uitzondering is de steenkoolcentrale. Neem bijvoorbeeld een steenkoolcentrale die verbonden is met een kolenmijn via een straat. Een spoorweg komt uit de bovenste poort van de kolenmijn en gaat naar rechts.</p>
 	<p style="hp">Om een rivier te kruizen met verkeer, bulldozer simpel de rivier en bouw de straat, het landweggetje of de spoorweg over de dam.</p>
 	<p style="hp">Denk dit als het bouwen van een soort brug. Het kost u erg veel geld omdat het bulldozeren van water erg duur is.</p>
@@ -27,7 +27,7 @@
 	<li><a href="port">Havens</a></li>
 	<li><a href="coalmine">Kolenmijnen</a></li>
 	<li><a href="industryh">Zware industrie</a></li>
-	<li><a href="recycle">recycleercentrums</a></li>
+	<li><a href="recycle">Kringloop centrums</a></li>
 	<li><a href="coalmine">Kolenmijnen</a></li>
 	<li><a href="powercoal">Kolencentrales</a></li>
 </Document>
