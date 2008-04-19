@@ -30,7 +30,7 @@ void mps_track(int x, int y)
 {
     int i = 0;
 
-    mps_store_title(i++, _("Track"));
+    mps_store_title(i++, _(main_groups[MP_GROUP(x, y)].name));
     i++;
 
     mps_store_sfp(i++, _("Food"), MP_INFO(x, y).int_1 * 100.0 / MAX_FOOD_ON_TRACK);

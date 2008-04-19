@@ -41,7 +41,11 @@ void power_time_step();
  (MP_GROUP(x,y) == GROUP_SOLAR_POWER) || \
  (MP_GROUP(x,y) == GROUP_SUBSTATION))
 
-#define XY_IS_WATER(x,y) (MP_GROUP(x,y) == GROUP_WATER)
+#define XY_IS_WATER(x,y) \
+((MP_GROUP(x,y) == GROUP_WATER) || \
+ (MP_GROUP(x,y) == GROUP_TRACK_BRIDGE) || \
+ (MP_GROUP(x,y) == GROUP_ROAD_BRIDGE) || \
+ (MP_GROUP(x,y) == GROUP_RAIL_BRIDGE))
 
 #define IS_POWER_SOURCE(x,y) \
 ((MP_GROUP(x,y) == GROUP_COAL_POWER) || \

@@ -631,6 +631,7 @@ Color MiniMap::getColor(int x,int y) const
 
     switch(mMode) {
         case NORMAL:
+#ifdef DEBUG
 #define DEBUG_ALTITUDE
 #ifdef DEBUG_ALTITUDE
             if (GROUP_IS_BARE(MP_GROUP(xx,yy)) ) {
@@ -659,6 +660,7 @@ Color MiniMap::getColor(int x,int y) const
             }
             else
 #endif
+#endif  //DEBUG
             {
                 return getColorNormal(xx,yy);
             }
@@ -782,7 +784,7 @@ Color MiniMap::getColor(int x,int y) const
             if ( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ) {
                 float max;
                 float nextValue;
-                if( MP_GROUP(x,y) == GROUP_ROAD){
+                if( MP_GROUP(x,y) == GROUP_ROAD || MP_GROUP(x,y) == GROUP_ROAD_BRIDGE ){
                     max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_ROAD;
                     nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_ROAD;
                     if( nextValue > max ){ max = nextValue; }
@@ -796,7 +798,7 @@ Color MiniMap::getColor(int x,int y) const
                     if( nextValue > max ){ max = nextValue; }
                     nextValue = MP_INFO(x,y).int_7 * 100.0 / MAX_WASTE_ON_ROAD;
                     if( nextValue > max ){ max = nextValue; }
-                } else if( MP_GROUP(x,y) == GROUP_TRACK ) {
+                } else if( MP_GROUP(x,y) == GROUP_TRACK || MP_GROUP(x,y) == GROUP_TRACK_BRIDGE ){
                     max = MP_INFO(x,y).int_1 * 100.0 / MAX_FOOD_ON_TRACK;
                     nextValue = MP_INFO(x,y).int_2 * 100.0 / MAX_JOBS_ON_TRACK;
                     if( nextValue > max ){ max = nextValue; }

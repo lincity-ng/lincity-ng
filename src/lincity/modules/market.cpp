@@ -851,12 +851,15 @@ int put_stuff2(Map_Point_Info * minfo, short *type, int stuff, int stuff_type)
         if (minfo[map_index].flags & FLAG_IS_TRANSPORT) {
             switch (get_group_of_type(type[map_index])) {
             case GROUP_TRACK:
+            case GROUP_TRACK_BRIDGE:
                 tp = tmax[0][stuff_type];
                 break;
             case GROUP_ROAD:
+            case GROUP_ROAD_BRIDGE:
                 tp = tmax[1][stuff_type];
                 break;
             case GROUP_RAIL:
+            case GROUP_RAIL_BRIDGE:
                 tp = tmax[2][stuff_type];
                 break;
             default:
@@ -905,12 +908,15 @@ int put_stuff3(Map_Point_Info * minfo, short *type, int stuff, int stuff_type)
         if (minfo[map_index].flags & FLAG_IS_TRANSPORT) {
             switch (get_group_of_type(type[map_index])) {
             case GROUP_TRACK:
+            case GROUP_TRACK_BRIDGE:
                 tp = tmax[0][stuff_type];
                 break;
             case GROUP_ROAD:
+            case GROUP_ROAD_BRIDGE:
                 tp = tmax[1][stuff_type];
                 break;
             case GROUP_RAIL:
+            case GROUP_RAIL_BRIDGE:
                 tp = tmax[2][stuff_type];
                 break;
             default:
@@ -960,12 +966,15 @@ int put_stuff4(Map_Point_Info * minfo, short *type, int stuff, int stuff_type)
         if (minfo[map_index].flags & FLAG_IS_TRANSPORT) {
             switch (get_group_of_type(type[map_index])) {
             case GROUP_TRACK:
+            case GROUP_TRACK_BRIDGE:
                 tp = tmax[0][stuff_type];
                 break;
             case GROUP_ROAD:
+            case GROUP_ROAD_BRIDGE:
                 tp = tmax[1][stuff_type];
                 break;
             case GROUP_RAIL:
+            case GROUP_RAIL_BRIDGE:
                 tp = tmax[2][stuff_type];
                 break;
             default:

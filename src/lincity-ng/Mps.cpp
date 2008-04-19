@@ -183,6 +183,7 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "PowerLine" );
             break;
         case GROUP_RAIL:
+        case GROUP_RAIL_BRIDGE:
             getSound()->playSound( "RailTrain" );
             break;
         case GROUP_RECYCLE:
@@ -203,6 +204,7 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "ResidentialHigh" );
             break;
         case GROUP_ROAD:
+        case GROUP_ROAD_BRIDGE:
             getSound()->playSound( "TraficLow" );
             //getSound()->playSound( "TraficHigh" );
             //TODO: find out when to use TraficHigh
@@ -230,6 +232,7 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Tip" );
             break;
         case GROUP_TRACK:
+        case GROUP_TRACK_BRIDGE:
             getSound()->playSound( "DirtTrack" );
             break;
         case GROUP_MARKET:

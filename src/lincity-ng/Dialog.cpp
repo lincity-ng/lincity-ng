@@ -105,6 +105,9 @@ Dialog::Dialog( int type, int x, int y ){
         case ASK_LAUNCH_ROCKET:
             askRocket();
             break;
+        case ASK_BUILD_BRIDGE:
+            askBridge();
+            break;
         default:
             std::stringstream msg;
             msg <<"Can't open Dialog type " << type << " with coordinates.";
@@ -296,6 +299,29 @@ void Dialog::coalSurvey(){
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
     yesButton->clicked.connect( makeCallback(*this, &Dialog::okayCoalSurveyButtonClicked ) );
+    Button* noButton = getButton( *myDialogComponent, "No" );
+    noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
+}
+
+void Dialog::askBridge(){
+    if( !desktop ) {
+        std::cerr << "No desktop found.\n";
+        return;
+    }
+    try {
+        myDialogComponent = loadGUIFile( "gui/build_bridge_yn.xml" );
+        assert( myDialogComponent != 0);
+        registerDialog();
+        blockingDialogIsOpen = true;
+        iAmBlocking = true;
+    } catch(std::exception& e) {
+        std::cerr << "Couldn't display message 'build_bridge_yn': "
+            << e.what() << "\n";
+        return;
+    }
+    // connect signals
+    Button* yesButton = getButton( *myDialogComponent, "Yes" );
+    yesButton->clicked.connect( makeCallback(*this, &Dialog::okayBuildBridgeButtonClicked ) );
     Button* noButton = getButton( *myDialogComponent, "No" );
     noButton->clicked.connect( makeCallback( *this, &Dialog::closeDialogButtonClicked ) );
 }
@@ -832,6 +858,15 @@ void Dialog::okayBulldozeMonumentButtonClicked( Button* ){
     monument_bul_flag = 1;
     desktop->remove( myDialogComponent );
     check_bulldoze_area( pointX, pointY );
+    blockingDialogIsOpen = false;
+    unRegisterDialog();
+}
+
+void Dialog::okayBuildBridgeButtonClicked( Button* ){
+    build_bridge_flag = 1;
+    desktop->remove( myDialogComponent );
+    MapPoint tile( pointX, pointY );
+    editMap( tile, SDL_BUTTON_LEFT );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }

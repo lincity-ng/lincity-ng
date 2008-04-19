@@ -27,5 +27,6 @@ void resetLastMessage();
 extern int monument_bul_flag;
 extern int river_bul_flag;
 extern int shanty_bul_flag;
+extern int build_bridge_flag;
 
 #endif

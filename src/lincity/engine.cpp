@@ -287,16 +287,34 @@ int place_item(int x, int y, short type)
         MP_INFO(x, y).int_2 = MP_DATE(x,y);
         break;
 
-    case GROUP_ORGANIC_FARM:
-        break;
-
+    // bridge is build or upgraded as track/road/rail so set the group bridge according to water
     case GROUP_TRACK:
-    case GROUP_ROAD:
-    case GROUP_RAIL:
+        if (MP_GROUP(x, y) == GROUP_WATER) {
+            type = CST_TRACK_BRIDGE_LR;
+            selected_module_cost = get_group_cost(GROUP_TRACK_BRIDGE);
+        } else
+            // return to normal cost in case of dragging
+            selected_module_cost = get_group_cost(GROUP_TRACK);
         MP_INFO(x, y).flags |= FLAG_IS_TRANSPORT;
         break;
 
-    case GROUP_PORT:
+    case GROUP_ROAD:
+        if (MP_GROUP(x, y) == GROUP_WATER || MP_GROUP(x, y) == GROUP_TRACK_BRIDGE) {
+            type = CST_ROAD_BRIDGE_LR;
+            selected_module_cost = get_group_cost(GROUP_ROAD_BRIDGE);
+        } else
+            selected_module_cost = get_group_cost(GROUP_ROAD);
+        MP_INFO(x, y).flags |= FLAG_IS_TRANSPORT;
+        break;
+
+    case GROUP_RAIL:
+        if (MP_GROUP(x, y) == GROUP_WATER || MP_GROUP(x, y) == GROUP_TRACK_BRIDGE
+                || MP_GROUP(x, y) == GROUP_ROAD_BRIDGE) {
+            type = CST_RAIL_BRIDGE_LR;
+            selected_module_cost = get_group_cost(GROUP_RAIL_BRIDGE);
+        } else
+            selected_module_cost = get_group_cost(GROUP_RAIL);
+        MP_INFO(x, y).flags |= FLAG_IS_TRANSPORT;
         break;
 
     case GROUP_SUBSTATION:
@@ -335,9 +353,6 @@ int place_item(int x, int y, short type)
                                 | FLAG_MS_COAL | FLAG_MS_GOODS | FLAG_MS_ORE | FLAG_MS_STEEL);
         break;
 
-    case GROUP_RECYCLE:
-        break;
-
     case GROUP_TIP:
         /* To prevent building a tip if there has already been one we
          * mark the spot permanently by "doubling" the ore reserve */
@@ -346,14 +361,8 @@ int place_item(int x, int y, short type)
                 MP_INFO(x + i, y + j).ore_reserve = ORE_RESERVE * 2;
         break;
 
-    case GROUP_OREMINE:
-        break;
-
     case GROUP_WATERWELL:
         numof_waterwell++; //AL1: unused so far.
-        break;
-
-    case GROUP_PARKLAND:
         break;
 
     } /* end case */
@@ -411,6 +420,9 @@ int bulldoze_item(int x, int y)
 
         if (g == GROUP_SUBSTATION || g == GROUP_WINDMILL)
             remove_a_substation(x, y);
+
+        if (g == GROUP_TRACK_BRIDGE || g == GROUP_ROAD_BRIDGE || g == GROUP_RAIL_BRIDGE)
+            do_bulldoze_area(CST_WATER, x, y);
 
         if (g == GROUP_OREMINE) {
             int i, j;
@@ -729,7 +741,6 @@ void desert_frontier(int originx, int originy, int w, int h)
                 /* down -- (ThMO) */
                 if (MP_GROUP(x, y + 1) == GROUP_DESERT)
                     ++mask;
-
                 MP_TYPE(x, y) = desert_table[mask];
             }
         }

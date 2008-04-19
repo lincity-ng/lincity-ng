@@ -38,7 +38,16 @@ extern void ok_dial_box(const char *, int, const char *);
 int monument_bul_flag=0;
 int river_bul_flag=0;
 int shanty_bul_flag=0;
+int build_bridge_flag=0;
 int last_message_group = 0;
+
+#ifdef DEBUG
+void DBG_TileInfo(int x, int y) {
+    fprintf(stderr, "%u,%u:Type=%d, Group=%s(%d), Flags= %08X, Alt.=%d\n", x, y,
+        MP_TYPE(x, y), _(main_groups[MP_GROUP(x, y)].name), MP_GROUP(x, y),
+        MP_INFO(x, y).flags, ALT(x, y));
+}
+#endif
 
 void resetLastMessage(){
     last_message_group = 0;
@@ -149,6 +158,9 @@ void editMap (MapPoint point, int button)
     if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT) {
         check_bulldoze_area (x, y);
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
+#ifdef DEBUG
+        DBG_TileInfo(x, y);
+#endif
         return;
     }
 
@@ -159,7 +171,9 @@ void editMap (MapPoint point, int button)
         if(mapMPS)
             mapMPS->playBuildingSound( mod_x, mod_y );
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
-        
+#ifdef DEBUG
+        DBG_TileInfo(x, y);
+#endif
         if( mps_result >= 1 ){
             if( MP_GROUP( mod_x,mod_y ) == GROUP_MARKET ){
                 clicked_market_cb (mod_x, mod_y);
@@ -176,7 +190,7 @@ void editMap (MapPoint point, int button)
         }
         //to be here we are not in bulldoze-mode and the tile
         //under the cursor is not empty. 
-        //to allow up/downgrading of Tracks,Roads and Rails we can't allways return.
+        //to allow up/downgrading of Tracks,Roads,Rails and bridges we can't always return.
         if( !getConfig()->upgradeTransport ){
             return;
         }
@@ -186,18 +200,29 @@ void editMap (MapPoint point, int button)
             ( selected_module_type != CST_RAIL_LR ) ) {
             return; //not building a transport
         }
-        if( !( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ) ){
-            return;//not on transport
-        }
-        //don't replace anything by itself.
-        if( ( selected_module_type == CST_TRACK_LR ) && ( MP_GROUP( x, y ) == GROUP_TRACK ) ){
+        //let bridge to be build or upgraded
+        if( MP_GROUP(x,y) == GROUP_WATER ){
+            if( !build_bridge_flag && last_message_group != GROUP_RIVER ){
+                new Dialog( ASK_BUILD_BRIDGE, x, y ); // deletes itself
+                last_message_group = GROUP_RIVER;
            return;
         } 
-        if( ( selected_module_type == CST_ROAD_LR ) && ( MP_GROUP( x, y ) == GROUP_ROAD ) ){ 
-           return;
         } 
-        if( ( selected_module_type == CST_RAIL_LR ) && ( MP_GROUP( x, y ) == GROUP_RAIL ) ){ 
+        else if( !( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ))
+            return; //not a transport
+
+        if( selected_module_type == CST_TRACK_LR ) {
+            if( MP_GROUP( x, y ) == GROUP_TRACK || MP_GROUP( x, y ) == GROUP_TRACK_BRIDGE ||
+                    MP_GROUP( x, y ) == GROUP_ROAD || MP_GROUP( x, y ) == GROUP_ROAD_BRIDGE ||
+                    MP_GROUP( x, y ) == GROUP_RAIL || MP_GROUP( x, y ) == GROUP_RAIL_BRIDGE )
            return;
+        } else if( selected_module_type == CST_ROAD_LR ) {
+            if ( MP_GROUP( x, y ) == GROUP_ROAD || MP_GROUP( x, y ) == GROUP_ROAD_BRIDGE ||
+                    MP_GROUP( x, y ) == GROUP_RAIL || MP_GROUP( x, y ) == GROUP_RAIL_BRIDGE )
+                return;
+        } else if( selected_module_type == CST_RAIL_LR ) {
+            if( MP_GROUP( x, y ) == GROUP_RAIL || MP_GROUP( x, y ) == GROUP_RAIL_BRIDGE )
+                return;
         } 
     }
 
@@ -208,6 +233,9 @@ void editMap (MapPoint point, int button)
             mapMPS->setView(MapPoint( mod_x, mod_y ));
         }
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool on CST_NONE
+#ifdef DEBUG
+        DBG_TileInfo(x, y);
+#endif
         return;
     }
 
@@ -250,8 +278,8 @@ void editMap (MapPoint point, int button)
             return;
     }
     
-    //how to build a lake in the park? Seems to be impossible
-    //in the original game :-)
+    //how to build a lake in the park?
+    //just hold 'W' key on build ;-)
     if( selected_module_group == GROUP_PARKLAND ){
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( keystate[SDLK_w] )
@@ -268,6 +296,9 @@ void editMap (MapPoint point, int button)
             /* Success */
             getSound()->playSound( "Build" );
             mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on well-built
+#ifdef DEBUG
+            DBG_TileInfo(x, y);
+#endif
             break;
         case -1000:
             /* ouch group does not exist */

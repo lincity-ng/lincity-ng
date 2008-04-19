@@ -496,8 +496,8 @@
 #define SHUFFLE_MAPPOINT_COUNT 4
 
 /******* Buildings // GROUPS ************/ 
-#define NUM_OF_TYPES    400
-#define NUM_OF_GROUPS    47
+#define NUM_OF_TYPES    404
+#define NUM_OF_GROUPS    50
 #define GROUP_NAME_LEN   20
 
 #define GROUP_BARE 	   0
@@ -901,11 +901,29 @@
 #define GROUP_TREE3_TECH    0
 #define GROUP_TREE3_FIREC   0
 
-#define GROUP_IS_TRANSPORT(group) \
-            ((group == GROUP_TRACK) || \
-             (group == GROUP_ROAD) || \
-             (group == GROUP_RAIL) || \
-             (group == GROUP_POWER_LINE))
+#define GROUP_TRACK_BRIDGE        46
+#define GROUP_TRACK_BRIDGE_COLOUR 32   /* 32 is a brown */
+#define GROUP_TRACK_BRIDGE_COST   200000
+#define GROUP_TRACK_BRIDGE_COST_MUL 2  /* 600K per section on water at max level */
+#define GROUP_TRACK_BRIDGE_BUL_COST 1000000 /* like bulldoze on water */
+#define GROUP_TRACK_BRIDGE_TECH   0
+#define GROUP_TRACK_BRIDGE_FIREC  0    /* unused */
+
+#define GROUP_ROAD_BRIDGE         47
+#define GROUP_ROAD_BRIDGE_COLOUR  (white(18))
+#define GROUP_ROAD_BRIDGE_COST    500000
+#define GROUP_ROAD_BRIDGE_COST_MUL 2  /* 1.5M per section on water at max level */
+#define GROUP_ROAD_BRIDGE_BUL_COST 1000000
+#define GROUP_ROAD_BRIDGE_TECH    50
+#define GROUP_ROAD_BRIDGE_FIREC   0
+
+#define GROUP_RAIL_BRIDGE         48
+#define GROUP_RAIL_BRIDGE_COLOUR  (magenta(18))
+#define GROUP_RAIL_BRIDGE_COST    1000000
+#define GROUP_RAIL_BRIDGE_COST_MUL 2  /* 3M per section on water at max level */
+#define GROUP_RAIL_BRIDGE_BUL_COST 1000000
+#define GROUP_RAIL_BRIDGE_TECH    180
+#define GROUP_RAIL_BRIDGE_FIREC   0
 
 #define GROUP_IS_RESIDENCE(group) \
             ((group == GROUP_RESIDENCE_LL) || \

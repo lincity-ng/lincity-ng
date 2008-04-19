@@ -537,6 +537,42 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
      },
 
     /* 46 */
+    {N_("Track Bridge"),
+     FALSE,                     /* need credit? */
+     GROUP_TRACK_BRIDGE,
+     1,                         /* size */
+     GROUP_TRACK_BRIDGE_COLOUR,
+     GROUP_TRACK_BRIDGE_COST_MUL,
+     GROUP_TRACK_BRIDGE_BUL_COST,
+     GROUP_TRACK_BRIDGE_FIREC,
+     GROUP_TRACK_BRIDGE_COST,
+     GROUP_TRACK_BRIDGE_TECH},
+
+     /* 47 */
+    {N_("Road Bridge"),
+     FALSE,                     /* need credit? */
+     GROUP_ROAD_BRIDGE,
+     1,                         /* size */
+     GROUP_ROAD_BRIDGE_COLOUR,
+     GROUP_ROAD_BRIDGE_COST_MUL,
+     GROUP_ROAD_BRIDGE_BUL_COST,
+     GROUP_ROAD_BRIDGE_FIREC,
+     GROUP_ROAD_BRIDGE_COST,
+     GROUP_ROAD_BRIDGE_TECH},
+
+     /* 48 */
+    {N_("Rail Bridge"),
+     FALSE,                     /* need credit? */
+     GROUP_RAIL_BRIDGE,
+     1,                         /* size */
+     GROUP_RAIL_BRIDGE_COLOUR,
+     GROUP_RAIL_BRIDGE_COST_MUL,
+     GROUP_RAIL_BRIDGE_BUL_COST,
+     GROUP_RAIL_BRIDGE_FIREC,
+     GROUP_RAIL_BRIDGE_COST,
+     GROUP_RAIL_BRIDGE_TECH},
+
+     /* 49 */
     /* End of Data */
     {"EOF",
      FALSE,                     /* need credit? */

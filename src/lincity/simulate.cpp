@@ -349,12 +349,15 @@ static void simulate_mappoints(void)
                 continue;
             switch (grp) {
             case GROUP_TRACK:
+            case GROUP_TRACK_BRIDGE:
                 do_track(x, y);
                 break;
             case GROUP_RAIL:
+            case GROUP_RAIL_BRIDGE:
                 do_rail(x, y);
                 break;
             case GROUP_ROAD:
+            case GROUP_ROAD_BRIDGE:
                 do_road(x, y);
                 break;
             case GROUP_ORGANIC_FARM:

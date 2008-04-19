@@ -47,11 +47,11 @@ static int max_load(int x, int y, int i)
         MAX_WASTE_ON_RAIL
     };
 
-    if (group == GROUP_TRACK)
+    if (group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE)
         max = max_track_table[i];
-    else if (group == GROUP_ROAD)
+    else if (group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE)
         max = max_road_table[i];
-    else if (group == GROUP_RAIL)
+    else if (group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE)
         max = max_rail_table[i];
     else {
         // paranoid check, it should never happen
@@ -351,7 +351,7 @@ void connect_transport(int originx, int originy, int w, int h)
 {
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
     int x, y, mask, tflags;
-    short group, type;
+    short group;
 
     static const short power_table[16] = {
         CST_POWERL_H_D, CST_POWERL_V_D, CST_POWERL_H_D, CST_POWERL_RD_D,
@@ -407,17 +407,18 @@ void connect_transport(int originx, int originy, int w, int h)
 
     for (x = originx; x < originx + w; x++) {
         for (y = originy; y < originy + h; y++) {
+            // First, set up a mask according to directions
+            mask = 0;
             switch (MP_GROUP(x, y)) {
             case GROUP_POWER_LINE:
-                /* First, set up a mask indicating into which directions 
-                 * power may be transferred */
-                mask = 0;
-
+                /* power may be transferred */
                 /* up -- (ThMO) */
                 group = MP_GROUP(x, y - 1);
                 /* see if dug under track, rail or road */
-                if (y > 1 && (group == GROUP_TRACK
-                            || group == GROUP_RAIL || group == GROUP_ROAD || group == GROUP_WATER))
+                if (y > 1 && (group == GROUP_WATER
+                        || group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE
+                        || group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE
+                        || group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE))
                     group = MP_GROUP(x, y - 2);
                 switch (group) {
                     case GROUP_POWER_LINE:
@@ -430,8 +431,10 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 /* left -- (ThMO) */
                 group = MP_GROUP(x - 1, y);
-                if (x > 1 && (group == GROUP_TRACK
-                            || group == GROUP_RAIL || group == GROUP_ROAD || group == GROUP_WATER))
+                if (x > 1 && (group == GROUP_WATER
+                        || group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE
+                        || group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE
+                        || group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE))
                     group = MP_GROUP(x - 2, y);
                 switch (group) {
                     case GROUP_POWER_LINE:
@@ -444,9 +447,10 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 /* right -- (ThMO) */
                 group = MP_GROUP(x + 1, y);
-                if (x < WORLD_SIDE_LEN - 2 && (group == GROUP_TRACK
-                            || group == GROUP_RAIL
-                            || group == GROUP_ROAD || group == GROUP_WATER))
+                if (x < WORLD_SIDE_LEN - 2 && (group ==GROUP_WATER
+                        || group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE
+                        || group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE
+                        || group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE))
                     group = MP_GROUP(x + 2, y);
                 switch (group) {
                     case GROUP_WINDMILL:
@@ -462,9 +466,10 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 /* down -- (ThMO) */
                 group = MP_GROUP(x, y + 1);
-                if (y < WORLD_SIDE_LEN - 2 && (group == GROUP_TRACK
-                            || group == GROUP_RAIL
-                            || group == GROUP_ROAD || group == GROUP_WATER))
+                if (y < WORLD_SIDE_LEN - 2 && (group ==GROUP_WATER
+                        || group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE
+                        || group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE
+                        || group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE))
                     group = MP_GROUP(x, y + 2);
                 switch (group) {
                     case GROUP_WINDMILL:
@@ -485,8 +490,6 @@ void connect_transport(int originx, int originy, int w, int h)
                 break;
 
             case GROUP_TRACK:
-                mask = 0;
-
                 if (MP_GROUP(x, y - 1) == GROUP_TRACK)
                     mask |= FLAG_UP;
                 if (MP_GROUP(x - 1, y) == GROUP_TRACK)
@@ -495,6 +498,7 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 switch (MP_GROUP(x + 1, y)) {
                     case GROUP_TRACK:
+                    case GROUP_TRACK_BRIDGE:
                         tflags |= FLAG_RIGHT;
                     case GROUP_COMMUNE:
                     case GROUP_COALMINE:
@@ -514,6 +518,7 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 switch (MP_GROUP(x, y + 1)) {
                     case GROUP_TRACK:
+                    case GROUP_TRACK_BRIDGE:
                         tflags |= FLAG_DOWN;
                     case GROUP_COMMUNE:
                     case GROUP_COALMINE:
@@ -532,12 +537,51 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
                 MP_INFO(x, y).flags |= tflags;
+
+                // A track section between 2 bridge sections
+                // in this special case we use a pillar bridge section with green
+                if ((MP_GROUP(x, y-1) == GROUP_TRACK_BRIDGE && (
+                        MP_GROUP(x, y+1) == GROUP_TRACK_BRIDGE || MP_GROUP(x, y+2) == GROUP_TRACK_BRIDGE))
+                        || (MP_GROUP(x, y+1) == GROUP_TRACK_BRIDGE && (
+                        MP_GROUP(x, y-1) == GROUP_TRACK_BRIDGE || MP_GROUP(x, y-2) == GROUP_TRACK_BRIDGE)))
+                     MP_TYPE(x, y) = CST_TRACK_BRIDGE_UDP;
+                else if ((MP_GROUP(x-1, y) == GROUP_TRACK_BRIDGE && (
+                        MP_GROUP(x+1, y) == GROUP_TRACK_BRIDGE || MP_GROUP(x+2, y) == GROUP_TRACK_BRIDGE))
+                        || (MP_GROUP(x+1, y) == GROUP_TRACK_BRIDGE && (
+                        MP_GROUP(x-1, y) == GROUP_TRACK_BRIDGE || MP_GROUP(x-2, y) == GROUP_TRACK_BRIDGE)))
+                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_LRP;
+                // Set according bridge entrance if any
+                else if (MP_GROUP(x, y-1) == GROUP_TRACK_BRIDGE)
+                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_OUD;
+                else if (MP_GROUP(x-1, y) == GROUP_TRACK_BRIDGE)
+                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_OLR;
+                else if (MP_GROUP(x, y+1) == GROUP_TRACK_BRIDGE)
+                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_IUD;
+                else if (MP_GROUP(x+1, y) == GROUP_TRACK_BRIDGE)
+                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_ILR;
+                else
                 MP_TYPE(x, y) = track_table[mask];
                 break;
 
-            case GROUP_ROAD:
-                mask = 0;
+            case GROUP_TRACK_BRIDGE:
+                // Bridge neighbour priority
+                if (MP_GROUP(x, y-1) == GROUP_TRACK_BRIDGE || MP_GROUP(x, y+1) == GROUP_TRACK_BRIDGE
+                   || MP_GROUP(x, y-1) == GROUP_TRACK || MP_GROUP(x, y+1) == GROUP_TRACK)
+                {
+                    mask |= FLAG_UP;
+                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_UD;
+                }
+                else if (MP_GROUP(x-1, y) == GROUP_TRACK_BRIDGE || MP_GROUP(x+1, y) == GROUP_TRACK_BRIDGE
+                    || MP_GROUP(x-1, y) == GROUP_TRACK || MP_GROUP(x+1, y) == GROUP_TRACK)
+                {
+                    mask |= FLAG_LEFT;
+                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_LR;
+                }
+                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+                MP_INFO(x, y).flags |= mask;
+                break;
 
+            case GROUP_ROAD:
                 if (MP_GROUP(x, y - 1) == GROUP_ROAD)
                     mask |= FLAG_UP;
                 if (MP_GROUP(x - 1, y) == GROUP_ROAD)
@@ -582,12 +626,69 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
                 MP_INFO(x, y).flags |= tflags;
+                // A road section between 2 bridge sections
+                // in this special case we use a pillar bridge section with green
+                if ((MP_GROUP(x, y-1) == GROUP_ROAD_BRIDGE && (
+                        MP_GROUP(x, y+1) == GROUP_ROAD_BRIDGE || MP_GROUP(x, y+2) == GROUP_ROAD_BRIDGE))
+                        || (MP_GROUP(x, y+1) == GROUP_ROAD_BRIDGE && (
+                        MP_GROUP(x, y-1) == GROUP_ROAD_BRIDGE || MP_GROUP(x, y-2) == GROUP_ROAD_BRIDGE)))
+                     MP_TYPE(x, y) = CST_ROAD_BRIDGE_UDPG;
+                else if ((MP_GROUP(x-1, y) == GROUP_ROAD_BRIDGE && (
+                        MP_GROUP(x+1, y) == GROUP_ROAD_BRIDGE || MP_GROUP(x+2, y) == GROUP_ROAD_BRIDGE))
+                        || (MP_GROUP(x+1, y) == GROUP_ROAD_BRIDGE && (
+                        MP_GROUP(x-1, y) == GROUP_ROAD_BRIDGE || MP_GROUP(x-2, y) == GROUP_ROAD_BRIDGE)))
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRPG;
+                // Build bridge entrance2
+                else if (MP_GROUP(x, y-1) == GROUP_ROAD_BRIDGE)
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_O2UD;
+                else if (MP_GROUP(x-1, y) == GROUP_ROAD_BRIDGE)
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_O2LR;
+                else if (MP_GROUP(x, y+1) == GROUP_ROAD_BRIDGE)
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_I2UD;
+                else if (MP_GROUP(x+1, y) == GROUP_ROAD_BRIDGE)
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_I2LR;
+                // Build bridge entrance1
+                else if (MP_GROUP(x, y-2) == GROUP_ROAD_BRIDGE && MP_GROUP(x, y-1) == GROUP_ROAD)
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_O1UD;
+                else if (MP_GROUP(x-2, y) == GROUP_ROAD_BRIDGE && MP_GROUP(x-1, y) == GROUP_ROAD)
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_O1LR;
+                else if (MP_GROUP(x, y+2) == GROUP_ROAD_BRIDGE && MP_GROUP(x, y+1) == GROUP_ROAD)
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_I1UD;
+                else if (MP_GROUP(x+2, y) == GROUP_ROAD_BRIDGE && MP_GROUP(x+1, y) == GROUP_ROAD)
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_I1LR;
+                else
                 MP_TYPE(x, y) = road_table[mask];
                 break;
 
-            case GROUP_RAIL:
-                mask = 0;
+            case GROUP_ROAD_BRIDGE:
+                // Bridge neighbour priority
+                if (MP_GROUP(x, y-1) == GROUP_ROAD_BRIDGE || MP_GROUP(x, y+1) == GROUP_ROAD_BRIDGE)
+                {
+                    mask |= FLAG_UP;
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_UDP;
+                }
+                else if (MP_GROUP(x-1, y) == GROUP_ROAD_BRIDGE || MP_GROUP(x+1, y) == GROUP_ROAD_BRIDGE)
+                {
+                    mask |= FLAG_LEFT;
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRP;
+                }
+                else if (MP_GROUP(x, y-1) == GROUP_ROAD || MP_GROUP(x, y+1) == GROUP_ROAD)
+                {
+                    mask |= FLAG_UP;
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_UD;
+                }
+                else if (MP_GROUP(x-1, y) == GROUP_ROAD || MP_GROUP(x+1, y) == GROUP_ROAD)
+                {
+                    mask |= FLAG_LEFT;
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_LR;
+                }
+                else
+                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRP;
+                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+                MP_INFO(x, y).flags |= mask;
+                break;
 
+            case GROUP_RAIL:
                 if (MP_GROUP(x, y - 1) == GROUP_RAIL)
                     mask |= FLAG_UP;
                 if (MP_GROUP(x - 1, y) == GROUP_RAIL)
@@ -633,29 +734,79 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
                 MP_INFO(x, y).flags |= tflags;
+                // A rail section between 2 bridge sections
+                // in this special case we use a pillar bridge section with green
+                if ((MP_GROUP(x, y-1) == GROUP_RAIL_BRIDGE && (
+                        MP_GROUP(x, y+1) == GROUP_RAIL_BRIDGE || MP_GROUP(x, y+2) == GROUP_RAIL_BRIDGE))
+                        || (MP_GROUP(x, y+1) == GROUP_RAIL_BRIDGE && (
+                        MP_GROUP(x, y-1) == GROUP_RAIL_BRIDGE || MP_GROUP(x, y-2) == GROUP_RAIL_BRIDGE)))
+                     MP_TYPE(x, y) = CST_RAIL_BRIDGE_UDPG;
+                else if ((MP_GROUP(x-1, y) == GROUP_RAIL_BRIDGE && (
+                        MP_GROUP(x+1, y) == GROUP_RAIL_BRIDGE || MP_GROUP(x+2, y) == GROUP_RAIL_BRIDGE))
+                        || (MP_GROUP(x+1, y) == GROUP_RAIL_BRIDGE && (
+                        MP_GROUP(x-1, y) == GROUP_RAIL_BRIDGE || MP_GROUP(x-2, y) == GROUP_RAIL_BRIDGE)))
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_LRPG;
+                // Build bridge entrance2
+                else if (MP_GROUP(x, y-1) == GROUP_RAIL_BRIDGE)
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_O2UD;
+                else if (MP_GROUP(x-1, y) == GROUP_RAIL_BRIDGE)
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_O2LR;
+                else if (MP_GROUP(x, y+1) == GROUP_RAIL_BRIDGE)
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_I2UD;
+                else if (MP_GROUP(x+1, y) == GROUP_RAIL_BRIDGE)
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_I2LR;
+                // Build bridge entrance1
+                else if (MP_GROUP(x, y-2) == GROUP_RAIL_BRIDGE && MP_GROUP(x, y-1) == GROUP_RAIL)
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_O1UD;
+                else if (MP_GROUP(x-2, y) == GROUP_RAIL_BRIDGE && MP_GROUP(x-1, y) == GROUP_RAIL)
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_O1LR;
+                else if (MP_GROUP(x, y+2) == GROUP_RAIL_BRIDGE && MP_GROUP(x, y+1) == GROUP_RAIL)
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_I1UD;
+                else if (MP_GROUP(x+2, y) == GROUP_RAIL_BRIDGE && MP_GROUP(x+1, y) == GROUP_RAIL)
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_I1LR;
+                else
                 MP_TYPE(x, y) = rail_table[mask];
                 break;
 
+            case GROUP_RAIL_BRIDGE:
+                // Bridge neighbour priority
+                if (MP_GROUP(x, y-1) == GROUP_RAIL_BRIDGE || MP_GROUP(x, y+1) == GROUP_RAIL_BRIDGE
+                   || MP_GROUP(x, y-1) == GROUP_RAIL || MP_GROUP(x, y+1) == GROUP_RAIL)
+                {
+                    mask |= FLAG_UP;
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_UD;
+                }
+                else if (MP_GROUP(x-1, y) == GROUP_RAIL_BRIDGE || MP_GROUP(x+1, y) == GROUP_RAIL_BRIDGE
+                    || MP_GROUP(x-1, y) == GROUP_RAIL || MP_GROUP(x+1, y) == GROUP_RAIL)
+                {
+                    mask |= FLAG_LEFT;
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_LR;
+                }
+                else
+                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_LR;
+                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+                MP_INFO(x, y).flags |= mask;
+                break;
+
             case GROUP_WATER:
-                mask = 0;
                 /* up -- (ThMO) */
-                if (MP_GROUP(x, y - 1) == GROUP_WATER)
+                if (MP_GROUP(MP_INFO(x, y - 1).int_1, MP_INFO(x, y - 1).int_2) == GROUP_PORT
+                        || XY_IS_WATER(x, y - 1))
                     mask |= 8;
 
                 /* left -- (ThMO) */
-                type = MP_TYPE(x - 1, y);
-                if ((type == CST_USED && MP_GROUP(MP_INFO(x - 1, y).int_1, MP_INFO(x - 1, y).int_2)
-                            == GROUP_PORT)
-                        || get_group_of_type(type) == GROUP_WATER)
+                if (MP_GROUP(MP_INFO(x - 1, y).int_1, MP_INFO(x - 1, y).int_2) == GROUP_PORT ||
+                        MP_GROUP(MP_INFO(x, y - 1).int_1, MP_INFO(x, y - 1).int_2) == GROUP_PORT
+                        || XY_IS_WATER(x - 1, y))
                     mask |= 4;
 
                 /* right -- (ThMO) */
-                if (MP_GROUP(x + 1, y) == GROUP_WATER)
+                if (XY_IS_WATER(x + 1, y))
                     mask |= 2;
 
                 /* down -- (ThMO) */
-                if (MP_GROUP(x, y + 1) == GROUP_WATER)
-                    ++mask;
+                if (XY_IS_WATER(x, y + 1))
+                    mask |= 1;
 
                 MP_TYPE(x, y) = water_table[mask];
                 break;

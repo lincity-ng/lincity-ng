@@ -120,6 +120,7 @@ private:
     Vector2 viewport;
 
     int bulldozeCost( MapPoint tile );
+    int buildCost( MapPoint tile );
     
     Texture* cityTextures[ NUM_OF_TYPES ];
     SDL_Surface* cityImages[ NUM_OF_TYPES ];

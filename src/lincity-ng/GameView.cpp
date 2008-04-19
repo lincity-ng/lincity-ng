@@ -773,6 +773,40 @@ void GameView::loadTextures()
    //preReadCityTexture( CST_FARM_O14,           "farm14.png" );
    preReadCityTexture( CST_FARM_O15,           "farm15.png" );
    //preReadCityTexture( CST_FARM_O16,           "farm16.png" );
+   preReadCityTexture( CST_TRACK_BRIDGE_LR,    "Trackbridge2.png" );
+   preReadCityTexture( CST_TRACK_BRIDGE_UD,    "Trackbridge1.png" );
+   preReadCityTexture( CST_TRACK_BRIDGE_LRP,   "Trackbridge_pg1.png" );
+   preReadCityTexture( CST_TRACK_BRIDGE_UDP,   "Trackbridge_pg2.png" );
+   preReadCityTexture( CST_TRACK_BRIDGE_ILR,   "Trackbridge_entrance_270.png" );
+   preReadCityTexture( CST_TRACK_BRIDGE_OLR,   "Trackbridge_entrance_90.png" );
+   preReadCityTexture( CST_TRACK_BRIDGE_IUD,   "Trackbridge_entrance_00.png" );
+   preReadCityTexture( CST_TRACK_BRIDGE_OUD,   "Trackbridge_entrance_180.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_LR,     "Roadbridge1.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_UD,     "Roadbridge2.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_LRP,    "Roadbridge1s.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_UDP,    "Roadbridge2s.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_LRPG,   "Roadbridge_pg1.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_UDPG,   "Roadbridge_pg2.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_I1LR,   "Roadbridge_entrance1_270.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_O1LR,   "Roadbridge_entrance1_90.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_I1UD,   "Roadbridge_entrance1_00.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_O1UD,   "Roadbridge_entrance1_180.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_I2LR,   "Roadbridge_entrance2_270.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_O2LR,   "Roadbridge_entrance2_90.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_I2UD,   "Roadbridge_entrance2_00.png" );
+   preReadCityTexture( CST_ROAD_BRIDGE_O2UD,   "Roadbridge_entrance2_180.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_LR,     "Railbridge1.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_UD,     "Railbridge2.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_LRPG,   "Railbridge_pg1.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_UDPG,   "Railbridge_pg2.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_I1LR,   "Railbridge_entrance1_270.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_O1LR,   "Railbridge_entrance1_90.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_I1UD,   "Railbridge_entrance1_00.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_O1UD,   "Railbridge_entrance1_180.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_I2LR,   "Railbridge_entrance2_270.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_O2LR,   "Railbridge_entrance2_90.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_I2UD,   "Railbridge_entrance2_00.png" );
+   preReadCityTexture( CST_RAIL_BRIDGE_O2UD,   "Railbridge_entrance2_180.png" );
    
    // End of generated Code.
 }
@@ -1568,6 +1602,8 @@ void GameView::draw(Painter& painter)
                 if( (selected_module_type == CST_GREEN) && (realTile( currentTile ) != lastRazed) ){ 
                     	cost += bulldozeCost( currentTile );
                     	lastRazed = realTile( currentTile );
+                } else {
+                    cost += buildCost( currentTile );
                 }
                 tiles++;
                 currentTile.x += stepx;
@@ -1577,6 +1613,8 @@ void GameView::draw(Painter& painter)
                 if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ){ 
                     	cost += bulldozeCost( currentTile );
                     	lastRazed = realTile( currentTile );
+                } else {
+                    cost += buildCost( currentTile );
                 }
                 tiles++;
                 currentTile.y += stepy;
@@ -1586,9 +1624,11 @@ void GameView::draw(Painter& painter)
         tiles++;
         if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ) { 
             	  cost += bulldozeCost( tileUnderMouse );
+        } else {
+            cost += buildCost( tileUnderMouse );
         } 
+        std::stringstream prize;
         if( selected_module_type == CST_GREEN ){
-            std::stringstream prize;
             if( roadDragging ){
                 prize << _("Estimated Bulldoze Cost: ");
             } else {
@@ -1597,6 +1637,16 @@ void GameView::draw(Painter& painter)
             if( cost > 0 ) {
                 prize << cost << _("$");
             } else {
+                prize << _("n/a");
+            }
+            printStatusMessage( prize.str() );
+        } else if( selected_module_type == CST_TRACK_LR || selected_module_type == CST_ROAD_LR
+                || selected_module_type == CST_RAIL_LR )
+        {
+            prize << _(": Cost to build ");
+            if( cost > 0 ) {
+                prize << cost << _("$");
+        } else {
                 prize << _("n/a");
             }
             printStatusMessage( prize.str() );
@@ -1675,6 +1725,36 @@ int GameView::bulldozeCost( MapPoint tile ){
     return prize;
 }
 
+int GameView::buildCost( MapPoint tile ){
+    if (MP_TYPE( tile.x, tile.y ) == CST_USED)
+        return 0;
+    if (( selected_module_type == CST_TRACK_LR || selected_module_type == CST_ROAD_LR ||
+        selected_module_type == CST_RAIL_LR) &&
+        // Transport on water need a bridge
+        (MP_GROUP( tile.x, tile.y) == GROUP_WATER ||
+        // upgrade bridge
+        (selected_module_type == CST_ROAD_LR && (MP_GROUP( tile.x, tile.y) == GROUP_TRACK_BRIDGE) ||
+        (selected_module_type == CST_RAIL_LR && (MP_GROUP( tile.x, tile.y) == GROUP_TRACK_BRIDGE ||
+        MP_GROUP( tile.x, tile.y) == GROUP_ROAD_BRIDGE))) ) )
+    {
+        switch( selected_module_type ) {
+            case CST_TRACK_LR:
+                return get_group_cost( GROUP_TRACK_BRIDGE );
+            case CST_ROAD_LR:
+                return get_group_cost( GROUP_ROAD_BRIDGE );
+            case CST_RAIL_LR:
+                return get_group_cost( GROUP_RAIL_BRIDGE );
+        }
+    // Not updgrade a transport
+    } else if ( !GROUP_IS_BARE(MP_GROUP( tile.x, tile.y )) && (selected_module_type == CST_TRACK_LR
+            || (selected_module_type == CST_ROAD_LR && MP_GROUP( tile.x, tile.y) == GROUP_ROAD ||
+                MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE)
+            || (selected_module_type == CST_RAIL_LR &&
+                MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE)
+            || (selected_module_type == CST_WATER && MP_GROUP( tile.x, tile.y) == GROUP_WATER )) )
+        return 0;
+    return get_group_cost( main_types[ selected_module_type ].group );
+}
+
 //Register as Component
 IMPLEMENT_COMPONENT_FACTORY(GameView);
-

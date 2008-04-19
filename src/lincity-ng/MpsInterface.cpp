@@ -163,6 +163,7 @@ void mps_refresh() /* refresh the information display's contents */
                     mps_power_line (mps_x, mps_y);
                     break;
                 case GROUP_RAIL:
+                case GROUP_RAIL_BRIDGE:
                     mps_rail (mps_x, mps_y);
                     break;
                 case GROUP_RECYCLE:
@@ -181,6 +182,7 @@ void mps_refresh() /* refresh the information display's contents */
                     mps_residence(mps_x, mps_y);
                     break;
                 case GROUP_ROAD:
+                case GROUP_ROAD_BRIDGE:
                     mps_road (mps_x, mps_y);
                     break;
                 case GROUP_ROCKET:
@@ -199,6 +201,7 @@ void mps_refresh() /* refresh the information display's contents */
                     mps_tip (mps_x, mps_y);
                     break;
                 case GROUP_TRACK:
+                case GROUP_TRACK_BRIDGE:
                     mps_track(mps_x, mps_y);
                     break;
                 case GROUP_MARKET:

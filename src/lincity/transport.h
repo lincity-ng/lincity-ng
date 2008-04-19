@@ -12,7 +12,10 @@
 #define XY_IS_TRANSPORT(x,y) \
 ((MP_GROUP(x,y) == GROUP_TRACK) || \
  (MP_GROUP(x,y) == GROUP_ROAD) || \
- (MP_GROUP(x,y) == GROUP_RAIL))
+ (MP_GROUP(x,y) == GROUP_RAIL) || \
+ (MP_GROUP(x,y) == GROUP_TRACK_BRIDGE) || \
+ (MP_GROUP(x,y) == GROUP_ROAD_BRIDGE) || \
+ (MP_GROUP(x,y) == GROUP_RAIL_BRIDGE))
 #endif
 
 void general_transport(int x, int y, int max_waste);
