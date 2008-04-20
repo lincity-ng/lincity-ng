@@ -200,16 +200,10 @@ void editMap (MapPoint point, int button)
             ( selected_module_type != CST_RAIL_LR ) ) {
             return; //not building a transport
         }
-        //let bridge to be build or upgraded
-        if( MP_GROUP(x,y) == GROUP_WATER ){
-           /* if( !build_bridge_flag && last_message_group != GROUP_RIVER ){
-                new Dialog( ASK_BUILD_BRIDGE, x, y ); // deletes itself
-                last_message_group = GROUP_RIVER; // must not use GROUP_RIVER here, that would enable bulldozing water, too.
-           return;
-           } */
-        } 
-        else if( !( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ))
-            return; //not a transport
+        
+        if( ( MP_GROUP(x,y) != GROUP_WATER ) && ( !( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ))){
+            return; //target area is neither water not a transport
+	}    
 
         if( selected_module_type == CST_TRACK_LR ) {
             if( MP_GROUP( x, y ) == GROUP_TRACK || MP_GROUP( x, y ) == GROUP_TRACK_BRIDGE ||

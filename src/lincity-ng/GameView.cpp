@@ -1425,13 +1425,20 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         if( !inCity( seCorner ) || !inCity( tile ) ) {
             painter.setFillColor( alphared );
         } else {
-            for( y = (int) tile.y; y < tile.y + cursorSize; y++ )
-                for( x = (int) tile.x; x < tile.x + cursorSize; x++ )
+            for( y = (int) tile.y; y < tile.y + cursorSize; y++ ){
+                for( x = (int) tile.x; x < tile.x + cursorSize; x++ ){
                     if( !GROUP_IS_BARE(MP_GROUP( x, y ))) {
-                        painter.setFillColor( alphared );
-                        y += cursorSize;
-                        break;
+                        if( !((MP_GROUP( x, y ) == GROUP_WATER) && ( // bridge on water is OK
+                           (selected_module_type == CST_TRACK_LR ) ||
+                           (selected_module_type == CST_ROAD_LR ) || 
+                           (selected_module_type == CST_RAIL_LR ) ))) {
+                            painter.setFillColor( alphared );
+                            y += cursorSize;
+                            break;
+                        }
                     }
+                }
+            }
         }
         //check if building is allowed here, if not use Red Cursor
         // These tests are in engine.cpp with place_item.

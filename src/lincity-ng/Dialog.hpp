@@ -33,7 +33,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define ASK_LAUNCH_ROCKET 7 
 #define GAME_STATS        8            
 #define MSG_DIALOG        9            
-#define ASK_BUILD_BRIDGE  10
 
 extern bool blockingDialogIsOpen;
 
@@ -53,7 +52,6 @@ class Dialog
         void askBulldozeMonument();
         void askBulldozeRiver();
         void askBulldozeShanty();
-        void askBridge();
 
         void editMarket();
         void editPort();
@@ -80,7 +78,6 @@ class Dialog
         void okayBulldozeMonumentButtonClicked( Button* );
         void okayCoalSurveyButtonClicked( Button* );
         void okayLaunchRocketButtonClicked( Button* );
-        void okayBuildBridgeButtonClicked( Button* );
         void closeDialogButtonClicked( Button* );
         void gotoButtonClicked( Button* );
         void applyMarketButtonClicked( Button* );
