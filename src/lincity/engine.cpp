@@ -421,8 +421,10 @@ int bulldoze_item(int x, int y)
         if (g == GROUP_SUBSTATION || g == GROUP_WINDMILL)
             remove_a_substation(x, y);
 
-        if (g == GROUP_TRACK_BRIDGE || g == GROUP_ROAD_BRIDGE || g == GROUP_RAIL_BRIDGE)
+        if (g == GROUP_TRACK_BRIDGE || g == GROUP_ROAD_BRIDGE || g == GROUP_RAIL_BRIDGE){
             do_bulldoze_area(CST_WATER, x, y);
+	    return size;
+	}
 
         if (g == GROUP_OREMINE) {
             int i, j;

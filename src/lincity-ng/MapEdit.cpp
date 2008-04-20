@@ -202,11 +202,11 @@ void editMap (MapPoint point, int button)
         }
         //let bridge to be build or upgraded
         if( MP_GROUP(x,y) == GROUP_WATER ){
-            if( !build_bridge_flag && last_message_group != GROUP_RIVER ){
+           /* if( !build_bridge_flag && last_message_group != GROUP_RIVER ){
                 new Dialog( ASK_BUILD_BRIDGE, x, y ); // deletes itself
-                last_message_group = GROUP_RIVER;
+                last_message_group = GROUP_RIVER; // must not use GROUP_RIVER here, that would enable bulldozing water, too.
            return;
-        } 
+           } */
         } 
         else if( !( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ))
             return; //not a transport
