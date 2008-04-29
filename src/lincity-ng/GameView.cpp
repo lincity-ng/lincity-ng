@@ -1650,6 +1650,9 @@ void GameView::draw(Painter& painter)
         } else if( selected_module_type == CST_TRACK_LR || selected_module_type == CST_ROAD_LR
                 || selected_module_type == CST_RAIL_LR )
         {
+            int group = main_types[ selected_module_type ].group;
+            std::string buildingName = main_groups[ group ].name;
+	    prize << dictionaryManager->get_dictionary().translate( buildingName );
             prize << _(": Cost to build ");
             if( cost > 0 ) {
                 prize << cost << _("$");
