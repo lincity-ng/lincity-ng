@@ -62,7 +62,6 @@
     <image file="blacksmith4.png" x="132" />
     <image file="blacksmith5.png" x="132" />
     <image file="blacksmith6.png" x="132" />
-    <image file="farm0.png" x="256" />
 
     <image file="commune1.png" x="256" />
     <image file="commune2.png" x="256" />
@@ -147,16 +146,7 @@
     <image file="firedone3.png" x="66" />
     <image file="firedone4.png" x="66" />
 
-    <image file="mill0.png" x="132" />
-    <image file="mill1.png" x="132" />
-    <image file="mill2.png" x="132" />
-    <image file="mill3.png" x="132" />
-    <image file="mill4.png" x="132" />
-    <image file="mill5.png" x="132" />
-    <image file="mill6.png" x="132" />
-
-
-  <image file="monument.png" x="131" y="46" />
+   <image file="monument.png" x="131" y="46" />
   <image file="oremine.png" x="258" y="102" />
   <image file="port.png" x="262" y="112" />
 
