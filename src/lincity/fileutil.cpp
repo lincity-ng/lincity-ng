@@ -229,7 +229,6 @@ void find_libdir(void)
         return;
     }
 
-    fprintf(stderr," WIN32 is defined ! will crash soon \n";
     /* Finally give up */
     HandleError(_("Error. Can't find LINCITY_HOME"), FATAL);
 }
