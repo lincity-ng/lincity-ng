@@ -899,11 +899,7 @@ void GameView::event(const Event& event)
             if( roadDragging && ( cursorSize != 1 ) ){
                 roadDragging = false;
             }
-            if( roadDragging 
-	    	    && ( (selected_module_type == CST_GREEN) ||(selected_module_type == CST_DESERT)
-		        ||(selected_module_type == CST_TREE)
-		        ||(selected_module_type == CST_TREE2)
-		        ||(selected_module_type == CST_TREE3) ) 
+            if( roadDragging && (selected_module_type == CST_GREEN)
                     && getConfig()->instantBulldoze ){ 
                 editMap( tile, SDL_BUTTON_LEFT);
                 startRoad = tile;
