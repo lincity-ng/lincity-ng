@@ -900,10 +900,10 @@ void GameView::event(const Event& event)
                 roadDragging = false;
             }
             if( roadDragging 
-	    	    && ( (selected_module_type == CST_GREEN) |(selected_module_type == CST_DESERT)
-		        |(selected_module_type == CST_TREE)
-		        |(selected_module_type == CST_TREE2)
-		        |(selected_module_type == CST_TREE3) ) 
+	    	    && ( (selected_module_type == CST_GREEN) ||(selected_module_type == CST_DESERT)
+		        ||(selected_module_type == CST_TREE)
+		        ||(selected_module_type == CST_TREE2)
+		        ||(selected_module_type == CST_TREE3) ) 
                     && getConfig()->instantBulldoze ){ 
                 editMap( tile, SDL_BUTTON_LEFT);
                 startRoad = tile;
@@ -1743,7 +1743,7 @@ int GameView::buildCost( MapPoint tile ){
         // Transport on water need a bridge
         (MP_GROUP( tile.x, tile.y) == GROUP_WATER ||
         // upgrade bridge
-        (selected_module_type == CST_ROAD_LR && (MP_GROUP( tile.x, tile.y) == GROUP_TRACK_BRIDGE) ||
+        ((selected_module_type == CST_ROAD_LR && (MP_GROUP( tile.x, tile.y) == GROUP_TRACK_BRIDGE)) ||
         (selected_module_type == CST_RAIL_LR && (MP_GROUP( tile.x, tile.y) == GROUP_TRACK_BRIDGE ||
         MP_GROUP( tile.x, tile.y) == GROUP_ROAD_BRIDGE))) ) )
     {
@@ -1757,10 +1757,10 @@ int GameView::buildCost( MapPoint tile ){
         }
     // Not updgrade a transport
     } else if ( !GROUP_IS_BARE(MP_GROUP( tile.x, tile.y )) && (selected_module_type == CST_TRACK_LR
-            || (selected_module_type == CST_ROAD_LR && MP_GROUP( tile.x, tile.y) == GROUP_ROAD ||
-                MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE)
+            || (selected_module_type == CST_ROAD_LR && (MP_GROUP( tile.x, tile.y) == GROUP_ROAD ||
+                MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE))
             || (selected_module_type == CST_RAIL_LR &&
-                MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE)
+                (MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE))
             || (selected_module_type == CST_WATER && MP_GROUP( tile.x, tile.y) == GROUP_WATER )) )
         return 0;
     return get_group_cost( main_types[ selected_module_type ].group );

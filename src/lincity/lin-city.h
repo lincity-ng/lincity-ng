@@ -901,7 +901,7 @@
 #define GROUP_TREE3_TECH    0
 #define GROUP_TREE3_FIREC   0
 
-#define BRIDGE_FACTOR 1000 /* a bridge is that much more expensive than the land transport */
+#define BRIDGE_FACTOR 500 /* a bridge is that much more expensive than the land transport */
 
 #define GROUP_TRACK_BRIDGE        46
 #define GROUP_TRACK_BRIDGE_COLOUR 32   /* 32 is a brown */
