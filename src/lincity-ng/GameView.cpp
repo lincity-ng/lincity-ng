@@ -1732,6 +1732,9 @@ int GameView::bulldozeCost( MapPoint tile ){
 }
 
 int GameView::buildCost( MapPoint tile ){
+    if( selected_module_type == CST_NONE ){
+    	return 0;
+    }    
     if (MP_TYPE( tile.x, tile.y ) == CST_USED)
         return 0;
     if (( selected_module_type == CST_TRACK_LR || selected_module_type == CST_ROAD_LR ||
@@ -1757,8 +1760,10 @@ int GameView::buildCost( MapPoint tile ){
                 MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE))
             || (selected_module_type == CST_RAIL_LR &&
                 (MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE))
-            || (selected_module_type == CST_WATER && MP_GROUP( tile.x, tile.y) == GROUP_WATER )) )
+            || (selected_module_type == CST_WATER && MP_GROUP( tile.x, tile.y) == GROUP_WATER )) ){
         return 0;
+    }
+   
     return get_group_cost( main_types[ selected_module_type ].group );
 }
 

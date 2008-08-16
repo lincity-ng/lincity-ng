@@ -379,7 +379,7 @@ void parseCommandLine(int argc, char** argv)
             std::cout << "Command line overrides configfiles.\n";
             std::cout << "Known arguments are:\n";
             std::cout << "-v           --version         show version and exit\n";
-            std::cout << "-h           --help            show his text and exit\n";
+            std::cout << "-h           --help            show this text and exit\n";
             std::cout << "-g           --gl              use OpenGL\n";
             std::cout << "-s           --sdl             use SDL\n";
             std::cout << "-S [size]    --size [size]     specify screensize (eg. -S 1024x768)\n";
