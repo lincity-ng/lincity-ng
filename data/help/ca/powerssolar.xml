@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Central solar</p>
+	<p style="hp">Les centrals solars aporten la seva electricitat a les línies elèctriques per paquets. La quantitat d'energia que pot produir una central solar augmenta a mesura que creix el nivell de desenvolupament en el que està <b>construïda</b>.</p>
+	<p style="hp">Les centrals solars necessiten electricistes per a funcionar. Si una central solar no té prou treballadors  produirà menys energia i si es queda sense, no en produirà gens.</p>
+	
+	<p style="hp">Això és una central solar</p>
+	<img src="images/tiles/powerssolar.png" halign="center"/>
+	<p style="hp">i aquesta és la seva icona</p>
+	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="substation">Sub-estació elèctrica</a></li>
+	<li><a href="powerline">Línies elèctriques</a></li>
+	<li><a href="residential">Habitatges</a></li>
+	<li><a href="tech-level">Nivell de desenvolupament</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+	<li><a href="windmill">Molins de vent</a></li>
+</Document>

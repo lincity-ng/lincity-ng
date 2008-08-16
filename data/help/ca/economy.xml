@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Gràfica de l'economia</p>
+	<p style="hp">Aquesta gràfica cnté quatre línies de colors que mostren els elements econòmics més importants.</p>
+	<li>
+		<span color="brown">Població</span>	(marró) 
+        La línia marró representa la població.
+        Es mostra com una llarga escala.
+	</li>
+	<li>
+		<span color="blue">Indigents</span> (blau) 
+        La línia blava representa la gent que 
+        cerca allotjament. L'alçada del gràfic
+        és proporcional a l'arrel quadrada dels
+        indigents.
+       	</li>
+	<li>
+		<span color="yellow">Atur</span> (groc) 
+        Les barres grogues mostren que hi ha atur.
+        L'escala d'aquesta gràfica canvia en funció
+        de la població. Aquesta gràfica és sòlida
+        per tal de cridar-vos més l'atenció.
+	</li>
+	<li>
+		<span color="red">Fam</span> (vermell) 
+        Les barres vermelles mostren la fam. 
+        L'escala del gràfic canvia en funció de la
+        població. Aquesta gràfica és sòlida per tal
+        de cridar-vos més l'atenció.
+        Aquesta barra és dibuixa sobre la barra de l'atur.
+	</li>
+</Document>

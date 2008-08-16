@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Minimapa</p>
+	<p style="hp">El minimapa mostra, a escala reduïda tot el que passa a la zona de joc. Quan cliqueu als botons que hi ha a sota mostra informació com els nivells de pol·lució que hi ha a l'àrea de joc.</p>
+	<p style="hp">Clicant amb el botó dret a cada botó que hi ha sota del minimapa obrireu la seva pàgina d'ajuda.</p>
+	<p style="hp">El quadrat mostra l'àrea de que s'està visualitzant a la pantalla principal.</p>
+	<p style="hp">El gran botó «capa» passarà el contingut de la capa del minimapa a la pantalla principal.</p>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="msb-coal">Capa de carbó</a></li>
+	<li><a href="msb-cricket">Capa d'esports</a></li>
+	<li><a href="msb-fire">Capa d'incendis</a></li>
+	<li><a href="msb-health">Capa de sanitat</a></li>
+	<li><a href="msb-normal">Capa normal</a></li>
+	<li><a href="msb-pol">Capa de pol·lució</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+	<li><a href="msb-starve">Capa de fam</a></li>
+	<li><a href="msb-transport">Capa de transport</a></li>
+	<li><a href="msb-ub40">Capa d'atur</a></li>
+</Document>
+
+
+

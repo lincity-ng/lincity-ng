@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Rius/Aigua</p>
+	<p style="hp">Els rius formen part del paisatge del joc i en condicionen l´ús. És car construir-hi, cavar-hi o enderrocar-hi dins. L'únic ús que en podeu fer és connectar-hi els ports.</p>
+	<p style="hp">Hi ha dos tipus d'ambients aquàtics. Els llacs, que són zones aquàtiques que  <b>no</b> estan connectats a cap sistema fluvial. Considerem un riu com tota l'aigua que hi ha des del principi del joc. Tanmateix quan s'esgota una mina de mena aquesta es converteix en aigua, si està aïllada esdevindrà un llac, si es troba al costat d'un riu n'esdevindrà una part més.</p>
+	<p style="hp"> Per tal de creuar el riu s'han de construir ponts. Per assegurar-ne l'estabilita s'han de reforçar les dues bandes del riu (a part de la pròpia construcció del pont) aquest fet fa que la construcció de passos sobre el riu sigui tant car.</p>
+	<p style="hp">Quan una parcel·la d'aigua forma part d'un sistema fluvial, aquesta <b>no</b> es pot aïllar per a fer-ne un llac. L'aigua que forma part d'un riu s'indica com a  <b>navegable</b> per <a href="query">l'eina de preguntar</a>.</p>
+	<p style="hp">Les línies elèctriques poden passar l'energia per sota <b>d'una</b> parcel·la del riu de la mateixa manera que poden passar per sota dels sistemes de transport.</p>
+</Document>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Terrisseries</p>
+	<p style="hp">Les terrisseries utilitzen mena, carbó i treballadors per a produir béns. No cal que estiguin connectats a cap mitjà de transport però s'han de trobar al radi d'acció d'un mercat amb mena, carbó, treballadors i capaç de poder rebre béns.</p>
+	<p style="hp">Podeu veure quan les terrisseries estan funcionant pel fum que treuen. Si la xemeneia inferior no treu fum vol dir que la terrisseria no produeix al 100% de la seva capacitat.</p>
+	
+	<p style="hp">Això és una terrisseria</p>
+	<img src="images/tiles/pottery0.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="ore">Mena</a></li>
+	<li><a href="coal">Carbó</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="market">Mercats</a></li>
+</Document>

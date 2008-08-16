@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Transport</p>
+	<p style="hp">Hi ha tres tipus de transports: camins, carreteres i ferrocarrils.</p>
+	<p style="hp">Hi ha una altre mitjà de transport, es pot 'creuar camp a través' per arribar als mercats. És un mitjà de transport per a distàncies curtes i, per tant no es considera com a transport propiament dit. Tanmateix és molt important. Podeu veure'n més informació als <a href="market"> mercats</a>.</p>
+
+	<p style="hp">Els camins, les carreteres i els ferrocarrils s'utilitzen per a transportar aliments, treballadors, béns, carbó, mena acer i escombraries entre diferents zones. El transport entre mercats, per a edificis fora del radi d'acció dels mercats (cosa que sol ser una mala idea) i transport pels edificis que el necessiten explicitament, hem de tenir present:</p>
+	<li>Les comunes han d'estar adjacents al transport</li>
+	<li>Les indústries lleugeres, mines de carbó, mines de mena, abocadors, indústria pesada, ports i centres de reciclatge <b> han d'estar </b> connectats al transport pel costat superior dret. Veureu que la via, carretera, camí fan una corba per visualitzar que estan connectats.</li>
+	<li>L'excepció és la central tèrmica de carbó: el lateral superior dret s'utilitza per a connectar-se a la línia elèctrica, el transport es connecta just a la vora.</li>
+	<p style="hp">Per exemple, una indústria pesant es pot connectar per carretera a una mina de carbó i per ferrocarril a la resta de recursos com les mines de mena i els mercats.</p>
+
+	<p style="hp">Per a creuar un riu amb transports, només cal excavar el riu i construir-hi el camí, la carretera o el ferrocarril al forat. És com construir-hi un pont. Tingueu en compte que excavar és mot car.</p>
+
+	<p style="hp">El manteniment de les carreteres i el ferrocarril i la pol·lució (i encara més si es transporten grans quantitats d'escombraries) té uns costos anuals.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="track">Camins</a></li>
+	<li><a href="road">Carreteres</a></li>
+	<li><a href="rail">Ferrocarrils</a></li>
+
+	<li><a href="commune">Comunes</a></li>
+	<li><a href="coalmine">Mines de carbó</a></li>
+	<li><a href="powercoal">Centrals tèrmiques de carbó</a></li>
+	<li><a href="tip">Abocadors</a></li>
+	<li><a href="recycle">Centres de reciclatge</a></li>
+	<li><a href="oremine">Mines de mena</a></li>
+	<li><a href="industryl">Indústria lleugera</a></li>
+	<li><a href="industryh">Indústria pesant</a></li>
+	<li><a href="port">Ports</a></li>
+
+	<li><a href="finance">Finestra de finances</a></li>
+	<li><a href="msb-transport">Capa de transports i mercats</a></li>
+
+</Document>

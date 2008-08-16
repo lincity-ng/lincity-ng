@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Granges</p>
+	<p style="hp"> A les granges hi creixen aliments per poder alimentar la població i per a proporcionar materials bàsics a les fàbriques. Els pagesos poden vendre els aliments als mercats. Els entreguen amb tractor, per tant no cal que estiguin connectats a un element de transport. 
+
+Farms grow food for people to eat, and to supply the raw materials for mills. Farmers can sell food to markets. They deliver it by tractor so they do not need transport. Tanmateix, si voleu poden servir com a transportistes. Heu d'assegurar-vos que les granges entrin en el radi d'acció d'un mercat.</p>
+	
+	<p style="hp">Això és una granja</p>
+	<img src="images/tiles/farm0.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
+	
+	<p style="hp">Les granges necessiten treballadors per a produir una quantitat mínima d'aliments. Si proporcioneu energia elèctrica a les granges augmentareu la quantitat d'aliments produïts.També s'entén com a energia elèctrica la que proporcionen els vells molins de vent, que ajuden a processar els aliments, reduïnt així els residus.</p>
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="market">Mercat</a></li>
+	<li><a href="tech-level">Nivell de desenvolupament</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="windmill">Molí de vent</a></li>
+	<li><a href="food">Alimentació</a></li>
+</Document>

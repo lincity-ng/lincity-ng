@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Finestra de població</p>
+	<p style="hp">Aquesta és la finestra de població</p>
+	<p style="hp">La finestra mostra 7 estadístiques:</p>
+	<li>Pob - aquesta mostra la gent als seus habitatges. Aquestes xifres no inclouen els indigents.</li>
+	<li>Allotjats - es mostra el totat de gent de la cituat que viu en habitatges.</li>
+	<li>Allotjats % - mostra el percentatge d'habitants que viuen en habitatges.</li>
+	<li>Barraques - mostra la xifra de barraques de la ciutat.</li>
+	<li>Morts desconegudes - mostra el nombre de persones que han mort per gana o pol·lució en el darrer mes.</li>
+	<li>Aturats % - mostra el precentatge de població que és a l'atur.</li>
+	<li>Fam % - mostra el percentatge de població que passa gana.</li>
+	<p style="hp">Si cliqueu en aquest finestra rotaran les finestres de finances, altres despeses i allotjament.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="finance">Finestra de finances</a></li>
+	<li><a href="other-costs">Altres despeses</a></li>
+
+</Document>

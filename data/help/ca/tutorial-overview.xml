@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Pantalla de visió general </p>
+
+<p style="hp"><b>A dalt a l'esquerra </b>trobareu la barra amb les icones de les eines i tot el que necessitareu durant el joc. </p>
+<li>Cliqueu amb el botó esquerra en una incona i s'obrirà el visor amb més eines. </li>
+<li>Cliqueu amb el botó dret en una icona i se us obrirà l'ajuda pertinent. </li>
+<li>Si us espereu amb el cursor quiet en una icona us sortirà un petit missatge d'ajuda. </li>
+<p style="hp"></p>
+
+<p style="hp"><b>Lateral inferior esquerra </b> hi ha els controls de velocitat del joc </p>
+<p style="hp"></p>
+
+<p style="hp"><b>Lateral inferior dret </b>conté totes les eines d'informació: Una finestreta amb quatre pestanyes. A sota hi ha petites icones amb diferents tipus d'informació. Cliqueu-hi i veureu què passa. </p>
+<p style="hp"></p>
+
+<p style="hp">Proveu el teclat i el ratolí (esquerra, mig i dreta, la roda...) , F1 per obtenir ajuda. </p>
+
+<p style="hp">Temes relacionats:</p>
+<li><a href="tutorial-basics">Primers passos</a></li>
+<li><a href="tutorial-advanced">Funcions avançades</a></li>
+<li><a href="tutorial-scenario">Escenari predefinit</a></li>
+
+</Document>
+

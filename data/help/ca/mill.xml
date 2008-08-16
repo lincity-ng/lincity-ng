@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Fàbriques</p>
+	<p style="hp">Les fàbriques converteixen els aliments, carbó i llocs de treball en béns. Aquest joc compta el cotó i la llana com aliments.</p>
+	<p style="hp"> Les fàbriques utilitzen una gran quantitat d'aliments, si no té això en compte es pot trobar en escassetats alimentàries. (Si disposa de molins de vent aquest problema no és tant greu ja que fan que les granges produeixin més.)</p>
+	<p style="hp"> Les fàbriques no cal que estiguin connectades al transport, tan sols cal que estiguin al radi d'acció d'un mercat amb carbó, aliments i treballadors. Podeu veure que una fàbrica està en funcionament pel fum i vapor que surt per les seves xemeneies.</p>
+	
+	<p style="hp">Això és una fàbrica</p>
+	<img src="images/tiles/mill1.png" halign="center"/>
+	<p style="hp">Això és una fàbrica aturada</p>
+	<img src="images/tiles/mill0.png" halign="center"/>
+	<p style="hp">aquesta és la seva icona</p>
+	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="food">Alimentació</a></li>
+	<li><a href="coal">Carbó</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="windmill">Molins de vent</a></li>
+</Document>

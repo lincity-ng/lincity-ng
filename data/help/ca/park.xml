@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Parcs</p>
+	<p style="hp">La funció dels parcs és molt senzilla: redueixen la pol·lució.</p>
+	<p style="hp">Les carreteres, vies de tren, mines de carbó, i la indústria tant lleugera com pesant produeixen pol·lució, en proporcions diferents.</p>
+	<p style="hp">﻿Podeu utilitzar els parcs per protegir zones d'habitatges o aturar contaminació que s'escapa de l'àrea local de la font de producció.</p>
+	<p style="hp">El vent vé <b>del</b> sud oest, cal tenir-ho present a l'hora de construir els parcs.</p>
+	
+	<p style="hp">Això és un parc</p>
+	<img src="images/tiles/parkland-plane.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="pollution">Pol·lució</a></li>
+	<li><a href="road">Carreteres</a></li>
+	<li><a href="rail">Ferrocarril</a></li>
+	<li><a href="coalmine">Mines de carbó</a></li>
+	<li><a href="industryh">Indústria pesant</a></li>
+	<li><a href="industryl">Indústria lleugera</a></li>
+</Document>

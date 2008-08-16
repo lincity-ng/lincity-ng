@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mina de carbó</p>
+	<p style="hp">El carbó de les mines s'extreu de sota terra. Hi ha d'haver un filó de carbó a prop de la mina. Per veure on hi ha els filons heu de clicar al botó del carbó que hi ha just a sota de la mini pantalla.</p>
+	<p style="hp">El primer cop que utilitzeu aquest botó us costarà un milió. Després podreu utilitzar-lo gratuïtament. No és imprescindible utilitzar aquest botó, podeu cercar carbó mitjançant la tècnica d'error i encert.</p>
+	<p style="hp">Les mines de carbó necessiten treballadors per a extreure el carbó.</p>
+	
+	<p style="hp">Això és una mina de carbó</p>
+	<img src="images/tiles/coalmine-full.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+
+	<p style="hp">La gràfica mostra la quantitat de carbó extret però que encara no s'ha transportat. Cada mina de carbó té un límit d'existències.</p>
+	<p style="hp">Fent clic a una mina de carbó us mostrarà les existències de carbó emmagatzemat i, el més important, la reserva de carbó disponible per ser extreta que podreu veure a la finestra d'estats.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="coal">Carbó</a></li>
+	<li><a href="powerscoal">Central tèrmica de carbó</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+</Document>

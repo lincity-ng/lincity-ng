@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Funcions avançades </p>
+<p style="hsubtitle">Mercats i transports </p>
+<p style="hp">Feu doble clic en un mercat a la pantalla principal i s'obrirà una finestra. Aqusta finestra serveix per controlar <b> els intercanvis entre mercats i transports</b>. </p>
+<li>Comprar és el que el mercat compra al transport (per tant l'stoc del mercat creixerà) </li>
+<li>Vendre és el contrari. </li>
+
+<p style="hp">Aquesta caracteristíca s'utilitza molt poc, menys quan voleu prevenir que passi alguna cosa. </p>
+
+<p style="hsubtitle">Desenvolupament sostenible</p>
+<p style="hp">La quarta pestanya de la minifinestra mostra les barres de progrés per a un desenvolupament sostenible. </p>
+<p style="hp">Us recomanem desar el joc abans de deixar-lo funcionar sol molta estona per veure si heu assolit un desenvolupament sostenible. Si hi ha alguna cosa que no rutlla (la fam, per exemple) podeu tornar a començar des del punt on el vau desar :-) </p>
+<p style="hp">Mirant l'estoc total de tots els mercats (a la barra de progressos de la finestreta) podreu prevenir problemees. N'hi hauria d'haver prou mirant de tant en tant reviseu el progrés de sostenibilitat a la finestreta ECO.
+ </p>
+
+<li>Consell: Aneu amb compte amb les barraques i les escombraries que hi ha als mercats... </li>
+<p style="hp"></p>
+</Document>
+

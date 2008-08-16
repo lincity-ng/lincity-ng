@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Informació de les pestanyes d'ajuda</p>
+    <p>Pestanya del mapa</p>
+    <li><a href="mini-screen">Mini-mapa</a></li>
+    <p>Pestanya de mercats</p>
+	<li><a href="pbar">Barra d'estat dels recursos</a></li>
+    <p>Pestanya €</p>
+	<li><a href="finance">Finances</a></li>
+	<li><a href="other-costs">Alres costos</a></li>
+	<li><a href="housing">Població</a></li>
+    <p>Pestanya de l'economia</p>
+	<li><a href="economy">Gràfica de l'economia</a></li>
+	<li><a href="sustain">Finestra del progrés de la sostenibilitat</a></li>
+</Document>

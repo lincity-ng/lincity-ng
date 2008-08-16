@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ocupació</p>
+	<p style="hp">Les persones que viuen als habitatges proporcionen treballadors. Els treballadors són necessaris a la majoria d'àrees per a poder funcionar. Algunes àrees només necessiten treballadors quan s'estan construint, com per exemple els monuments.</p>
+	<p style="hp">Els treballadors els proporcionen els mercats; heu de tenir un mercat als voltants de la zona que voleu cobrir. El mercat proporciona treballadors en funció de la població del seu voltant i de la quantiat de mercats amb els que hagi de compartir els treballadors. La segona manera és mitjançant el transport. Un mercat amb un excés de treballados n'enviarà alguns per transport a altres que n'estiguin mancats ja sigui pel camí, la carretera o la via de ferrocarri</p>
+	<p style="hp"> Si un mercat està saturat de treballadors, no n'acceptarà més. Quan això passa, si no hi ha mercats desocupats als voltants la gent esdevindrà aturada</p>
+	<p style="hp">Un hospital als voltants d'una àrea residencial, augmentarà el nombre de treballadors proporcionats per qualsevol mercat local.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="residential">Habitatges</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Mercats</a></li>
+</Document>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Zones d'indústria lleugera</p>
+	<p style="hp">La indústria lleugera converteix la mena en béns. la conversió és més eficient si també es disposa d'acer. L'electriciat fa augmentar la capacitat de producció d'aquest tipus d'indústria. Els molins de vent <b>no</b> proporcionen energia a aquestes zones.</p>
+	<p style="hp"> Com a norma general, la quantitat de béns produïts en zones d'indústries lleugeres és directament dependent de la quantiat de matèria prima disponible, incloent-hi la quantitat de treballadors que pot rebre i la quantitat de béns produïts que es poden <b>endur</b>.</p>
+	<p style="hp"> Aquestes zones han d'estar connectades a les vies de transport per a canviar mena, acer i béns. Necessiten ser al radi d'acció d'un mercat per a obtenir els treballadors.</p>
+	<p style="hp">Aquestes àrees es connecten al transport <b>només</b> al racó superior dret. Les vies de transport faran una corba quan s'hi connectin.</p>
+	
+	<p style="hp">Això és una indústria lleugera</p>
+	<img src="images/tiles/industryll1.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="road">Carreteres</a></li>
+	<li><a href="rail">Ferrocarrils</a></li>
+	<li><a href="market">Mercats</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+</Document>

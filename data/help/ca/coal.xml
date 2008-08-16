@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Carbó</p>
+	<p style="hp">El carbó s'utilitza per a cremar a les centrals tèrmiques i fer, així electricitat. També s'utilitza a les terrisseries, fàbriques i ferreries en l'elaboració de béns. La indústria pesada (foneries) utilitza carbó quan no pot obtenir electricitat.</p>
+	<p style="hp">El carbó s'extreu del sòl a les mines de carbóC. Hi ha una reserva de carbó concreta, en podeu veure l'ús que se'n fa mitjançant el botó de reserves de carbó (mireu mines de carbó)</p>
+	<p style="hp">Les comunes produeixen una petita quantitat de carbó. De fet es tracta de carbó vegetal. Només en produeixen petites quantitats, suficients per algunes terrisseries i ferrers.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="coalmine">Mines de carbó</a></li>
+	<li><a href="powerscoal">Central tèrmica de carbó</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="pottery">Terrisseries</a></li>
+	<li><a href="blacksmith">Ferrers</a></li>
+	<li><a href="msb-coal">Capa sobre carbó</a></li>
+</Document>

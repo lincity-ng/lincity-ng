@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+ 
+    <p style="htitle">Teclat</p>
+    <p style="hp">ESCAPE: canvia a l'eina de pregunta</p>
+    <p style="hp">b canvia entre l'eina actual i l'excavadora</p>
+    <p style="hp">h amaga els grans edificis. Per a veure'ls de nou torneu a clicar la lletra h.</p>
+    <p style="hp">v fes turnar les capes del minimapa</p>
+    <p style="hp">KP_PLUS: Apropa</p>
+    <p style="hp">KP_MINUS Allunya</p>
+    <p style="hp">KP_ENTER Visualitzeu-ho tot</p>
+    <p style="hp">KP5 poseu el mig del mapa al centre de la pantalla principal</p>  
+    <p style="hp">KP9 aneu cap al nord</p>
+    <p style="hp">KP1 aneu cap al sud</p>
+    <p style="hp">KP7 aneu cap a l'oest</p>
+    <p style="hp">KP3 aneu cap a l'est</p>
+    <p style="hp">KP2 aneu cap al sud-est</p> 
+    <p style="hp">KP4 aneu cap al sud-oest</p> 
+    <p style="hp">KP6 aneu cap al nord-est</p> 
+    <p style="hp">KP8 aneu cap al nord-oest</p> 
+    <p style="hp">el mateix amb el cursos</p>
+    <p style="hp">utilitzeu shift + la direcció desitjada per anar-hi ràpidament</p>
+    <p style="hp">F12 desa-ho ràpidament</p> 
+    <p style="hp">F9  carrega ràpidament</p> 
+
+    <p style="htitle">Ratolí</p>
+    <p style="hp">dreta:</p>
+    <p style="hp">Arrossegueu la pantalla principal amb el botó dret del ratolí.</p>
+    <p style="hp">Cliqueu en un punt amb el botó dret del ratolí i el centrareu a la pantalla principal.</p>
+    <p style="hp">centrar:</p>
+    <p style="hp">cliqueu sobre la pantalla principal per obtenir informació sobre l'àrea que teniu sota el vostre cursor.</p>
+    <p style="hp">esquerra:</p>
+    <p style="hp">Cliqueu al minipa per a visualitzar la zona seleccionada a la pantalla principal.</p>
+    <p style="hp">Realitza una acció en funció de l'eina seleccionada. Excavar, mostrar informació, construir un edifici...</p>
+    <p style="hp">roda del ratolí:</p>
+    <p style="hp"> amunt: augmenta</p>
+    <p style="hp">avall: redueix </p>
+</Document>
+

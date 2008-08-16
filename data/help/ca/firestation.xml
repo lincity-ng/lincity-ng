@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Parcs de bombers</p>
+	<p style="hp">Els parcs de bombers prevenen la declaració i propagació d'incendis en el seu radi d'acció. Necessiten treballadors i béns per a funcionar correctament. <b>No</b> ca que estiguin connectats al transports, però han d'estar al radi d'acció d'un mercat per a obtenir els treballadors i els béns. El manteniment dels parcs de bombers costa diners.</p>
+	<p style="hp">Quan construïu un parc de bombers, no comença a funcionar a l'instant, heu d'esperar uns tres mesos fins que tot el radi d'acció estigui cobert.</p>
+	<p style="hp">Per veure el radi d'acció dels bombers cliqueu al botó d'incendis que hi ha a sota de la <i>mini pantalla</i>. Les zones que tenen cobertura de bombers es veuen normalment, les que no tenen cobertura es veuen de color verd fosc.</p>
+	<p style="hp">Els parcs de bombers fan créixer les ganes de viure a les zones que hi ha al seu radi d'acció.</p>
+	<p style="hp">Els parcs de bombers mostren una animació cada mes per tal de mostrar que estan en funcionament.</p>
+
+	<p style="hp">Això és un parc de bombers</p>
+	<img src="images/tiles/firestation1.png" halign="center"/>
+	<p style="hp">aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+	<p style="hp">i aquesta és la icona de la seva capa al mapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="mini-screen">Mini-pantalla</a></li>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="market">Mercats</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="msb-fire">Capa d'incendis</a></li>
+</Document>

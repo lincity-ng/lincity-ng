@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Camins</p>
+	<p style="hp">Els camins són la via de transport més senzilla i barata tot i que tenen poca capacitat i no produeixen pol·lució.</p>
+	
+	<p style="hp">Això és un camí</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">i aqueta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="commune">Comuna</a></li>
+</Document>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Indústria pesada (acereries)</p>
+	<p style="hp">Les acereries produeixen acer a partir de la mena, energia i llocs de treball. La mena s'obté directament dels sistemes de transports als quals estàn connectades les acereries i l'acer es transporta mitjançant el mateix sistema. Els treballadors s'obtenen dels mercats. Els transports s'han de conectar pel racó superior dret.</p>
+	<p style="hp">L'energia es pot obtenir de dues maneres. La primera és mitjançant carbó, que s'obté directament de les vies de transport. La segona és mitjançant l'electricitat: heu d'estar al radi d'acció d'almenys una subestació elèctrica. Els molins de vent <b>no</b> proporcionen energia a les acereries. </p>
+	<p style="hp">Les acereries produeixen contaminació</p>
+	<p style="hp">Per veure si una acereria està en funcionament podeu clicar-hi a sobre o fixar-vos si la seva animació es mou.</p>
+	
+	<p style="hp">Això és una acereria</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">i aquesta és la seva icona</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="pollution">Pol·lució</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="power">Electricitat</a></li>
+	<li><a href="coal">Carbó</a></li>
+	<li><a href="ore">Mena</a></li>
+</Document>

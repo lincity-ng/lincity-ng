@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Central tèrmica de carbó</p>
+	<p style="hp">Les centrals tèrmiques produeixen paquets d'electricitat que es distribueixen mitjançant les línies elèctriques.</p>
+	<p style="hp">Les línies elèctriques es connecten al costat superior dret de l'estació, els transports es connecten a l'altre extrem. Veieu l'exemple.</p>
+	<p style="hp">L'eficiència de la conversió del carbó a electricitat augmenta en cada nivell de desenvolupament (el de quan cada estació s'ha construït). Quan el vostre nivell de desenvolupament ha creixut notablement és possible que vulgueu enderrocar una estació i canviar-la per una de més nova.</p>
+	
+	<p style="hp">Això és una central tèrmica de carbó</p>
+	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="tech-level">Nivell de desenvolupament</a></li>
+	<li><a href="powerline">Línies elèctriques</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+</Document>

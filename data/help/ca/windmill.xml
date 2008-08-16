@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Molins de vent</p>
+	<p style="hp">Els molins de vent proporcionen electricitat a les zones d'habitatges i granges. Permeten als pagesos produir aliments més eficientment i fan les zones d'habitatges més desitjables.</p>
+	<p style="hp">Proveïnt electricitat a les zones d'habitatges feu que la gent utilitzi més béns.</p>
+	<p style="hp">Els molins de vent de nivells de desenvolupament baix <b>no</b> proveeixen electricitat a les indústries. (La indústria pesada pot obtenir electricitat del carbé, les indústries lleugeres necessiten electricitat <i>real</i> per a estar electrificades, poden treballar sense electricitat però amb produccions molt baixes)</p>
+	<p style="hp">Els molins necessiten treballadors per a produir electricitat. Si un molí no té prou treballadors, produirà menys eletricitat o fins i tot pot deixar de produir-ne si no té cap treballador.</p>
+	
+	<p style="hp">Hi ha dos tipus de molins de vent.</p>
+	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+	<p style="hp">El primer és un molí d'un nivell de desenvolupament baix.</p>
+	<img src="images/tiles/windmill1w.png" halign="center"/>
+	<p style="hp">El segon és un molí modern, tipus parc eòlic.</p>
+	<img src="images/tiles/windmill1g.png" halign="center"/>
+	<p style="hp">El tipus de molins disponibles depén del nivell de desenvolupament que teniu quan els construïu.</p>
+	<p style="hp">High tech windmills can supply power lines.</p>
+	
+		<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="substation">Subestació</a></li>
+	<li><a href="powerline">Línies elèctriques</a></li>
+	<li><a href="residential">Habitatges</a></li>
+	<li><a href="tech-level">Nivell de desenvolupament</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+	<li><a href="powersolar">Central solar</a></li>
+	
+	
+</Document>

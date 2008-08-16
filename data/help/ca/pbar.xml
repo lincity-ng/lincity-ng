@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Estat</p>
+	<p style="hp">Aquesta és la segona pestanya de la mini-finestra</p>
+	<p style="hp">Mostra el total d'estocs emmagatzemats en tots els mercats i la seva evolució.</p>
+	<p style="hp">La xifra indica la quantitat total.</p>
+	<p style="hp">Una barra verda cap a la dreta mostra un creixement. Una barra vermella cap a l'esquerra una reducció. La llargada de la barra indica l'abast del canvi.</p>
+</Document>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Plataformes d'enlairament dels coets</p>
+	<p style="hp">Els coets us permeten evacuar tota la població en un altre món i llavors acabar el joc.</p>
+	<p style="hp">Heu d'aconseguir cinc llançaments consecutius abans de començar l'evacuació. Cada coet llançat satisfactòriament s'endú 1000 persones.</p>
+	<p style="hp">Si un llançament falla, heu de llançar cinc coets més abans no pugueu tornar a evacuar a la gent.</p>
+	<p style="hp">El nivell de desenvolupament a l'hora del llançament determina si un llançament té èxit o és un fracàs. Això vol dir que si el vostre nivell de desenvolupament és, per exemple del 80%, teniu quatre de cinc possibilitats que sigui un èxit. El 100% o més de nivell de desenvolupament indica que tots els llançaments seràn un èxit. (Algun dels <i>primers cinc</i> llançaments pot fallar) Heu de construir una nova plataforma per a cada coet que construïu.</p>
+	<p style="hp">Les plataformes d'enlariament no han d'estar connectades a cap medi de transport, poden aconseguir tot el que necessiten dels mercats locals. Es necessiten grans quantitats d'acer, béns, treballadors i diners per a poder construir-les i funcionar. Quan s'ha acabat de construir un coet veureu un missatge preguntant-vos si el voleu enlariar ara o més endavant. Si escolliu fer-ho més endavant, llavors el podreu enlairar clicant a la plataforma d'enlariament.Podeu tenir uns quants coets esperant per ser enlairats.</p>
+	<p style="hp">Quan s'ha acabat de construir un coet i s'està a l'espera de l'enlairament, ja no necessita acer, béns o treballadors, però el manteniment és car.</p>
+	<p style="hp">Això és una plataforma d'enlairament de coets</p>
+	<img src="images/tiles/rocket5.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="market">Mercat</a></li>
+	<li><a href="ore">Mena</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="steel">Acer</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+</Document>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Línies elèctriques</p>
+	<p style="hp">Les línies elèctriques transporten l'electricitat de les centrals solars i tèrmiques a les sub-estacions. Les línies elèctriques es connecten a la cantonada superior dreta dels tres tipus d'icones, central solar, central tèrmica i sub-estacions.</p>
+	<p style="hp">Les línies elèctriques creuen <b>per sota</b> camins, carreteres, vies fèrrees i rius (sempre que només ocupin 1 àrea. Si hi ha un pal de la línia a cada costat d'una via de transport o riu, la línia actua com si estigués unida sempre que estiguin rectes.</p>
+
+	<p style="hp">Això és una línia elèctrica</p>
+	<img src="images/tiles/powerlvd.png" halign="center"/>
+	<p style="hp">aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
+	<p style="hp">i aquesta n'és la icona a la capa de visualitzacions del mapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="substation">Sub-estació</a></li>
+	<li><a href="powerssolar">Central elèctrica solar</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+</Document>
+

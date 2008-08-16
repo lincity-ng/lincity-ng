@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Velocitat mitjana</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Aquest és el botó de velocitatmitjana. Fa que el programa vagi a velocitat mitjana. En ordiandors vells els botons de velocitat no solen funcionar.</p>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="slow">A poc a poc</a></li>
+	<li><a href="fast">Ràpid</a></li>
+</Document>
+
+

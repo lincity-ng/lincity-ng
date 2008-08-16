@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Comuna</p>
+	<p style="hp">Les comunes (a l'espera d'un nom millor) són zones on es transformen arbres en carbó vegetal. També produeixen petites quantitats de mena i acer.</p>
+	<p style="hp">Segurament necessitareu algunes comunes per a proveir-vos del carbó i acer necessaris per algunes activitats econòmiques com els terrissaires, els ferrers i les fàbriques.</p>
+	<p style="hp">Si una comuna no produeix res durant 10 anys es tanca i la zona esdevé un parc.</p>
+	<p style="hp">Les comunes es poden connectar al transport per qualsevol punt al seu voltant, no només pel davant de la porta.</p>
+	
+	<p style="hp">Això és una comuna</p>
+	<img src="images/tiles/commune1.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="pottery">Terrisseries</a></li>
+	<li><a href="blacksmith">Ferrers</a></li>
+	<li><a href="mill">Fàbriques</a></li>
+	<li><a href="oremine">Mines de mena</a></li>
+	<li><a href="steel">Acer</a></li>
+</Document>

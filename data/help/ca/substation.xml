@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Subestació</p>
+	<p style="hp">Les subestacions reben l'energia elèctrica i la distribueixen a l'àrea que tenen als voltants. Per verue si una zona d'habitatges està electrificada cliqueu a la icona i mireu al finestra d'estat del mapa.</p>
+	
+	<p style="hp">Això és una subestació</p>
+	<img src="images/tiles/substation-G.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="powerline">Línies elèctriques</a></li>
+	<li><a href="powerssolar">Centrals solars</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="steel">Acer</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+</Document>
+

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ràpid</p>
+	<img src="images/gui/speed/fast.png"/>
+	<p style="hp">Aquest és el botó de l'acceleració. Fa que el programa vagi tant ràpid com li sigui possible. Compte, en màquines ràpides pot ser que hi hagi situacions que vagin molt depressa!</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="medium">Velocitat mitjana</a></li>
+	<li><a href="slow">A poc a poc</a></li>
+</Document>

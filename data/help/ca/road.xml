@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Carreteres</p>
+	<p style="hp">Les carreteres tenen més capacitat que els camins però no tanta com el ferrocarril. També produeixen més pol·lució que el ferrocarril tot i que són més barates de mantenir que el ferrocarril.</p>
+	
+	<p style="hp">Això és una carretera</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="pollution">Pol·lució</a></li>
+</Document>

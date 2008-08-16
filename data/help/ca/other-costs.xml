@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Altres despeses</p>
+	<p style="hp">Aquesta és la finestra d'altres despeses.</p>
+	<p style="hp">Aquí es mostren els detalls de les «altres despeses» que es mostren a la finestra de finances. Les despeses que es mostren són les següents: </p>
+	<p style="hp">Interessos</p>
+	<p style="hp">Escoles</p>
+	<p style="hp">Morts per malaltia</p>
+	<p style="hp">Molins de vent</p>
+	<p style="hp">Sanitat</p>
+	<p style="hp">Coets</p>
+	<p style="hp">Parcs de bombers</p>
+	<p style="hp">Esports</p>
+	<p style="hp">Costos de reciclatges</p>
+	<p style="hp">Left clicking on this window will cycle through windows for finance, other costs and housing.</p>
+</Document>

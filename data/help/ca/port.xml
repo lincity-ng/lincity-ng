@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ports</p>
+	<p style="hp">Els ports us permeten importar i exportar béns, acer, mena carbó i aliments. Importar costa diners mentre que exportar en proporciona.</p>
+	<p style="hp">Per a poder utilitzar un port, aquest ha d'estar connectat al transport. Podeu escollir que voleu importar i exportar. Feu doble clic a sobre del port i us sortirà una finestra amb botons sel·leccionables per a que escolliu què voleu importar i exportar.</p>
+	<p style="hp">Els ports <b>han d'estar</b> connectats a un riu/mar per tota la banda dreta.</p>
+	<p style="hp">No exportareu ni importareu res si fins que no cliqueu l'opció pertinent.</p>
+	<p style="hp"> L'àrea d'exportació exporta tots els productes que li arriben. Si voleu exportar, però voleu reduir-ne la quantitat, potser us serà útil utilitzar un mitjà de transport de poca quantitat o passar els productes per un mercat. Per tal de trobar la configuració correcta haureu d'anar fent proves.</p>
+	<p style="hp">Nota: Els exportadors fan descomptes per a grans exportacions.</p>
+
+	<p style="hp">Això és un port</p>
+	<img src="images/tiles/ex_port.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+    <li><a href="export">Importacions i exportacions</a></li>
+	<li><a href="rivers">Rius</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="market">Mercats</a></li>
+	<li><a href="coal">Carbó</a></li>
+	<li><a href="ore">Mena</a></li>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="steel">Acer</a></li>
+</Document>

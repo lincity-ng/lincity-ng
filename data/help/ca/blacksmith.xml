@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ferrers</p>
+	<p style="hp">Els ferrers converteixen l'acer i el carbó en béns. Els utilitzareu des dels inicis del joc. També necessiten treballadors, és clar.</p>
+	<p style="hp">Abans de tenir foneries haureu de proveir-vos de l'acer produit per les comunes. Us recomanem tenir entres 5 i 6 comunes per ferrer.</p>
+	<p style="hp">Els ferrers no han d'estar connectats al transport. Poden obtenir tot el que necessitin dels mercats que tinguin al seu radi d'acció.</p>
+	<p style="hp">Podeu veure quan un ferrer està treballant en temps real clicant sobre la seva icona, i de tant en tant quan l'animació prengui vida.</p>
+
+	<p style="hp">Això és un ferrer</p>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
+	<p style="hp">i aquesta és la seva icona</p>
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="market">Mercat</a></li>
+	<li><a href="ore">Mena</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="steel">Acer</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+</Document>

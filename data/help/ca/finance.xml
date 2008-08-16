@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Finestra de finances</p>
+	<p style="hp">Si cliqueu a l'esquerra d'aquesta finestra veureu com van canviant les finestres com la 'balança global del finances', detalls com 'altres costos' i ' el cost de la població'.</p>
+	<p style="hp">La finestra de finances s'actualitza cada 1 de gener. Les xifres corresponen als ingressos o desperes de l'any anterior.</p>
+	<p style="hp">Les xifres del 'Total' representen la quantitat de diners del teu compte. Hi ha algunes opcions que no podeu fer quan esteu en dèficit.</p>
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="housing">Finestra de població</a></li>
+	<li><a href="other-costs">Altres costos</a></li>
+
+</Document>
+

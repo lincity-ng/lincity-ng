@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Seleccioneu un botó de l'índex</p>
+
+	<!--<p style="subtitle">Energia</p>-->
+	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+	<p><a href="powerline">Línies elèctriques</a></p>
+	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+	<p><a href="powerssolar">Central solar</a></p>
+	<img src="images/gui/buttonpanel/power/substation.png"/>
+	<p><a href="substation">Subestació elèctrica</a></p>
+
+	<!--<p style="subtitle">Habitatges</p>-->
+	<img src="images/gui/buttonpanel/residence/residence.png"/>
+	<p><a href="residential">Zona d'habitatges</a></p>
+
+	<!--<p style="subtitle">Parcs</p>-->
+	<img src="images/gui/buttonpanel/parks/farm.png"/>
+	<p><a href="farm">Granja</a></p>
+
+	<!--<p style="subtitle">Indústria</p>-->
+	<img src="images/gui/buttonpanel/industry/market.png"/>
+	<p><a href="market">Maercat</a></p>
+
+	<!--<p style="subtitle">Base</p>-->
+	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
+	<p><a href="bulldoze">Excavadora</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/tracks.png"/>
+	<p><a href="track">camí</a></p>
+
+	<!--<p style="subtitle">Mines</p>-->
+	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
+	<p><a href="coalmine">Mina de carbó</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/rails2.png"/>
+	<p><a href="rail">Via de ferrocarril</a></p>
+
+	<!--<p style="subtitle">Energia</p>-->
+	<img src="images/gui/buttonpanel/power/coalpower.png"/>
+	<p><a href="powerscoal">Central tèrmica de carbó</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/road.png"/>
+	<p><a href="road">Carretera</a></p>
+
+	<!--<p style="subtitle">Indústria</p>-->
+	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
+	<p><a href="industryl">Zones d'indústria lleugera</a></p>
+
+	<!--<p style="subtitle">Miscel·lània</p>-->
+	<img src="images/gui/buttonpanel/misc/university.png"/>
+	<p><a href="university">Universitat</a></p>
+
+	<!--<p style="subtitle">Mines</p>-->
+	<img src="images/gui/buttonpanel/mining/commune.png"/>
+	<p><a href="commune">Comuna</a></p>
+	<img src="images/gui/buttonpanel/mining/oremine.png"/>
+	<p><a href="oremine">Mina de mena</a></p>
+
+	<!--<p style="subtitle">Comerç</p>-->
+    <img src="images/gui/buttonpanel/transport/port.png"/>
+	<p><a href="export">Importa i exporta</a></p>
+
+	<!--<p style="subtitle">Indústria</p>-->
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<p><a href="industryh">Indústria pesada (foneries)</a></p>
+
+	<!--<p style="subtitle">Parcs</p>-->
+	<img src="images/gui/buttonpanel/parks/tree.png"/>
+	<p><a href="park">Zones ajardinades</a></p>
+
+	<!--<p style="subtitle">Mines</p>-->
+	<img src="images/gui/buttonpanel/mining/recycling.png"/>
+	<p><a href="recycle">Centre de reciclatge</a></p>
+
+	<!--<p style="subtitle">Parcs</p>-->
+	<img src="images/gui/buttonpanel/parks/water.png"/>
+	<p><a href="river">Aigua/rius</a></p>
+
+	<!--<p style="subtitle">Miscel·lània</p>-->
+	<img src="images/gui/buttonpanel/misc/health.png"/>
+	<p><a href="health">Hospital</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/rocket.png"/>
+	<p><a href="rocket">Plataforma d'enlairament de coets</a></p>
+
+	<!--<p style="subtitle">Energia</p>-->
+	<img src="images/gui/buttonpanel/power/windmills.png"/>
+	<p><a href="windmill">Molí de vent</a></p>
+
+	<!--<p style="subtitle">Miscel·lània</p>-->
+	<img src="images/gui/buttonpanel/parks/monument.png"/>
+	<p><a href="monument">Monument</a></p>
+
+	<!--<p style="subtitle">Miscel·lània</p>-->
+	<img src="images/gui/buttonpanel/misc/book.png"/>
+	<p><a href="school">Escola</a></p>
+
+	<!--<p style="subtitle">Parcs</p>-->
+	<img src="images/gui/buttonpanel/parks/mills.png"/>
+	<p><a href="mill">Fàbrica</a></p>
+
+	<!--<p style="subtitle">Indústria</p>-->
+	<img src="images/gui/buttonpanel/industry/pottery.png"/>
+	<p><a href="pottery">Terrisseria</a></p>
+
+	<!--<p style="subtitle">Miscel·lània</p>-->
+	<img src="images/gui/buttonpanel/misc/fire.png"/>
+	<p><a href="firestation">Parc de bombers</a></p>
+	<img src="images/gui/buttonpanel/misc/sports.png"/>
+	<p><a href="cricket">Pistes de bàsquet</a></p>
+
+     <!--<p style="subtitle">Transport</p>-->
+     <img src="images/gui/buttonpanel/transport/port.png"/>
+     <p><a href="port">Port</a></p>
+</Document>

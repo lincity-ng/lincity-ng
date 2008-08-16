@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Zones d'habitatges</p>
+	<p style="hp">En aquestes zones és on hi viu la gent. Per animar-los a viure-hi, la gent s'ha de poder alimentar. També hi ajuda si tenen feina i béns per a comprar. Han d'estar al radi d'acció d'un mercat o connectats a un transport. Hi ha tres tipus de zones d'habitatges: Baixa, mitjana i alta densitat de població. Cada tipus té associat diferents taxes de natalitat i mortalitat. La utilització d'aquestes zones us dóna cert marge de control de la població.</p>
+	<p style="hp">Al final del joc, si esteu prou desenvolupats tecnològicament, podeu construir habitatges moderns i blocs de pisos.</p>
+
+	<p style="hp">Això és una zona d'habitatges de baixa densitat</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<p style="hp">Això és una zona d'habitatges de mitjana densitat</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">Aquesta és una zona d'habitatges d'alta densitat</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="market">Mercat</a></li>
+</Document>
+

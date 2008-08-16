@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">A poc a poc</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Aquest és el botó per alentir els joc. Fa que el joc vagi a la velocitat més lenta que hi ha. És possible que en ordinadors vells els botons de velocitat no funcionin.</p>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="medium">Velocitat mitjana</a></li>
+	<li><a href="fast">Ràpid</a></li>
+</Document>

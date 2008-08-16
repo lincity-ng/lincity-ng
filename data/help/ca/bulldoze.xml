@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Excavadora</p>
+	<p style="hp">Per a enderrocar una zona heu de seleccionar l'excavadora i després clicar a la zona que voleu enderrocar. Els enderrocs s'han de pagar. Quan construiu una zona, el cost d'enderrocar-la es mostra a la part inferior esquerra de la pantalla.</p>
+	<p style="hp">Algunes coes, com els monuments són cars d'enderrocar. El cost d'una demolicó té en compte no només el cost de l'enderroc físic si no també el cost social i polític. Per exemple, per a enderrocar un monument, també tindreu protestes i despeses judicials.</p>
+	<p style="hp">Excavar en rius són l'única manera de creuar-los amb transport. Penseu que un riu excavat és com fer un pont per a creuar-lo.</p>
+	<p style="hp">This is the bulldozer icon</p>
+	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="river">Rius</a></li>
+</Document>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Capa d'alimentació</p>
+	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
+	<p style="hp">La capa d'alimentació només mostra les zones d'habitatges.</p>
+	<p style="hp">El color verd clar mostra les zones que tenen prous aliments per viure. El color verd fosc i vermell mostren les zones on escassegen els aliments i les zones on els habitants passen gana.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Capa de coure</a></li>
+	<li><a href="msb-cricket">Capa d'esports</a></li>
+	<li><a href="msb-fire">Capa d'incendis</a></li>
+	<li><a href="msb-health">Capa de sanitat</a></li>
+	<li><a href="msb-normal">Capa d'usos del terreny</a></li>
+	<li><a href="msb-pol">Capa de pol·lució</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+	<li><a href="msb-transport">Capa de transports</a></li>
+	<li><a href="msb-ub40">Capa d'ocupació</a></li>
+</Document>

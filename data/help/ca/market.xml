@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mercat</p>
+	<p style="hp">El mercat és un edifici clau a Lincity.</p>
+	<p style="hp">Segurament mercat és un nom poc adequat per aquests espais. Hi ha més coses com oficines de treball, botigues, magatzems i mercats al mateix edifici. Als mercats es compra i ven aliments, carbó, mena, béns i acer a les àrees dels voltants així com als transports. Als mercats també es gestiona l'oferta i la demanda de mà d'obra.</p>
+
+	<p style="hp"><b>Tots els intercanvis es fan al radi d'acció del mercat, </b> excepte quan s'explicita a la pàgina d'ajuda que es necessiten els transports. Utilitzeu la <a href="msb-transport">capa de transports i mercats </a> per veure si un edifici és al raid d'acció d'un mercat</p>
+	<li>Les persones poden obtenir aliments, béns i feina desl mercats caminant des de casa seva.</li>
+	<li>Totes les zones que necessiten treballadors els obtenen dels mercats.</li>
+	<li>Les granjes poden vendre els aliments directament als mercats.</li>
+	<li>Les fàbriques, terrissaires i ferrers venen els seus productes directament als mercats més propers, també els utilitzen per a obtenir la matèria prima pels seus negocis.</li>
+	<p style="hp">Si no hi ha mercats disponibles, aquests edificis necessitaran estar connectats <a href="transport"> a una via de transport</a>.</p>
+	<p style="hp">La segona pestanya de la minifinestra mostra <b>el total d'existències als mercats</b>, i com es desenvolupa en la barra de progrés. Conjuntament amb els minipapes (les icones que trobareu a sota) us pot ajudar per a tenir una idea sobre recursos concrets (aliments, ocupació...)</p>
+
+	<p style="hsubtitle">Com podeu controlar el que els mercats poden comprar i vendre</p>
+	<p style="hp">Podeu controlar la funció d'un mercat seleccionant que es pot comprar i vendre mitjançant el transport. Feu doble clic en un mercat (no al botó de selecció de mercats) i us apareixerà una finestra on podreu seleccionar què voleu que s'hi comerciï en aquell mercat. Per defecte s'hi pot comprar i vendre de tot.</p>
+
+	<p style="hp">Això és un mercat</p>
+	<img src="images/tiles/market-empty.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
+	<p style="hp">Això vol dir que es pot comerciar.</p>
+	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
+	<p style="hp">Això vol dir que <b>no</b> es pot comerciar.</p>
+	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
+	<p style="hp">Els nombres entre Compra i Ven són el mapa de referència per aquest mercat.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="food">Alimentació</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="coal">Carbó</a></li>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="ore">Mena</a></li>
+	<li><a href="steel">Acer</a></li>
+	<li><a href="transport">Transport</a></li>
+</Document>

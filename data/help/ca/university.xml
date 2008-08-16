@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Universitat</p>
+	<p style="hp">Les universitats us ajuden a augmentar el nivell de desenvolupament. Per fer-ho necessiten béns i treballadors. Produeixen més que una escola però consumeixen més béns i reballadors i, per tant, el seu manteniment és més car però hauríeu de tenir la capacitat econòmica i industrial suficient per a proveïr-les.</p>
+	<p style="hp">Necessitareu un cert nombre d'universitats per assolir un nivell de desenvolupament proper al 100%</p>
+	<p style="hp">No cal que les universitats estiguin connectades als mitjans de transports, poden obtenir el que necessiten dels mercats que hi hagi al seu radi d'acció sempre i quan tinguin prous béns i treballadors disponibles.</p>
+
+	<p style="hsubtitle">NOTA</p>
+	<p style="hp"><b>Heu</b> de tenir 5 escoles per cada universitat per tal de proveir-li prou estudiants.</p>
+
+	<p style="hp">Això és una universitat</p>
+	<img src="images/tiles/university.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="market">Mercat</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="schools">Escoles</a></li>
+	<li><a href="tech-level">Nivell de desenvolupament</a></li>
+</Document>

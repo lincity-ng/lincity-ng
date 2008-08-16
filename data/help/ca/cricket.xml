@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Pistes de bàsquet</p>
+	<p style="hp">Les pistes de bàsquet proporcionen esport i lleure pels habitants. Necessiten treballadors i béns per a funcionar. No cal que estiguin connectades al transport, tanmateix, han d'estar al radi de cobertura d'un mercat que li subministri treballadors i béns. El seu funcionament costa diners.</p>
+	<p style="hp">Quan construïu una pista de bàsquet, no comença a funcionar immediatament. Normalment passen uns tres mesos fins que les cistelles de bàquet estiguin instal·lades.</p>
+	<p style="hp">Per a veure el radi de cobertura de des pistes de bàsquet, cliqueu al botó d'esports a sota de la mini-pantalla. Les zones amb cobertura es mostren igual, les zones que no tenen cobertura es mostren en color verd fosc.</p>
+	<p style="hp">Les pistes de bàsquet fan creixe les ganes de viure a les zones residencials del seu radi de cobertura.</p>
+	<p style="hp">Les pistes de bàsquet mostren una animació cada mes per mostrar que estan en funcionament.</p>
+
+	<p style="hp">Això és una pista de bàsquet</p>
+	<img src="images/tiles/cricket1.png" halign="center"/>
+	<p style="hp">aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+	<p style="hp">i aquesta és la icona de la capa d'esports</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="mini-screen">Mini-pantalla</a></li>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="market">Mercat</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="msb-cricket">Capa d'esports</a></li>
+</Document>
+
+

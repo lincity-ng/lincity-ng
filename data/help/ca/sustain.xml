@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Finestra del progrés de sostenibilitat.</p>
+	<p style="hp">Aquesta finestra té sis línies de colors. Quan assoleixin la part dreta de la finestra, tindreu una economia sostenible.</p>
+	<li>
+		<span color="orange">MIN</span> (taronja) no esteu explotant cap mina de mena o
+		carbó i esteu reutilitzant les escombraries.
+	</li>
+	<li>
+		<span color="gray">PRT</span>	(gris) no esteu important ni exportant.
+	</li>
+	<li>
+		<span color="green">DNR</span> (verd) la vostra economia és estable o puja,
+		això significa que no podeu construir res excepte a les zones més barates.
+	</li>
+	<li>
+		<span color="blue">POB</span> (blau) la població és estable o en el marge
+		d'un 2% del valor quan comenci l'any 180. If it goes outside of
+		this band, the new population will be the new value and the year count
+		will be set back to zero. Also, your population must be at least 5000.
+	</li>
+	<li>
+		<span color="yellow">DEV</span> (groc) el nivell de desenvolupament ha de
+		creixer o decrèixer molt poc. Si cau més d'un 1% l'any comença de nou.
+		A més a més, el nivell de desenvolupament ha de ser, almenys del 50%.
+	</li>
+	<li>
+		<span color="red">FOC</span> (vermell) totes les zones susceptibles d'incendi 
+		han d'estar cobertes. Les següents zones *no* cal que tinguin cobertura de bombers: 
+		monuments, mines de mena, línies elèctriques i plataformes d'enlairament.
+	</li>
+	<p style="hp">Requisits anuals per a la sostenibilitat: MIN=180 PRT=180 MNY=60 POP=60 TEC=120 FIR=60</p>
+</Document>

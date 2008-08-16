@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Acer</p>
+	<p style="hp">L'acer es sol fer per a la indústria pesada (acereries). Heu d'esperar a assolir un nivell de desenvolupament prou alt per a poder construir acereries. Abans, l'única opció és treure'l de les comunes. Les comunes produeixen una petita quantitat d'acer (de la mena), per tant necessitareu unes quantes comunes per a produir les quantitats d'acer necessari.</p>
+	<p style="hp">Els ferrers utilitzen l'acer per a fer béns, també l'utilitza la indústria lleugera per a les seves eines i productes. La indústria lleugera pot funcionar sense acer, però la seva producció serà molt reduïda.</p>
+	<p style="hp">Els coets utilitzen molt acer, principalment per a constuir la plataforma d'enlairament.</p>
+	<p style="hp">El manteniment dels ferrocarrils també requereix acer</p>
+	<p style="hp">La producció d'acer està taxada amb un impost.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="blacksmith">Ferrers</a></li>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="industryh">Indústria pesada</a></li>
+	<li><a href="industryl">Indústria lleugera</a></li>
+	<li><a href="rail">Ferrocarril</a></li>
+</Document>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Primers passos </p>
+<p style="hp">Escolliu "Joc nou " &gt; "població aleatòria". Els altres escenaris són per a jugadors amb més experiència. </p>
+<p style="hp">Fixeu-vos que les poblacions aleatòries ja tenen els recursos bàsics: </p>
+<li>Granges per a proveïr menjar als mercats </li>
+<li>Comunes que produeixen carbó vegetal i petites quantitats de mena i acer </li>
+<li>Zones d'habitatges</li>
+<li>Terrissaires</li>
+<li>Camins</li>
+
+<p style="hp">En clicar en un edifici (a la pantalla principal) es mostra la informació pertinent en una finestra que hi ha al lateral inferior dret.</p>
+
+<p style="hsubtitle">Mercat </p>
+<p style="hp">Els mercats, a Lincity són una peça clau. Són obligatoris per a la majoria de comerços locals. <b> Hauríeu </b> de llegir l'ajuda sobre els <a href="market">mercats </a> :-). <i> Quan a un mercat li manca un ítem, evidentment no el pot vendre i quan té el magatzem ple, tampoc en pot comprar més. Això us pot ajudar a entendre per que un edifici no funciona (probablement per que no pot trobar el que necessita o no pot vendre els seus productes)</i> </p>
+
+<p style="hsubtitle">Transport </p>
+<p style="hp">El <a href="transport">transport </a> és necessari per a intercanvis de llarga distància i per algunes activitats concretes ( ho veureu a l'ajuda pertinent, per exemple a les comunes) com els mercats tenen una capacitat limitada i poden arribar a saturar-se.</p>
+
+<p style="hp">Si un edifici normal no es troba al radi d'acció d'un mercat s'haurà de connectar al transport. Però recordeu que els ferrocarrils i les carreteres tenen un cost de manteniment anual, per tant, a menys que vulgueu un redifici realment aïllat (per exemple un monument) es millor (i més econòmic) situar-los a prop dels mercats (si en necessiten)</p>
+
+<p style="hp">A les poblacions inciials els camins tan sols els necessiten les comunes. La resta d'activitats només necessiten els mercats. </p>
+
+<p style="hsubtitle">Diners </p>
+<p style="hp">Les produccions han de pagar impostos i aquests us permeten guanyar diners. A la finestreta, la tercera pestanya és la <a href="finance"> Finestra de finances </a> Procureu de no invertir massa en massa poc temps: Quan teniu una economia negativa no podeu construir alguns edificis i heu de pagar els costos per any que suposa tenir el deute.Això us pot dur a la fallida econòmica (mireu <a href="tutorial-scenario"> l'escenari difícil </a>. </p>
+
+<p style="hsubtitle">Desenvolupament de la ciutat </p>
+<p style="hp">Recordeu que la gent, per viure, ha de menjar. Per controlar el creixement de la població podeu trobar un balanç del tipus de <a href="residential"> Zones residencials </a> que podeu construir (tenen diferents taxes de naixements/morts). La nova població us permetrà tenir més treballadors, però també necessitareu més alments, béns, llocs de treball...</p>
+<p style="hp">Per augmentar els llocs de treball i els béns haureu d'augmentar la vostra producció (creeu més terrisseries, ferrers...) i alhora haureu de tenir clar que disposen de tot el que necessiten. Segurament també haureu d'augmentar el nombre de comunes en consonància. </p>
+<p style="hp">Per tenir nous edidicis haureu d'augmentar el vostre <a href="tech-level"> Nivell de desenvolupament </a>.</p>
+<p style="hp"> En algun punt del joc haureu d'escollir el vostre objectiu: Una <a href="sustain"> economia sostenible </a> o una evacuació amb <a href="rocket"> coets </a>.</p>
+
+<p style="hp">Haureu de revisar sovint els <a href="pbar"> estocs totals dels mercats </a>. Els mini-mapes també us poden donar millors indicadors sobre el progrés de la seva economia i per a tenir dades concretes cliqueu sobre un edifici per a veure'n la informació a la finestreta de la part inferior dreta </p>
+
+<li>Consell: Feu un o dos canvis i després espereu una mica (podeu llegir les pàgines d'ajuda ;-) o poseu el joc a velocitat ràpida, i mireu com canvien els indicadors econòmics. </li>
+<p style="hp"></p>
+<p style="hp">Gaudiu del joc.</p>
+<p style="hp"></p>
+
+<p style="hp">Temes relacionats:</p>
+<li><a href="tutorial-advanced">Tutorial de funcions avançades</a></li>
+<li><a href="tutorial-scenario">Tutorial d'escenari predefinit</a></li>
+<li><a href="msb-starve">Capa d'alimentació</a></li>
+<li><a href="msb-ub40">Capa d'ocupació</a></li>
+
+
+</Document>
+

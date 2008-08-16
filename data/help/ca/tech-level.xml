@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Tech Level</p>
+	<p style="hp">Your city's technology level determines a number of things, such as what you can build and the efficiency of certain processes.</p>
+	<p style="hp">To increase your technology, you must build (and supply with the appropriate inputs) Monuments, Schools and  Universities.</p>
+	<p style="hp">When your tech level is very low you can only build monuments. When a few of these have been around for a while, you will then <i>invent</i> schools. Schools produce more technology than monuments.</p>
+	<p style="hp">When your tech level reaches a higher value still, you will <i>invent</i> universities. These produce even more technology than schools, but are <b>very</b> resource hungry.</p>
+	<p style="hp">The more technology you have, the faster it <i>erodes</i>. This means that the higher you want your tech level to be, the more schools and universities you will need.</p>
+	<p style="hp">Also, be aware that if for some reason you need to take out, say, a university or two (or they are suddenly starved of resources) your tech level is likely to start <b>falling</b>.</p>
+	<p style="hp">Percentage of chance for a successful rocket launch is equal to your tech-level.</p>
+
+	<p style="hsubtitle">See also:</p>
+	<li><a href="monument">Monuments</a></li>
+	<li><a href="school">Schools</a></li>
+	<li><a href="university">Universities</a></li>
+	<li><a href="rocket">Rocket Launch Pad</a></li>
+</Document>

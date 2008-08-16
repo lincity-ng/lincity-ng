@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Alimentació</p>
+	<p style="hp">Els aliments creixen a les granges o poden ser importats mitjançant un port.</p>
+	<p style="hp">La població necessita menjar per a sobreviure. Si no tenen prou aliments els habitants aniran a viure a una altra zona, la població pot morir de gana.</p>
+	<p style="hp">Les fàbriques també necessiten aliments. Converteixen, per exemple, cotó en roba i poden arribar a necessitar <i>molts</i> aliments. Aneu amb compte.</p>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="farm">Granja</a></li>
+	<li><a href="port">Port</a></li>
+	<li><a href="mill">Fàbrica</a></li>
+	<li><a href="steel">Acer</a></li>
+</Document>

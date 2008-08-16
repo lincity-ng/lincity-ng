@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Capa de sanitat</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<p style="hp">Les zones que són dins del radi d'acció d'un hospital es mostren de color verd fosc.</p>
+	<p style="hp">Les zones fora de l'abast d'un hospital es mostren normals.</p>
+	<p style="hp">Recordeu que els hospitals tarden tres mesos en esdevenir actius.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Capa de carbó</a></li>
+	<li><a href="msb-cricket">Capa d'esports</a></li>
+	<li><a href="msb-fire">Capa d'incendis</a></li>
+	<li><a href="msb-normal">Capa d'usos del terreny</a></li>
+	<li><a href="msb-pol">Capa de pol·lució</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+	<li><a href="msb-starve">Capa d'alimentació</a></li>
+	<li><a href="msb-transport">Capa de transports</a></li>
+	<li><a href="msb-ub40">Capa d'ocupació</a></li>
+</Document>
+
+
+
+<!--
+
+text -1 270 Left click on the mini screen 
+text -1 280 to reposition the main window.
+text -1 300 Left click on the mini screen title 
+text -1 310 to choose a different mini screen view.
+text -1 330 Toggle overlay mode by pressing 'v' 
+text -1 340 or middle click on the mini screen title (X only)
+-->

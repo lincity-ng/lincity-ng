@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Objectius del joc </p>
+<p style="hp">Hi ha dues maneres de guanyar el joc</p>
+<li>Assolir una <a href="sustain">economia sostenible </a> (després podreu continuar jugant) </li>
+<li>Evacuar tota la població amb <a href="rocket">coets </a> en un altre planeta, llavors el joc s'atura. </li>
+<p style="hp"></p>
+
+<p style="hp">Actualment (1.1.0) tan sols hi ha una manera de perdre:</p>
+<li>La mort de tota la població degut a la fam i la pol·lució. (necessiteu com a mínim dues persones per a tenir població ;-) </li>
+<p style="hp"></p>
+
+<p style="hp">Haureu d'augmentar el vostre nivell de desenvolupament per a obtenir nous edificis i indústries. Haureu de gestionar l'augment de la població i tenir compte amb les diferents necessitats i la balança econòmica. </p>
+<p style="hp"></p>
+
+<p style="hp">Temes relacionats:</p>
+<li><a href="tutorial-basics">Primers passos</a></li>
+<li><a href="tutorial-advanced">Funcions avançades</a></li>
+<li><a href="tutorial-scenario">Escenari predefinit</a></li>
+
+</Document>
+

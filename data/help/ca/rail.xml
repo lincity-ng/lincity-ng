@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ferrocarrils</p>
+	<p style="hp">Els ferrocarrils poden transportar més productes que els camins o les carreteres. Produeixen una mica menys de pol·lució que les carreteres tot i que són una mica cares de construir i mantenir tot i que són molt pràctiques si heu de transportar moltes mercaderies per llargues distàncies.</p>
+
+	<p style="hp">Això és una via de ferrocarril</p>
+	<img src="images/tiles/railud.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="pollution">Pol·lució</a></li>
+</Document>

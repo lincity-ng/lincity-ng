@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Centres de reciclatge</p>
+	<p style="hp">L'ús de béns produeix escombraries</p>
+	<p style="hp">Els centres de reciclatge converteixen els béns utilitzats en mena. Han d'estar connectats a un mitjà de transports per la part superior dreta. Per a produir mena fan falta diners i treballadors.</p>
+	<p style="hp">És possible assolir una economia sostenible (per exemple, sense haver d'extreure més mena, ...) tot i tenir els centres de reciclatge en menys del 100% d'eficiència sempre que tingueu algunes fàbriques que puguin re-emplacar els béns fets malbé.</p>
+	
+	<p style="hp">Això és un centre de reciclatge</p>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="ore">Mena</a></li>
+	<li><a href="transport">Transport</a></li>
+</Document>

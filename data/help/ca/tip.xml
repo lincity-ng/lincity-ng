@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Abocadors</p>
+	<p style="hp">Els abocadors proporcionen un lloc per a deixar-hi la brossa. Si n'acumuleu massa als mercats, els mercats es veuran obligats a incinerar-la. La incineració de la brossa produeix molta pol·lució, per tant és perillós permetre les acumulacions de brossa.</p>
+	<p style="hp">A mesura que s'omple un abocador es va convertint en un turó que s'omple d'herba quan és ple.</p>
+	<p style="hp">El transport es connecta pel lateral superior dret de l'abocador.</p>
+	<p style="hp">Podeu veure quan un abocador està funcionant clicant-hi a sobre o fixant-vos si l'animació es mou.</p>
+	
+	<p style="hp">Això és un abocador</p>
+	<img src="images/tiles/tip0.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="market">Mercats</a></li>
+</Document>

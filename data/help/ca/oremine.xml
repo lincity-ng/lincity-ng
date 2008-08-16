@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mina de mena</p>
+	<p style="hp">Les mines de mena proporcionen mena per a produir béns i acer. Podeu construir una mina de mena en qualsevol lloc. La mena que hi ha a sòl es consumenix lentament; no podeu enderrocar les mines i esperar que construint-ne una altra obtindreu més mena.</p>
+	<p style="hp">Quan una mina de mena s'ha exhaurit es converteix en un llac. Si voleu recuperar aquests terrenys haureu d'excavar 16 àrees d'aigua.</p>
+	<p style="hp">La gràfica mostra les mines de mena que s'estan explotant intensivament o que estan a punt d'exhaurir-se.</p>
+	<p style="hp">Els transports s'han de connectat al racó superior dret de la mina.</p>
+	
+	<p style="hp">Això és una mina de mena</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="ore">Mena</a></li>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="steel">Acer</a></li>
+</Document>

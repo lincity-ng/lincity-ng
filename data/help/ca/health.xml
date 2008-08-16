@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Hospital</p>
+	<p style="hp">Els hospitals proporcionen cobertura sanitària a les zones d'habitatges. El seu radi d'acció sol ser d'uns quatre quadres en cada direcció.</p>
+	<p style="hp">Els hospitals atreuen la població a viure a les zones que tenen al seu radi d'acció, redueixen les morts per pol·lució, les malalties relacionades i fan que els habitants del seu voltant siguin més eficients a la feina i que les seves baixes per malaltia es redueixin.</p>
+	<p style="hp"> Els hospitals són molt cars, 60.000€ per any. Tanmateix redueixen el cost de les morts 'no naturals' i poden proporcionar impostos sobre la renda extra, mentre hi hagi gent treballant-hi.</p>
+	<p style="hp">Des de que comenceu a construir un hospital fins que funcioni passen tres mesos. Els hospitals necessiten béns, però no necessiten treballadors. quests es tenen en compte en calcular les feines extres creades per la reducció en malaltia de les àrees circumdants.</p>
+	<p style="hp">No cal que els hospitals estiguin connectats a cap tipus de transport tot i que han d'estar dins del radi d'acció d'un mercat.</p>
+	<p style="hp">Per veure el radi de cobertura d'un mercat, cliqueu a la icona de Sanitat a sota de la mini-pantalla. Les zones mostrades en color verd són les que tenen cobertura sanitària.</p>
+
+	<p style="hp">Això és un hospital</p>
+	<img src="images/tiles/health.png" halign="center"/>
+	<p style="hp">aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+	<p style="hp">i aquesta és la icona de la seva capa al mapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="residential">Habitatges</a></li>
+	<li><a href="pollution">Pol·lució</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+	<li><a href="goods">Béns</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="msb-health">Capa sanitària</a></li>
+</Document>

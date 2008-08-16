@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Pol·lució</p>
+	<p style="hp">La majoria d'usos del terreny produeixen pol·lució en major o menor mesura. Les següents són els usos que poden produir una gran pol·lució:</p>
+	<li>Indústria pesada.</li>
+	<li>Indústria lleugera.</li>
+	<li>Centrals tèrmiques de carbó.</li>
+	<li>Mines de carbó.</li>
+	<li>Mercats plens d'escombraries.</li>
+	<li>Carreteres/ferrocarril, particularmen quan són plens d'escombraries.</li>
+	<p style="hp">A la gent no li agrada viure a zones pol·luïdes. Normalment canvien de lloc o emmalalteixen i moren.</p>
+	<p style="hp">El vent dominant és el del sud-oest. És ﻿per això que la pol·lució tendeix a anar cap al Nord-est.</p>
+	<p style="hp">Podeu construir les zones industrials estratègicament de manera que les zones d'habitatges no estiguin exposades a la pol·lució tot i que no sempre és possible. Quan no sigui possible penseu que els parcs formen una barrera per la pol·lució. Com més parcs hi hagi, més protegits estaran els habitants de la ciutat.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="industryh">Indústria pesada</a></li>
+	<li><a href="industryl">Indústria lleugera</a></li>
+	<li><a href="powerscoal">Centrals tèrmiques de carbó</a></li>
+	<li><a href="coalmine">Mines de carbó</a></li>
+	<li><a href="market">Mercats</a></li>
+	<li><a href="rail">Ferrocarrils</a></li>
+	<li><a href="road">Carreteres</a></li>
+	<li><a href="park">Parcs</a></li>
+	<li><a href="msb-pol">Capa de pol·lució</a></li>
+</Document>

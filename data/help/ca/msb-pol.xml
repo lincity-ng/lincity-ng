@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Capa de pol·lució</p>
+	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+	<p style="hp"> Aquesta capa mostra els nivells de pol·lució a la ciutat.</p>
+	<p style="hp">A mesura que la pol·lució augmenta, el color de la zona contaminada canvia. Aquesta és l'escala de pol·lució de menor a major: Verd clar -> Verd fort -> Verd fosc -> Vermell fosc -> Vermell fort -> Vermell clar.</p>
+	<p style="hp">Les zones d'habitatges que es mostren en color vermell provocaràn malalties a la gent i faran que la gent no vulgui anar-hi a viure.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Capa de carbó</a></li>
+	<li><a href="msb-cricket">Capa d'esports</a></li>
+	<li><a href="msb-fire">Capa d'incendis</a></li>
+	<li><a href="msb-health">Capa de sanitat</a></li>
+	<li><a href="msb-normal">Capa d'usos del terreny</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+	<li><a href="msb-starve">Capa d'alimentació</a></li>
+	<li><a href="msb-transport">Capa de transports</a></li>
+	<li><a href="msb-ub40">Capa d'ocupació</a></li>
+</Document>

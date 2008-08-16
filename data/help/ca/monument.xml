@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Monuments</p>
+	<p style="hp">Els monuments són l'eix central per a l'ensenyament i la inspiració dels inventors. Cada monument acabat farà crèixer el nivell de desenvolupament, però la seva efectivitat baixa fins a zero quan assoliu el 40% de nivell de desenvolupament.</p>
+	<p style="hp">Per a construir un monument fan falta treballadors. <b>Molts</b> treballadors. És per aquest motiu que són pràctics per a controlar l'atur tot i que només és una solució a curt termini ja que els monuments no necessiten treballadors un cop s'han acabat de construir.</p>
+	<p style="hp">Podeu saber el progrés del procés constructiu d'un monument mirant a la finestra d'estat. El gràfic dels monuments canvia a mesura que es va construint. Hi ha sis gràfics que mostren els estadis de construcció del 0% al 100%</p>
+	<p style="hp"><b>Consell</b>: Com reduir els treballadors d'un monument per tal que no mati de gana altres zones amb ocupació: construeixi una altra granja lluny dels altres espais.</p>
+
+	<p style="hp">Això és un monument</p>
+	<img src="images/tiles/monument5.png" halign="center"/>
+	<p style="hp">i aquesta n'és la seva icona</p>
+	<img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="market">Mercat</a></li>
+	<li><a href="ore">Mena</a></li>
+	<li><a href="commune">Comuna</a></li>
+	<li><a href="steel">Acer</a></li>
+	<li><a href="jobs">Ocupació</a></li>
+</Document>

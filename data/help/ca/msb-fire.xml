@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Capa d'incendis</p>
+	<img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+	<p style="hp">Les zones que són en el radi d'acció d'un parc de bombers es veuen de color verd fosc</p>
+	<p style="hp">Les zones fora de l'abast dels parcs de bombers es veuen normals.</p>
+	<p style="hp">Recordeu que els parcs de bombers tarden tres mesos per a estar en ple rendiment.</p>
+	<p style="hp">Cliqueu amb el botó esquerra sobre la mini pantalla per a centrar la zona que heu clicat a la pantalla principal. Si voleu canviar de minipantalla tan sols cal clicar a la icona de la capa que voleu veure. Podeu canviar el mode de visualització prement la tecla v.</p>
+	
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="mini-screen">Minimapa</a></li>
+	<li><a href="msb-coal">Capa de carbó</a></li>
+	<li><a href="msb-cricket">Capa d'esports</a></li>
+	<li><a href="msb-health">Capa de sanitat</a></li>
+	<li><a href="msb-normal">Capa d'usos del terreny</a></li>
+	<li><a href="msb-pol">Capa de pol·lució</a></li>
+	<li><a href="msb-power">Capa d'electricitat</a></li>
+	<li><a href="msb-starve">Capa d'alimentació</a></li>
+	<li><a href="msb-transport">Capa de transports</a></li>
+	<li><a href="msb-ub40">Capa d'ocupació</a></li>
+</Document>

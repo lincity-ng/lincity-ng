@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Pregunta</p>
+	<p style="hp">Utilitzeu aquesta enia per a mostrar la informació referent a un edifici.</p>
+	<p style="hp">La informació es visualitza al mini mapa.</p>
+	<p style="hp">L'ús d'aquesta eina no suposa cap cost.</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	<p style="hsubtitle">Temes relacionats:</p>
+    <li><a href="keys">Comandaments del teclat</a></li>
+	<li><a href="help">Índex</a></li>
+</Document>
+

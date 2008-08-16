@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Béns</p>
+	<p style="hp">Els béns són necessaris per a treballar en la majoria de zones industrials. També els agraden a la població qui es sent atreta per les zones on poden obtenir-los.</p>
+	<p style="hp">Els béns paguen impostos, per tant, la seva producció us ajudarà en les vostres finances.</p>
+	<p style="hp">Els béns els produeixen les terrisseries, els ferrers, les fàbriques i la indústria lleugera.</p>
+
+	<p style="hsubtitle">Temes relacionats:</p>
+	<li><a href="pottery">Terrisseries</a></li>
+	<li><a href="blacksmith">Ferrers</a></li>
+	<li><a href="mills">Fàbriques</a></li>
+	<li><a href="industryl">Indústria lleugera</a></li>
+</Document>

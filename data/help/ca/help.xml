@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Ajuda de Lincity</p>
+	<p style="hp">Aquest és el sistema d'ajuda de Lincity. Si us plau, escolliu un tema clicant en qualsevol de les paraules de color blau que hi ha més avall. Normalment les paraules blaves indiquen un enllaç a un altre document. utilitzeu les fletxes que hi ha a dalt a l'esquerra per anar a la pantalla d'ajuda anterior o següent.</p>
+	<p style="hp">Quan estigueu jugant, podeu obtenir ajuda en la majoria d'ítems utilitzan el botó d'ajuda o clicant amb el botó dret del ratolí en un edifici concret o en una icona de la barra de menú que hi ha a dalt a l'esquerra de la pantalla.</p>
+
+	<li><a href="tutorial">Tutorial</a></li>
+	<li><a href="keys">Comandaments del teclat</a></li>
+	<li><a href="button-index">Llista de tots els ítems construïbles</a></li>
+	<li><a href="mini-screen">Ajuda amb el mini-mapa</a></li>
+	<li><a href="dialogs">Ajuda amb les pestanyes d'informació</a></li>
+	<li><a href="index">índex</a></li>
+
+    <p style="htitle">Objectiu del joc</p>
+    <p style="hp">Podeu guanyar Lincity ja sigui desenvolupant una <a href="sustain">economia sostenible </a> o
+    evacuant a tots els ciutadants mitjançant <a href="rocket">coets espacials</a>.</p>
+</Document>
