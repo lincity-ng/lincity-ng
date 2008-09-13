@@ -232,6 +232,9 @@ void setup_land(void)
                     arid = (aridity * 2) / 3;
             }
             /* Altitude has same effect as distance */
+            if( alt_step == 0 ){
+                 alt_step = 400; // TODO: Why can alt_step be zero here? Quick hack to prevent crash WolfgangB 2008-09-13
+            }
             r = rand() % (d2w_min / 3 + 1) + arid +
                 abs((ALT(x,y) - alt0) * 19 / alt_step) + 3 * (ALT(x,y) * ALT(x,y)) /1000000 ;
             ground[x][y].ecotable=r;
