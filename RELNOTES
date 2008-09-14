@@ -1,4 +1,4 @@
- LincityNG 1.92.beta *** 
+*** LincityNG 1.92.beta *** [r1456 in svn] 2008-09-13
 
 public BETA release with:
 * water management
@@ -6,8 +6,6 @@ public BETA release with:
 * improved images
 * changes in savegame format, saves to ~/.lincity-ng/
 * documentation is NOT up to date
-
-
 
 *** LincityNG 1.1.2 *** [r1270 in svn] 2007-11-04
 
