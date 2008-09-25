@@ -110,8 +110,12 @@ void saveCityNG( std::string newFilename ){
  * Load City and do setup for Lincity NG.
  */
 bool loadCityNG( std::string filename ){
-    /* FIXME crash on debian etch when 9_currentGameNG.scn does not exist */
-    std::string dir = PHYSFS_getRealDir(filename.c_str());
+    /* TODO use PhysFS directly to load file instead of getRealDir hack */
+    const char* directory = PHYSFS_getRealDir(filename.c_str());
+    if( !directory ){
+        return false;
+    }
+    std::string dir = directory;
     filename = dir + PHYSFS_getDirSeparator() + filename;
     if( file_exists( const_cast<char*>( filename.c_str()) ) ){
         load_city_2(const_cast<char*>(filename.c_str()));
