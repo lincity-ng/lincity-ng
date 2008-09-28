@@ -409,7 +409,15 @@ void ButtonPanel::attachButtons()
         if(b)
         {
           b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
-          b->setTooltip( createTooltip( mMenuSelected[ mMenus[ i ] ] ) );
+          if( b->isEnabled() ){
+            b->setTooltip( createTooltip( mMenuSelected[ mMenus[ i ] ] ) );
+          } else {  
+            char tooltip[2048];
+            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"), 
+                     createTooltip( mMenuSelected[ mMenus[ i ] ] ).c_str(),
+                     requiredTech( mMenuSelected[ mMenus[ i ] ]));
+            b->setTooltip(tooltip);
+          }
         }
       }
     } 
@@ -424,7 +432,15 @@ void ButtonPanel::attachButtons()
         {
           b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
           doButton( mButtons[i] );
-          b->setTooltip( createTooltip( selected_module_type, false ) );
+           if( b->isEnabled() ){
+             b->setTooltip( createTooltip( selected_module_type, false ) );
+	       } else {  
+            char tooltip[2048];
+            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"), 
+                     createTooltip( selected_module_type, false ).c_str(),
+                     requiredTech(selected_module_type));
+            b->setTooltip(tooltip);
+          }
         }
       }
     } 
