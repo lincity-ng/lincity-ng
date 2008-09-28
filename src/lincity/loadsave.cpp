@@ -508,12 +508,24 @@ void load_city_2(char *cname)
     print_total_money();
 
     //reset_animation_times
-    for ( y = 0; y < WORLD_SIDE_LEN; y++)
+    //get alt_min, alt_max
+    alt_min = 2000000000;
+    alt_max = -alt_min;
+    for ( y = 0; y < WORLD_SIDE_LEN; y++){
         for ( x = 0; x < WORLD_SIDE_LEN; x++) {
             MP_ANIM(x,y) = 0;
-            if (MP_GROUP(x, y) == GROUP_FIRE)
+            if (MP_GROUP(x, y) == GROUP_FIRE){
                 MP_INFO(x, y).int_3 = 0;
+            }
+            if (alt_min > ALT(x,y)){
+                 alt_min = ALT(x,y);
+            }
+            if (alt_max < ALT(x,y)){
+                 alt_max = ALT(x,y);
+            }
         }
+    }
+    alt_step = (alt_max - alt_min) /10;
 
     map_power_grid(true);       /* WCK:  Is this safe to do here?
                                  * AL1: No, in NG_1.1
