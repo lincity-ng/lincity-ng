@@ -10,7 +10,7 @@
 	<p style="hp">а это иконка</p>
 	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
 
-	<p style="hp">На карте месторождений вы будет выделено красным, где угля больше всего.</p>
+	<p style="hp">На карте месторождений будет выделено красным там, где угля больше всего.</p>
 	<p style="hp">За добычу угля вы получаете деньги.</p>
 
 	<p style="hsubtitle">См ещё:</p>

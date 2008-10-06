@@ -99,7 +99,7 @@ msgstr "Внимание"
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Warning: Bulldozing monuments is expensive"
-msgstr "Внимание: Попытка уничтожения монумента. "
+msgstr "Внимание: Попытка уничтожения монумента"
 
 #: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
 #: data/gui/bulldoze_shanty_yn.xml data/gui/coal_survey_yn.xml
@@ -113,7 +113,7 @@ msgstr "Уничтожение реки стоит больших денег."
 
 #: data/gui/bulldoze_river_yn.xml
 msgid "Warning: Bulldozing water is expensive"
-msgstr "Внимание: Попытка засыпать речку. "
+msgstr "Внимание: Попытка засыпать речку."
 
 #: data/gui/bulldoze_shanty_yn.xml
 msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
@@ -147,8 +147,8 @@ msgstr "Угольный рудник доступен"
 msgid ""
 "See the help screen for more information on coal mines and coal surveys."
 msgstr ""
-"Смотрите окно помощи для большей информации по уголь шахты и угольные "
-"осмотры."
+"Смотрите окно помощи для большей информации про уголь, шахты и угольные "
+"исследования."
 
 #: data/gui/coalmineup.xml
 msgid ""
@@ -204,7 +204,7 @@ msgid ""
 "goods and make people in the surrounding areas (about 10 units in each "
 "direction) happier."
 msgstr ""
-"Ваши люди придумали баскетбол. Баскетбольные площадки используют работу и "
+"Ваши люди придумали баскетбол. Баскетбольные площадки используют работу, "
 "товары и делают людей (в зоне 10 клеток) счастливыми."
 
 #: data/gui/fire.xml
@@ -213,7 +213,7 @@ msgstr "Начался пожар"
 
 #: data/gui/fire.xml
 msgid "You better go and look for it"
-msgstr "Пожар, обратите внимание"
+msgstr "Вам лучше идти и посмотреть на это"
 
 #: data/gui/firestationup.xml
 msgid "Fire Stations available"
@@ -225,8 +225,8 @@ msgid ""
 "Fire stations prevent most fires from starting. If you haven't had any fires "
 "yet, you might not think you need them."
 msgstr ""
-"Уровень научного развития позволяет строить пожарные станции. Которые следят "
-"за тем, что бы не начинались пожары. "
+"Уровень научного развития позволяет строить пожарные станции. Если у вас нет "
+"ни одной пожарной станции, не думайте, что они не нужны."
 
 #: data/gui/gamestats.xml
 msgid "Gamestats"
@@ -269,7 +269,7 @@ msgid ""
 "pages on these subjects to find out how to use them. "
 msgstr ""
 "Теперь вы можете покупать и продавать ресурсы. Это уголь, товар и прочее. "
-"Прочитайте помощь, что бы найти ответ, как этим пользоваться."
+"Прочитайте помощь, что бы найти ответ, как этим пользоваться. "
 
 #: data/gui/launch-evac.xml
 msgid "Evacuation Launch Good"
@@ -355,7 +355,7 @@ msgid ""
 "Light industry produces goods. "
 msgstr ""
 "Уровень научного развития позволяет строить легкую индустрию. Она создает "
-"товары."
+"товары. "
 
 #: data/gui/mainmenu.xml
 msgid "Continue"
@@ -420,7 +420,7 @@ msgstr "Показать ресурсы."
 
 #: data/gui/minimap.xml
 msgid "Show the MiniMap"
-msgstr "Показать миникарту "
+msgstr "Показать мини-карту"
 
 #: data/gui/minimap.xml
 msgid "Stats"
@@ -464,11 +464,11 @@ msgstr "Показать медицинское покрытие"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show nourishments"
-msgstr "Показать обеспечение едой. "
+msgstr "Показать обеспечение едой"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show pollution density"
-msgstr "Показать загрязнения."
+msgstr "Показать загрязнения"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show power supply"
@@ -512,7 +512,7 @@ msgstr "Начать с пустой карты"
 
 #: data/gui/newgame.xml
 msgid "Start with random village."
-msgstr "Начать со случайного городишки"
+msgstr "Начать со случайного городишки."
 
 #: data/gui/no-credit-parkland.xml data/gui/no-credit-recycle.xml
 #: data/gui/no-credit-rocket.xml data/gui/no-credit-solar-power.xml
@@ -524,7 +524,7 @@ msgstr "Нет кредитов"
 msgid ""
 "You have a budget deficit. The legislative council will not allow you to "
 "build parks on credit."
-msgstr "Парки запрещается строить в долг"
+msgstr "Парки запрещается строить в долг."
 
 #: data/gui/no-credit-recycle.xml
 msgid ""
@@ -580,7 +580,7 @@ msgid ""
 "used to absorb pollution. "
 msgstr ""
 "Уровень научного развития позволяет строить парки. Они действуют на "
-"население."
+"население. "
 
 #: data/gui/pbar.xml data/gui/portdialog.xml data/gui/tradedialog.xml
 msgid "Coal"
@@ -644,7 +644,7 @@ msgid ""
 "Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
 msgstr ""
 "Уровень научного развития позволяет строить гончарные.Гончарные дают работу "
-"и из руды делают товары."
+"и из руды делают товары. "
 
 #: data/gui/railwayup.xml
 msgid "Railways available"
@@ -652,7 +652,7 @@ msgstr "Доступна железная дорога(рельсы)"
 
 #: data/gui/railwayup.xml
 msgid "You have reached the tech level which enables you to build railways. "
-msgstr "Уровень научного развития позволяет строить железную дорогу."
+msgstr "Уровень научного развития позволяет строить железную дорогу. "
 
 #: data/gui/recycleup.xml
 msgid "Recycling Centres available"
@@ -663,7 +663,7 @@ msgid ""
 "You have reached the tech level which enables you to recycling centres. "
 "Recycling centres recycle used goods back into ore. "
 msgstr ""
-"Уровень научного развития позволяет копать строить центры переработки.Центры "
+"Уровень научного развития позволяет копать строить центры переработки. Центры "
 "переработки из использованных товаров делают руду."
 
 #: data/gui/riverup.xml
@@ -672,7 +672,7 @@ msgstr "Речки доступны"
 
 #: data/gui/riverup.xml
 msgid "You have reached the tech level which enables you to build rivers. "
-msgstr "Уровень научного развития позволяет создавать реки."
+msgstr "Уровень научного развития позволяет рыть реки. "
 
 #: data/gui/roadup.xml
 msgid "Roads available"
@@ -682,7 +682,7 @@ msgstr "Дороги доступны"
 msgid ""
 "You have reached the tech level which enables you to build roads. See the "
 "help screen for more information."
-msgstr "Уровень научного развития позволяет строить дороги."
+msgstr "Уровень научного развития позволяет класть дороги."
 
 #: data/gui/rocketup.xml
 msgid "Rocket Launch Pad available"
@@ -723,7 +723,7 @@ msgid ""
 "spread to other areas. "
 msgstr ""
 "Пожар уничтожил хижину. Огонь вышел из под контроля! И может уничтожить "
-"другие постройки!!!"
+"другие постройки!!! "
 
 #: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
 msgid "Fire"
@@ -739,7 +739,7 @@ msgid ""
 "APPEARS to be under control. "
 msgstr ""
 "Пожар уничтожил хижину. Если так дальше пойдет, он может выйти из под "
-"контроля."
+"контроля. "
 
 #: data/gui/solarpowerup.xml
 msgid "Solar Power Stations available"
@@ -749,7 +749,7 @@ msgstr "Солнечные электростанции доступны."
 msgid ""
 "You have reached the tech level which enables you to build solar power "
 "stations. "
-msgstr "Уровень научного развития позволяет строить солнечные электростанции."
+msgstr "Уровень научного развития позволяет строить солнечные электростанции. "
 
 #: data/gui/speedpanel.xml
 msgid "Go back to Main Menu"
@@ -784,7 +784,7 @@ msgid ""
 "Sorry, the game you wanted is too old. Cannot load it. Still play with "
 "previous game."
 msgstr ""
-"Извините, файл с сохраненной игрой устарел. Используйтесь более старыми "
+"Извините, файл с сохраненной игрой устарел. Пользуйтесь более старыми "
 "версиями игры."
 
 #: data/gui/tradedialog.xml
@@ -793,7 +793,7 @@ msgstr "Торговые настройки"
 
 #: data/gui/universityup.xml
 msgid "University available"
-msgstr "Университеты доступны."
+msgstr "Университеты доступны"
 
 #: data/gui/universityup.xml
 msgid ""

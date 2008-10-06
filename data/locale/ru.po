@@ -82,7 +82,7 @@ msgstr "Загружена карта - %s"
 #: src/lincity-ng/Dialog.cpp:352
 #, c-format
 msgid "Economy is sustainable"
-msgstr "Экономика поддержана "
+msgstr "Экономика стабилизирована"
 
 #: src/lincity-ng/Dialog.cpp:355
 #, c-format
@@ -285,7 +285,7 @@ msgstr "н/д"
 
 #: src/lincity-ng/GameView.cpp:1618
 msgid "Query Tool: Show information about selected building."
-msgstr "Курсор: Показать информацию о выбранных постройках. "
+msgstr "Курсор: Показать информацию о выбранных постройках."
 
 #: src/lincity-ng/GameView.cpp:1622
 msgid "Bulldozer: remove building -price varies-"
@@ -369,7 +369,7 @@ msgstr "Да"
 
 #: src/lincity-ng/MpsInterface.cpp:385
 msgid "Health"
-msgstr "Здоровье "
+msgstr "Здоровье"
 
 #: src/lincity-ng/MpsInterface.cpp:388 src/lincity-ng/MpsInterface.cpp:516
 #: src/lincity/modules/residence.cpp:286
@@ -457,7 +457,7 @@ msgstr "Товары"
 
 #: src/lincity-ng/MpsInterface.cpp:454
 msgid "Export"
-msgstr "Экспорт "
+msgstr "Экспорт"
 
 #: src/lincity-ng/MpsInterface.cpp:458
 msgid "Expenses"
@@ -501,7 +501,7 @@ msgstr "Школы"
 
 #: src/lincity-ng/MpsInterface.cpp:504
 msgid "Univers."
-msgstr "Университеты"
+msgstr "Университеты."
 
 #: src/lincity-ng/MpsInterface.cpp:506
 msgid "Deaths"
@@ -534,7 +534,7 @@ msgstr "Население"
 
 #: src/lincity-ng/MpsInterface.cpp:534 src/lincity/modules/port.cpp:306
 msgid "Total"
-msgstr "Итого "
+msgstr "Итого"
 
 #: src/lincity-ng/MpsInterface.cpp:535
 msgid "Housed"
@@ -546,7 +546,7 @@ msgstr "Бездомные"
 
 #: src/lincity-ng/MpsInterface.cpp:537
 msgid "Shanties"
-msgstr "Хибара "
+msgstr "Хибара"
 
 #: src/lincity-ng/MpsInterface.cpp:538
 msgid "Unn Dths"
@@ -578,7 +578,7 @@ msgstr "ММ"
 
 #: src/lincity/engine.cpp:149
 msgid "Port must be connected to river all along right side."
-msgstr "Порты должны соединяться с рекой, которая протекает справа"
+msgstr "Порты должны соединяться с рекой, которая протекает справа."
 
 #: src/lincity/engine.cpp:161
 msgid "You can't build a water well here: it is all desert."
@@ -594,7 +594,7 @@ msgstr "Вы не можете построить шахту здесь: мес�
 
 #: src/lincity/engine.cpp:201
 msgid "You can't build a mine here: there is no ore left at this site"
-msgstr "Нельзя построить шахту здесь: руда тут отсутствует"
+msgstr "Нельзя построить шахту здесь: тут руда отсутствует"
 
 #: src/lincity/engine.cpp:211
 msgid "You can't build a park here: it is a desert, parks need water"
@@ -615,7 +615,7 @@ msgid ""
 "a bug report to lincity-ng team, with the saved game and what you did :-) "
 msgstr ""
 "ОШИБКА: группы не существует. Это не страшно! Пожалуйста напишите отчет об "
-"ошибки, с сохранённой игрой и напишите, что вы сделали :-D "
+"ошибки с сохранённой игрой и напишите то, что вы сделали :-) "
 
 #: src/lincity/engine.cpp:565
 msgid "It's at a power line."
@@ -731,7 +731,7 @@ msgstr "Это хибарная постройка."
 
 #: src/lincity/engine.cpp:621
 msgid "UNKNOWN!"
-msgstr "НЕ ИЗВЕСТНО!! "
+msgstr "НЕ ИЗВЕСТНО!"
 
 #: src/lincity/fileutil.cpp:233 src/lincity/fileutil.cpp:277
 msgid "Error. Can't find LINCITY_HOME"
@@ -971,7 +971,7 @@ msgstr "Сохранить в <%s> - "
 
 #: src/lincity/loadsave.cpp:130
 msgid "Can't open save file!"
-msgstr "Не могу открыть файл"
+msgstr "Не могу открыть файл!"
 
 #: src/lincity/loadsave.cpp:292 src/lincity/old_ldsvguts.cpp:130
 #, c-format
@@ -984,7 +984,7 @@ msgstr "Не могу открыть <%s> (сжат gzip)"
 #: src/lincity/modules/pottery.cpp:107 src/lincity/modules/recycle.cpp:137
 #: src/lincity/modules/school.cpp:52 src/lincity/modules/university.cpp:68
 msgid "Capacity"
-msgstr "Выгода "
+msgstr "Выгода"
 
 #: src/lincity/modules/blacksmith.cpp:96 src/lincity/modules/cricket.cpp:94
 #: src/lincity/modules/firestation.cpp:111
@@ -1040,7 +1040,7 @@ msgstr "Угольная шахта"
 
 #: src/lincity/modules/coalmine.cpp:158 src/lincity/modules/oremine.cpp:164
 msgid "Stock"
-msgstr "На складе "
+msgstr "На складе"
 
 #: src/lincity/modules/coalmine.cpp:160 src/lincity/modules/coalmine.cpp:162
 #: src/lincity/modules/oremine.cpp:167
@@ -1085,7 +1085,7 @@ msgstr "Пожарная станция"
 
 #: src/lincity/modules/health_centre.cpp:58
 msgid "Health Centre"
-msgstr "Больница "
+msgstr "Больница"
 
 #: src/lincity/modules/heavy_industry.cpp:270
 msgid "Heavy Industry"
@@ -1171,7 +1171,7 @@ msgstr "Максимум с электрическом и водой"
 
 #: src/lincity/modules/organic_farm.cpp:220
 msgid "N tiles with water"
-msgstr ""
+msgstr "N плит у воды"
 
 #: src/lincity/modules/organic_farm.cpp:221
 #, fuzzy
@@ -1302,7 +1302,7 @@ msgstr "Прод."
 
 #: src/lincity/old_ldsvguts.cpp:162
 msgid "Loading scene"
-msgstr "Загрузка местности "
+msgstr "Загрузка местности"
 
 #: src/lincity/power.cpp:271
 msgid "You have too many power grids. Join some of them"
@@ -1314,7 +1314,7 @@ msgid ""
 "needed. After, starvation will occur!  You should check starvation minimap, "
 "and read waterwell help page :-)"
 msgstr ""
-"Обновление из старой игры. У вас есть 10 лет, на то что бы построить водяные "
+"Обновление из старой игры. У вас есть 10 лет на то, что бы построить водяные "
 "мельницы. После этого начнется голод! Вы должны проверить зону голодания на "
 "миникарте. Так же прочесть страничку с помощью :-)"
 
