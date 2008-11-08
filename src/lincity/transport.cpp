@@ -790,13 +790,12 @@ void connect_transport(int originx, int originy, int w, int h)
 
             case GROUP_WATER:
                 /* up -- (ThMO) */
-                if (MP_GROUP(MP_INFO(x, y - 1).int_1, MP_INFO(x, y - 1).int_2) == GROUP_PORT
+                if ((MP_TYPE(x, y - 1) == CST_USED && MP_GROUP(MP_INFO(x, y - 1).int_1, MP_INFO(x, y - 1).int_2) == GROUP_PORT)
                         || XY_IS_WATER(x, y - 1))
                     mask |= 8;
 
                 /* left -- (ThMO) */
-                if (MP_GROUP(MP_INFO(x - 1, y).int_1, MP_INFO(x - 1, y).int_2) == GROUP_PORT ||
-                        MP_GROUP(MP_INFO(x, y - 1).int_1, MP_INFO(x, y - 1).int_2) == GROUP_PORT
+                if ((MP_TYPE(x - 1,y) == CST_USED && MP_GROUP(MP_INFO(x - 1, y).int_1, MP_INFO(x - 1, y).int_2) == GROUP_PORT)
                         || XY_IS_WATER(x - 1, y))
                     mask |= 4;
 
