@@ -142,16 +142,16 @@ void do_oremine(int x, int y)
                 MP_TYPE(x, y) = CST_OREMINE_2;
                 break;
         }
-        if (MP_INFO(x, y).int_2 <= 0) {
-            int i, j;
-            for (j = 0; j < 4; j++) {
-                for (i = 0; i < 4; i++) {
-                    do_bulldoze_area(CST_WATER, x + i, y + j);
-                }
+    }
+    if (MP_INFO(x, y).int_2 <= 0) {
+        int i, j;
+        for (j = 0; j < 4; j++) {
+            for (i = 0; i < 4; i++) {
+                do_bulldoze_area(CST_WATER, x + i, y + j);
             }
-            connect_rivers();
-            refresh_main_screen();
         }
+        connect_rivers();
+        refresh_main_screen();
     }
 }
 
