@@ -47,7 +47,7 @@ void power_time_step()
     /* AL1: Do we want to shuffle substations ? It is not done in NG 1.1
      *     shuffle_substations();
      */
-    for (gi = 1; gi <= grid_num; gi++) {
+    for (gi = 0; gi < grid_num; gi++) {
         grid[gi]->total_power = grid[gi]->avail_power - (grid[gi]->power_lines * POWER_LINE_LOSS);
 
         net = (grid[gi]->total_power - grid[gi]->demand);
@@ -290,13 +290,14 @@ void map_power_grid(bool resetgrids)
                         ok_dial_box("warning.mes", BAD, _("You have too many power grids. Join some of them"));
                         return;
                     }
-                    grid[++grid_num] = (grid_struct *) lcalloc(sizeof(grid_struct));
+                    grid[grid_num] = (grid_struct *) lcalloc(sizeof(grid_struct));
                     grid[grid_num]->total_power = 0;
                     grid[grid_num]->power_lines = 0;
                     grid[grid_num]->demand = 0;
                     grid[grid_num]->max_power = 0;
 
                     recurse_power_grid(mapx, mapy, 0);
+                    grid_num++;
                 }
             }
         }
