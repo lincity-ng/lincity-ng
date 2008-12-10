@@ -3,7 +3,6 @@
 	<p style="htitle">Bulldozer</p>
 	<p style="hp">Um ein Gebiet abzureißen klicken Sie auf das Bulldozer Symbol und anschließend auf das Gebiet das Sie abreißen wollen. Abreißen kostet Geld, wieviel sehen sie beim Bau im unteren Bereich des Bildschirms, neben den Baukosten.</p>
 	<p style="hp">Manche Dinge, wie z.B. Denkmäler, sind sehr teuer beim abreißen. Dies liegt daran, das dabei nicht nur die eigentlichen Kosten für das abreißen berechnet werden, sondern auch die "politischen Kosten" mit einbezogen werden. Als Beispiel: Beim abriss eines Denkmals wird es demonstranten geben, genauso wie Gerichtskosten etc.</p>
-	<p style="hp">Zur Zeit ist, das "abreißen" des Flusses die einzige Möglichkeit selbigen zu überqueren...</p>
 	<p style="hp">Dies ist das Bulldozer Symbol</p>
 	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
 	<p style="hsubtitle">Siehe auch:</p>
