@@ -270,6 +270,14 @@ static void recurse_power_grid(int startx, int starty, int steps)
 void map_power_grid(bool resetgrids)
 {
     int mapx, mapy;
+
+    //free memory from past calls to map_power_grid
+    if (grid_num != 0) {
+        for (int i = 0; i < grid_num; i++) {
+            free(grid[i]);
+        }
+    }
+
     grid_num = 0;               /* how many grids found so far */
     grid_inc++;                 /* how many times have we run map_power_grid */
 
@@ -295,6 +303,7 @@ void map_power_grid(bool resetgrids)
                     grid[grid_num]->power_lines = 0;
                     grid[grid_num]->demand = 0;
                     grid[grid_num]->max_power = 0;
+                    grid[grid_num]->avail_power=0;
 
                     recurse_power_grid(mapx, mapy, 0);
                     grid_num++;

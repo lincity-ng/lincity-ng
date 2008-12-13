@@ -54,6 +54,6 @@ Event::Event(SDL_Event& event)
 }
 
 Event::Event(float _elapsedTime)
-    : type(UPDATE), elapsedTime(_elapsedTime)
+    : type(UPDATE), inside(false), elapsedTime(_elapsedTime)
 {
 }

@@ -96,6 +96,7 @@ void init_daily(void)
     goods_in_markets = 0;
     ore_in_markets = 0;
     steel_in_markets = 0;
+    waste_in_markets = 0;
 }
 
 void init_monthly(void)
@@ -110,6 +111,7 @@ void init_monthly(void)
     tgoods_in_markets = 0;
     tore_in_markets = 0;
     tsteel_in_markets = 0;
+    twaste_in_markets = 0;
     tunemployed_population = 0;
     unnat_deaths = 0;
 }
