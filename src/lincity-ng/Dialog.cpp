@@ -335,10 +335,10 @@ void Dialog::setParagraph( const std::string paragraphName, const std::string te
  * statistic_text1 
  * [...]
  * statistic_text11
- * and 12 lines in a Table with 6 columns
+ * and 15 lines in a Table with 6 columns
  * statistic_text_1_1  statistic_number_1_1  statistic_text_1_2  statistic_number_1_2  statistic_text_1_3  statistic_number_1_3
  * [...]
- * statistic_text_12_1 statistic_number_12_1 statistic_text_12_2 statistic_number_12_2 statistic_text_12_3 statistic_number_12_3
+//  * statistic_text_15_1 statistic_number_15_1 statistic_text_15_2 statistic_number_15_2 statistic_text_15_3 statistic_number_15_3
  */
 void Dialog::gameStats(){
      saveGameStats();

@@ -5,7 +5,7 @@
 		<DefineStyle name="statistic_text" color="black" font-size="14" halign="left" />
 		<DefineStyle name="statistic_label" color="black" font-size="14" halign="right" />
 		<DefineStyle name="statistic_value" color="black" font-size="14" halign="right" />
-		<TableLayout rows="23" cols="6">
+               <TableLayout rows="26" cols="6">
             <colsize col="1" relative="20"/>
             <colsize col="2" relative="10"/>
             <colsize col="3" relative="20"/>
@@ -274,6 +274,63 @@
 			<cell row="23" col="6" halign="left">
 				<Paragraph name="statistic_value_12_3" style="statistic_value">value</Paragraph>
 			</cell>
+
+            <cell row="24" col="1" halign="left">
+                <Paragraph name="statistic_text_13_1" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="24" col="2" halign="left">
+                <Paragraph name="statistic_value_13_1" style="statistic_value">value</Paragraph>
+            </cell>
+            <cell row="24" col="3" halign="left">
+                <Paragraph name="statistic_text_13_2" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="24" col="4" halign="left">
+                <Paragraph name="statistic_value_13_2" style="statistic_value">value</Paragraph>
+            </cell>
+            <cell row="24" col="5" halign="left">
+                <Paragraph name="statistic_text_13_3" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="24" col="6" halign="left">
+                <Paragraph name="statistic_value_13_3" style="statistic_value">value</Paragraph>
+            </cell>
+
+            <cell row="25" col="1" halign="left">
+                <Paragraph name="statistic_text_14_1" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="25" col="2" halign="left">
+                <Paragraph name="statistic_value_14_1" style="statistic_value">value</Paragraph>
+            </cell>
+            <cell row="25" col="3" halign="left">
+                <Paragraph name="statistic_text_14_2" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="25" col="4" halign="left">
+                <Paragraph name="statistic_value_14_2" style="statistic_value">value</Paragraph>
+            </cell>
+            <cell row="25" col="5" halign="left">
+                <Paragraph name="statistic_text_14_3" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="25" col="6" halign="left">
+                <Paragraph name="statistic_value_14_3" style="statistic_value">value</Paragraph>
+            </cell>
+
+            <cell row="26" col="1" halign="left">
+                <Paragraph name="statistic_text_15_1" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="26" col="2" halign="left">
+                <Paragraph name="statistic_value_15_1" style="statistic_value">value</Paragraph>
+            </cell>
+            <cell row="26" col="3" halign="left">
+                <Paragraph name="statistic_text_15_2" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="26" col="4" halign="left">
+                <Paragraph name="statistic_value_15_2" style="statistic_value">value</Paragraph>
+            </cell>
+            <cell row="26" col="5" halign="left">
+                <Paragraph name="statistic_text_15_3" style="statistic_label">Label</Paragraph>
+            </cell>
+            <cell row="26" col="6" halign="left">
+                <Paragraph name="statistic_value_15_3" style="statistic_value">value</Paragraph>
+            </cell>
 
 		</TableLayout>
 	</contents>
