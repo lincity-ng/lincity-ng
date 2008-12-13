@@ -426,18 +426,18 @@ int bulldoze_item(int x, int y)
 	    return size;
 	}
 
+        /* keep compatibility for saving pre_waterwell loaded game */
+        if (use_waterwell)
+            do_bulldoze_area(CST_DESERT, x, y);
+        else
+            do_bulldoze_area(CST_GREEN, x, y);
+
         if (g == GROUP_OREMINE) {
             int i, j;
             for (j = 0; j < 4; j++)
                 for (i = 0; i < 4; i++)
                     if (MP_INFO(x + i, y + j).ore_reserve < ORE_RESERVE / 2)
                         do_bulldoze_area(CST_WATER, x + i, y + j);
-        } else {
-            /* keep compatibility for saving pre_waterwell loaded game */
-            if (use_waterwell)
-                do_bulldoze_area(CST_DESERT, x, y);
-            else
-                do_bulldoze_area(CST_GREEN, x, y);
         }
     }
 
