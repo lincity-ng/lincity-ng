@@ -3,7 +3,6 @@
 	<p style="htitle">Rivning</p>
 	<p style="hp">För att riva ett område väljer du rivningsknappen och klicka sedan på det område du vill ha bort. Rivning kostar pengar. När du bygger ett område kommer kostnaden för att bygga det och riva det att visas i nederst i vänster hörna av skärmen.</p>
 	<p style="hp">Visa saker, såsom monument är väldigt dyra att riva. Kostnaden för rivning innefattar inte bara den fysiska kostnaden utan även den politiska kostnaden. Till exempel, för att riva ett monument kommer du att få protester och rättegångskostnader också.</p>
-	<p style="hp">För tillfället är det enda sättet att komma över en kanal med en transport är att riva kanalområdet. Tänk att det rivna kanalområdet och transporten som kommer över den som de vore en bro.</p>
 	<p style="hp">Detta är ikonen för rivning</p>
 	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
 	<p style="hsubtitle">Se också</p>

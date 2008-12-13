@@ -3,7 +3,6 @@
 	<p style="htitle">Bulldozer</p>
 	<p style="hp">Pour démolir une zone, sélectionnez l'outil Bulldozer, puis cliquer sur la zone à détruire. Démolir coûte de l'argent: quand vous contruisez, le prix de construction et de démolition s'affichent en bas à droite de l'écran.</p>
 	<p style="hp">Certains endroits, comme les Monuments, sont extrêmement chers à démolir. Le prix inclut non seulement le coût physique du travail mais également le coût politique. Par exemple pour la démolition d'un monument, vous aurez des protestations et également des frais de procès...</p>
-	<p style="hp">Pour l'instant, démolir une zone de rivière est le seul moyen pour la traverser avec des transports. Considérez une rivière démolie et le transport ajouté comme un pont enjambant la zone.</p>
 	<p style="hp">Ceci est l'icône d'un bulldozer.</p>
 	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
 
