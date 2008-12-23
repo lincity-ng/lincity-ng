@@ -19,7 +19,7 @@
 <li><a href="goods">Goods</a></li>
 <li><a href="health">Health Centre</a></li>
 <li><a href="help">Lincity Help</a></li>
-<li><a href="housing">People window</a></li>
+<li><a href="housing">Population window</a></li>
 <li><a href="industryh">Heavy industry (Steel Works)</a></li>
 <li><a href="industryl">Light industrial areas</a></li>
 <li><a href="jobs">Jobs</a></li>
@@ -45,7 +45,7 @@
 <li><a href="other-costs">Other costs</a></li>
 <li><a href="park">Parks</a></li>
 <li><a href="pause">Pause Button</a></li>
-<li><a href="pbar">Bar</a></li>
+<li><a href="pbar">Stats</a></li>
 <li><a href="pollution">Pollution</a></li>
 <li><a href="port">Ports</a></li>
 <li><a href="pottery">Potteries</a></li>

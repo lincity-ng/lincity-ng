@@ -5,7 +5,7 @@
 	<p style="hp">Areas that have a fire station within range are shown as dark green.</p>
 	<p style="hp">The areas out of range of a fire station are displayed as normal.</p>
 	<p style="hp">Remember, fire stations take three months to become active.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+    <p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>

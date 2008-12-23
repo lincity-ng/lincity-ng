@@ -6,11 +6,11 @@
 
 	<p style="hp">Tracks, roads and railways are used to carry food, jobs, goods, coal, ore, steel and wastes between areas. Transport between markets, transport for buildings out of range of a market (this is generally a bad idea) and transport for building that explicitely need it:</p>
 	<li>Communes just need to be adjacent to transport</li>
-	<li>Light industries, ore mines, tips, ports, coal mines, heavy industries and recycling centers<b> need to </b>connect to transport at the top left hand corner. You will see the transport "bend", thus show the connection.</li>
+	<li>Light industries, ore mines, tips, ports, coal mines, heavy industries and recycling centers <b>need to</b> connect to transport at the top left hand corner. You will see the transport "bend", thus show the connection.</li>
 	<li>An exception is the coal power station: the top left corner is used for connection to the electric line, so the transport connect just near.</li>
 	<p style="hp">For example, an heavy industry can connect by road to a coal mine, and by rail to other resources like ore mine and markets.</p>
 
-	<p style="hp">To cross a river with transport, simply bulldoze the river and build a road, track or railway through the gap. Think of this as building a bridge.  It costs you a lot because bulldozing water is very expensive.</p>
+	<p style="hp">To cross a river with transport, simply build the transport over the river and you will create a bridge. Bridges are much more expensive than normal transport.</p>
 
 	<p style="hp">Roads and Rail causes yearly costs (for maintenance) and pollution (and more pollution if they carry lots of wastes).</p>
 

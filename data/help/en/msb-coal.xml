@@ -2,9 +2,9 @@
 <Document style="helpdocument">
 	<p style="htitle">Coal overlay</p>
 	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
-	<p style="hp">The coal mini screen shows the coal reserves beneath your city. The coal seams are shown as white on a black background. You will have to build a coal mine close to one of these seams to extract its coal.</p>
+    <p style="hp">The coal mini screen shows the coal reserves beneath your city. The coal seams are shown as red and green on a grey background. You will have to build a coal mine close to one of these seams to extract its coal.</p>
 	<p style="hp">The first time you ask for this information, you will have to undertake a coal survey which will cost you one million currency units. After that the information is free to look at again.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+    <p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>

@@ -5,7 +5,7 @@
 	<p style="hp">When you build a fire station, it does not start straight away. There is usually a three month wait before fire cover is provided.</p>
 	<p style="hp">To see the area that your fire stations cover, click on the fire station button under the <i>mini screen</i>. Areas that have fire cover are displayed as normal, areas not covered are just dark green.</p>
 	<p style="hp">Fire stations increase the desirability of residential areas within their range.</p>
-	<p style="hp">Fire stations go through an animation sequence every month to show that they are working.</p>
+	<p style="hp">Fire stations go through an animation sequence every three month to show that they are working.</p>
 
 	<p style="hp">This is a fire station</p>
 	<img src="images/tiles/firestation1.png" halign="center"/>

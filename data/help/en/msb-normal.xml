@@ -3,7 +3,7 @@
 	<p style="htitle">Land use overlay</p>
 	<img src="images/gui/mapview/roundbuttons/round_resident.png" halign="center"/>
 	<p style="hp">The land use mini screen shows buildings, roads, water and green space in the city.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+    <p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>

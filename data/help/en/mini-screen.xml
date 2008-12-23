@@ -4,7 +4,7 @@
 	<p style="hp">The minimap shows, in reduced scale, the whole of your playing area. The mini-buttons below, when you click on them, show information such as pollution levels over the whole of your playing area.</p>
 	<p style="hp">Right-click on each of the buttons below the minimap to activate their help pages.</p>
 	<p style="hp">The white bordered square shows the area covered by the main screen.</p>
-	<p style="hp">The big button "overlay" does overlay the minimap content on the main screen</p>
+	<p style="hp">The big overlay button does overlay the minimap content on the main screen</p>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="msb-coal">Coal overlay</a></li>

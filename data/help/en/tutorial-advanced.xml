@@ -3,7 +3,7 @@
 <p style="htitle">Advanced features </p>
 <p style="hsubtitle">Markets and Transports </p>
 <p style="hp">Double click on a market in the main screen opens a windows. This is to control the <b> exchanges between markets and transports</b>. </p>
-<li>buy is what the market buy to the transport (so market stock will increase) </li>
+<li>buy is what the market buys from the transport (so market stock will increase) </li>
 <li>sell is the opposite. </li>
 
 <p style="hp">This feature is rarely used, except when you want to precisely prevent something to happen. </p>

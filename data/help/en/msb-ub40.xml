@@ -5,7 +5,7 @@
 	<p style="hp">The unemployment mini screen shows residential areas (red or green) and building (yellow or grey)</p>
         <p style="hp">Bright green means that there is no unemployment in that residential area. Darker green and bright red show increasingly severe unemployment in each residential area shown.(too many people here compared to the number of jobs)</p>
         <p style="hp">Bright yellow means that a building asked for jobs, but could not get them (too few people here). Buildings are displayed in grey in this minimap when they have no problem with jobs.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>

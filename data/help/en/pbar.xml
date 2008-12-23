@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">PBar</p>
+	<p style="htitle">Stats</p>
 	<p style="hp">This is the second tab of the miniwindow</p>
 	<p style="hp">It shows the total stocks stored in all markets, and how it is changing.</p>
 	<p style="hp">The number indicates the total quantity.</p>

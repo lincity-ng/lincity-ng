@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Solar power station</p>
 	<p style="hp">Solar power stations output their power to power lines in packets. The amount of power that it can produce increases with the tech-level when it was <b>built</b>.</p>
-	<p style="hp">Solar power stations need also manpower for producing power. If a solar power station does not have enough jobs, it will produce less power and it will produce no power at all if it has no jobs.</p>
+	<p style="hp">Solar power stations need also manpower for producing power. If a solar power station has no jobs, it will produce no power.</p>
 	
 	<p style="hp">This is a Solar power station</p>
 	<img src="images/tiles/powerssolar.png" halign="center"/>

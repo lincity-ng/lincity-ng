@@ -2,11 +2,10 @@
 <Document style="helpdocument">
 	<p style="htitle">Power overlay</p>
 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
-	<p style="hp">Areas that have low tech windmill power are shown as dark green.</p>
-	<p style="hp">The areas within the main power grid are shown as light green.</p>
-	<p style="hp">The unpowerd areas are displayed as normal.</p>
-	<p style="hp">This button uses power.  Try not to leave it turned on too long.</p>
-	<p style="hp">Left click on the mini screen to reposition the main window. Left click on the mini screen title to choose a different mini screen view. Toggle overlay mode by pressing 'v' or middle click on the mini screen title.</p>
+	<p style="hp">Buildings that have low tech windmill power are shown as dark green.</p>
+	<p style="hp">The buildings within the main power grid are shown as light green.</p>
+	<p style="hp">The buildings which have no power are displayed as red.</p>
+    <p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 	
 	<p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>
