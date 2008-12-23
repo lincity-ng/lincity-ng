@@ -71,7 +71,7 @@ void
 check_bulldoze_area (int x, int y)
 {
     //no need to bulldoze desert
-    if( MP_TYPE( x, y ) == CST_DESERT ) 
+    if( MP_GROUP( x, y ) == GROUP_DESERT ) 
         return;
     
   int xx, yy, g;
