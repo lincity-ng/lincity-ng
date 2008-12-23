@@ -15,6 +15,7 @@
 #include "gui_interface/shared_globals.h"
 #include "stats.h"
 #include "init_game.h"
+#include "transport.h"
 
 #include <fcntl.h>
 #include <sys/types.h>
@@ -546,6 +547,7 @@ void load_city_2(char *cname)
     selected_module = sbut[7];  /* 7 is track.  Watch out though! */
     highlight_module_button(selected_module);
     set_selected_module(CST_TRACK_LR);
+    connect_transport(1, 1, WORLD_SIDE_LEN - 2, WORLD_SIDE_LEN - 2);
     /* Fix desert frontier for old saved games and scenarios */
     desert_frontier(0, 0, WORLD_SIDE_LEN, WORLD_SIDE_LEN);
 
