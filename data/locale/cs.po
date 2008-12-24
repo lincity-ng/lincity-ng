@@ -59,7 +59,7 @@ msgstr "%s (Požadována technologická úroveň %.1f)"
 #: src/lincity-ng/ButtonPanel.cpp:254
 #, c-format
 msgid "%s is disabled (loaded old game)."
-msgstr ""
+msgstr "%s je zakázán (načtena stará hra)."
 
 #: src/lincity-ng/Dialog.cpp:174
 msgid "Launchsite"
@@ -67,7 +67,7 @@ msgstr "Odpalovací rampa"
 
 #: src/lincity-ng/Dialog.cpp:343
 msgid "----- IN TEST MODE -------"
-msgstr ""
+msgstr "----- V TESTOVACÍM REŽIMU ------"
 
 #: src/lincity-ng/Dialog.cpp:345
 #, c-format
@@ -82,7 +82,7 @@ msgstr "Scéna na počátku - %s"
 #: src/lincity-ng/Dialog.cpp:352
 #, c-format
 msgid "Economy is sustainable"
-msgstr ""
+msgstr "Ekonomika je stabilní"
 
 #: src/lincity-ng/Dialog.cpp:355
 #, c-format
@@ -128,7 +128,7 @@ msgstr ".          Obydlí %4d           Obchodů %4d                  Farem %4d
 #: src/lincity-ng/Dialog.cpp:398
 #, c-format
 msgid ".  Water wells %4d"
-msgstr ""
+msgstr ".       Studny %4d"
 
 #: src/lincity-ng/Dialog.cpp:400
 #, c-format
@@ -216,7 +216,7 @@ msgstr "Přehled ekonomiky:"
 
 #: src/lincity-ng/EconomyGraph.cpp:140
 msgid "Sustainability:"
-msgstr ""
+msgstr "Stabilita:"
 
 #: src/lincity-ng/EconomyGraph.cpp:143
 msgid "Frames per Second:"
@@ -317,24 +317,23 @@ msgstr "bude stát zhruba "
 
 #: src/lincity-ng/MainMenu.cpp:141
 msgid "good_times"
-msgstr ""
+msgstr "dobré_časy"
 
 #: src/lincity-ng/MainMenu.cpp:142
 msgid "bad_times"
-msgstr ""
+msgstr "zlé_časy"
 
 #: src/lincity-ng/MainMenu.cpp:143
-#, fuzzy
 msgid "Beach"
-msgstr "Tech"
+msgstr "Pláž"
 
 #: src/lincity-ng/MainMenu.cpp:144
 msgid "extreme_arid"
-msgstr ""
+msgstr "extrémní_sucho"
 
 #: src/lincity-ng/MainMenu.cpp:145
 msgid "extreme_wetland"
-msgstr ""
+msgstr "extremní_mokřiny"
 
 #: src/lincity-ng/MainMenu.cpp:212
 msgid "empty"
@@ -342,11 +341,11 @@ msgstr "prázdné"
 
 #: src/lincity-ng/MpsInterface.cpp:227
 msgid "build something here"
-msgstr ""
+msgstr "postavit zde něco"
 
 #: src/lincity-ng/MpsInterface.cpp:229
 msgid "no further information available"
-msgstr ""
+msgstr "žádné další informace"
 
 #: src/lincity-ng/MpsInterface.cpp:380
 msgid "Coverage"
@@ -546,11 +545,11 @@ msgstr "Bezdomovci"
 
 #: src/lincity-ng/MpsInterface.cpp:537
 msgid "Shanties"
-msgstr ""
+msgstr "Chatrče"
 
 #: src/lincity-ng/MpsInterface.cpp:538
 msgid "Unn Dths"
-msgstr ""
+msgstr "Úmrtí"
 
 #: src/lincity-ng/MpsInterface.cpp:539
 msgid "Unemployment"
@@ -558,7 +557,7 @@ msgstr "Nezaměstnaní"
 
 #: src/lincity-ng/MpsInterface.cpp:540
 msgid "Claims"
-msgstr ""
+msgstr "Nároky"
 
 #: src/lincity-ng/MpsInterface.cpp:541 src/lincity-ng/MpsInterface.cpp:546
 msgid "Rate"
@@ -578,35 +577,35 @@ msgstr ""
 
 #: src/lincity/engine.cpp:149
 msgid "Port must be connected to river all along right side."
-msgstr ""
+msgstr "Přistav musí být připojen k řece správnou stranou."
 
 #: src/lincity/engine.cpp:161
 msgid "You can't build a water well here: it is all desert."
-msgstr ""
+msgstr "Zde není možné postavit studnu, jedná se o poušť."
 
 #: src/lincity/engine.cpp:175
 msgid "You can't build a tip here: this area was once a landfill"
-msgstr ""
+msgstr "Zde není možné postavit skládku, již zde jedna byla."
 
 #: src/lincity/engine.cpp:190
 msgid "You can't build a mine here: This area was once a landfill"
-msgstr ""
+msgstr "Zde není možné postavit důl, tato oblast byla skládkou."
 
 #: src/lincity/engine.cpp:201
 msgid "You can't build a mine here: there is no ore left at this site"
-msgstr ""
+msgstr "Zde není možné postavit dul, nezbyla zde žádná ruda."
 
 #: src/lincity/engine.cpp:211
 msgid "You can't build a park here: it is a desert, parks need water"
-msgstr ""
+msgstr "Zde není možné postavit park, jedná se o poušť a parky potřebují vodu."
 
 #: src/lincity/engine.cpp:226
 msgid "Too many substations + windmills. You cannot build one more"
-msgstr ""
+msgstr "Příliš mnoho větrných elektráren a rozvoden, není možné postavit další."
 
 #: src/lincity/engine.cpp:235
 msgid "Too many markets. You cannot build one more"
-msgstr ""
+msgstr "Příliš mnoho obchodů, není možné postavit další."
 
 #: src/lincity/engine.cpp:259
 msgid ""
@@ -724,7 +723,7 @@ msgstr "Vypukl u sportovního hřiště."
 
 #: src/lincity/engine.cpp:619
 msgid "It's at a shanty town."
-msgstr ""
+msgstr "Vypukl v chudé čtvrti."
 
 #: src/lincity/engine.cpp:621
 msgid "UNKNOWN!"
@@ -911,11 +910,11 @@ msgstr "Sportovní hřiště"
 
 #: src/lincity/lintypes.cpp:375
 msgid "Burnt"
-msgstr ""
+msgstr "Spáleno"
 
 #: src/lincity/lintypes.cpp:387
 msgid "Shanty town"
-msgstr ""
+msgstr "Chudá čtvrť"
 
 #: src/lincity/lintypes.cpp:411
 msgid "Used"
@@ -943,23 +942,23 @@ msgstr "Husté domy"
 
 #: src/lincity/lintypes.cpp:477
 msgid "Water well"
-msgstr ""
+msgstr "Studna"
 
 #: src/lincity/lintypes.cpp:489
 msgid "Desert"
-msgstr ""
+msgstr "Poušť"
 
 #: src/lincity/lintypes.cpp:501
 msgid "Tree"
-msgstr ""
+msgstr "Strom"
 
 #: src/lincity/lintypes.cpp:514
 msgid "Trees"
-msgstr ""
+msgstr "Stromy"
 
 #: src/lincity/lintypes.cpp:527
 msgid "Forest"
-msgstr ""
+msgstr "Les"
 
 #: src/lincity/loadsave.cpp:129
 #, c-format
@@ -994,7 +993,7 @@ msgstr "Inventář"
 
 #: src/lincity/modules/coal_power.cpp:84
 msgid "Coal Power Station"
-msgstr ""
+msgstr "Uhelná elektrárna"
 
 #: src/lincity/modules/coal_power.cpp:88
 #: src/lincity/modules/solar_power.cpp:49
@@ -1086,7 +1085,7 @@ msgstr "Zdravotní středisko"
 
 #: src/lincity/modules/heavy_industry.cpp:270
 msgid "Heavy Industry"
-msgstr ""
+msgstr "Těžký průmysl"
 
 #: src/lincity/modules/heavy_industry.cpp:277
 msgid "Grid"
@@ -1116,7 +1115,7 @@ msgstr "Sklad"
 
 #: src/lincity/modules/light_industry.cpp:275
 msgid "Light Industry"
-msgstr ""
+msgstr "Lehký průmysl"
 
 #: src/lincity/modules/light_industry.cpp:281
 #: src/lincity/modules/organic_farm.cpp:211
@@ -1160,20 +1159,19 @@ msgstr "Prod"
 
 #: src/lincity/modules/organic_farm.cpp:218
 msgid "Debug info"
-msgstr ""
+msgstr "Ladící informace"
 
 #: src/lincity/modules/organic_farm.cpp:219
 msgid "max with power&water"
-msgstr ""
+msgstr "maximum s elektřinou a vodou"
 
 #: src/lincity/modules/organic_farm.cpp:220
 msgid "N tiles with water"
-msgstr ""
+msgstr "N oblastí s vodou"
 
 #: src/lincity/modules/organic_farm.cpp:221
-#, fuzzy
 msgid "Current production"
-msgstr "Aktuální výkon"
+msgstr "Aktuální produkce"
 
 #: src/lincity/modules/power_line.cpp:46
 msgid "Power Line"
@@ -1185,7 +1183,7 @@ msgstr "Železníce"
 
 #: src/lincity/modules/recycle.cpp:134
 msgid "Recycling Center"
-msgstr ""
+msgstr "Recyklovací středisko"
 
 #: src/lincity/modules/residence.cpp:255
 msgid "Residence"
@@ -1229,7 +1227,7 @@ msgstr "Odučených hodin"
 
 #: src/lincity/modules/solar_power.cpp:43
 msgid "Solar power station"
-msgstr ""
+msgstr "Solární elektrárna"
 
 #: src/lincity/modules/substation.cpp:97
 msgid "Local Demand"
@@ -1241,11 +1239,11 @@ msgstr "Stav sítě"
 
 #: src/lincity/modules/substation.cpp:104 src/lincity/modules/windmill.cpp:92
 msgid "T. Cap."
-msgstr ""
+msgstr "C. kap."
 
 #: src/lincity/modules/substation.cpp:107 src/lincity/modules/windmill.cpp:95
 msgid "A. Cap."
-msgstr ""
+msgstr "P. kap."
 
 #: src/lincity/modules/substation.cpp:110 src/lincity/modules/windmill.cpp:86
 #: src/lincity/modules/windmill.cpp:98
@@ -1279,15 +1277,15 @@ msgstr "Vymyšlené technologie"
 
 #: src/lincity/modules/water.cpp:21
 msgid "Navigable"
-msgstr ""
+msgstr "Splavná"
 
 #: src/lincity/modules/waterwell.cpp:56
 msgid "Water_well"
-msgstr ""
+msgstr "Studna"
 
 #: src/lincity/modules/waterwell.cpp:63
 msgid "Drinkable"
-msgstr ""
+msgstr "Pitná"
 
 #: src/lincity/modules/windmill.cpp:80
 msgid "Local Status"
@@ -1303,7 +1301,7 @@ msgstr "Načítám scénu"
 
 #: src/lincity/power.cpp:271
 msgid "You have too many power grids. Join some of them"
-msgstr ""
+msgstr "Máte příliš mnoho elektrických sítí, spojte nektěré z nich."
 
 #: src/lincity/simulate.cpp:80
 msgid ""
@@ -1311,33 +1309,6 @@ msgid ""
 "needed. After, starvation will occur!  You should check starvation minimap, "
 "and read waterwell help page :-)"
 msgstr ""
-
-#~ msgid "Saving scene"
-#~ msgstr "Ukládám scénu"
-
-#~ msgid "Solar"
-#~ msgstr "Sluneční"
-
-#~ msgid "Light"
-#~ msgstr "Lehký"
-
-#~ msgid "Power Station"
-#~ msgstr "Elektrárna"
-
-#~ msgid "Output"
-#~ msgstr "Výkon"
-
-#~ msgid "Industry"
-#~ msgstr "Průmysl"
-
-#~ msgid "Heavy"
-#~ msgstr "Těžký"
-
-#~ msgid "Center"
-#~ msgstr "centrum"
-
-#~ msgid "Recycling"
-#~ msgstr "Recyklační"
-
-#~ msgid "NO "
-#~ msgstr "NE "
+"Aktualizace ze starší hry: Máte 10 let na postavení studní kde jsou potřeba,"
+"jinak dojde k hladovění. Prohlídněte si minimapu hladovění a přečtěte si"
+"nápovědu o studnách."
