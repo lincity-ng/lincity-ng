@@ -2,12 +2,13 @@
 # This file is distributed under the same license as the lincity-ng package.
 # Copyright (C) 2007 Leonid Myravjev <asm@asm.pp.ru>.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Mon Feb 18 22:35:34 2008\n"
-"PO-Revision-Date: 2007-03-11 02:39-0000\n"
+"PO-Revision-Date: 2008-24-12 06:39-0000\n"
 "Last-Translator: ASM <asm@asm.pp.ru>\n"
 "Language-Team: ASM <asm@asm.pp.ru>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +35,7 @@ msgstr "Никого нет дома"
 #: data/gui/sustain.xml data/gui/too-old.xml data/gui/universityup.xml
 #: data/gui/warning.xml data/gui/windmillup.xml
 msgid "Ok"
-msgstr "Так точно"
+msgstr "Ок"
 
 #: data/gui/allgone.xml
 msgid "There are no people left in this city."
@@ -663,8 +664,8 @@ msgid ""
 "You have reached the tech level which enables you to recycling centres. "
 "Recycling centres recycle used goods back into ore. "
 msgstr ""
-"Уровень научного развития позволяет копать строить центры переработки. Центры "
-"переработки из использованных товаров делают руду."
+"Уровень научного развития позволяет копать строить центры переработки. "
+"Центры переработки из использованных товаров делают руду."
 
 #: data/gui/riverup.xml
 msgid "Rivers available"
