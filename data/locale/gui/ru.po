@@ -391,7 +391,7 @@ msgstr ""
 
 #: data/gui/minimap.xml
 msgid "$"
-msgstr "Руб"
+msgstr "Фин"
 
 #: data/gui/minimap.xml
 msgid "Eco"

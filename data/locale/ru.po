@@ -2,14 +2,13 @@
 # This file is distributed under the same license as the lincity-ng package.
 # Copyright (C) 2007 Leonid Myravjev <asm@asm.pp.ru>.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-24 21:11+0100\n"
-"PO-Revision-Date: 2007-08-01 05:30-0000\n"
-"Last-Translator: ASM <asm@asm.pp.ru>\n"
+"PO-Revision-Date: 2008-12-23 14:25+0300\n"
+"Last-Translator: _D-1337r! <d1337r@gmail.com>\n"
 "Language-Team: ASM <asm@asm.pp.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -128,7 +127,7 @@ msgstr " Резиденции        %4d   Магазины       %4d   Ферм
 #: src/lincity-ng/Dialog.cpp:398
 #, c-format
 msgid ".  Water wells %4d"
-msgstr " Водяная мельница  %4d"
+msgstr " Колодцы           %4d"
 
 #: src/lincity-ng/Dialog.cpp:400
 #, c-format
@@ -183,23 +182,23 @@ msgstr "Магазин"
 #: src/lincity-ng/Dialog.cpp:648 src/lincity/lintypes.cpp:209
 #: src/lincity/modules/port.cpp:281
 msgid "Port"
-msgstr "Порт"
+msgstr "Экспр"
 
 #: src/lincity-ng/EconomyGraph.cpp:124
 msgid "Mining"
-msgstr "Рудник"
+msgstr "Рудн"
 
 #: src/lincity-ng/EconomyGraph.cpp:126
 msgid "Trade"
-msgstr "Ремесло"
+msgstr "Ремсл"
 
 #: src/lincity-ng/EconomyGraph.cpp:128
 msgid "Money"
-msgstr "Деньги"
+msgstr "Денг"
 
 #: src/lincity-ng/EconomyGraph.cpp:130
 msgid "Popul."
-msgstr "Насел."
+msgstr "Насел"
 
 #: src/lincity-ng/EconomyGraph.cpp:132
 msgid "Techn."
@@ -268,7 +267,7 @@ msgstr "Мини-карта: трафик"
 
 #: src/lincity-ng/GameView.cpp:1593
 msgid "Estimated Bulldoze Cost: "
-msgstr "Цена сноса: "
+msgstr "Расчетная цена сноса: "
 
 #: src/lincity-ng/GameView.cpp:1595
 msgid "Bulldoze Cost: "
@@ -277,7 +276,7 @@ msgstr "Снос стоит: "
 #: src/lincity-ng/GameView.cpp:1598 src/lincity-ng/GameView.cpp:1629
 #: src/lincity-ng/ScreenInterface.cpp:274
 msgid "$"
-msgstr "Руб"
+msgstr " руб"
 
 #: src/lincity-ng/GameView.cpp:1600
 msgid "n/a"
@@ -285,7 +284,7 @@ msgstr "н/д"
 
 #: src/lincity-ng/GameView.cpp:1618
 msgid "Query Tool: Show information about selected building."
-msgstr "Курсор: Показать информацию о выбранных постройках."
+msgstr "Курсор: Показать информацию о выбранных постройках. "
 
 #: src/lincity-ng/GameView.cpp:1622
 msgid "Bulldozer: remove building -price varies-"
@@ -297,11 +296,11 @@ msgstr ": Стоимость постройки "
 
 #: src/lincity-ng/GameView.cpp:1630 src/lincity-ng/GameView.cpp:1633
 msgid "$."
-msgstr "Руб."
+msgstr " руб."
 
 #: src/lincity-ng/GameView.cpp:1630
 msgid ", to bulldoze "
-msgstr ", уничтожить "
+msgstr ", уничтожения - "
 
 #: src/lincity-ng/GameView.cpp:1632
 msgid " To build "
@@ -313,7 +312,7 @@ msgstr " из "
 
 #: src/lincity-ng/GameView.cpp:1633
 msgid "will cost about "
-msgstr "продан за "
+msgstr "будет стоить "
 
 #: src/lincity-ng/MainMenu.cpp:141
 msgid "good_times"
@@ -376,10 +375,11 @@ msgstr "Здоровье"
 msgid "Sport"
 msgstr "Спорт"
 
-#: src/lincity-ng/MpsInterface.cpp:390 src/lincity/modules/residence.cpp:288
+#: src/lincity-ng/MpsInterface.cpp:390
+#: src/lincity/modules/residence.cpp:288
 #: src/lincity/modules/waterwell.cpp:59
 msgid "Pollution"
-msgstr "Население"
+msgstr "Загрязнение"
 
 #: src/lincity-ng/MpsInterface.cpp:393
 msgid "clear"
@@ -391,11 +391,11 @@ msgstr "хорошо"
 
 #: src/lincity-ng/MpsInterface.cpp:397
 msgid "fair"
-msgstr "ярмарка"
+msgstr "удовл."
 
 #: src/lincity-ng/MpsInterface.cpp:399
 msgid "smelly"
-msgstr "улыбка"
+msgstr "пахнет"
 
 #: src/lincity-ng/MpsInterface.cpp:401
 msgid "smokey"
@@ -510,7 +510,7 @@ msgstr "Смерти"
 #: src/lincity-ng/MpsInterface.cpp:508 src/lincity/lintypes.cpp:286
 #: src/lincity/modules/windmill.cpp:74
 msgid "Windmill"
-msgstr "Ветряная мельница"
+msgstr "Ветряные мельницы"
 
 #: src/lincity-ng/MpsInterface.cpp:510
 msgid "Hospital"
@@ -522,7 +522,7 @@ msgstr "Ракеты"
 
 #: src/lincity-ng/MpsInterface.cpp:514
 msgid "Fire Stn"
-msgstr "Пожарная ст"
+msgstr "Пожарные ст"
 
 #: src/lincity-ng/MpsInterface.cpp:518 src/lincity/lintypes.cpp:242
 msgid "Recycle"
@@ -554,15 +554,16 @@ msgstr "Смерти"
 
 #: src/lincity-ng/MpsInterface.cpp:539
 msgid "Unemployment"
-msgstr "Беззаботность"
+msgstr "Безработица"
 
 #: src/lincity-ng/MpsInterface.cpp:540
 msgid "Claims"
-msgstr "Болезни"
+msgstr "По болезни"
 
-#: src/lincity-ng/MpsInterface.cpp:541 src/lincity-ng/MpsInterface.cpp:546
+#: src/lincity-ng/MpsInterface.cpp:541
+#: src/lincity-ng/MpsInterface.cpp:546
 msgid "Rate"
-msgstr "Тариф"
+msgstr "Процент"
 
 #: src/lincity-ng/MpsInterface.cpp:543
 msgid "Starvation"
@@ -570,7 +571,7 @@ msgstr "Голодание"
 
 #: src/lincity-ng/MpsInterface.cpp:544
 msgid "Cases"
-msgstr "Выбор"
+msgstr "Смерти"
 
 #: src/lincity-ng/ScreenInterface.cpp:263
 msgid "MM"
@@ -582,7 +583,7 @@ msgstr "Порты должны соединяться с рекой, котор
 
 #: src/lincity/engine.cpp:161
 msgid "You can't build a water well here: it is all desert."
-msgstr "Вы не можете строить водную мельницу здесь: это пустыня."
+msgstr "Вы не можете построить колодец: это пустыня."
 
 #: src/lincity/engine.cpp:175
 msgid "You can't build a tip here: this area was once a landfill"
@@ -590,15 +591,15 @@ msgstr "Вы не можете сделать свалку: место заби�
 
 #: src/lincity/engine.cpp:190
 msgid "You can't build a mine here: This area was once a landfill"
-msgstr "Вы не можете построить шахту здесь: место забито хламом"
+msgstr "Вы не можете построить шахту: это место забито хламом"
 
 #: src/lincity/engine.cpp:201
 msgid "You can't build a mine here: there is no ore left at this site"
-msgstr "Нельзя построить шахту здесь: тут руда отсутствует"
+msgstr "Нельзя построить шахту: здесь руды нет"
 
 #: src/lincity/engine.cpp:211
 msgid "You can't build a park here: it is a desert, parks need water"
-msgstr "Нельзя построить парк здесь: это пустыня, парку нужна вода"
+msgstr "Нельзя построить парк: это пустыня, парку нужна вода"
 
 #: src/lincity/engine.cpp:226
 msgid "Too many substations + windmills. You cannot build one more"
@@ -926,11 +927,11 @@ msgstr "Использовать"
 
 #: src/lincity/lintypes.cpp:422
 msgid "Residential ML"
-msgstr "Резиденция СЛ"
+msgstr "Резиденция СН"
 
 #: src/lincity/lintypes.cpp:433
 msgid "Residential HL"
-msgstr "Резиденция ВЛ"
+msgstr "Резиденция ВН"
 
 #: src/lincity/lintypes.cpp:444
 msgid "Residential LH"
@@ -946,7 +947,7 @@ msgstr "Резиденция ВВ"
 
 #: src/lincity/lintypes.cpp:477
 msgid "Water well"
-msgstr "Водяная мельница"
+msgstr "Колодец"
 
 #: src/lincity/lintypes.cpp:489
 msgid "Desert"
@@ -973,7 +974,8 @@ msgstr "Сохранить в <%s> - "
 msgid "Can't open save file!"
 msgstr "Не могу открыть файл!"
 
-#: src/lincity/loadsave.cpp:292 src/lincity/old_ldsvguts.cpp:130
+#: src/lincity/loadsave.cpp:292
+#: src/lincity/old_ldsvguts.cpp:130
 #, c-format
 msgid "Can't open <%s> (gzipped)"
 msgstr "Не могу открыть <%s> (сжат gzip)"
@@ -1146,8 +1148,8 @@ msgstr "Мудрое Вознаграждение"
 
 #: src/lincity/modules/monument.cpp:61
 #, c-format
-msgid "% Complete"
-msgstr "% Завершено"
+msgid "%% Complete"
+msgstr "%% Завершено"
 
 #: src/lincity/modules/oremine.cpp:161
 msgid "Ore Mine"
@@ -1171,7 +1173,7 @@ msgstr "Максимум с электрическом и водой"
 
 #: src/lincity/modules/organic_farm.cpp:220
 msgid "N tiles with water"
-msgstr "N плит у воды"
+msgstr "N клеток с водой"
 
 #: src/lincity/modules/organic_farm.cpp:221
 #, fuzzy
@@ -1286,7 +1288,7 @@ msgstr "Навигация"
 
 #: src/lincity/modules/waterwell.cpp:56
 msgid "Water_well"
-msgstr "Водяная мельница"
+msgstr "Колодец"
 
 #: src/lincity/modules/waterwell.cpp:63
 msgid "Drinkable"
