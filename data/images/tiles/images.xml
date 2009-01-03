@@ -112,17 +112,17 @@
     <image file="industryhh7.png" x="256" />
     <image file="industryhh8.png" x="256" />
 
-    <image file="windmill1g.png" x="134" />
-    <image file="windmill2g.png" x="131" />
-    <image file="windmill3g.png" x="151" />
+    <image file="windmill1g.png" x="131" />
+    <image file="windmill2g.png" x="128" />
+    <image file="windmill3g.png" x="148" />
 
-    <image file="windmill1r.png" x="134" />
-    <image file="windmill2r.png" x="131" />
-    <image file="windmill3r.png" x="151" />
+    <image file="windmill1r.png" x="131" />
+    <image file="windmill2r.png" x="128" />
+    <image file="windmill3r.png" x="148" />
 
-    <image file="windmill1rg.png" x="134" />
-    <image file="windmill2rg.png" x="131" />
-    <image file="windmill3rg.png" x="151" />
+    <image file="windmill1rg.png" x="131" />
+    <image file="windmill2rg.png" x="128" />
+    <image file="windmill3rg.png" x="148" />
 
     <image file="firestation1.png" x="132" /> 
     <image file="firestation2.png" x="132" />
