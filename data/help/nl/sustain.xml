@@ -3,22 +3,22 @@
 	<p style="htitle">Duurzaamheid venster</p>
 	<p style="hp">Dit venster heeft zes gekleurde lijnen.  Wanneer ze allemaal de rechterkant van het venster bereikt hebben, heeft u een duurzame economie.</p>
 	<li>
-		<span color="orange">MIN</span>(oranje) u graaft geen ijzererts of kolen op, en stort geen afval op een vuilstort.</li>
+		<span color="orange">Mijnbouw</span>(oranje) u graaft geen ijzererts of kolen op, en stort geen afval op een vuilstort.</li>
 	<li>
-		<span color="gray">PRT</span>(grijs) u hoeft niets te importeren of te exporteren.</li>
+		<span color="black">Handel</span>(zwart) u hoeft niets te importeren of te exporteren.</li>
 	<li>
-		<span color="green">MNY</span>(groen) uw hoeveelheid geld is stabiel of wordt meer, dit betekent u alleen op de goedkoopste gebieden kan bouwen.</li>
+		<span color="green">Geld</span>(groen) uw hoeveelheid geld is stabiel of wordt meer, dit betekent u alleen op de goedkoopste gebieden kan bouwen.</li>
 	<li>
-		<span color="blue">POP</span>(blauw) uw bevolking mag na 180 jaar niet met meer dan 2% zijn gestegen of gedaald. Als de bevolking in een jaar met meer dan 2% is gestegen of gedaald, wordt de jaarteller (om de 180 jaar te tellen) opnieuw gestart en krijgt de bevolking het nieuwe getal. Ook moet u minimaal 5000 inwoners hebben.</li>
+		<span color="blue">Bevolking</span>(blauw) uw bevolking mag na 180 jaar niet met meer dan 2% zijn gestegen of gedaald. Als de bevolking in een jaar met meer dan 2% is gestegen of gedaald, wordt de jaarteller (om de 180 jaar te tellen) opnieuw gestart en krijgt de bevolking het nieuwe getal. Ook moet u minimaal 5000 inwoners hebben.</li>
 	<li>
-		<span color="yellow">TEC</span>(geel) uw technologie nivo mag maar weinig stijgen of dalen. Als het met meer dan 1% is gestegen of gedaalt, wordt de jaarteller (om de 120 jaar te tellen) opnieuw gestart. Ook moet uw technologie nivo minimaal 50 zijn.</li>
+		<span color="yellow">Technologie</span>(geel) uw technologie nivo mag maar weinig stijgen of dalen. Als het met meer dan 1% is gestegen of gedaalt, wordt de jaarteller (om de 120 jaar te tellen) opnieuw gestart. Ook moet uw technologie nivo minimaal 50 zijn.</li>
 	<li>
-		<span color="red">FIR</span>(rood) Alle gebieden die vlam kunnen vatten hebben brandbescherming. De volgende gebieden hoeven *geen* brandbescherming te hebben: monumenten, ijzerertsmijnen,electriciteitsdraden en raketten.</li>
+		<span color="red">Brand</span>(rood) Alle gebieden die vlam kunnen vatten hebben brandbescherming. De volgende gebieden hoeven *geen* brandbescherming te hebben: monumenten, ijzerertsmijnen, electriciteitsdraden en raketten.</li>
 	<p style="hp">Het aantal jaren die nodig zijn voor duurzamheid:</p>
-	<li>MIN=180</li>
-	<li>PRT=180</li>
-	<li>MNY=60</li>
-	<li>POP=60</li>
-	<li>TEC=120</li>
-	<li>FIR=60</li>
+	<li>Mijnbouw=180</li>
+	<li>Handel=180</li>
+	<li>Geld=60</li>
+	<li>Bevolking=60</li>
+	<li>Technologie=120</li>
+	<li>Brand=60</li>
 </Document>

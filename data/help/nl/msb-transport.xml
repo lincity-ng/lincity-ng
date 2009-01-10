@@ -5,7 +5,7 @@
 	<p style="hp">De verkeerskaart toont de hoeveelheid goederen die via <a href="track">landweggetjes</a>, <a href="road">straten</a>
     en <a href="rail">spoorwegen</a> van de stad vervoert worden.</p>
 	<p style="hp">De gebouwen die binnen het bereik van een <a href="market">markt</a> liggen zijn blauw.</p>
-	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken.</p>
+	<p style="hp">Links klikken op de minikaart om de kaart te centreren op de plek van uw muiscursor. U kunt wisselen tussen verschillende kaartmodi door de knop 'v' in te drukken of door op de "overlay"-knop te klikken.</p>
 	
 	<p style="hsubtitle">Lees ook:</p>
 	<li><a href="mini-screen">Minikaart</a></li>
