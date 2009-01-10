@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Avancerade funktioner </p>
+<p style="hsubtitle">Marknader och transporter </p>
+<p style="hp">Double click on a market in the main screen opens a windows. This is to control the <b> exchanges between markets and transports</b>. </p>
+<li>buy is what the market buys from the transport (so market stock will increase) </li>
+<li>sell is the opposite. </li>
+
+<p style="hp">This feature is rarely used, except when you want to precisely prevent something to happen. </p>
+
+<p style="hsubtitle">Hållbar utveckling</p>
+<p style="hp">The fourth tab of the miniwindow shows progress bars for sustainable development. </p>
+<p style="hp">It is strongly recommended to save the game before you let it run for a long time and see if you have reached a sustainable state. If something goes very wrong (starvation for example) you can restart from the saved game :-) </p>
+<p style="hp">Watching at the total markets stocks (the miniwindow with progress bars) should prevent big troubles. From time to time check the sustainable progression in the ECO miniwindow should be enough. </p>
+
+<li>Hint: Beware of shanties and wastes in markets... </li>
+<p style="hp"></p>
+</Document>
+

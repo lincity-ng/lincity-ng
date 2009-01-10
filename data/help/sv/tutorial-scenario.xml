@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Pre-defined scenarii </p>
+<p style="hp">Under "new game" </p>
+
+<p style="hsubtitle"> Easy</p>
+<li>Good time </li>
+
+<li>Beach (remember that people eat food or die ;-) </li>
+
+<p style="hsubtitle">Hard </p>
+<li>"hard-time": try to avoid bankruptcy. Careful analysis of the whole city is needed, and drastic measures are needed to cut costs and make money. It is hard but possible, even possible to reach sustainable development. </li>
+<li>"extreme_arid": the land is very poor in water, so farms and communes ned to be carefully placed for maximum efficiency.</li>
+<li>"extrem_wetland": the land is nearly flooded, so it is very difficult to build the city.</li>
+<p style="hp"></p>
+</Document>
+

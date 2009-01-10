@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Transportöversikt</p>
+	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+	<p style="hp">The transportation mini screen shows the amount of goods on the 
+    city's <a href="track">tracks</a>, <a href="road">roads </a>
+    and <a href="rail">railways</a>.</p>
+	<p style="hp">The bluish colors indicate buildings that are inside the range of a <a href="market">market</a>.</p>
+    <p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
+
+	<p style="hsubtitle">Se också:</p>
+	<li><a href="mini-screen">Minikarta</a></li>
+	<li><a href="msb-coal">Kolöversikt</a></li>
+	<li><a href="msb-cricket">Sportöversikt</a></li>
+	<li><a href="msb-fire">Brandöversikt</a></li>
+	<li><a href="msb-health">Hälsoöversikt</a></li>
+	<li><a href="msb-normal">Normal översikt</a></li>
+	<li><a href="msb-pol">Miljöförstöringsöversikt</a></li>
+	<li><a href="msb-power">Strömöversikt</a></li>
+	<li><a href="msb-starve">Svältöversikt</a></li>
+	<li><a href="msb-transport">Transportöversikt</a></li>
+	<li><a href="msb-ub40">Arbetslöshetsöversikt</a></li>
+</Document>

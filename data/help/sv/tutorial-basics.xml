@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Första stegen </p>
+<p style="hp">Choose "new game " &gt; "random village". Other scenarii are for more or less experienced players. </p>
+<p style="hp">Notice that the random village contains basic resources: </p>
+<li>Farms for feeding markets with foods </li>
+<li>A Water well for people</li>
+<li>Communes which produces charcoal and small amount of ore and steel </li>
+<li>Residential areas</li>
+<li>Pottery</li>
+<li>Tracks</li>
+
+<p style="hp">Clicking on a building (in the main screen) displays information about it in the information window in lower right.</p>
+
+<p style="hsubtitle">Market </p>
+<p style="hp">Market is a key building in Lincity. They are mandatory for nearly all local trades. You <b> must </b> read the help on <a href="market">market </a> :-). <i>Of course, when a market is empty it cannot sell the corresponding item, and when it is full it cannot buy more. This may help you to understand why some building does not work (probably they cannot find what they need, or they cannot sell their production)</i> </p>
+
+<p style="hsubtitle">Transport </p>
+<p style="hp"><a href="transport">Transport </a> is needed for long distance exchanges, and for some specific activities (it is then written in the corresponding help message, for example communes). Like markets they have a limited capacity and can get saturated.</p>
+
+<p style="hp">If a 'normal' building is not in the range of a market, then it must be connected to transport. But remember that roads and rails have a yearly cost, so unless you really want to isolate one building (e.g. a monument) it is generally better (and cheaper) to use markets when needed. </p>
+
+<p style="hp">In the initial village tracks are not needed. But they will be useful when the village develops.</p>
+
+<p style="hsubtitle">Money </p>
+<p style="hp">Productions are taxed and thus earn you money. In the miniwindow, the third tab is <a href="finance"> Finance window </a>.  Take care of not investing too much too quickly: when your money is negative, you cannot build some things, and you have per year cost due to the debt. This can lead to bankruptcy (see <a href="tutorial-scenario"> Hard-time scenario </a>. </p>
+
+<p style="hsubtitle">Developing the city </p>
+<p style="hp">Remember people eat food and drink water, or die. To control population growth, you have to find a balance in the kind of <a href="residential"> Residential area </a> you build (they have different rate of birth/death). The new population will allow more jobs, but also need more food, goods, jobs ... </p>
+<p style="hp">You will have to augment your production (add potteries, blacksmith) and at the same time take care that they are supplied. So you will also need to add communes accordingly. </p>
+<p style="hp">To get new buildings you must raise your <a href="tech-level"> Tech Level </a>.</p>
+<p style="hp"> At some point you will have to choose your aim: either <a href="sustain"> Sustainable economy </a> or evacuation with <a href="rocket"> spaceships </a>.</p>
+
+<p style="hp">You'll have to check very often the <a href="pbar"> total market stocks </a>. Also minimaps can give you better insight on your economy, and for precise investigation remember that clicking on a building (in the main screen) displays information about it in the information window in lower right. </p>
+
+<li>Hint: Make one or two changes then wait a little (read help files ;-) or put the game at a faster speed, and watch how your economic indicators vary. </li>
+<p style="hp"></p>
+<p style="hp">Enjoy.</p>
+<p style="hp"></p>
+
+<p style="hp">Se också:</p>
+<li><a href="tutorial-advanced">Tutorial Advanced-features</a></li>
+<li><a href="tutorial-scenario">Tutorial Pre-defined scenario</a></li>
+<li><a href="msb-starve">Starvation overlay</a></li>
+<li><a href="msb-ub40">Unemployment overlay</a></li>
+
+
+</Document>
+

@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Hjälp för Lincity</p>
-	<p style="hp">Detta är hjälpsystemet i Lincity. Vänligen välj ett ämne genom att klicka på en av de blåa raderna nedan. Blåa ord är generellt sett en länk till ett annat dokument.</p>
+	<p style="hp">Detta är hjälpsystemet i Lincity. Vänligen välj ett ämne genom att klicka på en av de blåa raderna nedan. Blåa ord är generellt sett en länk till ett annat dokument. Använd pilen i överst till vänster för att gå tillbaka till föregående hjälp.</p>
+	<p style="hp">Du kan under spelets gång få hjälp med de flesta saker genom att använda hjälpknappen eller högerklicka på en specifik byggnadsikon i övre vänstra panelen.</p>
+
+	<li><a href="tutorial">Handledning</a></li>
 	<li><a href="keys">Tangentbordskommandon</a></li>
 	<li><a href="button-index">Lista alla byggbara enheter</a></li>
 	<li><a href="mini-screen">Hjälp för minikartan</a></li>
 	<li><a href="dialogs">Hjälp för informationflikarna</a></li>
+	<li><a href="index">Index</a></li>
 
-	<p style="hp">Under spelets gång kan du få hjälp med de flesta saker via hjälpknappen.</p>
-    
-    <li><a href="index">Index</a></li>
+    <p style="htitle">Mål</p>
+    <p style="hp">Du kan vinna Lincity antingen genom att bygga en <a href="sustain">hållbar ekonomi </a> eller
+    genom att evakuera alla invånare med <a href="rocket">rymdskepp</a>.</p>
 </Document>
+

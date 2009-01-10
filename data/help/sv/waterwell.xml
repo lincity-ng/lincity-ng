@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Vattenbrunnar</p>
+        <p style="hp">Tillhandahåller vatten till hus inom räckhåll. Vattenbrist leder till bland annat minskad mat. Information om svält visas i översikt/minikarta.</p>
+
+	<p style="hp">Se även:</p>
+	<li><a href="food">Mat</a></li>
+	<li><a href="msb-starve">Svältöversikt</a></li>
+</Document>
