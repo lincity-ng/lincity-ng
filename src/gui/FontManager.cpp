@@ -29,6 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <stdexcept>
 #include <sstream>
 
+#include "tinygettext/gettext.hpp"
 #include "PhysfsStream/PhysfsSDL.hpp"
 
 FontManager* fontManager = 0;
@@ -59,9 +60,17 @@ FontManager::getFont(Style style)
     if(i != fonts.end())
         return i->second;
     
-    std::string fontfile = "fonts/" + info.name + ".ttf";
-    TTF_Font* font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1,
-            info.fontsize);
+    TTF_Font* font = 0;
+
+    // If there a special font for the current language use it.
+    std::string fontfile = "fonts/" + info.name + "-" + dictionaryManager->get_language() + ".ttf";
+    try{
+        font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
+    } catch(std::exception& ){
+        // No special font found? Use default font then.
+        fontfile = "fonts/" + info.name + ".ttf";
+        font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
+    }
     if(!font) {
         std::stringstream msg;
         msg << "Error opening font '" << fontfile 
