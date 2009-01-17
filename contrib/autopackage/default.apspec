@@ -9,14 +9,16 @@ Packager: Wolfgang Becker <uafr@gmx.de>
 Summary: City Simulation Game
 URL: http://lincity-ng.berlios.de
 License: GNU General Public License, Version 2
-SoftwareVersion: 1.1.2
+SoftwareVersion: 1.99
 AutopackageTarget: 1.2
 PackageVersion: 1
 
 [Description]
-LinCityNG is a polished and improved version of the old LinCity game. Within
-the scope of the GoTM project at happypenguin.org a new iso-3d
-graphics engine together with completely redone modern gui was created.
+LinCity-NG is a city simulation game. It is a polished and improved
+version of the classic LinCity game. In the game, you are required
+to build and maintain a city. You can win the game either by
+building a sustainable economy or by evacuating all citizens with
+spaceships.
 
 [BuildPrepare]
 jam clean #required for dual compilation with CXX2
