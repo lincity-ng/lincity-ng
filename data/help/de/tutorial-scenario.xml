@@ -4,18 +4,26 @@
 <p style="hp">Szenarien lassen sich über das Hauptmenü mit "Neues Spiel" auswählen.</p>
 
 <p style="hsubtitle">Einfach</p>
-<li>"good_times": Eine teilweise ausgebaute, relativ moderne Stadt, viel Geld
-    und genügend Platz, um eigene Ideen zu verwirklichen.</li>
-
-<li>"Beach": Eine große Strandfläche ganz ohne störende Flüsse zum bebauen.
+<li>"Strand": Eine große Strandfläche ganz ohne störende Flüsse zum bebauen.
 Häfen lassen sich später immer noch direkt am Meer bauen. Wenn man die Leute
 nicht gleich am Anfang verhungern lässt ist die Zukunft offen.</li>
 
+<li>"Gute Zeiten": Eine teilweise ausgebaute, relativ moderne Stadt, viel Geld
+    und genügend Platz, um eigene Ideen zu verwirklichen.</li>
+
 <p style="hsubtitle">Schwierig</p>
-<li>"bad_times": Der gleiche Aufbau wie bei "good_times", nur ist Ihre Stadt
+<li>"Schlechte Zeiten": Der gleiche Aufbau wie bei "Gute Zeiten", nur ist Ihre Stadt
     überschuldet. Können Sie sie sanieren? Eine eingehende Analyse der gesamten
     Stadt, sowie drastische Sparmaßnahmen sind erforderlich, um den Bankrott
     abzuwenden. Schwer aber lösbar. Selbst Nachhaltigkeit ist möglich.</li>
+
+<li>"Trockengebiet": die Landschaft ist sehr wasserarm, der Standort von
+    Bauernhöfe und Köhlereien muss sorgfältig gewählt werden, um eine effiziente
+    Produnktion zu gewährleisten</li>
+
+<li>"Feuchtgebiet": auf dieser an vielen Stellen überfluteten Landschaft ist
+    es sehr schwierig,teine Stadt zu bauen.</li>
+
 <p style="hp"></p>
 
 <p style="hp"><a href="tutorial">Tutorium</a></p>

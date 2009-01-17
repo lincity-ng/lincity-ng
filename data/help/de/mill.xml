@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Mühle</p>
-	<p style="hp">Mühlen wandeln Nahrung, Kohle und Jobs in Güter um. Nahrung?... nun ja, Wolle und Stoff werden in diesem Spiel als Nahrung gezählt.</p>
+	<p style="hp">Mühlen wandeln Nahrung, Kohle und Jobs in Waren um. Nahrung?... nun ja, Wolle und Stoff werden in diesem Spiel als Nahrung gezählt.</p>
 	<p style="hp">Mühlen verbrauchen eine ganze Menge Nahrung, so kann es leicht passieren das es zu Engpässen kommt, wenn Sie nicht vorsichtig sind! (Es ist weniger ein Problem, wenn Sie Windmühlen haben, da diese die Bauernhöfe mit Energie versorgen können, welche diese effizienter macht)</p>
 	<p style="hp">Mühlen müssen nicht ans Verkehrsnetz angeschlossen sein, aber in Reichweite eines Markts stehen, der sie mit Kohle, Arbeitskräften und Nahrung versorgt. An den Rauchwolken über dem Gebäude können Sie sehen ob es arbeitet oder nicht.</p>
 	
@@ -13,7 +13,7 @@
 	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="goods">Güter</a></li>
+	<li><a href="goods">Waren</a></li>
 	<li><a href="food">Nahrung</a></li>
 	<li><a href="coal">Kohle</a></li>
 	<li><a href="jobs">Arbeitsplätze</a></li>

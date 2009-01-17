@@ -4,9 +4,9 @@
 <p style="hsubtitle">Märkte und Transportwege</p>
 <p style="hp">Doppelklick auf einen Markt im Hauptfenster öffnet ein Fenster.
 In diesem kann der Warenaustausch der Markes mit festgelegt werden.</p>
-<li>Güter, die gekauft werden werden von Transportwegen und Produzenten in
+<li>Waren, die gekauft werden werden von Transportwegen und Produzenten in
 den Markt geholt, der Lagerbestand im Markt steigt</li>
-<li>Güter die verkauft werden gibt der Markt an Transportwege und Verbraucher
+<li>Waren die verkauft werden gibt der Markt an Transportwege und Verbraucher
 ab, der Lagerbestand im Markt sinkt.</li>
 
 <p style="hp">Normalerweise behält man die Grundeinstellung "alles

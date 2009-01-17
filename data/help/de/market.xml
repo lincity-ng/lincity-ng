@@ -5,7 +5,7 @@
     <p style="hp">In LinCity sind Märkte ein Schlüsselgebäude.
     Sie sind Arbeitsamt, Warenlager und Einkaufszentrum in einem -
     kurz: Überall findet sich ein "Markt". Sie kaufen und verkaufen
-    Nahrung, Arbeitsplätze, Kohle, Güter, Erz und Stahl an die
+    Nahrung, Arbeitsplätze, Kohle, Waren, Erz und Stahl an die
     Anliegenden Gebiete und ins Verkehrsnetz. Als Beispiel: Die
     Wohngebiete versorgen den Markt mit Arbeitskräften und
     der Markt versorgt das im bau befindliche Denkmal mit
@@ -26,7 +26,7 @@
    <li>Alle Gebäude, die Arbeitskräfte benötigen erhalten diese von 
        den Märkten.</li>
    <li>Bauernhöfe verkaufen ihre Nahrung direkt an Märkte.</li>
-   <li>Spinnereien, Töpfereien und Schmieden verkaufen ihre Güter direkt
+   <li>Spinnereien, Töpfereien und Schmieden verkaufen ihre Waren direkt
        an Märkte, von dort beziehen sie auch ihre Rohstoffe.</li>
    <p style="hp">Falls sie sich nicht im Einzugsbereich eines Marktes befinden,
        brauchen diese Gebäude einen <a href="transport"> Verkehrsverbindung</a>.</p>
@@ -51,7 +51,7 @@
 	<li><a href="food">Nahrung</a></li>
 	<li><a href="jobs">Arbeitsplätze</a></li>
 	<li><a href="coal">Kohle</a></li>
-	<li><a href="goods">Güter</a></li>
+	<li><a href="goods">Waren</a></li>
 	<li><a href="ore">Erz</a></li>
 	<li><a href="steel">Stahl</a></li>
 	<li><a href="transport">Verkehr</a></li>

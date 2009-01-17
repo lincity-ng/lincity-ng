@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Windmühle</p>
-	<p style="hp">Windmühlen erzeugen Energie Wohngebiete und Bauernhöfe. Sie ermöglichen es den Bauern, mehr Nahrung herzustellen und machen Wohngebiete attraktiver.</p>
-	<p style="hp">Die Bewohner von Wohngebiete, die mit Energie versorgt werden verbrauchen mehr Waren.</p>
-	<p style="hp">Die altmodischen Windmühlen erzeugen <b>keine</b> Energie für die Industrie. (Die Schwerindustrie kann Energie aus Kohle gewinnen, Industriegebiete benötigen <i>elektrischen Strom</i>, sie funktionieren auch ohne, aber mit deutlich geringerer Produktion)</p>
-    <p style="hp">Windmühlen benötigen Arbeitskröfte um Energie zu erzeugen.
-    Sind nicht genügend Arbeiter da wird weniger Energie erzeugt, ohne Arbeiter überhaupt keine.</p>
+
+    <p style="hp">Windmühlen erzeugen Energie Wohngebiete und
+        Bauernhöfe. Sie ermöglichen es den Bauern, mehr Nahrung
+        herzustellen und machen Wohngebiete attraktiver.</p>
+
+    <p style="hp">Die Bewohner von Wohngebiete, die mit Energie
+        versorgt werden verbrauchen mehr Waren.</p>
+
+    <p style="hp">Die altmodischen Windmühlen erzeugen
+        <b>keine</b> Energie für die Industrie. (Die
+        Schwerindustrie kann Energie aus Kohle gewinnen,
+        Industriegebiete benötigen <i>elektrischen Strom</i>,
+        sie funktionieren auch ohne, aber mit deutlich geringerer
+        Produktion.) Windmühlen können weder die Industrie noch die
+        Wertstoffhöfe direkt versorgen.</p>
+
+    <p style="hp">Windmühlen benötigen Arbeitskräfte um Energie
+         zu erzeugen.  Sind nicht genügend Arbeiter da wird weniger
+        Energie erzeugt, ohne Arbeiter überhaupt keine.</p>
+
 	<p style="hp">Es gibt zwei Arten Windmühlen.</p>
 	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
 	<p style="hp">Die Erste ist eine altmodische Holzwindmühle.</p>

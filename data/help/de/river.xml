@@ -10,9 +10,10 @@
     Beispiel: sobald eine Erzgrube leer ist läuft sie mit Wasser voll,
     falls es mit dem Fluss verbunden ist ist die neue Wasserfläche 
     teil des Flusses, ansonsten ein See.</p>
-	<p style="hp">Wenn ein Stück des Flusses zugeschüttet wird, etwa um 
-    eine Straße darüber zu bauen, bleiben beide Wasserteile immer noch Teil
-    des Flusses. </p>
+    <p style="hp">Wenn ein Stück des Flusses zugeschüttet wird
+        bleiben beide Wasserteile immer noch Teil des Flusses. </p>
+    <p style="hp">Um eine Brücke zu errichten bauen Sie den Transportweg
+    auf das Wasser.</p>
 	<p style="hp">Sobald eine Wasserfläche einmal Teil des Flusses ist
     kann sie <b>nicht</b> wider in einen See verwandelt werden. Wasser,
     das Teil des Flusses ist, wird im <a href="query">Abfragewerkzeug</a>

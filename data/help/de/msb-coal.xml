@@ -2,9 +2,23 @@
 <Document style="helpdocument">
 	<p style="htitle">Kohle Layer</p>
 	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
-	<p style="hp">Der Kohle Layer zeigt die Kohlereserven nahe der Stadt. Die Kohleadern werden weiß auf schwarzem Grund angezeigt. Sie müssen eine Kohlegrube in die Nähe einer Ader bauen um effektiv Kohle abbauen zu können.</p>
-	<p style="hp">Das erste mal, wenn Sie diesen Layer aktivieren, werden ihnen eine Millionen € abgezogen, um die untererdischen Untersuchungen zu finanzieren. Anschließend ist die betrachtung des Layers kostenlos.</p>
-	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein andere Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
+
+    <p style="hp">Der Kohle Layer zeigt die Kohlereserven nahe
+        der Stadt. Die Kohleadern werden in Rot und Grün auf grauem Grund
+        angezeigt. Sie müssen eine Kohlegrube in die Nähe einer
+        Ader bauen um effektiv Kohle abbauen zu können.</p>
+
+    <p style="hp">Das erste mal, wenn Sie diesen
+        Layer aktivieren, werden ihnen eine Millionen €
+        abgezogen, um die untererdischen Untersuchungen zu
+        finanzieren. Anschließend ist die Betrachtung des Layers
+        kostenlos.</p>
+
+    <p style="hp">Linksklick auf die Miniaturansicht um
+        zur entsprechenden Stelle auf der Hauptansicht zu
+        springen. Linksklick auf ein andere Symbol aktiviert einen
+        anderen Layer. Mit 'v' können Sie den aktiven Layer auf die
+        Hauptansicht legen.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="mini-screen">Miniaturansicht</a></li>

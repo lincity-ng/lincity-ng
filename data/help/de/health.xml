@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Krankenhaus</p>
-	<p style="hp">Krankenhäuser gewähren die Medizinische Versorgung für die Wohngebiete die in ihrem Einzugsbereich liegen, sie decken eine Reichweite von 4 Quadraten in jede Richtung ab.</p>
-	<p style="hp">Ein Krankenhaus macht ein Wohngebiet attraktiver, weniger Menschen sterben an folgen von Verschmutzung, außerdem arbeiten Menschen die im Einzugsgebiet eines Krankenhauses produktiver!(Sie sind weniger krankgeschrieben).</p>
-	<p style="hp">Krankenhäuser sind sehr teuer, 60.000€ pro Jahr. Sie reduzieren jedoch die kosten von "unnatürlichen Todesfällen" und können extra Steuern einbringen (solange es Arbeit für die Leute gibt).</p>
-	<p style="hp">Nach dem bau eines Krankenhauses, braucht es ungefähr drei Monate bis dieses mit all seinen Geräten einsatzbereit ist. Zum Betrieb benötigt es Güter, jedoch keine Arbeitsplätze als solche, sie werden damit verbucht, das die Leute in den umliegenden Regionen weniger krank sind und mehr arbeiten können.</p>
-	<p style="hp">Krankenhäuser müssen nicht an das Verkehrssystem angebunden werden, sie müssen dann jedoch in der Reichweite eines Markts liegen.</p>
-	<p style="hp">Um zu sehen welche Gebiete vom Krankenhaus abgedeckt werden, klicken Sie auf das Gesundheits Symbol unter der Miniaturansicht. Die Bereiche die normal dargestellt werden, sind von einem Krankenhaus abgedeckt.</p>
+
+    <p style="hp">Krankenhäuser stellen die medizinische
+        Versorgung für die Wohngebiete, die in ihrem Einzugsbereich
+        liegen, sicher.</p>
+
+    <p style="hp">Ein Krankenhaus macht ein Wohngebiet
+        attraktiver, weniger Menschen sterben an folgen von
+        Verschmutzung, außerdem arbeiten Menschen die im
+        Einzugsgebiet eines Krankenhauses produktiver!(Sie sind
+        weniger krankgeschrieben).</p>
+
+    <p style="hp">Krankenhäuser sind sehr teuer, 60.000€ pro
+        Jahr. Sie reduzieren jedoch die Kosten von "unnatürlichen
+        Todesfällen" und können extra Steuern einbringen (solange
+        es Arbeit für die Leute gibt).</p>
+
+    <p style="hp">Nach dem Bau eines Krankenhauses, braucht es
+        ungefähr drei Monate bis dieses mit all seinen Geräten
+        einsatzbereit ist. Zum Betrieb benötigt es Waren.</p>
+
+    <p style="hp">Krankenhäuser müssen nicht an das
+        Verkehrssystem angebunden werden, sie müssen dann jedoch in
+        der Reichweite eines Markts liegen.</p>
+
+        <p style="hp">Um zu sehen welche Gebiete vom Krankenhaus
+        abgedeckt werden, klicken Sie auf das Gesundheits
+        Symbol unter der Miniaturansicht. Die Bereiche die
+        normal dargestellt werden, sind von einem Krankenhaus
+        abgedeckt.</p>
 
 	<p style="hp">Dies ist ein Krankenhaus</p>
 	<img src="images/tiles/health.png" halign="center"/>
@@ -19,7 +42,7 @@
 	<li><a href="residential">Wohngebiete</a></li>
 	<li><a href="pollution">Verschmutzung</a></li>
 	<li><a href="jobs">Arbeitsplätze</a></li>
-	<li><a href="goods">Güter</a></li>
+	<li><a href="goods">Waren</a></li>
 	<li><a href="transport">Verkehr</a></li>
 	<li><a href="msb-health">Gesundheits Layer</a></li>
 </Document>

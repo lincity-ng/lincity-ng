@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Sportplatz</p>
-	<p style="hp">Sportplätze bieten Sport und Unterhaltung für ihre Einwohner. Sportplätze benötigen Güter und Arbeitsplätze um zu funktionieren. Sie müssen nicht zwingend ans Verkehrsnetz angebunden sein, brauchen dann aber jedoch einen Markt in ihrer Nähe, der sie mir Arbeitsplätzen und Gütern versorgt. Außerdem produziert ihr betrieb laufende Kosten.</p>
+	<p style="hp">Sportplätze bieten Sport und Unterhaltung für ihre Einwohner. Sportplätze benötigen Waren und Arbeitsplätze um zu funktionieren. Sie müssen nicht zwingend ans Verkehrsnetz angebunden sein, brauchen dann aber jedoch einen Markt in ihrer Nähe, der sie mir Arbeitsplätzen und Warenn versorgt. Außerdem produziert ihr betrieb laufende Kosten.</p>
 	<p style="hp">Wenn Sie einen Sportplatz bauen, wird er noch nicht sofort "in betrieb" gehen. Es dauert ungefähr drei Monate bis alle Geräte(z.B: Basketball Körbe) installiert sind.</p>
 	<p style="hp">Um zu sehen welchen Bereich ihr Sportplatz abdeckt, klicken sie auf das Sportplatz Symbol unterhalb der Miniaturansicht. Gebiete die abgedeckt sind werden normal dargestellt, der nicht abgedeckte Teil wird Dunkelgrün dargestellt.
 	</p>
 	<p style="hp">Sportplätze steigern die attraktivität der Wohngebiete in ihrem Bereich.</p>
-	<p style="hp">Sportplätze zeigen jeden Monat eine Animationssequenz um zu zeigen das sie arbeiten.</p>
+	<p style="hp">Sportplätze zeigen eine Animationssequenz um zu zeigen das sie arbeiten.</p>
 
 	<p style="hp">Dies ist ein Sportplatz</p>
 	<img src="images/tiles/cricket1.png" halign="center"/>
@@ -17,7 +17,7 @@
 
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="mini-screen">Miniaturansicht</a></li>
-	<li><a href="goods">Güter</a></li>
+	<li><a href="goods">Waren</a></li>
 	<li><a href="market">Markt</a></li>
 	<li><a href="jobs">Arbeitsplätze</a></li>
 	<li><a href="msb-cricket">Sport Layer</a></li>

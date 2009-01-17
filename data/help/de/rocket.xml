@@ -5,8 +5,8 @@
 	<p style="hp">Sie müssen fünf erfolgreiche unbemannte Raketenstarts haben, bevor Sie mit der Evakuierung beginnen können. Jede erfolgreich gestartete Evakuierungsrakete kann 1000 Menschen transportieren.</p>
 	<p style="hp">Falls ein Start fehl schlägt, müssen Sie weitere 5 unbemannte Raketen abschicken, bevor sie weiter evakuieren können.</p>
 	<p style="hp">Das Technik-Level ist ausschlaggebend für den Erfolg eines Raketenstarts. Ein 80%iges Tech-Level bedeutet, das nur 4 von 5 Raketen erfolgreich starten. Ein 100%iges Tech-Level dagegen bedeutet, das jeder Rakete in den Himmel kommt (Beachte: Bei den <i>ersten 5</i> Starts kann es trotzdem zu abstürzen kommen!).</p>
-	<p style="hp">Raketenbasen müssen nicht ans Verkehrsnetz angeschlossen werden, sie können alles über lokale Märkte beziehen. Sie benötigen viel Stahl, Güter, Arbeitskräfte und Geld für den Bau. Wenn die Rakete fertig ist, werden Sie gefgragt ob Sie die Rakete jetzt oder später starten wollen. Wenn Sie später auswählen können sie durch klicken auf die Rakete diesen Dialog erneut anzeigen.</p>
-	<p style="hp">Wenn die Rakete fertig gebaut ist, aber noch nicht abgeschossen wurde benötigt sie zwar keine Stahl, Güter oder Arbeitskräfte mehr, kostet trotzdem aber sehr viel Geld..</p>
+	<p style="hp">Raketenbasen müssen nicht ans Verkehrsnetz angeschlossen werden, sie können alles über lokale Märkte beziehen. Sie benötigen viel Stahl, Waren, Arbeitskräfte und Geld für den Bau. Wenn die Rakete fertig ist, werden Sie gefgragt ob Sie die Rakete jetzt oder später starten wollen. Wenn Sie später auswählen können sie durch klicken auf die Rakete diesen Dialog erneut anzeigen.</p>
+	<p style="hp">Wenn die Rakete fertig gebaut ist, aber noch nicht abgeschossen wurde benötigt sie zwar keine Stahl, Waren oder Arbeitskräfte mehr, kostet trotzdem aber sehr viel Geld..</p>
 	<p style="hp">Dies ist eine Raketenbasis</p>
 	<img src="images/tiles/rocket5.png" halign="center"/>
 	<p style="hp">und das ihr Symbol</p>

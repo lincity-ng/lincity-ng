@@ -3,17 +3,28 @@
 	<p style="htitle">Kohlekraftwerk</p>
 	<p style="hp">Kohlekraftwerke erzeugen elektrischen Strom, den sie ins
     angeschlossene Netz einspeisen. </p>
-	<p style="hp">Stromleitungen werden an der Nordwestecke des Kraftwerks
-    angeschlossen, Transportwege auf den beiden Feldern daneben.</p>
-	<p style="hp">Der Wirkungsgrad der Kraftwerke steigt mit dem
-    Technologieniveau. Das Kafrtwerk behält immer den Technologiestand
-    <b>zum Bauzeitpunkt</b>. Es kann sinnvoll sein, alte Kraftwerke abzureisen
-    und sie durch modernere zu ersetzen, falls Ihr Technologieniveau deutlich
-    angestiegen ist.</p>
+
 	<p style="hp">Das ist ein Kohlekraftwerke</p>
 	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
 	<p style="hp">und das sein Icon</p>
+
 	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
+	<p style="hp">Stromleitungen werden an der Nordwestecke des Kraftwerks
+    angeschlossen, Transportwege auf den beiden Feldern daneben.</p>
+    
+    <img src="images/help/powerscoal-example.png" halign="center"/>
+
+    <p style="hp">Obiges Beispiel zeigt ein Kohlekraftwerk, bei dem
+     alle Anschlußstellen verwendet werden. Links ist eine Straße,
+     darüber zwei Stromleitungen. Rechts davon ist eine Eisenbahnlinie
+     mit dem anderen Transportwegeanschluß verbunden. Im Spiel können
+     hohe Gebäude durch drücken von <b>h </b> ein- und ausgeblendet werden.</p>
+
+	<p style="hp">Der Wirkungsgrad der Kraftwerke steigt mit dem
+    Technologieniveau. Das Kraftwerk behält immer den Technologiestand
+    <b>zum Bauzeitpunkt</b>. Es kann sinnvoll sein, alte Kraftwerke abzureisen
+    und sie durch modernere zu ersetzen, falls Ihr Technologieniveau deutlich
+    angestiegen ist.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="transport">Transport</a></li>

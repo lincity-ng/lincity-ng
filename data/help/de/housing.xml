@@ -8,9 +8,12 @@
 	<li>Obdachlos - Zeigt die Anzahl der Leute ohne Wohnung.</li>
 	<li>Barackensiedlungen: Zeigt die Anzahl der Barackensiedlungen in der Stadt.</li>
 	<li>Unn Tdsfl - Zeigt die Anzahl der unnatürlichen Todesfälle, also die Leute die im letzten Monat durch Hunger oder Verschmutzung zu tode gekommen sind.</li>
-	<li>Arbeitslosigkeit - Zeigt den Prozentsatz der Einwohner die ohne Arbeit sind.</li>
-	<li>Ansprüche - Bisher noch nicht Dokumentiert....</li>
-	<li>Verhungert - Fälle Zeigt die tatsächlichen Todesfälle an, Rate zeigt den Prozentsatz der Hungernden Bevölkerung.</li>
+	<li>Arbeitslosigkeit - Ansprüche zeigt die absolute Zahl, die im letzten Monat Anspruch auf Arbeitslosengeld hatten.
+        Die Rate ist der Prozentsatz der Einwohner, die ohne Arbeit sind. </li>
+	<li>Verhungert - Fälle zeigt die tatsächlichen Todesfälle an, Rate den Prozentsatz der hungernden Bevölkerung.</li>
+
+    <p style="hp">Durch Klick auf den Reiter können Sie zwischen den 
+        verschiedenen Finanzansichten wechseln.</p>
 
     <p style="hsubtitle">Siehe auch:</p>
     <li><a href="finance">Finanzübersicht</a></li>

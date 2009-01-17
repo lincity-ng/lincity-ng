@@ -2,11 +2,19 @@
 <Document style="helpdocument">
 	<p style="htitle">Energie Layer</p>
 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
-	<p style="hp">Gebiete die primitive Windmühlenenergie benutzen werden als Dunkelgrün dargestellt.</p>
-	<p style="hp">Die Gebiete die am Stromnetz hängen werden als Hellgrün dargestellt.</p>
-	<p style="hp">Die unversorgten Regionen werden Normal dargestellt.</p>
-	<p style="hp">Dieser Layer verbraucht Energie. Versuchen Sie ihn nicht zu lange aktiviert zu haben.</p>
-	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein andere Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
+
+    <p style="hp">Gebäuder, die mechanische Energie von altmodischen Windmühlen
+        benutzen werden Dunkelgrün dargestellt.</p>
+
+	<p style="hp">Die Gebäude, die am Stromnetz hängen werden als Hellgrün dargestellt.</p>
+
+	<p style="hp">Die unversorgten Gebäude werden Rot dargestellt.</p>
+
+    <p style="hp">Linksklick auf die Miniaturansicht um
+        zur entsprechenden Stelle auf der Hauptansicht zu
+        springen. Linksklick auf ein andere Symbol aktiviert einen
+        anderen Layer. Mit 'v' können Sie den aktiven Layer auf die
+        Hauptansicht legen.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="mini-screen">Miniaturansicht</a></li>

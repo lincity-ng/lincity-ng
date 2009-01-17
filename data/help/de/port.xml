@@ -15,7 +15,8 @@
 	<p style="hp">Es wird so viel wie Möglich verkauft, wenn sie die Menge
     beschränken wollen sollten sie nur einen Transportweg mit geringer
     Kapazität zum Hafen bauen.</p>
-	<p style="hp">Achtung: Wenn viel exportiert wird sinkt der Verkaufspreis.</p>
+	<p style="hp">Über einen aktiven Hafen erhält man ein bischen Technologie.
+    Achtung: Wenn viel exportiert wird sinkt der Verkaufspreis.</p>
 
 	<p style="hp">Das ist ein Hafen.</p>
 	<img src="images/tiles/ex_port.png" halign="center"/>

@@ -2,11 +2,18 @@
 <Document style="helpdocument">
 	<p style="htitle">Transportübersicht</p>
 	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
-	<p style="hp">Die Transportminikarte zeigt die Menge von Gütern,
+	<p style="hp">Die Transportminikarte zeigt die Menge von Warenn,
     die sich auf den <a href="track">Wegen</a>, <a href="road">Straßen </a>
     und <a href="rail">Eisenbahnen </a> der Stadt befinden.</p>
 	<p style="hp">Die bläulichen Farben sind Gebäude, die sich in der
     Reichweite eines <a href="market">Marktes </a> befinden.</p>
+
+    <p style="hp">Linksklick auf die Miniaturansicht um
+        zur entsprechenden Stelle auf der Hauptansicht zu
+        springen. Linksklick auf ein andere Symbol aktiviert einen
+        anderen Layer. Mit 'v' können Sie den aktiven Layer auf die
+        Hauptansicht legen.</p>
+
 
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="mini-screen">Minikarte</a></li>
