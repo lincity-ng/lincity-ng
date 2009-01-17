@@ -55,15 +55,11 @@ Config::Config()
     musicEnabled = true;
     restartOnChangeScreen = true;
      
-    showDay = true;
-    instantBulldoze = true;
-
     //#define MONTHGRAPH_W 120 
     //#define MONTHGRAPH_H 64
     monthgraphW = 190;
     monthgraphH = 64;
     skipMonthsFast = 1;
-    upgradeTransport = true;
     quickness = FAST_TIME_FOR_YEAR;
 
     playSongName = "02 - Robert van Herk - City Blues.ogg";
@@ -172,12 +168,6 @@ void Config::load( const std::string& filename ){
                     const char* value = (const char*) iter.getValue();
                     if(strcmp(name, "skipMonthsFast" ) == 0) {
                         skipMonthsFast = parseInt( value, 1, 1 );
-                    } else if( strcmp(name, "upgradeTransport" ) == 0 ){
-                       upgradeTransport  = parseBool(value, true);
-                    } else if( strcmp(name, "instantBulldoze" ) == 0 ){
-                       instantBulldoze = parseBool(value, true);
-                    } else if( strcmp(name, "showDay" ) == 0 ){
-                       showDay = parseBool(value, true);
                     } else if( strcmp(name, "monthgraphW" ) == 0 ){
                        monthgraphW  = parseInt(value, 120, 0);
                     } else if( strcmp(name, "monthgraphH" ) == 0 ){
@@ -230,9 +220,7 @@ Config::save(){
     userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")  
         << "\" musicVolume=\"" << musicVolume << "\"\n";
     userconfig << "           playSongName=\"" << playSongName << "\" />\n";
-    userconfig << "    <game upgradeTransport=\""<< (upgradeTransport?"yes":"no");
-    userconfig << "\" instantBulldoze=\""<< (instantBulldoze?"yes":"no");
-    userconfig <<"\" showDay=\""<<( showDay?"yes":"no") <<"\" quickness=\""<< quickness <<"\" />\n";
+    userconfig << "    <game quickness=\""<< quickness <<"\" />\n";
     userconfig << "</configuration>\n";
 }
 

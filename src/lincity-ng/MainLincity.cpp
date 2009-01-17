@@ -93,8 +93,10 @@ void execute_timestep ()
         print_stats ();
         updateDate();
         print_total_money();
+        getGameView()->requestRedraw();
+    } else if (fast_time_for_year != FAST_TIME_FOR_YEAR) { // The point of fast mode is to be really fast. So skip frames for speed by default.
+        getGameView()->requestRedraw();                    // Users with fast machines who prefer nice animations in fast mode can set fast speed manually to get them back.
     }
-    getGameView()->requestRedraw();
 }
 
 /*

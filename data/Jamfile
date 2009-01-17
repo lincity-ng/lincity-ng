@@ -6,7 +6,6 @@ IMAGEPATHS =
     images
     images/gui
     images/gui/buttonpanel
-    images/gui/buttonpanel/background
     images/gui/buttonpanel/base
     images/gui/buttonpanel/industry
     images/gui/buttonpanel/menu
@@ -24,11 +23,11 @@ IMAGEPATHS =
     images/gui/info
     images/gui/mapview
     images/gui/mapview/roundbuttons
-    images/gui/mapview/buttons
     images/gui/scrollbar
     images/gui/speed
     images/gui/window
     images/gui/zoom
+    images/help
     images/mainmenu
     images/mainmenu/buttons
     images/mainmenu/progressbar
@@ -42,6 +41,7 @@ for p in $(IMAGEPATHS) {
 }
 
 HELPPATHS =
+    help/ca
     help/cs
     help/de
     help/en

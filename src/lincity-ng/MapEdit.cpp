@@ -191,10 +191,6 @@ void editMap (MapPoint point, int button)
         //to be here we are not in bulldoze-mode and the tile
         //under the cursor is not empty. 
         //to allow up/downgrading of Tracks,Roads,Rails and bridges we can't always return.
-        if( !getConfig()->upgradeTransport ){
-            return;
-        }
-
         if( ( selected_module_type != CST_TRACK_LR ) && 
             ( selected_module_type != CST_ROAD_LR ) && 
             ( selected_module_type != CST_RAIL_LR ) ) {

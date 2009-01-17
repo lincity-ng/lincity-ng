@@ -32,17 +32,13 @@
 -->
 
 <!-- Game Section -->
- <game upgradeTransport="yes" instantBulldoze="yes" showDay="yes" />
-<!--upgradeTransport and showDay are saved to userconfig.xml
-    upgradeTransport="yes" means you can build transports
-    (tracks, roads, railroad) over each other without
-    bulldozing first. 
-    instantBulldoze="yes" while pressing left mousbutton in bulldoze-
-    mode almost everything under the cursur is blown up at once, so 
-    be careful.
-    showDay="yes" displays day, month and year in the statusbar
-    instead of just month and year.
-    -->
+ <game quickness="9" />
+<!-- quickness is saved to userconfig.xml
+    Commandline -q [delay] sets the delay for fast mode, default is 9.
+    9 is default. This skips animation frames, good on slow machines.
+    8 to 1 have nice animations in fast mode.
+    1 is fastest. It may heat your hardware!
+-->
 <!-- The values monthgraphW and monthgraphH influence the Size
     of the Economy-Graphs. If you are not a developer just stick to 
     the defaults.

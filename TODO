@@ -19,8 +19,6 @@ Sounds
 
 Translations/Help
 ~~~~~~~~~~~~~~~~~
- [H] Add bridges to documentation.    
-
  [H] There were help page without any link to them. Some of the texts
      are just wrong because they were taken from classic without any
      adjustment to the new gui.
