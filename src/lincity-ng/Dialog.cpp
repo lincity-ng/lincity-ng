@@ -488,7 +488,8 @@ void Dialog::gameStats(){
 }
 
 /* 
- * Save game statistics to RESULTS_FILENAME
+ * Save game statistics to RESULTS_FILENAME. Do NOT translate text here!
+ * That way the files can be used for highscores.
  */
 void Dialog::saveGameStats(){
     //open File
