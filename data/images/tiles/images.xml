@@ -112,9 +112,9 @@
     <image file="firedone3.png" x="66" />
     <image file="firedone4.png" x="66" />
 
-   <image file="monument.png" x="131" y="2000" />
-  <image file="oremine.png" x="258" y="102" />
-  <image file="port.png" x="262" y="112" />
+   <image file="monument.png" x="131"/>
+  <image file="oremine.png" x="258"/>
+  <image file="port.png" x="262"/>
 
 <image file="market-empty.png" x="131" />
 <image file="market-low.png" x="131" />
@@ -163,6 +163,4 @@
   <image file="raillud.png" x="66" />
   <image file="railudr.png" x="66" />
   <image file="railludr.png" x="66" />
-
-  <image file="waterlrd.png" x="64" y="28" />
 </resources>
