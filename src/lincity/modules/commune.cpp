@@ -44,11 +44,12 @@ void do_commune(int x, int y)
         else if (w < (2 * n) / 3)
             coalprod = 1;
     }
-
-    if (put_coal(x, y, coalprod) != 0) {
-        trackflag = 1;
-        MP_INFO(x, y).int_3++;
-        MP_INFO(x, y).int_6 |= 1;
+    if (coalprod > 0) {
+        if (put_coal(x, y, coalprod) != 0) {
+            trackflag = 1;
+            MP_INFO(x, y).int_3++;
+            MP_INFO(x, y).int_6 |= 1;
+        }
     }
     if (put_ore(x, y, 6) != 0) {
         trackflag = 1;
