@@ -548,10 +548,10 @@ void mps_global_housing()
     mps_store_sfp(i++,_("Rate"),
 		  (((tunemployed_population/days) * 100.0) / tp));
     mps_store_title(i++,_("Starvation"));
-    mps_store_sd(i++,_("Cases"),tstarving_population);
+    mps_store_sd(i++,_("Cases"),tstarving_population/days);
 
     mps_store_sfp(i++,_("Rate"),
-		  ((tstarving_population * 100.0) / tp));
+		  (((tstarving_population/days) * 100.0) / tp));
 
     currentMPS = 0;
 }
