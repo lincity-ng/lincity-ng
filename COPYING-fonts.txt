@@ -1,6 +1,6 @@
-The fonts bundled with LincityNG are the DejaVu Fonts from
-http://dejavu.sourceforge.net/. Note that these have their own
-license:
+The font fonts/sans.ttf bundled with LincityNG is the DejaVu Font
+DejaVuSans.ttf from http://dejavu.sourceforge.net/. Note that these
+fonts have their own license:
 
 Fonts are (c) Bitstream (see below). DejaVu changes are in public domain.
 Glyphs imported from Arev fonts are (c) Tavmjong Bah (see below)
