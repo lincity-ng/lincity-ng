@@ -7,7 +7,7 @@
 	<p style="hp">Nada será importado ou exportado até que você tenha selecionado a caixa apropriada.
 	</p>
 	<p style="hp">A área de exportação exportará tanto quanto for necessário. Se você precisa exportar, mas quer restringir a quantidade, você pode querer utilizar um tipo de transporte com menor capacidade, utilize um bom pedaço ou passe o produto através de um mercado. Você precisara experimentar para ter a melhor configuração de transporte.</p>
-	<p style="hp">Nota: Exportadores descontam grandes exportações.</p>
+	<p style="hp">Um porto ativo fornece alguma tecnologia. Observe que exportadores fazem grandes exportações (consomem grande quandidade de recursos).</p>
 
 	<p style="hp">Este é um porto</p>
 	<img src="images/tiles/ex_port.png" halign="center"/>

@@ -4,7 +4,7 @@
 	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
 	<p style="hp">A mini tela dos transportes mostra a quantidade de bens nas <a href="track">pistas</a>, <a href="road">estradas </a> e <a href="rail">trilhos</a> na cidade.</p>
 	<p style="hp">As cores azuladas indicam construções que estão dentro da área de um <a href="market">mercado</a>.</p>
-	
+	<p style="hp">Clique com o botão esquerdo no mini-mapa para reposicionar a janela principal. Altere o modo de sobreposição do mini-mapa apertando 'v' ou clicando no botão grande de alternar mini-mapa.</p>
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="mini-screen">Mini-mapa</a></li>
 	<li><a href="msb-coal">Área de cobertura do carvão</a></li>

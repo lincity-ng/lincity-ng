@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Aceleração rápida</p>
-	<img src="images/gui/speed/fast.png"/>
+	<img src="images/gui/speed/faster.png"/>
 	<p style="hp">Este é o botão de aceleração rápida. Ele faz com que o jogo rode o mais rápido possível. Cuidado ao utilizar o modo rápido em computadores rápidos; 'situações' podem se desenvolver muito rápidamente!</p>
+        <p style="hp">A opção de linha de comando "-q 1" ou "--quick 1" dará a velocidade mais rápida possível (menos de 10s por ano), mas pode esquentar seu equipamento. O padrão (default) é -q 9 (aproximadamente 25s por ano). Esta opção não afeta outras velocidades do jogo.</p>
 
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="medium">Aceleração média</a></li>

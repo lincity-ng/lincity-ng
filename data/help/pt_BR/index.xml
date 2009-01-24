@@ -19,7 +19,7 @@
 <li><a href="goods">Bens</a></li>
 <li><a href="health">Hospital</a></li>
 <li><a href="help">Ajuda do Lincity</a></li>
-<li><a href="housing">População</a></li>
+<li><a href="housing">Janela População</a></li>
 <li><a href="industryh">Indústria pesada (siderúrgicas)</a></li>
 <li><a href="industryl">Indústria leve</a></li>
 <li><a href="jobs">Produção</a></li>
@@ -45,7 +45,7 @@
 <li><a href="other-costs">Outros custos</a></li>
 <li><a href="park">Parque</a></li>
 <li><a href="pause">Botão Pausar</a></li>
-<li><a href="pbar">Barra</a></li>
+<li><a href="pbar">Estatísticas</a></li>
 <li><a href="pollution">Poluição</a></li>
 <li><a href="port">Porto</a></li>
 <li><a href="pottery">Olaria</a></li>

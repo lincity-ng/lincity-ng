@@ -5,6 +5,7 @@
 	<p style="hp">Ela mostra o detalhamento dos 'outros custos' que aparecem na janela de finanças.</p>
 	<p style="hp">Custos de Vantagens</p>
 	<p style="hp">Custos com escolas</p>
+        <p style="hp">Custos com universidades</p>
 	<p style="hp">Custos de mortes não naturais</p>
 	<p style="hp">Custos com os moinhos de vento</p>
 	<p style="hp">Custos com saúde</p>
@@ -12,5 +13,5 @@
 	<p style="hp">Custos com bombeiros</p>
 	<p style="hp">Custos com esportes</p>
 	<p style="hp">Custos com reciclagem</p>
-	<p style="hp">Clique esquerdo nesta janela irá alternar através das janelas de finanças, outros custos e habitação.</p>
+	<p style="hp">Clicando com o botão esquerdo nesta janela irá alternar entre as janelas de finanças, outros custos e população.</p>
 </Document>

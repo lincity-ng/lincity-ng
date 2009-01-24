@@ -2,7 +2,9 @@
 <Document style="helpdocument">
 	<p style="htitle">Usina elétrica solar</p>
 	<p style="hp">Usinas elétricas solares distribuem sua energia em pacotes nas linhas de transmissão. O montante de energia que elas produzem aumenta conforme o nível de tecnologia que elas tinham quando foram <b>construídas</b>.</p>
-	
+	<p style="hp">Usinas elétricas solares também precisam de
+	mão-de-obra para produzir energia. Se um usina solar não tiver
+	empregos, ela não produzirá energia.</p>
 	<p style="hp">Esta é uma usina elétrica solar</p>
 	<img src="images/tiles/powerssolar.png" halign="center"/>
 	<p style="hp">e este é seu ícone</p>

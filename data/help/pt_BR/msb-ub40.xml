@@ -2,19 +2,15 @@
 <Document style="helpdocument">
 	<p style="htitle">Área de cobertura do desemprego</p>
 	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
-	<p style="hp">A mini tela do desemprego mostra somente áreas residenciais.</p>
-	<p style="hp">Verde brilhante significa que não existem desempregados na área residencial. Verde mais escuro e o vermelho brilhante mostram um grande crescimento de desempregados nas áreas residenciais mostradas.</p>
-	<p style="hp">Clique com o botão esquerdo no mini-mapa para reposicionar a janela principal. Clique com o botão esquerdo no título do mini-mapa para escolher uma mini tela diferente. Alterne entre os modos de corbertura pressionando 'v' ou com um clique com o botão do meio no título do mini-mapa.</p>
+	<p style="hp">A mini tela do desemprego mostra somente áreas residenciais (vermelho ou verde) e construções (amarelo ou cinza).</p>
+	<p style="hp">Verde brilhante significa que não existem desempregados na área residencial. Verde mais escuro e o vermelho brilhante mostram um grande crescimento de desempregados nas áreas residenciais mostradas (muitas pessoas aqui em relação ao número de empregos).</p>
+	<p style="hp">Amarelo brilhante significa que a construção precisou de trabalhadores, mas não conseguiu obtê-los (poucas pessoas aqui). As construções são mostradas em cinza neste mini-mapa quando não possuem problemas em relação a empregos.</p>
+	<p style="hp">Clique com o botão esquerdo no mini-mapa para reposicionar a janela principal. Alterne entre os modos de corbertura pressionando 'v' ou clicando no botão grande de alternar mini-mapa.</p>
 	
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="mini-screen">Mini-mapa</a></li>
-	<li><a href="msb-coal">Área de cobertura do carvão</a></li>
-	<li><a href="msb-cricket">Área de cobertura de esportes</a></li>
-	<li><a href="msb-fire">Área de cobertura dos bombeiros</a></li>
-	<li><a href="msb-health">Área de cobertura dos hospitais</a></li>
+	<li><a href="transport">Transportes</a></li>
+	<li><a href="market">Mercado</a></li>
 	<li><a href="msb-normal">Utilização do terreno</a></li>
-	<li><a href="msb-pol">Área de cobertura da poluição</a></li>
-	<li><a href="msb-power">Área de cobertura elétrica</a></li>
-	<li><a href="msb-starve">Área de cobertura dos famintos</a></li>
 	<li><a href="msb-transport">Área de cobertura do transporte</a></li>
 </Document>

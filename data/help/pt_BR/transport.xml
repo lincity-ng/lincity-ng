@@ -6,10 +6,10 @@
 
 	<p style="hp">Pistas, estradas e trilhos são utilizados para transportar, alimento, mão-de-obra, bens, carvão, minério, aço e resíduos entre as áreas. Transporte entre mercados, transporte para construções não próximas de um mercado (isto geralmente é uma má idéia) e transporte para construções que precisam:</p>
 	<li>Comunas apenas precisam estar adjacentes ao transporte</li>
-	<li>Indústrias leves, minas de minério, aterros, portos, minas de carvão, indústrias pesadas e centros de reciclagem<b> precisam estar </b>conectadas ao transporte no topo esquerdo. Você verá o "nó" do transporte, que mostra a conexão.</li>
+	<li>Indústrias leves, minas de minério, aterros, portos, minas de carvão, indústrias pesadas e centros de reciclagem <b>precisam estar</b> conectadas ao transporte no topo esquerdo. Você verá o "nó" do transporte, que mostra a conexão.</li>
 	<li>Uma exceção é a usina elétrica carvoeira: o topo esquerdo é usado para conexão na linha de transmissão, então o transporte se conecta perto.</li>
 	<p style="hp">Por exemplo, uma indústria pesada pode se conectar pela estrada na mina de carvão, e pelos trilhos nos outros recursos como as minas de minério e mercados.</p>
-	<p style="hp">Para cruzar um rio com o transporte, simplesmente soterre o rio e construa uma estrada, pista ou trilho na área. Veja isso como a construção de uma ponte. Isto custa muito porque aterrar água é muito caro.</p>
+	<p style="hp">Para cruzar um rio com o transporte, simplesmente construa o transporte sobre o rio. Pontes são muito mais caras que o transporte normal.</p>
 	<p style="hp">Estradas e Trilhos geram custos anuais (para manutenção) e poluição (e mais poluição se eles transportarem muitos resíduos).</p>
 
 	<p style="hsubtitle">Veja também:</p>

@@ -3,7 +3,7 @@
 	<p style="htitle">Rios/Água</p>
 	<p style="hp">Os rios estão aqui para geralmente ficarem no seu caminho. Eles são caros para serem aterrados, demolidos ou contruir pontes sob eles. O único uso é que os portos devem estar conectados aos rios.</p>
 	<p style="hp">Existem dois tipos de meios aquáticos. Lagos são os que <b>não</b> estão conectados ao sistema hídrico; rios são os que <b>estão</b> conectados ao sistema hídrico. O rio é definido como toda a água que esta presente no início do jogo. Por exemplo, quando uma mina de minério esgota seu suprimento e se torna água, ela se torna uma parte do rio se estiver conectada ao rio. Do contrário ela se torna um lago.</p>
-	<p style="hp">Se você demolir algum rio para criar um caminho, digo, transporte, você tera criado uma ponte. Ambos os lados desta ponte ainda serão parte do sistema hídrico. Esta é uma das razões do porque é tão caro 'demoli-los'.</p>
+	<p style="hp">Se você demolir algum rio para criar um caminho, digo, transporte, você terá criado uma ponte. Ambos os lados desta ponte ainda serão parte do sistema hídrico. Esta é uma das razões do porque é tão caro 'demoli-los'.</p>
 	<p style="hp">Uma vez que esta parte de água for parte do sistema hídrico ela <b>não poderá</b> ser revertida para um lago. A água que é parte de um rio é indicada como <b>navegável</b> pela <a href="query">ferramenta de pesquisa</a>.</p>
 	<p style="hp">As linhas de transmissão podem transportar a energia sob <b>uma</b> parte do rio da mesma forma que podem passar sob o transporte.</p>
 </Document>

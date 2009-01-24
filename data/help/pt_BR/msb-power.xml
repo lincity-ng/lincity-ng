@@ -2,11 +2,10 @@
 <Document style="helpdocument">
 	<p style="htitle">Área de cobertura da rede elétrica</p>
 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
-	<p style="hp">Áreas que tem o moinho de vento como gerador de energia são mostradas em verde escuro.</p>
-	<p style="hp">As áreas próximas de um gerador de energia principal são mostradas em verde claro.</p>
-	<p style="hp">As áreas sem suprimento de energia são mostradas como normal.</p>
-	<p style="hp">Este botão utiliza energia. Tente não deixá-lo ligado por muito tempo.</p>
-	<p style="hp">Clique com o botão esquerdo no mini-mapa para reposicionar a janela principal. Clique com o botão esquerdo no título do mini-mapa para escolher uma mini tela diferente. Alterne entre os modos de corbertura pressionando 'v' ou com um clique com o botão do meio no título do mini-mapa.</p>
+	<p style="hp">Construições que tem o moinho de vento antigo como gerador de energia são mostradas em verde escuro.</p>
+	<p style="hp">As construções abastecidas pela rede principal de energia são mostradas em verde claro.</p>
+	<p style="hp">As áreas sem suprimento de energia são mostradas em vermelho.</p>
+	<p style="hp">Clique com o botão esquerdo no mini-mapa para reposicionar a janela principal. Alterne entre os modos de corbertura pressionando 'v' ou clicando no botão grande de alternar mini-mapa.</p>
 	
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="mini-screen">Mini-mapa</a></li>

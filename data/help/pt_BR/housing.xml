@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">População</p>
+	<p style="htitle">Janela de População</p>
 	<p style="hp">Esta é a janela da população.</p>
-	<p style="hp">Esta janela mostra 7 estatísticas:</p>
-	<li>População - mostra a população de suas residências. Esta figura não inclui os desabrigados.</li>
+	<p style="hp">Esta janela mostra 9 estatísticas:</p>
+	<li>Total - mostra a população da sua cidade.</li>
 	<li>Morador   - mostra o número total de pessoas que vivem em residências na sua cidade.</li>
 	<li>Morador % - mostra a percentagem de pessoas que vivem em residências na sua cidade.</li>
+        <li>Desabrigados - mostra o número de pessoas sem casa ou que vivem faveladas.</li>
 	<li>Favelas   - mostra o número de favelas na sua cidade.</li>
 	<li>Mortes    - mostra o número de pessoas que morreram de fome ou por causa da poluição no último mês.</li>
-	<li>Desempr % - mostra a percentagem de pessoas desempregadas.</li>
-	<li>Fome    % - mostra a percentagem de pessoas que passam fome.</li>
-	<p style="hp">Clicar com o botão esquerdo nesta janela irá alternar entre as janelas de finanças, outros custos e habitação.</p>
+<li>Auxílio Desemprego - mostra o número de pessoas que perderam seus empregos no último mês.</li>
+<li>Taxa - mostra a porcentagem da população sem empregos .</li>
+<li>Casos de fome - mostra o número de pessoas que passaram fome no último mês.</li>
+<li>Taxa - mostra a porcentagem da população que passa fome.</li>
+	<p style="hp">Clicar com o botão esquerdo nesta janela irá alternar entre as janelas de finanças, outros custos e população.</p>
 
 	<p style="hsubtitle">Veja também:</p>
 	<li><a href="finance">Finanças</a></li>
