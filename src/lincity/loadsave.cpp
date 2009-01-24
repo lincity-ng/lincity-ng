@@ -403,7 +403,7 @@ void load_city_2(char *cname)
     sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &diff_old_population */
 
     /* Update variables calculated from those above */
-    housed_population = tpopulation / NUMOF_DAYS_IN_MONTH;
+    housed_population = tpopulation / ((total_time % NUMOF_DAYS_IN_MONTH) + 1);
 
     /* Get size of monthgraph array */
     sscanf(gzgets(gzfile, s, 256), "%d", &i);
