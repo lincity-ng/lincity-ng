@@ -389,7 +389,8 @@ void parseCommandLine(int argc, char** argv)
             std::cout << "-q [delay]   --quick [delay]   Setting for fast speed (current " \
                                                                 << getConfig()->quickness \
                                                                 << ")\n";
-            std::cout << "                               -q 9 is default.\n";
+            std::cout << "                               -q 9 skips animation steps for speed.\n";
+            std::cout << "                               -q 8 is the slowest speed with full animation.\n";
             std::cout << "                               -q 1 is fastest. It may heat your hardware!\n";
             exit(0);
         } else if(argStr == "-g" || argStr == "--gl") {

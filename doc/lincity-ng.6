@@ -71,7 +71,7 @@ Turn off sound
 specify screensize (eg. \-S 1024x768)
 .TP
 .B \-q, \-\-quick
-speficify how quick is the fast speed. (eg. \-q 1 is the fastest possible, may heat hardware due to average 1 ms pause.  \-q 9 is the default 10ms pause)
+speficify how quick is the fast speed. (eg. \-q 1 is the fastest possible with full animations, may heat hardware due to average 1 ms pause.  \-q 9 is the default 10ms pause) In \-q 9 animation steps are skipped for speed. 1..8 do all animation steps in fast mode.
 
 .SH UPGRADE from 1.x to 2.x
 A new format for saved games is used since 2.0, but old games can be imported and automagically converted. Just copy $HOME/.lincity/*   (old location for lincity and lincity-ng 1.x) to $HOME/.lincity-ng/ (new location since 2.0).
