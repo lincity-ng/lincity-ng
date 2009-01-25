@@ -948,6 +948,7 @@ static void random_start(int *originx, int *originy)
     set_mappoint(xx + 9, yy + 9, CST_POTTERY_0);
 
     set_mappoint(xx + 16, yy + 9, CST_WATERWELL);
+    do_waterwell_cover(xx + 16, yy + 9);
 
     set_mappoint(xx + 14, yy + 6, CST_RESIDENCE_ML);
     MP_INFO(xx + 14, yy + 6).population = 50;

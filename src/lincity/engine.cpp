@@ -362,6 +362,7 @@ int place_item(int x, int y, short type)
         break;
 
     case GROUP_WATERWELL:
+        do_waterwell_cover(x,y);
         numof_waterwell++; //AL1: unused so far.
         break;
 
@@ -757,7 +758,7 @@ static void bulldoze_mappoint(short fill, int x, int y)
     if (MP_GROUP(x, y) < 0)
         MP_GROUP(x, y) = GROUP_BARE;
     MP_INFO(x, y).population = 0;
-    MP_INFO(x, y).flags &= FLAG_HAS_UNDERGROUND_WATER;
+    MP_INFO(x, y).flags &= FLAG_HAS_UNDERGROUND_WATER | FLAG_WATERWELL_COVER | FLAG_CRICKET_COVER | FLAG_HEALTH_COVER | FLAG_FIRE_COVER;
     MP_INFO(x, y).int_1 = 0;
     MP_INFO(x, y).int_2 = 0;
     MP_INFO(x, y).int_3 = 0;
