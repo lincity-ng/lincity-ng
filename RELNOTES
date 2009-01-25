@@ -1,11 +1,13 @@
-*** LincityNG 2.0 ***
+*** LincityNG 2.0 *** [r1516 in svn] 2009-01-25
 
 * Updated translations (cs, de, nl, pt_BR, ru, sv)
 * Use language specific font if fonts/<style>-<Language>.ttf exists.
+  Note: To use the Japanese translation you have to copy or symlink
+  a font with Japanese characters to fonts/sans-ja_JA.ttf.
 * improved images
 * less bugs
 
-*** LincityNG 1.97.beta *** [r1474 in svn] 2009-12-24
+*** LincityNG 1.97.beta *** [r1474 in svn] 2008-12-24
 
 another BETA release:
 * less bugs
