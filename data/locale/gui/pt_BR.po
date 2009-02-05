@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lincity-ng 1.1.0rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Mon Feb 18 22:35:34 2008\n"
-"PO-Revision-Date: 2007-05-10 19:53-0300\n"
+"POT-Creation-Date: Mon Jan 26 22:37:36 2009\n"
+"PO-Revision-Date: 2009-01-27 21:47+0100\n"
 "Last-Translator: Nilo Menezes <nilo.menezes@gmail.com>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: data/gui/allgone.xml
 msgid "Nobody Home"
-msgstr "Casa Desabitada"
+msgstr "Ninguém em casa"
 
 #: data/gui/allgone.xml data/gui/blacksmithup.xml data/gui/coalmineup.xml
 #: data/gui/coalpowerup.xml data/gui/cricketup.xml data/gui/fire.xml
@@ -45,7 +45,7 @@ msgstr "Não exitem pessoas nesta cidade."
 
 #: data/gui/allgone.xml
 msgid "You should start a new career elsewhere."
-msgstr "Você pode começar uma nova profissão em outro lugar."
+msgstr "Você deve começar uma nova profissão em outro lugar."
 
 #: data/gui/blacksmithup.xml
 msgid "Blacksmiths available"
@@ -78,7 +78,7 @@ msgid ""
 "Blacksmiths use jobs and steel to make goods."
 msgstr ""
 "Você alcançou o nível tecnológico que habilita a construir ferreiros. "
-"Ferreiros utiliza produção e aço para produzir bens."
+"Ferreiros utilizam a empregos e aço para produzir bens."
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Bulldozing a monument costs a lot of money."
@@ -140,7 +140,8 @@ msgstr "Enviar Prospectos"
 
 #: data/gui/coal_survey_yn.xml
 msgid "This will cost you 1 million once. After that it is free to call again."
-msgstr "Isto custará 1 milhão. Após, estará livre para usar novamente."
+msgstr ""
+"Isto custará 1 milhão apenas uma vez. Depois será grátis para usar novamente."
 
 #: data/gui/coalmineup.xml
 msgid "Coal Mine available"
@@ -239,7 +240,7 @@ msgstr ""
 
 #: data/gui/gamestats.xml
 msgid "Gamestats"
-msgstr "Estat. do Jogo"
+msgstr "Estatísticas do Jogo"
 
 #: data/gui/gamestats.xml
 msgid "Okay"
@@ -285,7 +286,7 @@ msgstr ""
 
 #: data/gui/launch-evac.xml
 msgid "Evacuation Launch Good"
-msgstr "Boa Evacuação de Lançamento"
+msgstr "Lançamento de Evacuação bom"
 
 #: data/gui/launch-evac.xml
 msgid ""
@@ -327,7 +328,7 @@ msgstr "Indo bem."
 
 #: data/gui/launch-good.xml
 msgid "Launch Successfull"
-msgstr "Sucesso no Lançamento"
+msgstr "Lançamento bem sucedido"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "Launch now?"
@@ -339,7 +340,7 @@ msgstr "Foguete Pronto"
 
 #: data/gui/launch_rocket_yn.xml
 msgid "Rocket ready to launch"
-msgstr "Foguete preparado para o lançamento"
+msgstr "Foguete pronto para o lançamento"
 
 #: data/gui/launch_rocket_yn.xml
 msgid ""
@@ -348,8 +349,8 @@ msgid ""
 "clicking on the rocket area."
 msgstr ""
 "Você pode lançar o foguete agora ou mais tarde. Lançar mais tarde continuará "
-"custando para manter o foguete pronto para o lançamento. Lance-o clicando na "
-"área do foguete."
+"custando para manter o foguete pronto para o lançamento. Lance-o depois "
+"clicando na área do foguete."
 
 #: data/gui/loadgame.xml data/gui/mainmenu.xml
 msgid "Load"
@@ -414,7 +415,7 @@ msgstr "Eco"
 
 #: data/gui/minimap.xml
 msgid "Map"
-msgstr "Mapa"
+msgstr "Map"
 
 #: data/gui/minimap.xml
 msgid "Press this button to show statistics"
@@ -428,7 +429,7 @@ msgstr ""
 
 #: data/gui/minimap.xml
 msgid "Show economy graphs."
-msgstr "Exibir gráficos economicos."
+msgstr "Exibir gráficos da economia."
 
 #: data/gui/minimap.xml
 msgid "Show resources."
@@ -440,7 +441,7 @@ msgstr "Exibir o Mini Mapa"
 
 #: data/gui/minimap.xml
 msgid "Stats"
-msgstr "Estado"
+msgstr "Estat"
 
 #: data/gui/minimap.xml
 msgid "[+] Zoom in view so that less buildings but more details are visible"
@@ -484,7 +485,7 @@ msgstr "Exibir alimentos"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show pollution density"
-msgstr "Exibir densidade populacional"
+msgstr "Exibir densidade da poluição"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show power supply"
@@ -622,7 +623,7 @@ msgstr "Bens"
 
 #: data/gui/pbar.xml data/gui/tradedialog.xml
 msgid "Jobs"
-msgstr "Produção"
+msgstr "Empregos"
 
 #: data/gui/pbar.xml
 msgid "Money"
@@ -716,7 +717,7 @@ msgstr ""
 
 #: data/gui/rocketup.xml
 msgid "Rocket Launch Pad available"
-msgstr "Base de lançamento disponível"
+msgstr "Base de lançamento de foguetes disponível"
 
 #: data/gui/rocketup.xml
 msgid ""
@@ -738,7 +739,7 @@ msgstr "salva no slot selecionado"
 
 #: data/gui/schoolup.xml
 msgid "Schools available"
-msgstr "Escola disponível"
+msgstr "Escolas disponíves"
 
 #: data/gui/schoolup.xml
 msgid ""
@@ -817,6 +818,8 @@ msgid ""
 "Sorry, the game you wanted is too old. Cannot load it. Still play with "
 "previous game."
 msgstr ""
+"Desculpe, mas o jogo que você quer é muito antigo. Impossível carregá-lo. "
+"Continue a jogar com o jogo antigo."
 
 #: data/gui/tradedialog.xml
 msgid "Trade Settings"
