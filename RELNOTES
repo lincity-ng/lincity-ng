@@ -1,4 +1,4 @@
-*** LincityNG 2.0 *** [r1516 in svn] 2009-01-25
+*** LincityNG 2.0 *** [r1518 in svn] 2009-01-25
 
 * Updated translations (cs, de, nl, pt_BR, ru, sv)
 * Use language specific font if fonts/<style>-<Language>.ttf exists.
