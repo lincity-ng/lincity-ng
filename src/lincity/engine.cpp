@@ -108,6 +108,9 @@ int is_allowed_here(int x, int y, short type, short msg)
     int i,j;
     int has_ugw = 0;
 
+    if( x + size > WORLD_SIDE_LEN - 1 || y + size > WORLD_SIDE_LEN - 1 || x < 1 || y < 1 )
+        return false;
+
     switch (group) {
     case GROUP_SOLAR_POWER:
         if (total_money <= 0) {
