@@ -525,12 +525,17 @@ Paragraph::setText(const std::string& newtext, const Style& style)
 			textspans.push_back(span);
 		}
 
+    float oldWidth = width;
+    float oldHeight = height;
+
     // rerender text
     resize(width, height);
 
     // eventually trigger resize/relayout of parent component
-    if(getParent())
-        getParent()->reLayout();
+    if(width == 0 || width != oldWidth || height == 0 || height != oldHeight) {
+        if(getParent())
+            getParent()->reLayout();
+    }
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Paragraph);
