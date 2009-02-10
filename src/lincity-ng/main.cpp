@@ -216,6 +216,16 @@ void initVideo(int width, int height)
 
     SDL_Surface* screen
         = SDL_SetVideoMode(width, height, bpp, flags);
+
+    if(!screen && (width > 1024 || height > 768 )){
+        screen = SDL_SetVideoMode(1024, 768, bpp, flags);
+        std::cerr << "* Fallback to 1024x768.\n";
+    }
+    if(!screen && (width > 800 || height > 600 )){
+        screen = SDL_SetVideoMode(800, 600, bpp, flags);
+        std::cerr << "* Fallback to 800x600.\n";
+    }
+
     SDL_WM_SetCaption(PACKAGE_NAME " " PACKAGE_VERSION, 0);
     if(!screen) {
         std::stringstream msg;
@@ -416,7 +426,6 @@ void parseCommandLine(int argc, char** argv)
             }
             getConfig()->videoX = newX;
             getConfig()->videoY = newY;
-            std::cout << newX << " " << newY << "\n";
         } else if(argStr == "-f" || argStr == "--fullscreen") {
             getConfig()->useFullScreen = true; 
         } else if(argStr == "-w" || argStr == "--window") {

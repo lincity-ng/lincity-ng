@@ -1358,6 +1358,11 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     }
     
     int textureType = MP_TYPE( upperLeftX, upperLeftY );
+
+    // if we hide high buildings, hide trees as well
+    if (hideHigh && (textureType == CST_TREE || textureType == CST_TREE2 || textureType == CST_TREE3 )) {
+        textureType = CST_GREEN;
+    }
     texture = cityTextures[ textureType ];
     // Test if we have to convert Preloaded Image to Texture
     if( !texture ) {
