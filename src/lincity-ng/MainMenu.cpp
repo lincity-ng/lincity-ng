@@ -267,9 +267,13 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "TrackNext");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "ResolutionPrev");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "ResolutionNext");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         
         Button* currentButton = getButton(*optionsMenu, "BackButton");
-        currentButton->clicked.connect( makeCallback(*this, &MainMenu::creditsBackButtonClicked));
+        currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsBackButtonClicked));
     }
     //adjust checkbutton-states
     if( getConfig()->musicEnabled ){
@@ -290,6 +294,10 @@ MainMenu::loadOptionsMenu()
     //current background track
     musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
     musicParagraph->setText(getConfig()->playSongName);
+
+    std::stringstream mode;
+    mode << SDL_GetVideoSurface()->w << "x" << SDL_GetVideoSurface()->h;
+    getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
 
     optionsMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
@@ -466,6 +474,10 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
             getSound()->setSoundVolume( newVolume ); 
             getSound()->playSound("Click");
         }
+    } else if( buttonName == "ResolutionPrev"){
+        changeResolution(false);
+    } else if( buttonName == "ResolutionNext"){
+        changeResolution(true);
     } else if( buttonName == "Fullscreen"){
         getSound()->playSound("Click");
         getConfig()->useFullScreen = !getConfig()->useFullScreen; 
@@ -483,6 +495,68 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }    
+}
+
+/** Changes the displayed resolution in the options menu.
+This does not actually change the resolution. initVideo has to be called to do this.
+@param next if true change to the next resolution in the list; otherwise change to the previous one
+@todo sort modes before in ascending order and remove unsupported modes like 640x480
+*/
+void MainMenu::changeResolution(bool next) {
+    static SDL_Rect** modes = NULL;
+    int i;
+
+    if(modes == NULL) {
+        Uint32 flags = 0;
+
+        if(getConfig()->useOpenGL){
+            flags = SDL_OPENGL;
+        } else {
+            flags = SDL_HWSURFACE;
+        }
+        flags |= SDL_FULLSCREEN;    // only check for fullscreen modes to get useful results from  SDL_ListModes
+        modes = SDL_ListModes(NULL,  flags);
+
+    }
+    
+    if(modes == NULL) {
+        std::cerr << "Error: SDL reports that no video modes are available!\n";
+        return;
+    } else if (modes == (SDL_Rect**)-1) {    
+        /* FIXME: SDL docs say that this means that "Any dimension is okay for the given
+         format". I'm not sure what to do in this case. For now I will just report an error. 
+        It may be an option to just show some default modes.
+            Jaky */
+        std::cerr << "FIXME: SDL reports that any video mode is possible. Please report to the lincity-ng bugtracker if you get this error. Please use the --size switch or edit userconfig.xml to set your resolution.\n";
+        return;
+    }
+    
+    /* Go through the video modes to find the currently selected one */
+    std::string currentMode = getParagraph( *optionsMenu, "resolutionParagraph")->getText();
+    int new_mode = 0;
+    for (i=0; modes[i]; ++i) {
+        std::stringstream mode;
+        mode.str("");
+        mode << modes[i]->w << "x" << modes[i]->h;
+        if (mode.str() == currentMode) {
+            if(next && modes[i+1]) {
+                new_mode = i+1;
+            } else if (!next && i > 0) {
+                new_mode = i-1;
+            } else {    // nothing to do, because we are at the beginning and the user clicked prev or we are at the last mode and the user clickt next
+                return;
+            }
+            getSound()->playSound("Click");
+            mode.str("");
+            mode << modes[new_mode]->w << "x" << modes[new_mode]->h;
+            getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
+            getConfig()->videoX = modes[new_mode]->w;
+            getConfig()->videoY = modes[new_mode]->h;
+            return;
+        }
+    }
+
+
 }
 
 void
@@ -602,6 +676,22 @@ MainMenu::creditsBackButtonClicked(Button* )
     getSound()->playSound("Click");
     loadMainMenu();
     switchMenu(mainMenu.get());
+}
+
+void
+MainMenu::optionsBackButtonClicked(Button* )
+{
+    if( getConfig()->videoX != SDL_GetVideoSurface()->w || getConfig()->videoY != SDL_GetVideoSurface()->h) {
+        if( getConfig()->restartOnChangeScreen ){
+            quitState = RESTART;
+            running = false;
+        } else {
+            initVideo(getConfig()->videoX, getConfig()->videoY);
+            gotoMainMenu();
+        }
+    } else {
+        gotoMainMenu();
+    }
 }
 
 void

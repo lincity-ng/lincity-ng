@@ -52,6 +52,7 @@ private:
     void fillNewGameMenu();
 
     void creditsBackButtonClicked(Button* );
+    void optionsBackButtonClicked(Button* );
     
     void quitButtonClicked(Button* );
     void continueButtonClicked(Button* );
@@ -95,6 +96,8 @@ private:
     
     Paragraph* musicParagraph;
     void changeTrack( bool next);
+
+    void changeResolution( bool next);
 
     std::map<std::string, std::string> fileMap;
 };

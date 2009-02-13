@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui>
 	<Image src="images/mainmenu/settings_back.png" resizable="yes"/>
-	<TableLayout rows="6" cols="3" border="false">
+	<TableLayout rows="7" cols="3" border="false">
 		<colsize col="1" relative="1.3"/>
 		<colsize col="2" relative="1"/>
 		<colsize col="3" relative="0.5"/>
@@ -80,17 +80,42 @@
                 </cell>
             </TableLayout>
 		</cell>
-		
-		<cell row="5" col="2" valign="center" halign="left">
+
+        <!-- Resolution -->
+        <cell row="5" col="2" valign="center" halign="left">
+            <Paragraph style="listtitle" translatable="yes">Resolution</Paragraph>
+        </cell>
+        <cell row="5" col="3" valign="center" halign="center">
+            <TableLayout rows = "1" cols = "3">
+                <colsize col="1" relative="2"/>
+                <colsize col="2" relative="10"/>
+                <colsize col="3" relative="2"/>
+                <cell row="1" col ="1" halign="right" >
+                    <CheckButton name="ResolutionPrev">
+                        <text style="button">&lt; </text>
+                    </CheckButton>
+                </cell>
+                <cell row="1" col ="2" halign="center" >
+                    <Paragraph name="resolutionParagraph">1024x768</Paragraph>
+                </cell>
+                <cell row="1" col ="3" halign="left" >
+                    <CheckButton name="ResolutionNext">
+                        <text style="button">&gt;  </text>
+                    </CheckButton>
+                </cell>
+            </TableLayout>
+        </cell>
+        <!-- Fullscreen -->
+		<cell row="6" col="2" valign="center" halign="left">
 			<Paragraph style="listtitle" translatable="yes">Fullscreen</Paragraph>
 		</cell>
-		<cell row="5" col="3">
+		<cell row="6" col="3">
 			<CheckButton name="Fullscreen">
 				<image src="images/mainmenu/settings/windowed.png"/>
 				<image-checked src="images/mainmenu/settings/fullscreen.png"/>
 			</CheckButton>
 		</cell>
-		<cell row="6" col="2" colspan="2" halign="right">
+		<cell row="7" col="2" colspan="2" halign="right">
 			<Button name="BackButton">
 				<text-caption style="button" translatable="yes">Ok</text-caption>
 				<image src="images/mainmenu/buttons/start.png"/>
