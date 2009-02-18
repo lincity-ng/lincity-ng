@@ -5,6 +5,7 @@
 	<p style="hp">As a rule of thumb, ignoring the above, the output of a light industrial area is mainly dependent on the amount of raw materials, including jobs, that it can receive, and also the amount of goods that can be <b>taken away</b>.</p>
 	<p style="hp">These areas connect directly to transport to exchange ore, steel and goods. They may need a market to supply jobs.</p>
 	<p style="hp">These areas connect to transport <b>only</b> to the top left hand corner, as shown. Transport will curve in when it is connected.</p>
+	<p style="hp">Light industries produce <a href="pollution">pollution.</a></p>
 	
 	<p style="hp">This is Light Industry</p>
 	<img src="images/tiles/industryll1.png" halign="center"/>
@@ -17,4 +18,5 @@
 	<li><a href="rail">Railways</a></li>
 	<li><a href="market">Markets</a></li>
 	<li><a href="jobs">Jobs</a></li>
+	<li><a href="pollution">Pollution</a></li>
 </Document>

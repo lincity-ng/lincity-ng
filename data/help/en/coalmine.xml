@@ -12,10 +12,12 @@
 
 	<p style="hp">The graphics show the amount of coal already dug but not put onto transport. The above coal mine has maximum stock.</p>
 	<p style="hp">Clicking on a coal mine will show you, in the mappoint stats window, the coal stock at the pit, and, more importantly, the coal reserve available to be dug.</p>
+	<p style="hp">Coal mines produce <a href="pollution">pollution</a>.</p>
 
 	<p style="hsubtitle">See also:</p>
 	<li><a href="coal">Coal</a></li>
 	<li><a href="powerscoal">Coal power station</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="jobs">Jobs</a></li>
+	<li><a href="pollution">Pollution</a></li>
 </Document>

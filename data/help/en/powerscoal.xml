@@ -12,6 +12,8 @@
       point. To toggle visibility of high buildings press <b>h </b>.</p>
 
 	<p style="hp">The efficiency of the conversion of coal to electricity increases with each tech level - when the station is <b>built</b>. You may want to demolish an old station and replace it with a newer, more efficient one, when your tech level has increased by a significant amount.</p>
+    
+	<p style="hp">Coal power stations produce a lot of <a href="pollution">pollution</a>. Make sure not to build them where the wind will blow the pollution to your residence areas.</p>
 	
 	<p style="hp">This is a coal fired power station</p>
 	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
@@ -23,4 +25,5 @@
 	<li><a href="tech-level">Tech level</a></li>
 	<li><a href="powerline">Power lines</a></li>
 	<li><a href="msb-power">Power overlay</a></li>
+	<li><a href="pollution">Pollution</a></li>
 </Document>
