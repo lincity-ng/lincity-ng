@@ -140,6 +140,7 @@ private:
     
     bool roadDragging, leftButtonDown;
     MapPoint startRoad;
+    bool areaBulldoze;
     
     static const float defaultTileWidth;
     static const float defaultTileHeight;

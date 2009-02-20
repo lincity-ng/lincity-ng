@@ -149,6 +149,7 @@ void GameView::parse(XmlReader& reader)
     dragging = false;
 	leftButtonDown = false;
     roadDragging = false;
+    areaBulldoze = false;
     startRoad = MapPoint(0, 0);
     rightButtonDown = false;
     tileUnderMouse = MapPoint(0, 0);
@@ -895,12 +896,16 @@ void GameView::event(const Event& event)
             if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) ) {
                 roadDragging = true;
                 startRoad = tile;
+                if( SDL_GetModState() & KMOD_CTRL ) {
+                    areaBulldoze = true;
+                }
             }
             if( roadDragging && ( cursorSize != 1 ) ){
                 roadDragging = false;
+                areaBulldoze = false;
             }
             // bulldoze at once while still dragging
-            if( roadDragging && (selected_module_type == CST_GREEN) ){ 
+            if( roadDragging && (selected_module_type == CST_GREEN) && !areaBulldoze){ 
                 if( tile != startRoad ){
                     editMap( startRoad, SDL_BUTTON_LEFT);
                     startRoad = tile;
@@ -924,6 +929,7 @@ void GameView::event(const Event& event)
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ) {
                 roadDragging = false;
+                areaBulldoze = false;
                 leftButtonDown = true;
                 break;       
             }
@@ -954,6 +960,7 @@ void GameView::event(const Event& event)
                 if ( roadDragging && event.inside ) {
                     MapPoint endRoad = getTile( event.mousepos );
                     roadDragging = false;
+                    areaBulldoze = false;
                     leftButtonDown = false;
                     if( cursorSize != 1 ){//roadDragging was aborted with Escape
                         break;
@@ -968,20 +975,31 @@ void GameView::event(const Event& event)
                     //use same method to find all Tiles as in void GameView::draw()
                     int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
                     int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
-                    while( currentTile.x != endRoad.x ) {
-                        if( !blockingDialogIsOpen )
-                            editMap(currentTile, SDL_BUTTON_LEFT);
-                        currentTile.x += stepx;
-                    }
-                    while( currentTile.y != endRoad.y ) {
-                        if( !blockingDialogIsOpen )
-                            editMap(currentTile, SDL_BUTTON_LEFT);
-                        currentTile.y += stepy;
+                    //we are speaking of tools, so CST_GREEN == bulldozer
+                    if ( selected_module_type == CST_GREEN ) {
+                        for (;currentTile.x != endRoad.x + stepx; currentTile.x += stepx) {
+                            for (currentTile.y = startRoad.y; currentTile.y != endRoad.y + stepy; currentTile.y += stepy) {
+                                if( !blockingDialogIsOpen )
+                                    editMap(currentTile, SDL_BUTTON_LEFT);
+                            }
+                        }
+                    } else {
+                        while( currentTile.x != endRoad.x ) {
+                            if( !blockingDialogIsOpen )
+                                editMap(currentTile, SDL_BUTTON_LEFT);
+                            currentTile.x += stepx;
+                        }
+                        while( currentTile.y != endRoad.y ) {
+                            if( !blockingDialogIsOpen )
+                                editMap(currentTile, SDL_BUTTON_LEFT);
+                            currentTile.y += stepy;
+                        }
                     }
                     getConfig()->soundEnabled = fx;
                     break;
                 } 
                 roadDragging = false;
+                areaBulldoze = false;
                 leftButtonDown = false;
             }
             if(!event.inside) {
@@ -1445,7 +1463,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         }
         //check if building is allowed here, if not use Red Cursor
         // These tests are in engine.cpp with place_item.
-        if ( !is_allowed_here(tile.x, tile.y, selected_module_type, 0) )
+        if ( !is_allowed_here(tile.x, tile.y, selected_module_type, 0) || selected_module_type == CST_GREEN )
             painter.setFillColor( alphared );
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
@@ -1606,37 +1624,41 @@ void GameView::draw(Painter& painter)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
             currentTile = startRoad;
-            while( currentTile.x != tileUnderMouse.x ) {
-                markTile( painter, currentTile );
-                //we are speaking of tools, so CST_GREEN == bulldozer
-                if( (selected_module_type == CST_GREEN) && (realTile( currentTile ) != lastRazed) ){ 
-                    	cost += bulldozeCost( currentTile );
-                    	lastRazed = realTile( currentTile );
-                } else {
-                    cost += buildCost( currentTile );
+            //we are speaking of tools, so CST_GREEN == bulldozer
+            if (selected_module_type == CST_GREEN) {
+                for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
+                    for (currentTile.y = startRoad.y; currentTile.y != tileUnderMouse.y + stepy; currentTile.y += stepy) {
+                        markTile( painter, currentTile );
+                        if( realTile( currentTile ) != lastRazed ){ 
+                            cost += bulldozeCost( currentTile );
+                            lastRazed = realTile( currentTile );
+                        }
+                        tiles++;
+                    }
                 }
-                tiles++;
-                currentTile.x += stepx;
-            }
-            while( currentTile.y != tileUnderMouse.y ) {
-                markTile( painter, currentTile );
-                if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ){ 
-                    	cost += bulldozeCost( currentTile );
-                    	lastRazed = realTile( currentTile );
-                } else {
+            } else {
+                while( currentTile.x != tileUnderMouse.x) {
+                    markTile( painter, currentTile );
                     cost += buildCost( currentTile );
+                    tiles++;
+                    currentTile.x += stepx;
                 }
-                tiles++;
-                currentTile.y += stepy;
+                while( currentTile.y != tileUnderMouse.y + stepy ) {
+                    markTile( painter, currentTile );
+                    cost += buildCost( currentTile );
+                    tiles++;
+                    currentTile.y += stepy;
+                }
             }
-        } 
-        markTile( painter, tileUnderMouse );
-        tiles++;
-        if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ) { 
-            	  cost += bulldozeCost( tileUnderMouse );
         } else {
-            cost += buildCost( tileUnderMouse );
-        } 
+            markTile( painter, tileUnderMouse );
+            tiles++;
+            if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ) { 
+                    cost += bulldozeCost( tileUnderMouse );
+            } else {
+                cost += buildCost( tileUnderMouse );
+            }
+        }
         std::stringstream prize;
         if( selected_module_type == CST_GREEN ){
             if( roadDragging ){
