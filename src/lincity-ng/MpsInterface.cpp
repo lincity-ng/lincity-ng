@@ -532,14 +532,14 @@ void mps_global_housing()
     int days = total_time % NUMOF_DAYS_IN_MONTH +1; // 1..NUMOF_DAYS_IN_MONTH
     
     int i = 0;
-    int tp = housed_population + people_pool;
+    int tp = population + people_pool;
 
     currentMPS = globalMPS;
 
     mps_store_title(i++,_("Population"));
     mps_store_title(i++,"");
     mps_store_sd(i++,_("Total"),tp);
-    mps_store_sd(i++,_("Housed"),housed_population);
+    mps_store_sd(i++,_("Housed"),population);
     mps_store_sd(i++,_("Homeless"),people_pool);
     mps_store_sd(i++,_("Shanties"),numof_shanties);
     mps_store_sd(i++,_("Unn Dths"),unnat_deaths);

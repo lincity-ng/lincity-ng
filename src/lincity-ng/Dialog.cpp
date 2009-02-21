@@ -382,7 +382,7 @@ void Dialog::gameStats(){
         setParagraphN( "statistic_text", line++, outf );
     }
     snprintf (outf, maxlength, _("Population  %d  of which  %d  are not housed.")
-	     ,housed_population + people_pool, people_pool);
+	     ,population + people_pool, people_pool);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength,
 	     _("Max population %d  Number evacuated %d Total births %d")
@@ -521,7 +521,7 @@ void Dialog::saveGameStats(){
         results << outf << std::endl;
     }
     snprintf (outf, maxlength, "Population  %d  of which  %d  are not housed."
-	     ,housed_population + people_pool, people_pool);
+	     ,population + people_pool, people_pool);
     results << outf << std::endl;
     snprintf (outf, maxlength,
 	     "Max population %d  Number evacuated %d Total births %d"
