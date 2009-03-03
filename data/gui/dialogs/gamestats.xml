@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Dialog width="650" height="600" name="GameStats">
+<Dialog width="630" height="450" name="GameStats">
 	<title>Gamestats</title>
 	<contents>
-		<DefineStyle name="statistic_text" color="black" font-size="14" halign="left" />
-		<DefineStyle name="statistic_label" color="black" font-size="14" halign="right" />
-		<DefineStyle name="statistic_value" color="black" font-size="14" halign="right" />
+		<DefineStyle name="statistic_text" color="black" font-size="13" halign="left" />
+		<DefineStyle name="statistic_label" color="black" font-size="13" halign="right" />
+		<DefineStyle name="statistic_value" color="black" font-size="13" halign="right" />
                <TableLayout rows="26" cols="6">
             <colsize col="1" relative="20"/>
             <colsize col="2" relative="10"/>
