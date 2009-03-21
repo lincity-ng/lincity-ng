@@ -3,7 +3,7 @@
 * Updated translations (cs, de, nl, pt_BR, ru, sv)
 * Use language specific font if fonts/<style>-<Language>.ttf exists.
   Note: To use the Japanese translation you have to copy or symlink
-  a font with Japanese characters to fonts/sans-ja_JA.ttf.
+  a font with Japanese characters to fonts/sans-ja_JP.ttf.
 * improved images
 * less bugs
 

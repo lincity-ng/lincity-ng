@@ -63,15 +63,37 @@ FontManager::getFont(Style style)
     TTF_Font* font = 0;
 
     // If there a special font for the current language use it.
-    std::string fontfile = "fonts/" + info.name + "-" + dictionaryManager->get_language() + ".ttf";
+    std::string language = dictionaryManager->get_language();
+    std::string fontfile = "fonts/" + info.name + "-" + language + ".ttf";
     try{
         font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
     } catch(std::exception& ){
+        font = 0;
+    }
+    if(!font){
+        // try short language, eg. "de" instead of "de_CH"
+        std::string::size_type pos = language.find("_");
+        if(pos != std::string::npos) {
+            language = std::string(language, 0, pos);
+            fontfile = "fonts/" + info.name + "-" + language + ".ttf";
+            try{
+                font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
+            } catch(std::exception& ){
+                font = 0;
+            }
+        }
+    }
+    if(!font){
         // No special font found? Use default font then.
         fontfile = "fonts/" + info.name + ".ttf";
-        font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
+        try{
+            font = TTF_OpenFontRW(getPhysfsSDLRWops(fontfile), 1, info.fontsize);
+        } catch(std::exception& ){
+            font = 0;
+        }
     }
     if(!font) {
+        // give up.
         std::stringstream msg;
         msg << "Error opening font '" << fontfile 
             << "': " << SDL_GetError();
