@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
 <resources>
-    <image file="substation-RG.png" x="132" />
-    <image file="substation-R.png" x="132" />
-    <image file="substation-G.png" x="132" />
 
     <image file="tip0.png" x="262" />
     <image file="tip1.png" x="262" />
