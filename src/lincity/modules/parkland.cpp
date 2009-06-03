@@ -13,3 +13,13 @@ void do_parkland(int x, int y)
     if (MP_POL(x, y) > 10 && (total_time & 1) == 0)
         MP_POL(x, y) -= 1;
 }
+
+void mps_parkland(int x, int y)
+{
+    int i = 0;
+
+    mps_store_title(i++, _("Park"));
+    i++;                        /* blank line */
+
+    mps_store_sd(i++, _("Pollution"), MP_POL(x, y));
+}

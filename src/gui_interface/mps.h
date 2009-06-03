@@ -52,6 +52,7 @@ void mps_store_d(int i, int d);
 void mps_store_ss(int i, const char * s1, const char * s2);
 void mps_store_sd(int i, const char * s, int d);
 void mps_store_sfp(int i, const char * s, double fl);
+void mps_store_sddp(int i, const char * s, int d, int max);
 
 void mps_store_sss(int i, const char * s1, const char * s2, const char * s3);
 

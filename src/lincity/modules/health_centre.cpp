@@ -58,7 +58,7 @@ void mps_health_centre(int x, int y)
     mps_store_title(i++, _("Health Centre"));
     i++;
     mps_store_title(i++, _("Inventory"));
-    mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_1 * 100.0 / MAX_JOBS_AT_HEALTH_CENTRE);
-    mps_store_sfp(i++, _("Goods"), MP_INFO(x, y).int_2 * 100.0 / MAX_GOODS_AT_HEALTH_CENTRE);
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_1, MAX_JOBS_AT_HEALTH_CENTRE);
+    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, MAX_GOODS_AT_HEALTH_CENTRE);
 
 }

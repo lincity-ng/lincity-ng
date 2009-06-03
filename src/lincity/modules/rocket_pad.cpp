@@ -192,8 +192,8 @@ void mps_rocket(int x, int y)
     mps_store_fp(i++, MP_INFO(x, y).int_4 * 100.0 / ROCKET_PAD_LAUNCH);
     i++;
     mps_store_title(i++, _("Inventory"));
-    mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_1 * 100.0 / ROCKET_PAD_JOBS_STORE);
-    mps_store_sfp(i++, _("Goods"), MP_INFO(x, y).int_2 * 100.0 / ROCKET_PAD_GOODS_STORE);
-    mps_store_sfp(i++, _("Steel"), MP_INFO(x, y).int_3 * 100.0 / ROCKET_PAD_STEEL_STORE);
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_1, ROCKET_PAD_JOBS_STORE);
+    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, ROCKET_PAD_GOODS_STORE);
+    mps_store_sddp(i++, _("Steel"), MP_INFO(x, y).int_3, ROCKET_PAD_STEEL_STORE);
 
 }

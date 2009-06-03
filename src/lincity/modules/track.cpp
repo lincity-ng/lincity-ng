@@ -33,12 +33,12 @@ void mps_track(int x, int y)
     mps_store_title(i++, _(main_groups[MP_GROUP(x, y)].name));
     i++;
 
-    mps_store_sfp(i++, _("Food"), MP_INFO(x, y).int_1 * 100.0 / MAX_FOOD_ON_TRACK);
-    mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_2 * 100.0 / MAX_JOBS_ON_TRACK);
-    mps_store_sfp(i++, _("Coal"), MP_INFO(x, y).int_3 * 100.0 / MAX_COAL_ON_TRACK);
-    mps_store_sfp(i++, _("Goods"), MP_INFO(x, y).int_4 * 100.0 / MAX_GOODS_ON_TRACK);
-    mps_store_sfp(i++, _("Ore"), MP_INFO(x, y).int_5 * 100.0 / MAX_ORE_ON_TRACK);
-    mps_store_sfp(i++, _("Steel"), MP_INFO(x, y).int_6 * 100.0 / MAX_STEEL_ON_TRACK);
-    mps_store_sfp(i++, _("Waste"), MP_INFO(x, y).int_7 * 100.0 / MAX_WASTE_ON_TRACK);
+    mps_store_sddp(i++, _("Food"), MP_INFO(x, y).int_1, MAX_FOOD_ON_TRACK);
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_2, MAX_JOBS_ON_TRACK);
+    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_ON_TRACK);
+    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_4, MAX_GOODS_ON_TRACK);
+    mps_store_sddp(i++, _("Ore"), MP_INFO(x, y).int_5, MAX_ORE_ON_TRACK);
+    mps_store_sddp(i++, _("Steel"), MP_INFO(x, y).int_6, MAX_STEEL_ON_TRACK);
+    mps_store_sddp(i++, _("Waste"), MP_INFO(x, y).int_7, MAX_WASTE_ON_TRACK);
 
 }

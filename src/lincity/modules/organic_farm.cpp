@@ -216,7 +216,8 @@ void mps_organic_farm(int x, int y)
 
     mps_store_ss(i++, _("Power"), (MP_INFO(x, y).flags & FLAG_POWERED) ? _("YES") : _("NO"));
     mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, _("Prod"), MP_INFO(x, y).int_4 * 100.0 / 1200.0);
+    mps_store_sfp(i++, _("Prod"), MP_INFO(x, y).int_4 * 100 / 1200.0);
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_7, FARM_JOBS_USED);
 
 #ifdef DEBUG
     if (use_waterwell) {

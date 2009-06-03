@@ -62,14 +62,15 @@ LCPBar::parse(XmlReader& reader)
 }
 
 // copied from old-gui
+/* adjusted to match changes in stats.cpp */
 #define pbar_adjust_pop(diff) 2 * diff
 #define pbar_adjust_tech(diff) diff > 0 ? diff / 4 + 1 : -((-diff+1)/ 2)
-#define pbar_adjust_food(diff) diff > 0 ? diff / 2 + 1 : diff
-#define pbar_adjust_jobs(diff) diff > 0 ? diff / 2 + 1 : diff
-#define pbar_adjust_coal(diff) diff > 0 ? diff / 2 + 1 : diff
-#define pbar_adjust_goods(diff) diff > 0 ? diff / 2 + 1 : diff
-#define pbar_adjust_ore(diff) diff > 0 ? diff / 2 + 1 : diff
-#define pbar_adjust_steel(diff) diff > 0 ? diff / 2 + 1 : diff
+#define pbar_adjust_food(diff) diff > 0 ? diff / 2000 + 1 : diff / 1000
+#define pbar_adjust_jobs(diff) diff > 0 ? diff / 2000 + 1 : diff / 1000
+#define pbar_adjust_coal(diff) diff > 0 ? diff / 500 + 1 : diff / 250
+#define pbar_adjust_goods(diff) diff > 0 ? diff / 1000 + 1 : diff / 500
+#define pbar_adjust_ore(diff) diff > 0 ? diff / 1000 + 1 : diff / 500
+#define pbar_adjust_steel(diff) diff > 0 ? diff / 50 + 1 : diff / 25
 #define pbar_adjust_money(diff) diff  > 0 ? diff / 800 + 1 : diff / 400
  
 void
@@ -86,19 +87,17 @@ LCPBar::setValue(int num, int value, int diff)
     {
         os<<value/10000.0;
      }
-    else if(num==PMONEY)
+	else // if(num==PMONEY)
     {
         if(abs(value)>=1000000000)
             os<<value/1000000<<"M";
-        else if(abs(value)>1000000)
+        else if(abs(value)>10000000)
             os<<value/1000000.0<<"M";
-        else if(abs(value)>1000)
+        else if(abs(value)>10000)
             os<<value/1000.0<<"K";
         else
             os<<value;
     }
-    else
-        os<<value;
 
     if( diff != 0 ){
         p->setText(os.str());

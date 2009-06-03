@@ -142,7 +142,7 @@ void mps_recycle(int x, int y)
     mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
     i++;
     mps_store_title(i++, _("Inventory"));
-    mps_store_sfp(i++, _("Ore"), MP_INFO(x, y).int_1 * 100.0 / MAX_ORE_AT_RECYCLE);
-    mps_store_sfp(i++, _("Waste"), MP_INFO(x, y).int_2 * 100.0 / MAX_WASTE_AT_RECYCLE);
+    mps_store_sddp(i++, _("Ore"), MP_INFO(x, y).int_1, MAX_ORE_AT_RECYCLE);
+    mps_store_sddp(i++, _("Waste"), MP_INFO(x, y).int_2, MAX_WASTE_AT_RECYCLE);
 
 }

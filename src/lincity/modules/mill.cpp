@@ -96,8 +96,8 @@ void mps_mill(int x, int y)
     mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_6);
     i++;
     mps_store_title(i++, _("Inventory"));
-    mps_store_sfp(i++, _("Goods"), MP_INFO(x, y).int_1 * 100.0 / MAX_GOODS_AT_MILL);
-    mps_store_sfp(i++, _("Food"), MP_INFO(x, y).int_2 * 100.0 / MAX_FOOD_AT_MILL);
-    mps_store_sfp(i++, _("Coal"), MP_INFO(x, y).int_3 * 100.0 / MAX_COAL_AT_MILL);
+    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_1, MAX_GOODS_AT_MILL);
+    mps_store_sddp(i++, _("Food"), MP_INFO(x, y).int_2, MAX_FOOD_AT_MILL);
+    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_AT_MILL);
 
 }

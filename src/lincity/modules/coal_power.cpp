@@ -94,8 +94,8 @@ void mps_coal_power(int x, int y)
     mps_store_title(i++, s);
     i++;
 
-    mps_store_sfp(i++, _("Coal"), MP_INFO(x, y).int_2 * 100.0 / MAX_COAL_AT_POWER_STATION);
-    mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_3 * 100.0 / MAX_JOBS_AT_COALPS);
+    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_2, MAX_COAL_AT_POWER_STATION);
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_3, MAX_JOBS_AT_COALPS);
     mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
     mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
 }

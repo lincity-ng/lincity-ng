@@ -1012,12 +1012,11 @@ void mps_market(int x, int y)
 
     i++;
 
-    mps_store_sfp(i++, _("Food"), MP_INFO(x, y).int_1 * 100.0 / MAX_FOOD_IN_MARKET);
-    mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_2 * 100.0 / MAX_JOBS_IN_MARKET);
-    mps_store_sfp(i++, _("Coal"), MP_INFO(x, y).int_3 * 100.0 / MAX_COAL_IN_MARKET);
-    mps_store_sfp(i++, _("Goods"), MP_INFO(x, y).int_4 * 100.0 / MAX_GOODS_IN_MARKET);
-    mps_store_sfp(i++, _("Ore"), MP_INFO(x, y).int_5 * 100.0 / MAX_ORE_IN_MARKET);
-    mps_store_sfp(i++, _("Steel"), MP_INFO(x, y).int_6 * 100.0 / MAX_STEEL_IN_MARKET);
-    mps_store_sfp(i++, _("Waste"), MP_INFO(x, y).int_7 * 100.0 / MAX_WASTE_IN_MARKET);
-
+	mps_store_sddp(i++, _("Food"), MP_INFO(x, y).int_1, MAX_FOOD_IN_MARKET);
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_2, MAX_JOBS_IN_MARKET);
+    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_IN_MARKET);
+    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_4, MAX_GOODS_IN_MARKET);
+    mps_store_sddp(i++, _("Ore"), MP_INFO(x, y).int_5, MAX_ORE_IN_MARKET);
+    mps_store_sddp(i++, _("Steel"), MP_INFO(x, y).int_6, MAX_STEEL_IN_MARKET);
+    mps_store_sddp(i++, _("Waste"), MP_INFO(x, y).int_7, MAX_WASTE_IN_MARKET);
 }

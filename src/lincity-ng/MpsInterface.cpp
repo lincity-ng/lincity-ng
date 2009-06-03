@@ -216,6 +216,9 @@ void mps_refresh() /* refresh the information display's contents */
                 case GROUP_WINDMILL:
                     mps_windmill (mps_x, mps_y);
                     break;
+                case GROUP_PARKLAND:
+                    mps_parkland (mps_x, mps_y);
+                    break;
 		case GROUP_WATERWELL:
 		    mps_waterwell (mps_x, mps_y);
 		    break;
@@ -355,6 +358,17 @@ void mps_store_sfp(int i, const char * s, double fl)
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
     os<<s<<": "<<fl<<"%";
+    currentMPS->setText(i,os.str());
+}
+
+void mps_store_sddp(int i, const char * s, int d, int max)
+{
+    if(!currentMPS)
+        return;
+    
+    std::ostringstream os;
+    os<<std::setprecision(1)<<std::fixed;
+    os<<s<<": "<<d<<" ("<<(d*100.0/max)<<"%)";
     currentMPS->setText(i,os.str());
 }
 

@@ -196,6 +196,7 @@ void inventory_market(int x, int y)
 
 /* XXX: WCK:  Why oh why must we divide by arbitrary values, below? */
 /* If this is fixed, make sure to fix it in pbar also! */
+/* fixed by Jaky */
 
 void add_daily_to_monthly(void)
 {
@@ -203,12 +204,12 @@ void add_daily_to_monthly(void)
 
     tpopulation += population;
     tstarving_population += starving_population;
-    tfood_in_markets += food_in_markets / 1000;
-    tjobs_in_markets += jobs_in_markets / 1000;
-    tcoal_in_markets += coal_in_markets / 250;
-    tgoods_in_markets += goods_in_markets / 500;
-    tore_in_markets += ore_in_markets / 500;
-    tsteel_in_markets += steel_in_markets / 25;
+    tfood_in_markets += food_in_markets;
+    tjobs_in_markets += jobs_in_markets;
+    tcoal_in_markets += coal_in_markets;
+    tgoods_in_markets += goods_in_markets;
+    tore_in_markets += ore_in_markets;
+    tsteel_in_markets += steel_in_markets;
     twaste_in_markets += waste_in_markets;
     tunemployed_population += unemployed_population;
 }

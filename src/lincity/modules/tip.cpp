@@ -104,6 +104,7 @@ void mps_tip(int x, int y)
     mps_store_sd(i++, _("Tons"), MP_INFO(x, y).int_3);
     mps_store_sfp(i++, _("Percent"), MP_INFO(x, y).int_3 * 100.0 / MAX_WASTE_AT_TIP);
     i++;
-    mps_store_title(i++, _("% Filled"));
-    mps_store_fp(i++, MP_INFO(x, y).int_1 * 100.0 / MAX_WASTE_AT_TIP);
+    mps_store_sddp(i++,_("Filled"), MP_INFO(x, y).int_1 ,MAX_WASTE_AT_TIP);
+    i++;
+    mps_store_sddp(i++,_("Days degenerating"), MP_INFO(x, y).int_4 ,TIP_DEGRADE_TIME);
 }

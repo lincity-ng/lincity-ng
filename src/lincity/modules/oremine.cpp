@@ -162,8 +162,8 @@ void mps_oremine(int x, int y)
     mps_store_title(i++, _("Ore Mine"));
     i++;
 
-    mps_store_sfp(i++, _("Stock"), MP_INFO(x, y).int_1 * 100.0 / MAX_ORE_AT_MINE);
+    mps_store_sddp(i++, _("Stock"), MP_INFO(x, y).int_1, MAX_ORE_AT_MINE);
     i++;
 
-    mps_store_sfp(i++, _("Reserve"), MP_INFO(x, y).int_2 * 100.0 / (ORE_RESERVE * 16));
+    mps_store_sddp(i++, _("Reserve"), MP_INFO(x, y).int_2 * 5000, (ORE_RESERVE * 16 * 5000));
 }

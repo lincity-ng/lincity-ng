@@ -152,12 +152,12 @@ void mps_coalmine(int x, int y)
     i++;
 
     // Average of %job for 2 tasks
-    mps_store_sfp(i++, _("Jobs"), (MP_INFO(x, y).int_4 * 100 )/ ( JOBS_DIG_COAL + JOBS_LOAD_COAL) );
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_4, ( JOBS_DIG_COAL + JOBS_LOAD_COAL) );
     i++;
 
-    mps_store_sfp(i++, _("Stock"), MP_INFO(x, y).int_1 * 100 / MAX_COAL_AT_MINE);
+    mps_store_sddp(i++, _("Stock"), MP_INFO(x, y).int_1, MAX_COAL_AT_MINE);
     if (MP_INFO(x, y).int_2 > 0) {
-        mps_store_sd(i++, _("Reserve"), MP_INFO(x, y).int_2);
+        mps_store_sd(i++, _("Reserve"), MP_INFO(x, y).int_2 * 1000);
     } else {
         mps_store_ss(i++, _("Reserve"), _("EMPTY"));
     }

@@ -9,5 +9,6 @@
 #define __parkland_h__
 
 void do_parkland(int x, int y);
+void mps_parkland(int x, int y);
 
 #endif /* __parkland_h__ */

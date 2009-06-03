@@ -63,7 +63,7 @@ void mps_university(int x, int y)
     mps_store_title(i++, s);
     i++;
     mps_store_title(i++, _("Inventory"));
-    mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_1 * 100.0 / UNIVERSITY_JOBS_STORE);
-    mps_store_sfp(i++, _("Goods"), MP_INFO(x, y).int_2 * 100.0 / UNIVERSITY_GOODS_STORE);
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_1, UNIVERSITY_JOBS_STORE);
+    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, UNIVERSITY_GOODS_STORE);
     mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_4);
 }

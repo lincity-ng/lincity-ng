@@ -107,8 +107,8 @@ void mps_pottery(int x, int y)
     mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_6 * 1.0);
     i++;
     mps_store_title(i++, _("Inventory"));
-    mps_store_sfp(i++, _("Jobs"), MP_INFO(x, y).int_7 * 100.0 / MAX_JOBS_AT_POTTERY);
-    mps_store_sfp(i++, _("Goods"), MP_INFO(x, y).int_1 * 100.0 / MAX_GOODS_AT_POTTERY);
-    mps_store_sfp(i++, _("Ore"), MP_INFO(x, y).int_2 * 100.0 / MAX_ORE_AT_POTTERY);
-    mps_store_sfp(i++, _("Coal"), MP_INFO(x, y).int_3 * 100.0 / MAX_COAL_AT_POTTERY);
+    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_7, MAX_JOBS_AT_POTTERY);
+    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_1, MAX_GOODS_AT_POTTERY);
+    mps_store_sddp(i++, _("Ore"), MP_INFO(x, y).int_2, MAX_ORE_AT_POTTERY);
+    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_AT_POTTERY);
 }
