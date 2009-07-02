@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Βοήθεια για τις καρτέλες πληροφοριών</p>
+    <p>Map-Tab</p>
+    <li><a href="mini-screen">Μικρογραφία χάρτη</a></li>
+    <p>Markets-Tab</p>
+	<li><a href="pbar">Καρτέλα αποθεμάτων</a></li>
+    <p>$-Tab</p>
+	<li><a href="finance">Οικονομικά</a></li>
+	<li><a href="other-costs">Άλλες δαπάνες</a></li>
+	<li><a href="housing">Πληθυσμός</a></li>
+    <p>Eco-Tab</p>
+	<li><a href="economy">Γράφημα οικονομικών</a></li>
+	<li><a href="sustain">Παράθυρο εξέλιξης αειφόρου ανάπτυξης</a></li>
+</Document>

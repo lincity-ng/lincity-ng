@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Εργαλείο πληροφοριών</p>
+	<p style="hp">Για να εμφανίσετε πληροφοφίες για μια κατασκευή επιλέξτε αυτό το εργαλείο και κάντε κλικ στην κατασκευή που σας ενδιαφέρει.</p>
+	<p style="hp">Οι πληροφορίες εμφανίζονται μέσα στη μικρή οθόνη, κάτω δεξιά.</p>
+	<p style="hp">Χρησιμοποιήστε αυτό το εργαλείο άφοβα, αφού δεν σας κοστίζει τίποτα!</p>
+	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+	
+	<p style="hsubtitle">Δείτε επίσης:</p>
+   	<li><a href="keys">Εντολές πληκτρολογίου</a></li>
+	<li><a href="index">Ευρετήριο</a></li>
+</Document>
+

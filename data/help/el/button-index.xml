@@ -1,0 +1,120 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ευρετήριο επιλογής πλήκτρων</p>
+
+	<!--<p style="subtitle">Ενέργεια</p>-->
+	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+	<p><a href="powerline">Γραμμές μεταφοράς ηλεκτρικής ενέργειας</a></p>
+	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+	<p><a href="powerssolar">Σταθμοί ηλιακής ενέργειας</a></p>
+	<img src="images/gui/buttonpanel/power/substation.png"/>
+	<p><a href="substation">Υποσταθμοί</a></p>
+
+	<!--<p style="subtitle">Κατοικίες</p>-->
+	<img src="images/gui/buttonpanel/residence/residence.png"/>
+	<p><a href="residential">Κατοικημένες περιοχές</a></p>
+
+	<!--<p style="subtitle">Πάρκα</p>-->
+	<img src="images/gui/buttonpanel/parks/farm.png"/>
+	<p><a href="farm">Αγροκτήματα</a></p>
+
+	<!--<p style="subtitle">Βιομηχανία</p>-->
+	<img src="images/gui/buttonpanel/industry/market.png"/>
+	<p><a href="market">Αγορές</a></p>
+
+	<!--<p style="subtitle">Βάση</p>-->
+	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
+	<p><a href="bulldoze">Κατεδάφιση/Διαμόρφωση</a></p>
+
+	<!--<p style="subtitle">Μεταφορές</p>-->
+	<img src="images/gui/buttonpanel/transport/tracks.png"/>
+	<p><a href="track">Απλοί δρόμοι</a></p>
+
+	<!--<p style="subtitle">Ορυχεία</p>-->
+	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
+	<p><a href="coalmine">Ανθρακωρυχεία</a></p>
+
+	<!--<p style="subtitle">Μεταφορές</p>-->
+	<img src="images/gui/buttonpanel/transport/rails2.png"/>
+	<p><a href="rail">Σιδηρόδρομοι</a></p>
+
+	<!--<p style="subtitle">Ενέργεια</p>-->
+	<img src="images/gui/buttonpanel/power/coalpower.png"/>
+	<p><a href="powerscoal">Ατμοηλεκτρικοί σταθμοί</a></p>
+
+	<!--<p style="subtitle">Μεταφορές</p>-->
+	<img src="images/gui/buttonpanel/transport/road.png"/>
+	<p><a href="road">Δρόμοι</a></p>
+
+	<!--<p style="subtitle">Βιομηχανία</p>-->
+	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
+	<p><a href="industryl">Ελαφρά βιομηχανία</a></p>
+
+	<!--<p style="subtitle">Διάφορα</p>-->
+	<img src="images/gui/buttonpanel/misc/university.png"/>
+	<p><a href="university">Πανεπιστήμια</a></p>
+
+	<!--<p style="subtitle">Ορυχεία</p>-->
+	<img src="images/gui/buttonpanel/mining/commune.png"/>
+	<p><a href="commune">Κοινότητες</a></p>
+	<img src="images/gui/buttonpanel/mining/oremine.png"/>
+	<p><a href="oremine">Μεταλλωρυχεία</a></p>
+
+	<!--<p style="subtitle">Εμπόριο</p>-->
+    <img src="images/gui/buttonpanel/transport/port.png"/>
+	<p><a href="export">Εισαγωγές και εξαγωγές</a></p>
+
+	<!--<p style="subtitle">Βιομηχανία</p>-->
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<p><a href="industryh">Βαριά βιομηχανία (χαλυβουργεία)</a></p>
+
+	<!--<p style="subtitle">Πάρκα</p>-->
+	<img src="images/gui/buttonpanel/parks/tree.png"/>
+	<p><a href="park">Πάρκα</a></p>
+
+	<!--<p style="subtitle">Ορυχεία</p>-->
+	<img src="images/gui/buttonpanel/mining/recycling.png"/>
+	<p><a href="recycle">Κέντρα ανακύκλωσης</a></p>
+
+	<!--<p style="subtitle">Πάρκα</p>-->
+	<img src="images/gui/buttonpanel/parks/water.png"/>
+	<p><a href="river">Ποτάμια/Νερό</a></p>
+
+	<!--<p style="subtitle">Διάφορα</p>-->
+	<img src="images/gui/buttonpanel/misc/health.png"/>
+	<p><a href="health">Κέντρα υγείας</a></p>
+
+	<!--<p style="subtitle">Μεταφορές</p>-->
+	<img src="images/gui/buttonpanel/transport/rocket.png"/>
+	<p><a href="rocket">Εξέδρες εκτόξευσης διαστημόπλοιων</a></p>
+
+	<!--<p style="subtitle">Ενέργεια</p>-->
+	<img src="images/gui/buttonpanel/power/windmills.png"/>
+	<p><a href="windmill">Ανεμόμυλοι</a></p>
+
+	<!--<p style="subtitle">Διάφορα</p>-->
+	<img src="images/gui/buttonpanel/parks/monument.png"/>
+	<p><a href="monument">Μνημεία</a></p>
+
+	<!--<p style="subtitle">Διάφορα</p>-->
+	<img src="images/gui/buttonpanel/misc/book.png"/>
+	<p><a href="school">Σχολεία</a></p>
+
+	<!--<p style="subtitle">Πάρκα</p>-->
+	<img src="images/gui/buttonpanel/parks/mills.png"/>
+	<p><a href="mill">Μύλοι</a></p>
+
+	<!--<p style="subtitle">Βιομηχανία</p>-->
+	<img src="images/gui/buttonpanel/industry/pottery.png"/>
+	<p><a href="pottery">Εργαστήρια αγγειοπλαστικής</a></p>
+
+	<!--<p style="subtitle">Διάφορα</p>-->
+	<img src="images/gui/buttonpanel/misc/fire.png"/>
+	<p><a href="firestation">Σταθμοί πυροσβεστικής</a></p>
+	<img src="images/gui/buttonpanel/misc/sports.png"/>
+	<p><a href="cricket">Γήπεδα μπάσκετ</a></p>
+
+     <!--<p style="subtitle">Μεταφορές</p>-->
+     <img src="images/gui/buttonpanel/transport/port.png"/>
+     <p><a href="port">Λιμάνια</a></p>
+</Document>

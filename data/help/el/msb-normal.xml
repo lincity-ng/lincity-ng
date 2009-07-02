@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Κάλυψη χρήσης γης</p>
+	<img src="images/gui/mapview/roundbuttons/round_resident.png" halign="center"/>
+	<p style="hp">Η μικρογραφία για τη χρήση της γης εμφανίζει κτίρια, δρόμους, νερό και πράσινες εκτάσεις μέσα στον οικισμό σας.</p>
+	<p style="hp">Κάντε αριστερό κλικ στη μικρογραφία του χάρτη για να επανατοποθετήσετε την κύρια οθόνη. Με αριστερό κλικ στον τίτλο της μικρογραφίας του χάρτη επιλέγετε μια διαφορετική προβολή. Μπορείτε να δείτε τις διαδοχικές οθόνες κάλυψης κρατώντας πατημένο το πλήκτρο 'v'.</p>
+	
+	<p style="hsubtitle">Δείτε επίσης:</p>
+	<li><a href="mini-screen">Μικρογραφία χάρτη</a></li>
+	<li><a href="msb-coal">Κάλυψη άνθρακα</a></li>
+	<li><a href="msb-cricket">Αθλητική κάλυψη</a></li>
+	<li><a href="msb-fire">Πυροσβεστική κάλυψη</a></li>
+	<li><a href="msb-health">Ιατροφαρμακευτική κάλυψη</a></li>
+	<li><a href="msb-pol">Κάλυψη μόλυνσης</a></li>
+	<li><a href="msb-power">Ενεργειακή κάλυψη</a></li>
+	<li><a href="msb-starve">Κάλυψη πείνας</a></li>
+	<li><a href="msb-transport">Κάλυψη μεταφορών</a></li>
+	<li><a href="msb-ub40">Κάλυψη ανεργίας</a></li>
+</Document>

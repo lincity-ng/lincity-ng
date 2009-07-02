@@ -1,0 +1,710 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Jul  2 19:07:53 2009\n"
+"PO-Revision-Date: 2009-07-02 22:38+0200\n"
+"Last-Translator: Yannis Kaskamanidis <ttnfy17@yahoo.gr>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/gui/minimap.xml
+msgid "$"
+msgstr "€"
+
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "Μια πυρκαγιά έχει εκδηλωθεί"
+
+#: data/gui/shfire-uc.xml
+msgid "A fire has broken out at a shanty town. It is in a fire cover area and APPEARS to be under control. "
+msgstr "Μια πυρκαγιά έχει εκδηλωθεί σε μια παραγκούπολη. Η περιοχή καλύπτεται από πυροσβεστική υπηρεσία και η πυρκαγιά ΦΑΙΝΕΤΑΙ να είναι υπό έλεγχο."
+
+#: data/gui/shfire-oc.xml
+msgid "A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may spread to other areas. "
+msgstr "Μια πυρκαγιά έχει εκδηλωθεί σε μια παραγκούπολη. Η πυρκαγιά ΕΙΝΑΙ ΕΚΤΟΣ ΕΛΕΓΧΟΥ και ενδέχεται να εξαπλωθεί και σε άλλες περιοχές."
+
+#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
+#: data/gui/savegame.xml
+msgid "Back"
+msgstr "Πίσω"
+
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "Μουσική παρασκηνίου"
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "Διαθέσιμα γήπεδα μπάσκετ"
+
+#: data/gui/blacksmithup.xml
+msgid "Blacksmiths available"
+msgstr "Διαθέσιμα σιδηρουργεία"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Η κατεδάφιση ενός μνημείου κοστίζει πολλά χρήματα."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "Η διαμόρφωση ενός τμήματος του ποταμού κοστίζει πολλά χρήματα."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr "Η κατεδάφιση μιας παραγκούπολης κοστίζει πολλά χρήματα και ενδέχεται να προκαλέσει πυρκαγιά."
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Buy"
+msgstr "Αγορά"
+
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Επιλογή σεναρίου"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Coal"
+msgstr "Άνθρακας"
+
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "Διαθέσιμος Ατμοηλεκτρικός Σταθμός"
+
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "Διαθέσιμο ανθρακωρυχείο"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Coal Survey"
+msgstr "Χαρτογράφηση άνθρακα"
+
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Κώδικας"
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Συνέχεια"
+
+#: data/gui/mainmenu.xml data/gui/creditslist.xml
+msgid "Credits"
+msgstr "Συντελεστές"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "Να γίνει χαρτογράφηση του άνθρακα;"
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "Πάει καλά."
+
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Eco"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "Αειφόρος οικονομική ανάπτυξη"
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "Σωστή εκτόξευση μετεγκατάστασης "
+
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
+msgid "Fire"
+msgstr "Πυρκαγιά"
+
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "Διάθεσιμοι πυροσβεστικοί σταθμοί"
+
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
+msgid "Fire!"
+msgstr "Πυρκαγιά!"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Food"
+msgstr "Τροφή"
+
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Πλήρης οθόνη"
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "Στατιστικά παιχνιδιού"
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "Επιστροφή στο Κύριο Μενού"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Goods"
+msgstr "Αγαθά"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "Γραφικά"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "Ρυθμίσεις εμπορίου του λιμανιού"
+
+#: data/gui/healthup.xml
+msgid "Health Centres available"
+msgstr "Διαθέσιμα κέντρα υγείας"
+
+#: data/gui/hvindustryup.xml
+msgid "Heavy Industry available"
+msgstr "Διαθέσιμη βαριά βιομηχανία"
+
+#: data/gui/import-exportup.xml
+msgid "Import/Export available"
+msgstr "Διαθέσιμες εισαγωγές/εξαγωγές"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml
+msgid "Jobs"
+msgstr "Εργασία"
+
+#: data/gui/launch-fail.xml
+msgid "Launch Failure"
+msgstr "Αποτυχημένη εκτόξευση"
+
+#: data/gui/launch-good.xml
+msgid "Launch Successfull"
+msgstr "Επιτυχημένη εκτόξευση"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "Εκτόξευση τώρα;"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "Διαθέσιμη ελαφρά βιομηχανία"
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "Το Lincity διαπίστωσε ότι η οικονομία σας είναι αειφόρος."
+
+#: data/gui/mainmenu.xml data/gui/loadgame.xml
+msgid "Load"
+msgstr "Φόρτωση"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Φόρτωση παιχνιδιού"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "Χάρτης"
+
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "Διαθέσιμοι μύλοι"
+
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "Διαθέσιμοι σύγχρονοι ανεμόμυλοι"
+
+#: data/gui/pbar.xml
+msgid "Money"
+msgstr "Χρήματα"
+
+#: data/gui/newgame.xml data/gui/mainmenu.xml
+msgid "New Game"
+msgstr "Νέο παιχνίδι"
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml data/gui/windmillup.xml
+#: data/gui/ltindustryup.xml data/gui/cricketup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/parkup.xml data/gui/solarpowerup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/universityup.xml data/gui/recycleup.xml data/gui/blacksmithup.xml
+#: data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/import-exportup.xml data/gui/mod_wind_up.xml
+msgid "New Invention"
+msgstr "Νέα εφεύρεση"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/launch_rocket_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "No"
+msgstr "Όχι"
+
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-university.xml
+#: data/gui/no-credit-recycle.xml
+msgid "No Credit Available"
+msgstr "Δεν υπάρχουν διαθέσιμες πιστώσεις"
+
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "Κανένας δεν βρίσκεται στο σπίτι"
+
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "Δεν επιτρέπεται"
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/windmillup.xml
+#: data/gui/options.xml data/gui/ltindustryup.xml data/gui/cricketup.xml
+#: data/gui/coalmineup.xml data/gui/launch-good.xml data/gui/coalpowerup.xml
+#: data/gui/parkup.xml data/gui/solarpowerup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
+#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
+#: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
+#: data/gui/no-credit-university.xml data/gui/no-credit-recycle.xml
+#: data/gui/launch-fail.xml data/gui/blacksmithup.xml
+#: data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/import-exportup.xml data/gui/launch-gone.xml
+#: data/gui/mod_wind_up.xml data/gui/warning.xml data/gui/shfire-oc.xml
+#: data/gui/too-old.xml
+msgid "Ok"
+msgstr "Εντάξει"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "Εντάξει"
+
+#: data/gui/mainmenu.xml data/gui/options.xml
+msgid "Options"
+msgstr "Επιλογές"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Ore"
+msgstr "Μετάλλευμα"
+
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Αυθεντική ιδέα και κώδικας"
+
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "Διαθέσιμα πάρκα"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Παύση του παιχνιδιού"
+
+#: data/gui/pbar.xml
+msgid "Population"
+msgstr "Πληθυσμός"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "Διαθέσιμα εργαστήρια αγγειοπλαστικής"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "Πατήστε αυτό το πλήκτρο για να εμφανιστούν τα στατιστικά"
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Product"
+msgstr "Προϊόν"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Έξοδος"
+
+#: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "Διαθέσιμοι σιδηρόδρομοι"
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "Διαθέσιμα κέντρα ανακύκλωσης"
+
+#: data/gui/options.xml
+msgid "Resolution"
+msgstr "Ανάλυση"
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "Διαθέσιμα ποτάμια"
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "Διαθέσιμοι δρόμοι"
+
+#: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "Διαθέσιμη βάση εκτόξευσης διαστημόπλοιου"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket Ready"
+msgstr "Το διαστημόπλοιο είναι έτοιμο"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket ready to launch"
+msgstr "Το διαστημόπλοιο είναι έτοιμο για εκτόξευση"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "Εκτέλεση της προσομοίωσης με γρήγορη ταχύτητα"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "Εκτέλεση της προσομοίωσης με κανονική ταχύτητα"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "Εκτέλεση της προσομοίωσης με πολύ γρήγορη ταχύτητα"
+
+#: data/gui/mainmenu.xml
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Αποθήκευση παιχνιδιού"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "Διαθέσιμα σχολεία"
+
+#: data/gui/coalmineup.xml
+msgid "See the help screen for more information on coal mines and coal surveys."
+msgstr "Δείτε τη βοήθεια για περισσότερες πληροφορίες σχετικά με τα ανθρακωρυχεία και τη χαρτογράφηση του άνθρακα."
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml data/gui/windmillup.xml
+#: data/gui/ltindustryup.xml data/gui/cricketup.xml data/gui/coalpowerup.xml
+#: data/gui/parkup.xml data/gui/solarpowerup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/healthup.xml data/gui/universityup.xml data/gui/recycleup.xml
+#: data/gui/blacksmithup.xml data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/mod_wind_up.xml
+msgid "See the help screen for more information."
+msgstr "Δείτε τη βοήθεια για περισσότερες πληροφορίες."
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Sell"
+msgstr "Πώληση"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "Αποπομπή των γεωλόγων."
+
+#: data/gui/minimap.xml
+msgid "Show Income and Expenses. Click this tab again to cycle through views."
+msgstr "Εμφάνιση εσόδων και εξόδων. Κάντε κλικ πάλι σε αυτή την καρτέλα για να δείτε και άλλες πληροφορίες σχετικές με τον οικισμό σας."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "Αποθέματα άνθρακα"
+
+#: data/gui/minimap.xml
+msgid "Show economy graphs."
+msgstr "Εμφάνιση γραφημάτων οικονομίας."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show fire department cover"
+msgstr "Πυροσβεστική κάλυψη"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show map outline"
+msgstr "Εμφάνιση χρήσης γης"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show medical care"
+msgstr "Ιατροφαρμακευτική κάλυψη"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show nourishments"
+msgstr "Κάλυψη πείνας"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show pollution density"
+msgstr "Κάλυψη μόλυνσης"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show power supply"
+msgstr "Ενεργειακή κάλυψη"
+
+#: data/gui/minimap.xml
+msgid "Show resources."
+msgstr "Εμφάνιση πόρων"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show sport cover"
+msgstr "Αθλητική κάλυψη"
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "Εμφάνιση μικρογραφίας του χάρτη"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show traffic density"
+msgstr "Κάλυψη μεταφορών"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show unemployment"
+msgstr "Κάλυψη ανεργίας"
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "Διαθέσιμοι σταθμοί παραγωγής ηλεκτρισμού από ηλιακή ενέργεια"
+
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "Συγνώμη, αλλά δεν μπορείτε να διαμορφώσετε έναν σκουπιδότοπο."
+
+#: data/gui/too-old.xml
+msgid "Sorry, the game you wanted is too old. Cannot load it. Still play with previous game."
+msgstr "Συγνώμη, το παιχνίδι που επιθυμείτε είναι πολύ παλιό. Δεν μπορεί να φορτωθεί. Παίξτε με το προηγούμενο παιχνίδι."
+
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "Ηχητικά εφέ"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Ήχος και μουσική"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "Έναρξη"
+
+#: data/gui/newgame.xml
+msgid "Start with empty board."
+msgstr "Έναρξη με άδειο πεδίο"
+
+#: data/gui/newgame.xml
+msgid "Start with random village."
+msgstr "Έναρξη με τυχαίο οικισμό"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "Στατ"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Steel"
+msgstr "Χάλυβας"
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "Τεχν. επίπεδο"
+
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "Δεν απέμειναν κάτοικοι σε αυτόν τον οικισμό."
+
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr "Αυτή η ενέργεια θα σας κοστίσει 1 εκατομμύριο. Μετά από αυτό μπορείτε να επαναλάβετε την ενέργεια δωρεάν."
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "Ολοκληρώθηκε η πλήρης μετεγκατάσταση."
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "Ρυθμίσεις εμπορίου"
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "Μεταφράσεις"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "Διαθέσιμο πανεπιστήμιο"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "Θέλετε να κατεδαφίσετε/διαμορφώσετε;"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
+msgid "Warning"
+msgstr "Προειδοποίηση"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Προειδοποίηση: Η κατεδάφιση μνημείων είναι ακριβή."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Προειδοποίηση: Η κατεδάφιση παραγκουπόλεων είνα επικίνδυνη."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Προειδοποίηση: Η διαμόρφωση των ποταμών είναι ακριβή."
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "Συγχαρητήρια, ολοκληρώσατε τη μετεγκατάσταση όλων των κατοίκων."
+
+#: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "Διαθέσιμοι ανεμόμυλοι"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/launch_rocket_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Yes"
+msgstr "Ναι"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "Καλύτερα να πάτε και να δείτε γι' αυτό"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "You can launch the rocket now or wait until later. If you wait it will continue costing you money to keep the rocket ready. Launch it later by clicking on the rocket area."
+msgstr "Μπορείτε να εκτοξεύσετε το διαστημόπλοιο τώρα ή να το αφήσετε για αργότερα. Εάν περίμενετε, θα συνεχίσει να σας κοστίζει χρήματα ώστε να κρατάτε το διαστημόπλοιο σε ετοιμότητα. Εκτοξεύστε το αργότερα κάνοντας κλικ στην βάση του διαστημόπλοιου."
+
+#: data/gui/import-exportup.xml
+msgid "You can now import and export coal, goods, ore and steel. Read the help pages on these subjects to find out how to use them. "
+msgstr "Μπορείτε να εισάγετε και να εξάγετε άνθρακα, αγαθά, μεταλλεύματα και ατσάλι. Διαβάστε τις σελίδες βοήθειας γι' αυτά τα ζητήματα, ώστε να δείτε πώς θα τα χρησιμοποιήσετε."
+
+#: data/gui/no-credit-parkland.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build parks on credit."
+msgstr "Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας επιτρέψει να δημιουργήσετε πάρκα με πίστωση."
+
+#: data/gui/no-credit-recycle.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build recycling centres on credit."
+msgstr "Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας επιτρέψει να δημιουργήσετε κέντρα ανακύκλωσης με πίστωση."
+
+#: data/gui/no-credit-rocket.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build rocket launch pads on credit."
+msgstr "Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας επιτρέψει να κατασκευάσετε βάση εκτόξευσης διαστημόπλοιων με πίστωση."
+
+#: data/gui/no-credit-solar-power.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build solar power stations on credit."
+msgstr "Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας επιτρέψει να δημιουργήσετε ηλιακούς σταθμούς παραγωγής ρεύματος με πίστωση."
+
+#: data/gui/no-credit-university.xml
+msgid "You have a budget deficit. The legislative council will not allow you to build universities on credit."
+msgstr "Έχετε έλλειμμα στον προϋπολογισμό σας. Το δημοτικό συμβούλιο δεν θα σας επιτρέψει να κατασκευάσετε πανεπιστήμια με πίστωση."
+
+#: data/gui/launch-evac.xml
+msgid "You have evacuated 1000 people. You might want to reduce the size of your economy to reflect the reduced population. "
+msgstr "Έχετε μετεγκαταστήσει 1000 κατοίκους. Θα μπορούσατε να μειώσετε το μέγεθος της οικονομίας σας, ώστε να είναι ανάλογο με τον μειωμένο πληθυσμό που προέκυψε."
+
+#: data/gui/blacksmithup.xml
+msgid "You have reached the tech level which enables you to build blacksmiths. Blacksmiths use jobs and steel to make goods."
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημουργήσετε σιδηρουργεία. Τα σιδηρουργεία απαιτούν εργασία και ατσάλι για να παράγουν αγαθά. "
+
+#: data/gui/coalpowerup.xml
+msgid "You have reached the tech level which enables you to build coal fired power stations."
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε ατμοηλεκτρικούς σταθμούς παραγωγής ηλεκτρικού ρεύματος."
+
+#: data/gui/firestationup.xml
+msgid "You have reached the tech level which enables you to build fire stations. Fire stations prevent most fires from starting. If you haven't had any fires yet, you might not think you need them."
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε σταθμούς πυροσβεστικής. Οι σταθμοί αυτοί αποτρέπουν τις περισσότερες πυρκαγιές. Εάν δεν είχατε καθόλου πυρκαγιές ως τώρα, αυτό δεν σημαίνει ότι δεν τους χρειάζεστε."
+
+#: data/gui/healthup.xml
+msgid "You have reached the tech level which enables you to build health centres. Heath centres reduce the number of people killed by pollution and increase overall productivity."
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε κέντρα υγείας. Τα κέντρα υγείας συμβάλλουν στη μείωση του αριθμού των θανάτων που οφείλονται στη μόλυνση και αυξάνουν συνολικά την παραγωγικότητα του πληθυσμού."
+
+#: data/gui/hvindustryup.xml
+msgid "You have reached the tech level which enables you to build heavy industry (steel works). Heavy industry produces steel. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε βαριά βιομηχανία (χαλυβουργεία). Η βαριά βιομηχανία παράγει ατσάλι."
+
+#: data/gui/ltindustryup.xml
+msgid "You have reached the tech level which enables you to build light industry. Light industry produces goods. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε ελαφρά βιομηχανία. Η ελαφρά βιομηχανία παράγει αγαθά."
+
+#: data/gui/millup.xml
+msgid "You have reached the tech level which enables you to build mills. Mills use jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε μύλους. Οι μύλοι απαιτούν εργασία και τρόφιμα για να παράγουν αγαθά. Προσέξτε, μπορεί να απαιτούν μεγάλες ποσότητες φαγητού!"
+
+#: data/gui/mod_wind_up.xml
+msgid "You have reached the tech level which enables you to build modern, more efficient, windmills. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε σύγχρονους, περισσότερο αποτελεσματικούς ανεμόμυλους."
+
+#: data/gui/parkup.xml
+msgid "You have reached the tech level which enables you to build parks. Parks are used to absorb pollution. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε πάρκα. Τα πάρκα απορροφούν αφομοιώνουν την ατμοσφαιρική μόλυνση."
+
+#: data/gui/potteryup.xml
+msgid "You have reached the tech level which enables you to build potteries. Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε εργαστήρια αγγειοπλαστικής. Τα εργαστήρια αυτά απαιτούν εργασία και μεταλλεύματα για να παράγουν αγαθά. (Χρειάζεστε μεταλλωρυχεία για να έχετε διαθέσιμα μεταλλεύματα.)"
+
+#: data/gui/railwayup.xml
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε σιδηρόδρομους."
+
+#: data/gui/riverup.xml
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε ποτάμια."
+
+#: data/gui/roadup.xml
+msgid "You have reached the tech level which enables you to build roads. See the help screen for more information."
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε δρόμους. Δείτε την οθόνη βοήθειας για περισσότερες πληροφορίες."
+
+#: data/gui/rocketup.xml
+msgid "You have reached the tech level which enables you to build rocket launch pads. Rockets enable you to evacuate your population and is a way to 'win' the game."
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε βάση εκτόξευσης διαστημόπλοιων. Τα διαστημόπλοια σας δίνουν τη δυνατότητα να μετεγκαταστήσετε τους κατοίκους του οικισμού σας και είναι ένας τρόπος να 'κερδίσετε' το παιχνίδι."
+
+#: data/gui/schoolup.xml
+msgid "You have reached the tech level which enables you to build schools. Schools use jobs and goods to increase tech level. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε σχολεία. Τα σχολεία απαιτούν εργασία και αγαθά για να αυξήσουν το τεχνολογικό επίπεδο."
+
+#: data/gui/solarpowerup.xml
+msgid "You have reached the tech level which enables you to build solar power stations. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε ηλιακούς σταθμούς παραγωγής ενέργειας."
+
+#: data/gui/universityup.xml
+msgid "You have reached the tech level which enables you to build universities. Universities produces PhDs, which produce more technology. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε πανεπιστήμια. Τα πανεπιστήμια προάγουν τη διδακτορική έρευνα που με τη σειρά της παράγει περισσότερη τεχνολογία."
+
+#: data/gui/windmillup.xml
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε ανεμόμυλους."
+
+#: data/gui/coalmineup.xml
+msgid "You have reached the tech level which enables you to dig deep coal mines."
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να δημιουργήσετε ανθρακωρυχεία σε μεγάλο βάθος. "
+
+#: data/gui/recycleup.xml
+msgid "You have reached the tech level which enables you to recycling centres. Recycling centres recycle used goods back into ore. "
+msgstr "Έχετε προσεγγίσει το τεχνολογικό επίπεδο που σας επιτρέπει να κατασκευάσετε κέντρα ανακύκλωσης. Τα κέντρα ανακύκλωσης παράγουν μεταλλεύματα από χρησιμοποιημένα αγαθά."
+
+#: data/gui/sustain.xml data/gui/launch-gone.xml
+msgid "You have won the game."
+msgstr "Κερδίσατε το παιχνίδι!"
+
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "Ίσως πρέπει να αρχίσετε μια νέα καριέρα κάπου αλλού."
+
+#: data/gui/cricketup.xml
+msgid "Your people have invented basketball. Basketball Courts use a few jobs and goods and make people in the surrounding areas (about 10 units in each direction) happier."
+msgstr "Οι κάτοικοι του οικισμού σας επινόησαν το μπάσκετ. Τα γήπεδα μπάσκετ απαιτούν λίγη εργασία και αγαθά και κάνουν τους κατοίκους της γύρω περιοχής (περίπου 10 μονάδες σε κάθε κατεύθυνση) περισσότερο ευτυχισμένους."
+
+#: data/gui/launch-fail.xml
+msgid "Your rocket crashed shortly after launch. People no longer trust the technology for evacuation. You must launch five more unmanned rockets to restore confidence."
+msgstr "Το διαστημόπλοιό σας εξερράγη λίγο μετά την εκτόξευση. Οι κάτοικοι δεν θα εμπιστεύονται πλέον την τεχνολογία για να μετεγκατασταθούν. Θα πρέπει να εκτοξεύσετε περισσότερα από πέντε μη επανδρωμένα διαστημόπλοια για να ξανακερδίσετε την εμπιστοσύνη τους."
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr "[+] Μεγέθυνση της προβολής, έτσι ώστε λιγότερα κτίρια, αλλά περισσότερες πληροφορίες να είναι ορατές."
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] Σμίκρυνση"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "[F1] Πατήστε αυτό το πλήκτρο για να λάβετε βοήθεια."
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] Απόκρυψη ψηλών κτιρίων."
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] Διαδοχικές προβολές των λειτουργιών κάλυψης της μικρογραφίας του χάρτη."
+
+#: data/gui/savegame.xml
+msgid "save to selected slot"
+msgstr "Αποθήκευση στην επιλεγμένη υποδοχή"
+

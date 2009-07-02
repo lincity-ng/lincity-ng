@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Σιδηρόδρομοι</p>
+	<p style="hp">Με τους σιδηρόδρομους μπορείτε να μεταφέρετε πολύ περισσότερα απ' ότι με τους δρόμους. Συμβάλλουν πολύ λιγότερο στη μόλυνση του περιβάλλοντος απ' ότι οι δρόμοι. Ωστόσο, η κατασκευή και η διαχείρισή τους είναι αρκετά ακριβή. Αξίζουν τα χρήματα που δαπανήθηκαν για την κατασκευή τους, όταν έχετε να μεταφέρετε πολλά εμπορεύματα σε μακρινές αποστάσεις.</p>
+
+	<p style="hp">Αυτός είναι ο σιδηρόδρομος</p>
+	<img src="images/tiles/railud.png" halign="center"/>
+	<p style="hp">και αυτό το εικονίδιό του.</p>
+	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+	
+	<p style="hsubtitle">Δείτε επίσης:</p>
+	<li><a href="transport">Μεταφορές</a></li>
+	<li><a href="commune">Κοινότητα</a></li>
+	<li><a href="pollution">Μόλυνση</a></li>
+</Document>

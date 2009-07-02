@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Δρόμοι</p>
+	<p style="hp">Με τους δρόμους μπορούμε να μεταφέρουμε περισσότερα πράγματα, απ' ότι με τους απλούς δρόμους, αλλά όχι τόσα πολλά όσα με τους σιδηρόδρομους. Συμβάλλουν περισσότερο στη μόλυνση του περιβάλλοντος απ' ότι οι σιδηρόδρομοι. Η κατασκευή και η διαχείρισή τους είναι φθηνότερη από τους σιδηρόδρομους – είναι κι αυτός ένας λόγος για να τους προτιμήσετε!</p>
+	
+	<p style="hp">Αυτός είναι ένας δρόμος</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">και αυτό το εικονίδιό του.</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">Δείτε επίσης:</p>
+	<li><a href="transport">Μεταφορές</a></li>
+	<li><a href="commune">Κοινότητες</a></li>
+	<li><a href="pollution">Μόλυνση</a></li>
+</Document>

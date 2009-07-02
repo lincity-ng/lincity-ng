@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Υποσταθμοί</p>
+	<p style="hp">Οι υποσταθμοί παίρνουν ηλεκτρική ενέργεια από τις γραμμές μεταφοράς και τη διανέμουν στην περιοχή που τους περιβάλλει. Μπορείτε να δείτε, για παράδειγμα, εάν μια κατοικημένη περιοχή ηλεκτροδοτείται κάνοντας κλικ στην περιοχή και κοιτάζοντας στους χάρτες κάλυψης ενέργειας της οθόνης κάτω δεξιά.</p>
+	
+	<p style="hp">Αυτός είναι ένας υποσταθμός</p>
+	<img src="images/tiles/substation-G.png" halign="center"/>
+	<p style="hp">και αυτό το εικονίδιό του.</p>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+	
+	<p style="hsubtitle">Δείτε επίσης:</p>
+	<li><a href="powerline">Γραμμές μεταφοράς ηλεκτρικής ενέργειας</a></li>
+	<li><a href="powerssolar">Σταθμοί ηλιακής ενέργειας</a></li>
+	<li><a href="commune">Κοινότητες</a></li>
+	<li><a href="steel">Ατσάλι</a></li>
+	<li><a href="jobs">Εργασία</a></li>
+</Document>
+

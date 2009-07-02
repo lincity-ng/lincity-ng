@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Μέση ταχύτητα</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Αυτό είναι το πλήκτρο της μέσης ταχύτητας. Σε αργούς υπολογιστές τα πλήκτρα ταχύτητας ενδέχεται να μην έχουν καμία επίδραση.</p>
+	
+	<p style="hsubtitle">Δείτε επίσης:</p>
+	<li><a href="slow">Αργή</a></li>
+	<li><a href="fast">Γρήγορη</a></li>
+</Document>
+
+

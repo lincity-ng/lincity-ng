@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Απλοί δρόμοι</p>
+	<p style="hp">Οι απλοί δρόμοι είναι η απλούστερη και οικονομικότερη μορφή δικτύου μεταφορών. Ωστόσο, έχουν περιορισμένες δυνατότητες. Από την άλλη μεριά όμως, δεν παράγουν καθόλου μόλυνση.</p>
+	
+	<p style="hp">Αυτός είναι ένας απλός δρόμος</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">και αυτό το εικονίδιό του.</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Δείτε επίσης:</p>
+	<li><a href="transport">Μεταφορές</a></li>
+	<li><a href="commune">Κοινότητες</a></li>
+</Document>

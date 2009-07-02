@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Αργή ταχύτητα</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Αυτό είναι το πλήκτρο της αργής ταχύτητας. Επιτρέπει την εκτέλεση του παιχνιδιού στην πιο αργή ταχύτητα. Σε παλιούς και αργούς υπολογιστές, αυτό το πλήκτρο μπορεί να μην έχει κανένα αποτελέσμα.</p>
+	
+	<p style="hsubtitle">Δείτε επίσης:</p>
+	<li><a href="medium">Μέση ταχύτητα</a></li>
+	<li><a href="fast">Γρήγορη ταχύτητα</a></li>
+</Document>

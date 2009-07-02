@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Διδακτικό βοήθημα</p>
+
+	<li><a href="tutorial-aim">Σκοπός του παιχνιδιού</a></li>
+	<li><a href="tutorial-overview">Επισκόπηση οθόνης</a></li>
+	<li><a href="tutorial-basics">Πρώτα βήματα</a></li>
+	<li><a href="tutorial-advanced">Προχωρημένες λειτουργίες</a></li>
+	<li><a href="tutorial-scenario">Προκαθορισμένο σενάριο</a></li>
+</Document>
+

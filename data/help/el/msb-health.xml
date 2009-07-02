@@ -1,0 +1,33 @@
+﻿<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ιατροφαρμακευτική κάλυψη</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<p style="hp">Οι περιοχές που βρίσκονται μέσα στα όρια ενός κέντρου υγείας, εμφανίζονται με σκούρο πράσινο χρώμα.</p>
+	<p style="hp">Οι περιοχές που βρίσκονται εκτός οριών ενός κέντρου υγείας, εμφανίζονται φυσιολογικά.</p>
+	<p style="hp">Να θυμάστε ότι τα κέντρα υγείας αρχίζουν τη λειτουργία τους τρεις μήνες μετά την κατασκευή τους.</p>
+	<p style="hp">Κάντε αριστερό κλικ στη μικρογραφία του χάρτη για να επανατοποθετήσετε την κύρια οθόνη. Με αριστερό κλικ στον τίτλο της μικρογραφίας του χάρτη επιλέγετε μια διαφορετική προβολή. Μπορείτε να δείτε τις διαδοχικές οθόνες κάλυψης κρατώντας πατημένο το πλήκτρο 'v'.</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="mini-screen">Μικρογραφία χάρτη</a></li>
+	<li><a href="msb-coal">Κάλυψη άνθρακα</a></li>
+	<li><a href="msb-cricket">Αθλητική κάλυψη</a></li>
+	<li><a href="msb-fire">Πυροσβεστική κάλυψη</a></li>
+	<li><a href="msb-normal">Φυσιολογική κάλυψη</a></li>
+	<li><a href="msb-pol">Κάλυψη μόλυνσης</a></li>
+	<li><a href="msb-power">Ενεργειακή κάλυψη</a></li>
+	<li><a href="msb-starve">Κάλυψη πείνας</a></li>
+	<li><a href="msb-transport">Κάλυψη μεταφορών</a></li>
+	<li><a href="msb-ub40">Κάλυψη ανεργίας</a></li>
+</Document>
+
+
+
+<!--
+
+text -1 270 Left click on the mini screen 
+text -1 280 to reposition the main window.
+text -1 300 Left click on the mini screen title 
+text -1 310 to choose a different mini screen view.
+text -1 330 Toggle overlay mode by pressing 'v' 
+text -1 340 or middle click on the mini screen title (X only)
+-->

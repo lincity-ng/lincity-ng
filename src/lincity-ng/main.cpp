@@ -149,6 +149,7 @@ void initPhysfs(const char* argv0)
     std::string dir = PHYSFS_getBaseDir();
     dir += "/data";
     std::string testfname = dir;
+    //TODO: Windows/Mingw does not like this test on other machine?
     testfname += "/images/tiles/images.xml";
     FILE* f = fopen(testfname.c_str(), "r");
     if(f) {

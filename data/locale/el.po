@@ -1,0 +1,1508 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LinCity NG\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-07-02 19:07+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Yannis Kaskamanidis <ttnfy17@yahoo.gr>\n"
+"Language-Team:  <ttnfy17@yahoo.gr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: Greece\n"
+
+#: src/lincity/loadsave.cpp:130
+#, c-format
+msgid "Save file <%s> - "
+msgstr "Αποθήκευση αρχείου <%s> - "
+
+#: src/lincity/loadsave.cpp:131
+msgid "Can't open save file!"
+msgstr "Αδυναμία ανοίγματος αποθηκευμένου αρχείου!"
+
+#: src/lincity/loadsave.cpp:293
+#: src/lincity/old_ldsvguts.cpp:130
+#, c-format
+msgid "Can't open <%s> (gzipped)"
+msgstr "Αδυναμία ανοίγματος <%s> (gzipped)"
+
+#: src/lincity/fileutil.cpp:233
+#: src/lincity/fileutil.cpp:277
+msgid "Error. Can't find LINCITY_HOME"
+msgstr "Σφάλμα. Δεν μπορεί να βρεθεί το LINCITY_HOME"
+
+#: src/lincity/fileutil.cpp:463
+msgid "Error verifying package. Can't find colour.pal."
+msgstr "Σφάλμα επαλήθευσης πακέτου. Αδυναμία εύρεσης παλέτας χρωμάτων."
+
+#: src/lincity/fileutil.cpp:476
+#: src/lincity/fileutil.cpp:484
+#, c-format
+msgid "Couldn't create the save directory '%s'\n"
+msgstr "Αδυναμία δημιουργίας φακέλου αποθήκευσης '%s'\n"
+
+#: src/lincity/fileutil.cpp:501
+#, c-format
+msgid "Out of memory: malloc failure\n"
+msgstr "Μη επαρκής μνήμη: το malloc απέτυχε\n"
+
+#: src/lincity/old_ldsvguts.cpp:162
+msgid "Loading scene"
+msgstr "Φόρτωση τοπίου"
+
+#: src/lincity/simulate.cpp:81
+msgid "Upgrading from old game. You have 10 years to build water wells where needed. After, starvation will occur!  You should check starvation minimap, and read waterwell help page :-)"
+msgstr "Αναβάθμιση από παλιό παιχνίδι. Έχετε 10 χρόνια να φτιάξετε πηγάδια νερού όπου χρειάζονταν. Μετά θα συμβεί λιμός! Πρέπει να ελέγξετε τη μικρογραφία του χάρτη και να διαβάσετε τη σελίδα βοήθειας :-)"
+
+#: src/lincity/power.cpp:298
+msgid "You have too many power grids. Join some of them"
+msgstr "Έχετε πάρα πολλά δίκτυα μεταφοράς ενέργειας. Συνδέστε μερικά από αυτά."
+
+#: src/lincity/engine.cpp:152
+msgid "Port must be connected to river all along right side."
+msgstr "Για να μπορέσετε να κατασκευάσετε ένα λιμάνι θα πρέπει να το τοποθετήσετε σε μια αριστερή ευθύγραμμη όχθη ποταμού."
+
+#: src/lincity/engine.cpp:164
+msgid "You can't build a water well here: it is all desert."
+msgstr "Δεν μπορείτε να φτιάξετε πηγάδι νερού εδώ: είναι έρημος."
+
+#: src/lincity/engine.cpp:178
+msgid "You can't build a tip here: this area was once a landfill"
+msgstr "Δεν μπορείτε να φτιάξετε εδώ μια χωματερή: αυτή η περιοχή ήταν κάποτε χωματερή."
+
+#: src/lincity/engine.cpp:193
+msgid "You can't build a mine here: This area was once a landfill"
+msgstr "Δεν μπορείτε να φτιάξετε εδώ ένα μεταλλείο: αυτή η περιοχή ήταν κάποτε χωματερή."
+
+#: src/lincity/engine.cpp:204
+msgid "You can't build a mine here: there is no ore left at this site"
+msgstr "Δεν μπορείτε να φτιάξετε ένα μεταλλείο εδώ: δεν έχει απομείνει μετάλλευμα σε αυτό το μέρος."
+
+#: src/lincity/engine.cpp:214
+msgid "You can't build a park here: it is a desert, parks need water"
+msgstr "Δεν μπορείτε να φτιάξετε εδώ ένα πάρκο: είναι έρημος και τα πάρκα χρειάζονται νερό."
+
+#: src/lincity/engine.cpp:229
+msgid "Too many substations + windmills. You cannot build one more"
+msgstr "Πολλοί υποσταθμοί και ανεμόμυλοι. Δεν μπορείτε να φτιάξετε ακόμη έναν."
+
+#: src/lincity/engine.cpp:238
+msgid "Too many markets. You cannot build one more"
+msgstr "Πάρα πολλά καταστήματα. Δεν μπορείτε να φτιάξετε ένα ακόμη."
+
+#: src/lincity/engine.cpp:262
+msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr "ΣΦΑΛΜΑ: η ομάδα δεν υπάρχει. Αυτό δεν πρέπει να συμβαίνει. Παρακαλώ συμπληρώστε μια αναφορά σφάλματος προς την ομάδα του lincity-ng, με το αποθηκευμένο παιχνίδι και τι κάνατε :-) "
+
+#: src/lincity/engine.cpp:582
+msgid "It's at a power line."
+msgstr "Είναι σε μια γραμμή ενέργειας."
+
+#: src/lincity/engine.cpp:584
+msgid "It's at a solar power station."
+msgstr "Είναι σε έναν σταθμό ηλιακής ενέργειας."
+
+#: src/lincity/engine.cpp:586
+msgid "It's at a substation."
+msgstr "Είναι σε έναν υποσταθμό."
+
+#: src/lincity/engine.cpp:588
+msgid "It's at a residential area."
+msgstr "Είναι σε μια αστική περιοχή."
+
+#: src/lincity/engine.cpp:590
+msgid "It's at a farm."
+msgstr "Είναι σε ένα αγρόκτημα"
+
+#: src/lincity/engine.cpp:592
+msgid "It's at a market."
+msgstr "Είναι σε ένα κατάστημα."
+
+#: src/lincity/engine.cpp:594
+msgid "It's at a track."
+msgstr "Βρίσκεται σε απλό δρόμο."
+
+#: src/lincity/engine.cpp:596
+msgid "It's at a coal mine."
+msgstr "Βρίσκεται σε ανθρακωρυχείο."
+
+#: src/lincity/engine.cpp:598
+msgid "It's at a railway."
+msgstr "Βρίσκεται σε σιδηρόδρομο."
+
+#: src/lincity/engine.cpp:600
+msgid "It's at a coal power station."
+msgstr "Βρίσκεται σε ατμοηλεκτρικό σταθμό παραγωγής ενέργειας."
+
+#: src/lincity/engine.cpp:602
+msgid "It's at a road."
+msgstr "Βρίσκεται σε δρόμο."
+
+#: src/lincity/engine.cpp:604
+msgid "It's at light industry."
+msgstr "Βρίσκεται σε ελαφρά βιομηχανία."
+
+#: src/lincity/engine.cpp:606
+msgid "It's at a university."
+msgstr "Βρίσκεται σε πανεπιστήμιο"
+
+#: src/lincity/engine.cpp:608
+msgid "It's at a commune."
+msgstr "Βρίσκεται σε κοινότητα"
+
+#: src/lincity/engine.cpp:610
+msgid "It's at a tip."
+msgstr "Βρίσκεται σε χωματερή."
+
+#: src/lincity/engine.cpp:612
+msgid "It's at a port."
+msgstr "Βρίσκεται σε λιμάνι."
+
+#: src/lincity/engine.cpp:614
+msgid "It's at a steel works."
+msgstr "Βρίσκεται σε χαλυβουργείο."
+
+#: src/lincity/engine.cpp:616
+msgid "It's at a recycle centre."
+msgstr "Βρίσκεται σε κέντρο ανακύκλωσης."
+
+#: src/lincity/engine.cpp:618
+msgid "It's at a health centre."
+msgstr "Βρίσκεται σε κέντρο υγείας."
+
+#: src/lincity/engine.cpp:620
+msgid "It's at a rocket site."
+msgstr "Βρίσκεται σε βάση διαστημόπλοιου."
+
+#: src/lincity/engine.cpp:622
+msgid "It's at a windmill."
+msgstr "Βρίσκεται σε ανεμόμυλο."
+
+#: src/lincity/engine.cpp:624
+msgid "It's at a school."
+msgstr "Βρίσκεται σε σχολείο."
+
+#: src/lincity/engine.cpp:626
+msgid "It's at a blacksmith."
+msgstr "Βρίσκεται σε σιδηρουργείο."
+
+#: src/lincity/engine.cpp:628
+msgid "It's at a mill."
+msgstr "Βρίσκεται σε μύλο."
+
+#: src/lincity/engine.cpp:630
+msgid "It's at a pottery."
+msgstr "Βρίσκεται σε εργαστήριο αγγειοπλαστικής."
+
+#: src/lincity/engine.cpp:632
+msgid "It's at a fire station!!!."
+msgstr "Βρίσκεται σε σταθμό πυροσβεστικής!"
+
+#: src/lincity/engine.cpp:634
+msgid "It's at a sports field!!!."
+msgstr "Βρίσκεται σε χώρο άθλησης!"
+
+#: src/lincity/engine.cpp:636
+msgid "It's at a shanty town."
+msgstr "Βρίσκεται σε παραγκούπολη."
+
+#: src/lincity/engine.cpp:638
+msgid "UNKNOWN!"
+msgstr "ΑΓΝΩΣΤΟ!"
+
+#: src/lincity/lintypes.cpp:21
+msgid "Empty"
+msgstr "Κενό"
+
+#: src/lincity/lintypes.cpp:33
+msgid "Power line"
+msgstr "Γραμμή ηλεκτρικού ρεύματος"
+
+#: src/lincity/lintypes.cpp:44
+msgid "Solar PS"
+msgstr "Τροφοδοσία ρεύματος με ηλιακή ενέργεια"
+
+#: src/lincity/lintypes.cpp:55
+#: src/lincity/modules/substation.cpp:93
+msgid "Substation"
+msgstr "Υποσταθμός"
+
+#: src/lincity/lintypes.cpp:66
+msgid "Residential LL"
+msgstr "Κατοικημένη περιοχή LL"
+
+#: src/lincity/lintypes.cpp:77
+msgid "Farm"
+msgstr "Αγρόκτημα"
+
+#: src/lincity/lintypes.cpp:88
+#: src/lincity/modules/market.cpp:1011
+#: src/lincity-ng/Dialog.cpp:632
+msgid "Market"
+msgstr "Αγορά"
+
+#: src/lincity/lintypes.cpp:99
+msgid "Track"
+msgstr "Απλός δρόμος"
+
+#: src/lincity/lintypes.cpp:110
+msgid "Coalmine"
+msgstr "Ανθρακωρυχείο"
+
+#: src/lincity/lintypes.cpp:121
+msgid "Railway"
+msgstr "Σιδηρόδρομος"
+
+#: src/lincity/lintypes.cpp:132
+msgid "Coal PS"
+msgstr "Τροφοδοσία ρεύματος με άνθρακα"
+
+#: src/lincity/lintypes.cpp:143
+msgid "Road"
+msgstr "Δρόμος"
+
+#: src/lincity/lintypes.cpp:154
+msgid "Lt. Industry"
+msgstr "Ελαφρά βιομηχανία"
+
+#: src/lincity/lintypes.cpp:165
+#: src/lincity/modules/university.cpp:59
+msgid "University"
+msgstr "Πανεπιστήμιο"
+
+#: src/lincity/lintypes.cpp:176
+#: src/lincity/modules/commune.cpp:175
+msgid "Commune"
+msgstr "Κοινότητα"
+
+#: src/lincity/lintypes.cpp:187
+msgid "Ore mine"
+msgstr "Μεταλλωρυχείο"
+
+#: src/lincity/lintypes.cpp:198
+msgid "Rubbish tip"
+msgstr "Χωματερή"
+
+#: src/lincity/lintypes.cpp:209
+#: src/lincity/modules/port.cpp:281
+#: src/lincity-ng/Dialog.cpp:686
+msgid "Port"
+msgstr "Λιμάνι"
+
+#: src/lincity/lintypes.cpp:220
+msgid "Hv. Industry"
+msgstr "Βαριά βιομηχανία"
+
+#: src/lincity/lintypes.cpp:231
+#: src/lincity/modules/parkland.cpp:21
+msgid "Park"
+msgstr "Πάρκο"
+
+#: src/lincity/lintypes.cpp:242
+#: src/lincity-ng/MpsInterface.cpp:539
+msgid "Recycle"
+msgstr "Ανακύκλωση"
+
+#: src/lincity/lintypes.cpp:253
+#: src/lincity/modules/water.cpp:20
+#: src/lincity/modules/residence.cpp:264
+msgid "Water"
+msgstr "Νερό"
+
+#: src/lincity/lintypes.cpp:264
+msgid "Health centre"
+msgstr "Κέντρο υγείας"
+
+#: src/lincity/lintypes.cpp:275
+msgid "Rocket pad"
+msgstr "Εξέδρα διαστημόπλοιου"
+
+#: src/lincity/lintypes.cpp:286
+#: src/lincity/modules/windmill.cpp:74
+#: src/lincity-ng/MpsInterface.cpp:529
+msgid "Windmill"
+msgstr "Ανεμόμυλοι"
+
+#: src/lincity/lintypes.cpp:297
+#: src/lincity/modules/monument.cpp:51
+msgid "Monument"
+msgstr "Μνημείο"
+
+#: src/lincity/lintypes.cpp:308
+#: src/lincity/modules/school.cpp:43
+msgid "School"
+msgstr "Σχολείο"
+
+#: src/lincity/lintypes.cpp:319
+#: src/lincity/modules/blacksmith.cpp:91
+msgid "Blacksmith"
+msgstr "Σιδηρουργείο"
+
+#: src/lincity/lintypes.cpp:330
+msgid "Mill"
+msgstr "Μύλος"
+
+#: src/lincity/lintypes.cpp:341
+#: src/lincity/modules/pottery.cpp:105
+msgid "Pottery"
+msgstr "Εργαστήριο αγγειοπλαστικής"
+
+#: src/lincity/lintypes.cpp:352
+msgid "Fire sta'n"
+msgstr "Πυροσβεστικός σταθμός"
+
+#: src/lincity/lintypes.cpp:363
+#: src/lincity/modules/cricket.cpp:92
+msgid "Sports field"
+msgstr "Χώρος άθλησης"
+
+#: src/lincity/lintypes.cpp:375
+msgid "Burnt"
+msgstr "Καμμένος"
+
+#: src/lincity/lintypes.cpp:387
+msgid "Shanty town"
+msgstr "Παραγκούπολη"
+
+#: src/lincity/lintypes.cpp:399
+#: src/lincity/modules/residence.cpp:283
+#: src/lincity-ng/MpsInterface.cpp:403
+#: src/lincity-ng/EconomyGraph.cpp:134
+msgid "Fire"
+msgstr "Πυρκ."
+
+#: src/lincity/lintypes.cpp:411
+msgid "Used"
+msgstr "Μεταχειρισμένο"
+
+#: src/lincity/lintypes.cpp:422
+msgid "Residential ML"
+msgstr "Κατοικημένη περιοχή ML"
+
+#: src/lincity/lintypes.cpp:433
+msgid "Residential HL"
+msgstr "Κατοικημένη περιοχή HL"
+
+#: src/lincity/lintypes.cpp:444
+msgid "Residential LH"
+msgstr "Κατοικημένη περιοχή LH"
+
+#: src/lincity/lintypes.cpp:455
+msgid "Residential MH"
+msgstr "Κατοικημένη περιοχή MH"
+
+#: src/lincity/lintypes.cpp:466
+msgid "Residential HH"
+msgstr "Κατοικημένη περιοχή HH"
+
+#: src/lincity/lintypes.cpp:477
+msgid "Water well"
+msgstr "Πηγάδι νερού"
+
+#: src/lincity/lintypes.cpp:489
+msgid "Desert"
+msgstr "Έρημος"
+
+#: src/lincity/lintypes.cpp:501
+msgid "Tree"
+msgstr "Δέντρο"
+
+#: src/lincity/lintypes.cpp:514
+msgid "Trees"
+msgstr "Δέντρα"
+
+#: src/lincity/lintypes.cpp:527
+msgid "Forest"
+msgstr "Δάσος"
+
+#: src/lincity/lintypes.cpp:540
+msgid "Track Bridge"
+msgstr "Γέφυρα απλού δρόμου"
+
+#: src/lincity/lintypes.cpp:552
+msgid "Road Bridge"
+msgstr "Γέφυρα δρόμου"
+
+#: src/lincity/lintypes.cpp:564
+msgid "Rail Bridge"
+msgstr "Γέφυρα σιδηρόδρομου"
+
+#: src/lincity/lclib.cpp:15
+msgid "Jan"
+msgstr "Ιαν"
+
+#: src/lincity/lclib.cpp:15
+msgid "Feb"
+msgstr "Φεβ"
+
+#: src/lincity/lclib.cpp:15
+msgid "Mar"
+msgstr "Μαρ"
+
+#: src/lincity/lclib.cpp:15
+msgid "Apr"
+msgstr "Απρ"
+
+#: src/lincity/lclib.cpp:16
+msgid "May"
+msgstr "Μάι"
+
+#: src/lincity/lclib.cpp:16
+msgid "Jun"
+msgstr "Ιουν"
+
+#: src/lincity/lclib.cpp:16
+msgid "Jul"
+msgstr "Ιουλ"
+
+#: src/lincity/lclib.cpp:16
+msgid "Aug"
+msgstr "Αύγ"
+
+#: src/lincity/lclib.cpp:17
+msgid "Sep"
+msgstr "Σεπ"
+
+#: src/lincity/lclib.cpp:17
+msgid "Oct"
+msgstr "Οκτ"
+
+#: src/lincity/lclib.cpp:17
+msgid "Nov"
+msgstr "Νοέ"
+
+#: src/lincity/lclib.cpp:17
+msgid "Dec"
+msgstr "Δεκ"
+
+#: src/lincity/modules/waterwell.cpp:56
+msgid "Water_well"
+msgstr "Πηγάδι νερού"
+
+#: src/lincity/modules/waterwell.cpp:59
+#: src/lincity/modules/residence.cpp:288
+#: src/lincity/modules/parkland.cpp:24
+#: src/lincity-ng/MpsInterface.cpp:411
+msgid "Pollution"
+msgstr "Ρύπανση"
+
+#: src/lincity/modules/waterwell.cpp:62
+#: src/lincity/modules/water.cpp:23
+#: src/lincity/modules/commune.cpp:180
+#: src/lincity/modules/commune.cpp:182
+#: src/lincity/modules/commune.cpp:184
+#: src/lincity/modules/commune.cpp:186
+#: src/lincity-ng/MpsInterface.cpp:402
+#: src/lincity-ng/MpsInterface.cpp:405
+#: src/lincity-ng/MpsInterface.cpp:408
+msgid "Yes"
+msgstr "Ναι"
+
+#: src/lincity/modules/waterwell.cpp:63
+msgid "Drinkable"
+msgstr "Πόσιμο"
+
+#: src/lincity/modules/health_centre.cpp:58
+msgid "Health Centre"
+msgstr "Κέντρο υγείας"
+
+#: src/lincity/modules/health_centre.cpp:60
+#: src/lincity/modules/rocket_pad.cpp:194
+#: src/lincity/modules/recycle.cpp:144
+#: src/lincity/modules/mill.cpp:98
+#: src/lincity/modules/university.cpp:65
+#: src/lincity/modules/cricket.cpp:94
+#: src/lincity/modules/pottery.cpp:109
+#: src/lincity/modules/blacksmith.cpp:96
+#: src/lincity/modules/firestation.cpp:111
+#: src/lincity/modules/school.cpp:48
+msgid "Inventory"
+msgstr "Απογραφή"
+
+#: src/lincity/modules/health_centre.cpp:61
+#: src/lincity/modules/rocket_pad.cpp:195
+#: src/lincity/modules/windmill.cpp:76
+#: src/lincity/modules/coalmine.cpp:155
+#: src/lincity/modules/market.cpp:1016
+#: src/lincity/modules/road.cpp:46
+#: src/lincity/modules/rail.cpp:51
+#: src/lincity/modules/coal_power.cpp:98
+#: src/lincity/modules/light_industry.cpp:287
+#: src/lincity/modules/university.cpp:66
+#: src/lincity/modules/cricket.cpp:95
+#: src/lincity/modules/track.cpp:37
+#: src/lincity/modules/pottery.cpp:110
+#: src/lincity/modules/firestation.cpp:112
+#: src/lincity/modules/organic_farm.cpp:220
+#: src/lincity/modules/school.cpp:49
+#: src/lincity/modules/solar_power.cpp:45
+msgid "Jobs"
+msgstr "Εργασία"
+
+#: src/lincity/modules/health_centre.cpp:62
+#: src/lincity/modules/rocket_pad.cpp:196
+#: src/lincity/modules/market.cpp:1018
+#: src/lincity/modules/port.cpp:298
+#: src/lincity/modules/road.cpp:48
+#: src/lincity/modules/rail.cpp:53
+#: src/lincity/modules/mill.cpp:99
+#: src/lincity/modules/university.cpp:67
+#: src/lincity/modules/cricket.cpp:96
+#: src/lincity/modules/track.cpp:39
+#: src/lincity/modules/pottery.cpp:111
+#: src/lincity/modules/blacksmith.cpp:97
+#: src/lincity/modules/firestation.cpp:113
+#: src/lincity/modules/school.cpp:50
+#: src/lincity-ng/MpsInterface.cpp:471
+msgid "Goods"
+msgstr "Αγαθά"
+
+#: src/lincity/modules/rocket_pad.cpp:188
+msgid "Rocket Pad"
+msgstr "Βάση εκτόξευσης πυραύλου"
+
+#: src/lincity/modules/rocket_pad.cpp:191
+msgid "Completion"
+msgstr "Ολοκλήρωση"
+
+#: src/lincity/modules/rocket_pad.cpp:197
+#: src/lincity/modules/market.cpp:1020
+#: src/lincity/modules/port.cpp:302
+#: src/lincity/modules/road.cpp:50
+#: src/lincity/modules/rail.cpp:55
+#: src/lincity/modules/light_industry.cpp:286
+#: src/lincity/modules/commune.cpp:185
+#: src/lincity/modules/track.cpp:41
+msgid "Steel"
+msgstr "Ατσάλι"
+
+#: src/lincity/modules/windmill.cpp:75
+#: src/lincity/modules/recycle.cpp:142
+#: src/lincity/modules/coal_power.cpp:99
+#: src/lincity/modules/light_industry.cpp:277
+#: src/lincity/modules/organic_farm.cpp:218
+#: src/lincity/modules/solar_power.cpp:58
+msgid "Tech"
+msgstr "Τεχνολογικό επίπεδο"
+
+#: src/lincity/modules/windmill.cpp:80
+msgid "Local Status"
+msgstr "Τοπική κατάσταση"
+
+#: src/lincity/modules/windmill.cpp:83
+msgid "Prod."
+msgstr "Παραγωγή"
+
+#: src/lincity/modules/windmill.cpp:86
+#: src/lincity/modules/windmill.cpp:98
+#: src/lincity/modules/substation.cpp:110
+msgid "Demand"
+msgstr "Αίτημα"
+
+#: src/lincity/modules/windmill.cpp:89
+#: src/lincity/modules/substation.cpp:101
+msgid "Grid Status"
+msgstr "Κατάσταση πλέγματος"
+
+#: src/lincity/modules/windmill.cpp:92
+#: src/lincity/modules/substation.cpp:104
+msgid "T. Cap."
+msgstr "T. Cap."
+
+#: src/lincity/modules/windmill.cpp:95
+#: src/lincity/modules/substation.cpp:107
+msgid "A. Cap."
+msgstr "A. Cap."
+
+#: src/lincity/modules/windmill.cpp:99
+#: src/lincity/modules/coal_power.cpp:100
+#: src/lincity/modules/substation.cpp:113
+#: src/lincity/modules/power_line.cpp:49
+#: src/lincity/modules/solar_power.cpp:59
+msgid "Grid ID"
+msgstr "Πλέγμα ID"
+
+#: src/lincity/modules/water.cpp:23
+#: src/lincity/modules/commune.cpp:180
+#: src/lincity/modules/commune.cpp:182
+#: src/lincity/modules/commune.cpp:184
+#: src/lincity/modules/commune.cpp:186
+#: src/lincity-ng/MpsInterface.cpp:402
+#: src/lincity-ng/MpsInterface.cpp:405
+#: src/lincity-ng/MpsInterface.cpp:408
+msgid "No"
+msgstr "Όχι"
+
+#: src/lincity/modules/water.cpp:24
+msgid "Navigable"
+msgstr "Πλωτός"
+
+#: src/lincity/modules/recycle.cpp:134
+msgid "Recycling Center"
+msgstr "Κέντρο ανακύκλωσης"
+
+#: src/lincity/modules/recycle.cpp:137
+#: src/lincity/modules/heavy_industry.cpp:288
+#: src/lincity/modules/mill.cpp:96
+#: src/lincity/modules/light_industry.cpp:279
+#: src/lincity/modules/university.cpp:68
+#: src/lincity/modules/pottery.cpp:107
+#: src/lincity/modules/blacksmith.cpp:94
+#: src/lincity/modules/school.cpp:52
+msgid "Capacity"
+msgstr "Χωρητικότητα"
+
+#: src/lincity/modules/recycle.cpp:139
+#: src/lincity/modules/residence.cpp:263
+#: src/lincity/modules/residence.cpp:267
+#: src/lincity/modules/residence.cpp:270
+#: src/lincity/modules/residence.cpp:273
+#: src/lincity/modules/residence.cpp:279
+#: src/lincity/modules/residence.cpp:282
+#: src/lincity/modules/residence.cpp:285
+#: src/lincity/modules/light_industry.cpp:282
+#: src/lincity/modules/organic_farm.cpp:217
+msgid "YES"
+msgstr "ΝΑΙ"
+
+#: src/lincity/modules/recycle.cpp:139
+#: src/lincity/modules/residence.cpp:263
+#: src/lincity/modules/residence.cpp:267
+#: src/lincity/modules/residence.cpp:270
+#: src/lincity/modules/residence.cpp:273
+#: src/lincity/modules/residence.cpp:279
+#: src/lincity/modules/residence.cpp:282
+#: src/lincity/modules/residence.cpp:285
+#: src/lincity/modules/heavy_industry.cpp:280
+#: src/lincity/modules/light_industry.cpp:282
+#: src/lincity/modules/organic_farm.cpp:217
+msgid "NO"
+msgstr "ΟΧΙ"
+
+#: src/lincity/modules/recycle.cpp:140
+#: src/lincity/modules/residence.cpp:271
+#: src/lincity/modules/heavy_industry.cpp:283
+#: src/lincity/modules/light_industry.cpp:283
+#: src/lincity/modules/organic_farm.cpp:217
+msgid "Power"
+msgstr "Ενέργεια"
+
+#: src/lincity/modules/recycle.cpp:145
+#: src/lincity/modules/heavy_industry.cpp:286
+#: src/lincity/modules/market.cpp:1019
+#: src/lincity/modules/port.cpp:294
+#: src/lincity/modules/road.cpp:49
+#: src/lincity/modules/rail.cpp:54
+#: src/lincity/modules/light_industry.cpp:285
+#: src/lincity/modules/commune.cpp:183
+#: src/lincity/modules/track.cpp:40
+#: src/lincity/modules/pottery.cpp:112
+msgid "Ore"
+msgstr "Μετάλλευμα"
+
+#: src/lincity/modules/recycle.cpp:146
+#: src/lincity/modules/market.cpp:1021
+#: src/lincity/modules/road.cpp:51
+#: src/lincity/modules/rail.cpp:56
+#: src/lincity/modules/commune.cpp:187
+#: src/lincity/modules/track.cpp:42
+msgid "Waste"
+msgstr "Σκουπίδια"
+
+#: src/lincity/modules/coalmine.cpp:151
+msgid "Coal Mine"
+msgstr "Ανθρακωρυχείο"
+
+#: src/lincity/modules/coalmine.cpp:158
+#: src/lincity/modules/oremine.cpp:165
+msgid "Stock"
+msgstr "Απόθεμα"
+
+#: src/lincity/modules/coalmine.cpp:160
+#: src/lincity/modules/coalmine.cpp:162
+#: src/lincity/modules/oremine.cpp:168
+msgid "Reserve"
+msgstr "Απόθεμα"
+
+#: src/lincity/modules/coalmine.cpp:162
+msgid "EMPTY"
+msgstr "ΚΕΝΟ"
+
+#: src/lincity/modules/residence.cpp:255
+msgid "Residence"
+msgstr "Κατοικία"
+
+#: src/lincity/modules/residence.cpp:259
+msgid "People"
+msgstr "Άνθρωποι"
+
+#: src/lincity/modules/residence.cpp:268
+msgid "Fed"
+msgstr "Σίτιση"
+
+#: src/lincity/modules/residence.cpp:274
+msgid "Employed"
+msgstr "Εργαζόμενος"
+
+#: src/lincity/modules/residence.cpp:276
+#: src/lincity-ng/MpsInterface.cpp:416
+msgid "good"
+msgstr "αγαθό"
+
+#: src/lincity/modules/residence.cpp:276
+msgid "poor"
+msgstr "φτωχός"
+
+#: src/lincity/modules/residence.cpp:277
+msgid "Job"
+msgstr "Εργασία"
+
+#: src/lincity/modules/residence.cpp:280
+msgid "Health Cvr"
+msgstr "Υγεία Cvr"
+
+#: src/lincity/modules/residence.cpp:286
+#: src/lincity-ng/MpsInterface.cpp:409
+#: src/lincity-ng/MpsInterface.cpp:537
+msgid "Sport"
+msgstr "Αθλητισμός"
+
+#: src/lincity/modules/monument.cpp:57
+msgid "Wisdom Bestowed"
+msgstr "Απονομή σοφίας!"
+
+#: src/lincity/modules/monument.cpp:61
+#, c-format
+msgid "% Complete"
+msgstr "% Ολοκληρώθηκε"
+
+#: src/lincity/modules/heavy_industry.cpp:270
+msgid "Heavy Industry"
+msgstr "Βαριά βιομηχανία"
+
+#: src/lincity/modules/heavy_industry.cpp:275
+#: src/lincity/modules/heavy_industry.cpp:287
+#: src/lincity/modules/market.cpp:1017
+#: src/lincity/modules/port.cpp:290
+#: src/lincity/modules/road.cpp:47
+#: src/lincity/modules/rail.cpp:52
+#: src/lincity/modules/coal_power.cpp:97
+#: src/lincity/modules/mill.cpp:101
+#: src/lincity/modules/commune.cpp:181
+#: src/lincity/modules/track.cpp:38
+#: src/lincity/modules/pottery.cpp:113
+#: src/lincity/modules/blacksmith.cpp:98
+#: src/lincity-ng/MpsInterface.cpp:467
+msgid "Coal"
+msgstr "Άνθρακας"
+
+#: src/lincity/modules/heavy_industry.cpp:277
+msgid "Grid"
+msgstr "Πλέγμα"
+
+#: src/lincity/modules/heavy_industry.cpp:285
+#: src/lincity/modules/light_industry.cpp:284
+msgid "Store"
+msgstr "Απόθεμα"
+
+#: src/lincity/modules/market.cpp:1015
+#: src/lincity/modules/port.cpp:286
+#: src/lincity/modules/road.cpp:45
+#: src/lincity/modules/rail.cpp:50
+#: src/lincity/modules/mill.cpp:100
+#: src/lincity/modules/track.cpp:36
+msgid "Food"
+msgstr "Τροφή"
+
+#: src/lincity/modules/port.cpp:306
+#: src/lincity-ng/MpsInterface.cpp:555
+msgid "Total"
+msgstr "Σύνολο"
+
+#: src/lincity/modules/coal_power.cpp:84
+msgid "Coal Power Station"
+msgstr "Ατμοηλεκτρικός σταθμός"
+
+#: src/lincity/modules/coal_power.cpp:88
+#: src/lincity/modules/solar_power.cpp:49
+msgid "Max Output"
+msgstr "Μέγιστη παραγωγή"
+
+#: src/lincity/modules/coal_power.cpp:93
+#: src/lincity/modules/solar_power.cpp:54
+msgid "Current Output"
+msgstr "Τρέχουσα παραγωγή"
+
+#: src/lincity/modules/substation.cpp:97
+msgid "Local Demand"
+msgstr "Τοπική ζήτηση"
+
+#: src/lincity/modules/mill.cpp:94
+msgid "Textile Mill"
+msgstr "Υφαντουργικός μύλος"
+
+#: src/lincity/modules/oremine.cpp:162
+msgid "Ore Mine"
+msgstr "Μεταλλωρυχείο"
+
+#: src/lincity/modules/power_line.cpp:46
+msgid "Power Line"
+msgstr "Γραμμή ηλεκτρικής ενέργειας"
+
+#: src/lincity/modules/light_industry.cpp:275
+msgid "Light Industry"
+msgstr "Ελαφρά βιομηχανία"
+
+#: src/lincity/modules/university.cpp:61
+msgid "Tech Produced"
+msgstr "Παραγόμενη τεχνολογία"
+
+#: src/lincity/modules/tip.cpp:100
+msgid "Landfill"
+msgstr "Χωματερή"
+
+#: src/lincity/modules/tip.cpp:103
+msgid "Last Month"
+msgstr "Τελευταίος μήνας"
+
+#: src/lincity/modules/tip.cpp:104
+msgid "Tons"
+msgstr "Τόνοι"
+
+#: src/lincity/modules/tip.cpp:105
+msgid "Percent"
+msgstr "Ποσοστό"
+
+#: src/lincity/modules/tip.cpp:107
+msgid "Filled"
+msgstr "Πλήρης"
+
+#: src/lincity/modules/tip.cpp:109
+msgid "Days degenerating"
+msgstr "Φθορά του χρόνου"
+
+#: src/lincity/modules/commune.cpp:178
+msgid "Activity"
+msgstr "Δραστηριότητα"
+
+#: src/lincity/modules/firestation.cpp:109
+msgid "Fire Station"
+msgstr "Σταθμός πυροσβεστικής"
+
+#: src/lincity/modules/organic_farm.cpp:214
+msgid "Organic Farm"
+msgstr "Βιολογικό αγρόκτημα"
+
+#: src/lincity/modules/organic_farm.cpp:219
+msgid "Prod"
+msgstr "Παραγωγή"
+
+#: src/lincity/modules/organic_farm.cpp:225
+msgid "Debug info"
+msgstr "Πληροφορίες αποσφαλμάτωσης"
+
+#: src/lincity/modules/organic_farm.cpp:226
+msgid "max with power&water"
+msgstr "μέγιστο με ενέργεια & νερό"
+
+#: src/lincity/modules/organic_farm.cpp:227
+msgid "N tiles with water"
+msgstr "N τετραγωνίδια με νερό"
+
+#: src/lincity/modules/organic_farm.cpp:228
+msgid "Current production"
+msgstr "Τρέχουσα παραγωγή"
+
+#: src/lincity/modules/school.cpp:45
+msgid "Lessons Learned"
+msgstr "Διδαγμένα μαθήματα "
+
+#: src/lincity/modules/solar_power.cpp:43
+msgid "Solar power station"
+msgstr "Σταθμός ηλιακής ενέργειας"
+
+#: src/lincity-ng/Dialog.cpp:174
+msgid "Launchsite"
+msgstr "Βάση εκτόξευσης"
+
+#: src/lincity-ng/Dialog.cpp:372
+msgid "----- IN TEST MODE -------"
+msgstr "----- ΣΕ ΛΕΙΤΟΥΡΓΙΑ ΔΟΚΙΜΗΣ -------"
+
+#: src/lincity-ng/Dialog.cpp:374
+#, c-format
+msgid "Game statistics from LinCity-NG Version %s"
+msgstr "Στατιστικά παιχνιδιού από το LinCity-NG, έκδοση %s"
+
+#: src/lincity-ng/Dialog.cpp:377
+#, c-format
+msgid "Initial loaded scene - %s"
+msgstr "Φόρτωση αρχικής σκηνής - %s"
+
+#: src/lincity-ng/Dialog.cpp:381
+#, c-format
+msgid "Economy is sustainable"
+msgstr "Η οικονομία είναι βιώσιμη"
+
+#: src/lincity-ng/Dialog.cpp:384
+#, c-format
+msgid "Population  %d  of which  %d  are not housed."
+msgstr "Πληθυσμός %d από τους οποίους %d δεν είναι στεγασμένοι."
+
+#: src/lincity-ng/Dialog.cpp:388
+#, c-format
+msgid "Max population %d  Number evacuated %d Total births %d"
+msgstr "Μέγιστος πληθυσμός %d Κάτοικοι προς μετεγκατάσταση %d Σύνολο γεννήσεων %d"
+
+#: src/lincity-ng/Dialog.cpp:392
+#, c-format
+msgid "Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"
+msgstr "Χρονολογία %s %04d Χρήματα %8d Τεχνολογικό επίπεδο %5.1f (%5.1f)"
+
+#: src/lincity-ng/Dialog.cpp:398
+#, c-format
+msgid "Deaths by starvation %7d   History %8.3f"
+msgstr "Θάνατοι από πείνα %7d   Ιστορικό %8.3f"
+
+#: src/lincity-ng/Dialog.cpp:402
+#, c-format
+msgid "Deaths from pollution %7d   History %8.3f"
+msgstr "Θάνατοι από μόλυνση %7d   Ιστορικό %8.3f"
+
+#: src/lincity-ng/Dialog.cpp:405
+#, c-format
+msgid "Years of unemployment %7d   History %8.3f"
+msgstr "Έτη ανεργίας %7d   Ιστορικό %8.3f"
+
+#: src/lincity-ng/Dialog.cpp:408
+#, c-format
+msgid "Rockets launched %2d  Successful launches %2d"
+msgstr "Εκτοξευμένα διαστημόπλοια %2d Επιτυχημένες εκτοξεύσεις %2d"
+
+#: src/lincity-ng/Dialog.cpp:417
+msgid "Residences"
+msgstr "Κατοικίες"
+
+#: src/lincity-ng/Dialog.cpp:424
+msgid "Markets"
+msgstr "Αγορές"
+
+#: src/lincity-ng/Dialog.cpp:425
+msgid "Farms"
+msgstr "Αγροκτήματα"
+
+#: src/lincity-ng/Dialog.cpp:427
+msgid "Water wells"
+msgstr "Πηγάδια"
+
+#: src/lincity-ng/Dialog.cpp:435
+msgid "Monuments"
+msgstr "Μνημεία"
+
+#: src/lincity-ng/Dialog.cpp:436
+#: src/lincity-ng/MpsInterface.cpp:523
+msgid "Schools"
+msgstr "Σχολεία"
+
+#: src/lincity-ng/Dialog.cpp:437
+msgid "Universities"
+msgstr "Πανεπιστήμια"
+
+#: src/lincity-ng/Dialog.cpp:439
+msgid "Fire stations"
+msgstr "Πυροσβ. σταθμ."
+
+#: src/lincity-ng/Dialog.cpp:440
+msgid "Parks"
+msgstr "Πάρκα"
+
+#: src/lincity-ng/Dialog.cpp:441
+msgid "Sports fields"
+msgstr "Γήπεδα"
+
+#: src/lincity-ng/Dialog.cpp:443
+msgid "Health centres"
+msgstr "Κέντρα υγείας"
+
+#: src/lincity-ng/Dialog.cpp:444
+msgid "Tips"
+msgstr "Συμβουλές"
+
+#: src/lincity-ng/Dialog.cpp:445
+#: src/lincity-ng/MpsInterface.cpp:558
+msgid "Shanties"
+msgstr "Παραγκουπόλεις"
+
+#: src/lincity-ng/Dialog.cpp:451
+msgid "Windmills"
+msgstr "Ανεμόμυλοι"
+
+#: src/lincity-ng/Dialog.cpp:452
+msgid "Coal powers"
+msgstr "Ενέργεια άνθρακα"
+
+#: src/lincity-ng/Dialog.cpp:453
+msgid "Solar powers"
+msgstr "Ηλιακή ενέργεια"
+
+#: src/lincity-ng/Dialog.cpp:455
+msgid "Substations"
+msgstr "Υποσταθμοί"
+
+#: src/lincity-ng/Dialog.cpp:456
+msgid "Power lines"
+msgstr "Γραμ. μεταφ. ηλεκ."
+
+#: src/lincity-ng/Dialog.cpp:457
+msgid "Ports"
+msgstr "Λιμάνια"
+
+#: src/lincity-ng/Dialog.cpp:459
+msgid "Tracks"
+msgstr "Απλοί δρόμοι"
+
+#: src/lincity-ng/Dialog.cpp:460
+msgid "Roads"
+msgstr "Δρόμοι"
+
+#: src/lincity-ng/Dialog.cpp:461
+msgid "Rail"
+msgstr "Σιδηρόδρομος"
+
+#: src/lincity-ng/Dialog.cpp:467
+msgid "Potteries"
+msgstr "Εργ. αγγειοπλ."
+
+#: src/lincity-ng/Dialog.cpp:468
+msgid "Blacksmiths"
+msgstr "Σιδηρουργεία"
+
+#: src/lincity-ng/Dialog.cpp:469
+msgid "Mills"
+msgstr "Μύλοι"
+
+#: src/lincity-ng/Dialog.cpp:471
+msgid "Light inds"
+msgstr "Ελαφρ. βιομηχ."
+
+#: src/lincity-ng/Dialog.cpp:472
+msgid "Heavy inds"
+msgstr "Βαριές βιομηχανίες"
+
+#: src/lincity-ng/Dialog.cpp:473
+msgid "Recyclers"
+msgstr "Κέντρα ανακύκλ."
+
+#: src/lincity-ng/Dialog.cpp:475
+msgid "Coal mines"
+msgstr "Ανθρακωρυχεία"
+
+#: src/lincity-ng/Dialog.cpp:476
+msgid "Ore mines"
+msgstr "Μεταλλωρυχεία"
+
+#: src/lincity-ng/Dialog.cpp:477
+msgid "Communes"
+msgstr "Κοινότητες"
+
+#: src/lincity-ng/GameView.cpp:240
+msgid "Minimap: outline map"
+msgstr "Μικρογραφία χάρτη: περίγραμμα χάρτη"
+
+#: src/lincity-ng/GameView.cpp:243
+msgid "Minimap: unemployment"
+msgstr "Μικρογραφία χάρτη: ανεργία"
+
+#: src/lincity-ng/GameView.cpp:246
+msgid "Minimap: pollution"
+msgstr "Μικρογραφία χάρτη: μόλυνση"
+
+#: src/lincity-ng/GameView.cpp:249
+msgid "Minimap: nourishments"
+msgstr "Μικρογραφία χάρτη: τρόφιμα"
+
+#: src/lincity-ng/GameView.cpp:252
+msgid "Minimap: power supply"
+msgstr "Μικρογραφία χάρτη: τροφοδοσία ρεύματος"
+
+#: src/lincity-ng/GameView.cpp:255
+msgid "Minimap: firedepartment cover"
+msgstr "Μικρογραφία χάρτη: κάλυψη από τον πυροσβεστικό σταθμό"
+
+#: src/lincity-ng/GameView.cpp:258
+msgid "Minimap: sport cover"
+msgstr "Μικρογραφία χάρτη: κάλυψη άθλησης"
+
+#: src/lincity-ng/GameView.cpp:261
+msgid "Minimap: medical care"
+msgstr "Μικρογραφία χάρτη: ιατροφαρμακευτική περίθαλψη"
+
+#: src/lincity-ng/GameView.cpp:264
+msgid "Minimap: coal depots"
+msgstr "Μικρογραφία χάρτη: αποθέματα άνθρακα"
+
+#: src/lincity-ng/GameView.cpp:267
+msgid "Minimap: traffic density"
+msgstr "Μικρογραφία χάρτη: πυκνότητα κυκλοφορίας"
+
+#: src/lincity-ng/GameView.cpp:1665
+msgid "Estimated Bulldoze Cost: "
+msgstr "Εκτιμώμενο κόστος κατεδάφισης/διαμόρφωσης:"
+
+#: src/lincity-ng/GameView.cpp:1667
+msgid "Bulldoze Cost: "
+msgstr "Κόστος κατεδάφισης/διαμόρφωσης:"
+
+#: src/lincity-ng/GameView.cpp:1670
+#: src/lincity-ng/GameView.cpp:1683
+#: src/lincity-ng/GameView.cpp:1714
+#: src/lincity-ng/ScreenInterface.cpp:274
+msgid "$"
+msgstr "€"
+
+#: src/lincity-ng/GameView.cpp:1672
+#: src/lincity-ng/GameView.cpp:1685
+msgid "n/a"
+msgstr "n/a"
+
+#: src/lincity-ng/GameView.cpp:1681
+#: src/lincity-ng/GameView.cpp:1714
+msgid ": Cost to build "
+msgstr ": Κόστος κατασκευής"
+
+#: src/lincity-ng/GameView.cpp:1703
+msgid "Query Tool: Show information about selected building."
+msgstr "Εργαλείο πληροφοριών: Εμφανίζει πληροφορίες για το επιλεγμένο κτίριο."
+
+#: src/lincity-ng/GameView.cpp:1707
+msgid "Bulldozer: remove building -price varies-"
+msgstr "Μπουλντόζα: κατεδάφιση/αφαίρεση κτιρίων -οι τιμές ποικίλουν-"
+
+#: src/lincity-ng/GameView.cpp:1715
+msgid ", to bulldoze "
+msgstr ", για κατεδάφιση/διαμόρφωση"
+
+#: src/lincity-ng/GameView.cpp:1715
+#: src/lincity-ng/GameView.cpp:1718
+msgid "$."
+msgstr "€."
+
+#: src/lincity-ng/GameView.cpp:1717
+msgid " To build "
+msgstr "Για κατασκευή"
+
+#: src/lincity-ng/GameView.cpp:1717
+msgid " of them "
+msgstr "από αυτά"
+
+#: src/lincity-ng/GameView.cpp:1718
+msgid "will cost about "
+msgstr "θα κοστίσει περίπου"
+
+#: src/lincity-ng/MainMenu.cpp:141
+msgid "good_times"
+msgstr "Καλές μέρες"
+
+#: src/lincity-ng/MainMenu.cpp:142
+msgid "bad_times"
+msgstr "Άσχημες μέρες"
+
+#: src/lincity-ng/MainMenu.cpp:143
+msgid "Beach"
+msgstr "Παραλία"
+
+#: src/lincity-ng/MainMenu.cpp:144
+msgid "extreme_arid"
+msgstr "Άγονη περιοχή"
+
+#: src/lincity-ng/MainMenu.cpp:145
+msgid "extreme_wetland"
+msgstr "Υγρή περιοχή"
+
+#: src/lincity-ng/MainMenu.cpp:204
+msgid "empty"
+msgstr "κενό"
+
+#: src/lincity-ng/MpsInterface.cpp:230
+msgid "no further information available"
+msgstr "δεν υπάρχουν περισσότερες διαθέσιμες πληροφορίες."
+
+#: src/lincity-ng/MpsInterface.cpp:233
+msgid "build something here"
+msgstr "κατασκευάστε κάτι εδώ"
+
+#: src/lincity-ng/MpsInterface.cpp:401
+msgid "Coverage"
+msgstr "Κάλυψη"
+
+#: src/lincity-ng/MpsInterface.cpp:406
+msgid "Health"
+msgstr "Υγεία"
+
+#: src/lincity-ng/MpsInterface.cpp:414
+msgid "clear"
+msgstr "καθαρισμός"
+
+#: src/lincity-ng/MpsInterface.cpp:418
+msgid "fair"
+msgstr "δίκαιο"
+
+#: src/lincity-ng/MpsInterface.cpp:420
+msgid "smelly"
+msgstr "δύσοσμο"
+
+#: src/lincity-ng/MpsInterface.cpp:422
+msgid "smokey"
+msgstr "καπνισμένο"
+
+#: src/lincity-ng/MpsInterface.cpp:424
+msgid "smoggy"
+msgstr "ομιχλώδες"
+
+#: src/lincity-ng/MpsInterface.cpp:426
+msgid "bad"
+msgstr "κακό"
+
+#: src/lincity-ng/MpsInterface.cpp:428
+msgid "very bad"
+msgstr "πολύ κακό"
+
+#: src/lincity-ng/MpsInterface.cpp:430
+msgid "death!"
+msgstr "θάνατος!"
+
+#: src/lincity-ng/MpsInterface.cpp:435
+msgid "Bulldoze Cost"
+msgstr "Κόστος κατεδάφισης/διαμόρφωσης"
+
+#: src/lincity-ng/MpsInterface.cpp:441
+msgid "N/A"
+msgstr "N/A"
+
+#: src/lincity-ng/MpsInterface.cpp:459
+msgid "Tax Income"
+msgstr "Εισόδημα"
+
+#: src/lincity-ng/MpsInterface.cpp:463
+msgid "Income"
+msgstr "Φόροι"
+
+#: src/lincity-ng/MpsInterface.cpp:475
+msgid "Export"
+msgstr "Εξαγωγές"
+
+#: src/lincity-ng/MpsInterface.cpp:479
+msgid "Expenses"
+msgstr "Δαπάνες"
+
+#: src/lincity-ng/MpsInterface.cpp:483
+msgid "Unemp."
+msgstr "Ανεργία"
+
+#: src/lincity-ng/MpsInterface.cpp:487
+msgid "Transport"
+msgstr "Μεταφορές"
+
+#: src/lincity-ng/MpsInterface.cpp:491
+msgid "Imports"
+msgstr "Εισαγωγές"
+
+#: src/lincity-ng/MpsInterface.cpp:495
+msgid "Others"
+msgstr "Άλλα"
+
+#: src/lincity-ng/MpsInterface.cpp:500
+msgid "Net"
+msgstr "Δίκτυο"
+
+#: src/lincity-ng/MpsInterface.cpp:512
+msgid "Other Costs"
+msgstr "Άλλες δαπάνες"
+
+#: src/lincity-ng/MpsInterface.cpp:517
+msgid "For year"
+msgstr "Για έναν χρόνο"
+
+#: src/lincity-ng/MpsInterface.cpp:521
+msgid "Interest"
+msgstr "Τόκοι"
+
+#: src/lincity-ng/MpsInterface.cpp:525
+msgid "Univers."
+msgstr "Πανεπιστήμια"
+
+#: src/lincity-ng/MpsInterface.cpp:527
+msgid "Deaths"
+msgstr "Θάνατοι"
+
+#: src/lincity-ng/MpsInterface.cpp:531
+msgid "Hospital"
+msgstr "Νοσοκομεία"
+
+#: src/lincity-ng/MpsInterface.cpp:533
+msgid "Rockets"
+msgstr "Διαστημόπλοια"
+
+#: src/lincity-ng/MpsInterface.cpp:535
+msgid "Fire Stn"
+msgstr "Σταθμοί πυροσβ."
+
+#: src/lincity-ng/MpsInterface.cpp:553
+msgid "Population"
+msgstr "Πληθυσμός"
+
+#: src/lincity-ng/MpsInterface.cpp:556
+msgid "Housed"
+msgstr "Στεγασμένοι"
+
+#: src/lincity-ng/MpsInterface.cpp:557
+msgid "Homeless"
+msgstr "Άστεγοι"
+
+#: src/lincity-ng/MpsInterface.cpp:559
+msgid "Unn Dths"
+msgstr "Μη φυσ. θάν."
+
+#: src/lincity-ng/MpsInterface.cpp:560
+msgid "Unemployment"
+msgstr "Ανεργία"
+
+#: src/lincity-ng/MpsInterface.cpp:561
+msgid "Claims"
+msgstr "Αξιώσεις"
+
+#: src/lincity-ng/MpsInterface.cpp:562
+#: src/lincity-ng/MpsInterface.cpp:567
+msgid "Rate"
+msgstr "Ρυθμός"
+
+#: src/lincity-ng/MpsInterface.cpp:564
+msgid "Starvation"
+msgstr "Πείνα"
+
+#: src/lincity-ng/MpsInterface.cpp:565
+msgid "Cases"
+msgstr "Περιπτώσεις"
+
+#: src/lincity-ng/EconomyGraph.cpp:124
+msgid "Mining"
+msgstr "Ανθρακ."
+
+#: src/lincity-ng/EconomyGraph.cpp:126
+msgid "Trade"
+msgstr "Εμπόρ."
+
+#: src/lincity-ng/EconomyGraph.cpp:128
+msgid "Money"
+msgstr "Χρήμ."
+
+#: src/lincity-ng/EconomyGraph.cpp:130
+msgid "Popul."
+msgstr "Πληθ."
+
+#: src/lincity-ng/EconomyGraph.cpp:132
+msgid "Techn."
+msgstr "Τεχνολ."
+
+#: src/lincity-ng/EconomyGraph.cpp:137
+msgid "Economy Overview:"
+msgstr "Επισκόπηση οικονομικών:"
+
+#: src/lincity-ng/EconomyGraph.cpp:140
+msgid "Sustainability:"
+msgstr "Βιωσιμότητα:"
+
+#: src/lincity-ng/EconomyGraph.cpp:143
+msgid "Frames per Second:"
+msgstr "Πλαίσια ανά δευτερόλεπτο:"
+
+#: src/lincity-ng/EconomyGraph.cpp:219
+msgid "You lose."
+msgstr "Χάσατε"
+
+#: src/lincity-ng/ButtonPanel.cpp:200
+msgid "Query Tool"
+msgstr "Εργαλείο πληροφοριών"
+
+#: src/lincity-ng/ButtonPanel.cpp:201
+msgid "Bulldozer"
+msgstr "Μπουλντόζα"
+
+#: src/lincity-ng/ButtonPanel.cpp:203
+msgid "Residential: 50 denizens, low birthrate, high deathrate"
+msgstr "Κατοικημένη περιοχή: 50 κάτοικοι, χαμηλή γεννητικότητα, υψηλή θνησιμότητα"
+
+#: src/lincity-ng/ButtonPanel.cpp:204
+msgid "Residential: 100 denizens, high birthrate, low deathrate"
+msgstr "Κατοικημένη περιοχή: 100 κάτοικοι, υψηλή  γεννητικότητα, χαμηλή θνησιμότητα"
+
+#: src/lincity-ng/ButtonPanel.cpp:205
+msgid "Residential: 200 denizens, high birthrate, high deathrate"
+msgstr "Κατοικημένη περιοχή: 200 κάτοικοι, υψηλή  γεννητικότητα, υψηλή  θνησιμότητα"
+
+#: src/lincity-ng/ButtonPanel.cpp:206
+msgid "Residential: 100 denizens, low birthrate, high deathrate"
+msgstr "Κατοικημένη περιοχή: 100 κάτοικοι, χαμηλή γεννητικότητα, υψηλή θνησιμότητα"
+
+#: src/lincity-ng/ButtonPanel.cpp:207
+msgid "Residential: 200 denizens, high birthrate, low deathrate"
+msgstr "Κατοικημένη περιοχή: 200 κάτοικοι, υψηλή  γεννητικότητα, χαμηλή θνησιμότητα"
+
+#: src/lincity-ng/ButtonPanel.cpp:208
+msgid "Residential: 400 denizens, high birthrate, high deathrate"
+msgstr "Κατοικημένη περιοχή: 400 κάτοικοι, υψηλή  γεννητικότητα, υψηλή  θνησιμότητα"
+
+#: src/lincity-ng/ButtonPanel.cpp:217
+msgid " [Click right for help.]"
+msgstr " [Δεξί κλικ για βοήθεια]"
+
+#: src/lincity-ng/ButtonPanel.cpp:245
+#: src/lincity-ng/ButtonPanel.cpp:288
+#: src/lincity-ng/ButtonPanel.cpp:416
+#: src/lincity-ng/ButtonPanel.cpp:439
+#, c-format
+msgid "%s (Techlevel %.1f required.)"
+msgstr "%s (Τεχνολ. επίπεδο %.1f απαιτείται.)"
+
+#: src/lincity-ng/ButtonPanel.cpp:254
+#, c-format
+msgid "%s is disabled (loaded old game)."
+msgstr "%s απενεργοποιήθηκε (φόρτωση παλιού παιχνιδιού)."
+
+#: src/lincity-ng/ScreenInterface.cpp:263
+msgid "MM"
+msgstr "ΜΜ"
+
+#~ msgid "Center"
+#~ msgstr "Κέντρο"
+#~ msgid "Industry"
+#~ msgstr "Βιομηχανία"
+#~ msgid "Output"
+#~ msgstr "Παραγωγή"
+#~ msgid "NO "
+#~ msgstr "ΟΧΙ"
+#~ msgid "Solar"
+#~ msgstr "Ηλιακή"
+#~ msgid ".   Residences %4d         Markets %4d            Farms %4d"
+#~ msgstr "Κατοικημένες περιοχές %4d Αγορές %4d Αγροκτήματα %4d"
+#~ msgid ".    Monuments %4d         Schools %4d     Universities %4d"
+#~ msgstr "Μνημεία %4d Σχολεία %4d Πανεπιστήμια %4d"
+#~ msgid ".Fire stations %4d           Parks %4d    Sports fields %4d"
+#~ msgstr "Σταθμοί πυροσβεστικής %4d Πάρκα %4d Χώροι άθλησης %4d"
+#~ msgid "Health centres %4d            Tips %4d         Shanties %4d"
+#~ msgstr "Κέντρα υγείας %4d Χωματερές %4d Παραγκουπόλεις %4d"
+#~ msgid ".    Windmills %4d     Coal powers %4d     Solar powers %4d"
+#~ msgstr "Ανεμόμυλοι %4d Ενέργεια άνθρακα %4d Ηλιακή ενέργεια %4d"
+#~ msgid ".  Substations %4d     Power lines %4d            Ports %4d"
+#~ msgstr "Υποσταθμοί %4d Γραμμές ενέργειας %4d Λιμάνια %4d"
+#~ msgid ".       Tracks %4d           Roads %4d             Rail %4d"
+#~ msgstr "Απλοί δρόμοι %4d Δρόμοι %4d Σιδηρόδρομοι %4d"
+#~ msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
+#~ msgstr "Εργαστήρια αγγειοπλαστικής %4dΣιδηρουργεία %4d Μύλοι %4d"
+#~ msgid ".   Light inds %4d      Heavy inds %4d        Recyclers %4d"
+#~ msgstr ""
+#~ "Ελαφρές βιομηχανίες %4d Βαριές βιομηχανίες %4d Κέντρα ανακύκλωσης %4d"
+#~ msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
+#~ msgstr "Ανθρακωρυχεία %4dΜεταλλωρυχεία %4d Κοινότητες %4d"
+
