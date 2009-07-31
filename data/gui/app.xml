@@ -10,9 +10,9 @@
 	<DefineStyle name="tooltip" color="black" font-size="16" background="#ffffaaee"/>
 	
 	<!-- Help styles -->
-	<DefineStyle name="helpdocument" font-family="sans" background="#ffffff22" font-size="20" color="black"/>
-	<DefineStyle name="htitle" style="helpdocument" font-size="30" halign="center" margin-top="20" margin-bottom="20"/>
-	<DefineStyle name="hsubtitle" style="helpdocument" font-size="24" margin-top="20" margin-bottom="20"/>
+	<DefineStyle name="helpdocument" font-family="sans" background="#ffffff22" font-size="16" color="black"/>
+	<DefineStyle name="htitle" style="helpdocument" font-size="20" halign="center" margin-top="20" margin-bottom="20"/>
+	<DefineStyle name="hsubtitle" style="helpdocument" font-size="18" margin-top="20" margin-bottom="20"/>
 	<DefineStyle name="hp" style="helpdocument" margin-left="20" margin-right="20" margin-bottom="20"/>
 	<DefineStyle name="list" style="helpdocument" margin-left="40"/>
 
