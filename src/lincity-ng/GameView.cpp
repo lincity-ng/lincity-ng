@@ -65,7 +65,7 @@ GameView* getGameView()
 {
     return gameViewPtr;
 }
-    
+
 
 GameView::GameView()
 {
@@ -87,7 +87,7 @@ GameView::~GameView()
 
     SDL_DestroyMutex( mThreadRunning );
     SDL_DestroyMutex( mTextures );
-    
+
     for(int i = 0; i < NUM_OF_TYPES; ++i) {
         delete cityTextures[i];
         // in case the image was loaded but no texture created yet we have a
@@ -115,7 +115,7 @@ void GameView::parse(XmlReader& reader)
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
-        
+
         //check if Attribute handled by parent
         if(parseAttribute(attribute, value)) {
             continue;
@@ -133,14 +133,14 @@ void GameView::parse(XmlReader& reader)
     SDL_mutexP( mThreadRunning );
     loaderThread = SDL_CreateThread( gameViewThread, this );
     SDL_mutexV( mThreadRunning );
-   
+
     //GameView is resizable
     setFlags(FLAG_RESIZABLE);
 
     //start at location from savegame
     zoom = defaultZoom;
     tileWidth = defaultTileWidth * zoom;
-    tileHeight = defaultTileHeight * zoom; 
+    tileHeight = defaultTileHeight * zoom;
     virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
     virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
     readOrigin( false );
@@ -177,7 +177,7 @@ void GameView::connectButtons(){
     }
     Button* button = getButton( *root, "hideHighBuildings" );
     button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
-    
+
     button = getButton( *root, "mapOverlay" );
     button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
 }
@@ -202,19 +202,19 @@ void GameView::buttonClicked( Button* button ){
     }
     std::cerr << "GameView::buttonClicked# Unhandled Button '" << name <<"',\n";
 }
- 
+
 /*
  * size in Tiles of marking under Cursor
  * atm 0 is an outlined Version of size 1.
  */
 void GameView::setCursorSize( int size )
 {
-    if( size != cursorSize )    
+    if( size != cursorSize )
     {
         cursorSize = size;
         setDirty();
     }
-} 
+}
 
 /*
  * evaluate main_screen_originx and main_screen_originy
@@ -230,7 +230,7 @@ void GameView::readOrigin( bool redraw /* = true */ ){
 void GameView::writeOrigin(){
     main_screen_originx = getCenter().x;
     main_screen_originy = getCenter().y;
-}   
+}
 /*
  *  inform GameView about change in Mini Map Mode
  */
@@ -251,19 +251,19 @@ void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
         case MiniMap::POWER:
             printStatusMessage( _("Minimap: power supply") );
             break;
-        case MiniMap::FIRE: 
+        case MiniMap::FIRE:
             printStatusMessage( _("Minimap: firedepartment cover") );
             break;
-        case MiniMap::CRICKET: 
+        case MiniMap::CRICKET:
             printStatusMessage( _("Minimap: sport cover") );
             break;
-        case MiniMap::HEALTH: 
+        case MiniMap::HEALTH:
             printStatusMessage( _("Minimap: medical care") );
             break;
-        case MiniMap::COAL: 
+        case MiniMap::COAL:
             printStatusMessage( _("Minimap: coal depots") );
             break;
-        case MiniMap::TRAFFIC: 
+        case MiniMap::TRAFFIC:
             printStatusMessage( _("Minimap: traffic density") );
             break;
         default:
@@ -283,24 +283,24 @@ void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
  */
 MapPoint GameView::getCenter(){
     Vector2 center( getWidth() / 2, getHeight() / 2 );
-    return getTile( center ); 
+    return getTile( center );
 }
-    
+
 /*
  * Adjust the Zoomlevel.
  */
 void GameView::setZoom(float newzoom){
-    MapPoint centerTile  = getCenter(); 
-    
+    MapPoint centerTile  = getCenter();
+
     if ( newzoom < .0625 ) return;
     if ( newzoom > 4 ) return;
-    
+
     zoom = newzoom;
-    
+
     // fix rounding errors...
     if(fabs(zoom - 1.0) < .01)
         zoom = 1;
-    
+
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom;
     //a virtual screen containing the whole city
@@ -328,14 +328,14 @@ void GameView::zoomOut(){
 }
 
 /**
- *  Show City Tile(x/y) by centering the screen 
+ *  Show City Tile(x/y) by centering the screen
  *  redraw = false is used on initialisation.
  */
 void GameView::show( MapPoint map , bool redraw /* = true */ )
-{    
+{
     Vector2 center;
     center.x = virtualScreenWidth / 2 + ( map.x - map.y ) * ( tileWidth / 2 );
-    center.y = ( map.x + map.y ) * ( tileHeight / 2 ) + ( tileHeight / 2 ); 
+    center.y = ( map.x + map.y ) * ( tileHeight / 2 ) + ( tileHeight / 2 );
     if( redraw ){
         viewport.x = center.x - ( getWidth() / 2 );
         viewport.y = center.y - ( getHeight() / 2 );
@@ -347,7 +347,7 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
 }
 
 /*
- * Loads Texture from filename, Returns Pointer to Texture 
+ * Loads Texture from filename, Returns Pointer to Texture
  * or Null if no file found.
  */
 Texture* GameView::readTexture(const std::string& filename)
@@ -385,13 +385,13 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 /**
  * preload a City Texture and fill in X and Y Data.
  *
- * images/tiles/images.xml contains the x-Coordinate of the 
+ * images/tiles/images.xml contains the x-Coordinate of the
  * middle of the Building in Case the Image is asymetric,
- * eg. a high tower with a long shadow to the right 
- * 
+ * eg. a high tower with a long shadow to the right
+ *
  *  Some of the Image to Texture Conversion seems not to be threadsave
- *  in OpenGL, so load just Images and convert them to Textures on 
- *  demand in the main Tread. 
+ *  in OpenGL, so load just Images and convert them to Textures on
+ *  demand in the main Tread.
  */
 void GameView::preReadCityTexture( int textureType, const std::string& filename )
 {
@@ -403,86 +403,86 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
     int xmlX = -1;
     int xmlY = -1;
     bool hit = false;
-    
+
     SDL_mutexP( mTextures );
     cityImages[ textureType ] = readImage( filename );
-    if( cityImages[ textureType ] ) 
+    if( cityImages[ textureType ] )
     {
-        //now we need to find x for our filename in images/tiles/images.xml 
+        //now we need to find x for our filename in images/tiles/images.xml
 
-        while( reader.read() ) 
+        while( reader.read() )
         {
-            if( reader.getNodeType() == XML_READER_TYPE_ELEMENT) 
+            if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
             {
                 const std::string& element = (const char*) reader.getName();
                 if( element == "image" )
                 {
                     XmlReader::AttributeIterator iter(reader);
-                    while(iter.next()) 
+                    while(iter.next())
                     {
                         const char* name = (const char*) iter.getName();
                         const char* value = (const char*) iter.getValue();
-                        if( strcmp(name, "file" ) == 0 ) 
+                        if( strcmp(name, "file" ) == 0 )
                         {
-                            if( filename.compare( value ) == 0 ) 
+                            if( filename.compare( value ) == 0 )
                             {
                                 hit = true;
                             }
                         }
                         else if( strcmp(name, "x" ) == 0 )
                         {
-                            if(sscanf(value, "%i", &xmlX) != 1) 
+                            if(sscanf(value, "%i", &xmlX) != 1)
                             {
                                 std::cerr << "GameView::preReadCityTexture# Error parsing integer value '" << value << "' in x attribute.\n";
                                 xmlX = -1;
                             }
                         }
-                       else if(strcmp(name, "y") == 0 ) 
+                       else if(strcmp(name, "y") == 0 )
                         {
-                            if(sscanf(value, "%i", &xmlY) != 1) 
+                            if(sscanf(value, "%i", &xmlY) != 1)
                             {
                                 std::cerr << "GameView::preReadCityTexture# Error parsing integer value '" << value << "' in y attribute.\n";
                                 xmlY = -1;
                             }
                         }
-                    } 
+                    }
                     if( hit )
                     {
                         break;
                     }
                 }
             }
-        } 
-       
+        }
+
         if( hit && ( xmlX >= 0 ) )
-        { 
+        {
             cityTextureX[ textureType ] = xmlX;
         }
         else
         {
             cityTextureX[ textureType ] = int( ( cityImages[ textureType ]->w / 2 ) );
         }
-        cityTextureY[ textureType ] = int( cityImages[ textureType ]->h ); 
+        cityTextureY[ textureType ] = int( cityImages[ textureType ]->h );
     }
     SDL_mutexV( mTextures );
 }
-    
+
 /**
  *  Preload all required Textures. (his Function is called by loaderThread)
  *  Some of the Image to Texture Conversion seems not to be threadsave
- *  in OpenGL, so load just Images and convert them to Textures on 
- *  demand in the main Tread. 
+ *  in OpenGL, so load just Images and convert them to Textures on
+ *  demand in the main Tread.
  */
 void GameView::loadTextures()
 {
-   //We need Textures for all Types from lincity/lctypes.h 
+   //We need Textures for all Types from lincity/lctypes.h
    //Code Generation:
    /*
        grep -e LCT src/lincity/lctypes.h | sed  \
            -e 's/#define LC/   preReadCityTexture( CS/' \
            -e 's/_G /, /'       \
            -e 's/_G\t/, /'     \
-           -e 's/"/.png" );/2'                 
+           -e 's/"/.png" );/2'
    */
    preReadCityTexture( CST_GREEN, 	"green.png" );
    preReadCityTexture( CST_DESERT_0, 	"desert_0.png" );
@@ -808,7 +808,7 @@ void GameView::loadTextures()
    preReadCityTexture( CST_RAIL_BRIDGE_O2LR,   "Railbridge_entrance2_90.png" );
    preReadCityTexture( CST_RAIL_BRIDGE_I2UD,   "Railbridge_entrance2_00.png" );
    preReadCityTexture( CST_RAIL_BRIDGE_O2UD,   "Railbridge_entrance2_180.png" );
-   
+
    // End of generated Code.
 }
 
@@ -880,7 +880,7 @@ void GameView::event(const Event& event)
                 viewport += event.mousemove;
                 setDirty();
                 break;
-            }         
+            }
             if(!event.inside) {
                 mouseInGameView = false;
                 break;
@@ -891,7 +891,7 @@ void GameView::event(const Event& event)
                 dragStart = event.mousepos;
                 SDL_ShowCursor( SDL_DISABLE );
                 dragStartTime = SDL_GetTicks();
-            }         
+            }
             MapPoint tile = getTile(event.mousepos);
             if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) ) {
                 roadDragging = true;
@@ -905,13 +905,13 @@ void GameView::event(const Event& event)
                 areaBulldoze = false;
             }
             // bulldoze at once while still dragging
-            if( roadDragging && (selected_module_type == CST_GREEN) && !areaBulldoze){ 
+            if( roadDragging && (selected_module_type == CST_GREEN) && !areaBulldoze){
                 if( tile != startRoad ){
                     editMap( startRoad, SDL_BUTTON_LEFT);
                     startRoad = tile;
                 }
             }
- 
+
             if(tileUnderMouse != tile) {
                 tileUnderMouse = tile;
                 setDirty();
@@ -925,13 +925,13 @@ void GameView::event(const Event& event)
             if( event.mousebutton == SDL_BUTTON_RIGHT ) {
                 dragging = false;
                 rightButtonDown = true;
-                break;       
+                break;
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ) {
                 roadDragging = false;
                 areaBulldoze = false;
                 leftButtonDown = true;
-                break;       
+                break;
             }
             if( event.mousebutton == SDL_BUTTON_MIDDLE ) {
                 if( inCity( getTile( event.mousepos ) ) ) {
@@ -951,7 +951,7 @@ void GameView::event(const Event& event)
                     SDL_ShowCursor( SDL_ENABLE );
                     SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
                     break;
-                } 
+                }
                 dragging = false;
                 rightButtonDown = false;
             }
@@ -997,7 +997,7 @@ void GameView::event(const Event& event)
                     }
                     getConfig()->soundEnabled = fx;
                     break;
-                } 
+                }
                 roadDragging = false;
                 areaBulldoze = false;
                 leftButtonDown = false;
@@ -1005,15 +1005,15 @@ void GameView::event(const Event& event)
             if(!event.inside) {
                 break;
             }
-            
+
             if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
                 if( !blockingDialogIsOpen )
                     editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT); //edit tile
             }
-            else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //middle      
+            else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //middle
                 recenter(event.mousepos);                      //adjust view
             }
-            else if( event.mousebutton == SDL_BUTTON_WHEELUP ){ //up 
+            else if( event.mousebutton == SDL_BUTTON_WHEELUP ){ //up
                 zoomIn();                                       //zoom in
             }
             else if( event.mousebutton == SDL_BUTTON_WHEELDOWN ){ //down
@@ -1069,7 +1069,7 @@ void GameView::event(const Event& event)
                 readOrigin();
                 break;
             }
-          
+
             //Hide High Buildings
             if( event.keysym.sym == SDLK_h ){
                 if( hideHigh ){
@@ -1162,7 +1162,7 @@ void GameView::event(const Event& event)
 }
 
 /*
- * Parent tells us to change size. 
+ * Parent tells us to change size.
  */
 void GameView::resize(float newwidth , float newheight )
 {
@@ -1182,9 +1182,9 @@ void GameView::requestRedraw()
     //TODO: do this only when View changed
     //Tell Minimap about new Corners
     getMiniMap()->setGameViewCorners( getTile(Vector2(0, 0)),
-            getTile(Vector2(getWidth(), 0)), 
+            getTile(Vector2(getWidth(), 0)),
             getTile(Vector2(getWidth(), getHeight())),
-            getTile(Vector2(0, getHeight()) ) );  
+            getTile(Vector2(0, getHeight()) ) );
 
     //request redraw
     setDirty();
@@ -1198,7 +1198,7 @@ void GameView::recenter(const Vector2& pos)
     Vector2 position = pos + viewport;
     viewport.x = floor( position.x - ( getWidth() / 2 ) );
     viewport.y = floor( position.y - ( getHeight() / 2 ) );
-    
+
     //request redraw
     requestRedraw();
 }
@@ -1211,12 +1211,12 @@ Vector2 GameView::getScreenPoint(MapPoint map)
 {
     Vector2 point;
     point.x = virtualScreenWidth / 2 + (map.x - map.y) * ( tileWidth / 2 );
-    point.y = (map.x + map.y) * ( tileHeight / 2 ); 
-    
+    point.y = (map.x + map.y) * ( tileHeight / 2 );
+
     //we want the lower right corner
     point.y += tileHeight;
     //on Screen
-    point -= viewport; 
+    point -= viewport;
 
     return point;
 }
@@ -1229,7 +1229,7 @@ MapPoint GameView::getTile(const Vector2& p)
     MapPoint tile;
     // Map Point to virtual Screen
     Vector2 point = p + viewport;
-    float x = (point.x - virtualScreenWidth / 2 ) / tileWidth 
+    float x = (point.x - virtualScreenWidth / 2 ) / tileWidth
         +  point.y  / tileHeight;
     tile.x = (int) floorf(x);
     tile.y = (int) floorf( 2 * point.y  / tileHeight  - x );
@@ -1251,7 +1251,7 @@ void GameView::fillDiamond( Painter& painter, const Rect2D& rect )
     points[ 2 ].y = rect.p2.y;
     points[ 3 ].x = rect.p2.x;
     points[ 3 ].y = rect.p1.y + ( rect.getHeight() / 2 );
-    painter.fillPolygon( 4, points );    
+    painter.fillPolygon( 4, points );
 }
 
 /*
@@ -1270,7 +1270,7 @@ void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
     points[ 2 ].y = rect.p2.y;
     points[ 3 ].x = rect.p2.x;
     points[ 3 ].y = rect.p1.y + ( rect.getHeight() / 2 );
-    painter.drawPolygon( 4, points );    
+    painter.drawPolygon( 4, points );
 }
 
 /*
@@ -1292,12 +1292,12 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
     Color black;
     black.parse("black");
     Color miniMapColor;
-    
+
     Vector2 tileOnScreenPoint = getScreenPoint(tile);
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
-    tileOnScreenPoint.y -= tileHeight; 
-    tilerect.move( tileOnScreenPoint );         
+    tileOnScreenPoint.y -= tileHeight;
+    tilerect.move( tileOnScreenPoint );
     //Outside of the Map gets Black overlay
     if( !inCity( tile ) ) {
             painter.setFillColor( black );
@@ -1308,21 +1308,21 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
         }
         painter.setFillColor( miniMapColor );
     }
-    fillDiamond( painter, tilerect );  
+    fillDiamond( painter, tilerect );
 }
 
 /*
- * If the current Tile is Part of a Building, return the 
+ * If the current Tile is Part of a Building, return the
  * Coordinates of the tile that contains the real informations.
- */ 
+ */
 MapPoint GameView::realTile( MapPoint tile ){
     MapPoint real = tile;
     if( ! inCity( tile ) )
         return real;
-    if ( MP_TYPE( tile.x, tile.y ) ==  CST_USED ) 
+    if ( MP_TYPE( tile.x, tile.y ) ==  CST_USED )
     {
         real.x = MP_INFO(tile.x, tile.y).int_1;
-        real.y = MP_INFO(tile.x, tile.y).int_2;    
+        real.y = MP_INFO(tile.x, tile.y).int_2;
     }
     return real;
 }
@@ -1336,11 +1336,11 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     if( ! inCity( tile ) )
     {
         tileOnScreenPoint.x -= (blankTexture->getWidth() / 2)  * zoom;
-        tileOnScreenPoint.y -= blankTexture->getHeight()  * zoom; 
-        tilerect.move( tileOnScreenPoint );    
+        tileOnScreenPoint.y -= blankTexture->getHeight()  * zoom;
+        tilerect.move( tileOnScreenPoint );
         tilerect.setSize(blankTexture->getWidth() * zoom,
                 blankTexture->getHeight() * zoom);
-        if(zoom == 1.0) 
+        if(zoom == 1.0)
         {
             painter.drawTexture( blankTexture, tilerect.p1 );
         }
@@ -1352,29 +1352,29 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     }
 
     Texture* texture;
-    int size; 
+    int size;
     int upperLeftX = tile.x;
-    int upperLeftY = tile.y;    
+    int upperLeftY = tile.y;
 
-    if ( MP_TYPE( tile.x, tile.y ) ==  CST_USED ) 
+    if ( MP_TYPE( tile.x, tile.y ) ==  CST_USED )
     {
         upperLeftX = MP_INFO(tile.x, tile.y).int_1;
-        upperLeftY = MP_INFO(tile.x, tile.y).int_2;    
+        upperLeftY = MP_INFO(tile.x, tile.y).int_2;
     }
     size = MP_SIZE( upperLeftX, upperLeftY );
 
-    //is Tile the lower left corner of the Building? 
+    //is Tile the lower left corner of the Building?
     //dont't draw if not.
     if ( ( tile.x != upperLeftX ) || ( tile.y - size +1 != upperLeftY ) )
     {
         return;
     }
     //adjust OnScreenPoint of big Tiles
-    if( size > 1 ) { 
+    if( size > 1 ) {
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
-    
+
     int textureType = MP_TYPE( upperLeftX, upperLeftY );
 
     // if we hide high buildings, hide trees as well
@@ -1392,15 +1392,25 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         }
         SDL_mutexV( mTextures );
     }
-    
+
     if( texture && ( !hideHigh || size == 1 ) )
     {
         /* TODO: it seems possible to put green or desert tile first,
          * so that buildings without ground will look nice
          * especially power lines :) */
         tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
-        tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;  
-        tilerect.move( tileOnScreenPoint );    
+        tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;
+#ifdef EXPERIMENTAL
+        // shift the tile upward to show altitude
+        //
+        // AL1 : why are this coordinates (double) ? Does not (float) be enought ? or is it an SDL/GL requirement ?
+        int scale3d = 128; // guestimate value for good looking;
+        double h = (double) ( ALT(tile.x, tile.y) * scale3d) * zoom  / (double) alt_step ;
+        //printf(" tx = %lf, ty = %lf, h = %f \n",  tileOnScreenPoint.x,  tileOnScreenPoint.y, h);
+        tileOnScreenPoint.y -=  h ;
+#endif
+
+        tilerect.move( tileOnScreenPoint );
         tilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
         if( zoom == 1.0 ) {
             painter.drawTexture(texture, tilerect.p1);
@@ -1410,14 +1420,14 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
             painter.drawStretchTexture(texture, tilerect);
         }
     }
-    else 
+    else
     {
         tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
-        tileOnScreenPoint.y -= tileHeight*size; 
-        tilerect.move( tileOnScreenPoint );    
+        tileOnScreenPoint.y -= tileHeight*size;
+        tilerect.move( tileOnScreenPoint );
         tilerect.setSize( size * tileWidth, size * tileHeight );
         painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
-        fillDiamond( painter, tilerect );    
+        fillDiamond( painter, tilerect );
     }
 }
 
@@ -1432,9 +1442,9 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         painter.setLineColor( alphawhite );
         Rect2D tilerect( 0, 0, tileWidth, tileHeight );
         tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
-        tileOnScreenPoint.y -= tileHeight; 
-        tilerect.move( tileOnScreenPoint );    
-        drawDiamond( painter, tilerect );    
+        tileOnScreenPoint.y -= tileHeight;
+        tilerect.move( tileOnScreenPoint );
+        drawDiamond( painter, tilerect );
     } else {
         Color alphablue( 0, 0, 255, 128 );
         Color alphared( 255, 0, 0, 128 );
@@ -1451,7 +1461,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
                     if( !GROUP_IS_BARE(MP_GROUP( x, y ))) {
                         if( !((MP_GROUP( x, y ) == GROUP_WATER) && ( // bridge on water is OK
                            (selected_module_type == CST_TRACK_LR ) ||
-                           (selected_module_type == CST_ROAD_LR ) || 
+                           (selected_module_type == CST_ROAD_LR ) ||
                            (selected_module_type == CST_RAIL_LR ) ))) {
                             painter.setFillColor( alphared );
                             y += cursorSize;
@@ -1468,15 +1478,15 @@ void GameView::markTile( Painter& painter, MapPoint tile )
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
         tileOnScreenPoint.x = tileOnScreenPoint.x - (tileWidth * cursorSize / 2);
-        tileOnScreenPoint.y -= tileHeight; 
-        tilerect.move( tileOnScreenPoint );    
-        fillDiamond( painter, tilerect );    
+        tileOnScreenPoint.y -= tileHeight;
+        tilerect.move( tileOnScreenPoint );
+        fillDiamond( painter, tilerect );
 
         // Draw range for selected_module_type
         int range = 0;
-        int reduceNW = 0; // substation and market reduce the range to nort west by one. 
+        int reduceNW = 0; // substation and market reduce the range to nort west by one.
         switch ( selected_module_type ){
-            //case CST_RESIDENCE_LL: break; 
+            //case CST_RESIDENCE_LL: break;
             //case CST_RESIDENCE_ML: break;
             //case CST_RESIDENCE_HL: break;
             //case CST_RESIDENCE_LH: break;
@@ -1514,7 +1524,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_WATER: break;
             case CST_WATERWELL: range = WATERWELL_RANGE; break;
         }
-       	
+
         if (range > 0 )
         {
         	painter.setFillColor( Color( 0, 0, 128, 64 ) );
@@ -1525,8 +1535,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         	screenPoint.x -= tileWidth  * ( range - 0.5 * reduceNW );
         	screenPoint.y -= tileHeight * ( range + 1 - reduceNW );
         	rangerect.move( screenPoint );
-        	fillDiamond( painter, rangerect );         	
-        }           
+        	fillDiamond( painter, rangerect );
+        }
     }
 }
 
@@ -1564,23 +1574,28 @@ void GameView::draw(Painter& painter)
     //The Corners of The Screen
     //TODO: change here to only draw dirtyRect
     //      dirtyRectangle is the current Clippingarea (if set)
-    //      so we should get clippingArea (as soon this is implemented) 
+    //      so we should get clippingArea (as soon this is implemented)
     //      and adjust these Vectors:
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );
+#ifndef EXPERIMENTAL
     Vector2 lowerLeft( 0, getHeight() );
-    
+#else
+    // printf("h = %f,     z = %f \n ", getHeight(), zoom);
+    Vector2 lowerLeft( 0, getHeight() * ( 1 + getHeight() * zoom / 128. )); // ? 128 = scale3d ; getHeight = size in pixel of the screen (1024x768)
+#endif
+
     //Find visible Tiles
-    MapPoint upperLeftTile  = getTile( upperLeft ); 
+    MapPoint upperLeftTile  = getTile( upperLeft );
     MapPoint upperRightTile = getTile( upperRight );
-    MapPoint lowerLeftTile  = getTile( lowerLeft ); 
-    
+    MapPoint lowerLeftTile  = getTile( lowerLeft );
+
     //draw Background
     Color green;
     Rect2D background( 0, 0, getWidth(), getHeight() );
     green.parse( "green" );
     painter.setFillColor( green );
-    painter.fillRectangle( background );    
+    painter.fillRectangle( background );
 
     //draw Tiles
     MapPoint currentTile;
@@ -1613,9 +1628,9 @@ void GameView::draw(Painter& painter)
             }
         }
     }
-   
-    int cost = 0; 
-    //Mark Tile under Mouse 
+
+    int cost = 0;
+    //Mark Tile under Mouse
     if( mouseInGameView  && !blockingDialogIsOpen ) {
         MapPoint lastRazed( -1,-1 );
         int tiles = 0;
@@ -1629,7 +1644,7 @@ void GameView::draw(Painter& painter)
                 for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
                     for (currentTile.y = startRoad.y; currentTile.y != tileUnderMouse.y + stepy; currentTile.y += stepy) {
                         markTile( painter, currentTile );
-                        if( realTile( currentTile ) != lastRazed ){ 
+                        if( realTile( currentTile ) != lastRazed ){
                             cost += bulldozeCost( currentTile );
                             lastRazed = realTile( currentTile );
                         }
@@ -1653,7 +1668,7 @@ void GameView::draw(Painter& painter)
         } else {
             markTile( painter, tileUnderMouse );
             tiles++;
-            if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ) { 
+            if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ) {
                     cost += bulldozeCost( tileUnderMouse );
             } else {
                 cost += buildCost( tileUnderMouse );
@@ -1687,35 +1702,35 @@ void GameView::draw(Painter& painter)
             printStatusMessage( prize.str() );
         } else {
            showToolInfo( tiles );
-        }    
+        }
     }
 }
 
 /*
  * Show informatiosn about selected Tool
- */ 
+ */
 void GameView::showToolInfo( int number /*= 0*/ )
-{       
+{
     std::stringstream infotextstream;
-    
+
     if( selected_module_type == CST_NONE ) //query
-    {   
-        infotextstream << _("Query Tool: Show information about selected building."); 
-    } 
+    {
+        infotextstream << _("Query Tool: Show information about selected building.");
+    }
     else if( selected_module_type == CST_GREEN ) //bulldoze
     {
-        infotextstream << _("Bulldozer: remove building -price varies-"); 
+        infotextstream << _("Bulldozer: remove building -price varies-");
     }
     else
     {
         int group = main_types[ selected_module_type ].group;
         std::string buildingName = main_groups[ group ].name;
-        infotextstream << dictionaryManager->get_dictionary().translate( buildingName ); 
+        infotextstream << dictionaryManager->get_dictionary().translate( buildingName );
         infotextstream << _(": Cost to build ") << selected_module_cost <<_("$");
         infotextstream << _(", to bulldoze ") << main_groups[ group ].bul_cost <<_("$.");
         if( number > 1 ){
             infotextstream << _(" To build ") << number << _(" of them ");
-            infotextstream << _("will cost about ") << number*selected_module_cost << _("$.");    
+            infotextstream << _("will cost about ") << number*selected_module_cost << _("$.");
         }
     }
     printStatusMessage( infotextstream.str() );
@@ -1763,7 +1778,7 @@ int GameView::bulldozeCost( MapPoint tile ){
 int GameView::buildCost( MapPoint tile ){
     if( selected_module_type == CST_NONE ){
     	return 0;
-    }    
+    }
     if (MP_TYPE( tile.x, tile.y ) == CST_USED)
         return 0;
     if (( selected_module_type == CST_TRACK_LR || selected_module_type == CST_ROAD_LR ||
@@ -1792,7 +1807,7 @@ int GameView::buildCost( MapPoint tile ){
             || (selected_module_type == CST_WATER && MP_GROUP( tile.x, tile.y) == GROUP_WATER )) ){
         return 0;
     }
-   
+
     return get_group_cost( main_types[ selected_module_type ].group );
 }
 
