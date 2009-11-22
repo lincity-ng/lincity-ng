@@ -5,7 +5,7 @@
  * ----------------------------------------------------------------------
  */
 
-// This was part of simulate.cpp. 
+// This was part of simulate.cpp.
 // Moved in new file for clarification
 //
 // (re)initialise engine and UI data when
@@ -31,6 +31,7 @@
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
+/* Vector for visiting neigbours = ( di(k) , dj(k) )  ; ordered so that diagonal moves are the last 4 */
 static const int di[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
 static const int dj[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
 
@@ -110,16 +111,16 @@ void clear_game(void)
         monthgraph_starve[i] = 0;
         monthgraph_nojobs[i] = 0;
         monthgraph_ppool[i] = 0;
-    } 
+    }
     // reset PBARS
-    // FIXME AL1 NG 1.92.svn pbars are reseted only 
+    // FIXME AL1 NG 1.92.svn pbars are reseted only
     //          when we build something
     //          when some building already exist and modify one value
     //
     /* AL1 i don't understand why this does not work
     init_pbars(); // AL1: Why is this not enough and why do we need additional stuff ?
     */
- 
+
     /*
    */
     housed_population=0;
@@ -140,7 +141,7 @@ void clear_game(void)
         pbars[p].oldtot = 0;
         pbars[p].diff = 0;
     }
-        
+
     for (x = 0; x < PBAR_DATA_SIZE; x++) {
         update_pbar (PPOP, housed_population, 1);
         update_pbar (PTECH, tech_level, 1);
@@ -159,6 +160,9 @@ void clear_game(void)
 void new_city(int *originx, int *originy, int random_village)
 {
     int old_setup_ground = true;
+#ifdef EXPERIMENTAL
+    old_setup_ground = false;
+#endif
     clear_game();
     coal_reserve_setup();
 
@@ -173,7 +177,7 @@ void new_city(int *originx, int *originy, int random_village)
     ore_reserve_setup();
     init_pbars();
 
-    /* Initial population is 100 for empty board or 200 
+    /* Initial population is 100 for empty board or 200
        for random village (100 are housed). */
     people_pool = 100;
 
@@ -197,7 +201,7 @@ void setup_land(void)
     int aridity = rand() % 450 - 150;
 
     global_aridity = aridity;
-    
+
 
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -233,6 +237,7 @@ void setup_land(void)
             }
             /* Altitude has same effect as distance */
             if( alt_step == 0 ){
+                printf("alt_step = 0\n");
                  alt_step = 400; // TODO: Why can alt_step be zero here? Quick hack to prevent crash WolfgangB 2008-09-13
             }
             r = rand() % (d2w_min / 3 + 1) + arid +
@@ -315,13 +320,44 @@ static void ore_reserve_setup(void)
 
 static void new_setup_river_ground(void)
 {
+    /* Principle of land generation :
+     *     we start with large blocks of land SZ x SZ, and take random height for each
+     *     at each iteration we divide the block size by 2, and Altitude += rand() * fract^N_iter
+     * when fract > 1 the additional height is getting smaller at each iteration
+     *         this prevent too many pics and holes
+     * then we smooth the land, in order to have several local maxima and minima, but not hudreds
+     *     (else we go crazy with river path)
+     *
+     * Additional refinement: we rotate/mirror the map, in order to have the 2 lowest borders in front of us
+     *      and the "mountains" far away  (just in case we go to 3d view later :-) )
+     */
+
     const int NLOOP = 7;
     const int SZ=128; // must be = 2^NLOOP
     const int SHIFT = (SZ - WORLD_SIDE_LEN) / 2; // center the visible map in the big one
     const float sigma = 3.5; // gaussian smoothing
     const float ods2 = 1. / (2. * sigma * sigma);
-    const int mask_size = 11; // useless to be larger than 3*sigma && Must be < SHIFT 
-    const float fract = 0.9;
+    const int mask_size = 7; // useless to be larger than 3*sigma && Must be < SHIFT
+    const float fract = 0.90; // will be up to  fract ^ NLOOP : be careful to stay near 1.0
+                              //  if fract > 1.0, then small scale variations are getting bigger  (recent mountain)
+                              //  if fract < 1.0  then small scales varaitions are getting smaller (old mountain)
+                              // this is smoothed by the gaussian filter
+
+    const int Keco = 20;  // order of magnitude of each iteration is Kalt * mountainity.
+
+    /* good values:
+     *      sigma = 3.5   // sigma =2.5 => lots of local minima = small lakes  ;
+     *                       maybe will be allowed later, when the problem of finding path to the sea and doing erosion has been solved
+     *
+     *      fract = 0.9 && Keco = 20 is fine;
+     *      fract = 0.8  && Keco = 30   // drawback big structure from first iteration can be visible
+     * fract and Keco have impact altitude => also on ecology where the table entry denpends on value of altitude
+     *
+     * FIXME : mountainity is not needed and causes too much variability
+     * FIXME : fract = 1.2  && Keco = 20
+     *              with high values of fract Keco and mountanity, we have integer overflow or sth alike in ecotable,
+     *              so we loop in the table, doing crazy stripes on the land, or puttind desert in low altitude and swamp on top of mountain :-)
+     */
 
     float mat[2 * mask_size + 1][2 * mask_size + 1];
     float g[SZ][SZ];
@@ -330,7 +366,7 @@ static void new_setup_river_ground(void)
     float norm;
     int i,j,k,l,m,n,size,h;
 
-    // build gaussian mask 
+    // build gaussian mask for smoothing
     norm = 0;
     for ( i = 0; i < 2 * mask_size + 1; i++) {
         for ( j = 0; j < 2 * mask_size + 1; j++) {
@@ -345,7 +381,7 @@ static void new_setup_river_ground(void)
 #ifdef DEBUG
     fprintf(stderr," mountainity = %i \n", global_mountainity);
 #endif
-    h = ( rand() % 10 + rand() % 10 ) * global_mountainity / 20;
+    h = ( rand() % Keco + rand() % Keco ) * global_mountainity ;
     for (i = 0; i < SZ; i++) {
         for (j = 0; j < SZ; j++) {
             g[i][j]=h;
@@ -362,7 +398,7 @@ static void new_setup_river_ground(void)
         for ( l = 0; l < n; l++ ) {
             for ( m = 0; m < n; m++ ) {
                 // one block
-                h = int ( double((rand() % 10 + rand() % 10) * global_mountainity) * pow(fract,k));
+                h = int ( double((rand() % Keco + rand() % Keco) * global_mountainity) * pow(fract,k) );
                 for (i = 0 ; i < size; i++)
                     for (j = 0 ; j < size; j++)
                         g[l * size + i][ m * size + j ] += h;
@@ -373,7 +409,7 @@ static void new_setup_river_ground(void)
     //smooth is iterated to propagate a little the lowering of borders
     for (n = 0; n < 2 ; n++) {
         // apply the mask
-        for (i = mask_size; i < SZ - mask_size; i++) 
+        for (i = mask_size; i < SZ - mask_size; i++)
             for (j = mask_size; j < SZ - mask_size; j++) {
                 tmp[i][j] = 0;
                 for ( k = -mask_size; k <= mask_size; k++ )
@@ -381,7 +417,7 @@ static void new_setup_river_ground(void)
                         tmp[i][j] += g[i + k][j - l] * mat[mask_size + k][mask_size + l];
             }
 
-        for (i = mask_size; i< SZ - mask_size; i++) 
+        for (i = mask_size; i< SZ - mask_size; i++)
             for (j = mask_size; j< SZ - mask_size; j++)
                 g[i][j] = tmp[i][j] * norm;
 
@@ -445,22 +481,27 @@ static void new_setup_river_ground(void)
     // take visible value for maximum color dynamic
     alt_min = 0; // visible alt_min is 1, we will use 0 for gray border
     alt_step = (alt_max - alt_min)/10;
-    
+
 #ifdef DEBUG
     fprintf(stderr," alt min = %i; max = %i\n", alt_min, alt_max);
 #endif
     new_setup_river();
 
 }
+
 void new_setup_river(void)
 {
 
+#ifdef DEBUG
+    #define DEBUG_LAND
+#endif
 
     int colx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], coly[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
     int topx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], topy[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
     int lakx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], laky[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
+    int parax[WORLD_SIDE_LEN * WORLD_SIDE_LEN], paray[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
 
-    int i, j, c, t, l;
+    int i, j, c, t, l, p;
 
 
     // Put lakes/seas in the lowest part of the map
@@ -482,15 +523,28 @@ void new_setup_river(void)
     c = 0;
     l = 0;
     t = 0;
+    p = 0;
     for ( i = 1; i < WORLD_SIDE_LEN - 1 ; i++)
         for ( j = 1; j < WORLD_SIDE_LEN - 1 ; j++) {
             float e1, e2;
             float dx2, dy2, dxy, dyx, delta;
 
-            dx2 = float (ALT(i + 1,j) + ALT(i - 1,j) - 2 * ALT(i,j));
-            dy2 = float (ALT(i,j + 1) + ALT(i,j - 1) - 2 * ALT(i,j));
-            dxy = float ( (ALT(i+1 , j+1) + ALT(i-1, j-1) - ALT(i+1,j-1) - ALT(i-1,j+1)) * 0.25);
+            /* with a centered discrete scheme we have :
+             *      d f     f(x + dx) - f(x - dx)
+             *     ----- = ----------------------
+             *       dx           2 . dx
+             *
+             * notation	dx2 = d²( ALT(x,y) )/ dx²  ;  second partial derivative of ALT wrt x and x (twice :)
+             *  		dxy = d²( ALT(x,y) )/dx.dy ;  second partial derivative of ALT wrt x and y
+             *
+             * On our grid we have dx = 1, dy = 1;
+             */
+
+            dx2 = float (ALT(i + 2, j) + ALT(i - 2, j) - 2 * ALT(i,j)) * 0.25;
+            dy2 = float (ALT(i, j + 2) + ALT(i, j - 2) - 2 * ALT(i,j)) * 0.25;
+            dxy = float ( (ALT(i + 1, j + 1) + ALT(i - 1, j - 1) - ALT(i + 1, j - 1) - ALT(i - 1, j + 1)) ) * 0.25;
             dyx = dxy;
+
             // e1 e2 are the eigenvalues of Hessian, ie solutions of:
             // X^2 - (dx2 + dy2).X + dx2.dy2 - dxy.dyx = 0     (wrt X)
             delta =  (dx2 + dy2)*(dx2 + dy2) - 4 * (dx2 * dy2 - dxy * dyx);
@@ -499,44 +553,22 @@ void new_setup_river(void)
 
             if (e1 * e2 < 0) {
                 // saddle point = mountain pass  _IF_ tangent plane is _nearly_ horizontal !
-
-                /* Tangent plane has equation alpha.(x-x0) + beta.(y-y0) - z = 0
-                 * Least square method to find alpha and beta considering 8 neighbours
-                 *  (just partial derivatives along x and y are not enought)
-                 * After some calculus, alpha = (Sax.Syy - Say.Sxy)/(2.*(Sxx.Syy-Sxy*Syx))
-                 * beta is symetrical wrt x <-> y
-                 */
-                    // precomputed terms for least square, on 8 neighbours
-                    // (for i = 0; i < 8; i++) Sxy += (xi -x0) * (yi - y0);
-                    // => Sxy = Syx = 0 :-)
-                    // => simple result for alpha and beta.
-
-                const float Sxx = 6.; // Syy = Sxx
-                float alpha, beta;
-                float Sax = 0.;
-                float Say = 0.;
-                for (int n = 0; n < 8; n++) {
-                    Sax += float ((ALT(i + di[n], j + dj[n]) - ALT(i,j)) * di[n]);
-                    Say += float ((ALT(i + di[n], j + dj[n]) - ALT(i,j)) * dj[n]);
-                }
-                alpha = Sax / Sxx;
-                beta  = Say / Sxx; // because Syy = Sxx
-
-                // Normal vector is (alpha, beta, -1)
-                // so plane is nearly horizontal if alpha^2 + beta^2 is "small"
-                if ( (alpha * alpha + beta * beta) < float(global_mountainity / 2) ) {
-                    // mountain pass = col
+                //  ie    d ALT / dx = 0 and  d ALT / dy = 0
+                //  as we have discrete scheme, we cannot reach = 0, but instead norm_of_gradient < epsilon
+                float norm = float ( (ALT(i+1, j) - ALT(i-1, j)) * (ALT(i+1, j) - ALT(i-1, j))
+                                    + (ALT(i, j+1) - ALT(i, j-1)) * (ALT(i, j+1) - ALT(i, j-1)) ) * 0.25;
+                if ( norm < (float( alt_step) / 10.)) {
                     colx[c] = i;
                     coly[c] = j;
-                    c++;
-//#define DEBUG_LAND
+                   c++;
 #ifdef DEBUG_LAND
-                    fprintf(stderr," x %i, y %i, norm %f\n", i, j, alpha * alpha + beta * beta);
+                    fprintf(stderr,"alt_step %i mountain pass : x %i, y %i, norm %f\n", alt_step, i, j, norm);
                     if (GROUP_IS_BARE(MP_GROUP(i,j)))
-                        set_mappoint(i,j, CST_ROAD_LR);
-                    //XXX AL1: why is there a segfault if we use CST_POWERL_H_D ?
+                        set_mappoint(i,j, CST_ROAD_LR);  //XXX AL1: why is there a segfault if we use CST_POWERL_H_D ?
 #endif
                 }
+
+
             } else if (e1 * e2 != 0) {
                 if ( e1 < 0) {
                     // local top
@@ -559,15 +591,22 @@ void new_setup_river(void)
                         lakx[l] = i;
                         laky[l] = j;
                         l++;
+                        MP_INFO(i,j).flags |= (FLAG_HAS_UNDERGROUND_WATER);
                         if (GROUP_IS_BARE(MP_GROUP(i,j))) {
-                            set_mappoint(i,j, CST_PARKLAND_LAKE);
                             MP_INFO(i,j).flags |= (FLAG_HAS_UNDERGROUND_WATER + FLAG_IS_RIVER);
+#ifdef DEBUG_LAND
+                            fprintf(stderr,"local minimum : x %i, y %i\n", i, j);
+                            set_mappoint(i,j, CST_PARKLAND_LAKE);
+#endif
                         }
                     }
                 }
             } else {
                 // parabolic point
 #ifdef DEBUG_LAND
+                parax[p] = i;
+                paray[p] = j;
+                p++;
                 if (GROUP_IS_BARE(MP_GROUP(i,j)))
                     set_mappoint(i,j, CST_RAIL_LR);
 #endif
@@ -577,9 +616,10 @@ void new_setup_river(void)
         }
 
 #ifdef DEBUG_LAND
-    fprintf(stderr," pass c = %i, cx = %i, cy = %i\n", c, colx[c - 1], coly[c -1]);
-    fprintf(stderr," top t = %i, tx = %i, ty = %i\n", t, topx[t-1], topy[t-1]);
-    fprintf(stderr," lak l = %i, lx = %i, ly = %i\n", l, lakx[l-1], laky[l-1]);
+    fprintf(stderr,"\n #pass c = %i\n", c);
+    fprintf(stderr," #top t = %i\n", t);
+    fprintf(stderr," #lak l = %i\n", l);
+    fprintf(stderr," #para p = %i\n\n", p);
 #endif
 
     // put one river from each top.
@@ -613,7 +653,7 @@ static void sort_by_altitude(int n, int *tabx, int *taby)
                 taby[j] = tmp_y;
                 sorted = false;
             }
-        /*fprintf(stderr," sorted = %i, n - i -1 = %i, ALT() = %i\n", 
+        /*fprintf(stderr," sorted = %i, n - i -1 = %i, ALT() = %i\n",
          *       sorted, n - i -1, ALT(tabx[n-i-1], taby[n -i -1]));
          */
     }
@@ -657,11 +697,11 @@ static void new_setup_one_river(int num_river, int c, int *colx, int *coly, int 
             else
                 set_river_tile(x + di[m], y);
         }
-    } while ( (xx != x) || (yy != y) ); 
+    } while ( (xx != x) || (yy != y) );
     // We are in a local minimum
 
     if ( x == 0 || x == WORLD_SIDE_LEN - 1 || y == 0 || y == WORLD_SIDE_LEN - 1) {
-        // borders of the map are strictly the lowest points 
+        // borders of the map are strictly the lowest points
         return;
     }
 
@@ -678,7 +718,7 @@ static void setup_river(void)
     int alt = 1; //lowest altitude in the map = surface of the river at mouth.
     x = (1 * WORLD_SIDE_LEN + rand() % WORLD_SIDE_LEN) / 3;
     y = WORLD_SIDE_LEN - 1;
-    ground[x][y].water_alt = alt; // 1 unit = 1 cm , 
+    ground[x][y].water_alt = alt; // 1 unit = 1 cm ,
                         //for rivers .water_alt = .altitude = surface of the water
                         //for "earth tile" .water_alt = alt of underground water
                         //                 .altitude = alt of the ground
@@ -825,7 +865,7 @@ static void setup_ground(void)
                 int lmax = 0;
                 tot_cnt ++;
                 for ( int k = -1; k <= 1; k++ )
-                    for ( int l = -1; l <= 1; l++) 
+                    for ( int l = -1; l <= 1; l++)
                         if ( ALT(x+k, y+l) != 0 ) {
                             count ++;
                             if ( ALT(x+k, y+l) >= lmax )
@@ -997,5 +1037,4 @@ static void random_start(int *originx, int *originy)
     set_mappoint(xx + 16, yy + 12, CST_COMMUNE_1);
     set_mappoint(xx + 16, yy + 17, CST_COMMUNE_1);
 }
-
 

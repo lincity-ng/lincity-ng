@@ -32,6 +32,10 @@ switch $(VARIANT) {
         CFLAGS += -O3 -g3 -pg ;
         CXXFLAGS += -O3 -g3 -pg ;
         LIBS += -g3 -pg ;
+    case experimental :
+        CFLAGS += -Wall -W -O0 -g3 -DDEBUG -DEXPERIMENTAL ;
+        CXXFLAGS += -Wall -W -O0 -g3 -DDEBUG -DEXPERIMENTAL ;
+        LIBS += -g3 ;
     case * :
         EXIT "Invalid variant $(VARIANT) selected" ;
 }
@@ -68,7 +72,7 @@ rule DoXGetText
 {
     local sources = [ SearchSource $(>) ] ;
     local target = [ LocateTarget $(<) : $(SUBDIR) ] ;
-    
+
     XGetText $(target) : $(sources) ;
     Depends all : $(target) ;
     Clean clean : $(target) ;
