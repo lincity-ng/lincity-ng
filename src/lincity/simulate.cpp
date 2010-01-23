@@ -279,7 +279,7 @@ static void end_of_year_update(void)
     total_money += goods_tax;
 
     /* The price of exports on the world market drops as you export more.
-       The exporters have to discount there wares, therefore the 
+       The exporters have to discount there wares, therefore the
        tax take is less.
      */
     if (export_tax > ex_tax_dis[0]) {
@@ -465,116 +465,6 @@ static void simulate_mappoints(void)
             }
         }
     }
-}
-
-void do_rand_ecology(int x, int y)
-{
-    int r = ground[x][y].ecotable;
-    if ( (MP_INFO(x, y).flags | FLAG_HAS_UNDERGROUND_WATER) == 0 ) {
-        /*true desert*/
-        return;
-    }
-
-    if (r >= 300) {
-        /* very dry land */
-        int r2 = rand() % 10;
-        if (r2 <= 6)
-            set_mappoint(x, y, CST_DESERT);
-        else if (r2 <= 8)
-            set_mappoint(x, y, CST_GREEN);
-        else
-            set_mappoint(x, y, CST_TREE);
-    } else if (r >= 160) {
-        int r2 = rand() % 10;
-        if (r2 <= 2)
-            set_mappoint(x, y, CST_DESERT);
-        else if (r2 <= 6)
-            set_mappoint(x, y, CST_GREEN);
-        else
-            set_mappoint(x, y, CST_TREE);
-    } else if (r >= 80) {
-        int r2 = rand() % 10;
-        if (r2 <= 1)
-            set_mappoint(x, y, CST_DESERT);
-        else if (r2 <= 4)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 6)
-            set_mappoint(x, y, CST_TREE);
-        else
-            set_mappoint(x, y, CST_TREE2);
-    } else if (r >= 40) {
-        int r2 = rand() % 40;
-        if (r2 == 0)
-            set_mappoint(x, y, CST_DESERT);
-        else if (r2 <= 12)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 24)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 36)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else if (r >= 0) {
-        /* normal land */
-        int r2 = rand() % 40;
-        if (r2 <= 10)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 20)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 30)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else if (r >= -40) {
-        /* forest */
-        int r2 = rand() % 40;
-        if (r2 <= 5)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 10)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 25)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else if (r >= -80) {
-        int r2 = rand() % 40;
-        if (r2 <= 0)
-            MP_TYPE(x, y) = CST_WATER;
-        else if (r2 <= 6)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 15)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 28)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else if (r >= -120) {
-        int r2 = rand() % 40;
-        if (r2 <= 1)
-            MP_TYPE(x, y) = CST_WATER;
-        else if (r2 <= 6)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 16)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 30)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else {
-        /* wetland */
-        int r2 = rand() % 40;
-        if (r2 <= 3)
-            MP_TYPE(x, y) = CST_WATER;
-        else if (r2 <= 8)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 20)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 35)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    }
-
 }
 
 static void sustainability_test(void)

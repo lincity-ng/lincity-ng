@@ -10,7 +10,6 @@ void do_time_step(void);
 int count_groups(int gr);
 void count_all_groups(int *group_count);
 void set_mappoint(int x, int y, short selected_type);
-void do_rand_ecology(int x, int y);
 
 extern void connect_rivers(void);
 

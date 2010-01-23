@@ -51,6 +51,8 @@ static void new_setup_river(void);
 static void sort_by_altitude(int n, int *tabx, int *taby);
 static void new_setup_one_river(int num_river, int c, int *colx, int *coly, int t, int *topx, int *topy, int l, int *lakx, int *laky);
 static void set_river_tile( int i, int j);
+static void do_rand_ecology(int x, int y);
+
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -1037,4 +1039,115 @@ static void random_start(int *originx, int *originy)
     set_mappoint(xx + 16, yy + 12, CST_COMMUNE_1);
     set_mappoint(xx + 16, yy + 17, CST_COMMUNE_1);
 }
+
+void do_rand_ecology(int x, int y)
+{
+    int r = ground[x][y].ecotable;
+    if ( (MP_INFO(x, y).flags | FLAG_HAS_UNDERGROUND_WATER) == 0 ) {
+        /*true desert*/
+        return;
+    }
+
+    if (r >= 300) {
+        /* very dry land */
+        int r2 = rand() % 10;
+        if (r2 <= 6)
+            set_mappoint(x, y, CST_DESERT);
+        else if (r2 <= 8)
+            set_mappoint(x, y, CST_GREEN);
+        else
+            set_mappoint(x, y, CST_TREE);
+    } else if (r >= 160) {
+        int r2 = rand() % 10;
+        if (r2 <= 2)
+            set_mappoint(x, y, CST_DESERT);
+        else if (r2 <= 6)
+            set_mappoint(x, y, CST_GREEN);
+        else
+            set_mappoint(x, y, CST_TREE);
+    } else if (r >= 80) {
+        int r2 = rand() % 10;
+        if (r2 <= 1)
+            set_mappoint(x, y, CST_DESERT);
+        else if (r2 <= 4)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 6)
+            set_mappoint(x, y, CST_TREE);
+        else
+            set_mappoint(x, y, CST_TREE2);
+    } else if (r >= 40) {
+        int r2 = rand() % 40;
+        if (r2 == 0)
+            set_mappoint(x, y, CST_DESERT);
+        else if (r2 <= 12)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 24)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 36)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else if (r >= 0) {
+        /* normal land */
+        int r2 = rand() % 40;
+        if (r2 <= 10)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 20)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 30)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else if (r >= -40) {
+        /* forest */
+        int r2 = rand() % 40;
+        if (r2 <= 5)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 10)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 25)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else if (r >= -80) {
+        int r2 = rand() % 40;
+        if (r2 <= 0)
+            MP_TYPE(x, y) = CST_WATER;
+        else if (r2 <= 6)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 15)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 28)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else if (r >= -120) {
+        int r2 = rand() % 40;
+        if (r2 <= 1)
+            MP_TYPE(x, y) = CST_WATER;
+        else if (r2 <= 6)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 16)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 30)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    } else {
+        /* wetland */
+        int r2 = rand() % 40;
+        if (r2 <= 3)
+            MP_TYPE(x, y) = CST_WATER;
+        else if (r2 <= 8)
+            set_mappoint(x, y, CST_GREEN);
+        else if (r2 <= 20)
+            set_mappoint(x, y, CST_TREE);
+        else if (r2 <= 35)
+            set_mappoint(x, y, CST_TREE2);
+        else
+            set_mappoint(x, y, CST_TREE3);
+    }
+
+}
+
 
