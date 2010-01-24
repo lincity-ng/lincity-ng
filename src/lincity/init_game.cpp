@@ -13,6 +13,8 @@
 //  - start a random village (or a  void map)
 //
 
+//#define DEBUG_EXPERIMENTAL
+
 #include <math.h>
 #include <cstdlib>
 #include "init_game.h"
@@ -56,11 +58,11 @@ static void setup_ground(void);
 static void new_setup_river_ground(void);
 static void new_setup_river(void);
 static void sort_by_altitude(int n, int *tabx, int *taby);
-static void new_setup_one_river(int x, int y);
+static int new_setup_one_river(int x, int y, int lake_id);
 static void set_river_tile( int i, int j);
 static void do_rand_ecology(int x, int y);
 void init_list(Shoreline * list);
-void overfill_lake(int xl, int yl, Shoreline *shore);
+void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id);
 
 
 /* ---------------------------------------------------------------------- *
@@ -390,7 +392,6 @@ static void new_setup_river_ground(void)
     norm = 1. / norm;
 
    // intialisation
-#define DEBUG_EXPERIMENTAL
 #ifdef DEBUG_EXPERIMENTAL
     // Fix random seed for easier debug
     srand(1234);
@@ -505,18 +506,11 @@ static void new_setup_river_ground(void)
 
 void new_setup_river(void)
 {
+    // brute search of local minimum
 
-#ifdef DEBUG
-    #define DEBUG_LAND
-#endif
-
-    int colx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], coly[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
-    int topx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], topy[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
     int lakx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], laky[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
-    int parax[WORLD_SIDE_LEN * WORLD_SIDE_LEN], paray[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
-
     Shoreline *shore;
-    int i, j, c, t, l, p;
+    int i, j, l, m , alt;
 
     shore = (Shoreline *) malloc(sizeof(struct Shoreline));
     shore->x = (int) malloc(sizeof(int));
@@ -524,140 +518,37 @@ void new_setup_river(void)
     shore->altitude = (int) malloc(sizeof(int));
     shore->next = (Shoreline *) malloc(sizeof(struct Shoreline));
 
-/*
-    // Put lakes/seas in the lowest part of the map
-    for ( i = 0; i < WORLD_SIDE_LEN; i++)
-        for ( j = 0; j < WORLD_SIDE_LEN; j++)
-            if (ALT(i,j) < 2 * alt_step)
-                set_river_tile(i,j);
-*/
-
-    // Put the gray border (not visible) at alt_min, for easier rivers handling.
+    // Put the gray border (not visible) at alt_min - 1, for easier rivers handling.
     for ( i = 0; i < WORLD_SIDE_LEN; i++) {
-        ALT(i, 0) = alt_min;
-        ALT(i, WORLD_SIDE_LEN - 1) = alt_min;
-        ALT(0, i) = alt_min;
-        ALT(WORLD_SIDE_LEN - 1, i) = alt_min;
+        ALT(i, 0) = alt_min - 1;
+        ALT(i, WORLD_SIDE_LEN - 1) = alt_min - 1;
+        ALT(0, i) = alt_min - 1;
+        ALT(WORLD_SIDE_LEN - 1, i) = alt_min - 1;
     }
 
-    // Hessian = second order derivatives in visible map
-    // => know curvature, local max, min, saddle points and find col (mountain pass)
-    c = 0;
     l = 0;
-    t = 0;
-    p = 0;
-    for ( i = 1; i < WORLD_SIDE_LEN - 1 ; i++)
+    for ( i = 1; i < WORLD_SIDE_LEN - 1 ; i++) {
         for ( j = 1; j < WORLD_SIDE_LEN - 1 ; j++) {
-            float e1, e2;
-            float dx2, dy2, dxy, dyx, delta;
-
-            /* with a centered discrete scheme we have :
-             *      d f     f(x + dx) - f(x - dx)
-             *     ----- = ----------------------
-             *       dx           2 . dx
-             *
-             * notation	dx2 = d²( ALT(x,y) )/ dx²  ;  second partial derivative of ALT wrt x and x (twice :)
-             *  		dxy = d²( ALT(x,y) )/dx.dy ;  second partial derivative of ALT wrt x and y
-             *
-             * On our grid we have dx = 1, dy = 1;
-             */
-
-            dx2 = float (ALT(i + 2, j) + ALT(i - 2, j) - 2 * ALT(i,j)) * 0.25;
-            dy2 = float (ALT(i, j + 2) + ALT(i, j - 2) - 2 * ALT(i,j)) * 0.25;
-            dxy = float ( (ALT(i + 1, j + 1) + ALT(i - 1, j - 1) - ALT(i + 1, j - 1) - ALT(i - 1, j + 1)) ) * 0.25;
-            dyx = dxy;
-
-            // e1 e2 are the eigenvalues of Hessian, ie solutions of:
-            // X^2 - (dx2 + dy2).X + dx2.dy2 - dxy.dyx = 0     (wrt X)
-            delta =  (dx2 + dy2)*(dx2 + dy2) - 4 * (dx2 * dy2 - dxy * dyx);
-            e1 = (dx2 + dy2) + sqrt(delta);
-            e2 = (dx2 + dy2) - sqrt(delta);
-
-            if (e1 * e2 < 0) {
-                // saddle point = mountain pass  _IF_ tangent plane is _nearly_ horizontal !
-                //  ie    d ALT / dx = 0 and  d ALT / dy = 0
-                //  as we have discrete scheme, we cannot reach = 0, but instead norm_of_gradient < epsilon
-                float norm = float ( (ALT(i+1, j) - ALT(i-1, j)) * (ALT(i+1, j) - ALT(i-1, j))
-                                    + (ALT(i, j+1) - ALT(i, j-1)) * (ALT(i, j+1) - ALT(i, j-1)) ) * 0.25;
-                if ( norm < (float( alt_step) / 10.)) {
-                    colx[c] = i;
-                    coly[c] = j;
-                   c++;
-#ifdef DEBUG_LAND
-                    fprintf(stderr,"alt_step %i mountain pass : x %i, y %i, norm %f\n", alt_step, i, j, norm);
-                    if (GROUP_IS_BARE(MP_GROUP(i,j)))
-                        set_mappoint(i,j, CST_ROAD_LR);  //XXX AL1: why is there a segfault if we use CST_POWERL_H_D ?
-#endif
+            alt = ALT(i,j);
+            m = -1;
+            for (int n = 0; n < 8; n++) {
+                if (ALT(i + di[n], j + dj[n]) < alt) {
+                    m = n;
                 }
-
-
-            } else if (e1 * e2 != 0) {
-                if ( e1 < 0) {
-                    // local top
-                    if (  ALT(i + 1,j) < ALT(i,j) && ALT(i - 1,j) < ALT(i,j) &&
-                            ALT(i,j + 1) < ALT(i,j) && ALT(i,j - 1) < ALT(i,j)  )  {
-
-                        topx[t] = i;
-                        topy[t] = j;
-                        t++;
-#ifdef DEBUG_LAND
-                        if (GROUP_IS_BARE(MP_GROUP(i,j)))
-                            set_mappoint(i,j, CST_FIRE_1);
-#endif
-                    }
-                } else {
-                    // local min = potential lake => has water.
-                    if (  ALT(i + 1,j) > ALT(i,j) && ALT(i - 1,j) > ALT(i,j) &&
-                            ALT(i,j + 1) > ALT(i,j) && ALT(i,j - 1) > ALT(i,j)  )  {
-
-                        lakx[l] = i;
-                        laky[l] = j;
-                        l++;
-                        MP_INFO(i,j).flags |= (FLAG_HAS_UNDERGROUND_WATER);
-                        if (GROUP_IS_BARE(MP_GROUP(i,j))) {
-                            MP_INFO(i,j).flags |= (FLAG_HAS_UNDERGROUND_WATER + FLAG_IS_RIVER);
-#ifdef DEBUG_LAND
-                            fprintf(stderr,"local minimum : x %i, y %i\n", i, j);
-                            set_mappoint(i,j, CST_PARKLAND_LAKE);
-#endif
-                        }
-                    }
-                }
-            } else {
-                // parabolic point
-#ifdef DEBUG_LAND
-                parax[p] = i;
-                paray[p] = j;
-                p++;
-                if (GROUP_IS_BARE(MP_GROUP(i,j)))
-                    set_mappoint(i,j, CST_RAIL_LR);
-#endif
             }
-
-
+            if (m == -1) {
+                lakx[l] = i;
+                laky[l] = j;
+                l++;
+            }
         }
-
-#ifdef DEBUG_LAND
-    fprintf(stderr,"\n #pass c = %i\n", c);
-    fprintf(stderr," #top t = %i\n", t);
-    fprintf(stderr," #lak l = %i\n", l);
-    fprintf(stderr," #para p = %i\n\n", p);
-#endif
-
-    sort_by_altitude(t, topx, topy);
-    sort_by_altitude(c, colx, coly);
-    sort_by_altitude(l, lakx, laky);
-
-    // put one river from each top.
-    //for (i = 0; i < t; i++)
-    //    new_setup_one_river_from_top(i, t, topx, topy);
-
+    }
     // fill lake until it overfills and creates a river
     for (i = l-1 ; i >= 0; i--) {
         fprintf(stdout, "\nLAKE %i\n", i);
         init_list(shore);
         set_river_tile(lakx[i], laky[i]);
-        overfill_lake(lakx[i], laky[i], shore);
+        overfill_lake(lakx[i], laky[i], shore, WORLD_SIDE_LEN * lakx[i] + laky[i] );
 	//free_list(shore);
     }
 }
@@ -691,7 +582,7 @@ void free_first_elem_list(Shoreline * list)
 
 void insert_shore_point(int x, int y, Shoreline *shore)
 {
-    Shoreline *current, *newp;
+    Shoreline *current;
     int a;
     current = shore;
     a = ALT(x,y);
@@ -729,7 +620,7 @@ static int in_map(int x, int y) {
     return ( (x >= 0) && (x < WORLD_SIDE_LEN) && (y>=0) && (y< WORLD_SIDE_LEN) );
 }
 
-void overfill_lake(int xl, int yl, Shoreline *shore)
+void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id)
 {
     // Starting point is a local minimum
     // Lake growth is done iteratively by flooding the lowest shore point and rising water level
@@ -737,7 +628,7 @@ void overfill_lake(int xl, int yl, Shoreline *shore)
     //
     // We have a list of shore points sorted by altitude
 
-    int x, y, i, level;
+    int x, y, i, level, really_new;
 
     x = xl;
     y = yl;
@@ -752,19 +643,27 @@ void overfill_lake(int xl, int yl, Shoreline *shore)
     }
 
     if ( (shore->next != NULL) && (ALT(shore->next->x, shore->next->y) < level) ) {
-        // we found a pass
-        fprintf(stdout, "found a pass x %i, y %i, alt %i \n", x, y, ALT(x,y));
-        new_setup_one_river(shore->x, shore->y);
-        //TODO free_shore()
-        return;
+        really_new = new_setup_one_river(shore->x, shore->y, lake_id);
+        if (really_new == 1) {
+            //TODO free_shore()
+            fprintf(stdout, "We found a pass x %i, y %i, alt %i \n", x, y, ALT(x,y));
+            return;
+        }
+        // else the river brougth us back in our lake, so we need to fill it more
     }
     // we did not found a pass, so flood the point and go to net lowest;
-    // TODO free first point
-    shore = shore->next;
-    x = shore->x;
-    y = shore->y;
-    set_river_tile(x,y);
-    overfill_lake(x, y, shore);
+
+    if (shore->next != NULL) {
+        // TODO free first point
+        shore = shore->next;
+        x = shore->x;
+        y = shore->y;
+        set_river_tile(x,y);
+        overfill_lake(x, y, shore, lake_id);
+    } else {
+        fprintf(stderr,"we have a problem the shoreline list is empty\n");
+        //exit(0);
+    }
 
 
 }
@@ -814,17 +713,19 @@ static void new_setup_one_river_from_top(int num_river, int t, int *topx, int *t
     if ( yy < 0 || yy >= WORLD_SIDE_LEN)
         yy =  topy[t - num_river];
 
-    new_setup_one_river(xx, yy);
+    new_setup_one_river(xx, yy, 0);
     return;
 }
 
-static void new_setup_one_river( int xx, int yy)
+static int new_setup_one_river( int xx, int yy, int lake_id)
 {
-    int alt_max, x, y, alt;
+    int alt_max, x, y, alt, x0, y0;
     // start a river from point (xx, yy)
     set_river_tile(xx,yy);
     alt_max = ALT(xx, yy);
 
+    x0=xx;
+    y0 = yy;
     /* follow most important slope and go downward */
     do {
         int m = 0;
@@ -847,9 +748,19 @@ static void new_setup_one_river( int xx, int yy)
             else
                 set_river_tile(x + di[m], y);
         }
-    } while ( ((xx != x) || (yy != y)) && (xx != 0) && (xx != (WORLD_SIDE_LEN - 1)) && (yy != 0) && (yy == WORLD_SIDE_LEN - 1) );
+    } while ( ((xx != x) || (yy != y)) && (xx != 0) && (xx != (WORLD_SIDE_LEN - 1)) && (yy != 0) && (yy != WORLD_SIDE_LEN - 1) );
     // We are in a local minimum or at the borders of the map (strictly the lowest points)
-    return;
+
+    // Check if we are lower than the bottom of the lake we are trying to overfill
+    x = lake_id / WORLD_SIDE_LEN;
+    y = lake_id % WORLD_SIDE_LEN;
+
+    fprintf(stdout, "lake_id %i, here %i, started from %i %i\n", lake_id,  WORLD_SIDE_LEN * xx + yy, x0, y0);
+    //if ( alt < ALT(x,y))
+    if (lake_id == WORLD_SIDE_LEN * xx + yy)
+        return 0;
+    else
+        return 1;
 
 }
 
