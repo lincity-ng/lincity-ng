@@ -58,10 +58,10 @@ static void setup_ground(void);
 static void new_setup_river_ground(void);
 static void new_setup_river(void);
 static void sort_by_altitude(int n, int *tabx, int *taby);
-static int new_setup_one_river(int x, int y, int lake_id);
+static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
 static void set_river_tile( int i, int j);
 static void do_rand_ecology(int x, int y);
-void init_list(Shoreline * list);
+void init_shore(Shoreline * list);
 void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id);
 
 
@@ -546,14 +546,14 @@ void new_setup_river(void)
     // fill lake until it overfills and creates a river
     for (i = l-1 ; i >= 0; i--) {
         fprintf(stdout, "\nLAKE %i\n", i);
-        init_list(shore);
+        init_shore(shore);
         set_river_tile(lakx[i], laky[i]);
         overfill_lake(lakx[i], laky[i], shore, WORLD_SIDE_LEN * lakx[i] + laky[i] );
 	//free_list(shore);
     }
 }
 
-void init_list(Shoreline * list)
+void init_shore(Shoreline * list)
 {
 	list->x = -1;
 	list->y = -1;
@@ -580,7 +580,7 @@ void free_first_elem_list(Shoreline * list)
 {
 }
 
-void insert_shore_point(int x, int y, Shoreline *shore)
+void try_shore_point(int x, int y, Shoreline *shore)
 {
     Shoreline *current;
     int a;
@@ -590,37 +590,45 @@ void insert_shore_point(int x, int y, Shoreline *shore)
     while (current->next != NULL) {
         if (a < current->next->altitude) {
             // insert in beginning of the list
-            //fprintf(stderr, " beginning point\n");
+            fprintf(stderr, " beginning point shore = %i, x %i, y %i, a %i\n", shore, x, y, a);
             add_shore_point(current, x, y, a);
             return;
-        } else if (a == current->altitude) {
-            while (current->altitude == a) {
+        } else if (a == current->next->altitude) {
+            int count = 0;
+            while ((current->next != NULL) && (current->next->altitude == a)) {
                 if ((current->x == x) && (current->y == y)) {
                     // do not insert the same shore point several times at different places in the list !
                     return;
                 };
-                if (current->next == NULL)
-                    break;
-                else
-                    current = current->next;
+                current = current->next;
             };
             //insert the shore point in the list
-            //fprintf(stderr, " same alt point shore = %i\n", shore);
+            fprintf(stderr, " same alt point shore = %i, x %i, y %i\n", shore, x, y, a);
             add_shore_point(current, x, y, a);
             return;
         };
         current = current->next;
     };
-    // we reached end of list, just add the point.
-    //fprintf(stderr, " append point shore = %i\n", shore);
-    add_shore_point(current, x, y, a);
+    // we reached end of list
+    // altitude of the point is strict maximum of the list
+    fprintf(stderr, " append point shore = %i, x %i, y %i, a %i\n", shore, x, y, a);
+    if ((current->x != x) && (current->y != y))
+        add_shore_point(current, x, y, a);
 }
 
 static int in_map(int x, int y) {
     return ( (x >= 0) && (x < WORLD_SIDE_LEN) && (y>=0) && (y< WORLD_SIDE_LEN) );
 }
 
-void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id)
+static int is_border( int x, int y)
+{
+    if ( (x == 0) || (x == (WORLD_SIDE_LEN - 1)) || (y == 0) || (y == (WORLD_SIDE_LEN -1)))
+        return 1;
+    else
+        return 0;
+}
+
+void overfill_lake(int x, int y, Shoreline *shore, int lake_id)
 {
     // Starting point is a local minimum
     // Lake growth is done iteratively by flooding the lowest shore point and rising water level
@@ -628,44 +636,41 @@ void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id)
     //
     // We have a list of shore points sorted by altitude
 
-    int x, y, i, level, really_new;
+    int i, level;
 
-    x = xl;
-    y = yl;
+    if ( is_border(x,y) )
+        return;
+
+    set_river_tile(x,y);
     level = ALT(x,y);
-    fprintf(stdout,"    x = %i, y = %i; level = %i\n", xl, yl, level);
+    fprintf(stdout,"    x = %i, y = %i; level = %i\n", x, y, level);
 
     // find neighbours
     for (i = 0; i < 8; i++) {
-        //fprintf(stdout, " x+dx = %i; y + dy = %i, IS_WATER = %i\n", x + di[i], y + dj[i], XY_IS_WATER(x + di[i], y + dj[i]) );
         if ( in_map(x + di[i], y + dj[i]) && !XY_IS_WATER(x + di[i], y + dj[i]) )
-            insert_shore_point(x + di[i], y + dj[i], shore);
+            try_shore_point(x + di[i], y + dj[i], shore);
     }
-
-    if ( (shore->next != NULL) && (ALT(shore->next->x, shore->next->y) < level) ) {
-        really_new = new_setup_one_river(shore->x, shore->y, lake_id);
-        if (really_new == 1) {
-            //TODO free_shore()
-            fprintf(stdout, "We found a pass x %i, y %i, alt %i \n", x, y, ALT(x,y));
-            return;
-        }
-        // else the river brougth us back in our lake, so we need to fill it more
-    }
-    // we did not found a pass, so flood the point and go to net lowest;
 
     if (shore->next != NULL) {
-        // TODO free first point
         shore = shore->next;
         x = shore->x;
         y = shore->y;
-        set_river_tile(x,y);
+
+        if ( (ALT(x, y) < level) ) {
+            set_river_tile(x,y);
+            // create river and continue to build shoreline
+            // we will continue to overfill (from a lower point) until we reach border of the map
+            fprintf(stdout, "We found a pass x %i, y %i, alt %i \n", x, y, ALT(x,y));
+            new_setup_one_river(x, y, lake_id, shore);
+        }
         overfill_lake(x, y, shore, lake_id);
     } else {
-        fprintf(stderr,"we have a problem the shoreline list is empty\n");
+        // Q: ? Should this happen ?
+        // A: yes if we are in a lake that was previously filled by a higher one which overfilled here
+        //    else ? it should not happen ?
+        fprintf(stderr,"we have a problem the shoreline list is empty, x = %i, y = %i\n", x, y);
         //exit(0);
     }
-
-
 }
 
 static void set_river_tile( int i, int j)
@@ -703,6 +708,15 @@ static void sort_by_altitude(int n, int *tabx, int *taby)
 static void new_setup_one_river_from_top(int num_river, int t, int *topx, int *topy)
 {
     int xx, yy;
+    Shoreline *shore;
+
+    shore = (Shoreline *) malloc(sizeof(struct Shoreline));
+    shore->x = (int) malloc(sizeof(int));
+    shore->y = (int) malloc(sizeof(int));
+    shore->altitude = (int) malloc(sizeof(int));
+    shore->next = (Shoreline *) malloc(sizeof(struct Shoreline));
+
+    init_shore(shore);
 
     /* find a place in altitude near top */
     xx = topx[t - num_river] + (1 + rand() % 2) * di[rand() % 8];
@@ -713,11 +727,11 @@ static void new_setup_one_river_from_top(int num_river, int t, int *topx, int *t
     if ( yy < 0 || yy >= WORLD_SIDE_LEN)
         yy =  topy[t - num_river];
 
-    new_setup_one_river(xx, yy, 0);
+    new_setup_one_river(xx, yy, 0, shore);
     return;
 }
 
-static int new_setup_one_river( int xx, int yy, int lake_id)
+static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
 {
     int alt_max, x, y, alt, x0, y0;
     // start a river from point (xx, yy)
@@ -733,13 +747,20 @@ static int new_setup_one_river( int xx, int yy, int lake_id)
         y = yy;
         alt = ALT(x,y);
         for (int n = 0; n < 8; n++) {
-            if (ALT(x + di[n], y + dj[n]) < alt) {
-                xx = x + di[n];
-                yy = y + dj[n];
-                alt = ALT(xx, yy);
-                m = n;
+            if ( in_map(x + di[n], y + dj[n]) ) {
+                if (ALT(x + di[n], y + dj[n]) < alt) {
+                    xx = x + di[n];
+                    yy = y + dj[n];
+                    alt = ALT(xx, yy);
+                    m = n;
+                }
+                // find neighbours and update shore line if needed
+                // may mark as shoreline a point which will be set as river later. We don't care
+                if ( !XY_IS_WATER(x + di[n], y + dj[n]) )
+                    try_shore_point(x + di[n], y + dj[n], shore);
             }
         }
+
         set_river_tile(xx,yy);
         if (m>3) {
             // we did diagonal move, so we need to connect river
