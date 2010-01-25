@@ -61,7 +61,8 @@ static void sort_by_altitude(int n, int *tabx, int *taby);
 static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
 static void set_river_tile( int i, int j);
 static void do_rand_ecology(int x, int y);
-void init_shore(Shoreline * list);
+Shoreline * init_shore(void);
+void free_shore(Shoreline *shore);
 void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id);
 
 
@@ -179,8 +180,8 @@ void new_city(int *originx, int *originy, int random_village)
     clear_game();
     coal_reserve_setup();
 
-    //global_mountainity= 100 + rand () % 300; // roughly water slope = 25m / 1km (=from N to S)
-    global_mountainity = 200; //  nearly useless to have a random one (only impacts do_rand_ecology through ALT(x,y))
+    global_mountainity= 100 + rand () % 300; // roughly water slope = 25m / 1km (=from N to S)
+    //global_mountainity = 200; //  nearly useless to have a random one (only impacts do_rand_ecology through ALT(x,y))
     if (old_setup_ground) {
         setup_river();
         setup_ground();
@@ -216,6 +217,10 @@ void setup_land(void)
 
     global_aridity = aridity;
 
+    if( alt_step == 0 ){
+        printf("alt_step = 0\n");
+        alt_step = 400; // TODO: Why can alt_step be zero here? Quick hack to prevent crash WolfgangB 2008-09-13
+    }
 
     for (y = 0; y < WORLD_SIDE_LEN; y++) {
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -250,12 +255,8 @@ void setup_land(void)
                     arid = (aridity * 2) / 3;
             }
             /* Altitude has same effect as distance */
-            if( alt_step == 0 ){
-                printf("alt_step = 0\n");
-                 alt_step = 400; // TODO: Why can alt_step be zero here? Quick hack to prevent crash WolfgangB 2008-09-13
-            }
             r = rand() % (d2w_min / 3 + 1) + arid +
-                abs((ALT(x,y) - alt0) * 19 / alt_step) + 3 * (ALT(x,y) * ALT(x,y)) /1000000 ;
+                    abs((ALT(x,y) - alt0) * 19 / alt_step) + 3 * (ALT(x,y) * ALT(x,y)) /1000000 ;
             ground[x][y].ecotable=r;
             /* needed to setup quasi randome land. The flag is set below */
             MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
@@ -512,12 +513,6 @@ void new_setup_river(void)
     Shoreline *shore;
     int i, j, l, m , alt;
 
-    shore = (Shoreline *) malloc(sizeof(struct Shoreline));
-    shore->x = (int) malloc(sizeof(int));
-    shore->y = (int) malloc(sizeof(int));
-    shore->altitude = (int) malloc(sizeof(int));
-    shore->next = (Shoreline *) malloc(sizeof(struct Shoreline));
-
     // Put the gray border (not visible) at alt_min - 1, for easier rivers handling.
     for ( i = 0; i < WORLD_SIDE_LEN; i++) {
         ALT(i, 0) = alt_min - 1;
@@ -546,19 +541,40 @@ void new_setup_river(void)
     // fill lake until it overfills and creates a river
     for (i = l-1 ; i >= 0; i--) {
         fprintf(stdout, "\nLAKE %i\n", i);
-        init_shore(shore);
+        shore = init_shore();
         set_river_tile(lakx[i], laky[i]);
         overfill_lake(lakx[i], laky[i], shore, WORLD_SIDE_LEN * lakx[i] + laky[i] );
-	//free_list(shore);
+	    free_shore(shore);
     }
 }
 
-void init_shore(Shoreline * list)
+void free_shore(Shoreline *shore)
 {
-	list->x = -1;
-	list->y = -1;
-	list->altitude = -1;
-	list->next = NULL;
+    Shoreline * tmp;
+    while (shore->next != NULL) {
+        tmp = shore;
+        shore = shore->next;
+        free(tmp);
+    }
+    free(shore);
+}
+
+Shoreline * init_shore(void)
+{
+    Shoreline *shore;
+
+    shore = (Shoreline *) malloc(sizeof(struct Shoreline));
+    //shore->x = (int) malloc(sizeof(int));
+    //shore->y = (int) malloc(sizeof(int));
+    //shore->altitude = (int) malloc(sizeof(int));
+    shore->next = (Shoreline *) malloc(sizeof(struct Shoreline));
+
+	shore->x = -1;
+	shore->y = -1;
+	shore->altitude = -1;
+	shore->next = NULL;
+
+    return shore;
 }
 
 void add_shore_point(Shoreline * current, int x, int y, int altitude)
@@ -576,10 +592,6 @@ void add_shore_point(Shoreline * current, int x, int y, int altitude)
             current->next = newp;
 }
 
-void free_first_elem_list(Shoreline * list)
-{
-}
-
 void try_shore_point(int x, int y, Shoreline *shore)
 {
     Shoreline *current;
@@ -590,11 +602,10 @@ void try_shore_point(int x, int y, Shoreline *shore)
     while (current->next != NULL) {
         if (a < current->next->altitude) {
             // insert in beginning of the list
-            fprintf(stderr, " beginning point shore = %i, x %i, y %i, a %i\n", shore, x, y, a);
+            fprintf(stderr, " beginning point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
             add_shore_point(current, x, y, a);
             return;
         } else if (a == current->next->altitude) {
-            int count = 0;
             while ((current->next != NULL) && (current->next->altitude == a)) {
                 if ((current->x == x) && (current->y == y)) {
                     // do not insert the same shore point several times at different places in the list !
@@ -603,7 +614,7 @@ void try_shore_point(int x, int y, Shoreline *shore)
                 current = current->next;
             };
             //insert the shore point in the list
-            fprintf(stderr, " same alt point shore = %i, x %i, y %i\n", shore, x, y, a);
+            fprintf(stderr, " same alt point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
             add_shore_point(current, x, y, a);
             return;
         };
@@ -611,7 +622,7 @@ void try_shore_point(int x, int y, Shoreline *shore)
     };
     // we reached end of list
     // altitude of the point is strict maximum of the list
-    fprintf(stderr, " append point shore = %i, x %i, y %i, a %i\n", shore, x, y, a);
+    fprintf(stderr, " append point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
     if ((current->x != x) && (current->y != y))
         add_shore_point(current, x, y, a);
 }
@@ -705,32 +716,6 @@ static void sort_by_altitude(int n, int *tabx, int *taby)
     }
 }
 
-static void new_setup_one_river_from_top(int num_river, int t, int *topx, int *topy)
-{
-    int xx, yy;
-    Shoreline *shore;
-
-    shore = (Shoreline *) malloc(sizeof(struct Shoreline));
-    shore->x = (int) malloc(sizeof(int));
-    shore->y = (int) malloc(sizeof(int));
-    shore->altitude = (int) malloc(sizeof(int));
-    shore->next = (Shoreline *) malloc(sizeof(struct Shoreline));
-
-    init_shore(shore);
-
-    /* find a place in altitude near top */
-    xx = topx[t - num_river] + (1 + rand() % 2) * di[rand() % 8];
-    yy = topy[t - num_river] + (1 + rand() % 2) * dj[rand() % 8];
-    if ( xx < 0 || xx >= WORLD_SIDE_LEN)
-        xx =  topx[t - num_river];
-
-    if ( yy < 0 || yy >= WORLD_SIDE_LEN)
-        yy =  topy[t - num_river];
-
-    new_setup_one_river(xx, yy, 0, shore);
-    return;
-}
-
 static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
 {
     int alt_max, x, y, alt, x0, y0;
@@ -777,7 +762,6 @@ static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
     y = lake_id % WORLD_SIDE_LEN;
 
     fprintf(stdout, "lake_id %i, here %i, started from %i %i\n", lake_id,  WORLD_SIDE_LEN * xx + yy, x0, y0);
-    //if ( alt < ALT(x,y))
     if (lake_id == WORLD_SIDE_LEN * xx + yy)
         return 0;
     else
