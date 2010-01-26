@@ -75,7 +75,7 @@ MainMenu::loadMainMenu()
         Button* quitButton = getButton(*mainMenu, "QuitButton");
         quitButton->clicked.connect(
                 makeCallback(*this, &MainMenu::quitButtonClicked));
-        Button* continueButton = getButton(*mainMenu, "ContinueButton"); 
+        Button* continueButton = getButton(*mainMenu, "ContinueButton");
         continueButton->clicked.connect(
                 makeCallback(*this, &MainMenu::continueButtonClicked));
         Button* newGameButton = getButton(*mainMenu, "NewGameButton");
@@ -93,7 +93,7 @@ MainMenu::loadMainMenu()
         Button* optionsButton = getButton(*mainMenu, "OptionsButton");
         optionsButton->clicked.connect(
                 makeCallback(*this, &MainMenu::optionsButtonClicked));
- 
+
     }
 
     mainMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
@@ -102,17 +102,17 @@ MainMenu::loadMainMenu()
 void MainMenu::fillNewGameMenu()
 {
   const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
-  
+
   char **files= PHYSFS_enumerateFiles("opening");
-  
+
   char **fptr=files;
 
-  fileMap.clear(); 
- 
+  fileMap.clear();
+
   for(int i=0;i<6;i++)
   {
     CheckButton *button=getCheckButton(*newGameMenu.get(),buttonNames[i]);
-    
+
     button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
     while(*fptr)
     {
@@ -128,7 +128,7 @@ void MainMenu::fillNewGameMenu()
       }
       // save real name
       fileMap.insert(std::pair<std::string, std::string>(buttonNames[i], f ));
-      // use translated name for caption 
+      // use translated name for caption
       button->setCaptionText(_(f.c_str()));
       fptr++;
     }
@@ -148,7 +148,7 @@ void MainMenu::fillNewGameMenu()
 void MainMenu::fillLoadMenu( bool save /*= false*/ )
 {
     const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
-  
+
     char** rc = PHYSFS_enumerateFiles("/");
 
     char* curfile;
@@ -165,8 +165,8 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
         } else {
             button = getCheckButton(*loadGameMenu.get(),buttonNames[i]);
         }
-        //make sure Button is connected only once 
-        button->clicked.clear(); 
+        //make sure Button is connected only once
+        button->clicked.clear();
         if( save )
             button->clicked.connect(makeCallback(*this,&MainMenu::selectSaveGameButtonClicked));
         else {
@@ -271,7 +271,7 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "ResolutionNext");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-        
+
         Button* currentButton = getButton(*optionsMenu, "BackButton");
         currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsBackButtonClicked));
     }
@@ -348,12 +348,12 @@ MainMenu::selectLoadGameButtonClicked(CheckButton* button, int i){
     selectLoadSaveGameButtonClicked( button , i,  false );
 }
 
-void 
+void
 MainMenu::selectSaveGameButtonClicked(CheckButton* button, int i){
     selectLoadSaveGameButtonClicked( button , i, true );
 }
 
-void 
+void
 MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
 {
     std::string fc=button->getCaptionText();
@@ -364,18 +364,18 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
             fc = iter->second;
         }
     }
-  
+
     std::string file="";
-    
+
     /* I guess this should be the proper way of selecting in the menu.
        Everytime we check a new button the last one gets unchecked.
-       If the button checked is an empty one, nothing should be opened 
+       If the button checked is an empty one, nothing should be opened
        Could be done the other way around: the first time an existing item
        is selected in the menu, an empty one could never be checked again.
        Anyway I don't think both should be checked, when an empty is checked
        after an existing one.
     */
-       
+
     const std::string bs[]={"File0","File1","File2","File3","File4","File5",""};
     for(int i=0;std::string(bs[i]).length();i++) {
         CheckButton *b=getCheckButton(*currentMenu,bs[i]);
@@ -390,24 +390,24 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
         mFilename = "";
         return;
     }
-    
+
     baseName = fc;
     if(newGameMenu.get()==currentMenu ) {
         file=std::string("opening/")+fc+".scn";
     } else {
         file=fc;
     }
-    
+
     mFilename="";
     if(newGameMenu.get()!=currentMenu) {
-        slotNr = 1 + atoi( 
+        slotNr = 1 + atoi(
                 const_cast<char*>(button->getName().substr(4).c_str()) );
         if( file.length() == 0){
             mFilename = "";
             return;
         }
     }
-    
+
     mFilename+=file;
     Uint32 now = SDL_GetTicks();
 
@@ -418,7 +418,7 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
         lastClickTick = 0;
         doubleClickButtonName = "";
         if( newGameMenu.get() == currentMenu ) {
-            //load scenario 
+            //load scenario
             newGameStartButtonClicked( 0 );
         } else {
             //load game
@@ -438,19 +438,19 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     } else if( buttonName == "MusicVolumePlus"){
         int newVolume = getConfig()->musicVolume + 5;
         if( newVolume > 100 ){
-           newVolume = 100; 
+           newVolume = 100;
         }
         if( getConfig()->musicVolume != newVolume ){
-            getSound()->setMusicVolume( newVolume ); 
+            getSound()->setMusicVolume( newVolume );
             getSound()->playSound("Click");
         }
     } else if( buttonName == "MusicVolumeMinus"){
         int newVolume = getConfig()->musicVolume -5;
         if( newVolume < 0 ){
-           newVolume = 0; 
+           newVolume = 0;
         }
         if( getConfig()->musicVolume != newVolume ){
-            getSound()->setMusicVolume( newVolume ); 
+            getSound()->setMusicVolume( newVolume );
             getSound()->playSound("Click");
         }
     } else if( buttonName == "SoundFX"){
@@ -459,19 +459,19 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     } else if( buttonName == "FXVolumePlus"){
         int newVolume = getConfig()->soundVolume + 5;
         if( newVolume > 100 ){
-           newVolume = 100; 
+           newVolume = 100;
         }
         if( getConfig()->soundVolume != newVolume ){
-            getSound()->setSoundVolume( newVolume ); 
+            getSound()->setSoundVolume( newVolume );
             getSound()->playSound("Click");
         }
     } else if( buttonName == "FXVolumeMinus"){
         int newVolume = getConfig()->soundVolume - 5;
         if( newVolume < 0 ){
-           newVolume = 0; 
+           newVolume = 0;
         }
         if( getConfig()->soundVolume != newVolume ){
-            getSound()->setSoundVolume( newVolume ); 
+            getSound()->setSoundVolume( newVolume );
             getSound()->playSound("Click");
         }
     } else if( buttonName == "ResolutionPrev"){
@@ -480,7 +480,7 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeResolution(true);
     } else if( buttonName == "Fullscreen"){
         getSound()->playSound("Click");
-        getConfig()->useFullScreen = !getConfig()->useFullScreen; 
+        getConfig()->useFullScreen = !getConfig()->useFullScreen;
         if( getConfig()->restartOnChangeScreen ){
             quitState = RESTART;
             running = false;
@@ -494,7 +494,7 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeTrack(true);
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
-    }    
+    }
 }
 
 /** Changes the displayed resolution in the options menu.
@@ -518,19 +518,19 @@ void MainMenu::changeResolution(bool next) {
         modes = SDL_ListModes(NULL,  flags);
 
     }
-    
+
     if(modes == NULL) {
         std::cerr << "Error: SDL reports that no video modes are available!\n";
         return;
-    } else if (modes == (SDL_Rect**)-1) {    
+    } else if (modes == (SDL_Rect**)-1) {
         /* FIXME: SDL docs say that this means that "Any dimension is okay for the given
-         format". I'm not sure what to do in this case. For now I will just report an error. 
+         format". I'm not sure what to do in this case. For now I will just report an error.
         It may be an option to just show some default modes.
             Jaky */
         std::cerr << "FIXME: SDL reports that any video mode is possible. Please report to the lincity-ng bugtracker if you get this error. Please use the --size switch or edit userconfig.xml to set your resolution.\n";
         return;
     }
-    
+
     /* Go through the video modes to find the currently selected one */
     std::string currentMode = getParagraph( *optionsMenu, "resolutionParagraph")->getText();
     int new_mode = 0;
@@ -578,12 +578,12 @@ MainMenu::changeTrack( bool next)
         fullname = directory;
         fullname.append( *fptr );
         filename.assign( *fptr );
-        
+
         if(!PHYSFS_isDirectory(fullname.c_str())){
             if( filename == currentname ){
                 hit = true;
             } else if ( !hit ){
-                prevname = filename; 
+                prevname = filename;
             } else {
                 nextname = filename;
                 break;
@@ -703,7 +703,7 @@ MainMenu::newGameStartButtonClicked(Button* )
         quitState = INGAME;
         running = false;
     }
-    mFilename = "empty"; //don't erase scenarios later 
+    mFilename = "empty"; //don't erase scenarios later
 }
 
 void
@@ -741,7 +741,7 @@ MainMenu::loadGameBackButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
     loadMainMenu();
-    switchMenu(mainMenu.get());   
+    switchMenu(mainMenu.get());
 }
 
 void
@@ -749,7 +749,7 @@ MainMenu::gotoMainMenu()
 {
     getSound()->playSound( "Click" );
     loadMainMenu();
-    switchMenu(mainMenu.get());   
+    switchMenu(mainMenu.get());
 }
 
 void
@@ -787,18 +787,18 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     newStart << std::setfill('0') << std::setw(3);
     int money = abs(total_money);
     if (money > 1000000000)
-        newStart << money/1000000000 << "G";  
+        newStart << money/1000000000 << "G";
     else if (money > 1000000)
-        newStart << money/1000000 << "M";  
+        newStart << money/1000000 << "M";
     else  if(money > 1000)
-        newStart << money/1000 << "K"; 
+        newStart << money/1000 << "K";
     else
         newStart << money/1 << "_";
- 
+
     newStart << "_P";
     newStart << std::setfill('0') << std::setw(5);
     newStart << housed_population + people_pool;
-    std::string newFilename( newStart.str() ); 
+    std::string newFilename( newStart.str() );
     saveCityNG( newFilename );
     fillLoadMenu( true );
 }
@@ -811,7 +811,7 @@ MainMenu::run()
     running = true;
     quitState = QUIT;
     Uint32 ticks = SDL_GetTicks();
-    
+
     int frame = 0;
     while(running) {
         while(SDL_PollEvent(&event)) {
@@ -863,12 +863,12 @@ MainMenu::run()
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
             flipScreenBuffer();
-        } 
+        }
 
         frame++;
         if(SDL_GetTicks() - ticks > 1000) {
 #ifdef DEBUG_FPS
-            printf("FPS: %d.\n", frame);
+            printf("MainMenu FPS: %d.\n", frame);
 #endif
             frame = 0;
             ticks = SDL_GetTicks();

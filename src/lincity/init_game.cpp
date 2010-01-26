@@ -57,7 +57,7 @@ static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void setup_ground(void);
 static void new_setup_river_ground(void);
 static void new_setup_river(void);
-static void sort_by_altitude(int n, int *tabx, int *taby);
+//static void sort_by_altitude(int n, int *tabx, int *taby);
 static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
 static void set_river_tile( int i, int j);
 static void do_rand_ecology(int x, int y);
@@ -691,6 +691,8 @@ static void set_river_tile( int i, int j)
     MP_INFO(i, j).flags |= FLAG_IS_RIVER;
 }
 
+/*  AL1: commented out, because unused currently
+
 static void sort_by_altitude(int n, int *tabx, int *taby)
 {
     // sort ascending
@@ -710,11 +712,9 @@ static void sort_by_altitude(int n, int *tabx, int *taby)
                 taby[j] = tmp_y;
                 sorted = false;
             }
-        /*fprintf(stderr," sorted = %i, n - i -1 = %i, ALT() = %i\n",
-         *       sorted, n - i -1, ALT(tabx[n-i-1], taby[n -i -1]));
-         */
     }
 }
+*/
 
 static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
 {

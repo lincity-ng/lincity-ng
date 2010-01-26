@@ -324,7 +324,7 @@ static const char *guess_category_value(int category, const char *categoryname)
 #endif
 }
 
-/* GCS:  This function is modified from gettext.  It finds the language 
+/* GCS:  This function is modified from gettext.  It finds the language
    portion of the locale. */
 static void lincity_nl_find_language(char *name)
 {
@@ -498,7 +498,7 @@ void check_savedir(void)
 
 void malloc_failure(void)
 {
-    printf(_("Out of memory: malloc failure\n"));
+    printf("%s",_("Out of memory: malloc failure\n"));
     exit(1);
 }
 
@@ -565,7 +565,7 @@ void debug_printf(char *fmt, ...)
     vfprintf(fp, fmt, argptr);
 #endif
 
-    /* FIXME: maybe uncomment this 
+    /* FIXME: maybe uncomment this
        if (command_line_debug) {
        #if (!DEBUG_PRINTF_TO_FILE)
        va_start (argptr, fmt);

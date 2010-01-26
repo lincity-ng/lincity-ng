@@ -56,7 +56,7 @@ void closeAllDialogs(){
 }
 
 Dialog::Dialog( int type ){
-    initDialog();   
+    initDialog();
     switch( type ){
         case ASK_COAL_SURVEY:
             coalSurvey();
@@ -70,9 +70,9 @@ Dialog::Dialog( int type ){
             throw std::runtime_error(msg.str());
     }
 }
-   
+
 Dialog::Dialog( int type, std::string message, std::string extraString){
-    initDialog();   
+    initDialog();
     switch( type ){
         case MSG_DIALOG:
             msgDialog( message, extraString );
@@ -123,7 +123,7 @@ void Dialog::initDialog( int x /*= -1*/, int y /*= -1*/ ){
         while( root->getParent() )
             root = root->getParent();
         desktop = dynamic_cast<Desktop*> (root);
-        if(!desktop) 
+        if(!desktop)
             std::cerr << "Root not a desktop!?!\n";
     } else {
         std::cerr << "Dialog: Root not found.\n";
@@ -139,8 +139,8 @@ void Dialog::registerDialog(){
 }
 
 void Dialog::unRegisterDialog(){
-    std::vector<Dialog*>::iterator iter = dialogVector.begin(); 
-    std::vector<Dialog*>::iterator del; 
+    std::vector<Dialog*>::iterator iter = dialogVector.begin();
+    std::vector<Dialog*>::iterator del;
     while( iter <= dialogVector.end() ){
         if ( *iter == this ){
             del = iter;
@@ -328,11 +328,11 @@ void Dialog::setParagraph( const std::string paragraphName, const std::string te
     }
 }
 
-/* 
+/*
  * Show game statistics in dialog and write them to RESULTS_FILENAME.
  *
- * gamestats.xml has 11 lines 
- * statistic_text1 
+ * gamestats.xml has 11 lines
+ * statistic_text1
  * [...]
  * statistic_text11
  * and 15 lines in a Table with 6 columns
@@ -361,7 +361,7 @@ void Dialog::gameStats(){
     } else {
         useExisting = true;
     }
-    
+
     // Fill in Fields.
     int line = 1;
     int maxlength = 567;
@@ -378,7 +378,7 @@ void Dialog::gameStats(){
         setParagraphN( "statistic_text", line++, outf );
     }
     if (sustain_flag){
-	    snprintf (outf, maxlength, _("Economy is sustainable"));
+	    snprintf (outf, maxlength, "%s", _("Economy is sustainable"));
         setParagraphN( "statistic_text", line++, outf );
     }
     snprintf (outf, maxlength, _("Population  %d  of which  %d  are not housed.")
@@ -415,15 +415,15 @@ void Dialog::gameStats(){
     free( outf );
 
     setTableRC("statistic", 1, 1, _("Residences"),
-	     group_count[GROUP_RESIDENCE_LL] + 
-	     group_count[GROUP_RESIDENCE_ML] + 
-	     group_count[GROUP_RESIDENCE_HL] + 
-	     group_count[GROUP_RESIDENCE_LH] + 
-	     group_count[GROUP_RESIDENCE_MH] + 
+	     group_count[GROUP_RESIDENCE_LL] +
+	     group_count[GROUP_RESIDENCE_ML] +
+	     group_count[GROUP_RESIDENCE_HL] +
+	     group_count[GROUP_RESIDENCE_LH] +
+	     group_count[GROUP_RESIDENCE_MH] +
 	     group_count[GROUP_RESIDENCE_HH]);
     setTableRC("statistic", 1, 2, _("Markets"), group_count[GROUP_MARKET] );
     setTableRC("statistic", 1, 3, _("Farms"), group_count[GROUP_ORGANIC_FARM]);
-    
+
     setTableRC("statistic", 2, 1, _("Water wells"), group_count[GROUP_WATERWELL]);
     setTableRC("statistic", 2, 2, "", "");
     setTableRC("statistic", 2, 3, "", "");
@@ -432,7 +432,7 @@ void Dialog::gameStats(){
     setTableRC("statistic", 3, 2, "", "");
     setTableRC("statistic", 3, 3, "", "");
 
-    setTableRC("statistic", 4, 1, _("Monuments"), group_count[GROUP_MONUMENT]); 
+    setTableRC("statistic", 4, 1, _("Monuments"), group_count[GROUP_MONUMENT]);
     setTableRC("statistic", 4, 2, _("Schools"),  group_count[GROUP_SCHOOL]);
     setTableRC("statistic", 4, 3, _("Universities"), group_count[GROUP_UNIVERSITY]);
 
@@ -479,7 +479,7 @@ void Dialog::gameStats(){
     setTableRC("statistic", 15, 1, "", "");
     setTableRC("statistic", 15, 2, "", "");
     setTableRC("statistic", 15, 3, "", "");
-   
+
     if( !useExisting ){
         // connect signals
         Button* noButton = getButton( *myDialogComponent, "Okay" );
@@ -487,7 +487,7 @@ void Dialog::gameStats(){
     }
 }
 
-/* 
+/*
  * Save game statistics to RESULTS_FILENAME. Do NOT translate text here!
  * That way the files can be used for highscores.
  */
@@ -501,7 +501,7 @@ void Dialog::saveGameStats(){
 
     std::ofstream results( s );
     free( s );
-    
+
     // Fill in Fields.
     int maxlength = 567;
     char* outf = (char *) malloc ( maxlength );
@@ -550,11 +550,11 @@ void Dialog::saveGameStats(){
     results << "" << std::endl;
 
     snprintf (outf, maxlength, "    Residences %4d         Markets %4d            Farms %4d",
-	     group_count[GROUP_RESIDENCE_LL] + 
-	     group_count[GROUP_RESIDENCE_ML] + 
-	     group_count[GROUP_RESIDENCE_HL] + 
-	     group_count[GROUP_RESIDENCE_LH] + 
-	     group_count[GROUP_RESIDENCE_MH] + 
+	     group_count[GROUP_RESIDENCE_LL] +
+	     group_count[GROUP_RESIDENCE_ML] +
+	     group_count[GROUP_RESIDENCE_HL] +
+	     group_count[GROUP_RESIDENCE_LH] +
+	     group_count[GROUP_RESIDENCE_MH] +
 	     group_count[GROUP_RESIDENCE_HH],
 	     group_count[GROUP_MARKET],
 	     group_count[GROUP_ORGANIC_FARM]);
@@ -603,10 +603,10 @@ void Dialog::saveGameStats(){
 	     ,group_count[GROUP_COMMUNE]);
     results << outf << std::endl;
     results << "" << std::endl;
-    
+
     //close File
     results.close();
-        
+
     free( outf );
 }
 
@@ -717,81 +717,81 @@ void Dialog::editPort(){
 void Dialog::applyMarketButtonClicked( Button* b ){
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyJobs" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_JOBS; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_JOBS;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_JOBS; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_JOBS;
     }
     cb = getCheckButton( *myDialogComponent, "SellJobs" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_JOBS; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_JOBS;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_JOBS; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_JOBS;
     }
     applyPortButtonClicked( b );
 }
-    
+
 void Dialog::applyPortButtonClicked( Button* ){
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_FOOD; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_FOOD;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_FOOD; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_FOOD;
     }
     cb = getCheckButton( *myDialogComponent, "SellFood" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_FOOD; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_FOOD;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_FOOD; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_FOOD;
     }
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_COAL; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_COAL;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_COAL; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_COAL;
     }
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_COAL; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_COAL;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_COAL; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_COAL;
     }
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_ORE; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_ORE;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_ORE; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_ORE;
     }
     cb = getCheckButton( *myDialogComponent, "SellOre" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_ORE; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_ORE;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_ORE; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_ORE;
     }
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_GOODS; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_GOODS;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_GOODS; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_GOODS;
     }
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_GOODS; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_GOODS;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_GOODS; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_GOODS;
     }
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_STEEL; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MB_STEEL;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_STEEL; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_STEEL;
     }
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
-    if( cb->state == CheckButton::STATE_CHECKED ){  
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_STEEL; 
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        MP_INFO( pointX,pointY ).flags |= FLAG_MS_STEEL;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_STEEL; 
+        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_STEEL;
     }
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
@@ -807,7 +807,7 @@ void Dialog::okayLaunchRocketButtonClicked( Button* ){
 
 
 void Dialog::okayCoalSurveyButtonClicked( Button* ){
-    do_coal_survey();    
+    do_coal_survey();
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
