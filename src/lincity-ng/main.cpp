@@ -108,7 +108,7 @@ void initPhysfs(const char* argv0)
 
         if(!PHYSFS_setWriteDir(writedir)) {
             std::ostringstream msg;
-            msg << "Failed to use configuration directory '" <<            
+            msg << "Failed to use configuration directory '" <<
                 writedir << "': " << PHYSFS_getLastError();
             delete[] writedir;
             throw std::runtime_error(msg.str());
@@ -127,7 +127,7 @@ void initPhysfs(const char* argv0)
     char** rc = PHYSFS_enumerateFiles("/");
     size_t extlen = strlen(archiveExt);
 //TODO sort .zip files! so we are sure which patch is first.
-//and change all file access to physfs. what does PHYSFS_getRealDir 
+//and change all file access to physfs. what does PHYSFS_getRealDir
 //do when file in in archive?
     for(char** i = rc; *i != 0; ++i) {
         size_t l = strlen(*i);
@@ -144,7 +144,7 @@ void initPhysfs(const char* argv0)
     }
 
     PHYSFS_freeList(rc);
-            
+
     // when started from source dir...
     std::string dir = PHYSFS_getBaseDir();
     dir += "/data";
@@ -156,7 +156,7 @@ void initPhysfs(const char* argv0)
         fclose(f);
         if(!PHYSFS_addToSearchPath(dir.c_str(), 1)) {
 #ifdef DEBUG
-            std::cout << "Warning: Couldn't add '" << dir << 
+            std::cout << "Warning: Couldn't add '" << dir <<
                 "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
 #endif
         }
@@ -171,7 +171,7 @@ void initPhysfs(const char* argv0)
                 error);
         printf ("Will fallback to hardcoded default path.\n");
     }
-    
+
     char* brdatadir = br_find_data_dir("/usr/local/share");
     datadir = brdatadir;
     datadir += "/" PACKAGE_NAME;
@@ -179,7 +179,7 @@ void initPhysfs(const char* argv0)
 #else
     datadir = APPDATADIR;
 #endif
-    
+
     if(!PHYSFS_addToSearchPath(datadir.c_str(), 1)) {
         std::cout << "Couldn't add '" << datadir
             << "' to physfs searchpath: " << PHYSFS_getLastError() << "\n";
@@ -189,7 +189,7 @@ void initPhysfs(const char* argv0)
     // allow symbolic links
     PHYSFS_permitSymbolicLinks(1);
 
-    //show search Path 
+    //show search Path
     for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++){
         printf("[%s] is in the search path.\n", *i);
     }
@@ -257,9 +257,9 @@ void initVideo(int width, int height)
         glOrtho(0, screen->w, screen->h, 0, -1, 1);
 
         glClear(GL_COLOR_BUFFER_BIT);
-    
+
         painter = new PainterGL();
-        std::cout << "OpenGL Mode " << getConfig()->videoX; 
+        std::cout << "OpenGL Mode " << getConfig()->videoX;
         std::cout << "x" << getConfig()->videoY << "\n";
     } else {
         painter = new PainterSDL(screen);
@@ -302,13 +302,13 @@ void checkGlErrors()
             case GL_STACK_OVERFLOW:
                 std::cerr << "GL_STACK_OVERFLOW";
                 break;
-            case GL_STACK_UNDERFLOW: 
+            case GL_STACK_UNDERFLOW:
                 std::cerr << "GL_STACK_UNDERFLOW";
                 break;
-            case GL_TABLE_TOO_LARGE:           
+            case GL_TABLE_TOO_LARGE:
                 std::cerr << "GL_TABLE_TOO_LARGE";
                 break;
-            case GL_OUT_OF_MEMORY:           
+            case GL_OUT_OF_MEMORY:
                 std::cerr << "GL_OUT_OF_MEMORY";
                 break;
             default:
@@ -336,15 +336,6 @@ void mainLoop()
     std::auto_ptr<Game> game;
     MainState state = MAINMENU;
     MainState nextstate;
-    
-    //we need the game-gui to set all states while loading a savegame
-    if(game.get() == 0)
-        game.reset(new Game());
-    while(!LCPBarInstance){//wait until PBars exist so they can be initalized
-        printf(".");
-        SDL_Delay(100);
-    }
-    initLincity();
 
     while(state != QUIT) {
         switch(state) {
@@ -357,8 +348,14 @@ void mainLoop()
                 break;
             case INGAME:
                 {
-                    if(game.get() == 0)
+                    if(game.get() == 0) {
                         game.reset(new Game());
+                        while(!LCPBarInstance){//wait until PBars exist so they can be initalized
+                            printf(".");
+                            SDL_Delay(100);
+                        }
+                        initLincity();
+                    }
                     nextstate = game->run();
                     if(menu.get() == 0)
                         menu.reset(new MainMenu());
@@ -372,7 +369,7 @@ void mainLoop()
             default:
                 assert(false);
         }
-        
+
         state = nextstate;
     }
 }
@@ -381,7 +378,7 @@ void parseCommandLine(int argc, char** argv)
 {
     for(int currentArgument = 1; currentArgument < argc; ++currentArgument) {
         std::string argStr = argv[currentArgument];
-        
+
         if(argStr == "-v" || argStr == "--version") {
             std::cout << PACKAGE_NAME << " version " << PACKAGE_VERSION << "\n";
             exit(0);
@@ -407,7 +404,7 @@ void parseCommandLine(int argc, char** argv)
         } else if(argStr == "-g" || argStr == "--gl") {
             getConfig()->useOpenGL = true;
         } else if(argStr == "-s" || argStr == "--sdl") {
-            getConfig()->useOpenGL = false; 
+            getConfig()->useOpenGL = false;
         } else if(argStr == "-S" || argStr == "--size") {
             currentArgument++;
             if(currentArgument >= argc) {
@@ -428,9 +425,9 @@ void parseCommandLine(int argc, char** argv)
             getConfig()->videoX = newX;
             getConfig()->videoY = newY;
         } else if(argStr == "-f" || argStr == "--fullscreen") {
-            getConfig()->useFullScreen = true; 
+            getConfig()->useFullScreen = true;
         } else if(argStr == "-w" || argStr == "--window") {
-            getConfig()->useFullScreen = false; 
+            getConfig()->useFullScreen = false;
         } else if(argStr == "-m" || argStr == "--mute") {
             getConfig()->soundEnabled = false;
             getConfig()->musicEnabled = false;
@@ -467,34 +464,34 @@ int main(int argc, char** argv)
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ")...\n";
 #else
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
-#endif                                                     
+#endif
         initPhysfs(argv[0]);
         dictionaryManager = new TinyGetText::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");
         dictionaryManager->add_directory("locale");
         std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";
-        
+
 #ifndef DEBUG
     } catch(std::exception& e) {
-        std::cerr << "Unexpected exception: " << e.what() << "\n";        
+        std::cerr << "Unexpected exception: " << e.what() << "\n";
         return 1;
     } catch(...) {
         std::cerr << "Unexpected exception.\n";
         return 1;
-    }                                                                     
+    }
 #endif
     parseCommandLine(argc, argv); // Do not use getConfig() before parseCommandLine.
-    
+
     fast_time_for_year = getConfig()->quickness;
     fprintf(stderr," fast = %i\n", fast_time_for_year);
-   
+
 // in debug mode we want a backtrace of the exceptions so we don't catch them
 #ifndef DEBUG
     try {
 #endif
         xmlInitParser ();
-        std::auto_ptr<Sound> sound; 
-        sound.reset(new Sound()); 
+        std::auto_ptr<Sound> sound;
+        sound.reset(new Sound());
         initSDL();
         initTTF();
         initVideo(getConfig()->videoX, getConfig()->videoY);
