@@ -51,6 +51,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "tinygettext/gettext.hpp"
 
 extern void new_city(int *originx, int *originy, int random_village);
+extern void new_desert_city(int *originx, int *originy, int random_village);
+extern void new_temperate_city(int *originx, int *originy, int random_village);
+extern void new_swamp_city(int *originx, int *originy, int random_village);
 
 MainMenu::MainMenu()
 {
@@ -214,17 +217,27 @@ MainMenu::loadNewGameMenu()
 
         // connect signals
         Button* startButton = getButton(*newGameMenu, "StartButton");
-        startButton->clicked.connect(
-                makeCallback(*this, &MainMenu::newGameStartButtonClicked));
+        startButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartButtonClicked));
+
         Button* backButton = getButton(*newGameMenu, "BackButton");
-        backButton->clicked.connect(
-                makeCallback(*this, &MainMenu::newGameBackButtonClicked));
+        backButton->clicked.connect(makeCallback(*this, &MainMenu::newGameBackButtonClicked));
+
         Button* startBareButton = getButton(*newGameMenu, "StartBareButton");
-        startBareButton->clicked.connect(
-                makeCallback(*this, &MainMenu::newGameStartBareButtonClicked));
+        startBareButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartBareButtonClicked));
+
         Button* startVillageButton = getButton(*newGameMenu, "StartVillageButton");
-        startVillageButton->clicked.connect(
-                makeCallback(*this, &MainMenu::newGameStartVillageClicked));
+        startVillageButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartVillageClicked));
+
+        Button* startRandomDesertButton = getButton(*newGameMenu, "StartRandomDesertButton");
+        startRandomDesertButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartDesertClicked));
+
+        Button* startRandomTemperateButton = getButton(*newGameMenu, "StartRandomTemperateButton");
+        startRandomTemperateButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartTemperateClicked));
+
+        Button* startRandomSwampButton = getButton(*newGameMenu, "StartRandomSwampButton");
+        startRandomSwampButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartSwampClicked));
+
+
         fillNewGameMenu();
     }
 
@@ -722,6 +735,39 @@ MainMenu::newGameStartVillageClicked(Button* )
 {
     getSound()->playSound( "Click" );
     new_city( &main_screen_originx, &main_screen_originy, 1 );
+    GameView* gv = getGameView();
+    if( gv ){ gv->readOrigin(); }
+    quitState = INGAME;
+    running = false;
+}
+
+void
+MainMenu::newGameStartDesertClicked(Button* )
+{
+    getSound()->playSound( "Click" );
+    new_desert_city( &main_screen_originx, &main_screen_originy, 1 );
+    GameView* gv = getGameView();
+    if( gv ){ gv->readOrigin(); }
+    quitState = INGAME;
+    running = false;
+}
+
+void
+MainMenu::newGameStartTemperateClicked(Button* )
+{
+    getSound()->playSound( "Click" );
+    new_temperate_city( &main_screen_originx, &main_screen_originy, 1 );
+    GameView* gv = getGameView();
+    if( gv ){ gv->readOrigin(); }
+    quitState = INGAME;
+    running = false;
+}
+
+void
+MainMenu::newGameStartSwampClicked(Button* )
+{
+    getSound()->playSound( "Click" );
+    new_swamp_city( &main_screen_originx, &main_screen_originy, 1 );
     GameView* gv = getGameView();
     if( gv ){ gv->readOrigin(); }
     quitState = INGAME;

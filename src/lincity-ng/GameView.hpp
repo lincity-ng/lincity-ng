@@ -23,15 +23,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Vector2.hpp"
 #include "gui/Texture.hpp"
 #include <time.h>
-#include <SDL.h> 
+#include <SDL.h>
 #include <SDL_thread.h>
 #include <SDL_image.h>
 
 #include "lincity/engglobs.h"
 #include "MapPoint.hpp"
 #include "MiniMap.hpp"
-
-#undef DEBUG_FPS
 
 class GameView : public Component
 {
@@ -40,29 +38,29 @@ public:
     ~GameView();
 
     void parse(XmlReader& reader);
-    
+
     void draw(Painter& painter);
     void resize(float width, float height );
     void event(const Event& event);
 
     void requestRedraw();
 
-    //Show City Tile(x/y) by centering the screen 
+    //Show City Tile(x/y) by centering the screen
     void show(MapPoint point, bool redraw = true );
     MapPoint getCenter();
-        
+
     //Set Zoomlevel to default
     void resetZoom();
-    //increase Zoomlevel 
+    //increase Zoomlevel
     void zoomIn();
-    //decrease Zoomlevel 
+    //decrease Zoomlevel
     void zoomOut();
 
     //scroll the map
     void scroll( void );
 
     //size in Tiles of marking under Cursor
-    void setCursorSize( int size ); 
+    void setCursorSize( int size );
 
     //inform GameView about change in Mini Map Mode
     void setMapMode( MiniMap::DisplayMode mMode );
@@ -73,7 +71,7 @@ public:
     //evaluate main_screen_originx and main_screen_originy
     void readOrigin( bool redraw = true );
     //set main_screen_originx and main_screen_originy
-    void writeOrigin();    
+    void writeOrigin();
 
     void printStatusMessage( std::string message );
 
@@ -91,13 +89,13 @@ private:
     void drawDiamond( Painter& painter, const Rect2D& rect );
     void loadTextures();
     static int gameViewThread(void* data);
-    
+
     void setZoom(float newzoom);
     Texture* readTexture(const std::string& filename);
     SDL_Surface* readImage(const std::string& filename);
     void preReadCityTexture(int textureType, const std::string& filename);
 
-    float tileWidth, tileHeight, zoom; 
+    float tileWidth, tileHeight, zoom;
     //a virtual screen containing the whole city
     float virtualScreenWidth, virtualScreenHeight;
 
@@ -121,7 +119,7 @@ private:
 
     int bulldozeCost( MapPoint tile );
     int buildCost( MapPoint tile );
-    
+
     Texture* cityTextures[ NUM_OF_TYPES ];
     SDL_Surface* cityImages[ NUM_OF_TYPES ];
     Texture* blankTexture;
@@ -131,17 +129,17 @@ private:
     SDL_mutex* mThreadRunning;
     SDL_Thread* loaderThread;
     volatile bool stopThread;
-        
+
     MapPoint tileUnderMouse;
     Vector2 dragStart;
     bool mouseInGameView;
     bool dragging, rightButtonDown;
     Uint32 dragStartTime;
-    
+
     bool roadDragging, leftButtonDown;
     MapPoint startRoad;
     bool areaBulldoze;
-    
+
     static const float defaultTileWidth;
     static const float defaultTileHeight;
     static const float defaultZoom;
@@ -166,7 +164,7 @@ private:
 };
 
 GameView* getGameView();
-  
+
 Uint32 autoScroll( Uint32 interval, void *param );
 static const int scrollBorder = 5;
 

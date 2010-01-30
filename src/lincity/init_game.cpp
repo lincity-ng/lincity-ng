@@ -57,13 +57,14 @@ static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void setup_ground(void);
 static void new_setup_river_ground(void);
 static void new_setup_river(void);
-//static void sort_by_altitude(int n, int *tabx, int *taby);
+static void sort_by_altitude(int n, int *tabx, int *taby);
 static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
 static void set_river_tile( int i, int j);
 static void do_rand_ecology(int x, int y);
-Shoreline * init_shore(void);
-void free_shore(Shoreline *shore);
-void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id);
+static Shoreline * init_shore(void);
+static void free_shore(Shoreline *shore);
+static void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id);
+static void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate);
 
 
 /* ---------------------------------------------------------------------- *
@@ -171,51 +172,32 @@ void clear_game(void)
     update_pbars_monthly();
 }
 
+
 void new_city(int *originx, int *originy, int random_village)
 {
-    int old_setup_ground = true;
-#ifdef EXPERIMENTAL
-    old_setup_ground = false;
-#endif
-    clear_game();
-    coal_reserve_setup();
-
-    global_mountainity= 100 + rand () % 300; // roughly water slope = 25m / 1km (=from N to S)
-    //global_mountainity = 200; //  nearly useless to have a random one (only impacts do_rand_ecology through ALT(x,y))
-    if (old_setup_ground) {
-        setup_river();
-        setup_ground();
-    } else {
-        new_setup_river_ground();
-    }
-    setup_land();
-    ore_reserve_setup();
-    init_pbars();
-
-    /* Initial population is 100 for empty board or 200
-       for random village (100 are housed). */
-    people_pool = 100;
-
-    if (random_village != 0) {
-        random_start(originx, originy);
-        update_pbar(PPOP, 200, 1);      /* So pbars don't flash */
-    } else {
-        *originx = *originy = WORLD_SIDE_LEN / 2;
-        update_pbar(PPOP, 100, 1);
-    }
-    connect_transport(1, 1, WORLD_SIDE_LEN - 2, WORLD_SIDE_LEN - 2);
-    /* Fix desert frontier for old saved games and scenarios */
-    desert_frontier(0, 0, WORLD_SIDE_LEN, WORLD_SIDE_LEN);
-
-    refresh_pbars(); // AL1: does nothing in NG !
+    create_new_city( originx, originy, random_village, true, 0);
 }
 
-void setup_land(void)
+void new_desert_city(int *originx, int *originy, int random_village)
+{
+    create_new_city( originx, originy, random_village, false, 1);
+}
+
+void new_temperate_city(int *originx, int *originy, int random_village)
+{
+    create_new_city( originx, originy, random_village, false, 2);
+}
+
+void new_swamp_city(int *originx, int *originy, int random_village)
+{
+    create_new_city( originx, originy, random_village, false, 3);
+}
+
+
+void setup_land()
 {
     int x, y, xw, yw;
-    int aridity = rand() % 450 - 150;
-
-    global_aridity = aridity;
+    int aridity = global_aridity;
 
     if( alt_step == 0 ){
         printf("alt_step = 0\n");
@@ -287,6 +269,64 @@ void setup_land(void)
 /* ---------------------------------------------------------------------- *
  * Private Functions
  * ---------------------------------------------------------------------- */
+
+static void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate)
+{
+    clear_game();
+    coal_reserve_setup();
+
+    global_mountainity= 100 + rand () % 300; // roughly water slope = 25m / 1km (=from N to S)
+    //global_mountainity = 200; //  nearly useless to have a random one (only impacts do_rand_ecology through ALT(x,y))
+
+    switch (climate) {
+        case 0:
+            //old style map, with Y river: lets be very random on climate
+            global_aridity = rand() % 450 - 150;
+            break;
+        case 1:
+            // asked for desert
+            global_aridity = rand()%200 + 200;
+            break;
+        case 2:
+            // temperate
+            global_aridity = rand()%200;
+            break;
+        case 3:
+            //swamp
+            global_aridity = rand()%200 - 200;
+            global_mountainity = global_mountainity / 5; // swamps are flat lands
+            break;
+
+    }
+
+
+    if (old_setup_ground) {
+        setup_river();
+        setup_ground();
+    } else {
+        new_setup_river_ground();
+    }
+    setup_land();
+    ore_reserve_setup();
+    init_pbars();
+
+    /* Initial population is 100 for empty board or 200
+       for random village (100 are housed). */
+    people_pool = 100;
+
+    if (random_village != 0) {
+        random_start(originx, originy);
+        update_pbar(PPOP, 200, 1);      /* So pbars don't flash */
+    } else {
+        *originx = *originy = WORLD_SIDE_LEN / 2;
+        update_pbar(PPOP, 100, 1);
+    }
+    connect_transport(1, 1, WORLD_SIDE_LEN - 2, WORLD_SIDE_LEN - 2);
+    /* Fix desert frontier for old saved games and scenarios */
+    desert_frontier(0, 0, WORLD_SIDE_LEN, WORLD_SIDE_LEN);
+
+    refresh_pbars(); // AL1: does nothing in NG !
+}
 static void initialize_tax_rates(void)
 {
     income_tax_rate = INCOME_TAX_RATE;
@@ -505,7 +545,7 @@ static void new_setup_river_ground(void)
 
 }
 
-void new_setup_river(void)
+static void new_setup_river(void)
 {
     // brute search of local minimum
 
@@ -538,8 +578,19 @@ void new_setup_river(void)
             }
         }
     }
+
     // fill lake until it overfills and creates a river
-    for (i = l-1 ; i >= 0; i--) {
+    // for dry climate reduce the number of lake
+    m = round(((400 - global_aridity)*l) / 600); // ugly hardcoded values correpsonding to "climate" switch in create_new_city
+    if (m==0)
+        m=1;
+
+    if (m>l)
+        m = l;
+
+    sort_by_altitude(l, lakx, laky);
+    for (i = 0; i <m; i++) {
+        // start by the lowest lake (the only with water in very dry desert)
         fprintf(stdout, "\nLAKE %i\n", i);
         shore = init_shore();
         set_river_tile(lakx[i], laky[i]);
@@ -548,7 +599,7 @@ void new_setup_river(void)
     }
 }
 
-void free_shore(Shoreline *shore)
+static void free_shore(Shoreline *shore)
 {
     Shoreline * tmp;
     while (shore->next != NULL) {
@@ -559,14 +610,11 @@ void free_shore(Shoreline *shore)
     free(shore);
 }
 
-Shoreline * init_shore(void)
+static Shoreline * init_shore(void)
 {
     Shoreline *shore;
 
     shore = (Shoreline *) malloc(sizeof(struct Shoreline));
-    //shore->x = (int) malloc(sizeof(int));
-    //shore->y = (int) malloc(sizeof(int));
-    //shore->altitude = (int) malloc(sizeof(int));
     shore->next = (Shoreline *) malloc(sizeof(struct Shoreline));
 
 	shore->x = -1;
@@ -577,22 +625,19 @@ Shoreline * init_shore(void)
     return shore;
 }
 
-void add_shore_point(Shoreline * current, int x, int y, int altitude)
+static void add_shore_point(Shoreline * current, int x, int y, int altitude)
 {
-  Shoreline *newp;
-  newp = (Shoreline *) malloc(sizeof(struct Shoreline));
-            newp->x = (int) malloc(sizeof(int));
-            newp->y = (int) malloc(sizeof(int));
-            newp->altitude = (int) malloc(sizeof(int));
-            newp->next = (Shoreline *) malloc(sizeof(struct Shoreline));
-            newp->x = x;
-            newp->y = y;
-            newp->altitude = altitude;
-            newp->next = current->next;
-            current->next = newp;
+    Shoreline *newp;
+    newp = (Shoreline *) malloc(sizeof(struct Shoreline));
+    newp->next = (Shoreline *) malloc(sizeof(struct Shoreline));
+    newp->x = x;
+    newp->y = y;
+    newp->altitude = altitude;
+    newp->next = current->next;
+    current->next = newp;
 }
 
-void try_shore_point(int x, int y, Shoreline *shore)
+static void try_shore_point(int x, int y, Shoreline *shore)
 {
     Shoreline *current;
     int a;
@@ -602,7 +647,7 @@ void try_shore_point(int x, int y, Shoreline *shore)
     while (current->next != NULL) {
         if (a < current->next->altitude) {
             // insert in beginning of the list
-            fprintf(stderr, " beginning point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
+            //fprintf(stderr, " beginning point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
             add_shore_point(current, x, y, a);
             return;
         } else if (a == current->next->altitude) {
@@ -614,7 +659,7 @@ void try_shore_point(int x, int y, Shoreline *shore)
                 current = current->next;
             };
             //insert the shore point in the list
-            fprintf(stderr, " same alt point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
+            //fprintf(stderr, " same alt point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
             add_shore_point(current, x, y, a);
             return;
         };
@@ -622,7 +667,7 @@ void try_shore_point(int x, int y, Shoreline *shore)
     };
     // we reached end of list
     // altitude of the point is strict maximum of the list
-    fprintf(stderr, " append point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
+    //fprintf(stderr, " append point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
     if ((current->x != x) && (current->y != y))
         add_shore_point(current, x, y, a);
 }
@@ -639,7 +684,7 @@ static int is_border( int x, int y)
         return 0;
 }
 
-void overfill_lake(int x, int y, Shoreline *shore, int lake_id)
+static void overfill_lake(int x, int y, Shoreline *shore, int lake_id)
 {
     // Starting point is a local minimum
     // Lake growth is done iteratively by flooding the lowest shore point and rising water level
@@ -654,7 +699,7 @@ void overfill_lake(int x, int y, Shoreline *shore, int lake_id)
 
     set_river_tile(x,y);
     level = ALT(x,y);
-    fprintf(stdout,"    x = %i, y = %i; level = %i\n", x, y, level);
+    //fprintf(stdout,"    x = %i, y = %i; level = %i\n", x, y, level);
 
     // find neighbours
     for (i = 0; i < 8; i++) {
@@ -671,7 +716,7 @@ void overfill_lake(int x, int y, Shoreline *shore, int lake_id)
             set_river_tile(x,y);
             // create river and continue to build shoreline
             // we will continue to overfill (from a lower point) until we reach border of the map
-            fprintf(stdout, "We found a pass x %i, y %i, alt %i \n", x, y, ALT(x,y));
+            //fprintf(stdout, "We found a pass x %i, y %i, alt %i \n", x, y, ALT(x,y));
             new_setup_one_river(x, y, lake_id, shore);
         }
         overfill_lake(x, y, shore, lake_id);
@@ -679,8 +724,7 @@ void overfill_lake(int x, int y, Shoreline *shore, int lake_id)
         // Q: ? Should this happen ?
         // A: yes if we are in a lake that was previously filled by a higher one which overfilled here
         //    else ? it should not happen ?
-        fprintf(stderr,"we have a problem the shoreline list is empty, x = %i, y = %i\n", x, y);
-        //exit(0);
+        //fprintf(stderr,"the shoreline list is empty, x = %i, y = %i\n", x, y);
     }
 }
 
@@ -691,7 +735,6 @@ static void set_river_tile( int i, int j)
     MP_INFO(i, j).flags |= FLAG_IS_RIVER;
 }
 
-/*  AL1: commented out, because unused currently
 
 static void sort_by_altitude(int n, int *tabx, int *taby)
 {
@@ -714,7 +757,6 @@ static void sort_by_altitude(int n, int *tabx, int *taby)
             }
     }
 }
-*/
 
 static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
 {
@@ -726,7 +768,7 @@ static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
     x0=xx;
     y0 = yy;
     /* follow most important slope and go downward */
-    do {
+    while ( ((xx != x) || (yy != y)) && (xx != 0) && (xx != (WORLD_SIDE_LEN - 1)) && (yy != 0) && (yy != WORLD_SIDE_LEN - 1) ) {
         int m = 0;
         x = xx;
         y = yy;
@@ -754,7 +796,7 @@ static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
             else
                 set_river_tile(x + di[m], y);
         }
-    } while ( ((xx != x) || (yy != y)) && (xx != 0) && (xx != (WORLD_SIDE_LEN - 1)) && (yy != 0) && (yy != WORLD_SIDE_LEN - 1) );
+    };
     // We are in a local minimum or at the borders of the map (strictly the lowest points)
 
     // Check if we are lower than the bottom of the lake we are trying to overfill
@@ -1095,7 +1137,7 @@ static void random_start(int *originx, int *originy)
     set_mappoint(xx + 16, yy + 17, CST_COMMUNE_1);
 }
 
-void do_rand_ecology(int x, int y)
+static void do_rand_ecology(int x, int y)
 {
     int r = ground[x][y].ecotable;
     if ( (MP_INFO(x, y).flags | FLAG_HAS_UNDERGROUND_WATER) == 0 ) {

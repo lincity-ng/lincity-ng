@@ -4,38 +4,38 @@
 	<!-- Split window into title/top - contents and bottom/buttons area -->
 	<TableLayout rows="4" cols="1">
 		<rowsize row="1" relative="3"/>
-		<rowsize row="2" relative="5"/>
-		<rowsize row="3" relative="1.5"/>
-		<rowsize row="4" relative="1"/>
-		
+		<rowsize row="2" relative="8"/>
+		<rowsize row="3" relative="5"/>
+		<rowsize row="4" relative="2"/>
+
 		<cell row="1" col="1">
 		<TableLayout rows="2" cols="1">
 			<rowsize row="1" relative="2"/>
 			<rowsize row="2" relative="1"/>
-			
+
 			<cell row="1" col="1">
 			<Paragraph style="menutitle" translatable="yes">New Game</Paragraph>
 			</cell>
-			
+
 			<cell row="2" col="1">
 			<Paragraph style="listtitle" translatable="yes">
 			Choose Scenario</Paragraph>
 			</cell>
-		</TableLayout>	
+		</TableLayout>
 		</cell>
-		
+
 		<cell row="2" col="1">
-		<TableLayout rows="8" cols="3">
+		<TableLayout rows="6" cols="3">
 			<colsize col="1" relative="4"/>
 			<colsize col="2" relative="10"/>
 			<colsize col="3" relative="15"/>
-		
+
 			<!-- put scenario list in here
 			<cell row="N" col="2">
-			
+
 			</cell>
 			-->
-			<cell row="2" col="2">
+			<cell row="1" col="2">
 			<CheckButton name="File0">
 			<text-caption style="button">Savegame 1234567890</text-caption>
 			<image src="images/gui/buttons/savebutton.png"/>
@@ -44,7 +44,7 @@
 			<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="3" col="2">
+			<cell row="2" col="2">
 			<CheckButton name="File1">
 			<text-caption style="button">Savegame 1234567890</text-caption>
 			<image src="images/gui/buttons/savebutton.png"/>
@@ -53,7 +53,7 @@
 			<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="4" col="2">
+			<cell row="3" col="2">
 			<CheckButton name="File2">
 			<text-caption style="button">Savegame 1234567890</text-caption>
 			<image src="images/gui/buttons/savebutton.png"/>
@@ -62,7 +62,7 @@
 			<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="5" col="2">
+			<cell row="4" col="2">
 			<CheckButton name="File3">
 			<text-caption style="button">Savegame 1234567890</text-caption>
 			<image src="images/gui/buttons/savebutton.png"/>
@@ -71,7 +71,7 @@
 			<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="6" col="2">
+			<cell row="5" col="2">
 			<CheckButton name="File4">
 			<text-caption style="button">Savegame 1234567890</text-caption>
 			<image src="images/gui/buttons/savebutton.png"/>
@@ -80,7 +80,7 @@
 			<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-			<cell row="7" col="2">
+			<cell row="6" col="2">
 			<CheckButton name="File5">
 			<text-caption style="button">Savegame 1234567890</text-caption>
 			<image src="images/gui/buttons/savebutton.png"/>
@@ -89,30 +89,62 @@
 			<image-checked src="images/gui/buttons/savebutton-checked.png"/>
 			</CheckButton>
 			</cell>
-	
+
 		</TableLayout>
 		</cell>
-		<cell row="3" col="1">
-		<TableLayout rows="4" cols="2">
-			<rowsize row="1" relative="1"/>
-			<rowsize row="2" relative="3"/>
-			<rowsize row="3" relative="3"/>
-			<rowsize row="4" relative="1"/>
-			<cell row="2" col="1" halign="left">
-			<Button name="StartBareButton">
-				<text style="button" translatable="yes">Start with empty board.</text>
-				<text-hover style="button-hover" translatable="yes">Start with empty board.</text-hover>
-				<text-clicked style="button-clicked" translatable="yes">Start with empty board.</text-clicked>
-			</Button>
-			</cell>
-			<cell row="3" col="1" halign="left">
-			<Button name="StartVillageButton">
-				<text style="button" translatable="yes">Start with random village.</text>
-				<text-hover style="button-hover" translatable="yes">Start with random village.</text-hover>
-				<text-clicked style="button-clicked" translatable="yes">Start with random village.</text-clicked>
-			</Button>
-			</cell>
-		</TableLayout>
+        <cell row="3" col="1">
+            <TableLayout rows="6" cols="3">
+                <colsize col="1" relative="4"/>
+                <colsize col="2" relative="10"/>
+                <colsize col="3" relative="15"/>
+
+                <!-- <cell row="1" col="2">
+                    <TableLayout rows="6" cols="1"> -->
+                        <rowsize row="1" relative="3"/>
+                        <rowsize row="2" relative="3"/>
+                        <rowsize row="3" relative="1"/>
+                        <rowsize row="4" relative="3"/>
+                        <rowsize row="5" relative="3"/>
+                        <rowsize row="6" relative="3"/>
+
+                        <cell row="1" col="2" halign="center">
+                            <Button name="StartBareButton">
+                                <text style="button" translatable="yes">Start with empty board.</text>
+                                <text-hover style="button-hover" translatable="yes">Start with empty board.</text-hover>
+                                <text-clicked style="button-clicked" translatable="yes">Start with empty board.</text-clicked>
+                            </Button>
+                        </cell>
+                        <cell row="2" col="2" halign="center">
+                            <Button name="StartVillageButton">
+                                <text style="button" translatable="yes">Start with random village.</text>
+                                <text-hover style="button-hover" translatable="yes">Start with random village.</text-hover>
+                                <text-clicked style="button-clicked" translatable="yes">Start with random village.</text-clicked>
+                            </Button>
+                        </cell>
+                        <cell row="4" col="2" halign="center">
+                            <Button name="StartRandomDesertButton">
+                                <text style="button" translatable="yes">New random land : semi desert</text>
+                                <text-hover style="button-hover" translatable="yes">New random land : semi desert</text-hover>
+                                <text-clicked style="button-clicked" translatable="yes">New random land : semi desert</text-clicked>
+                            </Button>
+                        </cell>
+                        <cell row="5" col="2" halign="center">
+                            <Button name="StartRandomTemperateButton">
+                                <text style="button" translatable="yes">New random land : temperate</text>
+                                <text-hover style="button-hover" translatable="yes">New random land : temperate</text-hover>
+                                <text-clicked style="button-clicked" translatable="yes">New random land : temperate</text-clicked>
+                            </Button>
+                        </cell>
+                        <cell row="6" col="2" halign="center">
+                            <Button name="StartRandomSwampButton">
+                                <text style="button" translatable="yes">New random land : swamp</text>
+                                <text-hover style="button-hover" translatable="yes">New random land : swamp</text-hover>
+                                <text-clicked style="button-clicked" translatable="yes">New random land : swamp</text-clicked>
+                            </Button>
+                        </cell>
+                        <!-- </TableLayout>
+                </cell> -->
+            </TableLayout>
 		</cell>
 		<cell row="4" col="1">
 		<TableLayout rows="2" cols="2">

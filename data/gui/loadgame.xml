@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui>
-	<Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
+	<Image src="images/mainmenu/loadsave_back.png" resizable="yes"/>
 	<!-- Split window into title/top - contents and bottom/buttons area -->
 	<TableLayout rows="3" cols="1" >
 		<rowsize row="1" relative="3"/>
 		<rowsize row="2" relative="5"/>
 		<rowsize row="3" relative="2.5"/>
-		
+
 		<cell row="1" col="1">
 		<Paragraph style="menutitle" translatable="yes">Load Game</Paragraph>
 		</cell>
@@ -83,7 +83,7 @@
 			<rowsize row="3" relative="1"/>
 			<colsize col="1" fixed="75"/>
 			<colsize col="4" fixed="75"/>
-		
+
 			<cell row="2" col="2" halign="left">
 			<Button name="BackButton">
 				<text style="button" translatable="yes">Back</text>

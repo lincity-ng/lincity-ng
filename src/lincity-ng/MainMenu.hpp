@@ -40,20 +40,20 @@ public:
 
 private:
     void switchMenu(Component* component);
-    
+
     void loadMainMenu();
     void loadNewGameMenu();
     void loadLoadGameMenu();
     void loadSaveGameMenu();
     void loadCreditsMenu();
     void loadOptionsMenu();
-    
+
     void fillLoadMenu( bool save = false );
     void fillNewGameMenu();
 
     void creditsBackButtonClicked(Button* );
     void optionsBackButtonClicked(Button* );
-    
+
     void quitButtonClicked(Button* );
     void continueButtonClicked(Button* );
     void creditsButtonClicked(Button* );
@@ -66,7 +66,10 @@ private:
     void newGameStartButtonClicked(Button* );
     void newGameStartBareButtonClicked(Button* );
     void newGameStartVillageClicked(Button* );
-        
+    void newGameStartDesertClicked(Button* );
+    void newGameStartTemperateClicked(Button* );
+    void newGameStartSwampClicked(Button* );
+
     void loadGameBackButtonClicked(Button* );
     void loadGameLoadButtonClicked(Button* );
     void loadGameSaveButtonClicked(Button* );
@@ -83,17 +86,17 @@ private:
     std::auto_ptr<Component> creditsMenu;
     std::auto_ptr<Component> optionsMenu;
     Desktop* currentMenu;
-    
+
     bool running;
-    MainState quitState;           
+    MainState quitState;
     int slotNr;
-    
-    std::string mFilename;    
+
+    std::string mFilename;
     std::string baseName;
     static const Uint32 doubleClickTime = 1000;
     Uint32 lastClickTick;
     std::string doubleClickButtonName;
-    
+
     Paragraph* musicParagraph;
     void changeTrack( bool next);
 
