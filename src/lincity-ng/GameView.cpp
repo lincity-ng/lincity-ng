@@ -1296,10 +1296,8 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
     Color miniMapColor;
     int h = 0;
 
-#ifdef EXPERIMENTAL
-    if (inCity(tile))
-         h = (int) ( (float)( ALT(tile.x, tile.y) * scale3d) * zoom  / (float) alt_step ) ;
-#endif
+    if ((mapOverlay >2) && (inCity(tile)))
+            h = (int) ( (float)( ALT(tile.x, tile.y) * scale3d) * zoom  / (float) alt_step ) ;
 
    Vector2 tileOnScreenPoint = getScreenPoint(tile);
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
@@ -1339,6 +1337,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 {
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
+    double h = 0.;
 
     //is Tile in City? If not draw Blank
     if( ! inCity( tile ) )
@@ -1408,14 +1407,15 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
          * especially power lines :) */
         tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
         tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;
-#ifdef EXPERIMENTAL
+
+        if (mapOverlay > 2) {
         // shift the tile upward to show altitude
         //
         // AL1 : why are this coordinates (double) ? Does not (float) be enought ? or is it an SDL/GL requirement ?
-        double h = (double) ( ALT(tile.x, tile.y) * scale3d) * zoom  / (double) alt_step ;
+        h = (double) ( ALT(tile.x, tile.y) * scale3d) * zoom  / (double) alt_step ;
         //printf(" tx = %lf, ty = %lf, h = %f \n",  tileOnScreenPoint.x,  tileOnScreenPoint.y, h);
         tileOnScreenPoint.y -=  h ;
-#endif
+        }
 
         tilerect.move( tileOnScreenPoint );
         tilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
@@ -1447,10 +1447,9 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     int x = (int) tile.x;
     int y = (int) tile.y;
     int h = 0;
-#ifdef EXPERIMENTAL
-    if (inCity(tile))
+    if ((mapOverlay > 2) && (inCity(tile)))
         h = (int) ( (float)( ALT(tile.x, tile.y) * scale3d) * zoom  / (float) alt_step ) ;
-#endif
+
     if( cursorSize == 0 ) {
         Color alphawhite( 255, 255, 255, 128 );
         painter.setLineColor( alphawhite );
@@ -1590,12 +1589,13 @@ void GameView::draw(Painter& painter)
     //      and adjust these Vectors:
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );
-#ifndef EXPERIMENTAL
     Vector2 lowerLeft( 0, getHeight() );
-#else
-    // printf("h = %f,     z = %f \n ", getHeight(), zoom);
-    Vector2 lowerLeft( 0, getHeight() * ( 1 + getHeight() * zoom / (float)scale3d )); // getHeight = size in pixel of the screen (eg 1024x768)
-#endif
+
+    if (mapOverlay > 2) {
+        // printf("h = %f,     z = %f \n ", getHeight(), zoom);
+        // getHeight = size in pixel of the screen (eg 1024x768)
+        Vector2 lowerLeft( 0, getHeight() * ( 1 + getHeight() * zoom / (float)scale3d ));
+    }
 
     //Find visible Tiles
     MapPoint upperLeftTile  = getTile( upperLeft );
@@ -1618,7 +1618,7 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
-    if( mapOverlay != overlayOnly ){
+    if (mapOverlay != overlayOnly) {
         for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
         {
             for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
@@ -1629,7 +1629,7 @@ void GameView::draw(Painter& painter)
             }
         }
     }
-    if( mapOverlay != overlayNone ){
+    if( (mapOverlay != overlayNone ) && (mapOverlay != overlay3dOnly) ){
         for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
         {
             for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
