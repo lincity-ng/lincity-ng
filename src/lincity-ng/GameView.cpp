@@ -53,6 +53,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Button.hpp"
 #include "CheckButton.hpp"
 
+const int scale3d = 128; // guestimate value for good looking 3d view;
+
 extern int is_allowed_here(int x, int y, short cst_type, short msg);
 
 const float GameView::defaultTileWidth = 128;
@@ -1292,11 +1294,17 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
     Color black;
     black.parse("black");
     Color miniMapColor;
+    int h = 0;
 
-    Vector2 tileOnScreenPoint = getScreenPoint(tile);
+#ifdef EXPERIMENTAL
+    if (inCity(tile))
+         h = (int) ( (float)( ALT(tile.x, tile.y) * scale3d) * zoom  / (float) alt_step ) ;
+#endif
+
+   Vector2 tileOnScreenPoint = getScreenPoint(tile);
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
-    tileOnScreenPoint.y -= tileHeight;
+    tileOnScreenPoint.y -= tileHeight + h;
     tilerect.move( tileOnScreenPoint );
     //Outside of the Map gets Black overlay
     if( !inCity( tile ) ) {
@@ -1404,7 +1412,6 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         // shift the tile upward to show altitude
         //
         // AL1 : why are this coordinates (double) ? Does not (float) be enought ? or is it an SDL/GL requirement ?
-        int scale3d = 128; // guestimate value for good looking;
         double h = (double) ( ALT(tile.x, tile.y) * scale3d) * zoom  / (double) alt_step ;
         //printf(" tx = %lf, ty = %lf, h = %f \n",  tileOnScreenPoint.x,  tileOnScreenPoint.y, h);
         tileOnScreenPoint.y -=  h ;
@@ -1437,12 +1444,19 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 void GameView::markTile( Painter& painter, MapPoint tile )
 {
     Vector2 tileOnScreenPoint = getScreenPoint(tile);
+    int x = (int) tile.x;
+    int y = (int) tile.y;
+    int h = 0;
+#ifdef EXPERIMENTAL
+    if (inCity(tile))
+        h = (int) ( (float)( ALT(tile.x, tile.y) * scale3d) * zoom  / (float) alt_step ) ;
+#endif
     if( cursorSize == 0 ) {
         Color alphawhite( 255, 255, 255, 128 );
         painter.setLineColor( alphawhite );
         Rect2D tilerect( 0, 0, tileWidth, tileHeight );
         tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
-        tileOnScreenPoint.y -= tileHeight;
+        tileOnScreenPoint.y -= tileHeight + h;
         tilerect.move( tileOnScreenPoint );
         drawDiamond( painter, tilerect );
     } else {
@@ -1450,8 +1464,6 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         Color alphared( 255, 0, 0, 128 );
         painter.setFillColor( alphablue );
         //check if building is inside the map, if not use Red Cursor
-        int x = (int) tile.x;
-        int y = (int) tile.y;
         MapPoint seCorner( x + cursorSize -1, y + cursorSize -1 );
         if( !inCity( seCorner ) || !inCity( tile ) ) {
             painter.setFillColor( alphared );
@@ -1478,7 +1490,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
         tileOnScreenPoint.x = tileOnScreenPoint.x - (tileWidth * cursorSize / 2);
-        tileOnScreenPoint.y -= tileHeight;
+        tileOnScreenPoint.y -= tileHeight + h;
         tilerect.move( tileOnScreenPoint );
         fillDiamond( painter, tilerect );
 
@@ -1533,7 +1545,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         	                  tileHeight * ( 2 * range - reduceNW ) );
         	Vector2 screenPoint = getScreenPoint(tile);
         	screenPoint.x -= tileWidth  * ( range - 0.5 * reduceNW );
-        	screenPoint.y -= tileHeight * ( range + 1 - reduceNW );
+        	screenPoint.y -= tileHeight * ( range + 1 - reduceNW ) + h;
         	rangerect.move( screenPoint );
         	fillDiamond( painter, rangerect );
         }
@@ -1582,7 +1594,7 @@ void GameView::draw(Painter& painter)
     Vector2 lowerLeft( 0, getHeight() );
 #else
     // printf("h = %f,     z = %f \n ", getHeight(), zoom);
-    Vector2 lowerLeft( 0, getHeight() * ( 1 + getHeight() * zoom / 128. )); // ? 128 = scale3d ; getHeight = size in pixel of the screen (1024x768)
+    Vector2 lowerLeft( 0, getHeight() * ( 1 + getHeight() * zoom / (float)scale3d )); // getHeight = size in pixel of the screen (eg 1024x768)
 #endif
 
     //Find visible Tiles
@@ -1624,7 +1636,7 @@ void GameView::draw(Painter& painter)
             {
                 currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
                 currentTile.y = upperLeftTile.y - i + k / 2;
-                drawOverlay( painter, currentTile );
+              drawOverlay( painter, currentTile );
             }
         }
     }
