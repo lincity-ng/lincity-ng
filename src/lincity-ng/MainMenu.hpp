@@ -64,11 +64,6 @@ private:
 
     void newGameBackButtonClicked(Button* );
     void newGameStartButtonClicked(Button* );
-    void newGameStartBareButtonClicked(Button* );
-    void newGameStartVillageClicked(Button* );
-    void newGameStartDesertClicked(Button* );
-    void newGameStartTemperateClicked(Button* );
-    void newGameStartSwampClicked(Button* );
 
     void loadGameBackButtonClicked(Button* );
     void loadGameLoadButtonClicked(Button* );

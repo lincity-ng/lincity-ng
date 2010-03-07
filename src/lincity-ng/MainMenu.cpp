@@ -62,6 +62,8 @@ MainMenu::MainMenu()
     baseName = "";
     lastClickTick = 0;
     doubleClickButtonName = "";
+    mFilename = "";
+    baseName = "";
 }
 
 MainMenu::~MainMenu()
@@ -110,11 +112,13 @@ void MainMenu::fillNewGameMenu()
 
   char **fptr=files;
 
+  CheckButton *button;
+
   fileMap.clear();
 
   for(int i=0;i<6;i++)
   {
-    CheckButton *button=getCheckButton(*newGameMenu.get(),buttonNames[i]);
+    button=getCheckButton(*newGameMenu.get(),buttonNames[i]);
 
     button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
     while(*fptr)
@@ -139,6 +143,27 @@ void MainMenu::fillNewGameMenu()
       button->setCaptionText("");
   }
   PHYSFS_freeList(files);
+
+  button=getCheckButton(*newGameMenu.get(),"RandomEmpty");
+  button->setCaptionText(_("random empty board"));
+  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+
+  button=getCheckButton(*newGameMenu.get(),"RandomVillage");
+  button->setCaptionText(_("random village"));
+  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+
+  button=getCheckButton(*newGameMenu.get(),"RandomDesertVillage");
+  button->setCaptionText(_("village in semi desert"));
+  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+
+  button=getCheckButton(*newGameMenu.get(),"RandomTemperateVillage");
+  button->setCaptionText(_("village in temperate area"));
+  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+
+  button=getCheckButton(*newGameMenu.get(),"RandomSwampVillage");
+  button->setCaptionText(_("village in swamp"));
+  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+  
   return;
   /* Is there a better way to add filenames to the directory? */
   _("good_times");
@@ -221,21 +246,6 @@ MainMenu::loadNewGameMenu()
 
         Button* backButton = getButton(*newGameMenu, "BackButton");
         backButton->clicked.connect(makeCallback(*this, &MainMenu::newGameBackButtonClicked));
-
-        Button* startBareButton = getButton(*newGameMenu, "StartBareButton");
-        startBareButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartBareButtonClicked));
-
-        Button* startVillageButton = getButton(*newGameMenu, "StartVillageButton");
-        startVillageButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartVillageClicked));
-
-        Button* startRandomDesertButton = getButton(*newGameMenu, "StartRandomDesertButton");
-        startRandomDesertButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartDesertClicked));
-
-        Button* startRandomTemperateButton = getButton(*newGameMenu, "StartRandomTemperateButton");
-        startRandomTemperateButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartTemperateClicked));
-
-        Button* startRandomSwampButton = getButton(*newGameMenu, "StartRandomSwampButton");
-        startRandomSwampButton->clicked.connect(makeCallback(*this, &MainMenu::newGameStartSwampClicked));
 
 
         fillNewGameMenu();
@@ -366,6 +376,9 @@ MainMenu::selectSaveGameButtonClicked(CheckButton* button, int i){
     selectLoadSaveGameButtonClicked( button , i, true );
 }
 
+/**
+ * Handle RadioButtons in load, save and new game dialog
+ */
 void
 MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
 {
@@ -398,6 +411,20 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
             b->check();
         }
     }
+    
+    if( newGameMenu.get()==currentMenu ) {
+        const std::string rnd[]={"RandomEmpty","RandomVillage","RandomDesertVillage","RandomTemperateVillage","RandomSwampVillage",""};
+        for(int i=0;std::string(rnd[i]).length();i++) {
+            CheckButton *b=getCheckButton(*currentMenu,rnd[i]);
+            if(b->getName()!=button->getName()){
+                b->uncheck();
+            } else {
+                b->check();
+                fc = rnd[i];
+            }
+        }
+    }
+    
 
     if( !fc.length()) {
         mFilename = "";
@@ -707,71 +734,52 @@ MainMenu::optionsBackButtonClicked(Button* )
     }
 }
 
+/**
+ * Either create selected random terrain or load a scenario.
+ **/
 void
 MainMenu::newGameStartButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
-    if( loadCityNG( mFilename ) ){
-    	strcpy (given_scene, baseName.c_str());
+     
+    if( baseName == "RandomEmpty" ){
+        new_city( &main_screen_originx, &main_screen_originy, 0 );
+        GameView* gv = getGameView();
+        if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
+    } else if( baseName == "RandomVillage" ){
+        new_city( &main_screen_originx, &main_screen_originy, 1 );
+        GameView* gv = getGameView();
+        if( gv ){ gv->readOrigin(); }
+        quitState = INGAME;
+        running = false;
+    } else if( baseName == "RandomDesertVillage" ){
+        new_desert_city( &main_screen_originx, &main_screen_originy, 1 );
+        GameView* gv = getGameView();
+        if( gv ){ gv->readOrigin(); }
+        quitState = INGAME;
+        running = false;
+    } else if( baseName == "RandomTemperateVillage" ){
+        new_temperate_city( &main_screen_originx, &main_screen_originy, 1 );
+        GameView* gv = getGameView();
+        if( gv ){ gv->readOrigin(); }
+        quitState = INGAME;
+        running = false;
+    } else if( baseName == "RandomSwampVillage" ){
+        new_swamp_city( &main_screen_originx, &main_screen_originy, 1 );
+        GameView* gv = getGameView();
+        if( gv ){ gv->readOrigin(); }
+        quitState = INGAME;
+        running = false;
+    } else {
+        if( loadCityNG( mFilename ) ){
+        	strcpy (given_scene, baseName.c_str());
+            quitState = INGAME;
+            running = false;
+        }
     }
     mFilename = "empty"; //don't erase scenarios later
-}
-
-void
-MainMenu::newGameStartBareButtonClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    new_city( &main_screen_originx, &main_screen_originy, 0 );
-    GameView* gv = getGameView();
-    if( gv ){ gv->readOrigin(); }
-    quitState = INGAME;
-    running = false;
-}
-
-void
-MainMenu::newGameStartVillageClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    new_city( &main_screen_originx, &main_screen_originy, 1 );
-    GameView* gv = getGameView();
-    if( gv ){ gv->readOrigin(); }
-    quitState = INGAME;
-    running = false;
-}
-
-void
-MainMenu::newGameStartDesertClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    new_desert_city( &main_screen_originx, &main_screen_originy, 1 );
-    GameView* gv = getGameView();
-    if( gv ){ gv->readOrigin(); }
-    quitState = INGAME;
-    running = false;
-}
-
-void
-MainMenu::newGameStartTemperateClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    new_temperate_city( &main_screen_originx, &main_screen_originy, 1 );
-    GameView* gv = getGameView();
-    if( gv ){ gv->readOrigin(); }
-    quitState = INGAME;
-    running = false;
-}
-
-void
-MainMenu::newGameStartSwampClicked(Button* )
-{
-    getSound()->playSound( "Click" );
-    new_swamp_city( &main_screen_originx, &main_screen_originy, 1 );
-    GameView* gv = getGameView();
-    if( gv ){ gv->readOrigin(); }
-    quitState = INGAME;
-    running = false;
 }
 
 void
