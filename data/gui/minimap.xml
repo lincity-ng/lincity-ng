@@ -74,6 +74,15 @@
 						<tooltip translatable="yes">[-] Zoom out</tooltip>
 					</Button>
 				</cell>
+				<cell row="3" col="3" halign="center" valign="bottom">
+					<Button name="showTerrainHeight">
+                        <image src="images/gui/buttons/round/button-round-20.png"/>
+                        <image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+                        <image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+						<image-caption src="images/gui/info/terrainheight.png"/>
+						<tooltip translatable="yes">toggle terrain height rendering</tooltip>
+					</Button>
+				</cell>
 			</TableLayout>
 		</cell>
 		<cell row="3" col="1" >

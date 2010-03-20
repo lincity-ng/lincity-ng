@@ -157,6 +157,7 @@ void GameView::parse(XmlReader& reader)
     tileUnderMouse = MapPoint(0, 0);
     dragStart = Vector2(0, 0);
     hideHigh = false;
+    showTerrainHeight = false;
     cursorSize = 0;
 
     mapOverlay = overlayNone;
@@ -180,6 +181,9 @@ void GameView::connectButtons(){
     Button* button = getButton( *root, "hideHighBuildings" );
     button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
 
+    button = getButton( *root, "showTerrainHeight" );
+    button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
+
     button = getButton( *root, "mapOverlay" );
     button->clicked.connect( makeCallback(*this, &GameView::buttonClicked ) );
 }
@@ -191,6 +195,15 @@ void GameView::buttonClicked( Button* button ){
     std::string name = button->getName();
     if( name == "hideHighBuildings" ){
         hideHigh = !hideHigh;
+        requestRedraw();
+        return;
+    }
+    if( name == "showTerrainHeight" ){
+        if( alt_step != 0 ){
+            showTerrainHeight = !showTerrainHeight;
+        } else { // map is completely flat
+            showTerrainHeight = false;
+        }
         requestRedraw();
         return;
     }
@@ -1217,6 +1230,12 @@ Vector2 GameView::getScreenPoint(MapPoint map)
 
     //we want the lower right corner
     point.y += tileHeight;
+
+    if ((showTerrainHeight) && (inCity(map))){
+        // shift the tile upward to show altitude
+        point.y -= (float) ( ALT(map.x, map.y) * scale3d) * zoom  / (float) alt_step ;
+    }
+
     //on Screen
     point -= viewport;
 
@@ -1294,15 +1313,11 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
     Color black;
     black.parse("black");
     Color miniMapColor;
-    int h = 0;
-
-    if ((mapOverlay >2) && (inCity(tile)))
-            h = (int) ( (float)( ALT(tile.x, tile.y) * scale3d) * zoom  / (float) alt_step ) ;
-
-   Vector2 tileOnScreenPoint = getScreenPoint(tile);
+    
+    Vector2 tileOnScreenPoint = getScreenPoint(tile);
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
-    tileOnScreenPoint.y -= tileHeight + h;
+    tileOnScreenPoint.y -= tileHeight;
     tilerect.move( tileOnScreenPoint );
     //Outside of the Map gets Black overlay
     if( !inCity( tile ) ) {
@@ -1337,7 +1352,6 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 {
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
-    double h = 0.;
 
     //is Tile in City? If not draw Blank
     if( ! inCity( tile ) )
@@ -1402,20 +1416,8 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     if( texture && ( !hideHigh || size == 1 ) )
     {
-        /* TODO: it seems possible to put green or desert tile first,
-         * so that buildings without ground will look nice
-         * especially power lines :) */
         tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
         tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;
-
-        if (mapOverlay > 2) {
-        // shift the tile upward to show altitude
-        //
-        // AL1 : why are this coordinates (double) ? Does not (float) be enought ? or is it an SDL/GL requirement ?
-        h = (double) ( ALT(tile.x, tile.y) * scale3d) * zoom  / (double) alt_step ;
-        //printf(" tx = %lf, ty = %lf, h = %f \n",  tileOnScreenPoint.x,  tileOnScreenPoint.y, h);
-        tileOnScreenPoint.y -=  h ;
-        }
 
         tilerect.move( tileOnScreenPoint );
         tilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
@@ -1446,16 +1448,13 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     Vector2 tileOnScreenPoint = getScreenPoint(tile);
     int x = (int) tile.x;
     int y = (int) tile.y;
-    int h = 0;
-    if ((mapOverlay > 2) && (inCity(tile)))
-        h = (int) ( (float)( ALT(tile.x, tile.y) * scale3d) * zoom  / (float) alt_step ) ;
 
     if( cursorSize == 0 ) {
         Color alphawhite( 255, 255, 255, 128 );
         painter.setLineColor( alphawhite );
         Rect2D tilerect( 0, 0, tileWidth, tileHeight );
         tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
-        tileOnScreenPoint.y -= tileHeight + h;
+        tileOnScreenPoint.y -= tileHeight;
         tilerect.move( tileOnScreenPoint );
         drawDiamond( painter, tilerect );
     } else {
@@ -1489,7 +1488,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
         tileOnScreenPoint.x = tileOnScreenPoint.x - (tileWidth * cursorSize / 2);
-        tileOnScreenPoint.y -= tileHeight + h;
+        tileOnScreenPoint.y -= tileHeight;
         tilerect.move( tileOnScreenPoint );
         fillDiamond( painter, tilerect );
 
@@ -1544,7 +1543,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         	                  tileHeight * ( 2 * range - reduceNW ) );
         	Vector2 screenPoint = getScreenPoint(tile);
         	screenPoint.x -= tileWidth  * ( range - 0.5 * reduceNW );
-        	screenPoint.y -= tileHeight * ( range + 1 - reduceNW ) + h;
+        	screenPoint.y -= tileHeight * ( range + 1 - reduceNW );
         	rangerect.move( screenPoint );
         	fillDiamond( painter, rangerect );
         }
@@ -1591,7 +1590,7 @@ void GameView::draw(Painter& painter)
     Vector2 upperRight( getWidth(), 0 );
     Vector2 lowerLeft( 0, getHeight() );
 
-    if (mapOverlay > 2) {
+    if (showTerrainHeight) {
         // printf("h = %f,     z = %f \n ", getHeight(), zoom);
         // getHeight = size in pixel of the screen (eg 1024x768)
         Vector2 lowerLeft( 0, getHeight() * ( 1 + getHeight() * zoom / (float)scale3d ));
@@ -1629,7 +1628,7 @@ void GameView::draw(Painter& painter)
             }
         }
     }
-    if( (mapOverlay != overlayNone ) && (mapOverlay != overlay3dOnly) ){
+    if( mapOverlay != overlayNone ){
         for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
         {
             for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
@@ -1642,7 +1641,7 @@ void GameView::draw(Painter& painter)
     }
 
     int cost = 0;
-    //Mark Tile under Mouse
+    //Mark Tile under Mouse // TODO: handle showTerrainHeight 
     if( mouseInGameView  && !blockingDialogIsOpen ) {
         MapPoint lastRazed( -1,-1 );
         int tiles = 0;

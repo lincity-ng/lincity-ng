@@ -144,15 +144,13 @@ private:
     static const float defaultTileHeight;
     static const float defaultZoom;
 
-    bool hideHigh;
+    bool hideHigh, showTerrainHeight;
     int mapOverlay;
     MiniMap::DisplayMode mapMode;
     static const int overlayNone = 0;
     static const int overlayOn = 1;
     static const int overlayOnly = 2;
-    static const int overlay3dOnly = 3;
-    static const int overlayWith3d = 4;
-    static const int overlayMAX = 4;
+    static const int overlayMAX = 2;
 
     static const int gameAreaMin = 1;
     static const int gameAreaMax = WORLD_SIDE_LEN -2;
