@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Hospodářské grafy</p>
+	<p style="hp">Jsou zde čtyři barevné grafy. Ukazují nejdůležitější hospodářské ukazatele.</p>
+	<li>
+		<span color="brown">Počet obyvatel</span>	(hnědý) 
+        Hnědá čára zobrazuj počet obyvatel.
+	</li>
+	<li>
+		<span color="blue">Bezdomovci</span> (modrý) 
+        Modrá čára zobrazuje závislost na bydlení
+        Výška grafu je úměrná počtu neubytovaných
+	obyvatel.
+	</li>
+	<li>
+		<span color="yellow">Nezaměstnanost</span> (žlutý) 
+        Žluté sloupce ukazují nezaměstananost.
+        Výška sloupce závisí také na počtu
+	obyvatel. Měl by vás zajímat.
+	</li>
+	<li>
+		<span color="red">Hlad</span> (červený) 
+        Červené sloupce ukazují hladovění.
+        Výška sloupce závisí také na počtu
+	obyvatel. Měl by vás zajímat. Graf
+	hladu je zobazován přes graf
+	nezaměstnanosti.
+	</li>
+</Document>

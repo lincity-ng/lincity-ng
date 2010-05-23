@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Kovárna</p>
+	<p style="hp">V kovárně se z železa a uhlí vyrábí zboží. Nejvíce je využijete na začátku hry. Samozřejmě potřebují pracovní sílu.</p>
+	<p style="hp">Předtím, než budete mít vlastní závody na výrobu železa se budete muset spoléhat na železo z milířů. Je doporučeno 5 až 6 milířů na jednu kovárnu.</p>
+	<p style="hp">Kovárny nemusí být připojeny na žádnou komunikaci. Vše, co potřebují si seženou z obchodu (tržiště), v jehož dosahu jsou.</p>
+	<p style="hp">Jestli je kovárna v provozu zjistíte buď obvyklou cestou, poklikáním na ni, nebo se na ni jen podívejte - jestliže je v provozu, vychází z komína dým.</p>
+
+	<p style="hp">Kovárna vypadá takhle</p>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
+	<p style="hp">a toto je její ikona</p>
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	
+	<p style="hsubtitle">Viz také:</p>
+	<li><a href="market">Obchod</a></li>
+	<li><a href="ore">Ruda</a></li>
+	<li><a href="commune">Milíř</a></li>
+	<li><a href="steel">Železo</a></li>
+	<li><a href="jobs">Práce</a></li>
+</Document>

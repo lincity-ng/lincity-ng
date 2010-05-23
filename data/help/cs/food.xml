@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Jídlo</p>
+	<p style="hp">Jídlo se může vyrábět na statcích nebo může být dováženo pomocí přístavu.</p>
+	<p style="hp">Lidé musí jíst, aby přežili. Jestliže je necháte hladovět, odejdou jinam a někteří možná i umřou.</p>
+	<p style="hp">Mlýny také využívají jídlo. They turn, say, cotton into cloths. Pozor! Mohou potřebovat <i>hodně</i> jídla.</p>
+	
+	<p style="hsubtitle">Viz také:</p>
+	<li><a href="farm">Statek</a></li>
+	<li><a href="port">Přístav</a></li>
+	<li><a href="mill">Mlýn</a></li>
+	<li><a href="steel">Železo</a></li>
+</Document>

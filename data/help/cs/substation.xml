@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Rozvodna</p>
+	<p style="hp">Rozvodny berou elektrickou energii z elektrického vedení a dodávají ji do oblasti kolem nich. Tuto oblast si můžete zobrazit na mapce dole vpravo, když kliknete na ikonku s bleskem pod mapou.</p>
+	
+	<p style="hp">Takto vypadá rozvodna</p>
+	<img src="images/tiles/substation-G.png" halign="center"/>
+	<p style="hp">a toto je její ikona</p>
+	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+	
+	<p style="hsubtitle">Viz také:</p>
+	<li><a href="powerline">Elektrické vedení</a></li>
+	<li><a href="powerssolar">Solární elektrárna</a></li>
+	<li><a href="commune">Milíř</a></li>
+	<li><a href="steel">Železo</a></li>
+	<li><a href="jobs">Práce</a></li>
+</Document>
+

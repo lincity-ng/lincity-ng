@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ruda</p>
+	<p style="hp">Ruda je jednou ze základních herních surovin. Produkují ji recyklovací stanice, doly na železnou rudu a milíře.</p>
+	<p style="hp">Rudu používají hrnčířské dílny, kovárny, lehký a těžký průmysl.</p>
+
+	<p style="hsubtitle">Viz také:</p>
+	<li><a href="commune">Milíř</a></li>
+	<li><a href="oremine">Důl na železnou rudu</a></li>
+	<li><a href="recycle">Recyklační stanice</a></li>
+	<li><a href="pottery">Hrnčířská dílna</a></li>
+	<li><a href="indistryl">Lehký průmysl</a></li>
+	<li><a href="indistryh">Těžký průmysl</a></li>
+</Document>
