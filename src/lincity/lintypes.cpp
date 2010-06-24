@@ -588,11 +588,15 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
 
 void init_types(void)
 {
+    /* AL1 in 2.x : dummy stuff for compat with old engine, which was abandonned long ago
     char png_file[LC_PATH_MAX], txt_file[LC_PATH_MAX];
     sprintf(png_file, "%s%c%s", opening_path, PATH_SLASH, "icons.png");
     sprintf(txt_file, "%s%c%s", opening_path, PATH_SLASH, "iconlist.txt");
 
     load_png_graphics(txt_file, png_file);
+    */
+
+    load_png_graphics();
 
     main_types[CST_USED].group = GROUP_USED;
     main_types[CST_USED].graphic = 0;   /* Won't be dereferenced! */

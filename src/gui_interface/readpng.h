@@ -5,6 +5,7 @@
 #ifndef __readpng_h__
 #define __readpng_h__
 
-int load_png_graphics (char *txt_filename, char *png_filename);
+//int load_png_graphics (char *txt_filename, char *png_filename);
+int load_png_graphics (void);
 
 #endif /* __readpng_h__ */

@@ -47,21 +47,6 @@ struct map_point_info_struct {
     int int_7;
 };
 
-/* XXX AL1 : unused in 2.x and probably earlier versions too
-// Set these flags to true when they need to be updated on the screen
-struct update_scoreboard_struct {
-    int mps;
-    int mini;
-    int date;
-    int money;
-    int monthly;
-    int yearly_1;
-    int yearly_2;
-    long int message_area;
-};
-typedef struct update_scoreboard_struct Update_Scoreboard;
-*/
-
 /* GCS -- One of these days I will get this right. */
 struct map_struct {
     short type[WORLD_SIDE_LEN][WORLD_SIDE_LEN];

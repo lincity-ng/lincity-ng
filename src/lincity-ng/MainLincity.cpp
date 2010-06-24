@@ -36,6 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/mps.h"
 #include "gui_interface/shared_globals.h"
+#include "gui_interface/readpng.h"
 
 #include "TimerInterface.hpp"
 
@@ -75,7 +76,7 @@ void execute_timestep ()
              * Removing it gives approximately the same speed as old-ng = 4.0 s/year
              * instead of 24s/year with delay 10 (default fast = 9)
              *
-             * SDL doc says to rely on at least 10 ms granurality on all OS without 
+             * SDL doc says to rely on at least 10 ms granurality on all OS without
              * real time ability (Windows, Linux, MacOS X...) hence the trick
              * of waiting 1/n loop.
              */
@@ -88,7 +89,7 @@ void execute_timestep ()
 
     //draw the updated city
     //in FAST-Mode, update at the last day in Month, so print_stats will work.
-    if( ( lincitySpeed != fast_time_for_year ) || 
+    if( ( lincitySpeed != fast_time_for_year ) ||
         ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) ) == NUMOF_DAYS_IN_MONTH - 1 ){
         print_stats ();
         updateDate();
@@ -129,56 +130,37 @@ bool loadCityNG( std::string filename ){
     return false;
 }
 
-void initLCengine()
-{
-  /* I18n */
-  lincity_set_locale ();
-
-  /* Set up the paths to certain files and directories */
-  init_path_strings ();
-
-  /* Make sure that things are installed where they should be */
-  //  verify_package ();
-
-  /* Make sure the save directory exists */
-  check_savedir ();
-
-  /* Load preferences */
-  //load_lincityrc ();  //oldgui stuff, unused in NG
-
-  /* Initialize random number generator */
-  srand (time (0));
-
-  /* Save preferences */
-    //save_lincityrc ();   //oldgui stuff, unused in NG 
-    //    init_fonts ();  // unsused in NG
-
-    initialize_monthgraph ();
-    //    init_mouse_registry ();
-    //    init_mini_map_mouse ();
-    mps_init();
-
-    //    setcustompalette ();
-    //    draw_background ();
-    //    prog_box (_("Loading the game"), 1);
-    init_types ();
-    // means "init buttons"    init_modules();
-
-}
-
-
 void initLincity()
 {
-    initLCengine();
+    /* I18n */
+    lincity_set_locale ();
+
+    /* Set up the paths to certain files and directories */
+    init_path_strings ();
+
+    /* Make sure the save directory exists */
+    check_savedir ();
+
+    /* Initialize random number generator */
+    srand (time (0));
+
+    initialize_monthgraph ();
+    mps_init();
+
+    // init_types ();
+    load_png_graphics();
+
+    main_types[CST_USED].group = GROUP_USED;
+    main_types[CST_USED].graphic = 0;   /* Won't be dereferenced! */
 
     // animation time
     reset_start_time ();
-  
+
     screen_full_refresh ();
 
     //load current game if it exists
-    if( ! loadCityNG( std::string( "9_currentGameNG.scn" ) ) ) {   
-        //create a new City with village just in case 
+    if( ! loadCityNG( std::string( "9_currentGameNG.scn" ) ) ) {
+        //create a new City with village just in case
         new_city( &main_screen_originx, &main_screen_originy, 1 );
     }
 }
@@ -188,8 +170,8 @@ void doLincityStep()
 {
   /* Get timestamp for this iteration */
   get_real_time();
-  
+
   execute_timestep ();
-  
+
   //  return true;
 }

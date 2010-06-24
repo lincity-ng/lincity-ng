@@ -39,7 +39,7 @@ static void LG(short type, short group, const char* id)
  * in the main_types array.
  */
 int
-load_png_graphics (char* , char* )
+load_png_graphics (void)
 {
     LG(CST_GREEN,GROUP_BARE,LCT_GREEN_G);
 
