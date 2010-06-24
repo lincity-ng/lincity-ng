@@ -132,12 +132,11 @@ Component::findComponent(const std::string& name)
 
     for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {
         const Child& child = *i;
-        if(!child.getComponent())
-            continue;
-
-        Component* component = child.component->findComponent(name);
-        if(component)
-            return component;
+        if (child.getComponent()) {
+            Component* component = child.component->findComponent(name);
+            if(component)
+                return component;
+        }
     }
 
     return 0;
