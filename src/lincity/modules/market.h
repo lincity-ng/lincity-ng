@@ -5,6 +5,14 @@
  * ---------------------------------------------------------------------- */
 #include "../engglobs.h"
 
+#define T_FOOD  0
+#define T_JOBS  1
+#define T_COAL  2
+#define T_GOODS 3
+#define T_ORE   4
+#define T_STEEL 5
+#define T_WASTE 6
+
 void mps_market(int x, int y);
 
 int get_food(int, int, int);

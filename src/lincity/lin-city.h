@@ -21,7 +21,7 @@
   #define MONEY_SEPARATOR ' '
   #define MONEY_SEPARATOR ':'
 */
-#define MONEY_SEPARATOR ','
+#define MONEY_SEPARATOR ',' // AL1 unsused in 2.x , but it would be very good to use it => TODO
 
 /*
        ************************************************
@@ -61,14 +61,6 @@
 #define SAVE_BG_COLOUR       (magenta(10))
 #define NW_BG_COLOUR         (green(10))
 
-/* GCS: We are about to run out of bits on the flags, so in the future we
-   might need to implement compression.  For example, FLAG_IS_RIVER is
-   only used for GROUP_WATER, FLAG_MB_COAL for GROUP_MARKET, and so on. */
-/* WCK: Compression would work, but that's complicated.   I would rather move
-   FLAG_M?_* into an int_? variable.  And add more int_? variables.  That keeps
-   it simple and squeezes some life out of 32 bits.  I don't think we need to
-   hurry.  I'd rather replace the whole scheme. */
-
 #define FLAG_LEFT               (1)             // Used for transports, power lines, rivers, and desert borders.
 #define FLAG_UP                 (2)             // Algorithm relies on the numerical values of
 #define FLAG_RIGHT              (4)             // the flags. (a check is done at compile time)
@@ -102,34 +94,6 @@
 #define FLAG_ASKED_FOR_POWER       (0x40000000)
 #define FLAG_GOT_POWER             (0x80000000) /* 2^31 = last flag */  //nearly duplicate of FLAG_POWERED 0x10
 
-/* XXX: It would appear that the following T_ are used exactly two times each,
-   in market.c.  */
-#define T_FOOD  0
-#define T_JOBS  1
-#define T_COAL  2
-#define T_GOODS 3
-#define T_ORE   4
-#define T_STEEL 5
-#define T_WASTE 6
-
-/* XXX: screen.h? */
-/*
- * AL1 unused in ng-2.X
- *
-#define MINI_SCREEN_NORMAL_FLAG    (0)
-#define MINI_SCREEN_POL_FLAG       (1)
-#define MINI_SCREEN_UB40_FLAG      (2)
-#define MINI_SCREEN_STARVE_FLAG    (3)
-#define MINI_SCREEN_PORT_FLAG      (4)
-#define MINI_SCREEN_POWER_FLAG     (5)
-#define MINI_SCREEN_FIRE_COVER     (6)
-#define MINI_SCREEN_CRICKET_COVER  (7)
-#define MINI_SCREEN_HEALTH_COVER   (8)
-#define MINI_SCREEN_COAL_FLAG      (9)
-
-#define MAIN_SCREEN_NORMAL_FLAG    (1)
-#define MAIN_SCREEN_EQUALS_MINI    (2)
- */
 
 #define WORLD_SIDE_LEN 100      /* Minimap size is hardcoded 200 pixel => some job to do ... */
 #define NUMOF_DAYS_IN_MONTH 100
@@ -141,6 +105,7 @@
 /* interest rate *10  ie 10 is 1% */
 #define INTEREST_RATE 15
 
+/* AL1 unused in 2.x
 #define HELPERRORPAGE "error.hlp"
 #define HELPBACKGROUNDCOLOUR (white(8))
 #define HELPBUTTON_COLOUR (white(25))
@@ -149,6 +114,7 @@
 #define MAX_HELP_HISTORY 20
 #define CS_MOUSE_BUTTON_DELAY 5
 #define RIGHT_MOUSE_MOVE_VAL 5
+*/
 
 #define GOOD 1
 #define BAD (-1)
@@ -488,6 +454,7 @@
 #define SUST_MIN_POPULATION 5000
 #define SUST_MIN_TECH_LEVEL (MAX_TECH_LEVEL/2)
 
+/* AL1 unused in 2.x
 #define STATS_X 232
 #define STATS_Y 428
 #define STATS_W 304
@@ -499,9 +466,18 @@
 #define MARKET_CB_W (17*8 - 2)
 #define MARKET_CB_H (23*8)
 
+*/
 #define SHUFFLE_MAPPOINT_COUNT 4
 
 /******* Buildings // GROUPS ************/
+#define red(x) (32 + x)
+#define green(x) (64 + x)
+#define yellow(x) (96 + x)
+#define blue(x) (128 + x)
+#define magenta(x) (160 + x)
+#define cyan(x) (192 + x)
+#define white(x) (224 + x)
+
 #define NUM_OF_TYPES    404
 #define NUM_OF_GROUPS    50
 #define GROUP_NAME_LEN   20
@@ -948,20 +924,8 @@
 	     (group == GROUP_TREE2) || \
 	     (group == GROUP_TREE3))
 
-#define red(x) (32 + x)
-#define green(x) (64 + x)
-#define yellow(x) (96 + x)
-#define blue(x) (128 + x)
-#define magenta(x) (160 + x)
-#define cyan(x) (192 + x)
-#define white(x) (224 + x)
+/********   end of buildings // groups   ************/
 
-/*
-  *******   end of lin-city.h   ***********
-  *****************************************
-*/
-
-/* FIXME : isn't it forbidden to include .h in .h ?  :-) */
 #include "lintypes.h"
 
 #endif /* __lin_city_h__ */
