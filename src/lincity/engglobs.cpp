@@ -11,7 +11,7 @@
 int ldsv_version;
 int use_waterwell=true;
 
-Map map;
+map_struct map;
 
 int mappoint_array_x[WORLD_SIDE_LEN];
 int mappoint_array_y[WORLD_SIDE_LEN];
@@ -21,11 +21,12 @@ int main_screen_originx, main_screen_originy;
 
 int pix_double = 0;
 
+/* graph stuff from src/gui_interface/shared_globals.h */
 int cheat_flag;
 int modern_windmill_flag = 0;
 
-int askdir_lines;
-char *askdir_path[4];
+// int askdir_lines;
+// char *askdir_path[4];
 
 int monthgraph_size = 0;
 int *monthgraph_pop;
@@ -33,13 +34,15 @@ int *monthgraph_starve;
 int *monthgraph_nojobs;
 int *monthgraph_ppool;
 
+/* end of gui_interface.... */
+
 int sust_dig_ore_coal_tip_flag = 0, sust_port_flag = 0, sustain_flag = 0;
 int sust_dig_ore_coal_count = 0, sust_port_count = 0, sust_old_money = 0;
 int sust_old_money_count = 0, sust_old_population = 0, sust_old_population_count = 0;
 int sust_old_tech = 0, sust_old_tech_count = 0, sust_fire_count = 0;
 
 int total_time = 0;             /* game time */
-int deadline = 0; 
+int deadline = 0;
 
 int population, starving_population;
 int housed_population;

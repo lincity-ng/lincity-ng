@@ -11,7 +11,7 @@
 
 /* ---------------------------------------------------------------------
    For track, road and rail:
-  
+
    int_1 contains the amount of food
    int_2 contains the amount of jobs
    int_3 contains the amount of coal
@@ -24,7 +24,7 @@
 void do_road(int x, int y)
 {
     int *pol = &MP_POL(x, y);
-    Map_Point_Info *minfo = &MP_INFO(x, y);
+    map_point_info_struct *minfo = &MP_INFO(x, y);
     ++transport_cost;
     if (total_time % DAYS_PER_ROAD_POLLUTION == 0)
         *pol += ROAD_POLLUTION;

@@ -620,7 +620,7 @@ int deal_with_transport(int x, int y, int tx, int ty)
 int get_stuff(int x, int y, int stuff, int stuff_type)
 {
     int res = 0;
-    Map_Point_Info *minfo = &MP_INFO(x, y);
+    map_point_info_struct *minfo = &MP_INFO(x, y);
 
     switch (MP_SIZE(x, y)) {
     case 2:
@@ -650,7 +650,7 @@ static const int t2[8] = {
 };
 
 /* worth inlining -- (ThMO) */
-int get_stuff2(Map_Point_Info * map, int stuff, int stuff_type)
+int get_stuff2(map_point_info_struct * map, int stuff, int stuff_type)
 {
     static int tstart2 = 0;
     int i, st, tst, *ip, *stack[8], **ssp;      /* stack is a pipe -- (ThMO) */
@@ -701,7 +701,7 @@ static const int t3[12] = {
 };
 
 /* worth inlining -- (ThMO) */
-int get_stuff3(Map_Point_Info * map, int stuff, int stuff_type)
+int get_stuff3(map_point_info_struct * map, int stuff, int stuff_type)
 {
     static int tstart3 = 0;
 
@@ -760,7 +760,7 @@ static const int t4[16] = {
 };
 
 /* worth inlining -- (ThMO) */
-int get_stuff4(Map_Point_Info * map, int stuff, int stuff_type)
+int get_stuff4(map_point_info_struct * map, int stuff, int stuff_type)
 {
     static int tstart4 = 0;
 
@@ -802,7 +802,7 @@ int put_stuff(int x, int y, int stuff, int stuff_type)
 {
     int res = 0;
     short *type = &MP_TYPE(x, y);
-    Map_Point_Info *minfo = &MP_INFO(x, y);
+    map_point_info_struct *minfo = &MP_INFO(x, y);
     switch (MP_SIZE(x, y)) {
     case 2:
         res = put_stuff2(minfo, type, stuff, stuff_type);
@@ -833,7 +833,7 @@ struct stack {
 };
 
 /* worth inlining -- (ThMO) */
-int put_stuff2(Map_Point_Info * minfo, short *type, int stuff, int stuff_type)
+int put_stuff2(map_point_info_struct * minfo, short *type, int stuff, int stuff_type)
 {
     static int tstart2 = 0;
     int i, st, tst, *ip, tp = 0;
@@ -890,12 +890,12 @@ int put_stuff2(Map_Point_Info * minfo, short *type, int stuff, int stuff_type)
 }
 
 /* worth inlining -- (ThMO) */
-int put_stuff3(Map_Point_Info * minfo, short *type, int stuff, int stuff_type)
+int put_stuff3(map_point_info_struct * minfo, short *type, int stuff, int stuff_type)
 {
     static int tstart3 = 0;
     int i, st, tst, *ip, tp = 0;
     struct stack stack[12], *ssp;       /* stack is really a pipe -- (ThMO)
-                                           we'll stack our found pointers so 
+                                           we'll stack our found pointers so
                                            to avoid re-looping and
                                            testing again (ThMO) */
 
@@ -948,7 +948,7 @@ int put_stuff3(Map_Point_Info * minfo, short *type, int stuff, int stuff_type)
 }
 
 /* worth inlining -- (ThMO) */
-int put_stuff4(Map_Point_Info * minfo, short *type, int stuff, int stuff_type)
+int put_stuff4(map_point_info_struct * minfo, short *type, int stuff, int stuff_type)
 {
     static int tstart4 = 0;
     int i, st, tst, *ip, tp = 0;

@@ -15,7 +15,7 @@ extern int pix_double;
 /* */
 extern int use_waterwell, ldsv_version;
 
-extern Map map;
+extern map_struct map;
 extern struct GROUP main_groups[NUM_OF_GROUPS];
 extern struct TYPE main_types[NUM_OF_TYPES];
 

@@ -46,9 +46,9 @@ struct map_point_info_struct {
     int int_6;
     int int_7;
 };
-typedef struct map_point_info_struct Map_Point_Info;
 
-/* Set these flags to true when they need to be updated on the screen */
+/* XXX AL1 : unused in 2.x and probably earlier versions too
+// Set these flags to true when they need to be updated on the screen
 struct update_scoreboard_struct {
     int mps;
     int mini;
@@ -60,21 +60,20 @@ struct update_scoreboard_struct {
     long int message_area;
 };
 typedef struct update_scoreboard_struct Update_Scoreboard;
+*/
 
 /* GCS -- One of these days I will get this right. */
 struct map_struct {
     short type[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     short group[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     int pollution[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
-    Map_Point_Info info[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+    map_point_info_struct info[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     int date[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     int tech[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     int anim[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     int im_index[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
     int activity[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 };
-typedef struct map_struct Map;
-
 
 #define MP_TYPE(x,y)   map.type[x][y]
 #define MP_GROUP(x,y)  map.group[x][y]
@@ -101,7 +100,7 @@ struct ground_struct {
     int int1;           //reserved for future (?) use
     int int2;
     int int3;
-    int int4;           //used as tmp in setup_ground  //FIXME : this is too ugly 
+    int int4;           //used as tmp in setup_ground  //FIXME : this is too ugly
 };
 #define ALT(x,y) ground[x][y].altitude
 

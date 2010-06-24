@@ -3,7 +3,7 @@
  * This file is part of lincity-ng.
  * ---------------------------------------------------------------------- */
 
-/* This file is for loading old games (before NG 1.91) 
+/* This file is for loading old games (before NG 1.91)
  * and convert them to new format + data structure
  */
 
@@ -158,7 +158,7 @@ void load_city_old(char *cname)
     init_inventory();
 
     print_time_for_year();
-    q = (unsigned long)sizeof(Map_Point_Info);
+    q = (unsigned long)sizeof(map_point_info_struct);
     prog_box(_("Loading scene"), 0);
 
     for (x = 0; x < WORLD_SIDE_LEN; x++) {
@@ -289,7 +289,7 @@ void load_city_old(char *cname)
         sscanf(gzgets(gzfile, s, 256), "%d", &i);
     }
     for (x = 0; x < i; x++) {
-        /* If more entries in file than will fit on screen, 
+        /* If more entries in file than will fit on screen,
            then we need to skip past them. */
         if (x >= monthgraph_size) {
             sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &monthgraph_pop[x] */
@@ -370,7 +370,7 @@ void load_city_old(char *cname)
     else
         highest_tech_level = 0;
 
-    gzgets(gzfile, s, 200);   
+    gzgets(gzfile, s, 200);
     if (sscanf
         (s, "sust %d %d %d %d %d %d %d %d %d %d", &sust_dig_ore_coal_count, &sust_port_count, &sust_old_money_count,
          &sust_old_population_count, &sust_old_tech_count, &sust_fire_count, &sust_old_money, &sust_old_population,
@@ -384,14 +384,14 @@ void load_city_old(char *cname)
             = sust_old_tech_count = sust_fire_count = sust_old_money = sust_old_population = sust_old_tech = 0;
 
     if (ldsv_version == WATERWELL_V2) {
-        gzgets(gzfile, s, 80);   
+        gzgets(gzfile, s, 80);
         sscanf(s, "arid %d %d", &global_aridity, &global_mountainity);
 #ifdef DEBUG
         fprintf(stderr," arid %d, mountain %d \n", global_aridity, global_mountainity);
 #endif
         for (x = 0; x < WORLD_SIDE_LEN; x++) {
             for (y = 0; y < WORLD_SIDE_LEN; y++) {
-                gzgets(gzfile, s, 200);  
+                gzgets(gzfile, s, 200);
                 sscanf(s,"%d %d %d %d %d %d %d %d %d %d %d %d",&(ground[x][y].altitude)
                         , &ground[x][y].ecotable
                         , &ground[x][y].wastes
@@ -403,7 +403,7 @@ void load_city_old(char *cname)
                         , &ground[x][y].int1
                         , &ground[x][y].int2
                         , &ground[x][y].int3
-                        , &ground[x][y].int4 
+                        , &ground[x][y].int4
                         );
 #ifdef DEBUG
                 if (x == 10 && y == 10)
@@ -509,7 +509,7 @@ void load_city_old(char *cname)
                                  * In case of error message with ok_dial_box
                                  *    the dialog cannot appear because the screen
                                  *    is not set up => crash.
-                                 * FIXME: move all initialisation elsewhere, in 
+                                 * FIXME: move all initialisation elsewhere, in
                                  *    engine.cpp or simulate.cpp.
                                  */
     upgrade_to_v2();
@@ -597,7 +597,7 @@ void upgrade_to_v2 (void)
 
     global_mountainity= 10 + rand () % 300;
 
-    // Grey border (not visible on the map, x = 0 , x = 99, y = 0, y = 99) 
+    // Grey border (not visible on the map, x = 0 , x = 99, y = 0, y = 99)
     for (x = 0; x < WORLD_SIDE_LEN; x++)
         for (y = 0; y < WORLD_SIDE_LEN; y++) {
             ALT(x,y) = 0;

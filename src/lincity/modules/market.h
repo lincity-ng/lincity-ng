@@ -27,11 +27,11 @@ int put_steel(int, int, int);
 int get_waste(int, int, int);
 int put_waste(int, int, int);
 int get_stuff(int, int, int, int);
-int get_stuff2(Map_Point_Info *, int, int);
-int get_stuff3(Map_Point_Info *, int, int);
-int get_stuff4(Map_Point_Info *, int, int);
+int get_stuff2(map_point_info_struct *, int, int);
+int get_stuff3(map_point_info_struct *, int, int);
+int get_stuff4(map_point_info_struct *, int, int);
 int put_stuff(int, int, int, int);
-int put_stuff2(Map_Point_Info *, short *, int, int);
-int put_stuff3(Map_Point_Info *, short *, int, int);
-int put_stuff4(Map_Point_Info *, short *, int, int);
+int put_stuff2(map_point_info_struct *, short *, int, int);
+int put_stuff3(map_point_info_struct *, short *, int, int);
+int put_stuff4(map_point_info_struct *, short *, int, int);
 

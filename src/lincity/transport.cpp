@@ -64,8 +64,8 @@ static int max_load(int x, int y, int i)
 }
 
 /* ---------------------------------------------------------------------
-   For track, road and rail: 
-  
+   For track, road and rail:
+
    MP_INFO(x,y).int_1 contains the amount of food
                 int_2 contains the amount of jobs
                 int_3 contains the amount of coal
@@ -117,7 +117,7 @@ void general_transport(int x, int y, int max_waste)
      */
 
     int *pol = &MP_POL(x, y);
-    Map_Point_Info *minfo = &MP_INFO(x, y);
+    map_point_info_struct *minfo = &MP_INFO(x, y);
 
     int tot, max, ratio, *base, xm1, xp1, ym1, yp1;
     int i;
@@ -176,7 +176,7 @@ void general_transport(int x, int y, int max_waste)
         tot = CC + LC + RC + UC + DC;
         max = CM + LM + RM + UM + DM;
         ratio = (tot * 100) / max;
-        
+
         /* left */
         if (XY_IS_TRANSPORT(x - 1, y)) {
             LC = base[xm1] = (ratio * LM) / 100;
@@ -340,7 +340,7 @@ void general_transport(int x, int y, int max_waste)
     }
     */
 
-    //  *--base = &minfo->int_7 = current waste on this tile of transport 
+    //  *--base = &minfo->int_7 = current waste on this tile of transport
     if (*--base >= max_waste) {
         *base -= WASTE_BURN_ON_TRANSPORT;
         ++*pol;
