@@ -77,10 +77,8 @@ Component::draw(Painter& painter)
 {
     for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
         Child& child = *i;
-        if(!child.enabled)
-            continue;
-
-        drawChild(child, painter);
+        if(child.enabled)
+            drawChild(child, painter);
     }
 }
 
