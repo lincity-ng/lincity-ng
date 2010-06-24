@@ -58,6 +58,8 @@ void setLincitySpeed( int speed )
 
 void execute_timestep ()
 {
+    /* Get timestamp for this iteration */
+    get_real_time();
 
     if( lincitySpeed == 0 || blockingDialogIsOpen ) {
         SDL_Delay(10); //don't burn cpu in active loop
@@ -165,13 +167,3 @@ void initLincity()
     }
 }
 
-
-void doLincityStep()
-{
-  /* Get timestamp for this iteration */
-  get_real_time();
-
-  execute_timestep ();
-
-  //  return true;
-}

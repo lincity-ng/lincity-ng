@@ -40,6 +40,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "EconomyGraph.hpp"
 
 extern int lincitySpeed;
+extern void execute_timestep(void);
 
 Game* gameptr = 0;
 
@@ -237,7 +238,7 @@ Game::run()
         if(desktop->needsRedraw()) {
             desktop->draw(*painter);
             flipScreenBuffer();
-        } 
+        }
         frame++;
 
         // Slow down cpu consumption in pause mode
@@ -250,8 +251,10 @@ Game::run()
             fpsTicks = ticks;
         } else if(!lincitySpeed)
             frame = 0;
-        /* SDL_Delay is done in execute_timestep , which is called by doLincityStep */
-        doLincityStep();
+
+        /* SDL_Delay is done in execute_timestep */
+        execute_timestep ();
+
     }
 
     return quitState;
