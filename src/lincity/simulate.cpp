@@ -367,20 +367,10 @@ static void simulate_mappoints(void)
                 do_market(x, y);
                 break;
             case GROUP_RESIDENCE_LL:
-                do_residence(x, y);
-                break;
             case GROUP_RESIDENCE_ML:
-                do_residence(x, y);
-                break;
             case GROUP_RESIDENCE_HL:
-                do_residence(x, y);
-                break;
             case GROUP_RESIDENCE_LH:
-                do_residence(x, y);
-                break;
             case GROUP_RESIDENCE_MH:
-                do_residence(x, y);
-                break;
             case GROUP_RESIDENCE_HH:
                 do_residence(x, y);
                 break;

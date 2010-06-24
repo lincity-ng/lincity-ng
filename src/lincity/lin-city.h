@@ -15,7 +15,7 @@
   When your money reaches 1 million or more, to make it easier to
   read, it is split into two parts; a millions part, and the rest.
    For example  12,355232    You can choose any character you like,
-   but I have given some other examples. Just comment out the one 
+   but I have given some other examples. Just comment out the one
    above, and uncomment one below. IT MUST NOT BE NULL.
   #define MONEY_SEPARATOR '.'
   #define MONEY_SEPARATOR ' '
@@ -62,7 +62,7 @@
 #define NW_BG_COLOUR         (green(10))
 
 /* GCS: We are about to run out of bits on the flags, so in the future we
-   might need to implement compression.  For example, FLAG_IS_RIVER is 
+   might need to implement compression.  For example, FLAG_IS_RIVER is
    only used for GROUP_WATER, FLAG_MB_COAL for GROUP_MARKET, and so on. */
 /* WCK: Compression would work, but that's complicated.   I would rather move
    FLAG_M?_* into an int_? variable.  And add more int_? variables.  That keeps
@@ -70,9 +70,9 @@
    hurry.  I'd rather replace the whole scheme. */
 
 #define FLAG_LEFT               (1)             // Used for transports, power lines, rivers, and desert borders.
-#define FLAG_UP                 (2)             // Algorithm relies on the numerical values of 
+#define FLAG_UP                 (2)             // Algorithm relies on the numerical values of
 #define FLAG_RIGHT              (4)             // the flags. (a check is done at compile time)
-#define FLAG_DOWN               (8)             // 
+#define FLAG_DOWN               (8)             //
 #define FLAG_POWERED            (0x10)
 #define FLAG_FED                (0x20)
 #define FLAG_EMPLOYED           (0x40)
@@ -113,7 +113,9 @@
 #define T_WASTE 6
 
 /* XXX: screen.h? */
-
+/*
+ * AL1 unused in ng-2.X
+ *
 #define MINI_SCREEN_NORMAL_FLAG    (0)
 #define MINI_SCREEN_POL_FLAG       (1)
 #define MINI_SCREEN_UB40_FLAG      (2)
@@ -127,6 +129,7 @@
 
 #define MAIN_SCREEN_NORMAL_FLAG    (1)
 #define MAIN_SCREEN_EQUALS_MINI    (2)
+ */
 
 #define WORLD_SIDE_LEN 100      /* Minimap size is hardcoded 200 pixel => some job to do ... */
 #define NUMOF_DAYS_IN_MONTH 100
@@ -205,10 +208,13 @@
 #define UNNAT_DEATHS_COST       500
 #define POL_DIV                 64      /* GCS -- from engine.c */
 
-#define FINANCE_X 91
+/* #define FINANCE_X 91
 #define FINANCE_W 120
 #define FINANCE_Y 200
 #define FINANCE_H 56
+ * AL1 unused in 2.x
+ */
+
 #define INCOME_TAX_RATE 8
 #define COAL_TAX_RATE 20
 #define GOODS_TAX_RATE 1
@@ -495,7 +501,7 @@
 
 #define SHUFFLE_MAPPOINT_COUNT 4
 
-/******* Buildings // GROUPS ************/ 
+/******* Buildings // GROUPS ************/
 #define NUM_OF_TYPES    404
 #define NUM_OF_GROUPS    50
 #define GROUP_NAME_LEN   20
@@ -906,7 +912,7 @@
 #define GROUP_TRACK_BRIDGE        46
 #define GROUP_TRACK_BRIDGE_COLOUR 32   /* 32 is a brown */
 #define GROUP_TRACK_BRIDGE_COST   GROUP_TRACK_COST * BRIDGE_FACTOR
-#define GROUP_TRACK_BRIDGE_COST_MUL 2  
+#define GROUP_TRACK_BRIDGE_COST_MUL 2
 #define GROUP_TRACK_BRIDGE_BUL_COST GROUP_TRACK_BUL_COST * BRIDGE_FACTOR
 #define GROUP_TRACK_BRIDGE_TECH   GROUP_TRACK_TECH
 #define GROUP_TRACK_BRIDGE_FIREC  0    /* unused */
@@ -914,7 +920,7 @@
 #define GROUP_ROAD_BRIDGE         47
 #define GROUP_ROAD_BRIDGE_COLOUR  (white(18))
 #define GROUP_ROAD_BRIDGE_COST    GROUP_ROAD_COST * BRIDGE_FACTOR
-#define GROUP_ROAD_BRIDGE_COST_MUL 2  
+#define GROUP_ROAD_BRIDGE_COST_MUL 2
 #define GROUP_ROAD_BRIDGE_BUL_COST GROUP_ROAD_BUL_COST * BRIDGE_FACTOR
 #define GROUP_ROAD_BRIDGE_TECH    GROUP_ROAD_TECH
 #define GROUP_ROAD_BRIDGE_FIREC   0
@@ -922,7 +928,7 @@
 #define GROUP_RAIL_BRIDGE         48
 #define GROUP_RAIL_BRIDGE_COLOUR  (magenta(18))
 #define GROUP_RAIL_BRIDGE_COST    GROUP_RAIL_COST * BRIDGE_FACTOR
-#define GROUP_RAIL_BRIDGE_COST_MUL 2  
+#define GROUP_RAIL_BRIDGE_COST_MUL 2
 #define GROUP_RAIL_BRIDGE_BUL_COST GROUP_RAIL_BUL_COST * BRIDGE_FACTOR
 #define GROUP_RAIL_BRIDGE_TECH    GROUP_RAIL_TECH
 #define GROUP_RAIL_BRIDGE_FIREC   0
