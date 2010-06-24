@@ -73,14 +73,14 @@ EconomyGraph::EconomyGraph(){
 EconomyGraph::~EconomyGraph(){
     if( economyGraphPtr == this ){
         economyGraphPtr = 0;
-    } 
+    }
     free( fps );
-    delete labelTextureMIN; 
-    delete labelTexturePRT; 
-    delete labelTextureMNY; 
-    delete labelTexturePOP; 
-    delete labelTextureTEC; 
-    delete labelTextureFIR; 
+    delete labelTextureMIN;
+    delete labelTexturePRT;
+    delete labelTextureMNY;
+    delete labelTexturePOP;
+    delete labelTextureTEC;
+    delete labelTextureFIR;
     delete labelTextureEconomy;
     delete labelTextureSustainability;
     delete labelTextureFPS;
@@ -107,7 +107,7 @@ void EconomyGraph::parse( XmlReader& reader ){
                 throw std::runtime_error(msg.str());
             }
         } else {
-            std::cerr << "Unknown attribute '" << name 
+            std::cerr << "Unknown attribute '" << name
                       << "' skipped in EconomyGraph.\n";
         }
     }
@@ -124,24 +124,24 @@ void EconomyGraph::parse( XmlReader& reader ){
     labelXXX = TTF_RenderUTF8_Blended( font, _("Mining"), labelStyle.text_color.getSDLColor() );
     labelTextureMIN = texture_manager->create( labelXXX );
     labelXXX = TTF_RenderUTF8_Blended( font, _("Trade"), labelStyle.text_color.getSDLColor() );
-    labelTexturePRT = texture_manager->create( labelXXX ); 
+    labelTexturePRT = texture_manager->create( labelXXX );
     labelXXX = TTF_RenderUTF8_Blended( font, _("Money"), labelStyle.text_color.getSDLColor() );
-    labelTextureMNY = texture_manager->create( labelXXX ); 
+    labelTextureMNY = texture_manager->create( labelXXX );
     labelXXX = TTF_RenderUTF8_Blended( font, _("Popul."), labelStyle.text_color.getSDLColor() );
-    labelTexturePOP = texture_manager->create( labelXXX ); 
+    labelTexturePOP = texture_manager->create( labelXXX );
     labelXXX = TTF_RenderUTF8_Blended( font, _("Techn."), labelStyle.text_color.getSDLColor() );
-    labelTextureTEC = texture_manager->create( labelXXX ); 
+    labelTextureTEC = texture_manager->create( labelXXX );
     labelXXX = TTF_RenderUTF8_Blended( font, _("Fire"), labelStyle.text_color.getSDLColor() );
-    labelTextureFIR = texture_manager->create( labelXXX ); 
+    labelTextureFIR = texture_manager->create( labelXXX );
 
     labelXXX = TTF_RenderUTF8_Blended( font, _("Economy Overview:"), labelStyle.text_color.getSDLColor() );
-    labelTextureEconomy = texture_manager->create( labelXXX ); 
-    
+    labelTextureEconomy = texture_manager->create( labelXXX );
+
     labelXXX = TTF_RenderUTF8_Blended( font, _("Sustainability:"), labelStyle.text_color.getSDLColor() );
-    labelTextureSustainability = texture_manager->create( labelXXX ); 
+    labelTextureSustainability = texture_manager->create( labelXXX );
 
     labelXXX = TTF_RenderUTF8_Blended( font, _("Frames per Second:"), labelStyle.text_color.getSDLColor() );
-    labelTextureFPS = texture_manager->create( labelXXX ); 
+    labelTextureFPS = texture_manager->create( labelXXX );
 }
 
 //see do_history_linegraph in oldgui/screen.cpp
@@ -150,7 +150,7 @@ void EconomyGraph::updateData(){
     float f;
     int w = getConfig()->monthgraphW;
     //thats the value oldgui uses, so saved data has same scale as new.
-    int h = 64; //MONTHGRAPH_H; 
+    int h = 64; //MONTHGRAPH_H;
 
     for (i = w - 1; i > 0; i--) {
 	    monthgraph_pop[i] = monthgraph_pop[i-1];
@@ -158,39 +158,38 @@ void EconomyGraph::updateData(){
 	    monthgraph_nojobs[i] = monthgraph_nojobs[i-1];
 	    monthgraph_starve[i] = monthgraph_starve[i-1];
     }
-    if (tpopulation > 0)
-    {
-	monthgraph_pop[0] = ((int) (log ((tpopulation / NUMOF_DAYS_IN_MONTH)
-					 + 1.f) * h / 15)) - 5;
-	if (monthgraph_pop[0] < 0)
-	    monthgraph_pop[0] = 0;
-	f = ((float) tstarving_population 
-	     / ((float) tpopulation + 1.0)) * 100.0;
-	if (tpopulation > 3000)	/* double the scale if pop > 3000 */
-	    f += f;
-	if (tpopulation > 6000)	/* double it AGAIN if pop > 6000 */
-	    f += f;
-	monthgraph_starve[0] = (int) f;
-	/* max out at 32 */
-	if (monthgraph_starve[0] >= h)
-	    monthgraph_starve[0] = h - 1;
-	f = ((float) tunemployed_population
-	     / ((float) tpopulation + 1.0)) * 100.0;
-	if (tpopulation > 3000)	/* double the scale if pop > 3000 */
-	    f += f;
-	if (tpopulation > 6000)	/* double it AGAIN if pop > 6000 */
-	    f += f;
-	monthgraph_nojobs[0] = (int) f;
-	/* max out at 32  */
-	if (monthgraph_nojobs[0] >= h)
-	    monthgraph_nojobs[0] = h - 1;
-	monthgraph_ppool[0] = ((int) (sqrt (people_pool + 1.f) * h) / 35);
-	if (monthgraph_ppool[0] < 0)
-	    monthgraph_ppool[0] = 0;
-	if (monthgraph_ppool[0] >= h)
-	    monthgraph_ppool[0] = h - 1;
+    if (tpopulation > 0) {
+        /* log scale 0 -> 200 000 = 10^5.3 */
+        float scale = h / (5.3 * log(10.));
+        float t = (total_time %NUMOF_DAYS_IN_MONTH + 1.f);
+
+        monthgraph_pop[0] = (int) (log (tpopulation / t) * scale);
+        if (monthgraph_pop[0] < 0)
+            monthgraph_pop[0] = 0;
+        if (monthgraph_pop[0] >= h)
+            monthgraph_pop[0] = h - 1;
+
+        monthgraph_starve[0] = (int) (log( tstarving_population  /  t) * scale);
+        if (monthgraph_starve[0] < 0)
+            monthgraph_starve[0] = 0;
+        if (monthgraph_starve[0] >= h)
+            monthgraph_starve[0] = h - 1;
+
+        monthgraph_nojobs[0] = (int) (log( tunemployed_population  / t) * scale);
+        if (monthgraph_nojobs[0] < 0)
+            monthgraph_nojobs[0] = 0;
+        if (monthgraph_nojobs[0] >= h)
+            monthgraph_nojobs[0] = h - 1;
+
+        /* percentage scale */
+        f = (float) people_pool / (float) (tpopulation / t + people_pool) * (float) h;
+        monthgraph_ppool[0] = (int) f;
+        if (monthgraph_ppool[0] < 0)
+            monthgraph_ppool[0] = 0;
+        if (monthgraph_ppool[0] >= h)
+            monthgraph_ppool[0] = h - 1;
     }
-    
+
     //sustainability check from do_sust_barchart
     if (sust_dig_ore_coal_count >= SUST_ORE_COAL_YEARS_NEEDED
         && sust_port_count >= SUST_PORT_YEARS_NEEDED
@@ -207,7 +206,7 @@ void EconomyGraph::updateData(){
         sustain_flag = 0;
     }
 
-    
+
     //sustain_flag == 1 means player had a sustainable economy
     //total_evacuated >0 means player evacuated at least some people
     if( !housed_population && !people_pool ){ //no people left
@@ -231,7 +230,7 @@ void EconomyGraph::updateData(){
     } else if( nobodyHomeDialogShown ){ //reset flag if there are people
         nobodyHomeDialogShown = false;
     }
-   
+
 
     Component* root = this;
     while( root->getParent() ){
@@ -247,7 +246,7 @@ void EconomyGraph::updateData(){
         yellowStyle.text_color.parse("yellow");
         redStyle.text_color.parse("red");
     }
- 
+
     // set tab Button colour
     if( switchEconomyGraphParagraph ){
         if( monthgraph_starve[0] > 0 ){ // people are starving: RED
@@ -258,7 +257,7 @@ void EconomyGraph::updateData(){
             switchEconomyGraphParagraph->setText(switchEconomyGraphText, normalStyle);
         }
     }
-    
+
     //redraw
     setDirty();
 }
@@ -274,8 +273,8 @@ void EconomyGraph::newFPS( int frame ){
     setDirty();
 }
 
-void EconomyGraph::drawHistoryLineGraph( Painter& painter, Rect2D mg ){ 
-    // see oldgui/screen.cpp do_history_linegraph 
+void EconomyGraph::drawHistoryLineGraph( Painter& painter, Rect2D mg ){
+    // see oldgui/screen.cpp do_history_linegraph
     Vector2 a;
     Vector2 b;
 
@@ -286,28 +285,28 @@ void EconomyGraph::drawHistoryLineGraph( Painter& painter, Rect2D mg ){
     brown.parse( "brown" );
     grey.parse("#A9A9A9FF");
 
-    painter.setClipRectangle( mg ); 
+    painter.setClipRectangle( mg );
     painter.setFillColor( grey );
     painter.fillRectangle( mg );
     int mgX = (int) mg.p1.x;
     int mgY = (int) mg.p1.y;
-    int mgW = (int) mg.getWidth(); 
+    int mgW = (int) mg.getWidth();
     int mgH = (int) mg.getHeight();
-    
+
     float scale = (float) mgH / 64; //MONTHGRAPH_H  ;
-    
+
     b.y = mgY + mgH;
     for( int i = mgW - 1; i >= 0; i-- ){
         painter.setLineColor( yellow );
         a.x = mgX + mgW - i;
         a.y = mgY + mgH - scale * monthgraph_nojobs[i];
-        
+
         b.x = mgX + mgW - i;
         painter.drawLine( a, b );
         painter.setLineColor( red );
         a.y = mgY + mgH - scale * monthgraph_starve[i];
         painter.drawLine( a, b );
-    }                  
+    }
     for( int i = mgW - 1; i > 0; i-- ){
         painter.setLineColor( brown );
         a.x = mgX + mgW - i;
@@ -325,7 +324,7 @@ void EconomyGraph::drawHistoryLineGraph( Painter& painter, Rect2D mg ){
 
 }
 
-void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){ 
+void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     // see oldgui/screen.cpp do_sust_barchart
     Color grey,yellow,orange,black,green,blue,red;
     grey.parse( "#A9A9A9FF" );
@@ -338,14 +337,14 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
 
     painter.setFillColor( grey );
     painter.fillRectangle( mg );
-  
+
     int mgX = (int) mg.p1.x;
     int mgY = (int) mg.p1.y;
-    int mgW = (int) mg.getWidth(); 
+    int mgW = (int) mg.getWidth();
     int mgH = (int) mg.getHeight();
 
     Vector2 a, b, p;
-    
+
 #define SUST_BAR_H      5
 #define SUST_BAR_GAP_Y  5
 
@@ -358,23 +357,23 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     p.y = mgY;
     painter.setLineColor( yellow );
     painter.drawLine( a, b);
-    
+
     Rect2D bar;
     bar.p1.x = mgX + 36;
     bar.p1.y = mgY + SUST_BAR_GAP_Y;
     bar.setHeight( SUST_BAR_H );
     int maxBarLen = mgW - 40;
     int newLen;
-    int len; 
-    
+    int len;
+
 	/* ore coal */
     newLen = maxBarLen * sust_dig_ore_coal_count / SUST_ORE_COAL_YEARS_NEEDED;
     len = 3 + ( ( newLen > maxBarLen ) ? maxBarLen : newLen );
     bar.setWidth( len );
     painter.setFillColor( orange );
     painter.fillRectangle( bar );
-    painter.drawTexture( labelTextureMIN, p ); 
-    
+    painter.drawTexture( labelTextureMIN, p );
+
 	/* import export */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_port_count / SUST_PORT_YEARS_NEEDED;
@@ -383,8 +382,8 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     painter.setFillColor( black );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
-    painter.drawTexture( labelTexturePRT, p ); 
-    
+    painter.drawTexture( labelTexturePRT, p );
+
 	/* money */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_old_money_count / SUST_MONEY_YEARS_NEEDED;
@@ -393,8 +392,8 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     painter.setFillColor( green );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
-    painter.drawTexture( labelTextureMNY, p ); 
-    
+    painter.drawTexture( labelTextureMNY, p );
+
 	/* population */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_old_population_count / SUST_POP_YEARS_NEEDED;
@@ -403,8 +402,8 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     painter.setFillColor( blue );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
-    painter.drawTexture( labelTexturePOP, p ); 
-    
+    painter.drawTexture( labelTexturePOP, p );
+
 	/* tech */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_old_tech_count / SUST_TECH_YEARS_NEEDED;
@@ -413,8 +412,8 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     painter.setFillColor( yellow );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
-    painter.drawTexture( labelTextureTEC, p ); 
-    
+    painter.drawTexture( labelTextureTEC, p );
+
 	/* fire */
     p.y += SUST_BAR_H + SUST_BAR_GAP_Y ;
     newLen = maxBarLen * sust_fire_count / SUST_FIRE_YEARS_NEEDED;
@@ -423,72 +422,72 @@ void EconomyGraph::drawSustBarGraph( Painter& painter, Rect2D mg ){
     painter.setFillColor( red );
     bar.move( Vector2( 0, SUST_BAR_H + SUST_BAR_GAP_Y ) );
     painter.fillRectangle( bar );
-    painter.drawTexture( labelTextureFIR, p ); 
+    painter.drawTexture( labelTextureFIR, p );
 }
 
 
-void EconomyGraph::drawFPSGraph( Painter& painter, Rect2D fpsRect ){ 
+void EconomyGraph::drawFPSGraph( Painter& painter, Rect2D fpsRect ){
     Color grey, blue;
     blue.parse( "blue" );
     grey.parse("#A9A9A9FF");
     int mgX = (int) fpsRect.p1.x;
     int mgY = (int) fpsRect.p1.y;
-    int mgW = (int) fpsRect.getWidth(); 
+    int mgW = (int) fpsRect.getWidth();
     int mgH = (int) fpsRect.getHeight();
 
-    
+
     painter.setFillColor( grey );
     painter.fillRectangle( fpsRect );
-    
-    painter.setClipRectangle( fpsRect ); 
-      
+
+    painter.setClipRectangle( fpsRect );
+
     Vector2 a;
     Vector2 b;
     painter.setLineColor( blue );
-    
+
     float scale = (float) mgH / 64; //MONTHGRAPH_H  ;
 
     b.y = mgY + mgH;
     for( int i = mgW - 1; i >= 0; i-- ){
         a.x = mgX + mgW - i;
         a.y = mgY + mgH - scale * fps[i];
-        
+
         b.x = mgX + mgW - i;
         painter.drawLine( a, b );
     }
     painter.clearClipRectangle();
 }
-    
+
 void EconomyGraph::draw( Painter& painter ){
-   
+
     Color white;
     white.parse( "white" );
-    
+
     Rect2D background( 0, 0, getWidth(), getHeight() );
     int mgX = border;
     int mgY = 3*border;
-    int mgW = getConfig()->monthgraphW; 
+    int mgW = getConfig()->monthgraphW;
     int mgH = getConfig()->monthgraphH;
-    
+
     painter.setFillColor( white );
     painter.fillRectangle( background );
 
     Vector2 labelPos( 2 * border, border-1 );
-    
+
     //Draw HistoryLineGraph
-    painter.drawTexture( labelTextureEconomy, labelPos ); 
+    painter.drawTexture( labelTextureEconomy, labelPos );
     Rect2D currentGraph( mgX, mgY, mgX + mgW, mgY + mgH );
     drawHistoryLineGraph( painter, currentGraph );
 
     //Draw Sustainability Bars
-    labelPos.y += 2 * border + mgH; 
-    painter.drawTexture( labelTextureSustainability, labelPos ); 
+    labelPos.y += 2 * border + mgH;
+    painter.drawTexture( labelTextureSustainability, labelPos );
     currentGraph.move( Vector2( 0, 2 * border + mgH ) );
     drawSustBarGraph( painter, currentGraph);
 
     //Draw FPS-Window
-    labelPos.y += 2 * border + mgH; 
-    painter.drawTexture( labelTextureFPS, labelPos ); 
+    labelPos.y += 2 * border + mgH;
+    painter.drawTexture( labelTextureFPS, labelPos );
     currentGraph.move( Vector2( 0, 2 * border + mgH ) );
     currentGraph.setHeight( mgH/2 );
     drawFPSGraph( painter, currentGraph );
