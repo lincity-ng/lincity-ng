@@ -28,10 +28,6 @@ switch $(VARIANT) {
         CFLAGS += -Wall -W -O0 -g3 -DDEBUG -Werror ;
         CXXFLAGS += -Wall -W -O0 -g3 -DDEBUG -Werror ;
         LIBS += -g3 ;
-    case cov :
-        CFLAGS += -fprofile-arcs -ftest-coverage ;
-        CXXFLAGS += -fprofile-arcs -ftest-coverage ;
-        LIBS += -lgcov ;
     case profile :
         CFLAGS += -O3 -g3 -pg ;
         CXXFLAGS += -O3 -g3 -pg ;
