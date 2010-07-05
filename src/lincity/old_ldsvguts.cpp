@@ -16,6 +16,7 @@
 #include "gui_interface/shared_globals.h"
 #include "stats.h"
 #include "init_game.h"
+#include "all_buildings.h"
 
 #include <fcntl.h>
 #include <sys/types.h>

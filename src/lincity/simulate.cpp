@@ -40,6 +40,8 @@
 #include "gui_interface/pbar_interface.h"
 #include "modules/all_modules.h"
 #include "transport.h"
+#include "all_buildings.h"
+#include "sustainable.h"
 
 /* extern resources */
 extern void print_total_money(void);

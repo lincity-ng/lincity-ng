@@ -13,8 +13,18 @@
 #include "fileutil.h"
 #include "gui_interface/readpng.h"
 #include "loadsave.h"
+#include "all_buildings.h"
 
 struct TYPE main_types[NUM_OF_TYPES];
+
+/* AL1 : 2.x : RANGE of buildings is not included in this struct GROUP
+ *
+ * 		this is a bit annoying => would need to be fixed when(if?)
+ * 		all the struct and associated macros are cleaned (map, MP_INFO etc.)
+ *
+ * 		for now (2.1 svn rev 1585) just put it in range.h 
+ *
+ */
 
 struct GROUP main_groups[NUM_OF_GROUPS] = {
     /* 0 */
@@ -29,6 +39,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
      0,                         /* cost */
      0                          /* tech */
      },
+
     /* 1 */
     {N_("Power line"),
      FALSE,                     /* need credit? */
@@ -40,6 +51,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
      GROUP_POWER_LINE_FIREC,
      GROUP_POWER_LINE_COST,
      GROUP_POWER_LINE_TECH},
+
     /* 2 */
     {N_("Solar PS"),
      TRUE,                      /* need credit? */

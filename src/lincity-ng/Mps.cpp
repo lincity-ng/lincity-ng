@@ -20,7 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Mps.hpp"
 #include "gui_interface/mps.h"
 #include "lincity/engglobs.h"
-//#include "lincity/modules/all_modules.h"
 #include "lincity/lctypes.h"
 
 #include "Util.hpp"
@@ -161,7 +160,7 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Mill" );
             break;
         case (GROUP_MONUMENT):
-            if ((MP_INFO( mps_x,mps_y).int_1 * 100 / BUILD_MONUMENT_JOBS) >= 100) {
+            if (MP_INFO( mps_x,mps_y).int_4 >= 100) {
                 getSound()->playSound( "Monument" );
             } else {
                 getSound()->playSound( "MonumentConstruction" );
@@ -253,15 +252,14 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Water" );
             break;
         case GROUP_WINDMILL:
-            if( MP_TECH(mps_x, mps_y ) < MODERN_WINDMILL_TECH ){ 
+            if( MP_INFO(mps_x, mps_y ).int_2 ){ 
                 getSound()->playSound( "WindMill" );
             } else {
                 getSound()->playSound( "WindMillHTech" );
             }
             break;
         case GROUP_FIRE:
-            if( (MP_GROUP( mps_x, mps_y ) == GROUP_FIRE) &&
-                   ( MP_INFO( mps_x, mps_y ).int_2 < FIRE_LENGTH ) ){
+            if( MP_INFO( mps_x, mps_y ).int_5 ){
                 getSound()->playSound( "Fire" );
             }
             break;

@@ -11,6 +11,7 @@
 #include "transport.h"
 #include "power.h"
 #include "stats.h"              /* for transport_cost */
+#include "all_buildings.h"
 
 static int max_load(int x, int y, int i)
 {

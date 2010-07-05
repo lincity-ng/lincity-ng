@@ -45,7 +45,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Dialog.hpp"
 #include "EconomyGraph.hpp"
 
-extern void ok_dial_box(const char *, int, const char *);
 
 
 short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
@@ -70,20 +69,6 @@ int ask_launch_rocket_now (int x, int y)
     return 0;
 }
 
-void display_rocket_result_dialog (int result)
-{
-    switch (result) {
-    case ROCKET_LAUNCH_BAD:
-	ok_dial_box ("launch-fail.mes", BAD, 0L);
-	break;
-    case ROCKET_LAUNCH_GOOD:
-	ok_dial_box ("launch-good.mes", GOOD, 0L);
-	break;
-    case ROCKET_LAUNCH_EVAC:
-	ok_dial_box ("launch-evac.mes", GOOD, 0L);
-	break;
-    }
-}
 void draw_background (void);
 void screen_full_refresh (void);
 void init_fonts (void);
@@ -126,7 +111,6 @@ void advance_monthgraph_style (void);
 void refresh_monthgraph (void);
 void draw_small_yellow_bezel (int x, int y, int h, int w);
 void mini_screen_help (void);
-void status_message(const char *m1, const char* m2);
 void print_time_for_year (void);
 void rotate_main_screen (void);
 void screen_setup (void);
@@ -143,8 +127,6 @@ void display_info_message (int colour, const char* ss, const char* xs)
     text << "display_info_message: '"<< colour << ss << "' + \"" << xs << "\"\n";
     updateMessageText( text.str() );
 }
-
-void reset_status_message (void);
 
 /*
  * Display some Text in a Dialog Box with an OK Button.

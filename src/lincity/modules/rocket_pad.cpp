@@ -152,7 +152,8 @@ void launch_rocket(int x, int y)
     r = rand() % MAX_TECH_LEVEL;
     if (r > tech_level || rand() % 100 > (rockets_launched * 15 + 25)) {
         /* the launch failed */
-        display_rocket_result_dialog(ROCKET_LAUNCH_BAD);
+        //display_rocket_result_dialog(ROCKET_LAUNCH_BAD);
+        ok_dial_box ("launch-fail.mes", BAD, 0L);
         rockets_launched_success = 0;
         xx = ((rand() % 40) - 20) + x;
         yy = ((rand() % 40) - 20) + y;
@@ -173,10 +174,13 @@ void launch_rocket(int x, int y)
         /* TODO: Maybe should generate some pollution ? */
         if (rockets_launched_success > 5) {
             remove_people(1000);
-            if (people_pool || housed_population)
-                display_rocket_result_dialog(ROCKET_LAUNCH_EVAC);
+            if (people_pool || housed_population) {
+                //display_rocket_result_dialog(ROCKET_LAUNCH_EVAC);
+                ok_dial_box ("launch-evac.mes", GOOD, 0L);
+            }
         } else {
-            display_rocket_result_dialog(ROCKET_LAUNCH_GOOD);
+            //display_rocket_result_dialog(ROCKET_LAUNCH_GOOD);
+            ok_dial_box ("launch-good.mes", GOOD, 0L);
         }
     }
 }

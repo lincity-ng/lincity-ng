@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "coalmine.h"
+#include "../range.h"
 
 void do_coalmine(int x, int y)
 {
@@ -24,16 +25,16 @@ void do_coalmine(int x, int y)
         if (MP_INFO(x, y).int_2 < 0)
             return;             /* run out of reserves */
 
-        xs = x - COAL_RESERVE_SEARCH_LEN;
+        xs = x - COAL_RESERVE_SEARCH_RANGE;
         if (xs < 0)
             xs = 0;
-        ys = y - COAL_RESERVE_SEARCH_LEN;
+        ys = y - COAL_RESERVE_SEARCH_RANGE;
         if (ys < 0)
             ys = 0;
-        xe = x + COAL_RESERVE_SEARCH_LEN;
+        xe = x + COAL_RESERVE_SEARCH_RANGE;
         if (xe > WORLD_SIDE_LEN)
             xe = WORLD_SIDE_LEN;
-        ye = y + COAL_RESERVE_SEARCH_LEN;
+        ye = y + COAL_RESERVE_SEARCH_RANGE;
         if (ye > WORLD_SIDE_LEN)
             ye = WORLD_SIDE_LEN;
         cr = 0;

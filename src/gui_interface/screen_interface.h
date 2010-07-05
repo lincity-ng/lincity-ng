@@ -52,7 +52,6 @@ void refresh_monthgraph (void);
 void draw_small_yellow_bezel (int x, int y, int h, int w);
 void init_pbars (void);
 void mini_screen_help (void);
-void status_message(const char *m1, const char* m2);
 void print_time_for_year (void);
 void rotate_main_screen (void);
 void screen_setup (void);
@@ -63,9 +62,8 @@ void mini_map_handler(int x, int y, int button);
 void mini_aux_handler(int x, int y, int button);
 /* Message area */
 void display_info_message (int colour, const char* ss, const char* xs);
-void reset_status_message (void);
 
-#define CB_SPACE 20 // space between checkbuttons for market/port
+#define CB_SPACE 20 // space between checkbuttons for market/port  // AL1 : unused in 2.x
 
 #endif	/* __screen_h__ */
 

@@ -17,6 +17,8 @@
 #include "transport.h"          /* for XY_IS_TRANSPORT */
 #include "tinygettext/gettext.hpp"
 #include "gui_interface/dialbox_interface.h"
+#include "all_buildings.h"
+#include "range.h"
 
 extern void ok_dial_box(const char *, int, const char *);
 

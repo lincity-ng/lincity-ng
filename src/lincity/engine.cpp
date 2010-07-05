@@ -21,6 +21,7 @@
 #include "gui_interface/shared_globals.h"
 #include "modules/all_modules.h"
 #include "transport.h"
+#include "all_buildings.h"
 
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);
@@ -328,10 +329,13 @@ int place_item(int x, int y, short type)
         add_a_substation (x, y);
         MP_INFO(x, y).int_1 = (int)(WINDMILL_POWER + (((double)MP_TECH(x, y) * WINDMILL_POWER) / MAX_TECH_LEVEL));
         /* Make sure that the correct windmill graphic shows up */
-        if (tech_level > MODERN_WINDMILL_TECH)
+        if (tech_level > MODERN_WINDMILL_TECH) {
             type = CST_WINDMILL_1_R;
-        else
+            MP_INFO(x, y).int_2 = true;
+        } else {
             type = CST_WINDMILL_1_W;
+            MP_INFO(x, y).int_2 = false;
+        }
         break;
 
     case (GROUP_COAL_POWER):

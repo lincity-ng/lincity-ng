@@ -14,10 +14,13 @@ void do_monument(int x, int y)
        // int_1 holds the jobs used
        // int_2 holds the tech points made
        // int_3 holds the tail off count
+       // int_4 holds percentage of completion (used for the sound)
      */
     if (MP_INFO(x, y).int_1 < BUILD_MONUMENT_JOBS)
         if (get_jobs(x, y, MONUMENT_GET_JOBS) != 0)
             MP_INFO(x, y).int_1 += MONUMENT_GET_JOBS;
+
+    MP_INFO(x, y).int_4 = MP_INFO(x, y).int_1 * 100 / BUILD_MONUMENT_JOBS;
 
     /* now choose a graphic */
     if (MP_INFO(x, y).int_1 >= BUILD_MONUMENT_JOBS) {

@@ -33,6 +33,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"
 #include "lincity/engglobs.h"
 #include "lincity/lctypes.h"
+#include "lincity/range.h"
+#include "lincity/all_buildings.h"
 
 #include "gui/callback/Callback.hpp"
 
@@ -677,7 +679,7 @@ Color MiniMap::getColor(int x,int y) const
         }
         case FIRE:
             if( MP_GROUP( x, y ) == GROUP_FIRE ){
-                if( MP_INFO(x,y).int_2 < FIRE_LENGTH ){
+                if( MP_INFO(x,y).int_5 ){
                     return Color(0xFF,0,0); //still burning (red)
                 } else  {
                     return Color(0xFF,0x99,0); //unbulldozable (orange)

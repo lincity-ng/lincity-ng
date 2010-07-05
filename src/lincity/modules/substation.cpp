@@ -14,7 +14,7 @@
 /* Substations 
  *
  * int_1 unused
- * int_2 unused
+ * int_2 unused except for windmills (true = hightech)
  * int_3 unused
  * int_4 is the power demand at this substation 
  * int_5 forbidden for substations: it is power production from power sources

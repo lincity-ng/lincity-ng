@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "firestation.h"
+#include "../range.h"
 
 void do_firestation(int x, int y)
 {

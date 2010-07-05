@@ -19,6 +19,7 @@
 
 #include "modules.h"
 #include "waterwell.h"
+#include "../range.h"
 
 void do_waterwell_cover(int x, int y)
 {

@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "cricket.h"
+#include "../range.h"
 
 void do_cricket(int x, int y)
 {

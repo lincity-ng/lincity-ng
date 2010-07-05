@@ -33,6 +33,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lin-city.h"
 #include "lincity/lctypes.h"
 #include "lincity/engglobs.h"
+#include "lincity/range.h"
 
 #include "MapEdit.hpp"
 #include "MiniMap.hpp"
@@ -1520,7 +1521,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             case CST_SUBSTATION_R:   range = SUBSTATION_RANGE; reduceNW = 1; break;
             case CST_WINDMILL_1_R:   range = SUBSTATION_RANGE; reduceNW = 1; break; //Windmills are handled like substations
             //case CST_COMMUNE_1: break;
-            case CST_COALMINE_EMPTY: range = COAL_RESERVE_SEARCH_LEN; break;
+            case CST_COALMINE_EMPTY: range = COAL_RESERVE_SEARCH_RANGE; break;
             //case CST_OREMINE_1: break;
             //case CST_TIP_0: break;
             //case CST_RECYCLE: break;

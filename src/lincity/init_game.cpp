@@ -30,6 +30,7 @@
 #include "gui_interface/pbar_interface.h"
 #include "modules/all_modules.h"
 #include "transport.h"
+#include "all_buildings.h"
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 

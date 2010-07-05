@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "health_centre.h"
+#include "../range.h"
 
 void do_health_centre(int x, int y)
 {

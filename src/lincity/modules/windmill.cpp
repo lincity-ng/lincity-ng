@@ -11,7 +11,7 @@
 /*** Windmills ***/
 /*
   // int_1 is the rated capacity 
-  // int_2 unused
+  // int_2 is true if we have a hightech windmill
   // int_3 is the sail count - to choose the right sail.
   // int_4 reserved = local power demand for substations (like substations)
   // int_5 is the power produced (basically _if_ power produced)
@@ -37,7 +37,7 @@ void do_windmill(int x, int y)
     /* update animation */
     if (real_time > MP_ANIM(x , y)) {
         MP_INFO(x, y).int_3++;
-        if (MP_TECH(x, y) < MODERN_WINDMILL_TECH) {
+        if ( !MP_INFO(x, y).int_2) {
             MP_ANIM(x,y) = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
         } else {
             MP_ANIM(x,y) = real_time + MODERN_WINDMILL_ANIM_SPEED;
@@ -47,7 +47,7 @@ void do_windmill(int x, int y)
     /* figure out which tile to use */
     anim_tile = (MP_INFO(x, y).int_3 % 3);
 
-    if (MP_TECH(x, y) < MODERN_WINDMILL_TECH)
+    if ( !MP_INFO(x, y).int_2 )
         MP_TYPE(x, y) = CST_WINDMILL_1_W + anim_tile;
     else
         switch (grid[MP_INFO(x, y).int_6]->powered) {

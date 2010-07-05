@@ -17,6 +17,7 @@
 
 #include "market.h"
 #include "../power.h"
+#include "../all_buildings.h"
 
 // for real_time
 //#include "cliglobs.h"

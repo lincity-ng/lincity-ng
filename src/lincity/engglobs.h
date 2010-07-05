@@ -7,6 +7,7 @@
 #define __engglobs_h__
 
 #include "lin-city.h"
+#include "groups.h"
 
 /* was shrglobs.h */
 

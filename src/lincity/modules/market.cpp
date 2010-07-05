@@ -7,6 +7,7 @@
 #include "modules.h"
 #include "market.h"
 #include "lincity-ng/ErrorInterface.hpp"
+#include "../range.h"
 
     /*
      * MP_INFO(x,y)
