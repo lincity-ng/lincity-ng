@@ -303,7 +303,6 @@
 
 #define GROUP_NAME_LEN   20
 
-#define GROUP_BARE 	   0
 #define GROUP_BARE_COLOUR  (green(12))
 #define GROUP_BARE_COST    0
 #define GROUP_BARE_COST_MUL 1
@@ -311,7 +310,6 @@
 #define GROUP_BARE_TECH    0
 #define GROUP_BARE_FIREC   0
 
-#define GROUP_POWER_LINE   1
 #define GROUP_POWER_LINE_COLOUR (yellow(26))
 #define GROUP_POWER_LINE_COST 100
 #define GROUP_POWER_LINE_COST_MUL 2
@@ -319,7 +317,6 @@
 #define GROUP_POWER_LINE_TECH 200
 #define GROUP_POWER_LINE_FIREC 0
 
-#define GROUP_SOLAR_POWER 2
 #define GROUP_SOLAR_POWER_COLOUR (yellow(22))
 #define GROUP_SOLAR_POWER_COST 500000
 #define GROUP_SOLAR_POWER_COST_MUL 5
@@ -329,7 +326,6 @@
 #define SOLAR_POWER_JOBS 50
 #define POWERS_SOLAR_OUTPUT 1800
 
-#define GROUP_SUBSTATION   3
 #define GROUP_SUBSTATION_COLOUR (yellow(18))
 #define GROUP_SUBSTATION_COST 500
 #define GROUP_SUBSTATION_COST_MUL 2
@@ -337,14 +333,12 @@
 #define GROUP_SUBSTATION_TECH 200
 #define GROUP_SUBSTATION_FIREC 50
 
-#define GROUP_RESIDENCE_LL 4
 #define GROUP_RESIDENCE_LL_COLOUR (cyan(24))
 #define GROUP_RESIDENCE_LL_COST 1000
 #define GROUP_RESIDENCE_LL_COST_MUL 25
 #define GROUP_RESIDENCE_LL_BUL_COST 1000
 #define GROUP_RESIDENCE_LL_TECH 0
 #define GROUP_RESIDENCE_LL_FIREC 75
-
 /* RESIDENCE?_BRM is the birth rate modifier */
 /* RESIDENCE?_DRM is the death rate modifier */
 #define RESIDENCE_BASE_BR     100
@@ -365,7 +359,6 @@
 /* RESIDENCE_PPM is the people_pool mobitily. Higher number=less mobile. */
 #define RESIDENCE_PPM   20
 
-#define GROUP_ORGANIC_FARM 5
 #define GROUP_ORGANIC_FARM_COLOUR (green(30))
 #define GROUP_ORGANIC_FARM_COST 1000
 #define GROUP_ORGANIC_FARM_COST_MUL 20
@@ -373,7 +366,6 @@
 #define GROUP_ORGANIC_FARM_TECH 0
 #define GROUP_ORGANIC_FARM_FIREC 20
 
-#define GROUP_MARKET       6
 #define GROUP_MARKET_COLOUR (blue(28))
 #define GROUP_MARKET_COST 100
 #define GROUP_MARKET_COST_MUL 25
@@ -381,7 +373,6 @@
 #define GROUP_MARKET_TECH 0
 #define GROUP_MARKET_FIREC 80
 
-#define GROUP_TRACK	   7
 #define GROUP_TRACK_COLOUR 32   /* 32 is a brown */
 #define GROUP_TRACK_COST   1
 #define GROUP_TRACK_COST_MUL 25
@@ -389,7 +380,6 @@
 #define GROUP_TRACK_TECH   0
 #define GROUP_TRACK_FIREC  4
 
-#define GROUP_COALMINE     8
 #define GROUP_COALMINE_COLOUR 0
 #define GROUP_COALMINE_COST   10000
 #define GROUP_COALMINE_COST_MUL 25
@@ -397,7 +387,6 @@
 #define GROUP_COALMINE_TECH   85
 #define GROUP_COALMINE_FIREC  85
 
-#define GROUP_RAIL         9
 #define GROUP_RAIL_COLOUR  (magenta(18))
 #define GROUP_RAIL_COST    500
 #define GROUP_RAIL_COST_MUL 10
@@ -405,7 +394,6 @@
 #define GROUP_RAIL_TECH    180
 #define GROUP_RAIL_FIREC   6
 
-#define GROUP_COAL_POWER 10
 #define GROUP_COAL_POWER_COLOUR 0
 #define GROUP_COAL_POWER_COST   100000
 #define GROUP_COAL_POWER_COST_MUL 5
@@ -413,7 +401,6 @@
 #define GROUP_COAL_POWER_TECH   200
 #define GROUP_COAL_POWER_FIREC  80
 
-#define GROUP_ROAD         11
 #define GROUP_ROAD_COLOUR  (white(18))
 #define GROUP_ROAD_COST    100
 #define GROUP_ROAD_COST_MUL 25
@@ -421,7 +408,6 @@
 #define GROUP_ROAD_TECH    50
 #define GROUP_ROAD_FIREC   4
 
-#define GROUP_INDUSTRY_L   12
 #define GROUP_INDUSTRY_L_COLOUR (cyan(18))
 #define GROUP_INDUSTRY_L_COST 20000
 #define GROUP_INDUSTRY_L_COST_MUL 25
@@ -429,7 +415,6 @@
 #define GROUP_INDUSTRY_L_TECH 160
 #define GROUP_INDUSTRY_L_FIREC 70
 
-#define GROUP_UNIVERSITY   13
 #define GROUP_UNIVERSITY_COLOUR (blue(22))
 #define GROUP_UNIVERSITY_COST 20000
 #define GROUP_UNIVERSITY_COST_MUL 25
@@ -437,7 +422,6 @@
 #define GROUP_UNIVERSITY_TECH 150
 #define GROUP_UNIVERSITY_FIREC 40
 
-#define GROUP_COMMUNE      14
 #define GROUP_COMMUNE_COLOUR (green(30))
 #define GROUP_COMMUNE_COST  1
 #define GROUP_COMMUNE_COST_MUL 2
@@ -445,7 +429,6 @@
 #define GROUP_COMMUNE_TECH  0
 #define GROUP_COMMUNE_FIREC 30
 
-#define GROUP_OREMINE      15
 #define GROUP_OREMINE_COLOUR (red(18))
 #define GROUP_OREMINE_COST 500
 #define GROUP_OREMINE_COST_MUL 10
@@ -453,7 +436,6 @@
 #define GROUP_OREMINE_TECH 0
 #define GROUP_OREMINE_FIREC 0
 
-#define GROUP_TIP      16
 #define GROUP_TIP_COLOUR (white(16))
 #define GROUP_TIP_COST 10000
 #define GROUP_TIP_COST_MUL 25
@@ -461,7 +443,6 @@
 #define GROUP_TIP_TECH 0
 #define GROUP_TIP_FIREC 50
 
-#define GROUP_PORT      17
 #define GROUP_PORT_COLOUR (blue(28))
 #define GROUP_PORT_COST 100000
 #define GROUP_PORT_COST_MUL 2
@@ -469,7 +450,6 @@
 #define GROUP_PORT_TECH 35
 #define GROUP_PORT_FIREC 50
 
-#define GROUP_INDUSTRY_H   18
 #define GROUP_INDUSTRY_H_COLOUR (7)     /* colour 7 is an orange, sort of */
 #define GROUP_INDUSTRY_H_COST 50000
 #define GROUP_INDUSTRY_H_COST_MUL 20
@@ -477,7 +457,6 @@
 #define GROUP_INDUSTRY_H_TECH 170
 #define GROUP_INDUSTRY_H_FIREC 80
 
-#define GROUP_PARKLAND     19
 #define GROUP_PARKLAND_COLOUR (green(31))
 #define GROUP_PARKLAND_COST   1000
 #define GROUP_PARKLAND_COST_MUL 25
@@ -485,7 +464,6 @@
 #define GROUP_PARKLAND_TECH   2
 #define GROUP_PARKLAND_FIREC 1
 
-#define GROUP_RECYCLE      20
 #define GROUP_RECYCLE_COLOUR   (green(28))
 #define GROUP_RECYCLE_COST    100000
 #define GROUP_RECYCLE_COST_MUL 5
@@ -493,7 +471,6 @@
 #define GROUP_RECYCLE_TECH    232
 #define GROUP_RECYCLE_FIREC 10
 
-#define GROUP_WATER	   21
 #define GROUP_WATER_COLOUR    (blue(31))
 #define GROUP_WATER_COST      1000000
 #define GROUP_WATER_COST_MUL 2
@@ -501,7 +478,6 @@
 #define GROUP_WATER_TECH      0
 #define GROUP_WATER_FIREC 0
 
-#define GROUP_HEALTH       22
 #define GROUP_HEALTH_COLOUR   (green(24))
 #define GROUP_HEALTH_COST     100000
 #define GROUP_HEALTH_COST_MUL 2
@@ -509,7 +485,6 @@
 #define GROUP_HEALTH_TECH     110
 #define GROUP_HEALTH_FIREC 2
 
-#define GROUP_ROCKET	   23
 #define GROUP_ROCKET_COLOUR   (magenta(20))
 #define GROUP_ROCKET_COST     700000
 #define GROUP_ROCKET_COST_MUL 2
@@ -517,7 +492,6 @@
 #define GROUP_ROCKET_TECH     750
 #define GROUP_ROCKET_FIREC 0
 
-#define GROUP_WINDMILL     24
 #define GROUP_WINDMILL_COLOUR (green(25))
 #define GROUP_WINDMILL_COST   20000
 #define GROUP_WINDMILL_COST_MUL 25
@@ -525,7 +499,6 @@
 #define GROUP_WINDMILL_TECH   30
 #define GROUP_WINDMILL_FIREC  10
 
-#define GROUP_MONUMENT     25
 #define GROUP_MONUMENT_COLOUR (white(15))
 #define GROUP_MONUMENT_COST   10000
 #define GROUP_MONUMENT_COST_MUL 25
@@ -533,7 +506,6 @@
 #define GROUP_MONUMENT_TECH   0
 #define GROUP_MONUMENT_FIREC  0
 
-#define GROUP_SCHOOL     26
 #define GROUP_SCHOOL_COLOUR (white(15))
 #define GROUP_SCHOOL_COST   10000
 #define GROUP_SCHOOL_COST_MUL 25
@@ -541,7 +513,6 @@
 #define GROUP_SCHOOL_TECH   1
 #define GROUP_SCHOOL_FIREC 40
 
-#define GROUP_BLACKSMITH     27
 #define GROUP_BLACKSMITH_COLOUR (white(15))
 #define GROUP_BLACKSMITH_COST   5000
 #define GROUP_BLACKSMITH_COST_MUL 25
@@ -549,7 +520,6 @@
 #define GROUP_BLACKSMITH_TECH   3
 #define GROUP_BLACKSMITH_FIREC 60
 
-#define GROUP_MILL     28
 #define GROUP_MILL_COLOUR (white(15))
 #define GROUP_MILL_COST   10000
 #define GROUP_MILL_COST_MUL 25
@@ -557,7 +527,6 @@
 #define GROUP_MILL_TECH   25
 #define GROUP_MILL_FIREC  60
 
-#define GROUP_POTTERY  29
 #define GROUP_POTTERY_COLOUR (red(12))
 #define GROUP_POTTERY_COST   1000
 #define GROUP_POTTERY_COST_MUL 25
@@ -565,7 +534,6 @@
 #define GROUP_POTTERY_TECH  0
 #define GROUP_POTTERY_FIREC 50
 
-#define GROUP_FIRESTATION 30
 #define GROUP_FIRESTATION_COLOUR (red(20))
 #define GROUP_FIRESTATION_COST   20000
 #define GROUP_FIRESTATION_COST_MUL 10
@@ -573,7 +541,6 @@
 #define GROUP_FIRESTATION_TECH     22
 #define GROUP_FIRESTATION_FIREC 0
 
-#define GROUP_CRICKET 31
 #define GROUP_CRICKET_COLOUR (white(20))
 #define GROUP_CRICKET_COST   2000
 #define GROUP_CRICKET_COST_MUL 3
@@ -581,7 +548,6 @@
 #define GROUP_CRICKET_TECH     12
 #define GROUP_CRICKET_FIREC 20
 
-#define GROUP_BURNT        32
 #define GROUP_BURNT_COLOUR    (red(30))
 #define GROUP_BURNT_COST   0    /* Unused */
 #define GROUP_BURNT_COST_MUL   1        /* Unused */
@@ -589,14 +555,12 @@
 #define GROUP_BURNT_TECH   0    /* Unused */
 #define GROUP_BURNT_FIREC  0
 
-#define GROUP_SHANTY        33
 #define GROUP_SHANTY_COLOUR    (red(22))
 #define GROUP_SHANTY_COST   0   /* Unused */
 #define GROUP_SHANTY_COST_MUL   1       /* Unused */
 #define GROUP_SHANTY_BUL_COST  100000
 #define GROUP_SHANTY_TECH   0   /* Unused */
 #define GROUP_SHANTY_FIREC     25
-
 #define SHANTY_MIN_PP     150
 #define SHANTY_POP        50
 #define DAYS_BETWEEN_SHANTY (NUMOF_DAYS_IN_MONTH*5)
@@ -607,7 +571,6 @@
 #define SHANTY_GET_ORE    10
 #define SHANTY_GET_STEEL  1
 
-#define GROUP_FIRE        34
 #define GROUP_FIRE_COLOUR    (red(30))
 #define GROUP_FIRE_COST   0     /* Unused */
 #define GROUP_FIRE_COST_MUL   1 /* Unused */
@@ -615,7 +578,6 @@
 #define GROUP_FIRE_TECH   0     /* Unused */
 #define GROUP_FIRE_FIREC  0
 
-#define GROUP_USED        35
 #define GROUP_USED_COLOUR (green(12))   /* Unused */
 #define GROUP_USED_COST   0     /* Unused */
 #define GROUP_USED_COST_MUL  1  /* Unused */
@@ -623,7 +585,6 @@
 #define GROUP_USED_TECH   0     /* Unused */
 #define GROUP_USED_FIREC  0     /* Unused */
 
-#define GROUP_RESIDENCE_ML 36
 #define GROUP_RESIDENCE_ML_COLOUR (cyan(24))
 #define GROUP_RESIDENCE_ML_COST 2000
 #define GROUP_RESIDENCE_ML_COST_MUL 25
@@ -631,7 +592,6 @@
 #define GROUP_RESIDENCE_ML_TECH 0
 #define GROUP_RESIDENCE_ML_FIREC 75
 
-#define GROUP_RESIDENCE_HL 37
 #define GROUP_RESIDENCE_HL_COLOUR (cyan(24))
 #define GROUP_RESIDENCE_HL_COST 4000
 #define GROUP_RESIDENCE_HL_COST_MUL 25
@@ -639,7 +599,6 @@
 #define GROUP_RESIDENCE_HL_TECH 0
 #define GROUP_RESIDENCE_HL_FIREC 75
 
-#define GROUP_RESIDENCE_LH 38
 #define GROUP_RESIDENCE_LH_COLOUR (cyan(24))
 #define GROUP_RESIDENCE_LH_COST 800
 #define GROUP_RESIDENCE_LH_COST_MUL 25
@@ -647,7 +606,6 @@
 #define GROUP_RESIDENCE_LH_TECH 0       /* ?? */
 #define GROUP_RESIDENCE_LH_FIREC 75
 
-#define GROUP_RESIDENCE_MH 39
 #define GROUP_RESIDENCE_MH_COLOUR (cyan(24))
 #define GROUP_RESIDENCE_MH_COST 1600
 #define GROUP_RESIDENCE_MH_COST_MUL 25
@@ -655,7 +613,6 @@
 #define GROUP_RESIDENCE_MH_TECH 0
 #define GROUP_RESIDENCE_MH_FIREC 75
 
-#define GROUP_RESIDENCE_HH 40
 #define GROUP_RESIDENCE_HH_COLOUR (cyan(24))
 #define GROUP_RESIDENCE_HH_COST 3200
 #define GROUP_RESIDENCE_HH_COST_MUL 25
@@ -663,7 +620,6 @@
 #define GROUP_RESIDENCE_HH_TECH 0
 #define GROUP_RESIDENCE_HH_FIREC 75
 
-#define GROUP_WATERWELL	   41
 #define GROUP_WATERWELL_COLOUR    (blue(31))
 #define GROUP_WATERWELL_COST      1
 #define GROUP_WATERWELL_COST_MUL 2
@@ -671,7 +627,6 @@
 #define GROUP_WATERWELL_TECH      0
 #define GROUP_WATERWELL_FIREC 0
 
-#define GROUP_DESERT 	  42
 #define GROUP_DESERT_COLOUR  (yellow(18))
 #define GROUP_DESERT_COST    0
 #define GROUP_DESERT_COST_MUL 1
@@ -679,7 +634,6 @@
 #define GROUP_DESERT_TECH    0
 #define GROUP_DESERT_FIREC   0
 
-#define GROUP_TREE 	   43
 #define GROUP_TREE_COLOUR  (green(12))
 #define GROUP_TREE_COST    0
 #define GROUP_TREE_COST_MUL 1
@@ -687,7 +641,6 @@
 #define GROUP_TREE_TECH    0
 #define GROUP_TREE_FIREC   0
 
-#define GROUP_TREE2 	   44
 #define GROUP_TREE2_COLOUR  (green(12))
 #define GROUP_TREE2_COST    0
 #define GROUP_TREE2_COST_MUL 1
@@ -695,7 +648,6 @@
 #define GROUP_TREE2_TECH    0
 #define GROUP_TREE2_FIREC   0
 
-#define GROUP_TREE3 	   45
 #define GROUP_TREE3_COLOUR  (green(12))
 #define GROUP_TREE3_COST    0
 #define GROUP_TREE3_COST_MUL 1
@@ -705,7 +657,6 @@
 
 #define BRIDGE_FACTOR 500 /* a bridge is that much more expensive than the land transport */
 
-#define GROUP_TRACK_BRIDGE        46
 #define GROUP_TRACK_BRIDGE_COLOUR 32   /* 32 is a brown */
 #define GROUP_TRACK_BRIDGE_COST   GROUP_TRACK_COST * BRIDGE_FACTOR
 #define GROUP_TRACK_BRIDGE_COST_MUL 2
@@ -713,7 +664,6 @@
 #define GROUP_TRACK_BRIDGE_TECH   GROUP_TRACK_TECH
 #define GROUP_TRACK_BRIDGE_FIREC  0    /* unused */
 
-#define GROUP_ROAD_BRIDGE         47
 #define GROUP_ROAD_BRIDGE_COLOUR  (white(18))
 #define GROUP_ROAD_BRIDGE_COST    GROUP_ROAD_COST * BRIDGE_FACTOR
 #define GROUP_ROAD_BRIDGE_COST_MUL 2
@@ -721,28 +671,12 @@
 #define GROUP_ROAD_BRIDGE_TECH    GROUP_ROAD_TECH
 #define GROUP_ROAD_BRIDGE_FIREC   0
 
-#define GROUP_RAIL_BRIDGE         48
 #define GROUP_RAIL_BRIDGE_COLOUR  (magenta(18))
 #define GROUP_RAIL_BRIDGE_COST    GROUP_RAIL_COST * BRIDGE_FACTOR
 #define GROUP_RAIL_BRIDGE_COST_MUL 2
 #define GROUP_RAIL_BRIDGE_BUL_COST GROUP_RAIL_BUL_COST * BRIDGE_FACTOR
 #define GROUP_RAIL_BRIDGE_TECH    GROUP_RAIL_TECH
 #define GROUP_RAIL_BRIDGE_FIREC   0
-
-#define GROUP_IS_RESIDENCE(group) \
-            ((group == GROUP_RESIDENCE_LL) || \
-             (group == GROUP_RESIDENCE_ML) || \
-             (group == GROUP_RESIDENCE_HL) || \
-             (group == GROUP_RESIDENCE_LH) || \
-             (group == GROUP_RESIDENCE_MH) || \
-             (group == GROUP_RESIDENCE_HH))
-
-#define GROUP_IS_BARE(group) \
-	    ((group == GROUP_BARE) || \
-	     (group == GROUP_DESERT) || \
-	     (group == GROUP_TREE) || \
-	     (group == GROUP_TREE2) || \
-	     (group == GROUP_TREE3))
 
 /********   end of buildings // groups   ************/
 
