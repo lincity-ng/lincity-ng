@@ -63,33 +63,38 @@ void remove_a_shanty(int x, int y)
     /* ATTENTION:
      * fire_area calls bulldoze_item which calls remove shanty.
      */
-    do_bulldoze_area(CST_FIRE_1, x, y);
+   do_bulldoze_area(CST_FIRE_1, x, y);
+
+   /* now put the fire out: it becomes impossible to bulldoze */
+   MP_INFO(x, y).int_2 = FIRE_LENGTH + 1;
+   MP_INFO(x + 1, y).int_2 = FIRE_LENGTH + 1;
+   MP_INFO(x, y + 1).int_2 = FIRE_LENGTH + 1;
+   MP_INFO(x + 1, y + 1).int_2 = FIRE_LENGTH + 1;
 }
 
 void update_shanty(void)
 {
     int i, pp;
+    people_pool += .3 * numof_shanties;
     pp = people_pool - (COMMUNE_POP * numof_communes);
     i = (pp - SHANTY_MIN_PP) / SHANTY_POP;
     if (i > numof_shanties) {
-        add_a_shanty();
-    } else if (numof_shanties > 0 && (i < (numof_shanties - 1) || rand() % 100 == 1)) {
-        int x, y, r;
-        x = rand() % WORLD_SIDE_LEN;
-        y = rand() % WORLD_SIDE_LEN;
-        r = spiral_find_group(x, y, GROUP_SHANTY);
-        if (r == -1) {
-            fprintf(stderr, "Can't find a shanty to remove!\n");
-            return;
+        for (int n = 0; n < 1 + (i - numof_shanties)/10; n++)
+            add_a_shanty();
+    } else if (numof_shanties > 0 && (i < (numof_shanties - 1) )) {
+        for (int n=0; n < (1+(numof_shanties - i)/10); n++) {
+            int x, y, r;
+            x = rand() % WORLD_SIDE_LEN;
+            y = rand() % WORLD_SIDE_LEN;
+            r = spiral_find_group(x, y, GROUP_SHANTY);
+            if (r == -1) {
+                fprintf(stderr, "Can't find a shanty to remove!\n");
+                return;
+            }
+            y = r / WORLD_SIDE_LEN;
+            x = r % WORLD_SIDE_LEN;
+            remove_a_shanty(x, y);  /* this will fire_area */
         }
-        y = r / WORLD_SIDE_LEN;
-        x = r % WORLD_SIDE_LEN;
-        remove_a_shanty(x, y);  /* this will fire_area */
-        /* now put the fire out: it becomes impossible to bulldoze */
-        MP_INFO(x, y).int_2 = FIRE_LENGTH + 1;
-        MP_INFO(x + 1, y).int_2 = FIRE_LENGTH + 1;
-        MP_INFO(x, y + 1).int_2 = FIRE_LENGTH + 1;
-        MP_INFO(x + 1, y + 1).int_2 = FIRE_LENGTH + 1;
     }
 }
 
@@ -108,10 +113,12 @@ void do_shanty(int x, int y)
     if (get_coal(x, y, SHANTY_GET_COAL) != 0)
         if ((coal_tax -= SHANTY_GET_COAL * 2) < 0)
             coal_tax = 0;
-    if ((total_time & 1) == 0)
-        MP_POL(x, y)++;
-    else
-        MP_POL(x + 1, y + 1)++;
+    if (rand()%10 == 1) {
+        if ((total_time & 1) == 0)
+            MP_POL(x, y)++;
+        else
+            MP_POL(x + 1, y + 1)++;
+    }
 }
 
 /*
