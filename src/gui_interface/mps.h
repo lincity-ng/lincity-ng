@@ -7,12 +7,6 @@
 #ifndef __mps_h__
 #define __mps_h__
 
-//#include "geometry.h"
-//#include "cliglobs.h"
-
-void mps_full_refresh (void);
-void mappoint_stats (int, int, int);
-
 static const int MPS_PARAGRAPH_COUNT = 13;
 
 /* New, simplified mps routines */
@@ -32,10 +26,8 @@ static const int MPS_PARAGRAPH_COUNT = 13;
 void mps_init();
 
 int mps_set(int style, int x, int y); /* Attaches an area or global display */
-void mps_redraw(void);  /* Re-draw the mps area, bezel and all */
 void mps_refresh(void); /* refresh the information display's contents */
 void mps_update(void);  /* Update text contents for later display (refresh) */
-void mps_global_advance(void); /* Changes global var to next display */
 
 
 /* mps_info storage functions; place values of corresponding type into

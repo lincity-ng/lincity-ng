@@ -25,11 +25,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 struct pbar_st pbars[NUM_PBARS];
 
-void pbars_full_refresh (void)
-{
-  //  TRACE;
-}
-
 void update_pbar (int pbar_num, int value, int month_flag)
 {
     // copy of update_pbar from src/oldgui/pbar.cpp 

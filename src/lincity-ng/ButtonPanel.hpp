@@ -32,8 +32,6 @@ class ButtonPanel : public Component
 
   void parse(XmlReader& reader);
 
-  int getModule() const;
-  
   virtual void draw(Painter &painter);
   void chooseButtonClicked(CheckButton* button,int);
   void menuButtonClicked(CheckButton* button,int);

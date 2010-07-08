@@ -10,23 +10,12 @@
 //#include "geometry.h"
 
 void init_pbars (void);
-void pbars_full_refresh (void); // does nothing in NG
-void init_pbar_text (void);     // doe snot exist in NG
-//void draw_pbar (Rect* b, char* graphic);
 void draw_pbars (void);
-/* void clear_pbar_text (Rect* pbar);
- * void write_pbar_int (Rect* b, int val);
- * void write_pbar_text (Rect* b, char * s);
- */
 void refresh_pbars (void);
 void refresh_population_text (void);
 
 void update_pbar (int pbar_num, int value, int month_flag);
-void update_pbars_daily(void);  // does not exist in NG
 void update_pbars_monthly(void);
-/*int compute_pbar_offset (Rect* b, int val);
-  void draw_pbar_new (Rect* b, int val);*/
-void pbar_mouse(int rawx, int rawy, int button);
 
 /* Constants */
 

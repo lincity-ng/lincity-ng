@@ -822,11 +822,6 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
     setDirty();
 }
 
-int ButtonPanel::getModule() const
-{
-    return module;
-}
-
 bool ButtonPanel::opaque(const Vector2& pos) const
 {
     for(Childs::const_iterator i = childs.begin(); i != childs.end(); ++i) {

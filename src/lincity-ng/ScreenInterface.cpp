@@ -120,13 +120,6 @@ void screen_setup (void);
 void init_mini_map_mouse(void);
 void mini_map_handler(int x, int y, int button);
 void mini_aux_handler(int x, int y, int button);
-/* Message area */
-void display_info_message (int colour, const char* ss, const char* xs)
-{
-    std::ostringstream text;
-    text << "display_info_message: '"<< colour << ss << "' + \"" << xs << "\"\n";
-    updateMessageText( text.str() );
-}
 
 /*
  * Display some Text in a Dialog Box with an OK Button.

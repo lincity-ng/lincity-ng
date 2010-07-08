@@ -141,43 +141,11 @@ char lincityrc_file[LC_PATH_MAX];
  * Public Functions
  * ---------------------------------------------------------------------- */
 #if defined (__BORLANDC__)
-int _chdir(const char *dirname)
-{
-    return chdir(dirname);
-}
-
 int _access(const char *path, int mode)
 {
     return access(path, mode)
 }
 #endif
-
-/* Executes a system command */
-int execute_command(char *cmd, char *p1, char *p2, char *p3)
-{
-    char *sys_cmd = (char *)malloc(strlen(cmd) + strlen(p1) + strlen(p2)
-                                   + strlen(p3) + 4);
-    int ret_value;
-
-    if (sys_cmd == 0) {
-        malloc_failure();
-    }
-    sprintf(sys_cmd, "%s %s %s %s", cmd, p1, p2, p3);
-    ret_value = system(sys_cmd);
-/* fprintf(stderr, "system(%s)=%i\n", sys_cmd, ret_value); */
-    free(sys_cmd);
-    return ret_value;
-}
-
-void copy_file(char *f1, char *f2)
-{
-    int ret_value = execute_command((char*)"cp", f1, f2, (char*)"");
-    if (ret_value != 0) {
-        /* GCS FIX:  Need to make do_error into var_args fn? */
-        printf("Tried to cp %s %s\n", f1, f2);
-        do_error("Can't copy requested file");
-    }
-}
 
 int directory_exists(char *dir)
 {

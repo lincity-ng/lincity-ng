@@ -60,8 +60,6 @@ void refresh_main_screen (void);
 void init_mini_map_mouse(void);
 void mini_map_handler(int x, int y, int button);
 void mini_aux_handler(int x, int y, int button);
-/* Message area */
-void display_info_message (int colour, const char* ss, const char* xs);
 
 #define CB_SPACE 20 // space between checkbuttons for market/port  // AL1 : unused in 2.x
 

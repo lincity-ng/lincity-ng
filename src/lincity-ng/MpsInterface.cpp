@@ -42,14 +42,6 @@ int mps_style = 0;
 
 Mps* currentMPS = 0;
 
-void mps_full_refresh()
-{
-}
-
-void mappoint_stats(int, int, int)
-{
-}
-
 void mps_init()
 {
 }
@@ -99,11 +91,6 @@ int mps_set( int x, int y, int style ) /* Attaches an area or global display */
     }                                                 
     mps_refresh();
     return same_square;
-}
-
-void mps_redraw()  /* Re-draw the mps area, bezel and all */
-{
-    mps_refresh();
 }
 
 void mps_refresh() /* refresh the information display's contents */
@@ -276,11 +263,6 @@ void mps_refresh() /* refresh the information display's contents */
 void mps_update()
 {   
     mps_update( mps_x, mps_y , mps_style );
-}
-
-/** Changes global var to next display */
-void mps_global_advance()
-{
 }
 
 /**
