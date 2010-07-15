@@ -47,3 +47,6 @@ private:
 };
 
 #endif
+
+/** @file gui/FilledRectangle.hpp */
+

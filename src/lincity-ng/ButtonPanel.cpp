@@ -932,3 +932,6 @@ void ButtonPanel::updateSelectedCost()
 
 IMPLEMENT_COMPONENT_FACTORY(ButtonPanel);
 
+
+/** @file lincity-ng/ButtonPanel.cpp */
+

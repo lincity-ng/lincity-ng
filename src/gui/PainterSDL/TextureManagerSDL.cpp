@@ -80,3 +80,6 @@ TextureManagerSDL::create(SDL_Surface* image)
     return new TextureSDL(surface);
 }
 
+
+/** @file gui/PainterSDL/TextureManagerSDL.cpp */
+

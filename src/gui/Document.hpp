@@ -56,3 +56,6 @@ private:
 
 #endif
 
+
+/** @file gui/Document.hpp */
+

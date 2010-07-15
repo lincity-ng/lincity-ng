@@ -14,3 +14,6 @@
 #define GROUP_ORGANIC_FARM_FIREC 20
 
 
+
+/** @file lincity/modules/organic_farm.h */
+

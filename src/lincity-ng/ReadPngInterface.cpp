@@ -410,3 +410,6 @@ load_png_graphics (void)
     return 0;
 }
 
+
+/** @file lincity-ng/ReadPngInterface.cpp */
+

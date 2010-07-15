@@ -12,3 +12,6 @@
 #define MONUMENT_ANIM_SPEED     300
 
 
+
+/** @file lincity/modules/monument.h */
+

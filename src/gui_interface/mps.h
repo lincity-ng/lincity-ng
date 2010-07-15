@@ -66,3 +66,6 @@ void mps_right (int x, int y);
 
 #endif /* __mps_h__ */
 
+
+/** @file gui_interface/mps.h */
+

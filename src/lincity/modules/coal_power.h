@@ -6,3 +6,6 @@
 #define GROUP_COAL_POWER_FIREC  80
 
 
+
+/** @file lincity/modules/coal_power.h */
+

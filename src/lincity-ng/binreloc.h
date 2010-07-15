@@ -78,3 +78,6 @@ char *br_dirname (const char *path);
 #endif /* __cplusplus */
 
 #endif /* __BINRELOC_H__ */
+
+/** @file lincity-ng/binreloc.h */
+

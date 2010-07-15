@@ -46,3 +46,6 @@ private:
 };
 
 #endif
+
+/** @file lincity-ng/HelpWindow.hpp */
+

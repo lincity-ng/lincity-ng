@@ -288,3 +288,6 @@ void mps_heavy_industry(int x, int y)
     mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_4, MAX_COAL_AT_INDUSTRY_H);
     mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_5);
 }
+
+/** @file lincity/modules/heavy_industry.cpp */
+

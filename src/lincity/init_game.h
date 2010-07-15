@@ -12,3 +12,6 @@ void setup_land(void);
 void new_city(int *originx, int *originy, int random_village);
 
 #endif /* __init_game_h__ */
+
+/** @file lincity/init_game.h */
+

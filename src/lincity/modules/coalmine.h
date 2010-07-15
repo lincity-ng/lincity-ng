@@ -7,3 +7,6 @@
 #define GROUP_COALMINE_FIREC  85
 
 
+
+/** @file lincity/modules/coalmine.h */
+

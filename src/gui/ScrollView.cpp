@@ -173,3 +173,6 @@ ScrollView::replaceContents(Component* component)
 
 IMPLEMENT_COMPONENT_FACTORY(ScrollView);
 
+
+/** @file gui/ScrollView.cpp */
+

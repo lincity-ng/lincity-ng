@@ -815,3 +815,6 @@ void connect_transport(int originx, int originy, int w, int h)
         }                       /* end for */
     }                           /* end for */
 }
+
+/** @file lincity/transport.cpp */
+

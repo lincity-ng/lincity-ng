@@ -73,3 +73,6 @@ FilledRectangle::draw(Painter& painter)
 }
 
 IMPLEMENT_COMPONENT_FACTORY(FilledRectangle)
+
+/** @file gui/FilledRectangle.cpp */
+

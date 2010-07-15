@@ -56,3 +56,6 @@ void mps_rail(int x, int y)
     mps_store_sddp(i++, _("Waste"), MP_INFO(x, y).int_7, MAX_WASTE_ON_RAIL);
 
 }
+
+/** @file lincity/modules/rail.cpp */
+

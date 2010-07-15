@@ -58,3 +58,6 @@ class BarView : public Component
 };
 
 #endif
+
+/** @file lincity-ng/PBar.hpp */
+

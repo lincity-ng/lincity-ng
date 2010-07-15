@@ -252,3 +252,6 @@ Sound::setSoundVolume(int vol)
     Mix_Volume(-1, static_cast<int>(volvalue));
 }
 
+
+/** @file lincity-ng/Sound.cpp */
+

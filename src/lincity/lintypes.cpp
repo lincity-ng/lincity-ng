@@ -635,3 +635,6 @@ int get_type_cost(short type)
 {
     return get_group_cost((short)get_group_of_type(type));
 }
+
+/** @file lincity/lintypes.cpp */
+

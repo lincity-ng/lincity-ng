@@ -89,3 +89,6 @@ private:
 };
 
 #endif
+
+/** @file gui/Button.hpp */
+

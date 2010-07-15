@@ -370,3 +370,6 @@ int yn_dial_box (const char * s1, const char * s2, const char * s3,
     std::cerr << "-------------------------\n";
     return 0;
 }
+
+/** @file lincity-ng/ScreenInterface.cpp */
+

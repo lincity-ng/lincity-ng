@@ -77,3 +77,6 @@ private:
 };
 
 #endif
+
+/** @file gui/PainterGL/PainterGL.hpp */
+

@@ -168,3 +168,6 @@ void mps_oremine(int x, int y)
 
     mps_store_sddp(i++, _("Reserve"), MP_INFO(x, y).int_2 * 5000, (ORE_RESERVE * 16 * 5000));
 }
+
+/** @file lincity/modules/oremine.cpp */
+

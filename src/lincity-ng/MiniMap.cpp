@@ -891,3 +891,6 @@ void MiniMap::event(const Event& event) {
 
 IMPLEMENT_COMPONENT_FACTORY(MiniMap);
 
+
+/** @file lincity-ng/MiniMap.cpp */
+

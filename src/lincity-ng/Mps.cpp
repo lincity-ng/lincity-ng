@@ -288,3 +288,6 @@ void mps_update(int mps_x, int mps_y, int mps_style)
 
 IMPLEMENT_COMPONENT_FACTORY(Mps);
 
+
+/** @file lincity-ng/Mps.cpp */
+

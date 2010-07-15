@@ -61,3 +61,6 @@ extern TooltipManager* tooltipManager;
 
 #endif
 
+
+/** @file gui/TooltipManager.hpp */
+

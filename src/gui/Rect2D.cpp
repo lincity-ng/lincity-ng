@@ -29,3 +29,6 @@ Rect2D::join(const Rect2D& other)
     p2.x = std::max(p2.x, other.p2.x);
     p2.y = std::max(p2.y, other.p2.y);
 }
+
+/** @file gui/Rect2D.cpp */
+

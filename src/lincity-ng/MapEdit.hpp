@@ -30,3 +30,6 @@ extern int shanty_bul_flag;
 extern int build_bridge_flag;
 
 #endif
+
+/** @file lincity-ng/MapEdit.hpp */
+

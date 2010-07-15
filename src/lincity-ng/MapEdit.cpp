@@ -311,3 +311,6 @@ void editMap (MapPoint point, int button)
             last_message_group = 0;
     }
 }
+
+/** @file lincity-ng/MapEdit.cpp */
+

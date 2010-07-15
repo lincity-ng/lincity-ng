@@ -67,3 +67,6 @@ private:
 EconomyGraph* getEconomyGraph();
 
 #endif
+
+/** @file lincity-ng/EconomyGraph.hpp */
+

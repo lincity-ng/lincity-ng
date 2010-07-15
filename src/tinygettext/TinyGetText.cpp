@@ -790,3 +790,6 @@ void read_po_file(Dictionary& dict_, std::istream& in)
 } // namespace TinyGetText
 
 /* EOF */
+
+/** @file tinygettext/TinyGetText.cpp */
+

@@ -20,3 +20,6 @@
 /* COAL_RESERVE_SEARCH_RANGE acts in both directions, so 5 is 10*10 */
 #define COAL_RESERVE_SEARCH_RANGE 8
 
+
+/** @file lincity/range.h */
+

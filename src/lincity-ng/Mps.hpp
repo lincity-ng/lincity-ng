@@ -60,3 +60,6 @@ extern Mps* mapMPS;
 extern Mps* envMPS;
 
 #endif
+
+/** @file lincity-ng/Mps.hpp */
+

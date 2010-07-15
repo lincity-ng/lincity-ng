@@ -215,3 +215,6 @@ static int spiral_find_2x2(int startx, int starty)
     }
     return (-1);
 }
+
+/** @file lincity/modules/shanty.cpp */
+

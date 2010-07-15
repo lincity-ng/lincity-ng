@@ -227,3 +227,6 @@ PainterGL::createTexturePainter(Texture* texture)
     return 0;
 }
 
+
+/** @file gui/PainterGL/PainterGL.cpp */
+

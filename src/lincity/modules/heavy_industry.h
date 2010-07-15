@@ -13,3 +13,6 @@
 
 #include "rail.h"
 #define MAX_STEEL_AT_INDUSTRY_H (MAX_STEEL_ON_RAIL*10)
+
+/** @file lincity/modules/heavy_industry.h */
+

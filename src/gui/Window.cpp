@@ -233,3 +233,6 @@ Window::closeButtonClicked(Button* )
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Window)
+
+/** @file gui/Window.cpp */
+

@@ -62,3 +62,6 @@ private:
 
 #endif
 
+
+/** @file gui/Gradient.hpp */
+

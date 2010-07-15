@@ -31,3 +31,6 @@ public:
 
 #endif
 
+
+/** @file gui/PainterGL/TextureManagerGL.hpp */
+

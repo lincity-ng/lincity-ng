@@ -38,3 +38,6 @@ void set_selected_module (int type)
     (void) type;
 }
 
+
+/** @file lincity-ng/ButtonInterface.cpp */
+

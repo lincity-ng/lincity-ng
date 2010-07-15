@@ -81,3 +81,6 @@ INTERN_##CLASS##Factory factory_##CLASS;
 
 #endif
 
+
+/** @file gui/ComponentFactory.hpp */
+

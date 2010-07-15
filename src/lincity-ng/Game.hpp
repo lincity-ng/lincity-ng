@@ -53,3 +53,6 @@ Game* getGame();
 
 #endif
 
+
+/** @file lincity-ng/Game.hpp */
+

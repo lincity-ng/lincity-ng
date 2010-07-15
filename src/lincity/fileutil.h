@@ -52,3 +52,6 @@ void save_lincityrc(void);
 void debug_printf(char *fmt, ...);
 
 #endif /* __fileutil_h__ */
+
+/** @file lincity/fileutil.h */
+

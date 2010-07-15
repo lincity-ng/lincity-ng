@@ -30,3 +30,6 @@ void update_avail_modules (int popup);
 
 
 #endif
+
+/** @file gui_interface/shared_globals.h */
+

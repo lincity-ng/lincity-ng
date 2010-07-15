@@ -23,3 +23,6 @@ void mps_parkland(int x, int y)
 
     mps_store_sd(i++, _("Pollution"), MP_POL(x, y));
 }
+
+/** @file lincity/modules/parkland.cpp */
+

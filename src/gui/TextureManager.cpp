@@ -81,3 +81,6 @@ TextureManager::load(const std::string& filename, Filter filter)
     return result;
 }
 
+
+/** @file gui/TextureManager.cpp */
+

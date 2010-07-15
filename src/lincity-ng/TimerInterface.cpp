@@ -31,3 +31,6 @@ void get_real_time()
 {
   real_time=SDL_GetTicks()-start_time;
 }
+
+/** @file lincity-ng/TimerInterface.cpp */
+

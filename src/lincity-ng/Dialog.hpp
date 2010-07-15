@@ -88,3 +88,6 @@ class Dialog
 };
 
 #endif
+
+/** @file lincity-ng/Dialog.hpp */
+

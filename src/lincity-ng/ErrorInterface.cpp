@@ -29,3 +29,6 @@ void HandleError (const char *s, int i)
 {
   std::cerr<<"ERROR of degree "<<i<<":"<<s<<std::endl;
 }
+
+/** @file lincity-ng/ErrorInterface.cpp */
+

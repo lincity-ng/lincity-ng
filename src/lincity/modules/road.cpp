@@ -51,3 +51,6 @@ void mps_road(int x, int y)
     mps_store_sddp(i++, _("Waste"), MP_INFO(x, y).int_7, MAX_WASTE_ON_ROAD);
 
 }
+
+/** @file lincity/modules/road.cpp */
+

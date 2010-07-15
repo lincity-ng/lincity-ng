@@ -105,3 +105,6 @@ private:
 
 #endif
 
+
+/** @file gui/callback/Signal.hpp */
+

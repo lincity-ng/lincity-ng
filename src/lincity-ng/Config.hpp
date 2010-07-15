@@ -57,3 +57,6 @@ private:
 Config* getConfig();
 
 #endif
+
+/** @file lincity-ng/Config.hpp */
+

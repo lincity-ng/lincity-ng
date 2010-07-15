@@ -1022,3 +1022,6 @@ void mps_market(int x, int y)
     mps_store_sddp(i++, _("Steel"), MP_INFO(x, y).int_6, MAX_STEEL_IN_MARKET);
     mps_store_sddp(i++, _("Waste"), MP_INFO(x, y).int_7, MAX_WASTE_IN_MARKET);
 }
+
+/** @file lincity/modules/market.cpp */
+

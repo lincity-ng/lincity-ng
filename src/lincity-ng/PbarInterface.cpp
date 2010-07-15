@@ -91,3 +91,6 @@ void update_pbars_monthly()
     update_pbar (PSTEEL, tsteel_in_markets / data_last_month, 1);
     update_pbar (PMONEY, total_money, 1);
 }
+
+/** @file lincity-ng/PbarInterface.cpp */
+

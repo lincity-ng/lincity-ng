@@ -71,3 +71,6 @@ class ButtonPanel : public Component
 ButtonPanel *getButtonPanel();
 
 #endif
+
+/** @file lincity-ng/ButtonPanel.hpp */
+

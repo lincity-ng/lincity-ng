@@ -70,3 +70,6 @@ void parseStyleDef(XmlReader& reader);
 
 #endif
 
+
+/** @file gui/Style.hpp */
+

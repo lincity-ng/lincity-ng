@@ -68,3 +68,6 @@ public:
 };
 
 #endif
+
+/** @file gui/Painter.hpp */
+

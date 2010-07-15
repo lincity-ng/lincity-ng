@@ -137,3 +137,6 @@ void do_windmill(int x, int y);
 void mps_windmill(int x, int y);
 
 #endif
+
+/** @file lincity/modules/modules_interfaces.h */
+

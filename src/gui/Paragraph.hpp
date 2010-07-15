@@ -112,3 +112,6 @@ private:
 
 #endif
 
+
+/** @file gui/Paragraph.hpp */
+

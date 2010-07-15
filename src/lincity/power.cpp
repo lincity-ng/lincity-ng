@@ -364,3 +364,6 @@ int get_power(int x, int y, int power, int block_industry)
     }
     return 0;
 }
+
+/** @file lincity/power.cpp */
+

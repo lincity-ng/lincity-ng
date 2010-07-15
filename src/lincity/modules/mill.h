@@ -19,3 +19,6 @@
 #define GROUP_MILL_FIREC  60
 
 
+
+/** @file lincity/modules/mill.h */
+

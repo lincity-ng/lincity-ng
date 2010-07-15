@@ -52,3 +52,6 @@ int closedir(DIR *dir);
 #endif
 
 #endif
+
+/** @file lincity-ng/readdir.hpp */
+

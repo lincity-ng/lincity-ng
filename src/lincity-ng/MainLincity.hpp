@@ -31,3 +31,6 @@ void saveCityNG( std::string newFilename );
 bool loadCityNG( std::string filename );
 
 #endif
+
+/** @file lincity-ng/MainLincity.hpp */
+

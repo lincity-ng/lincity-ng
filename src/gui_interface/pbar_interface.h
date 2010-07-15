@@ -73,3 +73,6 @@ extern struct pbar_st pbars[NUM_PBARS];
 
 
 
+
+/** @file gui_interface/pbar_interface.h */
+

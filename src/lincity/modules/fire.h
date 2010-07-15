@@ -6,3 +6,6 @@
 #define GROUP_FIRE_FIREC  0
 
 
+
+/** @file lincity/modules/fire.h */
+

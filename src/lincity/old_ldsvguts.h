@@ -26,3 +26,6 @@
 void load_city_old(char *);
 
 #endif /* __old_ldsvguts_h__ */
+
+/** @file lincity/old_ldsvguts.h */
+

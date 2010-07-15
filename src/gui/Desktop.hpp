@@ -67,3 +67,6 @@ private:
 
 #endif
 
+
+/** @file gui/Desktop.hpp */
+

@@ -287,3 +287,6 @@ void mps_light_industry(int x, int y)
     mps_store_sddp(i++, _("Steel"), MP_INFO(x, y).int_4, MAX_STEEL_AT_INDUSTRY_L);
     mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_5, MAX_JOBS_AT_INDUSTRY_L);
 }
+
+/** @file lincity/modules/light_industry.cpp */
+

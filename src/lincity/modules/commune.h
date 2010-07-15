@@ -9,3 +9,6 @@
 #define COMMUNE_ANIM_SPEED 750
 #define COMMUNE_POP  5
 
+
+/** @file lincity/modules/commune.h */
+

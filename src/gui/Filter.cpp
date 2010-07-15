@@ -59,3 +59,6 @@ void color2Grey(SDL_Surface* surface)
     SDL_UnlockSurface(surface);
 }
 
+
+/** @file gui/Filter.cpp */
+

@@ -55,3 +55,6 @@ private:
 
 #endif
 
+
+/** @file gui/ScrollView.hpp */
+

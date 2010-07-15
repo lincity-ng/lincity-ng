@@ -14,3 +14,6 @@
 #define MAX_GOODS_AT_SCHOOL    200
 #define SCHOOL_RUNNING_COST    2
 
+
+/** @file lincity/modules/school.h */
+

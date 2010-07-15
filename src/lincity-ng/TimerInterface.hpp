@@ -22,3 +22,6 @@ void reset_start_time();
 void get_real_time(void);
 
 #endif
+
+/** @file lincity-ng/TimerInterface.hpp */
+

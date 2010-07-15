@@ -128,3 +128,6 @@ public:
 
 #endif
 
+
+/** @file gui/Vector2.hpp */
+

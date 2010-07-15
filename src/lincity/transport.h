@@ -105,3 +105,6 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_RAIL_BRIDGE_FIREC   0
 
 
+
+/** @file lincity/transport.h */
+

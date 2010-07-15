@@ -112,3 +112,6 @@ void mps_pottery(int x, int y)
     mps_store_sddp(i++, _("Ore"), MP_INFO(x, y).int_2, MAX_ORE_AT_POTTERY);
     mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_AT_POTTERY);
 }
+
+/** @file lincity/modules/pottery.cpp */
+

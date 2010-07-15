@@ -111,3 +111,6 @@ private:
 
 #endif
 
+
+/** @file gui/TableLayout.hpp */
+

@@ -64,3 +64,6 @@ void mps_waterwell(int x, int y)
     mps_store_ss(i++, _("Drinkable"), p);
 
 }
+
+/** @file lincity/modules/waterwell.cpp */
+

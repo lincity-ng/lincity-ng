@@ -96,3 +96,6 @@ private:
 };
 
 #endif
+
+/** @file lincity-ng/CheckButton.hpp */
+

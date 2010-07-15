@@ -136,3 +136,6 @@ void Image::setFile(const std::string &pfilename)
 
 IMPLEMENT_COMPONENT_FACTORY(Image);
 
+
+/** @file gui/Image.cpp */
+

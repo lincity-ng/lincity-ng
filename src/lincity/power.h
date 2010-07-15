@@ -64,3 +64,6 @@ void power_time_step();
 
 
 #endif
+
+/** @file lincity/power.h */
+

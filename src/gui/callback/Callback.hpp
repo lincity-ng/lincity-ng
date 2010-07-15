@@ -94,3 +94,6 @@ Callback<T, Arg1T, Arg2T>* makeCallback(T& object, void(T::*func) (Arg1T, Arg2T)
 }
 
 #endif
+
+/** @file gui/callback/Callback.hpp */
+

@@ -67,3 +67,6 @@ void mps_university(int x, int y)
     mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, UNIVERSITY_GOODS_STORE);
     mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_4);
 }
+
+/** @file lincity/modules/university.cpp */
+

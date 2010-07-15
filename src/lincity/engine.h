@@ -27,3 +27,6 @@ void do_fire_health_cricket_power_cover(void);
 extern long real_time;
 
 #endif /* __engine_h__ */
+
+/** @file lincity/engine.h */
+

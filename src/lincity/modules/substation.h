@@ -6,3 +6,6 @@
 #define GROUP_SUBSTATION_FIREC 50
 
 
+
+/** @file lincity/modules/substation.h */
+

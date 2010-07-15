@@ -130,3 +130,6 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
 }
 
 IMPLEMENT_COMPONENT_FACTORY(TooltipManager);
+
+/** @file gui/TooltipManager.cpp */
+

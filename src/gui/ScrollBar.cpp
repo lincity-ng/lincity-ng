@@ -258,3 +258,6 @@ ScrollBar::buttonReleased(Button* )
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ScrollBar);
+
+/** @file gui/ScrollBar.cpp */
+

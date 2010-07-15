@@ -38,3 +38,6 @@
 
 #endif
 
+
+/** @file lincity/modules/all_modules.h */
+

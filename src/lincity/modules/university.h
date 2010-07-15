@@ -13,3 +13,6 @@
 #define GROUP_UNIVERSITY_FIREC 40
 
 
+
+/** @file lincity/modules/university.h */
+

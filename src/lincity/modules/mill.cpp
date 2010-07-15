@@ -101,3 +101,6 @@ void mps_mill(int x, int y)
     mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_AT_MILL);
 
 }
+
+/** @file lincity/modules/mill.cpp */
+

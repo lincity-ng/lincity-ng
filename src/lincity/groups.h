@@ -79,3 +79,6 @@
 	     (group == GROUP_TREE3))
 
 #endif // __groups_h__
+
+/** @file lincity/groups.h */
+

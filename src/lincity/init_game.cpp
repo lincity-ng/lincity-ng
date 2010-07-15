@@ -1250,3 +1250,6 @@ static void do_rand_ecology(int x, int y)
 }
 
 
+
+/** @file lincity/init_game.cpp */
+

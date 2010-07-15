@@ -549,3 +549,6 @@ void debug_printf(char *fmt, ...)
     fclose(fp);
 #endif
 }
+
+/** @file lincity/fileutil.cpp */
+

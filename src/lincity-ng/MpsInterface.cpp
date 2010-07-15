@@ -552,3 +552,6 @@ void mps_global_housing()
     currentMPS = 0;
 }
 
+
+/** @file lincity-ng/MpsInterface.cpp */
+

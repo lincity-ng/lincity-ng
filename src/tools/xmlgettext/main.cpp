@@ -156,3 +156,6 @@ int main(int argc, char** argv)
         }
     }
 }
+
+/** @file tools/xmlgettext/main.cpp */
+

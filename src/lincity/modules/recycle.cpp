@@ -147,3 +147,6 @@ void mps_recycle(int x, int y)
     mps_store_sddp(i++, _("Waste"), MP_INFO(x, y).int_2, MAX_WASTE_AT_RECYCLE);
 
 }
+
+/** @file lincity/modules/recycle.cpp */
+

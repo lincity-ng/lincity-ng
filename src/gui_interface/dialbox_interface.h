@@ -6,3 +6,6 @@ int dialog_box(int colour, int argc, ...);
 
 
 #endif
+
+/** @file gui_interface/dialbox_interface.h */
+

@@ -289,3 +289,6 @@ void mps_residence(int x, int y)
     mps_store_sd(i++, _("Pollution"), MP_POL(x, y));
 
 }
+
+/** @file lincity/modules/residence.cpp */
+

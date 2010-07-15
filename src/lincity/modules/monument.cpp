@@ -66,3 +66,6 @@ void mps_monument(int x, int y)
         mps_store_fp(i++, MP_INFO(x, y).int_1 * 100.0 / BUILD_MONUMENT_JOBS);
     }
 }
+
+/** @file lincity/modules/monument.cpp */
+

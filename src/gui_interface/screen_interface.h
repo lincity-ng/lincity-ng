@@ -65,3 +65,6 @@ void mini_aux_handler(int x, int y, int button);
 
 #endif	/* __screen_h__ */
 
+
+/** @file gui_interface/screen_interface.h */
+

@@ -551,3 +551,6 @@ FL_FreeLocale(FL_Locale **locale) {
     }
   }
 }
+
+/** @file tinygettext/findlocale.cpp */
+

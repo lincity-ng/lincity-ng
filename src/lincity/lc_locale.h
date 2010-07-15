@@ -4,3 +4,6 @@
 void lincity_set_locale(void);
 
 #endif
+
+/** @file lincity/lc_locale.h */
+

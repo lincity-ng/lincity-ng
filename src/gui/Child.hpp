@@ -105,3 +105,6 @@ public:
 };
 
 #endif
+
+/** @file gui/Child.hpp */
+

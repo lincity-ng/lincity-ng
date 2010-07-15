@@ -495,3 +495,6 @@ void EconomyGraph::draw( Painter& painter ){
 }
 
 IMPLEMENT_COMPONENT_FACTORY(EconomyGraph);
+
+/** @file lincity-ng/EconomyGraph.cpp */
+

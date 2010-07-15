@@ -108,3 +108,6 @@ void mps_tip(int x, int y)
     i++;
     mps_store_sddp(i++,_("Days degenerating"), MP_INFO(x, y).int_4 ,TIP_DEGRADE_TIME);
 }
+
+/** @file lincity/modules/tip.cpp */
+

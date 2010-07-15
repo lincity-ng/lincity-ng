@@ -230,3 +230,6 @@ void mps_organic_farm(int x, int y)
 #endif
 
 }
+
+/** @file lincity/modules/organic_farm.cpp */
+

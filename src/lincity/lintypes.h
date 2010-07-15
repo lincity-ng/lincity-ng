@@ -91,3 +91,6 @@ struct ground_struct {
 
 
 #endif /* __lintypes_h__ */
+
+/** @file lincity/lintypes.h */
+

@@ -14,3 +14,6 @@ void set_mappoint(int x, int y, short selected_type);
 extern void connect_rivers(void);
 
 #endif /* __simulate_h__ */
+
+/** @file lincity/simulate.h */
+

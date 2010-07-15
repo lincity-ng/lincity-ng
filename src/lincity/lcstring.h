@@ -18,3 +18,6 @@
 #endif
 
 #endif /* __lcstring_h__ */
+
+/** @file lincity/lcstring.h */
+

@@ -19,3 +19,6 @@
 #define PORT_EXPORT_RATE  500
 #define PORT_IMPORT_RATE  500
 
+
+/** @file lincity/modules/port.h */
+

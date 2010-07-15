@@ -766,3 +766,6 @@ br_dirname (const char *path)
 #endif /* __cplusplus */
 
 #endif /* __BINRELOC_C__ */
+
+/** @file lincity-ng/binreloc.c */
+

@@ -243,3 +243,6 @@ Desktop::addChildComponent(Component* component)
     assert( component->getParent() == 0 );
     addQueue.push_back(component);
 }
+
+/** @file gui/Desktop.cpp */
+

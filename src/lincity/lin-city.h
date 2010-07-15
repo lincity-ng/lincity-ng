@@ -138,3 +138,6 @@
 #include "lintypes.h"
 
 #endif /* __lin_city_h__ */
+
+/** @file lincity/lin-city.h */
+

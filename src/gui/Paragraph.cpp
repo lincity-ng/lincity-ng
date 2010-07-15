@@ -540,3 +540,6 @@ Paragraph::setText(const std::string& newtext, const Style& style)
 
 IMPLEMENT_COMPONENT_FACTORY(Paragraph);
 
+
+/** @file gui/Paragraph.cpp */
+

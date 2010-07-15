@@ -43,3 +43,6 @@ public:
 };
 
 #endif
+
+/** @file gui/Texture.hpp */
+

@@ -37,3 +37,6 @@ public:
 };
 
 #endif
+
+/** @file gui/PainterSDL/TextureManagerSDL.hpp */
+

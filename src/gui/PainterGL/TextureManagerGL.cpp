@@ -94,3 +94,6 @@ TextureManagerGL::create(SDL_Surface* image)
     return texture;
 }
 
+
+/** @file gui/PainterGL/TextureManagerGL.cpp */
+

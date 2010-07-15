@@ -76,3 +76,6 @@
 
 
 #endif /* __residence_h__ */
+
+/** @file lincity/modules/residence.h */
+

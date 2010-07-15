@@ -54,3 +54,6 @@ private:
 Sound* getSound();
 
 #endif
+
+/** @file lincity-ng/Sound.hpp */
+

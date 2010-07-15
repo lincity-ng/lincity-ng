@@ -41,3 +41,6 @@ public:
 
 #endif
 
+
+/** @file gui/callback/CallbackBase.hpp */
+

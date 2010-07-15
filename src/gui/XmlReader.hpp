@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 /**
  * @author Matthias Braun.
- * @file XmlReader.hpp
+ * @file gui/XmlReader.hpp
  * @brief Simple wrapper around libxml2 xmlreader interface.
  */
 
@@ -158,4 +158,7 @@ private:
 };
 
 #endif
+
+
+/** @file gui/XmlReader.hpp */
 

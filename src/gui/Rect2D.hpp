@@ -111,3 +111,6 @@ public:
 };
 
 #endif
+
+/** @file gui/Rect2D.hpp */
+

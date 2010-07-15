@@ -106,3 +106,6 @@ FontManager::getFont(Style style)
     return font;
 }
 
+
+/** @file gui/FontManager.cpp */
+

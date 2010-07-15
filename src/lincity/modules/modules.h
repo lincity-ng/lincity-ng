@@ -20,3 +20,6 @@
 #include "modules_interfaces.h"
 
 #endif /* __modules_h__ */
+
+/** @file lincity/modules/modules.h */
+

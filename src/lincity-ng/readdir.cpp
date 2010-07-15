@@ -71,3 +71,6 @@ int closedir(DIR *dir)
 
 #endif
 
+
+/** @file lincity-ng/readdir.cpp */
+

@@ -89,3 +89,6 @@ SDL_RWops* getPhysfsSDLRWops(const std::string& filename)
     ops->close = funcClose;
     return ops;
 }
+
+/** @file PhysfsStream/PhysfsSDL.cpp */
+

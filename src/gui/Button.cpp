@@ -362,3 +362,6 @@ Button::draw(Painter& painter)
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Button)
+
+/** @file gui/Button.cpp */
+

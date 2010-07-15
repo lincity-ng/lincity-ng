@@ -101,3 +101,6 @@ Color::parse(const char* value)
         throw std::runtime_error(msg.str());
     }
 }
+
+/** @file gui/Color.cpp */
+

@@ -25,3 +25,6 @@ int min_int(int i1, int i2);
 int max_int(int i1, int i2);
 
 #endif
+
+/** @file lincity/lclib.h */
+

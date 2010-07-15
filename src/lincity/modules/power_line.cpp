@@ -48,3 +48,6 @@ void mps_power_line(int x, int y)
 
     mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
 }
+
+/** @file lincity/modules/power_line.cpp */
+

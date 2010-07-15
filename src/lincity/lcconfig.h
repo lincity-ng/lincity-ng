@@ -19,3 +19,6 @@
 #endif
 
 #endif /* __lcconfig_h__ */
+
+/** @file lincity/lcconfig.h */
+

@@ -101,3 +101,6 @@ void init_yearly(void);
 void add_daily_to_monthly(void);
 
 #endif
+
+/** @file lincity/stats.h */
+

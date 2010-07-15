@@ -16,3 +16,6 @@
 
 #define CRICKET_JOB_SWING 4
 
+
+/** @file lincity/modules/cricket.h */
+

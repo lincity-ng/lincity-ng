@@ -8,3 +8,6 @@
 #define POWERS_SOLAR_OUTPUT 1800
 
 
+
+/** @file lincity/modules/solar_power.h */
+

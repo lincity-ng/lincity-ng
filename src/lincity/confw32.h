@@ -94,3 +94,6 @@
     
 /* Version number of package */ 
 #define VERSION "1.13.2"
+
+/** @file lincity/confw32.h */
+

@@ -236,3 +236,6 @@ void *lcalloc(size_t size)
 
     return tmp;
 }
+
+/** @file lincity/lclib.cpp */
+

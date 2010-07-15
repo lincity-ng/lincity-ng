@@ -186,3 +186,6 @@ Gradient::draw_vertical_line(SDL_Surface* surface, int x1, int y1, int y2,
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Gradient)
+
+/** @file gui/Gradient.cpp */
+

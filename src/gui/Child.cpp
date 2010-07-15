@@ -85,3 +85,6 @@ Childs::clear()
     std::vector<Child>::clear();
 }
 
+
+/** @file gui/Child.cpp */
+

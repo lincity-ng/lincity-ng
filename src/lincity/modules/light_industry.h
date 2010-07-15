@@ -24,3 +24,6 @@
 #define GROUP_INDUSTRY_L_FIREC 70
 
 
+
+/** @file lincity/modules/light_industry.h */
+

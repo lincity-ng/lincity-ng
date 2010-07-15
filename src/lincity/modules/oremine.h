@@ -8,3 +8,6 @@
 #define GROUP_OREMINE_FIREC 0
 
 
+
+/** @file lincity/modules/oremine.h */
+

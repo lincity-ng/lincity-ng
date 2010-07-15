@@ -167,3 +167,6 @@ void initLincity()
     }
 }
 
+
+/** @file lincity-ng/MainLincity.cpp */
+

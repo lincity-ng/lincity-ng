@@ -465,3 +465,6 @@ TableLayout::addComponent(size_t col, size_t row, Component* component)
 
 IMPLEMENT_COMPONENT_FACTORY(TableLayout);
 
+
+/** @file gui/TableLayout.cpp */
+

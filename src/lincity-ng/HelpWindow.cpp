@@ -142,3 +142,6 @@ HelpWindow::historyBackClicked(Button*)
         topicHistory.pop();
     }
 }
+
+/** @file lincity-ng/HelpWindow.cpp */
+

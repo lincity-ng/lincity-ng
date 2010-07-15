@@ -33,3 +33,6 @@ void lincity_set_locale(void)
 #endif /* ENABLE_NLS */
     return;
 }
+
+/** @file lincity/lc_locale.cpp */
+

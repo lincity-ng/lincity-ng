@@ -16,3 +16,6 @@
 #define GROUP_FIRESTATION_FIREC 0
 
 
+
+/** @file lincity/modules/firestation.h */
+

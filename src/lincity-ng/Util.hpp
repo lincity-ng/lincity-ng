@@ -33,3 +33,6 @@ SwitchComponent* getSwitchComponent(Component& tree, const std::string& name);
 
 #endif
 
+
+/** @file lincity-ng/Util.hpp */
+

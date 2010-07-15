@@ -85,3 +85,6 @@ void do_fire(int x, int y)
     } else if (real_time >= MP_INFO(x, y).int_3)
         MP_INFO(x, y).int_3 = -1;
 }
+
+/** @file lincity/modules/fire.cpp */
+

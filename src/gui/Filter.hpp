@@ -31,3 +31,6 @@ void color2Grey(SDL_Surface* surface);
 
 #endif
 
+
+/** @file gui/Filter.hpp */
+

@@ -85,3 +85,6 @@ DocumentImage::draw(Painter& painter)
     painter.drawTexture(texture, Vector2(0, 0));
 }
 
+
+/** @file gui/DocumentImage.cpp */
+

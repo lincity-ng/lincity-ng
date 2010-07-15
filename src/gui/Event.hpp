@@ -72,3 +72,6 @@ public:
 
 #endif
 
+
+/** @file gui/Event.hpp */
+

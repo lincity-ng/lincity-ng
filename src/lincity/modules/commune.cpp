@@ -186,3 +186,6 @@ void mps_commune(int x, int y)
     p = (MP_INFO(x, y).int_5 & 8) ? _("Yes") : _("No");
     mps_store_ss(i++, _("Waste"), p);
 }
+
+/** @file lincity/modules/commune.cpp */
+

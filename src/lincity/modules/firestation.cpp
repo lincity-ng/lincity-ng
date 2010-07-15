@@ -114,3 +114,6 @@ void mps_firestation(int x, int y)
     mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, MAX_GOODS_AT_FIRESTATION);
 
 }
+
+/** @file lincity/modules/firestation.cpp */
+

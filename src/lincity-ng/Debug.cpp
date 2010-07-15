@@ -20,3 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Debug.hpp"
 
 int D::d=0;
+
+/** @file lincity-ng/Debug.cpp */
+

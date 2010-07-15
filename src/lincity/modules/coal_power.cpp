@@ -99,3 +99,6 @@ void mps_coal_power(int x, int y)
     mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
     mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
 }
+
+/** @file lincity/modules/coal_power.cpp */
+

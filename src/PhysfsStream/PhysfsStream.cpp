@@ -123,3 +123,6 @@ OFileStream::~OFileStream()
     delete rdbuf();
 }
 
+
+/** @file PhysfsStream/PhysfsStream.cpp */
+

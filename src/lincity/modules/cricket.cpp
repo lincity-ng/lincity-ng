@@ -97,3 +97,6 @@ void mps_cricket(int x, int y)
     mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, MAX_GOODS_AT_CRICKET);
 
 }
+
+/** @file lincity/modules/cricket.cpp */
+

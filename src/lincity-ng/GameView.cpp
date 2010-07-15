@@ -1825,3 +1825,6 @@ int GameView::buildCost( MapPoint tile ){
 
 //Register as Component
 IMPLEMENT_COMPONENT_FACTORY(GameView);
+
+/** @file lincity-ng/GameView.cpp */
+

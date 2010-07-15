@@ -170,3 +170,6 @@ static const int scrollBorder = 5;
 
 #endif
 
+
+/** @file lincity-ng/GameView.hpp */
+

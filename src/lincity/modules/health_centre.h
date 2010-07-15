@@ -15,3 +15,6 @@
 #define GROUP_HEALTH_FIREC 2
 
 
+
+/** @file lincity/modules/health_centre.h */
+

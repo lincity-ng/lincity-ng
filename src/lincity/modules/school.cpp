@@ -52,3 +52,6 @@ void mps_school(int x, int y)
     mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_5 * 4);
 
 }
+
+/** @file lincity/modules/school.cpp */
+

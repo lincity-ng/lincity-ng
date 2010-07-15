@@ -15,3 +15,6 @@
 #define MODERN_WINDMILL_TECH 450000
 
 
+
+/** @file lincity/modules/windmill.h */
+

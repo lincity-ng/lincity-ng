@@ -34,3 +34,6 @@ void load_city_2(char *);
 extern void load_city_old(char *);
 
 #endif /* __loadsave_h__ */
+
+/** @file lincity/loadsave.h */
+

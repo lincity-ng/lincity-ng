@@ -201,3 +201,6 @@ void mps_rocket(int x, int y)
     mps_store_sddp(i++, _("Steel"), MP_INFO(x, y).int_3, ROCKET_PAD_STEEL_STORE);
 
 }
+
+/** @file lincity/modules/rocket_pad.cpp */
+

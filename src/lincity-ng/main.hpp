@@ -37,3 +37,6 @@ extern Painter* painter;
 
 #endif
 
+
+/** @file lincity-ng/main.hpp */
+

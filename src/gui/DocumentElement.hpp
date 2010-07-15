@@ -45,3 +45,6 @@ public:
 
 #endif
 
+
+/** @file gui/DocumentElement.hpp */
+

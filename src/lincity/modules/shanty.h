@@ -15,3 +15,6 @@
 #define SHANTY_GET_STEEL  1
 
 
+
+/** @file lincity/modules/shanty.h */
+

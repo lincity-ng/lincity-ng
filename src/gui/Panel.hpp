@@ -51,3 +51,6 @@ private:
 
 #endif
 
+
+/** @file gui/Panel.hpp */
+

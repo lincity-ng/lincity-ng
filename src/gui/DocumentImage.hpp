@@ -54,3 +54,6 @@ private:
 
 #endif
 
+
+/** @file gui/DocumentImage.hpp */
+

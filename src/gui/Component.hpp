@@ -166,3 +166,6 @@ protected:
 };
 
 #endif
+
+/** @file gui/Component.hpp */
+

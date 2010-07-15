@@ -90,3 +90,6 @@ private:
 MiniMap* getMiniMap();
 
 #endif
+
+/** @file lincity-ng/MiniMap.hpp */
+

@@ -158,3 +158,6 @@ void initFactories()
     }
 }
 
+
+/** @file gui/ComponentFactory.cpp */
+

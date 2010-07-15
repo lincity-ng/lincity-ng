@@ -544,3 +544,6 @@ static void set_mappoint_used(int fromx, int fromy, int x, int y)
     MP_INFO(x, y).int_2 = fromy;
 }
 
+
+/** @file lincity/simulate.cpp */
+

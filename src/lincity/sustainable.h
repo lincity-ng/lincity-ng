@@ -13,3 +13,6 @@
 
 #define SUST_MIN_POPULATION 5000
 #define SUST_MIN_TECH_LEVEL (MAX_TECH_LEVEL/2)
+
+/** @file lincity/sustainable.h */
+

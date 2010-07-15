@@ -20,3 +20,6 @@
 #define GROUP_POTTERY_FIREC 50
 
 
+
+/** @file lincity/modules/pottery.h */
+

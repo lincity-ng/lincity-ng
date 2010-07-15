@@ -151,3 +151,6 @@ private:
 
 #endif
 
+
+/** @file tools/xmlgettext/XmlReader.hpp */
+

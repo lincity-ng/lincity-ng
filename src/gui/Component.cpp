@@ -217,3 +217,6 @@ Component::setChildDirty(Component* childComponent, const Rect2D& area)
     assert(false);
 }
 
+
+/** @file gui/Component.cpp */
+

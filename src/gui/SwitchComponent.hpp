@@ -54,3 +54,6 @@ public:
 
 #endif
 
+
+/** @file gui/SwitchComponent.hpp */
+

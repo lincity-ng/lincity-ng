@@ -97,3 +97,6 @@ void mps_blacksmith(int x, int y)
     mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_1, MAX_GOODS_AT_BLACKSMITH);
     mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_AT_BLACKSMITH);
 }
+
+/** @file lincity/modules/blacksmith.cpp */
+

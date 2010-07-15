@@ -714,3 +714,6 @@
 #define CST_NONE 1000
 
 #endif /* __lctypes_h__ */
+
+/** @file lincity/lctypes.h */
+

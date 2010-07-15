@@ -931,3 +931,6 @@ MainMenu::run()
 
     return quitState;
 }
+
+/** @file lincity-ng/MainMenu.cpp */
+

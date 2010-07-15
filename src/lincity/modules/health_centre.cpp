@@ -63,3 +63,6 @@ void mps_health_centre(int x, int y)
     mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, MAX_GOODS_AT_HEALTH_CENTRE);
 
 }
+
+/** @file lincity/modules/health_centre.cpp */
+

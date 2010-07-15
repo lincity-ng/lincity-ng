@@ -57,3 +57,6 @@ Event::Event(float _elapsedTime)
     : type(UPDATE), inside(false), elapsedTime(_elapsedTime)
 {
 }
+
+/** @file gui/Event.cpp */
+

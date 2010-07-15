@@ -86,3 +86,6 @@ private:
 
 #endif
 
+
+/** @file gui/ScrollBar.hpp */
+

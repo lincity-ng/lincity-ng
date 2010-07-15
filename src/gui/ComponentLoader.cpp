@@ -103,3 +103,6 @@ Component* parseEmbeddedComponent(XmlReader& reader)
     return component;
 }
 
+
+/** @file gui/ComponentLoader.cpp */
+

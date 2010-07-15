@@ -32,3 +32,6 @@ TextureGL::~TextureGL()
     glDeleteTextures(1, handles);
 }
 
+
+/** @file gui/PainterGL/TextureGL.cpp */
+

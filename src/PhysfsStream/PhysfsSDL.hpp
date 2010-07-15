@@ -25,3 +25,6 @@ SDL_RWops* getPhysfsSDLRWops(const std::string& filename);
 
 #endif
 
+
+/** @file PhysfsStream/PhysfsSDL.hpp */
+

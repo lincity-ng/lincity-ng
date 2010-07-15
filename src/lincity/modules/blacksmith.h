@@ -16,3 +16,6 @@
 #define BLACKSMITH_ANIM_THRESHOLD 10
 #define BLACKSMITH_ANIM_SPEED    200
 
+
+/** @file lincity/modules/blacksmith.h */
+

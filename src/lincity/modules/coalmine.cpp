@@ -165,3 +165,6 @@ void mps_coalmine(int x, int y)
     }
 
 }
+
+/** @file lincity/modules/coalmine.cpp */
+

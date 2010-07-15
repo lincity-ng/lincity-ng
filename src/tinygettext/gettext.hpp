@@ -21,3 +21,6 @@ static inline const char* _(const char* message)
 #define N_(s)      s
 
 #endif
+
+/** @file tinygettext/gettext.hpp */
+

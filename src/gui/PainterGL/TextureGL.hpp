@@ -50,3 +50,6 @@ private:
 
 #endif
 
+
+/** @file gui/PainterGL/TextureGL.hpp */
+

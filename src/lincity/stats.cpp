@@ -213,3 +213,6 @@ void add_daily_to_monthly(void)
     twaste_in_markets += waste_in_markets;
     tunemployed_population += unemployed_population;
 }
+
+/** @file lincity/stats.cpp */
+

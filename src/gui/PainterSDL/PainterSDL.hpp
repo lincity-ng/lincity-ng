@@ -82,3 +82,6 @@ private:
 };
 
 #endif
+
+/** @file gui/PainterSDL/PainterSDL.hpp */
+

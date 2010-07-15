@@ -192,3 +192,6 @@ void parseStyleDef(XmlReader& reader)
     styleRegistry.insert(std::make_pair(name, style));
 }
 
+
+/** @file gui/Style.cpp */
+

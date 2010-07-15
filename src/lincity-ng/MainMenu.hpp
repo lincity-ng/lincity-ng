@@ -102,3 +102,6 @@ private:
 
 #endif
 
+
+/** @file lincity-ng/MainMenu.hpp */
+

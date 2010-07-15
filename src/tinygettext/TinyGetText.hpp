@@ -157,3 +157,6 @@ LanguageDef& get_language_def(const std::string& name);
 #endif
 
 /* EOF */
+
+/** @file tinygettext/TinyGetText.hpp */
+

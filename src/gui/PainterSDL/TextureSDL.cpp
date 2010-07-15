@@ -29,3 +29,6 @@ TextureSDL::~TextureSDL()
         zoomSurface = NULL;
     }
 }
+
+/** @file gui/PainterSDL/TextureSDL.cpp */
+

@@ -287,3 +287,6 @@ PainterSDL::createTexturePainter(Texture* texture)
     return new PainterSDL(textureSDL);
 }
 
+
+/** @file gui/PainterSDL/PainterSDL.cpp */
+

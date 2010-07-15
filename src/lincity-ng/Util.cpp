@@ -81,3 +81,6 @@ SwitchComponent* getSwitchComponent(Component& tree, const std::string& name)
     findComponent(&result, tree, name);
     return result;
 }
+
+/** @file lincity-ng/Util.cpp */
+

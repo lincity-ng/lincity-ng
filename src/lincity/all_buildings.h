@@ -163,3 +163,6 @@
 /********   end of buildings // groups   ************/
 
 #endif // __all_buildings_h__
+
+/** @file lincity/all_buildings.h */
+

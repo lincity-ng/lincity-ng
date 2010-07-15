@@ -13,3 +13,6 @@
 #define GROUP_RECYCLE_FIREC 10
 
 
+
+/** @file lincity/modules/recycle.h */
+

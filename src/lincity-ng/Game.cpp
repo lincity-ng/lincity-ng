@@ -259,3 +259,6 @@ Game::run()
 
     return quitState;
 }
+
+/** @file lincity-ng/Game.cpp */
+

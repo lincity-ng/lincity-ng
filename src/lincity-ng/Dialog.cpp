@@ -852,3 +852,6 @@ void Dialog::closeDialog(){
     }
     unRegisterDialog();
 }
+
+/** @file lincity-ng/Dialog.cpp */
+

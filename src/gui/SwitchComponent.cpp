@@ -177,3 +177,6 @@ SwitchComponent::opaque(const Vector2& pos) const
 }
 
 IMPLEMENT_COMPONENT_FACTORY(SwitchComponent);
+
+/** @file gui/SwitchComponent.cpp */
+

@@ -224,3 +224,6 @@ Config::save(){
     userconfig << "</configuration>\n";
 }
 
+
+/** @file lincity-ng/Config.cpp */
+

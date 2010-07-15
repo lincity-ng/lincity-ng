@@ -52,3 +52,6 @@ Component* parseEmbeddedComponent(XmlReader& reader);
 Component* createComponent(const std::string& type, XmlReader& reader);
 
 #endif
+
+/** @file gui/ComponentLoader.hpp */
+

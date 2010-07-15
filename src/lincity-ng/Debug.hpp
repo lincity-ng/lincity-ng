@@ -97,3 +97,6 @@ T*checked_cast(Y *x)
 #endif
 
 #endif
+
+/** @file lincity-ng/Debug.hpp */
+

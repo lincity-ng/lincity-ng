@@ -20,3 +20,6 @@
 #define GROUP_MARKET_FIREC 80
 
 
+
+/** @file lincity/modules/market.h */
+

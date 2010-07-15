@@ -67,3 +67,6 @@ public:
 
 #endif
 
+
+/** @file gui/Color.hpp */
+

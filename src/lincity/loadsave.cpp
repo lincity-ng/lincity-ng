@@ -554,3 +554,6 @@ void load_city_2(char *cname)
 
 }
 
+
+/** @file lincity/loadsave.cpp */
+

@@ -74,3 +74,6 @@ extern FontManager* fontManager;
 
 #endif
 
+
+/** @file gui/FontManager.hpp */
+

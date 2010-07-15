@@ -231,3 +231,6 @@ void BarView::draw(Painter &painter)
 
 IMPLEMENT_COMPONENT_FACTORY(LCPBar);
 IMPLEMENT_COMPONENT_FACTORY(BarView);
+
+/** @file lincity-ng/PBar.cpp */
+

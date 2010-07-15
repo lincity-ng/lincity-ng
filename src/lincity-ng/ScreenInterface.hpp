@@ -31,3 +31,6 @@ void updateMoney();
 void updateMessageText( const std::string text );
 
 #endif
+
+/** @file lincity-ng/ScreenInterface.hpp */
+

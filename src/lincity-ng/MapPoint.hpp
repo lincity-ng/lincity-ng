@@ -43,3 +43,6 @@ public:
 
 #endif
 
+
+/** @file lincity-ng/MapPoint.hpp */
+

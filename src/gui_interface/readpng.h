@@ -9,3 +9,6 @@
 int load_png_graphics (void);
 
 #endif /* __readpng_h__ */
+
+/** @file gui_interface/readpng.h */
+

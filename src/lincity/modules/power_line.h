@@ -6,3 +6,6 @@
 #define GROUP_POWER_LINE_FIREC 0
 
 
+
+/** @file lincity/modules/power_line.h */
+

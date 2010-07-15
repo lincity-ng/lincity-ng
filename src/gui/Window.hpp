@@ -63,3 +63,6 @@ private:
 
 #endif
 
+
+/** @file gui/Window.hpp */
+
