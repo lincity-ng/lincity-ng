@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lctypes.h"
 #include "lincity/groups.h"
 #include "lincity/all_buildings.h"
+#include "lincity/modules/all_modules.h"
 #include "tinygettext/gettext.hpp"
 
 #include "GameView.hpp"
