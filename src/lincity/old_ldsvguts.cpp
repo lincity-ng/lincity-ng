@@ -17,6 +17,7 @@
 #include "stats.h"
 #include "init_game.h"
 #include "all_buildings.h"
+#include "modules/all_modules.h"
 
 #include <fcntl.h>
 #include <sys/types.h>

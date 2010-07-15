@@ -8,6 +8,7 @@
 #include "market.h"
 #include "lincity-ng/ErrorInterface.hpp"
 #include "../range.h"
+#include "../transport.h"
 
     /*
      * MP_INFO(x,y)
@@ -378,7 +379,7 @@ void do_market(int x, int y)
                 MP_TYPE(x, y) = CST_MARKET_LOW;
             else
                 MP_TYPE(x, y) = CST_MARKET_EMPTY;
-        } else if (MP_INFO(x, y).int_1 < (MARKET_FOOD_SEARCH_TRIGGER / 2))
+        } else if (MP_INFO(x, y).int_1 < (MAX_FOOD_IN_MARKET / 2))
             MP_TYPE(x, y) = CST_MARKET_LOW;
         else if (MP_INFO(x, y).int_1 < (MAX_FOOD_IN_MARKET - MAX_FOOD_IN_MARKET / 4))
             MP_TYPE(x, y) = CST_MARKET_MED;

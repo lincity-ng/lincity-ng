@@ -15,11 +15,8 @@
 #include "gui_interface/mps.h"
 #include "../lclib.h"
 
-#include "market.h"
 #include "../power.h"
 #include "../all_buildings.h"
-
-// for real_time
-//#include "cliglobs.h"
+#include "modules_interfaces.h"
 
 #endif /* __modules_h__ */

@@ -1,15 +1,18 @@
-/* ---------------------------------------------------------------------- *
- * cricket.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_CRICKET_COLOUR (white(20))
+#define GROUP_CRICKET_COST   2000
+#define GROUP_CRICKET_COST_MUL 3
+#define GROUP_CRICKET_BUL_COST 1000
+#define GROUP_CRICKET_TECH     12
+#define GROUP_CRICKET_FIREC 20
 
-#ifndef __cricket_h__
-#define __cricket_h__
+#define CRICKET_JOBS   8
+#define CRICKET_GET_JOBS 9
+#define MAX_JOBS_AT_CRICKET (CRICKET_JOBS*NUMOF_DAYS_IN_YEAR)
+#define CRICKET_GOODS  2
+#define CRICKET_GET_GOODS 3
+#define MAX_GOODS_AT_CRICKET (CRICKET_GOODS*NUMOF_DAYS_IN_YEAR)
+#define CRICKET_RUNNING_COST 1
+#define CRICKET_ANIMATION_SPEED 750
 
-void do_cricket(int x, int y);
-void do_cricket_cover(int x, int y);
-void mps_cricket(int x, int y);
+#define CRICKET_JOB_SWING 4
 
-#endif /* __cricket_h__ */

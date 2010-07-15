@@ -16,7 +16,7 @@
 #include "stats.h"
 #include "init_game.h"
 #include "transport.h"
-#include "all_buildings.h"  // temporary workaround. needed only to get MODERN_WINDMILL_TECH for init, which should be elsewhere
+#include "modules/windmill.h"  // temporary workaround. needed only to get MODERN_WINDMILL_TECH for init, which should be elsewhere
 
 #include <fcntl.h>
 #include <sys/types.h>

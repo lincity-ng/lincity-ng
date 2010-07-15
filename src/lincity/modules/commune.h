@@ -1,14 +1,11 @@
-/* ---------------------------------------------------------------------- *
- * commune.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_COMMUNE_COLOUR (green(30))
+#define GROUP_COMMUNE_COST  1
+#define GROUP_COMMUNE_COST_MUL 2
+#define GROUP_COMMUNE_BUL_COST  1000
+#define GROUP_COMMUNE_TECH  0
+#define GROUP_COMMUNE_FIREC 30
 
-#ifndef __commune_h__
-#define __commune_h__
+#define JOBS_AT_COMMUNE_GATE 4
+#define COMMUNE_ANIM_SPEED 750
+#define COMMUNE_POP  5
 
-void do_commune(int x, int y);
-void mps_commune(int x, int y);
-
-#endif /* __commune_h__ */

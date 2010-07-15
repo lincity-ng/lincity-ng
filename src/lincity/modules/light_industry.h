@@ -1,14 +1,26 @@
-/* ---------------------------------------------------------------------- *
- * light_industry.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define MAX_ORE_AT_INDUSTRY_L 20000
+#define MAX_JOBS_AT_INDUSTRY_L 500
+#define MAX_GOODS_AT_INDUSTRY_L 65000
+#define INDUSTRY_L_GET_JOBS    120
+#define INDUSTRY_L_GET_ORE     600
+#define INDUSTRY_L_GET_STEEL   60
+#define INDUSTRY_L_JOBS_LOAD_ORE 1
+#define INDUSTRY_L_JOBS_LOAD_STEEL 4
+#define INDUSTRY_L_ORE_USED  125
+#define INDUSTRY_L_STEEL_USED  12
+#define INDUSTRY_L_JOBS_USED       30
+#define INDUSTRY_L_MAKE_GOODS 225
+#define MAX_STEEL_AT_INDUSTRY_L 2000
+#define MIN_JOBS_AT_INDUSTRY_L (INDUSTRY_L_JOBS_LOAD_ORE + INDUSTRY_L_JOBS_LOAD_STEEL + INDUSTRY_L_JOBS_USED)
+#define INDUSTRY_L_ANIM_SPEED 290
+#define INDUSTRY_L_POL_PER_GOOD 0.05
+#define INDUSTRY_L_POLLUTION    10
 
-#ifndef __light_industry_h__
-#define __light_industry_h__
+#define GROUP_INDUSTRY_L_COLOUR (cyan(18))
+#define GROUP_INDUSTRY_L_COST 20000
+#define GROUP_INDUSTRY_L_COST_MUL 25
+#define GROUP_INDUSTRY_L_BUL_COST 20000
+#define GROUP_INDUSTRY_L_TECH 160
+#define GROUP_INDUSTRY_L_FIREC 70
 
-void do_industry_l(int x, int y);
-void mps_light_industry(int x, int y);
 
-#endif /* __light_industry_h__ */

@@ -14,6 +14,8 @@
 #include "gui_interface/readpng.h"
 #include "loadsave.h"
 #include "all_buildings.h"
+#include "transport.h"
+#include "modules/all_modules.h"
 
 struct TYPE main_types[NUM_OF_TYPES];
 

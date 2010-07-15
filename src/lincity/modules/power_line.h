@@ -1,14 +1,8 @@
-/* ---------------------------------------------------------------------- *
- * power_line.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_POWER_LINE_COLOUR (yellow(26))
+#define GROUP_POWER_LINE_COST 100
+#define GROUP_POWER_LINE_COST_MUL 2
+#define GROUP_POWER_LINE_BUL_COST 100
+#define GROUP_POWER_LINE_TECH 200
+#define GROUP_POWER_LINE_FIREC 0
 
-#ifndef __power_line_h__
-#define __power_line_h__
 
-void do_power_line(int x, int y);
-void mps_power_line(int x, int y);
-
-#endif /* __power_line_h__ */

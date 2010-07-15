@@ -9,6 +9,7 @@
 #include "gui_interface/screen_interface.h"
 #include "oremine.h"
 #include <cstdlib>
+#include "../transport.h"
 
 void do_oremine(int x, int y)
 {

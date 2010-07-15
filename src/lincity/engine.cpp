@@ -19,6 +19,7 @@
 #include "gui_interface/mps.h"
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/shared_globals.h"
+#include "modules/modules_interfaces.h"
 #include "modules/all_modules.h"
 #include "transport.h"
 #include "all_buildings.h"

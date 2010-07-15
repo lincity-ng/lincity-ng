@@ -1,15 +1,21 @@
-/* ---------------------------------------------------------------------- *
- * rocket_pad.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_ROCKET_COLOUR   (magenta(20))
+#define GROUP_ROCKET_COST     700000
+#define GROUP_ROCKET_COST_MUL 2
+#define GROUP_ROCKET_BUL_COST     1
+#define GROUP_ROCKET_TECH     750
+#define GROUP_ROCKET_FIREC 0
 
-#ifndef __rocket_pad_h__
-#define __rocket_pad_h__
+#define ROCKET_PAD_JOBS         1000
+#define ROCKET_PAD_JOBS_STORE   10000
+#define ROCKET_PAD_GOODS        10000
+#define ROCKET_PAD_GOODS_STORE  500000
+#define ROCKET_PAD_STEEL	500
+#define ROCKET_PAD_STEEL_STORE  12000
+#define ROCKET_PAD_RUNNING_COST 200
+#define ROCKET_PAD_LAUNCH       100
+#define ROCKET_ANIMATION_SPEED  450
+#define ROCKET_LAUNCH_BAD       1
+#define ROCKET_LAUNCH_GOOD      2
+#define ROCKET_LAUNCH_EVAC      3
 
-void do_rocket_pad(int x, int y);
-void launch_rocket(int x, int y);
-void mps_rocket(int x, int y);
 
-#endif /* __rocket_pad_h__ */

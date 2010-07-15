@@ -28,6 +28,8 @@
 #endif
 */
 
+#include "tinygettext/gettext.hpp"
+
 #include "init_game.h"
 #include "simulate.h"
 #include "gui_interface/shared_globals.h"
@@ -38,10 +40,12 @@
 #include "power.h"
 #include "stats.h"
 #include "gui_interface/pbar_interface.h"
+#include "modules/modules_interfaces.h"
 #include "modules/all_modules.h"
 #include "transport.h"
 #include "all_buildings.h"
 #include "sustainable.h"
+#include "engine.h"
 
 /* extern resources */
 extern void print_total_money(void);

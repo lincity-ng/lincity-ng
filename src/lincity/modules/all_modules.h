@@ -12,7 +12,6 @@
 #include "heavy_industry.h"
 #include "light_industry.h"
 #include "mill.h"
-#include "modules.h"
 #include "monument.h"
 #include "oremine.h"
 #include "organic_farm.h"
@@ -38,3 +37,4 @@
 #include "waterwell.h"
 
 #endif
+

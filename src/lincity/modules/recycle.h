@@ -1,14 +1,15 @@
-/* ---------------------------------------------------------------------- *
- * recycle.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define MAX_WASTE_AT_RECYCLE 20000
+#define BURN_WASTE_AT_RECYCLE (MAX_WASTE_AT_RECYCLE/200)
+#define MAX_ORE_AT_RECYCLE   (MAX_ORE_ON_RAIL*2)
+#define GOODS_RECYCLED       500
+#define RECYCLE_GOODS_JOBS   (GOODS_RECYCLED/50)
+#define RECYCLE_RUNNING_COST 3
 
-#ifndef __recycle_h__
-#define __recycle_h__
+#define GROUP_RECYCLE_COLOUR   (green(28))
+#define GROUP_RECYCLE_COST    100000
+#define GROUP_RECYCLE_COST_MUL 5
+#define GROUP_RECYCLE_BUL_COST    1000
+#define GROUP_RECYCLE_TECH    232
+#define GROUP_RECYCLE_FIREC 10
 
-void do_recycle(int x, int y);
-void mps_recycle(int x, int y);
 
-#endif /* __recycle_h__ */

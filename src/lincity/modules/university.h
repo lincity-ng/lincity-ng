@@ -1,14 +1,15 @@
-/* ---------------------------------------------------------------------- *
- * university.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define UNIVERSITY_JOBS   250
+#define UNIVERSITY_JOBS_STORE 5000
+#define UNIVERSITY_GOODS  750
+#define UNIVERSITY_GOODS_STORE 7000
+#define UNIVERSITY_RUNNING_COST 23
+#define UNIVERSITY_TECH_MADE    4
 
-#ifndef __university_h__
-#define __university_h__
+#define GROUP_UNIVERSITY_COLOUR (blue(22))
+#define GROUP_UNIVERSITY_COST 20000
+#define GROUP_UNIVERSITY_COST_MUL 25
+#define GROUP_UNIVERSITY_BUL_COST 20000
+#define GROUP_UNIVERSITY_TECH 150
+#define GROUP_UNIVERSITY_FIREC 40
 
-void do_university(int x, int y);
-void mps_university(int x, int y);
 
-#endif /* __university_h__ */

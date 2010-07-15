@@ -8,6 +8,7 @@
 #include "modules.h"
 #include "residence.h"
 #include "waterwell.h"
+#include "cricket.h"
 #include <stdlib.h>
 
 void do_residence(int x, int y)

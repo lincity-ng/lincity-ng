@@ -1,14 +1,14 @@
-/* ---------------------------------------------------------------------- *
- * monument.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_MONUMENT_COLOUR (white(15))
+#define GROUP_MONUMENT_COST   10000
+#define GROUP_MONUMENT_COST_MUL 25
+#define GROUP_MONUMENT_BUL_COST   1000000
+#define GROUP_MONUMENT_TECH   0
+#define GROUP_MONUMENT_FIREC  0
 
-#ifndef __monument_h__
-#define __monument_h__
+#define BUILD_MONUMENT_JOBS     350000
+#define MONUMENT_GET_JOBS       100
+#define MONUMENT_DAYS_PER_TECH  3
+#define MONUMENT_TECH_EXPIRE    400
+#define MONUMENT_ANIM_SPEED     300
 
-void do_monument(int x, int y);
-void mps_monument(int x, int y);
 
-#endif /* __monument_h__ */

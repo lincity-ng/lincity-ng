@@ -1,14 +1,21 @@
-/* ---------------------------------------------------------------------- *
- * mill.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define MILL_JOBS          35
+#define MAX_GOODS_AT_MILL  200
+#define MAX_FOOD_AT_MILL   500
+#define MAX_COAL_AT_MILL   50
+#define GOODS_MADE_BY_MILL 75
+#define MILL_GET_FOOD      51
+#define MILL_GET_COAL      4
+#define MILL_POWER_PER_COAL 60
+#define FOOD_USED_BY_MILL  (GOODS_MADE_BY_MILL/2)
+#define COAL_USED_BY_MILL  1
+#define MILL_ANIM_THRESHOLD 10
+#define MILL_ANIM_SPEED    300
 
-#ifndef __mill_h__
-#define __mill_h__
+#define GROUP_MILL_COLOUR (white(15))
+#define GROUP_MILL_COST   10000
+#define GROUP_MILL_COST_MUL 25
+#define GROUP_MILL_BUL_COST   1000
+#define GROUP_MILL_TECH   25
+#define GROUP_MILL_FIREC  60
 
-void do_mill(int x, int y);
-void mps_mill(int x, int y);
 
-#endif /* __mill_h__ */

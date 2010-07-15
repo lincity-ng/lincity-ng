@@ -19,6 +19,7 @@
 #include "gui_interface/dialbox_interface.h"
 #include "all_buildings.h"
 #include "range.h"
+#include "modules/windmill.h"
 
 extern void ok_dial_box(const char *, int, const char *);
 

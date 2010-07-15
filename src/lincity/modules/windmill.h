@@ -1,14 +1,17 @@
-/* ---------------------------------------------------------------------- *
- * windmill.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_WINDMILL_COLOUR (green(25))
+#define GROUP_WINDMILL_COST   20000
+#define GROUP_WINDMILL_COST_MUL 25
+#define GROUP_WINDMILL_BUL_COST   1000
+#define GROUP_WINDMILL_TECH   30
+#define GROUP_WINDMILL_FIREC  10
 
-#ifndef __windmill_h__
-#define __windmill_h__
+#define WINDMILL_POWER      450
+#define WINDMILL_JOBS       10
+/* WINDMILL_RCOST is days per quid */
+#define WINDMILL_RCOST      3
+#define ANTIQUE_WINDMILL_ANIM_SPEED 160
+#define MODERN_WINDMILL_ANIM_SPEED 120
 
-void do_windmill(int x, int y);
-void mps_windmill(int x, int y);
+#define MODERN_WINDMILL_TECH 450000
 
-#endif /* __windmill_h__ */
+

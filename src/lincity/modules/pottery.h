@@ -1,14 +1,22 @@
-/* ---------------------------------------------------------------------- *
- * pottery.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define MAX_GOODS_AT_POTTERY     200
+#define POTTERY_ORE_MAKE_GOODS    11
+#define POTTERY_COAL_MAKE_GOODS    2
+#define POTTERY_JOBS              35
+#define MAX_ORE_AT_POTTERY        (POTTERY_ORE_MAKE_GOODS*60)
+#define POTTERY_GET_ORE           (POTTERY_ORE_MAKE_GOODS*20)
+#define MAX_COAL_AT_POTTERY       (POTTERY_COAL_MAKE_GOODS*60)
+#define POTTERY_GET_COAL          (POTTERY_COAL_MAKE_GOODS*21)
+#define MAX_JOBS_AT_POTTERY       (POTTERY_JOBS*20)
+#define POTTERY_GET_JOBS          (POTTERY_JOBS*2)
+#define POTTERY_MADE_GOODS        35
+#define POTTERY_ANIM_SPEED        280
+#define POTTERY_CLOSE_TIME        20
 
-#ifndef __pottery_h__
-#define __pottery_h__
+#define GROUP_POTTERY_COLOUR (red(12))
+#define GROUP_POTTERY_COST   1000
+#define GROUP_POTTERY_COST_MUL 25
+#define GROUP_POTTERY_BUL_COST 1000
+#define GROUP_POTTERY_TECH  0
+#define GROUP_POTTERY_FIREC 50
 
-void do_pottery(int x, int y);
-void mps_pottery(int x, int y);
 
-#endif /* __pottery_h__ */

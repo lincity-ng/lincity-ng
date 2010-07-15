@@ -1,14 +1,10 @@
-/* ---------------------------------------------------------------------- *
- * oremine.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define OREMINE_ANIMATION_SPEED 200
 
-#ifndef __oremine_h__
-#define __oremine_h__
+#define GROUP_OREMINE_COLOUR (red(18))
+#define GROUP_OREMINE_COST 500
+#define GROUP_OREMINE_COST_MUL 10
+#define GROUP_OREMINE_BUL_COST 500000
+#define GROUP_OREMINE_TECH 0
+#define GROUP_OREMINE_FIREC 0
 
-void do_oremine(int x, int y);
-void mps_oremine(int x, int y);
 
-#endif /* __oremine_h__ */

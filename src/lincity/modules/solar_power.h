@@ -1,14 +1,10 @@
-/* ---------------------------------------------------------------------- *
- * solar_power.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_SOLAR_POWER_COLOUR (yellow(22))
+#define GROUP_SOLAR_POWER_COST 500000
+#define GROUP_SOLAR_POWER_COST_MUL 5
+#define GROUP_SOLAR_POWER_BUL_COST 100000
+#define GROUP_SOLAR_POWER_TECH 500
+#define GROUP_SOLAR_POWER_FIREC 33
+#define SOLAR_POWER_JOBS 50
+#define POWERS_SOLAR_OUTPUT 1800
 
-#ifndef __solar_power_h__
-#define __solar_power_h__
 
-void do_power_source_solar(int x, int y);
-void mps_solar_power(int x, int y);
-
-#endif /* __solar_power_h__ */

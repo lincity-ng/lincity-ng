@@ -1,14 +1,8 @@
-/* ---------------------------------------------------------------------- *
- * parkland.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_PARKLAND_COLOUR (green(31))
+#define GROUP_PARKLAND_COST   1000
+#define GROUP_PARKLAND_COST_MUL 25
+#define GROUP_PARKLAND_BUL_COST   1000
+#define GROUP_PARKLAND_TECH   2
+#define GROUP_PARKLAND_FIREC 1
 
-#ifndef __parkland_h__
-#define __parkland_h__
 
-void do_parkland(int x, int y);
-void mps_parkland(int x, int y);
-
-#endif /* __parkland_h__ */

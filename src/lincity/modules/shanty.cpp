@@ -8,6 +8,7 @@
 #include "modules.h"
 //#include "mouse.h" /* XXX: fire_area! */
 #include "shanty.h"
+#include "commune.h"
 
 extern void set_mappoint(int x, int y, short selected_type);
 

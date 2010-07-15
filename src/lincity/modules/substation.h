@@ -1,18 +1,8 @@
-/* ---------------------------------------------------------------------- *
- * substation.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_SUBSTATION_COLOUR (yellow(18))
+#define GROUP_SUBSTATION_COST 500
+#define GROUP_SUBSTATION_COST_MUL 2
+#define GROUP_SUBSTATION_BUL_COST 100
+#define GROUP_SUBSTATION_TECH 200
+#define GROUP_SUBSTATION_FIREC 50
 
-#ifndef __substation_h__
-#define __substation_h__
 
-void do_power_substation(int x, int y);
-int add_a_substation(int x, int y);
-void remove_a_substation(int x, int y);
-void shuffle_substations(void);
-
-void mps_substation(int x, int y);
-
-#endif /* __substation_h__ */

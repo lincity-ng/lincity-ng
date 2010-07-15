@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "recycle.h"
+#include "../transport.h"
 
 void do_recycle(int x, int y)
 {

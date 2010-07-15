@@ -1,13 +1,8 @@
-/* ---------------------------------------------------------------------- *
- * fire.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_FIRE_COLOUR    (red(30))
+#define GROUP_FIRE_COST   0     /* Unused */
+#define GROUP_FIRE_COST_MUL   1 /* Unused */
+#define GROUP_FIRE_BUL_COST  1000
+#define GROUP_FIRE_TECH   0     /* Unused */
+#define GROUP_FIRE_FIREC  0
 
-#ifndef __fire_h__
-#define __fire_h__
 
-void do_fire(int x, int y);
-
-#endif /* __fire_h__ */

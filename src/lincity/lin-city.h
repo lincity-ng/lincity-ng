@@ -31,7 +31,10 @@
 #if defined (_MSC_VER)
 #   define snprintf _snprintf
 #endif
+
+/* AL1 : unused in 2.x
 #define USE_X11_PIXMAPS
+*/
 
 #ifndef TRUE
 #   define TRUE 1
@@ -45,9 +48,11 @@
 #define WARNING -2
 
 /* comment out the the next three lines for _slightly_ faster X drawing. */
+/* AL1 : unused in 2.x
 #if defined LC_X11 || defined WIN32
 #   define ALLOW_PIX_DOUBLING
 #endif
+*/
 
 #define FLAG_LEFT               (1)             // Used for transports, power lines, rivers, and desert borders.
 #define FLAG_UP                 (2)             // Algorithm relies on the numerical values of

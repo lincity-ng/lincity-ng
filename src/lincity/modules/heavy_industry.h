@@ -1,13 +1,15 @@
-/* ---------------------------------------------------------------------- *
- * heavy_industry.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_INDUSTRY_H_COLOUR (7)     /* colour 7 is an orange, sort of */
+#define GROUP_INDUSTRY_H_COST 50000
+#define GROUP_INDUSTRY_H_COST_MUL 20
+#define GROUP_INDUSTRY_H_BUL_COST 70000
+#define GROUP_INDUSTRY_H_TECH 170
+#define GROUP_INDUSTRY_H_FIREC 80
 
-#ifndef __heavy_industry_h__
-#define __heavy_industry_h__
+#define MAX_ORE_AT_INDUSTRY_H 10000
+#define MAX_COAL_AT_INDUSTRY_H 1000
+#define MAX_MADE_AT_INDUSTRY_H MAX_ORE_AT_INDUSTRY_H/16
+#define POWER_MAKE_STEEL 200
+#define INDUSTRY_H_ANIM_SPEED  290
 
-void do_industry_h(int x, int y);
-void mps_heavy_industry(int x, int y);
-#endif /* __heavy_industry_h__ */
+#include "rail.h"
+#define MAX_STEEL_AT_INDUSTRY_H (MAX_STEEL_ON_RAIL*10)

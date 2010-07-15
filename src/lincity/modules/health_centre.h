@@ -1,15 +1,17 @@
-/* ---------------------------------------------------------------------- *
- * health_centre.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define HEALTH_CENTRE_JOBS   6
+#define HEALTH_CENTRE_GET_JOBS 7
+#define MAX_JOBS_AT_HEALTH_CENTRE (HEALTH_CENTRE_JOBS*NUMOF_DAYS_IN_YEAR)
+#define HEALTH_CENTRE_GOODS  40
+#define HEALTH_CENTRE_GET_GOODS 41
+#define MAX_GOODS_AT_HEALTH_CENTRE (HEALTH_CENTRE_GOODS*NUMOF_DAYS_IN_YEAR)
+#define HEALTH_RUNNING_COST  2
+#define HEALTH_RUNNING_COST_MUL 9
 
-#ifndef __health_centre_h__
-#define __health_centre_h__
+#define GROUP_HEALTH_COLOUR   (green(24))
+#define GROUP_HEALTH_COST     100000
+#define GROUP_HEALTH_COST_MUL 2
+#define GROUP_HEALTH_BUL_COST     1000
+#define GROUP_HEALTH_TECH     110
+#define GROUP_HEALTH_FIREC 2
 
-void do_health_centre(int x, int y);
-void do_health_cover(int x, int y);
-void mps_health_centre(int x, int y);
 
-#endif /* __health_centre_h__ */

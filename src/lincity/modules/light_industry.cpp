@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "light_industry.h"
+#include "../transport.h"
 
 void do_industry_l(int x, int y)
 {

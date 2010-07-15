@@ -28,9 +28,10 @@
 #include "power.h"
 #include "stats.h"
 #include "gui_interface/pbar_interface.h"
-#include "modules/all_modules.h"
+#include "modules/modules_interfaces.h"
 #include "transport.h"
 #include "all_buildings.h"
+#include "engine.h"
 
 #define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 

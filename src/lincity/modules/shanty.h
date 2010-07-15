@@ -1,16 +1,17 @@
-/* ---------------------------------------------------------------------- *
- * shanty.h
- * This file is part of lincity.
- * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
- * (c) Corey Keasling, 2004
- * ---------------------------------------------------------------------- */
+#define GROUP_SHANTY_COLOUR    (red(22))
+#define GROUP_SHANTY_COST   0   /* Unused */
+#define GROUP_SHANTY_COST_MUL   1       /* Unused */
+#define GROUP_SHANTY_BUL_COST  100000
+#define GROUP_SHANTY_TECH   0   /* Unused */
+#define GROUP_SHANTY_FIREC     25
+#define SHANTY_MIN_PP     150
+#define SHANTY_POP        50
+#define DAYS_BETWEEN_SHANTY (NUMOF_DAYS_IN_MONTH * 1)
+#define SHANTY_GET_FOOD   50
+#define SHANTY_GET_JOBS   5
+#define SHANTY_GET_GOODS  50
+#define SHANTY_GET_COAL   1
+#define SHANTY_GET_ORE    10
+#define SHANTY_GET_STEEL  1
 
-#ifndef __shanty_h__
-#define __shanty_h__
 
-void add_a_shanty(void);
-void remove_a_shanty(int x, int y);
-void update_shanty(void);
-void do_shanty(int x, int y);
-
-#endif /* __shanty_h__ */

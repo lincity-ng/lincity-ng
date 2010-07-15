@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "heavy_industry.h"
+#include "../transport.h"
 
 void do_industry_h(int x, int y)
 {

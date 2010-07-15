@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "port.h"
+#include "../transport.h"
 
 static int buy_food(int xt, int yt)
 {

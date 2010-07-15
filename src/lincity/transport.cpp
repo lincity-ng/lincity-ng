@@ -12,6 +12,7 @@
 #include "power.h"
 #include "stats.h"              /* for transport_cost */
 #include "all_buildings.h"
+#include "engglobs.h"
 
 static int max_load(int x, int y, int i)
 {
@@ -455,7 +456,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     group = MP_GROUP(x + 2, y);
                 switch (group) {
                     case GROUP_WINDMILL:
-                        if (MP_TECH(x + 1, y) < MODERN_WINDMILL_TECH)
+                        if ( ! MP_INFO(x + 1, y).int_2 ) // not a hightech WINDMILL
                             break;
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
@@ -474,7 +475,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     group = MP_GROUP(x, y + 2);
                 switch (group) {
                     case GROUP_WINDMILL:
-                        if (MP_TECH(x, y + 1) < MODERN_WINDMILL_TECH)
+                        if ( ! MP_INFO(x, y + 1).int_2 ) // not a hightech WINDMILL
                             break;
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:

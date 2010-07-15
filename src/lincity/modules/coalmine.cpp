@@ -8,6 +8,7 @@
 #include "modules.h"
 #include "coalmine.h"
 #include "../range.h"
+#include "../transport.h"
 
 void do_coalmine(int x, int y)
 {
