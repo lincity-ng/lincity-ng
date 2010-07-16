@@ -53,6 +53,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Game.hpp"
 #include "HelpWindow.hpp"
 
+
+
 extern int get_power(int x, int y, int power, int block_industry);
 
 /** List of mapview buttons. The "" entries separate mapview buttons that are
@@ -540,11 +542,10 @@ void MiniMap::draw(Painter &painter)
     Color mc = getColor( 0, 0 ); 
     if(mpainter.get() == 0) {
         // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
-        for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++)
-            for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++) {
-                typ = MP_TYPE(x,y);
-                if( mFullRefresh || typ != mappointoldtype[x][y] ) {
-                    mappointoldtype[x][y] = typ;
+        if( mFullRefresh ) {
+            for(y=1;y<height/tilesize;y++) {
+                for(x=1;x<width/tilesize;x++) {
+                    typ = MP_TYPE(x,y);
                     if( typ != CST_USED ){
                         grp = get_group_of_type(typ);
                         mc=getColor(x,y);
@@ -557,6 +558,7 @@ void MiniMap::draw(Painter &painter)
                     }
                 }
             }
+        }
         
         //show current GameView
         painter.setClipRectangle( miniRect ); 
@@ -568,12 +570,10 @@ void MiniMap::draw(Painter &painter)
     if( mFullRefresh ){
         mpainter->setFillColor( mc );
         mpainter->fillRectangle( miniRect );
-    }
-    for(y=1;y<WORLD_SIDE_LEN-1 && y<height/tilesize;y++) {
-        for(x=1;x<WORLD_SIDE_LEN-1 && x<width/tilesize;x++) {
-            typ = MP_TYPE(x,y);
-            if ( mFullRefresh || typ != mappointoldtype[x][y] ) {
-                mappointoldtype[x][y] = typ;
+    
+        for(y=1;y<height/tilesize;y++) {
+            for(x=1;x<width/tilesize;x++) {
+                typ = MP_TYPE(x,y);
                 if( typ != CST_USED ){
                     grp = get_group_of_type(typ);
                     mc=getColor(x,y);
