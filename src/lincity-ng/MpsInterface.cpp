@@ -31,6 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "tinygettext/gettext.hpp"
 #include "lincity/modules/modules_interfaces.h"
 #include "lincity/lctypes.h"
+#include "lincity/lin-city.h"
 #include "MiniMap.hpp"
 
 // implement everything here

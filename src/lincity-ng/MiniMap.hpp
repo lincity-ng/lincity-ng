@@ -20,7 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "gui/Component.hpp"
 #include "gui/Color.hpp"
-#include "lincity/lin-city.h"
 #include "gui/Texture.hpp"
 #include "MapPoint.hpp"
 
@@ -68,7 +67,6 @@ private:
     Vector2 mapPointToVector(MapPoint p);
   
     Vector2 gameViewPoints[ 4 ];
-    short mappointoldtype[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 
     DisplayMode mMode;
 
