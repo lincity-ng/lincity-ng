@@ -60,7 +60,7 @@ Config::Config()
     monthgraphW = 190;
     monthgraphH = 64;
     skipMonthsFast = 1;
-    quickness = FAST_TIME_FOR_YEAR;
+    quickness = 10;
 
     playSongName = "02 - Robert van Herk - City Blues.ogg";
     //First we load the global File which should contain

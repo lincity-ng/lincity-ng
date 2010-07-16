@@ -32,7 +32,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iostream>
 #include <physfs.h>
 #include "Util.hpp"
-#include "lincity/lin-city.h"
 #include "GameView.hpp"
 #include "HelpWindow.hpp"
 #include "ButtonPanel.hpp"

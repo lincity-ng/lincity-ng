@@ -9,6 +9,7 @@
 
 #include "../lctypes.h"
 #include "tinygettext/gettext.hpp"
+#include "../lin-city.h"
 #include "../engglobs.h"
 #include "../engine.h"
 #include "../stats.h"

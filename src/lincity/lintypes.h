@@ -6,6 +6,23 @@
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
+#define WORLD_SIDE_LEN 100      /* Minimap size is hardcoded 200 pixel => some job to do ... */
+
+#define OLD_MAX_NUMOF_SUBSTATIONS 100
+#define MAX_NUMOF_SUBSTATIONS 512
+
+#define NUMOF_COAL_RESERVES 100
+#define NUM_OF_TYPES    404
+#define NUM_OF_GROUPS    50
+
+#define OLD_MAX_NUMOF_MARKETS 100
+#define MAX_NUMOF_MARKETS 512
+
+#define NUMOF_DAYS_IN_MONTH 100
+#define NUMOF_DAYS_IN_YEAR (NUMOF_DAYS_IN_MONTH*12)
+
+#define NUMOF_DISCOUNT_TRIGGERS 6
+
 int get_group_of_type(short selected_type);
 void set_map_groups(void);
 int get_type_cost(short type);

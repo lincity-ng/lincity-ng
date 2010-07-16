@@ -6,14 +6,11 @@
 #ifndef __engglobs_h__
 #define __engglobs_h__
 
-#include "lin-city.h"
+#include "lintypes.h"
 #include "groups.h"
-
-/* was shrglobs.h */
 
 extern int pix_double;
 
-/* */
 extern int use_waterwell, ldsv_version;
 
 extern map_struct map;

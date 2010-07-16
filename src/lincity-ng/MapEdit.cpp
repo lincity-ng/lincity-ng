@@ -24,7 +24,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/shared_globals.h"
 #include "tinygettext/gettext.hpp"
 #include "lincity/engine.h"
-#include "lincity/lin-city.h"
 
 #include "Sound.hpp"
 #include "MapEdit.hpp"

@@ -35,7 +35,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/callback/Callback.hpp"
 
 #include "gui_interface/shared_globals.h"
-#include "lincity/lin-city.h"
 #include "lincity/fileutil.h"
 
 #include "CheckButton.hpp"

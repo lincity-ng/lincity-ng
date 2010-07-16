@@ -28,7 +28,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "lincity/init_game.h"
 #include "lincity/simulate.h"
-#include "lincity/lin-city.h"
 #include "lincity/lc_locale.h"
 #include "lincity/fileutil.h"
 #include "lincity/loadsave.h"
