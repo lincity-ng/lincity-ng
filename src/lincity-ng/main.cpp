@@ -202,7 +202,7 @@ void initVideo(int width, int height)
     int bpp = 0;
     int flags = 0;
     if( getConfig()->useOpenGL ){
-        flags = SDL_OPENGL;
+        flags = SDL_OPENGL | SDL_RESIZABLE;
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 1);
         SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 1);
@@ -210,7 +210,7 @@ void initVideo(int width, int height)
         //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
         //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     } else {
-        flags = SDL_HWSURFACE;
+        flags = SDL_HWSURFACE | SDL_RESIZABLE;
     }
     if(getConfig()->useFullScreen)
         flags |= SDL_FULLSCREEN;
