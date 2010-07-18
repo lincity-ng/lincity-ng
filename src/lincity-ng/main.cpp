@@ -56,24 +56,6 @@ Painter* painter = 0;
 TinyGetText::DictionaryManager* dictionaryManager = 0;
 bool restart = false;
 
-void initSDL()
-{
-    if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        std::stringstream msg;
-        msg << "Couldn't initialize SDL: " << SDL_GetError();
-        throw std::runtime_error(msg.str());
-    }
-}
-
-void initTTF()
-{
-    if(TTF_Init() < 0) {
-        std::stringstream msg;
-        msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
-        throw std::runtime_error(msg.str());
-    }
-}
-
 void initPhysfs(const char* argv0)
 {
     if(!PHYSFS_init(argv0)) {
@@ -201,6 +183,57 @@ void initVideo(int width, int height)
 {
     int bpp = 0;
     int flags = 0;
+    const SDL_VideoInfo* VideoInfo;
+
+#ifdef DEBUG
+
+    #define BUFFER_SIZE 256
+    char myBuffer[BUFFER_SIZE];
+    SDL_Rect** modes;
+    int i;
+
+
+    // Obtain the video driver name
+    if (SDL_VideoDriverName(myBuffer, BUFFER_SIZE) != NULL) {
+	    std::cout << "\nThe video driver name is " << myBuffer << std::endl;
+    } else {
+	    std::cerr << "\nFailed to obtain the video driver name." << std::endl;
+    }
+
+
+    /* Get available fullscreen/hardware modes */
+    modes = SDL_ListModes(NULL, SDL_FULLSCREEN|SDL_HWSURFACE);
+
+    /* Check if there are any modes available */
+    if (modes == (SDL_Rect**)0) {
+	    printf("No modes available!\n");
+	    exit(-1);
+    }
+
+    /* Check if our resolution is restricted */
+    if (modes == (SDL_Rect**)-1) {
+	    printf("All resolutions available.\n");
+    } else {
+	    /* Print valid modes */
+	    printf("Available Modes\n");
+	    for (i=0; modes[i]; ++i)
+		    printf("  %d x %d\n", modes[i]->w, modes[i]->h);
+    }
+
+
+    // more info on BEST Video Mode as we request these information *before* calling SDL_SetVideoMode
+    VideoInfo = SDL_GetVideoInfo();
+
+    printf("\n***BEST*** video mode properties\n");
+    printf("Hardware surface available -> %i\n", VideoInfo->hw_available);
+    printf("hardware blit acceleration -> %i\n", VideoInfo->blit_hw);
+    printf("hardware color fill -> %i\n", VideoInfo->blit_fill);
+    printf("VIDEO memory available (on graphic card) (KB) -> %i \n      (only if hw_available == 1, otherwise it is equal to 0)\n", VideoInfo->video_mem);
+    printf("Number of bytes per pixel in the video card -> %i\n", VideoInfo->vfmt->BytesPerPixel);
+    printf("Window manager available -> %i\n", VideoInfo->wm_available);
+
+#endif
+
     if( getConfig()->useOpenGL ){
         flags = SDL_OPENGL | SDL_RESIZABLE;
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -232,9 +265,10 @@ void initVideo(int width, int height)
         std::stringstream msg;
         msg << "Couldn't set video mode ("
             << width << "x" << height
-            << "-" << bpp << "bpp) : " << SDL_GetError();
+            << "-" << bpp << "bpp) : " << SDL_GetError() << std::endl;
+
         if(getConfig()->useOpenGL) {
-            std::cerr << "* Fallback to software mode.\n";
+            std::cerr << "* Fallback to SDL mode.\n";
             getConfig()->useOpenGL = false;
             initVideo(width, height);
             return;
@@ -243,6 +277,7 @@ void initVideo(int width, int height)
     }
 
     delete painter;
+    VideoInfo = SDL_GetVideoInfo();
     if( getConfig()->useOpenGL ){
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
@@ -259,12 +294,12 @@ void initVideo(int width, int height)
         glClear(GL_COLOR_BUFFER_BIT);
 
         painter = new PainterGL();
-        std::cout << "OpenGL Mode " << getConfig()->videoX;
-        std::cout << "x" << getConfig()->videoY << "\n";
+        std::cout << "\nOpenGL Mode " << VideoInfo->current_w;
+        std::cout << "x" << VideoInfo->current_h << "\n";
     } else {
         painter = new PainterSDL(screen);
-        std::cout << "SDL Mode " << getConfig()->videoX;
-        std::cout << "x"<< getConfig()->videoY <<"\n";
+        std::cout << "\nSDL Mode " << VideoInfo->current_w;
+        std::cout << "x"<< VideoInfo->current_h <<"\n";
     }
 
     if(texture_manager == 0) {
@@ -278,6 +313,21 @@ void initVideo(int width, int height)
     if(fontManager == 0) {
         fontManager = new FontManager();
     }
+
+#ifdef DEBUG
+    // more info on CURRENT Video Mode
+    VideoInfo = SDL_GetVideoInfo();
+
+    printf("\n***CURRENT*** video mode properties\n");
+    printf("Hardware surface available -> %i\n", VideoInfo->hw_available);
+    printf("hardware blit acceleration -> %i\n", VideoInfo->blit_hw);
+    printf("hardware color fill -> %i\n", VideoInfo->blit_fill);
+    printf("VIDEO memory available (on graphic card) (KB) -> %i\n", VideoInfo->video_mem);
+    printf("Number of butes per pixel in the video card -> %i\n", VideoInfo->vfmt->BytesPerPixel);
+    printf("Window manager available -> %i\n", VideoInfo->wm_available);
+
+#endif
+
 }
 
 void checkGlErrors()
@@ -492,8 +542,16 @@ int main(int argc, char** argv)
         xmlInitParser ();
         std::auto_ptr<Sound> sound;
         sound.reset(new Sound());
-        initSDL();
-        initTTF();
+        if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+            std::stringstream msg;
+            msg << "Couldn't initialize SDL: " << SDL_GetError();
+            throw std::runtime_error(msg.str());
+        }
+        if(TTF_Init() < 0) {
+            std::stringstream msg;
+            msg << "Couldn't initialize SDL_ttf: " << SDL_GetError();
+            throw std::runtime_error(msg.str());
+        }
         initVideo(getConfig()->videoX, getConfig()->videoY);
 
         mainLoop();
