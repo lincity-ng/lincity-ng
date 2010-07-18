@@ -210,7 +210,7 @@ void initVideo(int width, int height)
         //SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
         //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     } else {
-        flags = SDL_HWSURFACE | SDL_RESIZABLE;
+        flags = SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF;
     }
     if(getConfig()->useFullScreen)
         flags |= SDL_FULLSCREEN;
