@@ -217,6 +217,7 @@ void setup_land()
             if (IS_RIVER(x, y) || !GROUP_IS_BARE(MP_GROUP(x, y)))
                 continue;
 
+	    // AL1: FIXME awfully slow. Probably the worst possible way to get this distance (wip rev 1600)
             for (yw = 0; yw < WORLD_SIDE_LEN; yw++) {
                 for (xw = 0; xw < WORLD_SIDE_LEN; xw++) {
                     int d2w;
@@ -337,6 +338,7 @@ static void initialize_tax_rates(void)
     dole_rate = DOLE_RATE;
     transport_cost_rate = TRANSPORT_COST_RATE;
     import_cost_rate = IM_PORT_COST_RATE;
+    // AL1 : export_tax_rate;  is not used in 2.X  always equal to zero ? FIXME ?
 }
 
 static void init_mappoint_array(void)
