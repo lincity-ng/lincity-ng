@@ -1,0 +1,13 @@
+Minimalistic land generation for lincity-NG 2.X
+
+
+Work in progress.
+
+press anykey to generate a new random map + lakes + vegetation
+
+press "f" to save to file
+	* a file named random_land.scn is created in current directory
+	* the keys are no more taken into account until "r" key is hit
+
+close the window with mouse
+
