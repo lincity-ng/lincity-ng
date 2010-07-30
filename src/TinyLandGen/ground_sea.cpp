@@ -101,7 +101,7 @@ void setup_ground(void)
 			tmp[i][j] = 0;
 			for (k = -mask_size; k <= mask_size; k++)
 				for (l = -mask_size; l <= mask_size; l++)
-					tmp[i][j] += t2[i + k][j - l] \
+					tmp[i][j] += t2[i + k][j + l] \
 						     * gauss_mask[mask_size + k][mask_size + l];
 		}
 

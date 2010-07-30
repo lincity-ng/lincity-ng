@@ -474,7 +474,7 @@ static void new_setup_river_ground(void)
                 tmp[i][j] = 0;
                 for ( k = -mask_size; k <= mask_size; k++ )
                     for ( l = -mask_size; l <= mask_size; l++ )
-                        tmp[i][j] += g[i + k][j - l] * mat[mask_size + k][mask_size + l];
+                        tmp[i][j] += g[i + k][j + l] * mat[mask_size + k][mask_size + l];
             }
 
         for (i = mask_size; i< SZ - mask_size; i++)
