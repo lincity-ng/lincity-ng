@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 
-extern map_struct map;
+extern lmap_struct lmap;
 extern int alt_min, alt_max, alt_step;
 
 const int INIT_DIST = 2 * WORLD_SIDE_LEN; // works for d0, d1, d2 distances
@@ -25,8 +25,8 @@ void set_mappoint(int x, int y, int type)
 
 static void do_rand_ecology(int x, int y)
 {
-	int r = map.ecotable[x][y];
-	if ((MP_INFO(x, y) | FLAG_HAS_UNDERGROUND_WATER) == 0) {
+	int r = lmap.ecotable[x][y];
+	if ((MP_FLAG(x, y) | FLAG_HAS_UNDERGROUND_WATER) == 0) {
 		/*true desert */
 		return;
 	}
@@ -135,7 +135,7 @@ static void do_rand_ecology(int x, int y)
 int dist_to_water( int x, int y)
 {
 	// Mahattan distance (d1) computed iteratively
-#define d2r(x, y) map.dist2w[x][y]
+#define d2r(x, y) lmap.dist2w[x][y]
 	int d = INIT_DIST;
 	if (IS_RIVER(x,y))
 		return 0;
@@ -158,12 +158,12 @@ int dist_to_water( int x, int y)
 		d = min ( min (d2r(x-1, y), d2r(x+1, y)), d2r(x,y+1));
 	else if (y == WORLD_SIDE_LEN)
 		d = min ( min (d2r(x-1, y), d2r(x+1, y)), d2r(x,y-1));
-	else if (map.dist2w[x][y] == INIT_DIST) 
+	else if (lmap.dist2w[x][y] == INIT_DIST) 
 		d = min( min(d2r(x - 1, y), d2r(x+1,y)), min( d2r(x, y - 1), d2r(x, y + 1)) );
 
 	// d = distance of neighbours
 	// Mahattan distance (d1) computed iteratively = the +1 below
-	return (min(d + 1, map.dist2w[x][y]));
+	return (min(d + 1, lmap.dist2w[x][y]));
 }
 
 void distance_to_river(void)
@@ -175,10 +175,10 @@ void distance_to_river(void)
 	for (y = 0; y < WORLD_SIDE_LEN ; y++)
 		for (x = 0; x < WORLD_SIDE_LEN; x++)
 			if (IS_RIVER(x,y)) {
-				map.dist2w[x][y] = 0;
+				lmap.dist2w[x][y] = 0;
 				number--;
 			} else {
-				map.dist2w[x][y] = INIT_DIST;
+				lmap.dist2w[x][y] = INIT_DIST;
 			}
 
 	//fprintf(stdout,"initial remaining %i \n", number);
@@ -187,9 +187,9 @@ void distance_to_river(void)
 			for (x = 0; x < WORLD_SIDE_LEN; x++) {
 				newd = dist_to_water(x,y);
 				if ( (newd != 0) && (newd < INIT_DIST)) {
-					if (map.dist2w[x][y] == INIT_DIST)
+					if (lmap.dist2w[x][y] == INIT_DIST)
 						number--;
-					map.dist2w[x][y] = newd;
+					lmap.dist2w[x][y] = newd;
 					//fprintf(stdout," d2w = %i \n", newd);
 				}
 			}
@@ -220,7 +220,7 @@ void setup_land()
 			if (IS_RIVER(x, y))
 				continue;
 
-			d2w_min = map.dist2w[x][y];
+			d2w_min = lmap.dist2w[x][y];
 
 			/* near river lower aridity */
 			if (aridity > 0) {
@@ -235,28 +235,28 @@ void setup_land()
 			    + abs(ALT(x, y) * 15 / alt_step) \
 			    + 3 * (ALT(x, y) * ALT(x, y)) / 1000000;
 
-			map.ecotable[x][y] = r;
+			lmap.ecotable[x][y] = r;
 			/* needed to setup quasi randome land. The flag is set below */
-			MP_INFO(x, y) |= FLAG_HAS_UNDERGROUND_WATER;
+			MP_FLAG(x, y) |= FLAG_HAS_UNDERGROUND_WATER;
 			do_rand_ecology(x, y);
 
 			/* preserve rivers, so that we can connect port later */
 			if (MP_TYPE(x, y) == WATER) {
-				int navigable = MP_INFO(x, y) & FLAG_IS_RIVER;
+				int navigable = MP_FLAG(x, y) & FLAG_IS_RIVER;
 				set_mappoint(x, y, WATER);
-				MP_INFO(x, y) |= navigable;
-				MP_INFO(x, y) |= FLAG_HAS_UNDERGROUND_WATER;
+				MP_FLAG(x, y) |= navigable;
+				MP_FLAG(x, y) |= FLAG_HAS_UNDERGROUND_WATER;
 			}
 			/* set undergroung water according to first random land setup */
 			if (MP_TYPE(x, y) == DESERT) {
-				MP_INFO(x, y) &= (0xffffffff - FLAG_HAS_UNDERGROUND_WATER);
+				MP_FLAG(x, y) &= (0xffffffff - FLAG_HAS_UNDERGROUND_WATER);
 			}
 		}
 	}
 	for (y = 0; y < WORLD_SIDE_LEN; y++)
 		for (x = 0; x < WORLD_SIDE_LEN; x++)
 			if (MP_TYPE(x, y) == WATER)
-				MP_INFO(x, y) |= FLAG_HAS_UNDERGROUND_WATER;
+				MP_FLAG(x, y) |= FLAG_HAS_UNDERGROUND_WATER;
 
 	//connect_rivers();
 }

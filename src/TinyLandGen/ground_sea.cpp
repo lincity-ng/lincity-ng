@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 
-extern map_struct map;
+extern lmap_struct lmap;
 
 int alt_min;
 int alt_max;

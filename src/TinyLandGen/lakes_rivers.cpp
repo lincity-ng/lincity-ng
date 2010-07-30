@@ -12,7 +12,7 @@
 #include <math.h>
 
 extern int alt_min, alt_max, alt_step;
-extern map_struct map;
+extern lmap_struct lmap;
 
 struct Shoreline {
 	int x;
@@ -41,7 +41,7 @@ static int is_border(int x, int y)
 static void set_river_tile(int i, int j)
 {
 	MP_TYPE(i, j) = WATER;
-	MP_INFO(i, j) |= FLAG_IS_RIVER;
+	MP_FLAG(i, j) |= FLAG_IS_RIVER;
 	MP_COLOR(i, j) = 128;	//dark blue
 }
 

@@ -4,7 +4,7 @@
 
 #include "lctypes.h"
 
-extern map_struct map;
+extern lmap_struct lmap;
 extern int global_mountainity,  global_aridity;
 
 void save_city_2(char *cname)
@@ -28,7 +28,7 @@ void save_city_2(char *cname)
             gzprintf(ofile, "%u %d %d %u %u %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" 
                        , MP_TYPE(x, y)
                        , 0	//housed population
-                       , MP_INFO(x, y)
+                       , MP_FLAG(x, y)
                        , 0
                        , 0
                        , 0
@@ -39,11 +39,11 @@ void save_city_2(char *cname)
                        , 0
                        , 0
                        , 0
-                       , (long int) map.altitude[x][y]
-                       , map.ecotable[x][y]
+                       , (long int) lmap.altitude[x][y]
+                       , lmap.ecotable[x][y]
                        , 0
                        , 0
-                       , (long int) map.altitude[x][y]
+                       , (long int) lmap.altitude[x][y]
                        , 0
                        , 0
                        , 0 	// ? TODO map[x][y].water_next ?

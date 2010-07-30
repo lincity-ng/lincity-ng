@@ -27,7 +27,7 @@ extern void setup_land(void);
 extern void save_city_2(char *cname);
 extern int alt_min, alt_max, alt_step;
 
-map_struct map;
+lmap_struct lmap;
 
 int key = 0;
 unsigned long i = 0;
@@ -38,7 +38,7 @@ void erase_map()
 
 	for (int i = 0; i < WORLD_SIDE_LEN; i++)
 		for (int j = 0; j < WORLD_SIDE_LEN; j++) {
-			MP_INFO(i, j) = 0;
+			MP_FLAG(i, j) = 0;
 			MP_TYPE(i, j) = 0;
 		}
 }
@@ -64,7 +64,7 @@ void render()
 			rect.w = SIZE;
 			rect.h = SIZE;
 			SDL_FillRect(screen, &rect, MP_COLOR(i, j));
-			//SDL_FillRect(screen, &rect, map.dist2w[i][j] * 260000);
+			//SDL_FillRect(screen, &rect, lmap.dist2w[i][j] * 260000);
 		}
 	}
 
@@ -79,7 +79,7 @@ void render()
 int main(void)
 {
     char *fname;
-    fname = "random_land.scn";
+    fname = (char *) "random_land.scn";
 
 #ifdef DEBUG
 	// Fix random seed for easier debug

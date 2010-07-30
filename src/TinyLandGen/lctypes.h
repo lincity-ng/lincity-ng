@@ -46,7 +46,7 @@ static const int dj[8] = { 0, -1, 0, 1, 1, -1, 1, -1 };
 #define MAX_NUMOF_SUBSTATIONS 512
 #define MAX_NUMOF_MARKETS 512
 
-struct map_struct {
+struct lmap_struct {
 	float altitude[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 	unsigned long color[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
 	int type[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
@@ -55,16 +55,16 @@ struct map_struct {
     	int ecotable[WORLD_SIDE_LEN][WORLD_SIDE_LEN]; //
 };
 
-#define ALT(x,y) map.altitude[x][y]
-#define MP_TYPE(x,y)   map.type[x][y]
-#define MP_INFO(x,y)   map.flag[x][y]
-#define MP_COLOR(x,y)	map.color[x][y]
+#define ALT(x,y) lmap.altitude[x][y]
+#define MP_TYPE(x,y)   lmap.type[x][y]
+#define MP_FLAG(x,y)   lmap.flag[x][y]
+#define MP_COLOR(x,y)	lmap.color[x][y]
 
 //src/lincity/power.h:
 #define IS_WATER(x,y)    (MP_TYPE(x,y) == WATER)
 
 //src/lincity/init_game.cpp:
-#define IS_RIVER(x,y) (MP_INFO(x,y) & FLAG_IS_RIVER)
+#define IS_RIVER(x,y) (MP_FLAG(x,y) & FLAG_IS_RIVER)
 
 // src/lincity/lin-city.h
 #define FLAG_IS_RIVER           (0x800000)
