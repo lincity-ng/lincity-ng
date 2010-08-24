@@ -44,7 +44,7 @@ Config::Config()
     assert(configPtr == 0);
 
     //Default Values
-    useOpenGL = true;
+    useOpenGL = false;  //OpenGL is often way too slow
     useFullScreen = true;
     videoX = 1024; 
     videoY = 768;
