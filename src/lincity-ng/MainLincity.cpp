@@ -115,6 +115,9 @@ void saveCityNG( std::string newFilename ){
  * Load City and do setup for Lincity NG.
  */
 bool loadCityNG( std::string filename ){
+    if( PHYSFS_isDirectory( filename.c_str() )){
+    	return false;
+    }
     /* TODO use PhysFS directly to load file instead of getRealDir hack */
     const char* directory = PHYSFS_getRealDir(filename.c_str());
     if( !directory ){
