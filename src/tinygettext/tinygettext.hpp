@@ -25,7 +25,7 @@
 #include <set>
 #include <string>
 
-namespace TinyGetText {
+namespace tinygettext {
 
 typedef int (*PluralFunc)(int n);
 

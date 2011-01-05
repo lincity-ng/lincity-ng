@@ -28,13 +28,13 @@
 
 #include "SDL.h"
 
-#include "TinyGetText.hpp"
+#include "tinygettext.hpp"
 #include "PhysfsStream/PhysfsStream.hpp"
 #include "findlocale.hpp"
 
 //#define TRANSLATION_DEBUG
 
-namespace TinyGetText {
+namespace tinygettext {
 
 /** Convert \a which is in \a from_charset to \a to_charset and return it */
 std::string convert(const std::string& text,

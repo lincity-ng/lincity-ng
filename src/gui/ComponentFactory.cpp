@@ -27,13 +27,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ComponentLoader.hpp"
 #include "XmlReader.hpp"
 #include "Desktop.hpp"
-#include "tinygettext/TinyGetText.hpp"
+#include "tinygettext/tinygettext.hpp"
 
 #include <sstream>
 #include <stdexcept>
 #include <iostream>
 
-TinyGetText::DictionaryManager dictionaryGUIManager;
+tinygettext::DictionaryManager dictionaryGUIManager;
 
 const char * 
 GUI_TRANSLATE(const char * msgid)

@@ -40,6 +40,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Config.hpp"
 #include "ScreenInterface.hpp"
 #include "Util.hpp"
+#include "Debug.hpp"
 
 #include <SDL_keysym.h>
 #include <math.h>
@@ -1777,11 +1778,10 @@ void GameView::printStatusMessage( std::string message ){
 int GameView::bulldozeCost( MapPoint tile ){
     int group;
     int prize = 0;
-    if ( (tile.x < 0) || (tile.x >= WORLD_SIDE_LEN) || (tile.y < 0) || (tile.y >= WORLD_SIDE_LEN) )
+    if (!inCity( tile )){
+        cdebug( "tile is outside" );
 	    return 0;
-
-    if( selected_module_type == CST_NONE )
-    	return 0;
+    }
 
     if (MP_TYPE( tile.x, tile.y) == CST_USED)
         group = MP_GROUP( MP_INFO(tile.x,tile.y).int_1,
@@ -1796,8 +1796,10 @@ int GameView::buildCost( MapPoint tile ){
     if( selected_module_type == CST_NONE ){
     	return 0;
     }
-    if ( (tile.x < 0) || (tile.x >= WORLD_SIDE_LEN) || (tile.y < 0) || (tile.y >= WORLD_SIDE_LEN) )
+    if (!inCity( tile )){
+        cdebug( "tile is outside" );
 	    return 0;
+    }
 
     if (MP_TYPE( tile.x, tile.y ) == CST_USED)
         return 0;

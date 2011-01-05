@@ -40,7 +40,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "XmlReader.hpp"
 #include "ComponentFactory.hpp"
 #include "Document.hpp"
-#include "tinygettext/TinyGetText.hpp"
+#include "tinygettext/tinygettext.hpp"
 
 Paragraph::Paragraph()
     : texture(0)

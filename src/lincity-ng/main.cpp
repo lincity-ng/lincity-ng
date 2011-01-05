@@ -53,7 +53,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #endif
 
 Painter* painter = 0;
-TinyGetText::DictionaryManager* dictionaryManager = 0;
+tinygettext::DictionaryManager* dictionaryManager = 0;
 bool restart = false;
 
 void initPhysfs(const char* argv0)
@@ -516,7 +516,7 @@ int main(int argc, char** argv)
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif
         initPhysfs(argv[0]);
-        dictionaryManager = new TinyGetText::DictionaryManager();
+        dictionaryManager = new tinygettext::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");
         dictionaryManager->add_directory("locale");
         std::cout << "Language is \"" << dictionaryManager->get_language() << "\".\n";

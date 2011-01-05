@@ -1,9 +1,9 @@
 #ifndef __GETTEXT_H__
 #define __GETTEXT_H__
 
-#include "tinygettext/TinyGetText.hpp"
+#include "tinygettext/tinygettext.hpp"
 
-extern TinyGetText::DictionaryManager* dictionaryManager;
+extern tinygettext::DictionaryManager* dictionaryManager;
 
 #ifdef NEED_GETTEXT_CHARHACK
 static inline char* _(const char* message)

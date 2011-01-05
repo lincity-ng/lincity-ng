@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef __MAIN_HPP__
 #define __MAIN_HPP__
 
-#include "tinygettext/TinyGetText.hpp"
+#include "tinygettext/tinygettext.hpp"
 
 enum MainState {
     MAINMENU, INGAME, QUIT, RESTART
