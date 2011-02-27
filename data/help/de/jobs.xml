@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Arbeitsplätze</p>
-	<p style="hp">Menschen die in Wohngebieten wohnen, stellen Arbeitsplätze "zur Verfügung". Arbeitsplätze werden von den meisten Gebäuden benötigt um korrekt zu funktionieren. Einige Gebäude, z.B. Denkmäler benötigen diese Arbeitsplätze nur, wenn sie sich im bau befinden.</p>
-	<p style="hp">Arbeitsplätze werden über den Markt "verteilt"; Sie müssen einen Markt in einem Gebiet bauen in dem Sie die Arbeitskräfte brauchen (z.b. in der nähe von Industrie). Der Markt "bezieht" seine Arbeitskräfte auf zwei Wegen. 1.: Über das direkte Einzugsgebiet in dem der Markt steht(Wohngebiete), 2.:falls der Markt im Wohngebiet voll ist, werden die Arbeitskräfte über das Verkehrsnetz zu einem anderen Markt fahren, der weniger gut besetzt ist. Falls jedoch alle Märkte voll besetzt sind, werden die Leute arbeitslos</p>
+	<p style="hp">Menschen, die in Wohngebieten wohnen, stellen Arbeitsplätze "zur Verfügung". Arbeitsplätze werden von den meisten Gebäuden benötigt um korrekt zu funktionieren. Einige Gebäude, z.B. Denkmäler benötigen diese Arbeitsplätze nur, wenn sie sich im Bau befinden.</p>
+	<p style="hp">Arbeitsplätze werden über den Markt "verteilt"; Sie müssen einen Markt in einem Gebiet bauen in dem Sie die Arbeitskräfte brauchen (z.b. in der Nähe von Industrie). Der Markt "bezieht" seine Arbeitskräfte auf zwei Wegen. 1.: Über das direkte Einzugsgebiet in dem der Markt steht (Wohngebiete), 2.: falls der Markt im Wohngebiet voll ist, werden die Arbeitskräfte über das Verkehrsnetz zu einem anderen Markt fahren, der weniger gut besetzt ist. Falls jedoch alle Märkte voll besetzt sind, werden die Leute arbeitslos</p>
 	<p style="hp">Ein Krankenhaus im Einzugsgebiet des Wohngebiets, erhöht die Anzahl der zur Verfügung stehenden Arbeitskräfte.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>

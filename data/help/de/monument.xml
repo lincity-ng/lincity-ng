@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Denkmal</p>
-	<p style="hp">Denkmäler sind ein wichtiger Platz für die Inspiration und die Studien von Erfindern. Jedes Denkmal wird die Rate, mit der die Technologie wächst steigern, jedoch wird sie ab 40% Tech-Level auf 0 fallen. Ab diesem Punkt können nur noch Schulen und Universitäten das Tech-Level steigern.</p>
+	<p style="hp">Denkmäler sind ein wichtiger Platz für die Inspiration und die Studien von Erfindern. Jedes Denkmal wird die Rate, mit der die Technologie wächst steigern, jedoch wird sie ab 40% Technologieniveau auf 0 fallen. Ab diesem Punkt können nur noch Schulen und Universitäten das Technologieniveau steigern.</p>
 	<p style="hp">Um ein Denkmal zu bauen braucht es <b>sehr viele</b> Arbeitskräfte. Deshalb ist ein Denkmal ganz nützlich um die Arbeitslosigkeit zu kontrollieren. Dies ist jedoch nur eine sehr kurze Lösung, da nach der Fertigstellung keine Jobs mehr benötigt werden.</p>
-	<p style="hp">Sie können sehen wie weit der bau vorrangeschritten ist, indem sie auf das Denkmal klicken und im Statusfenster nachsehen, bis das Denkmal bei 100% ist, gibt es insgesamt 6 Grafiken</p>
-	<p style="hp"><b>Tipp</b>: Um zu verhindern das der bau eines Denkmals zuviele Arbeitskräfte in einer Region kosten, können Sie die Denkmäler auch weiter entfernt bauen, wo nicht so viele Arbeitskräfte benötigt werden.</p>
+	<p style="hp">Sie können sehen wie weit der Bau vorangeschritten ist, indem Sie auf das Denkmal klicken und im Statusfenster nachsehen. Bis das Denkmal bei 100% ist, gibt es insgesamt 6 Grafiken.</p>
+	<p style="hp"><b>Tipp</b>: Um zu verhindern, dass der Bau eines Denkmals zuviele Arbeitskräfte in einer Region kostet, können Sie die Denkmäler auch weiter entfernt bauen, wo nicht so viele Arbeitskräfte benötigt werden.</p>
 
 	<p style="hp">Dies ist ein Denkmal</p>
 	<img src="images/tiles/monument5.png" halign="center"/>

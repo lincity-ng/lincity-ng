@@ -9,14 +9,14 @@
 	
 	<p style="hp">Das ist ein Solarkraftwerk</p>
 	<img src="images/tiles/powerssolar.png" halign="center"/>
-	<p style="hp">und das das Icon</p>
+	<p style="hp">und das das Symbol</p>
 	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="substation">Umspannhäuschen</a></li>
 	<li><a href="powerline">Stromleitungen</a></li>
 	<li><a href="residential">Wohngebiete</a></li>
-	<li><a href="tech-level">Tech-level</a></li>
+	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="msb-power">Stromversorgungskarte</a></li>
 	<li><a href="windmill">Windmühlen</a></li>
 </Document>

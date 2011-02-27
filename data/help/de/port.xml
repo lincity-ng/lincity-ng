@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Häfen</p>
-	<p style="hp">Mit einem Hafen können sie Waren, Stahl, Erz, Kohle und
-    Nahrung Im- und Exportieren. Import kostet Geld, mit Exporten verdienen
+	<p style="hp">Mit einem Hafen können Sie Waren, Stahl, Erz, Kohle und
+    Nahrung im- und exportieren. Import kostet Geld, mit Exporten verdienen
     Sie welches.</p>
-	<p style="hp">Damit ein Hafen was bringt muss er mit einem Transportweg
-     verbunden sein. Stellen sie ein, was sie kaufen und verkaufen möchten,
-    indem sie den Hafen doppelklicken. Das öffnet ein Menü, in dem Sie
+	<p style="hp">Damit ein Hafen funktioniert muss er mit einem Transportweg
+     verbunden sein. Stellen Sie ein, was Sie kaufen und verkaufen möchten,
+    indem Sie auf den Hafen doppelklicken. Das öffnet ein Menü, in dem Sie
     eine Auswahl treffen können.</p>
 	<p style="hp">Häfen <b>müssen</b> an schiffbaren Gewässern liegen. Das
-    heißt die ganze Ostseite des Hafens muss am Wasser liegen.</p>
-	<p style="hp">Solange sie es nicht im Menü eingestellt haben 
+    heißt, die ganze Ostseite des Hafens muss am Wasser liegen.</p>
+	<p style="hp">Solange Sie es nicht im Menü eingestellt haben 
     wird nichts ge- oder verkauft.</p>
-	<p style="hp">Es wird so viel wie Möglich verkauft, wenn sie die Menge
-    beschränken wollen sollten sie nur einen Transportweg mit geringer
+	<p style="hp">Es wird so viel wie möglich verkauft. Wenn Sie die Menge
+    beschränken wollen sollten Sie nur einen Transportweg mit geringer
     Kapazität zum Hafen bauen.</p>
-	<p style="hp">Über einen aktiven Hafen erhält man ein bischen Technologie.
+	<p style="hp">Über einen aktiven Hafen erhält man ein bisschen Technologie.
     Achtung: Wenn viel exportiert wird sinkt der Verkaufspreis.</p>
 
 	<p style="hp">Das ist ein Hafen.</p>
 	<img src="images/tiles/ex_port.png" halign="center"/>
-	<p style="hp">und das das Icon</p>
+	<p style="hp">und das das Symbol</p>
 	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>

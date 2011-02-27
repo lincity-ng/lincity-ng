@@ -3,7 +3,7 @@
 	<p style="htitle">Statusanzeige</p>
 	<p style="hp">Diese Anzeige liegt auf der "Stat." Registerkarte.
     Sie zeigt die Änderungen an Ressourcen und den Lagerbestand in Märkten.</p>
-	<p style="hp">Ein roter Balken links bedeute Abnahme, ein grüner Balken
+	<p style="hp">Ein roter Balken links bedeutet Abnahme, ein grüner Balken
     rechts bedeutet Zunahmen. Die Länge des Balkens gibt den Betrag 
     der Änderung an.</p>
 	<p style="hp">Die Zahl in der Mitte ist die Gesamtmenge.</p>

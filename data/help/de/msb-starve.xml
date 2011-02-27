@@ -4,15 +4,15 @@
 	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
 	<p style="hp">In der Ernährungsübersicht werden nur Wohngebiete 
     berücksichtigt.</p>
-	<p style="hp">Hellgrün bedeutet, daß genügend Nahrung von den Märkten und 
+	<p style="hp">Hellgrün bedeutet, dass genügend Nahrung von den Märkten und 
     Wasser von erreichbaren Brunnen für alle Bewohner
-     vorhanden ist. Dunkelgrün und Hellrot zeigen zunehmende Unterversorgung
+     vorhanden ist. Dunkelgrün und hellrot zeigen zunehmende Unterversorgung
      an.</p>
     <p style="hp">Der Einzugsbereich von Brunnen wird dunkelblau angezeigt.</p>
 
-	<p style="hp">Linksklick auf die Minikarte beweg die Hauptansicht zur
+	<p style="hp">Linksklick auf die Minikarte bewegt die Hauptansicht zur
     gewählten Stelle. Um die Minikarte über die Hauptansicht zu legen 
-    drücken sie 'v' oder den Overlay-Knopf links von der Minikarte.</p>
+    drücken Sie 'v' oder den Overlay-Knopf links von der Minikarte.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="mini-screen">Minikarte</a></li>

@@ -3,10 +3,10 @@
 	<p style="htitle">Brunnen</p>
         <p style="hp">Versorgen die Häuser im Einzugsbereich mit Wasser. 
         Wassermangel hat die gleichen Folgen wie Nahrungsmangel. Informationen
-        zur Versorgung gibt es in der Nahrungsversorgunsübersicht der
+        zur Versorgung gibt es in der Nahrungsversorgungsübersicht der
         Miniaturkarte.</p>
 
 	<p style="hp">Siehe auch:</p>
 	<li><a href="food">Nahrung</a></li>
-	<li><a href="msb-starve">Nahrungsversorgunsübersicht</a></li>
+	<li><a href="msb-starve">Nahrungsversorgungsübersicht</a></li>
 </Document>

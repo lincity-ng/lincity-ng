@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Kohlegrube</p>
-	<p style="hp">Kohlegruben bauen unter der Erde Kohle ab. Sie müssen in nähe einer Kohleader gebaut werden, damit Sie produktiv arbeiten. Um zu sehen wo eine Kohleader liegt, müssen Sie auf den Kohle-Button unter der Miniaturansicht klicken.</p>
-	<p style="hp">Beim ersten mal kostet dies 1 Millionen €, anschließend ist die Ansicht kostenlos. Sie müssen die ansicht nicht verwenden, müssen dann aber nach dem trial und error prinzip vorgehen um auf gut Glück eine Ader zu finden.</p>
+	<p style="hp">Kohlegruben bauen unter der Erde Kohle ab. Sie müssen in der Nähe einer Kohleader gebaut werden, damit Sie produktiv arbeiten. Um zu sehen wo eine Kohleader liegt, müssen Sie auf den Kohle-Button unter der Miniaturansicht klicken.</p>
+	<p style="hp">Beim ersten mal kostet dies 1 Million €, anschließend ist die Ansicht kostenlos. Sie müssen die Ansicht nicht verwenden, müssen dann aber nach dem trial und error Prinzip vorgehen um auf gut Glück eine Ader zu finden.</p>
 	<p style="hp">Kohlegruben brauchen Arbeitsplätze, damit Kohle abgebaut werden kann.</p>
 	
 	<p style="hp">Dies ist eine Kohlegrube</p>
 	<img src="images/tiles/coalmine-full.png" halign="center"/>
-	<p style="hp">und das sein Symbol</p>
+	<p style="hp">und das ihr Symbol</p>
 	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
 
 	<p style="hp">Die Grafik zeigt die Anazahl der Kohle, die bereits gegraben, aber noch nicht transportiert wurde, auf dem oberen Bild ist das Lager der Kohlegrube komplett gefüllt.</p>

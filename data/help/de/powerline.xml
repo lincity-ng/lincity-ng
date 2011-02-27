@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Stromleitungen</p>
 	<p style="hp">Stromleitungen leiten den Strom von Kohle- und 
-    Solarkraftwerken zu den Umspannhäuschen. Stromleitungen Werden 
+    Solarkraftwerken zu den Umspannhäuschen. Stromleitungen werden 
     an der Nordwestecke dieser Gebäude angeschlossen. Auch die moderne
     Form der Windmühle erzeugt Strom.</p>
 	<p style="hp">Stromleitungen <b>unterqueren</b> Wege, Straßen
@@ -14,9 +14,9 @@
 
 	<p style="hp">Eine Stromleitung</p>
 	<img src="images/tiles/powerlvd.png" halign="center"/>
-	<p style="hp">und das Icon</p>
+	<p style="hp">und das Symbol</p>
 	<img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
-	<p style="hp">Das ist das Icon für die Stromversorgungskarte</p>
+	<p style="hp">Das ist das Symbol für die Stromversorgungskarte</p>
 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 
 	<p style="hsubtitle">Siehe auch:</p>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Kohle</p>
-	<p style="hp">Kohle wird von Kohlekraftwerken verwendet um Strom zu produzieren(Energie). Es wird außerdem von Töpfereien, Spinnereien und Schmieden verwendet um Waren her zu stellen. Die Schwerindustrie wird Kohle benutzen, wenn sie kein Strom bekommt</p>
-	<p style="hp">Kohle wird unter der Erde in Kohlegruben abgebaut. Das Kohle vorkommen unter der Erde ist begrenzt! (Die vorhanden Kohlereserve werden angezeigt, wenn man auf eine Kohlegrube klickt).</p>
-	<p style="hp">Köhlereien liefern auch ein wenig Kohle. In wirklichkeit handelt es sich dabei um Holzkohle die aus der verbrennung von Bäumen gewonnen wird. Diese haben zwar nur einen kleinen Ausschuss, der jedoch genug ist für ein paar Töpfereien und Schmieden.</p>
+	<p style="hp">Kohle wird von Kohlekraftwerken verwendet um Strom zu produzieren (Energie). Es wird außerdem von Töpfereien, Spinnereien und Schmieden verwendet um Waren her zu stellen. Die Schwerindustrie wird Kohle benutzen, wenn sie keinen Strom bekommt.</p>
+	<p style="hp">Kohle wird unter der Erde in Kohlegruben abgebaut. Das Kohle vorkommen unter der Erde ist begrenzt! (Die vorhanden Kohlereserve werden angezeigt, wenn man auf eine Kohlegrube klickt.)</p>
+	<p style="hp">Köhlereien liefern auch ein wenig Kohle. In Wirklichkeit handelt es sich dabei um Holzkohle die aus der Verbrennung von Bäumen gewonnen wird. Diese haben zwar nur einen kleinen Ausschuss, der jedoch genug ist für ein paar Töpfereien und Schmieden.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="coalmine">Kohlegrube</a></li>

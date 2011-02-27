@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Miniaturansicht</p>
-	<p style="hp">Die Miniaturansicht zeigt, in verkleinerter Fassung das komplette Spielgebiet. Die Buttons darunter geben ihnen wichtige Informationen über die Situation in ihrer Stadt, z.B. Verschmutzung, gesundheitliche Versorgung, etc.</p>
+	<p style="hp">Die Miniaturansicht zeigt in verkleinerter Fassung das komplette Spielgebiet. Die Buttons darunter geben Ihnen wichtige Informationen über die Situation in Ihrer Stadt, z.B. Verschmutzung, gesundheitliche Versorgung, etc.</p>
 	<p style="hp">Klicken Sie auf den <i>Hilfe Knopf</i> und anschließend auf die Layer-Symbole unterhalb der Miniaturansicht um weitere Informationen über sie zu erhalten.</p>
-	<p style="hp">Das weiße Quadrat zeigt den Aktuellen Bildschirmausschnitt.</p>
+	<p style="hp">Das weiße Quadrat zeigt den aktuellen Bildschirmausschnitt.</p>
     <p style="hp">Mit 'v' oder dem großen Kopf am linken unteren Eck der Minikarte können Sie die Minikarte über die Hauptkarte legen.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>

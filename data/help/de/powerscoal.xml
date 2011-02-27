@@ -4,9 +4,9 @@
 	<p style="hp">Kohlekraftwerke erzeugen elektrischen Strom, den sie ins
     angeschlossene Netz einspeisen. </p>
 
-	<p style="hp">Das ist ein Kohlekraftwerke</p>
+	<p style="hp">Das ist ein Kohlekraftwerk</p>
 	<img src="images/tiles/powerscoal-empty.png" halign="center"/>
-	<p style="hp">und das sein Icon</p>
+	<p style="hp">und das sein Symbol</p>
 
 	<img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
 	<p style="hp">Stromleitungen werden an der Nordwestecke des Kraftwerks
@@ -15,10 +15,10 @@
     <img src="images/help/powerscoal-example.png" halign="center"/>
 
     <p style="hp">Obiges Beispiel zeigt ein Kohlekraftwerk, bei dem
-     alle Anschlußstellen verwendet werden. Links ist eine Straße,
+     alle Anschlussstellen verwendet werden. Links ist eine Straße,
      darüber zwei Stromleitungen. Rechts davon ist eine Eisenbahnlinie
-     mit dem anderen Transportwegeanschluß verbunden. Im Spiel können
-     hohe Gebäude durch drücken von <b>h </b> ein- und ausgeblendet werden.</p>
+     mit dem anderen Transportwegeanschluss verbunden. Im Spiel können
+     hohe Gebäude durch Drücken von <b>h</b> ein- und ausgeblendet werden.</p>
 
 	<p style="hp">Der Wirkungsgrad der Kraftwerke steigt mit dem
     Technologieniveau. Das Kraftwerk behält immer den Technologiestand
@@ -28,7 +28,7 @@
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="tech-level">Tech level</a></li>
+	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="powerline">Stromleitungen</a></li>
 	<li><a href="msb-power">Stromversorgungskarte</a></li>
 </Document>

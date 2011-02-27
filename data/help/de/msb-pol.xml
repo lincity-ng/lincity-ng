@@ -2,10 +2,10 @@
 <Document style="helpdocument">
 	<p style="htitle">Verschmutzungs Layer</p>
 	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
-	<p style="hp">Der verschmutzungs Layer zeigt, den Grad der Verschmutzung in der Stadt an.</p>
-	<p style="hp">Die Verschmutzung wird mit folgenden Farben stärker: Hell-Grün -> Dunkel Grün -> Dunkleres Grün -> Dunkel Rot -> Helleres Rot -> Hell Rot.</p>
-	<p style="hp">In den Wohngebieten, die als Rot dargestellt werden leiden die Leute unter Krankheiten und senkt die Attraktivität der Region.</p>
-	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein andere Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
+	<p style="hp">Der verschmutzungs Layer zeigt den Grad der Verschmutzung in der Stadt an.</p>
+	<p style="hp">Die Verschmutzung wird mit folgenden Farben stärker: Hellgrün -> Dunkelgrün -> Dunkleres Grün -> Dunkelrot -> Helleres Rot -> Hellrot.</p>
+	<p style="hp">In den Wohngebieten, die als Rot dargestellt werden, leiden die Leute unter Krankheiten und es sinkt die Attraktivität der Region.</p>
+	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="mini-screen">Miniaturansicht</a></li>

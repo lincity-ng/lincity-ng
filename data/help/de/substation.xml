@@ -4,10 +4,10 @@
 	<p style="hp">Umspannhäuschen verteilen den Strom aus den Leitungen
     auf die Gebäude in der Umgebung. Um festzustellen, ob beispielsweise
     ein Wohngebiet mit Strom versorgt wird, klicken Sie es an und achten
-    sie auf die Statusanzeige.</p>
+    Sie auf die Statusanzeige.</p>
 	<p style="hp">So sieht ein Umspannhäuschen aus</p>
 	<img src="images/tiles/substation-G.png" halign="center"/>
-	<p style="hp">und so sein Icon</p>
+	<p style="hp">und so sein Symbol</p>
 	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
 
 	<p style="hsubtitle">Siehe auch:</p>

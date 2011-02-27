@@ -2,14 +2,14 @@
 <Document style="helpdocument">
 	<p style="htitle">Transport</p>
 	<p style="hp">Es gibt drei verschiedene Verkehrswege in Lincity: Wege, 
-    Straßen und Eisenbahnen. Es gibt einer vierte Möglichkeit, Dinge zu transportieren,
+    Straßen und Eisenbahnen. Es gibt eine vierte Möglichkeit, Dinge zu transportieren,
     indem sie einfach über die Wiese getragen werden. Dieser Handel über kurze Distanzen
     gehört nicht zu den Verkehrswegen, ist aber trotzdem wichtig.</p>
 	<p style="hp">Leute können sich Nahrung, Waren und Arbeitsplätze in Märkten
     besorgen, die in Laufreichweite ihrer Wohngebiete liegen.</p>
 	<p style="hp">Alle Gebäude, die Arbeiter benötigen, können diese über
     Märkte beziehen. Stahlwerke beispielsweise können ihre Arbeiter
-    über einem nahe gelegene Märkte einstellen. Sie können sie über einen
+    über nahe gelegene Märkte einstellen. Sie können sie über einen
     Verkehrsweg erhalten.</p>
 	<p style="hp">Bauernhöfe verkaufen ihre Nahrung direkt an Märkte, sie
     benötigen überhaupt keine Verkehrsanbindung.</p>
@@ -24,12 +24,12 @@
     Hauptansicht oben liegende Ecke.</p>
 	<p style="hp">Das Kohlekraftwerk ist eine Ausnahme. Hier ist der Stromanschluss
     an der Nordwestecke, die Anbindung an Transportwege erfolgt über die Felder
-    eins weiter südlich und das eins weiter östlich.</p>
+    eins weiter südlich und eins weiter östlich.</p>
 	<p style="hp">Wege, Straßen und Eisenbahnen werden benötigt um Nahrung, Arbeiter,
     Waren, Kohle, Erz und Stahl sowie Abfall zwischen den verschiedenen Bereichen zu transportieren.
     Wichtig: die verschiedenen Transportwege sind untereinander nicht verbunden,
     nur mit Hilfe von Märkten können Dinge von einem Transportweg auf einen anderen kommen.</p>
-	<p style="hp">Um einen Fluss mit einem Transportweg zu überqueren bauen sie ihm eifach darüber.
+	<p style="hp">Um einen Fluss mit einem Transportweg zu überqueren bauen Sie ihn eifach darüber.
     Es wird eine Brücke gebaut. Brücken sind deutlich teurer als normale Transportwege.</p>
     <p style="hp">Straßen und Eisenbahnen verursachen jährliche Kosten für 
     Wartung und verschmutzen die Umwelt. Wenn Sie viel Müll transportieren

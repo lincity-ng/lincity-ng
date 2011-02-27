@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Normale Geschwindigkeit</p>
 	<img src="images/gui/speed/fast.png"/>
-	<p style="hp">Dies ist der Knopf für die Normale Geschwindigkeit. Dieser Bewirkt das das Spiel mit mittlerer Geschwindigkeit läuft. Auf langsamen Maschinen hat der Knopf u.U. keinen Effekt.</p>
+	<p style="hp">Dies ist der Knopf für die Normale Geschwindigkeit. Dieser bewirkt, dass das Spiel mit mittlerer Geschwindigkeit läuft. Auf langsamen Maschinen hat der Knopf u.U. keinen Effekt.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="slow">Langsam</a></li>

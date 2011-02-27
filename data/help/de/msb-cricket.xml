@@ -2,10 +2,10 @@
 <Document style="helpdocument">
 	<p style="htitle">Sport Layer</p>
 	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
-	<p style="hp">Gebiete die einen Sportplatz in ihrem Einzugsbereich haben werden Dunkelgrün dargestellt.</p>
-	<p style="hp">Gebiete die nicht im Einzugsbereich liegen werden normal angezeigt.</p>
-	<p style="hp">Beachte, Sportplätze brauchen 3 Monate, bis sie ihren betrieb aufnehmen.</p>
-	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein andere Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
+	<p style="hp">Gebiete, die einen Sportplatz in ihrem Einzugsbereich haben, werden dunkelgrün dargestellt.</p>
+	<p style="hp">Gebiete, die nicht im Einzugsbereich liegen werden normal angezeigt.</p>
+	<p style="hp">Beachten Sie, dass Sportplätze drei Monate brauchen, bis sie ihren Betrieb aufnehmen.</p>
+	<p style="hp">Linksklick auf die Miniaturansicht um zur entsprechenden Stelle auf der Hauptansicht zu springen. Linksklick auf ein anderes Symbol aktiviert einen anderen Layer. Mit 'v' können Sie den aktiven Layer auf die Hauptansicht legen.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="mini-screen">Miniaturansicht</a></li>

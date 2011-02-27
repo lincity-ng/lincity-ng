@@ -8,7 +8,7 @@
     sollten also über genügend Industrie und Kapital verfügen um die Uni zu versorgen.</p>
 	<p style="hp">Sie werden einige Universitäten benötigen, um ein Technologieniveau
     im Bereich von 100% zu erreichen.</p>
-	<p style="hp">Universitäten müssen nicht an das Verkehrsnetz angeschlossen sein, sei
+	<p style="hp">Universitäten müssen nicht an das Verkehrsnetz angeschlossen sein, sie
     können sich alles von Märkten holen, solange welche in Reichweite sind, die genügend
     Waren und Arbeitskräfte haben.</p>
 
@@ -18,7 +18,7 @@
 
 	<p style="hp">Das ist eine Universität</p>
 	<img src="images/tiles/university.png" halign="center"/>
-	<p style="hp">und das das zugehörige Icon</p>
+	<p style="hp">und das das zugehörige Symbol</p>
 	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
 
 	<p style="hsubtitle">Siehe auch:</p>

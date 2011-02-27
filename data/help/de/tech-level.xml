@@ -2,21 +2,21 @@
 <Document style="helpdocument">
 	<p style="htitle">Technologieniveau</p>
 	<p style="hp">Das Technologieniveau Ihrer Stadt beeinflusst unter anderem,
-     welche Gebäude zur Verfügung sie bauen können und den Wirkungsgrad verschiedener
+     welche Gebäude Sie bauen können und den Wirkungsgrad verschiedener
     Vorgänge.</p>
-	<p style="hp">Um an mehr Technologie zu gelangen müssen sie Monumente, 
+	<p style="hp">Um an mehr Technologie zu gelangen müssen Sie Monumente, 
     Schulen und Universitäten bauen und versorgen.</p>
-	<p style="hp">Auf niedrigem Technologieniveau können sie nur Monumente bauen.
-    Nachdem Sie davon ein Paar eine Zeit lang haben werden Sie Schulen <i>erfinden</i>.
+	<p style="hp">Auf niedrigem Technologieniveau können Sie nur Monumente bauen.
+    Nachdem Sie davon ein paar eine Zeit lang haben werden Sie Schulen <i>erfinden</i>.
     Schulen erzeugen mehr Technologie als Monumente.</p>
-	<p style="hp">Nachdem sie einen noch höheres Technologieniveau erreicht haben,
-    werden sie Universitäten <i>erfinden</i>. Die erzeugen noch mehr Technologie
+	<p style="hp">Nachdem Sie ein noch höheres Technologieniveau erreicht haben,
+    werden Sie Universitäten <i>erfinden</i>. Diese erzeugen noch mehr Technologie
     als Schulen, sind aber auch <b>sehr</b> ressourcenhungrig.</p>
 	<p style="hp">Um so höher Ihr Technologieniveau ist, desto schneller geht 
-    Wissen <i>verloren</i>. Das bedeutet Sie brauchen um so mehr Schulen und 
+    Wissen <i>verloren</i>. Das bedeutet, Sie brauchen um so mehr Schulen und 
     Universitäten, je höher das angestrebte Technologieniveau ist. </p>
-	<p style="hp">Beachten sie auch, daß wenn sie beispielsweise eine oder zwei
-     Unis abreiße (oder sie nicht mehr genügend Ressourcen für deren Betrieb habe)
+	<p style="hp">Beachten Sie auch, dass wenn Sie beispielsweise eine oder zwei
+     Unis abreissen (oder Sie nicht mehr genügend Ressourcen für deren Betrieb haben)
     Ihr Technologieniveau vermutlich <b>fallen</b> wird.</p>
     <p style="hp">Die Wahrscheinlichkeit für den erfolgreichen Start einer Rakete
     entspricht dem Technologieniveau.</p>

@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Windmühle</p>
 
-    <p style="hp">Windmühlen erzeugen Energie Wohngebiete und
+    <p style="hp">Windmühlen erzeugen Energie für Wohngebiete und
         Bauernhöfe. Sie ermöglichen es den Bauern, mehr Nahrung
         herzustellen und machen Wohngebiete attraktiver.</p>
 
@@ -18,14 +18,14 @@
         Wertstoffhöfe direkt versorgen.</p>
 
     <p style="hp">Windmühlen benötigen Arbeitskräfte um Energie
-         zu erzeugen.  Sind nicht genügend Arbeiter da wird weniger
+         zu erzeugen. Sind nicht genügend Arbeiter da wird weniger
         Energie erzeugt, ohne Arbeiter überhaupt keine.</p>
 
-	<p style="hp">Es gibt zwei Arten Windmühlen.</p>
+	<p style="hp">Es gibt zwei Arten von Windmühlen.</p>
 	<img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
 	<p style="hp">Die Erste ist eine altmodische Holzwindmühle.</p>
 	<img src="images/tiles/windmill1w.png" halign="center"/>
-	<p style="hp">Die Zweite ist eine modernes Windkraftwerk.</p>
+	<p style="hp">Die Zweite ist ein modernes Windkraftwerk.</p>
 	<img src="images/tiles/windmill1g.png" halign="center"/>
 	<p style="hp">Die Art der Windmühle hängt vom Techniveau zur Bauzeit ab.</p>
 	<p style="hp">Die moderne Windmühle kann Strom ins Leitungsnetz einspeisen.</p>
@@ -33,7 +33,7 @@
 	<li><a href="substation">Umspannhäuschen</a></li>
 	<li><a href="powerline">Stromleitungen</a></li>
 	<li><a href="residential">Wohngebiete</a></li>
-	<li><a href="tech-level">Tech-level</a></li>
+	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="msb-power">Stromversorgungskarte</a></li>
     <li><a href="powersolar">Solarkraftwerke</a></li>
 </Document>

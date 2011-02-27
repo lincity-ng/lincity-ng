@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Parks</p>
-	<p style="hp">Parks funktionieren ganz einfach: sie säubern Verschmutzung.</p>
-	<p style="hp">Eine ganze Menge Gebiete erzeuge Verschmutzung. Da sind
+	<p style="hp">Parks funktionieren ganz einfach: sie reduzieren Verschmutzung.</p>
+	<p style="hp">Eine ganze Menge Gebiete erzeugen Verschmutzung. Beispielsweise
     Straßen, Eisenbahnen, Kohlebergwerke, Industriegebiete, Schwerindustrie  
-    und Kohlekraftwerke. Manche erzeugen mehr Dreck als andere.</p>
+    und Kohlekraftwerke. Manche erzeugen mehr Verschmutzung als andere.</p>
 	<p style="hp">Sie können Parks verwenden um Ihre Wohngebiete
-    abzuschirmen, oder um zu verhindern, daß sich die Verschmutzung 
+    abzuschirmen, oder um zu verhindern, dass sich die Verschmutzung 
     über ihr Entstehungsgebiet hinaus ausbreitet. </p>
-	<p style="hp">Der Wind kommt <b>von</b> Südwest, also bauen sie die Parks
-    entsprechend.</p>
+	<p style="hp">Der Wind kommt <b>von</b> Südwest, also sollten Sie die Parks
+    entsprechend bauen.</p>
 	<p style="hp">Parks benötigen Grundwasser, sie können also nur auf "grünen"
     Feldern gebaut werden.</p>
 	
-	<p style="hp">Das ist ein Parkk</p>
+	<p style="hp">Das ist ein Park</p>
 	<img src="images/tiles/parkland-plane.png" halign="center"/>
-	<p style="hp">und sein Icon</p>
+	<p style="hp">und sein Symbol</p>
 	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>

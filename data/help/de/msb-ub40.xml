@@ -3,12 +3,12 @@
 	<p style="htitle">Arbeitslosenübersicht</p>
 	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
 	<p style="hp">Die Arbeitslosenübersicht erfasst nur Wohngebiete.</p>
-	<p style="hp">Hellgrün bedeutet keine Arbeitslosigkeit, Dunkelgrün bis
-    Hellrot zeigt zunehmende Anzahl von Arbeitslosen an.</p>
+	<p style="hp">Hellgrün bedeutet keine Arbeitslosigkeit, dunkelgrün bis
+    hellrot zeigt zunehmende Anzahl von Arbeitslosen an.</p>
 	
-	<p style="hp">Linksklick auf die Minikarte beweg die Hauptansicht zur
+	<p style="hp">Linksklick auf die Minikarte bewegt die Hauptansicht zur
     gewählten Stelle. Um die Minikarte über die Hauptansicht zu legen 
-    drücken sie 'v' oder den Overlay-Knopf links von der Minikarte.</p>
+    drücken Sie 'v' oder den Overlay-Knopf links von der Minikarte.</p>
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="mini-screen">Minikarte</a></li>

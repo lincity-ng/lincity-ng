@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Verschmutzung</p>
-	<p style="hp">Viele Gebiete verursachen Verschmutzung. Ganz besonders viel
+	<p style="hp">Viele Gebiete verursachen Verschmutzung. Besonders viel
     wird durch die folgenden Gebäude erzeugt:</p>
-	<li>Schwerindustrie.</li>
-	<li>Industriebetriebe.</li>
-	<li>Kohlekraftwerke.</li>
-	<li>Kohlekraftwerke.</li>
+	<li>Schwerindustrie</li>
+	<li>Industriebetriebe</li>
+	<li>Kohlekraftwerke</li>
 	<li>Märkte, deren Müllager voll ist.</li>
 	<li>Straßen und Eisenbahnen, besonders wenn sie voll Müll sind.</li>
 	<p style="hp">Leute wohnen nicht gerne in verschmutzten Gegenden.
-    Enzweder ziehen sie aus, oder sie werden sogar krank und sterben.</p>
+    Entweder ziehen sie aus, oder sie werden sogar krank und sterben.</p>
 	<p style="hp">Der Wind kommt hauptsächlich aus dem Südwesten, also
     zieht die Verschmutzung eher nach Nordosten.</p>
-	<p style="hp">Normalerweise sollten sie so bauen, daß ihre Leute
+	<p style="hp">Normalerweise sollten Sie so bauen, dass Ihre Leute
     keiner Verschmutzung ausgesetzt werden. Das ist aber nicht immer möglich.
-   In diesem Fall können sie Parks als Barrieren verwenden, je mehr Parks,
+   In diesem Fall können Sie Parks als Barrieren verwenden, je mehr Parks,
     desto mehr Schutz.</p>
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="industryh">Schwerindustrie</a></li>
@@ -26,5 +25,5 @@
 	<li><a href="rail">Eisenbahnen</a></li>
 	<li><a href="road">Straßen</a></li>
 	<li><a href="park">Parks</a></li>
-	<li><a href="msb-pol">Verschmutzungskartenanzeige</a></li>
+	<li><a href="msb-pol">Verschmutzungskarte</a></li>
 </Document>

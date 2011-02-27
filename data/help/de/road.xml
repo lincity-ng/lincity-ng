@@ -4,11 +4,11 @@
 	<p style="hp">Auf Straßen passt mehr als auf Wege, aber weniger als auf
     Eisenbahnen. Auch erzeugen sie mehr Verschmutzung als Eisenbahnen. 
     Allerdings sind sie in der Anschaffung und im Unterhalt günstiger,
-    so daß sie durchaus ihre Existenzberechtigung haben.</p>
+    so dass sie durchaus ihre Existenzberechtigung haben.</p>
 	
 	<p style="hp">Das ist eine Straße</p>
 	<img src="images/tiles/roadud.png" halign="center"/>
-	<p style="hp">und so sieht das Icon aus</p>
+	<p style="hp">und so sieht das Symbol aus</p>
 	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>

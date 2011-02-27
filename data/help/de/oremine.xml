@@ -13,11 +13,11 @@
 	
 	<p style="hp">Das ist eine Erzgrube</p>
 	<img src="images/tiles/oremine1.png" halign="center"/>
-	<p style="hp">und das das Icon</p>
+	<p style="hp">und das das Symbol</p>
 	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>
-	<li><a href="ore">Ore</a></li>
+	<li><a href="ore">Erz</a></li>
 	<li><a href="goods">Waren</a></li>
 	<li><a href="steel">Stahl</a></li>
 </Document>

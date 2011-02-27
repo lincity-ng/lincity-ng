@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Schmiede</p>
-	<p style="hp">Schmieden wandeln Stahl und Kohle in Waren. Sie werden gerade am Anfang des Spiels verwendung finden. Sie bieten natürlich auch Arbeitsplätze.</p>
+	<p style="hp">Schmieden wandeln Stahl und Kohle in Waren um. Sie werden gerade am Anfang des Spiels Verwendung finden. Sie bieten natürlich auch Arbeitsplätze.</p>
 	<p style="hp">Bevor sie Stahlwerke haben, müssen Sie sich auf die Köhlereien verlassen. 5 oder 6 Köhlereien pro Schmiede sind empfohlen.</p>
 	<p style="hp">Schmieden brauchen keinen Anschluss ans Verkehrsnetz. Sie können alles, was sie brauchen von einem Markt beziehen der in ihrer Reichweite ist.</p>
 	<p style="hp">Indem Sie auf die Schmiede Linksklicken können Sie sehen ob diese arbeitet und ausgelastet ist.</p>
@@ -13,7 +13,7 @@
 	
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="market">Markt</a></li>
-	<li><a href="ore">Ore</a></li>
+	<li><a href="ore">Erz</a></li>
 	<li><a href="commune">Köhlerei</a></li>
 	<li><a href="steel">Stahl</a></li>
 	<li><a href="jobs">Arbeitsplätze</a></li>

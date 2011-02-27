@@ -2,16 +2,16 @@
 <Document style="helpdocument">
 	<p style="htitle">Feuerwehr</p>
 
-    <p style="hp">Feuerwehren verhindern das ausbrechen
-        und ausbreiten von Feuern in ihrem Einzugsbereich. Um
+    <p style="hp">Feuerwehren verhindern das Ausbrechen
+        und Ausbreiten von Feuern in ihrem Einzugsbereich. Um
         ihrer Arbeit nachzukommen, brauchen sie Waren und
         Arbeitsplätze. Sie müssen <b>nicht</b> ans Verkehrsnetz
         angebunden sein, aber sie müssen in der Reichweite eines
         Markts sein, der sie mit Warenn und Arbeitsplätzen
-        versorgen kann. Außerdem kostet ihr betrieb Geld.</p>
+        versorgen kann. Außerdem kostet ihr Betrieb Geld.</p>
 
     <p style="hp">Wenn Sie eine Feuerwehr bauen, wird diese noch
-        nicht gleich Einsatzbereit sein, es dauert gewöhnlich drei
+        nicht gleich einsatzbereit sein, es dauert gewöhnlich drei
         Monate bis sie komplett eingerichtet ist und somit einen
         wirksamen Schutz gewährleisten kann.</p>
 
@@ -19,13 +19,13 @@
         abgedeckt werden, klicken Sie einfach auf das Feuerwehr
         Symbol unter der <i>Miniaturansicht</i>. Gebiete die
         vor Feuer geschützt sind, werden normal angezeigt,
-        ungeschützte Gebiete werden in Dunkelgrün dargestellt.</p>
+        ungeschützte Gebiete werden dunkelgrün dargestellt.</p>
 
     <p style="hp">Feuerwehren steigern die Attraktivität der
         Wohngebiete in ihrem Bereich.</p>
 
     <p style="hp">Feuerwehren haben eine Animationssequenz um zu
-        zeigen das sie arbeiten.</p>
+        zeigen, dass sie arbeiten.</p>
 
 	<p style="hp">Dies ist eine Feuerwehr</p>
 	<img src="images/tiles/firestation1.png" halign="center"/>

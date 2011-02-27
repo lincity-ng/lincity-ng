@@ -3,7 +3,7 @@
 	<p style="htitle">Töpferei</p>
 	<p style="hp">Töpfereien erzeugen aus Erz und Kohle mit der Hilfe von
     Arbeitern Waren. Sie müssen nicht mit einem Transportweg verbunden sein,
-    aber dann müssen sie sich natürlich in Reichweite eines Marktes befinden,
+    aber dann müssen sie sich in Reichweite eines Marktes befinden,
     von dem sie Erz, Kohle und Arbeiter beziehen und auf dem sie ihre Waren
     abgeben können.</p>
 	<p style="hp">Sie sehen, ob eine Töpferei in Betrieb ist anhand des Rauches,
@@ -11,7 +11,7 @@
 	
 	<p style="hp">So sieht eine Töpferei aus</p>
 	<img src="images/tiles/pottery0.png" halign="center"/>
-	<p style="hp">und so das Icon</p>
+	<p style="hp">und so das Symbol</p>
 	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
 	
 	<p style="hsubtitle">Siehe auch:</p>

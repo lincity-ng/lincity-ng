@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Waren</p>
-	<p style="hp">Waren werden für den betrieb der meisten Gebäude benötigt. Außerdem mag die Bevölkerung gerne viel davon und fühlen sich von Plätzen angezogen, wo sie selbige bekommen können.</p>
-	<p style="hp">Waren werden versteuert, wenn sie viel produzieren helfen Sie damit ihren Finanzen.</p>
+	<p style="hp">Waren werden für den Betrieb der meisten Gebäude benötigt. Außerdem mag die Bevölkerung gerne viel davon und fühlt sich von Plätzen angezogen, wo sie selbige bekommen kann.</p>
+	<p style="hp">Waren werden versteuert, wenn sie viel produzieren helfen Sie damit Ihren Finanzen.</p>
 	<p style="hp">Waren werden von Töpfereien, Schmieden, Spinnereien und Leichtindustrie hergestellt.</p>
-	<p style="hp">Jedoch <b>nicht</b> von der Schwerindustrie, diese stellt lediglich Stahl her</p>
+	<p style="hp">Jedoch <b>nicht</b> von der Schwerindustrie, diese stellt lediglich Stahl her.</p>
 
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="pottery">Töpferei</a></li>

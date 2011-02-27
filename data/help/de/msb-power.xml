@@ -3,16 +3,16 @@
 	<p style="htitle">Energie Layer</p>
 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 
-    <p style="hp">Gebäuder, die mechanische Energie von altmodischen Windmühlen
-        benutzen werden Dunkelgrün dargestellt.</p>
+    <p style="hp">Gebäude, die mechanische Energie von altmodischen Windmühlen
+        benutzen, werden dunkelgrün dargestellt.</p>
 
-	<p style="hp">Die Gebäude, die am Stromnetz hängen werden als Hellgrün dargestellt.</p>
+	<p style="hp">Die Gebäude, die am Stromnetz hängen werden hellgrün dargestellt.</p>
 
-	<p style="hp">Die unversorgten Gebäude werden Rot dargestellt.</p>
+	<p style="hp">Die unversorgten Gebäude werden rot dargestellt.</p>
 
     <p style="hp">Linksklick auf die Miniaturansicht um
         zur entsprechenden Stelle auf der Hauptansicht zu
-        springen. Linksklick auf ein andere Symbol aktiviert einen
+        springen. Linksklick auf ein anderes Symbol aktiviert einen
         anderen Layer. Mit 'v' können Sie den aktiven Layer auf die
         Hauptansicht legen.</p>
 	

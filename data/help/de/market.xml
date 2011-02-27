@@ -6,37 +6,37 @@
     Sie sind Arbeitsamt, Warenlager und Einkaufszentrum in einem -
     kurz: Überall findet sich ein "Markt". Sie kaufen und verkaufen
     Nahrung, Arbeitsplätze, Kohle, Waren, Erz und Stahl an die
-    Anliegenden Gebiete und ins Verkehrsnetz. Als Beispiel: Die
+    anliegenden Gebiete und ins Verkehrsnetz. Als Beispiel: Die
     Wohngebiete versorgen den Markt mit Arbeitskräften und
-    der Markt versorgt das im bau befindliche Denkmal mit
+    der Markt versorgt das im Bau befindliche Denkmal mit
     Arbeitskräften. <b>HINWEIS</b>, die Wohngebiete werden nicht
-    mehr versorgt wenn sie mehr oder weniger an/auf der Grenze zum
+    mehr versorgt, wenn sie mehr oder weniger an/auf der Grenze zum
     Einzugsbereich des Markts liegen.</p>
 
     <p style="hp">Im Einzugsbereich eines Marktes können Waren direkt 
-    zwischen dem Markt und anderen Gebäuden ausgetauscht werden, ohne daß 
+    zwischen dem Markt und anderen Gebäuden ausgetauscht werden, ohne dass 
     eine Verkehrsverbindung bestehen muss. Augenommen hiervon sind
-    Großverbraucher, bei denen wird aber in der Beschreibung extra auf die
-    erforderlichen Verkehrsverbindung hingewiesen. Im <a href="msb-transport">
+    Großverbraucher. Bei diesen wird aber in der Beschreibung extra auf die
+    erforderliche Verkehrsverbindung hingewiesen. Im <a href="msb-transport">
     Verkehrs- und Markt Layer </a> können Sie sehen, ob sich Gebäude im
     Einzugsbereich eines Marktes befinden.</p>
 
-   <li>Bewohner können Nahrung, Waren und Arbeitsplätze über die Märket, in
-       deren Einzugsbereich sich ihre Wohngebiet befindet, beziehen.</li>
-   <li>Alle Gebäude, die Arbeitskräfte benötigen erhalten diese von 
+   <li>Bewohner können Nahrung, Waren und Arbeitsplätze über die Märkte, in
+       deren Einzugsbereich sich ihr Wohngebiet befindet, beziehen.</li>
+   <li>Alle Gebäude, die Arbeitskräfte benötigen, erhalten diese von 
        den Märkten.</li>
    <li>Bauernhöfe verkaufen ihre Nahrung direkt an Märkte.</li>
    <li>Spinnereien, Töpfereien und Schmieden verkaufen ihre Waren direkt
        an Märkte, von dort beziehen sie auch ihre Rohstoffe.</li>
    <p style="hp">Falls sie sich nicht im Einzugsbereich eines Marktes befinden,
-       brauchen diese Gebäude einen <a href="transport"> Verkehrsverbindung</a>.</p>
+       brauchen diese Gebäude eine <a href="transport">Verkehrsverbindung</a>.</p>
 
-   <p style="hp">Die zweite Registerkarte in der Rechten unteren
-       Spielfeldecke ist eine <a href="pbar">Statusanzeige</a> die eine
+   <p style="hp">Die zweite Registerkarte in der rechten unteren
+       Spielfeldecke ist eine <a href="pbar">Statusanzeige</a>, die eine
        Übersicht über Ihre Märkte bietet.</p>
 
 	<p style="hsubtitle">Einstellen was der Markt kauft und verkauft</p>
-	<p style="hp">Sie können festlegen was ein Markt kauft indem sie doppelt auf ihn klicken und das selektieren was Sie den Markt kaufen bzw. verkaufen lassen möchten. In der standart Einstellung wird alles gehandelt.</p>
+	<p style="hp">Sie können festlegen was ein Markt kauft indem Sie doppelt auf ihn klicken und das selektieren was Sie den Markt kaufen bzw. verkaufen lassen möchten. In der Standardeinstellung wird alles gehandelt.</p>
 	<p style="hp">Dies ist ein Markt</p>
 	<img src="images/tiles/market-empty.png" halign="center"/>
 	<p style="hp">und das sein Symbol</p>

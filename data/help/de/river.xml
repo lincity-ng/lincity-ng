@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Flüsse/Wasser</p>
+	<p style="htitle">Flüsse / Wasser</p>
 	<p style="hp">Flüsse sind meistens im Weg. Es ist sehr teuer sie 
     zuzuschütten. Sie werden gebraucht, da Häfen am Fluss liegen
     müssen.</p>
-	<p style="hp">Es gibt zwei arten von Gewässern. Seen sind alle
+	<p style="hp">Es gibt zwei Arten von Gewässern. Seen sind alle
     Wasserflächen, die <b>nicht</b> mit den Flüssen verbunden sind.
     Der Fluss ist zunächst alles Wasser, das zu Spielbeginn da war.
-    Beispiel: sobald eine Erzgrube leer ist läuft sie mit Wasser voll,
-    falls es mit dem Fluss verbunden ist ist die neue Wasserfläche 
-    teil des Flusses, ansonsten ein See.</p>
+    Beispiel: Sobald eine Erzgrube leer ist läuft sie mit Wasser voll.
+    Falls es mit dem Fluss verbunden ist, ist die neue Wasserfläche 
+    Teil des Flusses, ansonsten ein See.</p>
     <p style="hp">Wenn ein Stück des Flusses zugeschüttet wird
         bleiben beide Wasserteile immer noch Teil des Flusses. </p>
     <p style="hp">Um eine Brücke zu errichten bauen Sie den Transportweg
     auf das Wasser.</p>
 	<p style="hp">Sobald eine Wasserfläche einmal Teil des Flusses ist
-    kann sie <b>nicht</b> wider in einen See verwandelt werden. Wasser,
+    kann sie <b>nicht</b> wieder in einen See verwandelt werden. Wasser,
     das Teil des Flusses ist, wird im <a href="query">Abfragewerkzeug</a>
     als  <b>schiffbar</b> angezeigt.</p>
 	<p style="hp">Stromleitungen können Strom über <b>ein</b> Wasserfeld 

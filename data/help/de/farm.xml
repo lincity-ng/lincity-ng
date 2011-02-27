@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Bauernhof</p>
-	<p style="hp">Bauernhöfe produzieren Essen für ihre Bevölkerung und Rohstoffe für Spinnereien. Bauern können das Essen an Märkte verkaufen, sie transportieren es mit dem Traktor, weshalb sie nicht ans Verkehrsnetz angeschlossen sein müssen. Sie können den Verkehr aber auch zum verkauf nutzen, natürlich müssen sie dabei sicher gehn das der Markt in Reichweite liegt.</p>
+	<p style="hp">Bauernhöfe produzieren Essen für ihre Bevölkerung und Rohstoffe für Spinnereien. Bauern können das Essen an Märkte verkaufen, sie transportieren es mit dem Traktor, weshalb sie nicht ans Verkehrsnetz angeschlossen sein müssen. Sie können den Verkehr aber auch zum Verkauf nutzen, natürlich müssen Sie dabei sicher gehen, dass der Markt in Reichweite liegt.</p>
 	
 	<p style="hp">Dies ist eine Farm</p>
 	<img src="images/tiles/farm0.png" halign="center"/>
 	<p style="hp">und das ihr Symbol</p>
 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
 	
-	<p style="hp">Bauernhöfe brauchen Arbeitsplätze um mehr als nur eine minimale Menge an Essen zu produzieren. Die Bauernhöfe mit Energie zu versorgen steigert die Produktion ebenfallsp. Energie beinhaltet auch "altmodische" Windmühlen, die helfen mehr Essen zu Produzieren und dabei keine Verschmutzung verursacht.</p>
+	<p style="hp">Bauernhöfe brauchen Arbeitsplätze um mehr als nur eine minimale Menge an Essen zu produzieren. Die Bauernhöfe mit Energie zu versorgen steigert die Produktion ebenfalls. Energie beinhaltet auch "altmodische" Windmühlen, die helfen mehr Essen zu Produzieren und dabei keine Verschmutzung verursachen.</p>
 	<p style="hp">Die landwirtschaftliche Produktion hängt vom Grundwasser ab, 
     Felder mit Grundwasser sind grün, andere gelbbraun wie die Wüste.</p>
 	<p style="hsubtitle">Siehe auch:</p>
 	<li><a href="market">Markt</a></li>
-	<li><a href="tech-level">Tech-Level</a></li>
+	<li><a href="tech-level">Technologieniveau</a></li>
 	<li><a href="transport">Verkehr</a></li>
 	<li><a href="windmill">Windmühle</a></li>
 	<li><a href="food">Nahrung</a></li>
