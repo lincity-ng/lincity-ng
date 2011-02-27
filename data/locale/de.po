@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: lincity-ng 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-17 13:42+0100\n"
-"PO-Revision-Date: 2009-01-17 14:34+0100\n"
-"Last-Translator: Wolfgang Becker <uafr@gmx.de>\n"
+"PO-Revision-Date: 2011-02-16 12:00+0100\n"
+"Last-Translator: Tobias L. <tl.groups@t-online.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +45,7 @@ msgstr "Fehler bei Paketüberprüfung. Kann colour.pal nicht finden."
 #: src/lincity/fileutil.cpp:484
 #, c-format
 msgid "Couldn't create the save directory '%s'\n"
-msgstr "Kann Speicherverzeichniss '%s' nicht anlegen\n"
+msgstr "Kann Speicherverzeichnis '%s' nicht anlegen\n"
 
 #: src/lincity/fileutil.cpp:501
 #, c-format
@@ -66,11 +66,11 @@ msgstr "Sie haben zu viele Stromnetze. Verbinden sie welche."
 
 #: src/lincity/engine.cpp:149
 msgid "Port must be connected to river all along right side."
-msgstr "Häfen müssen mit der ganzen rechten Seite  am Fluß liegen."
+msgstr "Häfen müssen mit der ganzen rechten Seite am Fluß liegen."
 
 #: src/lincity/engine.cpp:161
 msgid "You can't build a water well here: it is all desert."
-msgstr "Sie können hier keinen Brunnen bauen, alle Felde sind Wüste."
+msgstr "Sie können hier keinen Brunnen bauen, alle Felder sind Wüste."
 
 #: src/lincity/engine.cpp:175
 msgid "You can't build a tip here: this area was once a landfill"
@@ -78,7 +78,7 @@ msgstr "Hier können Sie keine Müllkippe errichten, da hier schonmal eine war."
 
 #: src/lincity/engine.cpp:190
 msgid "You can't build a mine here: This area was once a landfill"
-msgstr "Sie können hier keine Bergwerk bauen. Hier war mal eine Müllkippe"
+msgstr "Sie können hier kein Bergwerk bauen. Hier war mal eine Müllkippe"
 
 #: src/lincity/engine.cpp:201
 msgid "You can't build a mine here: there is no ore left at this site"
@@ -94,11 +94,11 @@ msgstr "Es gibt zu viel Umspannwerke und Windmühlen. Sie können keine mehr bau
 
 #: src/lincity/engine.cpp:235
 msgid "Too many markets. You cannot build one more"
-msgstr "Es gibt zu viele Märkte. Sie könnenkeinen mehr bauen."
+msgstr "Es gibt zu viele Märkte. Sie können keinen mehr bauen."
 
 #: src/lincity/engine.cpp:259
 msgid "ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr "Fehler: nicht vorhanden Gruppe. Das darf nicht passieren. Bitte schreiben sie einen Bugreport. Senden sie ihn zusammen mit dem Spielstand und einer Beschreibung, was sie gemacht haben an das LinCity NG Team."
+msgstr "Fehler: nicht vorhandene Gruppe. Das darf nicht passieren. Bitte schreiben Sie einen Bugreport. Senden Sie Ihn zusammen mit dem Spielstand und einer Beschreibung, was Sie gemacht haben an das LinCity NG Team."
 
 #: src/lincity/engine.cpp:578
 msgid "It's at a power line."
@@ -818,7 +818,7 @@ msgstr "Nahrung"
 #: src/lincity/modules/port.cpp:306
 #: src/lincity-ng/MpsInterface.cpp:541
 msgid "Total"
-msgstr "Gesammt"
+msgstr "Gesamt"
 
 #: src/lincity/modules/coal_power.cpp:84
 msgid "Coal Power Station"
@@ -940,7 +940,7 @@ msgstr "Ursprünglich geladenes Szenario - %s"
 #: src/lincity-ng/Dialog.cpp:381
 #, c-format
 msgid "Economy is sustainable"
-msgstr "DIe Wirtschaft ist nachhaltig."
+msgstr "Die Wirtschaft ist nachhaltig."
 
 #: src/lincity-ng/Dialog.cpp:384
 #, c-format
@@ -1145,7 +1145,7 @@ msgstr "Minikarte: Verkehrsdichte"
 
 #: src/lincity-ng/GameView.cpp:1638
 msgid "Estimated Bulldoze Cost: "
-msgstr "Geschätze Abbruchkosten:"
+msgstr "Geschätzte Abbruchkosten:"
 
 #: src/lincity-ng/GameView.cpp:1640
 msgid "Bulldoze Cost: "
@@ -1223,11 +1223,11 @@ msgstr "leer"
 
 #: src/lincity-ng/MpsInterface.cpp:227
 msgid "no further information available"
-msgstr "keine weitenen Infos"
+msgstr "keine weiteren Infos"
 
 #: src/lincity-ng/MpsInterface.cpp:230
 msgid "build something here"
-msgstr "Hier können sie bauen."
+msgstr "Hier können Sie bauen."
 
 #: src/lincity-ng/MpsInterface.cpp:387
 msgid "Coverage"
@@ -1267,7 +1267,7 @@ msgstr "sehr schlecht"
 
 #: src/lincity-ng/MpsInterface.cpp:416
 msgid "death!"
-msgstr "tötlich"
+msgstr "tödlich"
 
 #: src/lincity-ng/MpsInterface.cpp:421
 msgid "Bulldoze Cost"
