@@ -98,7 +98,7 @@ if test "$no_gl" = "yes"; then
     AC_MSG_ERROR([Couldn't find opengl libraries or headers])
 fi
 
-AM_PATH_SDL([1.2.5], , AC_MSG_ERROR([Please install libsdl >= 1.2.5]))
+AM_PATH_SDL([1.2.14], , AC_MSG_ERROR([Please install libsdl >= 1.2.14]))
 
 NP_FINDLIB([SDLMIXER], [SDL_mixer], [SDL_mixer >= 1.2],
 	NP_LANG_PROGRAM([#include <SDL_mixer.h>
