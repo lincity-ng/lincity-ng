@@ -446,7 +446,9 @@ void make_savedir(void)
     }
 #else
     mkdir(lc_save_dir, 0755);
-    chown(lc_save_dir, getuid(), getgid());
+    if (chown(lc_save_dir, getuid(), getgid()) == -1) {
+        printf(_("Failed to chown '%s'\n"), lc_save_dir);
+    }
     if ((dp = opendir(lc_save_dir)) == NULL) {
         /* change this to a screen message. */
         printf(_("Couldn't create the save directory '%s'\n"), lc_save_dir);
