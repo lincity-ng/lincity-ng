@@ -1195,12 +1195,20 @@ void GameView::requestRedraw()
     if( !getMiniMap() ){ //initialization not completed
         return;
     }
-    //TODO: do this only when View changed
-    //Tell Minimap about new Corners
-    getMiniMap()->setGameViewCorners( getTile(Vector2(0, 0)),
-            getTile(Vector2(getWidth(), 0)),
-            getTile(Vector2(getWidth(), getHeight())),
-            getTile(Vector2(0, getHeight()) ) );
+
+    static MapPoint oldCenter = this->getCenter();
+    MapPoint newCenter = this->getCenter();
+
+    if(oldCenter != newCenter) {        
+        //Tell Minimap about new Corners
+        getMiniMap()->setGameViewCorners( getTile(Vector2(0, 0)),
+                getTile(Vector2(getWidth(), 0)),
+                getTile(Vector2(getWidth(), getHeight())),
+                getTile(Vector2(0, getHeight()) ) );
+
+        oldCenter = newCenter;
+
+    }
 
     //request redraw
     setDirty();
