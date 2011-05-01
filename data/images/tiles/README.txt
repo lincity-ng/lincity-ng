@@ -1,3 +1,21 @@
+===========================================================================
+2011-04 LNG 2.1:
+===========================================================================
+Added script "extend.sh" to put all images of a same familiy to the same size, to prevent image jig in animation.
+
+AL1 : It would be much simpler if all the images had the same scale (for 1x1, 2x2 ....)
+	lets say 
+	1x1 ground is 	128 pixel wide  (only ground, building can go higher and to the right)
+	2x2		256
+	3x3		384
+	4x4 ...
+	So we would just need to know the tile size (1x1, or ...) to place it correctly
+
+Alas , this is not the case, so images.xml is used to know the x position, read below for explainations.
+
+===========================================================================
+Lincity-NG 1.0 comments :
+===========================================================================
 Why do you need the symlinks?
 
 I don't. There should be different Pictures instead.
