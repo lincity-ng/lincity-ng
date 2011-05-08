@@ -249,7 +249,7 @@ msgstr "Carrières"
 
 #: src/lincity-ng/Dialog.cpp:477
 msgid "Communes"
-msgstr "Communes"
+msgstr "Carbonneries"
 
 #: src/lincity-ng/Dialog.cpp:631
 #: src/lincity/lintypes.cpp:88
@@ -766,7 +766,7 @@ msgstr "C'est dans une université."
 
 #: src/lincity/engine.cpp:590
 msgid "It's at a commune."
-msgstr "C'est dans une commune."
+msgstr "C'est dans une carbonnerie."
 
 #: src/lincity/engine.cpp:592
 msgid "It's at a tip."
@@ -955,7 +955,7 @@ msgstr "Université"
 #: src/lincity/lintypes.cpp:176
 #: src/lincity/modules/commune.cpp:174
 msgid "Commune"
-msgstr "Commune"
+msgstr "Carbonnerie"
 
 #: src/lincity/lintypes.cpp:187
 msgid "Ore mine"

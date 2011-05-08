@@ -6,7 +6,7 @@
 <li>un puits d'eau potable</li>
 <li>un marché</li>
 <li>Fermes, pour alimenter les marchés </li>
-<li>Communes, qui produisent le charbon de bois et un peu de minerai et d'acier</li>
+<li>Carbonneries, qui produisent le charbon de bois et un peu de minerai et d'acier</li>
 <li>Habitations</li>
 <li>Poterie</li>
 <li>Pistes</li>
@@ -31,7 +31,7 @@
 
 <p style="hsubtitle">Développer la cité </p>
 <p style="hp">Souvenez vous que les gens doivent manger et boire, sinon ils meurent. Pour contrôler la croissance démographique vous devrez trouver un équilibre dans les différents types de <a href="residential"> zones résidentielles </a> que vous construisez (elles ont des taux de natalité/mortalité différents). La nouvelle population permet plus de travail, donc plus de production et d'argent, mais aussi nécessite plus de nourritures, d'entreprises, de biens ...</p>
-<p style="hp">Vous devrez augmenter la production (ajouter des poteries, forgerons) et en même temps vous assurer qu'elles ont les ressources nécessaires, donc augmenter aussi le nombre de "communes" qui fournissent la matière première.</p>
+<p style="hp">Vous devrez augmenter la production (ajouter des poteries, forgerons) et en même temps vous assurer qu'elles ont les ressources nécessaires, donc augmenter aussi le nombre de carbonneries qui fournissent la matière première.</p>
 <p style="hp">Pour accéder à de nouveaux types de constructions, vous devrez augmenter votre <a href="tech-level"> Niveau technologique </a>.</p>
 <p style="hp"> A un moment vous devrez choisir votre stratégie: soit <a href="sustain"> développement durable </a>, soit évacuation vers une autre planète avec des <a href="rocket"> vaisseaux spatiaux </a>.</p>
 

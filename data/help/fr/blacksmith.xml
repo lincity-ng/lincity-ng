@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Forgeron</p>
 	<p style="hp">Les Forgerons transforment le fer et le charbon en objets et en biens. Vous les utiliserez principalement au début du jeu. Bien sur, ils consomment des emplois.</p>
-	<p style="hp">Avant d'avoir des aciéries, vous aurez besoin de communes pour produire l'acier. 5 à 6 communes sont recommandées pour chaque forgeron.</p>
+	<p style="hp">Avant d'avoir des aciéries, vous aurez besoin de carbonnerie pour produire l'acier. 5 à 6 carbonneires sont recommandées pour chaque forgeron.</p>
 	<p style="hp">Les forgerons n'ont pas besoin d'être connectés aux transports. Ils puisent leurs ressources dans les marchés de leur périmètre.</p>
 	<p style="hp">Vous voyez l'activité d'un forgeron de la façon habituelle, en cliquant dessus, et selon la vitesse de l'animation.</p>
 	<p style="hp">Ceci est un Forgeron</p>
@@ -13,7 +13,7 @@
 	<p style="hsubtitle">Voir aussi:</p>
 	<li><a href="market">Marché</a></li>
 	<li><a href="ore">Minerai</a></li>
-	<li><a href="commune">Commune</a></li>
+	<li><a href="commune">Carbonnerie</a></li>
 	<li><a href="steel">Acier</a></li>
 	<li><a href="jobs">Emplois</a></li>
 </Document>

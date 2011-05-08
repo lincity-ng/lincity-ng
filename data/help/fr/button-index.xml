@@ -56,7 +56,7 @@
 
 	<!--<p style="subtitle">Mine</p>-->
 	<img src="images/gui/buttonpanel/mining/commune.png"/>
-	<p><a href="commune">Commune</a></p>
+	<p><a href="commune">Carbonnerie</a></p>
 	<img src="images/gui/buttonpanel/mining/oremine.png"/>
 	<p><a href="oremine">Carrière de minerai</a></p>
 

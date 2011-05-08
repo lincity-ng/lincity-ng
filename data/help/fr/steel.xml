@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Acier</p>
-	<p style="hp">L'acier est produit en toute petite quantité par les "communes" et quand le niveau technologique est suffisant par les Industries lourdes.</p>
+	<p style="hp">L'acier est produit en toute petite quantité par les carbonneries et quand le niveau technologique est suffisant par les Industries lourdes.</p>
 	<p style="hp">L'acier est utilisé par les forgerons pour produire des biens. Les Industries légères peuvent fonctionner sans acier, mais alors leur production est très significativement réduite.</p>
 	<p style="hp">La construction de fusée demande beacoup d'acier.</p>
 	<p style="hp">La maintenance des voies ferrées consomme également de l'acier.</p>
 	<p style="hp">La production d'acier est taxée et donc rapporte de l'argent.</p>
 
 	<p style="hsubtitle">Voir aussi:</p>
-	<li><a href="commune">Commune</a></li>
+	<li><a href="commune">Carbonnerie</a></li>
 	<li><a href="blacksmith">Forgeron</a></li>
 	<li><a href="goods">Biens</a></li>
 	<li><a href="industryh">Industrie lourde</a></li>
