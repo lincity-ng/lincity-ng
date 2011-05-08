@@ -58,47 +58,46 @@ void setLincitySpeed( int speed )
 
 void execute_timestep ()
 {
+    static int dontskip = 0;
+
     /* Get timestamp for this iteration */
     get_real_time();
 
     if( lincitySpeed == 0 || blockingDialogIsOpen ) {
         SDL_Delay(10); //don't burn cpu in active loop
         return;
-    } else if ( lincitySpeed == fast_time_for_year) {
-        if ( (total_time % (10 - fast_time_for_year)) == 0 ) {
-            SDL_Delay(10);
-            /* fast = 1   => wait once for each 9 loop     => 1.3 real second / game year
-             *               beware it can warm hardware (nearly always active).
-             *
-             * fast = 9 = default  => wait at each step  => 12 real seconds / game year
-             *          = nearly old behavior, except we no more skeep frames.
-             *
-             * On athlon-xp 2200+ (1600MHz) 750 MB + Nvidia geforce 420 MX (16 MB)
-             * this is the limiting factor for max_speed
-             * Removing it gives approximately the same speed as old-ng = 4.0 s/year
-             * instead of 24s/year with delay 10 (default fast = 9)
-             *
-             * SDL doc says to rely on at least 10 ms granurality on all OS without
-             * real time ability (Windows, Linux, MacOS X...) hence the trick
-             * of waiting 1/n loop.
-             */
-        }
-    } else
-        SDL_Delay(lincitySpeed);
-
+    } 
+    
     // Do the simulation. Remember 1 month = 100 days, only the display fits real life :)
     do_time_step();
 
     //draw the updated city
-    //in FAST-Mode, update at the last day in Month, so print_stats will work.
-    if( ( lincitySpeed != fast_time_for_year ) ||
-        ( total_time % ( NUMOF_DAYS_IN_MONTH * getConfig()->skipMonthsFast ) ) == NUMOF_DAYS_IN_MONTH - 1 ){
+    if ( lincitySpeed != fast_time_for_year) {
+        SDL_Delay(lincitySpeed); // This is the limiting factor for speed
+
         print_stats ();
         updateDate();
         print_total_money();
         getGameView()->requestRedraw();
-    } else if (fast_time_for_year != FAST_TIME_FOR_YEAR) { // The point of fast mode is to be really fast. So skip frames for speed by default.
-        getGameView()->requestRedraw();                    // Users with fast machines who prefer nice animations in fast mode can set fast speed manually to get them back.
+
+    } else {
+	    /* SDL doc says to rely on at least 10 ms granurality on all OS without
+	     * real time ability (Windows, Linux, MacOS X...) 
+	     * So, as we cannot wait 1ms, we just don't wait when we need speed.
+	     */
+
+	    //in FAST-Mode, update at the last day in Month, so print_stats will work.
+	    if( ( total_time % NUMOF_DAYS_IN_MONTH ) == NUMOF_DAYS_IN_MONTH - 1 ){
+		    print_stats ();
+		    updateDate();
+		    print_total_money();
+	    }
+	    if (dontskip++ == fast_time_for_year ) {
+		    // The point of fast mode is to be really fast. So skip frames for speed
+		    // fast_time_for_year is read from config file = parameter named "quickness"
+		    dontskip = 0;
+		    getGameView()->requestRedraw();
+	    }
     }
 }
 

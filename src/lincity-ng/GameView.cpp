@@ -60,7 +60,7 @@ extern int is_allowed_here(int x, int y, short cst_type, short msg);
 
 const float GameView::defaultTileWidth = 128;
 const float GameView::defaultTileHeight = 64;
-const float GameView::defaultZoom = 0.5;
+const float GameView::defaultZoom = 1.0;    // fastest drawing
 
 GameView* gameViewPtr = 0;
 
@@ -1433,7 +1433,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
         tilerect.move( tileOnScreenPoint );
         tilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
-        if( zoom == 1.0 ) {
+        if( zoom == 1.0 ) {     // Floating point test of equality !
             painter.drawTexture(texture, tilerect.p1);
         }
         else

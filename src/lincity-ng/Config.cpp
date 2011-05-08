@@ -166,14 +166,12 @@ void Config::load( const std::string& filename ){
                 {
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
-                    if(strcmp(name, "skipMonthsFast" ) == 0) {
-                        skipMonthsFast = parseInt( value, 1, 1 );
-                    } else if( strcmp(name, "monthgraphW" ) == 0 ){
+                    if( strcmp(name, "monthgraphW" ) == 0 ){
                        monthgraphW  = parseInt(value, 120, 0);
                     } else if( strcmp(name, "monthgraphH" ) == 0 ){
                        monthgraphH  = parseInt(value, 64, 0);
                     } else if( strcmp(name, "quickness" ) == 0 ){
-                        quickness = parseInt(value, 9, 1, 9);
+                        quickness = parseInt(value, 2, 1, 100);
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
