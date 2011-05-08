@@ -1197,9 +1197,11 @@ void GameView::requestRedraw()
     }
 
     static MapPoint oldCenter = this->getCenter();
+    static float oldZoom = zoom;
+
     MapPoint newCenter = this->getCenter();
 
-    if(oldCenter != newCenter) {        
+    if ( (oldCenter != newCenter) || (oldZoom != zoom) ) {        
         //Tell Minimap about new Corners
         getMiniMap()->setGameViewCorners( getTile(Vector2(0, 0)),
                 getTile(Vector2(getWidth(), 0)),
@@ -1207,6 +1209,7 @@ void GameView::requestRedraw()
                 getTile(Vector2(0, getHeight()) ) );
 
         oldCenter = newCenter;
+        oldZoom = zoom;
 
     }
 
