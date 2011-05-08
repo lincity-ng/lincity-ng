@@ -51,19 +51,21 @@ PainterSDL::~PainterSDL()
 }
 
 //ERM  this function seems to account for SOME of the slowdown
+//This function draw a tile with zoom = 1
+//i.e. with no transformation, so it is as fast as possible
 void
 PainterSDL::drawTexture(const Texture* texture, const Vector2& pos)
 {
     assert(typeid(*texture) == typeid(TextureSDL));
     const TextureSDL* textureSDL = static_cast<const TextureSDL*> (texture);
 
+#ifdef DEBUG_ALL
     if(texture == 0) {
         std::cerr << "Trying to render 0 texture.";
-#ifdef DEBUG
         assert(false);
-#endif
         return;
     }
+#endif
 
     Vector2 screenpos = transform.apply(pos);
 
@@ -108,19 +110,20 @@ bool RectIntersection(const SDL_Rect * A, const SDL_Rect * B)
 }
 
 //ERM  this function seems to account for MOST of the slowdown
+//AL1  this function is twice as slow as drawTexture
 void
 PainterSDL::drawStretchTexture(Texture* texture, const Rect2D& rect)
 {
     assert(typeid(*texture) == typeid(TextureSDL));
     TextureSDL* textureSDL = static_cast< TextureSDL*> (texture);
 
+#ifdef DEBUG_ALL
     if(texture == 0 || texture->getWidth() == 0 || texture->getHeight() == 0) {
         std::cerr << "Trying to render 0 texture.";
-#ifdef DEBUG
         assert(false);
-#endif
         return;
     }
+#endif
 
     Vector2 screenpos = transform.apply(rect.p1);
 

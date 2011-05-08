@@ -484,6 +484,7 @@ MiniMap::speedButtonClicked(CheckButton* button, int)
             break;
         case 3:
             setLincitySpeed(fast_time_for_year);
+            getGameView()->resetZoom(); // 1.0 = fastest drawing
             break;
         default:
             assert(false);
