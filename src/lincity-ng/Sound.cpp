@@ -211,11 +211,13 @@ void Sound::loadMusicTheme() {
             fullname.append( *fptr );
             filename.assign( *fptr );
 
-            if(!PHYSFS_isDirectory(fullname.c_str())){
+            if(!PHYSFS_isDirectory(fullname.c_str()) && filename[0]!='.'){
                 song tempSong;
                 tempSong.title = *fptr;
-                tempSong.filename = directory + *fptr;
+                tempSong.filename = directory + "/" + *fptr;
                 tempSong.trackNumber = totalTracks;
+                tempSong.lowestTechLevel = -10;
+                tempSong.highestTechLevel =  MAX_TECH_LEVEL;
                 playlist.push_back(tempSong);
                 std::cerr << "Found song: '" << playlist[totalTracks].title << "'\n";
                 totalTracks++;
