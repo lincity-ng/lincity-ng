@@ -70,6 +70,11 @@ public:
     {
         xmlTextReaderNext(reader);
     }
+    
+    const xmlChar* readString()
+    {
+        return xmlTextReaderReadString(reader);
+    }
 
     class AttributeIterator 
     {
@@ -136,7 +141,7 @@ public:
             throw std::runtime_error(msg.str());
         }
 
-        // Usefull for debug sometimes...
+        // Useful for debug sometimes...
 #if 0
         for(int i = 0; i < getDepth(); ++i)
             std::cout << " ";

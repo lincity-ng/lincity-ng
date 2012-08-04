@@ -315,7 +315,7 @@ MainMenu::loadOptionsMenu()
     }
     //current background track
     musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
-    musicParagraph->setText(getConfig()->playSongName);
+    musicParagraph->setText(getSound()->currentTrack.title);
 
     std::stringstream mode;
     mode << SDL_GetVideoSurface()->w << "x" << SDL_GetVideoSurface()->h;
@@ -601,49 +601,15 @@ void MainMenu::changeResolution(bool next) {
 void
 MainMenu::changeTrack( bool next)
 {
-    std::string filename;
-    std::string directory = "music/";
-    std::string fullname;
-    std::string currentname = getConfig()->playSongName;
-    std::string prevname = currentname;
-    std::string nextname = currentname;
-
-    bool hit = false;
-
-    char **files= PHYSFS_enumerateFiles(directory.c_str());
-    char **fptr=files;
-    while(*fptr)
-    {
-        fullname = directory;
-        fullname.append( *fptr );
-        filename.assign( *fptr );
-
-        if(!PHYSFS_isDirectory(fullname.c_str())){
-            if( filename == currentname ){
-                hit = true;
-            } else if ( !hit ){
-                prevname = filename;
-            } else {
-                nextname = filename;
-                break;
-            }
-        }
-        fptr++;
-    }
-    PHYSFS_freeList(files);
-
     if(next){
-        if( nextname != currentname){
-            getSound()->playSound("Click");
-            getSound()->playMusic(nextname);
-        }
+        getSound()->playSound("Click");
+        getSound()->changeTrack(NEXT_TRACK);
+    
     } else {
-        if( prevname != currentname){
-            getSound()->playSound("Click");
-            getSound()->playMusic(prevname);
-        }
+        getSound()->playSound("Click");
+        getSound()->changeTrack(PREV_TRACK);
     }
-    musicParagraph->setText(getConfig()->playSongName);
+    musicParagraph->setText(getSound()->currentTrack.title);
 }
 void
 MainMenu::quitButtonClicked(Button* )

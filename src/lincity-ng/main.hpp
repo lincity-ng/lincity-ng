@@ -24,6 +24,7 @@ enum MainState {
     MAINMENU, INGAME, QUIT, RESTART
 };
 
+
 void initVideo(int width, int height);
 void flipScreenBuffer();
 

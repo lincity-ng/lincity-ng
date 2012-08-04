@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <sstream>
 #include <stdexcept>
 #include <memory>
+#include <new>
 #include <physfs.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
@@ -177,6 +178,11 @@ void initPhysfs(const char* argv0)
     }
     //show write directory
     printf("[%s] is the write directory.\n", PHYSFS_getWriteDir());
+}
+
+void musicHalted() {
+    getSound()->changeTrack(NEXT_OR_FIRST_TRACK);
+    //FIXME: options menu song entry doesn't update while song changes.
 }
 
 void initVideo(int width, int height)
@@ -553,6 +559,10 @@ int main(int argc, char** argv)
             throw std::runtime_error(msg.str());
         }
         initVideo(getConfig()->videoX, getConfig()->videoY);
+        
+        //set a function to call when music stops
+        Mix_HookMusicFinished(musicHalted);
+        
 
         mainLoop();
 #ifndef DEBUG

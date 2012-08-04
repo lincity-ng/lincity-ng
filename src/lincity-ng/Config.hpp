@@ -46,7 +46,7 @@ public:
     int quickness;
 
     void save();
-    std::string playSongName;
+    std::string musicTheme;
 private:
     void load( const std::string& filename );
     int parseInt(const char* value, int defaultValue, int minValue = INT_MIN, 

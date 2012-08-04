@@ -21,15 +21,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <assert.h>
 #include <iostream>
+#include <vector>
 #include <sstream>
 #include <stdexcept>
+#include <math.h>
 
+#include "gui/XmlReader.hpp"
 #include "PhysfsStream/PhysfsSDL.hpp"
 
 #include <SDL_mixer.h>
 #include <physfs.h>
 #include "Config.hpp"
-
+#include "lincity/engglobs.cpp"
 
 Sound* soundPtr = 0;
 
@@ -82,6 +85,150 @@ Sound::loadWaves() {
     }
     PHYSFS_freeList(rc);
 }
+    
+ /*
+ * Load music theme from subfolder of 'music/'.
+ * If no theme files are present, load just plain playlist.
+ */
+void Sound::loadMusicTheme() {
+     
+    //TODO there should be a music directory in
+    // LINCITY_HOME
+    std::string musicDir = "music/";
+    //Reset track counter:
+    totalTracks=0;
+    playlist.clear();
+    //Get the current music theme
+    std::string theme = getConfig()->musicTheme;
+
+    //Separate folder, filename and extension:
+    std::string format = theme.substr((theme.length()-4), 4);
+    std::string folder = "";
+    std::string file = "";
+    if(format == ".xml") {
+        size_t found;
+        found = theme.find_last_of("/");
+        folder = theme.substr(0, found);
+        file = theme.substr(found+1);
+    }
+    
+    
+    theme = musicDir + theme;
+    
+    //Check if XML file is present
+    if(PHYSFS_exists(theme.c_str()) && !PHYSFS_isDirectory(theme.c_str())) {
+    
+        //XML file found, so let's parse it and use as a basis
+        //for our music theme
+        std::cerr << "File found: '" << theme << "'. Loading song data...\n";
+        
+        //TODO it should be possible to set lowest_tech_level and
+        //highest_tech_level with tags. Something like this:
+        //    <group lowest-tech-level="0" highest-tech-level="20"
+        //       <song />
+        //       <song />
+        //    </group>
+        
+        //Get the number of songs
+        XmlReader reader( theme );
+
+        while( reader.read() ) {
+            if( reader.getNodeType() == XML_READER_TYPE_ELEMENT) 
+            {
+                const std::string& element = (const char*) reader.getName();
+
+                if( element == "song" ) {
+                    XmlReader::AttributeIterator iter(reader);
+                    std::string title;
+                    std::string filename;
+                    float lowest_tech_level = 0.0;
+                    float highest_tech_level = 1000.0;
+                    
+                    while( iter.next() )
+                    {
+                        const char* name = (const char*) iter.getName();
+                        const char* value = (const char*) iter.getValue();
+
+                        if (strcmp(name, "title" ) == 0)
+                            title = value;
+                        else if (strcmp(name, "filename" ) == 0) {
+                            filename = musicDir + folder + "/" + value;
+                        }
+                        else if (strcmp(name, "highest-tech-level" ) == 0)
+                            highest_tech_level = strtod(value, NULL);
+                        else if (strcmp(name, "lowest-tech-level" ) == 0)
+                            lowest_tech_level = strtod(value, NULL);
+                    }
+                    song tempSong;
+                    tempSong.title = title;
+                    tempSong.filename = filename;
+                    tempSong.trackNumber = totalTracks;
+                    tempSong.lowestTechLevel = lowest_tech_level;
+                    if(highest_tech_level == 0)
+                        highest_tech_level = 1000.0;
+                    tempSong.highestTechLevel = highest_tech_level;
+                    
+                    playlist.push_back(tempSong);
+                    std::cerr << "Found song: '" << playlist[totalTracks].title << "'\n";
+                    totalTracks++;
+                }
+                else {
+                    std::cerr << "Config::load# Unknown element '" << element << "' in "<< theme << ".\n";
+                }
+            }
+        }
+    }
+    else {
+        std::string directory;
+        
+        if (PHYSFS_isDirectory(theme.c_str()))
+            directory = theme;
+        else if(PHYSFS_isDirectory(folder.c_str()))
+            directory = folder;
+        else
+            return;
+    
+        //No XML file found, let's just load plain song files to the playlist:
+        
+        //TODO not tested. It should work, but who knows?
+        
+        std::string filename;
+        std::string fullname;
+        std::cerr << "Loading song data from '" << directory << "'...\n";
+
+        
+        //list files in 'music/'
+        char **files= PHYSFS_enumerateFiles(directory.c_str());
+        char **fptr=files;
+
+        //reset the pointer
+        fullname = "";
+        
+        //Fill the playlist with data:
+        while(*fptr)
+        {
+            fullname = directory;
+            fullname.append( *fptr );
+            filename.assign( *fptr );
+
+            if(!PHYSFS_isDirectory(fullname.c_str())){
+                song tempSong;
+                tempSong.title = *fptr;
+                tempSong.filename = directory + *fptr;
+                tempSong.trackNumber = totalTracks;
+                playlist.push_back(tempSong);
+                std::cerr << "Found song: '" << playlist[totalTracks].title << "'\n";
+                totalTracks++;
+            }
+            fptr++;
+            
+
+        }
+        
+        PHYSFS_freeList(files);
+
+    }
+}
 
 Sound::Sound()
     : currentMusic(0)
@@ -103,10 +250,19 @@ Sound::Sound()
 
     setMusicVolume(getConfig()->musicVolume);
     setSoundVolume(getConfig()->soundVolume);
-
-    // for now...
-    //playMusic("01 - pronobozo - lincity.ogg");
-    playMusic( getConfig()->playSongName );
+    
+    totalTracks = 0;
+    loadMusicTheme();
+    
+    //'totalTracks' gets too high value in while loop. Let's fix it.
+    totalTracks = totalTracks-1;
+    
+    //Load background music.
+    //First check if there really is something in playlist to prevent crashing
+    if(!playlist.empty()) {
+        currentTrack = playlist[0];
+    }
+    playMusic();
 }
 
 Sound::~Sound()
@@ -171,34 +327,98 @@ Sound::getIdName(const std::string& filename)
     return filename.substr(0, pos);
 }
 
+/*
+ * Change backround music.
+ * Possible variables can be found from Sound.hpp: enum musicTransport
+ * Currently there are three of them: NEXT_TRACK, NEXT_OR_FIRST_TRACK, PREV_TRACK
+ * Sould be self-explanatory.
+ */
 void
-Sound::playMusic(const std::string& name)
+Sound::changeTrack(MusicTransport command)
 {
-    getConfig()->playSongName = name;
+    
+    //Something may gone wrong in the initialization:
+    if(playlist.empty())
+        return;
+    
+    switch(command) {
+        case NEXT_TRACK:
+            if (currentTrack.trackNumber+1 <= totalTracks) {
+                currentTrack=playlist[currentTrack.trackNumber+1];
+                playMusic();
+            }
+            break;
+            
+        case NEXT_OR_FIRST_TRACK:
+            if (currentTrack.trackNumber+1 <= totalTracks) {
+                currentTrack=playlist[currentTrack.trackNumber+1];
+                playMusic();
+            } else {
+                //Jump to the beginning
+                currentTrack=playlist[0];
+                playMusic();
+            }
+            break;
+            
+        case PREV_TRACK:
+            if (currentTrack.trackNumber > 0) { 
+                currentTrack=playlist[currentTrack.trackNumber-1];
+                playMusic();
+            } else {
+                //Jump to the beginning
+                currentTrack=playlist[0];
+                playMusic();
+            }
+            break;
+    }
+
+}
+
+
+void
+Sound::playMusic()
+{
     if(!audioOpen)
         return;
 
-    musicFile = name;
     if(getConfig()->musicEnabled) {
         if(currentMusic) {
             Mix_FreeMusic(currentMusic);
             currentMusic = 0;
         }
-        if(musicFile == "")
+        
+        // I don't know if the following has any meaning at all
+
+        //if(currentTrack.filename == "")
+        //   return;
+        
+        //Check if current track is allowed at this tech level
+        //This calculates the right tech_level and rounds it by one decimal.
+        float current_tech = tech_level * (float)100 / MAX_TECH_LEVEL;
+        current_tech = round(current_tech*10)/10;
+        
+        if(current_tech < currentTrack.lowestTechLevel
+            || current_tech > currentTrack.highestTechLevel) {
+            std::cerr << "Next track is " << currentTrack.title
+            << " and it's tech level prerequisites range from "
+            << currentTrack.lowestTechLevel << " to " << currentTrack.highestTechLevel << ".\n";
+            std::cerr << "Current tech level is " << current_tech << ".\n";
+            changeTrack(NEXT_OR_FIRST_TRACK);
             return;
+        }
 
         // transform filename... because the music commands in SDL_Mixer don't
         // support reading callbacks to read from physfs directly
-        std::string filename = "music/";
-        filename += name;
-        const char* dir = PHYSFS_getRealDir(filename.c_str());
+        
+        const char* dir = PHYSFS_getRealDir(currentTrack.filename.c_str());
         if(dir == 0) {
-            std::cerr << "Warning couldn't find music file '" << name << "'.\n";
+            std::cerr << "Warning couldn't find music file '" << currentTrack.filename << "'.\n";
             return;
         }
-        filename = dir;
-        filename += "/music/";
-        filename += name;
+        std::string filename = dir;
+        filename += "/";
+        filename += currentTrack.filename;
+
         
         currentMusic = Mix_LoadMUS(filename.c_str());
         if(currentMusic == 0) {
@@ -207,7 +427,7 @@ Sound::playMusic(const std::string& name)
             return;
         }
 
-        Mix_PlayMusic(currentMusic, -1);
+        Mix_PlayMusic(currentMusic, 1);
     }
 }
 
@@ -222,7 +442,7 @@ Sound::enableMusic(bool enabled)
         return;
 
     if(enabled) {
-        playMusic(musicFile);
+        playMusic();
     } else {
         if(Mix_PlayingMusic()) {
             Mix_FadeOutMusic(1000);

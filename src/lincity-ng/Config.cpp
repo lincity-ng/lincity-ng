@@ -62,7 +62,9 @@ Config::Config()
     skipMonthsFast = 1;
     quickness = 10;
 
-    playSongName = "02 - Robert van Herk - City Blues.ogg";
+    //TODO ensure that this is right, because it's
+    //critical for backwards compatibility...
+    musicTheme = "default";
     //First we load the global File which should contain
     try {
         //sane defaults for the local system.
@@ -153,8 +155,8 @@ void Config::load( const std::string& filename ){
                         soundEnabled = parseBool(value, true);
                     } else if(strcmp(name, "musicEnabled") == 0) {
                         musicEnabled = parseBool(value, true);
-                    } else if(strcmp(name, "playSongName") == 0) {
-                        playSongName = value;
+                    } else if(strcmp(name, "musicTheme") == 0) {
+                        musicTheme = value;
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
@@ -217,7 +219,7 @@ Config::save(){
         << "\" soundVolume=\"" << soundVolume << "\" \n";
     userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")  
         << "\" musicVolume=\"" << musicVolume << "\"\n";
-    userconfig << "           playSongName=\"" << playSongName << "\" />\n";
+    userconfig << "           musicTheme=\"" << musicTheme << "\" />\n";
     userconfig << "    <game quickness=\""<< quickness <<"\" />\n";
     userconfig << "</configuration>\n";
 }
