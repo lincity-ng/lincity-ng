@@ -829,8 +829,8 @@ MainMenu::run()
     SDL_Event event;
     running = true;
     quitState = QUIT;
-    Uint32 ticks = SDL_GetTicks();
-
+    Uint32 fpsTicks = SDL_GetTicks();
+    Uint32 lastticks = fpsTicks;
     int frame = 0;
     while(running) {
         while(SDL_PollEvent(&event)) {
@@ -877,7 +877,13 @@ MainMenu::run()
             }
         }
 
-        SDL_Delay(10); // give the CPU time to relax... (we are in main menu)
+        SDL_Delay(100); // give the CPU time to relax... (we are in main menu)
+
+        // create update Event
+        Uint32 ticks = SDL_GetTicks();
+        float elapsedTime = ((float) (ticks - lastticks)) / 1000.0;
+        currentMenu->event(Event(elapsedTime));
+        lastticks = ticks;
 
         if(currentMenu->needsRedraw()) {
             currentMenu->draw(*painter);
@@ -885,12 +891,12 @@ MainMenu::run()
         }
 
         frame++;
-        if(SDL_GetTicks() - ticks > 1000) {
+        if(ticks - fpsTicks > 1000) {
 #ifdef DEBUG_FPS
-            printf("MainMenu FPS: %d.\n", frame);
+            printf("MainMenu FPS: %d.\n", (frame*1000) / (ticks - fpsTicks));
 #endif
             frame = 0;
-            ticks = SDL_GetTicks();
+            fpsTicks = ticks;
         }
     }
 
