@@ -86,20 +86,18 @@
 
 			<cell row="2" col="2" halign="left">
 			<Button name="BackButton">
-				<text style="button" translatable="yes">Back</text>
-				<text-hover style="button-hover"
-				translatable="yes">Back</text-hover>
-				<text-clicked style="button-clicked"
-				translatable="yes">Back</text-clicked>
+				<text-caption style="button" translatable="yes">Back</text-caption>
+				<image src="images/mainmenu/buttons/back.png"/>
+				<image-hover src="images/mainmenu/buttons/back-hover.png"/>
+				<image-clicked src="images/mainmenu/buttons/back-clicked.png"/>
 			</Button>
 			</cell>
 			<cell row="2" col="3" halign="right">
 			<Button name="LoadButton">
-				<text style="button" translatable="yes">Load</text>
-				<text-hover style="button-hover"
-				translatable="yes">Load</text-hover>
-				<text-clicked style="button-clicked"
-				translatable="yes">Load</text-clicked>
+				<text-caption style="button" translatable="yes">Load</text-caption>
+				<image src="images/mainmenu/buttons/start.png"/>
+				<image-hover src="images/mainmenu/buttons/start-hover.png"/>
+				<image-clicked src="images/mainmenu/buttons/start-clicked.png"/>
 			</Button>
 			</cell>
 		</TableLayout>
