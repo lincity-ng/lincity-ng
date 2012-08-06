@@ -705,6 +705,10 @@ MainMenu::optionsBackButtonClicked(Button* )
 void
 MainMenu::newGameStartButtonClicked(Button* )
 {
+    if( mFilename.empty() ){
+        // std::cout << "nothing selected\n";
+        return;
+    } 
     getSound()->playSound( "Click" );
      
     if( baseName == "RandomEmpty" ){
