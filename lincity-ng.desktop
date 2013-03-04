@@ -1,13 +1,14 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Encoding=UTF-8
 Name=Lincity-NG
 GenericName=City Simulation Game
 GenericName[de]=Stadtsimulationsspiel
 Comment=Plan and build a city and take care of transport, economics, electricity and others.
-Icon=lincity-ng.png
+Comment[de]=Plane und baue eine Stadt und kümmere dich um das Verkehrswesen, die Wirtschaft, Elektrizität und mehr.
+Icon=lincity-ng
 Exec=lincity-ng
 Terminal=false
 StartupNotify=false
 Categories=Game;Simulation;
+Keywords=game;simulation;city;strategy;3D;economics;transport;buildings;
