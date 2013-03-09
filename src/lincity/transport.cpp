@@ -196,8 +196,8 @@ void general_transport(int x, int y, int max_waste)
             DC = base[yp1] = (ratio * DM) / 100;
         }
 
-        *base = tot - (LC + RC + UC + DC);
-        *base++; // loop on address of int_"i"
+        *base++ = tot - (LC + RC + UC + DC);
+        // loop on address of int_"i"
     }
 
     /*

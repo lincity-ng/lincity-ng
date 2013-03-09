@@ -764,10 +764,9 @@ static void sort_by_altitude(int n, int *tabx, int *taby)
 
 static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
 {
-    int alt_max, x, y, alt, x0, y0;
+    int x, y, alt, x0, y0;
     // start a river from point (xx, yy)
     set_river_tile(xx,yy);
-    alt_max = ALT(xx, yy);
 
     x0=xx;
     y0 = yy;
