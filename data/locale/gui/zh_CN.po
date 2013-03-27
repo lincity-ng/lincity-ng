@@ -1,0 +1,789 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: LINCITY Chinese\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Wed Dec 19 13:48:29 2007\n"
+"PO-Revision-Date: 2013-03-01 14:12-0800\n"
+"Last-Translator: Z-Localization <azaytseva@miis.edu>\n"
+"Language-Team: Z Localization <azaytseva@miis.edu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"Language: zh_CN\n"
+
+#: data/gui/minimap.xml
+msgid "$"
+msgstr "＄"
+
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "着火了"
+
+#: data/gui/shfire-uc.xml
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr "在一个贫民窟处开始着火。火势覆盖范围之内，貌似一切在可控范围之内。"
+
+#: data/gui/shfire-oc.xml
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr "在一个贫民窟处开始着火。火势无法控制，可能蔓延至其他地区。"
+
+#: data/gui/newgame.xml data/gui/loadgame.xml data/gui/credits.xml
+#: data/gui/savegame.xml
+msgid "Back"
+msgstr "后退"
+
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "背景音乐"
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "篮球场可用"
+
+#: data/gui/blacksmithup.xml
+msgid "Blacksmiths available"
+msgstr "铁匠铺可用"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "推倒一个纪念碑要花很多钱。"
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "推倒一个河段要花很多钱。"
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr "推倒一个贫民窟要花很多钱，并有火灾危险。"
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Buy"
+msgstr "购买"
+
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "选择情景"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Coal"
+msgstr "矿山"
+
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "煤电站可用"
+
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "矿山"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Coal Survey"
+msgstr "煤矿调查"
+
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "代码"
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "继续"
+
+#: data/gui/mainmenu.xml data/gui/creditslist.xml
+msgid "Credits"
+msgstr "积分"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "做煤矿调查吗？"
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "做的很好。"
+
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "经济"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "可持续的经济"
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "迁移进展顺利"
+
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
+msgid "Fire"
+msgstr "火灾"
+
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "消防站可用"
+
+#: data/gui/shfire-uc.xml data/gui/shfire-oc.xml
+msgid "Fire!"
+msgstr "着火了！"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Food"
+msgstr "食品"
+
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "全屏"
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "游戏数据"
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "回到主菜单"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Goods"
+msgstr "物品"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "图像"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "港口贸易设定"
+
+#: data/gui/healthup.xml
+msgid "Health Centres available"
+msgstr "医疗中心可用"
+
+#: data/gui/hvindustryup.xml
+msgid "Heavy Industry available"
+msgstr "重工业可用"
+
+#: data/gui/import-exportup.xml
+msgid "Import/Export available"
+msgstr "进/出口可用"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml
+msgid "Jobs"
+msgstr "工作"
+
+#: data/gui/launch-fail.xml
+msgid "Launch Failure"
+msgstr "启动失败"
+
+#: data/gui/launch-good.xml
+msgid "Launch Successfull"
+msgstr "启动成功"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "现在启动？"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "轻工业可用"
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "LinCity认为你有可持续发展的经济。"
+
+#: data/gui/mainmenu.xml data/gui/loadgame.xml
+msgid "Load"
+msgstr "加载"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "加载游戏"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "地图"
+
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "磨坊可用"
+
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "现代风车可用"
+
+#: data/gui/pbar.xml
+msgid "Money"
+msgstr "钱币"
+
+#: data/gui/newgame.xml data/gui/mainmenu.xml
+msgid "New Game"
+msgstr "新游戏"
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml data/gui/windmillup.xml
+#: data/gui/ltindustryup.xml data/gui/cricketup.xml data/gui/coalmineup.xml
+#: data/gui/coalpowerup.xml data/gui/parkup.xml data/gui/solarpowerup.xml
+#: data/gui/potteryup.xml data/gui/railwayup.xml data/gui/roadup.xml
+#: data/gui/rocketup.xml data/gui/millup.xml data/gui/healthup.xml
+#: data/gui/universityup.xml data/gui/recycleup.xml data/gui/blacksmithup.xml
+#: data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/import-exportup.xml data/gui/mod_wind_up.xml
+msgid "New Invention"
+msgstr "新发明"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/launch_rocket_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "No"
+msgstr "否"
+
+#: data/gui/no-credit-solar-power.xml data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-parkland.xml data/gui/no-credit-university.xml
+#: data/gui/no-credit-recycle.xml
+msgid "No Credit Available"
+msgstr "无积分可用"
+
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "无人屋"
+
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "不允许"
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/windmillup.xml
+#: data/gui/options.xml data/gui/ltindustryup.xml data/gui/cricketup.xml
+#: data/gui/coalmineup.xml data/gui/launch-good.xml data/gui/coalpowerup.xml
+#: data/gui/parkup.xml data/gui/solarpowerup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/allgone.xml data/gui/nobull-tip.xml
+#: data/gui/sustain.xml data/gui/roadup.xml data/gui/rocketup.xml
+#: data/gui/millup.xml data/gui/no-credit-rocket.xml data/gui/healthup.xml
+#: data/gui/no-credit-parkland.xml data/gui/shfire-uc.xml data/gui/fire.xml
+#: data/gui/universityup.xml data/gui/launch-evac.xml data/gui/recycleup.xml
+#: data/gui/no-credit-university.xml data/gui/no-credit-recycle.xml
+#: data/gui/launch-fail.xml data/gui/blacksmithup.xml
+#: data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/import-exportup.xml data/gui/launch-gone.xml
+#: data/gui/mod_wind_up.xml data/gui/warning.xml data/gui/shfire-oc.xml
+#: data/gui/too-old.xml
+msgid "Ok"
+msgstr "可以"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "好的"
+
+#: data/gui/mainmenu.xml data/gui/options.xml
+msgid "Options"
+msgstr "选择"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Ore"
+msgstr "矿石"
+
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "原创想法和代码"
+
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "停车场可用"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "暂停游戏"
+
+#: data/gui/pbar.xml
+msgid "Population"
+msgstr "人口"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "陶器厂可用"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "按此按钮显示数据"
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Product"
+msgstr "产出"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "退出"
+
+#: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "铁路可用"
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "回收中心可用"
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "河流可用"
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "道路可用"
+
+#: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "火箭发射台可用"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket Ready"
+msgstr "火箭已准备好"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket ready to launch"
+msgstr "火箭准备发射"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "高速运行模拟器"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "常速运行模拟器"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "超高速运行模拟器"
+
+#: data/gui/mainmenu.xml
+msgid "Save"
+msgstr "保存"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "保存游戏"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "学校可用"
+
+#: data/gui/coalmineup.xml
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr "查看帮助屏幕了解更多煤矿和煤炭调查信息。"
+
+#: data/gui/riverup.xml data/gui/hvindustryup.xml data/gui/windmillup.xml
+#: data/gui/ltindustryup.xml data/gui/cricketup.xml data/gui/coalpowerup.xml
+#: data/gui/parkup.xml data/gui/solarpowerup.xml data/gui/potteryup.xml
+#: data/gui/railwayup.xml data/gui/rocketup.xml data/gui/millup.xml
+#: data/gui/healthup.xml data/gui/universityup.xml data/gui/recycleup.xml
+#: data/gui/blacksmithup.xml data/gui/firestationup.xml data/gui/schoolup.xml
+#: data/gui/mod_wind_up.xml
+msgid "See the help screen for more information."
+msgstr "查看帮助屏幕了解更多信息。"
+
+#: data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Sell"
+msgstr "卖出"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "派遣勘探者"
+
+#: data/gui/minimap.xml
+msgid "Show Income and Expenses. Click this tab again to cycle through views."
+msgstr "显示收入和支出。再次单击此标签转换视图。"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "显示矿藏"
+
+#: data/gui/minimap.xml
+msgid "Show economy graphs."
+msgstr "显示经济图表。"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show fire department cover"
+msgstr "显示消防站覆盖"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show map outline"
+msgstr "显示概要地图"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show medical care"
+msgstr "显示医疗中心"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show nourishments"
+msgstr "显示食物"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show pollution density"
+msgstr "显示污染程度"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show power supply"
+msgstr "显示能源供给"
+
+#: data/gui/minimap.xml
+msgid "Show resources."
+msgstr "显示资源"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show sport cover"
+msgstr "显示运动场覆盖"
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "显示迷你地图"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show traffic density"
+msgstr "显示交通密集程度"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show unemployment"
+msgstr "显示失业情况"
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "太阳能发电站可用"
+
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "对不起，您不能推倒垃圾场。"
+
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr "对不起，您想要的游戏是太久之前的。无法加载。仍然继续之前游戏。"
+
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "音效"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "音效和音乐"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "开始"
+
+#: data/gui/newgame.xml
+msgid "Start with empty board."
+msgstr "在空地开始。"
+
+#: data/gui/newgame.xml
+msgid "Start with random village."
+msgstr "在任意村庄开始。"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "数据"
+
+#: data/gui/pbar.xml data/gui/tradedialog.xml data/gui/portdialog.xml
+msgid "Steel"
+msgstr "钢铁"
+
+#: data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "科技程度"
+
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "这个城市里没有人了。"
+
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr "您将一次花费一百万。之后您可以免费再打。"
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "全部转移完成。"
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "贸易设定"
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "翻译"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "大学可用"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Want to bulldoze?"
+msgstr "使用推土机？"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml data/gui/warning.xml data/gui/too-old.xml
+msgid "Warning"
+msgstr "警告"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "警告：推倒纪念碑很贵"
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "警告：推倒贫民窟很危险。"
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "警告：推倒水源很贵"
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "做的好，您已转移了所有人。"
+
+#: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "风车可用"
+
+#: data/gui/bulldoze_monument_yn.xml data/gui/launch_rocket_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/coal_survey_yn.xml
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Yes"
+msgstr "是"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "您最好去找找看"
+
+#: data/gui/launch_rocket_yn.xml
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"您可以现在发射火箭或之后再说。如果您想要继续花钱维护火箭准备状态。单击火箭区"
+"域，之后发射。"
+
+#: data/gui/import-exportup.xml
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"您可以进出口煤炭，商品，矿石和钢铁。阅读这些物品的帮助页面，了解如何使用。"
+
+#: data/gui/no-credit-parkland.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build parks on credit."
+msgstr "您有预算赤字。法律部门不会允许您用积分建停车场。"
+
+#: data/gui/no-credit-recycle.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build recycling centres on credit."
+msgstr "您有预算赤字。法律部门不会允许您用积分建回收中心。"
+
+#: data/gui/no-credit-rocket.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build rocket launch pads on credit."
+msgstr "您有预算赤字。法律部门不会允许您用积分建火箭发射台。"
+
+#: data/gui/no-credit-solar-power.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build solar power stations on credit."
+msgstr "您有预算赤字。法律部门不会允许您用积分建太阳能发电站。"
+
+#: data/gui/no-credit-university.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build universities on credit."
+msgstr "您有预算赤字。法律部门不会允许您用积分建大学。"
+
+#: data/gui/launch-evac.xml
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr "您已转移1000人。您应缩小经济规模以反映人口减少。"
+
+#: data/gui/blacksmithup.xml
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr "您的科技程度已经允许建造铁匠铺。铁匠铺用工作和钢铁制造物品。"
+
+#: data/gui/coalpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr "您的科技程度已经允许建造煤炭发电站。"
+
+#: data/gui/firestationup.xml
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"您的科技程度已经允许建造消防站。消防站可以防止大部分火灾发生。如果您没遇到过"
+"火灾，可能不会需要他们。"
+
+#: data/gui/healthup.xml
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"您的科技程度已经允许建造医疗中心。医疗中心可以帮助人口因污染问题而减少，并提"
+"高综合生产力。"
+
+#: data/gui/hvindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr "您的科技程度已经允许建造重工业（钢铁厂）。重工业生产钢铁。"
+
+#: data/gui/ltindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr "您的科技程度已经允许建造轻工业。轻工业生产物品。"
+
+#: data/gui/millup.xml
+msgid ""
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr ""
+"您的科技程度已经允许建造磨坊。磨坊用工作和食物制造物品。小心，他们会用掉很多"
+"食物！"
+
+#: data/gui/mod_wind_up.xml
+msgid ""
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
+msgstr "您的科技程度已经允许建造现代，更高效的风车。"
+
+#: data/gui/parkup.xml
+msgid ""
+"You have reached the tech level which enables you to build parks. Parks are "
+"used to absorb pollution. "
+msgstr "您的科技程度已经允许建造公园。公园用来吸收污染。"
+
+#: data/gui/potteryup.xml
+msgid ""
+"You have reached the tech level which enables you to build potteries. "
+"Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr ""
+"您的科技程度已经允许建造陶器厂。陶器厂用工作和矿石制造物品。（您需要有矿山来"
+"获得矿石）"
+
+#: data/gui/railwayup.xml
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr "您的科技程度已经允许建造铁路。"
+
+#: data/gui/riverup.xml
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr "您的科技程度已经允许建造河流。"
+
+#: data/gui/roadup.xml
+msgid ""
+"You have reached the tech level which enables you to build roads. See the "
+"help screen for more information."
+msgstr "您的科技程度已经允许建造道路。查看帮助屏幕了解更多信息。"
+
+#: data/gui/rocketup.xml
+msgid ""
+"You have reached the tech level which enables you to build rocket launch "
+"pads. Rockets enable you to evacuate your population and is a way to 'win' "
+"the game."
+msgstr ""
+"您的科技程度已经允许建造火箭发射台。火箭可以帮助转移人口，并取得游戏胜利。"
+
+#: data/gui/schoolup.xml
+msgid ""
+"You have reached the tech level which enables you to build schools. Schools "
+"use jobs and goods to increase tech level. "
+msgstr "您的科技程度已经允许建造学校。学校用工作和物品来提高科技程度。"
+
+#: data/gui/solarpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build solar power "
+"stations. "
+msgstr "您的科技程度已经允许建造太阳能发电站。"
+
+#: data/gui/universityup.xml
+msgid ""
+"You have reached the tech level which enables you to build universities. "
+"Universities produces PhDs, which produce more technology. "
+msgstr "您的科技程度已经允许建造大学。大学培养博士，他们带来更多科技。"
+
+#: data/gui/windmillup.xml
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr "您的科技程度已经允许建造风车。"
+
+#: data/gui/coalmineup.xml
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr "您的科技程度已经允许建造煤矿。"
+
+#: data/gui/recycleup.xml
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr "您的科技程度已经允许建造回收中心。回收中心回收旧物到矿山。"
+
+#: data/gui/sustain.xml data/gui/launch-gone.xml
+msgid "You have won the game."
+msgstr "您已取得胜利。"
+
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "您可以在其他地方开始新的事业。"
+
+#: data/gui/cricketup.xml
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
+msgstr ""
+"您的人们已发明篮球。篮球场需要一些工作和物品，并让附近（大概方圆十个单位）的"
+"人们更加快乐。"
+
+#: data/gui/launch-fail.xml
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"您的火箭在发射不久后坠地。转移之后的人们不再相信科技。您必须发射五个以上无人"
+"火箭来重建信心。"
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr "[+] 放大可看到更多细节和更少的建筑"
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] 缩小"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "[F1] 按此按钮获得帮助"
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] 隐藏高楼。"
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] 在迷你地图叠加模式间转换。"
+
+#: data/gui/savegame.xml
+msgid "save to selected slot"
+msgstr "保存至所选位置"
