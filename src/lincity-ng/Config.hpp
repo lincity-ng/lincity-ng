@@ -45,8 +45,10 @@ public:
     // how fast is fast_time_for_year
     int quickness;
 
-    void save();
+    std::string language;
     std::string musicTheme;
+
+    void save();
 private:
     void load( const std::string& filename );
     int parseInt(const char* value, int defaultValue, int minValue = INT_MIN, 

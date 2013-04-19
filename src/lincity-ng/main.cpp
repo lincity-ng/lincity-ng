@@ -522,6 +522,10 @@ int main(int argc, char** argv)
         std::cout << "Starting " << PACKAGE_NAME << " (version " << PACKAGE_VERSION << ") in Debug Mode...\n";
 #endif
         initPhysfs(argv[0]);
+
+        if( getConfig()->language != "autodetect" ){
+            setenv("LINCITY_LANG", getConfig()->language.c_str(), false);
+        }
         dictionaryManager = new tinygettext::DictionaryManager();
         dictionaryManager->set_charset("UTF-8");
         dictionaryManager->add_directory("locale");
@@ -536,7 +540,7 @@ int main(int argc, char** argv)
         return 1;
     }
 #endif
-    parseCommandLine(argc, argv); // Do not use getConfig() before parseCommandLine.
+    parseCommandLine(argc, argv); // Do not use getConfig() before parseCommandLine for anything command line might change.
 
     fast_time_for_year = getConfig()->quickness;
     fprintf(stderr," fast = %i\n", fast_time_for_year);

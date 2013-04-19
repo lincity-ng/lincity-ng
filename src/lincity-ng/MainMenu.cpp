@@ -54,6 +54,8 @@ extern void new_desert_city(int *originx, int *originy, int random_village);
 extern void new_temperate_city(int *originx, int *originy, int random_village);
 extern void new_swamp_city(int *originx, int *originy, int random_village);
 
+extern std::string autoLanguage;
+
 MainMenu::MainMenu()
 {
     loadMainMenu();
@@ -293,6 +295,10 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "ResolutionNext");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "LanguagePrev");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
 
         Button* currentButton = getButton(*optionsMenu, "BackButton");
         currentButton->clicked.connect( makeCallback(*this, &MainMenu::optionsBackButtonClicked));
@@ -320,6 +326,13 @@ MainMenu::loadOptionsMenu()
     std::stringstream mode;
     mode << SDL_GetVideoSurface()->w << "x" << SDL_GetVideoSurface()->h;
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
+
+    languageParagraph = getParagraph( *optionsMenu, "languageParagraph");
+    currentLanguage = getConfig()->language;
+    languageParagraph->setText( getConfig()->language );
+    languages = dictionaryManager->get_languages();
+    languages.insert( "autodetect" );
+    languages.insert( "en" ); // English is the default when no translation is used
 
     optionsMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
@@ -517,6 +530,10 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeResolution(false);
     } else if( buttonName == "ResolutionNext"){
         changeResolution(true);
+    } else if( buttonName == "LanguagePrev"){
+        changeLanguage(false);
+    } else if( buttonName == "LanguageNext"){
+        changeLanguage(true);
     } else if( buttonName == "Fullscreen"){
         getSound()->playSound("Click");
         getConfig()->useFullScreen = !getConfig()->useFullScreen;
@@ -611,6 +628,29 @@ MainMenu::changeTrack( bool next)
     }
     musicParagraph->setText(getSound()->currentTrack.title);
 }
+
+void
+MainMenu::changeLanguage( bool next)
+{
+    std::set<std::string>::iterator i = languages.find( getConfig()->language );
+    if( next ){ // next language in set
+        i++;
+        if( i == languages.end() ){
+            i = languages.begin();
+        }
+    } else { // previous
+        if( i == languages.begin() ){
+            i = languages.end();
+        } 
+        i--;
+    }
+
+    std::string newLang = *i;
+    languageParagraph->setText( newLang );
+    getConfig()->language = newLang;
+    getSound()->playSound("Click");
+}
+
 void
 MainMenu::quitButtonClicked(Button* )
 {
@@ -694,6 +734,10 @@ MainMenu::optionsBackButtonClicked(Button* )
             initVideo(getConfig()->videoX, getConfig()->videoY);
             gotoMainMenu();
         }
+    } else if( currentLanguage != getConfig()->language ) {
+        unsetenv("LINCITY_LANG");
+        quitState = RESTART;
+        running = false;
     } else {
         gotoMainMenu();
     }

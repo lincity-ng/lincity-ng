@@ -97,6 +97,11 @@ private:
 
     void changeResolution( bool next);
 
+    Paragraph* languageParagraph;
+    void changeLanguage( bool next);
+    std::string currentLanguage;
+    std::set<std::string> languages;
+
     std::map<std::string, std::string> fileMap;
 };
 

@@ -65,6 +65,9 @@ Config::Config()
     //TODO ensure that this is right, because it's
     //critical for backwards compatibility...
     musicTheme = "default";
+
+    language = "autodetect";
+
     //First we load the global File which should contain
     try {
         //sane defaults for the local system.
@@ -174,6 +177,8 @@ void Config::load( const std::string& filename ){
                        monthgraphH  = parseInt(value, 64, 0);
                     } else if( strcmp(name, "quickness" ) == 0 ){
                         quickness = parseInt(value, 2, 1, 100);
+                    } else if( strcmp(name, "language" ) == 0 ){
+                        language = value;
                     } else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
@@ -220,7 +225,8 @@ Config::save(){
     userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")  
         << "\" musicVolume=\"" << musicVolume << "\"\n";
     userconfig << "           musicTheme=\"" << musicTheme << "\" />\n";
-    userconfig << "    <game quickness=\""<< quickness <<"\" />\n";
+    userconfig << "    <game quickness=\""<< quickness <<"\" "
+        << "language=\"" << language << "\" " << "/>\n";
     userconfig << "</configuration>\n";
 }
 
