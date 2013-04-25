@@ -3,19 +3,755 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
+
+#include "lintypes.h"
+#include "ConstructionManager.h"
+#include "ConstructionCount.h"
+
 #include <string.h>             /* XXX: portability issue?  for strcpy */
 #include "lcconfig.h"
 #include "lin-city.h"
+#include "engine.h"
 #include "engglobs.h"
 #include "lctypes.h"
-#include "lintypes.h"
 #include "tinygettext/gettext.hpp"
 #include "fileutil.h"
 #include "gui_interface/readpng.h"
 #include "loadsave.h"
+#include "xmlloadsave.h"
 #include "all_buildings.h"
 #include "transport.h"
 #include "modules/all_modules.h"
+//#include "power.h"
+#include <iostream>
+
+//Ground Declarations
+
+Ground::Ground()
+{
+    altitude = 0;
+    ecotable = 0;
+    wastes = 0;
+    pollution = 0;
+    water_alt = 0;
+    water_wast = 0;
+    water_next = 0;
+    int1 = 0;
+    int2 = 0;
+    int3 = 0;
+    int4 = 0;
+}
+
+Ground::~Ground() {}
+
+//MapTile Declarations
+//may be used for Terrain types only. returns silently for constructions
+
+MapTile::MapTile():ground()
+{
+    //ground = Ground();
+    construction = NULL;
+    reportingConstruction = NULL;
+    flags = 0;
+    type = 0;
+    group = 0;
+    pollution = 0;
+    ore_reserve = 0;
+    coal_reserve = 0;
+}
+
+MapTile::~MapTile()
+{
+    if (construction)
+    {
+        ::constructionCount.remove_construction(construction);
+        delete(construction);
+        construction = NULL;
+        // CK devalidates other mapTiles reportingConstructions
+        // should not be a problem outside running Game
+    }
+}
+
+void MapTile::setTerrain(unsigned short new_type)
+{
+    int new_group;
+    if ((new_group = get_group_of_type(new_type)) < 0)
+        return;
+    if (ConstructionGroup::countConstructionGroup(new_group))
+        return;
+    this->type = new_type;
+    this->group = new_group;
+}
+
+
+unsigned short MapTile::getType() //type of bare land or the covering construction
+{
+        return (reportingConstruction ? reportingConstruction->type : type);
+}
+
+unsigned short MapTile::getTopType() //type of bare land or the actual construction
+{
+        return (construction ? construction->type : type);
+}
+
+unsigned short MapTile::getGroup() //group of bare land or the covering construction
+{
+        return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);
+}
+
+unsigned short MapTile::getTopGroup() //group of bare land or the actual construction
+{
+        return (construction ? construction->constructionGroup->group : group);
+}
+
+bool MapTile::is_bare() //true if we there is neither a covering construction nor water
+{
+    return (!reportingConstruction) && (get_group_of_type(type) != GROUP_WATER);
+}
+
+bool MapTile::is_water() //true on bridges or lakes (also under bridges)
+{
+    return (group == GROUP_WATER);
+}
+
+bool MapTile::is_lake() //true on lakes (also under bridges)
+{
+    return (group == GROUP_WATER) && !(flags & FLAG_IS_RIVER);
+}
+
+bool MapTile::is_river() // true on rivers (also under bridges)
+{
+    return (flags & FLAG_IS_RIVER);
+}
+
+bool MapTile::is_visible() // true if tile is not covered by another construction. Only useful for minimap Gameview is rotated to upperleft
+{
+    return (construction || !reportingConstruction);
+}
+
+bool MapTile::is_transport() //true on tracks, road, rails and bridges
+{
+    return (reportingConstruction && reportingConstruction->flags & FLAG_IS_TRANSPORT);
+}
+
+bool MapTile::is_residence() //true on residences
+{
+    return (reportingConstruction && (
+        (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_LL)
+     || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_ML)
+     || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_HL)
+     || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_LH)
+     || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_MH)
+     || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_HH)
+                                    )
+           );
+}
+
+void MapTile::writeTemplate()
+{
+    std::string xml_tag;
+    if ((!binary_mode && xml_template_libary.count("tile") == 0)
+		|| (binary_mode && bin_template_libary.count(GROUP_DESERT) == 0) )
+    {
+        
+        XMLTemplate * xml_tmp = new XMLTemplate("tile");
+        //xml_tmp->add_len(sizeof(group));//for the head
+        if (!binary_mode)
+        {
+			xml_tmp->putTag("group");
+			xml_tmp->add_len(sizeof(group));
+			xml_tmp->putTag("type");
+			xml_tmp->add_len(sizeof(type));
+			xml_tmp->putTag("map_x");
+			xml_tmp->add_len(sizeof(int));//has to match local var in saveMembers 
+			xml_tmp->putTag("map_y");
+			xml_tmp->add_len(sizeof(int));//has to match local var in saveMembers
+		}
+        xml_tmp->putTag("flags");
+        xml_tmp->add_len(sizeof(flags));         
+        xml_tmp->putTag("air_pol");
+        xml_tmp->add_len(sizeof(pollution));
+        xml_tmp->putTag("ore");
+        xml_tmp->add_len(sizeof(ore_reserve));
+        xml_tmp->putTag("coal");
+        xml_tmp->add_len(sizeof(coal_reserve));
+        xml_tmp->putTag("altitude");
+        xml_tmp->add_len(sizeof(ground.altitude));
+        xml_tmp->putTag("ecotable");
+        xml_tmp->add_len(sizeof(ground.ecotable));
+        xml_tmp->putTag("wastes");
+        xml_tmp->add_len(sizeof(ground.wastes));
+        xml_tmp->putTag("grd_pol");
+        xml_tmp->add_len(sizeof(ground.pollution));
+        xml_tmp->putTag("water_alt");
+        xml_tmp->add_len(sizeof(ground.water_alt));
+        xml_tmp->putTag("water_pol");
+        xml_tmp->add_len(sizeof(ground.water_pol));
+        xml_tmp->putTag("water_next");
+        xml_tmp->add_len(sizeof(ground.water_next));
+        xml_tmp->putTag("int1");
+        xml_tmp->add_len(sizeof(ground.int1));
+        xml_tmp->putTag("int2");
+        xml_tmp->add_len(sizeof(ground.int2));
+        xml_tmp->putTag("int3");
+        xml_tmp->add_len(sizeof(ground.int3));
+        xml_tmp->putTag("int4");
+        xml_tmp->add_len(sizeof(ground.int4));
+        if (binary_mode)
+        {	xml_tmp->set_group(GROUP_DESERT);}
+    }
+}
+
+
+void MapTile::saveMembers(std::ostream *os)
+{
+    int x = world.map_x(this);
+    int y = world.map_y(this);
+    unsigned short head = GROUP_DESERT;
+    size_t cm = 0;
+    std::string xml_tag;
+     if ((!binary_mode && xml_template_libary.count("tile") == 0)
+		|| (binary_mode && bin_template_libary.count(head) == 0) )
+    {
+        writeTemplate();
+        //std::cout << "creating xml template for tile" << std::endl;
+    }
+    XMLTemplate * xml_tmp; 
+    if (binary_mode)
+    {	xml_tmp = bin_template_libary[head];}
+    else 
+    {
+		xml_tmp = xml_template_libary["tile"];
+		if (os == &std::cout)
+		{	xml_tmp->report(os);}
+    }
+    xml_tmp->rewind();
+    //TODO send template definition to console
+    if (os == &std::cout);
+    
+    
+    if (!binary_mode)
+    {
+		*os << "<tile>";
+		os->flush();
+		while (!xml_tmp->reached_end())
+		{
+			xml_tag = xml_tmp->getTag();
+			if (xml_tag == "map_x")                  {*os << x;}
+			else if (xml_tag == "map_y")             {*os << y;}
+			//mapTile
+			else if (xml_tag == "flags")             {*os << flags;}
+			else if (xml_tag == "type")              {*os << type;}
+			else if (xml_tag == "group")             {*os << group;}
+			else if (xml_tag == "air_pol")           {*os << pollution;}
+			else if (xml_tag == "ore")               {*os << ore_reserve;}
+			else if (xml_tag == "coal")              {*os << coal_reserve;}
+			//ground
+			else if (xml_tag == "altitude")          {*os << ground.altitude;}
+			else if (xml_tag == "ecotable")          {*os << ground.ecotable;}
+			else if (xml_tag == "wastes")            {*os << ground.wastes;}
+			else if (xml_tag == "grd_pol")           {*os << ground.pollution;}
+			else if (xml_tag == "water_alt")         {*os << ground.water_alt;}
+			else if (xml_tag == "water_pol")         {*os << ground.water_pol;}
+			else if (xml_tag == "water_wast")        {*os << ground.water_wast;}
+			else if (xml_tag == "water_next")        {*os << ground.water_next;}
+			else if (xml_tag == "int1")              {*os << ground.int1;}
+			else if (xml_tag == "int2")              {*os << ground.int2;}
+			else if (xml_tag == "int3")              {*os << ground.int3;}
+			else if (xml_tag == "int4")              {*os << ground.int4;}
+			else
+			{
+				std::cout<<"Unknown Template entry "<< xml_tag << " while exporting <MapTile>"<<std::endl;
+			}
+
+			*os << '\t';
+			os->flush();
+			xml_tmp->step();
+		}
+		*os << "</tile>" << std::endl;
+	}
+	else
+	{					
+		int idx = x + y * world.len();
+		os->write( (char*)&head,sizeof(head)); //Head aka GROUP_DESERT
+		os->write( (char*)&group,sizeof(group));
+		os->write( (char*)&type,sizeof(type));
+		os->write( (char*)&idx,sizeof(idx));
+		
+		while (!xml_tmp->reached_end())		
+		{
+			xml_tag = xml_tmp->getTag();
+			xml_tmp->step();
+			//mapTile
+			if (xml_tag == "flags")             	 {os->write( (char*)&flags,sizeof(flags));cm+=sizeof(flags);}
+			else if (xml_tag == "air_pol")           {os->write( (char*)&pollution,sizeof(pollution));cm+=sizeof(pollution);}
+			else if (xml_tag == "ore")               {os->write( (char*)&ore_reserve,sizeof(ore_reserve));cm+=sizeof(ore_reserve);}
+			else if (xml_tag == "coal")              {os->write( (char*)&coal_reserve,sizeof(coal_reserve));cm+=sizeof(coal_reserve);}
+			//ground
+			else if (xml_tag == "altitude")          {os->write( (char*)&ground.altitude,sizeof(ground.altitude));cm+=sizeof(ground.altitude);} 
+			else if (xml_tag == "ecotable")          {os->write( (char*)&ground.ecotable,sizeof(ground.ecotable));cm+=sizeof(ground.ecotable);} 
+			else if (xml_tag == "wastes")            {os->write( (char*)&ground.wastes,sizeof(ground.wastes));cm+=sizeof(ground.wastes);} 
+			else if (xml_tag == "grd_pol")           {os->write( (char*)&ground.pollution,sizeof(ground.pollution));cm+=sizeof(ground.pollution);} 
+			else if (xml_tag == "water_alt")         {os->write( (char*)&ground.water_alt,sizeof(ground.water_alt));cm+=sizeof(ground.water_alt);}
+			else if (xml_tag == "water_pol")         {os->write( (char*)&ground.water_pol,sizeof(ground.water_pol));cm+=sizeof(ground.water_pol);}
+			else if (xml_tag == "water_wast")        {os->write( (char*)&ground.water_wast,sizeof(ground.water_wast));cm+=sizeof(ground.water_wast);}
+			else if (xml_tag == "water_next")        {os->write( (char*)&ground.water_next,sizeof(ground.water_next));cm+=sizeof(ground.water_next);}
+			else if (xml_tag == "int1")              {os->write( (char*)&ground.int1,sizeof(ground.int1));cm+=sizeof(ground.int1);} 
+			else if (xml_tag == "int2")              {os->write( (char*)&ground.int2,sizeof(ground.int2));cm+=sizeof(ground.int2);}
+			else if (xml_tag == "int3")              {os->write( (char*)&ground.int3,sizeof(ground.int3));cm+=sizeof(ground.int3);}
+			else if (xml_tag == "int4")              {os->write( (char*)&ground.int4,sizeof(ground.int4));cm+=sizeof(ground.int4);}
+			else
+			{
+				std::cout<<"Unknown Template entry "<< xml_tag << " while exporting <MapTile>"<<std::endl;
+			}			
+		}
+		//std::cout << "cm/len: " << cm << "/" << xml_tmp->len() << std::endl;
+		assert(cm == xml_tmp->len());		
+	}
+}
+
+
+//Construction Declarations
+
+//FIXME How to incorporate this into construction?
+const char *commodityNames[] =
+    {
+    "Food",
+    "Jobs",
+    "Coal",
+    "Goods",
+    "Ore",
+    "Steel",
+    "Waste",
+    "kWh",
+    "MWh",
+    "Water",
+    "Unknown",
+    "Unknown",
+    "Unknown",
+    };
+
+void Construction::list_commodities(int * i)
+{
+    /*
+        Lists all current commodities of a construction in MPS area
+        Groups commodities by incomming, outgoing, twoway and inactive
+    */
+
+    std::map<Construction::Commodities, int>::iterator stuff_it;
+    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    {
+        if(constructionGroup->commodityRuleCount[stuff_it->first].take
+        && ! constructionGroup->commodityRuleCount[stuff_it->first].give
+        && *i < 14)
+        {
+            mps_store_ssddp(*i,"-->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+            ++*i;
+        }//endif
+    } //endfor
+    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    {
+        if(constructionGroup->commodityRuleCount[stuff_it->first].give
+        && ! constructionGroup->commodityRuleCount[stuff_it->first].take
+        && *i<14)
+        {
+            mps_store_ssddp(*i,"<--",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+            ++*i;
+        }//endif
+    }//endfor
+    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    {
+        if(constructionGroup->commodityRuleCount[stuff_it->first].give
+        && constructionGroup->commodityRuleCount[stuff_it->first].take
+        && *i<14)
+        {
+            mps_store_ssddp(*i,"<->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+            ++*i;
+        }//endif
+    }//endfor
+    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    {
+        if(!constructionGroup->commodityRuleCount[stuff_it->first].give
+        && !constructionGroup->commodityRuleCount[stuff_it->first].take
+        && *i<14)
+        {
+            mps_store_ssddp(*i,"---",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+            ++*i;
+        }//endif
+    }//endfor
+}
+
+void Construction::initialize_commodities(void)
+{
+    std::map<Commodities,CommodityRule>::iterator stuff_it;
+    for(stuff_it = constructionGroup->commodityRuleCount.begin() ; stuff_it != constructionGroup->commodityRuleCount.end() ; stuff_it++)
+    {
+        commodityCount[stuff_it->first] = 0;
+        setMemberSaved(&commodityCount[stuff_it->first], commodityNames[stuff_it->first]);
+    }
+}
+
+void Construction::report_commodities(void)
+{
+    std::map<Commodities, int>::iterator stuff_it;
+    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    {
+        tstat_census[stuff_it->first] += stuff_it->second;
+        tstat_capacities[stuff_it->first] += constructionGroup->commodityRuleCount[stuff_it->first].maxload;
+    }
+
+}
+
+void Construction::setCommodityRulesSaved(std::map<Commodities,CommodityRule> * stuffRuleCount)
+{
+    std::map<Commodities,CommodityRule>::iterator stuff_it;
+    std::string giveStr = "give_";
+    std::string takeStr = "take_";
+    for( stuff_it = stuffRuleCount->begin() ; stuff_it != stuffRuleCount->end() ; stuff_it++)
+    {
+        setMemberSaved(&(stuff_it->second.give), giveStr + commodityNames[stuff_it->first]);
+        setMemberSaved(&(stuff_it->second.take), takeStr + commodityNames[stuff_it->first]);
+    }
+}
+
+
+void Construction::list_connections(int * i)
+{
+    char p[] = {'_','_','_','_' ,'\0'};
+    if (flags & FLAG_LEFT)
+        p[0] = 'l';
+    if (flags & FLAG_UP)
+        p[1] = 'u';
+    if (flags & FLAG_RIGHT)
+        p[2] = 'r';
+    if (flags & FLAG_DOWN)
+        p[3] = 'd';
+    if (*i<14)
+    {
+        mps_store_ss(*i,"Connected to", p);
+    }
+}
+
+int Construction::loadMember(std::string const &xml_tag, std::string const &xml_val)
+{
+    std::istringstream iss;
+    iss.str(xml_val);
+    if(memberRuleCount.count(xml_tag))
+    {
+        switch (memberRuleCount[xml_tag].memberType)
+        {
+            case TYPE_BOOL:
+                iss>>*static_cast<bool *>(memberRuleCount[xml_tag].ptr);
+                break;
+            case TYPE_INT:
+                iss>>*static_cast<int *>(memberRuleCount[xml_tag].ptr);
+                break;
+            case TYPE_USHORT:
+                iss>>*static_cast<unsigned short *>(memberRuleCount[xml_tag].ptr);
+                break;
+             case TYPE_DOUBLE:
+                iss>>*static_cast<double *>(memberRuleCount[xml_tag].ptr);
+                break;
+			case TYPE_FLOAT:
+                iss>>*static_cast<float *>(memberRuleCount[xml_tag].ptr);
+                break;
+        }
+        return 1;
+    }
+    else
+    {
+        //return silently in case of non optional xml tags
+        return 0;
+    }
+}
+
+int Construction::readbinaryMember(std::string const &xml_tag, gzFile fp)
+{   
+    size_t s_t = 0;
+//    if(memberRuleCount.count(xml_tag))
+//    {
+        switch (memberRuleCount[xml_tag].memberType)
+        {
+            case TYPE_BOOL:
+                s_t = sizeof(bool);
+                break;
+            case TYPE_INT:
+                s_t = sizeof(int);
+                break;
+            case TYPE_USHORT:
+                 s_t = sizeof(short);
+                break;
+             case TYPE_DOUBLE:
+                 s_t = sizeof(double);
+                break;
+			case TYPE_FLOAT:
+                 s_t = sizeof(float);
+                break;
+        }
+        gzread(fp,(char*)(memberRuleCount[xml_tag].ptr),s_t);
+        return s_t;
+/*    }
+    else
+    {
+        assert(false);
+        return 0;
+    }
+*/
+}
+
+void Construction::writeTemplate()
+{
+    std::map<std::string, MemberRule>::iterator member_it;
+    std::string name;
+    XMLTemplate * xml_tmp;
+    unsigned short head = constructionGroup->group;
+    if (flags&FLAG_IS_TRANSPORT)
+    {
+        name = "Transport";
+        head = GROUP_TRACK;
+    }
+    else
+    {
+        name = constructionGroup->name;
+    }
+
+    if ((!binary_mode && xml_template_libary.count(name) == 0)||
+		(binary_mode && bin_template_libary.count(head) == 0))
+    {
+        xml_tmp = new XMLTemplate(name);      
+		if (!binary_mode)
+		{	
+			xml_tmp->putTag("Group");
+			xml_tmp->putTag("type");
+			xml_tmp->putTag("map_x");
+			xml_tmp->putTag("map_y");		
+		}
+						
+		//xml_tmp->add_len(sizeof(constructionGroup->group) + sizeof(type) + sizeof(x));	//header + group entry
+		
+        for(member_it = memberRuleCount.begin() ; member_it != memberRuleCount.end() ; member_it++)
+        {
+            xml_tmp->putTag(member_it->first);
+            size_t s_t = 4;
+			switch (member_it->second.memberType)
+			{
+				case TYPE_BOOL:
+					s_t = sizeof(bool);
+					break;
+				case TYPE_INT:
+					s_t = sizeof(int);
+					break;
+				case TYPE_USHORT:
+					s_t = sizeof(unsigned short);
+					break;
+				case TYPE_DOUBLE:
+					s_t = sizeof(double);
+					break;
+				case TYPE_FLOAT:
+					s_t = sizeof(float);
+					break;
+			}			
+            xml_tmp->add_len(s_t);
+        }
+        xml_tmp->rewind();
+        if (binary_mode)
+		{	
+			xml_tmp->set_group(head);
+		}
+    }
+}
+
+void Construction::saveMembers(std::ostream *os)
+{
+    
+    std::string name;
+    unsigned short head = constructionGroup->group;
+    if (flags&FLAG_IS_TRANSPORT)
+    {
+        name = "Transport";
+        head = GROUP_TRACK;
+    }
+    else
+    {
+        name = constructionGroup->name;
+    }
+
+    if ((!binary_mode && xml_template_libary.count(name) == 0)||
+		(binary_mode && bin_template_libary.count(head) == 0))
+    {
+        //std::cout << "creating xml template for " << name << std::endl;
+        writeTemplate();
+    }
+    XMLTemplate * xml_tmp;
+    
+    if (binary_mode)
+    {	xml_tmp = bin_template_libary[head];}
+	else
+	{	
+		xml_tmp = xml_template_libary[name];
+		if (os == &std::cout)
+		{	xml_tmp->report(os);}	
+	}
+    xml_tmp->rewind(); 
+    size_t checksum = 0;
+    std::map<std::string, MemberRule>::iterator member_it;
+    if (binary_mode)
+	{   //Mandatory header for binary files (before actual template)
+		int idx = x + y * world.len();
+		os->write( (char*) &head,sizeof(head));
+		os->write( (char*) &constructionGroup->group,sizeof(constructionGroup->group));
+		//checksum += sizeof(constructionGroup->group); //head
+		os->write( (char*) &type,sizeof(type));
+		//checksum += sizeof(type); //head
+		os->write( (char*) &idx,sizeof(idx));
+		//checksum += sizeof(idx); //head
+	}
+	else
+	{   // Header for txt mode (part of template)
+		*os <<"<" << name << ">" << constructionGroup->group << "\t";
+		xml_tmp->step();
+		*os << type << "\t";
+		xml_tmp->step();
+		*os << x << "\t";
+		xml_tmp->step();
+		*os << y << "\t";
+		xml_tmp->step();
+		os->flush();
+	}   
+    while (!xml_tmp->reached_end())
+    {
+        member_it = memberRuleCount.find(xml_tmp->getTag());
+        if (member_it != memberRuleCount.end())
+        {
+
+            if (!binary_mode)
+            {
+				switch (member_it->second.memberType)
+				{
+					case TYPE_BOOL:
+						*os << *static_cast<bool *>(member_it->second.ptr);
+						break;
+					case TYPE_INT:
+						*os << *static_cast<int *>(member_it->second.ptr);
+						break;
+					case TYPE_USHORT:
+						*os << *static_cast<unsigned short *>(member_it->second.ptr);
+						break;
+					case TYPE_DOUBLE:
+						*os << *static_cast<double *>(member_it->second.ptr);
+						break;
+					case TYPE_FLOAT:
+						*os << *static_cast<float *>(member_it->second.ptr);
+						break;
+				}
+				*os << '\t';
+				//os->flush();
+			}
+			else //binary mode
+			{
+				size_t s_t = 4;
+				switch (member_it->second.memberType)
+				{
+					case TYPE_BOOL:
+						s_t = sizeof(bool);
+						break;
+					case TYPE_INT:
+						s_t = sizeof(int);
+						break;
+					case TYPE_USHORT:
+						s_t = sizeof(unsigned short);
+						break;	
+					case TYPE_DOUBLE:
+						s_t = sizeof(double);
+						break;
+					case TYPE_FLOAT:
+						s_t = sizeof(float);
+						break;
+				}			
+				os->write( (char*) member_it->second.ptr,s_t);
+				checksum += s_t;
+			}
+        }
+        else
+        {
+            std::cout << "ignored " << xml_tmp->getTag() << " in " << name << " template." <<std::endl;
+        }
+        xml_tmp->step();
+
+    }
+    if (!binary_mode)
+    {
+		*os << "</" << name << ">" << std::endl;
+    }
+    else
+    {	
+		if (xml_tmp->len() != checksum)
+		{
+			std::cout << xml_tmp->len() << " != " << checksum << std::endl;
+			assert(checksum == xml_tmp->len());
+		}
+    }
+}
+
+//ConstructionGroup Declarations
+
+int ConstructionGroup::getCosts() {
+    return static_cast<int>(
+        cost * (1.0f + (cost_mul * tech_level) / static_cast<float>(MAX_TECH_LEVEL))
+    );
+}
+
+int ConstructionGroup::placeItem(int x, int y, unsigned short type)
+{
+    Construction *tmpConstr = createConstruction(x, y, type);
+
+    if (tmpConstr == NULL)
+    {
+        std::cout << "failed to createConstruction " << type << std::endl;
+        return -1;
+    }
+
+    if (world(x, y)->construction) //no two constructions at the same mapTile
+    {	do_bulldoze_area(x, y);}
+    unsigned short size = 0;
+    world(x, y)->construction = tmpConstr;
+    constructionCount.add_construction(tmpConstr); //register for Simulation
+    size = (world(x, y)->construction->constructionGroup->size);
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            world(x + j, y + i)->reportingConstruction = world(x, y)->construction;
+            if (!world(x + j, y + i)->is_water())
+            {
+                world(x + j, y + i)->setTerrain(CST_DESERT);
+            } // endif !is_water
+        } //endfor j
+    }// endfor i
+
+    return 0;
+}
+
+
+void ConstructionGroup::printGroups()
+{
+    std::map<unsigned short, ConstructionGroup *>::iterator iterator;
+    for (iterator = groupMap.begin(); iterator != groupMap.end(); iterator++)
+    {
+        std::cout << "group #" << iterator->first << ": " << iterator->second->name << std::endl;
+    }
+}
+
+
+
+std::map<unsigned short, ConstructionGroup *> ConstructionGroup::groupMap;
+
+
+
+
+
+//Legacy Stuff
+
 
 struct TYPE main_types[NUM_OF_TYPES];
 
@@ -24,7 +760,7 @@ struct TYPE main_types[NUM_OF_TYPES];
  * 		this is a bit annoying => would need to be fixed when(if?)
  * 		all the struct and associated macros are cleaned (map, MP_INFO etc.)
  *
- * 		for now (2.1 svn rev 1585) just put it in range.h 
+ * 		for now (2.1 svn rev 1585) just put it in range.h
  *
  */
 
@@ -612,7 +1348,7 @@ void set_map_groups(void)
     int x, y;
     for (x = 0; x < WORLD_SIDE_LEN; x++) {
         for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            MP_GROUP(x, y) = get_group_of_type(MP_TYPE(x, y));
+            world(x,y)->group = get_group_of_type(world(x,y)->type);
         }
     }
 }

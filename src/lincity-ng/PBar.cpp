@@ -24,18 +24,24 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/XmlReader.hpp"
 #include "gui/Paragraph.hpp"
 #include "gui/Painter.hpp"
+#include "../lincity/lintypes.h"
 
-LCPBar* LCPBarInstance = 0;
+//LCPBar* LCPBarInstance = 0;
+LCPBar* LCPBarPage1 = 0;
+LCPBar* LCPBarPage2 = 0;
+int pbarGlobalStyle = PBAR_GLOBAL_STYLES - 1;
+extern const char *commodityNames[];
+
 
 LCPBar::LCPBar()
 {
-    LCPBarInstance = this;
+    //LCPBarInstance = this;
 }
 
 LCPBar::~LCPBar()
 {
-    if(LCPBarInstance == this)
-        LCPBarInstance = 0;
+/*    if(LCPBarInstance == this)
+        LCPBarInstance = 0;*/
 }
 
 void
@@ -54,6 +60,16 @@ LCPBar::parse(XmlReader& reader)
         }
     }
     
+    if(getName() == "PBar")
+    {
+        //LCPBarInstance = this; //FIXME old code compability hack
+        LCPBarPage1 = this;
+    } 
+    else if(getName() == "PBar2nd")
+    {	LCPBarPage2 = this;}
+     else
+     {	std::cerr << "Unknown LCBar component '" << getName() << "' found.\n";}
+       
     Component* component = parseEmbeddedComponent(reader);
     addChild(component);
 
@@ -65,29 +81,66 @@ LCPBar::parse(XmlReader& reader)
 /* adjusted to match changes in stats.cpp */
 #define pbar_adjust_pop(diff) 2 * diff
 #define pbar_adjust_tech(diff) diff > 0 ? diff / 4 + 1 : -((-diff+1)/ 2)
+#define pbar_adjust_money(diff) diff  > 0 ? diff / 800 + 1 : diff / 400
+/*
 #define pbar_adjust_food(diff) diff > 0 ? diff / 2000 + 1 : diff / 1000
 #define pbar_adjust_jobs(diff) diff > 0 ? diff / 2000 + 1 : diff / 1000
 #define pbar_adjust_coal(diff) diff > 0 ? diff / 500 + 1 : diff / 250
 #define pbar_adjust_goods(diff) diff > 0 ? diff / 1000 + 1 : diff / 500
 #define pbar_adjust_ore(diff) diff > 0 ? diff / 1000 + 1 : diff / 500
 #define pbar_adjust_steel(diff) diff > 0 ? diff / 50 + 1 : diff / 25
-#define pbar_adjust_money(diff) diff  > 0 ? diff / 800 + 1 : diff / 400
- 
+*/
+/*
+#define PBAR_DIFF_SCALE 1
+
+#define pbar_adjust_food(diff)  PBAR_DIFF_SCALE * diff
+#define pbar_adjust_jobs(diff)  PBAR_DIFF_SCALE * diff
+#define pbar_adjust_coal(diff)  PBAR_DIFF_SCALE * diff
+#define pbar_adjust_goods(diff) PBAR_DIFF_SCALE * diff
+#define pbar_adjust_ore(diff)   PBAR_DIFF_SCALE * diff
+#define pbar_adjust_steel(diff) PBAR_DIFF_SCALE * diff
+*/
+/*
+static int Pbarorder[] = {
+	Construction::STUFF_FOOD,
+	Construction::STUFF_JOBS,
+	Construction::STUFF_GOODS,
+	Construction::STUFF_COAL,
+	Construction::STUFF_ORE,
+	Construction::STUFF_STEEL,
+	Construction::STUFF_WASTE,
+	Construction::STUFF_KWH,
+	Construction::STUFF_MWH,
+	Construction::STUFF_WATER,
+	};
+*/
 void
 LCPBar::setValue(int num, int value, int diff)
 {
-    std::ostringstream compname;
-    compname << "pbar_text" << (num+1);
-    Paragraph* p = getParagraph(*this, compname.str());
-
+    if ((num > 8) && (pbarGlobalStyle == 0))
+    {	return;}
+    if ((pbarGlobalStyle == 1) && (num > 2) && (num < 9))
+    {	return;}
+    
     std::ostringstream os;
+    int line_number = num+1; 
+    if ( (pbarGlobalStyle == 1) && (num>8))
+    {	line_number -= PBAR_PAGE_SHIFT;}
+    
+    os << "pbar_text" << line_number;
+    Paragraph* p = getParagraph(*this, os.str());
+    os.str("");
+    //compname << "pbar_title" << line_number;
+	//Paragraph* pt = getParagraph(*this, compname.str());
+	
+    //std::ostringstream os;
     os<<std::fixed;
     os<<std::setprecision(1);
     if(num==PTECH)
     {
         os<<value/10000.0;
-     }
-	else // if(num==PMONEY)
+    }
+	else if(num==PMONEY || num==PPOP)
     {
         if(abs(value)>=1000000000)
             os<<value/1000000<<"M";
@@ -98,12 +151,18 @@ LCPBar::setValue(int num, int value, int diff)
         else
             os<<value;
     }
-
-    if( diff != 0 ){
-        p->setText(os.str());
+    else if ((num >= PFOOD) && (num <= PWATER)) //Commodities
+    {
+         os<<value<<"%";   
     }
+    else
+    {
+		os<<"default";
+	}
+    if (p)
+    {	p->setText(os.str());}
     os.str("");
-    os<<"pbar_barview"<<(num+1);
+    os<<"pbar_barview"<< line_number;
 
     float sv=0;
     switch(num)
@@ -114,20 +173,12 @@ LCPBar::setValue(int num, int value, int diff)
       case PTECH:
         sv=pbar_adjust_tech(diff);
         break;
-      case PFOOD:
-        sv=pbar_adjust_food(diff);break;
-      case PJOBS:
-        sv=pbar_adjust_jobs(diff);break;
-      case PCOAL:
-        sv=pbar_adjust_coal(diff);break;
-      case PGOODS:
-        sv=pbar_adjust_goods(diff);break;
-      case PORE:
-        sv=pbar_adjust_ore(diff);break;
-      case PSTEEL:
-        sv=pbar_adjust_steel(diff);break;
-      case PMONEY:
-        sv=pbar_adjust_money(diff);break;
+	case PMONEY:
+        sv=pbar_adjust_money(diff);
+        break;
+	default:
+		sv = diff;
+		break;
       };
       
     sv/=10.0;
@@ -145,7 +196,7 @@ LCPBar::setValue(int num, int value, int diff)
       if(bv)
       {
         bv->setValue(sv);
-      }
+      }            
     }
     c=findComponent(os.str()+"b");
     if(c)
@@ -219,11 +270,15 @@ void BarView::setValue(float v)
 
 void BarView::draw(Painter &painter)
 {
-    painter.setFillColor(Color(0,0xAA,0,255));
+   
   
-    if((int)(width*value)>0 && dir) {
+    if((int)(width*value)>0 && dir)
+    {
+        painter.setFillColor(Color(0,0xAA,0,255));
         painter.fillRectangle(Rect2D(0,0,width*value,height));
-    } else if((int)(width*value)<0 && !dir) {
+    } 
+    else if((int)(width*value)<0 && !dir) 
+    {
         painter.setFillColor(Color(0xFF,0,0,255));
         painter.fillRectangle(Rect2D(width-1+width*value,0,width-1,height));
     }

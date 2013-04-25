@@ -1,10 +1,47 @@
-#define GROUP_POWER_LINE_COLOUR (yellow(26))
-#define GROUP_POWER_LINE_COST 100
-#define GROUP_POWER_LINE_COST_MUL 2
-#define GROUP_POWER_LINE_BUL_COST 100
-#define GROUP_POWER_LINE_TECH 200
-#define GROUP_POWER_LINE_FIREC 0
+#include "modules.h"
+#include "../lintypes.h"
+#include "../lctypes.h"
+#include "../transport.h"
 
+class PowerlineConstructionGroup: public ConstructionGroup {
+public:
+    PowerlineConstructionGroup(
+        const char *name,
+        unsigned short no_credit,
+        unsigned short group,
+        unsigned short size, int colour,
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+    ): ConstructionGroup(
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+    )
+    {
+        commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_ON_POWERLINE;
+        commodityRuleCount[Construction::STUFF_MWH].take = true;
+        commodityRuleCount[Construction::STUFF_MWH].give = true; 
+    }
+    // overriding method that creates a power line
+    virtual Construction *createConstruction(int x, int y, unsigned short type);
+};
+
+extern PowerlineConstructionGroup powerlineConstructionGroup;
+
+class Powerline: public CountedConstruction<Powerline> { // Powerlineinherits from its own CountedConstruction
+public:
+	Powerline(int x, int y ,unsigned short type): CountedConstruction<Powerline>(x, y, type) 
+    {
+        constructionGroup = &powerlineConstructionGroup;                 
+        this->flags |= FLAG_POWER_LINE;// register as power line        
+        this->anim_counter = 0;
+        this->flashing = false;        
+        initialize_commodities();                               	    
+    }
+	virtual ~Powerline() { }
+	virtual void update();
+	virtual void report();
+    void flow_power();
+    int anim_counter;
+    bool flashing;	
+};
 
 
 /** @file lincity/modules/power_line.h */

@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "XmlReader.hpp"
 #include "Desktop.hpp"
 #include "tinygettext/tinygettext.hpp"
+//#include "../lincity-ng/CheckButton.hpp" //FIXME will that help?
 
 #include <sstream>
 #include <stdexcept>
@@ -86,9 +87,9 @@ ImportFactory::createComponent(XmlReader& reader)
     }
 
     if(importfile == "")
-        throw std::runtime_error("No src attribute specified.");
-
+        throw std::runtime_error("No src attribute specified.");  
     XmlReader nreader(importfile);
+    //std::cout << "importing Factory: " << importfile << std::endl;
     return ::createComponent((const char*) nreader.getName(), nreader);
 }
 
@@ -116,6 +117,7 @@ ImportFactory::createComponent(XmlReader& reader)
 #include "TooltipManager.hpp"
 #include "Window.hpp"
 
+//DECLARE_COMPONENT_FACTORY(CheckButton); //FIXME will this help?
 DECLARE_COMPONENT_FACTORY(Button)
 DECLARE_COMPONENT_FACTORY(Desktop)
 DECLARE_COMPONENT_FACTORY(Document)
@@ -135,6 +137,7 @@ void initFactories()
 {
     static bool initialized = false;
     if(!initialized) {
+		//new INTERN_CheckButtonFactory(); //FIXME will this help?
         new INTERN_ButtonFactory();
         new INTERN_DesktopFactory();
         new INTERN_DocumentFactory();

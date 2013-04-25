@@ -33,8 +33,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 CheckButton::CheckButton()
     : state(STATE_NORMAL), lowerOnClick(false), checked(false),
-      mclicked(false), mouseholdTicks(0)
+     mclicked(false), mouseholdTicks(0)
 {
+	/* // FIXME no utput at crash	
+    std::cout << "constructing: " << this << ": ";
+	std::cout.flush(); 
+	state = STATE_NORMAL;
+	std::cout << ".";
+	std::cout.flush();
+	lowerOnClick = false;
+	std::cout << ".";
+	std::cout.flush();
+	checked = false;
+	std::cout << ".";
+	std::cout.flush();
+	mclicked = false;
+	std::cout << ".";
+	std::cout.flush();
+	mouseholdTicks = 0;
+	std::cout << ".";
+	std::cout.flush();	
+	std::cout << " done" << std::endl; 
+	*/ 
 }
 
 CheckButton::~CheckButton()
@@ -45,6 +65,8 @@ void
 CheckButton::parse(XmlReader& reader)
 {
     // parse xml attributes
+    //std::cout << "parsing Checkbutton ..."; 
+    //std::cout.flush();
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
@@ -208,6 +230,7 @@ CheckButton::parse(XmlReader& reader)
         child.setPos( Vector2 ((width - component->getWidth())/2,
                                (height - component->getHeight())/2));
     }
+	//std::cout << " done" << std::endl;
 }
 
 void

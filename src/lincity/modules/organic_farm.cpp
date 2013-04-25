@@ -5,230 +5,172 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
-//#include "../lcconfig.h"
 #include "organic_farm.h"
-#include "lin-city.h"
 
-#include <stdlib.h>
 
-void do_organic_farm(int x, int y)
+Organic_farmConstructionGroup organic_farmConstructionGroup(
+    "Farm",
+    FALSE,                     /* need credit? */
+    GROUP_ORGANIC_FARM,
+    4,                         /* size */
+    GROUP_ORGANIC_FARM_COLOUR,
+    GROUP_ORGANIC_FARM_COST_MUL,
+    GROUP_ORGANIC_FARM_BUL_COST,
+    GROUP_ORGANIC_FARM_FIREC,
+    GROUP_ORGANIC_FARM_COST,
+    GROUP_ORGANIC_FARM_TECH
+);
+
+Construction *Organic_farmConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Organic_farm(x, y, type);
+}
+
+
+void Organic_farm::update()
 {
-    /* // MP_INFO(x,y)
-       // int_1 unused
-       // int_2 unused
-       // int_3 is the food sold count so far this year.
-       // int_4 is the food made last year.
-       // int_5 is the random crop rotation key.
-       // int_6 is the random month stagger, so they don't all flash at once
-       // int_7 is the jobs stored at the farm 
-       * 
-       * MP_INFO(x+1,y) stores additional info
-       *    int_1 reserved (=x)
-       *    int_2 reserved (=y)
-       *    int_3 max possible production (assuming 100% water and power)
-       *    int_4 number of 1x1 tiles with underground water inside the farm
-       *    int_5 current production
-       *
-       // MP_TECH is the tech level of the farm when built
-       // MP_ANIM  FIXME, this is unused
-     */
-    int i;
-    int has_power = false;
+    int i = (total_time + crop_rotation_key * 1200 + month_stagger) % 4800;
     int used_jobs = 0;
-    int tech_bonus = (int)(((double)MP_TECH(x, y) * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL);
-    MP_INFO(x + 1, y).int_3 = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus;
-
-    /* Animation */
-    if (MP_INFO(x, y).int_5 == 0) {
-        /* this should be done when we create the area! */
-        MP_INFO(x, y).int_5 = (rand() % 4) + 1;
-        MP_INFO(x, y).int_6 = rand() % 300;     /* AL1 will be sooner or later redefined as %100. see below */
-    }
-
+    int used_power = 0;
+    int used_water = 0;
+    int foodprod = 0;
+    
+    max_foodprod = 0; 
     /* check jobs */
-    if (MP_INFO(x, y).int_7 < FARM_JOBS_USED) {
-        if (get_jobs(x, y, FARM_JOBS_USED) != 0)
-            MP_INFO(x, y).int_7 += FARM_JOBS_USED;
-        /* adding if (get_jobs ... /2) would allow to have some jobs stored at farm,
-         * so would smooth the behavior and make farms more resistant to job penury.
-         * Currently keep previous behavior.
-         */
-        else if (get_jobs(x, y, FARM_JOBS_USED / 4) != 0)
-            MP_INFO(x, y).int_7 += FARM_JOBS_USED / 4;
-        else if (get_jobs(x, y, 1) != 0)
-            MP_INFO(x, y).int_7 += 1;
+    used_jobs = (FARM_JOBS_USED<commodityCount[STUFF_JOBS]?FARM_JOBS_USED:commodityCount[STUFF_JOBS]);
+    flags &= ~(FLAG_POWERED);
+    /* check for power */
+    if (commodityCount[STUFF_KWH] >= ORG_FARM_POWER_REC) 
+    {
+        used_power = ORG_FARM_POWER_REC;            
+        flags |= FLAG_POWERED;
+        used_water = commodityCount[STUFF_WATER] / WATER_FARM;
+        if (used_water > (16 - ugwCount))
+        {
+            used_water = (16 - ugwCount);
+        }      
+        
+        foodprod = (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus) * (ugwCount+used_water) * used_jobs / (16 * FARM_JOBS_USED);
+        max_foodprod = (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus) * (ugwCount/*+used_water*/)  / (16);
+// prod>100% if extra water is used         
     }
-
-    /* check power */
-    MP_INFO(x, y).flags &= (0xffffffff - FLAG_POWERED);
-    if (MP_INFO(x, y).int_7 >= 1) {
-        /* There are jobs to do some production, so check for power */
-        if (get_power(x, y, ORG_FARM_POWER_REC, 0) != 0) {
-            MP_INFO(x, y).flags |= FLAG_POWERED;
-            has_power = true;
+    else
+    {
+        foodprod = (ORGANIC_FARM_FOOD_OUTPUT) * ugwCount * used_jobs / (4 * 16 * FARM_JOBS_USED);
+        max_foodprod = (ORGANIC_FARM_FOOD_OUTPUT) * ugwCount / (4 * 16);      
+    } 
+    if (foodprod < 30)
+        foodprod = 30;
+    if (max_foodprod < 30) //that could only matter if Fertiliy = 0
+        max_foodprod = 30;  
+    
+    if (commodityCount[STUFF_FOOD] + foodprod > MAX_ORG_FARM_FOOD) 
+    {   //we would produce too much so use less power, jobs and water
+        used_jobs = used_jobs * (MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD]) / foodprod;
+        used_power = used_power * (MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD]) / foodprod;
+        if ((MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD])*16 < ugwCount * foodprod)
+        {
+            used_water = 0;
         }
+        foodprod = MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD];
+    } 
+    /* Now apply changes */   
+    commodityCount[STUFF_JOBS] -= used_jobs;
+    commodityCount[STUFF_FOOD] += foodprod;
+    commodityCount[STUFF_KWH] -= used_power;
+    commodityCount[STUFF_WATER] -= (used_water * WATER_FARM);
+    food_this_month += 100 * foodprod / max_foodprod;  
+    // monthly update
+    if ((total_time % 100) == 0)
+    {
+        food_last_month = food_this_month;
+        food_this_month = 0;
     }
-
-    /* Produce some food */
-    int prod = 0;
-    if (MP_INFO(x, y).int_7 >= FARM_JOBS_USED) {
-        used_jobs = FARM_JOBS_USED;
-        if (has_power) {
-            prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus;
-        } else {
-            prod = ORGANIC_FARM_FOOD_OUTPUT / 4;
-        }
-    } else if (MP_INFO(x, y).int_7 >= FARM_JOBS_USED / 4) {
-        used_jobs = FARM_JOBS_USED / 4;
-        if (has_power) {
-            prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus / 4;
-        } else {
-            prod = ORGANIC_FARM_FOOD_OUTPUT / (4 * 4);
-        }
-    } else if (MP_INFO(x, y).int_7 >= 1) {
-        /* got 1 job */
-        used_jobs = 1;
-        if (has_power) {
-            prod = ORGANIC_FARM_FOOD_OUTPUT + tech_bonus / 8;
-        } else {
-            /* AL1 "small ouch":
-             * without power output with 1 job is bigger than output with 3 !
-             * 3 = FARMS_JOBS_USED / 4 
-             * ORGANIC_FARM_FOOD_OUTPUT = 550 currently (ng_1.1)
-             */
-            prod = 30 + ORGANIC_FARM_FOOD_OUTPUT / (4 * 8);
-        }
-    } else {
-        /* AL1 : the farm gives very small amount of food without job. 
-         *  ? Probably needed for start ?
-         *  ? Useful to prevent starvation when no jobs ? 
-         *  The various buildings are "done" in random order,
-         *  so it should be ok without this.
-         */
-        put_food(x, y, 30);
-        /* note that this does not generate revenu int_3) */
-    }
-    /* Check underground water, and reduce production accordingly */
-    if (use_waterwell) {
-        // TODO No need to count each time. Should be done at build time, and stored 
-        int w = 0;
-        int n = 0;
-        for (int i = 0; i < MP_SIZE(x, y); i++) {
-            for (int j = 0; j < MP_SIZE(x, y); j++) {
-                n++;
-                if (HAS_UGWATER(x + i, y + j))
-                    w++;
-            }
-        }
-        prod = (prod * w) / n;
-        MP_INFO(x + 1, y).int_4 = w;
-    }
-    MP_INFO(x + 1, y).int_5 = prod;
-
-    if (prod != 0) {
-        if (put_food(x, y, prod) != 0) {
-            MP_INFO(x, y).int_3++;
-            MP_INFO(x, y).int_7 -= used_jobs;
-        }
-    }
-
-    if ((total_time & 0x7f) == 0)
-        if ((MP_INFO(x, y).flags & FLAG_POWERED) != 0)
-            get_waste(x, y, 0x80 * ORG_FARM_WASTE_GET);
-
-    if ((total_time % 1200) == 0) {
-        MP_INFO(x, y).int_4 = MP_INFO(x, y).int_3;
-        MP_INFO(x, y).int_3 = 0;
-    }
-
-    i = (total_time + MP_INFO(x, y).int_5 * 1200 + MP_INFO(x, y).int_6) % 4800;
-
-    if (i % 300 == 0) {
+    //Every three month
+    if (i % 300 == 0)
+    {
         i /= 300;
-        if ( MP_INFO(x, y).int_4 > MIN_FOOD_SOLD_FOR_ANIM) {
-            if (i % 4 == 0) {
-                MP_INFO(x, y).int_6 = rand() % 100;     /* AL1: initially defined as %300 */
+        if ( food_last_month > MIN_FOOD_SOLD_FOR_ANIM) 
+        {
+            //Every year
+            if (i % 4 == 0)  
+            {
+                month_stagger = rand() % 100;
             }
-            switch (i) {
-            case (0):
-                MP_TYPE(x, y) = CST_FARM_O3;
-                break;
-            case (1):
-                MP_TYPE(x, y) = CST_FARM_O3;
-                break;
-            case (2):
-                MP_TYPE(x, y) = CST_FARM_O3;
-                break;
-            case (3):
-                MP_TYPE(x, y) = CST_FARM_O3;
-                break;
-            case (4):
-                MP_TYPE(x, y) = CST_FARM_O7;
-                break;
-            case (5):
-                MP_TYPE(x, y) = CST_FARM_O7;
-                break;
-            case (6):
-                MP_TYPE(x, y) = CST_FARM_O7;
-                break;
-            case (7):
-                MP_TYPE(x, y) = CST_FARM_O7;
-                break;
-            case (8):
-                MP_TYPE(x, y) = CST_FARM_O11;
-                break;
-            case (9):
-                MP_TYPE(x, y) = CST_FARM_O11;
-                break;
-            case (10):
-                MP_TYPE(x, y) = CST_FARM_O11;
-                break;
-            case (11):
-                MP_TYPE(x, y) = CST_FARM_O11;
-                break;
-            case (12):
-                MP_TYPE(x, y) = CST_FARM_O15;
-                break;
-            case (13):
-                MP_TYPE(x, y) = CST_FARM_O15;
-                break;
-            case (14):
-                MP_TYPE(x, y) = CST_FARM_O15;
-                break;
-            case (15):
-                MP_TYPE(x, y) = CST_FARM_O15;
-                break;
-
+            if (commodityCount[STUFF_WASTE] > ORG_FARM_WASTE_GET)
+                commodityCount[STUFF_WASTE] -= ORG_FARM_WASTE_GET;
+            else
+                commodityCount[STUFF_WASTE] = 0;                  
+            switch (i)
+            {
+                case (0):
+                    type = CST_FARM_O3;
+                    break;
+                case (1):
+                    type = CST_FARM_O3;
+                    break;
+                case (2):
+                    type = CST_FARM_O3;
+                    break;
+                case (3):
+                    type = CST_FARM_O3;
+                    break;
+                case (4):
+                    type = CST_FARM_O7;
+                    break;
+                case (5):
+                    type = CST_FARM_O7;
+                    break;
+                case (6):
+                    type = CST_FARM_O7;
+                    break;
+                case (7):
+                    type = CST_FARM_O7;
+                    break;
+                case (8):
+                    type = CST_FARM_O11;
+                    break;
+                case (9):
+                    type = CST_FARM_O11;
+                    break;
+                case (10):
+                   type = CST_FARM_O11;
+                    break;
+                case (11):
+                    type = CST_FARM_O11;
+                    break;
+                case (12):
+                    type = CST_FARM_O15;
+                    break;
+                case (13):
+                    type = CST_FARM_O15;
+                    break;
+                case (14):
+                    type = CST_FARM_O15;
+                    break;
+                case (15):
+                    type = CST_FARM_O15;
+                    break;
             }
-        } else {
-            MP_TYPE(x, y) = CST_FARM_O0;
+        }
+        else
+        {
+            type = CST_FARM_O0;
         }
     }
 }
 
-void mps_organic_farm(int x, int y)
+void Organic_farm::report()
 {
     int i = 0;
 
-    mps_store_title(i++, _("Organic Farm"));
+    mps_store_sd(i++, constructionGroup->name,ID);
     i++;
-
-    mps_store_ss(i++, _("Power"), (MP_INFO(x, y).flags & FLAG_POWERED) ? _("YES") : _("NO"));
-    mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, _("Prod"), MP_INFO(x, y).int_4 * 100 / 1200.0);
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_7, FARM_JOBS_USED);
-
-#ifdef DEBUG
-    if (use_waterwell) {
-        i++;
-        mps_store_title(i++, _("Debug info"));
-        mps_store_sd(i++, _("max with power&water"), MP_INFO(x + 1, y).int_3);
-        mps_store_sd(i++, _("N tiles with water"), MP_INFO(x + 1, y).int_4);
-        mps_store_sd(i++, _("Current production"), MP_INFO(x + 1, y).int_5);
-    }
-#endif
-
+    mps_store_sddp(i++, "Fertility", ugwCount, 16);    
+    mps_store_sfp(i++, _("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, _("busy"), (float)food_last_month / 100.0);
+    mps_store_sd(i++, _("Output"), max_foodprod);
+    i++;
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/organic_farm.cpp */

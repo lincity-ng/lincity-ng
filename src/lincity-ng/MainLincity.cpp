@@ -32,6 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lc_locale.h"
 #include "lincity/fileutil.h"
 #include "lincity/loadsave.h"
+#include "lincity/modules/all_modules.h"
 
 #include "gui_interface/screen_interface.h"
 #include "gui_interface/mps.h"
@@ -47,6 +48,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 extern void print_total_money(void);
 extern void init_types(void);
+//FIXME only slows down ?
+//extern void initFactories();
 
 int lincitySpeed = MED_TIME_FOR_YEAR;
 /******************************************/
@@ -128,6 +131,7 @@ bool loadCityNG( std::string filename ){
         load_city_2(const_cast<char*>(filename.c_str()));
         update_avail_modules(0);
         GameView* gv = getGameView();
+
         if( gv ){ gv->readOrigin(); }
         return true;
     }
@@ -145,28 +149,29 @@ void initLincity()
     /* Make sure the save directory exists */
     check_savedir ();
 
+	/*initialize Desktop Componenet Factories*/
+	//initFactories();
+
     /* Initialize random number generator */
     srand (time (0));
 
     initialize_monthgraph ();
     mps_init();
+    world.len(WORLD_SIDE_LEN);
 
     // init_types ();
     load_png_graphics();
-
     main_types[CST_USED].group = GROUP_USED;
     main_types[CST_USED].graphic = 0;   /* Won't be dereferenced! */
+
+    // initialize constructions    
+    initializeModules();
 
     // animation time
     reset_start_time ();
 
     screen_full_refresh ();
 
-    //load current game if it exists
-    if( ! loadCityNG( std::string( "9_currentGameNG.scn" ) ) ) {
-        //create a new City with village just in case
-        new_city( &main_screen_originx, &main_screen_originy, 1 );
-    }
 }
 
 

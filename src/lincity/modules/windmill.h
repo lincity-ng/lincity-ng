@@ -5,16 +5,80 @@
 #define GROUP_WINDMILL_TECH   30
 #define GROUP_WINDMILL_FIREC  10
 
-#define WINDMILL_POWER      450
+#define WINDMILL_POWER      450 //should become obsolete
+#define WINDMILL_KWH        450
 #define WINDMILL_JOBS       10
+#define MAX_JOBS_AT_WINDMILL 20*(WINDMILL_JOBS)      
+#define MAX_KWH_AT_WINDMILL 20*(WINDMILL_KWH) 
 /* WINDMILL_RCOST is days per quid */
 #define WINDMILL_RCOST      3
-#define ANTIQUE_WINDMILL_ANIM_SPEED 160
-#define MODERN_WINDMILL_ANIM_SPEED 120
+#define ANTIQUE_WINDMILL_ANIM_SPEED 2000//160
+#define MODERN_WINDMILL_ANIM_SPEED 2000
 
 #define MODERN_WINDMILL_TECH 450000
 
+#include "modules.h"
+#include "../lintypes.h"
+#include "../lctypes.h"
+#include "../range.h"
 
+class WindmillConstructionGroup: public ConstructionGroup {
+public:
+    WindmillConstructionGroup(
+        const char *name,
+        unsigned short no_credit,
+        unsigned short group,
+        unsigned short size, int colour,
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+    ): ConstructionGroup(
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+    ) {
+        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_WINDMILL;
+        commodityRuleCount[Construction::STUFF_JOBS].take = true;
+        commodityRuleCount[Construction::STUFF_JOBS].give = false;
+        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_WINDMILL;
+        commodityRuleCount[Construction::STUFF_KWH].take = false;
+        commodityRuleCount[Construction::STUFF_KWH].give = true;    
+    }
+    // overriding method that creates a Windmill
+    virtual Construction *createConstruction(int x, int y, unsigned short type);
+};
+
+extern WindmillConstructionGroup windmillConstructionGroup;
+
+class Windmill: public CountedConstruction<Windmill> { // Windmill inherits from its own CountedConstruction
+public:
+	Windmill(int x, int y, unsigned short type): CountedConstruction<Windmill>(x, y, type)
+    {      
+        constructionGroup = &windmillConstructionGroup;
+        this->anim = 0;
+        this->animate = false;
+        this->sail_count = 0;
+        this->tech = tech_level;
+        setMemberSaved(&this->tech, "tech");
+        this->working_days = 0;
+        this->busy = 0;
+        this->kwh_output = (int)(WINDMILL_POWER + (((double)tech_level * WINDMILL_POWER) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->kwh_output, "kwh_output");     
+        this->is_modern = (tech_level >= MODERN_WINDMILL_TECH);
+        setMemberSaved(&this->is_modern, "is_modern"); 
+        this->type = type; //this->is_modern ? CST_WINDMILL_1_R : CST_WINDMILL_1_W;        
+        initialize_commodities();
+        }
+
+	virtual ~Windmill() { }
+	virtual void update();
+	virtual void report();
+    
+    int  kwh_output; 
+    int  tech;    
+    int  anim;
+	int  sail_count;
+    int  working_days;
+    int  busy;    
+    bool is_modern;
+    bool animate;
+};
 
 /** @file lincity/modules/windmill.h */
 

@@ -77,6 +77,8 @@ public:
 
     //check if tile is in city
     bool inCity( MapPoint tile );
+    
+    int gameAreaMax(); 
 private:
     void connectButtons();
     void buttonClicked( Button* button );
@@ -153,7 +155,7 @@ private:
     static const int overlayMAX = 2;
 
     static const int gameAreaMin = 1;
-    static const int gameAreaMax = WORLD_SIDE_LEN -2;
+    
     void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;

@@ -5,69 +5,78 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
+
 #include "cricket.h"
-#include "../range.h"
 
-void do_cricket(int x, int y)
-{
-    /*
-       // int_1 is the jobs stored at the pavillion
-       // int_2 is the goods stored at the pavillion
-       // int_3 is the animation flag 
-       //
-       // MP_ANIM is the time of the next frame since 1.91
-     */
-    if (MP_INFO(x, y).int_1 < (MAX_JOBS_AT_CRICKET - CRICKET_GET_JOBS))
-        if (get_jobs(x, y, CRICKET_GET_JOBS) != 0)
-            MP_INFO(x, y).int_1 += CRICKET_GET_JOBS;
-    if (MP_INFO(x, y).int_2 < (MAX_GOODS_AT_CRICKET - CRICKET_GET_GOODS))
-        if (get_goods(x, y, CRICKET_GET_GOODS) != 0)
-            MP_INFO(x, y).int_2 += CRICKET_GET_GOODS;
-    /* animate */
-    if (MP_INFO(x, y).int_3 && real_time > MP_ANIM(x, y)) {
-        MP_ANIM(x, y) = real_time + CRICKET_ANIMATION_SPEED;
-        switch (MP_TYPE(x, y)) {
-        case (CST_CRICKET_1):
-            MP_TYPE(x, y) = CST_CRICKET_2;
-            break;
-        case (CST_CRICKET_2):
-            MP_TYPE(x, y) = CST_CRICKET_3;
-            break;
-        case (CST_CRICKET_3):
-            MP_TYPE(x, y) = CST_CRICKET_4;
-            break;
-        case (CST_CRICKET_4):
-            MP_TYPE(x, y) = CST_CRICKET_5;
-            break;
-        case (CST_CRICKET_5):
-            MP_TYPE(x, y) = CST_CRICKET_6;
-            break;
-        case (CST_CRICKET_6):
-            MP_TYPE(x, y) = CST_CRICKET_7;
-            break;
-        case (CST_CRICKET_7):
-            MP_TYPE(x, y) = CST_CRICKET_1;
-            MP_INFO(x, y).int_3 = 0;    /* disable anim */
 
-            break;
-        }
+// cricket place:
+CricketConstructionGroup cricketConstructionGroup(
+    "Basketball court",
+     FALSE,                     /* need credit? */
+     GROUP_CRICKET,
+     2,                         /* size */
+     GROUP_CRICKET_COLOUR,
+     GROUP_CRICKET_COST_MUL,
+     GROUP_CRICKET_BUL_COST,
+     GROUP_CRICKET_FIREC,
+     GROUP_CRICKET_COST,
+     GROUP_CRICKET_TECH
+);
+
+Construction *CricketConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Cricket(x, y, type);
+}
+
+void Cricket::update()
+{   
+    if (animate && real_time > anim)
+    {
+        anim = real_time + CRICKET_ANIMATION_SPEED;
+        switch (type)
+        {
+            case (CST_CRICKET_1):
+                type = CST_CRICKET_2;
+                break;
+            case (CST_CRICKET_2):
+                type = CST_CRICKET_3;
+                break;
+            case (CST_CRICKET_3):
+                type = CST_CRICKET_4;
+                break;
+            case (CST_CRICKET_4):
+                type = CST_CRICKET_5;
+                break;
+            case (CST_CRICKET_5):
+                type = CST_CRICKET_6;
+                break;
+            case (CST_CRICKET_6):
+                type = CST_CRICKET_7;
+                break;
+            case (CST_CRICKET_7):
+                type = CST_CRICKET_1;
+                animate=false;    /* disable anim */
+                break;
+        }    
     }
-
     /* That's all. Cover is done by different functions every 3 months or so. */
-
     cricket_cost += CRICKET_RUNNING_COST;
 }
 
-void do_cricket_cover(int x, int y)
+void Cricket::cover()
 {
     int xx, x1, x2, y1, y2;
-    if (MP_INFO(x, y).int_1 < (CRICKET_JOBS * DAYS_BETWEEN_COVER) ||
-        MP_INFO(x, y).int_2 < (CRICKET_GOODS * DAYS_BETWEEN_COVER))
+    if (commodityCount[STUFF_JOBS] < (CRICKET_JOBS * DAYS_BETWEEN_COVER)
+    ||  commodityCount[STUFF_GOODS] < (CRICKET_GOODS * DAYS_BETWEEN_COVER)
+    ||  commodityCount[STUFF_WASTE] + (CRICKET_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_CRICKET)
+    {    
+        busy = false;        
         return;
-    MP_INFO(x, y).int_1 -= (CRICKET_JOBS * DAYS_BETWEEN_COVER);
-    MP_INFO(x, y).int_2 -= (CRICKET_GOODS * DAYS_BETWEEN_COVER);
-    MP_INFO(x, y).int_3 = 1;    /* turn on animation */
+    }    
+    commodityCount[STUFF_JOBS] -= (CRICKET_JOBS * DAYS_BETWEEN_COVER);
+    commodityCount[STUFF_GOODS] -= (CRICKET_GOODS * DAYS_BETWEEN_COVER);
+    commodityCount[STUFF_WASTE] += (CRICKET_GOODS * DAYS_BETWEEN_COVER / 3);
+    animate = true;    /* turn on animation */
+    busy = true;
 
     x1 = x - CRICKET_RANGE;
     if (x1 < 0)
@@ -82,20 +91,24 @@ void do_cricket_cover(int x, int y)
     if (y2 > WORLD_SIDE_LEN)
         y2 = WORLD_SIDE_LEN;
     for (; y1 < y2; y1++)
+    {
         for (xx = x1; xx < x2; xx++)
-            MP_INFO(xx, y1).flags |= FLAG_CRICKET_COVER;
+        {
+            world(xx, y1)->flags |= FLAG_CRICKET_COVER;
+        }
+    }
 }
 
-void mps_cricket(int x, int y)
+void Cricket::report()
 {
     int i = 0;
+    const char* p;
 
-    mps_store_title(i++, _("Sports field"));
+    mps_store_sd(i++,constructionGroup->name,ID);
     i++;
-    mps_store_title(i++, _("Inventory"));
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_1, MAX_JOBS_AT_CRICKET);
-    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, MAX_GOODS_AT_CRICKET);
-
+    list_commodities(&i);
+    p =  busy?"Yes":"No";
+    mps_store_ss(i++, "Public sports", p);
 }
 
 /** @file lincity/modules/cricket.cpp */

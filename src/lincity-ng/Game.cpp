@@ -27,6 +27,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Button.hpp"
 #include "gui/callback/Callback.hpp"
 #include "lincity/fileutil.h"
+#include "lincity/init_game.h"
+#include "gui_interface/shared_globals.h"
+#include "gui_interface/mps.h"
 
 #include "MainLincity.hpp"
 #include <iostream>
@@ -180,6 +183,35 @@ Game::run()
                          getButtonPanel()->toggleBulldozeTool();
                          break;
                      }
+/*                  //FIXME hack for monitoring constructionCount   
+                    if( gui_event.keysym.sym == SDLK_c ){
+                         std::cout << "ConstructionCount.size() = " << constructionCount.size() << std::endl;
+                         int i, j;   
+                         for (i = 0, j = 0; i < constructionCount.size(); i++) {constructionCount[i]?j++:j;}
+                         std::cout << "for a total of " << j << " active constructions" << std::endl;     
+                         break;
+                     }
+*/
+                     if( gui_event.keysym.sym == SDLK_p ){
+                              
+                            static int i = 0;
+                            while(i < constructionCount.size() && !constructionCount[i]) {i++;}                            
+                            if (i < constructionCount.size())
+                            {                            
+                                main_screen_originx = constructionCount[i]->x;
+                                main_screen_originy = constructionCount[i]->y;
+                                getGameView()->readOrigin(true);
+                                mps_set( main_screen_originx, main_screen_originy, MPS_MAP);
+                                mps_update();
+                                mps_refresh();
+                                i++;
+                            }
+                            else
+                            {
+                                i = 0;
+                            }
+                         break;
+                     }   
                      if( gui_event.keysym.sym == SDLK_F1 ){
                          helpWindow->showTopic("help");
                          break;

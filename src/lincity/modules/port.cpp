@@ -9,303 +9,118 @@
 #include "port.h"
 #include "../transport.h"
 
-static int buy_food(int xt, int yt)
+// Port:
+PortConstructionGroup portConstructionGroup(
+    "Port",
+     FALSE,                     /* need credit? */
+     GROUP_PORT,
+     4,                         /* size */
+     GROUP_PORT_COLOUR,
+     GROUP_PORT_COST_MUL,
+     GROUP_PORT_BUL_COST,
+     GROUP_PORT_FIREC,
+     GROUP_PORT_COST,
+     GROUP_PORT_TECH
+);
+
+Construction *PortConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Port(x, y, type);
+}
+
+int Port::buy_stuff(Commodities stuff) 
+//fills up a PORT_IMPORT_RATE fraction of the available capacity and returns the cost
+//amount to buy must exceed PORT_TRIGGER_RATE
 {
-    int i = 0;
-    if (MP_GROUP(xt, yt) == GROUP_TRACK) {
-        if (MP_INFO(xt, yt).int_1 < MAX_FOOD_ON_TRACK)
-            i = MAX_FOOD_ON_TRACK - MP_INFO(xt, yt).int_1;
-    } else if (MP_GROUP(xt, yt) == GROUP_ROAD) {
-        if (MP_INFO(xt, yt).int_1 < MAX_FOOD_ON_ROAD)
-            i = MAX_FOOD_ON_ROAD - MP_INFO(xt, yt).int_1;
-    } else if (MP_GROUP(xt, yt) == GROUP_RAIL) {
-        if (MP_INFO(xt, yt).int_1 < MAX_FOOD_ON_RAIL)
-            i = MAX_FOOD_ON_RAIL - MP_INFO(xt, yt).int_1;
-    }
+    int i = portConstructionGroup.commodityRuleCount[stuff].maxload - commodityCount[stuff];   
     i = (i * PORT_IMPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_1 += i;
-    return (i * PORT_FOOD_RATE);
+    if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
+        return 0;
+    commodityCount[stuff] += i;
+    return (i * portConstructionGroup.commodityRates[stuff]);
 }
 
-static int buy_coal(int xt, int yt)
+int Port::sell_stuff(Commodities stuff)
+//sells a PORT_IMPORT_RATE fraction of the current load and returns the revenue
+//amount to sell must exceed PORT_TRIGGER_RATE
 {
-    int i = 0;
-    if (MP_GROUP(xt, yt) == GROUP_TRACK) {
-        if (MP_INFO(xt, yt).int_3 < MAX_COAL_ON_TRACK)
-            i = MAX_COAL_ON_TRACK - MP_INFO(xt, yt).int_3;
-    } else if (MP_GROUP(xt, yt) == GROUP_ROAD) {
-        if (MP_INFO(xt, yt).int_3 < MAX_COAL_ON_ROAD)
-            i = MAX_COAL_ON_ROAD - MP_INFO(xt, yt).int_3;
-    } else if (MP_GROUP(xt, yt) == GROUP_RAIL) {
-        if (MP_INFO(xt, yt).int_3 < MAX_COAL_ON_RAIL)
-            i = MAX_COAL_ON_RAIL - MP_INFO(xt, yt).int_3;
-    }
-    i = (i * PORT_IMPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_3 += i;
-    return (i * PORT_COAL_RATE);
+    int i = commodityCount[stuff];
+    i = (i * PORT_EXPORT_RATE) / 1000;
+     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
+        return 0;
+    commodityCount[stuff] -= i;
+    return (i * portConstructionGroup.commodityRates[stuff]);
 }
 
-static int buy_ore(int xt, int yt)
+void Port::trade_connection()
 {
-    int i = 0;
-    if (MP_GROUP(xt, yt) == GROUP_TRACK) {
-        if (MP_INFO(xt, yt).int_5 < MAX_ORE_ON_TRACK)
-            i = MAX_ORE_ON_TRACK - MP_INFO(xt, yt).int_5;
-    } else if (MP_GROUP(xt, yt) == GROUP_ROAD) {
-        if (MP_INFO(xt, yt).int_5 < MAX_ORE_ON_ROAD)
-            i = MAX_ORE_ON_ROAD - MP_INFO(xt, yt).int_5;
-    } else if (MP_GROUP(xt, yt) == GROUP_RAIL) {
-        if (MP_INFO(xt, yt).int_5 < MAX_ORE_ON_RAIL)
-            i = MAX_ORE_ON_RAIL - MP_INFO(xt, yt).int_5;
-    }
-    i = (i * PORT_IMPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_5 += i;
-    return (i * PORT_ORE_RATE);
-}
-
-static int buy_goods(int xt, int yt)
-{
-    int i = 0;
-    if (MP_GROUP(xt, yt) == GROUP_TRACK) {
-        if (MP_INFO(xt, yt).int_4 < MAX_GOODS_ON_TRACK)
-            i = MAX_GOODS_ON_TRACK - MP_INFO(xt, yt).int_4;
-    } else if (MP_GROUP(xt, yt) == GROUP_ROAD) {
-        if (MP_INFO(xt, yt).int_4 < MAX_GOODS_ON_ROAD)
-            i = MAX_GOODS_ON_ROAD - MP_INFO(xt, yt).int_4;
-    } else if (MP_GROUP(xt, yt) == GROUP_RAIL) {
-        if (MP_INFO(xt, yt).int_4 < MAX_GOODS_ON_RAIL)
-            i = MAX_GOODS_ON_RAIL - MP_INFO(xt, yt).int_4;
-    }
-    i = (i * PORT_IMPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_4 += i;
-    return (i * PORT_GOODS_RATE);
-}
-
-static int buy_steel(int xt, int yt)
-{
-    int i = 0;
-    if (MP_GROUP(xt, yt) == GROUP_TRACK) {
-        if (MP_INFO(xt, yt).int_6 < MAX_STEEL_ON_TRACK)
-            i = MAX_STEEL_ON_TRACK - MP_INFO(xt, yt).int_6;
-    } else if (MP_GROUP(xt, yt) == GROUP_ROAD) {
-        if (MP_INFO(xt, yt).int_6 < MAX_STEEL_ON_ROAD)
-            i = MAX_STEEL_ON_ROAD - MP_INFO(xt, yt).int_6;
-    } else if (MP_GROUP(xt, yt) == GROUP_RAIL) {
-        if (MP_INFO(xt, yt).int_6 < MAX_STEEL_ON_RAIL)
-            i = MAX_STEEL_ON_RAIL - MP_INFO(xt, yt).int_6;
-    }
-    i = (i * PORT_IMPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_6 += i;
-    return (i * PORT_STEEL_RATE);
-}
-
-static int sell_food(int xt, int yt)
-{
-    int i = 0;
-    i = (MP_INFO(xt, yt).int_1 * PORT_EXPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_1 -= i;
-    return (i * PORT_FOOD_RATE);
-}
-
-static int sell_coal(int xt, int yt)
-{
-    int i = 0;
-    i = (MP_INFO(xt, yt).int_3 * PORT_EXPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_3 -= i;
-    return (i * PORT_COAL_RATE);
-}
-
-static int sell_ore(int xt, int yt)
-{
-    int i = 0;
-    i = (MP_INFO(xt, yt).int_5 * PORT_EXPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_5 -= i;
-    return (i * PORT_ORE_RATE);
-}
-
-static int sell_goods(int xt, int yt)
-{
-    int i = 0;
-    i = (MP_INFO(xt, yt).int_4 * PORT_EXPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_4 -= i;
-    return (i * PORT_GOODS_RATE);
-}
-
-static int sell_steel(int xt, int yt)
-{
-    int i = 0;
-    i = (MP_INFO(xt, yt).int_6 * PORT_EXPORT_RATE) / 1000;
-    MP_INFO(xt, yt).int_6 -= i;
-    return (i * PORT_STEEL_RATE);
-}
-
-/* Trade with a transport.
- * Port is at x/y, transport at u/v. */
-static void trade_connection(const int x, const int y, const int u, const int v, int *ic_ptr, int *et_ptr)
-{
-    if (u >= 0 && v >= 0 && (MP_INFO(u, v).flags & FLAG_IS_TRANSPORT) != 0) {
-        //printf("Port %i/%i trading with transport %i/%i\n", x,y,u,v);
-        int i, flags;
-        int ic = 0;
-        int et = 0;
-        flags = MP_INFO(x, y).flags;
-        if ((flags & FLAG_MB_FOOD) != 0) {
-            i = buy_food(u, v);
-            ic += i;
-            MP_INFO(x + 1, y).int_3 += i;
+        //Checks all flags and issues buy_stuff sell_stuff accordingly
+    std::map<Commodities, CommodityRule>::iterator stuff_it;
+    for(stuff_it = commodityRuleCount.begin() ; stuff_it != commodityRuleCount.end() ; stuff_it++ )
+    {               
+        if (stuff_it->second.take == stuff_it->second.give)
+            continue;
+        if (stuff_it->second.take)
+        {
+           daily_ic += buy_stuff(stuff_it->first);            
         }
-        if ((flags & FLAG_MS_FOOD) != 0) {
-            i = sell_food(u, v);
-            et += i;
-            MP_INFO(x + 2, y).int_3 += i;
+        else if (stuff_it->second.give)
+        {
+            daily_et += sell_stuff(stuff_it->first);            
         }
-        if ((flags & FLAG_MB_COAL) != 0) {
-            i = buy_coal(u, v);
-            ic += i;
-            MP_INFO(x + 1, y).int_4 += i;
-        }
-        if ((flags & FLAG_MS_COAL) != 0) {
-            i = sell_coal(u, v);
-            et += i;
-            MP_INFO(x + 2, y).int_4 += i;
-        }
-        if ((flags & FLAG_MB_ORE) != 0) {
-            i = buy_ore(u, v);
-            ic += i;
-            MP_INFO(x + 1, y).int_5 += i;
-        }
-        if ((flags & FLAG_MS_ORE) != 0) {
-            i = sell_ore(u, v);
-            et += i;
-            MP_INFO(x + 2, y).int_5 += i;
-        }
-        if ((flags & FLAG_MB_GOODS) != 0) {
-            i = buy_goods(u, v);
-            ic += i;
-            MP_INFO(x + 1, y).int_6 += i;
-        }
-        if ((flags & FLAG_MS_GOODS) != 0) {
-            i = sell_goods(u, v);
-            et += i;
-            MP_INFO(x + 2, y).int_6 += i;
-        }
-        if ((flags & FLAG_MB_STEEL) != 0) {
-            i = buy_steel(u, v);
-            ic += i;
-            MP_INFO(x + 1, y).int_7 += i;
-        }
-        if ((flags & FLAG_MS_STEEL) != 0) {
-            i = sell_steel(u, v);
-            et += i;
-            MP_INFO(x + 2, y).int_7 += i;
-        }
-        *ic_ptr += ic;
-        *et_ptr += et;
     }
 }
 
-void do_port(int x, int y)
+void Port::update()
 {
-    /*
-       // int_1 is the money made so far this month
-       // int_2 is the money made last month
-       // int_3 holds the 'pence/pennies/bits' to add next time round.
-       // int_4 is the import costs so far this month
-       // int_5 is the import costs for last month
-       // Use int_3 to int_7 of (x+1,y) to hold the individual buy values
-       //                       (x,y+1) is last month's
-       // Use int_3 to int_7 of (x+2,y) to hold the individual sell values
-       //                       (x,y+2) is last month's
-     */
-    int i, et = 0, ic = 0, *b1, *b2, *s1, *s2, a;
-
-    /* left connection first */
-    for (a = 0; a < 4; a++)     //try anywhere on the west side.
-        if (x >= 0 && y >= 0 && (MP_INFO(x - 1, y + a).flags & FLAG_IS_TRANSPORT) != 0) {
-            trade_connection(x, y, x - 1, y + a, &ic, &et);
-            break;
-        }
-    /* upper gate next */
-    bool deal = false;
-    for (a = 0; a < 3; a++)     //try north
-        if (x >= 0 && y >= 0 && (MP_INFO(x + a, y - 1).flags & FLAG_IS_TRANSPORT) != 0) {
-            trade_connection(x, y, x + a, y - 1, &ic, &et);
-            deal = false;
-            break;
-        }
-    if (!deal)
-        for (a = 0; a < 3; a++) //try south
-            if (x >= 0 && y >= 0 && (MP_INFO(x + a, y + 4).flags & FLAG_IS_TRANSPORT) != 0) {
-                trade_connection(x, y, x + a, y + 4, &ic, &et);
-                break;
+    daily_ic = 0;
+    daily_et = 0;
+    
+    if (commodityCount[STUFF_JOBS] >= PORT_JOBS)//there is enough workforce
+    {
+        trade_connection();
+        if (daily_ic || daily_et)
+        {
+            commodityCount[STUFF_JOBS] -= PORT_JOBS;
+            world(x,y)->pollution += PORT_POLLUTION;
+            sust_port_flag = 0;
+            tech_made++;            
+            tech_level++;
+            working_days++;
+            if (daily_ic && daily_et)
+            {
+                tech_level++;
             }
-
-    MP_INFO(x, y).int_1 += et;
-    MP_INFO(x, y).int_4 += ic;
-    if (total_time % 100 == 0) {
-        MP_INFO(x, y).int_2 = MP_INFO(x, y).int_1;
-        MP_INFO(x, y).int_1 = 0;
-        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_4;
-        MP_INFO(x, y).int_4 = 0;
-        b1 = &(MP_INFO(x + 1, y).int_3);
-        s1 = &(MP_INFO(x + 2, y).int_3);
-        b2 = &(MP_INFO(x, y + 1).int_3);
-        s2 = &(MP_INFO(x, y + 2).int_3);
-        /* GCS FIX -- This obfuscation is unnecessary. */
-        for (i = 0; i < 5; i++) {
-            *(b2++) = *b1;
-            *(s2++) = *s1;
-            *(b1++) = 0;
-            *(s1++) = 0;
-        }
+        }  
+    }    
+    monthly_ic += daily_ic;
+    monthly_et += daily_et;
+    //monthly update
+    if (total_time % 100 == 0) 
+    {
+        busy = working_days;
+        working_days = 0;        
+        lastm_ic = monthly_ic;
+        lastm_et = monthly_et;
+        monthly_ic = 0;
+        monthly_et = 0;              
     }
-    if (et > 0) {
-        sust_port_flag = 0;
-        tech_level++;
-    }
-    if (ic > 0) {
-        sust_port_flag = 0;
-        tech_level++;
-    }
-    et += MP_INFO(x, y).int_3;  /* int_3 holds the 'pence' */
-
-    export_tax += et / 100;
-    MP_INFO(x, y).int_3 = et % 100;
-    import_cost += ic;
+    
+    daily_et += pence;
+    export_tax += daily_et / 100;
+    pence = daily_et % 100;
+    import_cost += daily_ic;
 }
 
-void mps_port(int x, int y)
+void Port::report()
 {
     int i = 0;
-    char buy[12], sell[12];
-
-    mps_store_title(i++, _("Port"));
+    mps_store_sd(i++, constructionGroup->name, ID);
+    mps_store_sfp(i++, "busy", busy);    
+    mps_store_sd(i++, "Export",lastm_et/100);
+    mps_store_sd(i++, "Import",lastm_ic/100);
+    mps_store_sfp(i++,"Culture exchanged", tech_made * 100.0 / MAX_TECH_LEVEL);    
     i++;
-
-    num_to_ansi(buy, sizeof(buy), MP_INFO(x, y + 1).int_3 / 100);
-    num_to_ansi(sell, sizeof(sell), MP_INFO(x, y + 2).int_3 / 100);
-    mps_store_sss(i++, _("Food"), buy, sell);
-
-    num_to_ansi(buy, sizeof(buy), MP_INFO(x, y + 1).int_4 / 100);
-    num_to_ansi(sell, sizeof(sell), MP_INFO(x, y + 2).int_4 / 100);
-    mps_store_sss(i++, _("Coal"), buy, sell);
-
-    num_to_ansi(buy, sizeof(buy), MP_INFO(x, y + 1).int_5 / 100);
-    num_to_ansi(sell, sizeof(sell), MP_INFO(x, y + 2).int_5 / 100);
-    mps_store_sss(i++, _("Ore"), buy, sell);
-
-    num_to_ansi(buy, sizeof(buy), MP_INFO(x, y + 1).int_6 / 100);
-    num_to_ansi(sell, sizeof(sell), MP_INFO(x, y + 2).int_6 / 100);
-    mps_store_sss(i++, _("Goods"), buy, sell);
-
-    num_to_ansi(buy, sizeof(buy), MP_INFO(x, y + 1).int_7 / 100);
-    num_to_ansi(sell, sizeof(sell), MP_INFO(x, y + 2).int_7 / 100);
-    mps_store_sss(i++, _("Steel"), buy, sell);
-
-    num_to_ansi(buy, sizeof(buy), MP_INFO(x, y).int_5 / 100);
-    num_to_ansi(sell, sizeof(sell), MP_INFO(x, y).int_2 / 100);
-    mps_store_sss(i++, _("Total"), buy, sell);
-
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/port.cpp */

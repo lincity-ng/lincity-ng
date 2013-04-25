@@ -62,18 +62,19 @@
 #define FLAG_FED                (0x20)
 #define FLAG_EMPLOYED           (0x40)
 #define FLAG_IS_TRANSPORT       (0x80)
-#define FLAG_MB_FOOD            (0x100)
-#define FLAG_MS_FOOD            (0x200)
-#define FLAG_MB_JOBS            (0x400)
-#define FLAG_MS_JOBS            (0x800)
-#define FLAG_MB_COAL            (0x1000)
-#define FLAG_MS_COAL            (0x2000)
-#define FLAG_MB_ORE             (0x4000)
-#define FLAG_MS_ORE             (0x8000)
-#define FLAG_MB_GOODS           (0x10000)
-#define FLAG_MS_GOODS           (0x20000)
-#define FLAG_MB_STEEL           (0x40000)
-#define FLAG_MS_STEEL           (0x80000)
+//#define FLAG_MB_FOOD            (0x100) //construction only
+#define FLAG_MARKET_COVER       (0x100) //mapTile only
+//#define FLAG_MS_FOOD            (0x200)
+//#define FLAG_MB_JOBS            (0x400)
+//#define FLAG_MS_JOBS            (0x800)
+//#define FLAG_MB_COAL            (0x1000)
+//#define FLAG_MS_COAL            (0x2000)
+//#define FLAG_MB_ORE             (0x4000)
+//#define FLAG_MS_ORE             (0x8000)
+//#define FLAG_MB_GOODS           (0x10000)
+//#define FLAG_MS_GOODS           (0x20000)
+//#define FLAG_MB_STEEL           (0x40000)
+//#define FLAG_MS_STEEL           (0x80000)
 #define FLAG_FIRE_COVER         (0x100000)
 #define FLAG_HEALTH_COVER       (0x200000)
 #define FLAG_CRICKET_COVER      (0x400000)
@@ -82,7 +83,7 @@
 #define FLAG_MULTI_TRANSPORT    (0x2000000)   /* Is it a multitransport? */     /* AL1: unused in NG 1.1 */
 #define FLAG_LACK_JOBS          (0x4000000)     /* 1.92 svn , replace previous unused one. */
 #define FLAG_POWER_LINE         (0x8000000)
-#define FLAG_WATERWELL_COVER    (0x10000000)
+//#define FLAG_WATERWELL_COVER    (0x10000000) //unused since now STUFF_WATER is used instead
 #define FLAG_HAS_UNDERGROUND_WATER (0x20000000)
 #define FLAG_ASKED_FOR_POWER       (0x40000000)
 #define FLAG_GOT_POWER             (0x80000000) /* 2^31 = last flag */  //nearly duplicate of FLAG_POWERED 0x10
@@ -91,7 +92,7 @@
 #define BAD (-1)
 #define RESULTS 0
 
-#define SHUFFLE_MAPPOINT_COUNT 4
+//#define SHUFFLE_MAPPOINT_COUNT 4
 
 #define FAST_TIME_FOR_YEAR 9
 #define MED_TIME_FOR_YEAR  20

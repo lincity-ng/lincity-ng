@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lclib.h"
 #include "lincity/loadsave.h"
 #include "lincity/lin-city.h"
-
+#include "lincity/modules/all_modules.h"
 #include "gui_interface/shared_globals.h"
 
 #include "gui/ComponentLoader.hpp"
@@ -367,8 +367,8 @@ void Dialog::gameStats(){
     int line = 1;
     int maxlength = 567;
     char* outf = (char *) malloc ( maxlength );
-    int group_count[NUM_OF_GROUPS];
-    count_all_groups (group_count);
+    //int group_count[NUM_OF_GROUPS];
+    //count_all_groups (group_count);
     if (cheat_flag){
         setParagraphN( "statistic_text", line++, _("----- IN TEST MODE -------") );
     }
@@ -416,16 +416,17 @@ void Dialog::gameStats(){
     free( outf );
 
     setTableRC("statistic", 1, 1, _("Residences"),
-	     group_count[GROUP_RESIDENCE_LL] +
+	     /*group_count[GROUP_RESIDENCE_LL] +
 	     group_count[GROUP_RESIDENCE_ML] +
 	     group_count[GROUP_RESIDENCE_HL] +
 	     group_count[GROUP_RESIDENCE_LH] +
 	     group_count[GROUP_RESIDENCE_MH] +
-	     group_count[GROUP_RESIDENCE_HH]);
-    setTableRC("statistic", 1, 2, _("Markets"), group_count[GROUP_MARKET] );
-    setTableRC("statistic", 1, 3, _("Farms"), group_count[GROUP_ORGANIC_FARM]);
+	     group_count[GROUP_RESIDENCE_HH]*/
+        Counted<Residence>::getInstanceCount());
+    setTableRC("statistic", 1, 2, _("Markets"), Counted<Market>::getInstanceCount());
+    setTableRC("statistic", 1, 3, _("Farms"), Counted<Organic_farm>::getInstanceCount());
 
-    setTableRC("statistic", 2, 1, _("Water wells"), group_count[GROUP_WATERWELL]);
+    setTableRC("statistic", 2, 1, _("Water wells"), Counted<Waterwell>::getInstanceCount());
     setTableRC("statistic", 2, 2, "", "");
     setTableRC("statistic", 2, 3, "", "");
 
@@ -433,49 +434,49 @@ void Dialog::gameStats(){
     setTableRC("statistic", 3, 2, "", "");
     setTableRC("statistic", 3, 3, "", "");
 
-    setTableRC("statistic", 4, 1, _("Monuments"), group_count[GROUP_MONUMENT]);
-    setTableRC("statistic", 4, 2, _("Schools"),  group_count[GROUP_SCHOOL]);
-    setTableRC("statistic", 4, 3, _("Universities"), group_count[GROUP_UNIVERSITY]);
+    setTableRC("statistic", 4, 1, _("Monuments"), Counted<Monument>::getInstanceCount());
+    setTableRC("statistic", 4, 2, _("Schools"),  Counted<School>::getInstanceCount());
+    setTableRC("statistic", 4, 3, _("Universities"), Counted<University>::getInstanceCount());
 
-    setTableRC("statistic", 5, 1, _("Fire stations"), group_count[GROUP_FIRESTATION]);
-    setTableRC("statistic", 5, 2, _("Parks"), group_count[GROUP_PARKLAND]);
-    setTableRC("statistic", 5, 3, _("Sports fields"), group_count[GROUP_CRICKET]);
+    setTableRC("statistic", 5, 1, _("Fire stations"), Counted<FireStation>::getInstanceCount());
+    setTableRC("statistic", 5, 2, _("Parks"), Counted<Parkland>::getInstanceCount());
+    setTableRC("statistic", 5, 3, _("Sports fields"), Counted<Cricket>::getInstanceCount());
 
-    setTableRC("statistic", 6, 1, _("Health centres"), group_count[GROUP_HEALTH]);
-    setTableRC("statistic", 6, 2, _("Tips"), group_count[GROUP_TIP]);
-    setTableRC("statistic", 6, 3, _("Shanties"), group_count[GROUP_SHANTY]);
+    setTableRC("statistic", 6, 1, _("Health centres"), Counted<HealthCentre>::getInstanceCount());
+    setTableRC("statistic", 6, 2, _("Tips"), Counted<Tip>::getInstanceCount());
+    setTableRC("statistic", 6, 3, _("Shanties"), Counted<Shanty>::getInstanceCount());
 
     setTableRC("statistic", 7, 1, "", "");
     setTableRC("statistic", 7, 2, "", "");
     setTableRC("statistic", 7, 3, "", "");
 
-    setTableRC("statistic", 8, 1, _("Windmills"), group_count[GROUP_WINDMILL]);
-    setTableRC("statistic", 8, 2, _("Coal powers"), group_count[GROUP_COAL_POWER]);
-    setTableRC("statistic", 8, 3, _("Solar powers"), group_count[GROUP_SOLAR_POWER]);
+    setTableRC("statistic", 8, 1, _("Windmills"),  Counted<Windmill>::getInstanceCount());
+    setTableRC("statistic", 8, 2, _("Coal powers"), Counted<Coal_power>::getInstanceCount());
+    setTableRC("statistic", 8, 3, _("Solar powers"), Counted<SolarPower>::getInstanceCount());
 
-    setTableRC("statistic", 9, 1, _("Substations"), group_count[GROUP_SUBSTATION]);
-    setTableRC("statistic", 9, 2, _("Power lines"), group_count[GROUP_POWER_LINE]);
-    setTableRC("statistic", 9, 3, _("Ports"), group_count[GROUP_PORT]);
+    setTableRC("statistic", 9, 1, _("Substations"), Counted<Substation>::getInstanceCount());
+    setTableRC("statistic", 9, 2, _("Power lines"), Counted<Powerline>::getInstanceCount());
+    setTableRC("statistic", 9, 3, _("Ports"), Counted<Port>::getInstanceCount());
 
-    setTableRC("statistic", 10, 1, _("Tracks"), group_count[GROUP_TRACK]);
-    setTableRC("statistic", 10, 2, _("Roads"), group_count[GROUP_ROAD]);
-    setTableRC("statistic", 10, 3, _("Rail"), group_count[GROUP_RAIL]);
+    setTableRC("statistic", 10, 1, _("Tracks"), Counted<Track>::getInstanceCount());
+    setTableRC("statistic", 10, 2, _("Roads"), Counted<Road>::getInstanceCount());
+    setTableRC("statistic", 10, 3, _("Rail"), Counted<Rail>::getInstanceCount());
 
     setTableRC("statistic", 11, 1, "", "");
     setTableRC("statistic", 11, 2, "", "");
     setTableRC("statistic", 11, 3, "", "");
 
-    setTableRC("statistic", 12, 1, _("Potteries"), group_count[GROUP_POTTERY]);
-    setTableRC("statistic", 12, 2, _("Blacksmiths"), group_count[GROUP_BLACKSMITH]);
-    setTableRC("statistic", 12, 3, _("Mills"), group_count[GROUP_MILL]);
+    setTableRC("statistic", 12, 1, _("Potteries"), Counted<Pottery>::getInstanceCount());
+    setTableRC("statistic", 12, 2, _("Blacksmiths"), Counted<Blacksmith>::getInstanceCount());
+    setTableRC("statistic", 12, 3, _("Mills"), Counted<Mill>::getInstanceCount());
 
-    setTableRC("statistic", 13, 1, _("Light inds"), group_count[GROUP_INDUSTRY_L]);
-    setTableRC("statistic", 13, 2, _("Heavy inds"), group_count[GROUP_INDUSTRY_H]);
-    setTableRC("statistic", 13, 3, _("Recyclers"), group_count[GROUP_RECYCLE]);
+    setTableRC("statistic", 13, 1, _("Light inds"), Counted<IndustryLight>::getInstanceCount());
+    setTableRC("statistic", 13, 2, _("Heavy inds"), Counted<IndustryHeavy>::getInstanceCount());
+    setTableRC("statistic", 13, 3, _("Recyclers"), Counted<Recycle>::getInstanceCount());
 
-    setTableRC("statistic", 14, 1, _("Coal mines"), group_count[GROUP_COALMINE]);
-    setTableRC("statistic", 14, 2, _("Ore mines"), group_count[GROUP_OREMINE]);
-    setTableRC("statistic", 14, 3, _("Communes"), group_count[GROUP_COMMUNE]);
+    setTableRC("statistic", 14, 1, _("Coal mines"), Counted<Coalmine>::getInstanceCount());
+    setTableRC("statistic", 14, 2, _("Ore mines"), Counted<Oremine>::getInstanceCount());
+    setTableRC("statistic", 14, 3, _("Forests"), Counted<Commune>::getInstanceCount());
 
     setTableRC("statistic", 15, 1, "", "");
     setTableRC("statistic", 15, 2, "", "");
@@ -506,8 +507,8 @@ void Dialog::saveGameStats(){
     // Fill in Fields.
     int maxlength = 567;
     char* outf = (char *) malloc ( maxlength );
-    int group_count[NUM_OF_GROUPS];
-    count_all_groups (group_count);
+    //int group_count[NUM_OF_GROUPS];
+    //count_all_groups (group_count);
     if (cheat_flag){
         results << "----- IN TEST MODE -------"  << std::endl;
     }
@@ -551,57 +552,58 @@ void Dialog::saveGameStats(){
     results << "" << std::endl;
 
     snprintf (outf, maxlength, "    Residences %4d         Markets %4d            Farms %4d",
-	     group_count[GROUP_RESIDENCE_LL] +
+	/*     group_count[GROUP_RESIDENCE_LL] +
 	     group_count[GROUP_RESIDENCE_ML] +
 	     group_count[GROUP_RESIDENCE_HL] +
 	     group_count[GROUP_RESIDENCE_LH] +
 	     group_count[GROUP_RESIDENCE_MH] +
-	     group_count[GROUP_RESIDENCE_HH],
-	     group_count[GROUP_MARKET],
-	     group_count[GROUP_ORGANIC_FARM]);
+	     group_count[GROUP_RESIDENCE_HH] */
+         Counted<Residence>::getInstanceCount(),
+	     Counted<Market>::getInstanceCount(),
+	     Counted<Organic_farm>::getInstanceCount());
     results << outf << std::endl;
-    snprintf (outf, maxlength, "   Water wells %4d", group_count[GROUP_WATERWELL]);
+    snprintf (outf, maxlength, "   Water wells %4d", Counted<Waterwell>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "     Monuments %4d         Schools %4d     Universities %4d"
-	     ,group_count[GROUP_MONUMENT], group_count[GROUP_SCHOOL]
-	     ,group_count[GROUP_UNIVERSITY]);
+	     ,Counted<Monument>::getInstanceCount(), Counted<School>::getInstanceCount()
+	     ,Counted<University>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, " Fire stations %4d           Parks %4d    Sports fields %4d"
-	     ,group_count[GROUP_FIRESTATION], group_count[GROUP_PARKLAND]
-	     ,group_count[GROUP_CRICKET]);
+	     ,Counted<FireStation>::getInstanceCount(), Counted<Parkland>::getInstanceCount()
+	     ,Counted<Cricket>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "Health centres %4d            Tips %4d         Shanties %4d",
-	     group_count[GROUP_HEALTH], group_count[GROUP_TIP],
-	     group_count[GROUP_SHANTY]);
+	     Counted<HealthCentre>::getInstanceCount(), Counted<Tip>::getInstanceCount(),
+	     Counted<Shanty>::getInstanceCount());
     results << outf << std::endl;
     results << "" << std::endl;
 
     snprintf (outf, maxlength, "     Windmills %4d     Coal powers %4d     Solar powers %4d",
-	     group_count[GROUP_WINDMILL],
-	     group_count[GROUP_COAL_POWER],
-	     group_count[GROUP_SOLAR_POWER]);
+	     Counted<Windmill>::getInstanceCount(),
+	     Counted<Coal_power>::getInstanceCount(),
+	     Counted<SolarPower>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "   Substations %4d     Power lines %4d            Ports %4d"
-	     ,group_count[GROUP_SUBSTATION], group_count[GROUP_POWER_LINE]
-	     ,group_count[GROUP_PORT]);
+	     ,Counted<Substation>::getInstanceCount(), Counted<Powerline>::getInstanceCount()
+	     ,Counted<Port>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "        Tracks %4d           Roads %4d             Rail %4d"
-	     ,group_count[GROUP_TRACK], group_count[GROUP_ROAD]
-	     ,group_count[GROUP_RAIL]);
+	     ,Counted<Track>::getInstanceCount(), Counted<Road>::getInstanceCount()
+	     ,Counted<Road>::getInstanceCount());
     results << outf << std::endl;
     results << "" << std::endl;
 
     snprintf (outf, maxlength, "     Potteries %4d     Blacksmiths %4d            Mills %4d"
-	     ,group_count[GROUP_POTTERY], group_count[GROUP_BLACKSMITH]
-	     ,group_count[GROUP_MILL]);
+	     ,Counted<Pottery>::getInstanceCount(), Counted<Blacksmith>::getInstanceCount()
+	     ,Counted<Mill>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "    Light inds %4d      Heavy inds %4d        Recyclers %4d"
-	     ,group_count[GROUP_INDUSTRY_L], group_count[GROUP_INDUSTRY_H]
-	     ,group_count[GROUP_RECYCLE]);
+	     ,Counted<IndustryLight>::getInstanceCount(), Counted<IndustryHeavy>::getInstanceCount()
+	     ,Counted<Recycle>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "    Coal mines %4d       Ore mines %4d         Communes %4d"
-	     ,group_count[GROUP_COALMINE], group_count[GROUP_OREMINE]
-	     ,group_count[GROUP_COMMUNE]);
+	     ,Counted<Coalmine>::getInstanceCount(), Counted<Oremine>::getInstanceCount()
+	     ,Counted<Commune>::getInstanceCount());
     results << outf << std::endl;
     results << "" << std::endl;
 
@@ -632,32 +634,38 @@ void Dialog::editMarket(){
     std::stringstream title;
 	title << _("Market") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
-
+    Market * market = static_cast <Market *> (world(pointX, pointY)->reportingConstruction);
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyJobs" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_JOBS ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_JOBS].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellJobs" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_JOBS ) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_JOBS].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_FOOD) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_FOOD].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellFood" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_FOOD) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_FOOD].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_COAL) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_COAL].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_COAL) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_COAL].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_ORE) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_ORE].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellOre" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_ORE) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_ORE].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_GOODS) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_GOODS].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_GOODS) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_GOODS].give ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_STEEL) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_STEEL].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_STEEL) cb->check(); else cb->uncheck();
+    if( market->commodityRuleCount[Construction::STUFF_STEEL].give) cb->check(); else cb->uncheck();
+/* //TODO change gui/tradedialog.xml
+    cb = getCheckButton( *myDialogComponent, "BuyWaste" );
+    if( market->commodityRuleCount[Construction::STUFF_WASTE].take ) cb->check(); else cb->uncheck();
+    cb = getCheckButton( *myDialogComponent, "SellWaste" );
+    if( market->commodityRuleCount[Construction::STUFF_WASTE].give) cb->check(); else cb->uncheck();
+*/
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
     applyButton->clicked.connect( makeCallback(*this, &Dialog::applyMarketButtonClicked ) );
@@ -682,6 +690,8 @@ void Dialog::editPort(){
         return;
     }
     // set Dialog to Port-Data
+    //int port_flags = world(pointX, pointY)->reportingConstruction->flags;
+    Port *port = dynamic_cast<Port *>(world(pointX, pointY)->reportingConstruction);
     Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
 	title << _("Port") << " ( " << pointX <<" , " << pointY << " )";
@@ -689,25 +699,25 @@ void Dialog::editPort(){
 
     CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_FOOD) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_FOOD].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellFood" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_FOOD) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_FOOD].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_COAL) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_COAL].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_COAL) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_COAL].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_ORE) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_ORE].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellOre" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_ORE) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_ORE].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_GOODS) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_GOODS].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_GOODS) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_GOODS].give) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MB_STEEL) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_STEEL].take) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
-    if( MP_INFO( pointX,pointY ).flags & FLAG_MS_STEEL) cb->check(); else cb->uncheck();
+    if( port->commodityRuleCount[Construction::STUFF_STEEL].give) cb->check(); else cb->uncheck();
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
     applyButton->clicked.connect( makeCallback(*this, &Dialog::applyPortButtonClicked ) );
@@ -717,90 +727,207 @@ void Dialog::editPort(){
 
 void Dialog::applyMarketButtonClicked( Button* b ){
     CheckButton* cb;
+    Market * market = static_cast <Market *> (world(pointX, pointY)->construction);
     cb = getCheckButton( *myDialogComponent, "BuyJobs" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_JOBS;
+        market->commodityRuleCount[Construction::STUFF_JOBS].take = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_JOBS;
+        market->commodityRuleCount[Construction::STUFF_JOBS].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellJobs" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_JOBS;
+        market->commodityRuleCount[Construction::STUFF_JOBS].give = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_JOBS;
+        market->commodityRuleCount[Construction::STUFF_JOBS].give = false;
     }
-    applyPortButtonClicked( b );
-}
-
-void Dialog::applyPortButtonClicked( Button* ){
-    CheckButton* cb;
     cb = getCheckButton( *myDialogComponent, "BuyFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_FOOD;
+        market->commodityRuleCount[Construction::STUFF_FOOD].take = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_FOOD;
+        market->commodityRuleCount[Construction::STUFF_FOOD].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellFood" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_FOOD;
+        market->commodityRuleCount[Construction::STUFF_FOOD].give = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_FOOD;
+        market->commodityRuleCount[Construction::STUFF_FOOD].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_COAL;
+        market->commodityRuleCount[Construction::STUFF_COAL].take = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_COAL;
+        market->commodityRuleCount[Construction::STUFF_COAL].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_COAL;
+        market->commodityRuleCount[Construction::STUFF_COAL].give = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_COAL;
+        market->commodityRuleCount[Construction::STUFF_COAL].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_ORE;
+        market->commodityRuleCount[Construction::STUFF_ORE].take = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_ORE;
+        market->commodityRuleCount[Construction::STUFF_ORE].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_ORE;
+        market->commodityRuleCount[Construction::STUFF_ORE].give = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_ORE;
+        market->commodityRuleCount[Construction::STUFF_ORE].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_GOODS;
+        market->commodityRuleCount[Construction::STUFF_GOODS].take = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_GOODS;
+        market->commodityRuleCount[Construction::STUFF_GOODS].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_GOODS;
+        market->commodityRuleCount[Construction::STUFF_GOODS].give = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_GOODS;
+        market->commodityRuleCount[Construction::STUFF_GOODS].give = false;
     }
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MB_STEEL;
+        market->commodityRuleCount[Construction::STUFF_STEEL].take = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MB_STEEL;
+        market->commodityRuleCount[Construction::STUFF_STEEL].take = false;
     }
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){
-        MP_INFO( pointX,pointY ).flags |= FLAG_MS_STEEL;
+        market->commodityRuleCount[Construction::STUFF_STEEL].give = true;
     } else {
-        MP_INFO( pointX,pointY ).flags &= ~FLAG_MS_STEEL;
+        market->commodityRuleCount[Construction::STUFF_STEEL].give = false;
     }
+/*//TODO change gui/tradedialog.xml
+    cb = getCheckButton( *myDialogComponent, "BuyWaste" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        market->commodityRuleCount[Construction::STUFF_WASTE].take = true;
+    } else {
+        market->commodityRuleCount[Construction::STUFF_WASTE].take = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "SellWaste" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        market->commodityRuleCount[Construction::STUFF_WASTE].give = true;
+    } else {
+        market->commodityRuleCount[Construction::STUFF_WASTE].give = false;
+    }
+*/
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }
 
-void Dialog::okayLaunchRocketButtonClicked( Button* ){
-    launch_rocket( pointX, pointY );
+void Dialog::applyPortButtonClicked( Button* ){
+    //int *port_flags = &(world(pointX, pointY)->reportingConstruction->flags);    
+    Port *port = dynamic_cast<Port *>(world(pointX, pointY)->reportingConstruction);
+    CheckButton* cb;
+
+    cb = getCheckButton( *myDialogComponent, "BuyFood" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_FOOD].take = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_FOOD].take = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "SellFood" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_FOOD].give = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_FOOD].give = false;
+    }
+    if ((port->commodityRuleCount[Construction::STUFF_FOOD].take)
+        && (port->commodityRuleCount[Construction::STUFF_FOOD].give))
+    {
+        port->commodityRuleCount[Construction::STUFF_FOOD].take = false;
+        port->commodityRuleCount[Construction::STUFF_FOOD].give = false; 
+    }    
+    
+    cb = getCheckButton( *myDialogComponent, "BuyCoal" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_COAL].take = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_COAL].take = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "SellCoal" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_COAL].give = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_COAL].give = false;
+    }
+    if ((port->commodityRuleCount[Construction::STUFF_COAL].take)
+        && (port->commodityRuleCount[Construction::STUFF_COAL].give))
+    {
+        port->commodityRuleCount[Construction::STUFF_COAL].take = false;
+        port->commodityRuleCount[Construction::STUFF_COAL].give = false;  
+    }        
+
+    cb = getCheckButton( *myDialogComponent, "BuyOre" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_ORE].take = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_ORE].take = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "SellOre" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_ORE].give = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_ORE].give = false;
+    }
+    if ((port->commodityRuleCount[Construction::STUFF_ORE].take)
+        && (port->commodityRuleCount[Construction::STUFF_ORE].give))
+    {
+        port->commodityRuleCount[Construction::STUFF_ORE].take = false;
+        port->commodityRuleCount[Construction::STUFF_ORE].give = false;  
+    }        
+
+    cb = getCheckButton( *myDialogComponent, "BuyGoods" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_GOODS].take = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_GOODS].take = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "SellGoods" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_GOODS].give = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_GOODS].give = false;
+    }
+    if ((port->commodityRuleCount[Construction::STUFF_GOODS].take)
+        && (port->commodityRuleCount[Construction::STUFF_GOODS].give))
+    {
+        port->commodityRuleCount[Construction::STUFF_GOODS].take = false;
+        port->commodityRuleCount[Construction::STUFF_GOODS].give = false;
+    }        
+
+    cb = getCheckButton( *myDialogComponent, "BuySteel" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_STEEL].take = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_STEEL].take = false;
+    }
+    cb = getCheckButton( *myDialogComponent, "SellSteel" );
+    if( cb->state == CheckButton::STATE_CHECKED ){
+        port->commodityRuleCount[Construction::STUFF_STEEL].give = true;
+    } else {
+        port->commodityRuleCount[Construction::STUFF_STEEL].give = false;
+    }
+    if ((port->commodityRuleCount[Construction::STUFF_STEEL].take)
+        && (port->commodityRuleCount[Construction::STUFF_STEEL].give))
+    {
+        port->commodityRuleCount[Construction::STUFF_STEEL].take = false;
+        port->commodityRuleCount[Construction::STUFF_STEEL].give = false; 
+    }  
+
+    desktop->remove( myDialogComponent );
+    blockingDialogIsOpen = false;
+    unRegisterDialog();
+}
+
+void Dialog::okayLaunchRocketButtonClicked( Button* )
+{
+    static_cast<RocketPad*> (world(pointX, pointY)->reportingConstruction)-> launch_rocket();
+    //launch_rocket( pointX, pointY );
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();

@@ -96,6 +96,7 @@ private:
     void changeTrack( bool next);
 
     void changeResolution( bool next);
+    void changeWorldLen(bool next);
 
     Paragraph* languageParagraph;
     void changeLanguage( bool next);

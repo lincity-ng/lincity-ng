@@ -78,7 +78,6 @@ PainterGL::drawStretchTexture(Texture* texture, const Rect2D& rect)
 #endif
         return;
     }
-
     drawTextureRect(texture, rect);
 }
 

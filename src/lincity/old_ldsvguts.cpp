@@ -76,7 +76,7 @@
 #include "lin-city.h"
 #include "engglobs.h"
 #include "fileutil.h"
-#include "power.h"
+//#include "power.h"
 #include "gui_interface/pbar_interface.h"
 #include "lincity-ng/ErrorInterface.hpp"
 #include "stats.h"
@@ -84,6 +84,7 @@
 #include "loadsave.h"
 #include "simulate.h"
 #include "engine.h"
+//#include "modules/market.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
 #define START_FAST_SPEED 1
@@ -100,7 +101,7 @@ extern void ok_dial_box(const char *, int, const char *);
 extern void prog_box(const char *, int);
 
 extern void print_total_money(void);
-extern int count_groups(int);
+//extern int count_groups(int);
 extern void reset_animation_times(void);
 
 /* ---------------------------------------------------------------------- *
@@ -132,13 +133,14 @@ void load_city_old(char *cname)
         do_error("Can't open it!");
     }
     /* Initialise additional structure FIXME random village does not go here*/
-    for (x = 0; x < WORLD_SIDE_LEN; x++)
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+/*
+    for (x = 0; x < world.len(); x++)
+        for (y = 0; y < world.len(); y++) {
             MP_TECH(x,y) = 0;
             MP_DATE(x,y) = 0;
             MP_ANIM(x,y) = 0;
         }
-
+*/
     /* Add version to shared global variables for playing/saving games without waterwell */
     sscanf(gzgets(gzfile, s, 256), "%d", &ldsv_version);
     if (ldsv_version < MIN_LOAD_VERSION) {
@@ -153,7 +155,7 @@ void load_city_old(char *cname)
     use_waterwell = true;
 
     init_pbars();
-    num_pbars = NUM_PBARS;
+    num_pbars = OLD_NUM_PBARS;
     pbar_data_size = PBAR_DATA_SIZE;
 
     init_inventory();
@@ -161,73 +163,72 @@ void load_city_old(char *cname)
     print_time_for_year();
     prog_box(_("Loading scene"), 0);
 
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+    for (x = 0; x < world.len(); x++) {
+        for (y = 0; y < world.len(); y++) {
+            int dummy; //FIXME hack to pretend reading obsolete data
             for (z = 0; z < sizeof(int); z++) {
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).population) + z) = n;
+                *(((unsigned char *)&dummy) + z) = n;
             }
             for (z = 0; z < sizeof(int); z++) {
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).flags) + z) = n;
+                *(((unsigned char *)&world(x, y)->flags) + z) = n;
             }
             for (z = 0; z < sizeof(unsigned short); z++) {
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).coal_reserve) + z) = n;
+                *(((unsigned char *)&world(x, y)->coal_reserve) + z) = n;
             }
             for (z = 0; z < sizeof(unsigned short); z++) {
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).ore_reserve) + z) = n;
+                *(((unsigned char *)&world(x, y)->ore_reserve) + z) = n;
             }
-            for (z = 0; z < sizeof(int); z++) {
+            for (z = 0; z < sizeof(int); z++) { //int1
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).int_1) + z) = n;
+                *(((unsigned char *)&dummy) + z) = n;
             }
-            for (z = 0; z < sizeof(int); z++) {
+            for (z = 0; z < sizeof(int); z++) { //int2
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).int_2) + z) = n;
+                *(((unsigned char *)&dummy) + z) = n;
             }
-            for (z = 0; z < sizeof(int); z++) {
+            for (z = 0; z < sizeof(int); z++) { //int3
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).int_3) + z) = n;
+                *(((unsigned char *)&dummy) + z) = n;
             }
-            for (z = 0; z < sizeof(int); z++) {
+            for (z = 0; z < sizeof(int); z++) { //int4
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).int_4) + z) = n;
+                *(((unsigned char *)&dummy) + z) = n;
             }
-            for (z = 0; z < sizeof(int); z++) {
+            for (z = 0; z < sizeof(int); z++) { //int5
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).int_5) + z) = n;
+                *(((unsigned char *)&dummy) + z) = n;
             }
-            for (z = 0; z < sizeof(int); z++) {
+            for (z = 0; z < sizeof(int); z++) { //int6
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).int_6) + z) = n;
+                *(((unsigned char *)&dummy) + z) = n;
             }
-            for (z = 0; z < sizeof(int); z++) {
+            for (z = 0; z < sizeof(int); z++) { //int7
                 sscanf(gzgets(gzfile, s, 256), "%d", &n);
-                *(((unsigned char *)&MP_INFO(x, y).int_7) + z) = n;
+                *(((unsigned char *)&dummy) + z) = n;
             }
             sscanf(gzgets(gzfile, s, 256), "%d", &n);
-            MP_POL(x, y) = (unsigned short)n;
+            world(x, y)->pollution = (unsigned short)n;
             sscanf(gzgets(gzfile, s, 256), "%d", &n);
-            MP_TYPE(x, y) = (short)n;
+            world(x, y)->type = (short)n;
 
-            if (get_group_of_type(MP_TYPE(x, y)) == GROUP_MARKET)
-                inventory(x, y);
         }
-        if (((93 * x) / WORLD_SIDE_LEN) % 3 == 0)
-            prog_box("", (93 * x) / WORLD_SIDE_LEN);
+        if (((93 * x) / world.len()) % 3 == 0)
+            prog_box("", (93 * x) / world.len());
     }
     check_endian();
     set_map_groups();
 
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originx);
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originy);
-    if (main_screen_originx > WORLD_SIDE_LEN - getMainWindowWidth() / 16 - 1)
-        main_screen_originx = WORLD_SIDE_LEN - getMainWindowWidth() / 16 - 1;
+    if (main_screen_originx > world.len() - getMainWindowWidth() / 16 - 1)
+        main_screen_originx = world.len() - getMainWindowWidth() / 16 - 1;
 
-    if (main_screen_originy > WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1)
-        main_screen_originy = WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1;
+    if (main_screen_originy > world.len() - getMainWindowHeight() / 16 - 1)
+        main_screen_originy = world.len() - getMainWindowHeight() / 16 - 1;
 
     sscanf(gzgets(gzfile, s, 256), "%d", &total_time);
     if (ldsv_version <= MM_MS_C_VER)
@@ -235,21 +236,21 @@ void load_city_old(char *cname)
     else
         i = MAX_NUMOF_SUBSTATIONS;
     for (x = 0; x < i; x++) {
-        sscanf(gzgets(gzfile, s, 256), "%d", &substationx[x]);
-        sscanf(gzgets(gzfile, s, 256), "%d", &substationy[x]);
+        sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&substationx[x]);
+        sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&substationy[x]);
     }
     prog_box("", 92);
-    sscanf(gzgets(gzfile, s, 256), "%d", &numof_substations);
+    sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&numof_substations);
     if (ldsv_version <= MM_MS_C_VER)
         i = OLD_MAX_NUMOF_MARKETS;
     else
         i = MAX_NUMOF_MARKETS;
     for (x = 0; x < i; x++) {
-        sscanf(gzgets(gzfile, s, 256), "%d", &marketx[x]);
-        sscanf(gzgets(gzfile, s, 256), "%d", &markety[x]);
+        sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&marketx[x]);
+        sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&markety[x]);
     }
     prog_box("", 94);
-    sscanf(gzgets(gzfile, s, 256), "%d", &numof_markets);
+    sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&numof_markets);
     sscanf(gzgets(gzfile, s, 256), "%d", &people_pool);
     sscanf(gzgets(gzfile, s, 256), "%d", &total_money);
     sscanf(gzgets(gzfile, s, 256), "%d", &income_tax_rate);
@@ -389,39 +390,39 @@ void load_city_old(char *cname)
 #ifdef DEBUG
         fprintf(stderr," arid %d, mountain %d \n", global_aridity, global_mountainity);
 #endif
-        for (x = 0; x < WORLD_SIDE_LEN; x++) {
-            for (y = 0; y < WORLD_SIDE_LEN; y++) {
+        for (x = 0; x < world.len(); x++) {
+            for (y = 0; y < world.len(); y++) {
                 gzgets(gzfile, s, 200);
-                sscanf(s,"%d %d %d %d %d %d %d %d %d %d %d %d",&(ground[x][y].altitude)
-                        , &ground[x][y].ecotable
-                        , &ground[x][y].wastes
-                        , &ground[x][y].pollution
-                        , &ground[x][y].water_alt
-                        , &ground[x][y].water_pol
-                        , &ground[x][y].water_wast
-                        , &ground[x][y].water_next
-                        , &ground[x][y].int1
-                        , &ground[x][y].int2
-                        , &ground[x][y].int3
-                        , &ground[x][y].int4
+                sscanf(s,"%d %d %d %d %d %d %d %d %d %d %d %d",&(world(x, y)->ground.altitude)
+                        , &world(x, y)->ground.ecotable
+                        , &world(x, y)->ground.wastes
+                        , &world(x, y)->ground.pollution
+                        , &world(x, y)->ground.water_alt
+                        , &world(x, y)->ground.water_pol
+                        , &world(x, y)->ground.water_wast
+                        , &world(x, y)->ground.water_next
+                        , &world(x, y)->ground.int1
+                        , &world(x, y)->ground.int2
+                        , &world(x, y)->ground.int3
+                        , &world(x, y)->ground.int4
                         );
 #ifdef DEBUG
                 if (x == 10 && y == 10)
-                    fprintf(stderr," alt %d, int4 %d \n", ground[x][y].altitude, ground[x][y].int4);
+                    fprintf(stderr," alt %d, int4 %d \n", world(x, y)->ground.altitude, world(x, y)->ground.int4);
 #endif
             }
         }
     }
     gzclose(gzfile);
 
-    numof_shanties = count_groups(GROUP_SHANTY);
-    numof_communes = count_groups(GROUP_COMMUNE);
+    //numof_shanties = count_groups(GROUP_SHANTY);
+    //numof_communes = count_groups(GROUP_COMMUNE);
     prog_box("", 100);
 
     /* set up the university intake. */
-    x = count_groups(GROUP_UNIVERSITY);
+    x = Counted<University>::getInstanceCount();
     if (x > 0) {
-        university_intake_rate = (count_groups(GROUP_SCHOOL) * 20) / x;
+        university_intake_rate = (Counted<School>::getInstanceCount() * 20) / x;
         if (university_intake_rate > 100)
             university_intake_rate = 100;
     } else
@@ -433,7 +434,7 @@ void load_city_old(char *cname)
     set_selected_module(CST_TRACK_LR);
 
     print_total_money();
-    reset_animation_times();
+    //reset_animation_times();
     /* kind upgrade of MP_TECH for old buildings, when we don't know
      * eg light industries pollution depends on tech */
     int tk = (3 * highest_tech_level) / 4;
@@ -441,24 +442,29 @@ void load_city_old(char *cname)
         tk = tech_level;
 
     /* update tech dep */
-    for (x = 0; x < WORLD_SIDE_LEN; x++)
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+    for (x = 0; x < world.len(); x++)
+        for (y = 0; y < world.len(); y++) {
 
-            switch (MP_GROUP(x, y)) {
+            switch (world(x, y)->getGroup()) {
             case (GROUP_WINDMILL):
+/*
                 MP_TECH(x,y) = MP_INFO(x, y).int_2;
                 MP_INFO(x, y).int_1 = (int)(WINDMILL_POWER + (((double)MP_TECH(x, y) * WINDMILL_POWER)
                                                               / MAX_TECH_LEVEL));
+*/
                 break;
 
             case (GROUP_COAL_POWER):
+/*
                 MP_TECH(x,y) = MP_INFO(x,y).int_4;
                 MP_INFO(x, y).int_1 = (int)(POWERS_COAL_OUTPUT + (((double)MP_TECH(x, y) * POWERS_COAL_OUTPUT)
                                                                   / MAX_TECH_LEVEL));
+*/
                 break;
 
             case (GROUP_SOLAR_POWER):
                 {
+/*
                     float PSO = POWERS_SOLAR_OUTPUT;
                     float MT = MAX_TECH_LEVEL;
                     int t1, t2 , t3;
@@ -482,17 +488,19 @@ void load_city_old(char *cname)
                     //fprintf(stderr,"TECH %d, t1 %d, t2 %d, t3 %d, plant at x=%d, y=%d\n", MP_TECH(x,y), t1, t2, t3, x, y);
                     MP_INFO(x, y).int_1 = (int)(POWERS_SOLAR_OUTPUT + (((double)MP_TECH(x, y) * POWERS_SOLAR_OUTPUT)
                                 / MAX_TECH_LEVEL));
+*/
                     break;
                 }
             case GROUP_ORGANIC_FARM:
-                MP_TECH(x,y) = MP_INFO(x,y).int_1;
+//              MP_TECH(x,y) = MP_INFO(x,y).int_1;
                 break;
 
             case GROUP_RECYCLE:
-                MP_TECH(x,y) = MP_INFO(x, y).int_4;
+//              MP_TECH(x,y) = MP_INFO(x, y).int_4;
                 break;
 
             case GROUP_INDUSTRY_L:
+/*
                 if ( MP_TECH(x,y) == 0 ){
                     if ( tk > GROUP_INDUSTRY_L_TECH ){
                         MP_TECH(x,y) = tk;
@@ -500,11 +508,13 @@ void load_city_old(char *cname)
                         MP_TECH(x,y) = GROUP_INDUSTRY_L_TECH;
                     }
                 }
+*/
                 break;
             }
         }
 
-    map_power_grid(true);       /* WCK:  Is this safe to do here?
+    //map_power_grid(true); 
+                                /* WCK:  Is this safe to do here?
                                  * AL1: No, in NG_1.1
                                  * In case of error message with ok_dial_box
                                  *    the dialog cannot appear because the screen
@@ -515,19 +525,19 @@ void load_city_old(char *cname)
     upgrade_to_v2();
 
 }
-
+/*
 void reset_animation_times(void)
 {
     int x, y;
 
-    for (y = 0; y < WORLD_SIDE_LEN; y++)
-        for (x = 0; x < WORLD_SIDE_LEN; x++) {
+    for (y = 0; y < world.len(); y++)
+        for (x = 0; x < world.len(); x++) {
             MP_ANIM(x,y) = 0;
-            if (MP_GROUP(x, y) == GROUP_FIRE)
+            if (map == GROUP_FIRE)
                 MP_INFO(x, y).int_3 = 0;
         }
 }
-
+*/
 void check_endian(void)
 {
     static int flag = 0;
@@ -541,20 +551,21 @@ void check_endian(void)
     if (flag == 0) {
         flag = 1;
     }
-    for (y = 0; y < WORLD_SIDE_LEN; y++) {
-        for (x = 0; x < WORLD_SIDE_LEN; x++) {
-            eswap32(&(MP_INFO(x, y).population));
-            eswap32(&(MP_INFO(x, y).flags));
+    for (y = 0; y < world.len(); y++) {
+        for (x = 0; x < world.len(); x++) {
+            //eswap32(&(map.info[x][y].population));
+            eswap32(&(world(x, y)->flags));
             if (sizeof(short) == 2) {
-                eswap16(&(MP_INFO(x, y).coal_reserve));
-                eswap16(&(MP_INFO(x, y).ore_reserve));
+                eswap16(&(world(x, y)->coal_reserve));
+                eswap16(&(world(x, y)->ore_reserve));
             } else if (sizeof(short) == 4) {
-                eswap32((int *)&(MP_INFO(x, y).coal_reserve));
-                eswap32((int *)&(MP_INFO(x, y).ore_reserve));
+                eswap32((int *)&(world(x, y)->coal_reserve));
+                eswap32((int *)&(world(x, y)->ore_reserve));
             } else {
                 /* prevent gcc warning on amd64: argument 2 has type 'long unsigned int' !!! */
                 printf("Strange size (%d) for short, please mail me.\n", (int) sizeof(short));
             }
+/*            
             eswap32(&(MP_INFO(x, y).int_1));
             eswap32(&(MP_INFO(x, y).int_2));
             eswap32(&(MP_INFO(x, y).int_3));
@@ -562,6 +573,7 @@ void check_endian(void)
             eswap32(&(MP_INFO(x, y).int_5));
             eswap32(&(MP_INFO(x, y).int_6));
             eswap32(&(MP_INFO(x, y).int_7));
+*/
         }
     }
 }
@@ -598,23 +610,19 @@ void upgrade_to_v2 (void)
     global_mountainity= 10 + rand () % 300;
 
     // Grey border (not visible on the map, x = 0 , x = 99, y = 0, y = 99)
-    for (x = 0; x < WORLD_SIDE_LEN; x++)
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            ALT(x,y) = 0;
-            if ( !GROUP_IS_BARE(MP_GROUP(x, y)) ) {
+    for (x = 0; x < world.len(); x++)
+        for (y = 0; y < world.len(); y++) {
+            world(x, y)->ground.altitude = 0;
+            if ( !world(x, y)->is_bare()) {
                 /* be nice, put water under all existing builings / farms / parks ... */
                 /* This may change according to global_aridity and distance_to_river */
-                MP_INFO(x,y).flags |= FLAG_HAS_UNDERGROUND_WATER;
+                world(x, y)->flags |= FLAG_HAS_UNDERGROUND_WATER;
             }
         }
 
     /* Let 10 years in game time to put waterwells where needed, then starvation will occur */
     deadline=total_time + 1200 * 10;
     flag_warning = true; // warn player.
-
-    /* TODO AL1 Upgrade ground[x][y].water_alt and .altitude
-     * TODO This not used yet, so just keep initialisation to zero, until something good is done
-     */
 
     setup_land();
 }

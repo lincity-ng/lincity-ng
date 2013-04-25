@@ -27,28 +27,16 @@
   are yearly display variables.  They will be displayed in the mini-map
   when the user clicks on the pound sterling icon.
 */
+#include "lintypes.h"
 
-/* daily */
-extern int food_in_markets;
-extern int jobs_in_markets;
-extern int coal_in_markets;
-extern int goods_in_markets;
-extern int ore_in_markets;
-extern int steel_in_markets;
-extern int waste_in_markets;
+
 
 /* monthly */
-extern int tfood_in_markets;
-extern int tjobs_in_markets;
-extern int tcoal_in_markets;
-extern int tgoods_in_markets;
-extern int tore_in_markets;
-extern int tsteel_in_markets;
-extern int twaste_in_markets;
 extern int tpopulation;
 extern int tstarving_population;
 extern int tunemployed_population;
-extern int twaste_in_markets;
+
+
 
 /* yearly */
 extern int income_tax;
@@ -97,6 +85,7 @@ void init_inventory(void);
 void inventory(int x, int y);
 void init_daily(void);
 void init_monthly(void);
+void init_census(void);
 void init_yearly(void);
 void add_daily_to_monthly(void);
 

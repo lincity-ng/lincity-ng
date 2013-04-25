@@ -8,6 +8,8 @@
 #define __modules_h__
 
 #include "../lctypes.h"
+#include "../lintypes.h"
+#include "../ConstructionManager.h"
 #include "tinygettext/gettext.hpp"
 #include "../lin-city.h"
 #include "../engglobs.h"
@@ -16,9 +18,10 @@
 #include "gui_interface/mps.h"
 #include "../lclib.h"
 
-#include "../power.h"
+//#include "../power.h"
 #include "../all_buildings.h"
 #include "modules_interfaces.h"
+
 
 #endif /* __modules_h__ */
 

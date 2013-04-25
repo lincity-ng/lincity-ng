@@ -13,20 +13,20 @@ void mps_water(int x, int y)
     int i;
     const char *p;
 
-    for(i = 0; i < MPS_PARAGRAPH_COUNT; ++i)
-                        mps_store_title( i, "" );
+    //for(i = 0; i < MPS_PARAGRAPH_COUNT; ++i)
+    //                    mps_store_title( i, "" );
 
     i = 0;
     mps_store_title(i++, _("Water"));
     i++;
 
-    p = (MP_INFO(x, y).flags & FLAG_IS_RIVER) ? _("Yes") : _("No");
-    mps_store_ss(i++, _("Navigable"), p);
+    p = (world(x,y)->flags & FLAG_IS_RIVER) ? _("River") : _("Lake");
+    mps_store_title(i++, p);
 
 #ifdef DEBUG
-    mps_store_sd(10, "x = ", x);
-    mps_store_sd(11, "y = ", y);
-    mps_store_sd(12, "altitude = ", ALT(x, y));
+    mps_store_sd(10, "x", x);
+    mps_store_sd(11, "y", y);
+    mps_store_sd(12, "altitude", ALT(x, y));
 
     fprintf(stderr, "water x %i, y %i, Alt %i\n", x, y, ALT(x,y));
 #endif

@@ -137,6 +137,7 @@
                     <SwitchComponent name="MiniMapSwitch">
                         <MiniMap name="MiniMap" width="200" height="200" tilesize="2"/>
                         <Import src="gui/pbar.xml"/>
+                        <Import src="gui/pbar2nd.xml"/> <!-- FIXME this fucks up pbars --> 
                         <Mps name="GlobalMPS">
                             <Import src="gui/mps.xml"/>
                         </Mps>

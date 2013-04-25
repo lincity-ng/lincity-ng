@@ -48,6 +48,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/loadsave.h"
 #include "lincity/engglobs.h"
 #include "lincity/lin-city.h"
+//#include "lincity/modules/all_modules.h"
 
 #ifdef ENABLE_BINRELOC
 #include "binreloc.h"
@@ -406,11 +407,12 @@ void mainLoop()
                 {
                     if(game.get() == 0) {
                         game.reset(new Game());
-                        while(!LCPBarInstance){//wait until PBars exist so they can be initalized
+                         
+                        while(!LCPBarPage1 || !LCPBarPage2)
+                        {//wait until PBars exist so they can be initalized
                             printf(".");
                             SDL_Delay(100);
-                        }
-                        initLincity();
+                        }                       
                     }
                     nextstate = game->run();
                     if(menu.get() == 0)
@@ -563,11 +565,9 @@ int main(int argc, char** argv)
             throw std::runtime_error(msg.str());
         }
         initVideo(getConfig()->videoX, getConfig()->videoY);
-        
+        initLincity();
         //set a function to call when music stops
         Mix_HookMusicFinished(musicHalted);
-        
-
         mainLoop();
 #ifndef DEBUG
     } catch(std::exception& e) {

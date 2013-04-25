@@ -1,9 +1,16 @@
-#define MAX_WASTE_AT_RECYCLE 20000
-#define BURN_WASTE_AT_RECYCLE (MAX_WASTE_AT_RECYCLE/200)
-#define MAX_ORE_AT_RECYCLE   (MAX_ORE_ON_RAIL*2)
-#define GOODS_RECYCLED       500
-#define RECYCLE_GOODS_JOBS   (GOODS_RECYCLED/50)
+
+#define WASTE_RECYCLED       500
+#define RECYCLE_JOBS   (WASTE_RECYCLED/50)
 #define RECYCLE_RUNNING_COST 3
+#define KWH_RECYCLE_WASTE (WASTE_RECYCLED/2)
+
+#define MAX_JOBS_AT_RECYCLE (20 * RECYCLE_JOBS)
+#define MAX_WASTE_AT_RECYCLE (20 * WASTE_RECYCLED)
+#define MAX_ORE_AT_RECYCLE (16 * WASTE_RECYCLED)  
+#define MAX_KWH_AT_RECYCLE   (20 * KWH_RECYCLE_WASTE)
+#define MAX_STEEL_AT_RECYCLE (16 * WASTE_RECYCLED/50) 
+
+#define BURN_WASTE_AT_RECYCLE (MAX_WASTE_AT_RECYCLE/200)
 
 #define GROUP_RECYCLE_COLOUR   (green(28))
 #define GROUP_RECYCLE_COST    100000
@@ -12,7 +19,79 @@
 #define GROUP_RECYCLE_TECH    232
 #define GROUP_RECYCLE_FIREC 10
 
+#include "modules.h"
+#include "../lintypes.h"
+#include "../lctypes.h"
 
+class RecycleConstructionGroup: public ConstructionGroup {
+public:
+    RecycleConstructionGroup(
+        const char *name,
+        unsigned short no_credit,
+        unsigned short group,
+        unsigned short size, int colour,
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+    ): ConstructionGroup(
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+    )
+    {
+        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_RECYCLE;
+        commodityRuleCount[Construction::STUFF_JOBS].take = true;
+        commodityRuleCount[Construction::STUFF_JOBS].give = false;
+        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_RECYCLE;
+        commodityRuleCount[Construction::STUFF_WASTE].take = true;
+        commodityRuleCount[Construction::STUFF_WASTE].give = false;
+        commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_RECYCLE;
+        commodityRuleCount[Construction::STUFF_KWH].take = true;
+        commodityRuleCount[Construction::STUFF_KWH].give = false;
+        commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_AT_RECYCLE;
+        commodityRuleCount[Construction::STUFF_STEEL].take = false;
+        commodityRuleCount[Construction::STUFF_STEEL].give = true;
+        commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_RECYCLE;
+        commodityRuleCount[Construction::STUFF_ORE].take = false;
+        commodityRuleCount[Construction::STUFF_ORE].give = true;         
+    }
+    // overriding method that creates a recyle
+    virtual Construction *createConstruction(int x, int y, unsigned short type);
+};
+
+extern RecycleConstructionGroup recycleConstructionGroup;
+
+class Recycle: public CountedConstruction<Recycle> { // Recyle inherits from Construction
+public:
+	Recycle(int x, int y, unsigned short type): CountedConstruction<Recycle>(x, y, type)
+    {
+        constructionGroup = &recycleConstructionGroup;		             
+        this->busy = 0;
+        this->workingdays = 0;
+        this->tech = tech_level;
+        setMemberSaved(&this->tech, "tech");
+        initialize_commodities();
+        int efficiency;        
+        efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 100;
+        if (efficiency > (WASTE_RECYCLED * 8) / 10)
+            efficiency = (WASTE_RECYCLED * 8) / 10;
+        this->make_ore = efficiency;
+        setMemberSaved(&this->make_ore, "make_ore");
+        this->eff = efficiency * 100/(WASTE_RECYCLED);
+        setMemberSaved(&this->eff, "eff");                
+        efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 5000;
+        if (efficiency > (WASTE_RECYCLED * 8) / 500)
+            efficiency = (WASTE_RECYCLED * 8) / 500;
+        this->make_steel = efficiency;
+        setMemberSaved(&this->make_steel, "make_steel");                      
+	}
+	virtual ~Recycle() { }
+	virtual void update();
+	virtual void report();
+            
+    int  tech;
+    int  eff;    
+    int  make_ore;
+    int  make_steel;    
+    int  workingdays;
+    int  busy; 
+};
 
 /** @file lincity/modules/recycle.h */
 

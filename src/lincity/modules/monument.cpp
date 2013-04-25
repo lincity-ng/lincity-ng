@@ -5,65 +5,79 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "monument.h"
 
-void do_monument(int x, int y)
+MonumentConstructionGroup monumentConstructionGroup(
+    "Monument",
+    FALSE,                     /* need credit? */
+    GROUP_MONUMENT,
+    2,                         /* size */
+    GROUP_MONUMENT_COLOUR,
+    GROUP_MONUMENT_COST_MUL,
+    GROUP_MONUMENT_BUL_COST,
+    GROUP_MONUMENT_FIREC,
+    GROUP_MONUMENT_COST,
+    GROUP_MONUMENT_TECH
+);
+
+Construction *MonumentConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Monument(x, y, type);
+}
+
+void Monument::update()
 {
-    /*
-       // int_1 holds the jobs used
-       // int_2 holds the tech points made
-       // int_3 holds the tail off count
-       // int_4 holds percentage of completion (used for the sound)
-     */
-    if (MP_INFO(x, y).int_1 < BUILD_MONUMENT_JOBS)
-        if (get_jobs(x, y, MONUMENT_GET_JOBS) != 0)
-            MP_INFO(x, y).int_1 += MONUMENT_GET_JOBS;
-
-    MP_INFO(x, y).int_4 = MP_INFO(x, y).int_1 * 100 / BUILD_MONUMENT_JOBS;
-
+    if ((commodityCount[STUFF_JOBS] > MONUMENT_GET_JOBS) && (completion < 100))
+    {
+        commodityCount[STUFF_JOBS] -= MONUMENT_GET_JOBS;
+        jobs_consumed += MONUMENT_GET_JOBS;
+        completion = jobs_consumed * 100 / BUILD_MONUMENT_JOBS;
+    }    
     /* now choose a graphic */
-    if (MP_INFO(x, y).int_1 >= BUILD_MONUMENT_JOBS) {
-        MP_TYPE(x, y) = CST_MONUMENT_5;
+    if (completion >= 100)
+    {        
+        type = CST_MONUMENT_5;
         /* inc tech level only if fully built and tech less 
            than MONUMENT_TECH_EXPIRE */
         if (tech_level < (MONUMENT_TECH_EXPIRE * 1000)
-            && (total_time % MONUMENT_DAYS_PER_TECH) == 1) {
-            if (MP_INFO(x, y).int_3++ > (tech_level / 10000) - 2) {
+            && (total_time % MONUMENT_DAYS_PER_TECH) == 1)
+        {
+            tail_off++;            
+            if (tail_off > (tech_level / 10000) - 2)
+            {
                 tech_level++;
-                MP_INFO(x, y).int_2++;
-                MP_INFO(x, y).int_3 = 0;
+                tech_made++;
+                tail_off = 0;
             }
         }
-    } else if (MP_INFO(x, y).int_1 >= ((BUILD_MONUMENT_JOBS * 4) / 5))
-        MP_TYPE(x, y) = CST_MONUMENT_4;
-    else if (MP_INFO(x, y).int_1 >= ((BUILD_MONUMENT_JOBS * 3) / 5))
-        MP_TYPE(x, y) = CST_MONUMENT_3;
-    else if (MP_INFO(x, y).int_1 >= ((BUILD_MONUMENT_JOBS * 2) / 5))
-        MP_TYPE(x, y) = CST_MONUMENT_2;
-    else if (MP_INFO(x, y).int_1 >= (BUILD_MONUMENT_JOBS / 20))
-        MP_TYPE(x, y) = CST_MONUMENT_1;
+    } 
+    else if (completion >= 80)
+        type = CST_MONUMENT_4;
+    else if (completion >= 60)
+        type = CST_MONUMENT_3;
+    else if (completion >= 40)
+        type = CST_MONUMENT_2;
+    else if (completion >= 20)
+        type = CST_MONUMENT_1;
     else
-        MP_TYPE(x, y) = CST_MONUMENT_0;
+        type = CST_MONUMENT_0;
 }
 
-void mps_monument(int x, int y)
+void Monument::report()
 {
     int i = 0;
 
-    mps_store_title(i++, _("Monument"));
+    mps_store_sd(i++, constructionGroup->name,ID);
     i++;
     i++;
-
     /* Display tech contribution only after monument is complete */
-    if ((MP_INFO(x, y).int_1 * 100 / BUILD_MONUMENT_JOBS) >= 100) {
-        mps_store_title(i++, _("Wisdom Bestowed"));
-        i++;
-        mps_store_f(i++, MP_INFO(x, y).int_2 * 100.0 / MAX_TECH_LEVEL);
-    } else {
-        mps_store_title(i++, _("% Complete"));
-        i++;
-        mps_store_fp(i++, MP_INFO(x, y).int_1 * 100.0 / BUILD_MONUMENT_JOBS);
+    if (completion >= 100) {
+        mps_store_sfp(i++, "Wisdom bestowed", tech_made * 100.0 / MAX_TECH_LEVEL);
+    }
+    else
+    {      
+        list_commodities(&i);        
+        i++;        
+        mps_store_sfp(i++, "Completion", completion);
     }
 }
 

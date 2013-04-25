@@ -8,21 +8,35 @@
 
 #include "lintypes.h"
 #include "groups.h"
+#include "world.h"
+#include "ConstructionCount.h"
+// Use permutator to shuffle the simulation order
+//#include "lincity-ng/Permutator.hpp"
+
+class World;
+class ConstructionCount;
 
 extern int pix_double;
 
 extern int use_waterwell, ldsv_version;
 
-extern map_struct map;
 extern struct GROUP main_groups[NUM_OF_GROUPS];
 extern struct TYPE main_types[NUM_OF_TYPES];
 
-extern int mappoint_array_x[WORLD_SIDE_LEN], mappoint_array_y[WORLD_SIDE_LEN];
-extern ground_struct ground[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+extern ConstructionCount constructionCount;
+extern World world;
+
+/* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
+extern const int dx[8];
+extern const int dy[8];
+//anti clockwise ordering 
+extern const int dxo[8];
+extern const int dyo[8];
+
+extern bool binary_mode;
+
 extern int global_aridity, global_mountainity;
 extern int alt_min, alt_max, alt_step;
-
-extern int numof_shanties, numof_communes;
 
 extern int sust_dig_ore_coal_tip_flag, sust_port_flag, sustain_flag;
 extern int sust_dig_ore_coal_count, sust_port_count, sust_old_money;
@@ -36,11 +50,7 @@ extern int flag_warning;// flag to send a message to player.
 extern int population, starving_population;
 extern int housed_population;
 extern int unemployed_population, people_pool;
-extern int substationx[MAX_NUMOF_SUBSTATIONS], substationy[MAX_NUMOF_SUBSTATIONS];
-extern int numof_substations;
-extern int marketx[MAX_NUMOF_MARKETS], markety[MAX_NUMOF_MARKETS], numof_markets;
-extern int numof_health_centres, max_pop_ever, total_evacuated, total_births;
-extern int numof_waterwell;
+extern int max_pop_ever, total_evacuated, total_births;
 
 extern int total_money, income_tax_rate, coal_tax_rate;
 extern int dole_rate, transport_cost_rate;

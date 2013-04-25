@@ -9,14 +9,25 @@
 
 /* load/save version for compatibility with(out) waterwell */
 int ldsv_version;
-int use_waterwell=true;
+int use_waterwell = true;
 
-map_struct map;
+ConstructionCount constructionCount = ConstructionCount();
+World world = World(WORLD_SIDE_LEN);
 
-int mappoint_array_x[WORLD_SIDE_LEN];
-int mappoint_array_y[WORLD_SIDE_LEN];
-int numof_shanties;
-int numof_communes;
+/* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
+const int dx[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
+const int dy[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
+//anti clockwise ordering 
+const int dxo[8] ={ -1, -1,  0,  1,  1,  1,  0, -1};
+const int dyo[8] ={  0, -1, -1, -1,  0,  1,  1,  1};
+
+bool binary_mode = true;
+//You may want to set this to false for easier debugging
+
+//These have to be decalred as extern in lintypes.h after class Construction
+std::map<Construction::Commodities, int> tstat_capacities;
+std::map<Construction::Commodities, int> tstat_census;
+ 
 int main_screen_originx, main_screen_originy;
 
 int pix_double = 0;
@@ -24,9 +35,6 @@ int pix_double = 0;
 /* graph stuff from src/gui_interface/shared_globals.h */
 int cheat_flag;
 int modern_windmill_flag = 0;
-
-// int askdir_lines;
-// char *askdir_path[4];
 
 int monthgraph_size = 0;
 int *monthgraph_pop;
@@ -47,11 +55,8 @@ int deadline = 0;
 int population, starving_population;
 int housed_population;
 int unemployed_population, people_pool;
-int substationx[MAX_NUMOF_SUBSTATIONS], substationy[MAX_NUMOF_SUBSTATIONS];
-int numof_substations = 0;
-int marketx[MAX_NUMOF_MARKETS], markety[MAX_NUMOF_MARKETS], numof_markets = 0;
-int numof_health_centres, max_pop_ever = 0, total_evacuated = 0, total_births = 0;
-int numof_waterwell = 0;
+int max_pop_ever = 0, total_evacuated = 0, total_births = 0;
+
 
 int total_money = 0, income_tax_rate, coal_tax_rate;
 int dole_rate, transport_cost_rate;
@@ -84,7 +89,7 @@ int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS] = {
 
 int  global_aridity;
 int  global_mountainity;
-ground_struct ground[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
+//TODO These and their updating should go to class World 
 int alt_min, alt_max, alt_step;
 
 int fast_time_for_year;

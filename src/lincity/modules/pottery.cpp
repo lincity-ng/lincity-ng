@@ -5,112 +5,105 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "pottery.h"
 
-void do_pottery(int x, int y)
-{
-    /*
-       // int_1 contains the goods at the pottery
-       // int_2 contains the ore at the pottery
-       // int_3 contains the coal at the pottery
-       // int_4 unused
-       // int_5 is the % made so far this month or the close time if negative
-       // int_6 is the % capacity last month
-       // int_7 contains the jobs stored at the pottery
-       // MP_ANIM is the animation trigger time since 1.91
-     */
-    if (MP_INFO(x, y).int_5 < 0) {
-        MP_INFO(x, y).int_5++;
-        return;
-    }
-    if (MP_INFO(x, y).int_1 < (MAX_GOODS_AT_POTTERY - POTTERY_MADE_GOODS)) {
-        if (MP_INFO(x, y).int_2 < (MAX_ORE_AT_POTTERY - POTTERY_GET_ORE))
-            if (get_ore(x, y, POTTERY_GET_ORE) != 0)
-                MP_INFO(x, y).int_2 += POTTERY_GET_ORE;
-        if (MP_INFO(x, y).int_3 < (MAX_COAL_AT_POTTERY - POTTERY_GET_COAL))
-            if (get_coal(x, y, POTTERY_GET_COAL) != 0)
-                MP_INFO(x, y).int_3 += POTTERY_GET_COAL;
-        if (MP_INFO(x, y).int_7 < (MAX_JOBS_AT_POTTERY - POTTERY_GET_JOBS))
-            if (get_jobs(x, y, POTTERY_GET_JOBS) != 0)
-                MP_INFO(x, y).int_7 += POTTERY_GET_JOBS;
+PotteryConstructionGroup potteryConstructionGroup(
+    "Pottery",
+    FALSE,                     /* need credit? */
+    GROUP_POTTERY,
+    2,                         /* size */
+    GROUP_POTTERY_COLOUR,
+    GROUP_POTTERY_COST_MUL,
+    GROUP_POTTERY_BUL_COST,
+    GROUP_POTTERY_FIREC,
+    GROUP_POTTERY_COST,
+    GROUP_POTTERY_TECH
+);
 
-        if (MP_INFO(x, y).int_2 > POTTERY_ORE_MAKE_GOODS
-            && MP_INFO(x, y).int_3 > POTTERY_COAL_MAKE_GOODS && MP_INFO(x, y).int_7 > POTTERY_JOBS) {
-            MP_INFO(x, y).int_1 += POTTERY_MADE_GOODS;
-            MP_INFO(x, y).int_2 -= POTTERY_ORE_MAKE_GOODS;
-            MP_INFO(x, y).int_3 -= POTTERY_COAL_MAKE_GOODS;
-            MP_INFO(x, y).int_7 -= POTTERY_JOBS;
-            MP_INFO(x, y).int_5++;
-        } else {
-            MP_TYPE(x, y) = CST_POTTERY_1;
-            MP_INFO(x, y).int_6 = 0;
-            MP_INFO(x, y).int_5 = -POTTERY_CLOSE_TIME;
+Construction *PotteryConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Pottery(x, y, type);
+}
+
+void Pottery::update()
+{
+     if (total_time % 100 == 0) {
+        productivity = workingdays;
+        workingdays = 0;
+        }
+
+    if (pauseCounter++ < 0)
+        return;   
+        if (   commodityCount[STUFF_GOODS] < (MAX_GOODS_AT_POTTERY - POTTERY_MADE_GOODS)
+            && commodityCount[STUFF_ORE] > POTTERY_ORE_MAKE_GOODS
+            && commodityCount[STUFF_COAL] > POTTERY_COAL_MAKE_GOODS
+            && commodityCount[STUFF_JOBS] > POTTERY_JOBS) 
+        {
+            commodityCount[STUFF_GOODS] += POTTERY_MADE_GOODS;
+            commodityCount[STUFF_ORE] -= POTTERY_ORE_MAKE_GOODS;
+            commodityCount[STUFF_COAL] -= POTTERY_COAL_MAKE_GOODS;
+            commodityCount[STUFF_JOBS] -= POTTERY_JOBS;
+            workingdays++;
+            animate = true;
+        } 
+        else 
+        {
+            type = CST_POTTERY_1;
+            pauseCounter = -POTTERY_CLOSE_TIME;
             return;
         }
-    }
-    if (MP_INFO(x, y).int_1 > 0)
-        if (put_goods(x, y, MP_INFO(x, y).int_1) != 0)
-            MP_INFO(x, y).int_1 = 0;
-
-    if (total_time % 100 == 0) {
-        MP_INFO(x, y).int_6 = MP_INFO(x, y).int_5;
-        MP_INFO(x, y).int_5 = 0;
-    }
-    if (real_time >= MP_ANIM(x, y) /* && block_anim==0 */ ) {
-        MP_ANIM(x, y) = real_time + POTTERY_ANIM_SPEED;
-        switch (MP_TYPE(x, y)) {
-        case (CST_POTTERY_0):
-            MP_TYPE(x, y) = CST_POTTERY_1;
-            break;
-        case (CST_POTTERY_1):
-            MP_TYPE(x, y) = CST_POTTERY_2;
-            break;
-        case (CST_POTTERY_2):
-            MP_TYPE(x, y) = CST_POTTERY_3;
-            break;
-        case (CST_POTTERY_3):
-            MP_TYPE(x, y) = CST_POTTERY_4;
-            break;
-        case (CST_POTTERY_4):
-            MP_TYPE(x, y) = CST_POTTERY_5;
-            break;
-        case (CST_POTTERY_5):
-            MP_TYPE(x, y) = CST_POTTERY_6;
-            break;
-        case (CST_POTTERY_6):
-            MP_TYPE(x, y) = CST_POTTERY_7;
-            break;
-        case (CST_POTTERY_7):
-            MP_TYPE(x, y) = CST_POTTERY_8;
-            break;
-        case (CST_POTTERY_8):
-            MP_TYPE(x, y) = CST_POTTERY_9;
-            break;
-        case (CST_POTTERY_9):
-            MP_TYPE(x, y) = CST_POTTERY_10;
-            break;
-        case (CST_POTTERY_10):
-            MP_TYPE(x, y) = CST_POTTERY_1;
-            MP_POL(x, y)++;
-            break;
-        }
+    if (animate && real_time > anim)
+    {
+        anim = real_time + POTTERY_ANIM_SPEED;
+        switch (type)
+        {
+            case (CST_POTTERY_0):
+                type = CST_POTTERY_1;
+                break;
+            case (CST_POTTERY_1):
+                type = CST_POTTERY_2;
+                break;
+            case (CST_POTTERY_2):
+                type = CST_POTTERY_3;
+                break;
+            case (CST_POTTERY_3):
+                type = CST_POTTERY_4;
+                break;
+            case (CST_POTTERY_4):
+                type = CST_POTTERY_5;
+                break;
+            case (CST_POTTERY_5):
+                type = CST_POTTERY_6;
+                break;
+            case (CST_POTTERY_6):
+                type = CST_POTTERY_7;
+                break;
+            case (CST_POTTERY_7):
+                type = CST_POTTERY_8;
+                break;
+            case (CST_POTTERY_8):
+                type = CST_POTTERY_9;
+                break;
+            case (CST_POTTERY_9):
+                type = CST_POTTERY_10;
+                break;
+            case (CST_POTTERY_10):
+                type = CST_POTTERY_1;
+                world(x,y)->pollution++;
+                animate = false;
+                break;
+        }   
     }
 }
 
-void mps_pottery(int x, int y)
+void Pottery::report()
 {
     int i = 0;
 
-    mps_store_title(i++, _("Pottery"));
+    mps_store_sd(i++, constructionGroup->name,ID);
     i++;
-    mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_6 * 1.0);
+    mps_store_sfp(i++, _("busy"), (float) productivity);
     i++;
-    mps_store_title(i++, _("Inventory"));
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_7, MAX_JOBS_AT_POTTERY);
-    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_1, MAX_GOODS_AT_POTTERY);
-    mps_store_sddp(i++, _("Ore"), MP_INFO(x, y).int_2, MAX_ORE_AT_POTTERY);
-    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_AT_POTTERY);
+    list_commodities(&i);    
 }
 
 /** @file lincity/modules/pottery.cpp */

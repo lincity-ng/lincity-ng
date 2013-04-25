@@ -1,6 +1,13 @@
 #ifndef __MODULES_INTERFACES_H__
 #define __MODULES_INTERFACES_H__
 
+void update_shanty(void);
+void mps_water(int x, int y);
+void add_a_shanty(void);
+void remove_a_shanty(int x, int y);
+
+//FIXME In principle all these should be obsolete
+/*
 void do_blacksmith(int x, int y);
 void mps_blacksmith(int x, int y);
 
@@ -58,9 +65,9 @@ int get_stuff2(map_point_info_struct *, int, int);
 int get_stuff3(map_point_info_struct *, int, int);
 int get_stuff4(map_point_info_struct *, int, int);
 int put_stuff(int, int, int, int);
-int put_stuff2(map_point_info_struct *, short *, int, int);
-int put_stuff3(map_point_info_struct *, short *, int, int);
-int put_stuff4(map_point_info_struct *, short *, int, int);
+int put_stuff2(map_point_info_struct *, short int *, int, int);
+int put_stuff3(map_point_info_struct *, short int *, int, int);
+int put_stuff4(map_point_info_struct *, short int *, int, int);
 
 void do_mill(int x, int y);
 void mps_mill(int x, int y);
@@ -135,7 +142,7 @@ void mps_waterwell(int x, int y);
 
 void do_windmill(int x, int y);
 void mps_windmill(int x, int y);
-
+*/
 #endif
 
 /** @file lincity/modules/modules_interfaces.h */

@@ -5,12 +5,29 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
-#include "firestation.h"
-#include "../range.h"
 
-void do_firestation(int x, int y)
-{
+#include "firestation.h"
+
+
+// FireStation:
+FireStationConstructionGroup fireStationConstructionGroup(
+    "Fire station",
+    FALSE,                     /* need credit? */
+    GROUP_FIRESTATION,
+    2,                         /* size */
+    GROUP_FIRESTATION_COLOUR,
+    GROUP_FIRESTATION_COST_MUL,
+    GROUP_FIRESTATION_BUL_COST,
+    GROUP_FIRESTATION_FIREC,
+    GROUP_FIRESTATION_COST,
+    GROUP_FIRESTATION_TECH
+);
+
+Construction *FireStationConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new FireStation(x, y, type);
+}
+
+void FireStation::update() {
     /*
        // int_1 is the jobs stored at the fire station
        // int_2 is the goods stored at the fire station
@@ -20,98 +37,119 @@ void do_firestation(int x, int y)
        // MP_ANIM is the time of the next frame since 1.91
      */
     /* XXX: should note whether we actually _produced_ fire cover in int_6 */
-    if (MP_INFO(x, y).int_1 < (MAX_JOBS_AT_FIRESTATION - FIRESTATION_GET_JOBS))
-        if (get_jobs(x, y, FIRESTATION_GET_JOBS) != 0)
-            MP_INFO(x, y).int_1 += FIRESTATION_GET_JOBS;
-    if (MP_INFO(x, y).int_2 < (MAX_GOODS_AT_FIRESTATION - FIRESTATION_GET_GOODS))
-        if (get_goods(x, y, FIRESTATION_GET_GOODS) != 0)
-            MP_INFO(x, y).int_2 += FIRESTATION_GET_GOODS;
+
+	// use "commodityCount[COMMODITY_JOBS]" instead of "jobs"
+
+	// handled by transport:
+    //if (jobs < (constructionGroup->commodityRuleCount[STUFF_JOBS].maxload - FIRESTATION_GET_JOBS))
+    //    if (get_jobs(x, y, FIRESTATION_GET_JOBS) != 0){
+    //        jobs += FIRESTATION_GET_JOBS;
+    //        commodityCount[STUFF_JOBS] += FIRESTATION_GET_JOBS;
+    //    }
+	// also handled by transport:
+    //if (goods < (constructionGroup->commodityRuleCount[STUFF_GOODS].maxload - FIRESTATION_GET_GOODS))
+    //    if (get_goods(x, y, FIRESTATION_GET_GOODS) != 0){
+    //        goods += FIRESTATION_GET_GOODS;
+    //        commodityCount[STUFF_GOODS] += FIRESTATION_GET_GOODS;
+    //    }
+	// FIXME: if insufficient commodities -> return
+
     /* animate */
-    if (MP_INFO(x, y).int_3 && real_time > MP_ANIM(x, y)) {
-        MP_ANIM(x, y) = real_time + FIRESTATION_ANIMATION_SPEED;
-        if (MP_INFO(x, y).int_5 > 0)
-            MP_INFO(x, y).int_5--;
-        else {
-            switch (MP_TYPE(x, y)) {
+    if (animate && real_time > anim) 
+    {
+        anim = real_time + FIRESTATION_ANIMATION_SPEED;
+        switch (type)
+        {
             case (CST_FIRESTATION_1):
-                MP_TYPE(x, y) = CST_FIRESTATION_2;
+                type = CST_FIRESTATION_2;
                 break;
             case (CST_FIRESTATION_2):
-                MP_TYPE(x, y) = CST_FIRESTATION_3;
+                type = CST_FIRESTATION_3;
                 break;
             case (CST_FIRESTATION_3):
-                MP_TYPE(x, y) = CST_FIRESTATION_4;
+                type = CST_FIRESTATION_4;
                 break;
             case (CST_FIRESTATION_4):
-                MP_TYPE(x, y) = CST_FIRESTATION_5;
+                type = CST_FIRESTATION_5;
                 break;
             case (CST_FIRESTATION_5):
-                MP_TYPE(x, y) = CST_FIRESTATION_6;
+                type = CST_FIRESTATION_6;
                 break;
             case (CST_FIRESTATION_6):
-                MP_TYPE(x, y) = CST_FIRESTATION_7;
-                MP_INFO(x, y).int_5 = 10;       /* pause */
-
+                type = CST_FIRESTATION_7;
+                anim += 10 * FIRESTATION_ANIMATION_SPEED; /* pause */
                 break;
             case (CST_FIRESTATION_7):
-                MP_TYPE(x, y) = CST_FIRESTATION_8;
+                type = CST_FIRESTATION_8;
                 break;
             case (CST_FIRESTATION_8):
-                MP_TYPE(x, y) = CST_FIRESTATION_9;
+                type = CST_FIRESTATION_9;
                 break;
             case (CST_FIRESTATION_9):
-                MP_TYPE(x, y) = CST_FIRESTATION_10;
+                type = CST_FIRESTATION_10;
                 break;
             case (CST_FIRESTATION_10):
-                MP_TYPE(x, y) = CST_FIRESTATION_1;
-                MP_INFO(x, y).int_3 = 0;        /* stop */
-
+                type = CST_FIRESTATION_1;
+                animate = false;        /* stop */
                 break;
 
-            }
         }
+            //compatibility for old map        
+            //MP_TYPE(x,y)=type;         
     }
     /* That's all. Cover is done by different functions every 3 months or so. */
 
     fire_cost += FIRESTATION_RUNNING_COST;
 }
 
-void do_fire_cover(int x, int y)
-{
+void FireStation::cover() {
     int xx, x1, x2, y1, y2;
-    if (MP_INFO(x, y).int_1 < (FIRESTATION_JOBS * DAYS_BETWEEN_COVER) ||
-        MP_INFO(x, y).int_2 < (FIRESTATION_GOODS * DAYS_BETWEEN_COVER))
+    if (commodityCount[STUFF_JOBS] < (FIRESTATION_JOBS * DAYS_BETWEEN_COVER)
+    ||  commodityCount[STUFF_GOODS] < (FIRESTATION_GOODS * DAYS_BETWEEN_COVER)
+    ||  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_FIRESTATION  )
+    {        
+        busy = false;        
         return;
-    MP_INFO(x, y).int_1 -= (FIRESTATION_JOBS * DAYS_BETWEEN_COVER);
-    MP_INFO(x, y).int_2 -= (FIRESTATION_GOODS * DAYS_BETWEEN_COVER);
-    MP_INFO(x, y).int_3 = 1;    /* turn on animation */
+    }
+    commodityCount[STUFF_JOBS] -= (FIRESTATION_JOBS * DAYS_BETWEEN_COVER);
+    commodityCount[STUFF_GOODS] -= (FIRESTATION_GOODS * DAYS_BETWEEN_COVER);
+    commodityCount[STUFF_WASTE] += (FIRESTATION_GOODS * DAYS_BETWEEN_COVER /3);
+    animate = true;
+    busy = true;
 
     x1 = x - FIRESTATION_RANGE;
     if (x1 < 0)
         x1 = 0;
     x2 = x + FIRESTATION_RANGE;
-    if (x2 > WORLD_SIDE_LEN)
-        x2 = WORLD_SIDE_LEN;
+    if (x2 > world.len())
+        x2 = world.len();
     y1 = y - FIRESTATION_RANGE;
     if (y1 < 0)
         y1 = 0;
     y2 = y + FIRESTATION_RANGE;
-    if (y2 > WORLD_SIDE_LEN)
-        y2 = WORLD_SIDE_LEN;
+    if (y2 > world.len())
+        y2 = world.len();
     for (; y1 < y2; y1++)
-        for (xx = x1; xx < x2; xx++)
-            MP_INFO(xx, y1).flags |= FLAG_FIRE_COVER;
+        for (xx = x1; xx < x2; xx++){
+            world(xx, y1)->flags |= FLAG_FIRE_COVER;
+            //MP_INFO(xx, y1).flags |= FLAG_FIRE_COVER;
+        }
 }
 
-void mps_firestation(int x, int y)
-{
+void FireStation::report() {
     int i = 0;
+    const char* p;
 
-    mps_store_title(i++, _("Fire Station"));
+    mps_store_sd(i++,constructionGroup->name,ID);   
     i++;
-    mps_store_title(i++, _("Inventory"));
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_1, MAX_JOBS_AT_FIRESTATION);
-    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, MAX_GOODS_AT_FIRESTATION);
+    list_commodities(&i);    
+    //mps_store_title(i++, _("Accepting"));
+    //mps_store_ssddp(i++,"=> ","Jobs", commodityCount[STUFF_JOBS], constructionGroup->commodityRuleCount[STUFF_JOBS].maxload);
+    //mps_store_ssddp(i++, "=> ","Goods", commodityCount[STUFF_GOODS], constructionGroup->commodityRuleCount[STUFF_GOODS].maxload);
+    //mps_store_title(i++, _("Providing"));
+    //mps_store_ssddp(i++,"=> ", "Waste", commodityCount[STUFF_WASTE], constructionGroup->commodityRuleCount[STUFF_WASTE].maxload);
+    p =  busy?"Yes":"No";    
+    mps_store_ss(i++, "Fire Protection", p);
 
 }
 

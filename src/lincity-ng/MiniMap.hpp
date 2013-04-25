@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Color.hpp"
 #include "gui/Texture.hpp"
 #include "MapPoint.hpp"
-
+#include "lincity/lintypes.h" //for knowing Construction
 #include <memory>
 
 class XmlReader;
@@ -32,7 +32,7 @@ class CheckButton;
 class MiniMap:public Component
 {
 public:
-    enum DisplayMode {NORMAL,POLLUTION,UB40,STARVE,POWER,FIRE,CRICKET,HEALTH,COAL,TRAFFIC,MAX};
+    enum DisplayMode  {NORMAL,POLLUTION,UB40,STARVE,POWER,FIRE,CRICKET,HEALTH,COAL,TRAFFIC,COMMODITIES,MAX};
 
     MiniMap();
     ~MiniMap();
@@ -42,9 +42,9 @@ public:
     virtual void draw(Painter &painter);
     virtual void event(const Event& event);
   
-    void setGameViewCorners(const MapPoint& upperLeft,
-            const MapPoint& upperRight, const MapPoint& lowerRight,
-            const MapPoint& lowerLeft);
+    void setGameViewCorners(
+        const MapPoint& upperLeft, const MapPoint& lowerRight
+    );
 
     Color getColor(int x,int y) const;
     Color getColorNormal(int x,int y) const;
@@ -52,6 +52,9 @@ public:
     void hideMpsEnv();
 
     void switchView(const std::string& viewname);
+
+    Construction::Commodities getStuffID();
+    void toggleStuffID(int step);
 
 private:
     void mapViewButtonClicked(CheckButton* button, int);
@@ -64,12 +67,13 @@ private:
     
     void attachButtons();
     Component *findRoot(Component *c);
+//FIXME
     Vector2 mapPointToVector(MapPoint p);
   
-    Vector2 gameViewPoints[ 4 ];
+    MapPoint upperLeft, lowerRight;
 
     DisplayMode mMode;
-
+    Construction::Commodities stuff_ID;
     int tilesize;
     int border;
 

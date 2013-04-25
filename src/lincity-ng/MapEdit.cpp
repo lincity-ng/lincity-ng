@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "tinygettext/gettext.hpp"
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
+#include "lincity/modules/all_modules.h" //for knowing the individual constructions
 
 #include "Sound.hpp"
 #include "MapEdit.hpp"
@@ -35,10 +36,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 extern void ok_dial_box(const char *, int, const char *);
 
-int monument_bul_flag=0;
-int river_bul_flag=0;
-int shanty_bul_flag=0;
-int build_bridge_flag=0;
+int monument_bul_flag = 0;
+int river_bul_flag = 0;
+int shanty_bul_flag = 0;
+int build_bridge_flag = 0;
 int last_message_group = 0;
 
 #ifdef DEBUG
@@ -54,42 +55,44 @@ void resetLastMessage(){
 }
 
 // Open Dialog for selected Port 
-void
-clicked_port_cb (int x, int y)
+void clicked_port_cb (int x, int y)
 {
     new Dialog( EDIT_PORT, x, y );
 }
 
 // Open Dialog for selected Market 
-void
-clicked_market_cb (int x, int y)
+void clicked_market_cb (int x, int y)
 {
     new Dialog( EDIT_MARKET, x, y );
 }
 
-void
-check_bulldoze_area (int x, int y)
+void check_bulldoze_area (int x, int y)
 {
     //no need to bulldoze desert
-    if( MP_GROUP( x, y ) == GROUP_DESERT ) 
-        return;
     
-  int xx, yy, g;
-  if (MP_TYPE(x,y) == CST_USED)
-    {
-      xx = MP_INFO(x,y).int_1;
-      yy = MP_INFO(x,y).int_2;
-    }
-  else
-    {
-      xx = x;
-      yy = y;
-    }
-  g = MP_GROUP(xx,yy);
+    
+    int xx, yy, g;
 
-  if (g == GROUP_MONUMENT && monument_bul_flag == 0)
+    g = world(x,y)->getGroup();
+
+    if( g == GROUP_DESERT ) 
+        return;
+ 
+    if (world(x,y)->reportingConstruction)
     {
-        if( last_message_group != GROUP_MONUMENT ){
+        xx = world(x,y)->reportingConstruction->x;
+        yy = world(x,y)->reportingConstruction->y;
+    }
+    else
+    {
+        xx = x;
+        yy = y;
+    }
+
+    if (g == GROUP_MONUMENT && monument_bul_flag == 0)
+    {
+        if( last_message_group != GROUP_MONUMENT )
+        {
             new Dialog( BULLDOZE_MONUMENT, xx, yy ); // deletes itself
             last_message_group = GROUP_MONUMENT;
         }
@@ -111,9 +114,12 @@ check_bulldoze_area (int x, int y)
         }
         return;
     }
-  else if (g == GROUP_TIP)
+    // only empty landfills may be bulldozed    
+    else if ( g == GROUP_TIP
+    && static_cast<Tip *>(world(x,y)->reportingConstruction)->total_waste > 0 )
     {
-      if( last_message_group != GROUP_TIP ){
+      if( last_message_group != GROUP_TIP )
+    {
         ok_dial_box ("nobull-tip.mes", BAD, 0L);
         last_message_group = GROUP_TIP;
       }
@@ -133,30 +139,32 @@ void editMap (MapPoint point, int button)
    
     int x = point.x;
     int y = point.y;
+
     int selected_module_group = get_group_of_type(selected_module_type);
     
-    int size;
+    int size, i, j;
     //  int x, y; /* mappoint */
     int mod_x, mod_y; /* upper left coords of module clicked on */
     int mps_result;
+
     
-    if (MP_TYPE(x,y) == CST_USED) {
-        mod_x = MP_INFO(x,y).int_1;
-        mod_y = MP_INFO(x,y).int_2;
-    } else {
+
+    if(world(x,y)->reportingConstruction)
+    {
+        mod_x = world(x,y)->reportingConstruction->x;
+        mod_y = world(x,y)->reportingConstruction->y;
+    }
+
+    else 
+    {
         mod_x = x;
         mod_y = y;
     }
 
-    /* Bring up mappoint_stats for any right mouse click */
-    if (button == SDL_BUTTON_RIGHT) {
-        mps_set( x, y, MPS_ENV);
-        return;
-    }
-
     /* Handle bulldozing */
-    if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT) {
-        check_bulldoze_area (x, y);
+    if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT)
+    {
+        check_bulldoze_area (mod_x, mod_y);
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
 #ifdef DEBUG
         DBG_TileInfo(x, y);
@@ -167,54 +175,78 @@ void editMap (MapPoint point, int button)
     /* Bring up mappoint_stats for certain left mouse clicks */
     /* Check market and port double-clicks here */
     /* Check rocket launches */
-    if( !GROUP_IS_BARE(MP_GROUP( x,y )) ) {
+    /* Hold d pressed to send load/save info details to console*/
+    if( !world(mod_x,mod_y)->is_bare() )
+    {
+        Uint8 *keystate = SDL_GetKeyState(NULL);
+        if ( !binary_mode && keystate[SDLK_d] && world(mod_x,mod_y)->reportingConstruction)
+        {
+            world(mod_x,mod_y)->reportingConstruction->saveMembers(&std::cout);
+        }             
         if(mapMPS)
             mapMPS->playBuildingSound( mod_x, mod_y );
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
 #ifdef DEBUG
         DBG_TileInfo(x, y);
 #endif
-        if( mps_result >= 1 ){
-            if( MP_GROUP( mod_x,mod_y ) == GROUP_MARKET ){
+        if( mps_result >= 1 )
+        {
+            if( world(mod_x,mod_y)->getGroup() == GROUP_MARKET)
+            {
                 clicked_market_cb (mod_x, mod_y);
                 return;
-            } else if (MP_GROUP(mod_x,mod_y) == GROUP_PORT) {
+            } else if (world(mod_x,mod_y)->getGroup() == GROUP_PORT)
+            {
                 clicked_port_cb (mod_x, mod_y);
                 return;
-            } else if (MP_TYPE(mod_x,mod_y) >= CST_ROCKET_5 &&
-                         MP_TYPE(mod_x,mod_y) <= CST_ROCKET_7){
+            } else if (world(mod_x,mod_y)->getType() >= CST_ROCKET_5 &&
+                         world(mod_x,mod_y)->getType() <= CST_ROCKET_7)
+            {
                 //Dialogs delete themself
                 new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
                 return;
             }
-        }
+        }// end mps_result>1
         //to be here we are not in bulldoze-mode and the tile
         //under the cursor is not empty. 
-        //to allow up/downgrading of Tracks,Roads,Rails and bridges we can't always return.
+        //to allow up/downgrading of Buildings and exchanging TransportTilesTracks we can't always return.
         if( ( selected_module_type != CST_TRACK_LR ) && 
             ( selected_module_type != CST_ROAD_LR ) && 
-            ( selected_module_type != CST_RAIL_LR ) ) {
-            return; //not building a transport
+            ( selected_module_type != CST_RAIL_LR ) ) 
+        {
+            return; //not building a transport or renewing a building
         }
         
-        if( ( MP_GROUP(x,y) != GROUP_WATER ) && ( !( MP_INFO(x,y).flags & FLAG_IS_TRANSPORT ))){
-            return; //target area is neither water not a transport
-	}    
-
-        if( selected_module_type == CST_TRACK_LR ) {
-            if( MP_GROUP( x, y ) == GROUP_TRACK || MP_GROUP( x, y ) == GROUP_TRACK_BRIDGE ||
-                    MP_GROUP( x, y ) == GROUP_ROAD || MP_GROUP( x, y ) == GROUP_ROAD_BRIDGE ||
-                    MP_GROUP( x, y ) == GROUP_RAIL || MP_GROUP( x, y ) == GROUP_RAIL_BRIDGE )
-           return;
-        } else if( selected_module_type == CST_ROAD_LR ) {
-            if ( MP_GROUP( x, y ) == GROUP_ROAD || MP_GROUP( x, y ) == GROUP_ROAD_BRIDGE ||
-                    MP_GROUP( x, y ) == GROUP_RAIL || MP_GROUP( x, y ) == GROUP_RAIL_BRIDGE )
+        if( ( ( selected_module_type == CST_TRACK_LR ) || 
+              ( selected_module_type == CST_ROAD_LR  ) ||
+              ( selected_module_type == CST_RAIL_LR  ) 
+            ) && !(( world(x,y)->is_transport() || world(x,y)->is_water()) )) 
+        {
+            return; //TransportTiles may only overbuild previous TransportTiles or Water
+	    }    
+        // TransporstTiles dont overbuild their own kind
+        if( selected_module_type == CST_TRACK_LR) 
+        {
+            if(  world(x,y)->getGroup() == GROUP_TRACK ||  world(x,y)->getGroup() == GROUP_TRACK_BRIDGE /*||
+                     world(x,y)->getGroup() == GROUP_ROAD ||  world(x,y)->getGroup() == GROUP_ROAD_BRIDGE ||
+                     world(x,y)->getGroup() == GROUP_RAIL ||  world(x,y)->getGroup() == GROUP_RAIL_BRIDGE */)
                 return;
-        } else if( selected_module_type == CST_RAIL_LR ) {
-            if( MP_GROUP( x, y ) == GROUP_RAIL || MP_GROUP( x, y ) == GROUP_RAIL_BRIDGE )
+            
+        }
+        else if( selected_module_type == CST_ROAD_LR)
+        {
+            if (  world(x,y)->getGroup() == GROUP_ROAD ||  world(x,y)->getGroup() == GROUP_ROAD_BRIDGE /*||
+                     world(x,y)->getGroup() == GROUP_RAIL ||  world(x,y)->getGroup() == GROUP_RAIL_BRIDGE*/ )
                 return;
+                      
         } 
-    }
+        else if( selected_module_type == CST_RAIL_LR)
+        {           
+            if(  world(x,y)->getGroup() == GROUP_RAIL ||  world(x,y)->getGroup() == GROUP_RAIL_BRIDGE )
+                return;
+        } //end selected_module_type = track,road,rail
+   
+    }//end is_not_bare
 
     //query Tool 
     if(selected_module_type==CST_NONE) {
@@ -222,6 +254,7 @@ void editMap (MapPoint point, int button)
             mapMPS->playBuildingSound( mod_x, mod_y );
             mapMPS->setView(MapPoint( mod_x, mod_y ));
         }
+           
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool on CST_NONE
 #ifdef DEBUG
         DBG_TileInfo(x, y);
@@ -232,52 +265,57 @@ void editMap (MapPoint point, int button)
     /* OK, by now we are certain that the user wants to place the item.
        Set the origin based on the size of the selected_module_type, and 
        see if the selected item will fit. */
-    size = main_groups[selected_module_group].size;
+    if(ConstructionGroup::countConstructionGroup(selected_module_group))
+    {
+        size = ConstructionGroup::getConstructionGroup(selected_module_group)->size;
+    }   
+    else
+    {
+        size = main_groups[selected_module_group].size;
+    }
     /*  if (px > (mw->x + mw->w) - size*16)
         px = (mw->x + mw->w) - size*16;
         if (py > (mw->y + mw->h) - size*16)
         py = (mw->y + mw->h) - size*16;
         pixel_to_mappoint(px, py, &x, &y);
     */
-    //Check if we are too close to the border
-    if( x + size > WORLD_SIDE_LEN - 1 || y + size > WORLD_SIDE_LEN - 1 || x < 1 || y < 1 )
-        return;
-    
-    if (size >= 2) {
-        if (!GROUP_IS_BARE(MP_GROUP(x + 1,y))
-            || !GROUP_IS_BARE(MP_GROUP(x,y + 1))
-            || !GROUP_IS_BARE(MP_GROUP(x + 1,y + 1)))
-            return;
-    }
-    if (size >= 3) {
-        if (!GROUP_IS_BARE(MP_GROUP(x + 2,y))
-            || !GROUP_IS_BARE(MP_GROUP(x + 2,y + 1))
-            || !GROUP_IS_BARE(MP_GROUP(x + 2,y + 2))
-            || !GROUP_IS_BARE(MP_GROUP(x + 1,y + 2))
-            || !GROUP_IS_BARE(MP_GROUP(x,y + 2)))
-            return;
-    }
-    if (size == 4) {
-        if (!GROUP_IS_BARE(MP_GROUP(x + 3,y))
-            || !GROUP_IS_BARE(MP_GROUP(x + 3,y + 1))
-            || !GROUP_IS_BARE(MP_GROUP(x + 3,y + 2))
-            || !GROUP_IS_BARE(MP_GROUP(x + 3,y + 3))
-            || !GROUP_IS_BARE(MP_GROUP(x + 2,y + 3))
-            || !GROUP_IS_BARE(MP_GROUP(x + 1,y + 3))
-            || !GROUP_IS_BARE(MP_GROUP(x,y + 3)))
-            return;
-    }
-    
+    //Only Check bare space if we are not renewing 
+    if (!( ( selected_module_type == CST_TRACK_LR ) || 
+           ( selected_module_type == CST_ROAD_LR  ) ||
+           ( selected_module_type == CST_RAIL_LR  ) 
+         )
+        )
+    {   
+        for (i = 0; i < size; i++)
+        { 
+            for (j = 0; j < size; j++)
+            {         
+                if (!world(x+j,y+i)->is_bare() )
+                    return;
+            }
+        }
+    }  
+
     //how to build a lake in the park?
     //just hold 'W' key on build ;-)
-    if( selected_module_group == GROUP_PARKLAND ){
+    if( selected_module_group == GROUP_PARKLAND )
+    {
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( keystate[SDLK_w] )
             selected_module_type = CST_PARKLAND_LAKE;
         else
             selected_module_type = CST_PARKLAND_PLANE;
     }
-
+    //how to build a shanty?
+    //just hold 'S' key on building a Waterwell ;-)
+    if( selected_module_group == GROUP_WATERWELL )
+    {
+        Uint8 *keystate = SDL_GetKeyState(NULL);
+        if ( keystate[SDLK_s] )
+            selected_module_type = CST_SHANTY;
+        else
+            selected_module_type = CST_WATERWELL;
+    }
     /* Place the selected item . Warning messages are managed by place_item(...) */
     last_message_group = place_item (x, y, selected_module_type);
     switch (last_message_group)

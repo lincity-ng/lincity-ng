@@ -29,6 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Desktop.hpp"
 #include "Style.hpp"
 
+
 #include <sstream>
 #include <stdexcept>
 #include <iostream>
@@ -38,8 +39,9 @@ void initFactories();
 
 Component* createComponent(const std::string& type, XmlReader& reader)
 {
+    //static int depth = 0;
     initFactories();
-    
+    //Component * component = 0;
     if(component_factories == 0)
         throw std::runtime_error("No component factories registered");
     
@@ -49,7 +51,18 @@ Component* createComponent(const std::string& type, XmlReader& reader)
         msg << "Couldn't find a component factory for '" << type << "'";
         throw std::runtime_error(msg.str());
     }
-   
+/*     
+    for(int i=0;i<depth;++i)
+		std::cout << "\t";
+    std::cout << type << ": begin" <<std::endl;
+    std::cout.flush();
+    ++depth; 
+    component = i->second->createComponent(reader);
+    --depth;
+    for(int i=0;i<depth;++i)
+		std::cout << "\t";
+    std::cout << type << ": end" << std::endl;
+*/ 
     try {
         return i->second->createComponent(reader);
     } catch(std::exception& e) {

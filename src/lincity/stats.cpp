@@ -12,6 +12,7 @@
 #include "engglobs.h"
 #include "gui_interface/pbar_interface.h"
 #include "stats.h"
+#include "modules/market.h" //for inventory_market
 
 /* ---------------------------------------------------------------------- *
  * Public Global Variables
@@ -80,23 +81,12 @@ int ly_fire_cost;
 /* Averaging variables */
 int data_last_month;
 
-/* ---------------------------------------------------------------------- *
- * Private Function Prototypes
- * ---------------------------------------------------------------------- */
-void inventory_market(int x, int y);
 
 void init_daily(void)
 {
     population = 0;
     starving_population = 0;
     unemployed_population = 0;
-    food_in_markets = 0;
-    jobs_in_markets = 0;
-    coal_in_markets = 0;
-    goods_in_markets = 0;
-    ore_in_markets = 0;
-    steel_in_markets = 0;
-    waste_in_markets = 0;
 }
 
 void init_monthly(void)
@@ -105,15 +95,34 @@ void init_monthly(void)
 
     tpopulation = 0;
     tstarving_population = 0;
-    tfood_in_markets = 0;
-    tjobs_in_markets = 0;
-    tcoal_in_markets = 0;
-    tgoods_in_markets = 0;
-    tore_in_markets = 0;
-    tsteel_in_markets = 0;
-    twaste_in_markets = 0;
     tunemployed_population = 0;
     unnat_deaths = 0;
+    init_census();
+}
+
+void init_census()
+{
+    tstat_census[Construction::STUFF_FOOD] = 0;
+    tstat_census[Construction::STUFF_JOBS] = 0;
+    tstat_census[Construction::STUFF_COAL] = 0;
+    tstat_census[Construction::STUFF_ORE] = 0;
+    tstat_census[Construction::STUFF_WATER] = 0;
+    tstat_census[Construction::STUFF_GOODS] = 0;
+    tstat_census[Construction::STUFF_WASTE] = 0;
+    tstat_census[Construction::STUFF_STEEL] = 0;
+    tstat_census[Construction::STUFF_KWH] = 0;
+    tstat_census[Construction::STUFF_MWH] = 0;
+
+    tstat_capacities[Construction::STUFF_FOOD] = 1;
+    tstat_capacities[Construction::STUFF_JOBS] = 1;
+    tstat_capacities[Construction::STUFF_COAL] = 1;
+    tstat_capacities[Construction::STUFF_ORE] = 1;
+    tstat_capacities[Construction::STUFF_STEEL] = 1;
+    tstat_capacities[Construction::STUFF_WATER] = 1;
+    tstat_capacities[Construction::STUFF_GOODS] = 1;
+    tstat_capacities[Construction::STUFF_WASTE] = 1;
+    tstat_capacities[Construction::STUFF_KWH] = 1;
+    tstat_capacities[Construction::STUFF_MWH] = 1;
 }
 
 void init_yearly(void)
@@ -158,45 +167,14 @@ void init_lastyear(void)
     ly_fire_cost = 0;
 }
 
-void inventory(int x, int y)
-{
-
-    switch (get_group_of_type(MP_TYPE(x, y))) {
-
-    case GROUP_MARKET:
-        inventory_market(x, y);
-        break;
-
-    default:{
-            printf("Default in inventory(%d,%d): got %d\n", x, y, get_group_of_type(MP_TYPE(x, y)));
-            break;
-        }
-
-    }
-}
-
 void init_inventory(void)
 {
+    init_census();    
     init_daily();
     init_monthly();
     init_yearly();
     init_lastyear();
 }
-
-void inventory_market(int x, int y)
-{
-    food_in_markets += MP_INFO(x, y).int_1;
-    jobs_in_markets += MP_INFO(x, y).int_2;
-    coal_in_markets += MP_INFO(x, y).int_3;
-    goods_in_markets += MP_INFO(x, y).int_4;
-    ore_in_markets += MP_INFO(x, y).int_5;
-    steel_in_markets += MP_INFO(x, y).int_6;
-    waste_in_markets += MP_INFO(x, y).int_7;
-}
-
-/* XXX: WCK:  Why oh why must we divide by arbitrary values, below? */
-/* If this is fixed, make sure to fix it in pbar also! */
-/* fixed by Jaky */
 
 void add_daily_to_monthly(void)
 {
@@ -204,13 +182,6 @@ void add_daily_to_monthly(void)
 
     tpopulation += population;
     tstarving_population += starving_population;
-    tfood_in_markets += food_in_markets;
-    tjobs_in_markets += jobs_in_markets;
-    tcoal_in_markets += coal_in_markets;
-    tgoods_in_markets += goods_in_markets;
-    tore_in_markets += ore_in_markets;
-    tsteel_in_markets += steel_in_markets;
-    twaste_in_markets += waste_in_markets;
     tunemployed_population += unemployed_population;
 }
 

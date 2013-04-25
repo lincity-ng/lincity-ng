@@ -9,80 +9,16 @@
 #include "lin-city.h"
 #include "lctypes.h"
 #include "transport.h"
-#include "power.h"
-#include "stats.h"              /* for transport_cost */
+//#include "stats.h"              /* for transport_cost */
 #include "all_buildings.h"
 #include "engglobs.h"
+#include "engine.h"
+#include "modules/all_modules.h" //for knowing the Windmill in connect_transport
+#include <iostream>
 
-static int max_load(int x, int y, int i)
-{
-    int group=MP_GROUP(x,y);
-    int max;
-
-    static const int max_track_table[7] = {
-        MAX_FOOD_ON_TRACK,
-        MAX_JOBS_ON_TRACK,
-        MAX_COAL_ON_TRACK,
-        MAX_GOODS_ON_TRACK,
-        MAX_ORE_ON_TRACK,
-        MAX_STEEL_ON_TRACK,
-        MAX_WASTE_ON_TRACK
-    };
-
-    static const int max_road_table[7] = {
-        MAX_FOOD_ON_ROAD,
-        MAX_JOBS_ON_ROAD,
-        MAX_COAL_ON_ROAD,
-        MAX_GOODS_ON_ROAD,
-        MAX_ORE_ON_ROAD,
-        MAX_STEEL_ON_ROAD,
-        MAX_WASTE_ON_ROAD
-    };
-
-    static const int max_rail_table[7] = {
-        MAX_FOOD_ON_RAIL,
-        MAX_JOBS_ON_RAIL,
-        MAX_COAL_ON_RAIL,
-        MAX_GOODS_ON_RAIL,
-        MAX_ORE_ON_RAIL,
-        MAX_STEEL_ON_RAIL,
-        MAX_WASTE_ON_RAIL
-    };
-
-    if (group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE)
-        max = max_track_table[i];
-    else if (group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE)
-        max = max_road_table[i];
-    else if (group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE)
-        max = max_rail_table[i];
-    else {
-        // paranoid check, it should never happen
-        fprintf(stderr," ERROR in max_load x %i, y %i, i %i\n", x, y, i);
-        max = 0;
-    }
-
-    return max;
-
-}
-
-/* ---------------------------------------------------------------------
-   For track, road and rail:
-
-   MP_INFO(x,y).int_1 contains the amount of food
-                int_2 contains the amount of jobs
-                int_3 contains the amount of coal
-                int_4 contains the amount of goods
-                int_5 contains the amount of ore
-                int_6 contains the amount of steel
-                int_7 contains the amount of waste
-
-   MP_INFO(x,y).flags indicates the type of tile wrt to neighbours
-                it is computed/updated at build time in connect_transport
-
-  --------------------------------------------------------------------- */
-
-void general_transport(int x, int y, int max_waste)
-{
+/*
+void general_transport(int x, int y, int max_waste){}
+*/
     /* 30. Oct 1996:
      * we'll use a loop with pointers here instead of doin' each
      * operation by hand.  this reduces code complexity and should
@@ -118,241 +54,155 @@ void general_transport(int x, int y, int max_waste)
      *   y
      */
 
-    int *pol = &MP_POL(x, y);
-    map_point_info_struct *minfo = &MP_INFO(x, y);
+int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int center_ratio)
+{
+    Construction * repcons = world(x, y)->reportingConstruction;
+         
+    if (repcons && repcons->commodityCount.count(stuff_ID))           
+    {            
+        int loc_lvl = repcons->commodityCount[stuff_ID];
+        int loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;        
+        //return (loc_lvl * TRANSPORT_QUANTA / (loc_cap));        
+        if (loc_lvl > loc_cap)
+        {
+            std::cout<<"fixed "<<commodityNames[stuff_ID]<<" > maxload at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+            repcons->commodityCount[stuff_ID] = loc_cap;            
+            loc_lvl = loc_cap;
+        }
+        if (loc_lvl < 0)
+        {
+            std::cout<<"fixed "<<commodityNames[stuff_ID]<<" < 0 at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+            repcons->commodityCount[stuff_ID] = loc_cap;            
+            loc_lvl = 0;
+        }                
+        if (loc_cap < 0)
+        {
+            std::cout<<"maxload "<<commodityNames[stuff_ID]<<" <= 0 error at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+        }    
+        int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);       
+        if ((center_ratio == -1) || (
+        loc_ratio>center_ratio?repcons->constructionGroup->commodityRuleCount[stuff_ID].give:repcons->constructionGroup->commodityRuleCount[stuff_ID].take) )
+        {   //only tell actual stock if we would tentaively participate in transport
+            return (loc_ratio);
+        }    
+    }       
+    return -1;
+}
 
-    int tot, max, ratio, *base, xm1, xp1, ym1, yp1;
-    int i;
-    int CC; // x, y     Center Current load
-    int CM; //          Center Max load
-    int LC; // x-1, y   Left
-    int LM;
-    int RC; // x+1,y    Right
-    int RM;
-    int UC; // x, y-1   Up
-    int UM;
-    int DC; // x, y+1   Down
-    int DM;
+int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int ratio, Construction::Commodities stuff_ID)
+{
+    Construction * repcons = world(x, y)->reportingConstruction;
+    int flow, traffic;
+    int *loc_lvl;
+    int loc_cap;
+    int transport_rate = TRANSPORT_RATE;
 
-    /* With the grey border we are sure that x-1 et al are inside the boundaries */
-    base = &minfo->int_1;
-    xm1 = &minfo[-WORLD_SIDE_LEN].int_1 - base;
-    ym1 = &minfo[-1].int_1 - base;
-    xp1 = &minfo[WORLD_SIDE_LEN].int_1 - base;
-    yp1 = &minfo[1].int_1 - base;
 
-    /*  */
-    for (i = 0; i < 7; i++) {
-        /* left */
-        if ( XY_IS_TRANSPORT(x - 1, y) ) {
-            LC = base[xm1];
-            LM = max_load(x - 1, y, i);
-        } else {
-            LC = LM =0;
+    if (ratio > TRANSPORT_QUANTA)
+        std::cout<<"target ratio > TRANSPORT_QUANTA at "<<world(x, y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;    
+    //Double speed transport with passive partners    
+   
+    if (!(repcons->flags & FLAG_IS_TRANSPORT))
+    {
+        transport_rate = TRANSPORT_RATE/2;
+        if(transport_rate == 0)
+        {
+            transport_rate = 1;
         }
-        /* right */
-        if (XY_IS_TRANSPORT(x + 1, y)) {
-            RC = base[xp1];
-            RM = max_load(x + 1, y, i);
-        } else {
-            RC = RM =0;
-        }
-        /* up */
-        if (XY_IS_TRANSPORT(x, y - 1)) {
-            UC = base[ym1];
-            UM = max_load(x, y - 1, i);
-        } else {
-            UC = UM =0;
-        }
-        /* down */
-        if (XY_IS_TRANSPORT(x, y + 1)) {
-            DC = base[yp1];
-            DM = max_load(x, y + 1, i);
-        } else {
-            DC = DM =0;
-        }
-        /* center = here */
-        CC = *base;
-        CM = max_load(x,y,i);
-
-        tot = CC + LC + RC + UC + DC;
-        max = CM + LM + RM + UM + DM;
-        ratio = (tot * 100) / max;
-
-        /* left */
-        if (XY_IS_TRANSPORT(x - 1, y)) {
-            LC = base[xm1] = (ratio * LM) / 100;
-        }
-        /* right */
-        if (XY_IS_TRANSPORT(x + 1, y)) {
-            RC = base[xp1] = (ratio * RM) / 100;
-        }
-        /* up */
-        if (XY_IS_TRANSPORT(x, y - 1)) {
-            UC = base[ym1] = (ratio * UM) / 100;
-        }
-        /* down */
-        if (XY_IS_TRANSPORT(x, y + 1)) {
-            DC = base[yp1] = (ratio * DM) / 100;
-        }
-
-        *base++ = tot - (LC + RC + UC + DC);
-        // loop on address of int_"i"
     }
-
-    /*
-    switch (minfo->flags & 0x0F) {
-    case 0:
-        return;
-
-    case 1:                    // inlined t_av_l() -- (ThMO)
-        for (i = 0; i < 7; i++) {        //loop on the adress of int_1 int_2 .... int_7
-            tot = *base + base[xm1];
-            av = tot / 2;
-            base[xm1] = av;
-            *base++ = av + tot % 2;
+  
+    if (repcons && repcons->commodityCount.count(stuff_ID) ) // someone who cares about stuff_id 
+    {            
+        loc_lvl = &(repcons->commodityCount[stuff_ID]);
+        loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;            
+        flow = (ratio * (loc_cap) / TRANSPORT_QUANTA) - (*loc_lvl);
+        if (((flow > 0) && !(repcons->constructionGroup->commodityRuleCount[stuff_ID].take))
+        || ((flow < 0) && !(repcons->constructionGroup->commodityRuleCount[stuff_ID].give)))
+        {   //construction refuses the flow
+            //std::cout << "."; //happens still often               
+            return 0;
+        }                
+        if (flow > 0)
+        {              
+            if (flow * transport_rate > rem_cap )
+                flow = rem_cap / transport_rate;
+            if (flow > *rem_lvl)
+                flow = *rem_lvl;
         }
-        break;
-
-    case 2:                    // inlined t_av_u() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[ym1];
-            av = tot / 2;
-            base[ym1] = av;
-            *base++ = av + tot % 2;
+        else if (flow < 0)
+        {
+            if(-flow * transport_rate > rem_cap)
+                flow = - rem_cap / transport_rate;
+            if (-flow > (rem_cap-*rem_lvl))
+                flow = -(rem_cap-*rem_lvl);
         }
-        break;
-
-    case 3:                    // inlined t_av_lu() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xm1] + base[ym1];
-            av = tot / 3;
-            base[xm1] = base[ym1] = av;
-            *base++ = av + tot % 3;
+        else if ( !(repcons->flags & FLAG_IS_TRANSPORT) 
+                || (repcons->constructionGroup->group == GROUP_MARKET) )
+        // transport tiles and markets tolerat insignifiact flow
+        {
+            //constructions doublecheck if the can get/put a least one item if flow would be nominally insiginficant
+            if ( (*loc_lvl < *rem_lvl) && (*loc_lvl < loc_cap) ) // feed but dont overfeeding
+                flow = 1; 
+            else if (*loc_lvl > *rem_lvl && (*rem_lvl < rem_cap) ) // spill but dont flood 
+                flow = -1;
+        }       
+        // limit local demand to remote quantity of stuff
+        if (flow > *rem_lvl)
+        {
+            flow = *rem_lvl;
         }
-        break;
-
-    case 4:                    // inlined t_av_r() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xp1];
-            av = tot / 2;
-            base[xp1] = av;
-            *base++ = av + tot % 2;
+        //limit remote demand to local quantity of stuff
+        if (flow < -*loc_lvl)
+        {
+            flow = -*loc_lvl;
         }
-        break;
-
-    case 5:                    // inlined t_av_lr() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xm1] + base[xp1];
-            av = tot / 3;
-            base[xm1] = base[xp1] = av;
-            *base++ = av + tot % 3;
+        if (!(repcons->flags & FLAG_IS_TRANSPORT) && (flow > 0) 
+            && repcons->constructionGroup->group != GROUP_MARKET) 
+        //something is given to a consumer 
+        {
+            switch (stuff_ID)
+            {
+                case (Construction::STUFF_JOBS) :
+                    income_tax += flow;
+                    break;
+                case (Construction::STUFF_GOODS) :
+                    goods_tax += flow;
+                    goods_used += flow;
+                case (Construction::STUFF_COAL) :
+                    coal_tax += flow;
+                    break;
+                default:
+                    break;
+            }              
+        }             
+        traffic = flow * TRANSPORT_QUANTA / rem_cap;
+        // incomming and outgoing traffic dont cancel but add up        
+        if (traffic < 0)
+        {
+            traffic = -traffic;
+        }      
+        *loc_lvl += flow; 
+        *rem_lvl -= flow;
+        if (*loc_lvl < 0)
+            std::cout<<"remote load < 0 error at "<<world(x, y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+        
+        if (repcons->flags & FLAG_IS_TRANSPORT)
+        {
+            return traffic; //handled transport neighbor
         }
-        break;
-
-    case 6:                    // inline t_av_ur() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[ym1] + base[xp1];
-            av = tot / 3;
-            base[ym1] = base[xp1] = av;
-            *base++ = av + tot % 3;
-        }
-        break;
-
-    case 7:                    // inlined t_av_lur() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xm1] + base[ym1] + base[xp1];
-            av = tot / 4;
-            base[xm1] = base[ym1] = base[xp1] = av;
-            *base++ = av + tot % 4;
-        }
-        break;
-
-    case 8:                    // inlined t_av_d() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[yp1];
-            av = tot / 2;
-            base[yp1] = av;
-            *base++ = av + tot % 2;
-        }
-        break;
-
-    case 9:                    // inlined t_av_ld() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xm1] + base[yp1];
-            av = tot / 3;
-            base[xm1] = base[yp1] = av;
-            *base++ = av + tot % 3;
-        }
-        break;
-
-    case 10:                   // inlined t_av_ud() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[ym1] + base[yp1];
-            av = tot / 3;
-            base[ym1] = base[yp1] = av;
-            *base++ = av + tot % 3;
-        }
-        break;
-
-    case 11:                   // inlined t_av_lud() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xm1] + base[ym1] + base[yp1];
-            av = tot / 4;
-            base[xm1] = base[ym1] = base[yp1] = av;
-            *base++ = av + tot % 4;
-        }
-        break;
-
-    case 12:                   // inlined t_av_rd() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xp1] + base[yp1];
-            av = tot / 3;
-            base[xp1] = base[yp1] = av;
-            *base++ = av + tot % 3;
-        }
-        break;
-
-    case 13:                   // inlined t_av_lrd() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xm1] + base[xp1] + base[yp1];
-            av = tot / 4;
-            base[xm1] = base[xp1] = base[yp1] = av;
-            *base++ = av + tot % 4;
-        }
-        break;
-
-    case 14:                   // inlined t_av_urd() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[ym1] + base[xp1] + base[yp1];
-            av = tot / 4;
-            base[ym1] = base[xp1] = base[yp1] = av;
-            *base++ = av + tot % 4;
-        }
-        break;
-
-    case 15:                   // inlined t_av_lurd() -- (ThMO)
-        for (i = 0; i < 7; i++) {
-            tot = *base + base[xm1] + base[ym1] + base[xp1] + base[yp1];
-            av = tot / 5;
-            base[xm1] = base[ym1] = base[xp1] = base[yp1] = av;
-            *base++ = av + tot % 5;
-        }
-        break;
+        else
+        {
+            return 0; //loading and unloading is not considered flowing traffic
+        }    
     }
-    */
-
-    //  *--base = &minfo->int_7 = current waste on this tile of transport
-    if (*--base >= max_waste) {
-        *base -= WASTE_BURN_ON_TRANSPORT;
-        ++*pol;
-    }
+    return -1; //there was nothing to handle
 }
 
 void connect_transport(int originx, int originy, int w, int h)
 {
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
-    int x, y, mask, tflags;
+    int x, y; 
+    int mask, tflags, mask0;
     short group;
 
     static const short power_table[16] = {
@@ -400,105 +250,118 @@ void connect_transport(int originx, int originy, int w, int h)
         originy = 1;
         h -= 1 - originy;
     }
-    if (originx + w >= WORLD_SIDE_LEN) {
-        w = WORLD_SIDE_LEN - originx;
+    if (originx + w >= world.len()) {
+        w = world.len() - originx;
     }
-    if (originy + h >= WORLD_SIDE_LEN) {
-        h = WORLD_SIDE_LEN - originy;
+    if (originy + h >= world.len()) {
+        h = world.len() - originy;
     }
-
-    for (x = originx; x < originx + w; x++) {
-        for (y = originy; y < originy + h; y++) {
-            // First, set up a mask according to directions
-            mask = 0;
-            switch (MP_GROUP(x, y)) {
+    mask0 = ~(FLAG_LEFT |  FLAG_UP | FLAG_RIGHT | FLAG_DOWN );
+    for (x = originx; x < originx + w; x++)
+    {
+        for (y = originy; y < originy + h; y++)
+        {
+            // First, set up a mask according to directions         
+            mask = 0;          
+            switch (world(x, y)->getGroup())
+            {
             case GROUP_POWER_LINE:
                 /* power may be transferred */
                 /* up -- (ThMO) */
-                group = MP_GROUP(x, y - 1);
+                group = check_group(x, y - 1);
                 /* see if dug under track, rail or road */
-                if (y > 1 && (group == GROUP_WATER
-                        || group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE
-                        || group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE
-                        || group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE))
-                    group = MP_GROUP(x, y - 2);
-                switch (group) {
+                if ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))
+                    group = check_group(x, y - 2);
+                switch (group)
+                {
+                    case GROUP_WINDMILL:
+                        if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
+                            break;
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:
                     case GROUP_COAL_POWER:
+                    case GROUP_INDUSTRY_L:
+                    case GROUP_INDUSTRY_H:
                         mask |= 8;
                         break;
                 }
 
                 /* left -- (ThMO) */
-                group = MP_GROUP(x - 1, y);
-                if (x > 1 && (group == GROUP_WATER
-                        || group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE
-                        || group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE
-                        || group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE))
-                    group = MP_GROUP(x - 2, y);
-                switch (group) {
+                group = check_group(x - 1, y);
+                if (x > 1 && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))
+                    group = check_group(x - 2, y);
+                switch (group)
+                {
+                    case GROUP_WINDMILL:
+                        if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
+                            break;
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:
                     case GROUP_COAL_POWER:
+                    case GROUP_INDUSTRY_L:
+                    case GROUP_INDUSTRY_H:
                         mask |= 4;
                         break;
                 }
 
                 /* right -- (ThMO) */
-                group = MP_GROUP(x + 1, y);
-                if (x < WORLD_SIDE_LEN - 2 && (group ==GROUP_WATER
-                        || group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE
-                        || group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE
-                        || group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE))
-                    group = MP_GROUP(x + 2, y);
-                switch (group) {
+                group = check_group(x + 1, y);
+                if (x < world.len() - 2 && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))
+                    group = check_group(x + 2, y);
+                switch (group)
+                {
                     case GROUP_WINDMILL:
-                        if ( ! MP_INFO(x + 1, y).int_2 ) // not a hightech WINDMILL
+                        if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:
                     case GROUP_COAL_POWER:
+                    case GROUP_INDUSTRY_L:
+                    case GROUP_INDUSTRY_H:
                         mask |= 2;
                         break;
                 }
 
                 /* down -- (ThMO) */
-                group = MP_GROUP(x, y + 1);
-                if (y < WORLD_SIDE_LEN - 2 && (group ==GROUP_WATER
-                        || group == GROUP_TRACK || group == GROUP_TRACK_BRIDGE
-                        || group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE
-                        || group == GROUP_RAIL || group == GROUP_RAIL_BRIDGE))
-                    group = MP_GROUP(x, y + 2);
-                switch (group) {
+                group = check_group(x, y + 1);
+                if (y < world.len() - 2 && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())) 
+                    group = check_group(x, y + 2);
+                switch (group)
+                {
                     case GROUP_WINDMILL:
-                        if ( ! MP_INFO(x, y + 1).int_2 ) // not a hightech WINDMILL
+                        if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:
                     case GROUP_COAL_POWER:
+                    case GROUP_INDUSTRY_L:
+                    case GROUP_INDUSTRY_H:
                         ++mask;
                         break;
                 }
 
                 /* Next, set the connectivity into MP_TYPE */
-                MP_TYPE(x, y) = power_table[mask];
-                /* Finally, adjust MP_TYPE to show electon bolt */
-                /* WCK:This is done in do_power_line now if (MP_INFO(x, y).int_1 != 0) */
+                world(x, y)->construction->type = power_table[mask];
+                world(x, y)->construction->flags &= mask0; // clear connection flags
+                world(x, y)->construction->flags |= mask; // set connection flags
                 break;
 
             case GROUP_TRACK:
-                if (MP_GROUP(x, y - 1) == GROUP_TRACK)
+                if (check_group(x, y - 1) == GROUP_TRACK 
+                ||  check_group(x, y - 1) == GROUP_ROAD)
                     mask |= FLAG_UP;
-                if (MP_GROUP(x - 1, y) == GROUP_TRACK)
+                if (check_group(x - 1, y) == GROUP_TRACK
+                ||  check_group(x - 1, y) == GROUP_ROAD)
                     mask |= FLAG_LEFT;
                 tflags = mask;
 
-                switch (MP_GROUP(x + 1, y)) {
+                switch (check_topgroup(x + 1, y))
+                {
+                    case GROUP_ROAD:                   
                     case GROUP_TRACK:
                     case GROUP_TRACK_BRIDGE:
                         tflags |= FLAG_RIGHT;
@@ -513,12 +376,14 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= FLAG_RIGHT;
                         break;
                     default:
-                        if (MP_GROUP(x + 1, y - 1) == GROUP_COAL_POWER)
+                        if (check_group(x + 1, y - 1) == GROUP_COAL_POWER)
                             mask |= FLAG_RIGHT;
                         break;
                 }
 
-                switch (MP_GROUP(x, y + 1)) {
+                switch (check_topgroup(x, y + 1))
+                {
+                    case GROUP_ROAD:                    
                     case GROUP_TRACK:
                     case GROUP_TRACK_BRIDGE:
                         tflags |= FLAG_DOWN;
@@ -533,64 +398,99 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= FLAG_DOWN;
                         break;
                     default:
-                        if (MP_GROUP(x - 1, y + 1) == GROUP_COAL_POWER)
+                        if (check_group(x - 1, y + 1) == GROUP_COAL_POWER)
                             mask |= FLAG_DOWN;
                         break;
                 }
-                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
-                MP_INFO(x, y).flags |= tflags;
+                world(x, y)->construction->flags &= mask0;
+                world(x, y)->construction->flags |= tflags;
+//                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+//                MP_INFO(x, y).flags |= tflags;
 
                 // A track section between 2 bridge sections
                 // in this special case we use a pillar bridge section with green
-                if ((MP_GROUP(x, y-1) == GROUP_TRACK_BRIDGE && (
-                        MP_GROUP(x, y+1) == GROUP_TRACK_BRIDGE || MP_GROUP(x, y+2) == GROUP_TRACK_BRIDGE))
-                        || (MP_GROUP(x, y+1) == GROUP_TRACK_BRIDGE && (
-                        MP_GROUP(x, y-1) == GROUP_TRACK_BRIDGE || MP_GROUP(x, y-2) == GROUP_TRACK_BRIDGE)))
-                     MP_TYPE(x, y) = CST_TRACK_BRIDGE_UDP;
-                else if ((MP_GROUP(x-1, y) == GROUP_TRACK_BRIDGE && (
-                        MP_GROUP(x+1, y) == GROUP_TRACK_BRIDGE || MP_GROUP(x+2, y) == GROUP_TRACK_BRIDGE))
-                        || (MP_GROUP(x+1, y) == GROUP_TRACK_BRIDGE && (
-                        MP_GROUP(x-1, y) == GROUP_TRACK_BRIDGE || MP_GROUP(x-2, y) == GROUP_TRACK_BRIDGE)))
-                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_LRP;
+                if ((check_group(x, y-1) == GROUP_TRACK_BRIDGE && (
+                        check_group(x, y+1) == GROUP_TRACK_BRIDGE || check_group(x, y+2) == GROUP_TRACK_BRIDGE))
+                        || (check_group(x, y+1) == GROUP_TRACK_BRIDGE && (
+                        check_group(x, y-1) == GROUP_TRACK_BRIDGE || check_group(x, y-2) == GROUP_TRACK_BRIDGE)))
+                {
+                     //MP_TYPE(x, y) = CST_TRACK_BRIDGE_UDP;
+                     world(x, y)->construction->type = CST_TRACK_BRIDGE_UDP;
+                }
+                else if ((check_group(x-1, y) == GROUP_TRACK_BRIDGE && (
+                        check_group(x+1, y) == GROUP_TRACK_BRIDGE || check_group(x+2, y) == GROUP_TRACK_BRIDGE))
+                        || (check_group(x+1, y) == GROUP_TRACK_BRIDGE && (
+                        check_group(x-1, y) == GROUP_TRACK_BRIDGE || check_group(x-2, y) == GROUP_TRACK_BRIDGE)))
+                {
+                    //MP_TYPE(x, y) = CST_TRACK_BRIDGE_LRP;
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_LRP;
+                }
                 // Set according bridge entrance if any
-                else if (MP_GROUP(x, y-1) == GROUP_TRACK_BRIDGE)
-                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_OUD;
-                else if (MP_GROUP(x-1, y) == GROUP_TRACK_BRIDGE)
-                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_OLR;
-                else if (MP_GROUP(x, y+1) == GROUP_TRACK_BRIDGE)
-                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_IUD;
-                else if (MP_GROUP(x+1, y) == GROUP_TRACK_BRIDGE)
-                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_ILR;
+                else if (check_group(x, y-1) == GROUP_TRACK_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_TRACK_BRIDGE_OUD;
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_OUD;
+                }
+                else if (check_group(x-1, y) == GROUP_TRACK_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_TRACK_BRIDGE_OLR;
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_OLR;
+                }
+                else if (check_group(x, y+1) == GROUP_TRACK_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_TRACK_BRIDGE_IUD;
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_IUD;
+                }
+                else if (check_group(x+1, y) == GROUP_TRACK_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_TRACK_BRIDGE_ILR;
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_ILR;
+                }
                 else
-                MP_TYPE(x, y) = track_table[mask];
+                {
+                    //MP_TYPE(x, y) = track_table[mask];
+                    world(x, y)->construction->type = track_table[mask];
+                }
                 break;
 
             case GROUP_TRACK_BRIDGE:
                 // Bridge neighbour priority
-                if (MP_GROUP(x, y-1) == GROUP_TRACK_BRIDGE || MP_GROUP(x, y+1) == GROUP_TRACK_BRIDGE
-                   || MP_GROUP(x, y-1) == GROUP_TRACK || MP_GROUP(x, y+1) == GROUP_TRACK)
+                if (check_group(x, y-1) == GROUP_TRACK_BRIDGE || check_group(x, y+1) == GROUP_TRACK_BRIDGE
+                   || check_group(x, y-1) == GROUP_TRACK || check_group(x, y+1) == GROUP_TRACK)
                 {
                     mask |= FLAG_UP;
-                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_UD;
+                    //MP_TYPE(x, y) = CST_TRACK_BRIDGE_UD;
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_UD;
                 }
-                else if (MP_GROUP(x-1, y) == GROUP_TRACK_BRIDGE || MP_GROUP(x+1, y) == GROUP_TRACK_BRIDGE
-                    || MP_GROUP(x-1, y) == GROUP_TRACK || MP_GROUP(x+1, y) == GROUP_TRACK)
+                else if (check_group(x-1, y) == GROUP_TRACK_BRIDGE || check_group(x+1, y) == GROUP_TRACK_BRIDGE
+                    || check_group(x-1, y) == GROUP_TRACK || check_group(x+1, y) == GROUP_TRACK)
                 {
                     mask |= FLAG_LEFT;
-                    MP_TYPE(x, y) = CST_TRACK_BRIDGE_LR;
+                    //MP_TYPE(x, y) = CST_TRACK_BRIDGE_LR;
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_LR;
                 }
-                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
-                MP_INFO(x, y).flags |= mask;
+                else //a lonely bridge tile
+                {
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_LR;                    
+                }
+                world(x, y)->construction->flags &= mask0;
+                world(x, y)->construction->flags |= mask;                
+//                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+//                MP_INFO(x, y).flags |= mask;
                 break;
 
             case GROUP_ROAD:
-                if (MP_GROUP(x, y - 1) == GROUP_ROAD)
+                if (check_group(x, y - 1) == GROUP_ROAD
+                ||  check_group(x, y - 1) == GROUP_TRACK)
                     mask |= FLAG_UP;
-                if (MP_GROUP(x - 1, y) == GROUP_ROAD)
+                if (check_group(x - 1, y) == GROUP_ROAD
+                ||  check_group(x - 1, y) == GROUP_TRACK)
                     mask |= FLAG_LEFT;
                 tflags = mask;
 
-                switch (MP_GROUP(x + 1, y)) {
+                switch (check_topgroup(x + 1, y))
+                {
+                    case GROUP_TRACK:                    
                     case GROUP_ROAD:
                         tflags |= FLAG_RIGHT;
                     case GROUP_COMMUNE:
@@ -604,11 +504,13 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= FLAG_RIGHT;
                         break;
                     default:
-                        if (MP_GROUP(x + 1, y - 1) == GROUP_COAL_POWER)
+                        if (check_group(x + 1, y - 1) == GROUP_COAL_POWER)
                             mask |= FLAG_RIGHT;
                         break;
                 }
-                switch (MP_GROUP(x, y + 1)) {
+                switch (check_topgroup(x, y + 1))
+                {
+                    case GROUP_TRACK:                    
                     case GROUP_ROAD:
                         tflags |= FLAG_DOWN;
                     case GROUP_COMMUNE:
@@ -622,82 +524,126 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= FLAG_DOWN;
                         break;
                     default:
-                        if (MP_GROUP(x - 1, y + 1) == GROUP_COAL_POWER)
+                        if (check_group(x - 1, y + 1) == GROUP_COAL_POWER)
                             mask |= FLAG_DOWN;
                         break;
                 }
-                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
-                MP_INFO(x, y).flags |= tflags;
+                world(x, y)->construction->flags &= mask0;
+                world(x, y)->construction->flags |= tflags;                
+//                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+//                MP_INFO(x, y).flags |= tflags;
                 // A road section between 2 bridge sections
                 // in this special case we use a pillar bridge section with green
-                if ((MP_GROUP(x, y-1) == GROUP_ROAD_BRIDGE && (
-                        MP_GROUP(x, y+1) == GROUP_ROAD_BRIDGE || MP_GROUP(x, y+2) == GROUP_ROAD_BRIDGE))
-                        || (MP_GROUP(x, y+1) == GROUP_ROAD_BRIDGE && (
-                        MP_GROUP(x, y-1) == GROUP_ROAD_BRIDGE || MP_GROUP(x, y-2) == GROUP_ROAD_BRIDGE)))
-                     MP_TYPE(x, y) = CST_ROAD_BRIDGE_UDPG;
-                else if ((MP_GROUP(x-1, y) == GROUP_ROAD_BRIDGE && (
-                        MP_GROUP(x+1, y) == GROUP_ROAD_BRIDGE || MP_GROUP(x+2, y) == GROUP_ROAD_BRIDGE))
-                        || (MP_GROUP(x+1, y) == GROUP_ROAD_BRIDGE && (
-                        MP_GROUP(x-1, y) == GROUP_ROAD_BRIDGE || MP_GROUP(x-2, y) == GROUP_ROAD_BRIDGE)))
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRPG;
+                if ((check_group(x, y-1) == GROUP_ROAD_BRIDGE && (
+                        check_group(x, y+1) == GROUP_ROAD_BRIDGE || check_group(x, y+2) == GROUP_ROAD_BRIDGE))
+                        || (check_group(x, y+1) == GROUP_ROAD_BRIDGE && (
+                        check_group(x, y-1) == GROUP_ROAD_BRIDGE || check_group(x, y-2) == GROUP_ROAD_BRIDGE)))
+                {
+                     //MP_TYPE(x, y) = CST_ROAD_BRIDGE_UDPG;
+                     world(x, y)->construction->type = CST_ROAD_BRIDGE_UDPG;
+                }
+                else if ((check_group(x-1, y) == GROUP_ROAD_BRIDGE && (
+                        check_group(x+1, y) == GROUP_ROAD_BRIDGE || check_group(x+2, y) == GROUP_ROAD_BRIDGE))
+                        || (check_group(x+1, y) == GROUP_ROAD_BRIDGE && (
+                        check_group(x-1, y) == GROUP_ROAD_BRIDGE || check_group(x-2, y) == GROUP_ROAD_BRIDGE)))
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRPG;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_LRPG;
+                }
                 // Build bridge entrance2
-                else if (MP_GROUP(x, y-1) == GROUP_ROAD_BRIDGE)
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_O2UD;
-                else if (MP_GROUP(x-1, y) == GROUP_ROAD_BRIDGE)
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_O2LR;
-                else if (MP_GROUP(x, y+1) == GROUP_ROAD_BRIDGE)
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_I2UD;
-                else if (MP_GROUP(x+1, y) == GROUP_ROAD_BRIDGE)
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_I2LR;
+                else if (check_group(x, y-1) == GROUP_ROAD_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_O2UD;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_O2UD;
+                }
+                else if (check_group(x-1, y) == GROUP_ROAD_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_O2LR;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_O2LR;
+                }
+                else if (check_group(x, y+1) == GROUP_ROAD_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_I2UD;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_I2UD;
+                }
+                else if (check_group(x+1, y) == GROUP_ROAD_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_I2LR;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_I2LR;
+                }
                 // Build bridge entrance1
-                else if (MP_GROUP(x, y-2) == GROUP_ROAD_BRIDGE && MP_GROUP(x, y-1) == GROUP_ROAD)
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_O1UD;
-                else if (MP_GROUP(x-2, y) == GROUP_ROAD_BRIDGE && MP_GROUP(x-1, y) == GROUP_ROAD)
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_O1LR;
-                else if (MP_GROUP(x, y+2) == GROUP_ROAD_BRIDGE && MP_GROUP(x, y+1) == GROUP_ROAD)
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_I1UD;
-                else if (MP_GROUP(x+2, y) == GROUP_ROAD_BRIDGE && MP_GROUP(x+1, y) == GROUP_ROAD)
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_I1LR;
+                else if (check_group(x, y-2) == GROUP_ROAD_BRIDGE && check_group(x, y-1) == GROUP_ROAD)
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_O1UD;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_O1UD;
+                }
+                else if (check_group(x-2, y) == GROUP_ROAD_BRIDGE && check_group(x-1, y) == GROUP_ROAD)
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_O1LR;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_O1LR;
+                }
+                else if (check_group(x, y+2) == GROUP_ROAD_BRIDGE && check_group(x, y+1) == GROUP_ROAD)
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_I1UD;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_I1UD;
+                }
+                else if (check_group(x+2, y) == GROUP_ROAD_BRIDGE && check_group(x+1, y) == GROUP_ROAD)
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_I1LR;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_I1LR;
+                }
                 else
-                MP_TYPE(x, y) = road_table[mask];
+                {
+                    //MP_TYPE(x, y) = road_table[mask];
+                    world(x, y)->construction->type = road_table[mask];
+                }           
                 break;
 
             case GROUP_ROAD_BRIDGE:
                 // Bridge neighbour priority
-                if (MP_GROUP(x, y-1) == GROUP_ROAD_BRIDGE || MP_GROUP(x, y+1) == GROUP_ROAD_BRIDGE)
+                if (check_group(x, y-1) == GROUP_ROAD_BRIDGE || check_group(x, y+1) == GROUP_ROAD_BRIDGE)
                 {
                     mask |= FLAG_UP;
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_UDP;
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_UDP;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_UDP;
                 }
-                else if (MP_GROUP(x-1, y) == GROUP_ROAD_BRIDGE || MP_GROUP(x+1, y) == GROUP_ROAD_BRIDGE)
+                else if (check_group(x-1, y) == GROUP_ROAD_BRIDGE || check_group(x+1, y) == GROUP_ROAD_BRIDGE)
                 {
                     mask |= FLAG_LEFT;
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRP;
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRP;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_LRP;
                 }
-                else if (MP_GROUP(x, y-1) == GROUP_ROAD || MP_GROUP(x, y+1) == GROUP_ROAD)
+                else if (check_group(x, y-1) == GROUP_ROAD || check_group(x, y+1) == GROUP_ROAD)
                 {
                     mask |= FLAG_UP;
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_UD;
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_UD;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_UD;
                 }
-                else if (MP_GROUP(x-1, y) == GROUP_ROAD || MP_GROUP(x+1, y) == GROUP_ROAD)
+                else if (check_group(x-1, y) == GROUP_ROAD || check_group(x+1, y) == GROUP_ROAD)
                 {
                     mask |= FLAG_LEFT;
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_LR;
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_LR;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_LR;
                 }
                 else
-                    MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRP;
-                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
-                MP_INFO(x, y).flags |= mask;
+                {
+                    //MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRP;
+                    world(x, y)->construction->type = CST_ROAD_BRIDGE_LRP;
+                }
+                world(x, y)->construction->flags &= ~mask0;
+                world(x, y)->construction->flags |= mask;                /////////////////////////////////////////////////////////////////should it be tflags here?
+//                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+//                MP_INFO(x, y).flags |= mask;
                 break;
 
             case GROUP_RAIL:
-                if (MP_GROUP(x, y - 1) == GROUP_RAIL)
+                if (check_group(x, y - 1) == GROUP_RAIL)
                     mask |= FLAG_UP;
-                if (MP_GROUP(x - 1, y) == GROUP_RAIL)
+                if (check_group(x - 1, y) == GROUP_RAIL)
                     mask |= FLAG_LEFT;
                 tflags = mask;
 
-                switch (MP_GROUP(x + 1, y)) {
+                switch (check_topgroup(x + 1, y)) {
                     case GROUP_RAIL:
                         tflags |= FLAG_RIGHT;
                     case GROUP_COMMUNE:
@@ -711,11 +657,11 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= FLAG_RIGHT;
                         break;
                     default:
-                        if (MP_GROUP(x + 1, y - 1) == GROUP_COAL_POWER)
+                        if (check_group(x + 1, y - 1) == GROUP_COAL_POWER)
                             mask |= FLAG_RIGHT;
                         break;
                 }
-                switch (MP_GROUP(x, y + 1)) {
+                switch (check_topgroup(x, y + 1)) {
                     case GROUP_RAIL:
                         tflags |= FLAG_DOWN;
                     case GROUP_COMMUNE:
@@ -729,91 +675,136 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= FLAG_DOWN;
                         break;
                     default:
-                        if (MP_GROUP(x - 1, y + 1)
+                        if (check_group(x - 1, y + 1)
                                 == GROUP_COAL_POWER)
                             mask |= FLAG_DOWN;
                         break;
                 }
-                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
-                MP_INFO(x, y).flags |= tflags;
+                world(x, y)->construction->flags &= mask0;
+                world(x, y)->construction->flags |= tflags;                
+//                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+//                MP_INFO(x, y).flags |= tflags;
                 // A rail section between 2 bridge sections
                 // in this special case we use a pillar bridge section with green
-                if ((MP_GROUP(x, y-1) == GROUP_RAIL_BRIDGE && (
-                        MP_GROUP(x, y+1) == GROUP_RAIL_BRIDGE || MP_GROUP(x, y+2) == GROUP_RAIL_BRIDGE))
-                        || (MP_GROUP(x, y+1) == GROUP_RAIL_BRIDGE && (
-                        MP_GROUP(x, y-1) == GROUP_RAIL_BRIDGE || MP_GROUP(x, y-2) == GROUP_RAIL_BRIDGE)))
-                     MP_TYPE(x, y) = CST_RAIL_BRIDGE_UDPG;
-                else if ((MP_GROUP(x-1, y) == GROUP_RAIL_BRIDGE && (
-                        MP_GROUP(x+1, y) == GROUP_RAIL_BRIDGE || MP_GROUP(x+2, y) == GROUP_RAIL_BRIDGE))
-                        || (MP_GROUP(x+1, y) == GROUP_RAIL_BRIDGE && (
-                        MP_GROUP(x-1, y) == GROUP_RAIL_BRIDGE || MP_GROUP(x-2, y) == GROUP_RAIL_BRIDGE)))
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_LRPG;
+                if ((check_group(x, y-1) == GROUP_RAIL_BRIDGE && (
+                        check_group(x, y+1) == GROUP_RAIL_BRIDGE || check_group(x, y+2) == GROUP_RAIL_BRIDGE))
+                        || (check_group(x, y+1) == GROUP_RAIL_BRIDGE && (
+                        check_group(x, y-1) == GROUP_RAIL_BRIDGE || check_group(x, y-2) == GROUP_RAIL_BRIDGE)))
+                {
+                     //MP_TYPE(x, y) = CST_RAIL_BRIDGE_UDPG;
+                     world(x, y)->construction->type = CST_RAIL_BRIDGE_UDPG;
+                }
+                else if ((check_group(x-1, y) == GROUP_RAIL_BRIDGE && (
+                        check_group(x+1, y) == GROUP_RAIL_BRIDGE || check_group(x+2, y) == GROUP_RAIL_BRIDGE))
+                        || (check_group(x+1, y) == GROUP_RAIL_BRIDGE && (
+                        check_group(x-1, y) == GROUP_RAIL_BRIDGE || check_group(x-2, y) == GROUP_RAIL_BRIDGE)))
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_LRPG;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_LRPG;
+                }
                 // Build bridge entrance2
-                else if (MP_GROUP(x, y-1) == GROUP_RAIL_BRIDGE)
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_O2UD;
-                else if (MP_GROUP(x-1, y) == GROUP_RAIL_BRIDGE)
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_O2LR;
-                else if (MP_GROUP(x, y+1) == GROUP_RAIL_BRIDGE)
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_I2UD;
-                else if (MP_GROUP(x+1, y) == GROUP_RAIL_BRIDGE)
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_I2LR;
+                else if (check_group(x, y-1) == GROUP_RAIL_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_O2UD;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_O2UD;
+                }
+                else if (check_group(x-1, y) == GROUP_RAIL_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_O2LR;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_O2LR;
+                }
+                else if (check_group(x, y+1) == GROUP_RAIL_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_I2UD;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_I2UD;
+                }
+                else if (check_group(x+1, y) == GROUP_RAIL_BRIDGE)
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_I2LR;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_I2LR;
+                }
                 // Build bridge entrance1
-                else if (MP_GROUP(x, y-2) == GROUP_RAIL_BRIDGE && MP_GROUP(x, y-1) == GROUP_RAIL)
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_O1UD;
-                else if (MP_GROUP(x-2, y) == GROUP_RAIL_BRIDGE && MP_GROUP(x-1, y) == GROUP_RAIL)
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_O1LR;
-                else if (MP_GROUP(x, y+2) == GROUP_RAIL_BRIDGE && MP_GROUP(x, y+1) == GROUP_RAIL)
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_I1UD;
-                else if (MP_GROUP(x+2, y) == GROUP_RAIL_BRIDGE && MP_GROUP(x+1, y) == GROUP_RAIL)
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_I1LR;
+                else if (check_group(x, y-2) == GROUP_RAIL_BRIDGE && check_group(x, y-1) == GROUP_RAIL)
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_O1UD;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_O1UD;
+                }
+                else if (check_group(x-2, y) == GROUP_RAIL_BRIDGE && check_group(x-1, y) == GROUP_RAIL)
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_O1LR;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_O1LR;
+                }
+                else if (check_group(x, y+2) == GROUP_RAIL_BRIDGE && check_group(x, y+1) == GROUP_RAIL)
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_I1UD;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_I1UD;
+                }
+                else if (check_group(x+2, y) == GROUP_RAIL_BRIDGE && check_group(x+1, y) == GROUP_RAIL)
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_I1LR;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_I1LR;
+                }
                 else
-                MP_TYPE(x, y) = rail_table[mask];
+                {
+                    //MP_TYPE(x, y) = rail_table[mask];
+                    world(x, y)->construction->type = rail_table[mask]; 
+                }
                 break;
 
             case GROUP_RAIL_BRIDGE:
                 // Bridge neighbour priority
-                if (MP_GROUP(x, y-1) == GROUP_RAIL_BRIDGE || MP_GROUP(x, y+1) == GROUP_RAIL_BRIDGE
-                   || MP_GROUP(x, y-1) == GROUP_RAIL || MP_GROUP(x, y+1) == GROUP_RAIL)
+                if (check_group(x, y-1) == GROUP_RAIL_BRIDGE || check_group(x, y+1) == GROUP_RAIL_BRIDGE
+                   || check_group(x, y-1) == GROUP_RAIL || check_group(x, y+1) == GROUP_RAIL)
                 {
                     mask |= FLAG_UP;
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_UD;
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_UD;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_UD;
                 }
-                else if (MP_GROUP(x-1, y) == GROUP_RAIL_BRIDGE || MP_GROUP(x+1, y) == GROUP_RAIL_BRIDGE
-                    || MP_GROUP(x-1, y) == GROUP_RAIL || MP_GROUP(x+1, y) == GROUP_RAIL)
+                else if (check_group(x-1, y) == GROUP_RAIL_BRIDGE || check_group(x+1, y) == GROUP_RAIL_BRIDGE
+                    || check_group(x-1, y) == GROUP_RAIL || check_group(x+1, y) == GROUP_RAIL)
                 {
                     mask |= FLAG_LEFT;
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_LR;
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_LR;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_LR;
                 }
                 else
-                    MP_TYPE(x, y) = CST_RAIL_BRIDGE_LR;
-                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
-                MP_INFO(x, y).flags |= mask;
+                {
+                    //MP_TYPE(x, y) = CST_RAIL_BRIDGE_LR;
+                    world(x, y)->construction->type = CST_RAIL_BRIDGE_LR;
+                }
+                world(x, y)->construction->flags &= mask0;
+                world(x, y)->construction->flags |= mask;
+//                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
+//                MP_INFO(x, y).flags |= mask;
                 break;
 
             case GROUP_WATER:
                 /* up -- (ThMO) */
-                if ((MP_TYPE(x, y - 1) == CST_USED && MP_GROUP(MP_INFO(x, y - 1).int_1, MP_INFO(x, y - 1).int_2) == GROUP_PORT)
-                        || XY_IS_WATER(x, y - 1))
+                if ( ((y > 0) && (world(x, y-1)->getGroup() == GROUP_PORT))
+                    //(MP_TYPE(x, y - 1) == CST_USED && check_group(MP_INFO(x, y - 1).int_1, MP_INFO(x, y - 1).int_2) == GROUP_PORT)
+                        || check_water(x, y - 1))
                     mask |= 8;
 
                 /* left -- (ThMO) */
-                if ((MP_TYPE(x - 1,y) == CST_USED && MP_GROUP(MP_INFO(x - 1, y).int_1, MP_INFO(x - 1, y).int_2) == GROUP_PORT)
-                        || XY_IS_WATER(x - 1, y))
+                if ( ((x > 0) && (world(x - 1, y)->getGroup() == GROUP_PORT))
+                    //(MP_TYPE(x - 1,y) == CST_USED && check_group(MP_INFO(x - 1, y).int_1, MP_INFO(x - 1, y).int_2) == GROUP_PORT)
+                        || check_water(x - 1, y))
                     mask |= 4;
 
                 /* right -- (ThMO) */
-                if (XY_IS_WATER(x + 1, y))
+                if (check_water(x + 1, y))
                     mask |= 2;
 
                 /* down -- (ThMO) */
-                if (XY_IS_WATER(x, y + 1))
+                if (check_water(x, y + 1))
                     mask |= 1;
 
-                MP_TYPE(x, y) = water_table[mask];
+                //MP_TYPE(x, y) = water_table[mask];
+                world(x, y)->type = water_table[mask];
                 break;
-            }                   /* end switch */
+            }                   /* end switch */      
         }                       /* end for */
-    }                           /* end for */
+    }                           /* end for */   
 }
 
 /** @file lincity/transport.cpp */

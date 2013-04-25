@@ -19,22 +19,25 @@
 #include "port.h"
 #include "pottery.h"
 #include "power_line.h"
-#include "rail.h"
+//#include "rail.h" //superseeded by track_road_rail_powerline.h
 #include "recycle.h"
 #include "residence.h"
-#include "road.h"
+//#include "road.h" //superseeded by track_road_rail_powerline.h
 #include "rocket_pad.h"
 #include "school.h"
 #include "shanty.h"
 #include "solar_power.h"
 #include "substation.h"
 #include "tip.h"
-#include "track.h"
+#include "track_road_rail.h"
+//#include "track.h" //superseeded by track_road_rail_powerline.h
 #include "university.h"
 #include "water.h"
 #include "windmill.h"
 #include "market.h"
 #include "waterwell.h"
+
+void initializeModules();
 
 #endif
 

@@ -5,36 +5,48 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
+
 #include "health_centre.h"
-#include "../range.h"
 
-void do_health_centre(int x, int y)
+
+
+// Health Centre:
+HealthCentreConstructionGroup healthCentreConstructionGroup(
+     "Health centre",
+     FALSE,                     /* need credit? */
+     GROUP_HEALTH,
+     2,                         /* size */
+     GROUP_HEALTH_COLOUR,
+     GROUP_HEALTH_COST_MUL,
+     GROUP_HEALTH_BUL_COST,
+     GROUP_HEALTH_FIREC,
+     GROUP_HEALTH_COST,
+     GROUP_HEALTH_TECH
+);
+
+Construction *HealthCentreConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new HealthCentre(x, y, type);
+}
+
+void HealthCentre::update()
 {
-    /*
-       // int_1 is the jobs stored at the health centre
-       // int_2 is the goods stored at the health centre
-     */
-    if (MP_INFO(x, y).int_1 < (MAX_JOBS_AT_HEALTH_CENTRE - HEALTH_CENTRE_GET_JOBS))
-        if (get_jobs(x, y, HEALTH_CENTRE_GET_JOBS) != 0)
-            MP_INFO(x, y).int_1 += HEALTH_CENTRE_GET_JOBS;
-    if (MP_INFO(x, y).int_2 < (MAX_GOODS_AT_HEALTH_CENTRE - HEALTH_CENTRE_GET_GOODS))
-        if (get_goods(x, y, HEALTH_CENTRE_GET_GOODS) != 0)
-            MP_INFO(x, y).int_2 += HEALTH_CENTRE_GET_GOODS;
-
     /* That's all. Cover is done by different functions every 3 months or so. */
-
     health_cost += HEALTH_RUNNING_COST;
 }
 
-void do_health_cover(int x, int y)
+void HealthCentre::cover()
 {
     int xx, x1, x2, y1, y2;
-    if (MP_INFO(x, y).int_1 < (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER) ||
-        MP_INFO(x, y).int_2 < (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER))
+    if (commodityCount[STUFF_JOBS] < (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER)
+    ||  commodityCount[STUFF_GOODS] < (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER)
+    ||  commodityCount[STUFF_WASTE] + (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_HEALTH_CENTRE)
+    {
+        busy = false;        
         return;
-    MP_INFO(x, y).int_1 -= (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER);
-    MP_INFO(x, y).int_2 -= (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER);
+    }
+    commodityCount[STUFF_JOBS] -= (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER);
+    commodityCount[STUFF_GOODS] -= (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER);
+    busy = true;    
     x1 = x - HEALTH_CENTRE_RANGE;
     if (x1 < 0)
         x1 = 0;
@@ -48,20 +60,24 @@ void do_health_cover(int x, int y)
     if (y2 > WORLD_SIDE_LEN)
         y2 = WORLD_SIDE_LEN;
     for (; y1 < y2; y1++)
+    {
         for (xx = x1; xx < x2; xx++)
-            MP_INFO(xx, y1).flags |= FLAG_HEALTH_COVER;
+        {
+            world(xx, y1)->flags |= FLAG_HEALTH_COVER;
+        }
+    }
 }
 
-void mps_health_centre(int x, int y)
+void HealthCentre::report()
 {
     int i = 0;
+    const char* p;
 
-    mps_store_title(i++, _("Health Centre"));
+    mps_store_sd(i++,constructionGroup->name,ID);
     i++;
-    mps_store_title(i++, _("Inventory"));
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_1, MAX_JOBS_AT_HEALTH_CENTRE);
-    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, MAX_GOODS_AT_HEALTH_CENTRE);
-
+    list_commodities(&i);
+    p =  busy?"Yes":"No";    
+    mps_store_ss(i++, "Health Care", p);
 }
 
 /** @file lincity/modules/health_centre.cpp */

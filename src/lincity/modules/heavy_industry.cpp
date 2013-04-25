@@ -9,284 +9,267 @@
 #include "heavy_industry.h"
 #include "../transport.h"
 
-void do_industry_h(int x, int y)
-{
-    int rawm, steel = 0;
-    /*
-       // int_1 is the steel produced this month so far
-       // int_2 is the amount of steel in store
-       // int_3 is the amount of raw materials in store (ore)
-       // int_4 is the coal in store
-       // int_5 is the percent max production last month
-       // int_6 is unused
-       // int_7 is whether we get power from coal (1) or elsewhere (0)
-       //
-       // MP_ANIM is the time of the next animation frame. since 1.91
-     */
+// IndustryHeavy:
+IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
+    "Steel Works",
+     FALSE,                     /* need credit? */
+     GROUP_INDUSTRY_H,
+     4,                         /* size */
+     GROUP_INDUSTRY_H_COLOUR,
+     GROUP_INDUSTRY_H_COST_MUL,
+     GROUP_INDUSTRY_H_BUL_COST,
+     GROUP_INDUSTRY_H_FIREC,
+     GROUP_INDUSTRY_H_COST,
+     GROUP_INDUSTRY_H_TECH
+);
 
-    /* See if there's any raw materials (ore) on the road/rail. If so, use some
-       jobs to get it.  First get some ore... 
-     */
-    int load;
-    if (MP_INFO(x, y).int_3 < MAX_ORE_AT_INDUSTRY_H && ((MP_INFO(x - 1, y).flags & FLAG_IS_TRANSPORT)
-                                                        != 0) && MP_INFO(x - 1, y).int_5 > 0)
-        if (get_jobs(x, y, JOBS_LOAD_ORE) != 0) {
-            load = std::min(MAX_ORE_AT_INDUSTRY_H - MP_INFO(x, y).int_3,
-                            MP_INFO(x - 1, y).int_5 / 2 + ((MP_INFO(x - 1, y).int_5) % 2));
-            MP_INFO(x, y).int_3 += load;
-            MP_INFO(x - 1, y).int_5 -= load;
-        }
-    if (MP_INFO(x, y).int_3 < MAX_ORE_AT_INDUSTRY_H && ((MP_INFO(x, y - 1).flags & FLAG_IS_TRANSPORT)
-                                                        != 0) && MP_INFO(x, y - 1).int_5 > 0)
-        if (get_jobs(x, y, JOBS_LOAD_ORE) != 0) {
-            load = std::min(MAX_ORE_AT_INDUSTRY_H - MP_INFO(x, y).int_3,
-                            MP_INFO(x, y - 1).int_5 / 2 + ((MP_INFO(x, y - 1).int_5) % 2));
-            MP_INFO(x, y).int_3 += load;
-            MP_INFO(x, y - 1).int_5 -= load;
-        }
-    /* then get some coal if needed */
-    if (MP_INFO(x, y).int_4 < MAX_COAL_AT_INDUSTRY_H && ((MP_INFO(x - 1, y).flags & FLAG_IS_TRANSPORT)
-                                                         != 0) && MP_INFO(x - 1, y).int_3 > 0)
-        if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-            load = std::min(MAX_COAL_AT_INDUSTRY_H - MP_INFO(x, y).int_4,
-                            MP_INFO(x - 1, y).int_3 / 2 + ((MP_INFO(x - 1, y).int_3) % 2));
-            MP_INFO(x, y).int_4 += load;
-            MP_INFO(x - 1, y).int_3 -= load;
-        }
-    if (MP_INFO(x, y).int_4 < MAX_COAL_AT_INDUSTRY_H && ((MP_INFO(x, y - 1).flags & FLAG_IS_TRANSPORT)
-                                                         != 0) && MP_INFO(x, y - 1).int_3 > 0)
-        if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-            load = std::min(MAX_COAL_AT_INDUSTRY_H - MP_INFO(x, y).int_4,
-                            MP_INFO(x, y - 1).int_3 / 2 + ((MP_INFO(x, y - 1).int_3) % 2));
-            MP_INFO(x, y).int_4 += load;
-            MP_INFO(x, y - 1).int_3 -= load;
-        }
-
-    rawm = MP_INFO(x, y).int_3;
-    if (rawm > MAX_MADE_AT_INDUSTRY_H)
-        rawm = MAX_MADE_AT_INDUSTRY_H;
-    /* turn it into steel */
-    if (rawm > 0 && MP_INFO(x, y).int_2 < (MAX_STEEL_ON_RAIL * 10)) {
-        if (get_jobs(x, y, ((rawm / 2) / JOBS_MAKE_STEEL) + 1) != 0) {
-            steel = (rawm) / ORE_MAKE_STEEL;
-            MP_POL(x, y) += INDUSTRY_H_POLLUTION / 2;
-        } else if (get_jobs(x, y, ((rawm / 4) / JOBS_MAKE_STEEL) + 1) != 0) {
-            steel = (rawm / 2) / ORE_MAKE_STEEL;
-            MP_POL(x, y) += INDUSTRY_H_POLLUTION / 4;
-        } else if (get_jobs(x, y, ((rawm / 10) / JOBS_MAKE_STEEL) + 1) != 0) {
-            steel = (rawm / 5) / ORE_MAKE_STEEL;
-            MP_POL(x, y) += INDUSTRY_H_POLLUTION / 10;
-        }
-    }
-    /* do this here rather than later 'cos maybe steel/=5 */
-    MP_INFO(x, y).int_3 -= steel * ORE_MAKE_STEEL;
-    ore_used += steel * ORE_MAKE_STEEL;
-    /* check there was enough electricity, or back up to 1/10 of the 
-       production. ie same work and material useage for less production. 
-       XXX: there is no reason material usage should be the same 
-       If no real power, see if we have enough coal to generate electricity.
-     */
-    if (get_power(x, y, steel * POWER_MAKE_STEEL, 1) == 0) {
-        if (MP_INFO(x, y).int_4 < (steel * 2)) {
-            MP_INFO(x, y).flags &= (0xffffffff - FLAG_POWERED);
-            steel /= 5;
-        } else {
-            MP_INFO(x, y).int_4 -= (steel * 2);
-            coal_used += (steel * 2);
-            MP_INFO(x, y).flags |= FLAG_POWERED;
-            MP_INFO(x, y).int_7 = 1;
-        }
-    } else {
-        MP_INFO(x, y).flags |= FLAG_POWERED;
-        MP_INFO(x, y).int_7 = 0;
-    }
-    MP_INFO(x, y).int_1 += steel;
-    MP_INFO(x, y).int_2 += steel;
-    /* now sell the steel to the road/rail */
-    if (MP_GROUP(x, y - 1) == GROUP_ROAD && (MAX_STEEL_ON_ROAD - MP_INFO(x, y - 1).int_6)
-        <= MP_INFO(x, y).int_2) {
-        MP_INFO(x, y).int_2 -= (MAX_STEEL_ON_ROAD - MP_INFO(x, y - 1).int_6);
-        MP_INFO(x, y - 1).int_6 = MAX_STEEL_ON_ROAD;
-    } else if (MP_GROUP(x, y - 1) == GROUP_RAIL && (MAX_STEEL_ON_RAIL - MP_INFO(x, y - 1).int_6)
-               <= MP_INFO(x, y).int_2) {
-        MP_INFO(x, y).int_2 -= (MAX_STEEL_ON_RAIL - MP_INFO(x, y - 1).int_6);
-        MP_INFO(x, y - 1).int_6 = MAX_STEEL_ON_RAIL;
-    } else if (MP_GROUP(x, y - 1) == GROUP_TRACK && (MAX_STEEL_ON_TRACK - MP_INFO(x, y - 1).int_6)
-               <= MP_INFO(x, y).int_2) {
-        MP_INFO(x, y).int_2 -= (MAX_STEEL_ON_TRACK - MP_INFO(x, y - 1).int_6);
-        MP_INFO(x, y - 1).int_6 = MAX_STEEL_ON_TRACK;
-    }
-
-    if (MP_GROUP(x - 1, y) == GROUP_ROAD && (MAX_STEEL_ON_ROAD - MP_INFO(x - 1, y).int_6)
-        <= MP_INFO(x, y).int_2) {
-        MP_INFO(x, y).int_2 -= (MAX_STEEL_ON_ROAD - MP_INFO(x - 1, y).int_6);
-        MP_INFO(x - 1, y).int_6 = MAX_STEEL_ON_ROAD;
-    } else if (MP_GROUP(x - 1, y) == GROUP_RAIL && (MAX_STEEL_ON_RAIL - MP_INFO(x - 1, y).int_6)
-               <= MP_INFO(x, y).int_2) {
-        MP_INFO(x, y).int_2 -= (MAX_STEEL_ON_RAIL - MP_INFO(x - 1, y).int_6);
-        MP_INFO(x - 1, y).int_6 = MAX_STEEL_ON_RAIL;
-    } else if (MP_GROUP(x - 1, y) == GROUP_TRACK && (MAX_STEEL_ON_TRACK - MP_INFO(x - 1, y).int_6)
-               <= MP_INFO(x, y).int_2) {
-        MP_INFO(x, y).int_2 -= (MAX_STEEL_ON_TRACK - MP_INFO(x - 1, y).int_6);
-        MP_INFO(x - 1, y).int_6 = MAX_STEEL_ON_TRACK;
-    }
-
-    /* now choose a graphic every month */
-    if ((total_time % NUMOF_DAYS_IN_MONTH) == NUMOF_DAYS_IN_MONTH - 1) {
-        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_1 / (MAX_MADE_AT_INDUSTRY_H / ORE_MAKE_STEEL);
-        MP_INFO(x, y).int_1 = 0;
-        if (MP_INFO(x, y).int_5 > 80) {
-            switch (MP_TYPE(x, y)) {
-            case (CST_INDUSTRY_H_H1):
-            case (CST_INDUSTRY_H_H2):
-            case (CST_INDUSTRY_H_H3):
-            case (CST_INDUSTRY_H_H4):
-            case (CST_INDUSTRY_H_H5):
-            case (CST_INDUSTRY_H_H6):
-            case (CST_INDUSTRY_H_H7):
-            case (CST_INDUSTRY_H_H8):
-                break;
-            default:
-                MP_TYPE(x, y) = CST_INDUSTRY_H_H1;
-            }
-        } else if (MP_INFO(x, y).int_5 > 30) {
-            switch (MP_TYPE(x, y)) {
-            case (CST_INDUSTRY_H_M1):
-            case (CST_INDUSTRY_H_M2):
-            case (CST_INDUSTRY_H_M3):
-            case (CST_INDUSTRY_H_M4):
-            case (CST_INDUSTRY_H_M5):
-            case (CST_INDUSTRY_H_M6):
-            case (CST_INDUSTRY_H_M7):
-            case (CST_INDUSTRY_H_M8):
-                break;
-            default:
-                MP_TYPE(x, y) = CST_INDUSTRY_H_M1;
-            }
-        } else if (MP_INFO(x, y).int_5 > 0) {
-            switch (MP_TYPE(x, y)) {
-            case (CST_INDUSTRY_H_L1):
-            case (CST_INDUSTRY_H_L2):
-            case (CST_INDUSTRY_H_L3):
-            case (CST_INDUSTRY_H_L4):
-            case (CST_INDUSTRY_H_L5):
-            case (CST_INDUSTRY_H_L6):
-            case (CST_INDUSTRY_H_L7):
-            case (CST_INDUSTRY_H_L8):
-                break;
-            default:
-                MP_TYPE(x, y) = CST_INDUSTRY_H_L1;
-            }
-        } else
-            MP_TYPE(x, y) = CST_INDUSTRY_H_C;
-    }
-    /* now animate */
-    if (real_time >= MP_ANIM(x, y)) {
-        MP_ANIM(x, y) = real_time + INDUSTRY_H_ANIM_SPEED;
-        switch (MP_TYPE(x, y)) {
-        case (CST_INDUSTRY_H_L1):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_L2;
-            break;
-        case (CST_INDUSTRY_H_L2):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_L3;
-            break;
-        case (CST_INDUSTRY_H_L3):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_L4;
-            break;
-        case (CST_INDUSTRY_H_L4):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_L5;
-            break;
-        case (CST_INDUSTRY_H_L5):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_L6;
-            break;
-        case (CST_INDUSTRY_H_L6):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_L7;
-            break;
-        case (CST_INDUSTRY_H_L7):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_L8;
-            break;
-        case (CST_INDUSTRY_H_L8):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_L1;
-            break;
-
-        case (CST_INDUSTRY_H_M1):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_M2;
-            break;
-        case (CST_INDUSTRY_H_M2):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_M3;
-            break;
-        case (CST_INDUSTRY_H_M3):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_M4;
-            break;
-        case (CST_INDUSTRY_H_M4):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_M5;
-            break;
-        case (CST_INDUSTRY_H_M5):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_M6;
-            break;
-        case (CST_INDUSTRY_H_M6):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_M7;
-            break;
-        case (CST_INDUSTRY_H_M7):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_M8;
-            break;
-        case (CST_INDUSTRY_H_M8):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_M1;
-            break;
-
-        case (CST_INDUSTRY_H_H1):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_H2;
-            break;
-        case (CST_INDUSTRY_H_H2):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_H3;
-            break;
-        case (CST_INDUSTRY_H_H3):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_H4;
-            break;
-        case (CST_INDUSTRY_H_H4):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_H5;
-            break;
-        case (CST_INDUSTRY_H_H5):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_H6;
-            break;
-        case (CST_INDUSTRY_H_H6):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_H7;
-            break;
-        case (CST_INDUSTRY_H_H7):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_H8;
-            break;
-        case (CST_INDUSTRY_H_H8):
-            MP_TYPE(x, y) = CST_INDUSTRY_H_H1;
-            break;
-
-        }
-    }
+Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new IndustryHeavy(x, y, type);
 }
 
-void mps_heavy_industry(int x, int y)
+void IndustryHeavy::update()
+{
+    int rawm, steel;
+    //use jobs for loading the ore
+    if (commodityCount[STUFF_ORE] > MAX_ORE_USED 
+        && commodityCount[STUFF_JOBS] > JOBS_LOAD_ORE)
+        commodityCount[STUFF_JOBS] -= JOBS_LOAD_ORE;
+    //use jobs for loading the coal
+    if (commodityCount[STUFF_COAL] > MAX_ORE_USED / ORE_MAKE_STEEL * COAL_MAKE_STEEL 
+        && commodityCount[STUFF_JOBS] > JOBS_LOAD_COAL)
+        commodityCount[STUFF_JOBS] -= JOBS_LOAD_COAL;
+    //use jobs for loading the steel
+    if (commodityCount[STUFF_STEEL] > MAX_ORE_USED / ORE_MAKE_STEEL
+        && commodityCount[STUFF_JOBS] > JOBS_LOAD_STEEL)
+        commodityCount[STUFF_JOBS] -= JOBS_LOAD_STEEL;
+     //how much ore we could use
+    rawm = ( (commodityCount[STUFF_ORE] < MAX_ORE_USED) ? commodityCount[STUFF_ORE] : MAX_ORE_USED );
+   //ore usage shall not exceed steel capacity
+    if (commodityCount[STUFF_STEEL] + rawm / ORE_MAKE_STEEL > MAX_STEEL_AT_INDUSTRY_H)
+        rawm = (MAX_STEEL_AT_INDUSTRY_H - commodityCount[STUFF_STEEL]) * ORE_MAKE_STEEL;
+    //ore usage and steel loading shall not exceed available jobs
+    if (1 + rawm / JOBS_MAKE_STEEL > commodityCount[STUFF_JOBS])
+        rawm = (commodityCount[STUFF_JOBS]) * JOBS_MAKE_STEEL;
+    steel = rawm / ORE_MAKE_STEEL;   
+    
+    if (steel > 0)
+    {
+        
+        // if the trash bin is full reburn the filterd pollution
+        if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_H)
+            {
+                world(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
+                commodityCount[STUFF_WASTE] = MAX_WASTE_AT_INDUSTRY_H;
+            }   
+        //Steel works may either KWH and MWH and COAL to produce steel
+        int used_MWH = 0, used_KWH = 0, used_COAL = 0;
+        int powered_steel = 0;
+        //First use up MWH
+        used_MWH = commodityCount[STUFF_MWH];
+        if (used_MWH > (steel - powered_steel) * POWER_MAKE_STEEL / 2)
+            used_MWH = (steel - powered_steel) * POWER_MAKE_STEEL / 2;
+        powered_steel += 2 * used_MWH / POWER_MAKE_STEEL;  
+        //Second use up KWH
+        if (steel > powered_steel)
+        {
+            used_KWH = commodityCount[STUFF_KWH];
+            if (used_KWH > (steel - powered_steel) * POWER_MAKE_STEEL)
+                used_KWH = (steel - powered_steel) * POWER_MAKE_STEEL;
+            powered_steel += used_KWH / POWER_MAKE_STEEL; 
+            //Third use up COAL
+            if (steel > powered_steel)
+            {
+                used_COAL = commodityCount[STUFF_COAL];
+                if (used_COAL > (steel - powered_steel) * COAL_MAKE_STEEL)
+                    used_COAL = (steel - powered_steel) * COAL_MAKE_STEEL;
+                powered_steel += used_COAL / COAL_MAKE_STEEL; 
+            }//end Third
+        }//end Second
+        if (powered_steel == steel)
+        {
+            commodityCount[STUFF_MWH] -= used_MWH;
+            commodityCount[STUFF_KWH] -= used_KWH;
+            commodityCount[STUFF_COAL] -= used_COAL;
+        }
+        else
+            steel /= 5; //inefficient and still dirty unpowered production        
+
+        if (steel>0)
+        {
+            commodityCount[STUFF_JOBS] -= (rawm / JOBS_MAKE_STEEL);
+            commodityCount[STUFF_ORE] -= rawm;
+            commodityCount[STUFF_STEEL] += steel;
+            steel_this_month += steel;            
+            working_days++;
+            //cause some pollution and waste depending on bonuses
+            world(x,y)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
+            commodityCount[STUFF_WASTE] += (int)(((double)(POL_PER_STEEL_MADE * steel) * bonus)*(1-extra_bonus));
+            // if the trash bin is full reburn the filterd pollution
+            if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_H)
+            {
+                world(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
+                commodityCount[STUFF_WASTE] = MAX_WASTE_AT_INDUSTRY_H;
+            }  
+            
+        }//endif steel still > 0
+    }//endif steel > 0
+    
+    //monthly update
+    if (total_time % 100 == 0) 
+    {
+        int output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;       
+        busy = working_days;
+        working_days = 0;
+        steel_this_month = 0;
+        //choose graphics depending on output level
+        if (output_level > 80)
+        {
+            switch (type)
+            {
+                case (CST_INDUSTRY_H_H1):
+                case (CST_INDUSTRY_H_H2):
+                case (CST_INDUSTRY_H_H3):
+                case (CST_INDUSTRY_H_H4):
+                case (CST_INDUSTRY_H_H5):
+                case (CST_INDUSTRY_H_H6):
+                case (CST_INDUSTRY_H_H7):
+                case (CST_INDUSTRY_H_H8):
+                    break;
+                default:
+                    type = CST_INDUSTRY_H_H1;
+            }
+        }
+        else if (output_level > 30)
+        {
+            switch (type)
+            {
+                case (CST_INDUSTRY_H_M1):
+                case (CST_INDUSTRY_H_M2):
+                case (CST_INDUSTRY_H_M3):
+                case (CST_INDUSTRY_H_M4):
+                case (CST_INDUSTRY_H_M5):
+                case (CST_INDUSTRY_H_M6):
+                case (CST_INDUSTRY_H_M7):
+                case (CST_INDUSTRY_H_M8):
+                    break;
+                default:
+                    type = CST_INDUSTRY_H_M1;
+            }
+        }
+        else if (output_level > 0)
+        {
+            switch (type)
+            {
+                case (CST_INDUSTRY_H_L1):
+                case (CST_INDUSTRY_H_L2):
+                case (CST_INDUSTRY_H_L3):
+                case (CST_INDUSTRY_H_L4):
+                case (CST_INDUSTRY_H_L5):
+                case (CST_INDUSTRY_H_L6):
+                case (CST_INDUSTRY_H_L7):
+                case (CST_INDUSTRY_H_L8):
+                    break;
+                default:
+                    type = CST_INDUSTRY_H_L1;
+            }
+        }
+        else
+            type = CST_INDUSTRY_H_C;
+    }//end monthly update
+    //animation
+    if (real_time >= anim)
+    {
+        anim = real_time + INDUSTRY_H_ANIM_SPEED;
+        switch (type)
+        {
+            case (CST_INDUSTRY_H_L1):
+                type = CST_INDUSTRY_H_L2;
+                break;
+            case (CST_INDUSTRY_H_L2):
+                type = CST_INDUSTRY_H_L3;
+                break;
+            case (CST_INDUSTRY_H_L3):
+                type = CST_INDUSTRY_H_L4;
+                break;
+            case (CST_INDUSTRY_H_L4):
+                type = CST_INDUSTRY_H_L5;
+                break;
+            case (CST_INDUSTRY_H_L5):
+                type = CST_INDUSTRY_H_L6;
+                break;
+            case (CST_INDUSTRY_H_L6):
+                type = CST_INDUSTRY_H_L7;
+                break;
+            case (CST_INDUSTRY_H_L7):
+                type = CST_INDUSTRY_H_L8;
+                break;
+            case (CST_INDUSTRY_H_L8):
+                type = CST_INDUSTRY_H_L1;
+                break;
+
+            case (CST_INDUSTRY_H_M1):
+                type = CST_INDUSTRY_H_M2;
+                break;
+            case (CST_INDUSTRY_H_M2):
+                type = CST_INDUSTRY_H_M3;
+                break;
+            case (CST_INDUSTRY_H_M3):
+                type = CST_INDUSTRY_H_M4;
+                break;
+            case (CST_INDUSTRY_H_M4):
+                type = CST_INDUSTRY_H_M5;
+                break;
+            case (CST_INDUSTRY_H_M5):
+                type = CST_INDUSTRY_H_M6;
+                break;
+            case (CST_INDUSTRY_H_M6):
+                type = CST_INDUSTRY_H_M7;
+                break;
+            case (CST_INDUSTRY_H_M7):
+                type = CST_INDUSTRY_H_M8;
+                break;
+            case (CST_INDUSTRY_H_M8):
+                type = CST_INDUSTRY_H_M1;
+                break;
+
+            case (CST_INDUSTRY_H_H1):
+                type = CST_INDUSTRY_H_H2;
+                break;
+            case (CST_INDUSTRY_H_H2):
+                type = CST_INDUSTRY_H_H3;
+                break;
+            case (CST_INDUSTRY_H_H3):
+                type = CST_INDUSTRY_H_H4;
+                break;
+            case (CST_INDUSTRY_H_H4):
+                type = CST_INDUSTRY_H_H5;
+                break;
+            case (CST_INDUSTRY_H_H5):
+                type = CST_INDUSTRY_H_H6;
+                break;
+            case (CST_INDUSTRY_H_H6):
+                type = CST_INDUSTRY_H_H7;
+                break;
+            case (CST_INDUSTRY_H_H7):
+                type = CST_INDUSTRY_H_H8;
+                break;
+            case (CST_INDUSTRY_H_H8):
+                type = CST_INDUSTRY_H_H1;
+                break;
+        } //end switch
+    }// endif animate
+}
+
+void IndustryHeavy::report()
 {
     int i = 0;
-    const char *p;
 
-    mps_store_title(i++, _("Heavy Industry"));
+    mps_store_sd(i++,constructionGroup->name,ID);
     i++;
-
-    if ((MP_INFO(x, y).flags & FLAG_POWERED) != 0) {
-        if (MP_INFO(x, y).int_7 == 1) {
-            p = _("Coal");
-        } else {
-            p = _("Grid");
-        }
-    } else {
-        p = _("NO");
-    }
-
-    mps_store_ss(i++, _("Power"), p);
-
-    mps_store_sddp(i++, _("Store"), MP_INFO(x, y).int_2, MAX_STEEL_AT_INDUSTRY_H);
-    mps_store_sddp(i++, _("Ore"), MP_INFO(x, y).int_3, MAX_ORE_AT_INDUSTRY_H);
-    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_4, MAX_COAL_AT_INDUSTRY_H);
-    mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_5);
+    mps_store_sfp(i++, _("busy"), (busy));    
+    mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+    i++;
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/heavy_industry.cpp */

@@ -83,4 +83,6 @@ INTERN_##CLASS##Factory factory_##CLASS;
 
 
 /** @file gui/ComponentFactory.hpp */
+/*      CLASS * component = dynamic_cast<CLASS *>(new CLASS());
 
+      */

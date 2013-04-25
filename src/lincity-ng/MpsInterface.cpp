@@ -32,6 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/modules/modules_interfaces.h"
 #include "lincity/lctypes.h"
 #include "lincity/lin-city.h"
+#include "lincity/modules/shanty.h" //for counting Shanties in housing display
 #include "MiniMap.hpp"
 
 // implement everything here
@@ -97,137 +98,42 @@ int mps_set( int x, int y, int style ) /* Attaches an area or global display */
 
 void mps_refresh() /* refresh the information display's contents */
 {
-    switch (mps_style) {
+    
+    switch (mps_style) 
+    {
         case MPS_MAP:
-            currentMPS = mapMPS;
-            switch(MP_GROUP(mps_x, mps_y)) 
+            currentMPS = mapMPS;            
+            if (world(mps_x, mps_y)->reportingConstruction)
             {
-                case GROUP_BLACKSMITH:
-                    mps_blacksmith (mps_x, mps_y);
-                    break;
-                case GROUP_COALMINE:
-                    mps_coalmine (mps_x, mps_y);
-                    break;
-                case GROUP_COAL_POWER:
-                    mps_coal_power (mps_x, mps_y);
-                    break;
-                case GROUP_COMMUNE:
-                    mps_commune (mps_x, mps_y);
-                    break;
-                case GROUP_CRICKET:
-                    mps_cricket (mps_x, mps_y);
-                    break;
-                case GROUP_FIRESTATION:
-                    mps_firestation (mps_x, mps_y);
-                    break;
-                case GROUP_HEALTH:
-                    mps_health_centre (mps_x, mps_y);
-                    break;
-                case GROUP_INDUSTRY_H:
-                    mps_heavy_industry (mps_x, mps_y);
-                    break;
-                case GROUP_INDUSTRY_L:
-                    mps_light_industry (mps_x, mps_y);
-                    break;
-                case GROUP_MILL:
-                    mps_mill (mps_x, mps_y);
-                    break;
-                case (GROUP_MONUMENT):
-                    mps_monument (mps_x, mps_y);
-                    break;
-                case (GROUP_OREMINE):
-                    mps_oremine (mps_x, mps_y);
-                    break;
-                case GROUP_ORGANIC_FARM: 
-                    mps_organic_farm(mps_x, mps_y);
-                    break;
-                case GROUP_PORT:
-                    mps_port (mps_x, mps_y);
-                    break;
-                case GROUP_POTTERY:
-                    mps_pottery (mps_x, mps_y);
-                    break;
-                case GROUP_POWER_LINE:
-                    mps_power_line (mps_x, mps_y);
-                    break;
-                case GROUP_RAIL:
-                case GROUP_RAIL_BRIDGE:
-                    mps_rail (mps_x, mps_y);
-                    break;
-                case GROUP_RECYCLE:
-                    mps_recycle (mps_x, mps_y);
-                    break;
-                case GROUP_RESIDENCE_LL:
-                    mps_residence(mps_x, mps_y);
-                    break;
-                case GROUP_RESIDENCE_LH:
-                    mps_residence(mps_x, mps_y);
-                    break;
-                case GROUP_RESIDENCE_ML:
-                case GROUP_RESIDENCE_MH:
-                case GROUP_RESIDENCE_HL:
-                case GROUP_RESIDENCE_HH:
-                    mps_residence(mps_x, mps_y);
-                    break;
-                case GROUP_ROAD:
-                case GROUP_ROAD_BRIDGE:
-                    mps_road (mps_x, mps_y);
-                    break;
-                case GROUP_ROCKET:
-                    mps_rocket (mps_x, mps_y);
-                    break;
-                case GROUP_SCHOOL:
-                    mps_school (mps_x, mps_y);
-                    break;
-                case GROUP_SOLAR_POWER:
-                    mps_solar_power (mps_x, mps_y);
-                    break;
-                case GROUP_SUBSTATION:
-                    mps_substation (mps_x, mps_y);
-                    break;
-                case GROUP_TIP:
-                    mps_tip (mps_x, mps_y);
-                    break;
-                case GROUP_TRACK:
-                case GROUP_TRACK_BRIDGE:
-                    mps_track(mps_x, mps_y);
-                    break;
-                case GROUP_MARKET:
-                    mps_market (mps_x, mps_y);
-                    break;
-                case GROUP_UNIVERSITY:
-                    mps_university (mps_x, mps_y);
-                    break;
-                case GROUP_WATER:
-                    mps_water (mps_x, mps_y);
-                    break;
-                case GROUP_WINDMILL:
-                    mps_windmill (mps_x, mps_y);
-                    break;
-                case GROUP_PARKLAND:
-                    mps_parkland (mps_x, mps_y);
-                    break;
-		case GROUP_WATERWELL:
-		    mps_waterwell (mps_x, mps_y);
-		    break;
-                default: 
-                    //no special information on this group, just show the Name.
-                    mps_store_title(0,
-                            _(main_groups[MP_GROUP(mps_x, mps_y)].name));
+                world(mps_x, mps_y)->reportingConstruction->report();
+            }              
+            else
+               {
+                switch(world(mps_x, mps_y)->getGroup()) 
+                {
+                    case GROUP_WATER:
+                        mps_water (mps_x, mps_y);
+                        break;
+                    default: 
+                        //no special information on this group, just show the ground info.
+                                                                 
+                    mps_store_sdd(0,main_groups[world(mps_x, mps_y)->getGroup()].name, mps_x, mps_y);
 
-                    mps_store_title(2, _("no further information available") );
+                        mps_store_title(2, _("no further information available") );
 
-                    if( GROUP_IS_BARE(MP_GROUP( mps_x, mps_y )) ){
-                        mps_store_title(4,_("build something here") );
+                    if( world(mps_x, mps_y)->is_bare() )
+                    {
+                        mps_store_title(8,_("build something here") );
                     }
 #ifdef DEBUG
-                    mps_store_sd(10, "x = ", mps_x);
-                    mps_store_sd(11, "y = ", mps_y);
-                    mps_store_sd(12, "altitude = ", ALT(mps_x, mps_y));
+                    mps_store_sd(10, "x", mps_x);
+                    mps_store_sd(11, "y", mps_y);
+                    mps_store_sd(12, "altitude", ALT(mps_x, mps_y));
                    
-                    fprintf(stderr, "x %i, y %i, Alt %i\n", mps_x, mps_y, ALT(mps_x,mps_y));
+                    fprintf(stderr, "x %i, y %i, Alt %i\n", mps_x, mps_y, world(mps_x, mps_y)->ground.altitude);
 #endif
-            }
+             } //endswitch groups
+            } //elseif use of modern report
             currentMPS = 0;
             break;
             
@@ -303,6 +209,18 @@ void mps_store_f(int i, double f)
     currentMPS->setText(i,os.str());
 }
 
+void mps_store_sf(int i, const char * s, double fl)
+{
+    if(!currentMPS)
+        return;
+    
+    std::ostringstream os;
+    os<<std::setprecision(1)<<std::fixed;
+    os<<s<<": "<<fl;
+    currentMPS->setText(i,os.str());
+}
+
+
 void mps_store_d(int i, int d)
 {
     if(!currentMPS)
@@ -333,6 +251,16 @@ void mps_store_sd(int i, const char * s, int d)
     currentMPS->setText(i,os.str());
 }
 
+void mps_store_ssd(int i, const char * s1, const char * s2, int d)
+{
+    if(!currentMPS)
+        return;
+    
+    std::ostringstream os;
+    os<<s1<<": "<<s2<<": "<<d;
+    currentMPS->setText(i,os.str());
+}
+
 void mps_store_sfp(int i, const char * s, double fl)
 {
     if(!currentMPS)
@@ -341,6 +269,16 @@ void mps_store_sfp(int i, const char * s, double fl)
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
     os<<s<<": "<<fl<<"%";
+    currentMPS->setText(i,os.str());
+}
+
+void mps_store_sdd(int i, const char * s, int d1, int d2)
+{
+    if(!currentMPS)
+        return;
+    
+    std::ostringstream os;
+    os<<s<<": "<<d1<<" , "<<d2;
     currentMPS->setText(i,os.str());
 }
 
@@ -354,6 +292,18 @@ void mps_store_sddp(int i, const char * s, int d, int max)
     os<<s<<": "<<d<<" ("<<(d*100.0/max)<<"%)";
     currentMPS->setText(i,os.str());
 }
+
+void mps_store_ssddp(int i, const char * s1, const char * s2,int d, int max)
+{
+    if(!currentMPS)
+        return;
+    
+    std::ostringstream os;
+    os<<std::setprecision(1)<<std::fixed;
+    os<<s1<<s2<<": "<<d<<" ("<<(d*100.0/max)<<"%)";
+    currentMPS->setText(i,os.str());
+}
+
 
 void mps_store_sss(int i, const char * s1, const char * s2, const char * s3)
 {
@@ -371,63 +321,104 @@ int mps_global_style = MPS_GLOBAL_FINANCE;
 /* MPS Global displays */
 void mps_right (int x, int y)
 {
-    int i = 0;
-    char s[12];
+    int g,i = 0;
+    //char s[12];
     const char* p;
-    int g;
-
+    unsigned short group = world(x,y)->group;
+    int pol = world(x,y)->pollution;
     currentMPS = envMPS;
+    
+    Uint8 *keystate = SDL_GetKeyState(NULL);        
+    if (!binary_mode && keystate[SDLK_d])      
+    {
+        world(x,y)->saveMembers(&std::cout);
+    }
 
-    snprintf(s,sizeof(s),"%d,%d",x,y);
-    mps_store_title(i++,s);
-    i++;
-    mps_store_title(i++,_("Coverage"));
-    p = (MP_INFO(x,y).flags & FLAG_FIRE_COVER) ? _("Yes") : _("No");
-    mps_store_ss(i++,_("Fire"),p);
+    //snprintf(s,sizeof(s),"%d,%d",x,y);
+    mps_store_sdd(i++,main_groups[group].name,x,y);                  
+    p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? _("YES") : _("NO");
+    mps_store_ss(i++, "Fertile", p);
+    if( group == GROUP_WATER)
+    {
+        p = (world(x,y)->flags & FLAG_IS_RIVER) ? "River" : "Lake";
+        mps_store_title(i++, p);
+    }
+    else
+    {
+        i++;
+    }
+    p = (world(x,y)->flags & FLAG_FIRE_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Fire Protection"),p);
 
-    p = (MP_INFO(x,y).flags & FLAG_HEALTH_COVER) ? _("Yes") : _("No");
-    mps_store_ss(i++,_("Health"),p);
+    p = (world(x,y)->flags & FLAG_HEALTH_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Health Service"),p);
 
-    p = (MP_INFO(x,y).flags & FLAG_CRICKET_COVER) ? _("Yes") : _("No");
-    mps_store_ss(i++,_("Sport"),p);
-    i++;
-    mps_store_title(i++,_("Pollution"));
-
-    if (MP_POL(x,y) < 10)
+    p = (world(x,y)->flags & FLAG_CRICKET_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Public Sports"),p);
+ 
+    if (pol < 10)
 	p = _("clear");
-    else if (MP_POL(x,y) < 25)
+    else if (pol < 25)
 	p = _("good");
-    else if (MP_POL(x,y) < 70)
+    else if (pol < 70)
 	p = _("fair");
-    else if (MP_POL(x,y) < 190)
+    else if (pol < 190)
 	p = _("smelly");
-    else if (MP_POL(x,y) < 450)
+    else if (pol < 450)
 	p = _("smokey");
-    else if (MP_POL(x,y) < 1000)
+    else if (pol < 1000)
 	p = _("smoggy");
-    else if (MP_POL(x,y) < 1700)
+    else if (pol < 1700)
 	p = _("bad");
-    else if (MP_POL(x,y) < 3000)
+    else if (pol < 3000)
 	p = _("very bad");
     else
 	p = _("death!");
 
-    mps_store_sd(i++,p,MP_POL(x,y));
-    i++;
-
-    mps_store_title(i++,_("Bulldoze Cost"));
-    if (MP_TYPE(x,y) == CST_USED)
-        g = MP_GROUP( MP_INFO(x,y).int_1, MP_INFO(x,y).int_2 );
-    else
-        g = MP_GROUP(x,y);
-    if (g == 0) {	/* Can't bulldoze grass. */
-	mps_store_title(i++,_("N/A"));
-    } else {
-	if (g < 7)
-	    g--;			/* translate into button type */
-	mps_store_d(i++,main_groups[g].bul_cost);
+    mps_store_ssd(i++,"Pollution",p,pol);
+    
+    if (world(x,y)->reportingConstruction)
+    {
+        mps_store_sd(i++,"Bull. Cost", world(x,y)->reportingConstruction->constructionGroup->bul_cost);        
     }
-
+    else
+    {            
+        //if (group == CST_USED)
+        //    g = mapTile[MP_INFO(x,y).int_1][MP_INFO(x,y).int_2].getGroup();
+        //else
+            g = group;
+        if (g == GROUP_DESERT) 
+        {	/* Can't bulldoze grass. */
+    	    mps_store_ss(i++,"Bull. Cost","N/A");
+        } 
+        else
+        {
+	        if (g < 7)
+	            g--;			/* translate into button type */
+	        mps_store_sd(i++, "Bull. Cost", main_groups[g].bul_cost);
+        }
+    }
+    mps_store_sd(i++,"Ore Reserve",world(x,y)->ore_reserve);
+    mps_store_sd(i++,"Coal Reserve",world(x,y)->coal_reserve);     
+    mps_store_sd(i++, "ground level", world(x,y)->ground.altitude);
+/*	//Not needed if altitude == flooding level    
+    if(world(x,y)->is_water())
+    {
+		mps_store_sd(i++, "water level", world(x,y)->ground.water_alt);
+		
+	}
+*/     
+    p = "-";
+    if (world.saddlepoint(x,y)) 
+	{	p = "saddle point";}
+	else if (!world(x,y)->is_water() && world.minimum(x,y)) 
+	{	p = "minimum";}
+	else if (!world(x,y)->is_water() && world.maximum(x,y))
+	{	p = "maximum";}
+	else if (world.checkEdgeMin(x,y))
+	{	p = "lowest edge";}
+		
+	mps_store_title(i++, p);
     currentMPS = 0;
 }
 
@@ -538,7 +529,7 @@ void mps_global_housing()
     mps_store_sd(i++,_("Total"),tp);
     mps_store_sd(i++,_("Housed"),population);
     mps_store_sd(i++,_("Homeless"),people_pool);
-    mps_store_sd(i++,_("Shanties"),numof_shanties);
+    mps_store_sd(i++,_("Shanties"),Counted<Shanty>::getInstanceCount());
     mps_store_sd(i++,_("Unn Dths"),unnat_deaths);
     mps_store_title(i++,_("Unemployment"));
     mps_store_sd(i++,_("Claims"),tunemployed_population/days);

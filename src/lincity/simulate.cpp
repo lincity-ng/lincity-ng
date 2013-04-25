@@ -32,12 +32,13 @@
 
 #include "init_game.h"
 #include "simulate.h"
+#include "ConstructionManager.h"
 #include "gui_interface/shared_globals.h"
 #include "lctypes.h"
 #include "lin-city.h"
 #include "engglobs.h"
 #include "gui_interface/screen_interface.h"
-#include "power.h"
+//#include "power.h"
 #include "stats.h"
 #include "gui_interface/pbar_interface.h"
 #include "modules/modules_interfaces.h"
@@ -46,6 +47,7 @@
 #include "all_buildings.h"
 #include "sustainable.h"
 #include "engine.h"
+#include "engglobs.h"
 
 /* extern resources */
 extern void print_total_money(void);
@@ -63,13 +65,15 @@ int flag_warning = false;
 /* ---------------------------------------------------------------------- *
  * Private Fn Prototypes
  * ---------------------------------------------------------------------- */
-static void shuffle_mappoint_array(void);
+// static void shuffle_mappoint_array(void);
 static void do_periodic_events(void);
 static void end_of_month_update(void);
 static void start_of_year_update(void);
 static void end_of_year_update(void);
 static void simulate_mappoints(void);
-static void set_mappoint_used(int fromx, int fromy, int x, int y);
+//FIXME no longer needed
+//static void set_mappoint_used(int fromx, int fromy, int x, int y);
+extern void desert_frontier(int originx, int originy, int w, int h);
 
 static void sustainability_test(void);
 static int sust_fire_cover(void);
@@ -107,85 +111,18 @@ void do_time_step(void)
         init_yearly();
     }
 
-    /* Clear the power grid */
-    power_time_step();
-
     /* Run through simulation equations for each farm, residence, etc. */
     simulate_mappoints();
+
+    ConstructionManager::executePendingRequests();
 
     /* Now do the stuff that happens once a year, once a month, etc. */
     do_periodic_events();
 }
 
-int count_groups(int g)
-{
-    int x, y, i;
-    i = 0;
-    for (y = 0; y < WORLD_SIDE_LEN; y++)
-        for (x = 0; x < WORLD_SIDE_LEN; x++)
-            if (MP_GROUP(x, y) == g)
-                i++;
-    return (i);
-}
-
-void count_all_groups(int *group_count)
-{
-    int x, y;
-    unsigned short t, g;
-    for (x = 0; x < NUM_OF_GROUPS; x++)
-        group_count[x] = 0;
-    for (y = 0; y < WORLD_SIDE_LEN; y++) {
-        for (x = 0; x < WORLD_SIDE_LEN; x++) {
-            t = MP_TYPE(x, y);
-            if (t != CST_USED && !GROUP_IS_BARE(MP_GROUP(x, y))) {
-                g = get_group_of_type(t);
-                group_count[g]++;
-            }
-        }
-    }
-}
-
-void set_mappoint(int x, int y, short selected_type)
-{
-    int grp;
-    int size;
-
-    if ((grp = get_group_of_type(selected_type)) < 0)
-        return;
-
-    MP_TYPE(x, y) = selected_type;
-    MP_GROUP(x, y) = grp;
-    size = main_groups[grp].size;
-
-    for (int i = 0; i<size; i++)
-        for (int j = 0; j<size; j++) {
-            if ( i == 0 && j == 0 )
-                continue;
-            set_mappoint_used(x, y, x+i, y+j);
-        }
-
-}
-
 /* ---------------------------------------------------------------------- *
  * Private Functions
  * ---------------------------------------------------------------------- */
-
-/** this is called at the beginning of every frame */
-static void shuffle_mappoint_array(void)
-{
-    /** Mappoint array shuffles mappoint in order to stop linear simulation effects */
-    int i, x, a;
-    for (i = 0; i < SHUFFLE_MAPPOINT_COUNT; i++) {
-        x = rand() % WORLD_SIDE_LEN;
-        a = mappoint_array_x[i];
-        mappoint_array_x[i] = mappoint_array_x[x];
-        mappoint_array_x[x] = a;
-        x = rand() % WORLD_SIDE_LEN;
-        a = mappoint_array_y[i];
-        mappoint_array_y[i] = mappoint_array_y[x];
-        mappoint_array_y[x] = a;
-    }
-}
 
 static void do_periodic_events(void)
 {
@@ -204,7 +141,8 @@ static void do_periodic_events(void)
     if ((total_time % DAYS_BETWEEN_COVER) == 75) {
         do_fire_health_cricket_power_cover();
     }
-    if ((total_time % DAYS_BETWEEN_SHANTY) == 85 && tech_level > (GROUP_HEALTH_TECH * MAX_TECH_LEVEL / 1000)) {
+    if ((total_time % DAYS_BETWEEN_SHANTY) == 15 && tech_level > (GROUP_HEALTH_TECH * MAX_TECH_LEVEL / 1000))
+    {
         update_shanty();
     }
     if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1)) {
@@ -221,7 +159,8 @@ static void end_of_month_update(void)
     if ((housed_population + people_pool) > max_pop_ever)
         max_pop_ever = housed_population + people_pool;
 
-    if (people_pool > 100) {
+    if (people_pool > 100) 
+    {
         if (rand() % 1000 < people_pool)
             people_pool -= 10;
     }
@@ -244,7 +183,15 @@ static void end_of_month_update(void)
         highest_tech_level = tech_level;
 
     deaths_cost += unnat_deaths * UNNAT_DEATHS_COST;
-
+   
+    for (int i = 0; i < constructionCount.size(); i++)
+    {        
+        if (constructionCount[i]) 
+        {
+            constructionCount[i]->report_commodities();
+        }        
+    }  
+    update_pbars_monthly();
 }
 
 static void start_of_year_update(void)
@@ -256,16 +203,16 @@ static void start_of_year_update(void)
     pollution_deaths_history -= pollution_deaths_history / 100.0;
     starve_deaths_history -= starve_deaths_history / 100.0;
     unemployed_history -= unemployed_history / 100.0;
-    u = count_groups(GROUP_UNIVERSITY);
+    u = Counted<University>::getInstanceCount();
     if (u > 0) {
-        university_intake_rate = (count_groups(GROUP_SCHOOL) * 20) / u;
+        university_intake_rate = (Counted<School>::getInstanceCount() * 20) / u;
         if (university_intake_rate > 100)
             university_intake_rate = 100;
     } else {
         university_intake_rate = 50;
     }
 
-    map_power_grid();
+    //map_power_grid();
 }
 
 static void end_of_year_update(void)
@@ -275,6 +222,8 @@ static void end_of_year_update(void)
     total_money += income_tax;
 
     coal_tax = (coal_tax * coal_tax_rate) / 100;
+    // Seems to be reasonable at tax_rate = 1    
+    coal_tax/=10;    
     ly_coal_tax = coal_tax;
     total_money += coal_tax;
 
@@ -343,123 +292,14 @@ static void end_of_year_update(void)
 
 static void simulate_mappoints(void)
 {
-    int xx, yy;
-    shuffle_mappoint_array();
-    for (yy = 0; yy < WORLD_SIDE_LEN; yy++) {
-        /* indirection to rand array to stop lots of linear effects */
-        int y = mappoint_array_y[yy];
-        for (xx = 0; xx < WORLD_SIDE_LEN; xx++) {
-            int x = mappoint_array_x[xx];
-            short grp = MP_GROUP(x, y);
-            if (grp == GROUP_USED || GROUP_IS_BARE(grp))
-                continue;
-            switch (grp) {
-            case GROUP_TRACK:
-            case GROUP_TRACK_BRIDGE:
-                do_track(x, y);
-                break;
-            case GROUP_RAIL:
-            case GROUP_RAIL_BRIDGE:
-                do_rail(x, y);
-                break;
-            case GROUP_ROAD:
-            case GROUP_ROAD_BRIDGE:
-                do_road(x, y);
-                break;
-            case GROUP_ORGANIC_FARM:
-                do_organic_farm(x, y);
-                break;
-            case GROUP_MARKET:
-                do_market(x, y);
-                break;
-            case GROUP_RESIDENCE_LL:
-            case GROUP_RESIDENCE_ML:
-            case GROUP_RESIDENCE_HL:
-            case GROUP_RESIDENCE_LH:
-            case GROUP_RESIDENCE_MH:
-            case GROUP_RESIDENCE_HH:
-                do_residence(x, y);
-                break;
-            case GROUP_POWER_LINE:
-                do_power_line(x, y);
-                break;
-            case GROUP_SOLAR_POWER:
-                do_power_source_solar(x, y);
-                break;
-            case GROUP_SUBSTATION:
-                do_power_substation(x, y);
-                break;
-            case GROUP_COALMINE:
-                do_coalmine(x, y);
-                break;
-            case GROUP_COAL_POWER:
-                do_power_source_coal(x, y);
-                break;
-            case GROUP_INDUSTRY_L:
-                do_industry_l(x, y);
-                break;
-            case GROUP_INDUSTRY_H:
-                do_industry_h(x, y);
-                break;
-            case GROUP_COMMUNE:
-                do_commune(x, y);
-                break;
-            case GROUP_OREMINE:
-                do_oremine(x, y);
-                break;
-            case GROUP_PORT:
-                do_port(x, y);
-                break;
-            case GROUP_TIP:
-                do_tip(x, y);
-                break;
-            case GROUP_PARKLAND:
-                do_parkland(x, y);
-                break;
-            case GROUP_UNIVERSITY:
-                do_university(x, y);
-                break;
-            case GROUP_RECYCLE:
-                do_recycle(x, y);
-                break;
-            case GROUP_HEALTH:
-                do_health_centre(x, y);
-                break;
-            case GROUP_ROCKET:
-                do_rocket_pad(x, y);
-                break;
-            case GROUP_WINDMILL:
-                do_windmill(x, y);
-                break;
-            case GROUP_MONUMENT:
-                do_monument(x, y);
-                break;
-            case GROUP_SCHOOL:
-                do_school(x, y);
-                break;
-            case GROUP_BLACKSMITH:
-                do_blacksmith(x, y);
-                break;
-            case GROUP_MILL:
-                do_mill(x, y);
-                break;
-            case GROUP_POTTERY:
-                do_pottery(x, y);
-                break;
-            case GROUP_FIRESTATION:
-                do_firestation(x, y);
-                break;
-            case GROUP_CRICKET:
-                do_cricket(x, y);
-                break;
-            case GROUP_FIRE:
-                do_fire(x, y);
-                break;
-            case GROUP_SHANTY:
-                do_shanty(x, y);
-                break;
-            }
-        }
+    constructionCount.shuffle();
+    for (int i = 0; i < constructionCount.size(); i++)
+    {        
+        if (constructionCount[i]) 
+        {
+            constructionCount[i]->update();
+                       
+        }        
     }
 }
 
@@ -523,27 +363,18 @@ static void sustainability_test(void)
 static int sust_fire_cover(void)
 {
     int x, y;
-    for (x = 0; x < WORLD_SIDE_LEN; x++)
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
-            if (GROUP_IS_BARE(MP_GROUP(x, y))
-                || MP_TYPE(x, y) == CST_USED || MP_GROUP(x, y) == GROUP_WATER || MP_GROUP(x, y) == GROUP_POWER_LINE \
-                                || MP_GROUP(x, y) == GROUP_OREMINE || MP_GROUP(x, y) == GROUP_ROCKET \
-                                || MP_GROUP(x, y) == GROUP_MONUMENT || MP_GROUP(x, y) == GROUP_BURNT) ;/* do nothing */
+    for (x = 0; x < world.len(); x++)
+        for (y = 0; y < world.len(); y++) {
+            if (world(x, y)->is_bare()
+                || world(x, y)->getType() == CST_USED || world(x, y)->getType() == GROUP_WATER || world(x, y)->getType() == GROUP_POWER_LINE \
+                                || world(x, y)->getType() == GROUP_OREMINE || world(x, y)->getType() == GROUP_ROCKET \
+                                || world(x, y)->getType() == GROUP_MONUMENT || world(x, y)->getType() == GROUP_BURNT) ;/* do nothing */
 
-            else if ((MP_INFO(x, y).flags & FLAG_FIRE_COVER) == 0)
+            else if ((world(x, y)->flags & FLAG_FIRE_COVER) == 0)
                 return (0);
         }
     return (1);
 }
-
-static void set_mappoint_used(int fromx, int fromy, int x, int y)
-{
-    MP_TYPE(x, y) = CST_USED;
-    MP_GROUP(x, y) = GROUP_USED;
-    MP_INFO(x, y).int_1 = fromx;
-    MP_INFO(x, y).int_2 = fromy;
-}
-
 
 /** @file lincity/simulate.cpp */
 

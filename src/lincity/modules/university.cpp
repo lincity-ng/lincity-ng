@@ -5,68 +5,60 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
-//#include "../lcconfig.h"
 #include "university.h"
 
-void do_university(int x, int y)
-{
-    /*
-       // You need UNIVERSITY_JOBS and UNIVERSITY_GOODS to add 1 to tech_level
-       // int_1 is the stored jobs
-       // int_2 is the stored goods
-       // int_3 is the total tech points made by this uni.
-       // int_4 is the count so far in this 100 days
-       // int_5 is the count in the last 100 days to give a percent value
-       // get some jobs
-     */
-    if (MP_INFO(x, y).int_1 < UNIVERSITY_JOBS_STORE) {
-        if (get_jobs(x, y, UNIVERSITY_JOBS + 10) != 0)
-            MP_INFO(x, y).int_1 += UNIVERSITY_JOBS + 10;
-    }
-    /* get goods */
-    if (MP_INFO(x, y).int_2 < UNIVERSITY_GOODS_STORE) {
-        if (get_goods(x, y, UNIVERSITY_GOODS + 10) != 0)
-            MP_INFO(x, y).int_2 += UNIVERSITY_GOODS + 10;
-        else if (get_goods(x, y, UNIVERSITY_GOODS / 5) != 0)
-            MP_INFO(x, y).int_2 += UNIVERSITY_GOODS / 5;
-        else if (get_goods(x, y, UNIVERSITY_GOODS / 20) != 0)
-            MP_INFO(x, y).int_2 += UNIVERSITY_GOODS / 20;
-    }
-    /* now do some research */
-    if (MP_INFO(x, y).int_1 >= UNIVERSITY_JOBS && MP_INFO(x, y).int_2 >= UNIVERSITY_GOODS) {
-        MP_INFO(x, y).int_1 -= UNIVERSITY_JOBS;
-        MP_INFO(x, y).int_2 -= UNIVERSITY_GOODS;
-        goods_used += UNIVERSITY_GOODS;
-        if (university_intake_rate >= (total_time % 100)) {
-            MP_INFO(x, y).int_3 += UNIVERSITY_TECH_MADE;
-            tech_level += UNIVERSITY_TECH_MADE;
-            MP_INFO(x, y).int_4++;
-        }
-    }
-    if (total_time % 100 == 0) {
-        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_4;
-        MP_INFO(x, y).int_4 = 0;
-    }
-    university_cost += UNIVERSITY_RUNNING_COST;
+// university place:
+UniversityConstructionGroup universityConstructionGroup(
+    "University",
+     TRUE,                     /* need credit? */
+     GROUP_UNIVERSITY,
+     3,                         /* size */
+     GROUP_UNIVERSITY_COLOUR,
+     GROUP_UNIVERSITY_COST_MUL,
+     GROUP_UNIVERSITY_BUL_COST,
+     GROUP_UNIVERSITY_FIREC,
+     GROUP_UNIVERSITY_COST,
+     GROUP_UNIVERSITY_TECH
+);
+
+Construction *UniversityConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new University(x, y, type);
 }
 
-void mps_university(int x, int y)
+void University::update()
+{
+    university_cost += UNIVERSITY_RUNNING_COST;    
+    //do the teaching    
+    if (commodityCount[STUFF_JOBS] >= UNIVERSITY_JOBS
+    &&  commodityCount[STUFF_GOODS] >= UNIVERSITY_GOODS
+    &&  commodityCount[STUFF_WASTE] + UNIVERSITY_GOODS / 3 <= MAX_WASTE_AT_UNIVERSITY)
+    {   
+        commodityCount[STUFF_JOBS] -= UNIVERSITY_JOBS;
+        commodityCount[STUFF_GOODS] -= UNIVERSITY_GOODS;
+        commodityCount[STUFF_WASTE] += UNIVERSITY_GOODS / 3;        
+        teaching_this_month++;
+        tech_level += UNIVERSITY_TECH_MADE;
+        total_tech_made += UNIVERSITY_TECH_MADE;
+    }
+    //monthly update    
+    if ((total_time % 100) == 0) 
+    {
+        teaching_last_month = teaching_this_month;
+        teaching_this_month = 0;
+    }    
+}
+
+void University::report()
 {
     int i = 0;
-    char s[12];
-
-    mps_store_title(i++, _("University"));
+    mps_store_sd(i++,constructionGroup->name,ID); 
     i++;
-    mps_store_title(i++, _("Tech Produced"));
-    snprintf(s, sizeof(s), "%6.1f", MP_INFO(x, y).int_3 * 100.0 / MAX_TECH_LEVEL);
-    mps_store_title(i++, s);
+    mps_store_sfp(i++,"busy", (float)teaching_last_month);    
+    mps_store_sfp(i++, _("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
     i++;
-    mps_store_title(i++, _("Inventory"));
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_1, UNIVERSITY_JOBS_STORE);
-    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, UNIVERSITY_GOODS_STORE);
-    mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_4);
+    list_commodities(&i);
 }
+
 
 /** @file lincity/modules/university.cpp */
 

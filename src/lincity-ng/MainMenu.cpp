@@ -295,9 +295,15 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "ResolutionNext");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "WorldLenPrev");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+        currentCheckButton = getCheckButton(*optionsMenu, "WorldLenNext");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "LanguagePrev");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
+        currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
+		currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
 
         Button* currentButton = getButton(*optionsMenu, "BackButton");
@@ -319,6 +325,10 @@ MainMenu::loadOptionsMenu()
     } else {
         getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
     }
+    if (binary_mode)
+	{	getCheckButton(*optionsMenu, "BinaryMode")->check();}
+	else
+	{	getCheckButton(*optionsMenu, "BinaryMode")->uncheck();}
     //current background track
     musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
     musicParagraph->setText(getSound()->currentTrack.title);
@@ -326,7 +336,9 @@ MainMenu::loadOptionsMenu()
     std::stringstream mode;
     mode << SDL_GetVideoSurface()->w << "x" << SDL_GetVideoSurface()->h;
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-
+    mode.str("");        
+    mode << world.len();
+    getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
     languageParagraph = getParagraph( *optionsMenu, "languageParagraph");
     currentLanguage = getConfig()->language;
     languageParagraph->setText( getConfig()->language );
@@ -530,6 +542,10 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeResolution(false);
     } else if( buttonName == "ResolutionNext"){
         changeResolution(true);
+    } else if( buttonName == "WorldLenPrev"){
+        changeWorldLen(false);
+    } else if( buttonName == "WorldLenNext"){
+        changeWorldLen(true);
     } else if( buttonName == "LanguagePrev"){
         changeLanguage(false);
     } else if( buttonName == "LanguageNext"){
@@ -548,6 +564,8 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeTrack(false);
     } else if( buttonName == "TrackNext"){
         changeTrack(true);
+	} else if( buttonName == "BinaryMode"){
+        binary_mode = !binary_mode;
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
     }
@@ -613,6 +631,17 @@ void MainMenu::changeResolution(bool next) {
     }
 
 
+}
+
+void
+MainMenu::changeWorldLen(bool next)
+{
+    std::ostringstream os;
+    int new_len;
+    new_len = world.len()+(next?25:-25);      
+    world.len(new_len);
+    os << world.len();
+    getParagraph( *optionsMenu, "WorldLenParagraph")->setText(os.str());
 }
 
 void
@@ -689,6 +718,13 @@ MainMenu::continueButtonClicked(Button* )
     getSound()->playSound( "Click" );
     quitState = INGAME;
     running = false;
+     //load current game if it exists
+    if( ! loadCityNG( std::string( "9_currentGameNG.scn.gz" ) ) ) 
+    {
+        //by default create a new City
+        new_city( &main_screen_originx, &main_screen_originy, 1 );
+    }
+    
 }
 
 void

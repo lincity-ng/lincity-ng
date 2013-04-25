@@ -314,13 +314,15 @@ void print_stats ()
 {
   // this show update the financy window or mps
 
-  if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1)) {
-    update_pbars_monthly();
+  if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1))
+  {
+    update_pbars_monthly();    
     mps_refresh();
     getEconomyGraph()->updateData();
   }
 
-  if (total_time % (NUMOF_DAYS_IN_MONTH/5) == NUMOF_DAYS_IN_MONTH / 5 - 1) {
+  if (total_time % (NUMOF_DAYS_IN_MONTH/5) == NUMOF_DAYS_IN_MONTH / 5 - 1)
+  {   
     mps_refresh();
   }
 

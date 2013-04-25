@@ -10,14 +10,25 @@ int adjust_money(int value);
 int place_item(int x, int y, short type);
 int is_allowed_here(int x, int y, short type);
 int bulldoze_item(int x, int y);
-void do_bulldoze_area(short fill, int xx, int yy);
+void do_bulldoze_area(int x, int y);
 void do_coal_survey(void);
 void do_random_fire(int x, int y, int pwarning);
 void fire_area(int x, int y);
 void desert_frontier(int originx, int originy, int w, int h);
 void connect_rivers(void);
+int check_group(int x, int y);
+int check_topgroup(int x, int y);
+bool check_water(int x, int y);
 
-void launch_rocket(int x, int y);
+int find_group(int x, int y, unsigned short group);
+bool is_bare_area(int x, int y, int size);
+int find_bare_area(int x, int y, int size);
+/*
+int in_map(int x, int y);
+*/
+/*
+int is_border( int x, int y);
+*/
 
 /* called only by simulate.cpp */
 void do_daily_ecology(void);

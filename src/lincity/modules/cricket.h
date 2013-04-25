@@ -7,15 +7,68 @@
 
 #define CRICKET_JOBS   8
 #define CRICKET_GET_JOBS 9
-#define MAX_JOBS_AT_CRICKET (CRICKET_JOBS*NUMOF_DAYS_IN_YEAR)
+#define MAX_JOBS_AT_CRICKET (20 * CRICKET_JOBS * DAYS_BETWEEN_COVER)
 #define CRICKET_GOODS  2
 #define CRICKET_GET_GOODS 3
-#define MAX_GOODS_AT_CRICKET (CRICKET_GOODS*NUMOF_DAYS_IN_YEAR)
+#define MAX_GOODS_AT_CRICKET (20 * CRICKET_GOODS * DAYS_BETWEEN_COVER)
+#define MAX_WASTE_AT_CRICKET (20 * CRICKET_GOODS * DAYS_BETWEEN_COVER /3)
 #define CRICKET_RUNNING_COST 1
 #define CRICKET_ANIMATION_SPEED 750
 
 #define CRICKET_JOB_SWING 4
 
+#include "modules.h"
+#include "../lintypes.h"
+#include "../lctypes.h"
+#include "../range.h"
+
+class CricketConstructionGroup: public ConstructionGroup {
+public:
+    CricketConstructionGroup(
+        const char *name,
+        unsigned short no_credit,
+        unsigned short group,
+        unsigned short size, int colour,
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+    ): ConstructionGroup(
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+    ) {
+        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_CRICKET;
+        commodityRuleCount[Construction::STUFF_JOBS].take = true;
+        commodityRuleCount[Construction::STUFF_JOBS].give = false;
+        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_CRICKET;
+        commodityRuleCount[Construction::STUFF_GOODS].take = true;
+        commodityRuleCount[Construction::STUFF_GOODS].give = false;
+        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_CRICKET;
+        commodityRuleCount[Construction::STUFF_WASTE].take = false;
+        commodityRuleCount[Construction::STUFF_WASTE].give = true;    
+    }
+    // overriding method that creates a Cricket
+    virtual Construction *createConstruction(int x, int y, unsigned short type);
+};
+
+extern CricketConstructionGroup cricketConstructionGroup;
+
+class Cricket: public CountedConstruction<Cricket> { // cricket inherits from Construction
+public:
+	Cricket(int x, int y, unsigned short type): CountedConstruction<Cricket>(x, y, type)
+    {       
+        constructionGroup = &cricketConstructionGroup;
+        this->anim = 0;     
+        this->animate = false;
+        this->busy = false;
+        initialize_commodities();
+        }
+
+	virtual ~Cricket() { }
+	virtual void update();
+	virtual void report();
+    void cover();
+
+    int  anim;
+    bool animate;
+    bool busy;
+};
 
 /** @file lincity/modules/cricket.h */
 

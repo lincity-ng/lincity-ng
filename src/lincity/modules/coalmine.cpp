@@ -5,165 +5,136 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
+
 #include "coalmine.h"
-#include "../range.h"
-#include "../transport.h"
 
-void do_coalmine(int x, int y)
+// Coalmine:
+CoalmineConstructionGroup coalmineConstructionGroup(
+    "Coal Mine",
+     FALSE,                     /* need credit? */
+     GROUP_COALMINE,
+     4,                         /* size */
+     GROUP_COALMINE_COLOUR,
+     GROUP_COALMINE_COST_MUL,
+     GROUP_COALMINE_BUL_COST,
+     GROUP_COALMINE_FIREC,
+     GROUP_COALMINE_COST,
+     GROUP_COALMINE_TECH
+);
+
+Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsigned short type)
 {
-    /*
-       // int_1 is the coal at the surface
-       // int_2 is the coal reserve under the ground. More than one mine can claim the coal under ground!
-       // int_3 is the jobs collected.
-       // int_4 is for displaying info, %jobs available to dig
-       // int_5 is for                  %jobs available to put on transport
-     */
-    int xx, yy, xs, ys, xe, ye, cr;
-    MP_INFO(x,y).int_4 = 0;
-
-    if (MP_INFO(x, y).int_1 < (MAX_COAL_AT_MINE - 1000)) {
-        if (MP_INFO(x, y).int_2 < 0)
-            return;             /* run out of reserves */
-
-        xs = x - COAL_RESERVE_SEARCH_RANGE;
-        if (xs < 0)
-            xs = 0;
-        ys = y - COAL_RESERVE_SEARCH_RANGE;
-        if (ys < 0)
-            ys = 0;
-        xe = x + COAL_RESERVE_SEARCH_RANGE;
-        if (xe > WORLD_SIDE_LEN)
-            xe = WORLD_SIDE_LEN;
-        ye = y + COAL_RESERVE_SEARCH_RANGE;
-        if (ye > WORLD_SIDE_LEN)
-            ye = WORLD_SIDE_LEN;
-        cr = 0;
-        for (yy = ys; yy < ye; yy++)
-            for (xx = xs; xx < xe; xx++)
-                cr += MP_INFO(xx, yy).coal_reserve;
-        MP_INFO(x, y).int_2 = cr;
-        if (cr > 0) {
-            if (get_jobs(x, y, JOBS_DIG_COAL - MP_INFO(x, y).int_3) != 0) {
-                MP_INFO(x, y).int_3 = 0;
-                MP_INFO(x,y).int_4 = JOBS_DIG_COAL ;
-
-                for (yy = ys; yy < ye; yy++)
-                    for (xx = xs; xx < xe; xx++)
-                        if (MP_INFO(xx, yy).coal_reserve > 0) {
-                            MP_INFO(xx, yy).coal_reserve--;
-                            MP_INFO(x, y).int_1 += 1000;
-                            coal_made += 1000;
-                            coal_tax += 1000;
-                            sust_dig_ore_coal_tip_flag = 0;
-                            MP_POL(x, y) += COALMINE_POLLUTION;
-                            yy = ye;
-                            xx = xe;    /* break out */
-
-                        }
-            } else if (get_jobs(x, y, JOBS_DIG_COAL / 10) != 0) {
-                MP_INFO(x, y).int_3 += JOBS_DIG_COAL / 10;
-                MP_INFO(x,y).int_4 += MP_INFO(x, y).int_3;
-            } else if (get_jobs(x, y, JOBS_DIG_COAL / 50) != 0) {
-                MP_INFO(x, y).int_3 += JOBS_DIG_COAL / 50;
-                MP_INFO(x,y).int_4 += MP_INFO(x, y).int_3;
-            }
-        } else {
-            MP_INFO(x, y).int_1 = 0;
-            MP_INFO(x, y).int_2 = -1;
-        }
-    } else {
-        MP_INFO(x,y).int_4 = JOBS_DIG_COAL ; // lot of coal at surface, so we don't dig,
-                                             // but say we did for better stats
-    }
-
-    /* put it on the railway */
-    if (MP_GROUP(x - 1, y) == GROUP_RAIL
-        && MP_INFO(x - 1, y).int_3 < MAX_COAL_ON_RAIL
-        && MP_INFO(x, y).int_1 >= (MAX_COAL_ON_RAIL - MP_INFO(x - 1, y).int_3)) {
-        if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-            MP_INFO(x, y).int_1 -= (MAX_COAL_ON_RAIL - MP_INFO(x - 1, y).int_3);
-            MP_INFO(x - 1, y).int_3 = MAX_COAL_ON_RAIL;
-            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
-        }
-    }
-    if (MP_GROUP(x, y - 1) == GROUP_RAIL
-        && MP_INFO(x, y - 1).int_3 < MAX_COAL_ON_RAIL
-        && MP_INFO(x, y).int_1 >= (MAX_COAL_ON_RAIL - MP_INFO(x, y - 1).int_3)) {
-        if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-            MP_INFO(x, y).int_1 -= (MAX_COAL_ON_RAIL - MP_INFO(x, y - 1).int_3);
-            MP_INFO(x, y - 1).int_3 = MAX_COAL_ON_RAIL;
-            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
-        }
-    }
-    /* put it on the road */
-    if (MP_GROUP(x - 1, y) == GROUP_ROAD
-        && MP_INFO(x - 1, y).int_3 < MAX_COAL_ON_ROAD
-        && MP_INFO(x, y).int_1 >= (MAX_COAL_ON_ROAD - MP_INFO(x - 1, y).int_3)) {
-        if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-            MP_INFO(x, y).int_1 -= (MAX_COAL_ON_ROAD - MP_INFO(x - 1, y).int_3);
-            MP_INFO(x - 1, y).int_3 = MAX_COAL_ON_ROAD;
-            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
-        }
-    }
-    if (MP_GROUP(x, y - 1) == GROUP_ROAD
-        && MP_INFO(x, y - 1).int_3 < MAX_COAL_ON_ROAD
-        && MP_INFO(x, y).int_1 >= (MAX_COAL_ON_ROAD - MP_INFO(x, y - 1).int_3)) {
-        if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-            MP_INFO(x, y).int_1 -= (MAX_COAL_ON_ROAD - MP_INFO(x, y - 1).int_3);
-            MP_INFO(x, y - 1).int_3 = MAX_COAL_ON_ROAD;
-            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
-        }
-    }
-    /* put it on the tracks */
-    if (MP_GROUP(x - 1, y) == GROUP_TRACK
-        && MP_INFO(x - 1, y).int_3 < MAX_COAL_ON_TRACK
-        && MP_INFO(x, y).int_1 >= (MAX_COAL_ON_TRACK - MP_INFO(x - 1, y).int_3)) {
-        if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-            MP_INFO(x, y).int_1 -= (MAX_COAL_ON_TRACK - MP_INFO(x - 1, y).int_3);
-            MP_INFO(x - 1, y).int_3 = MAX_COAL_ON_TRACK;
-            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
-        }
-    }
-    if (MP_GROUP(x, y - 1) == GROUP_TRACK
-        && MP_INFO(x, y - 1).int_3 < MAX_COAL_ON_TRACK
-        && MP_INFO(x, y).int_1 >= (MAX_COAL_ON_TRACK - MP_INFO(x, y - 1).int_3)) {
-        if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-            MP_INFO(x, y).int_1 -= (MAX_COAL_ON_TRACK - MP_INFO(x, y - 1).int_3);
-            MP_INFO(x, y - 1).int_3 = MAX_COAL_ON_TRACK;
-            MP_INFO(x,y).int_4 += JOBS_LOAD_COAL;
-        }
-    }
-
-    /* choose a graphic */
-    if (MP_INFO(x, y).int_1 > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 5)))
-        MP_TYPE(x, y) = CST_COALMINE_FULL;
-    else if (MP_INFO(x, y).int_1 > (MAX_COAL_AT_MINE / 2))
-        MP_TYPE(x, y) = CST_COALMINE_MED;
-    else if (MP_INFO(x, y).int_1 > 0)
-        MP_TYPE(x, y) = CST_COALMINE_LOW;
-    else
-        MP_TYPE(x, y) = CST_COALMINE_EMPTY;
+    return new Coalmine(x, y, type);
 }
 
-void mps_coalmine(int x, int y)
+
+void Coalmine::update()
+{
+    int xx, yy, xs, ys, xe, ye;
+    bool coal_found = false;
+
+    //scan available coal_reserve in range    
+    xs = x - COAL_RESERVE_SEARCH_RANGE;
+    xs = (xs < 0) ? 0 : xs;         
+    ys = y - COAL_RESERVE_SEARCH_RANGE;
+    ys = (ys < 0 ) ? 0 : ys; 
+    xe = x + COAL_RESERVE_SEARCH_RANGE;
+    x = (x > world.len()) ? world.len() : x;         
+    ye = y + COAL_RESERVE_SEARCH_RANGE;
+    y = (y > world.len()) ? world.len() : y; 
+    current_coal_reserve = 0; 
+    for (yy = ys; yy < ye ; yy++)
+    {
+        for (xx = xs; xx < xe ; xx++)
+        {
+            current_coal_reserve += world(xx,yy)->coal_reserve;                
+        }
+    }
+    // use some jobs for loading coal to transport
+    if(commodityCount[STUFF_JOBS] >= JOBS_LOAD_COAL && commodityCount[STUFF_COAL] > 0)
+    {    
+        commodityCount[STUFF_JOBS] -= JOBS_LOAD_COAL;  
+    }
+    // mine some coal
+    if ((current_coal_reserve > 0) 
+    && (commodityCount[STUFF_COAL] <= TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE - COAL_PER_RESERVE)/100)
+    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL)) 
+    {   
+        for (yy = ys; (yy < ye) && !coal_found; yy++)
+        {
+            for (xx = xs; (xx < xe) && !coal_found; xx++)
+            {
+                if (world(xx,yy)->coal_reserve > 0) 
+                {
+                    world(xx,yy)->coal_reserve--;
+                    world(xx,yy)->pollution += COALMINE_POLLUTION;
+                    commodityCount[STUFF_COAL] += COAL_PER_RESERVE;
+                    commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;                        
+                    //FIXME coal tax is handled in equlibrate_transport
+                    //coal_made += COAL_PER_RESERVE;                     
+                    sust_dig_ore_coal_tip_flag = 0;
+                    coal_found = true;
+                    busy_days++;  
+                }
+            }
+        }        
+    }    
+    else if ((commodityCount[STUFF_COAL] - COAL_PER_RESERVE > TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE)/100)
+    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL)) 
+    {   
+        for (yy = ys; (yy < ye) && !coal_found; yy++)
+        {
+            for (xx = xs; (xx < xe) && !coal_found; xx++)
+            {
+                if (world(xx,yy)->coal_reserve < COAL_RESERVE_SIZE) 
+                {
+                    world(xx,yy)->coal_reserve++;
+                    
+                    commodityCount[STUFF_COAL] -= COAL_PER_RESERVE;
+                    commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;                        
+                    sust_dig_ore_coal_tip_flag = 1;
+                    coal_found = true;
+                    busy_days++;  
+                }
+            }
+        }        
+    }    
+    //Monthly update of activity    
+    if (total_time % 100 == 0)
+    {
+        busy = busy_days;
+        busy_days = 0;
+    }
+    //choose type depending on availabe coal    
+    if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 5)))//80%
+        type = CST_COALMINE_FULL;
+    else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE / 2))//50%
+        type = CST_COALMINE_MED;
+    else if (commodityCount[STUFF_COAL] > 0)//something
+        type = CST_COALMINE_LOW;
+    else//nothing
+        type = CST_COALMINE_EMPTY;
+
+    //Abandon the Coalmine if it is really empty  
+    if ((current_coal_reserve <1)
+      &&(commodityCount[STUFF_JOBS]<1)
+      &&(commodityCount[STUFF_COAL]<1)  )
+    {
+        ConstructionManager::submitRequest
+            (
+                new ConstructionDeletionRequest(this)
+            );
+    }
+}
+
+void Coalmine::report()
 {
     int i = 0;
-
-    mps_store_title(i++, _("Coal Mine"));
+    mps_store_sd(i++, constructionGroup->name, ID);   
+    mps_store_sfp(i++, "busy", busy);
+    mps_store_sddp(i++, "Deposits", current_coal_reserve, initial_coal_reserve);    
     i++;
-
-    // Average of %job for 2 tasks
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_4, ( JOBS_DIG_COAL + JOBS_LOAD_COAL) );
-    i++;
-
-    mps_store_sddp(i++, _("Stock"), MP_INFO(x, y).int_1, MAX_COAL_AT_MINE);
-    if (MP_INFO(x, y).int_2 > 0) {
-        mps_store_sd(i++, _("Reserve"), MP_INFO(x, y).int_2 * 1000);
-    } else {
-        mps_store_ss(i++, _("Reserve"), _("EMPTY"));
-    }
-
+    list_commodities(&i);    
 }
 
 /** @file lincity/modules/coalmine.cpp */

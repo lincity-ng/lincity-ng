@@ -5,100 +5,66 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
-#include "../power.h"
 #include "coal_power.h"
-#include "../transport.h" 
 
-/*** Coal Power ***/
-/*
-  // int_1 is the maximum possible power (depends on MP_TECH)
-  // int_2 is the coal at the power station
-  // int_3 is the stored jobs... Must be an interesting warehouse
-  // int_4 unused  
-  // int_5 is the projected output.
-  // int_6 is the grid ID
-  // int_7 is grid_timestamp
-  //
-  // MP_TECH is the tech level when built
- 
-*/
+Coal_powerConstructionGroup coal_powerConstructionGroup(
+    "Coal Power Station",
+     FALSE,                     /* need credit? */
+     GROUP_COAL_POWER,
+     4,                         /* size */
+     GROUP_COAL_POWER_COLOUR,
+     GROUP_COAL_POWER_COST_MUL,
+     GROUP_COAL_POWER_BUL_COST,
+     GROUP_COAL_POWER_FIREC,
+     GROUP_COAL_POWER_COST,
+     GROUP_COAL_POWER_TECH
+);
 
-void do_power_source_coal(int x, int y)
-{
+Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Coal_power(x, y, type);
+}
 
-    /* Need coal?  Try transport. */
-    if (MP_INFO(x, y).int_2 < MAX_COAL_AT_POWER_STATION) {
-
-        /* left side */
-        if (XY_IS_TRANSPORT(x - 1, y + 1) && MP_INFO(x - 1, y + 1).int_3 > 0) {
-            if (get_jobs(x, y, JOBS_LOAD_COAL) != 0) {
-                MP_INFO(x, y).int_2 += (MP_INFO(x - 1, y + 1).int_3 / 2 + ((MP_INFO(x - 1, y + 1).int_3) % 2));
-                MP_INFO(x - 1, y + 1).int_3 /= 2;
-                MP_POL(x, y)++;
-            }
-        }
-        /* top side */
-        else if (XY_IS_TRANSPORT(x + 1, y - 1) && MP_INFO(x + 1, y - 1).int_3 > 0) {
-            if (get_jobs(x, y, JOBS_LOAD_COAL) != 0)
-                MP_INFO(x, y).int_2 += (MP_INFO(x + 1, y - 1).int_3 / 2 + ((MP_INFO(x + 1, y - 1).int_3) % 2));
-            MP_INFO(x + 1, y - 1).int_3 /= 2;
-            MP_POL(x, y)++;
-        }
+void Coal_power::update()
+{   
+    if ((commodityCount[STUFF_JOBS] >= JOBS_COALPS_GENERATE)
+     && (commodityCount[STUFF_COAL] >= POWERS_COAL_OUTPUT / 250)
+     && (commodityCount[STUFF_MWH] <= MAX_MWH_AT_COALPS-mwh_output))
+    {
+        commodityCount[STUFF_JOBS] -= JOBS_COALPS_GENERATE;
+        commodityCount[STUFF_COAL] -= (POWERS_COAL_OUTPUT / 250);       
+        commodityCount[STUFF_MWH] += mwh_output;
+        coal_used += (POWERS_COAL_OUTPUT / 250);
+        world(x,y)->pollution += POWERS_COAL_POLLUTION;
+        working_days++;
     }
-
-    /* Need jobs?  get_jobs. */
-    if ((MP_INFO(x, y).int_3 + JOBS_COALPS_GENERATE + 10)
-        < MAX_JOBS_AT_COALPS)
-        if (get_jobs(x, y, JOBS_COALPS_GENERATE + 10) != 0)
-            MP_INFO(x, y).int_3 += JOBS_COALPS_GENERATE + 10;
-
-    /* Generate Power */
-    if (MP_INFO(x, y).int_2 > POWERS_COAL_OUTPUT / 500 && MP_INFO(x, y).int_3 > JOBS_COALPS_GENERATE) {
-        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_1;
-        MP_INFO(x, y).int_3 -= JOBS_COALPS_GENERATE;
-        MP_INFO(x, y).int_2 -= POWERS_COAL_OUTPUT / 500;
-        coal_used += POWERS_COAL_OUTPUT / 500;
-        MP_POL(x, y) += POWERS_COAL_POLLUTION;
-        grid[MP_INFO(x, y).int_6]->avail_power += MP_INFO(x, y).int_1;
+    //monthly update
+    if (total_time % 100 == 0)
+    {
+        busy = working_days;
+        working_days = 0;
     }
-
-    /* Animation */
     /* choose a graphic */
-    if (MP_INFO(x, y).int_2 > (MAX_COAL_AT_POWER_STATION - (MAX_COAL_AT_POWER_STATION / 5)))
-        MP_TYPE(x, y) = CST_POWERS_COAL_FULL;
-    else if (MP_INFO(x, y).int_2 > (MAX_COAL_AT_POWER_STATION / 2))
-        MP_TYPE(x, y) = CST_POWERS_COAL_MED;
-    else if (MP_INFO(x, y).int_2 > (MAX_COAL_AT_POWER_STATION / 10))
-        MP_TYPE(x, y) = CST_POWERS_COAL_LOW;
+    if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
+        type = CST_POWERS_COAL_FULL;
+    else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
+        type = CST_POWERS_COAL_MED;
+    else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 10))
+        type = CST_POWERS_COAL_LOW;
     else
-        MP_TYPE(x, y) = CST_POWERS_COAL_EMPTY;
+        type = CST_POWERS_COAL_EMPTY;
 }
 
-void mps_coal_power(int x, int y)
+void Coal_power::report()
 {
-    int i = 0;
-
-    char s[12];
-
-    mps_store_title(i++, _("Coal Power Station"));
+    int i = 0;    
+    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sfp(i++, _("busy"), (busy));    
+    mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+    mps_store_sd(i++, "Output", mwh_output);    
     i++;
-
-    format_power(s, sizeof(s), MP_INFO(x, y).int_1);
-    mps_store_title(i++, _("Max Output"));
-    mps_store_title(i++, s);
-    i++;
-
-    format_power(s, sizeof(s), MP_INFO(x, y).int_5);
-    mps_store_title(i++, _("Current Output"));
-    mps_store_title(i++, s);
-    i++;
-
-    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_2, MAX_COAL_AT_POWER_STATION);
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_3, MAX_JOBS_AT_COALPS);
-    mps_store_sfp(i++, _("Tech"), MP_TECH(x, y) * 100.0 / MAX_TECH_LEVEL);
-    mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
+    list_commodities(&i);
 }
+
 
 /** @file lincity/modules/coal_power.cpp */
 

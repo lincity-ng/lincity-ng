@@ -53,7 +53,7 @@ Config::Config()
     musicVolume = 50;
     soundEnabled = true;
     musicEnabled = true;
-    restartOnChangeScreen = true;
+    restartOnChangeScreen = false;
      
     //#define MONTHGRAPH_W 120 
     //#define MONTHGRAPH_H 64

@@ -30,7 +30,11 @@ class LCPBar;
 class XmlReader;
 class Component;
 
-extern LCPBar *LCPBarInstance;
+//extern LCPBar *LCPBarInstance;
+extern LCPBar * LCPBarPage1;
+extern LCPBar * LCPBarPage2;
+extern int pbarGlobalStyle;
+#define PBAR_GLOBAL_STYLES 2
 
 class LCPBar : public Component
 {

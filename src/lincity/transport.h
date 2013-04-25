@@ -3,21 +3,27 @@
  * This file is part of lincity.
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
+#include "lintypes.h"
 
 #ifndef __TRANSPORT_H__
 #define __TRANSPORT_H__
 
-#define XY_IS_TRANSPORT(x,y) \
-((MP_GROUP(x,y) == GROUP_TRACK) || \
- (MP_GROUP(x,y) == GROUP_ROAD) || \
- (MP_GROUP(x,y) == GROUP_RAIL) || \
- (MP_GROUP(x,y) == GROUP_TRACK_BRIDGE) || \
- (MP_GROUP(x,y) == GROUP_ROAD_BRIDGE) || \
- (MP_GROUP(x,y) == GROUP_RAIL_BRIDGE))
 #endif
 
-void general_transport(int x, int y, int max_waste);
+
+int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int center_ratio);
+/*
+    returns the relative load TRANSPORT_QUANTA = 100% if the construction would
+tentatively participate want traffic or -1 if there is no such stuff known at mapTile[x][y]. center_ratio == -1 ignores tentative traffic
+*/
+
+int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap, int ratio, Construction::Commodities stuff_ID);
+/*
+    Handles the flow of stuff between the central and the remote tile. takes care of  paying taxes. 
+*/
+
 void connect_transport(int originx, int originy, int w, int h);
+
 
 #define GROUP_TRACK_COLOUR 32   /* 32 is a brown */
 #define GROUP_TRACK_COST   1
@@ -39,6 +45,19 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_RAIL_BUL_COST    1000
 #define GROUP_RAIL_TECH    180
 #define GROUP_RAIL_FIREC   6
+
+#define GROUP_POWER_LINE_COLOUR (yellow(26))
+#define GROUP_POWER_LINE_COST 100
+#define GROUP_POWER_LINE_COST_MUL 2
+#define GROUP_POWER_LINE_BUL_COST 100
+#define GROUP_POWER_LINE_TECH 200
+#define GROUP_POWER_LINE_FIREC 0
+#define POWER_LINE_LOSS 1       /* one MWH */
+#define POWER_MODULUS 25        /* Controls how often we see a packet in anim */
+
+
+#define TRANSPORT_RATE 8 //slows down the transport
+#define TRANSPORT_QUANTA 1000 //granularity for transport flow
 
 #define MAX_FOOD_ON_TRACK 2048
 #define MAX_FOOD_ON_ROAD (MAX_FOOD_ON_TRACK*4)
@@ -71,15 +90,27 @@ void connect_transport(int originx, int originy, int w, int h);
 #define MAX_STEEL_ON_ROAD (MAX_STEEL_ON_TRACK*4)
 #define MAX_STEEL_ON_RAIL (MAX_STEEL_ON_TRACK*16)
 #define RAIL_STEEL_USED_MASK 0x7f
+#define MAX_STEEL_IN_MARKET (MAX_STEEL_ON_RAIL*2)
 
 #define MAX_WASTE_ON_TRACK 1024
 #define MAX_WASTE_ON_ROAD (MAX_WASTE_ON_TRACK*5)
 #define MAX_WASTE_ON_RAIL (MAX_WASTE_ON_TRACK*25)
 #define MAX_WASTE_IN_MARKET (MAX_WASTE_ON_RAIL*3)
-#define WASTE_BURN_ON_TRANSPORT 20
-#define TRANSPORT_BURN_WASTE_COUNT 75000
+#define WASTE_BURN_ON_TRANSPORT 100
+#define WASTE_BURN_ON_TRANSPORT_POLLUTE WASTE_BURN_ON_TRANSPORT/2
+//#define TRANSPORT_BURN_WASTE_COUNT 75000
 
+#define MAX_KWH_ON_TRACK 2048
+#define MAX_KWH_ON_ROAD (MAX_KWH_ON_TRACK*4)
+#define MAX_KWH_ON_RAIL (MAX_KWH_ON_TRACK*16)
+#define KWH_LOSS_ON_TRANSPORT 3
 
+#define MAX_MWH_ON_POWERLINE (MAX_KWH_ON_RAIL*8)
+
+#define MAX_WATER_ON_TRACK (2 * MAX_FOOD_ON_TRACK)
+#define MAX_WATER_ON_ROAD (MAX_WATER_ON_TRACK*4)
+#define MAX_WATER_ON_RAIL (MAX_WATER_ON_TRACK*16)
+#define MAX_WATER_IN_MARKET (MAX_WATER_ON_RAIL*8)
 
 #define BRIDGE_FACTOR 500 /* a bridge is that much more expensive than the land transport */
 

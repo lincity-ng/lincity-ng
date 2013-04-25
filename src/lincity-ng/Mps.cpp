@@ -21,13 +21,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui_interface/mps.h"
 #include "lincity/engglobs.h"
 #include "lincity/lctypes.h"
-
 #include "Util.hpp"
 
 #include "gui/XmlReader.hpp"
 #include "gui/ComponentFactory.hpp"
 #include "gui/ComponentLoader.hpp"
 #include "gui/Paragraph.hpp"
+#include "lincity/modules/all_modules.h"
 
 #include "Sound.hpp"
 
@@ -103,13 +103,11 @@ Mps::setView(MapPoint point, int style /* = MPS_MAP */ )
 {
     int x = point.x;
     int y = point.y;
-    if( x < 0 || y < 0 || x >= WORLD_SIDE_LEN || y >= WORLD_SIDE_LEN )
-        return;
-
-    if (MP_TYPE(x,y) == CST_USED)
-    {
-        x = MP_INFO(x,y).int_1;
-        y = MP_INFO(x,y).int_2;
+    if( !world.is_inside(x, y)) {return;}
+	Construction *reportingConstruction = world(x,y)->reportingConstruction;
+    if (reportingConstruction) {
+        x = reportingConstruction->x;
+        y = reportingConstruction->y;   
     }
 
     // Used with MPS_GLOBAL, MPS_ENV and MPS_MAP
@@ -120,7 +118,7 @@ Mps::setView(MapPoint point, int style /* = MPS_MAP */ )
 void
 Mps::playBuildingSound(int mps_x, int mps_y)
 {
-    switch(MP_GROUP(mps_x, mps_y)) 
+    switch(world(mps_x, mps_y)->getGroup()) 
     {
         case GROUP_BLACKSMITH:
             getSound()->playSound( "Blacksmith" );
@@ -129,13 +127,13 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "CoalMine" );
             break;
         case GROUP_COAL_POWER:
-            if( MP_TYPE( mps_x,mps_y) == CST_POWERS_COAL_FULL )
+            if( world(mps_x, mps_y)->getType() == CST_POWERS_COAL_FULL )
                 getSound()->playSound( "PowerCoalFull" );
-            else if( MP_TYPE( mps_x,mps_y) == CST_POWERS_COAL_MED )
+            else if( world(mps_x, mps_y)->getType() == CST_POWERS_COAL_MED )
                 getSound()->playSound( "PowerCoalMed" );
-            else if( MP_TYPE( mps_x,mps_y) == CST_POWERS_COAL_LOW )
+            else if( world(mps_x, mps_y)->getType() == CST_POWERS_COAL_LOW )
                 getSound()->playSound( "PowerCoalLow" );
-            else //if( MP_TYPE( mps_x,mps_y) == CST_POWERS_COAL_EMPTY )
+            else //if( world(mps_x, mps_y)->getType() == CST_POWERS_COAL_EMPTY )
                 getSound()->playSound( "PowerCoalEmpty" );
             break;
         case GROUP_COMMUNE:
@@ -160,10 +158,16 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Mill" );
             break;
         case (GROUP_MONUMENT):
-            if (MP_INFO( mps_x,mps_y).int_4 >= 100) {
-                getSound()->playSound( "Monument" );
-            } else {
-                getSound()->playSound( "MonumentConstruction" );
+            {
+            Monument *monument = dynamic_cast<Monument *>(world(mps_x, mps_y)->reportingConstruction);   
+                if (monument->completion >= 100)
+                {
+                    getSound()->playSound( "Monument" );
+                }
+                else
+                {
+                    getSound()->playSound( "MonumentConstruction" );
+                }
             }
             break;
         case (GROUP_OREMINE):
@@ -219,9 +223,9 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "PowerSolar" );
             break;
         case GROUP_SUBSTATION:
-            if( MP_TYPE( mps_x, mps_y )== CST_SUBSTATION_R ){
+            if( world(mps_x, mps_y)->getType() == CST_SUBSTATION_R ){
                 getSound()->playSound( "SubstationOff" );
-            } else if( MP_TYPE( mps_x, mps_y ) == CST_SUBSTATION_G ){
+            } else if( world(mps_x, mps_y)->getType() == CST_SUBSTATION_G ){
                 getSound()->playSound( "SubstationOn" );
             } else{   //CST_SUBSTATION_RG
                 getSound()->playSound( "Substation" );
@@ -235,11 +239,11 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "DirtTrack" );
             break;
         case GROUP_MARKET:
-            if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_EMPTY )
+            if( world(mps_x, mps_y)->getType() == CST_MARKET_EMPTY )
                 getSound()->playSound( "MarketEmpty" );
-            else if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_LOW )
+            else if( world(mps_x, mps_y)->getType() == CST_MARKET_LOW )
                 getSound()->playSound( "MarketLow" );
-            else if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_MED )
+            else if( world(mps_x, mps_y)->getType() == CST_MARKET_MED )
                 getSound()->playSound( "MarketMed" );
             else //if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_FULL )
                 getSound()->playSound( "MarketFull" );
@@ -252,14 +256,17 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Water" );
             break;
         case GROUP_WINDMILL:
-            if( MP_INFO(mps_x, mps_y ).int_2 ){ 
-                getSound()->playSound( "WindMill" );
-            } else {
+        {
+            if( dynamic_cast<Windmill*>(world(mps_x, mps_y)->reportingConstruction)->is_modern ){ 
                 getSound()->playSound( "WindMillHTech" );
+            } else {
+                getSound()->playSound( "WindMill" );
             }
+        }
             break;
         case GROUP_FIRE:
-            if( MP_INFO( mps_x, mps_y ).int_5 ){
+            if( !dynamic_cast<Fire*>(world(mps_x, mps_y)->reportingConstruction)->smoking_days)
+            {
                 getSound()->playSound( "Fire" );
             }
             break;
@@ -267,13 +274,13 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Shanty" );
             break;
         default: 
-            if( GROUP_IS_BARE(MP_GROUP( mps_x, mps_y )) && (MP_GROUP( mps_x, mps_y) != GROUP_DESERT )){
+            if( world(mps_x, mps_y)->is_bare() && (world(mps_x, mps_y)->getGroup() != GROUP_DESERT) ){
                 getSound()->playSound( "Green" );
             }  
-            if( MP_TYPE( mps_x, mps_y ) == CST_PARKLAND_PLANE ){
+            if( world(mps_x, mps_y)->getType() == CST_PARKLAND_PLANE ){
                 getSound()->playSound( "ParklandPlane" );
             }  
-            if( MP_TYPE( mps_x, mps_y ) == CST_PARKLAND_LAKE ){
+            if( world(mps_x, mps_y)->getType() == CST_PARKLAND_LAKE ){
                 getSound()->playSound( "ParklandLake" );
             }  
     }

@@ -227,7 +227,9 @@ Paragraph::resize(float width, float height)
     }
 
     if(width == 0) {
-        this->width = this->height = 0;
+        this->width = 0;
+        this->height = 0;
+        texture = 0;
         return;
     }
 

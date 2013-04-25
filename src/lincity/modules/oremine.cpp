@@ -5,168 +5,178 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
-#include "gui_interface/screen_interface.h"
+
 #include "oremine.h"
-#include <cstdlib>
-#include "../transport.h"
 
-void do_oremine(int x, int y)
+//#include "../transport.h"
+
+
+
+// Oremine:
+OremineConstructionGroup oremineConstructionGroup(
+    "Ore Mine",
+     FALSE,                     /* need credit? */
+     GROUP_OREMINE,
+     4,                         /* size */
+     GROUP_OREMINE_COLOUR,
+     GROUP_OREMINE_COST_MUL,
+     GROUP_OREMINE_BUL_COST,
+     GROUP_OREMINE_FIREC,
+     GROUP_OREMINE_COST,
+     GROUP_OREMINE_TECH
+);
+
+Construction *OremineConstructionGroup::createConstruction(int x, int y, unsigned short type)
 {
-    // int_1 is the ore at in stock
-    // int_2 is the ore reserve under the ground or at the surface really.
-    //
-    // Animation stuff
-    // int_3 is current displayed tile
-    // int_4 is a time shift for animation to prevent identical animation
-    // int_6 is a tile increment/decrement   ..         ..        ..
-    int xx, yy, xs, ys, xe, ye, cr;
-    if (MP_INFO(x, y).int_1 < MAX_ORE_AT_MINE - 5000) {
-        xs = x;
-        ys = y;
-        xe = x + 4;
-        ye = y + 4;
-        cr = 0;
-        for (yy = ys; yy < ye; yy++)
-            for (xx = xs; xx < xe; xx++)
-                cr += MP_INFO(xx, yy).ore_reserve;
-        MP_INFO(x, y).int_2 = cr;
-        if (cr > 0)
-            if (get_jobs(x, y, JOBS_DIG_ORE) != 0)
-                for (yy = ys; yy < ye; yy++)
-                    for (xx = xs; xx < xe; xx++)
-                        if (MP_INFO(xx, yy).ore_reserve > 0) {
-                            MP_INFO(xx, yy).ore_reserve--;
-                            MP_INFO(x, y).int_1 += 5000;
-                            ore_made += 5000;
-                            sust_dig_ore_coal_tip_flag = 0;
-                            /* maybe want an ore tax? */
-                            yy = ye;
-                            xx = xe;    /* break out */
-                        }
-    }
-
-    for (cr=0, xx = x-1, yy = y; yy > y-2; xx++, yy--) {
-        // (xx,yy) = (x-1, y) then (x, y-1) ; neighbouring tranport coordinates
-        if ((MP_INFO(xx, yy).flags & FLAG_IS_TRANSPORT) && get_jobs(x, y, JOBS_LOAD_ORE)) {
-            if (MP_GROUP(xx, yy) == GROUP_RAIL
-                    && MP_INFO(xx, yy).int_5 < MAX_ORE_ON_RAIL
-                    && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_RAIL - MP_INFO(xx, yy).int_5)) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_RAIL - MP_INFO(xx, yy).int_5);
-                MP_INFO(xx, yy).int_5 = MAX_ORE_ON_RAIL;
-                cr += 3;
-            } else if (MP_GROUP(xx, yy) == GROUP_ROAD
-                    && MP_INFO(xx, yy).int_5 < MAX_ORE_ON_ROAD
-                    && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_ROAD - MP_INFO(xx, yy).int_5)) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_ROAD - MP_INFO(xx, yy).int_5);
-                MP_INFO(xx, yy).int_5 = MAX_ORE_ON_ROAD;
-                cr += 2;
-            } else if (MP_GROUP(xx, yy) == GROUP_TRACK
-                    && MP_INFO(xx, yy).int_5 < MAX_ORE_ON_TRACK
-                    && MP_INFO(x, y).int_1 >= (MAX_ORE_ON_TRACK - MP_INFO(xx, yy).int_5)) {
-                MP_INFO(x, y).int_1 -= (MAX_ORE_ON_TRACK - MP_INFO(xx, yy).int_5);
-                MP_INFO(xx, yy).int_5 = MAX_ORE_ON_TRACK;
-                cr += 1;
-            }
-        }
-    }
-
-    // Anim according to ore mine activity
-    if (cr && real_time > MP_ANIM(x, y)) {
-        // MP_ANIM is reseted to 0 when we start/load a game
-        if (MP_ANIM(x,y) == 0) {
-            MP_INFO(x,y).int_3 = 0;
-            MP_INFO(x,y).int_4 = 0;
-            MP_INFO(x,y).int_6 = 0;
-        } else {
-            // Compute random inc/dec
-            if (real_time > MP_INFO(x, y).int_4) {
-                MP_INFO(x, y).int_4 = real_time + (16 * OREMINE_ANIMATION_SPEED) + (rand() % (16 * OREMINE_ANIMATION_SPEED));
-                (MP_INFO(x, y).int_6 > 0) ? MP_INFO(x, y).int_6 = -1 : MP_INFO(x, y).int_6 = 1;
-            }
-        }
-        // old behavior was to show reserve
-        // xx = 7 * (MP_INFO(x, y).int_2 + (3 * ORE_RESERVE / 2)) / (16 * ORE_RESERVE);
-        //
-        // new behavior is to have faster animation for more active mines
-        MP_ANIM(x, y) = real_time + ((8 - cr) * OREMINE_ANIMATION_SPEED);
-
-        xx = (MP_INFO(x, y).int_3 + MP_INFO(x, y).int_6) & 15;
-        MP_INFO(x, y).int_3 = xx;
-        switch (xx) {
-            case (0):
-                MP_TYPE(x, y) = CST_OREMINE_1;
-                break;
-            case (1):
-                MP_TYPE(x, y) = CST_OREMINE_2;
-                break;
-            case (2):
-                MP_TYPE(x, y) = CST_OREMINE_3;
-                break;
-            case (3):
-                MP_TYPE(x, y) = CST_OREMINE_4;
-                break;
-            case (4):
-                MP_TYPE(x, y) = CST_OREMINE_5;
-                break;
-            case (5):
-                MP_TYPE(x, y) = CST_OREMINE_6;
-                break;
-            case (6):
-                MP_TYPE(x, y) = CST_OREMINE_7;
-                break;
-            case (7):
-                MP_TYPE(x, y) = CST_OREMINE_8;
-                break;
-            case (8):
-                MP_TYPE(x, y) = CST_OREMINE_7;
-                break;
-            case (9):
-                MP_TYPE(x, y) = CST_OREMINE_6;
-                break;
-            case (10):
-                MP_TYPE(x, y) = CST_OREMINE_5;
-                break;
-            case (11):
-                MP_TYPE(x, y) = CST_OREMINE_4;
-                break;
-            case (12):
-                MP_TYPE(x, y) = CST_OREMINE_5;
-                break;
-            case (13):
-                MP_TYPE(x, y) = CST_OREMINE_4;
-                break;
-            case (14):
-                MP_TYPE(x, y) = CST_OREMINE_3;
-                break;
-            case (15):
-                MP_TYPE(x, y) = CST_OREMINE_2;
-                break;
-        }
-    }
-    if (MP_INFO(x, y).int_2 <= 0) {
-        int i, j;
-        for (j = 0; j < 4; j++) {
-            for (i = 0; i < 4; i++) {
-                do_bulldoze_area(CST_WATER, x + i, y + j);
-            }
-        }
-        connect_rivers();
-        refresh_main_screen();
-    }
+    return new Oremine(x, y, type);
 }
 
-void mps_oremine(int x, int y)
+
+void Oremine::update()
+{   
+    int xx,yy;
+    animate = false;    
+           
+    if(commodityCount[STUFF_JOBS] >= JOBS_LOAD_ORE && commodityCount[STUFF_ORE] > 0)
+    {    
+        commodityCount[STUFF_JOBS] -= JOBS_LOAD_ORE;  
+    }   
+    // see if we can/need to extract some underground ore    
+    if ((total_ore_reserve > 0) 
+    && (commodityCount[STUFF_ORE] <= ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE - ORE_PER_RESERVE)/100)
+    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_ORE)) 
+    {   
+        for (yy = y; (yy < y + 4) && !animate; yy++)
+        {
+            for (xx = x; (xx < x +4) && !animate; xx++)
+            {
+                if (world(xx,yy)->ore_reserve > 0) 
+                {
+                    world(xx,yy)->ore_reserve--;
+                    total_ore_reserve--;
+                    commodityCount[STUFF_ORE] += ORE_PER_RESERVE;
+                    commodityCount[STUFF_JOBS] -= JOBS_DIG_ORE;                        
+                    //FIXME ore_tax should be handled upon delivery
+                    //ore_made += ORE_PER_RESERVE;
+                    sust_dig_ore_coal_tip_flag = 0;
+                    animate = true;
+                    busy_days++;  
+                }
+            }
+        }        
+    }
+    // return the ore to ore_reserve if there is enough sustainable ore available     
+    else if ((commodityCount[STUFF_ORE] - ORE_PER_RESERVE > ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE )/100)
+    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_ORE))
+    {   
+        for (yy = y; (yy < y + 4) && !animate; yy++)
+        {
+            for (xx = x; (xx < x +4) && !animate; xx++)
+            {
+                if (world(xx,yy)->ore_reserve < ORE_RESERVE) 
+                {
+                    world(xx,yy)->ore_reserve++;
+                    total_ore_reserve++;
+                    commodityCount[STUFF_ORE] -= ORE_PER_RESERVE;
+                    commodityCount[STUFF_JOBS] -= JOBS_DIG_ORE;                        
+                    sust_dig_ore_coal_tip_flag = 1;
+                    animate = true;
+                    busy_days++;  
+                }
+            }
+        }        
+    }
+     
+    //Monthly update of activity    
+    if (total_time % 100 == 0)
+    {
+        busy = busy_days;
+        busy_days = 0;
+    }   
+    // Anim according to ore mine activity
+    if (animate && real_time > anim) 
+    {
+        if (real_time > days_offset) 
+        {
+            days_offset = real_time + (16 * OREMINE_ANIMATION_SPEED) + (rand() % (16 * OREMINE_ANIMATION_SPEED));
+        }  
+        //faster animation for more active mines
+        anim = real_time + ((14 - busy/11) * OREMINE_ANIMATION_SPEED);
+        anim_count = (anim_count + days_offset) & 15;
+        switch (anim_count)
+        {
+            case (0):
+                type = CST_OREMINE_1;
+                break;
+            case (1):
+                type = CST_OREMINE_2;
+                break;
+            case (2):
+                type = CST_OREMINE_3;
+                break;
+            case (3):
+                type = CST_OREMINE_4;
+                break;
+            case (4):
+                type = CST_OREMINE_5;
+                break;
+            case (5):
+                type = CST_OREMINE_6;
+                break;
+            case (6):
+                type = CST_OREMINE_7;
+                break;
+            case (7):
+                type = CST_OREMINE_8;
+                break;
+            case (8):
+                type = CST_OREMINE_7;
+                break;
+            case (9):
+                type = CST_OREMINE_6;
+                break;
+            case (10):
+                type = CST_OREMINE_5;
+                break;
+            case (11):
+                type = CST_OREMINE_4;
+                break;
+            case (12):
+                type = CST_OREMINE_5;
+                break;
+            case (13):
+                type = CST_OREMINE_4;
+                break;
+            case (14):
+                type = CST_OREMINE_3;
+                break;
+            case (15):
+                type = CST_OREMINE_2;
+                break;
+        }//endswitch
+    }//end if animate
+    
+    //Abandon the Oremine if it is really empty  
+    if ((total_ore_reserve <1)
+      &&(commodityCount[STUFF_JOBS]<1)
+      &&(commodityCount[STUFF_ORE]<1)  )
+    {
+        ConstructionManager::submitRequest
+            (
+                new OreMineDeletionRequest(this)
+            );
+    }
+
+}
+
+void Oremine::report()
 {
     int i = 0;
-
-    mps_store_title(i++, _("Ore Mine"));
+    mps_store_sd(i++, constructionGroup->name, ID);   
+    mps_store_sfp(i++,"busy",busy);
+    mps_store_sddp(i++,"Deposits", total_ore_reserve, (16 * ORE_RESERVE));    
     i++;
-
-    mps_store_sddp(i++, _("Stock"), MP_INFO(x, y).int_1, MAX_ORE_AT_MINE);
-    i++;
-
-    mps_store_sddp(i++, _("Reserve"), MP_INFO(x, y).int_2 * 5000, (ORE_RESERVE * 16 * 5000));
+    list_commodities(&i);    
 }
 
 /** @file lincity/modules/oremine.cpp */

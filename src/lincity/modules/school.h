@@ -5,14 +5,67 @@
 #define GROUP_SCHOOL_TECH   1
 #define GROUP_SCHOOL_FIREC 40
 
-#define SCHOOL_JOBS        50
-#define SCHOOL_GOODS       75
 #define JOBS_MAKE_TECH_SCHOOL  200
 #define GOODS_MAKE_TECH_SCHOOL  75
 #define TECH_MADE_BY_SCHOOL    2
-#define MAX_JOBS_AT_SCHOOL     400
-#define MAX_GOODS_AT_SCHOOL    200
+#define MAX_JOBS_AT_SCHOOL     (20 * JOBS_MAKE_TECH_SCHOOL)
+#define MAX_GOODS_AT_SCHOOL    (20 * GOODS_MAKE_TECH_SCHOOL)
+#define MAX_WASTE_AT_SCHOOL    (20 * GOODS_MAKE_TECH_SCHOOL / 3)
 #define SCHOOL_RUNNING_COST    2
+
+
+#include "modules.h"
+#include "../lintypes.h"
+#include "../lctypes.h"
+
+
+class SchoolConstructionGroup: public ConstructionGroup {
+public:
+    SchoolConstructionGroup(
+        const char *name,
+        unsigned short no_credit,
+        unsigned short group,
+        unsigned short size, int colour,
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+    ): ConstructionGroup(
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+    ) {
+        commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_SCHOOL;
+        commodityRuleCount[Construction::STUFF_JOBS].take = true;
+        commodityRuleCount[Construction::STUFF_JOBS].give = false;
+        commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_SCHOOL;
+        commodityRuleCount[Construction::STUFF_GOODS].take = true;
+        commodityRuleCount[Construction::STUFF_GOODS].give = false;
+        commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_SCHOOL;
+        commodityRuleCount[Construction::STUFF_WASTE].take = false;
+        commodityRuleCount[Construction::STUFF_WASTE].give = true;    
+    }
+    // overriding method that creates a School
+    virtual Construction *createConstruction(int x, int y, unsigned short type);
+};
+
+extern SchoolConstructionGroup schoolConstructionGroup;
+
+class School: public CountedConstruction<School> { // School inherits from its own CountedConstruction
+public:
+	School(int x, int y, unsigned short type): CountedConstruction<School>(x, y, type) 
+    {        
+        constructionGroup = &schoolConstructionGroup;
+        this->teaching_this_month = 0;
+        this->teaching_last_month = 0;
+        this->total_tech_made = 0;
+        setMemberSaved(&this->total_tech_made, "total_tech_made");
+        initialize_commodities();
+        }
+
+	virtual ~School() { }
+	virtual void update();
+	virtual void report();
+    
+    int total_tech_made;    
+    int teaching_this_month;
+    int teaching_last_month;
+};
 
 
 /** @file lincity/modules/school.h */

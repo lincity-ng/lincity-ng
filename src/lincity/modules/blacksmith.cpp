@@ -5,97 +5,98 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "blacksmith.h"
-//#include "cliglobs.h"
 
-void do_blacksmith(int x, int y)
-{
-    /*
-       // int_1 contains the goods at the blacksmith
-       // int_2 contains the goods made - for the animation
-       // int_3 contains the coal store
-       // int_4 unused
-       // int_5 is the % made so far this month
-       // int_6 is the % capacity last month
-       // int_7 contains the jobs stored at the blacksmith
-       // MP_ANIM(x,y) is the animation trigger time (since 1.91)
-     */
-    if (MP_INFO(x, y).int_3 < MAX_COAL_AT_BLACKSMITH)
-        if (get_coal(x, y, BLACKSMITH_GET_COAL) != 0)
-            MP_INFO(x, y).int_3 += BLACKSMITH_GET_COAL;
+BlacksmithConstructionGroup blacksmithConstructionGroup(
+    "Blacksmith",
+    FALSE,                     /* need credit? */
+    GROUP_BLACKSMITH,
+    2,                         /* size */
+    GROUP_BLACKSMITH_COLOUR,
+    GROUP_BLACKSMITH_COST_MUL,
+    GROUP_BLACKSMITH_BUL_COST,
+    GROUP_BLACKSMITH_FIREC,
+    GROUP_BLACKSMITH_COST,
+    GROUP_BLACKSMITH_TECH
+);
 
-    if (MP_INFO(x, y).int_1 < MAX_GOODS_AT_BLACKSMITH && MP_INFO(x, y).int_3 >= BLACKSMITH_COAL_USED) {
-        if (get_steel(x, y, BLACKSMITH_STEEL_USED) != 0) {
-            MP_INFO(x, y).int_1 += GOODS_MADE_BY_BLACKSMITH;
-            MP_INFO(x, y).int_3 -= BLACKSMITH_COAL_USED;
-        }
-    }
-
-    if (MP_INFO(x, y).int_7 < BLACKSMITH_JOBS) {
-        if (get_jobs(x, y, BLACKSMITH_JOBS))
-            MP_INFO(x, y).int_7 = BLACKSMITH_JOBS;
-    }
-
-    if (MP_INFO(x, y).int_7 >= BLACKSMITH_JOBS) {
-        if (MP_INFO(x, y).int_1 > GOODS_MADE_BY_BLACKSMITH) {
-            if (put_goods(x, y, GOODS_MADE_BY_BLACKSMITH - 1) != 0) {
-                MP_INFO(x, y).int_1 -= (GOODS_MADE_BY_BLACKSMITH - 1);
-                MP_INFO(x, y).int_2 += (GOODS_MADE_BY_BLACKSMITH - 1);
-                MP_INFO(x, y).int_5++;
-                MP_INFO(x, y).int_7 -= BLACKSMITH_JOBS;
-            }
-        }
-    } else {
-        MP_TYPE(x, y) = CST_BLACKSMITH_0;
-    }
-
-    if (MP_INFO(x, y).int_2 > BLACKSMITH_BATCH && real_time >= MP_ANIM(x, y)) {
-        MP_ANIM(x, y) = real_time + BLACKSMITH_ANIM_SPEED;
-        switch (MP_TYPE(x, y)) {
-        case (CST_BLACKSMITH_0):
-            MP_TYPE(x, y) = CST_BLACKSMITH_1;
-            break;
-        case (CST_BLACKSMITH_1):
-            MP_TYPE(x, y) = CST_BLACKSMITH_2;
-            break;
-        case (CST_BLACKSMITH_2):
-            MP_TYPE(x, y) = CST_BLACKSMITH_3;
-            break;
-        case (CST_BLACKSMITH_3):
-            MP_TYPE(x, y) = CST_BLACKSMITH_4;
-            break;
-        case (CST_BLACKSMITH_4):
-            MP_TYPE(x, y) = CST_BLACKSMITH_5;
-            break;
-        case (CST_BLACKSMITH_5):
-            MP_TYPE(x, y) = CST_BLACKSMITH_6;
-            break;
-        case (CST_BLACKSMITH_6):
-            MP_TYPE(x, y) = CST_BLACKSMITH_1;
-            MP_INFO(x, y).int_2 = 0;
-            MP_POL(x, y)++;
-            break;
-        }
-    }
-    if (total_time % 100 == 0) {
-        MP_INFO(x, y).int_6 = MP_INFO(x, y).int_5;
-        MP_INFO(x, y).int_5 = 0;
-    }
+Construction *BlacksmithConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Blacksmith(x, y, type);
 }
 
-void mps_blacksmith(int x, int y)
+void Blacksmith::update()
+{      
+    //monthly update   
+    if (total_time % 100 == 0)
+    {
+        productivity = workingdays;
+        workingdays = 0;
+    }    
+    if (pauseCounter++ < 0)
+        return;
+    if ((commodityCount[STUFF_GOODS] < constructionGroup->commodityRuleCount[STUFF_GOODS].maxload - GOODS_MADE_BY_BLACKSMITH) 
+        && (commodityCount[STUFF_COAL] >= BLACKSMITH_COAL_USED)
+        && (commodityCount[STUFF_STEEL] >= BLACKSMITH_STEEL_USED)
+        && (commodityCount[STUFF_JOBS] >= BLACKSMITH_JOBS))
+    {
+        commodityCount[STUFF_GOODS] += GOODS_MADE_BY_BLACKSMITH;
+        commodityCount[STUFF_COAL] -= BLACKSMITH_COAL_USED;
+        commodityCount[STUFF_STEEL] -= BLACKSMITH_STEEL_USED;
+        commodityCount[STUFF_JOBS] -= BLACKSMITH_JOBS;
+        workingdays++;
+        if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH)
+        {        
+            animate = true;
+            world(x,y)->pollution++;
+            goods_made = 0;        
+        }        
+    }
+    else
+    {
+        type = CST_BLACKSMITH_0;
+        pauseCounter = -BLACKSMITH_CLOSE_TIME;
+        return;
+    }
+    //animation
+    if (animate && real_time > anim) {
+        anim = real_time + BLACKSMITH_ANIM_SPEED;
+        switch (type) {
+        case (CST_BLACKSMITH_0):
+            type = CST_BLACKSMITH_1;
+            break;
+        case (CST_BLACKSMITH_1):
+            type = CST_BLACKSMITH_2;
+            break;
+        case (CST_BLACKSMITH_2):
+            type = CST_BLACKSMITH_3;
+            break;
+        case (CST_BLACKSMITH_3):
+            type = CST_BLACKSMITH_4;
+            break;
+        case (CST_BLACKSMITH_4):
+            type = CST_BLACKSMITH_5;
+            break;
+        case (CST_BLACKSMITH_5):
+            type = CST_BLACKSMITH_6;
+            break;
+        case (CST_BLACKSMITH_6):
+            type = CST_BLACKSMITH_1;
+            animate = false;
+            break;
+        }
+    }
+    
+}
+
+void Blacksmith::report()
 {
     int i = 0;
 
-    mps_store_title(i++, _("Blacksmith"));
+    mps_store_sd(i++, constructionGroup->name,ID);
     i++;
-
-    mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_6);
+    mps_store_sfp(i++, _("busy"), (float) productivity);
     i++;
-    mps_store_title(i++, _("Inventory"));
-    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_1, MAX_GOODS_AT_BLACKSMITH);
-    mps_store_sddp(i++, _("Coal"), MP_INFO(x, y).int_3, MAX_COAL_AT_BLACKSMITH);
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/blacksmith.cpp */

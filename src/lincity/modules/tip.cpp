@@ -5,108 +5,112 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "tip.h"
 
-void do_tip(int x, int y)
+// Tip:
+TipConstructionGroup tipConstructionGroup(
+    "Land Fill",
+     FALSE,                     /* need credit? */
+     GROUP_TIP,
+     4,                         /* size */
+     GROUP_TIP_COLOUR,
+     GROUP_TIP_COST_MUL,
+     GROUP_TIP_BUL_COST,
+     GROUP_TIP_FIREC,
+     GROUP_TIP_COST,
+     GROUP_TIP_TECH
+);
+
+Construction *TipConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Tip(x, y, type);
+}
+
+
+void Tip::update()
 {
-    /*
-       // int_1 is the amount of waste on the site.
-       // int_2 if the amount that has flowed in so far this month
-       // int_3 is the amount stored last month.
-       // int_4 counts up starting when tip fills, controlling how
-       long until the land is useful again.
-     */
-    int i;
-
-/* XXX: put this in a header somewhere */
-
-/* If the tip is full, age it until it degrades into useful soil */
-
-    if (MP_TYPE(x, y) == CST_TIP_8) {
-        MP_INFO(x, y).int_4++;
-        if (MP_INFO(x, y).int_4 >= TIP_DEGRADE_TIME) {
-            if (use_waterwell) {
-                do_bulldoze_area(CST_DESERT, x, y);
-            } else {
-                do_bulldoze_area(CST_GREEN, x, y);
-            }
-        }
-        return;
+    //the waste is always slowly degrading   
+    degration_days += total_waste;
+    while (degration_days > TIP_DEGRADE_TIME)
+    {        
+        degration_days -= total_waste;
+        total_waste--;
+        //max degradiation per day is about 2000  
+        if (degration_days > 45 * TIP_DEGRADE_TIME)
+        {
+            degration_days -= 45 * total_waste;
+            total_waste -= 45;   
+        }          
+    }    
+/*  FIXME Why does this alternate code cause an overflow    
+    total_waste -= degration_days /TIP_DEGRADE_TIME;
+    degration_days %= TIP_DEGRADE_TIME;                   
+*/       
+    if ((commodityCount[STUFF_WASTE] >= WASTE_BURRIED) 
+    && (commodityCount[STUFF_WASTE]*100/TIP_TAKES_WASTE > CRITICAL_WASTE_LEVEL)    
+    && (total_waste + WASTE_BURRIED < MAX_WASTE_AT_TIP))
+    {
+        commodityCount[STUFF_WASTE] -= WASTE_BURRIED;
+        total_waste += WASTE_BURRIED;
+        busy_days++;   
     }
-
-    /* just grab as much as we can from transport */
-    if (x > 0 && (MP_INFO(x - 1, y).flags & FLAG_IS_TRANSPORT) != 0) {
-        i = MP_INFO(x - 1, y).int_7 / 10;
-        MP_INFO(x, y).int_1 += i;
-        MP_INFO(x, y).int_2 += i;
-        MP_INFO(x - 1, y).int_7 -= i * 10;
-        sust_dig_ore_coal_tip_flag = 0;
+    else if ((commodityCount[STUFF_WASTE] + WASTE_BURRIED <= TIP_TAKES_WASTE)
+    && (commodityCount[STUFF_WASTE]*100/TIP_TAKES_WASTE < CRITICAL_WASTE_LEVEL) 
+    && (total_waste >= WASTE_BURRIED))
+    {
+        commodityCount[STUFF_WASTE] += WASTE_BURRIED;
+        total_waste -= WASTE_BURRIED;
+        busy_days++; 
     }
-    if (y > 0 && (MP_INFO(x, y - 1).flags & FLAG_IS_TRANSPORT) != 0) {
-        i = MP_INFO(x, y - 1).int_7 / 10;
-        MP_INFO(x, y).int_1 += i;
-        MP_INFO(x, y).int_2 += i;
-        MP_INFO(x, y - 1).int_7 -= i * 10;
-        sust_dig_ore_coal_tip_flag = 0;
-    }
-
-    /* now choose an icon. */
-    if ((total_time % NUMOF_DAYS_IN_MONTH) == 0) {
-        i = (MP_INFO(x, y).int_1 * 7) / MAX_WASTE_AT_TIP;
-        if (MP_INFO(x, y).int_1 > 0)
+    if ((total_time % 100) == 0) 
+    {
+        busy = busy_days;
+        busy_days = 0;        
+        int i = (total_waste * 7) / MAX_WASTE_AT_TIP;
+        if (total_waste > 0)
             i++;
         switch (i) {
         case (0):
-            MP_TYPE(x, y) = CST_TIP_0;
+            type = CST_TIP_0;
             break;
         case (1):
-            MP_TYPE(x, y) = CST_TIP_1;
+            type = CST_TIP_1;
             break;
         case (2):
-            MP_TYPE(x, y) = CST_TIP_2;
+            type = CST_TIP_2;
             break;
         case (3):
-            MP_TYPE(x, y) = CST_TIP_3;
+            type = CST_TIP_3;
             break;
         case (4):
-            MP_TYPE(x, y) = CST_TIP_4;
+            type = CST_TIP_4;
             break;
         case (5):
-            MP_TYPE(x, y) = CST_TIP_5;
+            type = CST_TIP_5;
             break;
         case (6):
-            MP_TYPE(x, y) = CST_TIP_6;
+            type = CST_TIP_6;
             break;
         case (7):
-            MP_TYPE(x, y) = CST_TIP_7;
+            type = CST_TIP_7;
             break;
-        case (8):
-            MP_TYPE(x, y) = CST_TIP_8;
-            MP_INFO(x, y).int_2 = 0;
-            MP_INFO(x, y).int_4 = 0;
+        case (8): 
+            type = CST_TIP_8;
             break;
-
         }
-        MP_INFO(x, y).int_3 = MP_INFO(x, y).int_2;
-        MP_INFO(x, y).int_2 = 0;
     }
 }
 
-void mps_tip(int x, int y)
+void Tip::report()
 {
     int i = 0;
-
-    mps_store_title(i++, _("Landfill"));
+   
+    mps_store_sd(i++,constructionGroup->name,ID);   
     i++;
-
-    mps_store_title(i++, _("Last Month"));
-    mps_store_sd(i++, _("Tons"), MP_INFO(x, y).int_3);
-    mps_store_sfp(i++, _("Percent"), MP_INFO(x, y).int_3 * 100.0 / MAX_WASTE_AT_TIP);
-    i++;
-    mps_store_sddp(i++,_("Filled"), MP_INFO(x, y).int_1 ,MAX_WASTE_AT_TIP);
-    i++;
-    mps_store_sddp(i++,_("Days degenerating"), MP_INFO(x, y).int_4 ,TIP_DEGRADE_TIME);
+    mps_store_sfp(i++,"busy", busy);
+    mps_store_sd(i++,"Waste", total_waste);    
+    mps_store_sfp(i++,_("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
+    i++;   
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/tip.cpp */

@@ -17,6 +17,7 @@
 
 #include <math.h>
 #include <cstdlib>
+#include <vector>
 #include "init_game.h"
 #include "fileutil.h"
 #include "simulate.h"
@@ -25,30 +26,22 @@
 #include "lin-city.h"
 #include "engglobs.h"
 #include "gui_interface/screen_interface.h"
-#include "power.h"
+//#include "power.h"
 #include "stats.h"
 #include "gui_interface/pbar_interface.h"
 #include "modules/modules_interfaces.h"
+#include "modules/all_modules.h"
 #include "transport.h"
 #include "all_buildings.h"
 #include "engine.h"
+#include <deque>
 
-#define IS_RIVER(x,y) (MP_INFO(x,y).flags & FLAG_IS_RIVER)
 
-struct Shoreline {
-        int x;
-        int y;
-        int altitude;
-        struct Shoreline *next;
-};
 
-/* Vector for visiting neigbours = ( di(k) , dj(k) )  ; ordered so that diagonal moves are the last 4 */
-static const int di[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
-static const int dj[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
 
 /* Private functions prototypes */
 
-static void init_mappoint_array(void);
+//static void init_mappoint_array(void);
 static void initialize_tax_rates(void);
 static void nullify_mappoint(int x, int y);
 static void random_start(int *originx, int *originy);
@@ -59,40 +52,42 @@ static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void setup_ground(void);
 static void new_setup_river_ground(void);
 static void new_setup_river(void);
-static void sort_by_altitude(int n, int *tabx, int *taby);
-static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
+//static void sort_by_altitude(int n, std::vector <int> *tabx, std::vector <int> *taby);
+//static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
+static int quick_river( int x, int y);
 static void set_river_tile( int i, int j);
-static void do_rand_ecology(int x, int y);
-static Shoreline * init_shore(void);
-static void free_shore(Shoreline *shore);
-static void overfill_lake(int xl, int yl, Shoreline *shore, int lake_id);
+static void do_rand_ecology(int x, int y, int r);
+//static Shoreline * init_shore(void);
+//static void free_shore(Shoreline *shore);
+static int overfill_lake(int xl, int yl);//, Shoreline *shore, int lake_id);
 static void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate);
-
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
  * ---------------------------------------------------------------------- */
 void clear_game(void)
 {
-    int x, y, i, p;
-
-    init_mappoint_array ();
+    int i;//x, p;
+    const int len = world.len();
+    const int area = len * len;
+    //std::cout << "clearing Game" << std::endl;
+    //init_mappoint_array ();
     initialize_tax_rates ();
     init_inventory();
-
+    //std::cout << "whiping game with " << world.len() << " side length" << std::endl;
     // Clear engine and UI data.
-    for (y = 0; y < WORLD_SIDE_LEN; y++) {
-        for (x = 0; x < WORLD_SIDE_LEN; x++) {
-            nullify_mappoint(x, y);
-        }
-    }
+    for (int index = 0; index < area; index++)
+    {
+		int xx = index % world.len();
+		int yy = index / world.len();
+		nullify_mappoint(xx, yy);
+	}
+    
+    world.dirty = false;           
+    constructionCount.size(100);     
     total_time = 0;
     coal_survey_done = 0;
-    numof_shanties = 0;
-    numof_communes = 0;
-    numof_substations = 0;
-    numof_health_centres = 0;
-    numof_markets = 0;
+    //numof_substations = 0;
     max_pop_ever = 0;
     total_evacuated = 0;
     total_births = 0;
@@ -101,13 +96,12 @@ void clear_game(void)
     highest_tech_level = 0;
     rockets_launched = 0;
     rockets_launched_success = 0;
-    init_inventory();
     update_avail_modules(0);
 
     use_waterwell = true; // NG 1.91 : AL1
                           // unused now (it was used in branch waterwell)
                           // but useful to know how to add an optional module, so keep it for a while.
-    numof_waterwell = 0;
+    
     global_aridity = 0;
     global_mountainity =0;
 
@@ -123,55 +117,21 @@ void clear_game(void)
     // UI stuff
     /* TODO check reset screen, sustain info ... */
     given_scene[0] = 0;
-    for( i = 0; i < monthgraph_size; i++ ){
+    for( i = 0; i < monthgraph_size; i++ )
+    {
         monthgraph_pop[i] = 0;
         monthgraph_starve[i] = 0;
         monthgraph_nojobs[i] = 0;
         monthgraph_ppool[i] = 0;
     }
-    // reset PBARS
-    // FIXME AL1 NG 1.92.svn pbars are reseted only
-    //          when we build something
-    //          when some building already exist and modify one value
-    //
-    /* AL1 i don't understand why this does not work
-    init_pbars(); // AL1: Why is this not enough and why do we need additional stuff ?
-    */
-
-    /*
-   */
+    
     housed_population=0;
     tech_level=0;
-    tfood_in_markets=0;
-    tjobs_in_markets=0;
-    tcoal_in_markets=0;
-    tgoods_in_markets=0;
-    tore_in_markets=0;
-    tsteel_in_markets=0;
     total_money=0;
 
     init_pbars();
-    for (p = 0; p < NUM_PBARS; p++)
-        pbars[p].data_size = PBAR_DATA_SIZE;
+    refresh_pbars();
 
-    for (p = 0; p < NUM_PBARS; p++) {
-        pbars[p].oldtot = 0;
-        pbars[p].diff = 0;
-    }
-
-    for (x = 0; x < PBAR_DATA_SIZE; x++) {
-        update_pbar (PPOP, housed_population, 1);
-        update_pbar (PTECH, tech_level, 1);
-        update_pbar (PFOOD, tfood_in_markets , 1);
-        update_pbar (PJOBS, tjobs_in_markets , 1);
-        update_pbar (PCOAL, tcoal_in_markets , 1);
-        update_pbar (PGOODS, tgoods_in_markets  , 1);
-        update_pbar (PORE, tore_in_markets  , 1);
-        update_pbar (PSTEEL, tsteel_in_markets , 1);
-        update_pbar (PMONEY, total_money, 1);
-    }
-    data_last_month = 1;
-    update_pbars_monthly();
 }
 
 
@@ -195,78 +155,101 @@ void new_swamp_city(int *originx, int *originy, int random_village)
     create_new_city( originx, originy, random_village, false, 3);
 }
 
-
 void setup_land()
-{
-    int x, y, xw, yw;
-    int aridity = global_aridity;
-
-    if( alt_step == 0 ){
-        printf("alt_step = 0\n");
-        alt_step = 400; // TODO: Why can alt_step be zero here? Quick hack to prevent crash WolfgangB 2008-09-13
+{  
+    std::cout << "setting up ecology ";
+    std::cout.flush();
+    const int len = world.len();
+    const int area = len * len;    
+    std::deque <int> line;  
+    Array2D <int> dist(len,len);
+    Array2D <int> water(len,len);
+    line.clear();
+    
+    std::cout << ".";
+    std::cout.flush();    
+	for (int index = 0; index < area; index++)
+	{
+		int xx = index % len;
+		int yy = index / len;  
+		if(world(xx,yy)->is_water())
+		{
+			*dist(xx,yy) = 0;
+			*water(xx,yy) = world(xx,yy)->ground.water_alt;
+			line.push_back(xx + yy * len);
+		}
+		else
+		{
+			*dist(xx,yy) = 25;
+			*water(xx,yy) = 3*world(xx,yy)->ground.altitude/4;  
+		}
+	}
+    //std::cout << "detected " << line.size() << " river tiles" << std::endl;     
+    std::cout << ".";
+    std::cout.flush();    
+    while (line.size())
+    {        
+        int index = line.front();
+        line.pop_front();            
+		int xx = index % len;
+		int yy = index / len;       
+		int next_dist = *dist(xx,yy) + 1;
+		int water_alt = *water(xx,yy);
+		for (int i=0; i<4 ; i++)
+		{
+			int xt = xx + dx[i];
+			int yt = yy + dy[i];
+			if (world.is_visible(xt,yt) && *dist(xt,yt) > next_dist)
+			{   
+				*dist(xt,yt) = next_dist;
+				*water(xt,yt) = water_alt;
+				line.push_back(xt + yt * len);
+			}
+		}  
+        
     }
+    //line.clear();    
+    std::cout << ".";
+    std::cout.flush();
+    for (int index = 0; index < area; index++)
+	{ 
+		int xx = index % len;
+		int yy = index / len;
+		int d2w_min = 2 * area;
+		int r;
+		int arid = global_aridity;
+		int alt0 = 0;
 
-    for (y = 0; y < WORLD_SIDE_LEN; y++) {
-        for (x = 0; x < WORLD_SIDE_LEN; x++) {
-            int d2w_min = 2 * WORLD_SIDE_LEN * WORLD_SIDE_LEN;
-            int r;
-            int arid = aridity;
-            int alt0 = 0;
+		/* test against IS_RIVER to prevent terrible recursion */
+		if ( (world(xx, yy)->flags & FLAG_IS_RIVER) || !world(xx, yy)->is_bare())
+			continue;           
+		r = *dist(xx,yy);
+		d2w_min = r * r;
+		alt0 = *water(xx,yy);           
+		
+		/* near river lower aridity */
+		if (arid > 0)
+		{
+			if (d2w_min < 5)
+			{   arid = global_aridity / 3;}
+			else if (d2w_min < 17)
+			{   arid = (global_aridity * 2) / 3;}
+		}
+		/* Altitude has same effect as distance */
+		r = rand()%(d2w_min/3 + 1) + arid +
+				(world(xx, yy)->ground.altitude - alt0) * 50 / alt_step;           
+		do_rand_ecology(xx,yy,r);
 
-            /* test against IS_RIVER to prevent terrible recursion */
-            if (IS_RIVER(x, y) || !GROUP_IS_BARE(MP_GROUP(x, y)))
-                continue;
-
-	    // AL1: FIXME awfully slow. Probably the worst possible way to get this distance (wip rev 1600)
-            for (yw = 0; yw < WORLD_SIDE_LEN; yw++) {
-                for (xw = 0; xw < WORLD_SIDE_LEN; xw++) {
-                    int d2w;
-                    if (!IS_RIVER(xw, yw))
-                        continue;
-                    d2w = (xw - x) * (xw - x) + (yw - y) * (yw - y);
-                    if (d2w < d2w_min) {
-                        d2w_min = d2w;
-                        alt0 = ALT(xw,yw); // altitude of the river
-                    }
-                    /* TODO ? Store square of distance to river for each tile */
-                }
-            }
-
-            /* near river lower aridity */
-            if (aridity > 0) {
-                if (d2w_min < 5)
-                    arid = aridity / 3;
-                else if (d2w_min < 17)
-                    arid = (aridity * 2) / 3;
-            }
-            /* Altitude has same effect as distance */
-            r = rand() % (d2w_min / 3 + 1) + arid +
-                    abs((ALT(x,y) - alt0) * 19 / alt_step) + 3 * (ALT(x,y) * ALT(x,y)) /1000000 ;
-            ground[x][y].ecotable=r;
-            /* needed to setup quasi randome land. The flag is set below */
-            MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
-            do_rand_ecology(x,y);
-            MP_POL(x, y) = 0;
-
-            /* preserve rivers, so that we can connect port later */
-            if (MP_TYPE(x, y) == CST_WATER) {
-                int navigable = MP_INFO(x, y).flags & FLAG_IS_RIVER;
-                set_mappoint(x, y, CST_WATER);
-                MP_INFO(x, y).flags |= navigable;
-                MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
-            }
-            /* set undergroung water according to first random land setup */
-            if (MP_TYPE(x, y) == CST_DESERT) {
-                MP_INFO(x, y).flags &= (0xffffffff - FLAG_HAS_UNDERGROUND_WATER);
-            }
-        }
-    }
-    for (y = 0; y < WORLD_SIDE_LEN; y++)
-        for (x = 0; x < WORLD_SIDE_LEN; x++)
-            if (MP_TYPE(x, y) == CST_WATER)
-                MP_INFO(x, y).flags |= FLAG_HAS_UNDERGROUND_WATER;
-
+	}
+    std::cout << " done" << std::endl;
+    //world.destroy_tmp();
+    /*smooth all edges in fresh map*/    
+    //std::cout << "smoothing graphics edges ...";
+    //std::cout.flush();    
     connect_rivers();
+    connect_transport(1, 1, world.len() - 2, world.len() - 2);
+    desert_frontier(0, 0, world.len(), world.len());
+    //std::cout << " done" << std::endl;
 }
 
 /* ---------------------------------------------------------------------- *
@@ -279,7 +262,7 @@ static void create_new_city(int *originx, int *originy, int random_village, int 
     coal_reserve_setup();
 
     global_mountainity= 100 + rand () % 300; // roughly water slope = 25m / 1km (=from N to S)
-    //global_mountainity = 200; //  nearly useless to have a random one (only impacts do_rand_ecology through ALT(x,y))
+    //global_mountainity = 200; //  nearly useless to have a random one (only impacts do_rand_ecology through world(x, y)->ground.altitude)
 
     switch (climate) {
         case 0:
@@ -302,11 +285,12 @@ static void create_new_city(int *originx, int *originy, int random_village, int 
 
     }
 
-
-    if (old_setup_ground) {
+    if (old_setup_ground) 
+    {
         setup_river();
         setup_ground();
-    } else {
+    } else
+    {
         new_setup_river_ground();
     }
     setup_land();
@@ -317,18 +301,18 @@ static void create_new_city(int *originx, int *originy, int random_village, int 
        for random village (100 are housed). */
     people_pool = 100;
 
-    if (random_village != 0) {
+    if (random_village != 0)
+    {
         random_start(originx, originy);
         update_pbar(PPOP, 200, 1);      /* So pbars don't flash */
-    } else {
-        *originx = *originy = WORLD_SIDE_LEN / 2;
+    }
+    else
+    {
+        *originx = *originy = world.len() / 2;
         update_pbar(PPOP, 100, 1);
     }
-    connect_transport(1, 1, WORLD_SIDE_LEN - 2, WORLD_SIDE_LEN - 2);
-    /* Fix desert frontier for old saved games and scenarios */
-    desert_frontier(0, 0, WORLD_SIDE_LEN, WORLD_SIDE_LEN);
-
-    refresh_pbars(); // AL1: does nothing in NG !
+    connect_transport(1, 1, world.len() - 2, world.len() - 2);
+    desert_frontier(0, 0, world.len(), world.len());
 }
 static void initialize_tax_rates(void)
 {
@@ -341,28 +325,20 @@ static void initialize_tax_rates(void)
     // AL1 : export_tax_rate;  is not used in 2.X  always equal to zero ? FIXME ?
 }
 
-static void init_mappoint_array(void)
-{
-    int x;
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        mappoint_array_x[x] = x;
-        mappoint_array_y[x] = x;
-    }
-}
-
 static void coal_reserve_setup(void)
 {
     int i, j, x, y, xx, yy;
-    for (i = 0; i < NUMOF_COAL_RESERVES / 5; i++) {
-        x = (rand() % (WORLD_SIDE_LEN - 12)) + 6;
-        y = (rand() % (WORLD_SIDE_LEN - 10)) + 6;
+    const int len = world.len();
+    for (i = 0; i < len/ 5; i++) { //NUMOF_COAL_RESERVES
+        x = (rand() % (len - 12)) + 6;
+        y = (rand() % (len - 10)) + 6;
         do {
             xx = (rand() % 3) - 1;
             yy = (rand() % 3) - 1;
         }
         while (xx == 0 && yy == 0);
         for (j = 0; j < 5; j++) {
-            MP_INFO(x, y).coal_reserve += rand() % COAL_RESERVE_SIZE;
+            world(x, y)->coal_reserve += rand() % COAL_RESERVE_SIZE;
             x += xx;
             y += yy;
         }
@@ -371,10 +347,9 @@ static void coal_reserve_setup(void)
 
 static void ore_reserve_setup(void)
 {
-    int x, y;
-    for (y = 0; y < WORLD_SIDE_LEN; y++)
-        for (x = 0; x < WORLD_SIDE_LEN; x++)
-            MP_INFO(x, y).ore_reserve = ORE_RESERVE;
+    const int area = world.len() * world.len();
+    for (int index=0; index < area; index++ )
+    {	world(index)->ore_reserve = ORE_RESERVE;}
 }
 
 static void new_setup_river_ground(void)
@@ -390,19 +365,29 @@ static void new_setup_river_ground(void)
      * Additional refinement: we rotate/mirror the map, in order to have the 2 lowest borders in front of us
      *      and the "mountains" far away  (just in case we go to 3d view later :-) )
      */
-
-    const int NLOOP = 7;
-    const int SZ=128; // must be = 2^NLOOP
-    const int SHIFT = (SZ - WORLD_SIDE_LEN) / 2; // center the visible map in the big one
+    const int len = world.len();
+    const int area = len * len;
+    const int mask_size = 7; // useless to be larger than 3*sigma && Must be < SHIFT  
+    int ii = 2;
+    int sz = 4;
+    while (sz <= len + mask_size)
+    {
+        sz *= 2;
+        ii++;
+    }
+    const int NLOOP = ii;
+    //const int SZ = sz; // must be = 2^NLOOP
+    //std::cout << "temporary map with SZ = " << SZ << std::endl;
+    const int SHIFT = (sz - world.len()) / 2; // center the visible map in the big one
     const float sigma = 3.5; // gaussian smoothing
     const float ods2 = 1. / (2. * sigma * sigma);
-    const int mask_size = 7; // useless to be larger than 3*sigma && Must be < SHIFT
-    const float fract = 0.90; // will be up to  fract ^ NLOOP : be careful to stay near 1.0
+    
+    const float fract = 0.9; // will be up to  fract ^ NLOOP : be careful to stay near 1.0
                               //  if fract > 1.0, then small scale variations are getting bigger  (recent mountain)
                               //  if fract < 1.0  then small scales varaitions are getting smaller (old mountain)
                               // this is smoothed by the gaussian filter
 
-    const int Keco = 20;  // order of magnitude of each iteration is Kalt * mountainity.
+    const int Keco = 30;  // order of magnitude of each iteration is Kalt * mountainity.
 
     /* good values:
      *      sigma = 3.5   // sigma =2.5 => lots of local minima = small lakes  ;
@@ -419,12 +404,14 @@ static void new_setup_river_ground(void)
      */
 
     float mat[2 * mask_size + 1][2 * mask_size + 1];
-    float g[SZ][SZ];
-    float tmp[SZ][SZ];
+    Array2D <int> g1(sz,sz);
+    Array2D <int> g2(sz,sz);
+    Array2D <float> f1(sz,sz);
+    Array2D <float> f2(sz,sz);     
     float min = 10000000000000000000.;
     float norm;
     int i,j,k,l,m,n,size,h;
-
+    
     // build gaussian mask for smoothing
     norm = 0;
     for ( i = 0; i < 2 * mask_size + 1; i++) {
@@ -435,51 +422,49 @@ static void new_setup_river_ground(void)
         }
     }
     norm = 1. / norm;
-
+    
    // intialisation
 #ifdef DEBUG_EXPERIMENTAL
     // Fix random seed for easier debug
     srand(1234);
 #endif
     h = ( rand() % Keco + rand() % Keco ) * global_mountainity ;
-    for (i = 0; i < SZ; i++) {
-        for (j = 0; j < SZ; j++) {
-            g[i][j]=h;
-            tmp[i][j]=0;
-        }
-    }
 
+    f1.initialize(h);
+    
     /* fractal iteration for height */
     n = 1;
-    for (k = 1; k <= NLOOP; k++) {
+    for (k = 1; k <= NLOOP-3; k++)
+    {
         n *= 2;
-        size = SZ / n;
+        size = sz / n;
         // n x n block of size
-        for ( l = 0; l < n; l++ ) {
-            for ( m = 0; m < n; m++ ) {
+        for ( l = 0; l < n; l++ )
+        {
+            for ( m = 0; m < n; m++ )
+            {
                 // one block
-                h = int ( double((rand() % Keco + rand() % Keco) * global_mountainity) * pow(fract,k) );
+                h = int ( double((rand() % Keco + rand() % Keco - Keco) * global_mountainity) * pow(fract,k) );
                 for (i = 0 ; i < size; i++)
                     for (j = 0 ; j < size; j++)
-                        g[l * size + i][ m * size + j ] += h;
+                        *f1(l * size + i, m * size + j ) += h;
             }
         }
     }
 
     //smooth is iterated to propagate a little the lowering of borders
-    for (n = 0; n < 2 ; n++) {
+    for (n = 0; n < 2; n++) {
         // apply the mask
-        for (i = mask_size; i < SZ - mask_size; i++)
-            for (j = mask_size; j < SZ - mask_size; j++) {
-                tmp[i][j] = 0;
+        for (i = mask_size; i < sz - mask_size; i++)
+            for (j = mask_size; j < sz - mask_size; j++) {
                 for ( k = -mask_size; k <= mask_size; k++ )
                     for ( l = -mask_size; l <= mask_size; l++ )
-                        tmp[i][j] += g[i + k][j + l] * mat[mask_size + k][mask_size + l];
+                        *f2(i,j) += *f1(i + k,j + l) * mat[mask_size + k][mask_size + l];
             }
 
-        for (i = mask_size; i< SZ - mask_size; i++)
-            for (j = mask_size; j< SZ - mask_size; j++)
-                g[i][j] = tmp[i][j] * norm;
+        for (i = mask_size; i< sz - mask_size; i++)
+            for (j = mask_size; j< sz - mask_size; j++)
+                *f1(i,j) = *f2(i,j) * norm;
 
         if (n == 0) {
             // find the lowest borders
@@ -488,259 +473,426 @@ static void new_setup_river_ground(void)
             float Smin = 0;
             float Emin = 0;
             float Wmin = 0;
-            for ( i = 0; i < WORLD_SIDE_LEN ; i++) {
-                Nmin += g[SHIFT + i][SHIFT];
-                Smin += g[SHIFT + i][SHIFT + WORLD_SIDE_LEN];
-                Wmin += g[SHIFT][SHIFT + i];
-                Emin += g[SHIFT + WORLD_SIDE_LEN][SHIFT + i];
+            for ( i = 0; i < len ; i++)
+            {
+                Nmin += *f1(SHIFT + i,SHIFT);
+                Smin += *f1(SHIFT + i,SHIFT + world.len());
+                Wmin += *f1(SHIFT,SHIFT + i);
+                Emin += *f1(SHIFT + world.len(),SHIFT + i);
             }
-            if (Nmin < Smin) {
-                for ( i = 0; i < SZ; i++)
-                    for ( j = 0; j < SZ; j++)
-                        tmp[i][j] = g[i][SZ - j -1];
+            if (Nmin < Smin) 
+            {
+                for ( i = 0; i < sz; i++)
+                    for ( j = 0; j < sz; j++)
+                        *f2(i,j) = *f1(i,sz - j -1);
 
-                for ( i = 0; i < SZ; i++)
-                    for ( j = 0; j < SZ; j++)
-                        g[i][j] = tmp[i][j];
+                for ( i = 0; i < sz * sz; i++)
+					*f1(i) = *f2(i);                       
             }
 
-            if (Wmin < Emin) {
-                for ( i = 0; i < SZ; i++)
-                    for ( j = 0; j < SZ; j++)
-                        tmp[i][j] = g[SZ - i -1][j];
+            if (Wmin < Emin) 
+            {
+                for ( i = 0; i < sz; i++)
+                    for ( j = 0; j < sz; j++)                       
+                       *f2(i,j) = *f1(sz -i -1,j);
 
-                for ( i = 0; i < SZ; i++)
-                    for ( j = 0; j < SZ; j++)
-                        g[i][j] = tmp[i][j];
+                for ( i = 0; i < sz * sz; i++)
+                    *f1(i) = *f2(i);                      
             }
         }
 
         // put the south and east border of the "big" map at the minimum visible height
-        for ( i = 0; i < WORLD_SIDE_LEN ; i++)
-            for ( j = 0; j < WORLD_SIDE_LEN ; j++)
-                if (g[SHIFT + i][SHIFT + j] < min)
-                    min = g[SHIFT + i][SHIFT + j];
+        for ( i = 0; i < len ; i++)
+            for ( j = 0; j < len ; j++)
+                if ( *f1(SHIFT + i, SHIFT + j) < min)
+                    min = *f1(SHIFT + i, SHIFT + j);
+				 
 
-        for ( i = 0; i < SZ; i++)
-            for (j = 0; j < (SZ - SHIFT - WORLD_SIDE_LEN); j++) {
-                g[i][SZ - 1 - j] = min; // south
-                g[SZ - 1 - j][i] = min; // east
+        for ( i = 0; i < sz; i++)
+            for (j = 0; j < (sz - SHIFT - len); j++)
+            {               
+                *f1(i, sz -1 -j) = min;               
+                *f1(sz -1 -j, i ) = min;
             }
     }
 
     alt_min =  int (min);
     alt_max = 0;
     // pick our map in the fractal one
-    for ( i = 0; i < WORLD_SIDE_LEN; i++)
-        for ( j = 0; j < WORLD_SIDE_LEN; j++) {
-            ALT(i,j) = int (g[SHIFT + i][SHIFT + j]) - alt_min + 1;
-            if ( ALT(i,j) > alt_max)
-                alt_max = ALT(i,j);
-        }
+    for (int index=0; index < area ; index++ )
+	{
+		i = index % len;
+		j = index / len;
+		world(i, j)->ground.altitude = int (*f1(SHIFT + i, SHIFT + j)) - alt_min + 1;// + (len-j*j/len)*global_mountainity/2;
+		if (  world(i, j)->ground.altitude > alt_max)
+			alt_max =  world(i, j)->ground.altitude;
+	}
 
     // take visible value for maximum color dynamic
-    alt_min = 0; // visible alt_min is 1, we will use 0 for gray border
+    alt_min = 0; // visible alt_min is 0, we will use -1 for gray border
     alt_step = (alt_max - alt_min)/10;
 
 #ifdef DEBUG
     fprintf(stderr," alt min = %i; max = %i\n", alt_min, alt_max);
 #endif
     new_setup_river();
-
 }
 
 static void new_setup_river(void)
 {
-    // brute search of local minimum
-
-    int lakx[WORLD_SIDE_LEN * WORLD_SIDE_LEN], laky[WORLD_SIDE_LEN * WORLD_SIDE_LEN];
-    Shoreline *shore;
-    int i, j, l, m , alt;
-
+    // brute search of local minimum  
+    const int len = world.len();
+    const int area = len * len; 
+    std::vector <int> lkidx;  
+    
+    int i, j, k, l, m;
     // Put the gray border (not visible) at alt_min - 1, for easier rivers handling.
-    for ( i = 0; i < WORLD_SIDE_LEN; i++) {
-        ALT(i, 0) = alt_min - 1;
-        ALT(i, WORLD_SIDE_LEN - 1) = alt_min - 1;
-        ALT(0, i) = alt_min - 1;
-        ALT(WORLD_SIDE_LEN - 1, i) = alt_min - 1;
+    for ( i = 0; i < len; i++) 
+    {
+        world(i, 0)->ground.altitude = alt_min - 1;
+        world(i, world.len() - 1)->ground.altitude = alt_min - 1;
+        world(0, i)->ground.altitude = alt_min - 1;
+		world(world.len() - 1, i)->ground.altitude = alt_min - 1;
     }
 
     l = 0;
-    for ( i = 1; i < WORLD_SIDE_LEN - 1 ; i++) {
-        for ( j = 1; j < WORLD_SIDE_LEN - 1 ; j++) {
-            alt = ALT(i,j);
-            m = -1;
-            for (int n = 0; n < 8; n++) {
-                if (ALT(i + di[n], j + dj[n]) < alt) {
-                    m = n;
-                }
-            }
-            if (m == -1) {
-                lakx[l] = i;
-                laky[l] = j;
-                l++;
-            }
-        }
+    for ( int index=0; index < area; index++) 
+    {
+		int x = index % len;
+		int y = index / len;
+		if (world.is_visible(x,y) && world.minimum(x,y))
+		{
+			l++;             
+			lkidx.push_back(x + y * len);
+		}      
     }
-
+    
     // fill lake until it overfills and creates a river
-    // for dry climate reduce the number of lake
-    m = round(((400 - global_aridity)*l) / 600); // ugly hardcoded values correpsonding to "climate" switch in create_new_city
+    m = round(((400 - global_aridity)*l) / (4*len)); // ugly hardcoded values correpsonding to "climate" switch in create_new_city
     if (m==0)
         m=1;
 
     if (m>l)
         m = l;
-
-    sort_by_altitude(l, lakx, laky);
-    for (i = 0; i <m; i++) {
-        // start by the lowest lake (the only with water in very dry desert)
-        fprintf(stdout, "\nLAKE %i\n", i);
-        shore = init_shore();
-        set_river_tile(lakx[i], laky[i]);
-        overfill_lake(lakx[i], laky[i], shore, WORLD_SIDE_LEN * lakx[i] + laky[i] );
-	    free_shore(shore);
+    Permutator * permutator;
+    permutator = new Permutator(l,m);
+    for (i = 0; i<rand()%10; i++)
+    {
+		permutator->shuffle();
+	}
+    
+    std::cout << "pooring " << m << " lakes into " << l << " random local minima ...";
+    std::cout.flush();
+    //sort_by_altitude(m, &lakx, &laky);
+    for (i = 0; i < m; i++)
+    {      
+        j = permutator->getIndex(i);
+		k = overfill_lake(lkidx[j] % len, lkidx[j] / len );		
+	    if (k != -1)
+	    {
+			int x = k % len;
+			int y = k / len; 
+			if (world(x,y)->is_visible() && world(x,y)->ground.altitude == world(x,y)->ground.water_alt) 
+			{ 
+				lkidx[j] = x + y * len;
+				i--;
+				//std::cout << "attaching lake x, y: " << x << ", " << y << std::endl;
+			}
+		}    
     }
+    std::cout << " done" << std::endl;
+    delete permutator;
 }
 
-static void free_shore(Shoreline *shore)
+
+/*
+int go_downhill(int index)
 {
-    Shoreline * tmp;
-    while (shore->next != NULL) {
-        tmp = shore;
-        shore = shore->next;
-        free(tmp);
-    }
-    free(shore);
+    int x = index / world.len();
+    int y = index % world.len();
+    int min_alt = world(x,y)->ground.altitude;     
+    int ind_min = index;
+    for (int i=0; i<8; i++)
+    {
+		int tx = x + dxo[i];
+		int ty = y + dyo[i];
+		if(min_alt > world(tx, ty)->ground.altitude)
+		{
+			min_alt = world(tx, ty)->ground.altitude;
+			ind_min = ty + tx * world.len();
+		}
+					
+	}	
+	return ind_min;
 }
+*/
 
-static Shoreline * init_shore(void)
-{
-    Shoreline *shore;
-
-    shore = (Shoreline *) malloc(sizeof(struct Shoreline));
-    shore->next = (Shoreline *) malloc(sizeof(struct Shoreline));
-
-	shore->x = -1;
-	shore->y = -1;
-	shore->altitude = -1;
-	shore->next = NULL;
-
-    return shore;
-}
-
-static void add_shore_point(Shoreline * current, int x, int y, int altitude)
-{
-    Shoreline *newp;
-    newp = (Shoreline *) malloc(sizeof(struct Shoreline));
-    newp->next = (Shoreline *) malloc(sizeof(struct Shoreline));
-    newp->x = x;
-    newp->y = y;
-    newp->altitude = altitude;
-    newp->next = current->next;
-    current->next = newp;
-}
-
-static void try_shore_point(int x, int y, Shoreline *shore)
-{
-    Shoreline *current;
-    int a;
-    current = shore;
-    a = ALT(x,y);
-
-    while (current->next != NULL) {
-        if (a < current->next->altitude) {
-            // insert in beginning of the list
-            //fprintf(stderr, " beginning point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
-            add_shore_point(current, x, y, a);
-            return;
-        } else if (a == current->next->altitude) {
-            while ((current->next != NULL) && (current->next->altitude == a)) {
-                if ((current->x == x) && (current->y == y)) {
-                    // do not insert the same shore point several times at different places in the list !
-                    return;
-                };
-                current = current->next;
-            };
-            //insert the shore point in the list
-            //fprintf(stderr, " same alt point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
-            add_shore_point(current, x, y, a);
-            return;
-        };
-        current = current->next;
-    };
-    // we reached end of list
-    // altitude of the point is strict maximum of the list
-    //fprintf(stderr, " append point shore = %i, x %i, y %i, a %i\n", (int) shore, x, y, a);
-    if ((current->x != x) && (current->y != y))
-        add_shore_point(current, x, y, a);
-}
-
-static int in_map(int x, int y) {
-    return ( (x >= 0) && (x < WORLD_SIDE_LEN) && (y>=0) && (y< WORLD_SIDE_LEN) );
-}
-
-static int is_border( int x, int y)
-{
-    if ( (x == 0) || (x == (WORLD_SIDE_LEN - 1)) || (y == 0) || (y == (WORLD_SIDE_LEN -1)))
-        return 1;
-    else
-        return 0;
-}
-
-static void overfill_lake(int x, int y, Shoreline *shore, int lake_id)
+static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake_id)
 {
     // Starting point is a local minimum
-    // Lake growth is done iteratively by flooding the lowest shore point and rising water level
-    // shore point = neighbour without water (at this point we have no water in the map, except other lakes and rivers)
-    //
-    // We have a list of shore points sorted by altitude
-
-    int i, level;
-
-    if ( is_border(x,y) )
-        return;
-
-    set_river_tile(x,y);
-    level = ALT(x,y);
-    //fprintf(stdout,"    x = %i, y = %i; level = %i\n", x, y, level);
-
-    // find neighbours
-    for (i = 0; i < 8; i++) {
-        if ( in_map(x + di[i], y + dj[i]) && !XY_IS_WATER(x + di[i], y + dj[i]) )
-            try_shore_point(x + di[i], y + dj[i], shore);
-    }
-
-    if (shore->next != NULL) {
-        shore = shore->next;
-        x = shore->x;
-        y = shore->y;
-
-        if ( (ALT(x, y) < level) ) {
-            set_river_tile(x,y);
-            // create river and continue to build shoreline
-            // we will continue to overfill (from a lower point) until we reach border of the map
-            //fprintf(stdout, "We found a pass x %i, y %i, alt %i \n", x, y, ALT(x,y));
-            new_setup_one_river(x, y, lake_id, shore);
-        }
-        overfill_lake(x, y, shore, lake_id);
-    } else {
-        // Q: ? Should this happen ?
-        // A: yes if we are in a lake that was previously filled by a higher one which overfilled here
-        //    else ? it should not happen ?
-        //fprintf(stderr,"the shoreline list is empty, x = %i, y = %i\n", x, y);
-    }
+    
+	if ( world.is_border(start_x, start_y) || world.is_edge(start_x, start_y))
+    {
+        return -1;
+	}
+    const int len = world.len();
+    int index, level;
+    int flooding_level;   
+    std::vector<int> river_dests;
+    std::vector<int> river_starts;
+    Array2D <int> i1(len,len); 
+    std::deque<int> line;
+    std::vector<int> lake; 
+    river_dests.clear();
+    river_starts.clear();
+    line.clear();
+    lake.clear();
+    //make sure a shallow min is an actual min
+    level = --world(start_x,start_y)->ground.altitude;
+    //int level0 = level;
+    *i1(start_x,start_y) = 1;
+    line.push_back(start_x + start_y * len);
+    lake.push_back(start_x + start_y * len);  
+    int new_level = alt_max+1;
+    int lowest_exit_level = alt_max+1;    
+    //int max_back_flooding = 10;
+    //int back_flooding = max_back_flooding;
+    //std::cout << std::endl;
+    //std::cout << "new lake x, y = " << start_x << ", "<< start_y <<  " alt : " << level << std::endl;       
+    while (line.size())
+    {        
+        bool reset_lake = false;
+        index = line.front();
+        line.pop_front();               
+		int xx = index % len;
+		int yy = index / len;       
+		//assert(*i1(xx,yy) == 1);                       
+		level = world(xx,yy)->ground.altitude;
+/*		/Not needed if altitude == flooding level	
+		if (world(xx,yy)->ground.water_alt > level)
+		{
+			level = world(xx,yy)->ground.water_alt; 
+		}
+*/                   
+		for (int i=0; i<8; i++)
+		{            
+			int x = xx + dx[i];
+			int y = yy + dy[i];
+			if (!world.is_visible(x,y) || *i1(x,y)==1)
+			{
+				continue;
+			}
+			new_level = world(x,y)->ground.altitude;            
+/*			//Not needed if altitude == flooding level			
+			if (world(x,y)->ground.water_alt > new_level)
+			{
+				new_level = world(x,y)->ground.water_alt; 
+			}
+*/								
+			if (new_level >= level && new_level < lowest_exit_level)
+			{
+				//rain drop test
+				int min_alt = new_level;				
+				int loc_x = x;
+				int loc_y = y;				
+				int s = 0;
+				bool done = false;
+				// Let the drop run downhill a bit
+				while (world.is_visible(loc_x,loc_y) && (s < 16) && !done)
+				{
+					s++;					
+					int x_min = loc_x;
+					int y_min = loc_y;
+					for (int ii=0; ii<8; ii++)
+					{
+						int tx = x_min + dxo[ii];
+						int ty = y_min + dyo[ii];
+						if (!world.is_inside(tx,ty))
+						{
+							continue;
+						}
+						//Allow a little walking along edge of a plateau
+						if(min_alt >= world(tx, ty)->ground.altitude)
+						{
+							//dont go back into lake at first step i.e test if there is any second exit						
+							if ( s == 1 && *i1(tx,ty))
+							{
+								continue;
+							}									
+							min_alt = world(tx, ty)->ground.altitude;
+							x_min = tx;
+							y_min = ty;															
+						}										
+					}
+					done = ((s>1 && (loc_x == x_min) && (loc_y == y_min)) || *i1(loc_x,loc_y));
+					loc_x = x_min;
+					loc_y = y_min;
+/*
+					if (done && *i1(loc_x,loc_y) && (s > 5))
+					{
+						std::cout << "rain drop reached lake (x,y): steps:(x,y)\t(" << x << "," << y << "): "<< s-1; 
+						std::cout << ":(" << loc_x << "," << loc_y << "): "<< std::endl;
+					}
+					if (done && !*i1(loc_x,loc_y))
+					{
+						std::cout << "rain drop runs away (x,y): steps:(x,y)\t(" << x << "," << y << "): "<< s; 
+						std::cout << ":(" << loc_x << "," << loc_y << "): "<< std::endl;
+					}
+					
+					if (!world.is_visible(loc_x,loc_y))
+					{
+						std::cout << "rain drop reached edge (x,y): steps:(x,y)\t(" << x << "," << y << "): "<< s; 
+						std::cout << ":(" << loc_x << "," << loc_y << "): "<< std::endl;
+					}
+*/ 
+				}
+				// Now test if we reached the same or a different lake
+				if (!(*i1(loc_x,loc_y))) // overspill detected
+				{
+					//if (loc_x + loc_y * len != last_lake)
+					
+						reset_lake = true;
+						lowest_exit_level = new_level;
+					
+					/*
+					if (world(loc_x,loc_y)->ground.water_alt <= world(loc_x,loc_y)->ground.altitude) //real exit
+					{
+						reset_lake = true;
+						lowest_exit_level = new_level;
+					}
+					else
+					{
+						line.push_back(loc_y + loc_x * world.len());
+						*i1(loc_x,loc_y) = 1;
+						line.push_back(y + x * world.len());
+						*i1(x,y) = 1; 
+					}
+					*/ 	 
+				}
+				else // no overspill add tile to lake
+				{
+					*i1(x,y) = 1; 
+					line.push_back(x + y * len);
+					lake.push_back(x + y * len);	
+				}			
+			}
+			else if (new_level == lowest_exit_level)
+			{
+				river_starts.push_back(x + y * len);
+				if (i>3 && !*i1(xx,y) && !*i1(x,yy)) //we went diagonal
+				{
+					int xt = x;
+					int yt = y;
+					if (world(xx,y)->ground.altitude > world(x,yy)->ground.altitude)
+					{							
+						yt = yy;
+					}
+					else
+					{
+						xt = xx;							
+					}
+					world(xt,yt)->ground.altitude = new_level;
+					river_starts.push_back(xt + yt * len);
+				}
+			}								     
+		} //end for	
+        if (reset_lake)
+        {
+			//std::cout << "new water level: " << lowest_exit_level << std::endl;
+			line.clear();
+			i1.initialize(0);
+			river_starts.clear();
+			for (size_t i = 0; i < lake.size() ;i++)
+			{
+				int idx = lake[i];
+				if (idx == -1)
+				{
+					continue;
+				}
+				int tx = idx % len;
+				int ty = idx / len;
+				if (world(tx,ty)->ground.altitude < lowest_exit_level)
+				{
+					line.push_back(tx + ty * len);
+					*i1(tx,ty) = 1;				
+				}
+				else
+				{
+					lake[i] = -1;
+				}
+			}
+		}        
+    } //endwhile
+    if (lowest_exit_level == alt_max+1)
+    {
+		std::cout << std::endl << "cancelled lake x, y = " << start_x << ", "<< start_y <<  " alt : " << level << std::endl;
+		return -1;
+	}   
+	flooding_level = lowest_exit_level;						
+		    
+	for (size_t it=0; it<lake.size(); it++)
+	{
+		index = lake[it];
+		if(index==-1)
+		{
+			continue;
+		}        
+		int x = index % len;
+		int y = index / len;
+		world(x,y)->ground.altitude = flooding_level;
+		set_river_tile(x,y);				
+	} //end for lake.size()
+	//last_lake = start_x + start_y * len;
+	for (size_t i=0; i<river_starts.size(); i++)
+	{
+		index = river_starts[i];        
+		int x = index % len;
+		int y = index / len;
+		if (!world(x,y)->is_river())
+		{
+			river_dests.push_back(quick_river(x,y));
+			set_river_tile(x,y);
+		}
+		//else
+		//std::cout << "useless river start encountered" << std::endl;
+	}
+		
+	if (river_dests.size())
+	{
+		lowest_exit_level = alt_max+1;
+		size_t i_min = 0;	
+		for(size_t i = 0; i < river_dests.size(); i++)
+		{
+			if (river_dests[i] != -1)
+			{
+				int index = river_dests[i];
+				int x = index % len;
+				int y = index / len;
+				
+				if(lowest_exit_level > world(x,y)->ground.altitude)
+				//lowest naked river end 
+				{  	
+					lowest_exit_level = world(x,y)->ground.altitude;
+					i_min = i;
+				}
+			}
+		}		
+		return river_dests[i_min];
+	}	
+	return -1;
 }
 
-static void set_river_tile( int i, int j)
+static void set_river_tile( int x, int y)
 {
-    MP_TYPE(i, j) = CST_WATER;
-    MP_GROUP(i, j) = GROUP_WATER;
-    MP_INFO(i, j).flags |= FLAG_IS_RIVER;
+    world(x, y)->type = CST_WATER;
+    world(x, y)->group = GROUP_WATER;   
+    world(x, y)->flags |= FLAG_IS_RIVER;
+    world(x, y)->flags |= FLAG_HAS_UNDERGROUND_WATER;
+    world(x, y)->ground.water_alt = world(x, y)->ground.altitude;
 }
 
-
-static void sort_by_altitude(int n, int *tabx, int *taby)
+/*
+static void sort_by_altitude(int n, std::vector <int> *tabx, std::vector <int> *taby)
 {
     // sort ascending
     int tmp_x, tmp_y;
@@ -750,160 +902,157 @@ static void sort_by_altitude(int n, int *tabx, int *taby)
     for (int i = 0; i < n && !sorted ; i++) {
         sorted = true;
         for (int j=1; j < n - i; j++)
-            if (ALT(tabx[j],taby[j]) < ALT(tabx[j-1], taby[j-1])) {
-                tmp_x = tabx[j-1];
-                tmp_y = taby[j-1];
-                tabx[j-1] =  tabx[j];
-                taby[j-1] =  taby[j];
-                tabx[j] = tmp_x;
-                taby[j] = tmp_y;
+            if (world((*tabx)[j],(*taby)[j])->ground.altitude < world((*tabx)[j-1], (*taby)[j-1])->ground.altitude) {
+                tmp_x = (*tabx)[j-1];
+                tmp_y = (*taby)[j-1];
+                (*tabx)[j-1] =  (*tabx)[j];
+                (*taby)[j-1] =  (*taby)[j];
+                (*tabx)[j] = tmp_x;
+                (*taby)[j] = tmp_y;
                 sorted = false;
             }
     }
 }
-
-static int new_setup_one_river( int xx, int yy, int lake_id, Shoreline *shore)
+*/
+static int quick_river( int xx, int yy)
 {
-    int x, y, alt, x0, y0;
+    int  x_now, y_now, x_new, y_new, new_alt;
     // start a river from point (xx, yy)
-    set_river_tile(xx,yy);
+    x_now = xx;
+    y_now = yy;
+    x_new = xx;
+    y_new = yy;
+    new_alt = world(x_now,y_now)->ground.altitude;
+	//std::cout << "new river: " << x_now << ", " << y_now;// << " alt = " <<  new_alt;
+	do
+	{
+		x_now = x_new;
+		y_now = y_new;
+		for(int i=0; i < 8; i++)
+		{
+			int x = x_now + dx[i];
+			int y = y_now + dy[i];
+			if (world.is_inside(x,y) && world(x,y)->ground.altitude < new_alt && !world(x,y)->is_river())
+			{
+				new_alt = world(x,y)->ground.altitude;
+				x_new = x;
+				y_new = y;
+				if (i>3)
+				{
+					//std::cout << ".";				
+					if (world(x_now + dx[i], y_now)->ground.altitude > world(x_now, y_now + dy[i])->ground.altitude)
+						set_river_tile(x_now, y_now + dy[i]);
+					else
+						set_river_tile(x_now + dx[i], y_now);
+					
+				}				
+			}
+		}
 
-    x0=xx;
-    y0 = yy;
-    /* follow most important slope and go downward */
-    while ( ((xx != x) || (yy != y)) && (xx != 0) && (xx != (WORLD_SIDE_LEN - 1)) && (yy != 0) && (yy != WORLD_SIDE_LEN - 1) ) {
-        int m = 0;
-        x = xx;
-        y = yy;
-        alt = ALT(x,y);
-        for (int n = 0; n < 8; n++) {
-            if ( in_map(x + di[n], y + dj[n]) ) {
-                if (ALT(x + di[n], y + dj[n]) < alt) {
-                    xx = x + di[n];
-                    yy = y + dj[n];
-                    alt = ALT(xx, yy);
-                    m = n;
-                }
-                // find neighbours and update shore line if needed
-                // may mark as shoreline a point which will be set as river later. We don't care
-                if ( !XY_IS_WATER(x + di[n], y + dj[n]) )
-                    try_shore_point(x + di[n], y + dj[n], shore);
-            }
-        }
-
-        set_river_tile(xx,yy);
-        if (m>3) {
-            // we did diagonal move, so we need to connect river
-            if (ALT(x + di[m], y) > ALT(x, y + dj[m]))
-                set_river_tile(x, y + dj[m]);
-            else
-                set_river_tile(x + di[m], y);
-        }
-    };
-    // We are in a local minimum or at the borders of the map (strictly the lowest points)
-
-    // Check if we are lower than the bottom of the lake we are trying to overfill
-    x = lake_id / WORLD_SIDE_LEN;
-    y = lake_id % WORLD_SIDE_LEN;
-
-    fprintf(stdout, "lake_id %i, here %i, started from %i %i\n", lake_id,  WORLD_SIDE_LEN * xx + yy, x0, y0);
-    if (lake_id == WORLD_SIDE_LEN * xx + yy)
-        return 0;
-    else
-        return 1;
-
+		//std::cout << ".";
+		set_river_tile(x_new, y_new);
+		//std::cout << "next water: "<< x_new << ", " << y_new << " alt = " <<  new_alt << std::endl;		
+	}
+	while ((x_new != x_now || y_new != y_now) && !world.is_border(x_now,y_now)); 	
+	//std::cout << x_new << ", " << y_new << std::endl;
+	//look for minimum around end (maybe the second last tile)
+	for(int i=0; i < 8; i++)
+	{
+		int x = x_now + dx[i];
+		int y = y_now + dy[i];
+		if (world.is_inside(x,y) && world(x,y)->ground.altitude < new_alt)
+		{
+			new_alt = world(x,y)->ground.altitude;
+			x_new = x;
+			y_new = y;
+		}
+	}
+	return world.is_visible(x_new,y_new)? x_new + y_new * world.len(): -1; 
 }
+
 
 static void setup_river(void)
 {
+    std::cout << "setting river ...";
+    std::cout.flush();    
+    const int len = world.len();
     int x, y, i, j;
     int alt = 1; //lowest altitude in the map = surface of the river at mouth.
-    x = (1 * WORLD_SIDE_LEN + rand() % WORLD_SIDE_LEN) / 3;
-    y = WORLD_SIDE_LEN - 1;
-    ground[x][y].water_alt = alt; // 1 unit = 1 cm ,
+    x = (1 * len + rand() % len) / 3;
+    y = len - 1;
+    world(x, y)->ground.water_alt = alt; // 1 unit = 1 cm ,
                         //for rivers .water_alt = .altitude = surface of the water
                         //for "earth tile" .water_alt = alt of underground water
                         //                 .altitude = alt of the ground
                         //            so .water_alt <= .altitude
 
     /* Mouth of the river, 3 tiles wide, 6 + %12 long */
-    i = (rand() % 12) + 6;
+    i = (rand() % (len/8)) + len/18;
     for (j = 0; j < i; j++) {
         x += (rand() % 3) - 1;
-        MP_TYPE(x, y) = CST_WATER;
-        MP_GROUP(x, y) = GROUP_WATER;
-        MP_INFO(x, y).flags |= FLAG_IS_RIVER;
-        ground[x][y].altitude=alt;
+        set_river_tile(x , y );        
+        //world(x, y)->ground.altitude = alt;
 
-        MP_TYPE(x + 1, y) = CST_WATER;
-        MP_GROUP(x + 1, y) = GROUP_WATER;
-        MP_INFO(x + 1, y).flags |= FLAG_IS_RIVER;
-        ground[x + 1][y].altitude=alt;
+        set_river_tile(x + 1 , y );
+        //world(x+1, y)->ground.altitude = alt;
 
-        MP_TYPE(x - 1, y) = CST_WATER;
-        MP_GROUP(x - 1, y) = GROUP_WATER;
-        MP_INFO(x - 1, y).flags |= FLAG_IS_RIVER;
-        ground[x -1][y].altitude=alt;
+        set_river_tile(x - 1 , y );        
+        //world(x-1, y)->ground.altitude = alt;
 
         y--;
-        alt += 1; // wide river, so very small slope
+        //alt += 1; // wide river, so very small slope
     }
 
-    MP_TYPE(x, y) = CST_WATER;
-    MP_GROUP(x, y) = GROUP_WATER;
-    MP_INFO(x, y).flags |= FLAG_IS_RIVER;
-    ground[x][y].altitude=alt;
+        
+    //world(x, y)->ground.altitude = alt;
+    set_river_tile(x , y );
 
-    MP_TYPE(x + 1, y) = CST_WATER;
-    MP_GROUP(x + 1, y) = GROUP_WATER;
-    MP_INFO(x + 1, y).flags |= FLAG_IS_RIVER;
-    ground[x + 1][y].altitude=alt;
+        
+    //world(x+1, y)->ground.altitude = alt;
+    set_river_tile(x + 1, y );
 
-    MP_TYPE(x - 1, y) = CST_WATER;
-    MP_GROUP(x - 1, y) = GROUP_WATER;
-    MP_INFO(x - 1, y).flags |= FLAG_IS_RIVER;
-    ground[x -1][y].altitude=alt;
+    
+    //world(x-1, y)->ground.altitude = alt;
+    set_river_tile(x - 1 , y );
 
-    alt += 2;
+    //alt += 2;
 
 #ifdef DEBUG
     fprintf(stderr," x= %d, y=%d, altitude = %d, mountainity = %d\n", x, y, alt, global_mountainity);
 #endif
     setup_river2(x - 1, y, -1, alt, global_mountainity); /* left tributary */
     setup_river2(x + 1, y, 1, alt, global_mountainity);  /* right tributary */
+    std::cout << " done" << std::endl;
 }
 
 static void setup_river2(int x, int y, int d, int alt, int mountain)
 {
+    const int len = world.len();
     int i, j, r;
-    i = (rand() % 55) + 15;
+    i = (rand() % (len/2)) + len/6;
     for (j = 0; j < i; j++) {
         r = (rand() % 3) - 1 + (d * (rand() % 3));
         if (r < -1) {
-            alt += rand() % (mountain / 10);
+            //alt += rand() % (mountain / 10);
             r = -1;
         } else if (r > 1) {
-            alt += rand() % (mountain / 10);
+            //alt += rand() % (mountain / 10);
             r = 1;
         }
         x += r;
-        if (!GROUP_IS_BARE(MP_GROUP(x + (d + d), y))
-            || !GROUP_IS_BARE(MP_GROUP(x + (d + d + d), y)))
+        if ( (world.is_inside(x + 2*d,y) && !world(x + 2*d, y)->is_bare())
+         || (world.is_inside(x + 3*d,y) && !world(x + 3*d, y)->is_bare()) )
             return;
-        if (x > 5 && x < WORLD_SIDE_LEN - 5) {
-            MP_TYPE(x, y) = CST_WATER;
-            MP_GROUP(x, y) = GROUP_WATER;
-            MP_INFO(x, y).flags |= FLAG_IS_RIVER;
-            ground[x][y].altitude = alt;
+        if (x > 5 && x < world.len() - 5)
+        {                
+            //world(x, y)->ground.altitude = alt;
+            set_river_tile(x , y );
             alt += rand() % (mountain / 10);
-
-            MP_TYPE(x + d, y) = CST_WATER;
-            MP_GROUP(x + d, y) = GROUP_WATER;
-            MP_INFO(x + d, y).flags |= FLAG_IS_RIVER;
-            ground[x + d][y].altitude = alt;
-            alt += rand () % (mountain / 10);
+			//world(x+d, y)->ground.altitude = alt;
+			set_river_tile(x + d, y );
+			//alt += rand () % (mountain / 10);
         }
-        if (--y < 10 || x < 5 || x > WORLD_SIDE_LEN - 5)
+        if (--y < 10 || x < 5 || x > len - 5)
             break;
     }
 #ifdef DEBUG
@@ -911,13 +1060,13 @@ static void setup_river2(int x, int y, int d, int alt, int mountain)
 #endif
 
     if (y > 20) {
-        if (x > 5 && x < WORLD_SIDE_LEN - 5) {
+        if (x > 5 && x < len - 5) {
 #ifdef DEBUG
             fprintf(stderr," x= %d, y=%d, altitude = %d\n", x, y, alt);
 #endif
             setup_river2(x, y, -1, alt, (mountain * 3)/2 );
         }
-        if (x > 5 && x < WORLD_SIDE_LEN - 5) {
+        if (x > 5 && x < len - 5) {
 #ifdef DEBUG
             fprintf(stderr," x= %d, y=%d, altitude = %d\n", x, y, alt);
 #endif
@@ -928,112 +1077,110 @@ static void setup_river2(int x, int y, int d, int alt, int mountain)
 
 static void setup_ground(void)
 {
-    int x,y;
-    int hmax =0;
-    int tmp[WORLD_SIDE_LEN][WORLD_SIDE_LEN];
-
-    /* fill the corrects fields: ground[x][y).stuff, global_aridity, global_mountainity */
-    /* currently only dummy things in order to compile */
-
-#define TMP(x,y) tmp[x][y]
-
-    for (x = 1; x < WORLD_SIDE_LEN - 1; x++) {
-         for (y = 1; y < WORLD_SIDE_LEN - 1; y++) {
-                if ( !IS_RIVER(x,y) ) {
-                    ALT(x,y) = 0;
-                    TMP(x,y) = 0;
-                } else {
-                    ground[x][y].water_alt = ALT(x,y);
-                    //shore is higher than water
-                    ALT(x,y) += 10 + rand() % (global_mountainity/7);
-                    TMP(x,y) = ALT(x,y);
-                    if (ALT(x,y) >= hmax)
-                        hmax = ALT(x,y);
-                }
-         }
+    const int len = world.len();
+    const int area = len * len;
+    
+    int slope = global_mountainity/10;
+    if (slope == 0)
+    {	slope = 1;}
+    std::cout << "creating topology ";
+    std::cout.flush();
+    Array2D <int> i1(len,len);
+    std::deque<int> line;
+    for (int index=0; index<area; index++)
+    {
+		int x = index % len;
+		int y = index / len;
+		if (!world.is_visible(x,y))
+		{	continue;}
+		if ( world(x, y)->is_river())
+		{
+			*i1(x,y) = 0;
+			world(x,y)->ground.water_alt = world(x,y)->ground.altitude = (len-y*y/len) * slope;
+			line.push_back(index);
+		}
+		else
+		{	
+			*i1(x,y) = len;
+		}        
     }
-#ifdef DEBUG
-    fprintf(stderr,"\n river max = %d\n\n", hmax);
-    hmax=0;
-#endif
-
-    for (int i =0; i < 90; i++ ) {
-        int tot_cnt = 0;
-        for (x = 1; x < WORLD_SIDE_LEN - 1; x++) {
-            for (y = 1; y < WORLD_SIDE_LEN - 1; y++) {
-                if ( ALT(x,y) != 0 )
-                    continue;
-                int count = 0;
-                int lmax = 0;
-                tot_cnt ++;
-                for ( int k = -1; k <= 1; k++ )
-                    for ( int l = -1; l <= 1; l++)
-                        if ( ALT(x+k, y+l) != 0 ) {
-                            count ++;
-                            if ( ALT(x+k, y+l) >= lmax )
-                                lmax = ALT(x+k, y+l);
-                        }
-
-                if (count != 0)
-                    TMP(x,y) = lmax + rand () % (global_mountainity/3);
-
-                if (TMP(x,y) >= hmax)
-                    hmax = TMP(x,y);
-            }
-        }
-        for (x = 1; x < WORLD_SIDE_LEN - 1; x++)
-            for (y = 1; y < WORLD_SIDE_LEN - 1; y++)
-                ALT(x,y)=TMP(x,y);
-
-#ifdef DEBUG
-        if ( (i%5) == 1 )
-        fprintf(stderr," i= %2d, alt max = %d, tot_cnt = %d\n", i, hmax, tot_cnt);
-#endif
-    }
+    std::cout << ".";
+    std::cout.flush();
+	while (line.size())
+	{
+		int index = line.front();
+		line.pop_front();
+		int x = index % len;
+		int y = index / len;
+		int dist = *i1(x,y)+1;	
+		for (int i=0; i<8 ; ++i)
+		{
+			int tx = x + dx[i];
+			int ty = y + dy[i];
+			int new_dist = *i1(tx,ty); 
+			if ( !world.is_visible(tx,ty) || world(tx,ty)->is_river() || new_dist <= dist)
+			{	continue;}
+			world(tx,ty)->ground.altitude = (len-ty*ty/len + dist/2 + 2*(len*len - (len-dist)*(len-dist))/len) * slope;
+			*i1(tx,ty) = dist;
+			line.push_back(tx + ty * len);
+		}	
+		
+	}
+	
+    std::cout << ".";
+    std::cout.flush();    
     alt_min = 2000000000;
     alt_max = -alt_min;
-    for (x = 1; x < WORLD_SIDE_LEN - 1; x++)
-         for (y = 1; y < WORLD_SIDE_LEN - 1; y++) {
-             if (alt_min > ALT(x,y))
-                 alt_min = ALT(x,y);
-             if (alt_max < ALT(x,y))
-                 alt_max = ALT(x,y);
-         }
-    alt_step = (alt_max - alt_min) /10;
-
+    for (int index=0; index<area; index++)
+	{
+		int x = index % len;
+		int y = index / len;
+		if (!world.is_visible(x,y))
+		{
+			continue;
+		}
+		if (alt_min > world(x, y)->ground.altitude)
+        {	alt_min = world(x, y)->ground.altitude;}
+		if (alt_max < world(x, y)->ground.altitude)
+		{	alt_max = world(x, y)->ground.altitude;}        
+	 }
+	alt_step = (alt_max - alt_min) /10;
+	std::cout << ". done" << std::endl;
 }
 
 
 static void nullify_mappoint(int x, int y)
-{
-    MP_TYPE(x, y) = CST_GREEN;
-    MP_GROUP(x, y) = GROUP_BARE;
-    MP_SIZE(x, y) = 1;
-    MP_POL(x, y) = 0;
-    MP_INFO(x, y).population = 0;
-    MP_INFO(x, y).flags = 0;
-    MP_INFO(x, y).coal_reserve = 0;
-    MP_INFO(x, y).ore_reserve = 0;
-    MP_INFO(x, y).int_1 = 0;
-    MP_INFO(x, y).int_2 = 0;
-    MP_INFO(x, y).int_3 = 0;
-    MP_INFO(x, y).int_4 = 0;
-    MP_INFO(x, y).int_5 = 0;
-    MP_INFO(x, y).int_6 = 0;
-    MP_INFO(x, y).int_7 = 0;
+{    
+    if(world(x,y)->construction)
+    {
+        do_bulldoze_area(x, y);
+        //turn fresh desert into grass
+        world(x,y)->type = CST_GREEN;
+        world(x,y)->group = GROUP_BARE;
+    }
+    else
+    {
+        world(x,y)->reportingConstruction = NULL;    
+        world(x,y)->type = CST_GREEN;
+        world(x,y)->group = GROUP_BARE;    
+    }    
+    world(x,y)->flags = 0;
+    world(x,y)->coal_reserve = 0;
+    world(x,y)->ore_reserve = 0;
+    world(x,y)->pollution = 0;
 
-    ground[x][y].altitude = 0;
-    ground[x][y].ecotable = 0;
-    ground[x][y].wastes = 0;
-    ground[x][y].pollution = 0;
-    ground[x][y].water_alt = 0;
-    ground[x][y].water_pol = 0;
-    ground[x][y].water_wast = 0;
-    ground[x][y].water_next = 0;
-    ground[x][y].int1 = 0;
-    ground[x][y].int2 = 0;
-    ground[x][y].int3 = 0;
-    ground[x][y].int4 = 0;
+    world(x,y)->ground.altitude = 0;
+    world(x,y)->ground.ecotable = 0;
+    world(x,y)->ground.wastes = 0;
+    world(x,y)->ground.pollution = 0;
+    world(x,y)->ground.water_alt = 0;
+    world(x,y)->ground.water_pol = 0;
+    world(x,y)->ground.water_wast = 0;
+    world(x,y)->ground.water_next = 0;
+    world(x,y)->ground.int1 = 0;
+    world(x,y)->ground.int2 = 0;
+    world(x,y)->ground.int3 = 0;
+    world(x,y)->ground.int4 = 0;
 
 }
 
@@ -1042,15 +1189,16 @@ static void random_start(int *originx, int *originy)
     int x, y, xx, yy, flag, watchdog;
 
     /* first find a place that has some water. */
-    watchdog = 90;              /* if too many tries, random placement. */
+    watchdog = 500;              /* if too many tries, random placement. */
     do {
         do {
-            xx = rand() % (WORLD_SIDE_LEN - 25);
-            yy = rand() % (WORLD_SIDE_LEN - 25);
+            xx = rand() % (world.len() - 25);
+            yy = rand() % (world.len() - 25);
             flag = 0;
             for (y = yy + 2; y < yy + 23; y++)
                 for (x = xx + 2; x < xx + 23; x++)
-                    if (IS_RIVER(x, y)) {
+                    if (world(x, y)->flags & FLAG_IS_RIVER)
+                    {
                         flag = 1;
                         x = xx + 23;    /* break out of loop */
                         y = yy + 23;    /* break out of loop */
@@ -1061,7 +1209,8 @@ static void random_start(int *originx, int *originy)
                 /* Don't put the village on a river, but don't care of
                  * isolated random water tiles putted by setup_land
                  */
-                if (IS_RIVER(x, y)) {
+                if (world(x, y)->flags & FLAG_IS_RIVER)
+                {
                     flag = 0;
                     x = xx + 22;        /* break out of loop */
                     y = yy + 22;        /* break out of loop */
@@ -1076,181 +1225,191 @@ static void random_start(int *originx, int *originy)
     *originy = yy;
 
     /*  Draw the start scene. */
-    set_mappoint(xx + 5, yy + 5, CST_FARM_O0);
+   
     /* The first two farms have more underground water */
-    for (int i = 0; i < MP_SIZE(xx + 5, yy + 5); i++)
-        for (int j = 0; j < MP_SIZE(xx + 5, yy + 5); j++)
-            if (!HAS_UGWATER(xx + 5 + i, yy + 5 + j) && (rand() % 2))
-                MP_INFO(xx + 5 + i, yy + 5 + j).flags |= FLAG_HAS_UNDERGROUND_WATER;
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            if (rand() > RAND_MAX/2)
+            {
+                world(xx + 6 + i, yy + 5 + j)->flags |= FLAG_HAS_UNDERGROUND_WATER;
+            }
+    place_item(xx + 6, yy + 5, CST_FARM_O0); //first Farm
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4 ; j++)
+            if (rand() > RAND_MAX/2)
+            {
+                world(xx + 17 + i, yy + 5 + j)->flags |= FLAG_HAS_UNDERGROUND_WATER;   
+            }
+    place_item(xx + 17, yy + 5, CST_FARM_O0); //second Farm  
+    place_item(xx + 10, yy + 6, CST_RESIDENCE_ML);
+    dynamic_cast < Residence * > (world(xx + 10, yy + 6)->construction) ->local_population = 50;    
+    place_item(xx + 9, yy + 9, CST_POTTERY_0);
 
-    set_mappoint(xx + 9, yy + 6, CST_RESIDENCE_ML);
-    MP_INFO(xx + 9, yy + 6).population = 50;
-    MP_INFO(xx + 9, yy + 6).flags |= (FLAG_FED + FLAG_EMPLOYED + FLAG_WATERWELL_COVER);
-
-    set_mappoint(xx + 9, yy + 9, CST_POTTERY_0);
-
-    set_mappoint(xx + 16, yy + 9, CST_WATERWELL);
-    do_waterwell_cover(xx + 16, yy + 9);
-
-    set_mappoint(xx + 14, yy + 6, CST_RESIDENCE_ML);
-    MP_INFO(xx + 14, yy + 6).population = 50;
-    MP_INFO(xx + 14, yy + 6).flags |= (FLAG_FED + FLAG_EMPLOYED + FLAG_WATERWELL_COVER);
-
-    /* The first two farms have more underground water */
-    set_mappoint(xx + 17, yy + 5, CST_FARM_O0);
-    for (int i = 0; i < MP_SIZE(xx + 17, yy + 5); i++)
-        for (int j = 0; j < MP_SIZE(xx + 17, yy + 5); j++)
-            if (!HAS_UGWATER(xx + 17 + i, yy + 5 + j) && (rand() % 2))
-                MP_INFO(xx + 17 + i, yy + 5 + j).flags |= FLAG_HAS_UNDERGROUND_WATER;
-
-    set_mappoint(xx + 14, yy + 9, CST_MARKET_EMPTY);
-    marketx[numof_markets] = xx + 14;
-    markety[numof_markets] = yy + 9;
-    numof_markets++;
-    /* Bootstrap markets with some stuff. */
-    MP_INFO(xx + 14, yy + 9).int_1 = 2000;
-    MP_INFO(xx + 14, yy + 9).int_2 = 10000;
-    MP_INFO(xx + 14, yy + 9).int_3 = 100;
-    MP_INFO(xx + 14, yy + 9).int_5 = 10000;
-    MP_INFO(xx + 14, yy + 9).flags
-        |= (FLAG_MB_FOOD + FLAG_MS_FOOD + FLAG_MB_JOBS
-            + FLAG_MS_JOBS + FLAG_MB_COAL + FLAG_MS_COAL + FLAG_MB_ORE
-            + FLAG_MS_ORE + FLAG_MB_GOODS + FLAG_MS_GOODS + FLAG_MB_STEEL + FLAG_MS_STEEL);
-
+    world(xx + 16, yy + 9 )->flags |= FLAG_HAS_UNDERGROUND_WATER;
+    place_item(xx + 16, yy + 9, CST_WATERWELL);
+       
+    place_item(xx + 14, yy + 6, CST_RESIDENCE_ML);
+    dynamic_cast < Residence * > (world(xx + 14, yy + 6)->construction) ->local_population = 50;
+    
+    place_item(xx + 14, yy + 9, CST_MARKET_EMPTY);
     /* build tracks */
     for (x = 2; x < 23; x++) {
-        set_mappoint(xx + x, yy + 11, CST_TRACK_LR);
-        MP_INFO(xx + x, yy + 11).flags |= FLAG_IS_TRANSPORT;
+        place_item(xx + x, yy + 11, CST_TRACK_LR);
     }
     for (y = 2; y < 11; y++) {
-        set_mappoint(xx + 13, yy + y, CST_TRACK_LR);
-        MP_INFO(xx + 13, yy + y).flags |= FLAG_IS_TRANSPORT;
+        place_item(xx + 13, yy + y, CST_TRACK_LR);
     }
     for (y = 12; y < 23; y++) {
-        set_mappoint(xx + 15, yy + y, CST_TRACK_LR);
-        MP_INFO(xx + 15, yy + y).flags |= FLAG_IS_TRANSPORT;
+        place_item(xx + 15, yy + y, CST_TRACK_LR);
     }
 
     /* build communes */
-    set_mappoint(xx + 6, yy + 12, CST_COMMUNE_1);
-    set_mappoint(xx + 6, yy + 17, CST_COMMUNE_1);
-    set_mappoint(xx + 11, yy + 12, CST_COMMUNE_1);
-    set_mappoint(xx + 11, yy + 17, CST_COMMUNE_1);
-    set_mappoint(xx + 16, yy + 12, CST_COMMUNE_1);
-    set_mappoint(xx + 16, yy + 17, CST_COMMUNE_1);
+    place_item(xx + 6, yy + 12, CST_COMMUNE_1);
+    place_item(xx + 6, yy + 17, CST_COMMUNE_1);
+    place_item(xx + 11, yy + 12, CST_COMMUNE_1);
+    place_item(xx + 11, yy + 17, CST_COMMUNE_1);
+    place_item(xx + 16, yy + 12, CST_COMMUNE_1);
+    place_item(xx + 16, yy + 17, CST_COMMUNE_1);
+    total_money = 0;
 }
 
-static void do_rand_ecology(int x, int y)
+#define RAND_ECOLOGY_PERMUTATOR_RANGE 1023
+static void do_rand_ecology(int x, int y, int r)
 {
-    int r = ground[x][y].ecotable;
-    if ( (MP_INFO(x, y).flags | FLAG_HAS_UNDERGROUND_WATER) == 0 ) {
-        /*true desert*/
-        return;
-    }
-
-    if (r >= 300) {
+    static Permutator permutator = Permutator(RAND_ECOLOGY_PERMUTATOR_RANGE,63);
+    static int index = RAND_ECOLOGY_PERMUTATOR_RANGE;
+    
+    if (index >= RAND_ECOLOGY_PERMUTATOR_RANGE)
+    {
+		int s = 1+rand()%10;
+		for(int i=0; i<s; i++)
+		{	
+			permutator.shuffle();
+		}
+		index = 0;
+	}
+    int r3 = permutator.getIndex(index++);
+    if (r >= 300) 
+    {
         /* very dry land */
-        int r2 = rand() % 10;
+        int r2 = r3 % 10;
         if (r2 <= 6)
-            set_mappoint(x, y, CST_DESERT);
+            world(x, y)->setTerrain(CST_DESERT);
         else if (r2 <= 8)
-            set_mappoint(x, y, CST_GREEN);
+            world(x, y)->setTerrain(CST_GREEN);
         else
-            set_mappoint(x, y, CST_TREE);
-    } else if (r >= 160) {
-        int r2 = rand() % 10;
-        if (r2 <= 2)
-            set_mappoint(x, y, CST_DESERT);
-        else if (r2 <= 6)
-            set_mappoint(x, y, CST_GREEN);
-        else
-            set_mappoint(x, y, CST_TREE);
-    } else if (r >= 80) {
-        int r2 = rand() % 10;
-        if (r2 <= 1)
-            set_mappoint(x, y, CST_DESERT);
-        else if (r2 <= 4)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 6)
-            set_mappoint(x, y, CST_TREE);
-        else
-            set_mappoint(x, y, CST_TREE2);
-    } else if (r >= 40) {
-        int r2 = rand() % 40;
-        if (r2 == 0)
-            set_mappoint(x, y, CST_DESERT);
-        else if (r2 <= 12)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 24)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 36)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else if (r >= 0) {
-        /* normal land */
-        int r2 = rand() % 40;
-        if (r2 <= 10)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 20)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 30)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else if (r >= -40) {
-        /* forest */
-        int r2 = rand() % 40;
-        if (r2 <= 5)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 10)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 25)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else if (r >= -80) {
-        int r2 = rand() % 40;
-        if (r2 <= 0)
-            MP_TYPE(x, y) = CST_WATER;
-        else if (r2 <= 6)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 15)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 28)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else if (r >= -120) {
-        int r2 = rand() % 40;
-        if (r2 <= 1)
-            MP_TYPE(x, y) = CST_WATER;
-        else if (r2 <= 6)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 16)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 30)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
-    } else {
-        /* wetland */
-        int r2 = rand() % 40;
-        if (r2 <= 3)
-            MP_TYPE(x, y) = CST_WATER;
-        else if (r2 <= 8)
-            set_mappoint(x, y, CST_GREEN);
-        else if (r2 <= 20)
-            set_mappoint(x, y, CST_TREE);
-        else if (r2 <= 35)
-            set_mappoint(x, y, CST_TREE2);
-        else
-            set_mappoint(x, y, CST_TREE3);
+            world(x, y)->setTerrain(CST_TREE);
     }
-
+    else if (r >= 160)
+    {
+        int r2 = r3 % 10;
+        if (r2 <= 2)
+            world(x, y)->setTerrain(CST_DESERT);
+        else if (r2 <= 6)
+            world(x, y)->setTerrain(CST_GREEN);
+        else
+            world(x, y)->setTerrain(CST_TREE);
+    }
+    else if (r >= 80) 
+    {
+        int r2 = r3 % 10;
+        if (r2 <= 1)
+            world(x, y)->setTerrain(CST_DESERT);
+        else if (r2 <= 4)
+            world(x, y)->setTerrain(CST_GREEN);
+        else if (r2 <= 6)
+            world(x, y)->setTerrain(CST_TREE);
+        else
+            world(x, y)->setTerrain(CST_TREE2);
+    }
+    else if (r >= 40)
+    {
+        int r2 = r3 % 40;
+        if (r2 == 0)
+            world(x, y)->setTerrain(CST_DESERT);
+        else if (r2 <= 12)
+            world(x, y)->setTerrain(CST_GREEN);
+        else if (r2 <= 24)
+            world(x, y)->setTerrain(CST_TREE);
+        else if (r2 <= 36)
+            world(x, y)->setTerrain(CST_TREE2);
+        else
+            world(x, y)->setTerrain(CST_TREE3);
+    }
+    else if (r >= 0)
+    {
+        /* normal land */
+        int r2 = r3 % 40;
+        if (r2 <= 10)
+            world(x, y)->setTerrain(CST_GREEN);
+        else if (r2 <= 20)
+            world(x, y)->setTerrain(CST_TREE);
+        else if (r2 <= 30)
+            world(x, y)->setTerrain(CST_TREE2);
+        else
+            world(x, y)->setTerrain(CST_TREE3);
+    }
+    else if (r >= -40)
+    {
+        /* forest */
+        int r2 = r3 % 40;
+        if (r2 <= 5)
+            world(x, y)->setTerrain(CST_GREEN);
+        else if (r2 <= 10)
+            world(x, y)->setTerrain(CST_TREE);
+        else if (r2 <= 25)
+            world(x, y)->setTerrain(CST_TREE2);
+        else
+            world(x, y)->setTerrain(CST_TREE3);
+    } 
+    else if (r >= -80) 
+    {
+        int r2 = r3 % 40;
+        if (r2 <= 0)
+            world(x, y)->setTerrain(CST_WATER);            
+        else if (r2 <= 6)
+            world(x, y)->setTerrain(CST_GREEN);
+        else if (r2 <= 15)
+            world(x, y)->setTerrain(CST_TREE);
+        else if (r2 <= 28)
+            world(x, y)->setTerrain(CST_TREE2);
+        else
+            world(x, y)->setTerrain(CST_TREE3);
+    } 
+    else if (r >= -120)
+    {
+        int r2 = r3 % 40;
+        if (r2 <= 1)
+            world(x, y)->setTerrain(CST_WATER); 
+        else if (r2 <= 6)
+            world(x, y)->setTerrain(CST_GREEN);
+        else if (r2 <= 16)
+            world(x, y)->setTerrain(CST_TREE);
+        else if (r2 <= 30)
+            world(x, y)->setTerrain(CST_TREE2);
+        else
+            world(x, y)->setTerrain(CST_TREE3);
+    } 
+    else
+    {
+        /* wetland */
+        int r2 = r3 % 40;
+        if (r2 <= 3)
+            world(x, y)->setTerrain(CST_WATER); 
+        else if (r2 <= 8)
+            world(x, y)->setTerrain(CST_GREEN);
+        else if (r2 <= 20)
+            world(x, y)->setTerrain(CST_TREE);
+        else if (r2 <= 35)
+            world(x, y)->setTerrain(CST_TREE2);
+        else
+            world(x, y)->setTerrain(CST_TREE3);
+    }
+	if (world(x, y)->getGroup() != GROUP_DESERT) 
+	{
+		world(x, y)->flags |= FLAG_HAS_UNDERGROUND_WATER;
+	}
 }
-
-
 
 /** @file lincity/init_game.cpp */
 

@@ -33,6 +33,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lctypes.h"
 #include "lincity/engglobs.h"
 #include "lincity/range.h"
+#include "lincity/engine.h"
 
 #include "MapEdit.hpp"
 #include "MiniMap.hpp"
@@ -144,8 +145,8 @@ void GameView::parse(XmlReader& reader)
     zoom = defaultZoom;
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom;
-    virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
-    virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
+    virtualScreenWidth = tileWidth * world.len();
+    virtualScreenHeight = tileHeight * world.len();
     readOrigin( false );
 
     mouseInGameView = false;
@@ -218,6 +219,10 @@ void GameView::buttonClicked( Button* button ){
     }
     std::cerr << "GameView::buttonClicked# Unhandled Button '" << name <<"',\n";
 }
+int GameView::gameAreaMax()
+{
+    return world.len() -2;
+}
 
 /*
  * size in Tiles of marking under Cursor
@@ -277,10 +282,21 @@ void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
             printStatusMessage( _("Minimap: medical care") );
             break;
         case MiniMap::COAL:
-            printStatusMessage( _("Minimap: coal depots") );
+            printStatusMessage( _("Minimap: coal deposits") );
             break;
         case MiniMap::TRAFFIC:
-            printStatusMessage( _("Minimap: traffic density") );
+        {
+            std::string s1("Minimap: traffic density: ");
+            std::string s2 = commodityNames[getMiniMap()->getStuffID()];
+            printStatusMessage( s1 + s2 );
+        }
+            break;
+        case MiniMap::COMMODITIES:
+        {
+            std::string s1("Minimap: commodities: ");
+            std::string s2 = commodityNames[getMiniMap()->getStuffID()];
+            printStatusMessage( s1 + s2 );
+        }
             break;
         default:
             std::cerr << "Unknown minimap mode " << mMode<<"\n";
@@ -308,7 +324,8 @@ MapPoint GameView::getCenter(){
 void GameView::setZoom(float newzoom){
     MapPoint centerTile  = getCenter();
 
-    if ( newzoom < .0625 ) return;
+    //if ( newzoom < .0625 ) return;
+    if ( newzoom < .0312 ) return;
     if ( newzoom > 4 ) return;
 
     zoom = newzoom;
@@ -320,8 +337,8 @@ void GameView::setZoom(float newzoom){
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom;
     //a virtual screen containing the whole city
-    virtualScreenWidth = tileWidth * WORLD_SIDE_LEN;
-    virtualScreenHeight = tileHeight * WORLD_SIDE_LEN;
+    virtualScreenWidth = tileWidth * world.len();
+    virtualScreenHeight = tileHeight * world.len();
     //std::cout << "Zoom " << zoom  << "\n";
 
     //Show the Center
@@ -1022,18 +1039,22 @@ void GameView::event(const Event& event)
                 break;
             }
 
-            if( event.mousebutton == SDL_BUTTON_LEFT ){              //left
+            if( event.mousebutton == SDL_BUTTON_LEFT ){                 //left
                 if( !blockingDialogIsOpen )
                     editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT); //edit tile
             }
-            else if( event.mousebutton == SDL_BUTTON_RIGHT ){  //middle
-                recenter(event.mousepos);                      //adjust view
+            else if( event.mousebutton == SDL_BUTTON_RIGHT ){           //middle
+                recenter(event.mousepos);                               //adjust view
             }
-            else if( event.mousebutton == SDL_BUTTON_WHEELUP ){ //up
-                zoomIn();                                       //zoom in
+            else if( event.mousebutton == SDL_BUTTON_WHEELUP ){         //up
+                recenter(event.mousepos);                               //adjust view
+                SDL_WarpMouse((Uint16) getWidth() / 2, (Uint16) getHeight() / 2);//set mouse to center
+                zoomIn();                                               //zoom in
             }
-            else if( event.mousebutton == SDL_BUTTON_WHEELDOWN ){ //down
-                zoomOut();                                        //zoom out
+            else if( event.mousebutton == SDL_BUTTON_WHEELDOWN ){       //down
+                recenter(event.mousepos);                               //adjust view
+                SDL_WarpMouse((Uint16) getWidth() / 2, (Uint16) getHeight() / 2);//set mouse to center
+                zoomOut();                                              //zoom out
             }
             break;
         case Event::KEYDOWN:
@@ -1161,7 +1182,7 @@ void GameView::event(const Event& event)
             }
 
             if ( event.keysym.sym == SDLK_KP5 ) {
-                show(MapPoint(WORLD_SIDE_LEN / 2, WORLD_SIDE_LEN / 2));
+                show(MapPoint(world.len() / 2, world.len() / 2));
                 setDirty();
                 break;
             }
@@ -1203,10 +1224,10 @@ void GameView::requestRedraw()
 
     if ( (oldCenter != newCenter) || (oldZoom != zoom) ) {        
         //Tell Minimap about new Corners
-        getMiniMap()->setGameViewCorners( getTile(Vector2(0, 0)),
-                getTile(Vector2(getWidth(), 0)),
-                getTile(Vector2(getWidth(), getHeight())),
-                getTile(Vector2(0, getHeight()) ) );
+        getMiniMap()->setGameViewCorners(
+            getTile(Vector2(0, 0)),
+            getTile(Vector2(getWidth(), getHeight()))
+        );
 
         oldCenter = newCenter;
         oldZoom = zoom;
@@ -1245,7 +1266,7 @@ Vector2 GameView::getScreenPoint(MapPoint map)
 
     if ((showTerrainHeight) && (inCity(map))){
         // shift the tile upward to show altitude
-        point.y -= (float) ( ALT(map.x, map.y) * scale3d) * zoom  / (float) alt_step ;
+        point.y -= (float) ( (world(map.x, map.y)->ground.altitude) * scale3d) * zoom  / (float) alt_step ;
     }
 
     //on Screen
@@ -1308,14 +1329,16 @@ void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
 
 /*
  * Check if Tile is in City
- * in oldgui you can edit (1,1) to (98,98) with WORLD_SIDE_LEN 100
+ * in oldgui you can edit (1,1) to (98,98) with world.len() 100
  * i.e. there is a hidden border of green tiles arround the city
  */
-bool GameView::inCity( MapPoint tile ){
-    if( tile.x > gameAreaMax || tile.y > gameAreaMax || tile.x < gameAreaMin || tile.y < gameAreaMin ) {
+bool GameView::inCity( MapPoint tile )
+{    
+    if( tile.x > gameAreaMax() || tile.y > gameAreaMax() || tile.x < gameAreaMin || tile.y < gameAreaMin ) {
         return false;
     }
     return true;
+
 }
 
 /*
@@ -1348,15 +1371,18 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
  * If the current Tile is Part of a Building, return the
  * Coordinates of the tile that contains the real informations.
  */
-MapPoint GameView::realTile( MapPoint tile ){
+MapPoint GameView::realTile( MapPoint tile )
+{
     MapPoint real = tile;
     if( ! inCity( tile ) )
-        return real;
-    if ( MP_TYPE( tile.x, tile.y ) ==  CST_USED )
+        return real;         
+    if(world(tile.x, tile.y)->reportingConstruction)
     {
-        real.x = MP_INFO(tile.x, tile.y).int_1;
-        real.y = MP_INFO(tile.x, tile.y).int_2;
+        real.x = world(tile.x, tile.y)->reportingConstruction->x;
+        real.y = world(tile.x, tile.y)->reportingConstruction->y;
+        return real;
     }
+
     return real;
 }
 
@@ -1386,32 +1412,44 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     Texture* texture;
     int size;
-    int upperLeftX = tile.x;
-    int upperLeftY = tile.y;
+    MapPoint upperLeft = realTile(tile);    
 
-    if ( MP_TYPE( tile.x, tile.y ) ==  CST_USED )
+    size = 1;    
+    if(world(upperLeft.x, upperLeft.y)->construction)
     {
-        upperLeftX = MP_INFO(tile.x, tile.y).int_1;
-        upperLeftY = MP_INFO(tile.x, tile.y).int_2;
+        size = world(upperLeft.x, upperLeft.y)->construction->constructionGroup->size;
     }
-    size = MP_SIZE( upperLeftX, upperLeftY );
+    else
+    {
+        size = 1;
+    }
+    //size = MP_SIZE( upperLeft.x, upperLeft.y );
 
     //is Tile the lower left corner of the Building?
     //dont't draw if not.
-    if ( ( tile.x != upperLeftX ) || ( tile.y - size +1 != upperLeftY ) )
+       
+//    if (!world(tile.x, tile.y)->is_leftmost()) return;
+    //Does not work because the mapview is rotated     
+
+    if ( ( tile.x != upperLeft.x ) || ( tile.y - size +1 != upperLeft.y ) ) //Signs are tested
     {
         return;
     }
+
     //adjust OnScreenPoint of big Tiles
     if( size > 1 ) {
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
-
-    int textureType = MP_TYPE( upperLeftX, upperLeftY );
-
+    
+    int textureType = CST_GREEN;    
+    //int group = MP_GROUP(upperLeft.x, upperLeft.y);    
+        
+    textureType = world(upperLeft.x, upperLeft.y)->getType();
+                   
     // if we hide high buildings, hide trees as well
-    if (hideHigh && (textureType == CST_TREE || textureType == CST_TREE2 || textureType == CST_TREE3 )) {
+    if (hideHigh && (textureType == CST_TREE || textureType == CST_TREE2 || textureType == CST_TREE3 ))
+    {
         textureType = CST_GREEN;
     }
     texture = cityTextures[ textureType ];
@@ -1461,7 +1499,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     int x = (int) tile.x;
     int y = (int) tile.y;
 
-    if( cursorSize == 0 ) {
+    if( cursorSize == 0 ) 
+    {
         Color alphawhite( 255, 255, 255, 128 );
         painter.setLineColor( alphawhite );
         Rect2D tilerect( 0, 0, tileWidth, tileHeight );
@@ -1469,22 +1508,31 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         tileOnScreenPoint.y -= tileHeight;
         tilerect.move( tileOnScreenPoint );
         drawDiamond( painter, tilerect );
-    } else {
+    } 
+    else 
+    {
         Color alphablue( 0, 0, 255, 128 );
         Color alphared( 255, 0, 0, 128 );
         painter.setFillColor( alphablue );
         //check if building is inside the map, if not use Red Cursor
         MapPoint seCorner( x + cursorSize -1, y + cursorSize -1 );
-        if( !inCity( seCorner ) || !inCity( tile ) ) {
+        if( !inCity( seCorner ) || !inCity( tile ) )
+        {
             painter.setFillColor( alphared );
-        } else {
-            for( y = (int) tile.y; y < tile.y + cursorSize; y++ ){
-                for( x = (int) tile.x; x < tile.x + cursorSize; x++ ){
-                    if( !GROUP_IS_BARE(MP_GROUP( x, y ))) {
-                        if( !((MP_GROUP( x, y ) == GROUP_WATER) && ( // bridge on water is OK
+        }
+        else
+        {
+            for( y = (int) tile.y; y < tile.y + cursorSize; y++ )
+            {
+                for( x = (int) tile.x; x < tile.x + cursorSize; x++ )
+                {
+                    if( !world(x,y)->is_bare() ) 
+                    {
+                        if( !((world(x,y)->is_water() || world(x,y)->is_transport()) && (
                            (selected_module_type == CST_TRACK_LR ) ||
                            (selected_module_type == CST_ROAD_LR ) ||
-                           (selected_module_type == CST_RAIL_LR ) ))) {
+                           (selected_module_type == CST_RAIL_LR ) ))) 
+                        {
                             painter.setFillColor( alphared );
                             y += cursorSize;
                             break;
@@ -1529,8 +1577,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_POWERL_H_L: break;
             //case CST_POWERS_COAL_EMPTY: break;
             //case CST_POWERS_SOLAR: break;
-            case CST_SUBSTATION_R:   range = SUBSTATION_RANGE; reduceNW = 1; break;
-            case CST_WINDMILL_1_R:   range = SUBSTATION_RANGE; reduceNW = 1; break; //Windmills are handled like substations
+            //case CST_SUBSTATION_R:   range = SUBSTATION_RANGE; reduceNW = 1; break;
+            //case CST_WINDMILL_1_R:   range = SUBSTATION_RANGE; reduceNW = 1; break; //Windmills are handled like substations
             //case CST_COMMUNE_1: break;
             case CST_COALMINE_EMPTY: range = COAL_RESERVE_SEARCH_RANGE; break;
             //case CST_OREMINE_1: break;
@@ -1571,23 +1619,28 @@ void GameView::draw(Painter& painter)
     //adjust viewport so it is.
     MapPoint centerTile = getCenter();
     bool outside = false;
-    if( centerTile.x < gameAreaMin ) {
+    if( centerTile.x < gameAreaMin )
+    {
         centerTile.x = gameAreaMin;
         outside = true;
     }
-    if( centerTile.x > gameAreaMax ) {
-        centerTile.x = gameAreaMax;
+    if( centerTile.x > gameAreaMax() )
+    {
+        centerTile.x = gameAreaMax();
         outside = true;
     }
-    if( centerTile.y < gameAreaMin ) {
+    if( centerTile.y < gameAreaMin )
+    {
         centerTile.y = gameAreaMin;
         outside = true;
     }
-    if( centerTile.y > gameAreaMax ) {
-        centerTile.y = gameAreaMax;
+    if( centerTile.y > gameAreaMax() )
+    {
+        centerTile.y = gameAreaMax();
         outside = true;
     }
-    if( outside ){
+    if( outside )
+    {
         mouseScrollState = 0;   //Avoid clipping in pause mode
         keyScrollState = 0;
         show( centerTile );
@@ -1602,7 +1655,8 @@ void GameView::draw(Painter& painter)
     Vector2 upperRight( getWidth(), 0 );
     Vector2 lowerLeft( 0, getHeight() );
 
-    if (showTerrainHeight) {
+    if (showTerrainHeight) 
+    {
         // printf("h = %f,     z = %f \n ", getHeight(), zoom);
         // getHeight = size in pixel of the screen (eg 1024x768)
         Vector2 lowerLeft( 0, getHeight() * ( 1 + getHeight() * zoom / (float)scale3d ));
@@ -1629,7 +1683,8 @@ void GameView::draw(Painter& painter)
     upperRightTile.x += extratiles;
     lowerLeftTile.y +=  extratiles;
 
-    if (mapOverlay != overlayOnly) {
+    if (mapOverlay != overlayOnly)
+    {
         for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
         {
             for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
@@ -1640,14 +1695,15 @@ void GameView::draw(Painter& painter)
             }
         }
     }
-    if( mapOverlay != overlayNone ){
+    if( mapOverlay != overlayNone )
+    {
         for(int k = 0; k <= 2 * ( lowerLeftTile.y - upperLeftTile.y ); k++ )
         {
             for(int i = 0; i <= upperRightTile.x - upperLeftTile.x; i++ )
             {
                 currentTile.x = upperLeftTile.x + i + k / 2 + k % 2;
                 currentTile.y = upperLeftTile.y - i + k / 2;
-              drawOverlay( painter, currentTile );
+                drawOverlay( painter, currentTile );
             }
         }
     }
@@ -1790,15 +1846,24 @@ int GameView::bulldozeCost( MapPoint tile ){
     int group;
     int prize = 0;
     if (!inCity( tile )){
-        cdebug( "tile is outside" );
+        //cdebug( "tile is outside" );
 	    return 0;
     }
 
-    if (MP_TYPE( tile.x, tile.y) == CST_USED)
+	Construction *reportingConstruction = world(tile.x, tile.y)->reportingConstruction;
+    if (reportingConstruction)
+    {
+        group = reportingConstruction->constructionGroup->group;
+    } 
+/*    else if (MP_TYPE( tile.x, tile.y) == CST_USED)
+    {
         group = MP_GROUP( MP_INFO(tile.x,tile.y).int_1,
                           MP_INFO(tile.x,tile.y).int_2 );
+    }*/
     else
-        group = MP_GROUP( tile.x,tile.y );
+    {        
+        group = world(tile.x, tile.y)->getGroup();
+    }
     prize = main_groups[group].bul_cost;
     return prize;
 }
@@ -1808,20 +1873,20 @@ int GameView::buildCost( MapPoint tile ){
     	return 0;
     }
     if (!inCity( tile )){
-        cdebug( "tile is outside" );
+        //cdebug( "tile is outside" );
 	    return 0;
     }
 
-    if (MP_TYPE( tile.x, tile.y ) == CST_USED)
+    if (world(tile.x, tile.y)->getGroup() == CST_USED)
         return 0;
     if (( selected_module_type == CST_TRACK_LR || selected_module_type == CST_ROAD_LR ||
         selected_module_type == CST_RAIL_LR) &&
         // Transport on water need a bridge
-        (MP_GROUP( tile.x, tile.y) == GROUP_WATER ||
+        (world(tile.x, tile.y)->getGroup() == GROUP_WATER ||
         // upgrade bridge
-        ((selected_module_type == CST_ROAD_LR && (MP_GROUP( tile.x, tile.y) == GROUP_TRACK_BRIDGE)) ||
-        (selected_module_type == CST_RAIL_LR && (MP_GROUP( tile.x, tile.y) == GROUP_TRACK_BRIDGE ||
-        MP_GROUP( tile.x, tile.y) == GROUP_ROAD_BRIDGE))) ) )
+        ((selected_module_type == CST_ROAD_LR && (world(tile.x, tile.y)->getGroup() == GROUP_TRACK_BRIDGE)) ||
+        (selected_module_type == CST_RAIL_LR && (world(tile.x, tile.y)->getGroup() == GROUP_TRACK_BRIDGE ||
+        world(tile.x, tile.y)->getGroup() == GROUP_ROAD_BRIDGE))) ) )
     {
         switch( selected_module_type ) {
             case CST_TRACK_LR:
@@ -1831,13 +1896,14 @@ int GameView::buildCost( MapPoint tile ){
             case CST_RAIL_LR:
                 return get_group_cost( GROUP_RAIL_BRIDGE );
         }
-    // Not updgrade a transport
-    } else if ( !GROUP_IS_BARE(MP_GROUP( tile.x, tile.y )) && (selected_module_type == CST_TRACK_LR
-            || (selected_module_type == CST_ROAD_LR && (MP_GROUP( tile.x, tile.y) == GROUP_ROAD ||
-                MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE))
+    // Do not upgrade a transport
+    } else if ( !world(tile.x, tile.y)->is_bare() && ((selected_module_type == CST_TRACK_LR)
+            || (selected_module_type == CST_ROAD_LR && (world(tile.x, tile.y)->getGroup() == GROUP_ROAD ||
+                world(tile.x, tile.y)->getGroup() == GROUP_RAIL || world(tile.x, tile.y)->getGroup() == GROUP_RAIL_BRIDGE))
             || (selected_module_type == CST_RAIL_LR &&
-                (MP_GROUP( tile.x, tile.y) == GROUP_RAIL || MP_GROUP( tile.x, tile.y) == GROUP_RAIL_BRIDGE))
-            || (selected_module_type == CST_WATER && MP_GROUP( tile.x, tile.y) == GROUP_WATER )) ){
+                (world(tile.x, tile.y)->getGroup() == GROUP_RAIL || world(tile.x, tile.y)->getGroup() == GROUP_RAIL_BRIDGE))
+            || (selected_module_type == CST_WATER && world(tile.x, tile.y)->getGroup() == GROUP_WATER )) )
+    {
         return 0;
     }
 

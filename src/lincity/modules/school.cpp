@@ -5,52 +5,57 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "school.h"
 
-void do_school(int x, int y)
-{
-    /*
-       // int_1 contains the job pool
-       // int_2 contains the goods at the school
-       // int_3 has the tech points made
-       // int_4 is the tech count so far this 100 days
-       // int_5 is the tech count last 100 days to give a % of max production
-     */
-    if (MP_INFO(x, y).int_1 < (MAX_JOBS_AT_SCHOOL - SCHOOL_JOBS))
-        if (get_jobs(x, y, SCHOOL_JOBS) != 0)
-            MP_INFO(x, y).int_1 += SCHOOL_JOBS;
-    if (MP_INFO(x, y).int_2 < (MAX_GOODS_AT_SCHOOL - SCHOOL_GOODS))
-        if (get_goods(x, y, SCHOOL_GOODS) != 0)
-            MP_INFO(x, y).int_2 += SCHOOL_GOODS;
-    if (MP_INFO(x, y).int_1 >= JOBS_MAKE_TECH_SCHOOL && MP_INFO(x, y).int_2 >= GOODS_MAKE_TECH_SCHOOL) {
-        MP_INFO(x, y).int_1 -= JOBS_MAKE_TECH_SCHOOL;
-        MP_INFO(x, y).int_2 -= GOODS_MAKE_TECH_SCHOOL;
-        MP_INFO(x, y).int_3 += TECH_MADE_BY_SCHOOL;
-        MP_INFO(x, y).int_4++;
-        tech_level += TECH_MADE_BY_SCHOOL;
-    }
-    school_cost += SCHOOL_RUNNING_COST;
-    if ((total_time % 100) == 0) {
-        MP_INFO(x, y).int_5 = MP_INFO(x, y).int_4;
-        MP_INFO(x, y).int_4 = 0;
-    }
+
+// school place:
+SchoolConstructionGroup schoolConstructionGroup(
+    "Elementary School",
+     FALSE,                     /* need credit? */
+     GROUP_SCHOOL,
+     2,                         /* size */
+     GROUP_SCHOOL_COLOUR,
+     GROUP_SCHOOL_COST_MUL,
+     GROUP_SCHOOL_BUL_COST,
+     GROUP_SCHOOL_FIREC,
+     GROUP_SCHOOL_COST,
+     GROUP_SCHOOL_TECH
+);
+
+Construction *SchoolConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new School(x, y, type);
 }
 
-void mps_school(int x, int y)
+void School::update()
+{
+    if (commodityCount[STUFF_JOBS] >= JOBS_MAKE_TECH_SCHOOL
+    &&  commodityCount[STUFF_GOODS] >= GOODS_MAKE_TECH_SCHOOL
+    &&  commodityCount[STUFF_WASTE] + GOODS_MAKE_TECH_SCHOOL / 3 <= MAX_WASTE_AT_SCHOOL)
+    {   
+        commodityCount[STUFF_JOBS] -= JOBS_MAKE_TECH_SCHOOL;
+        commodityCount[STUFF_GOODS] -= GOODS_MAKE_TECH_SCHOOL;
+        commodityCount[STUFF_WASTE] += GOODS_MAKE_TECH_SCHOOL / 3;        
+        teaching_this_month++;
+        tech_level += TECH_MADE_BY_SCHOOL;
+        total_tech_made += TECH_MADE_BY_SCHOOL;
+    }
+    if ((total_time % 100) == 0) 
+    {
+        teaching_last_month = teaching_this_month;
+        teaching_this_month = 0;
+    }
+    school_cost += SCHOOL_RUNNING_COST;
+}
+
+void School::report()
 {
     int i = 0;
-    mps_store_title(i++, _("School"));
+    mps_store_sd(i++,constructionGroup->name,ID); 
     i++;
-    mps_store_title(i++, _("Lessons Learned"));
-    mps_store_f(i++, MP_INFO(x, y).int_3 * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++,"busy", (float)teaching_last_month);    
+    mps_store_sfp(i++, _("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
     i++;
-    mps_store_title(i++, _("Inventory"));
-    mps_store_sddp(i++, _("Jobs"), MP_INFO(x, y).int_1, MAX_JOBS_AT_SCHOOL);
-    mps_store_sddp(i++, _("Goods"), MP_INFO(x, y).int_2, MAX_GOODS_AT_SCHOOL);
-
-    mps_store_sfp(i++, _("Capacity"), MP_INFO(x, y).int_5 * 4);
-
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/school.cpp */

@@ -78,7 +78,7 @@
 					<image-disabled src="images/gui/buttonpanel/base/pointer.png" filter="grey"/>
 					<image-caption src="images/gui/buttonpanel/base/pointer.png"/>
 				</CheckButton>
-			</cell>
+			</cell>						
 			<cell row="1" col="2" halign="left">
 				<Panel name="BPPointerMenu" width="150" height="50" background="images/gui/buttons/button-border-3.png">
 					<TableLayout rows="1" cols="3">

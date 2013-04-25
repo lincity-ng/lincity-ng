@@ -1,0 +1,46 @@
+LinCity Unlimited
+open source fork of lincity-ng 2.1 (Sept 2012) from
+http://developer.berlios.de/projects/lincity-ng/
+
+Developers 
+Christian Kramberger
+Felix Hummel
+
+Major features
+- Free mapsizes larger than 50²
+- Smart simulation on huge maps
+- Quick map generation
+- New savegames with optional text mode. Import of legacy savegames
+- New water and power management (flows along transport)
+- Irrigation for forests and powered farms on dry land
+- Density and traffic maps for all different kind of commodities (mousewheel over minimap)
+- Stat bars reflect city wide averages
+
+Minor features
+- In text mode query with "d" pressed sends XML info to console
+- press p to cylcle trough constructions and/or locate village on map
+- hold s while building watertower to build a shanty
+- find coal deposits by right click on tile
+- Animated waste burning
+- 2nd page of stat bars
+- Zooming on cursor position 
+
+TODO
+- update help files
+
+Nice to have
+- zooming in Minimap (2^n)
+- resizeable Minimap display
+
+Wild thoughts
+- Developing Cities, also for Start Game
+- Developing Buildings
+- (Re)create landscape from seed, extend world on demand 
+- seed generate endless world upon scrolling
+- In game river spawning and lake flooding
+- Evaporation/Rain balance in rivers and lakes. seasonal flooding
+- real 3D Lanscape
+
+And of course thousands time more changes under the skin and endless hours of game testing.
+have fun with LinCity Unlimites. It is free and unlimited.
+

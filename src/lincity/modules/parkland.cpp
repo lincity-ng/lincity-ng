@@ -5,23 +5,41 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
 #include "parkland.h"
 
-void do_parkland(int x, int y)
-{
-    if (MP_POL(x, y) > 10 && (total_time & 1) == 0)
-        MP_POL(x, y) -= 1;
+
+// Parkland:
+ParklandConstructionGroup parklandConstructionGroup(
+    "Park",
+     TRUE,                     /* need credit? */
+     GROUP_PARKLAND,
+     1,                         /* size */
+     GROUP_PARKLAND_COLOUR,
+     GROUP_PARKLAND_COST_MUL,
+     GROUP_PARKLAND_BUL_COST,
+     GROUP_PARKLAND_FIREC,
+     GROUP_PARKLAND_COST,
+     GROUP_PARKLAND_TECH
+);
+
+Construction *ParklandConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Parkland(x, y, type);
 }
 
-void mps_parkland(int x, int y)
+void Parkland::update()
+{
+    if (world(x,y)->pollution > 10 && (total_time & 1) == 0)
+        world(x,y)->pollution -= 1;
+}
+
+void Parkland::report()
 {
     int i = 0;
 
-    mps_store_title(i++, _("Park"));
-    i++;                        /* blank line */
-
-    mps_store_sd(i++, _("Pollution"), MP_POL(x, y));
+    mps_store_sd(i++,constructionGroup->name,ID);
+    i++;
+    mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/parkland.cpp */

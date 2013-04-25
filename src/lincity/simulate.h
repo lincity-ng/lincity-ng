@@ -7,9 +7,9 @@
 #define __simulate_h__
 
 void do_time_step(void);
-int count_groups(int gr);
-void count_all_groups(int *group_count);
-void set_mappoint(int x, int y, short selected_type);
+//int count_groups(int gr);
+//void count_all_groups(int *group_count);
+//void set_mappoint(int x, int y, short selected_type);
 
 extern void connect_rivers(void);
 

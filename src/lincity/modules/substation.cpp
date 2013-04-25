@@ -5,24 +5,82 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
-#include "../power.h"
 #include "substation.h"
 
 #include <stdlib.h>
 
-/* Substations 
- *
- * int_1 unused
- * int_2 unused except for windmills (true = hightech)
- * int_3 unused
- * int_4 is the power demand at this substation 
- * int_5 forbidden for substations: it is power production from power sources
- *                and windmill is both a source power and a substation
- * int_6 is the grid its connected to
- * int_7 is a grid timestamp
- */
 
+SubstationConstructionGroup substationConstructionGroup(
+    "Power Substation",
+     FALSE,                     /* need credit? */
+     GROUP_SUBSTATION,
+     2,                         /* size */
+     GROUP_SUBSTATION_COLOUR,
+     GROUP_SUBSTATION_COST_MUL,
+     GROUP_SUBSTATION_BUL_COST,
+     GROUP_SUBSTATION_FIREC,
+     GROUP_SUBSTATION_COST,
+     GROUP_SUBSTATION_TECH
+);
+
+Construction *SubstationConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+    return new Substation(x, y, type);
+}
+
+void Substation::update()
+{   
+    if ((commodityCount[STUFF_MWH] >= SUBSTATION_MWH)
+     && (commodityCount[STUFF_KWH] <= MAX_KWH_AT_SUBSTATION-SUBSTATION_KWH))
+    {
+        commodityCount[STUFF_MWH] -= SUBSTATION_MWH;      
+        commodityCount[STUFF_KWH] += SUBSTATION_KWH;
+        working_days++;
+    }
+    else if ((commodityCount[STUFF_MWH] > 0)
+     && (commodityCount[STUFF_KWH] < MAX_KWH_AT_SUBSTATION-(2 * commodityCount[STUFF_MWH])))
+    {
+        if ((rand() % SUBSTATION_MWH) <= commodityCount[STUFF_MWH])
+        {
+            working_days++;
+        }                        
+        commodityCount[STUFF_KWH] += (2 * commodityCount[STUFF_MWH]);
+        commodityCount[STUFF_MWH] = 0;
+            
+    } 
+    if (total_time % 100 == 0) //monthly update
+    {
+        busy = working_days;
+        working_days = 0;
+    }
+    /* choose a graphic */
+    if (commodityCount[STUFF_MWH] > (MAX_MWH_AT_SUBSTATION / 2))
+    {
+        type = CST_SUBSTATION_G;
+    }
+    else if (commodityCount[STUFF_MWH] > (MAX_MWH_AT_SUBSTATION / 20))
+    {
+        type = CST_SUBSTATION_RG;
+    }
+    else
+    {
+        type = CST_SUBSTATION_R;
+    }
+}
+
+void Substation::report()
+{
+    int i = 0;    
+    mps_store_sd(i++,constructionGroup->name,ID);
+    i++;
+    mps_store_sfp(i++, _("busy"), (busy));       
+    i++;
+    list_commodities(&i);
+}
+
+
+//FIXME none of the stuff below is needed
+
+/*
 void do_power_substation(int x, int y)
 {
     switch (grid[MP_INFO(x, y).int_6]->powered) {
@@ -44,9 +102,10 @@ void do_power_substation(int x, int y)
         break;
     }
 }
-
+*/
+/*
 int add_a_substation(int x, int y)
-{                               /* add to substationx substationy to list */
+{                               
     if (numof_substations >= MAX_NUMOF_SUBSTATIONS)
         return (0);
     substationx[numof_substations] = x;
@@ -54,7 +113,8 @@ int add_a_substation(int x, int y)
     numof_substations++;
     return (1);
 }
-
+*/
+/*
 void remove_a_substation(int x, int y)
 {
     int q;
@@ -67,7 +127,8 @@ void remove_a_substation(int x, int y)
     }
     numof_substations--;
 }
-
+*/
+/*
 void shuffle_substations(void)
 {
     int q, x, r, m;
@@ -84,7 +145,8 @@ void shuffle_substations(void)
         substationy[r] = q;
     }
 }
-
+*/
+/*
 void mps_substation(int x, int y)
 {
     int i = 0;
@@ -113,6 +175,6 @@ void mps_substation(int x, int y)
     mps_store_sd(i++, _("Grid ID"), MP_INFO(x, y).int_6);
 
 }
-
+*/
 /** @file lincity/modules/substation.cpp */
 
