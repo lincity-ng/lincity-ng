@@ -265,11 +265,8 @@ void Transport::update()
     {
         commodityCount[STUFF_KWH]--;   
     }
-    
-
-
-
 }
+
 //FIXME quick function to test display traffic values
 void Transport::list_traffic(int *i)
 {

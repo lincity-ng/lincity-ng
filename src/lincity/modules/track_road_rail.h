@@ -163,7 +163,7 @@ public:
         }
 
         initialize_commodities();
-        this->trafficCount = this->commodityCount;        
+        this->trafficCount = this->commodityCount;      
     }
 	~Transport()
     {        

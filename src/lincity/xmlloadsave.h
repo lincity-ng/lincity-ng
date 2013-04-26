@@ -43,14 +43,12 @@ public:
     void add_len(size_t chunk);          //add char length to template length
     void set_group(int grp);             //set group and register in bin_template_libary
     void report(std::ostream *os);       // write <tag> .... </tag> to stream 
-    //std::string const &getName();        //tells the name
 private:
     std::string template_tag;              //the name of an instance
     unsigned short template_group;         //the corresponding group of an instance
     unsigned int cur_index;                //the current index  
     std::vector<std::string> tag_sequence; //the sequence of tags in an xml template
     std::vector<std::string> val_sequence; //the sequence of values for reading an xml template
-    //std::vector<size_t>   binlen_sequence; //the sequence of binary lengths;   
     size_t char_len;    				   //the total binary length including the 2 char head	
 };
 

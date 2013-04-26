@@ -555,6 +555,7 @@ XMLloadsave::loadConstructionTemplates()
 	//std::cout.flush();	
 	int x = idx % world.len();
 	int y = idx / world.len();
+	//std::cout << head << " aka " << group << " at " << x << ", " << y << std::endl;
 	ConstructionGroup::getConstructionGroup(head)->placeItem(x, y, type);
 	if (!bin_template_libary.count(head))
 	{
@@ -562,8 +563,8 @@ XMLloadsave::loadConstructionTemplates()
 	}
 	cur_template = bin_template_libary[head];
 	//assert(cur_template);
+	//cur_template->report(&std::cout);
 	cur_template->rewind();
-	//cur_template->step();//head
 	size_t cm = 0;
 	while (!cur_template->reached_end())
 	{

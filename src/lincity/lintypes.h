@@ -225,7 +225,7 @@ public:
         this->x = x;
         this->y = y;
         this->ID = Counted<ConstructionClass>::getNextId();
-        this->flags = 0;
+        this->flags = '\0';
         setMemberSaved(&(this->ID),"ID");
         setMemberSaved(&(this->flags),"flags");
         //setMemberSaved(&(this->type),"type");

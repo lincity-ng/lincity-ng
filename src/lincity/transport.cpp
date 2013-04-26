@@ -630,7 +630,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     //MP_TYPE(x, y) = CST_ROAD_BRIDGE_LRP;
                     world(x, y)->construction->type = CST_ROAD_BRIDGE_LRP;
                 }
-                world(x, y)->construction->flags &= ~mask0;
+                world(x, y)->construction->flags &= mask0;
                 world(x, y)->construction->flags |= mask;                /////////////////////////////////////////////////////////////////should it be tflags here?
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= mask;

@@ -501,7 +501,7 @@ int Construction::readbinaryMember(std::string const &xml_tag, gzFile fp)
 
 void Construction::writeTemplate()
 {
-    std::map<std::string, MemberRule>::iterator member_it;
+    
     std::string name;
     XMLTemplate * xml_tmp;
     unsigned short head = constructionGroup->group;
@@ -528,7 +528,7 @@ void Construction::writeTemplate()
 		}
 						
 		//xml_tmp->add_len(sizeof(constructionGroup->group) + sizeof(type) + sizeof(x));	//header + group entry
-		
+		std::map<std::string, MemberRule>::iterator member_it;
         for(member_it = memberRuleCount.begin() ; member_it != memberRuleCount.end() ; member_it++)
         {
             xml_tmp->putTag(member_it->first);
