@@ -46,6 +46,7 @@ void HealthCentre::cover()
     }
     commodityCount[STUFF_JOBS] -= (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER);
     commodityCount[STUFF_GOODS] -= (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER);
+    commodityCount[STUFF_WASTE] += (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER / 3);
     busy = true;    
     x1 = x - HEALTH_CENTRE_RANGE;
     if (x1 < 0)
