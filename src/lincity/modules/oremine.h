@@ -71,6 +71,8 @@ public:
                 ore += world(xx,yy)->ore_reserve;                
             }
         }
+        if (!ore)
+        { ore = 1;} 
         this->total_ore_reserve = ore;
         setMemberSaved(&this->total_ore_reserve, "total_ore_reserve");
     }

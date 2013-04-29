@@ -180,7 +180,7 @@ public:
     
     void list_commodities(int *);               //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
-    void list_connections(int *);               //prints the detected lurd connections
+    //void list_connections(int *);               //prints the detected lurd connections
     void initialize_commodities(void);              //sets all commodities to 0
     int loadMember(std::string const &xml_tag, std::string const &xml_val);
     int readbinaryMember(std::string const &xml_tag, gzFile fp);

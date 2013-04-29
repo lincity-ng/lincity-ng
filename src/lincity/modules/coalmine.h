@@ -73,6 +73,8 @@ public:
                 coal += world(xx,yy)->coal_reserve;                
             }
         }
+        if (!coal)
+        { coal = 1;}
         this->initial_coal_reserve = coal;
         setMemberSaved(&this->initial_coal_reserve,"initial_coal_reserve");
         this->current_coal_reserve = coal;          

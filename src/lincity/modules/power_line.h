@@ -33,12 +33,14 @@ public:
         this->flags |= FLAG_POWER_LINE;// register as power line        
         this->anim_counter = 0;
         this->flashing = false;        
-        initialize_commodities();                               	    
+        initialize_commodities();
+        this->trafficCount = this->commodityCount;                              	    
     }
 	virtual ~Powerline() { }
 	virtual void update();
 	virtual void report();
     void flow_power();
+    std::map<Commodities, int> trafficCount;
     int anim_counter;
     bool flashing;	
 };

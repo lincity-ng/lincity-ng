@@ -27,7 +27,7 @@ Construction *PowerlineConstructionGroup::createConstruction(int x, int y, unsig
 
 void Powerline::flow_power()
 {
-    int ratio, center_ratio, center_lvl, center_cap, xx, yy, traffic;
+    int ratio, center_ratio, center_lvl, center_cap, xx, yy, traffic, max_traffic;
     int left_ratio, right_ratio, up_ratio, down_ratio, n;
     bool far_left, far_right, far_up, far_down;
     Commodities stuff_ID = STUFF_MWH;
@@ -105,6 +105,7 @@ void Powerline::flow_power()
         n++;
     }
     ratio /= n;
+    max_traffic = 0;
     // now distribute the stuff
     if (left_ratio != -1)
         { 
@@ -117,11 +118,19 @@ void Powerline::flow_power()
                 xx = x - 2;    
             }
             traffic = equilibrate_transport_stuff(xx, y, &center_lvl, center_cap, ratio, stuff_ID);//left
-            if (anim_counter == 0 && traffic > 0 
+            if( traffic > max_traffic)
+            {
+                max_traffic = traffic;
+            }
+            else if( -traffic > max_traffic)
+            {
+                max_traffic = -traffic;
+            }
+            if (anim_counter == 0
             && !(world(xx,y)->reportingConstruction->flags & FLAG_POWER_LINE)
             && center_ratio < left_ratio)
             {
-                //There is more power on a non powerline and an actual traffic => power source
+                //There is more power on a non powerline => power source
                 anim_counter = POWER_MODULUS;
             }
             if (flashing && world(xx,y)->reportingConstruction->flags & FLAG_POWER_LINE)
@@ -143,11 +152,19 @@ void Powerline::flow_power()
                 xx = x + 2;    
             }
             traffic = equilibrate_transport_stuff(xx, y, &center_lvl, center_cap, ratio, stuff_ID);//right
-            if (anim_counter == 0 && traffic > 0 
+            if( traffic > max_traffic)
+            {
+                max_traffic = traffic;
+            }
+            else if( -traffic > max_traffic)
+            {
+                max_traffic = -traffic;
+            }
+            if (anim_counter == 0
             && !(world(xx,y)->reportingConstruction->flags & FLAG_POWER_LINE)
             && center_ratio < right_ratio)
             {
-                //There is more power and an actual traffic => power source
+                //There is more power on a non powerline => power source
                 anim_counter = POWER_MODULUS;
             }
             if (flashing && world(xx,y)->reportingConstruction->flags & FLAG_POWER_LINE)
@@ -169,11 +186,19 @@ void Powerline::flow_power()
                 yy = y + 2;
             }
             traffic = equilibrate_transport_stuff(x, yy, &center_lvl, center_cap, ratio, stuff_ID);//up
-            if (anim_counter == 0 && traffic > 0 
+            if( traffic > max_traffic)
+            {
+                max_traffic = traffic;
+            }
+            else if( -traffic > max_traffic)
+            {
+                max_traffic = -traffic;
+            }
+            if (anim_counter == 0 
             && !(world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE)
             && center_ratio < up_ratio)
             {
-                //There is more power and an actual traffic => power source
+                //There is more power on a non powerline => power source
                 anim_counter = POWER_MODULUS;
             }
             if (flashing && world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE)
@@ -195,11 +220,19 @@ void Powerline::flow_power()
                 yy = y - 2;
             }
             traffic = equilibrate_transport_stuff(x, yy, &center_lvl, center_cap, ratio, stuff_ID);//down
-            if (anim_counter == 0 && traffic > 0 
+            if( traffic > max_traffic)
+            {
+                max_traffic = traffic;
+            }
+            else if( -traffic > max_traffic)
+            {
+                max_traffic = -traffic;
+            }
+            if (anim_counter == 0
             && !(world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE)
             && center_ratio < down_ratio)
             {
-                //There is more power and an actual traffic => power source
+                //There is more power on a non powerline => power source
                 anim_counter = POWER_MODULUS;
             }
             if (flashing && world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE)
@@ -210,7 +243,7 @@ void Powerline::flow_power()
                 );
             }
         }
-       
+        trafficCount[stuff_ID] = (9 * trafficCount[stuff_ID] + max_traffic) / 10;
         if (center_lvl < 0)
             std::cout<<"Power < 0 error at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;        
         commodityCount[stuff_ID] = center_lvl;
@@ -251,8 +284,8 @@ void Powerline::report()
     mps_store_sd(i++,constructionGroup->name,ID);
     i++;
     list_commodities(&i);
-    i++;
-    list_connections(&i);
+    //i++;
+    //list_connections(&i);
 }
 
 

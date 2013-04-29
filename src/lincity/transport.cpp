@@ -186,9 +186,9 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
         if (*loc_lvl < 0)
             std::cout<<"remote load < 0 error at "<<world(x, y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
         
-        if (repcons->flags & FLAG_IS_TRANSPORT)
+        if ((repcons->flags & FLAG_IS_TRANSPORT) || (repcons->flags & FLAG_POWER_LINE))
         {
-            return traffic; //handled transport neighbor
+            return traffic; //handled transport neighbor or powerline
         }
         else
         {
@@ -373,11 +373,8 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_RECYCLE:
                     case GROUP_TIP:
                     case GROUP_PORT:
+                    case GROUP_COAL_POWER:
                         mask |= FLAG_RIGHT;
-                        break;
-                    default:
-                        if (check_group(x + 1, y - 1) == GROUP_COAL_POWER)
-                            mask |= FLAG_RIGHT;
                         break;
                 }
 
@@ -395,11 +392,8 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_RECYCLE:
                     case GROUP_TIP:
                     case GROUP_PORT:
+                    case GROUP_COAL_POWER:
                         mask |= FLAG_DOWN;
-                        break;
-                    default:
-                        if (check_group(x - 1, y + 1) == GROUP_COAL_POWER)
-                            mask |= FLAG_DOWN;
                         break;
                 }
                 world(x, y)->construction->flags &= mask0;
@@ -501,11 +495,8 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_RECYCLE:
                     case GROUP_TIP:
                     case GROUP_PORT:
+                    case GROUP_COAL_POWER:
                         mask |= FLAG_RIGHT;
-                        break;
-                    default:
-                        if (check_group(x + 1, y - 1) == GROUP_COAL_POWER)
-                            mask |= FLAG_RIGHT;
                         break;
                 }
                 switch (check_topgroup(x, y + 1))
@@ -521,11 +512,8 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_RECYCLE:
                     case GROUP_TIP:
                     case GROUP_PORT:
+                    case GROUP_COAL_POWER:
                         mask |= FLAG_DOWN;
-                        break;
-                    default:
-                        if (check_group(x - 1, y + 1) == GROUP_COAL_POWER)
-                            mask |= FLAG_DOWN;
                         break;
                 }
                 world(x, y)->construction->flags &= mask0;
@@ -654,11 +642,8 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_RECYCLE:
                     case GROUP_TIP:
                     case GROUP_PORT:
+                    case GROUP_COAL_POWER:
                         mask |= FLAG_RIGHT;
-                        break;
-                    default:
-                        if (check_group(x + 1, y - 1) == GROUP_COAL_POWER)
-                            mask |= FLAG_RIGHT;
                         break;
                 }
                 switch (check_topgroup(x, y + 1)) {
@@ -672,12 +657,8 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_RECYCLE:
                     case GROUP_TIP:
                     case GROUP_PORT:
+                    case GROUP_COAL_POWER:
                         mask |= FLAG_DOWN;
-                        break;
-                    default:
-                        if (check_group(x - 1, y + 1)
-                                == GROUP_COAL_POWER)
-                            mask |= FLAG_DOWN;
                         break;
                 }
                 world(x, y)->construction->flags &= mask0;

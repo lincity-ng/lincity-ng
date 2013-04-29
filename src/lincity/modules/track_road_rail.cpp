@@ -165,6 +165,10 @@ void Transport::stuff_flow()
             {
                 max_traffic = traffic;
             }
+            else if( -traffic > max_traffic)
+            {
+                max_traffic = -traffic;
+            }
         }        
         if (right_lvl != -1)        
         {
@@ -172,6 +176,10 @@ void Transport::stuff_flow()
             if( traffic > max_traffic)
             {
                 max_traffic = traffic;
+            }
+            else if( -traffic > max_traffic)
+            {
+                max_traffic = -traffic;
             }
         }        
         if (up_lvl != -1)
@@ -181,6 +189,10 @@ void Transport::stuff_flow()
             {
                 max_traffic = traffic;
             }
+            else if( -traffic > max_traffic)
+            {
+                max_traffic = -traffic;
+            }
         }
         if (down_lvl != -1)
         {
@@ -188,6 +200,10 @@ void Transport::stuff_flow()
             if( traffic > max_traffic)
             {
                 max_traffic = traffic;
+            }
+            else if( -traffic > max_traffic)
+            {
+                max_traffic = -traffic;
             }
         }
         //do some smoothing to suppress fluctuations from random order

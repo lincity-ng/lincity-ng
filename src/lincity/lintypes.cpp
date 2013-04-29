@@ -415,6 +415,8 @@ void Construction::setCommodityRulesSaved(std::map<Commodities,CommodityRule> * 
 }
 
 
+/*
+// Useful for debugging connection flags 
 void Construction::list_connections(int * i)
 {
     char p[] = {'_','_','_','_' ,'\0'};
@@ -431,6 +433,7 @@ void Construction::list_connections(int * i)
         mps_store_ss(*i,"Connected to", p);
     }
 }
+*/
 
 int Construction::loadMember(std::string const &xml_tag, std::string const &xml_val)
 {

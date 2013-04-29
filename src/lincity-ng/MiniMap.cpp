@@ -942,15 +942,27 @@ Color MiniMap::getColor(int x,int y) const
 
         case TRAFFIC:
         {
-            //FIXME conflags & FLAG_POWER_LINE
-            if ( (conflags & FLAG_IS_TRANSPORT) )
+            if ( (conflags & FLAG_IS_TRANSPORT) || (conflags & FLAG_POWER_LINE))
             {
-                Transport *transport = static_cast<Transport *>(world(xx,yy)->reportingConstruction);
-                float loc_lvl = -1;
-                if(transport->trafficCount.count(stuff_ID))
+                float loc_lvl = -1;                
+                if (conflags & FLAG_IS_TRANSPORT)
                 {
-                    loc_lvl = transport->trafficCount[stuff_ID];
-                }
+					Transport *transport;
+					transport = static_cast<Transport *>(world(xx,yy)->reportingConstruction);
+					if(transport->trafficCount.count(stuff_ID))
+					{
+						loc_lvl = transport->trafficCount[stuff_ID];
+					}
+				}
+				else if (conflags & FLAG_POWER_LINE)
+				{
+					Powerline *powerline;
+					powerline = static_cast<Powerline *>(world(xx,yy)->reportingConstruction);
+					if(powerline->trafficCount.count(stuff_ID))
+					{
+						loc_lvl = powerline->trafficCount[stuff_ID];
+					}
+				}
                 if (loc_lvl < 0)
                 {
                     return makeGrey(getColorNormal(xx,yy));
