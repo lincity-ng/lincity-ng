@@ -120,7 +120,7 @@ void Transport::stuff_flow()
 
     /*begin for over all different stuff*/
     for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++ )
-        {
+	{
         stuff_ID = stuff_it->first;        
         center_lvl = stuff_it->second;
         center_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
@@ -165,10 +165,6 @@ void Transport::stuff_flow()
             {
                 max_traffic = traffic;
             }
-            else if( -traffic > max_traffic)
-            {
-                max_traffic = -traffic;
-            }
         }        
         if (right_lvl != -1)        
         {
@@ -176,10 +172,6 @@ void Transport::stuff_flow()
             if( traffic > max_traffic)
             {
                 max_traffic = traffic;
-            }
-            else if( -traffic > max_traffic)
-            {
-                max_traffic = -traffic;
             }
         }        
         if (up_lvl != -1)
@@ -189,10 +181,6 @@ void Transport::stuff_flow()
             {
                 max_traffic = traffic;
             }
-            else if( -traffic > max_traffic)
-            {
-                max_traffic = -traffic;
-            }
         }
         if (down_lvl != -1)
         {
@@ -201,16 +189,14 @@ void Transport::stuff_flow()
             {
                 max_traffic = traffic;
             }
-            else if( -traffic > max_traffic)
-            {
-                max_traffic = -traffic;
-            }
         }
         //do some smoothing to suppress fluctuations from random order
         // max possible ~90 % 
         trafficCount[stuff_ID] = (9 * trafficCount[stuff_ID] + max_traffic) / 10;
+/*        
         if (center_lvl < 0)
             std::cout<<"center load < 0 error at "<<world(x,y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+*/
         stuff_it->second = center_lvl; //update center_lvl
        
         /*handle waste spill*/

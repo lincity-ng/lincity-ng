@@ -63,6 +63,9 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
         int loc_lvl = repcons->commodityCount[stuff_ID];
         int loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;        
         //return (loc_lvl * TRANSPORT_QUANTA / (loc_cap));        
+        //These checks will always fail IF mines are beeing evacuated
+        //Otherwise usefull for debugging transport
+/*        
         if (loc_lvl > loc_cap)
         {
             std::cout<<"fixed "<<commodityNames[stuff_ID]<<" > maxload at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
@@ -78,7 +81,8 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
         if (loc_cap < 0)
         {
             std::cout<<"maxload "<<commodityNames[stuff_ID]<<" <= 0 error at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
-        }    
+        }
+*/      
         int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);       
         if ((center_ratio == -1) || (
         loc_ratio>center_ratio?repcons->constructionGroup->commodityRuleCount[stuff_ID].give:repcons->constructionGroup->commodityRuleCount[stuff_ID].take) )
@@ -97,11 +101,12 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
     int loc_cap;
     int transport_rate = TRANSPORT_RATE;
 
-
+/*
+	This will happen if mines are evacuated
     if (ratio > TRANSPORT_QUANTA)
-        std::cout<<"target ratio > TRANSPORT_QUANTA at "<<world(x, y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;    
-    //Double speed transport with passive partners    
-   
+        std::cout<<"target ratio > TRANSPORT_QUANTA at "<<world(x, y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+*/    
+    //Double speed transport with passive partners       
     if (!(repcons->flags & FLAG_IS_TRANSPORT))
     {
         transport_rate = TRANSPORT_RATE/2;
@@ -274,9 +279,12 @@ void connect_transport(int originx, int originy, int w, int h)
                     group = check_group(x, y - 2);
                 switch (group)
                 {
+				/*
                     case GROUP_WINDMILL:
                         if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
+				*/ 
+                    case GROUP_WIND_POWER:        
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:
@@ -293,9 +301,12 @@ void connect_transport(int originx, int originy, int w, int h)
                     group = check_group(x - 2, y);
                 switch (group)
                 {
+                /*
                     case GROUP_WINDMILL:
                         if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
+				*/ 
+                    case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:
@@ -312,9 +323,12 @@ void connect_transport(int originx, int originy, int w, int h)
                     group = check_group(x + 2, y);
                 switch (group)
                 {
+				/*
                     case GROUP_WINDMILL:
                         if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
+				*/ 
+                    case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:
@@ -331,9 +345,12 @@ void connect_transport(int originx, int originy, int w, int h)
                     group = check_group(x, y + 2);
                 switch (group)
                 {
+				/*
                     case GROUP_WINDMILL:
                         if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
+				*/ 
+                    case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:

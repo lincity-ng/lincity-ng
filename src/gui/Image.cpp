@@ -134,7 +134,7 @@ void Image::setFile(const std::string &pfilename)
     texture = texture_manager->load(pfilename);
 }
 
-IMPLEMENT_COMPONENT_FACTORY(Image);
+IMPLEMENT_COMPONENT_FACTORY(Image)
 
 
 /** @file gui/Image.cpp */

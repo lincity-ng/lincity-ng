@@ -48,6 +48,29 @@ public:
     virtual Construction *createConstruction(int x, int y, unsigned short type);
 };
 
+class EmptyOremineConstructionGroup: public ConstructionGroup {
+public:
+    EmptyOremineConstructionGroup(
+        const char *name,
+        unsigned short no_credit,
+        unsigned short group,
+        unsigned short size, int colour,
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+    ): ConstructionGroup(
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+    ) {
+        commodityRuleCount[Construction::STUFF_JOBS].maxload = 1;
+        commodityRuleCount[Construction::STUFF_JOBS].take = false;
+        commodityRuleCount[Construction::STUFF_JOBS].give = true;
+        commodityRuleCount[Construction::STUFF_ORE].maxload = 1;
+        commodityRuleCount[Construction::STUFF_ORE].take = false;
+        commodityRuleCount[Construction::STUFF_ORE].give = true;
+          
+    }
+    // overriding method that creates an Oremine
+    virtual Construction *createConstruction(int x, int y, unsigned short type);
+};
+
 extern OremineConstructionGroup oremineConstructionGroup;
 
 class Oremine: public CountedConstruction<Oremine> { // Oremine inherits from its own CountedConstruction
@@ -64,14 +87,14 @@ public:
         initialize_commodities();
 
         int ore = 0;
-        for (int yy = y; (yy < y + 4) ; yy++)
+        for (int yy = y; (yy < y + constructionGroup->size) ; yy++)
         {
-            for (int xx = x; (xx < x +4); xx++)
+            for (int xx = x; (xx < x + constructionGroup->size); xx++)
             {
                 ore += world(xx,yy)->ore_reserve;                
             }
         }
-        if (!ore)
+        if (ore < 1)
         { ore = 1;} 
         this->total_ore_reserve = ore;
         setMemberSaved(&this->total_ore_reserve, "total_ore_reserve");

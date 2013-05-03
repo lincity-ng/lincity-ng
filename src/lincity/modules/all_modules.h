@@ -34,6 +34,7 @@
 #include "university.h"
 #include "water.h"
 #include "windmill.h"
+#include "windpower.h"
 #include "market.h"
 #include "waterwell.h"
 

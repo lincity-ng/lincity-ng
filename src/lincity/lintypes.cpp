@@ -226,9 +226,6 @@ void MapTile::saveMembers(std::ostream *os)
 		{	xml_tmp->report(os);}
     }
     xml_tmp->rewind();
-    //TODO send template definition to console
-    if (os == &std::cout);
-    
     
     if (!binary_mode)
     {
@@ -1325,7 +1322,19 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
      GROUP_RAIL_BRIDGE_COST,
      GROUP_RAIL_BRIDGE_TECH},
 
-     /* 49 */
+	/* 49 */
+    {N_("Wind Power"),
+     TRUE,                     /* need credit? */
+     GROUP_WIND_POWER,
+     2,                         /* size */
+     GROUP_WIND_POWER_COLOUR,
+     GROUP_WIND_POWER_COST_MUL,
+     GROUP_WIND_POWER_BUL_COST,
+     GROUP_WIND_POWER_FIREC,
+     GROUP_WIND_POWER_COST,
+     GROUP_WIND_POWER_TECH},
+          
+     /* 50 */
     /* End of Data */
     {"EOF",
      FALSE,                     /* need credit? */

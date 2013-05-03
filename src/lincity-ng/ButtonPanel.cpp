@@ -931,7 +931,7 @@ void ButtonPanel::updateSelectedCost()
     selected_module_cost = get_type_cost (selected_module_type); 
 }
 
-IMPLEMENT_COMPONENT_FACTORY(ButtonPanel);
+IMPLEMENT_COMPONENT_FACTORY(ButtonPanel)
 
 
 /** @file lincity-ng/ButtonPanel.cpp */

@@ -53,7 +53,7 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_POWER_LINE_TECH 200
 #define GROUP_POWER_LINE_FIREC 0
 #define POWER_LINE_LOSS 1       /* one MWH */
-#define POWER_MODULUS 25        /* Controls how often we see a packet in anim */
+#define POWER_MODULUS 18        /* Controls how often we see a packet in anim */
 
 
 #define TRANSPORT_RATE 8 //slows down the transport

@@ -165,7 +165,7 @@ Document::paragraphLinkClicked(Paragraph* paragraph, const std::string& href)
     linkClicked(paragraph, href);
 }
 
-IMPLEMENT_COMPONENT_FACTORY(Document);
+IMPLEMENT_COMPONENT_FACTORY(Document)
 
 /** @file gui/Document.cpp */
 

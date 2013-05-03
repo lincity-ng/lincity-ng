@@ -256,14 +256,11 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "Water" );
             break;
         case GROUP_WINDMILL:
-        {
-            if( dynamic_cast<Windmill*>(world(mps_x, mps_y)->reportingConstruction)->is_modern ){ 
-                getSound()->playSound( "WindMillHTech" );
-            } else {
-                getSound()->playSound( "WindMill" );
-            }
-        }
+            getSound()->playSound( "WindMill" );
             break;
+        case GROUP_WIND_POWER:
+			getSound()->playSound( "WindMillHTech" );
+			break;
         case GROUP_FIRE:
             if( !dynamic_cast<Fire*>(world(mps_x, mps_y)->reportingConstruction)->smoking_days)
             {
@@ -293,7 +290,7 @@ void mps_update(int mps_x, int mps_y, int mps_style)
     mps_set_silent(mps_x, mps_y, mps_style);
 }
 
-IMPLEMENT_COMPONENT_FACTORY(Mps);
+IMPLEMENT_COMPONENT_FACTORY(Mps)
 
 
 /** @file lincity-ng/Mps.cpp */

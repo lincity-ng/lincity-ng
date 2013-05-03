@@ -373,7 +373,7 @@ void load_city_2(char *cname)
             {          
                 gzgets(gzfile, s, 512);
                 //         TY  po fl cr  or  i1 i2 i3 i4 i5 i6 i7 PL al ec ws gp wa wp ww wn g1 g2 g3 g4 DA TK AN d4 d5 d6 d7 d8 d9
-                sscanf(s, "%hi %d %i %hu %hu %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d"
+                sscanf(s, "%hu %d %i %hu %hu %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d"
                         , &(world(x, y)->type)
                         , &dummy //&MP_INFO(x, y).population
                         , &(world(x, y)->flags)
@@ -433,7 +433,7 @@ void load_city_2(char *cname)
         }
         sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&numof_markets);
         sscanf(gzgets(gzfile, s, 256), "%d", &people_pool);
-        sscanf(gzgets(gzfile, s, 256), "%o", &total_money);
+        sscanf(gzgets(gzfile, s, 256), "%d", &total_money);
         sscanf(gzgets(gzfile, s, 256), "%d", &income_tax_rate);
         sscanf(gzgets(gzfile, s, 256), "%d", &coal_tax_rate);
         sscanf(gzgets(gzfile, s, 256), "%d", &dole_rate);

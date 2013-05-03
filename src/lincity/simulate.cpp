@@ -111,10 +111,13 @@ void do_time_step(void)
         init_yearly();
     }
 
+    /* execute yesterdays requests OR treat loadgame requests*/
+    ConstructionManager::executePendingRequests();
+    
     /* Run through simulation equations for each farm, residence, etc. */
     simulate_mappoints();
 
-    ConstructionManager::executePendingRequests();
+    
 
     /* Now do the stuff that happens once a year, once a month, etc. */
     do_periodic_events();

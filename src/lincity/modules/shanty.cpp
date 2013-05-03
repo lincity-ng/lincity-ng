@@ -92,8 +92,8 @@ void update_shanty(void)
     //Foersts make new people? Why not
     //people_pool += .3 * numof_communes;
     people_pool -= 5 * numof_shanties;
-    if (people_pool < 0);
-        people_pool = 0;
+    if (people_pool < 0)
+    {   people_pool = 0;  }
     pp = people_pool - (COMMUNE_POP * numof_communes);
     i = (pp - SHANTY_MIN_PP) / SHANTY_POP;
     if (i < 0)

@@ -725,7 +725,7 @@ void Dialog::editPort(){
     gotoButton->clicked.connect( makeCallback( *this, &Dialog::gotoButtonClicked ) );
 }
 
-void Dialog::applyMarketButtonClicked( Button* b ){
+void Dialog::applyMarketButtonClicked( Button* ){
     CheckButton* cb;
     Market * market = static_cast <Market *> (world(pointX, pointY)->construction);
     cb = getCheckButton( *myDialogComponent, "BuyJobs" );

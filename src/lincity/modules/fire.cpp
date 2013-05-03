@@ -47,7 +47,7 @@ void Fire::update()
         if (smoking_days == 0)   /* rand length here also */
             smoking_days = rand() % (AFTER_FIRE_LENGTH / 6);
         smoking_days++;
-        if (world(x,y)->flags & FLAG_FIRE_COVER);
+        if (world(x,y)->flags & FLAG_FIRE_COVER)
             smoking_days += 4;
         if (smoking_days > AFTER_FIRE_LENGTH)
             ConstructionManager::submitRequest
@@ -66,7 +66,7 @@ void Fire::update()
     }
 
     burning_days++;
-    if (world(x,y)->flags & FLAG_FIRE_COVER);
+    if (world(x,y)->flags & FLAG_FIRE_COVER)
             burning_days += 4;
     days_before_spread--;
     world(x,y)->pollution++;

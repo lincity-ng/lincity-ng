@@ -15,6 +15,7 @@ Major features
 - Irrigation for forests and powered farms on dry land
 - Density and traffic maps for all different kind of commodities (mousewheel over minimap)
 - Stat bars reflect city wide averages
+- Coal/Ore mines can store material and are evacuated before auto-bulldozing
 
 Minor features
 - In text mode query with "d" pressed sends XML info to console

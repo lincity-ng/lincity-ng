@@ -171,7 +171,7 @@ ScrollView::replaceContents(Component* component)
     resize(width, height);
 }
 
-IMPLEMENT_COMPONENT_FACTORY(ScrollView);
+IMPLEMENT_COMPONENT_FACTORY(ScrollView)
 
 
 /** @file gui/ScrollView.cpp */

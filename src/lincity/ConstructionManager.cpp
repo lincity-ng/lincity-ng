@@ -20,6 +20,17 @@ void ConstructionManager::submitRequest(ConstructionRequest *request) {
 }
 
 void ConstructionManager::executeRequest(ConstructionRequest *request) {
+    std::map<Construction *, ConstructionRequest *>::iterator iterator;
+    iterator = pendingRequests.find(request->subject);
+    if (iterator != pendingRequests.end())
+    {
+        //make sure there wont be no another pending request after execution 
+        if (request != iterator->second)
+        {
+			delete iterator->second;
+			pendingRequests.erase(iterator->first);
+		}
+    }
     request->execute();
     delete request;
 }
@@ -32,6 +43,12 @@ void ConstructionManager::executePendingRequests() {
     }
     pendingRequests.clear();
 }
+
+void ConstructionManager::clearRequests()
+{
+	pendingRequests.clear();
+}
+
 
 std::map<Construction *, ConstructionRequest *> ConstructionManager::pendingRequests;
 

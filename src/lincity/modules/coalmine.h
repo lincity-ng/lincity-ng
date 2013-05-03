@@ -43,6 +43,29 @@ public:
     virtual Construction *createConstruction(int x, int y, unsigned short type);
 };
 
+class EmptycoalmineConstructionGroup: public ConstructionGroup {
+public:
+    EmptycoalmineConstructionGroup(
+        const char *name,
+        unsigned short no_credit,
+        unsigned short group,
+        unsigned short size, int colour,
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+    ): ConstructionGroup(
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+    ) {
+        commodityRuleCount[Construction::STUFF_JOBS].maxload = 1;
+        commodityRuleCount[Construction::STUFF_JOBS].take = false;
+        commodityRuleCount[Construction::STUFF_JOBS].give = true;
+        commodityRuleCount[Construction::STUFF_COAL].maxload = 1;
+        commodityRuleCount[Construction::STUFF_COAL].take = false;
+        commodityRuleCount[Construction::STUFF_COAL].give = true;
+          
+    }
+    // overriding method that creates an Coalmine
+    virtual Construction *createConstruction(int x, int y, unsigned short type);
+};
+
 extern CoalmineConstructionGroup coalmineConstructionGroup;
 
 class Coalmine: public CountedConstruction<Coalmine> { // Coalmine inherits from its CountedConstruction
@@ -58,14 +81,14 @@ public:
         int coal = 0;
         int xx, yy, xs, ys, xe, ye;        
         xs = x - COAL_RESERVE_SEARCH_RANGE;
-        xs = (xs < 0) ? 0 : xs;         
+        xs = (xs < 1) ? 1 : xs;         
         ys = y - COAL_RESERVE_SEARCH_RANGE;
-        ys = (ys < 0)? 0 : ys; 
+        ys = (ys < 1)? 1 : ys; 
         xe = x + COAL_RESERVE_SEARCH_RANGE;
-        xe = (xe > world.len()) ? world.len() : xe;         
+        xe = (xe > world.len()-1) ? world.len()-1 : xe;         
         ye = y + COAL_RESERVE_SEARCH_RANGE;
-        ye = (ye > world.len())? world.len() : ye; 
-
+        ye = (ye > world.len()-1)? world.len()-1 : ye; 
+		
         for (yy = ys; yy < ye ; yy++)
         {
             for (xx = xs; xx < xe ; xx++)
@@ -73,8 +96,13 @@ public:
                 coal += world(xx,yy)->coal_reserve;                
             }
         }
-        if (!coal)
-        { coal = 1;}
+        //always provide some coal so player can
+        //store sustainable coal
+        if (coal < 20)
+        { 
+			world(x,y)->coal_reserve += 20-coal;
+			coal = 20;
+		}
         this->initial_coal_reserve = coal;
         setMemberSaved(&this->initial_coal_reserve,"initial_coal_reserve");
         this->current_coal_reserve = coal;          

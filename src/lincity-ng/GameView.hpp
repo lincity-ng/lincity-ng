@@ -111,7 +111,7 @@ private:
         SCROLL_DOWN_LEFT = (1 << 6),
         SCROLL_DOWN_RIGHT = (1 << 7),
         SCROLL_LSHIFT = (1 << 8),
-        SCROLL_RSHIFT = (1 << 9),
+        SCROLL_RSHIFT = (1 << 9)
     };
     int keyScrollState;
     int mouseScrollState;

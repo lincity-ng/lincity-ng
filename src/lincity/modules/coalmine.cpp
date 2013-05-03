@@ -27,6 +27,27 @@ Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsign
     return new Coalmine(x, y, type);
 }
 
+// Coalmine:
+EmptycoalmineConstructionGroup emptyCoalmineConstructionGroup(
+    "Coal Mine",
+     FALSE,                     /* need credit? */
+     GROUP_COALMINE,
+     4,                         /* size */
+     GROUP_COALMINE_COLOUR,
+     GROUP_COALMINE_COST_MUL,
+     GROUP_COALMINE_BUL_COST,
+     GROUP_COALMINE_FIREC,
+     GROUP_COALMINE_COST,
+     GROUP_COALMINE_TECH
+);
+
+Construction *EmptycoalmineConstructionGroup::createConstruction(int , int , unsigned short )
+{
+    assert(false);
+    return NULL;
+}
+
+
 
 void Coalmine::update()
 {
@@ -35,13 +56,13 @@ void Coalmine::update()
 
     //scan available coal_reserve in range    
     xs = x - COAL_RESERVE_SEARCH_RANGE;
-    xs = (xs < 0) ? 0 : xs;         
+    xs = (xs < 1) ? 1 : xs;         
     ys = y - COAL_RESERVE_SEARCH_RANGE;
-    ys = (ys < 0 ) ? 0 : ys; 
+    ys = (ys < 1 ) ? 1 : ys; 
     xe = x + COAL_RESERVE_SEARCH_RANGE;
-    x = (x > world.len()) ? world.len() : x;         
+    xe = (xe > world.len()-1) ? world.len()-1 : xe;         
     ye = y + COAL_RESERVE_SEARCH_RANGE;
-    y = (y > world.len()) ? world.len() : y; 
+    ye = (ye > world.len()-1) ? world.len()-1 : ye; 
     current_coal_reserve = 0; 
     for (yy = ys; yy < ye ; yy++)
     {
@@ -115,10 +136,16 @@ void Coalmine::update()
     else//nothing
         type = CST_COALMINE_EMPTY;
 
+	//Evacuate Mine if no more deposits
+	if ((constructionGroup == &coalmineConstructionGroup) && (current_coal_reserve < 1) )
+	{
+		constructionGroup = &emptyCoalmineConstructionGroup;
+	}
+
     //Abandon the Coalmine if it is really empty  
-    if ((current_coal_reserve <1)
-      &&(commodityCount[STUFF_JOBS]<1)
-      &&(commodityCount[STUFF_COAL]<1)  )
+    if ((current_coal_reserve < 1)
+      &&(commodityCount[STUFF_JOBS] < 1)
+      &&(commodityCount[STUFF_COAL] < 1) )
     {
         ConstructionManager::submitRequest
             (

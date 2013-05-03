@@ -5,15 +5,14 @@
 #define GROUP_WINDMILL_TECH   30
 #define GROUP_WINDMILL_FIREC  10
 
-#define WINDMILL_POWER      450 //should become obsolete
+//#define WINDMILL_POWER      450 //should become obsolete
 #define WINDMILL_KWH        450
 #define WINDMILL_JOBS       10
 #define MAX_JOBS_AT_WINDMILL 20*(WINDMILL_JOBS)      
 #define MAX_KWH_AT_WINDMILL 20*(WINDMILL_KWH) 
 /* WINDMILL_RCOST is days per quid */
-#define WINDMILL_RCOST      3
-#define ANTIQUE_WINDMILL_ANIM_SPEED 2000//160
-#define MODERN_WINDMILL_ANIM_SPEED 2000
+#define WINDMILL_RCOST      4
+#define ANTIQUE_WINDMILL_ANIM_SPEED 80
 
 #define MODERN_WINDMILL_TECH 450000
 
@@ -38,7 +37,7 @@ public:
         commodityRuleCount[Construction::STUFF_JOBS].give = false;
         commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_WINDMILL;
         commodityRuleCount[Construction::STUFF_KWH].take = false;
-        commodityRuleCount[Construction::STUFF_KWH].give = true;    
+        commodityRuleCount[Construction::STUFF_KWH].give = true;
     }
     // overriding method that creates a Windmill
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -58,13 +57,10 @@ public:
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
         this->busy = 0;
-        this->kwh_output = (int)(WINDMILL_POWER + (((double)tech_level * WINDMILL_POWER) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->kwh_output, "kwh_output");     
-        this->is_modern = (tech_level >= MODERN_WINDMILL_TECH);
-        setMemberSaved(&this->is_modern, "is_modern"); 
-        this->type = type; //this->is_modern ? CST_WINDMILL_1_R : CST_WINDMILL_1_W;        
-        initialize_commodities();
-        }
+        this->kwh_output = (int)(WINDMILL_KWH + (((double)tech_level * WINDMILL_KWH) / MAX_TECH_LEVEL));
+        setMemberSaved(&this->kwh_output, "kwh_output");                  
+		initialize_commodities();		
+	}
 
 	virtual ~Windmill() { }
 	virtual void update();
@@ -75,8 +71,7 @@ public:
     int  anim;
 	int  sail_count;
     int  working_days;
-    int  busy;    
-    bool is_modern;
+    int  busy;
     bool animate;
 };
 

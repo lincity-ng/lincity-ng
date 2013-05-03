@@ -13,6 +13,7 @@ public:
     static void submitRequest(ConstructionRequest *request);
     static void executeRequest(ConstructionRequest *request);
     static void executePendingRequests();
+    static void clearRequests();
 private:
     static std::map<Construction *, ConstructionRequest *> pendingRequests;
 };

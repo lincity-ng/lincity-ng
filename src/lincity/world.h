@@ -68,7 +68,7 @@ public:
     bool is_edge(int x, int y);
     bool is_visible(int x, int y);
     int map_x(MapTile *tile);// returns x
-    int map_y(MapTile *tile);;// returns y
+    int map_y(MapTile *tile);// returns y
     int map_index(MapTile *tile);// returns index
     int len(); //tells the actual world.side_len
     void len(int new_len); //resizes the world by edge 

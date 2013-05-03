@@ -31,6 +31,26 @@ Construction *OremineConstructionGroup::createConstruction(int x, int y, unsigne
     return new Oremine(x, y, type);
 }
 
+// Empty Oremine:
+EmptyOremineConstructionGroup emptyOremineConstructionGroup(
+    "Ore Mine (Empty)",
+     FALSE,                     /* need credit? */
+     GROUP_OREMINE,
+     4,                         /* size */
+     GROUP_OREMINE_COLOUR,
+     GROUP_OREMINE_COST_MUL,
+     GROUP_OREMINE_BUL_COST,
+     GROUP_OREMINE_FIREC,
+     GROUP_OREMINE_COST,
+     GROUP_OREMINE_TECH
+);
+//Dont register this one in group map
+Construction *EmptyOremineConstructionGroup::createConstruction(int , int , unsigned short )
+{
+    assert(false);
+    return NULL;
+}
+
 
 void Oremine::update()
 {   
@@ -42,7 +62,7 @@ void Oremine::update()
         commodityCount[STUFF_JOBS] -= JOBS_LOAD_ORE;  
     }   
     // see if we can/need to extract some underground ore    
-    if ((total_ore_reserve > 0) 
+    if ((total_ore_reserve) 
     && (commodityCount[STUFF_ORE] <= ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE - ORE_PER_RESERVE)/100)
     && (commodityCount[STUFF_JOBS] >= JOBS_DIG_ORE)) 
     {   
@@ -156,10 +176,16 @@ void Oremine::update()
         }//endswitch
     }//end if animate
     
+    //Evacuate Mine if no more deposits
+    if ( (constructionGroup == &oremineConstructionGroup) && (total_ore_reserve < 1) )
+    {
+		constructionGroup = &emptyOremineConstructionGroup;
+	}
+    
     //Abandon the Oremine if it is really empty  
-    if ((total_ore_reserve <1)
-      &&(commodityCount[STUFF_JOBS]<1)
-      &&(commodityCount[STUFF_ORE]<1)  )
+    if ((total_ore_reserve < 1)
+      &&(commodityCount[STUFF_JOBS] < 1)
+      &&(commodityCount[STUFF_ORE] < 1) )
     {
         ConstructionManager::submitRequest
             (

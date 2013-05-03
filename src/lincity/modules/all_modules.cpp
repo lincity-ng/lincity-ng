@@ -11,6 +11,7 @@ void initializeModules() {
     ConstructionGroup::addConstructionGroup(&waterwellConstructionGroup);
     ConstructionGroup::addConstructionGroup(&communeConstructionGroup);
     ConstructionGroup::addConstructionGroup(&windmillConstructionGroup);
+    ConstructionGroup::addConstructionGroup(&windpowerConstructionGroup);
     ConstructionGroup::addConstructionGroup(&coal_powerConstructionGroup);
     ConstructionGroup::addConstructionGroup(&solarPowerConstructionGroup);
     ConstructionGroup::addConstructionGroup(&substationConstructionGroup);

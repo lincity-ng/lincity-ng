@@ -12,7 +12,7 @@
 
 #define NUMOF_COAL_RESERVES (WORLD_SIDE_LEN * WORLD_SIDE_LEN / 100)
 #define NUM_OF_TYPES    404
-#define NUM_OF_GROUPS    50
+#define NUM_OF_GROUPS    51
 
 #define OLD_MAX_NUMOF_MARKETS 100
 #define MAX_NUMOF_MARKETS 512
@@ -176,7 +176,7 @@ public:
     };
 
 	std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
-    std::map<std::string, MemberRule> memberRuleCount; 
+    std::map<std::string, MemberRule> memberRuleCount;
     
     void list_commodities(int *);               //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter

@@ -240,7 +240,7 @@ void Residence::update()
     switch (type)
     {    
         case CST_RESIDENCE_LL:
-            drm += local_population * 7 * 13/6; //more people more deaths
+            drm += local_population * 7 * 50/24; //more people more deaths
             brm += RESIDENCE_LL_BRM + extra_births?20:0; //slow down baby production
         break;
         case CST_RESIDENCE_ML:
@@ -253,7 +253,7 @@ void Residence::update()
             good += 40;
         break;
         case CST_RESIDENCE_LH:
-            drm += local_population * 5 * 6/3; //more people more deaths
+            drm += local_population * 3 * 7/3; //more people more deaths
             brm += RESIDENCE_LH_BRM + extra_births?20:0; //slow down baby production
         break;
         case CST_RESIDENCE_MH:

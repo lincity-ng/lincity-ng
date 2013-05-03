@@ -5,6 +5,7 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 #include "power_line.h"
+#include "stdlib.h"
 
 //Power line
 PowerlineConstructionGroup powerlineConstructionGroup(
@@ -30,7 +31,7 @@ void Powerline::flow_power()
     int ratio, center_ratio, center_lvl, center_cap, xx, yy, traffic, max_traffic;
     int left_ratio, right_ratio, up_ratio, down_ratio, n;
     bool far_left, far_right, far_up, far_down;
-    Commodities stuff_ID = STUFF_MWH;
+    Commodities stuff_ID = STUFF_MWH;   
     
     center_lvl = commodityCount[stuff_ID];
     center_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
@@ -131,9 +132,9 @@ void Powerline::flow_power()
             && center_ratio < left_ratio)
             {
                 //There is more power on a non powerline => power source
-                anim_counter = POWER_MODULUS;
+                anim_counter = POWER_MODULUS + rand()%POWER_MODULUS;
             }
-            if (flashing && world(xx,y)->reportingConstruction->flags & FLAG_POWER_LINE)
+            if ((flashing && world(xx,y)->reportingConstruction->flags & FLAG_POWER_LINE))
             {   //pass on the powerflash downstream
                 ConstructionManager::submitRequest
                 (
@@ -165,9 +166,9 @@ void Powerline::flow_power()
             && center_ratio < right_ratio)
             {
                 //There is more power on a non powerline => power source
-                anim_counter = POWER_MODULUS;
+                anim_counter = POWER_MODULUS + rand()%POWER_MODULUS;
             }
-            if (flashing && world(xx,y)->reportingConstruction->flags & FLAG_POWER_LINE)
+            if ((flashing && world(xx,y)->reportingConstruction->flags & FLAG_POWER_LINE))
             {   //pass on the powerflash downstream
                 ConstructionManager::submitRequest
                 (
@@ -199,9 +200,9 @@ void Powerline::flow_power()
             && center_ratio < up_ratio)
             {
                 //There is more power on a non powerline => power source
-                anim_counter = POWER_MODULUS;
+                anim_counter = POWER_MODULUS + rand()%POWER_MODULUS;
             }
-            if (flashing && world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE)
+            if ((flashing && world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE))
             {   //pass on the powerflash downstream
                 ConstructionManager::submitRequest
                 (
@@ -233,9 +234,9 @@ void Powerline::flow_power()
             && center_ratio < down_ratio)
             {
                 //There is more power on a non powerline => power source
-                anim_counter = POWER_MODULUS;
+                anim_counter = POWER_MODULUS + rand()%POWER_MODULUS;
             }
-            if (flashing && world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE)
+            if ((flashing && world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE))
             {   //pass on the powerflash downstream
                 ConstructionManager::submitRequest
                 (

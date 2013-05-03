@@ -330,10 +330,8 @@ int bulldoze_item(int x, int y)
 void do_bulldoze_area(int x, int y) //arg1 was short fill
 {
 
-    int size = 1;
     if (world(x, y)->construction)
-    {
-        size = world(x, y)->construction->constructionGroup->size;
+    {      
         ConstructionManager::executeRequest
         (
             new ConstructionDeletionRequest(world(x, y)->construction)
@@ -355,9 +353,10 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
         {
             ok_dial_box("fire.mes", BAD, _("ups, Bulldozer found a dangling reportingConstruction"));
         }
+        //Here size is always 1
         connect_rivers();    
-        desert_frontier(x - 1, y - 1, size + 2, size + 2);
-        connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+        desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
+        connect_transport(x - 2, y - 2, x + 1 + 1, y + 1 + 1);
     }  
 }
 

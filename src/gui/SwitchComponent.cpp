@@ -176,7 +176,7 @@ SwitchComponent::opaque(const Vector2& pos) const
     return false;
 }
 
-IMPLEMENT_COMPONENT_FACTORY(SwitchComponent);
+IMPLEMENT_COMPONENT_FACTORY(SwitchComponent)
 
 /** @file gui/SwitchComponent.cpp */
 

@@ -132,7 +132,7 @@ Panel::opaque(const Vector2& pos) const
     return false;
 }
 
-IMPLEMENT_COMPONENT_FACTORY(Panel);
+IMPLEMENT_COMPONENT_FACTORY(Panel)
 
 
 /** @file gui/Panel.cpp */

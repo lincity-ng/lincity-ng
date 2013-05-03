@@ -129,7 +129,7 @@ TooltipManager::showTooltip(const std::string& text, const Vector2& pos)
 		setDirty();
 }
 
-IMPLEMENT_COMPONENT_FACTORY(TooltipManager);
+IMPLEMENT_COMPONENT_FACTORY(TooltipManager)
 
 /** @file gui/TooltipManager.cpp */
 

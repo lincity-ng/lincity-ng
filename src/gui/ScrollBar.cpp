@@ -257,7 +257,7 @@ ScrollBar::buttonReleased(Button* )
     scrollspeed = 0;
 }
 
-IMPLEMENT_COMPONENT_FACTORY(ScrollBar);
+IMPLEMENT_COMPONENT_FACTORY(ScrollBar)
 
 /** @file gui/ScrollBar.cpp */
 

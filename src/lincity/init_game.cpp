@@ -72,6 +72,7 @@ void clear_game(void)
     const int area = len * len;
     //std::cout << "clearing Game" << std::endl;
     //init_mappoint_array ();
+    ConstructionManager::clearRequests();
     initialize_tax_rates ();
     init_inventory();
     //std::cout << "whiping game with " << world.len() << " side length" << std::endl;

@@ -115,6 +115,3 @@ void PowerLineFlashRequest::execute()
         *anim_counter = POWER_MODULUS;
     }      
 }
-
-
-

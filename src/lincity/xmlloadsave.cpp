@@ -410,15 +410,17 @@ void XMLloadsave::saveConstructions()
 
 void XMLloadsave::loadConstructions()
 {
-    int x, y, dummy, r;
+    unsigned short const NOT_SET = 0xFFFF;
+    int x, y, r;
+    unsigned int value;
     unsigned short type, group;
     bool inside_construction = false;
 
     prescan = true;
     x = -1;
     y = -1;
-    type = -1;
-    group = -1;
+    type = NOT_SET;
+    group = NOT_SET;
     r = 0;
 
     do
@@ -428,13 +430,13 @@ void XMLloadsave::loadConstructions()
 
         if (inside_construction && prescan)
         {
-            if(sscanf(line.c_str(), "<map_x>%u</map_x>", &dummy))
-                x = dummy;
-            else if(sscanf(line.c_str(), "<map_y>%u</map_y>", &dummy))
-                y = dummy;
-            else if(sscanf(line.c_str(), "<type>%u</type>", &dummy))
+            if(sscanf(line.c_str(), "<map_x>%u</map_x>", &value))
+                x = value;
+            else if(sscanf(line.c_str(), "<map_y>%u</map_y>", &value))
+                y = value;
+            else if(sscanf(line.c_str(), "<type>%u</type>", &value))
                 sscanf(line.c_str(), "<type>%hu</type>", &type);
-            else if(sscanf(line.c_str(), "<Group>%u</Group>", &dummy))
+            else if(sscanf(line.c_str(), "<Group>%u</Group>", &value))
                 sscanf(line.c_str(), "<Group>%hu</Group>", &group);
         }
 
@@ -453,7 +455,7 @@ void XMLloadsave::loadConstructions()
         }
         if (inside_construction && line == "</Construction>")
         {
-            if( world.is_inside(x, y) && (type != -1) && (group != -1) && prescan)
+            if( world.is_inside(x, y) && (type != NOT_SET) && (group != NOT_SET) && prescan)
             {
                 if (ConstructionGroup::countConstructionGroup(group))
                 {
@@ -787,7 +789,8 @@ void XMLloadsave::saveMapTiles()
 
 void XMLloadsave::loadMapTiles()
 {
-    int x, y, r, dummy;
+    int x, y, r;
+    unsigned int value;
     bool inside_MapTile;
     MapTile *cur_tile = world(0);
 
@@ -809,10 +812,10 @@ void XMLloadsave::loadMapTiles()
         // preread x and y
         if (inside_MapTile && prescan)
         {
-            if(sscanf(line.c_str(), "<map_x>%u</map_x>", &dummy))
-                x = dummy;
-            else if(sscanf(line.c_str(), "<map_y>%u</map_y>", &dummy))
-                y = dummy;
+            if(sscanf(line.c_str(), "<map_x>%u</map_x>", &value))
+                x = value;
+            else if(sscanf(line.c_str(), "<map_y>%u</map_y>", &value))
+                y = value;
         }
         if ( !prescan && inside_MapTile)
         {

@@ -26,9 +26,9 @@ void mps_water(int x, int y)
 #ifdef DEBUG
     mps_store_sd(10, "x", x);
     mps_store_sd(11, "y", y);
-    mps_store_sd(12, "altitude", ALT(x, y));
+    mps_store_sd(12, "altitude", world(x,y)->ground.altitude);
 
-    fprintf(stderr, "water x %i, y %i, Alt %i\n", x, y, ALT(x,y));
+    fprintf(stderr, "water x %i, y %i, Alt %i\n", x, y, world(x,y)->ground.altitude);
 #endif
 
 }

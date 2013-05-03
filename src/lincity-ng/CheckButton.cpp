@@ -451,7 +451,7 @@ std::string CheckButton::getCaptionText()
   return s;
 }
 
-IMPLEMENT_COMPONENT_FACTORY(CheckButton);
+IMPLEMENT_COMPONENT_FACTORY(CheckButton)
 
 
 /** @file lincity-ng/CheckButton.cpp */

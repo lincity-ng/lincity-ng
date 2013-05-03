@@ -45,8 +45,8 @@ int last_message_group = 0;
 #ifdef DEBUG
 void DBG_TileInfo(int x, int y) {
     fprintf(stderr, "%u,%u:Type=%d, Group=%s(%d), Flags= %08X, Alt.=%d\n", x, y,
-        MP_TYPE(x, y), _(main_groups[MP_GROUP(x, y)].name), MP_GROUP(x, y),
-        MP_INFO(x, y).flags, ALT(x, y));
+        world(x, y)->type, _(main_groups[world(x, y)->group].name), world(x, y)->group,
+        world(x, y)->flags, world(x, y)->ground.altitude);
 }
 #endif
 
@@ -265,6 +265,20 @@ void editMap (MapPoint point, int button)
     /* OK, by now we are certain that the user wants to place the item.
        Set the origin based on the size of the selected_module_type, and 
        see if the selected item will fit. */
+    if ((selected_module_group == GROUP_WINDMILL) && (tech_level >= MODERN_WINDMILL_TECH))
+    {
+		selected_module_type = CST_WINDMILL_1_R; 
+        selected_module_group = get_group_of_type(selected_module_type);
+        assert(selected_module_group == GROUP_WIND_POWER);
+        std::cout << "switched to wind power" << std::endl;
+    } 
+    else if ((selected_module_group == GROUP_WIND_POWER) && (tech_level < MODERN_WINDMILL_TECH))
+    {
+		selected_module_type = CST_WINDMILL_1_W; 
+        selected_module_group = get_group_of_type(selected_module_type);
+        assert(selected_module_group == GROUP_WINDMILL);
+        std::cout << "switched to wind mill" << std::endl;
+	}
     if(ConstructionGroup::countConstructionGroup(selected_module_group))
     {
         size = ConstructionGroup::getConstructionGroup(selected_module_group)->size;
@@ -273,12 +287,6 @@ void editMap (MapPoint point, int button)
     {
         size = main_groups[selected_module_group].size;
     }
-    /*  if (px > (mw->x + mw->w) - size*16)
-        px = (mw->x + mw->w) - size*16;
-        if (py > (mw->y + mw->h) - size*16)
-        py = (mw->y + mw->h) - size*16;
-        pixel_to_mappoint(px, py, &x, &y);
-    */
     //Only Check bare space if we are not renewing 
     if (!( ( selected_module_type == CST_TRACK_LR ) || 
            ( selected_module_type == CST_ROAD_LR  ) ||

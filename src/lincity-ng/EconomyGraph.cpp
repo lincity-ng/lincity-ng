@@ -494,7 +494,7 @@ void EconomyGraph::draw( Painter& painter ){
     drawFPSGraph( painter, currentGraph );
 }
 
-IMPLEMENT_COMPONENT_FACTORY(EconomyGraph);
+IMPLEMENT_COMPONENT_FACTORY(EconomyGraph)
 
 /** @file lincity-ng/EconomyGraph.cpp */
 
