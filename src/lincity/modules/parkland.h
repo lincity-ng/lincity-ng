@@ -34,6 +34,7 @@ public:
 	Parkland(int x, int y, unsigned short type): CountedConstruction<Parkland>(x, y, type)
     {
         constructionGroup = &parklandConstructionGroup;
+        this->flags |= FLAG_NEVER_EVACUATE;
     }
     virtual void update();
 	virtual void report();

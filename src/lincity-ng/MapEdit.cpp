@@ -91,7 +91,8 @@ void check_bulldoze_area (int x, int y)
 
     if (g == GROUP_MONUMENT && monument_bul_flag == 0)
     {
-        if( last_message_group != GROUP_MONUMENT )
+        if( (world(x,y)->reportingConstruction->flags & FLAG_EVACUATE) 
+        && (last_message_group != GROUP_MONUMENT) )
         {
             new Dialog( BULLDOZE_MONUMENT, xx, yy ); // deletes itself
             last_message_group = GROUP_MONUMENT;
@@ -100,7 +101,7 @@ void check_bulldoze_area (int x, int y)
     }
   else if (g == GROUP_RIVER && river_bul_flag == 0)
     {
-        if( last_message_group != GROUP_RIVER ){
+        if(last_message_group != GROUP_RIVER ){
             new Dialog( BULLDOZE_RIVER, xx, yy ); // deletes itself
             last_message_group = GROUP_RIVER;
         }
@@ -160,15 +161,21 @@ void editMap (MapPoint point, int button)
         mod_x = x;
         mod_y = y;
     }
-
+   
     /* Handle bulldozing */
     if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT)
-    {
-        check_bulldoze_area (mod_x, mod_y);
-        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
+    {     
+		Uint8 *keystate = SDL_GetKeyState(NULL);
+        if ( ! keystate[SDLK_u] )
+        {
+			check_bulldoze_area (mod_x, mod_y);
+			mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
 #ifdef DEBUG
-        DBG_TileInfo(x, y);
+			DBG_TileInfo(x, y);
 #endif
+		}
+		else if (world(x,y)->reportingConstruction)
+		{	world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;}
         return;
     }
 

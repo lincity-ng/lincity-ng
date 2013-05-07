@@ -42,7 +42,7 @@ public:
     // overriding method that creates an Coalmine
     virtual Construction *createConstruction(int x, int y, unsigned short type);
 };
-
+/*
 class EmptycoalmineConstructionGroup: public ConstructionGroup {
 public:
     EmptycoalmineConstructionGroup(
@@ -65,7 +65,7 @@ public:
     // overriding method that creates an Coalmine
     virtual Construction *createConstruction(int x, int y, unsigned short type);
 };
-
+*/
 extern CoalmineConstructionGroup coalmineConstructionGroup;
 
 class Coalmine: public CountedConstruction<Coalmine> { // Coalmine inherits from its CountedConstruction

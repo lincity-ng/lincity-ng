@@ -45,6 +45,7 @@ public:
 	Tip(int x, int y, unsigned short type): CountedConstruction<Tip>(x, y, type) 
     {       
         this->constructionGroup = &tipConstructionGroup;
+        this->flags |= FLAG_NEVER_EVACUATE;
         this->total_waste = 0;
         setMemberSaved(&this->total_waste,"total_waste");        
         this->busy_days = 0;

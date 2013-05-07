@@ -61,7 +61,10 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
     if (repcons && repcons->commodityCount.count(stuff_ID))           
     {            
         int loc_lvl = repcons->commodityCount[stuff_ID];
-        int loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;        
+        int loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        
+        if (repcons->flags & FLAG_EVACUATE)
+        {	return loc_lvl * TRANSPORT_QUANTA;}
         //return (loc_lvl * TRANSPORT_QUANTA / (loc_cap));        
         //These checks will always fail IF mines are beeing evacuated
         //Otherwise usefull for debugging transport
@@ -78,14 +81,16 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
             repcons->commodityCount[stuff_ID] = loc_cap;            
             loc_lvl = 0;
         }                
-        if (loc_cap < 0)
+       
+        if (loc_cap < 1)
         {
             std::cout<<"maxload "<<commodityNames[stuff_ID]<<" <= 0 error at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
         }
 */      
         int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);       
         if ((center_ratio == -1) || (
-        loc_ratio>center_ratio?repcons->constructionGroup->commodityRuleCount[stuff_ID].give:repcons->constructionGroup->commodityRuleCount[stuff_ID].take) )
+        loc_ratio>center_ratio?repcons->constructionGroup->commodityRuleCount[stuff_ID].give:
+			repcons->constructionGroup->commodityRuleCount[stuff_ID].take) )
         {   //only tell actual stock if we would tentaively participate in transport
             return (loc_ratio);
         }    
@@ -115,71 +120,79 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
             transport_rate = 1;
         }
     }
-  
     if (repcons && repcons->commodityCount.count(stuff_ID) ) // someone who cares about stuff_id 
-    {            
+    {                   
         loc_lvl = &(repcons->commodityCount[stuff_ID]);
-        loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;            
-        flow = (ratio * (loc_cap) / TRANSPORT_QUANTA) - (*loc_lvl);
-        if (((flow > 0) && !(repcons->constructionGroup->commodityRuleCount[stuff_ID].take))
-        || ((flow < 0) && !(repcons->constructionGroup->commodityRuleCount[stuff_ID].give)))
-        {   //construction refuses the flow
-            //std::cout << "."; //happens still often               
-            return 0;
-        }                
-        if (flow > 0)
-        {              
-            if (flow * transport_rate > rem_cap )
-                flow = rem_cap / transport_rate;
-            if (flow > *rem_lvl)
-                flow = *rem_lvl;
-        }
-        else if (flow < 0)
-        {
-            if(-flow * transport_rate > rem_cap)
-                flow = - rem_cap / transport_rate;
-            if (-flow > (rem_cap-*rem_lvl))
-                flow = -(rem_cap-*rem_lvl);
-        }
-        else if ( !(repcons->flags & FLAG_IS_TRANSPORT) 
-                || (repcons->constructionGroup->group == GROUP_MARKET) )
-        // transport tiles and markets tolerat insignifiact flow
-        {
-            //constructions doublecheck if the can get/put a least one item if flow would be nominally insiginficant
-            if ( (*loc_lvl < *rem_lvl) && (*loc_lvl < loc_cap) ) // feed but dont overfeeding
-                flow = 1; 
-            else if (*loc_lvl > *rem_lvl && (*rem_lvl < rem_cap) ) // spill but dont flood 
-                flow = -1;
-        }       
-        // limit local demand to remote quantity of stuff
-        if (flow > *rem_lvl)
-        {
-            flow = *rem_lvl;
-        }
-        //limit remote demand to local quantity of stuff
-        if (flow < -*loc_lvl)
-        {
-            flow = -*loc_lvl;
-        }
-        if (!(repcons->flags & FLAG_IS_TRANSPORT) && (flow > 0) 
-            && repcons->constructionGroup->group != GROUP_MARKET) 
-        //something is given to a consumer 
-        {
-            switch (stuff_ID)
-            {
-                case (Construction::STUFF_JOBS) :
-                    income_tax += flow;
-                    break;
-                case (Construction::STUFF_GOODS) :
-                    goods_tax += flow;
-                    goods_used += flow;
-                case (Construction::STUFF_COAL) :
-                    coal_tax += flow;
-                    break;
-                default:
-                    break;
-            }              
-        }             
+		loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        if (!(repcons->flags & FLAG_EVACUATE))
+        {			                   
+			flow = (ratio * (loc_cap) / TRANSPORT_QUANTA) - (*loc_lvl);
+			if (((flow > 0) && (!(repcons->constructionGroup->commodityRuleCount[stuff_ID].take) ))
+			|| ((flow < 0) && !(repcons->constructionGroup->commodityRuleCount[stuff_ID].give)))
+			{   //construction refuses the flow
+				//std::cout << "."; //happens still often               
+				return 0;
+			}                
+			if (flow > 0)
+			{              
+				if (flow * transport_rate > rem_cap )
+					flow = rem_cap / transport_rate;
+				if (flow > *rem_lvl)
+					flow = *rem_lvl;
+			}
+			else if (flow < 0)
+			{
+				if(-flow * transport_rate > rem_cap)
+					flow = - rem_cap / transport_rate;
+				if (-flow > (rem_cap-*rem_lvl))
+					flow = -(rem_cap-*rem_lvl);
+			}
+			else if ( !((repcons->flags & FLAG_IS_TRANSPORT || repcons->flags & FLAG_EVACUATE) 
+					|| (repcons->constructionGroup->group == GROUP_MARKET)) )
+			// transport tiles and markets tolerat insignifiact flow
+			{
+				//constructions doublecheck if the can get/put a least one item if flow would be nominally insiginficant
+				if ( (*loc_lvl < *rem_lvl) && (*loc_lvl < loc_cap) ) // feed but dont overfeeding
+					flow = 1; 
+				else if (*loc_lvl > *rem_lvl && (*rem_lvl < rem_cap) ) // spill but dont flood 
+					flow = -1;
+			}       
+			// limit local demand to remote quantity of stuff
+			if (flow > *rem_lvl)
+			{
+				flow = *rem_lvl;
+			}
+			//limit remote demand to local quantity of stuff
+			if (flow < -*loc_lvl)
+			{
+				flow = -*loc_lvl;
+			}
+			if (!(repcons->flags & FLAG_IS_TRANSPORT) && (flow > 0) 
+				&& repcons->constructionGroup->group != GROUP_MARKET) 
+			//something is given to a consumer 
+			{
+				switch (stuff_ID)
+				{
+					case (Construction::STUFF_JOBS) :
+						income_tax += flow;
+						break;
+					case (Construction::STUFF_GOODS) :
+						goods_tax += flow;
+						goods_used += flow;
+					case (Construction::STUFF_COAL) :
+						coal_tax += flow;
+						break;
+					default:
+						break;
+				}              
+			}             
+		}
+		else // we are evacuating
+		{
+			flow = -(rem_cap-*rem_lvl);
+			if (-flow > *loc_lvl)
+			{	flow = -*loc_lvl;}
+		}
         traffic = flow * TRANSPORT_QUANTA / rem_cap;
         // incomming and outgoing traffic dont cancel but add up        
         if (traffic < 0)

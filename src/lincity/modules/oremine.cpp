@@ -30,13 +30,13 @@ Construction *OremineConstructionGroup::createConstruction(int x, int y, unsigne
 {
     return new Oremine(x, y, type);
 }
-
+/*
 // Empty Oremine:
 EmptyOremineConstructionGroup emptyOremineConstructionGroup(
     "Ore Mine (Empty)",
-     FALSE,                     /* need credit? */
+     FALSE,                     
      GROUP_OREMINE,
-     4,                         /* size */
+     4,                         
      GROUP_OREMINE_COLOUR,
      GROUP_OREMINE_COST_MUL,
      GROUP_OREMINE_BUL_COST,
@@ -50,7 +50,7 @@ Construction *EmptyOremineConstructionGroup::createConstruction(int , int , unsi
     assert(false);
     return NULL;
 }
-
+*/
 
 void Oremine::update()
 {   
@@ -177,9 +177,10 @@ void Oremine::update()
     }//end if animate
     
     //Evacuate Mine if no more deposits
-    if ( (constructionGroup == &oremineConstructionGroup) && (total_ore_reserve < 1) )
+    if ( !(flags & FLAG_EVACUATE) && (total_ore_reserve < 1) )
     {
-		constructionGroup = &emptyOremineConstructionGroup;
+		flags |= FLAG_EVACUATE;
+		//constructionGroup = &emptyOremineConstructionGroup;
 	}
     
     //Abandon the Oremine if it is really empty  

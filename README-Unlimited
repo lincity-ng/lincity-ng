@@ -1,10 +1,4 @@
 LinCity Unlimited
-open source fork of lincity-ng 2.1 (Sept 2012) from
-http://developer.berlios.de/projects/lincity-ng/
-
-Developers 
-Christian Kramberger
-Felix Hummel
 
 Major features
 - Free mapsizes larger than 50²
@@ -21,6 +15,8 @@ Minor features
 - In text mode query with "d" pressed sends XML info to console
 - press p to cylcle trough constructions and/or locate village on map
 - hold s while building watertower to build a shanty
+- First bulldozer only triggers evacuation of buildings, 
+- Second bulldozer demolishes or cancels evacuation if "u" pressed
 - find coal deposits by right click on tile
 - Animated waste burning
 - 2nd page of stat bars
@@ -28,7 +24,7 @@ Minor features
 
 TODO
 - update help files
-
+  
 Nice to have
 - zooming in Minimap (2^n)
 - resizeable Minimap display

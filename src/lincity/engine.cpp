@@ -273,12 +273,22 @@ int bulldoze_item(int x, int y)
 #endif
         return -1;
     }
-    if (world(x, y)->reportingConstruction)
+    if (world(x, y)->reportingConstruction 
+    && !(world(x, y)->reportingConstruction->flags & FLAG_EVACUATE)
+    && !(world(x, y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE))
+    {
+		world(x, y)->reportingConstruction->flags |= FLAG_EVACUATE;
+		return -1;
+	}   
+    else if (world(x, y)->reportingConstruction 
+    && ( (world(x, y)->reportingConstruction->flags & FLAG_EVACUATE) 
+		|| (world(x, y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE) ))
     {
         construction_found = true;
         size = world(x, y)->reportingConstruction->constructionGroup->size;
         g = world(x, y)->reportingConstruction->constructionGroup->group;
-    } else
+    } 
+    else
     {
         size = 1; //all non-constructions are 1// MP_SIZE(x, y);
         g = world(x, y)->group;
@@ -515,38 +525,23 @@ void do_daily_ecology() //should be going to MapTile:: und handled during simula
     /*TODO incorporate do_daily_ecology to simulate_mappoints. */
 }
 
-/*
-int in_map(int x, int y)
-{
-    return ( (x >= 0) && (x < world.len()) && (y>=0) && (y< world.len()) );
-}
-*/
-
-int is_border( int x, int y)
-{
-    if ( (x == 0) || (x == (world.len() - 1)) || (y == 0) || (y == (world.len() -1)))
-        return 1;
-    else
-        return 0;
-}
-
 int check_group(int x, int y)
 {
-    if (! world.is_inside(x, y) )
+    if (! world.is_visible(x, y) )
         return -1;    
     return world(x, y)->getGroup();
 }
 
 int check_topgroup(int x, int y)
 {
-    if (!world.is_inside(x, y) )
+    if (!world.is_visible(x, y) )
         return -1;    
     return world(x, y)->getTopGroup();
 }
 
 bool check_water(int x, int y)
 {
-    if (!world.is_inside(x, y) )
+    if (!world.is_visible(x, y) )
         return false;    
     return world(x, y)->is_water();
 }
@@ -672,26 +667,26 @@ int find_group(int x, int y, unsigned short group)
     {
         for (j = 0; j < i; j++) {
             x--;
-            if (world.is_inside(x, y))
+            if (world.is_visible(x, y))
                 if (world(x, y)->getTopGroup() == group)
                     return (x + y * world.len());
         }
         for (j = 0; j < i; j++) {
             y--;
-            if (world.is_inside(x, y))
+            if (world.is_visible(x, y))
                 if (world(x, y)->getTopGroup() == group)
                     return (x + y * world.len());
         }
         i++;
         for (j = 0; j < i; j++) {
             x++;
-            if (world.is_inside(x, y))
+            if (world.is_visible(x, y))
                 if (world(x, y)->getTopGroup() == group)
                     return (x + y * world.len());
         }
         for (j = 0; j < i; j++) {
             y++;
-            if (world.is_inside(x, y))
+            if (world.is_visible(x, y))
                 if (world(x, y)->getTopGroup() == group)
                     return (x + y * world.len());
         }
@@ -710,7 +705,7 @@ bool is_bare_area(int x, int y, int size)
     {
         for(int i = 0; i<size; i++)
         {
-            if(!world.is_inside(x, y) || !world(x+i,y+j)->is_bare())
+            if(!world.is_visible(x+i, y+j) || !world(x+i, y+j)->is_bare())
             {
                 return false;
             }
@@ -727,26 +722,26 @@ int find_bare_area(int x, int y, int size)
         for (j = 0; j < i; j++)
         {
             x--;
-            if (world.is_inside(x, y))
+            if (world.is_visible(x, y))
                 if ( is_bare_area(x, y, size) )
                     return (x + y * world.len());
         }
         for (j = 0; j < i; j++) {
             y--;
-            if (world.is_inside(x, y))
+            if (world.is_visible(x, y))
                 if ( is_bare_area(x, y, size) )
                     return (x + y * world.len());
         }
         i++;
         for (j = 0; j < i; j++) {
             x++;
-            if (world.is_inside(x, y))
+            if (world.is_visible(x, y))
                 if ( is_bare_area(x, y, size) )
                     return (x + y * world.len());
         }
         for (j = 0; j < i; j++) {
             y++;
-            if (world.is_inside(x, y))
+            if (world.is_visible(x, y))
                 if ( is_bare_area(x, y, size) )
                     return (x + y * world.len());
         }

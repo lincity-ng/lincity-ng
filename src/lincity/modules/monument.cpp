@@ -36,6 +36,7 @@ void Monument::update()
     if (completion >= 100)
     {        
         type = CST_MONUMENT_5;
+        flags |= FLAG_EVACUATE;
         /* inc tech level only if fully built and tech less 
            than MONUMENT_TECH_EXPIRE */
         if (tech_level < (MONUMENT_TECH_EXPIRE * 1000)

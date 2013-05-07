@@ -80,6 +80,7 @@ public:
     {       
         constructionGroup = &shantyConstructionGroup;
         initialize_commodities();
+        this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;
         this->old_type = this->type;
         setMemberSaved(&(this->old_type),"type");

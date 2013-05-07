@@ -336,46 +336,60 @@ void Construction::list_commodities(int * i)
     */
 
     std::map<Construction::Commodities, int>::iterator stuff_it;
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    if (! (flags & FLAG_EVACUATE))
     {
-        if(constructionGroup->commodityRuleCount[stuff_it->first].take
-        && ! constructionGroup->commodityRuleCount[stuff_it->first].give
-        && *i < 14)
-        {
-            mps_store_ssddp(*i,"-->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-            ++*i;
-        }//endif
-    } //endfor
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
-    {
-        if(constructionGroup->commodityRuleCount[stuff_it->first].give
-        && ! constructionGroup->commodityRuleCount[stuff_it->first].take
-        && *i<14)
-        {
-            mps_store_ssddp(*i,"<--",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-            ++*i;
-        }//endif
-    }//endfor
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
-    {
-        if(constructionGroup->commodityRuleCount[stuff_it->first].give
-        && constructionGroup->commodityRuleCount[stuff_it->first].take
-        && *i<14)
-        {
-            mps_store_ssddp(*i,"<->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-            ++*i;
-        }//endif
-    }//endfor
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
-    {
-        if(!constructionGroup->commodityRuleCount[stuff_it->first].give
-        && !constructionGroup->commodityRuleCount[stuff_it->first].take
-        && *i<14)
-        {
-            mps_store_ssddp(*i,"---",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-            ++*i;
-        }//endif
-    }//endfor
+		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+		{
+			if(constructionGroup->commodityRuleCount[stuff_it->first].take
+			&& ! constructionGroup->commodityRuleCount[stuff_it->first].give
+			&& *i < 14)
+			{
+				mps_store_ssddp(*i,"-->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+				++*i;
+			}//endif
+		} //endfor
+		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+		{
+			if(constructionGroup->commodityRuleCount[stuff_it->first].give
+			&& ! constructionGroup->commodityRuleCount[stuff_it->first].take
+			&& *i<14)
+			{
+				mps_store_ssddp(*i,"<-- ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+				++*i;
+			}//endif
+		}//endfor
+		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+		{
+			if(constructionGroup->commodityRuleCount[stuff_it->first].give
+			&& constructionGroup->commodityRuleCount[stuff_it->first].take
+			&& *i<14)
+			{
+				mps_store_ssddp(*i,"<->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+				++*i;
+			}//endif
+		}//endfor
+		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+		{
+			if((!constructionGroup->commodityRuleCount[stuff_it->first].give
+			&& !constructionGroup->commodityRuleCount[stuff_it->first].take)
+			&& *i<14)
+			{
+				mps_store_ssddp(*i,"--- ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+				++*i;
+			}//endif
+		}//endfor
+	}
+	else // FLAG_EVACUATE
+	{
+		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+		{
+			if(*i<14)
+			{
+				mps_store_ssddp(*i,"<< ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+				++*i;
+			}//endif
+		}//endfor
+	}
 }
 
 void Construction::initialize_commodities(void)
@@ -742,13 +756,7 @@ void ConstructionGroup::printGroups()
     }
 }
 
-
-
 std::map<unsigned short, ConstructionGroup *> ConstructionGroup::groupMap;
-
-
-
-
 
 //Legacy Stuff
 

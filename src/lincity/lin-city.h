@@ -62,8 +62,10 @@
 #define FLAG_FED                (0x20)
 #define FLAG_EMPLOYED           (0x40)
 #define FLAG_IS_TRANSPORT       (0x80)
-//#define FLAG_MB_FOOD            (0x100) //construction only
+//#define FLAG_MB_FOOD          (0x100)
 #define FLAG_MARKET_COVER       (0x100) //mapTile only
+#define FLAG_NEVER_EVACUATE     (0x100) //contruction only
+#define FLAG_EVACUATE           (0x200) //construction only
 //#define FLAG_MS_FOOD            (0x200)
 //#define FLAG_MB_JOBS            (0x400)
 //#define FLAG_MS_JOBS            (0x800)

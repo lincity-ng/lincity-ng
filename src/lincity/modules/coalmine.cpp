@@ -26,13 +26,13 @@ Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsign
 {
     return new Coalmine(x, y, type);
 }
-
+/*
 // Coalmine:
 EmptycoalmineConstructionGroup emptyCoalmineConstructionGroup(
     "Coal Mine",
-     FALSE,                     /* need credit? */
+     FALSE,                     
      GROUP_COALMINE,
-     4,                         /* size */
+     4,                         
      GROUP_COALMINE_COLOUR,
      GROUP_COALMINE_COST_MUL,
      GROUP_COALMINE_BUL_COST,
@@ -46,7 +46,7 @@ Construction *EmptycoalmineConstructionGroup::createConstruction(int , int , uns
     assert(false);
     return NULL;
 }
-
+*/
 
 
 void Coalmine::update()
@@ -137,9 +137,10 @@ void Coalmine::update()
         type = CST_COALMINE_EMPTY;
 
 	//Evacuate Mine if no more deposits
-	if ((constructionGroup == &coalmineConstructionGroup) && (current_coal_reserve < 1) )
+	if (!(flags & FLAG_EVACUATE) && (current_coal_reserve < 1) )
 	{
-		constructionGroup = &emptyCoalmineConstructionGroup;
+		flags |= FLAG_EVACUATE;
+		//constructionGroup = &emptyCoalmineConstructionGroup;
 	}
 
     //Abandon the Coalmine if it is really empty  

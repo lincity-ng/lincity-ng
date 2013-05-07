@@ -47,7 +47,7 @@ public:
     // overriding method that creates an Oremine
     virtual Construction *createConstruction(int x, int y, unsigned short type);
 };
-
+/*
 class EmptyOremineConstructionGroup: public ConstructionGroup {
 public:
     EmptyOremineConstructionGroup(
@@ -70,7 +70,7 @@ public:
     // overriding method that creates an Oremine
     virtual Construction *createConstruction(int x, int y, unsigned short type);
 };
-
+*/
 extern OremineConstructionGroup oremineConstructionGroup;
 
 class Oremine: public CountedConstruction<Oremine> { // Oremine inherits from its own CountedConstruction
