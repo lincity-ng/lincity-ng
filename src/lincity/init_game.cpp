@@ -160,6 +160,8 @@ void setup_land()
 {  
     std::cout << "setting up ecology ";
     std::cout.flush();
+   //if (alt_step < 400);
+   //	alt_step = 400;
     const int len = world.len();
     const int area = len * len;    
     std::deque <int> line;  
@@ -181,7 +183,7 @@ void setup_land()
 		}
 		else
 		{
-			*dist(xx,yy) = 25;
+			*dist(xx,yy) = 30;
 			*water(xx,yy) = 3*world(xx,yy)->ground.altitude/4;  
 		}
 	}
@@ -237,7 +239,7 @@ void setup_land()
 			{   arid = (global_aridity * 2) / 3;}
 		}
 		/* Altitude has same effect as distance */
-		r = rand()%(d2w_min/3 + 1) + arid +
+		r = rand()%(d2w_min/5 + 1) + arid +
 				(world(xx, yy)->ground.altitude - alt0) * 50 / alt_step;           
 		do_rand_ecology(xx,yy,r);
 
@@ -366,6 +368,19 @@ static void new_setup_river_ground(void)
      * Additional refinement: we rotate/mirror the map, in order to have the 2 lowest borders in front of us
      *      and the "mountains" far away  (just in case we go to 3d view later :-) )
      */
+     /* Square Diamond Algorithm 
+      * cman79 May 2013
+      * we start from SZ x SZ (SZ=s^n+1)  
+      * 0.) put 4 random heights in the corner
+      * 1.) put average height + random offset at central tile (square step)
+      * 2.) put average height + rand offset at the centers of the edges
+      * repeat 1.) and 2.) for every small (half size) square 
+      * The heigt of every tile is only set ONCE
+      *  
+      * The alorith can be guided to follow any shape, 
+      * in particular to join at the edges smoothly to another map
+      * 
+      */
     const int len = world.len();
     const int area = len * len;
     const int mask_size = 7; // useless to be larger than 3*sigma && Must be < SHIFT  
@@ -383,13 +398,12 @@ static void new_setup_river_ground(void)
     const float sigma = 3.5; // gaussian smoothing
     const float ods2 = 1. / (2. * sigma * sigma);
     
-    const float fract = 0.9; // will be up to  fract ^ NLOOP : be careful to stay near 1.0
+    const float fract = 0.7; // will be up to  fract ^ NLOOP : be careful to stay near 1.0
                               //  if fract > 1.0, then small scale variations are getting bigger  (recent mountain)
                               //  if fract < 1.0  then small scales varaitions are getting smaller (old mountain)
                               // this is smoothed by the gaussian filter
 
-    const int Keco = 30;  // order of magnitude of each iteration is Kalt * mountainity.
-
+    const int Keco = 30;  // order of magnitude of each iteration is Keco * mountainity.
     /* good values:
      *      sigma = 3.5   // sigma =2.5 => lots of local minima = small lakes  ;
      *                       maybe will be allowed later, when the problem of finding path to the sea and doing erosion has been solved
@@ -407,14 +421,16 @@ static void new_setup_river_ground(void)
     float mat[2 * mask_size + 1][2 * mask_size + 1];
     Array2D <int> g1(sz,sz);
     Array2D <int> g2(sz,sz);
-    Array2D <float> f1(sz,sz);
+    Array2D <float> f1(sz+1,sz+1);
     Array2D <float> f2(sz,sz);     
     float min = 10000000000000000000.;
-    float norm;
-    int i,j,k,l,m,n,size,h;
+    
+    float norm;//,norm1d;
+    int i,j,k,l,m,n,size;
     
     // build gaussian mask for smoothing
     norm = 0;
+    //norm1d=0;
     for ( i = 0; i < 2 * mask_size + 1; i++) {
         for ( j = 0; j < 2 * mask_size + 1; j++) {
             float r2 = (i - mask_size) * (i - mask_size) + (j - mask_size) * (j - mask_size);
@@ -423,38 +439,174 @@ static void new_setup_river_ground(void)
         }
     }
     norm = 1. / norm;
-    
    // intialisation
 #ifdef DEBUG_EXPERIMENTAL
     // Fix random seed for easier debug
     srand(1234);
 #endif
-    h = ( rand() % Keco + rand() % Keco ) * global_mountainity ;
-
-    f1.initialize(h);
     
-    /* fractal iteration for height */
+    //inialization for classic Block algorithm
+    //int h = ( rand() % Keco + rand() % Keco ) * global_mountainity ;
+	//f1.initialize(h); 
+    
+    //initialization for Diamond Square Algorithm
+    f1.initialize(0);   
+    *f1(0,0) = (float)(rand() % Keco + rand() % Keco ) * global_mountainity ;
+    *f1(0,sz) = (float)(rand() % Keco + rand() % Keco ) * global_mountainity ;
+    *f1(sz,0) = (float)(rand() % Keco + rand() % Keco ) * global_mountainity ;
+    *f1(sz,sz) = (float)(rand() % Keco + rand() % Keco ) * global_mountainity ;
+	//square diamond Algorithm for lanscape generation
+    /* fractal iteration for height */  
     n = 1;
-    for (k = 1; k <= NLOOP-3; k++)
+    for (k = 1; k <= NLOOP; k++)
     {
-        n *= 2;
+        //n *= 2;//here in case of Block Algorithm
         size = sz / n;
         // n x n block of size
+        //std::cout << "diamonds" << std::endl;        
+        //Diamond Step	
         for ( l = 0; l < n; l++ )
         {
-            for ( m = 0; m < n; m++ )
+            for ( m = 0; m < n; m++ )          
             {
+/*               
+                //old block algorithm
                 // one block
                 h = int ( double((rand() % Keco + rand() % Keco - Keco) * global_mountainity) * pow(fract,k) );
                 for (i = 0 ; i < size; i++)
                     for (j = 0 ; j < size; j++)
                         *f1(l * size + i, m * size + j ) += h;
-            }
-        }
+*/ 
+				int startx = l * size;
+				int starty = m * size;
+				int midx = startx + size/2;
+				int midy = starty + size/2;
+				int endx = startx + size;
+				int endy = starty + size;
+				//std::cout << "x " << startx <<"--" << midx << "--" << endx << std::endl;
+				//std::cout << "y " << starty <<"--" << midy << "--" << endy << std::endl;
+				if (!*f1(midx,midy))
+				{ 
+					float left_top = *f1(startx, starty);
+					float left_down = *f1(startx, endy);
+					float right_top = *f1(endx, starty);
+					float right_down = *f1(endx, endy);
+					float center = (left_top + left_down + right_top + right_down)/4 
+					+ float((rand() % Keco - Keco/2 ) * global_mountainity) * pow(fract,k);
+					*f1(midx, midy) = center;
+				}
+			}
+		}
+		//Square Step with periodic boundaries.
+		for ( l = 0; l < n; l++ )
+		{
+			for ( m = 0; m < n; m++ )          
+			{
+				
+				int startx = l * size;
+				int starty = m * size;
+				int midx = startx + size/2;
+				int midy = starty + size/2;
+				int endx = startx + size;
+				int endy = starty + size;
+					
+				float left_top = *f1(startx, starty);
+				float left_down = *f1(startx, endy);
+				float right_top = *f1(endx, starty);
+				float right_down = *f1(endx, endy);
+				float center = *f1(midx, midy);
+					//up center
+				if ((m==0) && !*f1(midx, starty))
+				{
+					float up_center; 
+					/*if (m > 0) //inside map
+					{													 //middle          // upwards
+						up_center = (left_top + right_top + center + *f1(midx, midy - size))/4;
+						assert(*f1(midx, midy - size));
+					}
+					else //at upper edge*/
+					{
+						up_center = (left_top + right_top + center + *f1(midx, sz-size/2))/4;
+						assert(*f1(midx, sz-size/2));
+					}
+					//assert(*f1(midx, starty)==0);
+					*f1(midx, starty) =
+					up_center + float((rand()%Keco - Keco/2 ) * global_mountainity) * pow(fract,k);
+					//std::cout << "up " << *f1(midx, starty) << '\t';
+					//std::cout.flush();
+				} 
+					
+				//right edge
+				if(!*f1(endx, midy))
+				{
+					float right_center; 
+					if ( l < k-1) //inside map
+					{														  //to the right             //middle
+						right_center = (right_top + right_down + center + *f1(midx + size, midy))/4;
+						assert(*f1(midx + size, midy));
+					}
+					else //at right edge
+					{
+						right_center = (right_top + right_down + center + *f1(size/2, midy))/4;
+						assert(*f1(size/2, midy));
+					}
+					//assert(*f1(endx, midy)==0);
+					*f1(endx, midy) =
+					right_center + float((rand()%Keco - Keco/2) * global_mountainity) * pow(fract,k);
+					//std::cout << "right " << *f1(endx, midy) << '\t';
+					//std::cout.flush();
+				}
+					
+				//down edge
+				if (!*f1(midx, endy))
+				{
+					float down_center; 
+					if (m < k-1) //inside map
+					{														  //middle            // downwards
+						down_center = (left_down + right_down + center + *f1(midx, midy + size ))/4;
+						assert(*f1(midx, midy + size ));
+					}
+					else //at lower edge
+					{
+						down_center = (left_down + right_down + center + *f1(midx, size/2 ))/4;
+						assert(*f1(midx, size/2 ));
+					}
+					//assert(*f1(midx, endy)==0);
+					*f1(midx, endy) =
+					down_center + float((rand()%Keco - Keco/2 ) * global_mountainity) * pow(fract,k);
+					//std::cout << "down " << *f1(midx, endy) << '\t';
+					//std::cout.flush();
+				}
+						
+				//left edge
+				if ((l==0) && !*f1(startx, midy))
+				{
+					float left_center; 
+					/*if ( l > 0) //inside map
+					{													   //to the left             //middle
+						left_center = (left_top + left_down + center + *f1(midx - size, midy))/4;
+						assert(*f1(midx - size, midy));
+					}
+					else //at left edge*/
+					{
+						left_center = (left_top + left_down + center +*f1(sz - size/2, midy) )/4;
+						assert(*f1(sz - size/2, midy));
+					}
+					//assert(*f1(startx, midy)==0);
+					*f1(startx, midy) =
+					left_center + float((rand()%Keco - Keco/2) * global_mountainity) * pow(fract,k);
+					//std::cout << "left " << *f1(startx, midy) << std::endl;
+				}         
+			}
+		}
+	n *= 2; //here in case of Square-Diamond Alogorithm
     }
-
+	
     //smooth is iterated to propagate a little the lowering of borders
-    for (n = 0; n < 2; n++) {
+    for (n = 0; n < 1; n++)
+    {
+       
+        //old 2d version
         // apply the mask
         for (i = mask_size; i < sz - mask_size; i++)
             for (j = mask_size; j < sz - mask_size; j++) {
@@ -462,60 +614,62 @@ static void new_setup_river_ground(void)
                     for ( l = -mask_size; l <= mask_size; l++ )
                         *f2(i,j) += *f1(i + k,j + l) * mat[mask_size + k][mask_size + l];
             }
+		 for (i = mask_size; i< sz - mask_size; i++)
+            for (j = mask_size; j< sz - mask_size; j++)	
+				*f1(i,j) = *f2(i,j) * norm;
 
-        for (i = mask_size; i< sz - mask_size; i++)
-            for (j = mask_size; j< sz - mask_size; j++)
-                *f1(i,j) = *f2(i,j) * norm;
+	}
+    {
+		// find the lowest borders
+		// switch the map to have lowest borders in SE an SW in ISO view
+		float Nmin = 0;
+		float Smin = 0;
+		float Emin = 0;
+		float Wmin = 0;
+		for ( i = 0; i < len ; i++)
+		{
+			Nmin += *f1(SHIFT + i,SHIFT);
+			Smin += *f1(SHIFT + i,SHIFT + world.len());
+			Wmin += *f1(SHIFT,SHIFT + i);
+			Emin += *f1(SHIFT + world.len(),SHIFT + i);
+		}
+		if (Nmin < Smin) 
+		{
+			for ( i = 0; i < sz; i++)
+				for ( j = 0; j < sz; j++)
+					*f2(i,j) = *f1(i,sz - j -1);
 
-        if (n == 0) {
-            // find the lowest borders
-            // switch the map to have lowest borders in SE an SW in ISO view
-            float Nmin = 0;
-            float Smin = 0;
-            float Emin = 0;
-            float Wmin = 0;
-            for ( i = 0; i < len ; i++)
-            {
-                Nmin += *f1(SHIFT + i,SHIFT);
-                Smin += *f1(SHIFT + i,SHIFT + world.len());
-                Wmin += *f1(SHIFT,SHIFT + i);
-                Emin += *f1(SHIFT + world.len(),SHIFT + i);
-            }
-            if (Nmin < Smin) 
-            {
-                for ( i = 0; i < sz; i++)
-                    for ( j = 0; j < sz; j++)
-                        *f2(i,j) = *f1(i,sz - j -1);
+			 for ( i = 0; i < sz; i++)
+				for ( j = 0; j < sz; j++)
+					*f1(i,j) = *f2(i,j);                       
+		}
 
-                for ( i = 0; i < sz * sz; i++)
-					*f1(i) = *f2(i);                       
-            }
+		if (Wmin < Emin) 
+		{
+			for ( i = 0; i < sz; i++)
+				for ( j = 0; j < sz; j++)                       
+				   *f2(i,j) = *f1(sz -i -1,j);
 
-            if (Wmin < Emin) 
-            {
-                for ( i = 0; i < sz; i++)
-                    for ( j = 0; j < sz; j++)                       
-                       *f2(i,j) = *f1(sz -i -1,j);
+			for ( i = 0; i < sz; i++)
+				for ( j = 0; j < sz; j++) 
+					*f1(i,j) = *f2(i,j);                      
+		}
+	}
 
-                for ( i = 0; i < sz * sz; i++)
-                    *f1(i) = *f2(i);                      
-            }
-        }
+	// put the south and east border of the "big" map at the minimum visible height
+	for ( i = 0; i < len ; i++)
+		for ( j = 0; j < len ; j++)
+			if ( *f1(SHIFT + i, SHIFT + j) < min)
+				min = *f1(SHIFT + i, SHIFT + j);
+			 
 
-        // put the south and east border of the "big" map at the minimum visible height
-        for ( i = 0; i < len ; i++)
-            for ( j = 0; j < len ; j++)
-                if ( *f1(SHIFT + i, SHIFT + j) < min)
-                    min = *f1(SHIFT + i, SHIFT + j);
-				 
-
-        for ( i = 0; i < sz; i++)
-            for (j = 0; j < (sz - SHIFT - len); j++)
-            {               
-                *f1(i, sz -1 -j) = min;               
-                *f1(sz -1 -j, i ) = min;
-            }
-    }
+	for ( i = 0; i < sz; i++)
+		for (j = 0; j < (sz - SHIFT - len); j++)
+		{               
+			*f1(i, sz -1 -j) = min;               
+			*f1(sz -1 -j, i ) = min;
+		}
+    
 
     alt_min =  int (min);
     alt_max = 0;
@@ -524,7 +678,7 @@ static void new_setup_river_ground(void)
 	{
 		i = index % len;
 		j = index / len;
-		world(i, j)->ground.altitude = int (*f1(SHIFT + i, SHIFT + j)) - alt_min + 1;// + (len-j*j/len)*global_mountainity/2;
+		world(i, j)->ground.altitude += int (*f1(SHIFT + i, SHIFT + j)) - alt_min + 1;// + (len-j*j/len)*global_mountainity/2;
 		if (  world(i, j)->ground.altitude > alt_max)
 			alt_max =  world(i, j)->ground.altitude;
 	}
@@ -532,7 +686,6 @@ static void new_setup_river_ground(void)
     // take visible value for maximum color dynamic
     alt_min = 0; // visible alt_min is 0, we will use -1 for gray border
     alt_step = (alt_max - alt_min)/10;
-
 #ifdef DEBUG
     fprintf(stderr," alt min = %i; max = %i\n", alt_min, alt_max);
 #endif
@@ -550,10 +703,10 @@ static void new_setup_river(void)
     // Put the gray border (not visible) at alt_min - 1, for easier rivers handling.
     for ( i = 0; i < len; i++) 
     {
-        world(i, 0)->ground.altitude = alt_min - 1;
-        world(i, world.len() - 1)->ground.altitude = alt_min - 1;
-        world(0, i)->ground.altitude = alt_min - 1;
-		world(world.len() - 1, i)->ground.altitude = alt_min - 1;
+        world(i, 0)->ground.altitude = alt_min ;
+        world(i, world.len() - 1)->ground.altitude = alt_min ;
+        world(0, i)->ground.altitude = alt_min ;
+		world(world.len() - 1, i)->ground.altitude = alt_min ;
     }
 
     l = 0;
@@ -581,19 +734,33 @@ static void new_setup_river(void)
     {
 		permutator->shuffle();
 	}
-    
+    /*
+    //In case we want extra random rivers instead of connected lakes
+    for(i=0;i<m;++i)
+    {
+		lkidx[i]=rand()%len + rand()%len * len;
+	}
+	*/ 
     std::cout << "pooring " << m << " lakes into " << l << " random local minima ...";
     std::cout.flush();
     //sort_by_altitude(m, &lakx, &laky);
     for (i = 0; i < m; i++)
     {      
         j = permutator->getIndex(i);
-		k = overfill_lake(lkidx[j] % len, lkidx[j] / len );		
+		if (world.minimum(lkidx[j] % len, lkidx[j] / len ))
+		{
+			k = overfill_lake(lkidx[j] % len, lkidx[j] / len );		
+	    }
+	    else
+	    {
+			k=quick_river(lkidx[j] % len, lkidx[j] / len);
+			set_river_tile(lkidx[j] % len, lkidx[j] / len);
+		}
 	    if (k != -1)
 	    {
 			int x = k % len;
 			int y = k / len; 
-			if (world(x,y)->is_visible() && world(x,y)->ground.altitude == world(x,y)->ground.water_alt) 
+			if (world(x,y)->is_visible() && world(x,y)->is_river()) 
 			{ 
 				lkidx[j] = x + y * len;
 				i--;
@@ -604,29 +771,6 @@ static void new_setup_river(void)
     std::cout << " done" << std::endl;
     delete permutator;
 }
-
-
-/*
-int go_downhill(int index)
-{
-    int x = index / world.len();
-    int y = index % world.len();
-    int min_alt = world(x,y)->ground.altitude;     
-    int ind_min = index;
-    for (int i=0; i<8; i++)
-    {
-		int tx = x + dxo[i];
-		int ty = y + dyo[i];
-		if(min_alt > world(tx, ty)->ground.altitude)
-		{
-			min_alt = world(tx, ty)->ground.altitude;
-			ind_min = ty + tx * world.len();
-		}
-					
-	}	
-	return ind_min;
-}
-*/
 
 static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake_id)
 {
@@ -750,25 +894,8 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
 				// Now test if we reached the same or a different lake
 				if (!(*i1(loc_x,loc_y))) // overspill detected
 				{
-					//if (loc_x + loc_y * len != last_lake)
-					
-						reset_lake = true;
-						lowest_exit_level = new_level;
-					
-					/*
-					if (world(loc_x,loc_y)->ground.water_alt <= world(loc_x,loc_y)->ground.altitude) //real exit
-					{
-						reset_lake = true;
-						lowest_exit_level = new_level;
-					}
-					else
-					{
-						line.push_back(loc_y + loc_x * world.len());
-						*i1(loc_x,loc_y) = 1;
-						line.push_back(y + x * world.len());
-						*i1(x,y) = 1; 
-					}
-					*/ 	 
+					reset_lake = true;
+					lowest_exit_level = new_level;
 				}
 				else // no overspill add tile to lake
 				{
@@ -954,20 +1081,22 @@ static int quick_river( int xx, int yy)
 		set_river_tile(x_new, y_new);
 		//std::cout << "next water: "<< x_new << ", " << y_new << " alt = " <<  new_alt << std::endl;		
 	}
-	while ((x_new != x_now || y_new != y_now) && !world.is_border(x_now,y_now)); 	
+	while ((x_new != x_now || y_new != y_now) );
 	//std::cout << x_new << ", " << y_new << std::endl;
 	//look for minimum around end (maybe the second last tile)
 	for(int i=0; i < 8; i++)
 	{
 		int x = x_now + dx[i];
 		int y = y_now + dy[i];
-		if (world.is_inside(x,y) && world(x,y)->ground.altitude < new_alt)
+		if (world.is_visible(x,y) && world(x,y)->ground.altitude < new_alt)
 		{
 			new_alt = world(x,y)->ground.altitude;
 			x_new = x;
 			y_new = y;
 		}
 	}
+	
+	
 	return world.is_visible(x_new,y_new)? x_new + y_new * world.len(): -1; 
 }
 
@@ -991,33 +1120,14 @@ static void setup_river(void)
     i = (rand() % (len/8)) + len/18;
     for (j = 0; j < i; j++) {
         x += (rand() % 3) - 1;
-        set_river_tile(x , y );        
-        //world(x, y)->ground.altitude = alt;
-
-        set_river_tile(x + 1 , y );
-        //world(x+1, y)->ground.altitude = alt;
-
-        set_river_tile(x - 1 , y );        
-        //world(x-1, y)->ground.altitude = alt;
-
+        set_river_tile(x , y );               
+        set_river_tile(x + 1 , y );       
+        set_river_tile(x - 1 , y );               
         y--;
-        //alt += 1; // wide river, so very small slope
     }
-
-        
-    //world(x, y)->ground.altitude = alt;
     set_river_tile(x , y );
-
-        
-    //world(x+1, y)->ground.altitude = alt;
     set_river_tile(x + 1, y );
-
-    
-    //world(x-1, y)->ground.altitude = alt;
     set_river_tile(x - 1 , y );
-
-    //alt += 2;
-
 #ifdef DEBUG
     fprintf(stderr," x= %d, y=%d, altitude = %d, mountainity = %d\n", x, y, alt, global_mountainity);
 #endif
@@ -1046,12 +1156,9 @@ static void setup_river2(int x, int y, int d, int alt, int mountain)
             return;
         if (x > 5 && x < world.len() - 5)
         {                
-            //world(x, y)->ground.altitude = alt;
             set_river_tile(x , y );
             alt += rand() % (mountain / 10);
-			//world(x+d, y)->ground.altitude = alt;
 			set_river_tile(x + d, y );
-			//alt += rand () % (mountain / 10);
         }
         if (--y < 10 || x < 5 || x > len - 5)
             break;
@@ -1084,7 +1191,7 @@ static void setup_ground(void)
     int slope = global_mountainity/10;
     if (slope == 0)
     {	slope = 1;}
-    std::cout << "creating topology ";
+    //std::cout << "creating topology ";
     std::cout.flush();
     Array2D <int> i1(len,len);
     std::deque<int> line;
@@ -1105,8 +1212,8 @@ static void setup_ground(void)
 			*i1(x,y) = len;
 		}        
     }
-    std::cout << ".";
-    std::cout.flush();
+    //std::cout << ".";
+    //std::cout.flush();
 	while (line.size())
 	{
 		int index = line.front();
@@ -1121,21 +1228,22 @@ static void setup_ground(void)
 			int new_dist = *i1(tx,ty); 
 			if ( !world.is_visible(tx,ty) || world(tx,ty)->is_river() || new_dist <= dist)
 			{	continue;}
-			world(tx,ty)->ground.altitude = (len-ty*ty/len + dist/2 + 2*(len*len - (len-dist)*(len-dist))/len) * slope;
+			world(tx,ty)->ground.altitude = ((len-ty*ty/len + dist/2 + 2*(len*len - (len-dist)*(len-dist))/len) * slope);
 			*i1(tx,ty) = dist;
 			line.push_back(tx + ty * len);
 		}	
 		
 	}
 	
-    std::cout << ".";
-    std::cout.flush();    
+    //std::cout << ".";
+    //std::cout.flush();    
     alt_min = 2000000000;
     alt_max = -alt_min;
     for (int index=0; index<area; index++)
 	{
 		int x = index % len;
 		int y = index / len;
+		
 		if (!world.is_visible(x,y))
 		{
 			continue;
@@ -1143,10 +1251,11 @@ static void setup_ground(void)
 		if (alt_min > world(x, y)->ground.altitude)
         {	alt_min = world(x, y)->ground.altitude;}
 		if (alt_max < world(x, y)->ground.altitude)
-		{	alt_max = world(x, y)->ground.altitude;}        
+		{	alt_max = world(x, y)->ground.altitude;}
+		        
 	 }
 	alt_step = (alt_max - alt_min) /10;
-	std::cout << ". done" << std::endl;
+	//std::cout << ". done" << std::endl;
 }
 
 

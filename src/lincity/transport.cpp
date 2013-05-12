@@ -62,13 +62,14 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
     {            
         int loc_lvl = repcons->commodityCount[stuff_ID];
         int loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;
-        
+       
         if (repcons->flags & FLAG_EVACUATE)
-        {	return loc_lvl * TRANSPORT_QUANTA;}
-        //return (loc_lvl * TRANSPORT_QUANTA / (loc_cap));        
-        //These checks will always fail IF mines are beeing evacuated
-        //Otherwise usefull for debugging transport
-/*        
+        {	
+			return loc_lvl?TRANSPORT_QUANTA:-1;
+		}
+
+                       
+#ifdef DEBUG        
         if (loc_lvl > loc_cap)
         {
             std::cout<<"fixed "<<commodityNames[stuff_ID]<<" > maxload at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
@@ -86,7 +87,7 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
         {
             std::cout<<"maxload "<<commodityNames[stuff_ID]<<" <= 0 error at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
         }
-*/      
+#endif      
         int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);       
         if ((center_ratio == -1) || (
         loc_ratio>center_ratio?repcons->constructionGroup->commodityRuleCount[stuff_ID].give:

@@ -77,7 +77,7 @@ void Oremine::update()
                     commodityCount[STUFF_ORE] += ORE_PER_RESERVE;
                     commodityCount[STUFF_JOBS] -= JOBS_DIG_ORE;                        
                     //FIXME ore_tax should be handled upon delivery
-                    //ore_made += ORE_PER_RESERVE;
+                    //ore_made += ORE_PER_RESERVE;  
                     sust_dig_ore_coal_tip_flag = 0;
                     animate = true;
                     busy_days++;  

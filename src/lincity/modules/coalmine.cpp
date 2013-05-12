@@ -93,7 +93,8 @@ void Coalmine::update()
                     commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;                        
                     //FIXME coal tax is handled in equlibrate_transport
                     //coal_made += COAL_PER_RESERVE;                     
-                    sust_dig_ore_coal_tip_flag = 0;
+                    if (current_coal_reserve < initial_coal_reserve)
+                    {	sust_dig_ore_coal_tip_flag = 0;}
                     coal_found = true;
                     busy_days++;  
                 }

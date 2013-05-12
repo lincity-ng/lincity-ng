@@ -427,7 +427,7 @@ void Dialog::gameStats(){
     setTableRC("statistic", 1, 3, _("Farms"), Counted<Organic_farm>::getInstanceCount());
 
     setTableRC("statistic", 2, 1, _("Water wells"), Counted<Waterwell>::getInstanceCount());
-    setTableRC("statistic", 2, 2, "", "");
+    setTableRC("statistic", 2, 2, _("Wind powers"), Counted<Windpower>::getInstanceCount());
     setTableRC("statistic", 2, 3, "", "");
 
     setTableRC("statistic", 3, 1, "", "");
@@ -562,7 +562,8 @@ void Dialog::saveGameStats(){
 	     Counted<Market>::getInstanceCount(),
 	     Counted<Organic_farm>::getInstanceCount());
     results << outf << std::endl;
-    snprintf (outf, maxlength, "   Water wells %4d", Counted<Waterwell>::getInstanceCount());
+    snprintf (outf, maxlength, "   Water wells %4d     Wind powers %4d", 
+    Counted<Waterwell>::getInstanceCount(),Counted<Windpower>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "     Monuments %4d         Schools %4d     Universities %4d"
 	     ,Counted<Monument>::getInstanceCount(), Counted<School>::getInstanceCount()

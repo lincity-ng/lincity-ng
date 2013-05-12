@@ -527,21 +527,21 @@ void do_daily_ecology() //should be going to MapTile:: und handled during simula
 
 int check_group(int x, int y)
 {
-    if (! world.is_visible(x, y) )
+    if (! world.is_inside(x, y) )
         return -1;    
     return world(x, y)->getGroup();
 }
 
 int check_topgroup(int x, int y)
 {
-    if (!world.is_visible(x, y) )
+    if (!world.is_inside(x, y) )
         return -1;    
     return world(x, y)->getTopGroup();
 }
 
 bool check_water(int x, int y)
 {
-    if (!world.is_visible(x, y) )
+    if (!world.is_inside(x, y) )
         return false;    
     return world(x, y)->is_water();
 }

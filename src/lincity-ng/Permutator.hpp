@@ -17,6 +17,7 @@ public:
     Permutator(unsigned int range, unsigned int seed);
     ~Permutator();
     unsigned int getIndex(unsigned int i) const {
+        assert(i < range);
         return permutation[i];
     }
     void shuffle(); //take the next power of the permutation

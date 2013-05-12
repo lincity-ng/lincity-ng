@@ -276,15 +276,15 @@ void editMap (MapPoint point, int button)
     {
 		selected_module_type = CST_WINDMILL_1_R; 
         selected_module_group = get_group_of_type(selected_module_type);
-        assert(selected_module_group == GROUP_WIND_POWER);
-        std::cout << "switched to wind power" << std::endl;
+        //assert(selected_module_group == GROUP_WIND_POWER);
+        //std::cout << "switched to wind power" << std::endl;
     } 
     else if ((selected_module_group == GROUP_WIND_POWER) && (tech_level < MODERN_WINDMILL_TECH))
     {
 		selected_module_type = CST_WINDMILL_1_W; 
         selected_module_group = get_group_of_type(selected_module_type);
-        assert(selected_module_group == GROUP_WINDMILL);
-        std::cout << "switched to wind mill" << std::endl;
+        //assert(selected_module_group == GROUP_WINDMILL);
+        //std::cout << "switched to wind mill" << std::endl;
 	}
     if(ConstructionGroup::countConstructionGroup(selected_module_group))
     {
