@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "GameView.hpp"
 
+#include "gui_interface/mps.h"
 #include "gui/TextureManager.hpp"
 #include "gui/Painter.hpp"
 #include "gui/Rect2D.hpp"
@@ -34,6 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engglobs.h"
 #include "lincity/range.h"
 #include "lincity/engine.h"
+#include "lincity/lin-city.h"
 
 #include "MapEdit.hpp"
 #include "MiniMap.hpp"
@@ -937,8 +939,9 @@ void GameView::event(const Event& event)
                 roadDragging = false;
                 areaBulldoze = false;
             }
-            // bulldoze at once while still dragging
-            if( roadDragging && (selected_module_type == CST_GREEN) && !areaBulldoze){
+            // bulldoze and evacuate at once while still dragging
+            if( roadDragging && ( (selected_module_type == CST_GREEN) || 
+            (selected_module_type == CST_DESERT) ) && !areaBulldoze){
                 if( tile != startRoad ){
                     editMap( startRoad, SDL_BUTTON_LEFT);
                     startRoad = tile;
@@ -1526,7 +1529,19 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             {
                 for( x = (int) tile.x; x < tile.x + cursorSize; x++ )
                 {
-                    if( !world(x,y)->is_bare() ) 
+                    if (selected_module_type == CST_DESERT) //Evacuating Stuff
+                    {
+						if(!(world(x,y)->reportingConstruction) || 
+						(world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE))
+						{
+							painter.setFillColor( alphared );
+							y += cursorSize;
+							break;
+						}
+						else //show/quickly find ongoing evacuations
+						{	mps_set( x, y, MPS_MAP );}
+					}
+                    else if( !world(x,y)->is_bare() ) 
                     {
                         if( !((world(x,y)->is_water() || world(x,y)->is_transport()) && (
                            (selected_module_type == CST_TRACK_LR ) ||
@@ -1719,7 +1734,8 @@ void GameView::draw(Painter& painter)
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
             currentTile = startRoad;
             //we are speaking of tools, so CST_GREEN == bulldozer
-            if (selected_module_type == CST_GREEN) {
+            if ( (selected_module_type == CST_GREEN)
+			  || (selected_module_type == CST_DESERT)) {
                 for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
                     for (currentTile.y = startRoad.y; currentTile.y != tileUnderMouse.y + stepy; currentTile.y += stepy) {
                         markTile( painter, currentTile );
@@ -1730,7 +1746,8 @@ void GameView::draw(Painter& painter)
                         tiles++;
                     }
                 }
-            } else {
+            } 
+            else {
                 while( currentTile.x != tileUnderMouse.x) {
                     markTile( painter, currentTile );
                     cost += buildCost( currentTile );

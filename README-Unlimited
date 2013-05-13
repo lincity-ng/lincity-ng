@@ -14,9 +14,8 @@ Major features
 Minor features
 - In text mode query with "d" pressed sends XML info to console
 - press p to cylcle trough constructions and/or locate village on map
-- hold s while building watertower to build a shanty
-- First bulldozer only triggers evacuation of buildings, 
-- Second bulldozer demolishes or cancels evacuation if "u" pressed
+- hold s while building watertower to build a shanty 
+- Evacuate commodities from buildings or transport
 - find coal deposits by right click on tile
 - Animated waste burning
 - 2nd page of stat bars

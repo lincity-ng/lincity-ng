@@ -6,6 +6,7 @@
 	<button name="BPMPointerButton"/>
 	<button name="BPMBullDozeButton"/>
 	<button name="BPMWaterButton"/>
+	<button name="BPMEvacuateButton"/>
 
 	<menubutton name="BPResidenceButton"/>
 	<menu name="BPResidenceMenu" default="BPMResidence2Button"/>
@@ -80,8 +81,8 @@
 				</CheckButton>
 			</cell>						
 			<cell row="1" col="2" halign="left">
-				<Panel name="BPPointerMenu" width="150" height="50" background="images/gui/buttons/button-border-3.png">
-					<TableLayout rows="1" cols="3">
+				<Panel name="BPPointerMenu" width="200" height="50" background="images/gui/buttons/button-border-4.png">
+					<TableLayout rows="1" cols="4">
 					<cell row="1" col="1">
 						<CheckButton name="BPMPointerButton" main="BPPointerButton">
 						<image src="images/gui/buttons/button.png"/>
@@ -110,6 +111,16 @@
 						<image-checked src="images/gui/buttons/button-checked.png"/>
 						<image-disabled src="images/gui/buttonpanel/parks/water.png" filter="grey"/>
 						<image-caption src="images/gui/buttonpanel/parks/water.png"/>
+						</CheckButton>
+					</cell>
+						<cell row="1" col="4">
+						<CheckButton name="BPMEvacuateButton" main="BPPointerButton">
+						<image src="images/gui/buttons/button.png"/>
+						<image-hover src="images/gui/buttons/button-hover.png"/>
+						<image-clicked src="images/gui/buttons/button-clicked.png"/>
+						<image-checked src="images/gui/buttons/button-checked.png"/>
+						<image-disabled src="images/gui/buttonpanel/base/broom.png" filter="grey"/>
+						<image-caption src="images/gui/buttonpanel/base/broom.png"/>
 						</CheckButton>
 					</cell>
 

@@ -128,7 +128,7 @@ void check_bulldoze_area (int x, int y)
     }
   last_message_group = 0;
   getSound()->playSound( "Raze" );
-  bulldoze_item (xx,yy);
+  bulldoze_item(xx,yy);
 }
 
 
@@ -163,22 +163,36 @@ void editMap (MapPoint point, int button)
     }
    
     /* Handle bulldozing */
-    if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT)
+    if (selected_module_type == CST_GREEN)// && button != SDL_BUTTON_RIGHT)
     {     
-		Uint8 *keystate = SDL_GetKeyState(NULL);
-        if ( ! keystate[SDLK_u] )
-        {
-			check_bulldoze_area (mod_x, mod_y);
-			mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
+		check_bulldoze_area (mod_x, mod_y);
+		mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
 #ifdef DEBUG
-			DBG_TileInfo(x, y);
+		DBG_TileInfo(x, y);
 #endif
-		}
-		else if (world(x,y)->reportingConstruction)
-		{	world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;}
         return;
     }
-
+	/*Handle Evacuation of Commodities*/
+	if (selected_module_type == CST_DESERT)// && button != SDL_BUTTON_RIGHT)
+    {     
+		if (world(x,y)->reportingConstruction)
+		{
+			if(world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE)
+			{	return;}
+			if(world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
+			{
+				world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;				
+			}
+			else
+			{
+				world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;				
+			}
+			mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on evacuate
+		}
+        return;
+    }
+	
+	
     /* Bring up mappoint_stats for certain left mouse clicks */
     /* Check market and port double-clicks here */
     /* Check rocket launches */

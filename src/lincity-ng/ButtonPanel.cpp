@@ -203,6 +203,7 @@ std::string ButtonPanel::createTooltip( int module, bool root /* = true */ ){
     switch( module ){
         case CST_NONE: tooltip << _( "Query Tool" ); break;
         case CST_GREEN: tooltip << _( "Bulldozer" ); break;
+        case CST_DESERT: tooltip << _( "Evacuate Commodities" ); break;
                         
         case CST_RESIDENCE_LL: tooltip << _( "Residential: 50 denizens, low birthrate, high deathrate" ); break;
         case CST_RESIDENCE_ML: tooltip << _( "Residential: 100 denizens, high birthrate, low deathrate" ); break;
@@ -517,6 +518,8 @@ void ButtonPanel::showToolHelp( int tooltype ){
             getGame()->showHelpWindow( "query" ); break;
         case CST_GREEN :
             getGame()->showHelpWindow( "bulldoze" ); break;
+		case CST_DESERT :
+            getGame()->showHelpWindow( "bulldoze" ); break;
                         
         case CST_RESIDENCE_LL: 
         case CST_RESIDENCE_ML: 
@@ -605,6 +608,7 @@ void ButtonPanel::switchToTool( int newModuleType ){
     switch( newModuleType ){
         case CST_NONE: newName = "BPMPointerButton"; break;
         case CST_GREEN :newName = "BPMBullDozeButton"; break;
+        case CST_DESERT :newName = "BPMEvacuateButton"; break;
                         
         case CST_RESIDENCE_LL: newName = "BPMResidence1Button"; break;
         case CST_RESIDENCE_ML: newName = "BPMResidence2Button"; break;
@@ -840,6 +844,8 @@ void ButtonPanel::doButton(const std::string &button)
         selected_module_type=CST_NONE;
     else if(button=="BPMBullDozeButton")
         selected_module_type=CST_GREEN;
+	else if(button=="BPMEvacuateButton")
+        selected_module_type=CST_DESERT;
     
     
     else if(button=="BPMResidence1Button")

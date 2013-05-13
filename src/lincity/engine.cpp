@@ -273,16 +273,8 @@ int bulldoze_item(int x, int y)
 #endif
         return -1;
     }
-    if (world(x, y)->reportingConstruction 
-    && !(world(x, y)->reportingConstruction->flags & FLAG_EVACUATE)
-    && !(world(x, y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE))
-    {
-		world(x, y)->reportingConstruction->flags |= FLAG_EVACUATE;
-		return -1;
-	}   
-    else if (world(x, y)->reportingConstruction 
-    && ( (world(x, y)->reportingConstruction->flags & FLAG_EVACUATE) 
-		|| (world(x, y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE) ))
+    
+    if (world(x, y)->reportingConstruction )
     {
         construction_found = true;
         size = world(x, y)->reportingConstruction->constructionGroup->size;
