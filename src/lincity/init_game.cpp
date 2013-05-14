@@ -183,7 +183,7 @@ void setup_land()
 		}
 		else
 		{
-			*dist(xx,yy) = 30;
+			*dist(xx,yy) = 50;
 			*water(xx,yy) = 3*world(xx,yy)->ground.altitude/4;  
 		}
 	}
@@ -455,6 +455,8 @@ static void new_setup_river_ground(void)
     *f1(0,sz) = (float)(rand() % Keco + rand() % Keco ) * global_mountainity ;
     *f1(sz,0) = (float)(rand() % Keco + rand() % Keco ) * global_mountainity ;
     *f1(sz,sz) = (float)(rand() % Keco + rand() % Keco ) * global_mountainity ;
+    // 1/5.3 gives roughly half of the times a little sea
+    int sea_level = (int)((*f1(0,0)+*f1(0,sz)+*f1(sz,0)+*f1(sz,sz))/5.3);
 	//square diamond Algorithm for lanscape generation
     /* fractal iteration for height */  
     n = 1;
@@ -672,6 +674,7 @@ static void new_setup_river_ground(void)
     
 
     alt_min =  int (min);
+    sea_level -= alt_min;
     alt_max = 0;
     // pick our map in the fractal one
     for (int index=0; index < area ; index++ )
@@ -690,6 +693,34 @@ static void new_setup_river_ground(void)
     fprintf(stderr," alt min = %i; max = %i\n", alt_min, alt_max);
 #endif
     new_setup_river();
+    
+   
+    if (sea_level > alt_max/3)
+	{	sea_level = alt_max/3;}
+    //now flood everything below sea_level
+	for (int index=0; index < area ; index++ )
+	{
+		i = index % len;
+		j = index / len;
+		if (  world.is_visible(i,j) && world(i, j)->ground.altitude < sea_level)
+		{
+			world(i, j)->ground.altitude = sea_level;
+			set_river_tile(i,j);				
+		}			
+	}
+	//put water at invisible borders in the sea
+	for (int index=1; index < area ; index++ )
+	//always skip (0,0) ensures brown background
+	{
+		i = index % len;
+		j = index / len;
+		if (((i == 0) && world(1,j)->is_river())
+		|| (i == len-1 && world(len-2,j)->is_river())
+		|| (j == 0 && world(1,j)->is_river())
+		|| (j == len-1 && world(i,len-2)->is_river()))
+		{	set_river_tile(i,j);}
+	}
+
 }
 
 static void new_setup_river(void)
@@ -725,9 +756,13 @@ static void new_setup_river(void)
     m = round(((400 - global_aridity)*l) / (4*len)); // ugly hardcoded values correpsonding to "climate" switch in create_new_city
     if (m==0)
         m=1;
-
-    if (m>l)
+    
+	if (m>l)
         m = l;
+        
+	if (m>area/400)
+        m = area/400;
+    	  
     Permutator * permutator;
     permutator = new Permutator(l,m);
     for (i = 0; i<rand()%10; i++)
@@ -834,7 +869,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
 				new_level = world(x,y)->ground.water_alt; 
 			}
 */								
-			if (new_level >= level && new_level < lowest_exit_level)
+			if ((new_level >= level && new_level < lowest_exit_level))
 			{
 				//rain drop test
 				int min_alt = new_level;				
@@ -842,6 +877,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
 				int loc_y = y;				
 				int s = 0;
 				bool done = false;
+				
 				// Let the drop run downhill a bit
 				while (world.is_visible(loc_x,loc_y) && (s < 16) && !done)
 				{
@@ -891,6 +927,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
 					}
 */ 
 				}
+			
 				// Now test if we reached the same or a different lake
 				if (!(*i1(loc_x,loc_y))) // overspill detected
 				{
@@ -956,7 +993,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
 		std::cout << std::endl << "cancelled lake x, y = " << start_x << ", "<< start_y <<  " alt : " << level << std::endl;
 		return -1;
 	}   
-	flooding_level = lowest_exit_level;						
+	flooding_level = lowest_exit_level;
 		    
 	for (size_t it=0; it<lake.size(); it++)
 	{
@@ -1046,6 +1083,8 @@ static int quick_river( int xx, int yy)
 {
     int  x_now, y_now, x_new, y_new, new_alt;
     // start a river from point (xx, yy)
+    int max_len = world.len()/2;
+    int river_len = 0;
     x_now = xx;
     y_now = yy;
     x_new = xx;
@@ -1056,6 +1095,7 @@ static int quick_river( int xx, int yy)
 	{
 		x_now = x_new;
 		y_now = y_new;
+		++river_len;
 		for(int i=0; i < 8; i++)
 		{
 			int x = x_now + dx[i];
@@ -1081,7 +1121,7 @@ static int quick_river( int xx, int yy)
 		set_river_tile(x_new, y_new);
 		//std::cout << "next water: "<< x_new << ", " << y_new << " alt = " <<  new_alt << std::endl;		
 	}
-	while ((x_new != x_now || y_new != y_now) );
+	while ((x_new != x_now || y_new != y_now) && river_len < max_len);
 	//std::cout << x_new << ", " << y_new << std::endl;
 	//look for minimum around end (maybe the second last tile)
 	for(int i=0; i < 8; i++)
@@ -1095,8 +1135,7 @@ static int quick_river( int xx, int yy)
 			y_new = y;
 		}
 	}
-	
-	
+		
 	return world.is_visible(x_new,y_new)? x_new + y_new * world.len(): -1; 
 }
 
