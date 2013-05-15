@@ -167,8 +167,9 @@ void setup_land()
     std::deque <int> line;  
     Array2D <int> dist(len,len);
     Array2D <int> water(len,len);
-    line.clear();
+    int arid = global_aridity;
     
+    line.clear();
     std::cout << ".";
     std::cout.flush();    
 	for (int index = 0; index < area; index++)
@@ -202,7 +203,11 @@ void setup_land()
 		{
 			int xt = xx + dx[i];
 			int yt = yy + dy[i];
-			if (world.is_visible(xt,yt) && *dist(xt,yt) > next_dist)
+			int old_eco = (*dist(xt,yt) * *dist(xt,yt)/5 + 1) + arid +
+			(world(xt, yt)->ground.altitude - *water(xt,yt)) * 50 / alt_step;
+			int next_eco = (next_dist * next_dist/5 + 1) + arid +
+				(world(xt, yt)->ground.altitude - water_alt) * 50 / alt_step;
+			if (world.is_visible(xt,yt) && next_eco < old_eco )
 			{   
 				*dist(xt,yt) = next_dist;
 				*water(xt,yt) = water_alt;
@@ -219,8 +224,7 @@ void setup_land()
 		int xx = index % len;
 		int yy = index / len;
 		int d2w_min = 2 * area;
-		int r;
-		int arid = global_aridity;
+		int r;		
 		int alt0 = 0;
 
 		/* test against IS_RIVER to prevent terrible recursion */
@@ -245,7 +249,6 @@ void setup_land()
 
 	}
     std::cout << " done" << std::endl;
-    //world.destroy_tmp();
     /*smooth all edges in fresh map*/    
     //std::cout << "smoothing graphics edges ...";
     //std::cout.flush();    
@@ -517,27 +520,13 @@ static void new_setup_river_ground(void)
 				float right_top = *f1(endx, starty);
 				float right_down = *f1(endx, endy);
 				float center = *f1(midx, midy);
-					//up center
+				//up center
 				if ((m==0) && !*f1(midx, starty))
 				{
-					float up_center; 
-					/*if (m > 0) //inside map
-					{													 //middle          // upwards
-						up_center = (left_top + right_top + center + *f1(midx, midy - size))/4;
-						assert(*f1(midx, midy - size));
-					}
-					else //at upper edge*/
-					{
-						up_center = (left_top + right_top + center + *f1(midx, sz-size/2))/4;
-						assert(*f1(midx, sz-size/2));
-					}
-					//assert(*f1(midx, starty)==0);
+					float up_center = (left_top + right_top + center + *f1(midx, sz-size/2))/4;
 					*f1(midx, starty) =
 					up_center + float((rand()%Keco - Keco/2 ) * global_mountainity) * pow(fract,k);
-					//std::cout << "up " << *f1(midx, starty) << '\t';
-					//std::cout.flush();
-				} 
-					
+				} 	
 				//right edge
 				if(!*f1(endx, midy))
 				{
@@ -545,20 +534,14 @@ static void new_setup_river_ground(void)
 					if ( l < k-1) //inside map
 					{														  //to the right             //middle
 						right_center = (right_top + right_down + center + *f1(midx + size, midy))/4;
-						assert(*f1(midx + size, midy));
 					}
 					else //at right edge
 					{
 						right_center = (right_top + right_down + center + *f1(size/2, midy))/4;
-						assert(*f1(size/2, midy));
 					}
-					//assert(*f1(endx, midy)==0);
 					*f1(endx, midy) =
 					right_center + float((rand()%Keco - Keco/2) * global_mountainity) * pow(fract,k);
-					//std::cout << "right " << *f1(endx, midy) << '\t';
-					//std::cout.flush();
-				}
-					
+				}	
 				//down edge
 				if (!*f1(midx, endy))
 				{
@@ -566,35 +549,18 @@ static void new_setup_river_ground(void)
 					if (m < k-1) //inside map
 					{														  //middle            // downwards
 						down_center = (left_down + right_down + center + *f1(midx, midy + size ))/4;
-						assert(*f1(midx, midy + size ));
 					}
 					else //at lower edge
 					{
 						down_center = (left_down + right_down + center + *f1(midx, size/2 ))/4;
-						assert(*f1(midx, size/2 ));
 					}
-					//assert(*f1(midx, endy)==0);
 					*f1(midx, endy) =
 					down_center + float((rand()%Keco - Keco/2 ) * global_mountainity) * pow(fract,k);
-					//std::cout << "down " << *f1(midx, endy) << '\t';
-					//std::cout.flush();
-				}
-						
+				}		
 				//left edge
 				if ((l==0) && !*f1(startx, midy))
-				{
-					float left_center; 
-					/*if ( l > 0) //inside map
-					{													   //to the left             //middle
-						left_center = (left_top + left_down + center + *f1(midx - size, midy))/4;
-						assert(*f1(midx - size, midy));
-					}
-					else //at left edge*/
-					{
-						left_center = (left_top + left_down + center +*f1(sz - size/2, midy) )/4;
-						assert(*f1(sz - size/2, midy));
-					}
-					//assert(*f1(startx, midy)==0);
+				{					
+					float left_center = (left_top + left_down + center +*f1(sz - size/2, midy) )/4;				
 					*f1(startx, midy) =
 					left_center + float((rand()%Keco - Keco/2) * global_mountainity) * pow(fract,k);
 					//std::cout << "left " << *f1(startx, midy) << std::endl;
@@ -607,8 +573,6 @@ static void new_setup_river_ground(void)
     //smooth is iterated to propagate a little the lowering of borders
     for (n = 0; n < 1; n++)
     {
-       
-        //old 2d version
         // apply the mask
         for (i = mask_size; i < sz - mask_size; i++)
             for (j = mask_size; j < sz - mask_size; j++) {
@@ -1422,22 +1386,9 @@ static void random_start(int *originx, int *originy)
     total_money = 0;
 }
 
-#define RAND_ECOLOGY_PERMUTATOR_RANGE 1023
 static void do_rand_ecology(int x, int y, int r)
 {
-    static Permutator permutator = Permutator(RAND_ECOLOGY_PERMUTATOR_RANGE,63);
-    static int index = RAND_ECOLOGY_PERMUTATOR_RANGE;
-    
-    if (index >= RAND_ECOLOGY_PERMUTATOR_RANGE)
-    {
-		int s = 1+rand()%10;
-		for(int i=0; i<s; i++)
-		{	
-			permutator.shuffle();
-		}
-		index = 0;
-	}
-    int r3 = permutator.getIndex(index++);
+    int r3 = rand();
     if (r >= 300) 
     {
         /* very dry land */
