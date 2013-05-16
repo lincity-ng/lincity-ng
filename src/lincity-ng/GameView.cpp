@@ -940,8 +940,9 @@ void GameView::event(const Event& event)
                 areaBulldoze = false;
             }
             // bulldoze and evacuate at once while still dragging
-            if( roadDragging && ( (selected_module_type == CST_GREEN) || 
-            (selected_module_type == CST_DESERT) ) && !areaBulldoze){
+            if( roadDragging && ( (selected_module_type == CST_GREEN 
+            || selected_module_type == CST_DESERT))  
+            && !areaBulldoze){
                 if( tile != startRoad ){
                     editMap( startRoad, SDL_BUTTON_LEFT);
                     startRoad = tile;

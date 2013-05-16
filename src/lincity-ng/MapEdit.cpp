@@ -163,7 +163,7 @@ void editMap (MapPoint point, int button)
     }
    
     /* Handle bulldozing */
-    if (selected_module_type == CST_GREEN)// && button != SDL_BUTTON_RIGHT)
+    if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT)
     {     
 		check_bulldoze_area (mod_x, mod_y);
 		mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
@@ -173,7 +173,7 @@ void editMap (MapPoint point, int button)
         return;
     }
 	/*Handle Evacuation of Commodities*/
-	if (selected_module_type == CST_DESERT)// && button != SDL_BUTTON_RIGHT)
+	if (selected_module_type == CST_DESERT && button != SDL_BUTTON_RIGHT)
     {     
 		if (world(x,y)->reportingConstruction)
 		{
@@ -289,16 +289,12 @@ void editMap (MapPoint point, int button)
     if ((selected_module_group == GROUP_WINDMILL) && (tech_level >= MODERN_WINDMILL_TECH))
     {
 		selected_module_type = CST_WINDMILL_1_R; 
-        selected_module_group = get_group_of_type(selected_module_type);
-        //assert(selected_module_group == GROUP_WIND_POWER);
-        //std::cout << "switched to wind power" << std::endl;
+        selected_module_group = get_group_of_type(selected_module_type);        
     } 
     else if ((selected_module_group == GROUP_WIND_POWER) && (tech_level < MODERN_WINDMILL_TECH))
     {
 		selected_module_type = CST_WINDMILL_1_W; 
         selected_module_group = get_group_of_type(selected_module_type);
-        //assert(selected_module_group == GROUP_WINDMILL);
-        //std::cout << "switched to wind mill" << std::endl;
 	}
     if(ConstructionGroup::countConstructionGroup(selected_module_group))
     {

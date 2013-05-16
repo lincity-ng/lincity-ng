@@ -1060,6 +1060,7 @@ static int quick_river( int xx, int yy)
 		x_now = x_new;
 		y_now = y_new;
 		++river_len;
+		int j = 0;
 		for(int i=0; i < 8; i++)
 		{
 			int x = x_now + dx[i];
@@ -1069,18 +1070,19 @@ static int quick_river( int xx, int yy)
 				new_alt = world(x,y)->ground.altitude;
 				x_new = x;
 				y_new = y;
-				if (i>3)
-				{
-					//std::cout << ".";				
-					if (world(x_now + dx[i], y_now)->ground.altitude > world(x_now, y_now + dy[i])->ground.altitude)
-						set_river_tile(x_now, y_now + dy[i]);
-					else
-						set_river_tile(x_now + dx[i], y_now);
-					
-				}				
+				j = i;
+						
 			}
 		}
-
+		if (j>3) //we moved in the diagonal
+		{
+			//std::cout << ".";				
+			if (world(x_now + dx[j], y_now)->ground.altitude > world(x_now, y_now + dy[j])->ground.altitude)
+				set_river_tile(x_now, y_now + dy[j]);
+			else
+				set_river_tile(x_now + dx[j], y_now);
+			
+		}		
 		//std::cout << ".";
 		set_river_tile(x_new, y_new);
 		//std::cout << "next water: "<< x_new << ", " << y_new << " alt = " <<  new_alt << std::endl;		

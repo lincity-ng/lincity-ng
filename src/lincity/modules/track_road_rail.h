@@ -96,7 +96,9 @@ public:
         this->burning_waste = false;
         this->old_type = type;
         setMemberSaved(&(this->old_type),"type");                  
-        this->flags |= FLAG_IS_TRANSPORT;// register the construction as transport tile
+        // register the construction as transport tile
+        // disable evacuation
+        this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);        
         if (world(x,y)->is_water())//we build bridges on water
         {
             switch (group)
