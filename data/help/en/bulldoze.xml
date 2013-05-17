@@ -7,6 +7,7 @@
 	<p style="hp">This is the bulldozer icon</p>
 	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
 	<p style="hsubtitle">See also:</p>
+	<li><a href="evacuate">Evacuate</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="river">Rivers</a></li>
 </Document>

@@ -2,7 +2,11 @@
 <Document style="helpdocument">
 	<p style="htitle">Stats</p>
 	<p style="hp">This is the second tab of the miniwindow</p>
-	<p style="hp">It shows the total stocks stored in all markets, and how it is changing.</p>
-	<p style="hp">The number indicates the total quantity.</p>
+	<p style="hp">It shows some city wide statistics and their recent development.</p>
 	<p style="hp">A green bar on the right side indicates an increase. A red bar on the left side indicates a decrease. The size of the bar indicates the amount of change.</p>
+	<p style="hp">Toggle the button to switch between the two groups of bars.</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="commodities">Commodities</a></li>
+	<li><a href="msb-transport">Transportation overlay</a></li>
 </Document>

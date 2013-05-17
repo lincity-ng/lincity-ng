@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Evacuate</p>
+	<p style="hp">To evacuate an building you select the evacuate button then use the broom	to evacuate all the precious commodities. Evacuation is for free und pushs out all the stored stuff to adjoining transport tiles and markets in the neighborhood.</p>
+	<p style="hp">The consequences range from the halt of production and or pollution to starvation of the local residence</p>
+	<p style="hp">Some buildings, like tracks, roads, rails, land fills, and others cannot be evacuated.</p>
+	<p style="hp">Depleted oremines and coalmines are automatically evacuated before they collapse</p>
+	<p style="hp">This is the evacuation icon</p>
+	<img src="images/gui/buttonpanel/base/broom.png" halign="center"/>
+	<p style="hsubtitle">See also:</p>
+	<li><a href="bulldoze">Bulldoze</a></li>
+</Document>

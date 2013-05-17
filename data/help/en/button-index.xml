@@ -29,6 +29,10 @@
 	<!--<p style="subtitle">Base</p>-->
 	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
 	<p><a href="bulldoze">Bulldoze</a></p>
+	
+	<!--<p style="subtitle">Base</p>-->
+	<img src="images/gui/buttonpanel/base/broom.png"/>
+	<p><a href="evacuate">Evacuate</a></p>
 
 	<!--<p style="subtitle">Transport</p>-->
 	<img src="images/gui/buttonpanel/transport/tracks.png"/>

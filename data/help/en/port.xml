@@ -2,7 +2,7 @@
 <Document style="helpdocument">
 	<p style="htitle">Ports</p>
 	<p style="hp">Ports let you import and export goods, steel, ore, coal and food. Importing costs you money and exporting makes you money.</p>
-	<p style="hp">To be of use a port must be connected to transport. You choose what to import by double clicking on the port. This brings up a menu with boxes to select what to import and what to export.</p>
+	<p style="hp">You choose what to import by double clicking on the port. This brings up a menu with boxes to select what to import and what to export.</p>
 	<p style="hp">They <b>must</b> be connected to rivers all along the right hand side.</p>
 	<p style="hp">Nothing will be imported or exported until you have checked the appropriate box.</p>
 	<p style="hp">The export area will take as much as it is given. If you need to export, but want to restrict the amount, you may want to use a type of transport with less capacity, use a long piece or pass the product through a market. You will need to experiment to get the right transport configuration.</p>
@@ -18,6 +18,7 @@
 	<li><a href="rivers">Rivers</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="market">Markets</a></li>
+	<li><a href="food">Food</a></li>
 	<li><a href="coal">Coal</a></li>
 	<li><a href="ore">Ore</a></li>
 	<li><a href="goods">Goods</a></li>

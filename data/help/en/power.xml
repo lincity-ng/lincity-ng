@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Power</p>
+	<p style="hp"> Power commes in two different flavours kWh and MWh. kWh flow in underground cables along your cities transportation network and MWh flow over power lines.</p>
+	
+	<p style="hp"> kWH are produced by low-tech wind mills or provided by a substation. They can power residental areas, farms, textile mills, light industries and heavy industries (aka steel works).</p>
+	
+	<p style="hp"> MWH are produced by coal, solar or wind power plant and may either be delivered to substation or directly to light industries or heavy industries (aka steel works).</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="commodities">Commodities</a></li>
+	<li><a href="windmill">Windmills</a></li>
+	<li><a href="residential">Residential area</a></li>
+	<li><a href="commune">Commune</a></li>
+	<li><a href="farm">Farms</a></li>
+	<li><a href="powerline">Power lines</a></li>
+	<li><a href="powerscoal">Coal fired power station</a></li>
+	<li><a href="powerssolar">Solar power station</a></li>
+	<li><a href="substation">Substations</a></li>
+	<li><a href="industryl">Light industry</a></li>	
+	<li><a href="industryh">Heavy industry (Steel Works)</a></li>
+</Document>

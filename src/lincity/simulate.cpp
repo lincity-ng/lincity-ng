@@ -226,7 +226,7 @@ static void end_of_year_update(void)
 
     coal_tax = (coal_tax * coal_tax_rate) / 100;
     // Seems to be reasonable at tax_rate = 1    
-    coal_tax/=10;    
+    //coal_tax/=10;    
     ly_coal_tax = coal_tax;
     total_money += coal_tax;
 

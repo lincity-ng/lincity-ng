@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Water</p>
+	<p style="hp">Water is provided by water wells and flows in pipes underneath your cities transportation network. Residential area must be connected to waterpipes. Forests (aka communes) and electrified farms may use water to max out their fertiliy by irrigation. </p>
+	
+	<p style="hp">Electricified farms and forests (aka communes) can bio-degrade a little waste.</p>
+	
+	<p style="hsubtitle">See also:</p>
+	<li><a href="commodities">Commodities</a></li>
+	<li><a href="waterwell">Water well</a></li>
+	<li><a href="residential">Residential area</a></li>
+	<li><a href="commune">Commune</a></li>
+	<li><a href="farm">Farms</a></li>	
+</Document>
