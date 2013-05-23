@@ -73,8 +73,7 @@ public:
         constructionGroup = &industryHeavyConstructionGroup;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
-        this->working_days = 0;
-        this->busy = 0;
+        this->output_level = 0;
         this->steel_this_month = 0;
         this->anim = 0;
         initialize_commodities();
@@ -104,8 +103,7 @@ public:
 
     int  tech;
     double bonus, extra_bonus;    	
-    int  working_days;
-    int  busy;
+    int  output_level;
     int  anim;
     int  steel_this_month;
 };

@@ -29,8 +29,8 @@ class Powerline: public CountedConstruction<Powerline> { // Powerlineinherits fr
 public:
 	Powerline(int x, int y ,unsigned short type): CountedConstruction<Powerline>(x, y, type) 
     {
-        constructionGroup = &powerlineConstructionGroup;                 
-        this->flags |= FLAG_POWER_LINE;// register as power line        
+        constructionGroup = &powerlineConstructionGroup;        
+        this->flags |= (FLAG_POWER_LINE | FLAG_NEVER_EVACUATE);         
         this->anim_counter = 0;
         this->flashing = false;        
         initialize_commodities();

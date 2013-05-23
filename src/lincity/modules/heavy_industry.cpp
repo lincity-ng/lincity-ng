@@ -100,7 +100,7 @@ void IndustryHeavy::update()
             commodityCount[STUFF_ORE] -= rawm;
             commodityCount[STUFF_STEEL] += steel;
             steel_this_month += steel;            
-            working_days++;
+            //working_days++;
             //cause some pollution and waste depending on bonuses
             world(x,y)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
             commodityCount[STUFF_WASTE] += (int)(((double)(POL_PER_STEEL_MADE * steel) * bonus)*(1-extra_bonus));
@@ -117,9 +117,7 @@ void IndustryHeavy::update()
     //monthly update
     if (total_time % 100 == 0) 
     {
-        int output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;       
-        busy = working_days;
-        working_days = 0;
+        output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;       
         steel_this_month = 0;
         //choose graphics depending on output level
         if (output_level > 80)
@@ -266,7 +264,7 @@ void IndustryHeavy::report()
 
     mps_store_sd(i++,constructionGroup->name,ID);
     i++;
-    mps_store_sfp(i++, _("busy"), (busy));    
+    mps_store_sfp(i++, _("busy"), (output_level));    
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     i++;
     list_commodities(&i);
