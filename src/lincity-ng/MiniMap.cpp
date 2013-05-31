@@ -636,7 +636,7 @@ void MiniMap::draw(Painter &painter)
 			painter.fillRectangle( miniRect );
             for(y=1;y<height/tilesize;y++) {
                 for(x=1;x<width/tilesize;x++) {
-					if (world.is_inside(left+x, top+y)) /*left + x > 0 && top + y > 0 && left + x < world.len()-1 && top + y < world.len()-1)*/
+					if (world.is_visible(left+x, top+y)) /*left + x > 0 && top + y > 0 && left + x < world.len()-1 && top + y < world.len()-1)*/
 					{
 						if( (world(left + x, top + y)->construction)) {
 							size = world(left + x, top + y)->construction->constructionGroup->size;
@@ -677,7 +677,7 @@ void MiniMap::draw(Painter &painter)
 
         for(y=1;y<height/tilesize;y++) {
             for(x=1;x<width/tilesize;x++) {
-                if (world.is_inside(left+x, top+y)) /*left + x > 0 && top + y > 0 && left + x < world.len()-1 && top + y < world.len()-1)*/
+                if (world.is_visible(left+x, top+y)) /*left + x > 0 && top + y > 0 && left + x < world.len()-1 && top + y < world.len()-1)*/
                 {
                     if( (world(left + x, top + y)->construction)) {
                         size = world(left + x, top + y)->construction->constructionGroup->size;
