@@ -17,27 +17,28 @@ void refresh_population_text (void);
 void update_pbar (int pbar_num, int value, int month_flag);
 void update_pbars_monthly(void);
 
-#define NUM_PBARS 13
+#define NUM_PBARS 14
 #define OLD_NUM_PBARS 9
 
 /* Position constants aka linenumbers for pbars struct */
 
-#define PPOP   0
-#define PTECH  1
-#define PMONEY 2
-#define PFOOD  3
-#define PJOBS  4
-#define PGOODS 5
-#define PCOAL  6 
-#define PORE   7
-#define PSTEEL 8
+#define PPOP    0
+#define PTECH   1
+#define PMONEY  2
+#define PFOOD   3
+#define PJOBS   4
+#define PGOODS  5
+#define PCOAL   6 
+#define PORE    7
+#define PSTEEL  8
 
 #define PBAR_PAGE_SHIFT 6
 
-#define PWASTE 9
+#define PPOL    9
 #define PKWH   10
 #define PMWH   11
 #define PWATER 12
+#define PWASTE 13
 
 /* Number of elements per pbar */
 #define PBAR_DATA_SIZE 12

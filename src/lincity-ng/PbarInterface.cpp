@@ -96,7 +96,7 @@ void update_pbars_monthly()
 {
     update_pbar (PPOP, housed_population + people_pool, 1);
     update_pbar (PTECH, tech_level, 1);
-    update_pbar (PMONEY, total_money, 1);
+    update_pbar (PMONEY, total_money, 1);   
 	if (tstat_capacities[Construction::STUFF_FOOD] > 99)
 	{    update_pbar (PFOOD, tstat_census[Construction::STUFF_FOOD] / (tstat_capacities[Construction::STUFF_FOOD]/100), 1);}
 	else update_pbar (PFOOD,0,1);
@@ -116,9 +116,7 @@ void update_pbars_monthly()
 	{    update_pbar (PSTEEL, tstat_census[Construction::STUFF_STEEL] / ( tstat_capacities[Construction::STUFF_STEEL]/100), 1);}
 	else update_pbar (PSTEEL,0,1);
 
-	if (tstat_capacities[Construction::STUFF_WASTE] > 99)
-	{    update_pbar (PWASTE, tstat_census[Construction::STUFF_WASTE] / (tstat_capacities[Construction::STUFF_WASTE]/100), 1);}
-	else update_pbar (PWASTE,0,1);
+	update_pbar (PPOL, total_pollution, 1);	
 	if (tstat_capacities[Construction::STUFF_KWH] > 99)
 	{	 update_pbar (PKWH, tstat_census[Construction::STUFF_KWH] / ( tstat_capacities[Construction::STUFF_KWH]/100), 1);}
 	else update_pbar (PKWH,0,1);
@@ -128,6 +126,11 @@ void update_pbars_monthly()
 	if (tstat_capacities[Construction::STUFF_WATER] > 99)
 	{    update_pbar (PWATER, tstat_census[Construction::STUFF_WATER] / ( tstat_capacities[Construction::STUFF_WATER]/100), 1);}
 	else update_pbar (PWATER,0,1);
+	if (tstat_capacities[Construction::STUFF_WASTE] > 99)
+	{    update_pbar (PWASTE, tstat_census[Construction::STUFF_WASTE] / (tstat_capacities[Construction::STUFF_WASTE]/100), 1);}
+	else update_pbar (PWASTE,0,1);
+	
+	
 	
 
 }

@@ -56,13 +56,14 @@ int population, starving_population;
 int housed_population;
 int unemployed_population, people_pool;
 int max_pop_ever = 0, total_evacuated = 0, total_births = 0;
-
+int total_population = 0;
 
 int total_money = 0, income_tax_rate, coal_tax_rate;
 int dole_rate, transport_cost_rate;
 int goods_tax_rate;
 int export_tax_rate, import_cost_rate;
 int tech_level, highest_tech_level, unnat_deaths;
+int total_pollution = 0;
 
 int total_pollution_deaths = 0, total_starve_deaths = 0, total_unemployed_days = 0;
 int total_unemployed_years = 0;

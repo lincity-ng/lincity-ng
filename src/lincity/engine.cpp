@@ -25,6 +25,8 @@
 #include "transport.h"
 #include "all_buildings.h"
 
+
+
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);
 
@@ -364,10 +366,11 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
 
 void do_pollution()
 {
-    int x, y, pflow;
-
+    
+    const int len = world.len();
+    const int area = len * len; 	
     //kill pollution from edges of map    
-    for(x = 0; x < world.len(); x++)
+    for(int x = 0; x < world.len(); x++)
     {
         world(x, 0)->pollution /= POL_DIV; //top
         world(0, x)->pollution /= POL_DIV; //left
@@ -375,41 +378,49 @@ void do_pollution()
         world(world.len() - 1, x)->pollution /= POL_DIV; //right
     }
     //diffuse pollution inside the map    
-    for(x = 1; x < world.len()-1; x++)
+    for (int index = 0; index < area; ++index)   
     {
-        for(y = 1; y < world.len()-1; y++)
-        {
-            if (world(x, y)->pollution > 10)
-            {
-                pflow = world(x, y)->pollution/16;
-                world(x, y)->pollution -= pflow;
-                switch (rand() % 11)
-                {
-                    case 0:/* up */
-                    case 1:        
-                    case 2:
-                        world(x, y-1)->pollution += pflow;
-                    break;               
-                    case 3:/* right */
-                    case 4:        
-                    case 5:
-                        world(x-1, y)->pollution += pflow;
-                    break;
-                    case 6:/* down */
-                    case 7:        
-                        world(x, y+1)->pollution += pflow;
-                    break;
-                    case 8:/* left */
-                    case 9:        
-                        world(x+1, y)->pollution += pflow;
-                    break;
-                    case 10:/* clean up*/        
-                        world(x, y)->pollution += (pflow - 2);
-                    break;
-                }// endswitch
-            }
-        } // endfor y
-    }// endfor x
+		int x = index % len;
+		int y = index / len;
+		if (world(x, y)->pollution > 10 && 
+			world.is_visible(x,y))
+		{
+			int pflow;
+			pflow = world(x, y)->pollution/16;
+			world(x, y)->pollution -= pflow;
+			switch (rand() % 11)
+			{
+				case 0:/* up */
+				case 1:        
+				case 2:
+					world(x, y-1)->pollution += pflow;
+				break;               
+				case 3:/* right */
+				case 4:        
+				case 5:
+					world(x-1, y)->pollution += pflow;
+				break;
+				case 6:/* down */
+				case 7:        
+					world(x, y+1)->pollution += pflow;
+				break;
+				case 8:/* left */
+				case 9:        
+					world(x+1, y)->pollution += pflow;
+				break;
+				case 10:/* clean up*/        
+					world(x, y)->pollution += (pflow - 2);
+				break;
+			}// endswitch
+		}// endif
+    }// endfor index
+	total_pollution = 0;
+	for (int index = 0; index < area; ++index)
+	{
+		int x = index % len;
+		int y = index / len;
+		total_pollution += world(x,y)->pollution;	
+	}
 }
 
 void do_fire_health_cricket_power_cover(void)

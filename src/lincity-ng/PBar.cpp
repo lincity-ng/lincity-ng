@@ -140,18 +140,18 @@ LCPBar::setValue(int num, int value, int diff)
     {
         os<<value/10000.0;
     }
-	else if(num==PMONEY || num==PPOP)
+	else if(num==PMONEY || num==PPOP || num==PPOL)
     {
-        if(abs(value)>=1000000000)
-            os<<value/1000000<<"M";
+        if(abs(value)>=10000000000)
+        {    os<<value/1000000000<<"G";}
         else if(abs(value)>10000000)
-            os<<value/1000000.0<<"M";
+        {    os<<value/1000000<<"M";}
         else if(abs(value)>10000)
-            os<<value/1000.0<<"K";
+        {    os<<value/1000<<"K";}
         else
-            os<<value;
+        {    os<<value;}
     }
-    else if ((num >= PFOOD) && (num <= PWATER)) //Commodities
+    else if ((num >= PFOOD) && (num <= PWASTE)) //Commodities
     {
          os<<value<<"%";   
     }
@@ -168,13 +168,16 @@ LCPBar::setValue(int num, int value, int diff)
     switch(num)
     {
       case PPOP:
-        sv=pbar_adjust_pop(diff);
+        sv = pbar_adjust_pop(diff);
         break;
       case PTECH:
-        sv=pbar_adjust_tech(diff);
+        sv = pbar_adjust_tech(diff);
+        break;
+	case PPOL:
+		sv = value<5000?100*diff/(1+value):value<25000?500*diff/value:5000*diff/value;
         break;
 	case PMONEY:
-        sv=pbar_adjust_money(diff);
+        sv = pbar_adjust_money(diff);
         break;
 	default:
 		sv = diff;
@@ -215,7 +218,7 @@ LCPBar::setValue(int num, int value, int diff)
 ///////////////////////////////////////////////////////////////////////////////////////
 
 BarView::BarView()
-{
+{ 
 }
 
 BarView::~BarView()
@@ -226,6 +229,7 @@ void
 BarView::parse(XmlReader& reader)
 {
     dir=true;
+    bad=false;
     // parse attributes...
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -252,7 +256,14 @@ BarView::parse(XmlReader& reader)
             } else {
                 dir=false;
             }
-        } else {
+        } else if(strcmp(name, "bad") == 0) {
+            if(strcmp(value,"1") == 0) {
+                bad=true;
+            } else {
+                bad=false;
+            }
+        }       
+        else {
             std::cerr << "Unknown attribute '" << name 
                       << "' skipped in BarView.\n";
         }
@@ -269,19 +280,17 @@ void BarView::setValue(float v)
 }
 
 void BarView::draw(Painter &painter)
-{
-   
-  
-    if((int)(width*value)>0 && dir)
-    {
-        painter.setFillColor(Color(0,0xAA,0,255));
-        painter.fillRectangle(Rect2D(0,0,width*value,height));
-    } 
-    else if((int)(width*value)<0 && !dir) 
-    {
-        painter.setFillColor(Color(0xFF,0,0,255));
-        painter.fillRectangle(Rect2D(width-1+width*value,0,width-1,height));
-    }
+{ 
+	if(((int)(width*value)>0 && dir))
+	{
+		painter.setFillColor(bad?Color(0xFF,0,0,255):Color(0,0xAA,0,255));
+		painter.fillRectangle(Rect2D(0,0,width*value,height));
+	} 
+	else if(((int)(width*value)<0 && !dir)) 
+	{
+		painter.setFillColor(bad?Color(0,0xAA,0,255):Color(0xFF,0,0,255));
+		painter.fillRectangle(Rect2D(width-1+width*value,0,width-1,height));
+	}	
 }
 
 IMPLEMENT_COMPONENT_FACTORY(LCPBar)

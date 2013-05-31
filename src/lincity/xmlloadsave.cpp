@@ -612,6 +612,8 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<tpopulation>"                << tpopulation              << "</tpopulation> " << std::endl;
     xml_file_out << "<tstarving_population>"       << tstarving_population     << "</tstarving_population>" << std::endl;
     xml_file_out << "<tunemployed_population>"     << tunemployed_population   << "</tunemployed_population>" << std::endl;
+    
+    xml_file_out << "<total_pollution>"            << total_pollution          << "</total_pollution> " << std::endl;
     xml_file_out << "<rockets_launched>"           << rockets_launched         << "</rockets_launched>" << std::endl;
     xml_file_out << "<rockets_launched_success>"   << rockets_launched_success << "</rockets_launched_success>" << std::endl;
 
@@ -704,6 +706,8 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "tpopulation")                     {sscanf(xml_val.c_str(),"%d",&tpopulation);}
             else if (xml_tag == "tstarving_population")            {sscanf(xml_val.c_str(),"%d",&tstarving_population);}
             else if (xml_tag == "tunemployed_population")          {sscanf(xml_val.c_str(),"%d",&tunemployed_population);}
+            
+            else if (xml_tag == "total_pollution")                 {sscanf(xml_val.c_str(),"%d",&total_pollution);}
             else if (xml_tag == "rockets_launched")                {sscanf(xml_val.c_str(),"%d",&rockets_launched);}
             else if (xml_tag == "rockets_launched_success")        {sscanf(xml_val.c_str(),"%d",&rockets_launched_success);}
 

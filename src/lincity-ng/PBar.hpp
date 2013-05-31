@@ -59,6 +59,7 @@ class BarView : public Component
   private:
    float value;
    bool dir;
+   bool bad;
 };
 
 #endif

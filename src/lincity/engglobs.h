@@ -51,6 +51,7 @@ extern int population, starving_population;
 extern int housed_population;
 extern int unemployed_population, people_pool;
 extern int max_pop_ever, total_evacuated, total_births;
+extern int total_pollution;
 
 extern int total_money, income_tax_rate, coal_tax_rate;
 extern int dole_rate, transport_cost_rate;
