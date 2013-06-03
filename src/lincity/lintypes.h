@@ -111,6 +111,7 @@ public:
     unsigned short getTopType();       //type of bare land or the actual construction
     unsigned short getGroup();        //group of bare land or the covering construction
     unsigned short getTopGroup();     //group of bare land or the actual construction
+    unsigned short getTransportGroup(); //like getGroup but bridges are reported normal transport tiles
 
     bool is_bare();                    //true if we there is neither a covering construction nor water
     bool is_lake();                    //true on lakes (also under bridges) 

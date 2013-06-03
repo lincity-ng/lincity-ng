@@ -246,27 +246,8 @@ void editMap (MapPoint point, int button)
             return; //TransportTiles may only overbuild previous TransportTiles or Water
 	    }    
         // TransporstTiles dont overbuild their own kind
-        if( selected_module_type == CST_TRACK_LR) 
-        {
-            if(  world(x,y)->getGroup() == GROUP_TRACK ||  world(x,y)->getGroup() == GROUP_TRACK_BRIDGE /*||
-                     world(x,y)->getGroup() == GROUP_ROAD ||  world(x,y)->getGroup() == GROUP_ROAD_BRIDGE ||
-                     world(x,y)->getGroup() == GROUP_RAIL ||  world(x,y)->getGroup() == GROUP_RAIL_BRIDGE */)
-                return;
-            
-        }
-        else if( selected_module_type == CST_ROAD_LR)
-        {
-            if (  world(x,y)->getGroup() == GROUP_ROAD ||  world(x,y)->getGroup() == GROUP_ROAD_BRIDGE /*||
-                     world(x,y)->getGroup() == GROUP_RAIL ||  world(x,y)->getGroup() == GROUP_RAIL_BRIDGE*/ )
-                return;
-                      
-        } 
-        else if( selected_module_type == CST_RAIL_LR)
-        {           
-            if(  world(x,y)->getGroup() == GROUP_RAIL ||  world(x,y)->getGroup() == GROUP_RAIL_BRIDGE )
-                return;
-        } //end selected_module_type = track,road,rail
-   
+        if (selected_module_group == world(x,y)->getTransportGroup())
+        {	return;}
     }//end is_not_bare
 
     //query Tool 

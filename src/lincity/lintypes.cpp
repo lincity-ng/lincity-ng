@@ -99,6 +99,30 @@ unsigned short MapTile::getGroup() //group of bare land or the covering construc
         return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);
 }
 
+unsigned short MapTile::getTransportGroup() //group of bare land or the covering construction
+{
+	unsigned short grp = getGroup();
+	if (is_transport())
+	{
+		switch(grp)
+		{
+			case GROUP_TRACK_BRIDGE:
+				grp = GROUP_TRACK;
+				break;
+			case GROUP_ROAD_BRIDGE:
+				grp = GROUP_ROAD;
+				break;
+			case GROUP_RAIL_BRIDGE:
+				grp = GROUP_RAIL;
+				break;
+			default:
+				break;
+		}
+	}
+	return grp; 
+}
+
+
 unsigned short MapTile::getTopGroup() //group of bare land or the actual construction
 {
         return (construction ? construction->constructionGroup->group : group);
@@ -725,8 +749,8 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
         return -1;
     }
 
-    if (world(x, y)->construction) //no two constructions at the same mapTile
-    {	do_bulldoze_area(x, y);}
+    if (world(x, y)->reportingConstruction || world(x, y)->construction) //no two constructions at the same mapTile
+    {	bulldoze_item(x, y);}
     unsigned short size = 0;
     world(x, y)->construction = tmpConstr;
     constructionCount.add_construction(tmpConstr); //register for Simulation

@@ -16,13 +16,12 @@ Minor features
 - press p to cylcle trough constructions and/or locate village on map
 - hold s while building watertower to build a shanty 
 - Evacuate commodities from buildings or transport
+- Up/downgrading of transport by simple dragging
 - find coal deposits by right click on tile
 - Animated waste burning
 - 2nd page of stat bars
-- Zooming on cursor position 
-
-TODO
-- update help files
+- Zooming on cursor position
+- updated help contents 
   
 Nice to have
 - zooming in Minimap (2^n)

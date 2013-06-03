@@ -76,7 +76,7 @@ int adjust_money(int value)
     return total_money;
 }
 
-int is_allowed_here(int x, int y, short type, short msg)
+bool is_allowed_here(int x, int y, short type, short msg)
 {
     int group = get_group_of_type( type );
     int size; 
@@ -86,22 +86,16 @@ int is_allowed_here(int x, int y, short type, short msg)
         
     if (ConstructionGroup::countConstructionGroup(group))
     {                         
-        constrGroup = ConstructionGroup::getConstructionGroup(group);       
-        
-        // stay inside map
-        if( x + constrGroup->size > world.len() - 1 || y + constrGroup->size > world.len() - 1 || x < 1 || y < 1 )
-            return false;
-        //double check cash
+        constrGroup = ConstructionGroup::getConstructionGroup(group);               
         size = constrGroup->size;
     } 
     else 
     { 
         size = main_groups[group].size; 
     }        
-    if( x + size > world.len() - 1 || y + size > world.len() - 1 || x < 1 || y < 1 )
-        return false;
+    if(!(world.is_visible(x,y) && world.is_visible(x + size,y + size)))
+    {	return false;}
     
-
     switch (group) {
     case GROUP_SOLAR_POWER:
         if (total_money <= 0) {
@@ -211,6 +205,7 @@ int is_allowed_here(int x, int y, short type, short msg)
         }
         return false;
     }
+       
     return true;
 }
 

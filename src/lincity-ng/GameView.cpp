@@ -978,9 +978,11 @@ void GameView::event(const Event& event)
             break;
         }
         case Event::MOUSEBUTTONUP:
+/*        
             if(event.mousebutton == SDL_BUTTON_MIDDLE ){
                 getMiniMap()->hideMpsEnv();
             }
+*/ 
             if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 if ( dragging ) {
                     dragging = false;
@@ -1021,14 +1023,34 @@ void GameView::event(const Event& event)
                             }
                         }
                     } else {
+                        bool building_transport = (
+									selected_module_type == CST_TRACK_LR
+								||  selected_module_type == CST_ROAD_LR
+								||  selected_module_type == CST_RAIL_LR);
                         while( currentTile.x != endRoad.x ) {
-                            if( !blockingDialogIsOpen )
-                                editMap(currentTile, SDL_BUTTON_LEFT);
+                            //if( !blockingDialogIsOpen ) //slow version
+							//editMap(currentTile, SDL_BUTTON_LEFT);
+							//quick version limited to size=1
+							int x = currentTile.x;
+							int y = currentTile.y;
+							if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport()))
+							&& get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())) 
+							{										
+								place_item(x, y, selected_module_type);
+							}     
                             currentTile.x += stepx;
                         }
                         while( currentTile.y != endRoad.y ) {
-                            if( !blockingDialogIsOpen )
-                                editMap(currentTile, SDL_BUTTON_LEFT);
+                            //if( !blockingDialogIsOpen ) //slow version
+                            //    editMap(currentTile, SDL_BUTTON_LEFT);
+							//quick version limited to size=1
+							int x = currentTile.x;
+							int y = currentTile.y;
+							if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport()))
+							&& get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())) 
+							{										
+								place_item(x, y, selected_module_type);
+							}
                             currentTile.y += stepy;
                         }
                     }
@@ -1547,7 +1569,9 @@ void GameView::markTile( Painter& painter, MapPoint tile )
                         if( !((world(x,y)->is_water() || world(x,y)->is_transport()) && (
                            (selected_module_type == CST_TRACK_LR ) ||
                            (selected_module_type == CST_ROAD_LR ) ||
-                           (selected_module_type == CST_RAIL_LR ) ))) 
+                           (selected_module_type == CST_RAIL_LR ) ) && 
+                           (get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())
+                           )) 
                         {
                             painter.setFillColor( alphared );
                             y += cursorSize;
