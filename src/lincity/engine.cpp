@@ -93,7 +93,7 @@ bool is_allowed_here(int x, int y, short type, short msg)
     { 
         size = main_groups[group].size; 
     }        
-    if(!(world.is_visible(x,y) && world.is_visible(x + size,y + size)))
+    if(!(world.is_visible(x,y) && world.is_visible(x + size - 1, y + size - 1)))
     {	return false;}
     
     switch (group) {
