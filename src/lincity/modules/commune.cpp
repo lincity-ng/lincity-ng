@@ -152,7 +152,7 @@ void Commune::report()
     int i = 0;
     mps_store_sd(i++, constructionGroup->name,ID);
     mps_store_sddp(i++, "Fertility", ugwCount, 16);
-    mps_store_sfp(i++, "busy", (float)last_month_output / 3.5);
+    mps_store_sfp(i++, "busy", (float)last_month_output / 3.05);
     mps_store_sd(i++, "Pollution", world(x,y)->pollution);
     if(lazy_months)
     {
