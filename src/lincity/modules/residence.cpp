@@ -186,8 +186,8 @@ void Residence::update()
     {
         commodityCount[STUFF_JOBS] += (local_population * (WORKING_POP_PERCENT + swing) / 100);
         flags |= FLAG_EMPLOYED; //enable births
-        if (job_swingometer < 300)
-            job_swingometer = 300;        
+        if (job_swingometer < -300)
+            job_swingometer = -300;        
         if (++job_swingometer > 10)
             job_swingometer = 10;
         good += 20;
@@ -241,28 +241,28 @@ void Residence::update()
     {    
         case CST_RESIDENCE_LL:
             drm += local_population * 7 * 50/24; //more people more deaths
-            brm += RESIDENCE_LL_BRM + extra_births?20:0; //slow down baby production
+            brm += RESIDENCE_LL_BRM + extra_births?100:0; //slow down baby production
         break;
         case CST_RESIDENCE_ML:
             drm += local_population * 3 * 5/3; //more people more deaths
-            brm += RESIDENCE_ML_BRM + extra_births?10:0; //slow down baby production
+            brm += RESIDENCE_ML_BRM + extra_births?50:0; //slow down baby production
         break;
         case CST_RESIDENCE_HL:
             drm += local_population * 1 * 6/3; //more people more deaths
-            brm += RESIDENCE_HL_BRM + extra_births?10:0; //slow down baby production
+            brm += RESIDENCE_HL_BRM + extra_births?50:0; //slow down baby production
             good += 40;
         break;
         case CST_RESIDENCE_LH:
             drm += local_population * 3 * 7/3; //more people more deaths
-            brm += RESIDENCE_LH_BRM + extra_births?20:0; //slow down baby production
+            brm += RESIDENCE_LH_BRM + extra_births?100:0; //slow down baby production
         break;
         case CST_RESIDENCE_MH:
             drm += local_population / 2 * 4/3; //more people more deaths
-            brm += RESIDENCE_MH_BRM + extra_births?10:0; //slow down baby production
+            brm += RESIDENCE_MH_BRM + extra_births?50:0; //slow down baby production
         break;
         case CST_RESIDENCE_HH:
-            drm += local_population * 5/3; //more people more deaths
-            brm += RESIDENCE_HH_BRM + extra_births?10:0; //slow down baby production
+            drm += local_population * 4/3; //more people more deaths
+            brm += RESIDENCE_HH_BRM + extra_births?50:0; //slow down baby production
             good += 100;
         break;      
     }
@@ -273,11 +273,11 @@ void Residence::update()
     if (drm > RESIDENCE_BASE_DR - 1)
         drm = RESIDENCE_BASE_DR - 1; 
     /* normal deaths + pollution deaths */
-    po = ((world(x,y)->pollution / 50) + 1);
-    pol_deaths = 100 * 5 * po / (4 * po + RESIDENCE_BASE_DR - drm);
-    deaths = (RESIDENCE_BASE_DR - drm - po);
+    po = ((world(x,y)->pollution / 16) + 1);
+    pol_deaths = po>100?95:po-5>0?po-5:1;
+    deaths = (RESIDENCE_BASE_DR - drm - 3*po);  
     if (deaths < 1) deaths = 1;
-    if (hc) deaths *= 4; 
+    if (hc) deaths *= 4;
     r = rand() % deaths;
     if (local_population > 0 ) //somebody might die
     {
@@ -350,6 +350,7 @@ void Residence::report()
     mps_store_sf(i++, _("Death per year"), (double)1200/deaths);
     mps_store_sfp(i++, _("Pol. mortality"), pol_deaths);
     i++;    
+    //mps_store_sd(i++, "Pollution", world(x,y)->pollution);    
     list_commodities(&i);    
 }
 

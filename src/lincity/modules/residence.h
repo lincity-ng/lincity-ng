@@ -17,7 +17,7 @@
 /* RESIDENCE?_BRM is the birth rate modifier */
 #define RESIDENCE_BASE_BR     100
 #define RESIDENCE_BASE_DR     (68*12)
-#define RESIDENCE_BRM_HEALTH  5
+#define RESIDENCE_BRM_HEALTH  300
 #define RESIDENCE_LL_BRM (RESIDENCE_BASE_BR*12)
 #define RESIDENCE_ML_BRM 0
 #define RESIDENCE_HL_BRM (RESIDENCE_BASE_BR+RESIDENCE_BASE_BR/4)
@@ -175,7 +175,7 @@ public:
         this->desireability = 0;
         this->births = 1;
         this->deaths = 1;
-        this->pol_deaths = 0;	        
+        this->pol_deaths = 1;	        
         switch (type)
         {
             case CST_RESIDENCE_LL :
