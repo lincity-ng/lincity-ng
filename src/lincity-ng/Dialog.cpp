@@ -661,12 +661,11 @@ void Dialog::editMarket(){
     if( market->commodityRuleCount[Construction::STUFF_STEEL].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellSteel" );
     if( market->commodityRuleCount[Construction::STUFF_STEEL].give) cb->check(); else cb->uncheck();
-/* //TODO change gui/tradedialog.xml
     cb = getCheckButton( *myDialogComponent, "BuyWaste" );
     if( market->commodityRuleCount[Construction::STUFF_WASTE].take ) cb->check(); else cb->uncheck();
     cb = getCheckButton( *myDialogComponent, "SellWaste" );
     if( market->commodityRuleCount[Construction::STUFF_WASTE].give) cb->check(); else cb->uncheck();
-*/
+
     // connect signals
     Button* applyButton = getButton( *myDialogComponent, "Apply" );
     applyButton->clicked.connect( makeCallback(*this, &Dialog::applyMarketButtonClicked ) );
@@ -801,7 +800,6 @@ void Dialog::applyMarketButtonClicked( Button* ){
     } else {
         market->commodityRuleCount[Construction::STUFF_STEEL].give = false;
     }
-/*//TODO change gui/tradedialog.xml
     cb = getCheckButton( *myDialogComponent, "BuyWaste" );
     if( cb->state == CheckButton::STATE_CHECKED ){
         market->commodityRuleCount[Construction::STUFF_WASTE].take = true;
@@ -814,7 +812,6 @@ void Dialog::applyMarketButtonClicked( Button* ){
     } else {
         market->commodityRuleCount[Construction::STUFF_WASTE].give = false;
     }
-*/
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
