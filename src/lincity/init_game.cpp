@@ -176,7 +176,9 @@ void setup_land()
 	{
 		int xx = index % len;
 		int yy = index / len;  
-		if(world(xx,yy)->is_water())
+    if(!world.is_visible(xx,yy))
+    {  continue;}		
+    if(world(xx,yy)->is_water())
 		{
 			*dist(xx,yy) = 0;
 			*water(xx,yy) = world(xx,yy)->ground.water_alt;
@@ -203,6 +205,8 @@ void setup_land()
 		{
 			int xt = xx + dx[i];
 			int yt = yy + dy[i];
+      if(!world.is_visible(xt,yt))
+      {  continue;}
 			int old_eco = (*dist(xt,yt) * *dist(xt,yt)/5 + 1) + arid +
 			(world(xt, yt)->ground.altitude - *water(xt,yt)) * 50 / alt_step;
 			int next_eco = (next_dist * next_dist/5 + 1) + arid +
