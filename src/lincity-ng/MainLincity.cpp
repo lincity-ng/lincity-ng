@@ -157,7 +157,8 @@ void initLincity()
 
     initialize_monthgraph ();
     mps_init();
-    world.len(WORLD_SIDE_LEN);
+    //world.len(WORLD_SIDE_LEN);
+    //World is now already resized upon loading config
 
     // init_types ();
     load_png_graphics();

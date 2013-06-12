@@ -44,7 +44,7 @@ Config::Config()
     assert(configPtr == 0);
 
     //Default Values
-    useOpenGL = false;  //OpenGL is often way too slow
+    useOpenGL = true;  //OpenGL is often way too slow
     useFullScreen = true;
     videoX = 1024; 
     videoY = 768;
@@ -53,7 +53,7 @@ Config::Config()
     musicVolume = 50;
     soundEnabled = true;
     musicEnabled = true;
-    restartOnChangeScreen = false;
+    restartOnChangeScreen = true;
      
     //#define MONTHGRAPH_W 120 
     //#define MONTHGRAPH_H 64
@@ -139,7 +139,9 @@ void Config::load( const std::string& filename ){
                         useFullScreen = parseBool(value, false);
                     } else if(strcmp(name, "restartOnChangeScreen") == 0) {
                         restartOnChangeScreen = parseBool(value, true);
-                    } else {
+                    } else if(strcmp(name, "WorldSideLen") == 0) {
+                        world.len(parseInt(value, WORLD_SIDE_LEN, 50, 10000));
+                    }else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
                     }
@@ -179,7 +181,11 @@ void Config::load( const std::string& filename ){
                         quickness = parseInt(value, 2, 1, 100);
                     } else if( strcmp(name, "language" ) == 0 ){
                         language = value;
-                    } else {
+                    } else if(strcmp(name, "WorldSideLen") == 0) {
+                        world.len(parseInt(value, WORLD_SIDE_LEN, 50, 10000));
+                    } else if(strcmp(name, "binarySaveGames") == 0) {
+                        binary_mode = parseBool(value, true);
+                    }else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
                     }
@@ -218,7 +224,8 @@ Config::save(){
     userconfig << "<?xml version=\"1.0\"?>\n";
     userconfig << "<configuration>\n";
     userconfig << "    <video x=\"" << videoX << "\" y=\"" << videoY << "\" useOpenGL=\"" 
-        << (useOpenGL?"yes":"no") << "\" fullscreen=\"" << (useFullScreen?"yes":"no")  
+        << (useOpenGL?"yes":"no") << "\" fullscreen=\"" << (useFullScreen?"yes":"no")
+        << "\" restartOnChangeScreen=\"" << (restartOnChangeScreen?"yes":"no")
         << "\" />\n";
     userconfig << "    <audio soundEnabled=\"" << (soundEnabled?"yes":"no")  
         << "\" soundVolume=\"" << soundVolume << "\" \n";
@@ -226,7 +233,10 @@ Config::save(){
         << "\" musicVolume=\"" << musicVolume << "\"\n";
     userconfig << "           musicTheme=\"" << musicTheme << "\" />\n";
     userconfig << "    <game quickness=\""<< quickness <<"\" "
-        << "language=\"" << language << "\" " << "/>\n";
+        << "language=\"" << language // 
+        << "\" WorldSideLen=\"" << world.len()
+        << "\" binarySaveGames=\"" << (binary_mode?"yes":"no")
+        << "\" />\n";
     userconfig << "</configuration>\n";
 }
 

@@ -11,9 +11,7 @@
 #include "init_game.h"
 
 World::World(int map_len)
-{      
-    //permutator = NULL;    
-    //this->side_len = map_len;    
+{         
     maptile.resize(map_len * map_len);
     dirty = false;
     //std::cout << "created World len = " << len() << "²" << std::endl;
@@ -35,6 +33,7 @@ void World::len(int new_len)
     }       
     if (dirty) {clear_game();}    
     this->side_len = new_len;    
+    //std::cout << "resized World len = " << len() << "²" << std::endl;
     maptile.resize(new_len * new_len);    
     len_sqr = maptile.size();
           

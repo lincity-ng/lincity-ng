@@ -554,6 +554,7 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         getSound()->playSound("Click");
         getConfig()->useFullScreen = !getConfig()->useFullScreen;
         if( getConfig()->restartOnChangeScreen ){
+            getConfig()->save();
             quitState = RESTART;
             running = false;
         } else {
@@ -762,6 +763,7 @@ MainMenu::creditsBackButtonClicked(Button* )
 void
 MainMenu::optionsBackButtonClicked(Button* )
 {
+    getConfig()->save();
     if( getConfig()->videoX != SDL_GetVideoSurface()->w || getConfig()->videoY != SDL_GetVideoSurface()->h) {
         if( getConfig()->restartOnChangeScreen ){
             quitState = RESTART;

@@ -32,7 +32,8 @@
 -->
 
 <!-- Game Section -->
- <game quickness="9" />
+ <game quickness="9" WorldSideLen="200"
+ binarySaveGames="yes" />
 <!-- quickness is saved to userconfig.xml
     Commandline -q [delay] sets the delay for fast mode, default is 9.
     9 is default. This skips animation frames, good on slow machines.
@@ -45,5 +46,9 @@
     skipMonthsFast determines how many Months are skipped in
     fastest mode until the MainScreen is updated again. The
     default of 1 seems to be a good choice.
+-->
+<!-- binarySaveGames enables quick writing of mapTiles and Constructions
+	to a hybrid text-binary file. It is much faster, but may break if you
+	are a developer and change the corresponding classes.
 -->
 </configuration>

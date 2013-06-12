@@ -578,7 +578,7 @@ int main(int argc, char** argv)
         result = 1;
     }
 #endif
-    getConfig()->save();
+    //getConfig()->save(); //is now done upon MainMenu::optionsBackButtonClicked(Button*)
     delete painter;
     delete fontManager;
     delete texture_manager;
