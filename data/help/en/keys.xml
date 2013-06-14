@@ -6,6 +6,9 @@
     <p style="hp">b toggles between current tool and bulldoze mode</p>
     <p style="hp">h to hide high buildings. Press h again to show them.</p>
     <p style="hp">v to cycle through MiniMap-overlay modes</p>
+    <p style="hp">m,n to cycle through Transportation-overlay modes</p>
+    <p style="hp">g to show information about area under cursor.</p>
+    <p style="hp">v to cycle through MiniMap-overlay modes</p>
     <p style="hp">KP_PLUS: zoom in</p>
     <p style="hp">KP_MINUS zoom out</p>
     <p style="hp">KP_ENTER zoom 100%</p>
@@ -29,7 +32,7 @@
     <p style="hp">right click on mainscreen centers to tile under cursor.</p>
     <p style="hp">middle:</p>
     <p style="hp">middle click on mainscreen to show information about area under cursor.</p>
-    <p style="hp">left:</p>
+    <p style="hp">left: </p>
     <p style="hp">Click on Minimap shows the selected Area on mainscreen.</p>
     <p style="hp">Perform action depending on selected tool. Bulldoze, show Information,
     construct building.</p>

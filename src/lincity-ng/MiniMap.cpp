@@ -184,6 +184,7 @@ MiniMap::toggleStuffID(int step)
                 stuff_ID = Construction::STUFF_MWH;
             break;
     }
+	getGameView()->setMapMode( mMode );
 }
 
 
@@ -1060,19 +1061,30 @@ void MiniMap::event(const Event& event) {
         if(event.mousebutton == SDL_BUTTON_LEFT ) {
             getGameView()->show(tile); // move main-map
         }
-/*        if(event.mousebutton == SDL_BUTTON_RIGHT ) {
-
+/*      
+		if(event.mousebutton == SDL_BUTTON_RIGHT ) {
+			
         }
 */
         if(event.mousebutton == SDL_BUTTON_WHEELUP ) {
             toggleStuffID(1);
-            getGameView()->setMapMode( mMode );
         }
         if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
             toggleStuffID(-1);
-            getGameView()->setMapMode( mMode );
         }
     }
+    else if (event.type == Event::KEYDOWN)
+    {
+		//for the poor devils that dont have a mousewheel
+		if(event.keysym.sym == SDLK_n)
+		{
+			toggleStuffID(1);	
+		}
+		else if (event.keysym.sym == SDLK_m)
+		{
+			toggleStuffID(-1);
+		}
+	}
 }
 
 IMPLEMENT_COMPONENT_FACTORY(MiniMap)

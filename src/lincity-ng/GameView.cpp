@@ -1123,6 +1123,13 @@ void GameView::event(const Event& event)
             if( event.keysym.sym == SDLK_RSHIFT ){
                 keyScrollState |= SCROLL_RSHIFT;
                 break;
+			}
+            // use G to show ground info aka MpsEnv without middle mouse button
+            if( event.keysym.sym == SDLK_g){
+				if( inCity(tileUnderMouse) ) {
+					getMiniMap()->showMpsEnv( tileUnderMouse );
+                }
+                break;
             }
             break;
         case Event::KEYUP:
