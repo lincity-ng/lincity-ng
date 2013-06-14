@@ -6,6 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include "track_road_rail.h"
+
 //FIXME would like to include this one so report could depend on overlay mode
 //#include "lincity-ng/GameView.hpp"
 
@@ -288,8 +289,16 @@ void Transport::report()
     
     mps_store_sd(i++,constructionGroup->name,subgroupID);
     i++;
-    mps_store_title(i++,"Commodities");        
-    list_commodities(&i);
+    if(report_page == 0)
+    {
+		mps_store_title(i++,"Commodities");        
+		list_commodities(&i);	
+	} 
+	else if(report_page == 1)
+	{
+		mps_store_title(i++,"Traffic");        
+		list_traffic(&i);
+	}
 }
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */

@@ -11,6 +11,9 @@
 int ldsv_version;
 int use_waterwell = true;
 
+/* current page for report of constructions 0,1,2...LAST_REPORT_PAGE*/
+int report_page = 0;
+
 ConstructionCount constructionCount = ConstructionCount();
 World world = World(WORLD_SIDE_LEN);
 

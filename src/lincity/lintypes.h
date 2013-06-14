@@ -22,6 +22,9 @@
 
 #define NUMOF_DISCOUNT_TRIGGERS 6
 
+//pages for report 0,1,2,3,...,LAST_REPORT_PAGE
+#define LAST_REPORT_PAGE 1
+
 int get_group_of_type(short selected_type);
 void set_map_groups(void);
 int get_type_cost(short type);

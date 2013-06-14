@@ -5,6 +5,8 @@
 
 class Transport;
 
+
+
 class TransportConstructionGroup: public ConstructionGroup {
 public:
     TransportConstructionGroup(

@@ -1124,6 +1124,11 @@ void GameView::event(const Event& event)
                 keyScrollState |= SCROLL_RSHIFT;
                 break;
 			}
+			 if( event.keysym.sym == SDLK_t ){
+                report_page = (report_page + 1)%(LAST_REPORT_PAGE+1);
+				mps_refresh();
+                break;
+			}
             // use G to show ground info aka MpsEnv without middle mouse button
             if( event.keysym.sym == SDLK_g){
 				if( inCity(tileUnderMouse) ) {

@@ -105,7 +105,7 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
     int flow, traffic;
     int *loc_lvl;
     int loc_cap;
-    int transport_rate = TRANSPORT_RATE;
+    static int transport_rate = TRANSPORT_RATE;
 
 /*
 	This will happen if mines are evacuated
@@ -150,7 +150,7 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
 			}
 			else if ( !((repcons->flags & FLAG_IS_TRANSPORT || repcons->flags & FLAG_EVACUATE) 
 					|| (repcons->constructionGroup->group == GROUP_MARKET)) )
-			// transport tiles and markets tolerat insignifiact flow
+			// transport tiles and markets tolerate insignifiact flow
 			{
 				//constructions doublecheck if the can get/put a least one item if flow would be nominally insiginficant
 				if ( (*loc_lvl < *rem_lvl) && (*loc_lvl < loc_cap) ) // feed but dont overfeeding

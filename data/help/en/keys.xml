@@ -8,7 +8,7 @@
     <p style="hp">v to cycle through MiniMap-overlay modes</p>
     <p style="hp">m,n to cycle through Transportation-overlay modes</p>
     <p style="hp">g to show information about area under cursor.</p>
-    <p style="hp">v to cycle through MiniMap-overlay modes</p>
+    <p style="hp">t to cycle through pages in the info display</p>
     <p style="hp">KP_PLUS: zoom in</p>
     <p style="hp">KP_MINUS zoom out</p>
     <p style="hp">KP_ENTER zoom 100%</p>
