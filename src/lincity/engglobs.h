@@ -64,7 +64,7 @@ extern int total_unemployed_years;
 extern float pollution_deaths_history, starve_deaths_history;
 extern float unemployed_history;
 
-extern int university_intake_rate;
+//extern int university_intake_rate;
 extern int power_made, power_used, coal_made, coal_used;
 extern int goods_made, goods_used, ore_made, ore_used;
 extern int rockets_launched, rockets_launched_success;

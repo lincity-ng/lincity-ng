@@ -45,7 +45,7 @@ void IndustryLight::update()
         commodityCount[STUFF_JOBS] -= (INDUSTRY_L_JOBS_USED + INDUSTRY_L_JOBS_LOAD_ORE);
         commodityCount[STUFF_ORE] -= INDUSTRY_L_ORE_USED;
         goods_today = INDUSTRY_L_MAKE_GOODS;
-        working_days++;
+        //working_days++;
         //make some pollution and waste
         world(x,y)->pollution += (int)(((double)(INDUSTRY_L_POL_PER_GOOD * goods_today) * (1 - bonus)));
         commodityCount[STUFF_WASTE] += (int)(((double)(INDUSTRY_L_POL_PER_GOOD * goods_today) * bonus)*(1-extra_bonus));
@@ -86,8 +86,8 @@ void IndustryLight::update()
     if (total_time % 100 == 0) 
     {
         int output_level = goods_this_month / (INDUSTRY_L_MAKE_GOODS * 8);       
-        busy = working_days;
-        working_days = 0;
+        busy = output_level;//working_days
+        //working_days = 0;
         goods_this_month = 0;
         //Choose an animation set depending on output_level
         if (output_level > 80)

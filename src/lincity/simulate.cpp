@@ -199,13 +199,14 @@ static void end_of_month_update(void)
 
 static void start_of_year_update(void)
 {
-    int u;
+    //int u;
 
     sustainability_test();
 
     pollution_deaths_history -= pollution_deaths_history / 100.0;
     starve_deaths_history -= starve_deaths_history / 100.0;
     unemployed_history -= unemployed_history / 100.0;
+/*   
     u = Counted<University>::getInstanceCount();
     if (u > 0) {
         university_intake_rate = (Counted<School>::getInstanceCount() * 20) / u;
@@ -214,7 +215,7 @@ static void start_of_year_update(void)
     } else {
         university_intake_rate = 50;
     }
-
+*/
     //map_power_grid();
 }
 
@@ -300,8 +301,7 @@ static void simulate_mappoints(void)
     {        
         if (constructionCount[i]) 
         {
-            constructionCount[i]->update();
-                       
+            constructionCount[i]->update();                       
         }        
     }
 }
@@ -356,27 +356,33 @@ static void sustainability_test(void)
     /* check fire cover only every three years */
     if (total_time % (NUMOF_DAYS_IN_YEAR * 3) == 0) {
         if (sust_fire_cover() != 0)
-            sust_fire_count += 3;
+        {    sust_fire_count += 3;}
         else
-            sust_fire_count = 0;
-
+        {    sust_fire_count = 0;}
     }
 }
 
 static int sust_fire_cover(void)
 {
-    int x, y;
-    for (x = 0; x < world.len(); x++)
-        for (y = 0; y < world.len(); y++) {
-            if (world(x, y)->is_bare()
-                || world(x, y)->getType() == CST_USED || world(x, y)->getType() == GROUP_WATER || world(x, y)->getType() == GROUP_POWER_LINE \
-                                || world(x, y)->getType() == GROUP_OREMINE || world(x, y)->getType() == GROUP_ROCKET \
-                                || world(x, y)->getType() == GROUP_MONUMENT || world(x, y)->getType() == GROUP_BURNT) ;/* do nothing */
-
-            else if ((world(x, y)->flags & FLAG_FIRE_COVER) == 0)
-                return (0);
-        }
-    return (1);
+    for (int i = 0; i < constructionCount.size(); i++)
+    {        
+        if (constructionCount[i]) 
+        {
+            if(constructionCount[i]->flags & 
+                (FLAG_IS_TRANSPORT | FLAG_POWER_LINE))
+            {   continue;}
+            unsigned short grp = constructionCount[i]->constructionGroup->group;
+            if((grp==GROUP_MONUMENT) 
+            || (grp==GROUP_OREMINE) 
+            || (grp==GROUP_ROCKET))
+            {   continue;}
+            int x = constructionCount[i]->x;
+            int y = constructionCount[i]->y;
+            if(!(world(x, y)->flags & FLAG_FIRE_COVER))
+            {   return(0);}                      
+        }        
+    }   
+    return(1);
 }
 
 /** @file lincity/simulate.cpp */

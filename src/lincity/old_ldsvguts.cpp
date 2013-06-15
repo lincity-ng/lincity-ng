@@ -420,6 +420,7 @@ void load_city_old(char *cname)
     prog_box("", 100);
 
     /* set up the university intake. */
+    /*
     x = Counted<University>::getInstanceCount();
     if (x > 0) {
         university_intake_rate = (Counted<School>::getInstanceCount() * 20) / x;
@@ -427,7 +428,7 @@ void load_city_old(char *cname)
             university_intake_rate = 100;
     } else
         university_intake_rate = 50;
-
+    */
     unhighlight_module_button(selected_module);
     selected_module = sbut[7];  /* 7 is track.  Watch out though! */
     highlight_module_button(selected_module);

@@ -73,7 +73,7 @@ int total_unemployed_years = 0;
 float pollution_deaths_history = 0.0, starve_deaths_history = 0.0;
 float unemployed_history = 0.0;
 
-int university_intake_rate;
+//int university_intake_rate;
 int power_made, power_used, coal_made, coal_used;
 int goods_made, goods_used, ore_made, ore_used;
 int rockets_launched, rockets_launched_success;

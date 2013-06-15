@@ -78,7 +78,8 @@ void Oremine::update()
                     commodityCount[STUFF_JOBS] -= JOBS_DIG_ORE;                        
                     //FIXME ore_tax should be handled upon delivery
                     //ore_made += ORE_PER_RESERVE;  
-                    sust_dig_ore_coal_tip_flag = 0;
+                    if (total_ore_reserve < (16 * ORE_RESERVE))
+                    {	sust_dig_ore_coal_tip_flag = 0;}                    
                     animate = true;
                     busy_days++;  
                 }
@@ -93,7 +94,7 @@ void Oremine::update()
         {
             for (xx = x; (xx < x +4) && !animate; xx++)
             {
-                if (world(xx,yy)->ore_reserve < ORE_RESERVE) 
+                if (world(xx,yy)->ore_reserve < (3 * ORE_RESERVE/2)) 
                 {
                     world(xx,yy)->ore_reserve++;
                     total_ore_reserve++;

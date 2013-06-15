@@ -600,6 +600,7 @@ void load_city_2(char *cname)
     //numof_communes = count_groups(GROUP_COMMUNE);
 
     /* set up the university intake. */
+/*
     x = Counted<University>::getInstanceCount();
     if (x > 0) 
     {
@@ -608,7 +609,7 @@ void load_city_2(char *cname)
             university_intake_rate = 100;
     } else
         university_intake_rate = 50;
-
+*/
     print_total_money();
 
     //reset_animation_times
