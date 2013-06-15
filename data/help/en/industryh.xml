@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Heavy industry (Steel Works)</p>
-	<p style="hp">Steel works produce steel from ore, power and jobs. Ore is obtained directly from the connected transport.The steel is placed onto the transport as well. Jobs are obtained from a local market. Transport connects to the top left corner.</p>
-	<p style="hp">Power can be provided to the steel works in two ways. The first is from coal, which is obtained directly from connected transport. The second is from electricity: you must have one or more active substations within range of the steel works. (Windmills do <b>not</b> supply power to steel works.)</p>
+	<p style="hp">Steel works produce steel from ore, power and jobs. Ore and jobs is obtained from the connected transport or markets.</p>
+	<p style="hp">Power can be provided to the steel works in two ways. The first is burning coal. The second is from electricity, either inefficient kWh from connected transport or MWh directly from powerlines. Windmills will barely provide enough power. </p>
 	<p style="hp">Steel works produce <a href="pollution">pollution.</a></p>
 	<p style="hp">You can see when Heavy Industry is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
 	

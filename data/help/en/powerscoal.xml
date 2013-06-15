@@ -2,14 +2,6 @@
 <Document style="helpdocument">
 	<p style="htitle">Coal fired power station</p>
 	<p style="hp">Coal fired power stations produce packets of electricity which are placed onto connected power lines.</p>
-	<p style="hp">Power lines connect at the top left corner of the station, transport connects to the next position in. See the example.</p>
-    <img src="images/help/powerscoal-example.png" halign="center"/>
-
-    <p style="hp">The above example shows a coal fired power
-      station with all its connection points used. To the left there
-      is a road, above this there are two power lines. To their
-      right a railway is connected to the other transport connection
-      point. To toggle visibility of high buildings press <b>h </b>.</p>
 
 	<p style="hp">The efficiency of the conversion of coal to electricity increases with each tech level - when the station is <b>built</b>. You may want to demolish an old station and replace it with a newer, more efficient one, when your tech level has increased by a significant amount.</p>
     

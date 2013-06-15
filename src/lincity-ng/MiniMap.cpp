@@ -974,6 +974,9 @@ Color MiniMap::getColor(int x,int y) const
                 if (loc_lvl < 0.2) loc_lvl = 0.2;
                 loc_lvl = 0.5 + (loc_lvl - 0.5)/0.6;
 */
+#ifdef DEBUG                
+                assert(!(loc_lvl > 1)); //should never happen
+#endif
                 loc_lvl = 2-2/(1+loc_lvl);
                 //more contrast for small loads
                 Color mc((int) (0xFF*loc_lvl), (int) (0xFF*(1-loc_lvl)), 0);

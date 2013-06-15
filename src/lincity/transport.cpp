@@ -105,7 +105,7 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
     int flow, traffic;
     int *loc_lvl;
     int loc_cap;
-    static int transport_rate = TRANSPORT_RATE;
+    int transport_rate = TRANSPORT_RATE;
 
 /*
 	This will happen if mines are evacuated
