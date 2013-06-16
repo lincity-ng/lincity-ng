@@ -158,6 +158,12 @@ bool MapTile::is_transport() //true on tracks, road, rails and bridges
     return (reportingConstruction && reportingConstruction->flags & FLAG_IS_TRANSPORT);
 }
 
+bool MapTile::is_powerline() //true on powerlines
+{
+    return (reportingConstruction && reportingConstruction->flags & FLAG_POWER_LINE);
+}
+
+
 bool MapTile::is_residence() //true on residences
 {
     return (reportingConstruction && (

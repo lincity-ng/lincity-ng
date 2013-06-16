@@ -1033,7 +1033,7 @@ void GameView::event(const Event& event)
 							//quick version limited to size=1
 							int x = currentTile.x;
 							int y = currentTile.y;
-							if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport()))
+							if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
 							&& get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())) 
 							{										
 								place_item(x, y, selected_module_type);
@@ -1046,7 +1046,7 @@ void GameView::event(const Event& event)
 							//quick version limited to size=1
 							int x = currentTile.x;
 							int y = currentTile.y;
-							if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport()))
+							if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
 							&& get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())) 
 							{										
 								place_item(x, y, selected_module_type);
@@ -1578,7 +1578,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
 					}
                     else if( !world(x,y)->is_bare() ) 
                     {
-                        if( !((world(x,y)->is_water() || world(x,y)->is_transport()) && (
+                        if( !((world(x,y)->is_water() || world(x,y)->is_transport() || world(x,y)->is_powerline()) && (
                            (selected_module_type == CST_TRACK_LR ) ||
                            (selected_module_type == CST_ROAD_LR ) ||
                            (selected_module_type == CST_RAIL_LR ) ) && 

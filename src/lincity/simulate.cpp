@@ -374,7 +374,8 @@ static int sust_fire_cover(void)
             unsigned short grp = constructionCount[i]->constructionGroup->group;
             if((grp==GROUP_MONUMENT) 
             || (grp==GROUP_OREMINE) 
-            || (grp==GROUP_ROCKET))
+            || (grp==GROUP_ROCKET)
+            || (grp==GROUP_FIRE))
             {   continue;}
             int x = constructionCount[i]->x;
             int y = constructionCount[i]->y;

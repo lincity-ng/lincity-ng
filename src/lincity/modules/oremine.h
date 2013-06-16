@@ -7,7 +7,7 @@
 #define JOBS_DIG_ORE  200
 #define MAX_JOBS_AT_OREMINE (20 * JOBS_DIG_ORE)
 
-#define ORE_LEVEL_TARGET 90 //mine will only supply so much
+#define ORE_LEVEL_TARGET 80 //mine will only supply so much
 
 #define GROUP_OREMINE_COLOUR (red(18))
 #define GROUP_OREMINE_COST 500

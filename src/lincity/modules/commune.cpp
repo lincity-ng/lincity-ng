@@ -50,6 +50,8 @@ void Commune::update()
     {
         commodityCount[STUFF_WASTE] -= COMMUNE_WASTE_GET;       
         monthly_stuff_made++;
+        if(commodityCount[STUFF_ORE] <= MAX_ORE_AT_COMMUNE -   COMMUNE_ORE_FROM_WASTE)
+        {   commodityCount[STUFF_ORE] += COMMUNE_ORE_FROM_WASTE;}
     }
     if (total_time % 10 == 0) 
     {

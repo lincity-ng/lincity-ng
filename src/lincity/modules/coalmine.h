@@ -12,7 +12,7 @@
 #define GROUP_COALMINE_TECH   85
 #define GROUP_COALMINE_FIREC  85
 
-#define TARGET_COAL_LEVEL 90
+#define TARGET_COAL_LEVEL 80
 
 #include "modules.h"
 #include "../lintypes.h"

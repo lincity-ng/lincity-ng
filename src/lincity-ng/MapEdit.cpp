@@ -148,14 +148,11 @@ void editMap (MapPoint point, int button)
     int mod_x, mod_y; /* upper left coords of module clicked on */
     int mps_result;
 
-    
-
     if(world(x,y)->reportingConstruction)
     {
         mod_x = world(x,y)->reportingConstruction->x;
         mod_y = world(x,y)->reportingConstruction->y;
     }
-
     else 
     {
         mod_x = x;
@@ -241,7 +238,9 @@ void editMap (MapPoint point, int button)
         if( ( ( selected_module_type == CST_TRACK_LR ) || 
               ( selected_module_type == CST_ROAD_LR  ) ||
               ( selected_module_type == CST_RAIL_LR  ) 
-            ) && !(( world(x,y)->is_transport() || world(x,y)->is_water()) )) 
+            ) && !(( world(x,y)->is_transport()
+                ||   world(x,y)->is_water()
+                ||   world(x,y)->is_powerline() ) )) 
         {
             return; //TransportTiles may only overbuild previous TransportTiles or Water
 	    }    
