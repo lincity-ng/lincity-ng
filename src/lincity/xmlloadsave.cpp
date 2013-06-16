@@ -637,6 +637,7 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<sust_old_tech_count>"        << sust_old_tech_count      << "</sust_old_tech_count>" << std::endl;
     xml_file_out << "<sust_fire_count>"            << sust_fire_count          << "</sust_fire_count>" << std::endl;
     xml_file_out << "<sust_old_money>"             << sust_old_money           << "</sust_old_money>" << std::endl;
+    xml_file_out << "<sust_port_flag>"             << sust_port_flag           << "</sust_port_flag>" << std::endl;
     xml_file_out << "<sust_old_population>"        << sust_old_population      << "</sust_old_population>" << std::endl;
     xml_file_out << "<sust_old_tech>"              << sust_old_tech            << "</sust_old_tech>" << std::endl;
     xml_file_out << "<sustain_flag>"               << sustain_flag             << "</sustain_flag>" << std::endl;
@@ -731,6 +732,7 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "sust_old_tech_count")             {sscanf(xml_val.c_str(),"%d",&sust_old_tech_count);}
             else if (xml_tag == "sust_fire_count")                 {sscanf(xml_val.c_str(),"%d",&sust_fire_count);}
             else if (xml_tag == "sust_old_money")                  {sscanf(xml_val.c_str(),"%d",&sust_old_money);}
+            else if (xml_tag == "sust_port_flag")                  {sscanf(xml_val.c_str(),"%d",&sust_port_flag);}
             else if (xml_tag == "sust_old_population")             {sscanf(xml_val.c_str(),"%d",&sust_old_population);}
             else if (xml_tag == "sust_old_tech")                   {sscanf(xml_val.c_str(),"%d",&sust_old_tech);}
             else if (xml_tag == "sustain_flag")                    {sscanf(xml_val.c_str(),"%d",&sustain_flag);}
