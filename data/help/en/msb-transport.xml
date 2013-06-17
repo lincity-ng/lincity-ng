@@ -5,7 +5,7 @@
 	<p style="hp">The transportation mini screen shows the amount of goods on the 
     city's <a href="track">tracks</a>, <a href="road">roads </a>
     and <a href="rail">railways</a>.</p>
-    <p style="hp">Click the icon to toggle between flows and levels. Use the mousewheel (or 'm'/'n' keys) when hovering over minimap to cycle through the different commodities.</p>
+    <p style="hp">Click the icon to toggle between flows and levels. Use the scroll up and down buttons to run through the various commodities. You may also hit the 'm'/'n' keys, or simply use the mousewheel when hovering over minimap</p>
 	<p style="hp">The bluish colors indicate buildings that are inside the range of a <a href="market">market</a>.</p>
     <p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 

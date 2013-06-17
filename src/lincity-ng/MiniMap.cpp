@@ -312,6 +312,13 @@ void MiniMap::attachButtons()
     switchButton->clicked.connect(
             makeCallback(*this, &MiniMap::switchButton));
     switchButtons.push_back(switchButton);
+
+	Button* scrollPageDown = getButton(*root, "ScrollPageDown");
+    scrollPageDown->clicked.connect(makeCallback(*this, &MiniMap::scrollPageDownButtonClicked));
+    Button* scrollPageUp = getButton(*root, "ScrollPageUp");
+    scrollPageUp->clicked.connect(makeCallback(*this, &MiniMap::scrollPageUpButtonClicked));
+
+
 }
 
 void
@@ -326,13 +333,13 @@ MiniMap::switchButton(CheckButton* button, int mousebutton)
 	std::string buttonName = button->getName();
     if(buttonName == "SwitchGlobalMPS") {
         //cycle through global styles
-        mps_global_style = (mps_global_style + 1) % MPS_GLOBAL_STYLES;
+        //mps_global_style = (mps_global_style + 1) % MPS_GLOBAL_STYLES;
         mps_set(mps_x, mps_y, MPS_GLOBAL);
     } else if(buttonName == "SwitchMapMPS") {
         mps_set(mps_x, mps_y, MPS_MAP);
     } else if(buttonName == "SwitchPBar") {
 		//cycle through pbar styles
-      pbarGlobalStyle = (pbarGlobalStyle + 1) % PBAR_GLOBAL_STYLES;
+      //pbarGlobalStyle = (pbarGlobalStyle + 1) % PBAR_GLOBAL_STYLES;
       if (pbarGlobalStyle == 1)
       {	  buttonName = "SwitchPBar2nd";}
       refresh_pbars();
@@ -351,9 +358,15 @@ MiniMap::switchView(const std::string& viewname)
         = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
 
     switchComponent->switchComponent(viewname);
-
+	//TODO once this gets more complex PBar pages could become
+	//a nested switchComponent. For now only one case ;-)
+	std::string viewGroupName = viewname;
+	if (viewGroupName == "PBar2nd")
+	{	viewGroupName = "PBar";}
+	
     std::string buttonname = "Switch";
-    buttonname += viewname;
+    buttonname += viewGroupName;
+    
     for(std::vector<CheckButton*>::iterator i = switchButtons.begin();
             i != switchButtons.end(); ++i) {
         CheckButton* cbutton = *i;
@@ -587,6 +600,67 @@ MiniMap::zoomOutButtonClicked(Button* )
 {
     getGameView()->zoomOut();
 }
+
+void
+MiniMap::scrollPageDownButtonClicked(Button* )
+{
+    scrollPageDown(true);
+}
+
+void
+MiniMap::scrollPageUpButtonClicked(Button* )
+{
+    scrollPageDown(false);
+}
+
+void
+MiniMap::scrollPageDown(bool down)
+{   
+    std::string viewname = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();  
+ 
+    if(viewname == "MapMPS")
+    {
+		mps_map_page = (mps_map_page + (down?1:(MPS_MAP_PAGES-1)))%MPS_MAP_PAGES;
+		mps_refresh();
+	}
+    else if(viewname == "MiniMap")
+    {
+		toggleStuffID((down?-1:1));
+	}
+    else if(viewname == "PBar" || viewname == "PBar2nd")
+    {
+		pbarGlobalStyle = (pbarGlobalStyle + (down?1:(PBAR_GLOBAL_STYLES-1))) % PBAR_GLOBAL_STYLES;
+		if (pbarGlobalStyle == 0)
+		{	  switchView("PBar");}
+		else if (pbarGlobalStyle == 1)
+		{	  switchView("PBar2nd");}
+		else
+		{	
+			std::cout << "unknown pbarGlobalStyle in MiniMap:turnpage(): " << pbarGlobalStyle << std::endl;
+			assert(false);
+		}
+		refresh_pbars();
+	}
+    else if(viewname == "GlobalMPS")
+    {
+		mps_global_style = (mps_global_style + (down?1:(MPS_GLOBAL_STYLES-1))) % MPS_GLOBAL_STYLES;
+        mps_set(mps_x, mps_y, MPS_GLOBAL);
+	}
+	else if(viewname == "EconomyGraph")
+    {
+		//has only one page for now
+	}
+	else if(viewname == "EnvMPS")
+    {
+		//has only one page for now
+	}
+	else
+	{
+		std::cout << "Unknown active component in MiniMapSwitch: " << viewname << std::endl;
+		assert(false);
+	}       
+}
+
 
 Vector2
 MiniMap::mapPointToVector(MapPoint p)
@@ -1052,6 +1126,8 @@ void MiniMap::event(const Event& event) {
         }
         return;
     }
+    
+    
     if(!event.inside) {
         return;
     }
@@ -1069,23 +1145,25 @@ void MiniMap::event(const Event& event) {
 			
         }
 */
-        if(event.mousebutton == SDL_BUTTON_WHEELUP ) {
-            toggleStuffID(1);
-        }
-        if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
-            toggleStuffID(-1);
-        }
+
+		if(event.mousebutton == SDL_BUTTON_WHEELUP ) {
+				scrollPageDown(true); // Yes this is correct
+		}
+		if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
+			scrollPageDown(false); // Yes this is correct
+		}
+       
     }
     else if (event.type == Event::KEYDOWN)
     {
 		//for the poor devils that dont have a mousewheel
 		if(event.keysym.sym == SDLK_n)
 		{
-			toggleStuffID(1);	
+			scrollPageDown(true);	
 		}
 		else if (event.keysym.sym == SDLK_m)
 		{
-			toggleStuffID(-1);
+			scrollPageDown(false);
 		}
 	}
 }

@@ -289,16 +289,17 @@ void Transport::report()
     
     mps_store_sd(i++,constructionGroup->name,subgroupID);
     i++;
-    if(report_page == 0)
-    {
-		mps_store_title(i++,"Commodities");        
-		list_commodities(&i);	
-	} 
-	else if(report_page == 1)
+    if(mps_map_page == 1)
 	{
 		mps_store_title(i++,"Traffic");        
 		list_traffic(&i);
 	}
+	else
+	{
+		mps_store_title(i++,"Commodities");        
+		list_commodities(&i);	
+	} 
+	
 }
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */

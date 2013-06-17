@@ -46,6 +46,28 @@
 						<tooltip translatable="yes">Show economy graphs.</tooltip>
 					</CheckButton>
 				</cell>
+				<cell row="1" col="5" valign="bottom">
+					<TableLayout rows="1" cols="2" border="false">
+						<cell row="1" col="1" valign="bottom">
+							<Button name="ScrollPageUp">
+								<image src="images/gui/buttons/round/button-round-20.png"/>
+								<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+								<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+								<image-caption src="images/gui/scrollbar/arrow_up.png"/>
+								<tooltip translatable="yes">Scroll up.</tooltip>
+							</Button>
+						</cell>
+						<cell row="1" col="2" valign="bottom">
+							<Button name="ScrollPageDown">
+								<image src="images/gui/buttons/round/button-round-20.png"/>
+								<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
+								<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
+								<image-caption src="images/gui/scrollbar/arrow_down.png"/>
+								<tooltip translatable="yes">Scroll down.</tooltip>
+							</Button>
+						</cell>
+					</TableLayout>
+				</cell>
 			</TableLayout>
 		</cell>
 		<cell row="2" col="1">
@@ -137,7 +159,7 @@
                     <SwitchComponent name="MiniMapSwitch">
                         <MiniMap name="MiniMap" width="200" height="200" tilesize="2"/>
                         <Import src="gui/pbar.xml"/>
-                        <Import src="gui/pbar2nd.xml"/> <!-- FIXME this fucks up pbars --> 
+                        <Import src="gui/pbar2nd.xml"/>  
                         <Mps name="GlobalMPS">
                             <Import src="gui/mps.xml"/>
                         </Mps>

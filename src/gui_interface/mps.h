@@ -22,6 +22,8 @@ static const int MPS_PARAGRAPH_COUNT = 13;
 #define MPS_GLOBAL_HOUSING 2 /* Citywide population information */
 
 #define MPS_GLOBAL_STYLES 3 /* Number of global styles */
+#define MPS_MAP_PAGES 2
+
 
 void mps_init();
 
@@ -55,6 +57,9 @@ void mps_store_sss(int i, const char * s1, const char * s2, const char * s3);
 
 /* Data for new mps routines */
 extern int mps_global_style;
+
+/* current page for report of constructions 0,1,2...MPS_MAP_PAGES-1*/
+extern int mps_map_page;
 
 /* MPS Global displays */
 void mps_global_finance(void);

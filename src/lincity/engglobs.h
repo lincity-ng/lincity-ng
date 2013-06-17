@@ -18,7 +18,7 @@ class ConstructionCount;
 
 extern int pix_double;
 
-extern int use_waterwell, ldsv_version, report_page;
+extern int use_waterwell, ldsv_version;
 
 extern struct GROUP main_groups[NUM_OF_GROUPS];
 extern struct TYPE main_types[NUM_OF_TYPES];

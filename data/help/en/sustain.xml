@@ -27,7 +27,7 @@
 	<li>
 		<span color="red">Fire</span> (red) all areas that can catch fire have	fire
 		cover. The following areas do *not* have to have fire cover: monuments,
-		ore mines, power lines and rockets.
+		ore mines, power lines, tracks, roads, rails and rockets.
 	</li>
 	<p style="hp">Years required for sustainability: Mining=180 Trade=180 Money=60 Population=60 Technology=120 Fire=60</p>
 </Document>

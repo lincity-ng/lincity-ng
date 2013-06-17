@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Finance window</p>
-	<p style="hp">Left clicking on this window will cycle through windows for 'global finance balance', detail what is called 'other costs' in the previous one, and 'population cost'.</p>
+	<p style="hp">Left clicking on this window will open windows for 'global finance balance', detail what is called 'other costs' in the previous one, and 'population cost' Use the scroll up and down buttons to switch between those.</p>
 	<p style="hp">The finance window is updated every January 1st. The figures correspond to income or expenditure for the previous year.</p>
 	<p style="hp">The 'Total' figure is the amount of money in your account. There are certain things you cannot do when you are 'in the red'.</p>
 	<p style="hsubtitle">See also:</p>
