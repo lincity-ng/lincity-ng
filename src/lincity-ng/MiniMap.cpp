@@ -1147,10 +1147,10 @@ void MiniMap::event(const Event& event) {
 */
 
 		if(event.mousebutton == SDL_BUTTON_WHEELUP ) {
-				scrollPageDown(true); // Yes this is correct
+				scrollPageDown(false);
 		}
 		if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
-			scrollPageDown(false); // Yes this is correct
+			scrollPageDown(true);
 		}
        
     }

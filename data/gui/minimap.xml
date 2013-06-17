@@ -23,7 +23,7 @@
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<text-caption font-size="16" translatable="yes">Stats</text-caption>
-						<tooltip translatable="yes">Show resources.</tooltip>
+						<tooltip translatable="yes">Show resources. Use scroll buttons to cylce through views.</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="3" valign="bottom">
@@ -33,7 +33,7 @@
 						<image-clicked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<image-checked src="images/gui/buttons/tabbed/tabbed-clicked.png" />
 						<text-caption font-size="16" translatable="yes">$</text-caption>
-						<tooltip translatable="yes">Show Income and Expenses. Click this tab again to cycle through views.</tooltip>
+						<tooltip translatable="yes">Show Income and Expenses. Use scroll buttons to cylce through views.</tooltip>
 					</CheckButton>
 				</cell>
 				<cell row="1" col="4" valign="bottom">
