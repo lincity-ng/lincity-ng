@@ -131,7 +131,7 @@ equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
         {	market_ratio = 100*market_ratio/(n * TRANSPORT_QUANTA);}
         else
         {	market_ratio = 0;}
-        std::cout << "market_ratio : " << market_ratio << std::endl;
+   
         if (market_ratio < 10)
         {      
             type = CST_MARKET_LOW;
