@@ -212,10 +212,7 @@ void GameView::buttonClicked( Button* button ){
         return;
     }
     if( name == "mapOverlay" ){
-        mapOverlay++;
-        if( mapOverlay > overlayMAX ) {
-            mapOverlay = overlayNone;
-        }
+        mapOverlay = (mapOverlay + 1) % (overlayMAX + 1);
         requestRedraw();
         return;
     }
@@ -1132,6 +1129,17 @@ void GameView::event(const Event& event)
                 }
                 break;
             }
+            // hotkeys for scrolling pages up and down          
+           if(event.keysym.sym == SDLK_n)
+			{
+				getMiniMap()->scrollPageDown(true);
+				break;	
+			}
+			if (event.keysym.sym == SDLK_m)
+			{
+				getMiniMap()->scrollPageDown(false);
+				break;
+			} 			                   
             break;
         case Event::KEYUP:
             //TEst
@@ -1153,10 +1161,7 @@ void GameView::event(const Event& event)
             }
             //overlay MiniMap Information
             if( event.keysym.sym == SDLK_v ){
-                mapOverlay++;
-                if( mapOverlay > overlayMAX ) {
-                    mapOverlay = overlayNone;
-                }
+                mapOverlay = (mapOverlay+1)%(overlayMAX+1);
                 requestRedraw();
                 break;
             }

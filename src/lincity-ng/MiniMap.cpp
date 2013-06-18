@@ -1154,18 +1154,12 @@ void MiniMap::event(const Event& event) {
 		}
        
     }
+/*    
     else if (event.type == Event::KEYDOWN)
     {
-		//for the poor devils that dont have a mousewheel
-		if(event.keysym.sym == SDLK_n)
-		{
-			scrollPageDown(true);	
-		}
-		else if (event.keysym.sym == SDLK_m)
-		{
-			scrollPageDown(false);
-		}
+		//moved 'm' and 'n' for pagescrolling to Gameview
 	}
+*/
 }
 
 IMPLEMENT_COMPONENT_FACTORY(MiniMap)

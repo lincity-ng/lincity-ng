@@ -54,7 +54,7 @@
 								<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
 								<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
 								<image-caption src="images/gui/scrollbar/arrow_up.png"/>
-								<tooltip translatable="yes">Scroll up.</tooltip>
+								<tooltip translatable="yes">[m] Scroll up.</tooltip>
 							</Button>
 						</cell>
 						<cell row="1" col="2" valign="bottom">
@@ -63,7 +63,7 @@
 								<image-hover src="images/gui/buttons/round/button-round-hover-20.png"/>
 								<image-clicked src="images/gui/buttons/round/button-round-clicked-20.png"/>
 								<image-caption src="images/gui/scrollbar/arrow_down.png"/>
-								<tooltip translatable="yes">Scroll down.</tooltip>
+								<tooltip translatable="yes">[n] Scroll down.</tooltip>
 							</Button>
 						</cell>
 					</TableLayout>

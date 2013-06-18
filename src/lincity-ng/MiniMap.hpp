@@ -52,7 +52,8 @@ public:
     void hideMpsEnv();
 
     void switchView(const std::string& viewname);
-
+	void scrollPageDown(bool down);
+	
     Construction::Commodities getStuffID();
     void toggleStuffID(int step);
 
@@ -63,7 +64,7 @@ private:
     void zoomOutButtonClicked(Button* button);
     void scrollPageDownButtonClicked(Button* button);
     void scrollPageUpButtonClicked(Button* button);
-    void scrollPageDown(bool);
+    
     
     void switchButton(CheckButton* button, int);
     void switchMapViewButton(const std::string &pName);
