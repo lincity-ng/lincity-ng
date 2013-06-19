@@ -330,25 +330,35 @@ MiniMap::switchButton(CheckButton* button, int mousebutton)
     if(mousebutton == SDL_BUTTON_RIGHT ) {
             getGame()->showHelpWindow( "dialogs" );
     }
+	std::string active_button_name = "Switch" + getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();
 	std::string buttonName = button->getName();
+   
     if(buttonName == "SwitchGlobalMPS") {
-        //cycle through global styles
-        //mps_global_style = (mps_global_style + 1) % MPS_GLOBAL_STYLES;
+        //cycle through global styles       
+        if (active_button_name == "SwitchGlobalMPS")
+        {	mps_global_style = (mps_global_style + 1) % MPS_GLOBAL_STYLES;}       
         mps_set(mps_x, mps_y, MPS_GLOBAL);
     } else if(buttonName == "SwitchMapMPS") {
+        //FIXME 
+        //that would be nice but MAP_MPS is actually the map
+/*        
+        if (active_button_name == "SwitchMapMPS")
+        {	mps_map_page = (mps_map_page + 1) % MPS_MAP_PAGES;}
+*/ 
         mps_set(mps_x, mps_y, MPS_MAP);
     } else if(buttonName == "SwitchPBar") {
 		//cycle through pbar styles
-      //pbarGlobalStyle = (pbarGlobalStyle + 1) % PBAR_GLOBAL_STYLES;
+      if ((active_button_name == "SwitchPBar")
+      ||  (active_button_name == "SwitchPBar2nd"))
+      {	pbarGlobalStyle = (pbarGlobalStyle + 1) % PBAR_GLOBAL_STYLES;}
       if (pbarGlobalStyle == 1)
       {	  buttonName = "SwitchPBar2nd";}
       refresh_pbars();
     }
-
     // remove "Switch" prefix
     std::string switchname = std::string(buttonName,
-            6, buttonName.size()-1);
-    switchView(switchname);
+            6, buttonName.size()-1);	
+	switchView(switchname);
 }
 
 void
