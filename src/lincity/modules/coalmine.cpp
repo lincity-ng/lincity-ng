@@ -26,28 +26,6 @@ Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsign
 {
     return new Coalmine(x, y, type);
 }
-/*
-// Coalmine:
-EmptycoalmineConstructionGroup emptyCoalmineConstructionGroup(
-    "Coal Mine",
-     FALSE,                     
-     GROUP_COALMINE,
-     4,                         
-     GROUP_COALMINE_COLOUR,
-     GROUP_COALMINE_COST_MUL,
-     GROUP_COALMINE_BUL_COST,
-     GROUP_COALMINE_FIREC,
-     GROUP_COALMINE_COST,
-     GROUP_COALMINE_TECH
-);
-
-Construction *EmptycoalmineConstructionGroup::createConstruction(int , int , unsigned short )
-{
-    assert(false);
-    return NULL;
-}
-*/
-
 
 void Coalmine::update()
 {
@@ -114,7 +92,6 @@ void Coalmine::update()
                     
                     commodityCount[STUFF_COAL] -= COAL_PER_RESERVE;
                     commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;                        
-                    sust_dig_ore_coal_tip_flag = 1;
                     coal_found = true;
                     busy_days++;  
                 }

@@ -30,27 +30,6 @@ Construction *OremineConstructionGroup::createConstruction(int x, int y, unsigne
 {
     return new Oremine(x, y, type);
 }
-/*
-// Empty Oremine:
-EmptyOremineConstructionGroup emptyOremineConstructionGroup(
-    "Ore Mine (Empty)",
-     FALSE,                     
-     GROUP_OREMINE,
-     4,                         
-     GROUP_OREMINE_COLOUR,
-     GROUP_OREMINE_COST_MUL,
-     GROUP_OREMINE_BUL_COST,
-     GROUP_OREMINE_FIREC,
-     GROUP_OREMINE_COST,
-     GROUP_OREMINE_TECH
-);
-//Dont register this one in group map
-Construction *EmptyOremineConstructionGroup::createConstruction(int , int , unsigned short )
-{
-    assert(false);
-    return NULL;
-}
-*/
 
 void Oremine::update()
 {   
@@ -100,7 +79,6 @@ void Oremine::update()
                     total_ore_reserve++;
                     commodityCount[STUFF_ORE] -= ORE_PER_RESERVE;
                     commodityCount[STUFF_JOBS] -= JOBS_DIG_ORE;                        
-                    sust_dig_ore_coal_tip_flag = 1;
                     animate = true;
                     busy_days++;  
                 }
@@ -181,7 +159,6 @@ void Oremine::update()
     if ( !(flags & FLAG_EVACUATE) && (total_ore_reserve < 1) )
     {
 		flags |= FLAG_EVACUATE;
-		//constructionGroup = &emptyOremineConstructionGroup;
 	}
     
     //Abandon the Oremine if it is really empty  

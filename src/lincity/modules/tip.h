@@ -10,7 +10,7 @@
 #define MAX_WASTE_AT_TIP  10000000
 
 #define WASTE_BURRIED 200
-#define CRITICAL_WASTE_LEVEL 10 //gives waste if inbox is below and swallows if above
+#define CRITICAL_WASTE_LEVEL 20 //gives waste if inbox is below and swallows if above
 #define TIP_TAKES_WASTE (20 * WASTE_BURRIED) 
 
 #include "modules.h"
