@@ -10,7 +10,7 @@
 #define OLD_MAX_NUMOF_SUBSTATIONS 100
 #define MAX_NUMOF_SUBSTATIONS 512
 
-#define NUMOF_COAL_RESERVES (WORLD_SIDE_LEN * WORLD_SIDE_LEN / 100)
+#define NUMOF_COAL_RESERVES (world.len() * world.len() / 100)
 #define NUM_OF_TYPES    404
 #define NUM_OF_GROUPS    51
 

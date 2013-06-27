@@ -48,18 +48,19 @@ void HealthCentre::cover()
     commodityCount[STUFF_GOODS] -= (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER);
     commodityCount[STUFF_WASTE] += (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER / 3);
     busy = true;    
+    int len = world.len();    
     x1 = x - HEALTH_CENTRE_RANGE;
     if (x1 < 0)
         x1 = 0;
     x2 = x + HEALTH_CENTRE_RANGE;
-    if (x2 > WORLD_SIDE_LEN)
-        x2 = WORLD_SIDE_LEN;
+    if (x2 > len)
+        x2 = len;
     y1 = y - HEALTH_CENTRE_RANGE;
     if (y1 < 0)
         y1 = 0;
     y2 = y + HEALTH_CENTRE_RANGE;
-    if (y2 > WORLD_SIDE_LEN)
-        y2 = WORLD_SIDE_LEN;
+    if (y2 > len)
+        y2 = len;
     for (; y1 < y2; y1++)
     {
         for (xx = x1; xx < x2; xx++)

@@ -116,19 +116,19 @@ void FireStation::cover() {
     commodityCount[STUFF_WASTE] += (FIRESTATION_GOODS * DAYS_BETWEEN_COVER /3);
     animate = true;
     busy = true;
-
+    int len = world.len();
     x1 = x - FIRESTATION_RANGE;
     if (x1 < 0)
         x1 = 0;
     x2 = x + FIRESTATION_RANGE;
-    if (x2 > world.len())
-        x2 = world.len();
+    if (x2 > len)
+        x2 = len;
     y1 = y - FIRESTATION_RANGE;
     if (y1 < 0)
         y1 = 0;
     y2 = y + FIRESTATION_RANGE;
-    if (y2 > world.len())
-        y2 = world.len();
+    if (y2 > len)
+        y2 = len;
     for (; y1 < y2; y1++)
         for (xx = x1; xx < x2; xx++){
             world(xx, y1)->flags |= FLAG_FIRE_COVER;

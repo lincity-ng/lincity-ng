@@ -1396,8 +1396,9 @@ int get_group_of_type(short type)
 void set_map_groups(void)
 {
     int x, y;
-    for (x = 0; x < WORLD_SIDE_LEN; x++) {
-        for (y = 0; y < WORLD_SIDE_LEN; y++) {
+    int len = world.len();
+    for (x = 0; x < len; x++) {
+        for (y = 0; y < len; y++) {
             world(x,y)->group = get_group_of_type(world(x,y)->type);
         }
     }
