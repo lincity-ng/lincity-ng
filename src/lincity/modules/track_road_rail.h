@@ -163,7 +163,12 @@ public:
                 constructionGroup = &railbridgeConstructionGroup;
                 countedRail = new Counted<Rail>();
                 this->subgroupID = countedRail->getNextId(); 
-            break; 
+            break;
+            default :
+                std::cout << "invalid transport type,group,x,y "
+                << type << ", " << group << ", "
+                << x << ", " << y << ", " << std::endl; 
+                assert(false);
         }
 
         initialize_commodities();

@@ -127,16 +127,17 @@ void Transport::stuff_flow()
         center_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
         //TODO maybe use a loop and rotation matrix here?         
         /*see how much stuff is there around*/
+        /*ignore markets, they distribute stuff only actively themselfes*/
         ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );        
-        left_lvl = collect_transport_info(x-1 ,y , stuff_ID, ratio );//left
-        right_lvl = collect_transport_info(x+1 ,y , stuff_ID, ratio );//right
-        up_lvl = collect_transport_info(x ,y-1 , stuff_ID, ratio );//up
-        down_lvl = collect_transport_info(x ,y+1 , stuff_ID, ratio );//down
+        left_lvl = (world(x-1, y)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x-1 ,y , stuff_ID, ratio );//left
+        right_lvl = (world(x+1, y)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x+1 ,y , stuff_ID, ratio );//right
+        up_lvl = (world(x, y-1)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x ,y-1 , stuff_ID, ratio );//up
+        down_lvl = (world(x, y+1)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x ,y+1 , stuff_ID, ratio );//down
         
         //calculate the not weighted average filling
         n = 1;        
         if (left_lvl != -1)
-        { 
+        {             
             ratio += left_lvl;            
             n++;
         }        
@@ -203,7 +204,7 @@ void Transport::stuff_flow()
         /*handle waste spill*/
         if (stuff_ID == STUFF_WASTE)
         {
-            if (center_lvl > 95 * center_cap / 100 && !burning_waste)
+            if (center_lvl > 9 * center_cap / 10 && !burning_waste)
             {
                 old_type = type;        
                 type = CST_FIRE_1;

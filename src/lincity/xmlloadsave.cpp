@@ -398,6 +398,29 @@ void XMLloadsave::saveConstructions()
     {
         if (::constructionCount[i])
         {
+            // "extinquish all potential waste burners"
+            // ugly, but clean way would require old_type for all constructions            
+            if(binary_mode)//textmode can handle old_types anyways
+            {
+                if (::constructionCount[i]->flags & FLAG_IS_TRANSPORT)
+                {
+                    Transport *transport = dynamic_cast<Transport*>(::constructionCount[i]);
+                    transport->burning_waste = false;
+                    transport->type = transport->old_type;                
+                }
+                else if (::constructionCount[i]->constructionGroup->group == GROUP_MARKET) 
+                {
+                    Market *market = dynamic_cast<Market*>(::constructionCount[i]);
+                    market->burning_waste = false;
+                    market->type = market->old_type; 
+                }
+                else if (::constructionCount[i]->constructionGroup->group == GROUP_SHANTY) 
+                {
+                    Shanty *shanty = dynamic_cast<Shanty*>(::constructionCount[i]);
+                    shanty->burning_waste = false;
+                    shanty->type = shanty->old_type; 
+                }
+            }
             ::constructionCount[i]->saveMembers(&xml_file_out);
             flush_gz_output();
         }
@@ -630,6 +653,8 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<total_evacuated>"            << total_evacuated          << "</total_evacuated>" << std::endl;
     xml_file_out << "<total_births>"               << total_births             << "</total_births>" << std::endl;
 
+    
+    xml_file_out << "<sust_dig_ore_coal_tip_flag>"    << sust_dig_ore_coal_tip_flag  << "</sust_dig_ore_coal_tip_flag>" << std::endl;
     xml_file_out << "<sust_dig_ore_coal_count>"    << sust_dig_ore_coal_count  << "</sust_dig_ore_coal_count>" << std::endl;
     xml_file_out << "<sust_port_count>"            << sust_port_count          << "</sust_port_count>" << std::endl;
     xml_file_out << "<sust_old_money_count>"       << sust_old_money_count     << "</sust_old_money_count>" << std::endl;
@@ -725,6 +750,7 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "total_evacuated")                 {sscanf(xml_val.c_str(),"%d",&total_evacuated);}
             else if (xml_tag == "total_births")                    {sscanf(xml_val.c_str(),"%d",&total_births);}
 
+            else if (xml_tag == "sust_dig_ore_coal_tip_flag")         {sscanf(xml_val.c_str(),"%d",&sust_dig_ore_coal_tip_flag);}
             else if (xml_tag == "sust_dig_ore_coal_count")         {sscanf(xml_val.c_str(),"%d",&sust_dig_ore_coal_count);}
             else if (xml_tag == "sust_port_count")                 {sscanf(xml_val.c_str(),"%d",&sust_port_count);}
             else if (xml_tag == "sust_old_money_count")            {sscanf(xml_val.c_str(),"%d",&sust_old_money_count);}

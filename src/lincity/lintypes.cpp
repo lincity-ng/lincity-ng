@@ -645,7 +645,7 @@ void Construction::saveMembers(std::ostream *os)
 		os->write( (char*) &head,sizeof(head));
 		os->write( (char*) &constructionGroup->group,sizeof(constructionGroup->group));
 		//checksum += sizeof(constructionGroup->group); //head
-		os->write( (char*) &type,sizeof(type));
+        os->write( (char*) &type,sizeof(type));
 		//checksum += sizeof(type); //head
 		os->write( (char*) &idx,sizeof(idx));
 		//checksum += sizeof(idx); //head

@@ -59,7 +59,7 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
     Construction * repcons = world(x, y)->reportingConstruction;
          
     if (repcons && repcons->commodityCount.count(stuff_ID))           
-    {            
+    {                    
         int loc_lvl = repcons->commodityCount[stuff_ID];
         int loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;
        
@@ -67,8 +67,7 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
         {	
 			return loc_lvl?TRANSPORT_QUANTA:-1;
 		}
-
-                       
+                      
 #ifdef DEBUG        
         if (loc_lvl > loc_cap)
         {

@@ -47,12 +47,15 @@ void Market::update()
             continue;
         }
         //dont handle anything else than jobs if to little jobs
+        // deadlock
+        
         if ((stuff_ID != STUFF_JOBS)
          && (commodityCount[STUFF_JOBS] < jobs)
            )
         {
             continue;
         }
+
         market_lvl = stuff_it->second;
         market_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
         pears = 1;
@@ -64,11 +67,14 @@ void Market::update()
             for(xx = xs; xx < xe; xx++)
             {
                 //Count Constructions only once
-                //Never count other markets transport or power lines
+                //Never count other markets far away transport or power lines
                 if ( !world(xx,yy)->construction
                   || (world(xx,yy)->getGroup() == GROUP_MARKET)
                   || (world(xx,yy)->getGroup() == GROUP_POWER_LINE)
-                  || world(xx,yy)->is_transport()
+                  || (world(xx,yy)->is_transport() && 
+                    !( ((xx==(x-1)) || (xx==(x+constructionGroup->size)) ) && 
+                    ((yy==(y-1)) || (yy==(y+constructionGroup->size)) ) )
+                    )
                    )
                 {
                     continue;
@@ -88,11 +94,14 @@ void Market::update()
             for(xx = xs; xx < xe; xx++)
             {
                 //Deal with constructions only once
-                //Never deal with markets power lines or transportTiles
+                //Never deal with markets power lines or far away transport
                 if ( !world(xx,yy)->construction
                   || (world(xx,yy)->getGroup() == GROUP_MARKET)
                   || (world(xx,yy)->getGroup() == GROUP_POWER_LINE) 
-                  || world(xx,yy)->is_transport()
+                  || (world(xx,yy)->is_transport() && 
+                    !( ((xx==(x-1)) || (xx==(x+constructionGroup->size)) ) && 
+                    ((yy==(y-1)) || (yy==(y+constructionGroup->size)) ) )
+                    )
                    )
                 {
                     continue;
@@ -122,7 +131,7 @@ equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
         //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport        
         income_tax += jobs;
     }
-   
+  
     if (total_time % 25 == 17) 
     {
         //average filling of the market, catch n == 0 in case market has
@@ -148,7 +157,7 @@ equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
             jobs = JOBS_MARKET_FULL;
         }
     }
-    if (commodityCount[STUFF_WASTE] >= (95 * MAX_WASTE_IN_MARKET / 100) && !burning_waste)
+    if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !burning_waste)
     {
         old_type = type;        
         type = CST_FIRE_1;
