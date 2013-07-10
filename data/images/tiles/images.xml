@@ -109,11 +109,6 @@
   <image file="oremine.png" x="258"/>
   <image file="port.png" x="262"/>
 
-<image file="market-empty.png" x="131" />
-<image file="market-low.png" x="131" />
-<image file="market-med.png" x="131" />
-<image file="market-full.png" x="131" />
-
 <image file="powerlhd.png" x="64" />
 <image file="powerlhl.png" x="64" />
 <image file="powerlldd.png" x="64" />
