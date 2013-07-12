@@ -73,6 +73,12 @@ int adjust_money(int value)
     mps_update();
     update_pbar(PMONEY, total_money, 0);
     refresh_pbars();            /* This could be more specific */
+    // is not triggered in fresh game or during initial setup
+    // because there money == 0
+    if( (total_money < 0) && ((total_money - value) > 0) )
+    {
+		ok_dial_box("warning.mes", BAD, _("You just spent all your money."));
+	}
     return total_money;
 }
 

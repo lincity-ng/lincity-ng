@@ -92,7 +92,7 @@ void clear_game(void)
     max_pop_ever = 0;
     total_evacuated = 0;
     total_births = 0;
-    total_money = 0;
+    total_money = 0; // money not >0 wont trigger debt warning on setup
     tech_level = 0;
     highest_tech_level = 0;
     rockets_launched = 0;
