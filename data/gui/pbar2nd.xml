@@ -130,9 +130,9 @@
 
 	    <cell row="9" col="1" halign="left">
 	      <Paragraph name="pbar_title9" style="ptitle" translatable="yes">
-	      </Paragraph>
+	      Housing</Paragraph>
 	    </cell>
-<!--    <cell row="9" col="2" halign="right">
+		<cell row="9" col="2" halign="right">
 	      <BarView name="pbar_barview9a" width="16" height="16" dir="-1"/>
 	    </cell>    
 	    <cell row="9" col="3" halign="right">
@@ -141,7 +141,7 @@
 	    <cell row="9" col="4" halign="right">
 	      <BarView name="pbar_barview9b" width="16" height="16" dir="1"/> 
 	    </cell>
--->
+
 	  </TableLayout>
      </cell>
 	</TableLayout>

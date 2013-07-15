@@ -129,6 +129,7 @@ void update_pbars_monthly()
 	if (tstat_capacities[Construction::STUFF_WASTE] > 99)
 	{    update_pbar (PWASTE, tstat_census[Construction::STUFF_WASTE] / (tstat_capacities[Construction::STUFF_WASTE]/100), 1);}
 	else update_pbar (PWASTE,0,1);
+	update_pbar (PHOUSE, (100 * housed_population)/total_housing , 1);
 	
 	
 	

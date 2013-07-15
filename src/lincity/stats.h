@@ -33,6 +33,7 @@
 
 /* monthly */
 extern int tpopulation;
+extern int thousing;
 extern int tstarving_population;
 extern int tunemployed_population;
 

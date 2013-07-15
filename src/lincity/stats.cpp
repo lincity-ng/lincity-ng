@@ -36,6 +36,7 @@ int tore_in_markets;
 int tsteel_in_markets;
 int twaste_in_markets;
 int tpopulation;
+int thousing;
 int tstarving_population;
 int tunemployed_population;
 
@@ -85,6 +86,7 @@ int data_last_month;
 void init_daily(void)
 {
     population = 0;
+    housing = 0;
     starving_population = 0;
     unemployed_population = 0;
 }
@@ -94,6 +96,7 @@ void init_monthly(void)
     data_last_month = 0;
 
     tpopulation = 0;
+    thousing = 0;
     tstarving_population = 0;
     tunemployed_population = 0;
     unnat_deaths = 0;
@@ -181,6 +184,7 @@ void add_daily_to_monthly(void)
     data_last_month++;
 
     tpopulation += population;
+    thousing += housing;
     tstarving_population += starving_population;
     tunemployed_population += unemployed_population;
 }

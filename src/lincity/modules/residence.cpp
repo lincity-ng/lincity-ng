@@ -336,6 +336,7 @@ void Residence::update()
     }
     /* XXX AL1: this is daily accumulator used stats.cpp, and maybe pop graph */
    population += local_population;
+   housing += max_population;
 }
 
 void Residence::report()

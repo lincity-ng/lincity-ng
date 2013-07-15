@@ -151,7 +151,7 @@ LCPBar::setValue(int num, int value, int diff)
         else
         {    os<<value;}
     }
-    else if ((num >= PFOOD) && (num <= PWASTE)) //Commodities
+    else if ((num >= PFOOD) && (num <= PHOUSE)) //percentages
     {
          os<<value<<"%";   
     }

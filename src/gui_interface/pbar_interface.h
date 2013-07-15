@@ -17,7 +17,7 @@ void refresh_population_text (void);
 void update_pbar (int pbar_num, int value, int month_flag);
 void update_pbars_monthly(void);
 
-#define NUM_PBARS 14
+#define NUM_PBARS 15
 #define OLD_NUM_PBARS 9
 
 /* Position constants aka linenumbers for pbars struct */
@@ -39,6 +39,7 @@ void update_pbars_monthly(void);
 #define PMWH   11
 #define PWATER 12
 #define PWASTE 13
+#define PHOUSE 14
 
 /* Number of elements per pbar */
 #define PBAR_DATA_SIZE 12

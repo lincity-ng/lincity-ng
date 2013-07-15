@@ -159,6 +159,7 @@ static void do_periodic_events(void)
 static void end_of_month_update(void)
 {
     housed_population = (tpopulation / NUMOF_DAYS_IN_MONTH);
+    total_housing = (thousing / NUMOF_DAYS_IN_MONTH);
     if ((housed_population + people_pool) > max_pop_ever)
         max_pop_ever = housed_population + people_pool;
 

@@ -53,7 +53,7 @@ int total_time = 0;             /* game time */
 int deadline = 0;
 
 int population, starving_population;
-int housed_population;
+int housed_population, total_housing, housing;
 int unemployed_population, people_pool;
 int max_pop_ever = 0, total_evacuated = 0, total_births = 0;
 int total_population = 0;

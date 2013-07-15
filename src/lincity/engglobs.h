@@ -48,7 +48,7 @@ extern int deadline;    // + 10 years to upgrade with waterwell everywhere
 extern int flag_warning;// flag to send a message to player.
 
 extern int population, starving_population;
-extern int housed_population;
+extern int housed_population, total_housing, housing;
 extern int unemployed_population, people_pool;
 extern int max_pop_ever, total_evacuated, total_births;
 extern int total_pollution;
