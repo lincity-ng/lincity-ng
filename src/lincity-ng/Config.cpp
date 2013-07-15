@@ -234,7 +234,7 @@ Config::save(){
     userconfig << "           musicTheme=\"" << musicTheme << "\" />\n";
     userconfig << "    <game quickness=\""<< quickness <<"\" "
         << "language=\"" << language // 
-        << "\" WorldSideLen=\"" << world.len()
+        << "\" WorldSideLen=\"" << ((world.len()<50)?50:world.len())
         << "\" binarySaveGames=\"" << (binary_mode?"yes":"no")
         << "\" />\n";
     userconfig << "</configuration>\n";

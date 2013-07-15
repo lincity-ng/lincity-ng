@@ -11,41 +11,46 @@
 #include "init_game.h"
 
 World::World(int map_len)
-{         
+{
     maptile.resize(map_len * map_len);
     dirty = false;
     //std::cout << "created World len = " << len() << "²" << std::endl;
 }
 
 World::~World()
-{        
-    maptile.clear();  
+{
+    maptile.clear();
 }
 
 
 void World::len(int new_len)
-{       
-    int len_sqr;
-    int prev_len = len();    
+{
     if (new_len < 50)
     {
         new_len = 50;
-    }       
-    if (dirty) {clear_game();}    
-    this->side_len = new_len;    
-    //std::cout << "resized World len = " << len() << "²" << std::endl;
-    maptile.resize(new_len * new_len);    
-    len_sqr = maptile.size();
-          
-    if (len_sqr != new_len * new_len)
-    {
-        std::cout << "failed to allocate World with side length = " << len() << std::endl;
-        len(prev_len-25);
     }
+    if (dirty) {clear_game();}
+    bool job_done = false;
+    
+    while (!job_done)
+    {   
+		try
+		{			
+			this->side_len = new_len;
+			job_done = true;
+			maptile.resize(new_len * new_len);		
+		}
+		catch(...)
+		{
+			new_len -= 25;
+			std::cout << "failed to allocate world. shrinking edge to " << new_len << " tiles" << std::endl;
+			job_done = false;
+		}
+	}
 }
 
 MapTile* World::operator()(int x, int y)
-{    
+{
     return &(maptile[x + y * side_len]);
 }
 
@@ -106,33 +111,33 @@ int World::len()
 
 bool World::maximum(int x , int y)
 {
-    int alt = maptile[x + y * side_len].ground.altitude;    
+    int alt = maptile[x + y * side_len].ground.altitude;
     bool is_max = true;
     for (int i=0; i<8; i++)
     {
 		int tx = x + dxo[i];
 		int ty = y + dyo[i];
-		is_max &= (alt >= maptile[tx + ty * side_len].ground.altitude);		
-	}	
+		is_max &= (alt >= maptile[tx + ty * side_len].ground.altitude);
+	}
 	return is_max;
 }
 
 bool World::minimum(int x , int y)
 {
-    int alt = maptile[x + y * side_len].ground.altitude;     
+    int alt = maptile[x + y * side_len].ground.altitude;
     bool is_min = true;
     for (int i=0; i<8; i++)
     {
 		int tx = x + dxo[i];
 		int ty = y + dyo[i];
-		is_min &= (alt <= maptile[tx + ty * side_len].ground.altitude);		
-	}	
+		is_min &= (alt <= maptile[tx + ty * side_len].ground.altitude);
+	}
 	return is_min;
 }
 
 bool World::saddlepoint(int x , int y)
 {
-    int alt = maptile[x + y * side_len].ground.altitude;    
+    int alt = maptile[x + y * side_len].ground.altitude;
     int dips = 0;
     bool dip_new = alt > maptile[x + dxo[7] + (y + dyo[7])*side_len ].ground.altitude;
     bool dip_old = dip_new;
@@ -144,20 +149,20 @@ bool World::saddlepoint(int x , int y)
 				dips++;
 		}
 		dip_old = dip_new;
-	}	
+	}
 	return dips > 1;
 }
 
 bool World::checkEdgeMin(int x , int y)
 {
-    int alt = maptile[x + y * side_len].ground.altitude;    
+    int alt = maptile[x + y * side_len].ground.altitude;
     if (x==1 || x == side_len-2)
     {
         return alt < maptile[x+1 + y * side_len].ground.altitude
-            && alt < maptile[x-1 + y * side_len].ground.altitude;    
+            && alt < maptile[x-1 + y * side_len].ground.altitude;
     }
     else if (y==1 || y == side_len-2)
-    { 
+    {
         return alt < maptile[x + (y+1) * side_len].ground.altitude
             && alt < maptile[x + (y-1) * side_len].ground.altitude;
     }

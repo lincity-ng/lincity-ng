@@ -69,6 +69,7 @@ void clear_game(void)
 {
     int i;//x, p;
     const int len = world.len();
+    assert(len > 0);
     const int area = len * len;
     //std::cout << "clearing Game" << std::endl;
     //init_mappoint_array ();
@@ -339,7 +340,8 @@ static void coal_reserve_setup(void)
 {
     int i, j, x, y, xx, yy;
     const int len = world.len();
-    for (i = 0; i < len/ 5; i++) { //NUMOF_COAL_RESERVES
+    for (i = 0; i < NUMOF_COAL_RESERVES; i++)
+    {
         x = (rand() % (len - 12)) + 6;
         y = (rand() % (len - 10)) + 6;
         do {
@@ -721,7 +723,7 @@ static void new_setup_river(void)
     }
     
     // fill lake until it overfills and creates a river
-    m = round(((400 - global_aridity)*l) / (4*len)); // ugly hardcoded values correpsonding to "climate" switch in create_new_city
+    m = ((100 - global_aridity/4)*l) / len; // ugly hardcoded values correpsonding to "climate" switch in create_new_city
     if (m==0)
         m=1;
     
