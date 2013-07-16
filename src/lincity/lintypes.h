@@ -58,6 +58,9 @@ public:
     ~Counted() 
     {
         --instanceCount;
+        //reset unique only Id after the last Construction is gone
+        if (instanceCount == 0)
+        { nextId = 0;}
     }
     static unsigned int getInstanceCount() {
         return instanceCount;
