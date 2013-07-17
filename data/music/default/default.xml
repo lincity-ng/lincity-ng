@@ -3,6 +3,6 @@
 <!-- This file should be in music/default/default.xml with the old songs. -->
 <musicTheme>
     <song title="Robert van Herk - City Blues" filename="02 - Robert van Herk - City Blues.ogg" lowest-tech-level="0" highest-tech-level="0" />
-    <song title="Robert van Herk - Architectural Contemplations" filename="03 - Robert van Herk - Architectural Contemplations.ogg" lowest-tech-level="0" highest-tech-level="1" />
-    <song title="Pronobozo - Lincity" filename="01 - pronobozo - lincity.ogg" lowest-tech-level="2" highest-tech-level="4.5" />
+    <song title="Robert van Herk - Architectural Contemplations" filename="03 - Robert van Herk - Architectural Contemplations.ogg" lowest-tech-level="0" highest-tech-level="0" />
+    <song title="Pronobozo - Lincity" filename="01 - pronobozo - lincity.ogg" lowest-tech-level="0" highest-tech-level="0" />
 </musicTheme>

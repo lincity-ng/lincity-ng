@@ -94,7 +94,8 @@ void Sound::loadMusicTheme() {
      
     //TODO there should be a music directory in
     // LINCITY_HOME
-    std::string musicDir = "music/";
+    std::string dirsep = PHYSFS_getDirSeparator();
+    std::string musicDir = "music" + dirsep;
     //Reset track counter:
     totalTracks=0;
     playlist.clear();
@@ -102,35 +103,33 @@ void Sound::loadMusicTheme() {
     std::string theme = getConfig()->musicTheme;
 
     //Separate folder, filename and extension:
+    /*
     std::string format = theme.substr((theme.length()-4), 4);
     std::string folder = "";
     std::string file = "";
+    */ 
+    /*
     if(format == ".xml") {
         size_t found;
         found = theme.find_last_of("/");
         folder = theme.substr(0, found);
         file = theme.substr(found+1);
     }
+    */
     
-    
+    std::string xml_name = musicDir + theme + dirsep + theme + ".xml";
     theme = musicDir + theme;
-    
+   
+    //std::cout << "looking for : " << xml_name << std::endl;
     //Check if XML file is present
-    if(PHYSFS_exists(theme.c_str()) && !PHYSFS_isDirectory(theme.c_str())) {
+    if(PHYSFS_exists(xml_name.c_str()) && PHYSFS_isDirectory(theme.c_str())) {
     
         //XML file found, so let's parse it and use as a basis
         //for our music theme
-        std::cerr << "File found: '" << theme << "'. Loading song data...\n";
-        
-        //TODO it should be possible to set lowest_tech_level and
-        //highest_tech_level with tags. Something like this:
-        //    <group lowest-tech-level="0" highest-tech-level="20"
-        //       <song />
-        //       <song />
-        //    </group>
+        std::cerr << "File found: '" << xml_name << "'. Loading song data..." << std::endl;
         
         //Get the number of songs
-        XmlReader reader( theme );
+        XmlReader reader( xml_name );
 
         while( reader.read() ) {
             if( reader.getNodeType() == XML_READER_TYPE_ELEMENT) 
@@ -142,7 +141,7 @@ void Sound::loadMusicTheme() {
                     std::string title;
                     std::string filename;
                     float lowest_tech_level = 0.0;
-                    float highest_tech_level = 1000.0;
+                    float highest_tech_level = 10000.0;
                     
                     while( iter.next() )
                     {
@@ -152,7 +151,7 @@ void Sound::loadMusicTheme() {
                         if (strcmp(name, "title" ) == 0)
                             title = value;
                         else if (strcmp(name, "filename" ) == 0) {
-                            filename = musicDir + folder + "/" + value;
+                            filename = theme + dirsep + value;
                         }
                         else if (strcmp(name, "highest-tech-level" ) == 0)
                             highest_tech_level = strtod(value, NULL);
@@ -165,15 +164,15 @@ void Sound::loadMusicTheme() {
                     tempSong.trackNumber = totalTracks;
                     tempSong.lowestTechLevel = lowest_tech_level;
                     if(highest_tech_level == 0)
-                        highest_tech_level = 1000.0;
+                    {   highest_tech_level = 10 * MAX_TECH_LEVEL;}
                     tempSong.highestTechLevel = highest_tech_level;
                     
                     playlist.push_back(tempSong);
-                    std::cerr << "Found song: '" << playlist[totalTracks].title << "'\n";
+                    std::cerr << "Found song: '" << playlist[totalTracks].title << "'" << std::endl;
                     totalTracks++;
                 }
                 else {
-                    std::cerr << "Config::load# Unknown element '" << element << "' in "<< theme << ".\n";
+                    std::cerr << "Config::load# Unknown element '" << element << "' in "<< theme << "." << std::endl;
                 }
             }
         }
@@ -182,11 +181,13 @@ void Sound::loadMusicTheme() {
         std::string directory;
         
         if (PHYSFS_isDirectory(theme.c_str()))
-            directory = theme;
+        {   directory = theme;}
+        /*    
         else if(PHYSFS_isDirectory(folder.c_str()))
             directory = folder;
+		*/ 
         else
-            return;
+        {   return;}
     
         //No XML file found, let's just load plain song files to the playlist:
         
@@ -194,7 +195,7 @@ void Sound::loadMusicTheme() {
         
         std::string filename;
         std::string fullname;
-        std::cerr << "Loading song data from '" << directory << "'...\n";
+        std::cerr << "Loading song data from '" << directory << "'..." << std::endl;
 
         
         //list files in 'music/'
@@ -210,16 +211,18 @@ void Sound::loadMusicTheme() {
             fullname = directory;
             fullname.append( *fptr );
             filename.assign( *fptr );
+            std::string format = fullname.substr((fullname.length()-4), 4);
 
-            if(!PHYSFS_isDirectory(fullname.c_str()) && filename[0]!='.'){
+            if(!PHYSFS_isDirectory(fullname.c_str()) && (filename[0]!='.') 
+            && (format == ".ogg") ){
                 song tempSong;
                 tempSong.title = *fptr;
-                tempSong.filename = directory + "/" + *fptr;
+                tempSong.filename = directory + dirsep + *fptr;
                 tempSong.trackNumber = totalTracks;
                 tempSong.lowestTechLevel = -10;
-                tempSong.highestTechLevel =  MAX_TECH_LEVEL;
+                tempSong.highestTechLevel =  10 * MAX_TECH_LEVEL;
                 playlist.push_back(tempSong);
-                std::cerr << "Found song: '" << playlist[totalTracks].title << "'\n";
+                std::cerr << "Found song: '" << playlist[totalTracks].title << "'" << std::endl;
                 totalTracks++;
             }
             fptr++;
@@ -305,7 +308,7 @@ Sound::playSound(const std::string& name) {
 
     chunks_t::size_type count = waves.count( name );
     if ( count == 0 ) {
-        std::cout << "Couldn't find audio file '" << name << "'\n";
+        std::cout << "Couldn't find audio file '" << name << "'" << std::endl;
         return;
     }
 
@@ -403,8 +406,8 @@ Sound::playMusic()
             || current_tech > currentTrack.highestTechLevel) {
             std::cerr << "Next track is " << currentTrack.title
             << " and it's tech level prerequisites range from "
-            << currentTrack.lowestTechLevel << " to " << currentTrack.highestTechLevel << ".\n";
-            std::cerr << "Current tech level is " << current_tech << ".\n";
+            << currentTrack.lowestTechLevel << " to " << currentTrack.highestTechLevel << "." << std::endl;
+            std::cerr << "Current tech level is " << current_tech << "." << std::endl;
             changeTrack(NEXT_OR_FIRST_TRACK);
             return;
         }
@@ -414,7 +417,7 @@ Sound::playMusic()
         
         const char* dir = PHYSFS_getRealDir(currentTrack.filename.c_str());
         if(dir == 0) {
-            std::cerr << "Warning couldn't find music file '" << currentTrack.filename << "'.\n";
+            std::cerr << "Warning couldn't find music file '" << currentTrack.filename << "'." << std::endl;
             return;
         }
         std::string filename = dir;
@@ -425,7 +428,7 @@ Sound::playMusic()
         currentMusic = Mix_LoadMUS(filename.c_str());
         if(currentMusic == 0) {
             std::cerr << "Couldn't load music file '" << filename << "': "
-                << SDL_GetError() << "\n";
+                << SDL_GetError() << std::endl;
             return;
         }
 
