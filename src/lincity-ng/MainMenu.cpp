@@ -719,13 +719,16 @@ MainMenu::continueButtonClicked(Button* )
     getSound()->playSound( "Click" );
     quitState = INGAME;
     running = false;
-     //load current game if it exists
-    if( ! loadCityNG( std::string( "9_currentGameNG.scn.gz" ) ) ) 
+    //only act if world is still clean 
+    if (!world.dirty)
     {
-        //by default create a new City
-        new_city( &main_screen_originx, &main_screen_originy, 1 );
-    }
-    
+		//load current game if it exists
+		if( ! loadCityNG( std::string( "9_currentGameNG.scn.gz" ) ) ) 
+		{
+			//by default create a new City
+			new_city( &main_screen_originx, &main_screen_originy, 1 );
+		}
+	}
 }
 
 void

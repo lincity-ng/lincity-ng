@@ -356,6 +356,9 @@ void mps_right (int x, int y)
 
     p = (world(x,y)->flags & FLAG_CRICKET_COVER) ? _("Yes") : _("No");
     mps_store_ss(i++,_("Public Sports"),p);
+    
+    p = (world(x,y)->flags & FLAG_MARKET_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++,_("Market Range"),p);
  
     if (pol < 10)
 	p = _("clear");
