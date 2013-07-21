@@ -475,7 +475,9 @@ void connect_transport(int originx, int originy, int w, int h)
                     //MP_TYPE(x, y) = track_table[mask];
                     world(x, y)->construction->type = track_table[mask];
                 }
+                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
+                
 
             case GROUP_TRACK_BRIDGE:
                 // Bridge neighbour priority
@@ -501,7 +503,9 @@ void connect_transport(int originx, int originy, int w, int h)
                 world(x, y)->construction->flags |= mask;                
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= mask;
+                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
+                
 
             case GROUP_ROAD:
                 if (check_group(x, y - 1) == GROUP_ROAD
@@ -615,6 +619,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     //MP_TYPE(x, y) = road_table[mask];
                     world(x, y)->construction->type = road_table[mask];
                 }           
+                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
 
             case GROUP_ROAD_BRIDGE:
@@ -652,6 +657,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 world(x, y)->construction->flags |= mask;                /////////////////////////////////////////////////////////////////should it be tflags here?
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= mask;
+                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
 
             case GROUP_RAIL:
@@ -760,6 +766,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     //MP_TYPE(x, y) = rail_table[mask];
                     world(x, y)->construction->type = rail_table[mask]; 
                 }
+                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
 
             case GROUP_RAIL_BRIDGE:
@@ -787,6 +794,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 world(x, y)->construction->flags |= mask;
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= mask;
+                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
 
             case GROUP_WATER:
