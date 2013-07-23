@@ -43,6 +43,8 @@ void Organic_farm::update()
     {
         used_power = ORG_FARM_POWER_REC;            
         flags |= FLAG_POWERED;
+        if (commodityCount[STUFF_WASTE] >= 3 * ORG_FARM_WASTE_GET)
+        {	commodityCount[STUFF_WASTE] -= ORG_FARM_WASTE_GET;}
         used_water = commodityCount[STUFF_WATER] / WATER_FARM;
         if (used_water > (16 - ugwCount))
         {
@@ -96,10 +98,12 @@ void Organic_farm::update()
             {
                 month_stagger = rand() % 100;
             }
+            /*
             if (commodityCount[STUFF_WASTE] > ORG_FARM_WASTE_GET)
                 commodityCount[STUFF_WASTE] -= ORG_FARM_WASTE_GET;
             else
-                commodityCount[STUFF_WASTE] = 0;                  
+                commodityCount[STUFF_WASTE] = 0;
+            */                   
             switch (i)
             {
                 case (0):

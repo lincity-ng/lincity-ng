@@ -49,7 +49,13 @@ void fire_area(int xx, int yy)
     {    
         x = world(xx,yy)->reportingConstruction->x;
         y = world(xx,yy)->reportingConstruction->y;
-        size = world(xx,yy)->reportingConstruction->constructionGroup->size;  
+        size = world(xx,yy)->reportingConstruction->constructionGroup->size;
+        //fire is an unatural death for one in two
+        if(world(x,y)->is_residence())
+        {	
+			//int *loc_pop = &((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population);			
+			unnat_deaths += ((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population/=2);
+		}  
     }
     do_bulldoze_area(x, y);
 
@@ -221,7 +227,7 @@ int place_item(int x, int y, short type)
     int size;
     int msg;
 
-     group = get_group_of_type(type);
+    group = get_group_of_type(type);
     if (group < 0) {
 #ifdef DEBUG
         fprintf(stderr, "Error: group does not exist %i\n", group);
@@ -253,8 +259,6 @@ int place_item(int x, int y, short type)
     else 
     {
         world(x, y)->setTerrain(type); //Treats inactive tiles and old stuctures alike
-        if(type == CST_WATER)
-            world(x, y)->flags |= FLAG_HAS_UNDERGROUND_WATER;
         size = main_groups[group].size;
         adjust_money(-selected_module_cost);// e.g. building water 
     }
@@ -287,6 +291,7 @@ int bulldoze_item(int x, int y)
     {
         size = 1; //all non-constructions are 1// MP_SIZE(x, y);
         g = world(x, y)->group;
+        //size = main_groups[g].size;
     }
 
     if (g == GROUP_DESERT) 

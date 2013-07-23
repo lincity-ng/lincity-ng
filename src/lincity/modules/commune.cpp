@@ -45,8 +45,8 @@ void Commune::update()
             commodityCount[STUFF_ORE] += COMMUNE_ORE_MADE;
             monthly_stuff_made++;
         }
-    /* recycle a bit of waste */
-    if (commodityCount[STUFF_WASTE] >= COMMUNE_WASTE_GET)
+    /* recycle a bit of waste if there is plenty*/
+    if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET)
     {
         commodityCount[STUFF_WASTE] -= COMMUNE_WASTE_GET;       
         monthly_stuff_made++;

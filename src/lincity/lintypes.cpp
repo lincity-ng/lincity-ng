@@ -81,6 +81,8 @@ void MapTile::setTerrain(unsigned short new_type)
         return;
     this->type = new_type;
     this->group = new_group;
+    if(new_type == CST_WATER)
+	{	flags |= FLAG_HAS_UNDERGROUND_WATER;}
 }
 
 

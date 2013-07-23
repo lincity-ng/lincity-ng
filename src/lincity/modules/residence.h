@@ -205,7 +205,11 @@ public:
         }
         initialize_commodities();		                            
 	}
-	virtual ~Residence() { }
+	virtual ~Residence() 
+	{ 
+		//everyone survives demolition 
+		people_pool += local_population; 
+	}
 	virtual void update();
 	virtual void report();
 
