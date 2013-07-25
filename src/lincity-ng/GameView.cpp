@@ -1606,69 +1606,26 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         fillDiamond( painter, tilerect );
 
         // Draw range for selected_module_type
-        int range = 0;
-        int size = 0;
-        //int reduceNW = 0; // substation and market reduce the range to nort west by one.
-        switch ( selected_module_type ){
-            //case CST_RESIDENCE_LL: break;
-            //case CST_RESIDENCE_ML: break;
-            //case CST_RESIDENCE_HL: break;
-            //case CST_RESIDENCE_LH: break;
-            //case CST_RESIDENCE_MH: break;
-            //case CST_RESIDENCE_HH: break;
-            //case CST_FARM_O0: break;
-            //case CST_MILL_0: break;
-            case CST_HEALTH:        range = healthCentreConstructionGroup.range;
-									size  = healthCentreConstructionGroup.size; break;
-            case CST_CRICKET_1:     range = cricketConstructionGroup.range;
-									size  = cricketConstructionGroup.size; 		break;
-            case CST_FIRESTATION_1: range = fireStationConstructionGroup.range;
-									size  = fireStationConstructionGroup.size; 	break;
-            //case CST_SCHOOL: break;
-            //case CST_UNIVERSITY: break;
-            //case CST_TRACK_LR: break;
-            //case CST_ROAD_LR: break;
-            //case CST_RAIL_LR: break;
-            //case CST_EX_PORT: break;
-            //case CST_ROCKET_1: break;
-            //case CST_POWERL_H_L: break;
-            //case CST_POWERS_COAL_EMPTY: break;
-            //case CST_POWERS_SOLAR: break;
-            //case CST_SUBSTATION_R:   range = SUBSTATION_RANGE; reduceNW = 1; break;
-            //case CST_WINDMILL_1_R:   range = SUBSTATION_RANGE; reduceNW = 1; break; //Windmills are handled like substations
-            //case CST_COMMUNE_1: break;
-            case CST_COALMINE_EMPTY: range = coalmineConstructionGroup.range;
-									 size = coalmineConstructionGroup.size;		break;
-            //case CST_OREMINE_1: break;
-            //case CST_TIP_0: break;
-            //case CST_RECYCLE: break;
-            //case CST_INDUSTRY_L_C: break;
-            //case CST_INDUSTRY_H_C: break;
-            case CST_MARKET_EMPTY:  range = marketConstructionGroup.range;
-									size = marketConstructionGroup.size;	break;
-            //case CST_POTTERY_0: break;
-            //case CST_BLACKSMITH_0: break;
-            //case CST_MONUMENT_0: break;
-            //case CST_PARKLAND_PLANE: break;
-            //case CST_WATER: break;
-            //case CST_WATERWELL: range = WATERWELL_RANGE; break;
-        }
-
-        if (range > 0 )
+        int selected_group = get_group_of_type(selected_module_type);  
+        ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(selected_group);
+        if(constructionGroup)
         {
-        	int edgelen = 2 * range + size ; //2 * range- reduceNW
-        	painter.setFillColor( Color( 0, 0, 128, 64 ) );
-        	Rect2D rangerect( 0,0,
-        	                  tileWidth  * ( edgelen) ,   //2 * range- reduceNW
-        	                  tileHeight * ( edgelen) ); //2 * range- reduceNW
-        	Vector2 screenPoint = getScreenPoint(tile);
-        	
-        	screenPoint.x -= tileWidth  * ( 0.5*edgelen );//range- 0.5*reduceNW
-        	screenPoint.y -= tileHeight * ( range + 1 ); //range +1 - reduceNW
-        	rangerect.move( screenPoint );
-        	fillDiamond( painter, rangerect );
-        }
-    }
+			int range = constructionGroup->range;
+			if (range > 0 )
+			{
+				int edgelen = 2 * range + constructionGroup->size ;
+				painter.setFillColor( Color( 0, 0, 128, 64 ) );
+				Rect2D rangerect( 0,0,
+								  tileWidth  * ( edgelen) ,   
+								  tileHeight * ( edgelen) ); 
+				Vector2 screenPoint = getScreenPoint(tile);
+				screenPoint.x -= tileWidth  * ( 0.5*edgelen );
+				screenPoint.y -= tileHeight * ( range + 1 );
+				rangerect.move( screenPoint );
+				fillDiamond( painter, rangerect );
+			}//endif range > 0
+		}//endif constructionGroup
+    }//endelse cursorSize == 0
 }
 
 /*
