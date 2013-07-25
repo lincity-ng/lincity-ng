@@ -1,3 +1,11 @@
+#define GROUP_MILL_COLOUR (white(15))
+#define GROUP_MILL_COST   10000
+#define GROUP_MILL_COST_MUL 25
+#define GROUP_MILL_BUL_COST   1000
+#define GROUP_MILL_TECH   25
+#define GROUP_MILL_FIREC  60
+#define GROUP_MILL_RANGE  0
+
 #define MILL_JOBS          35
 #define GOODS_MADE_BY_MILL 75
 #define FOOD_USED_BY_MILL  (GOODS_MADE_BY_MILL/2)
@@ -12,13 +20,6 @@
 
 #define MILL_ANIM_SPEED    300
 
-#define GROUP_MILL_COLOUR (white(15))
-#define GROUP_MILL_COST   10000
-#define GROUP_MILL_COST_MUL 25
-#define GROUP_MILL_BUL_COST   1000
-#define GROUP_MILL_TECH   25
-#define GROUP_MILL_FIREC  60
-
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
@@ -30,9 +31,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_MILL;

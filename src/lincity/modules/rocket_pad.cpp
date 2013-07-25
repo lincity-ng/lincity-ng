@@ -23,7 +23,8 @@ RocketPadConstructionGroup rocketPadConstructionGroup(
      GROUP_ROCKET_BUL_COST,
      GROUP_ROCKET_FIREC,
      GROUP_ROCKET_COST,
-     GROUP_ROCKET_TECH
+     GROUP_ROCKET_TECH,
+     GROUP_ROCKET_RANGE
 );
 
 Construction *RocketPadConstructionGroup::createConstruction(int x, int y, unsigned short type) {

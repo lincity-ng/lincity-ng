@@ -19,7 +19,8 @@ RecycleConstructionGroup recycleConstructionGroup(
     GROUP_RECYCLE_BUL_COST,
     GROUP_RECYCLE_FIREC,
     GROUP_RECYCLE_COST,
-    GROUP_RECYCLE_TECH
+    GROUP_RECYCLE_TECH,
+    GROUP_RECYCLE_RANGE
 );
 
 Construction *RecycleConstructionGroup::createConstruction(int x, int y, unsigned short type) {

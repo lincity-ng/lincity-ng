@@ -1,3 +1,13 @@
+#define GROUP_ORGANIC_FARM_COLOUR (green(30))
+#define GROUP_ORGANIC_FARM_COST 1000
+#define GROUP_ORGANIC_FARM_COST_MUL 20
+#define GROUP_ORGANIC_FARM_BUL_COST 100
+#define GROUP_ORGANIC_FARM_TECH 0
+#define GROUP_ORGANIC_FARM_FIREC 20
+#define GROUP_ORGANIC_FARM_RANGE 0
+
+
+
 #define ORGANIC_FARM_FOOD_OUTPUT 550
 #define ORG_FARM_POWER_REC 50
 #define ORG_FARM_WASTE_GET 6
@@ -16,12 +26,7 @@
 /* gets waste only when powered */
 
 #define MIN_FOOD_SOLD_FOR_ANIM 200
-#define GROUP_ORGANIC_FARM_COLOUR (green(30))
-#define GROUP_ORGANIC_FARM_COST 1000
-#define GROUP_ORGANIC_FARM_COST_MUL 20
-#define GROUP_ORGANIC_FARM_BUL_COST 100
-#define GROUP_ORGANIC_FARM_TECH 0
-#define GROUP_ORGANIC_FARM_FIREC 20
+
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -38,9 +43,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_ORG_FARM_FOOD;

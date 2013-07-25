@@ -18,7 +18,8 @@ TipConstructionGroup tipConstructionGroup(
      GROUP_TIP_BUL_COST,
      GROUP_TIP_FIREC,
      GROUP_TIP_COST,
-     GROUP_TIP_TECH
+     GROUP_TIP_TECH,
+     GROUP_TIP_RANGE
 );
 
 Construction *TipConstructionGroup::createConstruction(int x, int y, unsigned short type) {

@@ -4,13 +4,13 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 
-#define T_FOOD  0
-#define T_JOBS  1
-#define T_COAL  2
-#define T_GOODS 3
-#define T_ORE   4
-#define T_STEEL 5
-#define T_WASTE 6
+//#define T_FOOD  0
+//#define T_JOBS  1
+//#define T_COAL  2
+//#define T_GOODS 3
+//#define T_ORE   4
+//#define T_STEEL 5
+//#define T_WASTE 6
 
 #define GROUP_MARKET_COLOUR (blue(28))
 #define GROUP_MARKET_COST 100
@@ -18,6 +18,7 @@
 #define GROUP_MARKET_BUL_COST 100
 #define GROUP_MARKET_TECH 0
 #define GROUP_MARKET_FIREC 80
+#define GROUP_MARKET_RANGE 9
 
 //#define MARKET_ANIM_SPEED 750
 
@@ -29,7 +30,7 @@
 #include "../lintypes.h"
 #include "../lctypes.h"
 #include "../transport.h"
-#include "../range.h"
+//#include "../range.h"
 
 
 class MarketConstructionGroup: public ConstructionGroup {
@@ -39,9 +40,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int market_chance, int cost, int tech
+        int cost_mul, int bul_cost, int market_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, market_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, market_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_IN_MARKET;
         commodityRuleCount[Construction::STUFF_FOOD].take = true;
@@ -87,14 +89,15 @@ public:
         setMemberSaved(&(this->old_type),"type");
         //set the Searchrange of this Market       
         int tmp;
-        tmp = x - MARKET_RANGE;
-        this->xs = (tmp < 0) ? 0 : tmp;         
-        tmp = y - MARKET_RANGE;
-        this->ys = (tmp < 0)? 0 : tmp; 
-        tmp = x + MARKET_RANGE;
-        this->xe = (tmp > world.len()) ? world.len() : tmp;         
-        tmp = y + MARKET_RANGE;
-        this->ye = (tmp > world.len())? world.len() : tmp;
+        int lenm1 = world.len()-1;
+        tmp = x - constructionGroup->range;
+        this->xs = (tmp < 1) ? 1 : tmp;         
+        tmp = y - constructionGroup->range;
+        this->ys = (tmp < 1)? 1 : tmp; 
+        tmp = x + constructionGroup->range + constructionGroup->size;
+        this->xe = (tmp > lenm1) ? lenm1 : tmp;         
+        tmp = y + constructionGroup->range + constructionGroup->size;
+        this->ye = (tmp > lenm1)? lenm1 : tmp;
         this->cover();
     }
 	virtual void update();

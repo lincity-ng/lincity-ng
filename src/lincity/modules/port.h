@@ -4,6 +4,7 @@
 #define GROUP_PORT_BUL_COST 1000
 #define GROUP_PORT_TECH 35
 #define GROUP_PORT_FIREC 50
+#define GROUP_PORT_RANGE 0
 
 #define PORT_FOOD_RATE    1
 #define PORT_JOBS_RATE    5
@@ -48,9 +49,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_PORT;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;

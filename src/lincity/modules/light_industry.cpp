@@ -20,7 +20,8 @@ IndustryLightConstructionGroup industryLightConstructionGroup(
      GROUP_INDUSTRY_L_BUL_COST,
      GROUP_INDUSTRY_L_FIREC,
      GROUP_INDUSTRY_L_COST,
-     GROUP_INDUSTRY_L_TECH
+     GROUP_INDUSTRY_L_TECH,
+     GROUP_INDUSTRY_L_RANGE
 );
 
 Construction *IndustryLightConstructionGroup::createConstruction(int x, int y, unsigned short type) {

@@ -4,6 +4,7 @@
 #define GROUP_SCHOOL_BUL_COST   10000
 #define GROUP_SCHOOL_TECH   1
 #define GROUP_SCHOOL_FIREC 40
+#define GROUP_SCHOOL_RANGE 0
 
 #define JOBS_MAKE_TECH_SCHOOL  200
 #define GOODS_MAKE_TECH_SCHOOL  75
@@ -26,9 +27,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_SCHOOL;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;

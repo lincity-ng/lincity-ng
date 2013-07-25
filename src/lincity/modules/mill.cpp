@@ -18,7 +18,8 @@ MillConstructionGroup millConstructionGroup(
     GROUP_MILL_BUL_COST,
     GROUP_MILL_FIREC,
     GROUP_MILL_COST,
-    GROUP_MILL_TECH
+    GROUP_MILL_TECH,
+    GROUP_MILL_RANGE
 );
 
 Construction *MillConstructionGroup::createConstruction(int x, int y, unsigned short type) {

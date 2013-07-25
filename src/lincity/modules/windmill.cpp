@@ -18,7 +18,8 @@ WindmillConstructionGroup windmillConstructionGroup(
      GROUP_WINDMILL_BUL_COST,
      GROUP_WINDMILL_FIREC,
      GROUP_WINDMILL_COST,
-     GROUP_WINDMILL_TECH
+     GROUP_WINDMILL_TECH,
+     GROUP_WINDMILL_RANGE
 );
 
 Construction *WindmillConstructionGroup::createConstruction(int x, int y, unsigned short type) {

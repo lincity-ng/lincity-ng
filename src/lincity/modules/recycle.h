@@ -1,3 +1,10 @@
+#define GROUP_RECYCLE_COLOUR   (green(28))
+#define GROUP_RECYCLE_COST    100000
+#define GROUP_RECYCLE_COST_MUL 5
+#define GROUP_RECYCLE_BUL_COST    1000
+#define GROUP_RECYCLE_TECH    232
+#define GROUP_RECYCLE_FIREC 10
+#define GROUP_RECYCLE_RANGE 0
 
 #define WASTE_RECYCLED       500
 #define RECYCLE_JOBS   (WASTE_RECYCLED/50)
@@ -12,12 +19,7 @@
 
 #define BURN_WASTE_AT_RECYCLE (MAX_WASTE_AT_RECYCLE/200)
 
-#define GROUP_RECYCLE_COLOUR   (green(28))
-#define GROUP_RECYCLE_COST    100000
-#define GROUP_RECYCLE_COST_MUL 5
-#define GROUP_RECYCLE_BUL_COST    1000
-#define GROUP_RECYCLE_TECH    232
-#define GROUP_RECYCLE_FIREC 10
+
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -30,9 +32,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_RECYCLE;

@@ -23,7 +23,8 @@ OremineConstructionGroup oremineConstructionGroup(
      GROUP_OREMINE_BUL_COST,
      GROUP_OREMINE_FIREC,
      GROUP_OREMINE_COST,
-     GROUP_OREMINE_TECH
+     GROUP_OREMINE_TECH,
+     GROUP_OREMINE_RANGE
 );
 
 Construction *OremineConstructionGroup::createConstruction(int x, int y, unsigned short type)

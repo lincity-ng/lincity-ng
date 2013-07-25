@@ -21,7 +21,8 @@ ShantyConstructionGroup shantyConstructionGroup(
      GROUP_SHANTY_BUL_COST,
      GROUP_SHANTY_FIREC,
      GROUP_SHANTY_COST,
-     GROUP_SHANTY_TECH
+     GROUP_SHANTY_TECH,
+     GROUP_SHANTY_RANGE
 );
 
 Construction *ShantyConstructionGroup::createConstruction(int x, int y, unsigned short type)

@@ -4,6 +4,7 @@
 #define GROUP_FIRE_BUL_COST  1000
 #define GROUP_FIRE_TECH   0     /* Unused */
 #define GROUP_FIRE_FIREC  0
+#define GROUP_FIRE_RANGE  0
 
 #define DAYS_BETWEEN_FIRES (NUMOF_DAYS_IN_YEAR*2)
 #define FIRE_ANIMATION_SPEED (200 + rand()%350 -175)
@@ -23,9 +24,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
           
     };

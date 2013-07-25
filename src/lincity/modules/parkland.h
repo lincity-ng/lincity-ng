@@ -4,6 +4,7 @@
 #define GROUP_PARKLAND_BUL_COST   1000
 #define GROUP_PARKLAND_TECH   2
 #define GROUP_PARKLAND_FIREC 1
+#define GROUP_PARKLAND_RANGE 0
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -17,9 +18,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
           
     };

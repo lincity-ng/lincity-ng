@@ -250,7 +250,8 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range 
     ) {
         this->name = name;
         this->no_credit = no_credit;
@@ -262,6 +263,7 @@ public:
         this->fire_chance = fire_chance;
         this->cost = cost;
         this->tech = tech;
+        this->range = range;
     }
 
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
@@ -283,6 +285,7 @@ public:
     int fire_chance;            /* probability of fire */
     int cost;                   /* group cost */
     int tech;                   /* group tech */
+    int range;					/* range beyond size*/
 
 	static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {

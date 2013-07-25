@@ -20,7 +20,8 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
      GROUP_INDUSTRY_H_BUL_COST,
      GROUP_INDUSTRY_H_FIREC,
      GROUP_INDUSTRY_H_COST,
-     GROUP_INDUSTRY_H_TECH
+     GROUP_INDUSTRY_H_TECH,
+     GROUP_INDUSTRY_H_RANGE
 );
 
 Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y, unsigned short type) {

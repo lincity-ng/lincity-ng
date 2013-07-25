@@ -17,7 +17,8 @@ PotteryConstructionGroup potteryConstructionGroup(
     GROUP_POTTERY_BUL_COST,
     GROUP_POTTERY_FIREC,
     GROUP_POTTERY_COST,
-    GROUP_POTTERY_TECH
+    GROUP_POTTERY_TECH,
+    GROUP_POTTERY_RANGE
 );
 
 Construction *PotteryConstructionGroup::createConstruction(int x, int y, unsigned short type) {

@@ -1,3 +1,10 @@
+#define GROUP_POTTERY_COLOUR (red(12))
+#define GROUP_POTTERY_COST   1000
+#define GROUP_POTTERY_COST_MUL 25
+#define GROUP_POTTERY_BUL_COST 1000
+#define GROUP_POTTERY_TECH  0
+#define GROUP_POTTERY_FIREC 50
+#define GROUP_POTTERY_RANGE 0
 
 #define POTTERY_ORE_MAKE_GOODS    11
 #define POTTERY_COAL_MAKE_GOODS    2
@@ -10,12 +17,7 @@
 #define MAX_JOBS_AT_POTTERY       (POTTERY_JOBS*20)
 #define MAX_GOODS_AT_POTTERY      (POTTERY_MADE_GOODS*20) 
 
-#define GROUP_POTTERY_COLOUR (red(12))
-#define GROUP_POTTERY_COST   1000
-#define GROUP_POTTERY_COST_MUL 25
-#define GROUP_POTTERY_BUL_COST 1000
-#define GROUP_POTTERY_TECH  0
-#define GROUP_POTTERY_FIREC 50
+
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -28,9 +30,9 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_POTTERY;

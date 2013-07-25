@@ -33,7 +33,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "lincity/lctypes.h"
 #include "lincity/engglobs.h"
-#include "lincity/range.h"
+#include "lincity/modules/all_modules.h"
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
 
@@ -1607,7 +1607,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
 
         // Draw range for selected_module_type
         int range = 0;
-        int reduceNW = 0; // substation and market reduce the range to nort west by one.
+        int size = 0;
+        //int reduceNW = 0; // substation and market reduce the range to nort west by one.
         switch ( selected_module_type ){
             //case CST_RESIDENCE_LL: break;
             //case CST_RESIDENCE_ML: break;
@@ -1617,9 +1618,12 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_RESIDENCE_HH: break;
             //case CST_FARM_O0: break;
             //case CST_MILL_0: break;
-            case CST_HEALTH:        range = HEALTH_CENTRE_RANGE; break;
-            case CST_CRICKET_1:     range = CRICKET_RANGE; break;
-            case CST_FIRESTATION_1: range = FIRESTATION_RANGE; break;
+            case CST_HEALTH:        range = healthCentreConstructionGroup.range;
+									size  = healthCentreConstructionGroup.size; break;
+            case CST_CRICKET_1:     range = cricketConstructionGroup.range;
+									size  = cricketConstructionGroup.size; 		break;
+            case CST_FIRESTATION_1: range = fireStationConstructionGroup.range;
+									size  = fireStationConstructionGroup.size; 	break;
             //case CST_SCHOOL: break;
             //case CST_UNIVERSITY: break;
             //case CST_TRACK_LR: break;
@@ -1633,13 +1637,15 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             //case CST_SUBSTATION_R:   range = SUBSTATION_RANGE; reduceNW = 1; break;
             //case CST_WINDMILL_1_R:   range = SUBSTATION_RANGE; reduceNW = 1; break; //Windmills are handled like substations
             //case CST_COMMUNE_1: break;
-            case CST_COALMINE_EMPTY: range = COAL_RESERVE_SEARCH_RANGE; break;
+            case CST_COALMINE_EMPTY: range = coalmineConstructionGroup.range;
+									 size = coalmineConstructionGroup.size;		break;
             //case CST_OREMINE_1: break;
             //case CST_TIP_0: break;
             //case CST_RECYCLE: break;
             //case CST_INDUSTRY_L_C: break;
             //case CST_INDUSTRY_H_C: break;
-            case CST_MARKET_EMPTY:  range = MARKET_RANGE; reduceNW = 1; break;
+            case CST_MARKET_EMPTY:  range = marketConstructionGroup.range;
+									size = marketConstructionGroup.size;	break;
             //case CST_POTTERY_0: break;
             //case CST_BLACKSMITH_0: break;
             //case CST_MONUMENT_0: break;
@@ -1650,13 +1656,15 @@ void GameView::markTile( Painter& painter, MapPoint tile )
 
         if (range > 0 )
         {
+        	int edgelen = 2 * range + size ; //2 * range- reduceNW
         	painter.setFillColor( Color( 0, 0, 128, 64 ) );
         	Rect2D rangerect( 0,0,
-        	                  tileWidth  * ( 2 * range - reduceNW ) ,
-        	                  tileHeight * ( 2 * range - reduceNW ) );
+        	                  tileWidth  * ( edgelen) ,   //2 * range- reduceNW
+        	                  tileHeight * ( edgelen) ); //2 * range- reduceNW
         	Vector2 screenPoint = getScreenPoint(tile);
-        	screenPoint.x -= tileWidth  * ( range - 0.5 * reduceNW );
-        	screenPoint.y -= tileHeight * ( range + 1 - reduceNW );
+        	
+        	screenPoint.x -= tileWidth  * ( 0.5*edgelen );//range- 0.5*reduceNW
+        	screenPoint.y -= tileHeight * ( range + 1 ); //range +1 - reduceNW
         	rangerect.move( screenPoint );
         	fillDiamond( painter, rangerect );
         }

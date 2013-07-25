@@ -19,7 +19,8 @@ ParklandConstructionGroup parklandConstructionGroup(
      GROUP_PARKLAND_BUL_COST,
      GROUP_PARKLAND_FIREC,
      GROUP_PARKLAND_COST,
-     GROUP_PARKLAND_TECH
+     GROUP_PARKLAND_TECH,
+     GROUP_PARKLAND_RANGE
 );
 
 Construction *ParklandConstructionGroup::createConstruction(int x, int y, unsigned short type) {

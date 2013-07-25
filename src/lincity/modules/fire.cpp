@@ -19,7 +19,8 @@ FireConstructionGroup fireConstructionGroup(
      GROUP_FIRE_BUL_COST,
      GROUP_FIRE_FIREC,
      GROUP_FIRE_COST,
-     GROUP_FIRE_TECH
+     GROUP_FIRE_TECH,
+     GROUP_FIRE_RANGE
 );
 
 Construction *FireConstructionGroup::createConstruction(int x, int y, unsigned short type) {

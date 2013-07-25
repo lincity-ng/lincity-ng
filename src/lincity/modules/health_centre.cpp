@@ -21,7 +21,8 @@ HealthCentreConstructionGroup healthCentreConstructionGroup(
      GROUP_HEALTH_BUL_COST,
      GROUP_HEALTH_FIREC,
      GROUP_HEALTH_COST,
-     GROUP_HEALTH_TECH
+     GROUP_HEALTH_TECH,
+     GROUP_HEALTH_RANGE
 );
 
 Construction *HealthCentreConstructionGroup::createConstruction(int x, int y, unsigned short type) {
@@ -36,7 +37,6 @@ void HealthCentre::update()
 
 void HealthCentre::cover()
 {
-    int xx, x1, x2, y1, y2;
     if (commodityCount[STUFF_JOBS] < (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER)
     ||  commodityCount[STUFF_GOODS] < (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER)
     ||  commodityCount[STUFF_WASTE] + (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_HEALTH_CENTRE)
@@ -47,27 +47,14 @@ void HealthCentre::cover()
     commodityCount[STUFF_JOBS] -= (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER);
     commodityCount[STUFF_GOODS] -= (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER);
     commodityCount[STUFF_WASTE] += (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER / 3);
-    busy = true;    
-    int len = world.len();    
-    x1 = x - HEALTH_CENTRE_RANGE;
-    if (x1 < 0)
-        x1 = 0;
-    x2 = x + HEALTH_CENTRE_RANGE;
-    if (x2 > len)
-        x2 = len;
-    y1 = y - HEALTH_CENTRE_RANGE;
-    if (y1 < 0)
-        y1 = 0;
-    y2 = y + HEALTH_CENTRE_RANGE;
-    if (y2 > len)
-        y2 = len;
-    for (; y1 < y2; y1++)
+    busy = true;
+    for(int yy = ys; yy < ye; yy++)
     {
-        for (xx = x1; xx < x2; xx++)
+        for(int xx = xs; xx < xe; xx++)
         {
-            world(xx, y1)->flags |= FLAG_HEALTH_COVER;
+            world(xx,yy)->flags |= FLAG_HEALTH_COVER;
         }
-    }
+    }       
 }
 
 void HealthCentre::report()

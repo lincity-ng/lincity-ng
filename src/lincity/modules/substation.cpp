@@ -20,7 +20,8 @@ SubstationConstructionGroup substationConstructionGroup(
      GROUP_SUBSTATION_BUL_COST,
      GROUP_SUBSTATION_FIREC,
      GROUP_SUBSTATION_COST,
-     GROUP_SUBSTATION_TECH
+     GROUP_SUBSTATION_TECH,
+     GROUP_SUBSTATION_RANGE
 );
 
 Construction *SubstationConstructionGroup::createConstruction(int x, int y, unsigned short type) {

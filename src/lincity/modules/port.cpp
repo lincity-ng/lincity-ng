@@ -20,7 +20,8 @@ PortConstructionGroup portConstructionGroup(
      GROUP_PORT_BUL_COST,
      GROUP_PORT_FIREC,
      GROUP_PORT_COST,
-     GROUP_PORT_TECH
+     GROUP_PORT_TECH,
+     GROUP_PORT_RANGE
 );
 
 Construction *PortConstructionGroup::createConstruction(int x, int y, unsigned short type) {

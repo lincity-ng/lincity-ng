@@ -1,7 +1,14 @@
+#define GROUP_INDUSTRY_L_COLOUR (cyan(18))
+#define GROUP_INDUSTRY_L_COST 20000
+#define GROUP_INDUSTRY_L_COST_MUL 25
+#define GROUP_INDUSTRY_L_BUL_COST 20000
+#define GROUP_INDUSTRY_L_TECH 160
+#define GROUP_INDUSTRY_L_FIREC 70
+#define GROUP_INDUSTRY_L_RANGE 0
 
-#define INDUSTRY_L_GET_JOBS    120
-#define INDUSTRY_L_GET_ORE     600
-#define INDUSTRY_L_GET_STEEL   60
+//#define INDUSTRY_L_GET_JOBS    120
+//#define INDUSTRY_L_GET_ORE     600
+//#define INDUSTRY_L_GET_STEEL   60
 
 #define INDUSTRY_L_ORE_USED  125
 #define INDUSTRY_L_STEEL_USED  12
@@ -23,12 +30,7 @@
 #define INDUSTRY_L_POL_PER_GOOD 0.05
 //#define INDUSTRY_L_POLLUTION    10
 
-#define GROUP_INDUSTRY_L_COLOUR (cyan(18))
-#define GROUP_INDUSTRY_L_COST 20000
-#define GROUP_INDUSTRY_L_COST_MUL 25
-#define GROUP_INDUSTRY_L_BUL_COST 20000
-#define GROUP_INDUSTRY_L_TECH 160
-#define GROUP_INDUSTRY_L_FIREC 70
+
 
 class IndustryLightConstructionGroup: public ConstructionGroup {
 public:
@@ -37,9 +39,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_INDUSTRY_L;

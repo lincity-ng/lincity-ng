@@ -11,13 +11,14 @@
 #define GROUP_COALMINE_BUL_COST   10000
 #define GROUP_COALMINE_TECH   85
 #define GROUP_COALMINE_FIREC  85
+#define GROUP_COALMINE_RANGE  6
 
 #define TARGET_COAL_LEVEL 80
 
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-#include "../range.h"
+//#include "../range.h"
 
 
 class CoalmineConstructionGroup: public ConstructionGroup {
@@ -27,9 +28,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_COALMINE;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;
@@ -42,30 +44,7 @@ public:
     // overriding method that creates an Coalmine
     virtual Construction *createConstruction(int x, int y, unsigned short type);
 };
-/*
-class EmptycoalmineConstructionGroup: public ConstructionGroup {
-public:
-    EmptycoalmineConstructionGroup(
-        const char *name,
-        unsigned short no_credit,
-        unsigned short group,
-        unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
-    ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
-    ) {
-        commodityRuleCount[Construction::STUFF_JOBS].maxload = 1;
-        commodityRuleCount[Construction::STUFF_JOBS].take = false;
-        commodityRuleCount[Construction::STUFF_JOBS].give = true;
-        commodityRuleCount[Construction::STUFF_COAL].maxload = 1;
-        commodityRuleCount[Construction::STUFF_COAL].take = false;
-        commodityRuleCount[Construction::STUFF_COAL].give = true;
-          
-    }
-    // overriding method that creates an Coalmine
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
-};
-*/
+
 extern CoalmineConstructionGroup coalmineConstructionGroup;
 
 class Coalmine: public CountedConstruction<Coalmine> { // Coalmine inherits from its CountedConstruction
@@ -79,19 +58,20 @@ public:
         initialize_commodities();
 
         int coal = 0;
-        int xx, yy, xs, ys, xe, ye;        
-        xs = x - COAL_RESERVE_SEARCH_RANGE;
-        xs = (xs < 1) ? 1 : xs;         
-        ys = y - COAL_RESERVE_SEARCH_RANGE;
-        ys = (ys < 1)? 1 : ys; 
-        xe = x + COAL_RESERVE_SEARCH_RANGE;
-        xe = (xe > world.len()-1) ? world.len()-1 : xe;         
-        ye = y + COAL_RESERVE_SEARCH_RANGE;
-        ye = (ye > world.len()-1)? world.len()-1 : ye; 
+        int lenm1 = world.len()-1;
+        int tmp;         
+        tmp = x - constructionGroup->range;
+        this->xs = (tmp < 1) ? 1 : tmp;         
+        tmp = y - constructionGroup->range;
+        this->ys = (tmp < 1)? 1 : tmp; 
+        tmp = x + constructionGroup->range + constructionGroup->size;
+        this->xe = (tmp > lenm1) ? lenm1 : tmp;         
+        tmp = y + constructionGroup->range + constructionGroup->size;
+        this->ye = (tmp > lenm1)? lenm1 : tmp; 
 		
-        for (yy = ys; yy < ye ; yy++)
+        for (int yy = ys; yy < ye ; yy++)
         {
-            for (xx = xs; xx < xe ; xx++)
+            for (int xx = xs; xx < xe ; xx++)
             {
                 coal += world(xx,yy)->coal_reserve;                
             }
@@ -110,7 +90,8 @@ public:
 	virtual ~Coalmine() { }
 	virtual void update();
 	virtual void report();
-       
+     
+    int xs, ys, xe, ye;  
     int initial_coal_reserve;
     int current_coal_reserve;
     int busy_days;

@@ -29,7 +29,8 @@ WaterwellConstructionGroup waterwellConstructionGroup(
      GROUP_WATERWELL_BUL_COST,
      GROUP_WATERWELL_FIREC,
      GROUP_WATERWELL_COST,
-     GROUP_WATERWELL_TECH
+     GROUP_WATERWELL_TECH,
+     GROUP_WATERWELL_RANGE
 );
 
 Construction *WaterwellConstructionGroup::createConstruction(int x, int y, unsigned short type) {

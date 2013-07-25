@@ -21,7 +21,8 @@ TransportConstructionGroup trackConstructionGroup(
     GROUP_TRACK_BUL_COST,
     GROUP_TRACK_FIREC,
     GROUP_TRACK_COST,
-    GROUP_TRACK_TECH
+    GROUP_TRACK_TECH,
+    GROUP_TRANSPORT_RANGE
 );
 
 // TrackBridge:
@@ -35,7 +36,8 @@ TransportConstructionGroup trackbridgeConstructionGroup(
     GROUP_TRACK_BRIDGE_BUL_COST,
     GROUP_TRACK_BRIDGE_FIREC,
     GROUP_TRACK_BRIDGE_COST,
-    GROUP_TRACK_BRIDGE_TECH
+    GROUP_TRACK_BRIDGE_TECH,
+    GROUP_TRANSPORT_RANGE
 );
 
 // Road:
@@ -49,7 +51,8 @@ TransportConstructionGroup roadConstructionGroup(
     GROUP_ROAD_BUL_COST,
     GROUP_ROAD_FIREC,
     GROUP_ROAD_COST,
-    GROUP_ROAD_TECH
+    GROUP_ROAD_TECH,
+    GROUP_TRANSPORT_RANGE
 );
 // RoadBridge:
 TransportConstructionGroup roadbridgeConstructionGroup(
@@ -62,7 +65,8 @@ TransportConstructionGroup roadbridgeConstructionGroup(
     GROUP_ROAD_BRIDGE_BUL_COST,
     GROUP_ROAD_BRIDGE_FIREC,
     GROUP_ROAD_BRIDGE_COST,
-    GROUP_ROAD_BRIDGE_TECH
+    GROUP_ROAD_BRIDGE_TECH,
+    GROUP_TRANSPORT_RANGE
 );
 
 
@@ -77,7 +81,8 @@ TransportConstructionGroup railConstructionGroup(
     GROUP_RAIL_BUL_COST,
     GROUP_RAIL_FIREC,
     GROUP_RAIL_COST,
-    GROUP_RAIL_TECH
+    GROUP_RAIL_TECH,
+    GROUP_TRANSPORT_RANGE
 );
 // RailBridge:
 TransportConstructionGroup railbridgeConstructionGroup(
@@ -90,7 +95,8 @@ TransportConstructionGroup railbridgeConstructionGroup(
     GROUP_RAIL_BRIDGE_BUL_COST,
     GROUP_RAIL_BRIDGE_FIREC,
     GROUP_RAIL_BRIDGE_COST,
-    GROUP_RAIL_BRIDGE_TECH
+    GROUP_RAIL_BRIDGE_TECH,
+    GROUP_TRANSPORT_RANGE
 );
 
 

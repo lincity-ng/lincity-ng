@@ -18,7 +18,8 @@ UniversityConstructionGroup universityConstructionGroup(
      GROUP_UNIVERSITY_BUL_COST,
      GROUP_UNIVERSITY_FIREC,
      GROUP_UNIVERSITY_COST,
-     GROUP_UNIVERSITY_TECH
+     GROUP_UNIVERSITY_TECH,
+     GROUP_UNIVERSITY_RANGE
 );
 
 Construction *UniversityConstructionGroup::createConstruction(int x, int y, unsigned short type) {

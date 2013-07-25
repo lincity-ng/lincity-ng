@@ -4,6 +4,7 @@
 #define GROUP_BLACKSMITH_BUL_COST   1000
 #define GROUP_BLACKSMITH_TECH   3
 #define GROUP_BLACKSMITH_FIREC 60
+#define GROUP_BLACKSMITH_RANGE 0
 
 #define BLACKSMITH_JOBS    35
 #define BLACKSMITH_GET_COAL 6
@@ -32,9 +33,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_BLACKSMITH;

@@ -5,6 +5,7 @@
 #define GROUP_TIP_BUL_COST 1000000
 #define GROUP_TIP_TECH 0
 #define GROUP_TIP_FIREC 50
+#define GROUP_TIP_RANGE 0
 
 #define TIP_DEGRADE_TIME 200 * NUMOF_DAYS_IN_YEAR
 #define MAX_WASTE_AT_TIP  10000000
@@ -25,9 +26,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         commodityRuleCount[Construction::STUFF_WASTE].maxload = TIP_TAKES_WASTE;

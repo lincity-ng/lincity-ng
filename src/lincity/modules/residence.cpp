@@ -21,7 +21,8 @@ ResidenceConstructionGroup residenceLLConstructionGroup(
     GROUP_RESIDENCE_LL_BUL_COST,
     GROUP_RESIDENCE_LL_FIREC,
     GROUP_RESIDENCE_LL_COST,
-    GROUP_RESIDENCE_LL_TECH
+    GROUP_RESIDENCE_LL_TECH,
+    GROUP_RESIDENCE_RANGE
 );
 
 ResidenceConstructionGroup residenceMLConstructionGroup(
@@ -34,7 +35,8 @@ ResidenceConstructionGroup residenceMLConstructionGroup(
     GROUP_RESIDENCE_ML_BUL_COST,
     GROUP_RESIDENCE_ML_FIREC,
     GROUP_RESIDENCE_ML_COST,
-    GROUP_RESIDENCE_ML_TECH
+    GROUP_RESIDENCE_ML_TECH,
+    GROUP_RESIDENCE_RANGE
 );
 
 ResidenceConstructionGroup residenceHLConstructionGroup(
@@ -47,7 +49,8 @@ ResidenceConstructionGroup residenceHLConstructionGroup(
     GROUP_RESIDENCE_HL_BUL_COST,
     GROUP_RESIDENCE_HL_FIREC,
     GROUP_RESIDENCE_HL_COST,
-    GROUP_RESIDENCE_HL_TECH
+    GROUP_RESIDENCE_HL_TECH,
+    GROUP_RESIDENCE_RANGE
 );
 
 ResidenceConstructionGroup residenceLHConstructionGroup(
@@ -60,7 +63,8 @@ ResidenceConstructionGroup residenceLHConstructionGroup(
     GROUP_RESIDENCE_LH_BUL_COST,
     GROUP_RESIDENCE_LH_FIREC,
     GROUP_RESIDENCE_LH_COST,
-    GROUP_RESIDENCE_LH_TECH
+    GROUP_RESIDENCE_LH_TECH,
+    GROUP_RESIDENCE_RANGE
 );
 
 ResidenceConstructionGroup residenceMHConstructionGroup(
@@ -73,7 +77,8 @@ ResidenceConstructionGroup residenceMHConstructionGroup(
     GROUP_RESIDENCE_MH_BUL_COST,
     GROUP_RESIDENCE_MH_FIREC,
     GROUP_RESIDENCE_MH_COST,
-    GROUP_RESIDENCE_MH_TECH
+    GROUP_RESIDENCE_MH_TECH,
+    GROUP_RESIDENCE_RANGE
 );
 
 ResidenceConstructionGroup residenceHHConstructionGroup(
@@ -86,7 +91,8 @@ ResidenceConstructionGroup residenceHHConstructionGroup(
     GROUP_RESIDENCE_HH_BUL_COST,
     GROUP_RESIDENCE_HH_FIREC,
     GROUP_RESIDENCE_HH_COST,
-    GROUP_RESIDENCE_HH_TECH
+    GROUP_RESIDENCE_HH_TECH,
+    GROUP_RESIDENCE_RANGE
 );
 
 

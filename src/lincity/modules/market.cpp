@@ -4,11 +4,11 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 #include <cstdlib>
-#include "modules.h"
+//#include "modules.h"
 #include "market.h"
 #include "lincity-ng/ErrorInterface.hpp"
-#include "../range.h"
-#include "../transport.h"
+//#include "../range.h"
+//#include "../transport.h"
 
 MarketConstructionGroup marketConstructionGroup(
     "Market",
@@ -20,7 +20,8 @@ MarketConstructionGroup marketConstructionGroup(
      GROUP_MARKET_BUL_COST,
      GROUP_MARKET_FIREC,
      GROUP_MARKET_COST,
-     GROUP_MARKET_TECH
+     GROUP_MARKET_TECH,
+     GROUP_MARKET_RANGE
 );
 
 Construction *MarketConstructionGroup::createConstruction(int x, int y, unsigned short type) {

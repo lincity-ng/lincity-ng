@@ -19,7 +19,8 @@ CoalmineConstructionGroup coalmineConstructionGroup(
      GROUP_COALMINE_BUL_COST,
      GROUP_COALMINE_FIREC,
      GROUP_COALMINE_COST,
-     GROUP_COALMINE_TECH
+     GROUP_COALMINE_TECH,
+     GROUP_COALMINE_RANGE
 );
 
 Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsigned short type)
@@ -29,22 +30,12 @@ Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsign
 
 void Coalmine::update()
 {
-    int xx, yy, xs, ys, xe, ye;
     bool coal_found = false;
-
     //scan available coal_reserve in range    
-    xs = x - COAL_RESERVE_SEARCH_RANGE;
-    xs = (xs < 1) ? 1 : xs;         
-    ys = y - COAL_RESERVE_SEARCH_RANGE;
-    ys = (ys < 1 ) ? 1 : ys; 
-    xe = x + COAL_RESERVE_SEARCH_RANGE;
-    xe = (xe > world.len()-1) ? world.len()-1 : xe;         
-    ye = y + COAL_RESERVE_SEARCH_RANGE;
-    ye = (ye > world.len()-1) ? world.len()-1 : ye; 
     current_coal_reserve = 0; 
-    for (yy = ys; yy < ye ; yy++)
+    for (int yy = ys; yy < ye ; yy++)
     {
-        for (xx = xs; xx < xe ; xx++)
+        for (int xx = xs; xx < xe ; xx++)
         {
             current_coal_reserve += world(xx,yy)->coal_reserve;                
         }
@@ -59,9 +50,9 @@ void Coalmine::update()
     && (commodityCount[STUFF_COAL] <= TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE - COAL_PER_RESERVE)/100)
     && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL)) 
     {   
-        for (yy = ys; (yy < ye) && !coal_found; yy++)
+        for (int yy = ys; (yy < ye) && !coal_found; yy++)
         {
-            for (xx = xs; (xx < xe) && !coal_found; xx++)
+            for (int xx = xs; (xx < xe) && !coal_found; xx++)
             {
                 if (world(xx,yy)->coal_reserve > 0) 
                 {
@@ -82,9 +73,9 @@ void Coalmine::update()
     else if ((commodityCount[STUFF_COAL] - COAL_PER_RESERVE > TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE)/100)
     && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL)) 
     {   
-        for (yy = ys; (yy < ye) && !coal_found; yy++)
+        for (int yy = ys; (yy < ye) && !coal_found; yy++)
         {
-            for (xx = xs; (xx < xe) && !coal_found; xx++)
+            for (int xx = xs; (xx < xe) && !coal_found; xx++)
             {
                 if (world(xx,yy)->coal_reserve < COAL_RESERVE_SIZE) 
                 {
@@ -105,7 +96,7 @@ void Coalmine::update()
         busy_days = 0;
     }
     //choose type depending on availabe coal    
-    if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 5)))//80%
+    if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 4)))//75%
         type = CST_COALMINE_FULL;
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE / 2))//50%
         type = CST_COALMINE_MED;

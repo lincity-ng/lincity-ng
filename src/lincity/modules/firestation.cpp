@@ -20,7 +20,8 @@ FireStationConstructionGroup fireStationConstructionGroup(
     GROUP_FIRESTATION_BUL_COST,
     GROUP_FIRESTATION_FIREC,
     GROUP_FIRESTATION_COST,
-    GROUP_FIRESTATION_TECH
+    GROUP_FIRESTATION_TECH,
+    GROUP_FIRESTATION_RANGE
 );
 
 Construction *FireStationConstructionGroup::createConstruction(int x, int y, unsigned short type) {
@@ -103,7 +104,6 @@ void FireStation::update() {
 }
 
 void FireStation::cover() {
-    int xx, x1, x2, y1, y2;
     if (commodityCount[STUFF_JOBS] < (FIRESTATION_JOBS * DAYS_BETWEEN_COVER)
     ||  commodityCount[STUFF_GOODS] < (FIRESTATION_GOODS * DAYS_BETWEEN_COVER)
     ||  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_FIRESTATION  )
@@ -116,24 +116,13 @@ void FireStation::cover() {
     commodityCount[STUFF_WASTE] += (FIRESTATION_GOODS * DAYS_BETWEEN_COVER /3);
     animate = true;
     busy = true;
-    int len = world.len();
-    x1 = x - FIRESTATION_RANGE;
-    if (x1 < 0)
-        x1 = 0;
-    x2 = x + FIRESTATION_RANGE;
-    if (x2 > len)
-        x2 = len;
-    y1 = y - FIRESTATION_RANGE;
-    if (y1 < 0)
-        y1 = 0;
-    y2 = y + FIRESTATION_RANGE;
-    if (y2 > len)
-        y2 = len;
-    for (; y1 < y2; y1++)
-        for (xx = x1; xx < x2; xx++){
-            world(xx, y1)->flags |= FLAG_FIRE_COVER;
-            //MP_INFO(xx, y1).flags |= FLAG_FIRE_COVER;
+    for(int yy = ys; yy < ye; yy++)
+    {
+        for(int xx = xs; xx < xe; xx++)
+        {
+            world(xx,yy)->flags |= FLAG_FIRE_COVER;
         }
+    }    
 }
 
 void FireStation::report() {

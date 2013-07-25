@@ -20,7 +20,8 @@ SolarPowerConstructionGroup solarPowerConstructionGroup(
      GROUP_SOLAR_POWER_BUL_COST,
      GROUP_SOLAR_POWER_FIREC,
      GROUP_SOLAR_POWER_COST,
-     GROUP_SOLAR_POWER_TECH
+     GROUP_SOLAR_POWER_TECH,
+     GROUP_SOLAR_POWER_RANGE
 );
 
 Construction *SolarPowerConstructionGroup::createConstruction(int x, int y, unsigned short type) {

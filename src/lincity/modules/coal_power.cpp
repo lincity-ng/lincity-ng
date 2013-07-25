@@ -17,7 +17,8 @@ Coal_powerConstructionGroup coal_powerConstructionGroup(
      GROUP_COAL_POWER_BUL_COST,
      GROUP_COAL_POWER_FIREC,
      GROUP_COAL_POWER_COST,
-     GROUP_COAL_POWER_TECH
+     GROUP_COAL_POWER_TECH,
+     GROUP_COAL_POWER_RANGE
 );
 
 Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsigned short type) {

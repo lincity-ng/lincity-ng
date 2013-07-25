@@ -19,7 +19,8 @@ SchoolConstructionGroup schoolConstructionGroup(
      GROUP_SCHOOL_BUL_COST,
      GROUP_SCHOOL_FIREC,
      GROUP_SCHOOL_COST,
-     GROUP_SCHOOL_TECH
+     GROUP_SCHOOL_TECH,
+     GROUP_SCHOOL_RANGE
 );
 
 Construction *SchoolConstructionGroup::createConstruction(int x, int y, unsigned short type) {

@@ -1,6 +1,12 @@
-// Some ore min related stuff has to be in all_buildings.h
+#define GROUP_OREMINE_COLOUR (red(18))
+#define GROUP_OREMINE_COST 500
+#define GROUP_OREMINE_COST_MUL 10
+#define GROUP_OREMINE_BUL_COST 500000
+#define GROUP_OREMINE_TECH 0
+#define GROUP_OREMINE_FIREC 0
+#define GROUP_OREMINE_RANGE 0
 
-
+// Some ore related stuff has to be in all_buildings.h
 #define ORE_PER_RESERVE   5000
 #define MAX_ORE_AT_MINE (20 * ORE_PER_RESERVE)
 #define MIN_ORE_RESERVE_FOR_MINE (ORE_RESERVE)
@@ -8,17 +14,7 @@
 #define MAX_JOBS_AT_OREMINE (20 * JOBS_DIG_ORE)
 
 #define ORE_LEVEL_TARGET 80 //mine will only supply so much
-
-#define GROUP_OREMINE_COLOUR (red(18))
-#define GROUP_OREMINE_COST 500
-#define GROUP_OREMINE_COST_MUL 10
-#define GROUP_OREMINE_BUL_COST 500000
-#define GROUP_OREMINE_TECH 0
-#define GROUP_OREMINE_FIREC 0
-
-
 #define OREMINE_ANIMATION_SPEED 200
-
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -32,9 +28,9 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance, int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_OREMINE;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;

@@ -46,12 +46,15 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_RAIL_TECH    180
 #define GROUP_RAIL_FIREC   6
 
+#define GROUP_TRANSPORT_RANGE 0
+
 #define GROUP_POWER_LINE_COLOUR (yellow(26))
 #define GROUP_POWER_LINE_COST 100
 #define GROUP_POWER_LINE_COST_MUL 2
 #define GROUP_POWER_LINE_BUL_COST 100
 #define GROUP_POWER_LINE_TECH 200
 #define GROUP_POWER_LINE_FIREC 0
+#define GROUP_POWER_LINE_RANGE 0
 #define POWER_LINE_LOSS 1       /* one MWH */
 #define POWER_MODULUS 18        /* Controls how often we see a packet in anim */
 

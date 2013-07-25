@@ -17,7 +17,8 @@ MonumentConstructionGroup monumentConstructionGroup(
     GROUP_MONUMENT_BUL_COST,
     GROUP_MONUMENT_FIREC,
     GROUP_MONUMENT_COST,
-    GROUP_MONUMENT_TECH
+    GROUP_MONUMENT_TECH,
+	GROUP_MONUMENT_RANGE
 );
 
 Construction *MonumentConstructionGroup::createConstruction(int x, int y, unsigned short type) {

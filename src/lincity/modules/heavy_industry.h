@@ -4,6 +4,7 @@
 #define GROUP_INDUSTRY_H_BUL_COST 70000
 #define GROUP_INDUSTRY_H_TECH 170
 #define GROUP_INDUSTRY_H_FIREC 80
+#define GROUP_INDUSTRY_H_RANGE 0
 
 
 #define JOBS_MAKE_STEEL 140
@@ -33,9 +34,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_INDUSTRY_H;

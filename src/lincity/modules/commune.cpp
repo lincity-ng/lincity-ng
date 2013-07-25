@@ -17,7 +17,8 @@ CommuneConstructionGroup communeConstructionGroup(
     GROUP_COMMUNE_BUL_COST,
     GROUP_COMMUNE_FIREC,
     GROUP_COMMUNE_COST,
-    GROUP_COMMUNE_TECH
+    GROUP_COMMUNE_TECH,
+    GROUP_COMMUNE_RANGE
 );
 
 Construction *CommuneConstructionGroup::createConstruction(int x, int y, unsigned short type) {

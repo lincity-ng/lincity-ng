@@ -4,6 +4,9 @@
 #define GROUP_SHANTY_BUL_COST  100000
 #define GROUP_SHANTY_TECH   0   /* Unused */
 #define GROUP_SHANTY_FIREC     25
+#define GROUP_SHANTY_RANGE     0
+
+
 #define SHANTY_MIN_PP     150
 #define SHANTY_POP        50
 #define DAYS_BETWEEN_SHANTY (NUMOF_DAYS_IN_MONTH * 1)
@@ -30,7 +33,7 @@
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-#include "../range.h"
+//#include "../range.h"
 
 class ShantyConstructionGroup: public ConstructionGroup {
 public:
@@ -39,9 +42,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_AT_SHANTY;
         commodityRuleCount[Construction::STUFF_FOOD].take = true;

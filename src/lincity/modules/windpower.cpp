@@ -17,7 +17,8 @@ WindpowerConstructionGroup windpowerConstructionGroup(
      GROUP_WIND_POWER_BUL_COST,
      GROUP_WIND_POWER_FIREC,
      GROUP_WIND_POWER_COST,
-     GROUP_WIND_POWER_TECH
+     GROUP_WIND_POWER_TECH,
+     GROUP_WIND_POWER_RANGE
 );
 
 Construction *WindpowerConstructionGroup::createConstruction(int x, int y, unsigned short type) {

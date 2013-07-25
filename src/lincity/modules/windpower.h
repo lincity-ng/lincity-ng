@@ -5,6 +5,7 @@
 #define GROUP_WIND_POWER_BUL_COST   1000
 #define GROUP_WIND_POWER_TECH   30
 #define GROUP_WIND_POWER_FIREC  10
+#define GROUP_WIND_POWER_RANGE  0
 
 
 #define WIND_POWER_MWH        450
@@ -20,7 +21,7 @@
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-#include "../range.h"
+//#include "../range.h"
 
 class WindpowerConstructionGroup: public ConstructionGroup {
 public:
@@ -29,9 +30,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_WIND_POWER;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;

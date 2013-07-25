@@ -18,7 +18,8 @@ Organic_farmConstructionGroup organic_farmConstructionGroup(
     GROUP_ORGANIC_FARM_BUL_COST,
     GROUP_ORGANIC_FARM_FIREC,
     GROUP_ORGANIC_FARM_COST,
-    GROUP_ORGANIC_FARM_TECH
+    GROUP_ORGANIC_FARM_TECH,
+    GROUP_ORGANIC_FARM_RANGE
 );
 
 Construction *Organic_farmConstructionGroup::createConstruction(int x, int y, unsigned short type) {

@@ -4,11 +4,13 @@
 #define GROUP_WATERWELL_BUL_COST      1
 #define GROUP_WATERWELL_TECH      0
 #define GROUP_WATERWELL_FIREC 0
+#define GROUP_WATERWELL_RANGE 0
+
 #define MAX_POLLUTION_AT_WATERWELL 3000
 #define WATER_PER_UGW 400
 #define MAX_WATER_AT_WATERWELL (80 * WATER_PER_UGW)
 #include "modules.h"
-#include "../range.h"
+//#include "../range.h"
 
 class WaterwellConstructionGroup: public ConstructionGroup {
 public:
@@ -17,9 +19,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_AT_WATERWELL;
         commodityRuleCount[Construction::STUFF_WATER].give = true;

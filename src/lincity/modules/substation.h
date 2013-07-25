@@ -4,6 +4,7 @@
 #define GROUP_SUBSTATION_BUL_COST 100
 #define GROUP_SUBSTATION_TECH 200
 #define GROUP_SUBSTATION_FIREC 50
+#define GROUP_SUBSTATION_RANGE 0
 
 #define SUBSTATION_MWH                          (1500)
 #define MAX_MWH_AT_SUBSTATION    (20 * SUBSTATION_MWH)
@@ -22,9 +23,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         
         commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_SUBSTATION;

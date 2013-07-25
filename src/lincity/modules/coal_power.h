@@ -4,6 +4,7 @@
 #define GROUP_COAL_POWER_BUL_COST   200000
 #define GROUP_COAL_POWER_TECH   200
 #define GROUP_COAL_POWER_FIREC  80
+#define GROUP_COAL_POWER_RANGE  0
 
 #define POWERS_COAL_OUTPUT 11000 //x2 for kWh
 #define MAX_MWH_AT_COALPS (20 * POWERS_COAL_OUTPUT)
@@ -26,9 +27,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_COALPS;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;

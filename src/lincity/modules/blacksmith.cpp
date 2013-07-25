@@ -17,7 +17,8 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
     GROUP_BLACKSMITH_BUL_COST,
     GROUP_BLACKSMITH_FIREC,
     GROUP_BLACKSMITH_COST,
-    GROUP_BLACKSMITH_TECH
+    GROUP_BLACKSMITH_TECH,
+    GROUP_BLACKSMITH_RANGE
 );
 
 Construction *BlacksmithConstructionGroup::createConstruction(int x, int y, unsigned short type) {

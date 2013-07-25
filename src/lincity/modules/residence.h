@@ -76,6 +76,8 @@
 #define GROUP_RESIDENCE_HH_FIREC 75
 #define GROUP_RESIDENCE_HH_MAX_POP 400
 
+#define GROUP_RESIDENCE_RANGE 0
+
 
 #endif /* __residence_h__ */
 
@@ -89,9 +91,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
     {
         switch (group)

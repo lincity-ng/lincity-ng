@@ -4,6 +4,7 @@
 #define GROUP_ROCKET_BUL_COST     1
 #define GROUP_ROCKET_TECH     750
 #define GROUP_ROCKET_FIREC 0
+#define GROUP_ROCKET_RANGE 0
 
 #define ROCKET_PAD_JOBS         200
 #define ROCKET_PAD_JOBS_STORE   (ROCKET_PAD_JOBS * 50)
@@ -34,9 +35,10 @@ public:
         unsigned short no_credit,
         unsigned short group,
         unsigned short size, int colour,
-        int cost_mul, int bul_cost, int fire_chance, int cost, int tech
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
     ): ConstructionGroup(
-        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_AT_ROCKET_PAD;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;

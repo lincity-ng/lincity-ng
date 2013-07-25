@@ -20,7 +20,8 @@ CricketConstructionGroup cricketConstructionGroup(
      GROUP_CRICKET_BUL_COST,
      GROUP_CRICKET_FIREC,
      GROUP_CRICKET_COST,
-     GROUP_CRICKET_TECH
+     GROUP_CRICKET_TECH,
+     GROUP_CRICKET_RANGE
 );
 
 Construction *CricketConstructionGroup::createConstruction(int x, int y, unsigned short type) {
@@ -64,7 +65,6 @@ void Cricket::update()
 
 void Cricket::cover()
 {
-    int xx, x1, x2, y1, y2;
     if (commodityCount[STUFF_JOBS] < (CRICKET_JOBS * DAYS_BETWEEN_COVER)
     ||  commodityCount[STUFF_GOODS] < (CRICKET_GOODS * DAYS_BETWEEN_COVER)
     ||  commodityCount[STUFF_WASTE] + (CRICKET_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_CRICKET)
@@ -77,24 +77,11 @@ void Cricket::cover()
     commodityCount[STUFF_WASTE] += (CRICKET_GOODS * DAYS_BETWEEN_COVER / 3);
     animate = true;    /* turn on animation */
     busy = true;
-    int len = world.len();
-    x1 = x - CRICKET_RANGE;
-    if (x1 < 0)
-        x1 = 0;
-    x2 = x + CRICKET_RANGE;
-    if (x2 > len)
-        x2 = len;
-    y1 = y - CRICKET_RANGE;
-    if (y1 < 0)
-        y1 = 0;
-    y2 = y + CRICKET_RANGE;
-    if (y2 > len)
-        y2 = len;
-    for (; y1 < y2; y1++)
+    for(int yy = ys; yy < ye; yy++)
     {
-        for (xx = x1; xx < x2; xx++)
+        for(int xx = xs; xx < xe; xx++)
         {
-            world(xx, y1)->flags |= FLAG_CRICKET_COVER;
+            world(xx,yy)->flags |= FLAG_CRICKET_COVER;
         }
     }
 }

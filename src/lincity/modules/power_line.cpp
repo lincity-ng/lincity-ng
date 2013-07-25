@@ -18,7 +18,8 @@ PowerlineConstructionGroup powerlineConstructionGroup(
     GROUP_POWER_LINE_BUL_COST,
     GROUP_POWER_LINE_FIREC,
     GROUP_POWER_LINE_COST,
-    GROUP_POWER_LINE_TECH
+    GROUP_POWER_LINE_TECH,
+    GROUP_POWER_LINE_RANGE
 );
 
 Construction *PowerlineConstructionGroup::createConstruction(int x, int y, unsigned short type)
