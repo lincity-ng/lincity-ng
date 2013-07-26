@@ -153,7 +153,7 @@ void GameView::parse(XmlReader& reader)
 
     mouseInGameView = false;
     dragging = false;
-	leftButtonDown = false;
+    leftButtonDown = false;
     roadDragging = false;
     areaBulldoze = false;
     startRoad = MapPoint(0, 0);
@@ -516,32 +516,32 @@ void GameView::loadTextures()
            -e 's/_G\t/, /'     \
            -e 's/"/.png" );/2'
    */
-   preReadCityTexture( CST_GREEN, 	"green.png" );
-   preReadCityTexture( CST_DESERT_0, 	"desert_0.png" );
-   preReadCityTexture( CST_DESERT_1L, 	"desert_1l.png" );
-   preReadCityTexture( CST_DESERT_1R, 	"desert_1r.png" );
-   preReadCityTexture( CST_DESERT_1U, 	"desert_1u.png" );
-   preReadCityTexture( CST_DESERT_1D, 	"desert_1d.png" );
-   preReadCityTexture( CST_DESERT_2LR, 	"desert_2lr.png" );
-   preReadCityTexture( CST_DESERT_2LU, 	"desert_2lu.png" );
-   preReadCityTexture( CST_DESERT_2LD, 	"desert_2ld.png" );
-   preReadCityTexture( CST_DESERT_2RU, 	"desert_2ru.png" );
-   preReadCityTexture( CST_DESERT_2RD, 	"desert_2rd.png" );
-   preReadCityTexture( CST_DESERT_2UD, 	"desert_2ud.png" );
-   preReadCityTexture( CST_DESERT_3LRD,	"desert_3lrd.png" );
-   preReadCityTexture( CST_DESERT_3LRU,	"desert_3lru.png" );
-   preReadCityTexture( CST_DESERT_3LUD,	"desert_3lud.png" );
-   preReadCityTexture( CST_DESERT_3RUD,	"desert_3rud.png" );
-   preReadCityTexture( CST_DESERT, 	"desert.png" );
-   preReadCityTexture( CST_TREE, 	"tree.png" );
-   preReadCityTexture( CST_TREE2, 	"tree2.png" );
-   preReadCityTexture( CST_TREE3, 	"tree3.png" );
+   preReadCityTexture( CST_GREEN,   "green.png" );
+   preReadCityTexture( CST_DESERT_0,    "desert_0.png" );
+   preReadCityTexture( CST_DESERT_1L,   "desert_1l.png" );
+   preReadCityTexture( CST_DESERT_1R,   "desert_1r.png" );
+   preReadCityTexture( CST_DESERT_1U,   "desert_1u.png" );
+   preReadCityTexture( CST_DESERT_1D,   "desert_1d.png" );
+   preReadCityTexture( CST_DESERT_2LR,  "desert_2lr.png" );
+   preReadCityTexture( CST_DESERT_2LU,  "desert_2lu.png" );
+   preReadCityTexture( CST_DESERT_2LD,  "desert_2ld.png" );
+   preReadCityTexture( CST_DESERT_2RU,  "desert_2ru.png" );
+   preReadCityTexture( CST_DESERT_2RD,  "desert_2rd.png" );
+   preReadCityTexture( CST_DESERT_2UD,  "desert_2ud.png" );
+   preReadCityTexture( CST_DESERT_3LRD, "desert_3lrd.png" );
+   preReadCityTexture( CST_DESERT_3LRU, "desert_3lru.png" );
+   preReadCityTexture( CST_DESERT_3LUD, "desert_3lud.png" );
+   preReadCityTexture( CST_DESERT_3RUD, "desert_3rud.png" );
+   preReadCityTexture( CST_DESERT,  "desert.png" );
+   preReadCityTexture( CST_TREE,    "tree.png" );
+   preReadCityTexture( CST_TREE2,   "tree2.png" );
+   preReadCityTexture( CST_TREE3,   "tree3.png" );
    preReadCityTexture( CST_POWERL_H_L, "powerlhl.png" );
-   preReadCityTexture( CST_POWERL_V_L,  	"powerlvl.png" );
-   preReadCityTexture( CST_POWERL_LD_L, 	"powerlldl.png" );
-   preReadCityTexture( CST_POWERL_RD_L, 	"powerlrdl.png" );
-   preReadCityTexture( CST_POWERL_LU_L,  	"powerllul.png" );
-   preReadCityTexture( CST_POWERL_RU_L,  	"powerlrul.png" );
+   preReadCityTexture( CST_POWERL_V_L,      "powerlvl.png" );
+   preReadCityTexture( CST_POWERL_LD_L,     "powerlldl.png" );
+   preReadCityTexture( CST_POWERL_RD_L,     "powerlrdl.png" );
+   preReadCityTexture( CST_POWERL_LU_L,     "powerllul.png" );
+   preReadCityTexture( CST_POWERL_RU_L,     "powerlrul.png" );
    preReadCityTexture( CST_POWERL_LDU_L, "powerlldul.png" );
    preReadCityTexture( CST_POWERL_LDR_L, "powerlldrl.png" );
    preReadCityTexture( CST_POWERL_LUR_L, "powerllurl.png" );
@@ -564,7 +564,7 @@ void GameView::loadTextures()
    preReadCityTexture( CST_POWERS_COAL_LOW,   "powerscoal-low.png" );
    preReadCityTexture( CST_POWERS_COAL_MED,   "powerscoal-med.png" );
    preReadCityTexture( CST_POWERS_COAL_FULL,  "powerscoal-full.png" );
-   preReadCityTexture( CST_BURNT, 	"burnt_land.png" );
+   preReadCityTexture( CST_BURNT,   "burnt_land.png" );
    preReadCityTexture( CST_SUBSTATION_R, "substation-R.png" );
    preReadCityTexture( CST_SUBSTATION_G,      "substation-G.png" );
    preReadCityTexture( CST_SUBSTATION_RG,     "substation-RG.png" );
@@ -579,8 +579,8 @@ void GameView::loadTextures()
    preReadCityTexture( CST_MARKET_LOW,        "market-low.png" );
    preReadCityTexture( CST_MARKET_MED,        "market-med.png" );
    preReadCityTexture( CST_MARKET_FULL,       "market-full.png" );
-   preReadCityTexture( CST_RECYCLE, 	"recycle-centre.png" );
-   preReadCityTexture( CST_TRACK_LR, 	"tracklr.png" );
+   preReadCityTexture( CST_RECYCLE,     "recycle-centre.png" );
+   preReadCityTexture( CST_TRACK_LR,    "tracklr.png" );
    preReadCityTexture( CST_TRACK_LU,          "tracklu.png" );
    preReadCityTexture( CST_TRACK_LD,          "trackld.png" );
    preReadCityTexture( CST_TRACK_UD,          "trackud.png" );
@@ -638,13 +638,13 @@ void GameView::loadTextures()
    preReadCityTexture( CST_OREMINE_6,         "oremine6.png" );
    preReadCityTexture( CST_OREMINE_7,         "oremine7.png" );
    preReadCityTexture( CST_OREMINE_8,         "oremine8.png" );
-   preReadCityTexture( CST_OREMINE_1, 	"oremine1.png" );
-   preReadCityTexture( CST_OREMINE_2, 	"oremine2.png" );
-   preReadCityTexture( CST_OREMINE_3, 	"oremine3.png" );
-   preReadCityTexture( CST_OREMINE_4, 	"oremine4.png" );
-   preReadCityTexture( CST_HEALTH, 	"health.png" );
-   preReadCityTexture( CST_SCHOOL, 	"school0.png" );
-   preReadCityTexture( CST_EX_PORT, 	"ex_port.png" );
+   preReadCityTexture( CST_OREMINE_1,   "oremine1.png" );
+   preReadCityTexture( CST_OREMINE_2,   "oremine2.png" );
+   preReadCityTexture( CST_OREMINE_3,   "oremine3.png" );
+   preReadCityTexture( CST_OREMINE_4,   "oremine4.png" );
+   preReadCityTexture( CST_HEALTH,  "health.png" );
+   preReadCityTexture( CST_SCHOOL,  "school0.png" );
+   preReadCityTexture( CST_EX_PORT,     "ex_port.png" );
    preReadCityTexture( CST_MILL_0,            "mill0.png" );
    preReadCityTexture( CST_MILL_1,            "mill1.png" );
    preReadCityTexture( CST_MILL_2,            "mill2.png" );
@@ -653,12 +653,12 @@ void GameView::loadTextures()
    preReadCityTexture( CST_MILL_5,            "mill5.png" );
    preReadCityTexture( CST_MILL_6,            "mill6.png" );
    preReadCityTexture( CST_ROCKET_1,          "rocket1.png" );
-   preReadCityTexture( CST_ROCKET_2, 	"rocket2.png" );
-   preReadCityTexture( CST_ROCKET_3, 	"rocket3.png" );
-   preReadCityTexture( CST_ROCKET_4, 	"rocket4.png" );
+   preReadCityTexture( CST_ROCKET_2,    "rocket2.png" );
+   preReadCityTexture( CST_ROCKET_3,    "rocket3.png" );
+   preReadCityTexture( CST_ROCKET_4,    "rocket4.png" );
    preReadCityTexture( CST_ROCKET_5,          "rocket5.png" );
    preReadCityTexture( CST_ROCKET_6,          "rocket6.png" );
-   preReadCityTexture( CST_ROCKET_7, 	"rocket7.png" );
+   preReadCityTexture( CST_ROCKET_7,    "rocket7.png" );
    preReadCityTexture( CST_ROCKET_FLOWN, "rocketflown.png" );
    preReadCityTexture( CST_WINDMILL_1_G,      "windmill1g.png" );
    preReadCityTexture( CST_WINDMILL_2_G,      "windmill2g.png" );
@@ -937,8 +937,8 @@ void GameView::event(const Event& event)
                 areaBulldoze = false;
             }
             // bulldoze and evacuate at once while still dragging
-            if( roadDragging && ( (selected_module_type == CST_GREEN 
-            || selected_module_type == CST_DESERT))  
+            if( roadDragging && ( (selected_module_type == CST_GREEN
+            || selected_module_type == CST_DESERT))
             && !areaBulldoze){
                 if( tile != startRoad ){
                     editMap( startRoad, SDL_BUTTON_LEFT);
@@ -975,11 +975,11 @@ void GameView::event(const Event& event)
             break;
         }
         case Event::MOUSEBUTTONUP:
-/*        
+/*
             if(event.mousebutton == SDL_BUTTON_MIDDLE ){
                 getMiniMap()->hideMpsEnv();
             }
-*/ 
+*/
             if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 if ( dragging ) {
                     dragging = false;
@@ -1021,33 +1021,33 @@ void GameView::event(const Event& event)
                         }
                     } else {
                         bool building_transport = (
-									selected_module_type == CST_TRACK_LR
-								||  selected_module_type == CST_ROAD_LR
-								||  selected_module_type == CST_RAIL_LR);
+                                    selected_module_type == CST_TRACK_LR
+                                ||  selected_module_type == CST_ROAD_LR
+                                ||  selected_module_type == CST_RAIL_LR);
                         while( currentTile.x != endRoad.x ) {
                             //if( !blockingDialogIsOpen ) //slow version
-							//editMap(currentTile, SDL_BUTTON_LEFT);
-							//quick version limited to size=1
-							int x = currentTile.x;
-							int y = currentTile.y;
-							if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
-							&& get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())) 
-							{										
-								place_item(x, y, selected_module_type);
-							}     
+                            //editMap(currentTile, SDL_BUTTON_LEFT);
+                            //quick version limited to size=1
+                            int x = currentTile.x;
+                            int y = currentTile.y;
+                            if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
+                            && get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup()))
+                            {
+                                place_item(x, y, selected_module_type);
+                            }
                             currentTile.x += stepx;
                         }
                         while( currentTile.y != endRoad.y ) {
                             //if( !blockingDialogIsOpen ) //slow version
                             //    editMap(currentTile, SDL_BUTTON_LEFT);
-							//quick version limited to size=1
-							int x = currentTile.x;
-							int y = currentTile.y;
-							if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
-							&& get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())) 
-							{										
-								place_item(x, y, selected_module_type);
-							}
+                            //quick version limited to size=1
+                            int x = currentTile.x;
+                            int y = currentTile.y;
+                            if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
+                            && get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup()))
+                            {
+                                place_item(x, y, selected_module_type);
+                            }
                             currentTile.y += stepy;
                         }
                     }
@@ -1120,26 +1120,26 @@ void GameView::event(const Event& event)
             if( event.keysym.sym == SDLK_RSHIFT ){
                 keyScrollState |= SCROLL_RSHIFT;
                 break;
-			}
+            }
 
             // use G to show ground info aka MpsEnv without middle mouse button
             if( event.keysym.sym == SDLK_g){
-				if( inCity(tileUnderMouse) ) {
-					getMiniMap()->showMpsEnv( tileUnderMouse );
+                if( inCity(tileUnderMouse) ) {
+                    getMiniMap()->showMpsEnv( tileUnderMouse );
                 }
                 break;
             }
-            // hotkeys for scrolling pages up and down          
+            // hotkeys for scrolling pages up and down
            if(event.keysym.sym == SDLK_n)
-			{
-				getMiniMap()->scrollPageDown(true);
-				break;	
-			}
-			if (event.keysym.sym == SDLK_m)
-			{
-				getMiniMap()->scrollPageDown(false);
-				break;
-			} 			                   
+            {
+                getMiniMap()->scrollPageDown(true);
+                break;
+            }
+            if (event.keysym.sym == SDLK_m)
+            {
+                getMiniMap()->scrollPageDown(false);
+                break;
+            }
             break;
         case Event::KEYUP:
             //TEst
@@ -1261,7 +1261,7 @@ void GameView::requestRedraw()
 
     MapPoint newCenter = this->getCenter();
 
-    if ( (oldCenter != newCenter) || (oldZoom != zoom) ) {        
+    if ( (oldCenter != newCenter) || (oldZoom != zoom) ) {
         //Tell Minimap about new Corners
         getMiniMap()->setGameViewCorners(
             getTile(Vector2(0, 0)),
@@ -1372,7 +1372,7 @@ void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
  * i.e. there is a hidden border of green tiles arround the city
  */
 bool GameView::inCity( MapPoint tile )
-{    
+{
     if( tile.x > gameAreaMax() || tile.y > gameAreaMax() || tile.x < gameAreaMin || tile.y < gameAreaMin ) {
         return false;
     }
@@ -1387,7 +1387,7 @@ void GameView::drawOverlay(Painter& painter, MapPoint tile){
     Color black;
     black.parse("black");
     Color miniMapColor;
-    
+
     Vector2 tileOnScreenPoint = getScreenPoint(tile);
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
@@ -1414,7 +1414,7 @@ MapPoint GameView::realTile( MapPoint tile )
 {
     MapPoint real = tile;
     if( ! inCity( tile ) )
-        return real;         
+        return real;
     if(world(tile.x, tile.y)->reportingConstruction)
     {
         real.x = world(tile.x, tile.y)->reportingConstruction->x;
@@ -1451,9 +1451,9 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     Texture* texture;
     int size;
-    MapPoint upperLeft = realTile(tile);    
+    MapPoint upperLeft = realTile(tile);
 
-    size = 1;    
+    size = 1;
     if(world(upperLeft.x, upperLeft.y)->construction)
     {
         size = world(upperLeft.x, upperLeft.y)->construction->constructionGroup->size;
@@ -1466,9 +1466,9 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     //is Tile the lower left corner of the Building?
     //dont't draw if not.
-       
+
 //    if (!world(tile.x, tile.y)->is_leftmost()) return;
-    //Does not work because the mapview is rotated     
+    //Does not work because the mapview is rotated
 
     if ( ( tile.x != upperLeft.x ) || ( tile.y - size +1 != upperLeft.y ) ) //Signs are tested
     {
@@ -1480,12 +1480,12 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
-    
-    int textureType = CST_GREEN;    
-    //int group = MP_GROUP(upperLeft.x, upperLeft.y);    
-        
+
+    int textureType = CST_GREEN;
+    //int group = MP_GROUP(upperLeft.x, upperLeft.y);
+
     textureType = world(upperLeft.x, upperLeft.y)->getType();
-                   
+
     // if we hide high buildings, hide trees as well
     if (hideHigh && (textureType == CST_TREE || textureType == CST_TREE2 || textureType == CST_TREE3 ))
     {
@@ -1538,17 +1538,17 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     int x = (int) tile.x;
     int y = (int) tile.y;
 
-    if( cursorSize == 0 ) 
+    if( cursorSize == 0 )
     {
         Color alphawhite( 255, 255, 255, 128 );
         painter.setLineColor( alphawhite );
         Rect2D tilerect( 0, 0, tileWidth, tileHeight );
-        tileOnScreenPoint.x = tileOnScreenPoint.x - ( tileWidth / 2);
+        tileOnScreenPoint.x -= ( tileWidth / 2);
         tileOnScreenPoint.y -= tileHeight;
         tilerect.move( tileOnScreenPoint );
         drawDiamond( painter, tilerect );
-    } 
-    else 
+    }
+    else
     {
         Color alphablue( 0, 0, 255, 128 );
         Color alphared( 255, 0, 0, 128 );
@@ -1567,24 +1567,24 @@ void GameView::markTile( Painter& painter, MapPoint tile )
                 {
                     if (selected_module_type == CST_DESERT) //Evacuating Stuff
                     {
-						if(!(world(x,y)->reportingConstruction) || 
-						(world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE))
-						{
-							painter.setFillColor( alphared );
-							y += cursorSize;
-							break;
-						}
-						else //show/quickly find ongoing evacuations
-						{	mps_set( x, y, MPS_MAP );}
-					}
-                    else if( !world(x,y)->is_bare() ) 
+                        if(!(world(x,y)->reportingConstruction) ||
+                        (world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE))
+                        {
+                            painter.setFillColor( alphared );
+                            y += cursorSize;
+                            break;
+                        }
+                        else //show/quickly find ongoing evacuations
+                        {   mps_set( x, y, MPS_MAP );}
+                    }
+                    else if( !world(x,y)->is_bare() )
                     {
                         if( !((world(x,y)->is_water() || world(x,y)->is_transport() || world(x,y)->is_powerline()) && (
                            (selected_module_type == CST_TRACK_LR ) ||
                            (selected_module_type == CST_ROAD_LR ) ||
-                           (selected_module_type == CST_RAIL_LR ) ) && 
+                           (selected_module_type == CST_RAIL_LR ) ) &&
                            (get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())
-                           )) 
+                           ))
                         {
                             painter.setFillColor( alphared );
                             y += cursorSize;
@@ -1600,31 +1600,31 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             painter.setFillColor( alphared );
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
-        tileOnScreenPoint.x = tileOnScreenPoint.x - (tileWidth * cursorSize / 2);
+        tileOnScreenPoint.x -= (tileWidth * cursorSize / 2);
         tileOnScreenPoint.y -= tileHeight;
         tilerect.move( tileOnScreenPoint );
         fillDiamond( painter, tilerect );
 
         // Draw range for selected_module_type
-        int selected_group = get_group_of_type(selected_module_type);  
+        int selected_group = get_group_of_type(selected_module_type);
         ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(selected_group);
         if(constructionGroup)
         {
-			int range = constructionGroup->range;
-			if (range > 0 )
-			{
-				int edgelen = 2 * range + constructionGroup->size ;
-				painter.setFillColor( Color( 0, 0, 128, 64 ) );
-				Rect2D rangerect( 0,0,
-								  tileWidth  * ( edgelen) ,   
-								  tileHeight * ( edgelen) ); 
-				Vector2 screenPoint = getScreenPoint(tile);
-				screenPoint.x -= tileWidth  * ( 0.5*edgelen );
-				screenPoint.y -= tileHeight * ( range + 1 );
-				rangerect.move( screenPoint );
-				fillDiamond( painter, rangerect );
-			}//endif range > 0
-		}//endif constructionGroup
+            int range = constructionGroup->range;
+            if (range > 0 )
+            {
+                int edgelen = 2 * range + constructionGroup->size ;
+                painter.setFillColor( Color( 0, 0, 128, 64 ) );
+                Rect2D rangerect( 0,0,
+                                  tileWidth  * ( edgelen) ,
+                                  tileHeight * ( edgelen) );
+                Vector2 screenPoint = getScreenPoint(tile);
+                screenPoint.x -= tileWidth  * ( 0.5*edgelen );
+                screenPoint.y -= tileHeight * ( range + 1 );
+                rangerect.move( screenPoint );
+                fillDiamond( painter, rangerect );
+            }//endif range > 0
+        }//endif constructionGroup
     }//endelse cursorSize == 0
 }
 
@@ -1673,7 +1673,7 @@ void GameView::draw(Painter& painter)
     Vector2 upperRight( getWidth(), 0 );
     Vector2 lowerLeft( 0, getHeight() );
 
-    if (showTerrainHeight) 
+    if (showTerrainHeight)
     {
         // printf("h = %f,     z = %f \n ", getHeight(), zoom);
         // getHeight = size in pixel of the screen (eg 1024x768)
@@ -1727,7 +1727,7 @@ void GameView::draw(Painter& painter)
     }
 
     int cost = 0;
-    //Mark Tile under Mouse // TODO: handle showTerrainHeight 
+    //Mark Tile under Mouse // TODO: handle showTerrainHeight
     if( mouseInGameView  && !blockingDialogIsOpen ) {
         MapPoint lastRazed( -1,-1 );
         int tiles = 0;
@@ -1738,7 +1738,7 @@ void GameView::draw(Painter& painter)
             currentTile = startRoad;
             //we are speaking of tools, so CST_GREEN == bulldozer
             if ( (selected_module_type == CST_GREEN)
-			  || (selected_module_type == CST_DESERT)) {
+              || (selected_module_type == CST_DESERT)) {
                 for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
                     for (currentTile.y = startRoad.y; currentTile.y != tileUnderMouse.y + stepy; currentTile.y += stepy) {
                         markTile( painter, currentTile );
@@ -1749,7 +1749,7 @@ void GameView::draw(Painter& painter)
                         tiles++;
                     }
                 }
-            } 
+            }
             else {
                 while( currentTile.x != tileUnderMouse.x) {
                     markTile( painter, currentTile );
@@ -1791,7 +1791,7 @@ void GameView::draw(Painter& painter)
         {
             int group = main_types[ selected_module_type ].group;
             std::string buildingName = main_groups[ group ].name;
-	    prize << dictionaryManager->get_dictionary().translate( buildingName );
+        prize << dictionaryManager->get_dictionary().translate( buildingName );
             prize << _(": Cost to build ");
             if( cost > 0 ) {
                 prize << cost << _("$");
@@ -1867,21 +1867,21 @@ int GameView::bulldozeCost( MapPoint tile ){
     int prize = 0;
     if (!inCity( tile )){
         //cdebug( "tile is outside" );
-	    return 0;
+        return 0;
     }
 
-	Construction *reportingConstruction = world(tile.x, tile.y)->reportingConstruction;
+    Construction *reportingConstruction = world(tile.x, tile.y)->reportingConstruction;
     if (reportingConstruction)
     {
         group = reportingConstruction->constructionGroup->group;
-    } 
+    }
 /*    else if (MP_TYPE( tile.x, tile.y) == CST_USED)
     {
         group = MP_GROUP( MP_INFO(tile.x,tile.y).int_1,
                           MP_INFO(tile.x,tile.y).int_2 );
     }*/
     else
-    {        
+    {
         group = world(tile.x, tile.y)->getGroup();
     }
     prize = main_groups[group].bul_cost;
@@ -1890,11 +1890,11 @@ int GameView::bulldozeCost( MapPoint tile ){
 
 int GameView::buildCost( MapPoint tile ){
     if( selected_module_type == CST_NONE ){
-    	return 0;
+        return 0;
     }
     if (!inCity( tile )){
         //cdebug( "tile is outside" );
-	    return 0;
+        return 0;
     }
 
     if (world(tile.x, tile.y)->getGroup() == CST_USED)

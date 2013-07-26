@@ -4,17 +4,15 @@
  * Lincity is copyright (c) I J Peters 1995-1997, (c) Greg Sharp 1997-2001.
  * ---------------------------------------------------------------------- */
 #include <cstdlib>
-//#include "modules.h"
 #include "market.h"
+#include "fire.h" //for playing with fire
 #include "lincity-ng/ErrorInterface.hpp"
-//#include "../range.h"
-//#include "../transport.h"
 
 MarketConstructionGroup marketConstructionGroup(
     "Market",
      FALSE,                     /* need credit? */
      GROUP_MARKET,
-     2,                         /* size */
+     GROUP_MARKET_SIZE,         /* size */
      GROUP_MARKET_COLOUR,
      GROUP_MARKET_COST_MUL,
      GROUP_MARKET_BUL_COST,
@@ -42,14 +40,14 @@ void Market::update()
     {
         stuff_ID = stuff_it->first;
         //dont handle stuff if neither give nor take
-        if (!commodityRuleCount[stuff_ID].give 
+        if (!commodityRuleCount[stuff_ID].give
          && !commodityRuleCount[stuff_ID].take)
         {
             continue;
         }
         //dont handle anything else than jobs if to little jobs
         // deadlock
-        
+
         if ((stuff_ID != STUFF_JOBS)
          && (commodityCount[STUFF_JOBS] < jobs)
            )
@@ -62,7 +60,7 @@ void Market::update()
         pears = 1;
         ratio = market_lvl * TRANSPORT_QUANTA / market_cap;
         market_ratio += ratio;
-        n++;      
+        n++;
         for(yy = ys; yy < ye; yy++)
         {
             for(xx = xs; xx < xe; xx++)
@@ -72,8 +70,8 @@ void Market::update()
                 if ( !world(xx,yy)->construction
                   || (world(xx,yy)->getGroup() == GROUP_MARKET)
                   || (world(xx,yy)->getGroup() == GROUP_POWER_LINE)
-                  || (world(xx,yy)->is_transport() && 
-                    !( ((xx==(x-1)) || (xx==(x+constructionGroup->size)) ) && 
+                  || (world(xx,yy)->is_transport() &&
+                    !( ((xx==(x-1)) || (xx==(x+constructionGroup->size)) ) &&
                     ((yy==(y-1)) || (yy==(y+constructionGroup->size)) ) )
                     )
                    )
@@ -83,7 +81,7 @@ void Market::update()
                 tmp = collect_transport_info( xx, yy, stuff_ID, market_ratio);
                 if (tmp != -1)
                 {
-                    ratio += tmp;                
+                    ratio += tmp;
                     pears++;
                 }
             }//endfor xx
@@ -98,20 +96,20 @@ void Market::update()
                 //Never deal with markets power lines or far away transport
                 if ( !world(xx,yy)->construction
                   || (world(xx,yy)->getGroup() == GROUP_MARKET)
-                  || (world(xx,yy)->getGroup() == GROUP_POWER_LINE) 
-                  || (world(xx,yy)->is_transport() && 
-                    !( ((xx==(x-1)) || (xx==(x+constructionGroup->size)) ) && 
+                  || (world(xx,yy)->getGroup() == GROUP_POWER_LINE)
+                  || (world(xx,yy)->is_transport() &&
+                    !( ((xx==(x-1)) || (xx==(x+constructionGroup->size)) ) &&
                     ((yy==(y-1)) || (yy==(y+constructionGroup->size)) ) )
                     )
                    )
                 {
                     continue;
-                }             
+                }
                 int old_lvl = market_lvl;
                 //do the normal flow
                 //if (collect_transport_info( xx, yy, stuff_ID, market_ratio)!=-1)
                 //{
-equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);                
+equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
                 //}
                 int flow = market_lvl - old_lvl;
                 //revert flow if it conflicts with local rules
@@ -119,31 +117,31 @@ equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
                  ||(!commodityRuleCount[stuff_ID].take && flow > 0))
                 {
                     market_lvl -= flow;
-                    world(xx,yy)->construction->commodityCount[stuff_ID] += flow;                
-                }                   
+                    world(xx,yy)->construction->commodityCount[stuff_ID] += flow;
+                }
             }//endfor xx
         }//endfor yy
         stuff_it->second = market_lvl;
     }//endfor stuff_it
-    
+
     if (commodityCount[STUFF_JOBS] >= jobs)
     {
         commodityCount[STUFF_JOBS] -= jobs;
-        //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport        
+        //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport
         income_tax += jobs;
     }
-  
-    if (total_time % 25 == 17) 
+
+    if (total_time % 25 == 17)
     {
         //average filling of the market, catch n == 0 in case market has
         //not yet any commodities initialized
-        if (n > 0)    
-        {	market_ratio = 100*market_ratio/(n * TRANSPORT_QUANTA);}
+        if (n > 0)
+        {   market_ratio = 100*market_ratio/(n * TRANSPORT_QUANTA);}
         else
-        {	market_ratio = 0;}
-   
+        {   market_ratio = 0;}
+
         if (market_ratio < 10)
-        {      
+        {
             type = CST_MARKET_LOW;
             jobs = JOBS_MARKET_LOW;
         }
@@ -160,17 +158,19 @@ equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
     }
     if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !burning_waste)
     {
-        old_type = type;        
-        type = CST_FIRE_1;
         anim = real_time + WASTE_BURN_TIME;
-        burning_waste = true;        
-        world(x,y)->pollution += 3000;       
-        commodityCount[STUFF_WASTE] -= (7 * MAX_WASTE_IN_MARKET) / 10;     
+        burning_waste = true;
+        world(x,y)->pollution += 3000;
+        commodityCount[STUFF_WASTE] -= (7 * MAX_WASTE_IN_MARKET) / 10;
+        world(x+1,y+1)->construction = fireConstructionGroup.createConstruction(x+1, y+1, CST_FIRE_1);
+        world(x+1,y+1)->reportingConstruction = world(x+1,y+1)->construction;
     }
     else if (burning_waste && real_time > anim)
     {
-        type = old_type;
         burning_waste = false;
+        delete world(x+1,y+1)->construction;
+        world(x+1,y+1)->construction = NULL;
+        world(x+1,y+1)->reportingConstruction = this;
     }
 }
 
@@ -184,7 +184,6 @@ void Market::cover() //do this for showing range in minimap
         }
     }
 }
-
 
 void Market::report()
 {

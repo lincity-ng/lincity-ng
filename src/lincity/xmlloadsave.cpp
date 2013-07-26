@@ -31,7 +31,7 @@ XMLTemplate::XMLTemplate(std::string templateXY)
 
 XMLTemplate::~XMLTemplate()
 {
-	if (bin_template_libary.count(template_group))
+    if (bin_template_libary.count(template_group))
     {
          bin_template_libary.erase(template_group);
     }
@@ -45,22 +45,22 @@ void XMLTemplate::rewind()
 
 size_t XMLTemplate::len()
 {
-	return char_len;
+    return char_len;
 }
 
 void XMLTemplate::add_len(size_t chunk)
 {
-	//binlen_sequence.push_back(chunk);
-	char_len += chunk;
+    //binlen_sequence.push_back(chunk);
+    char_len += chunk;
 }
 
 void XMLTemplate::set_group(int grp)
 {
-	if (grp >= 0)
-	{
-		bin_template_libary[grp]=this;
-		template_group = grp;
-	}
+    if (grp >= 0)
+    {
+        bin_template_libary[grp]=this;
+        template_group = grp;
+    }
 }
 
 
@@ -87,7 +87,7 @@ std::string const & XMLTemplate::getTag()
 /*
 size_t XMLTemplate::getNumChars()
 {
-	return binlen_sequence[cur_index];
+    return binlen_sequence[cur_index];
 }
 */
 
@@ -180,7 +180,7 @@ void XMLloadsave::clearXMLlibary()
 }
 
 void XMLloadsave::fillXMLlibary()
-{	
+{
     world(0,0)->writeTemplate();
     std::map<unsigned short, ConstructionGroup *>::iterator iterator;
     for (int i = 0; i < ::constructionCount.size(); i++)
@@ -203,8 +203,8 @@ int XMLloadsave::saveXMLfile(std::string xml_file_name)
         std::cout<<"Could not find "<<xml_file_name<<std::endl;
         return -1;
     }
-	std::cout << "gz saving " << xml_file_name << " ... ";
-	std::cout.flush();
+    std::cout << "gz saving " << xml_file_name << " ... ";
+    std::cout.flush();
     clearXMLlibary();
     xml_file_out.str("");
     ldsv_version = XML_LOADSAVE_VERSION;
@@ -217,14 +217,14 @@ int XMLloadsave::saveXMLfile(std::string xml_file_name)
     fillXMLlibary();
     if (!binary_mode)
     {
-		xml_file_out << "<TemplateSection>" << std::endl;
-		reportLibary(&xml_file_out);
-		xml_file_out << "</TemplateSection>" << std::endl;
-	}
-    saveMapTiles();  
-    saveConstructions();   
+        xml_file_out << "<TemplateSection>" << std::endl;
+        reportLibary(&xml_file_out);
+        xml_file_out << "</TemplateSection>" << std::endl;
+    }
+    saveMapTiles();
+    saveConstructions();
     xml_file_out<<"</SaveGame>"<<std::endl;
-    flush_gz_output();    
+    flush_gz_output();
     gzclose(gz_xml_file);
     clearXMLlibary();
     std::cout << "done" << std::endl;
@@ -257,73 +257,73 @@ int XMLloadsave::loadXMLfile(std::string xml_file_name)
     interpreting_template = false;
     templateDefinition = false;
     templateSection = false;
-    
+
     while (/*!xml_file_in.eof() &&*/ !gzeof(gz_xml_file))
     {
         //std::getline(xml_file_in, line);
-        
-		get_raw_line();
-		//if (!templateSection)std::cout << line << std::endl;
-		if (line == "<GlobalVariables>")
-		{
-			//std::cout << "approaching Globals" << std::endl;
-			if (!no_Section()) {return -1;}
-			globalSection = true;
-			loadGlobals();
-			globalSection = false;
-			//std::cout << "read Globals" << std::endl;
-			if (binary_mode)
-			{
-				fillXMLlibary();
-			}
-		}
-		else if (line == "<TemplateSection>")
-		{
-			if (!no_Section()) {return -1;}
-			templateSection = true;
-			readTemplateSection();
-			templateSection = false;	
-		}
-		else if (line == "<MapTileSection>")
-		{
-			if (!no_Section()) {return -1;}
-			mapTileSection = true;
-			if (!binary_mode)
-			{	
-				//std::cout << "approaching text tiles" << std::endl;
-				loadMapTiles();
-				//std::cout << "loaded text tiles" << std::endl;
-			}
-			else
-			{	
-				//std::cout << "approaching binary tiles" << std::endl;
-				loadTileTemplates();
-				get_raw_line();//eat extra newline in binary modes
-				//std::cout << "loaded binary tiles" << std::endl;
-			}
-			mapTileSection = false;
-			
-		}
-		else if (line == "<ConstructionSection>")
-		{
-			if (!no_Section()) {return -1;}
-			constructionSection = true;
-			if (!binary_mode)
-			{	
-				//std::cout << "approaching txt constructions" << std::endl;
-				loadConstructions();
-				//std::cout << "loaded txt constructions" << std::endl;
-			}
-			else
-			{	
-				//std::cout << "approaching binary constructions" << std::endl;
-				for(int i=0; i<totalConstructions; ++i)
-				{	loadConstructionTemplates(); }
-				get_raw_line();//eat extra newline in binary modes
-				//std::cout << "loaded binary constructions" << std::endl;
-			}
-			constructionSection = false;			
-		}		
+
+        get_raw_line();
+        //if (!templateSection)std::cout << line << std::endl;
+        if (line == "<GlobalVariables>")
+        {
+            //std::cout << "approaching Globals" << std::endl;
+            if (!no_Section()) {return -1;}
+            globalSection = true;
+            loadGlobals();
+            globalSection = false;
+            //std::cout << "read Globals" << std::endl;
+            if (binary_mode)
+            {
+                fillXMLlibary();
+            }
+        }
+        else if (line == "<TemplateSection>")
+        {
+            if (!no_Section()) {return -1;}
+            templateSection = true;
+            readTemplateSection();
+            templateSection = false;
+        }
+        else if (line == "<MapTileSection>")
+        {
+            if (!no_Section()) {return -1;}
+            mapTileSection = true;
+            if (!binary_mode)
+            {
+                //std::cout << "approaching text tiles" << std::endl;
+                loadMapTiles();
+                //std::cout << "loaded text tiles" << std::endl;
+            }
+            else
+            {
+                //std::cout << "approaching binary tiles" << std::endl;
+                loadTileTemplates();
+                get_raw_line();//eat extra newline in binary modes
+                //std::cout << "loaded binary tiles" << std::endl;
+            }
+            mapTileSection = false;
+
+        }
+        else if (line == "<ConstructionSection>")
+        {
+            if (!no_Section()) {return -1;}
+            constructionSection = true;
+            if (!binary_mode)
+            {
+                //std::cout << "approaching txt constructions" << std::endl;
+                loadConstructions();
+                //std::cout << "loaded txt constructions" << std::endl;
+            }
+            else
+            {
+                //std::cout << "approaching binary constructions" << std::endl;
+                for(int i=0; i<totalConstructions; ++i)
+                {   loadConstructionTemplates(); }
+                get_raw_line();//eat extra newline in binary modes
+                //std::cout << "loaded binary constructions" << std::endl;
+            }
+            constructionSection = false;
+        }
     }
     gzclose(gz_xml_file);
     std::cout << "done" << std::endl;
@@ -339,11 +339,11 @@ int XMLloadsave::loadXMLfile(std::string xml_file_name)
 
 void XMLloadsave::readTemplateSection()
 {
-	do
+    do
     {
         get_interpreted_line();
-	}
-    while (line!="</TemplateSection>" && !gzeof(gz_xml_file));    
+    }
+    while (line!="</TemplateSection>" && !gzeof(gz_xml_file));
 }
 
 
@@ -399,26 +399,13 @@ void XMLloadsave::saveConstructions()
         if (::constructionCount[i])
         {
             // "extinquish all potential waste burners"
-            // ugly, but clean way would require old_type for all constructions            
             if(binary_mode)//textmode can handle old_types anyways
             {
                 if (::constructionCount[i]->flags & FLAG_IS_TRANSPORT)
                 {
                     Transport *transport = dynamic_cast<Transport*>(::constructionCount[i]);
                     transport->burning_waste = false;
-                    transport->type = transport->old_type;                
-                }
-                else if (::constructionCount[i]->constructionGroup->group == GROUP_MARKET) 
-                {
-                    Market *market = dynamic_cast<Market*>(::constructionCount[i]);
-                    market->burning_waste = false;
-                    market->type = market->old_type; 
-                }
-                else if (::constructionCount[i]->constructionGroup->group == GROUP_SHANTY) 
-                {
-                    Shanty *shanty = dynamic_cast<Shanty*>(::constructionCount[i]);
-                    shanty->burning_waste = false;
-                    shanty->type = shanty->old_type; 
+                    transport->type = transport->old_type;
                 }
             }
             ::constructionCount[i]->saveMembers(&xml_file_out);
@@ -426,7 +413,7 @@ void XMLloadsave::saveConstructions()
         }
     }
     if (binary_mode)
-    {	xml_file_out << std::endl;}
+    {   xml_file_out << std::endl;}
     xml_file_out<<"</ConstructionSection>"<<std::endl;
     flush_gz_output();
 }
@@ -513,103 +500,103 @@ void XMLloadsave::loadConstructions()
 void
 XMLloadsave::loadTileTemplates()
 {
-	unsigned short head,group,type;
-	cur_template = bin_template_libary[GROUP_DESERT];
-	const int wlen = world.len();
-	const int area = wlen*wlen;
-	int idx;
-	for(int i=0; i<area; ++i)
-	{	
-		gzread(gz_xml_file, (char *)&head, sizeof(head));
-		gzread(gz_xml_file, (char *)&group, sizeof(group));
-		gzread(gz_xml_file, (char *)&type, sizeof(type));
-		gzread(gz_xml_file, (char *)&idx, sizeof(idx));
-					
-		//assert((head == 42) && (idx == i));		
-		cur_template->rewind();		
-		MapTile *cur_tile = world(i);	
-		cur_tile->group = group;
-		cur_tile->type = type;
-		size_t cm = 0;
-		while(!cur_template->reached_end())
-		{			
-			xml_tag = cur_template->getTag();
-			//size_t len = cur_template->getNumChars();
-			
-			//mapTile
-			if (xml_tag == "flags")             	 {cm += gzread(gz_xml_file, (char*)&cur_tile->flags, sizeof( cur_tile->flags));}
-			else if (xml_tag == "air_pol")           {cm += gzread(gz_xml_file, (char*)&cur_tile->pollution,  sizeof( cur_tile->pollution ));}
-			else if (xml_tag == "ore")               {cm += gzread(gz_xml_file, (char*)&cur_tile->ore_reserve,  sizeof( cur_tile->ore_reserve ));}
-			else if (xml_tag == "coal")              {cm += gzread(gz_xml_file, (char*)&cur_tile->coal_reserve,  sizeof( cur_tile->coal_reserve ));}
-			//ground
-			else if (xml_tag == "altitude")          {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.altitude, sizeof( cur_tile->ground.altitude ));}
-			else if (xml_tag == "ecotable")          {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.ecotable, sizeof( cur_tile->ground.ecotable ));}
-			else if (xml_tag == "wastes")            {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.wastes, sizeof( cur_tile->ground.wastes ));}
-			else if (xml_tag == "grd_pol")           {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.pollution, sizeof( cur_tile->ground.pollution ));}
-			else if (xml_tag == "water_alt")         {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.water_alt, sizeof( cur_tile->ground.water_alt ));}
-			else if (xml_tag == "water_pol")         {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.water_pol, sizeof( cur_tile->ground.water_pol ));}
-			else if (xml_tag == "water_wast")        {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.water_wast, sizeof( cur_tile->ground.water_wast ));}
-			else if (xml_tag == "water_next")        {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.water_next, sizeof( cur_tile->ground.water_next ));}
-			else if (xml_tag == "int1")              {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.int1, sizeof( cur_tile->ground.int1 ));}
-			else if (xml_tag == "int2")              {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.int2, sizeof( cur_tile->ground.int2 ));}
-			else if (xml_tag == "int3")              {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.int3, sizeof( cur_tile->ground.int3 ));}
-			else if (xml_tag == "int4")              {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.int4, sizeof( cur_tile->ground.int4 ));}
-			else
-			{
-				std::cout<<"Invalid format while reading binary tiles "<<std::endl;
-			}
-			cur_template->step();
-		}
-		//assert (cm == cur_template->len());
-		mapTileCount++;
-	}	
+    unsigned short head,group,type;
+    cur_template = bin_template_libary[GROUP_DESERT];
+    const int wlen = world.len();
+    const int area = wlen*wlen;
+    int idx;
+    for(int i=0; i<area; ++i)
+    {
+        gzread(gz_xml_file, (char *)&head, sizeof(head));
+        gzread(gz_xml_file, (char *)&group, sizeof(group));
+        gzread(gz_xml_file, (char *)&type, sizeof(type));
+        gzread(gz_xml_file, (char *)&idx, sizeof(idx));
+
+        //assert((head == 42) && (idx == i));
+        cur_template->rewind();
+        MapTile *cur_tile = world(i);
+        cur_tile->group = group;
+        cur_tile->type = type;
+        size_t cm = 0;
+        while(!cur_template->reached_end())
+        {
+            xml_tag = cur_template->getTag();
+            //size_t len = cur_template->getNumChars();
+
+            //mapTile
+            if (xml_tag == "flags")                  {cm += gzread(gz_xml_file, (char*)&cur_tile->flags, sizeof( cur_tile->flags));}
+            else if (xml_tag == "air_pol")           {cm += gzread(gz_xml_file, (char*)&cur_tile->pollution,  sizeof( cur_tile->pollution ));}
+            else if (xml_tag == "ore")               {cm += gzread(gz_xml_file, (char*)&cur_tile->ore_reserve,  sizeof( cur_tile->ore_reserve ));}
+            else if (xml_tag == "coal")              {cm += gzread(gz_xml_file, (char*)&cur_tile->coal_reserve,  sizeof( cur_tile->coal_reserve ));}
+            //ground
+            else if (xml_tag == "altitude")          {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.altitude, sizeof( cur_tile->ground.altitude ));}
+            else if (xml_tag == "ecotable")          {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.ecotable, sizeof( cur_tile->ground.ecotable ));}
+            else if (xml_tag == "wastes")            {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.wastes, sizeof( cur_tile->ground.wastes ));}
+            else if (xml_tag == "grd_pol")           {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.pollution, sizeof( cur_tile->ground.pollution ));}
+            else if (xml_tag == "water_alt")         {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.water_alt, sizeof( cur_tile->ground.water_alt ));}
+            else if (xml_tag == "water_pol")         {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.water_pol, sizeof( cur_tile->ground.water_pol ));}
+            else if (xml_tag == "water_wast")        {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.water_wast, sizeof( cur_tile->ground.water_wast ));}
+            else if (xml_tag == "water_next")        {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.water_next, sizeof( cur_tile->ground.water_next ));}
+            else if (xml_tag == "int1")              {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.int1, sizeof( cur_tile->ground.int1 ));}
+            else if (xml_tag == "int2")              {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.int2, sizeof( cur_tile->ground.int2 ));}
+            else if (xml_tag == "int3")              {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.int3, sizeof( cur_tile->ground.int3 ));}
+            else if (xml_tag == "int4")              {cm += gzread(gz_xml_file, (char*)&cur_tile->ground.int4, sizeof( cur_tile->ground.int4 ));}
+            else
+            {
+                std::cout<<"Invalid format while reading binary tiles "<<std::endl;
+            }
+            cur_template->step();
+        }
+        //assert (cm == cur_template->len());
+        mapTileCount++;
+    }
 }
 
 void
 XMLloadsave::loadConstructionTemplates()
 {
-	
-	unsigned short group, head, type;
-	int idx;
-	
-	gzread(gz_xml_file, (char *)&head, sizeof(head));
-	gzread(gz_xml_file, (char *)&group, sizeof(group));
-	gzread(gz_xml_file, (char *)&type, sizeof(type));
-	gzread(gz_xml_file, (char *)&idx, sizeof(idx));
-	//std::cout << "binary construction header: " << group << " | " << type << " | " << idx << "..."; 
-	//std::cout.flush();	
-	int x = idx % world.len();
-	int y = idx / world.len();
-	//std::cout << head << " aka " << group << " at " << x << ", " << y << std::endl;
-	ConstructionGroup::getConstructionGroup(head)->placeItem(x, y, type);
-	if (!bin_template_libary.count(head))
-	{
-		world(x,y)->construction->writeTemplate();
-	}
-	cur_template = bin_template_libary[head];
-	//assert(cur_template);
-	//cur_template->report(&std::cout);
-	cur_template->rewind();
-	size_t cm = 0;
-	while (!cur_template->reached_end())
-	{
-		cm += world(x,y)->construction->readbinaryMember(cur_template->getTag(),gz_xml_file);
-		cur_template->step();
-	}
-	//assert(cm = cur_template->len());
-	//std::cout << "OK" <<std::endl;	
+
+    unsigned short group, head, type;
+    int idx;
+
+    gzread(gz_xml_file, (char *)&head, sizeof(head));
+    gzread(gz_xml_file, (char *)&group, sizeof(group));
+    gzread(gz_xml_file, (char *)&type, sizeof(type));
+    gzread(gz_xml_file, (char *)&idx, sizeof(idx));
+    //std::cout << "binary construction header: " << group << " | " << type << " | " << idx << "...";
+    //std::cout.flush();
+    int x = idx % world.len();
+    int y = idx / world.len();
+    //std::cout << head << " aka " << group << " at " << x << ", " << y << std::endl;
+    ConstructionGroup::getConstructionGroup(head)->placeItem(x, y, type);
+    if (!bin_template_libary.count(head))
+    {
+        world(x,y)->construction->writeTemplate();
+    }
+    cur_template = bin_template_libary[head];
+    //assert(cur_template);
+    //cur_template->report(&std::cout);
+    cur_template->rewind();
+    size_t cm = 0;
+    while (!cur_template->reached_end())
+    {
+        cm += world(x,y)->construction->readbinaryMember(cur_template->getTag(),gz_xml_file);
+        cur_template->step();
+    }
+    //assert(cm = cur_template->len());
+    //std::cout << "OK" <<std::endl;
 }
 
 void XMLloadsave::saveGlobals()
 {
     xml_file_out << "<GlobalVariables>" << std::endl;
-	
-	xml_file_out << "<binary_mode>"                << binary_mode              << "</binary_mode>" << std::endl;
+
+    xml_file_out << "<binary_mode>"                << binary_mode              << "</binary_mode>" << std::endl;
     xml_file_out << "<constructions>"           << ::constructionCount.count() << "</constructions>" << std::endl;
     xml_file_out << "<given_scene>"                << given_scene              << "</given_scene>" << std::endl;
-    
-    
-    
+
+
+
     xml_file_out << "<global_aridity>"             << global_aridity           << "</global_aridity>" << std::endl;
     xml_file_out << "<global_mountainity>"         << global_mountainity       << "</global_mountainity>" << std::endl;
     xml_file_out << "<world_side_len>"             << world.len()              << "</world_side_len>" << std::endl;
@@ -635,7 +622,7 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<tpopulation>"                << tpopulation              << "</tpopulation> " << std::endl;
     xml_file_out << "<tstarving_population>"       << tstarving_population     << "</tstarving_population>" << std::endl;
     xml_file_out << "<tunemployed_population>"     << tunemployed_population   << "</tunemployed_population>" << std::endl;
-    
+
     xml_file_out << "<total_pollution>"            << total_pollution          << "</total_pollution> " << std::endl;
     xml_file_out << "<rockets_launched>"           << rockets_launched         << "</rockets_launched>" << std::endl;
     xml_file_out << "<rockets_launched_success>"   << rockets_launched_success << "</rockets_launched_success>" << std::endl;
@@ -653,7 +640,7 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<total_evacuated>"            << total_evacuated          << "</total_evacuated>" << std::endl;
     xml_file_out << "<total_births>"               << total_births             << "</total_births>" << std::endl;
 
-    
+
     xml_file_out << "<sust_dig_ore_coal_tip_flag>"    << sust_dig_ore_coal_tip_flag  << "</sust_dig_ore_coal_tip_flag>" << std::endl;
     xml_file_out << "<sust_dig_ore_coal_count>"    << sust_dig_ore_coal_count  << "</sust_dig_ore_coal_count>" << std::endl;
     xml_file_out << "<sust_port_count>"            << sust_port_count          << "</sust_port_count>" << std::endl;
@@ -703,7 +690,7 @@ void XMLloadsave::loadGlobals()
         {
 
             globalCount++;
-            if (xml_tag == "binary_mode") 						   {binary_mode = (xml_val == "1")||(xml_val == "yes");}							
+            if (xml_tag == "binary_mode")                          {binary_mode = (xml_val == "1")||(xml_val == "yes");}
             else if (xml_tag == "constructions")                   {sscanf(xml_val.c_str(),"%d",&totalConstructions);}
             else if (xml_tag == "given_scene")                     {strcpy(given_scene, xml_val.c_str());}
             else if (xml_tag == "global_aridity")                  {sscanf(xml_val.c_str(),"%d",&global_aridity);}
@@ -732,7 +719,7 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "tpopulation")                     {sscanf(xml_val.c_str(),"%d",&tpopulation);}
             else if (xml_tag == "tstarving_population")            {sscanf(xml_val.c_str(),"%d",&tstarving_population);}
             else if (xml_tag == "tunemployed_population")          {sscanf(xml_val.c_str(),"%d",&tunemployed_population);}
-            
+
             else if (xml_tag == "total_pollution")                 {sscanf(xml_val.c_str(),"%d",&total_pollution);}
             else if (xml_tag == "rockets_launched")                {sscanf(xml_val.c_str(),"%d",&rockets_launched);}
             else if (xml_tag == "rockets_launched_success")        {sscanf(xml_val.c_str(),"%d",&rockets_launched_success);}
@@ -809,12 +796,12 @@ void XMLloadsave::saveMapTiles()
     const int area = len * len;
     for (int index = 0; index<area; index++)
     {
-		world(index)->saveMembers(&xml_file_out);
-		flush_gz_output();
+        world(index)->saveMembers(&xml_file_out);
+        flush_gz_output();
 
     }
     if (binary_mode)
-    {	xml_file_out << std::endl;}
+    {   xml_file_out << std::endl;}
     xml_file_out << "</MapTileSection>" << std::endl;
     //flush_gz_output();
 }
@@ -834,7 +821,7 @@ void XMLloadsave::loadMapTiles()
     do
     {
         get_interpreted_line();
-        //std::cout << line << "*" << std::endl; 
+        //std::cout << line << "*" << std::endl;
         if (line == "<MapTile>")
         {
             inside_MapTile = true;
@@ -1088,7 +1075,7 @@ int XMLloadsave::get_interpreted_line()
     {
         //std::getline(xml_file_in, line);
         get_raw_line();
-        r = sliceXMLline();        
+        r = sliceXMLline();
         if (line == "<Template>") // There is a template definition
         {
             templateDefinition = true;
@@ -1205,18 +1192,18 @@ void XMLloadsave::rewind()
 }
 
 void XMLloadsave::reportLibary(std::ostream *os)
-{		        
-	*os << "<Template>" << std::endl;
-	for(template_it = xml_template_libary.begin(); template_it != xml_template_libary.end(); template_it++)
-    {	template_it->second->report(os);}   		
-	*os << "</Template>" << std::endl;
+{
+    *os << "<Template>" << std::endl;
+    for(template_it = xml_template_libary.begin(); template_it != xml_template_libary.end(); template_it++)
+    {   template_it->second->report(os);}
+    *os << "</Template>" << std::endl;
 }
 
 void XMLTemplate::report(std::ostream *os)
 {
-	*os << "<" << template_tag << ">";
-	for (size_t i = 0; i < tag_sequence.size(); ++i)
-	{	*os << tag_sequence[i] << '\t';}	
-	*os << "</" << template_tag << ">" << std::endl;
+    *os << "<" << template_tag << ">";
+    for (size_t i = 0; i < tag_sequence.size(); ++i)
+    {   *os << tag_sequence[i] << '\t';}
+    *os << "</" << template_tag << ">" << std::endl;
 }
 

@@ -1,10 +1,11 @@
 #define GROUP_SHANTY_COLOUR    (red(22))
-#define GROUP_SHANTY_COST   0   /* Unused */
-#define GROUP_SHANTY_COST_MUL   1       /* Unused */
+#define GROUP_SHANTY_COST      0   /* Unused */
+#define GROUP_SHANTY_COST_MUL  1   /* Unused */
 #define GROUP_SHANTY_BUL_COST  100000
-#define GROUP_SHANTY_TECH   0   /* Unused */
+#define GROUP_SHANTY_TECH      0   /* Unused */
 #define GROUP_SHANTY_FIREC     25
 #define GROUP_SHANTY_RANGE     0
+#define GROUP_SHANTY_SIZE      2
 
 
 #define SHANTY_MIN_PP     150
@@ -33,7 +34,6 @@
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-//#include "../range.h"
 
 class ShantyConstructionGroup: public ConstructionGroup {
 public:
@@ -70,7 +70,7 @@ public:
         commodityRuleCount[Construction::STUFF_WASTE].give = true;
         commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_SHANTY;
         commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;    
+        commodityRuleCount[Construction::STUFF_KWH].give = false;
     }
     // overriding method that creates a Shanty
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -80,22 +80,19 @@ extern ShantyConstructionGroup shantyConstructionGroup;
 
 class Shanty: public CountedConstruction<Shanty> { // Shanty inherits from Construction
 public:
-	Shanty(int x, int y, unsigned short type): CountedConstruction<Shanty>(x, y, type)
-    {       
+    Shanty(int x, int y, unsigned short type): CountedConstruction<Shanty>(x, y, type)
+    {
         constructionGroup = &shantyConstructionGroup;
         initialize_commodities();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;
-        this->old_type = this->type;
-        setMemberSaved(&(this->old_type),"type");
         this->burning_waste = false;
     }
-	virtual ~Shanty() { }
-	virtual void update();
-	virtual void report();
+    virtual ~Shanty() { }
+    virtual void update();
+    virtual void report();
     int anim;
     bool burning_waste;
-    int old_type;
 };
 
 
