@@ -27,14 +27,14 @@ struct pbar_st pbars[NUM_PBARS];
 
 void update_pbar (int pbar_num, int value, int month_flag)
 {
-    // copy of update_pbar from src/oldgui/pbar.cpp 
-    // store values for savegame 
+    // copy of update_pbar from src/oldgui/pbar.cpp
+    // store values for savegame
     int i;
     struct pbar_st * pbar = &pbars[pbar_num];
 
     if (month_flag) {
          pbar->oldtot = pbar->tot;
-    
+
         /* If the dataset isn't full, just add it and forget month_flag */
         if (pbar->data_size < PBAR_DATA_SIZE)
         {
@@ -48,7 +48,7 @@ void update_pbar (int pbar_num, int value, int month_flag)
 
     for (i = 0; i < (pbar->data_size - 1); i++)
     {
-        if (month_flag) 
+        if (month_flag)
             pbar->tot += (pbar->data[i] = pbar->data[i+1]);
         else
             pbar->tot += pbar->data[i];
@@ -58,23 +58,23 @@ void update_pbar (int pbar_num, int value, int month_flag)
 
     // new: update bars
     if(LCPBarPage1 && LCPBarPage2)
-	{   
-		LCPBarPage1->setValue(pbar_num,value,pbar->diff);
-		LCPBarPage2->setValue(pbar_num,value,pbar->diff);
-	}
+    {
+        LCPBarPage1->setValue(pbar_num,value,pbar->diff);
+        LCPBarPage2->setValue(pbar_num,value,pbar->diff);
+    }
 }
 
 void refresh_pbars (void)
 {
-	if(LCPBarPage1 && LCPBarPage2)
-		for (int p = 0; p<NUM_PBARS; p++)
-		{
-			struct pbar_st * pbar = &pbars[p];
-			if (pbarGlobalStyle == 0)
-			{	LCPBarPage1->setValue(p,pbar->data[pbar->data_size - 1],pbar->diff);}
-			else if (pbarGlobalStyle == 1)
-			{	LCPBarPage2->setValue(p,pbar->data[pbar->data_size - 1],pbar->diff);}
-		}	
+    if(LCPBarPage1 && LCPBarPage2)
+        for (int p = 0; p<NUM_PBARS; p++)
+        {
+            struct pbar_st * pbar = &pbars[p];
+            if (pbarGlobalStyle == 0)
+            {   LCPBarPage1->setValue(p,pbar->data[pbar->data_size - 1],pbar->diff);}
+            else if (pbarGlobalStyle == 1)
+            {   LCPBarPage2->setValue(p,pbar->data[pbar->data_size - 1],pbar->diff);}
+        }
 }
 
 void init_pbars (void)
@@ -96,43 +96,42 @@ void update_pbars_monthly()
 {
     update_pbar (PPOP, housed_population + people_pool, 1);
     update_pbar (PTECH, tech_level, 1);
-    update_pbar (PMONEY, total_money, 1);   
-	if (tstat_capacities[Construction::STUFF_FOOD] > 99)
-	{    update_pbar (PFOOD, tstat_census[Construction::STUFF_FOOD] / (tstat_capacities[Construction::STUFF_FOOD]/100), 1);}
-	else update_pbar (PFOOD,0,1);
-	if (tstat_capacities[Construction::STUFF_JOBS] > 99)
-	{	 update_pbar (PJOBS, tstat_census[Construction::STUFF_JOBS] / ( tstat_capacities[Construction::STUFF_JOBS]/100), 1);}
-	else update_pbar (PJOBS,0,1);
-	if (tstat_capacities[Construction::STUFF_GOODS] > 99)
-	{	 update_pbar (PGOODS, tstat_census[Construction::STUFF_GOODS] / ( tstat_capacities[Construction::STUFF_GOODS]/100), 1);}
-	else update_pbar (PGOODS,0,1);
-	if (tstat_capacities[Construction::STUFF_COAL] > 99)
-	{    update_pbar (PCOAL, tstat_census[Construction::STUFF_COAL] / ( tstat_capacities[Construction::STUFF_COAL]/100), 1);}
-	else update_pbar (PCOAL,0,1);
-	if (tstat_capacities[Construction::STUFF_ORE] > 99)
-	{    update_pbar (PORE, tstat_census[Construction::STUFF_ORE] / ( tstat_capacities[Construction::STUFF_ORE]/100), 1);}
-	else update_pbar (PORE,0,1);
-	if (tstat_capacities[Construction::STUFF_STEEL] > 99)
-	{    update_pbar (PSTEEL, tstat_census[Construction::STUFF_STEEL] / ( tstat_capacities[Construction::STUFF_STEEL]/100), 1);}
-	else update_pbar (PSTEEL,0,1);
+    update_pbar (PMONEY, total_money, 1);
+    if (tstat_capacities[Construction::STUFF_FOOD] > 99)
+    {    update_pbar (PFOOD, tstat_census[Construction::STUFF_FOOD] / (tstat_capacities[Construction::STUFF_FOOD]/100), 1);}
+    else update_pbar (PFOOD,0,1);
+    if (tstat_capacities[Construction::STUFF_JOBS] > 99)
+    {    update_pbar (PJOBS, tstat_census[Construction::STUFF_JOBS] / ( tstat_capacities[Construction::STUFF_JOBS]/100), 1);}
+    else update_pbar (PJOBS,0,1);
+    if (tstat_capacities[Construction::STUFF_GOODS] > 99)
+    {    update_pbar (PGOODS, tstat_census[Construction::STUFF_GOODS] / ( tstat_capacities[Construction::STUFF_GOODS]/100), 1);}
+    else update_pbar (PGOODS,0,1);
+    if (tstat_capacities[Construction::STUFF_COAL] > 99)
+    {    update_pbar (PCOAL, tstat_census[Construction::STUFF_COAL] / ( tstat_capacities[Construction::STUFF_COAL]/100), 1);}
+    else update_pbar (PCOAL,0,1);
+    if (tstat_capacities[Construction::STUFF_ORE] > 99)
+    {    update_pbar (PORE, tstat_census[Construction::STUFF_ORE] / ( tstat_capacities[Construction::STUFF_ORE]/100), 1);}
+    else update_pbar (PORE,0,1);
+    if (tstat_capacities[Construction::STUFF_STEEL] > 99)
+    {    update_pbar (PSTEEL, tstat_census[Construction::STUFF_STEEL] / ( tstat_capacities[Construction::STUFF_STEEL]/100), 1);}
+    else update_pbar (PSTEEL,0,1);
 
-	update_pbar (PPOL, total_pollution, 1);	
-	if (tstat_capacities[Construction::STUFF_KWH] > 99)
-	{	 update_pbar (PKWH, tstat_census[Construction::STUFF_KWH] / ( tstat_capacities[Construction::STUFF_KWH]/100), 1);}
-	else update_pbar (PKWH,0,1);
-	if (tstat_capacities[Construction::STUFF_MWH] > 99)
-	{	 update_pbar (PMWH, tstat_census[Construction::STUFF_MWH] / ( tstat_capacities[Construction::STUFF_MWH]/100), 1);}
-	else update_pbar (PMWH,0,1);
-	if (tstat_capacities[Construction::STUFF_WATER] > 99)
-	{    update_pbar (PWATER, tstat_census[Construction::STUFF_WATER] / ( tstat_capacities[Construction::STUFF_WATER]/100), 1);}
-	else update_pbar (PWATER,0,1);
-	if (tstat_capacities[Construction::STUFF_WASTE] > 99)
-	{    update_pbar (PWASTE, tstat_census[Construction::STUFF_WASTE] / (tstat_capacities[Construction::STUFF_WASTE]/100), 1);}
-	else update_pbar (PWASTE,0,1);
-	update_pbar (PHOUSE, (100 * housed_population)/total_housing , 1);
-	
-	
-	
+    update_pbar (PPOL, total_pollution, 1);
+    if (tstat_capacities[Construction::STUFF_KWH] > 99)
+    {    update_pbar (PKWH, tstat_census[Construction::STUFF_KWH] / ( tstat_capacities[Construction::STUFF_KWH]/100), 1);}
+    else update_pbar (PKWH,0,1);
+    if (tstat_capacities[Construction::STUFF_MWH] > 99)
+    {    update_pbar (PMWH, tstat_census[Construction::STUFF_MWH] / ( tstat_capacities[Construction::STUFF_MWH]/100), 1);}
+    else update_pbar (PMWH,0,1);
+    if (tstat_capacities[Construction::STUFF_WATER] > 99)
+    {    update_pbar (PWATER, tstat_census[Construction::STUFF_WATER] / ( tstat_capacities[Construction::STUFF_WATER]/100), 1);}
+    else update_pbar (PWATER,0,1);
+    if (tstat_capacities[Construction::STUFF_WASTE] > 99)
+    {    update_pbar (PWASTE, tstat_census[Construction::STUFF_WASTE] / (tstat_capacities[Construction::STUFF_WASTE]/100), 1);}
+    else update_pbar (PWASTE,0,1);
+    if (total_housing)
+    {    update_pbar (PHOUSE, (100 * housed_population)/total_housing , 1);}
+    else update_pbar (PHOUSE,0,1);
 
 }
 
