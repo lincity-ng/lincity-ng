@@ -398,16 +398,9 @@ void XMLloadsave::saveConstructions()
     {
         if (::constructionCount[i])
         {
-            // "extinquish all potential waste burners"
-            if(binary_mode)//textmode can handle old_types anyways
-            {
-                if (::constructionCount[i]->flags & FLAG_IS_TRANSPORT)
-                {
-                    Transport *transport = dynamic_cast<Transport*>(::constructionCount[i]);
-                    transport->burning_waste = false;
-                    transport->type = transport->old_type;
-                }
-            }
+            //we dont save ghosts like temporary fires on transport
+            if(::constructionCount[i]->flags & FLAG_IS_GHOST)
+            {   continue;}
             ::constructionCount[i]->saveMembers(&xml_file_out);
             flush_gz_output();
         }

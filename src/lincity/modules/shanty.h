@@ -86,13 +86,11 @@ public:
         initialize_commodities();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;
-        this->burning_waste = false;
     }
     virtual ~Shanty() { }
     virtual void update();
     virtual void report();
     int anim;
-    bool burning_waste;
 };
 
 

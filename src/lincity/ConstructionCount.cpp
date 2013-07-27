@@ -10,9 +10,9 @@
 #include "lintypes.h"
 #include "engine.h"
 
-ConstructionCount::ConstructionCount() 
+ConstructionCount::ConstructionCount()
 {
-    constructionVector.resize(100, NULL);    
+    constructionVector.resize(100, NULL);
     permutator = new Permutator(100,1);
     free_slot = 0;
 }
@@ -26,18 +26,18 @@ ConstructionCount:: ~ConstructionCount()
 void
 ConstructionCount::add_construction(Construction * construction)
 {
-    
+
     while(free_slot < constructionVector.size() && constructionVector[free_slot] ) {free_slot++;}
     if (free_slot == constructionVector.size())
     {
         constructionVector.resize(constructionVector.size()*3/2, NULL);
         update_permutator();
         //std::cout << "growing constructionCount " << constructionVector.size() << std::endl;
-    }    
+    }
     constructionVector[free_slot++] = construction;
-    world.dirty = true;    
-    //std::cout << "Added Construction to constructionCount: " << 
-    //    construction->constructionGroup->name << " ID :" << construction->ID << std::endl; 
+    world.dirty = true;
+    //std::cout << "Added Construction to constructionCount: " <<
+    //    construction->constructionGroup->name << " ID :" << construction->ID << std::endl;
 }
 
 void
@@ -50,54 +50,57 @@ ConstructionCount::remove_construction(Construction * construction)
     while(free_slot < constructionVector.size() && constructionVector[free_slot] != construction) {free_slot++;}
     if (constructionVector[free_slot] == construction)
     {
-        //std::cout << "Nullified Construction in constructionCount: " << 
-        //construction->constructionGroup->name << " ID :" << construction->ID << std::endl;         
+        //std::cout << "Nullified Construction in constructionCount: " <<
+        //construction->constructionGroup->name << " ID :" << construction->ID << std::endl;
         constructionVector[free_slot] = NULL;
-        //constructionVector.erase(i,i+1);            
+        //constructionVector.erase(i,i+1);
         //update_permutator();
     }
+/*
+    //normal event if market or shanty is burning waste
     else
     {
-        std::cout << "Could not find Construction in constructionCount: " << 
+        std::cout << "Could not find Construction in constructionCount: " <<
         construction->constructionGroup->name << " ID :" << construction->ID << std::endl;
-        //assert(false); 
+        //assert(false);
     }
-    free_slot = 0;   
+*/
+    free_slot = 0;
 }
 
 void
 ConstructionCount::shuffle()
 {
-    permutator->shuffle();    
+    permutator->shuffle();
 }
 
 Construction*
 ConstructionCount::operator[](unsigned int i)
 {
-    return constructionVector[permutator->getIndex(i)];    
+    return constructionVector[permutator->getIndex(i)];
 }
 
 void
-ConstructionCount::update_permutator() 
+ConstructionCount::update_permutator()
 {
     if (permutator)
-    {    
+    {
         delete permutator;
     }
     permutator = new Permutator(constructionVector.size(),1);
 }
 
 int
-ConstructionCount::size() 
+ConstructionCount::size()
 {
-    return constructionVector.size(); 
+    return constructionVector.size();
 }
 
 void
-ConstructionCount::size(int new_len) 
+ConstructionCount::size(int new_len)
 {
     constructionVector.resize(new_len, NULL);
-    update_permutator(); 
+    update_permutator();
 }
 
 int
@@ -107,7 +110,7 @@ ConstructionCount::count()
     for(size_t i = 0; i < constructionVector.size(); ++i)
     {
         if (constructionVector[i])
-        {	++n;} 
+        {   ++n;}
     }
     return n;
 }
@@ -122,14 +125,14 @@ ConstructionCount::clear()
     {
         if (constructionVector[free_slot])
         {
-            std::cout << "killing ghost" << std::endl;            
+            std::cout << "killing ghost" << std::endl;
             int x = constructionVector[free_slot]->x;
-            int y = constructionVector[free_slot]->y;              
+            int y = constructionVector[free_slot]->y;
             constructionVector[free_slot] = NULL;
-            do_bulldoze_area(x,y); 
-        } 
+            do_bulldoze_area(x,y);
+        }
     }
-    constructionVector.resize(100, NULL);    
+    constructionVector.resize(100, NULL);
     update_permutator();
     free_slot = 0;
 }
@@ -138,8 +141,8 @@ ConstructionCount::clear()
 void
 ConstructionCount::reset()
 {
-    constructionVector.clear();    
-    constructionVector.resize(100, NULL);    
+    constructionVector.clear();
+    constructionVector.resize(100, NULL);
     update_permutator();
     free_slot = 0;
 }

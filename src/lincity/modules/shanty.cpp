@@ -75,16 +75,6 @@ void add_a_shanty(void)
     shantyConstructionGroup.placeItem( x, y, CST_SHANTY);
 }
 
-void remove_a_shanty(int x, int y)
-{
-    fire_area(x, y );
-    // now put the fire out
-    static_cast<Fire*> (world(x,y)->construction)->burning_days = FIRE_LENGTH - 25;
-    static_cast<Fire*> (world(x+1,y)->construction)->burning_days = FIRE_LENGTH - 25;
-    static_cast<Fire*> (world(x,y+1)->construction)->burning_days = FIRE_LENGTH - 25;
-    static_cast<Fire*> (world(x+1,y+1)->construction)->burning_days = FIRE_LENGTH - 25;
-}
-
 void update_shanty(void)
 {
     int i, pp;
@@ -119,7 +109,10 @@ void update_shanty(void)
             }
             y = r / world.len();
             x = r % world.len();
-            remove_a_shanty(x, y);
+            ConstructionManager::executeRequest
+                (
+                    new BurnDownRequest(world(x,y)->reportingConstruction)
+                );
         }
     }
 }
@@ -159,22 +152,32 @@ void Shanty::update()
     {
         commodityCount[STUFF_STEEL] -= SHANTY_GET_STEEL;
     }
-    if (commodityCount[STUFF_WASTE] >= MAX_WASTE_AT_SHANTY && !burning_waste)
+    if (commodityCount[STUFF_WASTE] >= MAX_WASTE_AT_SHANTY && !world(x+1,y+1)->construction)
     {
-        anim = real_time + WASTE_BURN_TIME;
-        burning_waste = true;
-        world(x,y)->pollution += commodityCount[STUFF_WASTE];
+
+        anim = real_time + 3 * WASTE_BURN_TIME;
+        world(x+1,y+1)->pollution += commodityCount[STUFF_WASTE];
         commodityCount[STUFF_WASTE] = 0;
-        world(x+1,y+1)->construction = fireConstructionGroup.createConstruction(x+1, y+1, CST_FIRE_1);
-        world(x+1,y+1)->reportingConstruction = world(x+1,y+1)->construction;
+        if(!world(x+1,y+1)->construction)
+        {
+            Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1, CST_FIRE_1);
+            world(x+1,y+1)->construction = fire;
+            world(x+1,y+1)->reportingConstruction = fire;
+            //waste burning never spreads
+            (dynamic_cast<Fire*>(fire))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;
+            (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
+            ::constructionCount.add_construction(fire);
+        }
     }
-    else if (burning_waste && real_time > anim)
+    else if ( real_time > anim && world(x+1,y+1)->construction)
     {
-        burning_waste = false;
+        ::constructionCount.remove_construction(world(x+1,y+1)->construction);
         delete world(x+1,y+1)->construction;
         world(x+1,y+1)->construction = NULL;
         world(x+1,y+1)->reportingConstruction = this;
     }
+    else if (world(x+1,y+1)->construction)
+    {   static_cast<Fire*> (world(x+1,y+1)->construction)->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
 }
 
 void Shanty::report()

@@ -23,7 +23,6 @@
 #include "../lintypes.h"
 #include "../lctypes.h"
 #include "../transport.h"
-//#include "../range.h"
 
 
 class MarketConstructionGroup: public ConstructionGroup {
@@ -77,7 +76,6 @@ public:
         setCommodityRulesSaved(&commodityRuleCount);
         initialize_commodities();
         this->anim = 0;
-        this->burning_waste = false;
         //set the Searchrange of this Market
         int tmp;
         int lenm1 = world.len()-1;
@@ -99,7 +97,6 @@ public:
     int jobs;
     std::map<Commodities, CommodityRule> commodityRuleCount;
     int anim;
-    bool burning_waste;
 };
 
 /** @file lincity/modules/market.h */

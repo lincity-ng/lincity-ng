@@ -19,11 +19,11 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     )
-    {      
+    {
         switch (group)
         {
             case GROUP_TRACK:
-            case GROUP_TRACK_BRIDGE:            
+            case GROUP_TRACK_BRIDGE:
                 commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_ON_TRACK;
                 commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_TRACK;
                 commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_ON_TRACK;
@@ -33,9 +33,9 @@ public:
                 commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_ON_TRACK;
                 commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_ON_TRACK;
                 commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_ON_TRACK;
-            break;            
+            break;
             case GROUP_ROAD:
-            case GROUP_ROAD_BRIDGE:            
+            case GROUP_ROAD_BRIDGE:
                 commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_ON_ROAD;
                 commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_ROAD;
                 commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_ON_ROAD;
@@ -47,7 +47,7 @@ public:
                 commodityRuleCount[Construction::STUFF_WATER].maxload = MAX_WATER_ON_ROAD;
             break;
             case GROUP_RAIL:
-            case GROUP_RAIL_BRIDGE:            
+            case GROUP_RAIL_BRIDGE:
                 commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_ON_RAIL;
                 commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_RAIL;
                 commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_ON_RAIL;
@@ -68,7 +68,7 @@ public:
         commodityRuleCount[Construction::STUFF_GOODS].take = true;
         commodityRuleCount[Construction::STUFF_GOODS].give = true;
         commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;        
+        commodityRuleCount[Construction::STUFF_ORE].give = true;
         commodityRuleCount[Construction::STUFF_STEEL].take = true;
         commodityRuleCount[Construction::STUFF_STEEL].give = true;
         commodityRuleCount[Construction::STUFF_WASTE].take = true;
@@ -76,7 +76,7 @@ public:
         commodityRuleCount[Construction::STUFF_KWH].take = true;
         commodityRuleCount[Construction::STUFF_KWH].give = true;
         commodityRuleCount[Construction::STUFF_WATER].take = true;
-        commodityRuleCount[Construction::STUFF_WATER].give = true;  
+        commodityRuleCount[Construction::STUFF_WATER].give = true;
     }
     // overriding method that creates a transport tile
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -90,18 +90,16 @@ class Track{};
 class Road{};
 class Rail{};
 
-class Transport : public CountedConstruction<Transport> { // Transport inherits from countedConstruction  
+class Transport : public CountedConstruction<Transport> { // Transport inherits from countedConstruction
 public:
-	Transport(int x, int y, unsigned short type): CountedConstruction<Transport>(x, y, type) 
+    Transport(int x, int y, unsigned short type): CountedConstruction<Transport>(x, y, type)
     {
-        unsigned short group = get_group_of_type(type);         
+        unsigned short group = get_group_of_type(type);
         this->anim = 0;
         this->burning_waste = false;
-        this->old_type = type;
-        setMemberSaved(&(this->old_type),"type");                  
         // register the construction as transport tile
         // disable evacuation
-        this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);        
+        this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);
         if (world(x,y)->is_water())//we build bridges on water
         {
             switch (group)
@@ -116,7 +114,7 @@ public:
                     group = GROUP_RAIL_BRIDGE;
                 break;
             }
-        } 
+        }
         else // we dont build bridges anywhere else
         {
             switch (group)
@@ -133,50 +131,50 @@ public:
             }
         }
 
-      switch (group)  //here we build accoding to terrain
+      switch (group)  //here we build according to terrain
         {
             case GROUP_TRACK:
                 constructionGroup = &trackConstructionGroup;
                 countedTrack = new Counted<Track>();
-                this->subgroupID = countedTrack->getNextId();                
+                this->subgroupID = countedTrack->getNextId();
             break;
             case GROUP_TRACK_BRIDGE:
                 constructionGroup = &trackbridgeConstructionGroup;
                 countedTrack = new Counted<Track>();
-                this->subgroupID = countedTrack->getNextId();         
+                this->subgroupID = countedTrack->getNextId();
             break;
             case GROUP_ROAD:
                 constructionGroup = &roadConstructionGroup;
                 countedRoad = new Counted<Road>();
-                this->subgroupID = countedRoad->getNextId();         
+                this->subgroupID = countedRoad->getNextId();
             break;
             case GROUP_ROAD_BRIDGE:
                 constructionGroup = &roadbridgeConstructionGroup;
                 countedRoad = new Counted<Road>();
-                this->subgroupID = countedRoad->getNextId(); 
+                this->subgroupID = countedRoad->getNextId();
             break;
             case GROUP_RAIL:
                 constructionGroup = &railConstructionGroup;
                 countedRail = new Counted<Rail>();
-                this->subgroupID = countedRail->getNextId(); 
+                this->subgroupID = countedRail->getNextId();
             break;
             case GROUP_RAIL_BRIDGE:
                 constructionGroup = &railbridgeConstructionGroup;
                 countedRail = new Counted<Rail>();
-                this->subgroupID = countedRail->getNextId(); 
+                this->subgroupID = countedRail->getNextId();
             break;
             default :
                 std::cout << "invalid transport type,group,x,y "
                 << type << ", " << group << ", "
-                << x << ", " << y << ", " << std::endl; 
+                << x << ", " << y << ", " << std::endl;
                 assert(false);
         }
 
         initialize_commodities();
-        this->trafficCount = this->commodityCount;      
+        this->trafficCount = this->commodityCount;
     }
-	~Transport()
-    {        
+    ~Transport()
+    {
         switch (constructionGroup->group)
         {
             case GROUP_TRACK:
@@ -194,71 +192,18 @@ public:
             default:
                 std::cout << "counting error in Transport IDs" << std::endl;
             break;
-        }    
+        }
     }
     Counted<Track> *countedTrack;
     Counted<Road> *countedRoad;
     Counted<Rail> *countedRail;
-	void update();
-	void report();
+    void update();
+    void report();
     void stuff_flow();
     std::map<Commodities, int> trafficCount;
-    void list_traffic( int* i);        
+    void list_traffic( int* i);
     int subgroupID;
     int anim;
     bool burning_waste;
-    int old_type;
 };
 
-
- 
-
-
-
-
-/*
-class Track: public Transport, CountedConstruction<Track>
-{
-public:
-    Track(int x, int y, unsigned short type): Transport(x, y, type), CountedConstruction<Track>(x, y, type) 
-    {
-        if (world(x,y)->is_water())
-        {   constructionGroup = &trackbridgeConstructionGroup;} 
-        else
-        {   constructionGroup = &trackConstructionGroup;}
-        setMemberSaved(&(this->old_type),"type");                  
-        this->flags |= FLAG_IS_TRANSPORT;    
-        initialize_commodities();
-        this->trafficCount = this->commodityCount;
-    }
-    virtual ~Track(){}
-    std::map<Commodities, int> trafficCount;   
-};
-*/
-/*
-class Road: public Transport//CountedConstruction<Road>,
-{
-public:
-    Road(int x, int y, unsigned short type): Transport(x, y, type) //CountedConstruction<Road>(x, y, type), 
-    {
-        if (world(x,y)->is_water())
-        {   constructionGroup = &roadbridgeConstructionGroup;} 
-        else
-        {   constructionGroup = &roadConstructionGroup;}        
-    }
-    virtual ~Road(){}
-};
-
-class Rail: public Transport //CountedConstruction<Rail>,
-{
-    public:
-    Rail(int x, int y, unsigned short type): Transport(x, y, type)//CountedConstruction<Rail>(x, y, type), 
-    {
-        if (world(x,y)->is_water())
-        {   constructionGroup = &railbridgeConstructionGroup;} 
-        else
-        {   constructionGroup = &railConstructionGroup;}
-    }
-    virtual ~Rail(){}
-};
-*/

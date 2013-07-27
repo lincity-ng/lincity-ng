@@ -26,21 +26,28 @@ void ConstructionDeletionRequest::execute()
     {
         for (int j = 0; j < size; j++)
         {
+            // constructions may have children e.g. waste burning markets/shanties
+            if(world(x+j,y+i)->construction)
+            {
+                std::cout << "killing child: " << world(x+j,y+i)->construction->constructionGroup->name << std::endl;
+                ConstructionManager::executeRequest(new ConstructionDeletionRequest(world(x+j,y+i)->construction));
+            }
+            world(x+j,y+i)->construction = NULL;
             world(x+j,y+i)->reportingConstruction = NULL;
-            //update mps display            
+            //update mps display
             if (mps_x == x && mps_y == y)
             {
                 mps_set(x, y, MPS_MAP);
             }
         }
     }
-    
+
     delete subject;
 
     // update adjacencies
-    desert_frontier(x - 1, y - 1, size + 2, size + 2); 
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1); 
+    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 }
 
 void OreMineDeletionRequest::execute()
@@ -57,23 +64,23 @@ void OreMineDeletionRequest::execute()
            world(x+j,y+i)->reportingConstruction = NULL;
             if (world(x+j,y+i)->ore_reserve < ORE_RESERVE / 2)
             {
-                world(x+j,y+i)->setTerrain(CST_WATER);                
+                world(x+j,y+i)->setTerrain(CST_WATER);
                 world(x+j,y+i)->flags |= FLAG_HAS_UNDERGROUND_WATER;
-            }            
-            //update mps display            
+            }
+            //update mps display
             if (mps_x == x && mps_y == y)
             {
                 mps_set(x, y, MPS_MAP);
             }
         }
     }
-    
+
     delete subject;
 
     // update adjacencies
-    desert_frontier(x - 1, y - 1, size + 2, size + 2); 
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1); 
+    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 }
 
 void CommuneDeletionRequest::execute()
@@ -89,29 +96,68 @@ void CommuneDeletionRequest::execute()
         {
             world(x+j,y+i)->reportingConstruction = NULL;
             if (world(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-                parklandConstructionGroup.placeItem(x+j, y+i, CST_PARKLAND_PLANE);            
-            //update mps display            
+                parklandConstructionGroup.placeItem(x+j, y+i, CST_PARKLAND_PLANE);
+            //update mps display
             if (mps_x == x && mps_y == y)
             {
                 mps_set(x, y, MPS_MAP);
             }
         }
     }
-    
+
     delete subject;
 
     // update adjacencies
-    desert_frontier(x - 1, y - 1, size + 2, size + 2); 
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1); 
+    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 }
 
+void BurnDownRequest::execute()
+{
+    int size = subject->constructionGroup->size;
+    int x = subject->x;
+    int y = subject->y;
+    ::constructionCount.remove_construction(subject);
+    world(x,y)->construction = NULL;
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            // constructions may have children e.g. waste burning markets/shanties
+            if(world(x+j,y+i)->construction)
+            {
+                std::cout << "killing child: " << world(x+j,y+i)->construction->constructionGroup->name << std::endl;
+                ConstructionManager::executeRequest(new ConstructionDeletionRequest(world(x+j,y+i)->construction));
+            }
+            world(x+j,y+i)->reportingConstruction = NULL;
+            fireConstructionGroup.placeItem(x+j, y+i, CST_FIRE_1);
+            static_cast<Fire*> (world(x+j,y+i)->construction)->burning_days = FIRE_LENGTH - 25;
+            //update mps display
+            if (mps_x == x && mps_y == y)
+            {
+                mps_set(x, y, MPS_MAP);
+            }
+        }
+    }
+    delete subject;
+
+    // update adjacencies
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
+    connect_rivers();
+    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+
+}
+
+
+
+
 void PowerLineFlashRequest::execute()
-{    
+{
     int *anim_counter = &(dynamic_cast<Powerline*>(subject)->anim_counter);
-    // 2/3 cooldown will prevent interlacing wave packets    
-    if (*anim_counter <= POWER_MODULUS/3)  
-    {     
+    // 2/3 cooldown will prevent interlacing wave packets
+    if (*anim_counter <= POWER_MODULUS/3)
+    {
         *anim_counter = POWER_MODULUS;
-    }      
+    }
 }

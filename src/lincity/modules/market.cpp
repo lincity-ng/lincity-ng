@@ -109,7 +109,7 @@ void Market::update()
                 //do the normal flow
                 //if (collect_transport_info( xx, yy, stuff_ID, market_ratio)!=-1)
                 //{
-equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
+                equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
                 //}
                 int flow = market_lvl - old_lvl;
                 //revert flow if it conflicts with local rules
@@ -156,22 +156,32 @@ equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
             jobs = JOBS_MARKET_FULL;
         }
     }
-    if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !burning_waste)
+    if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !world(x+1,y+1)->construction)
     {
-        anim = real_time + WASTE_BURN_TIME;
-        burning_waste = true;
-        world(x,y)->pollution += 3000;
+        anim = real_time + 6 * WASTE_BURN_TIME;
+        world(x+1,y+1)->pollution += MAX_WASTE_IN_MARKET/20;
         commodityCount[STUFF_WASTE] -= (7 * MAX_WASTE_IN_MARKET) / 10;
-        world(x+1,y+1)->construction = fireConstructionGroup.createConstruction(x+1, y+1, CST_FIRE_1);
-        world(x+1,y+1)->reportingConstruction = world(x+1,y+1)->construction;
+        if(!world(x+1,y+1)->construction)
+        {
+            Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1, CST_FIRE_1);
+            world(x+1,y+1)->construction = fire;
+            world(x+1,y+1)->reportingConstruction = fire;
+            //waste burning never spreads
+            (dynamic_cast<Fire*>(fire))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;
+            (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
+            ::constructionCount.add_construction(fire);
+
+        }
     }
-    else if (burning_waste && real_time > anim)
+    else if ( real_time > anim && world(x+1,y+1)->construction)
     {
-        burning_waste = false;
+        ::constructionCount.remove_construction(world(x+1,y+1)->construction);
         delete world(x+1,y+1)->construction;
         world(x+1,y+1)->construction = NULL;
         world(x+1,y+1)->reportingConstruction = this;
     }
+    else if (world(x+1,y+1)->construction)
+    {   static_cast<Fire*> (world(x+1,y+1)->construction)->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
 }
 
 void Market::cover() //do this for showing range in minimap

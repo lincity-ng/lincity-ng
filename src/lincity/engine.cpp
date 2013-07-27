@@ -46,16 +46,16 @@ void fire_area(int xx, int yy)
     if (world(x, y)->getGroup() == GROUP_WATER || world(x, y)->getGroup() == GROUP_FIRE)
         return;
     if(world(x, y)->reportingConstruction)
-    {    
+    {
         x = world(xx,yy)->reportingConstruction->x;
         y = world(xx,yy)->reportingConstruction->y;
         size = world(xx,yy)->reportingConstruction->constructionGroup->size;
         //fire is an unatural death for one in two
         if(world(x,y)->is_residence())
-        {	
-			//int *loc_pop = &((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population);			
-			unnat_deaths += ((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population/=2);
-		}  
+        {
+            //int *loc_pop = &((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population);
+            unnat_deaths += ((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population/=2);
+        }
     }
     do_bulldoze_area(x, y);
 
@@ -63,13 +63,13 @@ void fire_area(int xx, int yy)
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
-        {           
+        {
             fireConstructionGroup.placeItem(x+i,y+j,CST_FIRE_1);
         }
     }
     //green borders at fire are strange but consistent
     //TODO remove this and exclude fire in desert_frontier
-    desert_frontier(x - 1, y - 1, size + 2, size + 2);      
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
 }
 
 int adjust_money(int value)
@@ -83,31 +83,31 @@ int adjust_money(int value)
     // because there money == 0
     if( (total_money < 0) && ((total_money - value) > 0) )
     {
-		ok_dial_box("warning.mes", BAD, _("You just spent all your money."));
-	}
+        ok_dial_box("warning.mes", BAD, _("You just spent all your money."));
+    }
     return total_money;
 }
 
 bool is_allowed_here(int x, int y, short type, short msg)
 {
     int group = get_group_of_type( type );
-    int size; 
+    int size;
     int i,j;
     int has_ugw = 0;
     ConstructionGroup *constrGroup = NULL;
-        
+
     if (ConstructionGroup::countConstructionGroup(group))
-    {                         
-        constrGroup = ConstructionGroup::getConstructionGroup(group);               
+    {
+        constrGroup = ConstructionGroup::getConstructionGroup(group);
         size = constrGroup->size;
-    } 
-    else 
-    { 
-        size = main_groups[group].size; 
-    }        
+    }
+    else
+    {
+        size = main_groups[group].size;
+    }
     if(!(world.is_visible(x,y) && world.is_visible(x + size - 1, y + size - 1)))
-    {	return false;}
-    
+    {   return false;}
+
     switch (group) {
     case GROUP_SOLAR_POWER:
         if (total_money <= 0) {
@@ -126,9 +126,9 @@ bool is_allowed_here(int x, int y, short type, short msg)
         }
         else if ((Counted<School>::getInstanceCount()/4 - Counted<University>::getInstanceCount()) < 1)
         {
-            if (msg)                
+            if (msg)
                 ok_dial_box("warning.mes", BAD, "Not enough students, build more schools.");
-            return false;            
+            return false;
         }
         break;
 
@@ -152,7 +152,7 @@ bool is_allowed_here(int x, int y, short type, short msg)
     case GROUP_PORT:
         for( j = 0; j < size; j++ )
         {
-            if (!( world(x + size, y + j)->flags & FLAG_IS_RIVER ) ) 
+            if (!( world(x + size, y + j)->flags & FLAG_IS_RIVER ) )
             {
                 if (msg)
                     ok_dial_box("warning.mes", BAD, _("Port must be connected to river all along right side."));
@@ -173,7 +173,7 @@ bool is_allowed_here(int x, int y, short type, short msg)
         }
         break;
     //Oremine
-    /* GCS: mines over old mines is OK if there is enough remaining 
+    /* GCS: mines over old mines is OK if there is enough remaining
      *  ore, as is the case when there is partial overlap. */
     case GROUP_OREMINE:
         {
@@ -182,7 +182,7 @@ bool is_allowed_here(int x, int y, short type, short msg)
             {
                 for (j = 0; j < size; j++)
                 {
-                    total_ore += world(x+j, y+i)->ore_reserve;                   
+                    total_ore += world(x+j, y+i)->ore_reserve;
                 }
             }
             if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
@@ -190,8 +190,8 @@ bool is_allowed_here(int x, int y, short type, short msg)
                 return false; // not enought ore
             }
         }
-	break;
-	
+    break;
+
     //Parkland
     case GROUP_PARKLAND:
         if (!(world(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER))
@@ -201,7 +201,7 @@ bool is_allowed_here(int x, int y, short type, short msg)
             return false;
         }
         if (total_money <= 0) {
-            if (msg) 
+            if (msg)
                 ok_dial_box("no-credit-parkland.mes", BAD, 0L);
             return false;
         }
@@ -217,7 +217,7 @@ bool is_allowed_here(int x, int y, short type, short msg)
         }
         return false;
     }
-       
+
     return true;
 }
 
@@ -242,29 +242,29 @@ int place_item(int x, int y, short type)
     if (last_warning_message_group != group)
         msg = true;
     else
-        msg =false;    
-    if (!is_allowed_here(x,y,type,msg)) 
+        msg =false;
+    if (!is_allowed_here(x,y,type,msg))
     {
         last_warning_message_group = group;
         return -2;
-    } 
+    }
     else
         last_warning_message_group = 0;
-    if(ConstructionGroup::countConstructionGroup(group))    
-    {            
+    if(ConstructionGroup::countConstructionGroup(group))
+    {
         ConstructionGroup::getConstructionGroup(group)->placeItem(x, y, type);
         size = world(x, y)->construction->constructionGroup->size;
         adjust_money(-world(x, y)->construction->constructionGroup->getCosts());
-    } 
-    else 
+    }
+    else
     {
         world(x, y)->setTerrain(type); //Treats inactive tiles and old stuctures alike
         size = main_groups[group].size;
-        adjust_money(-selected_module_cost);// e.g. building water 
+        adjust_money(-selected_module_cost);// e.g. building water
     }
-    desert_frontier(x - 1, y - 1, size + 2, size + 2); 
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();
-    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1); 
+    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
     return 0;
 }
 
@@ -280,13 +280,13 @@ int bulldoze_item(int x, int y)
 #endif
         return -1;
     }
-    
+
     if (world(x, y)->reportingConstruction )
     {
         construction_found = true;
         size = world(x, y)->reportingConstruction->constructionGroup->size;
         g = world(x, y)->reportingConstruction->constructionGroup->group;
-    } 
+    }
     else
     {
         size = 1; //all non-constructions are 1// MP_SIZE(x, y);
@@ -294,14 +294,17 @@ int bulldoze_item(int x, int y)
         //size = main_groups[g].size;
     }
 
-    if (g == GROUP_DESERT) 
+    if (g == GROUP_DESERT)
     {
         /* Nothing to do. */
         return -1;
     }
     else if (g == GROUP_SHANTY)
     {
-        remove_a_shanty(x, y);
+        ConstructionManager::executeRequest
+                (
+                    new BurnDownRequest(world(x,y)->reportingConstruction)
+                );
         adjust_money(-GROUP_SHANTY_BUL_COST);
     }
     else if (g == GROUP_FIRE)
@@ -311,7 +314,7 @@ int bulldoze_item(int x, int y)
     else
     {
         if (!construction_found)
-        {       
+        {
             adjust_money(-main_groups[g].bul_cost);
         }
         else
@@ -320,7 +323,7 @@ int bulldoze_item(int x, int y)
         }
 
         if (g == GROUP_OREMINE)
-        { 
+        {
             ConstructionManager::executeRequest
             (
                 new OreMineDeletionRequest(world(x, y)->construction)
@@ -341,7 +344,7 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
 {
 
     if (world(x, y)->construction)
-    {      
+    {
         ConstructionManager::executeRequest
         (
             new ConstructionDeletionRequest(world(x, y)->construction)
@@ -364,18 +367,18 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
             ok_dial_box("fire.mes", BAD, _("ups, Bulldozer found a dangling reportingConstruction"));
         }
         //Here size is always 1
-        connect_rivers();    
+        connect_rivers();
         desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
         connect_transport(x - 2, y - 2, x + 1 + 1, y + 1 + 1);
-    }  
+    }
 }
 
 void do_pollution()
 {
-    
+
     const int len = world.len();
-    const int area = len * len; 	
-    //kill pollution from edges of map    
+    const int area = len * len;
+    //kill pollution from edges of map
     for(int x = 0; x < world.len(); x++)
     {
         world(x, 0)->pollution /= POL_DIV; //top
@@ -383,56 +386,56 @@ void do_pollution()
         world(x, world.len() - 1)->pollution /= POL_DIV; //bottom
         world(world.len() - 1, x)->pollution /= POL_DIV; //right
     }
-    //diffuse pollution inside the map    
-    for (int index = 0; index < area; ++index)   
+    //diffuse pollution inside the map
+    for (int index = 0; index < area; ++index)
     {
-		int x = index % len;
-		int y = index / len;
-		if (world(x, y)->pollution > 10 && 
-			world.is_visible(x,y))
-		{
-			int pflow;
-			pflow = world(x, y)->pollution/16;
-			world(x, y)->pollution -= pflow;
-			switch (rand() % 11)
-			{
-				case 0:/* up */
-				case 1:        
-				case 2:
-					world(x, y-1)->pollution += pflow;
-				break;               
-				case 3:/* right */
-				case 4:        
-				case 5:
-					world(x-1, y)->pollution += pflow;
-				break;
-				case 6:/* down */
-				case 7:        
-					world(x, y+1)->pollution += pflow;
-				break;
-				case 8:/* left */
-				case 9:        
-					world(x+1, y)->pollution += pflow;
-				break;
-				case 10:/* clean up*/        
-					world(x, y)->pollution += (pflow - 2);
-				break;
-			}// endswitch
-		}// endif
+        int x = index % len;
+        int y = index / len;
+        if (world(x, y)->pollution > 10 &&
+            world.is_visible(x,y))
+        {
+            int pflow;
+            pflow = world(x, y)->pollution/16;
+            world(x, y)->pollution -= pflow;
+            switch (rand() % 11)
+            {
+                case 0:/* up */
+                case 1:
+                case 2:
+                    world(x, y-1)->pollution += pflow;
+                break;
+                case 3:/* right */
+                case 4:
+                case 5:
+                    world(x-1, y)->pollution += pflow;
+                break;
+                case 6:/* down */
+                case 7:
+                    world(x, y+1)->pollution += pflow;
+                break;
+                case 8:/* left */
+                case 9:
+                    world(x+1, y)->pollution += pflow;
+                break;
+                case 10:/* clean up*/
+                    world(x, y)->pollution += (pflow - 2);
+                break;
+            }// endswitch
+        }// endif
     }// endfor index
-	total_pollution = 0;
-	for (int index = 0; index < area; ++index)
-	{
-		int x = index % len;
-		int y = index / len;
-		total_pollution += world(x,y)->pollution;	
-	}
+    total_pollution = 0;
+    for (int index = 0; index < area; ++index)
+    {
+        int x = index % len;
+        int y = index / len;
+        total_pollution += world(x,y)->pollution;
+    }
 }
 
 void do_fire_health_cricket_power_cover(void)
 {
     int x, y, m;
-    // Clear the mapflags 
+    // Clear the mapflags
     m = ~(FLAG_FIRE_COVER | FLAG_HEALTH_COVER | FLAG_CRICKET_COVER | FLAG_MARKET_COVER ); //| FLAG_WATERWELL_COVER
     for (y = 0; y < world.len(); y++)
         for (x = 0; x < world.len(); x++)
@@ -457,14 +460,14 @@ void do_fire_health_cricket_power_cover(void)
                 break;
 /*
                 case GROUP_WATERWELL:
-                    static_cast<Waterwell *>(world(x, y)->construction)->cover(); 
+                    static_cast<Waterwell *>(world(x, y)->construction)->cover();
                 break;
 */
                 case GROUP_MARKET:
-                    static_cast<Market *>(world(x, y)->construction)->cover(); 
+                    static_cast<Market *>(world(x, y)->construction)->cover();
                 break;
-            }//endswitch        
-        }//end for x            
+            }//endswitch
+        }//end for x
     }//end for y
 }
 
@@ -476,7 +479,7 @@ void do_random_fire(int x, int y, int pwarning)
         x = rand() % world.len();
         y = rand() % world.len();
     }
-    else 
+    else
     {
         if (!world.is_inside(x, y))
         {
@@ -498,7 +501,7 @@ void do_random_fire(int x, int y, int pwarning)
             return;
     }
     else
-    {       
+    {
         if (xx >= (main_groups[world(x, y)->getGroup()].fire_chance))
             return;
     }
@@ -508,7 +511,7 @@ void do_random_fire(int x, int y, int pwarning)
     {
         if(world(x, y)->reportingConstruction)
             ok_dial_box("fire.mes", BAD, world(x, y)->reportingConstruction->
-constructionGroup->name);                   
+constructionGroup->name);
         else
             ok_dial_box("fire.mes", BAD, _("UNKNOWN!"));
     }
@@ -516,20 +519,20 @@ constructionGroup->name);
 }
 
 void do_daily_ecology() //should be going to MapTile:: und handled during simulation
-{   
+{
     for (int y = 0; y < world.len(); y++)
-        for (int x = 0; x < world.len(); x++) 
+        for (int x = 0; x < world.len(); x++)
         {   /* approximately 3 monthes needed to turn bulldoze area into green */
             if ((world(x, y)->getGroup() == GROUP_DESERT)
                 && (world(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER)
-                && (rand() % 300 == 1)) 
+                && (rand() % 300 == 1))
             {
                 world(x, y)->setTerrain(CST_GREEN);
-                desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2); 
+                desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
             }
         }
     //TODO: depending on water, green can become trees
-    //      pollution can make desert 
+    //      pollution can make desert
     //      etc ...
     /*TODO incorporate do_daily_ecology to simulate_mappoints. */
 }
@@ -537,21 +540,21 @@ void do_daily_ecology() //should be going to MapTile:: und handled during simula
 int check_group(int x, int y)
 {
     if (! world.is_inside(x, y) )
-        return -1;    
+        return -1;
     return world(x, y)->getGroup();
 }
 
 int check_topgroup(int x, int y)
 {
     if (!world.is_inside(x, y) )
-        return -1;    
+        return -1;
     return world(x, y)->getTopGroup();
 }
 
 bool check_water(int x, int y)
 {
     if (!world.is_inside(x, y) )
-        return false;    
+        return false;
     return world(x, y)->is_water();
 }
 
@@ -566,9 +569,9 @@ void connect_rivers(void)
         for (y = 0; y < world.len(); y++)
             for (x = 0; x < world.len(); x++)
             {
-                if (world(x, y)->is_river()) 
+                if (world(x, y)->is_river())
                 {
-                    if (x > 0 && world(x-1, y)->is_lake()) 
+                    if (x > 0 && world(x-1, y)->is_lake())
                     {
                         world(x-1, y)->flags |= FLAG_IS_RIVER;
                         count++;
@@ -616,7 +619,7 @@ void desert_frontier(int originx, int originy, int w, int h)
         CST_DESERT_2LU, CST_DESERT_3LUD, CST_DESERT_3LRU, CST_DESERT
     };
 
-#if	FLAG_LEFT != 1 || FLAG_UP != 2 || FLAG_RIGHT != 4 || FLAG_DOWN != 8
+#if FLAG_LEFT != 1 || FLAG_UP != 2 || FLAG_RIGHT != 4 || FLAG_DOWN != 8
 #error  desert_frontier(): you loose
 #error  the algorithm depends on proper flag settings -- (ThMO)
 #endif
@@ -639,7 +642,7 @@ void desert_frontier(int originx, int originy, int w, int h)
 
     for (x = originx; x < originx + w; x++) {
         for (y = originy; y < originy + h; y++) {
-            if (world(x, y)->getGroup() == GROUP_DESERT) 
+            if (world(x, y)->getGroup() == GROUP_DESERT)
             {
                 mask = 0;
                 /* up -- (ThMO) */

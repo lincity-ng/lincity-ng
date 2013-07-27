@@ -32,6 +32,12 @@ public:
     virtual void execute();
 };
 
+class BurnDownRequest: public ConstructionRequest {
+public:
+    BurnDownRequest(Construction *subject): ConstructionRequest(subject) { }
+    virtual void execute();
+};
+
 class PowerLineFlashRequest: public ConstructionRequest {
 public:
     PowerLineFlashRequest(Construction *subject): ConstructionRequest(subject) { }

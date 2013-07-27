@@ -13,7 +13,7 @@ FireConstructionGroup fireConstructionGroup(
     "Fire",
      FALSE,                     /* need credit? */
      GROUP_FIRE,
-     1,                         /* size */
+     GROUP_FIRE_SIZE,           /* size */
      GROUP_FIRE_COLOUR,
      GROUP_FIRE_COST_MUL,
      GROUP_FIRE_BUL_COST,
@@ -29,14 +29,6 @@ Construction *FireConstructionGroup::createConstruction(int x, int y, unsigned s
 
 void Fire::update()
 {
-    /*
-       // int_1 unused
-       // int_2 is the fire length
-       // int_3 is the real_time before the fire can spread or -1 if triggered 
-       // int_4 is the idle land length
-       // int_5 is a boolean : is this fire still burning (true if younger than FIRE_LENGTH)
-       // MP_ANIM is the next animation frame time, since 1.91
-     */
     int i;
     /* this so we don't get whole blocks changing in one go. */
     if (burning_days == 0)
@@ -70,7 +62,8 @@ void Fire::update()
     if (world(x,y)->flags & FLAG_FIRE_COVER)
             burning_days += 4;
     days_before_spread--;
-    world(x,y)->pollution++;
+    if( !(flags & FLAG_IS_GHOST) )
+    {   world(x,y)->pollution++;}
     if (real_time > anim)
     {
         anim = real_time + FIRE_ANIMATION_SPEED;
@@ -95,7 +88,7 @@ void Fire::update()
     }
     if (days_before_spread == 0)
     {
-        days_before_spread = FIRE_DAYS_PER_SPREAD;    
+        days_before_spread = FIRE_DAYS_PER_SPREAD;
         if ((rand() % FIRE_DAYS_PER_SPREAD) == 1)
         {
             i = rand() % 4;
@@ -115,7 +108,7 @@ void Fire::update()
                 break;
             }
         }
-    } 
+    }
 }
 
 void Fire::report()
@@ -125,7 +118,7 @@ void Fire::report()
     mps_store_sd(i++,constructionGroup->name,ID);
     i++;
     mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
-    if (burning_days<FIRE_LENGTH)    
+    if (burning_days<FIRE_LENGTH)
         mps_store_sddp(i++,"burnt down",burning_days,FIRE_LENGTH);
     else
         mps_store_sddp(i++,"degraded",smoking_days,AFTER_FIRE_LENGTH);

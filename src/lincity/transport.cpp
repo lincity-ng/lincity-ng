@@ -57,44 +57,44 @@ void general_transport(int x, int y, int max_waste){}
 int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int center_ratio)
 {
     Construction * repcons = world(x, y)->reportingConstruction;
-         
-    if (repcons && repcons->commodityCount.count(stuff_ID))           
-    {                    
+
+    if (repcons && repcons->commodityCount.count(stuff_ID))
+    {
         int loc_lvl = repcons->commodityCount[stuff_ID];
         int loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;
-       
+
         if (repcons->flags & FLAG_EVACUATE)
-        {	
-			return loc_lvl?TRANSPORT_QUANTA:-1;
-		}
-                      
-#ifdef DEBUG        
+        {
+            return loc_lvl?TRANSPORT_QUANTA:-1;
+        }
+
+#ifdef DEBUG
         if (loc_lvl > loc_cap)
         {
             std::cout<<"fixed "<<commodityNames[stuff_ID]<<" > maxload at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
-            repcons->commodityCount[stuff_ID] = loc_cap;            
+            repcons->commodityCount[stuff_ID] = loc_cap;
             loc_lvl = loc_cap;
         }
         if (loc_lvl < 0)
         {
             std::cout<<"fixed "<<commodityNames[stuff_ID]<<" < 0 at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
-            repcons->commodityCount[stuff_ID] = loc_cap;            
+            repcons->commodityCount[stuff_ID] = loc_cap;
             loc_lvl = 0;
-        }                
-       
+        }
+
         if (loc_cap < 1)
         {
             std::cout<<"maxload "<<commodityNames[stuff_ID]<<" <= 0 error at "<<repcons->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
         }
-#endif      
-        int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);       
+#endif
+        int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);
         if ((center_ratio == -1) || (
         loc_ratio>center_ratio?repcons->constructionGroup->commodityRuleCount[stuff_ID].give:
-			repcons->constructionGroup->commodityRuleCount[stuff_ID].take) )
+            repcons->constructionGroup->commodityRuleCount[stuff_ID].take) )
         {   //only tell actual stock if we would tentaively participate in transport
             return (loc_ratio);
-        }    
-    }       
+        }
+    }
     return -1;
 }
 
@@ -107,11 +107,11 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
     int transport_rate = TRANSPORT_RATE;
 
 /*
-	This will happen if mines are evacuated
+    This will happen if mines are evacuated
     if (ratio > TRANSPORT_QUANTA)
         std::cout<<"target ratio > TRANSPORT_QUANTA at "<<world(x, y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
-*/    
-    //Double speed transport with passive partners       
+*/
+    //Double speed transport with passive partners
     if (!(repcons->flags & FLAG_IS_TRANSPORT))
     {
         transport_rate = TRANSPORT_RATE/2;
@@ -120,90 +120,90 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
             transport_rate = 1;
         }
     }
-    if (repcons && repcons->commodityCount.count(stuff_ID) ) // someone who cares about stuff_id 
-    {                   
+    if (repcons && repcons->commodityCount.count(stuff_ID) ) // someone who cares about stuff_id
+    {
         loc_lvl = &(repcons->commodityCount[stuff_ID]);
-		loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        loc_cap = repcons->constructionGroup->commodityRuleCount[stuff_ID].maxload;
         if (!(repcons->flags & FLAG_EVACUATE))
-        {			                   
-			flow = (ratio * (loc_cap) / TRANSPORT_QUANTA) - (*loc_lvl);
-			if (((flow > 0) && (!(repcons->constructionGroup->commodityRuleCount[stuff_ID].take) ))
-			|| ((flow < 0) && !(repcons->constructionGroup->commodityRuleCount[stuff_ID].give)))
-			{   //construction refuses the flow
-				//std::cout << "."; //happens still often               
-				return 0;
-			}                
-			if (flow > 0)
-			{              
-				if (flow * transport_rate > rem_cap )
-					flow = rem_cap / transport_rate;
-				if (flow > *rem_lvl)
-					flow = *rem_lvl;
-			}
-			else if (flow < 0)
-			{
-				if(-flow * transport_rate > rem_cap)
-					flow = - rem_cap / transport_rate;
-				if (-flow > (rem_cap-*rem_lvl))
-					flow = -(rem_cap-*rem_lvl);
-			}
-			else if ( !((repcons->flags & FLAG_IS_TRANSPORT || repcons->flags & FLAG_EVACUATE) 
-					|| (repcons->constructionGroup->group == GROUP_MARKET)) )
-			// transport tiles and markets tolerate insignifiact flow
-			{
-				//constructions doublecheck if the can get/put a least one item if flow would be nominally insiginficant
-				if ( (*loc_lvl < *rem_lvl) && (*loc_lvl < loc_cap) ) // feed but dont overfeeding
-					flow = 1; 
-				else if (*loc_lvl > *rem_lvl && (*rem_lvl < rem_cap) ) // spill but dont flood 
-					flow = -1;
-			}       
-			// limit local demand to remote quantity of stuff
-			if (flow > *rem_lvl)
-			{
-				flow = *rem_lvl;
-			}
-			//limit remote demand to local quantity of stuff
-			if (flow < -*loc_lvl)
-			{
-				flow = -*loc_lvl;
-			}
-			if (!(repcons->flags & FLAG_IS_TRANSPORT) && (flow > 0) 
-				&& repcons->constructionGroup->group != GROUP_MARKET) 
-			//something is given to a consumer 
-			{
-				switch (stuff_ID)
-				{
-					case (Construction::STUFF_JOBS) :
-						income_tax += flow;
-						break;
-					case (Construction::STUFF_GOODS) :
-						goods_tax += flow;
-						goods_used += flow;
-					case (Construction::STUFF_COAL) :
-						coal_tax += flow;
-						break;
-					default:
-						break;
-				}              
-			}             
-		}
-		else // we are evacuating
-		{
-			flow = -(rem_cap-*rem_lvl);
-			if (-flow > *loc_lvl)
-			{	flow = -*loc_lvl;}
-		}
+        {
+            flow = (ratio * (loc_cap) / TRANSPORT_QUANTA) - (*loc_lvl);
+            if (((flow > 0) && (!(repcons->constructionGroup->commodityRuleCount[stuff_ID].take) ))
+            || ((flow < 0) && !(repcons->constructionGroup->commodityRuleCount[stuff_ID].give)))
+            {   //construction refuses the flow
+                //std::cout << "."; //happens still often
+                return 0;
+            }
+            if (flow > 0)
+            {
+                if (flow * transport_rate > rem_cap )
+                    flow = rem_cap / transport_rate;
+                if (flow > *rem_lvl)
+                    flow = *rem_lvl;
+            }
+            else if (flow < 0)
+            {
+                if(-flow * transport_rate > rem_cap)
+                    flow = - rem_cap / transport_rate;
+                if (-flow > (rem_cap-*rem_lvl))
+                    flow = -(rem_cap-*rem_lvl);
+            }
+            else if ( !((repcons->flags & FLAG_IS_TRANSPORT || repcons->flags & FLAG_EVACUATE)
+                    || (repcons->constructionGroup->group == GROUP_MARKET)) )
+            // transport tiles and markets tolerate insignifiact flow
+            {
+                //constructions doublecheck if the can get/put a least one item if flow would be nominally insiginficant
+                if ( (*loc_lvl < *rem_lvl) && (*loc_lvl < loc_cap) ) // feed but dont overfeeding
+                    flow = 1;
+                else if (*loc_lvl > *rem_lvl && (*rem_lvl < rem_cap) ) // spill but dont flood
+                    flow = -1;
+            }
+            // limit local demand to remote quantity of stuff
+            if (flow > *rem_lvl)
+            {
+                flow = *rem_lvl;
+            }
+            //limit remote demand to local quantity of stuff
+            if (flow < -*loc_lvl)
+            {
+                flow = -*loc_lvl;
+            }
+            if (!(repcons->flags & FLAG_IS_TRANSPORT) && (flow > 0)
+                && repcons->constructionGroup->group != GROUP_MARKET)
+            //something is given to a consumer
+            {
+                switch (stuff_ID)
+                {
+                    case (Construction::STUFF_JOBS) :
+                        income_tax += flow;
+                        break;
+                    case (Construction::STUFF_GOODS) :
+                        goods_tax += flow;
+                        goods_used += flow;
+                    case (Construction::STUFF_COAL) :
+                        coal_tax += flow;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else // we are evacuating
+        {
+            flow = -(rem_cap-*rem_lvl);
+            if (-flow > *loc_lvl)
+            {   flow = -*loc_lvl;}
+        }
         traffic = flow * TRANSPORT_QUANTA / rem_cap;
-        // incomming and outgoing traffic dont cancel but add up        
+        // incomming and outgoing traffic dont cancel but add up
         if (traffic < 0)
         {
             traffic = -traffic;
-        }      
-        *loc_lvl += flow; 
+        }
+        *loc_lvl += flow;
         *rem_lvl -= flow;
         if (*loc_lvl < 0)
             std::cout<<"remote load < 0 error at "<<world(x, y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
-        
+
         if ((repcons->flags & FLAG_IS_TRANSPORT) || (repcons->flags & FLAG_POWER_LINE))
         {
             return traffic; //handled transport neighbor or powerline
@@ -211,7 +211,7 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
         else
         {
             return 0; //loading and unloading is not considered flowing traffic
-        }    
+        }
     }
     return -1; //there was nothing to handle
 }
@@ -219,7 +219,7 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
 void connect_transport(int originx, int originy, int w, int h)
 {
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
-    int x, y; 
+    int x, y;
     int mask, tflags, mask0;
     short group;
 
@@ -254,7 +254,7 @@ void connect_transport(int originx, int originy, int w, int h)
         CST_WATER_LU, CST_WATER_LUD, CST_WATER_LUR, CST_WATER_LURD
     };
 
-#if	FLAG_LEFT != 1 || FLAG_UP != 2 || FLAG_RIGHT != 4 || FLAG_DOWN != 8
+#if FLAG_LEFT != 1 || FLAG_UP != 2 || FLAG_RIGHT != 4 || FLAG_DOWN != 8
 #error  connect_transport(): you loose
 #error  the algorithm depends on proper flag settings -- (ThMO)
 #endif
@@ -279,8 +279,8 @@ void connect_transport(int originx, int originy, int w, int h)
     {
         for (y = originy; y < originy + h; y++)
         {
-            // First, set up a mask according to directions         
-            mask = 0;          
+            // First, set up a mask according to directions
+            mask = 0;
             switch (world(x, y)->getGroup())
             {
             case GROUP_POWER_LINE:
@@ -292,12 +292,12 @@ void connect_transport(int originx, int originy, int w, int h)
                     group = check_group(x, y - 2);
                 switch (group)
                 {
-				/*
+                /*
                     case GROUP_WINDMILL:
                         if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
-				*/ 
-                    case GROUP_WIND_POWER:        
+                */
+                    case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
                     case GROUP_SUBSTATION:
@@ -318,7 +318,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_WINDMILL:
                         if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
-				*/ 
+                */
                     case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
@@ -336,11 +336,11 @@ void connect_transport(int originx, int originy, int w, int h)
                     group = check_group(x + 2, y);
                 switch (group)
                 {
-				/*
+                /*
                     case GROUP_WINDMILL:
                         if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
-				*/ 
+                */
                     case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
@@ -354,15 +354,15 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 /* down -- (ThMO) */
                 group = check_group(x, y + 1);
-                if (y < world.len() - 2 && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())) 
+                if (y < world.len() - 2 && (world(x, y+1)->is_water() || world(x, y+1)->is_transport()))
                     group = check_group(x, y + 2);
                 switch (group)
                 {
-				/*
+                /*
                     case GROUP_WINDMILL:
                         if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
                             break;
-				*/ 
+                */
                     case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
@@ -381,7 +381,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 break;
 
             case GROUP_TRACK:
-                if (check_group(x, y - 1) == GROUP_TRACK 
+                if (check_group(x, y - 1) == GROUP_TRACK
                 ||  check_group(x, y - 1) == GROUP_ROAD)
                     mask |= FLAG_UP;
                 if (check_group(x - 1, y) == GROUP_TRACK
@@ -391,7 +391,7 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 switch (check_topgroup(x + 1, y))
                 {
-                    case GROUP_ROAD:                   
+                    case GROUP_ROAD:
                     case GROUP_TRACK:
                     case GROUP_TRACK_BRIDGE:
                         tflags |= FLAG_RIGHT;
@@ -410,7 +410,7 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 switch (check_topgroup(x, y + 1))
                 {
-                    case GROUP_ROAD:                    
+                    case GROUP_ROAD:
                     case GROUP_TRACK:
                     case GROUP_TRACK_BRIDGE:
                         tflags |= FLAG_DOWN;
@@ -475,9 +475,8 @@ void connect_transport(int originx, int originy, int w, int h)
                     //MP_TYPE(x, y) = track_table[mask];
                     world(x, y)->construction->type = track_table[mask];
                 }
-                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
-                
+
 
             case GROUP_TRACK_BRIDGE:
                 // Bridge neighbour priority
@@ -497,15 +496,14 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 else //a lonely bridge tile
                 {
-                    world(x, y)->construction->type = CST_TRACK_BRIDGE_LR;                    
+                    world(x, y)->construction->type = CST_TRACK_BRIDGE_LR;
                 }
                 world(x, y)->construction->flags &= mask0;
-                world(x, y)->construction->flags |= mask;                
+                world(x, y)->construction->flags |= mask;
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= mask;
-                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
-                
+
 
             case GROUP_ROAD:
                 if (check_group(x, y - 1) == GROUP_ROAD
@@ -518,7 +516,7 @@ void connect_transport(int originx, int originy, int w, int h)
 
                 switch (check_topgroup(x + 1, y))
                 {
-                    case GROUP_TRACK:                    
+                    case GROUP_TRACK:
                     case GROUP_ROAD:
                         tflags |= FLAG_RIGHT;
                     case GROUP_COMMUNE:
@@ -535,7 +533,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 switch (check_topgroup(x, y + 1))
                 {
-                    case GROUP_TRACK:                    
+                    case GROUP_TRACK:
                     case GROUP_ROAD:
                         tflags |= FLAG_DOWN;
                     case GROUP_COMMUNE:
@@ -551,7 +549,7 @@ void connect_transport(int originx, int originy, int w, int h)
                         break;
                 }
                 world(x, y)->construction->flags &= mask0;
-                world(x, y)->construction->flags |= tflags;                
+                world(x, y)->construction->flags |= tflags;
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= tflags;
                 // A road section between 2 bridge sections
@@ -618,8 +616,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     //MP_TYPE(x, y) = road_table[mask];
                     world(x, y)->construction->type = road_table[mask];
-                }           
-                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
+                }
                 break;
 
             case GROUP_ROAD_BRIDGE:
@@ -657,7 +654,6 @@ void connect_transport(int originx, int originy, int w, int h)
                 world(x, y)->construction->flags |= mask;                /////////////////////////////////////////////////////////////////should it be tflags here?
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= mask;
-                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
 
             case GROUP_RAIL:
@@ -698,7 +694,7 @@ void connect_transport(int originx, int originy, int w, int h)
                         break;
                 }
                 world(x, y)->construction->flags &= mask0;
-                world(x, y)->construction->flags |= tflags;                
+                world(x, y)->construction->flags |= tflags;
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= tflags;
                 // A rail section between 2 bridge sections
@@ -764,9 +760,8 @@ void connect_transport(int originx, int originy, int w, int h)
                 else
                 {
                     //MP_TYPE(x, y) = rail_table[mask];
-                    world(x, y)->construction->type = rail_table[mask]; 
+                    world(x, y)->construction->type = rail_table[mask];
                 }
-                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
 
             case GROUP_RAIL_BRIDGE:
@@ -794,7 +789,6 @@ void connect_transport(int originx, int originy, int w, int h)
                 world(x, y)->construction->flags |= mask;
 //                MP_INFO(x, y).flags &= ~(FLAG_UP | FLAG_DOWN | FLAG_LEFT | FLAG_RIGHT);
 //                MP_INFO(x, y).flags |= mask;
-                (dynamic_cast<Transport*>(world(x, y)->construction))->old_type = world(x, y)->construction->type;
                 break;
 
             case GROUP_WATER:
@@ -821,9 +815,9 @@ void connect_transport(int originx, int originy, int w, int h)
                 //MP_TYPE(x, y) = water_table[mask];
                 world(x, y)->type = water_table[mask];
                 break;
-            }                   /* end switch */      
+            }                   /* end switch */
         }                       /* end for */
-    }                           /* end for */   
+    }                           /* end for */
 }
 
 /** @file lincity/transport.cpp */

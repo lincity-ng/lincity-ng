@@ -66,8 +66,7 @@
 #define FLAG_MARKET_COVER       (0x100) //mapTile only
 #define FLAG_NEVER_EVACUATE     (0x100) //contruction only
 #define FLAG_EVACUATE           (0x200) //construction only
-//#define FLAG_MS_FOOD            (0x200)
-//#define FLAG_MB_JOBS            (0x400)
+#define FLAG_IS_GHOST           (0x400) //temporary construction like fireplace
 //#define FLAG_MS_JOBS            (0x800)
 //#define FLAG_MB_COAL            (0x1000)
 //#define FLAG_MS_COAL            (0x2000)
@@ -106,7 +105,7 @@
    tech-level/TECH_LEVEL_LOSS is lost every month when
    above TECH_LEVEL_LOSS_START
  */
-#define MAX_TECH_LEVEL	   1000000
+#define MAX_TECH_LEVEL     1000000
 #define TECH_LEVEL_LOSS_START 11000
 #define TECH_LEVEL_LOSS    500
 #define TECH_LEVEL_UNAIDED 2

@@ -1484,7 +1484,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     int textureType = CST_GREEN;
     //int group = MP_GROUP(upperLeft.x, upperLeft.y);
 
-    textureType = world(upperLeft.x, upperLeft.y)->getType();
+    textureType = world(upperLeft.x, upperLeft.y)->getTopType();
 
     // if we hide high buildings, hide trees as well
     if (hideHigh && (textureType == CST_TREE || textureType == CST_TREE2 || textureType == CST_TREE3 ))
