@@ -62,7 +62,7 @@ InstallData [ Wildcard gui : *.xml ] : gui ;
 InstallData [ Wildcard fonts : *.ttf ] : fonts ;
 InstallData [ Wildcard locale : *.po ] : locale ;
 InstallData [ Wildcard locale/gui : *.po ] : locale/gui ;
-InstallData [ Wildcard music : *.ogg ] : music ;
+InstallData [ Wildcard music/default : *.ogg *.xml ] : music/default ;
 InstallData [ Wildcard sounds : *.wav ] : sounds ;
 InstallData lincityconfig.xml ;
 
