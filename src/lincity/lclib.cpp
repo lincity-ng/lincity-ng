@@ -62,10 +62,15 @@ void num_to_ansi(char *s, size_t size, long num)
     int triplets = 0;
     float numf = (float)num;
 
-    while (numf > 1000 || numf < -1000) {
-        numf /= 1000;
-        triplets++;
+    if (numf > 9999 || numf < -9999)
+    {
+        while (numf > 999 || numf < -999)
+        {
+            numf /= 1000;
+            triplets++;
+        }
     }
+
 
     switch (triplets) {
     case 0:
@@ -79,10 +84,10 @@ void num_to_ansi(char *s, size_t size, long num)
         break;                  // mega
     case 3:
         triplets = 'G';
-        break;                  // giga 
+        break;                  // giga
     case 4:
         triplets = 'T';
-        break;                  // tera 
+        break;                  // tera
     case 5:
         triplets = 'P';
         break;                  // peta
@@ -99,7 +104,7 @@ void num_to_ansi(char *s, size_t size, long num)
         }
     } else {
         if (triplets == ' ') {
-            snprintf(s, size, "%3.1f", numf);
+            snprintf(s, size, "%4.0f", numf);
         } else {
             snprintf(s, size, "%3.1f%c", numf, triplets);
         }
@@ -111,7 +116,7 @@ void num_to_ansi_unit(char *s, size_t size, long num, char unit)
     int triplets = 0;
     float numf = (float)num;
 
-    while (numf > 1000) {
+    while (numf > 1000 || numf < -1000) {
         numf /= 1000;
         triplets++;
     }
@@ -128,10 +133,10 @@ void num_to_ansi_unit(char *s, size_t size, long num, char unit)
         break;                  // mega
     case 3:
         triplets = 'G';
-        break;                  // giga 
+        break;                  // giga
     case 4:
         triplets = 'T';
-        break;                  // tera 
+        break;                  // tera
     case 5:
         triplets = 'P';
         break;                  // peta
@@ -207,13 +212,13 @@ void format_pos_number4(char *str, int num)
 {
     num_to_ansi(str, 4, num);
 }
-
+/*
 void format_power(char *str, size_t size, long power)
 {
-    /* Lincity power unit is 1kW */
+    // Lincity power unit is 1kW
     num_to_ansi_unit(str, size, power * 1000, 'W');
 }
-
+*/
 int min_int(int i1, int i2)
 {
     return i1 < i2 ? i1 : i2;

@@ -134,11 +134,10 @@ LCPBar::setValue(int num, int value, int diff)
     //compname << "pbar_title" << line_number;
     //Paragraph* pt = getParagraph(*this, compname.str());
 
-    //std::ostringstream os;
-    os<<std::fixed;
-    os<<std::setprecision(1);
     if(num==PTECH)
     {
+        os<<std::fixed;
+        os<<std::setprecision(1);
         os<<value/10000.0;
     }
     else if(num==PMONEY || num==PPOP || num==PPOL)
@@ -157,8 +156,6 @@ LCPBar::setValue(int num, int value, int diff)
     }
     if (p)
     {   p->setText(os.str());}
-    os.str("");
-    os<<"pbar_barview"<< line_number;
 
     float sv=0;
     switch(num)
@@ -188,6 +185,8 @@ LCPBar::setValue(int num, int value, int diff)
      if(sv<-1.0)
       sv=-1.0;
 
+    os.str("");
+    os<<"pbar_barview"<< line_number;
     Component *c=findComponent(os.str()+"a");
     if(c)
     {
