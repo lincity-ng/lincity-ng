@@ -54,13 +54,13 @@ void resetLastMessage(){
     last_message_group = 0;
 }
 
-// Open Dialog for selected Port 
+// Open Dialog for selected Port
 void clicked_port_cb (int x, int y)
 {
     new Dialog( EDIT_PORT, x, y );
 }
 
-// Open Dialog for selected Market 
+// Open Dialog for selected Market
 void clicked_market_cb (int x, int y)
 {
     new Dialog( EDIT_MARKET, x, y );
@@ -69,15 +69,15 @@ void clicked_market_cb (int x, int y)
 void check_bulldoze_area (int x, int y)
 {
     //no need to bulldoze desert
-    
-    
+
+
     int xx, yy, g;
 
     g = world(x,y)->getGroup();
 
-    if( g == GROUP_DESERT ) 
+    if( g == GROUP_DESERT )
         return;
- 
+
     if (world(x,y)->reportingConstruction)
     {
         xx = world(x,y)->reportingConstruction->x;
@@ -91,7 +91,7 @@ void check_bulldoze_area (int x, int y)
 
     if (g == GROUP_MONUMENT && monument_bul_flag == 0)
     {
-        if( (world(x,y)->reportingConstruction->flags & FLAG_EVACUATE) 
+        if( (world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
         && (last_message_group != GROUP_MONUMENT) )
         {
             new Dialog( BULLDOZE_MONUMENT, xx, yy ); // deletes itself
@@ -115,7 +115,7 @@ void check_bulldoze_area (int x, int y)
         }
         return;
     }
-    // only empty landfills may be bulldozed    
+    // only empty landfills may be bulldozed
     else if ( g == GROUP_TIP
     && static_cast<Tip *>(world(x,y)->reportingConstruction)->total_waste > 0 )
     {
@@ -137,12 +137,12 @@ void editMap (MapPoint point, int button)
     if( !getGameView()->inCity( point ) ){
         return;
     }
-   
+
     int x = point.x;
     int y = point.y;
 
     int selected_module_group = get_group_of_type(selected_module_type);
-    
+
     int size, i, j;
     //  int x, y; /* mappoint */
     int mod_x, mod_y; /* upper left coords of module clicked on */
@@ -153,43 +153,49 @@ void editMap (MapPoint point, int button)
         mod_x = world(x,y)->reportingConstruction->x;
         mod_y = world(x,y)->reportingConstruction->y;
     }
-    else 
+    else
     {
         mod_x = x;
         mod_y = y;
     }
-   
+
     /* Handle bulldozing */
     if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT)
-    {     
-		check_bulldoze_area (mod_x, mod_y);
-		mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
+    {
+        check_bulldoze_area (mod_x, mod_y);
+        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
 #ifdef DEBUG
-		DBG_TileInfo(x, y);
+        DBG_TileInfo(x, y);
 #endif
         return;
     }
-	/*Handle Evacuation of Commodities*/
-	if (selected_module_type == CST_DESERT && button != SDL_BUTTON_RIGHT)
-    {     
-		if (world(x,y)->reportingConstruction)
-		{
-			if(world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE)
-			{	return;}
-			if(world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
-			{
-				world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;				
-			}
-			else
-			{
-				world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;				
-			}
-			mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on evacuate
-		}
+    /*Handle Evacuation of Commodities*/
+    if (selected_module_type == CST_DESERT && button != SDL_BUTTON_RIGHT)
+    {
+        if (world(x,y)->reportingConstruction)
+        {
+            if(world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE)
+            {   return;}
+            if(world(x,y)->reportingConstruction->constructionGroup->group == GROUP_MARKET)
+            {
+                (dynamic_cast<Market*>(world(x,y)->reportingConstruction))->toggleEvacuation();
+                return;
+            }
+
+            if(world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
+            {
+                world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;
+            }
+            else
+            {
+                world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;
+            }
+            mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on evacuate
+        }
         return;
     }
-	
-	
+
+
     /* Bring up mappoint_stats for certain left mouse clicks */
     /* Check market and port double-clicks here */
     /* Check rocket launches */
@@ -200,7 +206,7 @@ void editMap (MapPoint point, int button)
         if ( !binary_mode && keystate[SDLK_d] && world(mod_x,mod_y)->reportingConstruction)
         {
             world(mod_x,mod_y)->reportingConstruction->saveMembers(&std::cout);
-        }             
+        }
         if(mapMPS)
             mapMPS->playBuildingSound( mod_x, mod_y );
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
@@ -226,36 +232,36 @@ void editMap (MapPoint point, int button)
             }
         }// end mps_result>1
         //to be here we are not in bulldoze-mode and the tile
-        //under the cursor is not empty. 
+        //under the cursor is not empty.
         //to allow up/downgrading of Buildings and exchanging TransportTilesTracks we can't always return.
-        if( ( selected_module_type != CST_TRACK_LR ) && 
-            ( selected_module_type != CST_ROAD_LR ) && 
-            ( selected_module_type != CST_RAIL_LR ) ) 
+        if( ( selected_module_type != CST_TRACK_LR ) &&
+            ( selected_module_type != CST_ROAD_LR ) &&
+            ( selected_module_type != CST_RAIL_LR ) )
         {
             return; //not building a transport or renewing a building
         }
-        
-        if( ( ( selected_module_type == CST_TRACK_LR ) || 
+
+        if( ( ( selected_module_type == CST_TRACK_LR ) ||
               ( selected_module_type == CST_ROAD_LR  ) ||
-              ( selected_module_type == CST_RAIL_LR  ) 
+              ( selected_module_type == CST_RAIL_LR  )
             ) && !(( world(x,y)->is_transport()
                 ||   world(x,y)->is_water()
-                ||   world(x,y)->is_powerline() ) )) 
+                ||   world(x,y)->is_powerline() ) ))
         {
             return; //TransportTiles may only overbuild previous TransportTiles or Water
-	    }    
+        }
         // TransporstTiles dont overbuild their own kind
         if (selected_module_group == world(x,y)->getTransportGroup())
-        {	return;}
+        {   return;}
     }//end is_not_bare
 
-    //query Tool 
+    //query Tool
     if(selected_module_type==CST_NONE) {
         if (mapMPS) {
             mapMPS->playBuildingSound( mod_x, mod_y );
             mapMPS->setView(MapPoint( mod_x, mod_y ));
         }
-           
+
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool on CST_NONE
 #ifdef DEBUG
         DBG_TileInfo(x, y);
@@ -264,42 +270,42 @@ void editMap (MapPoint point, int button)
     }
 
     /* OK, by now we are certain that the user wants to place the item.
-       Set the origin based on the size of the selected_module_type, and 
+       Set the origin based on the size of the selected_module_type, and
        see if the selected item will fit. */
     if ((selected_module_group == GROUP_WINDMILL) && (tech_level >= MODERN_WINDMILL_TECH))
     {
-		selected_module_type = CST_WINDMILL_1_R; 
-        selected_module_group = get_group_of_type(selected_module_type);        
-    } 
+        selected_module_type = CST_WINDMILL_1_R;
+        selected_module_group = get_group_of_type(selected_module_type);
+    }
     else if ((selected_module_group == GROUP_WIND_POWER) && (tech_level < MODERN_WINDMILL_TECH))
     {
-		selected_module_type = CST_WINDMILL_1_W; 
+        selected_module_type = CST_WINDMILL_1_W;
         selected_module_group = get_group_of_type(selected_module_type);
-	}
+    }
     if(ConstructionGroup::countConstructionGroup(selected_module_group))
     {
         size = ConstructionGroup::getConstructionGroup(selected_module_group)->size;
-    }   
+    }
     else
     {
         size = main_groups[selected_module_group].size;
     }
-    //Only Check bare space if we are not renewing 
-    if (!( ( selected_module_type == CST_TRACK_LR ) || 
+    //Only Check bare space if we are not renewing
+    if (!( ( selected_module_type == CST_TRACK_LR ) ||
            ( selected_module_type == CST_ROAD_LR  ) ||
-           ( selected_module_type == CST_RAIL_LR  ) 
+           ( selected_module_type == CST_RAIL_LR  )
          )
         )
-    {   
+    {
         for (i = 0; i < size; i++)
-        { 
+        {
             for (j = 0; j < size; j++)
-            {         
+            {
                 if (!world(x+j,y+i)->is_bare() )
                     return;
             }
         }
-    }  
+    }
 
     //how to build a lake in the park?
     //just hold 'W' key on build ;-)

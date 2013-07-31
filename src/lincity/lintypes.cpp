@@ -82,7 +82,7 @@ void MapTile::setTerrain(unsigned short new_type)
     this->type = new_type;
     this->group = new_group;
     if(new_type == CST_WATER)
-	{	flags |= FLAG_HAS_UNDERGROUND_WATER;}
+    {   flags |= FLAG_HAS_UNDERGROUND_WATER;}
 }
 
 
@@ -103,25 +103,25 @@ unsigned short MapTile::getGroup() //group of bare land or the covering construc
 
 unsigned short MapTile::getTransportGroup() //group of bare land or the covering construction
 {
-	unsigned short grp = getGroup();
-	if (is_transport())
-	{
-		switch(grp)
-		{
-			case GROUP_TRACK_BRIDGE:
-				grp = GROUP_TRACK;
-				break;
-			case GROUP_ROAD_BRIDGE:
-				grp = GROUP_ROAD;
-				break;
-			case GROUP_RAIL_BRIDGE:
-				grp = GROUP_RAIL;
-				break;
-			default:
-				break;
-		}
-	}
-	return grp; 
+    unsigned short grp = getGroup();
+    if (is_transport())
+    {
+        switch(grp)
+        {
+            case GROUP_TRACK_BRIDGE:
+                grp = GROUP_TRACK;
+                break;
+            case GROUP_ROAD_BRIDGE:
+                grp = GROUP_ROAD;
+                break;
+            case GROUP_RAIL_BRIDGE:
+                grp = GROUP_RAIL;
+                break;
+            default:
+                break;
+        }
+    }
+    return grp;
 }
 
 
@@ -183,24 +183,24 @@ void MapTile::writeTemplate()
 {
     std::string xml_tag;
     if ((!binary_mode && xml_template_libary.count("tile") == 0)
-		|| (binary_mode && bin_template_libary.count(GROUP_DESERT) == 0) )
+        || (binary_mode && bin_template_libary.count(GROUP_DESERT) == 0) )
     {
-        
+
         XMLTemplate * xml_tmp = new XMLTemplate("tile");
         //xml_tmp->add_len(sizeof(group));//for the head
         if (!binary_mode)
         {
-			xml_tmp->putTag("group");
-			xml_tmp->add_len(sizeof(group));
-			xml_tmp->putTag("type");
-			xml_tmp->add_len(sizeof(type));
-			xml_tmp->putTag("map_x");
-			xml_tmp->add_len(sizeof(int));//has to match local var in saveMembers 
-			xml_tmp->putTag("map_y");
-			xml_tmp->add_len(sizeof(int));//has to match local var in saveMembers
-		}
+            xml_tmp->putTag("group");
+            xml_tmp->add_len(sizeof(group));
+            xml_tmp->putTag("type");
+            xml_tmp->add_len(sizeof(type));
+            xml_tmp->putTag("map_x");
+            xml_tmp->add_len(sizeof(int));//has to match local var in saveMembers
+            xml_tmp->putTag("map_y");
+            xml_tmp->add_len(sizeof(int));//has to match local var in saveMembers
+        }
         xml_tmp->putTag("flags");
-        xml_tmp->add_len(sizeof(flags));         
+        xml_tmp->add_len(sizeof(flags));
         xml_tmp->putTag("air_pol");
         xml_tmp->add_len(sizeof(pollution));
         xml_tmp->putTag("ore");
@@ -230,7 +230,7 @@ void MapTile::writeTemplate()
         xml_tmp->putTag("int4");
         xml_tmp->add_len(sizeof(ground.int4));
         if (binary_mode)
-        {	xml_tmp->set_group(GROUP_DESERT);}
+        {   xml_tmp->set_group(GROUP_DESERT);}
     }
 }
 
@@ -243,100 +243,100 @@ void MapTile::saveMembers(std::ostream *os)
     size_t cm = 0;
     std::string xml_tag;
      if ((!binary_mode && xml_template_libary.count("tile") == 0)
-		|| (binary_mode && bin_template_libary.count(head) == 0) )
+        || (binary_mode && bin_template_libary.count(head) == 0) )
     {
         writeTemplate();
         //std::cout << "creating xml template for tile" << std::endl;
     }
-    XMLTemplate * xml_tmp; 
+    XMLTemplate * xml_tmp;
     if (binary_mode)
-    {	xml_tmp = bin_template_libary[head];}
-    else 
+    {   xml_tmp = bin_template_libary[head];}
+    else
     {
-		xml_tmp = xml_template_libary["tile"];
-		if (os == &std::cout)
-		{	xml_tmp->report(os);}
+        xml_tmp = xml_template_libary["tile"];
+        if (os == &std::cout)
+        {   xml_tmp->report(os);}
     }
     xml_tmp->rewind();
-    
+
     if (!binary_mode)
     {
-		*os << "<tile>";
-		os->flush();
-		while (!xml_tmp->reached_end())
-		{
-			xml_tag = xml_tmp->getTag();
-			if (xml_tag == "map_x")                  {*os << x;}
-			else if (xml_tag == "map_y")             {*os << y;}
-			//mapTile
-			else if (xml_tag == "flags")             {*os << flags;}
-			else if (xml_tag == "type")              {*os << type;}
-			else if (xml_tag == "group")             {*os << group;}
-			else if (xml_tag == "air_pol")           {*os << pollution;}
-			else if (xml_tag == "ore")               {*os << ore_reserve;}
-			else if (xml_tag == "coal")              {*os << coal_reserve;}
-			//ground
-			else if (xml_tag == "altitude")          {*os << ground.altitude;}
-			else if (xml_tag == "ecotable")          {*os << ground.ecotable;}
-			else if (xml_tag == "wastes")            {*os << ground.wastes;}
-			else if (xml_tag == "grd_pol")           {*os << ground.pollution;}
-			else if (xml_tag == "water_alt")         {*os << ground.water_alt;}
-			else if (xml_tag == "water_pol")         {*os << ground.water_pol;}
-			else if (xml_tag == "water_wast")        {*os << ground.water_wast;}
-			else if (xml_tag == "water_next")        {*os << ground.water_next;}
-			else if (xml_tag == "int1")              {*os << ground.int1;}
-			else if (xml_tag == "int2")              {*os << ground.int2;}
-			else if (xml_tag == "int3")              {*os << ground.int3;}
-			else if (xml_tag == "int4")              {*os << ground.int4;}
-			else
-			{
-				std::cout<<"Unknown Template entry "<< xml_tag << " while exporting <MapTile>"<<std::endl;
-			}
+        *os << "<tile>";
+        os->flush();
+        while (!xml_tmp->reached_end())
+        {
+            xml_tag = xml_tmp->getTag();
+            if (xml_tag == "map_x")                  {*os << x;}
+            else if (xml_tag == "map_y")             {*os << y;}
+            //mapTile
+            else if (xml_tag == "flags")             {*os << flags;}
+            else if (xml_tag == "type")              {*os << type;}
+            else if (xml_tag == "group")             {*os << group;}
+            else if (xml_tag == "air_pol")           {*os << pollution;}
+            else if (xml_tag == "ore")               {*os << ore_reserve;}
+            else if (xml_tag == "coal")              {*os << coal_reserve;}
+            //ground
+            else if (xml_tag == "altitude")          {*os << ground.altitude;}
+            else if (xml_tag == "ecotable")          {*os << ground.ecotable;}
+            else if (xml_tag == "wastes")            {*os << ground.wastes;}
+            else if (xml_tag == "grd_pol")           {*os << ground.pollution;}
+            else if (xml_tag == "water_alt")         {*os << ground.water_alt;}
+            else if (xml_tag == "water_pol")         {*os << ground.water_pol;}
+            else if (xml_tag == "water_wast")        {*os << ground.water_wast;}
+            else if (xml_tag == "water_next")        {*os << ground.water_next;}
+            else if (xml_tag == "int1")              {*os << ground.int1;}
+            else if (xml_tag == "int2")              {*os << ground.int2;}
+            else if (xml_tag == "int3")              {*os << ground.int3;}
+            else if (xml_tag == "int4")              {*os << ground.int4;}
+            else
+            {
+                std::cout<<"Unknown Template entry "<< xml_tag << " while exporting <MapTile>"<<std::endl;
+            }
 
-			*os << '\t';
-			os->flush();
-			xml_tmp->step();
-		}
-		*os << "</tile>" << std::endl;
-	}
-	else
-	{					
-		int idx = x + y * world.len();
-		os->write( (char*)&head,sizeof(head)); //Head aka GROUP_DESERT
-		os->write( (char*)&group,sizeof(group));
-		os->write( (char*)&type,sizeof(type));
-		os->write( (char*)&idx,sizeof(idx));
-		
-		while (!xml_tmp->reached_end())		
-		{
-			xml_tag = xml_tmp->getTag();
-			xml_tmp->step();
-			//mapTile
-			if (xml_tag == "flags")             	 {os->write( (char*)&flags,sizeof(flags));cm+=sizeof(flags);}
-			else if (xml_tag == "air_pol")           {os->write( (char*)&pollution,sizeof(pollution));cm+=sizeof(pollution);}
-			else if (xml_tag == "ore")               {os->write( (char*)&ore_reserve,sizeof(ore_reserve));cm+=sizeof(ore_reserve);}
-			else if (xml_tag == "coal")              {os->write( (char*)&coal_reserve,sizeof(coal_reserve));cm+=sizeof(coal_reserve);}
-			//ground
-			else if (xml_tag == "altitude")          {os->write( (char*)&ground.altitude,sizeof(ground.altitude));cm+=sizeof(ground.altitude);} 
-			else if (xml_tag == "ecotable")          {os->write( (char*)&ground.ecotable,sizeof(ground.ecotable));cm+=sizeof(ground.ecotable);} 
-			else if (xml_tag == "wastes")            {os->write( (char*)&ground.wastes,sizeof(ground.wastes));cm+=sizeof(ground.wastes);} 
-			else if (xml_tag == "grd_pol")           {os->write( (char*)&ground.pollution,sizeof(ground.pollution));cm+=sizeof(ground.pollution);} 
-			else if (xml_tag == "water_alt")         {os->write( (char*)&ground.water_alt,sizeof(ground.water_alt));cm+=sizeof(ground.water_alt);}
-			else if (xml_tag == "water_pol")         {os->write( (char*)&ground.water_pol,sizeof(ground.water_pol));cm+=sizeof(ground.water_pol);}
-			else if (xml_tag == "water_wast")        {os->write( (char*)&ground.water_wast,sizeof(ground.water_wast));cm+=sizeof(ground.water_wast);}
-			else if (xml_tag == "water_next")        {os->write( (char*)&ground.water_next,sizeof(ground.water_next));cm+=sizeof(ground.water_next);}
-			else if (xml_tag == "int1")              {os->write( (char*)&ground.int1,sizeof(ground.int1));cm+=sizeof(ground.int1);} 
-			else if (xml_tag == "int2")              {os->write( (char*)&ground.int2,sizeof(ground.int2));cm+=sizeof(ground.int2);}
-			else if (xml_tag == "int3")              {os->write( (char*)&ground.int3,sizeof(ground.int3));cm+=sizeof(ground.int3);}
-			else if (xml_tag == "int4")              {os->write( (char*)&ground.int4,sizeof(ground.int4));cm+=sizeof(ground.int4);}
-			else
-			{
-				std::cout<<"Unknown Template entry "<< xml_tag << " while exporting <MapTile>"<<std::endl;
-			}			
-		}
-		//std::cout << "cm/len: " << cm << "/" << xml_tmp->len() << std::endl;
-		assert(cm == xml_tmp->len());		
-	}
+            *os << '\t';
+            os->flush();
+            xml_tmp->step();
+        }
+        *os << "</tile>" << std::endl;
+    }
+    else
+    {
+        int idx = x + y * world.len();
+        os->write( (char*)&head,sizeof(head)); //Head aka GROUP_DESERT
+        os->write( (char*)&group,sizeof(group));
+        os->write( (char*)&type,sizeof(type));
+        os->write( (char*)&idx,sizeof(idx));
+
+        while (!xml_tmp->reached_end())
+        {
+            xml_tag = xml_tmp->getTag();
+            xml_tmp->step();
+            //mapTile
+            if (xml_tag == "flags")                  {os->write( (char*)&flags,sizeof(flags));cm+=sizeof(flags);}
+            else if (xml_tag == "air_pol")           {os->write( (char*)&pollution,sizeof(pollution));cm+=sizeof(pollution);}
+            else if (xml_tag == "ore")               {os->write( (char*)&ore_reserve,sizeof(ore_reserve));cm+=sizeof(ore_reserve);}
+            else if (xml_tag == "coal")              {os->write( (char*)&coal_reserve,sizeof(coal_reserve));cm+=sizeof(coal_reserve);}
+            //ground
+            else if (xml_tag == "altitude")          {os->write( (char*)&ground.altitude,sizeof(ground.altitude));cm+=sizeof(ground.altitude);}
+            else if (xml_tag == "ecotable")          {os->write( (char*)&ground.ecotable,sizeof(ground.ecotable));cm+=sizeof(ground.ecotable);}
+            else if (xml_tag == "wastes")            {os->write( (char*)&ground.wastes,sizeof(ground.wastes));cm+=sizeof(ground.wastes);}
+            else if (xml_tag == "grd_pol")           {os->write( (char*)&ground.pollution,sizeof(ground.pollution));cm+=sizeof(ground.pollution);}
+            else if (xml_tag == "water_alt")         {os->write( (char*)&ground.water_alt,sizeof(ground.water_alt));cm+=sizeof(ground.water_alt);}
+            else if (xml_tag == "water_pol")         {os->write( (char*)&ground.water_pol,sizeof(ground.water_pol));cm+=sizeof(ground.water_pol);}
+            else if (xml_tag == "water_wast")        {os->write( (char*)&ground.water_wast,sizeof(ground.water_wast));cm+=sizeof(ground.water_wast);}
+            else if (xml_tag == "water_next")        {os->write( (char*)&ground.water_next,sizeof(ground.water_next));cm+=sizeof(ground.water_next);}
+            else if (xml_tag == "int1")              {os->write( (char*)&ground.int1,sizeof(ground.int1));cm+=sizeof(ground.int1);}
+            else if (xml_tag == "int2")              {os->write( (char*)&ground.int2,sizeof(ground.int2));cm+=sizeof(ground.int2);}
+            else if (xml_tag == "int3")              {os->write( (char*)&ground.int3,sizeof(ground.int3));cm+=sizeof(ground.int3);}
+            else if (xml_tag == "int4")              {os->write( (char*)&ground.int4,sizeof(ground.int4));cm+=sizeof(ground.int4);}
+            else
+            {
+                std::cout<<"Unknown Template entry "<< xml_tag << " while exporting <MapTile>"<<std::endl;
+            }
+        }
+        //std::cout << "cm/len: " << cm << "/" << xml_tmp->len() << std::endl;
+        assert(cm == xml_tmp->len());
+    }
 }
 
 
@@ -370,58 +370,58 @@ void Construction::list_commodities(int * i)
     std::map<Construction::Commodities, int>::iterator stuff_it;
     if (! (flags & FLAG_EVACUATE))
     {
-		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
-		{
-			if(constructionGroup->commodityRuleCount[stuff_it->first].take
-			&& ! constructionGroup->commodityRuleCount[stuff_it->first].give
-			&& *i < 14)
-			{
-				mps_store_ssddp(*i,"-->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-				++*i;
-			}//endif
-		} //endfor
-		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
-		{
-			if(constructionGroup->commodityRuleCount[stuff_it->first].give
-			&& ! constructionGroup->commodityRuleCount[stuff_it->first].take
-			&& *i<14)
-			{
-				mps_store_ssddp(*i,"<-- ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-				++*i;
-			}//endif
-		}//endfor
-		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
-		{
-			if(constructionGroup->commodityRuleCount[stuff_it->first].give
-			&& constructionGroup->commodityRuleCount[stuff_it->first].take
-			&& *i<14)
-			{
-				mps_store_ssddp(*i,"<->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-				++*i;
-			}//endif
-		}//endfor
-		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
-		{
-			if((!constructionGroup->commodityRuleCount[stuff_it->first].give
-			&& !constructionGroup->commodityRuleCount[stuff_it->first].take)
-			&& *i<14)
-			{
-				mps_store_ssddp(*i,"--- ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-				++*i;
-			}//endif
-		}//endfor
-	}
-	else // FLAG_EVACUATE
-	{
-		for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
-		{
-			if(*i<14)
-			{
-				mps_store_ssddp(*i,"<< ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
-				++*i;
-			}//endif
-		}//endfor
-	}
+        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        {
+            if(constructionGroup->commodityRuleCount[stuff_it->first].take
+            && ! constructionGroup->commodityRuleCount[stuff_it->first].give
+            && *i < 14)
+            {
+                mps_store_ssddp(*i,"-->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                ++*i;
+            }//endif
+        } //endfor
+        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        {
+            if(constructionGroup->commodityRuleCount[stuff_it->first].give
+            && ! constructionGroup->commodityRuleCount[stuff_it->first].take
+            && *i<14)
+            {
+                mps_store_ssddp(*i,"<-- ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                ++*i;
+            }//endif
+        }//endfor
+        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        {
+            if(constructionGroup->commodityRuleCount[stuff_it->first].give
+            && constructionGroup->commodityRuleCount[stuff_it->first].take
+            && *i<14)
+            {
+                mps_store_ssddp(*i,"<->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                ++*i;
+            }//endif
+        }//endfor
+        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        {
+            if((!constructionGroup->commodityRuleCount[stuff_it->first].give
+            && !constructionGroup->commodityRuleCount[stuff_it->first].take)
+            && *i<14)
+            {
+                mps_store_ssddp(*i,"--- ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                ++*i;
+            }//endif
+        }//endfor
+    }
+    else // FLAG_EVACUATE
+    {
+        for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+        {
+            if(*i<14)
+            {
+                mps_store_ssddp(*i,"<< ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                ++*i;
+            }//endif
+        }//endfor
+    }
 }
 
 void Construction::initialize_commodities(void)
@@ -459,7 +459,7 @@ void Construction::setCommodityRulesSaved(std::map<Commodities,CommodityRule> * 
 
 
 /*
-// Useful for debugging connection flags 
+// Useful for debugging connection flags
 void Construction::list_connections(int * i)
 {
     char p[] = {'_','_','_','_' ,'\0'};
@@ -498,7 +498,7 @@ int Construction::loadMember(std::string const &xml_tag, std::string const &xml_
              case TYPE_DOUBLE:
                 iss>>*static_cast<double *>(memberRuleCount[xml_tag].ptr);
                 break;
-			case TYPE_FLOAT:
+            case TYPE_FLOAT:
                 iss>>*static_cast<float *>(memberRuleCount[xml_tag].ptr);
                 break;
         }
@@ -512,7 +512,7 @@ int Construction::loadMember(std::string const &xml_tag, std::string const &xml_
 }
 
 int Construction::readbinaryMember(std::string const &xml_tag, gzFile fp)
-{   
+{
     size_t s_t = 0;
 //    if(memberRuleCount.count(xml_tag))
 //    {
@@ -530,7 +530,7 @@ int Construction::readbinaryMember(std::string const &xml_tag, gzFile fp)
              case TYPE_DOUBLE:
                  s_t = sizeof(double);
                 break;
-			case TYPE_FLOAT:
+            case TYPE_FLOAT:
                  s_t = sizeof(float);
                 break;
         }
@@ -547,7 +547,7 @@ int Construction::readbinaryMember(std::string const &xml_tag, gzFile fp)
 
 void Construction::writeTemplate()
 {
-    
+
     std::string name;
     XMLTemplate * xml_tmp;
     unsigned short head = constructionGroup->group;
@@ -562,54 +562,54 @@ void Construction::writeTemplate()
     }
 
     if ((!binary_mode && xml_template_libary.count(name) == 0)||
-		(binary_mode && bin_template_libary.count(head) == 0))
+        (binary_mode && bin_template_libary.count(head) == 0))
     {
-        xml_tmp = new XMLTemplate(name);      
-		if (!binary_mode)
-		{	
-			xml_tmp->putTag("Group");
-			xml_tmp->putTag("type");
-			xml_tmp->putTag("map_x");
-			xml_tmp->putTag("map_y");		
-		}
-						
-		//xml_tmp->add_len(sizeof(constructionGroup->group) + sizeof(type) + sizeof(x));	//header + group entry
-		std::map<std::string, MemberRule>::iterator member_it;
+        xml_tmp = new XMLTemplate(name);
+        if (!binary_mode)
+        {
+            xml_tmp->putTag("Group");
+            xml_tmp->putTag("type");
+            xml_tmp->putTag("map_x");
+            xml_tmp->putTag("map_y");
+        }
+
+        //xml_tmp->add_len(sizeof(constructionGroup->group) + sizeof(type) + sizeof(x));    //header + group entry
+        std::map<std::string, MemberRule>::iterator member_it;
         for(member_it = memberRuleCount.begin() ; member_it != memberRuleCount.end() ; member_it++)
         {
             xml_tmp->putTag(member_it->first);
             size_t s_t = 4;
-			switch (member_it->second.memberType)
-			{
-				case TYPE_BOOL:
-					s_t = sizeof(bool);
-					break;
-				case TYPE_INT:
-					s_t = sizeof(int);
-					break;
-				case TYPE_USHORT:
-					s_t = sizeof(unsigned short);
-					break;
-				case TYPE_DOUBLE:
-					s_t = sizeof(double);
-					break;
-				case TYPE_FLOAT:
-					s_t = sizeof(float);
-					break;
-			}			
+            switch (member_it->second.memberType)
+            {
+                case TYPE_BOOL:
+                    s_t = sizeof(bool);
+                    break;
+                case TYPE_INT:
+                    s_t = sizeof(int);
+                    break;
+                case TYPE_USHORT:
+                    s_t = sizeof(unsigned short);
+                    break;
+                case TYPE_DOUBLE:
+                    s_t = sizeof(double);
+                    break;
+                case TYPE_FLOAT:
+                    s_t = sizeof(float);
+                    break;
+            }
             xml_tmp->add_len(s_t);
         }
         xml_tmp->rewind();
         if (binary_mode)
-		{	
-			xml_tmp->set_group(head);
-		}
+        {
+            xml_tmp->set_group(head);
+        }
     }
 }
 
 void Construction::saveMembers(std::ostream *os)
 {
-    
+
     std::string name;
     unsigned short head = constructionGroup->group;
     if (flags&FLAG_IS_TRANSPORT)
@@ -623,47 +623,47 @@ void Construction::saveMembers(std::ostream *os)
     }
 
     if ((!binary_mode && xml_template_libary.count(name) == 0)||
-		(binary_mode && bin_template_libary.count(head) == 0))
+        (binary_mode && bin_template_libary.count(head) == 0))
     {
         //std::cout << "creating xml template for " << name << std::endl;
         writeTemplate();
     }
     XMLTemplate * xml_tmp;
-    
+
     if (binary_mode)
-    {	xml_tmp = bin_template_libary[head];}
-	else
-	{	
-		xml_tmp = xml_template_libary[name];
-		if (os == &std::cout)
-		{	xml_tmp->report(os);}	
-	}
-    xml_tmp->rewind(); 
+    {   xml_tmp = bin_template_libary[head];}
+    else
+    {
+        xml_tmp = xml_template_libary[name];
+        if (os == &std::cout)
+        {   xml_tmp->report(os);}
+    }
+    xml_tmp->rewind();
     size_t checksum = 0;
     std::map<std::string, MemberRule>::iterator member_it;
     if (binary_mode)
-	{   //Mandatory header for binary files (before actual template)
-		int idx = x + y * world.len();
-		os->write( (char*) &head,sizeof(head));
-		os->write( (char*) &constructionGroup->group,sizeof(constructionGroup->group));
-		//checksum += sizeof(constructionGroup->group); //head
+    {   //Mandatory header for binary files (before actual template)
+        int idx = x + y * world.len();
+        os->write( (char*) &head,sizeof(head));
+        os->write( (char*) &constructionGroup->group,sizeof(constructionGroup->group));
+        //checksum += sizeof(constructionGroup->group); //head
         os->write( (char*) &type,sizeof(type));
-		//checksum += sizeof(type); //head
-		os->write( (char*) &idx,sizeof(idx));
-		//checksum += sizeof(idx); //head
-	}
-	else
-	{   // Header for txt mode (part of template)
-		*os <<"<" << name << ">" << constructionGroup->group << "\t";
-		xml_tmp->step();
-		*os << type << "\t";
-		xml_tmp->step();
-		*os << x << "\t";
-		xml_tmp->step();
-		*os << y << "\t";
-		xml_tmp->step();
-		os->flush();
-	}   
+        //checksum += sizeof(type); //head
+        os->write( (char*) &idx,sizeof(idx));
+        //checksum += sizeof(idx); //head
+    }
+    else
+    {   // Header for txt mode (part of template)
+        *os <<"<" << name << ">" << constructionGroup->group << "\t";
+        xml_tmp->step();
+        *os << type << "\t";
+        xml_tmp->step();
+        *os << x << "\t";
+        xml_tmp->step();
+        *os << y << "\t";
+        xml_tmp->step();
+        os->flush();
+    }
     while (!xml_tmp->reached_end())
     {
         member_it = memberRuleCount.find(xml_tmp->getTag());
@@ -672,51 +672,51 @@ void Construction::saveMembers(std::ostream *os)
 
             if (!binary_mode)
             {
-				switch (member_it->second.memberType)
-				{
-					case TYPE_BOOL:
-						*os << *static_cast<bool *>(member_it->second.ptr);
-						break;
-					case TYPE_INT:
-						*os << *static_cast<int *>(member_it->second.ptr);
-						break;
-					case TYPE_USHORT:
-						*os << *static_cast<unsigned short *>(member_it->second.ptr);
-						break;
-					case TYPE_DOUBLE:
-						*os << *static_cast<double *>(member_it->second.ptr);
-						break;
-					case TYPE_FLOAT:
-						*os << *static_cast<float *>(member_it->second.ptr);
-						break;
-				}
-				*os << '\t';
-				//os->flush();
-			}
-			else //binary mode
-			{
-				size_t s_t = 4;
-				switch (member_it->second.memberType)
-				{
-					case TYPE_BOOL:
-						s_t = sizeof(bool);
-						break;
-					case TYPE_INT:
-						s_t = sizeof(int);
-						break;
-					case TYPE_USHORT:
-						s_t = sizeof(unsigned short);
-						break;	
-					case TYPE_DOUBLE:
-						s_t = sizeof(double);
-						break;
-					case TYPE_FLOAT:
-						s_t = sizeof(float);
-						break;
-				}			
-				os->write( (char*) member_it->second.ptr,s_t);
-				checksum += s_t;
-			}
+                switch (member_it->second.memberType)
+                {
+                    case TYPE_BOOL:
+                        *os << *static_cast<bool *>(member_it->second.ptr);
+                        break;
+                    case TYPE_INT:
+                        *os << *static_cast<int *>(member_it->second.ptr);
+                        break;
+                    case TYPE_USHORT:
+                        *os << *static_cast<unsigned short *>(member_it->second.ptr);
+                        break;
+                    case TYPE_DOUBLE:
+                        *os << *static_cast<double *>(member_it->second.ptr);
+                        break;
+                    case TYPE_FLOAT:
+                        *os << *static_cast<float *>(member_it->second.ptr);
+                        break;
+                }
+                *os << '\t';
+                //os->flush();
+            }
+            else //binary mode
+            {
+                size_t s_t = 4;
+                switch (member_it->second.memberType)
+                {
+                    case TYPE_BOOL:
+                        s_t = sizeof(bool);
+                        break;
+                    case TYPE_INT:
+                        s_t = sizeof(int);
+                        break;
+                    case TYPE_USHORT:
+                        s_t = sizeof(unsigned short);
+                        break;
+                    case TYPE_DOUBLE:
+                        s_t = sizeof(double);
+                        break;
+                    case TYPE_FLOAT:
+                        s_t = sizeof(float);
+                        break;
+                }
+                os->write( (char*) member_it->second.ptr,s_t);
+                checksum += s_t;
+            }
         }
         else
         {
@@ -727,15 +727,15 @@ void Construction::saveMembers(std::ostream *os)
     }
     if (!binary_mode)
     {
-		*os << "</" << name << ">" << std::endl;
+        *os << "</" << name << ">" << std::endl;
     }
     else
-    {	
-		if (xml_tmp->len() != checksum)
-		{
-			std::cout << xml_tmp->len() << " != " << checksum << std::endl;
-			assert(checksum == xml_tmp->len());
-		}
+    {
+        if (xml_tmp->len() != checksum)
+        {
+            std::cout << xml_tmp->len() << " != " << checksum << std::endl;
+            assert(checksum == xml_tmp->len());
+        }
     }
 }
 
@@ -758,7 +758,7 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
     }
 
     if (world(x, y)->reportingConstruction || world(x, y)->construction) //no two constructions at the same mapTile
-    {	bulldoze_item(x, y);}
+    {   bulldoze_item(x, y);}
     unsigned short size = 0;
     world(x, y)->construction = tmpConstr;
     constructionCount.add_construction(tmpConstr); //register for Simulation
@@ -797,10 +797,10 @@ struct TYPE main_types[NUM_OF_TYPES];
 
 /* AL1 : 2.x : RANGE of buildings is not included in this struct GROUP
  *
- * 		this is a bit annoying => would need to be fixed when(if?)
- * 		all the struct and associated macros are cleaned (map, MP_INFO etc.)
+ *      this is a bit annoying => would need to be fixed when(if?)
+ *      all the struct and associated macros are cleaned (map, MP_INFO etc.)
  *
- * 		for now (2.1 svn rev 1585) just put it in range.h
+ *      for now (2.1 svn rev 1585) just put it in range.h
  *
  */
 
@@ -1362,7 +1362,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
      GROUP_RAIL_BRIDGE_COST,
      GROUP_RAIL_BRIDGE_TECH},
 
-	/* 49 */
+    /* 49 */
     {N_("Wind Power"),
      TRUE,                     /* need credit? */
      GROUP_WIND_POWER,
@@ -1373,7 +1373,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
      GROUP_WIND_POWER_FIREC,
      GROUP_WIND_POWER_COST,
      GROUP_WIND_POWER_TECH},
-          
+
      /* 50 */
     /* End of Data */
     {"EOF",

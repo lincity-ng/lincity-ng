@@ -50,13 +50,12 @@ void Market::update()
 
         if ((stuff_ID != STUFF_JOBS)
          && (commodityCount[STUFF_JOBS] < jobs)
+         && !(flags & FLAG_EVACUATE)
            )
-        {
-            continue;
-        }
+        {continue;}
 
         market_lvl = stuff_it->second;
-        market_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        market_cap = (flags & FLAG_EVACUATE)?(market_lvl>0?market_lvl:1):constructionGroup->commodityRuleCount[stuff_ID].maxload;
         pears = 1;
         ratio = market_lvl * TRANSPORT_QUANTA / market_cap;
         market_ratio += ratio;
@@ -201,8 +200,57 @@ void Market::report()
 
     mps_store_sd(i++,constructionGroup->name,ID);
     i++;
-    list_commodities(&i);
+    //list_commodities(&i);
+    std::map<Construction::Commodities, int>::iterator stuff_it;
+    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++)
+    {
+        char arrows[4]="---";
+        if (flags & FLAG_EVACUATE)
+        {
+            arrows[0] = '<';
+            arrows[1] = '<';
+            arrows[2] = ' ';
+        }
+        else
+        {
+            if (commodityRuleCount[stuff_it->first].take)
+            {   arrows[2] = '>';}
+            if (commodityRuleCount[stuff_it->first].give)
+            {   arrows[0] = '<';}
+        }
+
+        if(i < 14)
+        {
+            mps_store_ssddp(i++,arrows,commodityNames[stuff_it->first],stuff_it->second, commodityRuleCount[stuff_it->first].maxload);
+        }//endif
+    } //endfor
 }
+
+void Market::toggleEvacuation()
+{
+    bool evacuate = flags & FLAG_EVACUATE; //actually the previous state
+    std::map<Construction::Commodities, CommodityRule>::iterator rule_it;
+    for(rule_it = commodityRuleCount.begin() ; rule_it != commodityRuleCount.end() ; rule_it++)
+    {
+        if(!evacuate)
+        {
+            rule_it->second.give = true;
+            rule_it->second.take = false;
+        }
+        else
+        {
+            rule_it->second.give = true;
+            rule_it->second.take = true;
+        }
+
+    }
+    flags &= ~FLAG_EVACUATE;
+    if(!evacuate)
+    {   flags |= FLAG_EVACUATE;}
+
+}
+
+
 
 /** @file lincity/modules/market.cpp */
 

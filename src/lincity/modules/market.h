@@ -70,11 +70,11 @@ public:
     Market(int x, int y, unsigned short type): CountedConstruction<Market>(x, y, type)
     {
         constructionGroup = &marketConstructionGroup;
-        this->jobs = JOBS_MARKET_LOW;
-        //local copy of commodityRuleCount
+        //local copy of commodityRuCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
         setCommodityRulesSaved(&commodityRuleCount);
         initialize_commodities();
+        this->jobs = JOBS_MARKET_LOW;
         this->anim = 0;
         //set the Searchrange of this Market
         int tmp;
@@ -92,6 +92,7 @@ public:
     virtual void update();
     virtual void report();
     void cover();
+    void toggleEvacuation();
 
     int xs, ys, xe, ye;
     int jobs;

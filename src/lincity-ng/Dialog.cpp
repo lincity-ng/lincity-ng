@@ -172,7 +172,7 @@ void Dialog::askRocket(){
     }
     Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
-	title << _("Launchsite") << " ( " << pointX <<" , " << pointY << " )";
+    title << _("Launchsite") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
     // connect signals
     Button* yesButton = getButton( *myDialogComponent, "Yes" );
@@ -375,39 +375,39 @@ void Dialog::gameStats(){
     snprintf (outf, maxlength, _("Game statistics from LinCity-NG Version %s"), PACKAGE_VERSION);
     setParagraphN( "statistic_text", line++, outf );
     if (strlen (given_scene) > 3){
-	    snprintf (outf, maxlength, _("Initial loaded scene - %s"), given_scene);
+        snprintf (outf, maxlength, _("Initial loaded scene - %s"), given_scene);
         setParagraphN( "statistic_text", line++, outf );
     }
     if (sustain_flag){
-	    snprintf (outf, maxlength, "%s", _("Economy is sustainable"));
+        snprintf (outf, maxlength, "%s", _("Economy is sustainable"));
         setParagraphN( "statistic_text", line++, outf );
     }
     snprintf (outf, maxlength, _("Population  %d  of which  %d  are not housed.")
-	     ,population + people_pool, people_pool);
+         ,population + people_pool, people_pool);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength,
-	     _("Max population %d  Number evacuated %d Total births %d")
-	     ,max_pop_ever, total_evacuated, total_births);
+         _("Max population %d  Number evacuated %d Total births %d")
+         ,max_pop_ever, total_evacuated, total_births);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength,
-	     _("Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"),
-	     current_month(total_time), current_year(total_time), total_money,
-	     (float) tech_level * 100.0 / MAX_TECH_LEVEL,
-	     (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
+         _("Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"),
+         current_month(total_time), current_year(total_time), total_money,
+         (float) tech_level * 100.0 / MAX_TECH_LEVEL,
+         (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength,
-	     _("Deaths by starvation %7d   History %8.3f"),
-	     total_starve_deaths, starve_deaths_history);
+         _("Deaths by starvation %7d   History %8.3f"),
+         total_starve_deaths, starve_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength,
-	     _("Deaths from pollution %7d   History %8.3f"),
-	     total_pollution_deaths, pollution_deaths_history);
+         _("Deaths from pollution %7d   History %8.3f"),
+         total_pollution_deaths, pollution_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, _("Years of unemployment %7d   History %8.3f"),
-	     total_unemployed_years, unemployed_history);
+         total_unemployed_years, unemployed_history);
     setParagraphN( "statistic_text", line++, outf );
     snprintf (outf, maxlength, _("Rockets launched %2d  Successful launches %2d"),
-	     rockets_launched, rockets_launched_success);
+         rockets_launched, rockets_launched_success);
     setParagraphN( "statistic_text", line++, outf );
 
     while( line <= 11 ){ //clear remaining lines
@@ -416,12 +416,12 @@ void Dialog::gameStats(){
     free( outf );
 
     setTableRC("statistic", 1, 1, _("Residences"),
-	     /*group_count[GROUP_RESIDENCE_LL] +
-	     group_count[GROUP_RESIDENCE_ML] +
-	     group_count[GROUP_RESIDENCE_HL] +
-	     group_count[GROUP_RESIDENCE_LH] +
-	     group_count[GROUP_RESIDENCE_MH] +
-	     group_count[GROUP_RESIDENCE_HH]*/
+         /*group_count[GROUP_RESIDENCE_LL] +
+         group_count[GROUP_RESIDENCE_ML] +
+         group_count[GROUP_RESIDENCE_HL] +
+         group_count[GROUP_RESIDENCE_LH] +
+         group_count[GROUP_RESIDENCE_MH] +
+         group_count[GROUP_RESIDENCE_HH]*/
         Counted<Residence>::getInstanceCount());
     setTableRC("statistic", 1, 2, _("Markets"), Counted<Market>::getInstanceCount());
     setTableRC("statistic", 1, 3, _("Farms"), Counted<Organic_farm>::getInstanceCount());
@@ -497,8 +497,8 @@ void Dialog::saveGameStats(){
     //open File
     char *s;
     if ((s = (char *) malloc (lc_save_dir_len + strlen (LC_SAVE_DIR)
-			      + strlen (RESULTS_FILENAME) + 64)) == 0)
-	malloc_failure ();
+                  + strlen (RESULTS_FILENAME) + 64)) == 0)
+    malloc_failure ();
     sprintf (s, "%s%c%s", lc_save_dir, PATH_SLASH, RESULTS_FILENAME);
 
     std::ofstream results( s );
@@ -515,96 +515,96 @@ void Dialog::saveGameStats(){
     snprintf (outf, maxlength, "Game statistics from LinCity-NG Version %s", PACKAGE_VERSION);
     results << outf << std::endl;
     if (strlen (given_scene) > 3){
-	    snprintf (outf, maxlength, "Initial loaded scene - %s", given_scene);
+        snprintf (outf, maxlength, "Initial loaded scene - %s", given_scene);
         results << outf << std::endl;
     }
     if (sustain_flag){
-	    snprintf (outf, maxlength, "Economy is sustainable");
+        snprintf (outf, maxlength, "Economy is sustainable");
         results << outf << std::endl;
     }
     snprintf (outf, maxlength, "Population  %d  of which  %d  are not housed."
-	     ,population + people_pool, people_pool);
+         ,population + people_pool, people_pool);
     results << outf << std::endl;
     snprintf (outf, maxlength,
-	     "Max population %d  Number evacuated %d Total births %d"
-	     ,max_pop_ever, total_evacuated, total_births);
+         "Max population %d  Number evacuated %d Total births %d"
+         ,max_pop_ever, total_evacuated, total_births);
     results << outf << std::endl;
     snprintf (outf, maxlength,
-	     "Date %02d/%04d  Money %8d   Tech-level %5.1f (%5.1f)",
-	     1 + ((total_time % NUMOF_DAYS_IN_YEAR) / NUMOF_DAYS_IN_MONTH), current_year(total_time), total_money,
-	     (float) tech_level * 100.0 / MAX_TECH_LEVEL,
-	     (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
+         "Date %02d/%04d  Money %8d   Tech-level %5.1f (%5.1f)",
+         1 + ((total_time % NUMOF_DAYS_IN_YEAR) / NUMOF_DAYS_IN_MONTH), current_year(total_time), total_money,
+         (float) tech_level * 100.0 / MAX_TECH_LEVEL,
+         (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
     results << outf << std::endl;
     snprintf (outf, maxlength,
-	     " Deaths by starvation %7d   History %8.3f",
-	     total_starve_deaths, starve_deaths_history);
+         " Deaths by starvation %7d   History %8.3f",
+         total_starve_deaths, starve_deaths_history);
     results << outf << std::endl;
     snprintf (outf, maxlength,
-	     "Deaths from pollution %7d   History %8.3f",
-	     total_pollution_deaths, pollution_deaths_history);
+         "Deaths from pollution %7d   History %8.3f",
+         total_pollution_deaths, pollution_deaths_history);
     results << outf << std::endl;
     snprintf (outf, maxlength, "Years of unemployment %7d   History %8.3f",
-	     total_unemployed_years, unemployed_history);
+         total_unemployed_years, unemployed_history);
     results << outf << std::endl;
     snprintf (outf, maxlength, "Rockets launched %2d  Successful launches %2d",
-	     rockets_launched, rockets_launched_success);
+         rockets_launched, rockets_launched_success);
     results << outf << std::endl;
     results << "" << std::endl;
 
     snprintf (outf, maxlength, "    Residences %4d         Markets %4d            Farms %4d",
-	/*     group_count[GROUP_RESIDENCE_LL] +
-	     group_count[GROUP_RESIDENCE_ML] +
-	     group_count[GROUP_RESIDENCE_HL] +
-	     group_count[GROUP_RESIDENCE_LH] +
-	     group_count[GROUP_RESIDENCE_MH] +
-	     group_count[GROUP_RESIDENCE_HH] */
+    /*     group_count[GROUP_RESIDENCE_LL] +
+         group_count[GROUP_RESIDENCE_ML] +
+         group_count[GROUP_RESIDENCE_HL] +
+         group_count[GROUP_RESIDENCE_LH] +
+         group_count[GROUP_RESIDENCE_MH] +
+         group_count[GROUP_RESIDENCE_HH] */
          Counted<Residence>::getInstanceCount(),
-	     Counted<Market>::getInstanceCount(),
-	     Counted<Organic_farm>::getInstanceCount());
+         Counted<Market>::getInstanceCount(),
+         Counted<Organic_farm>::getInstanceCount());
     results << outf << std::endl;
-    snprintf (outf, maxlength, "   Water wells %4d     Wind powers %4d", 
+    snprintf (outf, maxlength, "   Water wells %4d     Wind powers %4d",
     Counted<Waterwell>::getInstanceCount(),Counted<Windpower>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "     Monuments %4d         Schools %4d     Universities %4d"
-	     ,Counted<Monument>::getInstanceCount(), Counted<School>::getInstanceCount()
-	     ,Counted<University>::getInstanceCount());
+         ,Counted<Monument>::getInstanceCount(), Counted<School>::getInstanceCount()
+         ,Counted<University>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, " Fire stations %4d           Parks %4d    Sports fields %4d"
-	     ,Counted<FireStation>::getInstanceCount(), Counted<Parkland>::getInstanceCount()
-	     ,Counted<Cricket>::getInstanceCount());
+         ,Counted<FireStation>::getInstanceCount(), Counted<Parkland>::getInstanceCount()
+         ,Counted<Cricket>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "Health centres %4d            Tips %4d         Shanties %4d",
-	     Counted<HealthCentre>::getInstanceCount(), Counted<Tip>::getInstanceCount(),
-	     Counted<Shanty>::getInstanceCount());
+         Counted<HealthCentre>::getInstanceCount(), Counted<Tip>::getInstanceCount(),
+         Counted<Shanty>::getInstanceCount());
     results << outf << std::endl;
     results << "" << std::endl;
 
     snprintf (outf, maxlength, "     Windmills %4d     Coal powers %4d     Solar powers %4d",
-	     Counted<Windmill>::getInstanceCount(),
-	     Counted<Coal_power>::getInstanceCount(),
-	     Counted<SolarPower>::getInstanceCount());
+         Counted<Windmill>::getInstanceCount(),
+         Counted<Coal_power>::getInstanceCount(),
+         Counted<SolarPower>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "   Substations %4d     Power lines %4d            Ports %4d"
-	     ,Counted<Substation>::getInstanceCount(), Counted<Powerline>::getInstanceCount()
-	     ,Counted<Port>::getInstanceCount());
+         ,Counted<Substation>::getInstanceCount(), Counted<Powerline>::getInstanceCount()
+         ,Counted<Port>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "        Tracks %4d           Roads %4d             Rail %4d"
-	     ,Counted<Track>::getInstanceCount(), Counted<Road>::getInstanceCount()
-	     ,Counted<Road>::getInstanceCount());
+         ,Counted<Track>::getInstanceCount(), Counted<Road>::getInstanceCount()
+         ,Counted<Road>::getInstanceCount());
     results << outf << std::endl;
     results << "" << std::endl;
 
     snprintf (outf, maxlength, "     Potteries %4d     Blacksmiths %4d            Mills %4d"
-	     ,Counted<Pottery>::getInstanceCount(), Counted<Blacksmith>::getInstanceCount()
-	     ,Counted<Mill>::getInstanceCount());
+         ,Counted<Pottery>::getInstanceCount(), Counted<Blacksmith>::getInstanceCount()
+         ,Counted<Mill>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "    Light inds %4d      Heavy inds %4d        Recyclers %4d"
-	     ,Counted<IndustryLight>::getInstanceCount(), Counted<IndustryHeavy>::getInstanceCount()
-	     ,Counted<Recycle>::getInstanceCount());
+         ,Counted<IndustryLight>::getInstanceCount(), Counted<IndustryHeavy>::getInstanceCount()
+         ,Counted<Recycle>::getInstanceCount());
     results << outf << std::endl;
     snprintf (outf, maxlength, "    Coal mines %4d       Ore mines %4d         Communes %4d"
-	     ,Counted<Coalmine>::getInstanceCount(), Counted<Oremine>::getInstanceCount()
-	     ,Counted<Commune>::getInstanceCount());
+         ,Counted<Coalmine>::getInstanceCount(), Counted<Oremine>::getInstanceCount()
+         ,Counted<Commune>::getInstanceCount());
     results << outf << std::endl;
     results << "" << std::endl;
 
@@ -633,7 +633,7 @@ void Dialog::editMarket(){
     // set Dialog to Market-Data
     Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
-	title << _("Market") << " ( " << pointX <<" , " << pointY << " )";
+    title << _("Market") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
     Market * market = static_cast <Market *> (world(pointX, pointY)->reportingConstruction);
     CheckButton* cb;
@@ -694,7 +694,7 @@ void Dialog::editPort(){
     Port *port = dynamic_cast<Port *>(world(pointX, pointY)->reportingConstruction);
     Paragraph* p = getParagraph( *myDialogComponent, "DialogTitle" );
     std::stringstream title;
-	title << _("Port") << " ( " << pointX <<" , " << pointY << " )";
+    title << _("Port") << " ( " << pointX <<" , " << pointY << " )";
     p->setText( title.str() );
 
     CheckButton* cb;
@@ -812,13 +812,14 @@ void Dialog::applyMarketButtonClicked( Button* ){
     } else {
         market->commodityRuleCount[Construction::STUFF_WASTE].give = false;
     }
+    mps_refresh();
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();
 }
 
 void Dialog::applyPortButtonClicked( Button* ){
-    //int *port_flags = &(world(pointX, pointY)->reportingConstruction->flags);    
+    //int *port_flags = &(world(pointX, pointY)->reportingConstruction->flags);
     Port *port = dynamic_cast<Port *>(world(pointX, pointY)->reportingConstruction);
     CheckButton* cb;
 
@@ -838,9 +839,9 @@ void Dialog::applyPortButtonClicked( Button* ){
         && (port->commodityRuleCount[Construction::STUFF_FOOD].give))
     {
         port->commodityRuleCount[Construction::STUFF_FOOD].take = false;
-        port->commodityRuleCount[Construction::STUFF_FOOD].give = false; 
-    }    
-    
+        port->commodityRuleCount[Construction::STUFF_FOOD].give = false;
+    }
+
     cb = getCheckButton( *myDialogComponent, "BuyCoal" );
     if( cb->state == CheckButton::STATE_CHECKED ){
         port->commodityRuleCount[Construction::STUFF_COAL].take = true;
@@ -857,8 +858,8 @@ void Dialog::applyPortButtonClicked( Button* ){
         && (port->commodityRuleCount[Construction::STUFF_COAL].give))
     {
         port->commodityRuleCount[Construction::STUFF_COAL].take = false;
-        port->commodityRuleCount[Construction::STUFF_COAL].give = false;  
-    }        
+        port->commodityRuleCount[Construction::STUFF_COAL].give = false;
+    }
 
     cb = getCheckButton( *myDialogComponent, "BuyOre" );
     if( cb->state == CheckButton::STATE_CHECKED ){
@@ -876,8 +877,8 @@ void Dialog::applyPortButtonClicked( Button* ){
         && (port->commodityRuleCount[Construction::STUFF_ORE].give))
     {
         port->commodityRuleCount[Construction::STUFF_ORE].take = false;
-        port->commodityRuleCount[Construction::STUFF_ORE].give = false;  
-    }        
+        port->commodityRuleCount[Construction::STUFF_ORE].give = false;
+    }
 
     cb = getCheckButton( *myDialogComponent, "BuyGoods" );
     if( cb->state == CheckButton::STATE_CHECKED ){
@@ -896,7 +897,7 @@ void Dialog::applyPortButtonClicked( Button* ){
     {
         port->commodityRuleCount[Construction::STUFF_GOODS].take = false;
         port->commodityRuleCount[Construction::STUFF_GOODS].give = false;
-    }        
+    }
 
     cb = getCheckButton( *myDialogComponent, "BuySteel" );
     if( cb->state == CheckButton::STATE_CHECKED ){
@@ -914,8 +915,8 @@ void Dialog::applyPortButtonClicked( Button* ){
         && (port->commodityRuleCount[Construction::STUFF_STEEL].give))
     {
         port->commodityRuleCount[Construction::STUFF_STEEL].take = false;
-        port->commodityRuleCount[Construction::STUFF_STEEL].give = false; 
-    }  
+        port->commodityRuleCount[Construction::STUFF_STEEL].give = false;
+    }
 
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
