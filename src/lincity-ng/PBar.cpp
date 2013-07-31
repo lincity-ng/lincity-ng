@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Paragraph.hpp"
 #include "gui/Painter.hpp"
 #include "../lincity/lintypes.h"
+#include "../lincity/lclib.h"
 
 //LCPBar* LCPBarInstance = 0;
 LCPBar* LCPBarPage1 = 0;
@@ -55,21 +56,21 @@ LCPBar::parse(XmlReader& reader)
         if(parseAttribute(name, value)) {
             continue;
         } else {
-            std::cerr << "Unknown attribute '" << name 
+            std::cerr << "Unknown attribute '" << name
                       << "' skipped in PBar.\n";
         }
     }
-    
+
     if(getName() == "PBar")
     {
         //LCPBarInstance = this; //FIXME old code compability hack
         LCPBarPage1 = this;
-    } 
+    }
     else if(getName() == "PBar2nd")
-    {	LCPBarPage2 = this;}
+    {   LCPBarPage2 = this;}
      else
-     {	std::cerr << "Unknown LCBar component '" << getName() << "' found.\n";}
-       
+     {  std::cerr << "Unknown LCBar component '" << getName() << "' found.\n";}
+
     Component* component = parseEmbeddedComponent(reader);
     addChild(component);
 
@@ -102,37 +103,37 @@ LCPBar::parse(XmlReader& reader)
 */
 /*
 static int Pbarorder[] = {
-	Construction::STUFF_FOOD,
-	Construction::STUFF_JOBS,
-	Construction::STUFF_GOODS,
-	Construction::STUFF_COAL,
-	Construction::STUFF_ORE,
-	Construction::STUFF_STEEL,
-	Construction::STUFF_WASTE,
-	Construction::STUFF_KWH,
-	Construction::STUFF_MWH,
-	Construction::STUFF_WATER,
-	};
+    Construction::STUFF_FOOD,
+    Construction::STUFF_JOBS,
+    Construction::STUFF_GOODS,
+    Construction::STUFF_COAL,
+    Construction::STUFF_ORE,
+    Construction::STUFF_STEEL,
+    Construction::STUFF_WASTE,
+    Construction::STUFF_KWH,
+    Construction::STUFF_MWH,
+    Construction::STUFF_WATER,
+    };
 */
 void
 LCPBar::setValue(int num, int value, int diff)
 {
     if ((num > 8) && (pbarGlobalStyle == 0))
-    {	return;}
+    {   return;}
     if ((pbarGlobalStyle == 1) && (num > 2) && (num < 9))
-    {	return;}
-    
+    {   return;}
+
     std::ostringstream os;
-    int line_number = num+1; 
+    int line_number = num+1;
     if ( (pbarGlobalStyle == 1) && (num>8))
-    {	line_number -= PBAR_PAGE_SHIFT;}
-    
+    {   line_number -= PBAR_PAGE_SHIFT;}
+
     os << "pbar_text" << line_number;
     Paragraph* p = getParagraph(*this, os.str());
     os.str("");
     //compname << "pbar_title" << line_number;
-	//Paragraph* pt = getParagraph(*this, compname.str());
-	
+    //Paragraph* pt = getParagraph(*this, compname.str());
+
     //std::ostringstream os;
     os<<std::fixed;
     os<<std::setprecision(1);
@@ -140,27 +141,22 @@ LCPBar::setValue(int num, int value, int diff)
     {
         os<<value/10000.0;
     }
-	else if(num==PMONEY || num==PPOP || num==PPOL)
+    else if(num==PMONEY || num==PPOP || num==PPOL)
     {
-        if(abs(value)>=10000000000)
-        {    os<<value/1000000000<<"G";}
-        else if(abs(value)>10000000)
-        {    os<<value/1000000<<"M";}
-        else if(abs(value)>10000)
-        {    os<<value/1000<<"K";}
-        else
-        {    os<<value;}
+        char s[12];
+        num_to_ansi (s, 12, value);
+        os<<s;
     }
     else if ((num >= PFOOD) && (num <= PHOUSE)) //percentages
     {
-         os<<value<<"%";   
+         os<<value<<"%";
     }
     else
     {
-		os<<"default";
-	}
+        os<<"default";
+    }
     if (p)
-    {	p->setText(os.str());}
+    {   p->setText(os.str());}
     os.str("");
     os<<"pbar_barview"<< line_number;
 
@@ -173,25 +169,25 @@ LCPBar::setValue(int num, int value, int diff)
       case PTECH:
         sv = pbar_adjust_tech(diff);
         break;
-	case PPOL:
-		sv = value<5000?100*diff/(1+value):value<25000?500*diff/value:5000*diff/value;
+    case PPOL:
+        sv = value<5000?100*diff/(1+value):value<25000?500*diff/value:5000*diff/value;
         break;
-	case PMONEY:
+    case PMONEY:
         sv = pbar_adjust_money(diff);
         break;
-	default:
-		sv = diff;
-		break;
+    default:
+        sv = diff;
+        break;
       };
-      
+
     sv/=10.0;
-    
-    
+
+
      if(sv>1.0)
       sv=1.0;
      if(sv<-1.0)
-      sv=-1.0; 
-        
+      sv=-1.0;
+
     Component *c=findComponent(os.str()+"a");
     if(c)
     {
@@ -199,7 +195,7 @@ LCPBar::setValue(int num, int value, int diff)
       if(bv)
       {
         bv->setValue(sv);
-      }            
+      }
     }
     c=findComponent(os.str()+"b");
     if(c)
@@ -210,7 +206,7 @@ LCPBar::setValue(int num, int value, int diff)
         bv->setValue(sv);
       }
     }
-    
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -218,7 +214,7 @@ LCPBar::setValue(int num, int value, int diff)
 ///////////////////////////////////////////////////////////////////////////////////////
 
 BarView::BarView()
-{ 
+{
 }
 
 BarView::~BarView()
@@ -262,9 +258,9 @@ BarView::parse(XmlReader& reader)
             } else {
                 bad=false;
             }
-        }       
+        }
         else {
-            std::cerr << "Unknown attribute '" << name 
+            std::cerr << "Unknown attribute '" << name
                       << "' skipped in BarView.\n";
         }
     }
@@ -280,17 +276,17 @@ void BarView::setValue(float v)
 }
 
 void BarView::draw(Painter &painter)
-{ 
-	if(((int)(width*value)>0 && dir))
-	{
-		painter.setFillColor(bad?Color(0xFF,0,0,255):Color(0,0xAA,0,255));
-		painter.fillRectangle(Rect2D(0,0,width*value,height));
-	} 
-	else if(((int)(width*value)<0 && !dir)) 
-	{
-		painter.setFillColor(bad?Color(0,0xAA,0,255):Color(0xFF,0,0,255));
-		painter.fillRectangle(Rect2D(width-1+width*value,0,width-1,height));
-	}	
+{
+    if(((int)(width*value)>0 && dir))
+    {
+        painter.setFillColor(bad?Color(0xFF,0,0,255):Color(0,0xAA,0,255));
+        painter.fillRectangle(Rect2D(0,0,width*value,height));
+    }
+    else if(((int)(width*value)<0 && !dir))
+    {
+        painter.setFillColor(bad?Color(0,0xAA,0,255):Color(0xFF,0,0,255));
+        painter.fillRectangle(Rect2D(width-1+width*value,0,width-1,height));
+    }
 }
 
 IMPLEMENT_COMPONENT_FACTORY(LCPBar)

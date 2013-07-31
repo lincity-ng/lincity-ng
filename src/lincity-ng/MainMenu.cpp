@@ -145,26 +145,27 @@ void MainMenu::fillNewGameMenu()
   }
   PHYSFS_freeList(files);
 
-  button=getCheckButton(*newGameMenu.get(),"RandomEmpty");
-  button->setCaptionText(_("random empty board"));
+  button=getCheckButton(*newGameMenu.get(),"WithVillage");
+  button->check();
+  //button->setCaptionText(_("random empty board"));
+  //button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
+
+  button=getCheckButton(*newGameMenu.get(),"RiverDelta");
+  button->setCaptionText(_("river delta"));
   button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
 
-  button=getCheckButton(*newGameMenu.get(),"RandomVillage");
-  button->setCaptionText(_("random village"));
+  button=getCheckButton(*newGameMenu.get(),"DesertArea");
+  button->setCaptionText(_("semi desert"));
   button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
 
-  button=getCheckButton(*newGameMenu.get(),"RandomDesertVillage");
-  button->setCaptionText(_("village in semi desert"));
+  button=getCheckButton(*newGameMenu.get(),"TemperateArea");
+  button->setCaptionText(_("temperate"));
   button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
 
-  button=getCheckButton(*newGameMenu.get(),"RandomTemperateVillage");
-  button->setCaptionText(_("village in temperate area"));
+  button=getCheckButton(*newGameMenu.get(),"SwampArea");
+  button->setCaptionText(_("swamp"));
   button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
 
-  button=getCheckButton(*newGameMenu.get(),"RandomSwampVillage");
-  button->setCaptionText(_("village in swamp"));
-  button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
-  
   return;
   /* Is there a better way to add filenames to the directory? */
   _("good_times");
@@ -184,7 +185,7 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
     CheckButton *button;
 
     for(int i=0;i<6;i++) {
-    	char* recentfile = NULL;
+        char* recentfile = NULL;
         PHYSFS_sint64 t = 0;
 
         std::stringstream filestart;
@@ -207,7 +208,7 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
                 // && !( curfile->d_type & DT_DIR  ) ) is not portable. So
                 // don't create a directoy named 2_ in a savegame-directory or
                 // you can no longer load from slot 2.
-    	        if (t == 0) {
+                if (t == 0) {
                     recentfile = curfile;
                     t = PHYSFS_getLastModTime(recentfile);
               } else {
@@ -303,7 +304,7 @@ MainMenu::loadOptionsMenu()
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
         currentCheckButton = getCheckButton(*optionsMenu, "LanguageNext");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
-		currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
+        currentCheckButton = getCheckButton(*optionsMenu, "BinaryMode");
         currentCheckButton->clicked.connect( makeCallback(*this, &MainMenu::optionsMenuButtonClicked));
 
         Button* currentButton = getButton(*optionsMenu, "BackButton");
@@ -326,9 +327,9 @@ MainMenu::loadOptionsMenu()
         getCheckButton(*optionsMenu, "Fullscreen")->uncheck();
     }
     if (binary_mode)
-	{	getCheckButton(*optionsMenu, "BinaryMode")->check();}
-	else
-	{	getCheckButton(*optionsMenu, "BinaryMode")->uncheck();}
+    {   getCheckButton(*optionsMenu, "BinaryMode")->check();}
+    else
+    {   getCheckButton(*optionsMenu, "BinaryMode")->uncheck();}
     //current background track
     musicParagraph = getParagraph( *optionsMenu, "musicParagraph");
     musicParagraph->setText(getSound()->currentTrack.title);
@@ -336,7 +337,7 @@ MainMenu::loadOptionsMenu()
     std::stringstream mode;
     mode << SDL_GetVideoSurface()->w << "x" << SDL_GetVideoSurface()->h;
     getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-    mode.str("");        
+    mode.str("");
     mode << world.len();
     getParagraph( *optionsMenu, "WorldLenParagraph")->setText(mode.str());
     languageParagraph = getParagraph( *optionsMenu, "languageParagraph");
@@ -435,9 +436,9 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
             b->check();
         }
     }
-    
+
     if( newGameMenu.get()==currentMenu ) {
-        const std::string rnd[]={"RandomEmpty","RandomVillage","RandomDesertVillage","RandomTemperateVillage","RandomSwampVillage",""};
+        const std::string rnd[]={"RiverDelta","DesertArea","TemperateArea","SwampArea",""};
         for(int i=0;std::string(rnd[i]).length();i++) {
             CheckButton *b=getCheckButton(*currentMenu,rnd[i]);
             if(b->getName()!=button->getName()){
@@ -448,7 +449,7 @@ MainMenu::selectLoadSaveGameButtonClicked(CheckButton* button , int, bool save )
             }
         }
     }
-    
+
 
     if( !fc.length()) {
         mFilename = "";
@@ -565,7 +566,7 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         changeTrack(false);
     } else if( buttonName == "TrackNext"){
         changeTrack(true);
-	} else if( buttonName == "BinaryMode"){
+    } else if( buttonName == "BinaryMode"){
         binary_mode = !binary_mode;
     } else {
         std::cerr << "MainMenu::optionsMenuButtonClicked " << buttonName << " unknown Button!\n";
@@ -639,7 +640,7 @@ MainMenu::changeWorldLen(bool next)
 {
     std::ostringstream os;
     int new_len;
-    new_len = world.len()+(next?25:-25);      
+    new_len = world.len()+(next?25:-25);
     world.len(new_len);
     os << world.len();
     getParagraph( *optionsMenu, "WorldLenParagraph")->setText(os.str());
@@ -651,7 +652,7 @@ MainMenu::changeTrack( bool next)
     if(next){
         getSound()->playSound("Click");
         getSound()->changeTrack(NEXT_TRACK);
-    
+
     } else {
         getSound()->playSound("Click");
         getSound()->changeTrack(PREV_TRACK);
@@ -671,7 +672,7 @@ MainMenu::changeLanguage( bool next)
     } else { // previous
         if( i == languages.begin() ){
             i = languages.end();
-        } 
+        }
         i--;
     }
 
@@ -719,16 +720,16 @@ MainMenu::continueButtonClicked(Button* )
     getSound()->playSound( "Click" );
     quitState = INGAME;
     running = false;
-    //only act if world is still clean 
+    //only act if world is still clean
     if (!world.dirty)
     {
-		//load current game if it exists
-		if( ! loadCityNG( std::string( "9_currentGameNG.scn.gz" ) ) ) 
-		{
-			//by default create a new City
-			new_city( &main_screen_originx, &main_screen_originy, 1 );
-		}
-	}
+        //load current game if it exists
+        if( ! loadCityNG( std::string( "9_currentGameNG.scn.gz" ) ) )
+        {
+            //by default create a new City
+            new_city( &main_screen_originx, &main_screen_originy, 1 );
+        }
+    }
 }
 
 void
@@ -793,42 +794,38 @@ MainMenu::newGameStartButtonClicked(Button* )
     if( mFilename.empty() ){
         // std::cout << "nothing selected\n";
         return;
-    } 
+    }
     getSound()->playSound( "Click" );
-     
-    if( baseName == "RandomEmpty" ){
-        new_city( &main_screen_originx, &main_screen_originy, 0 );
+
+    int with_village = (getCheckButton(*currentMenu,"WithVillage")->state == CheckButton::STATE_CHECKED)?1:0;
+
+    if( baseName == "RiverDelta" ){
+        new_city( &main_screen_originx, &main_screen_originy, with_village );
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
-    } else if( baseName == "RandomVillage" ){
-        new_city( &main_screen_originx, &main_screen_originy, 1 );
+    } else if( baseName == "DesertArea" ){
+        new_desert_city( &main_screen_originx, &main_screen_originy, with_village );
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
-    } else if( baseName == "RandomDesertVillage" ){
-        new_desert_city( &main_screen_originx, &main_screen_originy, 1 );
+    } else if( baseName == "TemperateArea" ){
+        new_temperate_city( &main_screen_originx, &main_screen_originy, with_village );
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
-    } else if( baseName == "RandomTemperateVillage" ){
-        new_temperate_city( &main_screen_originx, &main_screen_originy, 1 );
-        GameView* gv = getGameView();
-        if( gv ){ gv->readOrigin(); }
-        quitState = INGAME;
-        running = false;
-    } else if( baseName == "RandomSwampVillage" ){
-        new_swamp_city( &main_screen_originx, &main_screen_originy, 1 );
+    } else if( baseName == "SwampArea" ){
+        new_swamp_city( &main_screen_originx, &main_screen_originy, with_village );
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
     } else {
         if( loadCityNG( mFilename ) ){
-        	strcpy (given_scene, baseName.c_str());
+            strcpy (given_scene, baseName.c_str());
             quitState = INGAME;
             running = false;
         }
@@ -889,9 +886,9 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     newStart << tech_level/10000;
     newStart << "_Cash";
     if (total_money >= 0)
-    	newStart << "+";
+        newStart << "+";
     else
-    	newStart << "-";
+        newStart << "-";
     newStart << std::setfill('0') << std::setw(3);
     int money = abs(total_money);
     if (money > 1000000000)
