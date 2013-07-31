@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Çöplük (atık dökme)</p>
-	<p style="hp">Çöplükler atıklarını dökmen için sana yer sağlar. Eğer bakkallarda çok fazla biriktirirsen, yanma ihtimalleri artar. Bu hızlı bir şekilde çokça kirlilik yapar yani atık biriktirilmesine izin vermekten kaçınmalısın.</p>
-	<p style="hp">Bir çöplük bırakıldığında, yavaşça bir tepeye dönüşür, dolduğunda üzeri çimle kaplanır.</p>
-	<p style="hp">Genelde olduğu gibi çöplüklerin ulaşım bağlantıları sol-üst kenardan yapılır.</p>
-	<p style="hp">Herzamanki gibi bir çöplüğün çalıştığını üzerine tıklayarak görebilirsin ve herzamanki gibi canlandırma hareketlenecektir.</p>
+	<p style="hp">Çöplükler atıklarınızı dökmeniz için yer sağlarlar. Eğer Bakkallarda çok fazla biriktirirseniz, yanma ihtimalleri artar. Bu, hızlı bir şekilde kirlilik yaptığından, atık biriktirilmesine izin vermekten kaçınmalısınız.</p>
+	<p style="hp">Bir çöplük bırakıldığında yavaşça bir tepeye dönüşür, dolduğunda ise üzeri çimle kaplanır.</p>
+	<p style="hp">Genelde olduğu gibi çöplüklerin ulaşım bağlantıları sol üst kenardan yapılır.</p>
+	<p style="hp">Her zamanki gibi bir çöplüğün çalıştığını üzerine tıklayarak canlandırma hareketinden görebilirsiniz.</p>
 	
 	<p style="hp">Bu bir Çöplük</p>
 	<img src="images/tiles/tip0.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/mining/trash.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="market">Bakkallar</a></li>
 </Document>

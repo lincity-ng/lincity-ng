@@ -2,14 +2,14 @@
 <Document style="helpdocument">
 	<p style="htitle">Elektrik örtüsü</p>
 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
-	<p style="hp">Düşük teknoloji Yeldeğirmeni elektriğinin olduğu yerler koyu-yeşil görünür.</p>
-	<p style="hp">Ana elektrik şebekesinin olduğu yerler açık-yeşil görünür.</p>
+	<p style="hp">Düşük teknoloji Rüzgar değirmeni elektriğinin olduğu yerler koyu yeşil görünür.</p>
+	<p style="hp">Ana elektrik şebekesinin olduğu yerler açık yeşil görünür.</p>
 	<p style="hp">Elektriksiz bölgeler normal görünür.</p>
-	<p style="hp">Bu düğme elektiriği kullanır. Çok uzun süre açık bırakmayı denemeyin.</p>
-	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana soltıklayın. Başka bir küçükekran görüntüsü için küçükekran üzerindeki başlığa soltıklayın. Kroki görünümüne geçmek için 'v'ye yada küçükekran başlığı üzerinde farenin orta düğmesine basın.</p>
+	<p style="hp">Bu düğme, elektriği kullanır. Çok uzun süre açık bırakmayın.</p>
+	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana sol tıklayın. Başka bir küçük ekran görüntüsü için küçük ekran üzerindeki başlığa sol tıklayın. Kroki görünümüne geçmek için 'v'ye veya küçük ekran başlığı üzerinde farenin orta düğmesine basın.</p>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
-	<li><a href="mini-screen">Küçükharita</a></li>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
+	<li><a href="mini-screen">Küçük harita</a></li>
 	<li><a href="msb-coal">Kömür örtüsü</a></li>
 	<li><a href="msb-cricket">Spor kapsama alanı</a></li>
 	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>

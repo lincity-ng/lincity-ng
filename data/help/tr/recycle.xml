@@ -2,15 +2,15 @@
 <Document style="helpdocument">
 	<p style="htitle">Geridönüşüm merkezleri</p>
 	<p style="hp">Kullanılmış eşyalar atık oluşturur.</p>
-	<p style="hp">Geridönüşüm merkezleri kullanılmış eşyaları minerale çevirir. Üst-sol köşelerinden ulaşıma bağlanmış olmalılar. Atık eşyaları biriktirmek ve taze minerale çevirmek için para ve işçi kullanılır.</p>
-	<p style="hp">'Kayıp' hurda eşyaları makyajlamak için bir fabrikaya sahipsen, %100 verimliliğin altında çalışan geridönüşüm merkezleriyle sürdürülebilir bir ekonomiyi sağlamak mümkün (daha fazla mineral çıkarılmamış olması gibi).</p>
+	<p style="hp">Geridönüşüm merkezleri, kullanılmış eşyaları minerale çevirir. Sol üst köşelerinden ulaşıma bağlanmış olmalıdırlar. Atık eşyaları biriktirmek ve taze minerale çevirmek için para ve işçi kullanılır.</p>
+	<p style="hp">'Kayıp' hurda eşyaları makyajlamak için bir fabrikaya sahipseniz, %100 verimliliğin altında çalışan geridönüşüm merkezleriyle sürdürülebilir bir ekonomiyi sağlamak (örn. artık mineral çıkarılmıyorsa) mümkündür.</p>
 	
 	<p style="hp">Bu bir Geridönüşüm merkezi</p>
 	<img src="images/tiles/recycle-centre.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="goods">Eşya</a></li>
 	<li><a href="ore">Mineral</a></li>
 	<li><a href="transport">Ulaşım</a></li>

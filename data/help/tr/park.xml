@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Millet bahçeleri</p>
-	<p style="hp">Millet pahçeleri çok basittir: kirliliği temizler.</p>
-	<p style="hp">Kirlilik oluşturan bölgelerin bir kısmı. Yollar, Demiryolları, Kömür madenleri ve Hafif ve Ağır sanayiler. Bazıları diğerlerinden daha fazla kirliliğe sebeptir.</p>
-	<p style="hp">Millet bahçelerini yerleşim bölgelerin korumak yada yerel bölgeden kirlilik kaynaklı kaçışları durdurmak için kullanabilirsin.</p>
-	<p style="hp">Rüzgar kirliliği güney-batıdan <b> getirir</b>, Millet bahçelerini ona göre inşa et.Millet bahçeleri yeraltı suyuna ihtiyaç duyar, yani sadece "yeşil" döşemelerde yapılabilirler.</p>
+	<p style="htitle">Parklar</p>
+	<p style="hp">Parklar çok basittir: kirliliği temizlerler.</p>
+	<p style="hp">Kirlilik oluşturan bölgelerin bazıları, Yollar, Demiryolları, Kömür madenleri ve Hafif ve Ağır sanayilerdir. Bunlardan da bazıları diğerlerinden daha fazla kirliliğe sebeptir.</p>
+	<p style="hp">Parkları, yerleşim bölgelerini korumak veya yerel bölgeden kirlilik kaynaklı kaçışları durdurmak için kullanabilirsiniz.</p>
+	<p style="hp">Rüzgar, kirliliği <b>güneybatıdan</b> getirdiğinden, bu durumu göz önüne alıp inşa edin.</p>
+	<p style="hp">Parklar yeraltı suyuna ihtiyaç duyar. Yani sadece "yeşil" döşemelerde yapılabilirler.</p>
 	
-	<p style="hp">Bu bir Millet bahçesi</p>
+	<p style="hp">Bu bir Park</p>
 	<img src="images/tiles/parkland-plane.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="pollution">Kirlilik</a></li>
 	<li><a href="road">Yollar</a></li>
 	<li><a href="rail">Demiryolları</a></li>

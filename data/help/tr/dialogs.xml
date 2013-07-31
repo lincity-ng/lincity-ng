@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Bilgi Sekmeleri Yardımı</p>
-    <p>Hari-Sek</p>
-    <li><a href="mini-screen">Küçükharita</a></li>
-    <p>Bakkal-Sek</p>
-	<li><a href="pbar">İstatistikler Durum Çubuğu</a></li>
-    <p>YTL-Sek</p>
+    <p>Hari Sekmesi</p>
+    <li><a href="mini-screen">Küçük Harita</a></li>
+    <p>Bakkal Sekmesi</p>
+	<li><a href="pbar">Kaynaklar Durum Çubuğu</a></li>
+    <p>TRY Sekmesi</p>
 	<li><a href="finance">Parasal</a></li>
 	<li><a href="other-costs">Diğer Masraflar</a></li>
 	<li><a href="housing">Nüfus</a></li>
-    <p>Eko-Sek</p>
-	<li><a href="economy">Ekonomi Canlandırması</a></li>
+    <p>Eko Sekmesi</p>
+	<li><a href="economy">Ekonomi Grafiği</a></li>
 	<li><a href="sustain">Sürdürülebilir Gelişim Penceresi</a></li>
 </Document>

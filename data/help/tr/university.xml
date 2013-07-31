@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Üniversite</p>
-	<p style="hp">Üniversiteler teknoloji seviyeni arttırmana yardımcı olur. Çalışırken işçi ve eşya tüketirler. İşçi/eşya girdilerini aldıklarında okullardan daha fazla üretirler. Bununla birlikte biraz daha işçi ve eşya harcarlar ve çalışmalarıda biraz daha masraflıdır, yani onları besleyebilmek için yeterli ekonomi ve sanayin olmalı.</p>
-	<p style="hp">Teknoloji seviyeni %100'e yaklaştırmak için bir miktar Üniversiteye ihtiyacın olacak</p>
-	<p style="hp">Üniversitelerin ulaşıma bağlanmaları gerekmez; tüm ihtiyaçlarını kapsama alanında oldukları Bakkallardan alırlar, yeterli eşya ve işçiyle birlikte.</p>
+	<p style="hp">Üniversiteler teknoloji seviyenizi arttırmanıza yardımcı olur. Çalışırken işçi ve eşya tüketirler. İşçi/Eşya girdilerini aldıklarında okullardan daha fazla üretirler. Bununla birlikte biraz daha işçi ve eşya harcarlar ve çalışmaları da biraz daha masraflıdır. Yani besleyebilmek için yeterli ekonomi ve sanayiniz olmalıdır.</p>
+	<p style="hp">Teknoloji seviyenizi %100'e yaklaştırmak için bir miktar Üniversiteye ihtiyacınız olacak.</p>
+	<p style="hp">Üniversitelerin ulaşıma bağlanmaları gerekmez; yeterli eşya ve işçiyle birlikte tüm ihtiyaçlarını kapsama alanında oldukları Bakkallardan alırlar.</p>
 
-	<p style="hsubtitle">EK</p>
-	<p style="hp">Üniversitenin öğrencisini sağlamak için, herbirine 5 okul düşmeli .</p>
+	<p style="hsubtitle">Ek</p>
+	<p style="hp">Üniversite öğrencisini sağlamak için, herbirine 5 okul düşmelidir.</p>
 
 	<p style="hp">Bu bir Üniversite</p>
 	<img src="images/tiles/university.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
 
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="market">Bakkal</a></li>
 	<li><a href="transport">Ulaşım</a></li>
 	<li><a href="goods">Eşya</a></li>

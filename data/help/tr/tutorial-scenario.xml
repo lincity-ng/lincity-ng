@@ -4,12 +4,14 @@
 <p style="hp">"Yeni oyun" altında </p>
 
 <p style="hsubtitle"> Kolay</p>
-<li>İyi vakit </li>
+<li>İyi zamanlar</li>
 
-<li>Kumsal (hatırla; insanlar beslenir yada ölür ;-) </li>
+<li>Kumsal (hatırlayın; insanlar beslenir veya ölür ;-)) </li>
 
-<p style="hsubtitle">Zor </p>
-<li>"Zor dönem": iflastan kutulmaya çalışırsın. Şehrin ihtiyaçlarını belirlemede dikkatli ol ve para kazanmak ve masrafları kısmak için şiddetli tedbirler al. Zordur fakat sürdürülebilir bir ekonomi için düzeltmek mümkün. </li>
+<p style="hsubtitle">Zor</p>
+<li>"Zor zamanlar": iflastan kurtulmaya çalışıyorsunuz. Şehrin ihtiyaçlarını belirlemede dikkatli olun ve para kazanmak ve masrafları kısmak için şiddetli tedbirler alın. Zordur, fakat sürdürülebilir bir ekonomiyi sağlamak mümkün. </li>
 <p style="hp"></p>
+<li>"aşırı_kurak": toprak oldukça kurak. Bu nedenle çiftlik ve komünler en üst başarım için dikkatlice yerleştirilmeli.</li>
+<li>"aşırı_nemli": toprak oldukça nemli olduğundan şehir kurmak çok zor.</li>
 </Document>
 

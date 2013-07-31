@@ -2,11 +2,11 @@
 <Document style="helpdocument">
 	<p style="htitle">Harita krokisi</p>
 	<img src="images/gui/mapview/roundbuttons/round_resident.png" halign="center"/>
-	<p style="hp">Harita krokisi şehirdeki yolları, suyu ve yeşil boşlukları küçükekranda gösterir.</p>
-	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana soltıklayın. Başka bir küçükekran görüntüsü için küçükekran üzerindeki başlığa soltıklayın. Kroki görünümüne geçmek için 'v'ye yada küçükekran başlığı üzerinde farenin orta düğmesine basın.</p>
+	<p style="hp">Harita krokisi şehirdeki yolları, suyu ve yeşil boşlukları küçük ekranda gösterir.</p>
+	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana sol tıklayın. Başka bir küçük ekran görüntüsü için küçük ekran üzerindeki başlığa sol tıklayın. Kroki görünümüne geçmek için 'v'ye veya küçük ekran başlığı üzerinde farenin orta düğmesine basın.</p>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
-	<li><a href="mini-screen">Küçükharita</a></li>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
+	<li><a href="mini-screen">Küçük harita</a></li>
 	<li><a href="msb-coal">Kömür örtüsü</a></li>
 	<li><a href="msb-cricket">Spor kapsama alanı</a></li>
 	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>

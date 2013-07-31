@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Demirciler</p>
-	<p style="hp">Demirciler Çeliği ve Minerali Eşyaya çevirir. Oyunda bunları çoğunlukla erkenden kullanacaksınız. Demirciler tabi ki işçide kullanır.</p>
-	<p style="hp">Çelik işlemeciliği edinmeden önce, Komünlerle Çelik sağlamaya itimat etmelisiniz. Her Demirciye gereken 5 yada 6 Komündür.</p>
-	<p style="hp">Demircilerin ulaşıma bağlanmış olmaları zorunlu değil. Kapsama alanında oldukları Bakkallardan tüm ihtiyaçlarını karşılayabilirler.</p>
-	<p style="hp">Bir Demircinin çalıştığını herzamanki gibi üzerine tıklayarak görebilirsin ve sık sık canlandırma hayata geçecek.</p>
+	<p style="hp">Demirciler Çeliği ve Minerali Eşyaya çevirir. Oyunda bunları çoğunlukla erkenden kullanacaksınız. Demirciler tabii ki işçi de kullanır.</p>
+	<p style="hp">Çelik işlemeciliği edinmeden önce, Komünlerle Çelik sağlamaya itimat etmelisiniz. Her Demirciye gereken 5 veya 6 Komündür.</p>
+	<p style="hp">Demircilerin ulaşıma bağlanmış olmaları zorunlu değildir. Kapsama alanında oldukları Bakkallardan tüm ihtiyaçlarını karşılayabilirler.</p>
+	<p style="hp">Bir Demircinin çalıştığını her zamanki gibi üzerine tıklayarak sık sık animasyonun hareket etmesinden görebilirsiniz.</p>
 
 	<p style="hp">Bu bir Demirci</p>
 	<img src="images/tiles/blacksmith0.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="market">Bakkal</a></li>
 	<li><a href="ore">Mineral</a></li>
 	<li><a href="commune">Komün</a></li>

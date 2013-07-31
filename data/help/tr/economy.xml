@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Ekonomi Grafiği</p>
-	<p style="hp">Bu canlandırma renklendirilmiş 4 çizgi içerir. Bunlar en önemli ekonomik göstergeleri belirtir.</p>
+	<p style="hp">Bu grafik renklendirilmiş 4 çizgi içerir. Bunlar en önemli ekonomik göstergeleri belirtir.</p>
 	<li>
 		<span color="brown">Nüfus</span>	(Kahverengi) 
         Kahverengi çizgi nüfusunuzu gösterir.
-        Kütük cetvel gibi görünür.
+        Logaritmik cetvel gibi görünür.
 	</li>
 	<li>
 		<span color="blue">Evsiz</span> (mavi) 
-        Mavi çizgi talep edilen ev miktarını gösterir. Yüksek canlandırma Evsiz nüfusun kare köküne orantılıdır.
+        Mavi çizgi talep edilen ev miktarını gösterir. Grafiğin yüksekliği Evsiz nüfusun kare köküne orantılıdır.
 	</li>
 	<li>
 		<span color="yellow">İşsiz</span> (sarı) 
-        Kesintisiz sarı çubuklar işsizlik olduğunu gösterir. Canlandırmanın ölçeği nüfusunuzla değişir. İlginizi buna çekmek için bu canlandırma kesintisizdir.
+        Kesintisiz sarı çubuklar işsizlik olduğunu gösterir. Grafiğin ölçeği nüfusunuzla değişir. İlginizi buna çekmek için bu grafik kesintisizdir.
 	</li>
 	<li>
 		<span color="red">Açlık</span> (kırmızı) 
-        Kesintisiz kırmızı çubuklar açlığın olduğunu gösterir. Canlandırmanın ölçeği nüfusunuzla değişir. İlginizi buna çekmek için bu canlandırma kesintisizdir.
+        Kesintisiz kırmızı çubuklar açlığın olduğunu gösterir. Grafiğin ölçeği nüfusunuzla değişir. İlginizi buna çekmek için bu grafik kesintisizdir.
         Bu çubuklar işsizlik çubuklarını yukarı çeker.
 	</li>
 </Document>

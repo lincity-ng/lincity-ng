@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Hastane</p>
-	<p style="hp">Hastane konutlar için sağlık koruması sağlar. Her yöndeki 4 karelik bir bölgede etkilidirler.</p>
+	<p style="hp">Hastane, konutlar için sağlık koruması sağlar. Her yöndeki 4 karelik bir bölgede etkilidirler.</p>
 	<p style="hp">Sağlık alanları etraflarındaki konutları yaşamak için daha çekici kılar, kirliliğe bağlı hastalıklardan ölüm daha az olur ve buralarda yaşayan insanlar çevredeki işlerde daha verimli olurlar (hastalıklarla daha az zaman kaybederler).</p>
-	<p style="hp">Hastaneler çok pahalıdır, yıllık 60,000. Bununla birlikte, 'doğal olmayan ölümlerin' masrafını azaltır ve vergi geliri sağlayabilir (insanların çalışması için olan bir yer olduğu sürece).</p>
-	<p style="hp">Bir Hastane yaptığında çalışması 3 ay alır. Eşya kullanır. Fakat işçi kullandıkları kadar değil. Çevrelerindeki bölgelerin hastalıklarındaki azalmayla daha fazla istihdam oluşturdukları hesaplandığında, gelir katkısı sağlarlar.</p>
+	<p style="hp">Hastaneler çok pahalıdır. Yıllık masraf 60.000. Bununla birlikte, 'doğal olmayan ölümlerin' masrafını azaltır ve vergi geliri sağlayabilir (insanların çalışması için bir yer olduğu sürece).</p>
+	<p style="hp">Bir Hastane yaptığında çalışması 3 ay alır. Hastane, Eşya kullanır, fakat işçi kullandıkları kadar değil. Çevrelerindeki bölgelerin hastalıklarındaki azalmayla daha fazla istihdam oluşturdukları hesaplandığında, gelir katkısı sağlarlar.</p>
 	<p style="hp">Ulaşıma bağlanmaları gerekmez. Bağlanmazlarsa bir Bakkalın kapsama alanında olmaları gerekir.</p>
-	<p style="hp">Sağlık kapsama alanlarını görmek için 'küçükekranın' altındaki sağlık düğmesine basın (sağ alt köşede). Kapsama alanındaki bölgeler normal görünür.</p>
+	<p style="hp">Sağlık kapsama alanlarını görmek için 'küçük ekran'da sağ alt köşedeki sağlık düğmesine basın. Kapsama alanındaki bölgeler normal görünür.</p>
 
 	<p style="hp">Bu bir Hastane</p>
 	<img src="images/tiles/health.png" halign="center"/>
@@ -15,7 +15,7 @@
 	<p style="hp">ve bu da kapsama alanı düğmesi</p>
 	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
 
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="residential">Konutlar</a></li>
 	<li><a href="pollution">Kirlilik</a></li>
 	<li><a href="jobs">İşçi</a></li>

@@ -2,12 +2,12 @@
 <Document style="helpdocument">
 	<p style="htitle">Kömür örtüsü</p>
 	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
-	<p style="hp">Kömür küçük ekranı, şehrinin altındaki kömür birikimini gösterir. Kömür damarları siyah bir arkaplanda beyaz gibi görünür. Bir madenin kömür çıkarması için o madeni damara yakın kurmak zorundasın.</p>
-	<p style="hp">Yer altında kömür araştırması yapmanın ilk denemende sana 1 milyona mâl olduğu bilgisi verilecek. Bu ücret sonrasındaki bilgiler ücretsiz.</p>
-	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana soltıklayın. Başka bir küçükekran görüntüsü için küçükekran üzerindeki başlığa soltıklayın. Kroki görünümüne geçmek için 'v'ye yada küçükekran başlığı üzerinde farenin orta düğmesine basın.</p>
-
-	<p style="hsubtitle">Ayrıca bak:</p>
-	<li><a href="mini-screen">Küçükharita</a></li>
+	<p style="hp">Kömür küçük ekranı, şehrinin altındaki kömür birikimini gösterir. Kömür damarları siyah bir arkaplanda beyaz gibi görünür. Bir madenden kömür çıkarabilmek için o madeni damara yakın kurmak zorundasınız.</p>
+	<p style="hp">Yer altında kömür araştırması yapmanın ilk denemenizde size 1 milyona mâl olduğu bilgisi verilecek. Bu ücret sonrasındaki bilgiler ücretsizdir.</p>
+	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana sol tıklayın. Başka bir küçük ekran görüntüsü için küçük ekran üzerindeki başlığa sol tıklayın. Kroki görünümüne geçmek için 'v'ye veya küçük ekran başlığı üzerinde farenin orta düğmesine basın.</p>
+	
+	<p style="hsubtitle">Ayrıca bakınız:</p>
+	<li><a href="mini-screen">Küçük harita</a></li>
 	<li><a href="msb-cricket">Spor Kapsama alanı</a></li>
 	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>
 	<li><a href="msb-health">Sağlık kapsama alanı</a></li>

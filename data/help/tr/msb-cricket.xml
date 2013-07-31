@@ -4,11 +4,11 @@
 	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 	<p style="hp">Spor kapsama alanında olan bölgeler koyu yeşil gibi görünür.</p>
 	<p style="hp">Basketbol sahalarının kapsama alanlarının dışında olan bölgeler normal görülür.</p>
-	<p style="hp">Hatırla, basketbol sahalarının çalılşır hale gelmeleri 3 ay alır.</p>
-	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana soltıklayın. Başka bir küçükekran görüntüsü için küçükekran üzerindeki başlığa soltıklayın. Kroki görünümüne geçmek için 'v'ye yada küçükekran başlığı üzerinde farenin orta düğmesine basın.</p>
-
-	<p style="hsubtitle">Ayrıca bak:</p>
-	<li><a href="mini-screen">Küçükharita</a></li>
+	<p style="hp">Basketbol sahalarının çalılşır hale gelmelerinin 3 ay aldığını unutmayın.</p>
+	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana sol tıklayın. Başka bir küçük ekran görüntüsü için küçük ekran üzerindeki başlığa sol tıklayın. Kroki görünümüne geçmek için 'v'ye veya küçük ekran başlığı üzerinde farenin orta düğmesine basın.</p>
+	
+	<p style="hsubtitle">Ayrıca bakınız:</p>
+	<li><a href="mini-screen">Küçük harita</a></li>
 	<li><a href="msb-coal">Kömür örtüsü</a></li>
 	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>
 	<li><a href="msb-health">Sağlık kapsama alanı</a></li>

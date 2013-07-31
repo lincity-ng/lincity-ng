@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document style="helpdocument">
 	<p style="htitle">Lincity Yardım</p>
-	<p style="hp">Bu Lincity yardım sistemi. Lütfen mavi yazılardan birinin üzerine tıklayarak bir konu seçin. Mavi yazılar genellikle başka bir dosyaya olan bağı gösterir. Önceki sayfaya dönmek için üst-soldaki ok işaretini kullanın.</p>
-	<p style="hp">Oyunu oynarken, Yardım düğmesini kullanarak bir çok yerde yardım alabilirsiniz (F1), yada sol-üstteki menüden belirli bir simgenin üzerine sağtıklayabilirsiniz.</p>
+	<p style="hp">Bu pencere Lincity'nin yardım sistemidir. Lütfen mavi yazılardan birinin üzerine tıklayarak bir konu seçin. Mavi yazılar genellikle başka bir dosyaya olan bağı gösterir. Önceki sayfaya dönmek için sol üstteki ok işaretini kullanın.</p>
+	<p style="hp">Oyunu oynarken, Yardım düğmesini kullanarak bir çok yerde yardım alabilir, F1 veya sol üstteki menüden belirli bir simgenin üzerine sağ tıklayabilirsiniz.</p>
 
-	<li><a href="tutorial">Eğitmen</a></li>
+	<li><a href="tutorial">Öğretici</a></li>
 	<li><a href="keys">Klavye komutları</a></li>
 	<li><a href="button-index">Yapılabilir bütün girdilerin listesi</a></li>
-	<li><a href="mini-screen">Küçükharitada yardım</a></li>
-	<li><a href="dialogs">Bilgi sekmelerinde yardım</a></li>
+	<li><a href="mini-screen">Küçük harita yardımı</a></li>
+	<li><a href="dialogs">Bilgi sekmeleri yardımı</a></li>
 	<li><a href="index">Anasayfa</a></li>
 
-    <p style="htitle">Yansız</p>
-    <p style="hp">Lincity'yi <a href="sustain"> sürdürülebilir ekonomi </a>inşa ederek yada
-	    bütün ulusu <a href="rocket"> uzaygemisi </a>ile tahliye ederek kazanabilirsiniz .</p>
+    <p style="htitle">Amaç</p>
+    <p style="hp">Lincity'yi <a href="sustain"> sürdürülebilir ekonomi </a>inşa ederek veya
+	    bütün ulusu <a href="rocket"> uzaygemisi </a> ile tahliye ederek kazanabilirsiniz.</p>
 </Document>

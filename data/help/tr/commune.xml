@@ -3,16 +3,16 @@
 	<p style="htitle">Komün</p>
 	<p style="hp">Komünler odun kömürü (oyunda Kömürle aynı) yapmak için ağaç parçalarının yakıldığı yerdir. Bunlar aynı zamanda küçük bir miktar Mineral ve Çelik sağlar.</p>
 	<p style="hp">Çömlekçi, Demirci ve Fabrikalar gibi yerlere yeterli Kömürü ve Çeliği sağlamak için muhtemelen 'birkaç' Komüne ihtiyacınız olacak.</p>
-	<p style="hp">Eğer bir Komün 10 yıl hiçbir şey sağlamazsa kapanmıştır ve bölge Millet Bahçesine dönüşür.</p>
-	<p style="hp">Komüler sadece kapılarından değil etrafının herhangibir yerinden ulaşıma bağlanabilirler.</p>
-	<p style="hp">Komünlerin üretimi yeraltı sularına bağlıdır. (sulu döşemeler yeşil, diğerleri çöl gibi saru-kahverengidir)</p>
+	<p style="hp">Eğer bir Komün 10 yıl hiçbir şey sağlamazsa kapanmıştır ve bölge Parka dönüşür.</p>
+	<p style="hp">Komüler sadece kapılarından değil etrafının herhangi bir yerinden ulaşıma bağlanabilirler.</p>
+	<p style="hp">Komünlerin üretimi yeraltı sularına bağlıdır (sulu döşemeler yeşil, diğerleri çöl gibi sarı kahverengidir).</p>
 	
 	<p style="hp">Bu bir Komün</p>
 	<img src="images/tiles/commune1.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="pottery">Çömlekçiler</a></li>
 	<li><a href="blacksmith">Demirciler</a></li>
 	<li><a href="mill">Fabrikalar</a></li>

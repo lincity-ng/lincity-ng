@@ -2,11 +2,11 @@
 <Document style="helpdocument">
 	<p style="htitle">Ulaşım örtüsü</p>
 	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
-	<p style="hp">Ulaşım küçükekranı, şehirde <a href="track">Tali yollardaki </a>, <a href="road">Yollardaki </a>
-    ve <a href="rail">Demiryollarındaki </a> eşya yükünün miktarını gösterir.</p>
-	<p style="hp">Mavimsi renklerde görülen yapılar bir <a href="market"> Bakkal</a>'ın kapsama alanındadır.</p>
+	<p style="hp">Ulaşım küçük ekranı, şehirde <a href="track"> Tali yollardaki </a>, <a href="road"> Yollardaki </a>
+    ve <a href="rail"> Demiryollarındaki </a> eşya yükünün miktarını gösterir.</p>
+	<p style="hp">Mavimsi renklerde görülen yapılar bir <a href="market"> Bakkal </a>'ın kapsama alanındadır.</p>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="mini-screen">Küçük ekran</a></li>
 	<li><a href="msb-coal">Kömür örtüsü</a></li>
 	<li><a href="msb-cricket">Spor kapsama alanı</a></li>

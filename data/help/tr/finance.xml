@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Parasal penceresi</p>
-	<p style="hp">Bu pencereye soltıklamak 'küresel para ayarı', bir öncekinde detayları belirtilen 'diğer masraflar' ve 'nüfus masrafları' pencereleri arasında geçiş yaptıracak.</p>
-	<p style="hp">Parasal ekran her Ocak ayının 1'inde güncellenir. Rakamlar önceki yılın gelir yada giderlerine tekabül eder.</p>
-	<p style="hp">'Toplam' rakam hesabındaki paranın miktarıdır. 'Kırmızıda' iken muhakkak ki yapamayacağın şeyler var.</p>
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hp">Bu pencereye sol tıklamak 'küresel para ayarı', bir öncekinde detayları belirtilen 'diğer masraflar' ve 'nüfus masrafları' pencereleri arasında geçiş yaptıracaktır.</p>
+	<p style="hp">Parasal ekran her Ocak ayının 1'inde güncellenir. Rakamlar önceki yılın gelir veya giderlerini gösterir.</p>
+	<p style="hp">'Toplam' rakam, hesabındaki paranın miktarıdır. 'Kırmızı' iken yapamayacağın şeyler olacaktır.</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="housing">Şahıs penceresi</a></li>
 	<li><a href="other-costs">Diğer Masraflar</a></li>
 

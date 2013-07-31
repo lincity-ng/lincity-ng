@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document style="helpdocument">
 <p style="htitle">İlk adımlar </p>
-<p style="hp">"Yeni oyun"u seç &gt; "Rasgele köy". Diğer senaryolar daha çok yada daha az gelişmiş oyuncular için. </p>
-<p style="hp">Rasgele köy basit yetenekler içerir: </p>
-<li>Bakkallara yiyecek sağlayan Çiflikler </li>
+<p style="hp">"Yeni oyun"u ve "Rastgele köy"ü seçin. Diğer senaryolar daha çok veya daha az gelişmiş oyuncular içindir. </p>
+<p style="hp">Rastgele köy basit yetenekler içerir: </p>
+<li>Bakkallara yiyecek sağlayan Çiftlikler </li>
 <li>Odun kömürü ve küçük bir miktar mineral ve çelik sağlayan Komünler. </li>
 <li>Yerleşim alanları</li>
 <li>Çömlekçilik</li>
 <li>Tali yollar</li>
 
-<p style="hp">Ana ekranda bir yapının üzerine tıklamak, o yapının bilgisini daha aşağıda sağda olan pencerede görüntüler.</p>
+<p style="hp">Ana ekranda bir yapının üzerine tıklamak, o yapının bilgisini daha aşağıda, sağda bulunan pencerede görüntüler.</p>
 
 <p style="hsubtitle">Bakkal </p>
-<p style="hp">Bakkal Lincity'de anahtar bir yapıdır. Hemen hemen tüm yerel ticaret için gereklidir.<a href="market"> Bakkal </a> yardımını <b> okumalısın</b> :-). <i> Şüphesiz ki bir Bakkal boş olduğunda uygun olan ürünleri satamayacaktır ve tam dolu olduğunda satın alamayacak. Bu, bazı yapıların neden çalışmadığını anlamana yardımcı olabilir (muhtemelen ihtiyaçlarını bulamayacak yada ürettiklerini satamayacaklar)</i> </p>
+<p style="hp">Bakkal Lincity'de anahtar bir yapıdır. Hemen hemen tüm yerel ticaret için gereklidir. <a href="market"> Bakkal </a> yardımını <b> okumalısınız</b> :-). <i> Şüphesiz ki bir Bakkal boş olduğunda uygun olan ürünleri satamayacak ve tam dolu olduğunda da satın alamayacaktır. Bu, bazı yapıların neden çalışmadığını anlamanıza yardımcı olabilir (muhtemelen ihtiyaçlarını bulamayacak veya ürettiklerini satamayacaklar)</i>.</p>
 
 <p style="hsubtitle">Ulaşım </p>
-<p style="hp"><a href="transport">Ulaşım </a> uzun mesafeli takaslarda ve bazı belirli işler için ihtiyaçtır (uygun yardım mesajında yazılmıştır, örneğin komünler). Bakkallar gibi sınırlı hacimleri ve alabilecekleri doyum sınırlıdır.</p>
+<p style="hp"><a href="transport">Ulaşım </a> uzun mesafeli takaslarda ve bazı belirli işler için ihtiyaçtır (örneğin komünler gibi ilgili yardım sayfasında yazılmıştır). Örn.: Sınırlı hacimleri olan ve doyumluğa ulaşma sınırları olan Bakkallar gibi.</p>
 
-<p style="hp">Eğer 'normal' bir yapı bir Bakkalın kapsama alanında değilse ozaman ulaşıma bağlanmış olmalı. Fakat şunu hatırla; Yolların ve Demiryollarının yıllık masrafları vardır, yani sen gerçekten bir yapıyı yalıtmak istemedikçe ihtiyaçları olduğunda Bakkalların kullanılması genelde daha iyidir (ve daha ucuz). </p>
+<p style="hp">Eğer 'normal' bir yapı, bir Bakkalın kapsama alanında değilse; ulaşıma bağlanmış olmalıdır. Fakat şunu göz önünde bulundurun: Yolların ve Demiryollarının yıllık masrafları olduğundan, gerçekten bir yapıyı yalıtmak istemedikçe (örn. bir anıt), ihtiyaç olduğunda Bakkalların kullanılması genelde daha iyi ve daha ucuzdur. </p>
 
-<p style="hp">Başlangıçtaki köye tali yollar sadece komünlerin üretimi için gereklidir. Diğer çalışmalar sadece Bakkallara itiyaç duyarlar. </p>
+<p style="hp">Başlangıçtaki köye tali yollar gerekli değildir, fakat köy geliştikçe ihtiyaç duyulacaktır. </p>
 
 <p style="hsubtitle">Para </p>
-<p style="hp">Üretimler vegilendirilir ve böylece para kazanırsın. Küçükekrandaki üçüncü sekme <a href="finance"> Parasal ekrandır</a>.  Çok hızlı, çokça yatırım yapmamaya dikkat et: paran olumsuzsa yeni birşeyler yapamazsın ve borç için her yıl ödemen gereken bir miktar olacaktır. Bu iflasına yol açabilir<a href="tutorial-scenario"> Zor zamanlar senaryosuna </a> bak. </p>
+<p style="hp">Üretimler vergilendirilir ve böylece para kazanırsınız. Küçük ekrandaki üçüncü sekme <a href="finance"> Parasal ekran</a>dır. Çok hızlı, yüksek miktarda yatırım yapmamaya dikkat edin: paranız eksiye düşerse yeni bir şeyler yapamazsınız ve borç için her yıl ödemeniz gereken bir miktar olur. Bu da iflasınıza yol açabilir. <a href="tutorial-scenario"> Zor zamanlar senaryosuna </a> bakın. </p>
 
 <p style="hsubtitle">Şehri geliştirmek </p>
-<p style="hp">Hatırla; insanlar beslenir yada ölür. Nüfus artışını kontrol etmek için, yaptığın<a href="residential"> Yerleşim alanı </a> çeşitlerinde bir denge bulmak zorundasın (farklı doğum/ölüm oranları var). Yeni nüfus daha fazla işçi sağlayacak, fakat daha fazla yiyecek eşya ve işe... de ihtiyaçları olacak. </p>
-<p style="hp">Üretimlerini artırmak zorunda olacaksın (çömlekiçi, demirci ekle) ve aynı zamanda onların ihtiyacı oldukları kaynaklara da dikkat et. Yani uyumlu olarak Komünlere de ihtiyaç olacak. </p>
-<p style="hp">Yeni yapılar edinmek için <a href="tech-level"> Teknoloji seviyeni </a> artırmalısın.</p>
-<p style="hp"> Bazı noktalarda amacını seçmek zorunda olacaksın: <a href="sustain"> Sürdürülebilir bir ekonomi mi </a> yoksa <a href="rocket"> uzaygemileri </a>mi?.</p>
+<p style="hp">Hatırlayın; insanlar beslenir veya ölür. Nüfus artışını kontrol etmek için, yaptığınız <a href="residential"> Yerleşim alanı </a> çeşitlerinde bir denge bulmak zorundasınız (farklı doğum/ölüm oranları bulunmaktadır). Yeni nüfus daha fazla işçi sağlayacak, fakat daha fazla yiyecek eşya ve işe de ihtiyaçları olacak...</p>
+<p style="hp">Üretimleri arttırmak zorunda olacaksınız (çömlekçi veya demirci ekleyin). Aynı zamanda ihtiyacı oldukları kaynaklara da dikkat etmelisiniz. Yani uyumlu olarak Komünlere de ihtiyacınız olacak. </p>
+<p style="hp">Yeni yapılar edinmek için <a href="tech-level"> Teknoloji seviyenizi </a> arttırmalısınız.</p>
+<p style="hp"> Bazı noktalarda bir amaç seçmek zorunda olacaksınız: <a href="sustain"> Sürdürülebilir bir ekonomi mi </a> yoksa <a href="rocket"> uzaygemileri </a> mi?</p>
 
-<p style="hp">Çok sık bir şekilde <a href="pbar"> toplam bakkal birikimini </a>denetlemek zorunda olacaksın. Birde; küçükharitalar ekonominin içyüzü ve tam olarak gözden geçirmen için sana daha iyi bilgi verecektir. Hatırla ana ekranda bir yapının üzerine tıklamak sağ-alt köşedeki pencerede bilgisini görüntüler. </p>
+<p style="hp">Çok sık bir şekilde <a href="pbar"> toplam bakkal birikimini </a> denetlemek zorunda olacaksınız. Küçük haritalar ekonominin iç yüzüdür ve tam olarak gözden geçirmeniz size daha fazla bilgi verecektir. Ana ekranda bir yapının üzerine tıklamanın sağ alt köşedeki pencerede bilgisini görüntülediğini hatırlayın. </p>
 
-<li>İpucu: Bir-iki  değişiklik olduğunda biraz bekle (yardım dosyalarını oku ;-) yada oyunu daha yüksek bir hıza al ve ekonomik göstergelerin nasıl değiştiğini izle. </li>
+<li>İpucu: Bir iki değişiklik yaptığınızda biraz bekleyin (yardım dosyalarını okuyun ;-)) veya oyunu daha yüksek bir hıza alıp ekonomik göstergelerin nasıl değiştiğini izleyin. </li>
 <p style="hp"></p>
-<p style="hp">Eğlen.</p>
+<p style="hp">İyi eğlenceler.</p>
 <p style="hp"></p>
 
-<p style="hp">Ayrıca bak:</p>
+<p style="hp">Ayrıca bakınız:</p>
 <li><a href="tutorial-advanced">Gelişmiş özellikli eğitmen</a></li>
 <li><a href="tutorial-scenario">Önceden tanımlanmış senaryolar</a></li>
 <li><a href="msb-starve">Açlık örtüsü</a></li>

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Basketbol Sahaları</p>
-	<p style="hp">Basketbol Sahaları konutlarınız için spor ve eğlence sağlar. Çalışmaları için İşçi ve Eşyaya ihtiyaçları vardır. Ulaşıma bağlanmak zorunda değiller, bu durumda İşçi Ve Eşya kaynağı olacak bir Bakkalın kapsama alanında olmak zorundalar. Aynı zamanda çalışmalarının bir maliyeti vardır.</p>
+	<p style="hp">Basketbol Sahaları konutların için spor ve eğlence sağlar. Çalışmaları için İşçi ve Eşyaya ihtiyaçları vardır. Ulaşıma bağlanmak zorunda değiller. Bu durumda İşçi ve Eşya kaynağı olacak bir Bakkalın kapsama alanında olmak zorundalar. Aynı zamanda çalışmalarının bir maliyeti bulunmaktadır.</p>
 	<p style="hp">Bir Basketbol Sahası yaptığınızda doğrudan başlamaz. Potaların kurulmalarından önce genellikle 3 ay beklenir.</p>
-	<p style="hp">Basketbol Sahalarının kapsama alanını görmek için küçükekran altındaki Spor düğmesine tıklayın. Kapsama alanındaki yerler normal görünür, kapsama alanı dışındaki bölgeler koyu yeşil.</p>
-	<p style="hp">Basketbol Sahaları, kapsama alanlarındaki konutların cazibesini artırır.</p>
+	<p style="hp">Basketbol Sahalarının kapsama alanını görmek için küçük ekran altındaki Spor düğmesine tıklayın. Kapsama alanındaki yerler normal görünürken, kapsama alanı dışındaki bölgeler koyu yeşil görünürler.</p>
+	<p style="hp">Basketbol Sahaları, kapsama alanlarındaki konutların cazibesini arttırır.</p>
 	<p style="hp">Basketbol Sahaları çalıştıklarını her ay değişen sıralı canlandırma ile gösterir.</p>
 
 	<p style="hp">Bu bir Basketbol Sahası</p>
@@ -14,12 +14,12 @@
 	<p style="hp">ve bu da harita kapsama görünümü simgesi</p>
 	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 
-	<p style="hsubtitle">Ayrıca bak:</p>
-	<li><a href="mini-screen">Küçükekran</a></li>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
+	<li><a href="mini-screen">Küçük Ekran</a></li>
 	<li><a href="goods">Eşya</a></li>
 	<li><a href="market">Bakkal</a></li>
 	<li><a href="jobs">İşçi</a></li>
-	<li><a href="msb-cricket">Spor Kapsama alanı</a></li>
+	<li><a href="msb-cricket">Spor Kapsama Alanı</a></li>
 </Document>
 
 

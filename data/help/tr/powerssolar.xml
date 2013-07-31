@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Geneşsel elektrik üreteci</p>
-	<p style="hp">Güneşsel elektrik üreteçleri elektriği hatlara paketler halinde verir. Elektrik üretim miktarı üretecin <b> yapıldığı </b> zamanki teknoloji seviyesiyle artabilir.</p>
-	<p style="hp">Güneşsel elektrik üreteçleri elektrik sağlamak için insan gücüne de ihtiyaç duyabilirler. eğer bir güneşsel elektrik üretecinin yeterli işçisi yoksa, daha az elektrik sağlayacak ve eğer hiç işçisi yoksa elektrik sağlamayacaktır.</p>
+	<p style="htitle">Güneş paneli</p>
+	<p style="hp">Güneş panelleri, elektriği hatlara paketler halinde verir. Elektrik üretim miktarı üretecin <b> yapıldığı </b> zamanki teknoloji seviyesiyle artabilir.</p>
+	<p style="hp">Güneş panelleri elektrik sağlamak için insan gücüne de ihtiyaç duyabilirler. Eğer bir güneş panelinin yeterli işçisi yoksa, daha az elektrik sağlarken; hiç işçisi yoksa elektrik sağlamayacaktır.</p>
 	
-	<p style="hp">Bu bir Güneşsel elektrik üreteci</p>
+	<p style="hp">Bu bir Günel paneli</p>
 	<img src="images/tiles/powerssolar.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="substation">Trafo</a></li>
 	<li><a href="powerline">Elektrik hatları</a></li>
 	<li><a href="residential">Yerleşim</a></li>
 	<li><a href="tech-level">Teknoloji seviyesi</a></li>
 	<li><a href="msb-power">Elektrik kapsama alanı</a></li>
-	<li><a href="windmill">Yeldeğirmenleri</a></li>
+	<li><a href="windmill">Rüzgar değirmenleri</a></li>
 </Document>

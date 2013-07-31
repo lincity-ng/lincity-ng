@@ -2,18 +2,18 @@
 <Document style="helpdocument">
 	<p style="htitle">Bakkal</p>
 	<p style="hp">Bakkal Lincity'de kilit bir yapıdır.</p>
-	<p style="hp">Bakkal muhtemelen o bölgele için kötü isim. Daha çok İş merkezleri, dükkanlar, ambar ve bakkal gibi bir çok işlevi içerirler. Etraflarındaki bölgelere Yiyecek, İşçi, Kömür, Eşya ve Çelik alıp-satarlar ve ulaşım gibi nakliye ederler.</p>
+	<p style="hp">Bakkal muhtemelen bu alanlar için kötü bir isim. Daha çok iş merkezleri, dükkanlar, ambar ve market gibi bir çok işlevi içerirler. Etraflarındaki bölgelere ve yollar gibi yerlere Yiyecek, İşçi, Kömür, Eşya ve Çelik alıp satarlar.</p>
 
-	<p style="hp">Özellikle bir yapının yardım dosyasında belirtilmemiş ise bir Bakkal <b> kapsama alanındaki </b> tüm takaslarını <b> ulaşıma ihtiyacı olmadan </b> gerçekleştirir. Bir yapının Bakkal kapsama alanında olduğunu kontrol için <a href="msb-transport"> Ulaşım ve Bakkal kapsama alanı</a>'nı kullanın.</p>
+	<p style="hp">Özellikle bir yapının yardım dosyasında belirtilmemiş ise bir Bakkal <b> kapsama alanındaki </b> tüm takaslarını <b> ulaşıma ihtiyacı olmadan </b> gerçekleştirir. Bir yapının Bakkal kapsama alanında olduğunu denetlemek için <a href="msb-transport"> Ulaşım ve Bakkal kapsama alanı</a>'nı kullanın.</p>
 	<li>İnsanlar yaşadıkları yerleşim bölgesine yürüme mesafesindeki Bakkallardan yiyecek, eşya ve iş elde edebilirler.</li>
-	<li>Tüm çalışma bölgeleri ihtiyacı olundukları işçileri Bakkallardan sağlarlar.</li>
-	<li>Çiflikler Bakkallara doğrudan yiyecek satabilirler.</li>
+	<li>Tüm çalışma bölgeleri ihtiyacı olduğu işçileri Bakkallardan sağlarlar.</li>
+	<li>Çiftlikler Bakkallara doğrudan yiyecek satabilirler.</li>
 	<li>Fabrika, çömlekçi ve demirciler yakınlarındaki Bakkallara doğrudan eşya satabilir, ayrıca hammaddelerini de aynı Bakkaldan karşılarlar.</li>
 	<p style="hp">Eğer hiç bir Bakkal kullanılabilir değilse o yapıların <a href="transport"> ulaşıma </a> ihtiyacı vardır.</p>
-	<p style="hp">Küçük penceredeki ikinci sekme <b> toplam bakkal birikimini </b> ve işlem çubukları nasıl yavaş yavaş geliştiğini gösterir. Küçükharitalarla birleşimde (küçükdüğmeler hemen altında) birkaç belirli kaynağın (yiyecek, istihdam ...) ayrıntılarını kavramanıza da yardımcı olabilir. </p>
+	<p style="hp">Küçük penceredeki ikinci sekme <b> toplam bakkal birikimini </b> ve işlem çubukları nasıl yavaş yavaş geliştiğini gösterir. Küçük haritalarla birleşimde (hemen altındaki küçük düğmeler) birkaç belirli kaynağın (yiyecek, istihdam ...) ayrıntılarını kavramanıza da yardımcı olabilir. </p>
 
-	<p style="hsubtitle">Bakkalların ne alış-verişi yapabileceğini kontrol etmek.</p>
-	<p style="hp">Bir marketi seçerek ulaşım üzerinden yapabileceği alış-verişlerin görevini kontrol edebilirsiniz. Bir marketin üzerine çiftıklayın ve ekranın sol üst kenarında seçili ticaretlerin ne olduğunu gösteren pencere belirir. Öntanımlı ayar herşeyin ticaretinin yapılmasıdır.</p>
+	<p style="hsubtitle">Bakkalların ne alışverişi yapabileceğini kontrol etmek.</p>
+	<p style="hp">Bir marketi seçerek ulaşım üzerinden yapabileceği alışverişlerin görevini kontrol edebilirsiniz. Bir marketin üzerine çift tıklayın ve ekranın sol üst kenarında seçili ticaretlerin ne olduğunu gösteren pencereye bakın. Öntanımlı ayar her şeyin ticaretinin yapılmasıdır.</p>
 
 	<p style="hp">Bu bir Bakkal</p>
 	<img src="images/tiles/market-empty.png" halign="center"/>
@@ -21,11 +21,11 @@
 	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
 	<p style="hp">Bu ticarete izin verildiğini belirtir.</p>
 	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
-	<p style="hp">Bu ticarete izin <b> verilmediğini </b> elirtir.</p>
+	<p style="hp">Bu ticarete izin <b> verilmediğini </b> belirtir.</p>
 	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
-	<p style="hp">Alış-satış kelimeleri arasındaki rakamlar o Bakkalın harita ilgisidir.</p>
+	<p style="hp">Alış ve satış kelimeleri arasındaki rakamlar, o Bakkalın harita ilgisidir.</p>
 
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="food">Yiyecek</a></li>
 	<li><a href="jobs">İşçi</a></li>
 	<li><a href="coal">Kömür</a></li>

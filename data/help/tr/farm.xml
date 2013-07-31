@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Çiflikler</p>
-	<p style="hp">Çiflikler insanların yemesi ve Fabrikaların ham maddeleri için yiyecek yetiştirir. Çifçiler yiyecekleri Bakkalara satabilirler. Bu işi traktörle gerçekleştirirler yani yola ihtiyaçları yoktur. Fakat istersen ulaşımla satabilirler. Kesinlikle Bakkalın Çiflik kapsama alanında olmasını garanti etmelisin.</p>
-	<p style="hp">Çifliklerin üretimi yeraltı sularına bağlıdır. Sulu döşemeler yeşildir, diğerleri sarı-kahverengi (çöl yada verimsiz toprak gibi).</p>
+	<p style="htitle">Çiftlikler</p>
+	<p style="hp">Çiftlikler, insanların yemesi ve Fabrikaların ham maddeleri için yiyecek yetiştirir. Çiftçiler yiyecekleri Bakkallara satabilirler. Bu işi traktörle gerçekleştirirler; yani yola ihtiyaçları yoktur. Fakat isterseniz ulaşımla da satabilirler. Bakkalın Çiftlik kapsama alanında olmasını garanti etmelisiniz.</p>
+	<p style="hp">Çiftliklerin üretimi yeraltı sularına bağlıdır. Sulu döşemeler yeşildir, diğerleri sarı kahverengi (çöl veya verimsiz toprak gibi).</p>
 	
-	<p style="hp">Bu bir Çiflik</p>
+	<p style="hp">Bu bir Çiftlik</p>
 	<img src="images/tiles/farm0.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
 	
-	<p style="hp">Küçük bir miktardan daha fazla yiyecek sağlamak için Çifliklerin İşçiye ihtiyacı vardır. Çifliğe elektrik vermek de yiyecek miktarını artıracaktır. 'Elektrik' aynı zamanda eski tip Yeldeğirmenlerini da kapsar, bunlar yiyeceğin işlenmesine yardımcı olur böylece boş halden kurtulur.</p>
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hp">Küçük bir miktardan daha fazla yiyecek sağlamak için Çiftliklerin İşçiye ihtiyacı vardır. Çiftliğe elektrik vermek de yiyecek miktarını arttıracaktır. 'Elektrik' aynı zamanda eski tip Rüzgar değirmenlerini de kapsar. Bunlar yiyeceğin işlenmesine yardımcı olarak boş halden kurtulur.</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="market">Bakkal</a></li>
 	<li><a href="tech-level">Teknoloji-Seviyesi</a></li>
 	<li><a href="transport">Ulaşım</a></li>
-	<li><a href="windmill">Yeldeğirmeni</a></li>
+	<li><a href="windmill">Rüzgar değirmeni</a></li>
 	<li><a href="food">Yiyecek</a></li>
 </Document>

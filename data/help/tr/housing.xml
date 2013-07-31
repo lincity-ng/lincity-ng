@@ -3,16 +3,16 @@
 	<p style="htitle">Ulus penceresi</p>
 	<p style="hp">Bu Ulus penceresi.</p>
 	<p style="hp">Bu pencere 7 istatistik gösterir:</p>
-	<li>Nüfus - konutlarınızın nüfusunu hösterir. Bu rakam Evsizleri içermez.</li>
+	<li>Nüfus - konutlarınızın nüfusunu gösterir. Bu rakam Evsizleri içermez.</li>
 	<li>Ev sahibi - konutlarda yaşayan insanların, şehirdeki toplam sayısı.</li>
 	<li>Ev sahibi % - Şehirde, konutlarda yaşayanların yüzdesini gösterir.</li>
 	<li>Kulübeler - Şehrinizdeki gecekondu semtlerinin sayısını gösterir.</li>
-	<li>Doğal olmayan ölümler - Geçen ay içinde kirlilik yada açlıktan ölenlerin sayısını gösterir.</li>
+	<li>Doğal olmayan ölümler - Geçen ay içinde kirlilik veya açlıktan ölenlerin sayısını gösterir.</li>
 	<li>İşsiz % - işsizliğin, nüfusunuzdaki yüzdesini gösterir.</li>
 	<li>Açlık % - Açlığın, nufusunuzdaki yüzdesini gösterir.</li>
-	<p style="hp">Bu pencerenin üstüne soltık; Parasal, Diğer masraflar ve Ev edindirme pencereleri arasında dönüşüm yaptırır.</p>
+	<p style="hp">Bu pencerenin üstüne sol tıklamak; Parasal, Diğer masraflar ve Ev edindirme pencereleri arasında dönüşüm yaptırır.</p>
 
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="finance">Parasal ekran</a></li>
 	<li><a href="other-costs">Diğer Masraflar</a></li>
 

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Limanlar</p>
-	<p style="hp">Limanlar eşya, çelik, mineral, kömür ve yiyecek ithal ve ihraç etmeni mümkün kılar. İthalat masrafdır, ihracat ise gelirdir.</p>
-	<p style="hp">Bir limanın kullanılması için ulaşıma bağlanmış olması gerekir. Limanın üzerine çiftıklayarak ne ithal/ihraç edeceğini sen seçersin. Ne ithal/ihraç edeceğini seçeceğin, seçim kutularının olduğu bir pencere açılacak.</p>
+	<p style="hp">Limanlar; eşya, çelik, mineral, kömür ve yiyecek ithal ve ihraç etmenizi mümkün kılar. İthalat masraftır, ihracat ise gelirdir.</p>
+	<p style="hp">Bir limanın kullanılması için ulaşıma bağlanmış olması gerekir. Limanın üzerine çift tıklayarak ne ithal/ihraç edeceğinizi siz seçersiniz. Bu seçimi, açılacak seçim kutularının olduğu bir pencereden yapabilirsiniz.</p>
 	<p style="hp">Limanlar sağ kenarlarından 'boylu boyunca' nehre <b> bağlanmalıdırlar</b>.</p>
-	<p style="hp">Tahsis edilen seçim kutularını işaretlemediğin sürece hiç bir şey ithal/ihraç edilmeyecek.</p>
-	<p style="hp">İhracat alanı verdiği kadar alacaktır. İhracata ihtiyacın varsa, ama miktarı sınırlamak istiyorsan, daha düşük hacimli bir ulaşım kullanmak isteyebilirsin uzun bir parça kullan yada ürünleri bar Bakkal üzerinden geçir. Doğru ulaşım şeklini yakalayabilmek için tecrübeye ihtiyacın olacak.</p>
+	<p style="hp">Tahsis edilen seçim kutularını işaretlemediğiniz sürece hiç bir şey ithal/ihraç edilmeyecektir.</p>
+	<p style="hp">İhracat, alanı verdiğiniz kadar alacaktır. İhracata ihtiyacınız var ama miktarı sınırlamak istiyorsanız, daha düşük hacimli bir ulaşım, uzun bir parça kullanabilir veya ürünleri doğrudan Bakkala götürebilirsiniz. Doğru ulaşım şeklini yakalayabilmek için tecrübeye ihtiyacınız olacak.</p>
 	<p style="hp">Ek: İhracatçılar büyük ihracatları dikkate alır.</p>
 
 	<p style="hp">Bu bir Liman</p>
@@ -13,10 +13,11 @@
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
     <li><a href="export">İthalat ve İhracat</a></li>
 	<li><a href="rivers">Nehir</a></li>
 	<li><a href="transport">Ulaşım</a></li>
+	<li><a href="food">Yiyecek</a></li
 	<li><a href="market">Bakkallar</a></li>
 	<li><a href="coal">Kömür</a></li>
 	<li><a href="ore">Mineral</a></li>

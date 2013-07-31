@@ -3,11 +3,11 @@
 	<p style="htitle">Açlık örtüsü</p>
 	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
 	<p style="hp">Açlık ekranı sadece yerleşim bölgelerini gösterir.</p>
-	<p style="hp">Parlak-yeşil olması o yerleşim alanında yeterli yiyecek olduğu anlamındadır. Koyu-yeşil ve açık-kırmızı olan yerleşim yerlerinin her ikiside gittikçe artan şiddetli açlığı gösterir.</p>
-	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana soltıklayın. Başka bir küçükekran görüntüsü için küçükekran üzerindeki başlığa soltıklayın. Kroki görünümüne geçmek için 'v'ye yada küçükekran başlığı üzerinde farenin orta düğmesine basın.</p>
+	<p style="hp">Parlak yeşil olması o yerleşim alanında yeterli yiyecek olduğu anlamındadır. Koyu yeşil ve açık kırmızı olan yerleşim yerlerinin her ikisi de gittikçe artan şiddetli açlığı gösterir.</p>
+	<p style="hp">Ana ekranı tekrar konumlandırmak için küçük ekrana sol tıklayın. Başka bir küçük ekran görüntüsü için küçük ekran üzerindeki başlığa sol tıklayın. Kroki görünümüne geçmek için 'v'ye veya küçük ekran başlığı üzerinde farenin orta düğmesine basın.</p>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
-	<li><a href="mini-screen">Küçükharita</a></li>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
+	<li><a href="mini-screen">Küçük harita</a></li>
 	<li><a href="msb-coal">Kömür örtüsü</a></li>
 	<li><a href="msb-cricket">Spor kapsama alanı</a></li>
 	<li><a href="msb-fire">İtfaiye kapsama alanı</a></li>

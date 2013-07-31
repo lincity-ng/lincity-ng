@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Okullar</p>
-	<p style="hp">Üniversitelere benzer bir yolla teknoloji seviyesini artırmak için eşya ve işçi kullanır. Üniversitelerden biraz daha az işçi ve eşya kullanırlar, biraz daha az teknoloji sağlarlar. Bir bölgede 4-5 okul yerine tek bir üniversite koymak seçimleri arasında, sıksık (ama herzaman değil) bir üniversite koymak daha iyidir.</p>
+	<p style="hp">Üniversitelere benzer bir yolla teknoloji seviyesini arttırmak için eşya ve işçi kullanır. Üniversitelerden biraz daha az işçi ve eşya kullanırlar ve biraz daha az teknoloji sağlarlar. Bir bölgede 4-5 okul yerine tek bir üniversite koymak seçimleri arasında, sık sık (ama her zaman değil) bir üniversite koymak daha iyidir.</p>
 	<p style="hp">Okulların ulaşıma bağlanmaları gerekmez, fakat okul işlerini yaparken kullanılacak bolca işçi ve eşya için bir Bakkalın kapsama alanında olmaya ihtiyaçları vardır.</p>
-	<p style="hp">Okulların çalışması maliyetlidir. Para düğmesine tıklayarak <b> geçen </b> yılın toplam maliyetlerini görebilirsin. 'okul' değeri okul masrafıdır.</p>
-	<p style="hp">Bir okulun çalıştığını, üzerine tıklayarak anlayabilirsin, canlandırma hareketlenecektir.</p>
+	<p style="hp">Okulların çalışması maliyetlidir. Para düğmesine tıklayarak <b> geçen </b> yılın toplam maliyetlerini görebilirsiniz. 'okul' değeri okul masrafıdır.</p>
+	<p style="hp">Bir okulun çalıştığını, üzerine tıklayarak hareketlenen canlandırmadan anlayabilirsiniz.</p>
 	
 	<p style="hp">Bu bir Okul</p>
 	<img src="images/tiles/school0.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="market">Bakkal</a></li>
 	<li><a href="university">Üniversite</a></li>
 	<li><a href="transport">Ulaşım</a></li>

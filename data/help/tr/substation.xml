@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Trafolar</p>
-	<p style="hp">Trafolar elektriği elektrik hatlarından alır ve çevrelerine dağıtır. Örneğin; üzerine tıklayarak yerleşim alanına elektrik sağlandığını küçükpencereden kontrol edebilirsin .</p>
+	<p style="hp">Trafolar, elektriği elektrik hatlarından alır ve çevrelerine dağıtır. Üzerine tıklayarak yerleşim alanında nerelere elektrik sağlandığını küçük pencereden kontrol edebilirsiniz.</p>
 	
 	<p style="hp">Bu bir Trafo</p>
 	<img src="images/tiles/substation-G.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="powerline">Elektrik hatları</a></li>
-	<li><a href="powerssolar">Güneşsel Elektrik üreteci</a></li>
+	<li><a href="powerssolar">Güneş Paneli</a></li>
 	<li><a href="commune">Komün</a></li>
 	<li><a href="steel">Çelik</a></li>
 	<li><a href="jobs">İşçi</a></li>

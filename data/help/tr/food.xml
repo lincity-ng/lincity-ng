@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Yiyecek</p>
-	<p style="hp">Yiyecek Çiflikte üretilebilir yada Liman ile ithal edilebilir.</p>
-	<p style="hp">İnsanlarının hayatta kalmak için yiyeceğe ihtiyacı var. Onları aç bırakırsan, göç edebilirler ve bir miktar açlıktan ölümler olabilir.</p>
-	<p style="hp">Fabrikalar da yiyecek kullanır. Çevirilirler, işlenirler, pamuktan giyisi yapılırlar. Dikkat et çok fazla yiyecek kullanabilirler!.</p>
+	<p style="hp">Yiyecek Çiftlikte üretilebilir veya Liman ile ithal edilebilir.</p>
+	<p style="hp">İnsanlarının hayatta kalmak için yiyeceğe ihtiyacı var. Aç bırakırsanız, göç edebilirler ve bir kısmı açlıktan ölebilir.</p>
+	<p style="hp">Fabrikalar da yiyecek kullanır. Dönüştürülürler, işlenirler, pamuktan giyisi yapılırlar. Dikkat edin! Çok fazla yiyecek kullanabilirler!</p>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
-	<li><a href="farm">Çiflik</a></li>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
+	<li><a href="commodities">Eşyalar</a></li>
+	<li><a href="farm">Çiftlik</a></li>
 	<li><a href="port">Liman</a></li>
 	<li><a href="mill">Fabrika</a></li>
 	<li><a href="steel">Çelik</a></li>

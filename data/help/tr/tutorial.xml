@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Document style="helpdocument">
-	<p style="htitle">Eğitmen</p>
+	<p style="htitle">Öğretici</p>
 
 	<li><a href="tutorial-aim">Oyunun amacı</a></li>
-	<li><a href="tutorial-overview">Ekranı gözden geçir</a></li>
+	<li><a href="tutorial-overview">Ekrana genel bakış</a></li>
 	<li><a href="tutorial-basics">İlk adımlar</a></li>
 	<li><a href="tutorial-advanced">Gelişmiş özellikler</a></li>
 	<li><a href="tutorial-scenario">Önceden tanımlanmış senaryolar</a></li>

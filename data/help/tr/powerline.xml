@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Elektrik hatları</p>
-	<p style="hp">Elektrik hatları, güneşsel ve kömürden elektrik üreteçlerinden trafolara elektrik iletir. Elektrik hatları her üçününde sol üst köşesine bağlanır; güneşsel, kömürden üreteç ve trafolar.</p>
-	<p style="hp">Elektrik hatları Tali yolların, Yolların, demiryollarının ve nehirlerin <b>  altından </b> geçer (hepsinin 1 parça genişliğinden). Eğer bir elektrik hattı bir ulaşımın yada nehrin her iki tarafına yerleştirilirlerse, bağlılarmış gibi etki eder. Çoğu kez karşı tarafına geçmek için bir nehri yıkman gerekir - bu pahalıdır! Elektrik hatları doğru çizgide oldularında bağlanırlar.</p>
+	<p style="hp">Elektrik hatları, güneş paneli ve termik santrallerden trafolara elektrik iletir. Elektrik hatları; güneş paneli, termik santral ve trafoların sol üst köşesine bağlanır.</p>
+	<p style="hp">Elektrik hatları; Tali yolların, Yolların, demiryollarının ve nehirlerin <b>  altından </b> geçer (hepsinin 1 parça genişliğini kaplar). Eğer bir elektrik hattı bir ulaşımın veya nehrin her iki tarafına yerleştirilirse, bağlılarmış gibi etki eder. Çoğu kez karşı tarafa geçmek için bir nehri yıkmanız gerekir - bu da pahalıdır! Elektrik hatları doğru çizgide olduklarında bağlanırlar.</p>
 
 	<p style="hp">Bu bir Elektrik hattı</p>
 	<img src="images/tiles/powerlvd.png" halign="center"/>
@@ -11,9 +11,9 @@
 	<p style="hp">ve bu da kapsama alanı simgesi</p>
 	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="substation">Trafo</a></li>
-	<li><a href="powerssolar">Güneşsel elektrik üreteci</a></li>
+	<li><a href="powerssolar">Güneş paneli</a></li>
 	<li><a href="msb-power">Elektrik kapsama alanı</a></li>
 </Document>
 

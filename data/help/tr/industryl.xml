@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Hafif Sanayi Bölgeleri</p>
-	<p style="hp">Hafif Sanayi; Minerali Eşyaya çevirir. Dönüştürme, çelik bulunabilir olduğunda daha verimlidir. Elektrik çeliğin daha uzağa çıkışını artırır. Yeldeğirmenleri bu bölgeler için elektrik <b> sağlamaz</b>.</p>
-	<p style="hp">Yukarıda bahsedilenlere bir kural gibi göz atın Hafif Sanayi bölgesinin çıktısı, başta hammaddenin miktarına bağlı olarak çevirebilecek işçi sağlar ve aynı zamanda eşya miktarını artırabilir.</p>
-	<p style="hp">Bu bölgeler Mineral, Çelik ve eşya takası için doğrudan ulaşıma bağlanır. İşçi sağlamak için bir Bakkala ihtiyaç duyabilirler.</p>
-	<p style="hp">Bu bölgeler görüldüğü gibi <b> sadece </b> sol üst kenarlarından ulaşıma bağlanır. Bağlandığında ulaşım eğimlenecek.</p>
+	<p style="hp">Hafif endüstri, minerali eşyaya dönüştürür. Bu dönüşüm çelik kullanılabilir olduğunda daha da önemli olur. Güç, çıktıyı sabit olarak arttırır. Etkisiz kilowatt birimi, ulaşım ile aktarılabilir. Megawatt ise, elektrik hatları ile doğrudan sağlanabilir. Rüzgar değirmenleri yeterli kilowatt seviyesinde elektrik sağlayacaklardır.</p>
+	<p style="hp">Baş parmak kuralı olarak, hafif endüstrinin çıktısı, işçiler de dahil olmak üzere alabileceği ve <b>atılabilecek</b> hammadde eşyalarının miktarına da bağlıdır. 
+	<p style="hp">Bu alanlar; işçi, mineral, çelik, kilowatt ve eşya değişimi için ulaşıma doğrudan bağlanır. Tam kapasitede çalışabilmeleri için bir Bakkala ihtiyaç duyabilirler.</p>
+	
+	<p style="hp">Hafif sanayiler <a href="pollution">kirliliğe </a> yol açar.</p>
 	
 	<p style="hp">Bu bir Hafif Sanayi</p>
 	<img src="images/tiles/industryll1.png" halign="center"/>
 	<p style="hp">ve bu da simgesi</p>
 	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
 	
-	<p style="hsubtitle">Ayrıca bak:</p>
+	<p style="hsubtitle">Ayrıca bakınız:</p>
 	<li><a href="transport">Ulaşım</a></li>
 	<li><a href="road">Yollar</a></li>
 	<li><a href="rail">Demiryolları</a></li>

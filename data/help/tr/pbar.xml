@@ -1,8 +1,13 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">İstatistik</p>
-	<p style="hp">Küçükekrandaki ikinci sekmedir</p>
-	<p style="hp">Bütün Bkkallardaki birikimi ve nasıl değiştiğini gösterir.</p>
+	<p style="htitle">İstatistikler</p>
+	<p style="hp">Küçük ekrandaki ikinci sekmedir</p>
+	<p style="hp">Bütün Bakkallardaki birikimi ve nasıl değiştiğini gösterir.</p>
 	<p style="hp">Rakamlar toplam miktarı belirtir.</p>
 	<p style="hp">Sağ tarafta beliren yeşil çubuk artışı belirtir. Sol tarafta beliren kırmızı çubuk düşüşü belirtir. Çubuğun belirme boyutu değişimin boyutudur.</p>
+	
+	<p style="hsubtitle">Ayrıca bakınız:</p>
+	<li><a href="commodities">Eşyalar</a></li>
+	<li><a href="msb-transport">Ulaşım örtüsü</a></li>
+
 </Document>
