@@ -33,7 +33,7 @@ int current_year(int current_time)
 {
     return current_time / NUMOF_DAYS_IN_YEAR;
 }
-
+/*
 void format_number5(char *str, int num)
 {
     int num_sign = num >= 0 ? 1 : -1;
@@ -56,7 +56,7 @@ void format_number5(char *str, int num)
         }
     }
 }
-
+*/
 void num_to_ansi(char *s, size_t size, long num)
 {
     int triplets = 0;
@@ -98,15 +98,15 @@ void num_to_ansi(char *s, size_t size, long num)
 
     if (size == 4) {            /* to make up for format_pos_number4.  Eeewwwwwww. */
         if (numf < 10) {
-            snprintf(s, size + 1, "%1.1f%c", numf, triplets);
+            snprintf(s, size + 1, "%-1.1f%c", numf, triplets);
         } else {
-            snprintf(s, size + 1, "%3.0f%c", numf, triplets);
+            snprintf(s, size + 1, "%-3.0f%c", numf, triplets);
         }
     } else {
         if (triplets == ' ') {
-            snprintf(s, size, "%4.0f", numf);
+            snprintf(s, size, "%-4.0f", numf);
         } else {
-            snprintf(s, size, "%3.1f%c", numf, triplets);
+            snprintf(s, size, "%-3.1f%c", numf, triplets);
         }
     }
 }
@@ -147,11 +147,11 @@ void num_to_ansi_unit(char *s, size_t size, long num, char unit)
 
     if (size == 4)              /* to make up for format_pos_number4 */
         if (numf < 10)
-            snprintf(s, size, "%4.1f%c%c", numf, triplets, unit);
+            snprintf(s, size, "%-4.1f%c%c", numf, triplets, unit);
         else
-            snprintf(s, size, "%4.0f%c%c", numf, triplets, unit);
+            snprintf(s, size, "%-4.0f%c%c", numf, triplets, unit);
     else
-        snprintf(s, size, "%5.1f%c%c", numf, triplets, unit);
+        snprintf(s, size, "%-5.1f%c%c", numf, triplets, unit);
 }
 
 /* commify: take a number and convert it to a string grouped into triplets
@@ -207,11 +207,12 @@ void pad_with_blanks(char *str, int size)
     }
     *str = '\0';
 }
-
+/*
 void format_pos_number4(char *str, int num)
 {
     num_to_ansi(str, 4, num);
 }
+*/
 /*
 void format_power(char *str, size_t size, long power)
 {

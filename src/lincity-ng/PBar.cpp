@@ -143,7 +143,7 @@ LCPBar::setValue(int num, int value, int diff)
     else if(num==PMONEY || num==PPOP || num==PPOL)
     {
         char s[12];
-        num_to_ansi (s, 12, value);
+        num_to_ansi (s, sizeof(s), value);
         os<<s;
     }
     else if ((num >= PFOOD) && (num <= PHOUSE)) //percentages
