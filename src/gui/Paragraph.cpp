@@ -301,7 +301,7 @@ Paragraph::resize(float width, float height)
         bool render = false;
         bool linefeed = false;
         // we need a linefeed if width isn't enough for current span
-        if(width > 0 && pos.x + render_width >= width) {
+        if(width > 0 && pos.x + render_width >= width - style.margin_left - style.margin_right) {
             render = true;
             linefeed = true;
 
@@ -394,15 +394,15 @@ Paragraph::resize(float width, float height)
             // adjust link rectangles for alignment and add them to the list
             float xoffset;
             if(style.alignment == Style::ALIGN_LEFT) {
-                xoffset = 0;
+                xoffset = style.margin_left;
             } else if(style.alignment == Style::ALIGN_CENTER) {
-                xoffset = (width - lineimages.back()->w) / 2;
+                xoffset = (width + style.margin_left - style.margin_right - lineimages.back()->w)/2;
             } else {
-                xoffset = (width - lineimages.back()->w);
+                xoffset = (width - lineimages.back()->w - style.margin_right);
             }
             for(std::vector<LinkRectangle>::iterator i =linerectangles.begin();
                 i != linerectangles.end(); ++i) {
-                i->rect.move(Vector2(xoffset, 0));
+                i->rect.move(Vector2(xoffset, style.margin_top));
                 linkrectangles.push_back(*i);
             }
             linerectangles.clear();
@@ -410,7 +410,7 @@ Paragraph::resize(float width, float height)
             line = "";
             pos.x = 0;
 
-            ycoords.push_back(static_cast<int> (pos.y));
+            ycoords.push_back(static_cast<int> (pos.y + style.margin_top));
             pos.y += lineheight;
 
             lineheight = TTF_FontHeight(font);
@@ -432,7 +432,7 @@ Paragraph::resize(float width, float height)
     if(height < style.min_height) {
         height = style.min_height;
     } else {
-        height = pos.y;
+        height = pos.y + style.margin_top + style.margin_bottom;
     }
 
     // check height defined in style
@@ -456,11 +456,11 @@ Paragraph::resize(float width, float height)
     for(size_t i = 0; i < lineimages.size(); ++i) {
         SDL_Rect rect;
         if(style.alignment == Style::ALIGN_LEFT) {
-            rect.x = (Sint16) 0;
+            rect.x = (Sint16) 0 + style.margin_left;
         } else if(style.alignment == Style::ALIGN_CENTER) {
-            rect.x = (Sint16) (width - lineimages[i]->w) / 2;
+            rect.x = (Sint16) (width + style.margin_left - style.margin_right - lineimages[i]->w) / 2;
         } else {
-            rect.x = (Sint16) (width - lineimages[i]->w);
+            rect.x = (Sint16) (width - lineimages[i]->w - style.margin_right);
         }
         rect.y = (Sint16) ycoords[i];
         SDL_BlitSurface(lineimages[i], 0, result, &rect);

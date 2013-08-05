@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui>
+    <DefineStyle name="random-button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
     <Image src="images/mainmenu/newgame_back.png" resizable="yes"/>
     <!-- Split window into title/top - contents and bottom/buttons area -->
     <TableLayout rows="3" cols="1">
@@ -59,7 +60,7 @@
             </cell>
             <cell row="2" col="2">
             <CheckButton name="RiverDelta">
-            <text-caption style="button">Newgame 1234567890</text-caption>
+            <text-caption style="random-button">Newgame 1234567890</text-caption>
             <image src="images/gui/buttons/randombutton.png"/>
             <image-hover src="images/gui/buttons/randombutton-hover.png"/>
             <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>
@@ -68,7 +69,7 @@
             </cell>
             <cell row="3" col="2">
             <CheckButton name="DesertArea">
-            <text-caption style="button">Newgame 1234567890</text-caption>
+            <text-caption style="random-button">Newgame 1234567890</text-caption>
             <image src="images/gui/buttons/randombutton.png"/>
             <image-hover src="images/gui/buttons/randombutton-hover.png"/>
             <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>
@@ -77,7 +78,7 @@
             </cell>
             <cell row="4" col="2">
             <CheckButton name="TemperateArea">
-            <text-caption style="button">Newgame 1234567890</text-caption>
+            <text-caption style="random-button">Newgame 1234567890</text-caption>
             <image src="images/gui/buttons/randombutton.png"/>
             <image-hover src="images/gui/buttons/randombutton-hover.png"/>
             <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>
@@ -86,7 +87,7 @@
             </cell>
             <cell row="5" col="2">
             <CheckButton name="SwampArea">
-            <text-caption style="button">Newgame 1234567890</text-caption>
+            <text-caption style="random-button">Newgame 1234567890</text-caption>
             <image src="images/gui/buttons/randombutton.png"/>
             <image-hover src="images/gui/buttons/randombutton-hover.png"/>
             <image-clicked src="images/gui/buttons/randombutton-clicked.png"/>

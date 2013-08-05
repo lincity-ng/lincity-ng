@@ -1,88 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui>
-	<DefineStyle name="normal" color="white" font-size="30"/>
-	<DefineStyle name="hover" color="#339fe6" font-size="30"/>
-	<DefineStyle name="clicked" color="#339fe6" font-size="30" margin-left="5" margin-top="5"/>
+    <!--
+    <DefineStyle name="normal" color="white" font-size="30"/>
+    <DefineStyle name="hover" color="#339fe6" font-size="30"/>
+    <DefineStyle name="clicked" color="#339fe6" font-size="30" margin-left="5" margin-top="5"/>
+    -->
+    <!-- Menus -->
+    <!--
+    <DefineStyle name="menutitle" color="black" font-size="50" halign="center"/>
+    <DefineStyle name="listtitle" color="black" font-size="30"/>
+    <DefineStyle name="boxtext" color="blue" font-size="16" margin-left="10"/>
+    <DefineStyle name="button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
+    <DefineStyle name="dialogbutton" color="white" font-size="20" margin-left="20" margin-right="20"/>
+    <DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>
+    <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3" margin-left="23" margin-right="20"/>
+    -->
+    <!-- Dirty hack to deactivate now fixed left, right margins -->
 
-	<!-- Menus -->
-	<DefineStyle name="menutitle" color="black" font-size="50" halign="center"/>
-	<DefineStyle name="listtitle" color="black" font-size="30"/>		
-	<DefineStyle name="boxtext" color="blue" font-size="16" margin-left="10"/>
-	<DefineStyle name="button" color="blue" font-size="30" margin-left="20" margin-right="20"/>
-	<DefineStyle name="dialogbutton" color="white" font-size="20" margin-left="20" margin-right="20"/>
-	<DefineStyle name="button-hover" color="red" font-size="30" margin-left="20" margin-right="20"/>
-	<DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3" margin-left="23" margin-right="20"/>
-		
-	<Image src="images/mainmenu/menu_back.png" resizable="yes"/>
-	<TableLayout rows="8" cols="3">
-		<colsize col="1" relative="1"/>
-		<colsize col="2" relative="0.5"/>
-		<colsize col="3" relative="1"/>
-		<rowsize row="1" relative="2.5"/>
-		<rowsize row="2" relative="1"/>
-		<rowsize row="3" relative="1"/>
-		<rowsize row="4" relative="1"/>
-		<rowsize row="5" relative="1"/>
-		<rowsize row="6" relative="1"/>
-		<rowsize row="7" relative="1"/>
-		<rowsize row="8" relative="1"/>
-		<cell row="3" col="3">
-			<Button name="NewGameButton">
-				<text-caption translatable="yes" style="normal">New Game</text-caption>
-				<image src="images/mainmenu/buttons/new.png"/>
-				<image-hover src="images/mainmenu/buttons/new-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/new-clicked.png"/>
-			</Button>
-		</cell>
-		<cell row="2" col="3">
-			<Button name="ContinueButton">
-				<text-caption translatable="yes" style="normal">Continue</text-caption>
-				<image src="images/mainmenu/buttons/continue.png"/>
-				<image-hover src="images/mainmenu/buttons/continue-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/continue-clicked.png"/>
-			</Button>
-		</cell>
-		<cell row="4" col="3">
-			<Button name="LoadButton">
-				<text-caption translatable="yes" style="normal">Load</text-caption>
-				<image src="images/mainmenu/buttons/load.png"/>
-				<image-hover src="images/mainmenu/buttons/load-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/load-clicked.png"/>
-			</Button>
-		</cell>
-		<cell row="5" col="3">
-			<Button name="SaveButton">
-				<text-caption translatable="yes" style="normal">Save</text-caption>
-				<image src="images/mainmenu/buttons/save.png"/>
-				<image-hover src="images/mainmenu/buttons/save-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/save-clicked.png"/>
-			</Button>
-		</cell>
+    <DefineStyle name="normal" color="white" font-size="30"/>
+<!--
+    <DefineStyle name="hover" color="#339fe6" font-size="30" margin-top="5"/>
+    <DefineStyle name="clicked" color="#339fe6" font-size="30" margin-top="5"/>
+-->
 
-		<cell row="6" col="3">
-			<Button name="OptionsButton">
-				<text-caption translatable="yes" style="normal">Options</text-caption>
-				<image src="images/mainmenu/buttons/options.png"/>
-				<image-hover src="images/mainmenu/buttons/options-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/options-clicked.png"/>
-			</Button>
-		</cell>
-		<cell row="7" col="3">
-			<Button name="CreditsButton">
-				<text-caption translatable="yes" style="normal">Credits</text-caption>
-				<image src="images/mainmenu/buttons/credits.png"/>
-				<image-hover src="images/mainmenu/buttons/credits-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/credits-clicked.png"/>
-			</Button>
-		</cell>
-		<cell row="8" col="3">
-			<Button name="QuitButton">
-				<text-caption translatable="yes" style="normal">Quit</text-caption>
-				<image src="images/mainmenu/buttons/quit.png"/>
-				<image-hover src="images/mainmenu/buttons/quit-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/quit-clicked.png"/>
-			</Button>
-		</cell>
-	</TableLayout>
+    <!-- Menus -->
+    <DefineStyle name="menutitle" color="black" font-size="50" halign="center"/>
+    <DefineStyle name="listtitle" color="black" font-size="30"/>
+    <DefineStyle name="boxtext" color="blue" font-size="16" />
+    <DefineStyle name="button" color="blue" font-size="30" />
+    <DefineStyle name="dialogbutton" color="white" font-size="20" />
+<!--
+    <DefineStyle name="button-hover" color="red" font-size="30" margin-top="3"/>
+    <DefineStyle name="button-clicked" color="red" font-size="30" margin-top="3"/>
+-->
+
+    <Image src="images/mainmenu/menu_back.png" resizable="yes"/>
+    <TableLayout rows="8" cols="3">
+        <colsize col="1" relative="1"/>
+        <colsize col="2" relative="0.5"/>
+        <colsize col="3" relative="1"/>
+        <rowsize row="1" relative="2.5"/>
+        <rowsize row="2" relative="1"/>
+        <rowsize row="3" relative="1"/>
+        <rowsize row="4" relative="1"/>
+        <rowsize row="5" relative="1"/>
+        <rowsize row="6" relative="1"/>
+        <rowsize row="7" relative="1"/>
+        <rowsize row="8" relative="1"/>
+        <cell row="3" col="3">
+            <Button name="NewGameButton">
+                <text-caption translatable="yes" style="normal">New Game</text-caption>
+                <image src="images/mainmenu/buttons/new.png"/>
+                <image-hover src="images/mainmenu/buttons/new-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/new-clicked.png"/>
+            </Button>
+        </cell>
+        <cell row="2" col="3">
+            <Button name="ContinueButton">
+                <text-caption translatable="yes" style="normal">Continue</text-caption>
+                <image src="images/mainmenu/buttons/continue.png"/>
+                <image-hover src="images/mainmenu/buttons/continue-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/continue-clicked.png"/>
+            </Button>
+        </cell>
+        <cell row="4" col="3">
+            <Button name="LoadButton">
+                <text-caption translatable="yes" style="normal">Load</text-caption>
+                <image src="images/mainmenu/buttons/load.png"/>
+                <image-hover src="images/mainmenu/buttons/load-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/load-clicked.png"/>
+            </Button>
+        </cell>
+        <cell row="5" col="3">
+            <Button name="SaveButton">
+                <text-caption translatable="yes" style="normal">Save</text-caption>
+                <image src="images/mainmenu/buttons/save.png"/>
+                <image-hover src="images/mainmenu/buttons/save-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/save-clicked.png"/>
+            </Button>
+        </cell>
+
+        <cell row="6" col="3">
+            <Button name="OptionsButton">
+                <text-caption translatable="yes" style="normal">Options</text-caption>
+                <image src="images/mainmenu/buttons/options.png"/>
+                <image-hover src="images/mainmenu/buttons/options-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/options-clicked.png"/>
+            </Button>
+        </cell>
+        <cell row="7" col="3">
+            <Button name="CreditsButton">
+                <text-caption translatable="yes" style="normal">Credits</text-caption>
+                <image src="images/mainmenu/buttons/credits.png"/>
+                <image-hover src="images/mainmenu/buttons/credits-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/credits-clicked.png"/>
+            </Button>
+        </cell>
+        <cell row="8" col="3">
+            <Button name="QuitButton">
+                <text-caption translatable="yes" style="normal">Quit</text-caption>
+                <image src="images/mainmenu/buttons/quit.png"/>
+                <image-hover src="images/mainmenu/buttons/quit-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/quit-clicked.png"/>
+            </Button>
+        </cell>
+    </TableLayout>
 </gui>
 

@@ -36,7 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "XmlReader.hpp"
 
 Button::Button()
-    : state(STATE_NORMAL), lowerOnClick(false), mouseholdTicks(0)
+    : state(STATE_NORMAL), lowerOnClick(true), mouseholdTicks(0)
 {
     fixWidth = -1;
     fixHeight = -1;
@@ -77,7 +77,7 @@ Button::parse(XmlReader& reader)
 
     // we need 4 child components
     childs.assign(4, Child());
-    
+
     // parse contents of the xml-element
     bool parseTooltip = false;
     int depth = reader.getDepth();
@@ -140,7 +140,7 @@ Button::parse(XmlReader& reader)
                 continue;
 
             const char* p = (const char*) reader.getValue();
-                
+
             // skip trailing spaces
             while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
                 ++p;
@@ -200,14 +200,14 @@ Button::reLayout()
         width = fixWidth;
         height = fixHeight;
     }
-    
+
     // place components at the middle of the button
     for(Childs::iterator i = childs.begin(); i != childs.end(); ++i) {
         Child& child = *i;
         Component* component = child.getComponent();
         if(!component)
             continue;
-        
+
         child.setPos( Vector2 ((width - component->getWidth())/2,
                                (height - component->getHeight())/2));
     }
@@ -246,7 +246,7 @@ void Button::setCaptionText(const std::string &pText)
         if(!child.getComponent())
             continue;
         Component* component = child.getComponent();
-        
+
         child.setPos( Vector2 ((width - component->getWidth())/2,
                     (height - component->getHeight())/2));
     }
@@ -262,8 +262,8 @@ std::string Button::getCaptionText()
     Paragraph *p=dynamic_cast<Paragraph*>(cm);
     if(p)
       s=p->getText();
-  }  
-  
+  }
+
   return s;
 }
 
@@ -346,19 +346,27 @@ Button::draw(Painter& painter)
         case STATE_NORMAL:
             drawChild(comp_normal(), painter);
             break;
-            
+
         default:
             assert(false);
     }
-    if(lowerOnClick && state==STATE_CLICKED)
+    if(lowerOnClick)
     {
-       painter.pushTransform();
-       painter.translate(Vector2(1,1));
+        if(state == STATE_CLICKED)
+        {
+            painter.pushTransform();
+            painter.translate(Vector2(3,3));
+        }
+        else if(state == STATE_HOVER)
+        {
+            painter.pushTransform();
+            painter.translate(Vector2(1,1));
+        }
     }
     if(comp_caption().isEnabled())
-        drawChild(comp_caption(), painter);
-    if(lowerOnClick && state==STATE_CLICKED)
-        painter.popTransform();
+    {   drawChild(comp_caption(), painter);}
+    if(lowerOnClick && (state==STATE_CLICKED || state == STATE_HOVER))
+    {   painter.popTransform();}
 }
 
 IMPLEMENT_COMPONENT_FACTORY(Button)

@@ -32,29 +32,29 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/XmlReader.hpp"
 
 CheckButton::CheckButton()
-    : state(STATE_NORMAL), lowerOnClick(false), checked(false),
+    : state(STATE_NORMAL), lowerOnClick(true), checked(false),
      mclicked(false), mouseholdTicks(0)
 {
-	/* // FIXME no utput at crash	
+    /* // FIXME no utput at crash
     std::cout << "constructing: " << this << ": ";
-	std::cout.flush(); 
-	state = STATE_NORMAL;
-	std::cout << ".";
-	std::cout.flush();
-	lowerOnClick = false;
-	std::cout << ".";
-	std::cout.flush();
-	checked = false;
-	std::cout << ".";
-	std::cout.flush();
-	mclicked = false;
-	std::cout << ".";
-	std::cout.flush();
-	mouseholdTicks = 0;
-	std::cout << ".";
-	std::cout.flush();	
-	std::cout << " done" << std::endl; 
-	*/ 
+    std::cout.flush();
+    state = STATE_NORMAL;
+    std::cout << ".";
+    std::cout.flush();
+    lowerOnClick = false;
+    std::cout << ".";
+    std::cout.flush();
+    checked = false;
+    std::cout << ".";
+    std::cout.flush();
+    mclicked = false;
+    std::cout << ".";
+    std::cout.flush();
+    mouseholdTicks = 0;
+    std::cout << ".";
+    std::cout.flush();
+    std::cout << " done" << std::endl;
+    */
 }
 
 CheckButton::~CheckButton()
@@ -65,7 +65,7 @@ void
 CheckButton::parse(XmlReader& reader)
 {
     // parse xml attributes
-    //std::cout << "parsing Checkbutton ..."; 
+    //std::cout << "parsing Checkbutton ...";
     //std::cout.flush();
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -98,7 +98,7 @@ CheckButton::parse(XmlReader& reader)
             } else if(strcmp(value, "false") == 0) {
                 uncheck();
             } else {
-                std::cerr << "Unknown value '" << value 
+                std::cerr << "Unknown value '" << value
                           << "' in check attribute."
                           << " Should be 'true' or 'false'.\n";
             }
@@ -110,7 +110,7 @@ CheckButton::parse(XmlReader& reader)
 
     // we need 6 child components
     childs.assign(6, Child());
-    
+
     // parse contents of the xml-element
     bool parseTooltip = false;
     int depth = reader.getDepth();
@@ -180,7 +180,7 @@ CheckButton::parse(XmlReader& reader)
             if(!parseTooltip)
                 continue;
 
-            const char* p = GUI_TRANSLATE((const char*) reader.getValue());  
+            const char* p = GUI_TRANSLATE((const char*) reader.getValue());
 
             // skip trailing spaces
             while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
@@ -198,7 +198,7 @@ CheckButton::parse(XmlReader& reader)
                     tooltip += *p;
                 }
             }
-        }                
+        }
     }
 
     if(comp_normal().getComponent() == 0)
@@ -226,11 +226,11 @@ CheckButton::parse(XmlReader& reader)
         if(!child.getComponent())
             continue;
         Component* component = child.getComponent();
-        
+
         child.setPos( Vector2 ((width - component->getWidth())/2,
                                (height - component->getHeight())/2));
     }
-	//std::cout << " done" << std::endl;
+    //std::cout << " done" << std::endl;
 }
 
 void
@@ -283,7 +283,7 @@ void
 CheckButton::event(const Event& event)
 {
     bool nochange=false;
-  
+
     State oldstate=state;
     switch(event.type) {
         case Event::MOUSEMOTION:
@@ -330,7 +330,7 @@ CheckButton::event(const Event& event)
              }
              nochange=true;
              break;
-        }    
+        }
         default:
             nochange=true;
             break;
@@ -391,23 +391,31 @@ CheckButton::draw(Painter& painter)
         case STATE_NORMAL:
             drawChild(comp_normal(), painter);
             break;
-            
+
         default:
             assert(false);
     }
-    if(lowerOnClick && state==STATE_CLICKED)
+    if(lowerOnClick)
     {
-       painter.pushTransform();
-       painter.translate(Vector2(1,1));
+        if(state == STATE_CLICKED)
+        {
+            painter.pushTransform();
+            painter.translate(Vector2(3,3));
+        }
+        else if(state == STATE_HOVER)
+        {
+            painter.pushTransform();
+            painter.translate(Vector2(1,1));
+        }
     }
     if(comp_caption().isEnabled()) {
         if(state == STATE_DISABLED && comp_disabled().isEnabled())
-            drawChild(comp_disabled(), painter);
+        {   drawChild(comp_disabled(), painter);}
         else
-            drawChild(comp_caption(), painter);
+        {   drawChild(comp_caption(), painter);}
     }
-    if(lowerOnClick && state==STATE_CLICKED)
-        painter.popTransform();
+    if(lowerOnClick && (state==STATE_CLICKED || state == STATE_HOVER))
+    {   painter.popTransform();}
 }
 
 Component *CheckButton::getCaption()
@@ -446,8 +454,8 @@ std::string CheckButton::getCaptionText()
     Paragraph *p=dynamic_cast<Paragraph*>(cm);
     if(p)
       s=p->getText();
-  }  
-  
+  }
+
   return s;
 }
 
