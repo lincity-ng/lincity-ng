@@ -108,6 +108,7 @@ private:
 
     typedef std::vector<LinkRectangle> LinkRectangles;
     LinkRectangles linkrectangles;
+    static const int tab_len = 4;
 };
 
 #endif

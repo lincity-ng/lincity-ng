@@ -120,11 +120,11 @@ void mps_refresh() /* refresh the information display's contents */
 
                     mps_store_sdd(0,main_groups[world(mps_x, mps_y)->getGroup()].name, mps_x, mps_y);
 
-                        mps_store_title(2, _("no further information available") );
+                        mps_store_title(2, "no further information available" );
 
                     if( world(mps_x, mps_y)->is_bare() )
                     {
-                        mps_store_title(8,_("build something here") );
+                        mps_store_title(8,"build something here" );
                     }
 #ifdef DEBUG
                     mps_store_sd(10, "x", mps_x);
@@ -434,7 +434,7 @@ void mps_global_finance()
     int cashflow = 0;
     currentMPS = globalMPS;
 
-    mps_store_title(i++,_("Tax Income"));
+    mps_store_title(i++,"Tax Income");
 
     cashflow += ly_income_tax;
     num_to_ansi (s, sizeof(s), ly_income_tax);

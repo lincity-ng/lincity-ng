@@ -65,7 +65,7 @@ void
 Paragraph::parseList(XmlReader& reader, const Style& )
 {
     // query for "list" style
-    std::map<std::string, Style>::iterator i 
+    std::map<std::string, Style>::iterator i
         = styleRegistry.find("list");
     if(i == styleRegistry.end()) {
         throw std::runtime_error("<li> element used but no"
@@ -85,7 +85,7 @@ void
 Paragraph::parse(XmlReader& reader, const Style& parentstyle)
 {
     bool translatable = false;
-    
+
     style = parentstyle;
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
@@ -107,7 +107,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
     stylestack.push_back(style);
 
     TextSpan* currentspan = 0;
-  
+
     try {
         std::string currenthref;
         int depth = reader.getDepth();
@@ -118,13 +118,13 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                         || node == "a") {
                     if(currentspan != 0) {
                         if(translatable) {
-                            currentspan->text 
+                            currentspan->text
                                 = GUI_TRANSLATE(currentspan->text);
                         }
                         textspans.push_back(currentspan);
                         currentspan = 0;
                     }
-                    
+
                     Style style(stylestack.back());
                     if (node == "a") {
                         style.text_color.parse("blue");
@@ -133,7 +133,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                     } else if(node == "b") {
                         style.bold = true;
                     }
-                    
+
                     currenthref = "";
                     XmlReader::AttributeIterator iter(reader);
                     while(iter.next()) {
@@ -150,7 +150,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                     }
                     style.parseAttributes(reader);
                     // TODO parse style attributes...
-                    stylestack.push_back(style);       
+                    stylestack.push_back(style);
                 } else {
                     std::cerr << "Skipping unknown node '" << node << "'.\n";
                     reader.nextNode();
@@ -160,12 +160,12 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                     currentspan = new TextSpan();
                     currentspan->style = stylestack.back();
                 }
-                
+
                 const char* p = (const char*) reader.getValue();
                 // skip trailing spaces...
                 while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
                     ++p;
-            
+
                 bool lastspace = false;
                 for( ; *p != 0; ++p) {
                     if(isspace(static_cast<unsigned char>(*p))) {
@@ -184,12 +184,12 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                         || node == "a") {
                     if(currentspan != 0) {
                         if(translatable) {
-                            currentspan->text 
+                            currentspan->text
                                 = GUI_TRANSLATE(currentspan->text);
                         }
                         textspans.push_back(currentspan);
                         currentspan = 0;
-                    }                                                              
+                    }
                     stylestack.pop_back();
                 } else {
                     std::cerr << "Internal error: unknown node end: '" <<
@@ -200,7 +200,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
 
         if(currentspan != 0) {
             if(translatable) {
-                currentspan->text 
+                currentspan->text
                     = GUI_TRANSLATE(currentspan->text);
             }
             textspans.push_back(currentspan);
@@ -213,7 +213,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
 }
 
 /**
- * Reflows the text and renders it onto a texture 
+ * Reflows the text and renders it onto a texture
  * Cleaning this big code up a bit more is always nice. However be very careful
  * when doing so and test it alot, as the code very easily breaks...
  */
@@ -251,7 +251,7 @@ Paragraph::resize(float width, float height)
         texture = 0;
         return;
     }
-    
+
     TextSpans::iterator i = textspans.begin();
 
     const TextSpan* span = *i;
@@ -277,10 +277,21 @@ Paragraph::resize(float width, float height)
             }
             ++p;
         }
-            
+        else if ( (*text) [p] == '\t')
+        {
+            line.push_back(' ');
+            for( int tl = line.size()%tab_len; tl > 0; --tl)
+            {
+                line.push_back(' ');
+            }
+            lastp++;
+            ++p;
+        }
+
         // take a word
-        for( ; p < text->size() && (*text) [p] != ' '; ++p) {
-            line += (*text) [p]; 
+        for( ; p < text->size() &&
+            !( ((*text) [p] == ' ') || ((*text) [p] == '\t') ); ++p) {
+            line += (*text) [p];
         }
 
         // check line size...
@@ -293,7 +304,7 @@ Paragraph::resize(float width, float height)
         if(width > 0 && pos.x + render_width >= width) {
             render = true;
             linefeed = true;
-           
+
             // we have to leave out the last word (which made it too width)
             if(lastp-linestart > 0 || pos.x != 0) {
                 line = std::string(*text, linestart, lastp-linestart);
@@ -312,13 +323,13 @@ Paragraph::resize(float width, float height)
             if(i == textspans.end())
                 linefeed = true;
         }
-        
+
         if(render && line != "") {
             if(TTF_FontHeight(font) > lineheight) {
                 lineheight = TTF_FontHeight(font);
                 baseline = TTF_FontAscent(font);
             }
-            
+
             // render span
             //printf("Rendering: '%s'.\n", line.c_str());
             SDL_Surface* spansurface = TTF_RenderUTF8_Blended(font,
@@ -341,7 +352,7 @@ Paragraph::resize(float width, float height)
                 link.span = span;
                 linerectangles.push_back(link);
             }
-            
+
             pos.x += spansurface->w;
             line = "";
         }
@@ -362,7 +373,7 @@ Paragraph::resize(float width, float height)
                 SDL_SetAlpha(lineimage, 0, 0);
 
                 Sint16 x = 0;
-                SDL_Rect rect;                
+                SDL_Rect rect;
                 for(size_t i = 0; i < spanimages.size(); ++i) {
                     rect.x = x;
                     rect.y = baseline - spanbaselines[i];
@@ -398,7 +409,7 @@ Paragraph::resize(float width, float height)
 
             line = "";
             pos.x = 0;
-                            
+
             ycoords.push_back(static_cast<int> (pos.y));
             pos.y += lineheight;
 
@@ -419,7 +430,7 @@ Paragraph::resize(float width, float height)
     }
 
     if(height < style.min_height) {
-        height = style.min_height;	
+        height = style.min_height;
     } else {
         height = pos.y;
     }
@@ -460,7 +471,7 @@ Paragraph::resize(float width, float height)
     if(surface == 0) {
         throw std::runtime_error("Out of memory when creating text image(d)");
     }
-    
+
     texture = texture_manager->create(surface);
 
     this->width = width;
@@ -520,12 +531,12 @@ Paragraph::setText(const std::string& newtext, const Style& style)
     for(TextSpans::iterator i = textspans.begin(); i != textspans.end(); ++i)
         delete *i;
     textspans.clear();
-		if(newtext != "") {
-			TextSpan* span = new TextSpan();
-			span->style = style;
-			span->text = newtext;
-			textspans.push_back(span);
-		}
+        if(newtext != "") {
+            TextSpan* span = new TextSpan();
+            span->style = style;
+            span->text = newtext;
+            textspans.push_back(span);
+        }
 
     float oldWidth = width;
     float oldHeight = height;
