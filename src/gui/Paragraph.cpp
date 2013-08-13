@@ -239,6 +239,7 @@ Paragraph::resize(float width, float height)
     std::vector<SDL_Surface*> lineimages;
     // surfaces for the current line
     std::vector<SDL_Surface*> spanimages;
+    std::vector<float> spanxoffset, spanyoffset;
     std::vector<LinkRectangle> linerectangles;
     std::vector<int> spanbaselines;
     int lineheight = 0;
@@ -264,10 +265,10 @@ Paragraph::resize(float width, float height)
     std::string line;
     // current rendering position
     Vector2 pos;
-
     while(1) {
         std::string::size_type lastp = p;
-        if( (*text) [p] == ' ') {
+        if( (*text) [p] == ' ')
+        {
             // we don't need the space at the beginning of the line
             if(p-linestart != 0 || pos.x != 0)
                 line += ' ';
@@ -277,22 +278,11 @@ Paragraph::resize(float width, float height)
             }
             ++p;
         }
-        else if ( (*text) [p] == '\t')
-        {
-            line.push_back(' ');
-            for( int tl = line.size()%tab_len; tl > 0; --tl)
-            {
-                line.push_back(' ');
-            }
-            lastp++;
-            ++p;
-        }
 
         // take a word
         for( ; p < text->size() &&
-            !( ((*text) [p] == ' ') || ((*text) [p] == '\t') ); ++p) {
-            line += (*text) [p];
-        }
+            !( ((*text) [p] == ' ') /*|| ((*text) [p] == '\t')*/ ); ++p)
+        {   line += (*text) [p];}
 
         // check line size...
         int render_width, render_height;
@@ -340,18 +330,38 @@ Paragraph::resize(float width, float height)
                 throw std::runtime_error(msg.str());
             }
             SDL_SetAlpha(spansurface, 0, 0);
+            //remember individual margins of spans
+            float xoffset;
+            if(span->style.alignment == Style::ALIGN_LEFT)
+            {
+                xoffset = span->style.margin_left;
+            } else if(span->style.alignment == Style::ALIGN_CENTER) {
+                xoffset = (width + span->style.margin_left - span->style.margin_right - render_width)/2;
+            } else {
+                xoffset = (width - spansurface->w - style.margin_right - span->style.margin_right);
+            }
+            //while (pos.x && xoffset && xoffset < pos.x + 4)
+            //{   xoffset += tab_len;}
+            float yoffset = span->style.margin_top;
+            spanxoffset.push_back(xoffset);
+            spanyoffset.push_back(yoffset);
+            //pos.x += xoffset;//fixed columns
+            //pos.y += yoffset;
+
             spanimages.push_back(spansurface);
             spanbaselines.push_back(TTF_FontAscent(font));
 
             // remember span position if it is a link
             if(span->style.href != "") {
                 LinkRectangle link;
-                link.rect = Rect2D (pos.x, pos.y,
-                                    pos.x + spansurface->w,
-                                    pos.y + spansurface->h);
+                link.rect = Rect2D (pos.x + xoffset, pos.y + yoffset,
+                                    pos.x + xoffset + spansurface->w,
+                                    pos.y + yoffset + spansurface->h);
                 link.span = span;
                 linerectangles.push_back(link);
             }
+            pos.x = xoffset;//fixed columns
+            pos.y += yoffset;
 
             pos.x += spansurface->w;
             line = "";
@@ -375,14 +385,13 @@ Paragraph::resize(float width, float height)
                 Sint16 x = 0;
                 SDL_Rect rect;
                 for(size_t i = 0; i < spanimages.size(); ++i) {
-                    rect.x = x;
-                    rect.y = baseline - spanbaselines[i];
-                    if(rect.y < 0) {
-                        rect.y = 0;
-                    }
+                    rect.x = (Sint16) spanxoffset[i];
+                    rect.y = baseline - spanbaselines[i] + (Sint16)spanyoffset[i];
+                    if(rect.y < 0)
+                    {   rect.y = 0;}
 
                     SDL_BlitSurface(spanimages[i], 0, lineimage, &rect);
-                    x += spanimages[i]->w;
+                    x += spanimages[i]->w + (Sint16) spanxoffset[i];
 
                     SDL_FreeSurface(spanimages[i]);
                 }
@@ -393,16 +402,16 @@ Paragraph::resize(float width, float height)
 
             // adjust link rectangles for alignment and add them to the list
             float xoffset;
-            if(style.alignment == Style::ALIGN_LEFT) {
-                xoffset = style.margin_left;
-            } else if(style.alignment == Style::ALIGN_CENTER) {
-                xoffset = (width + style.margin_left - style.margin_right - lineimages.back()->w)/2;
+            if(span->style.alignment == Style::ALIGN_LEFT) {
+                xoffset = span->style.margin_left;
+            } else if(span->style.alignment == Style::ALIGN_CENTER) {
+                xoffset = (width + span->style.margin_left - span->style.margin_right - lineimages.back()->w)/2;
             } else {
-                xoffset = (width - lineimages.back()->w - style.margin_right);
+                xoffset = (width - lineimages.back()->w - style.margin_right - span->style.margin_right);
             }
             for(std::vector<LinkRectangle>::iterator i =linerectangles.begin();
                 i != linerectangles.end(); ++i) {
-                i->rect.move(Vector2(xoffset, style.margin_top));
+                i->rect.move(Vector2(xoffset, span->style.margin_top));
                 linkrectangles.push_back(*i);
             }
             linerectangles.clear();
@@ -430,9 +439,9 @@ Paragraph::resize(float width, float height)
     }
 
     if(height < style.min_height) {
-        height = style.min_height;
+        height = span->style.min_height;
     } else {
-        height = pos.y + style.margin_top + style.margin_bottom;
+        height = pos.y + span->style.margin_top + span->style.margin_bottom;
     }
 
     // check height defined in style
@@ -453,10 +462,11 @@ Paragraph::resize(float width, float height)
     if(result == 0) {
         throw std::runtime_error("Out of memory when creating text image");
     }
+    //apply margins of paragraph
     for(size_t i = 0; i < lineimages.size(); ++i) {
         SDL_Rect rect;
         if(style.alignment == Style::ALIGN_LEFT) {
-            rect.x = (Sint16) 0 + style.margin_left;
+            rect.x = (Sint16) style.margin_left;
         } else if(style.alignment == Style::ALIGN_CENTER) {
             rect.x = (Sint16) (width + style.margin_left - style.margin_right - lineimages[i]->w) / 2;
         } else {
@@ -531,12 +541,51 @@ Paragraph::setText(const std::string& newtext, const Style& style)
     for(TextSpans::iterator i = textspans.begin(); i != textspans.end(); ++i)
         delete *i;
     textspans.clear();
-        if(newtext != "") {
+
+    int span_end = newtext.find_first_of('\t',0);
+    if(span_end != newtext.npos) // we have a tab
+    {
+        int tabcount = 0;
+        std::string mytext = newtext;
+        std::string spantext;
+        while(mytext.size())
+        {
+            spantext = mytext.substr(0,span_end);//skip the first tab
+            mytext.erase(0,span_end);//drop first span
+            mytext.erase(0,1);//kill the first tab
+            span_end = mytext.find_first_of('\t',0); // next tab
             TextSpan* span = new TextSpan();
             span->style = style;
-            span->text = newtext;
+            span->style.no_margins();
+            span->text = spantext;
             textspans.push_back(span);
+            ++tabcount;
         }
+        if (tabcount == 2)
+        {
+            textspans[0]->style.alignment = Style::ALIGN_LEFT;
+            textspans[1]->style.alignment = Style::ALIGN_RIGHT;
+        }
+        else if (tabcount == 3)
+        {
+            textspans[0]->style.alignment = Style::ALIGN_LEFT;
+            textspans[1]->style.alignment = Style::ALIGN_LEFT;
+            textspans[1]->style.margin_left = 80;
+            textspans[2]->style.alignment = Style::ALIGN_RIGHT;
+        }
+    }
+    else // simple string to parse
+    {
+        TextSpan* span = new TextSpan();
+        span->style = style;
+        span->text = newtext;
+        textspans.push_back(span);
+        span->style.margin_left = 0;//avoid double margin
+    }
+
+
+
+
 
     float oldWidth = width;
     float oldHeight = height;

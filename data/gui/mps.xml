@@ -1,6 +1,6 @@
 <Panel width="204" height="204" background="images/gui/pbar_bg.png">
-    <DefineStyle name="mps_text" color="black" font-size="12" halign="left" margin-left="8" margin-right="8"/>
-    <DefineStyle name="mps_title" color="black" font-size="12" halign="left" font-style="normal" margin-left="8" margin-right="8"/>
+    <DefineStyle name="mps_text" color="black" font-size="12" halign="left" margin-left="8" margin-right="12"/>
+    <DefineStyle name="mps_title" color="black" font-size="12" halign="left" font-style="normal" margin-left="8" margin-right="12"/>
     <TableLayout rows="15" cols="1">
        <!-- <colsize col="1" fixed="8"/> -->
         <rowsize row="1" fixed="8"/>

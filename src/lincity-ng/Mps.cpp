@@ -54,7 +54,7 @@ Mps::parse(XmlReader& reader)
         if(parseAttribute(name, value)) {
             continue;
         } else {
-            std::cerr << "Unknown attribute '" << name 
+            std::cerr << "Unknown attribute '" << name
                       << "' skipped in Mps.\n";
         }
     }
@@ -104,10 +104,10 @@ Mps::setView(MapPoint point, int style /* = MPS_MAP */ )
     int x = point.x;
     int y = point.y;
     if( !world.is_inside(x, y)) {return;}
-	Construction *reportingConstruction = world(x,y)->reportingConstruction;
+    Construction *reportingConstruction = world(x,y)->reportingConstruction;
     if (reportingConstruction) {
         x = reportingConstruction->x;
-        y = reportingConstruction->y;   
+        y = reportingConstruction->y;
     }
 
     // Used with MPS_GLOBAL, MPS_ENV and MPS_MAP
@@ -118,7 +118,7 @@ Mps::setView(MapPoint point, int style /* = MPS_MAP */ )
 void
 Mps::playBuildingSound(int mps_x, int mps_y)
 {
-    switch(world(mps_x, mps_y)->getGroup()) 
+    switch(world(mps_x, mps_y)->getGroup())
     {
         case GROUP_BLACKSMITH:
             getSound()->playSound( "Blacksmith" );
@@ -159,7 +159,7 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             break;
         case (GROUP_MONUMENT):
             {
-            Monument *monument = dynamic_cast<Monument *>(world(mps_x, mps_y)->reportingConstruction);   
+            Monument *monument = dynamic_cast<Monument *>(world(mps_x, mps_y)->reportingConstruction);
                 if (monument->completion >= 100)
                 {
                     getSound()->playSound( "Monument" );
@@ -173,7 +173,7 @@ Mps::playBuildingSound(int mps_x, int mps_y)
         case (GROUP_OREMINE):
             getSound()->playSound( "OreMine" );
             break;
-        case GROUP_ORGANIC_FARM: 
+        case GROUP_ORGANIC_FARM:
             getSound()->playSound( "OrganicFarm" );
             break;
         case GROUP_PORT:
@@ -259,27 +259,27 @@ Mps::playBuildingSound(int mps_x, int mps_y)
             getSound()->playSound( "WindMill" );
             break;
         case GROUP_WIND_POWER:
-			getSound()->playSound( "WindMillHTech" );
-			break;
+            getSound()->playSound( "WindMillHTech" );
+            break;
         case GROUP_FIRE:
             if( !dynamic_cast<Fire*>(world(mps_x, mps_y)->reportingConstruction)->smoking_days)
             {
                 getSound()->playSound( "Fire" );
             }
             break;
-        case GROUP_SHANTY: 
+        case GROUP_SHANTY:
             getSound()->playSound( "Shanty" );
             break;
-        default: 
+        default:
             if( world(mps_x, mps_y)->is_bare() && (world(mps_x, mps_y)->getGroup() != GROUP_DESERT) ){
                 getSound()->playSound( "Green" );
-            }  
+            }
             if( world(mps_x, mps_y)->getType() == CST_PARKLAND_PLANE ){
                 getSound()->playSound( "ParklandPlane" );
-            }  
+            }
             if( world(mps_x, mps_y)->getType() == CST_PARKLAND_LAKE ){
                 getSound()->playSound( "ParklandLake" );
-            }  
+            }
     }
 }
 

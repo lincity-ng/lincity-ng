@@ -32,7 +32,7 @@ extern int mps_style;
 class Paragraph;
 
 /**
- * The MPS component is more or less a text component with 13 lines that 
+ * The MPS component is more or less a text component with 13 lines that
  * is used to display status information about the game/engine.
  */
 class Mps : public Component
@@ -45,7 +45,6 @@ public:
 
     void clear();
     void setView(MapPoint point, int style = MPS_MAP );
-  
     void setText(int i, const std::string &s);
     void playBuildingSound(int mps_x, int mps_y);
 

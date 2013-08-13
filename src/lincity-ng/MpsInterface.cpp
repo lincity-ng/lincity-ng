@@ -217,7 +217,7 @@ void mps_store_sf(int i, const char * s, double fl)
 
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
-    os<<s<<": "<<fl;
+    os<<s<<"\t"<<fl;
     currentMPS->setText(i,os.str());
 }
 
@@ -238,7 +238,7 @@ void mps_store_ss(int i, const char * s1, const char * s2)
         return;
 
     std::ostringstream os;
-    os<<s1<<": "<<s2;
+    os<<s1<<"\t"<<s2;
     currentMPS->setText(i,os.str());
 }
 
@@ -248,7 +248,7 @@ void mps_store_sd(int i, const char * s, int d)
         return;
 
     std::ostringstream os;
-    os<<s<<": "<<d;
+    os<<s<<"\t"<<d;
     currentMPS->setText(i,os.str());
 }
 
@@ -258,7 +258,7 @@ void mps_store_ssd(int i, const char * s1, const char * s2, int d)
         return;
 
     std::ostringstream os;
-    os<<s1<<": "<<s2<<": "<<d;
+    os<<s1<<"\t"<<s2<<"\t"<<d;
     currentMPS->setText(i,os.str());
 }
 
@@ -269,7 +269,7 @@ void mps_store_sfp(int i, const char * s, double fl)
 
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
-    os<<s<<": "<<fl<<"%";
+    os<<s<<"\t"<<fl<<"%";
     currentMPS->setText(i,os.str());
 }
 
@@ -279,7 +279,7 @@ void mps_store_sdd(int i, const char * s, int d1, int d2)
         return;
 
     std::ostringstream os;
-    os<<s<<": "<<d1<<" , "<<d2;
+    os<<s<<"\t"<<d1<<"\t"<<d2;
     currentMPS->setText(i,os.str());
 }
 
@@ -290,7 +290,7 @@ void mps_store_sddp(int i, const char * s, int d, int max)
 
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
-    os<<s<<": "<<d<<" ("<<(d*100.0/max)<<"%)";
+    os<<s<<"\t"<<d<<"\t"<<(d*100.0/max)<<"%";
     currentMPS->setText(i,os.str());
 }
 
@@ -301,7 +301,7 @@ void mps_store_ssddp(int i, const char * s1, const char * s2,int d, int max)
 
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
-    os<<s1<<s2<<": "<<d<<" ("<<(d*100.0/max)<<"%)";
+    os<<s1<<s2<<"\t"<<d<<"\t"<<(d*100.0/max)<<"%";
     currentMPS->setText(i,os.str());
 }
 
@@ -312,7 +312,7 @@ void mps_store_sss(int i, const char * s1, const char * s2, const char * s3)
         return;
 
     std::ostringstream os;
-    os<<s1<<": "<<s2<<" "<<s3;
+    os<<s1<<"\t"<<s2<<"\t"<<s3;
     currentMPS->setText(i,os.str());
 }
 

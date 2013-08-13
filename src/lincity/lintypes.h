@@ -6,7 +6,7 @@
 #ifndef __lintypes_h__
 #define __lintypes_h__
 
-#define WORLD_SIDE_LEN 200
+#define WORLD_SIDE_LEN 100
 #define OLD_MAX_NUMOF_SUBSTATIONS 100
 #define MAX_NUMOF_SUBSTATIONS 512
 
@@ -55,7 +55,7 @@ public:
         instanceCount++;
         nextId++;
     }
-    ~Counted() 
+    ~Counted()
     {
         --instanceCount;
         //reset unique only Id after the last Construction is gone
@@ -94,24 +94,24 @@ public:
     int int1;           //reserved for future (?) use
     int int2;
     int int3;
-    int int4;           
+    int int4;
 };
 
 class MapTile {
 public:
-	MapTile();   
+    MapTile();
     ~MapTile();
-    Ground ground;                        //the Ground associated to an instance of MapTile   	
-    Construction *construction;           //the actual construction (e.g. for simulation)   
+    Ground ground;                        //the Ground associated to an instance of MapTile
+    Construction *construction;           //the actual construction (e.g. for simulation)
     Construction *reportingConstruction;  //the construction covering the tile
     unsigned short type;                  //type of terrain (underneath constructions)
-    unsigned short group;                 //group of the terrain (underneath constructions) 	    
+    unsigned short group;                 //group of the terrain (underneath constructions)
     int flags;                            //flags are defined in lin-city.h
-	unsigned short coal_reserve;          //underground coal
-	unsigned short ore_reserve;           //underground ore
-	int pollution;                        //air pollution (under ground pollution is in ground[][])
-   
-    
+    unsigned short coal_reserve;          //underground coal
+    unsigned short ore_reserve;           //underground ore
+    int pollution;                        //air pollution (under ground pollution is in ground[][])
+
+
     void setTerrain(unsigned short type); //places type & group at MapTile
     unsigned short getType();          //type of bare land or the covering construction
     unsigned short getTopType();       //type of bare land or the actual construction
@@ -120,16 +120,16 @@ public:
     unsigned short getTransportGroup(); //like getGroup but bridges are reported normal transport tiles
 
     bool is_bare();                    //true if we there is neither a covering construction nor water
-    bool is_lake();                    //true on lakes (also under bridges) 
+    bool is_lake();                    //true on lakes (also under bridges)
     bool is_river();                   //true on rivers (also under bridges)
     bool is_water();                   //true on bridges or lakes (also under bridges)
     bool is_visible();                 //true if tile is not covered by another construction. Only useful for minimap Gameview is rotated to upperleft
     bool is_transport();               //true on tracks, road, rails and bridges
     bool is_powerline();               //true on power lines
     bool is_residence();               //true if any residence covers the tile
-    void writeTemplate();			   //create maptile template
+    void writeTemplate();              //create maptile template
     void saveMembers(std::ostream *os);//write maptile AND ground members as XML to stram
-}; 
+};
 
 class ConstructionGroup;
 class MemberRule{
@@ -149,31 +149,31 @@ struct CommodityRule{
 
 class Construction {
 public:
-    virtual ~Construction() {}        
+    virtual ~Construction() {}
     virtual void update() = 0;
     virtual void report() = 0;
-    
-    
+
+
     ConstructionGroup *constructionGroup;
     unsigned short type;
     int x, y;
     int ID;
     int flags;              //flags are defined in lin-city.h
 
-	enum Commodities
+    enum Commodities
     {
-		STUFF_FOOD,
-		STUFF_JOBS,
-		STUFF_COAL,
-		STUFF_GOODS,
-		STUFF_ORE,
-		STUFF_STEEL,
-		STUFF_WASTE,
+        STUFF_FOOD,
+        STUFF_JOBS,
+        STUFF_COAL,
+        STUFF_GOODS,
+        STUFF_ORE,
+        STUFF_STEEL,
+        STUFF_WASTE,
         STUFF_KWH,
         STUFF_MWH,
         STUFF_WATER
-	};
-   
+    };
+
     enum MemberTypes
     {
         TYPE_BOOL,
@@ -183,16 +183,16 @@ public:
         TYPE_FLOAT
     };
 
-	std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
+    std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
     std::map<std::string, MemberRule> memberRuleCount;
-    
+
     void list_commodities(int *);               //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
     //void list_connections(int *);               //prints the detected lurd connections
     void initialize_commodities(void);              //sets all commodities to 0
     int loadMember(std::string const &xml_tag, std::string const &xml_val);
     int readbinaryMember(std::string const &xml_tag, gzFile fp);
-    template <typename MemberType>    
+    template <typename MemberType>
     void setMemberSaved(MemberType *ptr, std::string const &xml_tag)
     {
         memberRuleCount[xml_tag].memberType = MemberTraits<MemberType>::TYPE_ID;
@@ -201,10 +201,10 @@ public:
     //currently usefull for market and port who use a private copy of commodityRules for trading
     //TODO Generalize the concept for every construction
     void setCommodityRulesSaved(std::map<Commodities,CommodityRule> * stuffRuleCount);
-    void writeTemplate();      //create maptile template for savegame 
+    void writeTemplate();      //create maptile template for savegame
     void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream
 };
-   
+
 extern const char *commodityNames[];
 //global Vars for statistics on commodities
 extern std::map<Construction::Commodities, int> tstat_capacities;
@@ -228,7 +228,7 @@ class CountedConstruction: public Construction, public Counted<ConstructionClass
 {
 public:
     CountedConstruction<ConstructionClass>( int x, int y, unsigned short type)
-    {              
+    {
         this->type = type;
         this->x = x;
         this->y = y;
@@ -238,7 +238,7 @@ public:
         setMemberSaved(&(this->flags),"flags");
         //setMemberSaved(&(this->type),"type");
         //setMemberSaved(&(this->x),"map_x");
-        //setMemberSaved(&(this->y),"map_y"); 
+        //setMemberSaved(&(this->y),"map_y");
     }
     ~CountedConstruction<ConstructionClass>(){}
 };
@@ -251,7 +251,7 @@ public:
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
-        int cost, int tech, int range 
+        int cost, int tech, int range
     ) {
         this->name = name;
         this->no_credit = no_credit;
@@ -268,9 +268,9 @@ public:
 
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
     int getCosts();
-    
+
     virtual int placeItem(int x, int y, unsigned short type);
-    
+
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction(int x, int y, unsigned short type) = 0;
 
@@ -278,37 +278,37 @@ public:
     unsigned short no_credit;   /* TRUE if need credit to build */
     unsigned short group;       /* This is redundant: it must match
                                    the index into the table */
-    unsigned short size;		/* shape in x and y */
+    unsigned short size;        /* shape in x and y */
     int colour;                 /* summary map colour */
     int cost_mul;               /* group cost multiplier */
     int bul_cost;               /* group bulldoze cost */
     int fire_chance;            /* probability of fire */
     int cost;                   /* group cost */
     int tech;                   /* group tech */
-    int range;					/* range beyond size*/
+    int range;                  /* range beyond size*/
 
-	static void addConstructionGroup(ConstructionGroup *constructionGroup)
+    static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {
         // enter construction group in the global map
         groupMap[constructionGroup->group] = constructionGroup;
-	}
+    }
 
     static void clearGroupMap()
     {
         // removes all entries from groupMap
         groupMap.clear();
-	}
+    }
 
-    static ConstructionGroup *getConstructionGroup(unsigned short group) 
+    static ConstructionGroup *getConstructionGroup(unsigned short group)
     {
-        if (groupMap.count(group))        
+        if (groupMap.count(group))
             return groupMap[group];
         else
             return NULL;
     }
 
     static void printGroups();
-    
+
     static int countConstructionGroup(unsigned short group) {
         return groupMap.count(group);
     }

@@ -32,6 +32,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "DocumentElement.hpp"
 #include "callback/Signal.hpp"
 
+
+
 class XmlReader;
 
 /**
@@ -108,7 +110,7 @@ private:
 
     typedef std::vector<LinkRectangle> LinkRectangles;
     LinkRectangles linkrectangles;
-    static const int tab_len = 4;
+    static const int tab_len = 18; //pixels
 };
 
 #endif

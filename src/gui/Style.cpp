@@ -123,7 +123,7 @@ Style::parseAttribute(const char* attribute, const char* value)
         if(sscanf(value, "%f", &min_width) != 1) {
             std::cerr << "Couldn't parse value for min-width: '"
                 << value << "'\n";
-        }                                                               
+        }
     } else if(strcmp(attribute, "min-height") == 0) {
         if(sscanf(value, "%f", &min_height) != 1) {
             std::cerr << "Couldn't parse value for min-height: '"
@@ -184,13 +184,23 @@ void parseStyleDef(XmlReader& reader)
                 << "' in style definition.\n";
         }
     }
-    
+
     reader.nextNode();
-    
+
     if(name == "")
         throw std::runtime_error("Missing name in style definition");
     styleRegistry.insert(std::make_pair(name, style));
 }
+
+void
+Style::no_margins(void)
+{
+    this->margin_bottom = 0;
+    this->margin_left = 0;
+    this->margin_right = 0;
+    this->margin_top = 0;
+}
+
 
 
 /** @file gui/Style.cpp */
