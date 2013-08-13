@@ -539,7 +539,7 @@ Paragraph::setText(const std::string& newtext, const Style& style)
         delete *i;
     textspans.clear();
 
-    int span_end = newtext.find_first_of('\t',0);
+    size_t span_end = newtext.find_first_of('\t',0);
     if(span_end != newtext.npos) // we have a tab
     {
         int tabcount = 0;
