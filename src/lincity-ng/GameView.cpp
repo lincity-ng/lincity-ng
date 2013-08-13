@@ -37,6 +37,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
 
+#include "Mps.hpp"
 #include "MapEdit.hpp"
 #include "MiniMap.hpp"
 #include "Dialog.hpp"
@@ -1486,6 +1487,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     textureType = world(upperLeft.x, upperLeft.y)->getTopType();
 
+
     // if we hide high buildings, hide trees as well
     if (hideHigh && (textureType == CST_TREE || textureType == CST_TREE2 || textureType == CST_TREE3 ))
     {
@@ -1537,6 +1539,28 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     Vector2 tileOnScreenPoint = getScreenPoint(tile);
     int x = (int) tile.x;
     int y = (int) tile.y;
+    {
+        MapPoint upperLeft = realTile(tile);
+        if(upperLeft.x == mps_x && upperLeft.y == mps_y)
+        {
+            int mps_group = world(x,y)->getGroup();
+            ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(mps_group);
+            if(constructionGroup)
+            {
+                int range = constructionGroup->range;
+                int edgelen = 2 * range + constructionGroup->size ;
+                painter.setFillColor( Color( 0, 255, 0, 64 ) );
+                Rect2D rangerect( 0,0,
+                                  tileWidth  * ( edgelen) ,
+                                  tileHeight * ( edgelen) );
+                Vector2 screenPoint = getScreenPoint(upperLeft);
+                screenPoint.x -= tileWidth  * ( 0.5*(edgelen) );
+                screenPoint.y -= tileHeight * ( range + 1 );
+                rangerect.move( screenPoint );
+                fillDiamond( painter, rangerect );
+            }//endif
+        }//endif mps
+    }
 
     if( cursorSize == 0 )
     {
@@ -1625,6 +1649,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
                 fillDiamond( painter, rangerect );
             }//endif range > 0
         }//endif constructionGroup
+
+
     }//endelse cursorSize == 0
 }
 

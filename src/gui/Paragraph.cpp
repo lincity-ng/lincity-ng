@@ -340,13 +340,11 @@ Paragraph::resize(float width, float height)
             } else {
                 xoffset = (width - spansurface->w - style.margin_right - span->style.margin_right);
             }
-            //while (pos.x && xoffset && xoffset < pos.x + 4)
-            //{   xoffset += tab_len;}
             float yoffset = span->style.margin_top;
             spanxoffset.push_back(xoffset);
             spanyoffset.push_back(yoffset);
-            //pos.x += xoffset;//fixed columns
-            //pos.y += yoffset;
+            pos.x = xoffset;//fixed columns
+            pos.y += yoffset;
 
             spanimages.push_back(spansurface);
             spanbaselines.push_back(TTF_FontAscent(font));
@@ -354,14 +352,13 @@ Paragraph::resize(float width, float height)
             // remember span position if it is a link
             if(span->style.href != "") {
                 LinkRectangle link;
-                link.rect = Rect2D (pos.x + xoffset, pos.y + yoffset,
-                                    pos.x + xoffset + spansurface->w,
-                                    pos.y + yoffset + spansurface->h);
+                link.rect = Rect2D (pos.x , pos.y,
+                                    pos.x + spansurface->w,
+                                    pos.y + spansurface->h);
                 link.span = span;
                 linerectangles.push_back(link);
             }
-            pos.x = xoffset;//fixed columns
-            pos.y += yoffset;
+
 
             pos.x += spansurface->w;
             line = "";
