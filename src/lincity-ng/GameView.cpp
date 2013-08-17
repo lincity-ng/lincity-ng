@@ -1541,7 +1541,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     int y = (int) tile.y;
     {
         MapPoint upperLeft = realTile(tile);
-        if(upperLeft.x == mps_x && upperLeft.y == mps_y)
+        if(upperLeft.x == mps_x && upperLeft.y == mps_y && selected_module_type == CST_NONE)
         {
             int mps_group = world(x,y)->getGroup();
             ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(mps_group);

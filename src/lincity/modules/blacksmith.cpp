@@ -11,7 +11,7 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
     "Blacksmith",
     FALSE,                     /* need credit? */
     GROUP_BLACKSMITH,
-    2,                         /* size */
+    GROUP_BLACKSMITH_SIZE,     /* size */
     GROUP_BLACKSMITH_COLOUR,
     GROUP_BLACKSMITH_COST_MUL,
     GROUP_BLACKSMITH_BUL_COST,

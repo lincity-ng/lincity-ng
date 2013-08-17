@@ -69,7 +69,9 @@ void clear_game(void)
 {
     int i;//x, p;
     const int len = world.len();
+#ifdef DEBUG    
     assert(len > 0);
+#endif
     const int area = len * len;
     //std::cout << "clearing Game" << std::endl;
     //init_mappoint_array ();
@@ -78,7 +80,7 @@ void clear_game(void)
     init_inventory();
     //std::cout << "whiping game with " << world.len() << " side length" << std::endl;
     // Clear engine and UI data.
-    for (int index = 0; index < area; index++)
+    for (int index = 0; index < area; ++index)
     {
 		int xx = index % world.len();
 		int yy = index / world.len();
@@ -114,10 +116,7 @@ void clear_game(void)
     starve_deaths_history = 0;
     total_unemployed_years = 0;
     unemployed_history = 0;
-    /* Al1. NG 1.1 is this enough ? Are all global variables reseted ? */
-
-    // UI stuff
-    /* TODO check reset screen, sustain info ... */
+        
     given_scene[0] = 0;
     for( i = 0; i < monthgraph_size; i++ )
     {
@@ -127,9 +126,23 @@ void clear_game(void)
         monthgraph_ppool[i] = 0;
     }
     
-    housed_population=0;
-    tech_level=0;
-    total_money=0;
+    people_pool = 100;    
+    housed_population = 0;
+    tech_level = 0;
+    total_money = 0; 
+
+    sust_dig_ore_coal_tip_flag = 1;
+    sust_dig_ore_coal_count = 0;
+    sust_port_flag = 1;
+    sust_port_count = 0;
+    sust_old_money = total_money;
+    sust_old_money_count = 0;
+    //redo this if a village is generated
+    sust_old_population = (housed_population + people_pool);
+    sust_old_population_count = 0;
+    sust_old_tech_count = 0;
+    sust_old_tech = tech_level;
+    sust_fire_count = 0;
 
     init_pbars();
     refresh_pbars();
@@ -307,21 +320,18 @@ static void create_new_city(int *originx, int *originy, int random_village, int 
     setup_land();
     ore_reserve_setup();
     init_pbars();
-
-    /* Initial population is 100 for empty board or 200
-       for random village (100 are housed). */
-    people_pool = 100;
-
+    
     if (random_village != 0)
     {
         random_start(originx, originy);
-        update_pbar(PPOP, 200, 1);      /* So pbars don't flash */
+        //update_pbar(PPOP, 200, 1);      /* So pbars don't flash */
     }
     else
     {
         *originx = *originy = world.len() / 2;
-        update_pbar(PPOP, 100, 1);
+        //update_pbar(PPOP, 100, 1);
     }
+    update_pbar (PPOP, housed_population + people_pool, 1);
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
     desert_frontier(0, 0, world.len(), world.len());
 }
@@ -1391,7 +1401,9 @@ static void random_start(int *originx, int *originy)
     place_item(xx + 11, yy + 17, CST_COMMUNE_1);
     place_item(xx + 16, yy + 12, CST_COMMUNE_1);
     place_item(xx + 16, yy + 17, CST_COMMUNE_1);
+    //the village was a free gift    
     total_money = 0;
+    sust_old_population = (housed_population + people_pool);
 }
 
 static void do_rand_ecology(int x, int y, int r)
