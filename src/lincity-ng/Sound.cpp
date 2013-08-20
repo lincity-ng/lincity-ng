@@ -387,11 +387,14 @@ Sound::playMusic()
         return;
 
     if(getConfig()->musicEnabled) {
-        if(currentMusic) {
-            Mix_FreeMusic(currentMusic);
+               
+        if(currentMusic)
+        {
+            if(Mix_PlayingMusic())
+            {   Mix_FreeMusic(currentMusic);}
             currentMusic = 0;
         }
-        
+       
         // I don't know if the following has any meaning at all
 
         //if(currentTrack.filename == "")
@@ -421,7 +424,7 @@ Sound::playMusic()
             return;
         }
         std::string filename = dir;
-        filename += "/";
+        filename += PHYSFS_getDirSeparator();
         filename += currentTrack.filename;
 
         
