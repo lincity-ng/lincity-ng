@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Commodities</p>
-	<p style="hp"> Commodities are the stuff that can be produced, transfered, stored, processed and consumed in your city. The status display of every building or transport tile always lists the relevant commodities. The arrows distinguish raw materials, products and transferables.</p>
+	<p style="hp"> Commodities are the stuff that can be produced, transfered, stored, processed and consumed in your city. The status display of every building or transport tile always lists the relevant commodities. The arrows at the start of the lines indicate raw materials, products and transferables</p>
 	
-	<p style="hp">The second tab of miniwindow shows the <b>city wide statistics</b>, and how their recent changes with progress bars. In conjunction with the tranportation overlay these tell you a lot about your economic development.</p>
+	<p style="hp">The second tab of the minimap shows city wide statistics, and their recent changes with progress bars. In conjunction with the tranportation overlay these can tell you a lot about your economic development.</p>
 
 	<p style="hsubtitle">See also:</p>
 	<li><a href="pbar">Stats</a></li>

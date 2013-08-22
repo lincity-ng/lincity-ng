@@ -376,7 +376,7 @@ void Construction::list_commodities(int * i)
             && ! constructionGroup->commodityRuleCount[stuff_it->first].give
             && *i < 14)
             {
-                mps_store_ssddp(*i,"-->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"--> ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         } //endfor

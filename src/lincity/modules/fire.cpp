@@ -89,7 +89,7 @@ void Fire::update()
     if (days_before_spread == 0)
     {
         days_before_spread = FIRE_DAYS_PER_SPREAD;
-        if ((rand() % FIRE_DAYS_PER_SPREAD) == 1)
+        if ((rand() % 20) == 1)
         {
             i = rand() % 4;
             switch (i)
