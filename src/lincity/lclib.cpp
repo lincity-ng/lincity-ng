@@ -98,19 +98,19 @@ void num_to_ansi(char *s, size_t size, long num)
 
     if (size == 4) {            /* to make up for format_pos_number4.  Eeewwwwwww. */
         if (numf < 10) {
-            snprintf(s, size + 1, "%-1.1f%c", numf, triplets);
+            snprintf(s, size + 1, "%1.1f%c", numf, triplets);
         } else {
-            snprintf(s, size + 1, "%-3.0f%c", numf, triplets);
+            snprintf(s, size + 1, "%3.0f%c", numf, triplets);
         }
     } else {
         if (triplets == ' ') {
-            snprintf(s, size, "%-4.0f", numf);
+            snprintf(s, size, "%4.0f", numf);
         } else {
-            snprintf(s, size, "%-3.1f%c", numf, triplets);
+            snprintf(s, size, "%3.1f%c", numf, triplets);
         }
     }
 }
-
+/*
 void num_to_ansi_unit(char *s, size_t size, long num, char unit)
 {
     int triplets = 0;
@@ -145,7 +145,7 @@ void num_to_ansi_unit(char *s, size_t size, long num, char unit)
         break;
     }
 
-    if (size == 4)              /* to make up for format_pos_number4 */
+    if (size == 4)              //to make up for format_pos_number4
         if (numf < 10)
             snprintf(s, size, "%-4.1f%c%c", numf, triplets, unit);
         else
@@ -153,7 +153,7 @@ void num_to_ansi_unit(char *s, size_t size, long num, char unit)
     else
         snprintf(s, size, "%-5.1f%c%c", numf, triplets, unit);
 }
-
+*/
 /* commify: take a number and convert it to a string grouped into triplets
    with commas; returns number of characters written, excluding trailing zero
 */

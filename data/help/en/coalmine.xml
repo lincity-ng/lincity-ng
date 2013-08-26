@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Coal mine</p>
-	<p style="hp">Coal mines dig coal from under the ground. There must be a coal seam close to the mine. To see where the seams are you can click on the coal button just above the mini screen.</p>
+	<p style="hp">Coal mines dig coal from under the ground. There must be a coal seam close to the mine. To see where the seams are you can click on the coal button below the mini map.</p>
 	<p style="hp">The first time you use this button, it will cost you 1 million. After that it is free. You don't need to use this button, but you will have to find the coal by trial and error.</p>
 	<p style="hp">Coal mines need jobs to mine coal.</p>
+    <p style="hp">If your economy provides coal in excess your coal mines can put the coal in new underground seams</p>
 	
 	<p style="hp">This is a coalmine</p>
 	<img src="images/tiles/coalmine-full.png" halign="center"/>

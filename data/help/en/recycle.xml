@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
 	<p style="htitle">Recycle centres</p>
-	<p style="hp">Used goods produce waste.</p>
-	<p style="hp">Recycle centres convert used goods into ore. They must be connected to transport at the top left hand corner. Jobs and money are used to collect the waste goods and convert them into fresh ore.</p>
-	<p style="hp">It is possible to run a sustainable economy, (i.e. no more ore extracted, etc) with less than 100% efficient recycle centres if you have some mills to make up for the 'lost' waste goods.</p>
+	<p style="hp">Recycle centres convert waste into ore. Jobs, electric power (kWH) and money are used to collect the waste and convert it into raw ore. They can be used to empty previously filled tips.</p>
+	<p style="hp">It is possible to run a sustainable economy, (i.e. no more ore extracted, etc) with less than 100% efficient recycle centres if you have some mills to make up for the losses.</p>
 	
 	<p style="hp">This is a recycle center</p>
 	<img src="images/tiles/recycle-centre.png" halign="center"/>
@@ -11,7 +10,7 @@
 	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
 	
 	<p style="hsubtitle">See also:</p>
-	<li><a href="goods">Goods</a></li>
-	<li><a href="ore">Ore</a></li>
+	<li><a href="commodities">Commodities</a></li>
+	<li><a href="power">Electricity</a></li>
 	<li><a href="transport">Transport</a></li>
 </Document>

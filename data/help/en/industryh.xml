@@ -2,9 +2,8 @@
 <Document style="helpdocument">
 	<p style="htitle">Heavy industry (Steel Works)</p>
 	<p style="hp">Steel works produce steel from ore, power and jobs. Ore and jobs is obtained from the connected transport or markets.</p>
-	<p style="hp">Power can be provided to the steel works in two ways. The first is burning coal. The second is from electricity, either inefficient kWh from connected transport or MWh directly from powerlines. Windmills will barely provide enough power. </p>
-	<p style="hp">Steel works produce <a href="pollution">pollution.</a></p>
-	<p style="hp">You can see when Heavy Industry is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
+	<p style="hp">Power can be provided to the steel works in two ways. The first is burning coal. The second is from electricity, either inefficient kWh from connected transport or MWh directly from powerlines. Burning coal on site is more laborious. Windmills will barely provide enough power.</p>
+	<p style="hp">Steel works cause heavy pollution. You can see when Heavy Industry is working in the usual way, by clicking on it, and every so often the animation will come to life.</p>
 	
 	<p style="hp">This is a Steel Works</p>
 	<img src="images/tiles/industryhl1.png" halign="center"/>

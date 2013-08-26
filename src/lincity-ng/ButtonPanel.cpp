@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/lctypes.h"
 #include "lincity/lin-city.h"
 #include "lincity/groups.h"
+#include "lincity/lintypes.h"
 #include "lincity/all_buildings.h"
 #include "lincity/modules/all_modules.h"
 #include "tinygettext/gettext.hpp"
@@ -727,8 +728,13 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
         }
     }
     
-    if(!enoughTech( selected_module_type)) {
-        std::cout <<"chooseButton not enough tech for " << selected_module_type << "\n";
+    if(!enoughTech( selected_module_type))
+    {
+#ifdef DEBUG        
+        short grp = get_group_of_type(selected_module_type);
+        ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(grp);        
+        std::cout <<"chooseButton not enough tech for " << selected_module_type << ": "<< (constructionGroup?constructionGroup->name:main_groups[grp].name) << std::endl;
+#endif
         selected_module_type = prevTech;
         updateSelectedCost();
     }

@@ -14,7 +14,7 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
     "Steel Works",
      FALSE,                     /* need credit? */
      GROUP_INDUSTRY_H,
-     4,                         /* size */
+     GROUP_INDUSTRY_H_SIZE,                         /* size */
      GROUP_INDUSTRY_H_COLOUR,
      GROUP_INDUSTRY_H_COST_MUL,
      GROUP_INDUSTRY_H_BUL_COST,
@@ -30,39 +30,14 @@ Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y, u
 
 void IndustryHeavy::update()
 {
-    int rawm, steel;
-    //use jobs for loading the ore
-    if (commodityCount[STUFF_ORE] > MAX_ORE_USED 
-        && commodityCount[STUFF_JOBS] > JOBS_LOAD_ORE)
-        commodityCount[STUFF_JOBS] -= JOBS_LOAD_ORE;
-    //use jobs for loading the coal
-    if (commodityCount[STUFF_COAL] > MAX_ORE_USED / ORE_MAKE_STEEL * COAL_MAKE_STEEL 
-        && commodityCount[STUFF_JOBS] > JOBS_LOAD_COAL)
-        commodityCount[STUFF_JOBS] -= JOBS_LOAD_COAL;
-    //use jobs for loading the steel
-    if (commodityCount[STUFF_STEEL] > MAX_ORE_USED / ORE_MAKE_STEEL
-        && commodityCount[STUFF_JOBS] > JOBS_LOAD_STEEL)
-        commodityCount[STUFF_JOBS] -= JOBS_LOAD_STEEL;
-     //how much ore we could use
-    rawm = ( (commodityCount[STUFF_ORE] < MAX_ORE_USED) ? commodityCount[STUFF_ORE] : MAX_ORE_USED );
-   //ore usage shall not exceed steel capacity
-    if (commodityCount[STUFF_STEEL] + rawm / ORE_MAKE_STEEL > MAX_STEEL_AT_INDUSTRY_H)
-        rawm = (MAX_STEEL_AT_INDUSTRY_H - commodityCount[STUFF_STEEL]) * ORE_MAKE_STEEL;
-    //ore usage and steel loading shall not exceed available jobs
-    if (1 + rawm / JOBS_MAKE_STEEL > commodityCount[STUFF_JOBS])
-        rawm = (commodityCount[STUFF_JOBS]) * JOBS_MAKE_STEEL;
-    steel = rawm / ORE_MAKE_STEEL;   
+    // can we produce steel?
+    int steel = ( commodityCount[STUFF_JOBS] >= MAX_ORE_USED / JOBS_MAKE_STEEL + JOBS_LOAD_ORE + JOBS_LOAD_COAL + JOBS_LOAD_STEEL
+    && commodityCount[STUFF_ORE] >= MAX_ORE_USED
+    && commodityCount[STUFF_STEEL] + MAX_ORE_USED / ORE_MAKE_STEEL <= MAX_STEEL_AT_INDUSTRY_H) ? MAX_ORE_USED / ORE_MAKE_STEEL : 0;
     
     if (steel > 0)
-    {
-        
-        // if the trash bin is full reburn the filterd pollution
-        if (commodityCount[STUFF_WASTE] > MAX_WASTE_AT_INDUSTRY_H)
-            {
-                world(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
-                commodityCount[STUFF_WASTE] = MAX_WASTE_AT_INDUSTRY_H;
-            }   
-        //Steel works may either KWH and MWH and COAL to produce steel
+    {        
+        //Steel works may either use KWH, MWH or COAL to produce steel
         int used_MWH = 0, used_KWH = 0, used_COAL = 0;
         int powered_steel = 0;
         //First use up MWH
@@ -90,15 +65,23 @@ void IndustryHeavy::update()
         {
             commodityCount[STUFF_MWH] -= used_MWH;
             commodityCount[STUFF_KWH] -= used_KWH;
-            commodityCount[STUFF_COAL] -= used_COAL;
+            if(used_COAL)// coal power is more laborous
+            {            
+                commodityCount[STUFF_COAL] -= used_COAL;
+                commodityCount[STUFF_JOBS] -= JOBS_LOAD_COAL;
+            }
         }
         else
-            steel /= 5; //inefficient and still dirty unpowered production        
+        {    steel /= 5;} //inefficient and still dirty unpowered production        
 
         if (steel>0)
         {
-            commodityCount[STUFF_JOBS] -= (rawm / JOBS_MAKE_STEEL);
-            commodityCount[STUFF_ORE] -= rawm;
+            commodityCount[STUFF_JOBS] -= (MAX_ORE_USED / JOBS_MAKE_STEEL);
+            //use jobs for loading the ore
+            commodityCount[STUFF_JOBS] -= JOBS_LOAD_ORE;       
+            //use jobs for loading the steel
+            commodityCount[STUFF_JOBS] -= JOBS_LOAD_STEEL; 
+            commodityCount[STUFF_ORE] -= MAX_ORE_USED;
             commodityCount[STUFF_STEEL] += steel;
             steel_this_month += steel;            
             //working_days++;
@@ -111,7 +94,6 @@ void IndustryHeavy::update()
                 world(x,y)->pollution += (commodityCount[STUFF_WASTE] - MAX_WASTE_AT_INDUSTRY_H);
                 commodityCount[STUFF_WASTE] = MAX_WASTE_AT_INDUSTRY_H;
             }  
-            
         }//endif steel still > 0
     }//endif steel > 0
     

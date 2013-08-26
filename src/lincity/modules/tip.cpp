@@ -12,7 +12,7 @@ TipConstructionGroup tipConstructionGroup(
     "Land Fill",
      FALSE,                     /* need credit? */
      GROUP_TIP,
-     4,                         /* size */
+     GROUP_TIP_SIZE,                         /* size */
      GROUP_TIP_COLOUR,
      GROUP_TIP_COST_MUL,
      GROUP_TIP_BUL_COST,
@@ -29,21 +29,21 @@ Construction *TipConstructionGroup::createConstruction(int x, int y, unsigned sh
 
 void Tip::update()
 {
-    //the waste is always slowly degrading   
+    //the waste is always slowly degrading
+    //max degradiation per day is about 42 (10M/240k)   
     degration_days += total_waste;
     while (degration_days > TIP_DEGRADE_TIME)
     {        
-        degration_days -= total_waste;
-        total_waste--;
-        //max degradiation per day is about 2000  
-        if (degration_days > 45 * TIP_DEGRADE_TIME)
-        {
-            degration_days -= 45 * total_waste;
-            total_waste -= 45;   
+        degration_days -= TIP_DEGRADE_TIME;
+        --total_waste;  
+        if (degration_days > 7 * TIP_DEGRADE_TIME)
+        {          
+            degration_days -= 7 * TIP_DEGRADE_TIME;
+            total_waste -= 7;   
         }          
-    }    
+    }   
 /*  FIXME Why does this alternate code cause an overflow    
-    total_waste -= degration_days /TIP_DEGRADE_TIME;
+    total_waste -= degration_days / TIP_DEGRADE_TIME;    
     degration_days %= TIP_DEGRADE_TIME;                   
 */       
     if ((commodityCount[STUFF_WASTE] >= WASTE_BURRIED) 
@@ -66,7 +66,7 @@ void Tip::update()
     {
         busy = busy_days;
         busy_days = 0;        
-        int i = (total_waste * 7) / MAX_WASTE_AT_TIP;
+        int i = (total_waste /3 * 22) / MAX_WASTE_AT_TIP;
         if (total_waste > 0)
             i++;
         switch (i) {
@@ -94,7 +94,8 @@ void Tip::update()
         case (7):
             type = CST_TIP_7;
             break;
-        case (8): 
+        case (8)://fall trough
+        case (9)://actually very unlikely 
             type = CST_TIP_8;
             break;
         }

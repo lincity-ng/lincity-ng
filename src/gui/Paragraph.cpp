@@ -566,8 +566,8 @@ Paragraph::setText(const std::string& newtext, const Style& style)
         else if (tabcount == 3)
         {
             textspans[0]->style.alignment = Style::ALIGN_LEFT;
-            textspans[1]->style.alignment = Style::ALIGN_LEFT;
-            textspans[1]->style.margin_left = 80;
+            textspans[1]->style.alignment = Style::ALIGN_RIGHT;
+            textspans[1]->style.margin_right = 60;
             textspans[2]->style.alignment = Style::ALIGN_RIGHT;
         }
     }

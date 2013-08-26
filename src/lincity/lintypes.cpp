@@ -1396,14 +1396,11 @@ int get_group_of_type(short type)
 }
 
 void set_map_groups(void)
-{
-    int x, y;
-    int len = world.len();
-    for (x = 0; x < len; x++) {
-        for (y = 0; y < len; y++) {
-            world(x,y)->group = get_group_of_type(world(x,y)->type);
-        }
-    }
+{    
+    const int len = world.len();
+    const int area = len * len;
+    for (int index = 0; index < area; ++index)
+    {   world(index)->group = get_group_of_type(world(index)->type);}
 }
 
 int get_group_cost(short group)

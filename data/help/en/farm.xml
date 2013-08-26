@@ -9,11 +9,11 @@
 	<p style="hp">and this its icon</p>
 	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
 	
-	<p style="hp">Farms need jobs to produce more than a minimal amount of food. Giving the farm power also increases the amount of food produced. Power also includes 'old' style windmills that help the food to be processed, thus cutting down on waste.</p>
+	<p style="hp">Farms need jobs to produce more than a minimal amount of food. Providing elecricity (kWH) boosts the output. Powered farms can irregate dry soil and also consume wastes. Beware of agricultural water consumption. </p>
 	<p style="hsubtitle">See also:</p>
 	<li><a href="market">Market</a></li>
 	<li><a href="tech-level">Tech-level</a></li>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="windmill">Windmill</a></li>
-	<li><a href="food">Food</a></li>
+	<li><a href="commodities">Commodities</a></li>
+    <li><a href="power">electricity</a></li>
 </Document>
