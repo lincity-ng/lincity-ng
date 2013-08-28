@@ -5,14 +5,13 @@
 #define GROUP_CRICKET_TECH     12
 #define GROUP_CRICKET_FIREC 20
 #define GROUP_CRICKET_RANGE 9
+#define GROUP_CRICKET_SIZE 2
 
 #define CRICKET_JOBS   8
-#define CRICKET_GET_JOBS 9
-#define MAX_JOBS_AT_CRICKET (20 * CRICKET_JOBS * DAYS_BETWEEN_COVER)
-#define CRICKET_GOODS  2
-#define CRICKET_GET_GOODS 3
-#define MAX_GOODS_AT_CRICKET (20 * CRICKET_GOODS * DAYS_BETWEEN_COVER)
-#define MAX_WASTE_AT_CRICKET (20 * CRICKET_GOODS * DAYS_BETWEEN_COVER /3)
+#define MAX_JOBS_AT_CRICKET (20 * CRICKET_JOBS)
+#define CRICKET_GOODS  3
+#define MAX_GOODS_AT_CRICKET (20 * CRICKET_GOODS)
+#define MAX_WASTE_AT_CRICKET (20 * CRICKET_GOODS / 3)
 #define CRICKET_RUNNING_COST 1
 #define CRICKET_ANIMATION_SPEED 750
 
@@ -21,7 +20,6 @@
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-//#include "../range.h"
 
 class CricketConstructionGroup: public ConstructionGroup {
 public:
@@ -43,7 +41,7 @@ public:
         commodityRuleCount[Construction::STUFF_GOODS].give = false;
         commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_CRICKET;
         commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;    
+        commodityRuleCount[Construction::STUFF_WASTE].give = true;
     }
     // overriding method that creates a Cricket
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -53,36 +51,43 @@ extern CricketConstructionGroup cricketConstructionGroup;
 
 class Cricket: public CountedConstruction<Cricket> { // cricket inherits from Construction
 public:
-	Cricket(int x, int y, unsigned short type): CountedConstruction<Cricket>(x, y, type)
-    {       
+    Cricket(int x, int y, unsigned short type): CountedConstruction<Cricket>(x, y, type)
+    {
         constructionGroup = &cricketConstructionGroup;
-        this->anim = 0;     
+        this->anim = 0;
         this->animate = false;
-        this->busy = false;
+        this->active = false;
+        setMemberSaved(&(this->active),"active");
+        this->busy = 0;
+        this->daycount = 0;
+        this->workingdays = 0;
+        setMemberSaved(&(this->daycount),"daycount");
+        this->covercount = 0;
+        setMemberSaved(&(this->covercount),"covercount");
         initialize_commodities();
-        
+
         int tmp;
         int lenm1 = world.len()-1;
         tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;         
+        this->xs = (tmp < 1) ? 1 : tmp;
         tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp; 
+        this->ys = (tmp < 1)? 1 : tmp;
         tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;         
+        this->xe = (tmp > lenm1) ? lenm1 : tmp;
         tmp = y + constructionGroup->range + constructionGroup->size;
         this->ye = (tmp > lenm1)? lenm1 : tmp;
-        
-        }
+    }
 
-	virtual ~Cricket() { }
-	virtual void update();
-	virtual void report();
+    virtual ~Cricket() { }
+    virtual void update();
+    virtual void report();
     void cover();
 
-	int xs, ys, xe, ye;
-    int  anim;
-    bool animate;
-    bool busy;
+    int xs, ys, xe, ye;
+    int daycount, covercount;
+    int anim;
+    bool animate, active;
+    int workingdays, busy;
 };
 
 /** @file lincity/modules/cricket.h */

@@ -12,7 +12,7 @@ MillConstructionGroup millConstructionGroup(
     "Textile Mill",
     FALSE,                     /* need credit? */
     GROUP_MILL,
-    2,                         /* size */
+    GROUP_MILL_SIZE,
     GROUP_MILL_COLOUR,
     GROUP_MILL_COST_MUL,
     GROUP_MILL_BUL_COST,
@@ -35,14 +35,14 @@ void Mill::update()
     && (commodityCount[STUFF_JOBS] >= MILL_JOBS)
     && (commodityCount[STUFF_GOODS] <= MAX_GOODS_AT_MILL - GOODS_MADE_BY_MILL))
     {
-        (use_coal?commodityCount[STUFF_COAL]:commodityCount[STUFF_KWH]) -= (use_coal?COAL_USED_BY_MILL:COAL_USED_BY_MILL * MILL_POWER_PER_COAL);        
+        (use_coal?commodityCount[STUFF_COAL]:commodityCount[STUFF_KWH]) -= (use_coal?COAL_USED_BY_MILL:COAL_USED_BY_MILL * MILL_POWER_PER_COAL);
         commodityCount[STUFF_FOOD] -= FOOD_USED_BY_MILL;
         commodityCount[STUFF_JOBS] -= MILL_JOBS;
-        commodityCount[STUFF_GOODS] += GOODS_MADE_BY_MILL;        
+        commodityCount[STUFF_GOODS] += GOODS_MADE_BY_MILL;
         workingdays++;
         animate = true;
         if ((++pol_count %= 7) == 0)
-            world(x,y)->pollution++; 
+            world(x,y)->pollution++;
     } else
     {
         type = CST_MILL_0;
@@ -78,7 +78,7 @@ void Mill::update()
             type = CST_MILL_6;
             break;
         case (CST_MILL_6):
-            type = CST_MILL_1;            
+            type = CST_MILL_1;
             break;
         }
     }
@@ -88,10 +88,9 @@ void Mill::report()
 {
     int i = 0;
     mps_store_sd(i++, constructionGroup->name,ID);
-    i++;
     mps_store_sfp(i++, _("busy"), (float) busy);
     i++;
-    list_commodities(&i);    
+    list_commodities(&i);
 }
 
 

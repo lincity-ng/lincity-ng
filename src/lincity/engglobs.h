@@ -29,11 +29,12 @@ extern World world;
 /* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
 extern const int dx[8];
 extern const int dy[8];
-//anti clockwise ordering 
+//anti clockwise ordering
 extern const int dxo[8];
 extern const int dyo[8];
 
 extern bool binary_mode;
+extern bool refresh_cover;
 
 extern int global_aridity, global_mountainity;
 extern int alt_min, alt_max, alt_step;

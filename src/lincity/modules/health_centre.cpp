@@ -5,17 +5,14 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-
 #include "health_centre.h"
-
-
 
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(
      "Health centre",
      FALSE,                     /* need credit? */
      GROUP_HEALTH,
-     2,                         /* size */
+     GROUP_HEALTH_SIZE,
      GROUP_HEALTH_COLOUR,
      GROUP_HEALTH_COST_MUL,
      GROUP_HEALTH_BUL_COST,
@@ -31,30 +28,48 @@ Construction *HealthCentreConstructionGroup::createConstruction(int x, int y, un
 
 void HealthCentre::update()
 {
+    ++daycount;
+    if (commodityCount[STUFF_JOBS] >= HEALTH_CENTRE_JOBS
+    &&  commodityCount[STUFF_GOODS] >= HEALTH_CENTRE_GOODS
+    &&  commodityCount[STUFF_WASTE] + (HEALTH_CENTRE_GOODS / 3) <= MAX_WASTE_AT_HEALTH_CENTRE)
+    {
+        commodityCount[STUFF_JOBS] -= HEALTH_CENTRE_JOBS;
+        commodityCount[STUFF_GOODS] -= HEALTH_CENTRE_GOODS;
+        commodityCount[STUFF_WASTE] += (HEALTH_CENTRE_GOODS / 3);
+        ++covercount;
+        ++workingdays;
+    }
+    //monthly update
+    if (total_time % 100 == 0)
+    {
+        busy = workingdays;
+        workingdays = 0;
+    }
+    //TODO implement animation once graphics exist
     /* That's all. Cover is done by different functions every 3 months or so. */
     health_cost += HEALTH_RUNNING_COST;
+    if(refresh_cover)
+    {   cover();}
 }
 
 void HealthCentre::cover()
 {
-    if (commodityCount[STUFF_JOBS] < (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER)
-    ||  commodityCount[STUFF_GOODS] < (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER)
-    ||  commodityCount[STUFF_WASTE] + (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_HEALTH_CENTRE)
+    if(covercount < daycount)
     {
-        busy = false;        
+        daycount = 0;
+        active = false;
         return;
     }
-    commodityCount[STUFF_JOBS] -= (HEALTH_CENTRE_JOBS * DAYS_BETWEEN_COVER);
-    commodityCount[STUFF_GOODS] -= (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER);
-    commodityCount[STUFF_WASTE] += (HEALTH_CENTRE_GOODS * DAYS_BETWEEN_COVER / 3);
-    busy = true;
-    for(int yy = ys; yy < ye; yy++)
+    active = true;
+    covercount -= daycount;
+    daycount = 0;
+    for(int yy = ys; yy < ye; ++yy)
     {
-        for(int xx = xs; xx < xe; xx++)
+        for(int xx = xs; xx < xe; ++xx)
         {
             world(xx,yy)->flags |= FLAG_HEALTH_COVER;
         }
-    }       
+    }
 }
 
 void HealthCentre::report()
@@ -63,9 +78,10 @@ void HealthCentre::report()
     const char* p;
 
     mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sfp(i++, "busy", (float) busy);
     i++;
     list_commodities(&i);
-    p =  busy?"Yes":"No";    
+    p = active?"Yes":"No";
     mps_store_ss(i++, "Health Care", p);
 }
 

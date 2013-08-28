@@ -5,6 +5,7 @@
 #define GROUP_MILL_TECH   25
 #define GROUP_MILL_FIREC  60
 #define GROUP_MILL_RANGE  0
+#define GROUP_MILL_SIZE 2
 
 #define MILL_JOBS          35
 #define GOODS_MADE_BY_MILL 75
@@ -51,7 +52,7 @@ public:
         commodityRuleCount[Construction::STUFF_GOODS].give = true;
         commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_KWH_AT_MILL;
         commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;         
+        commodityRuleCount[Construction::STUFF_KWH].give = false;
     }
     // overriding method that creates a mill
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -61,25 +62,25 @@ extern MillConstructionGroup millConstructionGroup;
 
 class Mill: public CountedConstruction<Mill> { // Mill inherits from its own CountedConstruction
 public:
-	Mill(int x, int y, unsigned short type): CountedConstruction<Mill>(x, y, type)
-    {       
-        constructionGroup = &millConstructionGroup;		        
-        this->anim = 0;        
+    Mill(int x, int y, unsigned short type): CountedConstruction<Mill>(x, y, type)
+    {
+        constructionGroup = &millConstructionGroup;
+        this->anim = 0;
         this->busy = 0;
-        this->workingdays = 0;        
+        this->workingdays = 0;
         this->animate = false;
         this->pol_count = 0;
         initialize_commodities();
-	}
-	virtual ~Mill() { }
-	virtual void update();
-	virtual void report();
-        
-    int  anim;    
+    }
+    virtual ~Mill() { }
+    virtual void update();
+    virtual void report();
+
+    int  anim;
     int  pol_count;
     int  workingdays;
     int  busy;
-    bool animate;	
+    bool animate;
 };
 
 

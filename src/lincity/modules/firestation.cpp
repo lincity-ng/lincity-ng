@@ -14,7 +14,7 @@ FireStationConstructionGroup fireStationConstructionGroup(
     "Fire station",
     FALSE,                     /* need credit? */
     GROUP_FIRESTATION,
-    2,                         /* size */
+    GROUP_FIRESTATION_SIZE,
     GROUP_FIRESTATION_COLOUR,
     GROUP_FIRESTATION_COST_MUL,
     GROUP_FIRESTATION_BUL_COST,
@@ -28,35 +28,27 @@ Construction *FireStationConstructionGroup::createConstruction(int x, int y, uns
     return new FireStation(x, y, type);
 }
 
-void FireStation::update() {
-    /*
-       // int_1 is the jobs stored at the fire station
-       // int_2 is the goods stored at the fire station
-       // int_3 is the animation flag
-       // int_4 unused
-       // int_5 is the pause counter
-       // MP_ANIM is the time of the next frame since 1.91
-     */
-    /* XXX: should note whether we actually _produced_ fire cover in int_6 */
-
-	// use "commodityCount[COMMODITY_JOBS]" instead of "jobs"
-
-	// handled by transport:
-    //if (jobs < (constructionGroup->commodityRuleCount[STUFF_JOBS].maxload - FIRESTATION_GET_JOBS))
-    //    if (get_jobs(x, y, FIRESTATION_GET_JOBS) != 0){
-    //        jobs += FIRESTATION_GET_JOBS;
-    //        commodityCount[STUFF_JOBS] += FIRESTATION_GET_JOBS;
-    //    }
-	// also handled by transport:
-    //if (goods < (constructionGroup->commodityRuleCount[STUFF_GOODS].maxload - FIRESTATION_GET_GOODS))
-    //    if (get_goods(x, y, FIRESTATION_GET_GOODS) != 0){
-    //        goods += FIRESTATION_GET_GOODS;
-    //        commodityCount[STUFF_GOODS] += FIRESTATION_GET_GOODS;
-    //    }
-	// FIXME: if insufficient commodities -> return
-
-    /* animate */
-    if (animate && real_time > anim) 
+void FireStation::update()
+{
+    ++daycount;
+    if (commodityCount[STUFF_JOBS] >= FIRESTATION_JOBS
+    &&  commodityCount[STUFF_GOODS] >= FIRESTATION_GOODS
+    &&  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS / 3) <= MAX_WASTE_AT_FIRESTATION)
+    {
+        commodityCount[STUFF_JOBS] -= FIRESTATION_JOBS;
+        commodityCount[STUFF_GOODS] -= FIRESTATION_GOODS;
+        commodityCount[STUFF_WASTE] += (FIRESTATION_GOODS / 3);
+        ++covercount;
+        ++workingdays;
+    }
+    //monthly update
+    if (total_time % 100 == 0)
+    {
+        busy = workingdays;
+        workingdays = 0;
+    }
+    //animate
+    if (animate && real_time > anim)
     {
         anim = real_time + FIRESTATION_ANIMATION_SPEED;
         switch (type)
@@ -93,53 +85,45 @@ void FireStation::update() {
                 type = CST_FIRESTATION_1;
                 animate = false;        /* stop */
                 break;
-
         }
-            //compatibility for old map        
-            //MP_TYPE(x,y)=type;         
     }
     /* That's all. Cover is done by different functions every 3 months or so. */
-
     fire_cost += FIRESTATION_RUNNING_COST;
+    if(refresh_cover)
+    {   cover();}
 }
 
-void FireStation::cover() {
-    if (commodityCount[STUFF_JOBS] < (FIRESTATION_JOBS * DAYS_BETWEEN_COVER)
-    ||  commodityCount[STUFF_GOODS] < (FIRESTATION_GOODS * DAYS_BETWEEN_COVER)
-    ||  commodityCount[STUFF_WASTE] + (FIRESTATION_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_FIRESTATION  )
-    {        
-        busy = false;        
+void FireStation::cover()
+{
+    if(covercount < daycount)
+    {
+        daycount = 0;
+        active = false;
         return;
     }
-    commodityCount[STUFF_JOBS] -= (FIRESTATION_JOBS * DAYS_BETWEEN_COVER);
-    commodityCount[STUFF_GOODS] -= (FIRESTATION_GOODS * DAYS_BETWEEN_COVER);
-    commodityCount[STUFF_WASTE] += (FIRESTATION_GOODS * DAYS_BETWEEN_COVER /3);
+    active = true;
+    covercount -= daycount;
+    daycount = 0;
     animate = true;
-    busy = true;
-    for(int yy = ys; yy < ye; yy++)
+    for(int yy = ys; yy < ye; ++yy)
     {
-        for(int xx = xs; xx < xe; xx++)
+        for(int xx = xs; xx < xe; ++xx)
         {
             world(xx,yy)->flags |= FLAG_FIRE_COVER;
         }
-    }    
+    }
 }
 
-void FireStation::report() {
+void FireStation::report()
+{
     int i = 0;
     const char* p;
-
-    mps_store_sd(i++,constructionGroup->name,ID);   
+    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sfp(i++, "busy", (float) busy);
     i++;
-    list_commodities(&i);    
-    //mps_store_title(i++, _("Accepting"));
-    //mps_store_ssddp(i++,"=> ","Jobs", commodityCount[STUFF_JOBS], constructionGroup->commodityRuleCount[STUFF_JOBS].maxload);
-    //mps_store_ssddp(i++, "=> ","Goods", commodityCount[STUFF_GOODS], constructionGroup->commodityRuleCount[STUFF_GOODS].maxload);
-    //mps_store_title(i++, _("Providing"));
-    //mps_store_ssddp(i++,"=> ", "Waste", commodityCount[STUFF_WASTE], constructionGroup->commodityRuleCount[STUFF_WASTE].maxload);
-    p =  busy?"Yes":"No";    
+    list_commodities(&i);
+    p = active?"Yes":"No";
     mps_store_ss(i++, "Fire Protection", p);
-
 }
 
 /** @file lincity/modules/firestation.cpp */

@@ -8,13 +8,12 @@
 
 #include "cricket.h"
 
-
 // cricket place:
 CricketConstructionGroup cricketConstructionGroup(
     "Basketball court",
      FALSE,                     /* need credit? */
      GROUP_CRICKET,
-     2,                         /* size */
+     GROUP_CRICKET_SIZE,
      GROUP_CRICKET_COLOUR,
      GROUP_CRICKET_COST_MUL,
      GROUP_CRICKET_BUL_COST,
@@ -29,7 +28,25 @@ Construction *CricketConstructionGroup::createConstruction(int x, int y, unsigne
 }
 
 void Cricket::update()
-{   
+{
+    ++daycount;
+    if (commodityCount[STUFF_JOBS] >= CRICKET_JOBS
+    &&  commodityCount[STUFF_GOODS] >= CRICKET_GOODS
+    &&  commodityCount[STUFF_WASTE] + (CRICKET_GOODS / 3) <= MAX_WASTE_AT_CRICKET)
+    {
+        commodityCount[STUFF_JOBS] -= CRICKET_JOBS;
+        commodityCount[STUFF_GOODS] -= CRICKET_GOODS;
+        commodityCount[STUFF_WASTE] += (CRICKET_GOODS / 3);
+        ++covercount;
+        ++workingdays;
+    }
+    //monthly update
+    if (total_time % 100 == 0)
+    {
+        busy = workingdays;
+        workingdays = 0;
+    }
+    //animate
     if (animate && real_time > anim)
     {
         anim = real_time + CRICKET_ANIMATION_SPEED;
@@ -57,29 +74,29 @@ void Cricket::update()
                 type = CST_CRICKET_1;
                 animate=false;    /* disable anim */
                 break;
-        }    
+        }
     }
     /* That's all. Cover is done by different functions every 3 months or so. */
     cricket_cost += CRICKET_RUNNING_COST;
+    if(refresh_cover)
+    {   cover();}
 }
 
 void Cricket::cover()
 {
-    if (commodityCount[STUFF_JOBS] < (CRICKET_JOBS * DAYS_BETWEEN_COVER)
-    ||  commodityCount[STUFF_GOODS] < (CRICKET_GOODS * DAYS_BETWEEN_COVER)
-    ||  commodityCount[STUFF_WASTE] + (CRICKET_GOODS * DAYS_BETWEEN_COVER / 3) > MAX_WASTE_AT_CRICKET)
-    {    
-        busy = false;        
-        return;
-    }    
-    commodityCount[STUFF_JOBS] -= (CRICKET_JOBS * DAYS_BETWEEN_COVER);
-    commodityCount[STUFF_GOODS] -= (CRICKET_GOODS * DAYS_BETWEEN_COVER);
-    commodityCount[STUFF_WASTE] += (CRICKET_GOODS * DAYS_BETWEEN_COVER / 3);
-    animate = true;    /* turn on animation */
-    busy = true;
-    for(int yy = ys; yy < ye; yy++)
+    if(covercount < daycount)
     {
-        for(int xx = xs; xx < xe; xx++)
+        daycount = 0;
+        active = false;
+        return;
+    }
+    active = true;
+    covercount -= daycount;
+    daycount = 0;
+    animate = true;
+    for(int yy = ys; yy < ye; ++yy)
+    {
+        for(int xx = xs; xx < xe; ++xx)
         {
             world(xx,yy)->flags |= FLAG_CRICKET_COVER;
         }
@@ -92,9 +109,10 @@ void Cricket::report()
     const char* p;
 
     mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sfp(i++, "busy", (float) busy);
     i++;
     list_commodities(&i);
-    p =  busy?"Yes":"No";
+    p = active?"Yes":"No";
     mps_store_ss(i++, "Public sports", p);
 }
 

@@ -181,6 +181,8 @@ void Market::update()
     }
     else if (world(x+1,y+1)->construction)
     {   static_cast<Fire*> (world(x+1,y+1)->construction)->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
+    if(refresh_cover)
+    {   cover();}
 }
 
 void Market::cover() //do this for showing range in minimap

@@ -3,27 +3,22 @@
 #define GROUP_FIRESTATION_COST_MUL 10
 #define GROUP_FIRESTATION_BUL_COST 1000
 #define GROUP_FIRESTATION_TECH     22
-#define GROUP_FIRESTATION_FIREC	0
+#define GROUP_FIRESTATION_FIREC 0
 #define GROUP_FIRESTATION_RANGE 17
-
+#define GROUP_FIRESTATION_SIZE 2
 
 #define FIRESTATION_JOBS   6
-#define FIRESTATION_GET_JOBS 7
-#define MAX_JOBS_AT_FIRESTATION (20 * FIRESTATION_JOBS * DAYS_BETWEEN_COVER)
-#define FIRESTATION_GOODS  2
-#define FIRESTATION_GET_GOODS 3
-#define MAX_GOODS_AT_FIRESTATION (20 * FIRESTATION_GOODS * DAYS_BETWEEN_COVER)
-#define MAX_WASTE_AT_FIRESTATION (20 * FIRESTATION_GOODS * DAYS_BETWEEN_COVER / 3)
+#define MAX_JOBS_AT_FIRESTATION (20 * FIRESTATION_JOBS)
+#define FIRESTATION_GOODS  3
+#define MAX_GOODS_AT_FIRESTATION (20 * FIRESTATION_GOODS)
+#define MAX_WASTE_AT_FIRESTATION (20 * FIRESTATION_GOODS / 3)
 #define FIRESTATION_RUNNING_COST 1
 #define FIRESTATION_RUNNING_COST_MUL 6
 #define FIRESTATION_ANIMATION_SPEED 250
 
-
-
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-//#include "../range.h"
 
 class FireStationConstructionGroup: public ConstructionGroup {
 public:
@@ -56,34 +51,42 @@ extern FireStationConstructionGroup fireStationConstructionGroup;
 
 class FireStation: public CountedConstruction<FireStation> { // FireStation inherits from CountedConstruction
 public:
-	FireStation(int x, int y, unsigned short type) : CountedConstruction<FireStation>(x ,y ,type)
-    {     
-        constructionGroup = &fireStationConstructionGroup;		     
-        this->anim = 0; // or real_time?        
+    FireStation(int x, int y, unsigned short type) : CountedConstruction<FireStation>(x ,y ,type)
+    {
+        constructionGroup = &fireStationConstructionGroup;
+        this->anim = 0;
         this->animate = false;
-        this->busy = false;
+        this->active = false;
+        setMemberSaved(&(this->active),"active");
+        this->busy = 0;
+        this->workingdays = 0;
+        this->daycount = 0;
+        setMemberSaved(&(this->daycount),"daycount");
+        this->covercount = 0;
+        setMemberSaved(&(this->covercount),"covercount");
         initialize_commodities();
-        
+
         int tmp;
         int lenm1 = world.len()-1;
         tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;         
+        this->xs = (tmp < 1) ? 1 : tmp;
         tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp; 
+        this->ys = (tmp < 1)? 1 : tmp;
         tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;         
+        this->xe = (tmp > lenm1) ? lenm1 : tmp;
         tmp = y + constructionGroup->range + constructionGroup->size;
         this->ye = (tmp > lenm1)? lenm1 : tmp;
-	}
-	virtual ~FireStation() { }
-	virtual void update();
-	virtual void report();
+    }
+    virtual ~FireStation() { }
+    virtual void update();
+    virtual void report();
     void cover();
 
-	int xs, ys, xe, ye;
-    int  anim;	
-    bool animate;
-    bool busy;
+    int xs, ys, xe, ye;
+    int daycount, covercount;
+    int anim;
+    bool animate, active;
+    int workingdays, busy;
 };
 
 /** @file lincity/modules/firestation.h */

@@ -71,8 +71,6 @@ static void end_of_month_update(void);
 static void start_of_year_update(void);
 static void end_of_year_update(void);
 static void simulate_mappoints(void);
-//FIXME no longer needed
-//static void set_mappoint_used(int fromx, int fromy, int x, int y);
 extern void desert_frontier(int originx, int originy, int w, int h);
 
 static void sustainability_test(void);
@@ -113,11 +111,11 @@ void do_time_step(void)
 
     /* execute yesterdays requests OR treat loadgame requests*/
     ConstructionManager::executePendingRequests();
-    
+
     /* Run through simulation equations for each farm, residence, etc. */
     simulate_mappoints();
 
-    
+
 
     /* Now do the stuff that happens once a year, once a month, etc. */
     do_periodic_events();
@@ -142,8 +140,10 @@ static void do_periodic_events(void)
         do_random_fire(-1, -1, 1);
     }
     if ((total_time % DAYS_BETWEEN_COVER) == 75) {
-        do_fire_health_cricket_power_cover();
+        do_fire_health_cricket_power_cover(); //constructions will call ::cover()
     }
+    else //constructions will not call ::cover()
+    {   refresh_cover = false;}
     if ((total_time % DAYS_BETWEEN_SHANTY) == 15 && tech_level > (GROUP_HEALTH_TECH * MAX_TECH_LEVEL / 1000))
     {
         update_shanty();
@@ -163,7 +163,7 @@ static void end_of_month_update(void)
     if ((housed_population + people_pool) > max_pop_ever)
         max_pop_ever = housed_population + people_pool;
 
-    if (people_pool > 100) 
+    if (people_pool > 100)
     {
         if (rand() % 1000 < people_pool)
             people_pool -= 10;
@@ -187,14 +187,14 @@ static void end_of_month_update(void)
         highest_tech_level = tech_level;
 
     deaths_cost += unnat_deaths * UNNAT_DEATHS_COST;
-   
+
     for (int i = 0; i < constructionCount.size(); i++)
-    {        
-        if (constructionCount[i]) 
+    {
+        if (constructionCount[i])
         {
             constructionCount[i]->report_commodities();
-        }        
-    }  
+        }
+    }
     update_pbars_monthly();
 }
 
@@ -207,7 +207,7 @@ static void start_of_year_update(void)
     pollution_deaths_history -= pollution_deaths_history / 100.0;
     starve_deaths_history -= starve_deaths_history / 100.0;
     unemployed_history -= unemployed_history / 100.0;
-/*   
+/*
     u = Counted<University>::getInstanceCount();
     if (u > 0) {
         university_intake_rate = (Counted<School>::getInstanceCount() * 20) / u;
@@ -227,8 +227,8 @@ static void end_of_year_update(void)
     total_money += income_tax;
 
     coal_tax = (coal_tax * coal_tax_rate) / 100;
-    // Seems to be reasonable at tax_rate = 1    
-    //coal_tax/=10;    
+    // Seems to be reasonable at tax_rate = 1
+    //coal_tax/=10;
     ly_coal_tax = coal_tax;
     total_money += coal_tax;
 
@@ -299,11 +299,11 @@ static void simulate_mappoints(void)
 {
     constructionCount.shuffle();
     for (int i = 0; i < constructionCount.size(); i++)
-    {        
-        if (constructionCount[i]) 
+    {
+        if (constructionCount[i])
         {
-            constructionCount[i]->update();                       
-        }        
+            constructionCount[i]->update();
+        }
     }
 }
 
@@ -366,24 +366,24 @@ static void sustainability_test(void)
 static int sust_fire_cover(void)
 {
     for (int i = 0; i < constructionCount.size(); i++)
-    {        
-        if (constructionCount[i]) 
+    {
+        if (constructionCount[i])
         {
-            if(constructionCount[i]->flags & 
+            if(constructionCount[i]->flags &
                 (FLAG_IS_TRANSPORT | FLAG_POWER_LINE))
             {   continue;}
             unsigned short grp = constructionCount[i]->constructionGroup->group;
-            if((grp==GROUP_MONUMENT) 
-            || (grp==GROUP_OREMINE) 
+            if((grp==GROUP_MONUMENT)
+            || (grp==GROUP_OREMINE)
             || (grp==GROUP_ROCKET)
             || (grp==GROUP_FIRE))
             {   continue;}
             int x = constructionCount[i]->x;
             int y = constructionCount[i]->y;
             if(!(world(x, y)->flags & FLAG_FIRE_COVER))
-            {   return(0);}                      
-        }        
-    }   
+            {   return(0);}
+        }
+    }
     return(1);
 }
 

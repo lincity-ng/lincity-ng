@@ -17,7 +17,7 @@ World world = World(WORLD_SIDE_LEN);
 /* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
 const int dx[8] = { -1, 0, 1, 0, 1, 1, -1, -1};
 const int dy[8] = { 0, -1, 0, 1, 1, -1, 1, -1};
-//anti clockwise ordering 
+//anti clockwise ordering
 const int dxo[8] ={ -1, -1,  0,  1,  1,  1,  0, -1};
 const int dyo[8] ={  0, -1, -1, -1,  0,  1,  1,  1};
 
@@ -27,7 +27,7 @@ bool binary_mode = true;
 //These have to be decalred as extern in lintypes.h after class Construction
 std::map<Construction::Commodities, int> tstat_capacities;
 std::map<Construction::Commodities, int> tstat_census;
- 
+
 int main_screen_originx, main_screen_originy;
 
 int pix_double = 0;
@@ -49,6 +49,7 @@ int sust_dig_ore_coal_count = 0, sust_port_count = 0, sust_old_money = 0;
 int sust_old_money_count = 0, sust_old_population = 0, sust_old_population_count = 0;
 int sust_old_tech = 0, sust_old_tech_count = 0, sust_fire_count = 0;
 
+bool refresh_cover = false;
 int total_time = 0;             /* game time */
 int deadline = 0;
 
@@ -90,7 +91,7 @@ int ex_tax_dis[NUMOF_DISCOUNT_TRIGGERS] = {
 
 int  global_aridity;
 int  global_mountainity;
-//TODO These and their updating should go to class World 
+//TODO These and their updating should go to class World
 int alt_min, alt_max, alt_step;
 
 int fast_time_for_year;

@@ -434,41 +434,12 @@ void do_pollution()
 
 void do_fire_health_cricket_power_cover(void)
 {
-    int x, y, m;
-    // Clear the mapflags
-    m = ~(FLAG_FIRE_COVER | FLAG_HEALTH_COVER | FLAG_CRICKET_COVER | FLAG_MARKET_COVER ); //| FLAG_WATERWELL_COVER
-    for (y = 0; y < world.len(); y++)
-        for (x = 0; x < world.len(); x++)
-        {
-            world(x, y)->flags &= m;
-        }
-    // Check cover
-    for (y = 0; y < world.len(); y++)
-    {
-        for (x = 0; x < world.len(); x++)
-        {
-            switch (world(x, y)->getTopGroup())
-            {
-                case GROUP_FIRESTATION:
-                    static_cast<FireStation *>(world(x, y)->construction)->cover();
-                break;
-                case GROUP_HEALTH:
-                    static_cast<HealthCentre *>(world(x, y)->construction)->cover();
-                break;
-                case GROUP_CRICKET:
-                    static_cast<Cricket *>(world(x, y)->construction)->cover();
-                break;
-/*
-                case GROUP_WATERWELL:
-                    static_cast<Waterwell *>(world(x, y)->construction)->cover();
-                break;
-*/
-                case GROUP_MARKET:
-                    static_cast<Market *>(world(x, y)->construction)->cover();
-                break;
-            }//endswitch
-        }//end for x
-    }//end for y
+    const int len = world.len();
+    const int area = len * len;
+    const int mask = ~(FLAG_FIRE_COVER | FLAG_HEALTH_COVER | FLAG_CRICKET_COVER | FLAG_MARKET_COVER );
+    for(int index = 0; index < area; ++index)
+    {   world(index)->flags &= mask;}
+    refresh_cover = true; //constructions will call ::cover()
 }
 
 void do_random_fire(int x, int y, int pwarning)
