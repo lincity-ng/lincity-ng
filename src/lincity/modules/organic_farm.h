@@ -5,8 +5,7 @@
 #define GROUP_ORGANIC_FARM_TECH 0
 #define GROUP_ORGANIC_FARM_FIREC 20
 #define GROUP_ORGANIC_FARM_RANGE 0
-
-
+#define GROUP_ORGANIC_FARM_SIZE 4
 
 #define ORGANIC_FARM_FOOD_OUTPUT 550
 #define ORG_FARM_POWER_REC 50
@@ -51,10 +50,10 @@ public:
     {
         commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_ORG_FARM_FOOD;
         commodityRuleCount[Construction::STUFF_FOOD].take = false;
-        commodityRuleCount[Construction::STUFF_FOOD].give = true;       
+        commodityRuleCount[Construction::STUFF_FOOD].give = true;
         commodityRuleCount[Construction::STUFF_KWH].maxload = MAX_ORG_FARM_POWER;
         commodityRuleCount[Construction::STUFF_KWH].take = true;
-        commodityRuleCount[Construction::STUFF_KWH].give = false;        
+        commodityRuleCount[Construction::STUFF_KWH].give = false;
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_FARM_JOBS;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;
         commodityRuleCount[Construction::STUFF_JOBS].give = false;
@@ -73,13 +72,13 @@ extern Organic_farmConstructionGroup organic_farmConstructionGroup;
 
 class Organic_farm: public CountedConstruction<Organic_farm> { // Organic_farm inherits from its own CountedConstruction
 public:
-	Organic_farm(int x, int y, unsigned short type): CountedConstruction<Organic_farm>(x, y, type) 
-    {    
-        this->constructionGroup = &organic_farmConstructionGroup;		
+    Organic_farm(int x, int y, unsigned short type): CountedConstruction<Organic_farm>(x, y, type)
+    {
+        this->constructionGroup = &organic_farmConstructionGroup;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->tech_bonus = (tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL;
-        setMemberSaved(&this->tech_bonus, "tech_bonus");         
+        setMemberSaved(&this->tech_bonus, "tech_bonus");
         this->crop_rotation_key = (rand() % 4) + 1;
         this->month_stagger = rand() % 100;
         this->food_this_month = 0;
@@ -87,9 +86,9 @@ public:
         //this->max_foodprod = 0;
         initialize_commodities();
         // Check underground water, and reduce food production accordingly
-        int w = 0;         
+        int w = 0;
         if (use_waterwell)
-        {        
+        {
             for (int i = 0; i < constructionGroup->size; i++)
             {
                 for (int j = 0; j < constructionGroup->size; j++)
@@ -103,14 +102,14 @@ public:
         else //no waterwell
         {
             this->ugwCount = 16;
-        }              	
+        }
     }
-	virtual ~Organic_farm() { }
-	virtual void update();
-	virtual void report();
-      
+    virtual ~Organic_farm() { }
+    virtual void update();
+    virtual void report();
+
     int  ugwCount;
-    int  max_foodprod;    
+    int  max_foodprod;
     int  food_this_month;
     int  food_last_month;
     int  crop_rotation_key;

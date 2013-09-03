@@ -11,7 +11,7 @@ WindpowerConstructionGroup windpowerConstructionGroup(
     "Wind Power",
      TRUE,                     /* need credit? */
      GROUP_WIND_POWER,
-     2,                         /* size */
+     GROUP_WIND_POWER_SIZE,
      GROUP_WIND_POWER_COLOUR,
      GROUP_WIND_POWER_COST_MUL,
      GROUP_WIND_POWER_BUL_COST,
@@ -27,20 +27,20 @@ Construction *WindpowerConstructionGroup::createConstruction(int x, int y, unsig
 
 void Windpower::update()
 {
-       
+
     if (!(total_time%(WIND_POWER_RCOST)))
-    {	windmill_cost++;}
-	if ((commodityCount[STUFF_JOBS] >= WIND_POWER_JOBS)
-	 && (commodityCount[STUFF_MWH] <= MAX_MWH_AT_WIND_POWER-mwh_output))
-	{
-		commodityCount[STUFF_JOBS] -= WIND_POWER_JOBS;
-		commodityCount[STUFF_MWH] += mwh_output;
-		animate = true;
-		working_days++;  
-	}	
+    {   windmill_cost++;}
+    if ((commodityCount[STUFF_JOBS] >= WIND_POWER_JOBS)
+     && (commodityCount[STUFF_MWH] <= MAX_MWH_AT_WIND_POWER-mwh_output))
+    {
+        commodityCount[STUFF_JOBS] -= WIND_POWER_JOBS;
+        commodityCount[STUFF_MWH] += mwh_output;
+        animate = true;
+        working_days++;
+    }
     else
-    {      
-        animate = false;      
+    {
+        animate = false;
     }
     //monthly update
     if (total_time % 100 == 0)
@@ -54,29 +54,29 @@ void Windpower::update()
         sail_count++;
         anim = real_time + WIND_POWER_ANIM_SPEED;
         sail_count %= 3;
-		if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
-		{            
-			type = CST_WINDMILL_1_G + sail_count;
-		}
-		else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)
-		{
-			type = CST_WINDMILL_1_RG + sail_count;
-		}
-		else
-		{
-			type = CST_WINDMILL_1_R + sail_count;
-		}             
+        if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
+        {
+            type = CST_WINDMILL_1_G + sail_count;
+        }
+        else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)
+        {
+            type = CST_WINDMILL_1_RG + sail_count;
+        }
+        else
+        {
+            type = CST_WINDMILL_1_R + sail_count;
+        }
     }
 }
 
 
 void Windpower::report()
 {
-    int i = 0;    
+    int i = 0;
     mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, _("busy"), busy);    
+    mps_store_sfp(i++, _("busy"), busy);
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, "Output", mwh_output); 
+    mps_store_sd(i++, "Output", mwh_output);
     i++;
     list_commodities(&i);
 }

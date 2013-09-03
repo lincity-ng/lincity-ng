@@ -13,7 +13,6 @@
 #include "ConstructionManager.h"
 #include "simulate.h"
 #include "tinygettext/gettext.hpp"
-//#include "power.h"
 #include "gui_interface/pbar_interface.h"
 #include "stats.h"
 #include "gui_interface/dialbox_interface.h"

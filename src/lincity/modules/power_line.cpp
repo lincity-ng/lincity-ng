@@ -12,7 +12,7 @@ PowerlineConstructionGroup powerlineConstructionGroup(
     "Power line",
     FALSE,                     /* need credit? */
     GROUP_POWER_LINE,
-    1,                         /* size */
+    GROUP_POWER_LINE_SIZE,
     GROUP_POWER_LINE_COLOUR,
     GROUP_POWER_LINE_COST_MUL,
     GROUP_POWER_LINE_BUL_COST,
@@ -32,8 +32,8 @@ void Powerline::flow_power()
     int ratio, center_ratio, center_lvl, center_cap, xx, yy, traffic, max_traffic;
     int left_ratio, right_ratio, up_ratio, down_ratio, n;
     bool far_left, far_right, far_up, far_down;
-    Commodities stuff_ID = STUFF_MWH;   
-    
+    Commodities stuff_ID = STUFF_MWH;
+
     center_lvl = commodityCount[stuff_ID];
     center_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
     far_left = false;
@@ -43,81 +43,81 @@ void Powerline::flow_power()
     left_ratio = -1;
     right_ratio = -1;
     up_ratio = -1;
-    down_ratio = -1;    
+    down_ratio = -1;
     center_ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
-    /*see how much stuff is there around*/    
+    /*see how much stuff is there around*/
     if (flags & FLAG_RIGHT) //This is consistent to connect_transport()
-    {                 
+    {
         left_ratio = collect_transport_info(x-1 ,y , stuff_ID, center_ratio );//left
         if (left_ratio == -1)
         {
             left_ratio = collect_transport_info(x-2 ,y , stuff_ID, center_ratio );//far left
             far_left = true;
        }
-    }    
+    }
     if (flags & FLAG_UP) //This is consistent to connect_transport()
-    {                 
+    {
         right_ratio = collect_transport_info(x+1 ,y , stuff_ID, center_ratio );//right
         if (right_ratio == -1)
         {
             right_ratio = collect_transport_info(x+2 ,y , stuff_ID, center_ratio );//far right
             far_right = true;
         }
-    }       
+    }
     if (flags & FLAG_LEFT) //This is consistent to connect_transport()
-    {                 
+    {
         up_ratio = collect_transport_info(x , y+1 , stuff_ID, center_ratio );//up
         if (up_ratio == -1)
         {
             up_ratio = collect_transport_info(x , y+2 , stuff_ID, center_ratio );//far up
             far_up = true;
         }
-    }    
+    }
     if (flags & FLAG_DOWN) //This is ALSO consistent to connect_transport()
-    {                 
+    {
         down_ratio = collect_transport_info(x , y-1 , stuff_ID, center_ratio );//down
         if (down_ratio == -1)
         {
             down_ratio = collect_transport_info(x , y-2 , stuff_ID, center_ratio );//far down
             far_down = true;
         }
-    }    
-    
+    }
+
     //calculate the not weighted average filling
-    n = 1;    
-    ratio = center_ratio;    
+    n = 1;
+    ratio = center_ratio;
     if (left_ratio != -1)
-    { 
-        ratio += left_ratio;            
-        n++;
-    }        
-    if (right_ratio != -1)        
     {
-        ratio += right_ratio;            
+        ratio += left_ratio;
         n++;
-    }        
+    }
+    if (right_ratio != -1)
+    {
+        ratio += right_ratio;
+        n++;
+    }
     if (down_ratio != -1)
     {
-        ratio += down_ratio;            
+        ratio += down_ratio;
         n++;
     }
     if (up_ratio != -1)
     {
-        ratio += up_ratio;            
+        ratio += up_ratio;
         n++;
     }
     ratio /= n;
     max_traffic = 0;
     // now distribute the stuff
     if (left_ratio != -1)
-        { 
+        {
             if (!far_left)
-            {          
+            {
                 xx = x - 1;
             }
             else
             {
-                xx = x - 2;    
+                xx = x - 2;
             }
             traffic = equilibrate_transport_stuff(xx, y, &center_lvl, center_cap, ratio, stuff_ID);//left
             if( traffic > max_traffic)
@@ -142,16 +142,16 @@ void Powerline::flow_power()
                     new PowerLineFlashRequest(world(xx,y)->reportingConstruction)
                 );
             }
-        }        
-        if (right_ratio != -1)        
+        }
+        if (right_ratio != -1)
         {
             if (!far_right)
-            {            
-                xx = x + 1; 
+            {
+                xx = x + 1;
             }
             else
             {
-                xx = x + 2;    
+                xx = x + 2;
             }
             traffic = equilibrate_transport_stuff(xx, y, &center_lvl, center_cap, ratio, stuff_ID);//right
             if( traffic > max_traffic)
@@ -179,7 +179,7 @@ void Powerline::flow_power()
         }
          if (up_ratio != -1)
         {
-            if (!far_up)            
+            if (!far_up)
             {
                 yy = y + 1;
             }
@@ -196,7 +196,7 @@ void Powerline::flow_power()
             {
                 max_traffic = -traffic;
             }
-            if (anim_counter == 0 
+            if (anim_counter == 0
             && !(world(x,yy)->reportingConstruction->flags & FLAG_POWER_LINE)
             && center_ratio < up_ratio)
             {
@@ -210,11 +210,11 @@ void Powerline::flow_power()
                     new PowerLineFlashRequest(world(x,yy)->reportingConstruction)
                 );
             }
-        }         
+        }
         if (down_ratio != -1)
         {
             if (!far_down)
-            {            
+            {
                 yy = y - 1;
             }
             else
@@ -247,17 +247,17 @@ void Powerline::flow_power()
         }
         trafficCount[stuff_ID] = (9 * trafficCount[stuff_ID] + max_traffic) / 10;
         if (center_lvl < 0)
-            std::cout<<"Power < 0 error at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;        
+            std::cout<<"Power < 0 error at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
         commodityCount[stuff_ID] = center_lvl;
 }
 
 void Powerline::update()
 {
     if (commodityCount[STUFF_MWH] > 0)
-    {    
-        commodityCount[STUFF_MWH]--;// loss on powerline                
+    {
+        commodityCount[STUFF_MWH]--;// loss on powerline
         if (anim_counter > 0)
-        {                   
+        {
             switch (anim_counter)
             {
                 case POWER_MODULUS - 2:
@@ -269,21 +269,21 @@ void Powerline::update()
                 case POWER_MODULUS:
                     if (!(type >= 11 && type <= 22))
                         break;
-                    flashing = true;                                        
+                    flashing = true;
                     type -= 11;
                     break;
-            } //end switch anim_counter             
+            } //end switch anim_counter
             anim_counter--;
         }
     } // endif MWH
-    flow_power();   
+    flow_power();
 }
 
 void Powerline::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);   
+    mps_store_sd(i++,constructionGroup->name,ID);
     mps_store_sfp(i++, "usage", trafficCount[STUFF_MWH] * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);
     i++;
     list_commodities(&i);

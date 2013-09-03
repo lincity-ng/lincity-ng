@@ -16,7 +16,7 @@ TransportConstructionGroup trackConstructionGroup(
     "Track",
     FALSE,                     /* need credit? */
     GROUP_TRACK,
-    1,                         /* size */
+    GROUP_TRANSPORT_SIZE,
     GROUP_TRACK_COLOUR,
     GROUP_TRACK_COST_MUL,
     GROUP_TRACK_BUL_COST,
@@ -31,7 +31,7 @@ TransportConstructionGroup trackbridgeConstructionGroup(
     "Track (Bridge)",
     FALSE,                     /* need credit? */
     GROUP_TRACK_BRIDGE,
-    1,                         /* size */
+    GROUP_TRANSPORT_SIZE,
     GROUP_TRACK_BRIDGE_COLOUR,
     GROUP_TRACK_BRIDGE_COST_MUL,
     GROUP_TRACK_BRIDGE_BUL_COST,
@@ -46,7 +46,7 @@ TransportConstructionGroup roadConstructionGroup(
     "Road",
     FALSE,                     /* need credit? */
     GROUP_ROAD,
-    1,                         /* size */
+    GROUP_TRANSPORT_SIZE,
     GROUP_ROAD_COLOUR,
     GROUP_ROAD_COST_MUL,
     GROUP_ROAD_BUL_COST,
@@ -60,7 +60,7 @@ TransportConstructionGroup roadbridgeConstructionGroup(
     "Road (Bridge)",
     FALSE,                     /* need credit? */
     GROUP_ROAD_BRIDGE,
-    1,                         /* size */
+    GROUP_TRANSPORT_SIZE,
     GROUP_ROAD_BRIDGE_COLOUR,
     GROUP_ROAD_BRIDGE_COST_MUL,
     GROUP_ROAD_BRIDGE_BUL_COST,
@@ -76,7 +76,7 @@ TransportConstructionGroup railConstructionGroup(
     "Rail",
     FALSE,                     /* need credit? */
     GROUP_RAIL,
-    1,                         /* size */
+    GROUP_TRANSPORT_SIZE,
     GROUP_RAIL_COLOUR,
     GROUP_RAIL_COST_MUL,
     GROUP_RAIL_BUL_COST,
@@ -90,7 +90,7 @@ TransportConstructionGroup railbridgeConstructionGroup(
     "Rail (Bridge)",
     FALSE,                     /* need credit? */
     GROUP_RAIL_BRIDGE,
-    1,                         /* size */
+    GROUP_TRANSPORT_SIZE,
     GROUP_RAIL_BRIDGE_COLOUR,
     GROUP_RAIL_BRIDGE_COST_MUL,
     GROUP_RAIL_BRIDGE_BUL_COST,

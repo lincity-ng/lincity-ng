@@ -1,31 +1,38 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Market</p>
-	<p style="hp">Market is a key building in Lincity.</p>
-	<p style="hp">Market is probably a bad name for these areas. They are more like job centres, shops, warehouses and markets all rolled into one. They buy and sell food, jobs, coal, goods, ore and steel to surrounding areas, and to transports such as roads.</p>
+    <p style="htitle">Market</p>
+    <p style="hp">Markets are key buildings in Lincity.</p>
+    <p style="hp">Market is probably a bad name for these areas. They are more like job centres, shops,
+    warehouses and markets all rolled into one. They buy and sell food, jobs, coal, goods, ore and steel to
+    surrounding areas, and to adjacent transports such as roads.</p>
 
-	<p style="hp"><b>Within the range </b>of a market all exchanges are done remotely. Use the <a href="msb-transport">Transportation and market overlay </a> to check if a building is within the range of a market.</p>
-	<li>People can obtain food, goods and employment from markets that are within walking distance of their residential area.</li>
-	<li>All areas that require jobs (employees) get them from markets.</li>
-	<li>Farms can sell their food directly to markets.</li>
-	<li>Mills, Potteries and blacksmiths sell goods directly to nearby markets, they also get their raw materials from the same markets.</li>
-	<p style="hp">If no market is available, these buildings need connection to <a href="transport"> transport</a>.</p>
-	
+    <p style="hp">Within the range of a market all exchanges are done remotely.
+    Use the Transportation overlay to check if a building is within the range of a market.
+    People can obtain food, goods and employment from markets that are within walking distance of their residential area.
+    All areas that require jobs (employees) get them from markets.
+    Farms can sell their food directly to markets.
+    Mills, Potteries and blacksmiths sell goods directly to nearby markets,
+    they also get their raw materials from the same markets.</p>
+    <p style="hp">If no market is available, these buildings need connection to transport.</p>
 
-	<p style="hsubtitle">Controlling what markets can buy and sell</p>
-	<p style="hp">You can control the function of a market by selecting what may be bought and sold from transport. Click twice on a market (not the select button) and towards the top left hand side a window will appear allowing you to select what is traded. The default is to trade in everything.</p>
 
-	<p style="hp">This is a market</p>
-	<img src="images/tiles/market-empty.png" halign="center"/>
-	<p style="hp">and this its icon</p>
-	<img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
-	<p style="hp">This means the trade is allowed.</p>
-	<img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
-	<p style="hp">This means the trade is <b>not</b> allowed.</p>
-	<img src="images/gui/checkbox/checkbox.png" halign="center"/>
-	<p style="hp">The numbers between the words Buy and Sell are the map reference for that market.</p>
+    <p style="hsubtitle">Controlling what markets can buy and sell</p>
+    <p style="hp">You can control the function of a market by selecting what may be bought and sold from transport.
+    Click twice on a market (not the select button) and towards the top left hand side a window will
+    appear allowing you to select what is traded. The default is to trade in everything.</p>
 
-	<p style="hsubtitle">See also:</p>
-	<li><a href="commodities">Commodities</a></li>
-	<li><a href="transport">Transport</a></li>
+    <p style="hp">This is a market</p>
+    <img src="images/tiles/market-empty.png" halign="center"/>
+    <p style="hp">and this its icon</p>
+    <img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
+    <p style="hp">This means the trade is allowed.</p>
+    <img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
+    <p style="hp">This means the trade is <b>not</b> allowed.</p>
+    <img src="images/gui/checkbox/checkbox.png" halign="center"/>
+    <p style="hp">The numbers between the words Buy and Sell are the map reference for that market.</p>
+
+    <p style="hsubtitle">See also:</p>
+    <li><a href="commodities">Commodities</a></li>
+    <li><a href="transport">Transport</a></li>
+    <li><a href="msb-transport">Transportation overlay</a></li>
 </Document>

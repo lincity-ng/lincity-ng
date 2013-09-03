@@ -12,7 +12,7 @@ MarketConstructionGroup marketConstructionGroup(
     "Market",
      FALSE,                     /* need credit? */
      GROUP_MARKET,
-     GROUP_MARKET_SIZE,         /* size */
+     GROUP_MARKET_SIZE,
      GROUP_MARKET_COLOUR,
      GROUP_MARKET_COST_MUL,
      GROUP_MARKET_BUL_COST,

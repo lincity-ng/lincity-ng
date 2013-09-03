@@ -5,6 +5,7 @@
 #define GROUP_SUBSTATION_TECH 200
 #define GROUP_SUBSTATION_FIREC 50
 #define GROUP_SUBSTATION_RANGE 0
+#define GROUP_SUBSTATION_SIZE 2
 
 #define SUBSTATION_MWH                          (1500)
 #define MAX_MWH_AT_SUBSTATION    (20 * SUBSTATION_MWH)
@@ -28,7 +29,7 @@ public:
     ): ConstructionGroup(
         name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
     ) {
-        
+
         commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_SUBSTATION;
         commodityRuleCount[Construction::STUFF_MWH].take = true;
         commodityRuleCount[Construction::STUFF_MWH].give = false;
@@ -44,18 +45,17 @@ extern SubstationConstructionGroup substationConstructionGroup;
 
 class Substation: public CountedConstruction<Substation> { // Substation inherits from Construction
 public:
-	Substation(int x, int y, unsigned short type): CountedConstruction<Substation>(x, y, type) 
+    Substation(int x, int y, unsigned short type): CountedConstruction<Substation>(x, y, type)
     {
         constructionGroup = &substationConstructionGroup;
         this->working_days = 0;
         this->busy = 0;
-        initialize_commodities();                     
+        initialize_commodities();
     }
-	virtual ~Substation() { }
-	virtual void update();
-	virtual void report();       	
-    int  working_days;
-    int  busy;      
+    virtual ~Substation() { }
+    virtual void update();
+    virtual void report();
+    int  working_days, busy;
 };
 
 /** @file lincity/modules/substation.h */

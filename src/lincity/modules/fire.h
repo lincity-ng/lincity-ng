@@ -16,6 +16,7 @@
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
+#include <stdlib.h>
 
 
 class FireConstructionGroup: public ConstructionGroup {

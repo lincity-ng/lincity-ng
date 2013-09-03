@@ -11,14 +11,14 @@ MonumentConstructionGroup monumentConstructionGroup(
     "Monument",
     FALSE,                     /* need credit? */
     GROUP_MONUMENT,
-    2,                         /* size */
+    GROUP_MONUMENT_SIZE,
     GROUP_MONUMENT_COLOUR,
     GROUP_MONUMENT_COST_MUL,
     GROUP_MONUMENT_BUL_COST,
     GROUP_MONUMENT_FIREC,
     GROUP_MONUMENT_COST,
     GROUP_MONUMENT_TECH,
-	GROUP_MONUMENT_RANGE
+    GROUP_MONUMENT_RANGE
 );
 
 Construction *MonumentConstructionGroup::createConstruction(int x, int y, unsigned short type) {
@@ -32,18 +32,18 @@ void Monument::update()
         commodityCount[STUFF_JOBS] -= MONUMENT_GET_JOBS;
         jobs_consumed += MONUMENT_GET_JOBS;
         completion = jobs_consumed * 100 / BUILD_MONUMENT_JOBS;
-    }    
+    }
     /* now choose a graphic */
     if (completion >= 100)
-    {        
+    {
         type = CST_MONUMENT_5;
         flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
-        /* inc tech level only if fully built and tech less 
+        /* inc tech level only if fully built and tech less
            than MONUMENT_TECH_EXPIRE */
         if (tech_level < (MONUMENT_TECH_EXPIRE * 1000)
             && (total_time % MONUMENT_DAYS_PER_TECH) == 1)
         {
-            tail_off++;            
+            tail_off++;
             if (tail_off > (tech_level / 10000) - 2)
             {
                 tech_level++;
@@ -51,7 +51,7 @@ void Monument::update()
                 tail_off = 0;
             }
         }
-    } 
+    }
     else if (completion >= 80)
         type = CST_MONUMENT_4;
     else if (completion >= 60)
@@ -74,11 +74,14 @@ void Monument::report()
     /* Display tech contribution only after monument is complete */
     if (completion >= 100) {
         mps_store_sfp(i++, "Wisdom bestowed", tech_made * 100.0 / MAX_TECH_LEVEL);
+        mps_store_title(i++,"");
+        mps_store_title(i++,"");
+        mps_store_title(i++,"");
     }
     else
-    {      
-        list_commodities(&i);        
-        i++;        
+    {
+        list_commodities(&i);
+        i++;
         mps_store_sfp(i++, "Completion", completion);
     }
 }

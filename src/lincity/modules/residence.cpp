@@ -15,7 +15,7 @@ ResidenceConstructionGroup residenceLLConstructionGroup(
     "Residence",
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_LL,
-    3,                         /* size */
+    GROUP_RESIDENCE_SIZE,
     GROUP_RESIDENCE_LL_COLOUR,
     GROUP_RESIDENCE_LL_COST_MUL,
     GROUP_RESIDENCE_LL_BUL_COST,
@@ -29,7 +29,7 @@ ResidenceConstructionGroup residenceMLConstructionGroup(
     "Residence",
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_ML,
-    3,                         /* size */
+    GROUP_RESIDENCE_SIZE,
     GROUP_RESIDENCE_ML_COLOUR,
     GROUP_RESIDENCE_ML_COST_MUL,
     GROUP_RESIDENCE_ML_BUL_COST,
@@ -43,7 +43,7 @@ ResidenceConstructionGroup residenceHLConstructionGroup(
     "Residence",
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_HL,
-    3,                         /* size */
+    GROUP_RESIDENCE_SIZE,
     GROUP_RESIDENCE_HL_COLOUR,
     GROUP_RESIDENCE_HL_COST_MUL,
     GROUP_RESIDENCE_HL_BUL_COST,
@@ -57,7 +57,7 @@ ResidenceConstructionGroup residenceLHConstructionGroup(
     "Residence",
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_LH,
-    3,                         /* size */
+    GROUP_RESIDENCE_SIZE,
     GROUP_RESIDENCE_LH_COLOUR,
     GROUP_RESIDENCE_LH_COST_MUL,
     GROUP_RESIDENCE_LH_BUL_COST,
@@ -71,7 +71,7 @@ ResidenceConstructionGroup residenceMHConstructionGroup(
     "Residence",
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_MH,
-    3,                         /* size */
+    GROUP_RESIDENCE_SIZE,
     GROUP_RESIDENCE_MH_COLOUR,
     GROUP_RESIDENCE_MH_COST_MUL,
     GROUP_RESIDENCE_MH_BUL_COST,
@@ -85,7 +85,7 @@ ResidenceConstructionGroup residenceHHConstructionGroup(
     "Residence",
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_HH,
-    3,                         /* size */
+    GROUP_RESIDENCE_SIZE,
     GROUP_RESIDENCE_HH_COLOUR,
     GROUP_RESIDENCE_HH_COST_MUL,
     GROUP_RESIDENCE_HH_BUL_COST,
@@ -103,7 +103,7 @@ Construction *ResidenceConstructionGroup::createConstruction(int x, int y, unsig
 void Residence::update()
 {
     int bad = 35, good = 30;    /* (un)desirability of living here */
-    int r, po, swing;               
+    int r, po, swing;
     int brm = 0, drm = 0;       /* birth/death rate modifier */
     /* birts = 1/(BASE_BR + brm) deaths = 1/(BASE_DR - drm)
     the different signs are intentional higher brm less a little less babys, higher drm much more deaths*/
@@ -128,21 +128,21 @@ void Residence::update()
         good += 20;
         cc = CRICKET_JOB_SWING;
     }
-    
+
     /* now get fed */
     if (   (commodityCount[STUFF_FOOD] >= local_population)
-        && (commodityCount[STUFF_WATER] >= local_population) 
-        //&& (world(x,y)->flags & FLAG_WATERWELL_COVER) 
-        && local_population) 
+        && (commodityCount[STUFF_WATER] >= local_population)
+        //&& (world(x,y)->flags & FLAG_WATERWELL_COVER)
+        && local_population)
     {
         commodityCount[STUFF_FOOD] -= local_population;
-        commodityCount[STUFF_WATER] -= local_population;        
-        flags |= (FLAG_FED); //enable births   
+        commodityCount[STUFF_WATER] -= local_population;
+        flags |= (FLAG_FED); //enable births
         good += 10;
     } else
     {
         flags &= ~(FLAG_FED); //disable births
-        if (local_population) 
+        if (local_population)
         {
             if (total_time > deadline)
             {
@@ -157,31 +157,31 @@ void Residence::update()
                 bad += 250; // This place really sucks
                 drm = 100; //starving is also unhealty
             }
-        }    
+        }
     }
-    /* kick one out if overpopulated */   
+    /* kick one out if overpopulated */
     if (local_population > max_population)
     {
         local_population--;
         people_pool++;
         extra_births = true;
-    }    
-     
+    }
+
      /* now get power for nothing */
     if (commodityCount[STUFF_KWH] >= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population))
     {
-        commodityCount[STUFF_KWH] -= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population);       
+        commodityCount[STUFF_KWH] -= POWER_RES_OVERHEAD + (POWER_USE_PER_PERSON * local_population);
         flags |= FLAG_POWERED;
         flags |= FLAG_HAD_POWER;
         good += 10;
-    } else 
+    } else
     {
         flags &= ~(FLAG_POWERED);
         bad += 15;
         if ((flags & FLAG_HAD_POWER))
             bad += 50;
     }
-    
+
     /* now supply jobs and buy goods if employed */
     if (job_swingometer > 0)
         swing = JOB_SWING + (hc?1:0 * HC_JOB_SWING) + cc;
@@ -193,15 +193,15 @@ void Residence::update()
         commodityCount[STUFF_JOBS] += (local_population * (WORKING_POP_PERCENT + swing) / 100);
         flags |= FLAG_EMPLOYED; //enable births
         if (job_swingometer < -300)
-            job_swingometer = -300;        
+            job_swingometer = -300;
         if (++job_swingometer > 10)
             job_swingometer = 10;
         good += 20;
         if ((commodityCount[STUFF_GOODS] >= local_population/4)
-        &&  (constructionGroup->commodityRuleCount[STUFF_WASTE].maxload-commodityCount[STUFF_WASTE] >= local_population/12)) 
+        &&  (constructionGroup->commodityRuleCount[STUFF_WASTE].maxload-commodityCount[STUFF_WASTE] >= local_population/12))
         {
             commodityCount[STUFF_GOODS] -= local_population/4;
-            commodityCount[STUFF_WASTE] += local_population/12;            
+            commodityCount[STUFF_WASTE] += local_population/12;
             good += 10;
             if (commodityCount[STUFF_KWH] >= local_population/2)
             {
@@ -213,7 +213,7 @@ void Residence::update()
                 &&  (constructionGroup->commodityRuleCount[STUFF_WASTE].maxload-commodityCount[STUFF_WASTE] >= local_population/12))
                 {
                     commodityCount[STUFF_GOODS] -= local_population/4;
-                    commodityCount[STUFF_WASTE] += local_population/12;                   
+                    commodityCount[STUFF_WASTE] += local_population/12;
                     good += 5;
                 }
             }
@@ -221,14 +221,14 @@ void Residence::update()
                 bad += 5;
         }
     }
-    else if (job_swingometer < 10) 
+    else if (job_swingometer < 10)
     {
         flags &= ~(FLAG_EMPLOYED); //disable births
         if ((job_swingometer -= 11) < -300)
             job_swingometer = -300;
         unemployed_population += local_population;
         total_unemployed_days += local_population;
-        if (total_unemployed_days >= NUMOF_DAYS_IN_YEAR) 
+        if (total_unemployed_days >= NUMOF_DAYS_IN_YEAR)
         {
             total_unemployed_years+= total_unemployed_days / NUMOF_DAYS_IN_YEAR;
             total_unemployed_days -= total_unemployed_days % NUMOF_DAYS_IN_YEAR;
@@ -244,7 +244,7 @@ void Residence::update()
     }
 
     switch (type)
-    {    
+    {
         case CST_RESIDENCE_LL:
             drm += local_population * 7 * 50/24; //more people more deaths
             brm += RESIDENCE_LL_BRM + extra_births?100:0; //slow down baby production
@@ -270,18 +270,18 @@ void Residence::update()
             drm += local_population * 4/3; //more people more deaths
             brm += RESIDENCE_HH_BRM + extra_births?50:0; //slow down baby production
             good += 100;
-        break;      
+        break;
     }
-    //if (people_pool > 100)        
+    //if (people_pool > 100)
         //drm += (people_pool-100) / Counted<Residence>::getInstanceCount(); // homeless are short lived
     drm += local_population / 4;
     brm += local_population / 4;
     if (drm > RESIDENCE_BASE_DR - 1)
-        drm = RESIDENCE_BASE_DR - 1; 
+        drm = RESIDENCE_BASE_DR - 1;
     /* normal deaths + pollution deaths */
     po = ((world(x,y)->pollution / 16) + 1);
     pol_deaths = po>100?95:po-5>0?po-5:1;
-    deaths = (RESIDENCE_BASE_DR - drm - 3*po);  
+    deaths = (RESIDENCE_BASE_DR - drm - 3*po);
     if (deaths < 1) deaths = 1;
     if (hc) deaths *= 4;
     r = rand() % deaths;
@@ -302,12 +302,12 @@ void Residence::update()
     else //no death in hundred years
     {
         deaths = 120000;
-    } 
-    
-    /* normal births FED and EMPLOYED */          
+    }
+
+    /* normal births FED and EMPLOYED */
     births = RESIDENCE_BASE_BR + brm;
     if (((flags & birth_flag) == birth_flag)
-        && (local_population > 0)) 
+        && (local_population > 0))
     {
         if (rand() % births == 0)
         {
@@ -319,8 +319,8 @@ void Residence::update()
     else //no baby in hundred years
     {
         births = 120000;
-    } 
-      
+    }
+
     /* people_pool stuff */
     //bad += local_population / 2;
     bad += world(x,y)->pollution / 20;
@@ -334,9 +334,9 @@ void Residence::update()
             local_population--;
             people_pool++;
         }
-    } else if (people_pool > 0 
+    } else if (people_pool > 0
                && r > ((good + bad) * (RESIDENCE_PPM - 1) + bad))  /* r > (rmax - good) */
-    {    
+    {
         local_population++;
         people_pool--;
     }
@@ -355,10 +355,10 @@ void Residence::report()
     mps_store_sd(i++, _("Desireability"), desireability);
     mps_store_sf(i++, _("Births per year"), (double)1200/births);
     mps_store_sf(i++, _("Death per year"), (double)1200/deaths);
-    mps_store_sfp(i++, _("Pol. mortality"), pol_deaths);
-    i++;    
-    //mps_store_sd(i++, "Pollution", world(x,y)->pollution);    
-    list_commodities(&i);    
+    mps_store_sfp(i++, _("Pollution mortality"), pol_deaths);
+    i++;
+    //mps_store_sd(i++, "Pollution", world(x,y)->pollution);
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/residence.cpp */

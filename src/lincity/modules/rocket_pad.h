@@ -5,6 +5,7 @@
 #define GROUP_ROCKET_TECH     750
 #define GROUP_ROCKET_FIREC 0
 #define GROUP_ROCKET_RANGE 0
+#define GROUP_ROCKET_SIZE 4
 
 #define ROCKET_PAD_JOBS         200
 #define ROCKET_PAD_JOBS_STORE   (ROCKET_PAD_JOBS * 50)
@@ -13,7 +14,7 @@
 #define ROCKET_PAD_GOODS_STORE  (ROCKET_PAD_GOODS * 50)
 #define MAX_GOODS_AT_ROCKET_PAD (ROCKET_PAD_GOODS * 20)
 #define MAX_WASTE_AT_ROCKET_PAD (MAX_GOODS_AT_ROCKET_PAD / 3)
-#define ROCKET_PAD_STEEL	    240
+#define ROCKET_PAD_STEEL        240
 #define ROCKET_PAD_STEEL_STORE  (ROCKET_PAD_STEEL * 50)
 #define MAX_STEEL_AT_ROCKET_PAD (ROCKET_PAD_STEEL * 20)
 #define ROCKET_PAD_RUNNING_COST 200
@@ -51,7 +52,7 @@ public:
         commodityRuleCount[Construction::STUFF_STEEL].give = false;
         commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_ROCKET_PAD;
         commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;    
+        commodityRuleCount[Construction::STUFF_WASTE].give = true;
     }
     // overriding method that creates a RocketPad
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -61,16 +62,18 @@ extern RocketPadConstructionGroup rocketPadConstructionGroup;
 
 class RocketPad: public CountedConstruction<RocketPad> { // rocketPad inherits from its own CountedConstruction
 public:
-	RocketPad(int x, int y, unsigned short type): CountedConstruction<RocketPad>(x, y, type) 
-    {        
+    RocketPad(int x, int y, unsigned short type): CountedConstruction<RocketPad>(x, y, type)
+    {
         constructionGroup = &rocketPadConstructionGroup;
         this->working_days = 0;
         this->busy = 0;
+        this->anim = 0;
         this->completion = 0;
         setMemberSaved(&this->completion, "completion");
         this->step = 0;
+        setMemberSaved(&this->step, "step");
         this->tech = tech_level;
-        this->anim = 0;
+        setMemberSaved(&this->tech, "tech");
         this->goods_stored = 0;
         setMemberSaved(&this->goods_stored, "goods_stored");
         this->jobs_stored = 0;
@@ -78,15 +81,14 @@ public:
         this->steel_stored = 0;
         setMemberSaved(&this->steel_stored, "steel_stored");
         initialize_commodities();
-        }
+    }
 
-	virtual ~RocketPad() { }
-	virtual void update();
-	virtual void report();
+    virtual ~RocketPad() { }
+    virtual void update();
+    virtual void report();
     void launch_rocket();
     void remove_people(int num);
-    int working_days;    
-    int busy;
+    int working_days, busy;
     int tech;
     int anim;
     int jobs_stored, goods_stored, steel_stored;

@@ -77,6 +77,7 @@
 #define GROUP_RESIDENCE_HH_MAX_POP 400
 
 #define GROUP_RESIDENCE_RANGE 0
+#define GROUP_RESIDENCE_SIZE 3
 
 
 #endif /* __residence_h__ */
@@ -98,12 +99,12 @@ public:
     )
     {
         switch (group)
-        {            
+        {
             case GROUP_RESIDENCE_LL :
                 commodityRuleCount[Construction::STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_LL_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_LL_MAX_POP;
                 commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_LL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;       
+                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
                 commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
                 commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_LL_MAX_POP;
             break;
@@ -111,7 +112,7 @@ public:
                 commodityRuleCount[Construction::STUFF_KWH].maxload = 20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_ML_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_ML_MAX_POP;
                 commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_ML_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;        
+                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
                 commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
                 commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_ML_MAX_POP;
             break;
@@ -119,7 +120,7 @@ public:
                 commodityRuleCount[Construction::STUFF_KWH].maxload =  20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_HL_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_HL_MAX_POP;
                 commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_HL_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;      
+                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
                 commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
                 commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_HL_MAX_POP;
             break;
@@ -127,7 +128,7 @@ public:
                 commodityRuleCount[Construction::STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_LH_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_LH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_LH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;        
+                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_LH_MAX_POP;
             break;
@@ -135,7 +136,7 @@ public:
                 commodityRuleCount[Construction::STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_MH_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_MH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_MH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;       
+                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_MH_MAX_POP;
             break;
@@ -143,11 +144,11 @@ public:
                 commodityRuleCount[Construction::STUFF_KWH].maxload =   20 * (POWER_RES_OVERHEAD + (GROUP_RESIDENCE_HH_MAX_POP * POWER_USE_PER_PERSON));
                 commodityRuleCount[Construction::STUFF_WASTE].maxload =  6 * GROUP_RESIDENCE_HH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_GOODS].maxload = 10 * GROUP_RESIDENCE_HH_MAX_POP;
-                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;        
+                commodityRuleCount[Construction::STUFF_JOBS].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_FOOD].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
                 commodityRuleCount[Construction::STUFF_WATER].maxload =  20 * GROUP_RESIDENCE_HH_MAX_POP;
             break;
-        }        
+        }
         commodityRuleCount[Construction::STUFF_FOOD].take = true;
         commodityRuleCount[Construction::STUFF_FOOD].give = false;
         commodityRuleCount[Construction::STUFF_JOBS].take = false;
@@ -170,20 +171,20 @@ extern ResidenceConstructionGroup residenceLHConstructionGroup, residenceMHConst
 
 class Residence: public CountedConstruction<Residence> { // Residence inherits from its own CountedConstruction
 public:
-	Residence(int x, int y, unsigned short type): CountedConstruction<Residence>(x, y, type)
+    Residence(int x, int y, unsigned short type): CountedConstruction<Residence>(x, y, type)
     {
         this->local_population = 5; //to aid converted savegames should not affect actual game mechanics too much
-        setMemberSaved(&(this->local_population),"local_population");        
-        this->job_swingometer = 0;        
+        setMemberSaved(&(this->local_population),"local_population");
+        this->job_swingometer = 0;
         this->desireability = 0;
         this->births = 1;
         this->deaths = 1;
-        this->pol_deaths = 1;	        
+        this->pol_deaths = 1;
         switch (type)
         {
             case CST_RESIDENCE_LL :
                 constructionGroup = &residenceLLConstructionGroup;
-                this->max_population = GROUP_RESIDENCE_LL_MAX_POP;                
+                this->max_population = GROUP_RESIDENCE_LL_MAX_POP;
             break;
             case CST_RESIDENCE_ML :
                 constructionGroup = &residenceMLConstructionGroup;
@@ -206,21 +207,21 @@ public:
                 this->max_population = GROUP_RESIDENCE_HH_MAX_POP;
             break;
         }
-        initialize_commodities();		                            
-	}
-	virtual ~Residence() 
-	{ 
-		//everyone survives demolition 
-		people_pool += local_population; 
-	}
-	virtual void update();
-	virtual void report();
+        initialize_commodities();
+    }
+    virtual ~Residence()
+    {
+        //everyone survives demolition
+        people_pool += local_population;
+    }
+    virtual void update();
+    virtual void report();
 
     int local_population;
     int max_population;
     int job_swingometer;
     int desireability;
-    int births, deaths, pol_deaths;	
+    int births, deaths, pol_deaths;
 };
 
 

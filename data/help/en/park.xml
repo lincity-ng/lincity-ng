@@ -1,22 +1,26 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Parks</p>
-	<p style="hp">Parks are very simple: they clear pollution.</p>
-	<p style="hp">A number of areas produce pollution. These are roads, railways, coal mines and light and heavy industry. Some produce more than others.</p>
-	<p style="hp">You can use parks to shield residential areas or to stop pollution escaping from the local area of the source.</p>
-	<p style="hp">The wind comes <b>from</b> the south west, so build your parks accordingly.</p>
-        <p style="hp">Parks need underground water, so they can only be built on "green" tiles.</p>
-	
-	<p style="hp">This is a park</p>
-	<img src="images/tiles/parkland-plane.png" halign="center"/>
-	<p style="hp">and this its icon</p>
-	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
-	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="pollution">Pollution</a></li>
-	<li><a href="road">Roads</a></li>
-	<li><a href="rail">Railways</a></li>
-	<li><a href="coalmine">Coal mines</a></li>
-	<li><a href="industryh">Heavy industry</a></li>
-	<li><a href="industryl">Light industry</a></li>
+    <p style="htitle">Parks</p>
+    <p style="hp">Parks are very simple: they clear pollution.</p>
+    <p style="hp">A number of areas produce pollution. These are roads, railways, coal mines and light and heavy industry.
+    Some produce more than others.</p>
+    <p style="hp">You can use parks to shield residential areas or to stop pollution
+    escaping from the local area of the source.</p>
+    <p style="hp">The wind comes from the south west, so build your parks accordingly.</p>
+    <p style="hp">Parks are much more effective then forests or farms but require underground water,
+     so they can only be built on "green" tiles.</p>
+    <p style="hp">Hint: hold the 'w' key pressed while building a park to get a small pond.</p>
+
+    <p style="hp">This is a park</p>
+    <img src="images/tiles/parkland-plane.png" halign="center"/>
+    <p style="hp">and this its icon</p>
+    <img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+
+    <p style="hsubtitle">See also:</p>
+    <li><a href="pollution">Pollution</a></li>
+    <li><a href="farm">Farms</a></li>
+    <li><a href="commune">Forests</a></li>
+    <li><a href="industryh">Heavy industry</a></li>
+    <li><a href="industryl">Light industry</a></li>
+    <li><a href="powerscoal">Coal fired power station</a></li>
 </Document>

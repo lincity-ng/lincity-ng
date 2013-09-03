@@ -13,7 +13,7 @@
 
 #define WASTE_BURRIED 200
 #define CRITICAL_WASTE_LEVEL 20 //gives waste if inbox is below and swallows if above
-#define TIP_TAKES_WASTE (20 * WASTE_BURRIED) 
+#define TIP_TAKES_WASTE (20 * WASTE_BURRIED)
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -45,24 +45,23 @@ extern TipConstructionGroup tipConstructionGroup;
 
 class Tip: public CountedConstruction<Tip>{ // Tip inherits from its own CountedConstruction
 public:
-	Tip(int x, int y, unsigned short type): CountedConstruction<Tip>(x, y, type) 
-    {       
+    Tip(int x, int y, unsigned short type): CountedConstruction<Tip>(x, y, type)
+    {
         this->constructionGroup = &tipConstructionGroup;
         this->flags |= FLAG_NEVER_EVACUATE;
         this->total_waste = 0;
-        setMemberSaved(&this->total_waste,"total_waste");        
-        this->busy_days = 0;
+        setMemberSaved(&this->total_waste,"total_waste");
+        this->working_days = 0;
         this->busy = 0;
         this->degration_days = 0;
         setMemberSaved(&this->degration_days,"degration_days");
         initialize_commodities();
-	}
-	virtual ~Tip() { }
-	virtual void update();
-	virtual void report();
-       
-    int  busy_days;
-    int  busy;
+    }
+    virtual ~Tip() { }
+    virtual void update();
+    virtual void report();
+
+    int  working_days, busy;
     int  total_waste;
-    int  degration_days;	
+    int  degration_days;
 };

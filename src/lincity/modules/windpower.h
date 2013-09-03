@@ -6,12 +6,12 @@
 #define GROUP_WIND_POWER_TECH   30
 #define GROUP_WIND_POWER_FIREC  10
 #define GROUP_WIND_POWER_RANGE  0
-
+#define GROUP_WIND_POWER_SIZE  2
 
 #define WIND_POWER_MWH        450
 #define WIND_POWER_JOBS       15
-#define MAX_JOBS_AT_WIND_POWER 20*(WIND_POWER_JOBS)      
-#define MAX_MWH_AT_WIND_POWER 20*(WIND_POWER_MWH) 
+#define MAX_JOBS_AT_WIND_POWER 20*(WIND_POWER_JOBS)
+#define MAX_MWH_AT_WIND_POWER 20*(WIND_POWER_MWH)
 /* WIND_POWER_RCOST is days per quid */
 #define WIND_POWER_RCOST      2
 #define WIND_POWER_ANIM_SPEED 80
@@ -21,7 +21,6 @@
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-//#include "../range.h"
 
 class WindpowerConstructionGroup: public ConstructionGroup {
 public:
@@ -40,7 +39,7 @@ public:
         commodityRuleCount[Construction::STUFF_JOBS].give = false;
         commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_WIND_POWER;
         commodityRuleCount[Construction::STUFF_MWH].take = false;
-        commodityRuleCount[Construction::STUFF_MWH].give = true;    
+        commodityRuleCount[Construction::STUFF_MWH].give = true;
     }
     // overriding method that creates a Windpower
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -50,8 +49,8 @@ extern WindpowerConstructionGroup windpowerConstructionGroup;
 
 class Windpower: public CountedConstruction<Windpower> { // Windpower inherits from its own CountedConstruction
 public:
-	Windpower(int x, int y, unsigned short type): CountedConstruction<Windpower>(x, y, type)
-    {      
+    Windpower(int x, int y, unsigned short type): CountedConstruction<Windpower>(x, y, type)
+    {
         constructionGroup = &windpowerConstructionGroup;
         this->anim = 0;
         this->animate = false;
@@ -61,19 +60,18 @@ public:
         this->working_days = 0;
         this->busy = 0;
         this->mwh_output = (int)(WIND_POWER_MWH + (((double)tech_level * WIND_POWER_MWH) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->mwh_output, "mwh_output");     
+        setMemberSaved(&this->mwh_output, "mwh_output");
         initialize_commodities();
-	}
-	virtual ~Windpower() { }
-	virtual void update();
-	virtual void report();
-    
-    int  mwh_output; 
-    int  tech;    
+    }
+    virtual ~Windpower() { }
+    virtual void update();
+    virtual void report();
+
+    int  mwh_output;
+    int  tech;
     int  anim;
-	int  sail_count;
-    int  working_days;
-    int  busy;    
+    int  sail_count;
+    int  working_days, busy;
     bool animate;
 };
 

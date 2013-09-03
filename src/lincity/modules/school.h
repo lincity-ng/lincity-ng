@@ -5,6 +5,7 @@
 #define GROUP_SCHOOL_TECH   1
 #define GROUP_SCHOOL_FIREC 40
 #define GROUP_SCHOOL_RANGE 0
+#define GROUP_SCHOOL_SIZE 2
 
 #define JOBS_MAKE_TECH_SCHOOL  200
 #define GOODS_MAKE_TECH_SCHOOL  75
@@ -40,7 +41,7 @@ public:
         commodityRuleCount[Construction::STUFF_GOODS].give = false;
         commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_SCHOOL;
         commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;    
+        commodityRuleCount[Construction::STUFF_WASTE].give = true;
     }
     // overriding method that creates a School
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -50,23 +51,22 @@ extern SchoolConstructionGroup schoolConstructionGroup;
 
 class School: public CountedConstruction<School> { // School inherits from its own CountedConstruction
 public:
-	School(int x, int y, unsigned short type): CountedConstruction<School>(x, y, type) 
-    {        
+    School(int x, int y, unsigned short type): CountedConstruction<School>(x, y, type)
+    {
         constructionGroup = &schoolConstructionGroup;
-        this->teaching_this_month = 0;
-        this->teaching_last_month = 0;
+        this->working_days = 0;
+        this->busy = 0;
         this->total_tech_made = 0;
         setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
-        }
+    }
 
-	virtual ~School() { }
-	virtual void update();
-	virtual void report();
-    
-    int total_tech_made;    
-    int teaching_this_month;
-    int teaching_last_month;
+    virtual ~School() { }
+    virtual void update();
+    virtual void report();
+
+    int total_tech_made;
+    int working_days, busy;
 };
 
 

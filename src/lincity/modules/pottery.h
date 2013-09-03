@@ -5,6 +5,7 @@
 #define GROUP_POTTERY_TECH  0
 #define GROUP_POTTERY_FIREC 50
 #define GROUP_POTTERY_RANGE 0
+#define GROUP_POTTERY_SIZE 2
 
 #define POTTERY_ORE_MAKE_GOODS    11
 #define POTTERY_COAL_MAKE_GOODS    2
@@ -15,9 +16,7 @@
 #define MAX_ORE_AT_POTTERY        (POTTERY_ORE_MAKE_GOODS*20)
 #define MAX_COAL_AT_POTTERY       (POTTERY_COAL_MAKE_GOODS*20)
 #define MAX_JOBS_AT_POTTERY       (POTTERY_JOBS*20)
-#define MAX_GOODS_AT_POTTERY      (POTTERY_MADE_GOODS*20) 
-
-
+#define MAX_GOODS_AT_POTTERY      (POTTERY_MADE_GOODS*20)
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -46,7 +45,7 @@ public:
         commodityRuleCount[Construction::STUFF_GOODS].give = true;
         commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_POTTERY;
         commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = false;        
+        commodityRuleCount[Construction::STUFF_ORE].give = false;
     }
     // overriding method that creates a pottery
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -56,24 +55,24 @@ extern PotteryConstructionGroup potteryConstructionGroup;
 
 class Pottery: public CountedConstruction<Pottery> { // Pottery inherits from its own CountedConstruction
 public:
-	Pottery(int x, int y, unsigned short type): CountedConstruction<Pottery>(x, y, type)
-    {       
-        constructionGroup = &potteryConstructionGroup;		        
+    Pottery(int x, int y, unsigned short type): CountedConstruction<Pottery>(x, y, type)
+    {
+        constructionGroup = &potteryConstructionGroup;
         this->anim = 0; // or real_time?
-        this->pauseCounter = 0;        
+        this->pauseCounter = 0;
         this->productivity = 0;
-        this->workingdays = 0;        
+        this->workingdays = 0;
         this->animate = false;
-        initialize_commodities();            
-	}
-	virtual ~Pottery() { }
-	virtual void update();
-	virtual void report();
-    
-    int  anim;    
+        initialize_commodities();
+    }
+    virtual ~Pottery() { }
+    virtual void update();
+    virtual void report();
+
+    int  anim;
     int  pauseCounter;
     int  workingdays;
     int  productivity;
-    bool animate;	
+    bool animate;
 };
 

@@ -1,9 +1,15 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Water well</p>
-        <p style="hp">Provide water to houses within the range. Lack of water will have the same consequences as lack of food. Informations is shown in starvation overlay/minimap.</p>
+    <p style="htitle">Water well</p>
+        <p style="hp">water wells provide frash water. Water flows in underground pipes along transport.
+         Lack of water will have the same consequences as lack of food.
+         Informations is shown in starvation overlay/minimap. Beware, too heavy pollution will
+         render the water not drinkable.</p>
 
-	<p style="hp">See also:</p>
-	<li><a href="food">Food</a></li>
-	<li><a href="msb-starve">Starvation overlay</a></li>
+    <p style="hp">See also:</p>
+    <li><a href="food">Food</a></li>
+    <li><a href="water">Water</a></li>
+    <li><a href="transport">Transport</a></li>
+    <li><a href="msb-starve">Starvation overlay</a></li>
+    <li><a href="pollution">Pollution</a></li>
 </Document>

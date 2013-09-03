@@ -67,7 +67,7 @@
 #define FLAG_NEVER_EVACUATE     (0x100) //contruction only
 #define FLAG_EVACUATE           (0x200) //construction only
 #define FLAG_IS_GHOST           (0x400) //temporary construction like fireplace
-//#define FLAG_MS_JOBS            (0x800)
+#define FLAG_ROCKET_READY       (0x800) //construction (Rocket Pad) only
 //#define FLAG_MB_COAL            (0x1000)
 //#define FLAG_MS_COAL            (0x2000)
 //#define FLAG_MB_ORE             (0x4000)

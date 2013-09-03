@@ -13,7 +13,7 @@ SchoolConstructionGroup schoolConstructionGroup(
     "Elementary School",
      FALSE,                     /* need credit? */
      GROUP_SCHOOL,
-     2,                         /* size */
+     GROUP_SCHOOL_SIZE,
      GROUP_SCHOOL_COLOUR,
      GROUP_SCHOOL_COST_MUL,
      GROUP_SCHOOL_BUL_COST,
@@ -32,18 +32,18 @@ void School::update()
     if (commodityCount[STUFF_JOBS] >= JOBS_MAKE_TECH_SCHOOL
     &&  commodityCount[STUFF_GOODS] >= GOODS_MAKE_TECH_SCHOOL
     &&  commodityCount[STUFF_WASTE] + GOODS_MAKE_TECH_SCHOOL / 3 <= MAX_WASTE_AT_SCHOOL)
-    {   
+    {
         commodityCount[STUFF_JOBS] -= JOBS_MAKE_TECH_SCHOOL;
         commodityCount[STUFF_GOODS] -= GOODS_MAKE_TECH_SCHOOL;
-        commodityCount[STUFF_WASTE] += GOODS_MAKE_TECH_SCHOOL / 3;        
-        teaching_this_month++;
+        commodityCount[STUFF_WASTE] += GOODS_MAKE_TECH_SCHOOL / 3;
+        ++working_days;
         tech_level += TECH_MADE_BY_SCHOOL;
         total_tech_made += TECH_MADE_BY_SCHOOL;
     }
-    if ((total_time % 100) == 0) 
+    if ((total_time % 100) == 0)
     {
-        teaching_last_month = teaching_this_month;
-        teaching_this_month = 0;
+        busy = working_days;
+        working_days = 0;
     }
     school_cost += SCHOOL_RUNNING_COST;
 }
@@ -51,9 +51,9 @@ void School::update()
 void School::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name,ID); 
+    mps_store_sd(i++,constructionGroup->name,ID);
     i++;
-    mps_store_sfp(i++,"busy", (float)teaching_last_month);    
+    mps_store_sfp(i++,"busy", (float)busy);
     mps_store_sfp(i++, _("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
     i++;
     list_commodities(&i);

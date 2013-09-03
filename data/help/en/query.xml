@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Query</p>
-	<p style="hp">To show informations about a building use this tool and click on the Building in question.</p>
-	<p style="hp">The information is shown int the lower right corner, instead of the minimap.</p>
-	<p style="hp">Press 't' to cycle through report pages.</p>
-	<p style="hp">There are no costs to use this tool.  the Alternatively use the middle mouse key or press 'g' 
-	display information on the ground.</p>
-	<img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
-	<p style="hsubtitle">See also:</p>
+    <p style="htitle">Query</p>
+    <p style="hp">To show informations about a building use this tool and click on the Building in question.</p>
+    <p style="hp">The information is shown int the lower right corner, instead of the minimap.</p>
+    <p style="hp">Press 'g' to show underground information. 'm' and 'n' cylcle through optional pages</p>
+    <p style="hp">There are no costs to use this tool.  the Alternatively use the middle mouse key or press 'g'
+    display information on the ground.</p>
+    <img src="images/gui/buttonpanel/base/pointer.png" halign="center"/>
+    <p style="hsubtitle">See also:</p>
     <li><a href="keys">Keyboard commands</a></li>
-	<li><a href="help">index</a></li>
+    <li><a href="help">index</a></li>
 </Document>
 

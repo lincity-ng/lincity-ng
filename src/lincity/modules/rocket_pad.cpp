@@ -12,12 +12,11 @@
 #include "residence.h" //for removing people
 #include <stdlib.h>
 
-// school place:
 RocketPadConstructionGroup rocketPadConstructionGroup(
     "Rocket Pad",
      TRUE,                     /* need credit? */
      GROUP_ROCKET,
-     4,                         /* size */
+     GROUP_ROCKET_SIZE,
      GROUP_ROCKET_COLOUR,
      GROUP_ROCKET_COST_MUL,
      GROUP_ROCKET_BUL_COST,
@@ -35,13 +34,12 @@ extern void ok_dial_box(const char *, int, const char *);
 
 void RocketPad::update()
 {
-    bool working_today = false;    
-    // ok the party is over    
+    // ok the party is over
     if (type == CST_ROCKET_FLOWN)
         return;
     rocket_pad_cost += ROCKET_PAD_RUNNING_COST;
     // store as much as possible or needed
-    while(  
+    while(
                (type < CST_ROCKET_5)
             && (commodityCount[STUFF_JOBS] >= ROCKET_PAD_JOBS)
             && (commodityCount[STUFF_GOODS] >= ROCKET_PAD_GOODS)
@@ -60,12 +58,9 @@ void RocketPad::update()
         steel_stored += ROCKET_PAD_STEEL;
         commodityCount[STUFF_WASTE] += ROCKET_PAD_GOODS/3;
         step += 2;
-        working_today = true;        
-    }
-    
-    // did we do anything today?
-    if (working_today)
         working_days++;
+    }
+
     // see if we can build another % of Rocket
     if(    (completion < 100)
         && (jobs_stored >= ROCKET_PAD_JOBS_STORE)
@@ -77,8 +72,8 @@ void RocketPad::update()
         goods_stored -= ROCKET_PAD_GOODS_STORE;
         steel_stored -= ROCKET_PAD_STEEL_STORE;
         completion++;
-        step = 0;        
-    }    
+        step = 0;
+    }
     //monthly update
     if (total_time % 100 == 0)
     {
@@ -92,7 +87,7 @@ void RocketPad::update()
         if (real_time >= anim)
         {
             anim = real_time + ROCKET_ANIMATION_SPEED;
-            switch (type) 
+            switch (type)
             {
                 case (CST_ROCKET_5):
                     type = CST_ROCKET_6;
@@ -117,12 +112,15 @@ void RocketPad::update()
         type = CST_ROCKET_3;
     else if (completion < (100 * ROCKET_PAD_LAUNCH) / 100)
         type = CST_ROCKET_4;
-    else if (completion >= (100 * ROCKET_PAD_LAUNCH) / 100) 
+    else if (completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
     {
         type = CST_ROCKET_5;
-        update_main_screen(0);
-        // The Dialog button will remotely launch the rocket 
-        ask_launch_rocket_now(x, y);            
+
+        if(!(flags & FLAG_ROCKET_READY))
+        {    // The Dialog button will remotely launch the rocket
+            ask_launch_rocket_now(x, y);
+        }
+        flags |= FLAG_ROCKET_READY;
     }
 }
 
@@ -136,7 +134,7 @@ void RocketPad::launch_rocket()
      * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...
      */
     r = rand() % MAX_TECH_LEVEL;
-    if (r > tech_level || rand() % 100 > (rockets_launched * 15 + 25)) 
+    if (r > tech_level || rand() % 100 > (rockets_launched * 15 + 25))
     {
         /* the launch failed */
         //display_rocket_result_dialog(ROCKET_LAUNCH_BAD);
@@ -144,21 +142,21 @@ void RocketPad::launch_rocket()
         rockets_launched_success = 0;
         xx = ((rand() % 40) - 20) + x;
         yy = ((rand() % 40) - 20) + y;
-        for (i = 0; i < 20; i++) 
+        for (i = 0; i < 20; i++)
         {
             xxx = ((rand() % 20) - 10) + xx;
             yyy = ((rand() % 20) - 10) + yy;
-            if (xxx > 0 && xxx < (world.len() - 4)
-                && yyy > 0 && yyy < (world.len() - 4))
+            if (xxx > 0 && xxx < (world.len() - 1)
+                && yyy > 0 && yyy < (world.len() - 1))
             {
                 /* don't crash on it's own area */
-                if (xxx >= x && xxx < (x + 4) && yyy >= y && yyy < (y + 4))
+                if (xxx >= x && xxx < (x + constructionGroup->size) && yyy >= y && yyy < (y + constructionGroup->size))
                     continue;
                 fire_area(xxx, yyy);
                 /* make a sound perhaps */
             }
         }
-    } 
+    }
     else
     {
         rockets_launched_success++;
@@ -166,7 +164,7 @@ void RocketPad::launch_rocket()
         if (rockets_launched_success > 5)
         {
             remove_people(1000);
-            if (people_pool || housed_population) 
+            if (people_pool || housed_population)
             {
                 //display_rocket_result_dialog(ROCKET_LAUNCH_EVAC);
                 ok_dial_box ("launch-evac.mes", GOOD, 0L);
@@ -182,17 +180,30 @@ void RocketPad::launch_rocket()
 
 void RocketPad::remove_people(int num)
 {
-    int xx, yy;
+    {
+        int ppl = (num < people_pool)?num:people_pool;
+        num -= ppl;
+        people_pool -= ppl;
+        total_evacuated += ppl;
+    }
     /* reset housed population so that we can display it correctly */
     housed_population = 1;
     while (housed_population && (num > 0))
     {
         housed_population = 0;
-        for (yy = 0; yy < world.len(); yy++)
-            for (xx = 0; xx < world.len(); xx++)
-                if (world(xx,yy)->is_residence())
-                {
-                    Residence* residence = static_cast <Residence *> (world(xx,yy)->reportingConstruction);
+        for (int i = 0; i < constructionCount.size(); i++)
+        {
+            if (constructionCount[i])
+            {
+                unsigned short grp = constructionCount[i]->constructionGroup->group;
+                if( (grp == GROUP_RESIDENCE_LL)
+                 || (grp == GROUP_RESIDENCE_ML)
+                 || (grp == GROUP_RESIDENCE_HL)
+                 || (grp == GROUP_RESIDENCE_LH)
+                 || (grp == GROUP_RESIDENCE_MH)
+                 || (grp == GROUP_RESIDENCE_HH) )
+                 {
+                    Residence* residence = static_cast <Residence *> (constructionCount[i]);
                     if (residence->local_population)
                     {
                         residence->local_population--;
@@ -200,13 +211,9 @@ void RocketPad::remove_people(int num)
                         num--;
                         total_evacuated++;
                     }
-                }
-    }
-    while (num > 0 && people_pool > 0)
-    {
-        num--;
-        total_evacuated++;
-        people_pool--;
+                 }
+            }
+        }
     }
 
     refresh_population_text();
@@ -219,9 +226,9 @@ void RocketPad::remove_people(int num)
 
 void RocketPad::report()
 {
-    int i = 0;    
+    int i = 0;
     mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, _("busy"), (busy));    
+    mps_store_sfp(i++, _("busy"), (busy));
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sfp(i++, "Overall Progress", completion);
     mps_store_sfp(i++, "Next Step", step);

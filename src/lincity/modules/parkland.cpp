@@ -13,7 +13,7 @@ ParklandConstructionGroup parklandConstructionGroup(
     "Park",
      TRUE,                     /* need credit? */
      GROUP_PARKLAND,
-     1,                         /* size */
+     GROUP_PARKLAND_SIZE,
      GROUP_PARKLAND_COLOUR,
      GROUP_PARKLAND_COST_MUL,
      GROUP_PARKLAND_BUL_COST,
@@ -30,7 +30,7 @@ Construction *ParklandConstructionGroup::createConstruction(int x, int y, unsign
 void Parkland::update()
 {
     if (world(x,y)->pollution > 10 && (total_time & 1) == 0)
-        world(x,y)->pollution -= 1;
+        world(x,y)->pollution --;
 }
 
 void Parkland::report()
@@ -40,7 +40,7 @@ void Parkland::report()
     mps_store_sd(i++,constructionGroup->name,ID);
     i++;
     mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
-    list_commodities(&i);
+    //list_commodities(&i);
 }
 
 /** @file lincity/modules/parkland.cpp */

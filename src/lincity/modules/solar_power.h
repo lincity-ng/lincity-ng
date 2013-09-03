@@ -5,6 +5,7 @@
 #define GROUP_SOLAR_POWER_TECH 500
 #define GROUP_SOLAR_POWER_FIREC 33
 #define GROUP_SOLAR_POWER_RANGE 0
+#define GROUP_SOLAR_POWER_SIZE 4
 
 #define SOLAR_POWER_JOBS 50
 #define POWERS_SOLAR_OUTPUT 900//1800
@@ -34,7 +35,7 @@ public:
         commodityRuleCount[Construction::STUFF_JOBS].give = false;
         commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_SOLARPS;
         commodityRuleCount[Construction::STUFF_MWH].take = false;
-        commodityRuleCount[Construction::STUFF_MWH].give = true;   
+        commodityRuleCount[Construction::STUFF_MWH].give = true;
     };
     // overriding method that creates a Solar Power Plant
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -44,7 +45,7 @@ extern SolarPowerConstructionGroup solarPowerConstructionGroup;
 
 class SolarPower: public CountedConstruction<SolarPower> { // park inherits from CountedConstruction
 public:
-	SolarPower(int x, int y, unsigned short type): CountedConstruction<SolarPower>(x, y, type)
+    SolarPower(int x, int y, unsigned short type): CountedConstruction<SolarPower>(x, y, type)
     {
         constructionGroup = &solarPowerConstructionGroup;
         this->tech = tech_level;
@@ -53,14 +54,14 @@ public:
         this->busy = 0;
         this->mwh_output = (int)(POWERS_SOLAR_OUTPUT + (((double)tech_level * POWERS_SOLAR_OUTPUT) / MAX_TECH_LEVEL));
         setMemberSaved(&this->mwh_output, "mwh_output");
-        initialize_commodities();      
+        initialize_commodities();
     }
     virtual void update();
-	virtual void report();
-    int  mwh_output; 
-    int  tech;    	
+    virtual void report();
+    int  mwh_output;
+    int  tech;
     int  working_days;
-    int  busy; 
+    int  busy;
 };
 
 

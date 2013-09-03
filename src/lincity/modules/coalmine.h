@@ -1,10 +1,3 @@
-
-#define COALMINE_POLLUTION      3
-#define COAL_PER_RESERVE   1000
-#define JOBS_DIG_COAL 900
-#define MAX_JOBS_AT_COALMINE (20 * JOBS_DIG_COAL)
-#define MAX_COAL_AT_MINE (20 * COAL_PER_RESERVE)
-
 #define GROUP_COALMINE_COLOUR 0
 #define GROUP_COALMINE_COST   10000
 #define GROUP_COALMINE_COST_MUL 25
@@ -12,13 +5,22 @@
 #define GROUP_COALMINE_TECH   85
 #define GROUP_COALMINE_FIREC  85
 #define GROUP_COALMINE_RANGE  6
+#define GROUP_COALMINE_SIZE  4
+
+
+#define COALMINE_POLLUTION      3
+#define COAL_PER_RESERVE   1000
+#define JOBS_DIG_COAL 900
+#define MAX_JOBS_AT_COALMINE (20 * JOBS_DIG_COAL)
+#define MAX_COAL_AT_MINE (20 * COAL_PER_RESERVE)
+
 
 #define TARGET_COAL_LEVEL 80
 
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-//#include "../range.h"
+
 
 
 class CoalmineConstructionGroup: public ConstructionGroup {
@@ -39,7 +41,7 @@ public:
         commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_MINE;
         commodityRuleCount[Construction::STUFF_COAL].take = true;
         commodityRuleCount[Construction::STUFF_COAL].give = true;
-          
+
     }
     // overriding method that creates an Coalmine
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -49,53 +51,52 @@ extern CoalmineConstructionGroup coalmineConstructionGroup;
 
 class Coalmine: public CountedConstruction<Coalmine> { // Coalmine inherits from its CountedConstruction
 public:
-	Coalmine(int x, int y, unsigned short type): CountedConstruction<Coalmine>(x, y, type) 
-    {        
+    Coalmine(int x, int y, unsigned short type): CountedConstruction<Coalmine>(x, y, type)
+    {
         constructionGroup = &coalmineConstructionGroup;
-        this->busy_days = 0;
+        this->working_days = 0;
         this->busy = 0;
         this->current_coal_reserve = 0;  // has to be auto updated since coalmines may compete
         initialize_commodities();
 
         int coal = 0;
         int lenm1 = world.len()-1;
-        int tmp;         
+        int tmp;
         tmp = x - constructionGroup->range;
-        this->xs = (tmp < 1) ? 1 : tmp;         
+        this->xs = (tmp < 1) ? 1 : tmp;
         tmp = y - constructionGroup->range;
-        this->ys = (tmp < 1)? 1 : tmp; 
+        this->ys = (tmp < 1)? 1 : tmp;
         tmp = x + constructionGroup->range + constructionGroup->size;
-        this->xe = (tmp > lenm1) ? lenm1 : tmp;         
+        this->xe = (tmp > lenm1) ? lenm1 : tmp;
         tmp = y + constructionGroup->range + constructionGroup->size;
-        this->ye = (tmp > lenm1)? lenm1 : tmp; 
-		
+        this->ye = (tmp > lenm1)? lenm1 : tmp;
+
         for (int yy = ys; yy < ye ; yy++)
         {
             for (int xx = xs; xx < xe ; xx++)
             {
-                coal += world(xx,yy)->coal_reserve;                
+                coal += world(xx,yy)->coal_reserve;
             }
         }
         //always provide some coal so player can
         //store sustainable coal
         if (coal < 20)
-        { 
-			world(x,y)->coal_reserve += 20-coal;
-			coal = 20;
-		}
+        {
+            world(x,y)->coal_reserve += 20-coal;
+            coal = 20;
+        }
         this->initial_coal_reserve = coal;
         setMemberSaved(&this->initial_coal_reserve,"initial_coal_reserve");
-        this->current_coal_reserve = coal;          
+        this->current_coal_reserve = coal;
     }
-	virtual ~Coalmine() { }
-	virtual void update();
-	virtual void report();
-     
-    int xs, ys, xe, ye;  
+    virtual ~Coalmine() { }
+    virtual void update();
+    virtual void report();
+
+    int xs, ys, xe, ye;
     int initial_coal_reserve;
     int current_coal_reserve;
-    int busy_days;
-    int busy;    
+    int working_days, busy;
 };
 
 /** @file lincity/modules/coalmine.h */

@@ -8,7 +8,6 @@
 #define GROUP_BLACKSMITH_SIZE 2
 
 #define BLACKSMITH_JOBS    35
-#define BLACKSMITH_GET_COAL 6
 
 #define BLACKSMITH_STEEL_USED 1
 #define BLACKSMITH_COAL_USED  1
@@ -51,7 +50,7 @@ public:
         commodityRuleCount[Construction::STUFF_STEEL].give = false;
         commodityRuleCount[Construction::STUFF_GOODS].maxload = MAX_GOODS_AT_BLACKSMITH;
         commodityRuleCount[Construction::STUFF_GOODS].take = false;
-        commodityRuleCount[Construction::STUFF_GOODS].give = true;         
+        commodityRuleCount[Construction::STUFF_GOODS].give = true;
     }
     // overriding method that creates a blacksmith
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -61,37 +60,37 @@ extern BlacksmithConstructionGroup blacksmithConstructionGroup;
 
 class Blacksmith: public CountedConstruction<Blacksmith> { // Blacksmith inherits from its CountedConstruction
 public:
-	Blacksmith(int x, int y, unsigned short type): CountedConstruction<Blacksmith>(x, y, type)  
+    Blacksmith(int x, int y, unsigned short type): CountedConstruction<Blacksmith>(x, y, type)
     {
-        //static int blacksmithID = 0;        
-        constructionGroup = &blacksmithConstructionGroup;		
+        //static int blacksmithID = 0;
+        constructionGroup = &blacksmithConstructionGroup;
         //this->x = x; this->y = y;
-		//this->type = CST_BLACKSMITH_0;
+        //this->type = CST_BLACKSMITH_0;
         //this->ID = ++blacksmithID;
-        //this->flags = 0;        
+        //this->flags = 0;
         this->anim = 0; // or real_time?
-        this->pauseCounter = 0;        
+        this->pauseCounter = 0;
         this->productivity = 0;
-        this->workingdays = 0;        
+        this->workingdays = 0;
         this->animate = false;
         this->goods_made = 0;
         initialize_commodities();
         //this->commodityCount[STUFF_JOBS] = 0;
         //this->commodityCount[STUFF_COAL] = 0;
-        //this->commodityCount[STUFF_STEEL] = 0;         
+        //this->commodityCount[STUFF_STEEL] = 0;
         //this->commodityCount[STUFF_GOODS] = 0;
-                     
-	}
-	virtual ~Blacksmith() { }
-	virtual void update();
-	virtual void report();
-    
-    int  goods_made;    
-    int  anim;    
+
+    }
+    virtual ~Blacksmith() { }
+    virtual void update();
+    virtual void report();
+
+    int  goods_made;
+    int  anim;
     int  pauseCounter;
     int  workingdays;
     int  productivity;
-    bool animate;	
+    bool animate;
 };
 
 

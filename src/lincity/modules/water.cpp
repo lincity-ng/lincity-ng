@@ -13,16 +13,13 @@ void mps_water(int x, int y)
     int i;
     const char *p;
 
-    //for(i = 0; i < MPS_PARAGRAPH_COUNT; ++i)
-    //                    mps_store_title( i, "" );
-
     i = 0;
     mps_store_title(i++, _("Water"));
     i++;
 
     p = (world(x,y)->flags & FLAG_IS_RIVER) ? _("River") : _("Lake");
     mps_store_title(i++, p);
-
+/*
 #ifdef DEBUG
     mps_store_sd(10, "x", x);
     mps_store_sd(11, "y", y);
@@ -30,7 +27,7 @@ void mps_water(int x, int y)
 
     fprintf(stderr, "water x %i, y %i, Alt %i\n", x, y, world(x,y)->ground.altitude);
 #endif
-
+*/
 }
 
 /** @file lincity/modules/water.cpp */

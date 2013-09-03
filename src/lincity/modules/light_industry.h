@@ -5,10 +5,7 @@
 #define GROUP_INDUSTRY_L_TECH 160
 #define GROUP_INDUSTRY_L_FIREC 70
 #define GROUP_INDUSTRY_L_RANGE 0
-
-//#define INDUSTRY_L_GET_JOBS    120
-//#define INDUSTRY_L_GET_ORE     600
-//#define INDUSTRY_L_GET_STEEL   60
+#define GROUP_INDUSTRY_L_SIZE 3
 
 #define INDUSTRY_L_ORE_USED  125
 #define INDUSTRY_L_STEEL_USED  12
@@ -17,20 +14,18 @@
 #define INDUSTRY_L_JOBS_LOAD_STEEL 4
 #define MIN_JOBS_AT_INDUSTRY_L (INDUSTRY_L_JOBS_LOAD_ORE + INDUSTRY_L_JOBS_LOAD_STEEL + INDUSTRY_L_JOBS_USED)
 #define INDUSTRY_L_MAKE_GOODS 225
+#define INDUSTRY_L_POWER_PER_GOOD 10
 
-#define MAX_ORE_AT_INDUSTRY_L (20 * INDUSTRY_L_ORE_USED) 
+#define MAX_ORE_AT_INDUSTRY_L (20 * INDUSTRY_L_ORE_USED)
 #define MAX_JOBS_AT_INDUSTRY_L (20 * MIN_JOBS_AT_INDUSTRY_L)
 #define MAX_GOODS_AT_INDUSTRY_L (20*2*4 * INDUSTRY_L_MAKE_GOODS)
 #define MAX_WASTE_AT_INDUSTRY_L (MAX_GOODS_AT_INDUSTRY_L / 20)
-#define MAX_KWH_AT_INDUSTY_L (20*2*10*INDUSTRY_L_MAKE_GOODS)
-#define MAX_MWH_AT_INDUSTY_L MAX_KWH_AT_INDUSTY_L
+#define MAX_KWH_AT_INDUSTY_L (INDUSTRY_L_POWER_PER_GOOD*MAX_GOODS_AT_INDUSTRY_L)
+#define MAX_MWH_AT_INDUSTY_L (INDUSTRY_L_POWER_PER_GOOD*MAX_GOODS_AT_INDUSTRY_L / 2)
 #define MAX_STEEL_AT_INDUSTRY_L (20 * INDUSTRY_L_STEEL_USED)
 
 #define INDUSTRY_L_ANIM_SPEED 290
 #define INDUSTRY_L_POL_PER_GOOD 0.05
-//#define INDUSTRY_L_POLLUTION    10
-
-
 
 class IndustryLightConstructionGroup: public ConstructionGroup {
 public:
@@ -53,7 +48,7 @@ public:
         commodityRuleCount[Construction::STUFF_GOODS].give = true;
         commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_INDUSTRY_L;
         commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = false;        
+        commodityRuleCount[Construction::STUFF_ORE].give = false;
         commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_AT_INDUSTRY_L;
         commodityRuleCount[Construction::STUFF_STEEL].take = true;
         commodityRuleCount[Construction::STUFF_STEEL].give = false;
@@ -65,7 +60,7 @@ public:
         commodityRuleCount[Construction::STUFF_KWH].give = false;
         commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_AT_INDUSTY_L;
         commodityRuleCount[Construction::STUFF_MWH].take = true;
-        commodityRuleCount[Construction::STUFF_MWH].give = false;          
+        commodityRuleCount[Construction::STUFF_MWH].give = false;
     };
     // overriding method that creates a LightIndustry
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -75,7 +70,7 @@ extern IndustryLightConstructionGroup industryLightConstructionGroup;
 
 class IndustryLight: public CountedConstruction<IndustryLight> { // IndustryLight inherits from CountedConstruction
 public:
-	IndustryLight(int x, int y, unsigned short type): CountedConstruction<IndustryLight>(x, y, type)
+    IndustryLight(int x, int y, unsigned short type): CountedConstruction<IndustryLight>(x, y, type)
     {
         constructionGroup = &industryLightConstructionGroup;
         this->tech = tech_level;
@@ -84,11 +79,11 @@ public:
         this->busy = 0;
         this->goods_this_month = 0;
         this->anim = 0;
-        initialize_commodities();     
+        initialize_commodities();
         this->bonus = 0;
         setMemberSaved(&this->bonus, "bonus");
         this->extra_bonus = 0;
-        setMemberSaved(&this->extra_bonus, "extra_bonus");         
+        setMemberSaved(&this->extra_bonus, "extra_bonus");
         if (tech > MAX_TECH_LEVEL)
         {
             bonus = (tech - MAX_TECH_LEVEL);
@@ -101,15 +96,15 @@ public:
                 extra_bonus = tech - 2 * MAX_TECH_LEVEL;
                 if (extra_bonus > MAX_TECH_LEVEL)
                     extra_bonus = MAX_TECH_LEVEL;
-                extra_bonus /= MAX_TECH_LEVEL;                    
-            }         
+                extra_bonus /= MAX_TECH_LEVEL;
+            }
         }
     }
     virtual void update();
-	virtual void report();
+    virtual void report();
 
     int  tech;
-    double bonus, extra_bonus;    	
+    double bonus, extra_bonus;
     int  working_days;
     int  busy;
     int  anim;

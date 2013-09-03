@@ -13,7 +13,7 @@ CoalmineConstructionGroup coalmineConstructionGroup(
     "Coal Mine",
      FALSE,                     /* need credit? */
      GROUP_COALMINE,
-     4,                         /* size */
+     GROUP_COALMINE_SIZE,
      GROUP_COALMINE_COLOUR,
      GROUP_COALMINE_COST_MUL,
      GROUP_COALMINE_BUL_COST,
@@ -31,71 +31,69 @@ Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsign
 void Coalmine::update()
 {
     bool coal_found = false;
-    //scan available coal_reserve in range    
-    current_coal_reserve = 0; 
+    //scan available coal_reserve in range
+    current_coal_reserve = 0;
     for (int yy = ys; yy < ye ; yy++)
     {
         for (int xx = xs; xx < xe ; xx++)
         {
-            current_coal_reserve += world(xx,yy)->coal_reserve;                
+            current_coal_reserve += world(xx,yy)->coal_reserve;
         }
     }
     // use some jobs for loading coal to transport
-    if(commodityCount[STUFF_JOBS] >= JOBS_LOAD_COAL && commodityCount[STUFF_COAL] > 0)
-    {    
-        commodityCount[STUFF_JOBS] -= JOBS_LOAD_COAL;  
+    if(commodityCount[STUFF_JOBS] >= JOBS_LOAD_COAL && commodityCount[STUFF_COAL] > COAL_PER_RESERVE)
+    {
+        commodityCount[STUFF_JOBS] -= JOBS_LOAD_COAL;
     }
     // mine some coal
-    if ((current_coal_reserve > 0) 
+    if ((current_coal_reserve > 0)
     && (commodityCount[STUFF_COAL] <= TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE - COAL_PER_RESERVE)/100)
-    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL)) 
-    {   
+    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL))
+    {
         for (int yy = ys; (yy < ye) && !coal_found; yy++)
         {
             for (int xx = xs; (xx < xe) && !coal_found; xx++)
             {
-                if (world(xx,yy)->coal_reserve > 0) 
+                if (world(xx,yy)->coal_reserve > 0)
                 {
                     world(xx,yy)->coal_reserve--;
                     world(xx,yy)->pollution += COALMINE_POLLUTION;
                     commodityCount[STUFF_COAL] += COAL_PER_RESERVE;
-                    commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;                        
-                    //FIXME coal tax is handled in equlibrate_transport
-                    //coal_made += COAL_PER_RESERVE;                     
+                    commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;
                     if (current_coal_reserve < initial_coal_reserve)
-                    {	sust_dig_ore_coal_tip_flag = 0;}
+                    {   sust_dig_ore_coal_tip_flag = 0;}
                     coal_found = true;
-                    busy_days++;  
+                    working_days++;
                 }
             }
-        }        
-    }    
+        }
+    }
     else if ((commodityCount[STUFF_COAL] - COAL_PER_RESERVE > TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE)/100)
-    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL)) 
-    {   
+    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL))
+    {
         for (int yy = ys; (yy < ye) && !coal_found; yy++)
         {
             for (int xx = xs; (xx < xe) && !coal_found; xx++)
             {
-                if (world(xx,yy)->coal_reserve < COAL_RESERVE_SIZE) 
+                if (world(xx,yy)->coal_reserve < COAL_RESERVE_SIZE)
                 {
                     world(xx,yy)->coal_reserve++;
-                    
+
                     commodityCount[STUFF_COAL] -= COAL_PER_RESERVE;
-                    commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;                        
+                    commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;
                     coal_found = true;
-                    busy_days++;  
+                    working_days++;
                 }
             }
-        }        
-    }    
-    //Monthly update of activity    
+        }
+    }
+    //Monthly update of activity
     if (total_time % 100 == 0)
     {
-        busy = busy_days;
-        busy_days = 0;
+        busy = working_days;
+        working_days = 0;
     }
-    //choose type depending on availabe coal    
+    //choose type depending on availabe coal
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 4)))//75%
         type = CST_COALMINE_FULL;
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE / 2))//50%
@@ -105,14 +103,11 @@ void Coalmine::update()
     else//nothing
         type = CST_COALMINE_EMPTY;
 
-	//Evacuate Mine if no more deposits
-	if (!(flags & FLAG_EVACUATE) && (current_coal_reserve < 1) )
-	{
-		flags |= FLAG_EVACUATE;
-		//constructionGroup = &emptyCoalmineConstructionGroup;
-	}
+    //Evacuate Mine if no more deposits
+    if (current_coal_reserve < 1 )
+    {   flags |= FLAG_EVACUATE;}
 
-    //Abandon the Coalmine if it is really empty  
+    //Abandon the Coalmine if it is really empty
     if ((current_coal_reserve < 1)
       &&(commodityCount[STUFF_JOBS] < 1)
       &&(commodityCount[STUFF_COAL] < 1) )
@@ -127,11 +122,11 @@ void Coalmine::update()
 void Coalmine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);   
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, "busy", busy);
-    mps_store_sddp(i++, "Deposits", current_coal_reserve, initial_coal_reserve);    
+    mps_store_sddp(i++, "Deposits", current_coal_reserve, initial_coal_reserve);
     i++;
-    list_commodities(&i);    
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/coalmine.cpp */

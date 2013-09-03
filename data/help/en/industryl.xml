@@ -1,22 +1,28 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Light industrial areas</p>
-	<p style="hp">Light industry converts ore into goods. The conversion becomes more efficient if steel is also available. Power increases the output further still. Inefficient kWh may be delivered by transport. MWh can be directly supplied by powerlines. Windmills will barely provide enough kWH</p>
-	<p style="hp">As a rule of thumb, the output of a light industrial area is mainly dependent on the amount of raw materials, including jobs, that it can receive, and also the amount of goods that can be <b>taken away</b>.</p>
-	<p style="hp">These areas connect directly to transport to exchange jobs, ore, steel, kWh and goods. They may need a market to run at full capacity.</p>
+    <p style="htitle">Light industrial areas</p>
+    <p style="hp">Light industry converts ore into goods.
+    The conversion becomes more efficient if steel is also available.
+    Power increases the output further still. Inefficient kWh may
+    be delivered by transport. MWh can be directly supplied by powerlines.
+    Windmills will barely provide enough kWH</p>
+    <p style="hp">As a rule of thumb, the output of a light industrial
+    area is mainly dependent on the amount of raw materials,
+    including jobs, that it can receive, and also the amount
+    of goods that can be taken away.</p>
+    <p style="hp">These areas connect directly to transport to exchange
+    jobs, ore, steel, kWh and goods. They may need a market to run at full capacity.</p>
 
-	<p style="hp">Light industries produce <a href="pollution">pollution.</a></p>
-	
-	<p style="hp">This is Light Industry</p>
-	<img src="images/tiles/industryll1.png" halign="center"/>
-	<p style="hp">and this its icon</p>
-	<img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
-	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="transport">Transport</a></li>
-	<li><a href="road">Roads</a></li>
-	<li><a href="rail">Railways</a></li>
-	<li><a href="market">Markets</a></li>
-	<li><a href="jobs">Jobs</a></li>
-	<li><a href="pollution">Pollution</a></li>
+    <p style="hp">Light industries produce heavy pollution.</p>
+
+    <p style="hp">This is Light Industry</p>
+    <img src="images/tiles/industryll1.png" halign="center"/>
+    <p style="hp">and this its icon</p>
+    <img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+
+    <p style="hsubtitle">See also:</p>
+    <li><a href="transport">Transport</a></li>
+    <li><a href="market">Markets</a></li>
+    <li><a href="commodities">Commodities</a></li>
+    <li><a href="pollution">Pollution</a></li>
 </Document>

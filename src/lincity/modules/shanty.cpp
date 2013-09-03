@@ -15,7 +15,7 @@ ShantyConstructionGroup shantyConstructionGroup(
     "Shanty Town",
      FALSE,                     /* need credit? */
      GROUP_SHANTY,
-     GROUP_SHANTY_SIZE,         /* size */
+     GROUP_SHANTY_SIZE,
      GROUP_SHANTY_COLOUR,
      GROUP_SHANTY_COST_MUL,
      GROUP_SHANTY_BUL_COST,
@@ -36,24 +36,26 @@ void add_a_shanty(void)
 {
     int r, x, y;
     int numof_shanties = Counted<Shanty>::getInstanceCount();
-    x = rand() % world.len();
-    y = rand() % world.len();
-    if (numof_shanties > 0 && rand() % 8 != 0) {
+    const int len = world.len();
+    x = rand() % len;
+    y = rand() % len;
+    if (numof_shanties > 0 && rand() % 8 != 0)
+    {
         r = find_group(x, y, GROUP_SHANTY);
         if (r == -1) {
             printf("Looked for a shanty, without any! x=%d y=%d\n", x, y);
             return;
         }
-        y = r / world.len();
-        x = r % world.len();
+        y = r / len;
+        x = r % len;
         r = find_bare_area(x, y, 2);
         if (r == -1) {
             /* wck: These are annoying when the map is full */
             fprintf(stderr,"Adding a shanty (s), no space for it?!\n");
             return;
         }
-        y = r / world.len();
-        x = r % world.len();
+        y = r / len;
+        x = r % len;
     }
     else
     {
@@ -61,16 +63,17 @@ void add_a_shanty(void)
         if (r == -1)
             return;             /* silently return, we havn't started yet. */
 
-        y = r / world.len();
-        x = r % world.len();
+        y = r / len;
+        x = r % len;
         r = find_bare_area(x, y, 2);
-        if (r == -1) {
+        if (r == -1)
+        {
             /* see above */
             fprintf(stderr,"Adding a shanty (r), no space for it?!\n");
             return;
         }
-        y = r / world.len();
-        x = r % world.len();
+        y = r / len;
+        x = r % len;
     }
     shantyConstructionGroup.placeItem( x, y, CST_SHANTY);
 }
@@ -80,6 +83,7 @@ void update_shanty(void)
     int i, pp;
     int numof_communes = Counted<Commune>::getInstanceCount();
     int numof_shanties = Counted<Shanty>::getInstanceCount();
+    const int len = world.len();
     //Foersts make new people? Why not
     //people_pool += .3 * numof_communes;
     people_pool -= 5 * numof_shanties;
@@ -99,16 +103,16 @@ void update_shanty(void)
         for (int n = 0; n < (1+(numof_shanties - i)/10); n++)
         {
             int x, y, r;
-            x = rand() % world.len();
-            y = rand() % world.len();
+            x = rand() % len;
+            y = rand() % len;
             r = find_group(x, y, GROUP_SHANTY);
             if (r == -1)
             {
                 fprintf(stderr, "Can't find a shanty to remove!\n");
                 return;
             }
-            y = r / world.len();
-            x = r % world.len();
+            y = r / len;
+            x = r % len;
             ConstructionManager::executeRequest
                 (
                     new BurnDownRequest(world(x,y)->reportingConstruction)

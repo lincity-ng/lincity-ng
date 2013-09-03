@@ -1,20 +1,25 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Schools</p>
-	<p style="hp">Schools use jobs and goods to produce technology in a similar way to universities. They use far fewer jobs and goods than universities, but produce far fewer tech points. Given the choice between putting four or five schools in a given area, or a single university, it is often (but not always) better to put a university in.</p>
-	<p style="hp">Schools do <b>not</b> need to connect to transport, but do need to be within range of a market than can supply the quantity of jobs and goods to make the school work.</p>
-	<p style="hp">Schools cost money to run. You can see the total cost for the <b>last</b> year by clicking on the money button.</p>
-	<p style="hp">You can see when a school is working in the usual way, by clicking on it.</p>
-	
-	<p style="hp">This is a school</p>
-	<img src="images/tiles/school0.png" halign="center"/>
-	<p style="hp">and this its icon</p>
-	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
-	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="market">Market</a></li>
-	<li><a href="university">Universities</a></li>
-	<li><a href="transport">Transport</a></li>
-	<li><a href="goods">Goods</a></li>
-	<li><a href="jobs">Jobs</a></li>
+    <p style="htitle">Schools</p>
+    <p style="hp">Schools use jobs and goods to produce technology in a similar way to universities.
+    They use far fewer jobs and goods than universities, but produce far fewer tech points.
+    Given the choice between putting four or five schools in a given area, or a single university,
+    it is often (but not always) better to put a university in.</p>
+    <p style="hp">Schools do not need to connect to transport, but do need to be within
+    range of a market than can supply the quantity of jobs and goods to make the school work.</p>
+    <p style="hp">Schools cost money to run. You can see the total cost for the last year by clicking on the money button.</p>
+    <p style="hp">You can see when a school is working in the usual way, by clicking on it.</p>
+
+    <p style="hp">This is a school</p>
+    <img src="images/tiles/school0.png" halign="center"/>
+    <p style="hp">and this its icon</p>
+    <img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+
+    <p style="hsubtitle">See also:</p>
+    <li><a href="tech-level">Tech Level</a></li>
+    <li><a href="market">Market</a></li>
+    <li><a href="university">Universities</a></li>
+    <li><a href="transport">Transport</a></li>
+    <li><a href="goods">Goods</a></li>
+    <li><a href="jobs">Jobs</a></li>
 </Document>

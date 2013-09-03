@@ -5,6 +5,7 @@
 #define GROUP_UNIVERSITY_TECH 150
 #define GROUP_UNIVERSITY_FIREC 40
 #define GROUP_UNIVERSITY_RANGE 0
+#define GROUP_UNIVERSITY_SIZE 3
 
 #define UNIVERSITY_JOBS   250
 #define UNIVERSITY_GOODS  750
@@ -14,8 +15,6 @@
 #define MAX_JOBS_AT_UNIVERSITY (20 * UNIVERSITY_JOBS)
 #define MAX_GOODS_AT_UNIVERSITY (20 * UNIVERSITY_GOODS)
 #define MAX_WASTE_AT_UNIVERSITY (20 * UNIVERSITY_GOODS / 3)
-
-
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -42,7 +41,7 @@ public:
         commodityRuleCount[Construction::STUFF_GOODS].give = false;
         commodityRuleCount[Construction::STUFF_WASTE].maxload = MAX_WASTE_AT_UNIVERSITY;
         commodityRuleCount[Construction::STUFF_WASTE].take = false;
-        commodityRuleCount[Construction::STUFF_WASTE].give = true;    
+        commodityRuleCount[Construction::STUFF_WASTE].give = true;
     }
     // overriding method that creates a University
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -52,22 +51,21 @@ extern UniversityConstructionGroup universityConstructionGroup;
 
 class University: public CountedConstruction<University> { // university inherits from its own CountedConstruction
 public:
-	University(int x, int y, unsigned short type): CountedConstruction<University>(x, y, type)
-    {       
+    University(int x, int y, unsigned short type): CountedConstruction<University>(x, y, type)
+    {
         constructionGroup = &universityConstructionGroup;
-        this->teaching_this_month = 0;
-        this->teaching_last_month = 0;
+        this->working_days = 0;
+        this->busy = 0;
         this->total_tech_made = 0;
         setMemberSaved(&this->total_tech_made, "total_tech_made");
         initialize_commodities();
     }
-	virtual ~University() { }
-	virtual void update();
-	virtual void report();
-    
-    int total_tech_made;    
-    int teaching_this_month;
-    int teaching_last_month;
+    virtual ~University() { }
+    virtual void update();
+    virtual void report();
+
+    int total_tech_made;
+    int working_days, busy;
 };
 
 

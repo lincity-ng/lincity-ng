@@ -5,13 +5,14 @@
 #define GROUP_PORT_TECH 35
 #define GROUP_PORT_FIREC 50
 #define GROUP_PORT_RANGE 0
+#define GROUP_PORT_SIZE 4
 
 #define PORT_FOOD_RATE    1
 #define PORT_JOBS_RATE    5
-#define PORT_COAL_RATE    50 
+#define PORT_COAL_RATE    50
 #define PORT_ORE_RATE     1
 #define PORT_GOODS_RATE   3
-#define PORT_STEEL_RATE   100 
+#define PORT_STEEL_RATE   100
 #define PORT_POLLUTION    1
 //FIXME Guessing some values
 #define PORT_JOBS  100
@@ -36,7 +37,7 @@
 #define PORT_EXPORT_RATE  500
 #define PORT_IMPORT_RATE  500
 #define PORT_TRIGGER_RATE  15
- 
+
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
@@ -56,10 +57,10 @@ public:
     ) {
         commodityRuleCount[Construction::STUFF_JOBS].maxload = MAX_JOBS_ON_PORT;
         commodityRuleCount[Construction::STUFF_JOBS].take = true;
-        commodityRuleCount[Construction::STUFF_JOBS].give = false;        
+        commodityRuleCount[Construction::STUFF_JOBS].give = false;
         commodityRuleCount[Construction::STUFF_FOOD].maxload = MAX_FOOD_ON_PORT;
         commodityRuleCount[Construction::STUFF_FOOD].take = true;
-        commodityRuleCount[Construction::STUFF_FOOD].give = true;        
+        commodityRuleCount[Construction::STUFF_FOOD].give = true;
         commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_ON_PORT;
         commodityRuleCount[Construction::STUFF_COAL].take = true;
         commodityRuleCount[Construction::STUFF_COAL].give = true;
@@ -68,17 +69,17 @@ public:
         commodityRuleCount[Construction::STUFF_GOODS].give = true;
         commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_ON_PORT;
         commodityRuleCount[Construction::STUFF_ORE].take = true;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;        
+        commodityRuleCount[Construction::STUFF_ORE].give = true;
         commodityRuleCount[Construction::STUFF_STEEL].maxload = MAX_STEEL_ON_PORT;
         commodityRuleCount[Construction::STUFF_STEEL].take = true;
         commodityRuleCount[Construction::STUFF_STEEL].give = true;
-          
+
         commodityRates[Construction::STUFF_FOOD] = PORT_FOOD_RATE;
         commodityRates[Construction::STUFF_COAL] = PORT_COAL_RATE;
         commodityRates[Construction::STUFF_GOODS] = PORT_GOODS_RATE;
         commodityRates[Construction::STUFF_ORE] = PORT_ORE_RATE;
         commodityRates[Construction::STUFF_STEEL] = PORT_STEEL_RATE;
-       
+
     };
     //map that holds the Rates for the commodities
     std::map<Construction::Commodities, int> commodityRates;
@@ -90,14 +91,14 @@ extern PortConstructionGroup portConstructionGroup;
 
 class Port: public CountedConstruction<Port> { // park inherits from Construction
 public:
-	Port(int x, int y, unsigned short type): CountedConstruction<Port>(x, y, type) 
-    {       
+    Port(int x, int y, unsigned short type): CountedConstruction<Port>(x, y, type)
+    {
         constructionGroup = &portConstructionGroup;
         this->daily_ic = 0; this->daily_et = 0;
         this->monthly_ic = 0; this->monthly_et = 0;
         this->lastm_ic = 0; this->lastm_et = 0;
         this->pence = 0;
-        this->working_days = 0;        
+        this->working_days = 0;
         this->busy = 0;
         this->tech_made = 0;
         setMemberSaved(&this->tech_made, "tech_made");
@@ -116,11 +117,11 @@ public:
         commodityRuleCount[Construction::STUFF_ORE].give = false;
         commodityRuleCount[Construction::STUFF_STEEL].take = false;
         commodityRuleCount[Construction::STUFF_STEEL].give = false;
-        setCommodityRulesSaved(&commodityRuleCount);             
+        setCommodityRulesSaved(&commodityRuleCount);
     }
-	virtual ~Port() { }
-	virtual void update();
-	virtual void report();
+    virtual ~Port() { }
+    virtual void update();
+    virtual void report();
     int buy_stuff(Commodities stuff_ID);
     int sell_stuff(Commodities stuff_ID);
     void trade_connection();
@@ -130,7 +131,7 @@ public:
     int pence;
     int working_days;
     int busy;
-    int tech_made; 
+    int tech_made;
 };
 
 

@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Transport</p>
-	<p style="hp">There are three types of transport in Lincity: tracks, roads and railways.</p>
-	<p style="hp">There is a fourth form that consists of 'hopping across a field' to reach a market. This is a very short range form of trading and will not be referred to as transport again. However, it is very important, so you should read again <a href="market"> markets</a>.</p>
+    <p style="htitle">Transport</p>
+    <p style="hp">There are three types of transport in Lincity: tracks, roads and railways.</p>
+    <p style="hp">There is a fourth form that consists of 'hopping across a field' to reach a market. This is a very short range form of trading and will not be referred to as transport again. However, it is very important, so you should read again <a href="market"> markets</a>.</p>
 
-	<p style="hp">Tracks, roads and railways are used to carry food, jobs, goods, coal, ore, steel and wastes between areas. Transport between markets, transport for buildings out of range of a market (this is generally a bad idea) and transport for building that explicitely need it:</p>
-	
-	<p style="hp">The transportation network can pick up, distribute and deliever any kind of commodity, except for MWh which are flowing in power lines. All steps to, inside and from the transportation network require direct adjacency. The market behaves differently.</p>
+    <p style="hp">Tracks, roads and railways are used to carry food, jobs, goods, coal, ore, steel and wastes between areas. Transport between markets, transport for buildings out of range of a market (this is generally a bad idea) and transport for building that explicitely need it:</p>
 
-	<p style="hp">To cross a river with transport, simply build the transport over the river and you will create a bridge. Bridges are much more expensive than normal transport.</p>
+    <p style="hp">The transportation network can pick up, distribute and deliever any kind of commodity, except for MWh which are flowing in power lines. All steps to, inside and from the transportation network require direct adjacency. The market behaves differently.</p>
 
-	<p style="hp">Roads and Rail causes yearly costs (for maintenance) and pollution (and more pollution if they carry lots of wastes).</p>
+    <p style="hp">To cross a river with transport, simply build the transport over the river and you will create a bridge. Bridges are much more expensive than normal transport.</p>
 
-	<p style="hsubtitle">See also:</p>	
-	<li><a href="track">Tracks</a></li>
-	<li><a href="road">Roads</a></li>
-	<li><a href="rail">Railways</a></li>
-	<li><a href="market">Market</a></li>
-	<li><a href="powerline">Power lines</a></li>
-	<li><a href="commodities">Commodities</a></li>
-	<li><a href="finance">Finance window</a></li>
-	<li><a href="msb-transport">Transportation and market overlay</a></li>
+    <p style="hp">Roads and Rail causes yearly costs (for maintenance) and pollution (and more pollution if they carry lots of wastes).</p>
+
+    <p style="hsubtitle">See also:</p>
+    <li><a href="track">Tracks</a></li>
+    <li><a href="road">Roads</a></li>
+    <li><a href="rail">Railways</a></li>
+    <li><a href="market">Market</a></li>
+    <li><a href="powerline">Power lines</a></li>
+    <li><a href="commodities">Commodities</a></li>
+    <li><a href="finance">Finance window</a></li>
+    <li><a href="msb-transport">Transportation overlay</a></li>
 
 </Document>

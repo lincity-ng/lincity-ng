@@ -5,15 +5,14 @@
  * (c) Corey Keasling, 2004
  * ---------------------------------------------------------------------- */
 
-#include "modules.h"
+
 #include "fire.h"
-#include <stdlib.h>
 
 FireConstructionGroup fireConstructionGroup(
     "Fire",
      FALSE,                     /* need credit? */
      GROUP_FIRE,
-     GROUP_FIRE_SIZE,           /* size */
+     GROUP_FIRE_SIZE,
      GROUP_FIRE_COLOUR,
      GROUP_FIRE_COST_MUL,
      GROUP_FIRE_BUL_COST,

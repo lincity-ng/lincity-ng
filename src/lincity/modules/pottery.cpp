@@ -11,7 +11,7 @@ PotteryConstructionGroup potteryConstructionGroup(
     "Pottery",
     FALSE,                     /* need credit? */
     GROUP_POTTERY,
-    2,                         /* size */
+    GROUP_POTTERY_SIZE,
     GROUP_POTTERY_COLOUR,
     GROUP_POTTERY_COST_MUL,
     GROUP_POTTERY_BUL_COST,
@@ -33,25 +33,27 @@ void Pottery::update()
         }
 
     if (pauseCounter++ < 0)
-        return;   
-        if (   commodityCount[STUFF_GOODS] < (MAX_GOODS_AT_POTTERY - POTTERY_MADE_GOODS)
-            && commodityCount[STUFF_ORE] > POTTERY_ORE_MAKE_GOODS
-            && commodityCount[STUFF_COAL] > POTTERY_COAL_MAKE_GOODS
-            && commodityCount[STUFF_JOBS] > POTTERY_JOBS) 
-        {
-            commodityCount[STUFF_GOODS] += POTTERY_MADE_GOODS;
-            commodityCount[STUFF_ORE] -= POTTERY_ORE_MAKE_GOODS;
-            commodityCount[STUFF_COAL] -= POTTERY_COAL_MAKE_GOODS;
-            commodityCount[STUFF_JOBS] -= POTTERY_JOBS;
-            workingdays++;
-            animate = true;
-        } 
-        else 
-        {
-            type = CST_POTTERY_1;
-            pauseCounter = -POTTERY_CLOSE_TIME;
-            return;
-        }
+        return;
+    if (commodityCount[STUFF_GOODS] < (MAX_GOODS_AT_POTTERY - POTTERY_MADE_GOODS)
+        && commodityCount[STUFF_ORE] > POTTERY_ORE_MAKE_GOODS
+        && commodityCount[STUFF_COAL] > POTTERY_COAL_MAKE_GOODS
+        && commodityCount[STUFF_JOBS] > POTTERY_JOBS)
+    {
+        commodityCount[STUFF_GOODS] += POTTERY_MADE_GOODS;
+        commodityCount[STUFF_ORE] -= POTTERY_ORE_MAKE_GOODS;
+        commodityCount[STUFF_COAL] -= POTTERY_COAL_MAKE_GOODS;
+        commodityCount[STUFF_JOBS] -= POTTERY_JOBS;
+
+        animate = true;
+        if(!((workingdays++)%10))
+        {   world(x,y)->pollution++;}
+    }
+    else
+    {
+        type = CST_POTTERY_0;
+        pauseCounter = -POTTERY_CLOSE_TIME;
+        return;
+    }
     if (animate && real_time > anim)
     {
         anim = real_time + POTTERY_ANIM_SPEED;
@@ -89,10 +91,9 @@ void Pottery::update()
                 break;
             case (CST_POTTERY_10):
                 type = CST_POTTERY_1;
-                world(x,y)->pollution++;
                 animate = false;
                 break;
-        }   
+        }
     }
 }
 
@@ -104,7 +105,7 @@ void Pottery::report()
     i++;
     mps_store_sfp(i++, _("busy"), (float) productivity);
     i++;
-    list_commodities(&i);    
+    list_commodities(&i);
 }
 
 /** @file lincity/modules/pottery.cpp */

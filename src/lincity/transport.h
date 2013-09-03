@@ -19,7 +19,7 @@ tentatively participate want traffic or -1 if there is no such stuff known at ma
 
 int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap, int ratio, Construction::Commodities stuff_ID);
 /*
-    Handles the flow of stuff between the central and the remote tile. takes care of  paying taxes. 
+    Handles the flow of stuff between the central and the remote tile. takes care of  paying taxes.
 */
 
 void connect_transport(int originx, int originy, int w, int h);
@@ -47,6 +47,7 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_RAIL_FIREC   6
 
 #define GROUP_TRANSPORT_RANGE 0
+#define GROUP_TRANSPORT_SIZE 1
 
 #define GROUP_POWER_LINE_COLOUR (yellow(26))
 #define GROUP_POWER_LINE_COST 100
@@ -55,6 +56,7 @@ void connect_transport(int originx, int originy, int w, int h);
 #define GROUP_POWER_LINE_TECH 200
 #define GROUP_POWER_LINE_FIREC 0
 #define GROUP_POWER_LINE_RANGE 0
+#define GROUP_POWER_LINE_SIZE 1
 #define POWER_LINE_LOSS 1       /* one MWH */
 #define POWER_MODULUS 18        /* Controls how often we see a packet in anim */
 
@@ -101,7 +103,6 @@ void connect_transport(int originx, int originy, int w, int h);
 #define MAX_WASTE_IN_MARKET (MAX_WASTE_ON_RAIL*3)
 #define WASTE_BURN_ON_TRANSPORT 100
 #define WASTE_BURN_ON_TRANSPORT_POLLUTE WASTE_BURN_ON_TRANSPORT/2
-//#define TRANSPORT_BURN_WASTE_COUNT 75000
 
 #define MAX_KWH_ON_TRACK 2048
 #define MAX_KWH_ON_ROAD (MAX_KWH_ON_TRACK*4)

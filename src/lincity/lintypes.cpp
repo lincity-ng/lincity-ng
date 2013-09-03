@@ -822,7 +822,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Power line"),
      FALSE,                     /* need credit? */
      GROUP_POWER_LINE,
-     1,                         /* size */
+     GROUP_POWER_LINE_SIZE,
      GROUP_POWER_LINE_COLOUR,
      GROUP_POWER_LINE_COST_MUL,
      GROUP_POWER_LINE_BUL_COST,
@@ -834,7 +834,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Solar PS"),
      TRUE,                      /* need credit? */
      GROUP_SOLAR_POWER,
-     4,                         /* size */
+     GROUP_SOLAR_POWER_SIZE,
      GROUP_SOLAR_POWER_COLOUR,
      GROUP_SOLAR_POWER_COST_MUL,
      GROUP_SOLAR_POWER_BUL_COST,
@@ -845,7 +845,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Substation"),
      FALSE,                     /* need credit? */
      GROUP_SUBSTATION,
-     2,                         /* size */
+     GROUP_SUBSTATION_SIZE,
      GROUP_SUBSTATION_COLOUR,
      GROUP_SUBSTATION_COST_MUL,
      GROUP_SUBSTATION_BUL_COST,
@@ -856,7 +856,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Residential LL"),
      FALSE,                     /* need credit? */
      GROUP_RESIDENCE_LL,
-     3,                         /* size */
+     GROUP_RESIDENCE_SIZE,
      GROUP_RESIDENCE_LL_COLOUR,
      GROUP_RESIDENCE_LL_COST_MUL,
      GROUP_RESIDENCE_LL_BUL_COST,
@@ -867,7 +867,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Farm"),
      FALSE,                     /* need credit? */
      GROUP_ORGANIC_FARM,
-     4,                         /* size */
+     GROUP_ORGANIC_FARM_SIZE,
      GROUP_ORGANIC_FARM_COLOUR,
      GROUP_ORGANIC_FARM_COST_MUL,
      GROUP_ORGANIC_FARM_BUL_COST,
@@ -878,7 +878,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Market"),
      FALSE,                     /* need credit? */
      GROUP_MARKET,
-     2,                         /* size */
+     GROUP_MARKET_SIZE,
      GROUP_MARKET_COLOUR,
      GROUP_MARKET_COST_MUL,
      GROUP_MARKET_BUL_COST,
@@ -889,7 +889,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Track"),
      FALSE,                     /* need credit? */
      GROUP_TRACK,
-     1,                         /* size */
+     GROUP_TRANSPORT_SIZE,
      GROUP_TRACK_COLOUR,
      GROUP_TRACK_COST_MUL,
      GROUP_TRACK_BUL_COST,
@@ -900,7 +900,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Coalmine"),
      FALSE,                     /* need credit? */
      GROUP_COALMINE,
-     4,                         /* size */
+     GROUP_TRANSPORT_SIZE,
      GROUP_COALMINE_COLOUR,
      GROUP_COALMINE_COST_MUL,
      GROUP_COALMINE_BUL_COST,
@@ -911,7 +911,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Railway"),
      FALSE,                     /* need credit? */
      GROUP_RAIL,
-     1,                         /* size */
+     GROUP_TRANSPORT_SIZE,
      GROUP_RAIL_COLOUR,
      GROUP_RAIL_COST_MUL,
      GROUP_RAIL_BUL_COST,
@@ -922,7 +922,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Coal PS"),
      FALSE,                     /* need credit? */
      GROUP_COAL_POWER,
-     4,                         /* size */
+     GROUP_COAL_POWER_SIZE,
      GROUP_COAL_POWER_COLOUR,
      GROUP_COAL_POWER_COST_MUL,
      GROUP_COAL_POWER_BUL_COST,
@@ -933,7 +933,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Road"),
      FALSE,                     /* need credit? */
      GROUP_ROAD,
-     1,                         /* size */
+     GROUP_TRANSPORT_SIZE,
      GROUP_ROAD_COLOUR,
      GROUP_ROAD_COST_MUL,
      GROUP_ROAD_BUL_COST,
@@ -944,7 +944,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Lt. Industry"),
      FALSE,                     /* need credit? */
      GROUP_INDUSTRY_L,
-     3,                         /* size */
+     GROUP_INDUSTRY_L_SIZE,
      GROUP_INDUSTRY_L_COLOUR,
      GROUP_INDUSTRY_L_COST_MUL,
      GROUP_INDUSTRY_L_BUL_COST,
@@ -955,7 +955,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("University"),
      FALSE,                     /* need credit? */
      GROUP_UNIVERSITY,
-     3,                         /* size */
+     GROUP_UNIVERSITY_SIZE,
      GROUP_UNIVERSITY_COLOUR,
      GROUP_UNIVERSITY_COST_MUL,
      GROUP_UNIVERSITY_BUL_COST,
@@ -966,7 +966,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Commune"),
      FALSE,                     /* need credit? */
      GROUP_COMMUNE,
-     4,                         /* size */
+     GROUP_COMMUNE_SIZE,
      GROUP_COMMUNE_COLOUR,
      GROUP_COMMUNE_COST_MUL,
      GROUP_COMMUNE_BUL_COST,
@@ -977,7 +977,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Ore mine"),
      FALSE,                     /* need credit? */
      GROUP_OREMINE,
-     4,                         /* size */
+     GROUP_OREMINE_SIZE,
      GROUP_OREMINE_COLOUR,
      GROUP_OREMINE_COST_MUL,
      GROUP_OREMINE_BUL_COST,
@@ -988,7 +988,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Rubbish tip"),
      FALSE,                     /* need credit? */
      GROUP_TIP,
-     4,                         /* size */
+     GROUP_TIP_SIZE,
      GROUP_TIP_COLOUR,
      GROUP_TIP_COST_MUL,
      GROUP_TIP_BUL_COST,
@@ -999,7 +999,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Port"),
      FALSE,                     /* need credit? */
      GROUP_PORT,
-     4,                         /* size */
+     GROUP_PORT_SIZE,
      GROUP_PORT_COLOUR,
      GROUP_PORT_COST_MUL,
      GROUP_PORT_BUL_COST,
@@ -1010,7 +1010,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Hv. Industry"),
      FALSE,                     /* need credit? */
      GROUP_INDUSTRY_H,
-     4,                         /* size */
+     GROUP_INDUSTRY_H_SIZE,
      GROUP_INDUSTRY_H_COLOUR,
      GROUP_INDUSTRY_H_COST_MUL,
      GROUP_INDUSTRY_H_BUL_COST,
@@ -1021,7 +1021,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Park"),
      TRUE,                      /* need credit? */
      GROUP_PARKLAND,
-     1,                         /* size */
+     GROUP_PARKLAND_SIZE,
      GROUP_PARKLAND_COLOUR,
      GROUP_PARKLAND_COST_MUL,
      GROUP_PARKLAND_BUL_COST,
@@ -1032,7 +1032,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Recycle"),
      TRUE,                      /* need credit? */
      GROUP_RECYCLE,
-     2,                         /* size */
+     GROUP_RECYCLE_SIZE,
      GROUP_RECYCLE_COLOUR,
      GROUP_RECYCLE_COST_MUL,
      GROUP_RECYCLE_BUL_COST,
@@ -1043,7 +1043,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Water"),
      FALSE,                     /* need credit? */
      GROUP_WATER,
-     1,                         /* size */
+     1,
      GROUP_WATER_COLOUR,
      GROUP_WATER_COST_MUL,
      GROUP_WATER_BUL_COST,
@@ -1054,7 +1054,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Health centre"),
      FALSE,                     /* need credit? */
      GROUP_HEALTH,
-     2,                         /* size */
+     GROUP_HEALTH_SIZE,
      GROUP_HEALTH_COLOUR,
      GROUP_HEALTH_COST_MUL,
      GROUP_HEALTH_BUL_COST,
@@ -1065,7 +1065,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Rocket pad"),
      TRUE,                      /* need credit? */
      GROUP_ROCKET,
-     4,                         /* size */
+     GROUP_ROCKET_SIZE,
      GROUP_ROCKET_COLOUR,
      GROUP_ROCKET_COST_MUL,
      GROUP_ROCKET_BUL_COST,
@@ -1076,7 +1076,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Windmill"),
      FALSE,                     /* need credit? */
      GROUP_WINDMILL,
-     2,                         /* size */
+     GROUP_WINDMILL_SIZE,
      GROUP_WINDMILL_COLOUR,
      GROUP_WINDMILL_COST_MUL,
      GROUP_WINDMILL_BUL_COST,
@@ -1087,7 +1087,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Monument"),
      FALSE,                     /* need credit? */
      GROUP_MONUMENT,
-     2,                         /* size */
+     GROUP_MONUMENT_SIZE,
      GROUP_MONUMENT_COLOUR,
      GROUP_MONUMENT_COST_MUL,
      GROUP_MONUMENT_BUL_COST,
@@ -1098,7 +1098,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("School"),
      FALSE,                     /* need credit? */
      GROUP_SCHOOL,
-     2,                         /* size */
+     GROUP_SCHOOL_SIZE,
      GROUP_SCHOOL_COLOUR,
      GROUP_SCHOOL_COST_MUL,
      GROUP_SCHOOL_BUL_COST,
@@ -1109,7 +1109,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Blacksmith"),
      FALSE,                     /* need credit? */
      GROUP_BLACKSMITH,
-     2,                         /* size */
+     GROUP_BLACKSMITH_SIZE,
      GROUP_BLACKSMITH_COLOUR,
      GROUP_BLACKSMITH_COST_MUL,
      GROUP_BLACKSMITH_BUL_COST,
@@ -1120,7 +1120,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Mill"),
      FALSE,                     /* need credit? */
      GROUP_MILL,
-     2,                         /* size */
+     GROUP_MILL_SIZE,
      GROUP_MILL_COLOUR,
      GROUP_MILL_COST_MUL,
      GROUP_MILL_BUL_COST,
@@ -1131,7 +1131,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Pottery"),
      FALSE,                     /* need credit? */
      GROUP_POTTERY,
-     2,                         /* size */
+     GROUP_POTTERY_SIZE,
      GROUP_POTTERY_COLOUR,
      GROUP_POTTERY_COST_MUL,
      GROUP_POTTERY_BUL_COST,
@@ -1142,7 +1142,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Fire sta'n"),
      FALSE,                     /* need credit? */
      GROUP_FIRESTATION,
-     2,                         /* size */
+     GROUP_FIRESTATION_SIZE,
      GROUP_FIRESTATION_COLOUR,
      GROUP_FIRESTATION_COST_MUL,
      GROUP_FIRESTATION_BUL_COST,
@@ -1153,7 +1153,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Sports field"),
      FALSE,                     /* need credit? */
      GROUP_CRICKET,
-     2,                         /* size */
+     GROUP_CRICKET_SIZE,
      GROUP_CRICKET_COLOUR,
      GROUP_CRICKET_COST_MUL,
      GROUP_CRICKET_BUL_COST,
@@ -1177,7 +1177,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Shanty town"),
      FALSE,                     /* need credit? */
      GROUP_SHANTY,
-     2,                         /* size */
+     GROUP_SHANTY_SIZE,
      GROUP_SHANTY_COLOUR,
      GROUP_SHANTY_COST_MUL,
      GROUP_SHANTY_BUL_COST,
@@ -1189,7 +1189,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Fire"),
      FALSE,                     /* need credit? */
      GROUP_FIRE,
-     1,                         /* size */
+     GROUP_FIRE_SIZE,
      GROUP_FIRE_COLOUR,
      GROUP_FIRE_COST_MUL,
      GROUP_FIRE_BUL_COST,
@@ -1212,7 +1212,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Residential ML"),
      FALSE,                     /* need credit? */
      GROUP_RESIDENCE_ML,
-     3,                         /* size */
+     GROUP_RESIDENCE_SIZE,
      GROUP_RESIDENCE_ML_COLOUR,
      GROUP_RESIDENCE_ML_COST_MUL,
      GROUP_RESIDENCE_ML_BUL_COST,
@@ -1223,7 +1223,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Residential HL"),
      FALSE,                     /* need credit? */
      GROUP_RESIDENCE_HL,
-     3,                         /* size */
+     GROUP_RESIDENCE_SIZE,
      GROUP_RESIDENCE_HL_COLOUR,
      GROUP_RESIDENCE_HL_COST_MUL,
      GROUP_RESIDENCE_HL_BUL_COST,
@@ -1234,7 +1234,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Residential LH"),
      FALSE,                     /* need credit? */
      GROUP_RESIDENCE_LH,
-     3,                         /* size */
+     GROUP_RESIDENCE_SIZE,
      GROUP_RESIDENCE_LH_COLOUR,
      GROUP_RESIDENCE_LH_COST_MUL,
      GROUP_RESIDENCE_LH_BUL_COST,
@@ -1245,7 +1245,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Residential MH"),
      FALSE,                     /* need credit? */
      GROUP_RESIDENCE_MH,
-     3,                         /* size */
+     GROUP_RESIDENCE_SIZE,
      GROUP_RESIDENCE_MH_COLOUR,
      GROUP_RESIDENCE_MH_COST_MUL,
      GROUP_RESIDENCE_MH_BUL_COST,
@@ -1256,7 +1256,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Residential HH"),
      FALSE,                     /* need credit? */
      GROUP_RESIDENCE_HH,
-     3,                         /* size */
+     GROUP_RESIDENCE_SIZE,
      GROUP_RESIDENCE_HH_COLOUR,
      GROUP_RESIDENCE_HH_COST_MUL,
      GROUP_RESIDENCE_HH_BUL_COST,
@@ -1267,7 +1267,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Water well"),
      FALSE,                     /* need credit? */
      GROUP_WATERWELL,
-     2,                         /* size */
+     GROUP_WATERWELL_SIZE,                         /* size */
      GROUP_WATERWELL_COLOUR,
      GROUP_WATERWELL_COST_MUL,
      GROUP_WATERWELL_BUL_COST,
@@ -1330,7 +1330,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Track Bridge"),
      FALSE,                     /* need credit? */
      GROUP_TRACK_BRIDGE,
-     1,                         /* size */
+     GROUP_TRANSPORT_SIZE,
      GROUP_TRACK_BRIDGE_COLOUR,
      GROUP_TRACK_BRIDGE_COST_MUL,
      GROUP_TRACK_BRIDGE_BUL_COST,
@@ -1342,7 +1342,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Road Bridge"),
      FALSE,                     /* need credit? */
      GROUP_ROAD_BRIDGE,
-     1,                         /* size */
+     GROUP_TRANSPORT_SIZE,
      GROUP_ROAD_BRIDGE_COLOUR,
      GROUP_ROAD_BRIDGE_COST_MUL,
      GROUP_ROAD_BRIDGE_BUL_COST,
@@ -1354,7 +1354,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Rail Bridge"),
      FALSE,                     /* need credit? */
      GROUP_RAIL_BRIDGE,
-     1,                         /* size */
+     GROUP_TRANSPORT_SIZE,
      GROUP_RAIL_BRIDGE_COLOUR,
      GROUP_RAIL_BRIDGE_COST_MUL,
      GROUP_RAIL_BRIDGE_BUL_COST,
@@ -1366,7 +1366,7 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
     {N_("Wind Power"),
      TRUE,                     /* need credit? */
      GROUP_WIND_POWER,
-     2,                         /* size */
+     GROUP_WIND_POWER_SIZE,
      GROUP_WIND_POWER_COLOUR,
      GROUP_WIND_POWER_COST_MUL,
      GROUP_WIND_POWER_BUL_COST,
@@ -1396,7 +1396,7 @@ int get_group_of_type(short type)
 }
 
 void set_map_groups(void)
-{    
+{
     const int len = world.len();
     const int area = len * len;
     for (int index = 0; index < area; ++index)

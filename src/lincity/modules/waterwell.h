@@ -5,6 +5,7 @@
 #define GROUP_WATERWELL_TECH      0
 #define GROUP_WATERWELL_FIREC 0
 #define GROUP_WATERWELL_RANGE 0
+#define GROUP_WATERWELL_SIZE 2
 
 #define MAX_POLLUTION_AT_WATERWELL 3000
 #define WATER_PER_UGW 400
@@ -36,14 +37,13 @@ extern WaterwellConstructionGroup waterwellConstructionGroup;
 
 class Waterwell: public CountedConstruction<Waterwell> { // waterwell inherits from its own CountedConstruction
 public:
-	Waterwell(int x, int y, unsigned short type): CountedConstruction<Waterwell>(x, y, type) 
-    {              
+    Waterwell(int x, int y, unsigned short type): CountedConstruction<Waterwell>(x, y, type)
+    {
         constructionGroup = &waterwellConstructionGroup;
         this->busy = 0;
-        this->working_days = 0;        
-        //this->cover();
+        this->working_days = 0;
         initialize_commodities();
-        int w = 0;                
+        int w = 0;
         for (int i = 0; i < constructionGroup->size; i++)
         {
             for (int j = 0; j < constructionGroup->size; j++)
@@ -52,19 +52,17 @@ public:
                     w++;
             }// end j
         }//end i
-        this->ugwCount = w;    
-        this->water_output = w * WATER_PER_UGW;       
+        this->ugwCount = w;
+        this->water_output = w * WATER_PER_UGW;
     }
 
-	virtual ~Waterwell() { }
-	virtual void update();
-	virtual void report();
-    //void cover();
+    virtual ~Waterwell() { }
+    virtual void update();
+    virtual void report();
 
     int water_output;
     int ugwCount;
-    int working_days;    
-    int busy;
+    int working_days, busy;
 };
 
 /** @file lincity/modules/waterwell.h */

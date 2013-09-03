@@ -5,6 +5,7 @@
 #define GROUP_RECYCLE_TECH    232
 #define GROUP_RECYCLE_FIREC 10
 #define GROUP_RECYCLE_RANGE 0
+#define GROUP_RECYCLE_SIZE 2
 
 #define WASTE_RECYCLED       500
 #define RECYCLE_JOBS   (WASTE_RECYCLED/50)
@@ -13,9 +14,9 @@
 
 #define MAX_JOBS_AT_RECYCLE (20 * RECYCLE_JOBS)
 #define MAX_WASTE_AT_RECYCLE (20 * WASTE_RECYCLED)
-#define MAX_ORE_AT_RECYCLE (16 * WASTE_RECYCLED)  
+#define MAX_ORE_AT_RECYCLE (16 * WASTE_RECYCLED)
 #define MAX_KWH_AT_RECYCLE   (20 * KWH_RECYCLE_WASTE)
-#define MAX_STEEL_AT_RECYCLE (16 * WASTE_RECYCLED/50) 
+#define MAX_STEEL_AT_RECYCLE (16 * WASTE_RECYCLED/50)
 
 #define BURN_WASTE_AT_RECYCLE (MAX_WASTE_AT_RECYCLE/200)
 
@@ -52,7 +53,7 @@ public:
         commodityRuleCount[Construction::STUFF_STEEL].give = true;
         commodityRuleCount[Construction::STUFF_ORE].maxload = MAX_ORE_AT_RECYCLE;
         commodityRuleCount[Construction::STUFF_ORE].take = false;
-        commodityRuleCount[Construction::STUFF_ORE].give = true;         
+        commodityRuleCount[Construction::STUFF_ORE].give = true;
     }
     // overriding method that creates a recyle
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -62,38 +63,37 @@ extern RecycleConstructionGroup recycleConstructionGroup;
 
 class Recycle: public CountedConstruction<Recycle> { // Recyle inherits from Construction
 public:
-	Recycle(int x, int y, unsigned short type): CountedConstruction<Recycle>(x, y, type)
+    Recycle(int x, int y, unsigned short type): CountedConstruction<Recycle>(x, y, type)
     {
-        constructionGroup = &recycleConstructionGroup;		             
+        constructionGroup = &recycleConstructionGroup;
         this->busy = 0;
-        this->workingdays = 0;
+        this->working_days = 0;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         initialize_commodities();
-        int efficiency;        
+        int efficiency;
         efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 100;
         if (efficiency > (WASTE_RECYCLED * 8) / 10)
             efficiency = (WASTE_RECYCLED * 8) / 10;
         this->make_ore = efficiency;
         setMemberSaved(&this->make_ore, "make_ore");
-        this->eff = efficiency * 100/(WASTE_RECYCLED);
-        setMemberSaved(&this->eff, "eff");                
-        efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 5000;
-        if (efficiency > (WASTE_RECYCLED * 8) / 500)
-            efficiency = (WASTE_RECYCLED * 8) / 500;
-        this->make_steel = efficiency;
-        setMemberSaved(&this->make_steel, "make_steel");                      
-	}
-	virtual ~Recycle() { }
-	virtual void update();
-	virtual void report();
-            
+        //this->eff = efficiency * 100/(WASTE_RECYCLED);
+        //setMemberSaved(&this->eff, "eff");
+        //efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 5000;
+        //if (efficiency > (WASTE_RECYCLED * 8) / 500)
+        //    efficiency = (WASTE_RECYCLED * 8) / 500;
+        this->make_steel = efficiency / 50;
+        setMemberSaved(&this->make_steel, "make_steel");
+    }
+    virtual ~Recycle() { }
+    virtual void update();
+    virtual void report();
+
     int  tech;
-    int  eff;    
+    //int  eff;
     int  make_ore;
-    int  make_steel;    
-    int  workingdays;
-    int  busy; 
+    int  make_steel;
+    int  working_days, busy;
 };
 
 /** @file lincity/modules/recycle.h */

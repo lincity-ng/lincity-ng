@@ -1,21 +1,26 @@
 <?xml version="1.0"?>
 <Document style="helpdocument">
-	<p style="htitle">Commune</p>
-	<p style="hp">Communes (for want of a better name) are areas where charcoal burners coppice woods to make charcoal (the same as coal here). They also produce small amounts of ore and steel.</p>
-	<p style="hp">You will probably need a 'few' communes to provide enough coal and steel for areas such as potteries, blacksmiths and mills.</p>
-	<p style="hp">If a commune is not producing anything for 10 years it is closed and the area turns in parks.</p>
-	<p style="hp">Communes can connect to transport at any point around it, not only to the gate.</p>
-	<p style="hp">Communes' coal production depends on underground water. (tiles with water are green, others are yellow-brown like desert)</p>
-	
-	<p style="hp">This is a commune</p>
-	<img src="images/tiles/commune1.png" halign="center"/>
-	<p style="hp">and this its icon</p>
-	<img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
-	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="pottery">Potteries</a></li>
-	<li><a href="blacksmith">Blacksmiths</a></li>
-	<li><a href="mill">Mills</a></li>
-	<li><a href="oremine">Ore mines</a></li>
-	<li><a href="steel">Steel</a></li>
+    <p style="htitle">Forests</p>
+    <p style="hp">Forests (aka Communes) are areas where charcoal burners
+    coppice woods to make charcoal (the same as coal here).
+    They also produce small amounts of ore and steel.</p>
+    <p style="hp">You will probably need a 'few' communes to
+    provide enough coal and steel for areas such as potteries, blacksmiths and mills.</p>
+    <p style="hp">If a commune is not producing anything for 10 years
+    it is closed and the area turns in parks.</p>
+    <p style="hp">Communes can connect to transport at any point around it, not only to the gate.</p>
+    <p style="hp">Communes' coal production depends on underground water unless they receive fresh water
+    via transport. (tiles with water are green, others are yellow-brown like desert)</p>
+
+    <p style="hp">This is a commune</p>
+    <img src="images/tiles/commune1.png" halign="center"/>
+    <p style="hp">and this its icon</p>
+    <img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+
+    <p style="hsubtitle">See also:</p>
+    <li><a href="pottery">Potteries</a></li>
+    <li><a href="blacksmith">Blacksmiths</a></li>
+    <li><a href="mill">Mills</a></li>
+    <li><a href="oremine">Ore mines</a></li>
+    <li><a href="steel">Steel</a></li>
 </Document>

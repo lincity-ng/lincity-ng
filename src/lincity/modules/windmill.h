@@ -5,12 +5,12 @@
 #define GROUP_WINDMILL_TECH   30
 #define GROUP_WINDMILL_FIREC  10
 #define GROUP_WINDMILL_RANGE  0
+#define GROUP_WINDMILL_SIZE  2
 
-//#define WINDMILL_POWER      450 //should become obsolete
 #define WINDMILL_KWH        450
 #define WINDMILL_JOBS       10
-#define MAX_JOBS_AT_WINDMILL 20*(WINDMILL_JOBS)      
-#define MAX_KWH_AT_WINDMILL 20*(WINDMILL_KWH) 
+#define MAX_JOBS_AT_WINDMILL 20*(WINDMILL_JOBS)
+#define MAX_KWH_AT_WINDMILL 20*(WINDMILL_KWH)
 /* WINDMILL_RCOST is days per quid */
 #define WINDMILL_RCOST      4
 #define ANTIQUE_WINDMILL_ANIM_SPEED 80
@@ -20,7 +20,6 @@
 #include "modules.h"
 #include "../lintypes.h"
 #include "../lctypes.h"
-//#include "../range.h"
 
 class WindmillConstructionGroup: public ConstructionGroup {
 public:
@@ -49,8 +48,8 @@ extern WindmillConstructionGroup windmillConstructionGroup;
 
 class Windmill: public CountedConstruction<Windmill> { // Windmill inherits from its own CountedConstruction
 public:
-	Windmill(int x, int y, unsigned short type): CountedConstruction<Windmill>(x, y, type)
-    {      
+    Windmill(int x, int y, unsigned short type): CountedConstruction<Windmill>(x, y, type)
+    {
         constructionGroup = &windmillConstructionGroup;
         this->anim = 0;
         this->animate = false;
@@ -60,20 +59,19 @@ public:
         this->working_days = 0;
         this->busy = 0;
         this->kwh_output = (int)(WINDMILL_KWH + (((double)tech_level * WINDMILL_KWH) / MAX_TECH_LEVEL));
-        setMemberSaved(&this->kwh_output, "kwh_output");                  
-		initialize_commodities();		
-	}
+        setMemberSaved(&this->kwh_output, "kwh_output");
+        initialize_commodities();
+    }
 
-	virtual ~Windmill() { }
-	virtual void update();
-	virtual void report();
-    
-    int  kwh_output; 
-    int  tech;    
+    virtual ~Windmill() { }
+    virtual void update();
+    virtual void report();
+
+    int  kwh_output;
+    int  tech;
     int  anim;
-	int  sail_count;
-    int  working_days;
-    int  busy;
+    int  sail_count;
+    int  working_days, busy;
     bool animate;
 };
 

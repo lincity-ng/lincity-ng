@@ -11,7 +11,7 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
     "Blacksmith",
     FALSE,                     /* need credit? */
     GROUP_BLACKSMITH,
-    GROUP_BLACKSMITH_SIZE,     /* size */
+    GROUP_BLACKSMITH_SIZE,
     GROUP_BLACKSMITH_COLOUR,
     GROUP_BLACKSMITH_COST_MUL,
     GROUP_BLACKSMITH_BUL_COST,
@@ -26,16 +26,16 @@ Construction *BlacksmithConstructionGroup::createConstruction(int x, int y, unsi
 }
 
 void Blacksmith::update()
-{      
-    //monthly update   
+{
+    //monthly update
     if (total_time % 100 == 0)
     {
         productivity = workingdays;
         workingdays = 0;
-    }    
+    }
     if (pauseCounter++ < 0)
         return;
-    if ((commodityCount[STUFF_GOODS] < constructionGroup->commodityRuleCount[STUFF_GOODS].maxload - GOODS_MADE_BY_BLACKSMITH) 
+    if ((commodityCount[STUFF_GOODS] < constructionGroup->commodityRuleCount[STUFF_GOODS].maxload - GOODS_MADE_BY_BLACKSMITH)
         && (commodityCount[STUFF_COAL] >= BLACKSMITH_COAL_USED)
         && (commodityCount[STUFF_STEEL] >= BLACKSMITH_STEEL_USED)
         && (commodityCount[STUFF_JOBS] >= BLACKSMITH_JOBS))
@@ -46,15 +46,16 @@ void Blacksmith::update()
         commodityCount[STUFF_JOBS] -= BLACKSMITH_JOBS;
         workingdays++;
         if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH)
-        {        
+        {
             animate = true;
             world(x,y)->pollution++;
-            goods_made = 0;        
-        }        
+            goods_made = 0;
+        }
     }
     else
     {
         type = CST_BLACKSMITH_0;
+        animate = false;
         pauseCounter = -BLACKSMITH_CLOSE_TIME;
         return;
     }
@@ -86,7 +87,7 @@ void Blacksmith::update()
             break;
         }
     }
-    
+
 }
 
 void Blacksmith::report()
