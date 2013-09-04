@@ -80,6 +80,12 @@ ConstructionCount::operator[](unsigned int i)
     return constructionVector[permutator->getIndex(i)];
 }
 
+Construction*
+ConstructionCount::pos(unsigned int i)
+{
+    return constructionVector[i];
+}
+
 void
 ConstructionCount::update_permutator()
 {
@@ -115,28 +121,46 @@ ConstructionCount::count()
     return n;
 }
 
-
-/*
 void
-ConstructionCount::clear()
+ConstructionCount::sort()
 {
-    free_slot = 0;
-    for(free_slot = 0; free_slot < constructionVector.size(); free_slot++)
+/*
+   //FIXME The resuluts with this one are quite good, but not really ordered
+   std::sort(constructionVector.begin(), constructionVector.end(), earlier);
+*/
+    //Alternate Solution
+    std::map <unsigned short,std::map <int, Construction*> > census;
+    for(size_t i = 0; i < constructionVector.size(); ++i)
     {
-        if (constructionVector[free_slot])
+        if (constructionVector[i])
         {
-            std::cout << "killing ghost" << std::endl;
-            int x = constructionVector[free_slot]->x;
-            int y = constructionVector[free_slot]->y;
-            constructionVector[free_slot] = NULL;
-            do_bulldoze_area(x,y);
+            Construction *cst = constructionVector[i];
+            int ID = cst->ID;
+            unsigned short group = cst->constructionGroup->group;
+            census[group][ID] = cst;
+            constructionVector[i] = 0;
         }
     }
-    constructionVector.resize(100, NULL);
-    update_permutator();
+    std::map <unsigned short,std::map <int, Construction*> >::iterator group_it;
+    std::map <int, Construction*>::iterator cst_it;
     free_slot = 0;
+    for(group_it = census.begin(); group_it != census.end(); ++group_it)
+    {   //for every groups
+        for(cst_it = group_it->second.begin(); cst_it != group_it->second.end(); ++cst_it)
+        {   //for every construction
+            constructionVector[free_slot++] = cst_it->second;
+        }
+    }
 }
-*/
+
+bool
+ConstructionCount::earlier(Construction* a, Construction* b)
+{
+//sort works until all tests are false
+return (a && b)?((a->constructionGroup->group == b->constructionGroup->group)?(a->ID < b->ID):
+        (a->constructionGroup->group < b->constructionGroup->group)):false;
+}
+
 //FIXME Only for use in debugging
 void
 ConstructionCount::reset()

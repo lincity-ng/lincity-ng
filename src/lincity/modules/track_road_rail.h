@@ -89,6 +89,9 @@ extern TransportConstructionGroup trackbridgeConstructionGroup, roadbridgeConstr
 class Track{};
 class Road{};
 class Rail{};
+class TrackBridge{};
+class RoadBridge{};
+class RailBridge{};
 
 class Transport : public CountedConstruction<Transport> { // Transport inherits from countedConstruction
 public:
@@ -140,8 +143,8 @@ public:
             break;
             case GROUP_TRACK_BRIDGE:
                 constructionGroup = &trackbridgeConstructionGroup;
-                countedTrack = new Counted<Track>();
-                this->subgroupID = countedTrack->getNextId();
+                countedTrackBridge = new Counted<TrackBridge>();
+                this->subgroupID = countedTrackBridge->getNextId();
             break;
             case GROUP_ROAD:
                 constructionGroup = &roadConstructionGroup;
@@ -150,8 +153,8 @@ public:
             break;
             case GROUP_ROAD_BRIDGE:
                 constructionGroup = &roadbridgeConstructionGroup;
-                countedRoad = new Counted<Road>();
-                this->subgroupID = countedRoad->getNextId();
+                countedRoadBridge = new Counted<RoadBridge>();
+                this->subgroupID = countedRoadBridge->getNextId();
             break;
             case GROUP_RAIL:
                 constructionGroup = &railConstructionGroup;
@@ -160,8 +163,8 @@ public:
             break;
             case GROUP_RAIL_BRIDGE:
                 constructionGroup = &railbridgeConstructionGroup;
-                countedRail = new Counted<Rail>();
-                this->subgroupID = countedRail->getNextId();
+                countedRailBridge = new Counted<RailBridge>();
+                this->subgroupID = countedRailBridge->getNextId();
             break;
             default :
                 std::cout << "invalid transport type,group,x,y "
@@ -178,16 +181,22 @@ public:
         switch (constructionGroup->group)
         {
             case GROUP_TRACK:
-            case GROUP_TRACK_BRIDGE:
                 delete countedTrack;
             break;
+            case GROUP_TRACK_BRIDGE:
+                delete countedTrackBridge;
+            break;
             case GROUP_ROAD:
-            case GROUP_ROAD_BRIDGE:
                 delete countedRoad;
             break;
+            case GROUP_ROAD_BRIDGE:
+                delete countedRoadBridge;
+            break;
             case GROUP_RAIL:
-            case GROUP_RAIL_BRIDGE:
                 delete countedRail;
+            break;
+            case GROUP_RAIL_BRIDGE:
+                delete countedRailBridge;
             break;
             default:
                 std::cout << "counting error in Transport IDs" << std::endl;
@@ -197,6 +206,9 @@ public:
     Counted<Track> *countedTrack;
     Counted<Road> *countedRoad;
     Counted<Rail> *countedRail;
+    Counted<TrackBridge> *countedTrackBridge;
+    Counted<RoadBridge> *countedRoadBridge;
+    Counted<RailBridge> *countedRailBridge;
     void update();
     void report();
     void stuff_flow();

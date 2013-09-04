@@ -393,15 +393,16 @@ void XMLloadsave::loadTemplateValues()
 void XMLloadsave::saveConstructions()
 {
     xml_file_out<<"<ConstructionSection>"<<std::endl;
-
+    ::constructionCount.sort();
     for (int i = 0; i < ::constructionCount.size(); i++)
     {
-        if (::constructionCount[i])
+        //use pos() here because we dont want them shuffeled
+        if (::constructionCount.pos(i))
         {
             //we dont save ghosts like temporary fires on transport
-            if(::constructionCount[i]->flags & FLAG_IS_GHOST)
+            if(::constructionCount.pos(i)->flags & FLAG_IS_GHOST)
             {   continue;}
-            ::constructionCount[i]->saveMembers(&xml_file_out);
+            ::constructionCount.pos(i)->saveMembers(&xml_file_out);
             flush_gz_output();
         }
     }

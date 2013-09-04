@@ -234,7 +234,7 @@ public:
         this->y = y;
         this->ID = Counted<ConstructionClass>::getNextId();
         this->flags = '\0';
-        setMemberSaved(&(this->ID),"ID");
+        //setMemberSaved(&(this->ID),"ID");
         setMemberSaved(&(this->flags),"flags");
         //setMemberSaved(&(this->type),"type");
         //setMemberSaved(&(this->x),"map_x");
@@ -247,7 +247,7 @@ class ConstructionGroup {
 public:
     ConstructionGroup(
         const char *name,
-        unsigned short no_credit,
+        bool no_credit,
         unsigned short group,
         unsigned short size, int colour,
         int cost_mul, int bul_cost, int fire_chance,
@@ -275,7 +275,7 @@ public:
     virtual Construction *createConstruction(int x, int y, unsigned short type) = 0;
 
     const char *name;           /* name of group */
-    unsigned short no_credit;   /* TRUE if need credit to build */
+    bool no_credit;   /* TRUE if need credit to build */
     unsigned short group;       /* This is redundant: it must match
                                    the index into the table */
     unsigned short size;        /* shape in x and y */

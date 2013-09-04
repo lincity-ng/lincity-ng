@@ -100,7 +100,6 @@ TransportConstructionGroup railbridgeConstructionGroup(
     GROUP_TRANSPORT_RANGE
 );
 
-
 Construction *TransportConstructionGroup::createConstruction(int x, int y, unsigned short type)
 {
     return new Transport(x, y, type);
