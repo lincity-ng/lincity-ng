@@ -49,9 +49,9 @@ public:
 
 extern Coal_powerConstructionGroup coal_powerConstructionGroup;
 
-class Coal_power: public CountedConstruction<Coal_power> { // Coal_power inherits from its own CountedConstruction
+class Coal_power: public RegisteredConstruction<Coal_power> { // Coal_power inherits from its own RegisteredConstruction
 public:
-    Coal_power(int x, int y, unsigned short type): CountedConstruction<Coal_power>(x, y, type)
+    Coal_power(int x, int y, unsigned short type): RegisteredConstruction<Coal_power>(x, y, type)
     {
         constructionGroup = &coal_powerConstructionGroup;
         this->tech = tech_level;

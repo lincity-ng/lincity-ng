@@ -43,9 +43,9 @@ public:
 
 extern TipConstructionGroup tipConstructionGroup;
 
-class Tip: public CountedConstruction<Tip>{ // Tip inherits from its own CountedConstruction
+class Tip: public RegisteredConstruction<Tip>{ // Tip inherits from its own RegisteredConstruction
 public:
-    Tip(int x, int y, unsigned short type): CountedConstruction<Tip>(x, y, type)
+    Tip(int x, int y, unsigned short type): RegisteredConstruction<Tip>(x, y, type)
     {
         this->constructionGroup = &tipConstructionGroup;
         this->flags |= FLAG_NEVER_EVACUATE;

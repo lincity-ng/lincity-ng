@@ -39,9 +39,9 @@ public:
 
 extern FireConstructionGroup fireConstructionGroup;
 
-class Fire: public CountedConstruction<Fire> { // Fire inherits from Construction
+class Fire: public RegisteredConstruction<Fire> { // Fire inherits from Construction
 public:
-    Fire(int x, int y, unsigned short type): CountedConstruction<Fire>(x, y, type)
+    Fire(int x, int y, unsigned short type): RegisteredConstruction<Fire>(x, y, type)
     {
         constructionGroup = &fireConstructionGroup;
         this->burning_days = 0;

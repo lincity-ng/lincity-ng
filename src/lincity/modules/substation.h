@@ -43,9 +43,9 @@ public:
 
 extern SubstationConstructionGroup substationConstructionGroup;
 
-class Substation: public CountedConstruction<Substation> { // Substation inherits from Construction
+class Substation: public RegisteredConstruction<Substation> { // Substation inherits from Construction
 public:
-    Substation(int x, int y, unsigned short type): CountedConstruction<Substation>(x, y, type)
+    Substation(int x, int y, unsigned short type): RegisteredConstruction<Substation>(x, y, type)
     {
         constructionGroup = &substationConstructionGroup;
         this->working_days = 0;

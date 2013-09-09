@@ -60,9 +60,9 @@ public:
 
 extern RocketPadConstructionGroup rocketPadConstructionGroup;
 
-class RocketPad: public CountedConstruction<RocketPad> { // rocketPad inherits from its own CountedConstruction
+class RocketPad: public RegisteredConstruction<RocketPad> { // rocketPad inherits from its own RegisteredConstruction
 public:
-    RocketPad(int x, int y, unsigned short type): CountedConstruction<RocketPad>(x, y, type)
+    RocketPad(int x, int y, unsigned short type): RegisteredConstruction<RocketPad>(x, y, type)
     {
         constructionGroup = &rocketPadConstructionGroup;
         this->working_days = 0;

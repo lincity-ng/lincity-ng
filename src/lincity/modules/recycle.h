@@ -61,9 +61,9 @@ public:
 
 extern RecycleConstructionGroup recycleConstructionGroup;
 
-class Recycle: public CountedConstruction<Recycle> { // Recyle inherits from Construction
+class Recycle: public RegisteredConstruction<Recycle> { // Recyle inherits from Construction
 public:
-    Recycle(int x, int y, unsigned short type): CountedConstruction<Recycle>(x, y, type)
+    Recycle(int x, int y, unsigned short type): RegisteredConstruction<Recycle>(x, y, type)
     {
         constructionGroup = &recycleConstructionGroup;
         this->busy = 0;

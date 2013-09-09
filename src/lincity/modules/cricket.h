@@ -49,9 +49,9 @@ public:
 
 extern CricketConstructionGroup cricketConstructionGroup;
 
-class Cricket: public CountedConstruction<Cricket> { // cricket inherits from Construction
+class Cricket: public RegisteredConstruction<Cricket> { // cricket inherits from Construction
 public:
-    Cricket(int x, int y, unsigned short type): CountedConstruction<Cricket>(x, y, type)
+    Cricket(int x, int y, unsigned short type): RegisteredConstruction<Cricket>(x, y, type)
     {
         constructionGroup = &cricketConstructionGroup;
         this->anim = 0;

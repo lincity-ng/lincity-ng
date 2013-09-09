@@ -41,9 +41,9 @@ public:
 
 extern MonumentConstructionGroup monumentConstructionGroup;
 
-class Monument: public CountedConstruction<Monument> { // Monument inherits from is own CountedConstruction
+class Monument: public RegisteredConstruction<Monument> { // Monument inherits from is own RegisteredConstruction
 public:
-    Monument(int x, int y, unsigned short type): CountedConstruction<Monument>(x, y, type)
+    Monument(int x, int y, unsigned short type): RegisteredConstruction<Monument>(x, y, type)
     {
         constructionGroup = &monumentConstructionGroup;
         this->tech_made = 0;

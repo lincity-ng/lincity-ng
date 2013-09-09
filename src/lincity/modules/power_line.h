@@ -26,9 +26,9 @@ public:
 
 extern PowerlineConstructionGroup powerlineConstructionGroup;
 
-class Powerline: public CountedConstruction<Powerline> { // Powerlineinherits from its own CountedConstruction
+class Powerline: public RegisteredConstruction<Powerline> { // Powerlineinherits from its own RegisteredConstruction
 public:
-	Powerline(int x, int y ,unsigned short type): CountedConstruction<Powerline>(x, y, type) 
+	Powerline(int x, int y ,unsigned short type): RegisteredConstruction<Powerline>(x, y, type) 
     {
         constructionGroup = &powerlineConstructionGroup;        
         this->flags |= (FLAG_POWER_LINE | FLAG_NEVER_EVACUATE);         

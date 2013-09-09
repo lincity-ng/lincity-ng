@@ -47,9 +47,9 @@ public:
 
 extern WindpowerConstructionGroup windpowerConstructionGroup;
 
-class Windpower: public CountedConstruction<Windpower> { // Windpower inherits from its own CountedConstruction
+class Windpower: public RegisteredConstruction<Windpower> { // Windpower inherits from its own RegisteredConstruction
 public:
-    Windpower(int x, int y, unsigned short type): CountedConstruction<Windpower>(x, y, type)
+    Windpower(int x, int y, unsigned short type): RegisteredConstruction<Windpower>(x, y, type)
     {
         constructionGroup = &windpowerConstructionGroup;
         this->anim = 0;

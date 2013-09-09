@@ -35,9 +35,9 @@ public:
 
 extern WaterwellConstructionGroup waterwellConstructionGroup;
 
-class Waterwell: public CountedConstruction<Waterwell> { // waterwell inherits from its own CountedConstruction
+class Waterwell: public RegisteredConstruction<Waterwell> { // waterwell inherits from its own RegisteredConstruction
 public:
-    Waterwell(int x, int y, unsigned short type): CountedConstruction<Waterwell>(x, y, type)
+    Waterwell(int x, int y, unsigned short type): RegisteredConstruction<Waterwell>(x, y, type)
     {
         constructionGroup = &waterwellConstructionGroup;
         this->busy = 0;

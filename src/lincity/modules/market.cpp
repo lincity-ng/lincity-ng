@@ -67,6 +67,7 @@ void Market::update()
                 //Count Constructions only once
                 //Never count other markets far away transport or power lines
                 if ( !world(xx,yy)->construction
+                  || (world(xx,yy)->getTopGroup() == GROUP_FIRE)
                   || (world(xx,yy)->getGroup() == GROUP_MARKET)
                   || (world(xx,yy)->getGroup() == GROUP_POWER_LINE)
                   || (world(xx,yy)->is_transport() &&
@@ -94,6 +95,7 @@ void Market::update()
                 //Deal with constructions only once
                 //Never deal with markets power lines or far away transport
                 if ( !world(xx,yy)->construction
+                  || (world(xx,yy)->getTopGroup() == GROUP_FIRE)
                   || (world(xx,yy)->getGroup() == GROUP_MARKET)
                   || (world(xx,yy)->getGroup() == GROUP_POWER_LINE)
                   || (world(xx,yy)->is_transport() &&
@@ -172,6 +174,8 @@ void Market::update()
 
         }
     }
+    else if (world(x+1,y+1)->construction && real_time < anim)
+    {   (dynamic_cast<Fire*>(world(x+1,y+1)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
     else if ( real_time > anim && world(x+1,y+1)->construction)
     {
         ::constructionCount.remove_construction(world(x+1,y+1)->construction);
@@ -179,8 +183,7 @@ void Market::update()
         world(x+1,y+1)->construction = NULL;
         world(x+1,y+1)->reportingConstruction = this;
     }
-    else if (world(x+1,y+1)->construction)
-    {   static_cast<Fire*> (world(x+1,y+1)->construction)->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
+
     if(refresh_cover)
     {   cover();}
 }

@@ -49,9 +49,9 @@ public:
 
 extern FireStationConstructionGroup fireStationConstructionGroup;
 
-class FireStation: public CountedConstruction<FireStation> { // FireStation inherits from CountedConstruction
+class FireStation: public RegisteredConstruction<FireStation> { // FireStation inherits from RegisteredConstruction
 public:
-    FireStation(int x, int y, unsigned short type) : CountedConstruction<FireStation>(x ,y ,type)
+    FireStation(int x, int y, unsigned short type) : RegisteredConstruction<FireStation>(x ,y ,type)
     {
         constructionGroup = &fireStationConstructionGroup;
         this->anim = 0;

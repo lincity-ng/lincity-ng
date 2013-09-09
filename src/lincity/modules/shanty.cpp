@@ -173,6 +173,8 @@ void Shanty::update()
             ::constructionCount.add_construction(fire);
         }
     }
+    else if (world(x+1,y+1)->construction && real_time < anim)
+    {   (dynamic_cast<Fire*>(world(x+1,y+1)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
     else if ( real_time > anim && world(x+1,y+1)->construction)
     {
         ::constructionCount.remove_construction(world(x+1,y+1)->construction);
@@ -180,8 +182,6 @@ void Shanty::update()
         world(x+1,y+1)->construction = NULL;
         world(x+1,y+1)->reportingConstruction = this;
     }
-    else if (world(x+1,y+1)->construction)
-    {   static_cast<Fire*> (world(x+1,y+1)->construction)->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
 }
 
 void Shanty::report()

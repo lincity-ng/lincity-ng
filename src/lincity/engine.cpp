@@ -271,7 +271,7 @@ int bulldoze_item(int x, int y)
 {
     int g, size = 1;
     bool construction_found = false;
-    if (world(x, y)->type == CST_USED || !world(x, y)->is_visible())
+    if (!world(x, y)->is_visible())
     {
         /* This is considered "improper" input.  Silently ignore. */
 #ifdef DEBUG
@@ -325,7 +325,7 @@ int bulldoze_item(int x, int y)
         {
             ConstructionManager::executeRequest
             (
-                new OreMineDeletionRequest(world(x, y)->construction)
+                new OreMineDeletionRequest(world(x, y)->reportingConstruction)
             );
         }
         else
@@ -342,11 +342,11 @@ int bulldoze_item(int x, int y)
 void do_bulldoze_area(int x, int y) //arg1 was short fill
 {
 
-    if (world(x, y)->construction)
+    if (world(x, y)->reportingConstruction)
     {
         ConstructionManager::executeRequest
         (
-            new ConstructionDeletionRequest(world(x, y)->construction)
+            new ConstructionDeletionRequest(world(x, y)->reportingConstruction)
         );
     }
     else
@@ -361,7 +361,7 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
             world(x, y)->type = CST_DESERT;
             world(x, y)->group = GROUP_DESERT;
         }
-        if (world(x, y)->reportingConstruction)
+        if (world(x, y)->construction)
         {
             ok_dial_box("fire.mes", BAD, _("ups, Bulldozer found a dangling reportingConstruction"));
         }

@@ -43,9 +43,9 @@ public:
 
 extern SolarPowerConstructionGroup solarPowerConstructionGroup;
 
-class SolarPower: public CountedConstruction<SolarPower> { // park inherits from CountedConstruction
+class SolarPower: public RegisteredConstruction<SolarPower> { // park inherits from RegisteredConstruction
 public:
-    SolarPower(int x, int y, unsigned short type): CountedConstruction<SolarPower>(x, y, type)
+    SolarPower(int x, int y, unsigned short type): RegisteredConstruction<SolarPower>(x, y, type)
     {
         constructionGroup = &solarPowerConstructionGroup;
         this->tech = tech_level;

@@ -60,9 +60,9 @@ public:
 
 extern MillConstructionGroup millConstructionGroup;
 
-class Mill: public CountedConstruction<Mill> { // Mill inherits from its own CountedConstruction
+class Mill: public RegisteredConstruction<Mill> { // Mill inherits from its own RegisteredConstruction
 public:
-    Mill(int x, int y, unsigned short type): CountedConstruction<Mill>(x, y, type)
+    Mill(int x, int y, unsigned short type): RegisteredConstruction<Mill>(x, y, type)
     {
         constructionGroup = &millConstructionGroup;
         this->anim = 0;

@@ -100,6 +100,7 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
 
 int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int ratio, Construction::Commodities stuff_ID)
 {
+    //assert(world(x, y)->reportingConstruction != NULL);
     Construction * repcons = world(x, y)->reportingConstruction;
     int flow, traffic;
     int *loc_lvl;
@@ -221,7 +222,7 @@ void connect_transport(int originx, int originy, int w, int h)
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
     int x, y;
     int mask, tflags, mask0;
-    short group;
+    //unsigned short group;
 
     static const short power_table[16] = {
         CST_POWERL_H_D, CST_POWERL_V_D, CST_POWERL_H_D, CST_POWERL_RD_D,
@@ -281,22 +282,23 @@ void connect_transport(int originx, int originy, int w, int h)
         {
             // First, set up a mask according to directions
             mask = 0;
+            int mwh = -1;
             switch (world(x, y)->getGroup())
             {
             case GROUP_POWER_LINE:
                 /* power may be transferred */
                 /* up -- (ThMO) */
-                group = check_group(x, y - 1);
+                //group = check_group(x, y - 1);
+                mwh = collect_transport_info(x, y-1, Construction::STUFF_MWH, -1);
                 /* see if dug under track, rail or road */
                 if ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))
-                    group = check_group(x, y - 2);
+                {   //group = check_group(x, y - 2);
+                    mwh = collect_transport_info(x, y-2, Construction::STUFF_MWH, -1);}
+                if(mwh != -1)
+                {   mask |=8;}
+/*
                 switch (group)
                 {
-                /*
-                    case GROUP_WINDMILL:
-                        if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
-                            break;
-                */
                     case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
@@ -307,18 +309,18 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= 8;
                         break;
                 }
-
+*/
                 /* left -- (ThMO) */
-                group = check_group(x - 1, y);
+                //group = check_group(x - 1, y);
+                mwh = collect_transport_info(x-1, y, Construction::STUFF_MWH, -1);
                 if (x > 1 && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))
-                    group = check_group(x - 2, y);
+                {   //group = check_group(x - 2, y);
+                    mwh = collect_transport_info(x-2, y, Construction::STUFF_MWH, -1);}
+                if(mwh != -1)
+                {   mask |=4;}
+/*
                 switch (group)
                 {
-                /*
-                    case GROUP_WINDMILL:
-                        if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
-                            break;
-                */
                     case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
@@ -329,18 +331,18 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= 4;
                         break;
                 }
-
+*/
                 /* right -- (ThMO) */
-                group = check_group(x + 1, y);
+                //group = check_group(x + 1, y);
+                mwh = collect_transport_info(x+1, y, Construction::STUFF_MWH, -1);
                 if (x < world.len() - 2 && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))
-                    group = check_group(x + 2, y);
+                {   //group = check_group(x + 2, y);
+                    mwh = collect_transport_info(x+2, y, Construction::STUFF_MWH, -1);}
+                if(mwh != -1)
+                {   mask |=2;}
+/*
                 switch (group)
                 {
-                /*
-                    case GROUP_WINDMILL:
-                        if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
-                            break;
-                */
                     case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
@@ -351,18 +353,18 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= 2;
                         break;
                 }
-
+*/
                 /* down -- (ThMO) */
-                group = check_group(x, y + 1);
+                //group = check_group(x, y + 1);
+                mwh = collect_transport_info(x, y+1, Construction::STUFF_MWH, -1);
                 if (y < world.len() - 2 && (world(x, y+1)->is_water() || world(x, y+1)->is_transport()))
-                    group = check_group(x, y + 2);
+                {   //group = check_group(x, y + 2);
+                    mwh = collect_transport_info(x, y+2, Construction::STUFF_MWH, -1);}
+                if(mwh != -1)
+                {   mask |=1;}
+/*
                 switch (group)
                 {
-                /*
-                    case GROUP_WINDMILL:
-                        if ( !(static_cast<Windmill *>(world(x, y)->construction)->is_modern) ) // not a hightech WINDMILL
-                            break;
-                */
                     case GROUP_WIND_POWER:
                     case GROUP_POWER_LINE:
                     case GROUP_SOLAR_POWER:
@@ -373,7 +375,7 @@ void connect_transport(int originx, int originy, int w, int h)
                         ++mask;
                         break;
                 }
-
+*/
                 /* Next, set the connectivity into MP_TYPE */
                 world(x, y)->construction->type = power_table[mask];
                 world(x, y)->construction->flags &= mask0; // clear connection flags

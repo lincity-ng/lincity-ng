@@ -65,9 +65,9 @@ public:
 
 extern MarketConstructionGroup marketConstructionGroup;
 
-class Market: public CountedConstruction<Market> { // Market inherits from Construction
+class Market: public RegisteredConstruction<Market> { // Market inherits from Construction
 public:
-    Market(int x, int y, unsigned short type): CountedConstruction<Market>(x, y, type)
+    Market(int x, int y, unsigned short type): RegisteredConstruction<Market>(x, y, type)
     {
         constructionGroup = &marketConstructionGroup;
         //local copy of commodityRuCount

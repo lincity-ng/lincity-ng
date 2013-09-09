@@ -70,9 +70,9 @@ public:
 
 extern Organic_farmConstructionGroup organic_farmConstructionGroup;
 
-class Organic_farm: public CountedConstruction<Organic_farm> { // Organic_farm inherits from its own CountedConstruction
+class Organic_farm: public RegisteredConstruction<Organic_farm> { // Organic_farm inherits from its own RegisteredConstruction
 public:
-    Organic_farm(int x, int y, unsigned short type): CountedConstruction<Organic_farm>(x, y, type)
+    Organic_farm(int x, int y, unsigned short type): RegisteredConstruction<Organic_farm>(x, y, type)
     {
         this->constructionGroup = &organic_farmConstructionGroup;
         this->tech = tech_level;

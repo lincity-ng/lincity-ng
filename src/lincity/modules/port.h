@@ -89,9 +89,9 @@ public:
 
 extern PortConstructionGroup portConstructionGroup;
 
-class Port: public CountedConstruction<Port> { // park inherits from Construction
+class Port: public RegisteredConstruction<Port> { // park inherits from Construction
 public:
-    Port(int x, int y, unsigned short type): CountedConstruction<Port>(x, y, type)
+    Port(int x, int y, unsigned short type): RegisteredConstruction<Port>(x, y, type)
     {
         constructionGroup = &portConstructionGroup;
         this->daily_ic = 0; this->daily_et = 0;

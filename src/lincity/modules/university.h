@@ -49,9 +49,9 @@ public:
 
 extern UniversityConstructionGroup universityConstructionGroup;
 
-class University: public CountedConstruction<University> { // university inherits from its own CountedConstruction
+class University: public RegisteredConstruction<University> { // university inherits from its own RegisteredConstruction
 public:
-    University(int x, int y, unsigned short type): CountedConstruction<University>(x, y, type)
+    University(int x, int y, unsigned short type): RegisteredConstruction<University>(x, y, type)
     {
         constructionGroup = &universityConstructionGroup;
         this->working_days = 0;

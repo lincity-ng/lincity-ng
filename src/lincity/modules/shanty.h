@@ -78,9 +78,9 @@ public:
 
 extern ShantyConstructionGroup shantyConstructionGroup;
 
-class Shanty: public CountedConstruction<Shanty> { // Shanty inherits from Construction
+class Shanty: public RegisteredConstruction<Shanty> { // Shanty inherits from Construction
 public:
-    Shanty(int x, int y, unsigned short type): CountedConstruction<Shanty>(x, y, type)
+    Shanty(int x, int y, unsigned short type): RegisteredConstruction<Shanty>(x, y, type)
     {
         constructionGroup = &shantyConstructionGroup;
         initialize_commodities();

@@ -84,7 +84,7 @@ void Cricket::update()
 
 void Cricket::cover()
 {
-    if(covercount < daycount)
+    if(covercount + COVER_TOLERANCE_DAYS < daycount)
     {
         daycount = 0;
         active = false;

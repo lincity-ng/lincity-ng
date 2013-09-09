@@ -739,6 +739,56 @@ void Construction::saveMembers(std::ostream *os)
     }
 }
 
+//use this before deleting a construction. Construction requests check independently against NULL
+void Construction::detach()
+{
+    //std::cout << "detaching: " << constructionGroup->name << std::endl;
+    ::constructionCount.remove_construction(this);
+    if(world(x,y)->construction == this)
+    {   world(x,y)->construction = NULL;}
+    for (unsigned short i = 0; i < constructionGroup->size; ++i)
+    {
+        for (unsigned short j = 0; j < constructionGroup->size; ++j)
+        {
+            // constructions may have children e.g. waste burning markets/shanties
+            if(world(x+j,y+i)->construction)
+            {
+                //std::cout << "killing child: " << world(x+j,y+i)->construction->constructionGroup->name << std::endl;
+                ::constructionCount.remove_construction(world(x+j,y+i)->construction);
+#ifdef DEBUG
+                assert(world(x+j,y+i)->construction->neighbors.size() == 0);
+#endif
+                delete world(x+j,y+i)->construction;
+                world(x+j,y+i)->construction = NULL;
+
+            }
+#ifdef DEBUG
+            assert(this == world(x+j,y+i)->reportingConstruction);
+#endif
+            world(x+j,y+i)->reportingConstruction = NULL;
+        }
+    }
+    //std::cout << "neighbors: " << subject->neighbors.size() << std::endl;
+    for(size_t i = 0; i < neighbors.size(); ++i)
+    {
+        //std::cout << "syonara: " << i << std::endl;
+        std::vector<Construction*> *neib = &(neighbors[i]->neighbors);
+        std::vector<Construction*>::iterator neib_it = neib->begin();
+        for(; neib_it != neib->end() && *neib_it != this; ++neib_it){}
+#ifdef DEBUG
+        //check if conection does exist
+        assert(*neib_it == this);
+#endif
+        neib->erase(neib_it);
+        //double check for uniqueness
+#ifdef DEBUG
+        for(neib_it = neib->begin(); neib_it != neib->end() && *neib_it != this; ++neib_it){}
+        assert(neib_it == neib->end());
+#endif
+    }
+
+}
+
 //ConstructionGroup Declarations
 
 int ConstructionGroup::getCosts() {
@@ -762,19 +812,58 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
     unsigned short size = 0;
     world(x, y)->construction = tmpConstr;
     constructionCount.add_construction(tmpConstr); //register for Simulation
-    size = (world(x, y)->construction->constructionGroup->size);
-    for (int i = 0; i < size; i++)
+    size = tmpConstr->constructionGroup->size;
+    for (unsigned short i = 0; i < size; i++)
     {
-        for (int j = 0; j < size; j++)
+        for (unsigned short j = 0; j < size; j++)
         {
-            world(x + j, y + i)->reportingConstruction = world(x, y)->construction;
+            world(x + j, y + i)->reportingConstruction = tmpConstr;
             if (!world(x + j, y + i)->is_water())
             {
                 world(x + j, y + i)->setTerrain(CST_DESERT);
             } // endif !is_water
         } //endfor j
     }// endfor i
-
+    //now populate own and neighbors neighbor vectors
+    if(!(tmpConstr->flags & FLAG_IS_GHOST))
+    {
+        Construction* cst = NULL;
+        Construction* cst1 = NULL;
+        Construction* cst2 = NULL;
+        Construction* cst3 = NULL;
+        Construction* cst4 = NULL;
+        for (unsigned short edge = 0; edge < size; ++edge)
+        {
+            cst = world(x - 1,y + edge)->reportingConstruction;
+            if(cst && cst != cst1 && !(cst->flags & FLAG_IS_GHOST))
+            {
+                tmpConstr->neighbors.push_back(cst1 = cst);
+                cst->neighbors.push_back(tmpConstr);
+                //std::cout << "conect: " << "left" << std::endl;
+            }
+            cst = world(x + edge,y - 1)->reportingConstruction;
+            if(cst && cst != cst2 && !(cst->flags & FLAG_IS_GHOST))
+            {
+                tmpConstr->neighbors.push_back(cst2 = cst);
+                cst->neighbors.push_back(tmpConstr);
+                //std::cout << "conect: " << "up" << std::endl;
+            }
+            cst = world(x + size,y + edge)->reportingConstruction;
+            if(cst && cst != cst3 && !(cst->flags & FLAG_IS_GHOST))
+            {
+                tmpConstr->neighbors.push_back(cst3 = cst);
+                cst->neighbors.push_back(tmpConstr);
+                //std::cout << "conect: " << "right" << std::endl;
+            }
+            cst = world(x + edge,y + size)->reportingConstruction;
+            if(cst && cst != cst4 && !(cst->flags & FLAG_IS_GHOST))
+            {
+                tmpConstr->neighbors.push_back(cst4 = cst);
+                cst->neighbors.push_back(tmpConstr);
+                //std::cout << "conect: " << "down" << std::endl;
+            }
+        }
+    }
     return 0;
 }
 

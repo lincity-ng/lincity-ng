@@ -90,6 +90,7 @@ void Commune::update()
         }
         else
         {//we are lazy
+            type = CST_COMMUNE_1;
             lazy_months++;
             /* Communes without production only last 10 years */
             if (lazy_months > 120)

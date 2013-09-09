@@ -53,9 +53,9 @@ public:
 
 extern PotteryConstructionGroup potteryConstructionGroup;
 
-class Pottery: public CountedConstruction<Pottery> { // Pottery inherits from its own CountedConstruction
+class Pottery: public RegisteredConstruction<Pottery> { // Pottery inherits from its own RegisteredConstruction
 public:
-    Pottery(int x, int y, unsigned short type): CountedConstruction<Pottery>(x, y, type)
+    Pottery(int x, int y, unsigned short type): RegisteredConstruction<Pottery>(x, y, type)
     {
         constructionGroup = &potteryConstructionGroup;
         this->anim = 0; // or real_time?

@@ -68,9 +68,9 @@ public:
 
 extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
 
-class IndustryHeavy: public CountedConstruction<IndustryHeavy> { // IndustryHeavy inherits from its own CountedConstruction
+class IndustryHeavy: public RegisteredConstruction<IndustryHeavy> { // IndustryHeavy inherits from its own RegisteredConstruction
 public:
-    IndustryHeavy(int x, int y, unsigned short type): CountedConstruction<IndustryHeavy>(x, y, type)
+    IndustryHeavy(int x, int y, unsigned short type): RegisteredConstruction<IndustryHeavy>(x, y, type)
     {
         constructionGroup = &industryHeavyConstructionGroup;
         this->tech = tech_level;

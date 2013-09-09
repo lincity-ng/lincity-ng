@@ -58,9 +58,9 @@ public:
 
 extern BlacksmithConstructionGroup blacksmithConstructionGroup;
 
-class Blacksmith: public CountedConstruction<Blacksmith> { // Blacksmith inherits from its CountedConstruction
+class Blacksmith: public RegisteredConstruction<Blacksmith> { // Blacksmith inherits from its RegisteredConstruction
 public:
-    Blacksmith(int x, int y, unsigned short type): CountedConstruction<Blacksmith>(x, y, type)
+    Blacksmith(int x, int y, unsigned short type): RegisteredConstruction<Blacksmith>(x, y, type)
     {
         //static int blacksmithID = 0;
         constructionGroup = &blacksmithConstructionGroup;

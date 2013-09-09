@@ -95,7 +95,7 @@ void FireStation::update()
 
 void FireStation::cover()
 {
-    if(covercount < daycount)
+    if(covercount + COVER_TOLERANCE_DAYS < daycount)
     {
         daycount = 0;
         active = false;

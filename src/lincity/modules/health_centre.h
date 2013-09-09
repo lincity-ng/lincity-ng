@@ -47,9 +47,9 @@ public:
 
 extern HealthCentreConstructionGroup healthCentreConstructionGroup;
 
-class HealthCentre: public CountedConstruction<HealthCentre> { // HealthCentre inherits from its own CountedConstruction
+class HealthCentre: public RegisteredConstruction<HealthCentre> { // HealthCentre inherits from its own RegisteredConstruction
 public:
-    HealthCentre(int x, int y, unsigned short type): CountedConstruction<HealthCentre>(x, y, type)
+    HealthCentre(int x, int y, unsigned short type): RegisteredConstruction<HealthCentre>(x, y, type)
     {
         constructionGroup = &healthCentreConstructionGroup;
         this->active = false;

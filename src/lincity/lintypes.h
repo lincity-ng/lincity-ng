@@ -41,6 +41,8 @@ void get_type_name(short type, char *s);
 #include <zlib.h>
 #include "ConstructionCount.h"
 #include "engglobs.h"
+//#include "world.h"
+
 
 class Construction;
 
@@ -185,6 +187,7 @@ public:
 
     std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
     std::map<std::string, MemberRule> memberRuleCount;
+    std::vector<Construction*> neighbors;
 
     void list_commodities(int *);               //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
@@ -201,8 +204,9 @@ public:
     //currently usefull for market and port who use a private copy of commodityRules for trading
     //TODO Generalize the concept for every construction
     void setCommodityRulesSaved(std::map<Commodities,CommodityRule> * stuffRuleCount);
-    void writeTemplate();      //create maptile template for savegame
+    void writeTemplate();      //create xml template for savegame
     void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream
+    void detach();      //removes all references from world, ::constructionCount and cancels neighborconnections
 };
 
 extern const char *commodityNames[];
@@ -223,24 +227,23 @@ MEMBER_TYPE_TRAITS(unsigned short, Construction::TYPE_USHORT)
 MEMBER_TYPE_TRAITS(double, Construction::TYPE_DOUBLE)
 MEMBER_TYPE_TRAITS(float, Construction::TYPE_FLOAT)
 
+class ConstructionGroup;
+
 template <typename ConstructionClass>
-class CountedConstruction: public Construction, public Counted<ConstructionClass>
+class RegisteredConstruction: public Construction, public Counted<ConstructionClass>
 {
 public:
-    CountedConstruction<ConstructionClass>( int x, int y, unsigned short type)
+    RegisteredConstruction<ConstructionClass>( int x, int y, unsigned short type)
     {
         this->type = type;
         this->x = x;
         this->y = y;
         this->ID = Counted<ConstructionClass>::getNextId();
         this->flags = '\0';
-        //setMemberSaved(&(this->ID),"ID");
         setMemberSaved(&(this->flags),"flags");
-        //setMemberSaved(&(this->type),"type");
-        //setMemberSaved(&(this->x),"map_x");
-        //setMemberSaved(&(this->y),"map_y");
+        neighbors.clear();
     }
-    ~CountedConstruction<ConstructionClass>(){}
+    ~RegisteredConstruction<ConstructionClass>(){}
 };
 
 class ConstructionGroup {

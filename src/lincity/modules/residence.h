@@ -169,9 +169,9 @@ public:
 extern ResidenceConstructionGroup residenceLLConstructionGroup, residenceMLConstructionGroup, residenceHLConstructionGroup;
 extern ResidenceConstructionGroup residenceLHConstructionGroup, residenceMHConstructionGroup, residenceHHConstructionGroup;
 
-class Residence: public CountedConstruction<Residence> { // Residence inherits from its own CountedConstruction
+class Residence: public RegisteredConstruction<Residence> { // Residence inherits from its own RegisteredConstruction
 public:
-    Residence(int x, int y, unsigned short type): CountedConstruction<Residence>(x, y, type)
+    Residence(int x, int y, unsigned short type): RegisteredConstruction<Residence>(x, y, type)
     {
         this->local_population = 5; //to aid converted savegames should not affect actual game mechanics too much
         setMemberSaved(&(this->local_population),"local_population");

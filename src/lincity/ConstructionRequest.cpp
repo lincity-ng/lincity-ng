@@ -13,37 +13,28 @@
 
 //#include "../lincity-ng/Mps.hpp"
 //FIXME cannot include mps.h because of differing paths for further dependencies
+//TODO eliminate duplicated code
+
 extern int mps_x, mps_y;
 
 void ConstructionDeletionRequest::execute()
 {
-    int size = subject->constructionGroup->size;
+    unsigned short size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;
-    ::constructionCount.remove_construction(subject);
-    world(x,y)->construction = NULL;
+    subject->detach();
+    delete subject;
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
         {
-            // constructions may have children e.g. waste burning markets/shanties
-            if(world(x+j,y+i)->construction)
-            {
-                std::cout << "killing child: " << world(x+j,y+i)->construction->constructionGroup->name << std::endl;
-                ConstructionManager::executeRequest(new ConstructionDeletionRequest(world(x+j,y+i)->construction));
-            }
-            world(x+j,y+i)->construction = NULL;
-            world(x+j,y+i)->reportingConstruction = NULL;
             //update mps display
-            if (mps_x == x && mps_y == y)
+            if (mps_x == x + i && mps_y == y + j)
             {
-                mps_set(x, y, MPS_MAP);
+                mps_set(x + i, y + j, MPS_MAP);
             }
         }
     }
-
-    delete subject;
-
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();
@@ -55,27 +46,24 @@ void OreMineDeletionRequest::execute()
     int size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;
-    ::constructionCount.remove_construction(subject);
-    world(x,y)->construction = NULL;
+    subject->detach();
+    delete subject;
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
         {
-           world(x+j,y+i)->reportingConstruction = NULL;
             if (world(x+j,y+i)->ore_reserve < ORE_RESERVE / 2)
             {
                 world(x+j,y+i)->setTerrain(CST_WATER);
                 world(x+j,y+i)->flags |= FLAG_HAS_UNDERGROUND_WATER;
             }
             //update mps display
-            if (mps_x == x && mps_y == y)
+            if (mps_x == x + i && mps_y == y + j)
             {
-                mps_set(x, y, MPS_MAP);
+                mps_set(x + i, y + j, MPS_MAP);
             }
         }
     }
-
-    delete subject;
 
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
@@ -85,28 +73,24 @@ void OreMineDeletionRequest::execute()
 
 void CommuneDeletionRequest::execute()
 {
-    int size = subject->constructionGroup->size;
+    unsigned short size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;
-    ::constructionCount.remove_construction(subject);
-    world(x,y)->construction = NULL;
-    for (int i = 0; i < size; i++)
+    subject->detach();
+    delete subject;
+    for (unsigned short i = 0; i < size; ++i)
     {
-        for (int j = 0; j < size; j++)
+        for (unsigned short j = 0; j < size; ++j)
         {
-            world(x+j,y+i)->reportingConstruction = NULL;
             if (world(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-                parklandConstructionGroup.placeItem(x+j, y+i, CST_PARKLAND_PLANE);
+            {    parklandConstructionGroup.placeItem(x+j, y+i, CST_PARKLAND_PLANE);}
             //update mps display
-            if (mps_x == x && mps_y == y)
+            if (mps_x == x + i && mps_y == y + j)
             {
-                mps_set(x, y, MPS_MAP);
+                mps_set(x + i, y + j, MPS_MAP);
             }
         }
     }
-
-    delete subject;
-
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();
@@ -115,40 +99,30 @@ void CommuneDeletionRequest::execute()
 
 void BurnDownRequest::execute()
 {
-    int size = subject->constructionGroup->size;
+    unsigned short size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;
-    ::constructionCount.remove_construction(subject);
-    world(x,y)->construction = NULL;
-    for (int i = 0; i < size; i++)
+    subject->detach();
+    delete subject;
+    for (unsigned short i = 0; i < size; ++i)
     {
-        for (int j = 0; j < size; j++)
+        for (unsigned short j = 0; j < size; ++j)
         {
-            // constructions may have children e.g. waste burning markets/shanties
-            if(world(x+j,y+i)->construction)
-            {
-                std::cout << "killing child: " << world(x+j,y+i)->construction->constructionGroup->name << std::endl;
-                ConstructionManager::executeRequest(new ConstructionDeletionRequest(world(x+j,y+i)->construction));
-            }
-            world(x+j,y+i)->reportingConstruction = NULL;
             fireConstructionGroup.placeItem(x+j, y+i, CST_FIRE_1);
             static_cast<Fire*> (world(x+j,y+i)->construction)->burning_days = FIRE_LENGTH - 25;
             //update mps display
-            if (mps_x == x && mps_y == y)
+            if (mps_x == x + i && mps_y == y + j)
             {
-                mps_set(x, y, MPS_MAP);
+                mps_set(x + i, y + j, MPS_MAP);
             }
         }
     }
-    delete subject;
-
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 
 }
-
 
 
 

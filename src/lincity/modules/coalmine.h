@@ -49,9 +49,9 @@ public:
 
 extern CoalmineConstructionGroup coalmineConstructionGroup;
 
-class Coalmine: public CountedConstruction<Coalmine> { // Coalmine inherits from its CountedConstruction
+class Coalmine: public RegisteredConstruction<Coalmine> { // Coalmine inherits from its RegisteredConstruction
 public:
-    Coalmine(int x, int y, unsigned short type): CountedConstruction<Coalmine>(x, y, type)
+    Coalmine(int x, int y, unsigned short type): RegisteredConstruction<Coalmine>(x, y, type)
     {
         constructionGroup = &coalmineConstructionGroup;
         this->working_days = 0;

@@ -226,15 +226,16 @@ void Transport::stuff_flow()
                     ::constructionCount.add_construction(fire);
                 }
             }
+            //else if (burning_waste && real_time < anim)
+            //{   (dynamic_cast<Fire*>(world(x,y)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
             else if (burning_waste && real_time > anim)
             {
                 burning_waste = false;
                 ::constructionCount.remove_construction(world(x,y)->construction);
+                //assert(world(x,y)->construction->neighbors.empty());
                 delete world(x,y)->construction;
                 world(x,y)->construction = this;
             }
-            else if (burning_waste)
-            {   static_cast<Fire*> (world(x,y)->construction)->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
         }
 
     } //endfor all different STUFF

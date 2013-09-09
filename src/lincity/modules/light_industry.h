@@ -68,9 +68,9 @@ public:
 
 extern IndustryLightConstructionGroup industryLightConstructionGroup;
 
-class IndustryLight: public CountedConstruction<IndustryLight> { // IndustryLight inherits from CountedConstruction
+class IndustryLight: public RegisteredConstruction<IndustryLight> { // IndustryLight inherits from RegisteredConstruction
 public:
-    IndustryLight(int x, int y, unsigned short type): CountedConstruction<IndustryLight>(x, y, type)
+    IndustryLight(int x, int y, unsigned short type): RegisteredConstruction<IndustryLight>(x, y, type)
     {
         constructionGroup = &industryLightConstructionGroup;
         this->tech = tech_level;

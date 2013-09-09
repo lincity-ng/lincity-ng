@@ -64,9 +64,9 @@ public:
 
 extern CommuneConstructionGroup communeConstructionGroup;
 
-class Commune: public CountedConstruction<Commune> { // Commune inherits from Construction
+class Commune: public RegisteredConstruction<Commune> { // Commune inherits from Construction
 public:
-    Commune(int x, int y, unsigned short type): CountedConstruction<Commune>(x ,y ,type)
+    Commune(int x, int y, unsigned short type): RegisteredConstruction<Commune>(x ,y ,type)
     {
         this->constructionGroup = &communeConstructionGroup;
         this->anim = 0; // or real_time?

@@ -32,9 +32,9 @@ public:
 
 extern ParklandConstructionGroup parklandConstructionGroup;
 
-class Parkland: public CountedConstruction<Parkland> { // park inherits from CountedConstruction
+class Parkland: public RegisteredConstruction<Parkland> { // park inherits from RegisteredConstruction
 public:
-    Parkland(int x, int y, unsigned short type): CountedConstruction<Parkland>(x, y, type)
+    Parkland(int x, int y, unsigned short type): RegisteredConstruction<Parkland>(x, y, type)
     {
         constructionGroup = &parklandConstructionGroup;
         this->flags |= FLAG_NEVER_EVACUATE;

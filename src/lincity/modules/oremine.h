@@ -47,9 +47,9 @@ public:
 
 extern OremineConstructionGroup oremineConstructionGroup;
 
-class Oremine: public CountedConstruction<Oremine> { // Oremine inherits from its own CountedConstruction
+class Oremine: public RegisteredConstruction<Oremine> { // Oremine inherits from its own RegisteredConstruction
 public:
-    Oremine(int x, int y, unsigned short type): CountedConstruction<Oremine>(x, y, type)
+    Oremine(int x, int y, unsigned short type): RegisteredConstruction<Oremine>(x, y, type)
     {
         constructionGroup = &oremineConstructionGroup;
         this->anim = 0;
