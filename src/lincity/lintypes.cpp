@@ -755,39 +755,345 @@ void Construction::detach()
             {
                 //std::cout << "killing child: " << world(x+j,y+i)->construction->constructionGroup->name << std::endl;
                 ::constructionCount.remove_construction(world(x+j,y+i)->construction);
-#ifdef DEBUG
-                assert(world(x+j,y+i)->construction->neighbors.size() == 0);
-#endif
                 delete world(x+j,y+i)->construction;
                 world(x+j,y+i)->construction = NULL;
 
             }
-#ifdef DEBUG
-            assert(this == world(x+j,y+i)->reportingConstruction);
-#endif
             world(x+j,y+i)->reportingConstruction = NULL;
         }
     }
-    //std::cout << "neighbors: " << subject->neighbors.size() << std::endl;
+    deneighborize();
+}
+
+void Construction::deneighborize()
+{
     for(size_t i = 0; i < neighbors.size(); ++i)
     {
-        //std::cout << "syonara: " << i << std::endl;
         std::vector<Construction*> *neib = &(neighbors[i]->neighbors);
         std::vector<Construction*>::iterator neib_it = neib->begin();
-        for(; neib_it != neib->end() && *neib_it != this; ++neib_it){}
-#ifdef DEBUG
-        //check if conection does exist
-        assert(*neib_it == this);
-#endif
+        while(neib_it != neib->end() && *neib_it != this)
+            {++neib_it;}
+        assert(neib_it != neib->end());
         neib->erase(neib_it);
-        //double check for uniqueness
-#ifdef DEBUG
-        for(neib_it = neib->begin(); neib_it != neib->end() && *neib_it != this; ++neib_it){}
-        assert(neib_it == neib->end());
-#endif
     }
-
+    neighbors.clear();
+    for(size_t i = 0; i < partners.size(); ++i)
+    {
+        std::vector<Construction*> *partner = &(partners[i]->partners);
+        std::vector<Construction*>::iterator partner_it = partner->begin();
+        while(partner_it != partner->end() && *partner_it != this)
+            {++partner_it;}
+        assert(partner_it != partner->end());
+        partner->erase(partner_it);
+    }
+    partners.clear();
 }
+
+void Construction::link_to(Construction* other)
+{
+/*
+    std::cout << "new link requested : " << constructionGroup->name << "(" << x << "," << y << ") - "
+    << other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+*/
+#ifdef DEBUG
+    std::vector<Construction*>::iterator neib_it = neighbors.begin();
+    bool ignore = false;
+    while(neib_it !=  neighbors.end() && *neib_it != other)
+            {++neib_it;}
+
+    if(neib_it != neighbors.end())
+    {
+        std::cout << "duplicate neighbor : " << constructionGroup->name << "(" << x << "," << y << ") - "
+        << other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+        ignore = true;
+    }
+    neib_it = partners.begin();
+    while(neib_it !=  partners.end() && *neib_it != other)
+            {++neib_it;}
+
+    if(neib_it != partners.end())
+    {
+        std::cout << "duplicate partner : " << constructionGroup->name << "(" << x << "," << y << ") - "
+        << other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+        ignore = true;
+    }
+    if (this == other)
+    {
+        std::cout << "home link error : " << constructionGroup->name << "(" << x << "," << y << ") - "
+        << other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+        ignore = true;
+    }
+    if(ignore)
+    {   return;}
+#endif
+    bool useful = false;
+    Commodities stuff_ID;
+    std::map<Commodities, int>::iterator stuff_it;
+    for(stuff_it = commodityCount.begin() ;!useful && stuff_it != commodityCount.end() ; stuff_it++ )
+    {
+        stuff_ID = stuff_it->first;
+        if(other->commodityCount.count(stuff_ID))
+        {
+            useful=((constructionGroup->commodityRuleCount[stuff_ID].take &&
+                other->constructionGroup->commodityRuleCount[stuff_ID].give)
+            ||
+               (constructionGroup->commodityRuleCount[stuff_ID].give &&
+               other->constructionGroup->commodityRuleCount[stuff_ID].take));
+        }
+    }
+    if (useful)
+    {
+        if(flags & FLAG_POWER_LINE)
+        {
+            neighbors.push_back(other);
+            other->neighbors.push_back(this);
+            //std::cout << "power link : " << constructionGroup->name << "(" << x << "," << y << ") - "
+            //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+            return;
+        }
+        int vec_x = other->x - x;
+        int vec_y = other->y - y;
+        int ns = other->constructionGroup->size;
+        int s = constructionGroup->size;
+        //Check if *this is adjacent to *other
+        if(!(((vec_x == s) || (vec_x == -ns)) && ((vec_y == s) || (vec_y == -ns))) &&
+            (((vec_x <= s) && (vec_x >= -ns)) && ((vec_y <= s) && (vec_y >= -ns))))
+        {
+            neighbors.push_back(other);
+            other->neighbors.push_back(this);
+            //std::cout << "neighbor : " << constructionGroup->name << "(" << x << "," << y << ") - "
+            //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+        }
+        //transport may never be a distant partner
+        else if(! ((flags | other->flags) & FLAG_IS_TRANSPORT))
+        {
+            if ((other->constructionGroup->group == GROUP_MARKET)^(constructionGroup->group == GROUP_MARKET))
+            {
+                partners.push_back(other);
+                other->partners.push_back(this);
+                //std::cout << "partner : " << constructionGroup->name << "(" << x << "," << y << ") - "
+                //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+            }
+            //else
+            //std::cout << "rejected connection : " << constructionGroup->name << "(" << x << "," << y << ") - "
+            //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+        }
+        //else
+        //std::cout << "to far transport : " << constructionGroup->name << "(" << x << "," << y << ") - "
+        //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+    }
+    //else
+    //std::cout << "useless connection : " << constructionGroup->name << "(" << x << "," << y << ") - "
+    //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
+}
+
+int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by Minimap
+{
+    if (commodityCount.count(stuff_ID))
+    {
+        int loc_lvl = commodityCount[stuff_ID];
+        int loc_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        if (flags & FLAG_EVACUATE)
+        {   return loc_lvl?TRANSPORT_QUANTA:-1;}
+
+#ifdef DEBUG
+        if (loc_lvl > loc_cap)
+        {
+            std::cout<<"fixed "<<commodityNames[stuff_ID]<<" > maxload at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+            commodityCount[stuff_ID] = loc_cap;
+            loc_lvl = loc_cap;
+        }
+        if (loc_lvl < 0)
+        {
+            std::cout<<"fixed "<<commodityNames[stuff_ID]<<" < 0 at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+            commodityCount[stuff_ID] = loc_cap;
+            loc_lvl = 0;
+        }
+
+        if (loc_cap < 1)
+        {
+            std::cout<<"maxload "<<commodityNames[stuff_ID]<<" <= 0 error at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+        }
+#endif
+        int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);
+        //Tell actual stock if we would tentatively participate in transport
+        if ((center_ratio == -1) || (
+        loc_ratio>center_ratio?constructionGroup->commodityRuleCount[stuff_ID].give:
+            constructionGroup->commodityRuleCount[stuff_ID].take) )
+        {   return (loc_ratio);}
+    }
+    return -1;
+}
+
+void Construction::trade()
+{
+
+    int ratio, cap, lvl, center_lvl, center_cap;
+    int traffic, max_traffic;
+    Commodities stuff_ID;
+    const size_t neighsize = neighbors.size();
+    bool lvls[neighsize];
+    std::map<Commodities, int>::iterator stuff_it;
+    Transport *transport = NULL;
+    Powerline *powerline = NULL;
+    if(flags & FLAG_IS_TRANSPORT)
+    {   transport = dynamic_cast<Transport*>(this);}
+    else if(flags & FLAG_POWER_LINE)
+    {   powerline = dynamic_cast<Powerline*>(this);}
+    /*begin for over all different stuff*/
+    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++ )
+    {
+        stuff_ID = stuff_it->first;
+        center_lvl = stuff_it->second;
+        center_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        if(flags & FLAG_EVACUATE)
+        {
+            if(center_lvl > 0)
+            {   center_lvl = center_cap;}
+            else
+            {   continue;} // next commodity
+        }
+        //first order approximation for rato
+        ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
+        lvl = center_lvl;
+        cap = center_cap;
+        for(unsigned int i = 0; i < neighsize; ++i)
+        {
+            Construction *pear = neighbors[i];
+            if(pear->commodityCount.count(stuff_ID))
+            {
+                lvls[i] = false;
+                int lvlsi = pear->commodityCount[stuff_ID];
+                int capsi = pear->constructionGroup->commodityRuleCount[stuff_ID].maxload;
+                if(pear->flags & FLAG_EVACUATE)
+                {   lvlsi = lvlsi?capsi:-1;}
+                else
+                {
+                    int pearat = lvlsi * TRANSPORT_QUANTA / capsi;
+                    //only consider stuff that would tentatively move
+                    if(((pearat > ratio)&&!(constructionGroup->commodityRuleCount[stuff_ID].take &&
+                            pear->constructionGroup->commodityRuleCount[stuff_ID].give)) ||
+                       ((pearat < ratio)&&!(constructionGroup->commodityRuleCount[stuff_ID].give &&
+                            pear->constructionGroup->commodityRuleCount[stuff_ID].take)))
+                    {   continue;}
+                }
+                lvls[i] = true;
+                lvl += lvlsi;
+                cap += capsi;
+            }
+        }
+        ratio = lvl * TRANSPORT_QUANTA / cap;
+        max_traffic = 0;
+        //make flow towards ratio
+        for(unsigned int i = 0; i < neighsize; ++i)
+        {
+            if(lvls[i])
+            {
+                traffic = neighbors[i]->equilibrate_stuff(&center_lvl, center_cap, ratio, stuff_ID, constructionGroup);
+                if( traffic > max_traffic)
+                {   max_traffic = traffic;}
+            }
+        }
+
+        //do some smoothing to suppress fluctuations from random order
+        // max possible ~90 %
+        if(flags & FLAG_IS_TRANSPORT) //Special for transport
+        {   transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;}
+        else if(flags & FLAG_POWER_LINE) //Special for powerlines
+        {
+            powerline->trafficCount[stuff_ID] = (9 * powerline->trafficCount[stuff_ID] + max_traffic) / 10;
+            for(unsigned int i = 0; i < neighsize; ++i)
+            {
+                if((powerline->anim_counter == 0)
+                && !(neighbors[i]->flags & FLAG_POWER_LINE)
+                && neighbors[i]->constructionGroup->commodityRuleCount[stuff_ID].give
+                && (neighbors[i]->commodityCount[stuff_ID] > 0))
+                {   powerline->anim_counter = POWER_MODULUS + rand()%POWER_MODULUS;}
+                if((powerline->flashing && (neighbors[i]->flags & FLAG_POWER_LINE)))
+                {   ConstructionManager::submitRequest(new PowerLineFlashRequest(neighbors[i]));}
+            }
+        }
+        stuff_it->second = center_lvl; //update center_lvl
+    } //endfor all different STUFF
+}
+
+int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commodities stuff_ID, ConstructionGroup * rem_cstGroup)
+{
+    if (commodityCount.count(stuff_ID) ) // we know stuff_id
+    {
+        int flow, traffic;
+        int *loc_lvl;
+        int loc_cap;
+        loc_lvl = &(commodityCount[stuff_ID]);
+        loc_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
+        if (!(flags & FLAG_EVACUATE))
+        {
+            flow = (ratio * (loc_cap) / TRANSPORT_QUANTA) - (*loc_lvl);
+            if (((flow > 0) && (!(constructionGroup->commodityRuleCount[stuff_ID].take &&
+            rem_cstGroup->commodityRuleCount[stuff_ID].give) ))
+            || ((flow < 0) && !(constructionGroup->commodityRuleCount[stuff_ID].give &&
+            rem_cstGroup->commodityRuleCount[stuff_ID].take) ))
+            {   //construction refuses the flow
+                return 0;
+            }
+            if (flow > 0)
+            {
+                if (flow * TRANSPORT_RATE > rem_cap )
+                {   flow = rem_cap / TRANSPORT_RATE;}
+                if (flow > *rem_lvl)
+                {   flow = *rem_lvl;}
+                //if(flow  > loc_cap-*loc_lvl) // not happening anyways
+                //{   flow = loc_cap-*loc_lvl; std::cout << ".";}
+            }
+            else if (flow < 0)
+            {
+                if(-flow * TRANSPORT_RATE > rem_cap)
+                {   flow = - rem_cap / TRANSPORT_RATE;}
+                if(-flow > (rem_cap-*rem_lvl))
+                {   flow = -(rem_cap-*rem_lvl);}
+                //if(-flow > *loc_lvl) // not happening anyways
+                //{   flow = -*loc_lvl; std::cout << "$":}
+            }
+            std::cout.flush();
+            if (!(flags & FLAG_IS_TRANSPORT) && (flow > 0)
+                && constructionGroup->group != GROUP_MARKET)
+            //something is given to a consumer
+            {
+                switch (stuff_ID)
+                {
+                    case (STUFF_JOBS) :
+                        income_tax += flow;
+                        break;
+                    case (STUFF_GOODS) :
+                        goods_tax += flow;
+                        goods_used += flow;
+                    case (STUFF_COAL) :
+                        coal_tax += flow;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else // we are evacuating
+        {
+            flow = -(rem_cap-*rem_lvl);
+            if (-flow > *loc_lvl)
+            {   flow = -*loc_lvl;}
+        }
+        traffic = flow * TRANSPORT_QUANTA / rem_cap;
+        // incomming and outgoing traffic dont cancel but add up
+        if (traffic < 0)
+        {
+            traffic = -traffic;
+        }
+        *loc_lvl += flow;
+        *rem_lvl -= flow;
+        return traffic;
+    }
+    return -1; //there was nothing to handle
+}
+
 
 //ConstructionGroup Declarations
 
@@ -824,43 +1130,65 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
             } // endif !is_water
         } //endfor j
     }// endfor i
-    //now populate own and neighbors neighbor vectors
-    if(!(tmpConstr->flags & FLAG_IS_GHOST))
+    //now look for neighbors
+    //skip ghosts (aka burning waste) and powerlines here
+    if(!(tmpConstr->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (tmpConstr->constructionGroup->group != GROUP_FIRE))
     {
-        Construction* cst = NULL;
-        Construction* cst1 = NULL;
-        Construction* cst2 = NULL;
-        Construction* cst3 = NULL;
-        Construction* cst4 = NULL;
-        for (unsigned short edge = 0; edge < size; ++edge)
+        if(tmpConstr->flags & FLAG_IS_TRANSPORT)//search adjacent tiles only
         {
-            cst = world(x - 1,y + edge)->reportingConstruction;
-            if(cst && cst != cst1 && !(cst->flags & FLAG_IS_GHOST))
+            Construction* cst = NULL;
+            Construction* cst1 = NULL;
+            Construction* cst2 = NULL;
+            Construction* cst3 = NULL;
+            Construction* cst4 = NULL;
+            for (unsigned short edge = 0; edge < size; ++edge)
             {
-                tmpConstr->neighbors.push_back(cst1 = cst);
-                cst->neighbors.push_back(tmpConstr);
-                //std::cout << "conect: " << "left" << std::endl;
+                //here we rely on invisible edge tiles
+                //TODO silence addneighbor and move checks there
+                cst = world(x - 1,y + edge)->reportingConstruction;
+                if(cst && cst != cst1 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                {   tmpConstr->link_to(cst1 = cst);}
+                cst = world(x + edge,y - 1)->reportingConstruction;
+                if(cst && cst != cst2 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                {   tmpConstr->link_to(cst2 = cst);}
+                cst = world(x + size,y + edge)->reportingConstruction;
+                if(cst && cst != cst3 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                {   tmpConstr->link_to(cst3 = cst);}
+                cst = world(x + edge,y + size)->reportingConstruction;
+                if(cst && cst != cst4 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                {   tmpConstr->link_to(cst4 = cst);}
             }
-            cst = world(x + edge,y - 1)->reportingConstruction;
-            if(cst && cst != cst2 && !(cst->flags & FLAG_IS_GHOST))
+        }
+        else // search full market range for constructions
+        {
+            int tmp;
+            int lenm1 = world.len()-1;
+            tmp = x - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
+            int xs = (tmp < 1) ? 1 : tmp;
+            tmp = y - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
+            int ys = (tmp < 1)? 1 : tmp;
+            tmp = x + GROUP_MARKET_RANGE + 1;
+            int xe = (tmp > lenm1) ? lenm1 : tmp;
+            tmp = y + GROUP_MARKET_RANGE + 1;
+            int ye = (tmp > lenm1)? lenm1 : tmp;
+
+            for(int yy = ys; yy < ye; ++yy)
             {
-                tmpConstr->neighbors.push_back(cst2 = cst);
-                cst->neighbors.push_back(tmpConstr);
-                //std::cout << "conect: " << "up" << std::endl;
-            }
-            cst = world(x + size,y + edge)->reportingConstruction;
-            if(cst && cst != cst3 && !(cst->flags & FLAG_IS_GHOST))
-            {
-                tmpConstr->neighbors.push_back(cst3 = cst);
-                cst->neighbors.push_back(tmpConstr);
-                //std::cout << "conect: " << "right" << std::endl;
-            }
-            cst = world(x + edge,y + size)->reportingConstruction;
-            if(cst && cst != cst4 && !(cst->flags & FLAG_IS_GHOST))
-            {
-                tmpConstr->neighbors.push_back(cst4 = cst);
-                cst->neighbors.push_back(tmpConstr);
-                //std::cout << "conect: " << "down" << std::endl;
+                for(int xx = xs; xx < xe; ++xx)
+                {
+                    //dont search at home
+                    if(((xx == x )  && (yy == y)))
+                    {   continue;}
+                    if(world(xx,yy)->construction) //be unique
+                    {
+                        Construction *cst = world(xx,yy)->reportingConstruction; //stick with reporting
+                        if((cst->flags & FLAG_POWER_LINE) || (cst->constructionGroup->group == GROUP_FIRE))
+                        {   continue;}
+                        //will attempt to make a link
+                        tmpConstr->link_to(cst);
+                    }
+                }
+
             }
         }
     }

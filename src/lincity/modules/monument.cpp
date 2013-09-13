@@ -32,6 +32,13 @@ void Monument::update()
         commodityCount[STUFF_JOBS] -= MONUMENT_GET_JOBS;
         jobs_consumed += MONUMENT_GET_JOBS;
         completion = jobs_consumed * 100 / BUILD_MONUMENT_JOBS;
+        ++workingdays;
+    }
+    //monthly update
+    if (total_time % 100 == 0)
+    {
+        busy = workingdays;
+        workingdays = 0;
     }
     /* now choose a graphic */
     if (completion >= 100)
@@ -70,16 +77,19 @@ void Monument::report()
 
     mps_store_sd(i++, constructionGroup->name,ID);
     i++;
-    i++;
     /* Display tech contribution only after monument is complete */
     if (completion >= 100) {
+        i++;
         mps_store_sfp(i++, "Wisdom bestowed", tech_made * 100.0 / MAX_TECH_LEVEL);
+        mps_store_title(i++,"");
         mps_store_title(i++,"");
         mps_store_title(i++,"");
         mps_store_title(i++,"");
     }
     else
     {
+        mps_store_sfp(i++, _("busy"), (float) busy);
+        i++;
         list_commodities(&i);
         i++;
         mps_store_sfp(i++, "Completion", completion);

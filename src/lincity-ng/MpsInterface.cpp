@@ -126,13 +126,14 @@ void mps_refresh() /* refresh the information display's contents */
                     {
                         mps_store_title(8,"build something here" );
                     }
-#ifdef DEBUG
+ /*#ifdef DEBUG
                     mps_store_sd(10, "x", mps_x);
                     mps_store_sd(11, "y", mps_y);
                     mps_store_sd(12, "altitude", world(mps_x, mps_y)->ground.altitude);
 
                     fprintf(stderr, "x %i, y %i, Alt %i\n", mps_x, mps_y, world(mps_x, mps_y)->ground.altitude);
-#endif
+ #endif
+ */
              } //endswitch groups
             } //elseif use of modern report
             currentMPS = 0;

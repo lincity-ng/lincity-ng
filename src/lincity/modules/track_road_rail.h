@@ -211,7 +211,7 @@ public:
     Counted<RailBridge> *countedRailBridge;
     void update();
     void report();
-    void stuff_flow();
+    //void stuff_flow();
     std::map<Commodities, int> trafficCount;
     void list_traffic( int* i);
     int subgroupID;

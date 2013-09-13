@@ -348,16 +348,14 @@ void Residence::update()
 void Residence::report()
 {
     int i = 0;
-    //const char *p;
 
     mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sddp(i++, _("People"), local_population, max_population);
+    mps_store_sddp(i++, _("Tenants"), local_population, max_population);
     mps_store_sd(i++, _("Desireability"), desireability);
-    mps_store_sf(i++, _("Births per year"), (double)1200/births);
-    mps_store_sf(i++, _("Death per year"), (double)1200/deaths);
-    mps_store_sfp(i++, _("Pollution mortality"), pol_deaths);
+    mps_store_sf(i++, _("Births per year"), (float)1200/births);
+    mps_store_sf(i++, _("Death per year"), (float)1200/deaths);
+    mps_store_sfp(i++, _("Pollution mortality"), (float)pol_deaths);
     i++;
-    //mps_store_sd(i++, "Pollution", world(x,y)->pollution);
     list_commodities(&i);
 }
 

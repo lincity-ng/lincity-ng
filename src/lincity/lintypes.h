@@ -187,7 +187,8 @@ public:
 
     std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
     std::map<std::string, MemberRule> memberRuleCount;
-    std::vector<Construction*> neighbors;
+    std::vector<Construction*> neighbors;       //adjacent for transport
+    std::vector<Construction*> partners;        //remotely for markets
 
     void list_commodities(int *);               //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
@@ -206,7 +207,13 @@ public:
     void setCommodityRulesSaved(std::map<Commodities,CommodityRule> * stuffRuleCount);
     void writeTemplate();      //create xml template for savegame
     void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream
-    void detach();      //removes all references from world, ::constructionCount and cancels neighborconnections
+    void detach();      //removes all references from world, ::constructionCount
+    void deneighborize(); //cancells all neighbors and partners mutually
+    void link_to(Construction* other); //establishes mutual connection to neighbor or partner
+    int  tellstuff( Commodities stuff_ID, int level); //tell the filling level of commodity
+    void trade(); //exchange commodities with neigbhors
+    int equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commodities stuff_ID, ConstructionGroup * rem_cstGroup);
+    //equilibrates stuff with an external reservoir (e.g. another construction invoking this method)
 };
 
 extern const char *commodityNames[];

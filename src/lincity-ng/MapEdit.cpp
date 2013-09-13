@@ -42,14 +42,14 @@ int shanty_bul_flag = 0;
 int build_bridge_flag = 0;
 int last_message_group = 0;
 
-#ifdef DEBUG
-void DBG_TileInfo(int x, int y) {
+/* #ifdef DEBUG
+    void DBG_TileInfo(int x, int y) {
     fprintf(stderr, "%u,%u:Type=%d, Group=%s(%d), Flags= %08X, Alt.=%d\n", x, y,
         world(x, y)->type, _(main_groups[world(x, y)->group].name), world(x, y)->group,
         world(x, y)->flags, world(x, y)->ground.altitude);
-}
-#endif
-
+    }
+    #endif
+*/
 void resetLastMessage(){
     last_message_group = 0;
 }
@@ -165,7 +165,7 @@ void editMap (MapPoint point, int button)
         check_bulldoze_area (mod_x, mod_y);
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
 #ifdef DEBUG
-        DBG_TileInfo(x, y);
+        //DBG_TileInfo(x, y);
 #endif
         return;
     }
@@ -211,7 +211,7 @@ void editMap (MapPoint point, int button)
             mapMPS->playBuildingSound( mod_x, mod_y );
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
 #ifdef DEBUG
-        DBG_TileInfo(x, y);
+        //DBG_TileInfo(x, y);
 #endif
         if( mps_result >= 1 )
         {
@@ -264,7 +264,7 @@ void editMap (MapPoint point, int button)
 
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool on CST_NONE
 #ifdef DEBUG
-        DBG_TileInfo(x, y);
+        //DBG_TileInfo(x, y);
 #endif
         return;
     }
@@ -336,7 +336,7 @@ void editMap (MapPoint point, int button)
             getSound()->playSound( "Build" );
             mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on well-built
 #ifdef DEBUG
-            DBG_TileInfo(x, y);
+            //DBG_TileInfo(x, y);
 #endif
             break;
         case -1000:

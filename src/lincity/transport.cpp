@@ -53,7 +53,7 @@ void general_transport(int x, int y, int max_waste){}
      *   v
      *   y
      */
-
+/*
 int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int center_ratio)
 {
     Construction * repcons = world(x, y)->reportingConstruction;
@@ -91,13 +91,14 @@ int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int
         if ((center_ratio == -1) || (
         loc_ratio>center_ratio?repcons->constructionGroup->commodityRuleCount[stuff_ID].give:
             repcons->constructionGroup->commodityRuleCount[stuff_ID].take) )
-        {   //only tell actual stock if we would tentaively participate in transport
+        {   //only tell actual stock if we would tentatively participate in transport
             return (loc_ratio);
         }
     }
     return -1;
 }
-
+*/
+/*
 int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int ratio, Construction::Commodities stuff_ID)
 {
     //assert(world(x, y)->reportingConstruction != NULL);
@@ -106,12 +107,13 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
     int *loc_lvl;
     int loc_cap;
     int transport_rate = TRANSPORT_RATE;
-
+*/
 /*
     This will happen if mines are evacuated
     if (ratio > TRANSPORT_QUANTA)
         std::cout<<"target ratio > TRANSPORT_QUANTA at "<<world(x, y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
 */
+/*
     //Double speed transport with passive partners
     if (!(repcons->flags & FLAG_IS_TRANSPORT))
     {
@@ -216,7 +218,7 @@ int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap ,int rat
     }
     return -1; //there was nothing to handle
 }
-
+*/
 void connect_transport(int originx, int originy, int w, int h)
 {
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
@@ -286,102 +288,78 @@ void connect_transport(int originx, int originy, int w, int h)
             switch (world(x, y)->getGroup())
             {
             case GROUP_POWER_LINE:
+            {
+                bool far = false;
+                dynamic_cast<Powerline*>(world(x,y)->reportingConstruction)->deneighborize();
                 /* power may be transferred */
                 /* up -- (ThMO) */
-                //group = check_group(x, y - 1);
-                mwh = collect_transport_info(x, y-1, Construction::STUFF_MWH, -1);
+                mwh = world(x, y-1)->reportingConstruction?
+                world(x, y-1)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
                 /* see if dug under track, rail or road */
-                if ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))
-                {   //group = check_group(x, y - 2);
-                    mwh = collect_transport_info(x, y-2, Construction::STUFF_MWH, -1);}
-                if(mwh != -1)
-                {   mask |=8;}
-/*
-                switch (group)
+                if ((far = ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))))
                 {
-                    case GROUP_WIND_POWER:
-                    case GROUP_POWER_LINE:
-                    case GROUP_SOLAR_POWER:
-                    case GROUP_SUBSTATION:
-                    case GROUP_COAL_POWER:
-                    case GROUP_INDUSTRY_L:
-                    case GROUP_INDUSTRY_H:
-                        mask |= 8;
-                        break;
+                    mwh = world(x, y-2)->reportingConstruction?
+                    world(x, y-2)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
                 }
-*/
+                if(mwh != -1)
+                {
+                    mask |=8;
+                    int y2 = far?(y-2):(y-1);
+                    dynamic_cast<Powerline*>(world(x,y)->reportingConstruction)->link_to(world(x,y2)->reportingConstruction);
+                }
+
                 /* left -- (ThMO) */
                 //group = check_group(x - 1, y);
-                mwh = collect_transport_info(x-1, y, Construction::STUFF_MWH, -1);
-                if (x > 1 && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))
+                mwh = world(x-1, y)->reportingConstruction?
+                world(x-1, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
+                if((far = ((x > 1) && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))))
                 {   //group = check_group(x - 2, y);
-                    mwh = collect_transport_info(x-2, y, Construction::STUFF_MWH, -1);}
-                if(mwh != -1)
-                {   mask |=4;}
-/*
-                switch (group)
-                {
-                    case GROUP_WIND_POWER:
-                    case GROUP_POWER_LINE:
-                    case GROUP_SOLAR_POWER:
-                    case GROUP_SUBSTATION:
-                    case GROUP_COAL_POWER:
-                    case GROUP_INDUSTRY_L:
-                    case GROUP_INDUSTRY_H:
-                        mask |= 4;
-                        break;
+                    mwh = world(x-2, y)->reportingConstruction?
+                    world(x-2, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
                 }
-*/
+                if(mwh != -1)
+                {
+                    mask |=4;
+                    int x2 = far?(x-2):(x-1);
+                    dynamic_cast<Powerline*>(world(x,y)->reportingConstruction)->link_to(world(x2,y)->reportingConstruction);
+                }
+
                 /* right -- (ThMO) */
                 //group = check_group(x + 1, y);
-                mwh = collect_transport_info(x+1, y, Construction::STUFF_MWH, -1);
-                if (x < world.len() - 2 && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))
+                mwh = world(x+1, y)->reportingConstruction?
+                world(x+1, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
+                if ((far = ((x < world.len() - 2) && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))))
                 {   //group = check_group(x + 2, y);
-                    mwh = collect_transport_info(x+2, y, Construction::STUFF_MWH, -1);}
-                if(mwh != -1)
-                {   mask |=2;}
-/*
-                switch (group)
-                {
-                    case GROUP_WIND_POWER:
-                    case GROUP_POWER_LINE:
-                    case GROUP_SOLAR_POWER:
-                    case GROUP_SUBSTATION:
-                    case GROUP_COAL_POWER:
-                    case GROUP_INDUSTRY_L:
-                    case GROUP_INDUSTRY_H:
-                        mask |= 2;
-                        break;
+                    mwh = world(x+2, y)->reportingConstruction?
+                    world(x+2, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
                 }
-*/
+                if(mwh != -1)
+                {
+                    mask |=2;
+                    int x2 = far?(x+2):(x+1);
+                    dynamic_cast<Powerline*>(world(x,y)->reportingConstruction)->link_to(world(x2,y)->reportingConstruction);
+                }
+
                 /* down -- (ThMO) */
                 //group = check_group(x, y + 1);
-                mwh = collect_transport_info(x, y+1, Construction::STUFF_MWH, -1);
-                if (y < world.len() - 2 && (world(x, y+1)->is_water() || world(x, y+1)->is_transport()))
+                mwh = world(x, y+1)->reportingConstruction?
+                world(x, y+1)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
+                if ((far = (y < world.len() - 2) && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())))
                 {   //group = check_group(x, y + 2);
-                    mwh = collect_transport_info(x, y+2, Construction::STUFF_MWH, -1);}
+                    mwh = world(x, y+2)->reportingConstruction?
+                    world(x, y+2)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;}
                 if(mwh != -1)
-                {   mask |=1;}
-/*
-                switch (group)
                 {
-                    case GROUP_WIND_POWER:
-                    case GROUP_POWER_LINE:
-                    case GROUP_SOLAR_POWER:
-                    case GROUP_SUBSTATION:
-                    case GROUP_COAL_POWER:
-                    case GROUP_INDUSTRY_L:
-                    case GROUP_INDUSTRY_H:
-                        ++mask;
-                        break;
+                    mask |=1;
+                    int y2 = far?(y+2):(y+1);
+                    dynamic_cast<Powerline*>(world(x,y)->reportingConstruction)->link_to(world(x,y2)->reportingConstruction);
                 }
-*/
                 /* Next, set the connectivity into MP_TYPE */
                 world(x, y)->construction->type = power_table[mask];
                 world(x, y)->construction->flags &= mask0; // clear connection flags
                 world(x, y)->construction->flags |= mask; // set connection flags
                 break;
-
+            }
             case GROUP_TRACK:
                 if (check_group(x, y - 1) == GROUP_TRACK
                 ||  check_group(x, y - 1) == GROUP_ROAD)

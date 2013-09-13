@@ -29,10 +29,14 @@ Construction *MarketConstructionGroup::createConstruction(int x, int y, unsigned
 
 void Market::update()
 {
-    int tmp, xx, yy, pears, n;
-    int ratio;
-    int market_lvl, market_cap;
+
+    //int tmp, xx, yy, pears, n;
+    int ratio, trade_ratio, n;
+    int lvl, market_lvl;
+    int cap, market_cap;
     int market_ratio = 0;
+    const size_t partsize = partners.size();
+    bool lvls[partsize];
     Commodities stuff_ID;
     std::map<Commodities, int>::iterator stuff_it;
     n = 0;
@@ -40,98 +44,67 @@ void Market::update()
     {
         stuff_ID = stuff_it->first;
         //dont handle stuff if neither give nor take
-        if (!commodityRuleCount[stuff_ID].give
-         && !commodityRuleCount[stuff_ID].take)
-        {
-            continue;
-        }
-        //dont handle anything else than jobs if to little jobs
-        // deadlock
-
-        if ((stuff_ID != STUFF_JOBS)
-         && (commodityCount[STUFF_JOBS] < jobs)
-         && !(flags & FLAG_EVACUATE)
-           )
-        {continue;}
+        //dont handle anything else if there are to little jobs
+        if ((!commodityRuleCount[stuff_ID].give
+         && !commodityRuleCount[stuff_ID].take) ||
+         (commodityCount[STUFF_JOBS] < jobs && stuff_ID !=STUFF_JOBS))
+        {   continue;}
 
         market_lvl = stuff_it->second;
-        market_cap = (flags & FLAG_EVACUATE)?(market_lvl>0?market_lvl:1):constructionGroup->commodityRuleCount[stuff_ID].maxload;
-        pears = 1;
+        market_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
         ratio = market_lvl * TRANSPORT_QUANTA / market_cap;
         market_ratio += ratio;
         n++;
-        for(yy = ys; yy < ye; yy++)
+        lvl = market_lvl;
+        cap = market_cap;
+        for(unsigned int i = 0; i < partsize; ++i)
         {
-            for(xx = xs; xx < xe; xx++)
+            Construction *pear = partners[i];
+            if(pear->commodityCount.count(stuff_ID))
             {
-                //Count Constructions only once
-                //Never count other markets far away transport or power lines
-                if ( !world(xx,yy)->construction
-                  || (world(xx,yy)->getTopGroup() == GROUP_FIRE)
-                  || (world(xx,yy)->getGroup() == GROUP_MARKET)
-                  || (world(xx,yy)->getGroup() == GROUP_POWER_LINE)
-                  || (world(xx,yy)->is_transport() &&
-                    !( ((xx==(x-1)) || (xx==(x+constructionGroup->size)) ) &&
-                    ((yy==(y-1)) || (yy==(y+constructionGroup->size)) ) )
-                    )
-                   )
+                lvls[i] = false;
+                int lvlsi = pear->commodityCount[stuff_ID];
+                int capsi = pear->constructionGroup->commodityRuleCount[stuff_ID].maxload;
+                if(pear->flags & FLAG_EVACUATE)
+                {   lvlsi = lvlsi?capsi:-1;}
+                else
                 {
-                    continue;
+                    int pearat = lvlsi * TRANSPORT_QUANTA / capsi;
+                    //only consider stuff that would tentatively move
+                    //Here the local rules of this market apply
+                    if(((pearat > ratio)&&!(commodityRuleCount[stuff_ID].take &&
+                            pear->constructionGroup->commodityRuleCount[stuff_ID].give)) ||
+                       ((pearat < ratio)&&!(commodityRuleCount[stuff_ID].give &&
+                            pear->constructionGroup->commodityRuleCount[stuff_ID].take)))
+                    {   continue;}
                 }
-                tmp = collect_transport_info( xx, yy, stuff_ID, market_ratio);
-                if (tmp != -1)
-                {
-                    ratio += tmp;
-                    pears++;
-                }
-            }//endfor xx
-        }//endfor yy
-        // not weighted average filling for stuff_ID
-        ratio /= pears;
-        for(yy = ys; yy < ye; yy++)
+                lvls[i] = true;
+                lvl += lvlsi;
+                cap += capsi;
+            }
+        }
+        trade_ratio = lvl * TRANSPORT_QUANTA / cap;
+        for(unsigned int i = 0; i < partsize; ++i)
         {
-            for(xx = xs; xx < xe; xx++)
-            {
-                //Deal with constructions only once
-                //Never deal with markets power lines or far away transport
-                if ( !world(xx,yy)->construction
-                  || (world(xx,yy)->getTopGroup() == GROUP_FIRE)
-                  || (world(xx,yy)->getGroup() == GROUP_MARKET)
-                  || (world(xx,yy)->getGroup() == GROUP_POWER_LINE)
-                  || (world(xx,yy)->is_transport() &&
-                    !( ((xx==(x-1)) || (xx==(x+constructionGroup->size)) ) &&
-                    ((yy==(y-1)) || (yy==(y+constructionGroup->size)) ) )
-                    )
-                   )
-                {
-                    continue;
-                }
-                int old_lvl = market_lvl;
-                //do the normal flow
-                //if (collect_transport_info( xx, yy, stuff_ID, market_ratio)!=-1)
-                //{
-                equilibrate_transport_stuff(xx, yy, &market_lvl, market_cap, ratio,stuff_ID);
-                //}
-                int flow = market_lvl - old_lvl;
-                //revert flow if it conflicts with local rules
-                if((!commodityRuleCount[stuff_ID].give && flow < 0)
-                 ||(!commodityRuleCount[stuff_ID].take && flow > 0))
-                {
-                    market_lvl -= flow;
-                    world(xx,yy)->construction->commodityCount[stuff_ID] += flow;
-                }
-            }//endfor xx
-        }//endfor yy
+            if(lvls[i])
+            {   partners[i]->equilibrate_stuff(&market_lvl, market_cap, trade_ratio, stuff_ID, constructionGroup);}
+        }
         stuff_it->second = market_lvl;
-    }//endfor stuff_it
+    }
 
     if (commodityCount[STUFF_JOBS] >= jobs)
     {
         commodityCount[STUFF_JOBS] -= jobs;
         //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport
         income_tax += jobs;
+        ++workingdays;
     }
-
+    //monthly update
+    if (total_time % 100 == 0)
+    {
+        busy = workingdays;
+        workingdays = 0;
+    }
     if (total_time % 25 == 17)
     {
         //average filling of the market, catch n == 0 in case market has
@@ -188,7 +161,7 @@ void Market::update()
     {   cover();}
 }
 
-void Market::cover() //do this for showing range in minimap
+void Market::cover()
 {
     for(int yy = ys; yy < ye; yy++)
     {
@@ -204,6 +177,8 @@ void Market::report()
     int i = 0;
 
     mps_store_sd(i++,constructionGroup->name,ID);
+    i++;
+    mps_store_sfp(i++, _("busy"), (float) busy);
     i++;
     //list_commodities(&i);
     std::map<Construction::Commodities, int>::iterator stuff_it;

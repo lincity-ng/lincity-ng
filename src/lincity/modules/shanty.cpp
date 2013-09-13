@@ -10,7 +10,7 @@
 #include "commune.h"
 #include "fire.h"
 
-// Coalmine:
+// Shanty:
 ShantyConstructionGroup shantyConstructionGroup(
     "Shanty Town",
      FALSE,                     /* need credit? */

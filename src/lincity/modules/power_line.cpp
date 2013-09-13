@@ -26,7 +26,7 @@ Construction *PowerlineConstructionGroup::createConstruction(int x, int y, unsig
 {
     return new Powerline(x, y, type);
 }
-
+/*
 void Powerline::flow_power()
 {
     int ratio, center_ratio, center_lvl, center_cap, xx, yy, traffic, max_traffic;
@@ -45,7 +45,7 @@ void Powerline::flow_power()
     up_ratio = -1;
     down_ratio = -1;
     center_ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
-    /*see how much stuff is there around*/
+
     if (flags & FLAG_RIGHT) //This is consistent to connect_transport()
     {
         left_ratio = collect_transport_info(x-1 ,y , stuff_ID, center_ratio );//left
@@ -250,7 +250,7 @@ void Powerline::flow_power()
             std::cout<<"Power < 0 error at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
         commodityCount[stuff_ID] = center_lvl;
 }
-
+*/
 void Powerline::update()
 {
     if (commodityCount[STUFF_MWH] > 0)
@@ -273,10 +273,10 @@ void Powerline::update()
                     type -= 11;
                     break;
             } //end switch anim_counter
-            anim_counter--;
+            --anim_counter;
         }
     } // endif MWH
-    flow_power();
+    //flow_power();
 }
 
 void Powerline::report()

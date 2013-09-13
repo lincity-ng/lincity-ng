@@ -104,36 +104,24 @@ Construction *TransportConstructionGroup::createConstruction(int x, int y, unsig
 {
     return new Transport(x, y, type);
 }
-
+/*
 void Transport::stuff_flow()
 {
-    /* Nov 2012:
-    stuff_flow may only be used by new constructions. It checks for adjacent neigbohrs via collect_transport_info
-    and equlibrates all commodities from Construction::commodityCount with eqilibrate_transport_stuff
-     */
-
-    /*   O---------------------->x
-     *   |      | Up     |
-     *   |  Left| Center |Right
-     *   |      | Down   |
-     *   v
-     *   y
-     */
     int ratio, center_lvl, center_cap;
     int traffic, max_traffic;
     int left_lvl, right_lvl, up_lvl, down_lvl, n;
     Commodities stuff_ID;
     std::map<Commodities, int>::iterator stuff_it;
 
-    /*begin for over all different stuff*/
+    //begin for over all different stuff
     for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++ )
     {
         stuff_ID = stuff_it->first;
         center_lvl = stuff_it->second;
         center_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
         //TODO maybe use a loop and rotation matrix here?
-        /*see how much stuff is there around*/
-        /*ignore markets, they distribute stuff only actively themselfes*/
+
+
         ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
         left_lvl = (world(x-1, y)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x-1 ,y , stuff_ID, ratio );//left
         right_lvl = (world(x+1, y)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x+1 ,y , stuff_ID, ratio );//right
@@ -201,13 +189,13 @@ void Transport::stuff_flow()
         //do some smoothing to suppress fluctuations from random order
         // max possible ~90 %
         trafficCount[stuff_ID] = (9 * trafficCount[stuff_ID] + max_traffic) / 10;
-/*
-        if (center_lvl < 0)
-            std::cout<<"center load < 0 error at "<<world(x,y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
-*/
+
+        //if (center_lvl < 0)
+        //    std::cout<<"center load < 0 error at "<<world(x,y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
+
         stuff_it->second = center_lvl; //update center_lvl
 
-        /*handle waste spill*/
+        //handle waste spill
         if (stuff_ID == STUFF_WASTE)
         {
             if (center_lvl > 9 * center_cap / 10)
@@ -240,7 +228,7 @@ void Transport::stuff_flow()
 
     } //endfor all different STUFF
 }
-
+*/
 
 void Transport::update()
 {
@@ -278,7 +266,7 @@ void Transport::update()
             }
         break;
     }
-    stuff_flow();
+    //stuff_flow();
     if (commodityCount[STUFF_KWH] >= KWH_LOSS_ON_TRANSPORT)
     {
         commodityCount[STUFF_KWH] -= KWH_LOSS_ON_TRANSPORT;
@@ -286,6 +274,35 @@ void Transport::update()
     else if (commodityCount[STUFF_KWH] > 0)
     {
         commodityCount[STUFF_KWH]--;
+    }
+
+    if (commodityCount[STUFF_WASTE] > 9 * constructionGroup->commodityRuleCount[STUFF_WASTE].maxload / 10)
+    {
+        anim = real_time + WASTE_BURN_TIME;
+        commodityCount[STUFF_WASTE] -= WASTE_BURN_ON_TRANSPORT;
+        world(x,y)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
+        if(!burning_waste)
+        {
+            burning_waste = true;
+            Construction *fire = fireConstructionGroup.createConstruction(x, y, CST_FIRE_1);
+            world(x,y)->construction = fire;
+            //waste burning never spreads
+            (dynamic_cast<Fire*>(fire))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;
+            (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
+            ::constructionCount.add_construction(fire);
+        }
+    }
+    else if (burning_waste && real_time < anim)
+    {   (dynamic_cast<Fire*>(world(x,y)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
+    else if(burning_waste) //(&& real_time > anim)
+    {
+        burning_waste = false;
+        ::constructionCount.remove_construction(world(x,y)->construction);
+#ifdef DEBUG
+        assert(world(x,y)->construction->neighbors.empty());
+#endif
+        delete world(x,y)->construction;
+        world(x,y)->construction = this;
     }
 }
 

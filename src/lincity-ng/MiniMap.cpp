@@ -184,7 +184,7 @@ MiniMap::toggleStuffID(int step)
                 stuff_ID = Construction::STUFF_MWH;
             break;
     }
-	getGameView()->setMapMode( mMode );
+    getGameView()->setMapMode( mMode );
 }
 
 
@@ -240,7 +240,7 @@ MiniMap::parse(XmlReader& reader)
 
     // create alpha-surface
     SDL_Surface* image = SDL_CreateRGBSurface(0, (int) width, (int) height, 32,
-					      0x000000ff, 0x0000ff00,
+                          0x000000ff, 0x0000ff00,
                                               0x00ff0000, 0xff000000);
     mTexture.reset(texture_manager->create(image));
 
@@ -282,7 +282,7 @@ void MiniMap::attachButtons()
 
     for(int i = 0; speedButtons[i] != 0; ++i) {
         CheckButton* b = getCheckButton(*root, speedButtons[i]);
-	setLincitySpeed(SLOW_TIME_FOR_YEAR);
+    setLincitySpeed(SLOW_TIME_FOR_YEAR);
         if(i == 1)
             b->check();
         b->clicked.connect(makeCallback(*this, &MiniMap::speedButtonClicked));
@@ -313,7 +313,7 @@ void MiniMap::attachButtons()
             makeCallback(*this, &MiniMap::switchButton));
     switchButtons.push_back(switchButton);
 
-	Button* scrollPageDown = getButton(*root, "ScrollPageDown");
+    Button* scrollPageDown = getButton(*root, "ScrollPageDown");
     scrollPageDown->clicked.connect(makeCallback(*this, &MiniMap::scrollPageDownButtonClicked));
     Button* scrollPageUp = getButton(*root, "ScrollPageUp");
     scrollPageUp->clicked.connect(makeCallback(*this, &MiniMap::scrollPageUpButtonClicked));
@@ -330,35 +330,35 @@ MiniMap::switchButton(CheckButton* button, int mousebutton)
     if(mousebutton == SDL_BUTTON_RIGHT ) {
             getGame()->showHelpWindow( "dialogs" );
     }
-	std::string active_button_name = "Switch" + getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();
-	std::string buttonName = button->getName();
-   
+    std::string active_button_name = "Switch" + getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();
+    std::string buttonName = button->getName();
+
     if(buttonName == "SwitchGlobalMPS") {
-        //cycle through global styles       
+        //cycle through global styles
         if (active_button_name == "SwitchGlobalMPS")
-        {	mps_global_style = (mps_global_style + 1) % MPS_GLOBAL_STYLES;}       
+        {   mps_global_style = (mps_global_style + 1) % MPS_GLOBAL_STYLES;}
         mps_set(mps_x, mps_y, MPS_GLOBAL);
     } else if(buttonName == "SwitchMapMPS") {
-        //FIXME 
+        //FIXME
         //that would be nice but MAP_MPS is actually the map
-/*        
+/*
         if (active_button_name == "SwitchMapMPS")
-        {	mps_map_page = (mps_map_page + 1) % MPS_MAP_PAGES;}
-*/ 
+        {   mps_map_page = (mps_map_page + 1) % MPS_MAP_PAGES;}
+*/
         mps_set(mps_x, mps_y, MPS_MAP);
     } else if(buttonName == "SwitchPBar") {
-		//cycle through pbar styles
+        //cycle through pbar styles
       if ((active_button_name == "SwitchPBar")
       ||  (active_button_name == "SwitchPBar2nd"))
-      {	pbarGlobalStyle = (pbarGlobalStyle + 1) % PBAR_GLOBAL_STYLES;}
+      { pbarGlobalStyle = (pbarGlobalStyle + 1) % PBAR_GLOBAL_STYLES;}
       if (pbarGlobalStyle == 1)
-      {	  buttonName = "SwitchPBar2nd";}
+      {   buttonName = "SwitchPBar2nd";}
       refresh_pbars();
     }
     // remove "Switch" prefix
     std::string switchname = std::string(buttonName,
-            6, buttonName.size()-1);	
-	switchView(switchname);
+            6, buttonName.size()-1);
+    switchView(switchname);
 }
 
 void
@@ -368,15 +368,15 @@ MiniMap::switchView(const std::string& viewname)
         = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
 
     switchComponent->switchComponent(viewname);
-	//TODO once this gets more complex PBar pages could become
-	//a nested switchComponent. For now only one case ;-)
-	std::string viewGroupName = viewname;
-	if (viewGroupName == "PBar2nd")
-	{	viewGroupName = "PBar";}
-	
+    //TODO once this gets more complex PBar pages could become
+    //a nested switchComponent. For now only one case ;-)
+    std::string viewGroupName = viewname;
+    if (viewGroupName == "PBar2nd")
+    {   viewGroupName = "PBar";}
+
     std::string buttonname = "Switch";
     buttonname += viewGroupName;
-    
+
     for(std::vector<CheckButton*>::iterator i = switchButtons.begin();
             i != switchButtons.end(); ++i) {
         CheckButton* cbutton = *i;
@@ -492,29 +492,29 @@ void MiniMap::mapViewButtonClicked(CheckButton* button, int mousebutton)
     std::string name = button->getName();
 
     if(mousebutton == SDL_BUTTON_RIGHT ) {
-	// switch button
+    // switch button
         std::string pName=getNextButton(button->getName());
 
         if(pName=="MapViewNormal")
             getGame()->showHelpWindow( "msb-normal" );
         else if (pName=="MapViewUB40")
-	    getGame()->showHelpWindow( "msb-ub40" );
+        getGame()->showHelpWindow( "msb-ub40" );
         else if (pName=="MapViewPollution")
-	    getGame()->showHelpWindow( "msb-pol" );
+        getGame()->showHelpWindow( "msb-pol" );
         else if (pName=="MapViewFood")
-	    getGame()->showHelpWindow( "msb-starve" );
+        getGame()->showHelpWindow( "msb-starve" );
         else if (pName=="MapViewPower")
-	    getGame()->showHelpWindow( "msb-power" );
+        getGame()->showHelpWindow( "msb-power" );
         else if (pName=="MapViewFire")
-	    getGame()->showHelpWindow( "msb-fire" );
+        getGame()->showHelpWindow( "msb-fire" );
         else if (pName=="MapViewSport")
-	    getGame()->showHelpWindow( "msb-cricket" );
+        getGame()->showHelpWindow( "msb-cricket" );
         else if (pName=="MapViewHealth")
-	    getGame()->showHelpWindow( "msb-health" );
+        getGame()->showHelpWindow( "msb-health" );
         else if (pName=="MapViewCoal")
-	    getGame()->showHelpWindow( "msb-coal" );
+        getGame()->showHelpWindow( "msb-coal" );
         else if (pName=="MapViewTraffic")
-	    getGame()->showHelpWindow( "msb-transport" );
+        getGame()->showHelpWindow( "msb-transport" );
 
     return;
     }
@@ -625,50 +625,50 @@ MiniMap::scrollPageUpButtonClicked(Button* )
 
 void
 MiniMap::scrollPageDown(bool down)
-{   
-    std::string viewname = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();  
- 
+{
+    std::string viewname = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch")->getActiveComponent()->getName();
+
     if(viewname == "MapMPS")
     {
-		mps_map_page = (mps_map_page + (down?1:(MPS_MAP_PAGES-1)))%MPS_MAP_PAGES;
-		mps_refresh();
-	}
+        mps_map_page = (mps_map_page + (down?1:(MPS_MAP_PAGES-1)))%MPS_MAP_PAGES;
+        mps_refresh();
+    }
     else if(viewname == "MiniMap")
     {
-		toggleStuffID((down?-1:1));
-	}
+        toggleStuffID((down?-1:1));
+    }
     else if(viewname == "PBar" || viewname == "PBar2nd")
     {
-		pbarGlobalStyle = (pbarGlobalStyle + (down?1:(PBAR_GLOBAL_STYLES-1))) % PBAR_GLOBAL_STYLES;
-		if (pbarGlobalStyle == 0)
-		{	  switchView("PBar");}
-		else if (pbarGlobalStyle == 1)
-		{	  switchView("PBar2nd");}
-		else
-		{	
-			std::cout << "unknown pbarGlobalStyle in MiniMap:turnpage(): " << pbarGlobalStyle << std::endl;
-			assert(false);
-		}
-		refresh_pbars();
-	}
+        pbarGlobalStyle = (pbarGlobalStyle + (down?1:(PBAR_GLOBAL_STYLES-1))) % PBAR_GLOBAL_STYLES;
+        if (pbarGlobalStyle == 0)
+        {     switchView("PBar");}
+        else if (pbarGlobalStyle == 1)
+        {     switchView("PBar2nd");}
+        else
+        {
+            std::cout << "unknown pbarGlobalStyle in MiniMap:turnpage(): " << pbarGlobalStyle << std::endl;
+            assert(false);
+        }
+        refresh_pbars();
+    }
     else if(viewname == "GlobalMPS")
     {
-		mps_global_style = (mps_global_style + (down?1:(MPS_GLOBAL_STYLES-1))) % MPS_GLOBAL_STYLES;
+        mps_global_style = (mps_global_style + (down?1:(MPS_GLOBAL_STYLES-1))) % MPS_GLOBAL_STYLES;
         mps_set(mps_x, mps_y, MPS_GLOBAL);
-	}
-	else if(viewname == "EconomyGraph")
+    }
+    else if(viewname == "EconomyGraph")
     {
-		//has only one page for now
-	}
-	else if(viewname == "EnvMPS")
+        //has only one page for now
+    }
+    else if(viewname == "EnvMPS")
     {
-		//has only one page for now
-	}
-	else
-	{
-		std::cout << "Unknown active component in MiniMapSwitch: " << viewname << std::endl;
-		assert(false);
-	}       
+        //has only one page for now
+    }
+    else
+    {
+        std::cout << "Unknown active component in MiniMapSwitch: " << viewname << std::endl;
+        assert(false);
+    }
 }
 
 
@@ -712,37 +712,37 @@ void MiniMap::draw(Painter &painter)
     white.parse( "white" );
     Rect2D miniRect( 0 , 0, width, height );
     Color mc = getColor( 0, 0 );
-    if(mpainter.get() == 0) 
+    if(mpainter.get() == 0)
     {
         // workaround - so that it works with GL, too, as long as there's no TexturePainter for this
-        if( mFullRefresh ) 
+        if( mFullRefresh )
         {
-			painter.setFillColor( mc );
-			painter.fillRectangle( miniRect );
+            painter.setFillColor( mc );
+            painter.fillRectangle( miniRect );
             for(y=1;y<height/tilesize;y++) {
                 for(x=1;x<width/tilesize;x++) {
-					if (world.is_visible(left+x, top+y)) /*left + x > 0 && top + y > 0 && left + x < world.len()-1 && top + y < world.len()-1)*/
-					{
-						if( (world(left + x, top + y)->construction)) {
-							size = world(left + x, top + y)->construction->constructionGroup->size;
-							mc = getColor(left + x,top + y);
-							painter.setFillColor(mc);
-							painter.fillRectangle(Rect2D((x)*tilesize,y*tilesize,(x+size)*tilesize+1,(y+size)*tilesize));
-						}
-						else if ( (typ = world(left + x, top + y)->type) != CST_USED )  //typ = MP_TYPE(left + x,top + y)
-						{
-							grp = get_group_of_type(typ);
-							mc=getColor(left + x,top + y);
-							painter.setFillColor(mc);
-							painter.fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
-						}
-						else if( mMode == COAL )
-						{ //show coal under buildings, too
-							mc=getColor(left + x,top + y);
-							painter.setFillColor(mc);
-							painter.fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+1)*tilesize+1,(y+1)*tilesize));
-						}
-					}
+                    if (world.is_visible(left+x, top+y)) /*left + x > 0 && top + y > 0 && left + x < world.len()-1 && top + y < world.len()-1)*/
+                    {
+                        if( (world(left + x, top + y)->construction)) {
+                            size = world(left + x, top + y)->construction->constructionGroup->size;
+                            mc = getColor(left + x,top + y);
+                            painter.setFillColor(mc);
+                            painter.fillRectangle(Rect2D((x)*tilesize,y*tilesize,(x+size)*tilesize+1,(y+size)*tilesize));
+                        }
+                        else if ( (typ = world(left + x, top + y)->type) != CST_USED )  //typ = MP_TYPE(left + x,top + y)
+                        {
+                            grp = get_group_of_type(typ);
+                            mc=getColor(left + x,top + y);
+                            painter.setFillColor(mc);
+                            painter.fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                        }
+                        else if( mMode == COAL )
+                        { //show coal under buildings, too
+                            mc=getColor(left + x,top + y);
+                            painter.setFillColor(mc);
+                            painter.fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+1)*tilesize+1,(y+1)*tilesize));
+                        }
+                    }
                 }
             }
         }
@@ -930,7 +930,8 @@ Color MiniMap::getColor(int x,int y) const
                 return makeGrey(getColorNormal(xx,yy));
         case UB40: {
             /* Display residence with un/employed people (red / green) == too many people here */
-            int job_level = collect_transport_info(xx, yy, Construction::STUFF_JOBS, -1);
+            int job_level = world(xx,yy)->reportingConstruction?
+            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_JOBS, -1):-1;
             if (job_level == -1) // Not a "jobby" place at all
             {
                 return makeGrey(getColorNormal(xx,yy));
@@ -977,8 +978,8 @@ Color MiniMap::getColor(int x,int y) const
         }
         case STARVE:
         {
-            int food_level = collect_transport_info
-                                (xx, yy, Construction::STUFF_FOOD, -1);
+            int food_level = world(xx,yy)->reportingConstruction?
+            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_FOOD, -1):1;
             if ( world(xx,yy)->is_residence() )
             {
                 if ( food_level < 5 * TRANSPORT_QUANTA / 100 )
@@ -1004,10 +1005,10 @@ Color MiniMap::getColor(int x,int y) const
             /* default color = grey */
             //mc = Color(0x3F,0x3F,0x3F);
             mc = makeGrey(getColorNormal(xx,yy));
-            int kwh_level = collect_transport_info
-                                (xx, yy, Construction::STUFF_KWH, -1);
-            int mwh_level = collect_transport_info
-                                (xx, yy, Construction::STUFF_MWH, -1);
+            int kwh_level = world(xx,yy)->reportingConstruction?
+            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_KWH, -1):-1;
+            int mwh_level = world(xx,yy)->reportingConstruction?
+            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -1):-1;
             if (kwh_level > -1 || mwh_level > -1)
             {
                 /* not enough power */
@@ -1029,25 +1030,25 @@ Color MiniMap::getColor(int x,int y) const
         {
             if ( (conflags & FLAG_IS_TRANSPORT) || (conflags & FLAG_POWER_LINE))
             {
-                float loc_lvl = -1;                
+                float loc_lvl = -1;
                 if (conflags & FLAG_IS_TRANSPORT)
                 {
-					Transport *transport;
-					transport = static_cast<Transport *>(world(xx,yy)->reportingConstruction);
-					if(transport->trafficCount.count(stuff_ID))
-					{
-						loc_lvl = transport->trafficCount[stuff_ID];
-					}
-				}
-				else if (conflags & FLAG_POWER_LINE)
-				{
-					Powerline *powerline;
-					powerline = static_cast<Powerline *>(world(xx,yy)->reportingConstruction);
-					if(powerline->trafficCount.count(stuff_ID))
-					{
-						loc_lvl = powerline->trafficCount[stuff_ID];
-					}
-				}
+                    Transport *transport;
+                    transport = static_cast<Transport *>(world(xx,yy)->reportingConstruction);
+                    if(transport->trafficCount.count(stuff_ID))
+                    {
+                        loc_lvl = transport->trafficCount[stuff_ID];
+                    }
+                }
+                else if (conflags & FLAG_POWER_LINE)
+                {
+                    Powerline *powerline;
+                    powerline = static_cast<Powerline *>(world(xx,yy)->reportingConstruction);
+                    if(powerline->trafficCount.count(stuff_ID))
+                    {
+                        loc_lvl = powerline->trafficCount[stuff_ID];
+                    }
+                }
                 if (loc_lvl < 0)
                 {
                     return makeGrey(getColorNormal(xx,yy));
@@ -1058,14 +1059,14 @@ Color MiniMap::getColor(int x,int y) const
                 if (loc_lvl < 0.2) loc_lvl = 0.2;
                 loc_lvl = 0.5 + (loc_lvl - 0.5)/0.6;
 */
-#ifdef DEBUG                
+#ifdef DEBUG
                 assert(!(loc_lvl > 1)); //should never happen
 #endif
                 loc_lvl = 2-2/(1+loc_lvl);
                 //more contrast for small loads
                 Color mc((int) (0xFF*loc_lvl), (int) (0xFF*(1-loc_lvl)), 0);
                 return mc;
-	        }
+            }
             else
             { //not a Transport, make bluish if in range of a markt
                 if ((mapflags & FLAG_MARKET_COVER) &&
@@ -1073,7 +1074,7 @@ Color MiniMap::getColor(int x,int y) const
                 {
                     return makeBlue(getColorNormal(x,y));
                 }
-	            return makeGrey(getColorNormal(xx,yy));
+                return makeGrey(getColorNormal(xx,yy));
             }
         }
         case COMMODITIES:
@@ -1082,8 +1083,8 @@ Color MiniMap::getColor(int x,int y) const
             if (conflags & FLAG_IS_TRANSPORT)
                 return makeGrey(getColorNormal(xx,yy));
 */
-            float loc_lvl = collect_transport_info(xx, yy, stuff_ID, -1);
-
+            float loc_lvl = world(xx,yy)->reportingConstruction?
+                 world(xx,yy)->reportingConstruction->tellstuff(stuff_ID, -1):-1;
             float red, green, blue;
 
             if (loc_lvl < 0)
@@ -1136,8 +1137,8 @@ void MiniMap::event(const Event& event) {
         }
         return;
     }
-    
-    
+
+
     if(!event.inside) {
         return;
     }
@@ -1150,25 +1151,25 @@ void MiniMap::event(const Event& event) {
         if(event.mousebutton == SDL_BUTTON_LEFT ) {
             getGameView()->show(tile); // move main-map
         }
-/*      
-		if(event.mousebutton == SDL_BUTTON_RIGHT ) {
-			
+/*
+        if(event.mousebutton == SDL_BUTTON_RIGHT ) {
+
         }
 */
 
-		if(event.mousebutton == SDL_BUTTON_WHEELUP ) {
-				scrollPageDown(false);
-		}
-		if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
-			scrollPageDown(true);
-		}
-       
+        if(event.mousebutton == SDL_BUTTON_WHEELUP ) {
+                scrollPageDown(false);
+        }
+        if(event.mousebutton == SDL_BUTTON_WHEELDOWN ){
+            scrollPageDown(true);
+        }
+
     }
-/*    
+/*
     else if (event.type == Event::KEYDOWN)
     {
-		//moved 'm' and 'n' for pagescrolling to Gameview
-	}
+        //moved 'm' and 'n' for pagescrolling to Gameview
+    }
 */
 }
 

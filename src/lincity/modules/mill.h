@@ -78,8 +78,7 @@ public:
 
     int  anim;
     int  pol_count;
-    int  workingdays;
-    int  busy;
+    int  workingdays, busy;
     bool animate;
 };
 

@@ -11,13 +11,13 @@
 #endif
 
 
-int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int center_ratio);
+//int collect_transport_info(int x, int y, Construction::Commodities stuff_ID, int center_ratio);
 /*
     returns the relative load TRANSPORT_QUANTA = 100% if the construction would
 tentatively participate want traffic or -1 if there is no such stuff known at mapTile[x][y]. center_ratio == -1 ignores tentative traffic
 */
 
-int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap, int ratio, Construction::Commodities stuff_ID);
+//int equilibrate_transport_stuff(int x, int y, int *rem_lvl, int rem_cap, int ratio, Construction::Commodities stuff_ID);
 /*
     Handles the flow of stuff between the central and the remote tile. takes care of  paying taxes.
 */
