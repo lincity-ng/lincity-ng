@@ -994,7 +994,7 @@ void Construction::trade()
                 {   max_traffic = traffic;}
             }
         }
-
+        int flow = center_lvl - stuff_it->second;
         //do some smoothing to suppress fluctuations from random order
         // max possible ~90 %
         if(flags & FLAG_IS_TRANSPORT) //Special for transport
@@ -1013,6 +1013,23 @@ void Construction::trade()
                 {   ConstructionManager::submitRequest(new PowerLineFlashRequest(neighbors[i]));}
             }
         }
+        else if ((flow > 0) && (constructionGroup->group != GROUP_MARKET)) 
+        {
+            switch (stuff_ID)
+                {
+                    case (STUFF_JOBS) :
+                        income_tax += flow;
+                        break;
+                    case (STUFF_GOODS) :
+                        goods_tax += flow;
+                        goods_used += flow;
+                    case (STUFF_COAL) :
+                        coal_tax += flow;
+                        break;
+                    default:
+                        break;
+                }   
+        }        
         stuff_it->second = center_lvl; //update center_lvl
     } //endfor all different STUFF
 }
@@ -1054,9 +1071,9 @@ int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commo
                 //if(-flow > *loc_lvl) // not happening anyways
                 //{   flow = -*loc_lvl; std::cout << "$":}
             }
-            std::cout.flush();
+            //std::cout.flush();
             if (!(flags & FLAG_IS_TRANSPORT) && (flow > 0)
-                && constructionGroup->group != GROUP_MARKET)
+                && (constructionGroup->group != GROUP_MARKET))
             //something is given to a consumer
             {
                 switch (stuff_ID)
