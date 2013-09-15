@@ -27,51 +27,28 @@ Construction *RecycleConstructionGroup::createConstruction(int x, int y, unsigne
     return new Recycle(x, y, type);
 }
 
-
 void Recycle::update()
 {
     recycle_cost += RECYCLE_RUNNING_COST;
-    //use some jobs for loading ore and steel to transport
-    if(commodityCount[STUFF_JOBS] >= JOBS_LOAD_ORE && commodityCount[STUFF_ORE] > 0)
-    {
-        commodityCount[STUFF_JOBS] -= JOBS_LOAD_ORE;
-    }
-    if(commodityCount[STUFF_STEEL] >= JOBS_LOAD_STEEL && commodityCount[STUFF_STEEL] > 0)
-    {
-        commodityCount[STUFF_STEEL] -= JOBS_LOAD_STEEL;
-    }
-
-    // always recycle waste and make steel & ore if there are free capacities
+    
+    // always recycle waste and only make steel & ore if there are free capacities
     if (commodityCount[STUFF_WASTE] >= WASTE_RECYCLED
         && commodityCount[STUFF_KWH] >= KWH_RECYCLE_WASTE
         && commodityCount[STUFF_JOBS] >= RECYCLE_JOBS)
-        {
-            commodityCount[STUFF_JOBS] -= RECYCLE_JOBS;
-            commodityCount[STUFF_KWH] -= KWH_RECYCLE_WASTE;
-            commodityCount[STUFF_WASTE] -= WASTE_RECYCLED;
-            working_days++;
-            // rather loose ore than stop recycling the waste
-            if (commodityCount[STUFF_ORE] + make_ore <= MAX_ORE_AT_RECYCLE)
-            {
-                commodityCount[STUFF_ORE] += make_ore;
-                //FIXME ore tax should be handled upon delivery
-                //ore_made += make_ore;
-            }
-            else
-            {
-                 //ore_made += (MAX_ORE_AT_RECYCLE - commodityCount[STUFF_ORE]);
-                 commodityCount[STUFF_ORE] = MAX_ORE_AT_RECYCLE;
-            }
-            // rather loose steel than stop recycling the waste
-            if (commodityCount[STUFF_STEEL] + make_steel <= MAX_STEEL_AT_RECYCLE)
-            {
-                commodityCount[STUFF_STEEL] += make_steel;
-            }
-            else
-            {
-                 commodityCount[STUFF_STEEL] = MAX_STEEL_AT_RECYCLE;
-            }
-        }
+    {
+        commodityCount[STUFF_JOBS] -= RECYCLE_JOBS;
+        commodityCount[STUFF_KWH] -= KWH_RECYCLE_WASTE;
+        commodityCount[STUFF_WASTE] -= WASTE_RECYCLED;
+        working_days++;
+        // rather loose ore / steel than stop recycling the waste
+        commodityCount[STUFF_ORE] += make_ore;
+        commodityCount[STUFF_STEEL] += make_steel;
+        if(commodityCount[STUFF_ORE]>MAX_ORE_AT_RECYCLE)
+        {   commodityCount[STUFF_ORE]=MAX_ORE_AT_RECYCLE;}
+        if(commodityCount[STUFF_STEEL]>MAX_STEEL_AT_RECYCLE)
+        {   commodityCount[STUFF_STEEL]=MAX_STEEL_AT_RECYCLE;}
+        
+    }
     // monthly update
     if (total_time % 100 == 0)
     {

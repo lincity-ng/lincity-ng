@@ -40,15 +40,10 @@ void Coalmine::update()
             current_coal_reserve += world(xx,yy)->coal_reserve;
         }
     }
-    // use some jobs for loading coal to transport
-    if(commodityCount[STUFF_JOBS] >= JOBS_LOAD_COAL && commodityCount[STUFF_COAL] > COAL_PER_RESERVE)
-    {
-        commodityCount[STUFF_JOBS] -= JOBS_LOAD_COAL;
-    }
     // mine some coal
     if ((current_coal_reserve > 0)
     && (commodityCount[STUFF_COAL] <= TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE - COAL_PER_RESERVE)/100)
-    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL))
+    && (commodityCount[STUFF_JOBS] >= COALMINE_JOBS))
     {
         for (int yy = ys; (yy < ye) && !coal_found; yy++)
         {
@@ -59,7 +54,7 @@ void Coalmine::update()
                     world(xx,yy)->coal_reserve--;
                     world(xx,yy)->pollution += COALMINE_POLLUTION;
                     commodityCount[STUFF_COAL] += COAL_PER_RESERVE;
-                    commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;
+                    commodityCount[STUFF_JOBS] -= COALMINE_JOBS;
                     if (current_coal_reserve < initial_coal_reserve)
                     {   sust_dig_ore_coal_tip_flag = 0;}
                     coal_found = true;
@@ -69,7 +64,7 @@ void Coalmine::update()
         }
     }
     else if ((commodityCount[STUFF_COAL] - COAL_PER_RESERVE > TARGET_COAL_LEVEL * (MAX_COAL_AT_MINE)/100)
-    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_COAL))
+    && (commodityCount[STUFF_JOBS] >= COALMINE_JOBS))
     {
         for (int yy = ys; (yy < ye) && !coal_found; yy++)
         {
@@ -80,7 +75,7 @@ void Coalmine::update()
                     world(xx,yy)->coal_reserve++;
 
                     commodityCount[STUFF_COAL] -= COAL_PER_RESERVE;
-                    commodityCount[STUFF_JOBS] -= JOBS_DIG_COAL;
+                    commodityCount[STUFF_JOBS] -= COALMINE_JOBS;
                     coal_found = true;
                     working_days++;
                 }

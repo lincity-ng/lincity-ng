@@ -60,15 +60,32 @@ void IndustryLight::update()
         }
         //now check for more ore and power to quadruple goods_today again
         //light industry can use KWH and MWH simultaneously
-        int total_power_p_good = (commodityCount[STUFF_KWH] + 2 * commodityCount[STUFF_MWH]) / (4 * goods_today);
+        int total_power_p_good = (commodityCount[STUFF_KWH] + 2 * commodityCount[STUFF_MWH]) / (4 * goods_today);        
         if ((total_power_p_good >= INDUSTRY_L_POWER_PER_GOOD)
          && (commodityCount[STUFF_ORE] >= INDUSTRY_L_ORE_USED)
          && (commodityCount[STUFF_GOODS] + 4 * goods_today <= MAX_GOODS_AT_INDUSTRY_L))
         {
             goods_today *= 4;
             commodityCount[STUFF_ORE] -= INDUSTRY_L_ORE_USED;
-            commodityCount[STUFF_KWH] -= (INDUSTRY_L_POWER_PER_GOOD   * commodityCount[STUFF_KWH] / total_power_p_good);
-            commodityCount[STUFF_MWH] -= (INDUSTRY_L_POWER_PER_GOOD/2 * commodityCount[STUFF_MWH] / total_power_p_good);
+            //prefer the mor abundant power
+            if(2 * commodityCount[STUFF_MWH] > commodityCount[STUFF_KWH])
+            {   
+                commodityCount[STUFF_MWH] -= INDUSTRY_L_POWER_PER_GOOD * (goods_today / 2);
+                if(commodityCount[STUFF_MWH] < 0)
+                {
+                commodityCount[STUFF_KWH] += 2 * commodityCount[STUFF_MWH];
+                commodityCount[STUFF_MWH] = 0;           
+                }
+            }
+            else
+            {   
+                commodityCount[STUFF_KWH] -= INDUSTRY_L_POWER_PER_GOOD * goods_today;
+                if(commodityCount[STUFF_KWH] < 0)
+                {
+                commodityCount[STUFF_MWH] += commodityCount[STUFF_KWH]/2;
+                commodityCount[STUFF_KWH] = 0;           
+                }
+            }            
         }
         commodityCount[STUFF_GOODS] += goods_today;
         goods_this_month += goods_today;

@@ -8,7 +8,7 @@
 #define GROUP_RECYCLE_SIZE 2
 
 #define WASTE_RECYCLED       500
-#define RECYCLE_JOBS   (WASTE_RECYCLED/50)
+#define RECYCLE_JOBS   (WASTE_RECYCLED/50 + JOBS_LOAD_ORE + JOBS_LOAD_STEEL)
 #define RECYCLE_RUNNING_COST 3
 #define KWH_RECYCLE_WASTE (WASTE_RECYCLED/2)
 
@@ -77,11 +77,6 @@ public:
             efficiency = (WASTE_RECYCLED * 8) / 10;
         this->make_ore = efficiency;
         setMemberSaved(&this->make_ore, "make_ore");
-        //this->eff = efficiency * 100/(WASTE_RECYCLED);
-        //setMemberSaved(&this->eff, "eff");
-        //efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 5000;
-        //if (efficiency > (WASTE_RECYCLED * 8) / 500)
-        //    efficiency = (WASTE_RECYCLED * 8) / 500;
         this->make_steel = efficiency / 50;
         setMemberSaved(&this->make_steel, "make_steel");
     }
@@ -90,7 +85,6 @@ public:
     virtual void report();
 
     int  tech;
-    //int  eff;
     int  make_ore;
     int  make_steel;
     int  working_days, busy;

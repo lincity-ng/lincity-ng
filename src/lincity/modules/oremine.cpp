@@ -37,14 +37,10 @@ void Oremine::update()
     int xx,yy;
     animate = false;
 
-    if(commodityCount[STUFF_JOBS] >= JOBS_LOAD_ORE && commodityCount[STUFF_ORE] > 0)
-    {
-        commodityCount[STUFF_JOBS] -= JOBS_LOAD_ORE;
-    }
     // see if we can/need to extract some underground ore
     if ((total_ore_reserve)
     && (commodityCount[STUFF_ORE] <= ORE_LEVEL_TARGET * (MAX_ORE_AT_MINE - ORE_PER_RESERVE)/100)
-    && (commodityCount[STUFF_JOBS] >= JOBS_DIG_ORE))
+    && (commodityCount[STUFF_JOBS] >= OREMINE_JOBS))
     {
         for (yy = y; (yy < y + constructionGroup->size) && !animate; yy++)
         {
@@ -55,7 +51,7 @@ void Oremine::update()
                     world(xx,yy)->ore_reserve--;
                     total_ore_reserve--;
                     commodityCount[STUFF_ORE] += ORE_PER_RESERVE;
-                    commodityCount[STUFF_JOBS] -= JOBS_DIG_ORE;
+                    commodityCount[STUFF_JOBS] -= OREMINE_JOBS;
                     //FIXME ore_tax should be handled upon delivery
                     //ore_made += ORE_PER_RESERVE;
                     if (total_ore_reserve < (16 * ORE_RESERVE))
@@ -79,7 +75,7 @@ void Oremine::update()
                     world(xx,yy)->ore_reserve++;
                     total_ore_reserve++;
                     commodityCount[STUFF_ORE] -= ORE_PER_RESERVE;
-                    commodityCount[STUFF_JOBS] -= JOBS_DIG_ORE;
+                    commodityCount[STUFF_JOBS] -= OREMINE_JOBS;
                     animate = true;
                     working_days++;
                 }
