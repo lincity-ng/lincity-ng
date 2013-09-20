@@ -960,9 +960,9 @@ void Construction::trade()
         for(unsigned int i = 0; i < neighsize; ++i)
         {
             Construction *pear = neighbors[i];
+            lvls[i] = false;
             if(pear->commodityCount.count(stuff_ID))
             {
-                lvls[i] = false;
                 int lvlsi = pear->commodityCount[stuff_ID];
                 int capsi = pear->constructionGroup->commodityRuleCount[stuff_ID].maxload;
                 if(pear->flags & FLAG_EVACUATE)
@@ -1013,7 +1013,7 @@ void Construction::trade()
                 {   ConstructionManager::submitRequest(new PowerLineFlashRequest(neighbors[i]));}
             }
         }
-        else if ((flow > 0) && (constructionGroup->group != GROUP_MARKET)) 
+        else if ((flow > 0) && (constructionGroup->group != GROUP_MARKET))
         {
             switch (stuff_ID)
                 {
@@ -1028,8 +1028,8 @@ void Construction::trade()
                         break;
                     default:
                         break;
-                }   
-        }        
+                }
+        }
         stuff_it->second = center_lvl; //update center_lvl
     } //endfor all different STUFF
 }

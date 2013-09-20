@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #define __BUTTON_PANEL_HPP__
 
 #include "gui/Component.hpp"
+#include "lincity/UserOperation.h"
 
 #include <map>
 
@@ -40,7 +41,7 @@ class ButtonPanel : public Component
   void selectQueryTool();
   void toggleBulldozeTool();
   void switchToTool( int newModuleType );
- 
+
  private:
   void attachButtons();
   std::string getAttribute(XmlReader &reader,const std::string &pName) const;
@@ -59,13 +60,14 @@ class ButtonPanel : public Component
   void updateSelectedCost();
   int previousTool;
   int lastShownTechType;
- 
+
   std::string createTooltip( int module, bool root = true );
   std::vector<std::string> mMenuButtons;
   std::vector<std::string> mMenus;
   std::vector<std::string> mButtons;
-  
+
   std::map<std::string,int> mMenuSelected;
+  std::map<std::string, UserOperation> ButtonOperations;
 };
 
 ButtonPanel *getButtonPanel();

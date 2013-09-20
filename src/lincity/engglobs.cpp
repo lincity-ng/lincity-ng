@@ -13,6 +13,7 @@ int use_waterwell = true;
 
 ConstructionCount constructionCount = ConstructionCount();
 World world = World(WORLD_SIDE_LEN);
+UserOperation* userOperation = NULL;
 
 /* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
 const int dx[8] = { -1, 0, 1, 0, 1, 1, -1, -1};

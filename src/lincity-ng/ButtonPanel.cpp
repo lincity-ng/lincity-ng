@@ -60,6 +60,7 @@ ButtonPanel *getButtonPanel()
 
 ButtonPanel::ButtonPanel()
 {
+    userOperation = new UserOperation();
 }
 
 void
@@ -110,20 +111,23 @@ ButtonPanel::parse(XmlReader& reader)
                 if(component->getFlags() & FLAG_RESIZABLE) {
                     component->resize(width, height);
                 }
-                
+
                 //width = component->getWidth();
                 //height = component->getHeight();
             }
         }
-    }      
-    
+    }
+
     ButtonPanelInstance = this;
     previousTool = selected_module_type=selected_module=module=CST_GREEN;
     alreadyAttached=false;
     selected_module_type=CST_NONE;
-    
+    userOperation->type = 0;
+    userOperation->action = UserOperation::ACTION_QUERY;
+
     checked_cast<CheckButton>(findComponent(mMenuButtons[0]))->check();
     lastShownTechType = 0;
+    ButtonOperations.clear();//discard initial default names, attachbuttons() will create proper map
 }
 
 std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName) const
@@ -136,7 +140,7 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
         if(pName == name)
             return value;
     }
-    
+
     return rname;
 }
 
@@ -148,13 +152,13 @@ float ButtonPanel::requiredTech(int moduleType) {
     int group = get_group_of_type( moduleType );
     float tl;
     //High Tech Residences are special
-    if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH 
+    if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH
             || group == GROUP_RESIDENCE_HH ){
         tl = 3 * MAX_TECH_LEVEL / 10;
-    } else {   
+    } else {
         tl = main_groups[ group ].tech * MAX_TECH_LEVEL/1000;
     }
-    
+
     return tl * 100 / MAX_TECH_LEVEL;
 }
 
@@ -165,7 +169,7 @@ bool ButtonPanel::enoughTech( int moduleType ){
     }
     int group = get_group_of_type( moduleType );
     //High Tech Residences are special
-    if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH 
+    if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH
             || group == GROUP_RESIDENCE_HH ){
         if( ( ( tech_level * 10 ) / MAX_TECH_LEVEL) > 2 ){
             return true;
@@ -194,8 +198,8 @@ void ButtonPanel::checkTech( int showInfo ){
     examineMenuButtons();
 
     if (tech_level > MODERN_WINDMILL_TECH && modern_windmill_flag == 0 && showInfo != 0){
-	    ok_dial_box ("mod_wind_up.mes", GOOD, 0L);
-	    modern_windmill_flag = 1;
+        ok_dial_box ("mod_wind_up.mes", GOOD, 0L);
+        modern_windmill_flag = 1;
     }
 }
 
@@ -205,18 +209,18 @@ std::string ButtonPanel::createTooltip( int module, bool root /* = true */ ){
         case CST_NONE: tooltip << _( "Query Tool" ); break;
         case CST_GREEN: tooltip << _( "Bulldozer" ); break;
         case CST_DESERT: tooltip << _( "Evacuate" ); break;
-                        
+
         case CST_RESIDENCE_LL: tooltip << _( "Residential: 50 denizens, low birthrate, high deathrate" ); break;
         case CST_RESIDENCE_ML: tooltip << _( "Residential: 100 denizens, high birthrate, low deathrate" ); break;
         case CST_RESIDENCE_HL: tooltip << _( "Residential: 200 denizens, high birthrate, high deathrate" ); break;
         case CST_RESIDENCE_LH: tooltip << _( "Residential: 100 denizens, low birthrate, high deathrate" ); break;
         case CST_RESIDENCE_MH: tooltip << _( "Residential: 200 denizens, high birthrate, low deathrate" ); break;
         case CST_RESIDENCE_HH: tooltip << _( "Residential: 400 denizens, high birthrate, high deathrate" ); break;
-  
+
         default:{
             int group = main_types[ module ].group;
             std::string buildingName = main_groups[ group ].name;
-            tooltip << dictionaryManager->get_dictionary().translate( buildingName ); 
+            tooltip << dictionaryManager->get_dictionary().translate( buildingName );
         }
     }
     if( !root ){
@@ -227,6 +231,7 @@ std::string ButtonPanel::createTooltip( int module, bool root /* = true */ ){
 
 void ButtonPanel::examineButton( std::string name, int showInfo ){
     int tmp = selected_module_type;
+    UserOperation *tmp2 = userOperation;
     Component *c=findComponent( name );
     if( !c ) {
         std::cerr << "examineButton# Component "<< name << " not found!?\n";
@@ -237,7 +242,9 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         std::cerr << "examineButton# Component "<< name << " is not a Button???\n";
         return;
     }
-    doButton( name );
+    //doButton( name );
+    selected_module_type = ButtonOperations[name].selected_module_type;
+    userOperation = &(ButtonOperations[name]);
     if ( enoughTech( selected_module_type ) ){
         if( !b->isEnabled() ){
             newTechMessage( selected_module_type, showInfo );
@@ -248,7 +255,7 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         if( b->isEnabled() ){
             b->enable( false );
             char tooltip[2048];
-            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"), 
+            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
                     createTooltip(selected_module_type, false ).c_str(),
                     requiredTech(selected_module_type));
             b->setTooltip(tooltip);
@@ -258,21 +265,22 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
             b->enable( false );
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s is disabled (loaded old game)."),
-	    		createTooltip(selected_module_type, false ).c_str());
-	    b->setTooltip(tooltip);
+                createTooltip(selected_module_type, false ).c_str());
+        b->setTooltip(tooltip);
     }
 
 
     selected_module_type = tmp;
+    userOperation = tmp2;
 }
 
 void ButtonPanel::examineMenuButtons(){
-    std::string name; 
+    std::string name;
     Component *c;
     for( size_t number=0; number < mMenuButtons.size(); number++ ){
-        name = mMenuButtons[ number ]; 
+        name = mMenuButtons[ number ];
         c=findComponent( name );
-            
+
         if( !c ) {
             std::cerr << "examineMenuButton# Component" << name << "not found!?\n";
             return;
@@ -291,7 +299,7 @@ void ButtonPanel::examineMenuButtons(){
         } else {
             if( b->isEnabled() ){
                 char tooltip[2048];
-                snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"), 
+                snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
                         createTooltip( type ).c_str(),
                         requiredTech(type));
                 b->setTooltip( tooltip );
@@ -313,85 +321,85 @@ void ButtonPanel::newTechMessage( int moduleType, int showInfo )
         return;
     }
     switch( module ){
-        case GROUP_WINDMILL: 
+        case GROUP_WINDMILL:
             ok_dial_box ("windmillup.mes", GOOD, 0L);
             break;
         case GROUP_COAL_POWER:
-	        ok_dial_box ("coalpowerup.mes", GOOD, 0L);
+            ok_dial_box ("coalpowerup.mes", GOOD, 0L);
             break;
         case GROUP_SOLAR_POWER:
-	        ok_dial_box ("solarpowerup.mes", GOOD, 0L);
+            ok_dial_box ("solarpowerup.mes", GOOD, 0L);
             break;
         case GROUP_COALMINE:
-	        ok_dial_box ("coalmineup.mes", GOOD, 0L);
+            ok_dial_box ("coalmineup.mes", GOOD, 0L);
             break;
         case GROUP_RAIL:
-	        ok_dial_box ("railwayup.mes", GOOD, 0L);
+            ok_dial_box ("railwayup.mes", GOOD, 0L);
             break;
         case GROUP_ROAD:
-	        ok_dial_box ("roadup.mes", GOOD, 0L);
+            ok_dial_box ("roadup.mes", GOOD, 0L);
             break;
         case GROUP_INDUSTRY_L:
-	        ok_dial_box ("ltindustryup.mes", GOOD, 0L);
+            ok_dial_box ("ltindustryup.mes", GOOD, 0L);
             break;
         case GROUP_UNIVERSITY:
-	        ok_dial_box ("universityup.mes", GOOD, 0L);
+            ok_dial_box ("universityup.mes", GOOD, 0L);
             break;
         case GROUP_OREMINE:
             if (GROUP_OREMINE_TECH > 0){
-	            ok_dial_box ("oremineup.mes", GOOD, 0L);
+                ok_dial_box ("oremineup.mes", GOOD, 0L);
             }
             break;
-        case GROUP_PORT:	/* exports are the same */
-	        ok_dial_box ("import-exportup.mes", GOOD, 0L);
+        case GROUP_PORT:    /* exports are the same */
+            ok_dial_box ("import-exportup.mes", GOOD, 0L);
             break;
         case GROUP_INDUSTRY_H:
-	        ok_dial_box ("hvindustryup.mes", GOOD, 0L);
+            ok_dial_box ("hvindustryup.mes", GOOD, 0L);
             break;
         case GROUP_PARKLAND:
-	        if (GROUP_PARKLAND_TECH > 0){
-	            ok_dial_box ("parkup.mes", GOOD, 0L);
+            if (GROUP_PARKLAND_TECH > 0){
+                ok_dial_box ("parkup.mes", GOOD, 0L);
             }
             break;
         case GROUP_RECYCLE:
-	        ok_dial_box ("recycleup.mes", GOOD, 0L);
+            ok_dial_box ("recycleup.mes", GOOD, 0L);
             break;
         case GROUP_RIVER:
-	        if (GROUP_WATER_TECH > 0){
-	            ok_dial_box ("riverup.mes", GOOD, 0L);
+            if (GROUP_WATER_TECH > 0){
+                ok_dial_box ("riverup.mes", GOOD, 0L);
             }
             break;
         case GROUP_HEALTH:
-	        ok_dial_box ("healthup.mes", GOOD, 0L);
+            ok_dial_box ("healthup.mes", GOOD, 0L);
             break;
         case GROUP_ROCKET:
-	        ok_dial_box ("rocketup.mes", GOOD, 0L);
+            ok_dial_box ("rocketup.mes", GOOD, 0L);
             break;
         case GROUP_SCHOOL:
-	        if (GROUP_SCHOOL_TECH > 0){
-	            ok_dial_box ("schoolup.mes", GOOD, 0L);
+            if (GROUP_SCHOOL_TECH > 0){
+                ok_dial_box ("schoolup.mes", GOOD, 0L);
             }
             break;
         case GROUP_BLACKSMITH:
-	        if (GROUP_BLACKSMITH_TECH > 0){
-	            ok_dial_box ("blacksmithup.mes", GOOD, 0L);
+            if (GROUP_BLACKSMITH_TECH > 0){
+                ok_dial_box ("blacksmithup.mes", GOOD, 0L);
             }
         break;
         case GROUP_MILL:
-	        if (GROUP_MILL_TECH > 0){
-	            ok_dial_box ("millup.mes", GOOD, 0L);
+            if (GROUP_MILL_TECH > 0){
+                ok_dial_box ("millup.mes", GOOD, 0L);
             }
             break;
         case GROUP_POTTERY:
-        	if (GROUP_POTTERY_TECH > 0){
-	            ok_dial_box ("potteryup.mes", GOOD, 0L);
+            if (GROUP_POTTERY_TECH > 0){
+                ok_dial_box ("potteryup.mes", GOOD, 0L);
             }
             break;
         case GROUP_FIRESTATION:
-	        ok_dial_box ("firestationup.mes", GOOD, 0L);
+            ok_dial_box ("firestationup.mes", GOOD, 0L);
             break;
         case GROUP_CRICKET:
-	        ok_dial_box ("cricketup.mes", GOOD, 0L);
+            ok_dial_box ("cricketup.mes", GOOD, 0L);
             break;
         default:
             return;
@@ -417,17 +425,18 @@ void ButtonPanel::attachButtons()
           b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
           if( b->isEnabled() ){
             b->setTooltip( createTooltip( mMenuSelected[ mMenus[ i ] ] ) );
-          } else {  
+          } else {
             char tooltip[2048];
-            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"), 
+            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
                      createTooltip( mMenuSelected[ mMenus[ i ] ] ).c_str(),
                      requiredTech( mMenuSelected[ mMenus[ i ] ]));
             b->setTooltip(tooltip);
           }
         }
       }
-    } 
-  int tmp = selected_module_type; 
+    }
+  int tmp = selected_module_type;
+  UserOperation *tmp2 = userOperation;
   for(size_t i=0;i<mButtons.size();i++)
     {
       Component *c=findComponent(mButtons[i]);
@@ -436,26 +445,29 @@ void ButtonPanel::attachButtons()
         CheckButton* b = dynamic_cast<CheckButton*>(c);
         if(b)
         {
-          b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
-          doButton( mButtons[i] );
-           if( b->isEnabled() ){
-             b->setTooltip( createTooltip( selected_module_type, false ) );
-	       } else {  
+            b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
+            doButton( mButtons[i] );
+            selected_module_type = ButtonOperations[mButtons[i]].selected_module_type;
+            userOperation = &(ButtonOperations[mButtons[i]]);
+            if( b->isEnabled() ){
+                b->setTooltip( createTooltip( selected_module_type, false ) );
+            } else {
             char tooltip[2048];
-            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"), 
+            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
                      createTooltip( selected_module_type, false ).c_str(),
                      requiredTech(selected_module_type));
             b->setTooltip(tooltip);
           }
         }
       }
-    } 
-  selected_module_type = tmp; 
-  checkTech(0);    
-   //FIXME : disable all menus
-  
-  // now hide menu
-  for(size_t i=0;i<mMenuButtons.size();i++)
+    }
+    selected_module_type = tmp;
+    userOperation = tmp2;
+    checkTech(0);
+    //FIXME : disable all menus
+
+    // now hide menu
+    for(size_t i=0;i<mMenuButtons.size();i++)
     {
         // get Component
         Component *c=findComponent(mMenus[i]);
@@ -481,8 +493,8 @@ void ButtonPanel::attachButtons()
  * Show Information about selected Tool
  */
 void ButtonPanel::updateToolInfo()
-{       
-    //Tool was changed, so reset the bulldozeflags to enable 
+{
+    //Tool was changed, so reset the bulldozeflags to enable
     //the warnings again.
     monument_bul_flag = 0;
     river_bul_flag = 0;
@@ -499,7 +511,7 @@ void ButtonPanel::draw(Painter &painter)
 
 void ButtonPanel::selectQueryTool(){
     CheckButton* queryButton = getCheckButton( *this, "BPMPointerButton");
-    chooseButtonClicked( queryButton, SDL_BUTTON_LEFT ); 
+    chooseButtonClicked( queryButton, SDL_BUTTON_LEFT );
 }
 
 void ButtonPanel::toggleBulldozeTool(){
@@ -509,43 +521,43 @@ void ButtonPanel::toggleBulldozeTool(){
     else{
         previousTool = selected_module_type;
         CheckButton* bulldozeButton = getCheckButton( *this, "BPMBullDozeButton");
-        chooseButtonClicked( bulldozeButton, SDL_BUTTON_LEFT ); 
+        chooseButtonClicked( bulldozeButton, SDL_BUTTON_LEFT );
     }
 }
 
 void ButtonPanel::showToolHelp( int tooltype ){
     switch( tooltype ) {
-        case CST_NONE: 
+        case CST_NONE:
             getGame()->showHelpWindow( "query" ); break;
         case CST_GREEN :
             getGame()->showHelpWindow( "bulldoze" ); break;
-		case CST_DESERT :
+        case CST_DESERT :
             getGame()->showHelpWindow( "evacuate" ); break;
-                        
-        case CST_RESIDENCE_LL: 
-        case CST_RESIDENCE_ML: 
-        case CST_RESIDENCE_HL: 
-        case CST_RESIDENCE_LH: 
-        case CST_RESIDENCE_MH: 
-        case CST_RESIDENCE_HH: 
+
+        case CST_RESIDENCE_LL:
+        case CST_RESIDENCE_ML:
+        case CST_RESIDENCE_HL:
+        case CST_RESIDENCE_LH:
+        case CST_RESIDENCE_MH:
+        case CST_RESIDENCE_HH:
             getGame()->showHelpWindow( "residential" ); break;
-  
+
         case CST_FARM_O0:
             getGame()->showHelpWindow( "farm" ); break;
         case CST_MILL_0:
             getGame()->showHelpWindow( "mill" ); break;
-  
+
         case CST_HEALTH:
             getGame()->showHelpWindow( "health" ); break;
-        case CST_CRICKET_1: 
+        case CST_CRICKET_1:
             getGame()->showHelpWindow( "cricket" ); break;
         case CST_FIRESTATION_1:
             getGame()->showHelpWindow( "firestation" ); break;
-        case CST_SCHOOL: 
+        case CST_SCHOOL:
             getGame()->showHelpWindow( "school" ); break;
         case CST_UNIVERSITY:
             getGame()->showHelpWindow( "university" ); break;
-  
+
         case CST_TRACK_LR:
             getGame()->showHelpWindow( "track" ); break;
         case CST_ROAD_LR:
@@ -556,10 +568,10 @@ void ButtonPanel::showToolHelp( int tooltype ){
             getGame()->showHelpWindow( "port" ); break;
         case CST_ROCKET_1:
             getGame()->showHelpWindow( "rocket" ); break;
-   
+
         case CST_POWERL_H_L:
             getGame()->showHelpWindow( "powerline" ); break;
-  
+
         case CST_POWERS_COAL_EMPTY:
             getGame()->showHelpWindow( "powerscoal" ); break;
         case CST_POWERS_SOLAR:
@@ -568,7 +580,7 @@ void ButtonPanel::showToolHelp( int tooltype ){
             getGame()->showHelpWindow( "substation" ); break;
         case CST_WINDMILL_1_R:
             getGame()->showHelpWindow( "windmill" ); break;
-  
+
         case CST_COMMUNE_1:
             getGame()->showHelpWindow( "commune" ); break;
         case CST_COALMINE_EMPTY:
@@ -579,7 +591,7 @@ void ButtonPanel::showToolHelp( int tooltype ){
             getGame()->showHelpWindow( "tip" ); break;
         case CST_RECYCLE:
             getGame()->showHelpWindow( "recycle" ); break;
-  
+
         case CST_INDUSTRY_L_C:
             getGame()->showHelpWindow( "industryl" ); break;
         case CST_INDUSTRY_H_C:
@@ -610,42 +622,42 @@ void ButtonPanel::switchToTool( int newModuleType ){
         case CST_NONE: newName = "BPMPointerButton"; break;
         case CST_GREEN :newName = "BPMBullDozeButton"; break;
         case CST_DESERT :newName = "BPMEvacuateButton"; break;
-                        
+
         case CST_RESIDENCE_LL: newName = "BPMResidence1Button"; break;
         case CST_RESIDENCE_ML: newName = "BPMResidence2Button"; break;
         case CST_RESIDENCE_HL: newName = "BPMResidence3Button"; break;
         case CST_RESIDENCE_LH: newName = "BPMResidence4Button"; break;
         case CST_RESIDENCE_MH: newName = "BPMResidence5Button"; break;
         case CST_RESIDENCE_HH: newName = "BPMResidence6Button"; break;
-  
+
         case CST_FARM_O0: newName ="BPMFarmButton"; break;
         case CST_MILL_0: newName ="BPMMillButton"; break;
-  
+
         case CST_HEALTH: newName="BPMHealthButton"; break;
         case CST_CRICKET_1: newName="BPMSportsButton"; break;
         case CST_FIRESTATION_1: newName="BPMFireButton"; break;
         case CST_SCHOOL: newName="BPMSchoolButton"; break;
         case CST_UNIVERSITY: newName="BPMUniversityButton"; break;
-  
+
         case CST_TRACK_LR: newName="BPMTrackButton"; break;
         case CST_ROAD_LR: newName="BPMStreetButton"; break;
         case CST_RAIL_LR: newName="BPMRailButton"; break;
         case CST_EX_PORT: newName="BPMPortButton"; break;
         case CST_ROCKET_1: newName ="BPMRocketButton"; break;
-   
+
         case CST_POWERL_H_L: newName ="BPMPowerLineButton"; break;
-  
+
         case CST_POWERS_COAL_EMPTY: newName ="BPMCoalPSButton"; break;
         case CST_POWERS_SOLAR: newName ="BPMSolarPSButton"; break;
         case CST_SUBSTATION_R: newName ="BPMSubstationButton"; break;
         case CST_WINDMILL_1_R: newName ="BPMWindmillButton"; break;
-  
+
         case CST_COMMUNE_1: newName ="BPMCommuneButton"; break;
         case CST_COALMINE_EMPTY: newName ="BPMCoalButton"; break;
         case CST_OREMINE_1: newName ="BPMOreButton"; break;
         case CST_TIP_0: newName ="BPMTipButton"; break;
         case CST_RECYCLE: newName ="BPMRecycleButton"; break;
-  
+
         case CST_INDUSTRY_L_C: newName ="BPMLIndustryButton"; break;
         case CST_INDUSTRY_H_C: newName ="BPMHIndustryButton"; break;
         case CST_MARKET_EMPTY: newName ="BPMMarketButton"; break;
@@ -661,28 +673,32 @@ void ButtonPanel::switchToTool( int newModuleType ){
             newName ="BPMPointerButton";
     }
     CheckButton* newButton = getCheckButton( *this, newName );
-    chooseButtonClicked( newButton, SDL_BUTTON_LEFT ); 
+    chooseButtonClicked( newButton, SDL_BUTTON_LEFT );
 }
-    
+
 void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
 {
     Image *i=dynamic_cast<Image*>(button->getCaption());
     CheckButton *cb = 0;
     std::string mmain=button->getMain();
-    int prevTech = selected_module_type;
-    doButton(button->getName());
-    
+    int tmp = selected_module_type;
+    UserOperation *tmp2 = userOperation;
+    //doButton(button->getName());
+    selected_module_type = ButtonOperations[button->getName()].selected_module_type;
+    userOperation = &(ButtonOperations[button->getName()]);
+
     if( mousebutton == SDL_BUTTON_RIGHT ){
         showToolHelp( selected_module_type );
-        selected_module_type = prevTech;
+        selected_module_type = tmp;
+        userOperation = tmp2;
         updateSelectedCost();
         return;
     }
-    
+
     if(i)
     {
         std::string filename=i->getFilename();
-        
+
         // set menu-caption
         if(mmain.length())
         {
@@ -701,14 +717,16 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
             }
         }
     }
-    
-    doButton(button->getName());
+
+    //doButton(button->getName());
+    selected_module_type = ButtonOperations[button->getName()].selected_module_type;
+    userOperation = &(ButtonOperations[button->getName()]);
     // now hide menu
     for(size_t i=0;i<mMenuButtons.size();i++) {
         if(mmain==mMenuButtons[i])
         {
             if(enoughTech( selected_module_type)) {
-                mMenuSelected[mMenus[i]]=selected_module_type;// set default      
+                mMenuSelected[mMenus[i]]=selected_module_type;// set default
             }
             // get Component
             Component *c=findComponent(mMenus[i]);
@@ -727,15 +745,15 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
             }
         }
     }
-    
+
     if(!enoughTech( selected_module_type))
     {
-#ifdef DEBUG        
+#ifdef DEBUG
         short grp = get_group_of_type(selected_module_type);
-        ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(grp);        
+        ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(grp);
         std::cout <<"chooseButton not enough tech for " << selected_module_type << ": "<< (constructionGroup?constructionGroup->name:main_groups[grp].name) << std::endl;
 #endif
-        selected_module_type = prevTech;
+        selected_module_type = tmp;
         updateSelectedCost();
     }
     if(cb != 0)
@@ -743,6 +761,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     examineMenuButtons();
 
     //Tell GameView to use the right Cursor
+/*
     if( selected_module_type == CST_NONE ) {
         getGameView()->setCursorSize( 0 );
     } else {
@@ -750,7 +769,16 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
         int size = main_groups[selected_module_group].size;
         getGameView()->setCursorSize( size );
     }
-    updateToolInfo();        
+*/
+
+    if( userOperation->action == UserOperation::ACTION_QUERY )
+    {   getGameView()->setCursorSize( 0 );}
+    else if(userOperation->constructionGroup)
+    {   getGameView()->setCursorSize( userOperation->constructionGroup->size );}
+    else
+    {   getGameView()->setCursorSize(1);}
+
+    updateToolInfo();
 }
 
 void ButtonPanel::toggleMenu(std::string pName,bool enable)
@@ -777,15 +805,16 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
             // get Component
             Component* c=findComponent(mMenus[i]);
             //Check if Techlevel is sufficient.
+            //TODO find out about mMenuSelected[mMenus[i]] and userOperation
             if( enoughTech( mMenuSelected[mMenus[i]] ) && ( b == SDL_BUTTON_RIGHT ) ){
                 selected_module_type=selected_module=mMenuSelected[mMenus[i]];
                 updateSelectedCost();
                 button->check();
-            }  
+            }
             if( mMenuSelected[mMenus[i]] == selected_module_type ){ //button toggles on every click
-                button->check(); 
+                button->check();
             } else {
-                button->uncheck(); 
+                button->uncheck();
             }
             if(c) {
                 // try en-/disabling compoent
@@ -819,10 +848,11 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
             toggleMenu(mMenus[i],false);
         }
     }
-     
+
     // get selected button and set module
-    
+
     //Tell GameView to use the right Cursor
+/*
     if( selected_module_type == CST_NONE ) {
         getGameView()->setCursorSize( 0 );
     } else {
@@ -830,6 +860,15 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
         int size = main_groups[selected_module_group].size;
         getGameView()->setCursorSize( size );
     }
+*/
+    if( userOperation->action == UserOperation::ACTION_QUERY )
+    {   getGameView()->setCursorSize( 0 );}
+    else if(userOperation->constructionGroup)
+    {   getGameView()->setCursorSize( userOperation->constructionGroup->size );}
+    else
+    {   getGameView()->setCursorSize(1);}
+
+
     updateToolInfo();
     setDirty();
 }
@@ -840,107 +879,329 @@ bool ButtonPanel::opaque(const Vector2& pos) const
         if(i->getComponent()->opaque(pos))
             return true;
     }
-    
+
     return false;
 }
- 
+
 void ButtonPanel::doButton(const std::string &button)
 {
+    UserOperation *buttonOperation = &(ButtonOperations[button]);
     if(button=="BPMPointerButton")
+    {
+        buttonOperation->type = 0;
+        buttonOperation->constructionGroup = NULL;
+        buttonOperation->action = UserOperation::ACTION_QUERY;
         selected_module_type=CST_NONE;
+    }
     else if(button=="BPMBullDozeButton")
+    {
+        buttonOperation->type = 0;
+        buttonOperation->constructionGroup = NULL;
+        buttonOperation->action = UserOperation::ACTION_BULLDOZE;
         selected_module_type=CST_GREEN;
-	else if(button=="BPMEvacuateButton")
+    }
+    else if(button=="BPMEvacuateButton")
+    {
+        buttonOperation->type = 0;
+        buttonOperation->constructionGroup = NULL;
+        buttonOperation->action = UserOperation::ACTION_EVACUATE;
         selected_module_type=CST_DESERT;
-    
-    
+    }
+
     else if(button=="BPMResidence1Button")
-        selected_module_type=CST_RESIDENCE_LL; 
+    {
+        buttonOperation->type = CST_RESIDENCE_LL;
+        buttonOperation->constructionGroup = &residenceLLConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
+        selected_module_type=CST_RESIDENCE_LL;
+    }
     else if(button=="BPMResidence2Button")
+    {
+        buttonOperation->type = CST_RESIDENCE_ML;
+        buttonOperation->constructionGroup = &residenceMLConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_ML;
+    }
     else if(button=="BPMResidence3Button")
+    {
+        buttonOperation->type = CST_RESIDENCE_HL;
+        buttonOperation->constructionGroup = &residenceHLConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_HL;
+    }
     else if(button=="BPMResidence4Button")
+    {
+        buttonOperation->type = CST_RESIDENCE_LH;
+        buttonOperation->constructionGroup = &residenceLHConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_LH;
+    }
     else if(button=="BPMResidence5Button")
+    {
+        buttonOperation->type = CST_RESIDENCE_MH;
+        buttonOperation->constructionGroup = &residenceMHConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_MH;
+    }
     else if(button=="BPMResidence6Button")
+    {
+        buttonOperation->type = CST_RESIDENCE_HH;
+        buttonOperation->constructionGroup = &residenceHHConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_HH;
-  
-  
+    }
+
+
     else if(button=="BPMFarmButton")
+    {
+        buttonOperation->type = CST_FARM_O0;
+        buttonOperation->constructionGroup = &organic_farmConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_FARM_O0;
+    }
     else if(button=="BPMMillButton")
+    {
+        buttonOperation->type = CST_MILL_0;
+        buttonOperation->constructionGroup = &millConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_MILL_0;
-  
+    }
+
     else if(button=="BPMHealthButton")
+    {
+        buttonOperation->type = CST_HEALTH;
+        buttonOperation->constructionGroup = &healthCentreConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_HEALTH;
+    }
     else if(button=="BPMSportsButton")
+    {
+        buttonOperation->type = CST_CRICKET_1;
+        buttonOperation->constructionGroup = &cricketConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_CRICKET_1;
+    }
     else if(button=="BPMFireButton")
+    {
+        buttonOperation->type = CST_FIRESTATION_1;
+        buttonOperation->constructionGroup = &fireStationConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_FIRESTATION_1;
+    }
     else if(button=="BPMSchoolButton")
+    {
+        buttonOperation->type = CST_SCHOOL;
+        buttonOperation->constructionGroup = &schoolConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_SCHOOL;
+    }
     else if(button=="BPMUniversityButton")
+    {
+        buttonOperation->type = CST_UNIVERSITY;
+        buttonOperation->constructionGroup = &universityConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_UNIVERSITY;
-    
+    }
+
     else if(button=="BPMTrackButton")
-      selected_module_type=CST_TRACK_LR;
+    {
+        buttonOperation->type = CST_TRACK_LR;
+        buttonOperation->constructionGroup = &trackConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
+        selected_module_type=CST_TRACK_LR;
+    }
     else if(button=="BPMStreetButton")
+    {
+        buttonOperation->type = CST_ROAD_LR;
+        buttonOperation->constructionGroup = &roadConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_ROAD_LR;
+    }
     else if(button=="BPMRailButton")
+    {
+        buttonOperation->type = CST_RAIL_LR;
+        buttonOperation->constructionGroup = &railConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RAIL_LR;
+    }
     else if(button=="BPMPortButton")
+    {
+        buttonOperation->type = CST_EX_PORT;
+        buttonOperation->constructionGroup = &portConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_EX_PORT;
+    }
     else if(button=="BPMRocketButton")
+    {
+        buttonOperation->type = CST_ROCKET_1;
+        buttonOperation->constructionGroup = &rocketPadConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_ROCKET_1;
-    
+    }
+
     else if(button=="BPMPowerLineButton")
+    {
+        buttonOperation->type = CST_POWERL_H_L;
+        buttonOperation->constructionGroup = &powerlineConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_POWERL_H_L;
+    }
     else if(button=="BPMCoalPSButton")
+    {
+        buttonOperation->type = CST_POWERS_COAL_EMPTY;
+        buttonOperation->constructionGroup = &coal_powerConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_POWERS_COAL_EMPTY;
+    }
     else if(button=="BPMSolarPSButton")
+    {
+        buttonOperation->type = CST_POWERS_SOLAR;
+        buttonOperation->constructionGroup = &solarPowerConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_POWERS_SOLAR;
+    }
     else if(button=="BPMSubstationButton")
+    {
+        buttonOperation->type = CST_SUBSTATION_R;
+        buttonOperation->constructionGroup = &substationConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_SUBSTATION_R;
+    }
     else if(button=="BPMWindmillButton")
+    {
+        buttonOperation->type = (tech_level < WIND_POWER_TECH)? CST_WINDMILL_1_W: CST_WINDMILL_1_R;
+        if (tech_level < WIND_POWER_TECH)
+        {   buttonOperation->constructionGroup = &windmillConstructionGroup;}
+        else
+        {   buttonOperation->constructionGroup = &windpowerConstructionGroup;}
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_WINDMILL_1_R;
-    
+    }
+
     else if(button=="BPMCommuneButton")
+    {
+        buttonOperation->type = CST_COMMUNE_1;
+        buttonOperation->constructionGroup = &communeConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_COMMUNE_1;
+    }
     else if(button=="BPMCoalButton")
+    {
+        buttonOperation->type = CST_COALMINE_EMPTY;
+        buttonOperation->constructionGroup = &coalmineConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_COALMINE_EMPTY;
+    }
     else if(button=="BPMOreButton")
+    {
+        buttonOperation->type = CST_OREMINE_1;
+        buttonOperation->constructionGroup = &oremineConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_OREMINE_1;
+    }
     else if(button=="BPMTipButton")
+    {
+        buttonOperation->type = CST_TIP_0;
+        buttonOperation->constructionGroup = &tipConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_TIP_0;
+    }
     else if(button=="BPMRecycleButton")
+    {
+        buttonOperation->type = CST_RECYCLE;
+        buttonOperation->constructionGroup = &recycleConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RECYCLE;
-  
+    }
+
     else if(button=="BPMLIndustryButton")
+    {
+        buttonOperation->type = CST_INDUSTRY_L_C;
+        buttonOperation->constructionGroup = &industryLightConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_INDUSTRY_L_C;
+    }
     else if(button=="BPMHIndustryButton")
+    {
+        buttonOperation->type = CST_INDUSTRY_H_C;
+        buttonOperation->constructionGroup = &industryHeavyConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_INDUSTRY_H_C;
+    }
     else if(button=="BPMMarketButton")
+    {
+        buttonOperation->type = CST_MARKET_EMPTY;
+        buttonOperation->constructionGroup = &marketConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_MARKET_EMPTY;
+    }
     else if(button=="BPMPotteryButton")
+    {
+        buttonOperation->type = CST_POTTERY_0;
+        buttonOperation->constructionGroup = &potteryConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_POTTERY_0;
+    }
     else if(button=="BPMBlacksmithButton")
+    {
+        buttonOperation->type = CST_BLACKSMITH_0;
+        buttonOperation->constructionGroup = &blacksmithConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_BLACKSMITH_0;
-    
+    }
+
     else if(button=="BPMMonumentButton")
+    {
+        buttonOperation->type = CST_MONUMENT_0;
+        buttonOperation->constructionGroup = &monumentConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_MONUMENT_0;
+    }
     else if(button=="BPMParkButton")
+    {
+        Uint8 *keystate = SDL_GetKeyState(NULL);
+        if ( keystate[SDLK_w] )
+        {   buttonOperation->type = CST_PARKLAND_LAKE;}
+        else
+        {   buttonOperation->type = CST_PARKLAND_PLANE;}
+        buttonOperation->constructionGroup = &parklandConstructionGroup;
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_PARKLAND_PLANE;
+    }
     else if(button=="BPMWaterButton")
+    {
+        buttonOperation->type = CST_WATER;
+        buttonOperation->constructionGroup = NULL;
+        buttonOperation->action = UserOperation::ACTION_FLOOD;
         selected_module_type=CST_WATER;
+    }
     else if(button=="BPMWaterwellButton")
+    {
+        Uint8 *keystate = SDL_GetKeyState(NULL);
+        if ( keystate[SDLK_s] )
+        {
+            buttonOperation->type = CST_SHANTY;
+            buttonOperation->constructionGroup = &shantyConstructionGroup;
+        }
+        else
+        {
+            buttonOperation->type = CST_WATERWELL;
+            buttonOperation->constructionGroup = &waterwellConstructionGroup;
+        }
+
+        buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_WATERWELL;
+    }
+    else
+    {   std::cout << "Unknown Button: " << button << std::endl;}
+    buttonOperation->selected_module_type = selected_module_type;
+    //std::cout << "selected:" << main_groups[get_group_of_type(selected_module_type)].name << std::endl;
+
 }
 
 void ButtonPanel::updateSelectedCost()
 {
-    selected_module_cost = get_type_cost (selected_module_type); 
+    selected_module_cost = get_type_cost (selected_module_type);
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ButtonPanel)

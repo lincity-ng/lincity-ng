@@ -10,11 +10,13 @@
 #include "groups.h"
 #include "world.h"
 #include "ConstructionCount.h"
+#include "UserOperation.h"
 // Use permutator to shuffle the simulation order
 //#include "lincity-ng/Permutator.hpp"
 
 class World;
 class ConstructionCount;
+class UserOperation;
 
 extern int pix_double;
 
@@ -25,6 +27,7 @@ extern struct TYPE main_types[NUM_OF_TYPES];
 
 extern ConstructionCount constructionCount;
 extern World world;
+extern UserOperation* userOperation;
 
 /* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */
 extern const int dx[8];

@@ -59,10 +59,10 @@ void Market::update()
         cap = market_cap;
         for(unsigned int i = 0; i < partsize; ++i)
         {
+            lvls[i] = false;
             Construction *pear = partners[i];
             if(pear->commodityCount.count(stuff_ID))
             {
-                lvls[i] = false;
                 int lvlsi = pear->commodityCount[stuff_ID];
                 int capsi = pear->constructionGroup->commodityRuleCount[stuff_ID].maxload;
                 if(pear->flags & FLAG_EVACUATE)
