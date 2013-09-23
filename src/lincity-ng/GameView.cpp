@@ -385,7 +385,8 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
  */
 Texture* GameView::readTexture(const std::string& filename)
 {
-    std::string nfilename = std::string("images/tiles/") + filename;
+    std::string nfilename = std::string("images") + PHYSFS_getDirSeparator()
+    + std::string("tiles") + PHYSFS_getDirSeparator() + filename;
     Texture* currentTexture;
     try {
         currentTexture = texture_manager->load(nfilename);
@@ -402,7 +403,8 @@ Texture* GameView::readTexture(const std::string& filename)
  */
 SDL_Surface* GameView::readImage(const std::string& filename)
 {
-    std::string nfilename = std::string("images/tiles/") + filename;
+    std::string nfilename = std::string("images") + PHYSFS_getDirSeparator()
+    + std::string("tiles") + PHYSFS_getDirSeparator() + filename;
     SDL_Surface* currentImage;
     if( !PHYSFS_exists( nfilename.c_str() ) ){
         std::cerr << "GameView::readImage# No image file "<< nfilename << " found.\n";
@@ -432,7 +434,10 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
     if(stopThread) {
         return;
     }
-    XmlReader reader( "images/tiles/images.xml" );
+    std::string xmlfile = std::string("images") + PHYSFS_getDirSeparator()
+    + std::string("tiles") + PHYSFS_getDirSeparator() + std::string("images.xml");
+    XmlReader reader( xmlfile );
+
     int xmlX = -1;
     int xmlY = -1;
     bool hit = false;
@@ -926,20 +931,22 @@ void GameView::event(const Event& event)
                 dragStartTime = SDL_GetTicks();
             }
             MapPoint tile = getTile(event.mousepos);
-            if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) ) {
+            if( !roadDragging && leftButtonDown && ( cursorSize == 1 ) &&
+            (userOperation->action != UserOperation::ACTION_EVACUATE))
+            {
                 roadDragging = true;
                 startRoad = tile;
-                if( SDL_GetModState() & KMOD_CTRL ) {
-                    areaBulldoze = true;
-                }
+                if( SDL_GetModState() & KMOD_CTRL )
+                {   areaBulldoze = true;}
             }
-            if( roadDragging && ( cursorSize != 1 ) ){
+            if( roadDragging && ( cursorSize != 1 ) )
+            {
                 roadDragging = false;
                 areaBulldoze = false;
             }
             // bulldoze and evacuate at once while still dragging
-            if( roadDragging && ( (selected_module_type == CST_GREEN
-            || selected_module_type == CST_DESERT))
+            if( roadDragging && ( (userOperation->action == UserOperation::ACTION_BULLDOZE
+            || userOperation->action == UserOperation::ACTION_EVACUATE))
             && !areaBulldoze){
                 if( tile != startRoad ){
                     editMap( startRoad, SDL_BUTTON_LEFT);
@@ -976,11 +983,11 @@ void GameView::event(const Event& event)
             break;
         }
         case Event::MOUSEBUTTONUP:
-/*
+
             if(event.mousebutton == SDL_BUTTON_MIDDLE ){
                 getMiniMap()->hideMpsEnv();
             }
-*/
+
             if( event.mousebutton == SDL_BUTTON_RIGHT ){
                 if ( dragging ) {
                     dragging = false;
@@ -1012,29 +1019,33 @@ void GameView::event(const Event& event)
                     //use same method to find all Tiles as in void GameView::draw()
                     int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
                     int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
-                    //we are speaking of tools, so CST_GREEN == bulldozer
-                    if ( selected_module_type == CST_GREEN ) {
+                    if ( userOperation->action == UserOperation::ACTION_BULLDOZE )
+                    {
                         for (;currentTile.x != endRoad.x + stepx; currentTile.x += stepx) {
                             for (currentTile.y = startRoad.y; currentTile.y != endRoad.y + stepy; currentTile.y += stepy) {
                                 if( !blockingDialogIsOpen )
                                     editMap(currentTile, SDL_BUTTON_LEFT);
                             }
                         }
-                    } else {
+                    }
+                    else if (userOperation->action == UserOperation::ACTION_BUILD)
+                    {
                         bool building_transport = (
-                                    selected_module_type == CST_TRACK_LR
-                                ||  selected_module_type == CST_ROAD_LR
-                                ||  selected_module_type == CST_RAIL_LR);
+                                    userOperation->constructionGroup == &trackConstructionGroup
+                                ||  userOperation->constructionGroup == &roadConstructionGroup
+                                ||  userOperation->constructionGroup != &railConstructionGroup);
                         while( currentTile.x != endRoad.x ) {
                             //if( !blockingDialogIsOpen ) //slow version
                             //editMap(currentTile, SDL_BUTTON_LEFT);
                             //quick version limited to size=1
                             int x = currentTile.x;
                             int y = currentTile.y;
+                            userOperation->x = x;
+                            userOperation->y = y;
                             if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
-                            && get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup()))
+                            && userOperation->constructionGroup->group != world(x,y)->getTransportGroup()))
                             {
-                                place_item(x, y, selected_module_type);
+                                place_item();
                             }
                             currentTile.x += stepx;
                         }
@@ -1044,14 +1055,22 @@ void GameView::event(const Event& event)
                             //quick version limited to size=1
                             int x = currentTile.x;
                             int y = currentTile.y;
+                            userOperation->x = x;
+                            userOperation->y = y;
                             if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
-                            && get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup()))
+                            && userOperation->constructionGroup->group != world(x,y)->getTransportGroup()))
                             {
-                                place_item(x, y, selected_module_type);
+                                place_item();
                             }
                             currentTile.y += stepy;
                         }
                     }
+/*
+                    else if (userOperation->action == UserOperation::ACTION_FLOOD)
+                    {
+                        //TODO find out how to activate dragging water in first place
+                    }
+*/
                     getConfig()->soundEnabled = fx;
                     break;
                 }
@@ -1541,7 +1560,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     int y = (int) tile.y;
     {
         MapPoint upperLeft = realTile(tile);
-        if(upperLeft.x == mps_x && upperLeft.y == mps_y && selected_module_type == CST_NONE)
+        if(upperLeft.x == mps_x && upperLeft.y == mps_y && userOperation->action == UserOperation::ACTION_QUERY)
         {
             int mps_group = world(x,y)->getGroup();
             ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(mps_group);
@@ -1589,7 +1608,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
             {
                 for( x = (int) tile.x; x < tile.x + cursorSize; x++ )
                 {
-                    if (selected_module_type == CST_DESERT) //Evacuating Stuff
+                    if (userOperation->action == UserOperation::ACTION_EVACUATE)
                     {
                         if(!(world(x,y)->reportingConstruction) ||
                         (world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE))
@@ -1604,10 +1623,10 @@ void GameView::markTile( Painter& painter, MapPoint tile )
                     else if( !world(x,y)->is_bare() )
                     {
                         if( !((world(x,y)->is_water() || world(x,y)->is_transport() || world(x,y)->is_powerline()) && (
-                           (selected_module_type == CST_TRACK_LR ) ||
-                           (selected_module_type == CST_ROAD_LR ) ||
-                           (selected_module_type == CST_RAIL_LR ) ) &&
-                           (get_group_of_type(selected_module_type) != world(x,y)->getTransportGroup())
+                           (userOperation->constructionGroup == &trackConstructionGroup) ||
+                           (userOperation->constructionGroup == &roadConstructionGroup ) ||
+                           (userOperation->constructionGroup == &railConstructionGroup ) ) &&
+                           (userOperation->constructionGroup->group != world(x,y)->getTransportGroup())
                            ))
                         {
                             painter.setFillColor( alphared );
@@ -1620,7 +1639,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         }
         //check if building is allowed here, if not use Red Cursor
         // These tests are in engine.cpp with place_item.
-        if ( !is_allowed_here(tile.x, tile.y, selected_module_type, 0) || selected_module_type == CST_GREEN )
+        if ( !is_allowed_here(tile.x, tile.y, userOperation->selected_module_type, 0) || userOperation->action == UserOperation::ACTION_BULLDOZE )
             painter.setFillColor( alphared );
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
@@ -1630,8 +1649,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         fillDiamond( painter, tilerect );
 
         // Draw range for selected_module_type
-        int selected_group = get_group_of_type(selected_module_type);
-        ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(selected_group);
+        //int selected_group = get_group_of_type(selected_module_type);
+        ConstructionGroup *constructionGroup = userOperation->constructionGroup;//ConstructionGroup::getConstructionGroup(selected_group);
         if(constructionGroup)
         {
             int range = constructionGroup->range;
@@ -1757,14 +1776,16 @@ void GameView::draw(Painter& painter)
     if( mouseInGameView  && !blockingDialogIsOpen ) {
         MapPoint lastRazed( -1,-1 );
         int tiles = 0;
-        if( roadDragging && ( cursorSize == 1 ) ){
+        if( roadDragging && ( cursorSize == 1 ) &&
+        (userOperation->action == UserOperation::ACTION_BUILD || userOperation->action == UserOperation::ACTION_BULLDOZE))
+        {
             //use same method to find all Tiles as in GameView::event(const Event& event)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
             currentTile = startRoad;
             //we are speaking of tools, so CST_GREEN == bulldozer
-            if ( (selected_module_type == CST_GREEN)
-              || (selected_module_type == CST_DESERT)) {
+            if ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
+            {
                 for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
                     for (currentTile.y = startRoad.y; currentTile.y != tileUnderMouse.y + stepy; currentTile.y += stepy) {
                         markTile( painter, currentTile );
@@ -1776,7 +1797,8 @@ void GameView::draw(Painter& painter)
                     }
                 }
             }
-            else {
+            else if (userOperation->action == UserOperation::ACTION_BUILD)
+            {
                 while( currentTile.x != tileUnderMouse.x) {
                     markTile( painter, currentTile );
                     cost += buildCost( currentTile );
@@ -1790,17 +1812,19 @@ void GameView::draw(Painter& painter)
                     currentTile.y += stepy;
                 }
             }
-        } else {
+        }
+        else
+        {
             markTile( painter, tileUnderMouse );
             tiles++;
-            if( (selected_module_type == CST_GREEN ) && realTile( currentTile ) != lastRazed ) {
+            if( (userOperation->action == UserOperation::ACTION_BULLDOZE ) && realTile( currentTile ) != lastRazed ) {
                     cost += bulldozeCost( tileUnderMouse );
             } else {
                 cost += buildCost( tileUnderMouse );
             }
         }
         std::stringstream prize;
-        if( selected_module_type == CST_GREEN ){
+        if( userOperation->action == UserOperation::ACTION_BULLDOZE ){
             if( roadDragging ){
                 prize << _("Estimated Bulldoze Cost: ");
             } else {
@@ -1812,12 +1836,13 @@ void GameView::draw(Painter& painter)
                 prize << _("n/a");
             }
             printStatusMessage( prize.str() );
-        } else if( selected_module_type == CST_TRACK_LR || selected_module_type == CST_ROAD_LR
-                || selected_module_type == CST_RAIL_LR )
+        } else if( userOperation->action == UserOperation::ACTION_BUILD &&
+        (userOperation->constructionGroup == &trackConstructionGroup ||
+         userOperation->constructionGroup == &roadConstructionGroup ||
+         userOperation->constructionGroup == &railConstructionGroup))
         {
-            int group = main_types[ selected_module_type ].group;
-            std::string buildingName = main_groups[ group ].name;
-        prize << dictionaryManager->get_dictionary().translate( buildingName );
+            std::string buildingName =  userOperation->constructionGroup->name;
+            prize << dictionaryManager->get_dictionary().translate( buildingName );
             prize << _(": Cost to build ");
             if( cost > 0 ) {
                 prize << cost << _("$");
@@ -1838,26 +1863,35 @@ void GameView::showToolInfo( int number /*= 0*/ )
 {
     std::stringstream infotextstream;
 
-    if( selected_module_type == CST_NONE ) //query
+    if( userOperation->action == UserOperation::ACTION_QUERY ) //query
     {
         infotextstream << _("Query Tool: Show information about selected building.");
     }
-    else if( selected_module_type == CST_GREEN ) //bulldoze
+    else if( userOperation->action == UserOperation::ACTION_BULLDOZE ) //bulldoze
     {
         infotextstream << _("Bulldozer: remove building -price varies-");
     }
-    else
+    else if( userOperation->action == UserOperation::ACTION_BUILD )
     {
-        int group = main_types[ selected_module_type ].group;
-        std::string buildingName = main_groups[ group ].name;
+        std::string buildingName =  userOperation->constructionGroup->name;
         infotextstream << dictionaryManager->get_dictionary().translate( buildingName );
-        infotextstream << _(": Cost to build ") << selected_module_cost <<_("$");
-        infotextstream << _(", to bulldoze ") << main_groups[ group ].bul_cost <<_("$.");
+        infotextstream << _(": Cost to build ") << userOperation->constructionGroup->getCosts() <<_("$");
+        infotextstream << _(", to bulldoze ") << userOperation->constructionGroup->bul_cost <<_("$.");
         if( number > 1 ){
             infotextstream << _(" To build ") << number << _(" of them ");
-            infotextstream << _("will cost about ") << number*selected_module_cost << _("$.");
+            infotextstream << _("will cost about ") << number*userOperation->constructionGroup->getCosts() << _("$.");
         }
     }
+    else if ( userOperation->action == UserOperation::ACTION_EVACUATE )
+    {
+        infotextstream << "Evacuation of commodities is for free.";
+    }
+    else if ( userOperation->action == UserOperation::ACTION_FLOOD )
+    {
+        infotextstream << "Water: Cost to build " << GROUP_WATER_COST << "$";
+        infotextstream << ", to bulldoze " << GROUP_WATER_BUL_COST << "$.";
+    }
+
     printStatusMessage( infotextstream.str() );
 }
 
@@ -1889,71 +1923,63 @@ void GameView::printStatusMessage( std::string message ){
 }
 
 int GameView::bulldozeCost( MapPoint tile ){
-    int group;
-    int prize = 0;
-    if (!inCity( tile )){
-        //cdebug( "tile is outside" );
-        return 0;
-    }
 
+    if (!world.is_visible(tile.x, tile.y))
+    {   return 0;}
     Construction *reportingConstruction = world(tile.x, tile.y)->reportingConstruction;
     if (reportingConstruction)
-    {
-        group = reportingConstruction->constructionGroup->group;
-    }
-/*    else if (MP_TYPE( tile.x, tile.y) == CST_USED)
-    {
-        group = MP_GROUP( MP_INFO(tile.x,tile.y).int_1,
-                          MP_INFO(tile.x,tile.y).int_2 );
-    }*/
+    {   return reportingConstruction->constructionGroup->bul_cost;}
     else
     {
-        group = world(tile.x, tile.y)->getGroup();
+        int group = world(tile.x, tile.y)->getGroup();
+        if (group == GROUP_DESERT)
+        {   return 0;}
+        else if (group == GROUP_WATER)
+        {   return GROUP_WATER_BUL_COST;}
+        else
+        {   return 1;}
     }
-    prize = main_groups[group].bul_cost;
-    return prize;
+    return 0;
 }
 
-int GameView::buildCost( MapPoint tile ){
-    if( selected_module_type == CST_NONE ){
-        return 0;
-    }
+int GameView::buildCost( MapPoint tile )
+{
+    if( userOperation->action == UserOperation::ACTION_QUERY ||
+        userOperation->action == UserOperation::ACTION_EVACUATE)
+    {   return 0;}
     if (!inCity( tile )){
         //cdebug( "tile is outside" );
         return 0;
     }
+    bool building_transport =
+    ((userOperation->action == UserOperation::ACTION_BUILD) && (
+        userOperation->constructionGroup == &trackConstructionGroup
+    ||  userOperation->constructionGroup == &roadConstructionGroup
+    ||  userOperation->constructionGroup != &railConstructionGroup));
 
-    if (world(tile.x, tile.y)->getGroup() == CST_USED)
-        return 0;
-    if (( selected_module_type == CST_TRACK_LR || selected_module_type == CST_ROAD_LR ||
-        selected_module_type == CST_RAIL_LR) &&
-        // Transport on water need a bridge
-        (world(tile.x, tile.y)->getGroup() == GROUP_WATER ||
-        // upgrade bridge
-        ((selected_module_type == CST_ROAD_LR && (world(tile.x, tile.y)->getGroup() == GROUP_TRACK_BRIDGE)) ||
-        (selected_module_type == CST_RAIL_LR && (world(tile.x, tile.y)->getGroup() == GROUP_TRACK_BRIDGE ||
-        world(tile.x, tile.y)->getGroup() == GROUP_ROAD_BRIDGE))) ) )
+    int x = tile.x;
+    int y = tile.y;
+    if(building_transport && (world(x,y)->is_bare() || (
+    (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline())
+        && userOperation->constructionGroup->group != world(x,y)->getTransportGroup())))
     {
-        switch( selected_module_type ) {
-            case CST_TRACK_LR:
-                return get_group_cost( GROUP_TRACK_BRIDGE );
-            case CST_ROAD_LR:
-                return get_group_cost( GROUP_ROAD_BRIDGE );
-            case CST_RAIL_LR:
-                return get_group_cost( GROUP_RAIL_BRIDGE );
-        }
-    // Do not upgrade a transport
-    } else if ( !world(tile.x, tile.y)->is_bare() && ((selected_module_type == CST_TRACK_LR)
-            || (selected_module_type == CST_ROAD_LR && (world(tile.x, tile.y)->getGroup() == GROUP_ROAD ||
-                world(tile.x, tile.y)->getGroup() == GROUP_RAIL || world(tile.x, tile.y)->getGroup() == GROUP_RAIL_BRIDGE))
-            || (selected_module_type == CST_RAIL_LR &&
-                (world(tile.x, tile.y)->getGroup() == GROUP_RAIL || world(tile.x, tile.y)->getGroup() == GROUP_RAIL_BRIDGE))
-            || (selected_module_type == CST_WATER && world(tile.x, tile.y)->getGroup() == GROUP_WATER )) )
-    {
-        return 0;
+        if (world(x,y)->is_water()) //building a bridge
+        {   return BRIDGE_FACTOR * userOperation->constructionGroup->getCosts();}
+        else //building on land
+        {   return userOperation->constructionGroup->getCosts();}
     }
-
-    return get_group_cost( main_types[ selected_module_type ].group );
+    if (world(tile.x, tile.y)->reportingConstruction) //cant over build
+    {   return 0;}
+    if (userOperation->action == UserOperation::ACTION_BUILD)
+    {
+        return userOperation->constructionGroup->getCosts();
+    }
+    else if (userOperation->action == UserOperation::ACTION_FLOOD)
+    {
+        return GROUP_WATER_COST;
+    }
+    else
+    {   return 0;}
 }
 
 //Register as Component

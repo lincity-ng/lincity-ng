@@ -773,7 +773,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
 
     if( userOperation->action == UserOperation::ACTION_QUERY )
     {   getGameView()->setCursorSize( 0 );}
-    else if(userOperation->constructionGroup)
+    else if(userOperation->action == UserOperation::ACTION_BUILD)
     {   getGameView()->setCursorSize( userOperation->constructionGroup->size );}
     else
     {   getGameView()->setCursorSize(1);}
@@ -863,7 +863,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
 */
     if( userOperation->action == UserOperation::ACTION_QUERY )
     {   getGameView()->setCursorSize( 0 );}
-    else if(userOperation->constructionGroup)
+    else if(userOperation->action == UserOperation::ACTION_BUILD)
     {   getGameView()->setCursorSize( userOperation->constructionGroup->size );}
     else
     {   getGameView()->setCursorSize(1);}
@@ -1071,11 +1071,18 @@ void ButtonPanel::doButton(const std::string &button)
     {
         buttonOperation->type = (tech_level < WIND_POWER_TECH)? CST_WINDMILL_1_W: CST_WINDMILL_1_R;
         if (tech_level < WIND_POWER_TECH)
-        {   buttonOperation->constructionGroup = &windmillConstructionGroup;}
+        {
+            buttonOperation->type=CST_WINDMILL_1_W;
+            buttonOperation->constructionGroup = &windmillConstructionGroup;
+            selected_module_type=CST_WINDMILL_1_W;
+        }
         else
-        {   buttonOperation->constructionGroup = &windpowerConstructionGroup;}
+        {
+            buttonOperation->type=CST_WINDMILL_1_R;
+            buttonOperation->constructionGroup = &windpowerConstructionGroup;
+            selected_module_type=CST_WINDMILL_1_R;
+        }
         buttonOperation->action = UserOperation::ACTION_BUILD;
-        selected_module_type=CST_WINDMILL_1_R;
     }
 
     else if(button=="BPMCommuneButton")
@@ -1180,11 +1187,13 @@ void ButtonPanel::doButton(const std::string &button)
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( keystate[SDLK_s] )
         {
+            selected_module_type=CST_SHANTY;
             buttonOperation->type = CST_SHANTY;
             buttonOperation->constructionGroup = &shantyConstructionGroup;
         }
         else
         {
+            selected_module_type=CST_WATERWELL;
             buttonOperation->type = CST_WATERWELL;
             buttonOperation->constructionGroup = &waterwellConstructionGroup;
         }
@@ -1201,7 +1210,12 @@ void ButtonPanel::doButton(const std::string &button)
 
 void ButtonPanel::updateSelectedCost()
 {
-    selected_module_cost = get_type_cost (selected_module_type);
+    if (userOperation->action == UserOperation::ACTION_BUILD)
+    {   selected_module_cost = userOperation->constructionGroup->getCosts();}
+    else if (userOperation->action == UserOperation::ACTION_FLOOD)
+    {   selected_module_cost = GROUP_WATER_COST;}
+    else
+    {   selected_module_cost = 0;}
 }
 
 IMPLEMENT_COMPONENT_FACTORY(ButtonPanel)

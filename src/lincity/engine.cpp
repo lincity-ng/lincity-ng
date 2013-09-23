@@ -220,13 +220,17 @@ bool is_allowed_here(int x, int y, short type, short msg)
     return true;
 }
 
-int place_item(int x, int y, short type)
+int place_item(void)
 {
-    int group;
-    int size;
+    ConstructionGroup *constructionGroup = userOperation->constructionGroup;
+    int group = constructionGroup?constructionGroup->group:0;
+    int size = 1;
+    unsigned short type = userOperation->type;
+    int x = userOperation->x;
+    int y = userOperation->y;
+
     int msg;
 
-    group = get_group_of_type(type);
     if (group < 0) {
 #ifdef DEBUG
         fprintf(stderr, "Error: group does not exist %i\n", group);
@@ -249,16 +253,16 @@ int place_item(int x, int y, short type)
     }
     else
         last_warning_message_group = 0;
-    if(ConstructionGroup::countConstructionGroup(group))
+    if(constructionGroup)
     {
-        ConstructionGroup::getConstructionGroup(group)->placeItem(x, y, type);
+        constructionGroup->placeItem(x, y, type);
         size = world(x, y)->construction->constructionGroup->size;
         adjust_money(-world(x, y)->construction->constructionGroup->getCosts());
     }
     else
     {
         world(x, y)->setTerrain(type); //Treats inactive tiles and old stuctures alike
-        size = main_groups[group].size;
+        //size = main_groups[group].size;
         adjust_money(-selected_module_cost);// e.g. building water
     }
     desert_frontier(x - 1, y - 1, size + 2, size + 2);

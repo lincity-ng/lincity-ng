@@ -141,7 +141,8 @@ void editMap (MapPoint point, int button)
     int x = point.x;
     int y = point.y;
 
-    int selected_module_group = get_group_of_type(selected_module_type);
+    int selected_module_group = userOperation->constructionGroup?userOperation->constructionGroup->group:0;
+    // int selected_module_group = get_group_of_type(selected_module_type);
 
     int size, i, j;
     //  int x, y; /* mappoint */
@@ -158,9 +159,11 @@ void editMap (MapPoint point, int button)
         mod_x = x;
         mod_y = y;
     }
+    userOperation->x = mod_x;
+    userOperation->y = mod_y;
 
     /* Handle bulldozing */
-    if (selected_module_type == CST_GREEN && button != SDL_BUTTON_RIGHT)
+    if (userOperation->action == UserOperation::ACTION_BULLDOZE && button != SDL_BUTTON_RIGHT)
     {
         check_bulldoze_area (mod_x, mod_y);
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on bulldoze
@@ -170,7 +173,7 @@ void editMap (MapPoint point, int button)
         return;
     }
     /*Handle Evacuation of Commodities*/
-    if (selected_module_type == CST_DESERT && button != SDL_BUTTON_RIGHT)
+    if (userOperation->action == UserOperation::ACTION_EVACUATE && button != SDL_BUTTON_RIGHT)
     {
         if (world(x,y)->reportingConstruction)
         {
@@ -183,13 +186,9 @@ void editMap (MapPoint point, int button)
             }
 
             if(world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
-            {
-                world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;
-            }
+            {   world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;}
             else
-            {
-                world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;
-            }
+            {   world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;}
             mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on evacuate
         }
         return;
@@ -234,29 +233,30 @@ void editMap (MapPoint point, int button)
         //to be here we are not in bulldoze-mode and the tile
         //under the cursor is not empty.
         //to allow up/downgrading of Buildings and exchanging TransportTilesTracks we can't always return.
-        if( ( selected_module_type != CST_TRACK_LR ) &&
-            ( selected_module_type != CST_ROAD_LR ) &&
-            ( selected_module_type != CST_RAIL_LR ) )
+        if( ( userOperation->constructionGroup != &trackConstructionGroup ) &&
+            ( userOperation->constructionGroup != &roadConstructionGroup ) &&
+            ( userOperation->constructionGroup != &railConstructionGroup ) )
         {
             return; //not building a transport or renewing a building
         }
 
-        if( ( ( selected_module_type == CST_TRACK_LR ) ||
-              ( selected_module_type == CST_ROAD_LR  ) ||
-              ( selected_module_type == CST_RAIL_LR  )
+        if( ( (  userOperation->constructionGroup == &trackConstructionGroup ) ||
+              (  userOperation->constructionGroup == &roadConstructionGroup  ) ||
+              (  userOperation->constructionGroup == &railConstructionGroup  )
             ) && !(( world(x,y)->is_transport()
                 ||   world(x,y)->is_water()
                 ||   world(x,y)->is_powerline() ) ))
         {
-            return; //TransportTiles may only overbuild previous TransportTiles or Water
+            return; //TransportTiles may only overbuild previous TransportTiles or Water or Powerlines
         }
         // TransporstTiles dont overbuild their own kind
-        if (selected_module_group == world(x,y)->getTransportGroup())
+        if (userOperation->constructionGroup->group == world(x,y)->getTransportGroup())
         {   return;}
     }//end is_not_bare
 
     //query Tool
-    if(selected_module_type==CST_NONE) {
+    if(userOperation->action == UserOperation::ACTION_QUERY)
+    {
         if (mapMPS) {
             mapMPS->playBuildingSound( mod_x, mod_y );
             mapMPS->setView(MapPoint( mod_x, mod_y ));
@@ -272,16 +272,25 @@ void editMap (MapPoint point, int button)
     /* OK, by now we are certain that the user wants to place the item.
        Set the origin based on the size of the selected_module_type, and
        see if the selected item will fit. */
-    if ((selected_module_group == GROUP_WINDMILL) && (tech_level >= MODERN_WINDMILL_TECH))
+
+    if ((userOperation->constructionGroup == &windmillConstructionGroup) && (tech_level >= MODERN_WINDMILL_TECH))
     {
-        selected_module_type = CST_WINDMILL_1_R;
-        selected_module_group = get_group_of_type(selected_module_type);
+        userOperation->type=CST_WINDMILL_1_R;
+        userOperation->constructionGroup = &windpowerConstructionGroup;
+        userOperation->selected_module_type = CST_WINDMILL_1_R;
+        //selected_module_type = CST_WINDMILL_1_R;
+        //selected_module_group = get_group_of_type(selected_module_type);
     }
-    else if ((selected_module_group == GROUP_WIND_POWER) && (tech_level < MODERN_WINDMILL_TECH))
+    else if (( userOperation->constructionGroup == &windpowerConstructionGroup) && (tech_level < MODERN_WINDMILL_TECH))
     {
-        selected_module_type = CST_WINDMILL_1_W;
-        selected_module_group = get_group_of_type(selected_module_type);
+         userOperation->type=CST_WINDMILL_1_W;
+        userOperation->constructionGroup = &windmillConstructionGroup;
+        userOperation->selected_module_type = CST_WINDMILL_1_W;
+        //selected_module_type = CST_WINDMILL_1_W;
+        //selected_module_group = get_group_of_type(selected_module_type);
     }
+
+/*
     if(ConstructionGroup::countConstructionGroup(selected_module_group))
     {
         size = ConstructionGroup::getConstructionGroup(selected_module_group)->size;
@@ -290,10 +299,14 @@ void editMap (MapPoint point, int button)
     {
         size = main_groups[selected_module_group].size;
     }
+*/
+    size = userOperation->constructionGroup?userOperation->constructionGroup->size:1;
+
+
     //Only Check bare space if we are not renewing
-    if (!( ( selected_module_type == CST_TRACK_LR ) ||
-           ( selected_module_type == CST_ROAD_LR  ) ||
-           ( selected_module_type == CST_RAIL_LR  )
+    if (!( ( userOperation->constructionGroup == &trackConstructionGroup ) ||
+           ( userOperation->constructionGroup == &roadConstructionGroup  ) ||
+           ( userOperation->constructionGroup == &railConstructionGroup  )
          )
         )
     {
@@ -313,9 +326,19 @@ void editMap (MapPoint point, int button)
     {
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( keystate[SDLK_w] )
+        {
             selected_module_type = CST_PARKLAND_LAKE;
+            userOperation->type = CST_PARKLAND_LAKE;
+            userOperation->selected_module_type = CST_PARKLAND_LAKE;
+
+        }
         else
+        {
             selected_module_type = CST_PARKLAND_PLANE;
+            userOperation->type = CST_PARKLAND_PLANE;
+            userOperation->selected_module_type = CST_PARKLAND_PLANE;
+
+        }
     }
     //how to build a shanty?
     //just hold 'S' key on building a Waterwell ;-)
@@ -323,12 +346,22 @@ void editMap (MapPoint point, int button)
     {
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( keystate[SDLK_s] )
+        {
             selected_module_type = CST_SHANTY;
+            userOperation->type = CST_SHANTY;
+            userOperation->constructionGroup = &shantyConstructionGroup;
+            userOperation->selected_module_type = CST_SHANTY;
+        }
         else
+        {
             selected_module_type = CST_WATERWELL;
+            userOperation->type = CST_WATERWELL;
+            userOperation->constructionGroup = &waterwellConstructionGroup;
+            userOperation->selected_module_type = CST_WATERWELL;
+        }
     }
     /* Place the selected item . Warning messages are managed by place_item(...) */
-    last_message_group = place_item (x, y, selected_module_type);
+    last_message_group = place_item();
     switch (last_message_group)
     {
         case 0:
