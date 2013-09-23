@@ -8,7 +8,6 @@
 
 int adjust_money(int value);
 int place_item(void);
-bool is_allowed_here(int x, int y, short type);
 int bulldoze_item(int x, int y);
 void do_bulldoze_area(int x, int y);
 void do_coal_survey(void);

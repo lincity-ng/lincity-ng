@@ -60,7 +60,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 const int scale3d = 128; // guestimate value for good looking 3d view;
 
-extern int is_allowed_here(int x, int y, short cst_type, short msg);
+//extern int is_allowed_here(int x, int y, short cst_type, short msg);
 
 const float GameView::defaultTileWidth = 128;
 const float GameView::defaultTileHeight = 64;
@@ -1030,10 +1030,12 @@ void GameView::event(const Event& event)
                     }
                     else if (userOperation->action == UserOperation::ACTION_BUILD)
                     {
+/*
                         bool building_transport = (
                                     userOperation->constructionGroup == &trackConstructionGroup
                                 ||  userOperation->constructionGroup == &roadConstructionGroup
                                 ||  userOperation->constructionGroup != &railConstructionGroup);
+*/
                         while( currentTile.x != endRoad.x ) {
                             //if( !blockingDialogIsOpen ) //slow version
                             //editMap(currentTile, SDL_BUTTON_LEFT);
@@ -1042,8 +1044,10 @@ void GameView::event(const Event& event)
                             int y = currentTile.y;
                             userOperation->x = x;
                             userOperation->y = y;
+/*
                             if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
                             && userOperation->constructionGroup->group != world(x,y)->getTransportGroup()))
+*/                          if(userOperation->constructionGroup->is_allowed_here(x, y, false))
                             {
                                 place_item();
                             }
@@ -1057,8 +1061,11 @@ void GameView::event(const Event& event)
                             int y = currentTile.y;
                             userOperation->x = x;
                             userOperation->y = y;
+/*
                             if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
                             && userOperation->constructionGroup->group != world(x,y)->getTransportGroup()))
+*/
+                            if(userOperation->constructionGroup->is_allowed_here(x, y, false))
                             {
                                 place_item();
                             }
@@ -1639,7 +1646,9 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         }
         //check if building is allowed here, if not use Red Cursor
         // These tests are in engine.cpp with place_item.
-        if ( !is_allowed_here(tile.x, tile.y, userOperation->selected_module_type, 0) || userOperation->action == UserOperation::ACTION_BULLDOZE )
+        if ( userOperation->action == UserOperation::ACTION_BULLDOZE ||
+        (userOperation->action == UserOperation::ACTION_BUILD &&
+        !userOperation->constructionGroup->is_allowed_here(tile.x, tile.y, false)))
             painter.setFillColor( alphared );
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );

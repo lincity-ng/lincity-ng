@@ -144,7 +144,7 @@ void editMap (MapPoint point, int button)
     int selected_module_group = userOperation->constructionGroup?userOperation->constructionGroup->group:0;
     // int selected_module_group = get_group_of_type(selected_module_type);
 
-    int size, i, j;
+    //int size, i, j;
     //  int x, y; /* mappoint */
     int mod_x, mod_y; /* upper left coords of module clicked on */
     int mps_result;
@@ -300,9 +300,10 @@ void editMap (MapPoint point, int button)
         size = main_groups[selected_module_group].size;
     }
 */
-    size = userOperation->constructionGroup?userOperation->constructionGroup->size:1;
+//    size = userOperation->constructionGroup?userOperation->constructionGroup->size:1;
 
-
+/*
+    //This is now handled in ConstructionGroup::is_allowed_here(int x, int y, bool msg)
     //Only Check bare space if we are not renewing
     if (!( ( userOperation->constructionGroup == &trackConstructionGroup ) ||
            ( userOperation->constructionGroup == &roadConstructionGroup  ) ||
@@ -319,7 +320,7 @@ void editMap (MapPoint point, int button)
             }
         }
     }
-
+*/
     //how to build a lake in the park?
     //just hold 'W' key on build ;-)
     if( selected_module_group == GROUP_PARKLAND )

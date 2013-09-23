@@ -25,6 +25,7 @@
 //#include "power.h"
 #include <iostream>
 
+
 //Ground Declarations
 
 Ground::Ground()
@@ -74,14 +75,36 @@ MapTile::~MapTile()
 
 void MapTile::setTerrain(unsigned short new_type)
 {
-    int new_group;
-    if ((new_group = get_group_of_type(new_type)) < 0)
-        return;
-    if (ConstructionGroup::countConstructionGroup(new_group))
-        return;
+    unsigned short new_group;
+    switch (new_type)
+    {
+        case CST_GREEN:
+            new_group = GROUP_BARE;
+            break;
+        case CST_DESERT:
+            new_group = GROUP_DESERT;
+            break;
+        case CST_WATER:
+            new_group = GROUP_WATER;
+            break;
+        case CST_TREE:
+            new_group = GROUP_TREE;
+            break;
+        case CST_TREE2:
+            new_group = GROUP_TREE2;
+            break;
+        case CST_TREE3:
+            new_group = GROUP_TREE3;
+            break;
+        default:
+            std::cout << "invalid setTerrain with type: " << new_type << std::endl;
+            return;
+        break;
+    }
+
     this->type = new_type;
     this->group = new_group;
-    if(new_type == CST_WATER)
+    if(new_group == GROUP_WATER)
     {   flags |= FLAG_HAS_UNDERGROUND_WATER;}
 }
 
@@ -132,7 +155,7 @@ unsigned short MapTile::getTopGroup() //group of bare land or the actual constru
 
 bool MapTile::is_bare() //true if we there is neither a covering construction nor water
 {
-    return (!reportingConstruction) && (get_group_of_type(type) != GROUP_WATER);
+    return (!reportingConstruction) && (group != GROUP_WATER);
 }
 
 bool MapTile::is_water() //true on bridges or lakes (also under bridges)
@@ -1212,6 +1235,147 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
     return 0;
 }
 
+extern void ok_dial_box(const char *, int, const char *);
+
+bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
+{
+
+    if(group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_TRACK)
+    {   return (world.is_visible(x, y) && (world(x,y)->is_bare() || (world(x,y)->is_water() && world(x,y)->getTransportGroup() != group)));}
+
+    //available building place is checked sepparately in MapEdit and GameView
+    //FIXME only do that once check in this palce here
+
+    if(!(world.is_visible(x,y) && world.is_visible(x + size - 1, y + size - 1)))
+    {   return false;}
+
+    for(int j = 0; j<size; j++)
+    {
+        for(int i = 0; i<size; i++)
+        {
+            if(!world(x+i, y+j)->is_bare())
+            {   return false;}
+        }
+    }
+
+    switch (group) {
+    case GROUP_SOLAR_POWER:
+        if (total_money <= 0) {
+            if (msg)
+                ok_dial_box("no-credit-solar-power.mes", BAD, 0L);
+            return false;
+        }
+        break;
+
+    case GROUP_UNIVERSITY:
+        if (total_money <= 0)
+        {
+            if (msg)
+                ok_dial_box("no-credit-university.mes", BAD, 0L);
+            return false;
+        }
+        else if ((Counted<School>::getInstanceCount()/4 - Counted<University>::getInstanceCount()) < 1)
+        {
+            if (msg)
+                ok_dial_box("warning.mes", BAD, "Not enough students, build more schools.");
+            return false;
+        }
+        break;
+
+    case GROUP_RECYCLE:
+        if (total_money <= 0) {
+            if (msg)
+                ok_dial_box("no-credit-recycle.mes", BAD, 0L);
+            return false;
+        }
+        break;
+
+    case GROUP_ROCKET:
+        if (total_money <= 0) {
+            if (msg)
+                ok_dial_box("no-credit-rocket.mes", BAD, 0L);
+            return false;
+        }
+        break;
+
+        //The Harbour needs a River on the East side.
+    case GROUP_PORT:
+        for(int j = 0; j < size; j++ )
+        {
+            if (!( world(x + size, y + j)->flags & FLAG_IS_RIVER ) )
+            {
+                if (msg)
+                    ok_dial_box("warning.mes", BAD, _("Port must be connected to river all along right side."));
+                return false;
+            }
+        }
+        break;
+
+    //Waterwell needs ... water :-)
+    case GROUP_WATERWELL:
+        {
+            bool has_ugw = false;
+            for (int i = 0; i < size; i++)
+                for (int j = 0; j < size; j++)
+                    has_ugw = has_ugw | (world(x + j,y + i)->flags & FLAG_HAS_UNDERGROUND_WATER);
+            if (!has_ugw)
+            {
+                if (msg)
+                    ok_dial_box("warning.mes", BAD, _("You can't build a water well here: it is all desert."));
+                return false;
+            }
+        }
+        break;
+    //Oremine
+    /* GCS: mines over old mines is OK if there is enough remaining
+     *  ore, as is the case when there is partial overlap. */
+    case GROUP_OREMINE:
+        {
+            int total_ore = 0;
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    total_ore += world(x+j, y+i)->ore_reserve;
+                }
+            }
+            if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
+                if (msg) ok_dial_box("warning.mes", BAD, _("You can't build a mine here: there is no ore left at this site"));
+                return false; // not enought ore
+            }
+        }
+    break;
+
+    //Parkland
+    case GROUP_PARKLAND:
+        if (!(world(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER))
+        {
+            if (msg)
+                ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
+            return false;
+        }
+        if (total_money <= 0) {
+            if (msg)
+                ok_dial_box("no-credit-parkland.mes", BAD, 0L);
+            return false;
+        }
+        break;
+    //Other cases
+    }
+    //double check cash
+    if (no_credit && (total_money < 1))
+    {
+        if (msg)
+        {
+            ok_dial_box("warning.mes", BAD, "You cannot build this item on credit!");
+        }
+        return false;
+    }
+
+    return true;
+}
+
+
 
 void ConstructionGroup::printGroups()
 {
@@ -1822,10 +1986,10 @@ struct GROUP main_groups[NUM_OF_GROUPS] = {
      0}
 };
 
-int get_group_of_type(short type)
+unsigned short get_group_of_type(unsigned short type)
 {
     if (type == CST_NONE)
-        return GROUP_BARE;
+    {   return GROUP_BARE;}
     return main_types[type].group;
 }
 
@@ -1836,6 +2000,8 @@ void set_map_groups(void)
     for (int index = 0; index < area; ++index)
     {   world(index)->group = get_group_of_type(world(index)->type);}
 }
+
+/*
 
 int get_group_cost(short group)
 {
@@ -1855,6 +2021,6 @@ int get_type_cost(short type)
 {
     return get_group_cost((short)get_group_of_type(type));
 }
-
+*/
 /** @file lincity/lintypes.cpp */
 

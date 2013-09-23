@@ -87,149 +87,16 @@ int adjust_money(int value)
     return total_money;
 }
 
-bool is_allowed_here(int x, int y, short type, short msg)
-{
-    int group = get_group_of_type( type );
-    int size;
-    int i,j;
-    int has_ugw = 0;
-    ConstructionGroup *constrGroup = NULL;
-
-    if (ConstructionGroup::countConstructionGroup(group))
-    {
-        constrGroup = ConstructionGroup::getConstructionGroup(group);
-        size = constrGroup->size;
-    }
-    else
-    {
-        size = main_groups[group].size;
-    }
-    if(!(world.is_visible(x,y) && world.is_visible(x + size - 1, y + size - 1)))
-    {   return false;}
-
-    switch (group) {
-    case GROUP_SOLAR_POWER:
-        if (total_money <= 0) {
-            if (msg)
-                ok_dial_box("no-credit-solar-power.mes", BAD, 0L);
-            return false;
-        }
-        break;
-
-    case GROUP_UNIVERSITY:
-        if (total_money <= 0)
-        {
-            if (msg)
-                ok_dial_box("no-credit-university.mes", BAD, 0L);
-            return false;
-        }
-        else if ((Counted<School>::getInstanceCount()/4 - Counted<University>::getInstanceCount()) < 1)
-        {
-            if (msg)
-                ok_dial_box("warning.mes", BAD, "Not enough students, build more schools.");
-            return false;
-        }
-        break;
-
-    case GROUP_RECYCLE:
-        if (total_money <= 0) {
-            if (msg)
-                ok_dial_box("no-credit-recycle.mes", BAD, 0L);
-            return false;
-        }
-        break;
-
-    case GROUP_ROCKET:
-        if (total_money <= 0) {
-            if (msg)
-                ok_dial_box("no-credit-rocket.mes", BAD, 0L);
-            return false;
-        }
-        break;
-
-        //The Harbour needs a River on the East side.
-    case GROUP_PORT:
-        for( j = 0; j < size; j++ )
-        {
-            if (!( world(x + size, y + j)->flags & FLAG_IS_RIVER ) )
-            {
-                if (msg)
-                    ok_dial_box("warning.mes", BAD, _("Port must be connected to river all along right side."));
-                return false;
-            }
-        }
-        break;
-
-    //Waterwell needs ... water :-)
-    case GROUP_WATERWELL:
-        for ( i = 0; i < size; i++)
-            for ( j = 0; j < size; j++)
-                has_ugw = has_ugw | (world(x + j,y + i)->flags & FLAG_HAS_UNDERGROUND_WATER);
-        if (!has_ugw) {
-            if (msg)
-                ok_dial_box("warning.mes", BAD, _("You can't build a water well here: it is all desert."));
-            return false;
-        }
-        break;
-    //Oremine
-    /* GCS: mines over old mines is OK if there is enough remaining
-     *  ore, as is the case when there is partial overlap. */
-    case GROUP_OREMINE:
-        {
-            int total_ore = 0;
-            for (i = 0; i < size; i++)
-            {
-                for (j = 0; j < size; j++)
-                {
-                    total_ore += world(x+j, y+i)->ore_reserve;
-                }
-            }
-            if (total_ore < MIN_ORE_RESERVE_FOR_MINE) {
-                if (msg) ok_dial_box("warning.mes", BAD, _("You can't build a mine here: there is no ore left at this site"));
-                return false; // not enought ore
-            }
-        }
-    break;
-
-    //Parkland
-    case GROUP_PARKLAND:
-        if (!(world(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER))
-        {
-            if (msg)
-                ok_dial_box("warning.mes", BAD, _("You can't build a park here: it is a desert, parks need water"));
-            return false;
-        }
-        if (total_money <= 0) {
-            if (msg)
-                ok_dial_box("no-credit-parkland.mes", BAD, 0L);
-            return false;
-        }
-        break;
-    //Other cases
-    }
-    //double check cash
-    if (constrGroup && (constrGroup->no_credit) && (total_money < 1))
-    {
-        if (msg)
-        {
-            ok_dial_box("warning.mes", BAD, "You cannot build this item on credit!");
-        }
-        return false;
-    }
-
-    return true;
-}
 
 int place_item(void)
 {
-    ConstructionGroup *constructionGroup = userOperation->constructionGroup;
-    int group = constructionGroup?constructionGroup->group:0;
+    int group =  (userOperation->action == UserOperation::ACTION_BUILD)?userOperation->constructionGroup->group:0;
     int size = 1;
     unsigned short type = userOperation->type;
     int x = userOperation->x;
     int y = userOperation->y;
 
-    int msg;
+    bool msg;
 
     if (group < 0) {
 #ifdef DEBUG
@@ -246,25 +113,28 @@ int place_item(void)
         msg = true;
     else
         msg =false;
-    if (!is_allowed_here(x,y,type,msg))
+    if(userOperation->action == UserOperation::ACTION_BUILD)
     {
-        last_warning_message_group = group;
-        return -2;
+        if(! userOperation->constructionGroup->is_allowed_here(x, y, msg))
+        {
+            last_warning_message_group = group;
+            return -8;
+        }
+        userOperation->constructionGroup->placeItem(x, y, type);
+        size = userOperation->constructionGroup->size;
+        adjust_money(-userOperation->constructionGroup->getCosts());
+    }
+    //atm only water but may also become ACTION_PAINTING for Trees and so on
+    else if (userOperation->action == UserOperation::ACTION_FLOOD)
+    {
+        if(!world(x,y)->is_bare())
+        {   return -9;}
+        world(x, y)->setTerrain(userOperation->type);
+        adjust_money(-selected_module_cost);
     }
     else
-        last_warning_message_group = 0;
-    if(constructionGroup)
-    {
-        constructionGroup->placeItem(x, y, type);
-        size = world(x, y)->construction->constructionGroup->size;
-        adjust_money(-world(x, y)->construction->constructionGroup->getCosts());
-    }
-    else
-    {
-        world(x, y)->setTerrain(type); //Treats inactive tiles and old stuctures alike
-        //size = main_groups[group].size;
-        adjust_money(-selected_module_cost);// e.g. building water
-    }
+    {   last_warning_message_group = 0;}
+
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);

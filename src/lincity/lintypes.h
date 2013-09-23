@@ -25,12 +25,14 @@
 //pages for report 0,1,2,3,...,LAST_REPORT_PAGE
 #define LAST_REPORT_PAGE 3
 
-int get_group_of_type(short selected_type);
-void set_map_groups(void);
-int get_type_cost(short type);
-int get_group_cost(short group);
-void get_type_name(short type, char *s);
+/*
 
+int get_group_cost(short group);
+int get_type_cost(short type);
+void get_type_name(short type, char *s);
+*/
+unsigned short get_group_of_type(unsigned short selected_type);
+void set_map_groups(void);
 /********** Data structures ***************/
 #include <vector>
 #include <map>
@@ -278,6 +280,7 @@ public:
 
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
     int getCosts();
+    bool is_allowed_here(int x, int y, bool msg);//check if construction could be placed
 
     virtual int placeItem(int x, int y, unsigned short type);
 
