@@ -1240,8 +1240,9 @@ extern void ok_dial_box(const char *, int, const char *);
 bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
 {
 
-    if(group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_TRACK)
-    {   return (world.is_visible(x, y) && (world(x,y)->is_bare() || (world(x,y)->is_water() && world(x,y)->getTransportGroup() != group)));}
+    if(world.is_visible(x, y) && (group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_TRACK))
+    {   return (world(x,y)->is_bare() || world(x,y)->is_powerline() || (world(x,y)->is_water() ||
+    (world(x,y)->is_transport() && world(x,y)->getTransportGroup() != group)));}
 
     //available building place is checked sepparately in MapEdit and GameView
     //FIXME only do that once check in this palce here
