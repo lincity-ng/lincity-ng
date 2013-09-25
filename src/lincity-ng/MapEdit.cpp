@@ -50,10 +50,11 @@ int last_message_group = 0;
     }
     #endif
 */
+
 void resetLastMessage(){
     last_message_group = 0;
 }
-
+/*
 // Open Dialog for selected Port
 void clicked_port_cb (int x, int y)
 {
@@ -65,19 +66,14 @@ void clicked_market_cb (int x, int y)
 {
     new Dialog( EDIT_MARKET, x, y );
 }
-
+*/
 void check_bulldoze_area (int x, int y)
 {
+    int xx, yy;
+    unsigned short g = world(x,y)->getGroup();
     //no need to bulldoze desert
-
-
-    int xx, yy, g;
-
-    g = world(x,y)->getGroup();
-
     if( g == GROUP_DESERT )
-        return;
-
+    {    return;}
     if (world(x,y)->reportingConstruction)
     {
         xx = world(x,y)->reportingConstruction->x;
@@ -99,7 +95,7 @@ void check_bulldoze_area (int x, int y)
         }
         return;
     }
-  else if (g == GROUP_RIVER && river_bul_flag == 0)
+    else if (g == GROUP_RIVER && river_bul_flag == 0)
     {
         if(last_message_group != GROUP_RIVER ){
             new Dialog( BULLDOZE_RIVER, xx, yy ); // deletes itself
@@ -107,7 +103,7 @@ void check_bulldoze_area (int x, int y)
         }
         return;
     }
-  else if (g == GROUP_SHANTY && shanty_bul_flag == 0)
+    else if (g == GROUP_SHANTY && shanty_bul_flag == 0)
     {
         if( last_message_group != GROUP_SHANTY ){
             new Dialog( BULLDOZE_SHANTY, xx, yy ); // deletes itself
@@ -126,9 +122,9 @@ void check_bulldoze_area (int x, int y)
       }
       return;
     }
-  last_message_group = 0;
-  getSound()->playSound( "Raze" );
-  bulldoze_item(xx,yy);
+    resetLastMessage();
+    getSound()->playSound( "Raze" );
+    bulldoze_item(xx,yy);
 }
 
 
@@ -141,12 +137,9 @@ void editMap (MapPoint point, int button)
     int x = point.x;
     int y = point.y;
 
-    int selected_module_group = userOperation->constructionGroup?userOperation->constructionGroup->group:0;
-    // int selected_module_group = get_group_of_type(selected_module_type);
 
-    //int size, i, j;
-    //  int x, y; /* mappoint */
-    int mod_x, mod_y; /* upper left coords of module clicked on */
+
+    int mod_x, mod_y; // upper left coords of module clicked on
     int mps_result;
 
     if(world(x,y)->reportingConstruction)
@@ -159,10 +152,7 @@ void editMap (MapPoint point, int button)
         mod_x = x;
         mod_y = y;
     }
-    userOperation->x = mod_x;
-    userOperation->y = mod_y;
-
-    /* Handle bulldozing */
+    // Handle bulldozing
     if (userOperation->action == UserOperation::ACTION_BULLDOZE && button != SDL_BUTTON_RIGHT)
     {
         check_bulldoze_area (mod_x, mod_y);
@@ -172,33 +162,39 @@ void editMap (MapPoint point, int button)
 #endif
         return;
     }
-    /*Handle Evacuation of Commodities*/
+    if(!userOperation->is_allowed_here(mod_x, mod_y))
+    {   return;}
+    //from here on everything should be allowed
+    if (userOperation->action == UserOperation::ACTION_FLOOD && button != SDL_BUTTON_RIGHT)
+    {
+        world(x, y)->setTerrain(userOperation->type);
+        adjust_money(-selected_module_cost);
+        desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
+        connect_rivers();
+        connect_transport(x - 2, y - 2, x + 1 + 1, y + 1 + 1);
+        return;
+    }
+    //Handle Evacuation of Commodities
     if (userOperation->action == UserOperation::ACTION_EVACUATE && button != SDL_BUTTON_RIGHT)
     {
-        if (world(x,y)->reportingConstruction)
+        if(world(x,y)->reportingConstruction->constructionGroup->group == GROUP_MARKET)
         {
-            if(world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE)
-            {   return;}
-            if(world(x,y)->reportingConstruction->constructionGroup->group == GROUP_MARKET)
-            {
-                (dynamic_cast<Market*>(world(x,y)->reportingConstruction))->toggleEvacuation();
-                return;
-            }
-
-            if(world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
-            {   world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;}
-            else
-            {   world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;}
-            mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on evacuate
+            (dynamic_cast<Market*>(world(x,y)->reportingConstruction))->toggleEvacuation();
+            return;
         }
+        if(world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
+        {   world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;}
+        else
+        {   world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;}
+        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on evacuate
         return;
     }
 
 
-    /* Bring up mappoint_stats for certain left mouse clicks */
-    /* Check market and port double-clicks here */
-    /* Check rocket launches */
-    /* Hold d pressed to send load/save info details to console*/
+    // Bring up mappoint_stats for certain left mouse clicks
+    // Check market and port double-clicks here
+    // Check rocket launches
+    // Hold d pressed to send load/save info details to console
     if( !world(mod_x,mod_y)->is_bare() )
     {
         Uint8 *keystate = SDL_GetKeyState(NULL);
@@ -207,51 +203,30 @@ void editMap (MapPoint point, int button)
             world(mod_x,mod_y)->reportingConstruction->saveMembers(&std::cout);
         }
         if(mapMPS)
-            mapMPS->playBuildingSound( mod_x, mod_y );
+        {    mapMPS->playBuildingSound( mod_x, mod_y );}
         mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
-#ifdef DEBUG
+
         //DBG_TileInfo(x, y);
-#endif
+
         if( mps_result >= 1 )
         {
             if( world(mod_x,mod_y)->getGroup() == GROUP_MARKET)
             {
-                clicked_market_cb (mod_x, mod_y);
+                new Dialog( EDIT_MARKET, mod_x, mod_y );
                 return;
             } else if (world(mod_x,mod_y)->getGroup() == GROUP_PORT)
             {
-                clicked_port_cb (mod_x, mod_y);
+                new Dialog( EDIT_PORT, mod_x, mod_y );
                 return;
             } else if (world(mod_x,mod_y)->getType() >= CST_ROCKET_5 &&
                          world(mod_x,mod_y)->getType() <= CST_ROCKET_7)
             {
-                //Dialogs delete themself
                 new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
                 return;
             }
         }// end mps_result>1
         //to be here we are not in bulldoze-mode and the tile
         //under the cursor is not empty.
-        //to allow up/downgrading of Buildings and exchanging TransportTilesTracks we can't always return.
-        if( ( userOperation->constructionGroup != &trackConstructionGroup ) &&
-            ( userOperation->constructionGroup != &roadConstructionGroup ) &&
-            ( userOperation->constructionGroup != &railConstructionGroup ) )
-        {
-            return; //not building a transport or renewing a building
-        }
-
-        if( ( (  userOperation->constructionGroup == &trackConstructionGroup ) ||
-              (  userOperation->constructionGroup == &roadConstructionGroup  ) ||
-              (  userOperation->constructionGroup == &railConstructionGroup  )
-            ) && !(( world(x,y)->is_transport()
-                ||   world(x,y)->is_water()
-                ||   world(x,y)->is_powerline() ) ))
-        {
-            return; //TransportTiles may only overbuild previous TransportTiles or Water or Powerlines
-        }
-        // TransporstTiles dont overbuild their own kind
-        if (userOperation->constructionGroup->group == world(x,y)->getTransportGroup())
-        {   return;}
     }//end is_not_bare
 
     //query Tool
@@ -262,137 +237,100 @@ void editMap (MapPoint point, int button)
             mapMPS->setView(MapPoint( mod_x, mod_y ));
         }
 
-        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool on CST_NONE
-#ifdef DEBUG
+        mps_result = mps_set( mod_x, mod_y, MPS_MAP );
         //DBG_TileInfo(x, y);
-#endif
         return;
     }
 
-    /* OK, by now we are certain that the user wants to place the item.
-       Set the origin based on the size of the selected_module_type, and
-       see if the selected item will fit. */
-
-    if ((userOperation->constructionGroup == &windmillConstructionGroup) && (tech_level >= MODERN_WINDMILL_TECH))
+    // OK, by now we are certain that the user wants to place the item.
+    //   Set the origin based on the size of the selected_module_type, and
+    //   see if the selected item will fit.
+    if(userOperation->action == UserOperation::ACTION_BUILD) //MUST BE TRUE
     {
-        userOperation->type=CST_WINDMILL_1_R;
-        userOperation->constructionGroup = &windpowerConstructionGroup;
-        userOperation->selected_module_type = CST_WINDMILL_1_R;
-        //selected_module_type = CST_WINDMILL_1_R;
-        //selected_module_group = get_group_of_type(selected_module_type);
-    }
-    else if (( userOperation->constructionGroup == &windpowerConstructionGroup) && (tech_level < MODERN_WINDMILL_TECH))
-    {
-         userOperation->type=CST_WINDMILL_1_W;
-        userOperation->constructionGroup = &windmillConstructionGroup;
-        userOperation->selected_module_type = CST_WINDMILL_1_W;
-        //selected_module_type = CST_WINDMILL_1_W;
-        //selected_module_group = get_group_of_type(selected_module_type);
-    }
-
-/*
-    if(ConstructionGroup::countConstructionGroup(selected_module_group))
-    {
-        size = ConstructionGroup::getConstructionGroup(selected_module_group)->size;
-    }
-    else
-    {
-        size = main_groups[selected_module_group].size;
-    }
-*/
-//    size = userOperation->constructionGroup?userOperation->constructionGroup->size:1;
-
-/*
-    //This is now handled in ConstructionGroup::is_allowed_here(int x, int y, bool msg)
-    //Only Check bare space if we are not renewing
-    if (!( ( userOperation->constructionGroup == &trackConstructionGroup ) ||
-           ( userOperation->constructionGroup == &roadConstructionGroup  ) ||
-           ( userOperation->constructionGroup == &railConstructionGroup  )
-         )
-        )
-    {
-        for (i = 0; i < size; i++)
+        //double check windmill tech
+        //int selected_module_group = userOperation->constructionGroup?userOperation->constructionGroup->group:0;
+        if ((userOperation->constructionGroup == &windmillConstructionGroup) && (tech_level >= MODERN_WINDMILL_TECH))
         {
-            for (j = 0; j < size; j++)
+            userOperation->type=CST_WINDMILL_1_R;
+            userOperation->constructionGroup = &windpowerConstructionGroup;
+            userOperation->selected_module_type = CST_WINDMILL_1_R;
+        }
+        else if (( userOperation->constructionGroup == &windpowerConstructionGroup) && (tech_level < MODERN_WINDMILL_TECH))
+        {
+            userOperation->type = CST_WINDMILL_1_W;
+            userOperation->constructionGroup = &windmillConstructionGroup;
+            userOperation->selected_module_type = CST_WINDMILL_1_W;
+        }
+        //how to build a lake in the park?
+        //just hold 'W' key on build ;-)
+        if( userOperation->constructionGroup == &parklandConstructionGroup )
+        {
+            Uint8 *keystate = SDL_GetKeyState(NULL);
+            if ( keystate[SDLK_w] )
             {
-                if (!world(x+j,y+i)->is_bare() )
-                    return;
+                userOperation->type = CST_PARKLAND_LAKE;
+                userOperation->selected_module_type = CST_PARKLAND_LAKE;
+            }
+            else
+            {
+                userOperation->type = CST_PARKLAND_PLANE;
+                userOperation->selected_module_type = CST_PARKLAND_PLANE;
             }
         }
-    }
-*/
-    //how to build a lake in the park?
-    //just hold 'W' key on build ;-)
-    if( selected_module_group == GROUP_PARKLAND )
-    {
-        Uint8 *keystate = SDL_GetKeyState(NULL);
-        if ( keystate[SDLK_w] )
+        //how to build a shanty?
+        //just hold 'S' key on build ;-)
+        if( userOperation->constructionGroup == &waterwellConstructionGroup
+         || userOperation->constructionGroup == &shantyConstructionGroup)
         {
-            selected_module_type = CST_PARKLAND_LAKE;
-            userOperation->type = CST_PARKLAND_LAKE;
-            userOperation->selected_module_type = CST_PARKLAND_LAKE;
-
+            Uint8 *keystate = SDL_GetKeyState(NULL);
+            if ( keystate[SDLK_s] )
+            {
+                userOperation->type = CST_SHANTY;
+                userOperation->constructionGroup = &shantyConstructionGroup;
+                userOperation->selected_module_type = CST_SHANTY;
+            }
+            else
+            {
+                userOperation->type = CST_WATERWELL;
+                userOperation->constructionGroup = &waterwellConstructionGroup;
+                userOperation->selected_module_type = CST_WATERWELL;
+            }
         }
-        else
+        // place the selected item.
+        last_message_group = place_item(mod_x, mod_y);
+        switch (last_message_group)
         {
-            selected_module_type = CST_PARKLAND_PLANE;
-            userOperation->type = CST_PARKLAND_PLANE;
-            userOperation->selected_module_type = CST_PARKLAND_PLANE;
-
-        }
-    }
-    //how to build a shanty?
-    //just hold 'S' key on building a Waterwell ;-)
-    if( selected_module_group == GROUP_WATERWELL )
-    {
-        Uint8 *keystate = SDL_GetKeyState(NULL);
-        if ( keystate[SDLK_s] )
-        {
-            selected_module_type = CST_SHANTY;
-            userOperation->type = CST_SHANTY;
-            userOperation->constructionGroup = &shantyConstructionGroup;
-            userOperation->selected_module_type = CST_SHANTY;
-        }
-        else
-        {
-            selected_module_type = CST_WATERWELL;
-            userOperation->type = CST_WATERWELL;
-            userOperation->constructionGroup = &waterwellConstructionGroup;
-            userOperation->selected_module_type = CST_WATERWELL;
-        }
-    }
-    /* Place the selected item . Warning messages are managed by place_item(...) */
-    last_message_group = place_item();
-    switch (last_message_group)
-    {
-        case 0:
-            /* Success */
-            getSound()->playSound( "Build" );
-            mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on well-built
+            case 0:
+                /* Success */
+                getSound()->playSound( "Build" );
+                mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on well-built
 #ifdef DEBUG
-            //DBG_TileInfo(x, y);
+                //DBG_TileInfo(x, y);
 #endif
-            break;
-        case -1000:
-            /* ouch group does not exist */
-        case -1:
-            /* Not enough money */
-        case -2:
-            /* Improper port placement */
-        case -3:
-            /* too many windmills/substations */
-        case -4:
-            /* too many market */
-        case -5:
-            /* previous tip here, cannot build tip here */
-        case -6:
-            /* previous tip here, cannot build oremine */
-        case -7:
-            /* no ore reserve. cannot build oremine here */
-        default:
-            /* warning messages are managed by place item */
-            last_message_group = 0;
+                break;
+            case -1000:
+                /* ouch group does not exist */
+            case -1:
+                /* Not enough money */
+            case -2:
+                /* Improper port placement */
+            case -3:
+                /* too many windmills/substations */
+            case -4:
+                /* too many market */
+            case -5:
+                /* previous tip here, cannot build tip here */
+            case -6:
+                /* previous tip here, cannot build oremine */
+            case -7:
+                /* no ore reserve. cannot build oremine here */
+            default:
+                /* warning messages are managed by place item */
+               resetLastMessage();
+        }
     }
+    else
+    {   std::cout << "unexpected UserOperationin MapEdit" << std::endl;}
 }
 
 /** @file lincity-ng/MapEdit.cpp */

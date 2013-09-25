@@ -1240,25 +1240,13 @@ extern void ok_dial_box(const char *, int, const char *);
 bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
 {
 
+    //handle transport quickly
     if(world.is_visible(x, y) && (group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_TRACK))
     {   return (world(x,y)->is_bare() || world(x,y)->is_powerline() || (world(x,y)->is_water() ||
     (world(x,y)->is_transport() && world(x,y)->getTransportGroup() != group)));}
 
-    //available building place is checked sepparately in MapEdit and GameView
-    //FIXME only do that once check in this palce here
 
-    if(!(world.is_visible(x,y) && world.is_visible(x + size - 1, y + size - 1)))
-    {   return false;}
-
-    for(int j = 0; j<size; j++)
-    {
-        for(int i = 0; i<size; i++)
-        {
-            if(!world(x+i, y+j)->is_bare())
-            {   return false;}
-        }
-    }
-
+    //now check for special rules
     switch (group) {
     case GROUP_SOLAR_POWER:
         if (total_money <= 0) {
@@ -1299,7 +1287,8 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
         }
         break;
 
-        //The Harbour needs a River on the East side.
+    //The Harbour needs a River on the East side.
+    //and relies on invisible tiles if attempted at edge
     case GROUP_PORT:
         for(int j = 0; j < size; j++ )
         {

@@ -7,7 +7,7 @@
 #define __engine_h__
 
 int adjust_money(int value);
-int place_item(void);
+int place_item(int x, int y);
 int bulldoze_item(int x, int y);
 void do_bulldoze_area(int x, int y);
 void do_coal_survey(void);

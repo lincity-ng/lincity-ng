@@ -29,7 +29,7 @@
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);
 
-int last_warning_message_group = 0;
+//int last_warning_message_group = 0;
 
 /****** Private functions prototypes *****/
 //static void bulldoze_mappoint(short fill, int x, int y);
@@ -88,52 +88,39 @@ int adjust_money(int value)
 }
 
 
-int place_item(void)
+int place_item(int x, int y)
 {
-    int group =  (userOperation->action == UserOperation::ACTION_BUILD)?userOperation->constructionGroup->group:0;
+    int group =  (userOperation->action == UserOperation::ACTION_BUILD)?userOperation->constructionGroup->group:-1;
     int size = 1;
-    unsigned short type = userOperation->type;
-    int x = userOperation->x;
-    int y = userOperation->y;
-
-    bool msg;
+    //bool msg;
 
     if (group < 0) {
-#ifdef DEBUG
-        fprintf(stderr, "Error: group does not exist %i\n", group);
-#endif
         ok_dial_box("warning.mes", BAD,
                 _
                 ("ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "));
         return -1000;
     }
-
-    /* You can't build here because it's forbidden or impossible or not enough money */
+/*
     if (last_warning_message_group != group)
-        msg = true;
+    {    msg = true;}
     else
-        msg =false;
+    {    msg =false;}
+*/
     if(userOperation->action == UserOperation::ACTION_BUILD)
     {
+/*
         if(! userOperation->constructionGroup->is_allowed_here(x, y, msg))
         {
             last_warning_message_group = group;
             return -8;
         }
-        userOperation->constructionGroup->placeItem(x, y, type);
+*/
+        userOperation->constructionGroup->placeItem(x, y, userOperation->type);
         size = userOperation->constructionGroup->size;
         adjust_money(-userOperation->constructionGroup->getCosts());
     }
-    //atm only water but may also become ACTION_PAINTING for Trees and so on
-    else if (userOperation->action == UserOperation::ACTION_FLOOD)
-    {
-        if(!world(x,y)->is_bare())
-        {   return -9;}
-        world(x, y)->setTerrain(userOperation->type);
-        adjust_money(-selected_module_cost);
-    }
-    else
-    {   last_warning_message_group = 0;}
+    //else
+    //{   last_warning_message_group = 0;}
 
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers();

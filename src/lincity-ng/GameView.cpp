@@ -1042,14 +1042,13 @@ void GameView::event(const Event& event)
                             //quick version limited to size=1
                             int x = currentTile.x;
                             int y = currentTile.y;
-                            userOperation->x = x;
-                            userOperation->y = y;
+
 /*
                             if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
                             && userOperation->constructionGroup->group != world(x,y)->getTransportGroup()))
 */                          if(userOperation->constructionGroup->is_allowed_here(x, y, false))
                             {
-                                place_item();
+                                place_item(x, y);
                             }
                             currentTile.x += stepx;
                         }
@@ -1059,15 +1058,14 @@ void GameView::event(const Event& event)
                             //quick version limited to size=1
                             int x = currentTile.x;
                             int y = currentTile.y;
-                            userOperation->x = x;
-                            userOperation->y = y;
+
 /*
                             if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
                             && userOperation->constructionGroup->group != world(x,y)->getTransportGroup()))
 */
                             if(userOperation->constructionGroup->is_allowed_here(x, y, false))
                             {
-                                place_item();
+                                place_item(x, y);
                             }
                             currentTile.y += stepy;
                         }
@@ -1649,7 +1647,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         if ( userOperation->action == UserOperation::ACTION_BULLDOZE ||
         (userOperation->action == UserOperation::ACTION_BUILD &&
         !userOperation->constructionGroup->is_allowed_here(tile.x, tile.y, false)))
-            painter.setFillColor( alphared );
+        {    painter.setFillColor( alphared );}
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
         tileOnScreenPoint.x -= (tileWidth * cursorSize / 2);
