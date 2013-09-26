@@ -156,6 +156,7 @@ void GameView::parse(XmlReader& reader)
     dragging = false;
     leftButtonDown = false;
     roadDragging = false;
+    ctrDrag = false;
     areaBulldoze = false;
     startRoad = MapPoint(0, 0);
     rightButtonDown = false;
@@ -924,6 +925,7 @@ void GameView::event(const Event& event)
                 break;
             }
             mouseInGameView = true;
+
             if( !dragging && rightButtonDown ) {
                 dragging = true;
                 dragStart = event.mousepos;
@@ -936,17 +938,18 @@ void GameView::event(const Event& event)
             {
                 roadDragging = true;
                 startRoad = tile;
-                if( SDL_GetModState() & KMOD_CTRL )
-                {   areaBulldoze = true;}
+                areaBulldoze = (SDL_GetModState() & KMOD_CTRL);
             }
+
             if( roadDragging && ( cursorSize != 1 ) )
             {
                 roadDragging = false;
                 areaBulldoze = false;
+                ctrDrag = false;
             }
-            // bulldoze and evacuate at once while still dragging
-            if( roadDragging && ( (userOperation->action == UserOperation::ACTION_BULLDOZE
-            || userOperation->action == UserOperation::ACTION_EVACUATE))
+            // bulldoze at once while still dragging
+
+            if( roadDragging && ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
             && !areaBulldoze){
                 if( tile != startRoad ){
                     editMap( startRoad, SDL_BUTTON_LEFT);
@@ -966,12 +969,14 @@ void GameView::event(const Event& event)
             }
             if( event.mousebutton == SDL_BUTTON_RIGHT ) {
                 dragging = false;
+                ctrDrag = false;
                 rightButtonDown = true;
                 break;
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ) {
                 roadDragging = false;
                 areaBulldoze = false;
+                ctrDrag = false;
                 leftButtonDown = true;
                 break;
             }
@@ -1001,7 +1006,8 @@ void GameView::event(const Event& event)
             }
             if( event.mousebutton == SDL_BUTTON_LEFT ){
                 resetLastMessage();
-                if ( roadDragging && event.inside ) {
+                if ( roadDragging && event.inside )
+                {
                     MapPoint endRoad = getTile( event.mousepos );
                     roadDragging = false;
                     areaBulldoze = false;
@@ -1021,8 +1027,10 @@ void GameView::event(const Event& event)
                     int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
                     if ( userOperation->action == UserOperation::ACTION_BULLDOZE )
                     {
-                        for (;currentTile.x != endRoad.x + stepx; currentTile.x += stepx) {
-                            for (currentTile.y = startRoad.y; currentTile.y != endRoad.y + stepy; currentTile.y += stepy) {
+                        for (;currentTile.x != endRoad.x + stepx; currentTile.x += stepx)
+                        {
+                            for (currentTile.y = startRoad.y; currentTile.y != endRoad.y + stepy; currentTile.y += stepy)
+                            {
                                 if( !blockingDialogIsOpen )
                                     editMap(currentTile, SDL_BUTTON_LEFT);
                             }
@@ -1030,56 +1038,38 @@ void GameView::event(const Event& event)
                     }
                     else if (userOperation->action == UserOperation::ACTION_BUILD)
                     {
-/*
-                        bool building_transport = (
-                                    userOperation->constructionGroup == &trackConstructionGroup
-                                ||  userOperation->constructionGroup == &roadConstructionGroup
-                                ||  userOperation->constructionGroup != &railConstructionGroup);
-*/
-                        while( currentTile.x != endRoad.x ) {
+                        int* v1 = ctrDrag ? &currentTile.y :&currentTile.x;
+                        int* v2 = ctrDrag ? &currentTile.x :&currentTile.y;
+                        int* l1 = ctrDrag ? &endRoad.y :&endRoad.x;
+                        int* l2 = ctrDrag ? &endRoad.x :&endRoad.y;
+                        int* s1 = ctrDrag ? &stepy: &stepx;
+                        int* s2 = ctrDrag ? &stepx: &stepy;
+                        while( *v1 != *l1 )
+                        {
                             //if( !blockingDialogIsOpen ) //slow version
                             //editMap(currentTile, SDL_BUTTON_LEFT);
-                            //quick version limited to size=1
-                            int x = currentTile.x;
-                            int y = currentTile.y;
-
-/*
-                            if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
-                            && userOperation->constructionGroup->group != world(x,y)->getTransportGroup()))
-*/                          if(userOperation->constructionGroup->is_allowed_here(x, y, false))
+                            if(userOperation->constructionGroup->is_allowed_here(currentTile.x, currentTile.y, false))
                             {
-                                place_item(x, y);
+                                place_item(currentTile.x, currentTile.y);
                             }
-                            currentTile.x += stepx;
+                            *v1 += *s1;
                         }
-                        while( currentTile.y != endRoad.y ) {
+                        while( *v2 != *l2 )
+                        {
                             //if( !blockingDialogIsOpen ) //slow version
                             //    editMap(currentTile, SDL_BUTTON_LEFT);
-                            //quick version limited to size=1
-                            int x = currentTile.x;
-                            int y = currentTile.y;
-
-/*
-                            if(world(x,y)->is_bare() || ((building_transport && (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline()))
-                            && userOperation->constructionGroup->group != world(x,y)->getTransportGroup()))
-*/
-                            if(userOperation->constructionGroup->is_allowed_here(x, y, false))
+                            if(userOperation->constructionGroup->is_allowed_here(currentTile.x, currentTile.y, false))
                             {
-                                place_item(x, y);
+                                place_item(currentTile.x, currentTile.y);
                             }
-                            currentTile.y += stepy;
+                            *v2 += *s2;
                         }
                     }
-/*
-                    else if (userOperation->action == UserOperation::ACTION_FLOOD)
-                    {
-                        //TODO find out how to activate dragging water in first place
-                    }
-*/
                     getConfig()->soundEnabled = fx;
                     break;
                 }
                 roadDragging = false;
+                ctrDrag = false;
                 areaBulldoze = false;
                 leftButtonDown = false;
             }
@@ -1106,6 +1096,11 @@ void GameView::event(const Event& event)
             }
             break;
         case Event::KEYDOWN:
+            if( event.keysym.sym == SDLK_LCTRL || event.keysym.sym == SDLK_RCTRL ){
+                if (roadDragging)
+                {   ctrDrag = !ctrDrag;}
+                break;
+            }
             if( event.keysym.sym == SDLK_KP8 || event.keysym.sym == SDLK_UP ){
                 keyScrollState |= SCROLL_UP;
                 break;
@@ -1146,6 +1141,7 @@ void GameView::event(const Event& event)
                 keyScrollState |= SCROLL_RSHIFT;
                 break;
             }
+
 
             // use G to show ground info aka MpsEnv without middle mouse button
             if( event.keysym.sym == SDLK_g){
@@ -1398,11 +1394,13 @@ void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
  */
 bool GameView::inCity( MapPoint tile )
 {
+    return world.is_visible(tile.x, tile.y);
+/*
     if( tile.x > gameAreaMax() || tile.y > gameAreaMax() || tile.x < gameAreaMin || tile.y < gameAreaMin ) {
         return false;
     }
     return true;
-
+*/
 }
 
 /*
@@ -1446,7 +1444,6 @@ MapPoint GameView::realTile( MapPoint tile )
         real.y = world(tile.x, tile.y)->reportingConstruction->y;
         return real;
     }
-
     return real;
 }
 
@@ -1487,14 +1484,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     {
         size = 1;
     }
-    //size = MP_SIZE( upperLeft.x, upperLeft.y );
-
-    //is Tile the lower left corner of the Building?
-    //dont't draw if not.
-
-//    if (!world(tile.x, tile.y)->is_leftmost()) return;
-    //Does not work because the mapview is rotated
-
+    //Attention map is rotated for displaying
     if ( ( tile.x != upperLeft.x ) || ( tile.y - size +1 != upperLeft.y ) ) //Signs are tested
     {
         return;
@@ -1506,11 +1496,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
 
-    int textureType = CST_GREEN;
-    //int group = MP_GROUP(upperLeft.x, upperLeft.y);
-
-    textureType = world(upperLeft.x, upperLeft.y)->getTopType();
-
+    int textureType = world(upperLeft.x, upperLeft.y)->getTopType();
 
     // if we hide high buildings, hide trees as well
     if (hideHigh && (textureType == CST_TREE || textureType == CST_TREE2 || textureType == CST_TREE3 ))
@@ -1586,7 +1572,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         }//endif mps
     }
 
-    if( cursorSize == 0 )
+    if( userOperation->action == UserOperation::ACTION_QUERY) //  cursorSize == 0
     {
         Color alphawhite( 255, 255, 255, 128 );
         painter.setLineColor( alphawhite );
@@ -1600,54 +1586,10 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     {
         Color alphablue( 0, 0, 255, 128 );
         Color alphared( 255, 0, 0, 128 );
-        painter.setFillColor( alphablue );
-        //check if building is inside the map, if not use Red Cursor
-        MapPoint seCorner( x + cursorSize -1, y + cursorSize -1 );
-        if( !inCity( seCorner ) || !inCity( tile ) )
-        {
-            painter.setFillColor( alphared );
-        }
+        if(userOperation->is_allowed_here(x, y))
+        {   painter.setFillColor( alphablue );}
         else
-        {
-            for( y = (int) tile.y; y < tile.y + cursorSize; y++ )
-            {
-                for( x = (int) tile.x; x < tile.x + cursorSize; x++ )
-                {
-                    if (userOperation->action == UserOperation::ACTION_EVACUATE)
-                    {
-                        if(!(world(x,y)->reportingConstruction) ||
-                        (world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE))
-                        {
-                            painter.setFillColor( alphared );
-                            y += cursorSize;
-                            break;
-                        }
-                        else //show/quickly find ongoing evacuations
-                        {   mps_set( x, y, MPS_MAP );}
-                    }
-                    else if( !world(x,y)->is_bare() )
-                    {
-                        if( !((world(x,y)->is_water() || world(x,y)->is_transport() || world(x,y)->is_powerline()) && (
-                           (userOperation->constructionGroup == &trackConstructionGroup) ||
-                           (userOperation->constructionGroup == &roadConstructionGroup ) ||
-                           (userOperation->constructionGroup == &railConstructionGroup ) ) &&
-                           (userOperation->constructionGroup->group != world(x,y)->getTransportGroup())
-                           ))
-                        {
-                            painter.setFillColor( alphared );
-                            y += cursorSize;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        //check if building is allowed here, if not use Red Cursor
-        // These tests are in engine.cpp with place_item.
-        if ( userOperation->action == UserOperation::ACTION_BULLDOZE ||
-        (userOperation->action == UserOperation::ACTION_BUILD &&
-        !userOperation->constructionGroup->is_allowed_here(tile.x, tile.y, false)))
-        {    painter.setFillColor( alphared );}
+        {   painter.setFillColor( alphared );}
 
         Rect2D tilerect( 0, 0, tileWidth * cursorSize, tileHeight * cursorSize );
         tileOnScreenPoint.x -= (tileWidth * cursorSize / 2);
@@ -1655,15 +1597,13 @@ void GameView::markTile( Painter& painter, MapPoint tile )
         tilerect.move( tileOnScreenPoint );
         fillDiamond( painter, tilerect );
 
-        // Draw range for selected_module_type
-        //int selected_group = get_group_of_type(selected_module_type);
-        ConstructionGroup *constructionGroup = userOperation->constructionGroup;//ConstructionGroup::getConstructionGroup(selected_group);
-        if(constructionGroup)
+        if(userOperation->action == UserOperation::ACTION_BUILD)
         {
-            int range = constructionGroup->range;
+            // Draw range for selected_module_type
+            int range = userOperation->constructionGroup->range;
             if (range > 0 )
             {
-                int edgelen = 2 * range + constructionGroup->size ;
+                int edgelen = 2 * range + userOperation->constructionGroup->size ;
                 painter.setFillColor( Color( 0, 0, 128, 64 ) );
                 Rect2D rangerect( 0,0,
                                   tileWidth  * ( edgelen) ,
@@ -1674,10 +1614,8 @@ void GameView::markTile( Painter& painter, MapPoint tile )
                 rangerect.move( screenPoint );
                 fillDiamond( painter, rangerect );
             }//endif range > 0
-        }//endif constructionGroup
-
-
-    }//endelse cursorSize == 0
+        }
+    }//endelse ACTION_QUERY
 }
 
 /*
@@ -1790,7 +1728,7 @@ void GameView::draw(Painter& painter)
             int stepx = ( startRoad.x > tileUnderMouse.x ) ? -1 : 1;
             int stepy = ( startRoad.y > tileUnderMouse.y ) ? -1 : 1;
             currentTile = startRoad;
-            //we are speaking of tools, so CST_GREEN == bulldozer
+
             if ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
             {
                 for (;currentTile.x != tileUnderMouse.x + stepx; currentTile.x += stepx) {
@@ -1806,18 +1744,28 @@ void GameView::draw(Painter& painter)
             }
             else if (userOperation->action == UserOperation::ACTION_BUILD)
             {
-                while( currentTile.x != tileUnderMouse.x) {
+                int* v1 = ctrDrag ? &currentTile.y :&currentTile.x;
+                int* v2 = ctrDrag ? &currentTile.x :&currentTile.y;
+                int* l1 = ctrDrag ? &tileUnderMouse.y :&tileUnderMouse.x;
+                int* l2 = ctrDrag ? &tileUnderMouse.x :&tileUnderMouse.y;
+                int* s1 = ctrDrag ? &stepy: &stepx;
+                int* s2 = ctrDrag ? &stepx: &stepy;
+
+                while( *v1 != *l1) {
                     markTile( painter, currentTile );
-                    cost += buildCost( currentTile );
+                    if(userOperation->constructionGroup->is_allowed_here(*v1, *v2, false))
+                    {   cost += buildCost( currentTile );}
                     tiles++;
-                    currentTile.x += stepx;
+                    *v1 += *s1;
                 }
-                while( currentTile.y != tileUnderMouse.y + stepy ) {
+                while( *v2 != *l2 + *s2 ) {
                     markTile( painter, currentTile );
-                    cost += buildCost( currentTile );
+                    if(userOperation->constructionGroup->is_allowed_here(*v1, *v2, false))
+                    {   cost += buildCost( currentTile );}
                     tiles++;
-                    currentTile.y += stepy;
+                    *v2 += *s2;
                 }
+
             }
         }
         else
@@ -1954,6 +1902,19 @@ int GameView::buildCost( MapPoint tile )
     if( userOperation->action == UserOperation::ACTION_QUERY ||
         userOperation->action == UserOperation::ACTION_EVACUATE)
     {   return 0;}
+    if( userOperation->action == UserOperation::ACTION_BUILD &&
+        userOperation->is_allowed_here(tile.x, tile.y))
+    {   if (world(tile.x, tile.y)->is_water()) //building a bridge
+        {   return BRIDGE_FACTOR * userOperation->constructionGroup->getCosts();}
+        else //building on land
+        {   return userOperation->constructionGroup->getCosts();} userOperation->constructionGroup->getCosts();}
+    if (userOperation->action == UserOperation::ACTION_FLOOD &&
+        userOperation->is_allowed_here(tile.x, tile.y))
+    {
+        return GROUP_WATER_COST;
+    }
+    return 0;
+/*
     if (!inCity( tile )){
         //cdebug( "tile is outside" );
         return 0;
@@ -1987,6 +1948,7 @@ int GameView::buildCost( MapPoint tile )
     }
     else
     {   return 0;}
+*/
 }
 
 //Register as Component

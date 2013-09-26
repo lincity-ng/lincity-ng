@@ -29,8 +29,6 @@
 extern void ok_dial_box(const char *, int, const char *);
 extern void print_total_money(void);
 
-//int last_warning_message_group = 0;
-
 /****** Private functions prototypes *****/
 //static void bulldoze_mappoint(short fill, int x, int y);
 //static int is_real_river(int x, int y);

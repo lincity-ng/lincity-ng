@@ -77,8 +77,8 @@ public:
 
     //check if tile is in city
     bool inCity( MapPoint tile );
-    
-    int gameAreaMax(); 
+
+    int gameAreaMax();
 private:
     void connectButtons();
     void buttonClicked( Button* button );
@@ -138,7 +138,7 @@ private:
     bool dragging, rightButtonDown;
     Uint32 dragStartTime;
 
-    bool roadDragging, leftButtonDown;
+    bool roadDragging, ctrDrag, leftButtonDown;
     MapPoint startRoad;
     bool areaBulldoze;
 
@@ -155,7 +155,7 @@ private:
     static const int overlayMAX = 2;
 
     static const int gameAreaMin = 1;
-    
+
     void markTile( Painter& painter, MapPoint map );
 
     int cursorSize;
