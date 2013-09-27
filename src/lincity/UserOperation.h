@@ -26,7 +26,7 @@ public:
     };
 
     Action action;
-    bool is_allowed_here(int x, int y);
+    bool is_allowed_here(int x, int y, bool warning);
 private:
 };
 

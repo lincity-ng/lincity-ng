@@ -60,8 +60,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 const int scale3d = 128; // guestimate value for good looking 3d view;
 
-//extern int is_allowed_here(int x, int y, short cst_type, short msg);
-
 const float GameView::defaultTileWidth = 128;
 const float GameView::defaultTileHeight = 64;
 const float GameView::defaultZoom = 1.0;    // fastest drawing
@@ -952,7 +950,7 @@ void GameView::event(const Event& event)
             if( roadDragging && ( (userOperation->action == UserOperation::ACTION_BULLDOZE))
             && !areaBulldoze){
                 if( tile != startRoad ){
-                    editMap( startRoad, SDL_BUTTON_LEFT);
+                    check_bulldoze_area (startRoad.x, startRoad.y);
                     startRoad = tile;
                 }
             }
@@ -1017,8 +1015,9 @@ void GameView::event(const Event& event)
                     }
                     MapPoint currentTile = startRoad;
                     //build last tile first to play the sound
-                    if( !blockingDialogIsOpen )
-                        editMap(endRoad, SDL_BUTTON_LEFT);
+                    if( !blockingDialogIsOpen &&
+                        userOperation->is_allowed_here(endRoad.x, endRoad.y, true))
+                        {   place_item(currentTile.x, currentTile.y);}
                     //turn off effects for the rest of the tiles
                     bool fx = getConfig()->soundEnabled;
                     getConfig()->soundEnabled = false;
@@ -1032,7 +1031,7 @@ void GameView::event(const Event& event)
                             for (currentTile.y = startRoad.y; currentTile.y != endRoad.y + stepy; currentTile.y += stepy)
                             {
                                 if( !blockingDialogIsOpen )
-                                    editMap(currentTile, SDL_BUTTON_LEFT);
+                                {   check_bulldoze_area(currentTile.x, currentTile.y);}
                             }
                         }
                     }
@@ -1047,21 +1046,15 @@ void GameView::event(const Event& event)
                         while( *v1 != *l1 )
                         {
                             //if( !blockingDialogIsOpen ) //slow version
-                            //editMap(currentTile, SDL_BUTTON_LEFT);
-                            if(userOperation->constructionGroup->is_allowed_here(currentTile.x, currentTile.y, false))
-                            {
-                                place_item(currentTile.x, currentTile.y);
-                            }
+                            if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
+                            {   place_item(currentTile.x, currentTile.y);}
                             *v1 += *s1;
                         }
                         while( *v2 != *l2 )
                         {
                             //if( !blockingDialogIsOpen ) //slow version
-                            //    editMap(currentTile, SDL_BUTTON_LEFT);
-                            if(userOperation->constructionGroup->is_allowed_here(currentTile.x, currentTile.y, false))
-                            {
-                                place_item(currentTile.x, currentTile.y);
-                            }
+                            if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
+                            {   place_item(currentTile.x, currentTile.y);}
                             *v2 += *s2;
                         }
                     }
@@ -1078,8 +1071,8 @@ void GameView::event(const Event& event)
             }
 
             if( event.mousebutton == SDL_BUTTON_LEFT ){                 //left
-                if( !blockingDialogIsOpen )
-                    editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT); //edit tile
+                if( !blockingDialogIsOpen ) //edit tile
+                {   editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT);}
             }
             else if( event.mousebutton == SDL_BUTTON_RIGHT ){           //middle
                 recenter(event.mousepos);                               //adjust view
@@ -1586,7 +1579,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
     {
         Color alphablue( 0, 0, 255, 128 );
         Color alphared( 255, 0, 0, 128 );
-        if(userOperation->is_allowed_here(x, y))
+        if(userOperation->is_allowed_here(x, y, false))
         {   painter.setFillColor( alphablue );}
         else
         {   painter.setFillColor( alphared );}
@@ -1753,15 +1746,13 @@ void GameView::draw(Painter& painter)
 
                 while( *v1 != *l1) {
                     markTile( painter, currentTile );
-                    if(userOperation->constructionGroup->is_allowed_here(*v1, *v2, false))
-                    {   cost += buildCost( currentTile );}
+                    cost += buildCost( currentTile );
                     tiles++;
                     *v1 += *s1;
                 }
                 while( *v2 != *l2 + *s2 ) {
                     markTile( painter, currentTile );
-                    if(userOperation->constructionGroup->is_allowed_here(*v1, *v2, false))
-                    {   cost += buildCost( currentTile );}
+                    cost += buildCost( currentTile );
                     tiles++;
                     *v2 += *s2;
                 }
@@ -1791,10 +1782,8 @@ void GameView::draw(Painter& painter)
                 prize << _("n/a");
             }
             printStatusMessage( prize.str() );
-        } else if( userOperation->action == UserOperation::ACTION_BUILD &&
-        (userOperation->constructionGroup == &trackConstructionGroup ||
-         userOperation->constructionGroup == &roadConstructionGroup ||
-         userOperation->constructionGroup == &railConstructionGroup))
+        }
+        else if( userOperation->action == UserOperation::ACTION_BUILD)
         {
             std::string buildingName =  userOperation->constructionGroup->name;
             prize << dictionaryManager->get_dictionary().translate( buildingName );
@@ -1899,56 +1888,21 @@ int GameView::bulldozeCost( MapPoint tile ){
 
 int GameView::buildCost( MapPoint tile )
 {
-    if( userOperation->action == UserOperation::ACTION_QUERY ||
+    if( !userOperation->is_allowed_here(tile.x, tile.y, false) ||
+        userOperation->action == UserOperation::ACTION_QUERY ||
         userOperation->action == UserOperation::ACTION_EVACUATE)
     {   return 0;}
-    if( userOperation->action == UserOperation::ACTION_BUILD &&
-        userOperation->is_allowed_here(tile.x, tile.y))
+    if( userOperation->action == UserOperation::ACTION_BUILD)
     {   if (world(tile.x, tile.y)->is_water()) //building a bridge
         {   return BRIDGE_FACTOR * userOperation->constructionGroup->getCosts();}
         else //building on land
         {   return userOperation->constructionGroup->getCosts();} userOperation->constructionGroup->getCosts();}
     if (userOperation->action == UserOperation::ACTION_FLOOD &&
-        userOperation->is_allowed_here(tile.x, tile.y))
+        userOperation->is_allowed_here(tile.x, tile.y, false))
     {
         return GROUP_WATER_COST;
     }
     return 0;
-/*
-    if (!inCity( tile )){
-        //cdebug( "tile is outside" );
-        return 0;
-    }
-    bool building_transport =
-    ((userOperation->action == UserOperation::ACTION_BUILD) && (
-        userOperation->constructionGroup == &trackConstructionGroup
-    ||  userOperation->constructionGroup == &roadConstructionGroup
-    ||  userOperation->constructionGroup != &railConstructionGroup));
-
-    int x = tile.x;
-    int y = tile.y;
-    if(building_transport && (world(x,y)->is_bare() || (
-    (world(x,y)->is_water() || world(x,y)->is_transport() ||  world(x,y)->is_powerline())
-        && userOperation->constructionGroup->group != world(x,y)->getTransportGroup())))
-    {
-        if (world(x,y)->is_water()) //building a bridge
-        {   return BRIDGE_FACTOR * userOperation->constructionGroup->getCosts();}
-        else //building on land
-        {   return userOperation->constructionGroup->getCosts();}
-    }
-    if (world(tile.x, tile.y)->reportingConstruction) //cant over build
-    {   return 0;}
-    if (userOperation->action == UserOperation::ACTION_BUILD)
-    {
-        return userOperation->constructionGroup->getCosts();
-    }
-    else if (userOperation->action == UserOperation::ACTION_FLOOD)
-    {
-        return GROUP_WATER_COST;
-    }
-    else
-    {   return 0;}
-*/
 }
 
 //Register as Component

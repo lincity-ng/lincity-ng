@@ -16,7 +16,7 @@ UserOperation::~UserOperation() {}
 extern void ok_dial_box(const char *, int, const char *);
 
 bool
-UserOperation::is_allowed_here(int x, int y)
+UserOperation::is_allowed_here(int x, int y, bool warning)
 {
     switch(action)
     {
@@ -36,18 +36,21 @@ UserOperation::is_allowed_here(int x, int y)
                     {   return false;}
                 }
             }
-            bool msg = (last_warning_message_group != constructionGroup->group);
+            bool msg = (warning && (last_warning_message_group != constructionGroup->group));
             msg = constructionGroup->is_allowed_here(x, y, msg);
-            if(!msg)
-            {   last_warning_message_group = constructionGroup->group;}
-            else
-            {   last_warning_message_group = 0;}
+            if(warning)
+            {
+                if(!msg)
+                {   last_warning_message_group = constructionGroup->group;}
+                else
+                {   last_warning_message_group = 0;}
+            }
             return msg;
         }
         case ACTION_BULLDOZE:
         //The cursor never tells about problems with bulldozer
         //check_bulldoze_area in MapEdit is careful anyways
-            return world.is_visible(x,y);
+            return false;
         case ACTION_EVACUATE:
             return (world.is_visible(x,y) && world(x,y)->reportingConstruction &&
             ! (world(x,y)->reportingConstruction->flags & FLAG_NEVER_EVACUATE));

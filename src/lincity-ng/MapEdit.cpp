@@ -54,19 +54,7 @@ int last_message_group = 0;
 void resetLastMessage(){
     last_message_group = 0;
 }
-/*
-// Open Dialog for selected Port
-void clicked_port_cb (int x, int y)
-{
-    new Dialog( EDIT_PORT, x, y );
-}
 
-// Open Dialog for selected Market
-void clicked_market_cb (int x, int y)
-{
-    new Dialog( EDIT_MARKET, x, y );
-}
-*/
 void check_bulldoze_area (int x, int y)
 {
     int xx, yy;
@@ -162,7 +150,7 @@ void editMap (MapPoint point, int button)
 #endif
         return;
     }
-    if(!userOperation->is_allowed_here(mod_x, mod_y))
+    if(!userOperation->is_allowed_here(mod_x, mod_y, true))
     {   return;}
     //from here on everything should be allowed
     if (userOperation->action == UserOperation::ACTION_FLOOD && button != SDL_BUTTON_RIGHT)
