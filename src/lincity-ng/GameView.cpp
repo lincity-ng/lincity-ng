@@ -1013,15 +1013,16 @@ void GameView::event(const Event& event)
                     if( cursorSize != 1 ){//roadDragging was aborted with Escape
                         break;
                     }
-                    MapPoint currentTile = startRoad;
+
                     //build last tile first to play the sound
                     if( !blockingDialogIsOpen &&
                         userOperation->is_allowed_here(endRoad.x, endRoad.y, true))
-                        {   place_item(currentTile.x, currentTile.y);}
+                        {   editMap(endRoad, SDL_BUTTON_LEFT);}
                     //turn off effects for the rest of the tiles
-                    bool fx = getConfig()->soundEnabled;
-                    getConfig()->soundEnabled = false;
+                    //bool fx = getConfig()->soundEnabled;
+                    //getConfig()->soundEnabled = false;
                     //use same method to find all Tiles as in void GameView::draw()
+                    MapPoint currentTile = startRoad;
                     int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
                     int stepy = ( startRoad.y > endRoad.y ) ? -1 : 1;
                     if ( userOperation->action == UserOperation::ACTION_BULLDOZE )
@@ -1045,20 +1046,18 @@ void GameView::event(const Event& event)
                         int* s2 = ctrDrag ? &stepx: &stepy;
                         while( *v1 != *l1 )
                         {
-                            //if( !blockingDialogIsOpen ) //slow version
                             if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
                             {   place_item(currentTile.x, currentTile.y);}
                             *v1 += *s1;
                         }
                         while( *v2 != *l2 )
                         {
-                            //if( !blockingDialogIsOpen ) //slow version
                             if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
                             {   place_item(currentTile.x, currentTile.y);}
                             *v2 += *s2;
                         }
                     }
-                    getConfig()->soundEnabled = fx;
+                    //getConfig()->soundEnabled = fx;
                     break;
                 }
                 roadDragging = false;
@@ -1388,12 +1387,6 @@ void GameView::drawDiamond( Painter& painter, const Rect2D& rect )
 bool GameView::inCity( MapPoint tile )
 {
     return world.is_visible(tile.x, tile.y);
-/*
-    if( tile.x > gameAreaMax() || tile.y > gameAreaMax() || tile.x < gameAreaMin || tile.y < gameAreaMin ) {
-        return false;
-    }
-    return true;
-*/
 }
 
 /*
@@ -1454,13 +1447,9 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         tilerect.setSize(blankTexture->getWidth() * zoom,
                 blankTexture->getHeight() * zoom);
         if(zoom == 1.0)
-        {
-            painter.drawTexture( blankTexture, tilerect.p1 );
-        }
+        {   painter.drawTexture( blankTexture, tilerect.p1 );}
         else
-        {
-            painter.drawStretchTexture( blankTexture, tilerect );
-        }
+        {   painter.drawStretchTexture( blankTexture, tilerect );}
         return;
     }
 
@@ -1470,21 +1459,16 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     size = 1;
     if(world(upperLeft.x, upperLeft.y)->construction)
-    {
-        size = world(upperLeft.x, upperLeft.y)->construction->constructionGroup->size;
-    }
+    {   size = world(upperLeft.x, upperLeft.y)->construction->constructionGroup->size;}
     else
-    {
-        size = 1;
-    }
+    {   size = 1;}
     //Attention map is rotated for displaying
     if ( ( tile.x != upperLeft.x ) || ( tile.y - size +1 != upperLeft.y ) ) //Signs are tested
-    {
-        return;
-    }
+    {   return;}
 
     //adjust OnScreenPoint of big Tiles
-    if( size > 1 ) {
+    if( size > 1 )
+    {
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         tileOnScreenPoint = getScreenPoint( lowerRightTile );
     }
@@ -1540,16 +1524,15 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 void GameView::markTile( Painter& painter, MapPoint tile )
 {
     Vector2 tileOnScreenPoint = getScreenPoint(tile);
-    int x = (int) tile.x;
-    int y = (int) tile.y;
+    int x = tile.x;
+    int y = tile.y;
     {
         MapPoint upperLeft = realTile(tile);
         if(upperLeft.x == mps_x && upperLeft.y == mps_y && userOperation->action == UserOperation::ACTION_QUERY)
         {
-            int mps_group = world(x,y)->getGroup();
-            ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(mps_group);
-            if(constructionGroup)
+            if(world(x,y)->reportingConstruction)
             {
+                ConstructionGroup *constructionGroup = world(x,y)->reportingConstruction->constructionGroup;
                 int range = constructionGroup->range;
                 int edgelen = 2 * range + constructionGroup->size ;
                 painter.setFillColor( Color( 0, 255, 0, 64 ) );
@@ -1744,13 +1727,15 @@ void GameView::draw(Painter& painter)
                 int* s1 = ctrDrag ? &stepy: &stepx;
                 int* s2 = ctrDrag ? &stepx: &stepy;
 
-                while( *v1 != *l1) {
+                while( *v1 != *l1)
+                {
                     markTile( painter, currentTile );
                     cost += buildCost( currentTile );
                     tiles++;
                     *v1 += *s1;
                 }
-                while( *v2 != *l2 + *s2 ) {
+                while( *v2 != *l2 + *s2 )
+                {
                     markTile( painter, currentTile );
                     cost += buildCost( currentTile );
                     tiles++;

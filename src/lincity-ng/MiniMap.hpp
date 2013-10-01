@@ -38,10 +38,10 @@ public:
     ~MiniMap();
 
     void parse(XmlReader& reader);
-  
+
     virtual void draw(Painter &painter);
     virtual void event(const Event& event);
-  
+
     void setGameViewCorners(
         const MapPoint& upperLeft, const MapPoint& lowerRight
     );
@@ -52,8 +52,8 @@ public:
     void hideMpsEnv();
 
     void switchView(const std::string& viewname);
-	void scrollPageDown(bool down);
-	
+    void scrollPageDown(bool down);
+
     Construction::Commodities getStuffID();
     void toggleStuffID(int step);
 
@@ -64,26 +64,27 @@ private:
     void zoomOutButtonClicked(Button* button);
     void scrollPageDownButtonClicked(Button* button);
     void scrollPageUpButtonClicked(Button* button);
-    
-    
+
+
     void switchButton(CheckButton* button, int);
     void switchMapViewButton(const std::string &pName);
-    
+
     void attachButtons();
     Component *findRoot(Component *c);
 //FIXME
     Vector2 mapPointToVector(MapPoint p);
-  
+
     MapPoint upperLeft, lowerRight;
 
     DisplayMode mMode;
     Construction::Commodities stuff_ID;
     int tilesize;
     int border;
+    int left, top; //Positioning of minimap
 
     std::vector<CheckButton*> switchButtons;
     std::auto_ptr<Texture> mTexture;
-    
+
     int mpsXOld, mpsYOld, mpsStyleOld;
 
     bool mFullRefresh;
