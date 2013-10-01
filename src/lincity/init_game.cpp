@@ -26,7 +26,6 @@
 #include "lin-city.h"
 #include "engglobs.h"
 #include "gui_interface/screen_interface.h"
-//#include "power.h"
 #include "stats.h"
 #include "gui_interface/pbar_interface.h"
 #include "modules/modules_interfaces.h"
@@ -48,6 +47,7 @@ static void random_start(int *originx, int *originy);
 static void coal_reserve_setup(void);
 static void ore_reserve_setup(void);
 static void setup_river(void);
+//static void remove_river(void);
 static void setup_river2(int x, int y, int d, int alt, int mountain);
 static void setup_ground(void);
 static void new_setup_river_ground(void);
@@ -91,11 +91,10 @@ void clear_game(void)
     constructionCount.size(100);
     total_time = 0;
     coal_survey_done = 0;
-    //numof_substations = 0;
     max_pop_ever = 0;
     total_evacuated = 0;
     total_births = 0;
-    total_money = 0; // money not >0 wont trigger debt warning on setup
+    total_money = 0;
     tech_level = 0;
     highest_tech_level = 0;
     rockets_launched = 0;
@@ -174,8 +173,6 @@ void setup_land()
 {
     std::cout << "setting up ecology ";
     std::cout.flush();
-   //if (alt_step < 400);
-   //   alt_step = 400;
     const int len = world.len();
     const int area = len * len;
     std::deque <int> line;
@@ -190,9 +187,9 @@ void setup_land()
     {
         int xx = index % len;
         int yy = index / len;
-    if(!world.is_visible(xx,yy))
-    {  continue;}
-    if(world(xx,yy)->is_water())
+        if(!world.is_visible(xx,yy))
+        {  continue;}
+        if(world(xx,yy)->is_water())
         {
             *dist(xx,yy) = 0;
             *water(xx,yy) = world(xx,yy)->ground.water_alt;
@@ -313,10 +310,10 @@ static void create_new_city(int *originx, int *originy, int random_village, int 
     {
         setup_river();
         setup_ground();
-    } else
-    {
-        new_setup_river_ground();
     }
+    else
+    {   new_setup_river_ground();}
+
     setup_land();
     ore_reserve_setup();
     init_pbars();
@@ -587,7 +584,7 @@ static void new_setup_river_ground(void)
     }
 
     //smooth is iterated to propagate a little the lowering of borders
-    for (n = 0; n < 1; n++)
+    for (n = 0; n < 2; n++)
     {
         // apply the mask
         for (i = mask_size; i < sz - mask_size; i++)
@@ -834,7 +831,9 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
             level = world(xx,yy)->ground.water_alt;
         }
 */
-        for (int i=0; i<8; i++)
+        //dont grow lakes in diagonal steps,
+        //it might result in disconnected rivers
+        for (int i=0; i<4; i++)
         {
             int x = xx + dx[i];
             int y = yy + dy[i];
@@ -1063,7 +1062,7 @@ static int quick_river( int xx, int yy)
 {
     int  x_now, y_now, x_new, y_new, new_alt;
     // start a river from point (xx, yy)
-    int max_len = world.len()/2;
+    int max_len = 2 * world.len();
     int river_len = 0;
     x_now = xx;
     y_now = yy;
@@ -1124,7 +1123,7 @@ static int quick_river( int xx, int yy)
 
 static void setup_river(void)
 {
-    std::cout << "setting river ...";
+    std::cout << "carving river ...";
     std::cout.flush();
     const int len = world.len();
     int x, y, i, j;
@@ -1278,7 +1277,24 @@ static void setup_ground(void)
     alt_step = (alt_max - alt_min) /10;
     //std::cout << ". done" << std::endl;
 }
-
+/*
+static void remove_river(void)
+{
+    const int len = world.len();
+    const int area = len * len;
+    for (int index = 0; index < area ; ++ index)
+    {
+        if(world(index)->flags & FLAG_IS_RIVER)
+        {
+            world(index)->type = CST_GREEN;
+            world(index)->group = GROUP_BARE;
+            world(index)->flags &= ~FLAG_IS_RIVER;
+            world(index)->flags &= ~FLAG_HAS_UNDERGROUND_WATER;
+            world(index)->ground.water_alt = 0;
+        }
+    }
+}
+*/
 
 static void nullify_mappoint(int x, int y)
 {
