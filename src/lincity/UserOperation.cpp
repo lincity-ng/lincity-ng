@@ -27,16 +27,9 @@ UserOperation::is_allowed_here(int x, int y, bool warning)
             if(!(world.is_visible(x,y) &&
             world.is_visible(x + constructionGroup->size - 1, y + constructionGroup->size - 1)))
             {   return false;}
-             //At last check for bare building site
-            for(int j = 0; j<constructionGroup->size; j++)
-            {
-                for(int i = 0; i<constructionGroup->size; i++)
-                {
-                    if(!world(x+i, y+j)->is_bare())
-                    {   return false;}
-                }
-            }
+            
             bool msg = (warning && (last_warning_message_group != constructionGroup->group));
+                        
             msg = constructionGroup->is_allowed_here(x, y, msg);
             if(warning)
             {

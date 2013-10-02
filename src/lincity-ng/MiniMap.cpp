@@ -936,14 +936,18 @@ Color MiniMap::getColor(int x,int y) const
             return c;
         }
         case STARVE:
-        {
+        {            
             int food_level = world(xx,yy)->reportingConstruction?
             world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_FOOD, -1):1;
+            int water_level = world(xx,yy)->reportingConstruction?
+            world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_WATER, -1):1;
+            int crit_level = water_level<food_level?water_level:food_level;
+            //dont care about other eaters or drinkers             
             if ( world(xx,yy)->is_residence() )
             {
-                if ( food_level < 5 * TRANSPORT_QUANTA / 100 )
+                if ( crit_level < 5 * TRANSPORT_QUANTA / 100 )
                     return Color(0xFF,0,0);
-                else if ( food_level < 10 * TRANSPORT_QUANTA / 100 )
+                else if ( crit_level < 10 * TRANSPORT_QUANTA / 100 )
                     return Color(0x7F,0,0);
                 else
                     return Color(0,0xFF,0);

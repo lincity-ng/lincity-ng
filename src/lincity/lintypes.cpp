@@ -976,7 +976,7 @@ void Construction::trade()
             else
             {   continue;} // next commodity
         }
-        //first order approximation for rato
+        //first order approximation for ratio
         ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
         lvl = center_lvl;
         cap = center_cap;
@@ -1007,7 +1007,8 @@ void Construction::trade()
         }
         ratio = lvl * TRANSPORT_QUANTA / cap;
         max_traffic = 0;
-        //make flow towards ratio
+        int old_center = center_lvl;        
+        //make flow towards ratio 
         for(unsigned int i = 0; i < neighsize; ++i)
         {
             if(lvls[i])
@@ -1017,7 +1018,7 @@ void Construction::trade()
                 {   max_traffic = traffic;}
             }
         }
-        int flow = center_lvl - stuff_it->second;
+        int flow = center_lvl - old_center;//stuff_it->second;
         //do some smoothing to suppress fluctuations from random order
         // max possible ~90 %
         if(flags & FLAG_IS_TRANSPORT) //Special for transport
@@ -1053,7 +1054,7 @@ void Construction::trade()
                         break;
                 }
         }
-        stuff_it->second = center_lvl; //update center_lvl
+        stuff_it->second += flow; //update center_lvl
     } //endfor all different STUFF
 }
 
@@ -1361,7 +1362,15 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
         }
         return false;
     }
-
+     //At last check for bare building site
+    for(int j = 0; j<size; j++)
+    {
+        for(int i = 0; i<size; i++)
+        {
+            if(!world(x+i, y+j)->is_bare())
+            {   return false;}
+        }
+    }
     return true;
 }
 
