@@ -63,6 +63,8 @@ MapTile::MapTile():ground()
 
 MapTile::~MapTile()
 {
+    //TODO handle this via ::ConstrictionCount
+/*    
     if (construction)
     {
         ::constructionCount.remove_construction(construction);
@@ -71,6 +73,7 @@ MapTile::~MapTile()
         // CK devalidates other mapTiles reportingConstructions
         // should not be a problem outside running Game
     }
+*/
 }
 
 void MapTile::setTerrain(unsigned short new_type)
@@ -1243,8 +1246,11 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
 
     //handle transport quickly
     if(world.is_visible(x, y) && (group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_TRACK))
-    {   return (world(x,y)->is_bare() || world(x,y)->is_powerline() || (world(x,y)->is_water() ||
-    (world(x,y)->is_transport() && world(x,y)->getTransportGroup() != group)));}
+    {   return (world(x,y)->is_bare() || 
+            world(x,y)->is_powerline() || 
+    (world(x,y)->is_water() && !world(x,y)->is_transport()) ||
+    ((world(x,y)->is_transport() && world(x,y)->getTransportGroup() != group)));
+    }
 
 
     //now check for special rules

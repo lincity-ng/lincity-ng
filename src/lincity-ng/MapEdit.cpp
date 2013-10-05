@@ -140,6 +140,7 @@ void editMap (MapPoint point, int button)
         mod_x = x;
         mod_y = y;
     }
+    
     // Handle bulldozing
     if (userOperation->action == UserOperation::ACTION_BULLDOZE && button != SDL_BUTTON_RIGHT)
     {
@@ -150,8 +151,14 @@ void editMap (MapPoint point, int button)
 #endif
         return;
     }
+    mps_set( mod_x, mod_y, MPS_MAP );
+    mps_update();
+    mps_refresh();     
+
     if(!userOperation->is_allowed_here(mod_x, mod_y, true))
-    {   return;}
+    {          
+        return;
+    }
     //from here on everything should be allowed
     if (userOperation->action == UserOperation::ACTION_FLOOD && button != SDL_BUTTON_RIGHT)
     {
