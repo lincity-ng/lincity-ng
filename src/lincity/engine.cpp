@@ -214,6 +214,9 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
         {
             world(x, y)->type = CST_GREEN;
             world(x, y)->group = GROUP_BARE;
+            world(x, y)->flags &= ~(FLAG_IS_RIVER);
+            //TODO reinitialize line for connect_river()
+            //will happen anyways upon reloading game
         }
         else
         {
@@ -390,38 +393,53 @@ bool check_water(int x, int y)
 
 void connect_rivers(void)
 {
-    int x, y, count;
-    count = 1;
-    while (count > 0)
+    static std::vector<int> line;
+    static bool initialized = false;
+    const int len = world.len();
+    const int area = len * len;
+
+    if(!initialized)
     {
-        count = 0;
-        for (y = 0; y < world.len(); y++)
-            for (x = 0; x < world.len(); x++)
+        line.clear();
+        for (int index=0; index<area; index++)
+        {
+            int x = index % len;
+            int y = index / len;
+            if ( world.is_visible(x,y) && world(x, y)->is_river())
+            {   line.push_back(index);}
+        }
+        initialized = true;
+    }
+    //dont use iterator for growing vector
+    for(size_t i = 0; i < line.size(); ++i)
+    {
+        int x = line[i] % len;
+        int y = line[i] / len;
+
+        if(world(x,y)->is_river())
+        //check needed since bulldozed rivers are not removed from line
+        {
+            if (x > 0 && world(x-1, y)->is_lake())
             {
-                if (world(x, y)->is_river())
-                {
-                    if (x > 0 && world(x-1, y)->is_lake())
-                    {
-                        world(x-1, y)->flags |= FLAG_IS_RIVER;
-                        count++;
-                    }
-                    if (y > 0 && world(x, y-1)->is_lake())
-                    {
-                        world(x, y-1)->flags |= FLAG_IS_RIVER;
-                        count++;
-                    }
-                    if (x+1 < world.len() && world(x+1, y)->is_lake())
-                    {
-                        world(x+1, y)->flags |= FLAG_IS_RIVER;
-                        count++;
-                    }
-                    if (y+1 < world.len() && world(x, y+1)->is_lake())
-                    {
-                        world(x, y+1)->flags |= FLAG_IS_RIVER;
-                        count++;
-                    }
-                }
+                world(x-1, y)->flags |= FLAG_IS_RIVER;
+                line.push_back((y)*len+(x-1));
             }
+            if (y > 0 && world(x, y-1)->is_lake())
+            {
+                world(x, y-1)->flags |= FLAG_IS_RIVER;
+                line.push_back((y-1)*len+(x));
+            }
+            if (x+1 < world.len() && world(x+1, y)->is_lake())
+            {
+                world(x+1, y)->flags |= FLAG_IS_RIVER;
+                line.push_back((y)*len+(x+1));
+            }
+            if (y+1 < world.len() && world(x, y+1)->is_lake())
+            {
+                world(x, y+1)->flags |= FLAG_IS_RIVER;
+                line.push_back((y+1)*len+(x));
+            }
+        }
     }
 }
 
@@ -489,7 +507,6 @@ void desert_frontier(int originx, int originy, int w, int h)
                 /* down -- (ThMO) */
                 if (check_group(x, y + 1) == GROUP_DESERT)
                     ++mask;
-                //MP_TYPE(x, y) = desert_table[mask];
                 world(x, y)->type = desert_table[mask];
             }
         }

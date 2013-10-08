@@ -51,7 +51,7 @@ int getMainWindowWidth();
 int getMainWindowHeight();
 
 std::string lastDateText = "";
-int lastMoney = -123456789; 
+int lastMoney = -123456789;
 
 /* This is on in screen_full_refresh, used in *_refresh() */
 char screen_refreshing;
@@ -74,25 +74,25 @@ void initialize_monthgraph (void){
 
     monthgraph_pop = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_pop == 0) {
-	malloc_failure ();
+    malloc_failure ();
     }
     monthgraph_starve = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_starve == 0) {
-	malloc_failure ();
+    malloc_failure ();
     }
     monthgraph_nojobs = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_nojobs == 0) {
-	malloc_failure ();
+    malloc_failure ();
     }
     monthgraph_ppool = (int*) malloc (sizeof(int) * monthgraph_size);
     if (monthgraph_ppool == 0) {
-	malloc_failure ();
+    malloc_failure ();
     }
     for (i = 0; i < monthgraph_size; i++) {
-	monthgraph_pop[i] = 0;
-	monthgraph_starve[i] = 0;
-	monthgraph_nojobs[i] = 0;
-	monthgraph_ppool[i] = 0;
+    monthgraph_pop[i] = 0;
+    monthgraph_starve[i] = 0;
+    monthgraph_nojobs[i] = 0;
+    monthgraph_ppool[i] = 0;
     }
 }
 void rotate_mini_screen (void);
@@ -119,7 +119,7 @@ void mini_aux_handler(int x, int y, int button);
 
 /*
  * Display some Text in a Dialog Box with an OK Button.
- * 
+ *
  * see oldgui/screen.cpp: ok_dial_box (char *fn, int good_bad, char *xs)
  *
  * in oldgui good_bad influences the color:
@@ -130,10 +130,10 @@ void mini_aux_handler(int x, int y, int button);
  *
  * fn is the FileName of the message
  *   if good_bad is RESULTS the fn is an absolute filename else
- *   it is a File in message_path.                              
- * 
+ *   it is a File in message_path.
+ *
  * xs is some additional Text, that is shown after the Message
- *    from the File. ( XtraString )  
+ *    from the File. ( XtraString )
  */
 void ok_dial_box (const char *fn, int good_bad, const char *xs)
 {
@@ -148,7 +148,7 @@ void ok_dial_box (const char *fn, int good_bad, const char *xs)
     }
 }
 
-/* 
+/*
  * Update Message in Message Window
  */
 void updateMessageText( const std::string text )
@@ -178,7 +178,7 @@ void updateMessageText( const std::string text )
             desktop->addChildComponent(messageTextComponent);
         }
         Paragraph* messageText = getParagraph(*messageTextComponent, "messageText");
-        
+
         messageText->setText( text );
     } catch(std::exception& e) {
         std::cerr << "Couldn't display message '" << text << "': "
@@ -189,22 +189,22 @@ void updateMessageText( const std::string text )
 
 void updateDate(){
     std::ostringstream dateText;
-    
+
     int day = total_time % NUMOF_DAYS_IN_MONTH +1; // 1..NUMOF_DAYS_IN_MONTH
     day = 1 + ( 29 * day / NUMOF_DAYS_IN_MONTH ); // 1..30
-    dateText << day << ". "; 
+    dateText << day << ". ";
 
     dateText << current_month( total_time );
     dateText << " "<< current_year( total_time );
-    
+
     Component* root = getGameView();
     if( !root ) return;
     while( root->getParent() )
         root = root->getParent();
-   
+
     if( dateText.str() == lastDateText ){
         return;
-    } 
+    }
     Component* dateParagraphComponent = 0;
     dateParagraphComponent = root->findComponent( "dateParagraph" );
     if( dateParagraphComponent == 0 ) {
@@ -212,7 +212,7 @@ void updateDate(){
     }
     Paragraph* dateParagraph = getParagraph( *root, "dateParagraph");
     if( !dateParagraph ) return;
-    
+
     dateParagraph->setText( dateText.str() );
     lastDateText = dateText.str();
 }
@@ -223,18 +223,18 @@ void updateMoney() {
     }
     //Prevent overflow
     if (total_money > 2000000000)
-	total_money = 2000000000;
+    total_money = 2000000000;
     else if (total_money < -2000000000)
-	total_money = -2000000000; 
-    
+    total_money = -2000000000;
+
     std::ostringstream moneyText;
     int money = total_money;
 
     if(  abs(money) > 100000000 ){
-       moneyText << money/1000000 << _("MM");  
+       moneyText << money/1000000 << _("M");
     } else {
         if( abs(money) > 1000000 ){
-            moneyText << money/1000000 << " "; 
+            moneyText << money/1000000 << " ";
             money %= 1000000;
             money = abs(money);
             moneyText << std::setw(6);
@@ -243,7 +243,7 @@ void updateMoney() {
         moneyText << money;
     }
     moneyText << _("$");
-    
+
     Component* root = getGameView();
     if( !root ) return;
     while( root->getParent() )
@@ -255,7 +255,7 @@ void updateMoney() {
     }
     Paragraph* moneyParagraph = getParagraph( *root, "moneyParagraph");
     if( !moneyParagraph ) return;
-    
+
     moneyParagraph->setText( moneyText.str() );
     lastMoney = total_money;
 }
@@ -316,13 +316,13 @@ void print_stats ()
 
   if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1))
   {
-    update_pbars_monthly();    
+    update_pbars_monthly();
     mps_refresh();
     getEconomyGraph()->updateData();
   }
 
   if (total_time % (NUMOF_DAYS_IN_MONTH/5) == NUMOF_DAYS_IN_MONTH / 5 - 1)
-  {   
+  {
     mps_refresh();
   }
 
