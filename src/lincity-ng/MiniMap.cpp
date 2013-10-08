@@ -617,7 +617,7 @@ MiniMap::scrollPageDown(bool down)
         mps_global_style = (mps_global_style + (down?1:(MPS_GLOBAL_STYLES-1))) % MPS_GLOBAL_STYLES;
         mps_set(mps_x, mps_y, MPS_GLOBAL);
     }
-/*
+#ifdef DEBUG
     else if(viewname == "EconomyGraph")
     {
         //has only one page for now
@@ -626,12 +626,12 @@ MiniMap::scrollPageDown(bool down)
     {
         //has only one page for now
     }
-*/
     else
     {
         std::cout << "Unknown active component in MiniMapSwitch: " << viewname << std::endl;
         assert(false);
     }
+#endif
 }
 
 
