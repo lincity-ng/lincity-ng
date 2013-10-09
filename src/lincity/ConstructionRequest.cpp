@@ -29,15 +29,14 @@ void ConstructionDeletionRequest::execute()
         for (int j = 0; j < size; j++)
         {
             //update mps display
-            if (mps_x == x + i && mps_y == y + j)
+            if (mps_x == x + j && mps_y == y + i)
             {
-                mps_set(x + i, y + j, MPS_MAP);
+                mps_set(x + j, y + i, MPS_MAP);
             }
         }
     }
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
-    connect_rivers();
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 }
 
@@ -56,6 +55,7 @@ void OreMineDeletionRequest::execute()
             {
                 world(x+j,y+i)->setTerrain(CST_WATER);
                 world(x+j,y+i)->flags |= FLAG_HAS_UNDERGROUND_WATER;
+                connect_rivers(x+j,y+i);
             }
             //update mps display
             if (mps_x == x + i && mps_y == y + j)
@@ -67,7 +67,6 @@ void OreMineDeletionRequest::execute()
 
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
-    connect_rivers();
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 }
 
@@ -93,7 +92,6 @@ void CommuneDeletionRequest::execute()
     }
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
-    connect_rivers();
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 }
 
@@ -119,19 +117,14 @@ void BurnDownRequest::execute()
     }
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
-    connect_rivers();
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 
 }
-
-
 
 void PowerLineFlashRequest::execute()
 {
     int *anim_counter = &(dynamic_cast<Powerline*>(subject)->anim_counter);
     // 2/3 cooldown will prevent interlacing wave packets
     if (*anim_counter <= POWER_MODULUS/3)
-    {
-        *anim_counter = POWER_MODULUS;
-    }
+    {   *anim_counter = POWER_MODULUS;}
 }

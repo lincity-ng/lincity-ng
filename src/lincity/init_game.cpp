@@ -267,7 +267,6 @@ void setup_land()
     /*smooth all edges in fresh map*/
     //std::cout << "smoothing graphics edges ...";
     //std::cout.flush();
-    connect_rivers();
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
     desert_frontier(0, 0, world.len(), world.len());
     //std::cout << " done" << std::endl;

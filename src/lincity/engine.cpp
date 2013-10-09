@@ -121,7 +121,7 @@ int place_item(int x, int y)
     //{   last_warning_message_group = 0;}
 
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
-    connect_rivers();
+    connect_rivers(x,y);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
     return 0;
 }
@@ -228,7 +228,7 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
             ok_dial_box("fire.mes", BAD, _("ups, Bulldozer found a dangling reportingConstruction"));
         }
         //Here size is always 1
-        connect_rivers();
+        connect_rivers(x,y);
         desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
         connect_transport(x - 2, y - 2, x + 1 + 1, y + 1 + 1);
     }
@@ -391,53 +391,38 @@ bool check_water(int x, int y)
 }
 
 
-void connect_rivers(void)
+void connect_rivers(int x, int y)
 {
-    static std::vector<int> line;
-    static bool initialized = false;
+    std::deque<int> line;
     const int len = world.len();
-    const int area = len * len;
 
-    if(!initialized)
-    {
-        line.clear();
-        for (int index=0; index<area; index++)
-        {
-            int x = index % len;
-            int y = index / len;
-            if ( world.is_visible(x,y) && world(x, y)->is_river())
-            {   line.push_back(index);}
-        }
-        initialized = true;
-    }
-    //dont use iterator for growing vector
-    for(size_t i = 0; i < line.size(); ++i)
-    {
-        int x = line[i] % len;
-        int y = line[i] / len;
+    line.clear();
+    //only act on lakes
+    if ( world(x,y)->is_lake())
+    {   line.push_back(y*len+x);}
 
-        if(world(x,y)->is_river())
-        //check needed since bulldozed rivers are not removed from line
+    while(line.size()>0)
+    {
+        int x = line.front() % len;
+        int y = line.front() / len;
+        line.pop_front();
+        //check for close by river
+        for(unsigned int i = 0;i<4;++i)
         {
-            if (x > 0 && world(x-1, y)->is_lake())
+            int xx = x + dx[i];
+            int yy = y + dy[i];
+            if(world(xx,yy)->is_river())
             {
-                world(x-1, y)->flags |= FLAG_IS_RIVER;
-                line.push_back((y)*len+(x-1));
-            }
-            if (y > 0 && world(x, y-1)->is_lake())
-            {
-                world(x, y-1)->flags |= FLAG_IS_RIVER;
-                line.push_back((y-1)*len+(x));
-            }
-            if (x+1 < world.len() && world(x+1, y)->is_lake())
-            {
-                world(x+1, y)->flags |= FLAG_IS_RIVER;
-                line.push_back((y)*len+(x+1));
-            }
-            if (y+1 < world.len() && world(x, y+1)->is_lake())
-            {
-                world(x, y+1)->flags |= FLAG_IS_RIVER;
-                line.push_back((y+1)*len+(x));
+                world(x, y)->flags |= FLAG_IS_RIVER;
+                i = 4;
+                //now check for more close by lakes
+                for(unsigned int j = 0;j<4;++j)
+                {
+                    int x3 = x + dx[j];
+                    int y3 = y + dy[j];
+                    if (world(x3,y3)->is_lake())
+                    {   line.push_back(y3*len+x3);}
+                }
             }
         }
     }

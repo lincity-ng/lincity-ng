@@ -140,7 +140,7 @@ void editMap (MapPoint point, int button)
         mod_x = x;
         mod_y = y;
     }
-    
+
     // Handle bulldozing
     if (userOperation->action == UserOperation::ACTION_BULLDOZE && button != SDL_BUTTON_RIGHT)
     {
@@ -153,10 +153,10 @@ void editMap (MapPoint point, int button)
     }
     mps_set( mod_x, mod_y, MPS_MAP );
     mps_update();
-    mps_refresh();     
+    mps_refresh();
 
     if(!userOperation->is_allowed_here(mod_x, mod_y, true))
-    {          
+    {
         return;
     }
     //from here on everything should be allowed
@@ -165,7 +165,7 @@ void editMap (MapPoint point, int button)
         world(x, y)->setTerrain(userOperation->type);
         adjust_money(-selected_module_cost);
         desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
-        connect_rivers();
+        connect_rivers(x, y);
         connect_transport(x - 2, y - 2, x + 1 + 1, y + 1 + 1);
         return;
     }
