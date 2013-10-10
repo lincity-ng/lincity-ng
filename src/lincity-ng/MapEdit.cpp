@@ -151,14 +151,16 @@ void editMap (MapPoint point, int button)
 #endif
         return;
     }
-    mps_set( mod_x, mod_y, MPS_MAP );
-    mps_update();
-    mps_refresh();
+    // show info on any click, but dont do double for query
+    if ((world(mod_x,mod_y)->is_bare()) || (userOperation->action != UserOperation::ACTION_QUERY))
+    {
+        mps_set(mod_x, mod_y, MPS_MAP); //fake Query action
+        if(userOperation->action == UserOperation::ACTION_QUERY)
+        {   return;}
+    }
 
     if(!userOperation->is_allowed_here(mod_x, mod_y, true))
-    {
-        return;
-    }
+    {   return;}
     //from here on everything should be allowed
     if (userOperation->action == UserOperation::ACTION_FLOOD && button != SDL_BUTTON_RIGHT)
     {
@@ -169,28 +171,12 @@ void editMap (MapPoint point, int button)
         connect_transport(x - 2, y - 2, x + 1 + 1, y + 1 + 1);
         return;
     }
-    //Handle Evacuation of Commodities
-    if (userOperation->action == UserOperation::ACTION_EVACUATE && button != SDL_BUTTON_RIGHT)
-    {
-        if(world(x,y)->reportingConstruction->constructionGroup->group == GROUP_MARKET)
-        {
-            (dynamic_cast<Market*>(world(x,y)->reportingConstruction))->toggleEvacuation();
-            return;
-        }
-        if(world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
-        {   world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;}
-        else
-        {   world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;}
-        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on evacuate
-        return;
-    }
-
 
     // Bring up mappoint_stats for certain left mouse clicks
     // Check market and port double-clicks here
     // Check rocket launches
     // Hold d pressed to send load/save info details to console
-    if( !world(mod_x,mod_y)->is_bare() )
+    if( !world(mod_x,mod_y)->is_bare() && userOperation->action == UserOperation::ACTION_QUERY)
     {
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( !binary_mode && keystate[SDLK_d] && world(mod_x,mod_y)->reportingConstruction)
@@ -199,8 +185,7 @@ void editMap (MapPoint point, int button)
         }
         if(mapMPS)
         {    mapMPS->playBuildingSound( mod_x, mod_y );}
-        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); //query Tool
-
+        mps_result = mps_set( mod_x, mod_y, MPS_MAP );
         //DBG_TileInfo(x, y);
 
         if( mps_result >= 1 )
@@ -220,26 +205,26 @@ void editMap (MapPoint point, int button)
                 return;
             }
         }// end mps_result>1
-        //to be here we are not in bulldoze-mode and the tile
-        //under the cursor is not empty.
-    }//end is_not_bare
 
-    //query Tool
-    if(userOperation->action == UserOperation::ACTION_QUERY)
-    {
-        if (mapMPS) {
-            mapMPS->playBuildingSound( mod_x, mod_y );
-            mapMPS->setView(MapPoint( mod_x, mod_y ));
-        }
-
-        mps_result = mps_set( mod_x, mod_y, MPS_MAP );
-        //DBG_TileInfo(x, y);
         return;
     }
 
-    // OK, by now we are certain that the user wants to place the item.
-    //   Set the origin based on the size of the selected_module_type, and
-    //   see if the selected item will fit.
+    //Handle Evacuation of Commodities
+    if (userOperation->action == UserOperation::ACTION_EVACUATE && button != SDL_BUTTON_RIGHT)
+    {
+        if(world(x,y)->reportingConstruction->constructionGroup->group == GROUP_MARKET)
+        {
+            (dynamic_cast<Market*>(world(x,y)->reportingConstruction))->toggleEvacuation();
+            return;
+        }
+        if(world(x,y)->reportingConstruction->flags & FLAG_EVACUATE)
+        {   world(x,y)->reportingConstruction->flags &= ~FLAG_EVACUATE;}
+        else
+        {   world(x,y)->reportingConstruction->flags |= FLAG_EVACUATE;}
+        mps_result = mps_set( mod_x, mod_y, MPS_MAP ); // Update mps on evacuate
+        return;
+    }
+
     if(userOperation->action == UserOperation::ACTION_BUILD) //MUST BE TRUE
     {
         //double check windmill tech

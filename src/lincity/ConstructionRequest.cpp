@@ -30,9 +30,7 @@ void ConstructionDeletionRequest::execute()
         {
             //update mps display
             if (mps_x == x + j && mps_y == y + i)
-            {
-                mps_set(x + j, y + i, MPS_MAP);
-            }
+            {   mps_set(x + j, y + i, MPS_MAP);}
         }
     }
     // update adjacencies
@@ -58,10 +56,8 @@ void OreMineDeletionRequest::execute()
                 connect_rivers(x+j,y+i);
             }
             //update mps display
-            if (mps_x == x + i && mps_y == y + j)
-            {
-                mps_set(x + i, y + j, MPS_MAP);
-            }
+            if (mps_x == x + j && mps_y == y + i)
+            {   mps_set(x + j, y + i, MPS_MAP);}
         }
     }
 
@@ -84,10 +80,8 @@ void CommuneDeletionRequest::execute()
             if (world(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
             {    parklandConstructionGroup.placeItem(x+j, y+i, CST_PARKLAND_PLANE);}
             //update mps display
-            if (mps_x == x + i && mps_y == y + j)
-            {
-                mps_set(x + i, y + j, MPS_MAP);
-            }
+            if (mps_x == x + j && mps_y == y + i)
+            {   mps_set(x + j, y + i, MPS_MAP);}
         }
     }
     // update adjacencies
@@ -109,10 +103,8 @@ void BurnDownRequest::execute()
             fireConstructionGroup.placeItem(x+j, y+i, CST_FIRE_1);
             static_cast<Fire*> (world(x+j,y+i)->construction)->burning_days = FIRE_LENGTH - 25;
             //update mps display
-            if (mps_x == x + i && mps_y == y + j)
-            {
-                mps_set(x + i, y + j, MPS_MAP);
-            }
+            if (mps_x == x + j && mps_y == y + i)
+            {   mps_set(x + j, y + i, MPS_MAP);}
         }
     }
     // update adjacencies

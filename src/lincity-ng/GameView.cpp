@@ -958,10 +958,10 @@ void GameView::event(const Event& event)
             if(tileUnderMouse != tile) {
                 tileUnderMouse = tile;
                 setDirty();
-                //update mps target                
+                //update mps target
                 if(userOperation->action == UserOperation::ACTION_EVACUATE)
                 {   mps_set( tile.x, tile.y, MPS_MAP );}
-            }           
+            }
 
             break;
         }
@@ -1696,13 +1696,13 @@ void GameView::draw(Painter& painter)
         }
     }
 
-    int cost = 0; 
-    //display commodities continously            
+    int cost = 0;
+    //display commodities continously
     if(userOperation->action == UserOperation::ACTION_EVACUATE)
-    {     
+    {
         mps_update();
         mps_refresh();
-    }     
+    }
     //Mark Tile under Mouse // TODO: handle showTerrainHeight
     if( mouseInGameView  && !blockingDialogIsOpen ) {
         MapPoint lastRazed( -1,-1 );

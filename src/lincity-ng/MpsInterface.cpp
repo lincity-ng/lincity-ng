@@ -52,16 +52,20 @@ void mps_init()
 
 int mps_set_silent(int x, int y, int style)
 {
-    int same_square = 0;
+    static int same_square = 0;
     mps_style = style;
-    switch(style) {
+    switch(style)
+    {
         case MPS_MAP:
         case MPS_ENV:
-            if (mps_x == x && mps_y == y) {
-                same_square = 1;
+            if (mps_x == x && mps_y == y)
+            {   ++same_square;}
+            else
+            {
+                same_square = 0;
+                mps_x = x;
+                mps_y = y;
             }
-            mps_x = x;
-            mps_y = y;
             break;
         default:
             break;
