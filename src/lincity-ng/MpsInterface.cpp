@@ -76,21 +76,23 @@ int mps_set_silent(int x, int y, int style)
 int mps_set( int x, int y, int style ) /* Attaches an area or global display */
 {
     int same_square = mps_set_silent(x, y, style);
+    if(same_square)
+    {   mps_map_page = (mps_map_page + 1)%MPS_MAP_PAGES;}
 
     switch(style) {
         case MPS_MAP:
             if(mapMPS)
-                mapMPS->clear();
+            {   mapMPS->clear();}
             getMiniMap()->switchView("MapMPS");
             break;
         case MPS_ENV:
             if(envMPS)
-                envMPS->clear();
+            {   envMPS->clear();}
             getMiniMap()->switchView("EnvMPS");
             break;
         case MPS_GLOBAL:
             if(globalMPS)
-                globalMPS->clear();
+            {   globalMPS->clear();}
             getMiniMap()->switchView("GlobalMPS");
             break;
         default:
