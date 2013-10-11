@@ -278,6 +278,25 @@ void setup_land()
 
 static void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate)
 {
+
+
+    //if (world_id == 0)
+    //{
+        world.seed(rand());
+        world.old_setup_ground = old_setup_ground;
+        world.climate = climate;
+    //}
+/*
+    else
+    {
+        old_setup_ground = world.old_setup_ground;
+        climate = world.climate;
+        random_village = 0;
+    }
+    */
+    srand(world.seed());
+    std::cout << "world id: " << world.seed() << std::endl;
+
     clear_game();
     coal_reserve_setup();
 
@@ -318,15 +337,10 @@ static void create_new_city(int *originx, int *originy, int random_village, int 
     init_pbars();
 
     if (random_village != 0)
-    {
-        random_start(originx, originy);
-        //update_pbar(PPOP, 200, 1);      /* So pbars don't flash */
-    }
+    {   random_start(originx, originy);}
     else
-    {
-        *originx = *originy = world.len() / 2;
-        //update_pbar(PPOP, 100, 1);
-    }
+    {   *originx = *originy = world.len() / 2;}
+
     update_pbar (PPOP, housed_population + people_pool, 1);
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
     desert_frontier(0, 0, world.len(), world.len());

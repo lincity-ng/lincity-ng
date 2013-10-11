@@ -31,22 +31,22 @@ void World::len(int new_len)
     }
     if (dirty) {clear_game();}
     bool job_done = false;
-    
+
     while (!job_done)
-    {   
-		try
-		{			
-			this->side_len = new_len;
-			job_done = true;
-			maptile.resize(new_len * new_len);		
-		}
-		catch(...)
-		{
-			new_len -= 25;
-			std::cout << "failed to allocate world. shrinking edge to " << new_len << " tiles" << std::endl;
-			job_done = false;
-		}
-	}
+    {
+        try
+        {
+            this->side_len = new_len;
+            job_done = true;
+            maptile.resize(new_len * new_len);
+        }
+        catch(...)
+        {
+            new_len -= 25;
+            std::cout << "failed to allocate world. shrinking edge to " << new_len << " tiles" << std::endl;
+            job_done = false;
+        }
+    }
 }
 
 MapTile* World::operator()(int x, int y)
@@ -109,17 +109,31 @@ int World::len()
     return side_len;
 }
 
+int World::seed()
+{
+#ifdef DEBUG
+    assert(world_id == id);
+#endif
+    return id;
+}
+
+void World::seed( int new_seed)
+{
+    this->id = new_seed;
+    world_id = new_seed;
+}
+
 bool World::maximum(int x , int y)
 {
     int alt = maptile[x + y * side_len].ground.altitude;
     bool is_max = true;
     for (int i=0; i<8; i++)
     {
-		int tx = x + dxo[i];
-		int ty = y + dyo[i];
-		is_max &= (alt >= maptile[tx + ty * side_len].ground.altitude);
-	}
-	return is_max;
+        int tx = x + dxo[i];
+        int ty = y + dyo[i];
+        is_max &= (alt >= maptile[tx + ty * side_len].ground.altitude);
+    }
+    return is_max;
 }
 
 bool World::minimum(int x , int y)
@@ -128,11 +142,11 @@ bool World::minimum(int x , int y)
     bool is_min = true;
     for (int i=0; i<8; i++)
     {
-		int tx = x + dxo[i];
-		int ty = y + dyo[i];
-		is_min &= (alt <= maptile[tx + ty * side_len].ground.altitude);
-	}
-	return is_min;
+        int tx = x + dxo[i];
+        int ty = y + dyo[i];
+        is_min &= (alt <= maptile[tx + ty * side_len].ground.altitude);
+    }
+    return is_min;
 }
 
 bool World::saddlepoint(int x , int y)
@@ -143,14 +157,14 @@ bool World::saddlepoint(int x , int y)
     bool dip_old = dip_new;
     for (int i=0; i<8; i++)
     {
-		dip_new = alt > maptile[x + dxo[i]+ (y + dyo[i])*side_len].ground.altitude;
-		if (dip_new && !dip_old) //We just stepped into a valley
-		{
-				dips++;
-		}
-		dip_old = dip_new;
-	}
-	return dips > 1;
+        dip_new = alt > maptile[x + dxo[i]+ (y + dyo[i])*side_len].ground.altitude;
+        if (dip_new && !dip_old) //We just stepped into a valley
+        {
+                dips++;
+        }
+        dip_old = dip_new;
+    }
+    return dips > 1;
 }
 
 bool World::checkEdgeMin(int x , int y)

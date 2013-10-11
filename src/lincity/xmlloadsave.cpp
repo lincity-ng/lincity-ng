@@ -585,11 +585,12 @@ void XMLloadsave::saveGlobals()
 {
     xml_file_out << "<GlobalVariables>" << std::endl;
 
-    xml_file_out << "<binary_mode>"                << binary_mode              << "</binary_mode>" << std::endl;
-    xml_file_out << "<constructions>"           << ::constructionCount.count() << "</constructions>" << std::endl;
-    xml_file_out << "<given_scene>"                << given_scene              << "</given_scene>" << std::endl;
-
-
+    xml_file_out << "<binary_mode>"                 << binary_mode             << "</binary_mode>" << std::endl;
+    xml_file_out << "<constructions>"               << ::constructionCount.count() << "</constructions>" << std::endl;
+    xml_file_out << "<given_scene>"                 << given_scene             << "</given_scene>" << std::endl;
+    xml_file_out << "<world_id>"                    << world_id                << "</world_id>" << std::endl;
+    xml_file_out << "<climate>"                     << world.climate           << "</climate>" << std::endl;
+    xml_file_out << "<old_setup_ground>"            << world.old_setup_ground  << "</old_setup_ground>" << std::endl;
 
     xml_file_out << "<global_aridity>"             << global_aridity           << "</global_aridity>" << std::endl;
     xml_file_out << "<global_mountainity>"         << global_mountainity       << "</global_mountainity>" << std::endl;
@@ -614,6 +615,7 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<tech_level>"                 << tech_level               << "</tech_level>" << std::endl;
     xml_file_out << "<highest_tech_level>"         << highest_tech_level       << "</highest_tech_level>" << std::endl;
     xml_file_out << "<tpopulation>"                << tpopulation              << "</tpopulation> " << std::endl;
+    xml_file_out << "<thousing>"                   << thousing                 << "</thousing> " << std::endl;
     xml_file_out << "<tstarving_population>"       << tstarving_population     << "</tstarving_population>" << std::endl;
     xml_file_out << "<tunemployed_population>"     << tunemployed_population   << "</tunemployed_population>" << std::endl;
 
@@ -635,7 +637,7 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<total_births>"               << total_births             << "</total_births>" << std::endl;
 
 
-    xml_file_out << "<sust_dig_ore_coal_tip_flag>"    << sust_dig_ore_coal_tip_flag  << "</sust_dig_ore_coal_tip_flag>" << std::endl;
+    xml_file_out << "<sust_dig_ore_coal_tip_flag>" << sust_dig_ore_coal_tip_flag << "</sust_dig_ore_coal_tip_flag>" << std::endl;
     xml_file_out << "<sust_dig_ore_coal_count>"    << sust_dig_ore_coal_count  << "</sust_dig_ore_coal_count>" << std::endl;
     xml_file_out << "<sust_port_count>"            << sust_port_count          << "</sust_port_count>" << std::endl;
     xml_file_out << "<sust_old_money_count>"       << sust_old_money_count     << "</sust_old_money_count>" << std::endl;
@@ -691,6 +693,11 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "global_mountainity")              {sscanf(xml_val.c_str(),"%d",&global_mountainity);}
             else if (xml_tag == "world_side_len")                  {sscanf(xml_val.c_str(),"%d",&new_world_len);
                                                                         world.len(new_world_len);}
+            else if (xml_tag == "world_id")                        {sscanf(xml_val.c_str(),"%d",&world_id);
+                                                                        world.seed(world_id);}
+            else if (xml_tag == "old_setup_ground")                {sscanf(xml_val.c_str(),"%d",&world.old_setup_ground);}
+            else if (xml_tag == "climate")                         {sscanf(xml_val.c_str(),"%d",&world.climate);}
+
             else if (xml_tag == "main_screen_originx")             {sscanf(xml_val.c_str(),"%d",&main_screen_originx);}
             else if (xml_tag == "main_screen_originy")             {sscanf(xml_val.c_str(),"%d",&main_screen_originy);}
             else if (xml_tag == "total_time")                      {sscanf(xml_val.c_str(),"%d",&total_time);}
@@ -711,6 +718,7 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "tech_level")                      {sscanf(xml_val.c_str(),"%d",&tech_level);}
             else if (xml_tag == "highest_tech_level")              {sscanf(xml_val.c_str(),"%d",&highest_tech_level);}
             else if (xml_tag == "tpopulation")                     {sscanf(xml_val.c_str(),"%d",&tpopulation);}
+            else if (xml_tag == "thousing")                        {sscanf(xml_val.c_str(),"%d",&thousing);}
             else if (xml_tag == "tstarving_population")            {sscanf(xml_val.c_str(),"%d",&tstarving_population);}
             else if (xml_tag == "tunemployed_population")          {sscanf(xml_val.c_str(),"%d",&tunemployed_population);}
 

@@ -91,7 +91,7 @@ void do_time_step(void)
 
     }
     /* Increment game time */
-    total_time++;
+    ++total_time;
 #ifdef DEBUG_ENGINE
     printf("In do_time_step (%d)\n", total_time);
 #endif
@@ -100,22 +100,18 @@ void do_time_step(void)
     init_daily();
 
     /* Initialize monthly accumulators */
-    if (total_time % NUMOF_DAYS_IN_MONTH == 0) {
-        init_monthly();
-    }
+    if (total_time % NUMOF_DAYS_IN_MONTH == 0)
+    {   init_monthly();}
 
     /* Initialize yearly accumulators */
-    if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
-        init_yearly();
-    }
+    if ((total_time % NUMOF_DAYS_IN_YEAR) == 0)
+    {   init_yearly();}
 
     /* execute yesterdays requests OR treat loadgame requests*/
     ConstructionManager::executePendingRequests();
 
     /* Run through simulation equations for each farm, residence, etc. */
     simulate_mappoints();
-
-
 
     /* Now do the stuff that happens once a year, once a month, etc. */
     do_periodic_events();
@@ -130,30 +126,22 @@ static void do_periodic_events(void)
     add_daily_to_monthly();
     do_daily_ecology();
 
-    if ((total_time % NUMOF_DAYS_IN_YEAR) == 0) {
-        start_of_year_update();
-    }
-    if ((total_time % DAYS_PER_POLLUTION) == 3) {
-        do_pollution();
-    }
-    if ((total_time % DAYS_BETWEEN_FIRES) == 9 && tech_level > (GROUP_FIRESTATION_TECH * MAX_TECH_LEVEL / 1000)) {
-        do_random_fire(-1, -1, 1);
-    }
-    if ((total_time % DAYS_BETWEEN_COVER) == 75) {
-        do_fire_health_cricket_power_cover(); //constructions will call ::cover()
-    }
+    if ((total_time % NUMOF_DAYS_IN_YEAR) == 0)
+    {   start_of_year_update();}
+    if ((total_time % DAYS_PER_POLLUTION) == 3)
+    {   do_pollution();}
+    if ((total_time % DAYS_BETWEEN_FIRES) == 9 && tech_level > (GROUP_FIRESTATION_TECH * MAX_TECH_LEVEL / 1000))
+    {   do_random_fire(-1, -1, 1);}
+    if ((total_time % DAYS_BETWEEN_COVER) == 75)
+    {   do_fire_health_cricket_power_cover();} //constructions will call ::cover()
     else //constructions will not call ::cover()
     {   refresh_cover = false;}
     if ((total_time % DAYS_BETWEEN_SHANTY) == 15 && tech_level > (GROUP_HEALTH_TECH * MAX_TECH_LEVEL / 1000))
-    {
-        update_shanty();
-    }
-    if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1)) {
-        end_of_month_update();
-    }
-    if (total_time % NUMOF_DAYS_IN_YEAR == (NUMOF_DAYS_IN_YEAR - 1)) {
-        end_of_year_update();
-    }
+    {   update_shanty();}
+    if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1))
+    {   end_of_month_update();}
+    if (total_time % NUMOF_DAYS_IN_YEAR == (NUMOF_DAYS_IN_YEAR - 1))
+    {   end_of_year_update();}
 }
 
 static void end_of_month_update(void)
@@ -191,33 +179,17 @@ static void end_of_month_update(void)
     for (int i = 0; i < constructionCount.size(); i++)
     {
         if (constructionCount[i])
-        {
-            constructionCount[i]->report_commodities();
-        }
+        {   constructionCount[i]->report_commodities();}
     }
     update_pbars_monthly();
 }
 
 static void start_of_year_update(void)
 {
-    //int u;
-
     sustainability_test();
-
     pollution_deaths_history -= pollution_deaths_history / 100.0;
     starve_deaths_history -= starve_deaths_history / 100.0;
     unemployed_history -= unemployed_history / 100.0;
-/*
-    u = Counted<University>::getInstanceCount();
-    if (u > 0) {
-        university_intake_rate = (Counted<School>::getInstanceCount() * 20) / u;
-        if (university_intake_rate > 100)
-            university_intake_rate = 100;
-    } else {
-        university_intake_rate = 50;
-    }
-*/
-    //map_power_grid();
 }
 
 static void end_of_year_update(void)
@@ -228,7 +200,6 @@ static void end_of_year_update(void)
 
     coal_tax = (coal_tax * coal_tax_rate) / 100;
     // Seems to be reasonable at tax_rate = 1
-    //coal_tax/=10;
     ly_coal_tax = coal_tax;
     total_money += coal_tax;
 

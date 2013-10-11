@@ -27,6 +27,7 @@ extern struct TYPE main_types[NUM_OF_TYPES];
 
 extern ConstructionCount constructionCount;
 extern World world;
+extern int world_id;
 extern UserOperation* userOperation;
 
 /* Vector for visiting neigbours = ( dx[k] , dy[k] )  ; ordered so that diagonal moves are the last 4 */

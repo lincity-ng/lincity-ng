@@ -94,7 +94,6 @@ void init_daily(void)
 void init_monthly(void)
 {
     data_last_month = 0;
-
     tpopulation = 0;
     thousing = 0;
     tstarving_population = 0;
@@ -172,7 +171,7 @@ void init_lastyear(void)
 
 void init_inventory(void)
 {
-    init_census();    
+    init_census();
     init_daily();
     init_monthly();
     init_yearly();
@@ -181,7 +180,7 @@ void init_inventory(void)
 
 void add_daily_to_monthly(void)
 {
-    data_last_month++;
+    ++data_last_month;
 
     tpopulation += population;
     thousing += housing;
