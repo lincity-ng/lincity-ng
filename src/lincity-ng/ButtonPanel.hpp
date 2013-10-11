@@ -52,8 +52,8 @@ class ButtonPanel : public Component
 
   int module;
   bool alreadyAttached;
-  bool enoughTech( int moduleType );
-  float requiredTech( int moduleType );
+  //bool enoughTech( int moduleType );
+  //float requiredTech( int moduleType );
   void examineButton( std::string name, int showInfo );
   void examineMenuButtons();
   void newTechMessage( int moduleType, int showInfo );

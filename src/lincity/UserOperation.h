@@ -11,7 +11,6 @@ public:
     ~UserOperation();
     ConstructionGroup *constructionGroup; // !0 in case of ACTION_BUILD
     unsigned short type;// maybe usefull for showing type as cursor
-    //int x, y;// where the action should take place
     int selected_module_type; //ButtonID for compatibility
 
 
@@ -27,6 +26,8 @@ public:
 
     Action action;
     bool is_allowed_here(int x, int y, bool warning);
+    bool enoughTech();// tells if scaled tech_level is sufficient
+    float requiredTech(); // returns scaled tech_level for tooltipp info
 private:
 };
 

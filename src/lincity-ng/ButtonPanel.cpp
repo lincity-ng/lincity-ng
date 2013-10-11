@@ -143,7 +143,7 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
 
     return rname;
 }
-
+/*
 //show required tech in display-format
 float ButtonPanel::requiredTech(int moduleType) {
     if( moduleType == CST_NONE ){
@@ -161,7 +161,8 @@ float ButtonPanel::requiredTech(int moduleType) {
 
     return tl * 100 / MAX_TECH_LEVEL;
 }
-
+*/
+/*
 //test if there is enough tech to build moduleType.
 bool ButtonPanel::enoughTech( int moduleType ){
     if( moduleType == CST_NONE ){
@@ -182,7 +183,7 @@ bool ButtonPanel::enoughTech( int moduleType ){
     }
     return false;
 }
-
+*/
 /*
  * enable/disable buttons according to tech.
  *  lincity/ldsvguts.cpp
@@ -243,21 +244,27 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         return;
     }
     //doButton( name );
-    selected_module_type = ButtonOperations[name].selected_module_type;
     userOperation = &(ButtonOperations[name]);
-    if ( enoughTech( selected_module_type ) ){
-        if( !b->isEnabled() ){
+    selected_module_type = userOperation->selected_module_type;
+    //enoughTech( selected_module_type )
+    if ( userOperation->enoughTech() )
+    {
+        if( !b->isEnabled() )
+        {
             newTechMessage( selected_module_type, showInfo );
             b->setTooltip( createTooltip( selected_module_type, false ) );
             b->enable();
         }
-    } else {
-        if( b->isEnabled() ){
+    }
+    else
+    {
+        if( b->isEnabled() )
+        {
             b->enable( false );
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
                     createTooltip(selected_module_type, false ).c_str(),
-                    requiredTech(selected_module_type));
+                    userOperation->requiredTech());
             b->setTooltip(tooltip);
         }
     }
@@ -268,8 +275,6 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
                 createTooltip(selected_module_type, false ).c_str());
         b->setTooltip(tooltip);
     }
-
-
     selected_module_type = tmp;
     userOperation = tmp2;
 }
@@ -291,17 +296,21 @@ void ButtonPanel::examineMenuButtons(){
             return;
         }
         int type = mMenuSelected[mMenus[number]];
-        if ( enoughTech( type ) ){
+        if ( ButtonOperations[name].enoughTech() )
+        {
             if( !b->isEnabled() ){
                 b->setTooltip( createTooltip( type ) );
                 b->enable();
             }
-        } else {
-            if( b->isEnabled() ){
+        }
+        else
+        {
+            if( b->isEnabled() )
+            {
                 char tooltip[2048];
                 snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
                         createTooltip( type ).c_str(),
-                        requiredTech(type));
+                        ButtonOperations[name].requiredTech());
                 b->setTooltip( tooltip );
                 b->enable( false );
             }
@@ -316,7 +325,8 @@ void ButtonPanel::newTechMessage( int moduleType, int showInfo )
     if( showInfo == 0) return;
 
     int module = get_group_of_type( moduleType );
-    if( lastShownTechType == module ){
+    if( lastShownTechType == module )
+    {
         //std::cout << "suppressing Tech Msg: " << module << "\n";
         return;
     }
@@ -412,8 +422,10 @@ void ButtonPanel::newTechMessage( int moduleType, int showInfo )
 void ButtonPanel::attachButtons()
 {
   if(alreadyAttached)
-    return;
+  {  return;}
   alreadyAttached=true;
+  int tmp = selected_module_type;
+  UserOperation *tmp2 = userOperation;
   for(size_t i=0;i<mMenuButtons.size();i++)
     {
       Component *c=findComponent(mMenuButtons[i]);
@@ -429,14 +441,13 @@ void ButtonPanel::attachButtons()
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
                      createTooltip( mMenuSelected[ mMenus[ i ] ] ).c_str(),
-                     requiredTech( mMenuSelected[ mMenus[ i ] ]));
+                     ButtonOperations[mMenuButtons[i]].requiredTech());
             b->setTooltip(tooltip);
           }
         }
       }
     }
-  int tmp = selected_module_type;
-  UserOperation *tmp2 = userOperation;
+
   for(size_t i=0;i<mButtons.size();i++)
     {
       Component *c=findComponent(mButtons[i]);
@@ -455,7 +466,7 @@ void ButtonPanel::attachButtons()
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
                      createTooltip( selected_module_type, false ).c_str(),
-                     requiredTech(selected_module_type));
+                     userOperation->requiredTech());
             b->setTooltip(tooltip);
           }
         }
@@ -464,8 +475,6 @@ void ButtonPanel::attachButtons()
     selected_module_type = tmp;
     userOperation = tmp2;
     checkTech(0);
-    //FIXME : disable all menus
-
     // now hide menu
     for(size_t i=0;i<mMenuButtons.size();i++)
     {
@@ -473,18 +482,18 @@ void ButtonPanel::attachButtons()
         Component *c=findComponent(mMenus[i]);
         if(c)
         {
-          // try en-/disabling compoent
-          // first get parent
-          Component *p=c->getParent();
-          if(p)
-          {
+            // try en-/disabling compoent
+            // first get parent
+            Component *p=c->getParent();
+            if(p)
+            {
             Childs::iterator i=p->childs.begin();
             for(;i!=p->childs.end();i++)
               if(i->getComponent()==c)
                {
                  i->enable(false);
                }
-          }
+            }
         }
     }
 }
@@ -514,11 +523,12 @@ void ButtonPanel::selectQueryTool(){
     chooseButtonClicked( queryButton, SDL_BUTTON_LEFT );
 }
 
-void ButtonPanel::toggleBulldozeTool(){
-    if( selected_module_type == CST_GREEN ){
-        switchToTool( previousTool );
-    }
-    else{
+void ButtonPanel::toggleBulldozeTool()
+{
+    if( selected_module_type == CST_GREEN )
+    {   switchToTool( previousTool );}
+    else
+    {
         previousTool = selected_module_type;
         CheckButton* bulldozeButton = getCheckButton( *this, "BPMBullDozeButton");
         chooseButtonClicked( bulldozeButton, SDL_BUTTON_LEFT );
@@ -683,9 +693,8 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     std::string mmain=button->getMain();
     int tmp = selected_module_type;
     UserOperation *tmp2 = userOperation;
-    //doButton(button->getName());
-    selected_module_type = ButtonOperations[button->getName()].selected_module_type;
     userOperation = &(ButtonOperations[button->getName()]);
+     selected_module_type =  userOperation->selected_module_type;
 
     if( mousebutton == SDL_BUTTON_RIGHT ){
         showToolHelp( selected_module_type );
@@ -703,7 +712,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
         if(mmain.length())
         {
             Component *c=findComponent(mmain);
-            if(c && enoughTech( selected_module_type))
+            if(c && userOperation->enoughTech())
             {
                 cb=dynamic_cast<CheckButton*>(c);
                 if(cb)
@@ -717,15 +726,16 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
             }
         }
     }
-
+/*
     //doButton(button->getName());
     selected_module_type = ButtonOperations[button->getName()].selected_module_type;
     userOperation = &(ButtonOperations[button->getName()]);
+*/
     // now hide menu
     for(size_t i=0;i<mMenuButtons.size();i++) {
         if(mmain==mMenuButtons[i])
         {
-            if(enoughTech( selected_module_type)) {
+            if(userOperation->enoughTech()) {
                 mMenuSelected[mMenus[i]]=selected_module_type;// set default
             }
             // get Component
@@ -746,14 +756,14 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
         }
     }
 
-    if(!enoughTech( selected_module_type))
+    if(!userOperation->enoughTech())
     {
 #ifdef DEBUG
-        short grp = get_group_of_type(selected_module_type);
-        ConstructionGroup *constructionGroup = ConstructionGroup::getConstructionGroup(grp);
-        std::cout <<"chooseButton not enough tech for " << selected_module_type << ": "<< (constructionGroup?constructionGroup->name:main_groups[grp].name) << std::endl;
+        ConstructionGroup *constructionGroup = userOperation->constructionGroup;
+        std::cout <<"chooseButton not enough tech for: " << (constructionGroup?constructionGroup->name:"unknown") << std::endl;
 #endif
         selected_module_type = tmp;
+        userOperation = tmp2;
         updateSelectedCost();
     }
     if(cb != 0)
@@ -805,17 +815,19 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
             // get Component
             Component* c=findComponent(mMenus[i]);
             //Check if Techlevel is sufficient.
-            //TODO find out about mMenuSelected[mMenus[i]] and userOperation
-            if( enoughTech( mMenuSelected[mMenus[i]] ) && ( b == SDL_BUTTON_RIGHT ) ){
+            if(  ButtonOperations[mMenuButtons[i]].enoughTech() && ( b != SDL_BUTTON_RIGHT ) )
+            {
                 selected_module_type=selected_module=mMenuSelected[mMenus[i]];
                 updateSelectedCost();
                 button->check();
             }
+/*
             if( mMenuSelected[mMenus[i]] == selected_module_type ){ //button toggles on every click
                 button->check();
             } else {
                 button->uncheck();
             }
+*/
             if(c) {
                 // try en-/disabling compoent
                 // first get parent
@@ -852,15 +864,7 @@ void ButtonPanel::menuButtonClicked(CheckButton* button,int b)
     // get selected button and set module
 
     //Tell GameView to use the right Cursor
-/*
-    if( selected_module_type == CST_NONE ) {
-        getGameView()->setCursorSize( 0 );
-    } else {
-        int selected_module_group = get_group_of_type(selected_module_type);
-        int size = main_groups[selected_module_group].size;
-        getGameView()->setCursorSize( size );
-    }
-*/
+
     if( userOperation->action == UserOperation::ACTION_QUERY )
     {   getGameView()->setCursorSize( 0 );}
     else if(userOperation->action == UserOperation::ACTION_BUILD)

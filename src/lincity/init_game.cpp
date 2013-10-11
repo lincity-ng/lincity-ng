@@ -787,10 +787,8 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
 {
     // Starting point is a local minimum
 
-    if ( world.is_border(start_x, start_y) || world.is_edge(start_x, start_y))
-    {
-        return -1;
-    }
+    if ( !world.is_visible(start_x, start_y) )
+    {   return -1;}
     const int len = world.len();
     int index, level;
     int flooding_level;
@@ -832,7 +830,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
 */
         //dont grow lakes in diagonal steps,
         //it might result in disconnected rivers
-        for (int i=0; i<4; i++)
+        for (int i=0; i<8; i++)
         {
             int x = xx + dx[i];
             int y = yy + dy[i];
@@ -867,17 +865,13 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
                         int tx = x_min + dxo[ii];
                         int ty = y_min + dyo[ii];
                         if (!world.is_inside(tx,ty))
-                        {
-                            continue;
-                        }
+                        {   continue;}
                         //Allow a little walking along edge of a plateau
                         if(min_alt >= world(tx, ty)->ground.altitude)
                         {
                             //dont go back into lake at first step i.e test if there is any second exit
                             if ( s == 1 && *i1(tx,ty))
-                            {
-                                continue;
-                            }
+                            {   continue;}
                             min_alt = world(tx, ty)->ground.altitude;
                             x_min = tx;
                             y_min = ty;
@@ -935,7 +929,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
                         xt = xx;
                     }
                     world(xt,yt)->ground.altitude = new_level;
-                    river_starts.push_back(xt + yt * len);
+                    set_river_tile(xt,yt);
                 }
             }
         } //end for
@@ -949,9 +943,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
             {
                 int idx = lake[i];
                 if (idx == -1)
-                {
-                    continue;
-                }
+                {   continue;}
                 int tx = idx % len;
                 int ty = idx / len;
                 if (world(tx,ty)->ground.altitude < lowest_exit_level)
@@ -960,9 +952,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
                     *i1(tx,ty) = 1;
                 }
                 else
-                {
-                    lake[i] = -1;
-                }
+                {   lake[i] = -1;}
             }
         }
     } //endwhile
@@ -977,9 +967,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
     {
         index = lake[it];
         if(index==-1)
-        {
-            continue;
-        }
+        {   continue;}
         int x = index % len;
         int y = index / len;
         world(x,y)->ground.altitude = flooding_level;
@@ -1115,7 +1103,6 @@ static int quick_river( int xx, int yy)
             y_new = y;
         }
     }
-
     return world.is_visible(x_new,y_new)? x_new + y_new * world.len(): -1;
 }
 
