@@ -36,26 +36,20 @@ void Substation::update()
     {
         commodityCount[STUFF_MWH] -= use_MWH;
         commodityCount[STUFF_KWH] += 2 * use_MWH;
-        working_days++;
+        working_days += use_MWH;
     }
     if (total_time % 100 == 0) //monthly update
     {
-        busy = working_days;
+        busy = working_days/SUBSTATION_MWH;
         working_days = 0;
     }
     /* choose a graphic */
     if (commodityCount[STUFF_MWH] > (MAX_MWH_AT_SUBSTATION / 2))
-    {
-        type = CST_SUBSTATION_G;
-    }
+    {   type = CST_SUBSTATION_G;}
     else if (commodityCount[STUFF_MWH] > (MAX_MWH_AT_SUBSTATION / 20))
-    {
-        type = CST_SUBSTATION_RG;
-    }
+    {   type = CST_SUBSTATION_RG;}
     else
-    {
-        type = CST_SUBSTATION_R;
-    }
+    {   type = CST_SUBSTATION_R;}
 }
 
 void Substation::report()
