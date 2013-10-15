@@ -60,7 +60,7 @@ static void do_rand_ecology(int x, int y, int r);
 //static Shoreline * init_shore(void);
 //static void free_shore(Shoreline *shore);
 static int overfill_lake(int xl, int yl);//, Shoreline *shore, int lake_id);
-static void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate);
+
 
 /* ---------------------------------------------------------------------- *
  * Public Functions
@@ -151,21 +151,33 @@ void clear_game(void)
 
 void new_city(int *originx, int *originy, int random_village)
 {
+    world.old_setup_ground = true;
+    world.climate = 0;
+    world.seed(rand());
     create_new_city( originx, originy, random_village, true, 0);
 }
 
 void new_desert_city(int *originx, int *originy, int random_village)
 {
+    world.old_setup_ground = false;
+    world.climate = 1;
+    world.seed(rand());
     create_new_city( originx, originy, random_village, false, 1);
 }
 
 void new_temperate_city(int *originx, int *originy, int random_village)
 {
+    world.old_setup_ground = false;
+    world.climate = 2;
+    world.seed(rand());
     create_new_city( originx, originy, random_village, false, 2);
 }
 
 void new_swamp_city(int *originx, int *originy, int random_village)
 {
+    world.old_setup_ground = false;
+    world.climate = 3;
+    world.seed(rand());
     create_new_city( originx, originy, random_village, false, 3);
 }
 
@@ -276,28 +288,17 @@ void setup_land()
  * Private Functions
  * ---------------------------------------------------------------------- */
 
-static void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate)
+void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate)
 {
 
-
-    //if (world_id == 0)
-    //{
-        world.seed(rand());
-        world.old_setup_ground = old_setup_ground;
-        world.climate = climate;
-    //}
-/*
-    else
-    {
-        old_setup_ground = world.old_setup_ground;
-        climate = world.climate;
-        random_village = 0;
-    }
-    */
     srand(world.seed());
+    if(random_village == -1) //newline in case of reading savegame
+    {   std::cout << std::endl;}
     std::cout << "world id: " << world.seed() << std::endl;
 
-    clear_game();
+    if (random_village != -1) //Only if we are not reconstructing from seed
+    {   clear_game();}
+
     coal_reserve_setup();
 
     global_mountainity= 100 + rand () % 300; // roughly water slope = 25m / 1km (=from N to S)

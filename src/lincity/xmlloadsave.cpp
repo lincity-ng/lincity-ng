@@ -8,6 +8,7 @@
 #include "gui_interface/readpng.h"
 #include "xmlloadsave.h"
 #include "engglobs.h"
+#include "init_game.h"
 
 std::map <std::string, XMLTemplate*> xml_template_libary;
 std::map <unsigned short, XMLTemplate*> bin_template_libary;
@@ -152,6 +153,7 @@ XMLloadsave::XMLloadsave()
     constructionSection = false;
     templateDefinition = false;
     prescan = false;
+    altered_tiles = -1;
 }
 
 XMLloadsave::~XMLloadsave() {}
@@ -328,10 +330,10 @@ int XMLloadsave::loadXMLfile(std::string xml_file_name)
     gzclose(gz_xml_file);
     std::cout << "done" << std::endl;
     //std::cout << "read " << globalCount << " global vars from XML" << std::endl;
-    if (mapTileCount != world.len() * world.len())
-    {
-        std::cout << "Warning number of MapTiles ("<<mapTileCount<<") and world_side_len² ("<< world.len() <<")² dont match" << std::endl;
-    }
+    if (!seed_compression && (mapTileCount != world.len() * world.len()) )
+    {   std::cout << "Warning number of MapTiles ("<<mapTileCount<<") and world_side_len² ("<< world.len() <<")² dont match" << std::endl;}
+    else if (seed_compression && mapTileCount != altered_tiles)
+    {   std::cout << "Warning number of MapTiles ("<<mapTileCount<<") and altered_tiles (" << altered_tiles << ") dont match" << std::endl;}
     //std::cout << "read " << memberCount << " XML values for " << constructionCount << " different contructions" << std::endl;
     //clearXMLlibary();
     return 0;
@@ -340,9 +342,7 @@ int XMLloadsave::loadXMLfile(std::string xml_file_name)
 void XMLloadsave::readTemplateSection()
 {
     do
-    {
-        get_interpreted_line();
-    }
+    {   get_interpreted_line();}
     while (line!="</TemplateSection>" && !gzeof(gz_xml_file));
 }
 
@@ -499,16 +499,31 @@ XMLloadsave::loadTileTemplates()
     const int wlen = world.len();
     const int area = wlen*wlen;
     int idx;
-    for(int i=0; i<area; ++i)
+    if(seed_compression)
+    {
+        if(altered_tiles == -1)
+        {
+            std::cout << "missing altered_tiles for reading binary tiles" << std::endl;
+            assert(false);
+        }
+        if((world.climate != -1) && (world.old_setup_ground != -1) && (altered_tiles != -1))
+        {
+            int x,y;
+            create_new_city( &x, &y, -1, world.old_setup_ground, world.climate);
+        }
+        else
+        {   std::cout << "missing either climate, old_setup_ground or altered_tiles in savegame" << std::endl;}
+    }
+    int last_i = seed_compression?altered_tiles:area;
+    for(int i=0; i<last_i; ++i)
     {
         gzread(gz_xml_file, (char *)&head, sizeof(head));
         gzread(gz_xml_file, (char *)&group, sizeof(group));
         gzread(gz_xml_file, (char *)&type, sizeof(type));
         gzread(gz_xml_file, (char *)&idx, sizeof(idx));
 
-        //assert((head == 42) && (idx == i));
         cur_template->rewind();
-        MapTile *cur_tile = world(i);
+        MapTile *cur_tile = world(idx);
         cur_tile->group = group;
         cur_tile->type = type;
         size_t cm = 0;
@@ -586,6 +601,9 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<GlobalVariables>" << std::endl;
 
     xml_file_out << "<binary_mode>"                 << binary_mode             << "</binary_mode>" << std::endl;
+    xml_file_out << "<seed_compression>"            << seed_compression        << "</seed_compression>" << std::endl;
+     xml_file_out << "<altered_tiles>"              << world.count_altered()   << "</altered_tiles>" << std::endl;
+
     xml_file_out << "<constructions>"               << ::constructionCount.count() << "</constructions>" << std::endl;
     xml_file_out << "<given_scene>"                 << given_scene             << "</given_scene>" << std::endl;
     xml_file_out << "<world_id>"                    << world_id                << "</world_id>" << std::endl;
@@ -601,16 +619,51 @@ void XMLloadsave::saveGlobals()
 
     xml_file_out << "<people_pool>"                << people_pool              << "</people_pool>" << std::endl;
     xml_file_out << "<total_money>"                << total_money              << "</total_money>" << std::endl;
+    xml_file_out << "<ly_income_tax>"              << ly_income_tax            << "</ly_income_tax>" << std::endl;
+    xml_file_out << "<income_tax>"                 << income_tax               << "</income_tax>" << std::endl;
     xml_file_out << "<income_tax_rate>"            << income_tax_rate          << "</income_tax_rate>" << std::endl;
+
+    xml_file_out << "<ly_coal_tax>"                << ly_coal_tax              << "</ly_coal_tax>" << std::endl;
+    xml_file_out << "<coal_tax>"                   << coal_tax                 << "</coal_tax>" << std::endl;
     xml_file_out << "<coal_tax_rate>"              << coal_tax_rate            << "</coal_tax_rate>" << std::endl;
+    xml_file_out << "<ly_unemployment_cost>"       << ly_unemployment_cost     << "</ly_unemployment_cost>" << std::endl;
+    xml_file_out << "<unemployment_cost>"          << unemployment_cost        << "</unemployment_cost>" << std::endl;
     xml_file_out << "<dole_rate>"                  << dole_rate                << "</dole_rate>" << std::endl;
 
+    xml_file_out << "<ly_transport_cost>"          << ly_transport_cost        << "</ly_transport_cost>" << std::endl;
+    xml_file_out << "<transport_cost>"             << transport_cost           << "</transport_cost>" << std::endl;
     xml_file_out << "<transport_cost_rate>"        << transport_cost_rate      << "</transport_cost_rate>" << std::endl;
+    xml_file_out << "<ly_goods_tax>"               << ly_goods_tax             << "</ly_goods_tax>" << std::endl;
+    xml_file_out << "<goods_tax>"                  << goods_tax                << "</goods_tax>" << std::endl;
     xml_file_out << "<goods_tax_rate>"             << goods_tax_rate           << "</goods_tax_rate>" << std::endl;
+
+    xml_file_out << "<ly_export_tax>"              << ly_export_tax            << "</ly_export_tax>" << std::endl;
     xml_file_out << "<export_tax>"                 << export_tax               << "</export_tax>" << std::endl;
     xml_file_out << "<export_tax_rate>"            << export_tax_rate          << "</export_tax_rate>" << std::endl;
+    xml_file_out << "<ly_import_cost>"             << ly_import_cost           << "</ly_import_cost>" << std::endl;
     xml_file_out << "<import_cost>"                << import_cost              << "</import_cost>" << std::endl;
     xml_file_out << "<import_cost_rate>"           << import_cost_rate         << "</import_cost_rate>" << std::endl;
+
+    xml_file_out << "<ly_university_cost>"         << ly_university_cost       << "</ly_university_cost>" << std::endl;
+    xml_file_out << "<university_cost>"            << university_cost          << "</university_cost>" << std::endl;
+    xml_file_out << "<ly_recycle_cost>"            << ly_recycle_cost          << "</ly_recycle_cost>" << std::endl;
+    xml_file_out << "<recycle_cost>"               << recycle_cost             << "</recycle_cost>" << std::endl;
+    xml_file_out << "<ly_school_cost>"             << ly_school_cost           << "</ly_school_cost>" << std::endl;
+    xml_file_out << "<school_cost>"                << school_cost              << "</school_cost>" << std::endl;
+
+    xml_file_out << "<ly_health_cost>"             << ly_health_cost           << "</ly_health_cost>" << std::endl;
+    xml_file_out << "<health_cost>"                << health_cost              << "</health_cost>" << std::endl;
+    xml_file_out << "<ly_deaths_cost>"             << ly_deaths_cost           << "</ly_deaths_cost>" << std::endl;
+    xml_file_out << "<deaths_cost>"                << deaths_cost              << "</deaths_cost>" << std::endl;
+    xml_file_out << "<ly_rocket_pad_cost>"         << ly_rocket_pad_cost       << "</ly_rocket_pad_cost>" << std::endl;
+    xml_file_out << "<rocket_pad_cost>"            << rocket_pad_cost          << "</rocket_pad_cost>" << std::endl;
+
+    xml_file_out << "<ly_windmill_cost>"           << ly_windmill_cost         << "</ly_windmill_cost>" << std::endl;
+    xml_file_out << "<windmill_cost>"              << windmill_cost            << "</windmill_cost>" << std::endl;
+    xml_file_out << "<ly_fire_cost>"               << ly_fire_cost             << "</ly_fire_cost>" << std::endl;
+    xml_file_out << "<fire_cost>"                  << fire_cost                << "</fire_cost>" << std::endl;
+    xml_file_out << "<ly_cricket_cost>"            << ly_cricket_cost          << "</ly_cricket_cost>" << std::endl;
+    xml_file_out << "<cricket_cost>"               << cricket_cost             << "</cricket_cost>" << std::endl;
 
     xml_file_out << "<tech_level>"                 << tech_level               << "</tech_level>" << std::endl;
     xml_file_out << "<highest_tech_level>"         << highest_tech_level       << "</highest_tech_level>" << std::endl;
@@ -669,6 +722,8 @@ void XMLloadsave::saveGlobals()
         xml_file_out << "</pbar>"                                    << std::endl;
         flush_gz_output();
     }
+    if (seed_compression)
+    {   writePollution();}
     xml_file_out << "</GlobalVariables>" << std::endl;
     flush_gz_output();
 }
@@ -678,6 +733,7 @@ void XMLloadsave::loadGlobals()
     int r, monthgraph_size_in_file;
     int new_world_len;
     binary_mode = false; //set save default for old files
+    seed_compression = false; //set save default for old files
     do
     {
         get_interpreted_line();
@@ -687,6 +743,9 @@ void XMLloadsave::loadGlobals()
 
             globalCount++;
             if (xml_tag == "binary_mode")                          {binary_mode = (xml_val == "1")||(xml_val == "yes");}
+            else if (xml_tag == "seed_compression")                {seed_compression = (xml_val == "1")||(xml_val == "yes");}
+            else if (xml_tag == "altered_tiles")                   {sscanf(xml_val.c_str(),"%d",&altered_tiles);}
+
             else if (xml_tag == "constructions")                   {sscanf(xml_val.c_str(),"%d",&totalConstructions);}
             else if (xml_tag == "given_scene")                     {strcpy(given_scene, xml_val.c_str());}
             else if (xml_tag == "global_aridity")                  {sscanf(xml_val.c_str(),"%d",&global_aridity);}
@@ -704,16 +763,52 @@ void XMLloadsave::loadGlobals()
 
             else if (xml_tag == "people_pool")                     {sscanf(xml_val.c_str(),"%d",&people_pool);}
             else if (xml_tag == "total_money")                     {sscanf(xml_val.c_str(),"%d",&total_money);}
+            else if (xml_tag == "ly_income_tax")                   {sscanf(xml_val.c_str(),"%d",&ly_income_tax);}
+            else if (xml_tag == "income_tax")                      {sscanf(xml_val.c_str(),"%d",&income_tax);}
             else if (xml_tag == "income_tax_rate")                 {sscanf(xml_val.c_str(),"%d",&income_tax_rate);}
+
+            else if (xml_tag == "ly_coal_tax")                     {sscanf(xml_val.c_str(),"%d",&ly_coal_tax);}
+            else if (xml_tag == "coal_tax")                        {sscanf(xml_val.c_str(),"%d",&coal_tax);}
             else if (xml_tag == "coal_tax_rate")                   {sscanf(xml_val.c_str(),"%d",&coal_tax_rate);}
+
+            else if (xml_tag == "ly_unemployment_cost")           {sscanf(xml_val.c_str(),"%d",&ly_unemployment_cost);}
+            else if (xml_tag == "unemployment_cost")              {sscanf(xml_val.c_str(),"%d",&unemployment_cost);}
             else if (xml_tag == "dole_rate")                       {sscanf(xml_val.c_str(),"%d",&dole_rate);}
 
+            else if (xml_tag == "ly_transport_cost")               {sscanf(xml_val.c_str(),"%d",&ly_transport_cost);}
+            else if (xml_tag == "transport_cost")                  {sscanf(xml_val.c_str(),"%d",&transport_cost);}
             else if (xml_tag == "transport_cost_rate")             {sscanf(xml_val.c_str(),"%d",&transport_cost_rate);}
+            else if (xml_tag == "ly_goods_tax")                    {sscanf(xml_val.c_str(),"%d",&ly_goods_tax);}
+            else if (xml_tag == "goods_tax")                       {sscanf(xml_val.c_str(),"%d",&goods_tax);}
             else if (xml_tag == "goods_tax_rate")                  {sscanf(xml_val.c_str(),"%d",&goods_tax_rate);}
+
+            else if (xml_tag == "ly_export_tax")                   {sscanf(xml_val.c_str(),"%d",&ly_export_tax);}
             else if (xml_tag == "export_tax")                      {sscanf(xml_val.c_str(),"%d",&export_tax);}
             else if (xml_tag == "export_tax_rate")                 {sscanf(xml_val.c_str(),"%d",&export_tax_rate);}
+            else if (xml_tag == "ly_import_cost")                  {sscanf(xml_val.c_str(),"%d",&ly_import_cost);}
             else if (xml_tag == "import_cost")                     {sscanf(xml_val.c_str(),"%d",&import_cost);}
             else if (xml_tag == "import_cost_rate")                {sscanf(xml_val.c_str(),"%d",&import_cost_rate);}
+
+            else if (xml_tag == "ly_university_cost")              {sscanf(xml_val.c_str(),"%d",&ly_university_cost);}
+            else if (xml_tag == "university_cost")                 {sscanf(xml_val.c_str(),"%d",&university_cost);}
+            else if (xml_tag == "ly_recycle_cost")                 {sscanf(xml_val.c_str(),"%d",&ly_recycle_cost);}
+            else if (xml_tag == "recycle_cost")                    {sscanf(xml_val.c_str(),"%d",&recycle_cost);}
+            else if (xml_tag == "ly_school_cost")                  {sscanf(xml_val.c_str(),"%d",&ly_school_cost);}
+            else if (xml_tag == "school_cost")                     {sscanf(xml_val.c_str(),"%d",&school_cost);}
+
+            else if (xml_tag == "ly_health_cost")                  {sscanf(xml_val.c_str(),"%d",&ly_health_cost);}
+            else if (xml_tag == "health_cost")                     {sscanf(xml_val.c_str(),"%d",&health_cost);}
+            else if (xml_tag == "ly_deaths_cost")                  {sscanf(xml_val.c_str(),"%d",&ly_deaths_cost);}
+            else if (xml_tag == "deaths_cost")                     {sscanf(xml_val.c_str(),"%d",&deaths_cost);}
+            else if (xml_tag == "ly_rocket_pad_cost")         {sscanf(xml_val.c_str(),"%d",&ly_rocket_pad_cost);}
+            else if (xml_tag == "rocket_pad_cost")            {sscanf(xml_val.c_str(),"%d",&rocket_pad_cost);}
+
+            else if (xml_tag == "ly_windmill_cost")                {sscanf(xml_val.c_str(),"%d",&ly_windmill_cost);}
+            else if (xml_tag == "windmill_cost")                   {sscanf(xml_val.c_str(),"%d",&windmill_cost);}
+            else if (xml_tag == "ly_fire_cost")                    {sscanf(xml_val.c_str(),"%d",&ly_fire_cost);}
+            else if (xml_tag == "fire_cost")                       {sscanf(xml_val.c_str(),"%d",&fire_cost);}
+            else if (xml_tag == "ly_cricket_cost")                 {sscanf(xml_val.c_str(),"%d",&ly_cricket_cost);}
+            else if (xml_tag == "cricket_cost")                    {sscanf(xml_val.c_str(),"%d",&cricket_cost);}
 
             else if (xml_tag == "tech_level")                      {sscanf(xml_val.c_str(),"%d",&tech_level);}
             else if (xml_tag == "highest_tech_level")              {sscanf(xml_val.c_str(),"%d",&highest_tech_level);}
@@ -776,6 +871,8 @@ void XMLloadsave::loadGlobals()
             {    readArray(monthgraph_ppool, monthgraph_size_in_file, monthgraph_size);}
             else if (xml_tag == "pbar")
             {    readPbar();}
+            else if (xml_tag == "Pollution")
+            {    readPollution();}
             else
             {
                 std::cout << "Unknown XML opening " << line << " while reading <GlobalVariables>"<<std::endl;
@@ -798,9 +895,11 @@ void XMLloadsave::saveMapTiles()
     const int area = len * len;
     for (int index = 0; index<area; index++)
     {
-        world(index)->saveMembers(&xml_file_out);
-        flush_gz_output();
-
+        if(!seed_compression || (world(index)->flags & FLAG_ALTERED))
+        {
+            world(index)->saveMembers(&xml_file_out);
+            flush_gz_output();
+        }
     }
     if (binary_mode)
     {   xml_file_out << std::endl;}
@@ -814,6 +913,14 @@ void XMLloadsave::loadMapTiles()
     unsigned int value;
     bool inside_MapTile;
     MapTile *cur_tile = world(0);
+
+    if(seed_compression)
+    {
+        if((world.climate != -1) && (world.old_setup_ground != -1) && (altered_tiles != -1))
+        {   create_new_city( &x, &y, -1, world.old_setup_ground, world.climate);}
+        else
+        {   std::cout << "missing either climate, old_setup_ground or altered_tiles in savegame" << std::endl;}
+    }
 
     prescan = true;
     inside_MapTile = false;
@@ -895,6 +1002,7 @@ void XMLloadsave::loadMapTiles()
         }
     }
     while (line != "</MapTileSection>" && !gzeof(gz_xml_file));
+
     mapTileSection = false;
 }
 
@@ -904,9 +1012,7 @@ void XMLloadsave::writeArray(std::string aryname, int ary[], int len)
     xml_file_out << "<"<<aryname<<">" << std::endl;
     xml_file_out << "<int>";
     for (i=0;i<len;i++)
-    {
-        xml_file_out << ary[i] << "\t";
-    }
+    {   xml_file_out << ary[i] << "\t";}
     xml_file_out << "</int>" << std::endl;
     xml_file_out << "</"<<aryname<<">" << std::endl;
     flush_gz_output();
@@ -944,7 +1050,7 @@ void XMLloadsave::readArray(int ary[], int max_len, int len)
             return;
         }
     }
-    while (r == 2 && /*!xml_file_in.eof() &&*/ !gzeof(gz_xml_file)); //read as long as their a pairs of identical xmltags
+    while (r == 2 && !gzeof(gz_xml_file)); //read as long as their a pairs of identical xmltags
     while (i < len)
     {
         //std::cout << 0;
@@ -953,6 +1059,118 @@ void XMLloadsave::readArray(int ary[], int max_len, int len)
 
 
 }
+
+void XMLloadsave::writePollution(void)
+{
+    int items = 0;
+    xml_file_out << "<"<<"Pollution"<<">" << std::endl;
+    xml_file_out << "<"<<"places"<<">" << std::endl;
+    xml_file_out << "<int>";
+    for ( std::set<int>::iterator it=world.polluted.begin();it != world.polluted.end();++it)
+    {
+        if(items > 100)
+        {
+            xml_file_out << "</int>" << std::endl << "<int>";
+            items = 0;
+        }
+        xml_file_out << *it << "\t";
+        ++items;
+    }
+    xml_file_out << "</int>" << std::endl;
+    xml_file_out << "</places"<<">" << std::endl;
+
+    items = 0;
+    xml_file_out << "<"<<"air_pollution"<<">" << std::endl;
+    xml_file_out << "<int>";
+    for ( std::set<int>::iterator it = world.polluted.begin();it != world.polluted.end();++it)
+    {
+        if(items > 100)
+        {
+            xml_file_out << "</int>" << std::endl << "<int>";
+            items = 0;
+        }
+        xml_file_out << world(*it)->pollution << "\t";
+        ++items;
+    }
+    xml_file_out << "</int>" << std::endl;
+    xml_file_out << "</air_pollution"<<">" << std::endl;
+    xml_file_out << "<"<<"/Pollution"<<">" << std::endl;
+    flush_gz_output();
+}
+
+void XMLloadsave::readPollution(void)
+{
+    int r, pos;
+    std::string val;
+    //std::cout << "reading " << len << " elements from int["<< max_len << "]" << std::endl;
+    get_interpreted_line();
+    r = sliceXMLline();
+    if ((r==1) && xml_tag == "places")
+    {
+        world.polluted.clear();
+        do
+        {
+            get_interpreted_line();
+            r = sliceXMLline();
+            if ((r == 2) && (xml_tag == "int") && (xml_val.length()))
+            {
+                while(!xml_val.empty())
+                {
+                    pos = xml_val.find("\t");
+                    val = xml_val.substr(0, pos);
+                    int value = 0;
+                    sscanf(val.c_str(),"%d",&value);
+                    world.polluted.insert(value);
+                    xml_val.erase(0, pos);
+                    xml_val.erase(0,1);
+                }
+            }
+            else if (r != -1 && (xml_tag != "int"))
+            {
+                std::cout << "unexpected syntax in Pollution/places: " << line << std::endl;
+                return;
+            }
+        }
+        while (r == 2 && !gzeof(gz_xml_file)); //read as long as there a pairs of identical xmltags
+    }
+    get_interpreted_line();
+    r = sliceXMLline();
+    if ((r==1) && xml_tag == "air_pollution")
+    {
+        std::set<int>::iterator it = world.polluted.begin();
+        do
+        {
+            get_interpreted_line();
+            r = sliceXMLline();
+            if ((r == 2) && (xml_tag == "int") && (xml_val.length()))
+            {
+                while(!xml_val.empty() && (it != world.polluted.end()))
+                {
+                    pos = xml_val.find("\t");
+                    val = xml_val.substr(0, pos);
+                    //int value = 0;
+                    sscanf(val.c_str(),"%d",&(world(*it++)->pollution));
+                    xml_val.erase(0, pos);
+                    xml_val.erase(0,1);
+                }
+            }
+            else if (r != -1 && (xml_tag != "int"))
+            {
+                std::cout << "unexpected syntax in Pollution/air_pollution: " << line << std::endl;
+                return;
+            }
+            if(it == world.polluted.end() && (!xml_val.empty()))
+            {   std::cout << "warning places and air_pollution dont match" << std::endl;}
+        }
+        while (r == 2 && !gzeof(gz_xml_file)); //read as long as there a pairs of identical xmltags
+    }
+    get_interpreted_line();
+    r = sliceXMLline();
+    if( (r!=-1) && (xml_tag != "Pollution") )
+    { std::cout << "expected </Pollution> instead of: " << line << std::endl;}
+}
+
+
 
 void XMLloadsave::readPbar()
 {
@@ -1020,7 +1238,7 @@ int XMLloadsave::sliceXMLline()
         }
         else
         {
-            std::cout << "unexpected syntax" << std::endl;
+            std::cout << "unexpected syntax: " << line <<std::endl;
             return 0; // unexpected syntax
         }
     }

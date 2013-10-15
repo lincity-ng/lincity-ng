@@ -64,7 +64,7 @@ MapTile::MapTile():ground()
 MapTile::~MapTile()
 {
     //TODO handle this via ::ConstrictionCount
-/*    
+/*
     if (construction)
     {
         ::constructionCount.remove_construction(construction);
@@ -1010,8 +1010,8 @@ void Construction::trade()
         }
         ratio = lvl * TRANSPORT_QUANTA / cap;
         max_traffic = 0;
-        int old_center = center_lvl;        
-        //make flow towards ratio 
+        int old_center = center_lvl;
+        //make flow towards ratio
         for(unsigned int i = 0; i < neighsize; ++i)
         {
             if(lvls[i])
@@ -1246,8 +1246,8 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
 
     //handle transport quickly
     if(world.is_visible(x, y) && (group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_TRACK))
-    {   return (world(x,y)->is_bare() || 
-            world(x,y)->is_powerline() || 
+    {   return (world(x,y)->is_bare() ||
+            world(x,y)->is_powerline() ||
     (world(x,y)->is_water() && !world(x,y)->is_transport()) ||
     ((world(x,y)->is_transport() && world(x,y)->getTransportGroup() != group)));
     }

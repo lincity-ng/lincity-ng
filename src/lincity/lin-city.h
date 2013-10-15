@@ -65,6 +65,7 @@
 //#define FLAG_MB_FOOD          (0x100)
 #define FLAG_MARKET_COVER       (0x100) //mapTile only
 #define FLAG_NEVER_EVACUATE     (0x100) //contruction only
+#define FLAG_ALTERED            (0x200) //mapTile only
 #define FLAG_EVACUATE           (0x200) //construction only
 #define FLAG_IS_GHOST           (0x400) //temporary construction like fireplace
 #define FLAG_ROCKET_READY       (0x800) //construction (Rocket Pad) only

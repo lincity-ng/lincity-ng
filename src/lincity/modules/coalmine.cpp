@@ -53,6 +53,7 @@ void Coalmine::update()
                 {
                     world(xx,yy)->coal_reserve--;
                     world(xx,yy)->pollution += COALMINE_POLLUTION;
+                    world(xx,yy)->flags |= FLAG_ALTERED;
                     commodityCount[STUFF_COAL] += COAL_PER_RESERVE;
                     commodityCount[STUFF_JOBS] -= COALMINE_JOBS;
                     if (current_coal_reserve < initial_coal_reserve)
@@ -73,7 +74,7 @@ void Coalmine::update()
                 if (world(xx,yy)->coal_reserve < COAL_RESERVE_SIZE)
                 {
                     world(xx,yy)->coal_reserve++;
-
+                    world(xx,yy)->flags |= FLAG_ALTERED;
                     commodityCount[STUFF_COAL] -= COAL_PER_RESERVE;
                     commodityCount[STUFF_JOBS] -= COALMINE_JOBS;
                     coal_found = true;

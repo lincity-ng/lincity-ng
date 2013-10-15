@@ -10,6 +10,7 @@
 void clear_game(void);
 void setup_land(void);
 void new_city(int *originx, int *originy, int random_village);
+void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate);
 
 #endif /* __init_game_h__ */
 

@@ -165,6 +165,7 @@ void editMap (MapPoint point, int button)
     if (userOperation->action == UserOperation::ACTION_FLOOD && button != SDL_BUTTON_RIGHT)
     {
         world(x, y)->setTerrain(userOperation->type);
+        world(x, y)->flags |= FLAG_ALTERED;
         adjust_money(-selected_module_cost);
         desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
         connect_rivers(x, y);

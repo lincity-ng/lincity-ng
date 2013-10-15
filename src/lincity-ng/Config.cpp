@@ -46,7 +46,7 @@ Config::Config()
     //Default Values
     useOpenGL = true;  //OpenGL is often way too slow
     useFullScreen = true;
-    videoX = 1024; 
+    videoX = 1024;
     videoY = 768;
 
     soundVolume = 100;
@@ -54,8 +54,8 @@ Config::Config()
     soundEnabled = true;
     musicEnabled = true;
     restartOnChangeScreen = true;
-     
-    //#define MONTHGRAPH_W 120 
+
+    //#define MONTHGRAPH_W 120
     //#define MONTHGRAPH_H 64
     monthgraphW = 190;
     monthgraphH = 64;
@@ -100,8 +100,8 @@ Config::~Config()
  * use defaultValue on Errors or if Value is not in given Interval.
  */
 int Config::parseInt( const char* value, int defaultValue, int minValue, int maxValue ) {
-    int tmp; 
-    if(sscanf(value, "%i", &tmp) != 1) 
+    int tmp;
+    if(sscanf(value, "%i", &tmp) != 1)
     {
         std::cerr << "Config::parseInt# Error parsing integer value '" << value << "'.\n";
         tmp = defaultValue;
@@ -120,12 +120,12 @@ int Config::parseInt( const char* value, int defaultValue, int minValue, int max
 void Config::load( const std::string& filename ){
     XmlReader reader( filename );
     while( reader.read() ) {
-        if( reader.getNodeType() == XML_READER_TYPE_ELEMENT) 
+        if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
         {
             const std::string& element = (const char*) reader.getName();
             if( element == "video" ) {
                 XmlReader::AttributeIterator iter(reader);
-                while(iter.next()) 
+                while(iter.next())
                 {
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
@@ -148,7 +148,7 @@ void Config::load( const std::string& filename ){
                 }
             } else if ( element == "audio" ) {
                 XmlReader::AttributeIterator iter(reader);
-                while(iter.next()) 
+                while(iter.next())
                 {
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
@@ -169,7 +169,7 @@ void Config::load( const std::string& filename ){
                 }
             } else if ( element == "game" ) {
                 XmlReader::AttributeIterator iter(reader);
-                while(iter.next()) 
+                while(iter.next())
                 {
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
@@ -185,6 +185,8 @@ void Config::load( const std::string& filename ){
                         world.len(parseInt(value, WORLD_SIDE_LEN, 50, 10000));
                     } else if(strcmp(name, "binarySaveGames") == 0) {
                         binary_mode = parseBool(value, true);
+                    } else if(strcmp(name, "seed_compression") == 0) {
+                        seed_compression = parseBool(value, true);
                     }else {
                         std::cerr << "Config::load# Unknown attribute '" << name;
                         std::cerr << "' in element '" << element << "' from " << filename << ".\n";
@@ -223,19 +225,20 @@ Config::save(){
     OFileStream userconfig( "userconfig.xml" );
     userconfig << "<?xml version=\"1.0\"?>\n";
     userconfig << "<configuration>\n";
-    userconfig << "    <video x=\"" << videoX << "\" y=\"" << videoY << "\" useOpenGL=\"" 
+    userconfig << "    <video x=\"" << videoX << "\" y=\"" << videoY << "\" useOpenGL=\""
         << (useOpenGL?"yes":"no") << "\" fullscreen=\"" << (useFullScreen?"yes":"no")
         << "\" restartOnChangeScreen=\"" << (restartOnChangeScreen?"yes":"no")
         << "\" />\n";
-    userconfig << "    <audio soundEnabled=\"" << (soundEnabled?"yes":"no")  
+    userconfig << "    <audio soundEnabled=\"" << (soundEnabled?"yes":"no")
         << "\" soundVolume=\"" << soundVolume << "\" \n";
-    userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")  
+    userconfig << "           musicEnabled=\"" << (musicEnabled?"yes":"no")
         << "\" musicVolume=\"" << musicVolume << "\"\n";
     userconfig << "           musicTheme=\"" << musicTheme << "\" />\n";
     userconfig << "    <game quickness=\""<< quickness <<"\" "
-        << "language=\"" << language // 
+        << "language=\"" << language //
         << "\" WorldSideLen=\"" << ((world.len()<50)?50:world.len())
         << "\" binarySaveGames=\"" << (binary_mode?"yes":"no")
+        << "\" seed_compression=\"" << (seed_compression?"yes":"no")
         << "\" />\n";
     userconfig << "</configuration>\n";
 }

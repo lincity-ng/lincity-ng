@@ -215,8 +215,7 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
             world(x, y)->type = CST_GREEN;
             world(x, y)->group = GROUP_BARE;
             world(x, y)->flags &= ~(FLAG_IS_RIVER);
-            //TODO reinitialize line for connect_river()
-            //will happen anyways upon reloading game
+            world(x, y)->flags |= FLAG_ALTERED;
         }
         else
         {
@@ -236,25 +235,35 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
 
 void do_pollution()
 {
-
     const int len = world.len();
-    const int area = len * len;
+    std::set<int>::iterator it;
     //kill pollution from edges of map
-    for(int x = 0; x < world.len(); x++)
+/*
+    for(int x = 0; x < len; x++)
     {
         world(x, 0)->pollution /= POL_DIV; //top
         world(0, x)->pollution /= POL_DIV; //left
-        world(x, world.len() - 1)->pollution /= POL_DIV; //bottom
-        world(world.len() - 1, x)->pollution /= POL_DIV; //right
+        world(x, len - 1)->pollution /= POL_DIV; //bottom
+        world(len - 1, x)->pollution /= POL_DIV; //right
     }
+*/
     //diffuse pollution inside the map
-    for (int index = 0; index < area; ++index)
+
+    for (it = world.polluted.begin(); it != world.polluted.end(); ++it)
     {
-        int x = index % len;
-        int y = index / len;
-        if (world(x, y)->pollution > 10 &&
-            world.is_visible(x,y))
+        if (world.is_border(*it))
         {
+            world(*it)->pollution /= POL_DIV;
+            continue;
+        }
+
+        if (world(*it)->pollution > 10 )
+        {
+            int x = *it % len;
+            int y = *it / len;
+
+            //assert(world.is_visible(x,y));
+
             int pflow;
             pflow = world(x, y)->pollution/16;
             world(x, y)->pollution -= pflow;
@@ -284,11 +293,25 @@ void do_pollution()
             }// endswitch
         }// endif
     }// endfor index
+}
+
+void scan_pollution()
+{
+    const int len = world.len();
+    const int area = len * len;
+    std::set<int>::iterator it;
     total_pollution = 0;
     for (int index = 0; index < area; ++index)
     {
         int x = index % len;
         int y = index / len;
+        it = world.polluted.find(index);
+        if( (world(x,y)->pollution > 10)
+         && (it == world.polluted.end()))
+        {   world.polluted.insert(index);}
+        else if ((world(x,y)->pollution <= 10)
+              && (it != world.polluted.end()))
+        {   world.polluted.erase(it);}
         total_pollution += world(x,y)->pollution;
     }
 }

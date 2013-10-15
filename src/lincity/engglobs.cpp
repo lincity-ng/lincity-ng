@@ -24,7 +24,8 @@ const int dxo[8] ={ -1, -1,  0,  1,  1,  1,  0, -1};
 const int dyo[8] ={  0, -1, -1, -1,  0,  1,  1,  1};
 
 bool binary_mode = true;
-//You may want to set this to false for easier debugging
+bool seed_compression = true;
+//You may want to set these to false for easier debugging
 
 //These have to be decalred as extern in lintypes.h after class Construction
 std::map<Construction::Commodities, int> tstat_capacities;

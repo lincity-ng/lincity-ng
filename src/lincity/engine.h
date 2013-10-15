@@ -26,6 +26,7 @@ int find_bare_area(int x, int y, int size);
 /* called only by simulate.cpp */
 void do_daily_ecology(void);
 void do_pollution(void);
+void scan_pollution(void);
 void do_fire_health_cricket_power_cover(void);
 
 extern long real_time;

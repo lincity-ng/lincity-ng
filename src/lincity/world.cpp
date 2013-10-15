@@ -9,11 +9,14 @@
 #include "world.h"
 #include "ConstructionCount.h"
 #include "init_game.h"
+#include "lin-city.h"
 
 World::World(int map_len)
 {
     maptile.resize(map_len * map_len);
     dirty = false;
+    world.climate = -1;
+    world.old_setup_ground = -1;
     //std::cout << "created World len = " << len() << "²" << std::endl;
 }
 
@@ -183,5 +186,18 @@ bool World::checkEdgeMin(int x , int y)
     else
         return false;
 }
+
+int World::count_altered(void)
+{
+    int count = 0;
+    for (size_t i = 0; i < maptile.size(); ++i)
+    {
+        if(maptile[i].flags & FLAG_ALTERED)
+        {   ++count;}
+    }
+    return count;
+}
+
+
 
 /** @file lincity/world.cpp */

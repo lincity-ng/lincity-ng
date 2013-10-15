@@ -9,6 +9,7 @@
 #include "lintypes.h"
 #include <vector>
 #include <deque>
+#include <set>
 
 
 template <class T>
@@ -76,11 +77,14 @@ public:
     bool minimum(int x , int y);
     bool saddlepoint(int x , int y);
     bool checkEdgeMin(int x , int y);
+    int count_altered();
     bool dirty;
     int seed(void); //tells recreation seed
     void seed(int new_seed); //sets the seed
     int old_setup_ground;
     int climate;
+    std::set<int> polluted;
+
 protected:
     int id;
     int side_len;

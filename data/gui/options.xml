@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui>
-	<Image src="images/mainmenu/settings_back.png" resizable="yes"/>
-	<TableLayout rows="10" cols="3" border="false">
-		<colsize col="1" relative="1.3"/>
-		<colsize col="2" relative="1"/>
-		<colsize col="3" relative="0.5"/>
-		<rowsize row="1" relative="2"/>
+    <Image src="images/mainmenu/settings_back.png" resizable="yes"/>
+    <TableLayout rows="11" cols="3" border="false">
+        <colsize col="1" relative="1.3"/>
+        <colsize col="2" relative="1"/>
+        <colsize col="3" relative="0.5"/>
+        <rowsize row="1" relative="2"/>
 
-		<cell row="1" col="1" colspan="3">
-			<Paragraph style="menutitle" translatable="yes">Options</Paragraph>
-		</cell> 
+        <cell row="1" col="1" colspan="3">
+            <Paragraph style="menutitle" translatable="yes">Options</Paragraph>
+        </cell>
 
-		<!-- Adjust Music Volume -->
-		<cell row="2" col="2" valign="center" halign="left">
-			<Paragraph style="listtitle" translatable="yes">Background Music</Paragraph>
-		</cell>
-		<cell row="2" col="3">
+        <!-- Adjust Music Volume -->
+        <cell row="2" col="2" valign="center" halign="left">
+            <Paragraph style="listtitle" translatable="yes">Background Music</Paragraph>
+        </cell>
+        <cell row="2" col="3">
             <TableLayout rows = "1" cols = "3">
                 <cell row="1" col ="1">
                     <CheckButton name="MusicVolumeMinus">
@@ -34,13 +34,13 @@
                     </CheckButton>
                 </cell>
             </TableLayout>
-		</cell>
+        </cell>
         <!-- Switch Track -->
         <cell row="3" col="2" valign="center" halign="center"  colspan="2">
             <TableLayout rows = "1" cols = "3">
-		    <colsize col="1" relative="1"/>
-		    <colsize col="2" relative="15"/>
-		    <colsize col="3" relative="1"/>
+            <colsize col="1" relative="1"/>
+            <colsize col="2" relative="15"/>
+            <colsize col="3" relative="1"/>
                 <cell row="1" col ="1" halign="right" >
                     <CheckButton name="TrackPrev">
                         <text style="button">&lt; </text>
@@ -56,11 +56,11 @@
                 </cell>
             </TableLayout>
         </cell>
-		<!-- Adjust FX Volume -->
-		<cell row="4" col="2" valign="center" halign="left">
-			<Paragraph style="listtitle" translatable="yes" >Sound Effects</Paragraph>
-		</cell>
-		<cell row="4" col="3">
+        <!-- Adjust FX Volume -->
+        <cell row="4" col="2" valign="center" halign="left">
+            <Paragraph style="listtitle" translatable="yes" >Sound Effects</Paragraph>
+        </cell>
+        <cell row="4" col="3">
             <TableLayout rows = "1" cols = "3">
                 <cell row="1" col ="1">
                     <CheckButton name="FXVolumeMinus">
@@ -79,7 +79,7 @@
                     </CheckButton>
                 </cell>
             </TableLayout>
-		</cell>
+        </cell>
 
         <!-- Resolution -->
         <cell row="5" col="2" valign="center" halign="left">
@@ -130,15 +130,15 @@
             </TableLayout>
         </cell>
         <!-- Fullscreen -->
-		<cell row="7" col="2" valign="center" halign="left">
-			<Paragraph style="listtitle" translatable="yes">Fullscreen</Paragraph>
-		</cell>
-		<cell row="7" col="3">
-			<CheckButton name="Fullscreen">
-				<image src="images/mainmenu/settings/windowed.png"/>
-				<image-checked src="images/mainmenu/settings/fullscreen.png"/>
-			</CheckButton>
-		</cell>
+        <cell row="7" col="2" valign="center" halign="left">
+            <Paragraph style="listtitle" translatable="yes">Fullscreen</Paragraph>
+        </cell>
+        <cell row="7" col="3">
+            <CheckButton name="Fullscreen">
+                <image src="images/mainmenu/settings/windowed.png"/>
+                <image-checked src="images/mainmenu/settings/fullscreen.png"/>
+            </CheckButton>
+        </cell>
 
         <!-- Language -->
         <cell row="8" col="2" valign="center" halign="left">
@@ -165,25 +165,36 @@
             </TableLayout>
         </cell>
 
-		 <!-- Use Binary Saveganes -->
-		<cell row="9" col="2" valign="center" halign="left">
-			<Paragraph style="listtitle" translatable="yes">Binary mode</Paragraph>
-		</cell>
-		<cell row="9" col="3">
-			<CheckButton name="BinaryMode">
-				<image src="images/gui/checkbox/checkbox.png"/>
-				<image-checked src="images/gui/checkbox/checkbox_checked.png"/>
-			</CheckButton>
-		</cell>
+         <!-- Use Binary Saveganes -->
+        <cell row="9" col="2" valign="center" halign="left">
+            <Paragraph style="listtitle" translatable="yes">Binary saving</Paragraph>
+        </cell>
+        <cell row="9" col="3">
+            <CheckButton name="BinaryMode">
+                <image src="images/gui/checkbox/checkbox.png"/>
+                <image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+            </CheckButton>
+        </cell>
+
+         <!-- Use Binary Saveganes -->
+        <cell row="10" col="2" valign="center" halign="left">
+            <Paragraph style="listtitle" translatable="yes">Seed saving</Paragraph>
+        </cell>
+        <cell row="10" col="3">
+            <CheckButton name="SeedMode">
+                <image src="images/gui/checkbox/checkbox.png"/>
+                <image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+            </CheckButton>
+        </cell>
 
         <!-- BackButton -->
-		<cell row="10" col="2" colspan="2" halign="right">
-			<Button name="BackButton">
-				<text-caption style="button" translatable="yes">Ok</text-caption>
-				<image src="images/mainmenu/buttons/start.png"/>
-				<image-hover src="images/mainmenu/buttons/start-hover.png"/>
-				<image-clicked src="images/mainmenu/buttons/start-clicked.png"/>
-			</Button>
-		</cell>
-	</TableLayout>
+        <cell row="11" col="2" colspan="2" halign="right">
+            <Button name="BackButton">
+                <text-caption style="button" translatable="yes">Ok</text-caption>
+                <image src="images/mainmenu/buttons/start.png"/>
+                <image-hover src="images/mainmenu/buttons/start-hover.png"/>
+                <image-clicked src="images/mainmenu/buttons/start-clicked.png"/>
+            </Button>
+        </cell>
+    </TableLayout>
 </gui>

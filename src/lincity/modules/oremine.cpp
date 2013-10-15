@@ -49,6 +49,7 @@ void Oremine::update()
                 if (world(xx,yy)->ore_reserve > 0)
                 {
                     world(xx,yy)->ore_reserve--;
+                    world(xx,yy)->flags |= FLAG_ALTERED;
                     total_ore_reserve--;
                     commodityCount[STUFF_ORE] += ORE_PER_RESERVE;
                     commodityCount[STUFF_JOBS] -= OREMINE_JOBS;
@@ -73,6 +74,7 @@ void Oremine::update()
                 if (world(xx,yy)->ore_reserve < (3 * ORE_RESERVE/2))
                 {
                     world(xx,yy)->ore_reserve++;
+                    world(xx,yy)->flags |= FLAG_ALTERED;
                     total_ore_reserve++;
                     commodityCount[STUFF_ORE] -= ORE_PER_RESERVE;
                     commodityCount[STUFF_JOBS] -= OREMINE_JOBS;
