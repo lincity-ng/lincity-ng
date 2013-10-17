@@ -799,7 +799,9 @@ void Construction::deneighborize()
         std::vector<Construction*>::iterator neib_it = neib->begin();
         while(neib_it != neib->end() && *neib_it != this)
             {++neib_it;}
+#ifdef DEBUG
         assert(neib_it != neib->end());
+#endif
         neib->erase(neib_it);
     }
     neighbors.clear();
@@ -809,10 +811,76 @@ void Construction::deneighborize()
         std::vector<Construction*>::iterator partner_it = partner->begin();
         while(partner_it != partner->end() && *partner_it != this)
             {++partner_it;}
+#ifdef DEBUG
         assert(partner_it != partner->end());
+#endif
         partner->erase(partner_it);
     }
     partners.clear();
+}
+void Construction::neighborize()
+{
+//skip ghosts (aka burning waste) and powerlines here
+    if(!(flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (constructionGroup->group != GROUP_FIRE))
+    {
+        if(flags & FLAG_IS_TRANSPORT)//search adjacent tiles only
+        {
+            Construction* cst = NULL;
+            Construction* cst1 = NULL;
+            Construction* cst2 = NULL;
+            Construction* cst3 = NULL;
+            Construction* cst4 = NULL;
+            unsigned short size = constructionGroup->size;
+            for (unsigned short edge = 0; edge < size; ++edge)
+            {
+                //here we rely on invisible edge tiles
+                cst = world(x - 1,y + edge)->reportingConstruction;
+                if(cst && cst != cst1 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                {   link_to(cst1 = cst);}
+                cst = world(x + edge,y - 1)->reportingConstruction;
+                if(cst && cst != cst2 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                {   link_to(cst2 = cst);}
+                cst = world(x + size,y + edge)->reportingConstruction;
+                if(cst && cst != cst3 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                {   link_to(cst3 = cst);}
+                cst = world(x + edge,y + size)->reportingConstruction;
+                if(cst && cst != cst4 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                {   link_to(cst4 = cst);}
+            }
+        }
+        else // search full market range for constructions
+        {
+            int tmp;
+            int lenm1 = world.len()-1;
+            tmp = x - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
+            int xs = (tmp < 1) ? 1 : tmp;
+            tmp = y - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
+            int ys = (tmp < 1)? 1 : tmp;
+            tmp = x + GROUP_MARKET_RANGE + 1;
+            int xe = (tmp > lenm1) ? lenm1 : tmp;
+            tmp = y + GROUP_MARKET_RANGE + 1;
+            int ye = (tmp > lenm1)? lenm1 : tmp;
+
+            for(int yy = ys; yy < ye; ++yy)
+            {
+                for(int xx = xs; xx < xe; ++xx)
+                {
+                    //dont search at home
+                    if(((xx == x )  && (yy == y)))
+                    {   continue;}
+                    if(world(xx,yy)->construction) //be unique
+                    {
+                        Construction *cst = world(xx,yy)->reportingConstruction; //stick with reporting
+                        if((cst->flags & FLAG_POWER_LINE) || (cst->constructionGroup->group == GROUP_FIRE))
+                        {   continue;}
+                        //will attempt to make a link
+                        link_to(cst);
+                    }
+                }
+
+            }
+        }
+    }
 }
 
 void Construction::link_to(Construction* other)
@@ -821,6 +889,7 @@ void Construction::link_to(Construction* other)
     std::cout << "new link requested : " << constructionGroup->name << "(" << x << "," << y << ") - "
     << other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
 */
+//Theses tests are only for rules of the game, simulation would run happily with duplicate/oneway links
 #ifdef DEBUG
     std::vector<Construction*>::iterator neib_it = neighbors.begin();
     bool ignore = false;
@@ -920,7 +989,7 @@ int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by 
         int loc_lvl = commodityCount[stuff_ID];
         int loc_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
         if (flags & FLAG_EVACUATE)
-        {   return loc_lvl?TRANSPORT_QUANTA:-1;}
+        {   return loc_lvl?loc_lvl:-1;}
 
 #ifdef DEBUG
         if (loc_lvl > loc_cap)
@@ -991,9 +1060,7 @@ void Construction::trade()
             {
                 int lvlsi = pear->commodityCount[stuff_ID];
                 int capsi = pear->constructionGroup->commodityRuleCount[stuff_ID].maxload;
-                if(pear->flags & FLAG_EVACUATE)
-                {   lvlsi = lvlsi?capsi:-1;}
-                else
+                if(!(pear->flags & FLAG_EVACUATE))
                 {
                     int pearat = lvlsi * TRANSPORT_QUANTA / capsi;
                     //only consider stuff that would tentatively move
@@ -1002,10 +1069,10 @@ void Construction::trade()
                        ((pearat < ratio)&&!(constructionGroup->commodityRuleCount[stuff_ID].give &&
                             pear->constructionGroup->commodityRuleCount[stuff_ID].take)))
                     {   continue;}
+                    lvl += lvlsi;
+                    cap += capsi;
                 }
                 lvls[i] = true;
-                lvl += lvlsi;
-                cap += capsi;
             }
         }
         ratio = lvl * TRANSPORT_QUANTA / cap;
@@ -1017,7 +1084,7 @@ void Construction::trade()
             if(lvls[i])
             {
                 traffic = neighbors[i]->equilibrate_stuff(&center_lvl, center_cap, ratio, stuff_ID, constructionGroup);
-                if( traffic > max_traffic)
+                if( traffic > max_traffic )
                 {   max_traffic = traffic;}
             }
         }
@@ -1175,9 +1242,12 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
         } //endfor j
     }// endfor i
     //now look for neighbors
+    //TODO implement this as Construction::neighborize
     //skip ghosts (aka burning waste) and powerlines here
     if(!(tmpConstr->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (tmpConstr->constructionGroup->group != GROUP_FIRE))
     {
+        tmpConstr->neighborize();
+/*
         if(tmpConstr->flags & FLAG_IS_TRANSPORT)//search adjacent tiles only
         {
             Construction* cst = NULL;
@@ -1235,6 +1305,7 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
 
             }
         }
+*/
     }
     return 0;
 }

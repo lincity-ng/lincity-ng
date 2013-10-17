@@ -54,6 +54,7 @@ public:
         setMemberSaved(&this->tail_off, "tail_off");
         this->completion = 0;
         setMemberSaved(&this->completion, "completion");
+        this->completed = false; //dont save this one
         this->jobs_consumed = 0;
         setMemberSaved(&this->jobs_consumed, "jobs_consumed");
         initialize_commodities();
@@ -68,6 +69,7 @@ public:
     int  tech_made;
     int  tail_off;
     int  completion;
+    bool completed;
     int  jobs_consumed;
 };
 

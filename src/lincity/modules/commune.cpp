@@ -35,8 +35,8 @@ void Commune::update()
         tmpCoalprod = COMMUNE_COAL_MADE;
         commodityCount[STUFF_WATER] -= (16-ugwCount)*WATER_FOREST;
     }
-    if((total_time & 1) //make coal every second day
-    && (tmpCoalprod > 0)
+    if(//(total_time & 1) && //make coal every second day
+       (tmpCoalprod > 0)
     && (commodityCount[STUFF_COAL] <= MAX_COAL_AT_COMMUNE - tmpCoalprod))
     {
          commodityCount[STUFF_COAL] += tmpCoalprod;
@@ -156,7 +156,7 @@ void Commune::report()
     int i = 0;
     mps_store_sd(i++, constructionGroup->name,ID);
     mps_store_sddp(i++, "Fertility", ugwCount, 16);
-    mps_store_sfp(i++, "busy", (float)last_month_output / 2.55);
+    mps_store_sfp(i++, "busy", (float)last_month_output / 3.05);
     mps_store_sd(i++, "Pollution", world(x,y)->pollution);
     if(lazy_months)
     {

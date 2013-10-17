@@ -211,6 +211,7 @@ public:
     void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream
     void detach();      //removes all references from world, ::constructionCount
     void deneighborize(); //cancells all neighbors and partners mutually
+    void   neighborize(); //adds all neigborconnections once (call twice for double connections)
     void link_to(Construction* other); //establishes mutual connection to neighbor or partner
     int  tellstuff( Commodities stuff_ID, int level); //tell the filling level of commodity
     void trade(); //exchange commodities with neigbhors

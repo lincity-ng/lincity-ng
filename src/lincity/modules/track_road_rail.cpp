@@ -104,131 +104,6 @@ Construction *TransportConstructionGroup::createConstruction(int x, int y, unsig
 {
     return new Transport(x, y, type);
 }
-/*
-void Transport::stuff_flow()
-{
-    int ratio, center_lvl, center_cap;
-    int traffic, max_traffic;
-    int left_lvl, right_lvl, up_lvl, down_lvl, n;
-    Commodities stuff_ID;
-    std::map<Commodities, int>::iterator stuff_it;
-
-    //begin for over all different stuff
-    for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++ )
-    {
-        stuff_ID = stuff_it->first;
-        center_lvl = stuff_it->second;
-        center_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
-        //TODO maybe use a loop and rotation matrix here?
-
-
-        ratio = (center_lvl * TRANSPORT_QUANTA / (center_cap) );
-        left_lvl = (world(x-1, y)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x-1 ,y , stuff_ID, ratio );//left
-        right_lvl = (world(x+1, y)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x+1 ,y , stuff_ID, ratio );//right
-        up_lvl = (world(x, y-1)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x ,y-1 , stuff_ID, ratio );//up
-        down_lvl = (world(x, y+1)->getGroup() == GROUP_MARKET)?-1:collect_transport_info(x ,y+1 , stuff_ID, ratio );//down
-
-        //calculate the not weighted average filling
-        n = 1;
-        if (left_lvl != -1)
-        {
-            ratio += left_lvl;
-            n++;
-        }
-        if (right_lvl != -1)
-        {
-            ratio += right_lvl;
-            n++;
-        }
-        if (up_lvl != -1)
-        {
-            ratio += up_lvl;
-            n++;
-        }
-        if (down_lvl != -1)
-        {
-            ratio += down_lvl;
-            n++;
-        }
-
-        ratio /= n;
-        max_traffic = 0;
-        //make flow towards ratio
-        if (left_lvl != -1)
-        {
-            traffic = (equilibrate_transport_stuff(x-1, y, &center_lvl, center_cap, ratio, stuff_ID));//left
-            if( traffic > max_traffic)
-            {
-                max_traffic = traffic;
-            }
-        }
-        if (right_lvl != -1)
-        {
-            traffic = (equilibrate_transport_stuff(x+1, y, &center_lvl, center_cap, ratio, stuff_ID));//right
-            if( traffic > max_traffic)
-            {
-                max_traffic = traffic;
-            }
-        }
-        if (up_lvl != -1)
-        {
-            traffic = (equilibrate_transport_stuff(x, y-1, &center_lvl, center_cap, ratio, stuff_ID));//up
-            if( traffic > max_traffic)
-            {
-                max_traffic = traffic;
-            }
-        }
-        if (down_lvl != -1)
-        {
-            traffic = (equilibrate_transport_stuff(x, y+1, &center_lvl, center_cap, ratio, stuff_ID));//down
-            if( traffic > max_traffic)
-            {
-                max_traffic = traffic;
-            }
-        }
-        //do some smoothing to suppress fluctuations from random order
-        // max possible ~90 %
-        trafficCount[stuff_ID] = (9 * trafficCount[stuff_ID] + max_traffic) / 10;
-
-        //if (center_lvl < 0)
-        //    std::cout<<"center load < 0 error at "<<world(x,y)->reportingConstruction->constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
-
-        stuff_it->second = center_lvl; //update center_lvl
-
-        //handle waste spill
-        if (stuff_ID == STUFF_WASTE)
-        {
-            if (center_lvl > 9 * center_cap / 10)
-            {
-                anim = real_time + 2 * WASTE_BURN_TIME;
-                commodityCount[STUFF_WASTE] -= WASTE_BURN_ON_TRANSPORT;
-                world(x,y)->pollution += WASTE_BURN_ON_TRANSPORT_POLLUTE;
-                if(!burning_waste)
-                {
-                    burning_waste = true;
-                    Construction *fire = fireConstructionGroup.createConstruction(x, y, CST_FIRE_1);
-                    world(x,y)->construction = fire;
-                    //waste burning never spreads
-                    (dynamic_cast<Fire*>(fire))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;
-                    (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
-                    ::constructionCount.add_construction(fire);
-                }
-            }
-            //else if (burning_waste && real_time < anim)
-            //{   (dynamic_cast<Fire*>(world(x,y)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
-            else if (burning_waste && real_time > anim)
-            {
-                burning_waste = false;
-                ::constructionCount.remove_construction(world(x,y)->construction);
-                //assert(world(x,y)->construction->neighbors.empty());
-                delete world(x,y)->construction;
-                world(x,y)->construction = this;
-            }
-        }
-
-    } //endfor all different STUFF
-}
-*/
 
 void Transport::update()
 {
@@ -266,7 +141,6 @@ void Transport::update()
             }
         break;
     }
-    //stuff_flow();
     if (commodityCount[STUFF_KWH] >= KWH_LOSS_ON_TRANSPORT)
     {
         commodityCount[STUFF_KWH] -= KWH_LOSS_ON_TRANSPORT;

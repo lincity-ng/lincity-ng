@@ -39,12 +39,19 @@ void Monument::update()
     {
         busy = workingdays;
         workingdays = 0;
+
     }
     /* now choose a graphic */
     if (completion >= 100)
     {
-        type = CST_MONUMENT_5;
-        flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
+        if(!completed)
+        {
+            completed = true;
+            deneighborize();
+            type = CST_MONUMENT_5;
+            flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
+            //dont clear commodiyCount for savegame compatability
+        }
         /* inc tech level only if fully built and tech less
            than MONUMENT_TECH_EXPIRE */
         if (tech_level < (MONUMENT_TECH_EXPIRE * 1000)
@@ -60,15 +67,15 @@ void Monument::update()
         }
     }
     else if (completion >= 80)
-        type = CST_MONUMENT_4;
+    {   type = CST_MONUMENT_4;}
     else if (completion >= 60)
-        type = CST_MONUMENT_3;
+    {   type = CST_MONUMENT_3;}
     else if (completion >= 40)
-        type = CST_MONUMENT_2;
+    {   type = CST_MONUMENT_2;}
     else if (completion >= 20)
-        type = CST_MONUMENT_1;
+    {   type = CST_MONUMENT_1;}
     else
-        type = CST_MONUMENT_0;
+    {   type = CST_MONUMENT_0;}
 }
 
 void Monument::report()

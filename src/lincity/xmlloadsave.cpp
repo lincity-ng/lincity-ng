@@ -290,6 +290,21 @@ int XMLloadsave::loadXMLfile(std::string xml_file_name)
         {
             if (!no_Section()) {return -1;}
             mapTileSection = true;
+            if(seed_compression)
+            {
+                if(binary_mode && (altered_tiles == -1))
+                {
+                    std::cout << "missing altered_tiles for reading binary tiles" << std::endl;
+                    assert(false);
+                }
+                if((world.climate != -1) && (world.old_setup_ground != -1) && (altered_tiles != -1))
+                {
+                    int x,y;
+                    create_new_city( &x, &y, -1, world.old_setup_ground, world.climate);
+                }
+                else
+                {   std::cout << "missing either climate, old_setup_ground or altered_tiles in savegame" << std::endl;}
+            }
             if (!binary_mode)
             {
                 //std::cout << "approaching text tiles" << std::endl;
@@ -499,21 +514,6 @@ XMLloadsave::loadTileTemplates()
     const int wlen = world.len();
     const int area = wlen*wlen;
     int idx;
-    if(seed_compression)
-    {
-        if(altered_tiles == -1)
-        {
-            std::cout << "missing altered_tiles for reading binary tiles" << std::endl;
-            assert(false);
-        }
-        if((world.climate != -1) && (world.old_setup_ground != -1) && (altered_tiles != -1))
-        {
-            int x,y;
-            create_new_city( &x, &y, -1, world.old_setup_ground, world.climate);
-        }
-        else
-        {   std::cout << "missing either climate, old_setup_ground or altered_tiles in savegame" << std::endl;}
-    }
     int last_i = seed_compression?altered_tiles:area;
     for(int i=0; i<last_i; ++i)
     {
@@ -913,14 +913,6 @@ void XMLloadsave::loadMapTiles()
     unsigned int value;
     bool inside_MapTile;
     MapTile *cur_tile = world(0);
-
-    if(seed_compression)
-    {
-        if((world.climate != -1) && (world.old_setup_ground != -1) && (altered_tiles != -1))
-        {   create_new_city( &x, &y, -1, world.old_setup_ground, world.climate);}
-        else
-        {   std::cout << "missing either climate, old_setup_ground or altered_tiles in savegame" << std::endl;}
-    }
 
     prescan = true;
     inside_MapTile = false;
