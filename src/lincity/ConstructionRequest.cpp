@@ -19,6 +19,8 @@ extern int mps_x, mps_y;
 
 void ConstructionDeletionRequest::execute()
 {
+    //std::cout << "deleting: " << subject->constructionGroup->name
+    //<< " (" << subject->x << "," << subject->y << ")" << std::endl;
     unsigned short size = subject->constructionGroup->size;
     int x = subject->x;
     int y = subject->y;

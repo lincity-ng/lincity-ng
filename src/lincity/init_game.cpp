@@ -337,9 +337,9 @@ void create_new_city(int *originx, int *originy, int random_village, int old_set
     ore_reserve_setup();
     init_pbars();
 
-    if (random_village != 0)
+    if (random_village == 1)
     {   random_start(originx, originy);}
-    else
+    else if (random_village != -1)
     {   *originx = *originy = world.len() / 2;}
 
     update_pbar (PPOP, housed_population + people_pool, 1);
@@ -943,7 +943,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
                     {
                         xt = xx;
                     }
-                    world(xt,yt)->ground.altitude = new_level;
+                    world(xt,yt)->ground.altitude = world(x,y)->ground.altitude;
                     set_river_tile(xt,yt);
                 }
             }

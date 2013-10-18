@@ -436,11 +436,10 @@ void XMLloadsave::loadConstructions()
     bool inside_construction = false;
 
     prescan = true;
-    x = -1;
-    y = -1;
+    x = NOT_SET;
+    y = NOT_SET;
     type = NOT_SET;
     group = NOT_SET;
-    r = 0;
 
     do
     {
@@ -480,25 +479,26 @@ void XMLloadsave::loadConstructions()
                 {
                     constructionCount++;
                     //std::cout << "placing " << main_groups[group].name << " as " <<main_groups[get_group_of_type(type)].name << "...";
-                    //std::cout.flush();
+                    std::cout.flush();
                     ConstructionGroup::getConstructionGroup(group)->placeItem(x, y, type);
                     //std::cout << "ok" <<std::endl;
                     rewind();
                     prescan = false;
                     continue;
                 }
+#ifdef DEBUG
                 else
-                {
-                    std::cout << "unknown ConstructionGroup " << main_groups[group].name << std::endl;
-                }
+                {   std::cout << "unknown ConstructionGroup " << main_groups[group].name << std::endl;}
+#endif
             }
             //world(x,y)->construction->saveMembers(&std::cout);
             interpreting_template = false;
             inside_construction = false;
             prescan = true;
-            x = -1;
-            y = -1;
-            type = -1;
+            x = NOT_SET;
+            y = NOT_SET;
+            type = NOT_SET;
+            group = NOT_SET;
         }
     }
     while (line!="</ConstructionSection>" && /*!xml_file_in.eof() &&*/ !gzeof(gz_xml_file));

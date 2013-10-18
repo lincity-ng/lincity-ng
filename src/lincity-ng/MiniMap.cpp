@@ -760,8 +760,16 @@ Color MiniMap::getColorNormal(int x, int y) const
     if (world(x,y)->reportingConstruction)
     {   mc = world(x,y)->reportingConstruction->constructionGroup->colour;}
     else
-    {   mc = main_groups[world(x,y)->getGroup()].colour;}
-
+    {
+        unsigned short grp = world(x,y)->group;
+        if (grp == GROUP_WATER)
+        {   mc = GROUP_WATER_COLOUR;}
+        else if (grp == GROUP_DESERT)
+        {   mc = GROUP_DESERT_COLOUR;}
+        else
+        {   mc = (green(12));}
+    }
+    //{   mc = main_groups[world(x,y)->getGroup()].colour;}
     int red = 0;
     int green = 0;
     int blue = 0;
@@ -936,13 +944,13 @@ Color MiniMap::getColor(int x,int y) const
             return c;
         }
         case STARVE:
-        {            
+        {
             int food_level = world(xx,yy)->reportingConstruction?
             world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_FOOD, -1):1;
             int water_level = world(xx,yy)->reportingConstruction?
             world(xx,yy)->reportingConstruction->tellstuff(Construction::STUFF_WATER, -1):1;
             int crit_level = water_level<food_level?water_level:food_level;
-            //dont care about other eaters or drinkers             
+            //dont care about other eaters or drinkers
             if ( world(xx,yy)->is_residence() )
             {
                 if ( crit_level < 5 * TRANSPORT_QUANTA / 100 )

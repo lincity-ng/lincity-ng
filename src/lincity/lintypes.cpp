@@ -1224,12 +1224,25 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
         return -1;
     }
 
-    if (world(x, y)->reportingConstruction || world(x, y)->construction) //no two constructions at the same mapTile
-    {   bulldoze_item(x, y);}
-    unsigned short size = 0;
+    //std::cout << "building: " << tmpConstr->constructionGroup->name  << "(" << x << "," << y << ")" << std::endl;
+    //enforce empty site
+    unsigned short size = tmpConstr->constructionGroup->size;
+    for (unsigned short i = 0; i < size; i++)
+    {
+        for (unsigned short j = 0; j < size; j++)
+        {
+            if (world(x, y)->reportingConstruction)
+            {
+                ConstructionManager::executeRequest
+                (
+                    new ConstructionDeletionRequest(world(x, y)->reportingConstruction)
+                );
+            }
+        } //endfor j
+    }// endfo
+
     world(x, y)->construction = tmpConstr;
     constructionCount.add_construction(tmpConstr); //register for Simulation
-    size = tmpConstr->constructionGroup->size;
     for (unsigned short i = 0; i < size; i++)
     {
         for (unsigned short j = 0; j < size; j++)
@@ -1242,71 +1255,9 @@ int ConstructionGroup::placeItem(int x, int y, unsigned short type)
         } //endfor j
     }// endfor i
     //now look for neighbors
-    //TODO implement this as Construction::neighborize
     //skip ghosts (aka burning waste) and powerlines here
     if(!(tmpConstr->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (tmpConstr->constructionGroup->group != GROUP_FIRE))
-    {
-        tmpConstr->neighborize();
-/*
-        if(tmpConstr->flags & FLAG_IS_TRANSPORT)//search adjacent tiles only
-        {
-            Construction* cst = NULL;
-            Construction* cst1 = NULL;
-            Construction* cst2 = NULL;
-            Construction* cst3 = NULL;
-            Construction* cst4 = NULL;
-            for (unsigned short edge = 0; edge < size; ++edge)
-            {
-                //here we rely on invisible edge tiles
-                //TODO silence addneighbor and move checks there
-                cst = world(x - 1,y + edge)->reportingConstruction;
-                if(cst && cst != cst1 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
-                {   tmpConstr->link_to(cst1 = cst);}
-                cst = world(x + edge,y - 1)->reportingConstruction;
-                if(cst && cst != cst2 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
-                {   tmpConstr->link_to(cst2 = cst);}
-                cst = world(x + size,y + edge)->reportingConstruction;
-                if(cst && cst != cst3 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
-                {   tmpConstr->link_to(cst3 = cst);}
-                cst = world(x + edge,y + size)->reportingConstruction;
-                if(cst && cst != cst4 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
-                {   tmpConstr->link_to(cst4 = cst);}
-            }
-        }
-        else // search full market range for constructions
-        {
-            int tmp;
-            int lenm1 = world.len()-1;
-            tmp = x - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
-            int xs = (tmp < 1) ? 1 : tmp;
-            tmp = y - GROUP_MARKET_RANGE - GROUP_MARKET_SIZE + 1;
-            int ys = (tmp < 1)? 1 : tmp;
-            tmp = x + GROUP_MARKET_RANGE + 1;
-            int xe = (tmp > lenm1) ? lenm1 : tmp;
-            tmp = y + GROUP_MARKET_RANGE + 1;
-            int ye = (tmp > lenm1)? lenm1 : tmp;
-
-            for(int yy = ys; yy < ye; ++yy)
-            {
-                for(int xx = xs; xx < xe; ++xx)
-                {
-                    //dont search at home
-                    if(((xx == x )  && (yy == y)))
-                    {   continue;}
-                    if(world(xx,yy)->construction) //be unique
-                    {
-                        Construction *cst = world(xx,yy)->reportingConstruction; //stick with reporting
-                        if((cst->flags & FLAG_POWER_LINE) || (cst->constructionGroup->group == GROUP_FIRE))
-                        {   continue;}
-                        //will attempt to make a link
-                        tmpConstr->link_to(cst);
-                    }
-                }
-
-            }
-        }
-*/
-    }
+    {   tmpConstr->neighborize();}
     return 0;
 }
 
