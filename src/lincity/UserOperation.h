@@ -28,6 +28,7 @@ public:
     bool is_allowed_here(int x, int y, bool warning);
     bool enoughTech();// tells if scaled tech_level is sufficient
     float requiredTech(); // returns scaled tech_level for tooltipp info
+    std::string createTooltip( /*int module,*/ bool root = true );
 private:
 };
 

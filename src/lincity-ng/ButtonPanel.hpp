@@ -61,7 +61,7 @@ class ButtonPanel : public Component
   int previousTool;
   int lastShownTechType;
 
-  std::string createTooltip( int module, bool root = true );
+  //std::string createTooltip( /*int module,*/ bool root = true );
   std::vector<std::string> mMenuButtons;
   std::vector<std::string> mMenus;
   std::vector<std::string> mButtons;

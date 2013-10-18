@@ -69,3 +69,49 @@ float UserOperation::requiredTech()
 {
     return 0.1*((constructionGroup?constructionGroup->tech:0));
 }
+
+/* replacement of ButtonPanel::createTooltip*/
+std::string UserOperation::createTooltip( /*int module,*/ bool root /* = true */ ){
+    std::stringstream tooltip;
+
+    switch(action)
+    {
+        case ACTION_QUERY:
+            tooltip <<  "Query Tool" ; break;
+        case ACTION_BUILD:
+            tooltip << userOperation->constructionGroup->name;
+            switch(userOperation->constructionGroup->group)
+            {
+                case GROUP_RESIDENCE_LL: tooltip <<  ": 50 tenants, low birthrate, high deathrate" ; break;
+                case GROUP_RESIDENCE_ML: tooltip <<  ": 100 tenants, high birthrate, low deathrate" ; break;
+                case GROUP_RESIDENCE_HL: tooltip <<  ": 200 tenants, high birthrate, high deathrate" ; break;
+                case GROUP_RESIDENCE_LH: tooltip <<  ": 100 tenants, low birthrate, high deathrate" ; break;
+                case GROUP_RESIDENCE_MH: tooltip <<  ": 200 tenants, high birthrate, low deathrate" ; break;
+                case GROUP_RESIDENCE_HH: tooltip <<  ": 400 tenants, high birthrate, high deathrate" ;
+            }
+            break;
+        case ACTION_BULLDOZE:
+            tooltip <<  "Bulldozer" ; break;
+        case ACTION_EVACUATE:
+            tooltip << "Evacuate" ; break;
+        case ACTION_FLOOD:
+            tooltip <<  "Water" ; break;
+        default:
+            tooltip << "unknown useroperation";
+    }
+    if( !root ){
+        tooltip << " [Click right for help.]";
+    }
+    return tooltip.str();
+}
+
+
+
+
+
+
+
+
+
+
+

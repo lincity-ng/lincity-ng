@@ -204,8 +204,36 @@ void ButtonPanel::checkTech( int showInfo ){
     }
 }
 
-std::string ButtonPanel::createTooltip( int module, bool root /* = true */ ){
-    std::stringstream tooltip;
+//std::string ButtonPanel::createTooltip( /*int module,*/ bool root /* = true */ ){
+/*    std::stringstream tooltip;
+
+    switch(userOperation->action)
+    {
+        case UserOperation::ACTION_QUERY:
+            tooltip << _( "Query Tool" ); break;
+        case UserOperation::ACTION_BUILD:
+            tooltip << userOperation->constructionGroup->name;
+            switch(userOperation->constructionGroup->group)
+            {
+                case GROUP_RESIDENCE_LL: tooltip <<  ": 50 tenants, low birthrate, high deathrate" ; break;
+                case GROUP_RESIDENCE_ML: tooltip <<  ": 100 tenants, high birthrate, low deathrate" ; break;
+                case GROUP_RESIDENCE_HL: tooltip <<  ": 200 tenants, high birthrate, high deathrate" ; break;
+                case GROUP_RESIDENCE_LH: tooltip <<  ": 100 tenants, low birthrate, high deathrate" ; break;
+                case GROUP_RESIDENCE_MH: tooltip <<  ": 200 tenants, high birthrate, low deathrate" ; break;
+                case GROUP_RESIDENCE_HH: tooltip <<  ": 400 tenants, high birthrate, high deathrate" ;
+            }
+            break;
+        case UserOperation::ACTION_BULLDOZE:
+            tooltip << _( "Bulldozer" ); break;
+        case UserOperation::ACTION_EVACUATE:
+            tooltip << _( "Evacuate" ); break;
+        case UserOperation::ACTION_FLOOD:
+            tooltip << _( "Water" ); break;
+        default:
+            tooltip << "unknown useroperation";
+    }
+*/
+/*
     switch( module ){
         case CST_NONE: tooltip << _( "Query Tool" ); break;
         case CST_GREEN: tooltip << _( "Bulldozer" ); break;
@@ -224,11 +252,14 @@ std::string ButtonPanel::createTooltip( int module, bool root /* = true */ ){
             tooltip << dictionaryManager->get_dictionary().translate( buildingName );
         }
     }
+*/
+/*
     if( !root ){
         tooltip << _(" [Click right for help.]");
     }
     return tooltip.str();
 }
+*/
 
 void ButtonPanel::examineButton( std::string name, int showInfo ){
     int tmp = selected_module_type;
@@ -252,7 +283,7 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         if( !b->isEnabled() )
         {
             newTechMessage( selected_module_type, showInfo );
-            b->setTooltip( createTooltip( selected_module_type, false ) );
+            b->setTooltip( userOperation->createTooltip( /*selected_module_type,*/ false ) );
             b->enable();
         }
     }
@@ -263,7 +294,7 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
             b->enable( false );
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                    createTooltip(selected_module_type, false ).c_str(),
+                    userOperation->createTooltip(/*selected_module_type,*/ false ).c_str(),
                     userOperation->requiredTech());
             b->setTooltip(tooltip);
         }
@@ -272,7 +303,7 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
             b->enable( false );
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s is disabled (loaded old game)."),
-                createTooltip(selected_module_type, false ).c_str());
+                userOperation->createTooltip(/*selected_module_type,*/ false ).c_str());
         b->setTooltip(tooltip);
     }
     selected_module_type = tmp;
@@ -295,11 +326,11 @@ void ButtonPanel::examineMenuButtons(){
             std::cerr << "examineMenuButton# Component "<< name << " is not a Button???\n";
             return;
         }
-        int type = mMenuSelected[mMenus[number]];
+        //int type = mMenuSelected[mMenus[number]];
         if ( ButtonOperations[name].enoughTech() )
         {
             if( !b->isEnabled() ){
-                b->setTooltip( createTooltip( type ) );
+                b->setTooltip( userOperation->createTooltip( /*type*/ ) );
                 b->enable();
             }
         }
@@ -309,7 +340,7 @@ void ButtonPanel::examineMenuButtons(){
             {
                 char tooltip[2048];
                 snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                        createTooltip( type ).c_str(),
+                        userOperation->createTooltip( /*type*/ ).c_str(),
                         ButtonOperations[name].requiredTech());
                 b->setTooltip( tooltip );
                 b->enable( false );
@@ -436,11 +467,11 @@ void ButtonPanel::attachButtons()
         {
           b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
           if( b->isEnabled() ){
-            b->setTooltip( createTooltip( mMenuSelected[ mMenus[ i ] ] ) );
+            b->setTooltip( userOperation->createTooltip( /*mMenuSelected[ mMenus[ i ] ]*/ ) );
           } else {
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                     createTooltip( mMenuSelected[ mMenus[ i ] ] ).c_str(),
+                     userOperation->createTooltip( /*mMenuSelected[ mMenus[ i ] ]*/ ).c_str(),
                      ButtonOperations[mMenuButtons[i]].requiredTech());
             b->setTooltip(tooltip);
           }
@@ -461,11 +492,11 @@ void ButtonPanel::attachButtons()
             selected_module_type = ButtonOperations[mButtons[i]].selected_module_type;
             userOperation = &(ButtonOperations[mButtons[i]]);
             if( b->isEnabled() ){
-                b->setTooltip( createTooltip( selected_module_type, false ) );
+                b->setTooltip( userOperation->createTooltip( /*selected_module_type,*/ false ) );
             } else {
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                     createTooltip( selected_module_type, false ).c_str(),
+                     userOperation->createTooltip( /*selected_module_type,*/ false ).c_str(),
                      userOperation->requiredTech());
             b->setTooltip(tooltip);
           }
@@ -767,7 +798,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
         updateSelectedCost();
     }
     if(cb != 0)
-        cb->setTooltip( createTooltip( selected_module_type ) );
+        cb->setTooltip( userOperation->createTooltip( /*selected_module_type*/ ) );
     examineMenuButtons();
 
     //Tell GameView to use the right Cursor

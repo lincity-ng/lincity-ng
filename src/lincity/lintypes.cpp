@@ -1022,7 +1022,6 @@ int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by 
 
 void Construction::trade()
 {
-
     int ratio, cap, lvl, center_lvl, center_cap;
     int traffic, max_traffic;
     Commodities stuff_ID;

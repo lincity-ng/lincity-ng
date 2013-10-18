@@ -275,8 +275,8 @@ static void simulate_mappoints(void)
     {
         if (constructionCount[i])
         {
-            constructionCount[i]->update();
             constructionCount[i]->trade();
+            constructionCount[i]->update();
         }
     }
 }
