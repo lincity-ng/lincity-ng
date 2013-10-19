@@ -59,7 +59,7 @@ void Fire::update()
 
     burning_days++;
     if (world(x,y)->flags & FLAG_FIRE_COVER)
-            burning_days += 4;
+    {       burning_days += 4;}
     days_before_spread--;
     if( !(flags & FLAG_IS_GHOST) )
     {   world(x,y)->pollution++;}
@@ -85,7 +85,7 @@ void Fire::update()
             break;
         }
     }
-    if (days_before_spread == 0)
+    if ((days_before_spread == 0) && !(flags & FLAG_IS_GHOST))
     {
         days_before_spread = FIRE_DAYS_PER_SPREAD;
         if ((rand() % 20) == 1)
@@ -118,9 +118,9 @@ void Fire::report()
     i++;
     mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
     if (burning_days<FIRE_LENGTH)
-        mps_store_sddp(i++,"burnt down",burning_days,FIRE_LENGTH);
+    {   mps_store_sddp(i++,"burnt down",burning_days,FIRE_LENGTH);}
     else
-        mps_store_sddp(i++,"degraded",smoking_days,AFTER_FIRE_LENGTH);
+    {   mps_store_sddp(i++,"degraded",smoking_days,AFTER_FIRE_LENGTH);}
     //list_commodities(&i);
 
 }

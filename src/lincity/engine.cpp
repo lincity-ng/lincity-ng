@@ -34,39 +34,18 @@ extern void print_total_money(void);
 //static int is_real_river(int x, int y);
 
 /*************** Global functions ********************/
-void fire_area(int xx, int yy)
+void fire_area(int x, int y)
 {
     /* this happens when a rocket crashes or on random_fire. */
-    int x = xx;
-    int y = yy;
-    int size = 1;
     if (world(x, y)->getGroup() == GROUP_WATER || world(x, y)->getGroup() == GROUP_FIRE)
-        return;
+    {   return;}
     if(world(x, y)->reportingConstruction)
     {
-        x = world(xx,yy)->reportingConstruction->x;
-        y = world(xx,yy)->reportingConstruction->y;
-        size = world(xx,yy)->reportingConstruction->constructionGroup->size;
         //fire is an unatural death for one in two
         if(world(x,y)->is_residence())
-        {
-            //int *loc_pop = &((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population);
-            unnat_deaths += ((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population/=2);
-        }
+        {   unnat_deaths += ((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population/=2);}
+        ConstructionManager::submitRequest( new SetOnFire(world(x,y)->reportingConstruction));
     }
-    do_bulldoze_area(x, y);
-
-    /* put fire */
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j < size; j++)
-        {
-            fireConstructionGroup.placeItem(x+i,y+j,CST_FIRE_1);
-        }
-    }
-    //green borders at fire are strange but consistent
-    //TODO remove this and exclude fire in desert_frontier
-    desert_frontier(x - 1, y - 1, size + 2, size + 2);
 }
 
 int adjust_money(int value)

@@ -141,14 +141,14 @@ void Market::update()
             world(x+1,y+1)->construction = fire;
             world(x+1,y+1)->reportingConstruction = fire;
             //waste burning never spreads
-            (dynamic_cast<Fire*>(fire))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;
+            //(dynamic_cast<Fire*>(fire))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;
             (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
             ::constructionCount.add_construction(fire);
 
         }
     }
-    else if (world(x+1,y+1)->construction && real_time < anim)
-    {   (dynamic_cast<Fire*>(world(x+1,y+1)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
+    //else if (world(x+1,y+1)->construction && real_time < anim)
+    //{   (dynamic_cast<Fire*>(world(x+1,y+1)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
     else if ( real_time > anim && world(x+1,y+1)->construction)
     {
         ::constructionCount.remove_construction(world(x+1,y+1)->construction);

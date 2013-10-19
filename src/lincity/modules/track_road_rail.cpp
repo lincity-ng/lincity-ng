@@ -161,14 +161,11 @@ void Transport::update()
             Construction *fire = fireConstructionGroup.createConstruction(x, y, CST_FIRE_1);
             world(x,y)->construction = fire;
             //waste burning never spreads
-            (dynamic_cast<Fire*>(fire))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;
             (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
             ::constructionCount.add_construction(fire);
         }
     }
-    else if (burning_waste && real_time < anim)
-    {   (dynamic_cast<Fire*>(world(x,y)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
-    else if(burning_waste) //(&& real_time > anim)
+    else if(burning_waste && (real_time > anim))
     {
         burning_waste = false;
         ::constructionCount.remove_construction(world(x,y)->construction);

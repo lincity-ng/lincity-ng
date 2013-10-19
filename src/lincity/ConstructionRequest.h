@@ -38,6 +38,13 @@ public:
     virtual void execute();
 };
 
+class SetOnFire: public ConstructionRequest {
+public:
+    SetOnFire(Construction *subject): ConstructionRequest(subject) { }
+    virtual void execute();
+};
+
+
 class PowerLineFlashRequest: public ConstructionRequest {
 public:
     PowerLineFlashRequest(Construction *subject): ConstructionRequest(subject) { }

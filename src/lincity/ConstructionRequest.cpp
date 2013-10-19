@@ -112,8 +112,31 @@ void BurnDownRequest::execute()
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+}
+
+void SetOnFire::execute()
+{
+    unsigned short size = subject->constructionGroup->size;
+    int x = subject->x;
+    int y = subject->y;
+    subject->detach();
+    delete subject;
+    for (unsigned short i = 0; i < size; ++i)
+    {
+        for (unsigned short j = 0; j < size; ++j)
+        {
+            fireConstructionGroup.placeItem(x+j, y+i, CST_FIRE_1);
+            //update mps display
+            if (mps_x == x + j && mps_y == y + i)
+            {   mps_set(x + j, y + i, MPS_MAP);}
+        }
+    }
+    // update adjacencies
+    desert_frontier(x - 1, y - 1, size + 2, size + 2);
+    connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
 
 }
+
 
 void PowerLineFlashRequest::execute()
 {

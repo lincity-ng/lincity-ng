@@ -130,7 +130,7 @@ static void do_periodic_events(void)
     {   start_of_year_update();}
     if ((total_time % DAYS_PER_POLLUTION) == 3)
     {   do_pollution();}
-    if ((total_time % DAYS_BETWEEN_FIRES) == 9 && tech_level > (GROUP_FIRESTATION_TECH * MAX_TECH_LEVEL / 1000))
+    if ((total_time % (DAYS_BETWEEN_FIRES*100/world.len()*100/world.len() )) == 9 && tech_level > (GROUP_FIRESTATION_TECH * MAX_TECH_LEVEL / 1000))
     {   do_random_fire(-1, -1, 1);}
     if ((total_time % DAYS_BETWEEN_COVER) == 75)
     {   do_fire_health_cricket_power_cover();} //constructions will call ::cover()
@@ -270,13 +270,23 @@ static void end_of_year_update(void)
 
 static void simulate_mappoints(void)
 {
+    Construction *construction;
     constructionCount.shuffle();
     for (int i = 0; i < constructionCount.size(); i++)
     {
-        if (constructionCount[i])
+        construction = constructionCount[i];
+        if (construction)
         {
-            constructionCount[i]->trade();
-            constructionCount[i]->update();
+            construction->trade();
+            construction->update();
+#ifdef DEBUG
+            if (construction != constructionCount[i])
+            {
+                std::cout << "invalid constructionCount[i] in simulate_mapppoints: " << std::endl
+                << construction->constructionGroup->name << " (" << construction->x << ","
+                << construction->y << ")" << std::endl;
+            }
+#endif
         }
     }
 }
