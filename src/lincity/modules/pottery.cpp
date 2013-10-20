@@ -27,17 +27,19 @@ Construction *PotteryConstructionGroup::createConstruction(int x, int y, unsigne
 
 void Pottery::update()
 {
-     if (total_time % 100 == 0) {
-        productivity = workingdays;
-        workingdays = 0;
-        }
+    if (total_time % 100 == 0)
+    {
+        busy = working_days;
+        working_days = 0;
+    }
 
     if (pauseCounter++ < 0)
-        return;
-    if (commodityCount[STUFF_GOODS] < (MAX_GOODS_AT_POTTERY - POTTERY_MADE_GOODS)
-        && commodityCount[STUFF_ORE] > POTTERY_ORE_MAKE_GOODS
-        && commodityCount[STUFF_COAL] > POTTERY_COAL_MAKE_GOODS
-        && commodityCount[STUFF_JOBS] > POTTERY_JOBS)
+    {   return;}
+
+    if ((commodityCount[STUFF_GOODS] + POTTERY_MADE_GOODS <= MAX_GOODS_AT_POTTERY)
+     && (commodityCount[STUFF_ORE] >= POTTERY_ORE_MAKE_GOODS)
+     && (commodityCount[STUFF_COAL] >= POTTERY_COAL_MAKE_GOODS)
+     && (commodityCount[STUFF_JOBS] >= POTTERY_JOBS))
     {
         commodityCount[STUFF_GOODS] += POTTERY_MADE_GOODS;
         commodityCount[STUFF_ORE] -= POTTERY_ORE_MAKE_GOODS;
@@ -45,7 +47,7 @@ void Pottery::update()
         commodityCount[STUFF_JOBS] -= POTTERY_JOBS;
 
         animate = true;
-        if(!((workingdays++)%10))
+        if(!((working_days++)%10))
         {   world(x,y)->pollution++;}
     }
     else
@@ -103,7 +105,7 @@ void Pottery::report()
 
     mps_store_sd(i++, constructionGroup->name,ID);
     i++;
-    mps_store_sfp(i++, _("busy"), (float) productivity);
+    mps_store_sfp(i++, "busy", (float) busy);
     i++;
     list_commodities(&i);
 }

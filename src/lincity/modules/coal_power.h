@@ -9,8 +9,8 @@
 
 #define POWERS_COAL_OUTPUT 11000 //x2 for kWh
 #define MAX_MWH_AT_COALPS (20 * POWERS_COAL_OUTPUT)
-#define MAX_COAL_AT_POWER_STATION 100000
-#define MAX_COAL_AT_COALPS (20 * POWERS_COAL_OUTPUT / 250)
+#define POWER_PER_COAL 250
+#define MAX_COAL_AT_COALPS (20 * POWERS_COAL_OUTPUT / POWER_PER_COAL)
 #define POWERS_COAL_POLLUTION  20
 #define JOBS_COALPS_GENERATE 100
 #define MAX_JOBS_AT_COALPS (20 * JOBS_COALPS_GENERATE)
@@ -68,8 +68,7 @@ public:
 
     int  mwh_output;
     int  tech;
-    int  working_days;
-    int  busy;
+    int  working_days, busy;
 };
 
 

@@ -60,8 +60,8 @@ public:
         constructionGroup = &potteryConstructionGroup;
         this->anim = 0; // or real_time?
         this->pauseCounter = 0;
-        this->productivity = 0;
-        this->workingdays = 0;
+        this->busy = 0;
+        this->working_days = 0;
         this->animate = false;
         initialize_commodities();
     }
@@ -71,8 +71,7 @@ public:
 
     int  anim;
     int  pauseCounter;
-    int  workingdays;
-    int  productivity;
+    int  working_days, busy;
     bool animate;
 };
 

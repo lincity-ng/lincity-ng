@@ -55,7 +55,7 @@ void Oremine::update()
                     commodityCount[STUFF_JOBS] -= OREMINE_JOBS;
                     //FIXME ore_tax should be handled upon delivery
                     //ore_made += ORE_PER_RESERVE;
-                    if (total_ore_reserve < (16 * ORE_RESERVE))
+                    if (total_ore_reserve < (constructionGroup->size * constructionGroup->size * ORE_RESERVE))
                     {   sust_dig_ore_coal_tip_flag = 0;}
                     animate = true;
                     working_days++;
@@ -95,9 +95,7 @@ void Oremine::update()
     if (animate && real_time > anim)
     {
         if (real_time > days_offset)
-        {
-            days_offset = real_time + (16 * OREMINE_ANIMATION_SPEED) + (rand() % (16 * OREMINE_ANIMATION_SPEED));
-        }
+        {   days_offset = real_time + (16 * OREMINE_ANIMATION_SPEED) + (rand() % (16 * OREMINE_ANIMATION_SPEED));}
         //faster animation for more active mines
         anim = real_time + ((14 - busy/11) * OREMINE_ANIMATION_SPEED);
         anim_count = (anim_count + days_offset) & 15;
@@ -155,20 +153,14 @@ void Oremine::update()
     }//end if animate
 
     //Evacuate Mine if no more deposits
-    if ( total_ore_reserve < 1 )
+    if ( total_ore_reserve == 0 )
     {   flags |= FLAG_EVACUATE;}
 
     //Abandon the Oremine if it is really empty
-    if ((total_ore_reserve < 1)
-      &&(commodityCount[STUFF_JOBS] < 1)
-      &&(commodityCount[STUFF_ORE] < 1) )
-    {
-        ConstructionManager::submitRequest
-            (
-                new OreMineDeletionRequest(this)
-            );
-    }
-
+    if ((total_ore_reserve == 0)
+      &&(commodityCount[STUFF_JOBS] == 0)
+      &&(commodityCount[STUFF_ORE] == 0) )
+    {   ConstructionManager::submitRequest(new OreMineDeletionRequest(this));}
 }
 
 void Oremine::report()
@@ -176,7 +168,7 @@ void Oremine::report()
     int i = 0;
     mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++,"busy",busy);
-    mps_store_sddp(i++,"Deposits", total_ore_reserve, (16 * ORE_RESERVE));
+    mps_store_sddp(i++,"Deposits", total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
     i++;
     list_commodities(&i);
 }

@@ -39,7 +39,7 @@ void Mill::update()
         commodityCount[STUFF_FOOD] -= FOOD_USED_BY_MILL;
         commodityCount[STUFF_JOBS] -= MILL_JOBS;
         commodityCount[STUFF_GOODS] += GOODS_MADE_BY_MILL;
-        ++workingdays;
+        ++working_days;
         animate = true;
         if ((++pol_count %= 7) == 0)
             world(x,y)->pollution++;
@@ -51,8 +51,8 @@ void Mill::update()
     //monthly update
     if (total_time % 100 == 0)
     {
-        busy = workingdays;
-        workingdays = 0;
+        busy = working_days;
+        working_days = 0;
     }
     //Animation
     if (real_time >= anim && animate)

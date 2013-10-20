@@ -120,9 +120,9 @@ void Residence::update()
         good += 15;
     }
     if (world(x,y)->flags & FLAG_FIRE_COVER)
-        good += 15;
+    {   good += 15;}
     else
-        bad += 5;
+    {   bad += 5;}
     if (world(x,y)->flags & FLAG_CRICKET_COVER)
     {
         good += 20;
@@ -184,18 +184,18 @@ void Residence::update()
 
     /* now supply jobs and buy goods if employed */
     if (job_swingometer > 0)
-        swing = JOB_SWING + (hc?1:0 * HC_JOB_SWING) + cc;
+    {   swing = JOB_SWING + (hc?1:0 * HC_JOB_SWING) + cc;}
     else
-        swing = -(JOB_SWING + (hc?1:0 * HC_JOB_SWING) + cc);
+    {   swing = -(JOB_SWING + (hc?1:0 * HC_JOB_SWING) + cc);}
 
     if (constructionGroup->commodityRuleCount[STUFF_JOBS].maxload - commodityCount[STUFF_JOBS] >= (local_population * (WORKING_POP_PERCENT + swing) / 100) )
     {
         commodityCount[STUFF_JOBS] += (local_population * (WORKING_POP_PERCENT + swing) / 100);
         flags |= FLAG_EMPLOYED; //enable births
         if (job_swingometer < -300)
-            job_swingometer = -300;
+        {   job_swingometer = -300;}
         if (++job_swingometer > 10)
-            job_swingometer = 10;
+        {   job_swingometer = 10;}
         good += 20;
         if ((commodityCount[STUFF_GOODS] >= local_population/4)
         &&  (constructionGroup->commodityRuleCount[STUFF_WASTE].maxload-commodityCount[STUFF_WASTE] >= local_population/12))
@@ -218,14 +218,14 @@ void Residence::update()
                 }
             }
             else
-                bad += 5;
+            {   bad += 5;}
         }
     }
     else if (job_swingometer < 10)
     {
         flags &= ~(FLAG_EMPLOYED); //disable births
         if ((job_swingometer -= 11) < -300)
-            job_swingometer = -300;
+        {   job_swingometer = -300;}
         unemployed_population += local_population;
         total_unemployed_days += local_population;
         if (total_unemployed_days >= NUMOF_DAYS_IN_YEAR)
@@ -300,9 +300,7 @@ void Residence::update()
         }
     }
     else //no death in hundred years
-    {
-        deaths = 120000;
-    }
+    {   deaths = 120000;}
 
     /* normal births FED and EMPLOYED */
     births = RESIDENCE_BASE_BR + brm;
@@ -317,9 +315,7 @@ void Residence::update()
         }
     }
     else //no baby in hundred years
-    {
-        births = 120000;
-    }
+    {   births = 120000;}
 
     /* people_pool stuff */
     //bad += local_population / 2;
@@ -354,7 +350,7 @@ void Residence::report()
     mps_store_sd(i++, _("Desireability"), desireability);
     mps_store_sf(i++, _("Births per year"), (float)1200/births);
     mps_store_sf(i++, _("Death per year"), (float)1200/deaths);
-    mps_store_sfp(i++, _("Pollution mortality"), (float)pol_deaths);
+    mps_store_sfp(i++, _("Unnat. mortality"), (float)pol_deaths);
     i++;
     list_commodities(&i);
 }

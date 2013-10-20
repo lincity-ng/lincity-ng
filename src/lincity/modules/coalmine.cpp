@@ -36,9 +36,7 @@ void Coalmine::update()
     for (int yy = ys; yy < ye ; yy++)
     {
         for (int xx = xs; xx < xe ; xx++)
-        {
-            current_coal_reserve += world(xx,yy)->coal_reserve;
-        }
+        {   current_coal_reserve += world(xx,yy)->coal_reserve;}
     }
     // mine some coal
     if ((current_coal_reserve > 0)
@@ -100,19 +98,14 @@ void Coalmine::update()
         type = CST_COALMINE_EMPTY;
 
     //Evacuate Mine if no more deposits
-    if (current_coal_reserve < 1 )
+    if (current_coal_reserve == 0 )
     {   flags |= FLAG_EVACUATE;}
 
     //Abandon the Coalmine if it is really empty
-    if ((current_coal_reserve < 1)
-      &&(commodityCount[STUFF_JOBS] < 1)
-      &&(commodityCount[STUFF_COAL] < 1) )
-    {
-        ConstructionManager::submitRequest
-            (
-                new ConstructionDeletionRequest(this)
-            );
-    }
+    if ((current_coal_reserve == 0)
+      &&(commodityCount[STUFF_JOBS] == 0)
+      &&(commodityCount[STUFF_COAL] == 0) )
+    {   ConstructionManager::submitRequest(new ConstructionDeletionRequest(this));}
 }
 
 void Coalmine::report()

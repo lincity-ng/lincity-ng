@@ -37,13 +37,13 @@ void HealthCentre::update()
         commodityCount[STUFF_GOODS] -= HEALTH_CENTRE_GOODS;
         commodityCount[STUFF_WASTE] += (HEALTH_CENTRE_GOODS / 3);
         ++covercount;
-        ++workingdays;
+        ++working_days;
     }
     //monthly update
     if (total_time % 100 == 0)
     {
-        busy = workingdays;
-        workingdays = 0;
+        busy = working_days;
+        working_days = 0;
     }
     //TODO implement animation once graphics exist
     /* That's all. Cover is done by different functions every 3 months or so. */

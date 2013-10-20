@@ -59,7 +59,7 @@ public:
         this->active = false;
         setMemberSaved(&(this->active),"active");
         this->busy = 0;
-        this->workingdays = 0;
+        this->working_days = 0;
         this->daycount = 0;
         setMemberSaved(&(this->daycount),"daycount");
         this->covercount = 0;
@@ -86,7 +86,7 @@ public:
     int daycount, covercount;
     int anim;
     bool animate, active;
-    int workingdays, busy;
+    int working_days, busy;
 };
 
 /** @file lincity/modules/firestation.h */

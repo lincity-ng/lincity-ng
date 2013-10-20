@@ -32,13 +32,13 @@ void Monument::update()
         commodityCount[STUFF_JOBS] -= MONUMENT_GET_JOBS;
         jobs_consumed += MONUMENT_GET_JOBS;
         completion = jobs_consumed * 100 / BUILD_MONUMENT_JOBS;
-        ++workingdays;
+        ++working_days;
     }
     //monthly update
     if (total_time % 100 == 0)
     {
-        busy = workingdays;
-        workingdays = 0;
+        busy = working_days;
+        working_days = 0;
 
     }
     /* now choose a graphic */

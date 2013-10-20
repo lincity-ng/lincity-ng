@@ -38,13 +38,13 @@ void Cricket::update()
         commodityCount[STUFF_GOODS] -= CRICKET_GOODS;
         commodityCount[STUFF_WASTE] += (CRICKET_GOODS / 3);
         ++covercount;
-        ++workingdays;
+        ++working_days;
     }
     //monthly update
     if (total_time % 100 == 0)
     {
-        busy = workingdays;
-        workingdays = 0;
+        busy = working_days;
+        working_days = 0;
     }
     //animate
     if (animate && real_time > anim)

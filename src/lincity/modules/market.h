@@ -77,7 +77,7 @@ public:
         this->jobs = JOBS_MARKET_LOW;
         this->anim = 0;
         this->busy = 0;
-        this->workingdays = 0;
+        this->working_days = 0;
         //set the Searchrange of this Market
         int tmp;
         int lenm1 = world.len()-1;
@@ -97,7 +97,7 @@ public:
     void toggleEvacuation();
 
     int xs, ys, xe, ye;
-    int workingdays, busy;
+    int working_days, busy;
     int jobs;
     std::map<Commodities, CommodityRule> commodityRuleCount;
     int anim;

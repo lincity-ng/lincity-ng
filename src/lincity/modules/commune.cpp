@@ -37,35 +37,35 @@ void Commune::update()
     }
     if(//(total_time & 1) && //make coal every second day
        (tmpCoalprod > 0)
-    && (commodityCount[STUFF_COAL] <= MAX_COAL_AT_COMMUNE - tmpCoalprod))
+    && (commodityCount[STUFF_COAL] + tmpCoalprod <= MAX_COAL_AT_COMMUNE ))
     {
          commodityCount[STUFF_COAL] += tmpCoalprod;
          monthly_stuff_made++;
     }
-    if(commodityCount[STUFF_ORE] <= MAX_ORE_AT_COMMUNE - COMMUNE_ORE_MADE)
-        {
-            commodityCount[STUFF_ORE] += COMMUNE_ORE_MADE;
-            monthly_stuff_made++;
-        }
+    if(commodityCount[STUFF_ORE] + COMMUNE_ORE_MADE <= MAX_ORE_AT_COMMUNE)
+    {
+        commodityCount[STUFF_ORE] += COMMUNE_ORE_MADE;
+        monthly_stuff_made++;
+    }
     /* recycle a bit of waste if there is plenty*/
     if (commodityCount[STUFF_WASTE] >= 3 * COMMUNE_WASTE_GET)
     {
         commodityCount[STUFF_WASTE] -= COMMUNE_WASTE_GET;
         monthly_stuff_made++;
-        if(commodityCount[STUFF_ORE] <= MAX_ORE_AT_COMMUNE - COMMUNE_ORE_FROM_WASTE)
+        if(commodityCount[STUFF_ORE] + COMMUNE_ORE_FROM_WASTE <= MAX_ORE_AT_COMMUNE )
         {   commodityCount[STUFF_ORE] += COMMUNE_ORE_FROM_WASTE;}
     }
     if (total_time % 10 == 0)
     {
         if (monthly_stuff_made)
-            animate = true;
-        if (!steel_made && commodityCount[STUFF_STEEL] <= MAX_STEEL_AT_COMMUNE - COMMUNE_STEEL_MADE)
+        {   animate = true;}
+        if (!steel_made && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
         {
             monthly_stuff_made++;
             steel_made = true;
             commodityCount[STUFF_STEEL] += COMMUNE_STEEL_MADE;
             if (world(x,y)->pollution >= 10 + tmpUgwCount)
-                world(x,y)->pollution -= tmpUgwCount;
+            {   world(x,y)->pollution -= tmpUgwCount;}
         }
         else
         {   steel_made = false;}
@@ -94,13 +94,7 @@ void Commune::update()
             lazy_months++;
             /* Communes without production only last 10 years */
             if (lazy_months > 120)
-            {
-                // commit suicide, some time later
-                ConstructionManager::submitRequest
-                (
-                    new CommuneDeletionRequest(this)
-                );
-            } //end 10 years
+            {   ConstructionManager::submitRequest(new CommuneDeletionRequest(this));}
         }//end we are lazy
     }//end each month
     /* animate */
@@ -159,13 +153,9 @@ void Commune::report()
     mps_store_sfp(i++, "busy", (float)last_month_output / 3.05);
     mps_store_sd(i++, "Pollution", world(x,y)->pollution);
     if(lazy_months)
-    {
-        mps_store_sddp(i++, "lazy months", lazy_months, 120);
-    }
+    {   mps_store_sddp(i++, "lazy months", lazy_months, 120);}
     else
-    {
-        mps_store_title(i++, "");
-    }
+    {   mps_store_title(i++, "");}
     list_commodities(&i);
 }
 

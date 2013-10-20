@@ -97,13 +97,13 @@ void Market::update()
         commodityCount[STUFF_JOBS] -= jobs;
         //Have to collect taxes here since transport does not consider the market a consumer but rather as another transport
         income_tax += jobs;
-        ++workingdays;
+        ++working_days;
     }
     //monthly update
     if (total_time % 100 == 0)
     {
-        busy = workingdays;
-        workingdays = 0;
+        busy = working_days;
+        working_days = 0;
     }
     if (total_time % 25 == 17)
     {

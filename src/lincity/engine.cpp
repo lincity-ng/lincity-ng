@@ -444,7 +444,7 @@ void desert_frontier(int originx, int originy, int w, int h)
 {
     /* copied from connect_transport */
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
-    int x, y, mask;
+    int mask;
 
     static const short desert_table[16] = {
         CST_DESERT_0, CST_DESERT_1D, CST_DESERT_1R, CST_DESERT_2RD,
@@ -459,41 +459,42 @@ void desert_frontier(int originx, int originy, int w, int h)
 #endif
 
     /* Adjust originx,originy,w,h to proper range */
-    if (originx <= 0) {
+    if (originx <= 0)
+    {
         w -= 1 - originx;
         originx = 1;
     }
-    if (originy <= 0) {
+    if (originy <= 0)
+    {
         h -= 1 - originy;
         originy = 1;
     }
-    if (originx + w >= world.len()) {
-        w = world.len() - originx;
-    }
-    if (originy + h >= world.len()) {
-        h = world.len() - originy;
-    }
+    if (originx + w >= world.len())
+    {   w = world.len() - originx;}
+    if (originy + h >= world.len())
+    {   h = world.len() - originy;}
 
-    for (x = originx; x < originx + w; x++) {
-        for (y = originy; y < originy + h; y++) {
+    for (int x = originx; x < originx + w; x++) {
+        for (int y = originy; y < originy + h; y++) {
             if (world(x, y)->getGroup() == GROUP_DESERT)
             {
                 mask = 0;
                 /* up -- (ThMO) */
-                if (check_group(x, y - 1) == GROUP_DESERT)
-                    mask |= 8;
-
+                if ((check_group(x, y - 1) == GROUP_DESERT)
+                 || (check_group(x, y - 1) == GROUP_FIRE))
+                {   mask |= 8;}
                 /* left -- (ThMO) */
-                if (check_group(x - 1, y) == GROUP_DESERT)
-                    mask |= 4;
-
+                if ((check_group(x - 1, y) == GROUP_DESERT)
+                 || (check_group(x - 1, y) == GROUP_FIRE))
+                {   mask |= 4;}
                 /* right -- (ThMO) */
-                if (check_group(x + 1, y) == GROUP_DESERT)
-                    mask |= 2;
-
+                if ((check_group(x + 1, y) == GROUP_DESERT)
+                 || (check_group(x + 1, y) == GROUP_FIRE))
+                {   mask |= 2;}
                 /* down -- (ThMO) */
-                if (check_group(x, y + 1) == GROUP_DESERT)
-                    ++mask;
+                if ((check_group(x, y + 1) == GROUP_DESERT)
+                 || (check_group(x, y + 1) == GROUP_FIRE))
+                {   ++mask;}
                 world(x, y)->type = desert_table[mask];
             }
         }

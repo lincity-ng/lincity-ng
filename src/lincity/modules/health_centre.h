@@ -56,7 +56,7 @@ public:
         setMemberSaved(&(this->active),"active");
         this->busy = 0;
         this->daycount = 0;
-        this->workingdays = 0;
+        this->working_days = 0;
         setMemberSaved(&(this->daycount),"daycount");
         this->covercount = 0;
         setMemberSaved(&(this->covercount),"covercount");
@@ -81,7 +81,7 @@ public:
     int xs, ys, xe, ye;
     int daycount, covercount;
     bool active;
-    int workingdays, busy;
+    int working_days, busy;
 };
 
 /** @file lincity/modules/health_centre.h */

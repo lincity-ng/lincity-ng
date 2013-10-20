@@ -28,13 +28,13 @@ Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsi
 void Coal_power::update()
 {
     if ((commodityCount[STUFF_JOBS] >= JOBS_COALPS_GENERATE)
-     && (commodityCount[STUFF_COAL] >= POWERS_COAL_OUTPUT / 250)
-     && (commodityCount[STUFF_MWH] <= MAX_MWH_AT_COALPS-mwh_output))
+     && (commodityCount[STUFF_COAL] >= POWERS_COAL_OUTPUT / POWER_PER_COAL)
+     && (commodityCount[STUFF_MWH] + mwh_output <= MAX_MWH_AT_COALPS))
     {
         commodityCount[STUFF_JOBS] -= JOBS_COALPS_GENERATE;
-        commodityCount[STUFF_COAL] -= (POWERS_COAL_OUTPUT / 250);
+        commodityCount[STUFF_COAL] -= (POWERS_COAL_OUTPUT / POWER_PER_COAL);
         commodityCount[STUFF_MWH] += mwh_output;
-        coal_used += (POWERS_COAL_OUTPUT / 250);
+        coal_used += (POWERS_COAL_OUTPUT / POWER_PER_COAL);
         world(x,y)->pollution += POWERS_COAL_POLLUTION;
         working_days++;
     }
@@ -46,21 +46,21 @@ void Coal_power::update()
     }
     /* choose a graphic */
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
-        type = CST_POWERS_COAL_FULL;
+    {   type = CST_POWERS_COAL_FULL;}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
-        type = CST_POWERS_COAL_MED;
+    {   type = CST_POWERS_COAL_MED;}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 10))
-        type = CST_POWERS_COAL_LOW;
+    {   type = CST_POWERS_COAL_LOW;}
     else
-        type = CST_POWERS_COAL_EMPTY;
+    {   type = CST_POWERS_COAL_EMPTY;}
 }
 
 void Coal_power::report()
 {
     int i = 0;
     mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, _("busy"), (busy));
-    mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, _("busy"), busy);
+    mps_store_sfp(i++, _("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, "Output", mwh_output);
     i++;
     list_commodities(&i);

@@ -75,9 +75,7 @@ public:
         for (int yy = ys; yy < ye ; yy++)
         {
             for (int xx = xs; xx < xe ; xx++)
-            {
-                coal += world(xx,yy)->coal_reserve;
-            }
+            {   coal += world(xx,yy)->coal_reserve;}
         }
         //always provide some coal so player can
         //store sustainable coal

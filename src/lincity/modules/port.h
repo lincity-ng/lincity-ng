@@ -129,8 +129,7 @@ public:
     int daily_ic, monthly_ic, lastm_ic; //import cost
     int daily_et, monthly_et, lastm_et; //export tax
     int pence;
-    int working_days;
-    int busy;
+    int working_days, busy;
     int tech_made;
 };
 

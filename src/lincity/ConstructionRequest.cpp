@@ -134,9 +134,7 @@ void SetOnFire::execute()
     // update adjacencies
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
-
 }
-
 
 void PowerLineFlashRequest::execute()
 {

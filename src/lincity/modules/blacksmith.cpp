@@ -30,12 +30,12 @@ void Blacksmith::update()
     //monthly update
     if (total_time % 100 == 0)
     {
-        productivity = workingdays;
-        workingdays = 0;
+        busy = working_days;
+        working_days = 0;
     }
     if (pauseCounter++ < 0)
-        return;
-    if ((commodityCount[STUFF_GOODS] < constructionGroup->commodityRuleCount[STUFF_GOODS].maxload - GOODS_MADE_BY_BLACKSMITH)
+    {   return;}
+    if ((commodityCount[STUFF_GOODS] + GOODS_MADE_BY_BLACKSMITH <= MAX_GOODS_AT_BLACKSMITH )
         && (commodityCount[STUFF_COAL] >= BLACKSMITH_COAL_USED)
         && (commodityCount[STUFF_STEEL] >= BLACKSMITH_STEEL_USED)
         && (commodityCount[STUFF_JOBS] >= BLACKSMITH_JOBS))
@@ -44,7 +44,7 @@ void Blacksmith::update()
         commodityCount[STUFF_COAL] -= BLACKSMITH_COAL_USED;
         commodityCount[STUFF_STEEL] -= BLACKSMITH_STEEL_USED;
         commodityCount[STUFF_JOBS] -= BLACKSMITH_JOBS;
-        workingdays++;
+        working_days++;
         if ((goods_made += GOODS_MADE_BY_BLACKSMITH) >= BLACKSMITH_BATCH)
         {
             animate = true;
@@ -96,7 +96,7 @@ void Blacksmith::report()
 
     mps_store_sd(i++, constructionGroup->name,ID);
     i++;
-    mps_store_sfp(i++, _("busy"), (float) productivity);
+    mps_store_sfp(i++, _("busy"), (float) busy);
     i++;
     list_commodities(&i);
 }

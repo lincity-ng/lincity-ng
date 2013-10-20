@@ -67,7 +67,7 @@ public:
         constructionGroup = &millConstructionGroup;
         this->anim = 0;
         this->busy = 0;
-        this->workingdays = 0;
+        this->working_days = 0;
         this->animate = false;
         this->pol_count = 0;
         initialize_commodities();
@@ -78,7 +78,7 @@ public:
 
     int  anim;
     int  pol_count;
-    int  workingdays, busy;
+    int  working_days, busy;
     bool animate;
 };
 

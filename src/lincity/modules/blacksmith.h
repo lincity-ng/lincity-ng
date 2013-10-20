@@ -19,7 +19,7 @@
 #define BLACKSMITH_CLOSE_TIME 25
 
 #define BLACKSMITH_BATCH (GOODS_MADE_BY_BLACKSMITH*100)
-#define BLACKSMITH_ANIM_THRESHOLD 10
+//#define BLACKSMITH_ANIM_THRESHOLD 10
 #define BLACKSMITH_ANIM_SPEED    200
 
 #include "modules.h"
@@ -62,24 +62,14 @@ class Blacksmith: public RegisteredConstruction<Blacksmith> { // Blacksmith inhe
 public:
     Blacksmith(int x, int y, unsigned short type): RegisteredConstruction<Blacksmith>(x, y, type)
     {
-        //static int blacksmithID = 0;
         constructionGroup = &blacksmithConstructionGroup;
-        //this->x = x; this->y = y;
-        //this->type = CST_BLACKSMITH_0;
-        //this->ID = ++blacksmithID;
-        //this->flags = 0;
         this->anim = 0; // or real_time?
         this->pauseCounter = 0;
-        this->productivity = 0;
-        this->workingdays = 0;
+        this->busy = 0;
+        this->working_days = 0;
         this->animate = false;
         this->goods_made = 0;
         initialize_commodities();
-        //this->commodityCount[STUFF_JOBS] = 0;
-        //this->commodityCount[STUFF_COAL] = 0;
-        //this->commodityCount[STUFF_STEEL] = 0;
-        //this->commodityCount[STUFF_GOODS] = 0;
-
     }
     virtual ~Blacksmith() { }
     virtual void update();
@@ -88,8 +78,7 @@ public:
     int  goods_made;
     int  anim;
     int  pauseCounter;
-    int  workingdays;
-    int  productivity;
+    int  working_days, busy;
     bool animate;
 };
 

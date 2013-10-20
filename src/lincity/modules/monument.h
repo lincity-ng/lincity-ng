@@ -47,7 +47,7 @@ public:
     {
         constructionGroup = &monumentConstructionGroup;
         this->busy = 0;
-        this->workingdays = 0;
+        this->working_days = 0;
         this->tech_made = 0;
         setMemberSaved(&this->tech_made, "tech_made");
         this->tail_off = 0;
@@ -65,7 +65,7 @@ public:
     virtual void update();
     virtual void report();
 
-    int  workingdays, busy;
+    int  working_days, busy;
     int  tech_made;
     int  tail_off;
     int  completion;

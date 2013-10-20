@@ -65,9 +65,7 @@ public:
         for (int yy = y; (yy < y + constructionGroup->size) ; yy++)
         {
             for (int xx = x; (xx < x + constructionGroup->size); xx++)
-            {
-                ore += world(xx,yy)->ore_reserve;
-            }
+            {   ore += world(xx,yy)->ore_reserve;}
         }
         if (ore < 1)
         { ore = 1;}

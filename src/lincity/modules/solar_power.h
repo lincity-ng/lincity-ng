@@ -60,8 +60,7 @@ public:
     virtual void report();
     int  mwh_output;
     int  tech;
-    int  working_days;
-    int  busy;
+    int  working_days, busy;
 };
 
 
