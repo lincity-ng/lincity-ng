@@ -192,10 +192,11 @@ public:
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
 
-    void list_commodities(int *);               //prints a sorted list all commodities in report()
+    void list_commodities(int *);                   //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
-    //void list_connections(int *);               //prints the detected lurd connections
-    void initialize_commodities(void);              //sets all commodities to 0
+    //void list_connections(int *);                 //prints the detected lurd connections
+    void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
+    void bootstrap_commodities(int percentage);     // sets all commodities except STUFF_WASTE to percentage.
     int loadMember(std::string const &xml_tag, std::string const &xml_val);
     int readbinaryMember(std::string const &xml_tag, gzFile fp);
     template <typename MemberType>
@@ -204,8 +205,7 @@ public:
         memberRuleCount[xml_tag].memberType = MemberTraits<MemberType>::TYPE_ID;
         memberRuleCount[xml_tag].ptr = static_cast<void *>(ptr);
     }
-    //currently usefull for market and port who use a private copy of commodityRules for trading
-    //TODO Generalize the concept for every construction
+
     void setCommodityRulesSaved(std::map<Commodities,CommodityRule> * stuffRuleCount);
     void writeTemplate();      //create xml template for savegame
     void saveMembers(std::ostream *os);        //writes all needed and optionally set Members as XML to stream

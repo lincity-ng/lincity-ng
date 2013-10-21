@@ -55,7 +55,7 @@ static void new_setup_river(void);
 //static void sort_by_altitude(int n, std::vector <int> *tabx, std::vector <int> *taby);
 //static int new_setup_one_river(int x, int y, int lake_id, Shoreline *shore);
 static int quick_river( int x, int y);
-static void set_river_tile( int i, int j);
+void set_river_tile( int i, int j); //also used in loadsave.cpp
 static void do_rand_ecology(int x, int y, int r);
 //static Shoreline * init_shore(void);
 //static void free_shore(Shoreline *shore);
@@ -1028,7 +1028,7 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
     return -1;
 }
 
-static void set_river_tile( int x, int y)
+void set_river_tile( int x, int y)
 {
     world(x, y)->type = CST_WATER;
     world(x, y)->group = GROUP_WATER;

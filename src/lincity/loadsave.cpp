@@ -17,7 +17,7 @@
 #include "stats.h"
 #include "init_game.h"
 #include "transport.h"
-#include "modules/all_modules.h"  
+#include "modules/all_modules.h"
 
 #include <fcntl.h>
 #include <sys/types.h>
@@ -106,6 +106,7 @@ extern void prog_box(const char *, int);
 extern void print_total_money(void);
 //extern int count_groups(int);
 extern void desert_frontier(int originx, int originy, int w, int h);
+extern void set_river_tile( int x, int y);
 
 
 /* -----------------------------------------------*
@@ -167,9 +168,9 @@ void save_city_2(char *cname)
         for (x = 0; x < world.len(); x++)
         {
             for (y = 0; y < world.len(); y++)
-            {            
+            {
                 /*               TY po fl cr or i1 i2 i3 i4 i5 i6 i7 PL al ec ws gp wa wp ww wn g1 g2 g3 g4 DA TK AN d4 d5 d6 d7 d8 d9 */
-                gzprintf(ofile, "%u %d %d %u %u %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" 
+                gzprintf(ofile, "%u %d %d %u %u %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n"
                            , world(x, y)->is_visible() ? world(x, y)->getTopType() : CST_USED
                            , 0 //MP_INFO(x, y).population
                            , world(x, y)->flags
@@ -343,17 +344,20 @@ void load_city_2(char *cname)
     r = xml_loadsave.loadXMLfile(xml_file_name);
     if (r == -1)
     {
-        //old savegames are always WORLD_SIDE_LEN == 100        
-        world.len(COMPATIBLE_WORLD_SIDE_LEN);        
+        //old savegames are always WORLD_SIDE_LEN == 100
+        world.len(COMPATIBLE_WORLD_SIDE_LEN);
+        clear_game();
+        binary_mode = false; //set save default for old files
+        seed_compression = false; //set save default for old files
         gzfile = gzopen(cname, "rb");
-        if (gzfile == NULL) 
+        if (gzfile == NULL)
         {
             printf(_("Can't open <%s> (gzipped)"), cname);
             do_error("Can't open it!");
         }
 
         sscanf(gzgets(gzfile, s, 256), "%d", &ldsv_version);
-        if (ldsv_version < WATERWELL_V2) 
+        if (ldsv_version < WATERWELL_V2)
         {
             gzclose(gzfile);
             load_city_old( cname );
@@ -365,12 +369,12 @@ void load_city_2(char *cname)
         fprintf(stderr, " ldsv_version = %i \n", ldsv_version);
         use_waterwell = true;
 
-        
+
         // Easier debugging from saved game: #Line = 100 x + y + 1  (first line = ldsv_version)
-        for (x = 0; x < world.len(); x++)
-        { 
-            for (y = 0; y < world.len(); y++)
-            {          
+        for (x = 0; x < COMPATIBLE_WORLD_SIDE_LEN; x++)
+        {
+            for (y = 0; y < COMPATIBLE_WORLD_SIDE_LEN; y++)
+            {
                 gzgets(gzfile, s, 512);
                 //         TY  po fl cr  or  i1 i2 i3 i4 i5 i6 i7 PL al ec ws gp wa wp ww wn g1 g2 g3 g4 DA TK AN d4 d5 d6 d7 d8 d9
                 sscanf(s, "%hu %d %i %hu %hu %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d"
@@ -408,25 +412,26 @@ void load_city_2(char *cname)
                         , &dumbint        // d7
                         , &dumbint        // d8
                         , &dumbint        // d9
-                        );                                 
-                world(x, y)->group = get_group_of_type(world(x, y)->type);                   
+                        );
+                world(x, y)->group = get_group_of_type(world(x, y)->type);
+
             }
         }
-        set_map_groups();
+        //set_map_groups();
 
         sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originx);
         sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originy);
 
         sscanf(gzgets(gzfile, s, 256), "%d", &total_time);
 
-        for (x = 0; x < MAX_NUMOF_SUBSTATIONS; x++) 
+        for (x = 0; x < MAX_NUMOF_SUBSTATIONS; x++)
         {
             sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&substationx[x]);
             sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&substationy[x]);
         }
         sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&numof_substations);
 
-        for (x = 0; x < MAX_NUMOF_MARKETS; x++) 
+        for (x = 0; x < MAX_NUMOF_MARKETS; x++)
         {
             sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&marketx[x]);
             sscanf(gzgets(gzfile, s, 256), "%d", &dummy);//&markety[x]);
@@ -459,54 +464,57 @@ void load_city_2(char *cname)
         sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &diff_old_population */
 
         //build new constructions according to type info
-        int constuctionCounter = 0;        
-        for (x = 0; x < world.len(); x++)
-        { 
-            for (y = 0; y < world.len(); y++)
-            {          
-                unsigned short type = world(x, y)->type;            
+        int constuctionCounter = 0;
+        for (x = 0; x < COMPATIBLE_WORLD_SIDE_LEN; x++)
+        {
+            for (y = 0; y < COMPATIBLE_WORLD_SIDE_LEN; y++)
+            {
+                unsigned short type = world(x, y)->type;
                 unsigned short group = world(x,y)->group;
-                if (ConstructionGroup::countConstructionGroup(group))            
-                {                           
-                    //fake the unsaved ground underneath constructions           
-                    if((group == GROUP_TRACK_BRIDGE) || (group == GROUP_ROAD_BRIDGE) 
-                    || (group == GROUP_RAIL_BRIDGE) || world(x,y)->is_river() )                
-                    {
-                        world(x, y)->setTerrain(CST_WATER);
-                        std::cout << "bridge at" << x << "," << y << std::endl;            
-                    }    
-                    else // to make sure there is no legacy CST_USED tile on the terrain
-                    {
-                        world(x, y)->setTerrain(CST_DESERT); 
-                    }
+
+                if (world(x, y)->flags & FLAG_IS_RIVER)
+                    {   set_river_tile( x, y);}
+
+                if((group == GROUP_TRACK_BRIDGE) || (group == GROUP_ROAD_BRIDGE)
+                || (group == GROUP_RAIL_BRIDGE))
+                {   world(x, y)->setTerrain(CST_WATER);}
+
+                if (ConstructionGroup::countConstructionGroup(group))
+                {
                     ConstructionGroup::getConstructionGroup(group)->placeItem(x, y, type);
-                    constuctionCounter++;           
-                } 
+                    if(world(x,y)->is_residence())
+                    {
+                        Residence *residence = dynamic_cast<Residence*>(world(x,y)->construction);
+                        residence->local_population = 95 * residence->max_population / 100;
+                    }
+                    world(x,y)->construction->bootstrap_commodities(50);
+                    constuctionCounter++;
+                }
                 else if(type == CST_USED)
-                {             
-                    world(x, y)->setTerrain(CST_DESERT);                               
-                }//endif countConstruction  
+                {
+                    world(x, y)->setTerrain(CST_DESERT);
+                }//endif countConstruction
             }// end for y
         }// end for x
         std::cout<<"Generated and initialzed "<<constuctionCounter<<" modern Constructions"<<std::endl;
         //}
-    
+
 
 
         /* Get size of monthgraph array */
         sscanf(gzgets(gzfile, s, 256), "%d", &i);
-        for (x = 0; x < i; x++) 
+        for (x = 0; x < i; x++)
         {
-            /* If more entries in file than will fit on screen, 
+            /* If more entries in file than will fit on screen,
                then we need to skip past them. */
-            if (x >= monthgraph_size) 
+            if (x >= monthgraph_size)
             {
                 sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &monthgraph_pop[x] */
                 sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &monthgraph_starve[x] */
                 sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &monthgraph_nojobs[x] */
                 sscanf(gzgets(gzfile, s, 256), "%d", &dummy);       /* &monthgraph_ppool[x] */
             }
-            else 
+            else
             {
                 sscanf(gzgets(gzfile, s, 256), "%d", &monthgraph_pop[x]);
                 sscanf(gzgets(gzfile, s, 256), "%d", &monthgraph_starve[x]);
@@ -515,7 +523,7 @@ void load_city_2(char *cname)
             }
         }
         /* If screen bigger than number of entries in file, pad with zeroes */
-        while (x < monthgraph_size) 
+        while (x < monthgraph_size)
         {
             monthgraph_pop[x] = 0;
             monthgraph_starve[x] = 0;
@@ -527,9 +535,9 @@ void load_city_2(char *cname)
         sscanf(gzgets(gzfile, s, 256), "%d", &rockets_launched_success);
         sscanf(gzgets(gzfile, s, 256), "%d", &coal_survey_done);
 
-        for (x = 0; x < pbar_data_size; x++) 
+        for (x = 0; x < pbar_data_size; x++)
         {
-            for (p = 0; p < num_pbars; p++) 
+            for (p = 0; p < num_pbars; p++)
             {
                 sscanf(gzgets(gzfile, s, 256), "%d", &(pbar_tmp));
                 update_pbar(p, pbar_tmp, 1);
@@ -537,9 +545,9 @@ void load_city_2(char *cname)
         }
 
         for (p = 0; p < num_pbars; p++)
-            pbars[p].data_size = pbar_data_size;
+        {   pbars[p].data_size = pbar_data_size;}
 
-        for (p = 0; p < num_pbars; p++) 
+        for (p = 0; p < num_pbars; p++)
         {
             sscanf(gzgets(gzfile, s, 256), "%d", &(pbars[p].oldtot));
             sscanf(gzgets(gzfile, s, 256), "%d", &(pbars[p].diff));
@@ -557,29 +565,30 @@ void load_city_2(char *cname)
         sscanf(gzgets(gzfile, s, 256), "%d", &total_births);
 
         for (x = 0; x < NUMOF_MODULES; x++)
-            sscanf(gzgets(gzfile, s, 256), "%d", &(module_help_flag[x]));
+        {   sscanf(gzgets(gzfile, s, 256), "%d", &(module_help_flag[x]));}
 
         sscanf(gzgets(gzfile, s, 256), "%128s", given_scene);
         if (strncmp(given_scene, "dummy", 5) == 0 || strlen(given_scene) < 3)
-            given_scene[0] = 0;
+        {   given_scene[0] = 0;}
         sscanf(gzgets(gzfile, s, 256), "%128s", s);
         if (strncmp(given_scene, "dummy", 5) != 0)
-            sscanf(s, "%d", &highest_tech_level);
+        {   sscanf(s, "%d", &highest_tech_level);}
         else
-            highest_tech_level = 0;
+        {   highest_tech_level = 0;}
 
-        gzgets(gzfile, s, 200);   
+        gzgets(gzfile, s, 200);
         if (sscanf
             (s, "sust %d %d %d %d %d %d %d %d %d %d", &sust_dig_ore_coal_count, &sust_port_count, &sust_old_money_count,
              &sust_old_population_count, &sust_old_tech_count, &sust_fire_count, &sust_old_money, &sust_old_population,
-             &sust_old_tech, &sustain_flag) == 10) 
+             &sust_old_tech, &sustain_flag) == 10)
         {
             sust_dig_ore_coal_tip_flag = sust_port_flag = 1;
-        } 
+        }
         else
-            sustain_flag = sust_dig_ore_coal_count = sust_port_count
+        {    sustain_flag = sust_dig_ore_coal_count = sust_port_count
                 = sust_old_money_count = sust_old_population_count
                 = sust_old_tech_count = sust_fire_count = sust_old_money = sust_old_population = sust_old_tech = 0;
+        }
 
         gzgets(gzfile, s, 80);
         sscanf(s, "arid %d %d", &global_aridity, &global_mountainity);
@@ -594,7 +603,7 @@ void load_city_2(char *cname)
 
     // Engine stuff
     if (tech_level > MODERN_WINDMILL_TECH)
-        modern_windmill_flag = 1;
+    {   modern_windmill_flag = 1;}
 
     //numof_shanties = count_groups(GROUP_SHANTY);
     //numof_communes = count_groups(GROUP_COMMUNE);
@@ -602,7 +611,7 @@ void load_city_2(char *cname)
     /* set up the university intake. */
 /*
     x = Counted<University>::getInstanceCount();
-    if (x > 0) 
+    if (x > 0)
     {
         university_intake_rate = (Counted<School>::getInstanceCount() * 20) / x;
         if (university_intake_rate > 100)
@@ -638,15 +647,15 @@ void load_city_2(char *cname)
                                  * In case of error message with ok_dial_box
                                  *    the dialog cannot appear because the screen
                                  *    is not set up => crash.
-                                 * FIXME: move all initialisation elsewhere, in 
+                                 * FIXME: move all initialisation elsewhere, in
                                  *    engine.cpp or simulate.cpp.
                                  */
     // UI stuff
-    if (main_screen_originx > world.len() - getMainWindowWidth() / 16 - 1)
-        main_screen_originx = world.len() - getMainWindowWidth() / 16 - 1;
+    if (main_screen_originx > COMPATIBLE_WORLD_SIDE_LEN - getMainWindowWidth() / 16 - 1)
+        main_screen_originx = COMPATIBLE_WORLD_SIDE_LEN - getMainWindowWidth() / 16 - 1;
 
-    if (main_screen_originy > world.len() - getMainWindowHeight() / 16 - 1)
-        main_screen_originy = world.len() - getMainWindowHeight() / 16 - 1;
+    if (main_screen_originy > COMPATIBLE_WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1)
+        main_screen_originy = COMPATIBLE_WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1;
 
     unhighlight_module_button(selected_module);
     selected_module = sbut[7];  /* 7 is track.  Watch out though! */
@@ -655,7 +664,7 @@ void load_city_2(char *cname)
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
     /* Fix desert frontier for old saved games and scenarios */
     desert_frontier(0, 0, world.len(), world.len());
-    
+
 }
 
 

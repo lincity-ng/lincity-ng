@@ -460,6 +460,16 @@ void Construction::initialize_commodities(void)
     }
 }
 
+void Construction::bootstrap_commodities(int percent)
+{
+    std::map<Commodities,CommodityRule>::iterator stuff_it;
+    for(stuff_it = constructionGroup->commodityRuleCount.begin() ; stuff_it != constructionGroup->commodityRuleCount.end() ; stuff_it++)
+    {
+        if (stuff_it->first != STUFF_WASTE)
+        {   commodityCount[stuff_it->first] = percent * stuff_it->second.maxload /100;}
+    }
+}
+
 void Construction::report_commodities(void)
 {
     std::map<Commodities, int>::iterator stuff_it;
