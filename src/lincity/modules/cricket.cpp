@@ -97,9 +97,7 @@ void Cricket::cover()
     for(int yy = ys; yy < ye; ++yy)
     {
         for(int xx = xs; xx < xe; ++xx)
-        {
-            world(xx,yy)->flags |= FLAG_CRICKET_COVER;
-        }
+        {   world(xx,yy)->flags |= FLAG_CRICKET_COVER;}
     }
 }
 

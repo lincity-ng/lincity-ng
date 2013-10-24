@@ -344,7 +344,7 @@ void mps_right (int x, int y)
 
     //snprintf(s,sizeof(s),"%d,%d",x,y);
     mps_store_sdd(i++,main_groups[group].name,x,y);
-    p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? "YES" : "NO";
+    p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? "Yes" : "No";
     mps_store_ss(i++, "Fertile", p);
     if( group == GROUP_WATER)
     {
@@ -359,7 +359,7 @@ void mps_right (int x, int y)
     mps_store_ss(i++,"Fire Protection",p);
 
     p = (world(x,y)->flags & FLAG_HEALTH_COVER) ? "Yes" : "No";
-    mps_store_ss(i++,"Health Service",p);
+    mps_store_ss(i++,"Health Care",p);
 
     p = (world(x,y)->flags & FLAG_CRICKET_COVER) ? "Yes" : "No";
     mps_store_ss(i++,"Public Sports",p);

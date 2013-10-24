@@ -108,9 +108,7 @@ void FireStation::cover()
     for(int yy = ys; yy < ye; ++yy)
     {
         for(int xx = xs; xx < xe; ++xx)
-        {
-            world(xx,yy)->flags |= FLAG_FIRE_COVER;
-        }
+        {   world(xx,yy)->flags |= FLAG_FIRE_COVER;}
     }
 }
 

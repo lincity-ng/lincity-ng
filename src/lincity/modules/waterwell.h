@@ -9,9 +9,8 @@
 
 #define MAX_POLLUTION_AT_WATERWELL 3000
 #define WATER_PER_UGW 400
-#define MAX_WATER_AT_WATERWELL (80 * WATER_PER_UGW)
+#define MAX_WATER_AT_WATERWELL (20 * WATER_PER_UGW * GROUP_WATERWELL_SIZE * GROUP_WATERWELL_SIZE)
 #include "modules.h"
-//#include "../range.h"
 
 class WaterwellConstructionGroup: public ConstructionGroup {
 public:

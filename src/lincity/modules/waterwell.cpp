@@ -60,10 +60,10 @@ void Waterwell::report()
 
     mps_store_sd(i++,constructionGroup->name, ID);
     i++;
-    mps_store_sddp(i++, "Fertility", ugwCount, 4);
+    mps_store_sddp(i++, "Fertility", ugwCount, constructionGroup->size * constructionGroup->size);
     mps_store_sfp(i++,"busy", busy);
     mps_store_sddp(i++, _("Pollution"), world(x,y)->pollution, MAX_POLLUTION_AT_WATERWELL);
-    p = world(x,y)->pollution>MAX_POLLUTION_AT_WATERWELL?"NO":"YES";
+    p = world(x,y)->pollution>MAX_POLLUTION_AT_WATERWELL?"No":"Yes";
     mps_store_ss(i++, _("Drinkable"), p);
     list_commodities(&i);
 }

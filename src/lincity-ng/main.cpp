@@ -552,6 +552,8 @@ int main(int argc, char** argv)
     try {
 #endif
         xmlInitParser ();
+        //TODO associate sounds and graphics with modules directly
+        initLincity();
         std::auto_ptr<Sound> sound;
         sound.reset(new Sound());
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -565,7 +567,7 @@ int main(int argc, char** argv)
             throw std::runtime_error(msg.str());
         }
         initVideo(getConfig()->videoX, getConfig()->videoY);
-        initLincity();
+        
         //set a function to call when music stops
         Mix_HookMusicFinished(musicHalted);
         mainLoop();

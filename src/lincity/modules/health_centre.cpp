@@ -66,9 +66,7 @@ void HealthCentre::cover()
     for(int yy = ys; yy < ye; ++yy)
     {
         for(int xx = xs; xx < xe; ++xx)
-        {
-            world(xx,yy)->flags |= FLAG_HEALTH_COVER;
-        }
+        {   world(xx,yy)->flags |= FLAG_HEALTH_COVER;}
     }
 }
 

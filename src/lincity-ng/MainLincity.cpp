@@ -160,18 +160,21 @@ void initLincity()
     //world.len(WORLD_SIDE_LEN);
     //World is now already resized upon loading config
 
+    // initialize constructions
+    //TODO associate graphics with modules directly  
+    initializeModules();
+
     // init_types ();
     load_png_graphics();
     main_types[CST_USED].group = GROUP_USED;
     main_types[CST_USED].graphic = 0;   /* Won't be dereferenced! */
 
-    // initialize constructions    
-    initializeModules();
-
+    
     // animation time
     reset_start_time ();
 
-    screen_full_refresh ();
+    //Not needed and cant do that anyways before inializing video 
+    //screen_full_refresh ();
 
 }
 
