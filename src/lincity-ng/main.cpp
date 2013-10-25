@@ -202,9 +202,9 @@ void initVideo(int width, int height)
 
     // Obtain the video driver name
     if (SDL_VideoDriverName(myBuffer, BUFFER_SIZE) != NULL) {
-	    std::cout << "\nThe video driver name is " << myBuffer << std::endl;
+        std::cout << "\nThe video driver name is " << myBuffer << std::endl;
     } else {
-	    std::cerr << "\nFailed to obtain the video driver name." << std::endl;
+        std::cerr << "\nFailed to obtain the video driver name." << std::endl;
     }
 
 
@@ -213,18 +213,18 @@ void initVideo(int width, int height)
 
     /* Check if there are any modes available */
     if (modes == (SDL_Rect**)0) {
-	    printf("No modes available!\n");
-	    exit(-1);
+        printf("No modes available!\n");
+        exit(-1);
     }
 
     /* Check if our resolution is restricted */
     if (modes == (SDL_Rect**)-1) {
-	    printf("All resolutions available.\n");
+        printf("All resolutions available.\n");
     } else {
-	    /* Print valid modes */
-	    printf("Available Modes\n");
-	    for (i=0; modes[i]; ++i)
-		    printf("  %d x %d\n", modes[i]->w, modes[i]->h);
+        /* Print valid modes */
+        printf("Available Modes\n");
+        for (i=0; modes[i]; ++i)
+            printf("  %d x %d\n", modes[i]->w, modes[i]->h);
     }
 
 
@@ -407,12 +407,12 @@ void mainLoop()
                 {
                     if(game.get() == 0) {
                         game.reset(new Game());
-                         
+
                         while(!LCPBarPage1 || !LCPBarPage2)
                         {//wait until PBars exist so they can be initalized
                             printf(".");
                             SDL_Delay(100);
-                        }                       
+                        }
                     }
                     nextstate = game->run();
                     if(menu.get() == 0)
@@ -553,7 +553,6 @@ int main(int argc, char** argv)
 #endif
         xmlInitParser ();
         //TODO associate sounds and graphics with modules directly
-        initLincity();
         std::auto_ptr<Sound> sound;
         sound.reset(new Sound());
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -567,7 +566,7 @@ int main(int argc, char** argv)
             throw std::runtime_error(msg.str());
         }
         initVideo(getConfig()->videoX, getConfig()->videoY);
-        
+        initLincity();
         //set a function to call when music stops
         Mix_HookMusicFinished(musicHalted);
         mainLoop();
@@ -596,9 +595,9 @@ int main(int argc, char** argv)
 #ifdef WIN32
         //Windows has a Problem with Whitespaces.
         std::string fixWhiteSpaceInPathnameProblem;
-	    fixWhiteSpaceInPathnameProblem="\"";
-	    fixWhiteSpaceInPathnameProblem+=argv[0];
-	    fixWhiteSpaceInPathnameProblem+="\"";
+        fixWhiteSpaceInPathnameProblem="\"";
+        fixWhiteSpaceInPathnameProblem+=argv[0];
+        fixWhiteSpaceInPathnameProblem+="\"";
         execlp( argv[0], fixWhiteSpaceInPathnameProblem.c_str(), (char *) NULL );
 #else
         execlp( argv[0], argv[0], (char *) NULL );

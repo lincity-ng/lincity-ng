@@ -92,11 +92,11 @@ void update_shanty(void)
     pp = people_pool - (COMMUNE_POP * numof_communes);
     i = (pp - SHANTY_MIN_PP) / SHANTY_POP;
     if (i < 0)
-        i = 0;
+    {   i = 0;}
     if (i > numof_shanties)
     {
         for (int n = 0; n < 1 + (i - numof_shanties)/10; n++)
-            add_a_shanty();
+        {   add_a_shanty();}
     }
     else if (numof_shanties > 0 && (i < (numof_shanties - 1) ))
     {
@@ -113,10 +113,7 @@ void update_shanty(void)
             }
             y = r / len;
             x = r % len;
-            ConstructionManager::executeRequest
-                (
-                    new BurnDownRequest(world(x,y)->reportingConstruction)
-                );
+            ConstructionManager::executeRequest(new BurnDownRequest(world(x,y)->reportingConstruction));
         }
     }
 }
@@ -126,39 +123,32 @@ void Shanty::update()
     //steal stuff and make waste
     commodityCount[STUFF_WASTE] += SHANTY_PUT_WASTE;
     if (commodityCount[STUFF_FOOD] >= SHANTY_GET_FOOD)
-    {
-        commodityCount[STUFF_FOOD] -= SHANTY_GET_FOOD;
-    }
+    {   commodityCount[STUFF_FOOD] -= SHANTY_GET_FOOD;}
     if (commodityCount[STUFF_JOBS] >= SHANTY_GET_JOBS)
     {
         commodityCount[STUFF_JOBS] -= SHANTY_GET_JOBS;
         if ((income_tax -= SHANTY_GET_JOBS * 2) < 0)
-            income_tax = 0;
+        {   income_tax = 0;}
     }
     if (commodityCount[STUFF_GOODS] >= SHANTY_GET_GOODS)
     {
         commodityCount[STUFF_GOODS] -= SHANTY_GET_GOODS;
         commodityCount[STUFF_WASTE] += SHANTY_GET_GOODS / 3;
         if ((goods_tax -= SHANTY_GET_GOODS * 2) < 0)
-            goods_tax = 0;
+        {   goods_tax = 0;}
     }
     if (commodityCount[STUFF_COAL] >= SHANTY_GET_COAL)
     {
         commodityCount[STUFF_COAL] -= SHANTY_GET_COAL;
         if ((coal_tax -= SHANTY_GET_COAL * 2) < 0)
-            coal_tax = 0;
+        {   coal_tax = 0;}
     }
     if (commodityCount[STUFF_ORE] >= SHANTY_GET_ORE)
-    {
-        commodityCount[STUFF_ORE] -= SHANTY_GET_ORE;
-    }
+    {   commodityCount[STUFF_ORE] -= SHANTY_GET_ORE;}
     if (commodityCount[STUFF_STEEL] >= SHANTY_GET_STEEL)
+    {   commodityCount[STUFF_STEEL] -= SHANTY_GET_STEEL;}
+    if ((commodityCount[STUFF_WASTE]+= SHANTY_PUT_WASTE) >= MAX_WASTE_AT_SHANTY && !world(x+1,y+1)->construction)
     {
-        commodityCount[STUFF_STEEL] -= SHANTY_GET_STEEL;
-    }
-    if (commodityCount[STUFF_WASTE] >= MAX_WASTE_AT_SHANTY && !world(x+1,y+1)->construction)
-    {
-
         anim = real_time + 3 * WASTE_BURN_TIME;
         world(x+1,y+1)->pollution += commodityCount[STUFF_WASTE];
         commodityCount[STUFF_WASTE] = 0;
@@ -167,14 +157,10 @@ void Shanty::update()
             Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1, CST_FIRE_1);
             world(x+1,y+1)->construction = fire;
             world(x+1,y+1)->reportingConstruction = fire;
-            //waste burning never spreads
-            //(dynamic_cast<Fire*>(fire))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;
-            (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
+            dynamic_cast<Fire*>(fire)->flags |= FLAG_IS_GHOST;
             ::constructionCount.add_construction(fire);
         }
     }
-    //else if (world(x+1,y+1)->construction && real_time < anim)
-    //{   (dynamic_cast<Fire*>(world(x+1,y+1)->construction))->burning_days = FIRE_LENGTH - FIRE_DAYS_PER_SPREAD + 1;}
     else if ( real_time > anim && world(x+1,y+1)->construction)
     {
         ::constructionCount.remove_construction(world(x+1,y+1)->construction);

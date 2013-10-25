@@ -69,8 +69,8 @@ void execute_timestep ()
     if( lincitySpeed == 0 || blockingDialogIsOpen ) {
         SDL_Delay(10); //don't burn cpu in active loop
         return;
-    } 
-    
+    }
+
     // Do the simulation. Remember 1 month = 100 days, only the display fits real life :)
     do_time_step();
 
@@ -84,23 +84,23 @@ void execute_timestep ()
         getGameView()->requestRedraw();
 
     } else {
-	    /* SDL doc says to rely on at least 10 ms granurality on all OS without
-	     * real time ability (Windows, Linux, MacOS X...) 
-	     * So, as we cannot wait 1ms, we just don't wait when we need speed.
-	     */
+        /* SDL doc says to rely on at least 10 ms granurality on all OS without
+         * real time ability (Windows, Linux, MacOS X...)
+         * So, as we cannot wait 1ms, we just don't wait when we need speed.
+         */
 
-	    //in FAST-Mode, update at the last day in Month, so print_stats will work.
-	    if( ( total_time % NUMOF_DAYS_IN_MONTH ) == NUMOF_DAYS_IN_MONTH - 1 ){
-		    print_stats ();
-		    updateDate();
-		    print_total_money();
-	    }
-	    if (dontskip++ == fast_time_for_year ) {
-		    // The point of fast mode is to be really fast. So skip frames for speed
-		    // fast_time_for_year is read from config file = parameter named "quickness"
-		    dontskip = 0;
-		    getGameView()->requestRedraw();
-	    }
+        //in FAST-Mode, update at the last day in Month, so print_stats will work.
+        if( ( total_time % NUMOF_DAYS_IN_MONTH ) == NUMOF_DAYS_IN_MONTH - 1 ){
+            print_stats ();
+            updateDate();
+            print_total_money();
+        }
+        if (dontskip++ == fast_time_for_year ) {
+            // The point of fast mode is to be really fast. So skip frames for speed
+            // fast_time_for_year is read from config file = parameter named "quickness"
+            dontskip = 0;
+            getGameView()->requestRedraw();
+        }
     }
 }
 
@@ -118,7 +118,7 @@ void saveCityNG( std::string newFilename ){
  */
 bool loadCityNG( std::string filename ){
     if( PHYSFS_isDirectory( filename.c_str() )){
-    	return false;
+        return false;
     }
     /* TODO use PhysFS directly to load file instead of getRealDir hack */
     const char* directory = PHYSFS_getRealDir(filename.c_str());
@@ -149,8 +149,8 @@ void initLincity()
     /* Make sure the save directory exists */
     check_savedir ();
 
-	/*initialize Desktop Componenet Factories*/
-	//initFactories();
+    /*initialize Desktop Componenet Factories*/
+    //initFactories();
 
     /* Initialize random number generator */
     srand (time (0));
@@ -161,7 +161,7 @@ void initLincity()
     //World is now already resized upon loading config
 
     // initialize constructions
-    //TODO associate graphics with modules directly  
+    //TODO associate graphics with modules directly
     initializeModules();
 
     // init_types ();
@@ -169,11 +169,10 @@ void initLincity()
     main_types[CST_USED].group = GROUP_USED;
     main_types[CST_USED].graphic = 0;   /* Won't be dereferenced! */
 
-    
     // animation time
     reset_start_time ();
 
-    //Not needed and cant do that anyways before inializing video 
+    //Not needed?
     //screen_full_refresh ();
 
 }
