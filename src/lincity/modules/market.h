@@ -15,6 +15,7 @@
 
 //#define MARKET_ANIM_SPEED 750
 
+#define JOBS_MARKET_EMPTY   1
 #define JOBS_MARKET_LOW     5
 #define JOBS_MARKET_MED    12
 #define JOBS_MARKET_FULL   28
@@ -74,7 +75,7 @@ public:
         commodityRuleCount = constructionGroup->commodityRuleCount;
         setCommodityRulesSaved(&commodityRuleCount);
         initialize_commodities();
-        this->jobs = JOBS_MARKET_LOW;
+        this->jobs = JOBS_MARKET_EMPTY;
         this->anim = 0;
         this->busy = 0;
         this->working_days = 0;
@@ -93,6 +94,7 @@ public:
     }
     virtual void update();
     virtual void report();
+    virtual void playSound(); //override random sound
     void cover();
     void toggleEvacuation();
 

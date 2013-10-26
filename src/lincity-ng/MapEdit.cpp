@@ -152,9 +152,10 @@ void editMap (MapPoint point, int button)
         return;
     }
     // show info on any click, but dont do double for query
-    if ((world(mod_x,mod_y)->is_bare()) || (userOperation->action != UserOperation::ACTION_QUERY))
+    if ((!world(mod_x,mod_y)->reportingConstruction) || (userOperation->action != UserOperation::ACTION_QUERY))
     {
         mps_set(mod_x, mod_y, MPS_MAP); //fake Query action
+        mapMPS->playBuildingSound( mod_x, mod_y );
         if(userOperation->action == UserOperation::ACTION_QUERY)
         {   return;}
     }
@@ -173,20 +174,19 @@ void editMap (MapPoint point, int button)
         return;
     }
 
-    // Bring up mappoint_stats for certain left mouse clicks
     // Check market and port double-clicks here
     // Check rocket launches
     // Hold d pressed to send load/save info details to console
-    if( !world(mod_x,mod_y)->is_bare() && userOperation->action == UserOperation::ACTION_QUERY)
+    if(userOperation->action == UserOperation::ACTION_QUERY)
     {
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( !binary_mode && keystate[SDLK_d] && world(mod_x,mod_y)->reportingConstruction)
         {
             world(mod_x,mod_y)->reportingConstruction->saveMembers(&std::cout);
         }
-        if(mapMPS)
-        {    mapMPS->playBuildingSound( mod_x, mod_y );}
         mps_result = mps_set( mod_x, mod_y, MPS_MAP );
+        mapMPS->playBuildingSound( mod_x, mod_y );
+        
         //DBG_TileInfo(x, y);
 
         if( mps_result >= 1 )

@@ -481,19 +481,19 @@ void desert_frontier(int originx, int originy, int w, int h)
                 mask = 0;
                 /* up -- (ThMO) */
                 if ((check_group(x, y - 1) == GROUP_DESERT)
-                 || (check_group(x, y - 1) == GROUP_FIRE))
+                 /*|| (check_group(x, y - 1) == GROUP_FIRE)*/)
                 {   mask |= 8;}
                 /* left -- (ThMO) */
                 if ((check_group(x - 1, y) == GROUP_DESERT)
-                 || (check_group(x - 1, y) == GROUP_FIRE))
+                 /*|| (check_group(x - 1, y) == GROUP_FIRE)*/)
                 {   mask |= 4;}
                 /* right -- (ThMO) */
                 if ((check_group(x + 1, y) == GROUP_DESERT)
-                 || (check_group(x + 1, y) == GROUP_FIRE))
+                 /*|| (check_group(x + 1, y) == GROUP_FIRE)*/)
                 {   mask |= 2;}
                 /* down -- (ThMO) */
                 if ((check_group(x, y + 1) == GROUP_DESERT)
-                 || (check_group(x, y + 1) == GROUP_FIRE))
+                 /*|| (check_group(x, y + 1) == GROUP_FIRE)*/)
                 {   ++mask;}
                 world(x, y)->type = desert_table[mask];
             }

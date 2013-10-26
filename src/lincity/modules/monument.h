@@ -40,6 +40,7 @@ public:
 };
 
 extern MonumentConstructionGroup monumentConstructionGroup;
+extern MonumentConstructionGroup monumentFinishedConstructionGroup;
 
 class Monument: public RegisteredConstruction<Monument> { // Monument inherits from is own RegisteredConstruction
 public:
@@ -64,6 +65,7 @@ public:
     virtual ~Monument() { }
     virtual void update();
     virtual void report();
+    //virtual void playSound(); //override random default
 
     int  working_days, busy;
     int  tech_made;

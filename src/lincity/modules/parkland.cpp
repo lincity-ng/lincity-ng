@@ -6,13 +6,27 @@
  * ---------------------------------------------------------------------- */
 
 #include "parkland.h"
-
+#include "lincity-ng/Sound.hpp"
 
 // Parkland:
 ParklandConstructionGroup parklandConstructionGroup(
     "Park",
      TRUE,                     /* need credit? */
      GROUP_PARKLAND,
+     GROUP_PARKLAND_SIZE,
+     GROUP_PARKLAND_COLOUR,
+     GROUP_PARKLAND_COST_MUL,
+     GROUP_PARKLAND_BUL_COST,
+     GROUP_PARKLAND_FIREC,
+     GROUP_PARKLAND_COST,
+     GROUP_PARKLAND_TECH,
+     GROUP_PARKLAND_RANGE
+);
+
+ParklandConstructionGroup parkpondConstructionGroup(
+    "Park with Pond",
+     TRUE,                     /* need credit? */
+     GROUP_PARKLAND,           //Yes this is a park, too
      GROUP_PARKLAND_SIZE,
      GROUP_PARKLAND_COLOUR,
      GROUP_PARKLAND_COST_MUL,
@@ -42,6 +56,15 @@ void Parkland::report()
     mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
     //list_commodities(&i);
 }
-
+/*
+void Parkland::playSound()
+{  
+    //There are three sounds for constructionsite and monument, each    
+    if (type == CST_PARKLAND_LAKE)
+    {   getSound()->playASound(constructionGroup->chunks[rand()%2]);}
+    else //type == CST_PARKLAND_PLANE
+    {   getSound()->playASound(constructionGroup->chunks[2+rand()%3]);}  
+}
+*/
 /** @file lincity/modules/parkland.cpp */
 

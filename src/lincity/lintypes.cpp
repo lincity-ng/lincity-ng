@@ -22,9 +22,8 @@
 #include "all_buildings.h"
 #include "transport.h"
 #include "modules/all_modules.h"
-//#include "power.h"
 #include <iostream>
-
+#include "lincity-ng/Sound.hpp"
 
 //Ground Declarations
 
@@ -992,13 +991,13 @@ void Construction::link_to(Construction* other)
     //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
 }
 
-int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by Minimap
+int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by Minimap and connecttransport
 {
     if (commodityCount.count(stuff_ID))
     {
         int loc_lvl = commodityCount[stuff_ID];
         int loc_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
-        if (flags & FLAG_EVACUATE)
+        if ((flags & FLAG_EVACUATE) && (center_ratio != -2))
         {   return loc_lvl?loc_lvl:-1;}
 
 #ifdef DEBUG
@@ -1022,7 +1021,7 @@ int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by 
 #endif
         int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);
         //Tell actual stock if we would tentatively participate in transport
-        if ((center_ratio == -1) || (
+        if ((center_ratio < 0) || (
         loc_ratio>center_ratio?constructionGroup->commodityRuleCount[stuff_ID].give:
             constructionGroup->commodityRuleCount[stuff_ID].take) )
         {   return (loc_ratio);}
@@ -1213,6 +1212,14 @@ int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commo
     }
     return -1; //there was nothing to handle
 }
+
+void Construction::playSound()
+{
+    int s = constructionGroup->chunks.size();
+    if(s)
+    {   getSound()->playASound( constructionGroup->chunks[ rand()%s ] );}
+}
+
 
 
 //ConstructionGroup Declarations

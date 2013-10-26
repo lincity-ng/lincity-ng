@@ -38,6 +38,7 @@ public:
 };
 
 extern FireConstructionGroup fireConstructionGroup;
+extern FireConstructionGroup fireWasteLandConstructionGroup;
 
 class Fire: public RegisteredConstruction<Fire> { // Fire inherits from Construction
 public:
@@ -54,6 +55,7 @@ public:
     }
     virtual void update();
     virtual void report();
+    //virtual void playSound(); //override random sound
 
     int burning_days;
     int smoking_days;

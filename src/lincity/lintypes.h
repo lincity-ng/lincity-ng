@@ -39,13 +39,11 @@ void set_map_groups(void);
 #include <string>
 #include <cstring>
 #include <sstream>
-//#include <stdio.h>
 #include <zlib.h>
 #include "ConstructionCount.h"
 #include "engglobs.h"
-//#include "world.h"
-
-
+//#include "lincity-ng/Sound.hpp"
+#include <SDL_mixer.h>
 class Construction;
 
 // Class to count instanced objects of each construction type
@@ -217,6 +215,7 @@ public:
     void trade(); //exchange commodities with neigbhors
     int equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commodities stuff_ID, ConstructionGroup * rem_cstGroup);
     //equilibrates stuff with an external reservoir (e.g. another construction invoking this method)
+    void playSound();//plays random chunk from constructionGroup
 };
 
 extern const char *commodityNames[];
@@ -280,6 +279,7 @@ public:
     }
 
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
+    std::vector<Mix_Chunk *> chunks;   
     int getCosts();
     bool is_allowed_here(int x, int y, bool msg);//check if construction could be placed
 

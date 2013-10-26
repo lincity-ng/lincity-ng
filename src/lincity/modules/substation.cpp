@@ -6,9 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include "substation.h"
-
-#include <stdlib.h>
-
+#include "lincity-ng/Sound.hpp"
 
 SubstationConstructionGroup substationConstructionGroup(
     "Power Substation",
@@ -44,9 +42,9 @@ void Substation::update()
         working_days = 0;
     }
     /* choose a graphic */
-    if (commodityCount[STUFF_MWH] > (MAX_MWH_AT_SUBSTATION / 2))
+    if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 2))
     {   type = CST_SUBSTATION_G;}
-    else if (commodityCount[STUFF_MWH] > (MAX_MWH_AT_SUBSTATION / 20))
+    else if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 10))
     {   type = CST_SUBSTATION_RG;}
     else
     {   type = CST_SUBSTATION_R;}
@@ -61,6 +59,17 @@ void Substation::report()
     i++;
     list_commodities(&i);
 }
+
+void Substation::playSound()
+{
+    if (type == CST_SUBSTATION_RG)
+    {   getSound()->playASound(constructionGroup->chunks[rand()%2]);}
+    else if (type == CST_SUBSTATION_R)
+    {   getSound()->playASound(constructionGroup->chunks[2]);}
+    else if (type == CST_SUBSTATION_G)
+    {   getSound()->playASound(constructionGroup->chunks[3]);}  
+}
+
 
 /** @file lincity/modules/substation.cpp */
 

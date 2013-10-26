@@ -31,16 +31,21 @@ public:
 };
 
 extern ParklandConstructionGroup parklandConstructionGroup;
+extern ParklandConstructionGroup parkpondConstructionGroup;
 
 class Parkland: public RegisteredConstruction<Parkland> { // park inherits from RegisteredConstruction
 public:
     Parkland(int x, int y, unsigned short type): RegisteredConstruction<Parkland>(x, y, type)
     {
-        constructionGroup = &parklandConstructionGroup;
+        if(this->type == CST_PARKLAND_LAKE)
+        {   constructionGroup = &parkpondConstructionGroup;}        
+        else
+        {   constructionGroup = &parklandConstructionGroup;}
         this->flags |= FLAG_NEVER_EVACUATE;
     }
     virtual void update();
     virtual void report();
+    //virtual void playSound(); //override random default
 };
 
 /** @file lincity/modules/parkland.h */

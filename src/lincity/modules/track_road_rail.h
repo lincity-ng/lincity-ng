@@ -209,9 +209,9 @@ public:
     Counted<TrackBridge> *countedTrackBridge;
     Counted<RoadBridge> *countedRoadBridge;
     Counted<RailBridge> *countedRailBridge;
-    void update();
-    void report();
-    //void stuff_flow();
+    virtual void update();
+    virtual void report();
+    virtual void playSound(); //override random sound
     std::map<Commodities, int> trafficCount;
     void list_traffic( int* i);
     int subgroupID;

@@ -33,6 +33,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <physfs.h>
 #include "Config.hpp"
 #include "lincity/engglobs.cpp"
+#include "lincity/modules/all_modules.h"
 
 Sound* soundPtr = 0;
 
@@ -78,7 +79,114 @@ Sound::loadWaves() {
             }
 
             std::string idName = getIdName( filename );
-            waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
+            if(idName == "Blacksmith")
+            {   blacksmithConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "CoalMine") 
+            {   coalmineConstructionGroup.chunks.push_back(chunk);}
+            else if (idName.substr(0,9) == "PowerCoal")
+            {   
+                //std::cout << idName << ".wav loaded" << std::endl; 
+                coal_powerConstructionGroup.chunks.push_back(chunk);
+            }
+            else if (idName == "Commune") 
+            {   communeConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "SportsCroud") 
+            {   cricketConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Fire") 
+            {   fireConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "FireWasteland") 
+            {   fireWasteLandConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "FireStation") 
+            {   fireStationConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Health") 
+            {   healthCentreConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "IndustryHigh") 
+            {   industryHeavyConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "IndustryLight") 
+            {   industryLightConstructionGroup.chunks.push_back(chunk);}
+            else if (idName.substr(0,6) == "Market")
+            {   
+                //std::cout << idName << ".wav loaded" << std::endl; 
+                marketConstructionGroup.chunks.push_back(chunk);
+            }
+            else if (idName == "Mill") 
+            {   millConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Monument")
+            {   monumentFinishedConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "MonumentConstruction")
+            {   monumentConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "OreMine") 
+            {   oremineConstructionGroup.chunks.push_back(chunk);}
+            else if ((idName == "OrganicFarm") || (idName == "Farm")) 
+            {   organic_farmConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Harbor") 
+            {   portConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "ParklandPlane")
+            {   parklandConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "ParklandLake")
+            {   parkpondConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Pottery") 
+            {   potteryConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "PowerLine") 
+            {   powerlineConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Recycle") 
+            {   recycleConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "ResidentialLowLow") 
+            {   residenceLLConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "ResidentialLow") 
+            {   residenceLHConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "ResidentialMed") 
+            {   
+                residenceMLConstructionGroup.chunks.push_back(chunk);
+                residenceMHConstructionGroup.chunks.push_back(chunk);
+            }
+            else if (idName == "ResidentialHigh") 
+            {   
+                residenceHLConstructionGroup.chunks.push_back(chunk);
+                residenceHHConstructionGroup.chunks.push_back(chunk);
+            }
+            else if (idName == "Rocket")
+            {   rocketPadConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "School") 
+            {   schoolConstructionGroup.chunks.push_back(chunk);}
+            else if (idName.substr(0,10) == "Substation")
+            {   
+                //std::cout << idName << ".wav loaded" << std::endl; 
+                substationConstructionGroup.chunks.push_back(chunk);
+            }
+            else if (idName == "PowerSolar") 
+            {   solarPowerConstructionGroup.chunks.push_back(chunk);}
+            else if (idName.substr(0,6) == "Trafic")
+            {   
+                //std::cout << idName << ".wav loaded" << std::endl; 
+                roadConstructionGroup.chunks.push_back(chunk);
+                roadbridgeConstructionGroup.chunks.push_back(chunk);
+            }
+            else if (idName == "DirtTrack")
+            {   
+                trackConstructionGroup.chunks.push_back(chunk);
+                trackbridgeConstructionGroup.chunks.push_back(chunk);
+            }
+            else if (idName == "RailTrain")
+            {   
+                railConstructionGroup.chunks.push_back(chunk);
+                railbridgeConstructionGroup.chunks.push_back(chunk);
+            }
+            else if (idName == "Tip") 
+            {   tipConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "University") 
+            {   universityConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "WindMill") 
+            {   windmillConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "WindMillHTech") 
+            {   windpowerConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Shanty") 
+            {   shantyConstructionGroup.chunks.push_back(chunk);}
+            else
+            {   
+                //std::cout << idName << ": put to waves" << std::endl;        
+                waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
+            }
         } catch(std::exception& e) {
             std::cerr << "Error: " << e.what() << "\n";
         }
@@ -320,6 +428,17 @@ Sound::playSound(const std::string& name) {
     Mix_Volume( 0, getConfig()->soundVolume );
     Mix_PlayChannel( 0, it->second, 0 ); 
 }
+
+void Sound::playASound(Mix_Chunk *chunk)
+{
+    if( !getConfig()->soundEnabled )
+    {   return;}
+    if( !audioOpen )
+    {   return;}
+    Mix_Volume( 0, getConfig()->soundVolume );
+    Mix_PlayChannel( 0, chunk, 0 ); 
+}
+
 
 /*
  * Get ID-String for a given Filename.

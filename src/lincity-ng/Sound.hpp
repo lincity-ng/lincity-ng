@@ -50,6 +50,7 @@ public:
     ~Sound();
 
     void playSound(const std::string& name);
+    void playASound(Mix_Chunk *chunk);
     void playMusic();
     void changeTrack(MusicTransport command);
     void enableMusic(bool enabled);

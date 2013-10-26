@@ -6,6 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include "coal_power.h"
+#include "lincity-ng/Sound.hpp"
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
     "Coal Power Station",
@@ -64,6 +65,26 @@ void Coal_power::report()
     mps_store_sd(i++, "Output", mwh_output);
     i++;
     list_commodities(&i);
+}
+
+void Coal_power::playSound()
+{
+    //std::cout << "Coal_power.playSound" << std::endl;    
+    switch(type)
+    {
+        case CST_POWERS_COAL_EMPTY:
+            getSound()->playASound(constructionGroup->chunks[0]);
+        break;
+        case CST_POWERS_COAL_FULL:
+            getSound()->playASound(constructionGroup->chunks[1]);
+        break;
+        case CST_POWERS_COAL_LOW:
+            getSound()->playASound(constructionGroup->chunks[2]);
+        break;
+        case CST_POWERS_COAL_MED:
+            getSound()->playASound(constructionGroup->chunks[3]);
+        break;
+    }
 }
 
 

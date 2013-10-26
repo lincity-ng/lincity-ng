@@ -7,9 +7,7 @@
 
 #include "track_road_rail.h"
 #include "fire.h"
-
-//FIXME would like to include this one so report could depend on overlay mode
-//#include "lincity-ng/GameView.hpp"
+#include "lincity-ng/Sound.hpp"
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(
@@ -205,8 +203,31 @@ void Transport::report()
         mps_store_title(i++,"Commodities");
         list_commodities(&i);
     }
-
 }
+
+void Transport::playSound()
+{    
+    unsigned short g = constructionGroup->group;    
+    if ((g == GROUP_ROAD) || (g == GROUP_ROAD_BRIDGE))
+    {   
+        int avg = 0;
+        std::map<Commodities, int>::iterator stuff_it;
+        for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
+        {   avg += (stuff_it->second * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+        if(avg > 0) //equiv to size > 0        
+        {   avg /= trafficCount.size();}
+        if(avg > 5)
+        {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
+        else
+        {   getSound()->playASound(constructionGroup->chunks[3+rand()%3]);}
+    }
+    else
+    {   
+        int s = constructionGroup->chunks.size();
+        getSound()->playASound(constructionGroup->chunks[rand()%s]);
+    }    
+}
+
 
 /** @file lincity/modules/track_road_rail_powerline.cpp */
 

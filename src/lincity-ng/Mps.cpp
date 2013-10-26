@@ -118,169 +118,40 @@ Mps::setView(MapPoint point, int style /* = MPS_MAP */ )
 void
 Mps::playBuildingSound(int mps_x, int mps_y)
 {
-    switch(world(mps_x, mps_y)->getGroup())
+    if(world(mps_x, mps_y)->reportingConstruction)
     {
-        case GROUP_BLACKSMITH:
-            getSound()->playSound( "Blacksmith" );
+        switch(world(mps_x, mps_y)->getGroup())
+        {
+            case GROUP_RAIL:
+            case GROUP_RAIL_BRIDGE:           
+            case GROUP_ROAD:
+            case GROUP_ROAD_BRIDGE:            
+            case GROUP_TRACK:
+            case GROUP_TRACK_BRIDGE:
+                dynamic_cast<Transport *>(world(mps_x, mps_y)->reportingConstruction)->playSound();
+                break;
+            case GROUP_COAL_POWER:
+                dynamic_cast<Coal_power*>(world(mps_x, mps_y)->reportingConstruction)->playSound();
+                break;      
+            case GROUP_MARKET:
+                dynamic_cast<Market *>(world(mps_x, mps_y)->reportingConstruction)->playSound();
+                break;        
+            case GROUP_SUBSTATION:
+                dynamic_cast<Substation *>(world(mps_x, mps_y)->reportingConstruction)->playSound();
+                break;
+            default:
+            world(mps_x, mps_y)->reportingConstruction->playSound();
             break;
-        case GROUP_COALMINE:
-            getSound()->playSound( "CoalMine" );
-            break;
-        case GROUP_COAL_POWER:
-            if( world(mps_x, mps_y)->getType() == CST_POWERS_COAL_FULL )
-                getSound()->playSound( "PowerCoalFull" );
-            else if( world(mps_x, mps_y)->getType() == CST_POWERS_COAL_MED )
-                getSound()->playSound( "PowerCoalMed" );
-            else if( world(mps_x, mps_y)->getType() == CST_POWERS_COAL_LOW )
-                getSound()->playSound( "PowerCoalLow" );
-            else //if( world(mps_x, mps_y)->getType() == CST_POWERS_COAL_EMPTY )
-                getSound()->playSound( "PowerCoalEmpty" );
-            break;
-        case GROUP_COMMUNE:
-            getSound()->playSound( "Commune" );
-            break;
-        case GROUP_CRICKET:
-            getSound()->playSound( "SportsCroud" );
-            break;
-        case GROUP_FIRESTATION:
-            getSound()->playSound( "FireStation" );
-            break;
-        case GROUP_HEALTH:
-            getSound()->playSound( "Health" );
-            break;
-        case GROUP_INDUSTRY_H:
-            getSound()->playSound( "IndustryHigh" );
-            break;
-        case GROUP_INDUSTRY_L:
-            getSound()->playSound( "IndustryLight" );
-            break;
-        case GROUP_MILL:
-            getSound()->playSound( "Mill" );
-            break;
-        case (GROUP_MONUMENT):
-            {
-            Monument *monument = dynamic_cast<Monument *>(world(mps_x, mps_y)->reportingConstruction);
-                if (monument->completion >= 100)
-                {
-                    getSound()->playSound( "Monument" );
-                }
-                else
-                {
-                    getSound()->playSound( "MonumentConstruction" );
-                }
-            }
-            break;
-        case (GROUP_OREMINE):
-            getSound()->playSound( "OreMine" );
-            break;
-        case GROUP_ORGANIC_FARM:
-            getSound()->playSound( "OrganicFarm" );
-            break;
-        case GROUP_PORT:
-            getSound()->playSound( "Harbor" );
-            break;
-        case GROUP_POTTERY:
-            getSound()->playSound( "Pottery" );
-            break;
-        case GROUP_POWER_LINE:
-            getSound()->playSound( "PowerLine" );
-            break;
-        case GROUP_RAIL:
-        case GROUP_RAIL_BRIDGE:
-            getSound()->playSound( "RailTrain" );
-            break;
-        case GROUP_RECYCLE:
-            getSound()->playSound( "Recycle" );
-            break;
-        case GROUP_RESIDENCE_LL:
-            getSound()->playSound( "ResidentialLowLow" );
-            break;
-        case GROUP_RESIDENCE_LH:
-            getSound()->playSound( "ResidentialLow" );
-            break;
-        case GROUP_RESIDENCE_ML:
-        case GROUP_RESIDENCE_MH:
-            getSound()->playSound( "ResidentialMed" );
-            break;
-        case GROUP_RESIDENCE_HL:
-        case GROUP_RESIDENCE_HH:
-            getSound()->playSound( "ResidentialHigh" );
-            break;
-        case GROUP_ROAD:
-        case GROUP_ROAD_BRIDGE:
-            getSound()->playSound( "TraficLow" );
-            //getSound()->playSound( "TraficHigh" );
-            //TODO: find out when to use TraficHigh
-            break;
-        case GROUP_ROCKET:
-            getSound()->playSound( "Rocket" );
-            //TODO: what about RocketExplosion RocketTakeoff
-            break;
-        case GROUP_SCHOOL:
-            getSound()->playSound( "School" );
-            break;
-        case GROUP_SOLAR_POWER:
-            getSound()->playSound( "PowerSolar" );
-            break;
-        case GROUP_SUBSTATION:
-            if( world(mps_x, mps_y)->getType() == CST_SUBSTATION_R ){
-                getSound()->playSound( "SubstationOff" );
-            } else if( world(mps_x, mps_y)->getType() == CST_SUBSTATION_G ){
-                getSound()->playSound( "SubstationOn" );
-            } else{   //CST_SUBSTATION_RG
-                getSound()->playSound( "Substation" );
-            }
-            break;
-        case GROUP_TIP:
-            getSound()->playSound( "Tip" );
-            break;
-        case GROUP_TRACK:
-        case GROUP_TRACK_BRIDGE:
-            getSound()->playSound( "DirtTrack" );
-            break;
-        case GROUP_MARKET:
-            if( world(mps_x, mps_y)->getType() == CST_MARKET_EMPTY )
-                getSound()->playSound( "MarketEmpty" );
-            else if( world(mps_x, mps_y)->getType() == CST_MARKET_LOW )
-                getSound()->playSound( "MarketLow" );
-            else if( world(mps_x, mps_y)->getType() == CST_MARKET_MED )
-                getSound()->playSound( "MarketMed" );
-            else //if( MP_TYPE( mps_x, mps_y ) == CST_MARKET_FULL )
-                getSound()->playSound( "MarketFull" );
-
-            break;
-        case GROUP_UNIVERSITY:
-            getSound()->playSound( "University" );
-            break;
-        case GROUP_WATER:
-            getSound()->playSound( "Water" );
-            break;
-        case GROUP_WINDMILL:
-            getSound()->playSound( "WindMill" );
-            break;
-        case GROUP_WIND_POWER:
-            getSound()->playSound( "WindMillHTech" );
-            break;
-        case GROUP_FIRE:
-            if( !dynamic_cast<Fire*>(world(mps_x, mps_y)->reportingConstruction)->smoking_days)
-            {
-                getSound()->playSound( "Fire" );
-            }
-            break;
-        case GROUP_SHANTY:
-            getSound()->playSound( "Shanty" );
-            break;
-        default:
-            if( world(mps_x, mps_y)->is_bare() && (world(mps_x, mps_y)->getGroup() != GROUP_DESERT) ){
-                getSound()->playSound( "Green" );
-            }
-            if( world(mps_x, mps_y)->getType() == CST_PARKLAND_PLANE ){
-                getSound()->playSound( "ParklandPlane" );
-            }
-            if( world(mps_x, mps_y)->getType() == CST_PARKLAND_LAKE ){
-                getSound()->playSound( "ParklandLake" );
-            }
-    }
+        }
+    }    
+    else if (world(mps_x, mps_y)->group != GROUP_DESERT)
+    {
+        if(world(mps_x, mps_y)->is_water())
+        {   getSound()->playSound("Water");}
+        else 
+        {   getSound()->playSound("Green");}
+    }//endif reportingConstruction   
+    std::cout.flush();
 }
 
 int mps_set_silent(int x, int y, int style);

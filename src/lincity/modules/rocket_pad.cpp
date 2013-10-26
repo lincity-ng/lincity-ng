@@ -10,7 +10,8 @@
 #include "gui_interface/pbar_interface.h"
 #include "rocket_pad.h"
 #include "residence.h" //for removing people
-#include <stdlib.h>
+//#include <stdlib.h>
+#include "lincity-ng/Sound.hpp"
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     "Rocket Pad",
@@ -129,7 +130,8 @@ void RocketPad::launch_rocket()
     int i, r, xx, yy, xxx, yyy;
     rockets_launched++;
     type = CST_ROCKET_FLOWN;
-    update_main_screen(0);
+    busy = 0;
+    //update_main_screen(0);
     /* The first five failures gives 49.419 % chances of 5 success
      * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...
      */
@@ -138,6 +140,7 @@ void RocketPad::launch_rocket()
     {
         /* the launch failed */
         //display_rocket_result_dialog(ROCKET_LAUNCH_BAD);
+        getSound()->playSound( "RocketExplosion" );
         ok_dial_box ("launch-fail.mes", BAD, 0L);
         rockets_launched_success = 0;
         xx = ((rand() % 40) - 20) + x;
@@ -159,6 +162,7 @@ void RocketPad::launch_rocket()
     }
     else
     {
+        getSound()->playSound( "RocketTakeoff" );
         rockets_launched_success++;
         /* TODO: Maybe should generate some pollution ? */
         if (rockets_launched_success > 5)

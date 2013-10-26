@@ -7,11 +7,26 @@
 
 
 #include "fire.h"
+#include "lincity-ng/Sound.hpp"
 
 FireConstructionGroup fireConstructionGroup(
     "Fire",
      FALSE,                     /* need credit? */
      GROUP_FIRE,
+     GROUP_FIRE_SIZE,
+     GROUP_FIRE_COLOUR,
+     GROUP_FIRE_COST_MUL,
+     GROUP_FIRE_BUL_COST,
+     GROUP_FIRE_FIREC,
+     GROUP_FIRE_COST,
+     GROUP_FIRE_TECH,
+     GROUP_FIRE_RANGE
+);
+
+FireConstructionGroup fireWasteLandConstructionGroup(
+    "Fire (ext.)",
+     FALSE,                     /* need credit? */
+     GROUP_FIRE,                //this is ALSO a fire
      GROUP_FIRE_SIZE,
      GROUP_FIRE_COLOUR,
      GROUP_FIRE_COST_MUL,
@@ -37,7 +52,9 @@ void Fire::update()
     {
         //is_burning = false;
         if (smoking_days == 0)   /* rand length here also */
-            smoking_days = rand() % (AFTER_FIRE_LENGTH / 6);
+        {   smoking_days = rand() % (AFTER_FIRE_LENGTH / 6);}
+        if(constructionGroup == &fireConstructionGroup)
+        {   constructionGroup = &fireWasteLandConstructionGroup;}
         smoking_days++;
         if (world(x,y)->flags & FLAG_FIRE_COVER)
             smoking_days += 4;
@@ -117,12 +134,20 @@ void Fire::report()
     mps_store_sd(i++,constructionGroup->name,ID);
     i++;
     mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
-    if (burning_days<FIRE_LENGTH)
+    if (burning_days < FIRE_LENGTH)
     {   mps_store_sddp(i++,"burnt down",burning_days,FIRE_LENGTH);}
     else
     {   mps_store_sddp(i++,"degraded",smoking_days,AFTER_FIRE_LENGTH);}
     //list_commodities(&i);
-
 }
+/*
+void Fire::playSound()
+{
+    if (burning_days<FIRE_LENGTH)
+    {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
+    else
+    {   getSound()->playASound(constructionGroup->chunks[3]);}   
+}
+*/
 /** @file lincity/modules/fire.cpp */
 

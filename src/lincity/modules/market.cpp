@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include "market.h"
 #include "fire.h" //for playing with fire
-#include "lincity-ng/ErrorInterface.hpp"
+#include "lincity-ng/Sound.hpp"
 
 MarketConstructionGroup marketConstructionGroup(
     "Market",
@@ -29,8 +29,6 @@ Construction *MarketConstructionGroup::createConstruction(int x, int y, unsigned
 
 void Market::update()
 {
-
-    //int tmp, xx, yy, pears, n;
     int ratio, trade_ratio, n;
     int lvl, market_lvl;
     int cap, market_cap;
@@ -116,6 +114,11 @@ void Market::update()
 
         if (market_ratio < 10)
         {
+            type = CST_MARKET_EMPTY;
+            jobs = JOBS_MARKET_EMPTY;
+        }
+        else if (market_ratio < 20)
+        {
             type = CST_MARKET_LOW;
             jobs = JOBS_MARKET_LOW;
         }
@@ -166,9 +169,7 @@ void Market::cover()
     for(int yy = ys; yy < ye; yy++)
     {
         for(int xx = xs; xx < xe; xx++)
-        {
-            world(xx,yy)->flags |= FLAG_MARKET_COVER;
-        }
+        {   world(xx,yy)->flags |= FLAG_MARKET_COVER;}
     }
 }
 
@@ -227,10 +228,19 @@ void Market::toggleEvacuation()
     flags &= ~FLAG_EVACUATE;
     if(!evacuate)
     {   flags |= FLAG_EVACUATE;}
-
 }
 
-
+void Market::playSound()
+{
+    if (type == CST_MARKET_EMPTY)
+    {   getSound()->playASound(constructionGroup->chunks[0]);}
+    else if (type == CST_MARKET_FULL)
+    {   getSound()->playASound(constructionGroup->chunks[1]);}
+    else if (type == CST_MARKET_LOW)
+    {   getSound()->playASound(constructionGroup->chunks[2]);}
+    else if (type == CST_MARKET_MED)
+    {   getSound()->playASound(constructionGroup->chunks[2]);}  
+}
 
 /** @file lincity/modules/market.cpp */
 

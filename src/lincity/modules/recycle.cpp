@@ -7,7 +7,6 @@
 
 
 #include "recycle.h"
-#include "../transport.h"
 
 RecycleConstructionGroup recycleConstructionGroup(
     "Recyling Center",

@@ -6,8 +6,25 @@
  * ---------------------------------------------------------------------- */
 
 #include "monument.h"
+#include "lincity-ng/Sound.hpp"
+
+extern int mps_x, mps_y; 
 
 MonumentConstructionGroup monumentConstructionGroup(
+    "Construction site",
+    FALSE,                     /* need credit? */
+    GROUP_MONUMENT,
+    GROUP_MONUMENT_SIZE,
+    GROUP_MONUMENT_COLOUR,
+    GROUP_MONUMENT_COST_MUL,
+    GROUP_MONUMENT_BUL_COST,
+    GROUP_MONUMENT_FIREC,
+    GROUP_MONUMENT_COST,
+    GROUP_MONUMENT_TECH,
+    GROUP_MONUMENT_RANGE
+);
+
+MonumentConstructionGroup monumentFinishedConstructionGroup(
     "Monument",
     FALSE,                     /* need credit? */
     GROUP_MONUMENT,
@@ -20,6 +37,7 @@ MonumentConstructionGroup monumentConstructionGroup(
     GROUP_MONUMENT_TECH,
     GROUP_MONUMENT_RANGE
 );
+
 
 Construction *MonumentConstructionGroup::createConstruction(int x, int y, unsigned short type) {
     return new Monument(x, y, type);
@@ -50,6 +68,9 @@ void Monument::update()
             deneighborize();
             type = CST_MONUMENT_5;
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
+            constructionGroup = &monumentFinishedConstructionGroup;
+            if (mps_x == x && mps_y == y)
+            {   mps_set(x, y, MPS_MAP);}
             //dont clear commodiyCount for savegame compatability
         }
         /* inc tech level only if fully built and tech less
@@ -88,10 +109,6 @@ void Monument::report()
     if (completion >= 100) {
         i++;
         mps_store_sfp(i++, "Wisdom bestowed", tech_made * 100.0 / MAX_TECH_LEVEL);
-        mps_store_title(i++,"");
-        mps_store_title(i++,"");
-        mps_store_title(i++,"");
-        mps_store_title(i++,"");
     }
     else
     {
@@ -102,6 +119,16 @@ void Monument::report()
         mps_store_sfp(i++, "Completion", completion);
     }
 }
+/*
+void Monument::playSound()
+{  
+    //There are three sounds for constructionsite and monument, each    
+    if (completion >= 100)
+    {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
+    else
+    {   getSound()->playASound(constructionGroup->chunks[3+rand()%3]);}  
+}
+*/
 
 /** @file lincity/modules/monument.cpp */
 
