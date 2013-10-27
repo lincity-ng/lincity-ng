@@ -25,7 +25,7 @@ CoalmineConstructionGroup coalmineConstructionGroup(
 
 Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsigned short type)
 {
-    return new Coalmine(x, y, type);
+    return new Coalmine(x, y, type, this);
 }
 
 void Coalmine::update()

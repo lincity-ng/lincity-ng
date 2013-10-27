@@ -156,7 +156,7 @@ void editMap (MapPoint point, int button)
     {
         mps_set(mod_x, mod_y, MPS_MAP); //fake Query action
         if(userOperation->action == UserOperation::ACTION_QUERY)
-        {   
+        {
             mapMPS->playBuildingSound( mod_x, mod_y );
             return;
         }
@@ -188,7 +188,7 @@ void editMap (MapPoint point, int button)
         }
         mps_result = mps_set( mod_x, mod_y, MPS_MAP );
         mapMPS->playBuildingSound( mod_x, mod_y );
-        
+
         //DBG_TileInfo(x, y);
 
         if( mps_result >= 1 )
@@ -246,18 +246,21 @@ void editMap (MapPoint point, int button)
         }
         //how to build a lake in the park?
         //just hold 'W' key on build ;-)
-        if( userOperation->constructionGroup == &parklandConstructionGroup )
+        if( userOperation->constructionGroup == &parklandConstructionGroup ||
+            userOperation->constructionGroup == &parkpondConstructionGroup )
         {
             Uint8 *keystate = SDL_GetKeyState(NULL);
             if ( keystate[SDLK_w] )
             {
                 userOperation->type = CST_PARKLAND_LAKE;
                 userOperation->selected_module_type = CST_PARKLAND_LAKE;
+                userOperation->constructionGroup = &parkpondConstructionGroup;
             }
             else
             {
                 userOperation->type = CST_PARKLAND_PLANE;
                 userOperation->selected_module_type = CST_PARKLAND_PLANE;
+                userOperation->constructionGroup = &parklandConstructionGroup;
             }
         }
         //how to build a shanty?

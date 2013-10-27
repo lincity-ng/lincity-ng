@@ -62,9 +62,9 @@ extern MillConstructionGroup millConstructionGroup;
 
 class Mill: public RegisteredConstruction<Mill> { // Mill inherits from its own RegisteredConstruction
 public:
-    Mill(int x, int y, unsigned short type): RegisteredConstruction<Mill>(x, y, type)
+    Mill(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Mill>(x, y, type)
     {
-        constructionGroup = &millConstructionGroup;
+        constructionGroup = cstgrp;
         this->anim = 0;
         this->busy = 0;
         this->working_days = 0;

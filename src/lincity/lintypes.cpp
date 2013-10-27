@@ -586,10 +586,10 @@ void Construction::writeTemplate()
     std::string name;
     XMLTemplate * xml_tmp;
     unsigned short head = constructionGroup->group;
-    if (flags&FLAG_IS_TRANSPORT)
+    if ((flags&FLAG_IS_TRANSPORT) && !binary_mode)
     {
         name = "Transport";
-        head = GROUP_TRACK;
+        //head = constructionGroup->group;
     }
     else
     {
@@ -647,10 +647,10 @@ void Construction::saveMembers(std::ostream *os)
 
     std::string name;
     unsigned short head = constructionGroup->group;
-    if (flags&FLAG_IS_TRANSPORT)
+    if (flags&FLAG_IS_TRANSPORT && !binary_mode)
     {
         name = "Transport";
-        head = GROUP_TRACK;
+        //head = GROUP_TRACK;
     }
     else
     {

@@ -52,9 +52,9 @@ extern CoalmineConstructionGroup coalmineConstructionGroup;
 
 class Coalmine: public RegisteredConstruction<Coalmine> { // Coalmine inherits from its RegisteredConstruction
 public:
-    Coalmine(int x, int y, unsigned short type): RegisteredConstruction<Coalmine>(x, y, type)
+    Coalmine(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Coalmine>(x, y, type)
     {
-        constructionGroup = &coalmineConstructionGroup;
+        constructionGroup = cstgrp;
         this->working_days = 0;
         this->busy = 0;
         this->current_coal_reserve = 0;  // has to be auto updated since coalmines may compete

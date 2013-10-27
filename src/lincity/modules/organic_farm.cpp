@@ -23,7 +23,7 @@ Organic_farmConstructionGroup organic_farmConstructionGroup(
 );
 
 Construction *Organic_farmConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Organic_farm(x, y, type);
+    return new Organic_farm(x, y, type, this);
 }
 
 

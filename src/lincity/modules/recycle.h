@@ -63,9 +63,9 @@ extern RecycleConstructionGroup recycleConstructionGroup;
 
 class Recycle: public RegisteredConstruction<Recycle> { // Recyle inherits from Construction
 public:
-    Recycle(int x, int y, unsigned short type): RegisteredConstruction<Recycle>(x, y, type)
+    Recycle(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Recycle>(x, y, type)
     {
-        constructionGroup = &recycleConstructionGroup;
+        constructionGroup = cstgrp;
         this->busy = 0;
         this->working_days = 0;
         this->tech = tech_level;

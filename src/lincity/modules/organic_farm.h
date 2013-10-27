@@ -72,9 +72,9 @@ extern Organic_farmConstructionGroup organic_farmConstructionGroup;
 
 class Organic_farm: public RegisteredConstruction<Organic_farm> { // Organic_farm inherits from its own RegisteredConstruction
 public:
-    Organic_farm(int x, int y, unsigned short type): RegisteredConstruction<Organic_farm>(x, y, type)
+    Organic_farm(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Organic_farm>(x, y, type)
     {
-        this->constructionGroup = &organic_farmConstructionGroup;
+        this->constructionGroup = cstgrp;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->tech_bonus = (tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL;

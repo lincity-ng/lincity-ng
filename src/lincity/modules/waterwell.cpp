@@ -34,7 +34,7 @@ WaterwellConstructionGroup waterwellConstructionGroup(
 );
 
 Construction *WaterwellConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Waterwell(x, y, type);
+    return new Waterwell(x, y, type, this);
 }
 
 void Waterwell::update()

@@ -60,9 +60,9 @@ extern BlacksmithConstructionGroup blacksmithConstructionGroup;
 
 class Blacksmith: public RegisteredConstruction<Blacksmith> { // Blacksmith inherits from its RegisteredConstruction
 public:
-    Blacksmith(int x, int y, unsigned short type): RegisteredConstruction<Blacksmith>(x, y, type)
+    Blacksmith(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Blacksmith>(x, y, type)
     {
-        constructionGroup = &blacksmithConstructionGroup;
+        constructionGroup = cstgrp;
         this->anim = 0; // or real_time?
         this->pauseCounter = 0;
         this->busy = 0;

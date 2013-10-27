@@ -23,7 +23,7 @@ MarketConstructionGroup marketConstructionGroup(
 );
 
 Construction *MarketConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Market(x, y, type);
+    return new Market(x, y, type, this);
 }
 
 
@@ -239,7 +239,7 @@ void Market::playSound()
     else if (type == CST_MARKET_LOW)
     {   getSound()->playASound(constructionGroup->chunks[2]);}
     else if (type == CST_MARKET_MED)
-    {   getSound()->playASound(constructionGroup->chunks[2]);}  
+    {   getSound()->playASound(constructionGroup->chunks[2]);}
 }
 
 /** @file lincity/modules/market.cpp */

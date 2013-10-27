@@ -24,7 +24,7 @@ SchoolConstructionGroup schoolConstructionGroup(
 );
 
 Construction *SchoolConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new School(x, y, type);
+    return new School(x, y, type, this);
 }
 
 void School::update()

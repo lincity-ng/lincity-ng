@@ -95,9 +95,9 @@ class RailBridge{};
 
 class Transport : public RegisteredConstruction<Transport> { // Transport inherits from countedConstruction
 public:
-    Transport(int x, int y, unsigned short type): RegisteredConstruction<Transport>(x, y, type)
+    Transport(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Transport>(x, y, type)
     {
-        unsigned short group = get_group_of_type(type);
+        unsigned short group = cstgrp->group;
         this->anim = 0;
         this->burning_waste = false;
         // register the construction as transport tile

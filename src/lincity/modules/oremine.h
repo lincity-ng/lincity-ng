@@ -50,9 +50,9 @@ extern OremineConstructionGroup oremineConstructionGroup;
 
 class Oremine: public RegisteredConstruction<Oremine> { // Oremine inherits from its own RegisteredConstruction
 public:
-    Oremine(int x, int y, unsigned short type): RegisteredConstruction<Oremine>(x, y, type)
+    Oremine(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Oremine>(x, y, type)
     {
-        constructionGroup = &oremineConstructionGroup;
+        constructionGroup = cstgrp;
         this->anim = 0;
         this->animate = false;
         this->working_days = 0;

@@ -24,9 +24,9 @@ ParklandConstructionGroup parklandConstructionGroup(
 );
 
 ParklandConstructionGroup parkpondConstructionGroup(
-    "Park with Pond",
+    "Park (Pond)",
      TRUE,                     /* need credit? */
-     GROUP_PARKLAND,           //Yes this is a park, too
+     GROUP_PARKPOND,
      GROUP_PARKLAND_SIZE,
      GROUP_PARKLAND_COLOUR,
      GROUP_PARKLAND_COST_MUL,
@@ -38,7 +38,7 @@ ParklandConstructionGroup parkpondConstructionGroup(
 );
 
 Construction *ParklandConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Parkland(x, y, type);
+    return new Parkland(x, y, type, this);
 }
 
 void Parkland::update()
@@ -58,12 +58,12 @@ void Parkland::report()
 }
 /*
 void Parkland::playSound()
-{  
-    //There are three sounds for constructionsite and monument, each    
+{
+    //There are three sounds for constructionsite and monument, each
     if (type == CST_PARKLAND_LAKE)
     {   getSound()->playASound(constructionGroup->chunks[rand()%2]);}
     else //type == CST_PARKLAND_PLANE
-    {   getSound()->playASound(constructionGroup->chunks[2+rand()%3]);}  
+    {   getSound()->playASound(constructionGroup->chunks[2+rand()%3]);}
 }
 */
 /** @file lincity/modules/parkland.cpp */

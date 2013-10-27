@@ -24,7 +24,7 @@ PowerlineConstructionGroup powerlineConstructionGroup(
 
 Construction *PowerlineConstructionGroup::createConstruction(int x, int y, unsigned short type)
 {
-    return new Powerline(x, y, type);
+    return new Powerline(x, y, type, this);
 }
 
 void Powerline::update()

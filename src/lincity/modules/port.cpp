@@ -25,7 +25,7 @@ PortConstructionGroup portConstructionGroup(
 );
 
 Construction *PortConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Port(x, y, type);
+    return new Port(x, y, type, this);
 }
 
 int Port::buy_stuff(Commodities stuff)

@@ -80,9 +80,9 @@ extern ShantyConstructionGroup shantyConstructionGroup;
 
 class Shanty: public RegisteredConstruction<Shanty> { // Shanty inherits from Construction
 public:
-    Shanty(int x, int y, unsigned short type): RegisteredConstruction<Shanty>(x, y, type)
+    Shanty(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Shanty>(x, y, type)
     {
-        constructionGroup = &shantyConstructionGroup;
+        constructionGroup = cstgrp;
         initialize_commodities();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;

@@ -25,7 +25,7 @@ FireStationConstructionGroup fireStationConstructionGroup(
 );
 
 Construction *FireStationConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new FireStation(x, y, type);
+    return new FireStation(x, y, type, this);
 }
 
 void FireStation::update()

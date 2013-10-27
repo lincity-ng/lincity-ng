@@ -97,7 +97,7 @@ ResidenceConstructionGroup residenceHHConstructionGroup(
 
 
 Construction *ResidenceConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Residence(x, y, type);
+    return new Residence(x, y, type, this);
 }
 
 void Residence::update()

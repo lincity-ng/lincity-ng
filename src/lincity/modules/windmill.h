@@ -48,9 +48,9 @@ extern WindmillConstructionGroup windmillConstructionGroup;
 
 class Windmill: public RegisteredConstruction<Windmill> { // Windmill inherits from its own RegisteredConstruction
 public:
-    Windmill(int x, int y, unsigned short type): RegisteredConstruction<Windmill>(x, y, type)
+    Windmill(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Windmill>(x, y, type)
     {
-        constructionGroup = &windmillConstructionGroup;
+        constructionGroup = cstgrp;
         this->anim = 0;
         this->animate = false;
         this->sail_count = 0;

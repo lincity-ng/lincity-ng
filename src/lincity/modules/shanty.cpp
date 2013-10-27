@@ -27,7 +27,7 @@ ShantyConstructionGroup shantyConstructionGroup(
 
 Construction *ShantyConstructionGroup::createConstruction(int x, int y, unsigned short type)
 {
-    return new Shanty(x, y, type);
+    return new Shanty(x, y, type, this);
 }
 
 //TODO remove_a_shanty() and update_shanty() should go to ConstructionRequest

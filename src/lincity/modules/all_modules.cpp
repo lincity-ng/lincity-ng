@@ -33,6 +33,7 @@ void initializeModules() {
     ConstructionGroup::addConstructionGroup(&railbridgeConstructionGroup);
     ConstructionGroup::addConstructionGroup(&powerlineConstructionGroup);
     ConstructionGroup::addConstructionGroup(&parklandConstructionGroup);
+    ConstructionGroup::addConstructionGroup(&parkpondConstructionGroup);
     ConstructionGroup::addConstructionGroup(&oremineConstructionGroup);
     ConstructionGroup::addConstructionGroup(&coalmineConstructionGroup);
     ConstructionGroup::addConstructionGroup(&tipConstructionGroup);
@@ -43,6 +44,6 @@ void initializeModules() {
     ConstructionGroup::addConstructionGroup(&industryHeavyConstructionGroup);
     ConstructionGroup::addConstructionGroup(&marketConstructionGroup);
     ConstructionGroup::addConstructionGroup(&rocketPadConstructionGroup);
-    ConstructionGroup::addConstructionGroup(&shantyConstructionGroup);    
+    ConstructionGroup::addConstructionGroup(&shantyConstructionGroup);
 }
 

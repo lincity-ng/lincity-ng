@@ -51,9 +51,9 @@ extern Coal_powerConstructionGroup coal_powerConstructionGroup;
 
 class Coal_power: public RegisteredConstruction<Coal_power> { // Coal_power inherits from its own RegisteredConstruction
 public:
-    Coal_power(int x, int y, unsigned short type): RegisteredConstruction<Coal_power>(x, y, type)
+    Coal_power(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Coal_power>(x, y, type)
     {
-        constructionGroup = &coal_powerConstructionGroup;
+        constructionGroup = cstgrp;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;

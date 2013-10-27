@@ -23,13 +23,13 @@ RecycleConstructionGroup recycleConstructionGroup(
 );
 
 Construction *RecycleConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Recycle(x, y, type);
+    return new Recycle(x, y, type, this);
 }
 
 void Recycle::update()
 {
     recycle_cost += RECYCLE_RUNNING_COST;
-    
+
     // always recycle waste and only make steel & ore if there are free capacities
     if (commodityCount[STUFF_WASTE] >= WASTE_RECYCLED
         && commodityCount[STUFF_KWH] >= KWH_RECYCLE_WASTE
@@ -46,7 +46,7 @@ void Recycle::update()
         {   commodityCount[STUFF_ORE]=MAX_ORE_AT_RECYCLE;}
         if(commodityCount[STUFF_STEEL]>MAX_STEEL_AT_RECYCLE)
         {   commodityCount[STUFF_STEEL]=MAX_STEEL_AT_RECYCLE;}
-        
+
     }
     // monthly update
     if (total_time % 100 == 0)

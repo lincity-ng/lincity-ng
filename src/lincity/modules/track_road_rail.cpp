@@ -100,7 +100,7 @@ TransportConstructionGroup railbridgeConstructionGroup(
 
 Construction *TransportConstructionGroup::createConstruction(int x, int y, unsigned short type)
 {
-    return new Transport(x, y, type);
+    return new Transport(x, y, type, this);
 }
 
 void Transport::update()
@@ -206,15 +206,15 @@ void Transport::report()
 }
 
 void Transport::playSound()
-{    
-    unsigned short g = constructionGroup->group;    
+{
+    unsigned short g = constructionGroup->group;
     if ((g == GROUP_ROAD) || (g == GROUP_ROAD_BRIDGE))
-    {   
+    {
         int avg = 0;
         std::map<Commodities, int>::iterator stuff_it;
         for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
         {   avg += (stuff_it->second * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
-        if(avg > 0) //equiv to size > 0        
+        if(avg > 0) //equiv to size > 0
         {   avg /= trafficCount.size();}
         if(avg > 5)
         {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
@@ -222,10 +222,10 @@ void Transport::playSound()
         {   getSound()->playASound(constructionGroup->chunks[3+rand()%3]);}
     }
     else
-    {   
+    {
         int s = constructionGroup->chunks.size();
         getSound()->playASound(constructionGroup->chunks[rand()%s]);
-    }    
+    }
 }
 
 

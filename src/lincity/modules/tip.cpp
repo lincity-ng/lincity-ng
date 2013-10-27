@@ -23,7 +23,7 @@ TipConstructionGroup tipConstructionGroup(
 );
 
 Construction *TipConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Tip(x, y, type);
+    return new Tip(x, y, type, this);
 }
 
 

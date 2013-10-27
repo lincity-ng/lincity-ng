@@ -250,7 +250,10 @@ public:
         this->ID = Counted<ConstructionClass>::getNextId();
         this->flags = '\0';
         setMemberSaved(&(this->flags),"flags");
+#ifdef DEBUG
         neighbors.clear();
+        partner.clear();
+#endif
     }
     ~RegisteredConstruction<ConstructionClass>(){}
 };
@@ -279,7 +282,7 @@ public:
     }
 
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
-    std::vector<Mix_Chunk *> chunks;   
+    std::vector<Mix_Chunk *> chunks;
     int getCosts();
     bool is_allowed_here(int x, int y, bool msg);//check if construction could be placed
 

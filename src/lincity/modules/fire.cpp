@@ -38,7 +38,7 @@ FireConstructionGroup fireWasteLandConstructionGroup(
 );
 
 Construction *FireConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Fire(x, y, type);
+    return new Fire(x, y, type, this);
 }
 
 void Fire::update()
@@ -46,7 +46,7 @@ void Fire::update()
     int i;
     /* this so we don't get whole blocks changing in one go. */
     if (burning_days == 0)
-        burning_days = rand() % (FIRE_LENGTH / 5);
+    {   burning_days = rand() % (FIRE_LENGTH / 5);}
 
     if (burning_days > FIRE_LENGTH)
     {
@@ -146,7 +146,7 @@ void Fire::playSound()
     if (burning_days<FIRE_LENGTH)
     {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
     else
-    {   getSound()->playASound(constructionGroup->chunks[3]);}   
+    {   getSound()->playASound(constructionGroup->chunks[3]);}
 }
 */
 /** @file lincity/modules/fire.cpp */

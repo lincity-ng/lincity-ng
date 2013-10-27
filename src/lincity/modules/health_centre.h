@@ -49,9 +49,9 @@ extern HealthCentreConstructionGroup healthCentreConstructionGroup;
 
 class HealthCentre: public RegisteredConstruction<HealthCentre> { // HealthCentre inherits from its own RegisteredConstruction
 public:
-    HealthCentre(int x, int y, unsigned short type): RegisteredConstruction<HealthCentre>(x, y, type)
+    HealthCentre(int x, int y, unsigned short type,ConstructionGroup *cstgrp): RegisteredConstruction<HealthCentre>(x, y, type)
     {
-        constructionGroup = &healthCentreConstructionGroup;
+        constructionGroup = cstgrp;
         this->active = false;
         setMemberSaved(&(this->active),"active");
         this->busy = 0;

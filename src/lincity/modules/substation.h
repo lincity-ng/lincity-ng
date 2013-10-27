@@ -45,9 +45,9 @@ extern SubstationConstructionGroup substationConstructionGroup;
 
 class Substation: public RegisteredConstruction<Substation> { // Substation inherits from Construction
 public:
-    Substation(int x, int y, unsigned short type): RegisteredConstruction<Substation>(x, y, type)
+    Substation(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Substation>(x, y, type)
     {
-        constructionGroup = &substationConstructionGroup;
+        constructionGroup = cstgrp;
         this->working_days = 0;
         this->busy = 0;
         initialize_commodities();

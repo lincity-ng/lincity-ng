@@ -25,7 +25,7 @@ SolarPowerConstructionGroup solarPowerConstructionGroup(
 );
 
 Construction *SolarPowerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new SolarPower(x, y, type);
+    return new SolarPower(x, y, type, this);
 }
 
 void SolarPower::update()

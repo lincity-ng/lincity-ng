@@ -51,9 +51,9 @@ extern FireStationConstructionGroup fireStationConstructionGroup;
 
 class FireStation: public RegisteredConstruction<FireStation> { // FireStation inherits from RegisteredConstruction
 public:
-    FireStation(int x, int y, unsigned short type) : RegisteredConstruction<FireStation>(x ,y ,type)
+    FireStation(int x, int y, unsigned short type, ConstructionGroup *cstgrp) : RegisteredConstruction<FireStation>(x ,y ,type)
     {
-        constructionGroup = &fireStationConstructionGroup;
+        constructionGroup = cstgrp;
         this->anim = 0;
         this->animate = false;
         this->active = false;

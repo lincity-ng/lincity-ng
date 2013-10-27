@@ -68,9 +68,9 @@ extern MarketConstructionGroup marketConstructionGroup;
 
 class Market: public RegisteredConstruction<Market> { // Market inherits from Construction
 public:
-    Market(int x, int y, unsigned short type): RegisteredConstruction<Market>(x, y, type)
+    Market(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Market>(x, y, type)
     {
-        constructionGroup = &marketConstructionGroup;
+        constructionGroup = cstgrp;
         //local copy of commodityRuCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
         setCommodityRulesSaved(&commodityRuleCount);

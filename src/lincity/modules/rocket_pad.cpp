@@ -28,7 +28,7 @@ RocketPadConstructionGroup rocketPadConstructionGroup(
 );
 
 Construction *RocketPadConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new RocketPad(x, y, type);
+    return new RocketPad(x, y, type, this);
 }
 
 extern void ok_dial_box(const char *, int, const char *);

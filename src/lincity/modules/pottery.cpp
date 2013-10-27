@@ -22,7 +22,7 @@ PotteryConstructionGroup potteryConstructionGroup(
 );
 
 Construction *PotteryConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Pottery(x, y, type);
+    return new Pottery(x, y, type, this);
 }
 
 void Pottery::update()

@@ -35,12 +35,15 @@ extern ParklandConstructionGroup parkpondConstructionGroup;
 
 class Parkland: public RegisteredConstruction<Parkland> { // park inherits from RegisteredConstruction
 public:
-    Parkland(int x, int y, unsigned short type): RegisteredConstruction<Parkland>(x, y, type)
+    Parkland(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Parkland>(x, y, type)
     {
+        constructionGroup = cstgrp;
+        /*
         if(this->type == CST_PARKLAND_LAKE)
-        {   constructionGroup = &parkpondConstructionGroup;}        
+        {   constructionGroup = &parkpondConstructionGroup;}
         else
         {   constructionGroup = &parklandConstructionGroup;}
+        */
         this->flags |= FLAG_NEVER_EVACUATE;
     }
     virtual void update();

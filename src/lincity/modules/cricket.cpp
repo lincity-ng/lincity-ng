@@ -24,7 +24,7 @@ CricketConstructionGroup cricketConstructionGroup(
 );
 
 Construction *CricketConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Cricket(x, y, type);
+    return new Cricket(x, y, type, this);
 }
 
 void Cricket::update()

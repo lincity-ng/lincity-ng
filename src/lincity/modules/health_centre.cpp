@@ -23,7 +23,7 @@ HealthCentreConstructionGroup healthCentreConstructionGroup(
 );
 
 Construction *HealthCentreConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new HealthCentre(x, y, type);
+    return new HealthCentre(x, y, type, this);
 }
 
 void HealthCentre::update()

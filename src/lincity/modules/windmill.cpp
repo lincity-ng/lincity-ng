@@ -23,7 +23,7 @@ WindmillConstructionGroup windmillConstructionGroup(
 );
 
 Construction *WindmillConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Windmill(x, y, type);
+    return new Windmill(x, y, type, this);
 }
 
 void Windmill::update()

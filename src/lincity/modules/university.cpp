@@ -23,7 +23,7 @@ UniversityConstructionGroup universityConstructionGroup(
 );
 
 Construction *UniversityConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new University(x, y, type);
+    return new University(x, y, type, this);
 }
 
 void University::update()

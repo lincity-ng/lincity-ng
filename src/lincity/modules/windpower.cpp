@@ -22,7 +22,7 @@ WindpowerConstructionGroup windpowerConstructionGroup(
 );
 
 Construction *WindpowerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Windpower(x, y, type); //We are also building a windmill
+    return new Windpower(x, y, type, this);
 }
 
 void Windpower::update()

@@ -51,9 +51,9 @@ extern CricketConstructionGroup cricketConstructionGroup;
 
 class Cricket: public RegisteredConstruction<Cricket> { // cricket inherits from Construction
 public:
-    Cricket(int x, int y, unsigned short type): RegisteredConstruction<Cricket>(x, y, type)
+    Cricket(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Cricket>(x, y, type)
     {
-        constructionGroup = &cricketConstructionGroup;
+        constructionGroup = cstgrp;
         this->anim = 0;
         this->animate = false;
         this->active = false;

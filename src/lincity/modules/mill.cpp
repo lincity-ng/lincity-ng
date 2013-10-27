@@ -23,7 +23,7 @@ MillConstructionGroup millConstructionGroup(
 );
 
 Construction *MillConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Mill(x, y, type);
+    return new Mill(x, y, type, this);
 }
 
 void Mill::update()

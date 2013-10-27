@@ -36,9 +36,9 @@ extern WaterwellConstructionGroup waterwellConstructionGroup;
 
 class Waterwell: public RegisteredConstruction<Waterwell> { // waterwell inherits from its own RegisteredConstruction
 public:
-    Waterwell(int x, int y, unsigned short type): RegisteredConstruction<Waterwell>(x, y, type)
+    Waterwell(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Waterwell>(x, y, type)
     {
-        constructionGroup = &waterwellConstructionGroup;
+        constructionGroup = cstgrp;
         this->busy = 0;
         this->working_days = 0;
         initialize_commodities();

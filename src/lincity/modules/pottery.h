@@ -55,9 +55,9 @@ extern PotteryConstructionGroup potteryConstructionGroup;
 
 class Pottery: public RegisteredConstruction<Pottery> { // Pottery inherits from its own RegisteredConstruction
 public:
-    Pottery(int x, int y, unsigned short type): RegisteredConstruction<Pottery>(x, y, type)
+    Pottery(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Pottery>(x, y, type)
     {
-        constructionGroup = &potteryConstructionGroup;
+        constructionGroup = cstgrp;
         this->anim = 0; // or real_time?
         this->pauseCounter = 0;
         this->busy = 0;

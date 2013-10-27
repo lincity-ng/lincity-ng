@@ -45,9 +45,9 @@ extern SolarPowerConstructionGroup solarPowerConstructionGroup;
 
 class SolarPower: public RegisteredConstruction<SolarPower> { // park inherits from RegisteredConstruction
 public:
-    SolarPower(int x, int y, unsigned short type): RegisteredConstruction<SolarPower>(x, y, type)
+    SolarPower(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<SolarPower>(x, y, type)
     {
-        constructionGroup = &solarPowerConstructionGroup;
+        constructionGroup = cstgrp;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;

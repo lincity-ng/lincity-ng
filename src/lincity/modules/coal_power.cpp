@@ -23,7 +23,7 @@ Coal_powerConstructionGroup coal_powerConstructionGroup(
 );
 
 Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Coal_power(x, y, type);
+    return new Coal_power(x, y, type, this);
 }
 
 void Coal_power::update()
@@ -69,7 +69,6 @@ void Coal_power::report()
 
 void Coal_power::playSound()
 {
-    //std::cout << "Coal_power.playSound" << std::endl;    
     switch(type)
     {
         case CST_POWERS_COAL_EMPTY:

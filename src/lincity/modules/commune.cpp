@@ -22,7 +22,7 @@ CommuneConstructionGroup communeConstructionGroup(
 );
 
 Construction *CommuneConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Commune(x, y, type);
+    return new Commune(x, y, type, this);
 }
 
 void Commune::update()

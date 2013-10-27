@@ -91,9 +91,9 @@ extern PortConstructionGroup portConstructionGroup;
 
 class Port: public RegisteredConstruction<Port> { // park inherits from Construction
 public:
-    Port(int x, int y, unsigned short type): RegisteredConstruction<Port>(x, y, type)
+    Port(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Port>(x, y, type)
     {
-        constructionGroup = &portConstructionGroup;
+        constructionGroup = cstgrp;
         this->daily_ic = 0; this->daily_et = 0;
         this->monthly_ic = 0; this->monthly_et = 0;
         this->lastm_ic = 0; this->lastm_et = 0;

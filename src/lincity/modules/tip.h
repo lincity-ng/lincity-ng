@@ -45,9 +45,9 @@ extern TipConstructionGroup tipConstructionGroup;
 
 class Tip: public RegisteredConstruction<Tip>{ // Tip inherits from its own RegisteredConstruction
 public:
-    Tip(int x, int y, unsigned short type): RegisteredConstruction<Tip>(x, y, type)
+    Tip(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Tip>(x, y, type)
     {
-        this->constructionGroup = &tipConstructionGroup;
+        this->constructionGroup = cstgrp;
         this->flags |= FLAG_NEVER_EVACUATE;
         this->total_waste = 0;
         setMemberSaved(&this->total_waste,"total_waste");

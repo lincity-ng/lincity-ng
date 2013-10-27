@@ -18,7 +18,7 @@ public:
     {
         commodityRuleCount[Construction::STUFF_MWH].maxload = MAX_MWH_ON_POWERLINE;
         commodityRuleCount[Construction::STUFF_MWH].take = true;
-        commodityRuleCount[Construction::STUFF_MWH].give = true; 
+        commodityRuleCount[Construction::STUFF_MWH].give = true;
     }
     // overriding method that creates a power line
     virtual Construction *createConstruction(int x, int y, unsigned short type);
@@ -28,22 +28,22 @@ extern PowerlineConstructionGroup powerlineConstructionGroup;
 
 class Powerline: public RegisteredConstruction<Powerline> { // Powerlineinherits from its own RegisteredConstruction
 public:
-	Powerline(int x, int y ,unsigned short type): RegisteredConstruction<Powerline>(x, y, type) 
+    Powerline(int x, int y ,unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Powerline>(x, y, type)
     {
-        constructionGroup = &powerlineConstructionGroup;        
-        this->flags |= (FLAG_POWER_LINE | FLAG_NEVER_EVACUATE);         
+        constructionGroup = cstgrp;
+        this->flags |= (FLAG_POWER_LINE | FLAG_NEVER_EVACUATE);
         this->anim_counter = 0;
-        this->flashing = false;        
+        this->flashing = false;
         initialize_commodities();
-        this->trafficCount = this->commodityCount;                              	    
+        this->trafficCount = this->commodityCount;
     }
-	virtual ~Powerline() { }
-	virtual void update();
-	virtual void report();
+    virtual ~Powerline() { }
+    virtual void update();
+    virtual void report();
     void flow_power();
     std::map<Commodities, int> trafficCount;
     int anim_counter;
-    bool flashing;	
+    bool flashing;
 };
 
 

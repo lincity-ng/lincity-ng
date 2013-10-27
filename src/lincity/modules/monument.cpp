@@ -8,7 +8,7 @@
 #include "monument.h"
 #include "lincity-ng/Sound.hpp"
 
-extern int mps_x, mps_y; 
+extern int mps_x, mps_y;
 
 MonumentConstructionGroup monumentConstructionGroup(
     "Construction site",
@@ -40,7 +40,7 @@ MonumentConstructionGroup monumentFinishedConstructionGroup(
 
 
 Construction *MonumentConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Monument(x, y, type);
+    return new Monument(x, y, type, this);
 }
 
 void Monument::update()
@@ -121,12 +121,12 @@ void Monument::report()
 }
 /*
 void Monument::playSound()
-{  
-    //There are three sounds for constructionsite and monument, each    
+{
+    //There are three sounds for constructionsite and monument, each
     if (completion >= 100)
     {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
     else
-    {   getSound()->playASound(constructionGroup->chunks[3+rand()%3]);}  
+    {   getSound()->playASound(constructionGroup->chunks[3+rand()%3]);}
 }
 */
 

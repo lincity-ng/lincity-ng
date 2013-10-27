@@ -171,8 +171,9 @@ extern ResidenceConstructionGroup residenceLHConstructionGroup, residenceMHConst
 
 class Residence: public RegisteredConstruction<Residence> { // Residence inherits from its own RegisteredConstruction
 public:
-    Residence(int x, int y, unsigned short type): RegisteredConstruction<Residence>(x, y, type)
+    Residence(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Residence>(x, y, type)
     {
+        constructionGroup = cstgrp;
         this->local_population = 5; //to aid converted savegames should not affect actual game mechanics too much
         setMemberSaved(&(this->local_population),"local_population");
         this->job_swingometer = 0;
@@ -180,33 +181,24 @@ public:
         this->births = 1;
         this->deaths = 1;
         this->pol_deaths = 1;
-        switch (type)
+        if (cstgrp == &residenceLLConstructionGroup)
+        {   this->max_population = GROUP_RESIDENCE_LL_MAX_POP;}
+        else if (cstgrp == &residenceMLConstructionGroup)
+        {   this->max_population = GROUP_RESIDENCE_ML_MAX_POP;}
+        else if (cstgrp == &residenceHLConstructionGroup)
+        {   this->max_population = GROUP_RESIDENCE_HL_MAX_POP;}
+        else if (cstgrp == &residenceLHConstructionGroup)
+        {   this->max_population = GROUP_RESIDENCE_LH_MAX_POP;}
+        else if (cstgrp == &residenceMHConstructionGroup)
+        {   this->max_population = GROUP_RESIDENCE_MH_MAX_POP;}
+        else if (cstgrp == &residenceHHConstructionGroup)
+        {   this->max_population = GROUP_RESIDENCE_HH_MAX_POP;}
+        else
         {
-            case CST_RESIDENCE_LL :
-                constructionGroup = &residenceLLConstructionGroup;
-                this->max_population = GROUP_RESIDENCE_LL_MAX_POP;
-            break;
-            case CST_RESIDENCE_ML :
-                constructionGroup = &residenceMLConstructionGroup;
-                this->max_population = GROUP_RESIDENCE_ML_MAX_POP;
-            break;
-            case CST_RESIDENCE_HL :
-                constructionGroup = &residenceHLConstructionGroup;
-                this->max_population = GROUP_RESIDENCE_HL_MAX_POP;
-            break;
-            case CST_RESIDENCE_LH :
-                constructionGroup = &residenceLHConstructionGroup;
-                this->max_population = GROUP_RESIDENCE_LH_MAX_POP;
-            break;
-            case CST_RESIDENCE_MH :
-                constructionGroup = &residenceMHConstructionGroup;
-                this->max_population = GROUP_RESIDENCE_MH_MAX_POP;
-            break;
-            case CST_RESIDENCE_HH :
-                constructionGroup = &residenceHHConstructionGroup;
-                this->max_population = GROUP_RESIDENCE_HH_MAX_POP;
-            break;
+            this->max_population = 50;
+            std::cout << "unknown ConstructionGroup in new Residence at (" << x << "," << y << ")" << std::endl;
         }
+
         initialize_commodities();
     }
     virtual ~Residence()

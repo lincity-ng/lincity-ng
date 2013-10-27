@@ -23,7 +23,7 @@ SubstationConstructionGroup substationConstructionGroup(
 );
 
 Construction *SubstationConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Substation(x, y, type);
+    return new Substation(x, y, type, this);
 }
 
 void Substation::update()
@@ -67,7 +67,7 @@ void Substation::playSound()
     else if (type == CST_SUBSTATION_R)
     {   getSound()->playASound(constructionGroup->chunks[2]);}
     else if (type == CST_SUBSTATION_G)
-    {   getSound()->playASound(constructionGroup->chunks[3]);}  
+    {   getSound()->playASound(constructionGroup->chunks[3]);}
 }
 
 

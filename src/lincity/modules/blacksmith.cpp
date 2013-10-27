@@ -22,7 +22,7 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
 );
 
 Construction *BlacksmithConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Blacksmith(x, y, type);
+    return new Blacksmith(x, y, type, this);
 }
 
 void Blacksmith::update()

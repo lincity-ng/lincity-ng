@@ -1201,12 +1201,19 @@ void ButtonPanel::doButton(const std::string &button)
     }
     else if(button=="BPMParkButton")
     {
+        //doublechecked by mapedit anyways, but who knows
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( keystate[SDLK_w] )
-        {   buttonOperation->type = CST_PARKLAND_LAKE;}
+        {
+            buttonOperation->type = CST_PARKLAND_LAKE;
+            buttonOperation->constructionGroup = &parkpondConstructionGroup;
+        }
         else
-        {   buttonOperation->type = CST_PARKLAND_PLANE;}
-        buttonOperation->constructionGroup = &parklandConstructionGroup;
+        {
+            buttonOperation->type = CST_PARKLAND_PLANE;
+            buttonOperation->constructionGroup = &parklandConstructionGroup;
+        }
+
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_PARKLAND_PLANE;
     }
