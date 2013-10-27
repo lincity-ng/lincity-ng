@@ -155,9 +155,11 @@ void editMap (MapPoint point, int button)
     if ((!world(mod_x,mod_y)->reportingConstruction) || (userOperation->action != UserOperation::ACTION_QUERY))
     {
         mps_set(mod_x, mod_y, MPS_MAP); //fake Query action
-        mapMPS->playBuildingSound( mod_x, mod_y );
         if(userOperation->action == UserOperation::ACTION_QUERY)
-        {   return;}
+        {   
+            mapMPS->playBuildingSound( mod_x, mod_y );
+            return;
+        }
     }
 
     if(!userOperation->is_allowed_here(mod_x, mod_y, true))

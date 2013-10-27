@@ -427,6 +427,7 @@ SDL_Surface* GameView::readImage(const std::string& filename)
  *  in OpenGL, so load just Images and convert them to Textures on
  *  demand in the main Tread.
  */
+//TODO Read the xml only once and then retriev X and Y from a map
 void GameView::preReadCityTexture( int textureType, const std::string& filename )
 {
     //skip loading if we stop anyway
@@ -1458,14 +1459,12 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     }
 
     Texture* texture;
-    int size;
     MapPoint upperLeft = realTile(tile);
 
-    size = 1;
+    int size = 1;
     if(world(upperLeft.x, upperLeft.y)->construction)
     {   size = world(upperLeft.x, upperLeft.y)->construction->constructionGroup->size;}
-    else
-    {   size = 1;}
+    
     //Attention map is rotated for displaying
     if ( ( tile.x != upperLeft.x ) || ( tile.y - size +1 != upperLeft.y ) ) //Signs are tested
     {   return;}
