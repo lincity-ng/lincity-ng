@@ -28,21 +28,23 @@ Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsi
 
 void Coal_power::update()
 {
-    if ((commodityCount[STUFF_JOBS] >= JOBS_COALPS_GENERATE)
-     && (commodityCount[STUFF_COAL] >= POWERS_COAL_OUTPUT / POWER_PER_COAL)
-     && (commodityCount[STUFF_MWH] + mwh_output <= MAX_MWH_AT_COALPS))
+    int mwh_made = (commodityCount[STUFF_MWH] + mwh_output <= MAX_MWH_AT_COALPS)?mwh_output:MAX_MWH_AT_COALPS-commodityCount[STUFF_MWH];
+    int jobs_used = JOBS_COALPS_GENERATE*(mwh_made/100)/(mwh_output/100);
+    int coal_used = POWERS_COAL_OUTPUT / POWER_PER_COAL * (mwh_made/100) /(mwh_output/100);
+    if ((commodityCount[STUFF_JOBS] >= jobs_used )
+     && (commodityCount[STUFF_COAL] >= coal_used)
+     && (mwh_made >= POWERS_COAL_OUTPUT))
     {
-        commodityCount[STUFF_JOBS] -= JOBS_COALPS_GENERATE;
-        commodityCount[STUFF_COAL] -= (POWERS_COAL_OUTPUT / POWER_PER_COAL);
-        commodityCount[STUFF_MWH] += mwh_output;
-        coal_used += (POWERS_COAL_OUTPUT / POWER_PER_COAL);
-        world(x,y)->pollution += POWERS_COAL_POLLUTION;
-        working_days++;
+        commodityCount[STUFF_JOBS] -= jobs_used;
+        commodityCount[STUFF_COAL] -= coal_used;
+        commodityCount[STUFF_MWH] += mwh_made;
+        world(x,y)->pollution += POWERS_COAL_POLLUTION *(mwh_made/100)/(mwh_output/100);
+        working_days += (mwh_made/100);
     }
     //monthly update
     if (total_time % 100 == 0)
     {
-        busy = working_days;
+        busy = working_days / (mwh_output/100);
         working_days = 0;
     }
     /* choose a graphic */

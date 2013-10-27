@@ -61,9 +61,9 @@ void Organic_farm::update()
         max_foodprod = (ORGANIC_FARM_FOOD_OUTPUT) * ugwCount / (4 * 16);
     }
     if (foodprod < 30)
-        foodprod = 30;
+    {   foodprod = 30;}
     if (max_foodprod < 30) //that could only matter if Fertiliy = 0
-        max_foodprod = 30;
+    {   max_foodprod = 30;}
 
     if (commodityCount[STUFF_FOOD] + foodprod > MAX_ORG_FARM_FOOD)
     {   //we would produce too much so use less power, jobs and water
@@ -76,11 +76,14 @@ void Organic_farm::update()
         foodprod = MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD];
     }
     /* Now apply changes */
-    commodityCount[STUFF_JOBS] -= used_jobs;
-    commodityCount[STUFF_FOOD] += foodprod;
-    commodityCount[STUFF_KWH] -= used_power;
-    commodityCount[STUFF_WATER] -= (used_water * WATER_FARM);
-    food_this_month += 100 * foodprod / max_foodprod;
+    if (foodprod >= ORGANIC_FARM_FOOD_OUTPUT)
+    {
+        commodityCount[STUFF_JOBS] -= used_jobs;
+        commodityCount[STUFF_FOOD] += foodprod;
+        commodityCount[STUFF_KWH] -= used_power;
+        commodityCount[STUFF_WATER] -= (used_water * WATER_FARM);
+        food_this_month += 100 * foodprod / max_foodprod;
+    }
     // monthly update
     if ((total_time % 100) == 0)
     {

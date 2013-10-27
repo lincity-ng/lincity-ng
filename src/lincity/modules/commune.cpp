@@ -29,11 +29,13 @@ void Commune::update()
 {
     int tmpUgwCount = ugwCount;
     int tmpCoalprod = coalprod;
-    if(commodityCount[STUFF_WATER]>= (16-ugwCount)*WATER_FOREST)
+    const unsigned short s = constructionGroup->size;
+    const unsigned short a = s*s;
+    if(commodityCount[STUFF_WATER]>= (a-ugwCount)*WATER_FOREST)
     {
-        tmpUgwCount = 16;
+        tmpUgwCount = a;
         tmpCoalprod = COMMUNE_COAL_MADE;
-        commodityCount[STUFF_WATER] -= (16-ugwCount)*WATER_FOREST;
+        commodityCount[STUFF_WATER] -= (a-ugwCount)*WATER_FOREST;
     }
     if(//(total_time & 1) && //make coal every second day
        (tmpCoalprod > 0)
@@ -57,15 +59,20 @@ void Commune::update()
     }
     if (total_time % 10 == 0)
     {
-        if (monthly_stuff_made)
-        {   animate = true;}
+        if(monthly_stuff_made)
+        {   animate = true;}      
+        for(int idx = ((total_time%20)?1:0); idx < tmpUgwCount; idx+=2)
+        {
+            int i = x + idx % s;
+            int j = y + idx / s;
+            if(world(i,j)->pollution)
+            {   --world(i,j)->pollution;}
+        }
         if (!steel_made && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
         {
             monthly_stuff_made++;
             steel_made = true;
-            commodityCount[STUFF_STEEL] += COMMUNE_STEEL_MADE;
-            if (world(x,y)->pollution >= 10 + tmpUgwCount)
-            {   world(x,y)->pollution -= tmpUgwCount;}
+            commodityCount[STUFF_STEEL] += COMMUNE_STEEL_MADE;   
         }
         else
         {   steel_made = false;}
