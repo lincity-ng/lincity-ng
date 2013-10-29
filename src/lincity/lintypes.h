@@ -99,6 +99,8 @@ public:
     int int4;
 };
 
+class ConstructionGroup;
+
 class MapTile {
 public:
     MapTile();
@@ -120,6 +122,7 @@ public:
     unsigned short getGroup();        //group of bare land or the covering construction
     unsigned short getTopGroup();     //group of bare land or the actual construction
     unsigned short getTransportGroup(); //like getGroup but bridges are reported normal transport tiles
+    ConstructionGroup* getTileConstructionGroup(); //constructionGroup of the maptile
 
     bool is_bare();                    //true if we there is neither a covering construction nor water
     bool is_lake();                    //true on lakes (also under bridges)
@@ -133,7 +136,7 @@ public:
     void saveMembers(std::ostream *os);//write maptile AND ground members as XML to stram
 };
 
-class ConstructionGroup;
+
 class MemberRule{
 public:
     int memberType; //type of ConstructionMember
@@ -252,7 +255,7 @@ public:
         setMemberSaved(&(this->flags),"flags");
 #ifdef DEBUG
         neighbors.clear();
-        partner.clear();
+        partners.clear();
 #endif
     }
     ~RegisteredConstruction<ConstructionClass>(){}

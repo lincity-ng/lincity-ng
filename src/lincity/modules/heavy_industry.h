@@ -67,6 +67,9 @@ public:
 };
 
 extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
+extern IndustryHeavyConstructionGroup industryHeavy_L_ConstructionGroup;
+extern IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup;
+extern IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup;
 
 class IndustryHeavy: public RegisteredConstruction<IndustryHeavy> { // IndustryHeavy inherits from its own RegisteredConstruction
 public:

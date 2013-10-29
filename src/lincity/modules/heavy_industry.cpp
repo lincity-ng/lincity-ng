@@ -24,6 +24,11 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
      GROUP_INDUSTRY_H_RANGE
 );
 
+//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+IndustryHeavyConstructionGroup industryHeavy_L_ConstructionGroup = industryHeavyConstructionGroup;
+IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
+IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
+
 Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y, unsigned short type) {
     return new IndustryHeavy(x, y, type, this);
 }
@@ -84,7 +89,6 @@ void IndustryHeavy::update()
             commodityCount[STUFF_ORE] -= MAX_ORE_USED;
             commodityCount[STUFF_STEEL] += steel;
             steel_this_month += steel;
-            //working_days++;
             //cause some pollution and waste depending on bonuses
             world(x,y)->pollution += (int)(((double)(POL_PER_STEEL_MADE * steel) * (1 - bonus)));
             commodityCount[STUFF_WASTE] += (int)(((double)(POL_PER_STEEL_MADE * steel) * bonus)*(1-extra_bonus));
@@ -105,6 +109,7 @@ void IndustryHeavy::update()
         //choose graphics depending on output level
         if (output_level > 80)
         {
+            constructionGroup = &industryHeavy_H_ConstructionGroup;
             switch (type)
             {
                 case (CST_INDUSTRY_H_H1):
@@ -122,6 +127,7 @@ void IndustryHeavy::update()
         }
         else if (output_level > 30)
         {
+            constructionGroup = &industryHeavy_M_ConstructionGroup;
             switch (type)
             {
                 case (CST_INDUSTRY_H_M1):
@@ -139,6 +145,7 @@ void IndustryHeavy::update()
         }
         else if (output_level > 0)
         {
+            constructionGroup = &industryHeavy_L_ConstructionGroup;
             switch (type)
             {
                 case (CST_INDUSTRY_H_L1):
@@ -155,7 +162,10 @@ void IndustryHeavy::update()
             }
         }
         else
+        {
             type = CST_INDUSTRY_H_C;
+            constructionGroup = &industryHeavyConstructionGroup;
+        }
     }//end monthly update
     //animation
     if (real_time >= anim)

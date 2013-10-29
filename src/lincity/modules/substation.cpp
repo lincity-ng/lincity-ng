@@ -22,6 +22,11 @@ SubstationConstructionGroup substationConstructionGroup(
      GROUP_SUBSTATION_RANGE
 );
 
+//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+SubstationConstructionGroup substation_RG_ConstructionGroup = substationConstructionGroup;
+SubstationConstructionGroup substation_G_ConstructionGroup  = substationConstructionGroup;
+
+
 Construction *SubstationConstructionGroup::createConstruction(int x, int y, unsigned short type) {
     return new Substation(x, y, type, this);
 }
@@ -43,11 +48,20 @@ void Substation::update()
     }
     /* choose a graphic */
     if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 2))
-    {   type = CST_SUBSTATION_G;}
+    {
+        type = CST_SUBSTATION_G;
+        constructionGroup = &substation_G_ConstructionGroup;
+    }
     else if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 10))
-    {   type = CST_SUBSTATION_RG;}
+    {
+        type = CST_SUBSTATION_RG;
+        constructionGroup = &substation_RG_ConstructionGroup;
+    }
     else
-    {   type = CST_SUBSTATION_R;}
+    {
+        type = CST_SUBSTATION_R;
+        constructionGroup = &substationConstructionGroup;
+    }
 }
 
 void Substation::report()
@@ -59,7 +73,7 @@ void Substation::report()
     i++;
     list_commodities(&i);
 }
-
+/*
 void Substation::playSound()
 {
     if (type == CST_SUBSTATION_RG)
@@ -69,7 +83,7 @@ void Substation::playSound()
     else if (type == CST_SUBSTATION_G)
     {   getSound()->playASound(constructionGroup->chunks[3]);}
 }
-
+*/
 
 /** @file lincity/modules/substation.cpp */
 

@@ -49,7 +49,7 @@ Sound::soundThread(void* ptr)
     sound->loadWaves();
     return 0;
 }
-        
+
 void
 Sound::loadWaves() {
     //Load Waves
@@ -67,8 +67,8 @@ Sound::loadWaves() {
 
         if(PHYSFS_isDirectory(fullname.c_str()))
             continue;
-            
-        try {        
+
+        try {
             file = getPhysfsSDLRWops( fullname.c_str() );
             chunk = Mix_LoadWAV_RW( file, 1);
             if(!chunk) {
@@ -81,110 +81,138 @@ Sound::loadWaves() {
             std::string idName = getIdName( filename );
             if(idName == "Blacksmith")
             {   blacksmithConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "CoalMine") 
+            else if (idName == "CoalMine")
             {   coalmineConstructionGroup.chunks.push_back(chunk);}
-            else if (idName.substr(0,9) == "PowerCoal")
-            {   
-                //std::cout << idName << ".wav loaded" << std::endl; 
-                coal_powerConstructionGroup.chunks.push_back(chunk);
+            else if (idName == "Green") //shared soundset
+            {
+                bareConstructionGroup.chunks.push_back(chunk);
+                treeConstructionGroup.chunks.push_back(chunk);
+                tree2ConstructionGroup.chunks.push_back(chunk);
+                tree3ConstructionGroup.chunks.push_back(chunk);
             }
-            else if (idName == "Commune") 
+            else if (idName == "PowerCoalEmpty")
+            {   coal_powerConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "PowerCoalLow")
+            {   coal_power_low_ConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "PowerCoalMed")
+            {   coal_power_med_ConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "PowerCoalFull")
+            {   coal_power_full_ConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Commune")
             {   communeConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "SportsCroud") 
+            else if (idName == "SportsCroud")
             {   cricketConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "Fire") 
+            else if (idName == "Fire")
             {   fireConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "FireWasteland") 
+            else if (idName == "FireWasteland")
             {   fireWasteLandConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "FireStation") 
+            else if (idName == "FireStation")
             {   fireStationConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "Health") 
+            else if (idName == "Health")
             {   healthCentreConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "IndustryHigh") 
-            {   industryHeavyConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "IndustryLight") 
-            {   industryLightConstructionGroup.chunks.push_back(chunk);}
-            else if (idName.substr(0,6) == "Market")
-            {   
-                //std::cout << idName << ".wav loaded" << std::endl; 
-                marketConstructionGroup.chunks.push_back(chunk);
+            else if (idName == "IndustryHigh")
+            {
+                industryHeavyConstructionGroup.chunks.push_back(chunk);
+                industryHeavy_L_ConstructionGroup.chunks.push_back(chunk);
+                industryHeavy_M_ConstructionGroup.chunks.push_back(chunk);
+                industryHeavy_H_ConstructionGroup.chunks.push_back(chunk);
             }
-            else if (idName == "Mill") 
+            else if (idName == "IndustryLight") //different texture sets
+            {
+                industryLightConstructionGroup.chunks.push_back(chunk);
+                industryLight_Q_ConstructionGroup.chunks.push_back(chunk);
+                industryLight_L_ConstructionGroup.chunks.push_back(chunk);
+                industryLight_M_ConstructionGroup.chunks.push_back(chunk);
+                industryLight_H_ConstructionGroup.chunks.push_back(chunk);
+
+            }
+            else if (idName == "MarketEmpty")
+            {   marketConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "MarketLow")
+            {   market_low_ConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "MarketMed")
+            {   market_med_ConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "MarketFull")
+            {   market_full_ConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Mill")
             {   millConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "Monument")
             {   monumentFinishedConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "MonumentConstruction")
             {   monumentConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "OreMine") 
+            else if (idName == "OreMine")
             {   oremineConstructionGroup.chunks.push_back(chunk);}
-            else if ((idName == "OrganicFarm") || (idName == "Farm")) 
+            else if ((idName == "OrganicFarm") || (idName == "Farm"))
             {   organic_farmConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "Harbor") 
+            else if (idName == "Harbor")
             {   portConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "ParklandPlane")
             {   parklandConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "ParklandLake")
             {   parkpondConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "Pottery") 
+            else if (idName == "Pottery")
             {   potteryConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "PowerLine") 
+            else if (idName == "PowerLine")
             {   powerlineConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "Recycle") 
+            else if (idName == "Recycle")
             {   recycleConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "ResidentialLowLow") 
+            else if (idName == "ResidentialLowLow")
             {   residenceLLConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "ResidentialLow") 
+            else if (idName == "ResidentialLow")
             {   residenceLHConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "ResidentialMed") 
-            {   
+            else if (idName == "ResidentialMed") //shared sound
+            {
                 residenceMLConstructionGroup.chunks.push_back(chunk);
                 residenceMHConstructionGroup.chunks.push_back(chunk);
             }
-            else if (idName == "ResidentialHigh") 
-            {   
+            else if (idName == "ResidentialHigh") //shared sound
+            {
                 residenceHLConstructionGroup.chunks.push_back(chunk);
                 residenceHHConstructionGroup.chunks.push_back(chunk);
             }
             else if (idName == "Rocket")
             {   rocketPadConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "School") 
+            else if (idName == "School")
             {   schoolConstructionGroup.chunks.push_back(chunk);}
-            else if (idName.substr(0,10) == "Substation")
-            {   
-                //std::cout << idName << ".wav loaded" << std::endl; 
-                substationConstructionGroup.chunks.push_back(chunk);
-            }
-            else if (idName == "PowerSolar") 
+            else if (idName == "SubstationOff")
+            {   substationConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "Substation")
+            {   substation_RG_ConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "SubstationOn")
+            {   substation_G_ConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "PowerSolar")
             {   solarPowerConstructionGroup.chunks.push_back(chunk);}
-            else if (idName.substr(0,6) == "Trafic")
-            {   
-                //std::cout << idName << ".wav loaded" << std::endl; 
+            else if (idName.substr(0,6) == "Trafic") //high and low traffic
+            {
+                //std::cout << idName << ".wav loaded" << std::endl;
                 roadConstructionGroup.chunks.push_back(chunk);
                 roadbridgeConstructionGroup.chunks.push_back(chunk);
             }
-            else if (idName == "DirtTrack")
-            {   
+            else if (idName == "DirtTrack") //shared sound
+            {
                 trackConstructionGroup.chunks.push_back(chunk);
                 trackbridgeConstructionGroup.chunks.push_back(chunk);
             }
-            else if (idName == "RailTrain")
-            {   
+            else if (idName == "RailTrain") //shared sound
+            {
                 railConstructionGroup.chunks.push_back(chunk);
                 railbridgeConstructionGroup.chunks.push_back(chunk);
             }
-            else if (idName == "Tip") 
+            else if (idName == "Tip")
             {   tipConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "University") 
+            else if (idName == "University")
             {   universityConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "WindMill") 
+            else if (idName == "Water")
+            {   waterConstructionGroup.chunks.push_back(chunk);}
+            else if (idName == "WindMill")
             {   windmillConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "WindMillHTech") 
+            else if (idName == "WindMillHTech")
             {   windpowerConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "Shanty") 
+            else if (idName == "Shanty")
             {   shantyConstructionGroup.chunks.push_back(chunk);}
-            else
-            {   
-                //std::cout << idName << ": put to waves" << std::endl;        
+            else //other non construction related sounds
+            {
+                //std::cout << idName << ": put to waves" << std::endl;
                 waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
             }
         } catch(std::exception& e) {
@@ -193,13 +221,13 @@ Sound::loadWaves() {
     }
     PHYSFS_freeList(rc);
 }
-    
+
  /*
  * Load music theme from subfolder of 'music/'.
  * If no theme files are present, load just plain playlist.
  */
 void Sound::loadMusicTheme() {
-     
+
     //TODO there should be a music directory in
     // LINCITY_HOME
     std::string dirsep = PHYSFS_getDirSeparator();
@@ -215,7 +243,7 @@ void Sound::loadMusicTheme() {
     std::string format = theme.substr((theme.length()-4), 4);
     std::string folder = "";
     std::string file = "";
-    */ 
+    */
     /*
     if(format == ".xml") {
         size_t found;
@@ -224,23 +252,23 @@ void Sound::loadMusicTheme() {
         file = theme.substr(found+1);
     }
     */
-    
+
     std::string xml_name = musicDir + theme + dirsep + theme + ".xml";
     theme = musicDir + theme;
-   
+
     //std::cout << "looking for : " << xml_name << std::endl;
     //Check if XML file is present
     if(PHYSFS_exists(xml_name.c_str()) && PHYSFS_isDirectory(theme.c_str())) {
-    
+
         //XML file found, so let's parse it and use as a basis
         //for our music theme
         std::cerr << "File found: '" << xml_name << "'. Loading song data..." << std::endl;
-        
+
         //Get the number of songs
         XmlReader reader( xml_name );
 
         while( reader.read() ) {
-            if( reader.getNodeType() == XML_READER_TYPE_ELEMENT) 
+            if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
             {
                 const std::string& element = (const char*) reader.getName();
 
@@ -250,7 +278,7 @@ void Sound::loadMusicTheme() {
                     std::string filename;
                     float lowest_tech_level = 0.0;
                     float highest_tech_level = 10000.0;
-                    
+
                     while( iter.next() )
                     {
                         const char* name = (const char*) iter.getName();
@@ -274,7 +302,7 @@ void Sound::loadMusicTheme() {
                     if(highest_tech_level == 0)
                     {   highest_tech_level = 10 * MAX_TECH_LEVEL;}
                     tempSong.highestTechLevel = highest_tech_level;
-                    
+
                     playlist.push_back(tempSong);
                     std::cerr << "Found song: '" << playlist[totalTracks].title << "'" << std::endl;
                     totalTracks++;
@@ -287,32 +315,32 @@ void Sound::loadMusicTheme() {
     }
     else {
         std::string directory;
-        
+
         if (PHYSFS_isDirectory(theme.c_str()))
         {   directory = theme;}
-        /*    
+        /*
         else if(PHYSFS_isDirectory(folder.c_str()))
             directory = folder;
-		*/ 
+        */
         else
         {   return;}
-    
+
         //No XML file found, let's just load plain song files to the playlist:
-        
+
         //TODO not tested. It should work, but who knows?
-        
+
         std::string filename;
         std::string fullname;
         std::cerr << "Loading song data from '" << directory << "'..." << std::endl;
 
-        
+
         //list files in 'music/'
         char **files= PHYSFS_enumerateFiles(directory.c_str());
         char **fptr=files;
 
         //reset the pointer
         fullname = "";
-        
+
         //Fill the playlist with data:
         while(*fptr)
         {
@@ -321,7 +349,7 @@ void Sound::loadMusicTheme() {
             filename.assign( *fptr );
             std::string format = fullname.substr((fullname.length()-4), 4);
 
-            if(!PHYSFS_isDirectory(fullname.c_str()) && (filename[0]!='.') 
+            if(!PHYSFS_isDirectory(fullname.c_str()) && (filename[0]!='.')
             && (format == ".ogg") ){
                 song tempSong;
                 tempSong.title = *fptr;
@@ -334,10 +362,10 @@ void Sound::loadMusicTheme() {
                 totalTracks++;
             }
             fptr++;
-            
+
 
         }
-        
+
         PHYSFS_freeList(files);
 
     }
@@ -363,13 +391,13 @@ Sound::Sound()
 
     setMusicVolume(getConfig()->musicVolume);
     setSoundVolume(getConfig()->soundVolume);
-    
+
     totalTracks = 0;
     loadMusicTheme();
-    
+
     //'totalTracks' gets too high value in while loop. Let's fix it.
     totalTracks = totalTracks-1;
-    
+
     //Load background music.
     //First check if there really is something in playlist to prevent crashing
     if(!playlist.empty()) {
@@ -424,9 +452,9 @@ Sound::playSound(const std::string& name) {
     for (int i = rand() % count; i > 0; i--) {
         it++;
     }
-    
+
     Mix_Volume( 0, getConfig()->soundVolume );
-    Mix_PlayChannel( 0, it->second, 0 ); 
+    Mix_PlayChannel( 0, it->second, 0 );
 }
 
 void Sound::playASound(Mix_Chunk *chunk)
@@ -436,7 +464,7 @@ void Sound::playASound(Mix_Chunk *chunk)
     if( !audioOpen )
     {   return;}
     Mix_Volume( 0, getConfig()->soundVolume );
-    Mix_PlayChannel( 0, chunk, 0 ); 
+    Mix_PlayChannel( 0, chunk, 0 );
 }
 
 
@@ -460,11 +488,11 @@ Sound::getIdName(const std::string& filename)
 void
 Sound::changeTrack(MusicTransport command)
 {
-    
+
     //Something may gone wrong in the initialization:
     if(playlist.empty())
         return;
-    
+
     switch(command) {
         case NEXT_TRACK:
             if (currentTrack.trackNumber+1 <= totalTracks) {
@@ -472,7 +500,7 @@ Sound::changeTrack(MusicTransport command)
                 playMusic();
             }
             break;
-            
+
         case NEXT_OR_FIRST_TRACK:
             if (currentTrack.trackNumber+1 <= totalTracks) {
                 currentTrack=playlist[currentTrack.trackNumber+1];
@@ -483,9 +511,9 @@ Sound::changeTrack(MusicTransport command)
                 playMusic();
             }
             break;
-            
+
         case PREV_TRACK:
-            if (currentTrack.trackNumber > 0) { 
+            if (currentTrack.trackNumber > 0) {
                 currentTrack=playlist[currentTrack.trackNumber-1];
                 playMusic();
             } else {
@@ -506,24 +534,24 @@ Sound::playMusic()
         return;
 
     if(getConfig()->musicEnabled) {
-               
+
         if(currentMusic)
         {
             if(Mix_PlayingMusic())
             {   Mix_FreeMusic(currentMusic);}
             currentMusic = 0;
         }
-       
+
         // I don't know if the following has any meaning at all
 
         //if(currentTrack.filename == "")
         //   return;
-        
+
         //Check if current track is allowed at this tech level
         //This calculates the right tech_level and rounds it by one decimal.
         float current_tech = tech_level * (float)100 / MAX_TECH_LEVEL;
         current_tech = round(current_tech*10)/10;
-        
+
         if(current_tech < currentTrack.lowestTechLevel
             || current_tech > currentTrack.highestTechLevel) {
             std::cerr << "Next track is " << currentTrack.title
@@ -536,7 +564,7 @@ Sound::playMusic()
 
         // transform filename... because the music commands in SDL_Mixer don't
         // support reading callbacks to read from physfs directly
-        
+
         const char* dir = PHYSFS_getRealDir(currentTrack.filename.c_str());
         if(dir == 0) {
             std::cerr << "Warning couldn't find music file '" << currentTrack.filename << "'." << std::endl;
@@ -546,7 +574,7 @@ Sound::playMusic()
         filename += PHYSFS_getDirSeparator();
         filename += currentTrack.filename;
 
-        
+
         currentMusic = Mix_LoadMUS(filename.c_str());
         if(currentMusic == 0) {
             std::cerr << "Couldn't load music file '" << filename << "': "

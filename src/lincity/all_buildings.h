@@ -112,6 +112,43 @@
 
 /********   end of buildings // groups   ************/
 
+
+ #include "lintypes.h"
+
+/*
+* TileConstructionGroups hold information about inactive tiles
+* in city. They cannot create any constructions and should not be found
+* in ConstructionGroup::groupmap. They also hold the sounds and graphics
+* for the tiles, and are acessed via a switch of maptile.group
+*/
+
+class TileConstructionGroup: public ConstructionGroup {
+public:
+    TileConstructionGroup(
+        const char *name,
+        unsigned short no_credit,
+        unsigned short group,
+        unsigned short size, int colour,
+        int cost_mul, int bul_cost, int fire_chance,
+        int cost, int tech, int range
+    ): ConstructionGroup(
+        name, no_credit, group, size, colour, cost_mul, bul_cost, fire_chance, cost, tech, range
+    ) {
+
+    };
+    // dont use that one tiles are no constructions
+    virtual Construction *createConstruction(int x, int y, unsigned short type);
+};
+
+extern TileConstructionGroup waterConstructionGroup;
+extern TileConstructionGroup bareConstructionGroup;
+extern TileConstructionGroup desertConstructionGroup;
+extern TileConstructionGroup treeConstructionGroup;
+extern TileConstructionGroup tree2ConstructionGroup;
+extern TileConstructionGroup tree3ConstructionGroup;
+
+
+
 #endif // __all_buildings_h__
 
 /** @file lincity/all_buildings.h */

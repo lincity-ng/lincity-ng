@@ -22,6 +22,12 @@ MarketConstructionGroup marketConstructionGroup(
      GROUP_MARKET_RANGE
 );
 
+//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+MarketConstructionGroup market_low_ConstructionGroup  = marketConstructionGroup;
+MarketConstructionGroup market_med_ConstructionGroup  = marketConstructionGroup;
+MarketConstructionGroup market_full_ConstructionGroup = marketConstructionGroup;
+
+
 Construction *MarketConstructionGroup::createConstruction(int x, int y, unsigned short type) {
     return new Market(x, y, type, this);
 }
@@ -116,21 +122,25 @@ void Market::update()
         {
             type = CST_MARKET_EMPTY;
             jobs = JOBS_MARKET_EMPTY;
+            constructionGroup = &marketConstructionGroup;
         }
         else if (market_ratio < 20)
         {
             type = CST_MARKET_LOW;
             jobs = JOBS_MARKET_LOW;
+            constructionGroup = &market_low_ConstructionGroup;
         }
         else if (market_ratio < 50)
         {
             type = CST_MARKET_MED;
             jobs = JOBS_MARKET_MED;
+            constructionGroup = &market_med_ConstructionGroup;
         }
         else
         {
             type = CST_MARKET_FULL;
             jobs = JOBS_MARKET_FULL;
+             constructionGroup = &market_full_ConstructionGroup;
         }
     }
     if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !world(x+1,y+1)->construction)
@@ -229,7 +239,7 @@ void Market::toggleEvacuation()
     if(!evacuate)
     {   flags |= FLAG_EVACUATE;}
 }
-
+/*
 void Market::playSound()
 {
     if (type == CST_MARKET_EMPTY)
@@ -241,7 +251,7 @@ void Market::playSound()
     else if (type == CST_MARKET_MED)
     {   getSound()->playASound(constructionGroup->chunks[2]);}
 }
-
+*/
 /** @file lincity/modules/market.cpp */
 
 

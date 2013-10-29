@@ -24,6 +24,12 @@ IndustryLightConstructionGroup industryLightConstructionGroup(
      GROUP_INDUSTRY_L_RANGE
 );
 
+//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+IndustryLightConstructionGroup industryLight_Q_ConstructionGroup = industryLightConstructionGroup;
+IndustryLightConstructionGroup industryLight_L_ConstructionGroup = industryLightConstructionGroup;
+IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLightConstructionGroup;
+IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
+
 Construction *IndustryLightConstructionGroup::createConstruction(int x, int y, unsigned short type) {
     return new IndustryLight(x, y, type, this);
 }
@@ -99,6 +105,7 @@ void IndustryLight::update()
         //Choose an animation set depending on output_level
         if (output_level > 80)
         {
+            constructionGroup = &industryLight_H_ConstructionGroup;
             switch (type)
             {
                 case (CST_INDUSTRY_L_H1):
@@ -112,6 +119,7 @@ void IndustryLight::update()
         }
         else if (output_level > 55)
         {
+            constructionGroup = &industryLight_M_ConstructionGroup;
             switch (type)
             {
                 case (CST_INDUSTRY_L_M1):
@@ -125,6 +133,7 @@ void IndustryLight::update()
         }
         else if (output_level > 25)
         {
+            constructionGroup = &industryLight_L_ConstructionGroup;
             switch (type)
             {
                 case (CST_INDUSTRY_L_L1):
@@ -138,6 +147,7 @@ void IndustryLight::update()
         }
         else if (output_level > 0)
         {
+            constructionGroup = &industryLight_Q_ConstructionGroup;
             switch (type)
             {
                 case (CST_INDUSTRY_L_Q1):
@@ -150,7 +160,10 @@ void IndustryLight::update()
             }
         }
         else
+        {
             type = CST_INDUSTRY_L_C;
+            constructionGroup = &industryLightConstructionGroup;
+        }
     }// end monthly update
     if ((real_time >= anim) && goods_today)
     {

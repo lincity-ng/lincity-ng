@@ -65,6 +65,9 @@ public:
 };
 
 extern MarketConstructionGroup marketConstructionGroup;
+extern MarketConstructionGroup market_low_ConstructionGroup;
+extern MarketConstructionGroup market_med_ConstructionGroup;
+extern MarketConstructionGroup market_full_ConstructionGroup;
 
 class Market: public RegisteredConstruction<Market> { // Market inherits from Construction
 public:
@@ -94,7 +97,7 @@ public:
     }
     virtual void update();
     virtual void report();
-    virtual void playSound(); //override random sound
+    //virtual void playSound(); //override random sound
     void cover();
     void toggleEvacuation();
 

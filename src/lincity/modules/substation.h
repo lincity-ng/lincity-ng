@@ -42,6 +42,8 @@ public:
 };
 
 extern SubstationConstructionGroup substationConstructionGroup;
+extern SubstationConstructionGroup substation_RG_ConstructionGroup;
+extern SubstationConstructionGroup substation_G_ConstructionGroup;
 
 class Substation: public RegisteredConstruction<Substation> { // Substation inherits from Construction
 public:
@@ -55,7 +57,7 @@ public:
     virtual ~Substation() { }
     virtual void update();
     virtual void report();
-    virtual void playSound(); //override random default
+    //virtual void playSound(); //override random default
 
     int  working_days, busy;
 };

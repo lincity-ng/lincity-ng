@@ -120,37 +120,19 @@ Mps::playBuildingSound(int mps_x, int mps_y)
 {
     if(world(mps_x, mps_y)->reportingConstruction)
     {
-        switch(world(mps_x, mps_y)->getGroup())
-        {
-            case GROUP_RAIL:
-            case GROUP_RAIL_BRIDGE:           
-            case GROUP_ROAD:
-            case GROUP_ROAD_BRIDGE:            
-            case GROUP_TRACK:
-            case GROUP_TRACK_BRIDGE:
-                dynamic_cast<Transport *>(world(mps_x, mps_y)->reportingConstruction)->playSound();
-                break;
-            case GROUP_COAL_POWER:
-                dynamic_cast<Coal_power*>(world(mps_x, mps_y)->reportingConstruction)->playSound();
-                break;      
-            case GROUP_MARKET:
-                dynamic_cast<Market *>(world(mps_x, mps_y)->reportingConstruction)->playSound();
-                break;        
-            case GROUP_SUBSTATION:
-                dynamic_cast<Substation *>(world(mps_x, mps_y)->reportingConstruction)->playSound();
-                break;
-            default:
-            world(mps_x, mps_y)->reportingConstruction->playSound();
-            break;
-        }
-    }    
-    else if (world(mps_x, mps_y)->group != GROUP_DESERT)
+        unsigned short group = world(mps_x, mps_y)->reportingConstruction->constructionGroup->group;
+        if( group == GROUP_ROAD || group == GROUP_ROAD_BRIDGE)
+        {   dynamic_cast<Transport *>(world(mps_x, mps_y)->reportingConstruction)->playSound();}
+        else
+        {   world(mps_x, mps_y)->reportingConstruction->playSound();}
+    }
+    else
     {
-        if(world(mps_x, mps_y)->is_water())
-        {   getSound()->playSound("Water");}
-        else 
-        {   getSound()->playSound("Green");}
-    }//endif reportingConstruction   
+        ConstructionGroup* constructionGroup = world(mps_x, mps_y)->getTileConstructionGroup();
+        int s = constructionGroup->chunks.size();
+        if(s)
+        {   getSound()->playASound( constructionGroup->chunks[ rand()%s ] );}
+    }
     std::cout.flush();
 }
 

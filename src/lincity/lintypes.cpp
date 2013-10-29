@@ -80,24 +80,12 @@ void MapTile::setTerrain(unsigned short new_type)
     unsigned short new_group;
     switch (new_type)
     {
-        case CST_GREEN:
-            new_group = GROUP_BARE;
-            break;
-        case CST_DESERT:
-            new_group = GROUP_DESERT;
-            break;
-        case CST_WATER:
-            new_group = GROUP_WATER;
-            break;
-        case CST_TREE:
-            new_group = GROUP_TREE;
-            break;
-        case CST_TREE2:
-            new_group = GROUP_TREE2;
-            break;
-        case CST_TREE3:
-            new_group = GROUP_TREE3;
-            break;
+        case CST_GREEN:     new_group = GROUP_BARE;     break;
+        case CST_DESERT:    new_group = GROUP_DESERT;   break;
+        case CST_WATER:     new_group = GROUP_WATER;    break;
+        case CST_TREE:      new_group = GROUP_TREE;     break;
+        case CST_TREE2:     new_group = GROUP_TREE2;    break;
+        case CST_TREE3:     new_group = GROUP_TREE3;    break;
         default:
             std::cout << "invalid setTerrain with type: " << new_type << std::endl;
             return;
@@ -109,6 +97,23 @@ void MapTile::setTerrain(unsigned short new_type)
     if(new_group == GROUP_WATER)
     {   flags |= FLAG_HAS_UNDERGROUND_WATER;}
 }
+
+ConstructionGroup* MapTile::getTileConstructionGroup()
+{
+    switch (group)
+    {
+        case GROUP_BARE:    return &bareConstructionGroup;      break;
+        case GROUP_DESERT:  return &desertConstructionGroup;    break;
+        case GROUP_WATER:   return &waterConstructionGroup;     break;
+        case GROUP_TREE:    return &treeConstructionGroup;      break;
+        case GROUP_TREE2:   return &tree2ConstructionGroup;     break;
+        case GROUP_TREE3:   return &tree3ConstructionGroup;     break;
+        default:
+            std::cout << "invalid group of maptile at: (" << world.map_x(this) <<"," << world.map_y(this) << ")" << std::endl;
+            return &desertConstructionGroup;
+    }
+}
+
 
 
 unsigned short MapTile::getType() //type of bare land or the covering construction
@@ -1283,13 +1288,12 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
 {
 
     //handle transport quickly
-    if(world.is_visible(x, y) && (group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_TRACK))
+    if(world.is_visible(x, y) && (group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_RAIL))
     {   return (world(x,y)->is_bare() ||
             world(x,y)->is_powerline() ||
     (world(x,y)->is_water() && !world(x,y)->is_transport()) ||
     ((world(x,y)->is_transport() && world(x,y)->getTransportGroup() != group)));
     }
-
 
     //now check for special rules
     switch (group) {

@@ -22,6 +22,11 @@ Coal_powerConstructionGroup coal_powerConstructionGroup(
      GROUP_COAL_POWER_RANGE
 );
 
+//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+Coal_powerConstructionGroup coal_power_low_ConstructionGroup  = coal_powerConstructionGroup;
+Coal_powerConstructionGroup coal_power_med_ConstructionGroup  = coal_powerConstructionGroup;
+Coal_powerConstructionGroup coal_power_full_ConstructionGroup = coal_powerConstructionGroup;
+
 Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
     return new Coal_power(x, y, type, this);
 }
@@ -49,13 +54,25 @@ void Coal_power::update()
     }
     /* choose a graphic */
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
-    {   type = CST_POWERS_COAL_FULL;}
+    {
+        type = CST_POWERS_COAL_FULL;
+        constructionGroup = &coal_power_full_ConstructionGroup;
+    }
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
-    {   type = CST_POWERS_COAL_MED;}
+    {
+        type = CST_POWERS_COAL_MED;
+        constructionGroup = &coal_power_med_ConstructionGroup;
+    }
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 10))
-    {   type = CST_POWERS_COAL_LOW;}
+    {
+        type = CST_POWERS_COAL_LOW;
+        constructionGroup = &coal_power_low_ConstructionGroup;
+    }
     else
-    {   type = CST_POWERS_COAL_EMPTY;}
+    {
+        type = CST_POWERS_COAL_EMPTY;
+        constructionGroup = &coal_powerConstructionGroup;
+    }
 }
 
 void Coal_power::report()
@@ -68,7 +85,7 @@ void Coal_power::report()
     i++;
     list_commodities(&i);
 }
-
+/*
 void Coal_power::playSound()
 {
     switch(type)
@@ -87,7 +104,7 @@ void Coal_power::playSound()
         break;
     }
 }
-
+*/
 
 /** @file lincity/modules/coal_power.cpp */
 

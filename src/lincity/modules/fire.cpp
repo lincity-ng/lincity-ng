@@ -23,19 +23,8 @@ FireConstructionGroup fireConstructionGroup(
      GROUP_FIRE_RANGE
 );
 
-FireConstructionGroup fireWasteLandConstructionGroup(
-    "Fire (ext.)",
-     FALSE,                     /* need credit? */
-     GROUP_FIRE,                //this is ALSO a fire
-     GROUP_FIRE_SIZE,
-     GROUP_FIRE_COLOUR,
-     GROUP_FIRE_COST_MUL,
-     GROUP_FIRE_BUL_COST,
-     GROUP_FIRE_FIREC,
-     GROUP_FIRE_COST,
-     GROUP_FIRE_TECH,
-     GROUP_FIRE_RANGE
-);
+//helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
+FireConstructionGroup fireWasteLandConstructionGroup = fireConstructionGroup;
 
 Construction *FireConstructionGroup::createConstruction(int x, int y, unsigned short type) {
     return new Fire(x, y, type, this);
