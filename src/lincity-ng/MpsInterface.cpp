@@ -124,7 +124,8 @@ void mps_refresh() /* refresh the information display's contents */
                     default:
                         //no special information on this group, just show the ground info.
 
-                    mps_store_sdd(0,main_groups[world(mps_x, mps_y)->getGroup()].name, mps_x, mps_y);
+                    mps_store_sdd(0,world(mps_x, mps_y)->getTileConstructionGroup()->name, mps_x, mps_y);
+                    //mps_store_sdd(0,main_groups[world(mps_x, mps_y)->getGroup()].name, mps_x, mps_y);
 
                         mps_store_title(2, "no further information available" );
 

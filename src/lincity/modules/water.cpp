@@ -7,6 +7,7 @@
 
 #include "modules.h"
 #include "water.h"
+#include "all_buildings.h"
 
 void mps_water(int x, int y)
 {
@@ -14,7 +15,7 @@ void mps_water(int x, int y)
     const char *p;
 
     i = 0;
-    mps_store_title(i++, _("Water"));
+    mps_store_sdd(i++, waterConstructionGroup.name, x, y);
     i++;
 
     p = (world(x,y)->flags & FLAG_IS_RIVER) ? _("River") : _("Lake");
