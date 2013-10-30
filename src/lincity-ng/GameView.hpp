@@ -122,11 +122,16 @@ private:
     int bulldozeCost( MapPoint tile );
     int buildCost( MapPoint tile );
 
+    // Why we cannot use vectors in preReadCityTextures?
     Texture* cityTextures[ NUM_OF_TYPES ];
+    //std::vector<Texture*> cityTextures;
     SDL_Surface* cityImages[ NUM_OF_TYPES ];
+    //std::vector<SDL_Surface*>  cityImages;
     Texture* blankTexture;
     int cityTextureX[ NUM_OF_TYPES ];
     int cityTextureY[ NUM_OF_TYPES ];
+    //std::vector<int> cityTextureX;
+    //std::vector<int> cityTextureY;
     SDL_mutex* mTextures;
     SDL_mutex* mThreadRunning;
     SDL_Thread* loaderThread;

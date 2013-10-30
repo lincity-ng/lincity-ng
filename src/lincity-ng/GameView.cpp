@@ -81,6 +81,11 @@ GameView::GameView()
     loaderThread = 0;
     keyScrollState = 0;
     mouseScrollState = 0;
+    //FIXME Why we cannot use arrays in preReadCityTextures?
+    //cityTextures.assign(NUM_OF_TYPES, NULL);
+    //cityImages.assign(NUM_OF_TYPES, NULL);
+    //cityTextureX.assign(NUM_OF_TYPES, -1);
+    //cityTextureY.assign(NUM_OF_TYPES, -1);
 }
 
 GameView::~GameView()
@@ -443,6 +448,7 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
     bool hit = false;
 
     SDL_mutexP( mTextures );
+    //std::cout << "reading texture: " << textureType << ", " << filename << std::endl;
     cityImages[ textureType ] = readImage( filename );
     if( cityImages[ textureType ] )
     {
@@ -1464,7 +1470,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     int size = 1;
     if(world(upperLeft.x, upperLeft.y)->construction)
     {   size = world(upperLeft.x, upperLeft.y)->construction->constructionGroup->size;}
-    
+
     //Attention map is rotated for displaying
     if ( ( tile.x != upperLeft.x ) || ( tile.y - size +1 != upperLeft.y ) ) //Signs are tested
     {   return;}

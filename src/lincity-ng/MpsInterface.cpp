@@ -330,7 +330,7 @@ int mps_global_style = MPS_GLOBAL_FINANCE;
 /* MPS Global displays */
 void mps_right (int x, int y)
 {
-    int g,i = 0;
+    int i = 0;
     //char s[12];
     const char* p;
     unsigned short group = world(x,y)->group;
@@ -342,9 +342,8 @@ void mps_right (int x, int y)
     {
         world(x,y)->saveMembers(&std::cout);
     }
+    mps_store_sdd(i++, world(x, y)->getTileConstructionGroup()->name, x, y);
 
-    //snprintf(s,sizeof(s),"%d,%d",x,y);
-    mps_store_sdd(i++,main_groups[group].name,x,y);
     p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? "Yes" : "No";
     mps_store_ss(i++, "Fertile", p);
     if( group == GROUP_WATER)
@@ -395,20 +394,10 @@ void mps_right (int x, int y)
     }
     else
     {
-        //if (group == CST_USED)
-        //    g = mapTile[MP_INFO(x,y).int_1][MP_INFO(x,y).int_2].getGroup();
-        //else
-            g = group;
-        if (g == GROUP_DESERT)
-        {   /* Can't bulldoze grass. */
-            mps_store_ss(i++,"Bull. Cost","N/A");
-        }
+        if (group == GROUP_DESERT)
+        {   mps_store_ss(i++,"Bull. Cost","N/A");}
         else
-        {
-            if (g < 7)
-                g--;            /* translate into button type */
-            mps_store_sd(i++, "Bull. Cost", main_groups[g].bul_cost);
-        }
+        {   mps_store_sd(i++, "Bull. Cost", world(x, y)->getTileConstructionGroup()->bul_cost);}
     }
     mps_store_sd(i++,"Ore Reserve",world(x,y)->ore_reserve);
     mps_store_sd(i++,"Coal Reserve",world(x,y)->coal_reserve);

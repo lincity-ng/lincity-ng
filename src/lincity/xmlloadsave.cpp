@@ -487,8 +487,8 @@ void XMLloadsave::loadConstructions()
                     continue;
                 }
 #ifdef DEBUG
-                else
-                {   std::cout << "unknown ConstructionGroup " << main_groups[group].name << std::endl;}
+                else if (cur_template)
+                {   std::cout << "unknown ConstructionGroup " << cur_template->template_tag << std::endl;}
 #endif
             }
             //world(x,y)->construction->saveMembers(&std::cout);

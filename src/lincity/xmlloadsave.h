@@ -43,8 +43,8 @@ public:
     void add_len(size_t chunk);          //add char length to template length
     void set_group(int grp);             //set group and register in bin_template_libary
     void report(std::ostream *os);       // write <tag> .... </tag> to stream
+    std::string template_tag;             //the name of an instance
 private:
-    std::string template_tag;              //the name of an instance
     unsigned short template_group;         //the corresponding group of an instance
     unsigned int cur_index;                //the current index
     std::vector<std::string> tag_sequence; //the sequence of tags in an xml template
