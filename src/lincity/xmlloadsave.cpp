@@ -623,6 +623,7 @@ void XMLloadsave::saveGlobals()
     xml_file_out << "<income_tax>"                 << income_tax               << "</income_tax>" << std::endl;
     xml_file_out << "<income_tax_rate>"            << income_tax_rate          << "</income_tax_rate>" << std::endl;
 
+    xml_file_out << "<ly_interest>"                << ly_interest              << "</ly_interest>" << std::endl;
     xml_file_out << "<ly_coal_tax>"                << ly_coal_tax              << "</ly_coal_tax>" << std::endl;
     xml_file_out << "<coal_tax>"                   << coal_tax                 << "</coal_tax>" << std::endl;
     xml_file_out << "<coal_tax_rate>"              << coal_tax_rate            << "</coal_tax_rate>" << std::endl;
@@ -767,6 +768,7 @@ void XMLloadsave::loadGlobals()
             else if (xml_tag == "income_tax")                      {sscanf(xml_val.c_str(),"%d",&income_tax);}
             else if (xml_tag == "income_tax_rate")                 {sscanf(xml_val.c_str(),"%d",&income_tax_rate);}
 
+            else if (xml_tag == "ly_interest")                     {sscanf(xml_val.c_str(),"%d",&ly_interest);}
             else if (xml_tag == "ly_coal_tax")                     {sscanf(xml_val.c_str(),"%d",&ly_coal_tax);}
             else if (xml_tag == "coal_tax")                        {sscanf(xml_val.c_str(),"%d",&coal_tax);}
             else if (xml_tag == "coal_tax_rate")                   {sscanf(xml_val.c_str(),"%d",&coal_tax_rate);}
@@ -885,6 +887,10 @@ void XMLloadsave::loadGlobals()
         }
     }
     while (line != "</GlobalVariables>" && !gzeof(gz_xml_file));
+    ly_other_cost = ly_university_cost + ly_recycle_cost + ly_deaths_cost
+        + ly_health_cost + ly_rocket_pad_cost + ly_school_cost
+        + ly_interest + ly_windmill_cost + ly_fire_cost + ly_cricket_cost;
+
     globalSection = false;
 }
 

@@ -42,8 +42,10 @@ void set_map_groups(void);
 #include <zlib.h>
 #include "ConstructionCount.h"
 #include "engglobs.h"
-//#include "lincity-ng/Sound.hpp"
 #include <SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include "gui/Texture.hpp"
 class Construction;
 
 // Class to count instanced objects of each construction type
@@ -261,6 +263,26 @@ public:
     ~RegisteredConstruction<ConstructionClass>(){}
 };
 
+class TextureInfo
+{
+    public:
+    TextureInfo(void){
+        texture = (Texture*)'\0';
+        image = (SDL_Surface*)'\0';
+        x = 0;
+        y = 0;
+    }
+    ~TextureInfo(void){
+        if(texture)
+        {   delete texture;}
+        SDL_FreeSurface(image);
+    }
+
+    Texture* texture;
+    SDL_Surface* image;
+    int x, y;
+};
+
 class ConstructionGroup {
 public:
     ConstructionGroup(
@@ -286,6 +308,7 @@ public:
 
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
     std::vector<Mix_Chunk *> chunks;
+    std::vector<TextureInfo> textureInfo;
     int getCosts();
     bool is_allowed_here(int x, int y, bool msg);//check if construction could be placed
 

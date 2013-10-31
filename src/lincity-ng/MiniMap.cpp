@@ -760,16 +760,8 @@ Color MiniMap::getColorNormal(int x, int y) const
     if (world(x,y)->reportingConstruction)
     {   mc = world(x,y)->reportingConstruction->constructionGroup->colour;}
     else
-    {
-        unsigned short grp = world(x,y)->group;
-        if (grp == GROUP_WATER)
-        {   mc = GROUP_WATER_COLOUR;}
-        else if (grp == GROUP_DESERT)
-        {   mc = GROUP_DESERT_COLOUR;}
-        else
-        {   mc = (green(12));}
-    }
-    //{   mc = main_groups[world(x,y)->getGroup()].colour;}
+    {   mc = world(x,y)->getTileConstructionGroup()->colour;}
+
     int red = 0;
     int green = 0;
     int blue = 0;

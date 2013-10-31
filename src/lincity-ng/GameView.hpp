@@ -96,6 +96,7 @@ private:
     Texture* readTexture(const std::string& filename);
     SDL_Surface* readImage(const std::string& filename);
     void preReadCityTexture(int textureType, const std::string& filename);
+    void preReadCityXY(void);
 
     float tileWidth, tileHeight, zoom;
     //a virtual screen containing the whole city
@@ -122,16 +123,14 @@ private:
     int bulldozeCost( MapPoint tile );
     int buildCost( MapPoint tile );
 
-    // Why we cannot use vectors in preReadCityTextures?
-    Texture* cityTextures[ NUM_OF_TYPES ];
-    //std::vector<Texture*> cityTextures;
-    SDL_Surface* cityImages[ NUM_OF_TYPES ];
-    //std::vector<SDL_Surface*>  cityImages;
+
+    std::vector<Texture*> cityTextures;
+    std::vector<SDL_Surface*>  cityImages;
     Texture* blankTexture;
-    int cityTextureX[ NUM_OF_TYPES ];
-    int cityTextureY[ NUM_OF_TYPES ];
-    //std::vector<int> cityTextureX;
-    //std::vector<int> cityTextureY;
+    std::vector<int> cityTextureX;
+    std::vector<int> cityTextureY;
+    std::map<std::string, int> cityXmap;
+    std::map<std::string, int> cityYmap;
     SDL_mutex* mTextures;
     SDL_mutex* mThreadRunning;
     SDL_Thread* loaderThread;

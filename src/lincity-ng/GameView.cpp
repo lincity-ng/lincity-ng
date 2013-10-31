@@ -81,11 +81,6 @@ GameView::GameView()
     loaderThread = 0;
     keyScrollState = 0;
     mouseScrollState = 0;
-    //FIXME Why we cannot use arrays in preReadCityTextures?
-    //cityTextures.assign(NUM_OF_TYPES, NULL);
-    //cityImages.assign(NUM_OF_TYPES, NULL);
-    //cityTextureX.assign(NUM_OF_TYPES, -1);
-    //cityTextureY.assign(NUM_OF_TYPES, -1);
 }
 
 GameView::~GameView()
@@ -137,8 +132,10 @@ void GameView::parse(XmlReader& reader)
 
     //Load Textures
     blankTexture = readTexture( "blank.png" );
-    memset( &cityTextures, 0, sizeof( cityTextures ) );
-    memset( &cityImages, 0, sizeof( cityImages ) );
+    cityTextures.assign(NUM_OF_TYPES,(Texture*)'\0');
+    cityImages.assign(NUM_OF_TYPES,(SDL_Surface*)'\0');
+    cityTextureX.assign(NUM_OF_TYPES, '\0');
+    cityTextureY.assign(NUM_OF_TYPES, '\0');
     stopThread = false;
     SDL_mutexP( mThreadRunning );
     loaderThread = SDL_CreateThread( gameViewThread, this );
@@ -433,6 +430,60 @@ SDL_Surface* GameView::readImage(const std::string& filename)
  *  demand in the main Tread.
  */
 //TODO Read the xml only once and then retriev X and Y from a map
+
+void GameView::preReadCityXY(void)
+{
+    std::string xmlfile = std::string("images") + PHYSFS_getDirSeparator()
+    + std::string("tiles") + PHYSFS_getDirSeparator() + std::string("images.xml");
+    XmlReader reader( xmlfile );
+
+    int xmlX = -1;
+    int xmlY = -1;
+    std::string key;
+    while( reader.read() )
+    {
+        if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
+        {
+            const std::string& element = (const char*) reader.getName();
+            if( element == "image" )
+            {
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next())
+                {
+                    const char* name = (const char*) iter.getName();
+                    const char* value = (const char*) iter.getValue();
+                    if( strcmp(name, "file" ) == 0 )
+                    {
+                        key = value;
+                    }
+                    else if( strcmp(name, "x" ) == 0 )
+                    {
+                        if(sscanf(value, "%i", &xmlX) != 1)
+                        {
+                            std::cerr << "GameView::preReadCityXY# Error parsing integer value '" << value << "' in x attribute.\n";
+                            xmlX = -1;
+                        }
+                        cityXmap[key] = xmlX;
+                    }
+                   else if(strcmp(name, "y") == 0 )
+                    {
+                        if(sscanf(value, "%i", &xmlY) != 1)
+                        {
+                            std::cerr << "GameView::preReadCityXY# Error parsing integer value '" << value << "' in y attribute.\n";
+                            xmlY = -1;
+                        }
+                        cityYmap[key] = xmlY;
+                    }
+                }
+             key.clear();
+            }
+        }
+    }
+}
+
+
+
+
 void GameView::preReadCityTexture( int textureType, const std::string& filename )
 {
     //skip loading if we stop anyway
@@ -441,72 +492,29 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
     }
     std::string xmlfile = std::string("images") + PHYSFS_getDirSeparator()
     + std::string("tiles") + PHYSFS_getDirSeparator() + std::string("images.xml");
-    XmlReader reader( xmlfile );
 
     int xmlX = -1;
     int xmlY = -1;
-    bool hit = false;
 
     SDL_mutexP( mTextures );
-    //std::cout << "reading texture: " << textureType << ", " << filename << std::endl;
     cityImages[ textureType ] = readImage( filename );
     if( cityImages[ textureType ] )
     {
-        //now we need to find x for our filename in images/tiles/images.xml
-
-        while( reader.read() )
-        {
-            if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
-            {
-                const std::string& element = (const char*) reader.getName();
-                if( element == "image" )
-                {
-                    XmlReader::AttributeIterator iter(reader);
-                    while(iter.next())
-                    {
-                        const char* name = (const char*) iter.getName();
-                        const char* value = (const char*) iter.getValue();
-                        if( strcmp(name, "file" ) == 0 )
-                        {
-                            if( filename.compare( value ) == 0 )
-                            {
-                                hit = true;
-                            }
-                        }
-                        else if( strcmp(name, "x" ) == 0 )
-                        {
-                            if(sscanf(value, "%i", &xmlX) != 1)
-                            {
-                                std::cerr << "GameView::preReadCityTexture# Error parsing integer value '" << value << "' in x attribute.\n";
-                                xmlX = -1;
-                            }
-                        }
-                       else if(strcmp(name, "y") == 0 )
-                        {
-                            if(sscanf(value, "%i", &xmlY) != 1)
-                            {
-                                std::cerr << "GameView::preReadCityTexture# Error parsing integer value '" << value << "' in y attribute.\n";
-                                xmlY = -1;
-                            }
-                        }
-                    }
-                    if( hit )
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
-        if( hit && ( xmlX >= 0 ) )
-        {
-            cityTextureX[ textureType ] = xmlX;
-        }
+        //now we need to find x and y for our filename
+        if(cityXmap.count(filename))
+        {   xmlX = cityXmap[filename];}
         else
-        {
-            cityTextureX[ textureType ] = int( ( cityImages[ textureType ]->w / 2 ) );
-        }
-        cityTextureY[ textureType ] = int( cityImages[ textureType ]->h );
+        {   xmlX = int( ( cityImages[ textureType ]->w / 2 ) );}
+
+        if(cityYmap.count(filename))
+        {   xmlY = cityYmap[filename];}
+        else
+        {   xmlY = int( cityImages[ textureType ]->h );}
+#ifdef DEBUG
+        assert(xmlX > 0 && xmlY > 0);
+#endif
+        cityTextureX[ textureType ] = xmlX;
+        cityTextureY[ textureType ] = xmlY;
     }
     SDL_mutexV( mTextures );
 }
@@ -519,6 +527,7 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
  */
 void GameView::loadTextures()
 {
+   preReadCityXY();
    //We need Textures for all Types from lincity/lctypes.h
    //Code Generation:
    /*
@@ -854,6 +863,8 @@ void GameView::loadTextures()
    preReadCityTexture( CST_RAIL_BRIDGE_O2UD,   "Railbridge_entrance2_180.png" );
 
    // End of generated Code.
+   cityXmap.clear();
+   cityYmap.clear();
 }
 
 /*
@@ -1491,6 +1502,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     }
     texture = cityTextures[ textureType ];
     // Test if we have to convert Preloaded Image to Texture
+
     if( !texture ) {
         SDL_mutexP( mTextures );
         if( cityImages[ textureType ] ){
