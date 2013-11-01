@@ -755,12 +755,7 @@ void MiniMap::draw(Painter &painter)
 
 Color MiniMap::getColorNormal(int x, int y) const
 {
-    int mc = 0;
-
-    if (world(x,y)->reportingConstruction)
-    {   mc = world(x,y)->reportingConstruction->constructionGroup->colour;}
-    else
-    {   mc = world(x,y)->getTileConstructionGroup()->colour;}
+    int mc = world(x,y)->getConstructionGroup()->colour;
 
     int red = 0;
     int green = 0;

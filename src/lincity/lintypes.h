@@ -125,6 +125,8 @@ public:
     unsigned short getTopGroup();     //group of bare land or the actual construction
     unsigned short getTransportGroup(); //like getGroup but bridges are reported normal transport tiles
     ConstructionGroup* getTileConstructionGroup(); //constructionGroup of the maptile
+    ConstructionGroup* getConstructionGroup();     //constructionGroup of maptile or the covering construction
+    ConstructionGroup* getTopConstructionGroup();  //constructionGroup of maptile or the actual construction
 
     bool is_bare();                    //true if we there is neither a covering construction nor water
     bool is_lake();                    //true on lakes (also under bridges)
@@ -263,16 +265,16 @@ public:
     ~RegisteredConstruction<ConstructionClass>(){}
 };
 
-class TextureInfo
+class GraphicsInfo
 {
     public:
-    TextureInfo(void){
+    GraphicsInfo(void){
         texture = (Texture*)'\0';
         image = (SDL_Surface*)'\0';
         x = 0;
         y = 0;
     }
-    ~TextureInfo(void){
+    ~GraphicsInfo(void){
         if(texture)
         {   delete texture;}
         SDL_FreeSurface(image);
@@ -308,7 +310,7 @@ public:
 
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
     std::vector<Mix_Chunk *> chunks;
-    std::vector<TextureInfo> textureInfo;
+    std::vector<GraphicsInfo> graphicsInfoVector;
     int getCosts();
     bool is_allowed_here(int x, int y, bool msg);//check if construction could be placed
 

@@ -70,13 +70,11 @@ void Organic_farm::update()
         used_jobs = used_jobs * (MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD]) / foodprod;
         used_power = used_power * (MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD]) / foodprod;
         if ((MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD])*16 < ugwCount * foodprod)
-        {
-            used_water = 0;
-        }
+        {   used_water = 0;}
         foodprod = MAX_ORG_FARM_FOOD - commodityCount[STUFF_FOOD];
     }
     /* Now apply changes */
-    if (foodprod >= ORGANIC_FARM_FOOD_OUTPUT)
+    if (foodprod >= 30)
     {
         commodityCount[STUFF_JOBS] -= used_jobs;
         commodityCount[STUFF_FOOD] += foodprod;

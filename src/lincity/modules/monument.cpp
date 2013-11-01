@@ -57,7 +57,8 @@ void Monument::update()
     {
         busy = working_days;
         working_days = 0;
-
+        if(commodityCount[STUFF_JOBS]==0 && completed)
+        {   deneighborize();}
     }
     /* now choose a graphic */
     if (completion >= 100)
@@ -65,7 +66,6 @@ void Monument::update()
         if(!completed)
         {
             completed = true;
-            deneighborize();
             type = CST_MONUMENT_5;
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
             constructionGroup = &monumentFinishedConstructionGroup;

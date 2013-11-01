@@ -96,6 +96,7 @@ private:
     Texture* readTexture(const std::string& filename);
     SDL_Surface* readImage(const std::string& filename);
     void preReadCityTexture(int textureType, const std::string& filename);
+    void loadGraphicsInfo(ConstructionGroup *constructionGroup, const std::string& filename);
     void preReadCityXY(void);
 
     float tileWidth, tileHeight, zoom;

@@ -61,19 +61,7 @@ MapTile::MapTile():ground()
 }
 
 MapTile::~MapTile()
-{
-    //TODO handle this via ::ConstrictionCount
-/*
-    if (construction)
-    {
-        ::constructionCount.remove_construction(construction);
-        delete(construction);
-        construction = NULL;
-        // CK devalidates other mapTiles reportingConstructions
-        // should not be a problem outside running Game
-    }
-*/
-}
+{   }
 
 void MapTile::setTerrain(unsigned short new_type)
 {
@@ -114,22 +102,20 @@ ConstructionGroup* MapTile::getTileConstructionGroup()
     }
 }
 
+ConstructionGroup* MapTile::getConstructionGroup() //constructionGroup of bare land or the covering construction
+{   return (reportingConstruction ? reportingConstruction->constructionGroup : getTileConstructionGroup());}
 
+ConstructionGroup* MapTile::getTopConstructionGroup() //constructionGroup of bare land or the actual construction
+{   return (construction ? construction->constructionGroup : getTileConstructionGroup());}
 
 unsigned short MapTile::getType() //type of bare land or the covering construction
-{
-        return (reportingConstruction ? reportingConstruction->type : type);
-}
+{   return (reportingConstruction ? reportingConstruction->type : type);}
 
 unsigned short MapTile::getTopType() //type of bare land or the actual construction
-{
-        return (construction ? construction->type : type);
-}
+{   return (construction ? construction->type : type);}
 
 unsigned short MapTile::getGroup() //group of bare land or the covering construction
-{
-        return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);
-}
+{   return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);}
 
 unsigned short MapTile::getTransportGroup() //group of bare land or the covering construction
 {
@@ -154,47 +140,29 @@ unsigned short MapTile::getTransportGroup() //group of bare land or the covering
     return grp;
 }
 
-
 unsigned short MapTile::getTopGroup() //group of bare land or the actual construction
-{
-        return (construction ? construction->constructionGroup->group : group);
-}
+{   return (construction ? construction->constructionGroup->group : group);}
 
 bool MapTile::is_bare() //true if we there is neither a covering construction nor water
-{
-    return (!reportingConstruction) && (group != GROUP_WATER);
-}
+{   return (!reportingConstruction) && (group != GROUP_WATER);}
 
 bool MapTile::is_water() //true on bridges or lakes (also under bridges)
-{
-    return (group == GROUP_WATER);
-}
+{   return (group == GROUP_WATER);}
 
 bool MapTile::is_lake() //true on lakes (also under bridges)
-{
-    return (group == GROUP_WATER) && !(flags & FLAG_IS_RIVER);
-}
+{   return (group == GROUP_WATER) && !(flags & FLAG_IS_RIVER);}
 
 bool MapTile::is_river() // true on rivers (also under bridges)
-{
-    return (flags & FLAG_IS_RIVER);
-}
+{   return (flags & FLAG_IS_RIVER);}
 
 bool MapTile::is_visible() // true if tile is not covered by another construction. Only useful for minimap Gameview is rotated to upperleft
-{
-    return (construction || !reportingConstruction);
-}
+{   return (construction || !reportingConstruction);}
 
 bool MapTile::is_transport() //true on tracks, road, rails and bridges
-{
-    return (reportingConstruction && reportingConstruction->flags & FLAG_IS_TRANSPORT);
-}
+{   return (reportingConstruction && reportingConstruction->flags & FLAG_IS_TRANSPORT);}
 
 bool MapTile::is_powerline() //true on powerlines
-{
-    return (reportingConstruction && reportingConstruction->flags & FLAG_POWER_LINE);
-}
-
+{   return (reportingConstruction && reportingConstruction->flags & FLAG_POWER_LINE);}
 
 bool MapTile::is_residence() //true on residences
 {
@@ -1003,7 +971,7 @@ int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by 
         int loc_lvl = commodityCount[stuff_ID];
         int loc_cap = constructionGroup->commodityRuleCount[stuff_ID].maxload;
         if ((flags & FLAG_EVACUATE) && (center_ratio != -2))
-        {   return loc_lvl?loc_lvl:-1;}
+        {   return (loc_lvl>1)?loc_lvl:-1;}
 
 #ifdef DEBUG
         if (loc_lvl > loc_cap)

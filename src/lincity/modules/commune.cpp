@@ -60,19 +60,20 @@ void Commune::update()
     if (total_time % 10 == 0)
     {
         if(monthly_stuff_made)
-        {   animate = true;}      
-        for(int idx = ((total_time%20)?1:0); idx < tmpUgwCount; idx+=2)
+        {   animate = true;}
+        int modulus = ((total_time%20)?1:0);
+        for(int idx = 0; idx < tmpUgwCount; idx++)
         {
             int i = x + idx % s;
             int j = y + idx / s;
-            if(world(i,j)->pollution)
+            if((i+j)%2==modulus && world(i,j)->pollution)
             {   --world(i,j)->pollution;}
         }
         if (!steel_made && commodityCount[STUFF_STEEL] + COMMUNE_STEEL_MADE <= MAX_STEEL_AT_COMMUNE)
         {
             monthly_stuff_made++;
             steel_made = true;
-            commodityCount[STUFF_STEEL] += COMMUNE_STEEL_MADE;   
+            commodityCount[STUFF_STEEL] += COMMUNE_STEEL_MADE;
         }
         else
         {   steel_made = false;}

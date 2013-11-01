@@ -93,11 +93,14 @@ GameView::~GameView()
     SDL_DestroyMutex( mThreadRunning );
     SDL_DestroyMutex( mTextures );
 
-    for(int i = 0; i < NUM_OF_TYPES; ++i) {
-        delete cityTextures[i];
+    for(size_t i = 0; i < cityTextures.size(); ++i)
+    {
+        if(cityTextures[i])
+        {   delete cityTextures[i];}
         // in case the image was loaded but no texture created yet we have a
         // dangling SDL_Surface here
-        SDL_FreeSurface(cityImages[i]);
+        if (cityImages[i])
+        {   SDL_FreeSurface(cityImages[i]);}
     }
 
     if(gameViewPtr == this)
@@ -429,8 +432,8 @@ SDL_Surface* GameView::readImage(const std::string& filename)
  *  in OpenGL, so load just Images and convert them to Textures on
  *  demand in the main Tread.
  */
-//TODO Read the xml only once and then retriev X and Y from a map
 
+//Read the xml only once and then retriev X and Y from a map
 void GameView::preReadCityXY(void)
 {
     std::string xmlfile = std::string("images") + PHYSFS_getDirSeparator()
@@ -482,16 +485,12 @@ void GameView::preReadCityXY(void)
 }
 
 
-
-
 void GameView::preReadCityTexture( int textureType, const std::string& filename )
 {
     //skip loading if we stop anyway
     if(stopThread) {
         return;
     }
-    std::string xmlfile = std::string("images") + PHYSFS_getDirSeparator()
-    + std::string("tiles") + PHYSFS_getDirSeparator() + std::string("images.xml");
 
     int xmlX = -1;
     int xmlY = -1;
@@ -504,7 +503,7 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
         if(cityXmap.count(filename))
         {   xmlX = cityXmap[filename];}
         else
-        {   xmlX = int( ( cityImages[ textureType ]->w / 2 ) );}
+        {   xmlX = int( cityImages[ textureType ]->w / 2 );}
 
         if(cityYmap.count(filename))
         {   xmlY = cityYmap[filename];}
@@ -519,6 +518,44 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
     SDL_mutexV( mTextures );
 }
 
+void GameView::loadGraphicsInfo(ConstructionGroup *constructionGroup, const std::string& filename)
+{
+    //skip loading if we stop anyway
+    if(stopThread)
+    {   return;}
+
+    int xmlX = -1;
+    int xmlY = -1;
+    SDL_mutexP( mTextures );
+    constructionGroup->graphicsInfoVector.push_back(GraphicsInfo());
+    GraphicsInfo *graphicsInfo = &(constructionGroup->graphicsInfoVector.back());
+    graphicsInfo->image = readImage( filename );
+    //std::cout << "loaded image: " << filename << " to " << constructionGroup->graphicsInfoVector.back().image << std::endl;
+    if( graphicsInfo->image )
+    {
+        //now we need to find x and y for our filename
+        if(cityXmap.count(filename))
+        {   xmlX = cityXmap[filename];}
+        else
+        {   xmlX = int( graphicsInfo->image->w / 2 );}
+
+        if(cityYmap.count(filename))
+        {   xmlY = cityYmap[filename];}
+        else
+        {   xmlY = int( graphicsInfo->image->h );}
+#ifdef DEBUG
+        assert(xmlX > 0 && xmlY > 0);
+#endif
+        graphicsInfo->x = xmlX;
+        graphicsInfo->y = xmlY;
+    }
+    else
+    {
+        std::cout << "GameView::loadTextureInfo could not read " << filename << std::endl;
+    }
+    SDL_mutexV( mTextures );
+}
+
 /**
  *  Preload all required Textures. (his Function is called by loaderThread)
  *  Some of the Image to Texture Conversion seems not to be threadsave
@@ -528,6 +565,11 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
 void GameView::loadTextures()
 {
    preReadCityXY();
+   loadGraphicsInfo(&bareConstructionGroup,   "green.png" );
+   loadGraphicsInfo(&treeConstructionGroup,   "tree.png" );
+   loadGraphicsInfo(&tree2ConstructionGroup,   "tree2.png" );
+   loadGraphicsInfo(&tree3ConstructionGroup,   "tree3.png" );
+
    //We need Textures for all Types from lincity/lctypes.h
    //Code Generation:
    /*
@@ -537,7 +579,7 @@ void GameView::loadTextures()
            -e 's/_G\t/, /'     \
            -e 's/"/.png" );/2'
    */
-   preReadCityTexture( CST_GREEN,   "green.png" );
+   //preReadCityTexture( CST_GREEN,   "green.png" );
    preReadCityTexture( CST_DESERT_0,    "desert_0.png" );
    preReadCityTexture( CST_DESERT_1L,   "desert_1l.png" );
    preReadCityTexture( CST_DESERT_1R,   "desert_1r.png" );
@@ -554,9 +596,9 @@ void GameView::loadTextures()
    preReadCityTexture( CST_DESERT_3LUD, "desert_3lud.png" );
    preReadCityTexture( CST_DESERT_3RUD, "desert_3rud.png" );
    preReadCityTexture( CST_DESERT,  "desert.png" );
-   preReadCityTexture( CST_TREE,    "tree.png" );
-   preReadCityTexture( CST_TREE2,   "tree2.png" );
-   preReadCityTexture( CST_TREE3,   "tree3.png" );
+   //preReadCityTexture( CST_TREE,    "tree.png" );
+   //preReadCityTexture( CST_TREE2,   "tree2.png" );
+   //preReadCityTexture( CST_TREE3,   "tree3.png" );
    preReadCityTexture( CST_POWERL_H_L, "powerlhl.png" );
    preReadCityTexture( CST_POWERL_V_L,      "powerlvl.png" );
    preReadCityTexture( CST_POWERL_LD_L,     "powerlldl.png" );
@@ -863,6 +905,7 @@ void GameView::loadTextures()
    preReadCityTexture( CST_RAIL_BRIDGE_O2UD,   "Railbridge_entrance2_180.png" );
 
    // End of generated Code.
+
    cityXmap.clear();
    cityYmap.clear();
 }
@@ -1040,9 +1083,6 @@ void GameView::event(const Event& event)
                     if( !blockingDialogIsOpen &&
                         userOperation->is_allowed_here(endRoad.x, endRoad.y, true))
                         {   editMap(endRoad, SDL_BUTTON_LEFT);}
-                    //turn off effects for the rest of the tiles
-                    //bool fx = getConfig()->soundEnabled;
-                    //getConfig()->soundEnabled = false;
                     //use same method to find all Tiles as in void GameView::draw()
                     MapPoint currentTile = startRoad;
                     int stepx = ( startRoad.x > endRoad.x ) ? -1 : 1;
@@ -1079,7 +1119,6 @@ void GameView::event(const Event& event)
                             *v2 += *s2;
                         }
                     }
-                    //getConfig()->soundEnabled = fx;
                     break;
                 }
                 roadDragging = false;
@@ -1479,6 +1518,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     MapPoint upperLeft = realTile(tile);
 
     int size = 1;
+    //All non constructions have size 1
     if(world(upperLeft.x, upperLeft.y)->construction)
     {   size = world(upperLeft.x, upperLeft.y)->construction->constructionGroup->size;}
 
@@ -1494,18 +1534,43 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     }
 
     int textureType = world(upperLeft.x, upperLeft.y)->getTopType();
+    ConstructionGroup *cstgrp = world(upperLeft.x, upperLeft.y)->getTopConstructionGroup();
 
     // if we hide high buildings, hide trees as well
-    if (hideHigh && (textureType == CST_TREE || textureType == CST_TREE2 || textureType == CST_TREE3 ))
-    {
-        textureType = CST_GREEN;
-    }
-    texture = cityTextures[ textureType ];
-    // Test if we have to convert Preloaded Image to Texture
+    if (hideHigh && (cstgrp == &treeConstructionGroup
+     || cstgrp == &tree2ConstructionGroup
+     || cstgrp == &tree3ConstructionGroup ))
+    {   cstgrp = &bareConstructionGroup;}
 
-    if( !texture ) {
+    GraphicsInfo *graphicsInfo = 0;
+    if (cstgrp->graphicsInfoVector.size())
+    {
+        if(world(upperLeft.x, upperLeft.y)->construction)
+        {
+            graphicsInfo = &cstgrp->graphicsInfoVector
+            [ (world(upperLeft.x, upperLeft.y)->construction->type) % cstgrp->graphicsInfoVector.size()];
+        }
+        else //atm there is only one texture for inactive tiles
+        {   graphicsInfo = &(cstgrp->graphicsInfoVector[0]);}
+
+        texture = graphicsInfo->texture;
+    }
+    else
+    {   texture = cityTextures[ textureType ];}
+
+    // Test if we have to convert Preloaded Image to Texture
+    if( !texture )
+    {
         SDL_mutexP( mTextures );
-        if( cityImages[ textureType ] ){
+        if(graphicsInfo && graphicsInfo->image)
+        {
+            //std::cout << "Gameview::creating texture for: " << cstgrp->name;
+            //std::cout << " from : " << graphicsInfo->image << std::endl;
+            graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
+            graphicsInfo->image = 0; //Image is erased by texture_manager->create.
+            texture = graphicsInfo->texture;
+        }
+        else if( cityImages[ textureType ] ){
             cityTextures[ textureType ] = texture_manager->create( cityImages[ textureType ] );
             cityImages[ textureType ] = 0; //Image is erased by texture_manager->create.
             texture = cityTextures[ textureType ];
@@ -1515,18 +1580,25 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     if( texture && ( !hideHigh || size == 1 ) )
     {
-        tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
-        tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;
+
+        if(graphicsInfo)
+        {
+            tileOnScreenPoint.x -= graphicsInfo->x * zoom;
+            tileOnScreenPoint.y -= graphicsInfo->y * zoom;
+        }
+        else
+
+        {
+            tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
+            tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;
+        }
 
         tilerect.move( tileOnScreenPoint );
         tilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
-        if( zoom == 1.0 ) {     // Floating point test of equality !
-            painter.drawTexture(texture, tilerect.p1);
-        }
+        if( zoom == 1.0 )     // Floating point test of equality !
+        {    painter.drawTexture(texture, tilerect.p1);}
         else
-        {
-            painter.drawStretchTexture(texture, tilerect);
-        }
+        {   painter.drawStretchTexture(texture, tilerect);}
     }
     else
     {
@@ -1652,10 +1724,6 @@ void GameView::draw(Painter& painter)
         return;
     }
     //The Corners of The Screen
-    //TODO: change here to only draw dirtyRect
-    //      dirtyRectangle is the current Clippingarea (if set)
-    //      so we should get clippingArea (as soon this is implemented)
-    //      and adjust these Vectors:
     Vector2 upperLeft( 0, 0);
     Vector2 upperRight( getWidth(), 0 );
     Vector2 lowerLeft( 0, getHeight() );
