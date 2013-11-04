@@ -102,52 +102,52 @@ void Oremine::update()
         switch (anim_count)
         {
             case (0):
-                type = CST_OREMINE_1;
+                type = 0;
                 break;
             case (1):
-                type = CST_OREMINE_2;
+                type = 1;
                 break;
             case (2):
-                type = CST_OREMINE_3;
+                type = 2;
                 break;
             case (3):
-                type = CST_OREMINE_4;
+                type = 3;
                 break;
             case (4):
-                type = CST_OREMINE_5;
+                type = 4;
                 break;
             case (5):
-                type = CST_OREMINE_6;
+                type = 5;
                 break;
             case (6):
-                type = CST_OREMINE_7;
+                type = 6;
                 break;
             case (7):
-                type = CST_OREMINE_8;
+                type = 7;
                 break;
             case (8):
-                type = CST_OREMINE_7;
+                type = 6;
                 break;
             case (9):
-                type = CST_OREMINE_6;
+                type = 5;
                 break;
             case (10):
-                type = CST_OREMINE_5;
+                type = 4;
                 break;
             case (11):
-                type = CST_OREMINE_4;
+                type = 3;
                 break;
             case (12):
-                type = CST_OREMINE_5;
+                type = 4;
                 break;
             case (13):
-                type = CST_OREMINE_4;
+                type = 3;
                 break;
             case (14):
-                type = CST_OREMINE_3;
+                type = 2;
                 break;
             case (15):
-                type = CST_OREMINE_2;
+                type = 1;
                 break;
         }//endswitch
     }//end if animate

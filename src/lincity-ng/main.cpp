@@ -552,9 +552,6 @@ int main(int argc, char** argv)
     try {
 #endif
         xmlInitParser ();
-        //TODO associate sounds and graphics with modules directly
-        std::auto_ptr<Sound> sound;
-        sound.reset(new Sound());
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
             std::stringstream msg;
             msg << "Couldn't initialize SDL: " << SDL_GetError();
@@ -567,6 +564,8 @@ int main(int argc, char** argv)
         }
         initVideo(getConfig()->videoX, getConfig()->videoY);
         initLincity();
+        std::auto_ptr<Sound> sound;
+        sound.reset(new Sound());
         //set a function to call when music stops
         Mix_HookMusicFinished(musicHalted);
         mainLoop();
@@ -579,7 +578,6 @@ int main(int argc, char** argv)
         result = 1;
     }
 #endif
-    //getConfig()->save(); //is now done upon MainMenu::optionsBackButtonClicked(Button*)
     delete painter;
     delete fontManager;
     delete texture_manager;

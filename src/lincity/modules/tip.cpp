@@ -42,10 +42,7 @@ void Tip::update()
             total_waste -= 7;
         }
     }
-/*  FIXME Why does this alternate code cause an overflow
-    total_waste -= degration_days / TIP_DEGRADE_TIME;
-    degration_days %= TIP_DEGRADE_TIME;
-*/
+
     if ((commodityCount[STUFF_WASTE] >= WASTE_BURRIED)
     && (commodityCount[STUFF_WASTE]*100/TIP_TAKES_WASTE > CRITICAL_WASTE_LEVEL)
     && (total_waste + WASTE_BURRIED < MAX_WASTE_AT_TIP))
@@ -68,38 +65,9 @@ void Tip::update()
         busy = working_days;
         working_days = 0;
         int i = (total_waste /3 * 22) / MAX_WASTE_AT_TIP;
-        if (total_waste > 0)
-            i++;
-        switch (i) {
-        case (0):
-            type = CST_TIP_0;
-            break;
-        case (1):
-            type = CST_TIP_1;
-            break;
-        case (2):
-            type = CST_TIP_2;
-            break;
-        case (3):
-            type = CST_TIP_3;
-            break;
-        case (4):
-            type = CST_TIP_4;
-            break;
-        case (5):
-            type = CST_TIP_5;
-            break;
-        case (6):
-            type = CST_TIP_6;
-            break;
-        case (7):
-            type = CST_TIP_7;
-            break;
-        case (8)://fall trough
-        case (9)://actually very unlikely
-            type = CST_TIP_8;
-            break;
-        }
+        if (total_waste > 0 && i < 8)
+        {   i++;}
+        type = i;
     }
 }
 

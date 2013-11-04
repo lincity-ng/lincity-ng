@@ -45,7 +45,7 @@ void Mill::update()
             world(x,y)->pollution++;
     } else
     {
-        type = CST_MILL_0;
+        type = 0;
         animate = false;
     }
     //monthly update
@@ -58,29 +58,8 @@ void Mill::update()
     if (real_time >= anim && animate)
     {
         anim = real_time + MILL_ANIM_SPEED;
-        switch (type) {
-        case (CST_MILL_0):
-            type = CST_MILL_1;
-            break;
-        case (CST_MILL_1):
-            type = CST_MILL_2;
-            break;
-        case (CST_MILL_2):
-            type = CST_MILL_3;
-            break;
-        case (CST_MILL_3):
-            type = CST_MILL_4;
-            break;
-        case (CST_MILL_4):
-            type = CST_MILL_5;
-            break;
-        case (CST_MILL_5):
-            type = CST_MILL_6;
-            break;
-        case (CST_MILL_6):
-            type = CST_MILL_1;
-            break;
-        }
+        if(++type > constructionGroup->graphicsInfoVector.size())
+        {   type = 1;}
     }
 }
 

@@ -51,6 +51,7 @@ public:
     Windmill(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Windmill>(x, y, type)
     {
         constructionGroup = cstgrp;
+        type = 0;
         this->anim = 0;
         this->animate = false;
         this->sail_count = 0;

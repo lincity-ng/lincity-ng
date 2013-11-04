@@ -54,37 +54,19 @@ void Blacksmith::update()
     }
     else
     {
-        type = CST_BLACKSMITH_0;
+        type = 0;
         animate = false;
         pauseCounter = -BLACKSMITH_CLOSE_TIME;
         return;
     }
     //animation
-    if (animate && real_time > anim) {
+    if (animate && real_time > anim)
+    {
         anim = real_time + BLACKSMITH_ANIM_SPEED;
-        switch (type) {
-        case (CST_BLACKSMITH_0):
-            type = CST_BLACKSMITH_1;
-            break;
-        case (CST_BLACKSMITH_1):
-            type = CST_BLACKSMITH_2;
-            break;
-        case (CST_BLACKSMITH_2):
-            type = CST_BLACKSMITH_3;
-            break;
-        case (CST_BLACKSMITH_3):
-            type = CST_BLACKSMITH_4;
-            break;
-        case (CST_BLACKSMITH_4):
-            type = CST_BLACKSMITH_5;
-            break;
-        case (CST_BLACKSMITH_5):
-            type = CST_BLACKSMITH_6;
-            break;
-        case (CST_BLACKSMITH_6):
-            type = CST_BLACKSMITH_1;
+        if(++type > constructionGroup->graphicsInfoVector.size())
+        {
+            type = 1;
             animate = false;
-            break;
         }
     }
 

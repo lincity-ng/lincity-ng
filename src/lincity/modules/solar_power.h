@@ -48,6 +48,7 @@ public:
     SolarPower(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<SolarPower>(x, y, type)
     {
         constructionGroup = cstgrp;
+        this->type = 0;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;

@@ -45,6 +45,7 @@ public:
     Fire(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Fire>(x, y, type)
     {
         constructionGroup = cstgrp;
+        type = 0;
         this->burning_days = 0;
         setMemberSaved(&this->burning_days, "burning_days");
         this->smoking_days = 0;

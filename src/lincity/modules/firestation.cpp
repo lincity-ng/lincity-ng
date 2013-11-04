@@ -51,40 +51,13 @@ void FireStation::update()
     if (animate && real_time > anim)
     {
         anim = real_time + FIRESTATION_ANIMATION_SPEED;
-        switch (type)
+        ++type;
+        if(type == 6)
+        {   anim += 10*FIRESTATION_ANIMATION_SPEED;}
+        if(type > constructionGroup->graphicsInfoVector.size())
         {
-            case (CST_FIRESTATION_1):
-                type = CST_FIRESTATION_2;
-                break;
-            case (CST_FIRESTATION_2):
-                type = CST_FIRESTATION_3;
-                break;
-            case (CST_FIRESTATION_3):
-                type = CST_FIRESTATION_4;
-                break;
-            case (CST_FIRESTATION_4):
-                type = CST_FIRESTATION_5;
-                break;
-            case (CST_FIRESTATION_5):
-                type = CST_FIRESTATION_6;
-                break;
-            case (CST_FIRESTATION_6):
-                type = CST_FIRESTATION_7;
-                anim += 10 * FIRESTATION_ANIMATION_SPEED; /* pause */
-                break;
-            case (CST_FIRESTATION_7):
-                type = CST_FIRESTATION_8;
-                break;
-            case (CST_FIRESTATION_8):
-                type = CST_FIRESTATION_9;
-                break;
-            case (CST_FIRESTATION_9):
-                type = CST_FIRESTATION_10;
-                break;
-            case (CST_FIRESTATION_10):
-                type = CST_FIRESTATION_1;
-                animate = false;        /* stop */
-                break;
+            type = 0;
+            animate = false;
         }
     }
     /* That's all. Cover is done by different functions every 3 months or so. */

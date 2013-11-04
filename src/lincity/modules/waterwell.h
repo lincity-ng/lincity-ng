@@ -39,6 +39,7 @@ public:
     Waterwell(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Waterwell>(x, y, type)
     {
         constructionGroup = cstgrp;
+        type = 0;
         this->busy = 0;
         this->working_days = 0;
         initialize_commodities();

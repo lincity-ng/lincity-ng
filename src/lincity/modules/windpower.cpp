@@ -21,27 +21,30 @@ WindpowerConstructionGroup windpowerConstructionGroup(
      GROUP_WIND_POWER_RANGE
 );
 
+WindpowerConstructionGroup windpower_RG_ConstructionGroup = windpowerConstructionGroup;
+WindpowerConstructionGroup windpower_G_ConstructionGroup = windpowerConstructionGroup;
+
 Construction *WindpowerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
     return new Windpower(x, y, type, this);
 }
 
 void Windpower::update()
 {
-
     if (!(total_time%(WIND_POWER_RCOST)))
     {   windmill_cost++;}
-    if ((commodityCount[STUFF_JOBS] >= WIND_POWER_JOBS)
-     && (commodityCount[STUFF_MWH] <= MAX_MWH_AT_WIND_POWER-mwh_output))
+    int mwh_made = (commodityCount[STUFF_MWH] + mwh_output <= MAX_MWH_AT_WIND_POWER)?mwh_output:MAX_MWH_AT_WIND_POWER-commodityCount[STUFF_MWH];
+    int jobs_used = WIND_POWER_JOBS * mwh_made/mwh_output;
+
+    if ((commodityCount[STUFF_JOBS] >= jobs_used)
+     && mwh_made > WIND_POWER_MWH)
     {
-        commodityCount[STUFF_JOBS] -= WIND_POWER_JOBS;
-        commodityCount[STUFF_MWH] += mwh_output;
+        commodityCount[STUFF_JOBS] -= jobs_used;
+        commodityCount[STUFF_MWH] += mwh_made;
         animate = true;
-        working_days++;
+        working_days += mwh_made;
     }
     else
-    {
-        animate = false;
-    }
+    {   animate = false;}
     //monthly update
     if (total_time % 100 == 0)
     {
@@ -54,18 +57,13 @@ void Windpower::update()
         sail_count++;
         anim = real_time + WIND_POWER_ANIM_SPEED;
         sail_count %= 3;
+        type = sail_count;
         if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
-        {
-            type = CST_WINDMILL_1_G + sail_count;
-        }
+        {   constructionGroup = &windpower_G_ConstructionGroup;}
         else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)
-        {
-            type = CST_WINDMILL_1_RG + sail_count;
-        }
+        {   constructionGroup = &windpower_RG_ConstructionGroup;}
         else
-        {
-            type = CST_WINDMILL_1_R + sail_count;
-        }
+        {   constructionGroup = &windpowerConstructionGroup;}
     }
 }
 
@@ -74,7 +72,7 @@ void Windpower::report()
 {
     int i = 0;
     mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, _("busy"), busy);
+    mps_store_sfp(i++, _("busy"), float(busy) / mwh_output);
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, "Output", mwh_output);
     i++;

@@ -30,18 +30,19 @@ void Windmill::update()
 {
     if (!(total_time%(WINDMILL_RCOST)))
     {   windmill_cost++;}
-    if ((commodityCount[STUFF_JOBS] >= WINDMILL_JOBS)
-     && (commodityCount[STUFF_KWH] <= MAX_KWH_AT_WINDMILL-kwh_output))
+    int kwh_made = (commodityCount[STUFF_KWH] + kwh_output <= MAX_KWH_AT_WINDMILL)?kwh_output:MAX_KWH_AT_WINDMILL-commodityCount[STUFF_KWH];
+    int jobs_used = WINDMILL_JOBS * kwh_made / kwh_output;
+
+    if ((commodityCount[STUFF_JOBS] >= jobs_used)
+     && (kwh_made > WINDMILL_KWH))
     {
-        commodityCount[STUFF_JOBS] -= WINDMILL_JOBS;
-        commodityCount[STUFF_KWH] += kwh_output;
+        commodityCount[STUFF_JOBS] -= jobs_used;
+        commodityCount[STUFF_KWH] += kwh_made;
         animate = true;
-        ++working_days;
+        working_days += kwh_made;
     }
     else
-    {
-        animate = false;
-    }
+    {   animate = false;}
     //monthly update
     if (total_time % 100 == 0)
     {
@@ -54,7 +55,7 @@ void Windmill::update()
         ++sail_count;
         anim = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
         sail_count %= 3;
-        type = CST_WINDMILL_1_W + sail_count;
+        type = sail_count;
     }
 }
 
@@ -62,7 +63,7 @@ void Windmill::report()
 {
     int i = 0;
     mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, "busy", busy);
+    mps_store_sfp(i++, "busy", float(busy) / kwh_output);
     mps_store_sfp(i++, "Tech", (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, "Output", kwh_output);
     i++;

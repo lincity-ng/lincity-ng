@@ -31,6 +31,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/Paragraph.hpp"
 #include "gui/Desktop.hpp"
 
+#include "lincity/lintypes.h"
 #include "lincity/lctypes.h"
 #include "lincity/engglobs.h"
 #include "lincity/modules/all_modules.h"
@@ -440,6 +441,9 @@ void GameView::preReadCityXY(void)
     + std::string("tiles") + PHYSFS_getDirSeparator() + std::string("images.xml");
     XmlReader reader( xmlfile );
 
+
+    ConstructionGroup *constructionGroup = 0;
+    int resourceID_level = 0;
     int xmlX = -1;
     int xmlY = -1;
     std::string key;
@@ -448,6 +452,37 @@ void GameView::preReadCityXY(void)
         if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
         {
             const std::string& element = (const char*) reader.getName();
+
+            if( element == "resourceID")
+            {
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next())
+                {
+                    const char* name = (const char*) iter.getName();
+                    const char* value = (const char*) iter.getValue();
+                    if( strcmp(name, "name" ) == 0 )
+                    {
+                        if(ConstructionGroup::resourceMap.count(value))
+                        {
+                            constructionGroup = ConstructionGroup::resourceMap[value];
+                            resourceID_level = reader.getDepth();
+                        }
+                        else
+                        {
+                            std::cout << "unknown resourceID: " << value << " in images.xml" << std::endl;
+                            constructionGroup = 0;
+                            resourceID_level = 0;
+                        }
+                        //std::cout << "detected resourceID: " << key << std::endl;
+                    }
+                }
+            }
+            //check if we are still inside contect of last resorceID
+            if(reader.getDepth() < resourceID_level-1)
+            {
+                constructionGroup = 0;
+                resourceID_level = 0;
+            }
             if( element == "image" )
             {
                 XmlReader::AttributeIterator iter(reader);
@@ -478,7 +513,26 @@ void GameView::preReadCityXY(void)
                         cityYmap[key] = xmlY;
                     }
                 }
-             key.clear();
+                if (resourceID_level && constructionGroup)
+                {
+                    std::cout << "Parsing: " << constructionGroup->name << " as " <<
+                    key << " x= " << xmlX << " y= " << xmlY << std::endl;
+
+                    constructionGroup->graphicsInfoVector.push_back(GraphicsInfo());
+                    SDL_mutexP( mTextures );
+                    GraphicsInfo *graphicsInfo = &(constructionGroup->graphicsInfoVector.back());
+                    graphicsInfo->image = readImage( key );
+                    SDL_mutexV( mTextures );
+                    if(xmlX == -1)
+                    {   xmlX = int(graphicsInfo->image->w/2);}
+                    if(xmlY == -1)
+                    {   xmlY = int(graphicsInfo->image->h);}
+                    graphicsInfo->x = xmlX;
+                    graphicsInfo->y = xmlY;
+                }
+                xmlX = -1;
+                xmlY = -1;
+                key.clear();
             }
         }
     }
@@ -565,10 +619,10 @@ void GameView::loadGraphicsInfo(ConstructionGroup *constructionGroup, const std:
 void GameView::loadTextures()
 {
    preReadCityXY();
-   loadGraphicsInfo(&bareConstructionGroup,   "green.png" );
-   loadGraphicsInfo(&treeConstructionGroup,   "tree.png" );
-   loadGraphicsInfo(&tree2ConstructionGroup,   "tree2.png" );
-   loadGraphicsInfo(&tree3ConstructionGroup,   "tree3.png" );
+   //loadGraphicsInfo(&bareConstructionGroup,   "green.png" );
+   //loadGraphicsInfo(&treeConstructionGroup,   "tree.png" );
+   //loadGraphicsInfo(&tree2ConstructionGroup,   "tree2.png" );
+   //loadGraphicsInfo(&tree3ConstructionGroup,   "tree3.png" );
 
    //We need Textures for all Types from lincity/lctypes.h
    //Code Generation:
@@ -580,22 +634,22 @@ void GameView::loadTextures()
            -e 's/"/.png" );/2'
    */
    //preReadCityTexture( CST_GREEN,   "green.png" );
-   preReadCityTexture( CST_DESERT_0,    "desert_0.png" );
-   preReadCityTexture( CST_DESERT_1L,   "desert_1l.png" );
-   preReadCityTexture( CST_DESERT_1R,   "desert_1r.png" );
-   preReadCityTexture( CST_DESERT_1U,   "desert_1u.png" );
-   preReadCityTexture( CST_DESERT_1D,   "desert_1d.png" );
-   preReadCityTexture( CST_DESERT_2LR,  "desert_2lr.png" );
-   preReadCityTexture( CST_DESERT_2LU,  "desert_2lu.png" );
-   preReadCityTexture( CST_DESERT_2LD,  "desert_2ld.png" );
-   preReadCityTexture( CST_DESERT_2RU,  "desert_2ru.png" );
-   preReadCityTexture( CST_DESERT_2RD,  "desert_2rd.png" );
-   preReadCityTexture( CST_DESERT_2UD,  "desert_2ud.png" );
-   preReadCityTexture( CST_DESERT_3LRD, "desert_3lrd.png" );
-   preReadCityTexture( CST_DESERT_3LRU, "desert_3lru.png" );
-   preReadCityTexture( CST_DESERT_3LUD, "desert_3lud.png" );
-   preReadCityTexture( CST_DESERT_3RUD, "desert_3rud.png" );
-   preReadCityTexture( CST_DESERT,  "desert.png" );
+   //preReadCityTexture( CST_DESERT_0,    "desert_0.png" );
+   //preReadCityTexture( CST_DESERT_1L,   "desert_1l.png" );
+   //preReadCityTexture( CST_DESERT_1R,   "desert_1r.png" );
+   //preReadCityTexture( CST_DESERT_1U,   "desert_1u.png" );
+   //preReadCityTexture( CST_DESERT_1D,   "desert_1d.png" );
+   //preReadCityTexture( CST_DESERT_2LR,  "desert_2lr.png" );
+   //preReadCityTexture( CST_DESERT_2LU,  "desert_2lu.png" );
+   //preReadCityTexture( CST_DESERT_2LD,  "desert_2ld.png" );
+   //preReadCityTexture( CST_DESERT_2RU,  "desert_2ru.png" );
+   //preReadCityTexture( CST_DESERT_2RD,  "desert_2rd.png" );
+   //preReadCityTexture( CST_DESERT_2UD,  "desert_2ud.png" );
+   //preReadCityTexture( CST_DESERT_3LRD, "desert_3lrd.png" );
+   //preReadCityTexture( CST_DESERT_3LRU, "desert_3lru.png" );
+   //preReadCityTexture( CST_DESERT_3LUD, "desert_3lud.png" );
+   //preReadCityTexture( CST_DESERT_3RUD, "desert_3rud.png" );
+   //preReadCityTexture( CST_DESERT,  "desert.png" );
    //preReadCityTexture( CST_TREE,    "tree.png" );
    //preReadCityTexture( CST_TREE2,   "tree2.png" );
    //preReadCityTexture( CST_TREE3,   "tree3.png" );
@@ -621,28 +675,28 @@ void GameView::loadTextures()
    preReadCityTexture( CST_POWERL_LUR_D,      "powerllurd.png" );
    preReadCityTexture( CST_POWERL_UDR_D,      "powerludrd.png" );
    preReadCityTexture( CST_POWERL_LUDR_D,     "powerlludrd.png" );
-   preReadCityTexture( CST_SHANTY,            "shanty.png" );
-   preReadCityTexture( CST_POWERS_SOLAR, "powerssolar.png" );
+   //preReadCityTexture( CST_SHANTY,            "shanty.png" );
+   //preReadCityTexture( CST_POWERS_SOLAR, "powerssolar.png" );
    preReadCityTexture( CST_POWERS_COAL_EMPTY, "powerscoal-empty.png" );
    preReadCityTexture( CST_POWERS_COAL_LOW,   "powerscoal-low.png" );
    preReadCityTexture( CST_POWERS_COAL_MED,   "powerscoal-med.png" );
    preReadCityTexture( CST_POWERS_COAL_FULL,  "powerscoal-full.png" );
-   preReadCityTexture( CST_BURNT,   "burnt_land.png" );
+   //preReadCityTexture( CST_BURNT,   "burnt_land.png" );
    preReadCityTexture( CST_SUBSTATION_R, "substation-R.png" );
    preReadCityTexture( CST_SUBSTATION_G,      "substation-G.png" );
    preReadCityTexture( CST_SUBSTATION_RG,     "substation-RG.png" );
-   preReadCityTexture( CST_UNIVERSITY, "university.png" );
-   preReadCityTexture( CST_RESIDENCE_LL, "reslowlow.png" );
-   preReadCityTexture( CST_RESIDENCE_ML, "resmedlow.png" );
-   preReadCityTexture( CST_RESIDENCE_HL, "reshilow.png" );
-   preReadCityTexture( CST_RESIDENCE_LH,      "reslowhi.png" );
-   preReadCityTexture( CST_RESIDENCE_MH,      "resmedhi.png" );
-   preReadCityTexture( CST_RESIDENCE_HH,      "reshihi.png" );
+   //preReadCityTexture( CST_UNIVERSITY, "university.png" );
+   //preReadCityTexture( CST_RESIDENCE_LL, "reslowlow.png" );
+   //preReadCityTexture( CST_RESIDENCE_ML, "resmedlow.png" );
+   //preReadCityTexture( CST_RESIDENCE_HL, "reshilow.png" );
+   //preReadCityTexture( CST_RESIDENCE_LH,      "reslowhi.png" );
+   //preReadCityTexture( CST_RESIDENCE_MH,      "resmedhi.png" );
+   //preReadCityTexture( CST_RESIDENCE_HH,      "reshihi.png" );
    preReadCityTexture( CST_MARKET_EMPTY, "market-empty.png" );
    preReadCityTexture( CST_MARKET_LOW,        "market-low.png" );
    preReadCityTexture( CST_MARKET_MED,        "market-med.png" );
    preReadCityTexture( CST_MARKET_FULL,       "market-full.png" );
-   preReadCityTexture( CST_RECYCLE,     "recycle-centre.png" );
+   //preReadCityTexture( CST_RECYCLE,     "recycle-centre.png" );
    preReadCityTexture( CST_TRACK_LR,    "tracklr.png" );
    preReadCityTexture( CST_TRACK_LU,          "tracklu.png" );
    preReadCityTexture( CST_TRACK_LD,          "trackld.png" );
@@ -654,14 +708,14 @@ void GameView::loadTextures()
    preReadCityTexture( CST_TRACK_LUD,         "tracklud.png" );
    preReadCityTexture( CST_TRACK_UDR,         "trackudr.png" );
    preReadCityTexture( CST_TRACK_LUDR,        "trackludr.png" );
-   preReadCityTexture( CST_PARKLAND_PLANE, "parkland-plane.png" );
-   preReadCityTexture( CST_PARKLAND_LAKE, "parkland-lake.png" );
-   preReadCityTexture( CST_MONUMENT_0, "monument0.png" );
-   preReadCityTexture( CST_MONUMENT_1,        "monument1.png" );
-   preReadCityTexture( CST_MONUMENT_2,        "monument2.png" );
-   preReadCityTexture( CST_MONUMENT_3,        "monument3.png" );
-   preReadCityTexture( CST_MONUMENT_4,        "monument4.png" );
-   preReadCityTexture( CST_MONUMENT_5,        "monument5.png" );
+   //preReadCityTexture( CST_PARKLAND_PLANE, "parkland-plane.png" );
+   //preReadCityTexture( CST_PARKLAND_LAKE, "parkland-lake.png" );
+   //preReadCityTexture( CST_MONUMENT_0, "monument0.png" );
+   //preReadCityTexture( CST_MONUMENT_1,        "monument1.png" );
+   //preReadCityTexture( CST_MONUMENT_2,        "monument2.png" );
+   //preReadCityTexture( CST_MONUMENT_3,        "monument3.png" );
+   //preReadCityTexture( CST_MONUMENT_4,        "monument4.png" );
+   //preReadCityTexture( CST_MONUMENT_5,        "monument5.png" );
    preReadCityTexture( CST_COALMINE_EMPTY, "coalmine-empty.png" );
    preReadCityTexture( CST_COALMINE_LOW, "coalmine-low.png" );
    preReadCityTexture( CST_COALMINE_MED, "coalmine-med.png" );
@@ -677,15 +731,15 @@ void GameView::loadTextures()
    preReadCityTexture( CST_RAIL_LUD,         "raillud.png" );
    preReadCityTexture( CST_RAIL_UDR,         "railudr.png" );
    preReadCityTexture( CST_RAIL_LUDR,        "railludr.png" );
-   preReadCityTexture( CST_FIRE_1,           "fire1.png" );
-   preReadCityTexture( CST_FIRE_2,           "fire2.png" );
-   preReadCityTexture( CST_FIRE_3,           "fire3.png" );
-   preReadCityTexture( CST_FIRE_4,           "fire4.png" );
-   preReadCityTexture( CST_FIRE_5,           "fire5.png" );
-   preReadCityTexture( CST_FIRE_DONE1,       "firedone1.png" );
-   preReadCityTexture( CST_FIRE_DONE2,       "firedone2.png" );
-   preReadCityTexture( CST_FIRE_DONE3,       "firedone3.png" );
-   preReadCityTexture( CST_FIRE_DONE4,       "firedone4.png" );
+   //preReadCityTexture( CST_FIRE_1,           "fire1.png" );
+   //preReadCityTexture( CST_FIRE_2,           "fire2.png" );
+   //preReadCityTexture( CST_FIRE_3,           "fire3.png" );
+   //preReadCityTexture( CST_FIRE_4,           "fire4.png" );
+   //preReadCityTexture( CST_FIRE_5,           "fire5.png" );
+   //preReadCityTexture( CST_FIRE_DONE1,       "firedone1.png" );
+   //preReadCityTexture( CST_FIRE_DONE2,       "firedone2.png" );
+   //preReadCityTexture( CST_FIRE_DONE3,       "firedone3.png" );
+   //preReadCityTexture( CST_FIRE_DONE4,       "firedone4.png" );
    preReadCityTexture( CST_ROAD_LR,          "roadlr.png" );
    preReadCityTexture( CST_ROAD_LU,          "roadlu.png" );
    preReadCityTexture( CST_ROAD_LD,          "roadld.png" );
@@ -697,24 +751,24 @@ void GameView::loadTextures()
    preReadCityTexture( CST_ROAD_LUD,         "roadlud.png" );
    preReadCityTexture( CST_ROAD_UDR,         "roadudr.png" );
    preReadCityTexture( CST_ROAD_LUDR,        "roadludr.png" );
-   preReadCityTexture( CST_OREMINE_5,         "oremine5.png" );
-   preReadCityTexture( CST_OREMINE_6,         "oremine6.png" );
-   preReadCityTexture( CST_OREMINE_7,         "oremine7.png" );
-   preReadCityTexture( CST_OREMINE_8,         "oremine8.png" );
-   preReadCityTexture( CST_OREMINE_1,   "oremine1.png" );
-   preReadCityTexture( CST_OREMINE_2,   "oremine2.png" );
-   preReadCityTexture( CST_OREMINE_3,   "oremine3.png" );
-   preReadCityTexture( CST_OREMINE_4,   "oremine4.png" );
-   preReadCityTexture( CST_HEALTH,  "health.png" );
-   preReadCityTexture( CST_SCHOOL,  "school0.png" );
-   preReadCityTexture( CST_EX_PORT,     "ex_port.png" );
-   preReadCityTexture( CST_MILL_0,            "mill0.png" );
-   preReadCityTexture( CST_MILL_1,            "mill1.png" );
-   preReadCityTexture( CST_MILL_2,            "mill2.png" );
-   preReadCityTexture( CST_MILL_3,            "mill3.png" );
-   preReadCityTexture( CST_MILL_4,            "mill4.png" );
-   preReadCityTexture( CST_MILL_5,            "mill5.png" );
-   preReadCityTexture( CST_MILL_6,            "mill6.png" );
+   //preReadCityTexture( CST_OREMINE_5,         "oremine5.png" );
+   //preReadCityTexture( CST_OREMINE_6,         "oremine6.png" );
+   //preReadCityTexture( CST_OREMINE_7,         "oremine7.png" );
+   //preReadCityTexture( CST_OREMINE_8,         "oremine8.png" );
+   //preReadCityTexture( CST_OREMINE_1,   "oremine1.png" );
+   //preReadCityTexture( CST_OREMINE_2,   "oremine2.png" );
+   //preReadCityTexture( CST_OREMINE_3,   "oremine3.png" );
+   //preReadCityTexture( CST_OREMINE_4,   "oremine4.png" );
+   //preReadCityTexture( CST_HEALTH,  "health.png" );
+   //preReadCityTexture( CST_SCHOOL,  "school0.png" );
+   //preReadCityTexture( CST_EX_PORT,     "ex_port.png" );
+   //preReadCityTexture( CST_MILL_0,            "mill0.png" );
+   //preReadCityTexture( CST_MILL_1,            "mill1.png" );
+   //preReadCityTexture( CST_MILL_2,            "mill2.png" );
+   //preReadCityTexture( CST_MILL_3,            "mill3.png" );
+   //preReadCityTexture( CST_MILL_4,            "mill4.png" );
+   //preReadCityTexture( CST_MILL_5,            "mill5.png" );
+   //preReadCityTexture( CST_MILL_6,            "mill6.png" );
    preReadCityTexture( CST_ROCKET_1,          "rocket1.png" );
    preReadCityTexture( CST_ROCKET_2,    "rocket2.png" );
    preReadCityTexture( CST_ROCKET_3,    "rocket3.png" );
@@ -723,36 +777,36 @@ void GameView::loadTextures()
    preReadCityTexture( CST_ROCKET_6,          "rocket6.png" );
    preReadCityTexture( CST_ROCKET_7,    "rocket7.png" );
    preReadCityTexture( CST_ROCKET_FLOWN, "rocketflown.png" );
-   preReadCityTexture( CST_WINDMILL_1_G,      "windmill1g.png" );
-   preReadCityTexture( CST_WINDMILL_2_G,      "windmill2g.png" );
-   preReadCityTexture( CST_WINDMILL_3_G,      "windmill3g.png" );
-   preReadCityTexture( CST_WINDMILL_1_RG,     "windmill1rg.png" );
-   preReadCityTexture( CST_WINDMILL_2_RG,     "windmill2rg.png" );
-   preReadCityTexture( CST_WINDMILL_3_RG,     "windmill3rg.png" );
-   preReadCityTexture( CST_WINDMILL_1_R,      "windmill1r.png" );
-   preReadCityTexture( CST_WINDMILL_2_R,      "windmill2r.png" );
-   preReadCityTexture( CST_WINDMILL_3_R,      "windmill3r.png" );
-   preReadCityTexture( CST_WINDMILL_1_W,      "windmill1w.png" );
-   preReadCityTexture( CST_WINDMILL_2_W,      "windmill2w.png" );
-   preReadCityTexture( CST_WINDMILL_3_W,      "windmill3w.png" );
-   preReadCityTexture( CST_BLACKSMITH_0,        "blacksmith0.png" );
-   preReadCityTexture( CST_BLACKSMITH_1,        "blacksmith1.png" );
-   preReadCityTexture( CST_BLACKSMITH_2,        "blacksmith2.png" );
-   preReadCityTexture( CST_BLACKSMITH_3,        "blacksmith3.png" );
-   preReadCityTexture( CST_BLACKSMITH_4,        "blacksmith4.png" );
-   preReadCityTexture( CST_BLACKSMITH_5,        "blacksmith5.png" );
-   preReadCityTexture( CST_BLACKSMITH_6,        "blacksmith6.png" );
-   preReadCityTexture( CST_POTTERY_0,           "pottery0.png" );
-   preReadCityTexture( CST_POTTERY_1,           "pottery1.png" );
-   preReadCityTexture( CST_POTTERY_2,           "pottery2.png" );
-   preReadCityTexture( CST_POTTERY_3,           "pottery3.png" );
-   preReadCityTexture( CST_POTTERY_4,           "pottery4.png" );
-   preReadCityTexture( CST_POTTERY_5,           "pottery5.png" );
-   preReadCityTexture( CST_POTTERY_6,           "pottery6.png" );
-   preReadCityTexture( CST_POTTERY_7,           "pottery7.png" );
-   preReadCityTexture( CST_POTTERY_8,           "pottery8.png" );
-   preReadCityTexture( CST_POTTERY_9,           "pottery9.png" );
-   preReadCityTexture( CST_POTTERY_10,          "pottery10.png" );
+   //preReadCityTexture( CST_WINDMILL_1_G,      "windmill1g.png" );
+   //preReadCityTexture( CST_WINDMILL_2_G,      "windmill2g.png" );
+   //preReadCityTexture( CST_WINDMILL_3_G,      "windmill3g.png" );
+   //preReadCityTexture( CST_WINDMILL_1_RG,     "windmill1rg.png" );
+   //preReadCityTexture( CST_WINDMILL_2_RG,     "windmill2rg.png" );
+   //preReadCityTexture( CST_WINDMILL_3_RG,     "windmill3rg.png" );
+   //preReadCityTexture( CST_WINDMILL_1_R,      "windmill1r.png" );
+   //preReadCityTexture( CST_WINDMILL_2_R,      "windmill2r.png" );
+   //preReadCityTexture( CST_WINDMILL_3_R,      "windmill3r.png" );
+   //preReadCityTexture( CST_WINDMILL_1_W,      "windmill1w.png" );
+   //preReadCityTexture( CST_WINDMILL_2_W,      "windmill2w.png" );
+   //preReadCityTexture( CST_WINDMILL_3_W,      "windmill3w.png" );
+   //preReadCityTexture( CST_BLACKSMITH_0,        "blacksmith0.png" );
+   //preReadCityTexture( CST_BLACKSMITH_1,        "blacksmith1.png" );
+   //preReadCityTexture( CST_BLACKSMITH_2,        "blacksmith2.png" );
+   //preReadCityTexture( CST_BLACKSMITH_3,        "blacksmith3.png" );
+   //preReadCityTexture( CST_BLACKSMITH_4,        "blacksmith4.png" );
+   //preReadCityTexture( CST_BLACKSMITH_5,        "blacksmith5.png" );
+   //preReadCityTexture( CST_BLACKSMITH_6,        "blacksmith6.png" );
+   //preReadCityTexture( CST_POTTERY_0,           "pottery0.png" );
+   //preReadCityTexture( CST_POTTERY_1,           "pottery1.png" );
+   //preReadCityTexture( CST_POTTERY_2,           "pottery2.png" );
+   //preReadCityTexture( CST_POTTERY_3,           "pottery3.png" );
+   //preReadCityTexture( CST_POTTERY_4,           "pottery4.png" );
+   //preReadCityTexture( CST_POTTERY_5,           "pottery5.png" );
+   //preReadCityTexture( CST_POTTERY_6,           "pottery6.png" );
+   //preReadCityTexture( CST_POTTERY_7,           "pottery7.png" );
+   //preReadCityTexture( CST_POTTERY_8,           "pottery8.png" );
+   //preReadCityTexture( CST_POTTERY_9,           "pottery9.png" );
+   //preReadCityTexture( CST_POTTERY_10,          "pottery10.png" );
    preReadCityTexture( CST_WATER,             "water.png" );
    preReadCityTexture( CST_WATER_D,           "waterd.png" );
    preReadCityTexture( CST_WATER_R,           "waterr.png" );
@@ -769,33 +823,33 @@ void GameView::loadTextures()
    preReadCityTexture( CST_WATER_LUR,         "waterlur.png" );
    preReadCityTexture( CST_WATER_URD,         "waterurd.png" );
    preReadCityTexture( CST_WATER_LURD,        "waterlurd.png" );
-   preReadCityTexture( CST_WATERWELL,         "waterwell.png" );
-   preReadCityTexture( CST_CRICKET_1,         "cricket1.png" );
-   preReadCityTexture( CST_CRICKET_2,         "cricket2.png" );
-   preReadCityTexture( CST_CRICKET_3,         "cricket3.png" );
-   preReadCityTexture( CST_CRICKET_4,         "cricket4.png" );
-   preReadCityTexture( CST_CRICKET_5,         "cricket5.png" );
-   preReadCityTexture( CST_CRICKET_6,         "cricket6.png" );
-   preReadCityTexture( CST_CRICKET_7,         "cricket7.png" );
-   preReadCityTexture( CST_FIRESTATION_1,       "firestation1.png" );
-   preReadCityTexture( CST_FIRESTATION_2,       "firestation2.png" );
-   preReadCityTexture( CST_FIRESTATION_3,       "firestation3.png" );
-   preReadCityTexture( CST_FIRESTATION_4,       "firestation4.png" );
-   preReadCityTexture( CST_FIRESTATION_5,       "firestation5.png" );
-   preReadCityTexture( CST_FIRESTATION_6,       "firestation6.png" );
-   preReadCityTexture( CST_FIRESTATION_7,       "firestation7.png" );
-   preReadCityTexture( CST_FIRESTATION_8,       "firestation8.png" );
-   preReadCityTexture( CST_FIRESTATION_9,       "firestation9.png" );
-   preReadCityTexture( CST_FIRESTATION_10,      "firestation10.png" );
-   preReadCityTexture( CST_TIP_0,             "tip0.png" );
-   preReadCityTexture( CST_TIP_1,             "tip1.png" );
-   preReadCityTexture( CST_TIP_2,             "tip2.png" );
-   preReadCityTexture( CST_TIP_3,             "tip3.png" );
-   preReadCityTexture( CST_TIP_4,             "tip4.png" );
-   preReadCityTexture( CST_TIP_5,             "tip5.png" );
-   preReadCityTexture( CST_TIP_6,             "tip6.png" );
-   preReadCityTexture( CST_TIP_7,             "tip7.png" );
-   preReadCityTexture( CST_TIP_8,             "tip8.png" );
+   //preReadCityTexture( CST_WATERWELL,         "waterwell.png" );
+   //preReadCityTexture( CST_CRICKET_1,         "cricket1.png" );
+   //preReadCityTexture( CST_CRICKET_2,         "cricket2.png" );
+   //preReadCityTexture( CST_CRICKET_3,         "cricket3.png" );
+   //preReadCityTexture( CST_CRICKET_4,         "cricket4.png" );
+   //preReadCityTexture( CST_CRICKET_5,         "cricket5.png" );
+   //preReadCityTexture( CST_CRICKET_6,         "cricket6.png" );
+   //preReadCityTexture( CST_CRICKET_7,         "cricket7.png" );
+   //preReadCityTexture( CST_FIRESTATION_1,       "firestation1.png" );
+   //preReadCityTexture( CST_FIRESTATION_2,       "firestation2.png" );
+   //preReadCityTexture( CST_FIRESTATION_3,       "firestation3.png" );
+   //preReadCityTexture( CST_FIRESTATION_4,       "firestation4.png" );
+   //preReadCityTexture( CST_FIRESTATION_5,       "firestation5.png" );
+   //preReadCityTexture( CST_FIRESTATION_6,       "firestation6.png" );
+   //preReadCityTexture( CST_FIRESTATION_7,       "firestation7.png" );
+   //preReadCityTexture( CST_FIRESTATION_8,       "firestation8.png" );
+   //preReadCityTexture( CST_FIRESTATION_9,       "firestation9.png" );
+   //preReadCityTexture( CST_FIRESTATION_10,      "firestation10.png" );
+   //preReadCityTexture( CST_TIP_0,             "tip0.png" );
+   //preReadCityTexture( CST_TIP_1,             "tip1.png" );
+   //preReadCityTexture( CST_TIP_2,             "tip2.png" );
+   //preReadCityTexture( CST_TIP_3,             "tip3.png" );
+   //preReadCityTexture( CST_TIP_4,             "tip4.png" );
+   //preReadCityTexture( CST_TIP_5,             "tip5.png" );
+   //preReadCityTexture( CST_TIP_6,             "tip6.png" );
+   //preReadCityTexture( CST_TIP_7,             "tip7.png" );
+   //preReadCityTexture( CST_TIP_8,             "tip8.png" );
    preReadCityTexture( CST_COMMUNE_1,         "commune1.png" );
    preReadCityTexture( CST_COMMUNE_2,         "commune2.png" );
    preReadCityTexture( CST_COMMUNE_3,         "commune3.png" );
@@ -810,64 +864,64 @@ void GameView::loadTextures()
    //preReadCityTexture( CST_COMMUNE_12,        "commune12.png" );
    //preReadCityTexture( CST_COMMUNE_13,        "commune13.png" );
    //preReadCityTexture( CST_COMMUNE_14,        "commune14.png" );
-   preReadCityTexture( CST_INDUSTRY_H_C,      "industryhc.png" );
-   preReadCityTexture( CST_INDUSTRY_H_L1,      "industryhl1.png" );
-   preReadCityTexture( CST_INDUSTRY_H_L2,      "industryhl2.png" );
-   preReadCityTexture( CST_INDUSTRY_H_L3,      "industryhl3.png" );
-   preReadCityTexture( CST_INDUSTRY_H_L4,      "industryhl4.png" );
-   preReadCityTexture( CST_INDUSTRY_H_L5,      "industryhl5.png" );
-   preReadCityTexture( CST_INDUSTRY_H_L6,      "industryhl6.png" );
-   preReadCityTexture( CST_INDUSTRY_H_L7,      "industryhl7.png" );
-   preReadCityTexture( CST_INDUSTRY_H_L8,      "industryhl8.png" );
-   preReadCityTexture( CST_INDUSTRY_H_M1,      "industryhm1.png" );
-   preReadCityTexture( CST_INDUSTRY_H_M2,      "industryhm2.png" );
-   preReadCityTexture( CST_INDUSTRY_H_M3,      "industryhm3.png" );
-   preReadCityTexture( CST_INDUSTRY_H_M4,      "industryhm4.png" );
-   preReadCityTexture( CST_INDUSTRY_H_M5,      "industryhm5.png" );
-   preReadCityTexture( CST_INDUSTRY_H_M6,      "industryhm6.png" );
-   preReadCityTexture( CST_INDUSTRY_H_M7,      "industryhm7.png" );
-   preReadCityTexture( CST_INDUSTRY_H_M8,      "industryhm8.png" );
-   preReadCityTexture( CST_INDUSTRY_H_H1,      "industryhh1.png" );
-   preReadCityTexture( CST_INDUSTRY_H_H2,      "industryhh2.png" );
-   preReadCityTexture( CST_INDUSTRY_H_H3,      "industryhh3.png" );
-   preReadCityTexture( CST_INDUSTRY_H_H4,      "industryhh4.png" );
-   preReadCityTexture( CST_INDUSTRY_H_H5,      "industryhh5.png" );
-   preReadCityTexture( CST_INDUSTRY_H_H6,      "industryhh6.png" );
-   preReadCityTexture( CST_INDUSTRY_H_H7,      "industryhh7.png" );
-   preReadCityTexture( CST_INDUSTRY_H_H8,      "industryhh8.png" );
-   preReadCityTexture( CST_INDUSTRY_L_C,       "industrylc.png" );
-   preReadCityTexture( CST_INDUSTRY_L_Q1,      "industrylq1.png" );
-   preReadCityTexture( CST_INDUSTRY_L_Q2,      "industrylq2.png" );
-   preReadCityTexture( CST_INDUSTRY_L_Q3,      "industrylq3.png" );
-   preReadCityTexture( CST_INDUSTRY_L_Q4,      "industrylq4.png" );
-   preReadCityTexture( CST_INDUSTRY_L_L1,      "industryll1.png" );
-   preReadCityTexture( CST_INDUSTRY_L_L2,      "industryll2.png" );
-   preReadCityTexture( CST_INDUSTRY_L_L3,      "industryll3.png" );
-   preReadCityTexture( CST_INDUSTRY_L_L4,      "industryll4.png" );
-   preReadCityTexture( CST_INDUSTRY_L_M1,      "industrylm1.png" );
-   preReadCityTexture( CST_INDUSTRY_L_M2,      "industrylm2.png" );
-   preReadCityTexture( CST_INDUSTRY_L_M3,      "industrylm3.png" );
-   preReadCityTexture( CST_INDUSTRY_L_M4,      "industrylm4.png" );
-   preReadCityTexture( CST_INDUSTRY_L_H1,      "industrylh1.png" );
-   preReadCityTexture( CST_INDUSTRY_L_H2,      "industrylh2.png" );
-   preReadCityTexture( CST_INDUSTRY_L_H3,      "industrylh3.png" );
-   preReadCityTexture( CST_INDUSTRY_L_H4,      "industrylh4.png" );
-   preReadCityTexture( CST_FARM_O0,            "farm0.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_C,      "industryhc.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_L1,      "industryhl1.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_L2,      "industryhl2.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_L3,      "industryhl3.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_L4,      "industryhl4.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_L5,      "industryhl5.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_L6,      "industryhl6.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_L7,      "industryhl7.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_L8,      "industryhl8.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_M1,      "industryhm1.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_M2,      "industryhm2.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_M3,      "industryhm3.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_M4,      "industryhm4.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_M5,      "industryhm5.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_M6,      "industryhm6.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_M7,      "industryhm7.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_M8,      "industryhm8.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_H1,      "industryhh1.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_H2,      "industryhh2.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_H3,      "industryhh3.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_H4,      "industryhh4.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_H5,      "industryhh5.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_H6,      "industryhh6.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_H7,      "industryhh7.png" );
+   //preReadCityTexture( CST_INDUSTRY_H_H8,      "industryhh8.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_C,       "industrylc.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_Q1,      "industrylq1.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_Q2,      "industrylq2.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_Q3,      "industrylq3.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_Q4,      "industrylq4.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_L1,      "industryll1.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_L2,      "industryll2.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_L3,      "industryll3.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_L4,      "industryll4.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_M1,      "industrylm1.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_M2,      "industrylm2.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_M3,      "industrylm3.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_M4,      "industrylm4.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_H1,      "industrylh1.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_H2,      "industrylh2.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_H3,      "industrylh3.png" );
+   //preReadCityTexture( CST_INDUSTRY_L_H4,      "industrylh4.png" );
+   //preReadCityTexture( CST_FARM_O0,            "farm0.png" );
    //preReadCityTexture( CST_FARM_O1,            "farm1.png" );
    //preReadCityTexture( CST_FARM_O2,            "farm2.png" );
-   preReadCityTexture( CST_FARM_O3,            "farm3.png" );
+   //preReadCityTexture( CST_FARM_O3,            "farm3.png" );
    //preReadCityTexture( CST_FARM_O4,            "farm4.png" );
    //preReadCityTexture( CST_FARM_O5,            "farm5.png" );
    //preReadCityTexture( CST_FARM_O6,            "farm6.png" );
-   preReadCityTexture( CST_FARM_O7,            "farm7.png" );
+   //preReadCityTexture( CST_FARM_O7,            "farm7.png" );
    //preReadCityTexture( CST_FARM_O8,            "farm8.png" );
    //preReadCityTexture( CST_FARM_O9,            "farm9.png" );
    //preReadCityTexture( CST_FARM_O10,           "farm10.png" );
-   preReadCityTexture( CST_FARM_O11,           "farm11.png" );
+   //preReadCityTexture( CST_FARM_O11,           "farm11.png" );
    //preReadCityTexture( CST_FARM_O12,           "farm12.png" );
    //preReadCityTexture( CST_FARM_O13,           "farm13.png" );
    //preReadCityTexture( CST_FARM_O14,           "farm14.png" );
-   preReadCityTexture( CST_FARM_O15,           "farm15.png" );
+   //preReadCityTexture( CST_FARM_O15,           "farm15.png" );
    //preReadCityTexture( CST_FARM_O16,           "farm16.png" );
    preReadCityTexture( CST_TRACK_BRIDGE_LR,    "Trackbridge2.png" );
    preReadCityTexture( CST_TRACK_BRIDGE_UD,    "Trackbridge1.png" );
@@ -1545,14 +1599,8 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     GraphicsInfo *graphicsInfo = 0;
     if (cstgrp->graphicsInfoVector.size())
     {
-        if(world(upperLeft.x, upperLeft.y)->construction)
-        {
-            graphicsInfo = &cstgrp->graphicsInfoVector
-            [ (world(upperLeft.x, upperLeft.y)->construction->type) % cstgrp->graphicsInfoVector.size()];
-        }
-        else //atm there is only one texture for inactive tiles
-        {   graphicsInfo = &(cstgrp->graphicsInfoVector[0]);}
-
+        graphicsInfo = &cstgrp->graphicsInfoVector
+            [ (world(upperLeft.x, upperLeft.y)->getTopType()) % cstgrp->graphicsInfoVector.size()];
         texture = graphicsInfo->texture;
     }
     else
@@ -1570,7 +1618,8 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
             graphicsInfo->image = 0; //Image is erased by texture_manager->create.
             texture = graphicsInfo->texture;
         }
-        else if( cityImages[ textureType ] ){
+        else if( cityImages[ textureType ] )
+        {
             cityTextures[ textureType ] = texture_manager->create( cityImages[ textureType ] );
             cityImages[ textureType ] = 0; //Image is erased by texture_manager->create.
             texture = cityTextures[ textureType ];

@@ -480,7 +480,7 @@ void XMLloadsave::loadConstructions()
                     constructionCount++;
                     //std::cout << "placing " << main_groups[group].name << " as " <<main_groups[get_group_of_type(type)].name << "...";
                     std::cout.flush();
-                    ConstructionGroup::getConstructionGroup(group)->placeItem(x, y, type);
+                    ConstructionGroup::getConstructionGroup(group)->placeItem(x, y, 0);//type
                     //std::cout << "ok" <<std::endl;
                     rewind();
                     prescan = false;
@@ -572,6 +572,7 @@ XMLloadsave::loadConstructionTemplates()
     gzread(gz_xml_file, (char *)&group, sizeof(group));
     gzread(gz_xml_file, (char *)&type, sizeof(type));
     gzread(gz_xml_file, (char *)&idx, sizeof(idx));
+    type = 0; //FIXME hack
     //std::cout << "binary construction header: " << group << " | " << type << " | " << idx << "...";
     //std::cout.flush();
     int x = idx % world.len();

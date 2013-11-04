@@ -53,13 +53,13 @@ void Fire::update()
                     new ConstructionDeletionRequest(this)
                 );
         else if (smoking_days > (3 * AFTER_FIRE_LENGTH) / 4)
-            type = CST_FIRE_DONE4;
+            type = 3;
         else if (smoking_days > (2 * AFTER_FIRE_LENGTH) / 4)
-            type = CST_FIRE_DONE3;
+            type = 2;
         else if (smoking_days > (AFTER_FIRE_LENGTH) / 4)
-            type = CST_FIRE_DONE2;
+            type = 1;
         else
-            type = CST_FIRE_DONE1;
+            type = 0;
         return;
     }
 
@@ -72,24 +72,8 @@ void Fire::update()
     if (real_time > anim)
     {
         anim = real_time + FIRE_ANIMATION_SPEED;
-        switch (type)
-        {
-            case (CST_FIRE_1):
-                type = CST_FIRE_2;
-            break;
-            case (CST_FIRE_2):
-                type = CST_FIRE_3;
-            break;
-            case (CST_FIRE_3):
-                type = CST_FIRE_4;
-            break;
-            case (CST_FIRE_4):
-                type = CST_FIRE_5;
-            break;
-            default ://case (CST_FIRE_5):
-                type = CST_FIRE_1;
-            break;
-        }
+        if(++type > constructionGroup->graphicsInfoVector.size())
+        {   type = 0;}
     }
     if ((days_before_spread == 0) && !(flags & FLAG_IS_GHOST))
     {
@@ -127,16 +111,7 @@ void Fire::report()
     {   mps_store_sddp(i++,"burnt down",burning_days,FIRE_LENGTH);}
     else
     {   mps_store_sddp(i++,"degraded",smoking_days,AFTER_FIRE_LENGTH);}
-    //list_commodities(&i);
 }
-/*
-void Fire::playSound()
-{
-    if (burning_days<FIRE_LENGTH)
-    {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
-    else
-    {   getSound()->playASound(constructionGroup->chunks[3]);}
-}
-*/
+
 /** @file lincity/modules/fire.cpp */
 

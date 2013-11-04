@@ -54,7 +54,8 @@ void
 Sound::loadWaves() {
     //Load Waves
     std::string filename;
-    std::string directory = "sounds/";
+    std::string directory = "sounds";
+    directory += PHYSFS_getDirSeparator();
     std::string fullname;
     Mix_Chunk *chunk;
     SDL_RWops* file;
@@ -79,17 +80,28 @@ Sound::loadWaves() {
             }
 
             std::string idName = getIdName( filename );
-            if(idName == "Blacksmith")
+            if(ConstructionGroup::resourceMap.count(idName))
+            {   ConstructionGroup::resourceMap[idName]->chunks.push_back(chunk);}
+
+            if(idName == "WindMillHTech")
+            {
+                windpower_RG_ConstructionGroup.chunks.push_back(chunk);
+                windpower_G_ConstructionGroup.chunks.push_back(chunk);
+            }
+/*
+            else if(idName == "Blacksmith")
             {   blacksmithConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "CoalMine")
             {   coalmineConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "Green") //shared soundset
+*/
+            if (idName == "Green") //shared soundset
             {
-                bareConstructionGroup.chunks.push_back(chunk);
+                //bareConstructionGroup.chunks.push_back(chunk);
                 treeConstructionGroup.chunks.push_back(chunk);
                 tree2ConstructionGroup.chunks.push_back(chunk);
                 tree3ConstructionGroup.chunks.push_back(chunk);
             }
+/*
             else if (idName == "PowerCoalEmpty")
             {   coal_powerConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "PowerCoalLow")
@@ -110,22 +122,24 @@ Sound::loadWaves() {
             {   fireStationConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "Health")
             {   healthCentreConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "IndustryHigh")
+*/
+            if (idName == "IndustryHigh")
             {
-                industryHeavyConstructionGroup.chunks.push_back(chunk);
+                //industryHeavyConstructionGroup.chunks.push_back(chunk);
                 industryHeavy_L_ConstructionGroup.chunks.push_back(chunk);
                 industryHeavy_M_ConstructionGroup.chunks.push_back(chunk);
                 industryHeavy_H_ConstructionGroup.chunks.push_back(chunk);
             }
             else if (idName == "IndustryLight") //different texture sets
             {
-                industryLightConstructionGroup.chunks.push_back(chunk);
+                //industryLightConstructionGroup.chunks.push_back(chunk);
                 industryLight_Q_ConstructionGroup.chunks.push_back(chunk);
                 industryLight_L_ConstructionGroup.chunks.push_back(chunk);
                 industryLight_M_ConstructionGroup.chunks.push_back(chunk);
                 industryLight_H_ConstructionGroup.chunks.push_back(chunk);
 
             }
+/*
             else if (idName == "MarketEmpty")
             {   marketConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "MarketLow")
@@ -160,7 +174,8 @@ Sound::loadWaves() {
             {   residenceLLConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "ResidentialLow")
             {   residenceLHConstructionGroup.chunks.push_back(chunk);}
-            else if (idName == "ResidentialMed") //shared sound
+*/
+            if (idName == "ResidentialMed") //shared sound
             {
                 residenceMLConstructionGroup.chunks.push_back(chunk);
                 residenceMHConstructionGroup.chunks.push_back(chunk);
@@ -170,6 +185,7 @@ Sound::loadWaves() {
                 residenceHLConstructionGroup.chunks.push_back(chunk);
                 residenceHHConstructionGroup.chunks.push_back(chunk);
             }
+/*
             else if (idName == "Rocket")
             {   rocketPadConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "School")
@@ -182,7 +198,8 @@ Sound::loadWaves() {
             {   substation_G_ConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "PowerSolar")
             {   solarPowerConstructionGroup.chunks.push_back(chunk);}
-            else if (idName.substr(0,6) == "Trafic") //high and low traffic
+*/
+            if (idName.substr(0,6) == "Trafic") //high and low traffic
             {
                 //std::cout << idName << ".wav loaded" << std::endl;
                 roadConstructionGroup.chunks.push_back(chunk);
@@ -198,6 +215,7 @@ Sound::loadWaves() {
                 railConstructionGroup.chunks.push_back(chunk);
                 railbridgeConstructionGroup.chunks.push_back(chunk);
             }
+/*
             else if (idName == "Tip")
             {   tipConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "University")
@@ -210,7 +228,9 @@ Sound::loadWaves() {
             {   windpowerConstructionGroup.chunks.push_back(chunk);}
             else if (idName == "Shanty")
             {   shantyConstructionGroup.chunks.push_back(chunk);}
-            else //other non construction related sounds
+*/
+            if (idName == "Click" || idName == "Raze" || idName == "Build" ||
+                idName.substr(0, 6) == "Window") //other non construction related sounds
             {
                 //std::cout << idName << ": put to waves" << std::endl;
                 waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );

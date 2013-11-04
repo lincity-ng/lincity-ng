@@ -47,6 +47,7 @@ public:
     Monument(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Monument>(x, y, type)
     {
         constructionGroup = cstgrp;
+        this->type = 0;
         this->busy = 0;
         this->working_days = 0;
         this->tech_made = 0;

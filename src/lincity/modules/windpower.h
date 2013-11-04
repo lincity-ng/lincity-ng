@@ -46,12 +46,15 @@ public:
 };
 
 extern WindpowerConstructionGroup windpowerConstructionGroup;
+extern WindpowerConstructionGroup windpower_RG_ConstructionGroup;
+extern WindpowerConstructionGroup windpower_G_ConstructionGroup;
 
 class Windpower: public RegisteredConstruction<Windpower> { // Windpower inherits from its own RegisteredConstruction
 public:
     Windpower(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Windpower>(x, y, type)
     {
         constructionGroup = cstgrp;
+        type = 0;
         this->anim = 0;
         this->animate = false;
         this->sail_count = 0;

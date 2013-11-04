@@ -52,49 +52,17 @@ void Pottery::update()
     }
     else
     {
-        type = CST_POTTERY_0;
+        type = 0;
         pauseCounter = -POTTERY_CLOSE_TIME;
         return;
     }
     if (animate && real_time > anim)
     {
         anim = real_time + POTTERY_ANIM_SPEED;
-        switch (type)
+        if(++type > constructionGroup->graphicsInfoVector.size())
         {
-            case (CST_POTTERY_0):
-                type = CST_POTTERY_1;
-                break;
-            case (CST_POTTERY_1):
-                type = CST_POTTERY_2;
-                break;
-            case (CST_POTTERY_2):
-                type = CST_POTTERY_3;
-                break;
-            case (CST_POTTERY_3):
-                type = CST_POTTERY_4;
-                break;
-            case (CST_POTTERY_4):
-                type = CST_POTTERY_5;
-                break;
-            case (CST_POTTERY_5):
-                type = CST_POTTERY_6;
-                break;
-            case (CST_POTTERY_6):
-                type = CST_POTTERY_7;
-                break;
-            case (CST_POTTERY_7):
-                type = CST_POTTERY_8;
-                break;
-            case (CST_POTTERY_8):
-                type = CST_POTTERY_9;
-                break;
-            case (CST_POTTERY_9):
-                type = CST_POTTERY_10;
-                break;
-            case (CST_POTTERY_10):
-                type = CST_POTTERY_1;
-                animate = false;
-                break;
+            type = 1;
+            animate = false;
         }
     }
 }

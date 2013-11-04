@@ -63,6 +63,7 @@ public:
     Blacksmith(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Blacksmith>(x, y, type)
     {
         constructionGroup = cstgrp;
+        type = 0;
         this->anim = 0; // or real_time?
         this->pauseCounter = 0;
         this->busy = 0;

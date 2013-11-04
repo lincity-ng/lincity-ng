@@ -50,30 +50,10 @@ void Cricket::update()
     if (animate && real_time > anim)
     {
         anim = real_time + CRICKET_ANIMATION_SPEED;
-        switch (type)
+        if(++type > constructionGroup->graphicsInfoVector.size())
         {
-            case (CST_CRICKET_1):
-                type = CST_CRICKET_2;
-                break;
-            case (CST_CRICKET_2):
-                type = CST_CRICKET_3;
-                break;
-            case (CST_CRICKET_3):
-                type = CST_CRICKET_4;
-                break;
-            case (CST_CRICKET_4):
-                type = CST_CRICKET_5;
-                break;
-            case (CST_CRICKET_5):
-                type = CST_CRICKET_6;
-                break;
-            case (CST_CRICKET_6):
-                type = CST_CRICKET_7;
-                break;
-            case (CST_CRICKET_7):
-                type = CST_CRICKET_1;
-                animate=false;    /* disable anim */
-                break;
+            type = 0;
+            animate = false;
         }
     }
     /* That's all. Cover is done by different functions every 3 months or so. */
@@ -107,7 +87,7 @@ void Cricket::report()
     const char* p;
 
     mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, "busy", (float) busy);
+    mps_store_sfp(i++, "busy", busy);
     i++;
     list_commodities(&i);
     p = active?"Yes":"No";

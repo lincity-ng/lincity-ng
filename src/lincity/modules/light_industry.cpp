@@ -7,7 +7,6 @@
 
 #include "modules.h"
 #include "light_industry.h"
-//#include "../transport.h"
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(
@@ -31,7 +30,7 @@ IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLight
 IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
 
 Construction *IndustryLightConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new IndustryLight(x, y, type, this);
+    return new IndustryLight(x, y, 0, this);
 }
 
 void IndustryLight::update()
@@ -104,121 +103,22 @@ void IndustryLight::update()
         goods_this_month = 0;
         //Choose an animation set depending on output_level
         if (output_level > 80)
-        {
-            constructionGroup = &industryLight_H_ConstructionGroup;
-            switch (type)
-            {
-                case (CST_INDUSTRY_L_H1):
-                case (CST_INDUSTRY_L_H2):
-                case (CST_INDUSTRY_L_H3):
-                case (CST_INDUSTRY_L_H4):
-                    break;
-                default:
-                    type = CST_INDUSTRY_L_H1;
-            }
-        }
+        {   constructionGroup = &industryLight_H_ConstructionGroup;}
         else if (output_level > 55)
-        {
-            constructionGroup = &industryLight_M_ConstructionGroup;
-            switch (type)
-            {
-                case (CST_INDUSTRY_L_M1):
-                case (CST_INDUSTRY_L_M2):
-                case (CST_INDUSTRY_L_M3):
-                case (CST_INDUSTRY_L_M4):
-                    break;
-                default:
-                    type = CST_INDUSTRY_L_M1;
-            }
-        }
+        {   constructionGroup = &industryLight_M_ConstructionGroup;}
         else if (output_level > 25)
-        {
-            constructionGroup = &industryLight_L_ConstructionGroup;
-            switch (type)
-            {
-                case (CST_INDUSTRY_L_L1):
-                case (CST_INDUSTRY_L_L2):
-                case (CST_INDUSTRY_L_L3):
-                case (CST_INDUSTRY_L_L4):
-                    break;
-                default:
-                    type = CST_INDUSTRY_L_L1;
-            }
-        }
+        {   constructionGroup = &industryLight_L_ConstructionGroup;}
         else if (output_level > 0)
-        {
-            constructionGroup = &industryLight_Q_ConstructionGroup;
-            switch (type)
-            {
-                case (CST_INDUSTRY_L_Q1):
-                case (CST_INDUSTRY_L_Q2):
-                case (CST_INDUSTRY_L_Q3):
-                case (CST_INDUSTRY_L_Q4):
-                    break;
-                default:
-                    type = CST_INDUSTRY_L_Q1;
-            }
-        }
+        {   constructionGroup = &industryLight_Q_ConstructionGroup;}
         else
-        {
-            type = CST_INDUSTRY_L_C;
-            constructionGroup = &industryLightConstructionGroup;
-        }
+        {   constructionGroup = &industryLightConstructionGroup;}
+        type = 0;
     }// end monthly update
     if ((real_time >= anim) && goods_today)
     {
         anim = real_time + INDUSTRY_L_ANIM_SPEED;
-        switch (type)
-        {
-            case (CST_INDUSTRY_L_Q1):
-                type = CST_INDUSTRY_L_Q2;
-                break;
-            case (CST_INDUSTRY_L_Q2):
-                type = CST_INDUSTRY_L_Q3;
-                break;
-            case (CST_INDUSTRY_L_Q3):
-                type = CST_INDUSTRY_L_Q4;
-                break;
-            case (CST_INDUSTRY_L_Q4):
-                type = CST_INDUSTRY_L_Q1;
-                break;
-            case (CST_INDUSTRY_L_L1):
-                type = CST_INDUSTRY_L_L2;
-                break;
-            case (CST_INDUSTRY_L_L2):
-                type = CST_INDUSTRY_L_L3;
-                break;
-            case (CST_INDUSTRY_L_L3):
-                type = CST_INDUSTRY_L_L4;
-                break;
-            case (CST_INDUSTRY_L_L4):
-                type = CST_INDUSTRY_L_L1;
-                break;
-            case (CST_INDUSTRY_L_M1):
-                type = CST_INDUSTRY_L_M2;
-                break;
-            case (CST_INDUSTRY_L_M2):
-                type = CST_INDUSTRY_L_M3;
-                break;
-            case (CST_INDUSTRY_L_M3):
-                type = CST_INDUSTRY_L_M4;
-                break;
-            case (CST_INDUSTRY_L_M4):
-                type = CST_INDUSTRY_L_M1;
-                break;
-            case (CST_INDUSTRY_L_H1):
-                type = CST_INDUSTRY_L_H2;
-                break;
-            case (CST_INDUSTRY_L_H2):
-                type = CST_INDUSTRY_L_H3;
-                break;
-            case (CST_INDUSTRY_L_H3):
-                type = CST_INDUSTRY_L_H4;
-                break;
-            case (CST_INDUSTRY_L_H4):
-                type = CST_INDUSTRY_L_H1;
-                break;
-        }// end switch
+        if(++type > constructionGroup->graphicsInfoVector.size())
+        {   type = 0;}
     }// end animate
 }
 

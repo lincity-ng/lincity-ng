@@ -54,6 +54,7 @@ public:
     FireStation(int x, int y, unsigned short type, ConstructionGroup *cstgrp) : RegisteredConstruction<FireStation>(x ,y ,type)
     {
         constructionGroup = cstgrp;
+        type = 0;
         this->anim = 0;
         this->animate = false;
         this->active = false;

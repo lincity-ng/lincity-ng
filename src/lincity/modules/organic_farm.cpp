@@ -99,62 +99,10 @@ void Organic_farm::update()
             {
                 month_stagger = rand() % 100;
             }
-            switch (i)
-            {
-                case (0):
-                    type = CST_FARM_O3;
-                    break;
-                case (1):
-                    type = CST_FARM_O3;
-                    break;
-                case (2):
-                    type = CST_FARM_O3;
-                    break;
-                case (3):
-                    type = CST_FARM_O3;
-                    break;
-                case (4):
-                    type = CST_FARM_O7;
-                    break;
-                case (5):
-                    type = CST_FARM_O7;
-                    break;
-                case (6):
-                    type = CST_FARM_O7;
-                    break;
-                case (7):
-                    type = CST_FARM_O7;
-                    break;
-                case (8):
-                    type = CST_FARM_O11;
-                    break;
-                case (9):
-                    type = CST_FARM_O11;
-                    break;
-                case (10):
-                   type = CST_FARM_O11;
-                    break;
-                case (11):
-                    type = CST_FARM_O11;
-                    break;
-                case (12):
-                    type = CST_FARM_O15;
-                    break;
-                case (13):
-                    type = CST_FARM_O15;
-                    break;
-                case (14):
-                    type = CST_FARM_O15;
-                    break;
-                case (15):
-                    type = CST_FARM_O15;
-                    break;
-            }
+            type = 1+i/4;
         }
         else
-        {
-            type = CST_FARM_O0;
-        }
+        {   type = 0;}
     }
 }
 

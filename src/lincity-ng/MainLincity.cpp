@@ -141,13 +141,13 @@ bool loadCityNG( std::string filename ){
 void initLincity()
 {
     /* I18n */
-    lincity_set_locale ();
+    lincity_set_locale();
 
     /* Set up the paths to certain files and directories */
-    init_path_strings ();
+    init_path_strings();
 
     /* Make sure the save directory exists */
-    check_savedir ();
+    check_savedir();
 
     /*initialize Desktop Componenet Factories*/
     //initFactories();
@@ -155,10 +155,8 @@ void initLincity()
     /* Initialize random number generator */
     srand (time (0));
 
-    initialize_monthgraph ();
+    initialize_monthgraph();
     mps_init();
-    //world.len(WORLD_SIDE_LEN);
-    //World is now already resized upon loading config
 
     // initialize constructions
     //TODO associate graphics with modules directly

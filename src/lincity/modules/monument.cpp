@@ -66,7 +66,7 @@ void Monument::update()
         if(!completed)
         {
             completed = true;
-            type = CST_MONUMENT_5;
+            type = 0;
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
             constructionGroup = &monumentFinishedConstructionGroup;
             if (mps_x == x && mps_y == y)
@@ -88,15 +88,15 @@ void Monument::update()
         }
     }
     else if (completion >= 80)
-    {   type = CST_MONUMENT_4;}
+    {   type = 4;}
     else if (completion >= 60)
-    {   type = CST_MONUMENT_3;}
+    {   type = 3;}
     else if (completion >= 40)
-    {   type = CST_MONUMENT_2;}
+    {   type = 2;}
     else if (completion >= 20)
-    {   type = CST_MONUMENT_1;}
+    {   type = 1;}
     else
-    {   type = CST_MONUMENT_0;}
+    {   type = 0;}
 }
 
 void Monument::report()
@@ -119,16 +119,7 @@ void Monument::report()
         mps_store_sfp(i++, "Completion", completion);
     }
 }
-/*
-void Monument::playSound()
-{
-    //There are three sounds for constructionsite and monument, each
-    if (completion >= 100)
-    {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
-    else
-    {   getSound()->playASound(constructionGroup->chunks[3+rand()%3]);}
-}
-*/
+
 
 /** @file lincity/modules/monument.cpp */
 

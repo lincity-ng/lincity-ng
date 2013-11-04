@@ -38,7 +38,7 @@ ParklandConstructionGroup parkpondConstructionGroup(
 );
 
 Construction *ParklandConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Parkland(x, y, type, this);
+    return new Parkland(x, y, 0, this);
 }
 
 void Parkland::update()
@@ -54,17 +54,7 @@ void Parkland::report()
     mps_store_sd(i++,constructionGroup->name,ID);
     i++;
     mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
-    //list_commodities(&i);
 }
-/*
-void Parkland::playSound()
-{
-    //There are three sounds for constructionsite and monument, each
-    if (type == CST_PARKLAND_LAKE)
-    {   getSound()->playASound(constructionGroup->chunks[rand()%2]);}
-    else //type == CST_PARKLAND_PLANE
-    {   getSound()->playASound(constructionGroup->chunks[2+rand()%3]);}
-}
-*/
+
 /** @file lincity/modules/parkland.cpp */
 

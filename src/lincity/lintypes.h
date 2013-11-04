@@ -274,12 +274,11 @@ class GraphicsInfo
         x = 0;
         y = 0;
     }
-    ~GraphicsInfo(void){
-        if(texture)
-        {   delete texture;}
-        SDL_FreeSurface(image);
-    }
-
+    /*
+     *dont handle destruction here
+     *since temporary objects are created
+     *upon push_pack when parsing images.xml
+    */
     Texture* texture;
     SDL_Surface* image;
     int x, y;
@@ -307,6 +306,18 @@ public:
         this->tech = tech;
         this->range = range;
     }
+    ~ConstructionGroup()
+    {
+        std::vector<GraphicsInfo>::iterator it;
+        for(it = graphicsInfoVector.begin(); it != graphicsInfoVector.end(); ++it)
+        {
+            if(it->texture)
+            {   delete it->texture;}
+            SDL_FreeSurface(it->image);
+        }
+
+    }
+
 
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
     std::vector<Mix_Chunk *> chunks;
@@ -319,7 +330,8 @@ public:
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction(int x, int y, unsigned short type) = 0;
 
-    const char *name;           /* name of group */
+    std::string resourceID;           /* name for matching resources from XML*/
+    const char *name;           /* inGame name of group */
     bool no_credit;   /* TRUE if need credit to build */
     unsigned short group;       /* This is redundant: it must match
                                    the index into the table */
@@ -334,8 +346,28 @@ public:
 
     static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {
-        // enter construction group in the global map
-        groupMap[constructionGroup->group] = constructionGroup;
+        if ( groupMap.count(constructionGroup->group) )
+        {
+            std::cout << "rejecting " << constructionGroup->name << " as "
+            << constructionGroup->group << " from ConstructionGroup::groupMap"
+            << std::endl;
+        }
+        else
+        {   groupMap[constructionGroup->group] = constructionGroup;}
+
+    }
+
+    static void addResourceID(std::string resID, ConstructionGroup *constructionGroup)
+    {
+        constructionGroup->resourceID = resID;
+        if ( resourceMap.count(constructionGroup->resourceID))
+        {
+            std::cout << "rejecting " << constructionGroup->name << " as "
+            << constructionGroup->resourceID << " from ConstructionGroup::resouceMap"
+            << std::endl;
+            }
+        else
+        {   resourceMap[constructionGroup->resourceID] = constructionGroup;}
     }
 
     static void clearGroupMap()
@@ -343,6 +375,13 @@ public:
         // removes all entries from groupMap
         groupMap.clear();
     }
+
+    static void clearResourcepMap()
+    {
+        // removes all entries from resourceMap
+        resourceMap.clear();
+    }
+
 
     static ConstructionGroup *getConstructionGroup(unsigned short group)
     {
@@ -358,11 +397,12 @@ public:
         return groupMap.count(group);
     }
 
+    static std::map<std::string, ConstructionGroup*> resourceMap;
 protected:
     // Map associating group ids with the respective construction group objects
-    static std::map<unsigned short, ConstructionGroup *> groupMap;
-};
+    static std::map<unsigned short, ConstructionGroup*> groupMap;
 
+};
 
 struct GROUP {
     const char *name;           /* name of group */

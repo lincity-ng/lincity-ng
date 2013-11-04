@@ -80,7 +80,7 @@ void MapTile::setTerrain(unsigned short new_type)
         break;
     }
 
-    this->type = new_type;
+    this->type = 0;
     this->group = new_group;
     if(new_group == GROUP_WATER)
     {   flags |= FLAG_HAS_UNDERGROUND_WATER;}
@@ -1205,7 +1205,7 @@ int ConstructionGroup::getCosts() {
 
 int ConstructionGroup::placeItem(int x, int y, unsigned short type)
 {
-    Construction *tmpConstr = createConstruction(x, y, type);
+    Construction *tmpConstr = createConstruction(x, y, 0); //type
 
     if (tmpConstr == NULL)
     {
@@ -1402,6 +1402,7 @@ void ConstructionGroup::printGroups()
 }
 
 std::map<unsigned short, ConstructionGroup *> ConstructionGroup::groupMap;
+std::map<std::string, ConstructionGroup *> ConstructionGroup::resourceMap;
 
 //Legacy Stuff
 

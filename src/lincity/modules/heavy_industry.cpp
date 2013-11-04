@@ -106,149 +106,24 @@ void IndustryHeavy::update()
     {
         output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;
         steel_this_month = 0;
+        type = 0;
         //choose graphics depending on output level
         if (output_level > 80)
-        {
-            constructionGroup = &industryHeavy_H_ConstructionGroup;
-            switch (type)
-            {
-                case (CST_INDUSTRY_H_H1):
-                case (CST_INDUSTRY_H_H2):
-                case (CST_INDUSTRY_H_H3):
-                case (CST_INDUSTRY_H_H4):
-                case (CST_INDUSTRY_H_H5):
-                case (CST_INDUSTRY_H_H6):
-                case (CST_INDUSTRY_H_H7):
-                case (CST_INDUSTRY_H_H8):
-                    break;
-                default:
-                    type = CST_INDUSTRY_H_H1;
-            }
-        }
+        {   constructionGroup = &industryHeavy_H_ConstructionGroup;}
         else if (output_level > 30)
-        {
-            constructionGroup = &industryHeavy_M_ConstructionGroup;
-            switch (type)
-            {
-                case (CST_INDUSTRY_H_M1):
-                case (CST_INDUSTRY_H_M2):
-                case (CST_INDUSTRY_H_M3):
-                case (CST_INDUSTRY_H_M4):
-                case (CST_INDUSTRY_H_M5):
-                case (CST_INDUSTRY_H_M6):
-                case (CST_INDUSTRY_H_M7):
-                case (CST_INDUSTRY_H_M8):
-                    break;
-                default:
-                    type = CST_INDUSTRY_H_M1;
-            }
-        }
+        {   constructionGroup = &industryHeavy_M_ConstructionGroup;}
         else if (output_level > 0)
-        {
-            constructionGroup = &industryHeavy_L_ConstructionGroup;
-            switch (type)
-            {
-                case (CST_INDUSTRY_H_L1):
-                case (CST_INDUSTRY_H_L2):
-                case (CST_INDUSTRY_H_L3):
-                case (CST_INDUSTRY_H_L4):
-                case (CST_INDUSTRY_H_L5):
-                case (CST_INDUSTRY_H_L6):
-                case (CST_INDUSTRY_H_L7):
-                case (CST_INDUSTRY_H_L8):
-                    break;
-                default:
-                    type = CST_INDUSTRY_H_L1;
-            }
-        }
+        {   constructionGroup = &industryHeavy_L_ConstructionGroup;}
         else
-        {
-            type = CST_INDUSTRY_H_C;
-            constructionGroup = &industryHeavyConstructionGroup;
-        }
+        {   constructionGroup = &industryHeavyConstructionGroup;}
     }//end monthly update
     //animation
     if (real_time >= anim)
     {
         anim = real_time + INDUSTRY_H_ANIM_SPEED;
-        switch (type)
-        {
-            case (CST_INDUSTRY_H_L1):
-                type = CST_INDUSTRY_H_L2;
-                break;
-            case (CST_INDUSTRY_H_L2):
-                type = CST_INDUSTRY_H_L3;
-                break;
-            case (CST_INDUSTRY_H_L3):
-                type = CST_INDUSTRY_H_L4;
-                break;
-            case (CST_INDUSTRY_H_L4):
-                type = CST_INDUSTRY_H_L5;
-                break;
-            case (CST_INDUSTRY_H_L5):
-                type = CST_INDUSTRY_H_L6;
-                break;
-            case (CST_INDUSTRY_H_L6):
-                type = CST_INDUSTRY_H_L7;
-                break;
-            case (CST_INDUSTRY_H_L7):
-                type = CST_INDUSTRY_H_L8;
-                break;
-            case (CST_INDUSTRY_H_L8):
-                type = CST_INDUSTRY_H_L1;
-                break;
-
-            case (CST_INDUSTRY_H_M1):
-                type = CST_INDUSTRY_H_M2;
-                break;
-            case (CST_INDUSTRY_H_M2):
-                type = CST_INDUSTRY_H_M3;
-                break;
-            case (CST_INDUSTRY_H_M3):
-                type = CST_INDUSTRY_H_M4;
-                break;
-            case (CST_INDUSTRY_H_M4):
-                type = CST_INDUSTRY_H_M5;
-                break;
-            case (CST_INDUSTRY_H_M5):
-                type = CST_INDUSTRY_H_M6;
-                break;
-            case (CST_INDUSTRY_H_M6):
-                type = CST_INDUSTRY_H_M7;
-                break;
-            case (CST_INDUSTRY_H_M7):
-                type = CST_INDUSTRY_H_M8;
-                break;
-            case (CST_INDUSTRY_H_M8):
-                type = CST_INDUSTRY_H_M1;
-                break;
-
-            case (CST_INDUSTRY_H_H1):
-                type = CST_INDUSTRY_H_H2;
-                break;
-            case (CST_INDUSTRY_H_H2):
-                type = CST_INDUSTRY_H_H3;
-                break;
-            case (CST_INDUSTRY_H_H3):
-                type = CST_INDUSTRY_H_H4;
-                break;
-            case (CST_INDUSTRY_H_H4):
-                type = CST_INDUSTRY_H_H5;
-                break;
-            case (CST_INDUSTRY_H_H5):
-                type = CST_INDUSTRY_H_H6;
-                break;
-            case (CST_INDUSTRY_H_H6):
-                type = CST_INDUSTRY_H_H7;
-                break;
-            case (CST_INDUSTRY_H_H7):
-                type = CST_INDUSTRY_H_H8;
-                break;
-            case (CST_INDUSTRY_H_H8):
-                type = CST_INDUSTRY_H_H1;
-                break;
-        } //end switch
-    }// endif animate
+        if(++type > constructionGroup->graphicsInfoVector.size())
+        {   type = 1;}
+    }
 }
 
 void IndustryHeavy::report()

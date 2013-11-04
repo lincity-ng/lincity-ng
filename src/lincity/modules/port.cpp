@@ -54,7 +54,7 @@ int Port::sell_stuff(Commodities stuff)
 
 void Port::trade_connection()
 {
-        //Checks all flags and issues buy_stuff sell_stuff accordingly
+    //Checks all flags and issues buy_stuff sell_stuff accordingly
     std::map<Commodities, CommodityRule>::iterator stuff_it;
     for(stuff_it = commodityRuleCount.begin() ; stuff_it != commodityRuleCount.end() ; stuff_it++ )
     {
@@ -88,9 +88,7 @@ void Port::update()
             tech_level++;
             working_days++;
             if (daily_ic && daily_et)
-            {
-                tech_level++;
-            }
+            {   tech_level++;}
         }
     }
     monthly_ic += daily_ic;

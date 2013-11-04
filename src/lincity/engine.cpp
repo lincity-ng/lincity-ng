@@ -445,7 +445,7 @@ void desert_frontier(int originx, int originy, int w, int h)
     /* copied from connect_transport */
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
     int mask;
-
+/*
     static const short desert_table[16] = {
         CST_DESERT_0, CST_DESERT_1D, CST_DESERT_1R, CST_DESERT_2RD,
         CST_DESERT_1L, CST_DESERT_2LD, CST_DESERT_2LR, CST_DESERT_3LRD,
@@ -457,7 +457,7 @@ void desert_frontier(int originx, int originy, int w, int h)
 #error  desert_frontier(): you loose
 #error  the algorithm depends on proper flag settings -- (ThMO)
 #endif
-
+*/
     /* Adjust originx,originy,w,h to proper range */
     if (originx <= 0)
     {
@@ -495,7 +495,7 @@ void desert_frontier(int originx, int originy, int w, int h)
                 if ((check_group(x, y + 1) == GROUP_DESERT)
                  /*|| (check_group(x, y + 1) == GROUP_FIRE)*/)
                 {   ++mask;}
-                world(x, y)->type = desert_table[mask];
+                world(x, y)->type = mask;
             }
         }
     }
