@@ -78,12 +78,12 @@ GameView::GameView()
     assert(gameViewPtr == 0);
     gameViewPtr = this;
     mTextures = SDL_CreateMutex();
-    mThreadRunning = SDL_CreateMutex();
+    //mThreadRunning = SDL_CreateMutex();
     loaderThread = 0;
     keyScrollState = 0;
     mouseScrollState = 0;
     blankTexture = 0;
-    blankImage = readImage( "blank.png" );
+    blankImage = 0;
     blankX = 0;
     blankY = 0;
 }
@@ -91,11 +91,11 @@ GameView::GameView()
 GameView::~GameView()
 {
     stopThread = true;
-    SDL_mutexP( mThreadRunning );
+    //SDL_mutexP( mThreadRunning );
     //SDL_KillThread( loaderThread );
-    SDL_WaitThread( loaderThread, NULL );
+    //SDL_WaitThread( loaderThread, NULL );
 
-    SDL_DestroyMutex( mThreadRunning );
+    //SDL_DestroyMutex( mThreadRunning );
     SDL_DestroyMutex( mTextures );
 /*
     for(size_t i = 0; i < cityTextures.size(); ++i)
@@ -137,6 +137,7 @@ void GameView::parse(XmlReader& reader)
         }
     }
     // no more elements to parse
+    blankImage = readImage( "blank.png" );
     //SDL_mutexP( mTextures );
     //blankTexture = readTexture( "blank.png" );
     //SDL_mutexV( mTextures );
@@ -145,9 +146,9 @@ void GameView::parse(XmlReader& reader)
     //cityTextureX.assign(NUM_OF_TYPES, '\0');
     //cityTextureY.assign(NUM_OF_TYPES, '\0');
     stopThread = false;
-    SDL_mutexP( mThreadRunning );
-    loaderThread = SDL_CreateThread( gameViewThread, this );
-    SDL_mutexV( mThreadRunning );
+    //SDL_mutexP( mThreadRunning );
+    //loaderThread = SDL_CreateThread( gameViewThread, this );
+    //SDL_mutexV( mThreadRunning );
 
     //GameView is resizable
     setFlags(FLAG_RESIZABLE);
@@ -447,6 +448,7 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 
 void GameView::preReadImages(void)
 {
+
     std::string dirsep = PHYSFS_getDirSeparator();
     std::string xmlfile = std::string("images") + dirsep
     + std::string("tiles") + dirsep + std::string("images.xml");
@@ -530,10 +532,10 @@ void GameView::preReadImages(void)
                     //key << " x= " << xmlX << " y= " << xmlY << std::endl;
 
                     constructionGroup->graphicsInfoVector.push_back(GraphicsInfo());
-                    SDL_mutexP( mTextures );
+                    //SDL_mutexP( mTextures );
                     GraphicsInfo *graphicsInfo = &(constructionGroup->graphicsInfoVector.back());
                     graphicsInfo->image = readImage( key );
-                    SDL_mutexV( mTextures );
+                    //SDL_mutexV( mTextures );
                     if(xmlX == -1)
                     {   xmlX = int(graphicsInfo->image->w/2);}
                     if(xmlY == -1)

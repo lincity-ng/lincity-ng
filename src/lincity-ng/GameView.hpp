@@ -79,6 +79,8 @@ public:
     bool inCity( MapPoint tile );
 
     int gameAreaMax();
+    static SDL_Surface* readImage(const std::string& filename);
+    static void preReadImages(void);
 private:
     void connectButtons();
     void buttonClicked( Button* button );
@@ -94,10 +96,10 @@ private:
 
     void setZoom(float newzoom);
     //Texture* readTexture(const std::string& filename);
-    SDL_Surface* readImage(const std::string& filename);
+
     //void preReadCityTexture(int textureType, const std::string& filename);
     //void loadGraphicsInfo(ConstructionGroup *constructionGroup, const std::string& filename);
-    void preReadImages(void);
+
 
     float tileWidth, tileHeight, zoom;
     //a virtual screen containing the whole city
