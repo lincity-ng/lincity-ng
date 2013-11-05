@@ -29,8 +29,8 @@ IndustryHeavyConstructionGroup industryHeavy_L_ConstructionGroup = industryHeavy
 IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
 IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
 
-Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new IndustryHeavy(x, y, type, this);
+Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new IndustryHeavy(x, y, 0, this);
 }
 
 void IndustryHeavy::update()

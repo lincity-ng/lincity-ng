@@ -27,9 +27,9 @@ OremineConstructionGroup oremineConstructionGroup(
      GROUP_OREMINE_RANGE
 );
 
-Construction *OremineConstructionGroup::createConstruction(int x, int y, unsigned short type)
+Construction *OremineConstructionGroup::createConstruction(int x, int y, unsigned short )
 {
-    return new Oremine(x, y, type, this);
+    return new Oremine(x, y, 0, this);
 }
 
 void Oremine::update()

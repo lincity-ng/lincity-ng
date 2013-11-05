@@ -6,7 +6,6 @@
  * ---------------------------------------------------------------------- */
 
 #include "coal_power.h"
-#include "lincity-ng/Sound.hpp"
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
     "Coal Power Station",
@@ -27,8 +26,8 @@ Coal_powerConstructionGroup coal_power_low_ConstructionGroup  = coal_powerConstr
 Coal_powerConstructionGroup coal_power_med_ConstructionGroup  = coal_powerConstructionGroup;
 Coal_powerConstructionGroup coal_power_full_ConstructionGroup = coal_powerConstructionGroup;
 
-Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Coal_power(x, y, type, this);
+Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Coal_power(x, y, 0, this);
 }
 
 void Coal_power::update()
@@ -54,25 +53,13 @@ void Coal_power::update()
     }
     /* choose a graphic */
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
-    {
-        type = CST_POWERS_COAL_FULL;
-        constructionGroup = &coal_power_full_ConstructionGroup;
-    }
+    {   constructionGroup = &coal_power_full_ConstructionGroup;}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
-    {
-        type = CST_POWERS_COAL_MED;
-        constructionGroup = &coal_power_med_ConstructionGroup;
-    }
+    {   constructionGroup = &coal_power_med_ConstructionGroup;}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 10))
-    {
-        type = CST_POWERS_COAL_LOW;
-        constructionGroup = &coal_power_low_ConstructionGroup;
-    }
+    {   constructionGroup = &coal_power_low_ConstructionGroup;}
     else
-    {
-        type = CST_POWERS_COAL_EMPTY;
-        constructionGroup = &coal_powerConstructionGroup;
-    }
+    {   constructionGroup = &coal_powerConstructionGroup;}
 }
 
 void Coal_power::report()
@@ -85,26 +72,7 @@ void Coal_power::report()
     i++;
     list_commodities(&i);
 }
-/*
-void Coal_power::playSound()
-{
-    switch(type)
-    {
-        case CST_POWERS_COAL_EMPTY:
-            getSound()->playASound(constructionGroup->chunks[0]);
-        break;
-        case CST_POWERS_COAL_FULL:
-            getSound()->playASound(constructionGroup->chunks[1]);
-        break;
-        case CST_POWERS_COAL_LOW:
-            getSound()->playASound(constructionGroup->chunks[2]);
-        break;
-        case CST_POWERS_COAL_MED:
-            getSound()->playASound(constructionGroup->chunks[3]);
-        break;
-    }
-}
-*/
+
 
 /** @file lincity/modules/coal_power.cpp */
 

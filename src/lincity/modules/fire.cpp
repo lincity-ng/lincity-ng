@@ -26,8 +26,8 @@ FireConstructionGroup fireConstructionGroup(
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
 FireConstructionGroup fireWasteLandConstructionGroup = fireConstructionGroup;
 
-Construction *FireConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Fire(x, y, type, this);
+Construction *FireConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Fire(x, y, 0, this);
 }
 
 void Fire::update()

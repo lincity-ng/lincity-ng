@@ -28,8 +28,8 @@ MarketConstructionGroup market_med_ConstructionGroup  = marketConstructionGroup;
 MarketConstructionGroup market_full_ConstructionGroup = marketConstructionGroup;
 
 
-Construction *MarketConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Market(x, y, type, this);
+Construction *MarketConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Market(x, y, 0, this);
 }
 
 
@@ -120,25 +120,21 @@ void Market::update()
 
         if (market_ratio < 10)
         {
-            type = CST_MARKET_EMPTY;
             jobs = JOBS_MARKET_EMPTY;
             constructionGroup = &marketConstructionGroup;
         }
         else if (market_ratio < 20)
         {
-            type = CST_MARKET_LOW;
             jobs = JOBS_MARKET_LOW;
             constructionGroup = &market_low_ConstructionGroup;
         }
         else if (market_ratio < 50)
         {
-            type = CST_MARKET_MED;
             jobs = JOBS_MARKET_MED;
             constructionGroup = &market_med_ConstructionGroup;
         }
         else
         {
-            type = CST_MARKET_FULL;
             jobs = JOBS_MARKET_FULL;
              constructionGroup = &market_full_ConstructionGroup;
         }
@@ -239,19 +235,7 @@ void Market::toggleEvacuation()
     if(!evacuate)
     {   flags |= FLAG_EVACUATE;}
 }
-/*
-void Market::playSound()
-{
-    if (type == CST_MARKET_EMPTY)
-    {   getSound()->playASound(constructionGroup->chunks[0]);}
-    else if (type == CST_MARKET_FULL)
-    {   getSound()->playASound(constructionGroup->chunks[1]);}
-    else if (type == CST_MARKET_LOW)
-    {   getSound()->playASound(constructionGroup->chunks[2]);}
-    else if (type == CST_MARKET_MED)
-    {   getSound()->playASound(constructionGroup->chunks[2]);}
-}
-*/
+
 /** @file lincity/modules/market.cpp */
 
 

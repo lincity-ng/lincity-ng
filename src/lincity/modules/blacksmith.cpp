@@ -21,8 +21,8 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
     GROUP_BLACKSMITH_RANGE
 );
 
-Construction *BlacksmithConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Blacksmith(x, y, type, this);
+Construction *BlacksmithConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Blacksmith(x, y, 0, this);
 }
 
 void Blacksmith::update()
@@ -63,7 +63,7 @@ void Blacksmith::update()
     if (animate && real_time > anim)
     {
         anim = real_time + BLACKSMITH_ANIM_SPEED;
-        if(++type > constructionGroup->graphicsInfoVector.size())
+        if(++type >= constructionGroup->graphicsInfoVector.size())
         {
             type = 1;
             animate = false;

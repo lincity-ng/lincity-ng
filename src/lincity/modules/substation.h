@@ -57,7 +57,6 @@ public:
     virtual ~Substation() { }
     virtual void update();
     virtual void report();
-    //virtual void playSound(); //override random default
 
     int  working_days, busy;
 };

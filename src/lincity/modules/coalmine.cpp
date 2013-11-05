@@ -23,9 +23,14 @@ CoalmineConstructionGroup coalmineConstructionGroup(
      GROUP_COALMINE_RANGE
 );
 
-Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsigned short type)
+CoalmineConstructionGroup coalmine_L_ConstructionGroup = coalmineConstructionGroup;
+CoalmineConstructionGroup coalmine_M_ConstructionGroup = coalmineConstructionGroup;
+CoalmineConstructionGroup coalmine_H_ConstructionGroup = coalmineConstructionGroup;
+
+
+Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsigned short )
 {
-    return new Coalmine(x, y, type, this);
+    return new Coalmine(x, y, 0, this);
 }
 
 void Coalmine::update()
@@ -89,13 +94,13 @@ void Coalmine::update()
     }
     //choose type depending on availabe coal
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 4)))//75%
-        type = CST_COALMINE_FULL;
+    {   constructionGroup = &coalmine_H_ConstructionGroup;}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE / 2))//50%
-        type = CST_COALMINE_MED;
+    {   constructionGroup = &coalmine_M_ConstructionGroup;}
     else if (commodityCount[STUFF_COAL] > 0)//something
-        type = CST_COALMINE_LOW;
+    {   constructionGroup = &coalmine_L_ConstructionGroup;}
     else//nothing
-        type = CST_COALMINE_EMPTY;
+    {   constructionGroup = &coalmineConstructionGroup;}
 
     //Evacuate Mine if no more deposits
     if (current_coal_reserve == 0 )

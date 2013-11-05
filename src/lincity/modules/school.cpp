@@ -23,8 +23,8 @@ SchoolConstructionGroup schoolConstructionGroup(
      GROUP_SCHOOL_RANGE
 );
 
-Construction *SchoolConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new School(x, y, type, this);
+Construction *SchoolConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new School(x, y, 0, this);
 }
 
 void School::update()

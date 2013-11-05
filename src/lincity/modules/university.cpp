@@ -22,8 +22,8 @@ UniversityConstructionGroup universityConstructionGroup(
      GROUP_UNIVERSITY_RANGE
 );
 
-Construction *UniversityConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new University(x, y, type, this);
+Construction *UniversityConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new University(x, y, 0, this);
 }
 
 void University::update()

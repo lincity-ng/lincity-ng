@@ -22,9 +22,9 @@ PowerlineConstructionGroup powerlineConstructionGroup(
     GROUP_POWER_LINE_RANGE
 );
 
-Construction *PowerlineConstructionGroup::createConstruction(int x, int y, unsigned short type)
+Construction *PowerlineConstructionGroup::createConstruction(int x, int y, unsigned short )
 {
-    return new Powerline(x, y, type, this);
+    return new Powerline(x, y, 0, this);
 }
 
 void Powerline::update()
@@ -37,16 +37,16 @@ void Powerline::update()
             switch (anim_counter)
             {
                 case POWER_MODULUS - 2:
-                    if (!(type <= 11 && type >= 1))
+                    if ( !(type >= 11) )
                         break;
                     flashing = false;
-                    type += 11;
+                    type -= 11;
                     break;
                 case POWER_MODULUS:
-                    if (!(type >= 11 && type <= 22))
+                    if ( !(type <= 10) )
                         break;
                     flashing = true;
-                    type -= 11;
+                    type += 11;
                     break;
             } //end switch anim_counter
             --anim_counter;
@@ -62,8 +62,6 @@ void Powerline::report()
     mps_store_sfp(i++, "usage", trafficCount[STUFF_MWH] * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);
     i++;
     list_commodities(&i);
-    //i++;
-    //list_connections(&i);
 }
 
 

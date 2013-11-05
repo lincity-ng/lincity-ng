@@ -21,8 +21,8 @@ PotteryConstructionGroup potteryConstructionGroup(
     GROUP_POTTERY_RANGE
 );
 
-Construction *PotteryConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Pottery(x, y, type, this);
+Construction *PotteryConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Pottery(x, y, 0, this);
 }
 
 void Pottery::update()

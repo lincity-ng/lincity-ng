@@ -24,8 +24,8 @@ PortConstructionGroup portConstructionGroup(
      GROUP_PORT_RANGE
 );
 
-Construction *PortConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Port(x, y, type, this);
+Construction *PortConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Port(x, y, 0, this);
 }
 
 int Port::buy_stuff(Commodities stuff)

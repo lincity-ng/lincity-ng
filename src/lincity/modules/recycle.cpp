@@ -22,8 +22,8 @@ RecycleConstructionGroup recycleConstructionGroup(
     GROUP_RECYCLE_RANGE
 );
 
-Construction *RecycleConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Recycle(x, y, type, this);
+Construction *RecycleConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Recycle(x, y, 0, this);
 }
 
 void Recycle::update()

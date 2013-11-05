@@ -24,8 +24,8 @@ WindpowerConstructionGroup windpowerConstructionGroup(
 WindpowerConstructionGroup windpower_RG_ConstructionGroup = windpowerConstructionGroup;
 WindpowerConstructionGroup windpower_G_ConstructionGroup = windpowerConstructionGroup;
 
-Construction *WindpowerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Windpower(x, y, type, this);
+Construction *WindpowerConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Windpower(x, y, 0, this);
 }
 
 void Windpower::update()

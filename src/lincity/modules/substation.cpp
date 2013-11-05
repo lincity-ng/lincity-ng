@@ -27,8 +27,8 @@ SubstationConstructionGroup substation_RG_ConstructionGroup = substationConstruc
 SubstationConstructionGroup substation_G_ConstructionGroup  = substationConstructionGroup;
 
 
-Construction *SubstationConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Substation(x, y, type, this);
+Construction *SubstationConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Substation(x, y, 0, this);
 }
 
 void Substation::update()
@@ -48,20 +48,11 @@ void Substation::update()
     }
     /* choose a graphic */
     if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 2))
-    {
-        type = CST_SUBSTATION_G;
-        constructionGroup = &substation_G_ConstructionGroup;
-    }
+    {   constructionGroup = &substation_G_ConstructionGroup;}
     else if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 10))
-    {
-        type = CST_SUBSTATION_RG;
-        constructionGroup = &substation_RG_ConstructionGroup;
-    }
+    {   constructionGroup = &substation_RG_ConstructionGroup;}
     else
-    {
-        type = CST_SUBSTATION_R;
-        constructionGroup = &substationConstructionGroup;
-    }
+    {   constructionGroup = &substationConstructionGroup;}
 }
 
 void Substation::report()
@@ -73,17 +64,6 @@ void Substation::report()
     i++;
     list_commodities(&i);
 }
-/*
-void Substation::playSound()
-{
-    if (type == CST_SUBSTATION_RG)
-    {   getSound()->playASound(constructionGroup->chunks[rand()%2]);}
-    else if (type == CST_SUBSTATION_R)
-    {   getSound()->playASound(constructionGroup->chunks[2]);}
-    else if (type == CST_SUBSTATION_G)
-    {   getSound()->playASound(constructionGroup->chunks[3]);}
-}
-*/
 
 /** @file lincity/modules/substation.cpp */
 

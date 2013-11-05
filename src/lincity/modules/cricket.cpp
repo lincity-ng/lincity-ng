@@ -23,8 +23,8 @@ CricketConstructionGroup cricketConstructionGroup(
      GROUP_CRICKET_RANGE
 );
 
-Construction *CricketConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Cricket(x, y, type, this);
+Construction *CricketConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Cricket(x, y, 0, this);
 }
 
 void Cricket::update()
@@ -50,7 +50,7 @@ void Cricket::update()
     if (animate && real_time > anim)
     {
         anim = real_time + CRICKET_ANIMATION_SPEED;
-        if(++type > constructionGroup->graphicsInfoVector.size())
+        if(++type >= constructionGroup->graphicsInfoVector.size())
         {
             type = 0;
             animate = false;

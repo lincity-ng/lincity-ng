@@ -98,6 +98,9 @@ void initializeModules() {
     ConstructionGroup::addResourceID("ParklandLake", &parkpondConstructionGroup);
     ConstructionGroup::addResourceID("OreMine", &oremineConstructionGroup);
     ConstructionGroup::addResourceID("CoalMine", &coalmineConstructionGroup);
+    ConstructionGroup::addResourceID("CoalMineLow", &coalmine_L_ConstructionGroup);
+    ConstructionGroup::addResourceID("CoalMineMed", &coalmine_M_ConstructionGroup);
+    ConstructionGroup::addResourceID("CoalMineFull", &coalmine_H_ConstructionGroup);
     ConstructionGroup::addResourceID("Tip", &tipConstructionGroup);
     ConstructionGroup::addResourceID("Recycle", &recycleConstructionGroup);
     ConstructionGroup::addResourceID("Harbor", &portConstructionGroup);

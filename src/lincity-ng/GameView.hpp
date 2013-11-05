@@ -89,15 +89,15 @@ private:
     void drawOverlay(Painter& painter, MapPoint point);
     void fillDiamond( Painter& painter, const Rect2D& rect );
     void drawDiamond( Painter& painter, const Rect2D& rect );
-    void loadTextures();
+    //void loadTextures();
     static int gameViewThread(void* data);
 
     void setZoom(float newzoom);
-    Texture* readTexture(const std::string& filename);
+    //Texture* readTexture(const std::string& filename);
     SDL_Surface* readImage(const std::string& filename);
-    void preReadCityTexture(int textureType, const std::string& filename);
-    void loadGraphicsInfo(ConstructionGroup *constructionGroup, const std::string& filename);
-    void preReadCityXY(void);
+    //void preReadCityTexture(int textureType, const std::string& filename);
+    //void loadGraphicsInfo(ConstructionGroup *constructionGroup, const std::string& filename);
+    void preReadImages(void);
 
     float tileWidth, tileHeight, zoom;
     //a virtual screen containing the whole city
@@ -125,13 +125,15 @@ private:
     int buildCost( MapPoint tile );
 
 
-    std::vector<Texture*> cityTextures;
-    std::vector<SDL_Surface*>  cityImages;
+    //std::vector<Texture*> cityTextures;
+    //std::vector<SDL_Surface*>  cityImages;
     Texture* blankTexture;
-    std::vector<int> cityTextureX;
-    std::vector<int> cityTextureY;
-    std::map<std::string, int> cityXmap;
-    std::map<std::string, int> cityYmap;
+    SDL_Surface* blankImage;
+    int blankX, blankY;
+    //std::vector<int> cityTextureX;
+    //std::vector<int> cityTextureY;
+    //std::map<std::string, int> cityXmap;
+    //std::map<std::string, int> cityYmap;
     SDL_mutex* mTextures;
     SDL_mutex* mThreadRunning;
     SDL_Thread* loaderThread;

@@ -22,8 +22,8 @@ MillConstructionGroup millConstructionGroup(
     GROUP_MILL_RANGE
 );
 
-Construction *MillConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Mill(x, y, type, this);
+Construction *MillConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Mill(x, y, 0, this);
 }
 
 void Mill::update()

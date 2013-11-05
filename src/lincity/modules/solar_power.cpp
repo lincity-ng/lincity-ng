@@ -24,8 +24,8 @@ SolarPowerConstructionGroup solarPowerConstructionGroup(
      GROUP_SOLAR_POWER_RANGE
 );
 
-Construction *SolarPowerConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new SolarPower(x, y, type, this);
+Construction *SolarPowerConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new SolarPower(x, y, 0, this);
 }
 
 void SolarPower::update()

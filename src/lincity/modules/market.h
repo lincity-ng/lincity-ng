@@ -97,7 +97,6 @@ public:
     }
     virtual void update();
     virtual void report();
-    //virtual void playSound(); //override random sound
     void cover();
     void toggleEvacuation();
 

@@ -22,8 +22,8 @@ Organic_farmConstructionGroup organic_farmConstructionGroup(
     GROUP_ORGANIC_FARM_RANGE
 );
 
-Construction *Organic_farmConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Organic_farm(x, y, type, this);
+Construction *Organic_farmConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Organic_farm(x, y, 0, this);
 }
 
 

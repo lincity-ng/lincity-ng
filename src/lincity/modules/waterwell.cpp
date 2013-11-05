@@ -33,8 +33,8 @@ WaterwellConstructionGroup waterwellConstructionGroup(
      GROUP_WATERWELL_RANGE
 );
 
-Construction *WaterwellConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Waterwell(x, y, type, this);
+Construction *WaterwellConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Waterwell(x, y, 0, this);
 }
 
 void Waterwell::update()

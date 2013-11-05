@@ -32,6 +32,143 @@
     <image file="desert.png" />
     </group>
 
+    <group>
+    <resourceID name="Water" />
+    <image file="water.png" />
+    <image file="waterd.png" />
+    <image file="waterr.png" />
+    <image file="waterrd.png" />
+    <image file="waterl.png" />
+    <image file="waterld.png" />
+    <image file="waterlr.png" />
+    <image file="waterlrd.png" />
+    <image file="wateru.png" />
+    <image file="waterud.png" />
+    <image file="waterur.png" />
+    <image file="waterurd.png" />
+    <image file="waterlu.png" />
+    <image file="waterlud.png" />
+    <image file="waterlur.png" />
+    <image file="waterlurd.png" />
+    </group>
+
+    <group>
+    <resourceID name="PowerLine" />
+    <image file="powerlhd.png" x="64" />
+    <image file="powerlvd.png" x="64" />
+    <image file="powerlrdd.png" x="64" />
+    <image file="powerlldd.png" x="64" />
+    <image file="powerlldrd.png" x="64" />
+    <image file="powerlrud.png" x="64" />
+    <image file="powerludrd.png" x="64" />
+    <image file="powerllud.png" x="64" />
+    <image file="powerlldud.png" x="64" />
+    <image file="powerllurd.png" x="64" />
+    <image file="powerlludrd.png" x="64" />
+
+    <image file="powerlhl.png" x="64" />
+    <image file="powerlvl.png" x="64" />
+    <image file="powerlrdl.png" x="64" />
+    <image file="powerlldl.png" x="64" />
+    <image file="powerlldrl.png" x="64" />
+    <image file="powerlrul.png" x="64" />
+    <image file="powerludrl.png" x="64" />
+    <image file="powerllul.png" x="64" />
+    <image file="powerlldul.png" x="64" />
+    <image file="powerllurl.png" x="64" />
+    <image file="powerlludrl.png" x="64" />
+    </group>
+
+    <group>
+    <resourceID name="Track" />
+    <image file="tracklr.png" />
+    <image file="trackud.png" />
+    <image file="tracklu.png" />
+    <image file="trackur.png" />
+    <image file="tracklur.png" />
+    <image file="trackld.png" />
+    <image file="tracklud.png" />
+    <image file="trackdr.png" />
+    <image file="trackldr.png" />
+    <image file="trackudr.png" />
+    <image file="trackludr.png" />
+    <image file="Trackbridge_pg2.png" />
+    <image file="Trackbridge_pg1.png" />
+    <image file="Trackbridge_entrance_180.png" />
+    <image file="Trackbridge_entrance_90.png" />
+    <image file="Trackbridge_entrance_00.png" />
+    <image file="Trackbridge_entrance_270.png" />
+    </group>
+
+    <group>
+    <resourceID name="TrackBridge" />
+    <image file="Trackbridge1.png" />
+    <image file="Trackbridge2.png" />
+    </group>
+
+    <group>
+    <resourceID name="Road" />
+    <image file="roadlr.png" />
+    <image file="roadud.png" />
+    <image file="roadlu.png" />
+    <image file="roadur.png" />
+    <image file="roadlur.png" />
+    <image file="roadld.png" />
+    <image file="roadlud.png" />
+    <image file="roaddr.png" />
+    <image file="roadldr.png" />
+    <image file="roadudr.png" />
+    <image file="roadludr.png" />
+    <image file="Roadbridge_pg2.png" />
+    <image file="Roadbridge_pg1.png" />
+    <image file="Roadbridge_entrance2_180.png" />
+    <image file="Roadbridge_entrance2_90.png" />
+    <image file="Roadbridge_entrance2_00.png" />
+    <image file="Roadbridge_entrance2_270.png" />
+    <image file="Roadbridge_entrance1_180.png" />
+    <image file="Roadbridge_entrance1_90.png" />
+    <image file="Roadbridge_entrance1_00.png" />
+    <image file="Roadbridge_entrance1_270.png" />
+    </group>
+
+    <group>
+    <resourceID name="RoadBridge" />
+    <image file="Roadbridge2s.png" />
+    <image file="Roadbridge1s.png" />
+    <image file="Roadbridge2.png" />
+    <image file="Roadbridge1.png" />
+    </group>
+
+    <group>
+    <resourceID name="Rail" />
+    <image file="raillr.png" x="66" />
+    <image file="railud.png" x="66" />
+    <image file="raillu.png" x="66" />
+    <image file="railur.png" x="66" />
+    <image file="raillur.png" x="66" />
+    <image file="railld.png" x="66" />
+    <image file="raillud.png" x="66" />
+    <image file="raildr.png" x="66" />
+    <image file="railldr.png" x="66" />
+    <image file="railudr.png" x="66" />
+    <image file="railludr.png" x="66" />
+    <image file="Railbridge_pg2.png" />
+    <image file="Railbridge_pg1.png" />
+    <image file="Railbridge_entrance2_180.png" />
+    <image file="Railbridge_entrance2_90.png" />
+    <image file="Railbridge_entrance2_00.png" />
+    <image file="Railbridge_entrance2_270.png" />
+    <image file="Railbridge_entrance1_180.png" />
+    <image file="Railbridge_entrance1_90.png" />
+    <image file="Railbridge_entrance1_00.png" />
+    <image file="Railbridge_entrance1_270.png" />
+    </group>
+
+    <group>
+    <resourceID name="RailBridge" />
+    <image file="Railbridge2.png" />
+    <image file="Railbridge1.png" />
+    </group>
 
 
     <group>
@@ -81,6 +218,44 @@
     <image file="blacksmith4.png" x="132" />
     <image file="blacksmith5.png" x="132" />
     <image file="blacksmith6.png" x="132" />
+    </group>
+
+    <group>
+    <resourceID name="Commune" />
+    <image file="commune1.png" />
+    <image file="commune2.png" />
+    <image file="commune3.png" />
+    <image file="commune4.png" />
+    <image file="commune5.png" />
+    <image file="commune6.png" />
+    <image file="commune7.png" />
+    <image file="commune8.png" />
+    <image file="commune9.png" />
+    <image file="commune10.png" />
+    <image file="commune11.png" />
+    </group>
+
+    <group>
+    <resourceID name="CoalMine" />
+    <image file="coalmine-empty.png" />
+    <resourceID name="CoalMineLow" />
+    <image file="coalmine-low.png" />
+    <resourceID name="CoalMineMed" />
+    <image file="coalmine-med.png" />
+    <resourceID name="CoalMineFull" />
+    <image file="coalmine-full.png" />
+    </group>
+
+
+    <group>
+    <resourceID name="MarketEmpty" />
+    <image file="market-empty.png" />
+    <resourceID name="MarketLow" />
+    <image file="market-low.png" />
+    <resourceID name="MarketMed" />
+    <image file="market-med.png" />
+    <resourceID name="MarketFull" />
+    <image file="market-full.png" />
     </group>
 
     <group>
@@ -153,6 +328,18 @@
     </group>
 
     <group>
+    <resourceID name="PowerCoalEmpty" />
+    <image file="powerscoal-empty.png" />
+    <resourceID name="PowerCoalLow" />
+    <image file="powerscoal-low.png" />
+    <resourceID name="PowerCoalMed" />
+    <image file="powerscoal-med.png" />
+    <resourceID name="PowerCoalFull" />
+    <image file="powerscoal-full.png" />
+    </group>
+
+
+    <group>
     <resourceID name="WindMill" />
     <image file="windmill1w.png" />
     <image file="windmill2w.png" />
@@ -219,6 +406,18 @@
     </group>
 
     <group>
+    <resourceID name="Rocket" />
+    <image file="rocket1.png" />
+    <image file="rocket2.png" />
+    <image file="rocket3.png" />
+    <image file="rocket4.png" />
+    <image file="rocket5.png" />
+    <image file="rocket6.png" />
+    <image file="rocket7.png" />
+    <image file="rocketflown.png" />
+    </group>
+
+    <group>
     <resourceID name="University" />
     <image file="university.png" />
     </group>
@@ -231,6 +430,15 @@
     <group>
     <resourceID name="Shanty" />
     <image file="shanty.png" />
+    </group>
+
+    <group>
+    <resourceID name="SubstationOff" />
+    <image file="substation-R.png" />
+    <resourceID name="Substation" />
+    <image file="substation-RG.png" />
+    <resourceID name="SubstationOn" />
+    <image file="substation-G.png" />
     </group>
 
     <group>
@@ -285,33 +493,6 @@
     <image file="reshihi.png" />
     </group>
 
-
-
-
-
-<image file="powerlhd.png" x="64" />
-<image file="powerlhl.png" x="64" />
-<image file="powerlldd.png" x="64" />
-<image file="powerlldl.png" x="64" />
-<image file="powerlldrd.png" x="64" />
-<image file="powerlldrl.png" x="64" />
-<image file="powerlldud.png" x="64" />
-<image file="powerlldul.png" x="64" />
-<image file="powerllud.png" x="64" />
-<image file="powerlludrd.png" x="64" />
-<image file="powerlludrl.png" x="64" />
-<image file="powerllul.png" x="64" />
-<image file="powerllurd.png" x="64" />
-<image file="powerllurl.png" x="64" />
-<image file="powerlrdd.png" x="64" />
-<image file="powerlrdl.png" x="64" />
-<image file="powerlrud.png" x="64" />
-<image file="powerlrul.png" x="64" />
-<image file="powerludrd.png" x="64" />
-<image file="powerludrl.png" x="64" />
-<image file="powerlvd.png" x="64" />
-<image file="powerlvl.png" x="64" />
-
     <group>
     <resourceID name="SportsCroud" />
     <image file="cricket1.png" x="130" />
@@ -323,15 +504,4 @@
     <image file="cricket7.png" x="130" />
     </group>
 
-  <image file="raillr.png" x="66" />
-  <image file="raillu.png" x="66" />
-  <image file="railld.png" x="66" />
-  <image file="railud.png" x="66" />
-  <image file="railur.png" x="66" />
-  <image file="raildr.png" x="66" />
-  <image file="raillur.png" x="66" />
-  <image file="railldr.png" x="66" />
-  <image file="raillud.png" x="66" />
-  <image file="railudr.png" x="66" />
-  <image file="railludr.png" x="66" />
 </resources>

@@ -69,7 +69,6 @@ public:
     virtual ~Coal_power() {}
     virtual void update();
     virtual void report();
-    //virtual void playSound(); //override random default
 
     int  mwh_output;
     int  tech;

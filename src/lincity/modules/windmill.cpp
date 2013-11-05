@@ -22,8 +22,8 @@ WindmillConstructionGroup windmillConstructionGroup(
      GROUP_WINDMILL_RANGE
 );
 
-Construction *WindmillConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Windmill(x, y, type, this);
+Construction *WindmillConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Windmill(x, y, 0, this);
 }
 
 void Windmill::update()

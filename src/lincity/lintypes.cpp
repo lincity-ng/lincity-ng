@@ -617,7 +617,8 @@ void Construction::writeTemplate()
 
 void Construction::saveMembers(std::ostream *os)
 {
-
+    //make sure old types are actually valid
+    type = type % constructionGroup->graphicsInfoVector.size();
     std::string name;
     unsigned short head = constructionGroup->group;
     if (flags&FLAG_IS_TRANSPORT && !binary_mode)

@@ -29,7 +29,7 @@ IndustryLightConstructionGroup industryLight_L_ConstructionGroup = industryLight
 IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLightConstructionGroup;
 IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
 
-Construction *IndustryLightConstructionGroup::createConstruction(int x, int y, unsigned short type) {
+Construction *IndustryLightConstructionGroup::createConstruction(int x, int y, unsigned short ) {
     return new IndustryLight(x, y, 0, this);
 }
 

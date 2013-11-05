@@ -473,7 +473,7 @@ void XMLloadsave::loadConstructions()
         }
         if (inside_construction && line == "</Construction>")
         {
-            if( world.is_inside(x, y) && (type != NOT_SET) && (group != NOT_SET) && prescan)
+            if( world.is_inside(x, y) && (group != NOT_SET) && prescan) //&& (type != NOT_SET)
             {
                 if (ConstructionGroup::countConstructionGroup(group))
                 {
@@ -572,13 +572,12 @@ XMLloadsave::loadConstructionTemplates()
     gzread(gz_xml_file, (char *)&group, sizeof(group));
     gzread(gz_xml_file, (char *)&type, sizeof(type));
     gzread(gz_xml_file, (char *)&idx, sizeof(idx));
-    type = 0; //FIXME hack
     //std::cout << "binary construction header: " << group << " | " << type << " | " << idx << "...";
     //std::cout.flush();
     int x = idx % world.len();
     int y = idx / world.len();
     //std::cout << head << " aka " << group << " at " << x << ", " << y << std::endl;
-    ConstructionGroup::getConstructionGroup(head)->placeItem(x, y, type);
+    ConstructionGroup::getConstructionGroup(head)->placeItem(x, y, 0);
     if (!bin_template_libary.count(head))
     {
         world(x,y)->construction->writeTemplate();

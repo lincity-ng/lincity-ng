@@ -98,9 +98,9 @@ TransportConstructionGroup railbridgeConstructionGroup(
     GROUP_TRANSPORT_RANGE
 );
 
-Construction *TransportConstructionGroup::createConstruction(int x, int y, unsigned short type)
+Construction *TransportConstructionGroup::createConstruction(int x, int y, unsigned short )
 {
-    return new Transport(x, y, type, this);
+    return new Transport(x, y, 0, this);
 }
 
 void Transport::update()

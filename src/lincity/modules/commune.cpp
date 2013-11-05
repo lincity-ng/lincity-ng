@@ -21,8 +21,8 @@ CommuneConstructionGroup communeConstructionGroup(
     GROUP_COMMUNE_RANGE
 );
 
-Construction *CommuneConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new Commune(x, y, type, this);
+Construction *CommuneConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new Commune(x, y, 0, this);
 }
 
 void Commune::update()
@@ -83,10 +83,10 @@ void Commune::update()
     {//each month
         if (steel_made)
         {//producing steel
-            if (type < CST_COMMUNE_7)
+            if (type < 6)
             {   type += 5;}
         }
-        else if (type >= CST_COMMUNE_7) // not producing steel
+        else if (type >= 6) // not producing steel
         {   type -= 5;}
         last_month_output = monthly_stuff_made;
         monthly_stuff_made = 0;
@@ -98,7 +98,7 @@ void Commune::update()
         }
         else
         {//we are lazy
-            type = CST_COMMUNE_1;
+            type = 0;
             lazy_months++;
             /* Communes without production only last 10 years */
             if (lazy_months > 120)
@@ -109,47 +109,25 @@ void Commune::update()
     if (animate && real_time >= anim)
     {
         anim = real_time + COMMUNE_ANIM_SPEED - 25 + (rand() % 50);
-        switch (type)
+        if (type < 6) //not producing steel
         {
-            case (CST_COMMUNE_1):
-                type = CST_COMMUNE_2;
-                break;
-            case (CST_COMMUNE_2):
-                type = CST_COMMUNE_3;
-                break;
-            case (CST_COMMUNE_3):
-                type = CST_COMMUNE_4;
-                break;
-            case (CST_COMMUNE_4):
-                type = CST_COMMUNE_5;
-                break;
-            case (CST_COMMUNE_5):
-                type = CST_COMMUNE_6;
-                break;
-            case (CST_COMMUNE_6):
-                type = CST_COMMUNE_2;
+            if( ++type >= 6 )
+            {
                 animate = false;
-                break;
-            case (CST_COMMUNE_7):
-                type = CST_COMMUNE_8;
-                break;
-            case (CST_COMMUNE_8):
-                type = CST_COMMUNE_9;
-                break;
-            case (CST_COMMUNE_9):
-                type = CST_COMMUNE_10;
-                break;
-            case (CST_COMMUNE_10):
-                type = CST_COMMUNE_11;
-                break;
-            case (CST_COMMUNE_11):
-                type = CST_COMMUNE_7;
-                animate = false;
-                break;
-            default:
-                type = CST_COMMUNE_1;
-                break;
+                type = 1;
+            }
         }
+        else //producing steel
+        {
+            if( ++type >= 10 )
+            {
+                animate = false;
+                type = 6;
+            }
+
+        }
+        if (type >= constructionGroup->graphicsInfoVector.size())
+        {   type = 0;}
     }
 }
 

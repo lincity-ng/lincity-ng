@@ -139,6 +139,14 @@ Sound::loadWaves() {
                 industryLight_H_ConstructionGroup.chunks.push_back(chunk);
 
             }
+            else if (idName == "CoalMine") //different texture sets
+            {
+                //coalmineConstructionGroup.chunks.push_back(chunk);
+                coalmine_L_ConstructionGroup.chunks.push_back(chunk);
+                coalmine_M_ConstructionGroup.chunks.push_back(chunk);
+                coalmine_H_ConstructionGroup.chunks.push_back(chunk);
+
+            }
 /*
             else if (idName == "MarketEmpty")
             {   marketConstructionGroup.chunks.push_back(chunk);}

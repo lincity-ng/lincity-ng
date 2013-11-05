@@ -10,7 +10,6 @@
 #include "gui_interface/pbar_interface.h"
 #include "rocket_pad.h"
 #include "residence.h" //for removing people
-//#include <stdlib.h>
 #include "lincity-ng/Sound.hpp"
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
@@ -27,8 +26,8 @@ RocketPadConstructionGroup rocketPadConstructionGroup(
      GROUP_ROCKET_RANGE
 );
 
-Construction *RocketPadConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new RocketPad(x, y, type, this);
+Construction *RocketPadConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new RocketPad(x, y, 0, this);
 }
 
 extern void ok_dial_box(const char *, int, const char *);
@@ -36,12 +35,12 @@ extern void ok_dial_box(const char *, int, const char *);
 void RocketPad::update()
 {
     // ok the party is over
-    if (type == CST_ROCKET_FLOWN)
-        return;
+    if (type == 7)
+    {   return;}
     rocket_pad_cost += ROCKET_PAD_RUNNING_COST;
     // store as much as possible or needed
     while(
-               (type < CST_ROCKET_5)
+               (type < 4)
             && (commodityCount[STUFF_JOBS] >= ROCKET_PAD_JOBS)
             && (commodityCount[STUFF_GOODS] >= ROCKET_PAD_GOODS)
             && (commodityCount[STUFF_STEEL] >= ROCKET_PAD_STEEL)
@@ -88,35 +87,24 @@ void RocketPad::update()
         if (real_time >= anim)
         {
             anim = real_time + ROCKET_ANIMATION_SPEED;
-            switch (type)
-            {
-                case (CST_ROCKET_5):
-                    type = CST_ROCKET_6;
-                    break;
-                case (CST_ROCKET_6):
-                    type = CST_ROCKET_7;
-                    break;
-                case (CST_ROCKET_7):
-                    type = CST_ROCKET_5;
-                    break;
-            }
+            if(++type > 6)
+            {   type = 5;}
         }
         return;
     }
 
     //Choose a Graphic and invoke Lauch Dialogue depening on completion
     if (completion < (25 * ROCKET_PAD_LAUNCH) / 100)
-        type = CST_ROCKET_1;
+    {   type = 0;}
     else if (completion < (60 * ROCKET_PAD_LAUNCH) / 100)
-        type = CST_ROCKET_2;
+    {   type = 1;}
     else if (completion < (90 * ROCKET_PAD_LAUNCH) / 100)
-        type = CST_ROCKET_3;
+    {   type = 2;}
     else if (completion < (100 * ROCKET_PAD_LAUNCH) / 100)
-        type = CST_ROCKET_4;
+    {   type = 3;}
     else if (completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
     {
-        type = CST_ROCKET_5;
-
+        type = 4;
         if(!(flags & FLAG_ROCKET_READY))
         {    // The Dialog button will remotely launch the rocket
             ask_launch_rocket_now(x, y);
@@ -129,7 +117,7 @@ void RocketPad::launch_rocket()
 {
     int i, r, xx, yy, xxx, yyy;
     rockets_launched++;
-    type = CST_ROCKET_FLOWN;
+    type = 7;
     busy = 0;
     //update_main_screen(0);
     /* The first five failures gives 49.419 % chances of 5 success

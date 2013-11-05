@@ -24,8 +24,8 @@ FireStationConstructionGroup fireStationConstructionGroup(
     GROUP_FIRESTATION_RANGE
 );
 
-Construction *FireStationConstructionGroup::createConstruction(int x, int y, unsigned short type) {
-    return new FireStation(x, y, type, this);
+Construction *FireStationConstructionGroup::createConstruction(int x, int y, unsigned short ) {
+    return new FireStation(x, y, 0, this);
 }
 
 void FireStation::update()

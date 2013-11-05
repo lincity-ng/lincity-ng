@@ -25,9 +25,9 @@ ShantyConstructionGroup shantyConstructionGroup(
      GROUP_SHANTY_RANGE
 );
 
-Construction *ShantyConstructionGroup::createConstruction(int x, int y, unsigned short type)
+Construction *ShantyConstructionGroup::createConstruction(int x, int y, unsigned short )
 {
-    return new Shanty(x, y, type, this);
+    return new Shanty(x, y, 0, this);
 }
 
 //TODO remove_a_shanty() and update_shanty() should go to ConstructionRequest
