@@ -25,9 +25,9 @@ ShantyConstructionGroup shantyConstructionGroup(
      GROUP_SHANTY_RANGE
 );
 
-Construction *ShantyConstructionGroup::createConstruction(int x, int y, unsigned short )
+Construction *ShantyConstructionGroup::createConstruction(int x, int y)
 {
-    return new Shanty(x, y, 0, this);
+    return new Shanty(x, y, this);
 }
 
 //TODO remove_a_shanty() and update_shanty() should go to ConstructionRequest
@@ -75,7 +75,7 @@ void add_a_shanty(void)
         y = r / len;
         x = r % len;
     }
-    shantyConstructionGroup.placeItem( x, y, CST_SHANTY);
+    shantyConstructionGroup.placeItem( x, y);
 }
 
 void update_shanty(void)
@@ -154,7 +154,7 @@ void Shanty::update()
         commodityCount[STUFF_WASTE] = 0;
         if(!world(x+1,y+1)->construction)
         {
-            Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1, CST_FIRE_1);
+            Construction *fire = fireConstructionGroup.createConstruction(x+1, y+1);
             world(x+1,y+1)->construction = fire;
             world(x+1,y+1)->reportingConstruction = fire;
             dynamic_cast<Fire*>(fire)->flags |= FLAG_IS_GHOST;

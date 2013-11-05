@@ -38,7 +38,7 @@ public:
         commodityRuleCount[Construction::STUFF_KWH].give = true;
     }
     // overriding method that creates a Substation
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern SubstationConstructionGroup substationConstructionGroup;
@@ -47,9 +47,9 @@ extern SubstationConstructionGroup substation_G_ConstructionGroup;
 
 class Substation: public RegisteredConstruction<Substation> { // Substation inherits from Construction
 public:
-    Substation(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Substation>(x, y, type)
+    Substation(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Substation>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->working_days = 0;
         this->busy = 0;
         initialize_commodities();

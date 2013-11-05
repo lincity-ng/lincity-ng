@@ -22,8 +22,8 @@ TipConstructionGroup tipConstructionGroup(
      GROUP_TIP_RANGE
 );
 
-Construction *TipConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Tip(x, y, 0, this);
+Construction *TipConstructionGroup::createConstruction(int x, int y ) {
+    return new Tip(x, y, this);
 }
 
 

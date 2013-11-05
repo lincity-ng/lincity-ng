@@ -22,8 +22,8 @@ MillConstructionGroup millConstructionGroup(
     GROUP_MILL_RANGE
 );
 
-Construction *MillConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Mill(x, y, 0, this);
+Construction *MillConstructionGroup::createConstruction(int x, int y) {
+    return new Mill(x, y, this);
 }
 
 void Mill::update()
@@ -58,7 +58,7 @@ void Mill::update()
     if (real_time >= anim && animate)
     {
         anim = real_time + MILL_ANIM_SPEED;
-        if(++type > constructionGroup->graphicsInfoVector.size())
+        if(++type >= constructionGroup->graphicsInfoVector.size())
         {   type = 1;}
     }
 }

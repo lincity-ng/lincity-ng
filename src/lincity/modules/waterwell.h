@@ -29,17 +29,16 @@ public:
         commodityRuleCount[Construction::STUFF_WATER].take = false;
     }
     // overriding method that creates a waterwell
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern WaterwellConstructionGroup waterwellConstructionGroup;
 
 class Waterwell: public RegisteredConstruction<Waterwell> { // waterwell inherits from its own RegisteredConstruction
 public:
-    Waterwell(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Waterwell>(x, y, type)
+    Waterwell(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Waterwell>(x, y)
     {
-        constructionGroup = cstgrp;
-        type = 0;
+        this->constructionGroup = cstgrp;
         this->busy = 0;
         this->working_days = 0;
         initialize_commodities();

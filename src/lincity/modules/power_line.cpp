@@ -22,9 +22,9 @@ PowerlineConstructionGroup powerlineConstructionGroup(
     GROUP_POWER_LINE_RANGE
 );
 
-Construction *PowerlineConstructionGroup::createConstruction(int x, int y, unsigned short )
+Construction *PowerlineConstructionGroup::createConstruction(int x, int y)
 {
-    return new Powerline(x, y, 0, this);
+    return new Powerline(x, y, this);
 }
 
 void Powerline::update()

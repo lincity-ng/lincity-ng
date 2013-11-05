@@ -137,7 +137,7 @@ public:
 
     };
     // dont use that one tiles are no constructions
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern TileConstructionGroup waterConstructionGroup;

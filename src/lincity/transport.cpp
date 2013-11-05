@@ -169,10 +169,10 @@ void connect_transport(int originx, int originy, int w, int h)
             case GROUP_TRACK:
                 if (check_group(x, y - 1) == GROUP_TRACK
                 ||  check_group(x, y - 1) == GROUP_ROAD)
-                {   mask |= FLAG_UP;}
+                {   mask |= 2;}
                 if (check_group(x - 1, y) == GROUP_TRACK
                 ||  check_group(x - 1, y) == GROUP_ROAD)
-                {   mask |= FLAG_LEFT;}
+                {   mask |= 1;}
 
                 switch (check_topgroup(x + 1, y))
                 {
@@ -188,7 +188,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_TIP:
                     case GROUP_PORT:
                     case GROUP_COAL_POWER:
-                        mask |= FLAG_RIGHT;
+                        mask |= 4;
                         break;
                 }
 
@@ -206,7 +206,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_TIP:
                     case GROUP_PORT:
                     case GROUP_COAL_POWER:
-                        mask |= FLAG_DOWN;
+                        mask |= 8;
                         break;
                 }
                 // A track section between 2 bridge sections
@@ -239,13 +239,13 @@ void connect_transport(int originx, int originy, int w, int h)
                 if (check_group(x, y-1) == GROUP_TRACK_BRIDGE || check_group(x, y+1) == GROUP_TRACK_BRIDGE
                    || check_group(x, y-1) == GROUP_TRACK || check_group(x, y+1) == GROUP_TRACK)
                 {
-                    mask |= FLAG_UP;
+                    mask |= 2;
                     world(x, y)->construction->type = 0;
                 }
                 else if (check_group(x-1, y) == GROUP_TRACK_BRIDGE || check_group(x+1, y) == GROUP_TRACK_BRIDGE
                     || check_group(x-1, y) == GROUP_TRACK || check_group(x+1, y) == GROUP_TRACK)
                 {
-                    mask |= FLAG_LEFT;
+                    mask |= 1;
                     world(x, y)->construction->type = 1;
                 }
                 else //a lonely bridge tile
@@ -255,10 +255,10 @@ void connect_transport(int originx, int originy, int w, int h)
             case GROUP_ROAD:
                 if (check_group(x, y - 1) == GROUP_ROAD
                 ||  check_group(x, y - 1) == GROUP_TRACK)
-                {   mask |= FLAG_UP;}
+                {   mask |= 2;}
                 if (check_group(x - 1, y) == GROUP_ROAD
                 ||  check_group(x - 1, y) == GROUP_TRACK)
-                {   mask |= FLAG_LEFT;}
+                {   mask |= 1;}
 
                 switch (check_topgroup(x + 1, y))
                 {
@@ -273,7 +273,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_TIP:
                     case GROUP_PORT:
                     case GROUP_COAL_POWER:
-                        mask |= FLAG_RIGHT;
+                        mask |= 4;
                         break;
                 }
                 switch (check_topgroup(x, y + 1))
@@ -289,7 +289,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_TIP:
                     case GROUP_PORT:
                     case GROUP_COAL_POWER:
-                        mask |= FLAG_DOWN;
+                        mask |= 8;
                         break;
                 }
                 //world(x, y)->construction->flags &= mask0;
@@ -344,9 +344,9 @@ void connect_transport(int originx, int originy, int w, int h)
 
             case GROUP_RAIL:
                 if (check_group(x, y - 1) == GROUP_RAIL)
-                {   mask |= FLAG_UP;}
+                {   mask |= 2;}
                 if (check_group(x - 1, y) == GROUP_RAIL)
-                {   mask |= FLAG_LEFT;}
+                {   mask |= 1;}
 
                 switch (check_topgroup(x + 1, y)) {
                     case GROUP_RAIL:
@@ -359,7 +359,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_TIP:
                     case GROUP_PORT:
                     case GROUP_COAL_POWER:
-                        mask |= FLAG_RIGHT;
+                        mask |= 4;
                         break;
                 }
                 switch (check_topgroup(x, y + 1)) {
@@ -373,7 +373,7 @@ void connect_transport(int originx, int originy, int w, int h)
                     case GROUP_TIP:
                     case GROUP_PORT:
                     case GROUP_COAL_POWER:
-                        mask |= FLAG_DOWN;
+                        mask |= 8;
                         break;
                 }
                 //world(x, y)->construction->flags &= mask0;

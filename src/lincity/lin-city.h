@@ -54,10 +54,10 @@
 #endif
 */
 
-#define FLAG_LEFT               (1)             // Used for transports, power lines, rivers, and desert borders.
-#define FLAG_UP                 (2)             // Algorithm relies on the numerical values of
-#define FLAG_RIGHT              (4)             // the flags. (a check is done at compile time)
-#define FLAG_DOWN               (8)             //
+//#define FLAG_LEFT               (1)             // Used for transports, power lines, rivers, and desert borders.
+//#define FLAG_UP                 (2)             // Algorithm relies on the numerical values of
+//#define FLAG_RIGHT              (4)             // the flags. (a check is done at compile time)
+//#define FLAG_DOWN               (8)             //
 #define FLAG_POWERED            (0x10)
 #define FLAG_FED                (0x20)
 #define FLAG_EMPLOYED           (0x40)

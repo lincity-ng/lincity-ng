@@ -56,16 +56,16 @@ public:
         commodityRuleCount[Construction::STUFF_ORE].give = true;
     }
     // overriding method that creates a recyle
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern RecycleConstructionGroup recycleConstructionGroup;
 
-class Recycle: public RegisteredConstruction<Recycle> { // Recyle inherits from Construction
+class Recycle: public RegisteredConstruction<Recycle> { // Recycle inherits from Construction
 public:
-    Recycle(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Recycle>(x, y, type)
+    Recycle(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Recycle>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->busy = 0;
         this->working_days = 0;
         this->tech = tech_level;

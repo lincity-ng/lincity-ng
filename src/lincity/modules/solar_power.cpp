@@ -24,22 +24,25 @@ SolarPowerConstructionGroup solarPowerConstructionGroup(
      GROUP_SOLAR_POWER_RANGE
 );
 
-Construction *SolarPowerConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new SolarPower(x, y, 0, this);
+Construction *SolarPowerConstructionGroup::createConstruction(int x, int y) {
+    return new SolarPower(x, y, this);
 }
 
 void SolarPower::update()
 {
-    if ((commodityCount[STUFF_JOBS] >= SOLAR_POWER_JOBS)
-     && (commodityCount[STUFF_MWH] <= MAX_MWH_AT_SOLARPS-mwh_output))
+    int mwh_made = (commodityCount[STUFF_MWH] + mwh_output <= MAX_MWH_AT_SOLARPS)?mwh_output:MAX_MWH_AT_SOLARPS-commodityCount[STUFF_MWH];
+    int jobs_used = SOLAR_POWER_JOBS * mwh_made / mwh_output;
+
+    if ((commodityCount[STUFF_JOBS] >= jobs_used)
+     && (mwh_made >= POWERS_SOLAR_OUTPUT))
     {
-        commodityCount[STUFF_JOBS] -= SOLAR_POWER_JOBS;
-        commodityCount[STUFF_MWH] += mwh_output;
-        working_days++;
+        commodityCount[STUFF_JOBS] -= jobs_used;
+        commodityCount[STUFF_MWH] += mwh_made;
+        working_days += mwh_made;
     }
     if (total_time % 100 == 0) //monthly update
     {
-        busy = working_days;
+        busy = working_days / mwh_output;
         working_days = 0;
     }
 }

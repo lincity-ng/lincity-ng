@@ -61,7 +61,7 @@ public:
         commodityRuleCount[Construction::STUFF_WASTE].give = true;
     };
     // overriding method that creates a Market
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern MarketConstructionGroup marketConstructionGroup;
@@ -71,9 +71,9 @@ extern MarketConstructionGroup market_full_ConstructionGroup;
 
 class Market: public RegisteredConstruction<Market> { // Market inherits from Construction
 public:
-    Market(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Market>(x, y, type)
+    Market(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Market>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         //local copy of commodityRuCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
         setCommodityRulesSaved(&commodityRuleCount);

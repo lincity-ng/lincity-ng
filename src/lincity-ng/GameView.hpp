@@ -96,11 +96,9 @@ private:
     void setZoom(float newzoom);
     SDL_Surface* readImage(const std::string& filename);
     void preReadImages(void);
-    //Texture* readTexture(const std::string& filename);
+    Texture* readTexture(const std::string& filename);
     //void loadTextures();
     //void preReadCityTexture(int textureType, const std::string& filename);
-    //void loadGraphicsInfo(ConstructionGroup *constructionGroup, const std::string& filename);
-
 
     float tileWidth, tileHeight, zoom;
     //a virtual screen containing the whole city
@@ -127,20 +125,14 @@ private:
     int bulldozeCost( MapPoint tile );
     int buildCost( MapPoint tile );
 
-
-    //std::vector<Texture*> cityTextures;
-    //std::vector<SDL_Surface*>  cityImages;
     Texture* blankTexture;
     SDL_Surface* blankImage;
     int blankX, blankY;
-    //std::vector<int> cityTextureX;
-    //std::vector<int> cityTextureY;
-    //std::map<std::string, int> cityXmap;
-    //std::map<std::string, int> cityYmap;
+
     SDL_mutex* mTextures;
     SDL_mutex* mThreadRunning;
     SDL_Thread* loaderThread;
-    volatile bool stopThread;
+    bool stopThread;
 
     MapPoint tileUnderMouse;
     Vector2 dragStart;

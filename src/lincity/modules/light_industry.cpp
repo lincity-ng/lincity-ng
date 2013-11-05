@@ -29,8 +29,8 @@ IndustryLightConstructionGroup industryLight_L_ConstructionGroup = industryLight
 IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLightConstructionGroup;
 IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
 
-Construction *IndustryLightConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new IndustryLight(x, y, 0, this);
+Construction *IndustryLightConstructionGroup::createConstruction(int x, int y ) {
+    return new IndustryLight(x, y, this);
 }
 
 void IndustryLight::update()
@@ -117,7 +117,7 @@ void IndustryLight::update()
     if ((real_time >= anim) && goods_today)
     {
         anim = real_time + INDUSTRY_L_ANIM_SPEED;
-        if(++type > constructionGroup->graphicsInfoVector.size())
+        if(++type >= constructionGroup->graphicsInfoVector.size())
         {   type = 0;}
     }// end animate
 }

@@ -1381,43 +1381,43 @@ static void random_start(int *originx, int *originy)
             {
                 world(xx + 6 + i, yy + 5 + j)->flags |= FLAG_HAS_UNDERGROUND_WATER;
             }
-    organic_farmConstructionGroup.placeItem(xx + 6, yy + 5, CST_FARM_O0); //first Farm
+    organic_farmConstructionGroup.placeItem(xx + 6, yy + 5); //first Farm
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4 ; j++)
             if (rand() > RAND_MAX/2)
             {
                 world(xx + 17 + i, yy + 5 + j)->flags |= FLAG_HAS_UNDERGROUND_WATER;
             }
-    organic_farmConstructionGroup.placeItem(xx + 17, yy + 5, CST_FARM_O0); //second Farm
-    residenceMLConstructionGroup.placeItem(xx + 10, yy + 6, CST_RESIDENCE_ML);
+    organic_farmConstructionGroup.placeItem(xx + 17, yy + 5); //second Farm
+    residenceMLConstructionGroup.placeItem(xx + 10, yy + 6);
     dynamic_cast < Residence * > (world(xx + 10, yy + 6)->construction) ->local_population = 50;
-    potteryConstructionGroup.placeItem(xx + 9, yy + 9, CST_POTTERY_0);
+    potteryConstructionGroup.placeItem(xx + 9, yy + 9);
 
     world(xx + 16, yy + 9 )->flags |= FLAG_HAS_UNDERGROUND_WATER;
-    waterwellConstructionGroup.placeItem(xx + 16, yy + 9, CST_WATERWELL);
+    waterwellConstructionGroup.placeItem(xx + 16, yy + 9);
 
-    residenceMLConstructionGroup.placeItem(xx + 14, yy + 6, CST_RESIDENCE_ML);
+    residenceMLConstructionGroup.placeItem(xx + 14, yy + 6);
     dynamic_cast < Residence * > (world(xx + 14, yy + 6)->construction) ->local_population = 50;
 
-    marketConstructionGroup.placeItem(xx + 14, yy + 9, CST_MARKET_EMPTY);
+    marketConstructionGroup.placeItem(xx + 14, yy + 9);
     /* build tracks */
     for (x = 2; x < 23; x++) {
-        trackConstructionGroup.placeItem(xx + x, yy + 11, CST_TRACK_LR);
+        trackConstructionGroup.placeItem(xx + x, yy + 11);
     }
     for (y = 2; y < 11; y++) {
-        trackConstructionGroup.placeItem(xx + 13, yy + y, CST_TRACK_LR);
+        trackConstructionGroup.placeItem(xx + 13, yy + y);
     }
     for (y = 12; y < 23; y++) {
-        trackConstructionGroup.placeItem(xx + 15, yy + y, CST_TRACK_LR);
+        trackConstructionGroup.placeItem(xx + 15, yy + y);
     }
 
     /* build communes */
-    communeConstructionGroup.placeItem(xx + 6, yy + 12, CST_COMMUNE_1);
-    communeConstructionGroup.placeItem(xx + 6, yy + 17, CST_COMMUNE_1);
-    communeConstructionGroup.placeItem(xx + 11, yy + 12, CST_COMMUNE_1);
-    communeConstructionGroup.placeItem(xx + 11, yy + 17, CST_COMMUNE_1);
-    communeConstructionGroup.placeItem(xx + 16, yy + 12, CST_COMMUNE_1);
-    communeConstructionGroup.placeItem(xx + 16, yy + 17, CST_COMMUNE_1);
+    communeConstructionGroup.placeItem(xx + 6, yy + 12);
+    communeConstructionGroup.placeItem(xx + 6, yy + 17);
+    communeConstructionGroup.placeItem(xx + 11, yy + 12);
+    communeConstructionGroup.placeItem(xx + 11, yy + 17);
+    communeConstructionGroup.placeItem(xx + 16, yy + 12);
+    communeConstructionGroup.placeItem(xx + 16, yy + 17);
     //the village was a free gift
     //total_money = 0;
     sust_old_population = (housed_population + people_pool);

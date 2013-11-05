@@ -63,7 +63,7 @@ public:
         commodityRuleCount[Construction::STUFF_MWH].give = false;
     };
     // overriding method that creates a HeavyIndustry
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern IndustryHeavyConstructionGroup industryHeavyConstructionGroup;
@@ -73,7 +73,7 @@ extern IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup;
 
 class IndustryHeavy: public RegisteredConstruction<IndustryHeavy> { // IndustryHeavy inherits from its own RegisteredConstruction
 public:
-    IndustryHeavy(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryHeavy>(x, y, type)
+    IndustryHeavy(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryHeavy>(x, y)
     {
         constructionGroup = cstgrp;
         type = 0;

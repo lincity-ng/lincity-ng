@@ -21,8 +21,8 @@ CommuneConstructionGroup communeConstructionGroup(
     GROUP_COMMUNE_RANGE
 );
 
-Construction *CommuneConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Commune(x, y, 0, this);
+Construction *CommuneConstructionGroup::createConstruction(int x, int y) {
+    return new Commune(x, y, this);
 }
 
 void Commune::update()
@@ -124,7 +124,6 @@ void Commune::update()
                 animate = false;
                 type = 6;
             }
-
         }
         if (type >= constructionGroup->graphicsInfoVector.size())
         {   type = 0;}
@@ -135,7 +134,7 @@ void Commune::report()
 {
     int i = 0;
     mps_store_sd(i++, constructionGroup->name,ID);
-    mps_store_sddp(i++, "Fertility", ugwCount, 16);
+    mps_store_sddp(i++, "Fertility", ugwCount, constructionGroup->size * constructionGroup->size);
     mps_store_sfp(i++, "busy", (float)last_month_output / 3.05);
     mps_store_sd(i++, "Pollution", world(x,y)->pollution);
     if(lazy_months)

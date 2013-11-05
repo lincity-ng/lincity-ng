@@ -42,16 +42,16 @@ public:
         commodityRuleCount[Construction::STUFF_WASTE].give = true;
     }
     // overriding method that creates a HealthCentre
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern HealthCentreConstructionGroup healthCentreConstructionGroup;
 
 class HealthCentre: public RegisteredConstruction<HealthCentre> { // HealthCentre inherits from its own RegisteredConstruction
 public:
-    HealthCentre(int x, int y, unsigned short type,ConstructionGroup *cstgrp): RegisteredConstruction<HealthCentre>(x, y, type)
+    HealthCentre(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<HealthCentre>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->active = false;
         setMemberSaved(&(this->active),"active");
         this->busy = 0;

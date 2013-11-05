@@ -22,8 +22,8 @@ RecycleConstructionGroup recycleConstructionGroup(
     GROUP_RECYCLE_RANGE
 );
 
-Construction *RecycleConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Recycle(x, y, 0, this);
+Construction *RecycleConstructionGroup::createConstruction(int x, int y) {
+    return new Recycle(x, y, this);
 }
 
 void Recycle::update()
@@ -56,9 +56,7 @@ void Recycle::update()
     }
     // if we've still >90% waste in stock, burn some waste cleanly.
     if (commodityCount[STUFF_WASTE] > (MAX_WASTE_AT_RECYCLE * 9 / 10))
-    {
-        commodityCount[STUFF_WASTE] -= BURN_WASTE_AT_RECYCLE;
-    }
+    {   commodityCount[STUFF_WASTE] -= BURN_WASTE_AT_RECYCLE;}
 }
 
 void Recycle::report()

@@ -48,17 +48,16 @@ public:
         commodityRuleCount[Construction::STUFF_ORE].give = false;
     }
     // overriding method that creates a pottery
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern PotteryConstructionGroup potteryConstructionGroup;
 
 class Pottery: public RegisteredConstruction<Pottery> { // Pottery inherits from its own RegisteredConstruction
 public:
-    Pottery(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Pottery>(x, y, type)
+    Pottery(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Pottery>(x, y)
     {
-        constructionGroup = cstgrp;
-        type = 0;
+        this->constructionGroup = cstgrp;
         this->anim = 0; // or real_time?
         this->pauseCounter = 0;
         this->busy = 0;

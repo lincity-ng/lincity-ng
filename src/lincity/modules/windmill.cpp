@@ -22,8 +22,8 @@ WindmillConstructionGroup windmillConstructionGroup(
      GROUP_WINDMILL_RANGE
 );
 
-Construction *WindmillConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Windmill(x, y, 0, this);
+Construction *WindmillConstructionGroup::createConstruction(int x, int y) {
+    return new Windmill(x, y, this);
 }
 
 void Windmill::update()
@@ -34,7 +34,7 @@ void Windmill::update()
     int jobs_used = WINDMILL_JOBS * kwh_made / kwh_output;
 
     if ((commodityCount[STUFF_JOBS] >= jobs_used)
-     && (kwh_made > WINDMILL_KWH))
+     && (kwh_made >= WINDMILL_KWH))
     {
         commodityCount[STUFF_JOBS] -= jobs_used;
         commodityCount[STUFF_KWH] += kwh_made;
@@ -52,10 +52,9 @@ void Windmill::update()
     //Animation
     if (animate && (real_time > anim))
     {
-        ++sail_count;
+        ++type;
+        type %= 3;
         anim = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
-        sail_count %= 3;
-        type = sail_count;
     }
 }
 

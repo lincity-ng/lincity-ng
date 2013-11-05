@@ -24,8 +24,8 @@ FireStationConstructionGroup fireStationConstructionGroup(
     GROUP_FIRESTATION_RANGE
 );
 
-Construction *FireStationConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new FireStation(x, y, 0, this);
+Construction *FireStationConstructionGroup::createConstruction(int x, int y ) {
+    return new FireStation(x, y, this);
 }
 
 void FireStation::update()
@@ -54,7 +54,7 @@ void FireStation::update()
         ++type;
         if(type == 6)
         {   anim += 10*FIRESTATION_ANIMATION_SPEED;}
-        if(type > constructionGroup->graphicsInfoVector.size())
+        if(type >= constructionGroup->graphicsInfoVector.size())
         {
             type = 0;
             animate = false;

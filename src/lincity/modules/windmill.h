@@ -41,20 +41,18 @@ public:
         commodityRuleCount[Construction::STUFF_KWH].give = true;
     }
     // overriding method that creates a Windmill
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern WindmillConstructionGroup windmillConstructionGroup;
 
 class Windmill: public RegisteredConstruction<Windmill> { // Windmill inherits from its own RegisteredConstruction
 public:
-    Windmill(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Windmill>(x, y, type)
+    Windmill(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Windmill>(x, y)
     {
-        constructionGroup = cstgrp;
-        type = 0;
+        this->constructionGroup = cstgrp;
         this->anim = 0;
         this->animate = false;
-        this->sail_count = 0;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -71,7 +69,6 @@ public:
     int  kwh_output;
     int  tech;
     int  anim;
-    int  sail_count;
     int  working_days, busy;
     bool animate;
 };

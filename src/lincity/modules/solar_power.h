@@ -8,7 +8,7 @@
 #define GROUP_SOLAR_POWER_SIZE 4
 
 #define SOLAR_POWER_JOBS 50
-#define POWERS_SOLAR_OUTPUT 900//1800
+#define POWERS_SOLAR_OUTPUT 900 //1800
 #define MAX_JOBS_AT_SOLARPS (20 * SOLAR_POWER_JOBS)
 #define MAX_MWH_AT_SOLARPS (20 * POWERS_SOLAR_OUTPUT)
 
@@ -38,17 +38,16 @@ public:
         commodityRuleCount[Construction::STUFF_MWH].give = true;
     };
     // overriding method that creates a Solar Power Plant
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern SolarPowerConstructionGroup solarPowerConstructionGroup;
 
 class SolarPower: public RegisteredConstruction<SolarPower> { // park inherits from RegisteredConstruction
 public:
-    SolarPower(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<SolarPower>(x, y, type)
+    SolarPower(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<SolarPower>(x, y)
     {
-        constructionGroup = cstgrp;
-        this->type = 0;
+        this->constructionGroup = cstgrp;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;

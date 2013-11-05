@@ -27,7 +27,7 @@ public:
 
     };
     // overriding method that creates a Park
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern ParklandConstructionGroup parklandConstructionGroup;
@@ -35,9 +35,9 @@ extern ParklandConstructionGroup parkpondConstructionGroup;
 
 class Parkland: public RegisteredConstruction<Parkland> { // park inherits from RegisteredConstruction
 public:
-    Parkland(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Parkland>(x, y, type)
+    Parkland(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Parkland>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->flags |= FLAG_NEVER_EVACUATE;
     }
     virtual void update();

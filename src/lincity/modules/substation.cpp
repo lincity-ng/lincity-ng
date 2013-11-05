@@ -27,8 +27,8 @@ SubstationConstructionGroup substation_RG_ConstructionGroup = substationConstruc
 SubstationConstructionGroup substation_G_ConstructionGroup  = substationConstructionGroup;
 
 
-Construction *SubstationConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Substation(x, y, 0, this);
+Construction *SubstationConstructionGroup::createConstruction(int x, int y) {
+    return new Substation(x, y, this);
 }
 
 void Substation::update()

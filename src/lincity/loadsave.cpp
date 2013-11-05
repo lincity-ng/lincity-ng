@@ -481,7 +481,7 @@ void load_city_2(char *cname)
 
                 if (ConstructionGroup::countConstructionGroup(group))
                 {
-                    ConstructionGroup::getConstructionGroup(group)->placeItem(x, y, type);
+                    ConstructionGroup::getConstructionGroup(group)->placeItem(x, y);
                     if(world(x,y)->is_residence())
                     {
                         Residence *residence = dynamic_cast<Residence*>(world(x,y)->construction);

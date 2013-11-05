@@ -69,7 +69,6 @@ int place_item(int x, int y)
 {
     int group =  (userOperation->action == UserOperation::ACTION_BUILD)?userOperation->constructionGroup->group:-1;
     int size = 1;
-    //bool msg;
 
     if (group < 0) {
         ok_dial_box("warning.mes", BAD,
@@ -77,27 +76,14 @@ int place_item(int x, int y)
                 ("ERROR: group does not exist. This should not happen! Please consider filling a bug report to lincity-ng team, with the saved game and what you did :-) "));
         return -1000;
     }
-/*
-    if (last_warning_message_group != group)
-    {    msg = true;}
-    else
-    {    msg =false;}
-*/
+
     if(userOperation->action == UserOperation::ACTION_BUILD)
     {
-/*
-        if(! userOperation->constructionGroup->is_allowed_here(x, y, msg))
-        {
-            last_warning_message_group = group;
-            return -8;
-        }
-*/
-        userOperation->constructionGroup->placeItem(x, y, userOperation->type);
+
+        userOperation->constructionGroup->placeItem(x, y);
         size = userOperation->constructionGroup->size;
         adjust_money(-userOperation->constructionGroup->getCosts());
     }
-    //else
-    //{   last_warning_message_group = 0;}
 
     desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_rivers(x,y);

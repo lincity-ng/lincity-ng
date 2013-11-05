@@ -63,7 +63,7 @@ public:
         commodityRuleCount[Construction::STUFF_MWH].give = false;
     };
     // overriding method that creates a LightIndustry
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern IndustryLightConstructionGroup industryLightConstructionGroup;
@@ -75,9 +75,9 @@ extern IndustryLightConstructionGroup industryLight_H_ConstructionGroup;
 
 class IndustryLight: public RegisteredConstruction<IndustryLight> { // IndustryLight inherits from RegisteredConstruction
 public:
-    IndustryLight(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryLight>(x, y, type)
+    IndustryLight(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryLight>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;

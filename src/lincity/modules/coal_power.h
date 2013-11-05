@@ -44,7 +44,7 @@ public:
         commodityRuleCount[Construction::STUFF_MWH].give = true;
     }
     // overriding method that creates a Coal_power
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern Coal_powerConstructionGroup coal_powerConstructionGroup;
@@ -55,9 +55,9 @@ extern Coal_powerConstructionGroup coal_power_full_ConstructionGroup;
 
 class Coal_power: public RegisteredConstruction<Coal_power> { // Coal_power inherits from its own RegisteredConstruction
 public:
-    Coal_power(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Coal_power>(x, y, type)
+    Coal_power(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Coal_power>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;

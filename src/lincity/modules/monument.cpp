@@ -39,8 +39,8 @@ MonumentConstructionGroup monumentFinishedConstructionGroup(
 );
 
 
-Construction *MonumentConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Monument(x, y, 0, this);
+Construction *MonumentConstructionGroup::createConstruction(int x, int y) {
+    return new Monument(x, y, this);
 }
 
 void Monument::update()

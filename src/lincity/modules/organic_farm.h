@@ -65,14 +65,14 @@ public:
         commodityRuleCount[Construction::STUFF_WATER].take = true;
     }
     // overriding method that creates a organic_farm
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern Organic_farmConstructionGroup organic_farmConstructionGroup;
 
 class Organic_farm: public RegisteredConstruction<Organic_farm> { // Organic_farm inherits from its own RegisteredConstruction
 public:
-    Organic_farm(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Organic_farm>(x, y, type)
+    Organic_farm(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Organic_farm>(x, y)
     {
         this->constructionGroup = cstgrp;
         this->tech = tech_level;

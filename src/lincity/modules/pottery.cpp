@@ -21,8 +21,8 @@ PotteryConstructionGroup potteryConstructionGroup(
     GROUP_POTTERY_RANGE
 );
 
-Construction *PotteryConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Pottery(x, y, 0, this);
+Construction *PotteryConstructionGroup::createConstruction(int x, int y) {
+    return new Pottery(x, y, this);
 }
 
 void Pottery::update()
@@ -59,7 +59,7 @@ void Pottery::update()
     if (animate && real_time > anim)
     {
         anim = real_time + POTTERY_ANIM_SPEED;
-        if(++type > constructionGroup->graphicsInfoVector.size())
+        if(++type >= constructionGroup->graphicsInfoVector.size())
         {
             type = 1;
             animate = false;

@@ -22,8 +22,8 @@ HealthCentreConstructionGroup healthCentreConstructionGroup(
      GROUP_HEALTH_RANGE
 );
 
-Construction *HealthCentreConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new HealthCentre(x, y, 0, this);
+Construction *HealthCentreConstructionGroup::createConstruction(int x, int y ) {
+    return new HealthCentre(x, y, this);
 }
 
 void HealthCentre::update()

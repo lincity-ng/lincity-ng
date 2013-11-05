@@ -432,13 +432,12 @@ void XMLloadsave::loadConstructions()
     unsigned short const NOT_SET = 0xFFFF;
     int x, y, r;
     unsigned int value;
-    unsigned short type, group;
+    unsigned short group;
     bool inside_construction = false;
 
     prescan = true;
     x = NOT_SET;
     y = NOT_SET;
-    type = NOT_SET;
     group = NOT_SET;
 
     do
@@ -449,13 +448,11 @@ void XMLloadsave::loadConstructions()
         if (inside_construction && prescan)
         {
             if(sscanf(line.c_str(), "<map_x>%u</map_x>", &value))
-                x = value;
+            {   x = value;}
             else if(sscanf(line.c_str(), "<map_y>%u</map_y>", &value))
-                y = value;
-            else if(sscanf(line.c_str(), "<type>%u</type>", &value))
-                sscanf(line.c_str(), "<type>%hu</type>", &type);
+            {   y = value;}
             else if(sscanf(line.c_str(), "<Group>%u</Group>", &value))
-                sscanf(line.c_str(), "<Group>%hu</Group>", &group);
+            {   sscanf(line.c_str(), "<Group>%hu</Group>", &group);}
         }
 
         if (!inside_construction && line == "<Construction>")
@@ -467,20 +464,18 @@ void XMLloadsave::loadConstructions()
         if ( !prescan && inside_construction )
         {
             if (r == 2 && xml_val.length())
-            {
-                memberCount += world(x,y)->construction->loadMember(xml_tag, xml_val);
-            }
+            {   memberCount += world(x,y)->construction->loadMember(xml_tag, xml_val);}
         }
         if (inside_construction && line == "</Construction>")
         {
-            if( world.is_inside(x, y) && (group != NOT_SET) && prescan) //&& (type != NOT_SET)
+            if( world.is_inside(x, y) && (group != NOT_SET) && prescan)
             {
                 if (ConstructionGroup::countConstructionGroup(group))
                 {
                     constructionCount++;
                     //std::cout << "placing " << main_groups[group].name << " as " <<main_groups[get_group_of_type(type)].name << "...";
                     std::cout.flush();
-                    ConstructionGroup::getConstructionGroup(group)->placeItem(x, y, 0);//type
+                    ConstructionGroup::getConstructionGroup(group)->placeItem(x, y);
                     //std::cout << "ok" <<std::endl;
                     rewind();
                     prescan = false;
@@ -497,7 +492,6 @@ void XMLloadsave::loadConstructions()
             prescan = true;
             x = NOT_SET;
             y = NOT_SET;
-            type = NOT_SET;
             group = NOT_SET;
         }
     }
@@ -577,7 +571,7 @@ XMLloadsave::loadConstructionTemplates()
     int x = idx % world.len();
     int y = idx / world.len();
     //std::cout << head << " aka " << group << " at " << x << ", " << y << std::endl;
-    ConstructionGroup::getConstructionGroup(head)->placeItem(x, y, 0);
+    ConstructionGroup::getConstructionGroup(head)->placeItem(x, y);
     if (!bin_template_libary.count(head))
     {
         world(x,y)->construction->writeTemplate();

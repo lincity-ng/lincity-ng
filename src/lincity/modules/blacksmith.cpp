@@ -21,8 +21,8 @@ BlacksmithConstructionGroup blacksmithConstructionGroup(
     GROUP_BLACKSMITH_RANGE
 );
 
-Construction *BlacksmithConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Blacksmith(x, y, 0, this);
+Construction *BlacksmithConstructionGroup::createConstruction(int x, int y) {
+    return new Blacksmith(x, y, this);
 }
 
 void Blacksmith::update()

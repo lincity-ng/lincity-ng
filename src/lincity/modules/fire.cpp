@@ -26,8 +26,8 @@ FireConstructionGroup fireConstructionGroup(
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
 FireConstructionGroup fireWasteLandConstructionGroup = fireConstructionGroup;
 
-Construction *FireConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Fire(x, y, 0, this);
+Construction *FireConstructionGroup::createConstruction(int x, int y) {
+    return new Fire(x, y, this);
 }
 
 void Fire::update()
@@ -72,7 +72,7 @@ void Fire::update()
     if (real_time > anim)
     {
         anim = real_time + FIRE_ANIMATION_SPEED;
-        if(++type > constructionGroup->graphicsInfoVector.size())
+        if(++type >= constructionGroup->graphicsInfoVector.size())
         {   type = 0;}
     }
     if ((days_before_spread == 0) && !(flags & FLAG_IS_GHOST))

@@ -44,17 +44,16 @@ public:
         commodityRuleCount[Construction::STUFF_WASTE].give = true;
     }
     // overriding method that creates a firestation
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern FireStationConstructionGroup fireStationConstructionGroup;
 
 class FireStation: public RegisteredConstruction<FireStation> { // FireStation inherits from RegisteredConstruction
 public:
-    FireStation(int x, int y, unsigned short type, ConstructionGroup *cstgrp) : RegisteredConstruction<FireStation>(x ,y ,type)
+    FireStation(int x, int y, ConstructionGroup *cstgrp) : RegisteredConstruction<FireStation>(x ,y)
     {
-        constructionGroup = cstgrp;
-        type = 0;
+        this->constructionGroup = cstgrp;
         this->anim = 0;
         this->animate = false;
         this->active = false;

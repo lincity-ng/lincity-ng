@@ -21,16 +21,16 @@ public:
         commodityRuleCount[Construction::STUFF_MWH].give = true;
     }
     // overriding method that creates a power line
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern PowerlineConstructionGroup powerlineConstructionGroup;
 
 class Powerline: public RegisteredConstruction<Powerline> { // Powerlineinherits from its own RegisteredConstruction
 public:
-    Powerline(int x, int y ,unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Powerline>(x, y, type)
+    Powerline(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Powerline>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->flags |= (FLAG_POWER_LINE | FLAG_NEVER_EVACUATE);
         this->anim_counter = 0;
         this->flashing = false;

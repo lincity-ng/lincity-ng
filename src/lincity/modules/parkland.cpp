@@ -37,8 +37,8 @@ ParklandConstructionGroup parkpondConstructionGroup(
      GROUP_PARKLAND_RANGE
 );
 
-Construction *ParklandConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Parkland(x, y, 0, this);
+Construction *ParklandConstructionGroup::createConstruction(int x, int y) {
+    return new Parkland(x, y, this);
 }
 
 void Parkland::update()

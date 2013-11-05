@@ -159,9 +159,11 @@ void initLincity()
     mps_init();
 
     // initialize constructions
-    //TODO associate graphics with modules directly
     initializeModules();
-    //GameView::preReadImages();//FIXME static Hack
+
+    //TODO lauch a graphics loader thread from here
+    //to use time while user is in mainmenu
+    //GameView::preReadImages();
 
     // init_types ();
     load_png_graphics();

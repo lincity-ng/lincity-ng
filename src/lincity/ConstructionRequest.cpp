@@ -80,7 +80,7 @@ void CommuneDeletionRequest::execute()
         for (unsigned short j = 0; j < size; ++j)
         {
             if (world(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
-            {    parklandConstructionGroup.placeItem(x+j, y+i, CST_PARKLAND_PLANE);}
+            {    parklandConstructionGroup.placeItem(x+j, y+i);}
             //update mps display
             if (mps_x == x + j && mps_y == y + i)
             {   mps_set(x + j, y + i, MPS_MAP);}
@@ -102,7 +102,7 @@ void BurnDownRequest::execute()
     {
         for (unsigned short j = 0; j < size; ++j)
         {
-            fireConstructionGroup.placeItem(x+j, y+i, CST_FIRE_1);
+            fireConstructionGroup.placeItem(x+j, y+i);
             static_cast<Fire*> (world(x+j,y+i)->construction)->burning_days = FIRE_LENGTH - 25;
             //update mps display
             if (mps_x == x + j && mps_y == y + i)
@@ -125,7 +125,7 @@ void SetOnFire::execute()
     {
         for (unsigned short j = 0; j < size; ++j)
         {
-            fireConstructionGroup.placeItem(x+j, y+i, CST_FIRE_1);
+            fireConstructionGroup.placeItem(x+j, y+i);
             //update mps display
             if (mps_x == x + j && mps_y == y + i)
             {   mps_set(x + j, y + i, MPS_MAP);}

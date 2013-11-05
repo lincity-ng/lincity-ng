@@ -98,9 +98,9 @@ TransportConstructionGroup railbridgeConstructionGroup(
     GROUP_TRANSPORT_RANGE
 );
 
-Construction *TransportConstructionGroup::createConstruction(int x, int y, unsigned short )
+Construction *TransportConstructionGroup::createConstruction(int x, int y)
 {
-    return new Transport(x, y, 0, this);
+    return new Transport(x, y, this);
 }
 
 void Transport::update()
@@ -156,7 +156,7 @@ void Transport::update()
         if(!burning_waste)
         {
             burning_waste = true;
-            Construction *fire = fireConstructionGroup.createConstruction(x, y, CST_FIRE_1);
+            Construction *fire = fireConstructionGroup.createConstruction(x, y);
             world(x,y)->construction = fire;
             //waste burning never spreads
             (dynamic_cast<Fire*>(fire))->flags |= FLAG_IS_GHOST;
@@ -181,9 +181,7 @@ void Transport::list_traffic(int *i)
     for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
     {
         if(*i < 14)
-        {
-            mps_store_sfp((*i)++, commodityNames[stuff_it->first], (float) stuff_it->second * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);
-        }
+        {   mps_store_sfp((*i)++, commodityNames[stuff_it->first], (float) stuff_it->second * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
     }
 }
 

@@ -29,8 +29,8 @@ IndustryHeavyConstructionGroup industryHeavy_L_ConstructionGroup = industryHeavy
 IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
 IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
 
-Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new IndustryHeavy(x, y, 0, this);
+Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y) {
+    return new IndustryHeavy(x, y, this);
 }
 
 void IndustryHeavy::update()
@@ -121,8 +121,8 @@ void IndustryHeavy::update()
     if (real_time >= anim)
     {
         anim = real_time + INDUSTRY_H_ANIM_SPEED;
-        if(++type > constructionGroup->graphicsInfoVector.size())
-        {   type = 1;}
+        if(++type >= constructionGroup->graphicsInfoVector.size())
+        {   type = 0;}
     }
 }
 

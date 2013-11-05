@@ -23,8 +23,8 @@ CricketConstructionGroup cricketConstructionGroup(
      GROUP_CRICKET_RANGE
 );
 
-Construction *CricketConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Cricket(x, y, 0, this);
+Construction *CricketConstructionGroup::createConstruction(int x, int y) {
+    return new Cricket(x, y, this);
 }
 
 void Cricket::update()

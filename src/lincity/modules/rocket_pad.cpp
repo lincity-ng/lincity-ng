@@ -26,8 +26,8 @@ RocketPadConstructionGroup rocketPadConstructionGroup(
      GROUP_ROCKET_RANGE
 );
 
-Construction *RocketPadConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new RocketPad(x, y, 0, this);
+Construction *RocketPadConstructionGroup::createConstruction(int x, int y) {
+    return new RocketPad(x, y, this);
 }
 
 extern void ok_dial_box(const char *, int, const char *);

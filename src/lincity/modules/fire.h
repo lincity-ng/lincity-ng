@@ -34,7 +34,7 @@ public:
 
     };
     // overriding method that creates a Fire
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern FireConstructionGroup fireConstructionGroup;
@@ -42,10 +42,9 @@ extern FireConstructionGroup fireWasteLandConstructionGroup;
 
 class Fire: public RegisteredConstruction<Fire> { // Fire inherits from Construction
 public:
-    Fire(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Fire>(x, y, type)
+    Fire(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Fire>(x, y)
     {
-        constructionGroup = cstgrp;
-        type = 0;
+        this->constructionGroup = cstgrp;
         this->burning_days = 0;
         setMemberSaved(&this->burning_days, "burning_days");
         this->smoking_days = 0;
@@ -56,7 +55,6 @@ public:
     }
     virtual void update();
     virtual void report();
-    //virtual void playSound(); //override random sound
 
     int burning_days;
     int smoking_days;

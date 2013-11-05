@@ -43,16 +43,16 @@ public:
 
     }
     // overriding method that creates an Oremine
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern OremineConstructionGroup oremineConstructionGroup;
 
 class Oremine: public RegisteredConstruction<Oremine> { // Oremine inherits from its own RegisteredConstruction
 public:
-    Oremine(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Oremine>(x, y, type)
+    Oremine(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Oremine>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->anim = 0;
         this->animate = false;
         this->working_days = 0;

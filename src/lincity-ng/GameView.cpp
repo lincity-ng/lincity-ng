@@ -138,9 +138,11 @@ void GameView::parse(XmlReader& reader)
         }
     }
     // no more elements to parse
-    blankImage = readImage( "blank.png" );
+    //blankImage = readImage( "blank.png" );
     //SDL_mutexP( mTextures );
-    //blankTexture = readTexture( "blank.png" );
+    blankTexture = readTexture( "blank.png" );
+    blankX = (blankTexture->getWidth() / 2);
+    blankY = blankTexture->getHeight();
     //SDL_mutexV( mTextures );
     //cityTextures.assign(NUM_OF_TYPES,(Texture*)'\0');
     //cityImages.assign(NUM_OF_TYPES,(SDL_Surface*)'\0');
@@ -345,7 +347,7 @@ void GameView::setZoom(float newzoom){
 
     // fix rounding errors...
     if(fabs(zoom - 1.0) < .01)
-        zoom = 1;
+    {   zoom = 1;}
 
     tileWidth = defaultTileWidth * zoom;
     tileHeight = defaultTileHeight * zoom;
@@ -396,13 +398,12 @@ void GameView::show( MapPoint map , bool redraw /* = true */ )
  * Loads Texture from filename, Returns Pointer to Texture
  * or Null if no file found. NOT THREADSAFE
  */
-/*
+
 Texture* GameView::readTexture(const std::string& filename)
 {
     std::string dirsep = PHYSFS_getDirSeparator();
     std::string nfilename = std::string("images") + dirsep
     + std::string("tiles") + dirsep + filename;
-    std::cout << nfilename << std::endl;
     Texture* currentTexture;
     try {
         currentTexture = texture_manager->load(nfilename);
@@ -412,7 +413,7 @@ Texture* GameView::readTexture(const std::string& filename)
     }
     return currentTexture;
 }
-*/
+
 /*
  * Loads Image from filename, Returns Pointer to Image
  * or Null if no file found. IS THREADSAFE
@@ -434,10 +435,10 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 }
 
 /**
- * preload a images and fill in X and Y Data.
- *from data/images/tiles/images.xml
+ * preload all images and with X and Y offsets.
+ * from data/images/tiles/images.xml
  *
- *images and offsets are pushed to ConstructionGroup::graphicVectorInfo see lintypes.h
+ *images and offsets are appended to ConstructionGroup::graphicVectorInfo see lintypes.h
  *the resourceID strings are hard coded in all_modules.cpp and match the names of the sounds
  *
  * some images contain the x-Coordinate of the
@@ -451,7 +452,6 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 
 void GameView::preReadImages(void)
 {
-
     std::string dirsep = PHYSFS_getDirSeparator();
     std::string xmlfile = std::string("images") + dirsep
     + std::string("tiles") + dirsep + std::string("images.xml");
@@ -489,11 +489,10 @@ void GameView::preReadImages(void)
                             constructionGroup = 0;
                             resourceID_level = 0;
                         }
-                        //std::cout << "detected resourceID: " << key << std::endl;
                     }
                 }
             }
-            //check if we are still inside contect of last resorceID
+            //check if we are still inside context of last resorceID
             if(reader.getDepth() < resourceID_level-1)
             {
                 constructionGroup = 0;
@@ -507,9 +506,7 @@ void GameView::preReadImages(void)
                     const char* name = (const char*) iter.getName();
                     const char* value = (const char*) iter.getValue();
                     if( strcmp(name, "file" ) == 0 )
-                    {
-                        key = value;
-                    }
+                    {   key = value;}
                     else if( strcmp(name, "x" ) == 0 )
                     {
                         if(sscanf(value, "%i", &xmlX) != 1)
@@ -517,7 +514,6 @@ void GameView::preReadImages(void)
                             std::cerr << "GameView::preReadCityXY# Error parsing integer value '" << value << "' in x attribute.\n";
                             xmlX = -1;
                         }
-                        //cityXmap[key] = xmlX;
                     }
                    else if(strcmp(name, "y") == 0 )
                     {
@@ -526,7 +522,6 @@ void GameView::preReadImages(void)
                             std::cerr << "GameView::preReadCityXY# Error parsing integer value '" << value << "' in y attribute.\n";
                             xmlY = -1;
                         }
-                        //cityYmap[key] = xmlY;
                     }
                 }
                 if (resourceID_level && constructionGroup)
@@ -535,11 +530,9 @@ void GameView::preReadImages(void)
                     //std::cout << "Parsing: " << constructionGroup->name << " as " <<
                     //key << " x= " << xmlX << " y= " << xmlY << std::endl;
 
-                    constructionGroup->graphicsInfoVector.push_back(GraphicsInfo());
-                    //SDL_mutexP( mTextures );
+                    constructionGroup->growGraphicsInfoVector();
                     GraphicsInfo *graphicsInfo = &(constructionGroup->graphicsInfoVector.back());
                     graphicsInfo->image = readImage( key );
-                    //SDL_mutexV( mTextures );
                     if(xmlX == -1)
                     {   xmlX = int(graphicsInfo->image->w/2);}
                     if(xmlY == -1)
@@ -591,45 +584,6 @@ void GameView::preReadCityTexture( int textureType, const std::string& filename 
 }
 */
 
-/*
-void GameView::loadGraphicsInfo(ConstructionGroup *constructionGroup, const std::string& filename)
-{
-    //skip loading if we stop anyway
-    if(stopThread)
-    {   return;}
-
-    int xmlX = -1;
-    int xmlY = -1;
-    SDL_mutexP( mTextures );
-    constructionGroup->graphicsInfoVector.push_back(GraphicsInfo());
-    GraphicsInfo *graphicsInfo = &(constructionGroup->graphicsInfoVector.back());
-    graphicsInfo->image = readImage( filename );
-    //std::cout << "loaded image: " << filename << " to " << constructionGroup->graphicsInfoVector.back().image << std::endl;
-    if( graphicsInfo->image )
-    {
-        //now we need to find x and y for our filename
-        if(cityXmap.count(filename))
-        {   xmlX = cityXmap[filename];}
-        else
-        {   xmlX = int( graphicsInfo->image->w / 2 );}
-
-        if(cityYmap.count(filename))
-        {   xmlY = cityYmap[filename];}
-        else
-        {   xmlY = int( graphicsInfo->image->h );}
-#ifdef DEBUG
-        assert(xmlX > 0 && xmlY > 0);
-#endif
-        graphicsInfo->x = xmlX;
-        graphicsInfo->y = xmlY;
-    }
-    else
-    {
-        std::cout << "GameView::loadTextureInfo could not read " << filename << std::endl;
-    }
-    SDL_mutexV( mTextures );
-}
-*/
 /**
  *  Preload all required Textures. (his Function is called by loaderThread)
  *  Some of the Image to Texture Conversion seems not to be threadsave
@@ -639,7 +593,6 @@ void GameView::loadGraphicsInfo(ConstructionGroup *constructionGroup, const std:
 /*
 void GameView::loadTextures()
 {
-   preReadImages();
    //We need Textures for all Types from lincity/lctypes.h
    //Code Generation:
 */
@@ -977,9 +930,6 @@ void GameView::loadTextures()
    //preReadCityTexture( CST_RAIL_BRIDGE_O2UD,   "Railbridge_entrance2_180.png" );
 
    // End of generated Code.
-
-   //cityXmap.clear();
-   //cityYmap.clear();
 }
 */
 
@@ -1575,14 +1525,6 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     //is Tile in City? If not draw Blank
     if( ! inCity( tile ) )
     {
-        if(!blankTexture && blankImage)
-        {
-            blankTexture = texture_manager->create( blankImage );
-            blankImage = 0;
-            blankX = (blankTexture->getWidth() / 2);
-            blankY = blankTexture->getHeight();
-        }
-
         tileOnScreenPoint.x -= blankX * zoom;
         tileOnScreenPoint.y -= blankY * zoom;
         tilerect.move( tileOnScreenPoint );
@@ -1643,9 +1585,8 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
             {
                 //std::cout << "Gameview::creating texture for: " << cstgrp->name;
                 //std::cout << " from : " << graphicsInfo->image << std::endl;
-
                 graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
-                graphicsInfo->image = 0; //Image is erased by texture_manager->create.
+                graphicsInfo->image = 0; //Image was erased by texture_manager->create.
                 texture = graphicsInfo->texture;
             }
         }
@@ -1654,19 +1595,11 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     if( texture && ( !hideHigh || size == 1 ) )
     {
-
         if(graphicsInfo)
         {
             tileOnScreenPoint.x -= graphicsInfo->x * zoom;
             tileOnScreenPoint.y -= graphicsInfo->y * zoom;
         }
-/*
-        else
-        {
-            tileOnScreenPoint.x -= cityTextureX[textureType] * zoom;
-            tileOnScreenPoint.y -= cityTextureY[textureType] * zoom;
-        }
-*/
 
         tilerect.move( tileOnScreenPoint );
         tilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);

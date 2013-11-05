@@ -36,7 +36,7 @@ public:
 
     }
     // overriding method that creates a monument
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern MonumentConstructionGroup monumentConstructionGroup;
@@ -44,10 +44,9 @@ extern MonumentConstructionGroup monumentFinishedConstructionGroup;
 
 class Monument: public RegisteredConstruction<Monument> { // Monument inherits from is own RegisteredConstruction
 public:
-    Monument(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Monument>(x, y, type)
+    Monument(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Monument>(x, y)
     {
-        constructionGroup = cstgrp;
-        this->type = 0;
+        this->constructionGroup = cstgrp;
         this->busy = 0;
         this->working_days = 0;
         this->tech_made = 0;
@@ -66,7 +65,6 @@ public:
     virtual ~Monument() { }
     virtual void update();
     virtual void report();
-    //virtual void playSound(); //override random default
 
     int  working_days, busy;
     int  tech_made;

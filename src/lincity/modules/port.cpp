@@ -24,8 +24,8 @@ PortConstructionGroup portConstructionGroup(
      GROUP_PORT_RANGE
 );
 
-Construction *PortConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Port(x, y, 0, this);
+Construction *PortConstructionGroup::createConstruction(int x, int y) {
+    return new Port(x, y, this);
 }
 
 int Port::buy_stuff(Commodities stuff)
@@ -35,7 +35,7 @@ int Port::buy_stuff(Commodities stuff)
     int i = portConstructionGroup.commodityRuleCount[stuff].maxload - commodityCount[stuff];
     i = (i * PORT_IMPORT_RATE) / 1000;
     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
-        return 0;
+    {   return 0;}
     commodityCount[stuff] += i;
     return (i * portConstructionGroup.commodityRates[stuff]);
 }
@@ -46,8 +46,8 @@ int Port::sell_stuff(Commodities stuff)
 {
     int i = commodityCount[stuff];
     i = (i * PORT_EXPORT_RATE) / 1000;
-     if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
-        return 0;
+    if (i < (portConstructionGroup.commodityRuleCount[stuff].maxload / PORT_TRIGGER_RATE))
+    {   return 0;}
     commodityCount[stuff] -= i;
     return (i * portConstructionGroup.commodityRates[stuff]);
 }
@@ -59,15 +59,11 @@ void Port::trade_connection()
     for(stuff_it = commodityRuleCount.begin() ; stuff_it != commodityRuleCount.end() ; stuff_it++ )
     {
         if (stuff_it->second.take == stuff_it->second.give)
-            continue;
+        {   continue;}
         if (stuff_it->second.take)
-        {
-           daily_ic += buy_stuff(stuff_it->first);
-        }
+        {   daily_ic += buy_stuff(stuff_it->first);}
         else if (stuff_it->second.give)
-        {
-            daily_et += sell_stuff(stuff_it->first);
-        }
+        {   daily_et += sell_stuff(stuff_it->first);}
     }
 }
 

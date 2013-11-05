@@ -249,9 +249,9 @@ template <typename ConstructionClass>
 class RegisteredConstruction: public Construction, public Counted<ConstructionClass>
 {
 public:
-    RegisteredConstruction<ConstructionClass>( int x, int y, unsigned short type)
+    RegisteredConstruction<ConstructionClass>( int x, int y)
     {
-        this->type = type;
+        this->type = 0;//safe default
         this->x = x;
         this->y = y;
         this->ID = Counted<ConstructionClass>::getNextId();
@@ -274,11 +274,7 @@ class GraphicsInfo
         x = 0;
         y = 0;
     }
-    /*
-     *dont handle destruction here
-     *since temporary objects are created
-     *upon push_pack when parsing images.xml
-    */
+
     Texture* texture;
     SDL_Surface* image;
     int x, y;
@@ -324,11 +320,12 @@ public:
     std::vector<GraphicsInfo> graphicsInfoVector;
     int getCosts();
     bool is_allowed_here(int x, int y, bool msg);//check if construction could be placed
+    void growGraphicsInfoVector(void);
 
-    virtual int placeItem(int x, int y, unsigned short type);
+    virtual int placeItem(int x, int y);
 
     // this method must be overriden by the concrete ConstructionGroup classes.
-    virtual Construction *createConstruction(int x, int y, unsigned short type) = 0;
+    virtual Construction *createConstruction(int x, int y) = 0;
 
     std::string resourceID;           /* name for matching resources from XML*/
     const char *name;           /* inGame name of group */

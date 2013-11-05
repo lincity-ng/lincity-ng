@@ -28,9 +28,9 @@ CoalmineConstructionGroup coalmine_M_ConstructionGroup = coalmineConstructionGro
 CoalmineConstructionGroup coalmine_H_ConstructionGroup = coalmineConstructionGroup;
 
 
-Construction *CoalmineConstructionGroup::createConstruction(int x, int y, unsigned short )
+Construction *CoalmineConstructionGroup::createConstruction(int x, int y)
 {
-    return new Coalmine(x, y, 0, this);
+    return new Coalmine(x, y, this);
 }
 
 void Coalmine::update()

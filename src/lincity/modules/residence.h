@@ -163,7 +163,7 @@ public:
         commodityRuleCount[Construction::STUFF_WATER].give = false;
     }
     // overriding method that creates a residence
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern ResidenceConstructionGroup residenceLLConstructionGroup, residenceMLConstructionGroup, residenceHLConstructionGroup;
@@ -171,9 +171,9 @@ extern ResidenceConstructionGroup residenceLHConstructionGroup, residenceMHConst
 
 class Residence: public RegisteredConstruction<Residence> { // Residence inherits from its own RegisteredConstruction
 public:
-    Residence(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Residence>(x, y, type)
+    Residence(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Residence>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->local_population = 5; //to aid converted savegames should not affect actual game mechanics too much
         setMemberSaved(&(this->local_population),"local_population");
         this->job_swingometer = 0;

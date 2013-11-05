@@ -26,8 +26,8 @@ Coal_powerConstructionGroup coal_power_low_ConstructionGroup  = coal_powerConstr
 Coal_powerConstructionGroup coal_power_med_ConstructionGroup  = coal_powerConstructionGroup;
 Coal_powerConstructionGroup coal_power_full_ConstructionGroup = coal_powerConstructionGroup;
 
-Construction *Coal_powerConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Coal_power(x, y, 0, this);
+Construction *Coal_powerConstructionGroup::createConstruction(int x, int y) {
+    return new Coal_power(x, y, this);
 }
 
 void Coal_power::update()

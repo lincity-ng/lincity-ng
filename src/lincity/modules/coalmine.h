@@ -42,10 +42,9 @@ public:
         commodityRuleCount[Construction::STUFF_COAL].maxload = MAX_COAL_AT_MINE;
         commodityRuleCount[Construction::STUFF_COAL].take = true;
         commodityRuleCount[Construction::STUFF_COAL].give = true;
-
     }
     // overriding method that creates an Coalmine
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern CoalmineConstructionGroup coalmineConstructionGroup;
@@ -55,9 +54,9 @@ extern CoalmineConstructionGroup coalmine_H_ConstructionGroup;
 
 class Coalmine: public RegisteredConstruction<Coalmine> { // Coalmine inherits from its RegisteredConstruction
 public:
-    Coalmine(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Coalmine>(x, y, type)
+    Coalmine(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Coalmine>(x, y)
     {
-        constructionGroup = cstgrp;
+        this->constructionGroup = cstgrp;
         this->working_days = 0;
         this->busy = 0;
         this->current_coal_reserve = 0;  // has to be auto updated since coalmines may compete

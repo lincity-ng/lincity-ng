@@ -1198,38 +1198,41 @@ void Construction::playSound()
 
 //ConstructionGroup Declarations
 
+void ConstructionGroup::growGraphicsInfoVector(void)
+{
+    graphicsInfoVector.resize(graphicsInfoVector.size() + 1);
+}
+
 int ConstructionGroup::getCosts() {
     return static_cast<int>(
         cost * (1.0f + (cost_mul * tech_level) / static_cast<float>(MAX_TECH_LEVEL))
     );
 }
 
-int ConstructionGroup::placeItem(int x, int y, unsigned short type)
+int ConstructionGroup::placeItem(int x, int y)
 {
-    Construction *tmpConstr = createConstruction(x, y, 0); //type
+    Construction *tmpConstr = createConstruction(x, y);
 
     if (tmpConstr == NULL)
     {
-        std::cout << "failed to createConstruction " << type << std::endl;
+        std::cout << "failed to create " << name << " at " << "(" << x << ", " << y << ")" << std::endl;
         return -1;
     }
 
     //std::cout << "building: " << tmpConstr->constructionGroup->name  << "(" << x << "," << y << ")" << std::endl;
     //enforce empty site
-    unsigned short size = tmpConstr->constructionGroup->size;
+    //unsigned short size = tmpConstr->constructionGroup->size;
     for (unsigned short i = 0; i < size; i++)
     {
         for (unsigned short j = 0; j < size; j++)
         {
-            if (world(x, y)->reportingConstruction)
+            if (world(x+j, y+i)->reportingConstruction)
             {
                 ConstructionManager::executeRequest
-                (
-                    new ConstructionDeletionRequest(world(x, y)->reportingConstruction)
-                );
+                ( new ConstructionDeletionRequest(world(x+j, y+i)->reportingConstruction));
             }
-        } //endfor j
-    }// endfo
+        }
+    }
 
     world(x, y)->construction = tmpConstr;
     constructionCount.add_construction(tmpConstr); //register for Simulation

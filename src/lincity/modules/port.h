@@ -84,17 +84,16 @@ public:
     //map that holds the Rates for the commodities
     std::map<Construction::Commodities, int> commodityRates;
     // overriding method that creates a Port
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern PortConstructionGroup portConstructionGroup;
 
 class Port: public RegisteredConstruction<Port> { // park inherits from Construction
 public:
-    Port(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Port>(x, y, type)
+    Port(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Port>(x, y)
     {
-        constructionGroup = cstgrp;
-        this->type = type;
+        this->constructionGroup = cstgrp;
         this->daily_ic = 0; this->daily_et = 0;
         this->monthly_ic = 0; this->monthly_et = 0;
         this->lastm_ic = 0; this->lastm_et = 0;

@@ -59,14 +59,14 @@ public:
         commodityRuleCount[Construction::STUFF_WATER].take = true;
     }
     // overriding method that creates a commune
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern CommuneConstructionGroup communeConstructionGroup;
 
 class Commune: public RegisteredConstruction<Commune> { // Commune inherits from Construction
 public:
-    Commune(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Commune>(x ,y ,type)
+    Commune(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Commune>(x ,y)
     {
         this->constructionGroup = cstgrp;
         this->anim = 0; // or real_time?

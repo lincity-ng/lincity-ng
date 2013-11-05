@@ -24,8 +24,8 @@ WindpowerConstructionGroup windpowerConstructionGroup(
 WindpowerConstructionGroup windpower_RG_ConstructionGroup = windpowerConstructionGroup;
 WindpowerConstructionGroup windpower_G_ConstructionGroup = windpowerConstructionGroup;
 
-Construction *WindpowerConstructionGroup::createConstruction(int x, int y, unsigned short ) {
-    return new Windpower(x, y, 0, this);
+Construction *WindpowerConstructionGroup::createConstruction(int x, int y) {
+    return new Windpower(x, y, this);
 }
 
 void Windpower::update()
@@ -54,10 +54,9 @@ void Windpower::update()
     //Animation
     if (animate && (real_time > anim))
     {
-        sail_count++;
+        ++type;
+        type %= 3;
         anim = real_time + WIND_POWER_ANIM_SPEED;
-        sail_count %= 3;
-        type = sail_count;
         if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
         {   constructionGroup = &windpower_G_ConstructionGroup;}
         else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)

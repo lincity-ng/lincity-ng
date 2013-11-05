@@ -79,7 +79,7 @@ public:
         commodityRuleCount[Construction::STUFF_WATER].give = true;
     }
     // overriding method that creates a transport tile
-    virtual Construction *createConstruction(int x, int y, unsigned short type);
+    virtual Construction *createConstruction(int x, int y);
 };
 
 extern TransportConstructionGroup trackConstructionGroup, roadConstructionGroup, railConstructionGroup;
@@ -95,7 +95,7 @@ class RailBridge{};
 
 class Transport : public RegisteredConstruction<Transport> { // Transport inherits from countedConstruction
 public:
-    Transport(int x, int y, unsigned short type, ConstructionGroup *cstgrp): RegisteredConstruction<Transport>(x, y, type)
+    Transport(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Transport>(x, y)
     {
         unsigned short group = cstgrp->group;
         this->anim = 0;
