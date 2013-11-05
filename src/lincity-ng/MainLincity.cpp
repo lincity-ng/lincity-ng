@@ -161,7 +161,7 @@ void initLincity()
     // initialize constructions
     //TODO associate graphics with modules directly
     initializeModules();
-    GameView::preReadImages();//FIXME static Hack
+    //GameView::preReadImages();//FIXME static Hack
 
     // init_types ();
     load_png_graphics();

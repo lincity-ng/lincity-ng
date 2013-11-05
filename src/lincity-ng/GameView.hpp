@@ -79,8 +79,9 @@ public:
     bool inCity( MapPoint tile );
 
     int gameAreaMax();
-    static SDL_Surface* readImage(const std::string& filename);
-    static void preReadImages(void);
+
+    bool textures_ready;
+
 private:
     void connectButtons();
     void buttonClicked( Button* button );
@@ -91,12 +92,12 @@ private:
     void drawOverlay(Painter& painter, MapPoint point);
     void fillDiamond( Painter& painter, const Rect2D& rect );
     void drawDiamond( Painter& painter, const Rect2D& rect );
-    //void loadTextures();
     static int gameViewThread(void* data);
-
     void setZoom(float newzoom);
+    SDL_Surface* readImage(const std::string& filename);
+    void preReadImages(void);
     //Texture* readTexture(const std::string& filename);
-
+    //void loadTextures();
     //void preReadCityTexture(int textureType, const std::string& filename);
     //void loadGraphicsInfo(ConstructionGroup *constructionGroup, const std::string& filename);
 

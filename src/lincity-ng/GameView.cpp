@@ -78,7 +78,7 @@ GameView::GameView()
     assert(gameViewPtr == 0);
     gameViewPtr = this;
     mTextures = SDL_CreateMutex();
-    //mThreadRunning = SDL_CreateMutex();
+    mThreadRunning = SDL_CreateMutex();
     loaderThread = 0;
     keyScrollState = 0;
     mouseScrollState = 0;
@@ -91,11 +91,11 @@ GameView::GameView()
 GameView::~GameView()
 {
     stopThread = true;
-    //SDL_mutexP( mThreadRunning );
+    SDL_mutexP( mThreadRunning );
     //SDL_KillThread( loaderThread );
-    //SDL_WaitThread( loaderThread, NULL );
+    SDL_WaitThread( loaderThread, NULL );
 
-    //SDL_DestroyMutex( mThreadRunning );
+    SDL_DestroyMutex( mThreadRunning );
     SDL_DestroyMutex( mTextures );
 /*
     for(size_t i = 0; i < cityTextures.size(); ++i)
@@ -117,6 +117,7 @@ int GameView::gameViewThread( void* data )
 {
     GameView* gv = (GameView*) data;
     gv->preReadImages();
+    gv->textures_ready = true;
     gv->requestRedraw();
     return 0;
 }
@@ -145,10 +146,12 @@ void GameView::parse(XmlReader& reader)
     //cityImages.assign(NUM_OF_TYPES,(SDL_Surface*)'\0');
     //cityTextureX.assign(NUM_OF_TYPES, '\0');
     //cityTextureY.assign(NUM_OF_TYPES, '\0');
+
+    SDL_mutexP( mThreadRunning );
+    textures_ready = false;
     stopThread = false;
-    //SDL_mutexP( mThreadRunning );
-    //loaderThread = SDL_CreateThread( gameViewThread, this );
-    //SDL_mutexV( mThreadRunning );
+    loaderThread = SDL_CreateThread( gameViewThread, this );
+    SDL_mutexV( mThreadRunning );
 
     //GameView is resizable
     setFlags(FLAG_RESIZABLE);
@@ -459,6 +462,7 @@ void GameView::preReadImages(void)
     int xmlX = -1;
     int xmlY = -1;
     std::string key;
+    SDL_mutexP( mTextures ); //lock mutex while parsing images
     while( reader.read() )
     {
         if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
@@ -549,6 +553,7 @@ void GameView::preReadImages(void)
             }
         }
     }
+    SDL_mutexV( mTextures );
 }
 
 /*
@@ -1567,16 +1572,12 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
 
-
-
     //is Tile in City? If not draw Blank
     if( ! inCity( tile ) )
     {
         if(!blankTexture && blankImage)
         {
-            SDL_mutexP( mTextures );
             blankTexture = texture_manager->create( blankImage );
-            SDL_mutexV( mTextures );
             blankImage = 0;
             blankX = (blankTexture->getWidth() / 2);
             blankY = blankTexture->getHeight();
@@ -1594,7 +1595,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         return;
     }
 
-    Texture* texture;
+    Texture* texture = 0;
     MapPoint upperLeft = realTile(tile);
 
     int size = 1;
@@ -1623,38 +1624,32 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     {   cstgrp = &bareConstructionGroup;}
 
     GraphicsInfo *graphicsInfo = 0;
-    size_t s = cstgrp->graphicsInfoVector.size();
-    if (s)
+    if(textures_ready)
     {
-        graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s];
-        texture = graphicsInfo->texture;
-    }
-    else
-    {   texture = 0;}
-
-    // Test if we have to convert Preloaded Image to Texture
-    if( !texture )
-    {
-
-        if(graphicsInfo && graphicsInfo->image)
+        SDL_mutexP( mTextures );
+        size_t s = cstgrp->graphicsInfoVector.size();
+        if (s)
         {
-            //std::cout << "Gameview::creating texture for: " << cstgrp->name;
-            //std::cout << " from : " << graphicsInfo->image << std::endl;
-            SDL_mutexP( mTextures );
-            graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
-            SDL_mutexV( mTextures );
-            graphicsInfo->image = 0; //Image is erased by texture_manager->create.
+            graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s];
             texture = graphicsInfo->texture;
         }
-/*
-        else if( cityImages[ textureType ] )
-        {
-            cityTextures[ textureType ] = texture_manager->create( cityImages[ textureType ] );
-            cityImages[ textureType ] = 0; //Image is erased by texture_manager->create.
-            texture = cityTextures[ textureType ];
-        }
-*/
+        else
+        {   texture = 0;}
 
+        // Test if we have to convert Preloaded Image to Texture
+        if( !texture )
+        {
+            if(graphicsInfo && graphicsInfo->image)
+            {
+                //std::cout << "Gameview::creating texture for: " << cstgrp->name;
+                //std::cout << " from : " << graphicsInfo->image << std::endl;
+
+                graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
+                graphicsInfo->image = 0; //Image is erased by texture_manager->create.
+                texture = graphicsInfo->texture;
+            }
+        }
+        SDL_mutexV( mTextures );
     }
 
     if( texture && ( !hideHigh || size == 1 ) )
@@ -1689,6 +1684,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
         fillDiamond( painter, tilerect );
     }
+
 }
 
 /*
