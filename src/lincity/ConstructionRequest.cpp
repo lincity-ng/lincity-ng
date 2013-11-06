@@ -53,7 +53,7 @@ void OreMineDeletionRequest::execute()
         {
             if (world(x+j,y+i)->ore_reserve < ORE_RESERVE / 2)
             {
-                world(x+j,y+i)->setTerrain(CST_WATER);
+                world(x+j,y+i)->setTerrain(GROUP_WATER);
                 world(x+j,y+i)->flags |= (FLAG_HAS_UNDERGROUND_WATER | FLAG_ALTERED);
                 connect_rivers(x+j,y+i);
             }

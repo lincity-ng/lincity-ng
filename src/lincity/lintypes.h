@@ -118,7 +118,7 @@ public:
     int pollution;                        //air pollution (under ground pollution is in ground[][])
 
 
-    void setTerrain(unsigned short type); //places type & group at MapTile
+    void setTerrain(unsigned short group); //places type & group at MapTile
     unsigned short getType();          //type of bare land or the covering construction
     unsigned short getTopType();       //type of bare land or the actual construction
     unsigned short getGroup();        //group of bare land or the covering construction
@@ -340,6 +340,7 @@ public:
     int cost;                   /* group cost */
     int tech;                   /* group tech */
     int range;                  /* range beyond size*/
+    bool images_loaded;
 
     static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {
@@ -356,15 +357,19 @@ public:
 
     static void addResourceID(std::string resID, ConstructionGroup *constructionGroup)
     {
-        constructionGroup->resourceID = resID;
-        if ( resourceMap.count(constructionGroup->resourceID))
+
+        if ( resourceMap.count(resID))
         {
             std::cout << "rejecting " << constructionGroup->name << " as "
             << constructionGroup->resourceID << " from ConstructionGroup::resouceMap"
             << std::endl;
             }
         else
-        {   resourceMap[constructionGroup->resourceID] = constructionGroup;}
+        {
+            constructionGroup->resourceID = resID;
+            constructionGroup->images_loaded = false;
+            resourceMap[constructionGroup->resourceID] = constructionGroup;
+        }
     }
 
     static void clearGroupMap()

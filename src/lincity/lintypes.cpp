@@ -63,23 +63,8 @@ MapTile::MapTile():ground()
 MapTile::~MapTile()
 {   }
 
-void MapTile::setTerrain(unsigned short new_type)
+void MapTile::setTerrain(unsigned short new_group)
 {
-    unsigned short new_group;
-    switch (new_type)
-    {
-        case CST_GREEN:     new_group = GROUP_BARE;     break;
-        case CST_DESERT:    new_group = GROUP_DESERT;   break;
-        case CST_WATER:     new_group = GROUP_WATER;    break;
-        case CST_TREE:      new_group = GROUP_TREE;     break;
-        case CST_TREE2:     new_group = GROUP_TREE2;    break;
-        case CST_TREE3:     new_group = GROUP_TREE3;    break;
-        default:
-            std::cout << "invalid setTerrain with type: " << new_type << std::endl;
-            return;
-        break;
-    }
-
     this->type = 0;
     this->group = new_group;
     if(new_group == GROUP_WATER)
@@ -1243,7 +1228,7 @@ int ConstructionGroup::placeItem(int x, int y)
             world(x + j, y + i)->reportingConstruction = tmpConstr;
             if (!world(x + j, y + i)->is_water())
             {
-                world(x + j, y + i)->setTerrain(CST_DESERT);
+                world(x + j, y + i)->setTerrain(GROUP_DESERT);
             } // endif !is_water
         } //endfor j
     }// endfor i

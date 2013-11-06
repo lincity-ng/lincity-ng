@@ -1431,116 +1431,116 @@ static void do_rand_ecology(int x, int y, int r)
         /* very dry land */
         int r2 = r3 % 10;
         if (r2 <= 6)
-            world(x, y)->setTerrain(CST_DESERT);
+            world(x, y)->setTerrain(GROUP_DESERT);
         else if (r2 <= 8)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
     }
     else if (r >= 160)
     {
         int r2 = r3 % 10;
         if (r2 <= 2)
-            world(x, y)->setTerrain(CST_DESERT);
+            world(x, y)->setTerrain(GROUP_DESERT);
         else if (r2 <= 6)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
     }
     else if (r >= 80)
     {
         int r2 = r3 % 10;
         if (r2 <= 1)
-            world(x, y)->setTerrain(CST_DESERT);
+            world(x, y)->setTerrain(GROUP_DESERT);
         else if (r2 <= 4)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 6)
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
         else
-            world(x, y)->setTerrain(CST_TREE2);
+            world(x, y)->setTerrain(GROUP_TREE2);
     }
     else if (r >= 40)
     {
         int r2 = r3 % 40;
         if (r2 == 0)
-            world(x, y)->setTerrain(CST_DESERT);
+            world(x, y)->setTerrain(GROUP_DESERT);
         else if (r2 <= 12)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 24)
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
         else if (r2 <= 36)
-            world(x, y)->setTerrain(CST_TREE2);
+            world(x, y)->setTerrain(GROUP_TREE2);
         else
-            world(x, y)->setTerrain(CST_TREE3);
+            world(x, y)->setTerrain(GROUP_TREE3);
     }
     else if (r >= 0)
     {
         /* normal land */
         int r2 = r3 % 40;
         if (r2 <= 10)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 20)
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
         else if (r2 <= 30)
-            world(x, y)->setTerrain(CST_TREE2);
+            world(x, y)->setTerrain(GROUP_TREE2);
         else
-            world(x, y)->setTerrain(CST_TREE3);
+            world(x, y)->setTerrain(GROUP_TREE3);
     }
     else if (r >= -40)
     {
         /* forest */
         int r2 = r3 % 40;
         if (r2 <= 5)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 10)
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
         else if (r2 <= 25)
-            world(x, y)->setTerrain(CST_TREE2);
+            world(x, y)->setTerrain(GROUP_TREE2);
         else
-            world(x, y)->setTerrain(CST_TREE3);
+            world(x, y)->setTerrain(GROUP_TREE3);
     }
     else if (r >= -80)
     {
         int r2 = r3 % 40;
         if (r2 <= 0)
-            world(x, y)->setTerrain(CST_WATER);
+            world(x, y)->setTerrain(GROUP_WATER);
         else if (r2 <= 6)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 15)
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
         else if (r2 <= 28)
-            world(x, y)->setTerrain(CST_TREE2);
+            world(x, y)->setTerrain(GROUP_TREE2);
         else
-            world(x, y)->setTerrain(CST_TREE3);
+            world(x, y)->setTerrain(GROUP_TREE3);
     }
     else if (r >= -120)
     {
         int r2 = r3 % 40;
         if (r2 <= 1)
-            world(x, y)->setTerrain(CST_WATER);
+            world(x, y)->setTerrain(GROUP_WATER);
         else if (r2 <= 6)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 16)
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
         else if (r2 <= 30)
-            world(x, y)->setTerrain(CST_TREE2);
+            world(x, y)->setTerrain(GROUP_TREE2);
         else
-            world(x, y)->setTerrain(CST_TREE3);
+            world(x, y)->setTerrain(GROUP_TREE3);
     }
     else
     {
         /* wetland */
         int r2 = r3 % 40;
         if (r2 <= 3)
-            world(x, y)->setTerrain(CST_WATER);
+            world(x, y)->setTerrain(GROUP_WATER);
         else if (r2 <= 8)
-            world(x, y)->setTerrain(CST_GREEN);
+            world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 20)
-            world(x, y)->setTerrain(CST_TREE);
+            world(x, y)->setTerrain(GROUP_TREE);
         else if (r2 <= 35)
-            world(x, y)->setTerrain(CST_TREE2);
+            world(x, y)->setTerrain(GROUP_TREE2);
         else
-            world(x, y)->setTerrain(CST_TREE3);
+            world(x, y)->setTerrain(GROUP_TREE3);
     }
     if (world(x, y)->getGroup() != GROUP_DESERT)
     {

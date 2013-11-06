@@ -77,7 +77,7 @@ GameView::GameView()
 {
     assert(gameViewPtr == 0);
     gameViewPtr = this;
-    mTextures = SDL_CreateMutex();
+    //mTextures = SDL_CreateMutex();
     mThreadRunning = SDL_CreateMutex();
     loaderThread = 0;
     keyScrollState = 0;
@@ -96,7 +96,7 @@ GameView::~GameView()
     SDL_WaitThread( loaderThread, NULL );
 
     SDL_DestroyMutex( mThreadRunning );
-    SDL_DestroyMutex( mTextures );
+    //SDL_DestroyMutex( mTextures );
 /*
     for(size_t i = 0; i < cityTextures.size(); ++i)
     {
@@ -109,7 +109,7 @@ GameView::~GameView()
     }
 */
     if(gameViewPtr == this)
-        gameViewPtr = 0;
+    {   gameViewPtr = 0;}
 }
 
 //Static function to use with SDL_CreateThread
@@ -117,7 +117,7 @@ int GameView::gameViewThread( void* data )
 {
     GameView* gv = (GameView*) data;
     gv->preReadImages();
-    gv->textures_ready = true;
+    //gv->textures_ready = true;
     gv->requestRedraw();
     return 0;
 }
@@ -150,7 +150,7 @@ void GameView::parse(XmlReader& reader)
     //cityTextureY.assign(NUM_OF_TYPES, '\0');
 
     SDL_mutexP( mThreadRunning );
-    textures_ready = false;
+    //textures_ready = false;
     stopThread = false;
     loaderThread = SDL_CreateThread( gameViewThread, this );
     SDL_mutexV( mThreadRunning );
@@ -462,7 +462,7 @@ void GameView::preReadImages(void)
     int xmlX = -1;
     int xmlY = -1;
     std::string key;
-    SDL_mutexP( mTextures ); //lock mutex while parsing images
+    //SDL_mutexP( mTextures ); //lock mutex while parsing images
     while( reader.read() )
     {
         if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
@@ -478,10 +478,18 @@ void GameView::preReadImages(void)
                     const char* value = (const char*) iter.getValue();
                     if( strcmp(name, "name" ) == 0 )
                     {
+                        if(constructionGroup)
+                        {   constructionGroup->images_loaded = true;}
+
                         if(ConstructionGroup::resourceMap.count(value))
                         {
                             constructionGroup = ConstructionGroup::resourceMap[value];
                             resourceID_level = reader.getDepth();
+                            if(constructionGroup->images_loaded)
+                            {
+                                std::cout << "Duplicate resourceID in images.xml: " << value << std::endl;
+                                assert(false);
+                            }
                         }
                         else
                         {
@@ -495,6 +503,7 @@ void GameView::preReadImages(void)
             //check if we are still inside context of last resorceID
             if(reader.getDepth() < resourceID_level-1)
             {
+                constructionGroup->images_loaded = true;
                 constructionGroup = 0;
                 resourceID_level = 0;
             }
@@ -546,7 +555,7 @@ void GameView::preReadImages(void)
             }
         }
     }
-    SDL_mutexV( mTextures );
+    //SDL_mutexV( mTextures );
 }
 
 /*
@@ -1566,17 +1575,17 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     {   cstgrp = &bareConstructionGroup;}
 
     GraphicsInfo *graphicsInfo = 0;
-    if(textures_ready)
+    if(cstgrp->images_loaded)// textures_ready)
     {
-        SDL_mutexP( mTextures );
+        //SDL_mutexP( mTextures );
         size_t s = cstgrp->graphicsInfoVector.size();
         if (s)
         {
             graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s];
             texture = graphicsInfo->texture;
         }
-        else
-        {   texture = 0;}
+        //else
+        //{   texture = 0;}
 
         // Test if we have to convert Preloaded Image to Texture
         if( !texture )
@@ -1590,7 +1599,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
                 texture = graphicsInfo->texture;
             }
         }
-        SDL_mutexV( mTextures );
+        //SDL_mutexV( mTextures );
     }
 
     if( texture && ( !hideHigh || size == 1 ) )

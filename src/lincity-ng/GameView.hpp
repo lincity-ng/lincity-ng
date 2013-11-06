@@ -80,7 +80,7 @@ public:
 
     int gameAreaMax();
 
-    bool textures_ready;
+    //bool textures_ready;
 
 private:
     void connectButtons();

@@ -243,30 +243,30 @@ void Residence::update()
         bad += 50;
     }
 
-    switch (type)
+    switch (constructionGroup->group)
     {
-        case CST_RESIDENCE_LL:
+        case GROUP_RESIDENCE_LL:
             drm += local_population * 7 * 50/24; //more people more deaths
             brm += RESIDENCE_LL_BRM + extra_births?100:0; //slow down baby production
         break;
-        case CST_RESIDENCE_ML:
+        case GROUP_RESIDENCE_ML:
             drm += local_population * 3 * 5/3; //more people more deaths
             brm += RESIDENCE_ML_BRM + extra_births?50:0; //slow down baby production
         break;
-        case CST_RESIDENCE_HL:
+        case GROUP_RESIDENCE_HL:
             drm += local_population * 1 * 6/3; //more people more deaths
             brm += RESIDENCE_HL_BRM + extra_births?50:0; //slow down baby production
             good += 40;
         break;
-        case CST_RESIDENCE_LH:
+        case GROUP_RESIDENCE_LH:
             drm += local_population * 3 * 7/3; //more people more deaths
             brm += RESIDENCE_LH_BRM + extra_births?100:0; //slow down baby production
         break;
-        case CST_RESIDENCE_MH:
+        case GROUP_RESIDENCE_MH:
             drm += local_population / 2 * 4/3; //more people more deaths
             brm += RESIDENCE_MH_BRM + extra_births?50:0; //slow down baby production
         break;
-        case CST_RESIDENCE_HH:
+        case GROUP_RESIDENCE_HH:
             drm += local_population * 4/3; //more people more deaths
             brm += RESIDENCE_HH_BRM + extra_births?50:0; //slow down baby production
             good += 100;
