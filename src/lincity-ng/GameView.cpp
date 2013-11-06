@@ -1280,7 +1280,7 @@ void GameView::event(const Event& event)
                 zoomOut();
                 break;
             }
-            if( event.keysym.sym == SDLK_KP_ENTER ){
+            if( event.keysym.sym == SDLK_KP_ENTER || event.keysym.sym == SDLK_RETURN){
                 resetZoom();
                 break;
             }

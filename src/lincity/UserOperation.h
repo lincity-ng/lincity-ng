@@ -10,8 +10,8 @@ public:
     UserOperation();
     ~UserOperation();
     ConstructionGroup *constructionGroup; // !0 in case of ACTION_BUILD
-    unsigned short type;// maybe usefull for showing type as cursor
-    int selected_module_type; //ButtonID for compatibility
+    //unsigned short type;// maybe usefull for showing type as cursor
+    int selected_module_type; //ButtonID for ButtonPanel
 
 
     enum Action //What User wants to do

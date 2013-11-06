@@ -531,7 +531,7 @@ void mps_global_housing()
     mps_store_sd(i++,"Housed",population);
     mps_store_sd(i++,"Homeless",people_pool);
     mps_store_sd(i++,"Shanties",Counted<Shanty>::getInstanceCount());
-    mps_store_sd(i++,"Unn Dths",unnat_deaths);
+    mps_store_sd(i++,"Unnat. Deaths",unnat_deaths);
     mps_store_title(i++,"Unemployment");
     mps_store_sd(i++,"Claims",tunemployed_population/days);
     mps_store_sfp(i++,"Rate",

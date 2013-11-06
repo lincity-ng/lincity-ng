@@ -48,18 +48,16 @@ class ButtonPanel : public Component
   void doButton(const std::string &button);
   void toggleMenu(std::string pName,bool enable);
   void updateToolInfo();
-  void showToolHelp( int tooltype );
+  void showToolHelp( );
 
   int module;
   bool alreadyAttached;
-  //bool enoughTech( int moduleType );
-  //float requiredTech( int moduleType );
   void examineButton( std::string name, int showInfo );
   void examineMenuButtons();
-  void newTechMessage( int moduleType, int showInfo );
+  void newTechMessage( unsigned short group, int showInfo );
   void updateSelectedCost();
   int previousTool;
-  int lastShownTechType;
+  int lastShownTechGroup;
 
   //std::string createTooltip( /*int module,*/ bool root = true );
   std::vector<std::string> mMenuButtons;

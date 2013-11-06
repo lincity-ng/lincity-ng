@@ -111,9 +111,6 @@ ButtonPanel::parse(XmlReader& reader)
                 if(component->getFlags() & FLAG_RESIZABLE) {
                     component->resize(width, height);
                 }
-
-                //width = component->getWidth();
-                //height = component->getHeight();
             }
         }
     }
@@ -122,11 +119,10 @@ ButtonPanel::parse(XmlReader& reader)
     previousTool = selected_module_type=selected_module=module=CST_GREEN;
     alreadyAttached=false;
     selected_module_type=CST_NONE;
-    userOperation->type = 0;
-    userOperation->action = UserOperation::ACTION_QUERY;
 
+    userOperation->action = UserOperation::ACTION_QUERY;
     checked_cast<CheckButton>(findComponent(mMenuButtons[0]))->check();
-    lastShownTechType = 0;
+    lastShownTechGroup = 0;
     ButtonOperations.clear();//discard initial default names, attachbuttons() will create proper map
 }
 
@@ -138,52 +134,12 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
         const char* name = (const char*) iter.getName();
         const char* value = (const char*) iter.getValue();
         if(pName == name)
-            return value;
+        {   return value;}
     }
 
     return rname;
 }
-/*
-//show required tech in display-format
-float ButtonPanel::requiredTech(int moduleType) {
-    if( moduleType == CST_NONE ){
-        return 0;
-    }
-    int group = get_group_of_type( moduleType );
-    float tl;
-    //High Tech Residences are special
-    if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH
-            || group == GROUP_RESIDENCE_HH ){
-        tl = 3 * MAX_TECH_LEVEL / 10;
-    } else {
-        tl = main_groups[ group ].tech * MAX_TECH_LEVEL/1000;
-    }
 
-    return tl * 100 / MAX_TECH_LEVEL;
-}
-*/
-/*
-//test if there is enough tech to build moduleType.
-bool ButtonPanel::enoughTech( int moduleType ){
-    if( moduleType == CST_NONE ){
-        return true;
-    }
-    int group = get_group_of_type( moduleType );
-    //High Tech Residences are special
-    if( group == GROUP_RESIDENCE_LH || group == GROUP_RESIDENCE_MH
-            || group == GROUP_RESIDENCE_HH ){
-        if( ( ( tech_level * 10 ) / MAX_TECH_LEVEL) > 2 ){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    if ( tech_level >= main_groups[ group ].tech * MAX_TECH_LEVEL/1000 ){
-        return true;
-    }
-    return false;
-}
-*/
 /*
  * enable/disable buttons according to tech.
  *  lincity/ldsvguts.cpp
@@ -204,86 +160,28 @@ void ButtonPanel::checkTech( int showInfo ){
     }
 }
 
-//std::string ButtonPanel::createTooltip( /*int module,*/ bool root /* = true */ ){
-/*    std::stringstream tooltip;
 
-    switch(userOperation->action)
-    {
-        case UserOperation::ACTION_QUERY:
-            tooltip << _( "Query Tool" ); break;
-        case UserOperation::ACTION_BUILD:
-            tooltip << userOperation->constructionGroup->name;
-            switch(userOperation->constructionGroup->group)
-            {
-                case GROUP_RESIDENCE_LL: tooltip <<  ": 50 tenants, low birthrate, high deathrate" ; break;
-                case GROUP_RESIDENCE_ML: tooltip <<  ": 100 tenants, high birthrate, low deathrate" ; break;
-                case GROUP_RESIDENCE_HL: tooltip <<  ": 200 tenants, high birthrate, high deathrate" ; break;
-                case GROUP_RESIDENCE_LH: tooltip <<  ": 100 tenants, low birthrate, high deathrate" ; break;
-                case GROUP_RESIDENCE_MH: tooltip <<  ": 200 tenants, high birthrate, low deathrate" ; break;
-                case GROUP_RESIDENCE_HH: tooltip <<  ": 400 tenants, high birthrate, high deathrate" ;
-            }
-            break;
-        case UserOperation::ACTION_BULLDOZE:
-            tooltip << _( "Bulldozer" ); break;
-        case UserOperation::ACTION_EVACUATE:
-            tooltip << _( "Evacuate" ); break;
-        case UserOperation::ACTION_FLOOD:
-            tooltip << _( "Water" ); break;
-        default:
-            tooltip << "unknown useroperation";
-    }
-*/
-/*
-    switch( module ){
-        case CST_NONE: tooltip << _( "Query Tool" ); break;
-        case CST_GREEN: tooltip << _( "Bulldozer" ); break;
-        case CST_DESERT: tooltip << _( "Evacuate" ); break;
-
-        case CST_RESIDENCE_LL: tooltip << _( "Residential: 50 denizens, low birthrate, high deathrate" ); break;
-        case CST_RESIDENCE_ML: tooltip << _( "Residential: 100 denizens, high birthrate, low deathrate" ); break;
-        case CST_RESIDENCE_HL: tooltip << _( "Residential: 200 denizens, high birthrate, high deathrate" ); break;
-        case CST_RESIDENCE_LH: tooltip << _( "Residential: 100 denizens, low birthrate, high deathrate" ); break;
-        case CST_RESIDENCE_MH: tooltip << _( "Residential: 200 denizens, high birthrate, low deathrate" ); break;
-        case CST_RESIDENCE_HH: tooltip << _( "Residential: 400 denizens, high birthrate, high deathrate" ); break;
-
-        default:{
-            int group = main_types[ module ].group;
-            std::string buildingName = main_groups[ group ].name;
-            tooltip << dictionaryManager->get_dictionary().translate( buildingName );
-        }
-    }
-*/
-/*
-    if( !root ){
-        tooltip << _(" [Click right for help.]");
-    }
-    return tooltip.str();
-}
-*/
-
-void ButtonPanel::examineButton( std::string name, int showInfo ){
-    int tmp = selected_module_type;
-    UserOperation *tmp2 = userOperation;
-    Component *c=findComponent( name );
+void ButtonPanel::examineButton( std::string name, int showInfo )
+{
+    UserOperation *usrOp = &(ButtonOperations[name]);
+    Component *c = findComponent( name );
     if( !c ) {
         std::cerr << "examineButton# Component "<< name << " not found!?\n";
         return;
     }
+
     CheckButton* b = dynamic_cast<CheckButton*>(c);
     if( !b ){
         std::cerr << "examineButton# Component "<< name << " is not a Button???\n";
         return;
     }
-    //doButton( name );
-    userOperation = &(ButtonOperations[name]);
-    selected_module_type = userOperation->selected_module_type;
-    //enoughTech( selected_module_type )
-    if ( userOperation->enoughTech() )
+
+    if ( usrOp->enoughTech() )
     {
         if( !b->isEnabled() )
         {
-            newTechMessage( selected_module_type, showInfo );
-            b->setTooltip( userOperation->createTooltip( /*selected_module_type,*/ false ) );
+            newTechMessage( usrOp->constructionGroup->group, showInfo );
+            b->setTooltip( usrOp->createTooltip( false ) );
             b->enable();
         }
     }
@@ -292,22 +190,13 @@ void ButtonPanel::examineButton( std::string name, int showInfo ){
         if( b->isEnabled() )
         {
             b->enable( false );
-            char tooltip[2048];
+            char tooltip[2048]; //FIXME may use string stream here
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                    userOperation->createTooltip(/*selected_module_type,*/ false ).c_str(),
-                    userOperation->requiredTech());
+                    usrOp->createTooltip( false ).c_str(),
+                    usrOp->requiredTech());
             b->setTooltip(tooltip);
         }
     }
-    if ( (name=="BPMWaterwellButton") & !use_waterwell ) {
-            b->enable( false );
-            char tooltip[2048];
-            snprintf(tooltip, sizeof(tooltip), _("%s is disabled (loaded old game)."),
-                userOperation->createTooltip(/*selected_module_type,*/ false ).c_str());
-        b->setTooltip(tooltip);
-    }
-    selected_module_type = tmp;
-    userOperation = tmp2;
 }
 
 void ButtonPanel::examineMenuButtons(){
@@ -315,6 +204,7 @@ void ButtonPanel::examineMenuButtons(){
     Component *c;
     for( size_t number=0; number < mMenuButtons.size(); number++ ){
         name = mMenuButtons[ number ];
+        UserOperation *usrOp = &(ButtonOperations[name]);
         c=findComponent( name );
 
         if( !c ) {
@@ -326,11 +216,10 @@ void ButtonPanel::examineMenuButtons(){
             std::cerr << "examineMenuButton# Component "<< name << " is not a Button???\n";
             return;
         }
-        //int type = mMenuSelected[mMenus[number]];
-        if ( ButtonOperations[name].enoughTech() )
+        if ( usrOp->enoughTech() )
         {
             if( !b->isEnabled() ){
-                b->setTooltip( userOperation->createTooltip( /*type*/ ) );
+                b->setTooltip( usrOp->createTooltip( ) );
                 b->enable();
             }
         }
@@ -340,8 +229,8 @@ void ButtonPanel::examineMenuButtons(){
             {
                 char tooltip[2048];
                 snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                        userOperation->createTooltip( /*type*/ ).c_str(),
-                        ButtonOperations[name].requiredTech());
+                        usrOp->createTooltip( ).c_str(),
+                        usrOp->requiredTech());
                 b->setTooltip( tooltip );
                 b->enable( false );
             }
@@ -351,17 +240,17 @@ void ButtonPanel::examineMenuButtons(){
 
 /* Display message for module when it is activated (see above) */
 // see oldgui/module_buttons.cpp activate_module
-void ButtonPanel::newTechMessage( int moduleType, int showInfo )
+void ButtonPanel::newTechMessage( unsigned short group, int showInfo )
 {
-    if( showInfo == 0) return;
+    if( showInfo == 0)
+    {   return;}
 
-    int module = get_group_of_type( moduleType );
-    if( lastShownTechType == module )
+    if( lastShownTechGroup == group )
     {
         //std::cout << "suppressing Tech Msg: " << module << "\n";
         return;
     }
-    switch( module ){
+    switch( group ){
         case GROUP_WINDMILL:
             ok_dial_box ("windmillup.mes", GOOD, 0L);
             break;
@@ -445,7 +334,7 @@ void ButtonPanel::newTechMessage( int moduleType, int showInfo )
         default:
             return;
     }
-    lastShownTechType = module;
+    lastShownTechGroup = group;
     //remember last Type so we don't show the message twice if we lose just a little tech.
 }
 
@@ -454,8 +343,8 @@ void ButtonPanel::attachButtons()
 {
   if(alreadyAttached)
   {  return;}
-  alreadyAttached=true;
-  int tmp = selected_module_type;
+  alreadyAttached = true;
+  //int tmp = selected_module_type;
   UserOperation *tmp2 = userOperation;
   for(size_t i=0;i<mMenuButtons.size();i++)
     {
@@ -467,11 +356,11 @@ void ButtonPanel::attachButtons()
         {
           b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
           if( b->isEnabled() ){
-            b->setTooltip( userOperation->createTooltip( /*mMenuSelected[ mMenus[ i ] ]*/ ) );
+            b->setTooltip( userOperation->createTooltip( ) );
           } else {
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                     userOperation->createTooltip( /*mMenuSelected[ mMenus[ i ] ]*/ ).c_str(),
+                     userOperation->createTooltip( ).c_str(),
                      ButtonOperations[mMenuButtons[i]].requiredTech());
             b->setTooltip(tooltip);
           }
@@ -489,21 +378,21 @@ void ButtonPanel::attachButtons()
         {
             b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
             doButton( mButtons[i] );
-            selected_module_type = ButtonOperations[mButtons[i]].selected_module_type;
+            //selected_module_type = ButtonOperations[mButtons[i]].selected_module_type;
             userOperation = &(ButtonOperations[mButtons[i]]);
             if( b->isEnabled() ){
-                b->setTooltip( userOperation->createTooltip( /*selected_module_type,*/ false ) );
+                b->setTooltip( userOperation->createTooltip( false ) );
             } else {
             char tooltip[2048];
             snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                     userOperation->createTooltip( /*selected_module_type,*/ false ).c_str(),
+                     userOperation->createTooltip( false ).c_str(),
                      userOperation->requiredTech());
             b->setTooltip(tooltip);
           }
         }
       }
     }
-    selected_module_type = tmp;
+    //selected_module_type = tmp;
     userOperation = tmp2;
     checkTech(0);
     // now hide menu
@@ -566,7 +455,11 @@ void ButtonPanel::toggleBulldozeTool()
     }
 }
 
-void ButtonPanel::showToolHelp( int tooltype ){
+//TODO move this one to UserOperation::
+void ButtonPanel::showToolHelp( )
+{
+    unsigned short tooltype = userOperation->selected_module_type;
+
     switch( tooltype ) {
         case CST_NONE:
             getGame()->showHelpWindow( "query" ); break;
@@ -728,7 +621,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
      selected_module_type =  userOperation->selected_module_type;
 
     if( mousebutton == SDL_BUTTON_RIGHT ){
-        showToolHelp( selected_module_type );
+        showToolHelp( );
         selected_module_type = tmp;
         userOperation = tmp2;
         updateSelectedCost();
@@ -923,21 +816,21 @@ void ButtonPanel::doButton(const std::string &button)
     UserOperation *buttonOperation = &(ButtonOperations[button]);
     if(button=="BPMPointerButton")
     {
-        buttonOperation->type = 0;
+        //buttonOperation->type = 0;
         buttonOperation->constructionGroup = NULL;
         buttonOperation->action = UserOperation::ACTION_QUERY;
         selected_module_type=CST_NONE;
     }
     else if(button=="BPMBullDozeButton")
     {
-        buttonOperation->type = 0;
+        //buttonOperation->type = 0;
         buttonOperation->constructionGroup = NULL;
         buttonOperation->action = UserOperation::ACTION_BULLDOZE;
         selected_module_type=CST_GREEN;
     }
     else if(button=="BPMEvacuateButton")
     {
-        buttonOperation->type = 0;
+        //buttonOperation->type = 0;
         buttonOperation->constructionGroup = NULL;
         buttonOperation->action = UserOperation::ACTION_EVACUATE;
         selected_module_type=CST_DESERT;
@@ -945,42 +838,42 @@ void ButtonPanel::doButton(const std::string &button)
 
     else if(button=="BPMResidence1Button")
     {
-        buttonOperation->type = CST_RESIDENCE_LL;
+        //buttonOperation->type = CST_RESIDENCE_LL;
         buttonOperation->constructionGroup = &residenceLLConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_LL;
     }
     else if(button=="BPMResidence2Button")
     {
-        buttonOperation->type = CST_RESIDENCE_ML;
+        //buttonOperation->type = CST_RESIDENCE_ML;
         buttonOperation->constructionGroup = &residenceMLConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_ML;
     }
     else if(button=="BPMResidence3Button")
     {
-        buttonOperation->type = CST_RESIDENCE_HL;
+        //buttonOperation->type = CST_RESIDENCE_HL;
         buttonOperation->constructionGroup = &residenceHLConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_HL;
     }
     else if(button=="BPMResidence4Button")
     {
-        buttonOperation->type = CST_RESIDENCE_LH;
+        //buttonOperation->type = CST_RESIDENCE_LH;
         buttonOperation->constructionGroup = &residenceLHConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_LH;
     }
     else if(button=="BPMResidence5Button")
     {
-        buttonOperation->type = CST_RESIDENCE_MH;
+        //buttonOperation->type = CST_RESIDENCE_MH;
         buttonOperation->constructionGroup = &residenceMHConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_MH;
     }
     else if(button=="BPMResidence6Button")
     {
-        buttonOperation->type = CST_RESIDENCE_HH;
+        //buttonOperation->type = CST_RESIDENCE_HH;
         buttonOperation->constructionGroup = &residenceHHConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RESIDENCE_HH;
@@ -989,14 +882,14 @@ void ButtonPanel::doButton(const std::string &button)
 
     else if(button=="BPMFarmButton")
     {
-        buttonOperation->type = CST_FARM_O0;
+        //buttonOperation->type = CST_FARM_O0;
         buttonOperation->constructionGroup = &organic_farmConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_FARM_O0;
     }
     else if(button=="BPMMillButton")
     {
-        buttonOperation->type = CST_MILL_0;
+        //buttonOperation->type = CST_MILL_0;
         buttonOperation->constructionGroup = &millConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_MILL_0;
@@ -1004,35 +897,35 @@ void ButtonPanel::doButton(const std::string &button)
 
     else if(button=="BPMHealthButton")
     {
-        buttonOperation->type = CST_HEALTH;
+        //buttonOperation->type = CST_HEALTH;
         buttonOperation->constructionGroup = &healthCentreConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_HEALTH;
     }
     else if(button=="BPMSportsButton")
     {
-        buttonOperation->type = CST_CRICKET_1;
+        //buttonOperation->type = CST_CRICKET_1;
         buttonOperation->constructionGroup = &cricketConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_CRICKET_1;
     }
     else if(button=="BPMFireButton")
     {
-        buttonOperation->type = CST_FIRESTATION_1;
+        //buttonOperation->type = CST_FIRESTATION_1;
         buttonOperation->constructionGroup = &fireStationConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_FIRESTATION_1;
     }
     else if(button=="BPMSchoolButton")
     {
-        buttonOperation->type = CST_SCHOOL;
+        //buttonOperation->type = CST_SCHOOL;
         buttonOperation->constructionGroup = &schoolConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_SCHOOL;
     }
     else if(button=="BPMUniversityButton")
     {
-        buttonOperation->type = CST_UNIVERSITY;
+        //buttonOperation->type = CST_UNIVERSITY;
         buttonOperation->constructionGroup = &universityConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_UNIVERSITY;
@@ -1040,35 +933,35 @@ void ButtonPanel::doButton(const std::string &button)
 
     else if(button=="BPMTrackButton")
     {
-        buttonOperation->type = CST_TRACK_LR;
+        //buttonOperation->type = CST_TRACK_LR;
         buttonOperation->constructionGroup = &trackConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_TRACK_LR;
     }
     else if(button=="BPMStreetButton")
     {
-        buttonOperation->type = CST_ROAD_LR;
+        //buttonOperation->type = CST_ROAD_LR;
         buttonOperation->constructionGroup = &roadConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_ROAD_LR;
     }
     else if(button=="BPMRailButton")
     {
-        buttonOperation->type = CST_RAIL_LR;
+        //buttonOperation->type = CST_RAIL_LR;
         buttonOperation->constructionGroup = &railConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RAIL_LR;
     }
     else if(button=="BPMPortButton")
     {
-        buttonOperation->type = CST_EX_PORT;
+        //buttonOperation->type = CST_EX_PORT;
         buttonOperation->constructionGroup = &portConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_EX_PORT;
     }
     else if(button=="BPMRocketButton")
     {
-        buttonOperation->type = CST_ROCKET_1;
+        //buttonOperation->type = CST_ROCKET_1;
         buttonOperation->constructionGroup = &rocketPadConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_ROCKET_1;
@@ -1076,44 +969,43 @@ void ButtonPanel::doButton(const std::string &button)
 
     else if(button=="BPMPowerLineButton")
     {
-        buttonOperation->type = CST_POWERL_H_L;
+        //buttonOperation->type = CST_POWERL_H_L;
         buttonOperation->constructionGroup = &powerlineConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_POWERL_H_L;
     }
     else if(button=="BPMCoalPSButton")
     {
-        buttonOperation->type = CST_POWERS_COAL_EMPTY;
+        //buttonOperation->type = CST_POWERS_COAL_EMPTY;
         buttonOperation->constructionGroup = &coal_powerConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_POWERS_COAL_EMPTY;
     }
     else if(button=="BPMSolarPSButton")
     {
-        buttonOperation->type = CST_POWERS_SOLAR;
+        //buttonOperation->type = CST_POWERS_SOLAR;
         buttonOperation->constructionGroup = &solarPowerConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_POWERS_SOLAR;
     }
     else if(button=="BPMSubstationButton")
     {
-        buttonOperation->type = CST_SUBSTATION_R;
+        //buttonOperation->type = CST_SUBSTATION_R;
         buttonOperation->constructionGroup = &substationConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_SUBSTATION_R;
     }
     else if(button=="BPMWindmillButton")
     {
-        buttonOperation->type = (tech_level < WIND_POWER_TECH)? CST_WINDMILL_1_W: CST_WINDMILL_1_R;
         if (tech_level < WIND_POWER_TECH)
         {
-            buttonOperation->type=CST_WINDMILL_1_W;
+            //buttonOperation->type=CST_WINDMILL_1_W;
             buttonOperation->constructionGroup = &windmillConstructionGroup;
             selected_module_type=CST_WINDMILL_1_W;
         }
         else
         {
-            buttonOperation->type=CST_WINDMILL_1_R;
+            //buttonOperation->type=CST_WINDMILL_1_R;
             buttonOperation->constructionGroup = &windpowerConstructionGroup;
             selected_module_type=CST_WINDMILL_1_R;
         }
@@ -1122,35 +1014,35 @@ void ButtonPanel::doButton(const std::string &button)
 
     else if(button=="BPMCommuneButton")
     {
-        buttonOperation->type = CST_COMMUNE_1;
+        //buttonOperation->type = CST_COMMUNE_1;
         buttonOperation->constructionGroup = &communeConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_COMMUNE_1;
     }
     else if(button=="BPMCoalButton")
     {
-        buttonOperation->type = CST_COALMINE_EMPTY;
+        //buttonOperation->type = CST_COALMINE_EMPTY;
         buttonOperation->constructionGroup = &coalmineConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_COALMINE_EMPTY;
     }
     else if(button=="BPMOreButton")
     {
-        buttonOperation->type = CST_OREMINE_1;
+        //buttonOperation->type = CST_OREMINE_1;
         buttonOperation->constructionGroup = &oremineConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_OREMINE_1;
     }
     else if(button=="BPMTipButton")
     {
-        buttonOperation->type = CST_TIP_0;
+        //buttonOperation->type = CST_TIP_0;
         buttonOperation->constructionGroup = &tipConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_TIP_0;
     }
     else if(button=="BPMRecycleButton")
     {
-        buttonOperation->type = CST_RECYCLE;
+        //buttonOperation->type = CST_RECYCLE;
         buttonOperation->constructionGroup = &recycleConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_RECYCLE;
@@ -1158,35 +1050,35 @@ void ButtonPanel::doButton(const std::string &button)
 
     else if(button=="BPMLIndustryButton")
     {
-        buttonOperation->type = CST_INDUSTRY_L_C;
+        //buttonOperation->type = CST_INDUSTRY_L_C;
         buttonOperation->constructionGroup = &industryLightConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_INDUSTRY_L_C;
     }
     else if(button=="BPMHIndustryButton")
     {
-        buttonOperation->type = CST_INDUSTRY_H_C;
+        //buttonOperation->type = CST_INDUSTRY_H_C;
         buttonOperation->constructionGroup = &industryHeavyConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_INDUSTRY_H_C;
     }
     else if(button=="BPMMarketButton")
     {
-        buttonOperation->type = CST_MARKET_EMPTY;
+        //buttonOperation->type = CST_MARKET_EMPTY;
         buttonOperation->constructionGroup = &marketConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_MARKET_EMPTY;
     }
     else if(button=="BPMPotteryButton")
     {
-        buttonOperation->type = CST_POTTERY_0;
+        //buttonOperation->type = CST_POTTERY_0;
         buttonOperation->constructionGroup = &potteryConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_POTTERY_0;
     }
     else if(button=="BPMBlacksmithButton")
     {
-        buttonOperation->type = CST_BLACKSMITH_0;
+        //buttonOperation->type = CST_BLACKSMITH_0;
         buttonOperation->constructionGroup = &blacksmithConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_BLACKSMITH_0;
@@ -1194,7 +1086,7 @@ void ButtonPanel::doButton(const std::string &button)
 
     else if(button=="BPMMonumentButton")
     {
-        buttonOperation->type = CST_MONUMENT_0;
+        //buttonOperation->type = CST_MONUMENT_0;
         buttonOperation->constructionGroup = &monumentConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         selected_module_type=CST_MONUMENT_0;
@@ -1205,12 +1097,12 @@ void ButtonPanel::doButton(const std::string &button)
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( keystate[SDLK_w] )
         {
-            buttonOperation->type = CST_PARKLAND_LAKE;
+            //buttonOperation->type = CST_PARKLAND_LAKE;
             buttonOperation->constructionGroup = &parkpondConstructionGroup;
         }
         else
         {
-            buttonOperation->type = CST_PARKLAND_PLANE;
+            //buttonOperation->type = CST_PARKLAND_PLANE;
             buttonOperation->constructionGroup = &parklandConstructionGroup;
         }
 
@@ -1219,7 +1111,7 @@ void ButtonPanel::doButton(const std::string &button)
     }
     else if(button=="BPMWaterButton")
     {
-        buttonOperation->type = CST_WATER;
+        //buttonOperation->type = CST_WATER;
         buttonOperation->constructionGroup = NULL;
         buttonOperation->action = UserOperation::ACTION_FLOOD;
         selected_module_type=CST_WATER;
@@ -1230,13 +1122,13 @@ void ButtonPanel::doButton(const std::string &button)
         if ( keystate[SDLK_s] )
         {
             selected_module_type=CST_SHANTY;
-            buttonOperation->type = CST_SHANTY;
+            //buttonOperation->type = CST_SHANTY;
             buttonOperation->constructionGroup = &shantyConstructionGroup;
         }
         else
         {
             selected_module_type=CST_WATERWELL;
-            buttonOperation->type = CST_WATERWELL;
+            //buttonOperation->type = CST_WATERWELL;
             buttonOperation->constructionGroup = &waterwellConstructionGroup;
         }
 

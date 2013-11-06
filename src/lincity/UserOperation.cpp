@@ -7,7 +7,7 @@ static int last_warning_message_group = 0;
 UserOperation::UserOperation()
 {
     constructionGroup = NULL;
-    type = 0;
+    //type = 0;
     action = ACTION_QUERY;
 }
 
@@ -71,7 +71,7 @@ float UserOperation::requiredTech()
 }
 
 /* replacement of ButtonPanel::createTooltip*/
-std::string UserOperation::createTooltip( /*int module,*/ bool root /* = true */ ){
+std::string UserOperation::createTooltip( bool root /* = true */ ){
     std::stringstream tooltip;
 
     switch(action)
@@ -79,8 +79,8 @@ std::string UserOperation::createTooltip( /*int module,*/ bool root /* = true */
         case ACTION_QUERY:
             tooltip <<  "Query Tool" ; break;
         case ACTION_BUILD:
-            tooltip << userOperation->constructionGroup->name;
-            switch(userOperation->constructionGroup->group)
+            tooltip << constructionGroup->name;
+            switch(constructionGroup->group)
             {
                 case GROUP_RESIDENCE_LL: tooltip <<  ": 50 tenants, low birthrate, high deathrate" ; break;
                 case GROUP_RESIDENCE_ML: tooltip <<  ": 100 tenants, high birthrate, low deathrate" ; break;
