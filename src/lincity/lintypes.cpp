@@ -220,6 +220,7 @@ void MapTile::writeTemplate()
 
 void MapTile::saveMembers(std::ostream *os)
 {
+    type = type % getTileConstructionGroup()->graphicsInfoVector.size();
     int x = world.map_x(this);
     int y = world.map_y(this);
     unsigned short head = GROUP_DESERT;

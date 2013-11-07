@@ -329,7 +329,7 @@ void load_city_old(char *cname)
         for (p = 0; p < num_pbars; p++) {
             sscanf(gzgets(gzfile, s, 256), "%d", &(pbar_tmp));
             update_pbar(p, pbar_tmp, 1);
-/*	    sscanf( gzgets( gzfile, s, 256 ), "%d", &(pbars[p].data[x])); */
+/*      sscanf( gzgets( gzfile, s, 256 ), "%d", &(pbars[p].data[x])); */
         }
     }
 
@@ -354,7 +354,7 @@ void load_city_old(char *cname)
     sscanf(gzgets(gzfile, s, 256), "%d", &total_evacuated);
     sscanf(gzgets(gzfile, s, 256), "%d", &total_births);
     for (x = 0; x < NUMOF_MODULES; x++)
-        sscanf(gzgets(gzfile, s, 256), "%d", &(module_help_flag[x]));
+        sscanf(gzgets(gzfile, s, 256), "%d", &dummy);
     sscanf(gzgets(gzfile, s, 256), "%d", &x);   /* just dummy reads */
     sscanf(gzgets(gzfile, s, 256), "%d", &x);   /* for backwards compatibility. */
 
@@ -429,10 +429,10 @@ void load_city_old(char *cname)
     } else
         university_intake_rate = 50;
     */
-    unhighlight_module_button(selected_module);
-    selected_module = sbut[7];  /* 7 is track.  Watch out though! */
-    highlight_module_button(selected_module);
-    set_selected_module(CST_TRACK_LR);
+    //unhighlight_module_button(selected_module);
+    //selected_module = sbut[7];  /* 7 is track.  Watch out though! */
+    //highlight_module_button(selected_module);
+    //set_selected_module(CST_TRACK_LR);
 
     print_total_money();
     //reset_animation_times();
@@ -514,7 +514,7 @@ void load_city_old(char *cname)
             }
         }
 
-    //map_power_grid(true); 
+    //map_power_grid(true);
                                 /* WCK:  Is this safe to do here?
                                  * AL1: No, in NG_1.1
                                  * In case of error message with ok_dial_box
@@ -566,7 +566,7 @@ void check_endian(void)
                 /* prevent gcc warning on amd64: argument 2 has type 'long unsigned int' !!! */
                 printf("Strange size (%d) for short, please mail me.\n", (int) sizeof(short));
             }
-/*            
+/*
             eswap32(&(MP_INFO(x, y).int_1));
             eswap32(&(MP_INFO(x, y).int_2));
             eswap32(&(MP_INFO(x, y).int_3));

@@ -5,6 +5,7 @@
  * ---------------------------------------------------------------------- */
 
 /* this is for saving */
+
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
@@ -281,7 +282,7 @@ void save_city_2(char *cname)
         gzprintf(ofile, "%d\n", total_births);
 
         for (x = 0; x < NUMOF_MODULES; x++)
-            gzprintf(ofile, "%d\n", module_help_flag[x]);
+            gzprintf(ofile, "%d\n", 0);
 
         if (strlen(given_scene) > 1)
             gzprintf(ofile, "%s\n", given_scene);
@@ -565,7 +566,7 @@ void load_city_2(char *cname)
         sscanf(gzgets(gzfile, s, 256), "%d", &total_births);
 
         for (x = 0; x < NUMOF_MODULES; x++)
-        {   sscanf(gzgets(gzfile, s, 256), "%d", &(module_help_flag[x]));}
+        {   sscanf(gzgets(gzfile, s, 256), "%d", &dummy);}
 
         sscanf(gzgets(gzfile, s, 256), "%128s", given_scene);
         if (strncmp(given_scene, "dummy", 5) == 0 || strlen(given_scene) < 3)
@@ -657,10 +658,10 @@ void load_city_2(char *cname)
     if (main_screen_originy > COMPATIBLE_WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1)
         main_screen_originy = COMPATIBLE_WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1;
 
-    unhighlight_module_button(selected_module);
-    selected_module = sbut[7];  /* 7 is track.  Watch out though! */
-    highlight_module_button(selected_module);
-    set_selected_module(CST_TRACK_LR);
+    //unhighlight_module_button(selected_module);
+    //selected_module = sbut[7];  /* 7 is track.  Watch out though! */
+    //highlight_module_button(selected_module);
+    //set_selected_module(CST_TRACK_LR);
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
     /* Fix desert frontier for old saved games and scenarios */
     desert_frontier(0, 0, world.len(), world.len());

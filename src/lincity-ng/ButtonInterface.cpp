@@ -19,10 +19,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "gui_interface/shared_globals.h"
 
-int module_help_flag[NUMOF_MODULES]; 
-int selected_module;	
-int sbut[NUMOF_MODULES];
+//TODO delete this file
 
+//int module_help_flag[NUMOF_MODULES];
+//int selected_module;
+//int sbut[NUMOF_MODULES];
+/*
 void highlight_module_button (int module)
 {
     (void) module;
@@ -37,7 +39,7 @@ void set_selected_module (int type)
 {
     (void) type;
 }
-
+*/
 
 /** @file lincity-ng/ButtonInterface.cpp */
 

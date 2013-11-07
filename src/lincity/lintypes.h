@@ -252,6 +252,7 @@ public:
     RegisteredConstruction<ConstructionClass>( int x, int y)
     {
         this->type = 0;//safe default
+        setMemberSaved(&(this->type),"type");
         this->x = x;
         this->y = y;
         this->ID = Counted<ConstructionClass>::getNextId();

@@ -77,7 +77,7 @@ GameView::GameView()
 {
     assert(gameViewPtr == 0);
     gameViewPtr = this;
-    //mTextures = SDL_CreateMutex();
+    mTextures = SDL_CreateMutex();
     mThreadRunning = SDL_CreateMutex();
     loaderThread = 0;
     keyScrollState = 0;
@@ -96,7 +96,7 @@ GameView::~GameView()
     SDL_WaitThread( loaderThread, NULL );
 
     SDL_DestroyMutex( mThreadRunning );
-    //SDL_DestroyMutex( mTextures );
+    SDL_DestroyMutex( mTextures );
 /*
     for(size_t i = 0; i < cityTextures.size(); ++i)
     {
@@ -462,7 +462,7 @@ void GameView::preReadImages(void)
     int xmlX = -1;
     int xmlY = -1;
     std::string key;
-    //SDL_mutexP( mTextures ); //lock mutex while parsing images
+
     while( reader.read() )
     {
         if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
@@ -533,6 +533,7 @@ void GameView::preReadImages(void)
                         }
                     }
                 }
+                SDL_mutexP( mTextures );
                 if (resourceID_level && constructionGroup)
                 {
 
@@ -549,6 +550,7 @@ void GameView::preReadImages(void)
                     graphicsInfo->x = xmlX;
                     graphicsInfo->y = xmlY;
                 }
+                SDL_mutexV( mTextures );
                 xmlX = -1;
                 xmlY = -1;
                 key.clear();
@@ -557,7 +559,7 @@ void GameView::preReadImages(void)
         if(constructionGroup)
         {   constructionGroup->images_loaded = true;}
     }
-    //SDL_mutexV( mTextures );
+
 }
 
 /*
@@ -1579,15 +1581,13 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     GraphicsInfo *graphicsInfo = 0;
     if(cstgrp->images_loaded)// textures_ready)
     {
-        //SDL_mutexP( mTextures );
+        SDL_mutexP( mTextures );
         size_t s = cstgrp->graphicsInfoVector.size();
         if (s)
         {
             graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s];
             texture = graphicsInfo->texture;
         }
-        //else
-        //{   texture = 0;}
 
         // Test if we have to convert Preloaded Image to Texture
         if( !texture )
@@ -1601,7 +1601,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
                 texture = graphicsInfo->texture;
             }
         }
-        //SDL_mutexV( mTextures );
+        SDL_mutexV( mTextures );
     }
 
     if( texture && ( !hideHigh || size == 1 ) )
@@ -1688,7 +1688,7 @@ void GameView::markTile( Painter& painter, MapPoint tile )
 
         if(userOperation->action == UserOperation::ACTION_BUILD)
         {
-            // Draw range for selected_module_type
+            // Draw range for selected_building
             int range = userOperation->constructionGroup->range;
             if (range > 0 )
             {
