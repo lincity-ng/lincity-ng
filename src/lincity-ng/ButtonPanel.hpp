@@ -40,7 +40,7 @@ class ButtonPanel : public Component
   void checkTech( int showInfo );
   void selectQueryTool();
   void toggleBulldozeTool();
-  void switchToTool( int newModuleType );
+  //void switchToTool( const std::string &btnName );
 
  private:
   void attachButtons();
@@ -48,15 +48,15 @@ class ButtonPanel : public Component
   void doButton(const std::string &button);
   void toggleMenu(std::string pName,bool enable);
   void updateToolInfo();
-  void showToolHelp( );
+  //void showToolHelp( );
 
-  int module;
+  //int module;
   bool alreadyAttached;
-  void examineButton( std::string name, int showInfo );
+  void examineButton(const std::string &name, int showInfo );
   void examineMenuButtons();
   void newTechMessage( unsigned short group, int showInfo );
   void updateSelectedCost();
-  int previousTool;
+  std::string previousName;
   int lastShownTechGroup;
 
   //std::string createTooltip( /*int module,*/ bool root = true );
@@ -64,7 +64,7 @@ class ButtonPanel : public Component
   std::vector<std::string> mMenus;
   std::vector<std::string> mButtons;
 
-  std::map<std::string,int> mMenuSelected;
+  //std::map<std::string,int> mMenuSelected;
   std::map<std::string, UserOperation> ButtonOperations;
 };
 

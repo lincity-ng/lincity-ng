@@ -18,9 +18,9 @@ extern int cheat_flag;
 
 // modules
 #define NUMOF_MODULES 32
-extern int module_help_flag[NUMOF_MODULES]; 
+extern int module_help_flag[NUMOF_MODULES];
 extern int selected_module;
-extern int selected_module_type; // must be set somehow
+//extern int selected_module_type; // must be set somehow
 extern int sbut[NUMOF_MODULES];
 
 void highlight_module_button (int module);

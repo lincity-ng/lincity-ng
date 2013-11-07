@@ -167,7 +167,7 @@ void editMap (MapPoint point, int button)
     //from here on everything should be allowed
     if (userOperation->action == UserOperation::ACTION_FLOOD && button != SDL_BUTTON_RIGHT)
     {
-        world(x, y)->setTerrain(userOperation->selected_module_type);
+        world(x, y)->setTerrain(GROUP_WATER);
         world(x, y)->flags |= FLAG_ALTERED;
         adjust_money(-selected_module_cost);
         desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
@@ -236,13 +236,13 @@ void editMap (MapPoint point, int button)
         {
             //userOperation->type=CST_WINDMILL_1_R;
             userOperation->constructionGroup = &windpowerConstructionGroup;
-            userOperation->selected_module_type = CST_WINDMILL_1_R;
+            //userOperation->selected_module_type = CST_WINDMILL_1_R;
         }
         else if (( userOperation->constructionGroup == &windpowerConstructionGroup) && (tech_level < MODERN_WINDMILL_TECH))
         {
             //userOperation->type = CST_WINDMILL_1_W;
             userOperation->constructionGroup = &windmillConstructionGroup;
-            userOperation->selected_module_type = CST_WINDMILL_1_W;
+            //userOperation->selected_module_type = CST_WINDMILL_1_W;
         }
         //how to build a lake in the park?
         //just hold 'W' key on build ;-)
@@ -253,13 +253,13 @@ void editMap (MapPoint point, int button)
             if ( keystate[SDLK_w] )
             {
                 //userOperation->type = CST_PARKLAND_LAKE;
-                userOperation->selected_module_type = CST_PARKLAND_LAKE;
+                //userOperation->selected_module_type = CST_PARKLAND_LAKE;
                 userOperation->constructionGroup = &parkpondConstructionGroup;
             }
             else
             {
                 //userOperation->type = CST_PARKLAND_PLANE;
-                userOperation->selected_module_type = CST_PARKLAND_PLANE;
+                //userOperation->selected_module_type = CST_PARKLAND_PLANE;
                 userOperation->constructionGroup = &parklandConstructionGroup;
             }
         }
@@ -273,13 +273,13 @@ void editMap (MapPoint point, int button)
             {
                 //userOperation->type = CST_SHANTY;
                 userOperation->constructionGroup = &shantyConstructionGroup;
-                userOperation->selected_module_type = CST_SHANTY;
+                //userOperation->selected_module_type = CST_SHANTY;
             }
             else
             {
                 //userOperation->type = CST_WATERWELL;
                 userOperation->constructionGroup = &waterwellConstructionGroup;
-                userOperation->selected_module_type = CST_WATERWELL;
+                //userOperation->selected_module_type = CST_WATERWELL;
             }
         }
         // place the selected item.

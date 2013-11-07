@@ -7,8 +7,8 @@ static int last_warning_message_group = 0;
 UserOperation::UserOperation()
 {
     constructionGroup = NULL;
-    //type = 0;
     action = ACTION_QUERY;
+    helpName = "query";
 }
 
 UserOperation::~UserOperation() {}
@@ -60,8 +60,8 @@ UserOperation::is_allowed_here(int x, int y, bool warning)
 bool
 UserOperation::enoughTech(void)
 {
-    return ((action != ACTION_BUILD) ||
-    ((action == ACTION_BUILD) &&
+    return ((action != ACTION_BUILD) || (
+    //(action == ACTION_BUILD) &&
     (tech_level >= constructionGroup->tech * MAX_TECH_LEVEL/1000)));
 }
 

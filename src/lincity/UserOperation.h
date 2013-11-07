@@ -10,9 +10,8 @@ public:
     UserOperation();
     ~UserOperation();
     ConstructionGroup *constructionGroup; // !0 in case of ACTION_BUILD
-    //unsigned short type;// maybe usefull for showing type as cursor
-    int selected_module_type; //ButtonID for ButtonPanel
-
+    //int selected_module_type; //ButtonID for ButtonPanel
+    std::string helpName;
 
     enum Action //What User wants to do
     {
@@ -28,7 +27,7 @@ public:
     bool is_allowed_here(int x, int y, bool warning);
     bool enoughTech();// tells if scaled tech_level is sufficient
     float requiredTech(); // returns scaled tech_level for tooltipp info
-    std::string createTooltip( /*int module,*/ bool root = true );
+    std::string createTooltip( bool root = true );
 private:
 };
 
