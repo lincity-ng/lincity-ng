@@ -554,6 +554,8 @@ void GameView::preReadImages(void)
                 key.clear();
             }
         }
+        if(constructionGroup)
+        {   constructionGroup->images_loaded = true;}
     }
     //SDL_mutexV( mTextures );
 }
