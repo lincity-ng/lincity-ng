@@ -79,8 +79,11 @@ public:
     bool inCity( MapPoint tile );
 
     int gameAreaMax();
+    bool textures_ready; //for EconomyGraph
+    bool economyGraph_open;
+    int remaining_images;
 
-    //bool textures_ready;
+
 
 private:
     void connectButtons();

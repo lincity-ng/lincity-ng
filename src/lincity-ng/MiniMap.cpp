@@ -316,6 +316,16 @@ MiniMap::switchButton(CheckButton* button, int mousebutton)
     // remove "Switch" prefix
     std::string switchname = std::string(buttonName,
             6, buttonName.size()-1);
+    if(switchname == "EconomyGraph")
+    {
+        if(!getGameView()->textures_ready)
+        {
+            std::cout << "blocked EconomyGraph :" << getGameView()->remaining_images << std::endl;
+            switchname = "MiniMap";
+        }
+        else
+        {   getGameView()->economyGraph_open = true;}
+    }
     switchView(switchname);
 }
 
@@ -326,6 +336,8 @@ MiniMap::switchView(const std::string& viewname)
         = getSwitchComponent(*(findRoot(this)), "MiniMapSwitch");
 
     switchComponent->switchComponent(viewname);
+    if (viewname != "EconomyGraph")
+    {   getGameView()->economyGraph_open = false;}
     //TODO once this gets more complex PBar pages could become
     //a nested switchComponent. For now only one case ;-)
     std::string viewGroupName = viewname;

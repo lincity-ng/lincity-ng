@@ -86,6 +86,9 @@ GameView::GameView()
     blankImage = 0;
     blankX = 0;
     blankY = 0;
+    remaining_images = 0;
+    textures_ready = false;
+    economyGraph_open = false;
 }
 
 GameView::~GameView()
@@ -117,8 +120,8 @@ int GameView::gameViewThread( void* data )
 {
     GameView* gv = (GameView*) data;
     gv->preReadImages();
-    //gv->textures_ready = true;
-    gv->requestRedraw();
+    gv->textures_ready = true;
+    //gv->requestRedraw();
     return 0;
 }
 
@@ -150,7 +153,6 @@ void GameView::parse(XmlReader& reader)
     //cityTextureY.assign(NUM_OF_TYPES, '\0');
 
     SDL_mutexP( mThreadRunning );
-    //textures_ready = false;
     stopThread = false;
     loaderThread = SDL_CreateThread( gameViewThread, this );
     SDL_mutexV( mThreadRunning );
@@ -533,13 +535,13 @@ void GameView::preReadImages(void)
                         }
                     }
                 }
-                SDL_mutexP( mTextures );
+
                 if (resourceID_level && constructionGroup)
                 {
 
                     //std::cout << "Parsing: " << constructionGroup->name << " as " <<
                     //key << " x= " << xmlX << " y= " << xmlY << std::endl;
-
+                    SDL_mutexP( mTextures );
                     constructionGroup->growGraphicsInfoVector();
                     GraphicsInfo *graphicsInfo = &(constructionGroup->graphicsInfoVector.back());
                     graphicsInfo->image = readImage( key );
@@ -549,8 +551,10 @@ void GameView::preReadImages(void)
                     {   xmlY = int(graphicsInfo->image->h);}
                     graphicsInfo->x = xmlX;
                     graphicsInfo->y = xmlY;
+                    ++remaining_images;
+                    SDL_mutexV( mTextures );
                 }
-                SDL_mutexV( mTextures );
+
                 xmlX = -1;
                 xmlY = -1;
                 key.clear();
@@ -1581,7 +1585,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
     GraphicsInfo *graphicsInfo = 0;
     if(cstgrp->images_loaded)// textures_ready)
     {
-        SDL_mutexP( mTextures );
+
         size_t s = cstgrp->graphicsInfoVector.size();
         if (s)
         {
@@ -1590,18 +1594,21 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         }
 
         // Test if we have to convert Preloaded Image to Texture
-        if( !texture )
+        if( !texture && !economyGraph_open)
         {
+            SDL_mutexP( mTextures );
             if(graphicsInfo && graphicsInfo->image)
             {
                 //std::cout << "Gameview::creating texture for: " << cstgrp->name;
                 //std::cout << " from : " << graphicsInfo->image << std::endl;
                 graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
                 graphicsInfo->image = 0; //Image was erased by texture_manager->create.
+                --remaining_images;
                 texture = graphicsInfo->texture;
             }
+            SDL_mutexV( mTextures );
         }
-        SDL_mutexV( mTextures );
+
     }
 
     if( texture && ( !hideHigh || size == 1 ) )
