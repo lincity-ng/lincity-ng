@@ -132,8 +132,8 @@ private:
     SDL_Surface* blankImage;
     int blankX, blankY;
 
-    SDL_mutex* mTextures;
-    SDL_mutex* mThreadRunning;
+    //SDL_mutex* mTextures;
+    //SDL_mutex* mThreadRunning;
     SDL_Thread* loaderThread;
     bool stopThread;
 

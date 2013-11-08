@@ -77,8 +77,8 @@ GameView::GameView()
 {
     assert(gameViewPtr == 0);
     gameViewPtr = this;
-    mTextures = SDL_CreateMutex();
-    mThreadRunning = SDL_CreateMutex();
+    //mTextures = SDL_CreateMutex();
+    //mThreadRunning = SDL_CreateMutex();
     loaderThread = 0;
     keyScrollState = 0;
     mouseScrollState = 0;
@@ -94,12 +94,12 @@ GameView::GameView()
 GameView::~GameView()
 {
     stopThread = true;
-    SDL_mutexP( mThreadRunning );
+    //SDL_mutexP( mThreadRunning );
     //SDL_KillThread( loaderThread );
     SDL_WaitThread( loaderThread, NULL );
 
-    SDL_DestroyMutex( mThreadRunning );
-    SDL_DestroyMutex( mTextures );
+    //SDL_DestroyMutex( mThreadRunning );
+    //SDL_DestroyMutex( mTextures );
 /*
     for(size_t i = 0; i < cityTextures.size(); ++i)
     {
@@ -152,10 +152,10 @@ void GameView::parse(XmlReader& reader)
     //cityTextureX.assign(NUM_OF_TYPES, '\0');
     //cityTextureY.assign(NUM_OF_TYPES, '\0');
 
-    SDL_mutexP( mThreadRunning );
+    //SDL_mutexP( mThreadRunning );
     stopThread = false;
     loaderThread = SDL_CreateThread( gameViewThread, this );
-    SDL_mutexV( mThreadRunning );
+    //SDL_mutexV( mThreadRunning );
 
     //GameView is resizable
     setFlags(FLAG_RESIZABLE);
@@ -541,7 +541,7 @@ void GameView::preReadImages(void)
 
                     //std::cout << "Parsing: " << constructionGroup->name << " as " <<
                     //key << " x= " << xmlX << " y= " << xmlY << std::endl;
-                    SDL_mutexP( mTextures );
+                    //SDL_mutexP( mTextures );
                     constructionGroup->growGraphicsInfoVector();
                     GraphicsInfo *graphicsInfo = &(constructionGroup->graphicsInfoVector.back());
                     graphicsInfo->image = readImage( key );
@@ -552,7 +552,7 @@ void GameView::preReadImages(void)
                     graphicsInfo->x = xmlX;
                     graphicsInfo->y = xmlY;
                     ++remaining_images;
-                    SDL_mutexV( mTextures );
+                    //SDL_mutexV( mTextures );
                 }
 
                 xmlX = -1;
@@ -1596,7 +1596,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
         // Test if we have to convert Preloaded Image to Texture
         if( !texture && !economyGraph_open)
         {
-            SDL_mutexP( mTextures );
+            //SDL_mutexP( mTextures );
             if(graphicsInfo && graphicsInfo->image)
             {
                 //std::cout << "Gameview::creating texture for: " << cstgrp->name;
@@ -1606,7 +1606,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
                 --remaining_images;
                 texture = graphicsInfo->texture;
             }
-            SDL_mutexV( mTextures );
+            //SDL_mutexV( mTextures );
         }
 
     }
