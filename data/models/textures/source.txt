@@ -1,0 +1,4 @@
+- cobblestone4.png		http://opengameart.org/node/8016		license: cc0
+
+
+Textures in the textures folder without mention in this file are from www.burningwell.org or are own work. License: Public Domain.
