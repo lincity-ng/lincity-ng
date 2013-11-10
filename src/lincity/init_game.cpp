@@ -1401,13 +1401,19 @@ static void random_start(int *originx, int *originy)
 
     marketConstructionGroup.placeItem(xx + 14, yy + 9);
     /* build tracks */
-    for (x = 2; x < 23; x++) {
+    for (x = 2; x < 23; x++)
+    {
+        world(xx + x, yy + 11)->setTerrain(GROUP_DESERT);
         trackConstructionGroup.placeItem(xx + x, yy + 11);
     }
-    for (y = 2; y < 11; y++) {
+    for (y = 2; y < 11; y++)
+    {
+        world(xx + 13, yy + y)->setTerrain(GROUP_DESERT);
         trackConstructionGroup.placeItem(xx + 13, yy + y);
     }
-    for (y = 12; y < 23; y++) {
+    for (y = 12; y < 23; y++)
+    {
+        world(xx + 15, yy + y)->setTerrain(GROUP_DESERT);
         trackConstructionGroup.placeItem(xx + 15, yy + y);
     }
 
@@ -1418,8 +1424,7 @@ static void random_start(int *originx, int *originy)
     communeConstructionGroup.placeItem(xx + 11, yy + 17);
     communeConstructionGroup.placeItem(xx + 16, yy + 12);
     communeConstructionGroup.placeItem(xx + 16, yy + 17);
-    //the village was a free gift
-    //total_money = 0;
+
     sust_old_population = (housed_population + people_pool);
 }
 

@@ -201,11 +201,14 @@ void editMap (MapPoint point, int button)
             {
                 new Dialog( EDIT_PORT, mod_x, mod_y );
                 return;
-            } else if (world(mod_x,mod_y)->getType() >= CST_ROCKET_5 &&
-                         world(mod_x,mod_y)->getType() <= CST_ROCKET_7)
+            } else if(world(mod_x,mod_y)->getGroup() == GROUP_ROCKET)
             {
-                new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
-                return;
+                if (world(mod_x,mod_y)->getType() >= 4 &&
+                         world(mod_x,mod_y)->getType() < 7)
+                {
+                    new Dialog( ASK_LAUNCH_ROCKET, mod_x,mod_y );
+                    return;
+                }
             }
         }// end mps_result>1
 

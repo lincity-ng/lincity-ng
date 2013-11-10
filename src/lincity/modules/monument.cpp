@@ -11,20 +11,6 @@
 extern int mps_x, mps_y;
 
 MonumentConstructionGroup monumentConstructionGroup(
-    "Construction site",
-    FALSE,                     /* need credit? */
-    GROUP_MONUMENT,
-    GROUP_MONUMENT_SIZE,
-    GROUP_MONUMENT_COLOUR,
-    GROUP_MONUMENT_COST_MUL,
-    GROUP_MONUMENT_BUL_COST,
-    GROUP_MONUMENT_FIREC,
-    GROUP_MONUMENT_COST,
-    GROUP_MONUMENT_TECH,
-    GROUP_MONUMENT_RANGE
-);
-
-MonumentConstructionGroup monumentFinishedConstructionGroup(
     "Monument",
     FALSE,                     /* need credit? */
     GROUP_MONUMENT,
@@ -38,6 +24,7 @@ MonumentConstructionGroup monumentFinishedConstructionGroup(
     GROUP_MONUMENT_RANGE
 );
 
+MonumentConstructionGroup monumentFinishedConstructionGroup = monumentConstructionGroup;
 
 Construction *MonumentConstructionGroup::createConstruction(int x, int y) {
     return new Monument(x, y, this);

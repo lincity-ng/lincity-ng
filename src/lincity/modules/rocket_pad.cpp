@@ -82,13 +82,13 @@ void RocketPad::update()
     }
 
     /* animate and return if already said no to launch */
-    if (type >= CST_ROCKET_5 && completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
+    if (type >= 4 && completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
     {
         if (real_time >= anim)
         {
             anim = real_time + ROCKET_ANIMATION_SPEED;
             if(++type > 6)
-            {   type = 5;}
+            {   type = 4;}
         }
         return;
     }

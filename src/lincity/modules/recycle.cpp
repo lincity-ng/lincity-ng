@@ -9,7 +9,7 @@
 #include "recycle.h"
 
 RecycleConstructionGroup recycleConstructionGroup(
-    "Recyling Center",
+    "Recycling Centre",
     FALSE,                     /* need credit? */
     GROUP_RECYCLE,
     GROUP_RECYCLE_SIZE,

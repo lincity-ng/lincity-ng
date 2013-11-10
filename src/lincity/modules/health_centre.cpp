@@ -9,7 +9,7 @@
 
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(
-     "Health centre",
+     "Health Centre",
      FALSE,                     /* need credit? */
      GROUP_HEALTH,
      GROUP_HEALTH_SIZE,

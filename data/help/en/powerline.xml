@@ -2,11 +2,9 @@
 <Document style="helpdocument">
     <p style="htitle">Power lines</p>
     <p style="hp">Power lines carry power from solar and coal
-    power stations and modern windmills to substations.
-    Power lines connect to the top left corner of each of the
-    four types of icons, solar and coal power stations, modern windmills and substations.</p>
+    power stations and modern windmills to substations or industrial areas.</p>
     <p style="hp">Power lines cross under tracks, roads, railways and rivers (all of the width of 1).
-    If a power line is placed either side of a transport or river area,
+    If a power line is placed on either side of a transport or river area,
     they act as if they are joined. Often you will have to bulldoze a bit
     of river to cross a river - it's expensive! The power lines are joined when they are aligned and
     power packtes hop from one side to another</p>
