@@ -209,8 +209,16 @@ MiniMap::parse(XmlReader& reader)
     mpsXOld = mps_x;
     mpsYOld = mps_y;
     mpsStyleOld = mps_style;
-    left = 1;
-    top  = 1;
+	setGameViewCorners(
+		MapPoint(
+			main_screen_originx - width / tilesize / 2,
+			main_screen_originy - height / tilesize / 2
+		),
+		MapPoint(
+			main_screen_originx + width / tilesize / 2,
+			main_screen_originy + height / tilesize / 2
+		)
+	);
     this->stuff_ID = Construction::STUFF_FOOD;
 }
 
@@ -1097,6 +1105,7 @@ void MiniMap::event(const Event& event) {
                 (int) ((event.mousepos.y - border ) / tilesize) + top);
 
         if(event.mousebutton == SDL_BUTTON_LEFT ) {
+			printf("%d,%d,%d,%d\n", upperLeft.x, upperLeft.y, lowerRight.x, lowerRight.y);
             getGameView()->show(tile); // move main-map
         }
 /*
