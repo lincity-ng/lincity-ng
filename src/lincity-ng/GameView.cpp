@@ -1152,12 +1152,15 @@ void GameView::event(const Event& event)
                             {   place_item(currentTile.x, currentTile.y);}
                             *v1 += *s1;
                         }
+
                         while( *v2 != *l2 )
                         {
                             if(userOperation->is_allowed_here(currentTile.x, currentTile.y, false))
                             {   place_item(currentTile.x, currentTile.y);}
                             *v2 += *s2;
                         }
+
+
                     }
                     break;
                 }

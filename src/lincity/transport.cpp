@@ -181,7 +181,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 switch (check_topgroup(x + 1, y))
                 {
                     case GROUP_RAIL:
-                        if (check_group(x + 2, y) != GROUP_TRACK) //rail crossing
+                        if(check_group(x + 2, y) != GROUP_TRACK)
                         {   break;}
                     case GROUP_ROAD:
                     case GROUP_TRACK:
@@ -202,7 +202,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 switch (check_topgroup(x, y + 1))
                 {
                     case GROUP_RAIL:
-                        if (check_group(x, y + 2) != GROUP_TRACK) //rail crossing
+                        if(check_group(x, y + 2) != GROUP_TRACK)
                         {   break;}
                     case GROUP_ROAD:
                     case GROUP_TRACK:
@@ -246,6 +246,26 @@ void connect_transport(int originx, int originy, int w, int h)
                 else if (check_group(x, y+1) == GROUP_POWER_LINE &&
                          check_group(x, y-1) == GROUP_POWER_LINE)
                 {   cstr->type = 18; }
+                else if (check_group(x+1, y) == GROUP_RAIL &&
+                         check_group(x-1, y) == GROUP_RAIL &&
+                         check_group(x, y+1) == GROUP_TRACK &&
+                         check_group(x, y-1) == GROUP_TRACK)
+                {
+                    railConstructionGroup.placeItem(x,y);
+                    cstr = world(x,y)->construction;
+                    cstr->type = 23;
+                    y = originy;
+                }
+                else if (check_group(x, y+1) == GROUP_RAIL &&
+                         check_group(x, y-1) == GROUP_RAIL &&
+                         check_group(x+1, y) == GROUP_TRACK &&
+                         check_group(x-1, y) == GROUP_TRACK)
+                {
+                    railConstructionGroup.placeItem(x,y);
+                    cstr = world(x,y)->construction;
+                    cstr->type = 24;
+                    x = originx;
+                }
                 else
                 {   cstr->type = table[mask];}
                 break;
@@ -283,7 +303,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 switch (check_topgroup(x + 1, y))
                 {
                     case GROUP_RAIL:
-                        if (check_group(x + 2, y) != GROUP_ROAD) //rail crossing
+                        if(check_group(x + 2, y) != GROUP_ROAD)
                         {   break;}
                     case GROUP_TRACK:
                     case GROUP_ROAD:
@@ -302,7 +322,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 switch (check_topgroup(x, y + 1))
                 {
                     case GROUP_RAIL:
-                        if (check_group(x, y + 2) != GROUP_ROAD) //rail crossing
+                        if(check_group(x, y + 2) != GROUP_ROAD)
                         {   break;}
                     case GROUP_TRACK:
                     case GROUP_ROAD:
@@ -318,8 +338,6 @@ void connect_transport(int originx, int originy, int w, int h)
                         mask |= 8;
                         break;
                 }
-                //world(x, y)->construction->flags &= mask0;
-                //world(x, y)->construction->flags |= mask; //tflags
                 // A road section between 2 bridge sections
                 // in this special case we use a pillar bridge section with green
                 if ((check_group(x, y-1) == GROUP_ROAD_BRIDGE && (
@@ -356,6 +374,26 @@ void connect_transport(int originx, int originy, int w, int h)
                 else if (check_group(x, y+1) == GROUP_POWER_LINE &&
                          check_group(x, y-1) == GROUP_POWER_LINE)
                 {   cstr->type = 22; }
+                else if (check_group(x+1, y) == GROUP_RAIL &&
+                         check_group(x-1, y) == GROUP_RAIL &&
+                         check_group(x, y+1) == GROUP_ROAD &&
+                         check_group(x, y-1) == GROUP_ROAD)
+                {
+                    railConstructionGroup.placeItem(x,y);
+                    cstr = world(x,y)->construction;
+                    cstr->type = 25;
+                    y = originy;
+                }
+                else if (check_group(x, y+1) == GROUP_RAIL &&
+                         check_group(x, y-1) == GROUP_RAIL &&
+                         check_group(x+1, y) == GROUP_ROAD &&
+                         check_group(x-1, y) == GROUP_ROAD)
+                {
+                    railConstructionGroup.placeItem(x,y);
+                    cstr = world(x,y)->construction;
+                    cstr->type = 26;
+                    x = originx;
+                }
                 else
                 {   cstr->type = table[mask];}
                 break;

@@ -209,16 +209,16 @@ MiniMap::parse(XmlReader& reader)
     mpsXOld = mps_x;
     mpsYOld = mps_y;
     mpsStyleOld = mps_style;
-	setGameViewCorners(
-		MapPoint(
-			main_screen_originx - width / tilesize / 2,
-			main_screen_originy - height / tilesize / 2
-		),
-		MapPoint(
-			main_screen_originx + width / tilesize / 2,
-			main_screen_originy + height / tilesize / 2
-		)
-	);
+    setGameViewCorners(
+        MapPoint(
+            main_screen_originx - width / tilesize / 2,
+            main_screen_originy - height / tilesize / 2
+        ),
+        MapPoint(
+            main_screen_originx + width / tilesize / 2,
+            main_screen_originy + height / tilesize / 2
+        )
+    );
     this->stuff_ID = Construction::STUFF_FOOD;
 }
 
@@ -327,10 +327,7 @@ MiniMap::switchButton(CheckButton* button, int mousebutton)
     if(switchname == "EconomyGraph")
     {
         if(!getGameView()->textures_ready)
-        {
-            std::cout << "blocked EconomyGraph :" << getGameView()->remaining_images << std::endl;
-            switchname = "MiniMap";
-        }
+        {   switchname = "MiniMap";}
         else
         {   getGameView()->economyGraph_open = true;}
     }
@@ -1104,10 +1101,8 @@ void MiniMap::event(const Event& event) {
                 (int) ((event.mousepos.x - border ) / tilesize + left),
                 (int) ((event.mousepos.y - border ) / tilesize) + top);
 
-        if(event.mousebutton == SDL_BUTTON_LEFT ) {
-			printf("%d,%d,%d,%d\n", upperLeft.x, upperLeft.y, lowerRight.x, lowerRight.y);
-            getGameView()->show(tile); // move main-map
-        }
+        if(event.mousebutton == SDL_BUTTON_LEFT )
+        {   getGameView()->show(tile);} // move main-map
 /*
         if(event.mousebutton == SDL_BUTTON_RIGHT ) {
 
