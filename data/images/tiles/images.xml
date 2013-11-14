@@ -172,12 +172,12 @@
     <image file="Railbridge_entrance1_00.png" />
     <image file="Railbridge_entrance1_270.png" />
 
-    <image file="crossing_power_rail0.png" x="66" />
-    <image file="crossing_power_rail90.png" x="66" />
-    <image file="crossing_rail_track0.png" x="66" />
-    <image file="crossing_rail_track90.png" x="66" />
-    <image file="crossing_rail_road0.png" x="66" />
-    <image file="crossing_rail_road90.png" x="66" />
+    <image file="crossing_power_rail0.png"/>
+    <image file="crossing_power_rail90.png"/>
+    <image file="crossing_rail_track0.png"/>
+    <image file="crossing_rail_track90.png"/>
+    <image file="crossing_rail_road0.png"/>
+    <image file="crossing_rail_road90.png"/>
     </group>
 
     <group>
