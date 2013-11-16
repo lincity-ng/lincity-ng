@@ -343,7 +343,8 @@ void do_daily_ecology() //should be going to MapTile:: und handled during simula
     for (int y = 0; y < world.len(); y++)
         for (int x = 0; x < world.len(); x++)
         {   /* approximately 3 monthes needed to turn bulldoze area into green */
-            if ((world(x, y)->getGroup() == GROUP_DESERT)
+            if ((world(x, y)->getGroup() == GROUP_DESERT ||
+                 world(x, y)->getGroup() == GROUP_POWER_LINE)
                 && (world(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER)
                 && (rand() % 300 == 1))
             {
@@ -462,24 +463,30 @@ void desert_frontier(int originx, int originy, int w, int h)
 
     for (int x = originx; x < originx + w; x++) {
         for (int y = originy; y < originy + h; y++) {
-            if (world(x, y)->getGroup() == GROUP_DESERT)
+            if ( world(x, y)->getGroup() == GROUP_DESERT
+            || (world(x, y)->getGroup() == GROUP_POWER_LINE
+                &&   world(x, y)->group == GROUP_DESERT) )
             {
                 mask = 0;
                 /* up -- (ThMO) */
-                if ((check_group(x, y - 1) == GROUP_DESERT)
-                 /*|| (check_group(x, y - 1) == GROUP_FIRE)*/)
+                if ( check_group(x, y - 1) == GROUP_DESERT
+                 || (check_group(x, y - 1) == GROUP_POWER_LINE
+                 && world(x, y - 1)->group == GROUP_DESERT ) )
                 {   mask |= 8;}
                 /* left -- (ThMO) */
-                if ((check_group(x - 1, y) == GROUP_DESERT)
-                 /*|| (check_group(x - 1, y) == GROUP_FIRE)*/)
+                if ( check_group(x - 1, y) == GROUP_DESERT
+                 || (check_group(x - 1, y) == GROUP_POWER_LINE
+                 && world(x -1 , y)->group == GROUP_DESERT ) )
                 {   mask |= 4;}
                 /* right -- (ThMO) */
-                if ((check_group(x + 1, y) == GROUP_DESERT)
-                 /*|| (check_group(x + 1, y) == GROUP_FIRE)*/)
+                if ( check_group(x + 1, y) == GROUP_DESERT
+                 || (check_group(x + 1, y) == GROUP_POWER_LINE
+                 && world(x + 1, y)->group == GROUP_DESERT ) )
                 {   mask |= 2;}
                 /* down -- (ThMO) */
-                if ((check_group(x, y + 1) == GROUP_DESERT)
-                 /*|| (check_group(x, y + 1) == GROUP_FIRE)*/)
+                if ( check_group(x, y + 1) == GROUP_DESERT
+                 || (check_group(x, y + 1) == GROUP_POWER_LINE
+                 && world(x, y + 1)->group == GROUP_DESERT ) )
                 {   ++mask;}
                 world(x, y)->type = mask;
             }

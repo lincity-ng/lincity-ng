@@ -1228,9 +1228,7 @@ int ConstructionGroup::placeItem(int x, int y)
         {
             world(x + j, y + i)->reportingConstruction = tmpConstr;
             if (!world(x + j, y + i)->is_water())
-            {
-                world(x + j, y + i)->setTerrain(GROUP_DESERT);
-            } // endif !is_water
+            {   world(x + j, y + i)->setTerrain(GROUP_DESERT);}
         } //endfor j
     }// endfor i
     //now look for neighbors

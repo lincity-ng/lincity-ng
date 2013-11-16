@@ -1578,6 +1578,41 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
 
     unsigned short textureType = world(upperLeft.x, upperLeft.y)->getTopType();
     ConstructionGroup *cstgrp = world(upperLeft.x, upperLeft.y)->getTopConstructionGroup();
+    GraphicsInfo *graphicsInfo = 0;
+    //draw terrain underneath special constructions
+    if (cstgrp == &powerlineConstructionGroup)
+    {
+        ConstructionGroup *tilegrp = world(upperLeft.x, upperLeft.y)->getTileConstructionGroup();
+        if (tilegrp->images_loaded)
+        {
+            size_t s = tilegrp->graphicsInfoVector.size();
+            if (s)
+            {
+                graphicsInfo = &tilegrp->graphicsInfoVector
+                [ world(upperLeft.x, upperLeft.y)->type  % s];
+                texture = graphicsInfo->texture;
+            }
+            if( texture )
+            {
+                Vector2 tempTileOnScreenPoint = tileOnScreenPoint;
+                Rect2D temptilerect = tilerect;
+                if(graphicsInfo) //always true?
+                {
+                    tempTileOnScreenPoint.x -= graphicsInfo->x * zoom;
+                    tempTileOnScreenPoint.y -= graphicsInfo->y * zoom;
+                }
+
+                temptilerect.move( tempTileOnScreenPoint );
+                temptilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
+                if( zoom == 1.0 )     // Floating point test of equality !
+                {    painter.drawTexture(texture, temptilerect.p1);}
+                else
+                {   painter.drawStretchTexture(texture, temptilerect);}
+            }
+        }
+    }
+
+
 
     // if we hide high buildings, hide trees as well
     if (hideHigh && (cstgrp == &treeConstructionGroup
@@ -1585,7 +1620,7 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
      || cstgrp == &tree3ConstructionGroup ))
     {   cstgrp = &bareConstructionGroup;}
 
-    GraphicsInfo *graphicsInfo = 0;
+
     if(cstgrp->images_loaded)// textures_ready)
     {
 
