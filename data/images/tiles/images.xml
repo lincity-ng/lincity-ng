@@ -99,9 +99,6 @@
     <image file="Trackbridge_entrance_90.png" />
     <image file="Trackbridge_entrance_00.png" />
     <image file="Trackbridge_entrance_270.png" />
-
-    <image file="crossing_power-track0.png" />
-    <image file="crossing_power-track90.png" />
     </group>
 
     <group>
@@ -134,9 +131,6 @@
     <image file="Roadbridge_entrance1_90.png" />
     <image file="Roadbridge_entrance1_00.png" />
     <image file="Roadbridge_entrance1_270.png" />
-
-    <image file="crossing_power-road0.png" />
-    <image file="crossing_power-road90.png" />
     </group>
 
     <group>
@@ -172,8 +166,6 @@
     <image file="Railbridge_entrance1_00.png" />
     <image file="Railbridge_entrance1_270.png" />
 
-    <image file="crossing_power_rail0.png"/>
-    <image file="crossing_power_rail90.png"/>
     <image file="crossing_rail_track0.png"/>
     <image file="crossing_rail_track90.png"/>
     <image file="crossing_rail_road0.png"/>

@@ -786,7 +786,16 @@ void Construction::deneighborize()
         partner->erase(partner_it);
     }
     partners.clear();
+    if (flags & FLAG_POWER_LINE)
+    {
+        world(x + 1, y)->flags &= ~FLAG_POWER_CABLES_90;
+        world(x - 1, y)->flags &= ~FLAG_POWER_CABLES_90;
+        world(x, y + 1)->flags &= ~FLAG_POWER_CABLES_0;
+        world(x, y - 1)->flags &= ~FLAG_POWER_CABLES_0;
+    }
 }
+
+
 void Construction::neighborize()
 {
 //skip ghosts (aka burning waste) and powerlines here
@@ -1228,7 +1237,12 @@ int ConstructionGroup::placeItem(int x, int y)
         {
             world(x + j, y + i)->reportingConstruction = tmpConstr;
             if (!world(x + j, y + i)->is_water())
-            {   world(x + j, y + i)->setTerrain(GROUP_DESERT);}
+            {
+                if(this != &powerlineConstructionGroup)
+                {   world(x + j, y + i)->setTerrain(GROUP_DESERT);}
+                else if (world(x + j, y + i)->group != GROUP_DESERT)
+                {   world(x + j, y + i)->setTerrain(GROUP_BARE);}
+            }
         } //endfor j
     }// endfor i
     //now look for neighbors

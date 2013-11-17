@@ -102,8 +102,10 @@ void connect_transport(int originx, int originy, int w, int h)
             {
                 bool far = false;
                 world(x,y)->reportingConstruction->deneighborize();
+                //world(x,y)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
                 /* power may be transferred */
                 /* up -- (ThMO) */
+                world(x, y-1)->flags &= ~FLAG_POWER_CABLES_0;
                 mwh = world(x, y-1)->reportingConstruction?
                 world(x, y-1)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
                 /* see if dug under track, rail or road */
@@ -117,9 +119,12 @@ void connect_transport(int originx, int originy, int w, int h)
                     mask |=8;
                     int y2 = far?(y-2):(y-1);
                     cstr->link_to(world(x,y2)->reportingConstruction);
+                    if (far) //suspended cables
+                    {   world(x, y-1)->flags |= FLAG_POWER_CABLES_0;}
                 }
 
                 /* left -- (ThMO) */
+                world(x-1, y)->flags &= ~FLAG_POWER_CABLES_90;
                 mwh = world(x-1, y)->reportingConstruction?
                 world(x-1, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
                 if((far = ((x > 1) && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))))
@@ -132,9 +137,12 @@ void connect_transport(int originx, int originy, int w, int h)
                     mask |=4;
                     int x2 = far?(x-2):(x-1);
                     cstr->link_to(world(x2,y)->reportingConstruction);
+                    if (far) //suspended cables
+                    {   world(x-1, y)->flags |= FLAG_POWER_CABLES_90;}
                 }
 
                 /* right -- (ThMO) */
+                world(x+1, y)->flags &= ~FLAG_POWER_CABLES_90;
                 mwh = world(x+1, y)->reportingConstruction?
                 world(x+1, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
                 if ((far = ((x < world.len() - 2) && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))))
@@ -147,9 +155,12 @@ void connect_transport(int originx, int originy, int w, int h)
                     mask |=2;
                     int x2 = far?(x+2):(x+1);
                     cstr->link_to(world(x2,y)->reportingConstruction);
+                    if (far) //suspended cables
+                    {   world(x+1, y)->flags |= FLAG_POWER_CABLES_90;}
                 }
 
                 /* down -- (ThMO) */
+                world(x, y+1)->flags &= ~FLAG_POWER_CABLES_0;
                 mwh = world(x, y+1)->reportingConstruction?
                 world(x, y+1)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
                 if ((far = (y < world.len() - 2) && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())))
@@ -161,6 +172,8 @@ void connect_transport(int originx, int originy, int w, int h)
                     mask |=1;
                     int y2 = far?(y+2):(y+1);
                     cstr->link_to(world(x,y2)->reportingConstruction);
+                    if (far) //suspended cables
+                    {   world(x, y+1)->flags |= FLAG_POWER_CABLES_0;}
                 }
 
                 cstr->type = power_table[mask];
@@ -240,12 +253,6 @@ void connect_transport(int originx, int originy, int w, int h)
                 {   cstr->type = 15;}
                 else if (check_group(x+1, y) == GROUP_TRACK_BRIDGE)
                 {   cstr->type = 16;}
-                else if (check_group(x+1, y) == GROUP_POWER_LINE &&
-                         check_group(x-1, y) == GROUP_POWER_LINE)
-                {   cstr->type = 17; }
-                else if (check_group(x, y+1) == GROUP_POWER_LINE &&
-                         check_group(x, y-1) == GROUP_POWER_LINE)
-                {   cstr->type = 18; }
                 else if (check_group(x+1, y) == GROUP_RAIL &&
                          check_group(x-1, y) == GROUP_RAIL &&
                          check_group(x, y+1) == GROUP_TRACK &&
@@ -253,7 +260,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
-                    cstr->type = 23;
+                    cstr->type = 21;
                     y = originy;
                 }
                 else if (check_group(x, y+1) == GROUP_RAIL &&
@@ -263,7 +270,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
-                    cstr->type = 24;
+                    cstr->type = 22;
                     x = originx;
                 }
                 else
@@ -368,12 +375,6 @@ void connect_transport(int originx, int originy, int w, int h)
                 {   cstr->type = 19;}
                 else if (check_group(x+2, y) == GROUP_ROAD_BRIDGE && check_group(x+1, y) == GROUP_ROAD)
                 {   cstr->type = 20;}
-                else if (check_group(x+1, y) == GROUP_POWER_LINE &&
-                         check_group(x-1, y) == GROUP_POWER_LINE)
-                {   cstr->type = 21; }
-                else if (check_group(x, y+1) == GROUP_POWER_LINE &&
-                         check_group(x, y-1) == GROUP_POWER_LINE)
-                {   cstr->type = 22; }
                 else if (check_group(x+1, y) == GROUP_RAIL &&
                          check_group(x-1, y) == GROUP_RAIL &&
                          check_group(x, y+1) == GROUP_ROAD &&
@@ -381,7 +382,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
-                    cstr->type = 25;
+                    cstr->type = 23;
                     y = originy;
                 }
                 else if (check_group(x, y+1) == GROUP_RAIL &&
@@ -391,7 +392,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
-                    cstr->type = 26;
+                    cstr->type = 24;
                     x = originx;
                 }
                 else
@@ -476,24 +477,18 @@ void connect_transport(int originx, int originy, int w, int h)
                 {   cstr->type = 19;}//CST_RAIL_BRIDGE_I1UD;}
                 else if (check_group(x+2, y) == GROUP_RAIL_BRIDGE && check_group(x+1, y) == GROUP_RAIL)
                 {   cstr->type = 20;}//CST_RAIL_BRIDGE_I1LR;}
-                else if (check_group(x+1, y) == GROUP_POWER_LINE &&
-                         check_group(x-1, y) == GROUP_POWER_LINE)
-                {   cstr->type = 21; }
-                else if (check_group(x, y+1) == GROUP_POWER_LINE &&
-                         check_group(x, y-1) == GROUP_POWER_LINE)
-                {   cstr->type = 22; }
                 else if (check_group(x+1, y) == GROUP_TRACK &&
                          check_group(x-1, y) == GROUP_TRACK)
-                {   cstr->type = 24; }
+                {   cstr->type = 22; }
                 else if (check_group(x, y+1) == GROUP_TRACK &&
                          check_group(x, y-1) == GROUP_TRACK)
-                {   cstr->type = 23; }
+                {   cstr->type = 21; }
                 else if (check_group(x+1, y) == GROUP_ROAD &&
                          check_group(x-1, y) == GROUP_ROAD)
-                {   cstr->type = 26; }
+                {   cstr->type = 24; }
                 else if (check_group(x, y+1) == GROUP_ROAD &&
                          check_group(x, y-1) == GROUP_ROAD)
-                {   cstr->type = 25; }
+                {   cstr->type = 23; }
 
                 else
                 {   cstr->type = table[mask];}

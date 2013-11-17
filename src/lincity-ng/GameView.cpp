@@ -82,10 +82,6 @@ GameView::GameView()
     loaderThread = 0;
     keyScrollState = 0;
     mouseScrollState = 0;
-    blankTexture = 0;
-    blankImage = 0;
-    blankX = 0;
-    blankY = 0;
     remaining_images = 0;
     textures_ready = false;
     economyGraph_open = false;
@@ -141,16 +137,19 @@ void GameView::parse(XmlReader& reader)
         }
     }
     // no more elements to parse
-    //blankImage = readImage( "blank.png" );
+
     //SDL_mutexP( mTextures );
-    blankTexture = readTexture( "blank.png" );
-    blankX = (blankTexture->getWidth() / 2);
-    blankY = blankTexture->getHeight();
+    //TODO let readTexture also set x and y
+    blankGraphicsInfo.texture = readTexture( "blank.png" );
+    blankGraphicsInfo.x = blankGraphicsInfo.texture->getWidth() / 2;
+    blankGraphicsInfo.y = blankGraphicsInfo.texture->getHeight();
+    powerLine90GraphicsInfo.texture = readTexture( "powerl-suspended90.png" );
+    powerLine90GraphicsInfo.x = powerLine90GraphicsInfo.texture->getWidth() / 2;
+    powerLine90GraphicsInfo.y = powerLine90GraphicsInfo.texture->getHeight();
+    powerLine0GraphicsInfo.texture = readTexture( "powerl-suspended0.png" );
+    powerLine0GraphicsInfo.x = powerLine0GraphicsInfo.texture->getWidth() / 2;
+    powerLine0GraphicsInfo.y = powerLine0GraphicsInfo.texture->getHeight();
     //SDL_mutexV( mTextures );
-    //cityTextures.assign(NUM_OF_TYPES,(Texture*)'\0');
-    //cityImages.assign(NUM_OF_TYPES,(SDL_Surface*)'\0');
-    //cityTextureX.assign(NUM_OF_TYPES, '\0');
-    //cityTextureY.assign(NUM_OF_TYPES, '\0');
 
     //SDL_mutexP( mThreadRunning );
     stopThread = false;
@@ -1496,7 +1495,7 @@ bool GameView::inCity( MapPoint tile )
 /*
  * Draw MiniMapOverlay for tile.
  */
-void GameView::drawOverlay(Painter& painter, MapPoint tile){
+void GameView::drawOverlay(Painter& painter, const MapPoint &tile){
     Color black;
     black.parse("black");
     Color miniMapColor;
@@ -1537,47 +1536,63 @@ MapPoint GameView::realTile( MapPoint tile )
     return real;
 }
 
-void GameView::drawTile(Painter& painter, MapPoint tile)
+void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo *graphicsInfo)
 {
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
+    // Test if we have to convert Preloaded Image to Texture
+    if( !graphicsInfo->texture && !economyGraph_open)
+    {
+        if(graphicsInfo->image)
+        {
+            graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
+            graphicsInfo->image = 0; //Image was erased by texture_manager->create.
+            --remaining_images;
+        }
+    }
+    else if (graphicsInfo->texture)
+    {
+        tileOnScreenPoint.x -= graphicsInfo->x * zoom;
+        tileOnScreenPoint.y -= graphicsInfo->y * zoom;
+        tilerect.move( tileOnScreenPoint );
+        tilerect.setSize(graphicsInfo->texture->getWidth() * zoom,
+            graphicsInfo->texture->getHeight() * zoom);
+        if( zoom == 1.0 )     // Floating point test of equality !
+        {    painter.drawTexture(graphicsInfo->texture, tilerect.p1);}
+        else
+        {   painter.drawStretchTexture(graphicsInfo->texture, tilerect);}
+    }
+}
+
+
+void GameView::drawTile(Painter& painter, const MapPoint &tile)
+{
 
     //is Tile in City? If not draw Blank
     if( ! inCity( tile ) )
     {
-        tileOnScreenPoint.x -= blankX * zoom;
-        tileOnScreenPoint.y -= blankY * zoom;
-        tilerect.move( tileOnScreenPoint );
-        tilerect.setSize(blankTexture->getWidth() * zoom,
-                blankTexture->getHeight() * zoom);
-        if(zoom == 1.0)
-        {   painter.drawTexture( blankTexture, tilerect.p1 );}
-        else
-        {   painter.drawStretchTexture( blankTexture, tilerect );}
+        drawTexture(painter, tile, &blankGraphicsInfo);
         return;
     }
 
-    Texture* texture = 0;
-    MapPoint upperLeft = realTile(tile);
 
-    int size = 1;
-    //All non constructions have size 1
-    if(world(upperLeft.x, upperLeft.y)->construction)
-    {   size = world(upperLeft.x, upperLeft.y)->construction->constructionGroup->size;}
+
+    //Texture* texture = 0;
+    MapPoint upperLeft = realTile(tile);
+    int x = upperLeft.x;
+    int y = upperLeft.y;
+
+    ConstructionGroup *cstgrp = world(upperLeft.x, upperLeft.y)->getTopConstructionGroup();
+    unsigned short size = cstgrp->size;
 
     //Attention map is rotated for displaying
-    if ( ( tile.x != upperLeft.x ) || ( tile.y - size +1 != upperLeft.y ) ) //Signs are tested
+    if ( ( tile.x != x ) || ( tile.y - size +1 != y ) ) //Signs are tested
     {   return;}
 
     //adjust OnScreenPoint of big Tiles
-    if( size > 1 )
-    {
-        MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
-        tileOnScreenPoint = getScreenPoint( lowerRightTile );
-    }
-
+    MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
     unsigned short textureType = world(upperLeft.x, upperLeft.y)->getTopType();
-    ConstructionGroup *cstgrp = world(upperLeft.x, upperLeft.y)->getTopConstructionGroup();
+
     GraphicsInfo *graphicsInfo = 0;
     //draw terrain underneath special constructions
     if (cstgrp == &powerlineConstructionGroup)
@@ -1589,30 +1604,11 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
             if (s)
             {
                 graphicsInfo = &tilegrp->graphicsInfoVector
-                [ world(upperLeft.x, upperLeft.y)->type  % s];
-                texture = graphicsInfo->texture;
-            }
-            if( texture )
-            {
-                Vector2 tempTileOnScreenPoint = tileOnScreenPoint;
-                Rect2D temptilerect = tilerect;
-                if(graphicsInfo) //always true?
-                {
-                    tempTileOnScreenPoint.x -= graphicsInfo->x * zoom;
-                    tempTileOnScreenPoint.y -= graphicsInfo->y * zoom;
-                }
-
-                temptilerect.move( tempTileOnScreenPoint );
-                temptilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
-                if( zoom == 1.0 )     // Floating point test of equality !
-                {    painter.drawTexture(texture, temptilerect.p1);}
-                else
-                {   painter.drawStretchTexture(texture, temptilerect);}
+                [ world(x, y)->type  % s];
+                drawTexture(painter, lowerRightTile, graphicsInfo);
             }
         }
     }
-
-
 
     // if we hide high buildings, hide trees as well
     if (hideHigh && (cstgrp == &treeConstructionGroup
@@ -1620,66 +1616,39 @@ void GameView::drawTile(Painter& painter, MapPoint tile)
      || cstgrp == &tree3ConstructionGroup ))
     {   cstgrp = &bareConstructionGroup;}
 
-
-    if(cstgrp->images_loaded)// textures_ready)
+    if(cstgrp->images_loaded)
     {
-
         size_t s = cstgrp->graphicsInfoVector.size();
         if (s)
         {
             graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s];
-            texture = graphicsInfo->texture;
+            drawTexture(painter, lowerRightTile, graphicsInfo);
         }
-
-        // Test if we have to convert Preloaded Image to Texture
-        if( !texture && !economyGraph_open)
-        {
-            //SDL_mutexP( mTextures );
-            if(graphicsInfo && graphicsInfo->image)
-            {
-                //std::cout << "Gameview::creating texture for: " << cstgrp->name;
-                //std::cout << " from : " << graphicsInfo->image << std::endl;
-                graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
-                graphicsInfo->image = 0; //Image was erased by texture_manager->create.
-                --remaining_images;
-                texture = graphicsInfo->texture;
-            }
-            //SDL_mutexV( mTextures );
-        }
-
-    }
-
-    if( texture && ( !hideHigh || size == 1 ) )
-    {
-        if(graphicsInfo)
-        {
-            tileOnScreenPoint.x -= graphicsInfo->x * zoom;
-            tileOnScreenPoint.y -= graphicsInfo->y * zoom;
-        }
-
-        tilerect.move( tileOnScreenPoint );
-        tilerect.setSize(texture->getWidth() * zoom, texture->getHeight() * zoom);
-        if( zoom == 1.0 )     // Floating point test of equality !
-        {    painter.drawTexture(texture, tilerect.p1);}
-        else
-        {   painter.drawStretchTexture(texture, tilerect);}
     }
     else
     {
+        Rect2D tilerect( 0, 0, size * tileWidth, size * tileHeight );
+        Vector2 tileOnScreenPoint = getScreenPoint( lowerRightTile );
         tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
         tileOnScreenPoint.y -= tileHeight*size;
         tilerect.move( tileOnScreenPoint );
-        tilerect.setSize( size * tileWidth, size * tileHeight );
         painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
         fillDiamond( painter, tilerect );
+        return;
     }
-
+    //last draw suspended power cables on top
+    x = lowerRightTile.x;
+    y = lowerRightTile.y;
+    if (world(x, y)->flags & FLAG_POWER_CABLES_0)
+    {   drawTexture(painter, lowerRightTile, &powerLine0GraphicsInfo);}
+    if (world(x, y)->flags & FLAG_POWER_CABLES_90)
+    {   drawTexture(painter, lowerRightTile, &powerLine90GraphicsInfo);}
 }
 
 /*
  * Mark a tile with current cursor
  */
-void GameView::markTile( Painter& painter, MapPoint tile )
+void GameView::markTile( Painter& painter, const MapPoint &tile )
 {
     Vector2 tileOnScreenPoint = getScreenPoint(tile);
     int x = tile.x;

@@ -83,16 +83,15 @@ public:
     bool economyGraph_open;
     int remaining_images;
 
-
-
 private:
     void connectButtons();
     void buttonClicked( Button* button );
     void recenter(const Vector2& pos);
     Vector2 getScreenPoint(MapPoint point);
     MapPoint getTile(const Vector2& point);
-    void drawTile(Painter& painter, MapPoint point);
-    void drawOverlay(Painter& painter, MapPoint point);
+    void drawTile(Painter& painter, const MapPoint &point);
+    void drawTexture(Painter& painter, const MapPoint &point, GraphicsInfo *graphicsInfo);
+    void drawOverlay(Painter& painter, const MapPoint &point);
     void fillDiamond( Painter& painter, const Rect2D& rect );
     void drawDiamond( Painter& painter, const Rect2D& rect );
     static int gameViewThread(void* data);
@@ -128,9 +127,9 @@ private:
     int bulldozeCost( MapPoint tile );
     int buildCost( MapPoint tile );
 
-    Texture* blankTexture;
-    SDL_Surface* blankImage;
-    int blankX, blankY;
+    GraphicsInfo blankGraphicsInfo;
+    GraphicsInfo powerLine90GraphicsInfo;
+    GraphicsInfo powerLine0GraphicsInfo;
 
     //SDL_mutex* mTextures;
     //SDL_mutex* mThreadRunning;
@@ -161,7 +160,7 @@ private:
 
     static const int gameAreaMin = 1;
 
-    void markTile( Painter& painter, MapPoint map );
+    void markTile( Painter& painter, const MapPoint &tile );
 
     int cursorSize;
     bool buttonsConnected;
