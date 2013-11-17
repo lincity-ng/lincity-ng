@@ -1616,7 +1616,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
      || cstgrp == &tree3ConstructionGroup ))
     {   cstgrp = &bareConstructionGroup;}
 
-    if(cstgrp->images_loaded)
+    if(cstgrp->images_loaded && (size==1 || !hideHigh))
     {
         size_t s = cstgrp->graphicsInfoVector.size();
         if (s)
@@ -1634,7 +1634,6 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         tilerect.move( tileOnScreenPoint );
         painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
         fillDiamond( painter, tilerect );
-        return;
     }
     //last draw suspended power cables on top
     x = lowerRightTile.x;
