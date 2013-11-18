@@ -128,8 +128,6 @@ private:
     int buildCost( MapPoint tile );
 
     GraphicsInfo blankGraphicsInfo;
-    GraphicsInfo powerLine90GraphicsInfo;
-    GraphicsInfo powerLine0GraphicsInfo;
 
     //SDL_mutex* mTextures;
     //SDL_mutex* mThreadRunning;

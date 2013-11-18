@@ -77,6 +77,9 @@
     <image file="powerlldul.png" x="64" />
     <image file="powerllurl.png" x="64" />
     <image file="powerlludrl.png" x="64" />
+
+    <image file="powerl-suspended90.png" x="64" />
+    <image file="powerl-suspended0.png" x="64" />
     </group>
 
     <group>

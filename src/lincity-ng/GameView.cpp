@@ -139,16 +139,9 @@ void GameView::parse(XmlReader& reader)
     // no more elements to parse
 
     //SDL_mutexP( mTextures );
-    //TODO let readTexture also set x and y
     blankGraphicsInfo.texture = readTexture( "blank.png" );
     blankGraphicsInfo.x = blankGraphicsInfo.texture->getWidth() / 2;
     blankGraphicsInfo.y = blankGraphicsInfo.texture->getHeight();
-    powerLine90GraphicsInfo.texture = readTexture( "powerl-suspended90.png" );
-    powerLine90GraphicsInfo.x = powerLine90GraphicsInfo.texture->getWidth() / 2;
-    powerLine90GraphicsInfo.y = powerLine90GraphicsInfo.texture->getHeight();
-    powerLine0GraphicsInfo.texture = readTexture( "powerl-suspended0.png" );
-    powerLine0GraphicsInfo.x = powerLine0GraphicsInfo.texture->getWidth() / 2;
-    powerLine0GraphicsInfo.y = powerLine0GraphicsInfo.texture->getHeight();
     //SDL_mutexV( mTextures );
 
     //SDL_mutexP( mThreadRunning );
@@ -1550,7 +1543,7 @@ void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo 
             --remaining_images;
         }
     }
-    else if (graphicsInfo->texture)
+    if (graphicsInfo->texture)
     {
         tileOnScreenPoint.x -= graphicsInfo->x * zoom;
         tileOnScreenPoint.y -= graphicsInfo->y * zoom;
@@ -1574,8 +1567,6 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         drawTexture(painter, tile, &blankGraphicsInfo);
         return;
     }
-
-
 
     //Texture* texture = 0;
     MapPoint upperLeft = realTile(tile);
@@ -1638,10 +1629,11 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
     //last draw suspended power cables on top
     x = lowerRightTile.x;
     y = lowerRightTile.y;
+    cstgrp = &powerlineConstructionGroup;
     if (world(x, y)->flags & FLAG_POWER_CABLES_0)
-    {   drawTexture(painter, lowerRightTile, &powerLine0GraphicsInfo);}
+    {   drawTexture(painter, lowerRightTile, &cstgrp->graphicsInfoVector[23]);}
     if (world(x, y)->flags & FLAG_POWER_CABLES_90)
-    {   drawTexture(painter, lowerRightTile, &powerLine90GraphicsInfo);}
+    {   drawTexture(painter, lowerRightTile, &cstgrp->graphicsInfoVector[22]);}
 }
 
 /*
