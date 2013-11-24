@@ -1,4 +1,6 @@
-- cobblestone4.png		http://opengameart.org/node/8016		license: cc0
+- cobblestone4.png		http://opengameart.org/node/8016		license: cc0	Author: West
+- bush03-diffuse.tga		http://opengameart.org/content/bushes		license: cc0	Author: yughues
+- tiny weed02-diffuse.tga	http://opengameart.org/content/tiny-weeds	license: cc0	Author: yughues
 
 
-Textures in the textures folder without mention in this file are from www.burningwell.org or are own work. License: Public Domain.
+Textures in the textures folder without mention in this file are from www.burningwell.org or are own work (Ivar). License: Public Domain.
