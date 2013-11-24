@@ -676,7 +676,7 @@ void MiniMap::draw(Painter &painter)
 {
     attachButtons();
     int x, y;
-    unsigned short grp, size;
+    unsigned short size;
 
     // simple and bad implementation
     // FIXME: should be stored SDL_Surface and then blitted
@@ -708,12 +708,12 @@ void MiniMap::draw(Painter &painter)
                         }
                         else if( !world(left + x, top + y)->reportingConstruction)
                         {
-                            grp = world(left + x, top + y)->group;
+                            size = world(left + x, top + y)->getTileConstructionGroup()->size;
                             mc=getColor(left + x,top + y);
                             painter.setFillColor(mc);
-                            painter.fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                            painter.fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+size)*tilesize+1,(y+size)*tilesize));
                         }
-                        else if( mMode == COAL )
+                        if( mMode == COAL )
                         { //show coal under buildings, too
                             mc=getColor(left + x,top + y);
                             painter.setFillColor(mc);
@@ -751,12 +751,12 @@ void MiniMap::draw(Painter &painter)
                     }
                     else if ( (!world(left + x, top + y)->reportingConstruction) )
                     {
-                        grp = world(left + x, top + y)->group;
+                        size = world(left + x, top + y)->getTileConstructionGroup()->size;
                         mc = getColor(left + x, top + y);
                         mpainter->setFillColor(mc);
-                        mpainter->fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+main_groups[grp].size)*tilesize+1,(y+main_groups[grp].size)*tilesize));
+                        mpainter->fillRectangle(Rect2D((x)*tilesize,(y)*tilesize,(x+size)*tilesize+1,(y+size)*tilesize));
                     }
-                    else if( mMode == COAL )
+                    if( mMode == COAL )
                     { //show coal under buildings, too
                         mc=getColor(left + x,top + y);
                         mpainter->setFillColor(mc);

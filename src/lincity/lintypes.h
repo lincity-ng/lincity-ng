@@ -302,6 +302,7 @@ public:
         this->cost = cost;
         this->tech = tech;
         this->range = range;
+        images_loaded = false;
     }
     ~ConstructionGroup()
     {
@@ -310,9 +311,9 @@ public:
         {
             if(it->texture)
             {   delete it->texture;}
-            SDL_FreeSurface(it->image);
+            else if (it->image)
+            {   SDL_FreeSurface(it->image);}
         }
-
     }
 
 
@@ -368,7 +369,6 @@ public:
         else
         {
             constructionGroup->resourceID = resID;
-            constructionGroup->images_loaded = false;
             resourceMap[constructionGroup->resourceID] = constructionGroup;
         }
     }
@@ -408,22 +408,23 @@ protected:
 };
 
 struct GROUP {
-    const char *name;           /* name of group */
-    unsigned short no_credit;   /* TRUE if need credit to build */
-    unsigned short group;       /* This is redundant: it must match
-                                   the index into the table */
+    const char *name;           // name of group
+    unsigned short no_credit;   // TRUE if need credit to build
+    unsigned short group;       // This is redundant: it must match
+                                // the index into the table
     unsigned short size;
-    int colour;                 /* summary map colour */
-    int cost_mul;               /* group cost multiplier */
-    int bul_cost;               /* group bulldoze cost */
-    int fire_chance;            /* probability of fire */
-    int cost;                   /* group cost */
-    int tech;                   /* group cost */
+    int colour;                 // summary map colour
+    int cost_mul;               // group cost multiplier
+    int bul_cost;               // group bulldoze cost
+    int fire_chance;            // probability of fire
+    int cost;                   // group cost
+    int tech;                   // group tech
 };
 
+
 struct TYPE {
-    int group;                  /* What group does this type belong to? */
-    char *graphic;              /* Bitmap of the graphic */
+    int group;                  // What group does this type belong to?
+    char *graphic;              // Bitmap of the graphic
 };
 
 

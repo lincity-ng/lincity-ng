@@ -537,6 +537,10 @@ void GameView::preReadImages(void)
                     constructionGroup->growGraphicsInfoVector();
                     GraphicsInfo *graphicsInfo = &(constructionGroup->graphicsInfoVector.back());
                     graphicsInfo->image = readImage( key );
+                    if(!graphicsInfo->image)
+                    {
+                        std::cout << "image error: " << key << std::endl;
+                    }
                     if(xmlX == -1)
                     {   xmlX = int(graphicsInfo->image->w/2);}
                     if(xmlY == -1)

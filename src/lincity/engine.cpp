@@ -137,26 +137,17 @@ int bulldoze_item(int x, int y)
     else
     {
         if (!construction_found)
-        {
-            adjust_money(-main_groups[g].bul_cost);
-        }
+        {   adjust_money(-world(x,y)->getTileConstructionGroup()->bul_cost);}
         else
-        {
-            adjust_money(-world(x, y)->reportingConstruction->constructionGroup->bul_cost);
-        }
+        {   adjust_money(-world(x, y)->reportingConstruction->constructionGroup->bul_cost);}
 
         if (g == GROUP_OREMINE)
         {
             ConstructionManager::executeRequest
-            (
-                new OreMineDeletionRequest(world(x, y)->reportingConstruction)
-            );
+            (   new OreMineDeletionRequest(world(x, y)->reportingConstruction));
         }
         else
-        {
-            do_bulldoze_area(x, y);
-        }
-
+        {   do_bulldoze_area(x, y);}
     }
     /* Tell mps about it, in case its selected */
     mps_update();
@@ -169,9 +160,7 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
     if (world(x, y)->reportingConstruction)
     {
         ConstructionManager::executeRequest
-        (
-            new ConstructionDeletionRequest(world(x, y)->reportingConstruction)
-        );
+        (   new ConstructionDeletionRequest(world(x, y)->reportingConstruction));
     }
     else
     {
@@ -188,9 +177,7 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
             world(x, y)->group = GROUP_DESERT;
         }
         if (world(x, y)->construction)
-        {
-            ok_dial_box("fire.mes", BAD, _("ups, Bulldozer found a dangling reportingConstruction"));
-        }
+        {   ok_dial_box("fire.mes", BAD, _("ups, Bulldozer found a dangling reportingConstruction"));}
         //Here size is always 1
         connect_rivers(x,y);
         desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
@@ -203,15 +190,6 @@ void do_pollution()
     const int len = world.len();
     std::set<int>::iterator it;
     //kill pollution from edges of map
-/*
-    for(int x = 0; x < len; x++)
-    {
-        world(x, 0)->pollution /= POL_DIV; //top
-        world(0, x)->pollution /= POL_DIV; //left
-        world(x, len - 1)->pollution /= POL_DIV; //bottom
-        world(len - 1, x)->pollution /= POL_DIV; //right
-    }
-*/
     //diffuse pollution inside the map
 
     for (it = world.polluted.begin(); it != world.polluted.end(); ++it)
@@ -322,7 +300,7 @@ void do_random_fire(int x, int y, int pwarning)
     }
     else
     {
-        if (xx >= (main_groups[world(x, y)->getGroup()].fire_chance))
+        if (xx >= (world(x, y)->getConstructionGroup()->fire_chance))
             return;
     }
     if ((world(x, y)->flags & FLAG_FIRE_COVER) != 0)
