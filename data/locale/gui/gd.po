@@ -1,0 +1,910 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Bratzbert <fios@foramnagaidhlog.net>, 2013.
+# GunChleoc <fios@foramnagaidhlig.net>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: Lincity-NG GUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Oct 29 18:39:39 2013\n"
+"PO-Revision-Date: 2013-10-31 18:34-0000\n"
+"Last-Translator: GunChleoc <fiosAIGforamnagaidhligDOTnet>\n"
+"Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
+"Language: gd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
+"(n > 2 && n < 20) ? 2 : 3;\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: data/gui/minimap.xml
+msgid "$"
+msgstr "£"
+
+#: data/gui/fire.xml
+msgid "A Fire has started"
+msgstr "Tha taighean air theine"
+
+#: data/gui/shfire-uc.xml
+msgid ""
+"A fire has broken out at a shanty town. It is in a fire cover area and "
+"APPEARS to be under control. "
+msgstr ""
+"Tha bothain air theine. Tha e fo chòmhdachadh-smàlaidh is fhuair sinn smachd "
+"air a-rèir coltais."
+
+#: data/gui/shfire-oc.xml
+msgid ""
+"A fire has broken out at a shanty town. The fire is OUT OF CONTROL and may "
+"spread to other areas. "
+msgstr ""
+"Tha bothain air theine. Cha d' fhuair sinn smachd air is dh'fhaoidte gun "
+"sgaoil e gu raointean eile."
+
+#: data/gui/savegame.xml data/gui/loadgame.xml data/gui/newgame.xml
+#: data/gui/credits.xml
+msgid "Back"
+msgstr "Air ais"
+
+#: data/gui/options.xml
+msgid "Background Music"
+msgstr "Ceòl cùlaibh"
+
+#: data/gui/cricketup.xml
+msgid "Basketball Courts available"
+msgstr "Tha raointean ball-basgaid ri làimh"
+
+#: data/gui/options.xml
+msgid "Binary saving"
+msgstr "Sàbhaladh bìnearaidh"
+
+#: data/gui/blacksmithup.xml
+msgid "Blacksmiths available"
+msgstr "Tha goibhnean-dubha ri làimh"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Bulldozing a monument costs a lot of money."
+msgstr "Tha e glè chosgail carragh a mhilleadh."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Bulldozing a section of river costs a lot of money."
+msgstr "Tha e glè chosgail roinn de dh'abhainn a mhilleadh."
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Bulldozing a shanty town costs a lot of money and may cause a fire."
+msgstr ""
+"Tha e glè chosgail bothain a mhilleadh is dh'fhaoidte gun adhbharaich seo "
+"teine."
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Buy"
+msgstr "Ceannaich"
+
+#: data/gui/newgame.xml
+msgid "Choose Scenario"
+msgstr "Tagh cnàmh-sgeul"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+msgid "Coal"
+msgstr "Gual"
+
+#: data/gui/coalpowerup.xml
+msgid "Coal Fired Power Stations available"
+msgstr "Tha stèiseanan cumhachd-guail ri làimh"
+
+#: data/gui/coalmineup.xml
+msgid "Coal Mine available"
+msgstr "Tha mèinnean-guail ri làimh"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Coal Survey"
+msgstr "Rùrachadh airson guail"
+
+#: data/gui/creditslist.xml
+msgid "Code"
+msgstr "Còd"
+
+#: data/gui/mainmenu.xml
+msgid "Continue"
+msgstr "Lean air adhart"
+
+#: data/gui/creditslist.xml data/gui/mainmenu.xml
+msgid "Credits"
+msgstr "Cliù"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Do coal survey?"
+msgstr "A bheil thu airson rùrachadh airson guail?"
+
+#: data/gui/launch-good.xml
+msgid "Doing well."
+msgstr "Ri dol gu math."
+
+#: data/gui/minimap.xml
+msgid "Eco"
+msgstr "Eaco"
+
+#: data/gui/sustain.xml
+msgid "Economy Sustainable."
+msgstr "Tha an eaconamaidh seasmhach."
+
+#: data/gui/launch-evac.xml
+msgid "Evacuation Launch Good"
+msgstr "Tha losgadh an às-àiteachaidh ri dol gu math"
+
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
+msgid "Fire"
+msgstr "Teine"
+
+#: data/gui/firestationup.xml
+msgid "Fire Stations available"
+msgstr "Tha stèiseanan smàlaidh ri làimh"
+
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml
+msgid "Fire!"
+msgstr "Teine!"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+msgid "Food"
+msgstr "Biadh"
+
+#: data/gui/options.xml
+msgid "Fullscreen"
+msgstr "Làn-sgrìn"
+
+#: data/gui/gamestats.xml
+msgid "Gamestats"
+msgstr "Stadastaireachd a' gheama"
+
+#: data/gui/speedpanel.xml
+msgid "Go back to Main Menu"
+msgstr "Till dhan phrìomh chlàr-taice"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+msgid "Goods"
+msgstr "Bathar"
+
+#: data/gui/creditslist.xml
+msgid "Graphics"
+msgstr "Grafaigeachd"
+
+#: data/gui/portdialog.xml
+msgid "Harbour Trade Settings"
+msgstr "Roghainnean malart a' phuirt"
+
+#: data/gui/healthup.xml
+msgid "Health Centres available"
+msgstr "Tha ionadan-slàinte ri làimh"
+
+#: data/gui/hvindustryup.xml
+msgid "Heavy Industry available"
+msgstr "Tha gnìomhachasan troma ri làimh"
+
+#: data/gui/import-exportup.xml
+msgid "Import/Export available"
+msgstr "Tha ion-mhalairt/às-mhalairt ri làimh"
+
+#: data/gui/tradedialog.xml data/gui/pbar.xml
+msgid "Jobs"
+msgstr "Obair"
+
+#: data/gui/options.xml
+msgid "Language"
+msgstr "Cànan"
+
+#: data/gui/launch-fail.xml
+msgid "Launch Failure"
+msgstr "Dh'fhàillig leis an losgadh"
+
+#: data/gui/launch-good.xml
+msgid "Launch Successfull"
+msgstr "Shoirbhich leis an losgadh"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Launch now?"
+msgstr "A bheil thu airson 'ga losgadh an-dràsta?"
+
+#: data/gui/ltindustryup.xml
+msgid "Light Industry available"
+msgstr "Tha gnìomhachasan aotrom ri làimh"
+
+#: data/gui/sustain.xml
+msgid "LinCity has determined that you have a sustainable economy."
+msgstr "Mhothaich LinCity gu bheil eaconamaidh seasmhach agad."
+
+#: data/gui/loadgame.xml data/gui/mainmenu.xml
+msgid "Load"
+msgstr "Luchdaich"
+
+#: data/gui/loadgame.xml
+msgid "Load Game"
+msgstr "Luchdaich geama"
+
+#: data/gui/pbar2nd.xml
+msgid "MWh"
+msgstr "MWh"
+
+#: data/gui/minimap.xml
+msgid "Map"
+msgstr "Mapa"
+
+#: data/gui/options.xml
+msgid "Map Size"
+msgstr "Meud a' mhapa"
+
+#: data/gui/millup.xml
+msgid "Mills available"
+msgstr "Tha muileannan ri làimh"
+
+#: data/gui/mod_wind_up.xml
+msgid "Modern Windmills available"
+msgstr "Tha muileannan-gaoithe nuadha ri làimh"
+
+#: data/gui/pbar2nd.xml data/gui/pbar.xml
+msgid "Money"
+msgstr "Airgead"
+
+#: data/gui/mainmenu.xml data/gui/newgame.xml
+msgid "New Game"
+msgstr "Geama ùr"
+
+#: data/gui/universityup.xml data/gui/solarpowerup.xml data/gui/railwayup.xml
+#: data/gui/rocketup.xml data/gui/mod_wind_up.xml data/gui/potteryup.xml
+#: data/gui/hvindustryup.xml data/gui/coalmineup.xml data/gui/healthup.xml
+#: data/gui/blacksmithup.xml data/gui/millup.xml data/gui/riverup.xml
+#: data/gui/cricketup.xml data/gui/ltindustryup.xml data/gui/windmillup.xml
+#: data/gui/schoolup.xml data/gui/firestationup.xml data/gui/roadup.xml
+#: data/gui/coalpowerup.xml data/gui/import-exportup.xml
+#: data/gui/recycleup.xml data/gui/parkup.xml
+msgid "New Invention"
+msgstr "Tionnsgnadh ùr"
+
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml
+msgid "No"
+msgstr "Chan eil"
+
+#: data/gui/no-credit-recycle.xml data/gui/no-credit-rocket.xml
+#: data/gui/no-credit-university.xml data/gui/no-credit-solar-power.xml
+#: data/gui/no-credit-parkland.xml
+msgid "No Credit Available"
+msgstr "Chan eil creideis ri làimh"
+
+#: data/gui/allgone.xml
+msgid "Nobody Home"
+msgstr "Chan eil duine a-staigh"
+
+#: data/gui/nobull-tip.xml
+msgid "Not Allowed"
+msgstr "Chan eil seo ceadaichte"
+
+#: data/gui/launch-good.xml data/gui/fire.xml data/gui/universityup.xml
+#: data/gui/solarpowerup.xml data/gui/railwayup.xml data/gui/rocketup.xml
+#: data/gui/mod_wind_up.xml data/gui/potteryup.xml data/gui/allgone.xml
+#: data/gui/warning.xml data/gui/hvindustryup.xml
+#: data/gui/no-credit-recycle.xml data/gui/options.xml data/gui/coalmineup.xml
+#: data/gui/healthup.xml data/gui/blacksmithup.xml data/gui/millup.xml
+#: data/gui/launch-gone.xml data/gui/riverup.xml data/gui/cricketup.xml
+#: data/gui/ltindustryup.xml data/gui/windmillup.xml data/gui/sustain.xml
+#: data/gui/launch-fail.xml data/gui/no-credit-rocket.xml
+#: data/gui/launch-evac.xml data/gui/no-credit-university.xml
+#: data/gui/too-old.xml data/gui/nobull-tip.xml data/gui/schoolup.xml
+#: data/gui/firestationup.xml data/gui/roadup.xml data/gui/coalpowerup.xml
+#: data/gui/shfire-oc.xml data/gui/shfire-uc.xml data/gui/import-exportup.xml
+#: data/gui/no-credit-solar-power.xml data/gui/recycleup.xml
+#: data/gui/parkup.xml data/gui/no-credit-parkland.xml
+msgid "Ok"
+msgstr "Ceart ma-thà"
+
+#: data/gui/gamestats.xml
+msgid "Okay"
+msgstr "Ceart ma-thà"
+
+#: data/gui/options.xml data/gui/mainmenu.xml
+msgid "Options"
+msgstr "Roghainnean"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+msgid "Ore"
+msgstr "Clach-mhèinneir"
+
+#: data/gui/creditslist.xml
+msgid "Original Idea and Code"
+msgstr "Beachd tùsail is còd"
+
+#: data/gui/parkup.xml
+msgid "Parks available"
+msgstr "Tha pàircean ri làimh"
+
+#: data/gui/speedpanel.xml
+msgid "Pause the game"
+msgstr "Cuir an geama 'na stad"
+
+#: data/gui/pbar2nd.xml
+msgid "Pollution"
+msgstr "Truailleadh"
+
+#: data/gui/pbar2nd.xml data/gui/pbar.xml
+msgid "Population"
+msgstr "Sluagh"
+
+#: data/gui/potteryup.xml
+msgid "Potteries available"
+msgstr "Tha criadhadaireachd ri làimh"
+
+#: data/gui/minimap.xml
+msgid "Press this button to show statistics"
+msgstr "Briog air a' phutan seo gus stadastaireachd a shealltainn"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Product"
+msgstr "Bathar"
+
+#: data/gui/mainmenu.xml
+msgid "Quit"
+msgstr "Fàg an-seo"
+
+#: data/gui/railwayup.xml
+msgid "Railways available"
+msgstr "Tha rèilean ri làimh"
+
+#: data/gui/recycleup.xml
+msgid "Recycling Centres available"
+msgstr "Tha ionadan ath-chuairteachaidh ri làimh"
+
+#: data/gui/options.xml
+msgid "Resolution"
+msgstr "Dùmhlachd-bhreacaidh"
+
+#: data/gui/riverup.xml
+msgid "Rivers available"
+msgstr "Tha aibhnean ri làimh"
+
+#: data/gui/roadup.xml
+msgid "Roads available"
+msgstr "Tha rathaidean ri làimh"
+
+#: data/gui/rocketup.xml
+msgid "Rocket Launch Pad available"
+msgstr "Tha ionad-rocaide ri làimh"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket Ready"
+msgstr "Tha rocaid ullamh"
+
+#: data/gui/launch_rocket_yn.xml
+msgid "Rocket ready to launch"
+msgstr "Tha rocaid ullamh airson a losgadh"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with fast speed"
+msgstr "Ruith an geama gu luath"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with normal speed"
+msgstr "Ruith an geama aig luaths àbhaisteach"
+
+#: data/gui/speedpanel.xml
+msgid "Run the simulation with very fast speed"
+msgstr "Ruith an geama glè luath"
+
+#: data/gui/savegame.xml data/gui/mainmenu.xml
+msgid "Save"
+msgstr "Sàbhail"
+
+#: data/gui/savegame.xml
+msgid "Save Game"
+msgstr "Sàbhail an geama"
+
+#: data/gui/schoolup.xml
+msgid "Schools available"
+msgstr "Tha sgoiltean ri làimh"
+
+#: data/gui/coalmineup.xml
+msgid ""
+"See the help screen for more information on coal mines and coal surveys."
+msgstr ""
+"Thoir sùil air sgrìn na cobharach airson barrachd fiosrachaidh mu mhèinnean-"
+"guail is rùrachadh guail."
+
+#: data/gui/universityup.xml data/gui/solarpowerup.xml data/gui/railwayup.xml
+#: data/gui/rocketup.xml data/gui/mod_wind_up.xml data/gui/potteryup.xml
+#: data/gui/hvindustryup.xml data/gui/healthup.xml data/gui/blacksmithup.xml
+#: data/gui/millup.xml data/gui/riverup.xml data/gui/cricketup.xml
+#: data/gui/ltindustryup.xml data/gui/windmillup.xml data/gui/schoolup.xml
+#: data/gui/firestationup.xml data/gui/coalpowerup.xml data/gui/recycleup.xml
+#: data/gui/parkup.xml
+msgid "See the help screen for more information."
+msgstr "Thoir sùil air sgrìn na cobharach airson barrachd fiosrachaidh."
+
+#: data/gui/options.xml
+msgid "Seed saving"
+msgstr "Sàbhaladh sìol"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml
+msgid "Sell"
+msgstr "Reic"
+
+#: data/gui/coal_survey_yn.xml
+msgid "Send out Prospectors"
+msgstr "Cuir lorgairean"
+
+#: data/gui/minimap.xml
+msgid "Show Income and Expenses. Use scroll buttons to cylce through views."
+msgstr ""
+"Seall teachd a-steach is cosgaisean. Cleachd na putanan sgrolaidh gus dol "
+"mun cuairt air na seallaidhean."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show coal depots"
+msgstr "Seall tionalan guail"
+
+#: data/gui/minimap.xml
+msgid "Show economy graphs."
+msgstr "Seall grafaichean an eaconamaidh."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show fire department cover"
+msgstr "Seall an còmhdachadh smàlaidh"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show map outline"
+msgstr "Seall oir-loidhne a' mhapa"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show medical care"
+msgstr "Seall cùram slàinte"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show nourishments"
+msgstr "Seall biadh"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show pollution density"
+msgstr "Seall dùmhlachd an truaillidh"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show power supply"
+msgstr "Seall solar cumhachd"
+
+#: data/gui/minimap.xml
+msgid "Show resources. Use scroll buttons to cylce through views."
+msgstr ""
+"Seall stòrasan. Cleachd na putanan sgrolaidh gus dol mun cuairt air na "
+"seallaidhean."
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show sport cover"
+msgstr "Seall còmhdachadh spòrs"
+
+#: data/gui/minimap.xml
+msgid "Show the MiniMap"
+msgstr "Seall am meanbh-mhapa"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show traffic density"
+msgstr "Seall dùmhlachd na trafaige"
+
+#: data/gui/minimapswitchbuttons.xml
+msgid "Show unemployment"
+msgstr "Seall cion-cosnaidh"
+
+#: data/gui/solarpowerup.xml
+msgid "Solar Power Stations available"
+msgstr "Tha stèiseanan cumhachd-grèine ri làimh"
+
+#: data/gui/nobull-tip.xml
+msgid "Sorry you can't bulldoze a tip."
+msgstr "Duilich ach chan urrainn dhut òtrach a mhilleadh."
+
+#: data/gui/too-old.xml
+msgid ""
+"Sorry, the game you wanted is too old. Cannot load it. Still play with "
+"previous game."
+msgstr ""
+"Duilich, ach tha an geama a dh'iarr thu ro shean. Cha ghabh a luchdadh. 'S "
+"urrainn dhut a chluiche fhathast le seann-tionndaidhean a' gheama."
+
+#: data/gui/options.xml
+msgid "Sound Effects"
+msgstr "Èifeachdan fuaime"
+
+#: data/gui/creditslist.xml
+msgid "Sound and Music"
+msgstr "Fuaim is ceòl"
+
+#: data/gui/newgame.xml
+msgid "Start"
+msgstr "Tòisich"
+
+#: data/gui/minimap.xml
+msgid "Stats"
+msgstr "Stats"
+
+#: data/gui/portdialog.xml data/gui/tradedialog.xml data/gui/pbar.xml
+msgid "Steel"
+msgstr "Stàilinn"
+
+#: data/gui/pbar2nd.xml data/gui/pbar.xml
+msgid "Tech Level"
+msgstr "Teicneolas"
+
+#: data/gui/pbar2nd.xml
+msgid "Tenants"
+msgstr "Màladairean"
+
+#: data/gui/allgone.xml
+msgid "There are no people left in this city."
+msgstr "Chan eil duine air fhàgail sa bhaile seo."
+
+#: data/gui/coal_survey_yn.xml
+msgid "This will cost you 1 million once. After that it is free to call again."
+msgstr ""
+"Cosgaidh seo millean not aon turas. 'S urrainn ghut gairm an-asgaidh an "
+"uairsin."
+
+#: data/gui/launch-gone.xml
+msgid "Total Evacuation Complete."
+msgstr "Tha an t-às-àiteachadh iomlan coileanta."
+
+#: data/gui/tradedialog.xml
+msgid "Trade Settings"
+msgstr "Roghainnean malairt"
+
+#: data/gui/creditslist.xml
+msgid "Translation"
+msgstr "Eadar-theangachadh"
+
+#: data/gui/universityup.xml
+msgid "University available"
+msgstr "Tha oilthighean ri làimh"
+
+#: data/gui/newgame.xml
+msgid "Village"
+msgstr "Baile"
+
+#: data/gui/bulldoze_shanty_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Want to bulldoze?"
+msgstr "A bheil thu airson seo a mhilleadh?"
+
+#: data/gui/warning.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/bulldoze_river_yn.xml data/gui/too-old.xml
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning"
+msgstr "Rabhadh"
+
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Warning: Bulldozing monuments is expensive"
+msgstr "Rabhadh: tha e cosgail carraighean a mhilleadh"
+
+#: data/gui/bulldoze_shanty_yn.xml
+msgid "Warning: Bulldozing shanties is dangerous."
+msgstr "Rabhadh: tha e cunnartach bothain a mhilleadh."
+
+#: data/gui/bulldoze_river_yn.xml
+msgid "Warning: Bulldozing water is expensive"
+msgstr "Rabhadh: tha e cosgail uisge a mhilleadh"
+
+#: data/gui/tradedialog.xml data/gui/pbar2nd.xml
+msgid "Waste"
+msgstr "Sgudal"
+
+#: data/gui/pbar2nd.xml
+msgid "Water"
+msgstr "Uisge"
+
+#: data/gui/launch-gone.xml
+msgid "Well done you have evacuated all your people."
+msgstr "Meal do naidheachd! Tha thu air a h-uile duine às-àiteachadh."
+
+#: data/gui/windmillup.xml
+msgid "Windmills available"
+msgstr "Tha muileannan-gaoithe ri làimh"
+
+#: data/gui/coal_survey_yn.xml data/gui/bulldoze_shanty_yn.xml
+#: data/gui/launch_rocket_yn.xml data/gui/bulldoze_river_yn.xml
+#: data/gui/bulldoze_monument_yn.xml
+msgid "Yes"
+msgstr "Tha"
+
+#: data/gui/fire.xml
+msgid "You better go and look for it"
+msgstr "B' fheairrde thu a lorg"
+
+#: data/gui/launch_rocket_yn.xml
+msgid ""
+"You can launch the rocket now or wait until later. If you wait it will "
+"continue costing you money to keep the rocket ready. Launch it later by "
+"clicking on the rocket area."
+msgstr ""
+"'S urrainn dhut an rocaid a losgadh an-dràsta no a dhèanamh uaireigin eile. "
+"Ma dh'fhuiricheas tu, cosgaidh e airgead gus an rocaid a chumail ullamh. "
+"Loisg i an uairsin 's tu a' briogadh air raon na rocaide."
+
+#: data/gui/import-exportup.xml
+msgid ""
+"You can now import and export coal, goods, ore and steel. Read the help "
+"pages on these subjects to find out how to use them. "
+msgstr ""
+"'S urrainn dhut gual, bathar, clach-mhèinneir is stàilinn às-phortadh is ion-"
+"phortadh a-nis. Leugh duilleagan na cobharach air na cuspairean seo gus "
+"faighinn a-mach mar a chleachdas tu e."
+
+#: data/gui/no-credit-parkland.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build parks on credit."
+msgstr ""
+"Tha easbhaidh sa bhuidsead agad. Cha leig a' chomhairle leat gun tog thu "
+"pàircean le creideis."
+
+#: data/gui/no-credit-recycle.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build recycling centres on credit."
+msgstr ""
+"Tha easbhaidh sa bhuidsead agad. Cha leig a' chomhairle leat gun tog thu "
+"ionadan ath-chuairteachaidh le creideis."
+
+#: data/gui/no-credit-rocket.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build rocket launch pads on credit."
+msgstr ""
+"Tha easbhaidh sa bhuidsead agad. Cha leig a' chomhairle leat gun tog thu "
+"ionadan-rocaide le creideis."
+
+#: data/gui/no-credit-solar-power.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build solar power stations on credit."
+msgstr ""
+"Tha easbhaidh sa bhuidsead agad. Cha leig a' chomhairle leat gun tog thu "
+"stèiseanan cumhachd-grèine le creideis."
+
+#: data/gui/no-credit-university.xml
+msgid ""
+"You have a budget deficit. The legislative council will not allow you to "
+"build universities on credit."
+msgstr ""
+"Tha easbhaidh sa bhuidsead agad. Cha leig a' chomhairle leat gun tog thu "
+"oilthighean le creideis."
+
+#: data/gui/launch-evac.xml
+msgid ""
+"You have evacuated 1000 people. You might want to reduce the size of your "
+"economy to reflect the reduced population. "
+msgstr ""
+"Tha thu air mìle daoine às-àiteachadh. 'S dòcha gum b' fheairrde thu an "
+"eaconamaidh agad lùghdachadh ach am freagair e ris an t-sluagh as lugha."
+
+#: data/gui/blacksmithup.xml
+msgid ""
+"You have reached the tech level which enables you to build blacksmiths. "
+"Blacksmiths use jobs and steel to make goods."
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat goibhnean-dubha a thogail. "
+"Cleachdaidh goibhnean-dubha obraichean is stàilinn gus bathar a dhèanamh."
+
+#: data/gui/coalpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build coal fired power "
+"stations."
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat stèiseanan cumhachd-guail a "
+"thogail."
+
+#: data/gui/firestationup.xml
+msgid ""
+"You have reached the tech level which enables you to build fire stations. "
+"Fire stations prevent most fires from starting. If you haven't had any fires "
+"yet, you might not think you need them."
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat stèiseanan-smàlaidh a thogail. "
+"Cuiridh stèiseanan-smàlaidh casg air a' mhòrchuid a theintean. Mur eil teine "
+"air a bhith ann fhathast, 's dòcha gu bheil thu dhen bheachd nach biodh feum "
+"agad orra."
+
+#: data/gui/healthup.xml
+msgid ""
+"You have reached the tech level which enables you to build health centres. "
+"Heath centres reduce the number of people killed by pollution and increase "
+"overall productivity."
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat ionadan-slàinte a thogail. "
+"Lùghdaichidh ionadan-slàinte an àireamh de dhaoine a gheibh bàs leis an "
+"truailleadh is cuiridh iad ris an tarbhachd."
+
+#: data/gui/hvindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build heavy industry "
+"(steel works). Heavy industry produces steel. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat gnìomhachasan troma "
+"(ceàrdaichean stàilinn) a thogail. Saothraichidh gnìomhachasan troma "
+"stàilinn."
+
+#: data/gui/ltindustryup.xml
+msgid ""
+"You have reached the tech level which enables you to build light industry. "
+"Light industry produces goods. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat gnìomhachasan aotrom a thogail. "
+"Saothraichidh gnìomhachasan aotrom bathar."
+
+#: data/gui/millup.xml
+msgid ""
+"You have reached the tech level which enables you to build mills. Mills use "
+"jobs and food to make goods. Watch out, they can use a lot of food! "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat muileannan a thogail. "
+"Cleachdaidh muileannan obair is biadh gus bathar a dhèanamh. Thoir an aire "
+"gun cleachd iad torr bìdh!"
+
+#: data/gui/mod_wind_up.xml
+msgid ""
+"You have reached the tech level which enables you to build modern, more "
+"efficient, windmills. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat muileannan-gaoithe ùr-nòsach is "
+"as èifeachdaiche a thogail."
+
+#: data/gui/parkup.xml
+msgid ""
+"You have reached the tech level which enables you to build parks. Parks are "
+"used to absorb pollution. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat pàircean a thogail. Sùghaidh "
+"pàircean truailleadh."
+
+#: data/gui/potteryup.xml
+msgid ""
+"You have reached the tech level which enables you to build potteries. "
+"Potteries use jobs and ore to make goods. (You need ore mines to get ore) "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat criadhadaireachd a thogail. "
+"Cleachdaich criadhadaireachd obraichean is clach-mhèinneir gus bathar a "
+"shaothrachadh. (feumaidh tu mèinnean cloiche-mèinneir gus clach-mhèinneir "
+"fhaighinn)"
+
+#: data/gui/railwayup.xml
+msgid "You have reached the tech level which enables you to build railways. "
+msgstr "Ràinig thu ìre an teicneolais a leigeas leat rèilean a thogail."
+
+#: data/gui/riverup.xml
+msgid "You have reached the tech level which enables you to build rivers. "
+msgstr "Ràinig thu ìre an teicneolais a leigeas leat aibhnean a thogail."
+
+#: data/gui/roadup.xml
+msgid ""
+"You have reached the tech level which enables you to build roads. See the "
+"help screen for more information."
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat rathaidean a thogail. Faic "
+"sgrìn na cobharach airson barrachd fiosrachaidh."
+
+#: data/gui/rocketup.xml
+msgid ""
+"You have reached the tech level which enables you to build rocket launch "
+"pads. Rockets enable you to evacuate your population and is a way to 'win' "
+"the game."
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat ionadan-rocaide a thogail. 'S "
+"urrainn dhut an sluagh agad às-àiteachadh is 's e dòigh gus an geama a "
+"bhuannachd a th' ann."
+
+#: data/gui/schoolup.xml
+msgid ""
+"You have reached the tech level which enables you to build schools. Schools "
+"use jobs and goods to increase tech level. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat sgoiltean a thogail. "
+"Cleachdaich sgoiltean obraichean is bathar gus ìre an teicneolais "
+"adhartachadh."
+
+#: data/gui/solarpowerup.xml
+msgid ""
+"You have reached the tech level which enables you to build solar power "
+"stations. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat stèiseanan cumhachd-grèine a "
+"thogail."
+
+#: data/gui/universityup.xml
+msgid ""
+"You have reached the tech level which enables you to build universities. "
+"Universities produces PhDs, which produce more technology. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat oilthighean a thogail. "
+"Saothraichidh oilthighean ollamhan a shaothraicheas barrachd teicneolais."
+
+#: data/gui/windmillup.xml
+msgid "You have reached the tech level which enables you to build windmills. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat muileannan-gaoithe a thogail."
+
+#: data/gui/coalmineup.xml
+msgid ""
+"You have reached the tech level which enables you to dig deep coal mines."
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat mèinnean-guail domhain a "
+"thochladh."
+
+#: data/gui/recycleup.xml
+msgid ""
+"You have reached the tech level which enables you to recycling centres. "
+"Recycling centres recycle used goods back into ore. "
+msgstr ""
+"Ràinig thu ìre an teicneolais a leigeas leat ionadan ath-chuairteachaidh a "
+"thogail. Nì ionadan ath-chuairteachaidh clach-mhèinneir dhe bhathar air a "
+"chleachdadh."
+
+#: data/gui/launch-gone.xml data/gui/sustain.xml
+msgid "You have won the game."
+msgstr "Bhuannaich thu an geama."
+
+#: data/gui/allgone.xml
+msgid "You should start a new career elsewhere."
+msgstr "Bu chòir dhut dreuchd a lorg àiteigin eile."
+
+#: data/gui/cricketup.xml
+msgid ""
+"Your people have invented basketball. Basketball Courts use a few jobs and "
+"goods and make people in the surrounding areas (about 10 units in each "
+"direction) happier."
+msgstr ""
+"Thionnsgainn do mhuinntir ball-basgaid. Cleachdaidh raointean ball-basgaid "
+"beagan obraichean is bhathar is nì iad na daoine am fagas nas toilichte (mu "
+"10 aonadan anns gach comhair)."
+
+#: data/gui/launch-fail.xml
+msgid ""
+"Your rocket crashed shortly after launch. People no longer trust the "
+"technology for evacuation. You must launch five more unmanned rockets to "
+"restore confidence."
+msgstr ""
+"Bha tubaist aig an rocaid às dèidh a losgaidh. Chan eil earbsa aig do "
+"mhuinntir air an teicneolas airson às-àiteachadh tuilleadh. Feumaidh tu còig "
+"rocaidean gun duine ann a losgadh mus gabh iad earbsa ann a-rithist."
+
+#: data/gui/minimap.xml
+msgid "[+] Zoom in view so that less buildings but more details are visible"
+msgstr ""
+"[+] Sùm an sealladh a-steach ach am faic thu nas lugha de thogalaichean ach "
+"barrachd mion-fhiosrachadh"
+
+#: data/gui/minimap.xml
+msgid "[-] Zoom out"
+msgstr "[-] Sùm a-mach"
+
+#: data/gui/minimap.xml
+msgid "[F1] Press this button to get help"
+msgstr "[F1] Brùth air an iuchair seo airson cobharach"
+
+#: data/gui/minimap.xml
+msgid "[h] Hide high buildings. "
+msgstr "[h] Falaich togalaichean àrda. "
+
+#: data/gui/minimap.xml
+msgid "[m] Scroll up."
+msgstr "[m] Sgrolaich suas."
+
+#: data/gui/minimap.xml
+msgid "[n] Scroll down."
+msgstr "[n] Sgrolaich sìos."
+
+#: data/gui/minimap.xml
+msgid "[v] Cycle through MiniMap overlay modes. "
+msgstr "[v] Rach mun cuairt air modhan tar-chòmhdachaidh a' mheanbh-mhapa. "
+
+#: data/gui/pbar2nd.xml
+msgid "kWh"
+msgstr "kWh"
+
+#: data/gui/minimap.xml
+msgid "toggle terrain height rendering"
+msgstr "toglaich reandaradh aig àirde na tìre"

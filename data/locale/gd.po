@@ -1,0 +1,801 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Bratzbert <fios@foramnagaidhlog.net>, 2013.
+# GunChleoc <fios@foramnagaidhlig.net>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: Lincity-NG\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-29 18:39+0000\n"
+"PO-Revision-Date: 2013-10-31 18:33-0000\n"
+"Last-Translator: GunChleoc <fiosAIGforamnagaidhligDOTnet>\n"
+"Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
+"Language: gd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
+"(n > 2 && n < 20) ? 2 : 3;\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: src/lincity/lclib.cpp:15
+msgid "Jan"
+msgstr "Faoi"
+
+#: src/lincity/lclib.cpp:15
+msgid "Feb"
+msgstr "Gearr"
+
+#: src/lincity/lclib.cpp:15
+msgid "Mar"
+msgstr "Màrt"
+
+#: src/lincity/lclib.cpp:15
+msgid "Apr"
+msgstr "Gib"
+
+#: src/lincity/lclib.cpp:16
+msgid "May"
+msgstr "Cèit"
+
+#: src/lincity/lclib.cpp:16
+msgid "Jun"
+msgstr "Ògmh"
+
+#: src/lincity/lclib.cpp:16
+msgid "Jul"
+msgstr "Iuch"
+
+#: src/lincity/lclib.cpp:16
+msgid "Aug"
+msgstr "Lùn"
+
+#: src/lincity/lclib.cpp:17
+msgid "Sep"
+msgstr "Sult"
+
+#: src/lincity/lclib.cpp:17
+msgid "Oct"
+msgstr "Dàmh"
+
+#: src/lincity/lclib.cpp:17
+msgid "Nov"
+msgstr "Samh"
+
+#: src/lincity/lclib.cpp:17
+msgid "Dec"
+msgstr "Dùbh"
+
+#: src/lincity/loadsave.cpp:161
+#, c-format
+msgid "Save file <%s> - "
+msgstr "Faidhle sàbhalaidh <%s> - "
+
+#: src/lincity/loadsave.cpp:162
+msgid "Can't open save file!"
+msgstr "Cha ghabh am faidhle sàbhalaidh fhosgladh"
+
+#: src/lincity/loadsave.cpp:355 src/lincity/old_ldsvguts.cpp:132
+#, c-format
+msgid "Can't open <%s> (gzipped)"
+msgstr "Cha ghabh <%s> fhosgladh (gzip)"
+
+#: src/lincity/simulate.cpp:89
+msgid ""
+"Upgrading from old game. You have 10 years to build water wells where "
+"needed. After, starvation will occur!  You should check starvation minimap, "
+"and read waterwell help page :-)"
+msgstr ""
+"Ag ùrachadh o sheann gheama. Tha 10 bliadhna agad gus tobraichean a togail "
+"far a bheil feum orra. Bidh gortas ann an uairsin! Thoir sùil air meanbh-"
+"mhapa a' ghortais is leugh duilleag na cobharach mu thobraichean :-)"
+
+#: src/lincity/fileutil.cpp:201 src/lincity/fileutil.cpp:245
+msgid "Error. Can't find LINCITY_HOME"
+msgstr "Mearachd. Cha deach LINCITY_HOME a lorg"
+
+#: src/lincity/fileutil.cpp:431
+msgid "Error verifying package. Can't find colour.pal."
+msgstr "Mearachd a' dearbhadh na pacaide. Cha deach colour.pal a lorg."
+
+#: src/lincity/fileutil.cpp:444 src/lincity/fileutil.cpp:454
+#, c-format
+msgid "Couldn't create the save directory '%s'\n"
+msgstr "Cha b' urrainn dhuinn am pasgan sàbhalaidh \"%s\" a chruthachadh\n"
+
+#: src/lincity/fileutil.cpp:450
+#, c-format
+msgid "Failed to chown '%s'\n"
+msgstr "Cha deach leinn chown a dhèanamh air \"%s\"\n"
+
+#: src/lincity/fileutil.cpp:471
+msgid "Out of memory: malloc failure\n"
+msgstr "Tha cuimhne a dhìth: fàilligeadh malloc\n"
+
+#: src/lincity/engine.cpp:62
+msgid "You just spent all your money."
+msgstr "Tha thu air a h-uile airgead agad a chosg."
+
+#: src/lincity/engine.cpp:77
+msgid ""
+"ERROR: group does not exist. This should not happen! Please consider filling "
+"a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr ""
+"MEARACHD: chan eil am buidheann ann. Cha bu chòir seo a thachairt! Nach cuir "
+"thu aithris air a' bhuga seo dhan sgioba lincity-ng leis a' gheama air a "
+"shàbhaladh na cois is fios mu na rinn thu :-) "
+
+#: src/lincity/engine.cpp:206
+msgid "ups, Bulldozer found a dangling reportingConstruction"
+msgstr "oich, lorg am milltear reportingConstruction a' clifeadh"
+
+#: src/lincity/engine.cpp:350
+msgid "UNKNOWN!"
+msgstr "NEO-AITHNICHTE!"
+
+#: src/lincity/old_ldsvguts.cpp:164
+msgid "Loading scene"
+msgstr "A' luchdadh sealladh"
+
+#: src/lincity/lintypes.cpp:1343
+msgid "Port must be connected to river all along right side."
+msgstr ""
+"Feumaidh an taobh deas uile gu lèir aig port a bhith ceangailte ri abhainn."
+
+#: src/lincity/lintypes.cpp:1359
+msgid "You can't build a water well here: it is all desert."
+msgstr "Chan urrainn dhut tobar a thogail an-seo: chan eil ach fàsach ann."
+
+#: src/lincity/lintypes.cpp:1378
+msgid "You can't build a mine here: there is no ore left at this site"
+msgstr ""
+"Chan urrainn dhut mèinn a thogail an-seo: chan eil clach-mhèinneir air "
+"fhàgail aig an ionad seo"
+
+#: src/lincity/lintypes.cpp:1389
+msgid "You can't build a park here: it is a desert, parks need water"
+msgstr ""
+"Chan urrainn dhut pàirc a thogail an-seo: 's e fàsach a th' ann, ach tha "
+"pàirc feumach air uisge"
+
+#: src/lincity/lintypes.cpp:1450
+msgid "Empty"
+msgstr "Falamh"
+
+#: src/lincity/lintypes.cpp:1463
+msgid "Power line"
+msgstr "Loidhne-dhealain"
+
+#: src/lincity/lintypes.cpp:1475
+msgid "Solar PS"
+msgstr "Stèisean cumhachd-grèine"
+
+#: src/lincity/lintypes.cpp:1486
+msgid "Substation"
+msgstr "Fo-stèisean"
+
+#: src/lincity/lintypes.cpp:1497
+msgid "Residential LL"
+msgstr "Còmhnaidh bheag"
+
+#: src/lincity/lintypes.cpp:1508
+msgid "Farm"
+msgstr "Tuathanas"
+
+#: src/lincity/lintypes.cpp:1519 src/lincity-ng/Dialog.cpp:636
+msgid "Market"
+msgstr "Margaid"
+
+#: src/lincity/lintypes.cpp:1530
+msgid "Track"
+msgstr "Slighe"
+
+#: src/lincity/lintypes.cpp:1541
+msgid "Coalmine"
+msgstr "Mèinn guail"
+
+#: src/lincity/lintypes.cpp:1552
+msgid "Railway"
+msgstr "Rèile"
+
+#: src/lincity/lintypes.cpp:1563
+msgid "Coal PS"
+msgstr "Stèisean cumhachd-guail"
+
+#: src/lincity/lintypes.cpp:1574
+msgid "Road"
+msgstr "Rathad"
+
+#: src/lincity/lintypes.cpp:1585
+msgid "Lt. Industry"
+msgstr "Gnìomhachas aotrom"
+
+#: src/lincity/lintypes.cpp:1596
+msgid "University"
+msgstr "Oilthigh"
+
+#: src/lincity/lintypes.cpp:1607
+msgid "Commune"
+msgstr "Co-chomann"
+
+#: src/lincity/lintypes.cpp:1618
+msgid "Ore mine"
+msgstr "Mèinn cloiche-mèinneir"
+
+#: src/lincity/lintypes.cpp:1629
+msgid "Rubbish tip"
+msgstr "Òtrach"
+
+#: src/lincity/lintypes.cpp:1640 src/lincity-ng/Dialog.cpp:697
+msgid "Port"
+msgstr "Port"
+
+#: src/lincity/lintypes.cpp:1651
+msgid "Hv. Industry"
+msgstr "Gnìomhachas trom"
+
+#: src/lincity/lintypes.cpp:1662
+msgid "Park"
+msgstr "Pàirc"
+
+#: src/lincity/lintypes.cpp:1673
+msgid "Recycle"
+msgstr "Ionad ath-chuairteachaidh"
+
+#: src/lincity/lintypes.cpp:1684 src/lincity/modules/water.cpp:17
+msgid "Water"
+msgstr "Uisge"
+
+#: src/lincity/lintypes.cpp:1695
+msgid "Health centre"
+msgstr "Ionad-slàinte"
+
+#: src/lincity/lintypes.cpp:1706
+msgid "Rocket pad"
+msgstr "Ionad-rocaide"
+
+#: src/lincity/lintypes.cpp:1717
+msgid "Windmill"
+msgstr "Muileann-gaoithe"
+
+#: src/lincity/lintypes.cpp:1728
+msgid "Monument"
+msgstr "Carragh"
+
+#: src/lincity/lintypes.cpp:1739
+msgid "School"
+msgstr "Sgoil"
+
+#: src/lincity/lintypes.cpp:1750
+msgid "Blacksmith"
+msgstr "Gobha-dubh"
+
+#: src/lincity/lintypes.cpp:1761
+msgid "Mill"
+msgstr "Muileann"
+
+#: src/lincity/lintypes.cpp:1772
+msgid "Pottery"
+msgstr "Criadhadaireachd"
+
+#: src/lincity/lintypes.cpp:1783
+msgid "Fire sta'n"
+msgstr "Stèisean-smàlaidh"
+
+#: src/lincity/lintypes.cpp:1794
+msgid "Sports field"
+msgstr "Raon spòrs"
+
+#: src/lincity/lintypes.cpp:1806
+msgid "Burnt"
+msgstr "Loisgte"
+
+#: src/lincity/lintypes.cpp:1818
+msgid "Shanty town"
+msgstr "Bothain"
+
+#: src/lincity/lintypes.cpp:1830 src/lincity-ng/EconomyGraph.cpp:135
+msgid "Fire"
+msgstr "Teine"
+
+#: src/lincity/lintypes.cpp:1842
+msgid "Used"
+msgstr "'Ga chleachdadh"
+
+#: src/lincity/lintypes.cpp:1853
+msgid "Residential ML"
+msgstr "Còmhnaidh mheadhanach"
+
+#: src/lincity/lintypes.cpp:1864
+msgid "Residential HL"
+msgstr "Còmhnaidh mhòr"
+
+#: src/lincity/lintypes.cpp:1875
+msgid "Residential LH"
+msgstr "Còmhnaidh nuadh bheag"
+
+#: src/lincity/lintypes.cpp:1886
+msgid "Residential MH"
+msgstr "Còmhnaidh nuadh mheadhanach"
+
+#: src/lincity/lintypes.cpp:1897
+msgid "Residential HH"
+msgstr "Còmhnaidh nuadh mhòr"
+
+#: src/lincity/lintypes.cpp:1908
+msgid "Water well"
+msgstr "Tobar"
+
+#: src/lincity/lintypes.cpp:1920
+msgid "Desert"
+msgstr "Fàsach"
+
+#: src/lincity/lintypes.cpp:1932
+msgid "Tree"
+msgstr "Craobh"
+
+#: src/lincity/lintypes.cpp:1945
+msgid "Trees"
+msgstr "Craobhan"
+
+#: src/lincity/lintypes.cpp:1958
+msgid "Forest"
+msgstr "Coille"
+
+#: src/lincity/lintypes.cpp:1971
+msgid "Track Bridge"
+msgstr "Drochaid slighe"
+
+#: src/lincity/lintypes.cpp:1983
+msgid "Road Bridge"
+msgstr "Drochaid rathaid"
+
+#: src/lincity/lintypes.cpp:1995
+msgid "Rail Bridge"
+msgstr "Drochaid rèile"
+
+#: src/lincity/lintypes.cpp:2007
+msgid "Wind Power"
+msgstr "Cumhachd-ghaoithe"
+
+#: src/lincity/modules/recycle.cpp:70 src/lincity/modules/organic_farm.cpp:170
+#: src/lincity/modules/heavy_industry.cpp:251
+#: src/lincity/modules/windpower.cpp:78 src/lincity/modules/rocket_pad.cpp:236
+#: src/lincity/modules/light_industry.cpp:219
+#: src/lincity/modules/coal_power.cpp:66
+#: src/lincity/modules/solar_power.cpp:54
+msgid "Tech"
+msgstr "Teicneolas"
+
+#: src/lincity/modules/recycle.cpp:71
+msgid "Efficiency Ore"
+msgstr "Èifeachdachd cloiche-mèinneir"
+
+#: src/lincity/modules/recycle.cpp:72
+msgid "Efficiency Steel"
+msgstr "Èifeachdachd stàilinn"
+
+#: src/lincity/modules/recycle.cpp:73 src/lincity/modules/organic_farm.cpp:171
+#: src/lincity/modules/market.cpp:182
+#: src/lincity/modules/heavy_industry.cpp:250
+#: src/lincity/modules/windpower.cpp:77 src/lincity/modules/blacksmith.cpp:99
+#: src/lincity/modules/rocket_pad.cpp:235 src/lincity/modules/monument.cpp:115
+#: src/lincity/modules/light_industry.cpp:218
+#: src/lincity/modules/coal_power.cpp:65
+#: src/lincity/modules/solar_power.cpp:53 src/lincity/modules/mill.cpp:91
+msgid "busy"
+msgstr "trang"
+
+#: src/lincity/modules/organic_farm.cpp:172
+msgid "Output"
+msgstr "Toradh"
+
+#: src/lincity/modules/waterwell.cpp:65
+msgid "Pollution"
+msgstr "Truailleadh"
+
+#: src/lincity/modules/waterwell.cpp:67
+msgid "Drinkable"
+msgstr "Gabhaidh e òl"
+
+#: src/lincity/modules/university.cpp:58
+msgid "Tech researched"
+msgstr "Teicneolas air a rannsachadh"
+
+#: src/lincity/modules/tip.cpp:114
+msgid "Filled"
+msgstr "Làn"
+
+#: src/lincity/modules/water.cpp:20
+msgid "River"
+msgstr "Abhainn"
+
+#: src/lincity/modules/water.cpp:20
+msgid "Lake"
+msgstr "Loch"
+
+#: src/lincity/modules/residence.cpp:349
+msgid "Tenants"
+msgstr "Màladairean"
+
+#: src/lincity/modules/residence.cpp:350
+msgid "Desireability"
+msgstr "Goireasachd"
+
+#: src/lincity/modules/residence.cpp:351
+msgid "Births per year"
+msgstr "Breithean gach bliadhna"
+
+#: src/lincity/modules/residence.cpp:352
+msgid "Death per year"
+msgstr "Caochladh gach bliadhna"
+
+#: src/lincity/modules/residence.cpp:353
+msgid "Unnat. mortality"
+msgstr "Bàsmhorachd mhì-nàdarra"
+
+#: src/lincity/modules/school.cpp:57
+msgid "Lessons learned"
+msgstr "Leasanan air an ionnsachadh"
+
+#: src/lincity-ng/EconomyGraph.cpp:125
+msgid "Mining"
+msgstr "Mèinnean"
+
+#: src/lincity-ng/EconomyGraph.cpp:127
+msgid "Trade"
+msgstr "Malart"
+
+#: src/lincity-ng/EconomyGraph.cpp:129
+msgid "Money"
+msgstr "Airgead"
+
+#: src/lincity-ng/EconomyGraph.cpp:131
+msgid "Popul."
+msgstr "Sluagh"
+
+#: src/lincity-ng/EconomyGraph.cpp:133
+msgid "Techn."
+msgstr "Teicneolas"
+
+#: src/lincity-ng/EconomyGraph.cpp:138
+msgid "Economy Overview:"
+msgstr "Foir-shealladh an eaconamaidh:"
+
+#: src/lincity-ng/EconomyGraph.cpp:141
+msgid "Sustainability:"
+msgstr "Seasmhachd:"
+
+#: src/lincity-ng/EconomyGraph.cpp:144
+msgid "Frames per Second:"
+msgstr "Frèaman gach diog:"
+
+#: src/lincity-ng/EconomyGraph.cpp:219
+msgid "You lose."
+msgstr "Chaill thu."
+
+#: src/lincity-ng/MainMenu.cpp:154
+msgid "river delta"
+msgstr "gobhlan aibhne"
+
+#: src/lincity-ng/MainMenu.cpp:158
+msgid "semi desert"
+msgstr "leth-fhàsach"
+
+#: src/lincity-ng/MainMenu.cpp:162
+msgid "temperate"
+msgstr "measarra"
+
+#: src/lincity-ng/MainMenu.cpp:166
+msgid "swamp"
+msgstr "boglach"
+
+#: src/lincity-ng/MainMenu.cpp:171
+msgid "good_times"
+msgstr "deagh amannan"
+
+#: src/lincity-ng/MainMenu.cpp:172
+msgid "bad_times"
+msgstr "droch amannan"
+
+#: src/lincity-ng/MainMenu.cpp:173
+msgid "Beach"
+msgstr "Tràigh"
+
+#: src/lincity-ng/MainMenu.cpp:174
+msgid "extreme_arid"
+msgstr "glè thioram"
+
+#: src/lincity-ng/MainMenu.cpp:175
+msgid "extreme_wetland"
+msgstr "glè fhliuch"
+
+#: src/lincity-ng/MainMenu.cpp:234
+msgid "empty"
+msgstr "falamh"
+
+#: src/lincity-ng/Dialog.cpp:175
+msgid "Launchsite"
+msgstr "Ionad-losgaidh"
+
+#: src/lincity-ng/Dialog.cpp:373
+msgid "----- IN TEST MODE -------"
+msgstr "----- ANN AM MODH DEUCHAINN -------"
+
+#: src/lincity-ng/Dialog.cpp:375
+#, c-format
+msgid "Game statistics from LinCity-NG Version %s"
+msgstr "Stadastaireachd a' gheama o LinCity-NG tionndadh %s"
+
+#: src/lincity-ng/Dialog.cpp:378
+#, c-format
+msgid "Initial loaded scene - %s"
+msgstr "Sealladh tòiseachaidh - %s"
+
+#: src/lincity-ng/Dialog.cpp:382
+msgid "Economy is sustainable"
+msgstr "Tha an eaconamaidh seasmhach"
+
+#: src/lincity-ng/Dialog.cpp:385
+#, c-format
+msgid "Population  %d  of which  %d  are not housed."
+msgstr "Sluagh de %d le %d gun dachaigh."
+
+#: src/lincity-ng/Dialog.cpp:389
+#, c-format
+msgid "Max population %d  Number evacuated %d Total births %d"
+msgstr "Sluagh as motha: %d   Air às-àiteachadh: %d   Breithean iomlan: %d"
+
+#: src/lincity-ng/Dialog.cpp:393
+#, c-format
+msgid "Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"
+msgstr "Ceann-là: %s %04d   Airgead: %8d   Teicneolas %5.1f (%5.1f)"
+
+#: src/lincity-ng/Dialog.cpp:399
+#, c-format
+msgid "Deaths by starvation %7d   History %8.3f"
+msgstr "Bàs leis an acras: %7d   Eachdraidh: %8.3f"
+
+#: src/lincity-ng/Dialog.cpp:403
+#, c-format
+msgid "Deaths from pollution %7d   History %8.3f"
+msgstr "Bàs leis an truailleadh: %7d   Eachdraidh: %8.3f"
+
+#: src/lincity-ng/Dialog.cpp:406
+#, c-format
+msgid "Years of unemployment %7d   History %8.3f"
+msgstr "Bliadhnaichean gun obair: %7d   Eachdraidh: %8.3f"
+
+#: src/lincity-ng/Dialog.cpp:409
+#, c-format
+msgid "Rockets launched %2d  Successful launches %2d"
+msgstr "Rocaidean air losgadh: %2d   Losgaidhean soirbheachail: %2d"
+
+#: src/lincity-ng/Dialog.cpp:418
+msgid "Residences"
+msgstr "Còmhnaidhean"
+
+#: src/lincity-ng/Dialog.cpp:426
+msgid "Markets"
+msgstr "Margaidean"
+
+#: src/lincity-ng/Dialog.cpp:427
+msgid "Farms"
+msgstr "Tuathanasan"
+
+#: src/lincity-ng/Dialog.cpp:429
+msgid "Water wells"
+msgstr "Tobraichean"
+
+#: src/lincity-ng/Dialog.cpp:430
+msgid "Wind powers"
+msgstr "St. cumhachd-gaoithe"
+
+#: src/lincity-ng/Dialog.cpp:437
+msgid "Monuments"
+msgstr "Carraighean"
+
+#: src/lincity-ng/Dialog.cpp:438
+msgid "Schools"
+msgstr "Sgoiltean"
+
+#: src/lincity-ng/Dialog.cpp:439
+msgid "Universities"
+msgstr "Oilthighean"
+
+#: src/lincity-ng/Dialog.cpp:441
+msgid "Fire stations"
+msgstr "Stèiseanan-smàlaidh"
+
+#: src/lincity-ng/Dialog.cpp:442
+msgid "Parks"
+msgstr "Pàircean"
+
+#: src/lincity-ng/Dialog.cpp:443
+msgid "Sports fields"
+msgstr "Raointean spòrs"
+
+#: src/lincity-ng/Dialog.cpp:445
+msgid "Health centres"
+msgstr "Ionadan-slàinte"
+
+#: src/lincity-ng/Dialog.cpp:446
+msgid "Tips"
+msgstr "Òtraichean"
+
+#: src/lincity-ng/Dialog.cpp:447
+msgid "Shanties"
+msgstr "Bothain"
+
+#: src/lincity-ng/Dialog.cpp:453
+msgid "Windmills"
+msgstr "Muileannan-gaoithe"
+
+#: src/lincity-ng/Dialog.cpp:454
+msgid "Coal powers"
+msgstr "St. cumhachd-guail"
+
+#: src/lincity-ng/Dialog.cpp:455
+msgid "Solar powers"
+msgstr "St. cumhachd-grèine"
+
+#: src/lincity-ng/Dialog.cpp:457
+msgid "Substations"
+msgstr "Fo-stèiseanan"
+
+#: src/lincity-ng/Dialog.cpp:458
+msgid "Power lines"
+msgstr "Loidhnichean-dealain"
+
+#: src/lincity-ng/Dialog.cpp:459
+msgid "Ports"
+msgstr "Puirt"
+
+#: src/lincity-ng/Dialog.cpp:461
+msgid "Tracks"
+msgstr "Slighean"
+
+#: src/lincity-ng/Dialog.cpp:462
+msgid "Roads"
+msgstr "Rathaidean"
+
+#: src/lincity-ng/Dialog.cpp:463
+msgid "Rail"
+msgstr "Rèilean"
+
+#: src/lincity-ng/Dialog.cpp:469
+msgid "Potteries"
+msgstr "Criadhadaireachd"
+
+#: src/lincity-ng/Dialog.cpp:470
+msgid "Blacksmiths"
+msgstr "Goibhnean-dubha"
+
+#: src/lincity-ng/Dialog.cpp:471
+msgid "Mills"
+msgstr "Muileannan"
+
+#: src/lincity-ng/Dialog.cpp:473
+msgid "Light inds"
+msgstr "Gnìomh. aotrom"
+
+#: src/lincity-ng/Dialog.cpp:474
+msgid "Heavy inds"
+msgstr "Gnìomh. troma"
+
+#: src/lincity-ng/Dialog.cpp:475
+msgid "Recyclers"
+msgstr "Ath-chuairteachadh"
+
+#: src/lincity-ng/Dialog.cpp:477
+msgid "Coal mines"
+msgstr "Mèinnean guail"
+
+#: src/lincity-ng/Dialog.cpp:478
+msgid "Ore mines"
+msgstr "Clach-mhèinneir"
+
+#: src/lincity-ng/Dialog.cpp:479
+msgid "Forests"
+msgstr "Coilltean"
+
+#: src/lincity-ng/ButtonPanel.cpp:296 src/lincity-ng/ButtonPanel.cpp:342
+#: src/lincity-ng/ButtonPanel.cpp:473 src/lincity-ng/ButtonPanel.cpp:498
+#, c-format
+msgid "%s (Techlevel %.1f required.)"
+msgstr "%s (Ìre teicneolais %.1f riatanach.)"
+
+#: src/lincity-ng/ButtonPanel.cpp:305
+#, c-format
+msgid "%s is disabled (loaded old game)."
+msgstr "Tha %s à comas (chaidh seann gheama a luchdadh)."
+
+#: src/lincity-ng/ScreenInterface.cpp:234
+msgid "M"
+msgstr "M"
+
+#: src/lincity-ng/ScreenInterface.cpp:245 src/lincity-ng/GameView.cpp:1774
+#: src/lincity-ng/GameView.cpp:1786 src/lincity-ng/GameView.cpp:1816
+msgid "$"
+msgstr "£"
+
+#: src/lincity-ng/GameView.cpp:260
+msgid "Minimap: outline map"
+msgstr "Meanbh-mhapa: oir-loidhne"
+
+#: src/lincity-ng/GameView.cpp:263
+msgid "Minimap: unemployment"
+msgstr "Meanbh-mhapa: cion-cosnaidh"
+
+#: src/lincity-ng/GameView.cpp:266
+msgid "Minimap: pollution"
+msgstr "Meanbh-mhapa: truailleadh"
+
+#: src/lincity-ng/GameView.cpp:269
+msgid "Minimap: nourishments"
+msgstr "Meanbh-mhapa: biadh"
+
+#: src/lincity-ng/GameView.cpp:272
+msgid "Minimap: power supply"
+msgstr "Meanbh-mhapa: solar cumhachd"
+
+#: src/lincity-ng/GameView.cpp:275
+msgid "Minimap: firedepartment cover"
+msgstr "Meanbh-mhapa: còmhdachadh smàlaidh"
+
+#: src/lincity-ng/GameView.cpp:278
+msgid "Minimap: sport cover"
+msgstr "Meanbh-mhapa: còmhdachadh spòrs"
+
+#: src/lincity-ng/GameView.cpp:281
+msgid "Minimap: medical care"
+msgstr "Meanbh-mhapa: cùram slàinte"
+
+#: src/lincity-ng/GameView.cpp:284
+msgid "Minimap: coal deposits"
+msgstr "Meanbh-mhapa: tionalan guail"
+
+#: src/lincity-ng/GameView.cpp:1769
+msgid "Estimated Bulldoze Cost: "
+msgstr "Tuairmse air cosgais a' mhillidh: "
+
+#: src/lincity-ng/GameView.cpp:1771
+msgid "Bulldoze Cost: "
+msgstr "Cosgais a' mhillidh: "
+
+#: src/lincity-ng/GameView.cpp:1776 src/lincity-ng/GameView.cpp:1788
+msgid "n/a"
+msgstr "chan eil seo iomchaidh"
+
+#: src/lincity-ng/GameView.cpp:1784 src/lincity-ng/GameView.cpp:1816
+msgid ": Cost to build "
+msgstr ": Cosgais togail "
+
+#: src/lincity-ng/GameView.cpp:1806
+msgid "Query Tool: Show information about selected building."
+msgstr "Inneal ceiste: seall fiosrachadh mun togalach air a thaghadh."
+
+#: src/lincity-ng/GameView.cpp:1810
+msgid "Bulldozer: remove building -price varies-"
+msgstr "Milltear: thoir togalach air falbh - prìs chaochlaideach -"
+
+#: src/lincity-ng/GameView.cpp:1817
+msgid ", to bulldoze "
+msgstr ", airson milleadh "
+
+#: src/lincity-ng/GameView.cpp:1817 src/lincity-ng/GameView.cpp:1820
+msgid "$."
+msgstr "£."
+
+#: src/lincity-ng/GameView.cpp:1819
+msgid " To build "
+msgstr " Airson togail "
+
+#: src/lincity-ng/GameView.cpp:1819
+msgid " of them "
+msgstr " dhiubh "
+
+#: src/lincity-ng/GameView.cpp:1820
+msgid "will cost about "
+msgstr "cosgaidh e mu "
