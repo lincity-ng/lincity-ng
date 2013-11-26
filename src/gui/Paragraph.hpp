@@ -104,7 +104,8 @@ private:
 
     typedef std::vector<TextSpan*> TextSpans;
     TextSpans textspans;
-    Style style;
+    Style style; //CK: every span has its own style anyways
+    //TODO distinct Styles for paragraphs and styles
 
     Texture* texture;
 

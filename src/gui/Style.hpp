@@ -35,6 +35,8 @@ class XmlReader;
 /**
  * @class Style
  */
+//TODO make distinct styles for paragraphs and spans
+
 class Style
 {
 public:
@@ -61,7 +63,7 @@ public:
     float margin_left, margin_right, margin_top, margin_bottom;
     float width, height, min_width, min_height;
 
-    void no_margins(void);
+    void toSpan(void); //restricts paragraph style to span style
 private:
     Color parseColor(const char* value);
 };

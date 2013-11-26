@@ -2,7 +2,7 @@
 <Document style="creditsdoc">
     <p style="menutitle" margin-top="20" margin-bottom="20"
     translatable="yes">Credits</p>
-    
+
     <p style="section" translatable="yes">Original Idea and Code</p>
     <p style="person">Gregory Sharp
     <span style="email">&lt;gregsharp@geocities.com&gt;</span></p>
@@ -11,17 +11,19 @@
 
     <p style="section" translatable="yes">Code</p>
     <p style="person">Alain Baeckeroot
-    <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span></p>   
+    <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span></p>
     <p style="person">Wolfgang Becker
-    <span style="email">&lt;uafr@gmx.de&gt;</span></p>    
+    <span style="email">&lt;uafr@gmx.de&gt;</span></p>
     <p style="person">Matthias Braun
-    <span style="email">&lt;matze@braunis.de&gt;</span></p>    
+    <span style="email">&lt;matze@braunis.de&gt;</span></p>
     <p style="person">Jaky
-    <span style="email">&lt;jaky_lincity@mail.ru&gt;</span></p>   
+    <span style="email">&lt;jaky_lincity@mail.ru&gt;</span></p>
     <p style="person">David Kamphausen
     <span style="email">&lt;david.kamphausen@web.de&gt;</span></p>
     <p style="person">Heikki Ketoharju
     <span style="email">&lt;heikki.ketoharju@gmail.com&gt;</span></p>
+    <p style="person">Khristian Cramberger
+    <span style="email">&lt;cman.lincity@gmail.com&gt;</span></p>
 
     <p style="section" translatable="yes">Graphics</p>
     <p style="person">Ingo Ruhnke
@@ -39,7 +41,7 @@
     <p style="person">Robert van Herk</p>
     <p style="person">Pronobozo
     <span style="email">&lt;pronobozo@pronobozo.com&gt;</span></p>
-    
+
     <p style="section" translatable="yes">Translation</p>
     <p style="person">ca – Joan Padró</p>
     <p style="person">ca – Alfred Galitó Trilla</p>
@@ -47,7 +49,7 @@
     <p style="person">cs – Jan Kalab</p>
     <p style="person">cs – Tomáš Velecký</p>
     <p style="person">de – Wolfgang Becker
-    <span style="email">&lt;uafr@gmx.de&gt;</span></p>    
+    <span style="email">&lt;uafr@gmx.de&gt;</span></p>
     <p style="person">de – Michael Skiba</p>
     <p style="person">el – Yannis Kaskamanidis</p>
     <p style="person">el – Students from 5th grade of 2nd Experimental Primary School of Florina</p>
@@ -55,9 +57,9 @@
     <p style="person">fr – Arnaud Quette</p>
     <p style="person">fr – Laurent Rocher</p>
     <p style="person">fr – Alain Baeckeroot
-    <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span></p>    
-    <p style="person">gd – 
-    <span style="email">&lt;fios@foramnagaidhlig.net&gt;</span></p>    
+    <span style="email">&lt;alain.baeckeroot@laposte.net&gt;</span></p>
+    <p style="person">gd –
+    <span style="email">&lt;fios@foramnagaidhlig.net&gt;</span></p>
     <p style="person">gl – Xabier Cancela</p>
     <p style="person">ja – MH35</p>
     <p style="person">nl – Nathan Samson</p>

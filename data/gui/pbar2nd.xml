@@ -2,7 +2,7 @@
   <Panel width="204" height="204" background="images/gui/pbar_bg.png">
    <TableLayout rows="3" cols ="3">
     <colsize col="1" fixed="8"/> <!-- borders -->
-    <colsize col="3" fixed="8"/> >
+    <colsize col="3" fixed="8"/>
     <rowsize row="1" fixed="8"/>
     <rowsize row="3" fixed="8"/>
 

@@ -1,48 +1,54 @@
 <Panel width="204" height="204" background="images/gui/pbar_bg.png">
-    <DefineStyle name="mps_text" color="black" font-size="12" halign="left" margin-left="8" margin-right="12"/>
-    <DefineStyle name="mps_title" color="black" font-size="12" halign="left" font-style="normal" margin-left="8" margin-right="12"/>
-    <TableLayout rows="15" cols="1">
-       <!-- <colsize col="1" fixed="8"/> -->
+    <DefineStyle name="mps_text" color="black" font-size="12" halign="left" margin-left="0" margin-right="0"/>
+    <DefineStyle name="mps_title" color="black" font-size="12" halign="left" font-style="normal" margin-left="0" margin-right="0"/>
+    <TableLayout rows="3" cols="3">
+        <colsize col="1" fixed="6"/>
+        <colsize col="3" fixed="4"/>
         <rowsize row="1" fixed="8"/>
-        <rowsize row="15" fixed="8"/>
-        <cell row="2" col="1" halign="center">
-            <Paragraph name="mps_text0" style="mps_title"/>
+        <rowsize row="3" fixed="8"/>
+        <cell row="2" col="2">
+            <TableLayout rows="13" cols="1">
+                <cell row="1" col="1" halign="center">
+                    <Paragraph name="mps_text0" style="mps_title"/>
+                </cell>
+                <cell row="2" col="1" halign="left">
+                    <Paragraph name="mps_text1" style="mps_text"/>
+                </cell>
+                <cell row="3" col="1" halign="left">
+                    <Paragraph name="mps_text2" style="mps_text"/>
+                </cell>
+                <cell row="4" col="1" halign="left">
+                    <Paragraph name="mps_text3" style="mps_text"/>
+                </cell>
+                <cell row="5" col="1" halign="left">
+                    <Paragraph name="mps_text4" style="mps_text"/>
+                </cell>
+                <cell row="6" col="1" halign="left">
+                    <Paragraph name="mps_text5" style="mps_text"/>
+                </cell>
+                <cell row="7" col="1" halign="left">
+                    <Paragraph name="mps_text6" style="mps_text"/>
+                </cell>
+                <cell row="8" col="1" halign="left">
+                    <Paragraph name="mps_text7" style="mps_text"/>
+                </cell>
+                <cell row="9" col="1" halign="left">
+                    <Paragraph name="mps_text8" style="mps_text"/>
+                </cell>
+                <cell row="10" col="1" halign="left">
+                    <Paragraph name="mps_text9" style="mps_text"/>
+                </cell>
+                <cell row="11" col="1" halign="left">
+                    <Paragraph name="mps_text10" style="mps_text"/>
+                </cell>
+                <cell row="12" col="1" halign="left">
+                    <Paragraph name="mps_text11" style="mps_text"/>
+                </cell>
+                <cell row="13" col="1" halign="left">
+                    <Paragraph name="mps_text12" style="mps_text"/>
+                </cell>
+            </TableLayout>
         </cell>
-        <cell row="3" col="1" halign="left">
-            <Paragraph name="mps_text1" style="mps_text"/>
-        </cell>
-        <cell row="4" col="1" halign="left">
-            <Paragraph name="mps_text2" style="mps_text"/>
-        </cell>
-        <cell row="5" col="1" halign="left">
-            <Paragraph name="mps_text3" style="mps_text"/>
-        </cell>
-        <cell row="6" col="1" halign="left">
-            <Paragraph name="mps_text4" style="mps_text"/>
-        </cell>
-        <cell row="7" col="1" halign="left">
-            <Paragraph name="mps_text5" style="mps_text"/>
-        </cell>
-        <cell row="8" col="1" halign="left">
-            <Paragraph name="mps_text6" style="mps_text"/>
-        </cell>
-        <cell row="9" col="1" halign="left">
-            <Paragraph name="mps_text7" style="mps_text"/>
-        </cell>
-        <cell row="10" col="1" halign="left">
-            <Paragraph name="mps_text8" style="mps_text"/>
-        </cell>
-        <cell row="11" col="1" halign="left">
-            <Paragraph name="mps_text9" style="mps_text"/>
-        </cell>
-        <cell row="12" col="1" halign="left">
-            <Paragraph name="mps_text10" style="mps_text"/>
-        </cell>
-        <cell row="13" col="1" halign="left">
-            <Paragraph name="mps_text11" style="mps_text"/>
-        </cell>
-        <cell row="14" col="1" halign="left">
-            <Paragraph name="mps_text12" style="mps_text"/>
-        </cell>
+        <!-- <cell row="1" col= "3"/> -->
     </TableLayout>
 </Panel>

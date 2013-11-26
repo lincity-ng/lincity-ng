@@ -193,14 +193,15 @@ void parseStyleDef(XmlReader& reader)
 }
 
 void
-Style::no_margins(void)
+Style::toSpan(void)
 {
-    this->margin_bottom = 0;
-    this->margin_left = 0;
-    this->margin_right = 0;
-    this->margin_top = 0;
+    margin_right = 0;
+    margin_left = 0;
+    margin_bottom = 0;
+    margin_top = 0;
+    if (alignment == ALIGN_CENTER)
+    {   alignment = ALIGN_LEFT;}
 }
-
 
 
 /** @file gui/Style.cpp */

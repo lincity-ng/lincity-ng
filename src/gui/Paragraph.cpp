@@ -87,6 +87,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
     bool translatable = false;
 
     style = parentstyle;
+
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
@@ -105,6 +106,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
 
     std::vector<Style> stylestack;
     stylestack.push_back(style);
+    stylestack.back().toSpan();
 
     TextSpan* currentspan = 0;
 
@@ -122,6 +124,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                                 = GUI_TRANSLATE(currentspan->text);
                         }
                         textspans.push_back(currentspan);
+                        //std::cout << "new span: " << currentspan->text << std::endl;
                         currentspan = 0;
                     }
 
@@ -176,6 +179,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                     } else {
                         lastspace = false;
                         currentspan->text += *p;
+                        //std::cout << "growing span: " << currentspan->text << std::endl;
                     }
                 }
             } else if(reader.getNodeType() == XML_READER_TYPE_END_ELEMENT) {
@@ -188,6 +192,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                                 = GUI_TRANSLATE(currentspan->text);
                         }
                         textspans.push_back(currentspan);
+                        //std::cout << "add end span: " << currentspan->text << std::endl;
                         currentspan = 0;
                     }
                     stylestack.pop_back();
@@ -203,7 +208,9 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
                 currentspan->text
                     = GUI_TRANSLATE(currentspan->text);
             }
+            //std::cout << "completed span: " << currentspan->text << std::endl;
             textspans.push_back(currentspan);
+            currentspan = 0; //added CK
         }
     } catch(...) {
         if(currentspan != 0)
@@ -221,12 +228,14 @@ void
 Paragraph::resize(float width, float height)
 {
     // free old texture
-    if(texture) {
+    if(texture)
+    {
         delete texture;
         texture = 0;
     }
 
-    if(width == 0) {
+    if(width == 0)
+    {
         this->width = 0;
         this->height = 0;
         texture = 0;
@@ -271,8 +280,9 @@ Paragraph::resize(float width, float height)
         {
             // we don't need the space at the beginning of the line
             if(p-linestart != 0 || pos.x != 0)
-                line += ' ';
-            else {
+            {   line += ' ';}
+            else
+            {
                 lastp++;
                 linestart++;
             }
@@ -291,10 +301,10 @@ Paragraph::resize(float width, float height)
         bool render = false;
         bool linefeed = false;
         // we need a linefeed if width isn't enough for current span
-        if(width > 0 && pos.x + render_width >= width - style.margin_left - style.margin_right) {
+        if(width > 0 && pos.x + render_width >= width - style.margin_left - style.margin_right)
+        {
             render = true;
             linefeed = true;
-
             // we have to leave out the last word (which made it too width)
             if(lastp-linestart > 0 || pos.x != 0) {
                 line = std::string(*text, linestart, lastp-linestart);
@@ -307,15 +317,18 @@ Paragraph::resize(float width, float height)
         /* span is over, so we need to render now (and if it was the last span,
          * we need a linefeed too)
          */
-        if(p >= text->size()) {
+        if(p >= text->size())
+        {
             render = true;
             ++i;
             if(i == textspans.end())
-                linefeed = true;
+            {   linefeed = true;}
         }
 
-        if(render && line != "") {
-            if(TTF_FontHeight(font) > lineheight) {
+        if(render && line != "")
+        {
+            if(TTF_FontHeight(font) > lineheight)
+            {
                 lineheight = TTF_FontHeight(font);
                 baseline = TTF_FontAscent(font);
             }
@@ -332,20 +345,33 @@ Paragraph::resize(float width, float height)
             SDL_SetAlpha(spansurface, 0, 0);
             //remember individual margins of spans
             float xoffset;
+            bool new_column = false;
             if(span->style.alignment == Style::ALIGN_LEFT)
             {
                 xoffset = span->style.margin_left;
-            } else if(span->style.alignment == Style::ALIGN_CENTER) {
-                xoffset = (width + span->style.margin_left - span->style.margin_right - render_width)/2;
-            } else {
-                xoffset = (width - spansurface->w - style.margin_right - span->style.margin_right);
+                new_column = (xoffset!=0);
+            }
+            else if(span->style.alignment == Style::ALIGN_CENTER)
+            {
+                new_column = (span->style.margin_left!=0);
+                if (new_column)
+                {   xoffset = (width + span->style.margin_left - span->style.margin_right - spansurface->w)/2;}
+                else
+                {   xoffset = 0;}
+            }
+            else
+            {
+                new_column = true; //always new column for right adjustment
+                xoffset = (width - spansurface->w - span->style.margin_right);
             }
             float yoffset = span->style.margin_top;
-            spanxoffset.push_back(xoffset);
-            spanyoffset.push_back(yoffset);
-            pos.x = xoffset;//fixed columns
+            if (new_column)
+            {   pos.x = xoffset;}//fixed columns
+            else
+            {   pos.x += xoffset;}
             pos.y += yoffset;
-
+            spanxoffset.push_back(pos.x);
+            spanyoffset.push_back(pos.y);
             spanimages.push_back(spansurface);
             spanbaselines.push_back(TTF_FontAscent(font));
 
@@ -379,7 +405,7 @@ Paragraph::resize(float width, float height)
                 }
                 SDL_SetAlpha(lineimage, 0, 0);
 
-                Sint16 x = 0;
+                //Sint16 x = 0;
                 SDL_Rect rect;
                 for(size_t i = 0; i < spanimages.size(); ++i) {
                     rect.x = (Sint16) spanxoffset[i];
@@ -388,7 +414,8 @@ Paragraph::resize(float width, float height)
                     {   rect.y = 0;}
 
                     SDL_BlitSurface(spanimages[i], 0, lineimage, &rect);
-                    x += spanimages[i]->w + (Sint16) spanxoffset[i];
+                    //x = /*spanimages[i]->w +*/ (Sint16) spanxoffset[i];
+                    //CK: see "pos.x += spansurface->w;"
 
                     SDL_FreeSurface(spanimages[i]);
                 }
@@ -404,7 +431,7 @@ Paragraph::resize(float width, float height)
             } else if(span->style.alignment == Style::ALIGN_CENTER) {
                 xoffset = (width + span->style.margin_left - span->style.margin_right - lineimages.back()->w)/2;
             } else {
-                xoffset = (width - lineimages.back()->w - style.margin_right - span->style.margin_right);
+                xoffset = (width - lineimages.back()->w  - span->style.margin_right);
             }
             for(std::vector<LinkRectangle>::iterator i =linerectangles.begin();
                 i != linerectangles.end(); ++i) {
@@ -424,9 +451,10 @@ Paragraph::resize(float width, float height)
         }
 
         // advance to next span if necessary
-        if(p >= text->size()) {
+        if(p >= text->size())
+        {
             if(i == textspans.end())
-                break;
+            {   break;}
             span = *i;
             text = &(span->text);
             font = fontManager->getFont(span->style);
@@ -435,11 +463,9 @@ Paragraph::resize(float width, float height)
         }
     }
 
-    if(height < style.min_height) {
-        height = span->style.min_height;
-    } else {
-        height = pos.y + span->style.margin_top + span->style.margin_bottom;
-    }
+    height = pos.y + style.margin_top + style.margin_bottom;
+    if(height < style.min_height)
+    {   height = style.min_height;}
 
     // check height defined in style
     if(height == 0) {
@@ -462,6 +488,7 @@ Paragraph::resize(float width, float height)
     //apply margins of paragraph
     for(size_t i = 0; i < lineimages.size(); ++i) {
         SDL_Rect rect;
+
         if(style.alignment == Style::ALIGN_LEFT) {
             rect.x = (Sint16) style.margin_left;
         } else if(style.alignment == Style::ALIGN_CENTER) {
@@ -475,12 +502,10 @@ Paragraph::resize(float width, float height)
     }
     SDL_Surface* surface = SDL_DisplayFormatAlpha(result);
     SDL_FreeSurface(result);
-    if(surface == 0) {
-        throw std::runtime_error("Out of memory when creating text image(d)");
-    }
+    if(surface == 0)
+    {   throw std::runtime_error("Out of memory when creating text image(d)");}
 
     texture = texture_manager->create(surface);
-
     this->width = width;
     this->height = height;
 
@@ -491,8 +516,7 @@ void
 Paragraph::draw(Painter& painter)
 {
     if(!texture)
-        return;
-
+    {   return;}
     painter.drawTexture(texture, Vector2(0, 0));
 }
 
@@ -521,7 +545,9 @@ Paragraph::event(const Event& event)
 void
 Paragraph::setText(const std::string& newtext)
 {
-    setText(newtext, style);
+    Style spanStyle = style;
+    spanStyle.toSpan();
+    setText(newtext, spanStyle);
 }
 
 std::string Paragraph::getText() const
@@ -535,8 +561,10 @@ std::string Paragraph::getText() const
 void
 Paragraph::setText(const std::string& newtext, const Style& style)
 {
+/*
     for(TextSpans::iterator i = textspans.begin(); i != textspans.end(); ++i)
         delete *i;
+*/
     textspans.clear();
 
     size_t span_end = newtext.find_first_of('\t',0);
@@ -553,7 +581,7 @@ Paragraph::setText(const std::string& newtext, const Style& style)
             span_end = mytext.find_first_of('\t',0); // next tab
             TextSpan* span = new TextSpan();
             span->style = style;
-            span->style.no_margins();
+            span->style.toSpan();
             span->text = spantext;
             textspans.push_back(span);
             ++tabcount;
@@ -567,7 +595,7 @@ Paragraph::setText(const std::string& newtext, const Style& style)
         {
             textspans[0]->style.alignment = Style::ALIGN_LEFT;
             textspans[1]->style.alignment = Style::ALIGN_RIGHT;
-            textspans[1]->style.margin_right = 60;
+            textspans[1]->style.margin_right = 65;
             textspans[2]->style.alignment = Style::ALIGN_RIGHT;
         }
     }
@@ -575,25 +603,20 @@ Paragraph::setText(const std::string& newtext, const Style& style)
     {
         TextSpan* span = new TextSpan();
         span->style = style;
+        span->style.toSpan();
         span->text = newtext;
         textspans.push_back(span);
-        span->style.margin_left = 0;//avoid double margin
     }
-
-
-
-
 
     float oldWidth = width;
     float oldHeight = height;
-
     // rerender text
     resize(width, height);
-
     // eventually trigger resize/relayout of parent component
-    if(width == 0 || width != oldWidth || height == 0 || height != oldHeight) {
+    if(width == 0 || width != oldWidth || height == 0 || height != oldHeight)
+    {
         if(getParent())
-            getParent()->reLayout();
+        {   getParent()->reLayout();}
     }
 }
 

@@ -69,7 +69,7 @@ ScrollView::parse(XmlReader& reader)
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             std::string element = (const char*) reader.getName();
-            
+
             if(element == "scrollbar") {
                 std::auto_ptr<ScrollBar> scrollbar (new ScrollBar());
                 scrollbar->parse(reader);
@@ -98,7 +98,7 @@ ScrollView::resize(float newwidth, float newheight)
     float scrollBarWidth = scrollBar().getComponent()->getWidth();
     scrollBar().getComponent()->resize(scrollBarWidth, newheight);
     scrollBar().setPos(Vector2(newwidth - scrollBarWidth, 0));
-   
+
     float scrollarea = 0;
     if(contents().getComponent() != 0) {
         Component* component = contents().getComponent();
@@ -108,7 +108,7 @@ ScrollView::resize(float newwidth, float newheight)
                 Rect2D(0, 0, newwidth - scrollBarWidth, newheight));
         scrollarea = component->getHeight() - newheight;
         if(scrollarea < 0)
-            scrollarea = 0;        
+            scrollarea = 0;
     }
 
     ScrollBar* scrollBarComponent = (ScrollBar*) scrollBar().getComponent();
@@ -137,7 +137,7 @@ ScrollView::event(const Event& event)
         if(!event.inside)
             return;
 
-        ScrollBar* scrollBarComp 
+        ScrollBar* scrollBarComp
             = dynamic_cast<ScrollBar*> (scrollBar().getComponent());
         if(scrollBarComp == 0) {
 #ifdef DEBUG
