@@ -551,7 +551,7 @@ XMLloadsave::loadTileTemplates()
             cur_template->step();
         }
         //assert (cm == cur_template->len());
-        cur_tile->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+        cur_tile->flags &= ~VOLATILE_FLAGS;
         mapTileCount++;
     }
 }
@@ -987,7 +987,7 @@ void XMLloadsave::loadMapTiles()
                 prescan = false;
                 continue;
             }
-            cur_tile->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+            cur_tile->flags &= ~VOLATILE_FLAGS;
             interpreting_template = false;
             inside_MapTile = false;
             prescan = true;

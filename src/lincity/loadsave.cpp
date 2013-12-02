@@ -472,7 +472,7 @@ void load_city_2(char *cname)
             {
                 unsigned short type = world(x, y)->type;
                 unsigned short group = world(x,y)->group;
-                world(x,y)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
+                world(x,y)->flags &= ~VOLATILE_FLAGS;
                 if (world(x, y)->flags & FLAG_IS_RIVER)
                     {   set_river_tile( x, y);}
 

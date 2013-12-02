@@ -310,9 +310,19 @@ public:
         for(it = graphicsInfoVector.begin(); it != graphicsInfoVector.end(); ++it)
         {
             if(it->texture)
-            {   delete it->texture;}
+            {
+                delete it->texture;
+                it->texture = 0;
+            }
+            //CK it seems that SDL images are freed
+            //on their own, crashes rarely
+/*
             else if (it->image)
-            {   SDL_FreeSurface(it->image);}
+            {
+                SDL_FreeSurface(it->image);
+                it->image = 0;
+            }
+*/
         }
     }
 

@@ -92,6 +92,7 @@
 #define FLAG_ASKED_FOR_POWER       (0x40000000)
 #define FLAG_GOT_POWER             (0x80000000) /* 2^31 = last flag */  //nearly duplicate of FLAG_POWERED 0x10
 
+#define VOLATILE_FLAGS  (FLAG_POWER_CABLES_0 |  FLAG_POWER_CABLES_90)
 #define GOOD 1
 #define BAD (-1)
 #define RESULTS 0
