@@ -189,11 +189,20 @@ void ButtonPanel::examineButton(const std::string &name, int showInfo )
         if( b->isEnabled() )
         {
             b->enable( false );
+            std::ostringstream os;
+            os << usrOp->createTooltip( false ).c_str() << " ("
+                << _("Techlevel") << " " << usrOp->requiredTech()
+                << _("required") << ")";
+            b->setTooltip(os.str().c_str());
+/*
             char tooltip[2048]; //FIXME may use string stream here
-            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
+            snprintf(tooltip, sizeof(tooltip), "%s (%s %.lf %s.)",
                     usrOp->createTooltip( false ).c_str(),
-                    usrOp->requiredTech());
+                    _("Techlevel"),
+                    usrOp->requiredTech(),
+                    _("required"));
             b->setTooltip(tooltip);
+*/
         }
     }
 }
@@ -226,12 +235,21 @@ void ButtonPanel::examineMenuButtons(){
         {
             if( b->isEnabled() )
             {
-                char tooltip[2048];
-                snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                        usrOp->createTooltip( ).c_str(),
-                        usrOp->requiredTech());
-                b->setTooltip( tooltip );
                 b->enable( false );
+                std::ostringstream os;
+                os << usrOp->createTooltip( false ).c_str() << " ("
+                    << _("Techlevel") << " " << usrOp->requiredTech()
+                    << _("required") << ")";
+                b->setTooltip(os.str().c_str());
+/*
+                char tooltip[2048];
+                snprintf(tooltip, sizeof(tooltip), "%s (%s %.lf %s.)",
+                    usrOp->createTooltip( false ).c_str(),
+                    _("Techlevel"),
+                    usrOp->requiredTech(),
+                    _("required"));
+                b->setTooltip( tooltip );
+*/
             }
         }
     }
@@ -340,56 +358,76 @@ void ButtonPanel::newTechMessage( unsigned short group, int showInfo )
 
 void ButtonPanel::attachButtons()
 {
-  if(alreadyAttached)
-  {  return;}
-  alreadyAttached = true;
-  UserOperation *tmp2 = userOperation;
-  for(size_t i=0;i<mMenuButtons.size();i++)
+    if(alreadyAttached)
+    {  return;}
+    alreadyAttached = true;
+    UserOperation *usrOp = userOperation;
+    for(size_t i=0;i<mMenuButtons.size();i++)
     {
-      Component *c=findComponent(mMenuButtons[i]);
-      if(c)
-      {
-        CheckButton* b = dynamic_cast<CheckButton*>(c);
-        if(b)
+        Component *c=findComponent(mMenuButtons[i]);
+        if(c)
         {
-          b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
-          if( b->isEnabled() ){
-            b->setTooltip( userOperation->createTooltip( ) );
-          } else {
-            char tooltip[2048];
-            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                     userOperation->createTooltip( ).c_str(),
-                     ButtonOperations[mMenuButtons[i]].requiredTech());
-            b->setTooltip(tooltip);
-          }
+            CheckButton* b = dynamic_cast<CheckButton*>(c);
+            if(b)
+            {
+                b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
+                if( b->isEnabled() )
+                {   b->setTooltip( userOperation->createTooltip( ) );}
+                else
+                {
+                    std::ostringstream os;
+                    os << usrOp->createTooltip( false ).c_str() << " ("
+                        << _("Techlevel") << " " << usrOp->requiredTech()
+                        << _("required") << ")";
+                    b->setTooltip(os.str().c_str());
+                    /*
+                    char tooltip[2048];
+                    snprintf(tooltip, sizeof(tooltip), "%s (%s %.lf %s.)",
+                            usrOp->createTooltip( false ).c_str(),
+                            _("Techlevel"),
+                            usrOp->requiredTech(),
+                            _("required"));
+                    b->setTooltip(tooltip);
+                    */
+                }
+            }
         }
-      }
     }
 
-  for(size_t i=0;i<mButtons.size();i++)
+    for(size_t i=0;i<mButtons.size();i++)
     {
-      Component *c=findComponent(mButtons[i]);
-      if(c)
-      {
-        CheckButton* b = dynamic_cast<CheckButton*>(c);
-        if(b)
+        Component *c=findComponent(mButtons[i]);
+        if(c)
         {
-            b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
-            doButton( mButtons[i] );
-            userOperation = &(ButtonOperations[mButtons[i]]);
-            if( b->isEnabled() ){
-                b->setTooltip( userOperation->createTooltip( false ) );
-            } else {
-            char tooltip[2048];
-            snprintf(tooltip, sizeof(tooltip), _("%s (Techlevel %.1f required.)"),
-                     userOperation->createTooltip( false ).c_str(),
-                     userOperation->requiredTech());
-            b->setTooltip(tooltip);
-          }
+            CheckButton* b = dynamic_cast<CheckButton*>(c);
+            if(b)
+            {
+                b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
+                doButton( mButtons[i] );
+                userOperation = &(ButtonOperations[mButtons[i]]);
+                if( b->isEnabled() )
+                {   b->setTooltip( userOperation->createTooltip( false ) );}
+                else
+                {
+                    std::ostringstream os;
+                    os << usrOp->createTooltip( false ).c_str() << " ("
+                        << _("Techlevel") << " " << usrOp->requiredTech()
+                        << _("required") << ")";
+                    b->setTooltip(os.str().c_str());
+                /*
+                    char tooltip[2048];
+                    snprintf(tooltip, sizeof(tooltip), "%s (%s %.lf %s.)",
+                            usrOp->createTooltip( false ).c_str(),
+                            _("Techlevel"),
+                            usrOp->requiredTech(),
+                            _("required"));
+                    b->setTooltip(tooltip);
+                */
+                }
+            }
         }
-      }
     }
-    userOperation = tmp2;
+    userOperation = usrOp;
     checkTech(0);
     // now hide menu
     for(size_t i=0;i<mMenuButtons.size();i++)
@@ -406,9 +444,7 @@ void ButtonPanel::attachButtons()
             Childs::iterator i=p->childs.begin();
             for(;i!=p->childs.end();i++)
               if(i->getComponent()==c)
-               {
-                 i->enable(false);
-               }
+               {    i->enable(false);}
             }
         }
     }

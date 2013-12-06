@@ -159,7 +159,7 @@ void save_city_2(char *cname)
     {
         gzFile ofile = gzopen(cname, "wb");
         if (ofile == NULL) {
-            printf(_("Save file <%s> - "), cname);
+            printf("%s <%s> - ", _("Save file"), cname);
             do_error(_("Can't open save file!"));
         }
         /* Now we have upgraded game */
@@ -353,7 +353,7 @@ void load_city_2(char *cname)
         gzfile = gzopen(cname, "rb");
         if (gzfile == NULL)
         {
-            printf(_("Can't open <%s> (gzipped)"), cname);
+            printf("%s <%s> (%s)",_("Can't open"),cname, _("gzipped"));
             do_error("Can't open it!");
         }
 

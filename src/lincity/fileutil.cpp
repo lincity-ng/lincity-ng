@@ -441,17 +441,17 @@ void make_savedir(void)
 
 #if defined (WIN32)
     if (_mkdir(lc_save_dir) == -1 && errno != EEXIST) {
-        printf(_("Couldn't create the save directory '%s'\n"), lc_save_dir);
+        printf("%s '%s'\n", _("Couldn't create the save directory"), lc_save_dir);
         exit(-1);
     }
 #else
     mkdir(lc_save_dir, 0755);
     if (chown(lc_save_dir, getuid(), getgid()) == -1) {
-        printf(_("Failed to chown '%s'\n"), lc_save_dir);
+        printf("%s '%s'\n", _("Failed to chown"), lc_save_dir);
     }
     if ((dp = opendir(lc_save_dir)) == NULL) {
         /* change this to a screen message. */
-        printf(_("Couldn't create the save directory '%s'\n"), lc_save_dir);
+        printf("%s '%s'\n", _("Couldn't create the save directory"), lc_save_dir);
         exit(1);
     }
     closedir(dp);

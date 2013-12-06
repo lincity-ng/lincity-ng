@@ -367,47 +367,46 @@ void Dialog::gameStats(){
     int line = 1;
     int maxlength = 567;
     char* outf = (char *) malloc ( maxlength );
-    //int group_count[NUM_OF_GROUPS];
-    //count_all_groups (group_count);
     if (cheat_flag){
         setParagraphN( "statistic_text", line++, _("----- IN TEST MODE -------") );
     }
-    snprintf (outf, maxlength, _("Game statistics from LinCity-NG Version %s"), PACKAGE_VERSION);
+    snprintf (outf, maxlength,"%s %s", _("Game statistics from LinCity-NG Version"), PACKAGE_VERSION);
     setParagraphN( "statistic_text", line++, outf );
     if (strlen (given_scene) > 3){
-        snprintf (outf, maxlength, _("Initial loaded scene - %s"), given_scene);
+        snprintf (outf, maxlength,"%s - %s", _("Initial loaded scene"), given_scene);
         setParagraphN( "statistic_text", line++, outf );
     }
     if (sustain_flag){
         snprintf (outf, maxlength, "%s", _("Economy is sustainable"));
         setParagraphN( "statistic_text", line++, outf );
     }
-    snprintf (outf, maxlength, _("Population  %d  of which  %d  are not housed.")
-         ,population + people_pool, people_pool);
+    snprintf (outf, maxlength, "%s %d %s %d %s.",
+        _("Population"), population + people_pool, _("of which"),  people_pool, _("are not housed"));
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength,
-         _("Max population %d  Number evacuated %d Total births %d")
-         ,max_pop_ever, total_evacuated, total_births);
+    snprintf (outf, maxlength, "%s %d %s %d %s %d",
+        _("Max population"), max_pop_ever,  _("Number evacuated"), total_evacuated, _("Total births"), total_births);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength,
-         _("Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"),
-         current_month(total_time), current_year(total_time), total_money,
-         (float) tech_level * 100.0 / MAX_TECH_LEVEL,
-         (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
+    snprintf (outf, maxlength, "%s %s %04d %s %8d %s %5.1f (%5.1f)",
+        _("Date"),  current_month(total_time), current_year(total_time),
+        _("Money"), total_money, _("Tech-level"),
+        (float) tech_level * 100.0 / MAX_TECH_LEVEL,
+        (float) highest_tech_level * 100.0 / MAX_TECH_LEVEL);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength,
-         _("Deaths by starvation %7d   History %8.3f"),
-         total_starve_deaths, starve_deaths_history);
+    snprintf (outf, maxlength, "%s %7d %s %8.3f",
+        _("Deaths by starvation"), total_starve_deaths,
+        _("History"), starve_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength,
-         _("Deaths from pollution %7d   History %8.3f"),
-         total_pollution_deaths, pollution_deaths_history);
+    snprintf (outf, maxlength, "%s %7d   %s %8.3f",
+        _("Deaths from pollution"), total_pollution_deaths,
+        _("History"), pollution_deaths_history);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("Years of unemployment %7d   History %8.3f"),
-         total_unemployed_years, unemployed_history);
+    snprintf (outf, maxlength, "%s %7d   %s %8.3f",
+        _("Years of unemployment"), total_unemployed_years,
+        _("History"), unemployed_history);
     setParagraphN( "statistic_text", line++, outf );
-    snprintf (outf, maxlength, _("Rockets launched %2d  Successful launches %2d"),
-         rockets_launched, rockets_launched_success);
+    snprintf (outf, maxlength, "%s %2d  %s %2d",
+        _("Rockets launched"), rockets_launched,
+        _("Successful launches"), rockets_launched_success);
     setParagraphN( "statistic_text", line++, outf );
 
     while( line <= 11 ){ //clear remaining lines
@@ -416,12 +415,6 @@ void Dialog::gameStats(){
     free( outf );
 
     setTableRC("statistic", 1, 1, _("Residences"),
-         /*group_count[GROUP_RESIDENCE_LL] +
-         group_count[GROUP_RESIDENCE_ML] +
-         group_count[GROUP_RESIDENCE_HL] +
-         group_count[GROUP_RESIDENCE_LH] +
-         group_count[GROUP_RESIDENCE_MH] +
-         group_count[GROUP_RESIDENCE_HH]*/
         Counted<Residence>::getInstanceCount());
     setTableRC("statistic", 1, 2, _("Markets"), Counted<Market>::getInstanceCount());
     setTableRC("statistic", 1, 3, _("Farms"), Counted<Organic_farm>::getInstanceCount());
@@ -519,7 +512,7 @@ void Dialog::saveGameStats(){
         results << outf << std::endl;
     }
     if (sustain_flag){
-        snprintf (outf, maxlength, "Economy is sustainable");
+        snprintf (outf, maxlength, "%s", "Economy is sustainable");
         results << outf << std::endl;
     }
     snprintf (outf, maxlength, "Population  %d  of which  %d  are not housed."
@@ -552,12 +545,6 @@ void Dialog::saveGameStats(){
     results << "" << std::endl;
 
     snprintf (outf, maxlength, "    Residences %4d         Markets %4d            Farms %4d",
-    /*     group_count[GROUP_RESIDENCE_LL] +
-         group_count[GROUP_RESIDENCE_ML] +
-         group_count[GROUP_RESIDENCE_HL] +
-         group_count[GROUP_RESIDENCE_LH] +
-         group_count[GROUP_RESIDENCE_MH] +
-         group_count[GROUP_RESIDENCE_HH] */
          Counted<Residence>::getInstanceCount(),
          Counted<Market>::getInstanceCount(),
          Counted<Organic_farm>::getInstanceCount());
@@ -819,7 +806,6 @@ void Dialog::applyMarketButtonClicked( Button* ){
 }
 
 void Dialog::applyPortButtonClicked( Button* ){
-    //int *port_flags = &(world(pointX, pointY)->reportingConstruction->flags);
     Port *port = dynamic_cast<Port *>(world(pointX, pointY)->reportingConstruction);
     CheckButton* cb;
 
@@ -926,7 +912,6 @@ void Dialog::applyPortButtonClicked( Button* ){
 void Dialog::okayLaunchRocketButtonClicked( Button* )
 {
     static_cast<RocketPad*> (world(pointX, pointY)->reportingConstruction)-> launch_rocket();
-    //launch_rocket( pointX, pointY );
     desktop->remove( myDialogComponent );
     blockingDialogIsOpen = false;
     unRegisterDialog();

@@ -129,7 +129,7 @@ void load_city_old(char *cname)
 
     gzfile = gzopen(cname, "rb");
     if (gzfile == NULL) {
-        printf(_("Can't open <%s> (gzipped)"), cname);
+        printf("%s <%s> (%s)",_("Can't open"),cname, _("gzipped"));
         do_error("Can't open it!");
     }
     /* Initialise additional structure FIXME random village does not go here*/
