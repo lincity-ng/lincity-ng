@@ -84,7 +84,7 @@ GameView::GameView()
     mouseScrollState = 0;
     remaining_images = 0;
     textures_ready = false;
-    economyGraph_open = false;
+    //economyGraph_open = false;
 }
 
 GameView::~GameView()
@@ -1561,7 +1561,7 @@ void GameView::fetchTextures()
     {
         for(size_t i = 0; i < it->second->graphicsInfoVector.size(); ++i)
         {
-            if( !it->second->graphicsInfoVector[i].texture && !economyGraph_open)
+            if( !it->second->graphicsInfoVector[i].texture) // && !economyGraph_open
             {
                 if(it->second->graphicsInfoVector[i].image)
                 {
@@ -1582,7 +1582,7 @@ void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo 
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
     Vector2 tileOnScreenPoint = getScreenPoint( tile );
     // Test if we have to convert Preloaded Image to Texture
-    if( !graphicsInfo->texture && !economyGraph_open)
+    if( !graphicsInfo->texture ) //&& !economyGraph_open
     {
         if(graphicsInfo->image)
         {
@@ -1676,13 +1676,16 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         fillDiamond( painter, tilerect );
     }
     //last draw suspended power cables on top
-    x = lowerRightTile.x;
-    y = lowerRightTile.y;
-    cstgrp = &powerlineConstructionGroup;
-    if (world(x, y)->flags & FLAG_POWER_CABLES_0)
-    {   drawTexture(painter, lowerRightTile, &cstgrp->graphicsInfoVector[23]);}
-    if (world(x, y)->flags & FLAG_POWER_CABLES_90)
-    {   drawTexture(painter, lowerRightTile, &cstgrp->graphicsInfoVector[22]);}
+    if(powerlineConstructionGroup.images_loaded)
+    {
+        x = lowerRightTile.x;
+        y = lowerRightTile.y;
+        cstgrp = &powerlineConstructionGroup;
+        if (world(x, y)->flags & FLAG_POWER_CABLES_0)
+        {   drawTexture(painter, lowerRightTile, &cstgrp->graphicsInfoVector[23]);}
+        if (world(x, y)->flags & FLAG_POWER_CABLES_90)
+        {   drawTexture(painter, lowerRightTile, &cstgrp->graphicsInfoVector[22]);}
+    }
 }
 
 /*
