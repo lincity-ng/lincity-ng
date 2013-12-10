@@ -7,6 +7,6 @@ SOURCES = [ Wildcard *.cpp *.h ]
 Library lincity_lib : $(SOURCES) : noinstall ;
 C++Flags lincity_lib : -DDEFAULT_LIBDIR=\\\"$(appdatadir)\\\" ;
 IncludeDir lincity_lib : . ;
-ExternalLibs lincity_lib : SDL SDLIMAGE SDLMIXER SDLTTF SDLGFX ICONV ZLIB ;
+ExternalLibs lincity_lib : LIBXML SDL SDLIMAGE SDLMIXER SDLTTF SDLGFX ICONV ZLIB ;
 
 TRANSLATABLE_SOURCES += [ SearchSource $(SOURCES) ] ;

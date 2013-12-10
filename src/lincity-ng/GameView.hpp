@@ -75,6 +75,9 @@ public:
 
     void printStatusMessage( std::string message );
 
+    void fetchTextures(void);
+    //convert all remaining images in ConstructionGroup::reourceMap to textures
+
     //check if tile is in city
     bool inCity( MapPoint tile );
 

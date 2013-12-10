@@ -302,7 +302,7 @@ public:
         this->cost = cost;
         this->tech = tech;
         this->range = range;
-        images_loaded = false;
+        this->images_loaded = false;
     }
     ~ConstructionGroup()
     {

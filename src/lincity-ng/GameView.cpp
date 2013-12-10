@@ -117,7 +117,9 @@ int GameView::gameViewThread( void* data )
     GameView* gv = (GameView*) data;
     gv->preReadImages();
     gv->textures_ready = true;
-    //gv->requestRedraw();
+    //keep thread alive as long as there are SDL_Surfaces
+    while(!gv->stopThread && gv->remaining_images!=0)
+    {   SDL_Delay(100);}
     return 0;
 }
 
@@ -415,7 +417,14 @@ Texture* GameView::readTexture(const std::string& filename)
 SDL_Surface* GameView::readImage(const std::string& filename)
 {
     std::string dirsep = PHYSFS_getDirSeparator();
-    std::string nfilename = std::string("images") + dirsep + std::string("tiles") + dirsep + filename;
+
+    //std::string nfilename;
+    //nfilename = std::string("images") + dirsep + std::string("tiles") + dirsep + filename;
+
+    std::ostringstream os;
+    os << "images" << dirsep << "tiles" << dirsep << filename;
+    std::string nfilename = os.str();
+
     SDL_Surface* currentImage;
     if( !PHYSFS_exists( nfilename.c_str() ) ){
         std::cerr << "GameView::readImage# No image file "<< nfilename << " found.\n";
@@ -447,8 +456,13 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 void GameView::preReadImages(void)
 {
     std::string dirsep = PHYSFS_getDirSeparator();
-    std::string xmlfile = std::string("images") + dirsep
-    + std::string("tiles") + dirsep + std::string("images.xml");
+    //std::string xmlfile = std::string("images") + dirsep
+    //+ std::string("tiles") + dirsep + std::string("images.xml");
+
+    std::ostringstream os;
+    os << "images" << dirsep << "tiles" << dirsep << "images.xml";
+    std::string xmlfile = os.str();
+
     XmlReader reader( xmlfile );
 
     ConstructionGroup *constructionGroup = 0;
@@ -473,7 +487,10 @@ void GameView::preReadImages(void)
                     if( strcmp(name, "name" ) == 0 )
                     {
                         if(constructionGroup)
-                        {   constructionGroup->images_loaded = true;}
+                        {
+                            //std::cout << constructionGroup->name << " images loaded: line491" << std::endl;
+                            constructionGroup->images_loaded = true;
+                        }
 
                         if(ConstructionGroup::resourceMap.count(value))
                         {
@@ -497,6 +514,7 @@ void GameView::preReadImages(void)
             //check if we are still inside context of last resorceID
             if(reader.getDepth() < resourceID_level-1)
             {
+                //std::cout << constructionGroup->name << " images loaded: line517" << std::endl;
                 constructionGroup->images_loaded = true;
                 constructionGroup = 0;
                 resourceID_level = 0;
@@ -556,10 +574,13 @@ void GameView::preReadImages(void)
                 key.clear();
             }
         }
-        if(constructionGroup)
-        {   constructionGroup->images_loaded = true;}
     }
-
+    if(constructionGroup)
+    {
+        //std::cout << constructionGroup->name << " images loaded: line580" << std::endl;
+        constructionGroup->images_loaded = true;
+        constructionGroup = 0;
+    }
 }
 
 /*
@@ -1533,6 +1554,29 @@ MapPoint GameView::realTile( MapPoint tile )
     return real;
 }
 
+void GameView::fetchTextures()
+{
+    std::map<std::string, ConstructionGroup*>::iterator it;
+    for(it= ConstructionGroup::resourceMap.begin(); it != ConstructionGroup::resourceMap.end(); ++it)
+    {
+        for(size_t i = 0; i < it->second->graphicsInfoVector.size(); ++i)
+        {
+            if( !it->second->graphicsInfoVector[i].texture && !economyGraph_open)
+            {
+                if(it->second->graphicsInfoVector[i].image)
+                {
+                    it->second->graphicsInfoVector[i].texture = texture_manager->create( it->second->graphicsInfoVector[i].image );
+                    if (it->second->graphicsInfoVector[i].texture)
+                    {   it->second->graphicsInfoVector[i].image = 0;} //Image was erased by texture_manager->create.
+                    --remaining_images;
+                }
+            }
+        }
+    }
+}
+
+
+
 void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo *graphicsInfo)
 {
     Rect2D tilerect( 0, 0, tileWidth, tileHeight );
@@ -1543,7 +1587,8 @@ void GameView::drawTexture(Painter& painter, const MapPoint &tile, GraphicsInfo 
         if(graphicsInfo->image)
         {
             graphicsInfo->texture = texture_manager->create( graphicsInfo->image );
-            graphicsInfo->image = 0; //Image was erased by texture_manager->create.
+            if ( graphicsInfo->texture)
+            {   graphicsInfo->image = 0;} //Image was erased by texture_manager->create.
             --remaining_images;
         }
     }

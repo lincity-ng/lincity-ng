@@ -48,11 +48,14 @@
 #include "sustainable.h"
 #include "engine.h"
 #include "engglobs.h"
+#include "../lincity-ng/GameView.hpp"
+
 
 /* extern resources */
 extern void print_total_money(void);
 void setLincitySpeed( int speed );
 extern void ok_dial_box(const char *, int, const char *);
+extern GameView* GetGameView(void);
 
 /* AL1: they are all in engine.cpp */
 extern void do_daily_ecology(void);
@@ -147,6 +150,12 @@ static void do_periodic_events(void)
 static void end_of_month_update(void)
 {
     scan_pollution();
+    //fetch remaining textures in order loader thread can exit
+    if(getGameView()->textures_ready && getGameView()->remaining_images)
+    {
+        //std::cout << "fetching " << getGameView()->remaining_images << " more textures" << std::endl;
+        getGameView()->fetchTextures();
+    }
     //std::cout << "polluted area: " << world.polluted.size() << std::endl;
     housed_population = (tpopulation / NUMOF_DAYS_IN_MONTH);
     total_housing = (thousing / NUMOF_DAYS_IN_MONTH);
