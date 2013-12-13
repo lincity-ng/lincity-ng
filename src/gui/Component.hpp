@@ -55,7 +55,7 @@ class Event;
  * Also the painter passed to the draw function will have a transformation
  * set, so that you can simply use coordinates ralative to the component origin.
  */
-class Component 
+class Component
 {
 public:
     /** Values for the flags bitfield. */

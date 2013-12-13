@@ -77,36 +77,17 @@ GameView::GameView()
 {
     assert(gameViewPtr == 0);
     gameViewPtr = this;
-    //mTextures = SDL_CreateMutex();
-    //mThreadRunning = SDL_CreateMutex();
     loaderThread = 0;
     keyScrollState = 0;
     mouseScrollState = 0;
     remaining_images = 0;
     textures_ready = false;
-    //economyGraph_open = false;
 }
 
 GameView::~GameView()
 {
     stopThread = true;
-    //SDL_mutexP( mThreadRunning );
-    //SDL_KillThread( loaderThread );
     SDL_WaitThread( loaderThread, NULL );
-
-    //SDL_DestroyMutex( mThreadRunning );
-    //SDL_DestroyMutex( mTextures );
-/*
-    for(size_t i = 0; i < cityTextures.size(); ++i)
-    {
-        if(cityTextures[i])
-        {   delete cityTextures[i];}
-        // in case the image was loaded but no texture created yet we have a
-        // dangling SDL_Surface here
-        if (cityImages[i])
-        {   SDL_FreeSurface(cityImages[i]);}
-    }
-*/
     if(gameViewPtr == this)
     {   gameViewPtr = 0;}
 }
@@ -139,17 +120,12 @@ void GameView::parse(XmlReader& reader)
         }
     }
     // no more elements to parse
-
-    //SDL_mutexP( mTextures );
     blankGraphicsInfo.texture = readTexture( "blank.png" );
     blankGraphicsInfo.x = blankGraphicsInfo.texture->getWidth() / 2;
     blankGraphicsInfo.y = blankGraphicsInfo.texture->getHeight();
-    //SDL_mutexV( mTextures );
 
-    //SDL_mutexP( mThreadRunning );
     stopThread = false;
     loaderThread = SDL_CreateThread( gameViewThread, this );
-    //SDL_mutexV( mThreadRunning );
 
     //GameView is resizable
     setFlags(FLAG_RESIZABLE);

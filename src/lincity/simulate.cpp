@@ -149,14 +149,11 @@ static void do_periodic_events(void)
 
 static void end_of_month_update(void)
 {
+    //update queque of polluted tiles
     scan_pollution();
     //fetch remaining textures in order loader thread can exit
     if(getGameView()->textures_ready && getGameView()->remaining_images)
-    {
-        //std::cout << "fetching " << getGameView()->remaining_images << " more textures" << std::endl;
-        getGameView()->fetchTextures();
-    }
-    //std::cout << "polluted area: " << world.polluted.size() << std::endl;
+    {   getGameView()->fetchTextures();}
     housed_population = (tpopulation / NUMOF_DAYS_IN_MONTH);
     total_housing = (thousing / NUMOF_DAYS_IN_MONTH);
     if ((housed_population + people_pool) > max_pop_ever)
@@ -168,22 +165,23 @@ static void end_of_month_update(void)
             people_pool -= 10;
     }
     if (people_pool < 0)
-        people_pool = 0;
+    {   people_pool = 0;}
 
-    if (tech_level > TECH_LEVEL_LOSS_START) {
+    if (tech_level > TECH_LEVEL_LOSS_START)
+    {
         tech_level -= (int)(tech_level * (1. / TECH_LEVEL_LOSS)
                             * (1 + (tpopulation * (1. / NUMOF_DAYS_IN_MONTH / 120 / (TECH_LEVEL_LOSS - 200)))));
-
-    } else
-        tech_level += TECH_LEVEL_UNAIDED;
+    }
+    else
+    {   tech_level += TECH_LEVEL_UNAIDED;}
     /* we can go over 100, but it's even more difficult */
     if (tech_level > MAX_TECH_LEVEL)
-        tech_level -= (int)((tech_level - MAX_TECH_LEVEL)
+    {   tech_level -= (int)((tech_level - MAX_TECH_LEVEL)
                             * (1. / TECH_LEVEL_LOSS)
                             * (1 + (tpopulation * (1. / NUMOF_DAYS_IN_MONTH / 120 / (TECH_LEVEL_LOSS - 100)))));
-
+    }
     if (highest_tech_level < tech_level)
-        highest_tech_level = tech_level;
+    {   highest_tech_level = tech_level;}
 
     deaths_cost += unnat_deaths * UNNAT_DEATHS_COST;
 

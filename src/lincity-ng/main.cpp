@@ -277,13 +277,17 @@ void initVideo(int width, int height)
         if(getConfig()->useOpenGL) {
             std::cerr << "* Fallback to SDL mode.\n";
             getConfig()->useOpenGL = false;
-            initVideo(width, height);
+            initVideo(getConfig()->videoX, getConfig()->videoY); //width, height
             return;
         }
         throw std::runtime_error(msg.str());
     }
 
-    delete painter;
+    if(painter)
+    {
+        delete painter;
+        painter = 0;
+    }
     VideoInfo = SDL_GetVideoInfo();
     if( getConfig()->useOpenGL ){
         glDisable(GL_DEPTH_TEST);
@@ -569,6 +573,7 @@ int main(int argc, char** argv)
         //set a function to call when music stops
         Mix_HookMusicFinished(musicHalted);
         mainLoop();
+        getConfig()->save();
 #ifndef DEBUG
     } catch(std::exception& e) {
         std::cerr << "Unexpected exception: " << e.what() << "\n";

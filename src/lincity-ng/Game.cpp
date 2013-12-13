@@ -40,6 +40,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "ButtonPanel.hpp"
 #include "Dialog.hpp"
 #include "EconomyGraph.hpp"
+#include "Config.hpp"
 
 extern int lincitySpeed;
 extern void execute_timestep(void);
@@ -172,6 +173,8 @@ Game::run()
                 case SDL_VIDEORESIZE:
                     initVideo(event.resize.w, event.resize.h);
                     gui->resize(event.resize.w, event.resize.h);
+                    getConfig()->videoX = event.resize.w;
+                    getConfig()->videoY = event.resize.h;
                     break;
                 case SDL_KEYUP: {
                      Event gui_event(event);
@@ -183,21 +186,21 @@ Game::run()
                          getButtonPanel()->toggleBulldozeTool();
                          break;
                      }
-/*                  //FIXME hack for monitoring constructionCount   
+/*                  //FIXME hack for monitoring constructionCount
                     if( gui_event.keysym.sym == SDLK_c ){
                          std::cout << "ConstructionCount.size() = " << constructionCount.size() << std::endl;
-                         int i, j;   
+                         int i, j;
                          for (i = 0, j = 0; i < constructionCount.size(); i++) {constructionCount[i]?j++:j;}
-                         std::cout << "for a total of " << j << " active constructions" << std::endl;     
+                         std::cout << "for a total of " << j << " active constructions" << std::endl;
                          break;
                      }
 */
                      if( gui_event.keysym.sym == SDLK_p ){
-                              
+
                             static int i = 0;
-                            while(i < constructionCount.size() && !constructionCount[i]) {i++;}                            
+                            while(i < constructionCount.size() && !constructionCount[i]) {i++;}
                             if (i < constructionCount.size())
-                            {                            
+                            {
                                 main_screen_originx = constructionCount[i]->x;
                                 main_screen_originy = constructionCount[i]->y;
                                 getGameView()->readOrigin(true);
@@ -211,7 +214,7 @@ Game::run()
                                 i = 0;
                             }
                          break;
-                     }   
+                     }
                      if( gui_event.keysym.sym == SDLK_F1 ){
                          helpWindow->showTopic("help");
                          break;

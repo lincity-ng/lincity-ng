@@ -74,9 +74,9 @@ MainMenu::~MainMenu()
 void
 MainMenu::loadMainMenu()
 {
-    if(mainMenu.get() == 0) {
+    if(mainMenu.get() == 0)
+    {
         mainMenu.reset(loadGUIFile("gui/mainmenu.xml"));
-
         // connect signals
         Button* quitButton = getButton(*mainMenu, "QuitButton");
         quitButton->clicked.connect(
@@ -102,7 +102,7 @@ MainMenu::loadMainMenu()
 
     }
 
-    mainMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    mainMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
 void MainMenu::fillNewGameMenu()
@@ -253,20 +253,21 @@ MainMenu::loadNewGameMenu()
         fillNewGameMenu();
     }
 
-    newGameMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    newGameMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
 void
 MainMenu::loadCreditsMenu()
 {
-    if(creditsMenu.get() == 0) {
+    if(creditsMenu.get() == 0)
+    {
         creditsMenu.reset(loadGUIFile("gui/credits.xml"));
         Button* backButton = getButton(*creditsMenu, "BackButton");
         backButton->clicked.connect(
                 makeCallback(*this, &MainMenu::creditsBackButtonClicked));
     }
 
-    creditsMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    creditsMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
 void
@@ -353,7 +354,7 @@ MainMenu::loadOptionsMenu()
     languages.insert( "autodetect" );
     languages.insert( "en" ); // English is the default when no translation is used
 
-    optionsMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    optionsMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
 void
@@ -373,7 +374,7 @@ MainMenu::loadLoadGameMenu()
 
     // fill in file-names into slots
     fillLoadMenu();
-    loadGameMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    loadGameMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
 void
@@ -393,7 +394,7 @@ MainMenu::loadSaveGameMenu()
         fillLoadMenu( true );
     }
 
-    saveGameMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
+    saveGameMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
 
@@ -560,13 +561,24 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
     } else if( buttonName == "Fullscreen"){
         getSound()->playSound("Click");
         getConfig()->useFullScreen = !getConfig()->useFullScreen;
-        if( getConfig()->restartOnChangeScreen ){
-            getConfig()->save();
+        getConfig()->save();
+        if( getConfig()->restartOnChangeScreen )
+        {
             quitState = RESTART;
             running = false;
-        } else {
-            initVideo(getConfig()->videoX, getConfig()->videoY);
-            loadOptionsMenu();
+        }
+        else
+        {
+            initVideo( getConfig()->videoX, getConfig()->videoY);
+            currentMenu->resize(getConfig()->videoX, getConfig()->videoY);
+            //std::cout << "clearing SDl events ";
+            //std::cout.flush();
+            SDL_Event event;
+            SDL_Delay(100);
+            while(SDL_PollEvent(&event)){}
+            //{   std::cout << ".";}
+            //std::cout << " done" << std::endl;
+            loadOptionsMenu(); //in case resolution was changed while in fullscreen
         }
     } else if( buttonName == "TrackPrev"){
         changeTrack(false);
@@ -588,7 +600,6 @@ This does not actually change the resolution. initVideo has to be called to do t
 */
 void MainMenu::changeResolution(bool next) {
     static SDL_Rect** modes = NULL;
-    int i;
 
     if(modes == NULL) {
         Uint32 flags = 0;
@@ -615,32 +626,64 @@ void MainMenu::changeResolution(bool next) {
         return;
     }
 
-    /* Go through the video modes to find the currently selected one */
-    std::string currentMode = getParagraph( *optionsMenu, "resolutionParagraph")->getText();
-    int new_mode = 0;
-    for (i=0; modes[i]; ++i) {
-        std::stringstream mode;
-        mode.str("");
-        mode << modes[i]->w << "x" << modes[i]->h;
-        if (mode.str() == currentMode) {
-            if(next && modes[i+1]) {
-                new_mode = i+1;
-            } else if (!next && i > 0) {
-                new_mode = i-1;
-            } else {    // nothing to do, because we are at the beginning and the user clicked prev or we are at the last mode and the user clickt next
-                return;
+    const int width = getConfig()->videoX ;
+    const int height = getConfig()->videoY;
+    int closest_mode = -1;
+    for (int i=0; modes[i]; ++i)
+    {
+        if((modes[i]->w == width) && (modes[i]->h == height))
+        {
+            //std::cout << "detected mode: " << modes[i]->w << "x" << modes[i]->h << std::endl;
+            closest_mode = i;
+            break;
+        }
+    }
+    if (closest_mode == -1) //no exact match for current resolution
+    {
+        closest_mode = 0;
+        int dw2 = width-modes[0]->w;
+        dw2 = dw2*dw2;
+        int dh2 = height-modes[0]->h;
+        dh2 = dh2*dh2;
+        int best_fit = dw2 + dh2;
+        for (int i=1; modes[i]; ++i)
+        {   //look for closeset match
+            //std::cout << "testing mode: " << modes[i]->w << "x" << modes[i]->h;
+            dw2 = width-modes[i]->w;
+            dw2 = dw2*dw2;
+            dh2 = height-modes[i]->h;
+            dh2 = dh2*dh2;
+            if(best_fit > (dw2 + dh2))
+            {
+                closest_mode = i;
+                best_fit = dw2 + dh2;
+                //std::cout << ": better suited";
             }
-            getSound()->playSound("Click");
-            mode.str("");
-            mode << modes[new_mode]->w << "x" << modes[new_mode]->h;
-            getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
-            getConfig()->videoX = modes[new_mode]->w;
-            getConfig()->videoY = modes[new_mode]->h;
-            return;
+            //std::cout << std::endl;
         }
     }
 
+    std::string currentMode = getParagraph( *optionsMenu, "resolutionParagraph")->getText();
 
+    int new_mode = 0;
+
+        std::stringstream mode;
+        mode.str("");
+        mode << modes[closest_mode]->w << "x" << modes[closest_mode]->h;
+
+    if(next && modes[closest_mode+1]) {
+        new_mode = closest_mode+1;
+    } else if (!next && closest_mode > 0) {
+        new_mode = closest_mode-1;
+    } else {    // nothing to do, because we are at the beginning and the user clicked prev or we are at the last mode and the user clickt next
+        return;
+    }
+    getSound()->playSound("Click");
+    mode.str("");
+    mode << modes[new_mode]->w << "x" << modes[new_mode]->h;
+    getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
+    getConfig()->videoX = modes[new_mode]->w;
+    getConfig()->videoY = modes[new_mode]->h;
 }
 
 void
@@ -703,7 +746,8 @@ MainMenu::switchMenu(Component* newMenu)
 {
     currentMenu = dynamic_cast<Desktop*> (newMenu);
     if(!currentMenu)
-        throw std::runtime_error("Menu Component is not a Desktop");
+    {   throw std::runtime_error("Menu Component is not a Desktop");}
+    currentMenu->resize(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
 void
@@ -776,19 +820,44 @@ void
 MainMenu::optionsBackButtonClicked(Button* )
 {
     getConfig()->save();
-    if( getConfig()->videoX != SDL_GetVideoSurface()->w || getConfig()->videoY != SDL_GetVideoSurface()->h) {
-        if( getConfig()->restartOnChangeScreen ){
+    if( getConfig()->videoX != SDL_GetVideoSurface()->w || getConfig()->videoY != SDL_GetVideoSurface()->h)
+    {
+        if( getConfig()->restartOnChangeScreen )
+        {
             quitState = RESTART;
             running = false;
-        } else {
-            initVideo(getConfig()->videoX, getConfig()->videoY);
+        }
+        else
+        {
+/*
+            //CK: Would be nice but somehow another restoring SDL resize is launched ???
+            static SDL_Event event;
+            event.type = SDL_VIDEORESIZE;
+            event.resize.w = getConfig()->videoX;
+            event.resize.h = getConfig()->videoY;
+            SDL_PushEvent(&event);
+            std::cout << "pushed resize event: " << event.resize.w << "x" <<event.resize.h << std::endl;
+*/
+            initVideo( getConfig()->videoX, getConfig()->videoY);
+            currentMenu->resize(getConfig()->videoX, getConfig()->videoY);
+            //std::cout << "clearing SDl events ";
+            //std::cout.flush();
+            SDL_Event event;
+            SDL_Delay(100);
+            while(SDL_PollEvent(&event)){}
+            //{   std::cout << ".";}
+            //std::cout << " done" << std::endl;
             gotoMainMenu();
         }
-    } else if( currentLanguage != getConfig()->language ) {
+    }
+    else if( currentLanguage != getConfig()->language )
+    {
         unsetenv("LINCITY_LANG");
         quitState = RESTART;
         running = false;
-    } else {
+    }
+    else
+    {
         gotoMainMenu();
     }
 }
@@ -932,6 +1001,15 @@ MainMenu::run()
                 case SDL_VIDEORESIZE:
                     initVideo(event.resize.w, event.resize.h);
                     currentMenu->resize(event.resize.w, event.resize.h);
+                    getConfig()->videoX = event.resize.w;
+                    getConfig()->videoY = event.resize.h;
+                    if(currentMenu == optionsMenu.get())//update resolution display
+                    {
+                        std::stringstream mode;
+                        mode.str("");
+                        mode << event.resize.w << "x" << event.resize.h;
+                        getParagraph( *optionsMenu, "resolutionParagraph")->setText(mode.str());
+                    }
                     break;
                 case SDL_MOUSEMOTION:
                 case SDL_MOUSEBUTTONUP:
