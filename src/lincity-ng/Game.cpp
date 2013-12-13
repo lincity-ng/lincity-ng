@@ -163,8 +163,8 @@ Game::run()
     Uint32 lastticks = fpsTicks;
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
-        throw std::runtime_error("Toplevel component is not a Desktop");
-
+    {   throw std::runtime_error("Toplevel component is not a Desktop");}
+    gui.get()->resize(getConfig()->videoX, getConfig()->videoY);
     int frame = 0;
     while(running) {
         getGameView()->scroll();

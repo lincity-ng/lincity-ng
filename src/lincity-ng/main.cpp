@@ -398,18 +398,21 @@ void mainLoop()
     MainState state = MAINMENU;
     MainState nextstate;
 
-    while(state != QUIT) {
-        switch(state) {
+    while(state != QUIT)
+    {
+        switch(state)
+        {
             case MAINMENU:
                 {
                     if(menu.get() == 0)
-                        menu.reset(new MainMenu());
+                    {   menu.reset(new MainMenu());}
                     nextstate = menu->run();
                 }
                 break;
             case INGAME:
                 {
-                    if(game.get() == 0) {
+                    if(game.get() == 0)
+                    {
                         game.reset(new Game());
 
                         while(!LCPBarPage1 || !LCPBarPage2)
