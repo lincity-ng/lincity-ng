@@ -45,11 +45,9 @@ Ground::Ground()
 Ground::~Ground() {}
 
 //MapTile Declarations
-//may be used for Terrain types only. returns silently for constructions
 
 MapTile::MapTile():ground()
 {
-    //ground = Ground();
     construction = NULL;
     reportingConstruction = NULL;
     flags = 0;
@@ -151,15 +149,13 @@ bool MapTile::is_powerline() //true on powerlines
 
 bool MapTile::is_residence() //true on residences
 {
-    return (reportingConstruction && (
+    return (reportingConstruction &&(
         (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_LL)
      || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_ML)
      || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_HL)
      || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_LH)
      || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_MH)
-     || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_HH)
-                                    )
-           );
+     || (reportingConstruction->constructionGroup->group == GROUP_RESIDENCE_HH) ) );
 }
 
 void MapTile::writeTemplate()
@@ -170,7 +166,6 @@ void MapTile::writeTemplate()
     {
 
         XMLTemplate * xml_tmp = new XMLTemplate("tile");
-        //xml_tmp->add_len(sizeof(group));//for the head
         if (!binary_mode)
         {
             xml_tmp->putTag("group");
@@ -326,7 +321,6 @@ void MapTile::saveMembers(std::ostream *os)
 
 //Construction Declarations
 
-//FIXME How to incorporate this into construction?
 const char *commodityNames[] =
     {
     "Food",
@@ -451,27 +445,6 @@ void Construction::setCommodityRulesSaved(std::map<Commodities,CommodityRule> * 
     }
 }
 
-
-/*
-// Useful for debugging connection flags
-void Construction::list_connections(int * i)
-{
-    char p[] = {'_','_','_','_' ,'\0'};
-    if (flags & FLAG_LEFT)
-        p[0] = 'l';
-    if (flags & FLAG_UP)
-        p[1] = 'u';
-    if (flags & FLAG_RIGHT)
-        p[2] = 'r';
-    if (flags & FLAG_DOWN)
-        p[3] = 'd';
-    if (*i<14)
-    {
-        mps_store_ss(*i,"Connected to", p);
-    }
-}
-*/
-
 int Construction::loadMember(std::string const &xml_tag, std::string const &xml_val)
 {
     std::istringstream iss;
@@ -546,14 +519,9 @@ void Construction::writeTemplate()
     XMLTemplate * xml_tmp;
     unsigned short head = constructionGroup->group;
     if ((flags&FLAG_IS_TRANSPORT) && !binary_mode)
-    {
-        name = "Transport";
-        //head = constructionGroup->group;
-    }
+    {   name = "Transport";}
     else
-    {
-        name = constructionGroup->name;
-    }
+    {   name = constructionGroup->name;}
 
     if ((!binary_mode && xml_template_libary.count(name) == 0)||
         (binary_mode && bin_template_libary.count(head) == 0))
@@ -566,8 +534,6 @@ void Construction::writeTemplate()
             xml_tmp->putTag("map_x");
             xml_tmp->putTag("map_y");
         }
-
-        //xml_tmp->add_len(sizeof(constructionGroup->group) + sizeof(type) + sizeof(x));    //header + group entry
         std::map<std::string, MemberRule>::iterator member_it;
         for(member_it = memberRuleCount.begin() ; member_it != memberRuleCount.end() ; member_it++)
         {
@@ -595,9 +561,7 @@ void Construction::writeTemplate()
         }
         xml_tmp->rewind();
         if (binary_mode)
-        {
-            xml_tmp->set_group(head);
-        }
+        {   xml_tmp->set_group(head);}
     }
 }
 
@@ -609,21 +573,12 @@ void Construction::saveMembers(std::ostream *os)
     std::string name;
     unsigned short head = constructionGroup->group;
     if (flags&FLAG_IS_TRANSPORT && !binary_mode)
-    {
-        name = "Transport";
-        //head = GROUP_TRACK;
-    }
+    {   name = "Transport";}
     else
-    {
-        name = constructionGroup->name;
-    }
-
+    {   name = constructionGroup->name;}
     if ((!binary_mode && xml_template_libary.count(name) == 0)||
         (binary_mode && bin_template_libary.count(head) == 0))
-    {
-        //std::cout << "creating xml template for " << name << std::endl;
-        writeTemplate();
-    }
+    {   writeTemplate();}
     XMLTemplate * xml_tmp;
 
     if (binary_mode)
@@ -642,11 +597,8 @@ void Construction::saveMembers(std::ostream *os)
         int idx = x + y * world.len();
         os->write( (char*) &head,sizeof(head));
         os->write( (char*) &constructionGroup->group,sizeof(constructionGroup->group));
-        //checksum += sizeof(constructionGroup->group); //head
         os->write( (char*) &type,sizeof(type));
-        //checksum += sizeof(type); //head
         os->write( (char*) &idx,sizeof(idx));
-        //checksum += sizeof(idx); //head
     }
     else
     {   // Header for txt mode (part of template)
@@ -687,7 +639,6 @@ void Construction::saveMembers(std::ostream *os)
                         break;
                 }
                 *os << '\t';
-                //os->flush();
             }
             else //binary mode
             {
@@ -715,16 +666,11 @@ void Construction::saveMembers(std::ostream *os)
             }
         }
         else
-        {
-            std::cout << "ignored " << xml_tmp->getTag() << " in " << name << " template." <<std::endl;
-        }
+        {   std::cout << "ignored " << xml_tmp->getTag() << " in " << name << " template." <<std::endl;}
         xml_tmp->step();
-
     }
     if (!binary_mode)
-    {
-        *os << "</" << name << ">" << std::endl;
-    }
+    {   *os << "</" << name << ">" << std::endl;}
     else
     {
         if (xml_tmp->len() != checksum)
@@ -753,7 +699,6 @@ void Construction::detach()
                 ::constructionCount.remove_construction(world(x+j,y+i)->construction);
                 delete world(x+j,y+i)->construction;
                 world(x+j,y+i)->construction = NULL;
-
             }
             world(x+j,y+i)->reportingConstruction = NULL;
         }
@@ -769,9 +714,9 @@ void Construction::deneighborize()
         std::vector<Construction*>::iterator neib_it = neib->begin();
         while(neib_it != neib->end() && *neib_it != this)
             {++neib_it;}
-#ifdef DEBUG
+/*#ifdef DEBUG
         assert(neib_it != neib->end());
-#endif
+#endif*/
         neib->erase(neib_it);
     }
     neighbors.clear();
@@ -781,9 +726,9 @@ void Construction::deneighborize()
         std::vector<Construction*>::iterator partner_it = partner->begin();
         while(partner_it != partner->end() && *partner_it != this)
             {++partner_it;}
-#ifdef DEBUG
+/*#ifdef DEBUG
         assert(partner_it != partner->end());
-#endif
+#endif*/
         partner->erase(partner_it);
     }
     partners.clear();
@@ -869,7 +814,7 @@ void Construction::link_to(Construction* other)
     << other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
 */
 //Theses tests are only for rules of the game, simulation would run happily with duplicate/oneway links
-#ifdef DEBUG
+/*#ifdef DEBUG
     std::vector<Construction*>::iterator neib_it = neighbors.begin();
     bool ignore = false;
     while(neib_it !=  neighbors.end() && *neib_it != other)
@@ -899,7 +844,7 @@ void Construction::link_to(Construction* other)
     }
     if(ignore)
     {   return;}
-#endif
+#endif*/
     bool useful = false;
     Commodities stuff_ID;
     std::map<Commodities, int>::iterator stuff_it;
@@ -970,7 +915,7 @@ int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by 
         if ((flags & FLAG_EVACUATE) && (center_ratio != -2))
         {   return (loc_lvl>1)?loc_lvl:-1;}
 
-#ifdef DEBUG
+/*#ifdef DEBUG
         if (loc_lvl > loc_cap)
         {
             std::cout<<"fixed "<<commodityNames[stuff_ID]<<" > maxload at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
@@ -988,7 +933,7 @@ int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by 
         {
             std::cout<<"maxload "<<commodityNames[stuff_ID]<<" <= 0 error at "<<constructionGroup->name<<" x,y = "<<x<<","<<y<<std::endl;
         }
-#endif
+#endif*/
         int loc_ratio = loc_lvl * TRANSPORT_QUANTA / (loc_cap);
         //Tell actual stock if we would tentatively participate in transport
         if ((center_ratio < 0) || (
@@ -1131,8 +1076,6 @@ int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commo
                 {   flow = rem_cap / TRANSPORT_RATE;}
                 if (flow > *rem_lvl)
                 {   flow = *rem_lvl;}
-                //if(flow  > loc_cap-*loc_lvl) // not happening anyways
-                //{   flow = loc_cap-*loc_lvl; std::cout << ".";}
             }
             else if (flow < 0)
             {
@@ -1140,8 +1083,6 @@ int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commo
                 {   flow = - rem_cap / TRANSPORT_RATE;}
                 if(-flow > (rem_cap-*rem_lvl))
                 {   flow = -(rem_cap-*rem_lvl);}
-                //if(-flow > *loc_lvl) // not happening anyways
-                //{   flow = -*loc_lvl; std::cout << "$":}
             }
             //std::cout.flush();
             if (!(flags & FLAG_IS_TRANSPORT) && (flow > 0)
@@ -1200,21 +1141,20 @@ void ConstructionGroup::growGraphicsInfoVector(void)
 }
 
 int ConstructionGroup::getCosts() {
-    return static_cast<int>(
-        cost * (1.0f + (cost_mul * tech_level) / static_cast<float>(MAX_TECH_LEVEL))
-    );
+    return static_cast<int>
+        (cost * (1.0f + (cost_mul * tech_level) / static_cast<float>(MAX_TECH_LEVEL)));
 }
 
 int ConstructionGroup::placeItem(int x, int y)
 {
     Construction *tmpConstr = createConstruction(x, y);
-
+#ifdef DEBUG
     if (tmpConstr == NULL)
     {
         std::cout << "failed to create " << name << " at " << "(" << x << ", " << y << ")" << std::endl;
         return -1;
     }
-
+#endif
     //std::cout << "building: " << tmpConstr->constructionGroup->name  << "(" << x << "," << y << ")" << std::endl;
     //enforce empty site
     //unsigned short size = tmpConstr->constructionGroup->size;
@@ -1267,7 +1207,8 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
     }
 
     //now check for special rules
-    switch (group) {
+    switch (group)
+    {
     case GROUP_SOLAR_POWER:
         if (total_money <= 0) {
             if (msg)
@@ -1381,7 +1322,7 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
         }
         return false;
     }
-     //At last check for bare building site
+    //At last check for bare building site
     for(int j = 0; j<size; j++)
     {
         for(int i = 0; i<size; i++)

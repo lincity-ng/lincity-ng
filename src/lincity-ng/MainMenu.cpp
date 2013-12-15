@@ -213,10 +213,10 @@ void MainMenu::fillLoadMenu( bool save /*= false*/ )
                     t = PHYSFS_getLastModTime(recentfile);
               } else {
                     if (PHYSFS_getLastModTime(curfile) > t) {
-#ifdef DEBUG
+/*#ifdef DEBUG
                         fprintf(stderr," %s is more recent than previous %s\n",
                                           curfile, recentfile);
-#endif
+#endif*/
                         recentfile = curfile;
                         t = PHYSFS_getLastModTime(recentfile);
                     }
@@ -252,7 +252,6 @@ MainMenu::loadNewGameMenu()
 
         fillNewGameMenu();
     }
-
     newGameMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
@@ -266,7 +265,6 @@ MainMenu::loadCreditsMenu()
         backButton->clicked.connect(
                 makeCallback(*this, &MainMenu::creditsBackButtonClicked));
     }
-
     creditsMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
@@ -353,7 +351,6 @@ MainMenu::loadOptionsMenu()
     languages = dictionaryManager->get_languages();
     languages.insert( "autodetect" );
     languages.insert( "en" ); // English is the default when no translation is used
-
     optionsMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
@@ -393,7 +390,6 @@ MainMenu::loadSaveGameMenu()
         // fill in file-names into slots
         fillLoadMenu( true );
     }
-
     saveGameMenu->resize(getConfig()->videoX, getConfig()->videoY); //(SDL_GetVideoSurface()->w, SDL_GetVideoSurface()->h);
 }
 
@@ -569,15 +565,11 @@ void MainMenu::optionsMenuButtonClicked( CheckButton* button, int ){
         }
         else
         {
+            //SDL_IGNORE to avoid forth and back jumping resolution
+            SDL_EventState(SDL_VIDEORESIZE, SDL_IGNORE);
             initVideo( getConfig()->videoX, getConfig()->videoY);
             currentMenu->resize(getConfig()->videoX, getConfig()->videoY);
-            //std::cout << "clearing SDl events ";
-            //std::cout.flush();
-            SDL_Event event;
-            SDL_Delay(100);
-            while(SDL_PollEvent(&event)){}
-            //{   std::cout << ".";}
-            //std::cout << " done" << std::endl;
+            SDL_EventState(SDL_VIDEORESIZE, SDL_ENABLE);
             loadOptionsMenu(); //in case resolution was changed while in fullscreen
         }
     } else if( buttonName == "TrackPrev"){
@@ -829,24 +821,11 @@ MainMenu::optionsBackButtonClicked(Button* )
         }
         else
         {
-/*
-            //CK: Would be nice but somehow another restoring SDL resize is launched ???
-            static SDL_Event event;
-            event.type = SDL_VIDEORESIZE;
-            event.resize.w = getConfig()->videoX;
-            event.resize.h = getConfig()->videoY;
-            SDL_PushEvent(&event);
-            std::cout << "pushed resize event: " << event.resize.w << "x" <<event.resize.h << std::endl;
-*/
+            //SDL_IGNORE to avoid forth and back jumping resolution
+            SDL_EventState(SDL_VIDEORESIZE, SDL_IGNORE);
             initVideo( getConfig()->videoX, getConfig()->videoY);
             currentMenu->resize(getConfig()->videoX, getConfig()->videoY);
-            //std::cout << "clearing SDl events ";
-            //std::cout.flush();
-            SDL_Event event;
-            SDL_Delay(100);
-            while(SDL_PollEvent(&event)){}
-            //{   std::cout << ".";}
-            //std::cout << " done" << std::endl;
+            SDL_EventState(SDL_VIDEORESIZE, SDL_ENABLE);
             gotoMainMenu();
         }
     }
@@ -963,19 +942,19 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     newStart << tech_level/10000;
     newStart << "_Cash";
     if (total_money >= 0)
-        newStart << "+";
+    {   newStart << "+";}
     else
-        newStart << "-";
+    {   newStart << "-";}
     newStart << std::setfill('0') << std::setw(3);
     int money = abs(total_money);
     if (money > 1000000000)
-        newStart << money/1000000000 << "G";
+    {   newStart << money/1000000000 << "G";}
     else if (money > 1000000)
-        newStart << money/1000000 << "M";
+    {   newStart << money/1000000 << "M";}
     else  if(money > 1000)
-        newStart << money/1000 << "K";
+    {   newStart << money/1000 << "K";}
     else
-        newStart << money/1 << "_";
+    {   newStart << money << "_";}
 
     newStart << "_P";
     newStart << std::setfill('0') << std::setw(5);
@@ -995,8 +974,10 @@ MainMenu::run()
     Uint32 fpsTicks = SDL_GetTicks();
     Uint32 lastticks = fpsTicks;
     int frame = 0;
-    while(running) {
-        while(SDL_PollEvent(&event)) {
+    while(running)
+    {
+        while(SDL_PollEvent(&event))
+        {
             switch(event.type) {
                 case SDL_VIDEORESIZE:
                     initVideo(event.resize.w, event.resize.h);
@@ -1048,6 +1029,7 @@ MainMenu::run()
                     break;
             }
         }
+
 
         SDL_Delay(100); // give the CPU time to relax... (we are in main menu)
 

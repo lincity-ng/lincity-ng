@@ -164,7 +164,7 @@ Game::run()
     Desktop* desktop = dynamic_cast<Desktop*> (gui.get());
     if(!desktop)
     {   throw std::runtime_error("Toplevel component is not a Desktop");}
-    gui.get()->resize(getConfig()->videoX, getConfig()->videoY);
+    gui->resize(getConfig()->videoX, getConfig()->videoY);
     int frame = 0;
     while(running) {
         getGameView()->scroll();
@@ -269,28 +269,28 @@ Game::run()
         lastticks = ticks;
 
         helpWindow->update();
-        if(desktop->needsRedraw()) {
+        if(desktop->needsRedraw())
+        {
             desktop->draw(*painter);
             flipScreenBuffer();
         }
-        frame++;
 
+        frame++;
         // Slow down cpu consumption in pause mode
-        if(ticks - fpsTicks > 1000 && lincitySpeed) {
+        if(ticks - fpsTicks > 1000 && lincitySpeed)
+        {
 #ifdef DEBUG_FPS
             printf("FPS: %d.\n", (frame*1000) / (ticks - fpsTicks));
 #endif
             getEconomyGraph()->newFPS( frame );
             frame = 0;
             fpsTicks = ticks;
-        } else if(!lincitySpeed)
-            frame = 0;
-
+        }
+        else if(!lincitySpeed)
+        {   frame = 0;}
         /* SDL_Delay is done in execute_timestep */
         execute_timestep ();
-
     }
-
     return quitState;
 }
 

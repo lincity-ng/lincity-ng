@@ -131,11 +131,11 @@ void initPhysfs(const char* argv0)
 
     // when started from source dir...
     std::string dir = PHYSFS_getBaseDir();
-    dir += "/data";
-    std::string testfname = dir;
+    dir += "data";
+    std::ostringstream testfname;
     //TODO: Windows/Mingw does not like this test on other machine?
-    testfname += "/images/tiles/images.xml";
-    FILE* f = fopen(testfname.c_str(), "r");
+    testfname << dir << dirsep << "images" << dirsep << "tiles" << dirsep << "images.xml";
+    FILE* f = fopen(testfname.str().c_str(), "r");
     if(f) {
         fclose(f);
         if(!PHYSFS_addToSearchPath(dir.c_str(), 1)) {
@@ -174,9 +174,8 @@ void initPhysfs(const char* argv0)
     PHYSFS_permitSymbolicLinks(1);
 
     //show search Path
-    for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++){
-        printf("[%s] is in the search path.\n", *i);
-    }
+    for(char** i = PHYSFS_getSearchPath(); *i != NULL; i++)
+    {   printf("[%s] is in the search path.\n", *i);}
     //show write directory
     printf("[%s] is the write directory.\n", PHYSFS_getWriteDir());
 }
@@ -423,8 +422,9 @@ void mainLoop()
                     }
                     nextstate = game->run();
                     if(menu.get() == 0)
-                        menu.reset(new MainMenu());
+                    {    menu.reset(new MainMenu());}
                     menu->gotoMainMenu();
+
                 }
                 break;
             case RESTART:
@@ -434,7 +434,6 @@ void mainLoop()
             default:
                 assert(false);
         }
-
         state = nextstate;
     }
 }
