@@ -154,6 +154,7 @@ void save_city_2(char *cname)
         strcpy(cname,(xml_file_name.substr(0,xml_file_name.length()-3)).c_str());
     }
     xml_loadsave.saveXMLfile(xml_file_name);
+#ifdef DEBUG
     //TODO abandon support for writing old style savegame
     if (world.len() == COMPATIBLE_WORLD_SIDE_LEN)
     {
@@ -310,6 +311,7 @@ void save_city_2(char *cname)
         gzclose(ofile);
         std::cout << "old saved " << cname << std::endl;
     }
+#endif
 }
 
 void load_city_2(char *cname)

@@ -1252,13 +1252,14 @@ void GameView::event(const Event& event)
             }
             break;
         case Event::KEYUP:
+/*
             //TEst
             if( event.keysym.sym == SDLK_x ){
                 writeOrigin();
                 readOrigin();
                 break;
             }
-
+*/
             //Hide High Buildings
             if( event.keysym.sym == SDLK_h ){
                 if( hideHigh ){

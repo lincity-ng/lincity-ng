@@ -181,11 +181,13 @@ void editMap (MapPoint point, int button)
     // Hold d pressed to send load/save info details to console
     if(userOperation->action == UserOperation::ACTION_QUERY)
     {
+#ifdef DEBUG
         Uint8 *keystate = SDL_GetKeyState(NULL);
         if ( !binary_mode && keystate[SDLK_d] && world(mod_x,mod_y)->reportingConstruction)
         {
             world(mod_x,mod_y)->reportingConstruction->saveMembers(&std::cout);
         }
+#endif
         mps_result = mps_set( mod_x, mod_y, MPS_MAP );
         mapMPS->playBuildingSound( mod_x, mod_y );
 
@@ -236,17 +238,9 @@ void editMap (MapPoint point, int button)
         //double check windmill tech
         //int selected_module_group = userOperation->constructionGroup?userOperation->constructionGroup->group:0;
         if ((userOperation->constructionGroup == &windmillConstructionGroup) && (tech_level >= MODERN_WINDMILL_TECH))
-        {
-            //userOperation->type=CST_WINDMILL_1_R;
-            userOperation->constructionGroup = &windpowerConstructionGroup;
-            //userOperation->selected_module_type = CST_WINDMILL_1_R;
-        }
+        {   userOperation->constructionGroup = &windpowerConstructionGroup;}
         else if (( userOperation->constructionGroup == &windpowerConstructionGroup) && (tech_level < MODERN_WINDMILL_TECH))
-        {
-            //userOperation->type = CST_WINDMILL_1_W;
-            userOperation->constructionGroup = &windmillConstructionGroup;
-            //userOperation->selected_module_type = CST_WINDMILL_1_W;
-        }
+        {   userOperation->constructionGroup = &windmillConstructionGroup;}
         //how to build a lake in the park?
         //just hold 'W' key on build ;-)
         if( userOperation->constructionGroup == &parklandConstructionGroup ||
@@ -254,37 +248,24 @@ void editMap (MapPoint point, int button)
         {
             Uint8 *keystate = SDL_GetKeyState(NULL);
             if ( keystate[SDLK_w] )
-            {
-                //userOperation->type = CST_PARKLAND_LAKE;
-                //userOperation->selected_module_type = CST_PARKLAND_LAKE;
-                userOperation->constructionGroup = &parkpondConstructionGroup;
-            }
+            {   userOperation->constructionGroup = &parkpondConstructionGroup;}
             else
-            {
-                //userOperation->type = CST_PARKLAND_PLANE;
-                //userOperation->selected_module_type = CST_PARKLAND_PLANE;
-                userOperation->constructionGroup = &parklandConstructionGroup;
-            }
+            {   userOperation->constructionGroup = &parklandConstructionGroup;}
         }
+/*
         //how to build a shanty?
-        //just hold 'S' key on build ;-)
+        //just hold 'S' key on building a water tower ;-)
+
         if( userOperation->constructionGroup == &waterwellConstructionGroup
          || userOperation->constructionGroup == &shantyConstructionGroup)
         {
             Uint8 *keystate = SDL_GetKeyState(NULL);
             if ( keystate[SDLK_s] )
-            {
-                //userOperation->type = CST_SHANTY;
-                userOperation->constructionGroup = &shantyConstructionGroup;
-                //userOperation->selected_module_type = CST_SHANTY;
-            }
+            {   userOperation->constructionGroup = &shantyConstructionGroup;}
             else
-            {
-                //userOperation->type = CST_WATERWELL;
-                userOperation->constructionGroup = &waterwellConstructionGroup;
-                //userOperation->selected_module_type = CST_WATERWELL;
-            }
+            {   userOperation->constructionGroup = &waterwellConstructionGroup;}
         }
+*/
         // place the selected item.
         last_message_group = place_item(mod_x, mod_y);
         switch (last_message_group)
@@ -319,7 +300,7 @@ void editMap (MapPoint point, int button)
         }
     }
     else
-    {   std::cout << "unexpected UserOperationin MapEdit" << std::endl;}
+    {   std::cout << "unexpected UserOperation in MapEdit" << std::endl;}
 }
 
 /** @file lincity-ng/MapEdit.cpp */
