@@ -205,24 +205,28 @@ void Transport::report()
 
 void Transport::playSound()
 {
-    unsigned short g = constructionGroup->group;
-    if ((g == GROUP_ROAD) || (g == GROUP_ROAD_BRIDGE))
+    if(constructionGroup->sounds_loaded)
     {
-        int avg = 0;
-        std::map<Commodities, int>::iterator stuff_it;
-        for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
-        {   avg += (stuff_it->second * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
-        if(avg > 0) //equiv to size > 0
-        {   avg /= trafficCount.size();}
-        if(avg > 5)
-        {   getSound()->playASound(constructionGroup->chunks[rand()%3]);}
+        unsigned short g = constructionGroup->group;
+        if ((g == GROUP_ROAD) || (g == GROUP_ROAD_BRIDGE))
+        {
+            int avg = 0;
+            std::map<Commodities, int>::iterator stuff_it;
+            for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
+            {   avg += (stuff_it->second * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+            if(avg > 0) //equiv to size > 0
+            {   avg /= trafficCount.size();}
+            int num_sounds = constructionGroup->chunks.size()/2;
+            if(avg > 5)
+            {   getSound()->playASound(constructionGroup->chunks[rand()%num_sounds]);}
+            else
+            {   getSound()->playASound(constructionGroup->chunks[num_sounds+rand()%num_sounds]);}
+        }
         else
-        {   getSound()->playASound(constructionGroup->chunks[3+rand()%3]);}
-    }
-    else
-    {
-        int s = constructionGroup->chunks.size();
-        getSound()->playASound(constructionGroup->chunks[rand()%s]);
+        {
+            int s = constructionGroup->chunks.size();
+            getSound()->playASound(constructionGroup->chunks[rand()%s]);
+        }
     }
 }
 

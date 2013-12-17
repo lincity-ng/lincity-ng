@@ -10,31 +10,25 @@ Major features
 - Density and traffic maps for all different kind of commodities (mousewheel over minimap)
 - Stat bars reflect city wide averages
 - Coal/Ore mines can store material and are evacuated before auto-bulldozing
+- xml config files for sprites and sounds
+- seed compression for savegames
 
 Minor features
 - In text mode query with "d" pressed sends XML info to console
 - press p to cylcle trough constructions and/or locate village on map
-- hold s while building watertower to build a shanty 
+- hold s while building watertower to build a shanty
+- press Ctrl to toggle left/right cornered road dragging
 - Evacuate commodities from buildings or transport
 - Up/downgrading of transport by simple dragging
 - find coal deposits by right click on tile
 - Animated waste burning
 - 2nd page of stat bars
 - Zooming on cursor position
-- updated help contents 
-  
-Nice to have
-- zooming in Minimap (2^n)
-- resizeable Minimap display
+- updated help contents
+- bridging power cables
+- railway crossings for roads and tracks
+- power poles on any terrain
 
-Wild thoughts
-- Developing Cities, also for Start Game
-- Developing Buildings
-- (Re)create landscape from seed, extend world on demand 
-- seed generate endless world upon scrolling
-- In game river spawning and lake flooding
-- Evaporation/Rain balance in rivers and lakes. seasonal flooding
-- real 3D Lanscape
 
 And of course thousands time more changes under the skin and endless hours of game testing.
 have fun with LinCity Unlimites. It is free and unlimited.

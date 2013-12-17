@@ -1,4 +1,8 @@
 <?xml version="1.0"?>
+<!--
+    images are only loaded to the latest previous resourceID inside a group
+    NOTE THE DIFFERENT RULES FOR IMAGES AND SOUNDS
+-->
 <resources>
 
     <group>

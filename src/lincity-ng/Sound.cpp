@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <config.h>
 
 #include "Sound.hpp"
+#include "Game.hpp"
 
 #include <assert.h>
 #include <iostream>
@@ -53,111 +54,88 @@ Sound::soundThread(void* ptr)
 void
 Sound::loadWaves() {
     //Load Waves
-    std::string filename;
+    std::string dirsep = PHYSFS_getDirSeparator();
     std::string directory = "sounds";
-    directory += PHYSFS_getDirSeparator();
+    directory += dirsep;
+    std::string xmlfile = directory + "sounds.xml";
+    XmlReader reader( xmlfile );
+    std::string filename;
     std::string fullname;
+    std::vector<ConstructionGroup*> cstGrpVec;
+    cstGrpVec.clear();
+    int resourceID_level = 0;
+    std::string key;
     Mix_Chunk *chunk;
     SDL_RWops* file;
-    char **rc = PHYSFS_enumerateFiles( directory.c_str() );
-    char **i;
-    for (i = rc; *i != NULL; i++) {
-        fullname = directory;
-        fullname.append( *i );
-        filename.assign( *i );
+    while( reader.read() )
+    {
+        if( reader.getNodeType() == XML_READER_TYPE_ELEMENT)
+        {
+            const std::string& element = (const char*) reader.getName();
 
-        if(PHYSFS_isDirectory(fullname.c_str()))
-            continue;
-#ifdef DEBUG
-        try {
-#endif
-            file = getPhysfsSDLRWops( fullname.c_str() );
-            chunk = Mix_LoadWAV_RW( file, 1);
-            if(!chunk)
+            if( element == "resourceID")
             {
-                std::stringstream msg;
-                msg << "Couldn't read soundfile '" << fullname
-                    << "': " << SDL_GetError();
-                throw std::runtime_error(msg.str());
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next())
+                {
+                    const char* name = (const char*) iter.getName();
+                    const char* value = (const char*) iter.getValue();
+                    if( strcmp(name, "name" ) == 0 )
+                    {
+                        if(ConstructionGroup::resourceMap.count(value))
+                        {
+                            cstGrpVec.push_back( ConstructionGroup::resourceMap[value] );
+                            resourceID_level = reader.getDepth();
+                            if( cstGrpVec.back()->sounds_loaded) //could crash if game is already running
+                            {   std::cout << "Warning duplicate resourceID in sounds.xml: " << value << std::endl;}
+                        }
+                        else
+                        {   std::cout << "unknown resourceID: " << value << " in sounds.xml" << std::endl;}
+                    }
+                }
             }
-
-            std::string idName = getIdName( filename );
-            if(ConstructionGroup::resourceMap.count(idName))
-            {   ConstructionGroup::resourceMap[idName]->chunks.push_back(chunk);}
-
-            if(idName == "WindMillHTech")
+            if(reader.getDepth() < resourceID_level-1)
             {
-                windpower_RG_ConstructionGroup.chunks.push_back(chunk);
-                windpower_G_ConstructionGroup.chunks.push_back(chunk);
+                for(size_t i=0; i< cstGrpVec.size(); ++i)
+                {   cstGrpVec[i]->sounds_loaded = true;}
+                cstGrpVec.clear();
+                resourceID_level = 0;
             }
-            else if (idName == "Green") //shared soundset
+            if( element == "sound" )
             {
-                //bareConstructionGroup.chunks.push_back(chunk);
-                treeConstructionGroup.chunks.push_back(chunk);
-                tree2ConstructionGroup.chunks.push_back(chunk);
-                tree3ConstructionGroup.chunks.push_back(chunk);
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next())
+                {
+                    const char* name = (const char*) iter.getName();
+                    const char* value = (const char*) iter.getValue();
+                    if( strcmp(name, "file" ) == 0 )
+                    {   key = value;}
+                    else
+                    {   std::cout << "unknown atribute " << name << " in sounds.xml" << std::endl;}
+                }
+                fullname = directory + key;
+                file = getPhysfsSDLRWops( fullname.c_str() );
+                chunk = Mix_LoadWAV_RW( file, 1);
+                if (resourceID_level && cstGrpVec.size())
+                {
+                    for(size_t i=0; i< cstGrpVec.size(); ++i)
+                    {   cstGrpVec[i]->chunks.push_back(chunk);}
+                }
+                else
+                {
+                    std::string idName = getIdName( key );
+                    waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
+                }
+                key.clear();
             }
-            else if (idName == "IndustryHigh")
-            {
-                //industryHeavyConstructionGroup.chunks.push_back(chunk);
-                industryHeavy_L_ConstructionGroup.chunks.push_back(chunk);
-                industryHeavy_M_ConstructionGroup.chunks.push_back(chunk);
-                industryHeavy_H_ConstructionGroup.chunks.push_back(chunk);
-            }
-            else if (idName == "IndustryLight") //different texture sets
-            {
-                //industryLightConstructionGroup.chunks.push_back(chunk);
-                industryLight_Q_ConstructionGroup.chunks.push_back(chunk);
-                industryLight_L_ConstructionGroup.chunks.push_back(chunk);
-                industryLight_M_ConstructionGroup.chunks.push_back(chunk);
-                industryLight_H_ConstructionGroup.chunks.push_back(chunk);
-
-            }
-            else if (idName == "CoalMine") //different texture sets
-            {
-                //coalmineConstructionGroup.chunks.push_back(chunk);
-                coalmine_L_ConstructionGroup.chunks.push_back(chunk);
-                coalmine_M_ConstructionGroup.chunks.push_back(chunk);
-                coalmine_H_ConstructionGroup.chunks.push_back(chunk);
-
-            }
-            else if (idName == "ResidentialMed") //shared sound
-            {
-                residenceMLConstructionGroup.chunks.push_back(chunk);
-                residenceMHConstructionGroup.chunks.push_back(chunk);
-            }
-            else if (idName == "ResidentialHigh") //shared sound
-            {
-                residenceHLConstructionGroup.chunks.push_back(chunk);
-                residenceHHConstructionGroup.chunks.push_back(chunk);
-            }
-            else if (idName.substr(0,6) == "Trafic") //high and low traffic
-            {
-                //std::cout << idName << ".wav loaded" << std::endl;
-                roadConstructionGroup.chunks.push_back(chunk);
-                roadbridgeConstructionGroup.chunks.push_back(chunk);
-            }
-            else if (idName == "DirtTrack") //shared sound
-            {
-                trackConstructionGroup.chunks.push_back(chunk);
-                trackbridgeConstructionGroup.chunks.push_back(chunk);
-            }
-            else if (idName == "RailTrain") //shared sound
-            {
-                railConstructionGroup.chunks.push_back(chunk);
-                railbridgeConstructionGroup.chunks.push_back(chunk);
-            }
-            else
-            {
-                //std::cout << idName << ": put to waves" << std::endl;
-                waves.insert( std::pair<std::string,Mix_Chunk*>(idName, chunk) );
-            }
-#ifdef DEBUG
-        } catch(std::exception& e)
-        {   std::cerr << "Error: " << e.what() << "\n";}
-#endif
+        }
+    } //end xml reader
+    if(cstGrpVec.size())
+    {
+        for(size_t i=0; i< cstGrpVec.size(); ++i)
+        {   cstGrpVec[i]->sounds_loaded = true;}
+        cstGrpVec.clear();
     }
-    PHYSFS_freeList(rc);
 }
 
  /*
@@ -296,16 +274,12 @@ void Sound::loadMusicTheme() {
                 tempSong.lowestTechLevel = -10;
                 tempSong.highestTechLevel =  10 * MAX_TECH_LEVEL;
                 playlist.push_back(tempSong);
-                std::cerr << "Found song: '" << playlist[totalTracks].title << "'" << std::endl;
+                //std::cerr << "Found song: '" << playlist[totalTracks].title << "'" << std::endl;
                 totalTracks++;
             }
             fptr++;
-
-
         }
-
         PHYSFS_freeList(files);
-
     }
 }
 
@@ -480,22 +454,18 @@ Sound::playMusic()
             currentMusic = 0;
         }
 
-        // I don't know if the following has any meaning at all
-
-        //if(currentTrack.filename == "")
-        //   return;
-
         //Check if current track is allowed at this tech level
         //This calculates the right tech_level and rounds it by one decimal.
         float current_tech = tech_level * (float)100 / MAX_TECH_LEVEL;
         current_tech = round(current_tech*10)/10;
 
-        if(current_tech < currentTrack.lowestTechLevel
-            || current_tech > currentTrack.highestTechLevel) {
+        if( getGame() && (current_tech < currentTrack.lowestTechLevel
+            || current_tech > currentTrack.highestTechLevel)    )
+        {
             std::cerr << "Next track is " << currentTrack.title
             << " and it's tech level prerequisites range from "
             << currentTrack.lowestTechLevel << " to " << currentTrack.highestTechLevel << "." << std::endl;
-            std::cerr << "Current tech level is " << current_tech << "." << std::endl;
+            //std::cerr << "Current tech level is " << current_tech << "." << std::endl;
             changeTrack(NEXT_OR_FIRST_TRACK);
             return;
         }
@@ -546,9 +516,10 @@ Sound::enableMusic(bool enabled)
 void
 Sound::setMusicVolume(int vol)
 {
+#ifdef DEBUG
     if(vol < 0 || vol > 100)
-        throw std::runtime_error("Music volume out of range (0..100)");
-
+    {   throw std::runtime_error("Music volume out of range (0..100)");}
+#endif
     getConfig()->musicVolume = vol;
     float volvalue = vol * MIX_MAX_VOLUME / 100.0;
     Mix_VolumeMusic(static_cast<int>(volvalue));
@@ -557,9 +528,10 @@ Sound::setMusicVolume(int vol)
 void
 Sound::setSoundVolume(int vol)
 {
+#ifdef DEBUG
     if(vol < 0 || vol > 100)
-        throw std::runtime_error("Music volume out of range (0..100)");
-
+    {   throw std::runtime_error("Sound volume out of range (0..100)");}
+#endif
     getConfig()->soundVolume = vol;
     float volvalue = vol * MIX_MAX_VOLUME / 100.0;
     Mix_Volume(-1, static_cast<int>(volvalue));

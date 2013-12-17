@@ -1,0 +1,383 @@
+<?xml version="1.0"?>
+<!--
+    sounds are loaded to all earlier resourceID inside a group
+    unspecified resourceID go to global scope
+    NOTE THE DIFFERENT RULES FOR IMAGES AND SOUNDS
+-->
+<resources>
+
+
+    <sound file="Click.wav" />
+<!--
+    <sound file="WindowClose.wav" />
+    <sound file="WindowOpen.wav" />
+-->
+    <group>
+    <sound file="Build1.wav" />
+    <sound file="Build2.wav" />
+    </group>
+
+    <group>
+    <sound file="Raze1.wav" />
+    <sound file="Raze2.wav" />
+    <sound file="Raze3.wav" />
+    </group>
+
+    <group>
+    <sound file="RocketTakeoff1.wav" />
+    <sound file="RocketExplosion1.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Green" />
+    <resourceID name="Tree" />
+    <resourceID name="Tree2" />
+    <resourceID name="Tree3" />
+    <sound file="Green1.wav" />
+    <sound file="Green2.wav" />
+    <sound file="Green3.wav" />
+    <sound file="Green4.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Desert" />
+    </group>
+
+    <group>
+    <resourceID name="Water" />
+    <sound file="Water1.wav" />
+    <sound file="Water2.wav" />
+    <sound file="Water3.wav" />
+    <sound file="Water4.wav" />
+    <sound file="Water5.wav" />
+    </group>
+
+
+    <group>
+    <resourceID name="Blacksmith" />
+    <sound file="Blacksmith1.wav" />
+    <sound file="Blacksmith2.wav" />
+    <sound file="Blacksmith3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="CoalMine" />
+    <resourceID name="CoalMineLow" />
+    <resourceID name="CoalMineMed" />
+    <resourceID name="CoalMineFull" />
+    <sound file="CoalMine1.wav" />
+    <sound file="CoalMine2.wav" />
+    <sound file="CoalMine3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Commune" />
+    <sound file="Commune1.wav" />
+    <sound file="Commune2.wav" />
+    <sound file="Commune3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Track" />
+    <resourceID name="TrackBridge" />
+    <sound file="DirtTrack1.wav" />
+    <sound file="DirtTrack2.wav" />
+    <sound file="DirtTrack3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Farm" />
+    <sound file="Farm1.wav" />
+    <sound file="Farm2.wav" />
+    <sound file="Farm3.wav" />
+    <sound file="OrganicFarm1.wav" />
+    <sound file="OrganicFarm2.wav" />
+    <sound file="OrganicFarm3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Fire" />
+    <sound file="Fire1.wav" />
+    <sound file="Fire2.wav" />
+    <sound file="Fire3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="FireWasteLand" />
+    <sound file="FireWasteland1.wav" />
+    </group>
+
+    <group>
+    <resourceID name="FireStation" />
+    <sound file="FireStation1.wav" />
+    <sound file="FireStation2.wav" />
+    <sound file="FireStation3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Harbor" />
+    <sound file="Harbor1.wav" />
+    <sound file="Harbor2.wav" />
+    <sound file="Harbor3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Health" />
+    <sound file="Health1.wav" />
+    <sound file="Health2.wav" />
+    <sound file="Health3.wav" />
+    <sound file="Health4.wav" />
+    <sound file="Health5.wav" />
+    </group>
+
+    <group>
+    <resourceID name="IndustryHigh" />
+    <resourceID name="IndustryHighL" />
+    <resourceID name="IndustryHighM" />
+    <resourceID name="IndustryHighH" />
+    <sound file="IndustryHigh1.wav" />
+    <sound file="IndustryHigh2.wav" />
+    <sound file="IndustryHigh3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="IndustryLight" />
+    <resourceID name="IndustryLightQ" />
+    <resourceID name="IndustryLightL" />
+    <resourceID name="IndustryLightM" />
+    <resourceID name="IndustryLightH" />
+    <sound file="IndustryLight1.wav" />
+    <sound file="IndustryLight2.wav" />
+    <sound file="IndustryLight3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="MarketEmpty" />
+    <sound file="MarketEmpty1.wav" />
+    </group>
+    <group>
+    <resourceID name="MarketLow" />
+    <sound file="MarketLow1.wav" />
+    </group>
+    <group>
+    <resourceID name="MarketMed" />
+    <sound file="MarketMed1.wav" />
+    </group>
+    <group>
+    <resourceID name="MarketFull" />
+    <sound file="MarketFull1.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Mill" />
+    <sound file="Mill1.wav" />
+    <sound file="Mill2.wav" />
+    <sound file="Mill3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Monument" />
+    <sound file="Monument1.wav" />
+    <sound file="Monument2.wav" />
+    <sound file="Monument3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="MonumentConstruction" />
+    <sound file="MonumentConstruction1.wav" />
+    <sound file="MonumentConstruction2.wav" />
+    <sound file="MonumentConstruction3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="OreMine" />
+    <sound file="OreMine1.wav" />
+    <sound file="OreMine2.wav" />
+    <sound file="OreMine3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="ParklandLake" />
+    <sound file="ParklandLake1.wav" />
+    <sound file="ParklandLake2.wav" />
+    </group>
+
+    <group>
+    <resourceID name="ParklandPlane" />
+    <sound file="ParklandPlane1.wav" />
+    <sound file="ParklandPlane2.wav" />
+    <sound file="ParklandPlane3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Pottery" />
+    <sound file="Pottery1.wav" />
+    <sound file="Pottery2.wav" />
+    </group>
+
+    <group>
+    <resourceID name="PowerCoalEmpty" />
+    <sound file="PowerCoalEmpty.wav" />
+    </group>
+    <group>
+    <resourceID name="PowerCoalLow" />
+    <sound file="PowerCoalLow.wav" />
+    </group>
+    <group>
+    <resourceID name="PowerCoalMed" />
+    <sound file="PowerCoalMed.wav" />
+    </group>
+    <group>
+    <resourceID name="PowerCoalFull" />
+    <sound file="PowerCoalFull.wav" />
+    </group>
+
+    <group>
+    <resourceID name="PowerLine" />
+    <sound file="PowerLine1.wav" />
+    </group>
+
+    <group>
+    <resourceID name="PowerSolar" />
+    <sound file="PowerSolar1.wav" />
+    <sound file="PowerSolar2.wav" />
+    <sound file="PowerSolar3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Rail" />
+    <resourceID name="RailBridge" />
+    <sound file="RailTrain1.wav" />
+    <sound file="RailTrain2.wav" />
+    <sound file="RailTrain3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Recycle" />
+    <sound file="Recycle1.wav" />
+    <sound file="Recycle2.wav" />
+    <sound file="Recycle3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="ResidentialHighHigh" />
+    <resourceID name="ResidentialHighLow" />
+    <sound file="ResidentialHigh1.wav" />
+    <sound file="ResidentialHigh2.wav" />
+    <sound file="ResidentialHigh3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="ResidentialLow" />
+    <sound file="ResidentialLow1.wav" />
+    <sound file="ResidentialLow2.wav" />
+    <sound file="ResidentialLow3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="ResidentialLowLow" />
+    <sound file="ResidentialLowLow1.wav" />
+    </group>
+
+    <group>
+    <resourceID name="ResidentialMedLow" />
+    <resourceID name="ResidentialMedHigh" />
+    <sound file="ResidentialMed1.wav" />
+    <sound file="ResidentialMed2.wav" />
+    <sound file="ResidentialMed3.wav" />
+    </group>
+
+<!-- The first half of the following sounds are
+used for high traffic, the second half as low traffic
+-->
+    <group>
+    <resourceID name="Road" />
+    <resourceID name="RoadBridge" />
+    <sound file="TraficHigh1.wav" />
+    <sound file="TraficHigh2.wav" />
+    <sound file="TraficHigh3.wav" />
+    <sound file="TraficLow1.wav" />
+    <sound file="TraficLow2.wav" />
+    <sound file="TraficLow3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Rocket" />
+    <sound file="Rocket1.wav" />
+    <sound file="Rocket2.wav" />
+    <sound file="Rocket3.wav" />
+    <sound file="Rocket4.wav" />
+    </group>
+
+    <group>
+    <resourceID name="School" />
+    <sound file="School1.wav" />
+    <sound file="School2.wav" />
+    <sound file="School3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Shanty" />
+    <sound file="Shanty1.wav" />
+    <sound file="Shanty2.wav" />
+    <sound file="Shanty3.wav" />
+    <sound file="Shanty4.wav" />
+    <sound file="Shanty5.wav" />
+    </group>
+
+    <group>
+    <resourceID name="SportsCroud" />
+    <sound file="SportsCroud1.wav" />
+    <sound file="SportsCroud2.wav" />
+    <sound file="SportsCroud3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="SubstationOff" />
+    <sound file="SubstationOff.wav" />
+    </group>
+    <group>
+    <resourceID name="Substation" />
+    <sound file="Substation3.wav" />
+    <sound file="Substation4.wav" />
+    </group>
+    <group>
+    <resourceID name="SubstationOn" />
+    <sound file="SubstationOn.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Tip" />
+    <sound file="Tip1.wav" />
+    <sound file="Tip2.wav" />
+    <sound file="Tip3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="University" />
+    <sound file="University1.wav" />
+    <sound file="University2.wav" />
+    <sound file="University3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="WindMill" />
+    <sound file="WindMill1.wav" />
+    <sound file="WindMill2.wav" />
+    <sound file="WindMill3.wav" />
+    </group>
+
+    <group>
+    <resourceID name="Waterwell" />
+    </group>
+
+    <group>
+    <resourceID name="WindMillHTech" />
+    <resourceID name="WindMillHTechRG" />
+    <resourceID name="WindMillHTechG" />
+    <sound file="WindMill1.wav" />
+    <sound file="WindMill2.wav" />
+    <sound file="WindMill3.wav" />
+    </group>
+
+</resources>

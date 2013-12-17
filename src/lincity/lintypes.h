@@ -303,7 +303,8 @@ public:
         this->tech = tech;
         this->range = range;
         this->images_loaded = false;
-    }
+        this->sounds_loaded = false;
+       }
     ~ConstructionGroup()
     {
         std::vector<GraphicsInfo>::iterator it;
@@ -353,6 +354,7 @@ public:
     int tech;                   /* group tech */
     int range;                  /* range beyond size*/
     bool images_loaded;
+    bool sounds_loaded;
 
     static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {

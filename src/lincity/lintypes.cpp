@@ -1127,7 +1127,7 @@ int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commo
 void Construction::playSound()
 {
     int s = constructionGroup->chunks.size();
-    if(s)
+    if(constructionGroup->sounds_loaded && s)
     {   getSound()->playASound( constructionGroup->chunks[ rand()%s ] );}
 }
 

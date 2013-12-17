@@ -161,10 +161,6 @@ void initLincity()
     // initialize constructions
     initializeModules();
 
-    //TODO lauch a graphics loader thread from here
-    //to use time while user is in mainmenu
-    //GameView::preReadImages();
-
     // init_types ();
     load_png_graphics();
     main_types[CST_USED].group = GROUP_USED;
@@ -172,9 +168,6 @@ void initLincity()
 
     // animation time
     reset_start_time ();
-
-    //Not needed?
-    //screen_full_refresh ();
 
 }
 
