@@ -47,27 +47,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 int selected_module_cost; // this must be changed, when module (or celltype-button) is changed
 
-int getMainWindowWidth();
-int getMainWindowHeight();
 
 std::string lastDateText = "";
 int lastMoney = -123456789;
 
 /* This is on in screen_full_refresh, used in *_refresh() */
-char screen_refreshing;
 
 const char* current_month (int current_time);
 void draw_cb_box (int row, int col, int checked);
-
+/*
 int ask_launch_rocket_now (int x, int y)
 {
     new Dialog( ASK_LAUNCH_ROCKET, x, y );
     return 0;
 }
-
-void draw_background (void);
-void screen_full_refresh (void);
-void init_fonts (void);
+*/
+//void screen_full_refresh (void);
 void initialize_monthgraph (void){
     int i;
     monthgraph_size = getConfig()->monthgraphW;
@@ -95,27 +90,27 @@ void initialize_monthgraph (void){
     monthgraph_ppool[i] = 0;
     }
 }
-void rotate_mini_screen (void);
-void advance_mps_style (void);
+//void rotate_mini_screen (void);
+//void advance_mps_style (void);
 /*void update_main_screen (int full_refresh)
 {
 }*/
-void connect_transport_main_screen (void);
+//void connect_transport_main_screen (void);
 
-void refresh_mps (void);
-void advance_monthgraph_style (void);
-void refresh_monthgraph (void);
-void draw_small_yellow_bezel (int x, int y, int h, int w);
-void mini_screen_help (void);
-void print_time_for_year (void);
-void rotate_main_screen (void);
-void screen_setup (void);
+//void refresh_mps (void);
+//void advance_monthgraph_style (void);
+//void refresh_monthgraph (void);
+//void draw_small_yellow_bezel (int x, int y, int h, int w);
+//void mini_screen_help (void);
+//void print_time_for_year (void);
+//void rotate_main_screen (void);
+//void screen_setup (void);
 
 
 /* Miniscreen */
-void init_mini_map_mouse(void);
-void mini_map_handler(int x, int y, int button);
-void mini_aux_handler(int x, int y, int button);
+//void init_mini_map_mouse(void);
+//void mini_map_handler(int x, int y, int button);
+//void mini_aux_handler(int x, int y, int button);
 
 /*
  * Display some Text in a Dialog Box with an OK Button.
@@ -187,7 +182,8 @@ void updateMessageText( const std::string text )
     }
 }
 
-void updateDate(){
+void updateDate()
+{
     std::ostringstream dateText;
 
     int day = total_time % NUMOF_DAYS_IN_MONTH +1; // 1..NUMOF_DAYS_IN_MONTH
@@ -207,12 +203,11 @@ void updateDate(){
     }
     Component* dateParagraphComponent = 0;
     dateParagraphComponent = root->findComponent( "dateParagraph" );
-    if( dateParagraphComponent == 0 ) {
-        return;
-    }
+    if( dateParagraphComponent == 0 )
+    {   return;}
     Paragraph* dateParagraph = getParagraph( *root, "dateParagraph");
-    if( !dateParagraph ) return;
-
+    if( !dateParagraph )
+    {   return;}
     dateParagraph->setText( dateText.str() );
     lastDateText = dateText.str();
 }
@@ -267,6 +262,7 @@ void updateMoney() {
  *  showing percent completed, but is also used to update
  *  the current Progressbar.
  */
+
 void prog_box (const char *title, int percent)
 {
     (void) title;
@@ -282,14 +278,12 @@ void print_total_money (void)
 {
     updateMoney();
 }
-
+/*
 void refresh_population_text (void)
 {
-  //  TRACE;
-  update_pbar (PPOP, housed_population + people_pool, 0);
-
+    update_pbar (PPOP, housed_population + people_pool, 0);
 }
-
+*/
 void update_avail_modules (int popup)
 {
     //tell ButtonPanel to check for tech change.
@@ -298,53 +292,54 @@ void update_avail_modules (int popup)
         bp->checkTech( popup );
     }
 }
-
+/*
 void refresh_main_screen()
 {
 }
-
+*/
+/*
 void screen_full_refresh ()
 {
-  updateDate();
-  print_total_money();
-  update_main_screen (true);
+    updateDate();
+    print_total_money();
+    update_main_screen (true);
 }
+*/
 
 void print_stats ()
 {
-  // this show update the financy window or mps
+    // this show update the financy window or mps
+    if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1))
+    {
+        update_pbars_monthly();
+        mps_refresh();
+        getEconomyGraph()->updateData();
+    }
 
-  if (total_time % NUMOF_DAYS_IN_MONTH == (NUMOF_DAYS_IN_MONTH - 1))
-  {
-    update_pbars_monthly();
-    mps_refresh();
-    getEconomyGraph()->updateData();
-  }
+    if (total_time % (NUMOF_DAYS_IN_MONTH/5) == NUMOF_DAYS_IN_MONTH / 5 - 1)
+    {   mps_refresh();}
 
-  if (total_time % (NUMOF_DAYS_IN_MONTH/5) == NUMOF_DAYS_IN_MONTH / 5 - 1)
-  {
-    mps_refresh();
-  }
-
-  //check for new tech
-  update_avail_modules (1);
+    //check for new tech
+    update_avail_modules (1);
 
 }
+
+/*
 void update_main_screen_normal (int full_refresh)
 {
     (void) full_refresh;
     return;
-}
-
+}*/
+/*
 void update_main_screen (int full_refresh)
 {
     update_main_screen_normal (full_refresh);
-}
-
+}*/
+/*
 void print_time_for_year ()
 {
-}
-
+}*/
+/*
 int getMainWindowWidth()
 {
   //is only used by old code. 0 is the value that hurts least when the
@@ -355,7 +350,8 @@ int getMainWindowHeight()
 {
   return 0;
 }
-
+*/
+/*
 int yn_dial_box (const char * s1, const char * s2, const char * s3,
         const char *s4)
 {
@@ -368,6 +364,6 @@ int yn_dial_box (const char * s1, const char * s2, const char * s3,
     std::cerr << "-------------------------\n";
     return 0;
 }
-
+*/
 /** @file lincity-ng/ScreenInterface.cpp */
 

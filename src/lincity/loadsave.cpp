@@ -19,6 +19,7 @@
 #include "init_game.h"
 #include "transport.h"
 #include "modules/all_modules.h"
+#include "../lincity-ng/Config.hpp"
 
 #include <fcntl.h>
 #include <sys/types.h>
@@ -137,27 +138,22 @@ void save_city(char *cname)
 
 void save_city_2(char *cname)
 {
-    int x, y, p;
-    int dumbint = 0;
-    unsigned found;
+    size_t found;
 
     std::string xml_file_name;
     xml_file_name = cname;
     found = xml_file_name.find(".gz");
 
     if (found > xml_file_name.length()-3)
-    {
-        xml_file_name += ".gz";
-    }
+    {   xml_file_name += ".gz";}
     else
-    {
-        strcpy(cname,(xml_file_name.substr(0,xml_file_name.length()-3)).c_str());
-    }
+    {   strcpy(cname,(xml_file_name.substr(0,xml_file_name.length()-3)).c_str());}
     xml_loadsave.saveXMLfile(xml_file_name);
 #ifdef DEBUG
     //TODO abandon support for writing old style savegame
     if (world.len() == COMPATIBLE_WORLD_SIDE_LEN)
     {
+        int dumbint = 0;
         gzFile ofile = gzopen(cname, "wb");
         if (ofile == NULL) {
             printf("%s <%s> - ", _("Save file"), cname);
@@ -167,9 +163,9 @@ void save_city_2(char *cname)
         ldsv_version = WATERWELL_V2;
         gzprintf(ofile, "%d\n", ldsv_version);
 
-        for (x = 0; x < world.len(); x++)
+        for (int x = 0; x < world.len(); x++)
         {
-            for (y = 0; y < world.len(); y++)
+            for (int y = 0; y < world.len(); y++)
             {
                 /*               TY po fl cr or i1 i2 i3 i4 i5 i6 i7 PL al ec ws gp wa wp ww wn g1 g2 g3 g4 DA TK AN d4 d5 d6 d7 d8 d9 */
                 gzprintf(ofile, "%u %d %d %u %u %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n"
@@ -214,12 +210,12 @@ void save_city_2(char *cname)
         gzprintf(ofile, "%d\n", main_screen_originy);
 
         gzprintf(ofile, "%d\n", total_time);
-        for (x = 0; x < MAX_NUMOF_SUBSTATIONS; x++) {
+        for (int x = 0; x < MAX_NUMOF_SUBSTATIONS; x++) {
             gzprintf(ofile, "%d\n", 0);//substationx[x]
             gzprintf(ofile, "%d\n", 0);//substationy[x]
         }
         gzprintf(ofile, "%d\n", 0);//numof_substations);
-        for (x = 0; x < MAX_NUMOF_MARKETS; x++) {
+        for (int x = 0; x < MAX_NUMOF_MARKETS; x++) {
             gzprintf(ofile, "%d\n", 0);//marketx[x]
             gzprintf(ofile, "%d\n", 0);//markety[x]
         }
@@ -252,7 +248,7 @@ void save_city_2(char *cname)
 
         /* Changed, version 1.12 */
         gzprintf(ofile, "%d\n", monthgraph_size);
-        for (x = 0; x < monthgraph_size; x++) {
+        for (int x = 0; x < monthgraph_size; x++) {
             gzprintf(ofile, "%d\n", monthgraph_pop[x]);
             gzprintf(ofile, "%d\n", monthgraph_starve[x]);
             gzprintf(ofile, "%d\n", monthgraph_nojobs[x]);
@@ -262,11 +258,11 @@ void save_city_2(char *cname)
         gzprintf(ofile, "%d\n", rockets_launched_success);
         gzprintf(ofile, "%d\n", coal_survey_done);
 
-        for (x = 0; x < PBAR_DATA_SIZE; x++)
-            for (p = 0; p < NUM_PBARS; p++)
+        for (int x = 0; x < PBAR_DATA_SIZE; x++)
+            for (int p = 0; p < NUM_PBARS; p++)
                 gzprintf(ofile, "%d\n", pbars[p].data[x]);
 
-        for (p = 0; p < NUM_PBARS; p++) {
+        for (int p = 0; p < NUM_PBARS; p++) {
             gzprintf(ofile, "%d\n", pbars[p].oldtot);
             gzprintf(ofile, "%d\n", pbars[p].diff);
         }
@@ -282,7 +278,7 @@ void save_city_2(char *cname)
         gzprintf(ofile, "%d\n", total_evacuated);
         gzprintf(ofile, "%d\n", total_births);
 
-        for (x = 0; x < NUMOF_MODULES; x++)
+        for (int x = 0; x < NUMOF_MODULES; x++)
             gzprintf(ofile, "%d\n", 0);
 
         if (strlen(given_scene) > 1)
@@ -343,7 +339,6 @@ void load_city_2(char *cname)
     num_pbars = OLD_NUM_PBARS;
     pbar_data_size = PBAR_DATA_SIZE;
     init_inventory();
-    print_time_for_year();
     r = xml_loadsave.loadXMLfile(xml_file_name);
     if (r == -1)
     {
@@ -654,11 +649,11 @@ void load_city_2(char *cname)
                                  *    engine.cpp or simulate.cpp.
                                  */
     // UI stuff
-    if (main_screen_originx > COMPATIBLE_WORLD_SIDE_LEN - getMainWindowWidth() / 16 - 1)
-        main_screen_originx = COMPATIBLE_WORLD_SIDE_LEN - getMainWindowWidth() / 16 - 1;
+    if (main_screen_originx > COMPATIBLE_WORLD_SIDE_LEN - getConfig()->videoX / 16 - 1)
+        main_screen_originx = COMPATIBLE_WORLD_SIDE_LEN - getConfig()->videoX / 16 - 1;
 
-    if (main_screen_originy > COMPATIBLE_WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1)
-        main_screen_originy = COMPATIBLE_WORLD_SIDE_LEN - getMainWindowHeight() / 16 - 1;
+    if (main_screen_originy > COMPATIBLE_WORLD_SIDE_LEN - getConfig()->videoY / 16 - 1)
+        main_screen_originy = COMPATIBLE_WORLD_SIDE_LEN - getConfig()->videoY / 16 - 1;
 
     //unhighlight_module_button(selected_module);
     //selected_module = sbut[7];  /* 7 is track.  Watch out though! */

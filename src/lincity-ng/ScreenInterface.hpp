@@ -21,10 +21,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engglobs.h"
 #include "lincity/lctypes.h"
 
-void screen_full_refresh ();
+//void screen_full_refresh ();
 void print_stats ();
 
-void update_main_screen (int full_refresh);
+//void update_main_screen (int full_refresh);
 void updateDate();
 void updateMoney();
 

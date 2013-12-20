@@ -84,6 +84,7 @@
 #include "loadsave.h"
 #include "simulate.h"
 #include "engine.h"
+#include "../lincity-ng/Config.hpp"
 //#include "modules/market.h"
 
 #if defined (WIN32) && !defined (NDEBUG)
@@ -160,7 +161,6 @@ void load_city_old(char *cname)
 
     init_inventory();
 
-    print_time_for_year();
     prog_box(_("Loading scene"), 0);
 
     for (x = 0; x < world.len(); x++) {
@@ -224,11 +224,11 @@ void load_city_old(char *cname)
 
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originx);
     sscanf(gzgets(gzfile, s, 256), "%d", &main_screen_originy);
-    if (main_screen_originx > world.len() - getMainWindowWidth() / 16 - 1)
-        main_screen_originx = world.len() - getMainWindowWidth() / 16 - 1;
+    if (main_screen_originx > world.len() - getConfig()->videoX / 16 - 1)
+        main_screen_originx = world.len() - getConfig()->videoX / 16 - 1;
 
-    if (main_screen_originy > world.len() - getMainWindowHeight() / 16 - 1)
-        main_screen_originy = world.len() - getMainWindowHeight() / 16 - 1;
+    if (main_screen_originy > world.len() - getConfig()->videoY / 16 - 1)
+        main_screen_originy = world.len() - getConfig()->videoY / 16 - 1;
 
     sscanf(gzgets(gzfile, s, 256), "%d", &total_time);
     if (ldsv_version <= MM_MS_C_VER)

@@ -78,7 +78,7 @@ void execute_timestep ()
     if ( lincitySpeed != fast_time_for_year) {
         SDL_Delay(lincitySpeed); // This is the limiting factor for speed
 
-        print_stats ();
+        print_stats();
         updateDate();
         print_total_money();
         getGameView()->requestRedraw();

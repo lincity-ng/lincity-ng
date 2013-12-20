@@ -51,10 +51,9 @@ extern void ok_dial_box(const char *, int, const char *);
 
 ButtonPanel *ButtonPanelInstance=0;
 
-
 ButtonPanel *getButtonPanel()
 {
-  return ButtonPanelInstance;
+    return ButtonPanelInstance;
 }
 
 ButtonPanel::ButtonPanel()
@@ -99,7 +98,6 @@ ButtonPanel::parse(XmlReader& reader)
                 std::string defName=getAttribute(reader,"default");
                 mMenus.push_back(menuName);
                 doButton(defName);
-                //mMenuSelected[menuName] = 0;
             } else if(element == "button") {
                 mButtons.push_back(getAttribute(reader,"name"));
             } else if(element == "menubutton") {
@@ -113,9 +111,10 @@ ButtonPanel::parse(XmlReader& reader)
             }
         }
     }
-
+#ifdef DEBUG
+    assert(!ButtonPanelInstance);
+#endif
     ButtonPanelInstance = this;
-    //selected_module=CST_GREEN; //module
     previousName = "BPMPointerButton";
     alreadyAttached=false;
 
@@ -141,8 +140,6 @@ std::string ButtonPanel::getAttribute(XmlReader &reader,const std::string &pName
 
 /*
  * enable/disable buttons according to tech.
- *  lincity/ldsvguts.cpp
- *  oldgui/module_buttons.cpp
  */
 void ButtonPanel::checkTech( int showInfo ){
     std::string name;
@@ -192,17 +189,8 @@ void ButtonPanel::examineButton(const std::string &name, int showInfo )
             std::ostringstream os;
             os << usrOp->createTooltip( false ).c_str() << " ("
                 << _("Techlevel") << " " << usrOp->requiredTech()
-                << _("required") << ")";
+                << " " << _("required") << ")";
             b->setTooltip(os.str().c_str());
-/*
-            char tooltip[2048]; //FIXME may use string stream here
-            snprintf(tooltip, sizeof(tooltip), "%s (%s %.lf %s.)",
-                    usrOp->createTooltip( false ).c_str(),
-                    _("Techlevel"),
-                    usrOp->requiredTech(),
-                    _("required"));
-            b->setTooltip(tooltip);
-*/
         }
     }
 }
@@ -239,17 +227,8 @@ void ButtonPanel::examineMenuButtons(){
                 std::ostringstream os;
                 os << usrOp->createTooltip( false ).c_str() << " ("
                     << _("Techlevel") << " " << usrOp->requiredTech()
-                    << _("required") << ")";
+                    << " " << _("required") << ")";
                 b->setTooltip(os.str().c_str());
-/*
-                char tooltip[2048];
-                snprintf(tooltip, sizeof(tooltip), "%s (%s %.lf %s.)",
-                    usrOp->createTooltip( false ).c_str(),
-                    _("Techlevel"),
-                    usrOp->requiredTech(),
-                    _("required"));
-                b->setTooltip( tooltip );
-*/
             }
         }
     }
@@ -380,15 +359,6 @@ void ButtonPanel::attachButtons()
                         << _("Techlevel") << " " << usrOp->requiredTech()
                         << _("required") << ")";
                     b->setTooltip(os.str().c_str());
-                    /*
-                    char tooltip[2048];
-                    snprintf(tooltip, sizeof(tooltip), "%s (%s %.lf %s.)",
-                            usrOp->createTooltip( false ).c_str(),
-                            _("Techlevel"),
-                            usrOp->requiredTech(),
-                            _("required"));
-                    b->setTooltip(tooltip);
-                    */
                 }
             }
         }
@@ -412,17 +382,8 @@ void ButtonPanel::attachButtons()
                     std::ostringstream os;
                     os << usrOp->createTooltip( false ).c_str() << " ("
                         << _("Techlevel") << " " << usrOp->requiredTech()
-                        << _("required") << ")";
+                        << " " << _("required") << ")";
                     b->setTooltip(os.str().c_str());
-                /*
-                    char tooltip[2048];
-                    snprintf(tooltip, sizeof(tooltip), "%s (%s %.lf %s.)",
-                            usrOp->createTooltip( false ).c_str(),
-                            _("Techlevel"),
-                            usrOp->requiredTech(),
-                            _("required"));
-                    b->setTooltip(tooltip);
-                */
                 }
             }
         }
@@ -491,111 +452,6 @@ void ButtonPanel::toggleBulldozeTool()
     }
 }
 
-
-/*
-void ButtonPanel::showToolHelp( )
-{
-    unsigned short tooltype = userOperation->selected_module_type;
-
-    switch( tooltype ) {
-        case CST_NONE:
-            getGame()->showHelpWindow( "query" ); break;
-        case CST_GREEN :
-            getGame()->showHelpWindow( "bulldoze" ); break;
-        case CST_DESERT :
-            getGame()->showHelpWindow( "evacuate" ); break;
-
-        case CST_RESIDENCE_LL:
-        case CST_RESIDENCE_ML:
-        case CST_RESIDENCE_HL:
-        case CST_RESIDENCE_LH:
-        case CST_RESIDENCE_MH:
-        case CST_RESIDENCE_HH:
-            getGame()->showHelpWindow( "residential" ); break;
-
-        case CST_FARM_O0:
-            getGame()->showHelpWindow( "farm" ); break;
-        case CST_MILL_0:
-            getGame()->showHelpWindow( "mill" ); break;
-
-        case CST_HEALTH:
-            getGame()->showHelpWindow( "health" ); break;
-        case CST_CRICKET_1:
-            getGame()->showHelpWindow( "cricket" ); break;
-        case CST_FIRESTATION_1:
-            getGame()->showHelpWindow( "firestation" ); break;
-        case CST_SCHOOL:
-            getGame()->showHelpWindow( "school" ); break;
-        case CST_UNIVERSITY:
-            getGame()->showHelpWindow( "university" ); break;
-
-        case CST_TRACK_LR:
-            getGame()->showHelpWindow( "track" ); break;
-        case CST_ROAD_LR:
-            getGame()->showHelpWindow( "road" ); break;
-        case CST_RAIL_LR:
-            getGame()->showHelpWindow( "rail" ); break;
-        case CST_EX_PORT:
-            getGame()->showHelpWindow( "port" ); break;
-        case CST_ROCKET_1:
-            getGame()->showHelpWindow( "rocket" ); break;
-
-        case CST_POWERL_H_L:
-            getGame()->showHelpWindow( "powerline" ); break;
-
-        case CST_POWERS_COAL_EMPTY:
-            getGame()->showHelpWindow( "powerscoal" ); break;
-        case CST_POWERS_SOLAR:
-            getGame()->showHelpWindow( "powerssolar" ); break;
-        case CST_SUBSTATION_R:
-            getGame()->showHelpWindow( "substation" ); break;
-        case CST_WINDMILL_1_R:
-            getGame()->showHelpWindow( "windmill" ); break;
-
-        case CST_COMMUNE_1:
-            getGame()->showHelpWindow( "commune" ); break;
-        case CST_COALMINE_EMPTY:
-            getGame()->showHelpWindow( "coalmine" ); break;
-        case CST_OREMINE_1:
-            getGame()->showHelpWindow( "oremine" ); break;
-        case CST_TIP_0:
-            getGame()->showHelpWindow( "tip" ); break;
-        case CST_RECYCLE:
-            getGame()->showHelpWindow( "recycle" ); break;
-
-        case CST_INDUSTRY_L_C:
-            getGame()->showHelpWindow( "industryl" ); break;
-        case CST_INDUSTRY_H_C:
-            getGame()->showHelpWindow( "industryh" ); break;
-        case CST_MARKET_EMPTY:
-            getGame()->showHelpWindow( "market" ); break;
-        case CST_POTTERY_0:
-            getGame()->showHelpWindow( "pottery" ); break;
-        case CST_BLACKSMITH_0:
-            getGame()->showHelpWindow( "blacksmith" ); break;
-
-        case CST_MONUMENT_0:
-            getGame()->showHelpWindow( "monument" ); break;
-        case CST_PARKLAND_PLANE:
-            getGame()->showHelpWindow( "park" ); break;
-        case CST_WATER:
-            getGame()->showHelpWindow( "river" ); break;
-        case CST_WATERWELL:
-            getGame()->showHelpWindow( "waterwell" ); break;
-        default:
-            std::cerr << "ButtonPanel::showToolHelp# unknown Type " << tooltype << "\n";
-    }
-}
-*/
-
-/*
-void ButtonPanel::switchToTool( const std::string & btnName )
-{
-    CheckButton* newButton = getCheckButton( *this, btnName );
-    chooseButtonClicked( newButton, SDL_BUTTON_LEFT );
-}
-*/
-
 void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
 {
     if( mousebutton == SDL_BUTTON_RIGHT )
@@ -631,20 +487,10 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
             }
         }
     }
-/*
-    //doButton(button->getName());
-    selected_module_type = ButtonOperations[button->getName()].selected_module_type;
-    userOperation = &(ButtonOperations[button->getName()]);
-*/
     // now hide menu
     for(size_t i=0;i<mMenuButtons.size();i++) {
         if(mmain==mMenuButtons[i])
         {
-/*
-            if(btnOp->enoughTech()) {
-                mMenuSelected[mMenus[i]]=btnOp->selected_module_type;// set default
-            }
-*/
             // get Component
             Component *c=findComponent(mMenus[i]);
             if(c)
@@ -767,23 +613,6 @@ void ButtonPanel::menuButtonClicked(CheckButton* button, int b)
         else
         {   toggleMenu(mMenus[i],false);}
     }
-//CK skip this all we do is to expand the menu
-/*
-    // get selected button and set module
-
-    //Tell GameView to use the right Cursor
-
-    if( userOperation->action == UserOperation::ACTION_QUERY )
-    {   getGameView()->setCursorSize( 0 );}
-    else if(userOperation->action == UserOperation::ACTION_BUILD)
-    {   getGameView()->setCursorSize( userOperation->constructionGroup->size );}
-    else
-    {   getGameView()->setCursorSize(1);}
-
-
-    updateToolInfo();
-    setDirty();
-*/
 }
 
 bool ButtonPanel::opaque(const Vector2& pos) const
@@ -1046,17 +875,8 @@ void ButtonPanel::doButton(const std::string &button)
     }
     else if(button=="BPMWaterwellButton")
     {
-        Uint8 *keystate = SDL_GetKeyState(NULL);
-        if ( keystate[SDLK_s] )
-        {
-            buttonOperation->constructionGroup = &shantyConstructionGroup;
-            buttonOperation->helpName = "shanty";
-        }
-        else
-        {
-            buttonOperation->constructionGroup = &waterwellConstructionGroup;
-            buttonOperation->helpName = "waterwell";
-        }
+        buttonOperation->constructionGroup = &waterwellConstructionGroup;
+        buttonOperation->helpName = "waterwell";
         buttonOperation->action = UserOperation::ACTION_BUILD;
     }
     else

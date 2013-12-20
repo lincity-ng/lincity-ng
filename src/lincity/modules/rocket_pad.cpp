@@ -11,6 +11,7 @@
 #include "rocket_pad.h"
 #include "residence.h" //for removing people
 #include "lincity-ng/Sound.hpp"
+#include "lincity-ng/Dialog.hpp"
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
     "Rocket Pad",
@@ -105,10 +106,9 @@ void RocketPad::update()
     else if (completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
     {
         type = 4;
+        //OK Button will launch rocket remotely
         if(!(flags & FLAG_ROCKET_READY))
-        {    // The Dialog button will remotely launch the rocket
-            ask_launch_rocket_now(x, y);
-        }
+        {   new Dialog( ASK_LAUNCH_ROCKET, x, y );}
         flags |= FLAG_ROCKET_READY;
     }
 }
@@ -119,7 +119,6 @@ void RocketPad::launch_rocket()
     rockets_launched++;
     type = 7;
     busy = 0;
-    //update_main_screen(0);
     /* The first five failures gives 49.419 % chances of 5 success
      * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...
      */
@@ -142,7 +141,7 @@ void RocketPad::launch_rocket()
             {
                 /* don't crash on it's own area */
                 if (xxx >= x && xxx < (x + constructionGroup->size) && yyy >= y && yyy < (y + constructionGroup->size))
-                    continue;
+                {   continue;}
                 fire_area(xxx, yyy);
                 /* make a sound perhaps */
             }
@@ -207,13 +206,9 @@ void RocketPad::remove_people(int num)
             }
         }
     }
-
-    refresh_population_text();
-
+    update_pbar (PPOP, housed_population + people_pool, 0);
     if (!housed_population && !people_pool)
-    {
-        ok_dial_box("launch-gone.mes", GOOD, 0L);
-    }
+    {   ok_dial_box("launch-gone.mes", GOOD, 0L);}
 }
 
 void RocketPad::report()
