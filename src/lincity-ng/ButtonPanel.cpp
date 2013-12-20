@@ -16,7 +16,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include "ButtonPanel.hpp"
-#include "Util.hpp"
 
 #include <exception>
 #include <sstream>
@@ -93,21 +92,23 @@ ButtonPanel::parse(XmlReader& reader)
     while(reader.read() && reader.getDepth() > depth) {
         if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
             const std::string& element = (const char*) reader.getName();
-            if(element == "menu") {
+            if(element == "menu")
+            {
                 std::string menuName=getAttribute(reader,"name");
                 std::string defName=getAttribute(reader,"default");
                 mMenus.push_back(menuName);
-                doButton(defName);
-            } else if(element == "button") {
-                mButtons.push_back(getAttribute(reader,"name"));
-            } else if(element == "menubutton") {
-                mMenuButtons.push_back(getAttribute(reader,"name"));
-            } else {
+                activeButtons.push_back(defName);
+            }
+            else if(element == "button")
+            {   mButtons.push_back(getAttribute(reader,"name"));}
+            else if(element == "menubutton")
+            {   mMenuButtons.push_back(getAttribute(reader,"name"));}
+            else
+            {
                 Component* component = parseEmbeddedComponent(reader);
                 addChild(component);
-                if(component->getFlags() & FLAG_RESIZABLE) {
-                    component->resize(width, height);
-                }
+                if(component->getFlags() & FLAG_RESIZABLE)
+                {   component->resize(width, height);}
             }
         }
     }
@@ -199,8 +200,8 @@ void ButtonPanel::examineMenuButtons(){
     std::string name;
     Component *c;
     for( size_t number=0; number < mMenuButtons.size(); number++ ){
-        name = mMenuButtons[ number ];
-        UserOperation *usrOp = &(ButtonOperations[name]);
+        name =  mMenuButtons[ number ];
+        UserOperation *usrOp = &(ButtonOperations[activeButtons[number]]);
         c=findComponent( name );
 
         if( !c ) {
@@ -340,29 +341,7 @@ void ButtonPanel::attachButtons()
     if(alreadyAttached)
     {  return;}
     alreadyAttached = true;
-    UserOperation *usrOp = userOperation;
-    for(size_t i=0;i<mMenuButtons.size();i++)
-    {
-        Component *c=findComponent(mMenuButtons[i]);
-        if(c)
-        {
-            CheckButton* b = dynamic_cast<CheckButton*>(c);
-            if(b)
-            {
-                b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
-                if( b->isEnabled() )
-                {   b->setTooltip( userOperation->createTooltip( ) );}
-                else
-                {
-                    std::ostringstream os;
-                    os << usrOp->createTooltip( false ).c_str() << " ("
-                        << _("Techlevel") << " " << usrOp->requiredTech()
-                        << _("required") << ")";
-                    b->setTooltip(os.str().c_str());
-                }
-            }
-        }
-    }
+    UserOperation *usrOp = 0;
 
     for(size_t i=0;i<mButtons.size();i++)
     {
@@ -374,7 +353,7 @@ void ButtonPanel::attachButtons()
             {
                 b->clicked.connect(makeCallback(*this, &ButtonPanel::chooseButtonClicked));
                 doButton( mButtons[i] );
-                userOperation = &(ButtonOperations[mButtons[i]]);
+                usrOp = &(ButtonOperations[mButtons[i]]);
                 if( b->isEnabled() )
                 {   b->setTooltip( userOperation->createTooltip( false ) );}
                 else
@@ -388,7 +367,31 @@ void ButtonPanel::attachButtons()
             }
         }
     }
-    userOperation = usrOp;
+
+    for(size_t i=0;i<mMenuButtons.size();i++)
+    {
+        usrOp = &(ButtonOperations[activeButtons[i]]);
+        Component *c=findComponent(mMenuButtons[i]);
+        if(c)
+        {
+            CheckButton* b = dynamic_cast<CheckButton*>(c);
+            if(b)
+            {
+                b->clicked.connect(makeCallback(*this, &ButtonPanel::menuButtonClicked));
+                if( b->isEnabled() )
+                {   b->setTooltip( usrOp->createTooltip( ) );}
+                else
+                {
+                    std::ostringstream os;
+                    os << usrOp->createTooltip( false ).c_str() << " ("
+                        << _("Techlevel") << " " << usrOp->requiredTech()
+                        << _("required") << ")";
+                    b->setTooltip(os.str().c_str());
+                }
+            }
+        }
+    }
+
     checkTech(0);
     // now hide menu
     for(size_t i=0;i<mMenuButtons.size();i++)
@@ -402,10 +405,12 @@ void ButtonPanel::attachButtons()
             Component *p=c->getParent();
             if(p)
             {
-            Childs::iterator i=p->childs.begin();
-            for(;i!=p->childs.end();i++)
-              if(i->getComponent()==c)
-               {    i->enable(false);}
+                Childs::iterator i=p->childs.begin();
+                for(;i!=p->childs.end();i++)
+                {
+                    if(i->getComponent()==c)
+                    {    i->enable(false);}
+                }
             }
         }
     }
@@ -460,11 +465,11 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
         return;
     }
 
+    UserOperation *btnOp = &(ButtonOperations[button->getName()]);
+    //CK could return here to simply ignore clicks on inactive buttons
     Image *img = dynamic_cast<Image*>(button->getCaption());
     CheckButton *cb = 0;
     std::string mmain = button->getMain();
-    UserOperation *btnOp = &(ButtonOperations[button->getName()]);
-
     if(img)
     {
         std::string filename = img->getFilename();
@@ -487,10 +492,14 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
             }
         }
     }
-    // now hide menu
-    for(size_t i=0;i<mMenuButtons.size();i++) {
+
+    //now hide the menu
+    for(size_t i=0;i<mMenuButtons.size();i++)
+    {
         if(mmain==mMenuButtons[i])
         {
+            if(btnOp->enoughTech())
+            {   activeButtons[i] = button->getName();}
             // get Component
             Component *c=findComponent(mMenus[i]);
             if(c)
@@ -524,18 +533,10 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     previousName = button->getName();
     userOperation = &(ButtonOperations[previousName]);
 
-    if(cb != 0) //CK is that ckeck really needed?
+    if(cb != 0)
     {   cb->setTooltip( userOperation->createTooltip() );}
     examineMenuButtons();
-
-    //Tell GameView to use the right Cursor
-    if( userOperation->action == UserOperation::ACTION_QUERY )
-    {   getGameView()->setCursorSize( 0 );}
-    else if(userOperation->action == UserOperation::ACTION_BUILD)
-    {   getGameView()->setCursorSize( userOperation->constructionGroup->size );}
-    else
-    {   getGameView()->setCursorSize(1);}
-
+    getGameView()->setCursorSize(   userOperation->cursorSize() );
     updateToolInfo();
 }
 
@@ -553,7 +554,9 @@ void ButtonPanel::toggleMenu(std::string pName,bool enable)
             for(;itr!=p->childs.end();++itr)
             {
                 if(itr->getComponent()==c)
-                {   itr->enable(enable);}
+                {
+                    itr->enable(enable);
+                }
             }
         }
     }
@@ -571,14 +574,25 @@ void ButtonPanel::menuButtonClicked(CheckButton* button, int b)
             //Check if Techlevel is sufficient.
             if(  ButtonOperations[mMenuButtons[i]].enoughTech() && ( b != SDL_BUTTON_RIGHT ) )
             {
-                //selected_module = mMenuSelected[mMenus[i]];
-                //updateSelectedCost();
                 button->check();
+                Image *img = dynamic_cast<Image*>(button->getCaption());
+                if (img)
+                {
+                    //select tool from menubutton and set cursor in GameView
+                    UserOperation *usrOp = &(ButtonOperations[activeButtons[i]]);
+                    if(usrOp->enoughTech())
+                    {
+                        previousName = activeButtons[i];
+                        userOperation = usrOp;
+                        getGameView()->setCursorSize(   userOperation->cursorSize() );
+                    }
+                    menuButtonClicked(button,SDL_BUTTON_RIGHT); //simulate right click
+                }
             }
 
             if(c)
             {
-                // try en-/disabling compoent
+                // try en-/disabling component
                 // first get parent
                 Component *p=c->getParent();
                 if(p)
@@ -611,7 +625,9 @@ void ButtonPanel::menuButtonClicked(CheckButton* button, int b)
             {   }
         }
         else
-        {   toggleMenu(mMenus[i],false);}
+        {
+            toggleMenu(mMenus[i],false);
+        }
     }
 }
 

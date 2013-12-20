@@ -105,7 +105,15 @@ std::string UserOperation::createTooltip( bool root /* = true */ ){
     return tooltip.str();
 }
 
-
+unsigned short UserOperation::cursorSize(void)
+{
+    if( action == ACTION_QUERY )
+    {   return 0;}
+    else if(action == ACTION_BUILD)
+    {   return userOperation->constructionGroup->size;}
+    else
+    {   return 1;}
+}
 
 
 

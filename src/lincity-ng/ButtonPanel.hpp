@@ -59,6 +59,7 @@ class ButtonPanel : public Component
   std::vector<std::string> mMenuButtons;
   std::vector<std::string> mMenus;
   std::vector<std::string> mButtons;
+  std::vector<std::string> activeButtons;
 
   std::map<std::string, UserOperation> ButtonOperations;
 };

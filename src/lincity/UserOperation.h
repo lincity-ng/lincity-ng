@@ -27,6 +27,7 @@ public:
     bool is_allowed_here(int x, int y, bool warning);
     bool enoughTech();// tells if scaled tech_level is sufficient
     float requiredTech(); // returns scaled tech_level for tooltipp info
+    unsigned short cursorSize(); //tells size of affectet aerea
     std::string createTooltip( bool root = true );
 private:
 };
