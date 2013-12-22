@@ -44,6 +44,7 @@ HELPPATHS =
     help/ca
     help/cs
     help/de
+    help/el
     help/en
     help/es
     help/fr
@@ -63,7 +64,7 @@ InstallData [ Wildcard fonts : *.ttf ] : fonts ;
 InstallData [ Wildcard locale : *.po ] : locale ;
 InstallData [ Wildcard locale/gui : *.po ] : locale/gui ;
 InstallData [ Wildcard music/default : *.ogg *.xml ] : music/default ;
-InstallData [ Wildcard sounds : *.wav ] : sounds ;
+InstallData [ Wildcard sounds : *.wav *.xml ] : sounds ;
 InstallData lincityconfig.xml ;
 
 # can only invoke xmlgettext when not cross compiling

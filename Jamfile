@@ -16,8 +16,8 @@ if $(XGETTEXT) != ""
 }
 
 # add some additional files to package
-Package README RELNOTES TODO COPYING COPYING-fonts.txt COPYING-data.txt CREDITS ;
-InstallDoc README RELNOTES TODO COPYING COPYING-fonts.txt COPYING-data.txt CREDITS ;
+Package README README-Unlimited README-WaterWell RELNOTES TODO COPYING COPYING-data.txt COPYING-fonts.txt CREDITS ;
+InstallDoc README README-Unlimited README-WaterWell RELNOTES TODO COPYING COPYING-data.txt COPYING-fonts.txt CREDITS ;
 
 InstallDesktop lincity-ng.desktop ;
 InstallPixmap data/lincity-ng.png ;

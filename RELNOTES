@@ -1,3 +1,11 @@
+*** LincityNG 2.9.beta *** [r1797 in svn] 2013-12-22
+
+public BETA release with:
+* custom map size, see README-Unlimited
+* new water management, see README-WaterWell
+* more supported languages
+* less bugs
+
 *** LincityNG 2.0 *** [r1518 in svn] 2009-01-25
 
 * Updated translations (cs, de, nl, pt_BR, ru, sv)
