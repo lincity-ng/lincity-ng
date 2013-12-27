@@ -1599,7 +1599,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
     int x = upperLeft.x;
     int y = upperLeft.y;
 
-    ConstructionGroup *cstgrp = world(upperLeft.x, upperLeft.y)->getTopConstructionGroup();
+    ConstructionGroup *cstgrp = world(x,y)->getTopConstructionGroup();
     unsigned short size = cstgrp->size;
 
     //Attention map is rotated for displaying
@@ -1612,7 +1612,8 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
 
     GraphicsInfo *graphicsInfo = 0;
     //draw terrain underneath special constructions
-    if (cstgrp == &powerlineConstructionGroup)
+    if (world(x,y)->reportingConstruction &&
+    world(x,y)->reportingConstruction->flags & FLAG_TRANSPARENT)
     {
         ConstructionGroup *tilegrp = world(upperLeft.x, upperLeft.y)->getTileConstructionGroup();
         if (tilegrp->images_loaded)

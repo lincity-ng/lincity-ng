@@ -145,7 +145,7 @@ bool MapTile::is_transport() //true on tracks, road, rails and bridges
 {   return (reportingConstruction && reportingConstruction->flags & FLAG_IS_TRANSPORT);}
 
 bool MapTile::is_powerline() //true on powerlines
-{   return (reportingConstruction && reportingConstruction->flags & FLAG_POWER_LINE);}
+{   return (reportingConstruction && reportingConstruction->constructionGroup->group & GROUP_POWER_LINE);}
 
 bool MapTile::is_residence() //true on residences
 {
@@ -732,7 +732,7 @@ void Construction::deneighborize()
         partner->erase(partner_it);
     }
     partners.clear();
-    if (flags & FLAG_POWER_LINE)
+    if (constructionGroup->group == GROUP_POWER_LINE)//(flags & FLAG_POWER_LINE)
     {
         world(x + 1, y)->flags &= ~FLAG_POWER_CABLES_90;
         world(x - 1, y)->flags &= ~FLAG_POWER_CABLES_90;
@@ -745,7 +745,9 @@ void Construction::deneighborize()
 void Construction::neighborize()
 {
 //skip ghosts (aka burning waste) and powerlines here
-    if(!(flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (constructionGroup->group != GROUP_FIRE))
+    if(!(flags & (FLAG_IS_GHOST))
+        && (constructionGroup->group != GROUP_FIRE)
+        && (constructionGroup->group != GROUP_POWER_LINE)   )
     {
         if(flags & FLAG_IS_TRANSPORT)//search adjacent tiles only
         {
@@ -759,16 +761,24 @@ void Construction::neighborize()
             {
                 //here we rely on invisible edge tiles
                 cst = world(x - 1,y + edge)->reportingConstruction;
-                if(cst && cst != cst1 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                if(cst && cst != cst1 && !(cst->flags & (FLAG_IS_GHOST))
+                    && (cst->constructionGroup->group != GROUP_FIRE)
+                    && (cst->constructionGroup->group != GROUP_POWER_LINE)  )
                 {   link_to(cst1 = cst);}
                 cst = world(x + edge,y - 1)->reportingConstruction;
-                if(cst && cst != cst2 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                if(cst && cst != cst2 && !(cst->flags & (FLAG_IS_GHOST))
+                    && (cst->constructionGroup->group != GROUP_FIRE)
+                    && (cst->constructionGroup->group != GROUP_POWER_LINE)  )
                 {   link_to(cst2 = cst);}
                 cst = world(x + size,y + edge)->reportingConstruction;
-                if(cst && cst != cst3 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                if(cst && cst != cst3 && !(cst->flags & (FLAG_IS_GHOST))
+                    && (cst->constructionGroup->group != GROUP_FIRE)
+                    && (cst->constructionGroup->group != GROUP_POWER_LINE)  )
                 {   link_to(cst3 = cst);}
                 cst = world(x + edge,y + size)->reportingConstruction;
-                if(cst && cst != cst4 && !(cst->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (cst->constructionGroup->group != GROUP_FIRE))
+                if(cst && cst != cst4 && !(cst->flags & (FLAG_IS_GHOST))
+                    && (cst->constructionGroup->group != GROUP_FIRE)
+                    && (cst->constructionGroup->group != GROUP_POWER_LINE)  )
                 {   link_to(cst4 = cst);}
             }
         }
@@ -795,7 +805,8 @@ void Construction::neighborize()
                     if(world(xx,yy)->construction) //be unique
                     {
                         Construction *cst = world(xx,yy)->reportingConstruction; //stick with reporting
-                        if((cst->flags & FLAG_POWER_LINE) || (cst->constructionGroup->group == GROUP_FIRE))
+                        if((cst->constructionGroup->group == GROUP_FIRE)
+                        || (cst->constructionGroup->group == GROUP_POWER_LINE)  )
                         {   continue;}
                         //will attempt to make a link
                         link_to(cst);
@@ -862,7 +873,7 @@ void Construction::link_to(Construction* other)
     }
     if (useful)
     {
-        if(flags & FLAG_POWER_LINE)
+        if(constructionGroup->group == GROUP_POWER_LINE)
         {
             neighbors.push_back(other);
             other->neighbors.push_back(this);
@@ -956,7 +967,7 @@ void Construction::trade()
     Powerline *powerline = NULL;
     if(flags & FLAG_IS_TRANSPORT)
     {   transport = dynamic_cast<Transport*>(this);}
-    else if(flags & FLAG_POWER_LINE)
+    else if(constructionGroup->group == GROUP_POWER_LINE)
     {   powerline = dynamic_cast<Powerline*>(this);}
     /*begin for over all different stuff*/
     for(stuff_it = commodityCount.begin() ; stuff_it != commodityCount.end() ; stuff_it++ )
@@ -1014,19 +1025,19 @@ void Construction::trade()
         int flow = center_lvl - old_center;//stuff_it->second;
         //do some smoothing to suppress fluctuations from random order
         // max possible ~90 %
-        if(flags & FLAG_IS_TRANSPORT) //Special for transport
+        if(transport) //Special for transport
         {   transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;}
-        else if(flags & FLAG_POWER_LINE) //Special for powerlines
+        else if(powerline) //Special for powerlines
         {
             powerline->trafficCount[stuff_ID] = (9 * powerline->trafficCount[stuff_ID] + max_traffic) / 10;
             for(unsigned int i = 0; i < neighsize; ++i)
             {
                 if((powerline->anim_counter == 0)
-                && !(neighbors[i]->flags & FLAG_POWER_LINE)
+                && !(neighbors[i]->constructionGroup->group == GROUP_POWER_LINE)
                 && neighbors[i]->constructionGroup->commodityRuleCount[stuff_ID].give
                 && (neighbors[i]->commodityCount[stuff_ID] > 0))
                 {   powerline->anim_counter = POWER_MODULUS + rand()%POWER_MODULUS;}
-                if((powerline->flashing && (neighbors[i]->flags & FLAG_POWER_LINE)))
+                if((powerline->flashing && (neighbors[i]->constructionGroup->group == GROUP_POWER_LINE)))
                 {   ConstructionManager::submitRequest(new PowerLineFlashRequest(neighbors[i]));}
             }
         }
@@ -1188,7 +1199,9 @@ int ConstructionGroup::placeItem(int x, int y)
     }// endfor i
     //now look for neighbors
     //skip ghosts (aka burning waste) and powerlines here
-    if(!(tmpConstr->flags & (FLAG_IS_GHOST | FLAG_POWER_LINE)) && (tmpConstr->constructionGroup->group != GROUP_FIRE))
+    if(!(tmpConstr->flags & FLAG_IS_GHOST)
+    && (tmpConstr->constructionGroup->group != GROUP_FIRE)
+    && (tmpConstr->constructionGroup->group != GROUP_POWER_LINE)    )
     {   tmpConstr->neighborize();}
     return 0;
 }

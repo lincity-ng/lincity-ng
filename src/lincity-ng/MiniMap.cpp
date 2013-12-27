@@ -809,6 +809,7 @@ Color MiniMap::getColor(int x,int y) const
     int yy = y;
     int conflags = 0;
     int mapflags = 0;
+    unsigned short g = world(x,y)->getGroup();
 
     // only needed to look up xx,yy for old style flags
     if (world(x,y)->reportingConstruction)
@@ -998,13 +999,13 @@ Color MiniMap::getColor(int x,int y) const
                 if (mwh_level > 5 * TRANSPORT_QUANTA / 100)
                         mc = Color(0,0xFF,0);
             }
-            if (conflags & FLAG_POWER_LINE)
+            if (g == GROUP_POWER_LINE)
             {   mc = Color(0xFF,0xFF,0);} //yellow
             return mc;
         }
         case TRAFFIC:
         {
-            if ( (conflags & FLAG_IS_TRANSPORT) || (conflags & FLAG_POWER_LINE))
+            if ( (conflags & FLAG_IS_TRANSPORT) || (g == GROUP_POWER_LINE))
             {
                 float loc_lvl = -1;
                 if (conflags & FLAG_IS_TRANSPORT)
@@ -1014,7 +1015,7 @@ Color MiniMap::getColor(int x,int y) const
                     if(transport->trafficCount.count(stuff_ID))
                     {   loc_lvl = transport->trafficCount[stuff_ID];}
                 }
-                else if (conflags & FLAG_POWER_LINE)
+                else if (g == GROUP_POWER_LINE)
                 {
                     Powerline *powerline;
                     powerline = static_cast<Powerline *>(world(xx,yy)->reportingConstruction);
