@@ -1601,6 +1601,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
 
     ConstructionGroup *cstgrp = world(x,y)->getTopConstructionGroup();
     unsigned short size = cstgrp->size;
+    Construction *cst = world(x,y)->reportingConstruction;
 
     //Attention map is rotated for displaying
     if ( ( tile.x != x ) || ( tile.y - size +1 != y ) ) //Signs are tested
@@ -1611,9 +1612,8 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
     unsigned short textureType = world(upperLeft.x, upperLeft.y)->getTopType();
 
     GraphicsInfo *graphicsInfo = 0;
-    //draw terrain underneath special constructions
-    if (world(x,y)->reportingConstruction &&
-    world(x,y)->reportingConstruction->flags & FLAG_TRANSPARENT)
+    //draw terrain underneath transparent constructions
+    if ( cst && (cst->flags & FLAG_TRANSPARENT) )
     {
         ConstructionGroup *tilegrp = world(upperLeft.x, upperLeft.y)->getTileConstructionGroup();
         if (tilegrp->images_loaded)

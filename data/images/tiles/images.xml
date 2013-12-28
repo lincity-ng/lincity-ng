@@ -99,19 +99,34 @@
     <image file="trackldr.png" />
     <image file="trackudr.png" />
     <image file="trackludr.png" />
-
+<!--
     <image file="Trackbridge_pg2.png" />
     <image file="Trackbridge_pg1.png" />
+-->
+    <image file="bridge_track_90.png" />
+    <image file="bridge_track_0.png" />
+
+<!--
     <image file="Trackbridge_entrance_180.png" />
     <image file="Trackbridge_entrance_90.png" />
     <image file="Trackbridge_entrance_00.png" />
     <image file="Trackbridge_entrance_270.png" />
+-->
+    <image file="bridge_track_slope1_270.png" />
+    <image file="bridge_track_slope1_0.png" />
+    <image file="bridge_track_slope1_90.png" />
+    <image file="bridge_track_slope1_180.png" />
+
     </group>
 
     <group>
     <resourceID name="TrackBridge" />
+    <image file="bridge_track_90.png" />
+    <image file="bridge_track_0.png" />
+<!--
     <image file="Trackbridge1.png" />
     <image file="Trackbridge2.png" />
+-->
     </group>
 
     <group>
@@ -127,25 +142,45 @@
     <image file="roadldr.png" />
     <image file="roadudr.png" />
     <image file="roadludr.png" />
-
+<!--
     <image file="Roadbridge_pg2.png" />
     <image file="Roadbridge_pg1.png" />
+-->
+    <image file="bridge_road_90.png" />
+    <image file="bridge_road_0.png" />
+<!--
     <image file="Roadbridge_entrance2_180.png" />
     <image file="Roadbridge_entrance2_90.png" />
     <image file="Roadbridge_entrance2_00.png" />
     <image file="Roadbridge_entrance2_270.png" />
+-->
+    <image file="bridge_road_slope2_270.png" />
+    <image file="bridge_road_slope2_0.png" />
+    <image file="bridge_road_slope2_90.png" />
+    <image file="bridge_road_slope2_180.png" />
+<!--
     <image file="Roadbridge_entrance1_180.png" />
     <image file="Roadbridge_entrance1_90.png" />
     <image file="Roadbridge_entrance1_00.png" />
     <image file="Roadbridge_entrance1_270.png" />
+-->
+    <image file="bridge_road_slope1_270.png" />
+    <image file="bridge_road_slope1_0.png" />
+    <image file="bridge_road_slope1_90.png" />
+    <image file="bridge_road_slope1_180.png" />
+
     </group>
 
     <group>
     <resourceID name="RoadBridge" />
+    <image file="bridge_road_90.png" />
+    <image file="bridge_road_0.png" />
+<!--
     <image file="Roadbridge2s.png" />
     <image file="Roadbridge1s.png" />
     <image file="Roadbridge2.png" />
     <image file="Roadbridge1.png" />
+-->
     </group>
 
     <group>
@@ -161,17 +196,32 @@
     <image file="railldr.png" x="66" />
     <image file="railudr.png" x="66" />
     <image file="railludr.png" x="66" />
-
+<!--
     <image file="Railbridge_pg2.png" />
     <image file="Railbridge_pg1.png" />
+-->
+    <image file="bridge_rail_90.png" />
+    <image file="bridge_rail_0.png" />
+<!--
     <image file="Railbridge_entrance2_180.png" />
     <image file="Railbridge_entrance2_90.png" />
     <image file="Railbridge_entrance2_00.png" />
     <image file="Railbridge_entrance2_270.png" />
+-->
+    <image file="bridge_rail_slope2_270.png" />
+    <image file="bridge_rail_slope2_0.png" />
+    <image file="bridge_rail_slope2_90.png" />
+    <image file="bridge_rail_slope2_180.png" />
+<!--
     <image file="Railbridge_entrance1_180.png" />
     <image file="Railbridge_entrance1_90.png" />
     <image file="Railbridge_entrance1_00.png" />
     <image file="Railbridge_entrance1_270.png" />
+-->
+    <image file="bridge_rail_slope1_270.png" />
+    <image file="bridge_rail_slope1_0.png" />
+    <image file="bridge_rail_slope1_90.png" />
+    <image file="bridge_rail_slope1_180.png" />
 
     <image file="crossing_rail_track0.png"/>
     <image file="crossing_rail_track90.png"/>
@@ -181,8 +231,12 @@
 
     <group>
     <resourceID name="RailBridge" />
+<!--
     <image file="Railbridge2.png" />
     <image file="Railbridge1.png" />
+-->
+    <image file="bridge_rail_90.png" />
+    <image file="bridge_rail_0.png" />
     </group>
 
 

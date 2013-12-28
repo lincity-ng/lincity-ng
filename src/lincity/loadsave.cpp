@@ -107,7 +107,7 @@ extern void prog_box(const char *, int);
 
 extern void print_total_money(void);
 //extern int count_groups(int);
-extern void desert_frontier(int originx, int originy, int w, int h);
+extern void desert_water_frontiers(int originx, int originy, int w, int h);
 extern void set_river_tile( int x, int y);
 
 
@@ -360,7 +360,8 @@ void load_city_2(char *cname)
             gzclose(gzfile);
             load_city_old( cname );
             /* Fix desert frontier for old saved games and scenarios */
-            desert_frontier(0, 0, world.len(), world.len());
+            connect_transport(1, 1, world.len() - 2, world.len() - 2);
+            desert_water_frontiers(0, 0, world.len(), world.len());
             return;
         }
 
@@ -661,7 +662,7 @@ void load_city_2(char *cname)
     //set_selected_module(CST_TRACK_LR);
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
     /* Fix desert frontier for old saved games and scenarios */
-    desert_frontier(0, 0, world.len(), world.len());
+    desert_water_frontiers(0, 0, world.len(), world.len());
 
 }
 

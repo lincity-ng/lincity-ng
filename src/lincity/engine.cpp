@@ -79,15 +79,14 @@ int place_item(int x, int y)
 
     if(userOperation->action == UserOperation::ACTION_BUILD)
     {
-
         userOperation->constructionGroup->placeItem(x, y);
         size = userOperation->constructionGroup->size;
         adjust_money(-userOperation->constructionGroup->getCosts());
     }
 
-    desert_frontier(x - 1, y - 1, size + 2, size + 2);
-    connect_rivers(x,y);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
+    connect_rivers(x,y);
     return 0;
 }
 
@@ -179,9 +178,9 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
         if (world(x, y)->construction)
         {   ok_dial_box("fire.mes", BAD, _("ups, Bulldozer found a dangling reportingConstruction"));}
         //Here size is always 1
-        connect_rivers(x,y);
-        desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
         connect_transport(x - 2, y - 2, x + 1 + 1, y + 1 + 1);
+        connect_rivers(x,y);
+        desert_water_frontiers(x - 1, y - 1, 1 + 2, 1 + 2);
     }
 }
 
@@ -318,18 +317,19 @@ constructionGroup->name);
 
 void do_daily_ecology() //should be going to MapTile:: und handled during simulation
 {
-    for (int y = 0; y < world.len(); y++)
-        for (int x = 0; x < world.len(); x++)
-        {   /* approximately 3 monthes needed to turn bulldoze area into green */
-            if ((world(x, y)->getGroup() == GROUP_DESERT ||
-                 world(x, y)->getGroup() == GROUP_POWER_LINE)
-                && (world(x, y)->flags & FLAG_HAS_UNDERGROUND_WATER)
-                && (rand() % 300 == 1))
-            {
-                world(x, y)->setTerrain(CST_GREEN);
-                desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
-            }
+    const int len = world.len();
+    const int area = len * len;
+    for (int idx = 0; idx < area; ++idx)
+    {
+        /* approximately 3 monthes needed to turn bulldoze area into green */
+        if ((world(idx)->getLowerstVisibleGroup() == GROUP_DESERT)
+            && (world(idx)->flags & FLAG_HAS_UNDERGROUND_WATER)
+            && (rand() % 300 == 1))
+        {
+            world(idx)->setTerrain(CST_GREEN);
+            desert_water_frontiers( (idx % len) - 1, (idx / len) - 1, 1 + 2, 1 + 2);
         }
+    }
     //TODO: depending on water, green can become trees
     //      pollution can make desert
     //      etc ...
@@ -348,6 +348,13 @@ int check_topgroup(int x, int y)
     if (!world.is_inside(x, y) )
         return -1;
     return world(x, y)->getTopGroup();
+}
+
+int check_lvgroup(int x, int y)
+{
+    if (! world.is_inside(x, y) )
+        return -1;
+    return world(x, y)->getLowerstVisibleGroup();
 }
 
 bool check_water(int x, int y)
@@ -405,7 +412,7 @@ void do_coal_survey(void)
     }
 }
 
-void desert_frontier(int originx, int originy, int w, int h)
+void desert_water_frontiers(int originx, int originy, int w, int h)
 {
     /* copied from connect_transport */
     // sets the correct TYPE depending on neighbours, => gives the correct tile to display
@@ -439,32 +446,35 @@ void desert_frontier(int originx, int originy, int w, int h)
     if (originy + h >= world.len())
     {   h = world.len() - originy;}
 
-    for (int x = originx; x < originx + w; x++) {
-        for (int y = originy; y < originy + h; y++) {
-            if ( world(x, y)->getGroup() == GROUP_DESERT
-            || (world(x, y)->getGroup() == GROUP_POWER_LINE
-                &&   world(x, y)->group == GROUP_DESERT) )
+    for (int x = originx; x < originx + w; x++)
+    {
+        for (int y = originy; y < originy + h; y++)
+        {
+            if ( world(x, y)->getLowerstVisibleGroup() == GROUP_DESERT)
             {
                 mask = 0;
-                /* up -- (ThMO) */
-                if ( check_group(x, y - 1) == GROUP_DESERT
-                 || (check_group(x, y - 1) == GROUP_POWER_LINE
-                 && world(x, y - 1)->group == GROUP_DESERT ) )
+                if ( check_lvgroup(x, y - 1) == GROUP_DESERT )
                 {   mask |= 8;}
-                /* left -- (ThMO) */
-                if ( check_group(x - 1, y) == GROUP_DESERT
-                 || (check_group(x - 1, y) == GROUP_POWER_LINE
-                 && world(x -1 , y)->group == GROUP_DESERT ) )
+                if ( check_lvgroup(x - 1, y) == GROUP_DESERT )
                 {   mask |= 4;}
-                /* right -- (ThMO) */
-                if ( check_group(x + 1, y) == GROUP_DESERT
-                 || (check_group(x + 1, y) == GROUP_POWER_LINE
-                 && world(x + 1, y)->group == GROUP_DESERT ) )
+                if ( check_lvgroup(x + 1, y) == GROUP_DESERT )
                 {   mask |= 2;}
-                /* down -- (ThMO) */
-                if ( check_group(x, y + 1) == GROUP_DESERT
-                 || (check_group(x, y + 1) == GROUP_POWER_LINE
-                 && world(x, y + 1)->group == GROUP_DESERT ) )
+                if ( check_lvgroup(x, y + 1) == GROUP_DESERT )
+                {   ++mask;}
+                world(x, y)->type = mask;
+            }
+            else if ( world(x, y)->getLowerstVisibleGroup() == GROUP_WATER)
+            {
+                mask = 0;
+                if (  check_water(x, y - 1)
+                  || (check_group(x, y - 1) == GROUP_PORT)  )
+                {   mask |= 8;}
+                if (  check_water(x - 1, y)
+                  || (check_group(x - 1, y) == GROUP_PORT)  )
+                {   mask |= 4;}
+                if (  check_water(x + 1, y)  )
+                {   mask |= 2;}
+                if (  check_water(x, y + 1)  )
                 {   ++mask;}
                 world(x, y)->type = mask;
             }
@@ -482,30 +492,29 @@ int find_group(int x, int y, unsigned short group)
     int i, j;
     for (i = 1; i < (2 * world.len()); i++)
     {
-        for (j = 0; j < i; j++) {
+        for (j = 0; j < i; j++)
+        {
             x--;
-            if (world.is_visible(x, y))
-                if (world(x, y)->getTopGroup() == group)
-                    return (x + y * world.len());
+            if (world.is_visible(x, y) && world(x, y)->getTopGroup() == group)
+            {   return (x + y * world.len());}
         }
         for (j = 0; j < i; j++) {
             y--;
-            if (world.is_visible(x, y))
-                if (world(x, y)->getTopGroup() == group)
-                    return (x + y * world.len());
+            if (world.is_visible(x, y) && world(x, y)->getTopGroup() == group)
+            {   return (x + y * world.len());}
         }
         i++;
-        for (j = 0; j < i; j++) {
+        for (j = 0; j < i; j++)
+        {
             x++;
-            if (world.is_visible(x, y))
-                if (world(x, y)->getTopGroup() == group)
-                    return (x + y * world.len());
+            if (world.is_visible(x, y) && world(x, y)->getTopGroup() == group)
+            {   return (x + y * world.len());}
         }
-        for (j = 0; j < i; j++) {
+        for (j = 0; j < i; j++)
+        {
             y++;
-            if (world.is_visible(x, y))
-                if (world(x, y)->getTopGroup() == group)
-                    return (x + y * world.len());
+            if (world.is_visible(x, y) && world(x, y)->getTopGroup() == group)
+            {   return (x + y * world.len());}
         }
     }
     return (-1);
@@ -523,9 +532,7 @@ bool is_bare_area(int x, int y, int size)
         for(int i = 0; i<size; i++)
         {
             if(!world.is_visible(x+i, y+j) || !world(x+i, y+j)->is_bare())
-            {
-                return false;
-            }
+            {   return false;}
         }
     }
     return true;
@@ -539,28 +546,24 @@ int find_bare_area(int x, int y, int size)
         for (j = 0; j < i; j++)
         {
             x--;
-            if (world.is_visible(x, y))
-                if ( is_bare_area(x, y, size) )
-                    return (x + y * world.len());
+            if (world.is_visible(x, y) && is_bare_area(x, y, size) )
+            {   return (x + y * world.len());}
         }
         for (j = 0; j < i; j++) {
             y--;
-            if (world.is_visible(x, y))
-                if ( is_bare_area(x, y, size) )
-                    return (x + y * world.len());
+            if (world.is_visible(x, y) && is_bare_area(x, y, size) )
+            {   return (x + y * world.len());}
         }
         i++;
         for (j = 0; j < i; j++) {
             x++;
-            if (world.is_visible(x, y))
-                if ( is_bare_area(x, y, size) )
-                    return (x + y * world.len());
+            if (world.is_visible(x, y) && is_bare_area(x, y, size) )
+            {   return (x + y * world.len());}
         }
         for (j = 0; j < i; j++) {
             y++;
-            if (world.is_visible(x, y))
-                if ( is_bare_area(x, y, size) )
-                    return (x + y * world.len());
+            if (world.is_visible(x, y) && is_bare_area(x, y, size) )
+            {   return (x + y * world.len());}
         }
     }
     return (-1);

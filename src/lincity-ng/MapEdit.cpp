@@ -170,9 +170,9 @@ void editMap (MapPoint point, int button)
         world(x, y)->setTerrain(GROUP_WATER);
         world(x, y)->flags |= FLAG_ALTERED;
         adjust_money(-selected_module_cost);
-        desert_frontier(x - 1, y - 1, 1 + 2, 1 + 2);
-        connect_rivers(x, y);
         connect_transport(x - 2, y - 2, x + 1 + 1, y + 1 + 1);
+        desert_water_frontiers(x - 1, y - 1, 1 + 2, 1 + 2);
+        connect_rivers(x, y);
         return;
     }
 

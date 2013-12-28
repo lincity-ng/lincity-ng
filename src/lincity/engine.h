@@ -13,10 +13,11 @@ void do_bulldoze_area(int x, int y);
 void do_coal_survey(void);
 void do_random_fire(int x, int y, int pwarning);
 void fire_area(int x, int y);
-void desert_frontier(int originx, int originy, int w, int h);
+void desert_water_frontiers(int originx, int originy, int w, int h);
 void connect_rivers(int x, int y);
 int check_group(int x, int y);
 int check_topgroup(int x, int y);
+int check_lvgroup(int x, int y);
 bool check_water(int x, int y);
 
 int find_group(int x, int y, unsigned short group);

@@ -280,7 +280,7 @@ void setup_land()
     //std::cout << "smoothing graphics edges ...";
     //std::cout.flush();
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
-    desert_frontier(0, 0, world.len(), world.len());
+    desert_water_frontiers(0, 0, world.len(), world.len());
     //std::cout << " done" << std::endl;
 }
 
@@ -344,7 +344,7 @@ void create_new_city(int *originx, int *originy, int random_village, int old_set
 
     update_pbar (PPOP, housed_population + people_pool, 1);
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
-    desert_frontier(0, 0, world.len(), world.len());
+    desert_water_frontiers(0, 0, world.len(), world.len());
 }
 static void initialize_tax_rates(void)
 {

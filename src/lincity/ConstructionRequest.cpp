@@ -36,8 +36,8 @@ void ConstructionDeletionRequest::execute()
         }
     }
     // update adjacencies
-    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
 void OreMineDeletionRequest::execute()
@@ -64,8 +64,8 @@ void OreMineDeletionRequest::execute()
     }
 
     // update adjacencies
-    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
 void CommuneDeletionRequest::execute()
@@ -87,8 +87,8 @@ void CommuneDeletionRequest::execute()
         }
     }
     // update adjacencies
-    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
 void BurnDownRequest::execute()
@@ -110,8 +110,8 @@ void BurnDownRequest::execute()
         }
     }
     // update adjacencies
-    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
 void SetOnFire::execute()
@@ -132,8 +132,8 @@ void SetOnFire::execute()
         }
     }
     // update adjacencies
-    desert_frontier(x - 1, y - 1, size + 2, size + 2);
     connect_transport(x - 2, y - 2, x + size + 1, y + size + 1);
+    desert_water_frontiers(x - 1, y - 1, size + 2, size + 2);
 }
 
 void PowerLineFlashRequest::execute()

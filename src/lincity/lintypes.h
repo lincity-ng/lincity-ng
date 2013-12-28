@@ -121,12 +121,15 @@ public:
     void setTerrain(unsigned short group); //places type & group at MapTile
     unsigned short getType();          //type of bare land or the covering construction
     unsigned short getTopType();       //type of bare land or the actual construction
+    unsigned short getLowerstVisibleType(); //like getType but type of terrain underneath transparent constructions
     unsigned short getGroup();        //group of bare land or the covering construction
     unsigned short getTopGroup();     //group of bare land or the actual construction
+    unsigned short getLowerstVisibleGroup(); //like getGroup but group of terrain underneath transparent constructions
     unsigned short getTransportGroup(); //like getGroup but bridges are reported normal transport tiles
     ConstructionGroup* getTileConstructionGroup(); //constructionGroup of the maptile
     ConstructionGroup* getConstructionGroup();     //constructionGroup of maptile or the covering construction
     ConstructionGroup* getTopConstructionGroup();  //constructionGroup of maptile or the actual construction
+    ConstructionGroup* getLowerstVisibleConstructionGroup();
 
     bool is_bare();                    //true if we there is neither a covering construction nor water
     bool is_lake();                    //true on lakes (also under bridges)

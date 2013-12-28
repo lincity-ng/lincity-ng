@@ -91,11 +91,27 @@ ConstructionGroup* MapTile::getConstructionGroup() //constructionGroup of bare l
 ConstructionGroup* MapTile::getTopConstructionGroup() //constructionGroup of bare land or the actual construction
 {   return (construction ? construction->constructionGroup : getTileConstructionGroup());}
 
+ConstructionGroup* MapTile::getLowerstVisibleConstructionGroup()
+{
+    if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
+    {   return getTileConstructionGroup();}
+    else
+    {   return getConstructionGroup();}
+}
+
 unsigned short MapTile::getType() //type of bare land or the covering construction
 {   return (reportingConstruction ? reportingConstruction->type : type);}
 
 unsigned short MapTile::getTopType() //type of bare land or the actual construction
 {   return (construction ? construction->type : type);}
+
+unsigned short MapTile::getLowerstVisibleType()
+{
+    if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
+    {   return type;}
+    else
+    {   return reportingConstruction->type;}
+}
 
 unsigned short MapTile::getGroup() //group of bare land or the covering construction
 {   return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);}
@@ -126,11 +142,20 @@ unsigned short MapTile::getTransportGroup() //group of bare land or the covering
 unsigned short MapTile::getTopGroup() //group of bare land or the actual construction
 {   return (construction ? construction->constructionGroup->group : group);}
 
+unsigned short MapTile::getLowerstVisibleGroup()
+{
+    if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
+    {   return group;}
+    else
+    {   return reportingConstruction->constructionGroup->group;}
+}
+
+
 bool MapTile::is_bare() //true if we there is neither a covering construction nor water
 {   return (!reportingConstruction) && (group != GROUP_WATER);}
 
 bool MapTile::is_water() //true on bridges or lakes (also under bridges)
-{   return (group == GROUP_WATER);}
+{   return (getLowerstVisibleGroup() == GROUP_WATER);}
 
 bool MapTile::is_lake() //true on lakes (also under bridges)
 {   return (group == GROUP_WATER) && !(flags & FLAG_IS_RIVER);}
@@ -1188,9 +1213,11 @@ int ConstructionGroup::placeItem(int x, int y)
         for (unsigned short j = 0; j < size; j++)
         {
             world(x + j, y + i)->reportingConstruction = tmpConstr;
-            if (!world(x + j, y + i)->is_water())
+            //never change water upon building something
+            if (!world(x + j, y + i)->group == GROUP_WATER)
             {
-                if(this != &powerlineConstructionGroup)
+                //bridges and ramps are not yet transparent here
+                if( !(tmpConstr->flags & FLAG_TRANSPARENT))
                 {   world(x + j, y + i)->setTerrain(GROUP_DESERT);}
                 else if (world(x + j, y + i)->group != GROUP_DESERT)
                 {   world(x + j, y + i)->setTerrain(GROUP_BARE);}

@@ -3,9 +3,9 @@
 #include "../lctypes.h"
 #include "../transport.h"
 
+#include "SDL.h"
+
 class Transport;
-
-
 
 class TransportConstructionGroup: public ConstructionGroup {
 public:
@@ -102,8 +102,14 @@ public:
         this->burning_waste = false;
         // register the construction as transport tile
         // disable evacuation
+        //transparency is set and updated in connect_transport
         this->flags |= (FLAG_IS_TRANSPORT | FLAG_NEVER_EVACUATE);
-        if (world(x,y)->is_water())//we build bridges on water
+# ifdef DEBUG
+        Uint8 *keystate = SDL_GetKeyState(NULL);
+        if (world(x,y)->is_water() || keystate[SDLK_LSHIFT] || keystate[SDLK_RSHIFT] )//we build bridges on water
+#else
+        if (world(x,y)->is_water())
+#endif
         {
             switch (group)
             {
