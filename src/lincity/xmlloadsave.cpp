@@ -242,7 +242,7 @@ int XMLloadsave::loadXMLfile(std::string xml_file_name)
 
     if (!gz_xml_file)
     {
-        std::cout<<"Could not write to "<<xml_file_name<<std::endl;
+        std::cout<<"Missing "<<xml_file_name<<std::endl;
         return -1;
     }
 

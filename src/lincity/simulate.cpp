@@ -286,6 +286,7 @@ static void simulate_mappoints(void)
         {
             construction->trade();
             construction->update();
+/*
 #ifdef DEBUG
             if (construction != constructionCount[i])
             {
@@ -294,6 +295,7 @@ static void simulate_mappoints(void)
                 << construction->y << ")" << std::endl;
             }
 #endif
+*/
         }
     }
 }

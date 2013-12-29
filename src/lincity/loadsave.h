@@ -5,6 +5,8 @@
 
 /* This is the loading/saving facility */
 
+#include "string.h"
+
 #ifndef __loadsave_h__
 #define __loadsave_h__
 
@@ -28,7 +30,7 @@
 
 //void load_saved_city(char *s);
 void save_city(char *);
-void save_city_2(char *);
+void save_city_2(std::string);
 void load_city_2(char *);
 
 extern void load_city_old(char *);

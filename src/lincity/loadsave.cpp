@@ -78,7 +78,7 @@
 #include "lin-city.h"
 #include "engglobs.h"
 #include "fileutil.h"
-//#include "power.h"
+#include <physfs.h>
 #include "gui_interface/pbar_interface.h"
 #include "lincity-ng/ErrorInterface.hpp"
 #include "stats.h"
@@ -106,7 +106,6 @@ extern void ok_dial_box(const char *, int, const char *);
 extern void prog_box(const char *, int);
 
 extern void print_total_money(void);
-//extern int count_groups(int);
 extern void desert_water_frontiers(int originx, int originy, int w, int h);
 extern void set_river_tile( int x, int y);
 
@@ -122,32 +121,19 @@ extern void set_river_tile( int x, int y);
 
 void save_city(char *cname)
 {
-    char *s;
-    int l;
-
-    if ((l = strlen(cname)) < 2)
-        return;
-    if ((s = (char *)malloc(lc_save_dir_len + l + 16)) == 0)
-        malloc_failure();
-
-    sprintf(s, "%s%c%s", lc_save_dir, PATH_SLASH, cname);
-
-    save_city_2(s);
-    free(s);
+    std::string fullname = PHYSFS_getWriteDir();
+    fullname += PHYSFS_getDirSeparator();
+    fullname += cname;
+    save_city_2(fullname);
 }
 
-void save_city_2(char *cname)
+void save_city_2(std::string xml_file_name)
 {
     size_t found;
-
-    std::string xml_file_name;
-    xml_file_name = cname;
     found = xml_file_name.find(".gz");
 
     if (found > xml_file_name.length()-3)
     {   xml_file_name += ".gz";}
-    else
-    {   strcpy(cname,(xml_file_name.substr(0,xml_file_name.length()-3)).c_str());}
     xml_loadsave.saveXMLfile(xml_file_name);
 #ifdef DEBUG
     //TODO abandon support for writing old style savegame
@@ -327,14 +313,7 @@ void load_city_2(char *cname)
     found = xml_file_name.find(".gz");
 
     if (found > xml_file_name.length() - 3)
-    {
-        xml_file_name += ".gz";
-    }
-    else
-    {
-        strcpy(cname,(xml_file_name.substr(0,xml_file_name.length()-3)).c_str());
-    }
-
+    {   xml_file_name += ".gz";}
     init_pbars();
     num_pbars = OLD_NUM_PBARS;
     pbar_data_size = PBAR_DATA_SIZE;
@@ -342,6 +321,7 @@ void load_city_2(char *cname)
     r = xml_loadsave.loadXMLfile(xml_file_name);
     if (r == -1)
     {
+        std::cout << "importing: "<< cname << std::endl;
         //old savegames are always WORLD_SIDE_LEN == 100
         world.len(COMPATIBLE_WORLD_SIDE_LEN);
         clear_game();
@@ -604,20 +584,6 @@ void load_city_2(char *cname)
     if (tech_level > MODERN_WINDMILL_TECH)
     {   modern_windmill_flag = 1;}
 
-    //numof_shanties = count_groups(GROUP_SHANTY);
-    //numof_communes = count_groups(GROUP_COMMUNE);
-
-    /* set up the university intake. */
-/*
-    x = Counted<University>::getInstanceCount();
-    if (x > 0)
-    {
-        university_intake_rate = (Counted<School>::getInstanceCount() * 20) / x;
-        if (university_intake_rate > 100)
-            university_intake_rate = 100;
-    } else
-        university_intake_rate = 50;
-*/
     print_total_money();
 
     //reset_animation_times
@@ -640,15 +606,6 @@ void load_city_2(char *cname)
 
     alt_step = (alt_max - alt_min) /10;
 
-    //map_power_grid(true);
-                                /* WCK:  Is this safe to do here?
-                                 * AL1: No, in NG_1.1
-                                 * In case of error message with ok_dial_box
-                                 *    the dialog cannot appear because the screen
-                                 *    is not set up => crash.
-                                 * FIXME: move all initialisation elsewhere, in
-                                 *    engine.cpp or simulate.cpp.
-                                 */
     // UI stuff
     if (main_screen_originx > COMPATIBLE_WORLD_SIDE_LEN - getConfig()->videoX / 16 - 1)
         main_screen_originx = COMPATIBLE_WORLD_SIDE_LEN - getConfig()->videoX / 16 - 1;
@@ -656,10 +613,6 @@ void load_city_2(char *cname)
     if (main_screen_originy > COMPATIBLE_WORLD_SIDE_LEN - getConfig()->videoY / 16 - 1)
         main_screen_originy = COMPATIBLE_WORLD_SIDE_LEN - getConfig()->videoY / 16 - 1;
 
-    //unhighlight_module_button(selected_module);
-    //selected_module = sbut[7];  /* 7 is track.  Watch out though! */
-    //highlight_module_button(selected_module);
-    //set_selected_module(CST_TRACK_LR);
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
     /* Fix desert frontier for old saved games and scenarios */
     desert_water_frontiers(0, 0, world.len(), world.len());

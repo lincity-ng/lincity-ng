@@ -77,6 +77,8 @@ int place_item(int x, int y)
         return -1000;
     }
 
+    assert(userOperation->constructionGroup->is_allowed_here(x,y,false));
+
     if(userOperation->action == UserOperation::ACTION_BUILD)
     {
         userOperation->constructionGroup->placeItem(x, y);

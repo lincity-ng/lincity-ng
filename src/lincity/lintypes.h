@@ -137,7 +137,6 @@ public:
     bool is_water();                   //true on bridges or lakes (also under bridges)
     bool is_visible();                 //true if tile is not covered by another construction. Only useful for minimap Gameview is rotated to upperleft
     bool is_transport();               //true on tracks, road, rails and bridges
-    bool is_powerline();               //true on power lines
     bool is_residence();               //true if any residence covers the tile
     void writeTemplate();              //create maptile template
     void saveMembers(std::ostream *os);//write maptile AND ground members as XML to stram

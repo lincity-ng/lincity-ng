@@ -155,7 +155,7 @@ bool MapTile::is_bare() //true if we there is neither a covering construction no
 {   return (!reportingConstruction) && (group != GROUP_WATER);}
 
 bool MapTile::is_water() //true on bridges or lakes (also under bridges)
-{   return (getLowerstVisibleGroup() == GROUP_WATER);}
+{   return (group == GROUP_WATER);}
 
 bool MapTile::is_lake() //true on lakes (also under bridges)
 {   return (group == GROUP_WATER) && !(flags & FLAG_IS_RIVER);}
@@ -168,9 +168,6 @@ bool MapTile::is_visible() // true if tile is not covered by another constructio
 
 bool MapTile::is_transport() //true on tracks, road, rails and bridges
 {   return (reportingConstruction && reportingConstruction->flags & FLAG_IS_TRANSPORT);}
-
-bool MapTile::is_powerline() //true on powerlines
-{   return (reportingConstruction && reportingConstruction->constructionGroup->group & GROUP_POWER_LINE);}
 
 bool MapTile::is_residence() //true on residences
 {
@@ -1206,24 +1203,25 @@ int ConstructionGroup::placeItem(int x, int y)
         }
     }
 
-    world(x, y)->construction = tmpConstr;
-    constructionCount.add_construction(tmpConstr); //register for Simulation
+
     for (unsigned short i = 0; i < size; i++)
     {
         for (unsigned short j = 0; j < size; j++)
         {
-            world(x + j, y + i)->reportingConstruction = tmpConstr;
             //never change water upon building something
-            if (!world(x + j, y + i)->group == GROUP_WATER)
+            if ( !world(x + j, y + i)->is_water() )
             {
-                //bridges and ramps are not yet transparent here
                 if( !(tmpConstr->flags & FLAG_TRANSPARENT))
                 {   world(x + j, y + i)->setTerrain(GROUP_DESERT);}
                 else if (world(x + j, y + i)->group != GROUP_DESERT)
                 {   world(x + j, y + i)->setTerrain(GROUP_BARE);}
             }
+            world(x + j, y + i)->reportingConstruction = tmpConstr;
         } //endfor j
     }// endfor i
+    world(x, y)->construction = tmpConstr;
+    constructionCount.add_construction(tmpConstr); //register for Simulation
+
     //now look for neighbors
     //skip ghosts (aka burning waste) and powerlines here
     if(!(tmpConstr->flags & FLAG_IS_GHOST)
@@ -1241,7 +1239,7 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
     //handle transport quickly
     if(world.is_visible(x, y) && (group == GROUP_TRACK || group == GROUP_ROAD || group == GROUP_RAIL))
     {   return (world(x,y)->is_bare() ||
-            world(x,y)->is_powerline() ||
+            (world(x,y)->getGroup() == GROUP_POWER_LINE) ||
     (world(x,y)->is_water() && !world(x,y)->is_transport()) ||
     ((world(x,y)->is_transport() && world(x,y)->getTransportGroup() != group)));
     }
