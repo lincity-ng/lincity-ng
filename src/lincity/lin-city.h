@@ -83,7 +83,8 @@
 #define FLAG_HEALTH_COVER       (0x200000)
 #define FLAG_CRICKET_COVER      (0x400000)
 #define FLAG_IS_RIVER           (0x800000)
-#define FLAG_HAD_POWER          (0x1000000)
+#define FLAG_IS_LAKE            (0x1000000)     //Tiles only
+#define FLAG_HAD_POWER          (0x1000000)     //Constructions only
 //#define FLAG_MULTI_TRANSPORT    (0x2000000)   /* Is it a multitransport? */     /* AL1: unused in NG 1.1 */
 #define FLAG_LACK_JOBS          (0x4000000)     /* 1.92 svn , replace previous unused one. */
 #define FLAG_TRANSPARENT          (0x8000000) //show terrain underneath, constructions only

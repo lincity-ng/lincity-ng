@@ -18,7 +18,12 @@ void mps_water(int x, int y)
     mps_store_sdd(i++, waterConstructionGroup.name, x, y);
     i++;
 
-    p = (world(x,y)->flags & FLAG_IS_RIVER) ? _("River") : _("Lake");
+    if ( world(x,y)->flags & FLAG_IS_LAKE )
+    {   p = _("Lake");}
+    else if ( world(x,y)->flags & FLAG_IS_RIVER )
+    {   p = _("River");}
+    else
+    {   p = _("Pond");}
     mps_store_title(i++, p);
 /*
 #ifdef DEBUG

@@ -331,7 +331,6 @@ int mps_global_style = MPS_GLOBAL_FINANCE;
 void mps_right (int x, int y)
 {
     int i = 0;
-    //char s[12];
     const char* p;
     unsigned short group = world(x,y)->group;
     int pol = world(x,y)->pollution;
@@ -339,16 +338,19 @@ void mps_right (int x, int y)
 
     Uint8 *keystate = SDL_GetKeyState(NULL);
     if (!binary_mode && keystate[SDLK_d])
-    {
-        world(x,y)->saveMembers(&std::cout);
-    }
+    {   world(x,y)->saveMembers(&std::cout);}
     mps_store_sdd(i++, world(x, y)->getTileConstructionGroup()->name, x, y);
 
     p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? "Yes" : "No";
     mps_store_ss(i++, "Fertile", p);
     if( group == GROUP_WATER)
     {
-        p = (world(x,y)->flags & FLAG_IS_RIVER) ? "River" : "Lake";
+        if ( world(x,y)->flags & FLAG_IS_LAKE )
+        {   p = _("Lake");}
+        else if ( world(x,y)->flags & FLAG_IS_RIVER )
+        {   p = _("River");}
+        else
+        {   p = _("Pond");}
         mps_store_title(i++, p);
     }
     else

@@ -987,6 +987,8 @@ static int overfill_lake(int start_x, int start_y)//, Shoreline *shore, int lake
         int y = index / len;
         world(x,y)->ground.altitude = flooding_level;
         set_river_tile(x,y);
+        //mark as lake
+        world(x,y)->flags |= FLAG_IS_LAKE;
     } //end for lake.size()
     //last_lake = start_x + start_y * len;
     for (size_t i=0; i<river_starts.size(); i++)

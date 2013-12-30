@@ -471,7 +471,7 @@
 
     <group>
     <resourceID name="Harbor" />
-    <image file="ex_port.png" x="262" />
+    <image file="ex_port.png" />
     </group>
 
     <group>
