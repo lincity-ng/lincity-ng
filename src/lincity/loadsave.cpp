@@ -140,9 +140,9 @@ void save_city_2(std::string xml_file_name)
     if (world.len() == COMPATIBLE_WORLD_SIDE_LEN)
     {
         int dumbint = 0;
-        gzFile ofile = gzopen(cname, "wb");
+        gzFile ofile = gzopen(xml_file_name.c_str(), "wb");
         if (ofile == NULL) {
-            printf("%s <%s> - ", _("Save file"), cname);
+            printf("%s <%s> - ", _("Save file"), xml_file_name.c_str());
             do_error(_("Can't open save file!"));
         }
         /* Now we have upgraded game */
@@ -291,7 +291,7 @@ void save_city_2(std::string xml_file_name)
         gzprintf(ofile, "dummy\n"); /* 10 */
 
         gzclose(ofile);
-        std::cout << "old saved " << cname << std::endl;
+        std::cout << "old saved " << xml_file_name << std::endl;
     }
 #endif
 }
