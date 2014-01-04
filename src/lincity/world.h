@@ -11,7 +11,7 @@
 #include <deque>
 #include <set>
 
-
+//Array2D is used during map generation in initgame
 template <class T>
 class Array2D
 {
@@ -53,6 +53,8 @@ protected:
     int lenx, leny;
     std::vector<T> matrix;
 };
+
+
 class MapTile;
 
 class World

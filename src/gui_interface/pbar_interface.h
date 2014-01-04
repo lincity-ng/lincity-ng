@@ -7,8 +7,6 @@
 #ifndef _pbar_h
 #define _pbar_h
 
-//#include "geometry.h"
-
 void init_pbars (void);
 void draw_pbars (void);
 void refresh_pbars (void);
@@ -28,7 +26,7 @@ void update_pbars_monthly(void);
 #define PFOOD   3
 #define PJOBS   4
 #define PGOODS  5
-#define PCOAL   6 
+#define PCOAL   6
 #define PORE    7
 #define PSTEEL  8
 

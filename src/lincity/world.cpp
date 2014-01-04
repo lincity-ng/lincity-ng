@@ -29,9 +29,7 @@ World::~World()
 void World::len(int new_len)
 {
     if (new_len < 50)
-    {
-        new_len = 50;
-    }
+    {   new_len = 50;}
     if (dirty) {clear_game();}
     bool job_done = false;
 
@@ -48,6 +46,8 @@ void World::len(int new_len)
             new_len -= 25;
             std::cout << "failed to allocate world. shrinking edge to " << new_len << " tiles" << std::endl;
             job_done = false;
+            if (new_len < 50) //Ok we give up, but should crash very soon anyways.
+            {   return;}
         }
     }
 }

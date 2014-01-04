@@ -62,10 +62,7 @@ LCPBar::parse(XmlReader& reader)
     }
 
     if(getName() == "PBar")
-    {
-        //LCPBarInstance = this; //FIXME old code compability hack
-        LCPBarPage1 = this;
-    }
+    {   LCPBarPage1 = this;}
     else if(getName() == "PBar2nd")
     {   LCPBarPage2 = this;}
      else
@@ -78,43 +75,9 @@ LCPBar::parse(XmlReader& reader)
     height = component->getHeight();
 }
 
-// copied from old-gui
-/* adjusted to match changes in stats.cpp */
-#define pbar_adjust_pop(diff) 2 * diff
-#define pbar_adjust_tech(diff) diff > 0 ? diff / 4 + 1 : -((-diff+1)/ 2)
+#define pbar_adjust_tech(diff) diff > 0 ? diff / 40 + 1 : -((-diff+1)/ 20)
 #define pbar_adjust_money(diff) diff  > 0 ? diff / 800 + 1 : diff / 400
-/*
-#define pbar_adjust_food(diff) diff > 0 ? diff / 2000 + 1 : diff / 1000
-#define pbar_adjust_jobs(diff) diff > 0 ? diff / 2000 + 1 : diff / 1000
-#define pbar_adjust_coal(diff) diff > 0 ? diff / 500 + 1 : diff / 250
-#define pbar_adjust_goods(diff) diff > 0 ? diff / 1000 + 1 : diff / 500
-#define pbar_adjust_ore(diff) diff > 0 ? diff / 1000 + 1 : diff / 500
-#define pbar_adjust_steel(diff) diff > 0 ? diff / 50 + 1 : diff / 25
-*/
-/*
-#define PBAR_DIFF_SCALE 1
 
-#define pbar_adjust_food(diff)  PBAR_DIFF_SCALE * diff
-#define pbar_adjust_jobs(diff)  PBAR_DIFF_SCALE * diff
-#define pbar_adjust_coal(diff)  PBAR_DIFF_SCALE * diff
-#define pbar_adjust_goods(diff) PBAR_DIFF_SCALE * diff
-#define pbar_adjust_ore(diff)   PBAR_DIFF_SCALE * diff
-#define pbar_adjust_steel(diff) PBAR_DIFF_SCALE * diff
-*/
-/*
-static int Pbarorder[] = {
-    Construction::STUFF_FOOD,
-    Construction::STUFF_JOBS,
-    Construction::STUFF_GOODS,
-    Construction::STUFF_COAL,
-    Construction::STUFF_ORE,
-    Construction::STUFF_STEEL,
-    Construction::STUFF_WASTE,
-    Construction::STUFF_KWH,
-    Construction::STUFF_MWH,
-    Construction::STUFF_WATER,
-    };
-*/
 void
 LCPBar::setValue(int num, int value, int diff)
 {
@@ -146,14 +109,14 @@ LCPBar::setValue(int num, int value, int diff)
         num_to_ansi (s, sizeof(s), value);
         os<<s;
     }
-    else if ((num >= PFOOD) && (num <= PHOUSE)) //percentages
+    else if ((num >= PFOOD) && (num <= PHOUSE)) // millis displayed as %
     {
-         os<<value<<"%";
+        os<<std::fixed;
+        os<<std::setprecision(1);
+        os<<value/10.0<<"%";
     }
     else
-    {
-        os<<"default";
-    }
+    {   os<<"default";}
     if (p)
     {   p->setText(os.str());}
 
@@ -161,11 +124,10 @@ LCPBar::setValue(int num, int value, int diff)
     switch(num)
     {
       case PPOP:
-        sv = pbar_adjust_pop(diff);
+        sv = 2 * diff;
         break;
       case PTECH:
-        sv = pbar_adjust_tech(diff);
-        break;
+        sv = (diff > 0) ? (diff / 40 + 1) : -((-diff)/ 20);
     case PPOL:
         sv = value<5000?100*diff/(1+value):value<25000?500*diff/value:5000*diff/value;
         break;
@@ -190,20 +152,16 @@ LCPBar::setValue(int num, int value, int diff)
     Component *c=findComponent(os.str()+"a");
     if(c)
     {
-      BarView *bv=dynamic_cast<BarView*>(c);
-      if(bv)
-      {
-        bv->setValue(sv);
-      }
+        BarView *bv=dynamic_cast<BarView*>(c);
+        if(bv)
+        {   bv->setValue(sv);}
     }
     c=findComponent(os.str()+"b");
     if(c)
     {
-      BarView *bv=dynamic_cast<BarView*>(c);
-      if(bv)
-      {
-        bv->setValue(sv);
-      }
+        BarView *bv=dynamic_cast<BarView*>(c);
+        if(bv)
+        {   bv->setValue(sv);}
     }
 
 }
