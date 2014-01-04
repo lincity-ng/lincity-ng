@@ -355,14 +355,14 @@ void ButtonPanel::attachButtons()
                 doButton( mButtons[i] );
                 usrOp = &(ButtonOperations[mButtons[i]]);
                 if( b->isEnabled() )
-                {   b->setTooltip( userOperation->createTooltip( false ) );}
+                {   b->setTooltip( usrOp->createTooltip( false ) );}
                 else
                 {
                     std::ostringstream os;
-                    os << usrOp->createTooltip( false ).c_str() << " ("
+                    os << usrOp->createTooltip( false ) << " ("
                         << _("Techlevel") << " " << usrOp->requiredTech()
                         << " " << _("required") << ")";
-                    b->setTooltip(os.str().c_str());
+                    b->setTooltip(os.str());
                 }
             }
         }
@@ -383,10 +383,10 @@ void ButtonPanel::attachButtons()
                 else
                 {
                     std::ostringstream os;
-                    os << usrOp->createTooltip( false ).c_str() << " ("
+                    os << usrOp->createTooltip( false ) << " ("
                         << _("Techlevel") << " " << usrOp->requiredTech()
                         << _("required") << ")";
-                    b->setTooltip(os.str().c_str());
+                    b->setTooltip(os.str());
                 }
             }
         }
@@ -523,12 +523,11 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     if(!btnOp->enoughTech())
     {
 #ifdef DEBUG
-        ConstructionGroup *constructionGroup = userOperation->constructionGroup;
+        ConstructionGroup *constructionGroup = btnOP->constructionGroup;
         std::cout <<"chooseButton not enough tech for: " << (constructionGroup?constructionGroup->name:"unknown") << std::endl;
 #endif
         return; //Nothing more to do
     }
-    //by now we are sure to have valid choice
 
     previousName = button->getName();
     userOperation = &(ButtonOperations[previousName]);
@@ -621,13 +620,11 @@ void ButtonPanel::menuButtonClicked(CheckButton* button, int b)
                 if( b->isEnabled() )
                 {   b->uncheck();}
             }
-            catch(std::exception &e)
+            catch(...)//(std::exception &e)
             {   }
         }
         else
-        {
-            toggleMenu(mMenus[i],false);
-        }
+        {   toggleMenu(mMenus[i],false);}
     }
 }
 
@@ -874,12 +871,7 @@ void ButtonPanel::doButton(const std::string &button)
     }
     else if(button=="BPMParkButton")
     {
-        //doublechecked by mapedit anyways, but who knows
-        Uint8 *keystate = SDL_GetKeyState(NULL);
-        if ( keystate[SDLK_w] )
-        {   buttonOperation->constructionGroup = &parkpondConstructionGroup;}
-        else
-        {   buttonOperation->constructionGroup = &parklandConstructionGroup;}
+        buttonOperation->constructionGroup = &parklandConstructionGroup;
         buttonOperation->action = UserOperation::ACTION_BUILD;
         buttonOperation->helpName = "park";
     }
