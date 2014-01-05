@@ -165,6 +165,7 @@ void do_bulldoze_area(int x, int y) //arg1 was short fill
     }
     else
     {
+        world(x, y)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
         if (world(x, y)->is_water())
         {
             world(x, y)->type = CST_GREEN;

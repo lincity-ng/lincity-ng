@@ -219,6 +219,7 @@ public:
     void detach();      //removes all references from world, ::constructionCount
     void deneighborize(); //cancells all neighbors and partners mutually
     void   neighborize(); //adds all neigborconnections once (call twice for double connections)
+    int countPowercables(int mask); //removes all but one suspended cable on each edge
     void link_to(Construction* other); //establishes mutual connection to neighbor or partner
     int  tellstuff( Commodities stuff_ID, int level); //tell the filling level of commodity
     void trade(); //exchange commodities with neigbhors

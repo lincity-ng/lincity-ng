@@ -26,51 +26,13 @@ void connect_transport(int originx, int originy, int w, int h)
         1, 1, 5, 6,
         7, 8, 9, 10
     };
-/*
-    static const short track_table[16] = {
-        CST_TRACK_LR, CST_TRACK_LR, CST_TRACK_UD, CST_TRACK_LU,
-        CST_TRACK_LR, CST_TRACK_LR, CST_TRACK_UR, CST_TRACK_LUR,
-        CST_TRACK_UD, CST_TRACK_LD, CST_TRACK_UD, CST_TRACK_LUD,
-        CST_TRACK_DR, CST_TRACK_LDR, CST_TRACK_UDR, CST_TRACK_LUDR
-    };
-*/
+
     static const short table[16] = {
         0, 0, 1, 2,
         0, 0, 3, 4,
         1, 5, 1, 6,
         7, 8, 9, 10
     };
-
-
-/*
-    static const short road_table[16] = {
-        CST_ROAD_LR, CST_ROAD_LR, CST_ROAD_UD, CST_ROAD_LU,
-        CST_ROAD_LR, CST_ROAD_LR, CST_ROAD_UR, CST_ROAD_LUR,
-        CST_ROAD_UD, CST_ROAD_LD, CST_ROAD_UD, CST_ROAD_LUD,
-        CST_ROAD_DR, CST_ROAD_LDR, CST_ROAD_UDR, CST_ROAD_LUDR
-    };
-*/
-/*
-    static const short rail_table[16] = {
-        CST_RAIL_LR, CST_RAIL_LR, CST_RAIL_UD, CST_RAIL_LU,
-        CST_RAIL_LR, CST_RAIL_LR, CST_RAIL_UR, CST_RAIL_LUR,
-        CST_RAIL_UD, CST_RAIL_LD, CST_RAIL_UD, CST_RAIL_LUD,
-        CST_RAIL_DR, CST_RAIL_LDR, CST_RAIL_UDR, CST_RAIL_LUDR
-    };
-*/
-/*
-    static const short water_table[16] = {
-        CST_WATER, CST_WATER_D, CST_WATER_R, CST_WATER_RD,
-        CST_WATER_L, CST_WATER_LD, CST_WATER_LR, CST_WATER_LRD,
-        CST_WATER_U, CST_WATER_UD, CST_WATER_UR, CST_WATER_URD,
-        CST_WATER_LU, CST_WATER_LUD, CST_WATER_LUR, CST_WATER_LURD
-    };
-
-#if FLAG_LEFT != 1 || FLAG_UP != 2 || FLAG_RIGHT != 4 || FLAG_DOWN != 8
-#error  connect_transport(): you loose
-#error  the algorithm depends on proper flag settings -- (ThMO)
-#endif
-*/
 
     Construction *cstr = 0;
     /* Adjust originx,originy,w,h to proper range */
@@ -88,27 +50,23 @@ void connect_transport(int originx, int originy, int w, int h)
     {   w = world.len() - originx;}
     if (originy + h >= world.len())
     {   h = world.len() - originy;}
-    for (int x = originx; x < originx + w; ++x)
+    for (int y = originy; y < originy+h; ++y)
     {
-        for (int y = originy; y < originy + h; ++y)
+        for (int x = originx; x < originx+w; ++x)
         {
             // First, set up a mask according to directions
             cstr = world(x, y)->construction;
             int mask = 0;
-            int mwh = -1;
             switch (world(x, y)->getGroup())
             {
             case GROUP_POWER_LINE:
             {
                 bool far = false;
+                int mwh = -1;
                 world(x,y)->reportingConstruction->deneighborize();
-                //world(x,y)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
-                /* power may be transferred */
                 /* up -- (ThMO) */
-                world(x, y-1)->flags &= ~FLAG_POWER_CABLES_0;
                 mwh = world(x, y-1)->reportingConstruction?
                 world(x, y-1)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
-                /* see if dug under track, rail or road */
                 if ((far = ((y > 1) && (world(x, y-1)->is_water() || world(x, y-1)->is_transport()))))
                 {
                     mwh = world(x, y-2)->reportingConstruction?
@@ -116,15 +74,26 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 if(mwh != -1)
                 {
-                    mask |=8;
-                    int y2 = far?(y-2):(y-1);
-                    cstr->link_to(world(x,y2)->reportingConstruction);
                     if (far) //suspended cables
-                    {   world(x, y-1)->flags |= FLAG_POWER_CABLES_0;}
+                    {
+                        //opposite edge
+                        if (!world(x, y-2)->reportingConstruction->countPowercables(1))
+                        {
+                            world(x, y-1)->flags |= FLAG_POWER_CABLES_0;
+                            cstr->link_to(world(x,y-2)->reportingConstruction);
+                            mask |=8;
+                        }
+                    }
+                    else
+                    {
+                        cstr->link_to(world(x,y-1)->reportingConstruction);
+                        mask |=8;
+                    }
                 }
+                else
+                {   world(x, y-1)->flags &= ~FLAG_POWER_CABLES_0;}
 
                 /* left -- (ThMO) */
-                world(x-1, y)->flags &= ~FLAG_POWER_CABLES_90;
                 mwh = world(x-1, y)->reportingConstruction?
                 world(x-1, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
                 if((far = ((x > 1) && (world(x-1, y)->is_water() || world(x-1, y)->is_transport()))))
@@ -134,15 +103,26 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 if(mwh != -1)
                 {
-                    mask |=4;
-                    int x2 = far?(x-2):(x-1);
-                    cstr->link_to(world(x2,y)->reportingConstruction);
                     if (far) //suspended cables
-                    {   world(x-1, y)->flags |= FLAG_POWER_CABLES_90;}
+                    {
+                        //opposite edge
+                        if ( !world(x-2, y)->reportingConstruction->countPowercables(2) )
+                        {
+                            cstr->link_to(world(x-2,y)->reportingConstruction);
+                            world(x-1, y)->flags |= FLAG_POWER_CABLES_90;
+                            mask |=4;
+                        }
+                    }
+                    else
+                    {
+                        cstr->link_to(world(x-1,y)->reportingConstruction);
+                        mask |=4;
+                    }
                 }
+                else
+                {   world(x-1, y)->flags &= ~FLAG_POWER_CABLES_90;}
 
                 /* right -- (ThMO) */
-                world(x+1, y)->flags &= ~FLAG_POWER_CABLES_90;
                 mwh = world(x+1, y)->reportingConstruction?
                 world(x+1, y)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
                 if ((far = ((x < world.len() - 2) && (world(x+1, y)->is_water() || world(x+1, y)->is_transport()))))
@@ -152,15 +132,26 @@ void connect_transport(int originx, int originy, int w, int h)
                 }
                 if(mwh != -1)
                 {
-                    mask |=2;
-                    int x2 = far?(x+2):(x+1);
-                    cstr->link_to(world(x2,y)->reportingConstruction);
                     if (far) //suspended cables
-                    {   world(x+1, y)->flags |= FLAG_POWER_CABLES_90;}
+                    {
+                        //opposite edge
+                        if ( !world(x+2, y)->reportingConstruction->countPowercables(4) )
+                        {
+                            cstr->link_to(world(x+2,y)->reportingConstruction);
+                            world(x+1, y)->flags |= FLAG_POWER_CABLES_90;
+                            mask |=2;
+                        }
+                    }
+                    else
+                    {
+                        cstr->link_to(world(x+1,y)->reportingConstruction);
+                        mask |=2;
+                    }
                 }
+                else
+                {   world(x+1, y)->flags &= ~FLAG_POWER_CABLES_90;}
 
                 /* down -- (ThMO) */
-                world(x, y+1)->flags &= ~FLAG_POWER_CABLES_0;
                 mwh = world(x, y+1)->reportingConstruction?
                 world(x, y+1)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;
                 if ((far = (y < world.len() - 2) && (world(x, y+1)->is_water() || world(x, y+1)->is_transport())))
@@ -169,12 +160,24 @@ void connect_transport(int originx, int originy, int w, int h)
                     world(x, y+2)->reportingConstruction->tellstuff(Construction::STUFF_MWH, -2):-1;}
                 if(mwh != -1)
                 {
-                    mask |=1;
-                    int y2 = far?(y+2):(y+1);
-                    cstr->link_to(world(x,y2)->reportingConstruction);
                     if (far) //suspended cables
-                    {   world(x, y+1)->flags |= FLAG_POWER_CABLES_0;}
+                    {
+                        //opposite edge
+                        if ( !world(x, y+2)->reportingConstruction->countPowercables(8) )
+                        {
+                            cstr->link_to(world(x,y+2)->reportingConstruction);
+                            world(x, y+1)->flags |= FLAG_POWER_CABLES_0;
+                            mask |=1;
+                        }
+                    }
+                    else
+                    {
+                        cstr->link_to(world(x,y+1)->reportingConstruction);
+                        mask |=1;
+                    }
                 }
+                else
+                {   world(x, y+1)->flags &= ~FLAG_POWER_CABLES_0;}
 
                 cstr->type = power_table[mask];
                 break;

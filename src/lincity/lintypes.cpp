@@ -754,7 +754,7 @@ void Construction::deneighborize()
         partner->erase(partner_it);
     }
     partners.clear();
-    if (constructionGroup->group == GROUP_POWER_LINE)//(flags & FLAG_POWER_LINE)
+    if (constructionGroup->group == GROUP_POWER_LINE)
     {
         world(x + 1, y)->flags &= ~FLAG_POWER_CABLES_90;
         world(x - 1, y)->flags &= ~FLAG_POWER_CABLES_90;
@@ -938,6 +938,49 @@ void Construction::link_to(Construction* other)
     //std::cout << "useless connection : " << constructionGroup->name << "(" << x << "," << y << ") - "
     //<< other->constructionGroup->name << "(" << other->x << "," << other->y << ")" << std::endl;
 }
+
+int Construction::countPowercables(int mask)
+{
+    //must match mask definition from connect_transport() in transport.cpp
+    //y-1    //mask & 8
+    //x-1    //mask & 4
+    //x+size //mask & 2
+    //y+size //mask & 1
+    unsigned short size = constructionGroup->size;
+    int count = 0;
+
+    for(unsigned short i = 0; i < size; ++i)
+    {
+        if( (mask & 8) &&
+            world(x + i, y - 1)->flags & FLAG_POWER_CABLES_0 )
+        {++count;}
+
+        if( (mask & 4) &&
+            world(x - 1, y + i)->flags & FLAG_POWER_CABLES_90 )
+        {   ++count;}
+
+        if( (mask & 2)
+            && world(x + size, y + i)->flags & FLAG_POWER_CABLES_90 )
+        {   ++count;}
+
+        if( (mask & 1) &&
+            world(x + i, y + size)->flags & FLAG_POWER_CABLES_0 )
+        {   ++count;}
+
+    } //end for size
+/*  //TODO needs changes in GameView in order to be actually drawn
+    if (constructionGroup == &substationConstructionGroup )
+    {
+        //here size = 2
+        world(x+1,y)->flags &= (world(x + 2, y)->flags & FLAG_POWER_CABLES_90);
+        world(x,y+1)->flags &= (world(x, y + 2)->flags & FLAG_POWER_CABLES_0);
+    }
+*/
+    return count;
+}
+
+
+
 
 int Construction::tellstuff(Commodities stuff_ID, int center_ratio) //called by Minimap and connecttransport
 {

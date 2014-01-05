@@ -31,6 +31,7 @@ void ConstructionDeletionRequest::execute()
         for (int j = 0; j < size; j++)
         {
             //update mps display
+            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
             if (mps_x == x + j && mps_y == y + i)
             {   mps_set(x + j, y + i, MPS_MAP);}
         }
@@ -51,6 +52,7 @@ void OreMineDeletionRequest::execute()
     {
         for (int j = 0; j < size; j++)
         {
+            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
             if (world(x+j,y+i)->ore_reserve < ORE_RESERVE / 2)
             {
                 world(x+j,y+i)->setTerrain(GROUP_WATER);
@@ -79,6 +81,7 @@ void CommuneDeletionRequest::execute()
     {
         for (unsigned short j = 0; j < size; ++j)
         {
+            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
             if (world(x+j,y+i)->flags & FLAG_HAS_UNDERGROUND_WATER)
             {    parklandConstructionGroup.placeItem(x+j, y+i);}
             //update mps display
@@ -102,6 +105,7 @@ void BurnDownRequest::execute()
     {
         for (unsigned short j = 0; j < size; ++j)
         {
+            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
             fireConstructionGroup.placeItem(x+j, y+i);
             static_cast<Fire*> (world(x+j,y+i)->construction)->burning_days = FIRE_LENGTH - 25;
             //update mps display
@@ -125,6 +129,7 @@ void SetOnFire::execute()
     {
         for (unsigned short j = 0; j < size; ++j)
         {
+            world(x + j, y + i)->flags &= ~(FLAG_POWER_CABLES_0 | FLAG_POWER_CABLES_90);
             fireConstructionGroup.placeItem(x+j, y+i);
             //update mps display
             if (mps_x == x + j && mps_y == y + i)
