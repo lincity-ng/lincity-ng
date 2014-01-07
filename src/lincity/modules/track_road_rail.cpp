@@ -181,7 +181,7 @@ void Transport::list_traffic(int *i)
     for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
     {
         if(*i < 14)
-        {   mps_store_sfp((*i)++, commodityNames[stuff_it->first], (float) stuff_it->second * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+        {   mps_store_sfp((*i)++, commodityNames[stuff_it->first], (float) stuff_it->second * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
     }
 }
 
@@ -213,7 +213,7 @@ void Transport::playSound()
             int avg = 0;
             std::map<Commodities, int>::iterator stuff_it;
             for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
-            {   avg += (stuff_it->second * 100 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+            {   avg += (stuff_it->second * 107 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
             if(avg > 0) //equiv to size > 0
             {   avg /= trafficCount.size();}
             int num_sounds = constructionGroup->chunks.size()/2;

@@ -1601,69 +1601,71 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
 
     ConstructionGroup *cstgrp = world(x,y)->getTopConstructionGroup();
     unsigned short size = cstgrp->size;
-    Construction *cst = world(x,y)->reportingConstruction;
 
     //Attention map is rotated for displaying
-    if ( ( tile.x != x ) || ( tile.y - size +1 != y ) ) //Signs are tested
-    {   return;}
-
-    //adjust OnScreenPoint of big Tiles
-    MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
-    unsigned short textureType = world(upperLeft.x, upperLeft.y)->getTopType();
-
-    GraphicsInfo *graphicsInfo = 0;
-    //draw terrain underneath transparent constructions
-    if ( cst && (cst->flags & FLAG_TRANSPARENT) )
+    if ( ( tile.x == x ) && ( tile.y - size +1 == y ) ) //Signs are tested
     {
-        ConstructionGroup *tilegrp = world(upperLeft.x, upperLeft.y)->getTileConstructionGroup();
-        if (tilegrp->images_loaded)
+        Construction *cst = world(x,y)->reportingConstruction;
+        //adjust OnScreenPoint of big Tiles
+        MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
+        unsigned short textureType = world(upperLeft.x, upperLeft.y)->getTopType();
+
+        GraphicsInfo *graphicsInfo = 0;
+        //draw terrain underneath transparent constructions
+        if ( cst && (cst->flags & FLAG_TRANSPARENT) )
         {
-            size_t s = tilegrp->graphicsInfoVector.size();
+            ConstructionGroup *tilegrp = world(upperLeft.x, upperLeft.y)->getTileConstructionGroup();
+            if (tilegrp->images_loaded)
+            {
+                size_t s = tilegrp->graphicsInfoVector.size();
+                if (s)
+                {
+                    graphicsInfo = &tilegrp->graphicsInfoVector
+                    [ world(x, y)->type  % s];
+                    drawTexture(painter, lowerRightTile, graphicsInfo);
+                }
+            }
+        }
+
+        // if we hide high buildings, hide trees as well
+        if (hideHigh && (cstgrp == &treeConstructionGroup
+         || cstgrp == &tree2ConstructionGroup
+         || cstgrp == &tree3ConstructionGroup ))
+        {   cstgrp = &bareConstructionGroup;}
+
+        if(cstgrp->images_loaded && (size==1 || !hideHigh))
+        {
+            size_t s = cstgrp->graphicsInfoVector.size();
             if (s)
             {
-                graphicsInfo = &tilegrp->graphicsInfoVector
-                [ world(x, y)->type  % s];
+                graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s];
                 drawTexture(painter, lowerRightTile, graphicsInfo);
             }
         }
-    }
-
-    // if we hide high buildings, hide trees as well
-    if (hideHigh && (cstgrp == &treeConstructionGroup
-     || cstgrp == &tree2ConstructionGroup
-     || cstgrp == &tree3ConstructionGroup ))
-    {   cstgrp = &bareConstructionGroup;}
-
-    if(cstgrp->images_loaded && (size==1 || !hideHigh))
-    {
-        size_t s = cstgrp->graphicsInfoVector.size();
-        if (s)
+        else
         {
-            graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s];
-            drawTexture(painter, lowerRightTile, graphicsInfo);
+            Rect2D tilerect( 0, 0, size * tileWidth, size * tileHeight );
+            Vector2 tileOnScreenPoint = getScreenPoint( lowerRightTile );
+            tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
+            tileOnScreenPoint.y -= tileHeight*size;
+            tilerect.move( tileOnScreenPoint );
+            painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
+            fillDiamond( painter, tilerect );
         }
+        //last draw suspended power cables on top
+        //only works for size == 1
+        if(powerlineConstructionGroup.images_loaded)
+        {
+            cstgrp = &powerlineConstructionGroup;
+            if (world(x, y)->flags & FLAG_POWER_CABLES_0)
+            {   drawTexture(painter, upperLeft, &cstgrp->graphicsInfoVector[23]);}
+            if (world(x, y)->flags & FLAG_POWER_CABLES_90)
+            {   drawTexture(painter, upperLeft, &cstgrp->graphicsInfoVector[22]);}
+        }
+
     }
-    else
-    {
-        Rect2D tilerect( 0, 0, size * tileWidth, size * tileHeight );
-        Vector2 tileOnScreenPoint = getScreenPoint( lowerRightTile );
-        tileOnScreenPoint.x =  tileOnScreenPoint.x - ( tileWidth*size / 2);
-        tileOnScreenPoint.y -= tileHeight*size;
-        tilerect.move( tileOnScreenPoint );
-        painter.setFillColor( getMiniMap()->getColorNormal( tile.x, tile.y ) );
-        fillDiamond( painter, tilerect );
-    }
-    //last draw suspended power cables on top
-    if(powerlineConstructionGroup.images_loaded)
-    {
-        x = lowerRightTile.x;
-        y = lowerRightTile.y;
-        cstgrp = &powerlineConstructionGroup;
-        if (world(x, y)->flags & FLAG_POWER_CABLES_0)
-        {   drawTexture(painter, lowerRightTile, &cstgrp->graphicsInfoVector[23]);}
-        if (world(x, y)->flags & FLAG_POWER_CABLES_90)
-        {   drawTexture(painter, lowerRightTile, &cstgrp->graphicsInfoVector[22]);}
-    }
+
+
 }
 
 /*

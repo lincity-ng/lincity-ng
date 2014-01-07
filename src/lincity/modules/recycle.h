@@ -74,7 +74,7 @@ public:
         int efficiency;
         efficiency = ( WASTE_RECYCLED * (10 + ( (50 * tech) / MAX_TECH_LEVEL)) ) / 100;
         if (efficiency > (WASTE_RECYCLED * 8) / 10)
-            efficiency = (WASTE_RECYCLED * 8) / 10;
+        {   efficiency = (WASTE_RECYCLED * 8) / 10;}
         this->make_ore = efficiency;
         setMemberSaved(&this->make_ore, "make_ore");
         this->make_steel = efficiency / 50;

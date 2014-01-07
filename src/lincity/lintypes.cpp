@@ -968,7 +968,7 @@ int Construction::countPowercables(int mask)
         {   ++count;}
 
     } //end for size
-/*  //TODO needs changes in GameView in order to be actually drawn
+/*    //TODO needs changes in GameView in order to be actually drawn
     if (constructionGroup == &substationConstructionGroup )
     {
         //here size = 2
@@ -1087,9 +1087,9 @@ void Construction::trade()
                 {   max_traffic = traffic;}
             }
         }
-        int flow = center_lvl - old_center;//stuff_it->second;
+        int flow = center_lvl - old_center;
         //do some smoothing to suppress fluctuations from random order
-        // max possible ~90 %
+        // max possible 92.8%
         if(transport) //Special for transport
         {   transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;}
         else if(powerline) //Special for powerlines

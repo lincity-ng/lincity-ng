@@ -523,7 +523,7 @@ void ButtonPanel::chooseButtonClicked(CheckButton* button, int mousebutton )
     if(!btnOp->enoughTech())
     {
 #ifdef DEBUG
-        ConstructionGroup *constructionGroup = btnOP->constructionGroup;
+        ConstructionGroup *constructionGroup = btnOp->constructionGroup;
         std::cout <<"chooseButton not enough tech for: " << (constructionGroup?constructionGroup->name:"unknown") << std::endl;
 #endif
         return; //Nothing more to do

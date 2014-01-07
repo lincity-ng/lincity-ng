@@ -140,6 +140,9 @@ void save_city_2(std::string xml_file_name)
     if (world.len() == COMPATIBLE_WORLD_SIDE_LEN)
     {
         int dumbint = 0;
+        found = xml_file_name.find(".gz");
+        if (found < xml_file_name.length())
+        {   xml_file_name = xml_file_name.substr(0,found);}
         gzFile ofile = gzopen(xml_file_name.c_str(), "wb");
         if (ofile == NULL) {
             printf("%s <%s> - ", _("Save file"), xml_file_name.c_str());
@@ -311,7 +314,6 @@ void load_city_2(char *cname)
     std::string xml_file_name;
     xml_file_name = cname;
     found = xml_file_name.find(".gz");
-
     if (found > xml_file_name.length() - 3)
     {   xml_file_name += ".gz";}
     init_pbars();

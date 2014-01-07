@@ -1025,10 +1025,11 @@ Color MiniMap::getColor(int x,int y) const
                 if (loc_lvl < 0)
                 {   return makeGrey(getColorNormal(xx,yy));}
                 loc_lvl = loc_lvl * TRANSPORT_RATE / TRANSPORT_QUANTA;
+
 #ifdef DEBUG
-                assert(!(loc_lvl > 1)); //should never happen
+                assert(!(loc_lvl > 0.928)); //should be limit from fluctuations
 #endif
-                loc_lvl = 2-2/(1+loc_lvl);
+                loc_lvl = 2-2/(1+((loc_lvl>0.928)?1:loc_lvl/0.928));
                 //more contrast for small loads
                 Color mc((int) (0xFF*loc_lvl), (int) (0xFF*(1-loc_lvl)), 0);
                 return mc;
