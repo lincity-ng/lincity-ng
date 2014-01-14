@@ -36,13 +36,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 tinygettext::DictionaryManager* dictionaryGUIManager = 0;
 
-const char * 
+const char *
 GUI_TRANSLATE(const char * msgid)
 {
     return dictionaryGUIManager->get_dictionary().translate(msgid);
 }
 
-std::string  
+std::string
 GUI_TRANSLATE(const std::string& msgid)
 {
     return dictionaryGUIManager->get_dictionary().translate(msgid);
@@ -64,7 +64,7 @@ public:
 
         component_factories->insert(std::make_pair("Import", this));
     }
-    
+
     Component* createComponent(XmlReader& reader);
 };
 //static ImportFactory factory_Import;
@@ -73,7 +73,7 @@ Component*
 ImportFactory::createComponent(XmlReader& reader)
 {
     std::string importfile;
-    
+
     XmlReader::AttributeIterator iter(reader);
     while(iter.next()) {
         const char* attribute = (const char*) iter.getName();
@@ -87,7 +87,7 @@ ImportFactory::createComponent(XmlReader& reader)
     }
 
     if(importfile == "")
-        throw std::runtime_error("No src attribute specified.");  
+        throw std::runtime_error("No src attribute specified.");
     XmlReader nreader(importfile);
     //std::cout << "importing Factory: " << importfile << std::endl;
     return ::createComponent((const char*) nreader.getName(), nreader);
@@ -135,9 +135,12 @@ DECLARE_COMPONENT_FACTORY(Window)
 
 void initFactories()
 {
+#ifdef DEBUG
     static bool initialized = false;
-    if(!initialized) {
-		//new INTERN_CheckButtonFactory(); //FIXME will this help?
+    if(!initialized)
+    {
+#endif
+        //new INTERN_CheckButtonFactory(); //FIXME will this help?
         new INTERN_ButtonFactory();
         new INTERN_DesktopFactory();
         new INTERN_DocumentFactory();
@@ -158,8 +161,10 @@ void initFactories()
         dictionaryGUIManager->set_charset("UTF-8");
         dictionaryGUIManager->add_directory("locale/gui");
 
+#ifdef DEBUG
         initialized = true;
     }
+#endif
 }
 
 

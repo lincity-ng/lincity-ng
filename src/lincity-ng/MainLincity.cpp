@@ -48,8 +48,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 extern void print_total_money(void);
 extern void init_types(void);
-//FIXME only slows down ?
-//extern void initFactories();
+extern void initFactories(void);
 
 int lincitySpeed = MED_TIME_FOR_YEAR;
 /******************************************/
@@ -144,7 +143,7 @@ void initLincity()
     check_savedir();
 
     /*initialize Desktop Componenet Factories*/
-    //initFactories();
+    initFactories();
 
     /* Initialize random number generator */
     srand (time (0));

@@ -35,34 +35,34 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <iostream>
 #include <memory>
 
-void initFactories();
+//void initFactories();
 
 Component* createComponent(const std::string& type, XmlReader& reader)
 {
     //static int depth = 0;
-    initFactories();
+    //initFactories();
     //Component * component = 0;
     if(component_factories == 0)
         throw std::runtime_error("No component factories registered");
-    
+
     ComponentFactories::iterator i = component_factories->find(type);
     if(i == component_factories->end()) {
         std::stringstream msg;
         msg << "Couldn't find a component factory for '" << type << "'";
         throw std::runtime_error(msg.str());
     }
-/*     
+/*
     for(int i=0;i<depth;++i)
-		std::cout << "\t";
+        std::cout << "\t";
     std::cout << type << ": begin" <<std::endl;
     std::cout.flush();
-    ++depth; 
+    ++depth;
     component = i->second->createComponent(reader);
     --depth;
     for(int i=0;i<depth;++i)
-		std::cout << "\t";
+        std::cout << "\t";
     std::cout << type << ": end" << std::endl;
-*/ 
+*/
     try {
         return i->second->createComponent(reader);
     } catch(std::exception& e) {
@@ -77,14 +77,14 @@ Component* createComponent(const std::string& type, XmlReader& reader)
 Component* loadGUIFile(const std::string& filename)
 {
     XmlReader reader(filename);
-   
+
     std::string componentName = (const char*) reader.getName();
     if(componentName == "gui") {
         std::auto_ptr<Desktop> desktop (new Desktop());
         desktop->parse(reader);
         return desktop.release();
     }
-    
+
     std::auto_ptr<Component> component (createComponent(componentName, reader));
     return component.release();
 }
