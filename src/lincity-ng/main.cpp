@@ -48,7 +48,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/loadsave.h"
 #include "lincity/engglobs.h"
 #include "lincity/lin-city.h"
-//#include "lincity/modules/all_modules.h"
 
 #ifdef ENABLE_BINRELOC
 #include "binreloc.h"

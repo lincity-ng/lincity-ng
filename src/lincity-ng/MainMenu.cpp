@@ -44,6 +44,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "Config.hpp"
 #include "Sound.hpp"
 #include "GameView.hpp"
+#include "Game.hpp"
 #include "MainLincity.hpp"
 #include "readdir.hpp"
 
@@ -796,8 +797,11 @@ void
 MainMenu::saveGameButtonClicked(Button* )
 {
     getSound()->playSound( "Click" );
-    loadSaveGameMenu();
-    switchMenu(saveGameMenu.get());
+    if(getGame())
+    {
+        loadSaveGameMenu();
+        switchMenu(saveGameMenu.get());
+    }
 }
 
 void
@@ -962,6 +966,7 @@ MainMenu::loadGameSaveButtonClicked(Button *)
     std::string newFilename( newStart.str() );
     saveCityNG( newFilename );
     fillLoadMenu( true );
+    gotoMainMenu();
 }
 
 

@@ -42,6 +42,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "TimerInterface.hpp"
 
 #include "GameView.hpp"
+#include "Game.hpp"
 #include "ScreenInterface.hpp"
 #include "Dialog.hpp"
 #include "Config.hpp"
@@ -107,9 +108,12 @@ void execute_timestep ()
  * get Data form Lincity NG and Save City
  */
 void saveCityNG( std::string newFilename ){
-    GameView* gv = getGameView();
-    if( gv ){ gv->writeOrigin(); }
-    save_city(const_cast<char*>( newFilename.c_str() ) );
+    if (getGame())
+    {
+        GameView* gv = getGameView();
+        if( gv ){ gv->writeOrigin(); }
+        save_city(const_cast<char*>( newFilename.c_str() ) );
+    }
 }
 
 /*
