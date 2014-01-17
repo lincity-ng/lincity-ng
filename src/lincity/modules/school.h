@@ -15,6 +15,9 @@
 #define MAX_WASTE_AT_SCHOOL    (20 * GOODS_MAKE_TECH_SCHOOL / 3)
 #define SCHOOL_RUNNING_COST    2
 
+#define SCHOOL_ANIMATION_SPEED 80
+#define SCHOOL_ANIMATION_BREAK 9500
+
 
 #include "modules.h"
 #include "../lintypes.h"
@@ -54,6 +57,8 @@ public:
     School(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<School>(x, y)
     {
         this->constructionGroup = cstgrp;
+        this->animate = false;
+        this->anim = 0;
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
@@ -65,6 +70,8 @@ public:
     virtual void update();
     virtual void report();
 
+    int  anim;
+    bool animate;
     int total_tech_made;
     int working_days, busy;
 };

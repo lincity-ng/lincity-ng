@@ -39,6 +39,14 @@ void School::update()
         ++working_days;
         tech_level += TECH_MADE_BY_SCHOOL;
         total_tech_made += TECH_MADE_BY_SCHOOL;
+        if( !animate && (busy >= 20) && (real_time > anim) ) //start the swing
+        {
+            type = 1;
+            frame = 2;
+            animate = true;
+            anim = real_time + SCHOOL_ANIMATION_SPEED;
+        }
+
     }
     if ((total_time % 100) == 0)
     {
@@ -46,6 +54,31 @@ void School::update()
         working_days = 0;
     }
     school_cost += SCHOOL_RUNNING_COST;
+    if (animate && (real_time > anim)) // do the swing
+    {
+        type = 1;
+        frame++;
+        anim = real_time + SCHOOL_ANIMATION_SPEED;
+        if (frame >= constructionGroup->graphicsInfoVector.size())
+        {
+
+            anim = real_time + SCHOOL_ANIMATION_BREAK- 100 * busy; //set swing delay
+            if ((real_time >= anim)) // restart
+            {
+                frame = 3;
+                type = 1;
+                animate = true;
+                anim = real_time + SCHOOL_ANIMATION_SPEED;
+            }
+            else //
+            {
+                frame = 0;
+                type = 0;
+                animate = false;
+            }
+
+        }
+    }
 }
 
 void School::report()
