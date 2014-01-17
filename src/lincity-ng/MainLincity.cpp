@@ -122,7 +122,10 @@ void saveCityNG( std::string newFilename ){
 bool loadCityNG( std::string filename ){
     if( PHYSFS_isDirectory( filename.c_str() ))
     {   return false;}
-    std::string dir = PHYSFS_getWriteDir();
+
+    const char* directory = PHYSFS_getRealDir(filename.c_str());
+    //FIXME PHYSFS_getWriteDir() does not work for built in scenarios
+    std::string dir = directory;//PHYSFS_getWriteDir();
     filename = dir + PHYSFS_getDirSeparator() + filename;
     if( file_exists( const_cast<char*>( filename.c_str()) ) )
     {
@@ -131,6 +134,10 @@ bool loadCityNG( std::string filename ){
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         return true;
+    }
+    else
+    {
+        std::cout << "missing file: " << filename << std::endl;
     }
     return false;
 }

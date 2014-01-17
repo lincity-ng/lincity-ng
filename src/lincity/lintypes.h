@@ -167,6 +167,7 @@ public:
 
     ConstructionGroup *constructionGroup;
     unsigned short type;
+    unsigned short frame; //frame != 0 is rendered over type
     int x, y;
     int ID;
     int flags;              //flags are defined in lin-city.h
@@ -255,6 +256,7 @@ public:
     RegisteredConstruction<ConstructionClass>( int x, int y)
     {
         this->type = 0;//safe default
+        this->frame = 0;//frame != 0 is rendered on top of type
         setMemberSaved(&(this->type),"type");
         this->x = x;
         this->y = y;

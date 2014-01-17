@@ -168,12 +168,6 @@ void MainMenu::fillNewGameMenu()
   button->clicked.connect(makeCallback(*this,&MainMenu::selectLoadGameButtonClicked));
 
   return;
-  /* Is there a better way to add filenames to the directory? */
-  _("good_times");
-  _("bad_times");
-  _("Beach");
-  _("extreme_arid");
-  _("extreme_wetland");
 }
 
 void MainMenu::fillLoadMenu( bool save /*= false*/ )

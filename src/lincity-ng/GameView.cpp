@@ -1608,7 +1608,8 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         Construction *cst = world(x,y)->reportingConstruction;
         //adjust OnScreenPoint of big Tiles
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
-        unsigned short textureType = world(upperLeft.x, upperLeft.y)->getTopType();
+        unsigned short textureType = world(x, y)->getTopType();
+        unsigned short textureFrame = world(x,y)->construction?world(x,y)->construction->frame:0;
 
         GraphicsInfo *graphicsInfo = 0;
         //draw terrain underneath transparent constructions
@@ -1638,8 +1639,14 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
             size_t s = cstgrp->graphicsInfoVector.size();
             if (s)
             {
-                graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s];
+                graphicsInfo = &cstgrp->graphicsInfoVector[ textureType % s]; //needed
                 drawTexture(painter, lowerRightTile, graphicsInfo);
+                if(textureFrame)
+                {
+
+                    graphicsInfo = &cstgrp->graphicsInfoVector[ textureFrame % s]; //needed
+                    drawTexture(painter, lowerRightTile, graphicsInfo);
+                }
             }
         }
         else
