@@ -57,6 +57,8 @@ public:
     School(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<School>(x, y)
     {
         this->constructionGroup = cstgrp;
+        frames.resize(1);
+        frames[0].constructionGroup = cstgrp; // School is the host of the swing
         this->animate = false;
         this->anim = 0;
         this->working_days = 0;

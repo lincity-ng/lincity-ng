@@ -158,6 +158,11 @@ struct CommodityRule{
     bool give;
 };
 
+struct ExtraFrame{
+    unsigned short frame; //frame !=0 will be rendered as overlay
+    ConstructionGroup *constructionGroup; //overlay frame is choosen from its GraphicsInfoVector
+};
+
 class Construction {
 public:
     virtual ~Construction() {}
@@ -167,7 +172,6 @@ public:
 
     ConstructionGroup *constructionGroup;
     unsigned short type;
-    unsigned short frame; //frame != 0 is rendered over type
     int x, y;
     int ID;
     int flags;              //flags are defined in lin-city.h
@@ -196,13 +200,13 @@ public:
     };
 
     std::map<Commodities, int> commodityCount;  //map that holds all kinds of stuff
-    std::map<std::string, MemberRule> memberRuleCount;
+    std::map<std::string, MemberRule> memberRuleCount; //what to do with stuff at this construction
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
+    std::vector<ExtraFrame> frames;             //Overlays to be rendered on top of type
 
     void list_commodities(int *);                   //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
-    //void list_connections(int *);                 //prints the detected lurd connections
     void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
     void bootstrap_commodities(int percentage);     // sets all commodities except STUFF_WASTE to percentage.
     int loadMember(std::string const &xml_tag, std::string const &xml_val);
@@ -256,7 +260,7 @@ public:
     RegisteredConstruction<ConstructionClass>( int x, int y)
     {
         this->type = 0;//safe default
-        this->frame = 0;//frame != 0 is rendered on top of type
+        //this->frame = 0;//frame != 0 is rendered on top of type
         setMemberSaved(&(this->type),"type");
         this->x = x;
         this->y = y;
