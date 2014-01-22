@@ -494,18 +494,18 @@
     <group>
     <resourceID name="School" />
     <image file="school-static.png" />
-    <image file="school-animation.png" />
-    <image file="school-swing0001.png" />
-    <image file="school-swing0002.png" />
-    <image file="school-swing0003.png" />
-    <image file="school-swing0004.png" />
-    <image file="school-swing0005.png" />
-    <image file="school-swing0006.png" />
-    <image file="school-swing0007.png" />
-    <image file="school-swing0008.png" />
-    <image file="school-swing0009.png" />
-    <image file="school-swing0010.png" />
-    <image file="school-swing0011.png" />
+    <image file="school-animation.png"/>
+    <image file="school-swing0001.png" x="-37" y="96"/>
+    <image file="school-swing0002.png" x="-37" y="96"/>
+    <image file="school-swing0003.png" x="-37" y="96"/>
+    <image file="school-swing0004.png" x="-37" y="96"/>
+    <image file="school-swing0005.png" x="-37" y="96"/>
+    <image file="school-swing0006.png" x="-37" y="96"/>
+    <image file="school-swing0007.png" x="-37" y="96"/>
+    <image file="school-swing0008.png" x="-37" y="96"/>
+    <image file="school-swing0009.png" x="-37" y="96"/>
+    <image file="school-swing0010.png" x="-37" y="96"/>
+    <image file="school-swing0011.png" x="-37" y="96"/>
     </group>
 
     <group>
