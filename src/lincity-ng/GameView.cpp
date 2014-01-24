@@ -432,8 +432,6 @@ SDL_Surface* GameView::readImage(const std::string& filename)
 void GameView::preReadImages(void)
 {
     std::string dirsep = PHYSFS_getDirSeparator();
-    //std::string xmlfile = std::string("images") + dirsep
-    //+ std::string("tiles") + dirsep + std::string("images.xml");
 
     std::ostringstream os;
     os << "images" << dirsep << "tiles" << dirsep << "images.xml";
@@ -443,8 +441,6 @@ void GameView::preReadImages(void)
 
     ConstructionGroup *constructionGroup = 0;
     int resourceID_level = 0;
-    int xmlX = -1;
-    int xmlY = -1;
     std::string key;
 
     while( reader.read() )
@@ -498,6 +494,10 @@ void GameView::preReadImages(void)
             if( element == "image" )
             {
                 XmlReader::AttributeIterator iter(reader);
+                int xmlX = 64;
+                int xmlY = 32;
+                bool xmlX_set = false;
+                bool xmlY_set = false;
                 while(iter.next())
                 {
                     const char* name = (const char*) iter.getName();
@@ -509,16 +509,18 @@ void GameView::preReadImages(void)
                         if(sscanf(value, "%i", &xmlX) != 1)
                         {
                             std::cerr << "GameView::preReadCityXY# Error parsing integer value '" << value << "' in x attribute.\n";
-                            xmlX = -1;
                         }
+                        else
+                        {   xmlX_set = true;}
                     }
                    else if(strcmp(name, "y") == 0 )
                     {
                         if(sscanf(value, "%i", &xmlY) != 1)
                         {
                             std::cerr << "GameView::preReadCityXY# Error parsing integer value '" << value << "' in y attribute.\n";
-                            xmlY = -1;
                         }
+                        else
+                        {   xmlY_set = true;}
                     }
                 }
 
@@ -535,9 +537,9 @@ void GameView::preReadImages(void)
                     {
                         std::cout << "image error: " << key << std::endl;
                     }
-                    if(xmlX == -1)
+                    if(!xmlX_set)
                     {   xmlX = int(graphicsInfo->image->w/2);}
-                    if(xmlY == -1)
+                    if(!xmlY_set)
                     {   xmlY = int(graphicsInfo->image->h);}
                     graphicsInfo->x = xmlX;
                     graphicsInfo->y = xmlY;
@@ -545,8 +547,6 @@ void GameView::preReadImages(void)
                     //SDL_mutexV( mTextures );
                 }
 
-                xmlX = -1;
-                xmlY = -1;
                 key.clear();
             }
         }
