@@ -159,6 +159,15 @@ struct CommodityRule{
 };
 
 struct ExtraFrame{
+    ExtraFrame(void){
+        move_x = 0;
+        move_y = 0;
+        frame = 0;
+        constructionGroup = 0;
+    }
+
+    int move_x; // >0 moves frame to the right
+    int move_y; // >0 moves frame downwards
     unsigned short frame; //frame !=0 will be rendered as overlay
     ConstructionGroup *constructionGroup; //overlay frame is choosen from its GraphicsInfoVector
 };
@@ -260,7 +269,6 @@ public:
     RegisteredConstruction<ConstructionClass>( int x, int y)
     {
         this->type = 0;//safe default
-        //this->frame = 0;//frame != 0 is rendered on top of type
         setMemberSaved(&(this->type),"type");
         this->x = x;
         this->y = y;

@@ -1609,7 +1609,6 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         //adjust OnScreenPoint of big Tiles
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         unsigned short textureType = world(x, y)->getTopType();
-        //unsigned short textureFrame = cst?cst->frame:0;
 
         GraphicsInfo *graphicsInfo = 0;
         //draw terrain underneath transparent constructions
@@ -1622,7 +1621,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                 if (s)
                 {
                     graphicsInfo = &tilegrp->graphicsInfoVector
-                    [ world(x, y)->type  % s];
+                        [ world(x, y)->type  % s];
                     drawTexture(painter, lowerRightTile, graphicsInfo);
                 }
             }
@@ -1641,23 +1640,22 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
             {
                 graphicsInfo = &cstgrp->graphicsInfoVector[ textureType %  s]; //needed
                 drawTexture(painter, lowerRightTile, graphicsInfo);
-/*
-                if(textureFrame)
-                {
 
-                    graphicsInfo = &cstgrp->graphicsInfoVector[ textureFrame % s]; //needed
-                    drawTexture(painter, lowerRightTile, graphicsInfo);
-                }
-*/
                 if (cst)
                 {
                     for( std::vector <ExtraFrame>::iterator it = cst->frames.begin();
                          it != cst->frames.end(); ++it)
                     {
-                        if(it->frame)
+                        if(it->constructionGroup && it->frame)
                         {
                             graphicsInfo = &it->constructionGroup->graphicsInfoVector[ it->frame % s ]; //needed
+                            int old_x = graphicsInfo->x;
+                            int old_y = graphicsInfo->y;
+                            graphicsInfo->x = old_x - it->move_x;
+                            graphicsInfo->y = old_y - it->move_y;
                             drawTexture(painter, lowerRightTile, graphicsInfo);
+                            graphicsInfo->x = old_x;
+                            graphicsInfo->y = old_y;
                         }
                     }
                 }
