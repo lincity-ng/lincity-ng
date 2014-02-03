@@ -58,7 +58,7 @@ void Mill::update()
     if (real_time >= anim && animate)
     {
         anim = real_time + MILL_ANIM_SPEED;
-        if(++type >= constructionGroup->graphicsInfoVector.size())
+        if(++type >= graphicsGroup->graphicsInfoVector.size())
         {   type = 1;}
     }
 }

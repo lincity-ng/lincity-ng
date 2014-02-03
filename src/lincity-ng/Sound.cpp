@@ -61,8 +61,8 @@ Sound::loadWaves() {
     XmlReader reader( xmlfile );
     std::string filename;
     std::string fullname;
-    std::vector<ConstructionGroup*> cstGrpVec;
-    cstGrpVec.clear();
+    std::vector<ResourceGroup*> resGrpVec;
+    resGrpVec.clear();
     int resourceID_level = 0;
     std::string key;
     Mix_Chunk *chunk;
@@ -82,11 +82,11 @@ Sound::loadWaves() {
                     const char* value = (const char*) iter.getValue();
                     if( strcmp(name, "name" ) == 0 )
                     {
-                        if(ConstructionGroup::resourceMap.count(value))
+                        if(ResourceGroup::resMap.count(value))
                         {
-                            cstGrpVec.push_back( ConstructionGroup::resourceMap[value] );
+                            resGrpVec.push_back( ResourceGroup::resMap[value] );
                             resourceID_level = reader.getDepth();
-                            if( cstGrpVec.back()->sounds_loaded) //could crash if game is already running
+                            if( resGrpVec.back()->sounds_loaded) //could crash if game is already running
                             {   std::cout << "Warning duplicate resourceID in sounds.xml: " << value << std::endl;}
                         }
                         else
@@ -96,9 +96,9 @@ Sound::loadWaves() {
             }
             if(reader.getDepth() < resourceID_level-1)
             {
-                for(size_t i=0; i< cstGrpVec.size(); ++i)
-                {   cstGrpVec[i]->sounds_loaded = true;}
-                cstGrpVec.clear();
+                for(size_t i=0; i< resGrpVec.size(); ++i)
+                {   resGrpVec[i]->sounds_loaded = true;}
+                resGrpVec.clear();
                 resourceID_level = 0;
             }
             if( element == "sound" )
@@ -116,10 +116,10 @@ Sound::loadWaves() {
                 fullname = directory + key;
                 file = getPhysfsSDLRWops( fullname.c_str() );
                 chunk = Mix_LoadWAV_RW( file, 1);
-                if (resourceID_level && cstGrpVec.size())
+                if (resourceID_level && resGrpVec.size())
                 {
-                    for(size_t i=0; i< cstGrpVec.size(); ++i)
-                    {   cstGrpVec[i]->chunks.push_back(chunk);}
+                    for(size_t i=0; i< resGrpVec.size(); ++i)
+                    {   resGrpVec[i]->chunks.push_back(chunk);}
                 }
                 else
                 {
@@ -130,11 +130,11 @@ Sound::loadWaves() {
             }
         }
     } //end xml reader
-    if(cstGrpVec.size())
+    if(resGrpVec.size())
     {
-        for(size_t i=0; i< cstGrpVec.size(); ++i)
-        {   cstGrpVec[i]->sounds_loaded = true;}
-        cstGrpVec.clear();
+        for(size_t i=0; i< resGrpVec.size(); ++i)
+        {   resGrpVec[i]->sounds_loaded = true;}
+        resGrpVec.clear();
     }
 }
 

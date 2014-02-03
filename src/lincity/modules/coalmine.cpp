@@ -23,10 +23,9 @@ CoalmineConstructionGroup coalmineConstructionGroup(
      GROUP_COALMINE_RANGE
 );
 
-CoalmineConstructionGroup coalmine_L_ConstructionGroup = coalmineConstructionGroup;
-CoalmineConstructionGroup coalmine_M_ConstructionGroup = coalmineConstructionGroup;
-CoalmineConstructionGroup coalmine_H_ConstructionGroup = coalmineConstructionGroup;
-
+//CoalmineConstructionGroup coalmine_L_ConstructionGroup = coalmineConstructionGroup;
+//CoalmineConstructionGroup coalmine_M_ConstructionGroup = coalmineConstructionGroup;
+//CoalmineConstructionGroup coalmine_H_ConstructionGroup = coalmineConstructionGroup;
 
 Construction *CoalmineConstructionGroup::createConstruction(int x, int y)
 {
@@ -94,13 +93,14 @@ void Coalmine::update()
     }
     //choose type depending on availabe coal
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 4)))//75%
-    {   constructionGroup = &coalmine_H_ConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["CoalMineFull"];}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE / 2))//50%
-    {   constructionGroup = &coalmine_M_ConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["CoalMineMed"];}
     else if (commodityCount[STUFF_COAL] > 0)//something
-    {   constructionGroup = &coalmine_L_ConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["CoalMineLow"];}
     else//nothing
-    {   constructionGroup = &coalmineConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["CoalMine"];}
+    soundGroup = graphicsGroup;
 
     //Evacuate Mine if no more deposits
     if (current_coal_reserve == 0 )

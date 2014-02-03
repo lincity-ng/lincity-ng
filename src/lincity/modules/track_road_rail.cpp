@@ -205,7 +205,7 @@ void Transport::report()
 
 void Transport::playSound()
 {
-    if(constructionGroup->sounds_loaded)
+    if(soundGroup->sounds_loaded)
     {
         unsigned short g = constructionGroup->group;
         if ((g == GROUP_ROAD) || (g == GROUP_ROAD_BRIDGE))
@@ -216,16 +216,16 @@ void Transport::playSound()
             {   avg += (stuff_it->second * 107 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
             if(avg > 0) //equiv to size > 0
             {   avg /= trafficCount.size();}
-            int num_sounds = constructionGroup->chunks.size()/2;
+            int num_sounds = soundGroup->chunks.size()/2;
             if(avg > 5)
-            {   getSound()->playASound(constructionGroup->chunks[rand()%num_sounds]);}
+            {   getSound()->playASound(soundGroup->chunks[rand()%num_sounds]);}
             else
-            {   getSound()->playASound(constructionGroup->chunks[num_sounds+rand()%num_sounds]);}
+            {   getSound()->playASound(soundGroup->chunks[num_sounds+rand()%num_sounds]);}
         }
         else
         {
-            int s = constructionGroup->chunks.size();
-            getSound()->playASound(constructionGroup->chunks[rand()%s]);
+            int s = soundGroup->chunks.size();
+            getSound()->playASound(soundGroup->chunks[rand()%s]);
         }
     }
 }

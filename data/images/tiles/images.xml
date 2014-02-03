@@ -540,7 +540,7 @@
     </group>
 
     <group>
-    <resourceID name="OrganicFarm" />
+    <resourceID name="Farm" />
     <image file="farm0.png" />
     <image file="farm3.png" />
     <image file="farm7.png" />

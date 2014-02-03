@@ -48,9 +48,7 @@ void Organic_farm::update()
         {   commodityCount[STUFF_WASTE] -= ORG_FARM_WASTE_GET;}
         used_water = commodityCount[STUFF_WATER] / WATER_FARM;
         if (used_water > (16 - ugwCount))
-        {
-            used_water = (16 - ugwCount);
-        }
+        {   used_water = (16 - ugwCount);}
 
         foodprod = (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus) * (ugwCount+used_water) * used_jobs / (16 * FARM_JOBS_USED);
         max_foodprod = (ORGANIC_FARM_FOOD_OUTPUT + tech_bonus) * (ugwCount+used_water)  / (16);
@@ -96,9 +94,7 @@ void Organic_farm::update()
         {
             //Every year
             if (i % 4 == 0)
-            {
-                month_stagger = rand() % 100;
-            }
+            {   month_stagger = rand() % 100;}
             type = 1+i/4;
         }
         else

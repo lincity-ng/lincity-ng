@@ -47,6 +47,7 @@ void set_map_groups(void);
 #include <SDL_image.h>
 #include "gui/Texture.hpp"
 class Construction;
+class ResourceGroup;
 
 // Class to count instanced objects of each construction type
 
@@ -127,6 +128,7 @@ public:
     unsigned short getLowerstVisibleGroup(); //like getGroup but group of terrain underneath transparent constructions
     unsigned short getTransportGroup(); //like getGroup but bridges are reported normal transport tiles
     ConstructionGroup* getTileConstructionGroup(); //constructionGroup of the maptile
+    ResourceGroup*     getTileResourceGroup();     //resourceGroup of a tile
     ConstructionGroup* getConstructionGroup();     //constructionGroup of maptile or the covering construction
     ConstructionGroup* getTopConstructionGroup();  //constructionGroup of maptile or the actual construction
     ConstructionGroup* getLowerstVisibleConstructionGroup();
@@ -163,14 +165,15 @@ struct ExtraFrame{
         move_x = 0;
         move_y = 0;
         frame = 0;
-        constructionGroup = 0;
+        resourceGroup = 0;
     }
 
     int move_x; // >0 moves frame to the right
     int move_y; // >0 moves frame downwards
     unsigned short frame; //frame !=0 will be rendered as overlay
-    ConstructionGroup *constructionGroup; //overlay frame is choosen from its GraphicsInfoVector
+    ResourceGroup *resourceGroup; //overlay frame is choosen from its GraphicsInfoVector
 };
+
 
 class Construction {
 public:
@@ -180,6 +183,9 @@ public:
 
 
     ConstructionGroup *constructionGroup;
+    ResourceGroup *graphicsGroup;
+    ResourceGroup *soundGroup;
+
     unsigned short type;
     int x, y;
     int ID;
@@ -213,7 +219,7 @@ public:
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
     std::vector<ExtraFrame> frames;             //Overlays to be rendered on top of type
-
+    void init_resources(void);                  //sets sounds and graphics according to constructionGroup
     void list_commodities(int *);                   //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
     void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
@@ -269,6 +275,8 @@ public:
     RegisteredConstruction<ConstructionClass>( int x, int y)
     {
         this->type = 0;//safe default
+        this->soundGroup = 0;//to be set in ConstgructionGroup::placeItem
+        this->graphicsGroup = 0;//to be set in ConstgructionGroup::placeItem
         setMemberSaved(&(this->type),"type");
         this->x = x;
         this->y = y;
@@ -298,6 +306,52 @@ class GraphicsInfo
     int x, y;
 };
 
+//all instances are added to resMap
+class ResourceGroup {
+public:
+
+    ResourceGroup(const std::string &tag)
+    {
+        graphicsInfoVector.clear();
+        chunks.clear();
+        resourceID = tag;
+        images_loaded = false;
+        sounds_loaded = false;
+        //std::cout << "new resourceGroup: " << tag << std::endl;
+        if (resMap.count(tag))
+        {   std::cout << "rejecting " << tag << " as another ResourceGroup"<< std::endl;}
+        else
+        {   resMap[tag] = this;}
+    }
+    ~ResourceGroup()
+    {
+        std::vector<GraphicsInfo>::iterator it;
+        for(it = graphicsInfoVector.begin(); it != graphicsInfoVector.end(); ++it)
+        {
+            if(it->texture)
+            {
+                delete it->texture;
+                it->texture = 0;
+            }
+        }
+        if ( resMap.count(resourceID))
+        {
+            resMap.erase(resourceID);
+            //std::cout << "sayonara: " << resourceID << std::endl;
+        }
+        else
+        {   std::cout << "error: unreachable resourceGroup: " << resourceID << std::endl;}
+    }
+    std::string resourceID;
+    bool images_loaded;
+    bool sounds_loaded;
+    std::vector<Mix_Chunk *> chunks;
+    std::vector<GraphicsInfo> graphicsInfoVector;
+    void growGraphicsInfoVector(void)
+    {   graphicsInfoVector.resize(graphicsInfoVector.size() + 1);}
+    static std::map<std::string, ResourceGroup*> resMap;
+};
+
 class ConstructionGroup {
 public:
     ConstructionGroup(
@@ -319,11 +373,11 @@ public:
         this->cost = cost;
         this->tech = tech;
         this->range = range;
-        this->images_loaded = false;
-        this->sounds_loaded = false;
+        //this->images_loaded = false;
+        //this->sounds_loaded = false;
        }
     ~ConstructionGroup()
-    {
+    {/*
         std::vector<GraphicsInfo>::iterator it;
         for(it = graphicsInfoVector.begin(); it != graphicsInfoVector.end(); ++it)
         {
@@ -332,25 +386,15 @@ public:
                 delete it->texture;
                 it->texture = 0;
             }
-            //CK it seems that SDL images are freed
-            //on their own, crashes rarely
-/*
-            else if (it->image)
-            {
-                SDL_FreeSurface(it->image);
-                it->image = 0;
-            }
-*/
-        }
+        }*/
     }
 
-
     std::map<Construction::Commodities, CommodityRule> commodityRuleCount;
-    std::vector<Mix_Chunk *> chunks;
-    std::vector<GraphicsInfo> graphicsInfoVector;
+    //std::vector<Mix_Chunk *> chunks;
+    //std::vector<GraphicsInfo> graphicsInfoVector;
     int getCosts();
     bool is_allowed_here(int x, int y, bool msg);//check if construction could be placed
-    void growGraphicsInfoVector(void);
+    //void growGraphicsInfoVector(void);
 
     virtual int placeItem(int x, int y);
 
@@ -370,8 +414,8 @@ public:
     int cost;                   /* group cost */
     int tech;                   /* group tech */
     int range;                  /* range beyond size*/
-    bool images_loaded;
-    bool sounds_loaded;
+    //bool images_loaded;
+    //bool sounds_loaded;
 
     static void addConstructionGroup(ConstructionGroup *constructionGroup)
     {
@@ -384,6 +428,7 @@ public:
         else
         {   groupMap[constructionGroup->group] = constructionGroup;}
 
+
     }
 
     static void addResourceID(std::string resID, ConstructionGroup *constructionGroup)
@@ -394,11 +439,12 @@ public:
             std::cout << "rejecting " << constructionGroup->name << " as "
             << constructionGroup->resourceID << " from ConstructionGroup::resouceMap"
             << std::endl;
-            }
+        }
         else
         {
             constructionGroup->resourceID = resID;
             resourceMap[constructionGroup->resourceID] = constructionGroup;
+            new ResourceGroup(resID); //adds itself to ResourceGroup::resmap
         }
     }
 
@@ -435,6 +481,9 @@ protected:
     static std::map<unsigned short, ConstructionGroup*> groupMap;
 
 };
+
+
+
 
 struct GROUP {
     const char *name;           // name of group

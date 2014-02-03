@@ -63,7 +63,7 @@ void Blacksmith::update()
     if (animate && real_time > anim)
     {
         anim = real_time + BLACKSMITH_ANIM_SPEED;
-        if(++type >= constructionGroup->graphicsInfoVector.size())
+        if(++type >= graphicsGroup->graphicsInfoVector.size())
         {
             type = 1;
             animate = false;

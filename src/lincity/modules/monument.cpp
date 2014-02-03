@@ -24,7 +24,7 @@ MonumentConstructionGroup monumentConstructionGroup(
     GROUP_MONUMENT_RANGE
 );
 
-MonumentConstructionGroup monumentFinishedConstructionGroup = monumentConstructionGroup;
+//MonumentConstructionGroup monumentFinishedConstructionGroup = monumentConstructionGroup;
 
 Construction *MonumentConstructionGroup::createConstruction(int x, int y) {
     return new Monument(x, y, this);
@@ -55,7 +55,8 @@ void Monument::update()
             completed = true;
             type = 0;
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
-            constructionGroup = &monumentFinishedConstructionGroup;
+            graphicsGroup = ResourceGroup::resMap["Monument"];
+            soundGroup = graphicsGroup;
             if (mps_x == x && mps_y == y)
             {   mps_set(x, y, MPS_MAP);}
             //dont clear commodiyCount for savegame compatability

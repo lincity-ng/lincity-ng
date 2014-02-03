@@ -50,7 +50,7 @@ void Cricket::update()
     if (animate && real_time > anim)
     {
         anim = real_time + CRICKET_ANIMATION_SPEED;
-        if(++type >= constructionGroup->graphicsInfoVector.size())
+        if(++type >= graphicsGroup->graphicsInfoVector.size())
         {
             type = 0;
             animate = false;

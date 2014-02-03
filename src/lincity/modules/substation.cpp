@@ -48,11 +48,12 @@ void Substation::update()
     }
     /* choose a graphic */
     if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 2))
-    {   constructionGroup = &substation_G_ConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["SubstationOn"];}
     else if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 10))
-    {   constructionGroup = &substation_RG_ConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["SubstationOff"];}
     else
-    {   constructionGroup = &substationConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["Substation"];}
+    soundGroup = graphicsGroup;
 }
 
 void Substation::report()

@@ -24,7 +24,7 @@ FireConstructionGroup fireConstructionGroup(
 );
 
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
-FireConstructionGroup fireWasteLandConstructionGroup = fireConstructionGroup;
+//FireConstructionGroup fireWasteLandConstructionGroup = fireConstructionGroup;
 
 Construction *FireConstructionGroup::createConstruction(int x, int y) {
     return new Fire(x, y, this);
@@ -42,8 +42,11 @@ void Fire::update()
         //is_burning = false;
         if (smoking_days == 0)   /* rand length here also */
         {   smoking_days = rand() % (AFTER_FIRE_LENGTH / 6);}
-        if(constructionGroup == &fireConstructionGroup)
-        {   constructionGroup = &fireWasteLandConstructionGroup;}
+        if(graphicsGroup == ResourceGroup::resMap["Fire"])
+        {
+            graphicsGroup = ResourceGroup::resMap["FireWasteLand"];
+            soundGroup = graphicsGroup;
+        }
         smoking_days++;
         if (world(x,y)->flags & FLAG_FIRE_COVER)
             smoking_days += 4;
@@ -72,7 +75,7 @@ void Fire::update()
     if (real_time > anim)
     {
         anim = real_time + FIRE_ANIMATION_SPEED;
-        if(++type >= constructionGroup->graphicsInfoVector.size())
+        if(++type >= graphicsGroup->graphicsInfoVector.size())
         {   type = 0;}
     }
     if ((days_before_spread == 0) && !(flags & FLAG_IS_GHOST))

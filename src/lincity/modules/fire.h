@@ -38,7 +38,7 @@ public:
 };
 
 extern FireConstructionGroup fireConstructionGroup;
-extern FireConstructionGroup fireWasteLandConstructionGroup;
+//extern FireConstructionGroup fireWasteLandConstructionGroup;
 
 class Fire: public RegisteredConstruction<Fire> { // Fire inherits from Construction
 public:

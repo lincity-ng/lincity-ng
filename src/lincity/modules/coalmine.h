@@ -48,9 +48,9 @@ public:
 };
 
 extern CoalmineConstructionGroup coalmineConstructionGroup;
-extern CoalmineConstructionGroup coalmine_L_ConstructionGroup;
-extern CoalmineConstructionGroup coalmine_M_ConstructionGroup;
-extern CoalmineConstructionGroup coalmine_H_ConstructionGroup;
+//extern CoalmineConstructionGroup coalmine_L_ConstructionGroup;
+//extern CoalmineConstructionGroup coalmine_M_ConstructionGroup;
+//extern CoalmineConstructionGroup coalmine_H_ConstructionGroup;
 
 class Coalmine: public RegisteredConstruction<Coalmine> { // Coalmine inherits from its RegisteredConstruction
 public:

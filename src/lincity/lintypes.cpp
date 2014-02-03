@@ -85,6 +85,41 @@ ConstructionGroup* MapTile::getTileConstructionGroup()
     }
 }
 
+ResourceGroup* MapTile::getTileResourceGroup()
+{
+    static bool initialized = false;
+    static ResourceGroup* bare = 0;
+    static ResourceGroup* desert = 0;
+    static ResourceGroup* water = 0;
+    static ResourceGroup* tree = 0;
+    static ResourceGroup* tree2 = 0;
+    static ResourceGroup* tree3 = 0;
+
+    if (!initialized)
+    {
+        initialized = true;
+        bare = ResourceGroup::resMap["Green"];
+        desert = ResourceGroup::resMap["Desert"];
+        water = ResourceGroup::resMap["Water"];
+        tree = ResourceGroup::resMap["Tree"];
+        tree2 = ResourceGroup::resMap["Tree2"];
+        tree3 = ResourceGroup::resMap["Tree"];
+
+    }
+    switch (group)
+    {
+        case GROUP_BARE:    return bare;      break;
+        case GROUP_DESERT:  return desert;    break;
+        case GROUP_WATER:   return water;     break;
+        case GROUP_TREE:    return tree;      break;
+        case GROUP_TREE2:   return tree2;     break;
+        case GROUP_TREE3:   return tree3;     break;
+        default:
+            std::cout << "invalid group of maptile at: (" << world.map_x(this) <<"," << world.map_y(this) << ")" << std::endl;
+            return desert;
+    }
+}
+
 ConstructionGroup* MapTile::getConstructionGroup() //constructionGroup of bare land or the covering construction
 {   return (reportingConstruction ? reportingConstruction->constructionGroup : getTileConstructionGroup());}
 
@@ -237,7 +272,7 @@ void MapTile::writeTemplate()
 
 void MapTile::saveMembers(std::ostream *os)
 {
-    type = type % getTileConstructionGroup()->graphicsInfoVector.size();
+    type = type % getTileResourceGroup()->graphicsInfoVector.size();
     int x = world.map_x(this);
     int y = world.map_y(this);
     unsigned short head = GROUP_DESERT;
@@ -434,6 +469,22 @@ void Construction::initialize_commodities(void)
     }
 }
 
+void Construction::init_resources(void)
+{
+    ResourceGroup *resGroup = ResourceGroup::resMap[constructionGroup->resourceID];
+    if (resGroup)
+    {
+        soundGroup = resGroup;
+        graphicsGroup = resGroup;
+    }
+#ifdef DEBUG
+    else
+    {
+        std::cout << "missing sounds and graphics for:" << constructionGroup->name << std::endl;
+    }
+#endif
+}
+
 void Construction::bootstrap_commodities(int percent)
 {
     std::map<Commodities,CommodityRule>::iterator stuff_it;
@@ -590,8 +641,8 @@ void Construction::writeTemplate()
 void Construction::saveMembers(std::ostream *os)
 {
     //make sure old types are actually valid
-    if (constructionGroup->images_loaded && constructionGroup->graphicsInfoVector.size())
-    {   type = type % constructionGroup->graphicsInfoVector.size();}
+    if (graphicsGroup->images_loaded && graphicsGroup->graphicsInfoVector.size())
+    {   type = type % graphicsGroup->graphicsInfoVector.size();}
     std::string name;
     unsigned short head = constructionGroup->group;
     if (flags&FLAG_IS_TRANSPORT && !binary_mode)
@@ -1202,19 +1253,14 @@ int Construction::equilibrate_stuff(int *rem_lvl, int rem_cap , int ratio, Commo
 
 void Construction::playSound()
 {
-    int s = constructionGroup->chunks.size();
-    if(constructionGroup->sounds_loaded && s)
-    {   getSound()->playASound( constructionGroup->chunks[ rand()%s ] );}
+    int s = soundGroup->chunks.size();
+    if(soundGroup->sounds_loaded && s)
+    {   getSound()->playASound( soundGroup->chunks[ rand()%s ] );}
 }
 
 
 
 //ConstructionGroup Declarations
-
-void ConstructionGroup::growGraphicsInfoVector(void)
-{
-    graphicsInfoVector.resize(graphicsInfoVector.size() + 1);
-}
 
 int ConstructionGroup::getCosts() {
     return static_cast<int>
@@ -1224,6 +1270,9 @@ int ConstructionGroup::getCosts() {
 int ConstructionGroup::placeItem(int x, int y)
 {
     Construction *tmpConstr = createConstruction(x, y);
+    //default resources if no manual settings for construction
+    if (!tmpConstr->graphicsGroup && !tmpConstr->soundGroup)
+    {   tmpConstr->init_resources();}
 #ifdef DEBUG
     if (tmpConstr == NULL)
     {
@@ -1428,6 +1477,7 @@ void ConstructionGroup::printGroups()
 
 std::map<unsigned short, ConstructionGroup *> ConstructionGroup::groupMap;
 std::map<std::string, ConstructionGroup *> ConstructionGroup::resourceMap;
+std::map<std::string, ResourceGroup *> ResourceGroup::resMap;
 
 //Legacy Stuff
 

@@ -23,9 +23,9 @@ MarketConstructionGroup marketConstructionGroup(
 );
 
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
-MarketConstructionGroup market_low_ConstructionGroup  = marketConstructionGroup;
-MarketConstructionGroup market_med_ConstructionGroup  = marketConstructionGroup;
-MarketConstructionGroup market_full_ConstructionGroup = marketConstructionGroup;
+//MarketConstructionGroup market_low_ConstructionGroup  = marketConstructionGroup;
+//MarketConstructionGroup market_med_ConstructionGroup  = marketConstructionGroup;
+//MarketConstructionGroup market_full_ConstructionGroup = marketConstructionGroup;
 
 
 Construction *MarketConstructionGroup::createConstruction(int x, int y) {
@@ -121,23 +121,24 @@ void Market::update()
         if (market_ratio < 10)
         {
             jobs = JOBS_MARKET_EMPTY;
-            constructionGroup = &marketConstructionGroup;
+            graphicsGroup = ResourceGroup::resMap["MarketEmpty"];
         }
         else if (market_ratio < 20)
         {
             jobs = JOBS_MARKET_LOW;
-            constructionGroup = &market_low_ConstructionGroup;
+            graphicsGroup = ResourceGroup::resMap["MarketLow"];
         }
         else if (market_ratio < 50)
         {
             jobs = JOBS_MARKET_MED;
-            constructionGroup = &market_med_ConstructionGroup;
+            graphicsGroup = ResourceGroup::resMap["MarketMed"];
         }
         else
         {
             jobs = JOBS_MARKET_FULL;
-             constructionGroup = &market_full_ConstructionGroup;
+            graphicsGroup = ResourceGroup::resMap["MarketFull"];
         }
+        soundGroup = graphicsGroup;
     }
     if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !world(x+1,y+1)->construction)
     {

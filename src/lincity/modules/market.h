@@ -65,9 +65,9 @@ public:
 };
 
 extern MarketConstructionGroup marketConstructionGroup;
-extern MarketConstructionGroup market_low_ConstructionGroup;
-extern MarketConstructionGroup market_med_ConstructionGroup;
-extern MarketConstructionGroup market_full_ConstructionGroup;
+//extern MarketConstructionGroup market_low_ConstructionGroup;
+//extern MarketConstructionGroup market_med_ConstructionGroup;
+//extern MarketConstructionGroup market_full_ConstructionGroup;
 
 class Market: public RegisteredConstruction<Market> { // Market inherits from Construction
 public:

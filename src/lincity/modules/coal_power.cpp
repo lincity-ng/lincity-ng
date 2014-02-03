@@ -22,9 +22,9 @@ Coal_powerConstructionGroup coal_powerConstructionGroup(
 );
 
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
-Coal_powerConstructionGroup coal_power_low_ConstructionGroup  = coal_powerConstructionGroup;
-Coal_powerConstructionGroup coal_power_med_ConstructionGroup  = coal_powerConstructionGroup;
-Coal_powerConstructionGroup coal_power_full_ConstructionGroup = coal_powerConstructionGroup;
+//Coal_powerConstructionGroup coal_power_low_ConstructionGroup  = coal_powerConstructionGroup;
+//Coal_powerConstructionGroup coal_power_med_ConstructionGroup  = coal_powerConstructionGroup;
+//Coal_powerConstructionGroup coal_power_full_ConstructionGroup = coal_powerConstructionGroup;
 
 Construction *Coal_powerConstructionGroup::createConstruction(int x, int y) {
     return new Coal_power(x, y, this);
@@ -53,13 +53,14 @@ void Coal_power::update()
     }
     /* choose a graphic */
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
-    {   constructionGroup = &coal_power_full_ConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["PowerCoalFull"];}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
-    {   constructionGroup = &coal_power_med_ConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["PowerCoalMed"];}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 10))
-    {   constructionGroup = &coal_power_low_ConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["PowerCoalLow"];}
     else
-    {   constructionGroup = &coal_powerConstructionGroup;}
+    {   graphicsGroup = ResourceGroup::resMap["PowerCoalEmpty"];}
+    soundGroup = graphicsGroup;
 }
 
 void Coal_power::report()

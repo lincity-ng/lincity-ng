@@ -125,7 +125,7 @@ void Commune::update()
                 type = 6;
             }
         }
-        if (type >= constructionGroup->graphicsInfoVector.size())
+        if (type >= graphicsGroup->graphicsInfoVector.size())
         {   type = 0;}
     }
 }

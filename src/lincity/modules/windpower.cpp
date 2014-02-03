@@ -21,8 +21,8 @@ WindpowerConstructionGroup windpowerConstructionGroup(
      GROUP_WIND_POWER_RANGE
 );
 
-WindpowerConstructionGroup windpower_RG_ConstructionGroup = windpowerConstructionGroup;
-WindpowerConstructionGroup windpower_G_ConstructionGroup = windpowerConstructionGroup;
+//WindpowerConstructionGroup windpower_RG_ConstructionGroup = windpowerConstructionGroup;
+//WindpowerConstructionGroup windpower_G_ConstructionGroup = windpowerConstructionGroup;
 
 Construction *WindpowerConstructionGroup::createConstruction(int x, int y) {
     return new Windpower(x, y, this);
@@ -58,11 +58,11 @@ void Windpower::update()
         type %= 3;
         anim = real_time + WIND_POWER_ANIM_SPEED;
         if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
-        {   constructionGroup = &windpower_G_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["WindMillHTechG"];}
         else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)
-        {   constructionGroup = &windpower_RG_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["WindMillHTechRG"];}
         else
-        {   constructionGroup = &windpowerConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["WindMillHTech"];}
     }
 }
 

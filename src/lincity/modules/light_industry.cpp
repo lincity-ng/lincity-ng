@@ -24,10 +24,10 @@ IndustryLightConstructionGroup industryLightConstructionGroup(
 );
 
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
-IndustryLightConstructionGroup industryLight_Q_ConstructionGroup = industryLightConstructionGroup;
-IndustryLightConstructionGroup industryLight_L_ConstructionGroup = industryLightConstructionGroup;
-IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLightConstructionGroup;
-IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
+//IndustryLightConstructionGroup industryLight_Q_ConstructionGroup = industryLightConstructionGroup;
+//IndustryLightConstructionGroup industryLight_L_ConstructionGroup = industryLightConstructionGroup;
+//IndustryLightConstructionGroup industryLight_M_ConstructionGroup = industryLightConstructionGroup;
+//IndustryLightConstructionGroup industryLight_H_ConstructionGroup = industryLightConstructionGroup;
 
 Construction *IndustryLightConstructionGroup::createConstruction(int x, int y ) {
     return new IndustryLight(x, y, this);
@@ -103,21 +103,22 @@ void IndustryLight::update()
         goods_this_month = 0;
         //Choose an animation set depending on output_level
         if (output_level > 80)
-        {   constructionGroup = &industryLight_H_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryLightH"];}
         else if (output_level > 55)
-        {   constructionGroup = &industryLight_M_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryLightM"];}
         else if (output_level > 25)
-        {   constructionGroup = &industryLight_L_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryLightL"];}
         else if (output_level > 0)
-        {   constructionGroup = &industryLight_Q_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryLightQ"];}
         else
-        {   constructionGroup = &industryLightConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryLight"];}
         type = 0;
+        soundGroup = graphicsGroup;
     }// end monthly update
     if ((real_time >= anim) && goods_today)
     {
         anim = real_time + INDUSTRY_L_ANIM_SPEED;
-        if(++type >= constructionGroup->graphicsInfoVector.size())
+        if(++type >= graphicsGroup->graphicsInfoVector.size())
         {   type = 0;}
     }// end animate
 }

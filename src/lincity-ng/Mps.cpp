@@ -128,10 +128,10 @@ Mps::playBuildingSound(int mps_x, int mps_y)
     }
     else
     {
-        ConstructionGroup* constructionGroup = world(mps_x, mps_y)->getTileConstructionGroup();
-        int s = constructionGroup->chunks.size();
+        ResourceGroup* resourceGroup = world(mps_x, mps_y)->getTileResourceGroup();
+        int s = resourceGroup->chunks.size();
         if(s)
-        {   getSound()->playASound( constructionGroup->chunks[ rand()%s ] );}
+        {   getSound()->playASound( resourceGroup->chunks[ rand()%s ] );}
     }
     std::cout.flush();
 }

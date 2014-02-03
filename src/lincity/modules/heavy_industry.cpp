@@ -25,9 +25,9 @@ IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
 );
 
 //helper groups for graphics and sound sets, dont add them to ConstructionGroup::groupMap
-IndustryHeavyConstructionGroup industryHeavy_L_ConstructionGroup = industryHeavyConstructionGroup;
-IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
-IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
+//IndustryHeavyConstructionGroup industryHeavy_L_ConstructionGroup = industryHeavyConstructionGroup;
+//IndustryHeavyConstructionGroup industryHeavy_M_ConstructionGroup = industryHeavyConstructionGroup;
+//IndustryHeavyConstructionGroup industryHeavy_H_ConstructionGroup = industryHeavyConstructionGroup;
 
 Construction *IndustryHeavyConstructionGroup::createConstruction(int x, int y) {
     return new IndustryHeavy(x, y, this);
@@ -109,19 +109,20 @@ void IndustryHeavy::update()
         type = 0;
         //choose graphics depending on output level
         if (output_level > 80)
-        {   constructionGroup = &industryHeavy_H_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryHighH"];}
         else if (output_level > 30)
-        {   constructionGroup = &industryHeavy_M_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryHighM"];}
         else if (output_level > 0)
-        {   constructionGroup = &industryHeavy_L_ConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryHighL"];}
         else
-        {   constructionGroup = &industryHeavyConstructionGroup;}
+        {   graphicsGroup = ResourceGroup::resMap["IndustryHigh"];}
+        soundGroup = graphicsGroup;
     }//end monthly update
     //animation
     if (real_time >= anim)
     {
         anim = real_time + INDUSTRY_H_ANIM_SPEED;
-        if(++type >= constructionGroup->graphicsInfoVector.size())
+        if(++type >= graphicsGroup->graphicsInfoVector.size())
         {   type = 0;}
     }
 }

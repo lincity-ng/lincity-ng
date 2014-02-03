@@ -54,7 +54,7 @@ void FireStation::update()
         ++type;
         if(type == 6)
         {   anim += 10*FIRESTATION_ANIMATION_SPEED;}
-        if(type >= constructionGroup->graphicsInfoVector.size())
+        if(type >= graphicsGroup->graphicsInfoVector.size())
         {
             type = 0;
             animate = false;

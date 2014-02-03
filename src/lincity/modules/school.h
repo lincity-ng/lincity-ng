@@ -58,7 +58,7 @@ public:
     {
         this->constructionGroup = cstgrp;
         frames.resize(1);
-        frames[0].constructionGroup = cstgrp; // School is the host of the swing
+        frames[0].resourceGroup = ResourceGroup::resMap["School"]; //host of the swing
         this->animate = false;
         this->anim = 0;
         this->working_days = 0;
