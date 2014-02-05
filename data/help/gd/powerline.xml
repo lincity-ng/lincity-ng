@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Loidhne-dhealain</p>
+    <p style="hp">Bheir loidhnichean-dealain cumhachd o stèiseanan cumhachd 's muileannan-gaoithe nuadha gu fo-stèiseanan no gnìomhachasan aotrom agus ceàrdaichean stàilinn.</p>
+    <p style="hp">Thèid loidhnichean-dealain tarsaing fo slighean, rathaidean, rèilean is aibhnichean (le leud de 1 aca).
+    Ma chuireas tu loidhne-dhealain ris an dà thaobh aig giùlan no abhainn, obraichidh i mar aon. Feumaidh tu pìos de dh'abhainn a mhilleadh aig amannan ach am faigh thu tarsaing oirre – thoir an aire gu bheil seo cosgail! Thèid loidhnichean-dealain a chur ri chèile nuair a cho-thaobhaicheas tu iad 's leumaidh pacaidean cumhachd on dàrna taobh dhan taobh eile.</p>
+
+    <p style="hp">Seo loidhne-dhealain</p>
+    <img src="images/tiles/powerlvd.png" halign="center"/>
+    <p style="hp">agus seo a h-ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/power/powerlines.png" halign="center"/>
+    <p style="hp">agus seo a h-ìomhaigheag fon mhapa</p>
+    <img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="power">Cumhachd-dhealain</a></li>
+    <li><a href="substation">Fo-stèisean</a></li>
+    <li><a href="windmill">Muileann-gaoithe</a></li>
+    <li><a href="powerscoal">Stèisean cumhachd-guail</a></li>
+    <li><a href="powerssolar">Stèisean cumhachd-grèine</a></li>
+    <li><a href="msb-power">Tar-chòmhdachadh cumhachd</a></li>
+</Document>

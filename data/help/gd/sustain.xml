@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Seasmhachd</p>
+	<p style="hp">Tha sia loidhnichean dathte san uinneag seo. Bidh eaconamaidh seasmhach agad nuair a bhios iad uile air taobh deas na h-uinneige a ruigsinn.</p>
+	<li>
+		<span color="orange">Mèinnean</span> (orainds) chan eil thu a' tochladh clach-mhèinneir 's chan eil thu a' cur sgudal dha dh'òtrach.
+	</li>
+	<li>
+		<span color="gray">Malart</span>	(dubh) chan eil thu ag às-phortadh no ion-phortadh.
+	</li>
+	<li>
+		<span color="green">Airgead</span> (uaine) tha an airgead agad seasmhach no a' dìreadh; is ciall dha seo nach urrainn dhut gin a thogail ach na raointean as saoire.
+	</li>
+	<li>
+		<span color="blue">Sluagh</span> (gorm) tha an sluagh agad seasmhach le
+		2% taobh a-staigh an luach nuair a thòisicheadh an cunntadh de 180 bliadhna. Nuair a bhriseas e a-mach às an rainse seo, bidh an sluagh ùr 'na luach ùr agus thòisichear a' cunntadh nam bliadhnaichean o neoni às ùr. Feumaidh sluagh de 5000 a bhith agad air a char as lugha chuideachd.
+	</li>
+	<li>
+		<span color="yellow">Teicneolas</span> (buidhe) chan eil ach glè bheag a dh'fhàs no a chrìonadh aig an teicneolas agad. Thèid am bliadhna ath-shuidheachadh gu neoni ma chrìonas e le barrachd air 1%. Feumaidh teicneolas de 50% a bhith agad air a char as lugha cuideachd.
+	</li>
+	<li>
+		<span color="red">Teine</span> (dearg) tha còmhdachadh-smàlaidh air gach raon a b' urrainn a dhol 'na theine. Chan eil na raointean a leanas feumach air còmhdachadh-smàlaidh: carraighean, mèinnean cloiche-mèinneir, loidhnichean-cumhachd, slighean, rathaidean, rèilean 's rocaidean.
+	</li>
+	<p style="hp">Na bliadhnaichean a dh'fheumas tu airson seasmhachd: Mèinnean=180 Malart=180 Airgead=60 Sluagh=60 Teicneolas=120 Teine=60</p>
+</Document>

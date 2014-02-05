@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ionad-slàinte</p>
+	<p style="hp">Bheir ionadan-slàinte còmhdachadh-slàinte airson nan còmhnaidhean dhut.</p>
+	<p style="hp">Bidh barrachd luach air còmhnaîdh aig a bheil còmhdachadh-slàinte on a chaochlas nas lugha de dhaoine le tinneas co-cheangailte ri truailleadh agus gheibh thu barrachd obrach asta on nach bi an luchd-obrach tinn gu tric.</p>
+	<p style="hp">Tha ionadan-slàinte cosgail. Bidh nas lugha de "Bhàs mì-nàdarra" ann co-dhiù is gheibh thu barrachd cìsean air sgàth 's gun obraich daoine annta.</p>
+	<p style="hp">Nuair a bhios tu air ionad-slàinte a thogail, bheir e trì mìosan gus am bi e gnìomhach. Cleachdaidh e bathar.</p>
+	<p style="hp">Feumaidh tu ionadan-slàinte a cheangal ri giùlan no a thogail am fagas margaid.</p>
+	<p style="hp">Briog air a' phutan tar-chòmhdachadh slàinte fon mhapa aig a bhonn gu deas gus an còmhdachadh slàinte a shealltainn. 
+        Tha còmhdachadh-slàinte aig na roinnean air a bheil coltas àbhaisteach.</p>
+
+	<p style="hp">Seo ionad-slàinte</p>
+	<img src="images/tiles/health.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag fon mhapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="residential">Còmhnaidhean</a></li>
+	<li><a href="pollution">Truailleadh</a></li>
+	<li><a href="jobs">Obair</a></li>
+	<li><a href="goods">Bathar</a></li>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="msb-health">Tar-chòmhdachadh slàinte</a></li>
+</Document>

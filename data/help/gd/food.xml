@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Biadh</p>
+	<p style="hp">Fàsaidh tuathanasan biadh agus 's urrainn dhut ion-phortadh cuideachd ann am port.</p>
+	<p style="hp">Feumaidh an sluagh biadh ach nach bi an t-acras orra. Gluaisidh iad air falbh o raon far a bheil gortas ann is gheibh cuid bàs leis an acras.</p>
+	<p style="hp">Cleachdaidh muileannan-clòtha biadh cuideachd. Nì iad aodach o chanach, mar eisimpleir. Thoir an aire gun cleachd iad mòran bìdh, 's dòcha.</p>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="farm">Tuathanas</a></li>	
+	<li><a href="residential">Còmhnaidhean</a></li>
+	<li><a href="mill">Muileann-clòtha</a></li>
+	<li><a href="port">Port</a></li>
+</Document>

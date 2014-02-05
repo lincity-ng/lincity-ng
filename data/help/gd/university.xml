@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Oilthigh</p>
+    <p style="hp">Cuiridh oilthighean ris an teicneolas agad.
+    Tha iad feumach air bathar agus obair. Nì iad barrachd rannsachaidh na sgoiltean airson an t-aon uiread de bhathar is obair.
+     Caithidh iad torr bathair 's obrach co-dhiù agus tha iad cosgail ri ruith, mar sin dèan cinnteach gu bheil an t-eaconamaidh agad làidir gu leòr gus taic a thoirt dhaibh.</p>
+    <p style="hp">Bidh thu feumach air uiread de dh'oilthighean gus teicneolas mu 100% a ruigsinn.</p>
+    <p style="hp">Chan eil oilthighean feumach air ceangal dhan ghiùlan on a chruinnicheas na tha a dhìth orra o mhargaid ionadail aig a bheil bathar 's obair a dh'fhòghnadh ri làimh.</p>
+
+    <p style="hsubtitle">An AIRE</p>
+    <p style="hp">Feumaidh 4 sgoiltean airson gach oilthigh a bhith agad gus oileanaich a thoirt dha.</p>
+
+    <p style="hp">Seo oilthigh</p>
+    <img src="images/tiles/university.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/misc/university.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="tech-level">Teicneolas</a></li>
+    <li><a href="market">Margaid</a></li>
+    <li><a href="transport">Giùlan</a></li>
+    <li><a href="goods">Bathar</a></li>
+    <li><a href="jobs">Obair</a></li>
+    <li><a href="school">Sgoil</a></li>
+
+</Document>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Tuathanas</p>
+        <p style="hp">Fàsaidh tuathanasan biadh a dh'itheas an sluagh is solairidh iad bun-stuth airson mhuileannan. 'S urrainn do thuathanaich biadh a reic sa mhargaid. Bheir iad le tractar ann e 's mar sin chan eil feum aca air giùlan. 'S urrainn dhaibh reic dhan ghiùlan cuideachd ma thogras tu. Feumaidh tu dèanamh cinnteach co-dhiù gum bi margaid am fagas tuathanais.</p>
+        <p style="hp">Tha an dèanadas aig tuathanas an eisimeil air uisge fon talamh. Tha leacan le uisge uaine is càch odhar (mar fhàsach no ùir lom).</p>
+	
+	<p style="hp">Seo tuathanas</p>
+	<img src="images/tiles/farm0.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/parks/farm.png" halign="center"/>
+	
+	<p style="hp">Cha dèan tuathanas ach glè bheag de bhiadh mur eil daoine ag obair annta. Gheibh thu barrachd bìdh le cumhachd-dhealain (kWh). 'S urrainn do thuathanas aig a bheil cumhachd-dhealain ùir thioram uisgeachadh is sgudal a chaitheamh. Thoir an aire air caitheamh uisge nan tuathanasan. </p>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="market">Margaid</a></li>
+	<li><a href="tech-level">Teicneolas</a></li>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="commodities">Bathar-amh</a></li>
+    <li><a href="power">Cumhachd-dhealain</a></li>
+</Document>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Raon spòrsa</p>
+	<p style="hp">Gabhaidh muinntir a' bhaile tlachd à raointean spòrsa. Feumaidh raointean spòrsa bathar is obair ach an obraicheadh iad. Chan fheum iad a bhith ceangailte ri giùlan ach mur eil, feumaidh iad a bhith am fagas margaid a bheir an obair is am bathar dhaibh. Cosgaidh iad airgead gus an ruith cuideachd.</p>
+	<p style="hp">Nuair a thogas tu raon spòrsa, cha tòisich e sa bhad. Feumaidh tu feitheamh trì mìosan mar as trice gus am bi a h-uile goireas air a stàladh ann.</p>
+	<p style="hp">Briog air a' phutan spòrsa fon mhapa gus còmhdachadh nan raointean spòrsa agad a shealltainn. Thèid raointean fo chòmhdachadh a shealltainn gu h-àbhaisteach agus tha raointean aig nach eil spòrs le dorch-uaine.</p>
+	<p style="hp">Tha còmhnaidhean le raon spòrsa faisg orra as tarraingiche.</p>
+	<p style="hp">Chì thu beòthachadh air raointean spòrsa gach trì mìosan airson sealltainn dhut gu bheil iad ag obrachadh.</p>
+
+	<p style="hp">Seo raon spòrsa</p>
+	<img src="images/tiles/cricket1.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/misc/sports.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag fon mhapa</p>
+	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="mini-screen">Am mapa</a></li>
+	<li><a href="goods">Bathar</a></li>
+	<li><a href="market">Margaid</a></li>
+	<li><a href="jobs">Obair</a></li>
+	<li><a href="msb-cricket">Tar-chòmhdachadh spòrsa</a></li>
+</Document>

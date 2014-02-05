@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Cumhachd</p>
+	<p style="hp">Tha dà sheòrsa de chumhachd ann: kWh agus MWh. Thèid kWh a thoirt dut tro chàballan fon talamh le lìonraidh giùlain do bhaile agus MWh le loidhnichean-dealain.</p>
+	
+	<p style="hp"> Thèid kWh a sholar le muileannan-gaoithe no le fo-stèisean. Bheir iad cumhachd dha chòmhnaidhean, tuathanasan, muilleanan, gnìomhachasan aotrom 's ceàrdaichean-stàilinn.</p>
+	
+	<p style="hp"> Thèid Mwh a sholar le stèisean cumhachd-guail no cumhachd-grèine no muileann-gaoithe nuadh 's faodaidh tu a thoirt do fo-stèisean no dìreach gu gnìomhachas aotrom no ceàrdach stàilinn.</p>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="windmill">Muileann-gaoithe</a></li>
+	<li><a href="residential">Còmhnaidhean</a></li>
+	<li><a href="commune">Coille</a></li>
+	<li><a href="farm">Tuathanas</a></li>
+	<li><a href="powerline">Loidhne-dhealain</a></li>
+	<li><a href="powerscoal">Stèisean cumhachd-guail</a></li>
+	<li><a href="powerssolar">Stèisean cumhachd-grèine</a></li>
+	<li><a href="substation">Fo-stèisean</a></li>
+	<li><a href="industryl">Gnìomhachas aotrom</a></li>	
+	<li><a href="industryh">Ceàrdach stàilinn</a></li>
+</Document>

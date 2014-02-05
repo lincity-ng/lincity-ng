@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Às-àiteachadh</p>
+	<p style="hp">Tagh putan an às-àiteachaidh gus togalach às-àiteachadh is an uairsin cleachd an sguab gus bathar-amh luachmhor sam bith às-àiteachadh. Gheibh thu an t-às-àiteachadh an-asgaidh 's thèid gach stuth a bhios ann a chur air leacan giùlain ri thaobh 's dha na margaidean am fagas.</p>
+	<p style="hp">Faodaidh seo adhbharachadh gun tèid saothrachadh a stad no gum bi truailleadh ann no gum faigh daoine ionadail bàs leis an acras.</p>
+	<p style="hp">Tha togalaichean ann nach gabh às-àiteachadh mar slighean, rathaidean, rèilean no òtraichean.</p>
+	<p style="hp">Thèid mèinnean cloiche-mèinneir 's mèinnean-guail falamh àsàiteachadh gu fèin-obrachail mus tèid iad sìos.</p>
+	<p style="hp">Seo ìomhaigheag an às-àiteachaidh</p>
+	<img src="images/gui/buttonpanel/base/broom.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="bulldoze">Am milltear</a></li>
+</Document>

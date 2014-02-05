@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Bathar</p>
+	<p style="hp">Tha a' mhòrchuid a raointean feumach air bathar ach an obraich iad. Tha na daoine glè mheasail air cuideachd is thèid iad a chòmhnaidh far am faigh iad bathar ann.</p>
+	<p style="hp">Tha bathar fo chìsean is cuidich e leis an ionmhas agad ma tha tòrr dheth ann.</p>
+	<p style="hp">Solairidh criadhadaireachd, goibhnean-dubha, muileannan-clòtha is gnìomhachasan aotrom bathar.</p>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="pottery">Criadhadaireachd</a></li>
+	<li><a href="blacksmith">Gobha-dubh</a></li>
+	<li><a href="mills">Muileann-clòtha</a></li>
+	<li><a href="industryl">Gnìomhachas aotrom</a></li>
+</Document>

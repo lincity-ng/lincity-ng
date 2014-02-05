@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Carragh</p>
+    <p style="hp">'S e ionad-taice a tha sa charragh a chuidicheas an t-ionnsachadh is an tionnsgnadh.
+    Cuiridh gach carragh a thogas tu ri adhartas an teicneolais ach cha bhi iad èifeachdach tuilleadh nuair a bhios tu air teicneolas de 40% a ruigsinn.</p>
+    <p style="hp">Feumaidh tu obair a sholar gus carragh a thogail. Torr obrach.
+    Bidh iad feumach gus smachd a chumail air cion cosnaidh air an adhbhar seo. Cha chuir iad taic ri seo ach greis co-dhiù on nach eil iad feumach air obair tuilleadh nuair a bhios an togail coileanta.</p>
+    <p style="hp">'S urrainn dhut adhartas na togail a shealltainn 's tu a' briogadh air a' charragh 's a' coimhead air uinneag nan stats aig a bharr gu clì. Atharraichidh coltas na grafaigeachd cuideachd rè na togail.
+    Tha 6 grafaigean ann a riochdaicheas adhartas na togail o 0% gu 100%</p>
+    <p style="hp">Gliocas: Ma tha togail carraighe a' toirt cus obrach à roinn, 'ga cumail air falbh o roinnean eile, tog fad air falbh i no cleachd goireas an às-àiteachaidh nuair a bhios èiginn ort.</p>
+
+    <p style="hp">Seo carragh</p>
+    <img src="images/tiles/monument5.png" halign="center"/>
+    <p style="hp">agus seo a h-ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="jobs">Obair</a></li>
+    <li><a href="evacuate">Às-àiteachadh</a></li>
+</Document>

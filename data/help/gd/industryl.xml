@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Gnìomhachas aotrom</p>
+    <p style="hp">Nì gnìomhachasan aotrom bathar de chlach-mhèinneir.
+    Obraichidh iad nas èifeachdaiche ma bhios stàilinn ri làimh cuideachd agus fiùs nas èifeachdaiche ma gheibh iad cumhachd. Gheibh thu kWh neo-èifeachdadh le giùlan agus MWh èifeachdach gu dìreach le loidhnichean-dealain.
+    'S gann gun toir muileannan-gaoithe kWh a dh'fhoghnadh dhut.</p>
+    <p style="hp">Tha na sholaraicheas gnìomhachas aotrom an eisimeil air an stuth amh is an obair a gheibh e is air an uiread de bhathar a thèid a thoirt air falbh.</p>
+    <p style="hp">Ceangail gnìomhachas aotrom ri giùlan gu dìreach gus obair, clach-mhèinneir, stàilinn, kWh is bathar a mhalart. Dh'fhaoidte gum bi e feumach air margaid ach an obraich e a-rèir a chomas.</p>
+
+    <p style="hp">Adhbharaichidh gnìomhachasan aotrom truailleadh mòr.</p>
+
+    <p style="hp">Seo gnìomhachas aotrom</p>
+    <img src="images/tiles/industryll1.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/industry/lightindustry.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="transport">Giùlan</a></li>
+    <li><a href="market">Margaid</a></li>
+    <li><a href="commodities">Bathar-amh</a></li>
+    <li><a href="pollution">Truailleadh</a></li>
+</Document>

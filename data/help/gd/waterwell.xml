@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Tobar</p>
+        <p style="hp">Bheir tobraichean uisge dhut. Sruthaidh uisge ann am pìoban fon t-siostam giùlain agad.
+         Adhbharaichidh dìth uisge na h-aon trioblaidean a dh'adhbharaicheas dìth bìdh.
+         Chì thu fiosrachadh san tar-chòmhdachadh gortais air a' mhapa bheag. Thoir an aire nach gabh an t-uisge òl tuilleadh ma bhios cus truaillidh ann.</p>
+
+    <p style="hp">Faic cuideachd:</p>
+    <li><a href="food">Biadh</a></li>
+    <li><a href="water">Water</a></li>
+    <li><a href="transport">Giùlan</a></li>
+    <li><a href="msb-starve">Tar-chòmhdachadh gortais</a></li>
+    <li><a href="pollution">Truailleadh</a></li>
+</Document>

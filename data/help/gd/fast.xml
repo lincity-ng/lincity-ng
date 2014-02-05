@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Luaths glè luath</p>
+	<img src="images/gui/speed/faster.png"/>
+	<p style="hp">Seo putan an luaiths glè luaith. Nì e gun ruith an geama cho luath 's a ghabhas. Thoir an aire leis a' mhodh seo air uidheaman luatha on a dh'fhaodadh suidheachaidhean doirbh a nochdadh sa gheama gu luath!</p>
+        <p style="hp">Bheir roghainn na loidhne-àithne "-q 1" no "--quick 1" am luaths as motha dhut (nas lugha na 10 diogan gach bliadhna) ach dh'fhaoidte gun teasaich seo am bathar-cruaidh agad. Is -q 9 a' bhun-roghainn (mu 25 diog gach bliadhna). Chan eil buaidh aig an roghainn seo air luaths geama eile.</p> 
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="medium">Luaths luath</a></li>
+	<li><a href="slow">Luaths àbhaisteach</a></li>
+</Document>

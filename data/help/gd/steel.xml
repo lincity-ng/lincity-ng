@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Stàilinn</p>
+	<p style="hp">Nì thu a' mhòrchuid de stàilinn ann an ceàrdach stàilinn. Feumaidh teicneolas a dh'fhoghnadh a bhith agad gus fear a thogail co-dhiù. Roimhe seo, chan fhaigh thu stàilinn ach o choilltean. Nì coilltean beagan stàilinn de chlach-mhèinneir agus bidh thu feumach air uiread dhiubh ach am faigh thu an stàilinn a tha a dhìth ort.</p>
+	<p style="hp">cleachdaidh goibhnean-dubha stàilinn gus bathar a dhèanamh. Cleachdaidh gnìomhachasan aotrom stàilinn gus acainnean 's bathar a dhèanamh. Obraichidh gnìomhachasan aotrom gun stàilinn ach bidh dèanadas mòran nas lugha aca mur faigh iad stàilinn.</p>
+	<p style="hp">Cleachdaidh rocaidean torr stàilinn, gu h-àraidh gus raointean-rocaide a thogail.</p>
+	<p style="hp">Cleachdaidh rèilean stàilinn cuideachd airson an obrach-glèidhidh.</p>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="commune">Coille</a></li>
+	<li><a href="blacksmith">Gobha-dubh</a></li>
+	<li><a href="industryh">Ceàrdach stàilinn</a></li>
+	<li><a href="industryl">Gnìomhachas aotrom</a></li>
+	<li><a href="rail">Rèile</a></li>
+</Document>

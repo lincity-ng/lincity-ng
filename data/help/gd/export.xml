@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ion-portadh 's às-phortadh</p>
+	<p style="hp">Obraichidh ion-phortadh is às-phortadh san aon dòigh ach gun cosg thu airgead leis an dàrna fear is gun coisinn thu airgead leis an fhear eile. Feumaidh an dà chuid port. On a tha iad cho coltach ri chèile, cha toir sinn sùil mionaideach ach air às-phortadh an-seo.</p>
+	<p style="hp">Feumaidh ceangal gu rathad a bhith aig port ach an dèan thu às-phortadh.</p>
+	<p style="hp"><b>Feumaidh</b> taobh deas a' phuirt gu lèir a bhith ceangailte ri abhainn.</p>
+	<p style="hp">Às-phortaichidh port na gheibh e. Ma tha thu airson uiread as lugha às-phortachadh, mholamaid gun cleachd thu dòigh giùlain fada slaodach no gun cleachd thu margaid gus am bathar aiseag. Feumaidh tu feuchainn dè an rèiteachadh giùlain as fhearr dhut.</p>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="port">Port</a></li>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="market">Margaid</a></li>
+	<li><a href="coal">Gual</a></li>
+	<li><a href="ore">Clach-mhèinneir</a></li>
+	<li><a href="goods">Bathar</a></li>
+	<li><a href="steel">Stàilinn</a></li>
+</Document>

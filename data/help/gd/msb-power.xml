@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Tar-chòmhdachadh cumhachd</p>
+	<img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
+	<p style="hp">Bidh na togalaichean a bhios am fagas muileann-gaoithe dorch-uaine.</p>
+	<p style="hp">Bidh na togalaichean a bhios ceangailte ri griod an dealain soilleir-uaine.</p>
+	<p style="hp">Bidh na togalaichean aig nach eil cumhachd dearg.</p>
+    <p style="hp">Dèan briogadh clì air a' mhapa bheag gus ionad na prìomh uinneige atharrachadh. Toglaich modh an tar-chòmhdachaidh 's tu a' brùthadh air "v" no a' briogadh air a' phutan tar-chòmhdachaidh mhòr.</p>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="mini-screen">Am mapa</a></li>
+	<li><a href="msb-coal">Tar-chòmhdachadh guail</a></li>
+	<li><a href="msb-cricket">Tar-chòmhdachadh spòrsa</a></li>
+	<li><a href="msb-fire">Tar-chòmhdachadh smàlaidh</a></li>
+	<li><a href="msb-health">Tar-chòmhdachadh slàinte</a></li>
+	<li><a href="msb-normal">Tar-chòmhdachadh cleachdadh na tìre</a></li>
+	<li><a href="msb-pol">Tar-chòmhdachadh truaillidh</a></li>
+	<li><a href="msb-starve">Tar-chòmhdachadh gortais</a></li>
+	<li><a href="msb-transport">Tar-chòmhdachadh giùlain 's mhargaidean</a></li>
+	<li><a href="msb-ub40">Tar-chòmhdachadh cion-cosnaidh</a></li>
+</Document>

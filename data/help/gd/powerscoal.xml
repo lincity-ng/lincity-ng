@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Stèisean cumhachd-guail</p>
+    <p style="hp">Nì stèisean cumhachd-guail pacaidean de chumhachd-dhealain a thèid a chur air loidhnichean-dealain ceangailte.</p>
+
+    <p style="hp">Mar as àirde an teicneolas agad, 's ann nas èifeachdaiche a bhios an tionndadh dhen ghual 'na dhealan – a-rèir cuine a chaidh an stèisean-cumhachd a thogail. Mholamaid gum mill thu seann stèisean 's gun cuir thu fear ùr as èifeachdaiche 'na àite nuair a bhios an teicneolas agad air àrdachadh gu reusanta mòr.</p>
+
+    <p style="hp">Adhbharaichidh stèiseanan cumhachd-guail truailleadh mòr. Dèan cinnteach nach tog thu iad far an toireadh a' ghaoth torr truaillidh dha na còmhnaidhean. Tha muileannan-gaoithe 's cumhachd-grèine 'nan roghainn glan eile.</p>
+
+    <p style="hp">Seo stèisean cumhachd-guail</p>
+    <img src="images/tiles/powerscoal-empty.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/power/coalpower.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="tech-level">Teicneolas</a></li>
+    <li><a href="power">Cumhachd-dhealain</a></li>
+    <li><a href="powerline">Loidhne-dhealain</a></li>
+    <li><a href="windmill">Muileann-gaoithe</a></li>
+    <li><a href="powerssolar">Stèisean cumhachd-grèine</a></li>
+    <li><a href="msb-power">Tar-chòmhdachadh cumhachd</a></li>
+    <li><a href="pollution">Truailleadh</a></li>
+</Document>

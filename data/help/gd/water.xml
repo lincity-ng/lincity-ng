@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Uisge</p>
+	<p style="hp">Bheir tobraichean uisge dhut agus sruthaidh i ann am pìoban fon t-siostam giùlain agad. Feumaidh tu còmhnaidhean a cheangal ri pìoban uisge. 'S urrainn do choilltean agus tuathanasan aig a bheil cumhachd-dhealain piseach a thoirt air an torrachas le uisgeachadh. </p>
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="waterwell">Tobar</a></li>
+	<li><a href="residential">Còmhnaidhean</a></li>
+	<li><a href="commune">Coille</a></li>
+	<li><a href="farm">Tuathanas</a></li>	
+</Document>

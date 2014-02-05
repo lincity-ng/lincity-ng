@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Luaths àbhaisteach</p>
+	<img src="images/gui/speed/normal.png"/>
+	<p style="hp">Seo putan an luaiths àbhaistich. Nì e gun ruith a' gheama leis an luaths àbhaisteach. Dh'fhaoidte nach dèan na putanan luaiths dad air innealan slaodach.</p>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="medium">Luaths luath</a></li>
+	<li><a href="fast">Luaths glè luath</a></li>
+</Document>

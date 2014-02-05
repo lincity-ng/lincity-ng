@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mèinn-guail</p>
+	<p style="hp">Tochlaidh mèinnean-guail gual às an talamh. Feumaidh cuisle guail a bhith faisg air a' mhèinn. Briog air putan guail fon mhapa airson sealltainn far a bheil na cuislean.</p>
+	<p style="hp">Cosgaidh e millean not a' chiad turas a chleachdas tu am putan seo. Bidh e an-asgaidh an uairsin. Cha leig thu leas am putan seo a chleachdadh, ach feumaidh tu feuchainn ach an tachair thu air gual an uairsin.</p>
+	<p style="hp">Feumaidh mèinnean-guail obair gus gual a thochladh.</p>
+    <p style="hp">Ma shaothraicheas an eaconamaidh agad cus guail, 's urrainn dha na mèinnean-guail a cur ann an cuislean ùra fon talamh.</p>
+	
+	<p style="hp">Seo mèinn-guail</p>
+	<img src="images/tiles/coalmine-full.png" halign="center"/>
+	<p style="hp">is seo a h-ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+
+	<p style="hp">Seallaidh a' ghrafaigeachd an uiread de ghuail a chaidh a thochladh ach nach deach a ghiùlan air falbh. Tha stòras na mèinne gu h-àrd cho làn sa ghabhas.</p>
+	<p style="hp">Briog air mèinn-guail gus an stòras guail aig a' mhèinn a shealltainn ann an uinneag nan stats agus – nas cudromaiche buileach – na tha air fhàgail de ghual airson tochladh.</p>
+
+	<p style="hp">Adhbharaichidh mèinnean-guail <a href="pollution">truailleadh</a>.</p>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="coal">Gual</a></li>
+	<li><a href="powerscoal">Stèisean cumhachd-guail</a></li>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="jobs">Obair</a></li>
+	<li><a href="pollution">Truailleadh</a></li>
+</Document>

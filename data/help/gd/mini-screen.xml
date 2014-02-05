@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Am mapa</p>
+	<p style="hp">Seallaidh am mapa an raoin chluiche gu lèir agad ann an sgèile beag. Nuair a bhriogas tu air na putanan aig a, bhonn, seallaidh seo fiosrachadh dhut mar ìre an truaillidh air feadh an raoin chluiche agad.</p>
+	<p style="hp">Dèan briogadh deas air fear sam bith dhe na putanan aig bonn a' mhapa gus na duilleagan cobharach aca a shealltainn.</p>
+	<p style="hp">Nochdaidh a' cheàrnag gheal le iomall an raon dhut a chì thu sa phrìomh uinneag.</p>
+	<p style="hp">Tar-chòmhdaichidh am putan tar-chòmhdachaidh mòr susbaint a' mhapa air a' phrìomh uinneag</p>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="msb-coal">Tar-chòmhdachadh guail</a></li>
+	<li><a href="msb-cricket">Tar-chòmhdachadh spòrsa</a></li>
+	<li><a href="msb-fire">Tar-chòmhdachadh smàlaidh</a></li>
+	<li><a href="msb-health">Tar-chòmhdachadh slàinte</a></li>
+	<li><a href="msb-normal">Tar-chòmhdachadh cleachdadh na tìre</a></li>
+	<li><a href="msb-pol">Tar-chòmhdachadh truaillidh</a></li>
+	<li><a href="msb-power">Tar-chòmhdachadh cumhachd</a></li>
+	<li><a href="msb-starve">Tar-chòmhdachadh gortais</a></li>
+	<li><a href="msb-transport">Tar-chòmhdachadh giùlain 's mhargaidean</a></li>
+	<li><a href="msb-ub40">Tar-chòmhdachadh cion-cosnaidh</a></li>
+</Document>

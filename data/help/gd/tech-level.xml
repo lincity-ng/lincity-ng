@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Teicneolas</p>
+	<p style="hp">Tha iomadh rud an eisimeil ìre an teicneolais agad mar nas urrainn dhut togail agus an èifeachdachd aig pròiseasan.</p>
+	<p style="hp">Feumaidh tu carraighean, sgoiltean agus oilthighean a thogail aghs na tha a dhìth orra a thoirt dhaibh gus an teicneolas agad a thoirt gu ìre.</p>
+	<p style="hp">Ma tha ìre do theicneolais glè ìseal, chan urrainn dhut ach carraighean a thogail. Nuair a bhios feadhainn agad rè seall, bidh sgoiltean agad ri làimh an uairsin. Nì sgoiltean barrachd rannsachaidh na carraighean.</p>
+	<p style="hp">Cha bhi oilthighean ri làimh agad ach nuair a bhios an teicneolas agad air an ìre iomchaidh a ruigsinn. Nì oilthighean barrachd rannsachaidh na sgoiltean ach tha iad feumach air torr stòrasan.</p>
+	<p style="hp">Mar as àirde ìre an teicneolais agad 's ann as luaithe a chrìonas i. Is ciall dha seo gum feum thu barrachd sgoiltean 's oilthighean a thogail ma tha thu airson ìre àrd a ruigsinn.</p>
+	<p style="hp">Thoir an aire cuideachd gun crìon ìre an teicneolais agad ma dh'fhaoidte ma tha agad ri oilthigh no dhà a mhilleadh air adhbhar air choireigin no mur eil stòrasan gu leòr ri làimh dhaibh tuilleadh.</p>
+	<p style="hp">Tha ceudad an t-seans gun loisg thu rocaid gu soirbheachail co-ionnan ri ìre an teicneolais agad.</p>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="monument">Carragh</a></li>
+	<li><a href="school">Sgoil</a></li>
+	<li><a href="university">Oilthigh</a></li>
+	<li><a href="rocket">Raon-rocaide</a></li>
+</Document>

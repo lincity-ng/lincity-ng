@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Na putanan</p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="images/gui/buttonpanel/power/powerlines.png"/>
+	<p><a href="powerline">Loidhnichean-dealain</a></p>
+	<img src="images/gui/buttonpanel/power/solarpower.png"/>
+	<p><a href="powerssolar">Stèisean cumhachd-grèine</a></p>
+	<img src="images/gui/buttonpanel/power/substation.png"/>
+	<p><a href="substation">Fo-stèisean</a></p>
+
+	<!--<p style="subtitle">Residences</p>-->
+	<img src="images/gui/buttonpanel/residence/residence.png"/>
+	<p><a href="residential">Còmhnaidh</a></p>
+
+	<!--<p style="subtitle">Water well</p>-->
+	<img src="images/gui/buttonpanel/waterwell.png"/>
+	<p><a href="waterwell">Tobar</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/farm.png"/>
+	<p><a href="farm">Tuathanas</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="images/gui/buttonpanel/industry/market.png"/>
+	<p><a href="market">Margaid</a></p>
+
+	<!--<p style="subtitle">Base</p>-->
+	<img src="images/gui/buttonpanel/base/bulldozer.png"/>
+	<p><a href="bulldoze">Am milltear</a></p>
+	
+	<!--<p style="subtitle">Base</p>-->
+	<img src="images/gui/buttonpanel/base/broom.png"/>
+	<p><a href="evacuate">Às-àiteachadh</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/tracks.png"/>
+	<p><a href="track">Slighe</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="images/gui/buttonpanel/mining/coalmine.png"/>
+	<p><a href="coalmine">Mèinn guail</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/rails2.png"/>
+	<p><a href="rail">Rèile</a></p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="images/gui/buttonpanel/power/coalpower.png"/>
+	<p><a href="powerscoal">Stèisean cumhachd-guail</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/road.png"/>
+	<p><a href="road">Rathad</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="images/gui/buttonpanel/industry/lightindustry.png"/>
+	<p><a href="industryl">Gnìomhachas aotrom</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/university.png"/>
+	<p><a href="university">Oilthigh</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="images/gui/buttonpanel/mining/commune.png"/>
+	<p><a href="commune">Co-comann</a></p>
+	<img src="images/gui/buttonpanel/mining/oremine.png"/>
+	<p><a href="oremine">Mèinn cloiche-mèinneir</a></p>
+
+	<!--<p style="subtitle">Trading</p>-->
+    <img src="images/gui/buttonpanel/transport/port.png"/>
+	<p><a href="export">Ion-phortadh is às-phortadh</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png"/>
+	<p><a href="industryh">Ceàrdach stàilinn</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/tree.png"/>
+	<p><a href="park">Pàirc</a></p>
+
+	<!--<p style="subtitle">Mining</p>-->
+	<img src="images/gui/buttonpanel/mining/recycling.png"/>
+	<p><a href="recycle">Ionad ath-chuairteachaidh</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/water.png"/>
+	<p><a href="river">Abhainn</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/health.png"/>
+	<p><a href="health">Ionad-slàinte</a></p>
+
+	<!--<p style="subtitle">Transport</p>-->
+	<img src="images/gui/buttonpanel/transport/rocket.png"/>
+	<p><a href="rocket">Raon-rocaide</a></p>
+
+	<!--<p style="subtitle">Power</p>-->
+	<img src="images/gui/buttonpanel/power/windmills.png"/>
+	<p><a href="windmill">Muileann-gaoithe</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/parks/monument.png"/>
+	<p><a href="monument">Carragh</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/book.png"/>
+	<p><a href="school">Sgoil</a></p>
+
+	<!--<p style="subtitle">Parks</p>-->
+	<img src="images/gui/buttonpanel/parks/mills.png"/>
+	<p><a href="mill">Muileann-clòtha</a></p>
+
+	<!--<p style="subtitle">Industry</p>-->
+	<img src="images/gui/buttonpanel/industry/pottery.png"/>
+	<p><a href="pottery">Criadhadaireachd</a></p>
+
+	<!--<p style="subtitle">Misc</p>-->
+	<img src="images/gui/buttonpanel/misc/fire.png"/>
+	<p><a href="firestation">Stèisean-smàlaidh</a></p>
+	<img src="images/gui/buttonpanel/misc/sports.png"/>
+	<p><a href="cricket">Raon spòrsa</a></p>
+
+     <!--<p style="subtitle">Transport</p>-->
+     <img src="images/gui/buttonpanel/transport/port.png"/>
+     <p><a href="port">Port</a></p>
+</Document>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Foir-shealladh an eaconamaidh</p>
+	<p style="hp">Tha ceithir loidhnichean dathte sa ghraf seo. Seallaidh iad dhut na tha as cudromaiche san eaconamaidh.</p>
+	<li>
+		<span color="brown">Sluagh</span>	(donn) 
+        Riochdaichidh an loidhne dhonn an sluagh agad. Thèid sgèile log-àireimh a chleachdadh.
+	</li>
+	<li>
+		<span color="blue">Gun chòmhnaidh</span> (gorm) 
+        Riochdaichidh an loidhne ghorm na tha a dhìth de thaigheadas. Tha àirde na loidhne
+        co-rèireach ri freumh ceàrnagach an t-sluaigh gun chòmhnaidh.
+	</li>
+	<li>
+		<span color="yellow">Cion-cosnaidh</span> (buidhe) 
+        Seallaidh na bàraichean buidhe dhut nuair a bhios cion-cosnaidh ann. Atharraichidh sgèile a' ghrafa seo le uiread an t-sluaigh. Tha an graf seo soladach gus d' aire a tharraing dha.
+	</li>
+	<li>
+		<span color="red">Gortas</span> (dearg) 
+        Seallaidh na bàraichean dearga dhut nuair a bhios biadh a dhìth. Atharraichidh sgèile a' ghrafa seo le uiread an t-sluaigh. Tha an graf seo soladach gus d' aire a tharraing dha.
+        Thèid am bàr seo a tharraing os cionn bàr a' chion-cosnaidh.
+	</li>
+</Document>

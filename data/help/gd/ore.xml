@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Clach-mhèinneir</p>
+	<p style="hp">'S e bun-stuth cudromach sa gheama a tha sa chlach-mhèinneir. Solairidh coilltean, mèinnean cloiche-mèinneir is ionadan ath-chuairteachaidh clach-mhèinneir.</p>
+	<p style="hp">Cleachdaidh criadhadaireachd, gnìomhachasan aotrom is ceàrdaich stàilinn clach-mhèinneir.</p>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="commune">Coille</a></li>
+	<li><a href="oremine">Mèinn cloiche-mèinneir</a></li>
+	<li><a href="recycle">Ionad ath-chuairteachaidh</a></li>
+	<li><a href="pottery">Criadhadaireachd</a></li>
+	<li><a href="industryl">Gnìomhachas aotrom</a></li>
+	<li><a href="industryh">Ceàrdach stàilinn</a></li>
+</Document>

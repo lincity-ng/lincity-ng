@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Truailleadh</p>
+	<p style="hp">Adhbharaichidh a' mhòrchuid a raointean truailleadh. Seo na raointean a dh'adhbharaicheas truailleadh mòr ma dh'fhaoidte:</p>
+	<li>Ceàrdach stàilinn.</li>
+	<li>Gnìomhachas aotrom.</li>
+	<li>Stèisean cumhachd-guail.</li>
+	<li>Mèinn-guail.</li>
+	<li>Margaid làn sgudail.</li>
+	<li>Rathaidean/Rèiliean, gu h-àraidh nuair a bhios iad làn sgudail.</li>
+	<p style="hp">Cha toil le daoine fuireach ann an àiteachan le truailleadh orra. Nì iad imrich air falbh no thig tinneas orra 's caochlaidh iad.</p>
+	<p style="hp">Thig a' ghaoth on iar-dheas. Mar sin, siubhlaidh a' mhòrchuid dhen truailleadh gu ear-thuath.</p>
+	<p style="hp">Mholamaid gun tagh tu far an tog thu gach togalach ach nach bi duine fo thruailleadh. Cha ghabh seo a dhèanamh an-còmhnaidh co-dhiù agus 's urrainn dhut pàircean a thogail gus an truailleadh a bhacadh. Mar as motha de phàircean a th' agad, 's ann nas fhearr a tha an dìon.</p>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="industryh">Ceàrdach stàilinn</a></li>
+	<li><a href="industryl">Gnìomhachas aotrom</a></li>
+	<li><a href="powerscoal">Stèisean cumhachd-guail</a></li>
+	<li><a href="coalmine">Mèinn-guail</a></li>
+	<li><a href="market">Margaid</a></li>
+	<li><a href="rail">Rèile</a></li>
+	<li><a href="road">Rathad</a></li>
+	<li><a href="park">Pàirc</a></li>
+	<li><a href="msb-pol">Tar-chòmhdachadh truaillidh</a></li>
+</Document>

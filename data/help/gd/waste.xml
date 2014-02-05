@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Sgudal</p>
+	<p style="hp">Adhbharaichidh gach caitheamh bathair sgudal. 'S urrainn dhut an sgudal a thoirt do dh'òtrach, a chur gu feum ann an ionad ath-chuairteachaidh no a chruinneachadh air giùlan agus sna margaidean. Thoir an aire co-dhiù ma tha cus sgudail ann gun tèid e 'na theine na dh'adhbharaicheas truailleadh dona an adhair.</p>
+	
+	<p style="hp">'S urrainn dha thuathanasan aig a bheil cumhachd-dhealain agus dha choilltean beagan sgudail a chaitheamh gu bith-eòlach.</p>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="tip">Òtrach</a></li>
+	<li><a href="recycle">Ionad ath-chuairteachaidh</a></li>
+	<li><a href="commune">Co-chomann</a></li>
+	<li><a href="farm">Tuathanas</a></li>	
+</Document>

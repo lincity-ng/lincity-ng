@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Muileann-gaoithe</p>
+    <p style="hp">Bheir muileannan-gaoithe fiodha cumhachd dha chòmhnaidhean 's tuathanasan. Le cumhachd-dhealain, 's urrainn dha na thuathanasan barrachd bìdh a shaothrachadh agus bidh barrachd luach sna còmhnaidhean.</p>
+    <p style="hp">Cleachdaidh luchd-còmhnaidh aig a bheil cumhachd-dhealain barrachd bathair.</p>
+    <p style="hp">Tha muileannan-gaoithe feumach air obair gus cumhachd a shaothrachadh. Mur eil obair gu leòr ri làimh muilinn-ghaoithe, cha shaothraich e an uiread de chumhachd agus cha shaothraich e gin mur eil obair sam bith ri làimh.</p>
+
+    <p style="hp">Tha dà sheòrsa muillinn-ghaoithe ann.</p>
+    <img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
+    <p style="hp">Seo muileann-gaoithe "fiodha" a bhios ri làimh dhut le beagan teicneolais. Solairidh e cumhachd-dhealain kWh ionadail.</p>
+    <img src="images/tiles/windmill1w.png" halign="center"/>
+    <p style="hp">'s e seòrsa muilinn-ghaoithe "nuadh" a tha san dàrna seòrsa. Bheir e cumhachd-dhealain MWh gu grioda cumhachd a' bhaile.</p>
+    <img src="images/tiles/windmill1g.png" halign="center"/>
+    <p style="hp">Tha an seòrsa a gheibh thu a' crochadh air ìre an teicneolais agad.</p>
+
+        <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="power">Cumhachd-dhealain</a></li>
+    <li><a href="substation">Fo-stèisean</a></li>
+    <li><a href="powerline">Loidhne-dhealain</a></li>
+    <li><a href="tech-level">Teicneolas</a></li>
+    <li><a href="msb-power">Tar-chòmhdachadh cumhachd</a></li>
+    <li><a href="powerscoal">Stèisean cumhachd-guail</a></li>
+    <li><a href="powersolar">Stèisean cumhachd-grèine</a></li>
+</Document>

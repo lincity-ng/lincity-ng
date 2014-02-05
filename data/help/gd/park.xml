@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Pàirc</p>
+    <p style="hp">Tha pàircean glè shimplidh: glanaidh iad truailleadh.</p>
+    <p style="hp">Tha cuid a raointean ann a dh'adhbharaicheas truailleadh. 'S iadsan rathaidean, rèilean, mèinnean-guail, gnìomhachasan aotrom is ceàrdaichean stàilinn.
+    Adhbharaichidh cuid dhiubh barrachd dheth na càch.</p>
+    <p style="hp">'S urrainn dhut pàircean a chleachdadh gus còmhnaidhean a dhìon no truailleadh a bhacadh faisg air an tùs.</p>
+    <p style="hp">Thig a' ghaoth on iar-dheas is thoir an aire dha seo nuair a thogas tu pàirc.</p>
+    <p style="hp">Tha pàircean mòran as èifeachdaiche na coilltean no tuathanasan ach feumach air uisge fon talamh. Mar sin, chan urrainn dhut an togail ach air leacan "uaine".</p>
+    <p style="hp">Gliocas: cum an iuchair "w" sìos fhad 's a thogas tu pàirc gus lochan beag a thogail ann.</p>
+
+    <p style="hp">Seo pàirc</p>
+    <img src="images/tiles/parkland-plane.png" halign="center"/>
+    <p style="hp">agus seo a h-ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="pollution">Truailleadh</a></li>
+    <li><a href="farm">Tuathanas</a></li>
+    <li><a href="commune">Coille</a></li>
+    <li><a href="industryh">Ceàrdach stàilinn</a></li>
+    <li><a href="industryl">Gnìomhachas aotrom</a></li>
+    <li><a href="powerscoal">Stèisean cumhachd-guail</a></li>
+</Document>

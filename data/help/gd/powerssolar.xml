@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Stèisean cumhachd-grèine</p>
+    <p style="hp">Cuiridh stèisean cumhachd-grèine cumhachd-dhealain air loidhnichean-dealain ceangailte 'na pacaidean. Mar as àirde an teicneolas agad, 's ann nas motha de dhealan a thèid a ghintinn – a-rèir cuine a chaidh an stèisean-cumhachd a thogail.</p>
+
+    <p style="hp">Tha stèisean cumhachd-grèine feumach air daoine a nì obair ann ach an gin e dealan idir.</p>
+
+    <p style="hp">Seo stèisean cumhachd-grèine</p>
+    <img src="images/tiles/powerssolar.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/power/solarpower.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="substation">Fo-stèisean</a></li>
+    <li><a href="power">Cumhachd-dhealain</a></li>
+    <li><a href="powerline">Loidhne-dhealain</a></li>
+    <li><a href="tech-level">Teicneolas</a></li>
+    <li><a href="msb-power">Tar-chòmhdachadh cumhachd</a></li>
+    <li><a href="windmill">Muileann-gaoithe</a></li>
+</Document>

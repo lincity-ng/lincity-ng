@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Stèisean-smàlaidh</p>
+    <p style="hp">Cuiridh stèiseanan-smàlaidh bacadh air tòiseachadh is leudachadh teine san astar a chòmhdaicheas iad. Tha iad feumach air bathar is obair ach an obraich iad. Cha leug thu leas an ceangal ri giùlan ach feumaidh iad a bhith am fagas margaid a bheir obair is bathar dhaibh. Bidh cosgaisean 'nan lùib cuideachd.</p>
+    <p style="hp">Cha tòisich stèisean-smàlaidh ag obair sa bhad nuair a bhios tu air fear a thogail.
+    Feumaidh tu feitheamh trì mìosan mar as trice mus tèid còmhdachadh smàlaidh a sholar.</p>
+    <p style="hp">Briog air putan tar-chòmhdachadh smàlaidh fon mhapa gus còmhdachadh na stèiseanan-smàlaidh agad a shealltainn. Bidh an coltas àbhaisteach air na roinnean aig a bheil còmhdachadh agus cha bhi càch ach dorch-uaine.</p>
+    <p style="hp">Tha còmhnaidhean fo chòmhdachadh smàlaidh as tarraingiche.</p>
+    <p style="hp">Chì thu beòthachadh air stèiseanan-smàlaidh gach trì mìosan airson sealltainn dhut gu bheil iad ag obrachadh.</p>
+
+    <p style="hp">Seo stèisean-smàlaidh</p>
+    <img src="images/tiles/firestation1.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag fon mhapa</p>
+    <img src="images/gui/mapview/roundbuttons/round_fire.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="mini-screen">Am mapa</a></li>
+    <li><a href="goods">Bathar</a></li>
+    <li><a href="market">Margaid</a></li>
+    <li><a href="jobs">Obair</a></li>
+    <li><a href="msb-fire">Tar-chòmhdachadh smàlaidh</a></li>
+</Document>

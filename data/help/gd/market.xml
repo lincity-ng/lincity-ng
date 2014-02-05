@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Margaid</p>
+    <p style="hp">'S e togalaichean glè chudromach a tha sna margaidean ann an Lincity.</p>
+    <p style="hp">'S dòcha nach e ainm math a th' ann am "margaid" airson nan raointean seo. Tha iad nas coltaiche ri ionadan-obrach, bùithtean, taighean-malairt is margaidean còmhla. Ceannaichidh is reicidh iad biadh, obair, gual, bathar, clach-mhèinneir is stàilinn dha na raointean am fagas is do ghiùlan a leithid rathaidean ri an taobh.</p>
+
+    <p style="hp">Thèid gach malairt taobh a-staigh margaide a dhèanamh aig astar.
+    Cleachd an tar-chòmhdachadh  giùlain is mhargaidean gus sùil a thoirt a bheil togalach am fagas margaide.
+    Gheibh muinntir a' bhaile biadh, bathar is obair o mhargaidean a bhios faisg gu leòr air a' chòmhnaidh aca ach an coisicheadh iad ann.
+    Gheibh gach raon aig a bheil feum air obair o mhargaidean i.
+    'S urrainn do thuathanasan biadh a reic do mhargaid gu dìreach.
+    Reicidh muileannan-clòtha, criadhadaireachd is gobhachan-dubha bathar do mhargaidean am fagas gu dìreach, is gheibh iad bun-stuth uapa a leithid ceudna.</p>
+    <p style="hp">Bidh na togalaichean seo feumach air giùlan mur eil margaid ri làimh.</p>
+
+
+    <p style="hsubtitle">Rèiteachadh air na reiceas is cheannaicheas margaid</p>
+    <p style="hp">Tha smachd agad air na reiceas is a cheannaicheas margaid o ghiùlan.
+    Briog air margaid (seach air a' phutan taghaidh) dà thuras 's nochdaidh uinneag ùr air a' bharr gu clì far an urrainn dhut taghadh na thèid a mhalart. Thèid a h-uile rud a mhalart o thùs.</p>
+
+    <p style="hp">Seo margaid</p>
+    <img src="images/tiles/market-empty.png" halign="center"/>
+    <p style="hp">agus seo a h-ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/industry/market.png" halign="center"/>
+    <p style="hp">Is ciall dha seo gu bheil malart ceadaichte.</p>
+    <img src="images/gui/checkbox/checkbox_checked.png" halign="center"/>
+    <p style="hp">Is ciall dha seo <b>nach eil</b> malart ceadaichte.</p>
+    <img src="images/gui/checkbox/checkbox.png" halign="center"/>
+    <p style="hp">Innsidh an càraid àireimh eadar nam faclan "ceannaich" is "reic" dhut far a bheil a' mhargaid air a' mhapa.</p>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="commodities">Bathar-amh</a></li>
+    <li><a href="transport">Giùlan</a></li>
+    <li><a href="msb-transport">Tar-chòmhdachadh giùlain 's mhargaidean</a></li>
+</Document>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document style="helpdocument">
+<p style="htitle">Oideachadh - Toiseach tòiseachaidh</p>
+<p style="hp">Tagh "Geama ùr " &gt; "gobhlan aibhne". Tha na cnàmh-sgeulan eile airson cluicheadairean le barrachd eòlais. </p>
+<p style="hp">Thoir an aire gu bheil goireasan bunasach aig a' bhaile: </p>
+<li>Tuathanasan gus biadh a thoirt dha na margaidean</li>
+<li>Tobar dhan luchd-còmhnaidh</li>
+<li>Coilltean a nì gual à fiodh agus a shaothraicheas beagan cloiche-mèinneir 's stàilinn</li>
+<li>Còmhnaidhean</li>
+<li>Criadhadaireachd</li>
+<li>Slighean</li>
+
+<p style="hp">Briog air togalach (sa phrìomh sgrìn) gus fiosrachadh a shealltainn san uinneag fiosrachaidh taobh deas aig a' bhonn.</p>
+
+<p style="hsubtitle">Margaid</p>
+<p style="hp">Tha margaidean glè chudromach ann an Lincity. Bidh cha mhòr gach malart ionadail feumach air tè. <b>Feumaidh</b> tu a' chobhair air <a href="market">margaidean</a> a leughadh :-). <i>Gu nàdarra, ma tha margaid falamh, chan urrainn dhi nì a reic agus nuair a bhios i làn chan urrainn dhi nì a cheannach tuilleadh. Bidh seo as adhbhar gu tric nach eil togalach ag obair tuilleadh (cha lorg e na tha feum aige air no chan urrainn dha na rinn e a reic).</i> </p>
+
+<p style="hsubtitle">Giùlan</p>
+<p style="hp">Bidh tu feumach air <a href="transport">giùlan</a> gus nithean aiseag astar fada agus airson gnìomhan sònraichte (thèid seo a mhìneachadh dhut ann an teachdaireachdan cobharach sònraichte, mar eisimpleir airson coilltean). Tha cuingeachadh aig giùlan mar a tha aig margaid agus 's urrainn dha fàs làn.</p>
+
+<p style="hp">Mur eil togalach "àbhaisteach" am fagas margaide, feumaidh tu a cheangal ri giùlan. Thoir an aire co.dhiù gu bheil cosgaisean an lùib rathaidean 's rèilean gach bliadhna, mar sin mur eil thu airson togalach a chur 'na aonar (carragh, mar eisimpleir), mholamaid gun cleachd thu margaidean nuair a bhios feum orra on a tha seo nas saoire. </p>
+
+<p style="hp">Chan eil feum air slighean sa bhaile tòiseachaidh ach bidh iad feumail nuair a thèid am baile a leasachadh.</p>
+
+<p style="hsubtitle">Airgead</p>
+<p style="hp">Gheibh thu airgead le cìsean air an t-saothrachadh. San uinneag bheag, 's e <a href="finance">ionmhas</a> a th' anns an treas taba. Thoir an aoire nach cosg thu cus airgid ro luath: Nuair a bhios an t-airgead air ruith ort, tha rudan ann nach urrainn dhut togail agus feumaidh tu riadh a phàigheadh gach bliadhna airson nam fiachan. Dh'fhaoidte gun tig bristeachas ort le seo (faic an cnàmh-sgeul <a href="tutorial-scenario">droch amannan</a>.</p>
+
+<p style="hsubtitle">A' leasachadh a' bhaile</p>
+<p style="hp">Thoir an aire gum faigh an luchd-còmhnaidh agad bàs gun bhiadh no uisge. Feumaidh tu an seòrsa de <a href="residential">chòmhnaidhean</a> a thogas tu a thaghadh le cùram gus smachd a chumail air àireamh an t-sluaigh (tha uiread de bhreith/bhàs eadar-dhealaichte aig gach seòrsa). Bheir barrachd sluaigh barrachd obrach dhut ach bidh do mhuinntir feumach air biadh, bathar, obair, ...</p>
+<p style="hp">Feumaidh tu an saothrachadh agad a mheudachadh (cuir criadhaireachd 's gobha-dubh ris) agus dèanamh cinnteach gun solair thu na tha a dhìth aig na ceàrdaichean aig an aon àm. Mar sin, feumaidh tu uiread iomchaidh de choilltean a chur ris cuideachd. </p>
+<p style="hp">Feumaidh tu ìre an <a href="tech-level">teicneolais</a> agad àrdachadh gus barrachd thogalaichean fhaighinn.</p>
+<p style="hp">Thig an t-àm a dh'fheumas tu d' amas a thaghadh: <a href="sustain">eaconamaidh seasmhach</a> no às-àiteachadh le <a href="rocket">soithichean-fànais</a>.</p>
+
+<p style="hp">Mholamaid gun toir thu sùil air na <a href="pbar">stats</a> gu tric gus faighinn a-mach na tha sna margaidean. Bheir na mapaichean beaga barrachd fiosrachaidh dhut mun eaconamaidh agad agus airson rannsachadh mionaideach briog air na togalaichean (sa phrìomh sgrìn) airson fiosrachadh mun dèidhinn san uinneag bheag aig a' bhonn gu deas. </p>
+
+<li>Gliocas: Dèan atharrachadh no dhà agus fan ort greis (fhad 's a bhios tu a' leughadh na cobharach ;-) no thoir air a' gheama ruith nas luaithe 's cum sùil air mar a dh'atharraicheas an eaconamaidh agad. </li>
+<p style="hp"></p>
+<p style="hp">Gabh tlachd.</p>
+<p style="hp"></p>
+
+<p style="hp">Faic cuideachd:</p>
+<li><a href="tutorial-advanced">Oideachadh - Feartan adhartach</a></li>
+<li><a href="tutorial-scenario">Oideachadh - Cnàmh-sgeul</a></li>
+<li><a href="msb-starve">Tar-chòmhdachadh gortais</a></li>
+<li><a href="msb-ub40">Tar-chòmhdachadh cion-cosnaidh</a></li>
+
+</Document>

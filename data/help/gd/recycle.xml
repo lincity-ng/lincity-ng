@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ionad ath-chuairteachaidh</p>
+	<p style="hp">Nì ionadan ath-chuairteachaidh clach-mhèinneir de sgudal. cleachdaidh iad obair, cumhachd-dealain (kWh) 's aisgead gus an sgudal a chruinneachadh agus clach-mhèinneir a dhèanamh dheth. 'S urrainn dhut fear a chleachdadh gus òtrach làn fhalamhachadh.</p>
+	<p style="hp">Gabhaidh eaconamaidh seasmhach ('s e seo nach eil clach-mhèinneir 'ga togail on talamh tuilleadh agus msaa.) a ruith le ionadan ath-chuairteachaidh aig a bheil èifeachdachd nas lugha na 100% ma tha muileann-clòtha no dhà agad gus na chailleas tu aiseag.</p>
+	
+	<p style="hp">Seo ionad ath-chuairteachaidh</p>
+	<img src="images/tiles/recycle-centre.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="power">Cumhachd-dhealain</a></li>
+	<li><a href="transport">Giùlan</a></li>
+</Document>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Ports</p>
+    <p style="hp">'S urrainn dhut bathar, stàilinn, clach-mhèinneir, gual is biadh ion-phortadh 's às-phortadh ann am port.
+    Cosgaidh ion-phortadh airgead is gheibh thu cosnadh à às-phortadh.</p>
+    <p style="hp">Dèan briogadh dùbailte air port gus taghadh na thèid ion-phortadh. Nochdaidh clàr-taice le bogsaichean airson taghadh na tha thu airson ion-phortadh no às-phortadh.</p>
+    <p style="hp">Feumaidh taobh deas puirt a bhith ceangailte gu lèir ri abhainn.</p>
+    <p style="hp">Cha tèid dad ion-phortadh no às-phortadh mus cuir thu cromag sa bhogsa iomchaidh.</p>
+    <p style="hp">Gabhaidh raon às-phortadh ri na tha ann. Ma tha thu airson às-phortadh ach an t-uiread a chuingeachadh, mholamaid gun cleachd thu seòrsa giùlain a tha slaodach no fada no gun cleachd thu margaid. Feumaidh tu fhèin feuchainn 's faighinn a-mach dè an rèiteachadh giùlain as fhearr dhut.</p>
+    <p style="hp">Bheir port gnìomhach beagan teicneolais dhut. Thoir an aire: gheibh thu nas lugha de dh'airgid airson gach aonaid le uiread mòr de dh'às-phortadhadh.</p>
+
+    <p style="hp">Seo port</p>
+    <img src="images/tiles/ex_port.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/transport/port.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="export">Ion-portadh 's às-phortadh</a></li>
+    <li><a href="rivers">Abhainn</a></li>
+    <li><a href="transport">Giùlan</a></li>
+    <li><a href="market">Margaid</a></li>
+    <li><a href="food">Biadh</a></li>
+    <li><a href="coal">Gual</a></li>
+    <li><a href="ore">Clach-mhèinneir</a></li>
+    <li><a href="goods">Bathar</a></li>
+    <li><a href="steel">Stàilinn</a></li>
+</Document>

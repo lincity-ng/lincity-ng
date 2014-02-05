@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Rathad</p>
+	<p style="hp">Giùlainidh rathaidean barrachd na slighean ach cha ghiùlain iad na ghiùlaineas rèilean. Adhbharaichidh iad barrachd truaillidh na rèilean cuideachd. Tha e nas saoire an ceannach 's an glèidheadh na rèilean – seo as adhbhar gu bheil iad ann!</p>
+	
+	<p style="hp">Seo rathad</p>
+	<img src="images/tiles/roadud.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/transport/road.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="pollution">Truailleadh</a></li>
+</Document>

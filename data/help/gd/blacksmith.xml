@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Goibhnean-dubha</p>
+	<p style="hp">Nì goibhnean-dubha bathar de stàilinn is guail. Cleachdaidh tu tràth 'sa gheama iad mar as trice. Mar a shaoileadh tu, cleachdaidh iad obair cuideachd.</p>
+	<p style="hp">Gus am bi ceàrdaichean stàilinn agad, bi thu an eiseimeil air an stàilinn a shaothraicheas coilltean. Mholamaid 5 no 6 coilltean airson gach gobha-dhuibh.</p>
+	<p style="hp">Cha leig thu leas goibhnean-dubha a cheangal ri giùlan. Gheibh iad a h-uile nì air a bheil iad feumach o mhargaidean am fagas.</p>
+	<p style="hp">'S urrainn dhut briogadh air gobha-dubh san dòigh àbhaisteach airson fiosrachadh air co-dhiù a bheil e trang no nach eil is chì thu beòthachadh o àm gu àm cuideachd.</p>
+
+	<p style="hp">Seo gobha-dubh</p>
+	<img src="images/tiles/blacksmith0.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/industry/blacksmith.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="market">Margaid</a></li>
+	<li><a href="ore">Clach-mhèinneir</a></li>
+	<li><a href="commune">Coille</a></li>
+	<li><a href="steel">Stàilinn</a></li>
+	<li><a href="jobs">Obair</a></li>
+</Document>

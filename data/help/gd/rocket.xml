@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Raon-rocaide</p>
+    <p style="hp">'S urrainn dhut do mhuinntir às-àiteachadh dha shaoghal eile le rocaidean 's crìoch a chur air a' gheama le sin.</p>
+    <p style="hp">Feumaidh tu còig rocaidean falamh a losgadh gu soirbheachail mus urrainn dhut tòiseachadh leis an às-àiteachadh.
+    Bidh rum airson 1000 duine anns gach rocaid às-àiteachaidh shoirbheachail.</p>
+    <p style="hp">Tha coltas soirbheas an losgaidh co-ionnan ri ìre an teicneolais aig àm an losgaidh.
+    Mar eisimpleir, bi thu an dùil air ceithir losgaidhean soirbheachail a-mach à còig ma bhios teicneolas de 80% agad.
+    Bidh losgadh soirbheachail an-còmhnaidh ma tha teicneolas de 100% no as àirde agad. Feumaidh tu raon-rocaide ùr a thogail airson gach rocaid a thogas tu.</p>
+    <p style="hp">Cha leig thu leas raointean-rocaide a cheangal ri giùlan cho fad 's a bhios margaid am fagas. Bidh thu feumach air uiread mòr de stàilinn, bathair, obrach 's airgid gus an togail.
+    Nuair a bhios rocaid air a togail, gheibh thu teachdaireachd a' faighneachd dhiot a bheil thu airson a losgadh sa bhad no uaireigin eile.
+    Ma chuireas tu romhad a losgadh uaireigin eile, briog air an raon nuair a bhios tu airson a losgadh. Faodaidh na thogras tu de rocaidean a' feitheamh a bhith agad.</p>
+    <p style="hp">Nuair a bhios rocaid air a togail ach a' feitheamh air losgadh, cha chleachd i stàilinn, bathar no obair tuilleadh ach cosgaidh i fhathast mòran airgid.</p>
+    <p style="hp">Gliocas: cleachd inneal an às-àiteachaidh gus na stòrasan nach deach a cleachdadh a thogail mus mill thu raon-rocaide air a chaitheamh.</p>
+    <p style="hp">Seo raon-rocaide</p>
+    <img src="images/tiles/rocket5.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="market">Margaid</a></li>
+    <li><a href="commodities">Bathar-amh</a></li>
+    <li><a href="evacuate">Às-àiteachadh</a></li>
+</Document>

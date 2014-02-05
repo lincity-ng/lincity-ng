@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Fo-stèisean</p>
+    <p style="hp">Gabhaidh fo-stèiseanan ri pacaidean-cumhachd o loidhnichean-dealain (MWh) agus sgaoilidh iad an cumhachd dhan ghiùlan ri an taobh (kWh). Thoir sùil air an tar-chòmhdachadh cumhachd ach am faic thu far a bheil cumhachd a dhìth ort. Chan eil na tionndairean feumach air obair ach an obraich iad.</p>
+
+    <p style="hp">Seo fo-stèisean</p>
+    <img src="images/tiles/substation-G.png" halign="center"/>
+    <p style="hp">and this is its icon</p>
+    <img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="msb-power">Tar-chòmhdachadh cumhachd</a></li>
+    <li><a href="power">Cumhachd-dhealain</a></li>
+    <li><a href="powerline">Loidhne-dhealain</a></li>
+    <li><a href="windmill">Muileann-gaoithe</a></li>
+    <li><a href="powerscoal">Stèisean cumhachd-guail</a></li>
+    <li><a href="powerssolar">Stèisean cumhachd-grèine</a></li>
+
+
+</Document>

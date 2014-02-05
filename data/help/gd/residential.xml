@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Còmhnaidhean</p>
+        <p style="hp">Seo far am fuirich muinntir do bhaile. Feumaidh uisge agus biadh a bhith ann an còmhnaidh ach an tig iad a dh'fhuireach innte 's feumaidh ceangal ri giùlan a bhith aca. Bidh na còmhnaidhean nas luachmhoire ma bhios obair, cumhachd-dhealain 's bathar ri fhaighinn dhaibh. Bidh e 'na bhuannachd cuideachd ma bhios iad am fagas margaide. Bheir thu barrachd tarraingeachd air còmhnaidhean le raointean-spòrs. Cum gach truailleadh air falbh o do mhuinntir.</p>
+        <p style="hp">Tha trì seòrsaichean de chòmhnaidhean ann: feadhainn bheaga, mheadhanach agus mòra. Tha tricead nam breith 's nam bàs eadar-dhealaichte aig gach seòrsa. 'S urrainn dhut seo a chleachdadh gus smachd a chumail air na th' agad de shluagh. Tha buaidh aig ionadan-slàinte air tricead nam breith 's nam bàs cuideachd.</p>
+	<p style="hp">'S urrainn dhut togalaichean "nuadha" a thogail, fiù 's 'nan tùir àrda nuair a bhios an teicneolas iomchaidh agad nas anmoiche 'sa gheama.</p>
+
+	<p style="hp">Seo còmhnaidh bheag (teicneolas àrd)</p>
+	<img src="images/tiles/reslowhi.png" halign="center"/>
+	<p style="hp">agus seo a h-ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-lo.png" halign="center"/>
+	<p style="hp">Seo còmhnaidh mheadhanach (teicneolas àrd)</p>
+	<img src="images/tiles/resmedhi.png" halign="center"/>
+	<p style="hp">agus seo a h-ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-med.png" halign="center"/>
+	<p style="hp">Seo còmhnaidh mhòr (teicneolas àrd)</p>
+	<img src="images/tiles/reshihi.png" halign="center"/>
+	<p style="hp">agus seo a h-ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/residence/residence-hightec-high.png" halign="center"/>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="market">Margaid</a></li>
+	<li><a href="transport">Giùlan</a></li>
+    <li><a href="waterwell">Tobar</a></li>
+    <li><a href="pollution">Truailleadh</a></li>    
+    <li><a href="farm">Tuathanas</a></li>
+    <li><a href="commodities">Bathar-amh</a></li>
+    <li><a href="health">Ionad-slàinte</a></li>
+    <li><a href="cricket">Raon spòrsa</a></li>
+</Document>

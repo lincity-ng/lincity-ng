@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Guail</p>
+	<p style="hp">Cleachdaidh stèiseanan cumhachd-guail gual gus cumhachd-dealain a dhèanamh. Cleachdaidh criadhaireachd, muileannan-clòtha is goibhnean-dubha i cuideachd gus bathar a dhèanamh. Cleachdaidh ceàrdaichean stàilinn gual mur faigh iad cumhachd-dealain.</p>
+	<p style="hp">Tochlaidh tu gual às an talamh le mèinnean-guail. Chan eil na tha ann de ghual gun chrìch is chì thu na tha ann le putan tionalan guail (seall air a' chobhair airson mhèinnean-guail).</p>
+	<p style="hp">Bheir coille beagan "gual" dhut cuideachd. Seo gual air a losgadh o fhiodha. Cha toir iad ach beagan dhut a dh'fhòghnas airson cuid a ghoibhnean-dubha is criathaireachd.</p>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="commodities">Bathar-amh</a></li>
+	<li><a href="coalmine">Mèinn-guail</a></li>
+	<li><a href="powerscoal">Stèisean cumhachd-guail</a></li>
+	<li><a href="commune">Coille</a></li>
+	<li><a href="pottery">Criadhadaireachd</a></li>
+	<li><a href="blacksmith">Gobha-dubh</a></li>
+	<li><a href="msb-coal">Tar-chòmhdachadh guail</a></li>
+</Document>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Òtrach</p>
+    <p style="hp">'S e àite far an urrainn dhut an sgudal agad a chur a th' anns na h-òtraichean. Ma chruinnicheas tu cus sgudail aig margaidean, feumaidh iad a losgadh. Adhbharaichidh seo torr truaillidh, mar sin thoir an aire nach cruinnich thu cus sgudail.</p>
+    <p style="hp">Thèid òtrach 'na chnoc nuair a thèid a lìonadh agus fàsaidh feur air nuair a bhios e làn.</p>
+    <p style="hp">Ma ghlanas tu am baile agad, gabhaidh an sgudal a thogail on òtrach 's a chur gu feum ann an coilltean, tuathanasan aig a bheil cumhachd-dhealain agus ionadan ath-chuairteachaidh.</p>
+    <p style="hp">Briog air òtrach airson sealltainn a bheil e trang.</p>
+
+    <p style="hp">Seo òtrach</p>
+    <img src="images/tiles/tip0.png" halign="center"/>
+    <p style="hp">agus seo ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="waste">Waste</a></li>
+    <li><a href="market">Margaid</a></li>
+    <li><a href="commune">Coille</a></li>
+    <li><a href="farm">Tuathanas</a></li>
+    <li><a href="recycle">Ionad ath-chuairteachaidh</a></li>
+</Document>

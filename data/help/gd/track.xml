@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Slighe</p>
+	<p style="hp">'S e an dòigh giùlain as simplidhe saoire a th' anns na slighean. Chan urrainn dhaibh cus a thar-aiseag ach chan adhbharaich iad truailleadh nas motha.</p>
+	
+	<p style="hp">Seo slighe</p>
+	<img src="images/tiles/trackud.png" halign="center"/>
+	<p style="hp">agus seo a h-ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/transport/tracks.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="transport">Giùlan</a></li>
+</Document>

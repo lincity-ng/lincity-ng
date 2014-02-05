@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document style="helpdocument">
+	<p style="htitle">Tabaichean fiosrachaidh</p>
+    <p>Taba a' mhapa</p>
+    <li><a href="mini-screen">Am mapa</a></li>
+    <p>Taba nam margaidean</p>
+	<li><a href="pbar">Stats</a></li>
+    <p>Taba an airgid</p>
+	<li><a href="finance">Ionmhas</a></li>
+	<li><a href="other-costs">Cosgaisean eile</a></li>
+	<li><a href="housing">An sluagh</a></li>
+    <p>Taba an eaconamaidh</p>
+	<li><a href="economy">Foir-shealladh an eaconamaidh</a></li>
+	<li><a href="sustain">Seasmhachd</a></li>
+</Document>

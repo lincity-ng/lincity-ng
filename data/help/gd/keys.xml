@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+
+    <p style="htitle">Am meur-chlàr</p>
+    <p style="hp">ESCAPE: gearr leum gun inneal-ceiste</p>
+    <p style="hp">b toglaich eadar am modh làithreach is am modh millidh</p>
+    <p style="hp">h falaich togalaichean àrda. Brùth air h a-rithist gus an sealltainn.</p>
+    <p style="hp">v rach mun cuairt air modhan còmhdachaidh a' mhapa</p>
+    <p style="hp">m,n rach mun cuairt air modhan còmhdachaidh a' ghiùlain</p>
+    <p style="hp">g seall fiosrachadh mu na tha fon talamh.</p>
+    <p style="hp">KP_PLUS: sùm a-steach</p>
+    <p style="hp">KP_MINUS sùm a-mach</p>
+    <p style="hp">KP_ENTER sùm 100%</p>
+    <p style="hp">KP5 cuir meadhan a' mhapa ann am meadhan na prìomh-sgrìn</p>
+    <p style="hp">KP9 sgrolaidh a' phrìomh-sgrìn gu tuath</p>
+    <p style="hp">KP1 sgrolaidh a' phrìomh-sgrìn gu deas</p>
+    <p style="hp">KP7 sgrolaidh a' phrìomh-sgrìn gun iar</p>
+    <p style="hp">KP3 sgrolaidh a' phrìomh-sgrìn gun ear</p>
+    <p style="hp">KP2 sgrolaidh a' phrìomh-sgrìn gu ear-dheas</p>
+    <p style="hp">KP4 sgrolaidh a' phrìomh-sgrìn gu iar-dheas</p>
+    <p style="hp">KP6 sgrolaidh a' phrìomh-sgrìn gu ear-thuath</p>
+    <p style="hp">KP8 sgrolaidh a' phrìomh-sgrìn gu iar-thuath</p>
+    <p style="hp">mar an ceudna leis a' chùrsair</p>
+    <p style="hp">cleachd shift + comhair airson sgroladh nas luaithe</p>
+    <p style="hp">F12 grad-shàbhaladh</p>
+    <p style="hp">F9  grad-luchdadh</p>
+
+    <p style="htitle">An luchag</p>
+    <p style="hp">deas:</p>
+    <p style="hp">slaod a' phrìomh-sgrìn le putan deas na luchaige.</p>
+    <p style="hp">briog air a' phrìomh-sgrìn gus a mheadhanachadh fon chùrsair.</p>
+    <p style="hp">meadhan:</p>
+    <p style="hp">briog leis a' phutan meadhanach gus fiosrachadh mun raon fon chùrsair a shealltainn.</p>
+    <p style="hp">clì: </p>
+    <p style="hp">briog air a' mhapa gus an raon a thagh thu a shealltainn air a' phrìomh-sgrìn.</p>
+    <p style="hp">dèan gnìomh a-rèir an inneil a thagh thu. Mill, seall fiosrachadh, tog togalach.</p>
+    <p style="hp">cuibhle:</p>
+    <p style="hp">suas: sùm a-steach</p>
+    <p style="hp">sìos: sùm a-mach </p>
+</Document>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Mèinn cloiche-mèinneir</p>
+	<p style="hp">Solairidh mèinnean cloiche-mèinneir clach-mhèinneir gus bathar no stàilinn a dhèanamh dheth. Faodaidh tu mèinn cloiche-mèinnir a thogail àite sam bith. Thèid a' chlach-mhèinneir fon raon a chaitheamh beag air bheag agus chan urrainn dhut a milleadh is tè eile a thogail gus barrachd cloiche-mèinneir fhaighinn.</p>
+    <p style="hp">Ma bheir an t-eaconamaidh agad barrachd cloiche-mèinneir dhut na air a bheil feum, 's urrainn dhut suas gu 150% dhith a ghlèidheadh sa mhèinn.</p>
+	<p style="hp">Thèid mèinn cloiche-mèinneir 'na loch ma tha i air a caitheamh. Feumaidh tu 16 raointean-uisge a mhilleadh an uairsin ma tha thu airson an tìr fhaighinn air ais!</p>
+	<p style="hp">Seallaidh luaths a' bheòthachaidh dhut dè cho trang 's a bhios mèinn.</p>
+	
+	<p style="hp">Seo mèinn cloiche-mhèinneir</p>
+	<img src="images/tiles/oremine1.png" halign="center"/>
+	<p style="hp">agus seo a h-ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/mining/oremine.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="ore">Clach-mhèinneir</a></li>
+	<li><a href="goods">Bathar</a></li>
+	<li><a href="steel">Stàilinn</a></li>
+</Document>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Ceàrdach stàilinn</p>
+	<p style="hp">Nì ceàrdaichean stàilinn stàilinn de chlach-mhèinneir, cumhachd is obair. Gheibh thu clach-mhèinneir is obair on ghiùlan no margaid ceangailte.</p>
+	<p style="hp">Tha dà dhòigh ann gus cumhachd a thoirt dhan cheàrdach stàilinn. 'S e losgadh guail a tha san dàrna tè is cumhachd-dealain san tè eile. Gheibh thu kWh nach eil cho èifeachdach on ghiùlan ceangailte no MWh èifeachdach dìreach o loidhnichean-dealain. 'S e barrachd obrach a bhios ann gual a losgadh san àite fhèin. 'S gann gun toir muileannan-gaoithe cumhachd a dh'fhoghnadh dhut.</p>
+	<p style="hp">Adhbharaichidh ceàrdach stàilinn truailleadh mòr. Chì thu a bheil ceàrdach stàilinn trang san dòigh àbhaisteach 's tu a' briogadh air is thèid beòthachadh a shealltainn dhut o àm gu àm.</p>
+	
+	<p style="hp">Seo ceàrdach stàilinn</p>
+	<img src="images/tiles/industryhl1.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/industry/heavyindustry2.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="pollution">Truailleadh</a></li>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="power">Cumhachd-dhealain</a></li>
+	<li><a href="coal">Gual</a></li>
+	<li><a href="ore">Clach-mhèinneir</a></li>
+</Document>

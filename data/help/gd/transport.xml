@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Giùlan</p>
+    <p style="hp">Seo na dòighean giùlain a tha ri làimh ann an Lincity: slighean, rathaidean agus rèilean.</p>
+    <p style="hp">Tha ceathramh dòigh ann is 's e seo "leum thar raoin" gus margaid a ruigsinn. 'S e dòigh giùlain glè ghoirid a th' ann agus cha chan sinn giùlan ris a-rithist. Tha e glè chudromach co-dhiù agus mholamaid gun toir thu sùil air <a href="market">margaidean</a> a-rithist.</p>
+
+    <p style="hp">Thèid slighean, rathaidean agus rèilean a chleachdadh gus biadh, obair, bathar, gual, clach-mhèinneir, stàilinn agus sgudal a ghiùlan eadar roinnean. Cleachdaidh tu iad airson giùlan eadar margaidean no airson togalaichean nach eil am fagas margaide (cha mholamaid seo) agus airson togalaichean a bhios feumach air giùlan gu sònraichte.</p>
+
+    <p style="hp">'S urrainn dhan lìonraidh giùlain bathar-amh sam bith a thogail, a sgaoileadh 's a lìbhrigeadh ach MWh a shruthas tro loidhnichean-dealain. Feumaidh gach ceum a-steach 's a-mach a bhith dìreach ri taobh an lìonraidh giùlain. Tha dòigh eadar-dhealaichte aig na margaidean.</p>
+
+    <p style="hp">Tha leig thu leas ach giùlan a thogail thar abhainn ach an thèid drochaid a chruthachadh. Tha drochaidean nas cosgaile na giùlan àbhaisteach.</p>
+
+    <p style="hp">Tha cosgaisean airson obrach-glèidhidh aig rathaidean 's rèilean gach bliadhna agus adhbharaichidh iad truailleadh, gu h-àraidh nuair a ghiùlaineas iad torr sgudail.</p>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="track">Slighe</a></li>
+    <li><a href="road">Rathad</a></li>
+    <li><a href="rail">Rèile</a></li>
+    <li><a href="market">Margaid</a></li>
+    <li><a href="powerline">Loidhne-dhealain</a></li>
+    <li><a href="commodities">Bathar-amh</a></li>
+    <li><a href="finance">Ionmhas</a></li>
+    <li><a href="msb-transport">Tar-chòmhdachadh giùlain 's mhargaidean</a></li>
+
+</Document>

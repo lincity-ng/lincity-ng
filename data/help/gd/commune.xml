@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Coille</p>
+    <p style="hp">'S e raointean a th' anns na coilltean far an dèan loisgeadairean-guail
+    gual de fhiodh.
+    Nì iad beagan cloiche-mhèinneir is stàilinn cuideachd.</p>
+    <p style="hp">Bi feum agad air coille no dhà gus gual is stàilinn a dh'fhòghnas a shaothrachadh
+    dha raointean a leithid criathaireachd, ghoibhnean-dubha is mhuileannan.</p>
+    <p style="hp">Ma tha coille gun saothrachadh fad 10 bliadhne, thèid a dùnadh is pàircean a dhèanamh dhith.</p>
+    <p style="hp">'S urrainn dha choille ceangal ri giùlan àite sam bith air oir seach aig a' ghèata a-mhàin.</p>
+    <p style="hp">Tha saothrachadh gual coille an eisimeil uisge fon talamh mur tèid uisge a ghiùlan dha. (tha leacan le uisge uaine is an còrr donn-bhuidhe mar fhàsach)</p>
+
+    <p style="hp">Seo coille</p>
+    <img src="images/tiles/commune1.png" halign="center"/>
+    <p style="hp">agus seo a h-ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/mining/commune.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="pottery">Criadhadaireachd</a></li>
+    <li><a href="blacksmith">Gobha-dubh</a></li>
+    <li><a href="mill">Muileann-clòtha</a></li>
+    <li><a href="oremine">Mèinn cloiche-mèinneir</a></li>
+    <li><a href="steel">Stàilinn</a></li>
+</Document>

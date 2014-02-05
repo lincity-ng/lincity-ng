@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Rèile</p>
+	<p style="hp">Giùlainidh rèilean fiù 's a bharrachd na rathaidean agus adhbharaichidh iad beagan nas lugha de thruailleadh. Tha e caran daor an ceannach 's an glèidheadh co-dhiù. 'S luach na cosgaisean air an son ma tha torr agad ri giùlan astar fada.</p>
+
+	<p style="hp">Seo rèile</p>
+	<img src="images/tiles/railud.png" halign="center"/>
+	<p style="hp">agus seo a h-ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/transport/rails2.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="pollution">Truailleadh</a></li>
+</Document>

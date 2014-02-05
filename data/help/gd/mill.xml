@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Muileann-clòtha</p>
+	<p style="hp">Nì muileann-clòtha bathar de bhiadh, gual is obair. Biadh?... uill, tha canach 's clòimh 'nam biadh sa gheama seo.</p>
+	<p style="hp">Cleachdaidh muileannan-clòtha an t-uabhas de bhiadh, mar sin dh'fhaoidte gum bidh gainnead bìdh ort mura cum thu seo 'nad chuimhne. (Mholamaid gun tog thu muileannan-gaoithe a sholaireas cumhachd dha thuathanasan a nì as èifeachdaiche iad)</p>
+	<p style="hp">Cha leig thu leas muileann-clòtha a cheangal ri giùlan. Mur eil giùlan aige fhèin, feumaidh margaid a bhith 'na fhagas aig a bheil gual, obair is biadh. Ma tha smùid a' tighinn à muileann-clòtha, is ciall dha seo gu bheil e trang.</p>
+	
+	<p style="hp">Seo muileann-clòtha</p>
+	<img src="images/tiles/mill1.png" halign="center"/>
+	<p style="hp">Seo muileann-clòtha nach eil trang</p>
+	<img src="images/tiles/mill0.png" halign="center"/>
+	<p style="hp">agus seo ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="goods">Bathar</a></li>
+	<li><a href="food">Biadh</a></li>
+	<li><a href="coal">Gual</a></li>
+	<li><a href="jobs">Obair</a></li>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="windmill">Muileann-gaoithe</a></li>
+</Document>

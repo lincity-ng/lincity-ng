@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Criadhadaireachd</p>
+	<p style="hp">Cleachdaidh criadhadaireachd clach-mhèinneir, gual 's obair gus bathar a dhèanamh. Cha leig thu leas a ceangal ri giùlan ach feumaidh i bhith am fagas margaide aig a bheil clach-mhèinneir, gual 's obair agus feumaidh comas a bhith aice gus bathar a ghiùlan.</p>
+	<p style="hp">Cuiridh a h-àth smùid fhad 's a bhios criadhadaireachd trang.</p>
+	
+	<p style="hp">Seo criadhadaireachd</p>
+	<img src="images/tiles/pottery0.png" halign="center"/>
+	<p style="hp">agus seo a h-ìomhaigheag</p>
+	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="transport">Giùlan</a></li>
+	<li><a href="ore">Clach-mhèinneir</a></li>
+	<li><a href="coal">Gual</a></li>
+	<li><a href="jobs">Obair</a></li>
+	<li><a href="market">Margaid</a></li>
+</Document>

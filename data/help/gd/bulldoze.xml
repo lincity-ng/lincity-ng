@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">Am milltear</p>
+	<p style="hp">Gus raon a mhilleadh, tagh putan a' mhillteir is an uairsin briog air an raon a tha thu airson cuidhteas fhaighinn dheth. Cosgaidh milleadh airgead. Nuair a thogas tu raon, thèid na cosgaisean togail is millidh a shealltainn air air a' bhonn gu clì.</p>
+	<p style="hp">Cha cuid a rudan a leithid carraighean uabhasach daor ri milleadh. Cha bhith cosgaisean gus cuidhteas fhaighinn dhen sgudal na lùib a-mhàin ach cosgaisean polataigeach cuideachd is thèid seo a ghabhail a-steach. Mar eisimpleir, bidh luchd-gearain is cosgaisean cuis-lagha agad ma mhilleas tu carragh.</p>
+	<p style="hp">'S urrainn dhut raon nas motha a mhilleadh 's tu a' cumail an iuchair ctrl sìos fhad 's a bhios tu a' milleadh.</p>
+	<p style="hp">Seo ìomhaigheag a' mhillteir</p>
+	<img src="images/gui/buttonpanel/base/bulldozer.png" halign="center"/>
+	
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="evacuate">Às-àiteachadh</a></li>
+	<li><a href="transport">Giulan</a></li>
+	<li><a href="river">Abhainn</a></li>
+</Document>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+    <p style="htitle">Sgoil</p>
+    <p style="hp">Cleachdaidh sgoiltean obair agus bathar gus teicneolas a shaothrachadh san aon dòigh a nì oilthighean.
+    Cleachdaidh iad mòran nas lugha de dh'obair 's bathar na oilthighean ach saothraichidh iad mòran nas lugha de theicneolas cuideachd.
+    Ma tha an roghainn agad còig sgoiltean no aon oilthigh a chur ann an roinn, bidh oilthigh an roghainn as fhearr mar as trice (ach chan ann an-còmhnaidh).</p>
+    <p style="hp">Cha leig thu leas sgoiltean a cheangal ri giùlan ach feumaidh iad a bhith am fagas margaide a sholaireas na tha a dhìth de dh'obair 's bathar ach an obraich an sgoil.</p>
+    <p style="hp">Cosgaidh sgoiltean airgead gus an ruith. Chì thu na chosg thu an-uiridh 's tu a' briogadh air putan an airgid.</p>
+    <p style="hp">Briog air sgoil gus sealltainn a bheil i trang.</p>
+
+    <p style="hp">Seo sgoil</p>
+    <img src="images/tiles/school0.png" halign="center"/>
+    <p style="hp">agus seo a h-ìomhaigheag</p>
+    <img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+
+    <p style="hsubtitle">Faic cuideachd:</p>
+    <li><a href="tech-level">Teicneolas</a></li>
+    <li><a href="market">Margaid</a></li>
+    <li><a href="university">Oilthigh</a></li>
+    <li><a href="transport">Giùlan</a></li>
+    <li><a href="goods">Bathar</a></li>
+    <li><a href="jobs">Obair</a></li>
+</Document>

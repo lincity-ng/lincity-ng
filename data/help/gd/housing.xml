@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Document style="helpdocument">
+	<p style="htitle">An sluagh</p>
+    <p style="hp">Seo uinneag an t-sluaigh.</p>
+	<p style="hp">Seallaidh an uinneag dhut 9 luachan:</p>
+	<li>Iomlan – seo an sluagh iomlan aig a' bhaile agad.</li>
+	<li>Le còmhnaidh – seo na daoine a bhios a' fuireach ann an còmhnaidhean.</li>
+	<li>Gun chòmhnaidh – seo na daoine gun dachaigh no a bhios a' fuireach ann am bothan.</li>
+	<li>Bothain – seo an àireamh de bhothain sa bhaile agad.</li>
+	<li>Bàs mì-nàdarra – seo an àireamh de dhaoine a fhuair bàs le gortas no truailleadh sa mhìos seo chaidh.</li>
+    <li>Cion-cosnaidh – seo an àireamh de dhaoine aig nach robh obair sa mhìos seo chaidh.</li>
+	<li>Ceudad – seo an ceudad de dhaoine aig nach eil obair.</li>
+    <li>Acras – seo an àireamh de dhaoine air an robh an t-acras sa mhìos seo chaidh.</li>
+	<li>Ceudad – seo an ceudad de dhaoine air a bheil an t-acras.</li>
+	<p style="hp">Ma nì thu briogadh clì air tiotal na h-uinneige, nì thu cuairt tro na h-uinneagan airson ionmhas, cosgaisean eile is an sluaigh.</p>
+
+	<p style="hsubtitle">Faic cuideachd:</p>
+	<li><a href="finance">Ionmhas</a></li>
+	<li><a href="other-costs">Cosgaisean eile</a></li>
+
+</Document>
