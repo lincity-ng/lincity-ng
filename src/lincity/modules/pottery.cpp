@@ -8,7 +8,7 @@
 #include "pottery.h"
 
 PotteryConstructionGroup potteryConstructionGroup(
-    "Pottery",
+    N_("Pottery"),
     FALSE,                     /* need credit? */
     GROUP_POTTERY,
     GROUP_POTTERY_SIZE,
@@ -71,9 +71,9 @@ void Pottery::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name,ID);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++, "busy", (float) busy);
+    mps_store_sfp(i++, _("busy"), (float) busy);
     i++;
     list_commodities(&i);
 }

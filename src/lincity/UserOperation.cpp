@@ -2,13 +2,15 @@
 #include <iostream>
 #include "lin-city.h"
 
+#include "tinygettext/gettext.hpp"
+
 static int last_warning_message_group = 0;
 
 UserOperation::UserOperation()
 {
     constructionGroup = NULL;
     action = ACTION_QUERY;
-    helpName = "query";
+    helpName = _("query");
 }
 
 UserOperation::~UserOperation() {}
@@ -73,34 +75,33 @@ float UserOperation::requiredTech()
 /* replacement of ButtonPanel::createTooltip*/
 std::string UserOperation::createTooltip( bool root /* = true */ ){
     std::stringstream tooltip;
-
     switch(action)
     {
         case ACTION_QUERY:
-            tooltip <<  "Query Tool" ; break;
+            tooltip <<  _("Query Tool") ; break;
         case ACTION_BUILD:
-            tooltip << constructionGroup->name;
+            tooltip << constructionGroup->getName();
             switch(constructionGroup->group)
             {
-                case GROUP_RESIDENCE_LL: tooltip <<  ": 50 tenants, low birthrate, high deathrate" ; break;
-                case GROUP_RESIDENCE_ML: tooltip <<  ": 100 tenants, high birthrate, low deathrate" ; break;
-                case GROUP_RESIDENCE_HL: tooltip <<  ": 200 tenants, high birthrate, high deathrate" ; break;
-                case GROUP_RESIDENCE_LH: tooltip <<  ": 100 tenants, low birthrate, high deathrate" ; break;
-                case GROUP_RESIDENCE_MH: tooltip <<  ": 200 tenants, high birthrate, low deathrate" ; break;
-                case GROUP_RESIDENCE_HH: tooltip <<  ": 400 tenants, high birthrate, high deathrate" ;
+                case GROUP_RESIDENCE_LL: tooltip <<  _(": 50 tenants, low birthrate, high deathrate") ; break;
+                case GROUP_RESIDENCE_ML: tooltip <<  _(": 100 tenants, high birthrate, low deathrate") ; break;
+                case GROUP_RESIDENCE_HL: tooltip <<  _(": 200 tenants, high birthrate, high deathrate") ; break;
+                case GROUP_RESIDENCE_LH: tooltip <<  _(": 100 tenants, low birthrate, high deathrate") ; break;
+                case GROUP_RESIDENCE_MH: tooltip <<  _(": 200 tenants, high birthrate, low deathrate") ; break;
+                case GROUP_RESIDENCE_HH: tooltip <<  _(": 400 tenants, high birthrate, high deathrate") ;
             }
             break;
         case ACTION_BULLDOZE:
-            tooltip <<  "Bulldozer" ; break;
+            tooltip <<  _("Bulldozer") ; break;
         case ACTION_EVACUATE:
-            tooltip << "Evacuate" ; break;
+            tooltip << _("Evacuate") ; break;
         case ACTION_FLOOD:
-            tooltip <<  "Water" ; break;
+            tooltip <<  _("Water") ; break;
         default:
             tooltip << "unknown useroperation";
     }
     if( !root ){
-        tooltip << " [Click right for help.]";
+        tooltip << " ["<< _("Click right for help.") << "]";
     }
     return tooltip.str();
 }

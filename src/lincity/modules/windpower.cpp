@@ -8,7 +8,7 @@
 #include "windpower.h"
 
 WindpowerConstructionGroup windpowerConstructionGroup(
-    "Wind Power",
+    N_("Wind Power"),
      TRUE,                     /* need credit? */
      GROUP_WIND_POWER,
      GROUP_WIND_POWER_SIZE,
@@ -70,10 +70,10 @@ void Windpower::update()
 void Windpower::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     mps_store_sfp(i++, _("busy"), float(busy) / mwh_output);
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, "Output", mwh_output);
+    mps_store_sd(i++, _("Output"), mwh_output);
     i++;
     list_commodities(&i);
 }

@@ -10,7 +10,7 @@
 
 // cricket place:
 CricketConstructionGroup cricketConstructionGroup(
-    "Basketball court",
+    N_("Basketball court"),
      FALSE,                     /* need credit? */
      GROUP_CRICKET,
      GROUP_CRICKET_SIZE,
@@ -86,12 +86,12 @@ void Cricket::report()
     int i = 0;
     const char* p;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, "busy", busy);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sfp(i++, _("busy"), busy);
     i++;
     list_commodities(&i);
-    p = active?"Yes":"No";
-    mps_store_ss(i++, "Public sports", p);
+    p = active?_("Yes"):_("No");
+    mps_store_ss(i++, _("Public sports"), p);
 }
 
 /** @file lincity/modules/cricket.cpp */

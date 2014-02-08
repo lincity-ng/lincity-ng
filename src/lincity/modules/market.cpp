@@ -9,7 +9,7 @@
 #include "lincity-ng/Sound.hpp"
 
 MarketConstructionGroup marketConstructionGroup(
-    "Market",
+     N_("Market"),
      FALSE,                     /* need credit? */
      GROUP_MARKET,
      GROUP_MARKET_SIZE,
@@ -181,7 +181,7 @@ void Market::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
     mps_store_sfp(i++, _("busy"), (float) busy);
     i++;
@@ -206,7 +206,7 @@ void Market::report()
 
         if(i < 14)
         {
-            mps_store_ssddp(i++,arrows,commodityNames[stuff_it->first],stuff_it->second, commodityRuleCount[stuff_it->first].maxload);
+            mps_store_ssddp(i++, arrows, getStuffName(stuff_it->first), stuff_it->second, commodityRuleCount[stuff_it->first].maxload);
         }//endif
     } //endfor
 }

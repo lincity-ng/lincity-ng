@@ -10,7 +10,7 @@
 
 // IndustryLight:
 IndustryLightConstructionGroup industryLightConstructionGroup(
-    "Light Industry",
+     N_("Light Industry"),
      FALSE,                     /* need credit? */
      GROUP_INDUSTRY_L,
      GROUP_INDUSTRY_L_SIZE,
@@ -127,7 +127,7 @@ void IndustryLight::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
     mps_store_sfp(i++, _("busy"), (busy));
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);

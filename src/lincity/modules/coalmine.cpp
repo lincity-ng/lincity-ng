@@ -10,7 +10,7 @@
 
 // Coalmine:
 CoalmineConstructionGroup coalmineConstructionGroup(
-    "Coal Mine",
+    N_("Coal Mine"),
      FALSE,                     /* need credit? */
      GROUP_COALMINE,
      GROUP_COALMINE_SIZE,
@@ -116,9 +116,9 @@ void Coalmine::update()
 void Coalmine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
-    mps_store_sfp(i++, "busy", busy);
-    mps_store_sddp(i++, "Deposits", current_coal_reserve, initial_coal_reserve);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sfp(i++, _("busy"), busy);
+    mps_store_sddp(i++, _("Deposits"), current_coal_reserve, initial_coal_reserve);
     i++;
     list_commodities(&i);
 }

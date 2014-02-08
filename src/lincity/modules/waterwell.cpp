@@ -20,7 +20,7 @@
 #include "waterwell.h"
 
 WaterwellConstructionGroup waterwellConstructionGroup(
-    "Water tower",
+    N_("Water tower"),
      FALSE,                     /* need credit? */
      GROUP_WATERWELL,
      GROUP_WATERWELL_SIZE,
@@ -58,12 +58,12 @@ void Waterwell::report()
 
     const char *p;
 
-    mps_store_sd(i++,constructionGroup->name, ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sddp(i++, "Fertility", ugwCount, constructionGroup->size * constructionGroup->size);
-    mps_store_sfp(i++,"busy", busy);
-    mps_store_sddp(i++, _("Pollution"), world(x,y)->pollution, MAX_POLLUTION_AT_WATERWELL);
-    p = world(x,y)->pollution>MAX_POLLUTION_AT_WATERWELL?"No":"Yes";
+    mps_store_sddp(i++, _("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
+    mps_store_sfp(i++,_("busy"), busy);
+    mps_store_sddp(i++, _("Air Pollution"), world(x,y)->pollution, MAX_POLLUTION_AT_WATERWELL);
+    p = world(x,y)->pollution>MAX_POLLUTION_AT_WATERWELL?_("No"):_("Yes");
     mps_store_ss(i++, _("Drinkable"), p);
     list_commodities(&i);
 }

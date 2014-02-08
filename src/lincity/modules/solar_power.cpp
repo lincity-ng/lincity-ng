@@ -11,7 +11,7 @@
 
 // SolarPower:
 SolarPowerConstructionGroup solarPowerConstructionGroup(
-    "Solar Power Plant",
+    N_("Solar Power Plant"),
      TRUE,                     /* need credit? */
      GROUP_SOLAR_POWER,
      GROUP_SOLAR_POWER_SIZE,
@@ -51,11 +51,11 @@ void SolarPower::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
     mps_store_sfp(i++, _("busy"), (busy));
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, "Output", mwh_output);
+    mps_store_sd(i++, _("Output"), mwh_output);
     i++;
     list_commodities(&i);
 }

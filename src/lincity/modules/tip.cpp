@@ -9,7 +9,7 @@
 
 // Tip:
 TipConstructionGroup tipConstructionGroup(
-    "Land Fill",
+    N_("Land Fill"),
      FALSE,                     /* need credit? */
      GROUP_TIP,
      GROUP_TIP_SIZE,
@@ -75,11 +75,11 @@ void Tip::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++,"busy", busy);
-    mps_store_sd(i++,"Waste", total_waste);
-    mps_store_sfp(i++,_("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
+    mps_store_sfp(i++,_("busy"), busy);
+    mps_store_sd(i++, _("Waste"), total_waste);
+    mps_store_sfp(i++, _("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
     i++;
     list_commodities(&i);
 }

@@ -11,7 +11,7 @@
 
 // FireStation:
 FireStationConstructionGroup fireStationConstructionGroup(
-    "Fire station",
+    N_("Fire Station"),
     FALSE,                     /* need credit? */
     GROUP_FIRESTATION,
     GROUP_FIRESTATION_SIZE,
@@ -89,12 +89,12 @@ void FireStation::report()
 {
     int i = 0;
     const char* p;
-    mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, "busy", (float) busy);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sfp(i++, _("busy"), (float) busy);
     i++;
     list_commodities(&i);
-    p = active?"Yes":"No";
-    mps_store_ss(i++, "Fire Protection", p);
+    p = active?_("Yes"):_("No");
+    mps_store_ss(i++, _("Fire Protection"), p);
 }
 
 /** @file lincity/modules/firestation.cpp */

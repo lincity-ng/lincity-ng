@@ -123,21 +123,29 @@ bool loadCityNG( std::string filename ){
     if( PHYSFS_isDirectory( filename.c_str() ))
     {   return false;}
 
-    const char* directory = PHYSFS_getRealDir(filename.c_str());
-    //FIXME PHYSFS_getWriteDir() does not work for built in scenarios
-    std::string dir = directory;//PHYSFS_getWriteDir();
-    filename = dir + PHYSFS_getDirSeparator() + filename;
-    if( file_exists( const_cast<char*>( filename.c_str()) ) )
+
+        const char* directory = PHYSFS_getRealDir(filename.c_str());
+    if (directory)
     {
-        load_city_2(const_cast<char*>(filename.c_str()));
-        update_avail_modules(0);
-        GameView* gv = getGameView();
-        if( gv ){ gv->readOrigin(); }
-        return true;
+        //FIXME PHYSFS_getWriteDir() does not work for built in scenarios
+        std::string dir = directory;//PHYSFS_getWriteDir();
+        filename = dir + PHYSFS_getDirSeparator() + filename;
+        if( file_exists( const_cast<char*>( filename.c_str()) ) )
+        {
+            load_city_2(const_cast<char*>(filename.c_str()));
+            update_avail_modules(0);
+            GameView* gv = getGameView();
+            if( gv ){ gv->readOrigin(); }
+            return true;
+        }
+        else
+        {
+            std::cout << "could not locate: " << filename << std::endl;
+        }
     }
     else
     {
-        std::cout << "missing file: " << filename << std::endl;
+        std::cout << "could not find: " << filename << std::endl;
     }
     return false;
 }

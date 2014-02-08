@@ -380,20 +380,25 @@ void MapTile::saveMembers(std::ostream *os)
 
 const char *commodityNames[] =
     {
-    "Food",
-    "Jobs",
-    "Coal",
-    "Goods",
-    "Ore",
-    "Steel",
-    "Waste",
-    "kWh",
-    "MWh",
-    "Water",
+    N_("Food"),
+    N_("Jobs"),
+    N_("Coal"),
+    N_("Goods"),
+    N_("Ore"),
+    N_("Steel"),
+    N_("Waste"),
+    N_("kWh"),
+    N_("MWh"),
+    N_("Water"),
     "Unknown",
     "Unknown",
     "Unknown",
     };
+
+std::string Construction::getStuffName(Commodities stuff_id)
+{
+    return dictionaryManager->get_dictionary().translate( commodityNames[stuff_id] );
+}
 
 void Construction::list_commodities(int * i)
 {
@@ -411,7 +416,7 @@ void Construction::list_commodities(int * i)
             && ! constructionGroup->commodityRuleCount[stuff_it->first].give
             && *i < 14)
             {
-                mps_store_ssddp(*i,"--> ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"--> ",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         } //endfor
@@ -421,7 +426,7 @@ void Construction::list_commodities(int * i)
             && ! constructionGroup->commodityRuleCount[stuff_it->first].take
             && *i<14)
             {
-                mps_store_ssddp(*i,"<-- ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"<-- ",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         }//endfor
@@ -431,7 +436,7 @@ void Construction::list_commodities(int * i)
             && constructionGroup->commodityRuleCount[stuff_it->first].take
             && *i<14)
             {
-                mps_store_ssddp(*i,"<->",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"<->",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         }//endfor
@@ -441,7 +446,7 @@ void Construction::list_commodities(int * i)
             && !constructionGroup->commodityRuleCount[stuff_it->first].take)
             && *i<14)
             {
-                mps_store_ssddp(*i,"--- ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"--- ",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         }//endfor
@@ -452,7 +457,7 @@ void Construction::list_commodities(int * i)
         {
             if(*i<14)
             {
-                mps_store_ssddp(*i,"<< ",commodityNames[stuff_it->first],stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"<< ",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         }//endfor

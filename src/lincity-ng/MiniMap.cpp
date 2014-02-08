@@ -144,7 +144,7 @@ MiniMap::toggleStuffID(int step)
     else //go a step forth or back
     {
         size_t pos = 0;
-        while (commodities[pos] != stuff_ID)
+        while (commodities[pos] != stuff_ID && pos < sizeof(commodities)/sizeof(stuff_ID))
         {   ++pos;}
         stuff_ID = commodities[pos+step];
     }

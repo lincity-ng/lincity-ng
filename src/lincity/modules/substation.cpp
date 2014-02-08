@@ -9,7 +9,7 @@
 #include "lincity-ng/Sound.hpp"
 
 SubstationConstructionGroup substationConstructionGroup(
-    "Power Substation",
+    N_("Power Substation"),
      FALSE,                     /* need credit? */
      GROUP_SUBSTATION,
      GROUP_SUBSTATION_SIZE,
@@ -59,9 +59,9 @@ void Substation::update()
 void Substation::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++, "busy", busy);
+    mps_store_sfp(i++, _("busy"), busy);
     i++;
     list_commodities(&i);
 }

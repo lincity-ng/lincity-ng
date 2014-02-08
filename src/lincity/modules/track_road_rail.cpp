@@ -11,7 +11,7 @@
 
 // Track:
 TransportConstructionGroup trackConstructionGroup(
-    "Track",
+    N_("Track"),
     FALSE,                     /* need credit? */
     GROUP_TRACK,
     GROUP_TRANSPORT_SIZE,
@@ -26,7 +26,7 @@ TransportConstructionGroup trackConstructionGroup(
 
 // TrackBridge:
 TransportConstructionGroup trackbridgeConstructionGroup(
-    "Track (Bridge)",
+    N_("Track Bridge"),
     FALSE,                     /* need credit? */
     GROUP_TRACK_BRIDGE,
     GROUP_TRANSPORT_SIZE,
@@ -41,7 +41,7 @@ TransportConstructionGroup trackbridgeConstructionGroup(
 
 // Road:
 TransportConstructionGroup roadConstructionGroup(
-    "Road",
+    N_("Road"),
     FALSE,                     /* need credit? */
     GROUP_ROAD,
     GROUP_TRANSPORT_SIZE,
@@ -55,7 +55,7 @@ TransportConstructionGroup roadConstructionGroup(
 );
 // RoadBridge:
 TransportConstructionGroup roadbridgeConstructionGroup(
-    "Road (Bridge)",
+    N_("Road Bridge"),
     FALSE,                     /* need credit? */
     GROUP_ROAD_BRIDGE,
     GROUP_TRANSPORT_SIZE,
@@ -71,7 +71,7 @@ TransportConstructionGroup roadbridgeConstructionGroup(
 
 // Rail:
 TransportConstructionGroup railConstructionGroup(
-    "Rail",
+    N_("Rail"),
     FALSE,                     /* need credit? */
     GROUP_RAIL,
     GROUP_TRANSPORT_SIZE,
@@ -85,7 +85,7 @@ TransportConstructionGroup railConstructionGroup(
 );
 // RailBridge:
 TransportConstructionGroup railbridgeConstructionGroup(
-    "Rail (Bridge)",
+    N_("Rail Bridge"),
     FALSE,                     /* need credit? */
     GROUP_RAIL_BRIDGE,
     GROUP_TRANSPORT_SIZE,
@@ -181,7 +181,7 @@ void Transport::list_traffic(int *i)
     for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
     {
         if(*i < 14)
-        {   mps_store_sfp((*i)++, commodityNames[stuff_it->first], (float) stuff_it->second * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+        {   mps_store_sfp((*i)++, getStuffName(stuff_it->first), (float) stuff_it->second * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
     }
 }
 
@@ -189,16 +189,16 @@ void Transport::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,subgroupID);
+    mps_store_sd(i++,constructionGroup->getName(), subgroupID);
     i++;
     if(mps_map_page == 1)
     {
-        mps_store_title(i++,"Traffic");
+        mps_store_title(i++, _("Traffic") );
         list_traffic(&i);
     }
     else
     {
-        mps_store_title(i++,"Commodities");
+        mps_store_title(i++, _("Commodities") );
         list_commodities(&i);
     }
 }

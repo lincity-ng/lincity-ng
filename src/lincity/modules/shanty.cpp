@@ -12,7 +12,7 @@
 
 // Shanty:
 ShantyConstructionGroup shantyConstructionGroup(
-    "Shanty Town",
+    N_("Shanty Town"),
      FALSE,                     /* need credit? */
      GROUP_SHANTY,
      GROUP_SHANTY_SIZE,
@@ -49,9 +49,11 @@ void add_a_shanty(void)
         y = r / len;
         x = r % len;
         r = find_bare_area(x, y, 2);
-        if (r == -1) {
-            /* wck: These are annoying when the map is full */
+        if (r == -1)
+        {
+#ifdef DEBUG
             fprintf(stderr,"Adding a shanty (s), no space for it?!\n");
+#endif
             return;
         }
         y = r / len;
@@ -68,8 +70,9 @@ void add_a_shanty(void)
         r = find_bare_area(x, y, 2);
         if (r == -1)
         {
-            /* see above */
+#ifdef DEBUG
             fprintf(stderr,"Adding a shanty (r), no space for it?!\n");
+#endif
             return;
         }
         y = r / len;
@@ -173,8 +176,8 @@ void Shanty::update()
 void Shanty::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
-    mps_store_sd(i++, "Pollution", world(x,y)->pollution);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, _("Air Pollution"), world(x,y)->pollution);
     i++;
     list_commodities(&i);
 }

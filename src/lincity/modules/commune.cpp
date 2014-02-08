@@ -8,7 +8,7 @@
 #include "commune.h"
 
 CommuneConstructionGroup communeConstructionGroup(
-    "Forest",
+    N_("Forest"),
     FALSE,                     /* need credit? */
     GROUP_COMMUNE,
     GROUP_COMMUNE_SIZE,
@@ -133,12 +133,12 @@ void Commune::update()
 void Commune::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name,ID);
-    mps_store_sddp(i++, "Fertility", ugwCount, constructionGroup->size * constructionGroup->size);
-    mps_store_sfp(i++, "busy", (float)last_month_output / 3.05);
-    mps_store_sd(i++, "Pollution", world(x,y)->pollution);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sddp(i++, _("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
+    mps_store_sfp(i++, _("busy"), (float)last_month_output / 3.05);
+    mps_store_sd(i++, _("Pollution"), world(x,y)->pollution);
     if(lazy_months)
-    {   mps_store_sddp(i++, "lazy months", lazy_months, 120);}
+    {   mps_store_sddp(i++, _("lazy months"), lazy_months, 120);}
     else
     {   mps_store_title(i++, "");}
     list_commodities(&i);

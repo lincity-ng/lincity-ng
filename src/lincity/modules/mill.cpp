@@ -9,7 +9,7 @@
 
 
 MillConstructionGroup millConstructionGroup(
-    "Textile Mill",
+    N_("Textile Mill"),
     FALSE,                     /* need credit? */
     GROUP_MILL,
     GROUP_MILL_SIZE,
@@ -66,7 +66,7 @@ void Mill::update()
 void Mill::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name,ID);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
     mps_store_sfp(i++, _("busy"), (float) busy);
     i++;
     list_commodities(&i);

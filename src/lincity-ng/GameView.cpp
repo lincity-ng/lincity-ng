@@ -273,16 +273,16 @@ void GameView::setMapMode( MiniMap::DisplayMode mMode ) {
             break;
         case MiniMap::TRAFFIC:
         {
-            std::string s1("Minimap: traffic density: ");
+            std::string s1 = _("Minimap: traffic density:");
             std::string s2 = commodityNames[getMiniMap()->getStuffID()];
-            printStatusMessage( s1 + s2 );
+            printStatusMessage( s1 + " " + s2 );
         }
             break;
         case MiniMap::COMMODITIES:
         {
-            std::string s1("Minimap: commodities: ");
+            std::string s1 = _("Minimap: commodities:");
             std::string s2 = commodityNames[getMiniMap()->getStuffID()];
-            printStatusMessage( s1 + s2 );
+            printStatusMessage( s1 + " " + s2 );
         }
             break;
         default:
@@ -1594,23 +1594,22 @@ void GameView::showToolInfo( int number /*= 0*/ )
     }
     else if( userOperation->action == UserOperation::ACTION_BUILD )
     {
-        std::string buildingName =  userOperation->constructionGroup->name;
-        infotextstream << dictionaryManager->get_dictionary().translate( buildingName );
+        infotextstream << userOperation->constructionGroup->getName();
         infotextstream << _(": Cost to build ") << userOperation->constructionGroup->getCosts() <<_("$");
-        infotextstream << _(", to bulldoze ") << userOperation->constructionGroup->bul_cost <<_("$.");
+        infotextstream << _(", to bulldoze ") << userOperation->constructionGroup->bul_cost <<_("$") << ".";
         if( number > 1 ){
             infotextstream << _(" To build ") << number << _(" of them ");
-            infotextstream << _("will cost about ") << number*userOperation->constructionGroup->getCosts() << _("$.");
+            infotextstream << _("will cost about ") << number*userOperation->constructionGroup->getCosts() << _("$") << "-";
         }
     }
     else if ( userOperation->action == UserOperation::ACTION_EVACUATE )
     {
-        infotextstream << "Evacuation of commodities is for free.";
+        infotextstream << _("Evacuation of commodities is for free.");
     }
     else if ( userOperation->action == UserOperation::ACTION_FLOOD )
     {
-        infotextstream << "Water: Cost to build " << GROUP_WATER_COST << "$";
-        infotextstream << ", to bulldoze " << GROUP_WATER_BUL_COST << "$.";
+        infotextstream <<  _("Water") << _(": Cost to build ") << GROUP_WATER_COST << _("$");
+        infotextstream << _(", to bulldoze ") << GROUP_WATER_BUL_COST << _("$") << ".";
     }
 
     printStatusMessage( infotextstream.str() );

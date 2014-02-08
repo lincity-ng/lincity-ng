@@ -9,7 +9,7 @@
 
 
 Organic_farmConstructionGroup organic_farmConstructionGroup(
-    "Farm",
+    N_("Farm"),
     FALSE,                     /* need credit? */
     GROUP_ORGANIC_FARM,
     GROUP_ORGANIC_FARM_SIZE,
@@ -106,9 +106,9 @@ void Organic_farm::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name,ID);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
     i++;
-    mps_store_sddp(i++, "Fertility", ugwCount, 16);
+    mps_store_sddp(i++, _("Fertility"), ugwCount, 16);
     mps_store_sfp(i++, _("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
     mps_store_sfp(i++, _("busy"), (float)food_last_month / 100.0);
     mps_store_sd(i++, _("Output"), max_foodprod);

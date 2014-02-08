@@ -7,6 +7,8 @@
 #ifndef __mps_h__
 #define __mps_h__
 
+#include <string>
+
 static const int MPS_PARAGRAPH_COUNT = 13;
 
 /* New, simplified mps routines */
@@ -33,26 +35,26 @@ void mps_update(void);  /* Update text contents for later display (refresh) */
 
 
 /* mps_info storage functions; place values of corresponding type into
-   mps_info[], performing certain pretification. The single argument 
+   mps_info[], performing certain pretification. The single argument
    forms center their argument.  The dual arguments left-justify the
    first and right-justify the second.  the ..p forms put a % after
-   the second argument 
+   the second argument
  */
-void mps_store_title(int i, const char * t);
+void mps_store_title(int i, const std::string &t);
 void mps_store_fp(int i, double f);
 void mps_store_f(int i, double f);
 void mps_store_d(int i, int d);
 
-void mps_store_ss(int i, const char * s1, const char * s2);
-void mps_store_ssd(int i, const char * s1, const char * s2, int d);
-void mps_store_sd(int i, const char * s, int d);
-void mps_store_sdd(int i, const char * s, int d1, int d2);
-void mps_store_sf(int i, const char * s, double fl);
-void mps_store_sfp(int i, const char * s, double fl);
-void mps_store_sddp(int i, const char * s, int d, int max);
-void mps_store_ssddp(int i, const char * s1, const char * s2, int d, int max);
+void mps_store_ss(int i, const std::string &s1, const std::string &s2);
+void mps_store_ssd(int i, const std::string &s1, const std::string &s2, int d);
+void mps_store_sd(int i, const std::string &s, int d);
+void mps_store_sdd(int i, const std::string &s, int d1, int d2);
+void mps_store_sf(int i, const std::string &s, double fl);
+void mps_store_sfp(int i, const std::string &s, double fl);
+void mps_store_sddp(int i, const std::string &s, int d, int max);
+void mps_store_ssddp(int i, const std::string &s1, const std::string &s2, int d, int max);
 
-void mps_store_sss(int i, const char * s1, const char * s2, const char * s3);
+void mps_store_sss(int i, const std::string &s1, const std::string &s2, const std::string &s3);
 
 
 /* Data for new mps routines */

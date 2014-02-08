@@ -9,7 +9,7 @@
 #include "recycle.h"
 
 RecycleConstructionGroup recycleConstructionGroup(
-    "Recycling Centre",
+    N_("Recycling Centre"),
     FALSE,                     /* need credit? */
     GROUP_RECYCLE,
     GROUP_RECYCLE_SIZE,
@@ -63,7 +63,7 @@ void Recycle::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name,ID);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
     i++;
     mps_store_sfp(i++, _("Tech"), tech * 100.0f / MAX_TECH_LEVEL);
     mps_store_sfp(i++, _("Efficiency Ore"), (float) make_ore * 100 / WASTE_RECYCLED);

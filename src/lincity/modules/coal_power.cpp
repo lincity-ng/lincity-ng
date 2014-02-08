@@ -8,7 +8,7 @@
 #include "coal_power.h"
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
-    "Coal Power Station",
+     N_("Coal Power Station"),
      FALSE,                     /* need credit? */
      GROUP_COAL_POWER,
      GROUP_COAL_POWER_SIZE,
@@ -66,10 +66,10 @@ void Coal_power::update()
 void Coal_power::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     mps_store_sfp(i++, _("busy"), busy);
     mps_store_sfp(i++, _("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, "Output", mwh_output);
+    mps_store_sd(i++, _("Output"), mwh_output);
     i++;
     list_commodities(&i);
 }

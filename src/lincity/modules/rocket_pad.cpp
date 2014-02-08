@@ -14,7 +14,7 @@
 #include "lincity-ng/Dialog.hpp"
 
 RocketPadConstructionGroup rocketPadConstructionGroup(
-    "Rocket Pad",
+    N_("Rocket Pad"),
      TRUE,                     /* need credit? */
      GROUP_ROCKET,
      GROUP_ROCKET_SIZE,
@@ -214,11 +214,11 @@ void RocketPad::remove_people(int num)
 void RocketPad::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     mps_store_sfp(i++, _("busy"), (busy));
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, "Overall Progress", completion);
-    mps_store_sfp(i++, "Next Step", step);
+    mps_store_sfp(i++, _("Overall Progress"), completion);
+    mps_store_sfp(i++, _("Next Step"), step);
     i++;
     list_commodities(&i);
 }

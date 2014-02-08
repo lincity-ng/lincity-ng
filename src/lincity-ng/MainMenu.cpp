@@ -763,8 +763,10 @@ MainMenu::continueButtonClicked(Button* )
     if (!world.dirty)
     {
         //load current game if it exists
-        if( ! loadCityNG( std::string( "9_currentGameNG.scn.gz" ) ) )
+        if( ! loadCityNG( std::string("9_currentGameNG.scn.gz") )  &&
+            ! loadCityNG( std::string("9_currentGameNG.scn") ) )
         {
+
             //by default create a new City
             new_city( &main_screen_originx, &main_screen_originy, 1 );
         }

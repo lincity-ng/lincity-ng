@@ -9,7 +9,7 @@
 
 
 WindmillConstructionGroup windmillConstructionGroup(
-    "Windmill",
+    N_("Windmill"),
      FALSE,                     /* need credit? */
      GROUP_WINDMILL,
      GROUP_WINDMILL_SIZE,
@@ -61,10 +61,10 @@ void Windmill::update()
 void Windmill::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, "busy", float(busy) / kwh_output);
-    mps_store_sfp(i++, "Tech", (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, "Output", kwh_output);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sfp(i++, _("busy"), float(busy) / kwh_output);
+    mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+    mps_store_sd(i++, _("Output"), kwh_output);
     i++;
     list_commodities(&i);
 }

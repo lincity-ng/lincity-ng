@@ -9,7 +9,7 @@
 
 // Health Centre:
 HealthCentreConstructionGroup healthCentreConstructionGroup(
-     "Health Centre",
+     N_("Health Centre"),
      FALSE,                     /* need credit? */
      GROUP_HEALTH,
      GROUP_HEALTH_SIZE,
@@ -75,12 +75,12 @@ void HealthCentre::report()
     int i = 0;
     const char* p;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, "busy", (float) busy);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sfp(i++, _("busy"), (float) busy);
     i++;
     list_commodities(&i);
-    p = active?"Yes":"No";
-    mps_store_ss(i++, "Health Care", p);
+    p = active?_("Yes"):_("No");
+    mps_store_ss(i++, _("Health Care"), p);
 }
 
 /** @file lincity/modules/health_centre.cpp */

@@ -127,11 +127,11 @@ void mps_refresh() /* refresh the information display's contents */
                     mps_store_sdd(0,world(mps_x, mps_y)->getTileConstructionGroup()->name, mps_x, mps_y);
                     //mps_store_sdd(0,main_groups[world(mps_x, mps_y)->getGroup()].name, mps_x, mps_y);
 
-                        mps_store_title(2, "no further information available" );
+                        mps_store_title(2, _("no further information available") );
 
                     if( world(mps_x, mps_y)->is_bare() )
                     {
-                        mps_store_title(8,"build something here" );
+                        mps_store_title(8, _("build something here") );
                     }
  /*#ifdef DEBUG
                     mps_store_sd(10, "x", mps_x);
@@ -189,7 +189,7 @@ void mps_update()
  * first and right-justify the second.  the ..p forms put a % after
  * the second argument
  */
-void mps_store_title(int i, const char * t)
+void mps_store_title(int i, const std::string &t)
 {
     if(!currentMPS)
         return;
@@ -218,7 +218,7 @@ void mps_store_f(int i, double f)
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_sf(int i, const char * s, double fl)
+void mps_store_sf(int i, const std::string &s, double fl)
 {
     if(!currentMPS)
         return;
@@ -240,7 +240,7 @@ void mps_store_d(int i, int d)
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_ss(int i, const char * s1, const char * s2)
+void mps_store_ss(int i, const std::string &s1, const std::string &s2)
 {
     if(!currentMPS)
         return;
@@ -250,7 +250,7 @@ void mps_store_ss(int i, const char * s1, const char * s2)
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_sd(int i, const char * s, int d)
+void mps_store_sd(int i, const std::string &s, int d)
 {
     if(!currentMPS)
         return;
@@ -260,7 +260,7 @@ void mps_store_sd(int i, const char * s, int d)
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_ssd(int i, const char * s1, const char * s2, int d)
+void mps_store_ssd(int i, const std::string &s1, const std::string &s2, int d)
 {
     if(!currentMPS)
         return;
@@ -270,7 +270,7 @@ void mps_store_ssd(int i, const char * s1, const char * s2, int d)
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_sfp(int i, const char * s, double fl)
+void mps_store_sfp(int i, const std::string &s, double fl)
 {
     if(!currentMPS)
         return;
@@ -281,7 +281,7 @@ void mps_store_sfp(int i, const char * s, double fl)
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_sdd(int i, const char * s, int d1, int d2)
+void mps_store_sdd(int i, const std::string &s, int d1, int d2)
 {
     if(!currentMPS)
         return;
@@ -291,7 +291,7 @@ void mps_store_sdd(int i, const char * s, int d1, int d2)
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_sddp(int i, const char * s, int d, int max)
+void mps_store_sddp(int i, const std::string &s, int d, int max)
 {
     if(!currentMPS)
         return;
@@ -302,7 +302,7 @@ void mps_store_sddp(int i, const char * s, int d, int max)
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_ssddp(int i, const char * s1, const char * s2,int d, int max)
+void mps_store_ssddp(int i, const std::string &s1, const std::string &s2, int d, int max)
 {
     if(!currentMPS)
         return;
@@ -314,7 +314,7 @@ void mps_store_ssddp(int i, const char * s1, const char * s2,int d, int max)
 }
 
 
-void mps_store_sss(int i, const char * s1, const char * s2, const char * s3)
+void mps_store_sss(int i, const std::string &s1, const std::string &s2, const std::string &s3)
 {
     if(!currentMPS)
         return;
@@ -341,8 +341,8 @@ void mps_right (int x, int y)
     {   world(x,y)->saveMembers(&std::cout);}
     mps_store_sdd(i++, world(x, y)->getTileConstructionGroup()->name, x, y);
 
-    p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? "Yes" : "No";
-    mps_store_ss(i++, "Fertile", p);
+    p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? _("Yes") : _("No");
+    mps_store_ss(i++, _("Fertile"), p);
     if( group == GROUP_WATER)
     {
         if ( world(x,y)->flags & FLAG_IS_LAKE )
@@ -357,53 +357,53 @@ void mps_right (int x, int y)
     {
         i++;
     }
-    p = (world(x,y)->flags & FLAG_FIRE_COVER) ? "Yes" : "No";
-    mps_store_ss(i++,"Fire Protection",p);
+    p = (world(x,y)->flags & FLAG_FIRE_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++, _("Fire Protection"), p);
 
-    p = (world(x,y)->flags & FLAG_HEALTH_COVER) ? "Yes" : "No";
-    mps_store_ss(i++,"Health Care",p);
+    p = (world(x,y)->flags & FLAG_HEALTH_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++, _("Health Care"), p);
 
-    p = (world(x,y)->flags & FLAG_CRICKET_COVER) ? "Yes" : "No";
-    mps_store_ss(i++,"Public Sports",p);
+    p = (world(x,y)->flags & FLAG_CRICKET_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++, _("Public Sports"), p);
 
-    p = (world(x,y)->flags & FLAG_MARKET_COVER) ? "Yes" : "No";
-    mps_store_ss(i++,"Market Range",p);
+    p = (world(x,y)->flags & FLAG_MARKET_COVER) ? _("Yes") : _("No");
+    mps_store_ss(i++, _("Market Range"), p);
 
     if (pol < 10)
-    p = "clear";
+    p = _("clear");
     else if (pol < 25)
-    p = "good";
+    p = _("good");
     else if (pol < 70)
-    p = "fair";
+    p = _("fair");
     else if (pol < 190)
-    p = "smelly";
+    p = _("smelly");
     else if (pol < 450)
-    p = "smokey";
+    p = _("smokey");
     else if (pol < 1000)
-    p = "smoggy";
+    p = _("smoggy");
     else if (pol < 1700)
-    p = "bad";
+    p = _("bad");
     else if (pol < 3000)
-    p = "very bad";
+    p = _("very bad");
     else
-    p = "death!";
+    p = _("death!");
 
-    mps_store_ssd(i++,"Pollution",p,pol);
+    mps_store_ssd(i++, _("Air Pollution"), p, pol);
 
     if (world(x,y)->reportingConstruction)
     {
-        mps_store_sd(i++,"Bull. Cost", world(x,y)->reportingConstruction->constructionGroup->bul_cost);
+        mps_store_sd(i++, _("Bull. Cost"), world(x,y)->reportingConstruction->constructionGroup->bul_cost);
     }
     else
     {
         if (group == GROUP_DESERT)
-        {   mps_store_ss(i++,"Bull. Cost","N/A");}
+        {   mps_store_ss(i++, _("Bull. Cost"), _("N/A") );}
         else
-        {   mps_store_sd(i++, "Bull. Cost", world(x, y)->getTileConstructionGroup()->bul_cost);}
+        {   mps_store_sd(i++, _("Bull. Cost"), world(x, y)->getTileConstructionGroup()->bul_cost);}
     }
-    mps_store_sd(i++,"Ore Reserve",world(x,y)->ore_reserve);
-    mps_store_sd(i++,"Coal Reserve",world(x,y)->coal_reserve);
-    mps_store_sd(i++, "ground level", world(x,y)->ground.altitude);
+    mps_store_sd(i++, _("Ore Reserve"), world(x,y)->ore_reserve);
+    mps_store_sd(i++, _("Coal Reserve"), world(x,y)->coal_reserve);
+    mps_store_sd(i++, _("ground level"), world(x,y)->ground.altitude);
 /*  //Not needed if altitude == flooding level
     if(world(x,y)->is_water())
     {
@@ -413,13 +413,13 @@ void mps_right (int x, int y)
 */
     p = "-";
     if (world.saddlepoint(x,y))
-    {   p = "saddle point";}
+    {   p = _("saddle point");}
     else if (!world(x,y)->is_water() && world.minimum(x,y))
-    {   p = "minimum";}
+    {   p = _("minimum");}
     else if (!world(x,y)->is_water() && world.maximum(x,y))
-    {   p = "maximum";}
+    {   p = _("maximum");}
     else if (world.checkEdgeMin(x,y))
-    {   p = "lowest edge";}
+    {   p = _("lowest edge");}
 
     mps_store_title(i++, p);
     currentMPS = 0;
@@ -433,48 +433,48 @@ void mps_global_finance()
     int cashflow = 0;
     currentMPS = globalMPS;
 
-    mps_store_title(i++,"Tax Income");
+    mps_store_title(i++, _("Tax Income"));
 
     cashflow += ly_income_tax;
     num_to_ansi (s, sizeof(s), ly_income_tax);
-    mps_store_ss(i++,"Income", s);
+    mps_store_ss(i++, _("Income"), s);
 
     cashflow += ly_coal_tax;
     num_to_ansi(s, sizeof(s), ly_coal_tax);
-    mps_store_ss(i++,"Coal", s);
+    mps_store_ss(i++, Construction::getStuffName(Construction::STUFF_COAL), s);
 
     cashflow += ly_goods_tax;
     num_to_ansi(s, sizeof(s), ly_goods_tax);
-    mps_store_ss(i++,"Goods", s);
+    mps_store_ss(i++, Construction::getStuffName(Construction::STUFF_GOODS), s);
 
     cashflow += ly_export_tax;
     num_to_ansi(s, sizeof(s), ly_export_tax);
-    mps_store_ss(i++,"Export", s);
+    mps_store_ss(i++, _("Export"), s);
 
     mps_store_title(i++, "");
 
-    mps_store_title(i++,"Expenses");
+    mps_store_title(i++, _("Expenses") );
 
     cashflow -= ly_unemployment_cost;
     num_to_ansi(s, sizeof(s), ly_unemployment_cost);
-    mps_store_ss(i++,"Unemp.", s);
+    mps_store_ss(i++, _("Unemp."), s);
 
     cashflow -= ly_transport_cost;
     num_to_ansi(s, sizeof(s), ly_transport_cost);
-    mps_store_ss(i++,"Transport", s);
+    mps_store_ss(i++, _("Transport"), s);
 
     cashflow -= ly_import_cost;
     num_to_ansi(s, sizeof(s), ly_import_cost);
-    mps_store_ss(i++,"Imports", s);
+    mps_store_ss(i++, _("Imports"), s);
 
     cashflow -= ly_other_cost;
     num_to_ansi(s, sizeof(s), ly_other_cost);
-    mps_store_ss(i++,"Others", s);
+    mps_store_ss(i++, _("Others"), s);
 
     mps_store_title(i++, "" );
 
     num_to_ansi(s, sizeof(s), cashflow);
-    mps_store_ss(i++,"Net", s);
+    mps_store_ss(i++, _("Net"), s);
 
     currentMPS = 0;
 }
@@ -486,34 +486,34 @@ void mps_global_other_costs()
     char s[12];
 
     currentMPS = globalMPS;
-    mps_store_title(i++,"Other Costs");
+    mps_store_title(i++, _("Other Costs") );
 
     /* Don't write year if it's negative. */
     year = (total_time / NUMOF_DAYS_IN_YEAR) - 1;
     if (year >= 0) {
-    mps_store_sd(i++, "For year", year);
+    mps_store_sd(i++, _("For year"), year);
     }
     mps_store_title(i++,"");
     num_to_ansi(s,sizeof(s),ly_interest);
-    mps_store_ss(i++,"Interest",s);
+    mps_store_ss(i++, _("Interest"), s);
     num_to_ansi(s,sizeof(s),ly_school_cost);
-    mps_store_ss(i++,"Schools",s);
+    mps_store_ss(i++, _("Schools"), s);
     num_to_ansi(s,sizeof(s),ly_university_cost);
-    mps_store_ss(i++,"Univers.",s);
+    mps_store_ss(i++, _("Univers."), s);
     num_to_ansi(s,sizeof(s),ly_deaths_cost);
-    mps_store_ss(i++,"Deaths",s);
+    mps_store_ss(i++, _("Deaths"), s);
     num_to_ansi(s,sizeof(s),ly_windmill_cost);
-    mps_store_ss(i++,"Windmill",s);
+    mps_store_ss(i++, _("Windmill"), s);
     num_to_ansi(s,sizeof(s),ly_health_cost);
-    mps_store_ss(i++,"Hospital",s);
+    mps_store_ss(i++, _("Hospital"), s);
     num_to_ansi(s,sizeof(s),ly_rocket_pad_cost);
-    mps_store_ss(i++,"Rockets",s);
+    mps_store_ss(i++, _("Rockets") ,s);
     num_to_ansi(s,sizeof(s),ly_fire_cost);
-    mps_store_ss(i++,"Fire Stn",s);
+    mps_store_ss(i++, _("Fire Stn"), s);
     num_to_ansi(s,sizeof(s),ly_cricket_cost);
-    mps_store_ss(i++,"Sport",s);
+    mps_store_ss(i++, _("Sport"), s);
     num_to_ansi(s,sizeof(s),ly_recycle_cost);
-    mps_store_ss(i++,"Recycle",s);
+    mps_store_ss(i++, _("Recycle"), s);
 
     currentMPS = 0;
 }
@@ -527,21 +527,21 @@ void mps_global_housing()
 
     currentMPS = globalMPS;
 
-    mps_store_title(i++,"Population");
+    mps_store_title(i++, _("Population") );
     mps_store_title(i++,"");
-    mps_store_sd(i++,"Total",tp);
-    mps_store_sd(i++,"Housed",population);
-    mps_store_sd(i++,"Homeless",people_pool);
-    mps_store_sd(i++,"Shanties",Counted<Shanty>::getInstanceCount());
-    mps_store_sd(i++,"Unnat. Deaths",unnat_deaths);
-    mps_store_title(i++,"Unemployment");
-    mps_store_sd(i++,"Claims",tunemployed_population/days);
-    mps_store_sfp(i++,"Rate",
+    mps_store_sd(i++, _("Total"), tp);
+    mps_store_sd(i++, _("Housed"), population);
+    mps_store_sd(i++, _("Homeless"), people_pool);
+    mps_store_sd(i++, _("Shanties"), Counted<Shanty>::getInstanceCount());
+    mps_store_sd(i++, _("Unnat. Deaths"), unnat_deaths);
+    mps_store_title(i++, _("Unemployment") );
+    mps_store_sd(i++, _("Claims"),tunemployed_population/days);
+    mps_store_sfp(i++, _("Rate"),
           (((tunemployed_population/days) * 100.0) / tp));
-    mps_store_title(i++,"Starvation");
-    mps_store_sd(i++,"Cases",tstarving_population/days);
+    mps_store_title(i++, _("Starvation") );
+    mps_store_sd(i++, _("Cases"), tstarving_population/days);
 
-    mps_store_sfp(i++,"Rate",
+    mps_store_sfp(i++, _("Rate"),
           (((tstarving_population/days) * 100.0) / tp));
 
     currentMPS = 0;

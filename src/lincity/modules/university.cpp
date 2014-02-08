@@ -9,7 +9,7 @@
 
 // university place:
 UniversityConstructionGroup universityConstructionGroup(
-    "University",
+    N_("University"),
      TRUE,                     /* need credit? */
      GROUP_UNIVERSITY,
      GROUP_UNIVERSITY_SIZE,
@@ -52,9 +52,9 @@ void University::update()
 void University::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++,"busy", busy);
+    mps_store_sfp(i++, _("busy"), busy);
     mps_store_sfp(i++, _("Tech researched"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
     i++;
     list_commodities(&i);

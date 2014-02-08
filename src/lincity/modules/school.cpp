@@ -10,7 +10,7 @@
 
 // school place:
 SchoolConstructionGroup schoolConstructionGroup(
-    "Elementary School",
+    N_("Elementary School"),
      FALSE,                     /* need credit? */
      GROUP_SCHOOL,
      GROUP_SCHOOL_SIZE,
@@ -84,9 +84,9 @@ void School::update()
 void School::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++,"busy", (float)busy);
+    mps_store_sfp(i++, _("busy"), (float)busy);
     mps_store_sfp(i++, _("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);
     i++;
     list_commodities(&i);

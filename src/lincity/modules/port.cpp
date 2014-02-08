@@ -11,7 +11,7 @@
 
 // Port:
 PortConstructionGroup portConstructionGroup(
-    "Port",
+    N_("Port"),
      FALSE,                     /* need credit? */
      GROUP_PORT,
      GROUP_PORT_SIZE,
@@ -109,11 +109,11 @@ void Port::update()
 void Port::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
-    mps_store_sfp(i++, "busy", busy);
-    mps_store_sd(i++, "Export",lastm_et/100);
-    mps_store_sd(i++, "Import",lastm_ic/100);
-    mps_store_sfp(i++,"Culture exchanged", tech_made * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sfp(i++, _("busy"), busy);
+    mps_store_sd(i++, _("Export"),lastm_et/100);
+    mps_store_sd(i++, _("Import"),lastm_ic/100);
+    mps_store_sfp(i++, _("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
     i++;
     list_commodities(&i);
 }

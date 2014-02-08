@@ -8,7 +8,7 @@
 #include "blacksmith.h"
 
 BlacksmithConstructionGroup blacksmithConstructionGroup(
-    "Blacksmith",
+    N_("Blacksmith"),
     FALSE,                     /* need credit? */
     GROUP_BLACKSMITH,
     GROUP_BLACKSMITH_SIZE,
@@ -76,7 +76,7 @@ void Blacksmith::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name,ID);
+    mps_store_sd(i++, constructionGroup->getName(),ID);
     i++;
     mps_store_sfp(i++, _("busy"), (float) busy);
     i++;

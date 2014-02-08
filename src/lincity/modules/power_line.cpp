@@ -9,7 +9,7 @@
 
 //Power line
 PowerlineConstructionGroup powerlineConstructionGroup(
-    "Power line",
+    N_("Power line"),
     FALSE,                     /* need credit? */
     GROUP_POWER_LINE,
     GROUP_POWER_LINE_SIZE,
@@ -58,8 +58,8 @@ void Powerline::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
-    mps_store_sfp(i++, "usage", trafficCount[STUFF_MWH] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sfp(i++, _("usage"), trafficCount[STUFF_MWH] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
     i++;
     list_commodities(&i);
 }

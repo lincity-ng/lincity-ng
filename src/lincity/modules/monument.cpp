@@ -11,7 +11,7 @@
 extern int mps_x, mps_y;
 
 MonumentConstructionGroup monumentConstructionGroup(
-    "Monument",
+    N_("Monument"),
     FALSE,                     /* need credit? */
     GROUP_MONUMENT,
     GROUP_MONUMENT_SIZE,
@@ -91,12 +91,12 @@ void Monument::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->name,ID);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
     i++;
     /* Display tech contribution only after monument is complete */
     if (completion >= 100) {
         i++;
-        mps_store_sfp(i++, "Wisdom bestowed", tech_made * 100.0 / MAX_TECH_LEVEL);
+        mps_store_sfp(i++, _("Wisdom bestowed"), tech_made * 100.0 / MAX_TECH_LEVEL);
     }
     else
     {
@@ -104,7 +104,7 @@ void Monument::report()
         i++;
         list_commodities(&i);
         i++;
-        mps_store_sfp(i++, "Completion", completion);
+        mps_store_sfp(i++, _("Completion"), completion);
     }
 }
 

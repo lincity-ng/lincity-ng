@@ -10,7 +10,7 @@
 
 // Parkland:
 ParklandConstructionGroup parklandConstructionGroup(
-    "Park",
+     N_("Park"),
      TRUE,                     /* need credit? */
      GROUP_PARKLAND,
      GROUP_PARKLAND_SIZE,
@@ -24,7 +24,7 @@ ParklandConstructionGroup parklandConstructionGroup(
 );
 
 ParklandConstructionGroup parkpondConstructionGroup(
-    "Park (Pond)",
+     N_("Park (Pond)"),
      TRUE,                     /* need credit? */
      GROUP_PARKPOND,
      GROUP_PARKLAND_SIZE,
@@ -51,9 +51,9 @@ void Parkland::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++, constructionGroup->getName(), ID);
     i++;
-    mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
+    mps_store_sd(i++, _("Air Pollution"), world(x,y)->pollution);
 }
 
 /** @file lincity/modules/parkland.cpp */

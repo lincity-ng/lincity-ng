@@ -8,13 +8,11 @@
 
 #include "oremine.h"
 
-//#include "../transport.h"
-
 
 
 // Oremine:
 OremineConstructionGroup oremineConstructionGroup(
-    "Ore Mine",
+     N_("Ore Mine"),
      FALSE,                     /* need credit? */
      GROUP_OREMINE,
      GROUP_OREMINE_SIZE,
@@ -166,9 +164,9 @@ void Oremine::update()
 void Oremine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->name, ID);
-    mps_store_sfp(i++,"busy",busy);
-    mps_store_sddp(i++,"Deposits", total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
+    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sfp(i++, _("busy"), busy);
+    mps_store_sddp(i++, _("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
     i++;
     list_commodities(&i);
 }

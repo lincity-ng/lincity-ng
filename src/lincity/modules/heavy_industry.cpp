@@ -11,7 +11,7 @@
 
 // IndustryHeavy:
 IndustryHeavyConstructionGroup industryHeavyConstructionGroup(
-    "Steel Works",
+     N_("Steel Works"),
      FALSE,                     /* need credit? */
      GROUP_INDUSTRY_H,
      GROUP_INDUSTRY_H_SIZE,
@@ -131,7 +131,7 @@ void IndustryHeavy::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
     mps_store_sfp(i++, _("busy"), (output_level));
     mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);

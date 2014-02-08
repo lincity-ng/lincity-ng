@@ -167,7 +167,7 @@
 
          <!-- Use Binary Saveganes -->
         <cell row="9" col="2" valign="center" halign="left">
-            <Paragraph style="listtitle" translatable="yes">Binary saving</Paragraph>
+            <Paragraph style="listtitle" translatable="yes">Binary Saving</Paragraph>
         </cell>
         <cell row="9" col="3">
             <CheckButton name="BinaryMode">
@@ -178,7 +178,7 @@
 
          <!-- Use Binary Saveganes -->
         <cell row="10" col="2" valign="center" halign="left">
-            <Paragraph style="listtitle" translatable="yes">Seed saving</Paragraph>
+            <Paragraph style="listtitle" translatable="yes">Seed Saving</Paragraph>
         </cell>
         <cell row="10" col="3">
             <CheckButton name="SeedMode">

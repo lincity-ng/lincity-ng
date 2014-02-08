@@ -46,6 +46,7 @@ void set_map_groups(void);
 #include <SDL.h>
 #include <SDL_image.h>
 #include "gui/Texture.hpp"
+#include "tinygettext/gettext.hpp"
 class Construction;
 class ResourceGroup;
 
@@ -219,6 +220,7 @@ public:
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
     std::vector<ExtraFrame> frames;             //Overlays to be rendered on top of type
+    static std::string getStuffName(Commodities stuff_id); //translated name of a commodity
     void init_resources(void);                  //sets sounds and graphics according to constructionGroup
     void list_commodities(int *);                   //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
@@ -400,6 +402,10 @@ public:
 
     // this method must be overriden by the concrete ConstructionGroup classes.
     virtual Construction *createConstruction(int x, int y) = 0;
+
+    std::string getName(void){
+        return dictionaryManager->get_dictionary().translate( name );
+    }
 
     std::string resourceID;           /* name for matching resources from XML*/
     const char *name;           /* inGame name of group */

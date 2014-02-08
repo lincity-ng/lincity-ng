@@ -10,7 +10,7 @@
 #include "lincity-ng/Sound.hpp"
 
 FireConstructionGroup fireConstructionGroup(
-    "Fire",
+     N_("Fire"),
      FALSE,                     /* need credit? */
      GROUP_FIRE,
      GROUP_FIRE_SIZE,
@@ -107,13 +107,13 @@ void Fire::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sd(i++,"Air Pollution",world(x,y)->pollution);
+    mps_store_sd(i++,_("Air Pollution"),world(x,y)->pollution);
     if (burning_days < FIRE_LENGTH)
-    {   mps_store_sddp(i++,"burnt down",burning_days,FIRE_LENGTH);}
+    {   mps_store_sddp(i++,_("burnt down"),burning_days,FIRE_LENGTH);}
     else
-    {   mps_store_sddp(i++,"degraded",smoking_days,AFTER_FIRE_LENGTH);}
+    {   mps_store_sddp(i++,_("degraded"),smoking_days,AFTER_FIRE_LENGTH);}
 }
 
 /** @file lincity/modules/fire.cpp */

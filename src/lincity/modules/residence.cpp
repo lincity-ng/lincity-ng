@@ -12,7 +12,7 @@
 #include <stdlib.h>
 
 ResidenceConstructionGroup residenceLLConstructionGroup(
-    "Residence",
+    N_("Residence"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_LL,
     GROUP_RESIDENCE_SIZE,
@@ -26,7 +26,7 @@ ResidenceConstructionGroup residenceLLConstructionGroup(
 );
 
 ResidenceConstructionGroup residenceMLConstructionGroup(
-    "Residence",
+    N_("Residence"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_ML,
     GROUP_RESIDENCE_SIZE,
@@ -40,7 +40,7 @@ ResidenceConstructionGroup residenceMLConstructionGroup(
 );
 
 ResidenceConstructionGroup residenceHLConstructionGroup(
-    "Residence",
+    N_("Residence"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_HL,
     GROUP_RESIDENCE_SIZE,
@@ -54,7 +54,7 @@ ResidenceConstructionGroup residenceHLConstructionGroup(
 );
 
 ResidenceConstructionGroup residenceLHConstructionGroup(
-    "Residence",
+    N_("Residence"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_LH,
     GROUP_RESIDENCE_SIZE,
@@ -68,7 +68,7 @@ ResidenceConstructionGroup residenceLHConstructionGroup(
 );
 
 ResidenceConstructionGroup residenceMHConstructionGroup(
-    "Residence",
+    N_("Residence"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_MH,
     GROUP_RESIDENCE_SIZE,
@@ -82,7 +82,7 @@ ResidenceConstructionGroup residenceMHConstructionGroup(
 );
 
 ResidenceConstructionGroup residenceHHConstructionGroup(
-    "Residence",
+    N_("Residence"),
     FALSE,                     /* need credit? */
     GROUP_RESIDENCE_HH,
     GROUP_RESIDENCE_SIZE,
@@ -345,7 +345,7 @@ void Residence::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->name,ID);
+    mps_store_sd(i++,constructionGroup->getName(), ID);
     mps_store_sddp(i++, _("Tenants"), local_population, max_population);
     mps_store_sd(i++, _("Desireability"), desireability);
     mps_store_sf(i++, _("Births per year"), (float)1200/births);
