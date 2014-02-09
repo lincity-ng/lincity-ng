@@ -1,0 +1,20 @@
+Coal mine
+
+Coal mines dig coal from under the ground. There must be a coal seam close to the mine. To see where the seams are you can click on the coal button below the mini map.
+
+The first time you use this button, it will cost you 1 million. After that it is free. You don't need to use this button, but you will have to find the coal by trial and error.
+
+Coal mines need jobs to mine coal.
+
+If your economy provides coal in excess your coal mines can put the coal in new underground seams
+
+IMG_1[This is a coalmine]: images/tiles/coalmine-full.png
+IMG_2[and this its icon]:  images/gui/buttonpanel/mining/coalmine.png
+
+The graphics show the amount of coal already dug but not put onto transport. The above coal mine has maximum stock.
+
+Clicking on a coal mine will show you, in the mappoint stats window, the coal stock at the pit, and, more importantly, the coal reserve available to be dug.
+
+Coal mines produce <a href="pollution">pollution</a>.
+
+ALSO[See also:]: coal, powerscoal, transport, jobs, pollution

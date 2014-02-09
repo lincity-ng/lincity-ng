@@ -1,0 +1,15 @@
+Starvation overlay
+
+IMG_1[]: images/gui/mapview/roundbuttons/round_food.png
+
+The starvation mini screen shows only residential areas.
+
+Bright green means that there is enough food (from market) and water (in the range of a water well) in that residential area. Bright red shows starvation in each residential area shown.
+
+Waterwell cover is shown in dark blue
+
+Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.
+
+
+
+ALSO[See also:]: mini-screen, msb-coal, msb-cricket, msb-fire, msb-health, msb-normal, msb-pol, msb-power, msb-transport, msb-ub40

@@ -1,0 +1,15 @@
+Pollution overlay
+
+IMG_1[]: images/gui/mapview/roundbuttons/round_pollution.png
+
+The pollution mini screen shows the pollution levels across the city.
+
+Pollution gets stronger as you go from: Light-green -> Dark-green -> Darker-green -> Dark-red -> Lighter-red -> Bright-red.
+
+Places with residential areas that show as red will cause sickness and make the area less desirable to live in.
+
+Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.
+
+
+
+ALSO[See also:]: mini-screen, msb-coal, msb-cricket, msb-fire, msb-health, msb-normal, msb-power, msb-starve, msb-transport, msb-ub40

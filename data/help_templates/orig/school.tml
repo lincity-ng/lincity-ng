@@ -1,0 +1,19 @@
+Schools
+
+Schools use jobs and goods to produce technology in a similar way to universities.
+They use far fewer jobs and goods than universities, but produce far fewer tech points.
+Given the choice between putting four or five schools in a given area, or a single university,
+it is often (but not always) better to put a university in.
+
+Schools do not need to connect to transport, but do need to be within
+range of a market than can supply the quantity of jobs and goods to make the school work.
+
+Schools cost money to run. You can see the total cost for the last year by clicking on the money button.
+
+You can see when a school is working in the usual way, by clicking on it.
+
+IMG_1[This is a school]: images/tiles/school0.png
+IMG_2[and this its icon]: images/gui/buttonpanel/misc/book.png
+
+
+ALSO[See also:]: tech-level, market, university, transport, goods, jobs

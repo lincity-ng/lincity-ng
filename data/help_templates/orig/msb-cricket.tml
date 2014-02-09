@@ -1,0 +1,15 @@
+Sports overlay
+
+IMG_1[]: images/gui/mapview/roundbuttons/round_sport.png
+
+Areas that have sport areas within range are shown as dark green.
+
+Areas that are out of range of a basketball court are displayed as normal.
+
+Remember, basketball courts take three months to become active.
+
+Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.
+
+
+
+ALSO[See also:]: mini-screen, msb-coal, msb-fire, msb-health, msb-normal, msb-pol, msb-power, msb-starve, msb-transport, msb-ub40

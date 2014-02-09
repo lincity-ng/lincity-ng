@@ -1,0 +1,19 @@
+Population window
+
+This is the population window.
+
+The window shows 9 statistics:
+
+* Total - this shows the population of your city.
+* Housed - this shows the total number of people in your city that live in residences.
+* Homeless - this shows the number of people that are homeless or live in a shanty.
+* Shanties - this shows the number of shanty towns in your city.
+* Unn Dths - this shows the number of people that died through starvation or from pollution in the last month.
+* Unemployment Claims - this shows the number of people that were unemployed in the last month.
+* Rate - this shows the percentage of your population that is unemployed.
+* Starvation Cases - this shows the number of people that were starving in the last month.
+* Rate - this shows the percentage of your population that is starving.
+
+Left clicking on this window's title will cycle through windows for finance, other costs and housing.
+
+ALSO[See also:]: finance, other-costs

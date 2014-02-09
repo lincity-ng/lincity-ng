@@ -1,0 +1,12 @@
+Farms
+
+Farms grow food for people to eat, and to supply the raw materials for mills. Farmers can sell food to markets. They deliver it by tractor so they do not need transport. However they can sell to transport if you wish. Of course you need to ensure that the market is in range of the farm.
+
+Production of farm depends on underground water. Tiles with water are green, others are yellow-brown (like desert or bare ground).
+
+IMG_1[This is a farm]: images/tiles/farm0.png
+IMG_2[and this its icon]: images/gui/buttonpanel/parks/farm.png
+
+Farms need jobs to produce more than a minimal amount of food. Providing elecricity (kWH) boosts the output. Powered farms can irregate dry soil and also consume wastes. Beware of agricultural water consumption.
+
+ALSO[See also:]: market, tech-level, transport, commodities, power

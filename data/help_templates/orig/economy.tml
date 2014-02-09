@@ -1,0 +1,25 @@
+Economy Graph
+
+This graphs contains four coloured lines. They show the most important economic factors.
+
+* <span color="brown">Population</span>	(brown)
+  The brown line represents your population.
+  It is shown as a log scale.
+* <span color="blue">Unhoused</span> (blue)
+  The blue line represents the demand for
+  housing. The height of the graph is
+  proportional to the square root of the
+  'unhoused' population.
+* <span color="yellow">Unemployment</span> (yellow)
+  The solid yellow 'bars' show that there is
+  unemployment. The scale of this graph
+  changes with your population. This graph
+  is solid to draw your attention to it.
+* <span color="red">Starvation</span> (red)
+  The solid red 'bars' show that there is
+  starvation. The scale of this graph
+  changes with your population. This graph
+  is solid to draw your attention to it.
+  This bar is drawn over the unemployment bar.
+
+ALSO[See also:]: 

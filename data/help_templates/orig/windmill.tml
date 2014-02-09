@@ -1,0 +1,21 @@
+Windmills
+
+Wooden windmills provide power for residences and farms. They
+farmer to process food more efficiently and make residences
+able.
+
+Providing power to residences makes the people there use.
+
+Windmills also need manpower for producing power. If a
+windmill does not have enough jobs, it will produce less power and it
+will produce no power at all if it has no jobs.
+
+
+IMG_1[There are two forms of windmills.]: images/gui/buttonpanel/power/windmills.png
+IMG_2[The first is a low-tech 'wooden' windmill. It provides kWh for the local neighborhood.] images/tiles/windmill1w.png
+IMG_3[The second is a 'modern' wind-farm type. It provides MWh to the cities power grid.]  images/tiles/windmill1g.png
+
+The type you get depends on your tech-level when you build it.
+
+ALSO[See also:]: power, substation, powerline, tech-level, msb-power, powerscoal, powersolar
+

@@ -1,0 +1,11 @@
+Substations
+
+Substations take power packets from power lines (MWH) and distribute the power to
+adjacent transport (kWH). Check the power overlay to see where you need more power. The transformators
+dont require any jobs to function.
+
+IMG_1[This is a substation]: images/tiles/substation-G.png
+IMG_2[and this is its icon]: images/gui/buttonpanel/power/substation.png
+
+
+ALSO[See also:]: msb-power, power, powerline, windmill, powerscoal, powerssolar

@@ -1,0 +1,21 @@
+Advanced features
+
+SUBH: Markets and Transports
+
+Double click on a market in the main screen opens a windows. This is to control the <b> exchanges between markets and transports</b>.
+
+* buy is what the market buys from the transport (so market stock will increase)
+* sell is the opposite.
+
+This feature is rarely used, except when you want to precisely prevent something to happen.
+
+SUBH: Sustainable development
+
+The fourth tab of the miniwindow shows progress bars for sustainable development.
+
+It is strongly recommended to save the game before you let it run for a long time and see if you have reached a sustainable state. If something goes very wrong (starvation for example) you can restart from the saved game :-)
+
+Watching at the total markets stocks (the miniwindow with progress bars) should prevent big troubles. From time to time check the sustainable progression in the ECO miniwindow should be enough.
+
+* Hint: Beware of shanties and wastes in markets...
+

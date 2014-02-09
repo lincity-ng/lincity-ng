@@ -1,0 +1,101 @@
+Select button index
+
+IMG_1[]: images/gui/buttonpanel/power/powerlines.png
+<a href="powerline">Power lines</a>
+
+IMG_2[]: images/gui/buttonpanel/power/solarpower.png
+<a href="powerssolar">Solar Power station</a>
+
+IMG_2[]: images/gui/buttonpanel/power/substation.png
+<a href="substation">Substation</a>
+
+IMG_2[]: images/gui/buttonpanel/residence/residence.png
+<a href="residential">Residential area</a>
+
+IMG_2[]: images/gui/buttonpanel/waterwell.png
+<a href="waterwell">Water well</a>
+
+IMG_2[]: images/gui/buttonpanel/parks/farm.png
+<a href="farm">Farm</a>
+
+IMG_2[]: images/gui/buttonpanel/industry/market.png
+<a href="market">Market</a>
+
+IMG_2[]: images/gui/buttonpanel/base/bulldozer.png
+<a href="bulldoze">Bulldoze</a>
+
+IMG_2[]: images/gui/buttonpanel/base/broom.png
+<a href="evacuate">Evacuate</a>
+
+IMG_2[]: images/gui/buttonpanel/transport/tracks.png
+<a href="track">Track</a>
+
+IMG_2[]: images/gui/buttonpanel/mining/coalmine.png
+<a href="coalmine">Coalmine</a>
+
+IMG_2[]: images/gui/buttonpanel/transport/rails2.png
+<a href="rail">Railway</a>
+
+IMG_2[]: images/gui/buttonpanel/power/coalpower.png
+<a href="powerscoal">Coal fired power station</a>
+
+IMG_2[]: images/gui/buttonpanel/transport/road.png
+<a href="road">Road</a>
+
+IMG_2[]: images/gui/buttonpanel/industry/lightindustry.png
+<a href="industryl">Light industrial areas</a>
+
+IMG_2[]: images/gui/buttonpanel/misc/university.png
+<a href="university">University</a>
+
+IMG_2[]: images/gui/buttonpanel/mining/commune.png
+<a href="commune">Commune</a>
+
+IMG_2[]: images/gui/buttonpanel/mining/oremine.png
+<a href="oremine">Ore mine</a>
+
+IMG_2[]: images/gui/buttonpanel/transport/port.png
+<a href="export">Import and Export</a>
+
+IMG_2[]: images/gui/buttonpanel/industry/heavyindustry2.png
+<a href="industryh">Heavy industry (steel works)</a>
+
+IMG_2[]: images/gui/buttonpanel/parks/tree.png
+<a href="park">Parkland</a>
+
+IMG_2[]: images/gui/buttonpanel/mining/recycling.png
+<a href="recycle">Recycle centre</a>
+
+IMG_2[]: images/gui/buttonpanel/parks/water.png
+<a href="river">Water/Rivers</a>
+
+IMG_2[]: images/gui/buttonpanel/misc/health.png
+<a href="health">Health Centre</a>
+
+IMG_2[]: images/gui/buttonpanel/transport/rocket.png
+<a href="rocket">Rocket Launch Pad</a>
+
+IMG_2[]: images/gui/buttonpanel/power/windmills.png
+<a href="windmill">Windmill</a>
+
+IMG_2[]: images/gui/buttonpanel/parks/monument.png
+<a href="monument">Monument</a>
+
+IMG_2[]: images/gui/buttonpanel/misc/book.png
+<a href="school">School</a>
+
+IMG_2[]: images/gui/buttonpanel/parks/mills.png
+<a href="mill">Mill</a>
+
+IMG_2[]: images/gui/buttonpanel/industry/pottery.png
+<a href="pottery">Pottery</a>
+
+IMG_2[]: images/gui/buttonpanel/misc/fire.png
+<a href="firestation">Fire station</a>
+
+IMG_2[]: images/gui/buttonpanel/misc/sports.png
+<a href="cricket">Basketball grounds</a>
+
+IMG_2[]: images/gui/buttonpanel/transport/port.png
+<a href="port">Port</a>
+

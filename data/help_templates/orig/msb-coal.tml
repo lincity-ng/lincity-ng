@@ -1,0 +1,13 @@
+Coal overlay
+
+IMG_1[]: images/gui/mapview/roundbuttons/round_coal.png
+
+The coal mini screen shows the coal reserves beneath your city. The coal seams are shown as red and green on a grey background. You will have to build a coal mine close to one of these seams to extract its coal.
+
+The first time you ask for this information, you will have to undertake a coal survey which will cost you one million currency units. After that the information is free to look at again.
+
+Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.
+
+
+
+ALSO[See also:]: mini-screen, msb-cricket, msb-fire, msb-health, msb-normal, msb-pol, msb-power, msb-starve, msb-transport, msb-ub40

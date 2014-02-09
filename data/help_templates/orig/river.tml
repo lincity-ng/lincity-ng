@@ -1,0 +1,19 @@
+Rivers/Water
+
+Rivers are here mainly to get in your way. They are expensive to bridge, dig and demolish.
+Their only use is that ports must be connected to rivers.
+
+There are two types of water. Lakes are water that is not connected to the river system;
+rivers are water that is connected to the river system. The river is defined as all the water
+that is present at the start of the game. For example, when an ore mine exhausts its supply and becomes water,
+it becomes a piece of river if connected to the river. Otherwise it becomes a lake.
+
+If you demolish some river both sides of your gap are still part of the river system.
+
+You can build a brige by building transport on the river.
+
+Once a piece of water is part of the river system it cannot revert to being a lake.
+Water which is part of the river is indicated as navigatable by the query tool.
+
+Power lines can transfer power under one piece of river in the same way that it can pass under transport.
+

@@ -1,0 +1,9 @@
+Commodities
+
+Commodities are the stuff that can be produced, transfered, stored, processed and consumed in your city. The status display of every building or transport tile always lists the relevant commodities. The arrows at the start of the lines indicate raw materials, products and transferables
+
+In most cases, at least 5% of rawmaterial must be present in order to turn them into 5% of products.
+	
+The second tab of the minimap shows city wide statistics, and their recent changes with progress bars. In conjunction with the tranportation overlay these can tell you a lot about your economic development.
+
+ALSO[See also:] pbar, msb-transport, food, jobs, goods, waste, ore, steel, coal, water, power

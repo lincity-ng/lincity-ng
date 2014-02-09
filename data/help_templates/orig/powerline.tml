@@ -1,0 +1,17 @@
+Power lines
+
+Power lines carry power from solar and coal
+power stations and modern windmills to substations or industrial areas.
+
+Power lines cross under tracks, roads, railways and rivers (all of the width of 1).
+If a power line is placed on either side of a transport or river area,
+they act as if they are joined. Often you will have to bulldoze a bit
+of river to cross a river - it's expensive! The power lines are joined when they are aligned and
+power packtes hop from one side to another
+
+IMG_1[This is a powerline]: images/tiles/powerlvd.png
+IMG_2[and this its icon]: images/gui/buttonpanel/power/powerlines.png
+IMG_3[and this its mapview overlay icon]: images/gui/mapview/roundbuttons/round_electrics.png
+
+
+ALSO[See also:]: power, substation, windmill, powerscoal, powerssolar, msb-power

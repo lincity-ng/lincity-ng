@@ -1,0 +1,15 @@
+Health overlay
+
+IMG_1[]: images/gui/mapview/roundbuttons/round_health.png
+
+Areas that have a health centre within range are shown as dark green.
+
+The areas out of range of a health centre are displayed as normal.
+
+Remember, health centres take three months to become active.
+
+Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.
+
+
+
+ALSO[See also:]: mini-screen, msb-coal, msb-cricket, msb-fire, msb-normal, msb-pol, msb-power, msb-starve, msb-transport, msb-ub40

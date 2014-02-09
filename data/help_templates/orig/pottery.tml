@@ -1,0 +1,11 @@
+Potteries
+
+Potteries use ore, coal and jobs to make goods. They do not have to be connected to transport but they do, of course, have to be within range of a market with ore, coal and jobs and be able to receive goods.
+
+You can tell when potteries are working by the kilns producing smoke.
+
+IMG_1[This is a pottery]: images/tiles/pottery0.png
+IMG_2[and this its icon]: images/gui/buttonpanel/industry/pottery.png
+
+
+ALSO[See also:]: transport, ore, coal, jobs, market

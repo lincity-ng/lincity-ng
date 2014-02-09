@@ -1,0 +1,21 @@
+University
+
+Universities help to increase your technology level.
+In the process they consume goods and jobs. They produce more than schools for a given goods/jobs input.
+However they cunsume a lot of goods and jobs and also cost quite a lot of money to run, so you should
+have the economic and industrial capacity to supply them.
+
+You will need a number of universities to achieve a tech level close to 100%
+
+Universities do not need to be connected to transport; they can get all their
+requirements from markets within range and with enough jobs and goods available.
+
+SUBH: NOTE
+
+You must have 4 schools per university to supply them with students.
+
+IMG_1[This is a University]: images/tiles/university.png
+IMG_2[and this is its icon]: images/gui/buttonpanel/misc/university.png
+
+
+ALSO[See also:]: tech-level, market, transport, goods, jobs, school
