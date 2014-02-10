@@ -234,7 +234,7 @@ Paragraph::resize(float width, float height)
         texture = 0;
     }
 
-    if(width == 0)
+    if( (width == 0) || textspans.empty() )
     {
         this->width = 0;
         this->height = 0;
@@ -248,19 +248,12 @@ Paragraph::resize(float width, float height)
     std::vector<SDL_Surface*> lineimages;
     // surfaces for the current line
     std::vector<SDL_Surface*> spanimages;
-    std::vector<float> spanxoffset, spanyoffset;
+    std::vector<float> spanxoffset;
     std::vector<LinkRectangle> linerectangles;
     std::vector<int> spanbaselines;
     int lineheight = 0;
     int baseline = 0;
 
-    if(textspans.empty()) {
-        // no need to render anything if there are no spans
-        this->width = 0;
-        this->height = 0;
-        texture = 0;
-        return;
-    }
 
     TextSpans::iterator i = textspans.begin();
 
@@ -371,7 +364,6 @@ Paragraph::resize(float width, float height)
             {   pos.x += xoffset;}
             pos.y += yoffset;
             spanxoffset.push_back(pos.x);
-            spanyoffset.push_back(pos.y);
             spanimages.push_back(spansurface);
             spanbaselines.push_back(TTF_FontAscent(font));
 
@@ -405,37 +397,34 @@ Paragraph::resize(float width, float height)
                 }
                 SDL_SetAlpha(lineimage, 0, 0);
 
-                //Sint16 x = 0;
                 SDL_Rect rect;
                 for(size_t i = 0; i < spanimages.size(); ++i) {
                     rect.x = (Sint16) spanxoffset[i];
-                    rect.y = baseline - spanbaselines[i] + (Sint16)spanyoffset[i];
+                    rect.y = baseline - spanbaselines[i] + textspans[i]->style.margin_top;
                     if(rect.y < 0)
                     {   rect.y = 0;}
 
                     SDL_BlitSurface(spanimages[i], 0, lineimage, &rect);
-                    //x = /*spanimages[i]->w +*/ (Sint16) spanxoffset[i];
-                    //CK: see "pos.x += spansurface->w;"
-
                     SDL_FreeSurface(spanimages[i]);
                 }
                 lineimages.push_back(lineimage);
             }
             spanbaselines.clear();
             spanimages.clear();
+            spanxoffset.clear();
 
             // adjust link rectangles for alignment and add them to the list
             float xoffset;
-            if(span->style.alignment == Style::ALIGN_LEFT) {
-                xoffset = span->style.margin_left;
-            } else if(span->style.alignment == Style::ALIGN_CENTER) {
-                xoffset = (width + span->style.margin_left - span->style.margin_right - lineimages.back()->w)/2;
+            if(style.alignment == Style::ALIGN_LEFT) {
+                xoffset = style.margin_left;
+            } else if(style.alignment == Style::ALIGN_CENTER) {
+                xoffset = (width + style.margin_left - style.margin_right - lineimages.back()->w)/2;
             } else {
-                xoffset = (width - lineimages.back()->w  - span->style.margin_right);
+                xoffset = (width - lineimages.back()->w  - style.margin_right);
             }
             for(std::vector<LinkRectangle>::iterator i =linerectangles.begin();
                 i != linerectangles.end(); ++i) {
-                i->rect.move(Vector2(xoffset, span->style.margin_top));
+                i->rect.move(Vector2(xoffset, style.margin_top));
                 linkrectangles.push_back(*i);
             }
             linerectangles.clear();
