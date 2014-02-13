@@ -57,9 +57,8 @@ void School::update()
     if (animate && (real_time > anim)) // do the swing
     {
         type = 1;
-        frames[0].frame++;
         anim = real_time + SCHOOL_ANIMATION_SPEED;
-        if (frames[0].frame >= frames[0].resourceGroup->graphicsInfoVector.size())
+        if ( ++(frames[0].frame) >= frames[0].resourceGroup->graphicsInfoVector.size())
         {
 
             anim = real_time + SCHOOL_ANIMATION_BREAK- 100 * busy; //set swing delay

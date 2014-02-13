@@ -399,6 +399,17 @@
     <group>
     <resourceID name="PowerCoalEmpty" />
     <image file="powerscoal-empty.png" />
+    <image file="powerscoal-smoke0080.png" />
+    <image file="powerscoal-smoke0082.png" />
+    <image file="powerscoal-smoke0084.png" />
+    <image file="powerscoal-smoke0086.png" />
+    <image file="powerscoal-smoke0088.png" />
+    <image file="powerscoal-smoke0090.png" />
+    <image file="powerscoal-smoke0092.png" />
+    <image file="powerscoal-smoke0094.png" />
+    <image file="powerscoal-smoke0096.png" />
+    <image file="powerscoal-smoke0098.png" />
+    <image file="powerscoal-smoke0100.png" />
     <resourceID name="PowerCoalLow" />
     <image file="powerscoal-low.png" />
     <resourceID name="PowerCoalMed" />

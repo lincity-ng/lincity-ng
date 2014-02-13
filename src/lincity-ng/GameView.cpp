@@ -1262,9 +1262,10 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                     for( std::vector <ExtraFrame>::iterator it = cst->frames.begin();
                          it != cst->frames.end(); ++it)
                     {
-                        if(it->resourceGroup && it->frame)
+                        size_t s2 = it->resourceGroup->graphicsInfoVector.size();
+                        if(it->resourceGroup && it->frame && s2)
                         {
-                            graphicsInfo = &it->resourceGroup->graphicsInfoVector[ it->frame % s ]; //needed
+                            graphicsInfo = &it->resourceGroup->graphicsInfoVector[ it->frame % s2 ]; //needed
                             int old_x = graphicsInfo->x;
                             int old_y = graphicsInfo->y;
                             graphicsInfo->x = old_x - it->move_x;

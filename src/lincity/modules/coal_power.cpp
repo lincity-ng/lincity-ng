@@ -6,6 +6,7 @@
  * ---------------------------------------------------------------------- */
 
 #include "coal_power.h"
+#include <stdlib.h>
 
 Coal_powerConstructionGroup coal_powerConstructionGroup(
      N_("Coal Power Station"),
@@ -49,9 +50,30 @@ void Coal_power::update()
     if (total_time % 100 == 0)
     {
         busy = working_days / (mwh_output/100);
+        animate = (frames[0].resourceGroup->images_loaded);
+        if(animate)
+        {
+            size_t active = frames.size()*busy/90;
+            for(size_t i=0; i < frames.size(); ++i)
+            {
+                if (i < active)
+                {
+                    if(!frames[i].frame)
+                    {   frames[i].frame = (rand()+1) % (frames[i].resourceGroup->graphicsInfoVector.size());}
+                }
+                else
+                {   frames[i].frame = 0;}
+            }
+        }
+        else
+        {
+            for(size_t i=0; i < frames.size(); ++i)
+            {   frames[i].frame = 0;}
+        }
         working_days = 0;
     }
     /* choose a graphic */
+
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
     {   graphicsGroup = ResourceGroup::resMap["PowerCoalFull"];}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
@@ -61,6 +83,20 @@ void Coal_power::update()
     else
     {   graphicsGroup = ResourceGroup::resMap["PowerCoalEmpty"];}
     soundGroup = graphicsGroup;
+
+    if (animate && (real_time > anim))
+    {
+        anim = real_time + SMOKE_ANIM_SPEED;
+        for(size_t i = 0; i < frames.size(); ++i)
+        {
+            if (frames[i].frame)
+            {
+                if(++(frames[i].frame) >= frames[i].resourceGroup->graphicsInfoVector.size())
+                {   frames[i].frame = 1;}
+            }
+        }
+    }
+
 }
 
 void Coal_power::report()

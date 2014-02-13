@@ -14,6 +14,7 @@
 #define POWERS_COAL_POLLUTION  20
 #define JOBS_COALPS_GENERATE 100
 #define MAX_JOBS_AT_COALPS (20 * JOBS_COALPS_GENERATE)
+#define SMOKE_ANIM_SPEED 300
 
 
 #include "modules.h"
@@ -58,6 +59,27 @@ public:
     Coal_power(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Coal_power>(x, y)
     {
         this->constructionGroup = cstgrp;
+        frames.resize(8);
+        for (size_t i = 0; i < frames.size(); ++i)
+        {   frames[i].resourceGroup = ResourceGroup::resMap["PowerCoalEmpty"];}
+        frames[0].move_x = 5;
+        frames[0].move_y = -378;
+        frames[1].move_x = 29;
+        frames[1].move_y = -390;
+        frames[2].move_x = 52;
+        frames[2].move_y = -397;
+        frames[3].move_x = 76;
+        frames[3].move_y = -409;
+        frames[4].move_x = 65;
+        frames[4].move_y = -348;
+        frames[5].move_x = 89;
+        frames[5].move_y = -360;
+        frames[6].move_x = 112;
+        frames[6].move_y = -371;
+        frames[7].move_x = 136;
+        frames[7].move_y = -383;
+        this->anim = 0;
+        this->animate = false;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -70,6 +92,8 @@ public:
     virtual void update();
     virtual void report();
 
+    int anim;
+    bool animate;
     int  mwh_output;
     int  tech;
     int  working_days, busy;

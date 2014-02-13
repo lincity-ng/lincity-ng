@@ -7,7 +7,7 @@
 
 
 #include "fire.h"
-#include "lincity-ng/Sound.hpp"
+//#include "lincity-ng/Sound.hpp"
 
 FireConstructionGroup fireConstructionGroup(
      N_("Fire"),
