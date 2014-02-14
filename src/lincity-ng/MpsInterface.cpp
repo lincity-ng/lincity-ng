@@ -533,16 +533,15 @@ void mps_global_housing()
     mps_store_sd(i++, _("Housed"), population);
     mps_store_sd(i++, _("Homeless"), people_pool);
     mps_store_sd(i++, _("Shanties"), Counted<Shanty>::getInstanceCount());
-    mps_store_sd(i++, _("Unnat. Deaths"), unnat_deaths);
-    mps_store_title(i++, _("Unemployment") );
-    mps_store_sd(i++, _("Claims"),tunemployed_population/days);
-    mps_store_sfp(i++, _("Rate"),
-          (((tunemployed_population/days) * 100.0) / tp));
-    mps_store_title(i++, _("Starvation") );
-    mps_store_sd(i++, _("Cases"), tstarving_population/days);
-
-    mps_store_sfp(i++, _("Rate"),
-          (((tstarving_population/days) * 100.0) / tp));
+    mps_store_sddp(i++, _("Unnat. Deaths"), unnat_deaths, tp);
+    mps_store_sddp(i++, _("Unemployment"), tunemployed_population/days, tp );
+    //mps_store_sd(i++, _("Claims"),tunemployed_population/days);
+    //mps_store_sfp(i++, _("Rate"),
+    //      (((tunemployed_population/days) * 100.0) / tp));
+    mps_store_sddp(i++, _("Starvation"), tstarving_population/days, tp );
+    //mps_store_sd(i++, _("Cases"), tstarving_population/days);
+    //mps_store_sfp(i++, _("Rate"),
+    //      (((tstarving_population/days) * 100.0) / tp));
 
     currentMPS = 0;
 }
