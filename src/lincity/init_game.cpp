@@ -149,36 +149,36 @@ void clear_game(void)
 }
 
 
-void new_city(int *originx, int *originy, int random_village)
+void new_city(int *originx, int *originy, city_settings *city)
 {
     world.old_setup_ground = true;
     world.climate = 0;
     world.seed(rand());
-    create_new_city( originx, originy, random_village, true, 0);
+    create_new_city( originx, originy, city, true, 0);
 }
 
-void new_desert_city(int *originx, int *originy, int random_village)
+void new_desert_city(int *originx, int *originy, city_settings *city)
 {
     world.old_setup_ground = false;
     world.climate = 1;
     world.seed(rand());
-    create_new_city( originx, originy, random_village, false, 1);
+    create_new_city( originx, originy, city, false, 1);
 }
 
-void new_temperate_city(int *originx, int *originy, int random_village)
+void new_temperate_city(int *originx, int *originy, city_settings *city)
 {
     world.old_setup_ground = false;
     world.climate = 2;
     world.seed(rand());
-    create_new_city( originx, originy, random_village, false, 2);
+    create_new_city( originx, originy, city, false, 2);
 }
 
-void new_swamp_city(int *originx, int *originy, int random_village)
+void new_swamp_city(int *originx, int *originy, city_settings *city)
 {
     world.old_setup_ground = false;
     world.climate = 3;
     world.seed(rand());
-    create_new_city( originx, originy, random_village, false, 3);
+    create_new_city( originx, originy, city, false, 3);
 }
 
 void setup_land()
@@ -288,16 +288,18 @@ void setup_land()
  * Private Functions
  * ---------------------------------------------------------------------- */
 
-void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate)
+void create_new_city(int *originx, int *originy, city_settings *city, int old_setup_ground, int climate)
 {
-
     srand(world.seed());
-    if(random_village == -1) //newline in case of reading savegame
+    if (city == NULL) //newline in case of reading savegame
     {   std::cout << std::endl;}
     std::cout << "world id: " << world.seed() << std::endl;
 
-    if (random_village != -1) //Only if we are not reconstructing from seed
-    {   clear_game();}
+    if (city != NULL) { //Only if we are not reconstructing from seed
+      clear_game();
+      world.without_trees=city->without_trees;
+    }
+
 
     coal_reserve_setup();
 
@@ -337,10 +339,10 @@ void create_new_city(int *originx, int *originy, int random_village, int old_set
     ore_reserve_setup();
     init_pbars();
 
-    if (random_village == 1)
-    {   random_start(originx, originy);}
-    else if (random_village != -1)
-    {   *originx = *originy = world.len() / 2;}
+    if (city != NULL) {
+      if (city->with_village) random_start(originx, originy);
+      else                    *originx = *originy = world.len() / 2;
+    }
 
     update_pbar (PPOP, housed_population + people_pool, 1);
     connect_transport(1, 1, world.len() - 2, world.len() - 2);
@@ -1439,7 +1441,7 @@ static void do_rand_ecology(int x, int y, int r)
         int r2 = r3 % 10;
         if (r2 <= 6)
             world(x, y)->setTerrain(GROUP_DESERT);
-        else if (r2 <= 8)
+        else if ((r2 <= 8) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
         else
             world(x, y)->setTerrain(GROUP_TREE);
@@ -1449,7 +1451,7 @@ static void do_rand_ecology(int x, int y, int r)
         int r2 = r3 % 10;
         if (r2 <= 2)
             world(x, y)->setTerrain(GROUP_DESERT);
-        else if (r2 <= 6)
+        else if ((r2 <= 6) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
         else
             world(x, y)->setTerrain(GROUP_TREE);
@@ -1457,11 +1459,11 @@ static void do_rand_ecology(int x, int y, int r)
     else if (r >= 80)
     {
         int r2 = r3 % 10;
-        if (r2 <= 1)
+        if       (r2 <= 1)
             world(x, y)->setTerrain(GROUP_DESERT);
-        else if (r2 <= 4)
+        else if ((r2 <= 4) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
-        else if (r2 <= 6)
+        else if  (r2 <= 6)
             world(x, y)->setTerrain(GROUP_TREE);
         else
             world(x, y)->setTerrain(GROUP_TREE2);
@@ -1471,7 +1473,7 @@ static void do_rand_ecology(int x, int y, int r)
         int r2 = r3 % 40;
         if (r2 == 0)
             world(x, y)->setTerrain(GROUP_DESERT);
-        else if (r2 <= 12)
+        else if ((r2 <= 12) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 24)
             world(x, y)->setTerrain(GROUP_TREE);
@@ -1484,7 +1486,7 @@ static void do_rand_ecology(int x, int y, int r)
     {
         /* normal land */
         int r2 = r3 % 40;
-        if (r2 <= 10)
+        if     ((r2 <= 10) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 20)
             world(x, y)->setTerrain(GROUP_TREE);
@@ -1497,7 +1499,7 @@ static void do_rand_ecology(int x, int y, int r)
     {
         /* forest */
         int r2 = r3 % 40;
-        if (r2 <= 5)
+        if     ((r2 <= 5) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
         else if (r2 <= 10)
             world(x, y)->setTerrain(GROUP_TREE);
@@ -1509,13 +1511,13 @@ static void do_rand_ecology(int x, int y, int r)
     else if (r >= -80)
     {
         int r2 = r3 % 40;
-        if (r2 <= 0)
+        if       (r2 <= 0)
             world(x, y)->setTerrain(GROUP_WATER);
-        else if (r2 <= 6)
+        else if ((r2 <= 6) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
-        else if (r2 <= 15)
+        else if  (r2 <= 15)
             world(x, y)->setTerrain(GROUP_TREE);
-        else if (r2 <= 28)
+        else if  (r2 <= 28)
             world(x, y)->setTerrain(GROUP_TREE2);
         else
             world(x, y)->setTerrain(GROUP_TREE3);
@@ -1523,13 +1525,13 @@ static void do_rand_ecology(int x, int y, int r)
     else if (r >= -120)
     {
         int r2 = r3 % 40;
-        if (r2 <= 1)
+        if       (r2 <= 1)
             world(x, y)->setTerrain(GROUP_WATER);
-        else if (r2 <= 6)
+        else if ((r2 <= 6) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
-        else if (r2 <= 16)
+        else if  (r2 <= 16)
             world(x, y)->setTerrain(GROUP_TREE);
-        else if (r2 <= 30)
+        else if  (r2 <= 30)
             world(x, y)->setTerrain(GROUP_TREE2);
         else
             world(x, y)->setTerrain(GROUP_TREE3);
@@ -1538,13 +1540,13 @@ static void do_rand_ecology(int x, int y, int r)
     {
         /* wetland */
         int r2 = r3 % 40;
-        if (r2 <= 3)
+        if       (r2 <= 3)
             world(x, y)->setTerrain(GROUP_WATER);
-        else if (r2 <= 8)
+        else if ((r2 <= 8) || world.without_trees)
             world(x, y)->setTerrain(GROUP_BARE);
-        else if (r2 <= 20)
+        else if  (r2 <= 20)
             world(x, y)->setTerrain(GROUP_TREE);
-        else if (r2 <= 35)
+        else if  (r2 <= 35)
             world(x, y)->setTerrain(GROUP_TREE2);
         else
             world(x, y)->setTerrain(GROUP_TREE3);

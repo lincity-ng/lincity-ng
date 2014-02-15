@@ -46,12 +46,21 @@
             <image-checked src="images/gui/buttons/randombutton-checked.png"/>
             </CheckButton>
             -->
-                <TableLayout rows="1" cols="2">
+                <TableLayout rows="2" cols="2">
                     <cell row="1" col="1">
                     <Paragraph style="listtitle" translatable="yes">Village</Paragraph>
                     </cell>
                     <cell row="1" col="2">
                         <CheckButton name="WithVillage">
+                            <image src="images/gui/checkbox/checkbox.png"/>
+                            <image-checked src="images/gui/checkbox/checkbox_checked.png"/>
+                        </CheckButton>
+                    </cell>
+                    <cell row="2" col="1">
+                    <Paragraph style="listtitle" translatable="yes">Without trees</Paragraph>
+                    </cell>
+                    <cell row="2" col="2">
+                        <CheckButton name="WithoutTrees">
                             <image src="images/gui/checkbox/checkbox.png"/>
                             <image-checked src="images/gui/checkbox/checkbox_checked.png"/>
                         </CheckButton>

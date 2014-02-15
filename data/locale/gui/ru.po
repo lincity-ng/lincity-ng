@@ -515,6 +515,14 @@ msgstr "Начать с пустой карты"
 msgid "Start with random village."
 msgstr "Начать со случайного городишки."
 
+#: data/gui/newgame.xml 
+msgid "Village"
+msgstr "С поселением"
+
+#: data/gui/newgame.xml 
+msgid "Without trees"
+msgstr "Без деревьев"
+
 #: data/gui/no-credit-parkland.xml data/gui/no-credit-recycle.xml
 #: data/gui/no-credit-rocket.xml data/gui/no-credit-solar-power.xml
 #: data/gui/no-credit-university.xml

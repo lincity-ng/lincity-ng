@@ -7,10 +7,21 @@
 #ifndef __init_game_h__
 #define __init_game_h__
 
+typedef struct _CitySettings city_settings;
+
+struct _CitySettings {
+  bool with_village;
+  bool without_trees;
+};
+
 void clear_game(void);
 void setup_land(void);
-void new_city(int *originx, int *originy, int random_village);
-void create_new_city(int *originx, int *originy, int random_village, int old_setup_ground, int climate);
+void create_new_city(int *originx, int *originy, city_settings *city, int old_setup_ground, int climate);
+
+void new_city(int *originx, int *originy, city_settings *city);
+void new_desert_city(int *originx, int *originy, city_settings *city);
+void new_temperate_city(int *originx, int *originy, city_settings *city);
+void new_swamp_city(int *originx, int *originy, city_settings *city);
 
 #endif /* __init_game_h__ */
 

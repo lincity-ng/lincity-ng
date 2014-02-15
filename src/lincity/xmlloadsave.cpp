@@ -300,7 +300,7 @@ int XMLloadsave::loadXMLfile(std::string xml_file_name)
                 if((world.climate != -1) && (world.old_setup_ground != -1) && (altered_tiles != -1))
                 {
                     int x,y;
-                    create_new_city( &x, &y, -1, world.old_setup_ground, world.climate);
+                    create_new_city( &x, &y, NULL, world.old_setup_ground, world.climate);
                 }
                 else
                 {   std::cout << "missing either climate, old_setup_ground or altered_tiles in savegame" << std::endl;}

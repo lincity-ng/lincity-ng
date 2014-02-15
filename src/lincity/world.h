@@ -86,6 +86,7 @@ public:
     int old_setup_ground;
     int climate;
     std::set<int> polluted;
+    bool without_trees;
 
 protected:
     int id;

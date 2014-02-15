@@ -50,10 +50,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "tinygettext/gettext.hpp"
 
-extern void new_city(int *originx, int *originy, int random_village);
-extern void new_desert_city(int *originx, int *originy, int random_village);
-extern void new_temperate_city(int *originx, int *originy, int random_village);
-extern void new_swamp_city(int *originx, int *originy, int random_village);
+#include "lincity/init_game.h"
 
 extern std::string autoLanguage;
 
@@ -766,9 +763,12 @@ MainMenu::continueButtonClicked(Button* )
         if( ! loadCityNG( std::string("9_currentGameNG.scn.gz") )  &&
             ! loadCityNG( std::string("9_currentGameNG.scn") ) )
         {
+            city_settings  city;
+            city.with_village  = true;
+            city.without_trees = false;
 
             //by default create a new City
-            new_city( &main_screen_originx, &main_screen_originy, 1 );
+            new_city( &main_screen_originx, &main_screen_originy, &city);
         }
     }
 }
@@ -853,28 +853,32 @@ MainMenu::newGameStartButtonClicked(Button* )
     }
     getSound()->playSound( "Click" );
 
-    int with_village = (getCheckButton(*currentMenu,"WithVillage")->state == CheckButton::STATE_CHECKED)?1:0;
+    city_settings  city_obj;
+    city_settings *city=&city_obj;
+
+    city->with_village  = (getCheckButton(*currentMenu,"WithVillage" )->state == CheckButton::STATE_CHECKED);
+    city->without_trees = (getCheckButton(*currentMenu,"WithoutTrees")->state == CheckButton::STATE_CHECKED);
 
     if( baseName == "RiverDelta" ){
-        new_city( &main_screen_originx, &main_screen_originy, with_village );
+        new_city( &main_screen_originx, &main_screen_originy, city);
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
     } else if( baseName == "DesertArea" ){
-        new_desert_city( &main_screen_originx, &main_screen_originy, with_village );
+        new_desert_city( &main_screen_originx, &main_screen_originy, city);
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
     } else if( baseName == "TemperateArea" ){
-        new_temperate_city( &main_screen_originx, &main_screen_originy, with_village );
+        new_temperate_city( &main_screen_originx, &main_screen_originy, city);
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
         running = false;
     } else if( baseName == "SwampArea" ){
-        new_swamp_city( &main_screen_originx, &main_screen_originy, with_village );
+        new_swamp_city( &main_screen_originx, &main_screen_originy, city);
         GameView* gv = getGameView();
         if( gv ){ gv->readOrigin(); }
         quitState = INGAME;
