@@ -82,6 +82,20 @@ Paragraph::parseList(XmlReader& reader, const Style& )
 }
 
 void
+Paragraph::commit_changes(TextSpan* &currentspan, bool translatable)
+{
+  if (currentspan != 0) {
+    if (translatable) {
+      currentspan->text
+        = GUI_TRANSLATE(currentspan->text);
+    }
+    textspans.push_back(currentspan);
+    //std::cout << "new span: " << currentspan->text << std::endl;
+    currentspan = 0;
+  }
+}
+
+void
 Paragraph::parse(XmlReader& reader, const Style& parentstyle)
 {
     bool translatable = false;
@@ -114,93 +128,87 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
         std::string currenthref;
         int depth = reader.getDepth();
         while(reader.read() && reader.getDepth() > depth) {
-            if(reader.getNodeType() == XML_READER_TYPE_ELEMENT) {
-                std::string node((const char*) reader.getName());
-                if(node == "span" || node == "i" || node == "b"
-                        || node == "a") {
-                    if(currentspan != 0) {
-                        if(translatable) {
-                            currentspan->text
-                                = GUI_TRANSLATE(currentspan->text);
-                        }
-                        textspans.push_back(currentspan);
-                        //std::cout << "new span: " << currentspan->text << std::endl;
-                        currentspan = 0;
-                    }
+          switch(reader.getNodeType()) {
+            case XML_READER_TYPE_ELEMENT:
+            {
+              std::string node((const char*) reader.getName());
+              if(node == "span" || node == "i" || node == "b"
+                  || node == "a") {
+                commit_changes(currentspan,translatable);
 
-                    Style style(stylestack.back());
-                    if (node == "a") {
-                        style.text_color.parse("blue");
-                    } else if(node == "i") {
-                        style.italic = true;
-                    } else if(node == "b") {
-                        style.bold = true;
-                    }
-
-                    currenthref = "";
-                    XmlReader::AttributeIterator iter(reader);
-                    while(iter.next()) {
-                        const char* attribute = (const char*) iter.getName();
-                        const char* value = (const char*) iter.getValue();
-                        if(style.parseAttribute(attribute, value))
-                            continue;
-                        else if(strcmp(attribute, "href") == 0) {
-                            currenthref = value;
-                        } else {
-                            std::cerr << "Unknown attribute '" << attribute
-                                << "' in textspan node.\n";
-                        }
-                    }
-                    style.parseAttributes(reader);
-                    // TODO parse style attributes...
-                    stylestack.push_back(style);
-                } else {
-                    std::cerr << "Skipping unknown node '" << node << "'.\n";
-                    reader.nextNode();
-                }
-            } else if(reader.getNodeType() == XML_READER_TYPE_TEXT) {
-                if(currentspan == 0) {
-                    currentspan = new TextSpan();
-                    currentspan->style = stylestack.back();
+                Style style(stylestack.back());
+                if (node == "a") {
+                  style.text_color.parse("blue");
+                } else if(node == "i") {
+                  style.italic = true;
+                } else if(node == "b") {
+                  style.bold = true;
                 }
 
-                const char* p = (const char*) reader.getValue();
-                // skip trailing spaces...
-                while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
-                    ++p;
-
-                bool lastspace = false;
-                for( ; *p != 0; ++p) {
-                    if(isspace(static_cast<unsigned char>(*p))) {
-                        if(!lastspace) {
-                            lastspace = true;
-                            currentspan->text += ' ';
-                        }
-                    } else {
-                        lastspace = false;
-                        currentspan->text += *p;
-                        //std::cout << "growing span: " << currentspan->text << std::endl;
-                    }
+                currenthref = "";
+                XmlReader::AttributeIterator iter(reader);
+                while(iter.next()) {
+                  const char* attribute = (const char*) iter.getName();
+                  const char* value = (const char*) iter.getValue();
+                  if(style.parseAttribute(attribute, value))
+                    continue;
+                  else if(strcmp(attribute, "href") == 0) {
+                    currenthref = value;
+                  } else {
+                    std::cerr << "Unknown attribute '" << attribute
+                      << "' in textspan node.\n";
+                  }
                 }
-            } else if(reader.getNodeType() == XML_READER_TYPE_END_ELEMENT) {
-                std::string node((const char*) reader.getName());
-                if(node == "span" || node == "b" || node == "i"
-                        || node == "a") {
-                    if(currentspan != 0) {
-                        if(translatable) {
-                            currentspan->text
-                                = GUI_TRANSLATE(currentspan->text);
-                        }
-                        textspans.push_back(currentspan);
-                        //std::cout << "add end span: " << currentspan->text << std::endl;
-                        currentspan = 0;
-                    }
-                    stylestack.pop_back();
-                } else {
-                    std::cerr << "Internal error: unknown node end: '" <<
-                        node << "'.\n";
-                }
+                style.parseAttributes(reader);
+                // TODO parse style attributes...
+                stylestack.push_back(style);
+              } else {
+                std::cerr << "Skipping unknown node '" << node << "'.\n";
+                reader.nextNode();
+              }
             }
+            break;
+            case XML_READER_TYPE_TEXT:
+            {
+              if(currentspan == 0) {
+                currentspan = new TextSpan();
+                currentspan->style = stylestack.back();
+              }
+
+              const char* p = (const char*) reader.getValue();
+              // skip trailing spaces...
+              while(*p != 0 && isspace(static_cast<unsigned char>(*p)))
+                ++p;
+
+              bool lastspace = false;
+              for( ; *p != 0; ++p) {
+                if(isspace(static_cast<unsigned char>(*p))) {
+                  if(!lastspace) {
+                    lastspace = true;
+                    currentspan->text += ' ';
+                  }
+                } else {
+                  lastspace = false;
+                  currentspan->text += *p;
+                  //std::cout << "growing span: " << currentspan->text << std::endl;
+                }
+              }
+
+            }
+            break;
+            case XML_READER_TYPE_END_ELEMENT:
+            {
+              std::string node((const char*) reader.getName());
+              if(node == "span" || node == "b" || node == "i"
+                  || node == "a") {
+                commit_changes(currentspan,translatable);
+              } else {
+                std::cerr << "Internal error: unknown node end: '" <<
+                  node << "'.\n";
+              }
+            }
+            break;
+          }
         }
 
         if(currentspan != 0) {
