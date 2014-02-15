@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Зоны угля</p>
-	<img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
-	<p style="hp">Зоны угля показывают где находиться ресурсы угля в вашем городе. Месторождения показываются черным цветом. Если ваша угольная шахта построена на них, то она начинает добывать эти ресурсы.</p>
-	<p style="hp">Для первого запроса данной информации вам нужно заплатить 1 миллион рублей. Это разовый платеж, и в дальнейшем данная информация будет бесплатна.</p>
+   <img src="images/gui/mapview/roundbuttons/round_coal.png" halign="center"/>
+	<p style="hp">Зоны угля показывают, где находятся запасы угля в Вашем городе. Месторождения отображаются красным и зелёным цветом на серой земле. Вы должны строить угольные шахты рядом с месторождениями угля.</p>
+	<p style="hp">Для первого запроса данной информации Вам нужно будет заплатить 1 миллион рублей. Это разовая плата за исследование территории, последующий доступ к данной информации бесплатен.</p>
 
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="mini-screen">Мини карты</a></li>
-	<li><a href="msb-cricket">Спортивные зоны</a></li>
-	<li><a href="msb-fire">Пожарные зоны</a></li>
-	<li><a href="msb-health">Мед зоны</a></li>
-	<li><a href="msb-normal">Нормальное отображение</a></li>
-	<li><a href="msb-pol">Зоны загрязнения</a></li>
-	<li><a href="msb-power">Энегро зоны</a></li>
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="mini-screen">Миникарта</a></li>
+	<li><a href="msb-cricket">Зоны спорта</a></li>
+	<li><a href="msb-fire">Зоны действия пожарных станций</a></li>
+	<li><a href="msb-health">Зоны мед. обслуживания</a></li>
+	<li><a href="msb-normal">Зоны использования земли</a></li>
+	<li><a href="msb-pol">Зоны загрязнений</a></li>
+	<li><a href="msb-power">Зоны энергетики</a></li>
 	<li><a href="msb-starve">Зоны голодания</a></li>
-	<li><a href="msb-transport">Транспортные зоны</a></li>
+	<li><a href="msb-transport">Зоны транспорта</a></li>
 	<li><a href="msb-ub40">Зоны безработицы</a></li>
 </Document>
-

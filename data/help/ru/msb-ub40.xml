@@ -1,19 +1,16 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Зоны безработицы</p>
-	<img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
-	<p style="hp">Безработица показывается только на резиденциях.</p>
-	<p style="hp">Светло зелёный означает, что безработица отсутствует. Темно зелёный и красный означает что безработица есть, причем в красной зоне она больше.</p>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="mini-screen">Мини карта</a></li>
-	<li><a href="msb-coal">Угольные зоны</a></li>
-	<li><a href="msb-cricket">Спортивные зоны</a></li>
-	<li><a href="msb-health">Мед зоны</a></li>
-	<li><a href="msb-normal">Нормальное отображение</a></li>
-	<li><a href="msb-pol">Зоны загрязнения</a></li>
-	<li><a href="msb-power">Электро зоны</a></li>
-	<li><a href="msb-starve">Зоны голодания</a></li>
-	<li><a href="msb-transport">Транспортные зоны</a></li>
-	<li><a href="msb-fire">Пожарные зоны</a></li>
+   <img src="images/gui/mapview/roundbuttons/round_ub40.png" halign="center"/>
+	<p style="hp">Зоны безработицы отображают жилые дома красным или зелёным цветами, а остальные постройки -- жёлтым или серым.</p>
+	<p style="hp">Ярко-зелёный цвет означает, что в данных жилых домах нет проблем с безработицей. Тёмно-зелёный и ярко-красный цвета показывают нарастающие проблемы с безработицей.</p>
+	<p style="hp">Ярко-жёлтый цвет означает, что данной постройке не хватает рабочей силы. Объекты, отмеченые серым цветом, полностью обеспечены рабочей силой.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="mini-screen">Миникарта</a></li>
+	<li><a href="transport">Транспортная система</a></li>
+	<li><a href="market">Магазин</a></li>
+	<li><a href="msb-normal">Зоны использования земли</a></li>
+	<li><a href="msb-transport">Зоны транспорта</a></li>
 </Document>

@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Зоны голодания</p>
-	<img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
-	<p style="hp">Показывает зоны голодания на карте.</p>
-	<p style="hp">Светло зелёный показывает то, что еда в данных зонах доступна. Темно зелёные и красные зоны показывают что еды не хватает.</p>
-        <p style="hp">Зона с водой окрашена в темно-синий.</p>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="mini-screen">Мини карта</a></li>
-	<li><a href="msb-coal">Угольные зоны</a></li>
-	<li><a href="msb-cricket">Спортивные зоны</a></li>
-	<li><a href="msb-health">Мед зоны</a></li>
-	<li><a href="msb-normal">Нормальное отображение</a></li>
-	<li><a href="msb-pol">Зоны загрязнения</a></li>
-	<li><a href="msb-power">Электро зоны</a></li>
-	<li><a href="msb-fire">Пожарные зоны</a></li>
-	<li><a href="msb-transport">Транспортные зоны</a></li>
+   <img src="images/gui/mapview/roundbuttons/round_food.png" halign="center"/>
+	<p style="hp">Зоны голодания относятся только к жилым домам.</p>
+	<p style="hp">Ярко-зелёным цветом отмечены зоны, в которых достаточно еды (из магазинов) и воды (из колодцев). Ярко-красные же означают, что в данных зонах люди голодают.</p>
+	<p style="hp">Зона доступности колодца окрашена в тёмно-синий цвет.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="mini-screen">Миникарта</a></li>
+	<li><a href="msb-coal">Зоны угля</a></li>
+	<li><a href="msb-cricket">Зоны спорта</a></li>
+	<li><a href="msb-fire">Зоны действия пожарных станций</a></li>
+	<li><a href="msb-health">Зоны мед. обслуживания</a></li>
+	<li><a href="msb-normal">Зоны использования земли</a></li>
+	<li><a href="msb-pol">Зоны загрязнений</a></li>
+	<li><a href="msb-power">Зоны энергетики</a></li>
+	<li><a href="msb-transport">Зоны транспорта</a></li>
 	<li><a href="msb-ub40">Зоны безработицы</a></li>
 </Document>

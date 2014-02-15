@@ -1,25 +1,28 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Мед центр</p>
-	<p style="hp">Мед центр снабжает здоровьем резиденции. Радиус действия цента 4 поля.</p>
-	<p style="hp">Мед центр помогает людям жить дольше, люди начинаю меньше умирать из-за болезней и более производительно работать (их меньше мучают болезни).</p>
-	<p style="hp">Мед центры очень дорогие 60,000 рублей в год. Однако понижают стоимость 'неестественных смертей' и могут повышать заработок от работы.</p>
-	<p style="hp">После постройки мед центра он начинает работать только через 3 месяца. Он использует товары, однако ему не нужна работа. Естественно болезней в области действия мед центра ниже.</p>
-	<p style="hp">Мед центр не нужно соединять с транспортом, все что ему нужно он найдет в магазинах.</p>
-	<p style="hp">Область действия мед центра вы можете увидеть нажав на миникарте соответствующую кнопку.</p>
+	<p style="htitle">Мед. центр</p>
+	<p style="hp">Мед. центр обеспечивает потребности населения в медицинской помощи в радиусе четырёх участков.</p>
+	<p style="hp">Мед. центр помогает людям жить дольше, люди начинают меньше умирать из-за болезней, вызванных загрязнениями, и более производительно работать (они проводят меньше времени на больничном).</p>
+	<p style="hp">Мед. центры очень дорогие. Однако они понижают затраты на 'неестественные смерти' и могут приносить дополнительную прибыль от налогов.</p>
+	<p style="hp">Мед. центр начинает работать через три месяца после постройки. Для его работы требуются товары.</p>
+	<p style="hp">Мед. центр нужно соединять с транспортной системой, если он не находится в зоне действия магазина.</p>
+	<p style="hp">Область действия мед. центра Вы можете увидеть, нажав на миникарте соответствующую кнопку.</p>
 
-	<p style="hp">Это мед центр</p>
-	<img src="images/tiles/health.png" halign="center"/>
-	<p style="hp">это его иконка</p>
-	<img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
-	<p style="hp">это иконка на миникарте</p>
-	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+  <p style="hp">Это мед. центр:</p>
+   <img src="images/tiles/health.png" halign="center"/>
 
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="residential">Резиденции</a></li>
-	<li><a href="pollution">Население</a></li>
-	<li><a href="jobs">Работа</a></li>
+  <p style="hp">это его иконка:</p>
+   <img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
+
+  <p style="hp">это иконка на миникарте:</p>
+   <img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="residential">Жилой дом</a></li>
+	<li><a href="pollution">Загрязнение</a></li>
+	<li><a href="jobs">Рабочие</a></li>
 	<li><a href="goods">Товары</a></li>
-	<li><a href="transport">Транспорт</a></li>
-	<li><a href="msb-health">Зона действия мед центра</a></li>
+	<li><a href="transport">Транспортная система</a></li>
+	<li><a href="msb-health">Зоны мед. обслуживания</a></li>
 </Document>

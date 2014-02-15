@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Высокая скорость</p>
-	<img src="images/gui/speed/fast.png"/>
-	<p style="hp">Это кнопка высокой скорости. Она запускает игру на максимальной скорости. События будут происходить очень быстро.</p>
+   <img src="images/gui/speed/faster.png" halign="center"/>
+	<p style="hp">Это кнопка высокой скорости. Она запускает игру на максимальной скорости. Будьте внимательны, события будут происходить очень быстро.</p>
+	<p style="hp">Опция командной строки "-q 1" или "--quick 1" запустит игру с максимально возможной скоростью (менее 10 секунд на год), но может нагреть Вашу аппаратуру. По умолчанию используется значение "-q 9" (около 25 секунд на год).</p>
 
-	<p style="hsubtitle">См. ещё:</p>
-	<li><a href="medium">Средний</a></li>
-	<li><a href="slow">Медленный</a></li>
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="pause">Пауза</a></li>
+	<li><a href="medium">Средняя скорость</a></li>
+	<li><a href="slow">Низкая скорость</a></li>
 </Document>

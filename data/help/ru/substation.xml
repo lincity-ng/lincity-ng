@@ -1,18 +1,20 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Подстанции</p>
-	<p style="hp">Подстанции берут электричество с ЛЭП и распределяют его в зонах покрытия. Вы можете убедиться, что электричество подсоединено, кликнув курсором, к примеру, на резиденция, потом посмотрев на миникарту.</p>
-	
-	<p style="hp">Это подстанция</p>
-	<img src="images/tiles/substation-G.png" halign="center"/>
-	<p style="hp">а это иконка</p>
-	<img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
-	
-	<p style="hsubtitle">см ещё:</p>
-	<li><a href="powerline">Электролинии</a></li>
-	<li><a href="powerssolar">Солнечная электростанция</a></li>
-	<li><a href="commune">Коммуна</a></li>
-	<li><a href="steel">Сталь</a></li>
-	<li><a href="jobs">Работа</a></li>
-</Document>
+	<p style="htitle">Подстанция</p>
+	<p style="hp">Подстанции получают электричество с помощью ЛЭП и распределяют его по округе. Зоны энергетики позволяют увидеть, каким областям требуется больше энергии. Для своего функционирования подстанциям не требуются рабочие.</p>
 
+  <p style="hp">Это подстанция:</p>
+   <img src="images/tiles/substation-G.png" halign="center"/>
+
+  <p style="hp">а это иконка:</p>
+   <img src="images/gui/buttonpanel/power/substation.png" halign="center"/>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="msb-power">Зоны энергетики</a></li>
+	<li><a href="power">Энергия</a></li>
+	<li><a href="powerline">ЛЭП</a></li>
+	<li><a href="windmill">Ветряная мельница</a></li>
+	<li><a href="powerscoal">Угольная электростанция</a></li>
+	<li><a href="powerssolar">Солнечная электростанция</a></li>
+</Document>

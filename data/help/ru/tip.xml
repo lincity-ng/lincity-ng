@@ -1,16 +1,21 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Мусорки </p>
-	<p style="hp">Собирают мусор. Если вы соберёте много мусора в магазинах, они могут его сжечь. От этого многие жители начинают смотреть с опаской. (This makes quite a lot of pollution so you should be wary of letting rubbish accumulate).</p>
-	<p style="hp">Мусорки заполняются с края, и потом к центру и вверх.</p>
-	<p style="hp">К мусоркe нужно соединять транспорт к верхнему левому углу.</p>
-	<p style="hp">Что бы увидеть, что мусорки работают, надо нажать по ним курсором, и посмотреть в мини окно. Так же при заполнении меняется изображение.</p>
-	
-	<p style="hp">Это мусорка</p>
-	<img src="images/tiles/tip0.png" halign="center"/>
-	<p style="hp">а это иконка</p>
-	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="market">Магазины</a></li>
+	<p style="htitle">Свалка</p>
+	<p style="hp">Свалка является местом, куда складируется мусор. Если в магазине его будет слишком много, сотрудники могут его сжечь. Это сильно загрязнит окружающую среду, поэтому Вы должны ответственно относиться к сборке и переработке мусора.</p>
+	<p style="hp">По мере наполнения мусором свалка превращается в холм, который зарастёт травой после полного заполнения свалки.</p>
+	<p style="hp">Мусор со свалок может быть использован в коммунах, электрифицированных фермах и центрах по переработке отходов.</p>
+
+  <p style="hp">Это свалка:</p>
+   <img src="images/tiles/tip0.png" halign="center"/>
+
+  <p style="hp">а это иконка:</p>
+   <img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="waste">Мусор</a></li>
+	<li><a href="market">Магазин</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="farm">Ферма</a></li>
+	<li><a href="recycle">Центр по переработке отходов</a></li>
 </Document>

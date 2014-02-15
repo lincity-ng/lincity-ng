@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Пауза игры</p>
-	<p style="hp">Данная кнопка "замораживает" время.</p>
-	<p style="hp">Для того что бы его "разморозить" нажмите на кнопку ещё раз.</p>
+	<p style="htitle">Пауза</p>
+	<p style="hp">Данная кнопка приостанавливает ход игры.</p>
+	<p style="hp">Повторное нажатие продолжает игру.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="slow">Низкая скорость</a></li>
+	<li><a href="medium">Средняя скорость</a></li>
+	<li><a href="fast">Высокая скорость</a></li>
 </Document>

@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Руда</p>
-	<p style="hp">Руда одна из самых простых материалов в игре. Руду умеют добывать коммуны и рудные шахты. Так же из отходов её получает Переработка.</p>
-	<p style="hp">Гончары, легкая и тяжёлая индустрии используют руду.</p>
+	<p style="hp">Руда -- один из основных видов сырья в игре. Коммуны, рудники и центры по переработке отходов могут добывать руду.</p>
+	<p style="hp">Руда необходима для работы гончарных мастерских, а также лёгкой и тяжёлой промышленности.</p>
 
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="commune">Комуны</a></li>
-	<li><a href="oremine">Шахта руды</a></li>
-	<li><a href="recycle">Переработка</a></li>
-	<li><a href="pottery">Гончарная</a></li>
-	<li><a href="indistryl">Легкая индустрия</a></li>
-	<li><a href="indistryh">Тяжёлая индустрия</a></li>
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="commodities">Товары потребления</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="oremine">Рудник</a></li>
+	<li><a href="recycle">Центр по переработке отходов</a></li>
+	<li><a href="pottery">Гончарная мастерская</a></li>
+	<li><a href="industryl">Лёгкая промышленность</a></li>
+	<li><a href="industryh">Тяжёлая промышленность (Металлургический завод)</a></li>
 </Document>

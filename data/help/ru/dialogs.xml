@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Помощь</p>
-    <p>Map-Tab</p>
-    <li><a href="mini-screen">Мини карта</a></li>
-    <p>Markets-Tab</p>
-	<li><a href="pbar">Статус ресурсов</a></li>
-    <p>$-Tab</p>
-	<li><a href="finance">Финансы</a></li>
-	<li><a href="other-costs">Другие цены</a></li>
-	<li><a href="housing">Население</a></li>
-    <p>Eco-Tab</p>
-	<li><a href="economy">Графика экономики</a></li>
-	<li><a href="sustain">Работа прогресс бара </a></li>
+	<p style="htitle">Информационные окна</p>
+	<p style="hp">Крт</p>
+	<li><a href="mini-screen">Миникарта</a></li>
+	<p style="hp">Стат</p>
+	<li><a href="pbar">Окно статистики</a></li>
+	<p style="hp">Фин</p>
+	<li><a href="finance">Окно финансов</a></li>
+	<li><a href="other-costs">Другие затраты</a></li>
+	<li><a href="housing">Окно населения</a></li>
+	<p style="hp">ЭКО</p>
+	<li><a href="economy">График экономики</a></li>
+	<li><a href="sustain">Окно достижения устойчивой экономики</a></li>
+
+  <p style="hsubtitle">См. ещё:</p>
 </Document>

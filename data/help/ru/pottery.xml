@@ -1,18 +1,20 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Гончарная</p>
-	<p style="hp">Гончарные делают товары из руды, угля и работы. Её не нужно соединять с транспортом, но она должна быть в зоне действия магазина(ов).</p>
-	<p style="hp">Вы можете сказать работать гончарным обжигать товар, из-за этого появляется загрязнение, но за то КПД увеличивается до 100%.</p>
-	
-	<p style="hp">Это гончарная</p>
-	<img src="images/tiles/pottery0.png" halign="center"/>
-	<p style="hp">это иконка</p>
-	<img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="transport">Транспорт</a></li>
+	<p style="htitle">Гончарная мастерская</p>
+	<p style="hp">Гончарные мастерские создают товары из руды и угля с помощью рабочих. Они не обязательно должны быть соединены с транспортной системой, однако их надо строить в зоне доступа к магазину.</p>
+	<p style="hp">Вы можете увидеть, что гончарная мастерская работает, по дыму, выходящему из трубы печи.</p>
+
+  <p style="hp">Это гончарная мастерская:</p>
+   <img src="images/tiles/pottery0.png" halign="center"/>
+
+  <p style="hp">это иконка:</p>
+   <img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="transport">Транспортная система</a></li>
 	<li><a href="ore">Руда</a></li>
 	<li><a href="coal">Уголь</a></li>
-	<li><a href="jobs">Работа</a></li>
+	<li><a href="jobs">Рабочие</a></li>
 	<li><a href="market">Магазин</a></li>
 </Document>

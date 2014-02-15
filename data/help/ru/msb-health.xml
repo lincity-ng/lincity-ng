@@ -1,32 +1,20 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Мед зоны</p>
-	<img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
-	<p style="hp">Зоны которые окрашены зелёным, находятся под наблюдением медицинского центра.</p>
-	<p style="hp">Все не окрашенные места, медицинским центром не обслуживаются.</p>
-	<p style="hp">Запомните, мед центр начинает работать только после 3 месяцев после постройки.</p>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="mini-screen">Мини карта</a></li>
+	<p style="htitle">Зоны мед. обслуживания</p>
+   <img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
+	<p style="hp">Зоны, которые имеют доступ к мед. центру, окрашены в тёмно-зелёный цвет. Остальные участки карты отображаются нормальным цветом.</p>
+	<p style="hp">Помните, мед. центр начинает работать только через три месяца после завершения строительства.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="mini-screen">Миникарта</a></li>
 	<li><a href="msb-coal">Зоны угля</a></li>
-	<li><a href="msb-cricket">Спортивные зоны</a></li>
-	<li><a href="msb-fire">Пожарные зоны</a></li>
-	<li><a href="msb-normal">Нормальное отображение</a></li>
-	<li><a href="msb-pol">Зоны загрязнения</a></li>
-	<li><a href="msb-power">Энегро зоны</a></li>
-	<li><a href="msb-starve">Зоны безработицы</a></li>
-	<li><a href="msb-transport">Транспортные зоны</a></li>
-	<li><a href="msb-ub40">Зоны голодания</a></li>
+	<li><a href="msb-cricket">Зоны спорта</a></li>
+	<li><a href="msb-fire">Зоны действия пожарных станций</a></li>
+	<li><a href="msb-normal">Зоны использования земли</a></li>
+	<li><a href="msb-pol">Зоны загрязнений</a></li>
+	<li><a href="msb-power">Зоны энергетики</a></li>
+	<li><a href="msb-starve">Зоны голодания</a></li>
+	<li><a href="msb-transport">Зоны транспорта</a></li>
+	<li><a href="msb-ub40">Зоны безработицы</a></li>
 </Document>
-
-
-
-<!--
-
-text -1 270 Left click on the mini screen 
-text -1 280 to reposition the main window.
-text -1 300 Left click on the mini screen title 
-text -1 310 to choose a different mini screen view.
-text -1 330 Toggle overlay mode by pressing 'v' 
-text -1 340 or middle click on the mini screen title (X only)
--->

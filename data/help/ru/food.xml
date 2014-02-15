@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Еда</p>
-	<p style="hp">Еда растет на фермах, или может быть импортирована через порт.</p>
-	<p style="hp">Людям нужна еда, для того, что бы выжить. Если люди начинают умирать от голода, то другие начинают уезжают из вашего города.</p>
-	<p style="hp">Мельницы используют еду. Они перерабатывает её в хлопок(товар). Они могут использовать <i>слишком</i> много еды.</p>
-	
-	<p style="hsubtitle">см. ещё:</p>
-	<li><a href="farm">Фермы</a></li>
-	<li><a href="port">Порты</a></li>
-	<li><a href="mill">Мельницы</a></li>
-	<li><a href="steel">Сталь</a></li>
+	<p style="hp">Еда растёт на фермах или импортируется через порт.</p>
+	<p style="hp">Людям нужна еда для того, чтобы выжить. Если люди начинают умирать от голода, их соседи уезжают из Вашего города.</p>
+	<p style="hp">Также еда нужна мельницам. Например, они перерабатывают хлопок в одежду (товар). Они могут использовать <i>слишком</i> много еды.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="commodities">Товары потребления</a></li>
+	<li><a href="farm">Ферма</a></li>
+	<li><a href="residential">Жилой дом</a></li>
+	<li><a href="mill">Мельница</a></li>
+	<li><a href="port">Порт</a></li>
 </Document>

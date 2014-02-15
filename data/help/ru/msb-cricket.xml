@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Спортивное покрытие</p>
-	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
-	<p style="hp">Места отмеченные зелёным цветом могут пользоваться спортивными площадками.</p>
-	<p style="hp">Места которые находятся на грани, тоже могут пользоваться спортивными площадками</p>
-	<p style="hp">Запомните, они доступны только через 3 месяца после постройки.</p>
+	<p style="htitle">Зоны спорта</p>
+   <img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+	<p style="hp">Зоны, которые имеют доступ к спортивным площадкам, окрашены в тёмно-зелёный цвет. Остальные участки карты отображаются нормальным цветом.</p>
+	<p style="hp">Помните, спортивные площадки становятся доступны только через три месяца после завершения строительства.</p>
 
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="mini-screen">Мини-карта</a></li>
-	<li><a href="msb-coal">Угольное покрытие</a></li>
-	<li><a href="msb-fire">Пожарное покрытие</a></li>
-	<li><a href="msb-health">Больничное покрытие</a></li>
-	<li><a href="msb-normal">Нормальное покрытие</a></li>
-	<li><a href="msb-pol">Покрытие населения</a></li>
-	<li><a href="msb-power">Электрическое покрытие</a></li>
-	<li><a href="msb-starve">Покрытие голодающих</a></li>
-	<li><a href="msb-transport">Транспортное покрытие</a></li>
-	<li><a href="msb-ub40">Покрытие безработицы</a></li>
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="mini-screen">Миникарта</a></li>
+	<li><a href="msb-coal">Зоны угля</a></li>
+	<li><a href="msb-fire">Зоны действия пожарных станций</a></li>
+	<li><a href="msb-health">Зоны мед. обслуживания</a></li>
+	<li><a href="msb-normal">Зоны использования земли</a></li>
+	<li><a href="msb-pol">Зоны загрязнений</a></li>
+	<li><a href="msb-power">Зоны энергетики</a></li>
+	<li><a href="msb-starve">Зоны голодания</a></li>
+	<li><a href="msb-transport">Зоны транспорта</a></li>
+	<li><a href="msb-ub40">Зоны безработицы</a></li>
 </Document>

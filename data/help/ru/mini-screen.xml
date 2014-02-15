@@ -1,23 +1,21 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Мини карта</p>
-	<p style="hp">Мини карта показывает, в уменьшенном вариант, всю игровую карту. Кнопки внизу, при нажатии, разные зоны покрытия, это работа, загрязнение, уголь и прочее.</p>
-	<p style="hp">Правый клик на кнопки мини карты активирует помощь.</p>
-	<p style="hp">The white bordered square shows the area covered by the main screen.</p>
-	<p style="hp">Большая кнопка "зоны" переносит содержимое мини карты на главную карту.</p>
-	
-	<p style="hsubtitle">См ещё:</p>
+	<p style="htitle">Миникарта</p>
+	<p style="hp">Миникарта показывает всю игровую карту в уменьшенном варианте. Кнопки внизу показывают информацию о различных игровых зонах -- транспотра, загрязнений и т.д.</p>
+	<p style="hp">Правый клик на какой-либо кнопке под миникартой показывает справочную информацию об этой кнопке.</p>
+	<p style="hp">Белая рамка указывает на область, отображаемую в данный момент на основной карте.</p>
+	<p style="hp">Большая кнопка "зоны" переносит содержимое миникарты на главную карту.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
 	<li><a href="msb-coal">Зоны угля</a></li>
-	<li><a href="msb-cricket">Спортивные зоны</a></li>
-	<li><a href="msb-fire">Пожарные зоны</a></li>
-	<li><a href="msb-health">Мед зоны</a></li>
-	<li><a href="msb-normal">Нормальное отображение</a></li>
-	<li><a href="msb-pol">Зоны загрязнения</a></li>
-	<li><a href="msb-power">Энерго зоны</a></li>
+	<li><a href="msb-cricket">Зоны спорта</a></li>
+	<li><a href="msb-fire">Зоны действия пожарных станций</a></li>
+	<li><a href="msb-health">Зоны мед. обслуживания</a></li>
+	<li><a href="msb-normal">Зоны использования земли</a></li>
+	<li><a href="msb-pol">Зоны загрязнений</a></li>
+	<li><a href="msb-power">Зоны энергетики</a></li>
 	<li><a href="msb-starve">Зоны голодания</a></li>
-	<li><a href="msb-transport">Транспортные зоны</a></li>
+	<li><a href="msb-transport">Зоны транспорта</a></li>
 	<li><a href="msb-ub40">Зоны безработицы</a></li>
 </Document>
-
-
-

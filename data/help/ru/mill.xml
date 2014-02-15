@@ -1,22 +1,26 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Мельница</p>
-	<p style="hp">Мельницы из еды, угля и работы делают товары. Еда?... хорошо, хлопок и шерсть за счет еды, в этой игре.</p>
-	<p style="hp">Мельницы используют много еды, итак вы можете легко взять излишек еды и получить из него товары. (Это не сложно, когда вы имеете ветряные мельницы, которые дают электричество фермам, они начинают работать гораздо эффективнее)</p>
-	<p style="hp">Мыльницы не нужно соединять с транспортом. Все что им нужно они могут взять из магазинов, это как уже говорилось уголь, работа и еда. Правда от мельниц идет загрязнения..</p>
-	
-	<p style="hp">Это мельница</p>
-	<img src="images/tiles/mill1.png" halign="center"/>
-	<p style="hp">Это не работающая мельница</p>
-	<img src="images/tiles/mill0.png" halign="center"/>
-	<p style="hp">Это её иконка</p>
-	<img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
-	
-	<p style="hsubtitle">См ещё:</p>
+	<p style="hp">Мельницы из еды и угля с помощью рабочих делают товары. Еда?... ну, да, в этой игре хлопок и шерсть считаются едой.</p>
+	<p style="hp">Мельницы используют много еды, поэтому Вы легко можете столкнуться с нехваткой еды, если е будете учитывать это. С ветряными мельницами проблем меньше, так как они могут снабжать фермы электричеством, из-за чего те будут производить больше еды.</p>
+	<p style="hp">Мельницы не обязательно соединять с транспортной системой, если они расположены в зоне действия магазина.</p>
+	<p style="hp">Увидеть, что мельница работает, Вы можете по дыму, исходящему из здания.</p>
+
+  <p style="hp">Это мельница:</p>
+   <img src="images/tiles/mill1.png" halign="center"/>
+
+  <p style="hp">Это неработающая мельница:</p>
+   <img src="images/tiles/mill0.png" halign="center"/>
+
+  <p style="hp">Это её иконка:</p>
+   <img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
+
+  <p style="hsubtitle">См. ещё:</p>
 	<li><a href="goods">Товары</a></li>
 	<li><a href="food">Еда</a></li>
 	<li><a href="coal">Уголь</a></li>
-	<li><a href="jobs">Работа</a></li>
-	<li><a href="transport">Транспорт</a></li>
-	<li><a href="windmill">Ветряные мельницы</a></li>
+	<li><a href="jobs">Рабочие</a></li>
+	<li><a href="transport">Транспортная система</a></li>
+	<li><a href="windmill">Ветряная мельница</a></li>
 </Document>

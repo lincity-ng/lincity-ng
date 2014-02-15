@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Центр переработки</p>
-	<p style="hp">Used goods produce waste.</p>
-	<p style="hp">Центр переработки делает из мусора руду. Транспорт нужно подсоединять к левому верхнему углу. Для работы требуется работа и деньги.</p>
-	<p style="hp">Данный центр дает возможность получить стабильную экономику, (т.е.. не нужно добывать руду) для того что бы поднять КПД до 100% нужно построить больше мельниц.</p>
-	
-	<p style="hp">Это центр переработки</p>
-	<img src="images/tiles/recycle-centre.png" halign="center"/>
-	<p style="hp">а это иконка</p>
-	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="goods">Товары</a></li>
-	<li><a href="ore">Руда</a></li>
-	<li><a href="transport">Транспорт</a></li>
+	<p style="htitle">Центр по переработке отходов</p>
+	<p style="hp">Данная постройка перерабатывает отходы в руду. Для работы центра необходимы рабочие, энергия (достаточно кВтч) и деньги. Также он может использоваться для опустошения переполненных свалок.</p>
+	<p style="hp">Вы можете получить стабильную экономику (когда больше не надо добывать руду и т.д.) и при центрах по переработке, работающих не со 100% эффективностью, если у Вас есть мельницы для компенсации потерь.</p>
+
+  <p style="hp">Это центр по переработке отходов:</p>
+   <img src="images/tiles/recycle-centre.png" halign="center"/>
+
+  <p style="hp">а это иконка:</p>
+   <img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="commodities">Товары потребления</a></li>
+	<li><a href="power">Энергия</a></li>
+	<li><a href="transport">Транспортная система</a></li>
 </Document>

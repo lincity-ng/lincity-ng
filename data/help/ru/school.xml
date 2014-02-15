@@ -1,20 +1,23 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Школы</p>
-	<p style="hp">Школам нужна работа и товары, для того что бы создавать технологии, которые они могут применять в университетах. They use far fewer jobs and goods than universities, but produce far fewer tech points. Нужно 4 или 5 школ, для одного университета. It is often (but not always) better to put a university in.</p>
-	<p style="hp">Школам не нужно подсоединять к транспорту. Все что нужно они могут взять из магазина.</p>
-	<p style="hp">Школы стоят денег, что бы работать. Вы видите общую стоимость содержания всех школ за последний год.</p>
-	<p style="hp">Если изображение построенной школы изменятся, то она работает.</p>
-	
-	<p style="hp">Это школа</p>
-	<img src="images/tiles/school0.png" halign="center"/>
-	<p style="hp">а это иконка</p>
-	<img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="market">Магазины</a></li>
-	<li><a href="university">Университеты</a></li>
-	<li><a href="transport">Транспорт</a></li>
+	<p style="htitle">Школа</p>
+	<p style="hp">Аналогично университетам, школам требуются рабочие и товары для развития технологий, хотя и в гораздо меньшем количестве. Соответственно, технологии также развиваются не так быстро. У Вас есть выбор: построить четыре-пять школ или же один университет. Чаще (но не всегда!) выгоднее строить университет.</p>
+	<p style="hp">Школы не нужно соединять с транспортной системой, однако они должны располагаться в зоне действия магазина.</p>
+	<p style="hp">Содержание школы стоит денег. Вы можете увидеть общую сумму затрат на школы за прошлый год в окне финансов.</p>
+	<p style="hp">Нажав на школу, Вы можете получить информацию о её работе.</p>
+
+  <p style="hp">Это школа:</p>
+   <img src="images/tiles/school0.png" halign="center"/>
+
+  <p style="hp">а это иконка:</p>
+   <img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="tech-level">Уровень технологического развития</a></li>
+	<li><a href="market">Магазин</a></li>
+	<li><a href="university">Университет</a></li>
+	<li><a href="transport">Транспортная система</a></li>
 	<li><a href="goods">Товары</a></li>
-	<li><a href="jobs">Работа</a></li>
+	<li><a href="jobs">Рабочие</a></li>
 </Document>

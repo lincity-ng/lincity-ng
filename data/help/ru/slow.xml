@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Медленная скорость</p>
-	<img src="images/gui/speed/normal.png"/>
-	<p style="hp">Это кнопка медленной скорости. Она устанавливает скорость игры на медленной скорости. На слабых машинах вы можете не заметить эффекта.</p>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="medium">Средняя</a></li>
-	<li><a href="fast">Быстрая</a></li>
+	<p style="htitle">Низкая скорость</p>
+   <img src="images/gui/speed/normal.png" halign="center"/>
+	<p style="hp">Это кнопка низкой скорости. Она запускает игру на минимальной скорости. На слабых машинах Вы можете не заметить эффекта.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="pause">Пауза</a></li>
+	<li><a href="medium">Средняя скорость</a></li>
+	<li><a href="fast">Высокая скорость</a></li>
 </Document>

@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Обучение</p>
 
-	<li><a href="tutorial-aim">Цели в игре</a></li>
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="tutorial-aim">Цель игры</a></li>
 	<li><a href="tutorial-overview">Навигация по экрану</a></li>
 	<li><a href="tutorial-basics">Первые шаги</a></li>
-	<li><a href="tutorial-advanced">Продвинутые возможности</a></li>
-	<li><a href="tutorial-scenario">Предопределённый сценарий</a></li>
+	<li><a href="tutorial-advanced">Продвинутые функции</a></li>
+	<li><a href="tutorial-scenario">Сценарии игры</a></li>
 </Document>
-

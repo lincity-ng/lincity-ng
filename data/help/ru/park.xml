@@ -1,21 +1,25 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Парки</p>
-	<p style="hp">Парки очень просты: очищают загрязнение.</p>
-	<p style="hp">Очищает все что создает загрязнение в основном это легкая, тяжёлая индустрии и угольная электростанция.</p>
-	<p style="hp">Вы можете использовать парки для защиты резиденций, или для того что бы остановить распространение загрязнения.</p>
-	<p style="hp">Ветер дует с юго-запада на северо-восток, стройте парки полагаясь на это.</p>
-	
-	<p style="hp">Это парк</p>
-	<img src="images/tiles/parkland-plane.png" halign="center"/>
-	<p style="hp">а это его иконка</p>
-	<img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
-	
-	<p style="hsubtitle">см ещё:</p>
+	<p style="htitle">Парк</p>
+	<p style="hp">Парки имеют очень простое назначение: они уменьшают загрязнения.</p>
+	<p style="hp">Очень многие объекты загрязняют город: это и дороги, и угольные шахты, и промышленность, и т.д. Какие-то объекты загрязняют город больше, какие-то меньше.</p>
+	<p style="hp">Вы можете строить парки для улучшения экологии возле жилых домов или около источников загрязнений.</p>
+	<p style="hp">В городе преобладает юго-западный ветер, учитывайте это при создании парков.</p>
+	<p style="hp">Парки более эффективны, чем леса или фермы, однако для их создания необходимо наличие подземных вод. Поэтому они могут располагаться только на зелёных участках карты.</p>
+	<p style="hp"><b>Подсказка:</b> Нажав клавишу 'w' при создании парка, Вы увидите маленький пруд.</p>
+
+  <p style="hp">Это парк:</p>
+   <img src="images/tiles/parkland-plane.png" halign="center"/>
+
+  <p style="hp">а это его иконка:</p>
+   <img src="images/gui/buttonpanel/parks/tree.png" halign="center"/>
+
+  <p style="hsubtitle">См. ещё:</p>
 	<li><a href="pollution">Загрязнение</a></li>
-	<li><a href="road">Дороги</a></li>
-	<li><a href="rail">Рельсы</a></li>
-	<li><a href="coalmine">Каменный уголь</a></li>
-	<li><a href="industryh">Тяжёлая индустрия</a></li>
-	<li><a href="industryl">Легкая индустрия</a></li>
+	<li><a href="farm">Ферма</a></li>
+	<li><a href="commune">Коммуна</a></li>
+	<li><a href="industryh">Тяжёлая промышленность (Металлургический завод)</a></li>
+	<li><a href="industryl">Лёгкая промышленность</a></li>
+	<li><a href="powerscoal">Угольная электростанция</a></li>
 </Document>

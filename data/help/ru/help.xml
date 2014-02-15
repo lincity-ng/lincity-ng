@@ -1,21 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Помощь по Lincity</p>
-	<p style="hp">Это описание игры Lincity. Пожалуйста, выберите тему, которая вам будет интересна и нажмите на нее. Ссылки выделены синим цветом.</p>
-	<p style="hp">В игровом цикле игры Вы можете на многих объектах нажимать правую кнопку мыши и получать справку по ней. Так же есть кнопка помощи, она находиться внизу экрана.</p>
+	<p style="hp">Это описание игры Lincity. Пожалуйста, выберите тему, которая Вам будет интересна, и нажмите на неё. Ссылки выделены синим цветом.</p>
+	<p style="hp">В игровом цикле Вы можете получать помощь по многим объектам, нажимая на них правой кнопкой мыши. Также внизу экрана есть кнопка помощи.</p>
+	<p style="hp">Выиграть в Lincity можно двумя путями. Первый способ -- это <a href="sustain">стабилизировать экономику</a>, второй -- эвакуировать всех жителей на <a href="rocket">космических кораблях</a>.</p>
 
-  <p style="hp">Выиграть в игру можно двумя путями. Первый способ, это стабилизировать экономику,
-    второй, эвакуировать всех жителей на ракетах.</p>
-
-	<p style="hsubtitle">См ещё:</p>
-  <li><a href="sustain">Стабильная экономика</a></li>
-  <li><a href="rocket">Ракетная площадка</a></li>
-  <li><a href="evacuate">Эвакуация</a></li>
+  <p style="hsubtitle">См. ещё:</p>
 	<li><a href="tutorial">Обучение</a></li>
-	<li><a href="keys">Комбинации клавиш</a></li>
-  <li><a href="button-index">Описание кнопок меню</a></li>
-  <li><a href="mini-screen">Миникарта</a></li>
-  <li><a href="dialogs">Диалоги</a></li>
+	<li><a href="keys">Клавиатура</a></li>
+	<li><a href="button-index">Выберите интересующую Вас тему</a></li>
+	<li><a href="commodities">Товары потребления</a></li>
+	<li><a href="mini-screen">Миникарта</a></li>
+	<li><a href="dialogs">Информационные окна</a></li>
 	<li><a href="index">Содержание</a></li>
-
 </Document>

@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Зоны загрязнения</p>
-	<img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
-	<p style="hp">Зона загрязнения на мини карте показывает уровень загрязнения в вашем городе.</p>
-	<p style="hp">Загрязнения делятся на: светло-зелёный -> зелёный -> темно-зелёный -> темно-красный -> красный -> светло-красный.</p>
-	<p style="hp">Резиденции в которых загрязнение отмечено красным, являться больные много умирают. Не рекомендуется доходить до такой ситуации.</p>
-	
-	<p style="hsubtitle">См ещё:</p>
-	<li><a href="mini-screen">Мини карта</a></li>
+	<p style="htitle">Зоны загрязнений</p>
+   <img src="images/gui/mapview/roundbuttons/round_pollution.png" halign="center"/>
+	<p style="hp">Зоны загрязнений на миникарте показывают уровень загрязнения Вашего города.</p>
+	<p style="hp">В зависимости от степени загрязнения могут отображаться следующими цветами (в порядке ухудшения ситуации): светло-зелёный -> зелёный -> тёмно-зелёный -> тёмно-красный -> светло-красный -> ярко-красный.</p>
+	<p style="hp">В жилых домах, которые попадают в красные зоны, отмечается повышенный уровень заболеваемости. Люди предпочитают жить в экологически чистых районах.</p>
+
+  <p style="hsubtitle">См. ещё:</p>
+	<li><a href="mini-screen">Миникарта</a></li>
 	<li><a href="msb-coal">Зоны угля</a></li>
-	<li><a href="msb-cricket">Спортивные зоны</a></li>
-	<li><a href="msb-fire">Пожарные зоны</a></li>
-	<li><a href="msb-health">Мед зоны</a></li>
-	<li><a href="msb-normal">Нормальное отображение</a></li>
-	<li><a href="msb-power">Энегро зоны</a></li>
-	<li><a href="msb-starve">Зоны безработицы</a></li>
-	<li><a href="msb-transport">Транспортные зоны</a></li>
-	<li><a href="msb-ub40">Зоны голодания</a></li>
-	
+	<li><a href="msb-cricket">Зоны спорта</a></li>
+	<li><a href="msb-fire">Зоны действия пожарных станций</a></li>
+	<li><a href="msb-health">Зоны мед. обслуживания</a></li>
+	<li><a href="msb-normal">Зоны использования земли</a></li>
+	<li><a href="msb-power">Зоны энергетики</a></li>
+	<li><a href="msb-starve">Зоны голодания</a></li>
+	<li><a href="msb-transport">Зоны транспорта</a></li>
+	<li><a href="msb-ub40">Зоны безработицы</a></li>
 </Document>
