@@ -1,23 +1,24 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Coal mine</p>
 	<p style="hp">Coal mines dig coal from under the ground. There must be a coal seam close to the mine. To see where the seams are you can click on the coal button below the mini map.</p>
 	<p style="hp">The first time you use this button, it will cost you 1 million. After that it is free. You don't need to use this button, but you will have to find the coal by trial and error.</p>
 	<p style="hp">Coal mines need jobs to mine coal.</p>
-    <p style="hp">If your economy provides coal in excess your coal mines can put the coal in new underground seams</p>
-	
-	<p style="hp">This is a coalmine</p>
-	<img src="images/tiles/coalmine-full.png" halign="center"/>
-	<p style="hp">and this its icon</p>
-	<img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
+	<p style="hp">If your economy provides coal in excess your coal mines can put the coal in new underground seams</p>
 
+  <p style="hp">This is a coalmine</p>
+   <img src="images/tiles/coalmine-full.png" halign="center"/>
+
+  <p style="hp">and this its icon</p>
+   <img src="images/gui/buttonpanel/mining/coalmine.png" halign="center"/>
 	<p style="hp">The graphics show the amount of coal already dug but not put onto transport. The above coal mine has maximum stock.</p>
 	<p style="hp">Clicking on a coal mine will show you, in the mappoint stats window, the coal stock at the pit, and, more importantly, the coal reserve available to be dug.</p>
 	<p style="hp">Coal mines produce <a href="pollution">pollution</a>.</p>
 
-	<p style="hsubtitle">See also:</p>
+  <p style="hsubtitle">See also:</p>
 	<li><a href="coal">Coal</a></li>
-	<li><a href="powerscoal">Coal power station</a></li>
+	<li><a href="powerscoal">Coal fired power station</a></li>
 	<li><a href="transport">Transport</a></li>
 	<li><a href="jobs">Jobs</a></li>
 	<li><a href="pollution">Pollution</a></li>

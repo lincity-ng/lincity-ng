@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Sports overlay</p>
-	<img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
+   <img src="images/gui/mapview/roundbuttons/round_sport.png" halign="center"/>
 	<p style="hp">Areas that have sport areas within range are shown as dark green.</p>
 	<p style="hp">Areas that are out of range of a basketball court are displayed as normal.</p>
 	<p style="hp">Remember, basketball courts take three months to become active.</p>
-    <p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 
-	<p style="hsubtitle">See also:</p>
+  <p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>
 	<li><a href="msb-coal">Coal overlay</a></li>
 	<li><a href="msb-fire">Fire overlay</a></li>
 	<li><a href="msb-health">Health overlay</a></li>
-	<li><a href="msb-normal">Normal overlay</a></li>
+	<li><a href="msb-normal">Land use overlay</a></li>
 	<li><a href="msb-pol">Pollution overlay</a></li>
 	<li><a href="msb-power">Power overlay</a></li>
 	<li><a href="msb-starve">Starvation overlay</a></li>

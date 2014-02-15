@@ -1,23 +1,21 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Minimap</p>
 	<p style="hp">The minimap shows, in reduced scale, the whole of your playing area. The mini-buttons below, when you click on them, show information such as pollution levels over the whole of your playing area.</p>
 	<p style="hp">Right-click on each of the buttons below the minimap to activate their help pages.</p>
 	<p style="hp">The white bordered square shows the area covered by the main screen.</p>
 	<p style="hp">The big overlay button does overlay the minimap content on the main screen</p>
-	
-	<p style="hsubtitle">See also:</p>
+
+  <p style="hsubtitle">See also:</p>
 	<li><a href="msb-coal">Coal overlay</a></li>
 	<li><a href="msb-cricket">Sports overlay</a></li>
 	<li><a href="msb-fire">Fire overlay</a></li>
 	<li><a href="msb-health">Health overlay</a></li>
-	<li><a href="msb-normal">Normal overlay</a></li>
+	<li><a href="msb-normal">Land use overlay</a></li>
 	<li><a href="msb-pol">Pollution overlay</a></li>
 	<li><a href="msb-power">Power overlay</a></li>
 	<li><a href="msb-starve">Starvation overlay</a></li>
 	<li><a href="msb-transport">Transportation overlay</a></li>
 	<li><a href="msb-ub40">Unemployment overlay</a></li>
 </Document>
-
-
-

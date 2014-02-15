@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Information Tabs Help</p>
-    <p>Map-Tab</p>
-    <li><a href="mini-screen">Minimap</a></li>
-    <p>Markets-Tab</p>
+	<p style="hp">Map-Tab</p>
+	<li><a href="mini-screen">Minimap</a></li>
+	<p style="hp">Markets-Tab</p>
 	<li><a href="pbar">Ressources Status Bar</a></li>
-    <p>$-Tab</p>
+	<p style="hp">$-Tab</p>
 	<li><a href="finance">Finance</a></li>
 	<li><a href="other-costs">Other costs</a></li>
 	<li><a href="housing">Population</a></li>
-    <p>Eco-Tab</p>
+	<p style="hp">Eco-Tab</p>
 	<li><a href="economy">Economy Graph</a></li>
 	<li><a href="sustain">Sustainability progress window</a></li>
 </Document>

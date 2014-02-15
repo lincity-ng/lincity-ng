@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Pause Button</p>
 	<p style="hp">This is the pause button. It pauses the game.</p>
 	<p style="hp">You can restart the game by clicking on it again.</p>
+
+  <p style="hsubtitle">See also:</p>
+	<li><a href="slow">Slow speed</a></li>
+	<li><a href="medium">Medium speed</a></li>
+	<li><a href="fast">Fast speed</a></li>
 </Document>

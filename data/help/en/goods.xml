@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Goods</p>
 	<p style="hp">Goods are needed for most areas to work. People also like lots of them and are attracted to areas where you can get them.</p>
 	<p style="hp">Goods are taxed, so making lots will help your finances.</p>
 	<p style="hp">Goods are produced by Potteries, Blacksmiths, Mills and Light industry.</p>
 
-	<p style="hsubtitle">See also:</p>
+  <p style="hsubtitle">See also:</p>
 	<li><a href="commodities">Commodities</a></li>
 	<li><a href="pottery">Potteries</a></li>
 	<li><a href="blacksmith">Blacksmiths</a></li>
-	<li><a href="mills">Mills</a></li>
-	<li><a href="industryl">Light industry</a></li>
+	<li><a href="mill">Mills</a></li>
+	<li><a href="industryl">Light industrial areas</a></li>
 </Document>

@@ -1,21 +1,20 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Transportation overlay</p>
-	<img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
-	<p style="hp">The transportation mini screen shows the amount of goods on the 
-    city's <a href="track">tracks</a>, <a href="road">roads </a>
-    and <a href="rail">railways</a>.</p>
-    <p style="hp">Click the icon to toggle between flows and levels. Use the scroll up and down buttons to run through the various commodities. You may also hit the 'm'/'n' keys, or simply use the mousewheel when hovering over minimap</p>
+   <img src="images/gui/mapview/roundbuttons/round_road.png" halign="center"/>
+	<p style="hp">The transportation mini screen shows the amount of goods on the city's <a href="track">tracks</a>, <a href="road">roads </a> and <a href="rail">railways</a>.</p>
+	<p style="hp">Click the icon to toggle between flows and levels. Use the scroll up and down buttons to run through the various commodities. You may also hit the 'm'/'n' keys, or simply use the mousewheel when hovering over minimap</p>
 	<p style="hp">The bluish colors indicate buildings that are inside the range of a <a href="market">market</a>.</p>
-    <p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
+	<p style="hp">Left click on the mini screen to reposition the main window. Toggle overlay mode by pressing 'v' or clicking on the large overlay button.</p>
 
-	<p style="hsubtitle">See also:</p>
+  <p style="hsubtitle">See also:</p>
 	<li><a href="mini-screen">Minimap</a></li>
 	<li><a href="msb-coal">Coal overlay</a></li>
 	<li><a href="msb-cricket">Sports overlay</a></li>
 	<li><a href="msb-fire">Fire overlay</a></li>
 	<li><a href="msb-health">Health overlay</a></li>
-	<li><a href="msb-normal">Normal overlay</a></li>
+	<li><a href="msb-normal">Land use overlay</a></li>
 	<li><a href="msb-pol">Pollution overlay</a></li>
 	<li><a href="msb-power">Power overlay</a></li>
 	<li><a href="msb-starve">Starvation overlay</a></li>

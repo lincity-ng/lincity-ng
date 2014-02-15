@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Pollution</p>
 	<p style="hp">Most areas produce some pollution. The following are areas that can cause heavy pollution:</p>
@@ -12,12 +13,12 @@
 	<p style="hp">The prevailing wind is from the South West. Therefore the pollution tends to drift towards the North East.</p>
 	<p style="hp">Generally you would build strategically so people are not exposed to pollution. This is not always possible however. If this is the case then parks form quite a nice barrier. The more parks, the greater the protection.</p>
 
-	<p style="hsubtitle">See also:</p>
-	<li><a href="industryh">Heavy industry</a></li>
-	<li><a href="industryl">Light industry</a></li>
-	<li><a href="powerscoal">Coal fired power stations</a></li>
-	<li><a href="coalmine">Coal mines</a></li>
-	<li><a href="market">Markets</a></li>
+  <p style="hsubtitle">See also:</p>
+	<li><a href="industryh">Heavy industry (Steel Works)</a></li>
+	<li><a href="industryl">Light industrial areas</a></li>
+	<li><a href="powerscoal">Coal fired power station</a></li>
+	<li><a href="coalmine">Coal mine</a></li>
+	<li><a href="market">Market</a></li>
 	<li><a href="rail">Railways</a></li>
 	<li><a href="road">Roads</a></li>
 	<li><a href="park">Parks</a></li>

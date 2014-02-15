@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Stats</p>
 	<p style="hp">This is the second tab of the miniwindow</p>
 	<p style="hp">It shows some city wide statistics and their recent development.</p>
 	<p style="hp">A bar on the right side indicates an increase. A bar on the left side indicates a decrease. The size of the bar indicates the amount of change. Good changes are green bad ones red. But beaware that too much of a good thing is not always good.</p>
 	<p style="hp">Use the scroll up and down buttons to see different bars.</p>
-	
-	<p style="hsubtitle">See also:</p>
+
+  <p style="hsubtitle">See also:</p>
 	<li><a href="commodities">Commodities</a></li>
 	<li><a href="msb-transport">Transportation overlay</a></li>
 </Document>

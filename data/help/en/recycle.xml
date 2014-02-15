@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Recycle centres</p>
 	<p style="hp">Recycle centres convert waste into ore. Jobs, electric power (kWH) and money are used to collect the waste and convert it into raw ore. They can be used to empty previously filled tips.</p>
 	<p style="hp">It is possible to run a sustainable economy, (i.e. no more ore extracted, etc) with less than 100% efficient recycle centres if you have some mills to make up for the losses.</p>
-	
-	<p style="hp">This is a recycle center</p>
-	<img src="images/tiles/recycle-centre.png" halign="center"/>
-	<p style="hp">and this is its icon</p>
-	<img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
-	
-	<p style="hsubtitle">See also:</p>
+
+  <p style="hp">This is a recycle center</p>
+   <img src="images/tiles/recycle-centre.png" halign="center"/>
+
+  <p style="hp">and this is its icon</p>
+   <img src="images/gui/buttonpanel/mining/recycling.png" halign="center"/>
+
+  <p style="hsubtitle">See also:</p>
 	<li><a href="commodities">Commodities</a></li>
-	<li><a href="power">Electricity</a></li>
+	<li><a href="power">Power</a></li>
 	<li><a href="transport">Transport</a></li>
 </Document>

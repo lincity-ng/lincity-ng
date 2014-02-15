@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Jobs</p>
 	<p style="hp">People living in residential areas provide jobs. Jobs are used by most areas for them to function. Some areas only need jobs when they are under construction, for example monuments.</p>
@@ -6,9 +7,9 @@
 	<p style="hp">If a market becomes 'full' of jobs, it will stop accepting them from residential areas. When this happens, if there are no other non-full markets within range, the people will become unemployed.</p>
 	<p style="hp">A health centre within range of a residential area, will increase the number of jobs provided to any local markets.</p>
 
-	<p style="hsubtitle">See also:</p>
+  <p style="hsubtitle">See also:</p>
 	<li><a href="commodities">Commodities</a></li>
-	<li><a href="residential">Residences</a></li>
+	<li><a href="residential">Residential area</a></li>
 	<li><a href="transport">Transport</a></li>
-	<li><a href="market">Markets</a></li>
+	<li><a href="market">Market</a></li>
 </Document>

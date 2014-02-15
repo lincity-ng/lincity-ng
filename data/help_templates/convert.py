@@ -5,7 +5,7 @@ import re
   
 class HelpObject:
   def __init__(s,fname,langs):
-    s.parce_image=re.compile("IMG_([0-9])\[(.*?)\]:?(.*)")
+    s.parce_image=re.compile("IMG_([0-9]+)\[(.*?)\]:?(.*)")
     s.parce_also =re.compile("ALSO\[(.*?)\]:?(.*)")
     s.name={} # Name of file
     s.body={} # Array of paragraph

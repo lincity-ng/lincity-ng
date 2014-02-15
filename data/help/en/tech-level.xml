@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Tech Level</p>
 	<p style="hp">Your city's technology level determines a number of things, such as what you can build and the efficiency of certain processes.</p>
@@ -9,9 +10,9 @@
 	<p style="hp">Also, be aware that if for some reason you need to take out, say, a university or two (or they are suddenly starved of resources) your tech level is likely to start falling.</p>
 	<p style="hp">Percentage of chance for a successful rocket launch is equal to your tech-level.</p>
 
-	<p style="hsubtitle">See also:</p>
+  <p style="hsubtitle">See also:</p>
 	<li><a href="monument">Monuments</a></li>
 	<li><a href="school">Schools</a></li>
-	<li><a href="university">Universities</a></li>
+	<li><a href="university">University</a></li>
 	<li><a href="rocket">Rocket Launch Pad</a></li>
 </Document>

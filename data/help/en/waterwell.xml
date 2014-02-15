@@ -1,15 +1,13 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-    <p style="htitle">Water well</p>
-        <p style="hp">water wells provide frash water. Water flows in underground pipes along transport.
-         Lack of water will have the same consequences as lack of food.
-         Informations is shown in starvation overlay/minimap. Beware, too heavy pollution will
-         render the water not drinkable.</p>
+	<p style="htitle">Water well</p>
+	<p style="hp">Water wells provide frash water. Water flows in underground pipes along transport. Lack of water will have the same consequences as lack of food. Informations is shown in starvation overlay/minimap. Beware, too heavy pollution will render the water not drinkable.</p>
 
-    <p style="hp">See also:</p>
-    <li><a href="food">Food</a></li>
-    <li><a href="water">Water</a></li>
-    <li><a href="transport">Transport</a></li>
-    <li><a href="msb-starve">Starvation overlay</a></li>
-    <li><a href="pollution">Pollution</a></li>
+  <p style="hsubtitle">See also:</p>
+	<li><a href="food">Food</a></li>
+	<li><a href="water">Water</a></li>
+	<li><a href="transport">Transport</a></li>
+	<li><a href="msb-starve">Starvation overlay</a></li>
+	<li><a href="pollution">Pollution</a></li>
 </Document>

@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Slow speed</p>
-	<img src="images/gui/speed/normal.png"/>
+
+  <p style="hp">Slow button:</p>
+   <img src="images/gui/speed/normal.png" halign="center"/>
 	<p style="hp">This is the slow button. It causes the to game run at its slowest speed. On slow machines the speed buttons may have no effect.</p>
-	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="medium">Medium</a></li>
-	<li><a href="fast">Fast</a></li>
+
+  <p style="hsubtitle">See also:</p>
+	<li><a href="pause">Pause Button</a></li>
+	<li><a href="medium">Medium speed</a></li>
+	<li><a href="fast">Fast speed</a></li>
 </Document>

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
+<!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
 	<p style="htitle">Medium speed</p>
-	<img src="images/gui/speed/fast.png"/>
+   <img src="images/gui/speed/fast.png" halign="center"/>
 	<p style="hp">This is the medium speed button. It causes the game to run at medium speed. On slow machines the speed buttons may have no effect.</p>
-	
-	<p style="hsubtitle">See also:</p>
-	<li><a href="slow">Slow</a></li>
-	<li><a href="fast">Fast</a></li>
+
+  <p style="hsubtitle">See also:</p>
+	<li><a href="pause">Pause Button</a></li>
+	<li><a href="slow">Slow speed</a></li>
+	<li><a href="fast">Fast speed</a></li>
 </Document>
-
-
