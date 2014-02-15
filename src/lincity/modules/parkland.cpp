@@ -53,7 +53,7 @@ void Parkland::report()
 
     mps_store_sd(i++, constructionGroup->getName(), ID);
     i++;
-    mps_store_sd(i++, _("Air Pollution"), world(x,y)->pollution);
+    mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
 }
 
 /** @file lincity/modules/parkland.cpp */

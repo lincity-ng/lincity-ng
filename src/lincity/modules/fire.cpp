@@ -109,11 +109,11 @@ void Fire::report()
 
     mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sd(i++,_("Air Pollution"),world(x,y)->pollution);
+    mps_store_sd(i++,N_("Air Pollution"),world(x,y)->pollution);
     if (burning_days < FIRE_LENGTH)
-    {   mps_store_sddp(i++,_("burnt down"),burning_days,FIRE_LENGTH);}
+    {   mps_store_sddp(i++,N_("burnt down"),burning_days,FIRE_LENGTH);}
     else
-    {   mps_store_sddp(i++,_("degraded"),smoking_days,AFTER_FIRE_LENGTH);}
+    {   mps_store_sddp(i++,N_("degraded"),smoking_days,AFTER_FIRE_LENGTH);}
 }
 
 /** @file lincity/modules/fire.cpp */

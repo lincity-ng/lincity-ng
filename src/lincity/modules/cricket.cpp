@@ -87,11 +87,11 @@ void Cricket::report()
     const char* p;
 
     mps_store_sd(i++,constructionGroup->getName(), ID);
-    mps_store_sfp(i++, _("busy"), busy);
+    mps_store_sfp(i++, N_("busy"), busy);
     i++;
     list_commodities(&i);
-    p = active?_("Yes"):_("No");
-    mps_store_ss(i++, _("Public sports"), p);
+    p = active?N_("Yes"):N_("No");
+    mps_store_ss(i++, N_("Public sports"), p);
 }
 
 /** @file lincity/modules/cricket.cpp */

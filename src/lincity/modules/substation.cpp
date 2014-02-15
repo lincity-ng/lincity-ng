@@ -61,7 +61,7 @@ void Substation::report()
     int i = 0;
     mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++, _("busy"), busy);
+    mps_store_sfp(i++, N_("busy"), busy);
     i++;
     list_commodities(&i);
 }

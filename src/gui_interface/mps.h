@@ -52,7 +52,7 @@ void mps_store_sdd(int i, const std::string &s, int d1, int d2);
 void mps_store_sf(int i, const std::string &s, double fl);
 void mps_store_sfp(int i, const std::string &s, double fl);
 void mps_store_sddp(int i, const std::string &s, int d, int max);
-void mps_store_ssddp(int i, const std::string &s1, const std::string &s2, int d, int max);
+void mps_store_ssddp(int i, const std::string &ascii, const std::string &s2, int d, int max);
 
 void mps_store_sss(int i, const std::string &s1, const std::string &s2, const std::string &s3);
 

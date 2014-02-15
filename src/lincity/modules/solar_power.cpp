@@ -53,9 +53,9 @@ void SolarPower::report()
 
     mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++, _("busy"), (busy));
-    mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, _("Output"), mwh_output);
+    mps_store_sfp(i++, N_("busy"), (busy));
+    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+    mps_store_sd(i++, N_("Output"), mwh_output);
     i++;
     list_commodities(&i);
 }

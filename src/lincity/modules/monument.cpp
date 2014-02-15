@@ -96,15 +96,15 @@ void Monument::report()
     /* Display tech contribution only after monument is complete */
     if (completion >= 100) {
         i++;
-        mps_store_sfp(i++, _("Wisdom bestowed"), tech_made * 100.0 / MAX_TECH_LEVEL);
+        mps_store_sfp(i++, N_("Wisdom bestowed"), tech_made * 100.0 / MAX_TECH_LEVEL);
     }
     else
     {
-        mps_store_sfp(i++, _("busy"), (float) busy);
+        mps_store_sfp(i++, N_("busy"), (float) busy);
         i++;
         list_commodities(&i);
         i++;
-        mps_store_sfp(i++, _("Completion"), completion);
+        mps_store_sfp(i++, N_("Completion"), completion);
     }
 }
 

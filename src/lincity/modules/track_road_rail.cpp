@@ -193,12 +193,12 @@ void Transport::report()
     i++;
     if(mps_map_page == 1)
     {
-        mps_store_title(i++, _("Traffic") );
+        mps_store_title(i++, N_("Traffic") );
         list_traffic(&i);
     }
     else
     {
-        mps_store_title(i++, _("Commodities") );
+        mps_store_title(i++, N_("Commodities") );
         list_commodities(&i);
     }
 }

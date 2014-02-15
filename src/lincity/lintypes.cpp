@@ -397,7 +397,7 @@ const char *commodityNames[] =
 
 std::string Construction::getStuffName(Commodities stuff_id)
 {
-    return dictionaryManager->get_dictionary().translate( commodityNames[stuff_id] );
+    return commodityNames[stuff_id];
 }
 
 void Construction::list_commodities(int * i)

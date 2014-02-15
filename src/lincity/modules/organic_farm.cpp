@@ -108,10 +108,10 @@ void Organic_farm::report()
 
     mps_store_sd(i++, constructionGroup->getName(), ID);
     i++;
-    mps_store_sddp(i++, _("Fertility"), ugwCount, 16);
-    mps_store_sfp(i++, _("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
-    mps_store_sfp(i++, _("busy"), (float)food_last_month / 100.0);
-    mps_store_sd(i++, _("Output"), max_foodprod);
+    mps_store_sddp(i++, N_("Fertility"), ugwCount, 16);
+    mps_store_sfp(i++, N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, N_("busy"), (float)food_last_month / 100.0);
+    mps_store_sd(i++, N_("Output"), max_foodprod);
     i++;
     list_commodities(&i);
 }

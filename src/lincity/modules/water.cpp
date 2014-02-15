@@ -19,11 +19,11 @@ void mps_water(int x, int y)
     i++;
 
     if ( world(x,y)->flags & FLAG_IS_LAKE )
-    {   p = _("Lake");}
+    {   p = N_("Lake");}
     else if ( world(x,y)->flags & FLAG_IS_RIVER )
-    {   p = _("River");}
+    {   p = N_("River");}
     else
-    {   p = _("Pond");}
+    {   p = N_("Pond");}
     mps_store_title(i++, p);
 /*
 #ifdef DEBUG

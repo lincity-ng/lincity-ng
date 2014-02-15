@@ -78,7 +78,7 @@ void Blacksmith::report()
 
     mps_store_sd(i++, constructionGroup->getName(),ID);
     i++;
-    mps_store_sfp(i++, _("busy"), (float) busy);
+    mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;
     list_commodities(&i);
 }

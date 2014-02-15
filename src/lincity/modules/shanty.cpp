@@ -177,7 +177,7 @@ void Shanty::report()
 {
     int i = 0;
     mps_store_sd(i++, constructionGroup->getName(), ID);
-    mps_store_sd(i++, _("Air Pollution"), world(x,y)->pollution);
+    mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
     i++;
     list_commodities(&i);
 }

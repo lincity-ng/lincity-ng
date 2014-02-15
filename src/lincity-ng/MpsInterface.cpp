@@ -127,11 +127,11 @@ void mps_refresh() /* refresh the information display's contents */
                     mps_store_sdd(0,world(mps_x, mps_y)->getTileConstructionGroup()->name, mps_x, mps_y);
                     //mps_store_sdd(0,main_groups[world(mps_x, mps_y)->getGroup()].name, mps_x, mps_y);
 
-                        mps_store_title(2, _("no further information available") );
+                        mps_store_title(2, N_("no further information available") );
 
                     if( world(mps_x, mps_y)->is_bare() )
                     {
-                        mps_store_title(8, _("build something here") );
+                        mps_store_title(8, N_("build something here") );
                     }
  /*#ifdef DEBUG
                     mps_store_sd(10, "x", mps_x);
@@ -194,7 +194,7 @@ void mps_store_title(int i, const std::string &t)
     if(!currentMPS)
         return;
 
-    currentMPS->setText(i,t);
+    currentMPS->setText(i,_(t.c_str()));
 }
 
 void mps_store_fp(int i, double f)
@@ -225,7 +225,7 @@ void mps_store_sf(int i, const std::string &s, double fl)
 
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
-    os<<s<<"\t"<<fl;
+    os<<_(s.c_str())<<"\t"<<fl;
     currentMPS->setText(i,os.str());
 }
 
@@ -246,7 +246,7 @@ void mps_store_ss(int i, const std::string &s1, const std::string &s2)
         return;
 
     std::ostringstream os;
-    os<<s1<<"\t"<<s2;
+    os<<_(s1.c_str())<<"\t"<<_(s2.c_str());
     currentMPS->setText(i,os.str());
 }
 
@@ -256,7 +256,7 @@ void mps_store_sd(int i, const std::string &s, int d)
         return;
 
     std::ostringstream os;
-    os<<s<<"\t"<<d;
+    os<<_(s.c_str())<<"\t"<<d;
     currentMPS->setText(i,os.str());
 }
 
@@ -266,7 +266,7 @@ void mps_store_ssd(int i, const std::string &s1, const std::string &s2, int d)
         return;
 
     std::ostringstream os;
-    os<<s1<<"\t"<<s2<<"\t"<<d;
+    os<<_(s1.c_str())<<"\t"<<_(s2.c_str())<<"\t"<<d;
     currentMPS->setText(i,os.str());
 }
 
@@ -277,7 +277,7 @@ void mps_store_sfp(int i, const std::string &s, double fl)
 
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
-    os<<s<<"\t"<<fl<<"%";
+    os<<_(s.c_str())<<"\t"<<fl<<"%";
     currentMPS->setText(i,os.str());
 }
 
@@ -287,7 +287,7 @@ void mps_store_sdd(int i, const std::string &s, int d1, int d2)
         return;
 
     std::ostringstream os;
-    os<<s<<"\t"<<d1<<"\t"<<d2;
+    os<<_(s.c_str())<<"\t"<<d1<<"\t"<<d2;
     currentMPS->setText(i,os.str());
 }
 
@@ -298,18 +298,18 @@ void mps_store_sddp(int i, const std::string &s, int d, int max)
 
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
-    os<<s<<"\t"<<d<<"\t"<<(d*100.0/max)<<"%";
+    os<<_(s.c_str())<<"\t"<<d<<"\t"<<(d*100.0/max)<<"%";
     currentMPS->setText(i,os.str());
 }
 
-void mps_store_ssddp(int i, const std::string &s1, const std::string &s2, int d, int max)
+void mps_store_ssddp(int i, const std::string &ascii, const std::string &s2, int d, int max)
 {
     if(!currentMPS)
         return;
 
     std::ostringstream os;
     os<<std::setprecision(1)<<std::fixed;
-    os<<s1<<s2<<"\t"<<d<<"\t"<<(d*100.0/max)<<"%";
+    os<<ascii<<_(s2.c_str())<<"\t"<<d<<"\t"<<(d*100.0/max)<<"%";
     currentMPS->setText(i,os.str());
 }
 
@@ -320,7 +320,7 @@ void mps_store_sss(int i, const std::string &s1, const std::string &s2, const st
         return;
 
     std::ostringstream os;
-    os<<s1<<"\t"<<s2<<"\t"<<s3;
+    os<<(s1.c_str())<<"\t"<<(s2.c_str())<<"\t"<<s3;
     currentMPS->setText(i,os.str());
 }
 
@@ -341,85 +341,85 @@ void mps_right (int x, int y)
     {   world(x,y)->saveMembers(&std::cout);}
     mps_store_sdd(i++, world(x, y)->getTileConstructionGroup()->name, x, y);
 
-    p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? _("Yes") : _("No");
-    mps_store_ss(i++, _("Fertile"), p);
+    p = ((world(x,y)->flags & FLAG_HAS_UNDERGROUND_WATER) != 0) ? N_("Yes") : N_("No");
+    mps_store_ss(i++, N_("Fertile"), p);
     if( group == GROUP_WATER)
     {
         if ( world(x,y)->flags & FLAG_IS_LAKE )
-        {   p = _("Lake");}
+        {   p = N_("Lake");}
         else if ( world(x,y)->flags & FLAG_IS_RIVER )
-        {   p = _("River");}
+        {   p = N_("River");}
         else
-        {   p = _("Pond");}
+        {   p = N_("Pond");}
         mps_store_title(i++, p);
     }
     else
     {
         i++;
     }
-    p = (world(x,y)->flags & FLAG_FIRE_COVER) ? _("Yes") : _("No");
-    mps_store_ss(i++, _("Fire Protection"), p);
+    p = (world(x,y)->flags & FLAG_FIRE_COVER) ? N_("Yes") : N_("No");
+    mps_store_ss(i++, N_("Fire Protection"), p);
 
-    p = (world(x,y)->flags & FLAG_HEALTH_COVER) ? _("Yes") : _("No");
-    mps_store_ss(i++, _("Health Care"), p);
+    p = (world(x,y)->flags & FLAG_HEALTH_COVER) ? N_("Yes") : N_("No");
+    mps_store_ss(i++, N_("Health Care"), p);
 
-    p = (world(x,y)->flags & FLAG_CRICKET_COVER) ? _("Yes") : _("No");
-    mps_store_ss(i++, _("Public Sports"), p);
+    p = (world(x,y)->flags & FLAG_CRICKET_COVER) ? N_("Yes") : N_("No");
+    mps_store_ss(i++, N_("Public Sports"), p);
 
-    p = (world(x,y)->flags & FLAG_MARKET_COVER) ? _("Yes") : _("No");
-    mps_store_ss(i++, _("Market Range"), p);
+    p = (world(x,y)->flags & FLAG_MARKET_COVER) ? N_("Yes") : N_("No");
+    mps_store_ss(i++, N_("Market Range"), p);
 
     if (pol < 10)
-    p = _("clear");
+    p = N_("clear");
     else if (pol < 25)
-    p = _("good");
+    p = N_("good");
     else if (pol < 70)
-    p = _("fair");
+    p = N_("fair");
     else if (pol < 190)
-    p = _("smelly");
+    p = N_("smelly");
     else if (pol < 450)
-    p = _("smokey");
+    p = N_("smokey");
     else if (pol < 1000)
-    p = _("smoggy");
+    p = N_("smoggy");
     else if (pol < 1700)
-    p = _("bad");
+    p = N_("bad");
     else if (pol < 3000)
-    p = _("very bad");
+    p = N_("very bad");
     else
-    p = _("death!");
+    p = N_("death!");
 
-    mps_store_ssd(i++, _("Air Pollution"), p, pol);
+    mps_store_ssd(i++, N_("Air Pollution"), p, pol);
 
     if (world(x,y)->reportingConstruction)
     {
-        mps_store_sd(i++, _("Bull. Cost"), world(x,y)->reportingConstruction->constructionGroup->bul_cost);
+        mps_store_sd(i++, N_("Bull. Cost"), world(x,y)->reportingConstruction->constructionGroup->bul_cost);
     }
     else
     {
         if (group == GROUP_DESERT)
-        {   mps_store_ss(i++, _("Bull. Cost"), _("N/A") );}
+        {   mps_store_ss(i++, N_("Bull. Cost"), N_("N/A") );}
         else
-        {   mps_store_sd(i++, _("Bull. Cost"), world(x, y)->getTileConstructionGroup()->bul_cost);}
+        {   mps_store_sd(i++, N_("Bull. Cost"), world(x, y)->getTileConstructionGroup()->bul_cost);}
     }
-    mps_store_sd(i++, _("Ore Reserve"), world(x,y)->ore_reserve);
-    mps_store_sd(i++, _("Coal Reserve"), world(x,y)->coal_reserve);
-    mps_store_sd(i++, _("ground level"), world(x,y)->ground.altitude);
+    mps_store_sd(i++, N_("Ore Reserve"), world(x,y)->ore_reserve);
+    mps_store_sd(i++, N_("Coal Reserve"), world(x,y)->coal_reserve);
+    mps_store_sd(i++, N_("ground level"), world(x,y)->ground.altitude);
 /*  //Not needed if altitude == flooding level
     if(world(x,y)->is_water())
     {
-        mps_store_sd(i++, "water level", world(x,y)->ground.water_alt);
+        mps_store_sd(i++, N_("water level"), world(x,y)->ground.water_alt);
 
     }
 */
     p = "-";
     if (world.saddlepoint(x,y))
-    {   p = _("saddle point");}
+    {   p = N_("saddle point");}
     else if (!world(x,y)->is_water() && world.minimum(x,y))
-    {   p = _("minimum");}
+    {   p = N_("minimum");}
     else if (!world(x,y)->is_water() && world.maximum(x,y))
-    {   p = _("maximum");}
+    {   p = N_("maximum");}
     else if (world.checkEdgeMin(x,y))
-    {   p = _("lowest edge");}
+    {   p = N_("lowest edge");}
 
     mps_store_title(i++, p);
     currentMPS = 0;
@@ -433,11 +433,11 @@ void mps_global_finance()
     int cashflow = 0;
     currentMPS = globalMPS;
 
-    mps_store_title(i++, _("Tax Income"));
+    mps_store_title(i++, N_("Tax Income"));
 
     cashflow += ly_income_tax;
     num_to_ansi (s, sizeof(s), ly_income_tax);
-    mps_store_ss(i++, _("Income"), s);
+    mps_store_ss(i++, N_("Income"), s);
 
     cashflow += ly_coal_tax;
     num_to_ansi(s, sizeof(s), ly_coal_tax);
@@ -449,32 +449,32 @@ void mps_global_finance()
 
     cashflow += ly_export_tax;
     num_to_ansi(s, sizeof(s), ly_export_tax);
-    mps_store_ss(i++, _("Export"), s);
+    mps_store_ss(i++, N_("Export"), s);
 
     mps_store_title(i++, "");
 
-    mps_store_title(i++, _("Expenses") );
+    mps_store_title(i++, N_("Expenses") );
 
     cashflow -= ly_unemployment_cost;
     num_to_ansi(s, sizeof(s), ly_unemployment_cost);
-    mps_store_ss(i++, _("Unemp."), s);
+    mps_store_ss(i++, N_("Unemp."), s);
 
     cashflow -= ly_transport_cost;
     num_to_ansi(s, sizeof(s), ly_transport_cost);
-    mps_store_ss(i++, _("Transport"), s);
+    mps_store_ss(i++, N_("Transport"), s);
 
     cashflow -= ly_import_cost;
     num_to_ansi(s, sizeof(s), ly_import_cost);
-    mps_store_ss(i++, _("Imports"), s);
+    mps_store_ss(i++, N_("Imports"), s);
 
     cashflow -= ly_other_cost;
     num_to_ansi(s, sizeof(s), ly_other_cost);
-    mps_store_ss(i++, _("Others"), s);
+    mps_store_ss(i++, N_("Others"), s);
 
     mps_store_title(i++, "" );
 
     num_to_ansi(s, sizeof(s), cashflow);
-    mps_store_ss(i++, _("Net"), s);
+    mps_store_ss(i++, N_("Net"), s);
 
     currentMPS = 0;
 }
@@ -486,34 +486,34 @@ void mps_global_other_costs()
     char s[12];
 
     currentMPS = globalMPS;
-    mps_store_title(i++, _("Other Costs") );
+    mps_store_title(i++, N_("Other Costs") );
 
     /* Don't write year if it's negative. */
     year = (total_time / NUMOF_DAYS_IN_YEAR) - 1;
     if (year >= 0) {
-    mps_store_sd(i++, _("For year"), year);
+    mps_store_sd(i++, N_("For year"), year);
     }
     mps_store_title(i++,"");
     num_to_ansi(s,sizeof(s),ly_interest);
-    mps_store_ss(i++, _("Interest"), s);
+    mps_store_ss(i++, N_("Interest"), s);
     num_to_ansi(s,sizeof(s),ly_school_cost);
-    mps_store_ss(i++, _("Schools"), s);
+    mps_store_ss(i++, N_("Schools"), s);
     num_to_ansi(s,sizeof(s),ly_university_cost);
-    mps_store_ss(i++, _("Univers."), s);
+    mps_store_ss(i++, N_("Univers."), s);
     num_to_ansi(s,sizeof(s),ly_deaths_cost);
-    mps_store_ss(i++, _("Deaths"), s);
+    mps_store_ss(i++, N_("Deaths"), s);
     num_to_ansi(s,sizeof(s),ly_windmill_cost);
-    mps_store_ss(i++, _("Windmill"), s);
+    mps_store_ss(i++, N_("Windmill"), s);
     num_to_ansi(s,sizeof(s),ly_health_cost);
-    mps_store_ss(i++, _("Hospital"), s);
+    mps_store_ss(i++, N_("Hospital"), s);
     num_to_ansi(s,sizeof(s),ly_rocket_pad_cost);
-    mps_store_ss(i++, _("Rockets") ,s);
+    mps_store_ss(i++, N_("Rockets") ,s);
     num_to_ansi(s,sizeof(s),ly_fire_cost);
-    mps_store_ss(i++, _("Fire Stn"), s);
+    mps_store_ss(i++, N_("Fire Stn"), s);
     num_to_ansi(s,sizeof(s),ly_cricket_cost);
-    mps_store_ss(i++, _("Sport"), s);
+    mps_store_ss(i++, N_("Sport"), s);
     num_to_ansi(s,sizeof(s),ly_recycle_cost);
-    mps_store_ss(i++, _("Recycle"), s);
+    mps_store_ss(i++, N_("Recycle"), s);
 
     currentMPS = 0;
 }
@@ -527,20 +527,20 @@ void mps_global_housing()
 
     currentMPS = globalMPS;
 
-    mps_store_title(i++, _("Population") );
+    mps_store_title(i++, N_("Population") );
     mps_store_title(i++,"");
-    mps_store_sd(i++, _("Total"), tp);
-    mps_store_sd(i++, _("Housed"), population);
-    mps_store_sd(i++, _("Homeless"), people_pool);
-    mps_store_sd(i++, _("Shanties"), Counted<Shanty>::getInstanceCount());
-    mps_store_sddp(i++, _("Unnat. Deaths"), unnat_deaths, tp);
-    mps_store_sddp(i++, _("Unemployment"), tunemployed_population/days, tp );
-    //mps_store_sd(i++, _("Claims"),tunemployed_population/days);
-    //mps_store_sfp(i++, _("Rate"),
+    mps_store_sd(i++, N_("Total"), tp);
+    mps_store_sd(i++, N_("Housed"), population);
+    mps_store_sd(i++, N_("Homeless"), people_pool);
+    mps_store_sd(i++, N_("Shanties"), Counted<Shanty>::getInstanceCount());
+    mps_store_sddp(i++, N_("Unnat. Deaths"), unnat_deaths, tp);
+    mps_store_sddp(i++, N_("Unemployment"), tunemployed_population/days, tp );
+    //mps_store_sd(i++, N_("Claims"),tunemployed_population/days);
+    //mps_store_sfp(i++, N_("Rate"),
     //      (((tunemployed_population/days) * 100.0) / tp));
-    mps_store_sddp(i++, _("Starvation"), tstarving_population/days, tp );
-    //mps_store_sd(i++, _("Cases"), tstarving_population/days);
-    //mps_store_sfp(i++, _("Rate"),
+    mps_store_sddp(i++, N_("Starvation"), tstarving_population/days, tp );
+    //mps_store_sd(i++, N_("Cases"), tstarving_population/days);
+    //mps_store_sfp(i++, N_("Rate"),
     //      (((tstarving_population/days) * 100.0) / tp));
 
     currentMPS = 0;

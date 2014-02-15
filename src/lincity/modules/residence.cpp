@@ -346,11 +346,11 @@ void Residence::report()
     int i = 0;
 
     mps_store_sd(i++,constructionGroup->getName(), ID);
-    mps_store_sddp(i++, _("Tenants"), local_population, max_population);
-    mps_store_sd(i++, _("Desireability"), desireability);
-    mps_store_sf(i++, _("Births per year"), (float)1200/births);
-    mps_store_sf(i++, _("Death per year"), (float)1200/deaths);
-    mps_store_sfp(i++, _("Unnat. mortality"), (float)pol_deaths);
+    mps_store_sddp(i++, N_("Tenants"), local_population, max_population);
+    mps_store_sd(i++, N_("Desireability"), desireability);
+    mps_store_sf(i++, N_("Births per year"), (float)1200/births);
+    mps_store_sf(i++, N_("Death per year"), (float)1200/deaths);
+    mps_store_sfp(i++, N_("Unnat. mortality"), (float)pol_deaths);
     i++;
     list_commodities(&i);
 }

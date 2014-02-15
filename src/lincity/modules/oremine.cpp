@@ -165,8 +165,8 @@ void Oremine::report()
 {
     int i = 0;
     mps_store_sd(i++, constructionGroup->getName(), ID);
-    mps_store_sfp(i++, _("busy"), busy);
-    mps_store_sddp(i++, _("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
+    mps_store_sfp(i++, N_("busy"), busy);
+    mps_store_sddp(i++, N_("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
     i++;
     list_commodities(&i);
 }

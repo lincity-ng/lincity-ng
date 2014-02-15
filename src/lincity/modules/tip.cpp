@@ -77,9 +77,9 @@ void Tip::report()
 
     mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++,_("busy"), busy);
-    mps_store_sd(i++, _("Waste"), total_waste);
-    mps_store_sfp(i++, _("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
+    mps_store_sfp(i++,N_("busy"), busy);
+    mps_store_sd(i++, N_("Waste"), total_waste);
+    mps_store_sfp(i++, N_("Filled"), (float)total_waste*100/MAX_WASTE_AT_TIP);
     i++;
     list_commodities(&i);
 }

@@ -110,10 +110,10 @@ void Port::report()
 {
     int i = 0;
     mps_store_sd(i++, constructionGroup->getName(), ID);
-    mps_store_sfp(i++, _("busy"), busy);
-    mps_store_sd(i++, _("Export"),lastm_et/100);
-    mps_store_sd(i++, _("Import"),lastm_ic/100);
-    mps_store_sfp(i++, _("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, N_("busy"), busy);
+    mps_store_sd(i++, N_("Export"),lastm_et/100);
+    mps_store_sd(i++, N_("Import"),lastm_ic/100);
+    mps_store_sfp(i++, N_("Culture exchanged"), tech_made * 100.0 / MAX_TECH_LEVEL);
     i++;
     list_commodities(&i);
 }

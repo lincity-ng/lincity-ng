@@ -103,9 +103,9 @@ void Coal_power::report()
 {
     int i = 0;
     mps_store_sd(i++,constructionGroup->getName(), ID);
-    mps_store_sfp(i++, _("busy"), busy);
-    mps_store_sfp(i++, _("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, _("Output"), mwh_output);
+    mps_store_sfp(i++, N_("busy"), busy);
+    mps_store_sfp(i++, N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
+    mps_store_sd(i++, N_("Output"), mwh_output);
     i++;
     list_commodities(&i);
 }

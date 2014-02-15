@@ -133,8 +133,8 @@ void IndustryHeavy::report()
 
     mps_store_sd(i++,constructionGroup->getName(), ID);
     i++;
-    mps_store_sfp(i++, _("busy"), (output_level));
-    mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+    mps_store_sfp(i++, N_("busy"), (output_level));
+    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     i++;
     list_commodities(&i);
 }

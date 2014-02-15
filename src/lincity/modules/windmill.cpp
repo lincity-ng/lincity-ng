@@ -62,9 +62,9 @@ void Windmill::report()
 {
     int i = 0;
     mps_store_sd(i++,constructionGroup->getName(), ID);
-    mps_store_sfp(i++, _("busy"), float(busy) / kwh_output);
-    mps_store_sfp(i++, _("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
-    mps_store_sd(i++, _("Output"), kwh_output);
+    mps_store_sfp(i++, N_("busy"), float(busy) / kwh_output);
+    mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
+    mps_store_sd(i++, N_("Output"), kwh_output);
     i++;
     list_commodities(&i);
 }

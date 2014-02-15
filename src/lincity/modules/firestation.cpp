@@ -90,11 +90,11 @@ void FireStation::report()
     int i = 0;
     const char* p;
     mps_store_sd(i++,constructionGroup->getName(), ID);
-    mps_store_sfp(i++, _("busy"), (float) busy);
+    mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;
     list_commodities(&i);
-    p = active?_("Yes"):_("No");
-    mps_store_ss(i++, _("Fire Protection"), p);
+    p = active?N_("Yes"):N_("No");
+    mps_store_ss(i++, N_("Fire Protection"), p);
 }
 
 /** @file lincity/modules/firestation.cpp */

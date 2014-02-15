@@ -67,7 +67,7 @@ void Mill::report()
 {
     int i = 0;
     mps_store_sd(i++, constructionGroup->getName(), ID);
-    mps_store_sfp(i++, _("busy"), (float) busy);
+    mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;
     list_commodities(&i);
 }
