@@ -212,6 +212,13 @@ void updateDate()
     lastDateText = dateText.str();
 }
 
+void string_begadd_number(std::string &str, int number, bool fill) {
+  std::ostringstream result;
+  if (fill) result << std::setw(3) << std::setfill('0');
+  result << number;
+  str = result.str() + std::string(" ") + str;
+};
+
 void updateMoney() {
     if( lastMoney == total_money ){
         return;
@@ -223,21 +230,31 @@ void updateMoney() {
     total_money = -2000000000;
 
     std::ostringstream moneyText;
+    std::string        postfix ="";
+    std::string        moneystr="";
     int money = total_money;
 
-    if(  abs(money) > 100000000 ){
-       moneyText << money/1000000 << _("M");
-    } else {
-        if( abs(money) > 1000000 ){
-            moneyText << money/1000000 << " ";
-            money %= 1000000;
-            money = abs(money);
-            moneyText << std::setw(6);
-            moneyText << std::setfill('0');
-        }
-        moneyText << money;
+    /*   */if ( abs(money) > 100000000 ) {
+      money/=1000000;
+      postfix=_("M") + std::string(" ");
+    } else if ( abs(money) > 100000    ) {
+      money/=1000;
+      postfix=_("K") + std::string(" ");
     }
-    moneyText << _("$");
+
+    do {
+      int tmpmoney;
+      if (abs(money)<1000) {
+        string_begadd_number(moneystr, money, false);
+        money=0;
+      } else {
+        tmpmoney=abs(money)%1000;
+        money/=1000;
+        string_begadd_number(moneystr, tmpmoney, true);
+      }
+    } while (abs(money)>0);
+
+    moneyText << moneystr << postfix << _("$");
 
     Component* root = getGameView();
     if( !root ) return;
