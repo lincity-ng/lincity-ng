@@ -184,8 +184,8 @@ msgid ""
 "needed. After, starvation will occur!  You should check starvation minimap, "
 "and read waterwell help page :-)"
 msgstr ""
-"Обновление из старой игры. У вас есть 10 лет на то, что бы построить водяные "
-"мельницы. После этого начнется голод! Вы должны проверить зону голодания на "
+"Обновление из старой игры. У вас есть 10 лет на то, что бы построить скважины. "
+"После этого начнется голод! Вы должны проверить зону голодания на "
 "миникарте. Так же прочесть страничку с помощью :-)"
 
 #: src/lincity/lintypes.cpp:383
@@ -223,6 +223,10 @@ msgstr "кВт⋅ч"
 #: src/lincity/lintypes.cpp:391
 msgid "MWh"
 msgstr "мВт⋅ч"
+
+#: src/lincity/lintypes.cpp:1365
+msgid "Not enough students, build more schools."
+msgstr "Недостаточно абитуриентов, постройте больше школ."
 
 #: src/lincity/lintypes.cpp:1394
 msgid "Port must be connected to river all along right side."
@@ -337,7 +341,7 @@ msgstr "Ракетная установка"
 #: src/lincity/lintypes.cpp:1770 src/lincity/modules/windmill.cpp:12
 #: src/lincity-ng/MpsInterface.cpp:506
 msgid "Windmill"
-msgstr "Мельница"
+msgstr "Ветрогенератор"
 
 #: src/lincity/lintypes.cpp:1781 src/lincity/modules/monument.cpp:14
 msgid "Monument"
@@ -353,7 +357,7 @@ msgstr "Кузница "
 
 #: src/lincity/lintypes.cpp:1814
 msgid "Mill"
-msgstr "Мельница"
+msgstr "Текстильная фабрика"
 
 #: src/lincity/lintypes.cpp:1825 src/lincity/modules/pottery.cpp:11
 msgid "Pottery"
@@ -422,7 +426,7 @@ msgstr "Деревья"
 
 #: src/lincity/lintypes.cpp:2011 src/lincity/modules/commune.cpp:11
 msgid "Forest"
-msgstr "Лес"
+msgstr "Коммуна"
 
 #: src/lincity/lintypes.cpp:2024 src/lincity/modules/track_road_rail.cpp:29
 msgid "Track Bridge"
@@ -439,7 +443,7 @@ msgstr "Рельсы"
 #: src/lincity/lintypes.cpp:2060 src/lincity/modules/windpower.cpp:11
 #, fuzzy
 msgid "Wind Power"
-msgstr "Ветрогенератор"
+msgstr "Ветряк продв."
 
 #: src/lincity/old_ldsvguts.cpp:164
 msgid "Loading scene"
@@ -884,7 +888,7 @@ msgstr "Хибары"
 
 #: src/lincity-ng/Dialog.cpp:446
 msgid "Windmills"
-msgstr "Мельницы"
+msgstr "Ветрогенераторы"
 
 #: src/lincity-ng/Dialog.cpp:447
 msgid "Coal powers"
@@ -924,7 +928,7 @@ msgstr "Кузницы"
 
 #: src/lincity-ng/Dialog.cpp:464
 msgid "Mills"
-msgstr "Мельницы"
+msgstr "Текстильные фабрики"
 
 #: src/lincity-ng/Dialog.cpp:466
 msgid "Light inds"
@@ -1201,7 +1205,7 @@ msgstr "Смерти"
 
 #: src/lincity-ng/MpsInterface.cpp:508
 msgid "Hospital"
-msgstr "Госпиталь"
+msgstr "Больница"
 
 #: src/lincity-ng/MpsInterface.cpp:510
 msgid "Rockets"

@@ -55,7 +55,7 @@ msgstr "Музыка"
 
 #: data/gui/cricketup.xml
 msgid "Basketball Courts available"
-msgstr "Баскетбольное поле доступно"
+msgstr "Баскетбольная площадка доступна"
 
 #: data/gui/options.xml
 msgid "Binary Saving"
@@ -63,7 +63,7 @@ msgstr "Сохранить в новом формате"
 
 #: data/gui/blacksmithup.xml
 msgid "Blacksmiths available"
-msgstr "Кузнечная доступна"
+msgstr "Кузницы доступна"
 
 #: data/gui/bulldoze_monument_yn.xml
 msgid "Bulldozing a monument costs a lot of money."
@@ -79,7 +79,7 @@ msgstr "Уничтожение хижины стоит больших денег
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Buy"
-msgstr "Купить"
+msgstr "Куп."
 
 #: data/gui/newgame.xml
 msgid "Choose Scenario"
@@ -239,11 +239,11 @@ msgstr "Размер карты"
 
 #: data/gui/millup.xml
 msgid "Mills available"
-msgstr "Мельница доступна"
+msgstr "Тексильная фабрика доступна"
 
 #: data/gui/mod_wind_up.xml
 msgid "Modern Windmills available"
-msgstr "Продвинутая мельница (Ветрогенератор) доступна"
+msgstr "Продвинутый ветрогенератор доступен"
 
 #: data/gui/pbar2nd.xml data/gui/pbar.xml
 msgid "Money"
@@ -426,7 +426,7 @@ msgstr "Сохранить события"
 
 #: data/gui/tradedialog.xml data/gui/portdialog.xml
 msgid "Sell"
-msgstr "Продано"
+msgstr "Прод."
 
 #: data/gui/coal_survey_yn.xml
 msgid "Send out Prospectors"
@@ -456,7 +456,7 @@ msgstr "Показать зону использования земли"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show medical care"
-msgstr "Показать медицинское покрытие"
+msgstr "Показать зоны доступа к больницам"
 
 #: data/gui/minimapswitchbuttons.xml
 msgid "Show nourishments"
@@ -600,7 +600,7 @@ msgstr "Поздравляем, вы эвакуировали всех люде�
 
 #: data/gui/windmillup.xml
 msgid "Windmills available"
-msgstr "Мельницы доступны"
+msgstr "Ветрогенераторы доступны"
 
 #: data/gui/newgame.xml
 msgid "Without trees"
@@ -722,7 +722,7 @@ msgid ""
 "You have reached the tech level which enables you to build mills. Mills use "
 "jobs and food to make goods. Watch out, they can use a lot of food! "
 msgstr ""
-"Уровень научного развития позволяет строить мельницы. Они дают работу и "
+"Уровень научного развития позволяет строить тексильные фабрики. Они дают работу и "
 "позволяют производить товары из еды. Они могут истратить слишком много еды!"
 
 #: data/gui/mod_wind_up.xml
@@ -731,7 +731,7 @@ msgid ""
 "efficient, windmills. "
 msgstr ""
 "Уровень научного развития позволяет строить продвинутые, эффективные "
-"мельницы (Ветрогенераторы). "
+"ветрогенераторы. "
 
 #: data/gui/parkup.xml
 msgid ""
@@ -794,7 +794,7 @@ msgstr "Уровень научного развития позволяет ст
 
 #: data/gui/windmillup.xml
 msgid "You have reached the tech level which enables you to build windmills. "
-msgstr "Уровень научного развития позволяет строить мельницы. "
+msgstr "Уровень научного развития позволяет строить ветрогенераторы. "
 
 #: data/gui/coalmineup.xml
 msgid ""

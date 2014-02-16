@@ -49,17 +49,17 @@
    <img src="images/gui/buttonpanel/parks/water.png" halign="center"/>
 	<p style="hp"><a href="river">Река/Озеро</a></p>
    <img src="images/gui/buttonpanel/misc/health.png" halign="center"/>
-	<p style="hp"><a href="health">Мед. центр</a></p>
+	<p style="hp"><a href="health">Больница</a></p>
    <img src="images/gui/buttonpanel/transport/rocket.png" halign="center"/>
 	<p style="hp"><a href="rocket">Стартовая площадка для космических кораблей</a></p>
    <img src="images/gui/buttonpanel/power/windmills.png" halign="center"/>
-	<p style="hp"><a href="windmill">Ветряная мельница</a></p>
+	<p style="hp"><a href="windmill">Ветрогенератр</a></p>
    <img src="images/gui/buttonpanel/parks/monument.png" halign="center"/>
 	<p style="hp"><a href="monument">Монумент</a></p>
    <img src="images/gui/buttonpanel/misc/book.png" halign="center"/>
 	<p style="hp"><a href="school">Школа</a></p>
    <img src="images/gui/buttonpanel/parks/mills.png" halign="center"/>
-	<p style="hp"><a href="mill">Мельница</a></p>
+	<p style="hp"><a href="mill">Текстильная фабрика</a></p>
    <img src="images/gui/buttonpanel/industry/pottery.png" halign="center"/>
 	<p style="hp"><a href="pottery">Гончарная мастерская</a></p>
    <img src="images/gui/buttonpanel/misc/fire.png" halign="center"/>

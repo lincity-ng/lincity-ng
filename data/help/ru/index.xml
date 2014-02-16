@@ -20,7 +20,7 @@
 	<li><a href="firestation">Пожарная станция</a></li>
 	<li><a href="food">Еда</a></li>
 	<li><a href="goods">Товары</a></li>
-	<li><a href="health">Мед. центр</a></li>
+	<li><a href="health">Больница</a></li>
 	<li><a href="help">Помощь по Lincity</a></li>
 	<li><a href="housing">Окно населения</a></li>
 	<li><a href="industryh">Тяжёлая промышленность (Металлургический завод)</a></li>
@@ -29,13 +29,13 @@
 	<li><a href="keys">Клавиатура</a></li>
 	<li><a href="market">Магазин</a></li>
 	<li><a href="medium">Средняя скорость</a></li>
-	<li><a href="mill">Мельница</a></li>
+	<li><a href="mill">Текстильная фабрика</a></li>
 	<li><a href="mini-screen">Миникарта</a></li>
 	<li><a href="monument">Монумент</a></li>
 	<li><a href="msb-coal">Зоны угля</a></li>
 	<li><a href="msb-cricket">Зоны спорта</a></li>
 	<li><a href="msb-fire">Зоны действия пожарных станций</a></li>
-	<li><a href="msb-health">Зоны мед. обслуживания</a></li>
+	<li><a href="msb-health">Зоны доступа к больницам</a></li>
 	<li><a href="msb-normal">Зоны использования земли</a></li>
 	<li><a href="msb-pol">Зоны загрязнений</a></li>
 	<li><a href="msb-power">Зоны электроснабжения</a></li>
@@ -79,5 +79,5 @@
 	<li><a href="tutorial-scenario">Сценарии игры</a></li>
 	<li><a href="university">Университет</a></li>
 	<li><a href="waterwell">Скважина</a></li>
-	<li><a href="windmill">Мельница</a></li>
+	<li><a href="windmill">Ветрогенератор</a></li>
 </Document>

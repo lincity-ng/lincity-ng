@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Зоны мед. обслуживания</p>
+	<p style="htitle">Зоны доступа к больницам</p>
    <img src="images/gui/mapview/roundbuttons/round_health.png" halign="center"/>
-	<p style="hp">Зоны, которые имеют доступ к мед. центру, окрашены в тёмно-зелёный цвет. Остальные участки карты отображаются нормальным цветом.</p>
-	<p style="hp">Помните, мед. центр начинает работать только через три месяца после завершения строительства.</p>
+	<p style="hp">Зоны, которые имеют доступ к больницам, окрашены в тёмно-зелёный цвет. Остальные участки карты отображаются нормальным цветом.</p>
+	<p style="hp">Помните, больница начинает работать только через три месяца после завершения строительства.</p>
 
   <p style="hsubtitle">См. ещё:</p>
 	<li><a href="mini-screen">Миникарта</a></li>
