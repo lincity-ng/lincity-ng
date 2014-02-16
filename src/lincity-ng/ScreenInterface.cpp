@@ -239,7 +239,7 @@ void updateMoney() {
       postfix=_("M") + std::string(" ");
     } else if ( abs(money) > 100000    ) {
       money/=1000;
-      postfix=_("K") + std::string(" ");
+      postfix=_("k") + std::string(" ");
     }
 
     do {
