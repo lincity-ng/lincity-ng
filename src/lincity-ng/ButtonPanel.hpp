@@ -39,6 +39,7 @@ class ButtonPanel : public Component
   virtual bool opaque(const Vector2& pos) const;
   void checkTech( int showInfo );
   void selectQueryTool();
+  bool selectedQueryTool();
   void toggleBulldozeTool();
 
  private:

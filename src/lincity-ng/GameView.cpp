@@ -58,6 +58,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "gui/callback/Callback.hpp"
 #include "gui/Button.hpp"
 #include "CheckButton.hpp"
+#include "ButtonPanel.hpp"
+
 
 const int scale3d = 128; // guestimate value for good looking 3d view;
 
@@ -701,6 +703,7 @@ void GameView::event(const Event& event)
                     rightButtonDown = false;
                     SDL_ShowCursor( SDL_ENABLE );
                     SDL_WarpMouse((Uint16) dragStart.x, (Uint16) dragStart.y);
+                    getButtonPanel()->selectQueryTool();
                     break;
                 }
                 dragging = false;
@@ -777,7 +780,10 @@ void GameView::event(const Event& event)
                 {   editMap( getTile( event.mousepos ), SDL_BUTTON_LEFT);}
             }
             else if( event.mousebutton == SDL_BUTTON_RIGHT ){           //middle
+              if (getButtonPanel()->selectedQueryTool())
                 recenter(event.mousepos);                               //adjust view
+              else
+                getButtonPanel()->selectQueryTool();
             }
             else if( event.mousebutton == SDL_BUTTON_WHEELUP ){         //up
                 recenter(event.mousepos);                               //adjust view

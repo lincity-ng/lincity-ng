@@ -441,6 +441,12 @@ void ButtonPanel::selectQueryTool(){
     chooseButtonClicked( queryButton, SDL_BUTTON_LEFT );
 }
 
+bool ButtonPanel::selectedQueryTool(){
+    if (previousName == "BPMPointerButton")
+      return true;
+    return false;
+}
+
 void ButtonPanel::toggleBulldozeTool()
 {
     if( userOperation == &ButtonOperations["BPMBullDozeButton"] )
