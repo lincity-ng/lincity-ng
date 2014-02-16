@@ -12,7 +12,7 @@
                 </Button>
             </cell>
             <cell row="1" col="2">
-		        <Paragraph halign="center" color="white" name="HelpWindowTitle"
+		        <Paragraph halign="center" color="white" name="HelpWindowTitle" translatable="yes"
     		    height="30" font-size="20">Help</Paragraph>
             </cell>
         </TableLayout>
