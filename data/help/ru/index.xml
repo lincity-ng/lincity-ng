@@ -38,7 +38,7 @@
 	<li><a href="msb-health">Зоны мед. обслуживания</a></li>
 	<li><a href="msb-normal">Зоны использования земли</a></li>
 	<li><a href="msb-pol">Зоны загрязнений</a></li>
-	<li><a href="msb-power">Зоны энергетики</a></li>
+	<li><a href="msb-power">Зоны электроснабжения</a></li>
 	<li><a href="msb-starve">Зоны голодания</a></li>
 	<li><a href="msb-transport">Зоны транспорта</a></li>
 	<li><a href="msb-ub40">Зоны безработицы</a></li>
@@ -78,6 +78,6 @@
 	<li><a href="tutorial-advanced">Продвинутые функции</a></li>
 	<li><a href="tutorial-scenario">Сценарии игры</a></li>
 	<li><a href="university">Университет</a></li>
-	<li><a href="waterwell">Колодец</a></li>
-	<li><a href="windmill">Ветряная мельница</a></li>
+	<li><a href="waterwell">Скважина</a></li>
+	<li><a href="windmill">Мельница</a></li>
 </Document>

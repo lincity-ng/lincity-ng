@@ -2,426 +2,18 @@
 # This file is distributed under the same license as the lincity-ng package.
 # Copyright (C) 2007 Leonid Myravjev <asm@asm.pp.ru>.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-24 21:11+0100\n"
-"PO-Revision-Date: 2008-12-23 14:25+0300\n"
+"POT-Creation-Date: 2014-02-16 10:03+0400\n"
+"PO-Revision-Date: 2014-02-16 10:36+0300\n"
 "Last-Translator: _D-1337r! <d1337r@gmail.com>\n"
 "Language-Team: ASM <asm@asm.pp.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: src/lincity/loadsave.cpp:129
-#, c-format
-msgid "Save file <%s> - "
-msgstr "Сохранить в <%s> - "
-
-#: src/lincity/loadsave.cpp:130
-msgid "Can't open save file!"
-msgstr "Не могу открыть файл!"
-
-#: src/lincity/loadsave.cpp:292 src/lincity/old_ldsvguts.cpp:130
-#, c-format
-msgid "Can't open <%s> (gzipped)"
-msgstr "Не могу открыть <%s> (сжат gzip)"
-
-#: src/lincity/fileutil.cpp:233 src/lincity/fileutil.cpp:277
-msgid "Error. Can't find LINCITY_HOME"
-msgstr "Ошибка, не могу найти LINCITY_HOME"
-
-#: src/lincity/fileutil.cpp:463
-msgid "Error verifying package. Can't find colour.pal."
-msgstr "Проверка пакета не удачна. Не могу найти colour.pal"
-
-#: src/lincity/fileutil.cpp:476 src/lincity/fileutil.cpp:484
-#, c-format
-msgid "Couldn't create the save directory '%s'\n"
-msgstr "Не могу создать директорию для сохранения '%s'\n"
-
-#: src/lincity/fileutil.cpp:501
-#, c-format
-msgid "Out of memory: malloc failure\n"
-msgstr "Оперативной памяти не хватает!!!\n"
-
-#: src/lincity/old_ldsvguts.cpp:162
-msgid "Loading scene"
-msgstr "Загрузка местности"
-
-#: src/lincity/simulate.cpp:80
-msgid ""
-"Upgrading from old game. You have 10 years to build water wells where "
-"needed. After, starvation will occur!  You should check starvation minimap, "
-"and read waterwell help page :-)"
-msgstr ""
-"Обновление из старой игры. У вас есть 10 лет на то, что бы построить водяные "
-"мельницы. После этого начнется голод! Вы должны проверить зону голодания на "
-"миникарте. Так же прочесть страничку с помощью :-)"
-
-#: src/lincity/power.cpp:271
-msgid "You have too many power grids. Join some of them"
-msgstr "Слишком много проводов. Соединяйтесь с существующими"
-
-#: src/lincity/engine.cpp:149
-msgid "Port must be connected to river all along right side."
-msgstr "Порты должны соединяться с рекой, которая протекает справа."
-
-#: src/lincity/engine.cpp:161
-msgid "You can't build a water well here: it is all desert."
-msgstr "Вы не можете построить колодец: это пустыня."
-
-#: src/lincity/engine.cpp:175
-msgid "You can't build a tip here: this area was once a landfill"
-msgstr "Вы не можете сделать свалку: место забито мусором"
-
-#: src/lincity/engine.cpp:190
-msgid "You can't build a mine here: This area was once a landfill"
-msgstr "Вы не можете построить шахту: это место забито хламом"
-
-#: src/lincity/engine.cpp:201
-msgid "You can't build a mine here: there is no ore left at this site"
-msgstr "Нельзя построить шахту: здесь руды нет"
-
-#: src/lincity/engine.cpp:211
-msgid "You can't build a park here: it is a desert, parks need water"
-msgstr "Нельзя построить парк: это пустыня, парку нужна вода"
-
-#: src/lincity/engine.cpp:226
-msgid "Too many substations + windmills. You cannot build one more"
-msgstr ""
-"Слишком много подстанций и ветряных мельниц. Вы не можете их больше строить"
-
-#: src/lincity/engine.cpp:235
-msgid "Too many markets. You cannot build one more"
-msgstr "Слишком много магазинов. Больше строить нельзя"
-
-#: src/lincity/engine.cpp:259
-msgid ""
-"ERROR: group does not exist. This should not happen! Please consider filling "
-"a bug report to lincity-ng team, with the saved game and what you did :-) "
-msgstr ""
-"ОШИБКА: группы не существует. Это не страшно! Пожалуйста напишите отчет об "
-"ошибки с сохранённой игрой и напишите то, что вы сделали :-) "
-
-#: src/lincity/engine.cpp:565
-msgid "It's at a power line."
-msgstr "Это электролиния."
-
-#: src/lincity/engine.cpp:567
-msgid "It's at a solar power station."
-msgstr "Это солнечная электростанция."
-
-#: src/lincity/engine.cpp:569
-msgid "It's at a substation."
-msgstr "Это подстанция."
-
-#: src/lincity/engine.cpp:571
-msgid "It's at a residential area."
-msgstr "Это резиденция."
-
-#: src/lincity/engine.cpp:573
-msgid "It's at a farm."
-msgstr "Это ферма."
-
-#: src/lincity/engine.cpp:575
-msgid "It's at a market."
-msgstr "Это магазин."
-
-#: src/lincity/engine.cpp:577
-msgid "It's at a track."
-msgstr "Это грунтовка."
-
-#: src/lincity/engine.cpp:579
-msgid "It's at a coal mine."
-msgstr "Это угольный рудник."
-
-#: src/lincity/engine.cpp:581
-msgid "It's at a railway."
-msgstr "Это железная дорога."
-
-#: src/lincity/engine.cpp:583
-msgid "It's at a coal power station."
-msgstr "Это угольная электростанция."
-
-#: src/lincity/engine.cpp:585
-msgid "It's at a road."
-msgstr "Это дорога."
-
-#: src/lincity/engine.cpp:587
-msgid "It's at light industry."
-msgstr "Это легкая индустрия."
-
-#: src/lincity/engine.cpp:589
-msgid "It's at a university."
-msgstr "Это университет."
-
-#: src/lincity/engine.cpp:591
-msgid "It's at a commune."
-msgstr "Это коммуна."
-
-#: src/lincity/engine.cpp:593
-msgid "It's at a tip."
-msgstr "Это помойка."
-
-#: src/lincity/engine.cpp:595
-msgid "It's at a port."
-msgstr "Это порт."
-
-#: src/lincity/engine.cpp:597
-msgid "It's at a steel works."
-msgstr "Это тяжёлая индустрия."
-
-#: src/lincity/engine.cpp:599
-msgid "It's at a recycle centre."
-msgstr "Это центр переработки."
-
-#: src/lincity/engine.cpp:601
-msgid "It's at a health centre."
-msgstr "Это больница."
-
-#: src/lincity/engine.cpp:603
-msgid "It's at a rocket site."
-msgstr "Это ракетная площадка."
-
-#: src/lincity/engine.cpp:605
-msgid "It's at a windmill."
-msgstr "Это ветряная мельница."
-
-#: src/lincity/engine.cpp:607
-msgid "It's at a school."
-msgstr "Это школа."
-
-#: src/lincity/engine.cpp:609
-msgid "It's at a blacksmith."
-msgstr "Это кузница. "
-
-#: src/lincity/engine.cpp:611
-msgid "It's at a mill."
-msgstr "Это мельница."
-
-#: src/lincity/engine.cpp:613
-msgid "It's at a pottery."
-msgstr "Это гончарная."
-
-#: src/lincity/engine.cpp:615
-msgid "It's at a fire station!!!."
-msgstr "Это пожарная станция."
-
-#: src/lincity/engine.cpp:617
-msgid "It's at a sports field!!!."
-msgstr "Это спортивная зона."
-
-#: src/lincity/engine.cpp:619
-msgid "It's at a shanty town."
-msgstr "Это хибарная постройка."
-
-#: src/lincity/engine.cpp:621
-msgid "UNKNOWN!"
-msgstr "НЕ ИЗВЕСТНО!"
-
-#: src/lincity/lintypes.cpp:21
-msgid "Empty"
-msgstr "Пусто"
-
-#: src/lincity/lintypes.cpp:33
-msgid "Power line"
-msgstr "Электролиния"
-
-#: src/lincity/lintypes.cpp:44
-msgid "Solar PS"
-msgstr "Солнечная ЭС"
-
-#: src/lincity/lintypes.cpp:55 src/lincity/modules/substation.cpp:93
-msgid "Substation"
-msgstr "Подстанция"
-
-#: src/lincity/lintypes.cpp:66
-msgid "Residential LL"
-msgstr "Резиденция НН"
-
-#: src/lincity/lintypes.cpp:77
-msgid "Farm"
-msgstr "Ферма"
-
-#: src/lincity-ng/Dialog.cpp:594 src/lincity/lintypes.cpp:88
-#: src/lincity/modules/market.cpp:1001
-msgid "Market"
-msgstr "Магазин"
-
-#: src/lincity/lintypes.cpp:99 src/lincity/modules/track.cpp:33
-msgid "Track"
-msgstr "Грунтовка"
-
-#: src/lincity/lintypes.cpp:110
-msgid "Coalmine"
-msgstr "Угольная шахта"
-
-#: src/lincity/lintypes.cpp:121
-msgid "Railway"
-msgstr "Рельсы"
-
-#: src/lincity/lintypes.cpp:132
-msgid "Coal PS"
-msgstr "Угольная ЭС"
-
-#: src/lincity/lintypes.cpp:143 src/lincity/modules/road.cpp:42
-msgid "Road"
-msgstr "Дорога"
-
-#: src/lincity/lintypes.cpp:154
-msgid "Lt. Industry"
-msgstr "Лег. Индустрия"
-
-#: src/lincity/lintypes.cpp:165 src/lincity/modules/university.cpp:59
-msgid "University"
-msgstr "Университет"
-
-#: src/lincity/lintypes.cpp:176 src/lincity/modules/commune.cpp:174
-msgid "Commune"
-msgstr "Коммуна"
-
-#: src/lincity/lintypes.cpp:187
-msgid "Ore mine"
-msgstr "Шахта руды"
-
-#: src/lincity/lintypes.cpp:198
-msgid "Rubbish tip"
-msgstr "Помойка"
-
-#: src/lincity-ng/Dialog.cpp:648 src/lincity/lintypes.cpp:209
-#: src/lincity/modules/port.cpp:281
-msgid "Port"
-msgstr "Экспр"
-
-#: src/lincity/lintypes.cpp:220
-msgid "Hv. Industry"
-msgstr "Тяж. Индустрия"
-
-#: src/lincity/lintypes.cpp:231
-msgid "Park"
-msgstr "Парк"
-
-#: src/lincity-ng/MpsInterface.cpp:518 src/lincity/lintypes.cpp:242
-msgid "Recycle"
-msgstr "Корзина"
-
-#: src/lincity/lintypes.cpp:253 src/lincity/modules/residence.cpp:264
-#: src/lincity/modules/water.cpp:17
-msgid "Water"
-msgstr "Вода"
-
-#: src/lincity/lintypes.cpp:264
-msgid "Health centre"
-msgstr "Мед часть"
-
-#: src/lincity/lintypes.cpp:275
-msgid "Rocket pad"
-msgstr "Ракетная установка"
-
-#: src/lincity-ng/MpsInterface.cpp:508 src/lincity/lintypes.cpp:286
-#: src/lincity/modules/windmill.cpp:74
-msgid "Windmill"
-msgstr "Ветряные мельницы"
-
-#: src/lincity/lintypes.cpp:297 src/lincity/modules/monument.cpp:51
-msgid "Monument"
-msgstr "Монумент"
-
-#: src/lincity/lintypes.cpp:308 src/lincity/modules/school.cpp:43
-msgid "School"
-msgstr "Школа"
-
-#: src/lincity/lintypes.cpp:319 src/lincity/modules/blacksmith.cpp:91
-msgid "Blacksmith"
-msgstr "Кузница "
-
-#: src/lincity/lintypes.cpp:330
-msgid "Mill"
-msgstr "Мельница"
-
-#: src/lincity/lintypes.cpp:341 src/lincity/modules/pottery.cpp:105
-msgid "Pottery"
-msgstr "Гончарные изделия"
-
-#: src/lincity/lintypes.cpp:352
-msgid "Fire sta'n"
-msgstr "Пожарная станция"
-
-#: src/lincity/lintypes.cpp:363 src/lincity/modules/cricket.cpp:92
-msgid "Sports field"
-msgstr "Спорт площадка"
-
-#: src/lincity/lintypes.cpp:375
-msgid "Burnt"
-msgstr "Пожар"
-
-#: src/lincity/lintypes.cpp:387
-msgid "Shanty town"
-msgstr "Хибарка "
-
-#: src/lincity-ng/EconomyGraph.cpp:134 src/lincity-ng/MpsInterface.cpp:382
-#: src/lincity/lintypes.cpp:399 src/lincity/modules/residence.cpp:283
-msgid "Fire"
-msgstr "Огонь"
-
-#: src/lincity/lintypes.cpp:411
-msgid "Used"
-msgstr "Использовать"
-
-#: src/lincity/lintypes.cpp:422
-msgid "Residential ML"
-msgstr "Резиденция СН"
-
-#: src/lincity/lintypes.cpp:433
-msgid "Residential HL"
-msgstr "Резиденция ВН"
-
-#: src/lincity/lintypes.cpp:444
-msgid "Residential LH"
-msgstr "Резиденция ЛВ"
-
-#: src/lincity/lintypes.cpp:455
-msgid "Residential MH"
-msgstr "Резиденция СВ"
-
-#: src/lincity/lintypes.cpp:466
-msgid "Residential HH"
-msgstr "Резиденция ВВ"
-
-#: src/lincity/lintypes.cpp:477
-msgid "Water well"
-msgstr "Колодец"
-
-#: src/lincity/lintypes.cpp:489
-msgid "Desert"
-msgstr "Пустыня"
-
-#: src/lincity/lintypes.cpp:501
-msgid "Tree"
-msgstr "Дерево"
-
-#: src/lincity/lintypes.cpp:514
-msgid "Trees"
-msgstr "Деревья"
-
-#: src/lincity/lintypes.cpp:527
-msgid "Forest"
-msgstr "Лес"
-
-#: src/lincity/lintypes.cpp:540
-msgid "Track Bridge"
-msgstr "Грунтовка"
-
-#: src/lincity/lintypes.cpp:552
-msgid "Road Bridge"
-msgstr "Асфальт"
-
-#: src/lincity/lintypes.cpp:564
-msgid "Rail Bridge"
-msgstr "Рельсы"
+"X-Generator: Poedit 1.5.5\n"
 
 #: src/lincity/lclib.cpp:15
 msgid "Jan"
@@ -471,866 +63,1217 @@ msgstr "Ноя"
 msgid "Dec"
 msgstr "Дек"
 
-#: src/lincity/modules/waterwell.cpp:56
-msgid "Water_well"
-msgstr "Колодец"
+#: src/lincity/fileutil.cpp:201 src/lincity/fileutil.cpp:245
+msgid "Error. Can't find LINCITY_HOME"
+msgstr "Ошибка, не могу найти LINCITY_HOME"
 
-#: src/lincity-ng/MpsInterface.cpp:390 src/lincity/modules/residence.cpp:288
-#: src/lincity/modules/waterwell.cpp:59
-msgid "Pollution"
-msgstr "Загрязнение"
+#: src/lincity/fileutil.cpp:431
+msgid "Error verifying package. Can't find colour.pal."
+msgstr "Проверка пакета не удачна. Не могу найти colour.pal"
 
-#: src/lincity-ng/MpsInterface.cpp:381 src/lincity-ng/MpsInterface.cpp:384
-#: src/lincity-ng/MpsInterface.cpp:387 src/lincity/modules/commune.cpp:179
-#: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
-#: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:20
-#: src/lincity/modules/waterwell.cpp:62
-msgid "Yes"
-msgstr "Да"
+#: src/lincity/fileutil.cpp:444 src/lincity/fileutil.cpp:454
+#, fuzzy
+msgid "Couldn't create the save directory"
+msgstr "Не могу создать директорию для сохранения '%s'\n"
 
-#: src/lincity/modules/waterwell.cpp:63
-msgid "Drinkable"
-msgstr "Годна для питья"
+#: src/lincity/fileutil.cpp:450
+msgid "Failed to chown"
+msgstr ""
 
-#: src/lincity/modules/health_centre.cpp:58
-msgid "Health Centre"
-msgstr "Больница"
+#: src/lincity/fileutil.cpp:471
+msgid "Out of memory: malloc failure\n"
+msgstr "Оперативной памяти не хватает!!!\n"
 
-#: src/lincity/modules/blacksmith.cpp:96 src/lincity/modules/cricket.cpp:94
-#: src/lincity/modules/firestation.cpp:111
-#: src/lincity/modules/health_centre.cpp:60 src/lincity/modules/mill.cpp:98
-#: src/lincity/modules/pottery.cpp:109 src/lincity/modules/recycle.cpp:144
-#: src/lincity/modules/rocket_pad.cpp:194 src/lincity/modules/school.cpp:48
-#: src/lincity/modules/university.cpp:65
-msgid "Inventory"
-msgstr "Инвентарь"
+#: src/lincity/engine.cpp:62
+msgid "You just spent all your money."
+msgstr "Вы потратили все деньги."
 
-#: src/lincity/modules/coal_power.cpp:98 src/lincity/modules/coalmine.cpp:155
-#: src/lincity/modules/cricket.cpp:95 src/lincity/modules/firestation.cpp:112
-#: src/lincity/modules/health_centre.cpp:61
-#: src/lincity/modules/market.cpp:1006 src/lincity/modules/pottery.cpp:110
-#: src/lincity/modules/rail.cpp:51 src/lincity/modules/road.cpp:46
-#: src/lincity/modules/rocket_pad.cpp:195 src/lincity/modules/school.cpp:49
-#: src/lincity/modules/solar_power.cpp:45 src/lincity/modules/track.cpp:37
-#: src/lincity/modules/university.cpp:66 src/lincity/modules/windmill.cpp:76
-msgid "Jobs"
-msgstr "Работа"
+#: src/lincity/engine.cpp:76
+msgid ""
+"ERROR: group does not exist. This should not happen! Please consider filling "
+"a bug report to lincity-ng team, with the saved game and what you did :-) "
+msgstr ""
+"ОШИБКА: группы не существует. Это не страшно! Пожалуйста напишите отчет об "
+"ошибки с сохранённой игрой и напишите то, что вы сделали :-) "
 
-#: src/lincity-ng/MpsInterface.cpp:450 src/lincity/modules/blacksmith.cpp:97
-#: src/lincity/modules/cricket.cpp:96 src/lincity/modules/firestation.cpp:113
-#: src/lincity/modules/health_centre.cpp:62
-#: src/lincity/modules/market.cpp:1008 src/lincity/modules/mill.cpp:99
-#: src/lincity/modules/port.cpp:298 src/lincity/modules/pottery.cpp:111
-#: src/lincity/modules/rail.cpp:53 src/lincity/modules/road.cpp:48
-#: src/lincity/modules/rocket_pad.cpp:196 src/lincity/modules/school.cpp:50
-#: src/lincity/modules/track.cpp:39 src/lincity/modules/university.cpp:67
-msgid "Goods"
-msgstr "Товары"
+#: src/lincity/engine.cpp:182
+msgid "ups, Bulldozer found a dangling reportingConstruction"
+msgstr "упс, бульдозер нашёл повисшее в процессе постройки здание"
 
-#: src/lincity/modules/rocket_pad.cpp:188
-msgid "Rocket Pad"
-msgstr "Ракетная площадка "
+#: src/lincity/engine.cpp:316
+msgid "UNKNOWN!"
+msgstr "НЕ ИЗВЕСТНО!"
 
-#: src/lincity/modules/rocket_pad.cpp:191
-msgid "Completion"
-msgstr "Завершено"
+#: src/lincity/UserOperation.cpp:13
+msgid "query"
+msgstr "Курсор"
 
-#: src/lincity/modules/commune.cpp:184
-#: src/lincity/modules/light_industry.cpp:285
-#: src/lincity/modules/market.cpp:1010 src/lincity/modules/port.cpp:302
-#: src/lincity/modules/rail.cpp:55 src/lincity/modules/road.cpp:50
-#: src/lincity/modules/rocket_pad.cpp:197 src/lincity/modules/track.cpp:41
-msgid "Steel"
-msgstr "Сталь"
+#: src/lincity/UserOperation.cpp:81
+msgid "Query Tool"
+msgstr "Курсор"
 
-#: src/lincity/modules/coal_power.cpp:99
-#: src/lincity/modules/organic_farm.cpp:212
-#: src/lincity/modules/recycle.cpp:142 src/lincity/modules/solar_power.cpp:58
-#: src/lincity/modules/windmill.cpp:75
-msgid "Tech"
-msgstr "Наука"
+#: src/lincity/UserOperation.cpp:86
+#, fuzzy
+msgid ": 50 tenants, low birthrate, high deathrate"
+msgstr ": 50 жителей, низкая рождаемость, высокая смертность."
 
-#: src/lincity/modules/windmill.cpp:80
-msgid "Local Status"
-msgstr "Локальный статус"
+#: src/lincity/UserOperation.cpp:87
+#, fuzzy
+msgid ": 100 tenants, high birthrate, low deathrate"
+msgstr ": 100 жителей, высокая рождаемость, низкая смертность."
 
-#: src/lincity/modules/windmill.cpp:83
-msgid "Prod."
-msgstr "Прод."
+#: src/lincity/UserOperation.cpp:88
+#, fuzzy
+msgid ": 200 tenants, high birthrate, high deathrate"
+msgstr ": 200 жителей, высокая рождаемость, высокая смертность."
 
-#: src/lincity/modules/substation.cpp:110 src/lincity/modules/windmill.cpp:86
-#: src/lincity/modules/windmill.cpp:98
-msgid "Demand"
-msgstr "Потребность"
+#: src/lincity/UserOperation.cpp:89
+#, fuzzy
+msgid ": 100 tenants, low birthrate, high deathrate"
+msgstr ": 100 жителей, низкая рождаемость, высокая смертность."
 
-#: src/lincity/modules/substation.cpp:101 src/lincity/modules/windmill.cpp:89
-msgid "Grid Status"
-msgstr "Энергостатус"
+#: src/lincity/UserOperation.cpp:90
+#, fuzzy
+msgid ": 200 tenants, high birthrate, low deathrate"
+msgstr ": 200 жителей, высокая рождаемость, низкая смертность."
 
-#: src/lincity/modules/windmill.cpp:92 src/lincity/modules/substation.cpp:104
-msgid "T. Cap."
-msgstr "Макс. эн."
+#: src/lincity/UserOperation.cpp:91
+#, fuzzy
+msgid ": 400 tenants, high birthrate, high deathrate"
+msgstr ": 400 жителей, высокая рождаемость, высокая смертность."
 
-#: src/lincity/modules/windmill.cpp:95 src/lincity/modules/substation.cpp:107
-msgid "A. Cap."
-msgstr "Полез. эн."
+#: src/lincity/UserOperation.cpp:95
+msgid "Bulldozer"
+msgstr "Бульдозер"
 
-#: src/lincity/modules/coal_power.cpp:100
-#: src/lincity/modules/power_line.cpp:49
-#: src/lincity/modules/solar_power.cpp:59
-#: src/lincity/modules/substation.cpp:113 src/lincity/modules/windmill.cpp:99
-msgid "Grid ID"
-msgstr "Энерго ID"
+#: src/lincity/UserOperation.cpp:97
+msgid "Evacuate"
+msgstr "Очистка"
 
-#: src/lincity-ng/MpsInterface.cpp:381 src/lincity-ng/MpsInterface.cpp:384
-#: src/lincity-ng/MpsInterface.cpp:387 src/lincity/modules/commune.cpp:179
-#: src/lincity/modules/commune.cpp:181 src/lincity/modules/commune.cpp:183
-#: src/lincity/modules/commune.cpp:185 src/lincity/modules/water.cpp:20
-msgid "No"
-msgstr "Нет"
+#: src/lincity/UserOperation.cpp:99 src/lincity/lintypes.cpp:392
+#: src/lincity/lintypes.cpp:1737 src/lincity-ng/GameView.cpp:1612
+msgid "Water"
+msgstr "Вода"
 
-#: src/lincity/modules/water.cpp:21
-msgid "Navigable"
-msgstr "Навигация"
+#: src/lincity/UserOperation.cpp:104
+#, fuzzy
+msgid "Click right for help."
+msgstr "Правая кнопка мыши для помощи."
 
-#: src/lincity/modules/recycle.cpp:134
-msgid "Recycling Center"
-msgstr "Центр переработки"
+#: src/lincity/loadsave.cpp:148
+#, fuzzy
+msgid "Save file"
+msgstr "Сохранить в <%s> - "
 
-#: src/lincity/modules/blacksmith.cpp:94
-#: src/lincity/modules/heavy_industry.cpp:288
-#: src/lincity/modules/light_industry.cpp:278 src/lincity/modules/mill.cpp:96
-#: src/lincity/modules/pottery.cpp:107 src/lincity/modules/recycle.cpp:137
-#: src/lincity/modules/school.cpp:52 src/lincity/modules/university.cpp:68
-msgid "Capacity"
-msgstr "Выгода"
+#: src/lincity/loadsave.cpp:149
+msgid "Can't open save file!"
+msgstr "Не могу открыть файл!"
 
-#: src/lincity/modules/light_industry.cpp:281
-#: src/lincity/modules/organic_farm.cpp:211
-#: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
-#: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
-#: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282 src/lincity/modules/residence.cpp:285
-msgid "YES"
-msgstr "ДА"
+#: src/lincity/loadsave.cpp:335 src/lincity/old_ldsvguts.cpp:133
+#, fuzzy
+msgid "Can't open"
+msgstr "Не могу открыть файл!"
 
-#: src/lincity/modules/heavy_industry.cpp:280
-#: src/lincity/modules/light_industry.cpp:281
-#: src/lincity/modules/organic_farm.cpp:211
-#: src/lincity/modules/recycle.cpp:139 src/lincity/modules/residence.cpp:263
-#: src/lincity/modules/residence.cpp:267 src/lincity/modules/residence.cpp:270
-#: src/lincity/modules/residence.cpp:273 src/lincity/modules/residence.cpp:279
-#: src/lincity/modules/residence.cpp:282 src/lincity/modules/residence.cpp:285
-msgid "NO"
-msgstr "НЕТ"
+#: src/lincity/loadsave.cpp:335 src/lincity/old_ldsvguts.cpp:133
+msgid "gzipped"
+msgstr "Сжато"
 
-#: src/lincity/modules/heavy_industry.cpp:283
-#: src/lincity/modules/light_industry.cpp:282
-#: src/lincity/modules/organic_farm.cpp:211
-#: src/lincity/modules/recycle.cpp:140 src/lincity/modules/residence.cpp:271
-msgid "Power"
-msgstr "Энергия"
+#: src/lincity/simulate.cpp:92
+msgid ""
+"Upgrading from old game. You have 10 years to build water wells where "
+"needed. After, starvation will occur!  You should check starvation minimap, "
+"and read waterwell help page :-)"
+msgstr ""
+"Обновление из старой игры. У вас есть 10 лет на то, что бы построить водяные "
+"мельницы. После этого начнется голод! Вы должны проверить зону голодания на "
+"миникарте. Так же прочесть страничку с помощью :-)"
 
-#: src/lincity/modules/commune.cpp:182
-#: src/lincity/modules/heavy_industry.cpp:286
-#: src/lincity/modules/light_industry.cpp:284
-#: src/lincity/modules/market.cpp:1009 src/lincity/modules/port.cpp:294
-#: src/lincity/modules/pottery.cpp:112 src/lincity/modules/rail.cpp:54
-#: src/lincity/modules/recycle.cpp:145 src/lincity/modules/road.cpp:49
-#: src/lincity/modules/track.cpp:40
-msgid "Ore"
-msgstr "Руда"
-
-#: src/lincity/modules/commune.cpp:186 src/lincity/modules/market.cpp:1011
-#: src/lincity/modules/rail.cpp:56 src/lincity/modules/recycle.cpp:146
-#: src/lincity/modules/road.cpp:51 src/lincity/modules/track.cpp:42
-msgid "Waste"
-msgstr "Мусор"
-
-#: src/lincity/modules/coalmine.cpp:151
-msgid "Coal Mine"
-msgstr "Угольная шахта"
-
-#: src/lincity/modules/coalmine.cpp:158 src/lincity/modules/oremine.cpp:164
-msgid "Stock"
-msgstr "На складе"
-
-#: src/lincity/modules/coalmine.cpp:160 src/lincity/modules/coalmine.cpp:162
-#: src/lincity/modules/oremine.cpp:167
-msgid "Reserve"
-msgstr "Резервы"
-
-#: src/lincity/modules/coalmine.cpp:162
-msgid "EMPTY"
-msgstr "ПУСТО"
-
-#: src/lincity/modules/residence.cpp:255
-msgid "Residence"
-msgstr "Резиденция"
-
-#: src/lincity/modules/residence.cpp:259
-msgid "People"
-msgstr "Человек"
-
-#: src/lincity/modules/residence.cpp:268
-msgid "Fed"
-msgstr "Питание"
-
-#: src/lincity/modules/residence.cpp:274
-msgid "Employed"
-msgstr "Работают?"
-
-#: src/lincity-ng/MpsInterface.cpp:395 src/lincity/modules/residence.cpp:276
-msgid "good"
-msgstr "хорошо"
-
-#: src/lincity/modules/residence.cpp:276
-msgid "poor"
-msgstr "плохо"
-
-#: src/lincity/modules/residence.cpp:277
-msgid "Job"
-msgstr "Работа"
-
-#: src/lincity/modules/residence.cpp:280
-msgid "Health Cvr"
-msgstr "Больница"
-
-#: src/lincity-ng/MpsInterface.cpp:388 src/lincity-ng/MpsInterface.cpp:516
-#: src/lincity/modules/residence.cpp:286
-msgid "Sport"
-msgstr "Спорт"
-
-#: src/lincity/modules/monument.cpp:57
-msgid "Wisdom Bestowed"
-msgstr "Мудрое Вознаграждение"
-
-#: src/lincity/modules/monument.cpp:61
-#, c-format
-msgid "% Complete"
-msgstr "% Завершено"
-
-#: src/lincity/modules/heavy_industry.cpp:270
-msgid "Heavy Industry"
-msgstr "Тяжелая индустрия"
-
-#: src/lincity-ng/MpsInterface.cpp:446 src/lincity/modules/blacksmith.cpp:98
-#: src/lincity/modules/coal_power.cpp:97 src/lincity/modules/commune.cpp:180
-#: src/lincity/modules/heavy_industry.cpp:275
-#: src/lincity/modules/heavy_industry.cpp:287
-#: src/lincity/modules/market.cpp:1007 src/lincity/modules/mill.cpp:101
-#: src/lincity/modules/port.cpp:290 src/lincity/modules/pottery.cpp:113
-#: src/lincity/modules/rail.cpp:52 src/lincity/modules/road.cpp:47
-#: src/lincity/modules/track.cpp:38
-msgid "Coal"
-msgstr "Уголь"
-
-#: src/lincity/modules/heavy_industry.cpp:277
-msgid "Grid"
-msgstr "Энергосистема"
-
-#: src/lincity/modules/heavy_industry.cpp:285
-#: src/lincity/modules/light_industry.cpp:283
-msgid "Store"
-msgstr "Склад"
-
-#: src/lincity/modules/market.cpp:1005 src/lincity/modules/mill.cpp:100
-#: src/lincity/modules/port.cpp:286 src/lincity/modules/rail.cpp:50
-#: src/lincity/modules/road.cpp:45 src/lincity/modules/track.cpp:36
+#: src/lincity/lintypes.cpp:383
 msgid "Food"
 msgstr "Еда"
 
-#: src/lincity-ng/MpsInterface.cpp:534 src/lincity/modules/port.cpp:306
-msgid "Total"
-msgstr "Итого"
+#: src/lincity/lintypes.cpp:384
+msgid "Jobs"
+msgstr "Работа"
 
-#: src/lincity/modules/coal_power.cpp:84
+#: src/lincity/lintypes.cpp:385
+msgid "Coal"
+msgstr "Уголь"
+
+#: src/lincity/lintypes.cpp:386
+msgid "Goods"
+msgstr "Товары"
+
+#: src/lincity/lintypes.cpp:387
+msgid "Ore"
+msgstr "Руда"
+
+#: src/lincity/lintypes.cpp:388
+msgid "Steel"
+msgstr "Сталь"
+
+#: src/lincity/lintypes.cpp:389 src/lincity/modules/tip.cpp:81
+msgid "Waste"
+msgstr "Мусор"
+
+#: src/lincity/lintypes.cpp:390
+msgid "kWh"
+msgstr "кВт⋅ч"
+
+#: src/lincity/lintypes.cpp:391
+msgid "MWh"
+msgstr "мВт⋅ч"
+
+#: src/lincity/lintypes.cpp:1394
+msgid "Port must be connected to river all along right side."
+msgstr "Порты должны соединяться с рекой, которая протекает справа."
+
+#: src/lincity/lintypes.cpp:1410
+msgid "You can't build a water well here: it is all desert."
+msgstr "Вы не можете построить скважину: это пустыня."
+
+#: src/lincity/lintypes.cpp:1429
+msgid "You can't build a mine here: there is no ore left at this site"
+msgstr "Нельзя построить шахту: здесь руды нет"
+
+#: src/lincity/lintypes.cpp:1440
+msgid "You can't build a park here: it is a desert, parks need water"
+msgstr "Нельзя построить парк: это пустыня, парку нужна вода"
+
+#: src/lincity/lintypes.cpp:1503
+msgid "Empty"
+msgstr "Пусто"
+
+#: src/lincity/lintypes.cpp:1516 src/lincity/modules/power_line.cpp:12
+msgid "Power line"
+msgstr "Электролиния"
+
+#: src/lincity/lintypes.cpp:1528
+msgid "Solar PS"
+msgstr "Солнечная ЭС"
+
+#: src/lincity/lintypes.cpp:1539
+msgid "Substation"
+msgstr "Подстанция"
+
+#: src/lincity/lintypes.cpp:1550
+msgid "Residential LL"
+msgstr "Жилой дом НН"
+
+#: src/lincity/lintypes.cpp:1561 src/lincity/modules/organic_farm.cpp:12
+msgid "Farm"
+msgstr "Ферма"
+
+#: src/lincity/lintypes.cpp:1572 src/lincity/modules/market.cpp:12
+#: src/lincity-ng/Dialog.cpp:623
+msgid "Market"
+msgstr "Магазин"
+
+#: src/lincity/lintypes.cpp:1583 src/lincity/modules/track_road_rail.cpp:14
+msgid "Track"
+msgstr "Грунтовка"
+
+#: src/lincity/lintypes.cpp:1594
+msgid "Coalmine"
+msgstr "Угольная шахта"
+
+#: src/lincity/lintypes.cpp:1605
+msgid "Railway"
+msgstr "Рельсы"
+
+#: src/lincity/lintypes.cpp:1616
+msgid "Coal PS"
+msgstr "Угольная ЭС"
+
+#: src/lincity/lintypes.cpp:1627 src/lincity/modules/track_road_rail.cpp:44
+msgid "Road"
+msgstr "Дорога"
+
+#: src/lincity/lintypes.cpp:1638
+msgid "Lt. Industry"
+msgstr "Лег. Пром."
+
+#: src/lincity/lintypes.cpp:1649 src/lincity/modules/university.cpp:12
+msgid "University"
+msgstr "Университет"
+
+#: src/lincity/lintypes.cpp:1660
+msgid "Commune"
+msgstr "Коммуна"
+
+#: src/lincity/lintypes.cpp:1671
+msgid "Ore mine"
+msgstr "Шахта руды"
+
+#: src/lincity/lintypes.cpp:1682
+msgid "Rubbish tip"
+msgstr "Свалка"
+
+#: src/lincity/lintypes.cpp:1693 src/lincity/modules/port.cpp:14
+#: src/lincity-ng/Dialog.cpp:684
+msgid "Port"
+msgstr "Экспр"
+
+#: src/lincity/lintypes.cpp:1704
+msgid "Hv. Industry"
+msgstr "Тяж. Пром."
+
+#: src/lincity/lintypes.cpp:1715 src/lincity/modules/parkland.cpp:13
+msgid "Park"
+msgstr "Парк"
+
+#: src/lincity/lintypes.cpp:1726 src/lincity-ng/MpsInterface.cpp:516
+msgid "Recycle"
+msgstr "Переработка"
+
+#: src/lincity/lintypes.cpp:1748
+msgid "Health centre"
+msgstr "Больница"
+
+#: src/lincity/lintypes.cpp:1759
+msgid "Rocket pad"
+msgstr "Ракетная установка"
+
+#: src/lincity/lintypes.cpp:1770 src/lincity/modules/windmill.cpp:12
+#: src/lincity-ng/MpsInterface.cpp:506
+msgid "Windmill"
+msgstr "Мельница"
+
+#: src/lincity/lintypes.cpp:1781 src/lincity/modules/monument.cpp:14
+msgid "Monument"
+msgstr "Монумент"
+
+#: src/lincity/lintypes.cpp:1792
+msgid "School"
+msgstr "Школа"
+
+#: src/lincity/lintypes.cpp:1803 src/lincity/modules/blacksmith.cpp:11
+msgid "Blacksmith"
+msgstr "Кузница "
+
+#: src/lincity/lintypes.cpp:1814
+msgid "Mill"
+msgstr "Мельница"
+
+#: src/lincity/lintypes.cpp:1825 src/lincity/modules/pottery.cpp:11
+msgid "Pottery"
+msgstr "Гончарные изделия"
+
+#: src/lincity/lintypes.cpp:1836
+msgid "Fire sta'n"
+msgstr "Пожарная станция"
+
+#: src/lincity/lintypes.cpp:1847
+msgid "Sports field"
+msgstr "Спорт площадка"
+
+#: src/lincity/lintypes.cpp:1859
+msgid "Burnt"
+msgstr "Пожар"
+
+#: src/lincity/lintypes.cpp:1871
+msgid "Shanty town"
+msgstr "Хибарка "
+
+#: src/lincity/lintypes.cpp:1883 src/lincity/modules/fire.cpp:13
+#: src/lincity-ng/EconomyGraph.cpp:135
+msgid "Fire"
+msgstr "Огонь"
+
+#: src/lincity/lintypes.cpp:1895
+msgid "Used"
+msgstr "Использовать"
+
+#: src/lincity/lintypes.cpp:1906
+msgid "Residential ML"
+msgstr "Жилой дом СН"
+
+#: src/lincity/lintypes.cpp:1917
+msgid "Residential HL"
+msgstr "Жилой дом ВН"
+
+#: src/lincity/lintypes.cpp:1928
+msgid "Residential LH"
+msgstr "Жилой дом НВ"
+
+#: src/lincity/lintypes.cpp:1939
+msgid "Residential MH"
+msgstr "Жилой дом СВ"
+
+#: src/lincity/lintypes.cpp:1950
+msgid "Residential HH"
+msgstr "Жилой дом ВВ"
+
+#: src/lincity/lintypes.cpp:1961
+msgid "Water well"
+msgstr "Скважина"
+
+#: src/lincity/lintypes.cpp:1973
+msgid "Desert"
+msgstr "Пустыня"
+
+#: src/lincity/lintypes.cpp:1985
+msgid "Tree"
+msgstr "Дерево"
+
+#: src/lincity/lintypes.cpp:1998
+msgid "Trees"
+msgstr "Деревья"
+
+#: src/lincity/lintypes.cpp:2011 src/lincity/modules/commune.cpp:11
+msgid "Forest"
+msgstr "Лес"
+
+#: src/lincity/lintypes.cpp:2024 src/lincity/modules/track_road_rail.cpp:29
+msgid "Track Bridge"
+msgstr "Грунтовка"
+
+#: src/lincity/lintypes.cpp:2036 src/lincity/modules/track_road_rail.cpp:58
+msgid "Road Bridge"
+msgstr "Асфальт"
+
+#: src/lincity/lintypes.cpp:2048 src/lincity/modules/track_road_rail.cpp:88
+msgid "Rail Bridge"
+msgstr "Рельсы"
+
+#: src/lincity/lintypes.cpp:2060 src/lincity/modules/windpower.cpp:11
+#, fuzzy
+msgid "Wind Power"
+msgstr "Ветрогенератор"
+
+#: src/lincity/old_ldsvguts.cpp:164
+msgid "Loading scene"
+msgstr "Загрузка местности"
+
+#: src/lincity/modules/health_centre.cpp:12
+msgid "Health Centre"
+msgstr "Больница"
+
+#: src/lincity/modules/health_centre.cpp:78
+#: src/lincity/modules/waterwell.cpp:64 src/lincity/modules/coal_power.cpp:106
+#: src/lincity/modules/windpower.cpp:74 src/lincity/modules/university.cpp:57
+#: src/lincity/modules/solar_power.cpp:56 src/lincity/modules/market.cpp:186
+#: src/lincity/modules/school.cpp:88 src/lincity/modules/coalmine.cpp:120
+#: src/lincity/modules/rocket_pad.cpp:218 src/lincity/modules/recycle.cpp:71
+#: src/lincity/modules/port.cpp:113 src/lincity/modules/mill.cpp:70
+#: src/lincity/modules/substation.cpp:64 src/lincity/modules/commune.cpp:138
+#: src/lincity/modules/blacksmith.cpp:81
+#: src/lincity/modules/light_industry.cpp:132
+#: src/lincity/modules/cricket.cpp:90 src/lincity/modules/pottery.cpp:76
+#: src/lincity/modules/windmill.cpp:65 src/lincity/modules/tip.cpp:80
+#: src/lincity/modules/firestation.cpp:93
+#: src/lincity/modules/heavy_industry.cpp:136
+#: src/lincity/modules/monument.cpp:103 src/lincity/modules/oremine.cpp:168
+#: src/lincity/modules/organic_farm.cpp:113
+msgid "busy"
+msgstr "Занятость"
+
+#: src/lincity/modules/health_centre.cpp:81
+#: src/lincity/modules/waterwell.cpp:66 src/lincity/modules/cricket.cpp:93
+#: src/lincity/modules/firestation.cpp:96 src/lincity-ng/MpsInterface.cpp:344
+#: src/lincity-ng/MpsInterface.cpp:360 src/lincity-ng/MpsInterface.cpp:363
+#: src/lincity-ng/MpsInterface.cpp:366 src/lincity-ng/MpsInterface.cpp:369
+msgid "Yes"
+msgstr "Да"
+
+#: src/lincity/modules/health_centre.cpp:81
+#: src/lincity/modules/waterwell.cpp:66 src/lincity/modules/cricket.cpp:93
+#: src/lincity/modules/firestation.cpp:96 src/lincity-ng/MpsInterface.cpp:344
+#: src/lincity-ng/MpsInterface.cpp:360 src/lincity-ng/MpsInterface.cpp:363
+#: src/lincity-ng/MpsInterface.cpp:366 src/lincity-ng/MpsInterface.cpp:369
+msgid "No"
+msgstr "Нет"
+
+#: src/lincity/modules/health_centre.cpp:82
+#: src/lincity-ng/MpsInterface.cpp:364
+#, fuzzy
+msgid "Health Care"
+msgstr "Здравоохранение"
+
+#: src/lincity/modules/waterwell.cpp:23
+#, fuzzy
+msgid "Water tower"
+msgstr "Скважина"
+
+#: src/lincity/modules/waterwell.cpp:63 src/lincity/modules/commune.cpp:137
+#: src/lincity/modules/organic_farm.cpp:111
+msgid "Fertility"
+msgstr "Плодородие"
+
+#: src/lincity/modules/waterwell.cpp:65 src/lincity/modules/parkland.cpp:56
+#: src/lincity/modules/shanty.cpp:180 src/lincity/modules/fire.cpp:112
+#: src/lincity-ng/MpsInterface.cpp:391
+#, fuzzy
+msgid "Air Pollution"
+msgstr "Загрязнение"
+
+#: src/lincity/modules/waterwell.cpp:67
+msgid "Drinkable"
+msgstr "Годна для питья"
+
+#: src/lincity/modules/coal_power.cpp:12
 msgid "Coal Power Station"
 msgstr "Угольная электростанция"
 
-#: src/lincity/modules/coal_power.cpp:88
-#: src/lincity/modules/solar_power.cpp:49
-msgid "Max Output"
-msgstr "Макс экспорт"
+#: src/lincity/modules/coal_power.cpp:107 src/lincity/modules/windpower.cpp:75
+#: src/lincity/modules/solar_power.cpp:57
+#: src/lincity/modules/rocket_pad.cpp:219 src/lincity/modules/recycle.cpp:68
+#: src/lincity/modules/light_industry.cpp:133
+#: src/lincity/modules/windmill.cpp:66
+#: src/lincity/modules/heavy_industry.cpp:137
+#: src/lincity/modules/organic_farm.cpp:112
+msgid "Tech"
+msgstr "Наука"
 
-#: src/lincity/modules/coal_power.cpp:93
-#: src/lincity/modules/solar_power.cpp:54
-msgid "Current Output"
-msgstr "Выборочный экспорт"
+#: src/lincity/modules/coal_power.cpp:108 src/lincity/modules/windpower.cpp:76
+#: src/lincity/modules/solar_power.cpp:58 src/lincity/modules/windmill.cpp:67
+#: src/lincity/modules/organic_farm.cpp:114
+msgid "Output"
+msgstr "Экспорт"
 
-#: src/lincity/modules/substation.cpp:97
-msgid "Local Demand"
-msgstr "Локальное требование"
-
-#: src/lincity/modules/mill.cpp:94
-msgid "Textile Mill"
-msgstr "Текстильная фабрика"
-
-#: src/lincity/modules/oremine.cpp:161
-msgid "Ore Mine"
-msgstr "Шахта руды"
-
-#: src/lincity/modules/power_line.cpp:46
-msgid "Power Line"
-msgstr "Электролиния"
-
-#: src/lincity/modules/light_industry.cpp:275
-msgid "Light Industry"
-msgstr "Легкая индустрия"
-
-#: src/lincity/modules/university.cpp:61
-msgid "Tech Produced"
-msgstr "Технический Продукт"
-
-#: src/lincity/modules/tip.cpp:100
-msgid "Landfill"
-msgstr "Хлам"
-
-#: src/lincity/modules/tip.cpp:103
-msgid "Last Month"
-msgstr "Последний месяц"
-
-#: src/lincity/modules/tip.cpp:104
-msgid "Tons"
-msgstr "Тонн"
-
-#: src/lincity/modules/tip.cpp:105
-msgid "Percent"
-msgstr "Процент"
-
-#: src/lincity/modules/tip.cpp:107
-#, c-format
-msgid "% Filled"
-msgstr "% Активность"
-
-#: src/lincity/modules/commune.cpp:177
-msgid "Activity"
-msgstr "Активность"
-
-#: src/lincity/modules/firestation.cpp:109
-msgid "Fire Station"
-msgstr "Пожарная станция"
-
-#: src/lincity/modules/organic_farm.cpp:208
-msgid "Organic Farm"
-msgstr "Органическая ферма"
-
-#: src/lincity/modules/organic_farm.cpp:213
-msgid "Prod"
-msgstr "Продукт"
-
-#: src/lincity/modules/organic_farm.cpp:218
-msgid "Debug info"
-msgstr "Отладочная информация"
-
-#: src/lincity/modules/organic_farm.cpp:219
-msgid "max with power&water"
-msgstr "Максимум с электрическом и водой"
-
-#: src/lincity/modules/organic_farm.cpp:220
-msgid "N tiles with water"
-msgstr "N клеток с водой"
-
-#: src/lincity/modules/organic_farm.cpp:227
-#: src/lincity/modules/organic_farm.cpp:221
+#: src/lincity/modules/university.cpp:58
 #, fuzzy
-msgid "Current production"
-msgstr "Выборочный экспорт"
+msgid "Tech researched"
+msgstr "Научные исследования"
 
-#: src/lincity/modules/school.cpp:45
-msgid "Lessons Learned"
-msgstr "Уроков преподано"
-
-#: src/lincity/modules/solar_power.cpp:43
-msgid "Solar power station"
+#: src/lincity/modules/solar_power.cpp:14
+#, fuzzy
+msgid "Solar Power Plant"
 msgstr "Солнечная электростанция"
 
-#: src/lincity-ng/Dialog.cpp:174
-msgid "Launchsite"
-msgstr "Ракетная площадка"
+#: src/lincity/modules/school.cpp:13
+msgid "Elementary School"
+msgstr "Школа"
 
-#: src/lincity-ng/Dialog.cpp:343
-msgid "----- IN TEST MODE -------"
-msgstr "----- В ТЕСТОВОМ РЕЖИМЕ -------"
+#: src/lincity/modules/school.cpp:89
+#, fuzzy
+msgid "Lessons learned"
+msgstr "Уроков преподано"
 
-#: src/lincity-ng/Dialog.cpp:345
-#, c-format
-msgid "Game statistics from LinCity-NG Version %s"
-msgstr "Статистика игры LinCity-NG Версии %s"
+#: src/lincity/modules/power_line.cpp:62
+msgid "usage"
+msgstr "Использование"
 
-#: src/lincity-ng/Dialog.cpp:348
-#, c-format
-msgid "Initial loaded scene - %s"
-msgstr "Загружена карта - %s"
-
-#: src/lincity-ng/Dialog.cpp:352
-#, c-format
-msgid "Economy is sustainable"
-msgstr "Экономика стабилизирована"
-
-#: src/lincity-ng/Dialog.cpp:355
-#, c-format
-msgid "Population  %d  of which  %d  are not housed."
-msgstr "Население %d из них %d бездомные."
-
-#: src/lincity-ng/Dialog.cpp:359
-#, c-format
-msgid "Max population %d  Number evacuated %d Total births %d"
-msgstr ""
-"Максимальное население %d, кол-во эвакуированных %d, кол-во рождении %d"
-
-#: src/lincity-ng/Dialog.cpp:363
-#, c-format
-msgid "Date %s %04d  Money %8d   Tech-level %5.1f (%5.1f)"
-msgstr "Дата %s %04d  Деньги %8d Уровень обучения %5.1f (%5.1f)"
-
-#: src/lincity-ng/Dialog.cpp:398
-#, c-format
-msgid "Deaths by starvation %7d   History %8.3f"
-msgstr "Погибло от голода %7d   История %8.3f"
-
-#: src/lincity-ng/Dialog.cpp:373
-#, c-format
-msgid "Deaths from pollution %7d   History %8.3f"
-msgstr "Погибло от загрязнения   %7d   История %8.3f"
-
-#: src/lincity-ng/Dialog.cpp:376
-#, c-format
-msgid "Years of unemployment %7d   History %8.3f"
-msgstr "Лет без работы           %7d   История %8.3f"
-
-#: src/lincity-ng/Dialog.cpp:379
-#, c-format
-msgid "Rockets launched %2d  Successful launches %2d"
-msgstr "Запущенно ракет %2d из них удачно %2d"
-
-#: src/lincity-ng/Dialog.cpp:417
-msgid "Residences"
-msgstr "Резиденции"
-
-#: src/lincity-ng/Dialog.cpp:424
-msgid "Markets"
-msgstr "Магазины"
-
-#: src/lincity-ng/Dialog.cpp:425
-msgid "Farms"
-msgstr "Фермы"
-
-#: src/lincity-ng/Dialog.cpp:427
-msgid "Water wells"
-msgstr "Колодцы"
-
-#: src/lincity-ng/Dialog.cpp:435
-msgid "Monuments"
-msgstr "Монументы"
-
-#: src/lincity-ng/MpsInterface.cpp:502
-msgid "Schools"
-msgstr "Школы"
-
-#: src/lincity-ng/Dialog.cpp:437
-msgid "Universities"
-msgstr "Университеты"
-
-#: src/lincity-ng/Dialog.cpp:439
-msgid "Fire stations"
-msgstr "Пожарные станции"
-
-#: src/lincity-ng/Dialog.cpp:440
-msgid "Parks"
-msgstr "Парки"
-
-#: src/lincity-ng/Dialog.cpp:441
-msgid "Sports fields"
-msgstr "Спортплощадки"
-
-#: src/lincity-ng/Dialog.cpp:443
-msgid "Health centres"
-msgstr "Больницы"
-
-#: src/lincity-ng/Dialog.cpp:444
-msgid "Tips"
-msgstr "Помойки"
-
-#: src/lincity-ng/MpsInterface.cpp:537
-msgid "Shanties"
-msgstr "Хибара"
-
-#: src/lincity-ng/Dialog.cpp:451
-msgid "Windmills"
-msgstr "Мельницы"
-
-#: src/lincity-ng/Dialog.cpp:452
-msgid "Coal powers"
-msgstr "Угольные эл"
-
-#: src/lincity-ng/Dialog.cpp:453
-msgid "Solar powers"
-msgstr "Солнечные эл"
-
-#: src/lincity-ng/Dialog.cpp:455
-msgid "Substations"
-msgstr "Подстанции"
-
-#: src/lincity-ng/Dialog.cpp:456
-msgid "Power lines"
-msgstr "Электролинии"
-
-#: src/lincity-ng/Dialog.cpp:457
-msgid "Ports"
-msgstr "Порты"
-
-#: src/lincity-ng/Dialog.cpp:459
-msgid "Tracks"
-msgstr "Грунтовки"
-
-#: src/lincity-ng/Dialog.cpp:460
-msgid "Roads"
-msgstr "Дороги"
-
-#: src/lincity/modules/rail.cpp:47
+#: src/lincity/modules/track_road_rail.cpp:74 src/lincity-ng/Dialog.cpp:456
 msgid "Rail"
 msgstr "Рельсы"
 
-#: src/lincity-ng/Dialog.cpp:467
-msgid "Potteries"
-msgstr "Гончарные"
+#: src/lincity/modules/track_road_rail.cpp:196
+msgid "Traffic"
+msgstr "Трафик"
 
-#: src/lincity-ng/Dialog.cpp:468
-msgid "Blacksmiths"
-msgstr "Кузнечная"
-
-#: src/lincity-ng/Dialog.cpp:469
-msgid "Mills"
-msgstr "Мельница"
-
-#: src/lincity-ng/Dialog.cpp:471
-msgid "Light inds"
-msgstr "Легкая инд-ия"
-
-#: src/lincity-ng/Dialog.cpp:472
-msgid "Heavy inds"
-msgstr "Тяжелая инд-ия"
-
-#: src/lincity-ng/Dialog.cpp:473
-msgid "Recyclers"
-msgstr "Переработки"
-
-#: src/lincity-ng/Dialog.cpp:475
-msgid "Coal mines"
-msgstr "Угольная шахта"
-
-#: src/lincity-ng/Dialog.cpp:476
-msgid "Ore mines"
-msgstr "Шахта руды"
-
-#: src/lincity-ng/Dialog.cpp:477
-msgid "Communes"
+#: src/lincity/modules/track_road_rail.cpp:201
+#, fuzzy
+msgid "Commodities"
 msgstr "Коммуна"
 
-#: src/lincity-ng/GameView.cpp:239
-msgid "Minimap: outline map"
-msgstr "Мини-карта: постройки"
+#: src/lincity/modules/coalmine.cpp:13
+msgid "Coal Mine"
+msgstr "Угольная шахта"
 
-#: src/lincity-ng/GameView.cpp:242
-msgid "Minimap: unemployment"
-msgstr "Мини-карта: работа"
+#: src/lincity/modules/coalmine.cpp:121 src/lincity/modules/oremine.cpp:169
+msgid "Deposits"
+msgstr "Склад"
 
-#: src/lincity-ng/GameView.cpp:245
-msgid "Minimap: pollution"
-msgstr "Мини-карта: загрязнения"
+#: src/lincity/modules/rocket_pad.cpp:17
+msgid "Rocket Pad"
+msgstr "Ракетная площадка "
 
-#: src/lincity-ng/GameView.cpp:248
-msgid "Minimap: nourishments"
-msgstr "Мини-карта: ресурсы"
+#: src/lincity/modules/rocket_pad.cpp:220
+msgid "Overall Progress"
+msgstr "Общий прогресс"
 
-#: src/lincity-ng/GameView.cpp:251
-msgid "Minimap: power supply"
-msgstr "Мини-карта: электропитание"
+#: src/lincity/modules/rocket_pad.cpp:221
+msgid "Next Step"
+msgstr "Следующий шаг"
 
-#: src/lincity-ng/GameView.cpp:254
-msgid "Minimap: firedepartment cover"
-msgstr "Мини-карта: пожарная охрана"
-
-#: src/lincity-ng/GameView.cpp:257
-msgid "Minimap: sport cover"
-msgstr "Мини-карта: спорт"
-
-#: src/lincity-ng/GameView.cpp:260
-msgid "Minimap: medical care"
-msgstr "Мини-карта: медицина"
-
-#: src/lincity-ng/GameView.cpp:263
-msgid "Minimap: coal depots"
-msgstr "Мини-карта: угольные места"
-
-#: src/lincity-ng/GameView.cpp:266
-msgid "Minimap: traffic density"
-msgstr "Мини-карта: трафик"
-
-#: src/lincity-ng/GameView.cpp:1593
-msgid "Estimated Bulldoze Cost: "
-msgstr "Расчетная цена сноса: "
-
-#: src/lincity-ng/GameView.cpp:1595
-msgid "Bulldoze Cost: "
-msgstr "Снос стоит: "
-
-#: src/lincity-ng/GameView.cpp:1598 src/lincity-ng/GameView.cpp:1629
-#: src/lincity-ng/ScreenInterface.cpp:274
-msgid "$"
-msgstr " руб"
-
-#: src/lincity-ng/GameView.cpp:1600
-msgid "n/a"
-msgstr "н/д"
-
-#: src/lincity-ng/GameView.cpp:1629
-msgid ": Cost to build "
-msgstr ": Стоимость постройки "
-
-#: src/lincity-ng/GameView.cpp:1618
-msgid "Query Tool: Show information about selected building."
-msgstr "Курсор: Показать информацию о выбранных постройках. "
-
-#: src/lincity-ng/GameView.cpp:1622
-msgid "Bulldozer: remove building -price varies-"
-msgstr "Бульдозер: удалить здания -цена варьирует-"
-
-#: src/lincity-ng/GameView.cpp:1630
-msgid ", to bulldoze "
-msgstr ", уничтожения - "
-
-#: src/lincity-ng/GameView.cpp:1630 src/lincity-ng/GameView.cpp:1633
-msgid "$."
-msgstr " руб."
-
-#: src/lincity-ng/GameView.cpp:1632
-msgid " To build "
-msgstr " Строить "
-
-#: src/lincity-ng/GameView.cpp:1632
-msgid " of them "
-msgstr " из "
-
-#: src/lincity-ng/GameView.cpp:1633
-msgid "will cost about "
-msgstr "будет стоить "
-
-#: src/lincity-ng/MainMenu.cpp:141
-msgid "good_times"
-msgstr "Хорошие времена"
-
-#: src/lincity-ng/MainMenu.cpp:142
-msgid "bad_times"
-msgstr "Плохие времена"
-
-#: src/lincity-ng/MainMenu.cpp:143
+#: src/lincity/modules/recycle.cpp:12
 #, fuzzy
-msgid "Beach"
-msgstr "Пляж"
+msgid "Recycling Centre"
+msgstr "Центр переработки"
 
-#: src/lincity-ng/MainMenu.cpp:144
-msgid "extreme_arid"
-msgstr "Засуха"
+#: src/lincity/modules/recycle.cpp:69
+msgid "Efficiency Ore"
+msgstr "Эффективность руды"
 
-#: src/lincity-ng/MainMenu.cpp:145
-msgid "extreme_wetland"
-msgstr "Наводнение"
+#: src/lincity/modules/recycle.cpp:70
+msgid "Efficiency Steel"
+msgstr "Эффективность стали"
 
-#: src/lincity-ng/MainMenu.cpp:212
-msgid "empty"
-msgstr "пусто"
-
-#: src/lincity-ng/MpsInterface.cpp:229
-msgid "no further information available"
-msgstr "нет информации"
-
-#: src/lincity-ng/MpsInterface.cpp:227
-msgid "build something here"
-msgstr "тут можно строить"
-
-#: src/lincity-ng/MpsInterface.cpp:380
-msgid "Coverage"
-msgstr "Зона действия"
-
-#: src/lincity-ng/MpsInterface.cpp:385
-msgid "Health"
-msgstr "Здоровье"
-
-#: src/lincity-ng/MpsInterface.cpp:393
-msgid "clear"
-msgstr "чисто"
-
-#: src/lincity-ng/MpsInterface.cpp:397
-msgid "fair"
-msgstr "удовл."
-
-#: src/lincity-ng/MpsInterface.cpp:399
-msgid "smelly"
-msgstr "пахнет"
-
-#: src/lincity-ng/MpsInterface.cpp:401
-msgid "smokey"
-msgstr "дым"
-
-#: src/lincity-ng/MpsInterface.cpp:403
-msgid "smoggy"
-msgstr "смог"
-
-#: src/lincity-ng/MpsInterface.cpp:405
-msgid "bad"
-msgstr "плохо"
-
-#: src/lincity-ng/MpsInterface.cpp:407
-msgid "very bad"
-msgstr "очень плохо"
-
-#: src/lincity-ng/MpsInterface.cpp:409
-msgid "death!"
-msgstr "Смерть!"
-
-#: src/lincity-ng/MpsInterface.cpp:414
-msgid "Bulldoze Cost"
-msgstr "Стоимость Уничтожения"
-
-#: src/lincity-ng/MpsInterface.cpp:420
-msgid "N/A"
-msgstr "Н/Д"
-
-#: src/lincity-ng/MpsInterface.cpp:438
-msgid "Tax Income"
-msgstr "Доход"
-
-#: src/lincity-ng/MpsInterface.cpp:442
-msgid "Income"
-msgstr "Доход"
-
-#: src/lincity-ng/MpsInterface.cpp:454
+#: src/lincity/modules/port.cpp:114 src/lincity-ng/MpsInterface.cpp:452
 msgid "Export"
 msgstr "Экспорт"
 
-#: src/lincity-ng/MpsInterface.cpp:458
-msgid "Expenses"
-msgstr "Затраты"
-
-#: src/lincity-ng/MpsInterface.cpp:462
-msgid "Unemp."
-msgstr "Безработица"
-
-#: src/lincity-ng/MpsInterface.cpp:466
-msgid "Transport"
-msgstr "Транспорт"
-
-#: src/lincity-ng/MpsInterface.cpp:470
-msgid "Imports"
+#: src/lincity/modules/port.cpp:115
+#, fuzzy
+msgid "Import"
 msgstr "Импорт"
 
-#: src/lincity-ng/MpsInterface.cpp:474
-msgid "Others"
-msgstr "Другое"
+#: src/lincity/modules/port.cpp:116
+msgid "Culture exchanged"
+msgstr "Культурный обмен"
 
-#: src/lincity-ng/MpsInterface.cpp:479
-msgid "Net"
-msgstr "Баланс"
+#: src/lincity/modules/mill.cpp:12
+msgid "Textile Mill"
+msgstr "Текстильная фабрика"
 
-#: src/lincity-ng/MpsInterface.cpp:491
-msgid "Other Costs"
-msgstr "Другие затраты"
+#: src/lincity/modules/substation.cpp:12
+#, fuzzy
+msgid "Power Substation"
+msgstr "Электроподстанция"
 
-#: src/lincity-ng/MpsInterface.cpp:496
-msgid "For year"
-msgstr "За год"
+#: src/lincity/modules/commune.cpp:139
+msgid "Pollution"
+msgstr "Загрязнение"
 
-#: src/lincity-ng/MpsInterface.cpp:500
-msgid "Interest"
-msgstr "Заём"
+#: src/lincity/modules/commune.cpp:141
+msgid "lazy months"
+msgstr "простой в месяцах"
 
-#: src/lincity-ng/MpsInterface.cpp:504
-msgid "Univers."
-msgstr "Университеты."
+#: src/lincity/modules/light_industry.cpp:13
+msgid "Light Industry"
+msgstr "Легкая индустрия"
 
-#: src/lincity-ng/MpsInterface.cpp:506
-msgid "Deaths"
-msgstr "Смерти"
+#: src/lincity/modules/cricket.cpp:13
+msgid "Basketball court"
+msgstr "Баскетбольная площадка"
 
-#: src/lincity-ng/MpsInterface.cpp:510
-msgid "Hospital"
-msgstr "Госпиталь"
+#: src/lincity/modules/cricket.cpp:94
+msgid "Public sports"
+msgstr "Спорт"
 
-#: src/lincity-ng/MpsInterface.cpp:512
-msgid "Rockets"
-msgstr "Ракеты"
+#: src/lincity/modules/residence.cpp:15 src/lincity/modules/residence.cpp:29
+#: src/lincity/modules/residence.cpp:43 src/lincity/modules/residence.cpp:57
+#: src/lincity/modules/residence.cpp:71 src/lincity/modules/residence.cpp:85
+msgid "Residence"
+msgstr "Жилой дом"
 
-#: src/lincity-ng/MpsInterface.cpp:514
-msgid "Fire Stn"
-msgstr "Пожарные ст"
+#: src/lincity/modules/residence.cpp:349
+msgid "Tenants"
+msgstr "Жители"
 
-#: src/lincity-ng/MpsInterface.cpp:532
+#: src/lincity/modules/residence.cpp:350
+#, fuzzy
+msgid "Desireability"
+msgstr "Привлекательность"
+
+#: src/lincity/modules/residence.cpp:351
+msgid "Births per year"
+msgstr "Рождении в год"
+
+#: src/lincity/modules/residence.cpp:352
+msgid "Death per year"
+msgstr "Смертей в году"
+
+#: src/lincity/modules/residence.cpp:353
+msgid "Unnat. mortality"
+msgstr "Погибшие"
+
+#: src/lincity/modules/parkland.cpp:27
+msgid "Park (Pond)"
+msgstr "Парк (пруд)"
+
+#: src/lincity/modules/tip.cpp:12
+#, fuzzy
+msgid "Land Fill"
+msgstr "Свалка"
+
+#: src/lincity/modules/tip.cpp:82
+#, fuzzy
+msgid "Filled"
+msgstr "Заполнено"
+
+#: src/lincity/modules/firestation.cpp:14
+msgid "Fire Station"
+msgstr "Пожарная станция"
+
+#: src/lincity/modules/firestation.cpp:97 src/lincity-ng/MpsInterface.cpp:361
+#, fuzzy
+msgid "Fire Protection"
+msgstr "Пожарная станция"
+
+#: src/lincity/modules/shanty.cpp:15
+#, fuzzy
+msgid "Shanty Town"
+msgstr "Хибарка "
+
+#: src/lincity/modules/heavy_industry.cpp:14
+#, fuzzy
+msgid "Steel Works"
+msgstr "Сталь"
+
+#: src/lincity/modules/monument.cpp:99
+#, fuzzy
+msgid "Wisdom bestowed"
+msgstr "Монумент"
+
+#: src/lincity/modules/monument.cpp:107
+msgid "Completion"
+msgstr "Завершено"
+
+#: src/lincity/modules/fire.cpp:114
+msgid "burnt down"
+msgstr "выгорел"
+
+#: src/lincity/modules/fire.cpp:116
+#, fuzzy
+msgid "degraded"
+msgstr "пониженный"
+
+#: src/lincity/modules/oremine.cpp:15
+msgid "Ore Mine"
+msgstr "Шахта руды"
+
+#: src/lincity/modules/water.cpp:22 src/lincity-ng/MpsInterface.cpp:349
+msgid "Lake"
+msgstr "Озеро"
+
+#: src/lincity/modules/water.cpp:24 src/lincity-ng/MpsInterface.cpp:351
+#, fuzzy
+msgid "River"
+msgstr "Река"
+
+#: src/lincity/modules/water.cpp:26 src/lincity-ng/MpsInterface.cpp:353
+msgid "Pond"
+msgstr "Пруд"
+
+#: src/lincity-ng/Dialog.cpp:175
+msgid "Launchsite"
+msgstr "Ракетная площадка"
+
+#: src/lincity-ng/Dialog.cpp:371
+msgid "----- IN TEST MODE -------"
+msgstr "----- В ТЕСТОВОМ РЕЖИМЕ -------"
+
+#: src/lincity-ng/Dialog.cpp:373
+#, fuzzy
+msgid "Game statistics from LinCity-NG Version"
+msgstr "Статистика игры из LinCity-NG версии"
+
+#: src/lincity-ng/Dialog.cpp:376
+#, fuzzy
+msgid "Initial loaded scene"
+msgstr "Загрузка начальной сцены"
+
+#: src/lincity-ng/Dialog.cpp:380
+msgid "Economy is sustainable"
+msgstr "Экономика стабилизирована"
+
+#: src/lincity-ng/Dialog.cpp:384 src/lincity-ng/MpsInterface.cpp:530
 msgid "Population"
 msgstr "Население"
 
-#: src/lincity-ng/MpsInterface.cpp:535
+#: src/lincity-ng/Dialog.cpp:384
+msgid "of which"
+msgstr "из которых"
+
+#: src/lincity-ng/Dialog.cpp:384
+msgid "are not housed"
+msgstr "без дома"
+
+#: src/lincity-ng/Dialog.cpp:387
+#, fuzzy
+msgid "Max population"
+msgstr "Максимум жителей"
+
+#: src/lincity-ng/Dialog.cpp:387
+msgid "Number evacuated"
+msgstr "Эвакуированных"
+
+#: src/lincity-ng/Dialog.cpp:387
+msgid "Total births"
+msgstr "Итого рождений"
+
+#: src/lincity-ng/Dialog.cpp:390
+msgid "Date"
+msgstr "Дата"
+
+#: src/lincity-ng/Dialog.cpp:391 src/lincity-ng/EconomyGraph.cpp:129
+msgid "Money"
+msgstr "Денег"
+
+#: src/lincity-ng/Dialog.cpp:391
+msgid "Tech-level"
+msgstr "Наука"
+
+#: src/lincity-ng/Dialog.cpp:396
+#, fuzzy
+msgid "Deaths by starvation"
+msgstr "Смертей от голода"
+
+#: src/lincity-ng/Dialog.cpp:397 src/lincity-ng/Dialog.cpp:401
+#: src/lincity-ng/Dialog.cpp:405
+msgid "History"
+msgstr "История"
+
+#: src/lincity-ng/Dialog.cpp:400
+#, fuzzy
+msgid "Deaths from pollution"
+msgstr "Смертей от загрязнения"
+
+#: src/lincity-ng/Dialog.cpp:404
+#, fuzzy
+msgid "Years of unemployment"
+msgstr "Годов безработицы"
+
+#: src/lincity-ng/Dialog.cpp:408
+#, fuzzy
+msgid "Rockets launched"
+msgstr "Ракет запущено"
+
+#: src/lincity-ng/Dialog.cpp:409
+msgid "Successful launches"
+msgstr "Успешно"
+
+#: src/lincity-ng/Dialog.cpp:417
+msgid "Residences"
+msgstr "Жилые дома"
+
+#: src/lincity-ng/Dialog.cpp:419
+msgid "Markets"
+msgstr "Магазины"
+
+#: src/lincity-ng/Dialog.cpp:420
+msgid "Farms"
+msgstr "Фермы"
+
+#: src/lincity-ng/Dialog.cpp:422
+msgid "Water wells"
+msgstr "Скважины"
+
+#: src/lincity-ng/Dialog.cpp:423
+#, fuzzy
+msgid "Wind powers"
+msgstr "Ветрогенераторы"
+
+#: src/lincity-ng/Dialog.cpp:430
+msgid "Monuments"
+msgstr "Монументы"
+
+#: src/lincity-ng/Dialog.cpp:431 src/lincity-ng/MpsInterface.cpp:500
+msgid "Schools"
+msgstr "Школы"
+
+#: src/lincity-ng/Dialog.cpp:432
+msgid "Universities"
+msgstr "Университеты"
+
+#: src/lincity-ng/Dialog.cpp:434
+msgid "Fire stations"
+msgstr "Пожарные станции"
+
+#: src/lincity-ng/Dialog.cpp:435
+msgid "Parks"
+msgstr "Парки"
+
+#: src/lincity-ng/Dialog.cpp:436
+msgid "Sports fields"
+msgstr "Спортплощадки"
+
+#: src/lincity-ng/Dialog.cpp:438
+msgid "Health centres"
+msgstr "Больницы"
+
+#: src/lincity-ng/Dialog.cpp:439
+msgid "Tips"
+msgstr "Свалки"
+
+#: src/lincity-ng/Dialog.cpp:440 src/lincity-ng/MpsInterface.cpp:535
+msgid "Shanties"
+msgstr "Хибары"
+
+#: src/lincity-ng/Dialog.cpp:446
+msgid "Windmills"
+msgstr "Мельницы"
+
+#: src/lincity-ng/Dialog.cpp:447
+msgid "Coal powers"
+msgstr "Угольные эл."
+
+#: src/lincity-ng/Dialog.cpp:448
+msgid "Solar powers"
+msgstr "Солнечные эл."
+
+#: src/lincity-ng/Dialog.cpp:450
+msgid "Substations"
+msgstr "Подстанции"
+
+#: src/lincity-ng/Dialog.cpp:451
+msgid "Power lines"
+msgstr "Электролинии"
+
+#: src/lincity-ng/Dialog.cpp:452
+msgid "Ports"
+msgstr "Порты"
+
+#: src/lincity-ng/Dialog.cpp:454
+msgid "Tracks"
+msgstr "Грунтовки"
+
+#: src/lincity-ng/Dialog.cpp:455
+msgid "Roads"
+msgstr "Дороги"
+
+#: src/lincity-ng/Dialog.cpp:462
+msgid "Potteries"
+msgstr "Гончарные"
+
+#: src/lincity-ng/Dialog.cpp:463
+msgid "Blacksmiths"
+msgstr "Кузницы"
+
+#: src/lincity-ng/Dialog.cpp:464
+msgid "Mills"
+msgstr "Мельницы"
+
+#: src/lincity-ng/Dialog.cpp:466
+msgid "Light inds"
+msgstr "Легкая пром."
+
+#: src/lincity-ng/Dialog.cpp:467
+msgid "Heavy inds"
+msgstr "Тяжелая пром."
+
+#: src/lincity-ng/Dialog.cpp:468
+msgid "Recyclers"
+msgstr "Переработка"
+
+#: src/lincity-ng/Dialog.cpp:470
+msgid "Coal mines"
+msgstr "Угольные шахты"
+
+#: src/lincity-ng/Dialog.cpp:471
+msgid "Ore mines"
+msgstr "Шахты руды"
+
+#: src/lincity-ng/Dialog.cpp:472
+#, fuzzy
+msgid "Forests"
+msgstr "Коммуны"
+
+#: src/lincity-ng/GameView.cpp:248
+msgid "Minimap: outline map"
+msgstr "Миникарта: постройки"
+
+#: src/lincity-ng/GameView.cpp:251
+msgid "Minimap: unemployment"
+msgstr "Миникарта: работа"
+
+#: src/lincity-ng/GameView.cpp:254
+msgid "Minimap: pollution"
+msgstr "Миникарта: загрязнения"
+
+#: src/lincity-ng/GameView.cpp:257
+msgid "Minimap: nourishments"
+msgstr "Миникарта: ресурсы"
+
+#: src/lincity-ng/GameView.cpp:260
+msgid "Minimap: power supply"
+msgstr "Миникарта: электропитание"
+
+#: src/lincity-ng/GameView.cpp:263
+msgid "Minimap: firedepartment cover"
+msgstr "Миникарта: пожарная охрана"
+
+#: src/lincity-ng/GameView.cpp:266
+msgid "Minimap: sport cover"
+msgstr "Миникарта: спорт"
+
+#: src/lincity-ng/GameView.cpp:269
+msgid "Minimap: medical care"
+msgstr "Миникарта: медицина"
+
+#: src/lincity-ng/GameView.cpp:272
+#, fuzzy
+msgid "Minimap: coal deposits"
+msgstr "Миникарта: угольные месторождения"
+
+#: src/lincity-ng/GameView.cpp:276
+#, fuzzy
+msgid "Minimap: traffic density:"
+msgstr "Миникарта: трафик:"
+
+#: src/lincity-ng/GameView.cpp:283
+#, fuzzy
+msgid "Minimap: commodities:"
+msgstr "Миникарта: потребление:"
+
+#: src/lincity-ng/GameView.cpp:1553
+msgid "Estimated Bulldoze Cost: "
+msgstr "Расчетная цена сноса: "
+
+#: src/lincity-ng/GameView.cpp:1555
+msgid "Bulldoze Cost: "
+msgstr "Снос стоит: "
+
+#: src/lincity-ng/GameView.cpp:1558 src/lincity-ng/GameView.cpp:1570
+#: src/lincity-ng/GameView.cpp:1599 src/lincity-ng/GameView.cpp:1600
+#: src/lincity-ng/GameView.cpp:1603 src/lincity-ng/GameView.cpp:1612
+#: src/lincity-ng/GameView.cpp:1613 src/lincity-ng/ScreenInterface.cpp:240
+msgid "$"
+msgstr "руб."
+
+#: src/lincity-ng/GameView.cpp:1560 src/lincity-ng/GameView.cpp:1572
+msgid "n/a"
+msgstr "н/д"
+
+#: src/lincity-ng/GameView.cpp:1568 src/lincity-ng/GameView.cpp:1599
+#: src/lincity-ng/GameView.cpp:1612
+msgid ": Cost to build "
+msgstr ": Стоимость постройки "
+
+#: src/lincity-ng/GameView.cpp:1590
+msgid "Query Tool: Show information about selected building."
+msgstr "Курсор: Показать информацию о выбранных постройках. "
+
+#: src/lincity-ng/GameView.cpp:1594
+msgid "Bulldozer: remove building -price varies-"
+msgstr "Бульдозер: удалить здания -цена варьирует-"
+
+#: src/lincity-ng/GameView.cpp:1600 src/lincity-ng/GameView.cpp:1613
+msgid ", to bulldoze "
+msgstr ", уничтожения - "
+
+#: src/lincity-ng/GameView.cpp:1602
+msgid " To build "
+msgstr " Строить "
+
+#: src/lincity-ng/GameView.cpp:1602
+msgid " of them "
+msgstr " из "
+
+#: src/lincity-ng/GameView.cpp:1603
+msgid "will cost about "
+msgstr "будет стоить "
+
+#: src/lincity-ng/GameView.cpp:1608
+msgid "Evacuation of commodities is for free."
+msgstr "Опустошение объектов бесплатно"
+
+#: src/lincity-ng/MpsInterface.cpp:130
+msgid "no further information available"
+msgstr "нет информации"
+
+#: src/lincity-ng/MpsInterface.cpp:134
+msgid "build something here"
+msgstr "тут можно строить"
+
+#: src/lincity-ng/MpsInterface.cpp:345
+msgid "Fertile"
+msgstr "Плодородный"
+
+#: src/lincity-ng/MpsInterface.cpp:367
+msgid "Public Sports"
+msgstr "Публичный спорт"
+
+#: src/lincity-ng/MpsInterface.cpp:370
+#, fuzzy
+msgid "Market Range"
+msgstr "Магазин"
+
+#: src/lincity-ng/MpsInterface.cpp:373
+msgid "clear"
+msgstr "чисто"
+
+#: src/lincity-ng/MpsInterface.cpp:375
+msgid "good"
+msgstr "хорошо"
+
+#: src/lincity-ng/MpsInterface.cpp:377
+msgid "fair"
+msgstr "удовл."
+
+#: src/lincity-ng/MpsInterface.cpp:379
+msgid "smelly"
+msgstr "пахнет"
+
+#: src/lincity-ng/MpsInterface.cpp:381
+msgid "smokey"
+msgstr "дым"
+
+#: src/lincity-ng/MpsInterface.cpp:383
+msgid "smoggy"
+msgstr "смог"
+
+#: src/lincity-ng/MpsInterface.cpp:385
+msgid "bad"
+msgstr "плохо"
+
+#: src/lincity-ng/MpsInterface.cpp:387
+msgid "very bad"
+msgstr "очень плохо"
+
+#: src/lincity-ng/MpsInterface.cpp:389
+msgid "death!"
+msgstr "Смерть!"
+
+#: src/lincity-ng/MpsInterface.cpp:395 src/lincity-ng/MpsInterface.cpp:400
+#: src/lincity-ng/MpsInterface.cpp:402
+#, fuzzy
+msgid "Bull. Cost"
+msgstr "Стоимость"
+
+#: src/lincity-ng/MpsInterface.cpp:400
+msgid "N/A"
+msgstr "Н/Д"
+
+#: src/lincity-ng/MpsInterface.cpp:404
+#, fuzzy
+msgid "Ore Reserve"
+msgstr "Запас руды"
+
+#: src/lincity-ng/MpsInterface.cpp:405
+#, fuzzy
+msgid "Coal Reserve"
+msgstr "Запас угля"
+
+#: src/lincity-ng/MpsInterface.cpp:406
+msgid "ground level"
+msgstr "уровень"
+
+#: src/lincity-ng/MpsInterface.cpp:416
+msgid "saddle point"
+msgstr ""
+
+#: src/lincity-ng/MpsInterface.cpp:418
+msgid "minimum"
+msgstr "минимум"
+
+#: src/lincity-ng/MpsInterface.cpp:420
+msgid "maximum"
+msgstr "максимум"
+
+#: src/lincity-ng/MpsInterface.cpp:422
+msgid "lowest edge"
+msgstr "наименьший"
+
+#: src/lincity-ng/MpsInterface.cpp:436
+msgid "Tax Income"
+msgstr "Доход/Расход"
+
+#: src/lincity-ng/MpsInterface.cpp:440
+msgid "Income"
+msgstr "Доход"
+
+#: src/lincity-ng/MpsInterface.cpp:456
+msgid "Expenses"
+msgstr "Затраты"
+
+#: src/lincity-ng/MpsInterface.cpp:460
+msgid "Unemp."
+msgstr "Безработица"
+
+#: src/lincity-ng/MpsInterface.cpp:464
+msgid "Transport"
+msgstr "Транспорт"
+
+#: src/lincity-ng/MpsInterface.cpp:468
+msgid "Imports"
+msgstr "Импорт"
+
+#: src/lincity-ng/MpsInterface.cpp:472
+msgid "Others"
+msgstr "Другое"
+
+#: src/lincity-ng/MpsInterface.cpp:477
+msgid "Net"
+msgstr "Баланс"
+
+#: src/lincity-ng/MpsInterface.cpp:489
+msgid "Other Costs"
+msgstr "Другие затраты"
+
+#: src/lincity-ng/MpsInterface.cpp:494
+msgid "For year"
+msgstr "За год"
+
+#: src/lincity-ng/MpsInterface.cpp:498
+msgid "Interest"
+msgstr "Заём"
+
+#: src/lincity-ng/MpsInterface.cpp:502
+msgid "Univers."
+msgstr "Университеты"
+
+#: src/lincity-ng/MpsInterface.cpp:504
+msgid "Deaths"
+msgstr "Смерти"
+
+#: src/lincity-ng/MpsInterface.cpp:508
+msgid "Hospital"
+msgstr "Госпиталь"
+
+#: src/lincity-ng/MpsInterface.cpp:510
+msgid "Rockets"
+msgstr "Ракеты"
+
+#: src/lincity-ng/MpsInterface.cpp:512
+msgid "Fire Stn"
+msgstr "Пожарные ст"
+
+#: src/lincity-ng/MpsInterface.cpp:514
+msgid "Sport"
+msgstr "Спорт"
+
+#: src/lincity-ng/MpsInterface.cpp:532
+msgid "Total"
+msgstr "Итого"
+
+#: src/lincity-ng/MpsInterface.cpp:533
 msgid "Housed"
 msgstr "Дома"
 
-#: src/lincity-ng/MpsInterface.cpp:536
+#: src/lincity-ng/MpsInterface.cpp:534
 msgid "Homeless"
 msgstr "Бездомные"
 
-#: src/lincity-ng/MpsInterface.cpp:538
-msgid "Unn Dths"
-msgstr "Смерти"
+#: src/lincity-ng/MpsInterface.cpp:536
+#, fuzzy
+msgid "Unnat. Deaths"
+msgstr "Погибшие"
 
-#: src/lincity-ng/MpsInterface.cpp:539
+#: src/lincity-ng/MpsInterface.cpp:537
 msgid "Unemployment"
 msgstr "Безработица"
 
-#: src/lincity-ng/MpsInterface.cpp:540
-msgid "Claims"
-msgstr "По болезни"
-
-#: src/lincity-ng/MpsInterface.cpp:541 src/lincity-ng/MpsInterface.cpp:546
-msgid "Rate"
-msgstr "Процент"
-
-#: src/lincity-ng/MpsInterface.cpp:543
+#: src/lincity-ng/MpsInterface.cpp:541
 msgid "Starvation"
 msgstr "Голодание"
 
-#: src/lincity-ng/MpsInterface.cpp:544
-msgid "Cases"
-msgstr "Смерти"
+#: src/lincity-ng/ScreenInterface.cpp:229
+#, fuzzy
+msgid "M"
+msgstr "млн."
 
-#: src/lincity-ng/EconomyGraph.cpp:124
+#: src/lincity-ng/ScreenInterface.cpp:242
+msgid "k"
+msgstr "тыс."
+
+#: src/lincity-ng/EconomyGraph.cpp:125
 msgid "Mining"
 msgstr "Рудн"
 
-#: src/lincity-ng/EconomyGraph.cpp:126
+#: src/lincity-ng/EconomyGraph.cpp:127
 msgid "Trade"
 msgstr "Ремсл"
 
-#: src/lincity-ng/EconomyGraph.cpp:128
-msgid "Money"
-msgstr "Денг"
-
-#: src/lincity-ng/EconomyGraph.cpp:130
+#: src/lincity-ng/EconomyGraph.cpp:131
 msgid "Popul."
 msgstr "Насел"
 
-#: src/lincity-ng/EconomyGraph.cpp:132
+#: src/lincity-ng/EconomyGraph.cpp:133
 msgid "Techn."
 msgstr "Наука"
 
-#: src/lincity-ng/EconomyGraph.cpp:137
+#: src/lincity-ng/EconomyGraph.cpp:138
 msgid "Economy Overview:"
 msgstr "Эконом развитие: "
 
-#: src/lincity-ng/EconomyGraph.cpp:140
+#: src/lincity-ng/EconomyGraph.cpp:141
 msgid "Sustainability:"
 msgstr "Поддержка: "
 
-#: src/lincity-ng/EconomyGraph.cpp:143
+#: src/lincity-ng/EconomyGraph.cpp:144
 msgid "Frames per Second:"
 msgstr "Кадров в секунду"
 
@@ -1338,151 +1281,57 @@ msgstr "Кадров в секунду"
 msgid "You lose."
 msgstr "Вы проиграли."
 
-#: src/lincity-ng/ButtonPanel.cpp:200
-msgid "Query Tool"
-msgstr "Курсор"
-
-#: src/lincity-ng/ButtonPanel.cpp:201
-msgid "Bulldozer"
-msgstr "Бульдозер"
-
-#: src/lincity-ng/ButtonPanel.cpp:203
-msgid "Residential: 50 denizens, low birthrate, high deathrate"
-msgstr "Резиденция: 50 жителей, низкая рождаемость, высокая смертность."
-
-#: src/lincity-ng/ButtonPanel.cpp:204
-msgid "Residential: 100 denizens, high birthrate, low deathrate"
-msgstr "Резиденция: 100 жителей, высокая рождаемость, низкая смертность."
-
-#: src/lincity-ng/ButtonPanel.cpp:205
-msgid "Residential: 200 denizens, high birthrate, high deathrate"
-msgstr "Резиденция: 200 жителей, высокая рождаемость, высокая смертность."
-
-#: src/lincity-ng/ButtonPanel.cpp:206
-msgid "Residential: 100 denizens, low birthrate, high deathrate"
-msgstr "Резиденция: 100 жителей, низкая рождаемость, высокая смертность."
-
-#: src/lincity-ng/ButtonPanel.cpp:207
-msgid "Residential: 200 denizens, high birthrate, low deathrate"
-msgstr "Резиденция: 200 жителей, высокая рождаемость, низкая смертность."
-
-#: src/lincity-ng/ButtonPanel.cpp:208
-msgid "Residential: 400 denizens, high birthrate, high deathrate"
-msgstr "Резиденция: 400 жителей, высокая рождаемость, высокая смертность."
-
-#: src/lincity-ng/ButtonPanel.cpp:217
-msgid " [Click right for help.]"
-msgstr " [Правая кнопка мыши для помощи.]"
-
-#: src/lincity-ng/ButtonPanel.cpp:245 src/lincity-ng/ButtonPanel.cpp:288
-#, c-format
-msgid "%s (Techlevel %.1f required.)"
-msgstr "%s (Необходим %.1f научный уровень.)"
-
-#: src/lincity-ng/ButtonPanel.cpp:254
-#, c-format
-msgid "%s is disabled (loaded old game)."
-msgstr "%s выключено (загрузка старой игры)."
-
-#: src/lincity-ng/ScreenInterface.cpp:263
-msgid "MM"
-msgstr "ММ"
-
-#: src/lincity-ng/Dialog.cpp:369
-#, c-format
-msgid ".Deaths by starvation %7d   History %8.3f"
-msgstr "Погибло от голода        %7d   История %8.3f"
-
-#: src/lincity-ng/Dialog.cpp:388
-#, c-format
-msgid ".   Residences %4d         Markets %4d            Farms %4d"
-msgstr " Резиденции        %4d   Магазины       %4d   Фермы         %4d"
-
-#: src/lincity-ng/Dialog.cpp:398
-#, c-format
-msgid ".  Water wells %4d"
-msgstr " Колодцы           %4d"
-
-#: src/lincity-ng/Dialog.cpp:400
-#, c-format
-msgid ".    Monuments %4d         Schools %4d     Universities %4d"
-msgstr " Монументы         %4d   Школы          %4d   Университеты  %4d"
-
-#: src/lincity-ng/Dialog.cpp:404
-#, c-format
-msgid ".Fire stations %4d           Parks %4d    Sports fields %4d"
-msgstr " Пожарные станции  %4d   Парки          %4d   Спортплощадки %4d"
-
-#: src/lincity-ng/Dialog.cpp:408
-#, c-format
-msgid "Health centres %4d            Tips %4d         Shanties %4d"
-msgstr " Больницы          %4d   Помойки        %4d   Хибары        %4d"
-
-#: src/lincity-ng/Dialog.cpp:414
-#, c-format
-msgid ".    Windmills %4d     Coal powers %4d     Solar powers %4d"
-msgstr " Мельницы          %4d   Угольные эл    %4d   Солнечные эл  %4d"
-
-#: src/lincity-ng/Dialog.cpp:419
-#, c-format
-msgid ".  Substations %4d     Power lines %4d            Ports %4d"
-msgstr " Подстанции        %4d   Электролинии   %4d   Порты         %4d"
-
-#: src/lincity-ng/Dialog.cpp:423
-#, c-format
-msgid ".       Tracks %4d           Roads %4d             Rail %4d"
-msgstr " Грунтовки         %4d   Дороги         %4d   Рельс         %4d"
-
-#: src/lincity-ng/Dialog.cpp:429
-#, c-format
-msgid ".    Potteries %4d     Blacksmiths %4d            Mills %4d"
-msgstr " Гончарная         %4d   Кузнечная      %4d   Мельница      %4d"
-
-#: src/lincity-ng/Dialog.cpp:433
-#, c-format
-msgid ".   Light inds %4d      Heavy inds %4d        Recyclers %4d"
-msgstr " Легкая инд-ия     %4d   Тяжелая инд-ия %4d   Переработка   %4d"
-
-#: src/lincity-ng/Dialog.cpp:437
-#, c-format
-msgid ".   Coal mines %4d       Ore mines %4d         Communes %4d"
-msgstr " Угольная шахта    %4d   Шахта руды     %4d   Община        %4d"
-
-#: src/lincity/modules/monument.cpp:61
-#, c-format
-msgid "%% Complete"
-msgstr "%% Завершено"
-
-# My adds
+#: src/lincity-ng/MainMenu.cpp:111
 msgid "Rocket_98"
 msgstr "Ракета 98"
 
-#~ msgid "NO "
-#~ msgstr "НЕТ"
+#: src/lincity-ng/MainMenu.cpp:112
+msgid "Beach"
+msgstr "Пляж"
 
-#~ msgid "Recycling"
-#~ msgstr "Переработка"
+#: src/lincity-ng/MainMenu.cpp:113
+msgid "bad_times"
+msgstr "Плохие времена"
 
-#~ msgid "Center"
-#~ msgstr "Центр"
+#: src/lincity-ng/MainMenu.cpp:114
+msgid "extreme_arid"
+msgstr "Засуха"
 
-#~ msgid "Heavy"
-#~ msgstr "Тяжелая "
+#: src/lincity-ng/MainMenu.cpp:115
+msgid "extreme_wetland"
+msgstr "Болото"
 
-#~ msgid "Industry"
-#~ msgstr "Индустрия"
+#: src/lincity-ng/MainMenu.cpp:116
+msgid "good_times"
+msgstr "Хорошие времена"
 
-#~ msgid "Output"
-#~ msgstr "Экспорт"
+#: src/lincity-ng/MainMenu.cpp:152
+msgid "river delta"
+msgstr "Река"
 
-#~ msgid "Power Station"
-#~ msgstr "Электрическая станция"
+#: src/lincity-ng/MainMenu.cpp:156
+msgid "semi desert"
+msgstr "Полупустыни"
 
-#~ msgid "Light"
-#~ msgstr "Свет"
+#: src/lincity-ng/MainMenu.cpp:160
+msgid "temperate"
+msgstr "Умеренный"
 
-#~ msgid "Solar"
-#~ msgstr "Солнце"
+#: src/lincity-ng/MainMenu.cpp:164
+msgid "swamp"
+msgstr "Болото"
 
-#~ msgid "Saving scene"
-#~ msgstr "Сохранение местности"
+#: src/lincity-ng/MainMenu.cpp:226
+msgid "empty"
+msgstr "пусто"
+
+#: src/lincity-ng/ButtonPanel.cpp:192 src/lincity-ng/ButtonPanel.cpp:230
+#: src/lincity-ng/ButtonPanel.cpp:363 src/lincity-ng/ButtonPanel.cpp:387
+#, fuzzy
+msgid "Techlevel"
+msgstr "Наука"
+
+#: src/lincity-ng/ButtonPanel.cpp:193 src/lincity-ng/ButtonPanel.cpp:231
+#: src/lincity-ng/ButtonPanel.cpp:364 src/lincity-ng/ButtonPanel.cpp:388
+msgid "required"
+msgstr "требуется"

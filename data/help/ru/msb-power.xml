@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- DO NOT CHANGE THIS FILE!! IT WAS GENERATED AUTOMATICALLY! (you must edit files in help_template directory) -->
 <Document style="helpdocument">
-	<p style="htitle">Зоны энергетики</p>
+	<p style="htitle">Зоны электроснабжения</p>
    <img src="images/gui/mapview/roundbuttons/round_electrics.png" halign="center"/>
 	<p style="hp">Зоны, в которых энергия вырабатывается маломощными ветряными мельницами, окрашены в тёмно-зелёный цвет. Зоны, подключенные непосредственно к ЛЭП, окрашены в светло-зелёный цвет. Зоны, не имеющие доступа к энергии, окрашены в красный цвет.</p>
 
