@@ -105,6 +105,20 @@ MainMenu::loadMainMenu()
 
 void MainMenu::fillNewGameMenu()
 {
+#if 1
+  //Do not remove it!
+  //It is need for localization
+  //
+  // If you going to remove this, you must
+  // get names from data/opening/*scn files,
+  // and update messages.pot from script.
+  (void)N_("Rocket_98");
+  (void)N_("Beach");
+  (void)N_("bad_times");
+  (void)N_("extreme_arid");
+  (void)N_("extreme_wetland");
+  (void)N_("good_times");
+#endif
   const std::string buttonNames[]={"File0","File1","File2","File3","File4","File5"};
 
   char **files= PHYSFS_enumerateFiles("opening");
