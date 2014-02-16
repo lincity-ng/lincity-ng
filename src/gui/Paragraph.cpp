@@ -202,6 +202,7 @@ Paragraph::parse(XmlReader& reader, const Style& parentstyle)
               if(node == "span" || node == "b" || node == "i"
                   || node == "a") {
                 commit_changes(currentspan,translatable);
+                stylestack.pop_back();
               } else {
                 std::cerr << "Internal error: unknown node end: '" <<
                   node << "'.\n";
