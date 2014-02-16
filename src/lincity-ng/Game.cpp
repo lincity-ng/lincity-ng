@@ -233,6 +233,23 @@ Game::run()
                          break;
                      }
 #endif
+                     int need_break=true;
+                     switch(gui_event.keysym.sym) {
+                       case SDLK_BACKQUOTE: getMiniMap()->mapViewChangeDisplayMode(MiniMap::NORMAL); break;
+                       case SDLK_1: getMiniMap()->mapViewChangeDisplayMode(MiniMap::STARVE); break;
+                       case SDLK_2: getMiniMap()->mapViewChangeDisplayMode(MiniMap::UB40); break;
+                       case SDLK_3: getMiniMap()->mapViewChangeDisplayMode(MiniMap::POWER); break;
+                       case SDLK_4: getMiniMap()->mapViewChangeDisplayMode(MiniMap::FIRE); break;
+                       case SDLK_5: getMiniMap()->mapViewChangeDisplayMode(MiniMap::CRICKET); break;
+                       case SDLK_6: getMiniMap()->mapViewChangeDisplayMode(MiniMap::HEALTH); break;
+                       case SDLK_7: getMiniMap()->mapViewChangeDisplayMode(MiniMap::TRAFFIC); break;
+                       case SDLK_8: getMiniMap()->mapViewChangeDisplayMode(MiniMap::POLLUTION); break;
+                       case SDLK_9: getMiniMap()->mapViewChangeDisplayMode(MiniMap::COAL); break;
+                       case SDLK_0: getMiniMap()->mapViewChangeDisplayMode(MiniMap::COMMODITIES); break;
+                       default:  need_break=false;
+                     }
+                     if (need_break) break;
+
                      gui->event(gui_event);
                      break;
                 }

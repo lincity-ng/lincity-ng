@@ -57,6 +57,8 @@ public:
     Construction::Commodities getStuffID();
     void toggleStuffID(int step);
 
+    void mapViewChangeDisplayMode(DisplayMode mode);
+
 private:
     void mapViewButtonClicked(CheckButton* button, int);
     void speedButtonClicked(CheckButton* button, int);

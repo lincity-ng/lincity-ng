@@ -466,9 +466,57 @@ std::string getNextButton(const std::string &pName)
     return mapViewButtons[i];
 }
 
-void MiniMap::mapViewButtonClicked(CheckButton* button, int mousebutton)
+void MiniMap::mapViewChangeDisplayMode(DisplayMode newMode)
 {
     Component *root = findRoot(this);
+    std::string name;
+
+    switch(newMode) {
+      case NORMAL:      name="MapViewNormal"; break;
+      case POLLUTION:   name="MapViewPollution"; break;
+      case UB40:        name="MapViewUB40"; break;
+      case STARVE:      name="MapViewFood"; break;
+      case POWER:       name="MapViewPower"; break;
+      case FIRE:        name="MapViewFire"; break;
+      case CRICKET:     name="MapViewSport"; break;
+      case HEALTH:      name="MapViewHealth"; break;
+      case COAL:        name="MapViewCoal"; break;
+      case TRAFFIC:     name="MapViewTraffic"; break;
+      default: name="";
+      //case COMMODITIES: name=//FIXME!
+    }
+    
+    for(int b = 0; mapViewButtons[b] != 0; ++b)
+    {
+        if(strlen(mapViewButtons[b]))
+        {
+            CheckButton* button = getCheckButton(*root, mapViewButtons[b]);
+            if(button->getName()==name)
+                button->check();
+            else
+                button->uncheck();
+        }
+    }
+
+    //FIXME there should be a way to actually use switch button
+    if (newMode==mMode && mMode == TRAFFIC)
+    {   newMode = COMMODITIES;}
+
+    if(mMode==COAL)
+    {
+        if(( coal_survey_done == 0 ) && ( !blockingDialogIsOpen ))
+        {    new Dialog( ASK_COAL_SURVEY );}
+    }
+
+    mMode=newMode;
+    //switchMapViewButton(name);
+    switchView("MiniMap");
+    getGameView()->setMapMode( mMode );
+    mFullRefresh=true;
+}
+
+void MiniMap::mapViewButtonClicked(CheckButton* button, int mousebutton)
+{
     std::string name = button->getName();
 
     if(mousebutton == SDL_BUTTON_RIGHT ) {
@@ -498,42 +546,16 @@ void MiniMap::mapViewButtonClicked(CheckButton* button, int mousebutton)
 
     return;
     }
+    DisplayMode newMode=getMode(name);
 
-    DisplayMode newMode=getMode(button->getName());
-    //FIXME there should be a way to actually use switch button
-    if (newMode==mMode && mMode == TRAFFIC)
-    {   newMode = COMMODITIES;}
     if(newMode==mMode)
     {
         // switch button
-        name=getNextButton(button->getName());
-        mMode=getMode(name);
-    }
-    else
-    {   mMode=newMode;}
-
-    if(mMode==COAL)
-    {
-        if(( coal_survey_done == 0 ) && ( !blockingDialogIsOpen ))
-        {    new Dialog( ASK_COAL_SURVEY );}
+        name=getNextButton(name);
+        newMode=getMode(name);
     }
 
-    for(int b = 0; mapViewButtons[b] != 0; ++b)
-    {
-        if(strlen(mapViewButtons[b]))
-        {
-            CheckButton* button = getCheckButton(*root, mapViewButtons[b]);
-            if(button->getName()==name)
-                button->check();
-            else
-                button->uncheck();
-        }
-    }
-
-    //switchMapViewButton(name);
-    switchView("MiniMap");
-    getGameView()->setMapMode( mMode );
-    mFullRefresh=true;
+    mapViewChangeDisplayMode(newMode);
 }
 
 void
