@@ -1223,6 +1223,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         {   resgrp = cst->graphicsGroup;}
         else
         {   resgrp = world(x, y)->getTileResourceGroup();}
+
         //adjust OnScreenPoint of big Tiles
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         unsigned short textureType = world(x, y)->getTopType();
@@ -1250,12 +1251,10 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
          || cstgrp == &tree3ConstructionGroup ))
         {
             cstgrp = &bareConstructionGroup;
-            resgrp = ResourceGroup::resMap["Empty"];
+            resgrp = ResourceGroup::resMap["Green"];
         }
 
-
-
-        if(resgrp->images_loaded && (size==1 || !hideHigh))
+        if(resgrp->images_loaded && (size==1 || !hideHigh) )
         {
             size_t s = resgrp->graphicsInfoVector.size();
             if (s)

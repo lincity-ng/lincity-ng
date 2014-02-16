@@ -9,7 +9,7 @@
  #include <stdlib.h>
 
 TileConstructionGroup waterConstructionGroup(
-    "Water",
+    N_("Water"),
      false,                     //need credit
      GROUP_WATER,
      1,                         //tilesize is always 1
@@ -23,7 +23,7 @@ TileConstructionGroup waterConstructionGroup(
 );
 
 TileConstructionGroup bareConstructionGroup(
-    "Empty",
+    N_("Empty"),
      false,                     //need credit
      GROUP_BARE,
      1,                         //tilesize is always 1
@@ -37,7 +37,7 @@ TileConstructionGroup bareConstructionGroup(
 );
 
 TileConstructionGroup desertConstructionGroup(
-    "Desert",
+    N_("Desert"),
      false,                     //need credit
      GROUP_DESERT,
      1,                         //tilesize is always 1
@@ -52,7 +52,7 @@ TileConstructionGroup desertConstructionGroup(
 
 
 TileConstructionGroup treeConstructionGroup(
-    "Tree",
+    N_("Tree"),
      false,                     //need credit
      GROUP_TREE,
      1,                         //tilesize is always 1
@@ -66,7 +66,7 @@ TileConstructionGroup treeConstructionGroup(
 );
 
 TileConstructionGroup tree2ConstructionGroup(
-    "Trees",
+    N_("Trees"),
      false,                     //need credit
      GROUP_TREE2,
      1,                         //tilesize is always 1
@@ -80,7 +80,7 @@ TileConstructionGroup tree2ConstructionGroup(
 );
 
 TileConstructionGroup tree3ConstructionGroup(
-    "Forest",
+    N_("Forest"),
      false,                     //need credit
      GROUP_TREE3,
      1,                         //tilesize is always 1

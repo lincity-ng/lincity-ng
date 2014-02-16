@@ -98,12 +98,13 @@ ResourceGroup* MapTile::getTileResourceGroup()
     if (!initialized)
     {
         initialized = true;
+        //These must match the Group names from all_modules.cpp NOT all_buldings.cpp
         bare = ResourceGroup::resMap["Green"];
         desert = ResourceGroup::resMap["Desert"];
         water = ResourceGroup::resMap["Water"];
         tree = ResourceGroup::resMap["Tree"];
         tree2 = ResourceGroup::resMap["Tree2"];
-        tree3 = ResourceGroup::resMap["Tree"];
+        tree3 = ResourceGroup::resMap["Tree3"];
 
     }
     switch (group)
