@@ -1362,7 +1362,7 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
         else if ((Counted<School>::getInstanceCount()/4 - Counted<University>::getInstanceCount()) < 1)
         {
             if (msg)
-                ok_dial_box("warning.mes", BAD, "Not enough students, build more schools.");
+                ok_dial_box("warning.mes", BAD, _("Not enough students, build more schools."));
             return false;
         }
         break;
