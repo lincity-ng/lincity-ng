@@ -174,7 +174,8 @@ public:
     Residence(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Residence>(x, y)
     {
         this->constructionGroup = cstgrp;
-        this->local_population = 5; //to aid converted savegames should not affect actual game mechanics too much
+        this->local_population = 0; // = 5 to aid converted savegames should not affect actual game mechanics too much
+        //dbirths +=5;
         setMemberSaved(&(this->local_population),"local_population");
         this->job_swingometer = 0;
         this->desireability = 0;

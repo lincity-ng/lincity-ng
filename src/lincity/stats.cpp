@@ -19,13 +19,14 @@
  * ---------------------------------------------------------------------- */
 
 /* Daily accumulators */
-int food_in_markets;
-int jobs_in_markets;
-int coal_in_markets;
-int goods_in_markets;
-int ore_in_markets;
-int steel_in_markets;
-int waste_in_markets;
+//int food_in_markets;
+//int jobs_in_markets;
+//int coal_in_markets;
+//int goods_in_markets;
+//int ore_in_markets;
+//int steel_in_markets;
+//int waste_in_markets;
+int dbirths, ddeaths;
 
 /* Monthly accumulators */
 int tfood_in_markets;
@@ -39,6 +40,9 @@ int tpopulation;
 int thousing;
 int tstarving_population;
 int tunemployed_population;
+int tbirths, tdeaths;
+int ltbirths = 0;
+int ltdeaths = 0;
 
 /* yearly */
 int income_tax;
@@ -89,6 +93,8 @@ void init_daily(void)
     housing = 0;
     starving_population = 0;
     unemployed_population = 0;
+    ddeaths = 0;
+    dbirths = 0;
 }
 
 void init_monthly(void)
@@ -98,7 +104,12 @@ void init_monthly(void)
     thousing = 0;
     tstarving_population = 0;
     tunemployed_population = 0;
+    ltunnat_deaths = unnat_deaths;
     unnat_deaths = 0;
+    ltbirths = tbirths;
+    ltdeaths = tdeaths;
+    tbirths = 0;
+    tdeaths = 0;
     init_census();
 }
 
@@ -186,6 +197,8 @@ void add_daily_to_monthly(void)
     thousing += housing;
     tstarving_population += starving_population;
     tunemployed_population += unemployed_population;
+    tbirths += dbirths;
+    tdeaths += ddeaths;
 }
 
 /** @file lincity/stats.cpp */

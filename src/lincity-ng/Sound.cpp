@@ -462,9 +462,9 @@ Sound::playMusic()
         if( getGame() && (current_tech < currentTrack.lowestTechLevel
             || current_tech > currentTrack.highestTechLevel)    )
         {
-            std::cerr << "Next track is " << currentTrack.title
-            << " and it's tech level prerequisites range from "
-            << currentTrack.lowestTechLevel << " to " << currentTrack.highestTechLevel << "." << std::endl;
+            //std::cerr << "Next track is " << currentTrack.title
+            //<< " and it's tech level prerequisites range from "
+            //<< currentTrack.lowestTechLevel << " to " << currentTrack.highestTechLevel << "." << std::endl;
             //std::cerr << "Current tech level is " << current_tech << "." << std::endl;
             changeTrack(NEXT_OR_FIRST_TRACK);
             return;

@@ -43,7 +43,12 @@ void fire_area(int x, int y)
     {
         //fire is an unatural death for one in two
         if(world(x,y)->is_residence())
-        {   unnat_deaths += ((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population/=2);}
+        {
+            int casualities = ((dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population/2);
+            (dynamic_cast<Residence*>(world(x,y)->reportingConstruction))->local_population -= casualities;
+            unnat_deaths += casualities;
+            ddeaths += casualities;
+        }
         ConstructionManager::submitRequest( new SetOnFire(world(x,y)->reportingConstruction));
     }
 }

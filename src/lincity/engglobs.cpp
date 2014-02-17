@@ -67,6 +67,7 @@ int dole_rate, transport_cost_rate;
 int goods_tax_rate;
 int export_tax_rate, import_cost_rate;
 int tech_level, highest_tech_level, unnat_deaths;
+int ltunnat_deaths = 0;
 int total_pollution = 0;
 
 int total_pollution_deaths = 0, total_starve_deaths = 0, total_unemployed_days = 0;

@@ -83,17 +83,18 @@ void add_a_shanty(void)
 
 void update_shanty(void)
 {
-    int i, pp;
     int numof_communes = Counted<Commune>::getInstanceCount();
     int numof_shanties = Counted<Shanty>::getInstanceCount();
     const int len = world.len();
     //Foersts make new people? Why not
     //people_pool += .3 * numof_communes;
+    int pp = people_pool;
     people_pool -= 5 * numof_shanties;
     if (people_pool < 0)
     {   people_pool = 0;  }
+    ddeaths += (pp - people_pool);
     pp = people_pool - (COMMUNE_POP * numof_communes);
-    i = (pp - SHANTY_MIN_PP) / SHANTY_POP;
+    int i = (pp - SHANTY_MIN_PP) / SHANTY_POP;
     if (i < 0)
     {   i = 0;}
     if (i > numof_shanties)

@@ -139,31 +139,30 @@ void Residence::update()
         commodityCount[STUFF_WATER] -= local_population;
         flags |= (FLAG_FED); //enable births
         good += 10;
-    } else
+    }
+    else
     {
         flags &= ~(FLAG_FED); //disable births
         if (local_population)
         {
-            if (total_time > deadline)
+            if (rand() % DAYS_PER_STARVE == 1)
             {
-                if (rand() % DAYS_PER_STARVE == 1)
-                {
-                    local_population--; //starving maybe deadly
-                    unnat_deaths++;
-                    total_starve_deaths++;
-                    starve_deaths_history += 1.0;
-                }
-                starving_population += local_population; //only the survivors are starving
-                bad += 250; // This place really sucks
-                drm = 100; //starving is also unhealty
+                local_population--; //starving maybe deadly
+                ++ddeaths;
+                ++unnat_deaths;
+                ++total_starve_deaths;
+                starve_deaths_history += 1.0;
             }
+            starving_population += local_population; //only the survivors are starving
+            bad += 250; // This place really sucks
+            drm = 100; //starving is also unhealty
         }
     }
     /* kick one out if overpopulated */
     if (local_population > max_population)
     {
-        local_population--;
-        people_pool++;
+        --local_population;
+        ++people_pool;
         extra_births = true;
     }
 
@@ -174,12 +173,13 @@ void Residence::update()
         flags |= FLAG_POWERED;
         flags |= FLAG_HAD_POWER;
         good += 10;
-    } else
+    }
+    else
     {
         flags &= ~(FLAG_POWERED);
         bad += 15;
         if ((flags & FLAG_HAD_POWER))
-            bad += 50;
+        {   bad += 50;}
     }
 
     /* now supply jobs and buy goods if employed */
@@ -272,12 +272,10 @@ void Residence::update()
             good += 100;
         break;
     }
-    //if (people_pool > 100)
-        //drm += (people_pool-100) / Counted<Residence>::getInstanceCount(); // homeless are short lived
     drm += local_population / 4;
     brm += local_population / 4;
     if (drm > RESIDENCE_BASE_DR - 1)
-        drm = RESIDENCE_BASE_DR - 1;
+    {   drm = RESIDENCE_BASE_DR - 1;}
     /* normal deaths + pollution deaths */
     po = ((world(x,y)->pollution / 16) + 1);
     pol_deaths = po>100?95:po-5>0?po-5:1;
@@ -289,7 +287,8 @@ void Residence::update()
     {
         if (r == 0) //one guy had bad luck
         {
-            local_population--;
+            --local_population;
+            ++ddeaths;
             if(rand() % 100 < pol_deaths) // deadly pollution
             {
                 unnat_deaths++;
@@ -309,8 +308,9 @@ void Residence::update()
     {
         if (rand() % births == 0)
         {
-            local_population++;
-            total_births++;
+            ++local_population;
+            ++total_births;
+            ++dbirths;
             good += 50;
         }
     }
@@ -327,14 +327,14 @@ void Residence::update()
     {
         if (local_population > MIN_RES_POPULATION)
         {
-            local_population--;
-            people_pool++;
+            --local_population;
+            ++people_pool;
         }
     } else if (people_pool > 0
                && r > ((good + bad) * (RESIDENCE_PPM - 1) + bad))  /* r > (rmax - good) */
     {
-        local_population++;
-        people_pool--;
+        ++local_population;
+        --people_pool;
     }
     /* XXX AL1: this is daily accumulator used stats.cpp, and maybe pop graph */
    population += local_population;

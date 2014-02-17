@@ -145,7 +145,7 @@ void Transport::update()
     }
     else if (commodityCount[STUFF_KWH] > 0)
     {
-        commodityCount[STUFF_KWH]--;
+        --commodityCount[STUFF_KWH];
     }
 
     if (commodityCount[STUFF_WASTE] > 9 * constructionGroup->commodityRuleCount[STUFF_WASTE].maxload / 10)
@@ -193,12 +193,12 @@ void Transport::report()
     i++;
     if(mps_map_page == 1)
     {
-        mps_store_title(i++, N_("Traffic") );
+        mps_store_title(i++, _("Traffic") );
         list_traffic(&i);
     }
     else
     {
-        mps_store_title(i++, N_("Commodities") );
+        mps_store_title(i++, _("Commodities") );
         list_commodities(&i);
     }
 }

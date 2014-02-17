@@ -15,8 +15,8 @@
 /*
   Note on variables (GCS):
   --
-  Variables that begin with a "t" (e.g. tpopulation) are monthly 
-  accumulators.  They are initialized to zero on the first day of 
+  Variables that begin with a "t" (e.g. tpopulation) are monthly
+  accumulators.  They are initialized to zero on the first day of
   the month.
   --
   The yearly accumulators have no prefix (e.g. income_tax).
@@ -29,15 +29,16 @@
 */
 #include "lintypes.h"
 
-
+/*daily*/
+extern int ddeaths, dbirths;
 
 /* monthly */
 extern int tpopulation;
 extern int thousing;
 extern int tstarving_population;
 extern int tunemployed_population;
-
-
+extern int tbirths, tdeaths;
+extern int ltbirths, ltdeaths;
 
 /* yearly */
 extern int income_tax;
