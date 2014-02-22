@@ -222,7 +222,7 @@ msgstr "кВт⋅ч"
 
 #: src/lincity/lintypes.cpp:391
 msgid "MWh"
-msgstr "мВт⋅ч"
+msgstr "МВт⋅ч"
 
 #: src/lincity/lintypes.cpp:1365
 msgid "Not enough students, build more schools."
@@ -341,7 +341,7 @@ msgstr "Ракетная установка"
 #: src/lincity/lintypes.cpp:1770 src/lincity/modules/windmill.cpp:12
 #: src/lincity-ng/MpsInterface.cpp:506
 msgid "Windmill"
-msgstr "Ветрогенератор"
+msgstr "Ветрогенераторы"
 
 #: src/lincity/lintypes.cpp:1781 src/lincity/modules/monument.cpp:14
 msgid "Monument"
@@ -509,7 +509,7 @@ msgstr "Плодородие"
 #: src/lincity-ng/MpsInterface.cpp:391
 #, fuzzy
 msgid "Air Pollution"
-msgstr "Загрязнение"
+msgstr "Загрязн."
 
 #: src/lincity/modules/waterwell.cpp:67
 msgid "Drinkable"
@@ -538,7 +538,7 @@ msgstr "Экспорт"
 #: src/lincity/modules/university.cpp:58
 #, fuzzy
 msgid "Tech researched"
-msgstr "Научные исследования"
+msgstr "Научные иссл."
 
 #: src/lincity/modules/solar_power.cpp:14
 #, fuzzy
@@ -632,7 +632,7 @@ msgstr "Загрязнение"
 
 #: src/lincity/modules/commune.cpp:141
 msgid "lazy months"
-msgstr "простой в месяцах"
+msgstr "Прост. мес."
 
 #: src/lincity/modules/light_industry.cpp:13
 msgid "Light Industry"
@@ -1205,7 +1205,7 @@ msgstr "Смерти"
 
 #: src/lincity-ng/MpsInterface.cpp:508
 msgid "Hospital"
-msgstr "Больница"
+msgstr "Больницы"
 
 #: src/lincity-ng/MpsInterface.cpp:510
 msgid "Rockets"
@@ -1244,6 +1244,14 @@ msgstr "Безработица"
 msgid "Starvation"
 msgstr "Голодание"
 
+#: src/lincity-ng/MpsInterface.cpp:542
+msgid "Monthly Births"
+msgstr "Рожд. мес."
+
+#: src/lincity-ng/MpsInterface.cpp:543
+msgid "Monthly Deaths"
+msgstr "Смерт. мес."
+
 #: src/lincity-ng/ScreenInterface.cpp:229
 #, fuzzy
 msgid "M"
@@ -1255,11 +1263,11 @@ msgstr "тыс."
 
 #: src/lincity-ng/EconomyGraph.cpp:125
 msgid "Mining"
-msgstr "Рудн"
+msgstr "Доб"
 
 #: src/lincity-ng/EconomyGraph.cpp:127
 msgid "Trade"
-msgstr "Ремсл"
+msgstr "Торг"
 
 #: src/lincity-ng/EconomyGraph.cpp:131
 msgid "Popul."
@@ -1271,7 +1279,7 @@ msgstr "Наука"
 
 #: src/lincity-ng/EconomyGraph.cpp:138
 msgid "Economy Overview:"
-msgstr "Эконом развитие: "
+msgstr "Экономическое развитие: "
 
 #: src/lincity-ng/EconomyGraph.cpp:141
 msgid "Sustainability:"

@@ -42,7 +42,7 @@ msgstr ""
 #: data/gui/pbar2nd.xml
 #, fuzzy
 msgid "Air Pollution"
-msgstr "Население"
+msgstr "Загрязнение"
 
 #: data/gui/credits.xml data/gui/newgame.xml data/gui/savegame.xml
 #: data/gui/loadgame.xml
@@ -227,7 +227,7 @@ msgstr "Загрузить игру"
 
 #: data/gui/pbar2nd.xml
 msgid "MWh"
-msgstr "мВт⋅ч"
+msgstr "МВт⋅ч"
 
 #: data/gui/minimap.xml
 msgid "Map"
@@ -498,7 +498,7 @@ msgstr "Солнечные электростанции доступны."
 
 #: data/gui/nobull-tip.xml
 msgid "Sorry you can't bulldoze a tip."
-msgstr "Уничтожить помойку невозможно."
+msgstr "Уничтожить свалку невозможно."
 
 #: data/gui/too-old.xml
 msgid ""
@@ -588,7 +588,7 @@ msgstr "Внимание: Попытка засыпать речку."
 
 #: data/gui/pbar2nd.xml data/gui/tradedialog.xml
 msgid "Waste"
-msgstr "Свалка"
+msgstr "Мусор"
 
 #: data/gui/pbar2nd.xml
 msgid "Water"
