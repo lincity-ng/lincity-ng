@@ -1454,7 +1454,7 @@ bool ConstructionGroup::is_allowed_here(int x, int y, bool msg)
     {
         if (msg)
         {
-            ok_dial_box("warning.mes", BAD, "You cannot build this item on credit!");
+            ok_dial_box("warning.mes", BAD, _("You cannot build this item on credit!"));
         }
         return false;
     }
