@@ -244,6 +244,10 @@ msgstr "Нельзя построить шахту: здесь руды нет"
 msgid "You can't build a park here: it is a desert, parks need water"
 msgstr "Нельзя построить парк: это пустыня, парку нужна вода"
 
+#: src/lincity/lintypes.cpp:1457
+msgid "You cannot build this item on credit!"
+msgstr "Это нельзя строить в кредит!"
+
 #: src/lincity/lintypes.cpp:1503
 msgid "Empty"
 msgstr "Пусто"
