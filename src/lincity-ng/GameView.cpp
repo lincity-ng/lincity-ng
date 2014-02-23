@@ -1218,7 +1218,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
     //Attention map is rotated for displaying
     if ( ( tile.x == x ) && ( tile.y - size +1 == y ) ) //Signs are tested
     {
-        Construction *cst = world(x,y)->reportingConstruction;
+        Construction *cst = world(x,y)->construction;
         if (cst)
         {   resgrp = cst->graphicsGroup;}
         else

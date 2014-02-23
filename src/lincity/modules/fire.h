@@ -52,7 +52,7 @@ public:
         this->anim = 0;
         this->days_before_spread = FIRE_DAYS_PER_SPREAD;
         setMemberSaved(&this->days_before_spread, "days_before_spread");
-        graphicsGroup = ResourceGroup::resMap[constructionGroup->name];
+        graphicsGroup = ResourceGroup::resMap[constructionGroup->resourceID];
         soundGroup = graphicsGroup;
     }
     virtual void update();
