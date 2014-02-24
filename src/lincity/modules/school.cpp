@@ -41,8 +41,8 @@ void School::update()
         total_tech_made += TECH_MADE_BY_SCHOOL;
         if( !animate && (busy >= 20) && (real_time > anim) ) //start the swing
         {
-            type = 1;
-            frames[0].frame = 2;
+            frameIt->frame = 1;
+            (frameIt + 1)->frame = 2;
             animate = true;
             anim = real_time + SCHOOL_ANIMATION_SPEED;
         }
@@ -56,23 +56,23 @@ void School::update()
     school_cost += SCHOOL_RUNNING_COST;
     if (animate && (real_time > anim)) // do the swing
     {
-        type = 1;
+        frameIt->frame = 1;
         anim = real_time + SCHOOL_ANIMATION_SPEED;
-        if ( ++(frames[0].frame) >= frames[0].resourceGroup->graphicsInfoVector.size())
+        if ( ++((frameIt + 1)->frame) >= (int)(frameIt + 1)->resourceGroup->graphicsInfoVector.size())
         {
 
             anim = real_time + SCHOOL_ANIMATION_BREAK- 100 * busy; //set swing delay
             if ((real_time >= anim)) // restart
             {
-                frames[0].frame = 3;
-                type = 1;
+                (frameIt + 1)->frame = 3;
+                frameIt->frame = 1;
                 animate = true;
                 anim = real_time + SCHOOL_ANIMATION_SPEED;
             }
             else //
             {
-                frames[0].frame = 0;
-                type = 0;
+                (frameIt + 1)->frame = -1;
+                frameIt->frame = 0;
                 animate = false;
             }
 

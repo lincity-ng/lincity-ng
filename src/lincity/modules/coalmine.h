@@ -57,6 +57,7 @@ public:
     Coalmine(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Coalmine>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->working_days = 0;
         this->busy = 0;
         this->current_coal_reserve = 0;  // has to be auto updated since coalmines may compete

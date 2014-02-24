@@ -345,7 +345,7 @@ void Residence::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sddp(i++, N_("Tenants"), local_population, max_population);
     mps_store_sd(i++, N_("Desireability"), desireability);
     mps_store_sf(i++, N_("Births per year"), (float)1200/births);

@@ -45,6 +45,7 @@ public:
     Fire(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Fire>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->burning_days = 0;
         setMemberSaved(&this->burning_days, "burning_days");
         this->smoking_days = 0;
@@ -52,8 +53,7 @@ public:
         this->anim = 0;
         this->days_before_spread = FIRE_DAYS_PER_SPREAD;
         setMemberSaved(&this->days_before_spread, "days_before_spread");
-        graphicsGroup = ResourceGroup::resMap[constructionGroup->resourceID];
-        soundGroup = graphicsGroup;
+
     }
     virtual void update();
     virtual void report();

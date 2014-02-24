@@ -51,7 +51,7 @@ void Parkland::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
 }

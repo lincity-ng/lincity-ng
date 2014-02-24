@@ -36,12 +36,12 @@ extern void ok_dial_box(const char *, int, const char *);
 void RocketPad::update()
 {
     // ok the party is over
-    if (type == 7)
+    if (frameIt->frame == 7)
     {   return;}
     rocket_pad_cost += ROCKET_PAD_RUNNING_COST;
     // store as much as possible or needed
     while(
-               (type < 4)
+               (frameIt->frame < 4)
             && (commodityCount[STUFF_JOBS] >= ROCKET_PAD_JOBS)
             && (commodityCount[STUFF_GOODS] >= ROCKET_PAD_GOODS)
             && (commodityCount[STUFF_STEEL] >= ROCKET_PAD_STEEL)
@@ -83,29 +83,29 @@ void RocketPad::update()
     }
 
     /* animate and return if already said no to launch */
-    if (type >= 4 && completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
+    if (frameIt->frame >= 4 && completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
     {
         if (real_time >= anim)
         {
             anim = real_time + ROCKET_ANIMATION_SPEED;
-            if(++type > 6)
-            {   type = 4;}
+            if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+            {   frameIt->frame = 4;}
         }
         return;
     }
 
     //Choose a Graphic and invoke Lauch Dialogue depening on completion
     if (completion < (25 * ROCKET_PAD_LAUNCH) / 100)
-    {   type = 0;}
+    {   frameIt->frame = 0;}
     else if (completion < (60 * ROCKET_PAD_LAUNCH) / 100)
-    {   type = 1;}
+    {   frameIt->frame = 1;}
     else if (completion < (90 * ROCKET_PAD_LAUNCH) / 100)
-    {   type = 2;}
+    {   frameIt->frame = 2;}
     else if (completion < (100 * ROCKET_PAD_LAUNCH) / 100)
-    {   type = 3;}
+    {   frameIt->frame = 3;}
     else if (completion >= (100 * ROCKET_PAD_LAUNCH) / 100)
     {
-        type = 4;
+        frameIt->frame = 4;
         //OK Button will launch rocket remotely
         if(!(flags & FLAG_ROCKET_READY))
         {   new Dialog( ASK_LAUNCH_ROCKET, x, y );}
@@ -117,7 +117,7 @@ void RocketPad::launch_rocket()
 {
     int i, r, xx, yy, xxx, yyy;
     rockets_launched++;
-    type = 7;
+    frameIt->frame = 7;
     busy = 0;
     /* The first five failures gives 49.419 % chances of 5 success
      * TODO: some stress could be added by 3,2,1,0 and animation of rocket with sound...

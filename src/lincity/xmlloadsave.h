@@ -9,7 +9,7 @@
 #define __xmlloadsave_h__
 
 /* New load/save format */
-#define XML_LOADSAVE_VERSION 1327
+#define XML_LOADSAVE_VERSION 1328
 
 #include <map>
 #include <vector>

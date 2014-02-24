@@ -50,49 +50,53 @@ void Coal_power::update()
     if (total_time % 100 == 0)
     {
         busy = working_days / (mwh_output/100);
-        animate = (frames[0].resourceGroup->images_loaded);
+        animate = (frameIt->resourceGroup->images_loaded);
+        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
         if(animate)
         {
-            size_t active = frames.size()*busy/90;
-            for(size_t i=0; i < frames.size(); ++i)
+            size_t active = 8*busy/90;
+
+            for(size_t i=0; i < 8; ++i, ++frit)
             {
                 if (i < active)
                 {
-                    if(!frames[i].frame)
-                    {   frames[i].frame = (rand()+1) % (frames[i].resourceGroup->graphicsInfoVector.size());}
+                    if( (frit->frame >= 0) || ( (rand() % 256) > 16) )
+                    // always randomize new plumes and sometimes existing ones
+                    {   frit->frame = (rand()+1) % (frit->resourceGroup->graphicsInfoVector.size());}
                 }
                 else
-                {   frames[i].frame = 0;}
+                {   frit->frame = -1;}
             }
         }
         else
         {
-            for(size_t i=0; i < frames.size(); ++i)
-            {   frames[i].frame = 0;}
+            for(size_t i=0; i < 8; ++i, ++frit)
+            {   frit->frame = -1;}
         }
         working_days = 0;
     }
     /* choose a graphic */
 
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS*4/5))
-    {   graphicsGroup = ResourceGroup::resMap["PowerCoalFull"];}
+    {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalFull"];}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 2))
-    {   graphicsGroup = ResourceGroup::resMap["PowerCoalMed"];}
+    {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalMed"];}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_COALPS / 10))
-    {   graphicsGroup = ResourceGroup::resMap["PowerCoalLow"];}
+    {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalLow"];}
     else
-    {   graphicsGroup = ResourceGroup::resMap["PowerCoalEmpty"];}
-    soundGroup = graphicsGroup;
+    {   frameIt->resourceGroup = ResourceGroup::resMap["PowerCoalEmpty"];}
+    soundGroup = frameIt->resourceGroup;
 
     if (animate && (real_time > anim))
     {
         anim = real_time + SMOKE_ANIM_SPEED;
-        for(size_t i = 0; i < frames.size(); ++i)
+        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
+        for(size_t i = 0; i < 8; ++i, ++frit)
         {
-            if (frames[i].frame)
+            if (frit->frame >= 0)
             {
-                if(++(frames[i].frame) >= frames[i].resourceGroup->graphicsInfoVector.size())
-                {   frames[i].frame = 1;}
+                if(++(frit->frame) >= (int)frit->resourceGroup->graphicsInfoVector.size())
+                {   frit->frame = 1;}
             }
         }
     }
@@ -102,7 +106,7 @@ void Coal_power::update()
 void Coal_power::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++,constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), mwh_output);

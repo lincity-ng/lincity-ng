@@ -93,14 +93,14 @@ void Coalmine::update()
     }
     //choose type depending on availabe coal
     if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE - (MAX_COAL_AT_MINE / 4)))//75%
-    {   graphicsGroup = ResourceGroup::resMap["CoalMineFull"];}
+    {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineFull"];}
     else if (commodityCount[STUFF_COAL] > (MAX_COAL_AT_MINE / 2))//50%
-    {   graphicsGroup = ResourceGroup::resMap["CoalMineMed"];}
+    {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineMed"];}
     else if (commodityCount[STUFF_COAL] > 0)//something
-    {   graphicsGroup = ResourceGroup::resMap["CoalMineLow"];}
+    {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMineLow"];}
     else//nothing
-    {   graphicsGroup = ResourceGroup::resMap["CoalMine"];}
-    soundGroup = graphicsGroup;
+    {   frameIt->resourceGroup = ResourceGroup::resMap["CoalMine"];}
+    soundGroup = frameIt->resourceGroup;
 
     //Evacuate Mine if no more deposits
     if (current_coal_reserve == 0 )
@@ -116,7 +116,7 @@ void Coalmine::update()
 void Coalmine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Deposits"), current_coal_reserve, initial_coal_reserve);
     i++;

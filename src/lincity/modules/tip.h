@@ -48,6 +48,7 @@ public:
     Tip(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Tip>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->total_waste = 0;
         setMemberSaved(&this->total_waste,"total_waste");

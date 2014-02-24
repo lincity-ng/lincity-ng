@@ -58,6 +58,7 @@ public:
     Pottery(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Pottery>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->anim = 0; // or real_time?
         this->pauseCounter = 0;
         this->busy = 0;

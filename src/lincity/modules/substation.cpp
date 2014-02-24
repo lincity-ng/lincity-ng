@@ -48,18 +48,18 @@ void Substation::update()
     }
     /* choose a graphic */
     if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 2))
-    {   graphicsGroup = ResourceGroup::resMap["SubstationOn"];}
+    {   frameIt->resourceGroup = ResourceGroup::resMap["SubstationOn"];}
     else if (commodityCount[STUFF_KWH] > (MAX_KWH_AT_SUBSTATION / 10))
-    {   graphicsGroup = ResourceGroup::resMap["SubstationOff"];}
+    {   frameIt->resourceGroup = ResourceGroup::resMap["SubstationOff"];}
     else
-    {   graphicsGroup = ResourceGroup::resMap["Substation"];}
-    soundGroup = graphicsGroup;
+    {   frameIt->resourceGroup = ResourceGroup::resMap["Substation"];}
+    soundGroup = frameIt->resourceGroup;
 }
 
 void Substation::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("busy"), busy);
     i++;

@@ -97,57 +97,12 @@ void Oremine::update()
         //faster animation for more active mines
         anim = real_time + ((14 - busy/11) * OREMINE_ANIMATION_SPEED);
         anim_count = (anim_count + days_offset) & 15;
-        switch (anim_count)
-        {
-            case (0):
-                type = 0;
-                break;
-            case (1):
-                type = 1;
-                break;
-            case (2):
-                type = 2;
-                break;
-            case (3):
-                type = 3;
-                break;
-            case (4):
-                type = 4;
-                break;
-            case (5):
-                type = 5;
-                break;
-            case (6):
-                type = 6;
-                break;
-            case (7):
-                type = 7;
-                break;
-            case (8):
-                type = 6;
-                break;
-            case (9):
-                type = 5;
-                break;
-            case (10):
-                type = 4;
-                break;
-            case (11):
-                type = 3;
-                break;
-            case (12):
-                type = 4;
-                break;
-            case (13):
-                type = 3;
-                break;
-            case (14):
-                type = 2;
-                break;
-            case (15):
-                type = 1;
-                break;
-        }//endswitch
+        if(anim_count < 8)
+        {   frameIt->frame = anim_count;}
+        else if (anim_count < 12)
+        {   frameIt->frame = 14 - anim_count;}
+        else
+        {   frameIt->frame = 16 - anim_count;}
     }//end if animate
 
     //Evacuate Mine if no more deposits
@@ -164,7 +119,7 @@ void Oremine::update()
 void Oremine::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Deposits"), total_ore_reserve, (constructionGroup->size * constructionGroup->size * ORE_RESERVE));
     i++;

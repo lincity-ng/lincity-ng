@@ -37,16 +37,16 @@ void Powerline::update()
             switch (anim_counter)
             {
                 case POWER_MODULUS - 2:
-                    if ( !(type >= 11) )
+                    if ( !(frameIt->frame >= 11) )
                         break;
                     flashing = false;
-                    type -= 11;
+                    frameIt->frame -= 11;
                     break;
                 case POWER_MODULUS:
-                    if ( !(type <= 10) )
+                    if ( !(frameIt->frame <= 10) )
                         break;
                     flashing = true;
-                    type += 11;
+                    frameIt->frame += 11;
                     break;
             } //end switch anim_counter
             --anim_counter;
@@ -58,7 +58,7 @@ void Powerline::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("usage"), trafficCount[STUFF_MWH] * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);
     i++;
     list_commodities(&i);

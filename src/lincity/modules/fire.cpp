@@ -42,41 +42,38 @@ void Fire::update()
         //is_burning = false;
         if (smoking_days == 0)   /* rand length here also */
         {   smoking_days = rand() % (AFTER_FIRE_LENGTH / 6);}
-        if(graphicsGroup == ResourceGroup::resMap["Fire"])
+        if(frameIt->resourceGroup == ResourceGroup::resMap["Fire"])
         {
-            graphicsGroup = ResourceGroup::resMap["FireWasteLand"];
-            soundGroup = graphicsGroup;
+            frameIt->resourceGroup = ResourceGroup::resMap["FireWasteLand"];
+            soundGroup = frameIt->resourceGroup;
         }
         smoking_days++;
         if (world(x,y)->flags & FLAG_FIRE_COVER)
-            smoking_days += 4;
+        {   smoking_days += 4;}
         if (smoking_days > AFTER_FIRE_LENGTH)
-            ConstructionManager::submitRequest
-                (
-                    new ConstructionDeletionRequest(this)
-                );
+        {   ConstructionManager::submitRequest( new ConstructionDeletionRequest(this) ); }
         else if (smoking_days > (3 * AFTER_FIRE_LENGTH) / 4)
-            type = 3;
+        {   frameIt->frame = 3;}
         else if (smoking_days > (2 * AFTER_FIRE_LENGTH) / 4)
-            type = 2;
+        {   frameIt->frame = 2;}
         else if (smoking_days > (AFTER_FIRE_LENGTH) / 4)
-            type = 1;
+        {   frameIt->frame = 1;}
         else
-            type = 0;
+        {   frameIt->frame = 0;}
         return;
     }
 
     burning_days++;
     if (world(x,y)->flags & FLAG_FIRE_COVER)
-    {       burning_days += 4;}
+    {   burning_days += 4;}
     days_before_spread--;
     if( !(flags & FLAG_IS_GHOST) )
     {   world(x,y)->pollution++;}
     if (real_time > anim)
     {
         anim = real_time + FIRE_ANIMATION_SPEED;
-        if(++type >= graphicsGroup->graphicsInfoVector.size())
-        {   type = 0;}
+        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+        {   frameIt->frame = 0;}
     }
     if ((days_before_spread == 0) && !(flags & FLAG_IS_GHOST))
     {
@@ -107,13 +104,13 @@ void Fire::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++,constructionGroup->name, ID);
     i++;
-    mps_store_sd(i++,N_("Air Pollution"),world(x,y)->pollution);
+    mps_store_sd(i++,N_("Air Pollution"), world(x,y)->pollution);
     if (burning_days < FIRE_LENGTH)
-    {   mps_store_sddp(i++,N_("burnt down"),burning_days,FIRE_LENGTH);}
+    {   mps_store_sddp(i++,N_("burnt down"), burning_days, FIRE_LENGTH);}
     else
-    {   mps_store_sddp(i++,N_("degraded"),smoking_days,AFTER_FIRE_LENGTH);}
+    {   mps_store_sddp(i++,N_("degraded"), smoking_days, AFTER_FIRE_LENGTH);}
 }
 
 /** @file lincity/modules/fire.cpp */

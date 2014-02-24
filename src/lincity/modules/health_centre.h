@@ -52,6 +52,7 @@ public:
     HealthCentre(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<HealthCentre>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->active = false;
         setMemberSaved(&(this->active),"active");
         this->busy = 0;

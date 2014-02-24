@@ -63,7 +63,7 @@ void Recycle::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("Tech"), tech * 100.0f / MAX_TECH_LEVEL);
     mps_store_sfp(i++, N_("Efficiency Ore"), (float) make_ore * 100 / WASTE_RECYCLED);

@@ -53,6 +53,7 @@ public:
     Oremine(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Oremine>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->anim = 0;
         this->animate = false;
         this->working_days = 0;

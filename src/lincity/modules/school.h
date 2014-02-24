@@ -57,8 +57,10 @@ public:
     School(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<School>(x, y)
     {
         this->constructionGroup = cstgrp;
-        frames.resize(1);
-        frames[0].resourceGroup = ResourceGroup::resMap["School"]; //host of the swing
+        init_resources();
+        world(x,y)->framesptr->resize(world(x,y)->framesptr->size() + 1);
+        (frameIt + 1)->resourceGroup = ResourceGroup::resMap["School"]; //host of the swing
+        (frameIt +1)->frame = -1; //hide the swing
         this->animate = false;
         this->anim = 0;
         this->working_days = 0;

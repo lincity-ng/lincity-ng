@@ -63,6 +63,7 @@ public:
     Blacksmith(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Blacksmith>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->anim = 0;
         this->pauseCounter = 0;
         this->busy = 0;

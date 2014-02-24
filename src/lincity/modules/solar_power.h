@@ -48,6 +48,7 @@ public:
     SolarPower(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<SolarPower>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;

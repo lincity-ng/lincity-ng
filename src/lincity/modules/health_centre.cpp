@@ -74,7 +74,7 @@ void HealthCentre::report() {
     int i = 0;
     const char* p;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;
     list_commodities(&i);

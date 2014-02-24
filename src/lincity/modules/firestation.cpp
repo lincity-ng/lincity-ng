@@ -51,12 +51,12 @@ void FireStation::update()
     if (animate && real_time > anim)
     {
         anim = real_time + FIRESTATION_ANIMATION_SPEED;
-        ++type;
-        if(type == 6)
-        {   anim += 10*FIRESTATION_ANIMATION_SPEED;}
-        if(type >= graphicsGroup->graphicsInfoVector.size())
+        ++(frameIt->frame);
+        if((frameIt->frame) == 6)
+        {   anim += 10 * FIRESTATION_ANIMATION_SPEED;}
+        if(frameIt->frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
         {
-            type = 0;
+            frameIt->frame = 0;
             animate = false;
         }
     }
@@ -89,7 +89,7 @@ void FireStation::report()
 {
     int i = 0;
     const char* p;
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;
     list_commodities(&i);

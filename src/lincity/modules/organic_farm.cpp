@@ -95,10 +95,10 @@ void Organic_farm::update()
             //Every year
             if (i % 4 == 0)
             {   month_stagger = rand() % 100;}
-            type = 1+i/4;
+            frameIt->frame = 1+i/4;
         }
         else
-        {   type = 0;}
+        {   frameIt->frame = 0;}
     }
 }
 
@@ -106,7 +106,7 @@ void Organic_farm::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sddp(i++, N_("Fertility"), ugwCount, 16);
     mps_store_sfp(i++, N_("Tech"), tech * 100.0 / MAX_TECH_LEVEL);

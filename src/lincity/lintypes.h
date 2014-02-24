@@ -34,6 +34,7 @@ void get_type_name(short type, char *s);
 unsigned short get_group_of_type(unsigned short selected_type);
 void set_map_groups(void);
 /********** Data structures ***************/
+#include <deque>
 #include <vector>
 #include <map>
 #include <string>
@@ -47,8 +48,23 @@ void set_map_groups(void);
 #include <SDL_image.h>
 #include "gui/Texture.hpp"
 #include "tinygettext/gettext.hpp"
+
 class Construction;
 class ResourceGroup;
+
+struct ExtraFrame{
+    ExtraFrame(void){
+        move_x = 0;
+        move_y = 0;
+        frame = 0;
+        resourceGroup = 0;
+    }
+
+    int move_x; // >0 moves frame to the right
+    int move_y; // >0 moves frame downwards
+    int frame; //frame >= 0 will be rendered as overlay
+    ResourceGroup *resourceGroup; //overlay frame is choosen from its GraphicsInfoVector
+};
 
 // Class to count instanced objects of each construction type
 
@@ -118,9 +134,14 @@ public:
     unsigned short coal_reserve;          //underground coal
     unsigned short ore_reserve;           //underground ore
     int pollution;                        //air pollution (under ground pollution is in ground[][])
-
+    std::deque<ExtraFrame> *framesptr;    //Overlays to be rendered on top of type, mostly NULL
+                                          //use memberfunctions to add and remove sprites
 
     void setTerrain(unsigned short group); //places type & group at MapTile
+    std::deque<ExtraFrame>::iterator createframe(); //creates new empty ExtraFrames
+                                                    //to be used by Contstructions and Vehicles
+    void killframe(std::deque<ExtraFrame>::iterator it); //kills an extraframe
+
     unsigned short getType();          //type of bare land or the covering construction
     unsigned short getTopType();       //type of bare land or the actual construction
     unsigned short getLowerstVisibleType(); //like getType but type of terrain underneath transparent constructions
@@ -161,19 +182,7 @@ struct CommodityRule{
     bool give;
 };
 
-struct ExtraFrame{
-    ExtraFrame(void){
-        move_x = 0;
-        move_y = 0;
-        frame = 0;
-        resourceGroup = 0;
-    }
 
-    int move_x; // >0 moves frame to the right
-    int move_y; // >0 moves frame downwards
-    unsigned short frame; //frame !=0 will be rendered as overlay
-    ResourceGroup *resourceGroup; //overlay frame is choosen from its GraphicsInfoVector
-};
 
 
 class Construction {
@@ -184,10 +193,10 @@ public:
 
 
     ConstructionGroup *constructionGroup;
-    ResourceGroup *graphicsGroup;
+    //ResourceGroup *graphicsGroup;
     ResourceGroup *soundGroup;
 
-    unsigned short type;
+    //unsigned short type;
     int x, y;
     int ID;
     int flags;              //flags are defined in lin-city.h
@@ -219,9 +228,10 @@ public:
     std::map<std::string, MemberRule> memberRuleCount; //what to do with stuff at this construction
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
-    std::vector<ExtraFrame> frames;             //Overlays to be rendered on top of type
+    //std::vector<ExtraFrame> frames;             //Overlays to be rendered on top of type
+    std::deque<ExtraFrame>::iterator frameIt;
     static std::string getStuffName(Commodities stuff_id); //translated name of a commodity
-    void init_resources(void);                  //sets sounds and graphics according to constructionGroup
+    void init_resources(void);                      //sets sounds and graphics according to constructionGroup
     void list_commodities(int *);                   //prints a sorted list all commodities in report()
     void report_commodities(void);                  //adds commodities and capacities to gloabl stat counter
     void initialize_commodities(void);              //sets all commodities to 0 and marks them as saved members
@@ -276,10 +286,10 @@ class RegisteredConstruction: public Construction, public Counted<ConstructionCl
 public:
     RegisteredConstruction<ConstructionClass>( int x, int y)
     {
-        this->type = 0;//safe default
-        this->soundGroup = 0;//to be set in ConstgructionGroup::placeItem
-        this->graphicsGroup = 0;//to be set in ConstgructionGroup::placeItem
-        setMemberSaved(&(this->type),"type");
+        //this->type = 0;//safe default
+        this->soundGroup = 0;//to be set by init_resources()
+        //this->graphicsGroup = 0;//to be set in ConstgructionGroup::placeItem
+        //setMemberSaved(&(this->type),"type");
         this->x = x;
         this->y = y;
         this->ID = Counted<ConstructionClass>::getNextId();

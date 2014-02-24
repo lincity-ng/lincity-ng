@@ -373,10 +373,9 @@ used for high traffic, the second half as low traffic
 
     <group>
     <resourceID name="WindMillHTech" />
-<!--
     <resourceID name="WindMillHTechRG" />
     <resourceID name="WindMillHTechG" />
--->
+
     <sound file="WindMillHTech1.wav" />
     <sound file="WindMillHTech2.wav" />
     </group>

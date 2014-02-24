@@ -38,6 +38,7 @@ public:
     Parkland(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Parkland>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->flags |= FLAG_NEVER_EVACUATE;
     }
     virtual void update();

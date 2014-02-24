@@ -69,6 +69,7 @@ public:
     Commune(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Commune>(x ,y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->anim = 0; // or real_time?
         this->animate = false;
         this->steel_made = false;

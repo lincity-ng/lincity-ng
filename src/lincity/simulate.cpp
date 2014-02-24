@@ -74,7 +74,7 @@ static void end_of_month_update(void);
 static void start_of_year_update(void);
 static void end_of_year_update(void);
 static void simulate_mappoints(void);
-extern void desert_frontier(int originx, int originy, int w, int h);
+//extern void desert_water_frontier(int originx, int originy, int w, int h);
 
 static void sustainability_test(void);
 static int sust_fire_cover(void);

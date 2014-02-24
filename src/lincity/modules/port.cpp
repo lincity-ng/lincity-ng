@@ -109,7 +109,7 @@ void Port::update()
 void Port::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sd(i++, N_("Export"),lastm_et/100);
     mps_store_sd(i++, N_("Import"),lastm_ic/100);

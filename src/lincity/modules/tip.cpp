@@ -67,7 +67,7 @@ void Tip::update()
         int i = (total_waste /3 * 22) / MAX_WASTE_AT_TIP;
         if (total_waste > 0 && i < 8)
         {   i++;}
-        type = i;
+        frameIt->frame = i;
     }
 }
 
@@ -75,7 +75,7 @@ void Tip::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++,N_("busy"), busy);
     mps_store_sd(i++, N_("Waste"), total_waste);

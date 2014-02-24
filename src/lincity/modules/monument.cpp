@@ -53,10 +53,10 @@ void Monument::update()
         if(!completed)
         {
             completed = true;
-            type = 0;
+            frameIt->frame = 0;
             flags |= (FLAG_EVACUATE | FLAG_NEVER_EVACUATE);
-            graphicsGroup = ResourceGroup::resMap["Monument"];
-            soundGroup = graphicsGroup;
+            frameIt->resourceGroup = ResourceGroup::resMap["Monument"];
+            soundGroup = frameIt->resourceGroup;
             if (mps_x == x && mps_y == y)
             {   mps_set(x, y, MPS_MAP);}
             //dont clear commodiyCount for savegame compatability
@@ -76,22 +76,22 @@ void Monument::update()
         }
     }
     else if (completion >= 80)
-    {   type = 4;}
+    {   frameIt->frame = 4;}
     else if (completion >= 60)
-    {   type = 3;}
+    {   frameIt->frame = 3;}
     else if (completion >= 40)
-    {   type = 2;}
+    {   frameIt->frame = 2;}
     else if (completion >= 20)
-    {   type = 1;}
+    {   frameIt->frame = 1;}
     else
-    {   type = 0;}
+    {   frameIt->frame = 0;}
 }
 
 void Monument::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     /* Display tech contribution only after monument is complete */
     if (completion >= 100) {

@@ -59,25 +59,38 @@ public:
     Coal_power(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Coal_power>(x, y)
     {
         this->constructionGroup = cstgrp;
-        frames.resize(8);
-        for (size_t i = 0; i < frames.size(); ++i)
-        {   frames[i].resourceGroup = ResourceGroup::resMap["PowerCoalEmpty"];}
-        frames[0].move_x = 5;
-        frames[0].move_y = -378;
-        frames[1].move_x = 29;
-        frames[1].move_y = -390;
-        frames[2].move_x = 52;
-        frames[2].move_y = -397;
-        frames[3].move_x = 76;
-        frames[3].move_y = -409;
-        frames[4].move_x = 65;
-        frames[4].move_y = -348;
-        frames[5].move_x = 89;
-        frames[5].move_y = -360;
-        frames[6].move_x = 112;
-        frames[6].move_y = -371;
-        frames[7].move_x = 136;
-        frames[7].move_y = -383;
+        init_resources();
+        world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+8);
+        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
+        for (; frit != world(x,y)->framesptr->end(); ++frit)
+        {
+            frit->resourceGroup = ResourceGroup::resMap["PowerCoalEmpty"];
+            frit->frame = -1; // hide smoke
+        }
+        frit = frameIt + 1;
+        frit->move_x = 5;
+        frit->move_y = -378;
+        ++frit;
+        frit->move_x = 29;
+        frit->move_y = -390;
+        ++frit;
+        frit->move_x = 52;
+        frit->move_y = -397;
+        ++frit;
+        frit->move_x = 76;
+        frit->move_y = -409;
+        ++frit;
+        frit->move_x = 65;
+        frit->move_y = -348;
+        ++frit;
+        frit->move_x = 89;
+        frit->move_y = -360;
+        ++frit;
+        frit->move_x = 112;
+        frit->move_y = -371;
+        ++frit;
+        frit->move_x = 136;
+        frit->move_y = -383;
         this->anim = 0;
         this->animate = false;
         this->tech = tech_level;

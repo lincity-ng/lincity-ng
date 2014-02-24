@@ -39,6 +39,7 @@ public:
     Waterwell(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Waterwell>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->busy = 0;
         this->working_days = 0;
         initialize_commodities();

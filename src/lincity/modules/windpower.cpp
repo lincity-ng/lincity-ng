@@ -54,15 +54,16 @@ void Windpower::update()
     //Animation
     if (animate && (real_time > anim))
     {
-        ++type;
-        type %= 3;
+        ++(frameIt->frame);
+        frameIt->frame %= 3;
         anim = real_time + WIND_POWER_ANIM_SPEED;
         if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/2)
-        {   graphicsGroup = ResourceGroup::resMap["WindMillHTechG"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTechG"];}
         else if (commodityCount[STUFF_MWH] > MAX_MWH_AT_WIND_POWER/10)
-        {   graphicsGroup = ResourceGroup::resMap["WindMillHTechRG"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTechRG"];}
         else
-        {   graphicsGroup = ResourceGroup::resMap["WindMillHTech"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["WindMillHTech"];}
+        soundGroup = frameIt->resourceGroup;
     }
 }
 
@@ -70,7 +71,7 @@ void Windpower::update()
 void Windpower::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), float(busy) / mwh_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), mwh_output);

@@ -173,11 +173,12 @@ public:
                 this->subgroupID = countedRailBridge->getNextId();
             break;
             default :
-                std::cout << "invalid transport type,group,x,y "
-                << type << ", " << group << ", "
+                std::cout << "invalid transport group,x,y "
+                << ", " << group << ", "
                 << x << ", " << y << ", " << std::endl;
                 assert(false);
         }
+        init_resources();
 
         initialize_commodities();
         this->trafficCount = this->commodityCount;

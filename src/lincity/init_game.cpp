@@ -1303,36 +1303,43 @@ static void remove_river(void)
 
 static void nullify_mappoint(int x, int y)
 {
-    if(world(x,y)->construction)
+    MapTile * tile = world(x,y);
+    if(tile->construction)
     {
         do_bulldoze_area(x, y);
         //turn fresh desert into grass
-        world(x,y)->type = CST_GREEN;
-        world(x,y)->group = GROUP_BARE;
+        tile->type = CST_GREEN;
+        tile->group = GROUP_BARE;
     }
     else
     {
-        world(x,y)->reportingConstruction = NULL;
-        world(x,y)->type = CST_GREEN;
-        world(x,y)->group = GROUP_BARE;
+        tile->reportingConstruction = NULL;
+        tile->type = CST_GREEN;
+        tile->group = GROUP_BARE;
     }
-    world(x,y)->flags = 0;
-    world(x,y)->coal_reserve = 0;
-    world(x,y)->ore_reserve = 0;
-    world(x,y)->pollution = 0;
+    if (tile->framesptr)
+    {
+        tile->framesptr->clear();
+        delete tile->framesptr;
+        tile->framesptr = NULL;
+    }
+    tile->flags = 0;
+    tile->coal_reserve = 0;
+    tile->ore_reserve = 0;
+    tile->pollution = 0;
 
-    world(x,y)->ground.altitude = 0;
-    world(x,y)->ground.ecotable = 0;
-    world(x,y)->ground.wastes = 0;
-    world(x,y)->ground.pollution = 0;
-    world(x,y)->ground.water_alt = 0;
-    world(x,y)->ground.water_pol = 0;
-    world(x,y)->ground.water_wast = 0;
-    world(x,y)->ground.water_next = 0;
-    world(x,y)->ground.int1 = 0;
-    world(x,y)->ground.int2 = 0;
-    world(x,y)->ground.int3 = 0;
-    world(x,y)->ground.int4 = 0;
+    tile->ground.altitude = 0;
+    tile->ground.ecotable = 0;
+    tile->ground.wastes = 0;
+    tile->ground.pollution = 0;
+    tile->ground.water_alt = 0;
+    tile->ground.water_pol = 0;
+    tile->ground.water_wast = 0;
+    tile->ground.water_next = 0;
+    tile->ground.int1 = 0;
+    tile->ground.int2 = 0;
+    tile->ground.int3 = 0;
+    tile->ground.int4 = 0;
 
 }
 

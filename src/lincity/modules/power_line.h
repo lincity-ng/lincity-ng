@@ -31,6 +31,7 @@ public:
     Powerline(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Powerline>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->flags |= (FLAG_TRANSPARENT | FLAG_NEVER_EVACUATE);
         this->anim_counter = 0;
         this->flashing = false;

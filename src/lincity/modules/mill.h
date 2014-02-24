@@ -65,6 +65,7 @@ public:
     Mill(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Mill>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->anim = 0;
         this->busy = 0;
         this->working_days = 0;

@@ -56,6 +56,7 @@ void connect_transport(int originx, int originy, int w, int h)
         {
             // First, set up a mask according to directions
             cstr = world(x, y)->construction;
+            int* frame = cstr ? &(cstr->frameIt->frame) : NULL;
             int mask = 0;
             switch (world(x, y)->getGroup())
             {
@@ -179,7 +180,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 else
                 {   world(x, y+1)->flags &= ~FLAG_POWER_CABLES_0;}
 
-                cstr->type = power_table[mask];
+                *frame = power_table[mask];
                 break;
             }
             case GROUP_TRACK:
@@ -241,21 +242,21 @@ void connect_transport(int originx, int originy, int w, int h)
                         check_group(x, y+1) == GROUP_TRACK_BRIDGE || check_group(x, y+2) == GROUP_TRACK_BRIDGE))
                         || (check_group(x, y+1) == GROUP_TRACK_BRIDGE && (
                         check_group(x, y-1) == GROUP_TRACK_BRIDGE || check_group(x, y-2) == GROUP_TRACK_BRIDGE)))
-                {   cstr->type = 11;}
+                {   *frame = 11;}
                 else if ((check_group(x-1, y) == GROUP_TRACK_BRIDGE && (
                         check_group(x+1, y) == GROUP_TRACK_BRIDGE || check_group(x+2, y) == GROUP_TRACK_BRIDGE))
                         || (check_group(x+1, y) == GROUP_TRACK_BRIDGE && (
                         check_group(x-1, y) == GROUP_TRACK_BRIDGE || check_group(x-2, y) == GROUP_TRACK_BRIDGE)))
-                {   cstr->type = 12;}
+                {   *frame = 12;}
                 // Set according bridge entrance if any
                 else if (check_group(x, y-1) == GROUP_TRACK_BRIDGE)
-                {   cstr->type = 13;}
+                {   *frame = 13;}
                 else if (check_group(x-1, y) == GROUP_TRACK_BRIDGE)
-                {   cstr->type = 14;}
+                {   *frame = 14;}
                 else if (check_group(x, y+1) == GROUP_TRACK_BRIDGE)
-                {   cstr->type = 15;}
+                {   *frame = 15;}
                 else if (check_group(x+1, y) == GROUP_TRACK_BRIDGE)
-                {   cstr->type = 16;}
+                {   *frame = 16;}
                 else if (check_group(x+1, y) == GROUP_RAIL &&
                          check_group(x-1, y) == GROUP_RAIL &&
                          check_group(x, y+1) == GROUP_TRACK &&
@@ -263,7 +264,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
-                    cstr->type = 21;
+                    *frame = 21;
                     y = originy;
                 }
                 else if (check_group(x, y+1) == GROUP_RAIL &&
@@ -273,16 +274,22 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
-                    cstr->type = 22;
+                    *frame = 22;
                     x = originx;
                 }
                 else
-                {   cstr->type = table[mask];}
+                {   *frame = table[mask];}
                 //only brige entrances (and bridges) are transparent
-                if (cstr->type >= 11 && cstr->type <= 12)
-                {   cstr->flags |= FLAG_TRANSPARENT;}
+                if (*frame >= 11 && *frame <= 12)
+                {
+                    cstr->flags |= FLAG_TRANSPARENT;
+                    world(x,y)->flags &= (~FLAG_INVISIBLE);
+                }
                 else
-                {   cstr->flags &= (~FLAG_TRANSPARENT);}
+                {
+                       cstr->flags &= (~FLAG_TRANSPARENT);
+                       world(x,y)->flags |= FLAG_INVISIBLE;
+                }
                 break;
 
             case GROUP_TRACK_BRIDGE:
@@ -291,17 +298,18 @@ void connect_transport(int originx, int originy, int w, int h)
                    || check_group(x, y-1) == GROUP_TRACK || check_group(x, y+1) == GROUP_TRACK)
                 {
                     mask |= 2;
-                    cstr->type = 0;
+                    *frame = 0;
                 }
                 else if (check_group(x-1, y) == GROUP_TRACK_BRIDGE || check_group(x+1, y) == GROUP_TRACK_BRIDGE
                     || check_group(x-1, y) == GROUP_TRACK || check_group(x+1, y) == GROUP_TRACK)
                 {
                     mask |= 1;
-                    cstr->type = 1;
+                    *frame = 1;
                 }
                 else //a lonely bridge tile
-                {   cstr->type = 1;}
+                {   *frame = 1;}
                 cstr->flags |= FLAG_TRANSPARENT;
+                world(x,y)->flags &= (~FLAG_INVISIBLE);
                 break;
 
             case GROUP_ROAD:
@@ -360,30 +368,30 @@ void connect_transport(int originx, int originy, int w, int h)
                         check_group(x, y+1) == GROUP_ROAD_BRIDGE || check_group(x, y+2) == GROUP_ROAD_BRIDGE))
                         || (check_group(x, y+1) == GROUP_ROAD_BRIDGE && (
                         check_group(x, y-1) == GROUP_ROAD_BRIDGE || check_group(x, y-2) == GROUP_ROAD_BRIDGE)))
-                {   cstr->type = 11;}
+                {   *frame = 11;}
                 else if ((check_group(x-1, y) == GROUP_ROAD_BRIDGE && (
                         check_group(x+1, y) == GROUP_ROAD_BRIDGE || check_group(x+2, y) == GROUP_ROAD_BRIDGE))
                         || (check_group(x+1, y) == GROUP_ROAD_BRIDGE && (
                         check_group(x-1, y) == GROUP_ROAD_BRIDGE || check_group(x-2, y) == GROUP_ROAD_BRIDGE)))
-                {   cstr->type = 12;}
+                {   *frame = 12;}
                 // Build bridge entrance2
                 else if (check_group(x, y-1) == GROUP_ROAD_BRIDGE)
-                {   cstr->type = 13;}
+                {   *frame = 13;}
                 else if (check_group(x-1, y) == GROUP_ROAD_BRIDGE)
-                {   cstr->type = 14;}
+                {   *frame = 14;}
                 else if (check_group(x, y+1) == GROUP_ROAD_BRIDGE)
-                {   cstr->type = 15;}
+                {   *frame = 15;}
                 else if (check_group(x+1, y) == GROUP_ROAD_BRIDGE)
-                {   cstr->type = 16;}
+                {   *frame = 16;}
                 // Build bridge entrance1
                 else if (check_group(x, y-2) == GROUP_ROAD_BRIDGE && check_group(x, y-1) == GROUP_ROAD)
-                {   cstr->type = 17;}
+                {   *frame = 17;}
                 else if (check_group(x-2, y) == GROUP_ROAD_BRIDGE && check_group(x-1, y) == GROUP_ROAD)
-                {   cstr->type = 18;}
+                {   *frame = 18;}
                 else if (check_group(x, y+2) == GROUP_ROAD_BRIDGE && check_group(x, y+1) == GROUP_ROAD)
-                {   cstr->type = 19;}
+                {   *frame = 19;}
                 else if (check_group(x+2, y) == GROUP_ROAD_BRIDGE && check_group(x+1, y) == GROUP_ROAD)
-                {   cstr->type = 20;}
+                {   *frame = 20;}
                 else if (check_group(x+1, y) == GROUP_RAIL &&
                          check_group(x-1, y) == GROUP_RAIL &&
                          check_group(x, y+1) == GROUP_ROAD &&
@@ -391,7 +399,7 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
-                    cstr->type = 23;
+                    *frame = 23;
                     y = originy;
                 }
                 else if (check_group(x, y+1) == GROUP_RAIL &&
@@ -401,29 +409,35 @@ void connect_transport(int originx, int originy, int w, int h)
                 {
                     railConstructionGroup.placeItem(x,y);
                     cstr = world(x,y)->construction;
-                    cstr->type = 24;
+                    *frame = 24;
                     x = originx;
                 }
                 else
-                {   cstr->type = table[mask];}
-                if(cstr->type >= 11 && cstr->type <= 16)
-                {   cstr->flags |= FLAG_TRANSPARENT;}
+                {   *frame = table[mask];}
+                if(*frame >= 11 && *frame <= 16)
+                {
+                    cstr->flags |= FLAG_TRANSPARENT;
+                    world(x,y)->flags &= (~FLAG_INVISIBLE);
+                }
                 else
-                {   cstr->flags &= (~FLAG_TRANSPARENT);}
+                {
+                       cstr->flags &= (~FLAG_TRANSPARENT);
+                       world(x,y)->flags |= FLAG_INVISIBLE;
+                }
                 break;
 
             case GROUP_ROAD_BRIDGE:
                 // Bridge neighbour priority
                 if (check_group(x, y-1) == GROUP_ROAD_BRIDGE || check_group(x, y+1) == GROUP_ROAD_BRIDGE)
-                {   cstr->type = 0;}
+                {   *frame = 0;}
                 else if (check_group(x-1, y) == GROUP_ROAD_BRIDGE || check_group(x+1, y) == GROUP_ROAD_BRIDGE)
-                {   cstr->type = 1;}
+                {   *frame = 1;}
                 else if (check_group(x, y-1) == GROUP_ROAD || check_group(x, y+1) == GROUP_ROAD)
-                {   world(x, y)->construction->type = 0;}//2
+                {   *frame = 0;}//2
                 else if (check_group(x-1, y) == GROUP_ROAD || check_group(x+1, y) == GROUP_ROAD)
-                {   world(x, y)->construction->type = 1;}//3
+                {   *frame = 1;}//3
                 else
-                {  cstr->type = 1;}
+                {  *frame = 1;}
                 cstr->flags |= FLAG_TRANSPARENT;
                 break;
 
@@ -467,63 +481,70 @@ void connect_transport(int originx, int originy, int w, int h)
                         check_group(x, y+1) == GROUP_RAIL_BRIDGE || check_group(x, y+2) == GROUP_RAIL_BRIDGE))
                         || (check_group(x, y+1) == GROUP_RAIL_BRIDGE && (
                         check_group(x, y-1) == GROUP_RAIL_BRIDGE || check_group(x, y-2) == GROUP_RAIL_BRIDGE)))
-                {   cstr->type = 11;}
+                {   *frame = 11;}
                 else if ((check_group(x-1, y) == GROUP_RAIL_BRIDGE && (
                         check_group(x+1, y) == GROUP_RAIL_BRIDGE || check_group(x+2, y) == GROUP_RAIL_BRIDGE))
                         || (check_group(x+1, y) == GROUP_RAIL_BRIDGE && (
                         check_group(x-1, y) == GROUP_RAIL_BRIDGE || check_group(x-2, y) == GROUP_RAIL_BRIDGE)))
-                {   cstr->type = 12;}
+                {   *frame = 12;}
                 // Build bridge entrance2
                 else if (check_group(x, y-1) == GROUP_RAIL_BRIDGE)
-                {   cstr->type = 13;}
+                {   *frame = 13;}
                 else if (check_group(x-1, y) == GROUP_RAIL_BRIDGE)
-                {   cstr->type = 14;}
+                {   *frame = 14;}
                 else if (check_group(x, y+1) == GROUP_RAIL_BRIDGE)
-                {   cstr->type = 15;}
+                {   *frame = 15;}
                 else if (check_group(x+1, y) == GROUP_RAIL_BRIDGE)
-                {   cstr->type = 16;}
+                {   *frame = 16;}
                 // Build bridge entrance1
                 else if (check_group(x, y-2) == GROUP_RAIL_BRIDGE && check_group(x, y-1) == GROUP_RAIL)
-                {   cstr->type = 17;}
+                {   *frame = 17;}
                 else if (check_group(x-2, y) == GROUP_RAIL_BRIDGE && check_group(x-1, y) == GROUP_RAIL)
-                {   cstr->type = 18;}
+                {   *frame = 18;}
                 else if (check_group(x, y+2) == GROUP_RAIL_BRIDGE && check_group(x, y+1) == GROUP_RAIL)
-                {   cstr->type = 19;}
+                {   *frame = 19;}
                 else if (check_group(x+2, y) == GROUP_RAIL_BRIDGE && check_group(x+1, y) == GROUP_RAIL)
-                {   cstr->type = 20;}
+                {   *frame = 20;}
                 //railroad crossings
                 else if (check_group(x+1, y) == GROUP_TRACK &&
                          check_group(x-1, y) == GROUP_TRACK)
-                {   cstr->type = 22; }
+                {   *frame = 22; }
                 else if (check_group(x, y+1) == GROUP_TRACK &&
                          check_group(x, y-1) == GROUP_TRACK)
-                {   cstr->type = 21; }
+                {   *frame = 21; }
                 else if (check_group(x+1, y) == GROUP_ROAD &&
                          check_group(x-1, y) == GROUP_ROAD)
-                {   cstr->type = 24; }
+                {   *frame = 24; }
                 else if (check_group(x, y+1) == GROUP_ROAD &&
                          check_group(x, y-1) == GROUP_ROAD)
-                {   cstr->type = 23; }
+                {   *frame = 23; }
 
                 else
-                {   cstr->type = table[mask];}
-                if(cstr->type >= 11 && cstr->type <= 16)
-                {   cstr->flags |= FLAG_TRANSPARENT;}
+                {   *frame = table[mask];}
+                if(*frame >= 11 && *frame <= 16)
+                {
+                    cstr->flags |= FLAG_TRANSPARENT;
+                    world(x,y)->flags &= (~FLAG_INVISIBLE);
+                }
                 else
-                {   cstr->flags &= (~FLAG_TRANSPARENT);}
+                {
+                       cstr->flags &= (~FLAG_TRANSPARENT);
+                       world(x,y)->flags |= FLAG_INVISIBLE;
+                }
                 break;
 
             case GROUP_RAIL_BRIDGE:
                 // Bridge neighbour priority
                 if (check_group(x, y-1) == GROUP_RAIL_BRIDGE || check_group(x, y+1) == GROUP_RAIL_BRIDGE
                    || check_group(x, y-1) == GROUP_RAIL || check_group(x, y+1) == GROUP_RAIL)
-                {   cstr->type = 0;}
+                {   *frame = 0;}
                 else if (check_group(x-1, y) == GROUP_RAIL_BRIDGE || check_group(x+1, y) == GROUP_RAIL_BRIDGE
                     || check_group(x-1, y) == GROUP_RAIL || check_group(x+1, y) == GROUP_RAIL)
-                {   cstr->type = 1;}
+                {   *frame = 1;}
                 else
-                {   cstr->type = 1;}
+                {   *frame = 1;}
                 cstr->flags |= FLAG_TRANSPARENT;
+                world(x,y)->flags &= (~FLAG_INVISIBLE);
                 break;
 /*          // now handled by desert_water_frontiers
             case GROUP_WATER:

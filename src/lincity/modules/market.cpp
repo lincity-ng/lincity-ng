@@ -121,24 +121,24 @@ void Market::update()
         if (market_ratio < 10)
         {
             jobs = JOBS_MARKET_EMPTY;
-            graphicsGroup = ResourceGroup::resMap["MarketEmpty"];
+            frameIt->resourceGroup = ResourceGroup::resMap["MarketEmpty"];
         }
         else if (market_ratio < 20)
         {
             jobs = JOBS_MARKET_LOW;
-            graphicsGroup = ResourceGroup::resMap["MarketLow"];
+            frameIt->resourceGroup = ResourceGroup::resMap["MarketLow"];
         }
         else if (market_ratio < 50)
         {
             jobs = JOBS_MARKET_MED;
-            graphicsGroup = ResourceGroup::resMap["MarketMed"];
+            frameIt->resourceGroup = ResourceGroup::resMap["MarketMed"];
         }
         else
         {
             jobs = JOBS_MARKET_FULL;
-            graphicsGroup = ResourceGroup::resMap["MarketFull"];
+            frameIt->resourceGroup = ResourceGroup::resMap["MarketFull"];
         }
-        soundGroup = graphicsGroup;
+        soundGroup = frameIt->resourceGroup;
     }
     if (commodityCount[STUFF_WASTE] >= (85 * MAX_WASTE_IN_MARKET / 100) && !world(x+1,y+1)->construction)
     {
@@ -159,6 +159,7 @@ void Market::update()
     else if ( real_time > anim && world(x+1,y+1)->construction)
     {
         ::constructionCount.remove_construction(world(x+1,y+1)->construction);
+        world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
         delete world(x+1,y+1)->construction;
         world(x+1,y+1)->construction = NULL;
         world(x+1,y+1)->reportingConstruction = this;
@@ -181,7 +182,7 @@ void Market::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;

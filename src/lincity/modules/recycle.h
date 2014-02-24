@@ -66,6 +66,7 @@ public:
     Recycle(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Recycle>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->busy = 0;
         this->working_days = 0;
         this->tech = tech_level;

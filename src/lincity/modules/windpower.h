@@ -54,6 +54,7 @@ public:
     Windpower(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Windpower>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->anim = 0;
         this->animate = false;
         this->tech = tech_level;

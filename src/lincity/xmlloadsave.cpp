@@ -154,6 +154,7 @@ XMLloadsave::XMLloadsave()
     templateDefinition = false;
     prescan = false;
     altered_tiles = -1;
+    ldsv_version = -1;
 }
 
 XMLloadsave::~XMLloadsave() {}
@@ -265,6 +266,16 @@ int XMLloadsave::loadXMLfile(std::string xml_file_name)
         //std::getline(xml_file_in, line);
 
         get_raw_line();
+        if (line == "<SaveGame>")//the next line must be load_save_version
+        {
+            get_raw_line();
+            sscanf(line.c_str(), "<loadsave_version>%d</loadsave_version>", &ldsv_version);
+#ifdef DEBUG
+            std::cout << std::endl << "loadsave_version " << ldsv_version << std::endl;
+#endif
+        }
+
+
         //if (!templateSection)std::cout << line << std::endl;
         if (line == "<GlobalVariables>")
         {
@@ -565,7 +576,8 @@ XMLloadsave::loadConstructionTemplates()
 
     gzread(gz_xml_file, (char *)&head, sizeof(head));
     gzread(gz_xml_file, (char *)&group, sizeof(group));
-    gzread(gz_xml_file, (char *)&type, sizeof(type));
+    if(ldsv_version < 1328)
+    {   gzread(gz_xml_file, (char *)&type, sizeof(type));}
     gzread(gz_xml_file, (char *)&idx, sizeof(idx));
     //std::cout << "binary construction header: " << group << " | " << type << " | " << idx << "...";
     //std::cout.flush();

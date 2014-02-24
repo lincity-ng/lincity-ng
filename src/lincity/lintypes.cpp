@@ -50,6 +50,7 @@ MapTile::MapTile():ground()
 {
     construction = NULL;
     reportingConstruction = NULL;
+    framesptr = NULL;
     flags = 0;
     type = 0;
     group = 0;
@@ -59,7 +60,15 @@ MapTile::MapTile():ground()
 }
 
 MapTile::~MapTile()
-{   }
+{
+    if (framesptr)
+    {
+        framesptr->clear();
+        delete framesptr;
+    }
+    if(construction)
+    {   delete construction;}
+}
 
 void MapTile::setTerrain(unsigned short new_group)
 {
@@ -136,17 +145,17 @@ ConstructionGroup* MapTile::getLowerstVisibleConstructionGroup()
 }
 
 unsigned short MapTile::getType() //type of bare land or the covering construction
-{   return (reportingConstruction ? reportingConstruction->type : type);}
+{   return (reportingConstruction ? reportingConstruction->frameIt->frame : type);}
 
 unsigned short MapTile::getTopType() //type of bare land or the actual construction
-{   return (construction ? construction->type : type);}
+{   return (construction ? construction->frameIt->frame : type);}
 
 unsigned short MapTile::getLowerstVisibleType()
 {
     if(!reportingConstruction || reportingConstruction->flags & FLAG_TRANSPARENT)
     {   return type;}
     else
-    {   return reportingConstruction->type;}
+    {   return reportingConstruction->frameIt->frame;}
 }
 
 unsigned short MapTile::getGroup() //group of bare land or the covering construction
@@ -176,7 +185,14 @@ unsigned short MapTile::getTransportGroup() //group of bare land or the covering
 }
 
 unsigned short MapTile::getTopGroup() //group of bare land or the actual construction
-{   return (construction ? construction->constructionGroup->group : group);}
+{
+    if(!construction) //simple case
+    {   return group;}
+    else if(construction == reportingConstruction) //regular construction
+    {   return construction->constructionGroup->group;}
+    else // in case a construction has a chile e.g. waste burning on transport
+    {   return (reportingConstruction ? reportingConstruction->constructionGroup->group : group);}
+}
 
 unsigned short MapTile::getLowerstVisibleGroup()
 {
@@ -376,6 +392,36 @@ void MapTile::saveMembers(std::ostream *os)
     }
 }
 
+std::deque<ExtraFrame>::iterator MapTile::createframe(void)
+{
+    if(!framesptr)
+    {   framesptr = new std::deque<ExtraFrame>;}
+    framesptr->resize(framesptr->size() + 1);
+    return --framesptr->end(); //the actual last position
+}
+
+void MapTile::killframe(std::deque<ExtraFrame>::iterator it)
+{
+    //what would actually happen if "it" belongs to another maptile?
+#ifdef DEBUG
+    assert(framesptr);
+    std::deque<ExtraFrame>::iterator frit;
+    bool found = false;
+    for (frit = framesptr->begin(); frit != framesptr->end(); ++it)
+    {
+        found = true;
+        break;
+    }
+    assert(found);
+#endif
+    framesptr->erase(it);
+    if (framesptr->size() == 0)
+    {
+        delete framesptr;
+        framesptr = NULL;
+    }
+}
+
 
 //Construction Declarations
 
@@ -475,13 +521,16 @@ void Construction::initialize_commodities(void)
     }
 }
 
-void Construction::init_resources(void)
+void Construction::init_resources()
 {
+    frameIt = world(x,y)->createframe();
     ResourceGroup *resGroup = ResourceGroup::resMap[constructionGroup->resourceID];
     if (resGroup)
     {
         soundGroup = resGroup;
-        graphicsGroup = resGroup;
+        //graphicsGroup = resGroup;
+        frameIt->resourceGroup = resGroup;
+        //std::cout << "graphics for " << constructionGroup->name << "at " << x << ", " << y << std::endl;
     }
 #ifdef DEBUG
     else
@@ -609,7 +658,7 @@ void Construction::writeTemplate()
         if (!binary_mode)
         {
             xml_tmp->putTag("Group");
-            xml_tmp->putTag("type");
+            //xml_tmp->putTag("type");
             xml_tmp->putTag("map_x");
             xml_tmp->putTag("map_y");
         }
@@ -646,9 +695,9 @@ void Construction::writeTemplate()
 
 void Construction::saveMembers(std::ostream *os)
 {
-    //make sure old types are actually valid
-    if (graphicsGroup->images_loaded && graphicsGroup->graphicsInfoVector.size())
-    {   type = type % graphicsGroup->graphicsInfoVector.size();}
+    //make sure all frames are actually valid
+    if (frameIt->resourceGroup->images_loaded && frameIt->resourceGroup->graphicsInfoVector.size())
+    {   frameIt->frame = frameIt->frame % frameIt->resourceGroup->graphicsInfoVector.size();}
     std::string name;
     unsigned short head = constructionGroup->group;
     if (flags&FLAG_IS_TRANSPORT && !binary_mode)
@@ -674,17 +723,19 @@ void Construction::saveMembers(std::ostream *os)
     if (binary_mode)
     {   //Mandatory header for binary files (before actual template)
         int idx = x + y * world.len();
-        os->write( (char*) &head,sizeof(head));
-        os->write( (char*) &constructionGroup->group,sizeof(constructionGroup->group));
-        os->write( (char*) &type,sizeof(type));
-        os->write( (char*) &idx,sizeof(idx));
+        os->write( (char*) &head, sizeof(head));
+        os->write( (char*) &constructionGroup->group, sizeof(constructionGroup->group));
+        //compability hack for type based bin games
+        if(XML_LOADSAVE_VERSION < 1328)
+        {   os->write( (char*) &constructionGroup->group, sizeof(constructionGroup->group));}
+        os->write( (char*) &idx, sizeof(idx));
     }
     else
     {   // Header for txt mode (part of template)
         *os <<"<" << name << ">" << constructionGroup->group << "\t";
         xml_tmp->step();
-        *os << type << "\t";
-        xml_tmp->step();
+        //*os << type << "\t";
+        //xml_tmp->step();
         *os << x << "\t";
         xml_tmp->step();
         *os << y << "\t";
@@ -766,17 +817,30 @@ void Construction::detach()
     //std::cout << "detaching: " << constructionGroup->name << std::endl;
     ::constructionCount.remove_construction(this);
     if(world(x,y)->construction == this)
-    {   world(x,y)->construction = NULL;}
+    {
+        world(x,y)->construction = NULL;
+        world(x,y)->framesptr->erase(frameIt);
+        if(world(x,y)->framesptr->empty())
+        {
+            delete world(x,y)->framesptr;
+            world(x,y)->framesptr = NULL;
+        }
+    }
+
     for (unsigned short i = 0; i < constructionGroup->size; ++i)
     {
         for (unsigned short j = 0; j < constructionGroup->size; ++j)
         {
+            world(x + j, y + i)->flags &= (~FLAG_INVISIBLE);
             // constructions may have children e.g. waste burning markets/shanties
-            if(world(x+j,y+i)->construction)
+            Construction* child = world(x+j,y+i)->construction;
+            if(child)
             {
                 //std::cout << "killing child: " << world(x+j,y+i)->construction->constructionGroup->name << std::endl;
-                ::constructionCount.remove_construction(world(x+j,y+i)->construction);
-                delete world(x+j,y+i)->construction;
+                ::constructionCount.remove_construction(child);
+                world(x+j,y+i)->killframe(child->frameIt);
+                delete child;
+                child = NULL;
                 world(x+j,y+i)->construction = NULL;
             }
             world(x+j,y+i)->reportingConstruction = NULL;
@@ -1275,17 +1339,7 @@ int ConstructionGroup::getCosts() {
 
 int ConstructionGroup::placeItem(int x, int y)
 {
-    Construction *tmpConstr = createConstruction(x, y);
-    //default resources if no manual settings for construction
-    if (!tmpConstr->graphicsGroup && !tmpConstr->soundGroup)
-    {   tmpConstr->init_resources();}
-#ifdef DEBUG
-    if (tmpConstr == NULL)
-    {
-        std::cout << "failed to create " << name << " at " << "(" << x << ", " << y << ")" << std::endl;
-        return -1;
-    }
-#endif
+
     //std::cout << "building: " << tmpConstr->constructionGroup->name  << "(" << x << "," << y << ")" << std::endl;
     //enforce empty site
     //unsigned short size = tmpConstr->constructionGroup->size;
@@ -1302,6 +1356,23 @@ int ConstructionGroup::placeItem(int x, int y)
     }
 
 
+    Construction *tmpConstr = createConstruction(x, y);
+#ifdef DEBUG
+    if (tmpConstr == NULL)
+    {
+        std::cout << "failed to create " << name << " at " << "(" << x << ", " << y << ")" << std::endl;
+        return -1;
+    }
+     //default resources if no manual settings for construction
+    if (!tmpConstr->soundGroup)
+    {
+        std::cout << "Warning no explicit sound, graphics resources specified for "
+        << name << " at " << "(" << x << ", " << y << ")" << std::endl;
+        tmpConstr->init_resources();
+    }
+#endif
+
+
     for (unsigned short i = 0; i < size; i++)
     {
         for (unsigned short j = 0; j < size; j++)
@@ -1310,14 +1381,22 @@ int ConstructionGroup::placeItem(int x, int y)
             if ( !world(x + j, y + i)->is_water() )
             {
                 if( !(tmpConstr->flags & FLAG_TRANSPARENT))
-                {   world(x + j, y + i)->setTerrain(GROUP_DESERT);}
-                else if (world(x + j, y + i)->group != GROUP_DESERT)
-                {   world(x + j, y + i)->setTerrain(GROUP_BARE);}
+                {
+                    world(x + j, y + i)->setTerrain(GROUP_DESERT);
+                    world(x + j, y + i)->flags |= FLAG_INVISIBLE; //hide maptiles
+                }
+                else
+                {
+                    world(x + j, y + i)->flags &= (~FLAG_INVISIBLE); //always show maptiles
+                    if (world(x + j, y + i)->group != GROUP_DESERT)
+                    {   world(x + j, y + i)->setTerrain(GROUP_BARE);}
+                }
             }
             world(x + j, y + i)->reportingConstruction = tmpConstr;
         } //endfor j
     }// endfor i
     world(x, y)->construction = tmpConstr;
+
     constructionCount.add_construction(tmpConstr); //register for Simulation
 
     //now look for neighbors

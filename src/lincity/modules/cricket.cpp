@@ -50,9 +50,9 @@ void Cricket::update()
     if (animate && real_time > anim)
     {
         anim = real_time + CRICKET_ANIMATION_SPEED;
-        if(++type >= graphicsGroup->graphicsInfoVector.size())
+        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
         {
-            type = 0;
+            frameIt->frame = 0;
             animate = false;
         }
     }
@@ -86,7 +86,7 @@ void Cricket::report()
     int i = 0;
     const char* p;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++,constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     i++;
     list_commodities(&i);

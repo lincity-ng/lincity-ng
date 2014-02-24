@@ -83,11 +83,11 @@ void Commune::update()
     {//each month
         if (steel_made)
         {//producing steel
-            if (type < 6)
-            {   type += 5;}
+            if (frameIt->frame < 6)
+            {   frameIt->frame += 5;}
         }
-        else if (type >= 6) // not producing steel
-        {   type -= 5;}
+        else if (frameIt->frame >= 6) // not producing steel
+        {   frameIt->frame -= 5;}
         last_month_output = monthly_stuff_made;
         monthly_stuff_made = 0;
         if (last_month_output)
@@ -98,7 +98,7 @@ void Commune::update()
         }
         else
         {//we are lazy
-            type = 0;
+            frameIt->frame = 0;
             lazy_months++;
             /* Communes without production only last 10 years */
             if (lazy_months > 120)
@@ -109,31 +109,31 @@ void Commune::update()
     if (animate && real_time >= anim)
     {
         anim = real_time + COMMUNE_ANIM_SPEED - 25 + (rand() % 50);
-        if (type < 6) //not producing steel
+        if (frameIt->frame < 6) //not producing steel
         {
-            if( ++type >= 6 )
+            if( ++(frameIt->frame) >= 6 )
             {
                 animate = false;
-                type = 1;
+                frameIt->frame = 1;
             }
         }
         else //producing steel
         {
-            if( ++type >= 10 )
+            if( ++(frameIt->frame) >= 10 )
             {
                 animate = false;
-                type = 6;
+                frameIt->frame = 6;
             }
         }
-        if (type >= graphicsGroup->graphicsInfoVector.size())
-        {   type = 0;}
+        if (frameIt->frame >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+        {   frameIt->frame = 1;}
     }
 }
 
 void Commune::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
     mps_store_sfp(i++, N_("busy"), (float)last_month_output / 3.05);
     mps_store_sd(i++, N_("Pollution"), world(x,y)->pollution);

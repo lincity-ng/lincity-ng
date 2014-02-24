@@ -156,6 +156,7 @@ void Transport::update()
         if(!burning_waste)
         {
             burning_waste = true;
+            //Fire sets frameIt manually
             Construction *fire = fireConstructionGroup.createConstruction(x, y);
             world(x,y)->construction = fire;
             //waste burning never spreads
@@ -170,6 +171,7 @@ void Transport::update()
 #ifdef DEBUG
         assert(world(x,y)->construction->neighbors.empty());
 #endif
+        world(x,y)->framesptr->erase(world(x,y)->construction->frameIt);
         delete world(x,y)->construction;
         world(x,y)->construction = this;
     }
@@ -189,7 +191,7 @@ void Transport::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->getName(), subgroupID);
+    mps_store_sd(i++, constructionGroup->name, subgroupID);
     i++;
     if(mps_map_page == 1)
     {

@@ -54,6 +54,7 @@ public:
     Cricket(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Cricket>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->anim = 0;
         this->animate = false;
         this->active = false;

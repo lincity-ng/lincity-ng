@@ -65,6 +65,7 @@ public:
     RocketPad(int x, int y, ConstructionGroup* cstgrp): RegisteredConstruction<RocketPad>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->working_days = 0;
         this->busy = 0;
         this->anim = 0;

@@ -83,6 +83,7 @@ public:
     Shanty(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Shanty>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         initialize_commodities();
         this->flags |= FLAG_NEVER_EVACUATE;
         this->anim = 0;

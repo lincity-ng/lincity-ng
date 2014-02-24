@@ -76,7 +76,7 @@ public:
     IndustryHeavy(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<IndustryHeavy>(x, y)
     {
         constructionGroup = cstgrp;
-        type = 0;
+        init_resources();
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->output_level = 0;

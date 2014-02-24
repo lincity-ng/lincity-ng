@@ -74,6 +74,7 @@ public:
     Market(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Market>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         //local copy of commodityRuCount
         commodityRuleCount = constructionGroup->commodityRuleCount;
         setCommodityRulesSaved(&commodityRuleCount);

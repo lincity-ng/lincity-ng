@@ -58,10 +58,10 @@ void Waterwell::report()
 
     const char *p;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sddp(i++, N_("Fertility"), ugwCount, constructionGroup->size * constructionGroup->size);
-    mps_store_sfp(i++,N_("busy"), busy);
+    mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sddp(i++, N_("Air Pollution"), world(x,y)->pollution, MAX_POLLUTION_AT_WATERWELL);
     p = world(x,y)->pollution>MAX_POLLUTION_AT_WATERWELL?N_("No"):N_("Yes");
     mps_store_ss(i++, N_("Drinkable"), p);

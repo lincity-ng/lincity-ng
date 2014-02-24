@@ -103,23 +103,23 @@ void IndustryLight::update()
         goods_this_month = 0;
         //Choose an animation set depending on output_level
         if (output_level > 80)
-        {   graphicsGroup = ResourceGroup::resMap["IndustryLightH"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightH"];}
         else if (output_level > 55)
-        {   graphicsGroup = ResourceGroup::resMap["IndustryLightM"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightM"];}
         else if (output_level > 25)
-        {   graphicsGroup = ResourceGroup::resMap["IndustryLightL"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightL"];}
         else if (output_level > 0)
-        {   graphicsGroup = ResourceGroup::resMap["IndustryLightQ"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightQ"];}
         else
-        {   graphicsGroup = ResourceGroup::resMap["IndustryLight"];}
-        type = 0;
-        soundGroup = graphicsGroup;
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLight"];}
+        frameIt->frame = 0;
+        soundGroup =frameIt->resourceGroup;
     }// end monthly update
     if ((real_time >= anim) && goods_today)
     {
         anim = real_time + INDUSTRY_L_ANIM_SPEED;
-        if(++type >= graphicsGroup->graphicsInfoVector.size())
-        {   type = 0;}
+        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+        {  frameIt->frame = 0;}
     }// end animate
 }
 
@@ -127,7 +127,7 @@ void IndustryLight::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("busy"), (busy));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);

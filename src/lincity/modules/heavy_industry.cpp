@@ -106,24 +106,24 @@ void IndustryHeavy::update()
     {
         output_level = steel_this_month * ORE_MAKE_STEEL / MAX_ORE_USED;
         steel_this_month = 0;
-        type = 0;
+        frameIt->frame = 0;
         //choose graphics depending on output level
         if (output_level > 80)
-        {   graphicsGroup = ResourceGroup::resMap["IndustryHighH"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighH"];}
         else if (output_level > 30)
-        {   graphicsGroup = ResourceGroup::resMap["IndustryHighM"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighM"];}
         else if (output_level > 0)
-        {   graphicsGroup = ResourceGroup::resMap["IndustryHighL"];}
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHighL"];}
         else
-        {   graphicsGroup = ResourceGroup::resMap["IndustryHigh"];}
-        soundGroup = graphicsGroup;
+        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryHigh"];}
+        soundGroup = frameIt->resourceGroup;
     }//end monthly update
     //animation
     if (real_time >= anim)
     {
         anim = real_time + INDUSTRY_H_ANIM_SPEED;
-        if(++type >= graphicsGroup->graphicsInfoVector.size())
-        {   type = 0;}
+        if(++(frameIt->frame) >= (int) frameIt->resourceGroup->graphicsInfoVector.size())
+        {   frameIt->frame = 0;}
     }
 }
 
@@ -131,7 +131,7 @@ void IndustryHeavy::report()
 {
     int i = 0;
 
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("busy"), (output_level));
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);

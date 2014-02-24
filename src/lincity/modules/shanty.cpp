@@ -168,6 +168,7 @@ void Shanty::update()
     else if ( real_time > anim && world(x+1,y+1)->construction)
     {
         ::constructionCount.remove_construction(world(x+1,y+1)->construction);
+        world(x+1,y+1)->killframe(world(x+1,y+1)->construction->frameIt);
         delete world(x+1,y+1)->construction;
         world(x+1,y+1)->construction = NULL;
         world(x+1,y+1)->reportingConstruction = this;
@@ -177,7 +178,7 @@ void Shanty::update()
 void Shanty::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sd(i++, N_("Air Pollution"), world(x,y)->pollution);
     i++;
     list_commodities(&i);

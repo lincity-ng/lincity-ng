@@ -54,7 +54,7 @@ void Blacksmith::update()
     }
     else
     {
-        type = 0;
+        frameIt->frame = 0;
         animate = false;
         pauseCounter = -BLACKSMITH_CLOSE_TIME;
         return;
@@ -63,9 +63,9 @@ void Blacksmith::update()
     if (animate && real_time > anim)
     {
         anim = real_time + BLACKSMITH_ANIM_SPEED;
-        if(++type >= graphicsGroup->graphicsInfoVector.size())
+        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
         {
-            type = 1;
+            frameIt->frame = 1;
             animate = false;
         }
     }
@@ -76,7 +76,7 @@ void Blacksmith::report()
 {
     int i = 0;
 
-    mps_store_sd(i++, constructionGroup->getName(),ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;

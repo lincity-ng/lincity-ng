@@ -75,6 +75,7 @@ public:
     Organic_farm(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Organic_farm>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->tech_bonus = (tech_level * ORGANIC_FARM_FOOD_OUTPUT) / MAX_TECH_LEVEL;

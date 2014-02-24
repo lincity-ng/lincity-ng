@@ -52,8 +52,8 @@ void Windmill::update()
     //Animation
     if (animate && (real_time > anim))
     {
-        ++type;
-        type %= 3;
+        ++(frameIt->frame);
+        frameIt->frame %= 3;
         anim = real_time + ANTIQUE_WINDMILL_ANIM_SPEED;
     }
 }
@@ -61,7 +61,7 @@ void Windmill::update()
 void Windmill::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), float(busy) / kwh_output);
     mps_store_sfp(i++, N_("Tech"), (tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), kwh_output);

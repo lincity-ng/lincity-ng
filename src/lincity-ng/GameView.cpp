@@ -1218,32 +1218,18 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
     //Attention map is rotated for displaying
     if ( ( tile.x == x ) && ( tile.y - size +1 == y ) ) //Signs are tested
     {
-        Construction *cst = world(x,y)->construction;
-        if (cst)
-        {   resgrp = cst->graphicsGroup;}
+        //Construction *cst = world(x,y)->construction;
+        resgrp = world(x, y)->getTileResourceGroup();
+/*
+        if(world(x, y)->framesptr)
+        {   resgrp = world(x, y)->framesptr->front().resourceGroup;}
         else
         {   resgrp = world(x, y)->getTileResourceGroup();}
+*/
 
         //adjust OnScreenPoint of big Tiles
         MapPoint lowerRightTile( tile.x + size - 1 , tile.y );
         unsigned short textureType = world(x, y)->getTopType();
-
-        GraphicsInfo *graphicsInfo = 0;
-        //draw terrain underneath transparent constructions
-        if ( cst && (cst->flags & FLAG_TRANSPARENT) )
-        {
-            ResourceGroup *tilegrp = world(x, y)->getTileResourceGroup();
-            if (tilegrp->images_loaded)
-            {
-                size_t s = tilegrp->graphicsInfoVector.size();
-                if (s)
-                {
-                    graphicsInfo = &tilegrp->graphicsInfoVector
-                        [ world(x, y)->type  % s];
-                    drawTexture(painter, lowerRightTile, graphicsInfo);
-                }
-            }
-        }
 
         // if we hide high buildings, hide trees as well
         if (hideHigh && (cstgrp == &treeConstructionGroup
@@ -1253,33 +1239,51 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
             cstgrp = &bareConstructionGroup;
             resgrp = ResourceGroup::resMap["Green"];
         }
-
-        if(resgrp->images_loaded && (size==1 || !hideHigh) )
+        GraphicsInfo *graphicsInfo = 0;
+        //draw visible tiles underneath constructions
+        if(world(x, y)->reportingConstruction && !(world(x,y)->flags & FLAG_INVISIBLE) )
         {
-            size_t s = resgrp->graphicsInfoVector.size();
-            if (s)
+            //ResourceGroup *tilegrp = world(x, y)->getTileResourceGroup();
+            if (resgrp->images_loaded)
             {
-                graphicsInfo = &resgrp->graphicsInfoVector[ textureType %  s]; //needed
-                drawTexture(painter, lowerRightTile, graphicsInfo);
-
-                if (cst)
+                size_t s = resgrp->graphicsInfoVector.size();
+                if (s)
                 {
-                    for( std::vector <ExtraFrame>::iterator it = cst->frames.begin();
-                         it != cst->frames.end(); ++it)
+                    graphicsInfo = &resgrp->graphicsInfoVector
+                        [ world(x, y)->type  % s];
+                    drawTexture(painter, lowerRightTile, graphicsInfo);
+                }
+            }
+        }
+
+        if( (size==1 || !hideHigh) )
+        {
+            if (world(x,y)->framesptr)
+            {
+                for(std::deque<ExtraFrame>::iterator frit = world(x, y)->framesptr->begin();
+                    frit != world(x,y)->framesptr->end(); ++frit)
+                {
+                    size_t s2 = frit->resourceGroup->graphicsInfoVector.size();
+                    if((frit->frame >= 0) && s2 && frit->resourceGroup->images_loaded)
                     {
-                        size_t s2 = it->resourceGroup->graphicsInfoVector.size();
-                        if(it->resourceGroup && it->frame && s2)
-                        {
-                            graphicsInfo = &it->resourceGroup->graphicsInfoVector[ it->frame % s2 ]; //needed
-                            int old_x = graphicsInfo->x;
-                            int old_y = graphicsInfo->y;
-                            graphicsInfo->x = old_x - it->move_x;
-                            graphicsInfo->y = old_y - it->move_y;
-                            drawTexture(painter, lowerRightTile, graphicsInfo);
-                            graphicsInfo->x = old_x;
-                            graphicsInfo->y = old_y;
-                        }
+                        graphicsInfo = &frit->resourceGroup->graphicsInfoVector[ frit->frame % s2 ]; //needed
+                        int old_x = graphicsInfo->x;
+                        int old_y = graphicsInfo->y;
+                        graphicsInfo->x = old_x - frit->move_x;
+                        graphicsInfo->y = old_y - frit->move_y;
+                        drawTexture(painter, lowerRightTile, graphicsInfo);
+                        graphicsInfo->x = old_x;
+                        graphicsInfo->y = old_y;
                     }
+                }
+            }
+            else
+            {
+                size_t s = resgrp->graphicsInfoVector.size();
+                if(s && resgrp->images_loaded)
+                {
+                    graphicsInfo = &resgrp->graphicsInfoVector[ textureType %  s]; //needed
+                    drawTexture(painter, lowerRightTile, graphicsInfo);
                 }
             }
         }
@@ -1300,7 +1304,6 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
             resgrp = ResourceGroup::resMap["PowerLine"];
             if(resgrp->images_loaded)
             {
-                //cstgrp = &powerlineConstructionGroup;
                 if (world(x, y)->flags & FLAG_POWER_CABLES_0)
                 {   drawTexture(painter, upperLeft, &resgrp->graphicsInfoVector[23]);}
                 if (world(x, y)->flags & FLAG_POWER_CABLES_90)

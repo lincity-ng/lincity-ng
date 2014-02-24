@@ -50,6 +50,7 @@ public:
     Substation(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Substation>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->working_days = 0;
         this->busy = 0;
         initialize_commodities();

@@ -94,6 +94,7 @@ public:
     Port(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<Port>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->daily_ic = 0; this->daily_et = 0;
         this->monthly_ic = 0; this->monthly_et = 0;
         this->lastm_ic = 0; this->lastm_et = 0;

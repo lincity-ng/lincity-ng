@@ -42,10 +42,11 @@ void Mill::update()
         ++working_days;
         animate = true;
         if ((++pol_count %= 7) == 0)
-            world(x,y)->pollution++;
-    } else
+        {   world(x,y)->pollution++;}
+    }
+    else
     {
-        type = 0;
+        frameIt->frame = 0;
         animate = false;
     }
     //monthly update
@@ -58,15 +59,15 @@ void Mill::update()
     if (real_time >= anim && animate)
     {
         anim = real_time + MILL_ANIM_SPEED;
-        if(++type >= graphicsGroup->graphicsInfoVector.size())
-        {   type = 1;}
+        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+        {   frameIt->frame = 1;}
     }
 }
 
 void Mill::report()
 {
     int i = 0;
-    mps_store_sd(i++, constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), (float) busy);
     i++;
     list_commodities(&i);

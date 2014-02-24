@@ -54,6 +54,7 @@ public:
     University(int x, int y, ConstructionGroup *cstgrp): RegisteredConstruction<University>(x, y)
     {
         this->constructionGroup = cstgrp;
+        init_resources();
         this->working_days = 0;
         this->busy = 0;
         this->total_tech_made = 0;
