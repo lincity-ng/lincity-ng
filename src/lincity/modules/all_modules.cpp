@@ -142,4 +142,11 @@ void initializeModules() {
     //ConstructionGroup::addResourceID("MarketFull", &market_full_ConstructionGroup);
     ConstructionGroup::addResourceID("Rocket", &rocketPadConstructionGroup);
     ConstructionGroup::addResourceID("Shanty", &shantyConstructionGroup);
+
+    //resources for extra sprites
+    new ResourceGroup("ChildOnSwing"); //used at School
+    new ResourceGroup("BlackSmoke");   //used at Coalpower Station
+    new ResourceGroup("GraySmoke");    //used at light Industry
+
+
 }

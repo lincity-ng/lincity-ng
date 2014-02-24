@@ -373,32 +373,44 @@
 
     <group>
     <resourceID name="IndustryLight" />
-    <image file="industrylc.png" />
-    <resourceID name="IndustryLightQ" />
-    <image file="industrylq1.png" />
-    <image file="industrylq2.png" />
-    <image file="industrylq3.png" />
-    <image file="industrylq4.png" />
+    <image file="industryl-empty.png" />
     <resourceID name="IndustryLightL" />
-    <image file="industryll1.png" />
-    <image file="industryll2.png" />
-    <image file="industryll3.png" />
-    <image file="industryll4.png" />
+    <image file="industryl-low.png" />
     <resourceID name="IndustryLightM" />
-    <image file="industrylm1.png" />
-    <image file="industrylm2.png" />
-    <image file="industrylm3.png" />
-    <image file="industrylm4.png" />
+    <image file="industryl-med.png" />
     <resourceID name="IndustryLightH" />
-    <image file="industrylh1.png" />
-    <image file="industrylh2.png" />
-    <image file="industrylh3.png" />
-    <image file="industrylh4.png" />
+    <image file="industryl-full.png" />
     </group>
+
+    <group>
+    <resourceID name="GraySmoke" />
+    <image file="industryl-smoke0080.png" />
+    <image file="industryl-smoke0082.png" />
+    <image file="industryl-smoke0084.png" />
+    <image file="industryl-smoke0086.png" />
+    <image file="industryl-smoke0088.png" />
+    <image file="industryl-smoke0090.png" />
+    <image file="industryl-smoke0092.png" />
+    <image file="industryl-smoke0094.png" />
+    <image file="industryl-smoke0096.png" />
+    <image file="industryl-smoke0098.png" />
+    </group>
+
+
 
     <group>
     <resourceID name="PowerCoalEmpty" />
     <image file="powerscoal-empty.png" />
+    <resourceID name="PowerCoalLow" />
+    <image file="powerscoal-low.png" />
+    <resourceID name="PowerCoalMed" />
+    <image file="powerscoal-med.png" />
+    <resourceID name="PowerCoalFull" />
+    <image file="powerscoal-full.png" />
+    </group>
+
+    <group>
+    <resourceID name="BlackSmoke" />
     <image file="powerscoal-smoke0080.png" />
     <image file="powerscoal-smoke0082.png" />
     <image file="powerscoal-smoke0084.png" />
@@ -410,12 +422,6 @@
     <image file="powerscoal-smoke0096.png" />
     <image file="powerscoal-smoke0098.png" />
     <image file="powerscoal-smoke0100.png" />
-    <resourceID name="PowerCoalLow" />
-    <image file="powerscoal-low.png" />
-    <resourceID name="PowerCoalMed" />
-    <image file="powerscoal-med.png" />
-    <resourceID name="PowerCoalFull" />
-    <image file="powerscoal-full.png" />
     </group>
 
 
@@ -506,6 +512,10 @@
     <resourceID name="School" />
     <image file="school-static.png" />
     <image file="school-animation.png"/>
+    </group>
+
+    <group>
+    <resourceID name="ChildOnSwing" />
     <image file="school-swing0001.png" x="-37" y="96"/>
     <image file="school-swing0002.png" x="-37" y="96"/>
     <image file="school-swing0003.png" x="-37" y="96"/>

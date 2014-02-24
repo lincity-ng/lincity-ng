@@ -42,7 +42,7 @@ void School::update()
         if( !animate && (busy >= 20) && (real_time > anim) ) //start the swing
         {
             frameIt->frame = 1;
-            (frameIt + 1)->frame = 2;
+            (frameIt + 1)->frame = 0;
             animate = true;
             anim = real_time + SCHOOL_ANIMATION_SPEED;
         }
@@ -64,7 +64,7 @@ void School::update()
             anim = real_time + SCHOOL_ANIMATION_BREAK- 100 * busy; //set swing delay
             if ((real_time >= anim)) // restart
             {
-                (frameIt + 1)->frame = 3;
+                (frameIt + 1)->frame = 1;
                 frameIt->frame = 1;
                 animate = true;
                 anim = real_time + SCHOOL_ANIMATION_SPEED;
@@ -83,7 +83,7 @@ void School::update()
 void School::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->getName(), ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     i++;
     mps_store_sfp(i++, N_("busy"), (float)busy);
     mps_store_sfp(i++, N_("Lessons learned"), total_tech_made * 100.0 / MAX_TECH_LEVEL);

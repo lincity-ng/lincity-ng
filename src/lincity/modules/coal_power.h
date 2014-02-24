@@ -64,7 +64,7 @@ public:
         std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
         for (; frit != world(x,y)->framesptr->end(); ++frit)
         {
-            frit->resourceGroup = ResourceGroup::resMap["PowerCoalEmpty"];
+            frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
             frit->frame = -1; // hide smoke
         }
         frit = frameIt + 1;

@@ -108,18 +108,47 @@ void IndustryLight::update()
         {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightM"];}
         else if (output_level > 25)
         {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightL"];}
-        else if (output_level > 0)
-        {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLightQ"];}
         else
         {   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLight"];}
-        frameIt->frame = 0;
+        //else
+        //{   frameIt->resourceGroup = ResourceGroup::resMap["IndustryLight"];}
+        //frameIt->frame = 0;
         soundGroup =frameIt->resourceGroup;
+
+        int active = 0;
+        if(output_level > 70)
+        {   active = 2;}
+        else if (output_level > 5)
+        {   active = 1;}
+        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
+        for(int i = 0; i < 2; ++i, ++frit)
+        {
+            if (i < active)
+            {
+                if( (frit->frame < 0) || ( (rand() % 256) > 16) )
+                // always randomize new plumes and sometimes existing ones
+                {   frit->frame = rand() % (frit->resourceGroup->graphicsInfoVector.size());}
+            }
+            else
+            {   frit->frame = -1;}
+        }
+
     }// end monthly update
     if ((real_time >= anim) && goods_today)
     {
         anim = real_time + INDUSTRY_L_ANIM_SPEED;
-        if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
-        {  frameIt->frame = 0;}
+        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
+        for(size_t i = 0; i < 2; ++i, ++frit)
+        {
+            if (frit->frame >= 0)
+            {
+                if(++(frit->frame) >= (int)frit->resourceGroup->graphicsInfoVector.size())
+                {   frit->frame = 0;}
+            }
+        }
+
+        //if(++(frameIt->frame) >= (int)frameIt->resourceGroup->graphicsInfoVector.size())
+        //{  frameIt->frame = 0;}
     }// end animate
 }
 

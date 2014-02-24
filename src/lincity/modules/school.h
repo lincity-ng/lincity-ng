@@ -59,7 +59,7 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         world(x,y)->framesptr->resize(world(x,y)->framesptr->size() + 1);
-        (frameIt + 1)->resourceGroup = ResourceGroup::resMap["School"]; //host of the swing
+        (frameIt + 1)->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
         (frameIt +1)->frame = -1; //hide the swing
         this->animate = false;
         this->anim = 0;

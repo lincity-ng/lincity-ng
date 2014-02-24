@@ -79,6 +79,19 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
+        world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+2);
+        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
+        for (; frit != world(x,y)->framesptr->end(); ++frit)
+        {
+            frit->resourceGroup = ResourceGroup::resMap["GraySmoke"];
+            frit->frame = -1; // hide smoke
+        }
+        frit = frameIt + 1;
+        frit->move_x = -113;
+        frit->move_y = -210;
+        ++frit;
+        frit->move_x = -84;
+        frit->move_y = -198;
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;

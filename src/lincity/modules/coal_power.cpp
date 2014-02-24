@@ -54,15 +54,14 @@ void Coal_power::update()
         std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
         if(animate)
         {
-            size_t active = 8*busy/90;
-
-            for(size_t i=0; i < 8; ++i, ++frit)
+            int active = 8*busy/90;
+            for(int i = 0; i < 8; ++i, ++frit)
             {
                 if (i < active)
                 {
-                    if( (frit->frame >= 0) || ( (rand() % 256) > 16) )
+                    if( (frit->frame < 0) || ( (rand() % 256) > 16) )
                     // always randomize new plumes and sometimes existing ones
-                    {   frit->frame = (rand()+1) % (frit->resourceGroup->graphicsInfoVector.size());}
+                    {   frit->frame = rand() % (frit->resourceGroup->graphicsInfoVector.size());}
                 }
                 else
                 {   frit->frame = -1;}
@@ -91,12 +90,12 @@ void Coal_power::update()
     {
         anim = real_time + SMOKE_ANIM_SPEED;
         std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
-        for(size_t i = 0; i < 8; ++i, ++frit)
+        for(int i = 0; i < 8; ++i, ++frit)
         {
             if (frit->frame >= 0)
             {
                 if(++(frit->frame) >= (int)frit->resourceGroup->graphicsInfoVector.size())
-                {   frit->frame = 1;}
+                {   frit->frame = 0;}
             }
         }
     }
