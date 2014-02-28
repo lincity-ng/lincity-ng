@@ -1260,20 +1260,23 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         {
             if (world(x,y)->framesptr)
             {
-                for(std::deque<ExtraFrame>::iterator frit = world(x, y)->framesptr->begin();
-                    frit != world(x,y)->framesptr->end(); ++frit)
+                for(std::list<ExtraFrame>::iterator frit = world(x, y)->framesptr->begin();
+                    frit != world(x,y)->framesptr->end(); std::advance(frit, 1))
                 {
-                    size_t s2 = frit->resourceGroup->graphicsInfoVector.size();
-                    if((frit->frame >= 0) && s2 && frit->resourceGroup->images_loaded)
+                    if(frit->resourceGroup->images_loaded)
                     {
-                        graphicsInfo = &frit->resourceGroup->graphicsInfoVector[ frit->frame % s2 ]; //needed
-                        int old_x = graphicsInfo->x;
-                        int old_y = graphicsInfo->y;
-                        graphicsInfo->x = old_x - frit->move_x;
-                        graphicsInfo->y = old_y - frit->move_y;
-                        drawTexture(painter, lowerRightTile, graphicsInfo);
-                        graphicsInfo->x = old_x;
-                        graphicsInfo->y = old_y;
+                        size_t s2 = frit->resourceGroup->graphicsInfoVector.size();
+                        if((frit->frame >= 0) && s2)
+                        {
+                            graphicsInfo = &frit->resourceGroup->graphicsInfoVector[ frit->frame % s2 ]; //needed
+                            int old_x = graphicsInfo->x;
+                            int old_y = graphicsInfo->y;
+                            graphicsInfo->x = old_x - frit->move_x;
+                            graphicsInfo->y = old_y - frit->move_y;
+                            drawTexture(painter, lowerRightTile, graphicsInfo);
+                            graphicsInfo->x = old_x;
+                            graphicsInfo->y = old_y;
+                        }
                     }
                 }
             }

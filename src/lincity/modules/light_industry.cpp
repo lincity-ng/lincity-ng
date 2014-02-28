@@ -120,14 +120,17 @@ void IndustryLight::update()
         {   active = 2;}
         else if (output_level > 5)
         {   active = 1;}
-        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
-        for(int i = 0; i < 2; ++i, ++frit)
+        std::list<ExtraFrame>::iterator frit = fr_begin;
+
+        for(int i = 0; i < 2 && frit != fr_end; ++i, std::advance(frit, 1))
         {
+            int s = frit->resourceGroup->graphicsInfoVector.size();
             if (i < active)
             {
-                if( (frit->frame < 0) || ( (rand() % 256) > 16) )
+                if( s &&
+                    ( (frit->frame < 0) || ( (rand() % 256) > 16)) )
                 // always randomize new plumes and sometimes existing ones
-                {   frit->frame = rand() % (frit->resourceGroup->graphicsInfoVector.size());}
+                {   frit->frame = rand() % s;}
             }
             else
             {   frit->frame = -1;}
@@ -137,8 +140,9 @@ void IndustryLight::update()
     if ((real_time >= anim) && goods_today)
     {
         anim = real_time + INDUSTRY_L_ANIM_SPEED;
-        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
-        for(size_t i = 0; i < 2; ++i, ++frit)
+        std::list<ExtraFrame>::iterator frit = fr_begin;
+
+        for(size_t i = 0; i < 2; ++i, std::advance(frit, 1))
         {
             if (frit->frame >= 0)
             {

@@ -51,17 +51,19 @@ void Coal_power::update()
     {
         busy = working_days / (mwh_output/100);
         animate = (frameIt->resourceGroup->images_loaded);
-        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
+        std::list<ExtraFrame>::iterator frit = fr_begin;
         if(animate)
         {
             int active = 8*busy/90;
-            for(int i = 0; i < 8; ++i, ++frit)
+            int s = frit->resourceGroup->graphicsInfoVector.size();
+            for(int i = 0; frit != fr_end; std::advance(frit, 1))
             {
                 if (i < active)
                 {
-                    if( (frit->frame < 0) || ( (rand() % 256) > 16) )
+                    if( s &&
+                        ( (frit->frame < 0) || ( (rand() % 256) > 16) ) )
                     // always randomize new plumes and sometimes existing ones
-                    {   frit->frame = rand() % (frit->resourceGroup->graphicsInfoVector.size());}
+                    {   frit->frame = rand() % s;}
                 }
                 else
                 {   frit->frame = -1;}
@@ -69,7 +71,7 @@ void Coal_power::update()
         }
         else
         {
-            for(size_t i=0; i < 8; ++i, ++frit)
+            for(frit = fr_begin; frit != fr_end ; std::advance(frit, 1))
             {   frit->frame = -1;}
         }
         working_days = 0;
@@ -89,8 +91,8 @@ void Coal_power::update()
     if (animate && (real_time > anim))
     {
         anim = real_time + SMOKE_ANIM_SPEED;
-        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
-        for(int i = 0; i < 8; ++i, ++frit)
+        std::list<ExtraFrame>::iterator frit;
+        for(frit = fr_begin; frit != fr_end; std::advance(frit, 1))
         {
             if (frit->frame >= 0)
             {
@@ -105,7 +107,7 @@ void Coal_power::update()
 void Coal_power::report()
 {
     int i = 0;
-    mps_store_sd(i++,constructionGroup->name, ID);
+    mps_store_sd(i++, constructionGroup->name, ID);
     mps_store_sfp(i++, N_("busy"), busy);
     mps_store_sfp(i++, N_("Tech"), (float)(tech * 100.0) / MAX_TECH_LEVEL);
     mps_store_sd(i++, N_("Output"), mwh_output);

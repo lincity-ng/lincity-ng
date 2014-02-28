@@ -80,18 +80,26 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+2);
-        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
-        for (; frit != world(x,y)->framesptr->end(); ++frit)
+        std::list<ExtraFrame>::iterator frit = frameIt;
+        std::advance(frit, 1);
+        fr_begin = frit;
+
+        frit = frameIt;
+        std::advance(frit, 1);
+        frit->move_x = -113;
+        frit->move_y = -210;
+        std::advance(frit, 1);
+        frit->move_x = -84;
+        frit->move_y = -198;
+        std::advance(frit, 1);
+        fr_end = frit;
+        for (frit = fr_begin; frit != world(x,y)->framesptr->end() && frit != fr_end; std::advance(frit, 1))
         {
             frit->resourceGroup = ResourceGroup::resMap["GraySmoke"];
             frit->frame = -1; // hide smoke
         }
-        frit = frameIt + 1;
-        frit->move_x = -113;
-        frit->move_y = -210;
-        ++frit;
-        frit->move_x = -84;
-        frit->move_y = -198;
+
+
         this->tech = tech_level;
         setMemberSaved(&this->tech, "tech");
         this->working_days = 0;
@@ -119,9 +127,23 @@ public:
             }
         }
     }
+
+    virtual ~IndustryLight() //remove 2 or more extraframes
+    {
+        if(world(x,y)->framesptr)
+        {
+            world(x,y)->framesptr->erase(fr_begin, fr_end);
+            if(world(x,y)->framesptr->empty())
+            {
+                delete world(x,y)->framesptr;
+                world(x,y)->framesptr = NULL;
+            }
+        }
+    }
     virtual void update();
     virtual void report();
 
+    std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int  tech;
     double bonus, extra_bonus;
     int  working_days;

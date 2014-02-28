@@ -58,9 +58,13 @@ public:
     {
         this->constructionGroup = cstgrp;
         init_resources();
-        world(x,y)->framesptr->resize(world(x,y)->framesptr->size() + 1);
-        (frameIt + 1)->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
-        (frameIt +1)->frame = -1; //hide the swing
+        //std::list<ExtraFrame>::iterator frit = world(x,y)->createframe();
+        //CK ?? Why the hell is the variant above unsafe?
+        world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+1);
+        frit = frameIt;
+        std::advance(frit, 1);
+        frit->resourceGroup = ResourceGroup::resMap["ChildOnSwing"]; //host of the swing
+        frit->frame = -1; //hide the swing
         this->animate = false;
         this->anim = 0;
         this->working_days = 0;
@@ -70,10 +74,22 @@ public:
         initialize_commodities();
     }
 
-    virtual ~School() { }
+    virtual ~School() //remove the one extraframe
+    {
+        if(world(x,y)->framesptr)
+        {
+            world(x,y)->framesptr->erase(frit);
+            if(world(x,y)->framesptr->empty())
+            {
+                delete world(x,y)->framesptr;
+                world(x,y)->framesptr = NULL;
+            }
+        }
+    }
     virtual void update();
     virtual void report();
 
+    std::list<ExtraFrame>::iterator frit;
     int  anim;
     bool animate;
     int total_tech_made;

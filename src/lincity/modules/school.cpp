@@ -42,7 +42,7 @@ void School::update()
         if( !animate && (busy >= 20) && (real_time > anim) ) //start the swing
         {
             frameIt->frame = 1;
-            (frameIt + 1)->frame = 0;
+            frit->frame = 0;
             animate = true;
             anim = real_time + SCHOOL_ANIMATION_SPEED;
         }
@@ -58,20 +58,20 @@ void School::update()
     {
         frameIt->frame = 1;
         anim = real_time + SCHOOL_ANIMATION_SPEED;
-        if ( ++((frameIt + 1)->frame) >= (int)(frameIt + 1)->resourceGroup->graphicsInfoVector.size())
+        if ( ++(frit->frame) >= (int)frit->resourceGroup->graphicsInfoVector.size())
         {
 
             anim = real_time + SCHOOL_ANIMATION_BREAK- 100 * busy; //set swing delay
             if ((real_time >= anim)) // restart
             {
-                (frameIt + 1)->frame = 1;
+                frit->frame = 1;
                 frameIt->frame = 1;
                 animate = true;
                 anim = real_time + SCHOOL_ANIMATION_SPEED;
             }
             else //
             {
-                (frameIt + 1)->frame = -1;
+                frit->frame = -1;
                 frameIt->frame = 0;
                 animate = false;
             }

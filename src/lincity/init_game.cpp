@@ -1317,6 +1317,9 @@ static void nullify_mappoint(int x, int y)
         tile->type = CST_GREEN;
         tile->group = GROUP_BARE;
     }
+#ifdef DEBUG
+    assert( !(tile->framesptr) );
+#endif
     if (tile->framesptr)
     {
         tile->framesptr->clear();

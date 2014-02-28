@@ -61,13 +61,14 @@ MapTile::MapTile():ground()
 
 MapTile::~MapTile()
 {
+    //Here the order matters
+    if(construction)
+    {   delete construction;}
     if (framesptr)
     {
         framesptr->clear();
         delete framesptr;
     }
-    if(construction)
-    {   delete construction;}
 }
 
 void MapTile::setTerrain(unsigned short new_group)
@@ -392,22 +393,24 @@ void MapTile::saveMembers(std::ostream *os)
     }
 }
 
-std::deque<ExtraFrame>::iterator MapTile::createframe(void)
+std::list<ExtraFrame>::iterator MapTile::createframe(void)
 {
     if(!framesptr)
-    {   framesptr = new std::deque<ExtraFrame>;}
+    {   framesptr = new std::list<ExtraFrame>;}
     framesptr->resize(framesptr->size() + 1);
-    return --framesptr->end(); //the actual last position
+    std::list<ExtraFrame>::iterator frit = framesptr->end();
+    std::advance(frit, -1);
+    return frit; //the last position
 }
 
-void MapTile::killframe(std::deque<ExtraFrame>::iterator it)
+void MapTile::killframe(std::list<ExtraFrame>::iterator it)
 {
     //what would actually happen if "it" belongs to another maptile?
 #ifdef DEBUG
     assert(framesptr);
-    std::deque<ExtraFrame>::iterator frit;
+    std::list<ExtraFrame>::iterator frit;
     bool found = false;
-    for (frit = framesptr->begin(); frit != framesptr->end(); ++it)
+    for (frit = framesptr->begin(); frit != framesptr->end(); std::advance(it, 1))
     {
         found = true;
         break;

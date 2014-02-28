@@ -34,7 +34,7 @@ void get_type_name(short type, char *s);
 unsigned short get_group_of_type(unsigned short selected_type);
 void set_map_groups(void);
 /********** Data structures ***************/
-#include <deque>
+#include <list>
 #include <vector>
 #include <map>
 #include <string>
@@ -134,13 +134,13 @@ public:
     unsigned short coal_reserve;          //underground coal
     unsigned short ore_reserve;           //underground ore
     int pollution;                        //air pollution (under ground pollution is in ground[][])
-    std::deque<ExtraFrame> *framesptr;    //Overlays to be rendered on top of type, mostly NULL
+    std::list<ExtraFrame> *framesptr;    //Overlays to be rendered on top of type, mostly NULL
                                           //use memberfunctions to add and remove sprites
 
     void setTerrain(unsigned short group); //places type & group at MapTile
-    std::deque<ExtraFrame>::iterator createframe(); //creates new empty ExtraFrames
+    std::list<ExtraFrame>::iterator createframe(); //creates new empty ExtraFrames
                                                     //to be used by Contstructions and Vehicles
-    void killframe(std::deque<ExtraFrame>::iterator it); //kills an extraframe
+    void killframe(std::list<ExtraFrame>::iterator it); //kills an extraframe
 
     unsigned short getType();          //type of bare land or the covering construction
     unsigned short getTopType();       //type of bare land or the actual construction
@@ -228,8 +228,7 @@ public:
     std::map<std::string, MemberRule> memberRuleCount; //what to do with stuff at this construction
     std::vector<Construction*> neighbors;       //adjacent for transport
     std::vector<Construction*> partners;        //remotely for markets
-    //std::vector<ExtraFrame> frames;             //Overlays to be rendered on top of type
-    std::deque<ExtraFrame>::iterator frameIt;
+    std::list<ExtraFrame>::iterator frameIt;
     static std::string getStuffName(Commodities stuff_id); //translated name of a commodity
     void init_resources(void);                      //sets sounds and graphics according to constructionGroup
     void list_commodities(int *);                   //prints a sorted list all commodities in report()

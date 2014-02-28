@@ -61,36 +61,39 @@ public:
         this->constructionGroup = cstgrp;
         init_resources();
         world(x,y)->framesptr->resize(world(x,y)->framesptr->size()+8);
-        std::deque<ExtraFrame>::iterator frit = (frameIt + 1);
-        for (; frit != world(x,y)->framesptr->end(); ++frit)
+        std::list<ExtraFrame>::iterator frit = frameIt;
+        std::advance(frit, 1);
+        fr_begin = frit;
+        frit->move_x = 5;
+        frit->move_y = -378;
+        std::advance(frit, 1);
+        frit->move_x = 29;
+        frit->move_y = -390;
+        std::advance(frit, 1);
+        frit->move_x = 52;
+        frit->move_y = -397;
+        std::advance(frit, 1);
+        frit->move_x = 76;
+        frit->move_y = -409;
+        std::advance(frit, 1);
+        frit->move_x = 65;
+        frit->move_y = -348;
+        std::advance(frit, 1);
+        frit->move_x = 89;
+        frit->move_y = -360;
+        std::advance(frit, 1);
+        frit->move_x = 112;
+        frit->move_y = -371;
+        std::advance(frit, 1);
+        frit->move_x = 136;
+        frit->move_y = -383;
+        std::advance(frit, 1);
+        fr_end = frit;
+        for (frit = fr_begin; frit != world(x,y)->framesptr->end() && frit != fr_end; std::advance(frit, 1))
         {
             frit->resourceGroup = ResourceGroup::resMap["BlackSmoke"];
             frit->frame = -1; // hide smoke
         }
-        frit = frameIt + 1;
-        frit->move_x = 5;
-        frit->move_y = -378;
-        ++frit;
-        frit->move_x = 29;
-        frit->move_y = -390;
-        ++frit;
-        frit->move_x = 52;
-        frit->move_y = -397;
-        ++frit;
-        frit->move_x = 76;
-        frit->move_y = -409;
-        ++frit;
-        frit->move_x = 65;
-        frit->move_y = -348;
-        ++frit;
-        frit->move_x = 89;
-        frit->move_y = -360;
-        ++frit;
-        frit->move_x = 112;
-        frit->move_y = -371;
-        ++frit;
-        frit->move_x = 136;
-        frit->move_y = -383;
         this->anim = 0;
         this->animate = false;
         this->tech = tech_level;
@@ -101,10 +104,22 @@ public:
         setMemberSaved(&this->mwh_output, "mwh_output");
         initialize_commodities();
     }
-    virtual ~Coal_power() {}
+    virtual ~Coal_power() //remove 2 or more extraframes
+    {
+        if(world(x,y)->framesptr)
+        {
+            world(x,y)->framesptr->erase(fr_begin, fr_end);
+            if(world(x,y)->framesptr->empty())
+            {
+                delete world(x,y)->framesptr;
+                world(x,y)->framesptr = NULL;
+            }
+        }
+    }
     virtual void update();
     virtual void report();
 
+    std::list<ExtraFrame>::iterator fr_begin, fr_end;
     int anim;
     bool animate;
     int  mwh_output;
