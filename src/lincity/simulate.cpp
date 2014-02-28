@@ -49,6 +49,7 @@
 #include "engine.h"
 #include "engglobs.h"
 #include "../lincity-ng/GameView.hpp"
+#include "Vehicles.h"
 
 
 /* extern resources */
@@ -286,16 +287,17 @@ static void simulate_mappoints(void)
         {
             construction->trade();
             construction->update();
-/*
-#ifdef DEBUG
-            if (construction != constructionCount[i])
-            {
-                std::cout << "invalid constructionCount[i] in simulate_mapppoints: " << std::endl
-                << construction->constructionGroup->name << " (" << construction->x << ","
-                << construction->y << ")" << std::endl;
-            }
-#endif
-*/
+        }
+    }
+    for(std::list<Vehicle*>::iterator it = Vehicle::vehicleList.begin();
+        it != Vehicle::vehicleList.end();
+        std::advance(it,1))
+    {
+        (*it)->update();
+        if(rand()%50 == 1)
+        {
+            delete *it;
+            break;
         }
     }
 }

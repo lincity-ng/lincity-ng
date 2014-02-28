@@ -33,6 +33,7 @@
 #include "transport.h"
 #include "all_buildings.h"
 #include "engine.h"
+#include "Vehicles.h"
 #include <deque>
 
 
@@ -80,13 +81,13 @@ void clear_game(void)
     init_inventory();
     //std::cout << "whiping game with " << world.len() << " side length" << std::endl;
     // Clear engine and UI data.
+    Vehicle::clearVehicleList();
     for (int index = 0; index < area; ++index)
     {
         int xx = index % world.len();
         int yy = index / world.len();
         nullify_mappoint(xx, yy);
     }
-
     world.dirty = false;
     constructionCount.size(100);
     total_time = 0;

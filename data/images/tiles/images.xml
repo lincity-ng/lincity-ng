@@ -606,4 +606,24 @@
     <image file="cricket7.png" x="130" />
     </group>
 
+    <group>
+    <resourceID name="Bluecar" />
+    <image file="car01-0000.png" />
+    <image file="car01-0001.png" />
+    <image file="car01-0002.png" />
+    <image file="car01-0003.png" />
+    <image file="car01-0004.png" />
+    <image file="car01-0005.png" />
+    <image file="car01-0006.png" />
+    <image file="car01-0007.png" />
+    <image file="car01-up0009.png" />
+    <image file="car01-up0010.png" />
+    <image file="car01-up0011.png" />
+    <image file="car01-up0012.png" />
+    <image file="car01-down0013.png" />
+    <image file="car01-down0014.png" />
+    <image file="car01-down0015.png" />
+    <image file="car01-down0016.png" />
+    </group>
+
 </resources>

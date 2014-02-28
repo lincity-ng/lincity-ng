@@ -148,5 +148,8 @@ void initializeModules() {
     new ResourceGroup("BlackSmoke");   //used at Coalpower Station
     new ResourceGroup("GraySmoke");    //used at light Industry
 
+    //resources for vehicles
+    new ResourceGroup("Bluecar");
+
 
 }
