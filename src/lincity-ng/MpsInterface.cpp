@@ -105,7 +105,8 @@ int mps_set( int x, int y, int style ) /* Attaches an area or global display */
 
 void mps_refresh() /* refresh the information display's contents */
 {
-
+    if(! world.is_visible(mps_x, mps_y))
+    {   return;}
     switch (mps_style)
     {
         case MPS_MAP:
