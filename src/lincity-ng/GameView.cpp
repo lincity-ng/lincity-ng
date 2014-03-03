@@ -1241,7 +1241,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
         }
         GraphicsInfo *graphicsInfo = 0;
         //draw visible tiles underneath constructions
-        if(world(x, y)->reportingConstruction && !(world(x,y)->flags & FLAG_INVISIBLE) )
+        if( (world(x, y)->reportingConstruction || world(x,y)->framesptr) && !(world(x,y)->flags & FLAG_INVISIBLE) )
         {
             //ResourceGroup *tilegrp = world(x, y)->getTileResourceGroup();
             if (resgrp->images_loaded)
@@ -1263,7 +1263,7 @@ void GameView::drawTile(Painter& painter, const MapPoint &tile)
                 for(std::list<ExtraFrame>::iterator frit = world(x, y)->framesptr->begin();
                     frit != world(x,y)->framesptr->end(); std::advance(frit, 1))
                 {
-                    if(frit->resourceGroup->images_loaded)
+                    if(frit->resourceGroup && frit->resourceGroup->images_loaded)
                     {
                         size_t s2 = frit->resourceGroup->graphicsInfoVector.size();
                         if((frit->frame >= 0) && s2)

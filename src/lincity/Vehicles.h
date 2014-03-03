@@ -9,7 +9,7 @@
 #include "lintypes.h"
 #include <list>
 
-#define BLUE_CAR_SPEED 500;
+#define BLUE_CAR_SPEED 1000;
 
 
 class ExtraFrame;
@@ -28,18 +28,27 @@ public:
 
     ~Vehicle(void);
 
-    int x;
-    int y;
+    //location, heading and comming from
+    int x, xnext, xprev;
+    int y, ynext, yprev;
+    int death_counter;
+    bool alive;
+    bool step_forward;
+    unsigned int headings;
+
     VehicleModel model; //different vehicles
     std::list<ExtraFrame>::iterator frameIt; //the particular extraframe at the host
+    int map_idx;    //index of the maptile with the frame, NOT necessarily the current position
     Construction::Commodities stuff_id;
     int anim; //speed of the car;
     void update();
-    void move_to(int new_x, int new_y);
+    void drive();
+    void move_frame(int idx);
 
     static std::list<Vehicle*> vehicleList;
 
-    static void clearVehicleList();
+    static void clearVehicleList(); //kill all vehicles
+    static void cleanVehicleList(); //kill vehicles with deathcounter < 0
 };
 
 #endif

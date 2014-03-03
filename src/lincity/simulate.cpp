@@ -117,6 +117,9 @@ void do_time_step(void)
     /* Run through simulation equations for each farm, residence, etc. */
     simulate_mappoints();
 
+    /* Remove all too old cars*/
+    Vehicle::cleanVehicleList();
+
     /* Now do the stuff that happens once a year, once a month, etc. */
     do_periodic_events();
 }
@@ -293,12 +296,15 @@ static void simulate_mappoints(void)
         it != Vehicle::vehicleList.end();
         std::advance(it,1))
     {
-        (*it)->update();
+        if((*it)->alive)
+        {   (*it)->update();}
+/*
         if(rand()%50 == 1)
         {
             delete *it;
             break;
         }
+*/
     }
 }
 

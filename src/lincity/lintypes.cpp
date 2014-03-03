@@ -822,12 +822,15 @@ void Construction::detach()
     if(world(x,y)->construction == this)
     {
         world(x,y)->construction = NULL;
+        world(x,y)->killframe(frameIt);
+/*
         world(x,y)->framesptr->erase(frameIt);
         if(world(x,y)->framesptr->empty())
         {
             delete world(x,y)->framesptr;
             world(x,y)->framesptr = NULL;
         }
+*/
     }
 
     for (unsigned short i = 0; i < constructionGroup->size; ++i)
