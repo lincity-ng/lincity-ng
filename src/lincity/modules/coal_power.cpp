@@ -56,7 +56,7 @@ void Coal_power::update()
         {
             int active = 8*busy/90;
             int s = frit->resourceGroup->graphicsInfoVector.size();
-            for(int i = 0; frit != fr_end; std::advance(frit, 1))
+            for(int i = 0; frit != fr_end; std::advance(frit, 1), ++i)
             {
                 if (i < active)
                 {
