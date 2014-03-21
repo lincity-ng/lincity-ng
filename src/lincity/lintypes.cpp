@@ -24,6 +24,7 @@
 #include "modules/all_modules.h"
 #include <iostream>
 #include "lincity-ng/Sound.hpp"
+#include "Vehicles.h"
 
 //Ground Declarations
 
@@ -466,7 +467,7 @@ void Construction::list_commodities(int * i)
             && ! constructionGroup->commodityRuleCount[stuff_it->first].give
             && *i < 14)
             {
-                mps_store_ssddp(*i,"--> ",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"--> ",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         } //endfor
@@ -476,7 +477,7 @@ void Construction::list_commodities(int * i)
             && ! constructionGroup->commodityRuleCount[stuff_it->first].take
             && *i<14)
             {
-                mps_store_ssddp(*i,"<-- ",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"<-- ",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         }//endfor
@@ -486,7 +487,7 @@ void Construction::list_commodities(int * i)
             && constructionGroup->commodityRuleCount[stuff_it->first].take
             && *i<14)
             {
-                mps_store_ssddp(*i,"<->",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"<->",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         }//endfor
@@ -496,7 +497,7 @@ void Construction::list_commodities(int * i)
             && !constructionGroup->commodityRuleCount[stuff_it->first].take)
             && *i<14)
             {
-                mps_store_ssddp(*i,"--- ",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"--- ",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         }//endfor
@@ -507,7 +508,7 @@ void Construction::list_commodities(int * i)
         {
             if(*i<14)
             {
-                mps_store_ssddp(*i,"<< ",getStuffName(stuff_it->first), stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
+                mps_store_ssddp(*i,"<< ",commodityNames[stuff_it->first], stuff_it->second, constructionGroup->commodityRuleCount[stuff_it->first].maxload);
                 ++*i;
             }//endif
         }//endfor
@@ -1218,7 +1219,24 @@ void Construction::trade()
         //do some smoothing to suppress fluctuations from random order
         // max possible 92.8%
         if(transport) //Special for transport
-        {   transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;}
+        {
+            transport->trafficCount[stuff_ID] = (9 * transport->trafficCount[stuff_ID] + max_traffic) / 10;
+            if(100 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA > 2 &&
+            world(x,y)->getTransportGroup() == GROUP_ROAD)
+            {
+                int yield = 50 * max_traffic *  TRANSPORT_RATE / TRANSPORT_QUANTA;
+                switch (stuff_ID)
+                {
+                    case STUFF_JOBS :
+                        if((rand()%COMMUTER_TRAFFIC_RATE) < (yield+1)/2)
+                        {   new Vehicle(x, y, VEHICLE_BLUECAR,
+                                        (flow > 0)? VEHICLE_STRATEGY_MAXIMIZE : VEHICLE_STRATEGY_MINIMIZE);}
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         else if(powerline) //Special for powerlines
         {
             powerline->trafficCount[stuff_ID] = (9 * powerline->trafficCount[stuff_ID] + max_traffic) / 10;
@@ -1233,23 +1251,25 @@ void Construction::trade()
                 {   ConstructionManager::submitRequest(new PowerLineFlashRequest(neighbors[i]));}
             }
         }
+/*      //OUTCH This is also done upon equlibrating stuff
         else if ((flow > 0) && (constructionGroup->group != GROUP_MARKET))
         {
             switch (stuff_ID)
                 {
-                    case (STUFF_JOBS) :
+                    case STUFF_JOBS :
                         income_tax += flow;
                         break;
-                    case (STUFF_GOODS) :
+                    case STUFF_GOODS :
                         goods_tax += flow;
                         goods_used += flow;
-                    case (STUFF_COAL) :
+                    case STUFF_COAL :
                         coal_tax += flow;
                         break;
                     default:
                         break;
                 }
         }
+*/
         stuff_it->second += flow; //update center_lvl
     } //endfor all different STUFF
 }

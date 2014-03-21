@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "lincity/engine.h"
 #include "lincity/lin-city.h"
 #include "lincity/modules/all_modules.h" //for knowing the individual constructions
-#include "lincity/Vehicles.h"
 
 #include "Sound.hpp"
 #include "MapEdit.hpp"
@@ -213,13 +212,6 @@ void editMap (MapPoint point, int button)
                     return;
                 }
             }
-#ifdef DEBUG
-            else if (world(mod_x,mod_y)->getTransportGroup() == GROUP_TRACK)
-            {
-                new Vehicle(mod_x, mod_y, VEHICLE_BLUECAR);
-                return;
-            }
-#endif
         }// end mps_result>1
 
         return;

@@ -183,7 +183,7 @@ void Transport::list_traffic(int *i)
     for(stuff_it = trafficCount.begin() ; stuff_it != trafficCount.end() ; stuff_it++)
     {
         if(*i < 14)
-        {   mps_store_sfp((*i)++, getStuffName(stuff_it->first), (float) stuff_it->second * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
+        {   mps_store_sfp((*i)++, commodityNames[stuff_it->first], (float) stuff_it->second * 107.77 * TRANSPORT_RATE / TRANSPORT_QUANTA);}
     }
 }
 
